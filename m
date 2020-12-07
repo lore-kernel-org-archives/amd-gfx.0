@@ -7,117 +7,115 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 505D1C4361B
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 08:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36D25C4361B
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 08:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED1FC20784
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 08:34:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED1FC20784
+	by mail.kernel.org (Postfix) with ESMTPS id B3FED225A9
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 08:46:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3FED225A9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE3289D4B;
-	Mon,  7 Dec 2020 08:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDBF89A74;
+	Mon,  7 Dec 2020 08:46:58 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F0E89D4B
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 08:33:59 +0000 (UTC)
+ (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF44C89A74
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 08:46:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pdj5ioQY31wMPnJmIOZm764gFg4+yhrz6HkK9TXKtP2mHQWNwJPdHpJHdygRtbi6ehEwFlI98WjQIJbj7rUUEfibDa5oBMPlbIfGZvBiCPzab2TpDig13mzmeLnoDLhl98id91Yh6dFHzIiNxkb6lD22FYtC1sTdLR9espLCFFgCeIpDoCGHw1d/UhYtxHfcXlcpC0Eywr/yzGrZQiArCLtVDyHLeGEyjULtg934leAl0nihMHyUIFCNJc3yoTBAvAHie+zjroaxh01Ll34TsVLZy9H0jxdbiEKUxlLqXYVJIPxesiHODEU3nvnSOEL4TzsYmsdlBKQe52z43lNmeg==
+ b=BE+fLw2RlT2Owp1dWoS7a+blNmZ96xT95zK3hRaXeomXlY3JFqiQfb83LP2/z+xjkiR7HozYysLNagcqsNtIKPna9gt59KAi3WgA7AQrVFM4nFmf4tsBOLI3MjmhDm0O6f347T4HGP2C6ot0HVO7l2bqEcjuydDRwkwpYq3nNqEpXj20FzpsyBTwMCdQSoNFqkjW0KxqTQLudgXS7fp4lQp+M7iKcb9pDaK4yn787iRo6LnhgRgRHiEAfeCOXclcLHiSt+FsgVMhu4YhJr4SJaCfqsFz+MLqYiM5aw3bd/1avVcQhQk7ek4+Q54oZdaAWuPRvaaYv0hLvkR0d5p5pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YoXsdHcn3fYADgOzSBydhQjMi484q5cywv094acztHY=;
- b=HpYCULWPGLvPYwx1tmsGJn9hr8TSJA2CUvkodNy4EENvfuAW9Pmbp9MWd+K2VPcoqpzvVRNMpYvtLKwRKx8qOlju5s56VJfTCZD3o9JWQv9rHxgm1YwdyCRJhboGeytp2qC4qb7X8J3V95QNYBEodgW5EUC71v8oc6TguE93Um0yYy/595n6T3iWSfStThaS/QrSCPu1ydf+Ds+EaCydBV6ubYY9oomMugQs9Y16u2/D6/AIlEXx1dNOpZ7P9YaF78AO/jg4YLjWI4C5AwoZd0KgpUHE9v73Bsgm0g+4FWZ/Ap1WFib54abKJML4L4SAPvmyLHUeKfMD+LxMwMp7iw==
+ bh=eU0338FdqTPQkzAPZXzhla1TMrk6tvvI+piKj9OTCqs=;
+ b=aWevh6+JL9k0DuF/hDE15tPV0BHDfzarPb8C246mSzHMZXhKSKM3qc1ZYZ/aFH4Dgh4HitHcnVY8KN5ZZyFvXReylv7SCyY+f+R/wI+a/i0Mu68id9em+Je7e55kyxyWgFelrgpWT8BGbvVxFh97eO0MdMBq/l2qxTT78UWrIicj4CQIS0WcSX3y0Pp/b1IWvezB0h95qFRcxQnaXmkHu4kmFtyYVnokvS7xCuvxkxKtSiN/uJvCmgZ+bBMw+ElkGzwolnlEnYJLclcOMzLB8CwLrQst7/FyF/OsXpp8xPONLcH1+qEKumCfbn7fxyxqhbWo4RgWsQ+b1WdBXfTCzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YoXsdHcn3fYADgOzSBydhQjMi484q5cywv094acztHY=;
- b=px/5VJQ1BiLYGx3irR7JRMyXUAus6ek3AYBEm3HRKkFSC/1CnUQbfC34wrayXIWhV26oVNe4I5ZrJ7RJNYP95vep1wWJnps0inkkg6ztoboTbtlfcv3AjyokrQyjv4NhMpPdtFs0mklfOHgGO22nXYwvV6zBloL6/koa9Nrrm2E=
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB2976.namprd12.prod.outlook.com (2603:10b6:208:c2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.23; Mon, 7 Dec
- 2020 08:33:57 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::709e:b0ae:fbde:fcc6]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::709e:b0ae:fbde:fcc6%7]) with mapi id 15.20.3632.023; Mon, 7 Dec 2020
- 08:33:57 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: change trace event parameter name from
- 'driect' to 'immediate'
-Thread-Topic: [PATCH] drm/amdgpu: change trace event parameter name from
- 'driect' to 'immediate'
-Thread-Index: AQHWzGYqCBPjRdfqS0Svp+FhUJzg1KnrS5MAgAACnyY=
-Date: Mon, 7 Dec 2020 08:33:57 +0000
-Message-ID: <MN2PR12MB30229B554723DA1F31F428FFA2CE0@MN2PR12MB3022.namprd12.prod.outlook.com>
-References: <20201207065643.29208-1-kevin1.wang@amd.com>,
- <c74e5385-8464-8e19-4f37-bfe2c810fbb8@amd.com>
-In-Reply-To: <c74e5385-8464-8e19-4f37-bfe2c810fbb8@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=eU0338FdqTPQkzAPZXzhla1TMrk6tvvI+piKj9OTCqs=;
+ b=3gAWlKfvYrCDO9K3xclnFE8b4Nf0mG7fR5PPNhLTm+WRi9pGzSmQ4tNDtQJb6X0Nc8Vi+14m0xUyzp9hiWGyIpcMmHPB6HcBA7A6L0SEdhXsg0Ulmnvob38tRzSjz72kHkZ4LDFi4aZ8NHw5NNXtpg7rB+zjP82XahmrhHMEgoY=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB3273.namprd12.prod.outlook.com (2603:10b6:5:188::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3632.21; Mon, 7 Dec 2020 08:46:55 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::214c:5fb0:3572:853d]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::214c:5fb0:3572:853d%9]) with mapi id 15.20.3632.023; Mon, 7 Dec 2020
+ 08:46:54 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhao, Jiange" <Jiange.Zhao@amd.com>, "Zhao, Jiange"
+ <Jiange.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
+Thread-Topic: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
+Thread-Index: AQHWwzTQzhaWkvlnkkWAGmZgNdcBXqnrW48AgAAICQA=
+Date: Mon, 7 Dec 2020 08:46:54 +0000
+Message-ID: <DM6PR12MB4075C4877EA663F5886F6177FCCE0@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <20201125141012.301219-1-jianzh@amd.com>
+ <BYAPR12MB3222F97D3A02992B2ED3FC7EE1CE0@BYAPR12MB3222.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB3222F97D3A02992B2ED3FC7EE1CE0@BYAPR12MB3222.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-07T08:33:57.125Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-07T08:46:52Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=3bb0fa55-27eb-4f66-930f-fff3fa8dcac4;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ea10c1f5-438d-4fe2-f58a-08d89a8ad710
-x-ms-traffictypediagnostic: MN2PR12MB2976:
+x-ms-office365-filtering-correlation-id: 1b93b8ea-2926-49f7-05f2-08d89a8ca65b
+x-ms-traffictypediagnostic: DM6PR12MB3273:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB29766BF48B5A34939CA8170DA2CE0@MN2PR12MB2976.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-microsoft-antispam-prvs: <DM6PR12MB3273D5A2BFD9A9B5CB5E16ACFCCE0@DM6PR12MB3273.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pQ4aTyG+CKqAqHmzKbrw3T/hqLLVmhUB+C4FCLjQ5+r2LFfJSHdW/TkXtIRPGQAaiWuIrOcg2OqSBg0ZwFhd6N3vpUhnMKdT/Hxl9QHjp1uIHMA91Rs63TQ+4va+7fVtlEUlCbOzyBTDIwjtKWE9+MN3N7swVV17Yt5g46rYYTQinXM4fLu4BvQ/mJ4Gb2KaFxDQ3be8hsl8gfRU9hAZjam+Fo1IHgv5CVRgVE2l1GwpWm3KX4rHoROBCiI9BMjGoUUpSUr8/4cv+iFvS2CwRYqmxcq9LXzjONL3+D7oeN8FgTM6R5ipK82zgM0E+ZYH4W0j8XU/cAL4j/XZYnE76u/pjle2YvKocV6GmEgszSkA6gEVn/dAy3bYCfByW7z+
+x-microsoft-antispam-message-info: vnWhr3MGsfhDZBKkeu9XTbXGnArRRBS04J5IPJFh7aouw9XbfIBbuJwAr0jR3mEU8HY0T3K8CjJJZ00XF3Su/lRq7AEJyv+m5M0W3wXdXaek2c8VsH8bFhCEk9+lyfzYprXFvJWF/xxpHhVUfJJdv24I97RarIectDxNFf8AwIayabbwuR3OyyMk6VVzLPj9Xa1kMZINQ52CSFFyzqn/ery1tzZcLnesh+a6BAxazv/zsxV0za2vLpATgwTzFaQQ6vp9A+lmGFcXJi3ztE+RPeq/t2HXFheW1t6UPs0F1eAxuo6CxrLnrPSt/ItFw+K3
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(33656002)(66574015)(2906002)(186003)(66446008)(19627405001)(26005)(86362001)(316002)(478600001)(55016002)(8936002)(110136005)(9686003)(83380400001)(5660300002)(6506007)(52536014)(91956017)(53546011)(8676002)(71200400001)(76116006)(66476007)(66556008)(7696005)(64756008)(66946007)(14773001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(7696005)(71200400001)(8676002)(4326008)(5660300002)(316002)(53546011)(83380400001)(26005)(110136005)(66446008)(2906002)(55016002)(64756008)(52536014)(66556008)(66476007)(76116006)(66946007)(86362001)(33656002)(8936002)(478600001)(6506007)(186003)(9686003)(54906003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?9ePG2UL/g3zIZh89/VBgQZBMSnh18HBfC9eBfuEGUgWhS+1uH7B++Gd9WQ?=
- =?iso-8859-1?Q?ud06s+PmJUYOLMGXOjuzM2rG+hfVClj9AgyMiDTSk7rqWcVWFU6VwZoN+6?=
- =?iso-8859-1?Q?q0iey/5eyRIpgMS1vK+wkh9wiJSPLZ0wJgwiB8X6vPQKRjJlQbfXW3Kk+2?=
- =?iso-8859-1?Q?aUfyzQk4ERQNCb3DtP8rOiuWcKNTEmzx7H35HO6Qn0HNBjD9ril+SEQH/T?=
- =?iso-8859-1?Q?+lUdoK/enTAaQ6x1/cWMx7SRbHLq3/8kYoal2D/p7zATwoo7KNF3tjnQpd?=
- =?iso-8859-1?Q?sAlym1V+1K8y32eEtylDnmUBqUfWTrBVhXOH1RIHn2hntu1G+9xyRVRqbC?=
- =?iso-8859-1?Q?Cld95xITScrxEsfj/R488XufnCZFvAUAiJn884ptj4JI+hFluInWbssQjD?=
- =?iso-8859-1?Q?l+g2Yj/kVHJ2xdERUHloHqdwIRl2jDJqETUtCeQi9NeabSysrSw+49q94N?=
- =?iso-8859-1?Q?wLrt2as1C+pTcgWyH6vc64t2bo8LCZHaAQd4r0wrCrJ/mAkX0cuzkPz8Vc?=
- =?iso-8859-1?Q?sy7wofj1kNkPjp3x8VMAv111IdtlB24P3oeLoTuDTK+hYJ7V1HuiIMsra6?=
- =?iso-8859-1?Q?jH6mE5G8bNtte5drBgvA/WcafGXjA0Bac96lDJ6LtAbmG5SLl94NblVBhK?=
- =?iso-8859-1?Q?5l0xTLvMmz2OgJ4NoPlTbaXl+b/xqmkEgBPkpFNDKJXlTydhGlD9SNU8AE?=
- =?iso-8859-1?Q?HsmBpgiyTjazLW63E9W+elr6HamQ+Fi1QRNbucPKIrM4zKJKMdKqNyVw5s?=
- =?iso-8859-1?Q?shge5yqpJvTSuwQWpmXR3moea2sbKmuUtJNMy1i4nOmsFgl63YURs8HMWl?=
- =?iso-8859-1?Q?ILx4+gV1Rq2RjKpAyXggfsSd+daEKigAmH1OumlyHsEL1azYQeEJeKgX7O?=
- =?iso-8859-1?Q?q1z62x5Uf1TseBUwWz2+R4KPLf1tBAVY6LxTyAzUMfQ/b/Xi7HTeLpHydh?=
- =?iso-8859-1?Q?+7d4A+j5FC+PB4k8cutM8XvZD7BWDEMSWKzaMKLszc20XofpBlxIdkJAZv?=
- =?iso-8859-1?Q?zN8WdrWR0xsh5bVgE=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?bDv4S259KZYaMlDyQ9UvtFN1XJpFBkIFmiPbXpmFaftwdX+s+56cFH2yL7Bt?=
+ =?us-ascii?Q?/bX6BtWsL8m/Q2Tp6m+3p7y1kZLKo75Kx+Tl7b3jB3+UTSj9aIJUrNycvBV7?=
+ =?us-ascii?Q?OS8jB6YpVnGync16X/igWGeGtKal2xQ4RWanwKdBQmhry938yPbqPqK/73Aq?=
+ =?us-ascii?Q?aitQ6vJLA7hgd6pqclHNuANun+RUhJairnqhEc/3LLkcnn7ovKf1glIt5Tfk?=
+ =?us-ascii?Q?ODghwK296g97Sh1QjCqQ3Hp+QY4PyB1fqcJNu9KKaZZDnerCFc6xNA99WRE7?=
+ =?us-ascii?Q?mEDkiGHhtzyfa1KgJ9Pmieb/e0deTRT4syn4LqTu2mwR+WXRJejS4ZuYUTJ9?=
+ =?us-ascii?Q?m2hdTQpwTwEbmHbD49hthlecgPQSYhzfMV/CsDHHXgtISCItfy67AGVKLolh?=
+ =?us-ascii?Q?e9jQLo30hzk3jjIgnW0/3gNHyYL3CXo6q/tepXo/7HK35AhX/C7sWp+S8wyW?=
+ =?us-ascii?Q?eouvCepjoQ9buD6OLLg0DvAEZ8MsiTrsG6VMv5D5hlx6Zqe21gqj9WZ5uFg3?=
+ =?us-ascii?Q?Z4J6tUPJZpnTJ+EtaOBOyKxkCzpjMf4uQFYzQahKZYQTcoMFAQVG1hkNe5am?=
+ =?us-ascii?Q?PW7MUcljShCpOKffuoghAaVN0QdWp6+bE2ThyPlsq4wewA7ukf15KQxw1UM8?=
+ =?us-ascii?Q?B3CNfDQ/95YFVjhrSriEbR5bH73wqzRdSuIA2ouDTgPUYNjzdLT/LQ+2vxsj?=
+ =?us-ascii?Q?JK48V/YN3IWtjjmQW1D9+440LRacfkCQ4Q9C/LmVcjwm26U6NwH2ajpHL9DU?=
+ =?us-ascii?Q?SO2awMrtU9p8f6Zwev0k7RSNOViG+OqFbL/9BlqPdIAQ3pxIm8ZDRxCTNHUJ?=
+ =?us-ascii?Q?4NLc8NOe0/zKgpcC8fslAdcFpy7DNHh4oikeM32bKjT/lkrlAIGM8Ut3PRJ5?=
+ =?us-ascii?Q?8JbVdmHpkdKYlABfaZ8zWwOJ7F+ikrsPR/VPUc+1kIcIFrWfHNviZueeED7a?=
+ =?us-ascii?Q?rTd9reAKazXEINR+evHeMHfYDfUndrCFeAh1LSvHCEY=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea10c1f5-438d-4fe2-f58a-08d89a8ad710
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Dec 2020 08:33:57.5723 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b93b8ea-2926-49f7-05f2-08d89a8ca65b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Dec 2020 08:46:54.8633 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7QEZuIZhiL3W2O4wPO2+zIVw7n10vEd2uXIaoJYZgyw/gfjWldft7wjOXrWXJF6+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2976
+X-MS-Exchange-CrossTenant-userprincipalname: J+fuRPF0K7iF7rymfVM2orcg6WVw3zAAqGyEVcHOLygbRtZSpUEi0OGcjCSCqL6jale70WsY9AyHgI/r2F1kBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3273
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,347 +127,395 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1035247337=="
+Cc: "Zhang, Andy" <Andy.Zhang@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>,
+ "Min, Frank" <Frank.Min@amd.com>
+Content-Type: multipart/mixed; boundary="===============0376938260=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1035247337==
+--===============0376938260==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB30229B554723DA1F31F428FFA2CE0MN2PR12MB3022namp_"
+	boundary="_000_DM6PR12MB4075C4877EA663F5886F6177FCCE0DM6PR12MB4075namp_"
 
---_000_MN2PR12MB30229B554723DA1F31F428FFA2CE0MN2PR12MB3022namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_DM6PR12MB4075C4877EA663F5886F6177FCCE0DM6PR12MB4075namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
++       while (i < 11)
+
+Please use macro to replace the magic number. No one want to play with the =
+code which need some sort of guess to figure out hack setting or experiment=
+al ones.
+
+Regards,
+Hawking
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhao, Ji=
+ange
+Sent: Monday, December 7, 2020 16:15
+To: Zhao, Jiange <Jiange.Zhao@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhang, Andy <Andy.Zhang@amd.com>; Chen, Horace <Horace.Chen@amd.com>; M=
+in, Frank <Frank.Min@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
+
 
 [AMD Official Use Only - Internal Distribution Only]
 
 
+[AMD Official Use Only - Internal Distribution Only]
+
+ping!
 ________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Monday, December 7, 2020 4:23 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; amd-gfx@lists.freedesktop.org =
-<amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: change trace event parameter name from 'dr=
-iect' to 'immediate'
+From: Zhao, Jiange <jianzh@amd.com<mailto:jianzh@amd.com>>
+Sent: Wednesday, November 25, 2020 10:10 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Min, Frank <Frank.Min@amd.com<mailto:Frank.Min@amd.com>>; Chen, Horace =
+<Horace.Chen@amd.com<mailto:Horace.Chen@amd.com>>; Zhang, Andy <Andy.Zhang@=
+amd.com<mailto:Andy.Zhang@amd.com>>; Zhao, Jiange <Jiange.Zhao@amd.com<mail=
+to:Jiange.Zhao@amd.com>>
+Subject: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
 
-Am 07.12.20 um 07:56 schrieb Kevin Wang:
-> s/direct/immediate/g
->
-> amdgpu vm has renamed parameter name from 'direct' to 'immedate'.
-> however, the trace event is not updated yet.
->
-> Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-There is a small typo in the subject line "driect", apart from that the
-patch is Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>.
+From: Jiange Zhao <Jiange.Zhao@amd.com<mailto:Jiange.Zhao@amd.com>>
 
-Thanks for removing one item from my TODO list :)
+In Virtualization case, when one VF is sending too many
+FLR requests, hypervisor would stop responding to this
+VF's request for a long period of time. This is called
+event guard. During this period of cooling time, guest
+driver should wait instead of doing other things. After
+this period of time, guest driver would resume reset
+process and return to normal.
 
-Regards,
-Christian.
+Currently, guest driver would wait 12 seconds and return fail
+if it doesn't get response from host.
 
-[kevin]:
-ok, thank you for reminding me.
+Solution: extend this waiting time in guest driver and poll
+response periodically.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 24 +++++++++++------------
->   1 file changed, 12 insertions(+), 12 deletions(-)
+Signed-off-by: Jiange Zhao <Jiange.Zhao@amd.com<mailto:Jiange.Zhao@amd.com>=
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_trace.h
-> index ee9480d14cbc..324d5e3f3579 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -366,15 +366,15 @@ TRACE_EVENT(amdgpu_vm_update_ptes,
->
->   TRACE_EVENT(amdgpu_vm_set_ptes,
->            TP_PROTO(uint64_t pe, uint64_t addr, unsigned count,
-> -                  uint32_t incr, uint64_t flags, bool direct),
-> -         TP_ARGS(pe, addr, count, incr, flags, direct),
-> +                  uint32_t incr, uint64_t flags, bool immediate),
-> +         TP_ARGS(pe, addr, count, incr, flags, immediate),
->            TP_STRUCT__entry(
->                             __field(u64, pe)
->                             __field(u64, addr)
->                             __field(u32, count)
->                             __field(u32, incr)
->                             __field(u64, flags)
-> -                          __field(bool, direct)
-> +                          __field(bool, immediate)
->                             ),
->
->            TP_fast_assign(
-> @@ -383,32 +383,32 @@ TRACE_EVENT(amdgpu_vm_set_ptes,
->                           __entry->count =3D count;
->                           __entry->incr =3D incr;
->                           __entry->flags =3D flags;
-> -                        __entry->direct =3D direct;
-> +                        __entry->immediate =3D immediate;
->                           ),
->            TP_printk("pe=3D%010Lx, addr=3D%010Lx, incr=3D%u, flags=3D%llx=
-, count=3D%u, "
-> -                   "direct=3D%d", __entry->pe, __entry->addr, __entry->i=
-ncr,
-> -                   __entry->flags, __entry->count, __entry->direct)
-> +                   "immediate=3D%d", __entry->pe, __entry->addr, __entry=
-->incr,
-> +                   __entry->flags, __entry->count, __entry->immediate)
->   );
->
->   TRACE_EVENT(amdgpu_vm_copy_ptes,
-> -         TP_PROTO(uint64_t pe, uint64_t src, unsigned count, bool direct=
-),
-> -         TP_ARGS(pe, src, count, direct),
-> +         TP_PROTO(uint64_t pe, uint64_t src, unsigned count, bool immedi=
-ate),
-> +         TP_ARGS(pe, src, count, immediate),
->            TP_STRUCT__entry(
->                             __field(u64, pe)
->                             __field(u64, src)
->                             __field(u32, count)
-> -                          __field(bool, direct)
-> +                          __field(bool, immediate)
->                             ),
->
->            TP_fast_assign(
->                           __entry->pe =3D pe;
->                           __entry->src =3D src;
->                           __entry->count =3D count;
-> -                        __entry->direct =3D direct;
-> +                        __entry->immediate =3D immediate;
->                           ),
-> -         TP_printk("pe=3D%010Lx, src=3D%010Lx, count=3D%u, direct=3D%d",
-> +         TP_printk("pe=3D%010Lx, src=3D%010Lx, count=3D%u, immediate=3D%=
-d",
->                      __entry->pe, __entry->src, __entry->count,
-> -                   __entry->direct)
-> +                   __entry->immediate)
->   );
->
->   TRACE_EVENT(amdgpu_vm_flush,
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 ++++++++++-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 ++++++++++-
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.c
+index f5ce9a9f4cf5..d8d8c623bb74 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -187,7 +187,16 @@ static int xgpu_ai_send_access_requests(struct amdgpu_=
+device *adev,
 
---_000_MN2PR12MB30229B554723DA1F31F428FFA2CE0MN2PR12MB3022namp_
-Content-Type: text/html; charset="iso-8859-1"
+ static int xgpu_ai_request_reset(struct amdgpu_device *adev)
+ {
+-       return xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESET_ACCESS)=
+;
++       int ret, i =3D 0;
++
++       while (i < 11) {
++               ret =3D xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESE=
+T_ACCESS);
++               if (!ret)
++                       break;
++               i++;
++       }
++
++       return ret;
+ }
+
+ static int xgpu_ai_request_full_gpu_access(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.h
+index 83b453f5d717..20ee2142f9ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -25,7 +25,7 @@
+ #define __MXGPU_AI_H__
+
+ #define AI_MAILBOX_POLL_ACK_TIMEDOUT    500
+-#define AI_MAILBOX_POLL_MSG_TIMEDOUT   12000
++#define AI_MAILBOX_POLL_MSG_TIMEDOUT   6000
+ #define AI_MAILBOX_POLL_FLR_TIMEDOUT    5000
+
+ enum idh_request {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_nv.c
+index 666ed99cc14b..0147dfe21a39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -200,7 +200,16 @@ static int xgpu_nv_send_access_requests(struct amdgpu_=
+device *adev,
+
+ static int xgpu_nv_request_reset(struct amdgpu_device *adev)
+ {
+-       return xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESET_ACCESS)=
+;
++       int ret, i =3D 0;
++
++       while (i < 11) {
++               ret =3D xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESE=
+T_ACCESS);
++               if (!ret)
++                       break;
++               i++;
++       }
++
++       return ret;
+ }
+
+ static int xgpu_nv_request_full_gpu_access(struct amdgpu_device *adev,
+--
+2.25.1
+
+--_000_DM6PR12MB4075C4877EA663F5886F6177FCCE0DM6PR12MB4075namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Monday, December 7, 2020 4:23 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; amd-gfx@lists.fre=
-edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: change trace event parameter name f=
-rom 'driect' to 'immediate'</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<div class=3D"PlainText">Am 07.12.20 um 07:56 schrieb Kevin Wang:<br>
-&gt; s/direct/immediate/g<br>
-&gt;<br>
-&gt; amdgpu vm has renamed parameter name from 'direct' to 'immedate'.<br>
-&gt; however, the trace event is not updated yet.<br>
-&gt;<br>
-&gt; Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
-There is a small typo in the subject line &quot;driect&quot;, apart from th=
-at the <br>
-patch is Reviewed-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;.<b=
-r>
-<br>
-Thanks for removing one item from my TODO list :)<br>
-<br>
-Regards,<br>
-Christian.</div>
-<div class=3D"PlainText"><br>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i &lt; =
+11)<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Please use macro to replace the magic number. No one=
+ want to play with the code which need some sort of guess to figure out hac=
+k setting or experimental ones.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
+esktop.org&gt;
+<b>On Behalf Of </b>Zhao, Jiange<br>
+<b>Sent:</b> Monday, December 7, 2020 16:15<br>
+<b>To:</b> Zhao, Jiange &lt;Jiange.Zhao@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+<b>Cc:</b> Zhang, Andy &lt;Andy.Zhang@amd.com&gt;; Chen, Horace &lt;Horace.=
+Chen@amd.com&gt;; Min, Frank &lt;Frank.Min@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait =
+period<o:p></o:p></p>
 </div>
-<div class=3D"PlainText">[kevin]:</div>
-<div class=3D"PlainText">ok, thank you for reminding me.</div>
-<div class=3D"PlainText"><br>
 </div>
-<div class=3D"PlainText">&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 24 +++++++++++=
-------------<br>
-&gt;&nbsp;&nbsp; 1 file changed, 12 insertions(+), 12 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_trace.h<br>
-&gt; index ee9480d14cbc..324d5e3f3579 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
-&gt; @@ -366,15 +366,15 @@ TRACE_EVENT(amdgpu_vm_update_ptes,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; TRACE_EVENT(amdgpu_vm_set_ptes,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_P=
-ROTO(uint64_t pe, uint64_t addr, unsigned count,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t incr, uint64_t flags, bool direc=
-t),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(pe, addr, co=
-unt, incr, flags, direct),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t incr, uint64_t flags, bool immed=
-iate),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(pe, addr, co=
-unt, incr, flags, immediate),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_S=
-TRUCT__entry(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u64, pe)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u64, addr)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u32, count)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u32, incr)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u64, flags)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; __field(bool, direct)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; __field(bool, immediate)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; ),<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_f=
-ast_assign(<br>
-&gt; @@ -383,32 +383,32 @@ TRACE_EVENT(amdgpu_vm_set_ptes,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;count =3D count;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;incr =3D incr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;flags =3D flags;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __ent=
-ry-&gt;direct =3D direct;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __ent=
-ry-&gt;immediate =3D immediate;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_p=
-rintk(&quot;pe=3D%010Lx, addr=3D%010Lx, incr=3D%u, flags=3D%llx, count=3D%u=
-, &quot;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;direct=3D%d&quot;, __entry-&g=
-t;pe, __entry-&gt;addr, __entry-&gt;incr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;flags, __entry-&gt;coun=
-t, __entry-&gt;direct)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;immediate=3D%d&quot;, __entry=
--&gt;pe, __entry-&gt;addr, __entry-&gt;incr,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;flags, __entry-&gt;coun=
-t, __entry-&gt;immediate)<br>
-&gt;&nbsp;&nbsp; );<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; TRACE_EVENT(amdgpu_vm_copy_ptes,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(uint64_t pe=
-, uint64_t src, unsigned count, bool direct),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(pe, src, cou=
-nt, direct),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(uint64_t pe=
-, uint64_t src, unsigned count, bool immediate),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(pe, src, cou=
-nt, immediate),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_S=
-TRUCT__entry(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u64, pe)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u64, src)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; __field(u32, count)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; __field(bool, direct)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; __field(bool, immediate)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; ),<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_f=
-ast_assign(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;pe =3D pe;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;src =3D src;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; __entry-&gt;count =3D count;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __ent=
-ry-&gt;direct =3D direct;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __ent=
-ry-&gt;immediate =3D immediate;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;pe=
-=3D%010Lx, src=3D%010Lx, count=3D%u, direct=3D%d&quot;,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;pe=
-=3D%010Lx, src=3D%010Lx, count=3D%u, immediate=3D%d&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;pe, __e=
-ntry-&gt;src, __entry-&gt;count,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;direct)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;immediate)<br>
-&gt;&nbsp;&nbsp; );<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; TRACE_EVENT(amdgpu_vm_flush,<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
+-serif;color:#0078D7">[AMD Official Use Only - Internal Distribution Only]<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
+-serif;color:#0078D7">[AMD Official Use Only - Internal Distribution Only]<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">ping!<o=
+:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Zhao, Jiange &lt;<a href=3D"mailto:jianzh@amd.com">=
+jianzh@amd.com</a>&gt;<br>
+<b>Sent:</b> Wednesday, November 25, 2020 10:10 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Min, Frank &lt;<a href=3D"mailto:Frank.Min@amd.com">Frank.Min@am=
+d.com</a>&gt;; Chen, Horace &lt;<a href=3D"mailto:Horace.Chen@amd.com">Hora=
+ce.Chen@amd.com</a>&gt;; Zhang, Andy &lt;<a href=3D"mailto:Andy.Zhang@amd.c=
+om">Andy.Zhang@amd.com</a>&gt;; Zhao, Jiange &lt;<a href=3D"mailto:Jiange.Z=
+hao@amd.com">Jiange.Zhao@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait peri=
+od</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">From: Jiange Zhao &lt=
+;<a href=3D"mailto:Jiange.Zhao@amd.com">Jiange.Zhao@amd.com</a>&gt;<br>
 <br>
+In Virtualization case, when one VF is sending too many<br>
+FLR requests, hypervisor would stop responding to this<br>
+VF's request for a long period of time. This is called<br>
+event guard. During this period of cooling time, guest<br>
+driver should wait instead of doing other things. After<br>
+this period of time, guest driver would resume reset<br>
+process and return to normal.<br>
+<br>
+Currently, guest driver would wait 12 seconds and return fail<br>
+if it doesn't get response from host.<br>
+<br>
+Solution: extend this waiting time in guest driver and poll<br>
+response periodically.<br>
+<br>
+Signed-off-by: Jiange Zhao &lt;<a href=3D"mailto:Jiange.Zhao@amd.com">Jiang=
+e.Zhao@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 ++++++++++-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h |&nbsp; 2 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 ++++++++++-<br>
+&nbsp;3 files changed, 21 insertions(+), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.c<br>
+index f5ce9a9f4cf5..d8d8c623bb74 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
+@@ -187,7 +187,16 @@ static int xgpu_ai_send_access_requests(struct amdgpu_=
+device *adev,<br>
+&nbsp;<br>
+&nbsp;static int xgpu_ai_request_reset(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_ai_send_access_requests(a=
+dev, IDH_REQ_GPU_RESET_ACCESS);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i =3D 0;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i &lt; 11) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESET_ACC=
+ESS);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ret)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; i++;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static int xgpu_ai_request_full_gpu_access(struct amdgpu_device *adev=
+,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.h<br>
+index 83b453f5d717..20ee2142f9ed 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
+@@ -25,7 +25,7 @@<br>
+&nbsp;#define __MXGPU_AI_H__<br>
+&nbsp;<br>
+&nbsp;#define AI_MAILBOX_POLL_ACK_TIMEDOUT&nbsp;&nbsp;&nbsp; 500<br>
+-#define AI_MAILBOX_POLL_MSG_TIMEDOUT&nbsp;&nbsp; 12000<br>
++#define AI_MAILBOX_POLL_MSG_TIMEDOUT&nbsp;&nbsp; 6000<br>
+&nbsp;#define AI_MAILBOX_POLL_FLR_TIMEDOUT&nbsp;&nbsp;&nbsp; 5000<br>
+&nbsp;<br>
+&nbsp;enum idh_request {<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_nv.c<br>
+index 666ed99cc14b..0147dfe21a39 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
+@@ -200,7 +200,16 @@ static int xgpu_nv_send_access_requests(struct amdgpu_=
+device *adev,<br>
+&nbsp;<br>
+&nbsp;static int xgpu_nv_request_reset(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_nv_send_access_requests(a=
+dev, IDH_REQ_GPU_RESET_ACCESS);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i =3D 0;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i &lt; 11) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESET_ACC=
+ESS);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ret)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; i++;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static int xgpu_nv_request_full_gpu_access(struct amdgpu_device *adev=
+,<br>
+-- <br>
+2.25.1<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB30229B554723DA1F31F428FFA2CE0MN2PR12MB3022namp_--
+--_000_DM6PR12MB4075C4877EA663F5886F6177FCCE0DM6PR12MB4075namp_--
 
---===============1035247337==
+--===============0376938260==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -480,4 +526,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1035247337==--
+--===============0376938260==--
