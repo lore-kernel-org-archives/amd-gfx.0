@@ -2,119 +2,118 @@ Return-Path: <SRS0=uNpP=FM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DA7DC4361B
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 14:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EAA1C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 14:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F94723A69
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 14:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F94723A69
+	by mail.kernel.org (Postfix) with ESMTPS id 4309A23AFB
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 14:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4309A23AFB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 887AB6E95B;
-	Tue,  8 Dec 2020 14:07:47 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E9056E95B
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 14:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA31689C05;
+	Tue,  8 Dec 2020 14:10:13 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C8D89BB3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 14:10:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QvECgf0FZoCB7UI71U6c2S76QkBNQxeNyEHQQyaM+w9QRcsfJBAIfdHZ7sT1XVI6HUr83GSsyb9Nv+WsF6i6gPCMdnr0cPi1wk/uInWKzRoE93FrTmls2ZpH5JR2KZjx6YZu8rJlpHBRfKtKsoj98TDlaimSu0bYikPrV2JJXi/N44dNZyxLDkGBVtv0d26oZyl9qAaCMa/r/ez30RmKQhZ/vuai+0RtQ4z0aquH2E95SneXOV8VRs2cbJjb5gSE393tNTKkOsb9lSDM+vQWVZXIpK7Sya/sDdGvELB7R8Kl8+MWtIvdNtS1XD8lTGV+fQnjNPBO3M39Ew8485lU6Q==
+ b=bBMzBrt2Wwf4nz9JfrkrzFZATjrYGEhfJxKXsgnHJJ/+ji4KH+yiOmWxAKSCzWbduLgtaRvpG7tTOJc5TSHd36MovvifivtH1mu8tXQxrStCMJEQ0r7hb6ozVECFt0rP0YF2ibwO5sxwRP26i+lXdcqTuOF1+xZSEkMt1tU2sbB5/wfIC4Ufo+kwzecodoKKi0PQy56fxqgmCGMAeAYNNK9O+4VJJKPYJlO7kic+ZWIaWY2HI9xRKVtOMnOtCa/Xu0MdCnx2yh14WnYRzc6JejGjmG+gHBhS0Bq+ijtTCRQiReUgqiGKQVZ44wN6QMXsjY7uu918E423khhDnw2/Gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P0AAB/9nNzCivWOerS7oNVWXqNLtlnFzuX4gshxmyIE=;
- b=LJ3ijYLuDv8uIalok6FdioSCmnkhWVq4ZLAcYyifwyHkVNqM/pfFiK/ZUEPQfkTSBIr+gpLqMdhEzB/QF1DcSSmAENrzBolzO3Q9RTCknXenmbB7U3Vev5Gnh09ZCY8Mn8d6rNR6Y9afumyh75YyTQHA/raLCW1F/6rSWhqGEkyA68xyUizqUwRbR02+5MnWWqZOE0Pn1tL8ZYUPSdI/SG9m34vwIurbm++9jdNyD/gd3wkU/izd1HgypE2/lyCDfvlgCVECYdux7jwbUlMsSvcnfbKYK4Izsgknb1yYq5pqJZwudYF1u3brDBza3tqOVztcQWoaPgg1QQzSshqdEA==
+ bh=WRZd9/3F8e+JdS7hVvcpwdQiYqIAnI/f1C2l2ZC9UfY=;
+ b=kx0u1LRDOmINm9P/vvvEbcfor8yMqdKisWCxSOm5GiGaixI304SF85FyiiBUzXYS0YBH36Gr8smdGDIRuxxkuv7MqGPp2sncTqbcbfE2KnHRV5QNzdtzcxWiTQMlxD4JqeoR/nWioyj3RCeI0JnnjSTWLC8WNohgEg/j3vmlciMv/JFcmlLYulLjG03T/BgPp3te1nwQt9Gr/ouNHUGSd97sWMjfIXw/prhASn8be5Ox8LGJvjv9gJHm+w9RAGquyI/eE1lIHNgvLRkPEJDTLHG91a/KRmCPJe7nBSqIaGbp6y2aCM18VX1dzoyse7m97xbTH21ygE0cxjGoYZYzDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P0AAB/9nNzCivWOerS7oNVWXqNLtlnFzuX4gshxmyIE=;
- b=lTKpu7vnkkNXJON2G/a6n9QZmOzoz+64ZtlZijcPHAMeivhk9VYU7gwBEQ6EI3Q97y9uojwm3nNHuu48bi8iOKLkO7ZPeZ0IHziRRRfCByFKRlB4ix7LQ4RI9doA/sAK1l1puLJJ+FgVNQIkyTHWRxf5UgGssmfEBpUgtqur+a0=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4160.namprd12.prod.outlook.com (2603:10b6:208:19a::19)
+ bh=WRZd9/3F8e+JdS7hVvcpwdQiYqIAnI/f1C2l2ZC9UfY=;
+ b=e8wFg4Z5HpjTP61iwhr5k1rWlpN/yFU3EFzmHUkEW78BpIFnwUfO18N+RFlUxHy1xg9NpbhUtlaxEDnICUQYgmOQgpyKO9ZQWbzRUuCfGWaUh9DQrPqVlV84HFM3vnT/5p7elH2ai/yYZFD8XN3ebKc5y287ebNVMiAgJoKgtTo=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MW2PR12MB2523.namprd12.prod.outlook.com (2603:10b6:907:11::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Tue, 8 Dec
- 2020 14:07:44 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::fca3:155c:bf43:94af]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::fca3:155c:bf43:94af%5]) with mapi id 15.20.3632.019; Tue, 8 Dec 2020
- 14:07:44 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Drop unnecessary function call
-Thread-Topic: [PATCH] drm/amd/display: Drop unnecessary function call
-Thread-Index: AQHWzOwbTbL3ockkck25CJgH0QjZuantPQld
-Date: Tue, 8 Dec 2020 14:07:44 +0000
-Message-ID: <MN2PR12MB44885E1470E5CCD87689C222F7CD0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20201207225523.2122889-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20201207225523.2122889-1-Rodrigo.Siqueira@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-08T14:07:43.920Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.78.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e4194b88-fb43-4ce9-35d0-08d89b82a272
-x-ms-traffictypediagnostic: MN2PR12MB4160:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4160EDDF1DFDB4F8D1584264F7CD0@MN2PR12MB4160.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:312;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: X+Rano5yuOpAkPYHa7bXw3DP0AqzgUI/q46jRAkcu9b0T24Jk/W67uzba7+uu1NUUZrb+hVGis9w6M0GLqwUHpFsjuierD9Jk1iMPvp6XiUuVeYHTk+JTnPiAbqpQimSNJeWpjHmi6H/40GzdjOgxI0UpBUqrsZlgMzyI2fUHvWEiNLnmQR3v4pV4g9Vb59c2/fYDCVbVePYLn2Zr0llNo51j4/77UfN+b5FbT5lw9UrXEjoq9LE07I1Lb9899OW+1ATbsvhPwPv1dJbXsFT39yMeI1xpOIZgJ70a3XkXlqTO+eMHo6u0SfqLKGoBegDz6X2th33PNhzudnyXC02FtmoZIIf04/6nf1Upaix6Tw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(39860400002)(136003)(396003)(376002)(5660300002)(86362001)(6506007)(26005)(110136005)(19627405001)(33656002)(52536014)(316002)(166002)(71200400001)(9686003)(4326008)(186003)(53546011)(8936002)(76116006)(6636002)(66946007)(83380400001)(64756008)(66476007)(8676002)(966005)(66446008)(66556008)(2906002)(45080400002)(55016002)(478600001)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?mIO+DezSDxw+MlMOfsKmWjEm5Y9bPY13vN135fxVfnBi16WQmM4qXrtSTRoO?=
- =?us-ascii?Q?BFZEiJZWTg7KAce1neItFZKP/BJJVj6yhVQenc5HoLO7Hk7dQCeD1Xc3ZYhU?=
- =?us-ascii?Q?1Nf6OPA2epsFBKPejykb5/M5J9D++5PDH8cc1P4nwswHPPvS0mwL8XogyY7v?=
- =?us-ascii?Q?tZL9riUKCk4I7L5htMmhP7FNeoy+3BpnBOYZICEHuQvXN7RQpCBmnmUcprua?=
- =?us-ascii?Q?ZpUyMxAXqwCYiXLsOg3wUYAbn0xsiwtGOCCxFMiYQKCCBUkcM10UepAbFIlX?=
- =?us-ascii?Q?O6EoLMPH18YWifpB4dKeFupX3BLMfCmO1W+YFW8Y1deN1335+zvKRLZwOz3E?=
- =?us-ascii?Q?5yyGWHg2hXzarDChIrYPu8f6SAMpz//4KhJGvo99foh0TDBhDxJ8yr5fU2Q3?=
- =?us-ascii?Q?ySsOVuUG3yqFb+8Z6VYo2aRTkXJh2PYF+BioFxtP/fVqs9YkieD7Ns6fZoTu?=
- =?us-ascii?Q?Ir1zZmfglP9TGP3sBgkahFUJvFqlNDU7kagSRNbQL1wHHDURPF8BHRydG6DL?=
- =?us-ascii?Q?aMtkigORsoLX89f1vEEAmbUZDN/nLrLtPyBLxSLMNFs1fl2tLY991I053Hgf?=
- =?us-ascii?Q?JgSGNQPQLKeUa7koQQV45o2bkfSl6M7j9uLsLJaQRQFq8Pd8FLWyPnbhYzEP?=
- =?us-ascii?Q?7f9xv5AJeliKQFtDevLo9CiutaUwTzRWn10epaZvuaVXwnQT6sltojNeKhLt?=
- =?us-ascii?Q?jrMCKmVOI8zWwhcD7FOMWv70iZZWNDchCNiNCwo173+em/LiiSpdG1VC2hXI?=
- =?us-ascii?Q?tB2pq0JWVO3jL5doA4mM/EQ8az6sVplIif0AEWdZiGjphV8FTum+ZWtceAFi?=
- =?us-ascii?Q?L0XUc3l5QPg2FBElkonhhzgp9ZqGkqauDQ/ABHWh0ZmJ13vGK8u5Cj8GAMTr?=
- =?us-ascii?Q?xHnERxEex/R+VleELeiVPbJNhMfu/4a4mrJkqaB1xrAtR6OVMM/3v0keodi4?=
- =?us-ascii?Q?7Q9QresfI5PfnjfEbIQDebrFLAOvCO4eLSKcgL1bK8I=3D?=
+ 2020 14:10:10 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::4590:261a:f3b1:a1a2]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::4590:261a:f3b1:a1a2%9]) with mapi id 15.20.3654.012; Tue, 8 Dec 2020
+ 14:10:10 +0000
+Date: Tue, 8 Dec 2020 22:10:05 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu/pm: inform PMFW rlc status before
+ start/stop rlc for vangogh
+Message-ID: <20201208141005.GA1205886@hr-amd>
+References: <20201208111942.6292-1-Xiaomeng.Hou@amd.com>
+ <20201208111942.6292-3-Xiaomeng.Hou@amd.com>
+ <20201208130847.GD661395@hr-amd>
+ <BL0PR12MB4913E8D83717DDD2B23DAAF997CD0@BL0PR12MB4913.namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <BL0PR12MB4913E8D83717DDD2B23DAAF997CD0@BL0PR12MB4913.namprd12.prod.outlook.com>
+X-Originating-IP: [58.247.170.245]
+X-ClientProxiedBy: HK2PR0302CA0019.apcprd03.prod.outlook.com
+ (2603:1096:202::29) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (58.247.170.245) by
+ HK2PR0302CA0019.apcprd03.prod.outlook.com (2603:1096:202::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.5 via Frontend Transport; Tue, 8 Dec 2020 14:10:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1addfea1-1d11-47ce-f5c3-08d89b82f92f
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2523:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW2PR12MB252357D1B3D8F840CE8D16E8ECCD0@MW2PR12MB2523.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nfNzDl1g3CWVdBKv9TCYN4mKDY1F4TnURxNaqpmPhAdl6KrZb/O0SpRJaPVUr1Bu5J5rXkpmX1+0mPineMw5nRdKPYr9Iqd50grufitoesM4BZuPJOvw1k+BWu7m2epn7AvWo8vpGojUlubgo9nYbVRrRkDxGe+rCsmRHSUOK40+hfeF4eo47spqCB8TSzlRIDT8A6INFxN/TfRy43WCrJNML48tU3yxUx4T8NDWuj1NwLbP1lcdF/HSz31Wil0r5xvZ1FUbbNuv+DsUdUlLYo0lKLQo/pqW9MRb2kMO8HAnb10obwablvQ9AeiION/L9toMNdVWEQPPDA6UYQpSbiTZ2x1rxsIArNyZnwTmDsI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(366004)(55016002)(6496006)(186003)(54906003)(66476007)(33716001)(52116002)(316002)(66556008)(66946007)(2906002)(478600001)(33656002)(83380400001)(4326008)(956004)(26005)(9686003)(5660300002)(86362001)(16526019)(6636002)(1076003)(6862004)(45080400002)(966005)(8676002)(6666004)(53546011)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?GTj6omgBsyFFq0iOnS5naW9aTCKBnxxurbqyw+/EMvQSaUDm37+Ci1gP+nWQ?=
+ =?us-ascii?Q?DNSNKNK9jLzzowLE1IZ6jcbS0giyLcTNdR9ySRCdA5V3rS66XfoujKMqMzbf?=
+ =?us-ascii?Q?dr3EkSsF8wGwqmOxLej65IXlSB/Km2e25totaG90p8bMDGOjxQUM2qS8WkRq?=
+ =?us-ascii?Q?o8lOcMtkVVMdOeH0tX4P0mFHvNDLCuhoDjKD10zPbYOgZelGa19ZiCoZTRne?=
+ =?us-ascii?Q?vPH+neaFq4LJnjewPou7JZrQ6sRZ6vWsaIrM4MJNqeOuLMzuNzdndl7tEJ5Y?=
+ =?us-ascii?Q?qg6KdiuhSMmNQZc+0EI4pTroJZsroWQzHm363NEE+DE5jcNjNnDDrgodIorv?=
+ =?us-ascii?Q?Fl8rlUIbr0PoqGXyfPywibWJmjttQhGvrKh6ed1/5Wf6t3idEyRq+LDUZWjo?=
+ =?us-ascii?Q?/xnQ9sovMK5AJ1eWiYAJNX1TIxhqWpkeU9/a6J9/UA9LZVaKqLKyWT4YKgqe?=
+ =?us-ascii?Q?zz4bCf0Xb5KHvgaZw2WgvLzqVrUktG7ATOabfgBwxbbmJQHYcjwqqc+VjL3M?=
+ =?us-ascii?Q?Zf59/n7+R2efVqD5hXlavLVS/FD4W4HOLz0CBAyP79ptQU4UA8KZrcMFFJXA?=
+ =?us-ascii?Q?R+hHMZHYU+xWtESvMtJSm54nxJmVkj6kB0m90BG8N2lwnD5eoR1aSrIYBbjX?=
+ =?us-ascii?Q?hAkjfTGCPMI00ObA7X0CpPmmIjQ/mM5w1S9b/NSKNKuwuPQ3K59y41Bug4yQ?=
+ =?us-ascii?Q?Jv7oGF+dTGhGkoKOZFQj7jFpcUAHRpJlrdidObFDjtI0TH0mBtZQUghcbiIy?=
+ =?us-ascii?Q?7T6h3fDploswWjyUHTyAjFug8pJBfLA2l5HEzpym2283i+uQxuGwzj8S87OL?=
+ =?us-ascii?Q?60ibLTH/FCnTkhbbi1c55r/BoSvYT359dv54MVz/h4eWlxH7aWAP7+eP58k0?=
+ =?us-ascii?Q?T4PZMHhGpuNskkXJ6rkXcYhgmnaEMPzZ5mPWreSrI9B+asVe9ImXDAEYfwnj?=
+ =?us-ascii?Q?ZKcqYmDQQXwYHUL9exU3cHRBWzI63nwlm8TW+usIXLCE/FwXyka9Bv4NxDUL?=
+ =?us-ascii?Q?P+RA?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4194b88-fb43-4ce9-35d0-08d89b82a272
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2020 14:07:44.4441 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YQGamqMMYo/jW3NpHbm75D8GCYqWSqjHnE9WlSHs0kdivAxqmECeEq1h0hD4fItboJeN1GLGxgtQKldJZw/ULA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4160
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 14:10:10.0619 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1addfea1-1d11-47ce-f5c3-08d89b82f92f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xwfTBHBi+dqiY5z3UWdzf0gzjp/HsPCqae/Bt2viIChqcf8vxnsv60dxnbCDc3H6oqDxV5H/MUIn0VBEmT/EZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2523
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,238 +125,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0899531231=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Hou,
+ Xiaomeng \(Matthew\)" <Xiaomeng.Hou@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Quan,
+ Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0899531231==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44885E1470E5CCD87689C222F7CD0MN2PR12MB4488namp_"
+On Tue, Dec 08, 2020 at 09:39:18PM +0800, Lazar, Lijo wrote:
+> [AMD Public Use]
+> 
+> > You can create two new callbacks in ppt_funcs->inform_rlc(smu, on), and set on as bool type
+> 
+> We can't keep adding ASIC specific workarounds as ppt_funcs. We should make use of the existing ones or have something generic to handle these quirks. System features control is one generic place in the logic which is used to control features. It's used in dGPU context only now, but it may be repurposed for FW notifications.
 
---_000_MN2PR12MB44885E1470E5CCD87689C222F7CD0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Actually, it's the new API for all future APUs (gfx10 and later). So we
+want to add the callbacks. APU don't have the API to disable/enable DPM
+like dGPU because it's handled by sbios. Once we do suspend, before we stop
+RLC, we have to inform SMU to stop issuing the DPM request with this
+message.
 
-[AMD Official Use Only - Internal Distribution Only]
+And yes, I am fine to move it into system feature control. Because it
+noifies SMU to re-enable RLC again.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Rodrigo =
-Siqueira <Rodrigo.Siqueira@amd.com>
-Sent: Monday, December 7, 2020 5:55 PM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas <Nichola=
-s.Kazlauskas@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Drop unnecessary function call
-
-After refactor our amdgpu_dm_atomic_commit, this function only invoke
-drm_atomic_helper_commit. For this reason, this commit drops
-amdgpu_dm_atomic_commit and add drm_atomic_helper_commit directly in the
-atomic_commit hook.
-
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a37948f2e596..c89066b1c471 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2212,7 +2212,7 @@ static const struct drm_mode_config_funcs amdgpu_dm_m=
-ode_funcs =3D {
-         .get_format_info =3D amd_get_format_info,
-         .output_poll_changed =3D drm_fb_helper_output_poll_changed,
-         .atomic_check =3D amdgpu_dm_atomic_check,
--       .atomic_commit =3D amdgpu_dm_atomic_commit,
-+       .atomic_commit =3D drm_atomic_helper_commit,
- };
-
- static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfun=
-cs =3D {
-@@ -8158,20 +8158,6 @@ static void amdgpu_dm_crtc_copy_transient_flags(stru=
-ct drm_crtc_state *crtc_stat
-         stream_state->mode_changed =3D drm_atomic_crtc_needs_modeset(crtc_=
-state);
- }
-
--static int amdgpu_dm_atomic_commit(struct drm_device *dev,
--                                  struct drm_atomic_state *state,
--                                  bool nonblock)
--{
--       /*
--        * Add check here for SoC's that support hardware cursor plane, to
--        * unset legacy_cursor_update
--        */
--
--       return drm_atomic_helper_commit(dev, state, nonblock);
--
--       /*TODO Handle EINTR, reenable IRQ*/
--}
--
- /**
-  * amdgpu_dm_atomic_commit_tail() - AMDgpu DM's commit tail implementation=
-.
-  * @state: The atomic state to commit
---
-2.29.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7Cbbf5c6ea7e2f4e32d50d08d89b033b75%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637429785490973923%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DV5Wg2XgI9zUCTH0OhTSr3Oky8PTvy8XYIa3eAhVDnlk%3D&amp;reserved=3D0
-
---_000_MN2PR12MB44885E1470E5CCD87689C222F7CD0MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Rodrigo Siqueira &lt;Rodrigo.=
-Siqueira@amd.com&gt;<br>
-<b>Sent:</b> Monday, December 7, 2020 5:55 PM<br>
-<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Kazlauskas, Nich=
-olas &lt;Nicholas.Kazlauskas@amd.com&gt;; Pillai, Aurabindo &lt;Aurabindo.P=
-illai@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Drop unnecessary function call</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">After refactor our amdgpu_dm_atomic_commit, this f=
-unction only invoke<br>
-drm_atomic_helper_commit. For this reason, this commit drops<br>
-amdgpu_dm_atomic_commit and add drm_atomic_helper_commit directly in the<br=
->
-atomic_commit hook.<br>
-<br>
-Signed-off-by: Rodrigo Siqueira &lt;Rodrigo.Siqueira@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c&nbsp;&nbsp;&nbsp; | 16 =
-+---------------<br>
-&nbsp;1 file changed, 1 insertion(+), 15 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index a37948f2e596..c89066b1c471 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -2212,7 +2212,7 @@ static const struct drm_mode_config_funcs amdgpu_dm_m=
-ode_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_format_info =3D amd_g=
-et_format_info,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .output_poll_changed =3D d=
-rm_fb_helper_output_poll_changed,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .atomic_check =3D amdgpu_d=
-m_atomic_check,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .atomic_commit =3D amdgpu_dm_atomic_c=
-ommit,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .atomic_commit =3D drm_atomic_helper_=
-commit,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_help=
-erfuncs =3D {<br>
-@@ -8158,20 +8158,6 @@ static void amdgpu_dm_crtc_copy_transient_flags(stru=
-ct drm_crtc_state *crtc_stat<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stream_state-&gt;mode_chan=
-ged =3D drm_atomic_crtc_needs_modeset(crtc_state);<br>
-&nbsp;}<br>
-&nbsp;<br>
--static int amdgpu_dm_atomic_commit(struct drm_device *dev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_atomic_state *=
-state,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool nonblock)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Add check here for SoC's that=
- support hardware cursor plane, to<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * unset legacy_cursor_update<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return drm_atomic_helper_commit(dev, =
-state, nonblock);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*TODO Handle EINTR, reenable IRQ*/<b=
-r>
--}<br>
--<br>
-&nbsp;/**<br>
-&nbsp; * amdgpu_dm_atomic_commit_tail() - AMDgpu DM's commit tail implement=
-ation.<br>
-&nbsp; * @state: The atomic state to commit<br>
--- <br>
-2.29.2<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7Cbbf5c6ea7e2f4e32d50d08d89b033b75%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637429785490973923%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DV5Wg2XgI9zUCTH0OhTSr3Oky8PTvy8XYIa3eAhVDnlk%3D&amp;a=
-mp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttp=
-s%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=
-=3D04%7C01%7Calexander.deucher%40amd.com%7Cbbf5c6ea7e2f4e32d50d08d89b033b75=
-%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637429785490973923%7CUnknown%=
-7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6M=
-n0%3D%7C1000&amp;amp;sdata=3DV5Wg2XgI9zUCTH0OhTSr3Oky8PTvy8XYIa3eAhVDnlk%3D=
-&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB44885E1470E5CCD87689C222F7CD0MN2PR12MB4488namp_--
-
---===============0899531231==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Thanks,
+> Lijo
+> 
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Huang Rui
+> Sent: Tuesday, December 8, 2020 6:39 PM
+> To: Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH 3/3] drm/amdgpu/pm: inform PMFW rlc status before start/stop rlc for vangogh
+> 
+> [CAUTION: External Email]
+> 
+> On Tue, Dec 08, 2020 at 07:19:42PM +0800, Hou, Xiaomeng (Matthew) wrote:
+> > RLC is halted when system suspend/shutdown. However, due to DPM 
+> > enabled, PMFM is unaware of RLC being halted and will continue sending 
+> > messages, which would eventually caused ACPI related hang. So send 
+> > message to inform PMFM the rlc status before start/stop rlc.
+> >
+> > Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+> > Change-Id: I7b1a04f6e249ac6753109079ecb3019c99161d9f
+> > ---
+> >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c 
+> > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > index cf999b7a2164..42a32c0e5bab 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > @@ -920,6 +920,14 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+> >       uint32_t pcie_gen = 0, pcie_width = 0;
+> >       int ret = 0;
+> >
+> > +     if (adev->in_suspend && smu->is_apu) {
+> > +             ret = smu_notify_rlc_status(smu, 1);
+> 
+> You can create two new callbacks in ppt_funcs->inform_rlc(smu, on), and set on as bool type.
+> 
+> Then you can use below macros to implement this callback with RLC notify SMC message.
+> 
+> /* RLC Power Status */
+> #define RLC_STATUS_OFF          0
+> #define RLC_STATUS_NORMAL       1
+> 
+> Others look good for me.
+> 
+> Thanks,
+> Ray
+> 
+> > +             if (ret) {
+> > +                     dev_info(adev->dev, "Failed to notify rlc status!\n");
+> > +                     return ret;
+> > +             }
+> > +     }
+> > +
+> >       if (adev->in_suspend && smu_is_dpm_running(smu)) {
+> >               dev_info(adev->dev, "dpm has been enabled\n");
+> >               /* this is needed specifically */ @@ -1213,6 +1221,14 @@ 
+> > static int smu_disable_dpms(struct smu_context *smu)
+> >                       dev_err(adev->dev, "Failed to disable smu features.\n");
+> >       }
+> >
+> > +     if (smu->is_apu) {
+> > +             ret = smu_notify_rlc_status(smu, 0);
+> > +             if (ret) {
+> > +                     dev_info(adev->dev, "Failed to notify rlc status!\n");
+> > +                     return ret;
+> > +             }
+> > +     }
+> > +
+> >       if (adev->asic_type >= CHIP_NAVI10 &&
+> >           adev->gfx.rlc.funcs->stop)
+> >               adev->gfx.rlc.funcs->stop(adev);
+> > --
+> > 2.17.1
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C346c5521a1e848a40efe08d89b7a6ca7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637430297401242320%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=6t589ueoS0x26%2FdpzSdtQmjkRygo4ez11t0GuBMacyg%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0899531231==--
