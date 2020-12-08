@@ -2,118 +2,113 @@ Return-Path: <SRS0=uNpP=FM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CBCC3C4361B
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 03:43:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAA36C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 06:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66C6620773
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 03:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66C6620773
+	by mail.kernel.org (Postfix) with ESMTPS id 71C7723A63
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 06:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71C7723A63
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 335FF6E947;
-	Tue,  8 Dec 2020 03:43:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F486E94A;
+	Tue,  8 Dec 2020 06:21:36 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8C7E6E947
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 03:43:14 +0000 (UTC)
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5306E94A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 06:21:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BFFAqAA6Z4jRVCIX7m8Fm3gcLyTuMjkskn9Ja2KlaGPnOMb8nGqHbW6Z1xGD7LrXRpiyI7IacY6qUlANXsDVTBLuhqs9gRsF9MuADVTWyfoQynxCXIMH4w/7hp2jhC4JlRnPRx2MVXBF9tWrIjhBsxoPp17GX5T8eZUdw8VdNaz8GmHdNG9y3XUGmd0u0kBLUSgxVuxogJTmH1rplBgteO03fTEKtDOJAdNgxsmRyEiZoJI69rGR1JaZ2muE7qr7r16pO+mlJl8QMWXIlhBjW+vG843sB4QK3sZ4NWhipyhvZ7tqnci9ZaUzYhBYdRDMOTB6bA2FgcfyFzQ9O9exCQ==
+ b=O3W7H/wczKVueoLaRkt9smKkWX+ZvgNX5I1OpJbMjBSuICiYVUbDlso2NvBqfccYfwj7JgjXSH/iaNb869TFFK6wA8ZBD5bhLw336snjdHMpS9Uaxb32rusuSUwGYtnDPHwLpOTv+I9ONP0tAvKfYoXai1ERelrctIQrL+6Mc4BVofWxGo0XBOzL8vOMm/WQUyr3qUbC2oGTc2VO/M3heillVUcSIdyz49tdrtf8fyZS4xDPX1i4f1jrby7MjkDZW2PuYzKsv4vNpi7WZIay6TIaY3KgoyZBUhfibkLA2iKfqBrSVubw6Ld/5jsjrQQnnsIPisL9NFRyFFHktLiN+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fvOsmKMsf6R+0OeffW3TXZm+ZIRFcbGLvjuYigcMlU=;
- b=aYteVUlHz6m2FiINirD+LzzK1B+Lvf+EdE4zz53Gp5Q6rpgTjwG1/clCAGNyjqCtGtRhwq7w8YNhJ0v77+TCxcNYRPj9LT8avsfLbxbAldsvCLrQeerZR9Tmo0BgkdJW9kGaOaKbE3XMQS3cOYaldQdLSghnD9UqU8q+TtrTdnts2MDElrCbUXFQT+nnCrpLJZAgJhZQi+RugPZByMF7kRvwx0DdqXzSPWeGFkK26XNTV0AGmh1y6YM1sUgyf3JkfsRmmYj6Ol641FjlyhJXfgUg3u3xi48fWmr5z0Yx29NYYfD0f7iZ939U48++F1eKrDGg56nuXLWpHivOzR76Ow==
+ bh=4U9FV6DGg3LObpn/T3R8nYByfDDBeU9ZCW4YZo8n3R4=;
+ b=nHZkcr7k5ZKEJAU8mwdvYHs5kjefHSrqTmBVobUJMXvPHSWeI1kAb+pe2ANXTy++qbXOoBUHSQ/C+oHNJch/MvDQKDgrf5vGxXkCb1aHGyGS5RQ/cPF1ZbUTNvOBqyyjtDn2cHY0s8gBuK9I0pFh3Fo7yvVefaWlUQxFWGiXFEaWsTeuOaV5JDsxMuXfrhRD8kBdojfnolY8py3y7bRqA7WUH9v3GLuUFWJbMregm5pE2fZcJRiSj1atEyye82nL1HunhFNcVbpPrmsbfFqbE2+EEDrWIR+qtNvBXtaiSOA2A7ynv1ZnGlef8YpJajt/5Lvj/qTpbx3D8LiJPze+wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fvOsmKMsf6R+0OeffW3TXZm+ZIRFcbGLvjuYigcMlU=;
- b=ia8c7JNn5kq/bRNCoRH3o1HSHpk6jYHCXt+y//te+3ltLcYoCk28l1LcOQ8cMP1yFBijS1ZrUbGOnwt8X1vOmYXL53oj+xjf1Ww6IpkJSfzMnLNr9s8qmMesCPkwx9S7svWlAvqoxRfr3eSXEBrJ5uE0WwFBsHFQBQJPU/Btag8=
-Received: from BN8PR12MB3220.namprd12.prod.outlook.com (2603:10b6:408:9e::24)
- by BN7PR12MB2740.namprd12.prod.outlook.com (2603:10b6:408:23::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Tue, 8 Dec
- 2020 03:43:11 +0000
-Received: from BN8PR12MB3220.namprd12.prod.outlook.com
- ([fe80::92c:21db:bd9f:52e1]) by BN8PR12MB3220.namprd12.prod.outlook.com
- ([fe80::92c:21db:bd9f:52e1%7]) with mapi id 15.20.3632.021; Tue, 8 Dec 2020
- 03:43:10 +0000
-From: "Zhao, Jiange" <Jiange.Zhao@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
-Thread-Topic: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
-Thread-Index: AQHWzICrc/N3LKZC5kGSJFMZp+FvVqnrz6uAgACrUsk=
-Date: Tue, 8 Dec 2020 03:43:10 +0000
-Message-ID: <BYAPR12MB32222491A1C7877B86C69B43E1CD0@BYAPR12MB3222.namprd12.prod.outlook.com>
-References: <20201207100623.1353365-1-jianzh@amd.com>,
- <DM6PR12MB407541859F78FDB91937FB43FCCE0@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB407541859F78FDB91937FB43FCCE0@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-08T03:43:09.893Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8f74df8a-c26f-4cf4-eb2d-08d89b2b623b
-x-ms-traffictypediagnostic: BN7PR12MB2740:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN7PR12MB2740E16C7A8AF7371792EFABE1CD0@BN7PR12MB2740.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2201;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bR+mQo0YMEY3AFsQKEvbW9r7yYqd0q6QvgZJdckYz4CGg0kJfxeu2Ga8Y3XBuy3UgRciYrk6t4Xe7dZnuZbQ6qmKIy447Jr8sDOObau3UD/+zUhFS0zas2/iuhectlRfNN8dpvH+mxupoiIxrc/OhzpQefHRlz+P7T6IS990NJq1w/9yXUQBOJBWh7KRSuIH2jAZj77vZZUaT9QxXxKDto+7frI+dzdM5E/COEq/8coegglhXBv6F9P9eYY6JCavABDWt4+SICziktsjzOfynYpQb8MZBQbqNkHFxBD8LTY4I+wproR0LauoF28zPMVX
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3220.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(39860400002)(346002)(136003)(376002)(6506007)(83380400001)(66446008)(71200400001)(53546011)(19627405001)(54906003)(76116006)(64756008)(66946007)(91956017)(33656002)(8936002)(316002)(2906002)(186003)(6486002)(52536014)(26005)(110136005)(5660300002)(4326008)(86362001)(66476007)(9686003)(66556008)(478600001)(6512007)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?iZIvzlthTxwTTrDnOa8cPwitWp6PgQWLR6NWGYLqhqnPJzGtmKCYxQCk/fiS?=
- =?us-ascii?Q?cp6FUm/yKsWoXOvtz/8BBhy1vramveK/Brcy8ZsbwlI5s9rGLIdEa1aI4n7r?=
- =?us-ascii?Q?+2JJLJfnV1X9bCSTCxV2JvS48GZ67PS8tJu5gzaXpxvQNJ+/s+tnRogFVdal?=
- =?us-ascii?Q?YozWnu5ZJ5PgZJthGMEjVSAO8yVQjg7ZYvz2Clz96k8cdE/H24xKjtHYtSKb?=
- =?us-ascii?Q?ZX+7dvL1mHlTEFQmRmev1Hkxb84LF7IwOGCKO7xbmpB/j5vx82n2rLzUgMkB?=
- =?us-ascii?Q?1c2Uddt0w7G6NMpLHEc80etoIoxvgwKO6gLmSyYUB3p9dLy2v9McNUWu+Nww?=
- =?us-ascii?Q?oNcosol5kMamOTikMIW9U1kM6yll5QgdbvdTdabT6uMz7DcAR0q7slp6aP9I?=
- =?us-ascii?Q?obUlwbmUxnEbDDZzgGqRAE8rO20ivj6oWnD0vgLo5c5SsKR4YkmPt1krMO8a?=
- =?us-ascii?Q?QTCJNgBKaRuVLq4vUU/uPz6FmqWShMS0fB6pW3M647btw0dVsg0EFQtRkD3t?=
- =?us-ascii?Q?3U7cj55zy9apAVnT7Fhx1XoMqvBimIHpAs1O0JDOgXbm6Bw28iWjfOy9doAu?=
- =?us-ascii?Q?C/kXQaH6uS1GWYb6A7VIkZpHO9gP7ilSYd4hDgWOrm1+uQDGJARCx11qaKT2?=
- =?us-ascii?Q?LQUr4eSfwkHHxE/wj+hUEEn4GH4zDAvf14U1fO2B5+KqSTfU9NDtPuhibpBC?=
- =?us-ascii?Q?HLxNYzcRJGlHohACFvLyFlci9bt/QPNCc8o7lezwyuu+kHri87H4yyjbR79h?=
- =?us-ascii?Q?E2mEgQf3/RVu9KAY4sXZrPg5vvpCAhCZmeCZOG37GIvJDyPETsBeI2BMeEkB?=
- =?us-ascii?Q?yHBM5o/rajUc2jfKSp+pqQso2zOJq835HTW2uhYJze7zH/IvI4O0a8HdJMo6?=
- =?us-ascii?Q?8ChkcEl/eSoXwFdx2BRail9xE6ftffIqeCuHVOSxO3d36C84Gg+nWoEc3vL7?=
- =?us-ascii?Q?TdJh1zAcMSUyHUCVuSDSL6wSQA4f6UqOLBgg8/ezUXs=3D?=
+ bh=4U9FV6DGg3LObpn/T3R8nYByfDDBeU9ZCW4YZo8n3R4=;
+ b=paHekM1cKrf6/r2OOojxwoQHFoMs8Edm1SdYRp5JLZ+l/7I7UOZs+Gk6yUvcET9leKU+F7QsoCElklXiFP4kaUNjIT/caG1+adWKi7CGa36mdjDswiKg5lqVdZVkMq4iXNZqa1D7+OaW+EcBJbNjO3wXGlzhlVjtv+oaCJfDoe0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB4940.namprd12.prod.outlook.com (2603:10b6:610:65::10)
+ by CH2PR12MB4971.namprd12.prod.outlook.com (2603:10b6:610:6b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Tue, 8 Dec
+ 2020 06:21:28 +0000
+Received: from CH2PR12MB4940.namprd12.prod.outlook.com
+ ([fe80::350b:2673:2db7:8696]) by CH2PR12MB4940.namprd12.prod.outlook.com
+ ([fe80::350b:2673:2db7:8696%9]) with mapi id 15.20.3632.021; Tue, 8 Dec 2020
+ 06:21:28 +0000
+From: Aaron Liu <aaron.liu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 5/8] drm/amd/pm: add smu13 ip support for moment(V3)
+Date: Tue,  8 Dec 2020 14:21:11 +0800
+Message-Id: <20201208062111.23346-1-aaron.liu@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2PR0302CA0004.apcprd03.prod.outlook.com
+ (2603:1096:202::14) To CH2PR12MB4940.namprd12.prod.outlook.com
+ (2603:10b6:610:65::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from aaliu.amd.com (180.167.199.189) by
+ HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.7 via Frontend Transport; Tue, 8 Dec 2020 06:21:26 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 5288f8b1-1e50-4034-bb50-08d89b417f49
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4971:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4971DF3F9757142739898402F0CD0@CH2PR12MB4971.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YGqJ6HSU4mZqFrmM5my0kCLAwtnorEVXifUETDMmTmC26KHcZy5oURxgDO7abzLrRf33Qz5tF/CLsDlnkPV126azTvokojVmW1jaqKbLlFJUrMXLdWygOwQSwJWxN2KV8QGT0Nsc4jYPnU/Mn12VjjAIpJAD6pxkq9wbNs5O02b8HDpz1oZou/cr9zjFxzkapnasWZOuZFRN926J2IpJkcRIzIDqg3xRB4o2OjEg2Bcj5ZHeUl3mkgP0RlWTCpzbg76moIj4OcNaCTgHc0Xa1Eoa/aBdR0vIzHOEDbskYWirfParLEcPjIl5CHlCJDj9Lzv6iMa8hZMv4/38+m0U5w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4940.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(7696005)(1076003)(26005)(6666004)(8936002)(186003)(2616005)(66476007)(66946007)(66556008)(86362001)(6916009)(5660300002)(16526019)(30864003)(52116002)(6486002)(36756003)(8676002)(956004)(316002)(4326008)(83380400001)(2906002)(478600001)(44832011);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?kLwv4CMpYIke8nyOWbWWUJXV00gOMGRkBgEUUra81cyVo+XlG/TlO3fJmT2L?=
+ =?us-ascii?Q?9AkP0gLf3KlkkYSxONJBPa30DHFBIH65zVrOF65f9DIoYfF+yVMwJcX2HxlB?=
+ =?us-ascii?Q?PGqz7Tj6R/ZWYWDRxAE8JF7szOh8ldVFXlwNSH4H6zFmFkiTEGpEpMu57Pdd?=
+ =?us-ascii?Q?DRKetdyR2Nok6tHof0HK+5H/fJKG4vlVLi2uIKR/yAwyuhS9TmZ7+bzhECou?=
+ =?us-ascii?Q?lmCMTPiuxh08/sUdmvVJvOi8sxhnJ08NFIiCdXDNXYcRDzOVdHe9HWLar8G1?=
+ =?us-ascii?Q?DklHCDAajD0qi++GTJzRsViCXHBLpeEVMOmXjnMcEDlEeWYqTzjh0PDDwoTh?=
+ =?us-ascii?Q?Dr2Sbf3FNNUL1hxrN8fYsNHYOS6Dm4a0AouIDipOJZVjilVJeUZqEUK48B1E?=
+ =?us-ascii?Q?4n+ogrtX9AT2Cs720lsvP7M+aWud2XI+8t3X5a2EsbrjnxJMKtxeOmE9TsJD?=
+ =?us-ascii?Q?Me4P8OvdQGRinS/arAEMbYcyb+DtJ3k9OM1t3IIGodxJchB/4NdEuXXSYEzf?=
+ =?us-ascii?Q?9YYfQ6JG6mafhcU9B0pyX59VO1NfYgx0Vk+n1Z2D/5ZrqZpO733M+F1kIhxF?=
+ =?us-ascii?Q?aF7qN9Y2JzVcPmGTq1YTRu1KZUXptI6DW81EQCWb4diDr/pz75vRsaUejQxc?=
+ =?us-ascii?Q?jc8ybaJpD2xjznniWGznthjQl6hIsw0GVPPFhRIZBym43Joo/8gZYw68qpd6?=
+ =?us-ascii?Q?aYTsTl/TkAznTyCOLEDYRiEI1qU8sN0jrsecYIDSgGyWUs2IZO3tBBg4AirT?=
+ =?us-ascii?Q?KTTFGW+u5z7ZcvzIGelbZjAXE+BXT+rxCTnBLbAVBy43H019atRXj3Y9Fvq9?=
+ =?us-ascii?Q?EFztPIkYfR95bkR62QY6krFOd8lKk/531f8bn5t315Yqi9AcpVZLZ2spblzF?=
+ =?us-ascii?Q?ZMBX8JVup57r8RmnxqLxVUdxCRTCEtCgCSwh9GZq9TnErpGACkDxWVR6J7H9?=
+ =?us-ascii?Q?0yrRSayz4+P1X8e3FaymJMHDTPP5Eq0ia3hIMOrNXiIxm6XBQLabMJ/TOj+S?=
+ =?us-ascii?Q?8vwG?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4940.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3220.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f74df8a-c26f-4cf4-eb2d-08d89b2b623b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2020 03:43:10.5728 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kxX5Fd6UbmNZvkblB8+pLVXR/IouoFrUofP3CMet85G0amfTDMro9et5dfRbJacQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2740
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 06:21:28.2896 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5288f8b1-1e50-4034-bb50-08d89b417f49
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L2YLh107OZECKZ10Tmjnte71nd8O7SN2AZV7WX0NukqCsBn1wsquRsZAP7Jq44gQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4971
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,385 +120,305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Andy" <Andy.Zhang@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>
-Content-Type: multipart/mixed; boundary="===============0180434193=="
+Cc: lijo.lazar@amd.com, Aaron Liu <aaron.liu@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0180434193==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB32222491A1C7877B86C69B43E1CD0BYAPR12MB3222namp_"
+For supporting yellow carp, we need to add smu13 ip
+support for the moment.
 
---_000_BYAPR12MB32222491A1C7877B86C69B43E1CD0BYAPR12MB3222namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+V2: add smu_v13_0_1.c|h dedicated for apu.
+V3: cleanup code.
 
-[AMD Public Use]
-
-Hi Hawking,
-
-The process is to send request first, and then to poll and wait 6 seconds.
-
-So the time delta between the 1-st request and the 11-th request is actuall=
-y 60 seconds.
-
-Jiange
-________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Tuesday, December 8, 2020 12:16 AM
-To: Zhao, Jiange <Jiange.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>
-Cc: Chen, Horace <Horace.Chen@amd.com>; Zhang, Andy <Andy.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
-
-[AMD Public Use]
-
-Re - Poll happens every 6 seconds and it will last for 60 seconds.
-+       int ret, i =3D 0;
-+       #define AI_MAILBOX_POLL_MSG_REP_MAX     11
-
-The definition seems not match with your description that the polling will =
-last for 60s.... with that fixed, the patch is
-
-Acked-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: Zhao, Jiange <Jiange.Zhao@amd.com>
-Sent: Monday, December 7, 2020 18:06
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Horace <Horace.Chen@amd.c=
-om>; Zhang, Andy <Andy.Zhang@amd.com>; Zhao, Jiange <Jiange.Zhao@amd.com>
-Subject: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period
-
-From: Jiange Zhao <Jiange.Zhao@amd.com>
-
-In Virtualization case, when one VF is sending too many FLR requests, hyper=
-visor would stop responding to this VF's request for a long period of time.=
- This is called event guard. During this period of cooling time, guest driv=
-er should wait instead of doing other things. After this period of time, gu=
-est driver would resume reset process and return to normal.
-
-Currently, guest driver would wait 12 seconds and return fail if it doesn't=
- get response from host.
-
-Solution: extend this waiting time in guest driver and poll response period=
-ically. Poll happens every 6 seconds and it will last for 60 seconds.
-
-v2: change the max repetition times from number to macro.
-
-Signed-off-by: Jiange Zhao <Jiange.Zhao@amd.com>
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 ++++++++++-  drivers/gpu/drm/am=
-d/amdgpu/mxgpu_ai.h |  3 ++-  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 11 ++=
-++++++++-  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h |  1 +
- 4 files changed, 23 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/pm/Makefile               |   1 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |   1 +
+ drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h      |  52 +++++++
+ drivers/gpu/drm/amd/pm/swsmu/Makefile         |   2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile   |  30 ++++
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c  | 131 ++++++++++++++++++
+ 6 files changed, 216 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_ai.c
-index f5ce9a9f4cf5..7767ccca526b 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -187,7 +187,16 @@ static int xgpu_ai_send_access_requests(struct amdgpu_=
-device *adev,
-
- static int xgpu_ai_request_reset(struct amdgpu_device *adev)  {
--       return xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESET_ACCESS)=
-;
-+       int ret, i =3D 0;
+diff --git a/drivers/gpu/drm/amd/pm/Makefile b/drivers/gpu/drm/amd/pm/Makefile
+index f01e86030cd1..8cf6eff1ea93 100644
+--- a/drivers/gpu/drm/amd/pm/Makefile
++++ b/drivers/gpu/drm/amd/pm/Makefile
+@@ -27,6 +27,7 @@ subdir-ccflags-y += \
+ 		-I$(FULL_AMD_PATH)/pm/swsmu \
+ 		-I$(FULL_AMD_PATH)/pm/swsmu/smu11 \
+ 		-I$(FULL_AMD_PATH)/pm/swsmu/smu12 \
++		-I$(FULL_AMD_PATH)/pm/swsmu/smu13 \
+ 		-I$(FULL_AMD_PATH)/pm/powerplay \
+ 		-I$(FULL_AMD_PATH)/pm/powerplay/smumgr\
+ 		-I$(FULL_AMD_PATH)/pm/powerplay/hwmgr
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 9724d6fd82f4..7c49b046c6fa 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -706,6 +706,7 @@ extern const struct amd_ip_funcs smu_ip_funcs;
+ 
+ extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
+ extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
++extern const struct amdgpu_ip_block_version smu_v13_0_1_ip_block;
+ 
+ bool is_support_sw_smu(struct amdgpu_device *adev);
+ int smu_reset(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h
+new file mode 100644
+index 000000000000..b2e9258dc06c
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_1.h
+@@ -0,0 +1,52 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __SMU_V13_0_1_H__
++#define __SMU_V13_0_1_H__
 +
-+       while (i < AI_MAILBOX_POLL_MSG_REP_MAX) {
-+               ret =3D xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESE=
-T_ACCESS);
-+               if (!ret)
-+                       break;
-+               i++;
-+       }
++#include "amdgpu_smu.h"
 +
-+       return ret;
- }
-
- static int xgpu_ai_request_full_gpu_access(struct amdgpu_device *adev, dif=
-f --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/amdgp=
-u/mxgpu_ai.h
-index 83b453f5d717..50572635d0f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
-@@ -25,8 +25,9 @@
- #define __MXGPU_AI_H__
-
- #define AI_MAILBOX_POLL_ACK_TIMEDOUT    500
--#define AI_MAILBOX_POLL_MSG_TIMEDOUT   12000
-+#define AI_MAILBOX_POLL_MSG_TIMEDOUT   6000
- #define AI_MAILBOX_POLL_FLR_TIMEDOUT    5000
-+#define AI_MAILBOX_POLL_MSG_REP_MAX    11
-
- enum idh_request {
-         IDH_REQ_GPU_INIT_ACCESS =3D 1,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.c
-index 666ed99cc14b..dd5c1e6ce009 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -200,7 +200,16 @@ static int xgpu_nv_send_access_requests(struct amdgpu_=
-device *adev,
-
- static int xgpu_nv_request_reset(struct amdgpu_device *adev)  {
--       return xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESET_ACCESS)=
-;
-+       int ret, i =3D 0;
++#define SMU13_0_1_DRIVER_IF_VERSION_INV 0xFFFFFFFF
++#define SMU13_0_1_DRIVER_IF_VERSION_YELLOW_CARP 0x3
 +
-+       while (i < NV_MAILBOX_POLL_MSG_REP_MAX) {
-+               ret =3D xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESE=
-T_ACCESS);
-+               if (!ret)
-+                       break;
-+               i++;
-+       }
++/* MP Apertures */
++#define MP0_Public			0x03800000
++#define MP0_SRAM			0x03900000
++#define MP1_Public			0x03b00000
++#define MP1_SRAM			0x03c00004
 +
-+       return ret;
- }
-
- static int xgpu_nv_request_full_gpu_access(struct amdgpu_device *adev, dif=
-f --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/amdgp=
-u/mxgpu_nv.h
-index 52605e14a1a5..9f5808616174 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-@@ -27,6 +27,7 @@
- #define NV_MAILBOX_POLL_ACK_TIMEDOUT    500
- #define NV_MAILBOX_POLL_MSG_TIMEDOUT    6000
- #define NV_MAILBOX_POLL_FLR_TIMEDOUT    5000
-+#define NV_MAILBOX_POLL_MSG_REP_MAX    11
-
- enum idh_request {
-         IDH_REQ_GPU_INIT_ACCESS =3D 1,
---
-2.25.1
-
---_000_BYAPR12MB32222491A1C7877B86C69B43E1CD0BYAPR12MB3222namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Hawking,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The process is to send request first, and then to poll and wait 6 seconds.<=
-/div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-So the time delta between the 1-st request and the 11-th request is actuall=
-y 60 seconds.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jiange<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, December 8, 2020 12:16 AM<br>
-<b>To:</b> Zhao, Jiange &lt;Jiange.Zhao@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Chen, Horace &lt;Horace.Chen@amd.com&gt;; Zhang, Andy &lt;Andy.Z=
-hang@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait =
-period</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[AMD Public Use]<br>
-<br>
-Re - Poll happens every 6 seconds and it will last for 60 seconds.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #define AI_MAILBOX_POLL_MSG_REP_MAX&n=
-bsp;&nbsp;&nbsp;&nbsp; 11<br>
-<br>
-The definition seems not match with your description that the polling will =
-last for 60s.... with that fixed, the patch is<br>
-<br>
-Acked-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
-<br>
-Regards,<br>
-Hawking<br>
------Original Message-----<br>
-From: Zhao, Jiange &lt;Jiange.Zhao@amd.com&gt; <br>
-Sent: Monday, December 7, 2020 18:06<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chen, Horace &lt;Horace.C=
-hen@amd.com&gt;; Zhang, Andy &lt;Andy.Zhang@amd.com&gt;; Zhao, Jiange &lt;J=
-iange.Zhao@amd.com&gt;<br>
-Subject: [PATCH] drm/amdgpu/SRIOV: Extend VF reset request wait period<br>
-<br>
-From: Jiange Zhao &lt;Jiange.Zhao@amd.com&gt;<br>
-<br>
-In Virtualization case, when one VF is sending too many FLR requests, hyper=
-visor would stop responding to this VF's request for a long period of time.=
- This is called event guard. During this period of cooling time, guest driv=
-er should wait instead of doing
- other things. After this period of time, guest driver would resume reset p=
-rocess and return to normal.<br>
-<br>
-Currently, guest driver would wait 12 seconds and return fail if it doesn't=
- get response from host.<br>
-<br>
-Solution: extend this waiting time in guest driver and poll response period=
-ically. Poll happens every 6 seconds and it will last for 60 seconds.<br>
-<br>
-v2: change the max repetition times from number to macro.<br>
-<br>
-Signed-off-by: Jiange Zhao &lt;Jiange.Zhao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 11 ++++++++++-&nbsp; drivers/=
-gpu/drm/amd/amdgpu/mxgpu_ai.h |&nbsp; 3 ++-&nbsp; drivers/gpu/drm/amd/amdgp=
-u/mxgpu_nv.c | 11 ++++++++++-&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h |=
-&nbsp; 1 +<br>
-&nbsp;4 files changed, 23 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_ai.c<br>
-index f5ce9a9f4cf5..7767ccca526b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
-@@ -187,7 +187,16 @@ static int xgpu_ai_send_access_requests(struct amdgpu_=
-device *adev,<br>
-&nbsp;<br>
-&nbsp;static int xgpu_ai_request_reset(struct amdgpu_device *adev)&nbsp; {<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_ai_send_access_requests(a=
-dev, IDH_REQ_GPU_RESET_ACCESS);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i =3D 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i &lt; AI_MAILBOX_POLL_MSG_REP=
-_MAX) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D xgpu_ai_send_access_requests(adev, IDH_REQ_GPU_RESET_ACC=
-ESS);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; i++;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int xgpu_ai_request_full_gpu_access(struct amdgpu_device *adev=
-, diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_ai.h<br>
-index 83b453f5d717..50572635d0f8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
-@@ -25,8 +25,9 @@<br>
-&nbsp;#define __MXGPU_AI_H__<br>
-&nbsp;<br>
-&nbsp;#define AI_MAILBOX_POLL_ACK_TIMEDOUT&nbsp;&nbsp;&nbsp; 500<br>
--#define AI_MAILBOX_POLL_MSG_TIMEDOUT&nbsp;&nbsp; 12000<br>
-+#define AI_MAILBOX_POLL_MSG_TIMEDOUT&nbsp;&nbsp; 6000<br>
-&nbsp;#define AI_MAILBOX_POLL_FLR_TIMEDOUT&nbsp;&nbsp;&nbsp; 5000<br>
-+#define AI_MAILBOX_POLL_MSG_REP_MAX&nbsp;&nbsp;&nbsp; 11<br>
-&nbsp;<br>
-&nbsp;enum idh_request {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_GPU_INIT_ACCESS =
-=3D 1,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_nv.c<br>
-index 666ed99cc14b..dd5c1e6ce009 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c<br>
-@@ -200,7 +200,16 @@ static int xgpu_nv_send_access_requests(struct amdgpu_=
-device *adev,<br>
-&nbsp;<br>
-&nbsp;static int xgpu_nv_request_reset(struct amdgpu_device *adev)&nbsp; {<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return xgpu_nv_send_access_requests(a=
-dev, IDH_REQ_GPU_RESET_ACCESS);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i =3D 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i &lt; NV_MAILBOX_POLL_MSG_REP=
-_MAX) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_RESET_ACC=
-ESS);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; i++;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int xgpu_nv_request_full_gpu_access(struct amdgpu_device *adev=
-, diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_nv.h<br>
-index 52605e14a1a5..9f5808616174 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h<br>
-@@ -27,6 +27,7 @@<br>
-&nbsp;#define NV_MAILBOX_POLL_ACK_TIMEDOUT&nbsp;&nbsp;&nbsp; 500<br>
-&nbsp;#define NV_MAILBOX_POLL_MSG_TIMEDOUT&nbsp;&nbsp;&nbsp; 6000<br>
-&nbsp;#define NV_MAILBOX_POLL_FLR_TIMEDOUT&nbsp;&nbsp;&nbsp; 5000<br>
-+#define NV_MAILBOX_POLL_MSG_REP_MAX&nbsp;&nbsp;&nbsp; 11<br>
-&nbsp;<br>
-&nbsp;enum idh_request {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_REQ_GPU_INIT_ACCESS =
-=3D 1,<br>
---<br>
-2.25.1<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB32222491A1C7877B86C69B43E1CD0BYAPR12MB3222namp_--
-
---===============0180434193==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
++/* address block */
++#define smnMP1_FIRMWARE_FLAGS		0x3010024
++
++
++#if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3)
++
++int smu_v13_0_1_check_fw_status(struct smu_context *smu);
++
++int smu_v13_0_1_check_fw_version(struct smu_context *smu);
++
++int smu_v13_0_1_fini_smc_tables(struct smu_context *smu);
++
++int smu_v13_0_1_set_default_dpm_tables(struct smu_context *smu);
++
++#endif
++#endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/Makefile b/drivers/gpu/drm/amd/pm/swsmu/Makefile
+index 6f281990b7b4..7987c6cf849d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/Makefile
++++ b/drivers/gpu/drm/amd/pm/swsmu/Makefile
+@@ -22,7 +22,7 @@
+ 
+ AMD_SWSMU_PATH = ../pm/swsmu
+ 
+-SWSMU_LIBS = smu11 smu12
++SWSMU_LIBS = smu11 smu12 smu13
+ 
+ AMD_SWSMU = $(addsuffix /Makefile,$(addprefix $(FULL_AMD_PATH)/pm/swsmu/,$(SWSMU_LIBS)))
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile b/drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile
+new file mode 100644
+index 000000000000..61ac864ac948
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/Makefile
+@@ -0,0 +1,30 @@
++#
++# Copyright 2020 Advanced Micro Devices, Inc.
++#
++# Permission is hereby granted, free of charge, to any person obtaining a
++# copy of this software and associated documentation files (the "Software"),
++# to deal in the Software without restriction, including without limitation
++# the rights to use, copy, modify, merge, publish, distribute, sublicense,
++# and/or sell copies of the Software, and to permit persons to whom the
++# Software is furnished to do so, subject to the following conditions:
++#
++# The above copyright notice and this permission notice shall be included in
++# all copies or substantial portions of the Software.
++#
++# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++# OTHER DEALINGS IN THE SOFTWARE.
++#
++#
++# Makefile for the 'smu manager' sub-component of powerplay.
++# It provides the smu management services for the driver.
++
++SMU13_MGR = smu_v13_0_1.o
++
++AMD_SWSMU_SMU13MGR = $(addprefix $(AMD_SWSMU_PATH)/smu13/,$(SMU13_MGR))
++
++AMD_POWERPLAY_FILES += $(AMD_SWSMU_SMU13MGR)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c
+new file mode 100644
+index 000000000000..6ad2fcb2af2f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_1.c
+@@ -0,0 +1,131 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++//#include <linux/reboot.h>
++
++#define SWSMU_CODE_LAYER_L3
++
++#include "amdgpu.h"
++#include "amdgpu_smu.h"
++#include "smu_v13_0_1.h"
++#include "soc15_common.h"
++#include "smu_cmn.h"
++
++#include "asic_reg/mp/mp_13_0_1_offset.h"
++#include "asic_reg/mp/mp_13_0_1_sh_mask.h"
++
++/*
++ * DO NOT use these for err/warn/info/debug messages.
++ * Use dev_err, dev_warn, dev_info and dev_dbg instead.
++ * They are more MGPU friendly.
++ */
++#undef pr_err
++#undef pr_warn
++#undef pr_info
++#undef pr_debug
++
++int smu_v13_0_1_check_fw_status(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	uint32_t mp1_fw_flags;
++
++	mp1_fw_flags = RREG32_PCIE(MP1_Public |
++				   (smnMP1_FIRMWARE_FLAGS & 0xffffffff));
++
++	if ((mp1_fw_flags & MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) >>
++	    MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED__SHIFT)
++		return 0;
++
++	return -EIO;
++}
++
++int smu_v13_0_1_check_fw_version(struct smu_context *smu)
++{
++	uint32_t if_version = 0xff, smu_version = 0xff;
++	uint16_t smu_major;
++	uint8_t smu_minor, smu_debug;
++	int ret = 0;
++
++	ret = smu_cmn_get_smc_version(smu, &if_version, &smu_version);
++	if (ret)
++		return ret;
++
++	smu_major = (smu_version >> 16) & 0xffff;
++	smu_minor = (smu_version >> 8) & 0xff;
++	smu_debug = (smu_version >> 0) & 0xff;
++
++	switch (smu->adev->asic_type) {
++	case CHIP_YELLOW_CARP:
++		smu->smc_driver_if_version = SMU13_0_1_DRIVER_IF_VERSION_YELLOW_CARP;
++		break;
++
++	default:
++		dev_err(smu->adev->dev, "smu unsupported asic type:%d.\n", smu->adev->asic_type);
++		smu->smc_driver_if_version = SMU13_0_1_DRIVER_IF_VERSION_INV;
++		break;
++	}
++
++	dev_info(smu->adev->dev, "smu fw reported version = 0x%08x (%d.%d.%d)\n",
++			 smu_version, smu_major, smu_minor, smu_debug);
++
++	/*
++	 * 1. if_version mismatch is not critical as our fw is designed
++	 * to be backward compatible.
++	 * 2. New fw usually brings some optimizations. But that's visible
++	 * only on the paired driver.
++	 * Considering above, we just leave user a warning message instead
++	 * of halt driver loading.
++	 */
++	if (if_version != smu->smc_driver_if_version) {
++		dev_info(smu->adev->dev, "smu driver if version = 0x%08x, smu fw if version = 0x%08x, "
++			 "smu fw version = 0x%08x (%d.%d.%d)\n",
++			 smu->smc_driver_if_version, if_version,
++			 smu_version, smu_major, smu_minor, smu_debug);
++		dev_warn(smu->adev->dev, "SMU driver if version not matched\n");
++	}
++
++	return ret;
++}
++
++int smu_v13_0_1_fini_smc_tables(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++
++	kfree(smu_table->clocks_table);
++	smu_table->clocks_table = NULL;
++
++	kfree(smu_table->metrics_table);
++	smu_table->metrics_table = NULL;
++
++	kfree(smu_table->watermarks_table);
++	smu_table->watermarks_table = NULL;
++
++	return 0;
++}
++
++int smu_v13_0_1_set_default_dpm_tables(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++
++	return smu_cmn_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->clocks_table, false);
++}
++
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0180434193==--
