@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC488C19437
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9171FC1B0E3
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4C0823B86
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4C0823B86
+	by mail.kernel.org (Postfix) with ESMTPS id 5A18323B86
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A18323B86
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BE56E9C0;
-	Tue,  8 Dec 2020 19:29:04 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760045.outbound.protection.outlook.com [40.107.76.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 451086E9BD
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9FA06E9C3;
+	Tue,  8 Dec 2020 19:29:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDE36E9C1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:29:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GoWokFlb0Xf2MlFdOqAdq0P+63IFwBJXR965XimPoIGApsrVJzW7pTxMu/TYkuJlMXrY9OfZmeFlMetmUJHbx+2xU4k0/B9weev9lDKiXDiLuCj6/GJU6lkVa+3uTp9RTtHZ97HiXRTS9GIXoSGv+U6dLRMOcebRgMFS7kHuzELGWXc7c2lTdAtoemVxlnQ305iUvgkx1BpaVEbqsddw3eOYjIguc6boNt/UEaWhMPrZxzdEPLIALVduntB4G3djP8pRn6ZYVvg/aST5Ra+5vTuE3FvOxuaHAIIwOP4nq0pp+DJn0RWmhsZOU6R+/nZhA4qLTgRVgh/GqQaSTrFDxg==
+ b=JyFJ+jNT8OHarw1JUsC5iYu24GWgyALSKz752qgQsFHNzk8luOdMy/mbX1qWUZ7VDt3TSQmvj7VHD8D4OCuRJD3C5IB5yVrnWS2pBqq3TZNhhByYwx9EAR5SaG6+z0MJdIfC6MuGeximqfASBXBTlKd8KlvhqxtrtTfUHm2rLfzuEiqWkTSq+XVxC6aQjw3zjjBMWUgsp6e+vI4f4ffTqMzRBMvk+KV6mIqA0YX1cCdF3NBucv+B0gWgt4JgGz4QW2ST2Uhg0yQw7gAsSJOQgewXYUcSfZAC6vJ3KyMe6uirFE6yCQQbIGQNSKoZsQZEP26kbSNUNBYN4GJgn/fsFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JPq4rwR67nx8Pwbzt1mkNo4aBgcslX8ppsStOI9ToTI=;
- b=fg93+bBBjPjdfYuDNtMgx90zeQng/GvT1HviSZdGWBzufqLSDuyjflCXYOJVRivgr1zbskmlMxHNLBlvjvwVGfRldXNMVKzEDxjV24j9+ZIA2GCqjdMA9tF48QpBw4hmMpzQjpKuVD3UDKLjp5KGlUcZFs5pDvA79grlh0IG3AGVbK1J6Tu7w60j9/Kh22ObS123dO6rr5tvWGBZ0wJNAY4PGeMbhZqxyt/INbhg6Iue5USrEl+Ed4vns3OlxduQcm+q4Cq8XqW1/w41HUJZj8V37V2VkuUbmAXQ14TsmPlNgBQOHrOcRRQaKm5L6wwVRbRFGvNljy8APjoz6ZNobw==
+ bh=23ufN3c3WVpBvdhV/krDEidBYD52bnWWNhUaKliAHK0=;
+ b=iNlyiSkCZ//b38joqXkHARYE4qEZwlAd/OBUw6xfFmL3/O4bnIUh9WNYO9IlvCcUjj2ANMq/I2OC/fvzKhzxHXJz07YJUYyNYPznpaznDSB/ax6i+hUJpZ9v8gmNBkz1ZxQokJ2DVfkpOtqKmfYvt50Fr+bHRRMsUkwK6YeVhD0tONRirUxL51EZvBKUQ/9tTq0ZjiO1FEZKIeX0eqQDdHNQ5Ygz1oCQrWt/DPDFnDQxRe86cfeMw09gh9OTf2K1xUTFkEPeqroEQW5Ck7xinplTEKHWri5zn5lc0CNThk2F+ZU8jN5lPqwgSdtLZ0mwFGklhZuQSpmCi4kFj+P3wQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JPq4rwR67nx8Pwbzt1mkNo4aBgcslX8ppsStOI9ToTI=;
- b=OIyAdD1qGxDQ1zLFY/94E/fH/FspUx2AyZoRJe4C6Gtz288skZw5kQQ4Emf0IjpQhn4vidpDo0AgGLVmyRxkniGXhpH/U+v6aCt+LiGUMorvKUpsomxI3lyWwNKvCB+buBgI0DEckiBT20V0k5SxAOis1coz9Y24+Fhn4SZlPEw=
+ bh=23ufN3c3WVpBvdhV/krDEidBYD52bnWWNhUaKliAHK0=;
+ b=QVtV1ArcNFCfZ2p63HjbcHZy21YEgFztklJxwRq+oUOTdhSfy1BSBVuRDwsEd98DB2nL8mPs/8Kh3BY1lowbAIyuGfpO+TUsrRf4OWUrdIQVyOdQ174VBy6GlKdxSAl9Ful5y6XOIlb5FfmrZ0t1W2w6Gsnb1gs4BQ6Gb4oIiz8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
- by DM6PR12MB4388.namprd12.prod.outlook.com (2603:10b6:5:2a9::10) with
+ by DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Tue, 8 Dec
- 2020 19:29:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Tue, 8 Dec
+ 2020 19:29:03 +0000
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853]) by DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853%6]) with mapi id 15.20.3632.023; Tue, 8 Dec 2020
- 19:29:02 +0000
+ 19:29:03 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/13] drm/amd/display: updated wm table for Renoir
-Date: Tue,  8 Dec 2020 14:28:39 -0500
-Message-Id: <20201208192844.23580-9-qingqing.zhuo@amd.com>
+Subject: [PATCH 10/13] drm/amd/display: Fix OGAM LUT calculation precision
+Date: Tue,  8 Dec 2020 14:28:41 -0500
+Message-Id: <20201208192844.23580-11-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201208192844.23580-1-qingqing.zhuo@amd.com>
 References: <20201208192844.23580-1-qingqing.zhuo@amd.com>
@@ -68,49 +68,49 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
  YT1PR01CA0123.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Tue, 8 Dec 2020 19:29:01 +0000
+ 15.20.3654.12 via Frontend Transport; Tue, 8 Dec 2020 19:29:02 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 26b2ec68-1ecb-43da-8fa7-08d89baf84e6
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4388:
+X-MS-Office365-Filtering-Correlation-Id: 0b0695e7-a224-4079-96b9-08d89baf85ab
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4338:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB43880BF6F1ED5AB29DAF8287FBCD0@DM6PR12MB4388.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4338D9AD675F99E3B345CE55FBCD0@DM6PR12MB4338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TBViP+ZrfcNj2vCZWnEtgD4BPld08tN2fs48i7XcgFE4/G0S56bGzNGqeXZEYcQ5bk57Q8G+hywEf88RyKgjCUjsdbilXbkooWbNmecEwOK+Bq/7dHTnnUm1DkwmT2fj9nucA1jGQavRZY/i8vicSJgFmAWtZ8ZFckgN5CHJ5B9nCbpsjDuTT/kJW48fhD4gZXfRPAQ7Kebksn30wN++r7Shp58jbZZEJYIdSB0OROA9XmEF640nCCY1o4eyuL5/ZL7KzEA0Y3R56h/3F6ICo3PiUYOVXihvPNj3hfNcVjjo2LsGFe2cowtX/v07PiC+F8mZFCzInCOhhM2Y7P4cJ05Qth7F21Hx+0srpSdbEN3bomA4qoi4z9D/DaoL2au4XvcAfZiZK914ybloOHyaWG/Aezb0RQQZUohK3O3OUFE=
+X-Microsoft-Antispam-Message-Info: pfRRjoMfHNvS/UIocwirsJ92TZOoRzeBJxpPBhB/iX3CIYsYGsxPte8OElwMO48KyKeW28gzBVsdt4BkGJaait2BV7fM6lpwrxjUcngSWIXQjxrI6atl1prt3J6plQL87vSZRkcF8LSorNRNNr4RWSOsWYTsByC+iefM4Ma631JS4vLyPEmR/Lo4WwXq0OHVkk07i/rY/g9wPnCF24TOr05pXSTpgbxwLVyhoxuc9i2je+tYHq6xcs4hIGmhTw7uqv/w8Nu3fNFiD5KjU2HuryLI3V0hHJwrVT6tc2X3L19jznhhQPYwm7WrmK070Cm/LDqVjSPDVmZWhRRdj0xAAseC8R59b4Ig5Xfzcn0nehEvd0iKMQQx5o4h5LE9PDuQjOIddDYqSZLVGtGOt8evX69+hfsMINSAa+fh7Nz4cIY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(136003)(376002)(6666004)(86362001)(83380400001)(34490700003)(6916009)(44832011)(8936002)(956004)(2616005)(186003)(6506007)(36756003)(52116002)(66556008)(26005)(6486002)(5660300002)(16526019)(66946007)(4326008)(15650500001)(2906002)(66476007)(8676002)(1076003)(6512007)(508600001)(69590400008);
+ SFS:(4636009)(346002)(376002)(136003)(366004)(956004)(8936002)(44832011)(1076003)(36756003)(6512007)(69590400008)(16526019)(4326008)(34490700003)(83380400001)(66946007)(2906002)(6506007)(26005)(6666004)(5660300002)(186003)(8676002)(66556008)(52116002)(6916009)(2616005)(6486002)(66476007)(508600001)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?GeudywbSG2h7w6DYUrGuC4H3veKmoBXMiLhiILyCpmD4SvebUx3XcZC2Fmtm?=
- =?us-ascii?Q?5oPMsSs1NWRY7V2GC91LfWpj0iso6Bu/AVFeirv9HmX9zB9/zujcgCSy4gld?=
- =?us-ascii?Q?AvpqIOmATB4zyAMsvdgNFhoo+EiW+AftwUn2Xwau0eIzKnty4AnbWVjQwAT9?=
- =?us-ascii?Q?qBYnfe9tJq/wKz5f3HgBCHjVSUpwJMHc7YPJWcrep4QMHEwAusZSMcYbC+oD?=
- =?us-ascii?Q?+8rtwiCEVwbLvkIDIfP56IjKP86IO28iOaY5RNeLUn0zMLveRC78eIa6obq3?=
- =?us-ascii?Q?Qq52ZCp5f3tQFqqHGVr2lVorJBybW5g9WfZQ6Upc1LYNFAXvddwlWy6g5JM+?=
- =?us-ascii?Q?b/sf5iH+d5kWuYi4aD0ysSncOhrgOAGDXpZ55FS19R5QYlmfpb8C2AzI4vya?=
- =?us-ascii?Q?YUrAOhIzI7ferBI3VKHSk5tBzavG1l+lLCyNVIkHby5waD4LcE3nHExWCxed?=
- =?us-ascii?Q?mlMf7MngHeT4JawCPUkWSn/LTpM6Iq0jzo8e3N3PJMA/ELuI4OhV7Yqhndoy?=
- =?us-ascii?Q?oqzZD6BdOvaLXNtk0Y3/WV9tJpWolSEYF88ZWipPssNgTs1UcqiYcWlbkqxP?=
- =?us-ascii?Q?Ks+1biZykYj4vGTYEcugUDsdLyHmL5z8zr4xmaobtVCMcGWK+tQezc/ZGJ14?=
- =?us-ascii?Q?NZS3gFLu/nzkTC/74fxkvd5Msjmyx1OEnQlRk8EDNBICGsur0eA6NuyNNpnf?=
- =?us-ascii?Q?lV4WOGPg0tQO+DAqRKJDiFH6jZsx80zm9rS6kBFpLmhhVdECOe+QQC7dzJlL?=
- =?us-ascii?Q?TTazfcub1xD7sT9/k/SmOc6MqnGAUJWui8Y1JzCzs614wiHosjm2iAKySmYP?=
- =?us-ascii?Q?5Zgg0LSEkqizuxirQGX51M6WytyPdOcUi30fcVyYnQtdqJCXLgp5jkvHuR2K?=
- =?us-ascii?Q?TK8sRzkX/6pkuaKPluz920jYp5Hz3SgpdiPTBvBMVWrvjHfaOygUjrc6qly7?=
- =?us-ascii?Q?mzOkFeIxmXYhbgENYdDOvIqWySOLBxFPKF1iDSJF5RC4HFFMJIm5vqanw10F?=
- =?us-ascii?Q?kzAG?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?PM7oDZ0Uvl19Zw7Up/jTIaCKIjRRMcdog528skgmZuKaVLP7ZiY/rtHhMWo2?=
+ =?us-ascii?Q?eaNC30zVW3AJ6B+pWtJbU5yn3rP3pUfSq2mumw6ueWLFMQ2dHnDf29AtnFEh?=
+ =?us-ascii?Q?/TqanXcwNEy+by7lgTq4OtCPOzDP3kCdOt/gcRMQGXmx+4GnvfxVgUa1Uekn?=
+ =?us-ascii?Q?wqcHGML9XFrnBf1SD+8hvf4fEmToX5PgasODBAKMRyyletIbTOGZIax89Oi+?=
+ =?us-ascii?Q?C162VoThMtf+oDSkSkypLyrk4aMN8ryfgUCUX5EDzK1TNuYraKj5GtiFxjTr?=
+ =?us-ascii?Q?LJck09qCJZ3XbbH9cn//F76mrmx+wy1ZO4kJ+dOQD94Fix4dUbDRq3WujJFL?=
+ =?us-ascii?Q?ugEsen97JzK0bt4UAv2xVEr1PVfkIhVDfuau++eC9GCkz5f602RlONux3JKW?=
+ =?us-ascii?Q?Dw8KEr13ZHIw2fTGHCBLZL8q6o7biKfFJrofMZz/62NtjkFJmLVLiuhq28ka?=
+ =?us-ascii?Q?l8pQ2NPzlSkNHjijxFrqYYX7jLA37RzrYOnIXJMRH21M+dfFeyOVUvJyuv1z?=
+ =?us-ascii?Q?pSBN+mslmNZVndubegWLohUk2TmdN38Jo1kuyFU5ydq+hqvHZFeIF2KX3f5I?=
+ =?us-ascii?Q?ulVyQ+aoWwnHnptKlGRVXc57KfQ/xk4DRJjx+qrwWgT7Vn3ktHeUr4RR0tzA?=
+ =?us-ascii?Q?SEbewIPhSsjAXRuA/zsYgEqXPEbpbj2TGBJ+KyArkNxTpQVqa6pAihJlAw2W?=
+ =?us-ascii?Q?sNGmX4ep1FzpWAVAVl5j2b30WuSnF9Wdr6cKwVzrQkMzhCxYAWDqOzYr5uTz?=
+ =?us-ascii?Q?FJRuoRA9g/SmWZTBIs7xjVa+NjSOAV23+BEyYsaoivAQIQ8smB8PHjFiC6mv?=
+ =?us-ascii?Q?W6z0yDAmh+vOZXMYZh+/hreu2a90EqdraOX+rG6gcqYqdQ9Lau6hj4KuSJkq?=
+ =?us-ascii?Q?qRqQEUT0QgpmhF/jkBpbIkt+CQiltN3kXx48jFNt5sMx+eQSsLEUV1hOcT4r?=
+ =?us-ascii?Q?CwuhphOUuEmLSlS235QXryQKSWj8wpf1teByO9po+BO/cQU4v4ZqASOPHGqa?=
+ =?us-ascii?Q?3Gs4?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:29:01.6144 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:29:03.2484 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26b2ec68-1ecb-43da-8fa7-08d89baf84e6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b0695e7-a224-4079-96b9-08d89baf85ab
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OQa+hVUcOzVClykSn8g6xbiImj3v7vxVcke4ISY96pjnSovg2TWCGTJyryGt0jc/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4388
+X-MS-Exchange-CrossTenant-UserPrincipalName: gh7Sn/MIdlEtESZ5j5XiL8DlqdtgeS3o8FH8agIcYisvHbFvEsUan+R3gJR02daP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,7 +122,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Jake Wang <haonan.wang2@amd.com>, Sunpeng.Li@amd.com,
+Cc: Felipe <Felipe.Clark@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
@@ -130,57 +130,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jake Wang <haonan.wang2@amd.com>
+From: Felipe <Felipe.Clark@amd.com>
 
 [Why]
-For certain timings, Renoir may underflow due to sr exit
-latency being too slow.
+The OGAM LUT precision was accumulating too much error
+in the higher end.
 
 [How]
-Updated wm table for renoir.
+Instead of calculating all points of the LUT in relation
+to the previous ones, perform a full calculation in one
+of the intermediate segments to stop error propagation.
 
-Signed-off-by: Jake Wang <haonan.wang2@amd.com>
-Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Signed-off-by: Felipe Clark <Felipe.Clark@amd.com>
+Reviewed-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c    | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../amd/display/modules/color/color_gamma.c   | 22 ++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index 6f4fe8fce6b7..d00b02553d62 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -746,24 +746,24 @@ static struct wm_table ddr4_wm_table_rn = {
- 			.wm_inst = WM_B,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
-+			.sr_exit_time_us = 11.12,
-+			.sr_enter_plus_exit_time_us = 12.48,
- 			.valid = true,
- 		},
- 		{
- 			.wm_inst = WM_C,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
-+			.sr_exit_time_us = 11.12,
-+			.sr_enter_plus_exit_time_us = 12.48,
- 			.valid = true,
- 		},
- 		{
- 			.wm_inst = WM_D,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 10.12,
--			.sr_enter_plus_exit_time_us = 11.48,
-+			.sr_exit_time_us = 11.12,
-+			.sr_enter_plus_exit_time_us = 12.48,
- 			.valid = true,
- 		},
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index eced40a2fce4..5c67e12b2e55 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -30,6 +30,14 @@
+ #include "opp.h"
+ #include "color_gamma.h"
+ 
++/* When calculating LUT values the first region and at least one subsequent
++ * region are calculated with full precision. These defines are a demarcation
++ * of where the second region starts and ends.
++ * These are hardcoded values to avoid recalculating them in loops.
++ */
++#define PRECISE_LUT_REGION_START 224
++#define PRECISE_LUT_REGION_END 239
++
+ static struct hw_x_point coordinates_x[MAX_HW_POINTS + 2];
+ 
+ // these are helpers for calculations to reduce stack usage
+@@ -346,7 +354,13 @@ static struct fixed31_32 translate_from_linear_space(
+ 					dc_fixpt_recip(args->gamma));
+ 		}
+ 		scratch_1 = dc_fixpt_add(one, args->a3);
+-		if (cal_buffer->buffer_index < 16)
++		/* In the first region (first 16 points) and in the
++		 * region delimited by START/END we calculate with
++		 * full precision to avoid error accumulation. 
++		 */
++		if ((cal_buffer->buffer_index >= PRECISE_LUT_REGION_START &&
++			cal_buffer->buffer_index <= PRECISE_LUT_REGION_END) ||
++			(cal_buffer->buffer_index < 16))
+ 			scratch_2 = dc_fixpt_pow(args->arg,
+ 					dc_fixpt_recip(args->gamma));
+ 		else
+@@ -397,9 +411,7 @@ static struct fixed31_32 translate_from_linear_space_long(
+ 					dc_fixpt_recip(args->gamma))),
+ 					args->a2);
+ 	else
+-		return dc_fixpt_mul(
+-			args->arg,
+-			args->a1);
++		return dc_fixpt_mul(args->arg, args->a1);
+ }
+ 
+ static struct fixed31_32 calculate_gamma22(struct fixed31_32 arg, bool use_eetf, struct calculate_buffer *cal_buffer)
+@@ -717,7 +729,6 @@ static struct fixed31_32 calculate_mapped_value(
+ 		BREAK_TO_DEBUGGER();
+ 		result = dc_fixpt_zero;
+ 	} else {
+-		BREAK_TO_DEBUGGER();
+ 		result = dc_fixpt_one;
  	}
+ 
+@@ -976,6 +987,7 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
+ 		cal_buffer->buffer_index = 0; // see var definition for more info
+ 	rgb += 32; // first 32 points have problems with fixed point, too small
+ 	coord_x += 32;
++
+ 	for (i = 32; i <= hw_points_num; i++) {
+ 		if (!is_clipped) {
+ 			if (use_eetf) {
 -- 
 2.17.1
 
