@@ -2,65 +2,71 @@ Return-Path: <SRS0=uNpP=FM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ABF2C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E67D6C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 104C123B09
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:23:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 104C123B09
+	by mail.kernel.org (Postfix) with ESMTPS id A111123B17
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:31:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A111123B17
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4942F6E953;
-	Tue,  8 Dec 2020 17:23:38 +0000 (UTC)
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1707A6E039;
- Tue,  8 Dec 2020 17:23:37 +0000 (UTC)
-Received: by mail-ot1-x342.google.com with SMTP id o11so13813208ote.4;
- Tue, 08 Dec 2020 09:23:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FD689F06;
+	Tue,  8 Dec 2020 17:31:04 +0000 (UTC)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E287E89F06
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 17:31:02 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id c7so18394862edv.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Dec 2020 09:31:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=l2ADj3/jrabhbbEx6nT75KCnigxoRQzQI6UplPH6ZHc=;
- b=ZvgJ0V+vnzXl+hSZ6EXCim4VgweEzRBJdVpc4TIdMmQXTMjOZCjcLRX1Zuy0rPyt6x
- 5bO9pI5WMBt4HM6w5rdf9JXpviqmnxIFAVdXn1JjPo8DVamTRhAgLxaK1Mw6475wbPSi
- vXzD4n45eumzObsFc5xkHewR2pysEMoM09yeFkZL4D2PR+bMORpHUhTQP/1oT/8Kwi2k
- AfYm/WgqnDWjHnhJMr8tEdPTwT4YxF6GiZvkZYd2tnfVICUhIRR5/eEA7r+/zLeQgFmM
- cQF/BiS4rkoKCzB3sZ9RUG3GA9MwXCy3LR6iOgD9S7P9FVhQMPx874OByKyCZ0jbINJm
- 2tTw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2/R/A3AChvU79VrNfh6D20cK+taKq5aSAi8aRBeMemQ=;
+ b=LNtcP+plJnD5gJ1EdFZS9hU2KPbxZV8Q4MFqPxiGkGRS+9T/3LeVbvImx7tDgAUWVm
+ IIqTD/Gt29126n2H9U39SppSFqlT3zcCjhAbCaCgV89TzBPzcFGCb6uP75eBLmsStwCf
+ qc8UPvlBOS3sqWvK/5vcir5m3dqSFthLkS2pv6JrpU2n2AgrNZCYE2MAiJBgkIQnq8uH
+ nkz43lJW4etSBs+cruJnAzrGLNhOdpWKfUMCIl7wkXiSftCcge7/kowUK5Kb30o4vuLS
+ 1fzAr60bIc5n2AdjdPTG2jG6ecbadYvWTQQk8Y00sqsolVN2okKuOEdL0cAsNnup47Bt
+ 4h7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=l2ADj3/jrabhbbEx6nT75KCnigxoRQzQI6UplPH6ZHc=;
- b=pOBhShYSOT02Eg44QH8iMgmjzUKsvMBAKXaNlj7X3SCcQt87n5JmPrnue3HTlNXUFz
- 4gAzn2Y7zEZKLnu7OOVC+TSlDcrUtOAqzugaTU0Nh4LvgKJKy5poEY7xgggMClWM7FJz
- ty6kokQrGnCqW6GuslUv8jOd+8qxd0Zi/KVb46yFo3xnolX4+bt170eNgfMa0+j443Ac
- ulUDDLEmtIHSEwTCEg0FNLmvGvA1fNu5ojuHd87pks5w8lZ3W7Uzyulw+XnrHLYf6r+f
- S0qBxlQ+881S21UDbcKhl2CHa2cB7VPF9XJE04NLuKtELfEG5fY0ZgTRUHTVzaqDMirX
- yd5A==
-X-Gm-Message-State: AOAM531Gh0KXozFp2N2XsyS3ignRKEe7l3w3wxcbvCC5Nal6vW50Jl2W
- kESoADsdAsFSKVctEyvukl+oXdjeymEqLQ9+74M=
-X-Google-Smtp-Source: ABdhPJx63rSabnH9/4eOtc/Q+07B0r3lO046UaFQeUstE8U/JKsxFV73b+bjzaBmVNKXFEv3/qK73caTuHFXnRlfU9Q=
-X-Received: by 2002:a9d:5388:: with SMTP id w8mr17551664otg.311.1607448216328; 
- Tue, 08 Dec 2020 09:23:36 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2/R/A3AChvU79VrNfh6D20cK+taKq5aSAi8aRBeMemQ=;
+ b=uCD3N+oyt4/tTN9mc5IAQD8IEHRnBsMcUFb0f/Yu2QunsboYwX3RSXYp57BOIJyuse
+ JxMgmKNVFqj1ZFpSqyg6PiqPvNgMMJ2H3RfQ6hnYLGkEjEC32TFYEjYHDr1f/M999QYL
+ nLpcr3NgHFj5TFo7siOHR0hbJ/f73pPufAdL6GhmbofBjhXx7i7deFGp2TPCobZ5BG3x
+ +zk2/25OLlM0ZC2IO5e16X21FoJXJKIt6gzItTjED0Z2LOEsJ9CNI1162mI+TumD5wh9
+ Du+rzXJnGMzPq7morFAVy03EG4vhRhKhlJlvTldQagEZgXFqVJs5hb7xmvUPk7GjuF08
+ PskQ==
+X-Gm-Message-State: AOAM5313XmYmdTqv9JFlyvb+QzyJHm0Hvrke2ocl1cJypSFpVn68FRjH
+ VSMAWtWAtyXZ+km5uGUycL6xbP9I6N8=
+X-Google-Smtp-Source: ABdhPJx9BgpHdKUDJoZtwwANTwNjySM6Uwza6XqbpZnVMv97Xm/hHeTxmCfvR6gSlWH0gpdXICD4lQ==
+X-Received: by 2002:a05:6402:3074:: with SMTP id
+ bs20mr25705114edb.365.1607448661322; 
+ Tue, 08 Dec 2020 09:31:01 -0800 (PST)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:2901:b870:7284:302d])
+ by smtp.gmail.com with ESMTPSA id ck27sm16494868edb.13.2020.12.08.09.31.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Dec 2020 09:31:00 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: limit the amdgpu_vm_update_ptes trace point
+Date: Tue,  8 Dec 2020 18:30:59 +0100
+Message-Id: <20201208173059.11076-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1607447432-28982-1-git-send-email-andrey.grodzovsky@amd.com>
-In-Reply-To: <1607447432-28982-1-git-send-email-andrey.grodzovsky@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Dec 2020 12:23:25 -0500
-Message-ID: <CADnq5_PTs=KYm607xfi9-VefD6Teb2AZCHHeEDaAYJC0h9eRyw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Initialise drm_gem_object_funcs for imported
- BOs
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,175 +78,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: shashank.sharma@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 8, 2020 at 12:10 PM Andrey Grodzovsky
-<andrey.grodzovsky@amd.com> wrote:
->
-> For BOs imported from outside of amdgpu, setting of amdgpu_gem_object_funcs
-> was missing in amdgpu_dma_buf_create_obj. Fix by refactoring BO creation
-> and amdgpu_gem_object_funcs setting into single function called
-> from both code paths.
->
-> This fixes null ptr regression casued by commit
-> d693def drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
->
-
-Fixes: d693def4fd1c ("drm: Remove obsolete GEM and PRIME callbacks
-from struct drm_driver")
-
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 13 ++++++-------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 22 +++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h     |  5 +++++
->  3 files changed, 28 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index e5919ef..da4d0ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -405,6 +405,7 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
->         return buf;
->  }
->
-> +
-
-Unrelated whitespace change.
-
->  /**
->   * amdgpu_dma_buf_create_obj - create BO for DMA-buf import
->   *
-> @@ -424,7 +425,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
->         struct amdgpu_device *adev = drm_to_adev(dev);
->         struct amdgpu_bo *bo;
->         struct amdgpu_bo_param bp;
-> -       int ret;
-> +       struct drm_gem_object *obj;
->
->         memset(&bp, 0, sizeof(bp));
->         bp.size = dma_buf->size;
-> @@ -434,21 +435,19 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
->         bp.type = ttm_bo_type_sg;
->         bp.resv = resv;
->         dma_resv_lock(resv, NULL);
-> -       ret = amdgpu_bo_create(adev, &bp, &bo);
-> -       if (ret)
-> +       obj = amdgpu_gem_object_create_raw(adev, &bp);
-> +       if (IS_ERR(obj))
->                 goto error;
->
-> +       bo = gem_to_amdgpu_bo(obj);
->         bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
->         bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
->         if (dma_buf->ops != &amdgpu_dmabuf_ops)
->                 bo->prime_shared_count = 1;
->
-> -       dma_resv_unlock(resv);
-> -       return &bo->tbo.base;
-> -
->  error:
->         dma_resv_unlock(resv);
-> -       return ERR_PTR(ret);
-> +       return obj;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index c9f94fb..5f22ce6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -52,13 +52,26 @@ static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
->         }
->  }
->
-> +struct drm_gem_object *amdgpu_gem_object_create_raw(struct amdgpu_device *adev,
-> +                                                   struct amdgpu_bo_param *bp)
-
-Maybe call this amdgpu_gem_object_do_create() for consistency with
-amdgpu_object.c and other areas of the code.
-
-> +{
-> +       struct amdgpu_bo *bo;
-> +       int r;
-> +
-> +       r = amdgpu_bo_create(adev, bp, &bo);
-> +       if (r)
-> +               return ERR_PTR(r);
-> +
-> +       bo->tbo.base.funcs = &amdgpu_gem_object_funcs;
-> +       return &bo->tbo.base;
-> +}
-> +
->  int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->                              int alignment, u32 initial_domain,
->                              u64 flags, enum ttm_bo_type type,
->                              struct dma_resv *resv,
->                              struct drm_gem_object **obj)
->  {
-> -       struct amdgpu_bo *bo;
->         struct amdgpu_bo_param bp;
->         int r;
->
-> @@ -73,8 +86,9 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->  retry:
->         bp.flags = flags;
->         bp.domain = initial_domain;
-> -       r = amdgpu_bo_create(adev, &bp, &bo);
-> -       if (r) {
-> +       *obj = amdgpu_gem_object_create_raw(adev, &bp);
-> +       if (IS_ERR(*obj)) {
-> +               r = PTR_ERR(*obj);
->                 if (r != -ERESTARTSYS) {
->                         if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
->                                 flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> @@ -90,8 +104,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->                 }
->                 return r;
->         }
-> -       *obj = &bo->tbo.base;
-> -       (*obj)->funcs = &amdgpu_gem_object_funcs;
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> index 637bf51..a6b90d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> @@ -38,12 +38,17 @@ unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
->  /*
->   * GEM objects.
->   */
-> +
-> +struct amdgpu_bo_param;
-> +
->  void amdgpu_gem_force_release(struct amdgpu_device *adev);
->  int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->                              int alignment, u32 initial_domain,
->                              u64 flags, enum ttm_bo_type type,
->                              struct dma_resv *resv,
->                              struct drm_gem_object **obj);
-> +struct drm_gem_object *amdgpu_gem_object_create_raw(struct amdgpu_device *adev,
-> +                                                   struct amdgpu_bo_param *bp);
->
->  int amdgpu_mode_dumb_create(struct drm_file *file_priv,
->                             struct drm_device *dev,
-> --
-> 2.7.4
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhlIHRleHQgb3V0cHV0IHNob3VsZCBub3QgYmUgbW9yZSB0aGFuIGEgcGFnZSwgc28gb25seSBw
+cmludCB0aGUgZmlyc3QKMzIgcGFnZSB0YWJsZSBlbnRyaWVzLgoKSWYgd2UgbmVlZCBhbGwgb2Yg
+dGhlbSB3ZSBjYW4gc3RpbGwgbG9vayBpbnRvIHRoZSBiaW5hcnkgdHJhY2UuCgpTaWduZWQtb2Zm
+LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCA1ICsrKy0tCiAxIGZpbGUg
+Y2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKaW5kZXggZWU5NDgwZDE0Y2JjLi4xMWIxYjExMjJj
+MzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5o
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCkBAIC0zNTgs
+MTAgKzM1OCwxMSBAQCBUUkFDRV9FVkVOVChhbWRncHVfdm1fdXBkYXRlX3B0ZXMsCiAJCQl9CiAJ
+KSwKIAlUUF9wcmludGsoInBpZDoldSB2bV9jdHg6MHglbGx4IHN0YXJ0OjB4JTAxMGxseCBlbmQ6
+MHglMDEwbGx4LCIKLQkJICAiIGZsYWdzOjB4JWxseCwgaW5jcjolbGx1LCBkc3Q6XG4lcyIsIF9f
+ZW50cnktPnBpZCwKKwkJICAiIGZsYWdzOjB4JWxseCwgaW5jcjolbGx1LCBkc3Q6XG4lcyVzIiwg
+X19lbnRyeS0+cGlkLAogCQkgIF9fZW50cnktPnZtX2N0eCwgX19lbnRyeS0+c3RhcnQsIF9fZW50
+cnktPmVuZCwKIAkJICBfX2VudHJ5LT5mbGFncywgX19lbnRyeS0+aW5jciwgIF9fcHJpbnRfYXJy
+YXkoCi0JCSAgX19nZXRfZHluYW1pY19hcnJheShkc3QpLCBfX2VudHJ5LT5ucHRlcywgOCkpCisJ
+CSAgX19nZXRfZHluYW1pY19hcnJheShkc3QpLCBtaW4oX19lbnRyeS0+bnB0ZXMsIDMydSksIDgp
+LAorCQkgIF9fZW50cnktPm5wdGVzID4gMzIgPyAiLi4uIiA6ICIiKQogKTsKIAogVFJBQ0VfRVZF
+TlQoYW1kZ3B1X3ZtX3NldF9wdGVzLAotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
