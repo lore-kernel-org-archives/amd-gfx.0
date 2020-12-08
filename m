@@ -2,43 +2,43 @@ Return-Path: <SRS0=uNpP=FM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEEFC4361B
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C780C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98DD923B86
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98DD923B86
+	by mail.kernel.org (Postfix) with ESMTPS id 1D53A23B86
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D53A23B86
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B6B26E055;
-	Tue,  8 Dec 2020 19:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16F2C6E05D;
+	Tue,  8 Dec 2020 19:28:59 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
  (mail-eopbgr760058.outbound.protection.outlook.com [40.107.76.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE1D6E055
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8091F6E05D
  for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:28:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lEgKCLxPCRImXFIovymSCS5u2wFcTuF56ojGLUKlS5q4wBgTa+o/18geWT5gtk/WujbcVFauLISr6Ec7NnBpE5VBXHuY56d0tYkS53FjpGiF2QsPJZHVC/IxFu1oYMO7wVYO98KRWamvcBR8DgUfPdk4HrLj8hhEEupQq1CofM+bQY7VV1Onx0AofurW5caht4F4Q+zJwfPZJGYeK89xOVFtUsTP7EfPCNp1OJjzpfITuF1UyLSMt8985N6W6HI5Ldxe9vvkChAU8gQzvePciGga/FDnkJv2z/+RB3yypKEbH8h2DY3baTPV9OZFubj6F7C5tZg920ua3uZv/X0a7Q==
+ b=Aoo/UmKfmQTHo2Lue5eibkk0ZMHt78jldQ2Yi5WJwHpcnF9itjUEzeWT9ccDKJDBPsquuD7zrTSa+5zm9pELeLblXgqdYGIr85JTzdEk7+nZfvPV4BgHdaiKVQ3GQtO4tQ9MHjg0qRLeFR9OTsKFot2Q/ZUMGfYB05djZfW+Ma67ubikpUszB/5FG2ulVl2OUH52MK9Vl9cVfWHW2P5AeSCfoIRvYigVCqF89peSxe2jaoGl4wbpp1G5GN5CV6QKa13FHR+k+dzZlOuSNhuxDmwsQd3XzQrvMDU4WSTt1zgSozuRUaqv6asxRtS9PXxH1oqjsYHwp9vTYYkbeak2xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lchrbmgUFCIfJf8HGP0uU9YKMj5TmnUco9rg1d77Uzo=;
- b=GCLSbHSb00Sw0uZVAGmU4MY+OVi+w/BKQA50pUdRG8OF1+8g1heH9pO/IIWIXnfZxrGyLGl5u5jCA/fd4QVBtGaGKnx1F2gydDEJXYLSMErxW9fZdxAiT62EVl59h8hXVOyZ07dHrEaUg4sg1XC7velpB4p7+1pY/kkxZDVTSNANwk1Zu39q58weELzUS0Y2pE767N886yligxR/7q18Eg/3LyBEWi+xslxRsE1Jno3HZTXz2EiOtAgLc7ZiJ+paqdqIiUXTTzQd1vPHOGuFaAhhdh4fo2tn0ZTlORcBeYMaLzMz9e40+0AbcpVllqn1yccvvu8ZVOUbJSXwNRfYMA==
+ bh=WAlyVYVosAMt/9jTzsDf1ae0kMalQEdZC9ckm+3CE88=;
+ b=XHXeb1Evn/lxmVQ/i7etSnCUT5+sU2PXbgVWoCXBf1zWg+HamzP4J3taOKi33kU0Dk9FS1qG1DIU4UwE+KEb1MDCQowSYOmDLvWqRVDjSe1ODMqajcZ0MdXVrhEnvSTQwP9y4/hbroyWw3rEtrETONsqKAyqsUwvOPVE+g1Oik0mnIsJUz///WTnxJOX1PfpXuWf4LfNcDe7sVJ5fkXvS4c4dTtEmluQvQIug5RcvHfiRvKi/Mm3+FbSe2Z9moNztVQUh/C2vlWpcQauoWcKVyLNn8UxKhyhuUI11SSvPwK7eGnSeCl0bowgFdLcsIxP4oepzk16HnXE0Vj0rxoaRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lchrbmgUFCIfJf8HGP0uU9YKMj5TmnUco9rg1d77Uzo=;
- b=ySuM+/cfcV9Ran761snaNNORp3gffUlEaHzuzpLdfMAGtZztYra3zcc+e3Nk2IftP4QEb5nTFCzCgfDHhoRKYTGOX46+aK4igX98vp6/fjDRXzApJuZvf/1S64PsK0R9xpJRNFQUVUNDmn0eVZxSu/SILQUXM6IL4wWwLvpTgvU=
+ bh=WAlyVYVosAMt/9jTzsDf1ae0kMalQEdZC9ckm+3CE88=;
+ b=WYjri0ox8a1TpbFoGVEdRLPn4uncKorSTy9LFLdVmyiCWkNKYZPX9RIrGIuo+A9QfXj2JBWNskR4i9CzVno8NvwKdEyqzxBPckTpO5JpjcSNDPb2b+EZLM9j4SP+vo5BaukuUkm7u0/xzFqY3vCisGWXq3I9dkquBd/CnyECF04=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -50,13 +50,16 @@ Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853]) by DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853%6]) with mapi id 15.20.3632.023; Tue, 8 Dec 2020
- 19:28:55 +0000
+ 19:28:56 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 00/13] DC Patches December 14th, 2020
-Date: Tue,  8 Dec 2020 14:28:31 -0500
-Message-Id: <20201208192844.23580-1-qingqing.zhuo@amd.com>
+Subject: [PATCH 01/13] drm/amd/display: Change pstate expected timeout warning
+ to 180us on linux
+Date: Tue,  8 Dec 2020 14:28:32 -0500
+Message-Id: <20201208192844.23580-2-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201208192844.23580-1-qingqing.zhuo@amd.com>
+References: <20201208192844.23580-1-qingqing.zhuo@amd.com>
 X-Originating-IP: [165.204.55.250]
 X-ClientProxiedBy: YT1PR01CA0123.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b01:2c::32) To DM6PR12MB2939.namprd12.prod.outlook.com
@@ -69,45 +72,45 @@ Received: from localhost.localdomain (165.204.55.250) by
  15.20.3654.12 via Frontend Transport; Tue, 8 Dec 2020 19:28:55 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f35f380c-c8f4-4b6d-d8a0-08d89baf8111
+X-MS-Office365-Filtering-Correlation-Id: 74e96da4-da7e-45c4-3ec1-08d89baf8167
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4388:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB43887A86999DE824FA46C7ADFBCD0@DM6PR12MB4388.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4388C7298586067C2272F739FBCD0@DM6PR12MB4388.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7c5AMKiMQwAertcw9M+HFL4woixKMn/Z7E0tnEwpDsCn0Q6AdVDeMKQmiU4DcWq18ckwIQXeFCRcq+UZr9oJoAlWiRFrxFhiO2LYa9XKu3GqVISd82vT4BuYhnajRmBgNvY7TmPmJDmtv3qg6yLWHTZ9SmMKGORvBn0sQ6nLkohl8zyFrWFdtqmJxJZnLn4GjI6hEMTAr0l7MDX8pUsS3ex2Gol4TpC27YRQ6+AXW8Yaa/Aw+/8wbh8yY8yk7sGCRWG+/HfhPRs8Xs4ll0Rns7lSbp2QFglmCWYnOl2EgnBV8mMvS73gttGc9GToiHH7YZhUNx1EQwY4QXgc/+YjKp7F0yz8uGZZNCtbbUr6KAHmJAVs3zLdwSgFYGa9dzZuP64d0fdgWX7b8q3kdJ53AS4nKXoyG2biXO5xIItUpgc=
+X-Microsoft-Antispam-Message-Info: jXD7kQnUiZXbDUoAPf+ux+BtZDED7i5bQwIkcG4vli77gwESLsV4v4RKweYmH3Oytx4hc8GIJijkvbKRaSLNApNhj0BcmuOj0HqicMUw0bdf4SW439Eu9JAPdKlPE7CizfCHuH8nc78f9h1MJsdqOkPybxDHyXpVKP/7y/Zdwm3A3dWzD9pCJ/KkixY5116s20IDx2iWgAI9MHI3EVb8bl5ioi+moJK49mm5VjOBfR1K6mQ7oXNaejuRlUqnggVp06hZHyRpC97jIAIQJgccjH4pnMlixS1iuIXFhirZQWyfSA+HnBEwdCf1S8RKcw0KnIsOZVmDqh9p3GMmGcIV5AfBo17oBlTBzKNJwdUvgoo8lpeWOVMg/fMTuQ5vss2bGdSlEgJ/QsdP+pC8KmUifB8Tr7cKnAgGNz/frWiXns8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(366004)(136003)(376002)(6666004)(86362001)(83380400001)(34490700003)(6916009)(44832011)(8936002)(956004)(2616005)(186003)(6506007)(36756003)(52116002)(66556008)(26005)(6486002)(5660300002)(16526019)(66946007)(4326008)(2906002)(66476007)(8676002)(1076003)(6512007)(508600001)(69590400008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?6HJwC3lQhKeJza7TCOAK0fl3NrqZrqYETBNboPHWTmmbK/cM2Lq3qc+Mxd3W?=
- =?us-ascii?Q?c+qT3h18Lf0ErLI8M+WzGkYRBUteKTaidcZg+vcNg9l8gIxn57IuqWvdEYct?=
- =?us-ascii?Q?8BXzBYy1TphzfsP3vr/kwGAz5Os4JMwEnp/P6gt5vn7OKBBYtJlmo1sNwINU?=
- =?us-ascii?Q?IlHztK1niDN77hbcKpgQQISvyBfMrI4IAYuy/a+HGSXLTpix6tMorF4dXmwX?=
- =?us-ascii?Q?4BGtD5wfu29hs3igXnSffcFZv9dZpbj/Hf3nFCfnGy4V7Rfo9EoAILQY7eTl?=
- =?us-ascii?Q?s2dk7PvUmbGBIKoOpIZ9JPGw7hctm/f1HA8oJ65NFMdi55qbuoE35HNFFP0e?=
- =?us-ascii?Q?jvQyLz4e5TTeBFbGGgJphovkhLl57zjVlWdsKtp/oCRe5v6avjlHEX4hk2XE?=
- =?us-ascii?Q?j1IZSkR9aDU3AZImb6TPho5ElwqbwehpGCOJ5YVHLhqjqgrFt0TDEnVSuQx1?=
- =?us-ascii?Q?VmAk7Sm8onRskUDU4aEb9JjoMYZCAcSHBFW//LF3RMFlBjEZlh6PrHfGWsys?=
- =?us-ascii?Q?5EQW6agMhOeGaXhUtmZqGiT2IHNn/IX75KSjAK/bjCY4B8l7FowlmP1vylPf?=
- =?us-ascii?Q?9dGhbb0gIQmBpxzA2xHh0/MyiDEeEZZw3ggV4aXHwHGhFk0vpv4aVpFEEuTR?=
- =?us-ascii?Q?yqsjzhnbmw12+2fy3FF3xSsCdLpRxeSFvNKh8AzxrRBXVaraXZ5UN7k4tGrc?=
- =?us-ascii?Q?J4FNxXXjyNyWGCtUESeFPo4gsNrWhygEWK3CqIkIV0bT90KkSbriWvVNneB2?=
- =?us-ascii?Q?X4SwQppzu6mvnaZgEpUl5BQbW+bHVtHe/rrBrgr5O7NduGuRAkxAQi/7pBJd?=
- =?us-ascii?Q?OrJp0na7fJWar7UdpGbCmHGkDzC+phD7o1vV4Jqle8/aWvzh8LmJXzfRozh3?=
- =?us-ascii?Q?UJNB0/vj8Do78qlGU3p+eZIQuuQXGr+DtsFfnqbyacAU1UWQLpOdcUS/UWrb?=
- =?us-ascii?Q?AoPYOaKVzLNQnF2towUZD88w75YJN5bVuxbDQVzih99H2n2aTduLyKFJvah4?=
- =?us-ascii?Q?sWwR?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?OVBJ4UFjHQO5mVfUrw2SKGzFt+jd6BoTTvW1zxesbaqjggBKY6RMFfn0bviA?=
+ =?us-ascii?Q?d96s99vsEjcT6wt7NnyRjx6/TIW0PoMjXRjIa/73Ved+mXY6dkfZAkn+y8l2?=
+ =?us-ascii?Q?hZNyWin4JMqz7faOyUxzTWb5MZ0t7YXUsZ+/A19SQGCmbnzR4JMS/mPO6D4Q?=
+ =?us-ascii?Q?PwnFMa3mE9mY60vxVMULSFwcXvEvKppvbPs86r5XDZtF9s6+3Q3//3/wtjFs?=
+ =?us-ascii?Q?Y/yUyZPc58gPcXb34WOKqzRHKDDDbzwKiP76lnssJhNqKlp4QOm1cSh2TX5x?=
+ =?us-ascii?Q?+QtG+XeyxHebMOXyPDaLZgji+UYwFhsY/DTgACGf//g7u068XDT90NpagYhc?=
+ =?us-ascii?Q?4tgvFKayoCW041BYR9aWWQWbkz/VPbafWXSdAwU9hJUtJvfeKIA8aG92GhXN?=
+ =?us-ascii?Q?+ym/EVnmLtboABTC+YxJzwOyhuMxI6UCayLO+JZ0n6VXJ+P4OqhSy4HMYAhD?=
+ =?us-ascii?Q?6F9BYRFcWrDi98WIWwMwjNtIu28H/fQ+3WY9CUGeaGOKNnYVyIKoeVuRhN7r?=
+ =?us-ascii?Q?XfHZhePv+jGVTpW9t2B9UTeX+PDKPoz0NC2zg+e0frgKWiZuL3SRTwt77zWR?=
+ =?us-ascii?Q?69X/GtOGucTYgvpso0X3FwP+h2RfkyZbDmb0l0fdzVCLy48+qDOA90MezhyX?=
+ =?us-ascii?Q?ZvaO+0aMA5TetQQhedO2JRaxGJ5Spr9kCoDiDiroNH3xyK/Fuszin0wZlAmP?=
+ =?us-ascii?Q?Ekuf8IPGx3ut1aLzZ0L0a2XPizLG8V3bJRYrnCS/Ayhxnc0Ljf+zFcJ1AAmY?=
+ =?us-ascii?Q?vaeXcvF3Ac21AncoiO/jzpHaKOKypt63Hmlob2psJOlzcJhvWQIJ+1owxKpL?=
+ =?us-ascii?Q?GRVjCJ7fkbcuqcJhUQKHtPjhkaLmA9fISgnuzP/N1lKI7zcUeGDENjNo1zvx?=
+ =?us-ascii?Q?vt2DQOQhzroF706w11ZTBQPJVS3miyFdOrqcHwBxM2ah4OD0kc4aSGKke55J?=
+ =?us-ascii?Q?7xMJX+y+w9sw2w6yQVtJt+LCHEIoQm4gNDtSYMaGJvD9ZL2il7GIoCS92mc/?=
+ =?us-ascii?Q?msfa?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:28:55.7998 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:28:56.4644 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: f35f380c-c8f4-4b6d-d8a0-08d89baf8111
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74e96da4-da7e-45c4-3ec1-08d89baf8167
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VJqgTmG+E+c3KqAVWd7wIFFsCJqBcSacTRtO3+Jyu/M16Ps4OjfcGG4szDvV/+ag
+X-MS-Exchange-CrossTenant-UserPrincipalName: w0PfPaBYfWPYhi3sX8Yqm+CgQspv40fgEYL8bIOY7MwHi2VK4q6h/9n0JeN6NN6K
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4388
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,80 +124,50 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Victor Lu <victorchengchi.lu@amd.com>, Bhawanpreet.Lakha@amd.com,
  bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas.
-In summary, we highlight:
+From: Victor Lu <victorchengchi.lu@amd.com>
 
-* DC 3.2.116
-* Firmware release 0.0.46
-* Bug fixes on VR light up issues, missing register definitions, etc.
-* Improvements on OGAM LUT calculation, FP2 timing and more
+[Why]
+There is a warning that triggers when pstate takes too long.
+Pstate can take up to ~200us on Linux without hanging but
+it is currently set to 40us.
 
+[How]
+Change the timeout for the warning to be 180us on Linux.
+
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Reviewed-by: Roman Li <Roman.Li@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.46
-
-Aric Cyr (4):
-  drm/amd/display: HP Reverb G2 VR fails to light up
-  drm/amd/display: Only update FP2 for full updates
-  drm/amd/display: Fix cleanup typo in MPCC visual confirm
-  drm/amd/display: 3.2.116
-
-Eric Bernstein (1):
-  drm/amd/display: add dcn30_link_encoder_validate_output_with_stream to
-    header
-
-Felipe (1):
-  drm/amd/display: Fix OGAM LUT calculation precision
-
-Jake Wang (1):
-  drm/amd/display: updated wm table for Renoir
-
-Leo (Hanghong) Ma (1):
-  drm/amd/display: Add DP info frame update for dcn30
-
-Martin Leung (1):
-  drm/amd/display: delay fp2 programming until vactive before lock
-
-Max Tseng (1):
-  drm/amd/display: Add missing DP_SEC register definitions and masks
-
-Victor Lu (1):
-  drm/amd/display: Change pstate expected timeout warning to 180us on
-    linux
-
-Wayne Lin (1):
-  drm/amd/display: Fix to be able to stop crc calculation
-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 13 +++-
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 12 ++--
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 20 ++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
- .../drm/amd/display/dc/dce/dce_link_encoder.c |  2 +-
- .../dc/dce120/dce120_timing_generator.c       |  2 +-
- .../drm/amd/display/dc/dcn10/dcn10_hubbub.c   |  6 +-
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  2 +-
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 +++--
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |  2 +-
- .../display/dc/dcn10/dcn10_stream_encoder.h   |  6 ++
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 29 +++------
- .../display/dc/dcn20/dcn20_stream_encoder.h   |  2 +
- .../display/dc/dcn30/dcn30_dio_link_encoder.c |  2 +-
- .../display/dc/dcn30/dcn30_dio_link_encoder.h |  4 ++
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  2 +-
- .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.c |  2 +-
- .../amd/display/dc/inc/hw/timing_generator.h  |  2 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 62 +++++++++++--------
- .../amd/display/modules/color/color_gamma.c   | 22 +++++--
- 20 files changed, 134 insertions(+), 75 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+index 75637c291e75..6f42d10dd772 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+@@ -124,11 +124,11 @@ bool hubbub1_verify_allow_pstate_change_high(
+ 	 * still not asserted, we are probably stuck and going to hang
+ 	 *
+ 	 * TODO: Figure out why it takes ~100us on linux
+-	 * pstate takes around ~100us on linux. Unknown currently as to
+-	 * why it takes that long on linux
++	 * pstate takes around ~100us (up to 200us) on linux. Unknown currently
++	 * as to why it takes that long on linux
+ 	 */
+ 	const unsigned int pstate_wait_timeout_us = 200;
+-	const unsigned int pstate_wait_expected_timeout_us = 40;
++	const unsigned int pstate_wait_expected_timeout_us = 180;
+ 	static unsigned int max_sampled_pstate_wait_us; /* data collection */
+ 	static bool forced_pstate_allow; /* help with revert wa */
+ 
 -- 
 2.17.1
 
