@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47EBCC19437
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE9BC4167B
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1475023B86
+	by mail.kernel.org (Postfix) with ESMTPS id 8795C23B86
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 19:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1475023B86
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8795C23B86
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4362E6E9C4;
-	Tue,  8 Dec 2020 19:29:08 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B50AB6E9C4
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:29:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2956E9C1;
+	Tue,  8 Dec 2020 19:29:09 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD0186E9C1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 19:29:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FGBxs8N5OFU6AqpiMQFGaF6aNxanpkhtVl9Yq0dnQw77Kimi5ifXD47K1gJ8uAXhINYxEL6+xM2lWzdntL6dHcF0mTUYi0YVl5rl30jhPfPyrQD8EKHbUXOMWVW5lmshLROH5Zcgso1Qo6LuwOt9PDp7kxzV4SHMzS4Ylm0ZYLr86+fplIKcQrqLWtXxKhPOiDk5V+krMYucMHH+y8pBY5Uk5yVMzdUepS2k1fbsNmi3uA/CM6FR2qtko1q702NrpTUoI0LYmZMOXozNMdAejQcaks9joNFhBUZafWMZX38z6I66N4iqoikrahOyQY5pq7lFrqIC7YEqiYvvSvJ8ZQ==
+ b=Pb464AEuXVAEIIYtOuc1VhN/C3fEXQG1GrRsFrKuiqeXOm/bYDslmrRvoAUeYRPLuDE8cP6u/GYDIcc5pFFS6+rVSduLC2NaNY+tbymkC6E0AhKwtEFZgigRjnNhkriAwoYbFzETevcYyzeQs6DiuIDtVveLIznYcv7Lbix7RpuGVI0VRUcGPzQqn9MVbyCJiAHBKfli/TQH+8f1Hx8FjXXEQg61zJX1neGC8BSohwbWKSrvZ4ZobZMODmdK7d5P/QmpTr35VBAoo8GrcH7mpL/QqcgRLgw6M4eImyxfA8SOrsD2jL7YuOyNdiFXG1VA+uFfOpPEBp4VLSbX0feq1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jGhgSEBLuGNRc2MaNck+nTgsZNN8K6VNEA3kQihZvdo=;
- b=lLUj2KAhZNUEHuejpDkhviu4QtpCpxrtPshy98nv5SPdUEBAtHyDpMoMJa3xdzUSfxe0LslsPQok14Zc7jUfrrc4VgJi4zcbtSH5uOeWA5pr6YvpQlXK/8YsOgVq7kBrbn9uqKePCv4Zp1W6g88PTFFXIMR++AlW4mAM/YGck9BwxaBXwTvjdDbcs8WlETZ1XLztvOrpMl91C0IUnGDY095BAJrWKD0iN/2uub8wy/HhNebrJ5F+yaP/sxvp9f9QyW0TKxwkWgv1v5aFaqwc65Ig1mgfV+mZ9KYMtLeCmdTIhaMPyxkWBF4g1jKHu71L5/KBGAbKDdz+QucuUprfCw==
+ bh=Pw9wP31ko9MhmlDb3zhuiHUHCVdHoZz5dAenRD73HKs=;
+ b=bV8yrOuz+Pg/SdLn8CrOQwy62ZCRL6PbNaXqA0V33NwaMlom44JMsDtWtKR8dD6iHNnBK6+8CPaFqwqpoyNHztlqSvROaIV/pv8+qOEnrhGEm5sxlMyRrfabaCNQwi/6MOP+YNOkijU+y2P+izD2b7FqrJHv1LgLYnPlCyblSN9W7Be58rZsuggiuo1dQlouoTvxxTanB4yUMdFZuZiAOWCQvpiAXVdloqiUd3+NFBVbsQ9Qj5JxnhNPykHgbt+A3a7hoi2AT/4sB6pEptTh59d5joahQqyj2ziUkoqOTraqj8XvE2xk/EoTWK4eanAnb1W70zwBNeLpjbQzWJkDwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jGhgSEBLuGNRc2MaNck+nTgsZNN8K6VNEA3kQihZvdo=;
- b=T4Rp0RDCaZ0k135UQKjKxXdxWucv+141ne9XZL5Aa6i0bXp8NCIuVDm6sWqlVEr1vGb0fFeW6kf57utoLOlZw8Y1lgMvM7u1aKy/qEzLML/4+o+cozq//ipvmCQxoNkbeu7ADNucAMgRvVxpKW9s/XuhtB5BOeJYOqcADgz7yPU=
+ bh=Pw9wP31ko9MhmlDb3zhuiHUHCVdHoZz5dAenRD73HKs=;
+ b=oRCuH3/WkqqRKRqh9u8g9j1UqR3/SPzvba+yTvfgBUD/dbJhlLIZfMcFU8yLQfQpDwJWHRiF6DpLK1UxpQ4Szm4nvW5KSozW5e1/RUijJQu1Sdf68OXzVe5BDj4lE6GpN/MrHrlih4ZtEkxHbAty3d1MKE5SZ2mBTfYdkQjlafQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
- by DM6PR12MB4388.namprd12.prod.outlook.com (2603:10b6:5:2a9::10) with
+ by DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Tue, 8 Dec
- 2020 19:29:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Tue, 8 Dec
+ 2020 19:29:04 +0000
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853]) by DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::3893:44ae:a31:6853%6]) with mapi id 15.20.3632.023; Tue, 8 Dec 2020
- 19:29:05 +0000
+ 19:29:04 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 13/13] drm/amd/display: 3.2.116
-Date: Tue,  8 Dec 2020 14:28:44 -0500
-Message-Id: <20201208192844.23580-14-qingqing.zhuo@amd.com>
+Subject: [PATCH 12/13] drm/amd/display: [FW Promotion] Release 0.0.46
+Date: Tue,  8 Dec 2020 14:28:43 -0500
+Message-Id: <20201208192844.23580-13-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201208192844.23580-1-qingqing.zhuo@amd.com>
 References: <20201208192844.23580-1-qingqing.zhuo@amd.com>
@@ -71,46 +71,46 @@ Received: from localhost.localdomain (165.204.55.250) by
  15.20.3654.12 via Frontend Transport; Tue, 8 Dec 2020 19:29:04 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3c78ef61-0e41-4559-8cc6-08d89baf86e0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4388:
+X-MS-Office365-Filtering-Correlation-Id: 187e74e2-c57d-40fb-eab2-08d89baf8645
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4338:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4388B8BCD42CC05D82A47C26FBCD0@DM6PR12MB4388.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4338524A4CAFC2B7D5A919FCFBCD0@DM6PR12MB4338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZL/Y+KjIaRlcXhbqNBh/rexKwLuBLchbEEsEcStWLbFxyvIAZQyzTczoK0EPTrDlYKMwkUp2eRuWzk0ocTrI4SdHkWLDHKNrVMACjMvg0koLgf32Pke2uBLvIRXIvyIF1YtbfhxM0HdnDJWu/E+O6hNa104kRQVi3lfFxvpVHXoLgPSV8KISXOhhiqBwrJKw1NZ2eoGgUMrdFeb3YuaXSjRov+t4JeFQwTx/yQRN7YBzSP4Ek1QeXhGnWFoRLSVPFpkQ0kSu1g7+4GQ/ubeJ5WSdRGm7+nehq6c76s0l0dn7763NWuZLa9c8SeiFZImypnjSQj0ilPTdTo8CZiJC/HSeTwrvLOQh0BgPpIsN5tjTt2RHHr2F0ntg/lYZJxHcX4I6l/XEusTfPkNEMTBlX/bZpWcvV/VsBQtKZ+IV89U=
+X-Microsoft-Antispam-Message-Info: LVbM4mpV0UdEeNM5+gO7RxXDxoI74VojfEaijlztmVtx8Jp/63WBATHOOegZyskymjPwlbVIaTjmFs6Q5nmgMChvr1AUjhsjgzgEWWysy/6L04GYM1ehqJRBaXyCjQTvspWQC6i0Z/zDiT5vKjwAZb6VF1bhSRFD7CfJrsod3yqlkK1TlrvLu8ws/mC9g4dA96DSzmrWVmhzuXXnZMGHXDXK2r+Zydwv6RTkD/WA/+RJd+qn5N2Qa6XY8Q6kEJbr2QYdl6cZaYX1f1AL6KQmnJLM7LOXZ+IKH8jGYSrn/8YkV0VPkybYTUGDQ35CsdA0pdoJk1B8n1iF2xeNQAz5l6cOShmhPVaRtPgCk3LLVKfq/Ct3wYQUek2QcvJCA5d17bscWuS8EDompAjhgr/KzJpPRaS70x5ylcrR1xH270E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(136003)(376002)(6666004)(86362001)(83380400001)(34490700003)(6916009)(44832011)(8936002)(956004)(2616005)(186003)(6506007)(36756003)(52116002)(66556008)(26005)(6486002)(5660300002)(16526019)(66946007)(4326008)(2906002)(66476007)(8676002)(1076003)(6512007)(508600001)(4744005)(69590400008);
+ SFS:(4636009)(346002)(376002)(136003)(366004)(956004)(8936002)(44832011)(1076003)(36756003)(6512007)(69590400008)(16526019)(4326008)(34490700003)(83380400001)(66946007)(2906002)(6506007)(26005)(6666004)(5660300002)(186003)(8676002)(66556008)(52116002)(6916009)(2616005)(6486002)(66476007)(508600001)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?OUJBGxVK334h01g886A2epprjEdsBDlpYe7HMxo1MrYT4QZfny6n4nhxyh2h?=
- =?us-ascii?Q?vLtNfR+z6GQK/1Kd/G/L/WU3Q1RvQ83Lys5LHXURcCs9FQt6nBvZdMu3G4mk?=
- =?us-ascii?Q?naw1JQl6yHH2GaCVvY6GcPS8/q6GGhdua/U08I87e3XnBtwmUsv5Cu03gD4M?=
- =?us-ascii?Q?tFfEJd4hDQ9EIIO+Okxuk4/GHQ5tdC2ZfaZbKmWxNyzAVmPWwMha2zDCrjEU?=
- =?us-ascii?Q?65ze8I5JMpvdxyUI/jnN4kmvIVjs4NTFP/AVBjFWulO1kcClaRYjBr9DnTIA?=
- =?us-ascii?Q?pRYByx8S6NohqW2uuJmWJqt19E24dy7DI1d1PJvd3oO7KhulnJNophaCGwjv?=
- =?us-ascii?Q?NyOhHRBK71PyadpUGpndGtT5jO5idsoL7fEqt5LbLAyP372zX+sJT63+NjhW?=
- =?us-ascii?Q?+WSwv7q/QY+HA6f+MyBSTvnrZ6/fI63xZ+JfeKRvgTnXiQp/CUKWphYMFb24?=
- =?us-ascii?Q?vuLGUYqXpP0wALWeRGwnJV1+I79otKTM7zzjWKWKaUL1ZRrM1LV8yLNsOuAP?=
- =?us-ascii?Q?9n8JRHbpGAgi92OEFG74zs5CrASigiM5I1L9XvzNCopm6Max8/USEXbZXwAL?=
- =?us-ascii?Q?XApPyhg03NguHr42hZwUxFDvMKZhKyOk9AbdcnerSUBtDU+mQm8AT4WWKu61?=
- =?us-ascii?Q?PGVyvfj2OS6TPQNSekwFdVpFBvKdeXldZT8hwT7AVBjzpgrIEmM/W9l+Jy91?=
- =?us-ascii?Q?2DF2liEUhyiXtDfQdpGKqezkiuGGBCSf9+AetpnuhQRO0nSzfLBiTSB+dAAo?=
- =?us-ascii?Q?9+JDfRmIsFvqTgVB4aeZbFyhQ2DCPp3J+gfgoNbCNr+yrkRgpKS+22H82KUW?=
- =?us-ascii?Q?c6oXGIWUBd3RiBrKIHIovNEfMHwE4nZhxJFOEM39VSIJRyx/kvFmKaME7f2J?=
- =?us-ascii?Q?psaHwuNfaUi44HUV90oWnR9PRzo0ojmenkxzhi7VLLAX/Qbi8/IOqCK6ZKa1?=
- =?us-ascii?Q?F05UlFIYmDwEqa+zVGM0j++7aLRi7FLxEyyZTExjTTODSvGAHXiJBmO86W1e?=
- =?us-ascii?Q?3H4i?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?clKJWri+hvqTeN2TJ6nx2hxudzfuaoUd/omPS2D/KDc73UTAMV+ec8Hx6bU2?=
+ =?us-ascii?Q?IQR/sZQESr36JkM6RooW/i5VLgIxQXwBoPCyoUhqrJfKj4GoXedtqj9zD9yN?=
+ =?us-ascii?Q?IN5T38Zh4p9JOq3NWzoGo536SCsxllJkwO7iwpkn2VMR956sIj+0C1q+ilgr?=
+ =?us-ascii?Q?ZUdmvmt5trl33M7B+sPaippO882XaJSWqswWf5aJkZGfsS51vlp0AilCkLLs?=
+ =?us-ascii?Q?Qn6ZMwFdog11XkwZtKumkig2fkdYtnBOZYzdkQQMQ9wMSJkb+xKUTUDWqvBA?=
+ =?us-ascii?Q?3HqoRWKQP09Gk3o+iBJzxqQWLEEpinDK6pW56jKgFL8Dy/oRMbG0iujENP5+?=
+ =?us-ascii?Q?YD+2lShv/dKUu5hrszxB7Vw5WFet7Yg/JGaNpnfHkpCGMgAm5gkfXVsyCWju?=
+ =?us-ascii?Q?cN2VOUGkF3kvdQqV3gpTMvkPpfCFg2kLOGz260bPXuKmpgaTMR/rsPYsGYn9?=
+ =?us-ascii?Q?HezzDDucI/2f6n0to4Pf4F+6U8tJawy7lrn/9n0zLmFJuy7Z2XfhDierA185?=
+ =?us-ascii?Q?kCN5fl6foxStKygNaVDolsjZA8W7yWCH7lq8v+xGfOjgWZSkFZ9dfzOVyDox?=
+ =?us-ascii?Q?D3ZxhCRfM+58mkFEtxPrqxS/035Q+HApAGz9zH9J34wBXtbYqH3lkvTU0w7h?=
+ =?us-ascii?Q?cq7XD70BvIfq5+MgwLdlY4VpDXxmYDFJXsni99qQMQsjaeLkETt8PFPR6113?=
+ =?us-ascii?Q?KMSZ1Rp3h8JSZtPwrIxHkQwWiN8KlOZdqMx8llwVm1dChWP4leTcOcH5in+m?=
+ =?us-ascii?Q?p6Fw4Mp0U845ngETnkY4qwmjQIADz0KUDPhS7MdzaVlwoFoB24Fv93xC0zD0?=
+ =?us-ascii?Q?vvigpjmelV3h7qyyByZZGXs4cjgK+YjUr8etOrvLYllZdWCa4u+6m7Gm9Lxu?=
+ =?us-ascii?Q?ypRRgHoCwguHipfuID1chdXH+23Ym2KhiP5tElBf2NO6lbZ2v4REeXHkck+1?=
+ =?us-ascii?Q?3a3UuW/EfOzLF1yJc0gFg1ashDkKTG439J+VsxkdjEB/H2dDCeR4qFBQUgZ8?=
+ =?us-ascii?Q?tKh6?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:29:05.2663 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 19:29:04.5947 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c78ef61-0e41-4559-8cc6-08d89baf86e0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 187e74e2-c57d-40fb-eab2-08d89baf8645
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U1IuTdHAJjtPzdX+bWf9540ccIwznmwkDMJXD+VQNYcS4W6JsLBHhOkA0tB/QFJm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4388
+X-MS-Exchange-CrossTenant-UserPrincipalName: uLwRkUlan9T9AXbEn+N5EgBpUyHhscawlVv/bxoNbU+kGTCUlqp+6uAS/4n64SjY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,7 +122,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+Cc: Anthony Koo <Anthony.Koo@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
@@ -130,28 +130,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+- Add new aux_channel_type
+- Changed port_index to instance in dmub_cmd_dp_aux_control_data
+- Change aux_return_code_type to sync up with driver
+- param for ramping abm based on backlight level
+
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 62 +++++++++++--------
+ 1 file changed, 37 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index b8f1e2d33423..3aedadb34548 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -42,7 +42,7 @@
- #include "inc/hw/dmcu.h"
- #include "dml/display_mode_lib.h"
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index b20a39f488ae..f512bda96917 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -47,10 +47,10 @@
  
--#define DC_VER "3.2.115"
-+#define DC_VER "3.2.116"
+ /* Firmware versioning. */
+ #ifdef DMUB_EXPOSE_VERSION
+-#define DMUB_FW_VERSION_GIT_HASH 0x931573111
++#define DMUB_FW_VERSION_GIT_HASH 0xa18e25995
+ #define DMUB_FW_VERSION_MAJOR 0
+ #define DMUB_FW_VERSION_MINOR 0
+-#define DMUB_FW_VERSION_REVISION 45
++#define DMUB_FW_VERSION_REVISION 46
+ #define DMUB_FW_VERSION_TEST 0
+ #define DMUB_FW_VERSION_VBIOS 0
+ #define DMUB_FW_VERSION_HOTFIX 0
+@@ -514,12 +514,20 @@ enum dp_aux_request_action {
  
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
+ enum aux_return_code_type {
+ 	AUX_RET_SUCCESS = 0,
++	AUX_RET_ERROR_UNKNOWN,
++	AUX_RET_ERROR_INVALID_REPLY,
+ 	AUX_RET_ERROR_TIMEOUT,
+-	AUX_RET_ERROR_NO_DATA,
++	AUX_RET_ERROR_HPD_DISCON,
++	AUX_RET_ERROR_ENGINE_ACQUIRE,
+ 	AUX_RET_ERROR_INVALID_OPERATION,
+ 	AUX_RET_ERROR_PROTOCOL_ERROR,
+ };
+ 
++enum aux_channel_type {
++	AUX_CHANNEL_LEGACY_DDC,
++	AUX_CHANNEL_DPIA
++};
++
+ /* DP AUX command */
+ struct aux_transaction_parameters {
+ 	uint8_t is_i2c_over_aux;
+@@ -532,9 +540,10 @@ struct aux_transaction_parameters {
+ 
+ struct dmub_cmd_dp_aux_control_data {
+ 	uint32_t handle;
+-	uint8_t port_index;
++	uint8_t instance;
+ 	uint8_t sw_crc_enabled;
+ 	uint16_t timeout;
++	enum aux_channel_type type;
+ 	struct aux_transaction_parameters dpaux;
+ };
+ 
+@@ -558,7 +567,7 @@ struct aux_reply_data {
+ 
+ struct aux_reply_control_data {
+ 	uint32_t handle;
+-	uint8_t phy_port_index;
++	uint8_t instance;
+ 	uint8_t result;
+ 	uint16_t pad;
+ };
+@@ -581,7 +590,7 @@ enum dp_hpd_status {
+ };
+ 
+ struct dp_hpd_data {
+-	uint8_t phy_port_index;
++	uint8_t instance;
+ 	uint8_t hpd_type;
+ 	uint8_t hpd_status;
+ 	uint8_t pad;
+@@ -732,27 +741,30 @@ enum dmub_cmd_abm_type {
+ struct abm_config_table {
+ 	/* Parameters for crgb conversion */
+ 	uint16_t crgb_thresh[NUM_POWER_FN_SEGS];                 // 0B
+-	uint16_t crgb_offset[NUM_POWER_FN_SEGS];                 // 15B
+-	uint16_t crgb_slope[NUM_POWER_FN_SEGS];                  // 31B
++	uint16_t crgb_offset[NUM_POWER_FN_SEGS];                 // 16B
++	uint16_t crgb_slope[NUM_POWER_FN_SEGS];                  // 32B
+ 
+ 	/* Parameters for custom curve */
+-	uint16_t backlight_thresholds[NUM_BL_CURVE_SEGS];        // 47B
+-	uint16_t backlight_offsets[NUM_BL_CURVE_SEGS];           // 79B
+-
+-	uint16_t ambient_thresholds_lux[NUM_AMBI_LEVEL];         // 111B
+-	uint16_t min_abm_backlight;                              // 121B
+-
+-	uint8_t min_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 123B
+-	uint8_t max_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 143B
+-	uint8_t bright_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL]; // 163B
+-	uint8_t dark_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 183B
+-	uint8_t hybrid_factor[NUM_AGGR_LEVEL];                   // 203B
+-	uint8_t contrast_factor[NUM_AGGR_LEVEL];                 // 207B
+-	uint8_t deviation_gain[NUM_AGGR_LEVEL];                  // 211B
+-	uint8_t min_knee[NUM_AGGR_LEVEL];                        // 215B
+-	uint8_t max_knee[NUM_AGGR_LEVEL];                        // 219B
+-	uint8_t iir_curve[NUM_AMBI_LEVEL];                       // 223B
+-	uint8_t pad3[3];                                         // 228B
++	uint16_t backlight_thresholds[NUM_BL_CURVE_SEGS];        // 48B
++	uint16_t backlight_offsets[NUM_BL_CURVE_SEGS];           // 78B
++
++	uint16_t ambient_thresholds_lux[NUM_AMBI_LEVEL];         // 112B
++	uint16_t min_abm_backlight;                              // 122B
++
++	uint8_t min_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 124B
++	uint8_t max_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 144B
++	uint8_t bright_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL]; // 164B
++	uint8_t dark_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 184B
++	uint8_t hybrid_factor[NUM_AGGR_LEVEL];                   // 204B
++	uint8_t contrast_factor[NUM_AGGR_LEVEL];                 // 208B
++	uint8_t deviation_gain[NUM_AGGR_LEVEL];                  // 212B
++	uint8_t min_knee[NUM_AGGR_LEVEL];                        // 216B
++	uint8_t max_knee[NUM_AGGR_LEVEL];                        // 220B
++	uint8_t iir_curve[NUM_AMBI_LEVEL];                       // 224B
++	uint8_t pad3[3];                                         // 229B
++
++	uint16_t blRampReduction[NUM_AGGR_LEVEL];                // 232B
++	uint16_t blRampStart[NUM_AGGR_LEVEL];                    // 240B
+ };
+ 
+ struct dmub_cmd_abm_set_pipe_data {
 -- 
 2.17.1
 
