@@ -2,72 +2,102 @@ Return-Path: <SRS0=uNpP=FM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14E7DC4361B
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56317C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEAF023AC8
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEAF023AC8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0FADB23B03
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 17:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FADB23B03
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5202B6E96D;
-	Tue,  8 Dec 2020 16:06:10 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D1956E96B
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 16:06:09 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id 1so16417690qka.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Dec 2020 08:06:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=TzPohbh5RC+jGnzG+KFXYPOuV8EmOWn6vnkGv7YyTyU=;
- b=oDN0LakKXyaFQg3F78ninf6GB6RcL7Kk0Tg1DQkTYfoIExmb2xY/Homun/mhV6B6VK
- 89Q8CMvgTKFMxNH4juZe6Ejr1KO0bwJvJiiw9Xh4rm16Jswz995Zxm+sNtqflF31vCvj
- P3tnUBYrE+2/FgHscsHc2egtOilJujc3kL6ks3AcgKN+L+SWh8+hVtAWuFgwdliUa0wv
- SUDNJ2hogMmNygo2DN9FYWDrn8OPTxjWEuOfpmuHJZlBNJ0fhrpoeAYCOTGYPKx1X4oD
- ahcMVzTHBxFk1K+8CoyqH8vksMeQEJWLbsKSqDGQaXVb8/62h9KsSTVgOt09E/7CtiPd
- apeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=TzPohbh5RC+jGnzG+KFXYPOuV8EmOWn6vnkGv7YyTyU=;
- b=QCwNexwRhvduQXMJx8KtJpjoKYRf99pwxwFk0wdXosgxrnBkkNxL5ILLXjABS7tESc
- pXU5WB2ok0dMoEKqaia2M/IKpCxPSsJaTmqDZ2RrSnuIfaasEbSZF1Q+wPNKXMoqJwJI
- PMChE1m1c7OBI2GfCwS0rHB1ecTZ0/9wCopF3v9Wx0Z1rhULXW0G4sDxqie+ryQV7qTm
- qH7bX84N3mks9Omu3lBTSbHV6evt14VWHZSWM8cqWn07WPWmd+EnyvbFL+qaRBoWwn/o
- sG+JpB8fRsupVljslLmpLA20v7+DvYZBu2QdkRlzp5NDj5tgw5teB4ANGUviYptpS+DB
- Rakg==
-X-Gm-Message-State: AOAM533jvayo5ts1D0k2k54NCCHk3TCPQhEbmc2GyTWyokhHcsJv5Ute
- AwoiI9AjhPzl6Yo8FUR2xzbUsoJ466o=
-X-Google-Smtp-Source: ABdhPJx3Y/M+AbZbjmRysOAQQCzRWtv3CR02MoASGI9WvMHC+H6EKissyyPpKOYvamRwaT/bzsM65Q==
-X-Received: by 2002:a05:620a:11ab:: with SMTP id
- c11mr4236438qkk.282.1607443568166; 
- Tue, 08 Dec 2020 08:06:08 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id u26sm1702482qke.57.2020.12.08.08.06.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Dec 2020 08:06:07 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: fix size calculation with stolen vga memory
-Date: Tue,  8 Dec 2020 11:05:56 -0500
-Message-Id: <20201208160556.39899-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20201208160556.39899-1-alexander.deucher@amd.com>
-References: <20201208160556.39899-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D41326E96A;
+	Tue,  8 Dec 2020 17:10:47 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61546E03A;
+ Tue,  8 Dec 2020 17:10:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Si2Yh8/u1CrhDVyypYmIwkvwmIOQuYJZ9Bbh6dzcSeLSGfvHAIFs2xWlKILN6zKdlDAxOO6mNA1vIEgJyJgHonjh9EzFijwcSUeybrGRINm3FC0/fAFLFyjQhrG6B6HAqwbdPPoc26LNXZX0DvF6G3RzZWtnXIpqokYvOj0fCMvZJQm684VbKFJM0FkXSrWDNRAIIC+SLyea9WNe2hze5oHuNFrdWSRTZ6IRyHFpEc81VhHmI0LoRFYPz/nj/BGuZTpvv0tpbwNV3ozluM69YwrbQFqa4x2RtAf10rc7f6CkWQjJP0nHdu4fRcFofJrSHpe/hEvpmOKjUc/JYgwa/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J1YtTJUNlCKvgh1MGvLJx7s4PnHa7+hesUgjl4YsPY0=;
+ b=iJ7QATAwm5iz+PpZkH13CYxHIarF434w5+aCdAVpnTlPUUoKpFoe6jkCDX75yt2okEY0kKQP3hajCLVYQXMJdW9uKIUkeR5bI3ZS3sb4OCB3MP4YqQHYHc9Kbgzmv4gvMuyp5146EL2rjRwoIq8doCojCwifHgFmeiyVAPDs7uChaCL3vFNuAC5sEJXqezsVdz7EU4x3odwIvNlV9nysEUrpNeJiS9jqNT/sbkFDK/r8vm0V9qVtGpD6MtgV7WDMF77CffjxYlxl11b+x9V3Z8Y2nKQ8xgbHGRTXCXs3aLlt15OhoRfm49uMr7zbz30e91fB1YFVD8S9RQ4Lcn6/kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J1YtTJUNlCKvgh1MGvLJx7s4PnHa7+hesUgjl4YsPY0=;
+ b=wzwHhr3cjUxGtdocvOdLTd4WYffjAMa1ELO8rT+NCf6uhwoobCm8pmGm1XInNzyF+qaByguMIM4fA5NNquHBG3bUCHcuOfCvrWItOoA+iQxMaHNswh1MuEc5cLp/PIFosz+bRGUV0H5s0DRbJis9o2nUy48ysOxAMnNYwK0BAeE=
+Received: from BN6PR16CA0017.namprd16.prod.outlook.com (2603:10b6:404:f5::27)
+ by DM6PR12MB4779.namprd12.prod.outlook.com (2603:10b6:5:172::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Tue, 8 Dec
+ 2020 17:10:43 +0000
+Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:f5:cafe::15) by BN6PR16CA0017.outlook.office365.com
+ (2603:10b6:404:f5::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
+ Transport; Tue, 8 Dec 2020 17:10:43 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3632.17 via Frontend Transport; Tue, 8 Dec 2020 17:10:43 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 8 Dec 2020
+ 11:10:43 -0600
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3
+ via Frontend Transport; Tue, 8 Dec 2020 11:10:43 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Initialise drm_gem_object_funcs for imported BOs
+Date: Tue, 8 Dec 2020 12:10:32 -0500
+Message-ID: <1607447432-28982-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 70352f76-394d-4897-0020-08d89b9c3297
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4779:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB47799A78C6689722324E7A5DEACD0@DM6PR12MB4779.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:238;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FUjAVqEyCsc2JF2R5B+Lpc+rNJ6DjXIfDF0r/WGVMY8E74k0cvfb49C7SLq0O4Xhjc9/rwoDj8UwhOObPaffibF5y0A8q7kI0KK8CjRixUEOnpkMmA9IIPWyE+fhbDIq+wrKqzq9tVm1131C+K5FA+48U1yVMkJJZV6AqhYQByeWgPYHjiTAZwpM+l1uD4GVqxZ3ZEKV/Xi/qqmJRfTb9EgdeB5VBluP2YzsKRbGleOmIatGHBblc3TBlGn07XyY0v7GuK20eJvoLg5yyhucWjYiUi5jAaa5FPISb7BLXNEhv/W/64y2OcdHlgmnhwjICNOql4A1q6RuUxMj26HjvruGzPLF30/jrkXhO4P3FNsFTiDIZVfET4pTLS2xo2u4emIArT8JxdKIiqB5wCztLQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(376002)(396003)(46966005)(478600001)(356005)(8936002)(82740400003)(426003)(4326008)(47076004)(8676002)(70586007)(82310400003)(6916009)(7696005)(5660300002)(2906002)(70206006)(86362001)(44832011)(36756003)(316002)(54906003)(6666004)(81166007)(2616005)(83380400001)(186003)(336012)(26005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 17:10:43.8455 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70352f76-394d-4897-0020-08d89b9c3297
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4779
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,36 +109,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alexander.Deucher@amd.com, ckoenig.leichtzumerken@gmail.com,
+ tzimmermann@suse.de, amd-gfx@lists.freedesktop.org,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If we need to keep the stolen vga memory, make sure it is
-at least as big as the legacy vga size.
+For BOs imported from outside of amdgpu, setting of amdgpu_gem_object_funcs
+was missing in amdgpu_dma_buf_create_obj. Fix by refactoring BO creation
+and amdgpu_gem_object_funcs setting into single function called
+from both code paths.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+This fixes null ptr regression casued by commit
+d693def drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 13 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 22 +++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h     |  5 +++++
+ 3 files changed, 28 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index ff3afc82e73a..02c2a0d5b36e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -501,6 +501,9 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
- 	else
- 		size = amdgpu_gmc_get_vbios_fb_size(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index e5919ef..da4d0ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -405,6 +405,7 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
+ 	return buf;
+ }
  
-+	if (adev->mman.keep_stolen_vga_memory)
-+		size = max(size, AMDGPU_VBIOS_VGA_ALLOCATION);
 +
- 	/* set to 0 if the pre-OS buffer uses up most of vram */
- 	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
- 		size = 0;
+ /**
+  * amdgpu_dma_buf_create_obj - create BO for DMA-buf import
+  *
+@@ -424,7 +425,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	struct amdgpu_bo *bo;
+ 	struct amdgpu_bo_param bp;
+-	int ret;
++	struct drm_gem_object *obj;
+ 
+ 	memset(&bp, 0, sizeof(bp));
+ 	bp.size = dma_buf->size;
+@@ -434,21 +435,19 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 	bp.type = ttm_bo_type_sg;
+ 	bp.resv = resv;
+ 	dma_resv_lock(resv, NULL);
+-	ret = amdgpu_bo_create(adev, &bp, &bo);
+-	if (ret)
++	obj = amdgpu_gem_object_create_raw(adev, &bp);
++	if (IS_ERR(obj))
+ 		goto error;
+ 
++	bo = gem_to_amdgpu_bo(obj);
+ 	bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
+ 	bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
+ 	if (dma_buf->ops != &amdgpu_dmabuf_ops)
+ 		bo->prime_shared_count = 1;
+ 
+-	dma_resv_unlock(resv);
+-	return &bo->tbo.base;
+-
+ error:
+ 	dma_resv_unlock(resv);
+-	return ERR_PTR(ret);
++	return obj;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index c9f94fb..5f22ce6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -52,13 +52,26 @@ static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
+ 	}
+ }
+ 
++struct drm_gem_object *amdgpu_gem_object_create_raw(struct amdgpu_device *adev,
++						    struct amdgpu_bo_param *bp)
++{
++	struct amdgpu_bo *bo;
++	int r;
++
++	r = amdgpu_bo_create(adev, bp, &bo);
++	if (r)
++		return ERR_PTR(r);
++
++	bo->tbo.base.funcs = &amdgpu_gem_object_funcs;
++	return &bo->tbo.base;
++}
++
+ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 			     int alignment, u32 initial_domain,
+ 			     u64 flags, enum ttm_bo_type type,
+ 			     struct dma_resv *resv,
+ 			     struct drm_gem_object **obj)
+ {
+-	struct amdgpu_bo *bo;
+ 	struct amdgpu_bo_param bp;
+ 	int r;
+ 
+@@ -73,8 +86,9 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ retry:
+ 	bp.flags = flags;
+ 	bp.domain = initial_domain;
+-	r = amdgpu_bo_create(adev, &bp, &bo);
+-	if (r) {
++	*obj = amdgpu_gem_object_create_raw(adev, &bp);
++	if (IS_ERR(*obj)) {
++		r = PTR_ERR(*obj);
+ 		if (r != -ERESTARTSYS) {
+ 			if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
+ 				flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+@@ -90,8 +104,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 		}
+ 		return r;
+ 	}
+-	*obj = &bo->tbo.base;
+-	(*obj)->funcs = &amdgpu_gem_object_funcs;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index 637bf51..a6b90d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -38,12 +38,17 @@ unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
+ /*
+  * GEM objects.
+  */
++
++struct amdgpu_bo_param;
++
+ void amdgpu_gem_force_release(struct amdgpu_device *adev);
+ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 			     int alignment, u32 initial_domain,
+ 			     u64 flags, enum ttm_bo_type type,
+ 			     struct dma_resv *resv,
+ 			     struct drm_gem_object **obj);
++struct drm_gem_object *amdgpu_gem_object_create_raw(struct amdgpu_device *adev,
++						    struct amdgpu_bo_param *bp);
+ 
+ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ 			    struct drm_device *dev,
 -- 
-2.25.4
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
