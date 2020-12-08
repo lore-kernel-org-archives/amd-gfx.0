@@ -8,62 +8,62 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C644EC4167B
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14E7DC4361B
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DB4023AC8
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DB4023AC8
+	by mail.kernel.org (Postfix) with ESMTPS id BEAF023AC8
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Dec 2020 16:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEAF023AC8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 786406E96B;
-	Tue,  8 Dec 2020 16:06:09 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A436E964
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 16:06:08 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id 7so12277238qtp.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Dec 2020 08:06:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5202B6E96D;
+	Tue,  8 Dec 2020 16:06:10 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D1956E96B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Dec 2020 16:06:09 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id 1so16417690qka.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Dec 2020 08:06:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ASvcYPxQtXrrxmzeO4xj8psrAHCi2SdInHl+hsyUbJk=;
- b=MBlIUmvZOuy2L7XJOr2SHNCiX46J7pUqaTnztaJq4bxPOok3UNAPF3nCcfFoIbHyME
- Wj3ISCN43FOwxY1ptvnRHVErI9ovwFVbQeBlbETEUlcfvZbO99q5TNjaG7EjwnRV1nNi
- k7RUHBBxFTJFj5LBBpnxsgrpcpQMuwBzsyAfniKXYC/0NqmVcBdlUB6qsqY0fqdz1h8G
- 6QmXz2KEcJ9dz/PG5an/6m/pZ3sd/GpYzOrRAdOvQTwdOOFk843nD4l7RfPkJ38wWjY7
- Rsbl+FaaQlsWBOyE8FAUdGf5sCYmJHWGFVvLNhYXJgNIWE3S/uiYKFbPfcf1Yt5Tj8N+
- ldvw==
+ bh=TzPohbh5RC+jGnzG+KFXYPOuV8EmOWn6vnkGv7YyTyU=;
+ b=oDN0LakKXyaFQg3F78ninf6GB6RcL7Kk0Tg1DQkTYfoIExmb2xY/Homun/mhV6B6VK
+ 89Q8CMvgTKFMxNH4juZe6Ejr1KO0bwJvJiiw9Xh4rm16Jswz995Zxm+sNtqflF31vCvj
+ P3tnUBYrE+2/FgHscsHc2egtOilJujc3kL6ks3AcgKN+L+SWh8+hVtAWuFgwdliUa0wv
+ SUDNJ2hogMmNygo2DN9FYWDrn8OPTxjWEuOfpmuHJZlBNJ0fhrpoeAYCOTGYPKx1X4oD
+ ahcMVzTHBxFk1K+8CoyqH8vksMeQEJWLbsKSqDGQaXVb8/62h9KsSTVgOt09E/7CtiPd
+ apeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ASvcYPxQtXrrxmzeO4xj8psrAHCi2SdInHl+hsyUbJk=;
- b=HkNicQaBAR9ujGFagyArmcd11oHC81BaaPs3DXrnXG9Ils0fxHsmaJDpXy0jdCXSsr
- 7HTfMjnE3RlhMxuPv2NuUfjweq46Qjp4UPkYBX8ZSBSAUidUG6AjdqKXmlQHakNJVI7l
- xHFBZAm+XlwclYnKtUdRKfYigZBSLCiyrdMG22AyGN0TVxa0G9djXy5BXJEJpVrfiyWR
- Z/gySxSARGajj5sv/EPr6OFYKD3P/9RKtmrZtL2b2X9JYSzfSG5ivi+v7e2HjVh4O/nk
- yEz2Noe0z3m/EaDHx1PC9i903hiuDBvh6JgeM4nUIMmIhnBiv6v0Gi6sPtCBvlmNGuQR
- kB0Q==
-X-Gm-Message-State: AOAM533pivAF0JsAgE6DD6zUeT8E43FDse45BwHhRacqeJY9RXpEZBgr
- MQ444KBM6XoYvgXtX9/VqbELSW1H6X4=
-X-Google-Smtp-Source: ABdhPJwXg8tlBIOEqThrqoA9ITwGzpoVycCa6TvB7f0mBJX8Ew39Px5cmIRFcVwOUyOmbVewJGXlGw==
-X-Received: by 2002:ac8:5c15:: with SMTP id i21mr30783989qti.190.1607443567329; 
- Tue, 08 Dec 2020 08:06:07 -0800 (PST)
+ bh=TzPohbh5RC+jGnzG+KFXYPOuV8EmOWn6vnkGv7YyTyU=;
+ b=QCwNexwRhvduQXMJx8KtJpjoKYRf99pwxwFk0wdXosgxrnBkkNxL5ILLXjABS7tESc
+ pXU5WB2ok0dMoEKqaia2M/IKpCxPSsJaTmqDZ2RrSnuIfaasEbSZF1Q+wPNKXMoqJwJI
+ PMChE1m1c7OBI2GfCwS0rHB1ecTZ0/9wCopF3v9Wx0Z1rhULXW0G4sDxqie+ryQV7qTm
+ qH7bX84N3mks9Omu3lBTSbHV6evt14VWHZSWM8cqWn07WPWmd+EnyvbFL+qaRBoWwn/o
+ sG+JpB8fRsupVljslLmpLA20v7+DvYZBu2QdkRlzp5NDj5tgw5teB4ANGUviYptpS+DB
+ Rakg==
+X-Gm-Message-State: AOAM533jvayo5ts1D0k2k54NCCHk3TCPQhEbmc2GyTWyokhHcsJv5Ute
+ AwoiI9AjhPzl6Yo8FUR2xzbUsoJ466o=
+X-Google-Smtp-Source: ABdhPJx3Y/M+AbZbjmRysOAQQCzRWtv3CR02MoASGI9WvMHC+H6EKissyyPpKOYvamRwaT/bzsM65Q==
+X-Received: by 2002:a05:620a:11ab:: with SMTP id
+ c11mr4236438qkk.282.1607443568166; 
+ Tue, 08 Dec 2020 08:06:08 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id u26sm1702482qke.57.2020.12.08.08.06.06
+ by smtp.gmail.com with ESMTPSA id u26sm1702482qke.57.2020.12.08.08.06.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Dec 2020 08:06:06 -0800 (PST)
+ Tue, 08 Dec 2020 08:06:07 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu: remove amdgpu_ttm_late_init and
- amdgpu_bo_late_init
-Date: Tue,  8 Dec 2020 11:05:55 -0500
-Message-Id: <20201208160556.39899-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: fix size calculation with stolen vga memory
+Date: Tue,  8 Dec 2020 11:05:56 -0500
+Message-Id: <20201208160556.39899-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201208160556.39899-1-alexander.deucher@amd.com>
 References: <20201208160556.39899-1-alexander.deucher@amd.com>
@@ -85,156 +85,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No longer used.
+If we need to keep the stolen vga memory, make sure it is
+at least as big as the legacy vga size.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 17 -----------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  7 -------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  2 --
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |  2 --
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  2 --
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  2 --
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  2 --
- 9 files changed, 36 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index fd7a93c32235..25ec4d57333f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1074,23 +1074,6 @@ int amdgpu_bo_init(struct amdgpu_device *adev)
- 	return amdgpu_ttm_init(adev);
- }
- 
--/**
-- * amdgpu_bo_late_init - late init
-- * @adev: amdgpu device object
-- *
-- * Calls amdgpu_ttm_late_init() to free resources used earlier during
-- * initialization.
-- *
-- * Returns:
-- * 0 for success or a negative error code on failure.
-- */
--int amdgpu_bo_late_init(struct amdgpu_device *adev)
--{
--	amdgpu_ttm_late_init(adev);
--
--	return 0;
--}
--
- /**
-  * amdgpu_bo_fini - tear down memory manager
-  * @adev: amdgpu device object
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index a5a7992b5773..2bfef286fda4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -269,7 +269,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
- void amdgpu_bo_unpin(struct amdgpu_bo *bo);
- int amdgpu_bo_evict_vram(struct amdgpu_device *adev);
- int amdgpu_bo_init(struct amdgpu_device *adev);
--int amdgpu_bo_late_init(struct amdgpu_device *adev);
- void amdgpu_bo_fini(struct amdgpu_device *adev);
- int amdgpu_bo_fbdev_mmap(struct amdgpu_bo *bo,
- 				struct vm_area_struct *vma);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 6be131df21f5..b719b4281cc9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2021,13 +2021,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/*
-- * amdgpu_ttm_late_init - Handle any late initialization for amdgpu_ttm
-- */
--void amdgpu_ttm_late_init(struct amdgpu_device *adev)
--{
--}
--
- /*
-  * amdgpu_ttm_fini - De-initialize the TTM memory pools
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index bdca2970173e..d2987536d7cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -131,7 +131,6 @@ int amdgpu_vram_mgr_query_page_status(struct ttm_resource_manager *man,
- 				      uint64_t start);
- 
- int amdgpu_ttm_init(struct amdgpu_device *adev);
--void amdgpu_ttm_late_init(struct amdgpu_device *adev);
- void amdgpu_ttm_fini(struct amdgpu_device *adev);
- void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
- 					bool enable);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 5317efc942a4..f12c2224cdbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -717,8 +717,6 @@ static int gmc_v10_0_late_init(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
- 
--	amdgpu_bo_late_init(adev);
--
- 	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 95a9117e9564..b6f95dfdec69 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -791,8 +791,6 @@ static int gmc_v6_0_late_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	amdgpu_bo_late_init(adev);
--
- 	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
- 		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index ff3afc82e73a..02c2a0d5b36e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -501,6 +501,9 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
  	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index d9cb887b3a91..959b61af4251 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -961,8 +961,6 @@ static int gmc_v7_0_late_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 		size = amdgpu_gmc_get_vbios_fb_size(adev);
  
--	amdgpu_bo_late_init(adev);
--
- 	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
- 		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 65d7bc108151..319f99015976 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1062,8 +1062,6 @@ static int gmc_v8_0_late_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	amdgpu_bo_late_init(adev);
--
- 	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
- 		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 07126b2b46c2..e1531d97f486 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1177,8 +1177,6 @@ static int gmc_v9_0_late_init(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
- 
--	amdgpu_bo_late_init(adev);
--
- 	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
- 	if (r)
- 		return r;
++	if (adev->mman.keep_stolen_vga_memory)
++		size = max(size, AMDGPU_VBIOS_VGA_ALLOCATION);
++
+ 	/* set to 0 if the pre-OS buffer uses up most of vram */
+ 	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
+ 		size = 0;
 -- 
 2.25.4
 
