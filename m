@@ -4,134 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8428C4361B
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 12:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4442C4361B
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 13:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A798923B45
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 12:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A798923B45
+	by mail.kernel.org (Postfix) with ESMTPS id 6D6482064B
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Dec 2020 13:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D6482064B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAFD6E13A;
-	Wed,  9 Dec 2020 12:59:24 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8556E13A
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 12:59:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B42F46EA35;
+	Wed,  9 Dec 2020 13:14:10 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD5E6EA35
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Dec 2020 13:14:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=izd7dNanViNkpUjkrFKCjHuTznVchdYCQmVfOJKuT2cyfeEsW5/flRP7B4eTig71iLslRYvmp0tBpTj2zQVB4jMWJSBt6xgmfoWPDdOCIjpIWFaA3MTxpKMNBWXdlJ5oj+wlzIrtQfKLkFAI/1aJVXBTkL5j80xd3JtO48znzwNT158N+n7zYtoiLzQwqc2zhJtRLUmqFCjn3Ipb7gkyGIYgsH/mZL0QsVHi6FVmeBIskNQzO+nYmKLHP6ZR6yJ1J61y47OMKr4EJmGfJ+niqzaha0XCZaHtVEUqRL3zNePN6FWGkB0hJxQIOIt+PvFEuYuFVoZjoKELe3jCLsApEw==
+ b=fXTEQr1h+yq5U5kLMApKFXJkmQOsimocfsmGNkQfzwjL1K9HG5RD8+rQ1fsvMotTVkGxVbvKmMJmJa29y1CCLiTA5oHxiHXnT1eQuxn8Ua0yL+XkaFB971hBq9wy1k6FGQ1+XwBKgxaHPhyARp/q3sTrqfSO7FEfKfvFWbOlKrpIXAUXGSNABu/NmtK2lHrwE0xpFmFS2IA+vignUC17e345DsUxHfBT9GNx3DdkoIcyK3EsqzGao284XxecDToECrwturJpqoaiJ23Ml+UyBq811F7Uq+R9B3T00Uwp2lOkemvnb+4+I3tmEc4rchS6m9Ei8pH3tctRBXs2dKF/kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DniZConxIEaD2fi3mfQNqBko5pru5hYXXIYGNO8jt6s=;
- b=bR8CODTlcTzs1FJQtzxgTSdZyhkW81OdelxpPELCFC06uuwQkB0VU+/8Poabv3mhg4UP+47Baj64GsFeIEEjA49KXW2C4TNkkM7WfU4GdXi68+pphLb8VXuTrbRgb6EN57sO1W60B+UyU3gt/WHgERlXblgbkOOxtjYmEpA6hX7xPHS5v7DS0DvgQRoNBbjmr2mdFQ+dy4CrQhRjkLRGh6zsY3UpLbKuz8KfTYBkDGAuaX6nIBwxURdBhUljraltWQnyUN0EAseC5p9mv1q6sEKfyH/PCGHLI4WSbh+zc/eyTvkw1wIchMFlJVx/I6kL5B2ctQ5IURN971+HyOMk/A==
+ bh=b0EfaK/j/dgBOzZtzW8YdMzsEs5bVOyKakCVlTob5Oc=;
+ b=Y9hnI9CBInoQbsJmSVV1wWh9LNirtIRCffCed/nthIglLJXN9VioI9WlSYxw7zfePoqf0mhmVdX3qrSMCeY7VBLQONunnZqHD8k9wkgKQkHR9YChXbM0HprqHvQaF4IOkAJXJtYwl/PXVcP/1lIut+bQacXQ++p2q0TKZ7tLf5Fxmc1OziJOLeXfktWaueerYnvycg68NTk7KzJnm/JRtBtFsJn8TeFZBpxgGf9BLLqD2zpbqQoQjhRNbZkOM50xfUlu5fJn+grScQDoWnaUym5MbH7+ogJB9dREkQG+Zo8Rybiro5VMRr1kLtYzZnRl/hM3MWSl1NPqHHfUAFrgvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DniZConxIEaD2fi3mfQNqBko5pru5hYXXIYGNO8jt6s=;
- b=fSFXbBv/AOgiJwwXrmaXIw/h+nbMNdFRF1lYH2b+7qSAz8St4UbprnvJtyZF+1hYZpzDHb/b7pm+oxCfJuVQ+ja2Qc1MnFqNR9R/zU5tQc/Hgmf7xWgPcHMpNjw3iCXbszYZz/VJz8TImAzje0BuPpIiBGxad/J098gcerYl/t4=
-Received: from BL0PR12MB4913.namprd12.prod.outlook.com (2603:10b6:208:1c7::20)
- by MN2PR12MB4111.namprd12.prod.outlook.com (2603:10b6:208:1de::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Wed, 9 Dec
- 2020 12:59:18 +0000
-Received: from BL0PR12MB4913.namprd12.prod.outlook.com
- ([fe80::4112:ac5:8125:7c05]) by BL0PR12MB4913.namprd12.prod.outlook.com
- ([fe80::4112:ac5:8125:7c05%2]) with mapi id 15.20.3632.021; Wed, 9 Dec 2020
- 12:59:17 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 2/2] drm/amd/pm: inform SMU RLC status thus
+ bh=b0EfaK/j/dgBOzZtzW8YdMzsEs5bVOyKakCVlTob5Oc=;
+ b=bRDqs4Ei8H8WIU+IIuqvmDRFilQm0bHwMt3jYDrqIPOTTxTTGXAhLUBwkH0UCpuE6DKYO+u3pwohGeX++Qjyt5xPVO3yoX+tuk63iREaYsDAdtcZ1+XcnzVSxRfxM8A6xUkdaKthoW7qNkxIjrC+oVgTP2pGodEHciyQw359iSw=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MW2PR12MB2587.namprd12.prod.outlook.com (2603:10b6:907:f::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.19; Wed, 9 Dec
+ 2020 13:14:05 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::4590:261a:f3b1:a1a2]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::4590:261a:f3b1:a1a2%9]) with mapi id 15.20.3654.012; Wed, 9 Dec 2020
+ 13:14:05 +0000
+Date: Wed, 9 Dec 2020 21:13:52 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>
+Subject: Re: [PATCH v2 2/2] drm/amd/pm: inform SMU RLC status thus
  enable/disable DPM feature for vangogh
-Thread-Topic: [PATCH v2 2/2] drm/amd/pm: inform SMU RLC status thus
- enable/disable DPM feature for vangogh
-Thread-Index: AQHWzinXxFVbufydR0SlMogSWYrw0qnuuRZw
-Date: Wed, 9 Dec 2020 12:59:17 +0000
-Message-ID: <BL0PR12MB49134D2D2E1EB79DCBF7A6A597CC0@BL0PR12MB4913.namprd12.prod.outlook.com>
+Message-ID: <20201209131352.GA1245060@hr-amd>
 References: <20201209124938.11680-1-Xiaomeng.Hou@amd.com>
  <20201209124938.11680-2-Xiaomeng.Hou@amd.com>
+Content-Disposition: inline
 In-Reply-To: <20201209124938.11680-2-Xiaomeng.Hou@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-09T12:59:02Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=201645f1-ba86-432d-9a24-0000fd9e05b1;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-12-09T12:58:56Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: b5bdb5cc-f383-4b4a-b6d3-00009a90fe08
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-09T12:59:15Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: ba295190-fd36-4ab2-89eb-0000a9cdf264
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [49.207.198.76]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 72499032-7f88-44a9-bb5f-08d89c423d04
-x-ms-traffictypediagnostic: MN2PR12MB4111:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4111D6D983830DE060E5154F97CC0@MN2PR12MB4111.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kn2aHPCj1dvuIgddhUlI9CbpiXo5eqVzREzkRyv14iAM8w5wCsaG/7Ls4nCh0rwAbQ/nYh6cSnnC5eE7LcxtNu2SQ07ykpI9ncLj9JHsc843dCeDe7ramSzeV/OjPL7GfsbnOhYTfIFBhnR0cloy9yRqJTeEsh2UuyxYQfWxUdjI9luvQ23GitmtgTSg+er3hdoEq5LvEwmPujx0h0zOyaY9PAwLp7hey5AMYnd6iYC6hwKj27R8G3Tb5eQoYEnQeJCl6n9qToH9AQjQJVSYWUZB/2an85slY8gfNEYT5OnfOvvtH9JeEGU/k6TB4ahxfGxYnVNpwIeG3ZnB4xhJWA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4913.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(366004)(136003)(64756008)(86362001)(52536014)(5660300002)(6506007)(53546011)(66946007)(66556008)(8676002)(4326008)(66476007)(55236004)(2906002)(7696005)(54906003)(508600001)(186003)(33656002)(71200400001)(76116006)(55016002)(110136005)(8936002)(66446008)(9686003)(83380400001)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?W0xrBhLJCFua57cDciXvTPWb8g3YX8uJp6KM5K5n+NMnQKtPKQHBnkx0kLRG?=
- =?us-ascii?Q?0S2vvOJSNBARoRfHh7bJDcfZTFpCJ5xxdMism+a9fsqftkIodMY8gv7MdPhA?=
- =?us-ascii?Q?Jdx1UxIf9ucfatrp398EoIKVSMJzvIniv2tBpHaaYX1lc0VUGuZXxgZkrKPB?=
- =?us-ascii?Q?av0lnwIjP9Rf0eslvjf7DDsSSiv+VuaNqr3MxrpNbO/xqywd7uW5FbQrjhGo?=
- =?us-ascii?Q?Fwib4eMid6JvwPUeM1Ljf4QQ7rhWCsLGPMe9pg6octViCQS/Qxxix9dgisF0?=
- =?us-ascii?Q?ABGfMMZeW92qCEA4KRqGdM5mF83j6bNAodRXJfyiY1/PR3OVYm3vOjjRcGBY?=
- =?us-ascii?Q?KfnnvijX6o0KMzPxmztwBuvnyB56b8YpNCujhhGgM3SflK6h8dul7PMyFVhU?=
- =?us-ascii?Q?PTcX3OTlfa2F3tzxWWczK23efL6crqdjra9JgAVENDQfIM331pMzTnWLfwGf?=
- =?us-ascii?Q?DSfesKn9qyw4ZfT+W3NGyux0GRQOdOW9sDln6yBTj176KyC0DzzJelmgK1Gb?=
- =?us-ascii?Q?6TIFWrmZV3mpTXT/UfSYZkzA7i7d1p0KJu7MppDcX2T5RM+nXo14tRhGOc3d?=
- =?us-ascii?Q?KB9CFG+VDvQunuC43FkxFsiU0KfBR8fDhPrzteh7oViu1mmr4JG+CCZXoMaG?=
- =?us-ascii?Q?wJZisvY4iSDDOKcT381HZ/66YSod+9LvdoC6QyoAsG7T+K4aEjxBJQdtfI5D?=
- =?us-ascii?Q?ZbKMVxTmgW0A1QdIo6B9togzsKgVGpz/Xgu2YXl+aRCHv8R/j/fqF8fRpO8g?=
- =?us-ascii?Q?d0JyMBIph4EctSN6sXOWMxHwgHsKwhC9a12AD8F07tFVzIWZich/D0LtQoDP?=
- =?us-ascii?Q?ku/1YtlKp0KBsvR3yUmu0LsfTLbQCfL7W5aoxJrfI7eae/oUWNJEhQcExATT?=
- =?us-ascii?Q?cUcnmZc88Gd4OU9pGjHHqKga3H61ZJ9hbTK2VDXokgxwJ+WJ4DTVxjorM8sG?=
- =?us-ascii?Q?PkUx0vyApPqVgwAnbVxurf9J5gXIORDNpJRMNLpWkZI=3D?=
+X-Originating-IP: [58.247.170.245]
+X-ClientProxiedBy: HKAPR04CA0011.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::21) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (58.247.170.245) by
+ HKAPR04CA0011.apcprd04.prod.outlook.com (2603:1096:203:d0::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.12 via Frontend Transport; Wed, 9 Dec 2020 13:14:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 42f78752-9e3c-4db2-7f7f-08d89c444dfe
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2587:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2587E989F3FE03129CF24765ECCC0@MW2PR12MB2587.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: M6nxfWwjkHA6i2nMniIswYKgmqRt9fW9wvDUK6ZIkTTzEPmEgGZx5kaqMIFBOyICCvy+2PO/uTEYKieLs0EbUW9DIaj8LRSPBCocGAfLPU5ZT/G99SPKjhcqgBrCPrctybmA+EYR/b2yNgk7Rch0X05pppdEQsdtOWciWtvGMSTKxLP5z/IMjs03GVv5hXFqTDjIWFwAzfm9ZHrjiAHsTOUDcMnGS8XrMiaPLaRDuwb3WaYHq0YXIaNLAeNUV804ZDVCm5v8xFmlTwnR3vh/oWxPYumFFfM3fWcQDJ+PWhchlA19RfHXv2W8A3tWiQGHCHqrwSMuGT+fe7qamri+j7qm12aiwjS6YeT79Qf5kTLKK28d3airi4bAcQi0eoft
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(366004)(346002)(186003)(66946007)(16526019)(9686003)(66556008)(26005)(508600001)(6666004)(33716001)(6496006)(52116002)(54906003)(956004)(66476007)(83380400001)(5660300002)(2906002)(55016002)(8676002)(34490700003)(8936002)(6636002)(4326008)(33656002)(86362001)(6862004)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?m0C3S9WK3/kJOCibdfSSlddWxCDdaTRQBl6siyMPQ6JPzCKZwOFMwoiDsQEL?=
+ =?us-ascii?Q?ma+fTIK4OX3mhew0x8wpa3jmJFNg5++YjGSTbknYK88uIIWSmSPhjMZiFG7h?=
+ =?us-ascii?Q?7DKk2+FIKNtngOKTXLg7DMGfOiLOKtQYrR3G76ZRGIRBkfEKyKF6v+GBS8Wf?=
+ =?us-ascii?Q?JsfpLqJy9DwPSPDizRHstaanSPBG008SYTHdO1r6quIzaVsJ2OErdLXonlF4?=
+ =?us-ascii?Q?wFJDheFRmgVQ4VVskAhJNRqFkLhORhATPpEud2T1yFSOjZMRDxZfj6vXI0nP?=
+ =?us-ascii?Q?jnewcGJQ5iQFEEAlyYjOgyXDopL7jHF5f+f+qlTdRIjns7lOkp+edlqVS9jo?=
+ =?us-ascii?Q?x76mjrfvODbfN2h2E2PmcjBza6MaRP34T/2p4f+bMNImcz2KkIOlPxS2bYLZ?=
+ =?us-ascii?Q?eyuIFzDvH3hImEOyLaTSDjkQM4F5AZdUczSzdfW1IwJuqc/ILD3NHoP0vIeu?=
+ =?us-ascii?Q?BzHJZgmkBbNsTLz4Z2zAO7XVNAJh4QYcyDaLe1FZoF4UOjZW+YXTlkcKkLNL?=
+ =?us-ascii?Q?F4U8K9TtQ5GB3F4Xq9Ce5nsbdJLQzlKDnwba6eGke2G0wRLVqXO2k23mY1hI?=
+ =?us-ascii?Q?7sTMiOTe/qhPSmgVehj8H350KuHzm/b0oAvBjNP0G3ViUthuAFe8PmL7zi3P?=
+ =?us-ascii?Q?C4piBlhgsoZx6hyDOTp46wqOmfaZnpPackeVqnJcdwdknhMSU82Vs6kpgjr7?=
+ =?us-ascii?Q?jN8lRAnC3quk58YFH5lUj/HrjdlsPZwtRj5aioxIwYXP+0Pm3BzKKscWV5yc?=
+ =?us-ascii?Q?TyjQ8enCmg7MNJo1KWhWV87bAKOuKqU2Bw+MNlKNvEMIvC2QgJok30/o0V9u?=
+ =?us-ascii?Q?fMLhGNF/b5fuAkrhUdxjCHyiTSLQ18gXCwTISJABulJHN4yDQ9XWYytQCpVU?=
+ =?us-ascii?Q?XlGOrG1PvzF+ZWSD9d/VXoQkN0bOGi7FM0TNhCaliLLHEHOerm/3iNFmtpc4?=
+ =?us-ascii?Q?ZsEBqoabX65B/lxvHpq5QR2OgyZXyNamXDWxxuc4mIMweb+J6bJDS9q82lQd?=
+ =?us-ascii?Q?0RhC?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4913.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72499032-7f88-44a9-bb5f-08d89c423d04
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2020 12:59:17.7314 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rHHc/qcKAXAhmeT9XxdGBBXlEZG+biQv/OHKlEmaaY8i1vG4akqsrp6ci7BRn0qR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4111
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2020 13:14:05.1649 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42f78752-9e3c-4db2-7f7f-08d89c444dfe
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ie47i1deKXVap/ji3+I9L4OLje01uMwzN/iNwhWWLQqevM/sbNewNJenNrKkKS/hNoE8xbnP4s2k4HG+CBXRcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2587
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,88 +123,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>
+Cc: "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+On Wed, Dec 09, 2020 at 08:49:38PM +0800, Hou, Xiaomeng (Matthew) wrote:
+> RLC is halted when system suspend/shutdown. However, due to DPM enabled, PMFW is
+> unaware of RLC being halted and will continue sending messages, which would
+> eventually cause an ACPI hang. Use the system_feature_control interface to
+> notify SMU the status of RLC thus enable/disable DPM feature.
+> 
+> Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+> Change-Id: I2f1a7de23df7315a7b220ba6d0a4bcaa75c93fea
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c    | 17 ++++++++++++++++-
+>  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h    |  4 ++++
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index ddaa6a705fa6..fb16d94b4031 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -64,7 +64,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
+>  	MSG_MAP(PowerUpIspByTile,               PPSMC_MSG_PowerUpIspByTile,		0),
+>  	MSG_MAP(PowerDownVcn,                   PPSMC_MSG_PowerDownVcn,			0),
+>  	MSG_MAP(PowerUpVcn,                     PPSMC_MSG_PowerUpVcn,			0),
+> -	MSG_MAP(Spare,                          PPSMC_MSG_spare,				0),
+> +	MSG_MAP(RlcPowerNotify,                 PPSMC_MSG_RlcPowerNotify,		0),
+>  	MSG_MAP(SetHardMinVcn,                  PPSMC_MSG_SetHardMinVcn,		0),
+>  	MSG_MAP(SetSoftMinGfxclk,               PPSMC_MSG_SetSoftMinGfxclk,		0),
+>  	MSG_MAP(ActiveProcessNotify,            PPSMC_MSG_ActiveProcessNotify,		0),
+> @@ -722,6 +722,20 @@ static int vangogh_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+>  	return 0;
+>  }
+>  
+> +static int vangogh_system_features_control(struct smu_context *smu, bool en)
+> +{
+> +	int ret = 0;
+> +
+> +	if (en)
+> +		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_RlcPowerNotify,
+> +								RLC_STATUS_NORMAL, NULL);
+> +	else
+> +		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_RlcPowerNotify,
+> +								RLC_STATUS_OFF, NULL);
 
-Series is Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+I think we can simplify the codes as below:
 
------Original Message-----
-From: Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com> 
-Sent: Wednesday, December 9, 2020 6:20 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Huang, Ray <Ray.Huang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>
-Subject: [PATCH v2 2/2] drm/amd/pm: inform SMU RLC status thus enable/disable DPM feature for vangogh
+return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_RlcPowerNotify,
+                                       en ? RLC_STATUS_NORMAL : RLC_STATUS_OFF, NULL);
 
-RLC is halted when system suspend/shutdown. However, due to DPM enabled, PMFW is unaware of RLC being halted and will continue sending messages, which would eventually cause an ACPI hang. Use the system_feature_control interface to notify SMU the status of RLC thus enable/disable DPM feature.
+With that update, series are Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
-Change-Id: I2f1a7de23df7315a7b220ba6d0a4bcaa75c93fea
----
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c    | 17 ++++++++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h    |  4 ++++
- 2 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index ddaa6a705fa6..fb16d94b4031 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -64,7 +64,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(PowerUpIspByTile,               PPSMC_MSG_PowerUpIspByTile,		0),
- 	MSG_MAP(PowerDownVcn,                   PPSMC_MSG_PowerDownVcn,			0),
- 	MSG_MAP(PowerUpVcn,                     PPSMC_MSG_PowerUpVcn,			0),
--	MSG_MAP(Spare,                          PPSMC_MSG_spare,				0),
-+	MSG_MAP(RlcPowerNotify,                 PPSMC_MSG_RlcPowerNotify,		0),
- 	MSG_MAP(SetHardMinVcn,                  PPSMC_MSG_SetHardMinVcn,		0),
- 	MSG_MAP(SetSoftMinGfxclk,               PPSMC_MSG_SetSoftMinGfxclk,		0),
- 	MSG_MAP(ActiveProcessNotify,            PPSMC_MSG_ActiveProcessNotify,		0),
-@@ -722,6 +722,20 @@ static int vangogh_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
- 	return 0;
- }
- 
-+static int vangogh_system_features_control(struct smu_context *smu, 
-+bool en) {
-+	int ret = 0;
-+
-+	if (en)
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_RlcPowerNotify,
-+								RLC_STATUS_NORMAL, NULL);
-+	else
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_RlcPowerNotify,
-+								RLC_STATUS_OFF, NULL);
-+
-+	return ret;
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
- 
- 	.check_fw_status = smu_v11_0_check_fw_status, @@ -750,6 +764,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.print_clk_levels = vangogh_print_fine_grain_clk,
- 	.set_default_dpm_table = vangogh_set_default_dpm_tables,
- 	.set_fine_grain_gfx_freq_parameters = vangogh_set_fine_grain_gfx_freq_parameters,
-+	.system_features_control = vangogh_system_features_control,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu) diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
-index 8756766296cd..eab455493076 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
-@@ -32,4 +32,8 @@ extern void vangogh_set_ppt_funcs(struct smu_context *smu);
- #define VANGOGH_UMD_PSTATE_SOCCLK       678
- #define VANGOGH_UMD_PSTATE_FCLK         800
- 
-+/* RLC Power Status */
-+#define RLC_STATUS_OFF          0
-+#define RLC_STATUS_NORMAL       1
-+
- #endif
---
-2.17.1
+> +
+> +	return ret;
+> +}
+> +
+>  static const struct pptable_funcs vangogh_ppt_funcs = {
+>  
+>  	.check_fw_status = smu_v11_0_check_fw_status,
+> @@ -750,6 +764,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
+>  	.print_clk_levels = vangogh_print_fine_grain_clk,
+>  	.set_default_dpm_table = vangogh_set_default_dpm_tables,
+>  	.set_fine_grain_gfx_freq_parameters = vangogh_set_fine_grain_gfx_freq_parameters,
+> +	.system_features_control = vangogh_system_features_control,
+>  };
+>  
+>  void vangogh_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
+> index 8756766296cd..eab455493076 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h
+> @@ -32,4 +32,8 @@ extern void vangogh_set_ppt_funcs(struct smu_context *smu);
+>  #define VANGOGH_UMD_PSTATE_SOCCLK       678
+>  #define VANGOGH_UMD_PSTATE_FCLK         800
+>  
+> +/* RLC Power Status */
+> +#define RLC_STATUS_OFF          0
+> +#define RLC_STATUS_NORMAL       1
+> +
+>  #endif
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
