@@ -2,46 +2,76 @@ Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2D0FC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 09:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A5B7C4361B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 10:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FC4123D25
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 09:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FC4123D25
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=arm.com
+	by mail.kernel.org (Postfix) with ESMTPS id C986222DA9
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 10:04:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C986222DA9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B64056EA59;
-	Thu, 10 Dec 2020 09:46:35 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 44A6E6EA59;
- Thu, 10 Dec 2020 09:46:34 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A39591FB;
- Thu, 10 Dec 2020 01:46:33 -0800 (PST)
-Received: from [192.168.1.179] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F9263F718;
- Thu, 10 Dec 2020 01:46:31 -0800 (PST)
-Subject: Re: [PATCH 1/1] drm/scheduler: Job timeout handler returns status (v2)
-To: Luben Tuikov <luben.tuikov@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20201210021438.9190-1-luben.tuikov@amd.com>
- <20201210021438.9190-2-luben.tuikov@amd.com>
-From: Steven Price <steven.price@arm.com>
-Message-ID: <5adf573f-8b56-9f85-96c4-727cc6fcadfc@arm.com>
-Date: Thu, 10 Dec 2020 09:46:22 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A5D89D99;
+	Thu, 10 Dec 2020 10:04:52 +0000 (UTC)
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
+ [IPv6:2a00:1450:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED8289D99
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 10:04:50 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id ga15so6491148ejb.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 02:04:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=aokATj+RVS/JVJll7haF26+6Bec4r5BXG0sPiBm5HWY=;
+ b=dCUhbUM0I7Na+Ruxlm9Ab8J+Lt8MDfm3ZYjY8HIphQZCMijPGGQn5djkYmU9CnBx+U
+ 04EhxRm6UenDcJ3rGNpQUv6heF+mqt+Vg2lnuyp9kh6Axx5i+SuAqeVNXqxWfU0hBfjj
+ cIYsKGFO9kshJKqI16Rw7zFhBtXjisvQ3+1jZqYfNVydofRfpJu2jX0yzC70Q0e1EYuG
+ IISVhKP0I+YcM5qnoYdm74idckebLRAbCsHYHWxlbQPeZV8chGHmyBXPrxWgwLJri8+/
+ qrnYfNBW3WxxipKUr8NX3rrDFYMgr6t4ME8RsYXY7MKHkbHQysQQJtQXTteCs9PLwikn
+ Jxsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=aokATj+RVS/JVJll7haF26+6Bec4r5BXG0sPiBm5HWY=;
+ b=pi/8rmibbO4i646+nJf3mAolJ/RbV5tcY+rqts+tUSMknhgibExzaGcb5u1FAOLz6a
+ Sb4QrdGbtlSAaIkNV5Nrfsnx4A0QFz0onKpYUQC4v+efARj7NARevk+fYP8YHAtlkVxu
+ Uvunz6LTDu338ATPh+RMF/7nqjFxMw7/GxwuoauOy37G4rSsv2JV0phJg3K1GGeQA7RA
+ 478U834UTlB/AclFjQtDbhZOFTFogzGbU1GzUNGbOa7l6c9JVChSjDd6XYrh1bMbBZ01
+ fO+NVixdUvpFZIvCJg5mkFo88AFCSoD8ECKJiJwyGb19lBxSnHfdpxbPYMdYtX4YFGLl
+ NaTQ==
+X-Gm-Message-State: AOAM533IvStVTdS2GxAu1dUqov9/2mkJBr/8bamJFMnYwvE9AxxDS4E1
+ shi7bR1Q0KcXOj7/FYIIAhoDYFxLVGk=
+X-Google-Smtp-Source: ABdhPJwLV/W0QgYO165+6dLps9Ql+c2K6gSCojvpcYCuNYHlI77WejHASxEt30BvrDbBOEuFxFK8AQ==
+X-Received: by 2002:a17:906:b2d1:: with SMTP id
+ cf17mr5857500ejb.281.1607594689090; 
+ Thu, 10 Dec 2020 02:04:49 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id v24sm4759086edw.23.2020.12.10.02.04.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Dec 2020 02:04:48 -0800 (PST)
+Subject: Re: [PATCH] amdgpu: don't treat BAR resize failure due to unsupported
+ requested size as an error
+To: Darren Salt <devspam@moreofthesa.me.uk>, amd-gfx@lists.freedesktop.org
+References: <20201209185540.2032-1-devspam@moreofthesa.me.uk>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <3199abbb-e5d0-dff2-d444-c10f10d957d8@gmail.com>
+Date: Thu, 10 Dec 2020 11:04:47 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201210021438.9190-2-luben.tuikov@amd.com>
-Content-Language: en-GB
+In-Reply-To: <20201209185540.2032-1-devspam@moreofthesa.me.uk>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,118 +83,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- kernel test robot <lkp@intel.com>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Rob Herring <robh@kernel.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Eric Anholt <eric@anholt.net>, Christian Gmeiner <christian.gmeiner@gmail.com>,
- Qiang Yu <yuq825@gmail.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: christian.koenig@amd.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMTAvMTIvMjAyMCAwMjoxNCwgTHViZW4gVHVpa292IHdyb3RlOgo+IFRoaXMgcGF0Y2ggZG9l
-cyBub3QgY2hhbmdlIGN1cnJlbnQgYmVoYXZpb3VyLgo+IAo+IFRoZSBkcml2ZXIncyBqb2IgdGlt
-ZW91dCBoYW5kbGVyIG5vdyByZXR1cm5zCj4gc3RhdHVzIGluZGljYXRpbmcgYmFjayB0byB0aGUg
-RFJNIGxheWVyIHdoZXRoZXIKPiB0aGUgdGFzayAoam9iKSB3YXMgc3VjY2Vzc2Z1bGx5IGFib3J0
-ZWQgb3Igd2hldGhlcgo+IG1vcmUgdGltZSBzaG91bGQgYmUgZ2l2ZW4gdG8gdGhlIHRhc2sgdG8g
-Y29tcGxldGUuCgpJIGZpbmQgdGhlIGRlZmluaXRpb25zIGdpdmVuIGEgbGl0dGxlIGNvbmZ1c2lu
-Zywgc2VlIGJlbG93LgoKPiBEZWZhdWx0IGJlaGF2aW91ciBhcyBvZiB0aGlzIHBhdGNoLCBpcyBw
-cmVzZXJ2ZWQsCj4gZXhjZXB0IGluIG9idmlvdXMtYnktY29tbWVudCBjYXNlIGluIHRoZSBQYW5m
-cm9zdAo+IGRyaXZlciwgYXMgZG9jdW1lbnRlZCBiZWxvdy4KPiAKPiBBbGwgZHJpdmVycyB3aGlj
-aCBtYWtlIHVzZSBvZiB0aGUKPiBkcm1fc2NoZWRfYmFja2VuZF9vcHMnIC50aW1lZG91dF9qb2Io
-KSBjYWxsYmFjawo+IGhhdmUgYmVlbiBhY2NvcmRpbmdseSByZW5hbWVkIGFuZCByZXR1cm4gdGhl
-Cj4gd291bGQndmUtYmVlbiBkZWZhdWx0IHZhbHVlIG9mCj4gRFJNX1RBU0tfU1RBVFVTX0FMSVZF
-IHRvIHJlc3RhcnQgdGhlIHRhc2sncwo+IHRpbWVvdXQgdGltZXItLXRoaXMgaXMgdGhlIG9sZCBi
-ZWhhdmlvdXIsIGFuZAo+IGlzIHByZXNlcnZlZCBieSB0aGlzIHBhdGNoLgo+IAo+IEluIHRoZSBj
-YXNlIG9mIHRoZSBQYW5mcm9zdCBkcml2ZXIsIGl0cyB0aW1lZG91dAo+IGNhbGxiYWNrIGNvcnJl
-Y3RseSBmaXJzdCBjaGVja3MgaWYgdGhlIGpvYiBoYWQKPiBjb21wbGV0ZWQgaW4gZHVlIHRpbWUg
-YW5kIGlmIHNvLCBpdCBub3cgcmV0dXJucwo+IERSTV9UQVNLX1NUQVRVU19DT01QTEVURSB0byBu
-b3RpZnkgdGhlIERSTSBsYXllcgo+IHRoYXQgdGhlIHRhc2sgY2FuIGJlIG1vdmVkIHRvIHRoZSBk
-b25lIGxpc3QsIHRvIGJlCj4gZnJlZWQgbGF0ZXIuIEluIHRoZSBvdGhlciB0d28gc3Vic2VxdWVu
-dCBjaGVja3MsCj4gdGhlIHZhbHVlIG9mIERSTV9UQVNLX1NUQVRVU19BTElWRSBpcyByZXR1cm5l
-ZCwgYXMKPiBwZXIgdGhlIGRlZmF1bHQgYmVoYXZpb3VyLgo+IAo+IEEgbW9yZSBpbnZvbHZlZCBk
-cml2ZXIncyBzb2x1dGlvbnMgY2FuIGJlIGhhZAo+IGluIHN1YmVxdWVudCBwYXRjaGVzLgoKTklU
-OiBeXl5eXl5eXl4gc3Vic2VxdWVudAoKPiAKPiB2MjogVXNlIGVudW0gYXMgdGhlIHN0YXR1cyBv
-ZiBhIGRyaXZlcidzIGpvYgo+ICAgICAgdGltZW91dCBjYWxsYmFjayBtZXRob2QuCj4gCj4gQ2M6
-IEFsZXhhbmRlciBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPgo+IENjOiBBbmRy
-ZXkgR3JvZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4KPiBDYzogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBEYW5pZWwgVmV0dGVyIDxk
-YW5pZWwudmV0dGVyQGZmd2xsLmNoPgo+IENjOiBMdWNhcyBTdGFjaCA8bC5zdGFjaEBwZW5ndXRy
-b25peC5kZT4KPiBDYzogUnVzc2VsbCBLaW5nIDxsaW51eCtldG5hdml2QGFybWxpbnV4Lm9yZy51
-az4KPiBDYzogQ2hyaXN0aWFuIEdtZWluZXIgPGNocmlzdGlhbi5nbWVpbmVyQGdtYWlsLmNvbT4K
-PiBDYzogUWlhbmcgWXUgPHl1cTgyNUBnbWFpbC5jb20+Cj4gQ2M6IFJvYiBIZXJyaW5nIDxyb2Jo
-QGtlcm5lbC5vcmc+Cj4gQ2M6IFRvbWV1IFZpem9zbyA8dG9tZXUudml6b3NvQGNvbGxhYm9yYS5j
-b20+Cj4gQ2M6IFN0ZXZlbiBQcmljZSA8c3RldmVuLnByaWNlQGFybS5jb20+Cj4gQ2M6IEFseXNz
-YSBSb3Nlbnp3ZWlnIDxhbHlzc2Eucm9zZW56d2VpZ0Bjb2xsYWJvcmEuY29tPgo+IENjOiBFcmlj
-IEFuaG9sdCA8ZXJpY0BhbmhvbHQubmV0Pgo+IFJlcG9ydGVkLWJ5OiBrZXJuZWwgdGVzdCByb2Jv
-dCA8bGtwQGludGVsLmNvbT4KClRoaXMgcmVwb3J0ZWQtYnkgc2VlbXMgYSBsaXR0bGUgb2RkIGZv
-ciB0aGlzIHBhdGNoLgoKPiBTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtv
-dkBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pv
-Yi5jIHwgIDYgKysrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQu
-YyB8IDEwICsrKysrKystCj4gICBkcml2ZXJzL2dwdS9kcm0vbGltYS9saW1hX3NjaGVkLmMgICAg
-ICAgfCAgNCArKystCj4gICBkcml2ZXJzL2dwdS9kcm0vcGFuZnJvc3QvcGFuZnJvc3Rfam9iLmMg
-fCAgOSArKysrLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYyAg
-fCAgNCArLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jICAgICAgICAgfCAz
-MiArKysrKysrKysrKysrLS0tLS0tLS0tLS0tCj4gICBpbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVy
-LmggICAgICAgICAgICAgfCAyMCArKysrKysrKysrKysrLS0tCj4gICA3IGZpbGVzIGNoYW5nZWQs
-IDU3IGluc2VydGlvbnMoKyksIDI4IGRlbGV0aW9ucygtKQo+IAoKWy4uLi5dCgo+IGRpZmYgLS1n
-aXQgYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggYi9pbmNsdWRlL2RybS9ncHVfc2NoZWR1
-bGVyLmgKPiBpbmRleCAyZTBjMzY4ZTE5ZjYuLmNlZGZjNTM5NGU1MiAxMDA2NDQKPiAtLS0gYS9p
-bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiArKysgYi9pbmNsdWRlL2RybS9ncHVfc2NoZWR1
-bGVyLmgKPiBAQCAtMjA2LDYgKzIwNiwxMSBAQCBzdGF0aWMgaW5saW5lIGJvb2wgZHJtX3NjaGVk
-X2ludmFsaWRhdGVfam9iKHN0cnVjdCBkcm1fc2NoZWRfam9iICpzX2pvYiwKPiAgIAlyZXR1cm4g
-c19qb2IgJiYgYXRvbWljX2luY19yZXR1cm4oJnNfam9iLT5rYXJtYSkgPiB0aHJlc2hvbGQ7Cj4g
-ICB9Cj4gICAKPiArZW51bSBkcm1fdGFza19zdGF0dXMgewo+ICsJRFJNX1RBU0tfU1RBVFVTX0NP
-TVBMRVRFLAo+ICsJRFJNX1RBU0tfU1RBVFVTX0FMSVZFCj4gK307Cj4gKwo+ICAgLyoqCj4gICAg
-KiBzdHJ1Y3QgZHJtX3NjaGVkX2JhY2tlbmRfb3BzCj4gICAgKgo+IEBAIC0yMzAsMTAgKzIzNSwx
-OSBAQCBzdHJ1Y3QgZHJtX3NjaGVkX2JhY2tlbmRfb3BzIHsKPiAgIAlzdHJ1Y3QgZG1hX2ZlbmNl
-ICooKnJ1bl9qb2IpKHN0cnVjdCBkcm1fc2NoZWRfam9iICpzY2hlZF9qb2IpOwo+ICAgCj4gICAJ
-LyoqCj4gLSAgICAgICAgICogQHRpbWVkb3V0X2pvYjogQ2FsbGVkIHdoZW4gYSBqb2IgaGFzIHRh
-a2VuIHRvbyBsb25nIHRvIGV4ZWN1dGUsCj4gLSAgICAgICAgICogdG8gdHJpZ2dlciBHUFUgcmVj
-b3ZlcnkuCj4gKwkgKiBAdGltZWRvdXRfam9iOiBDYWxsZWQgd2hlbiBhIGpvYiBoYXMgdGFrZW4g
-dG9vIGxvbmcgdG8gZXhlY3V0ZSwKPiArCSAqIHRvIHRyaWdnZXIgR1BVIHJlY292ZXJ5Lgo+ICsJ
-ICoKPiArCSAqIFJldHVybiBEUk1fVEFTS19TVEFUVVNfQUxJVkUsIGlmIHRoZSB0YXNrIChqb2Ip
-IGlzIGhlYWx0aHkKPiArCSAqIGFuZCBleGVjdXRpbmcgaW4gdGhlIGhhcmR3YXJlLCBpLmUuIGl0
-IG5lZWRzIG1vcmUgdGltZS4KClNvICdhbGl2ZScgbWVhbnMgdGhlIGpvYiAod2FzKSBhbGl2ZSwg
-YW5kIEdQVSByZWNvdmVyeSBpcyBoYXBwZW5pbmcuIApJLmUuIGl0J3MgdGhlIGpvYiBqdXN0IHRh
-a2VzIHRvbyBsb25nLiBQYW5mcm9zdCB3aWxsIHRyaWdnZXIgYSBHUFUgcmVzZXQgCihraWxsaW5n
-IHRoZSBqb2IpIGluIHRoaXMgY2FzZSB3aGlsZSByZXR1cm5pbmcgRFJNX1RBU0tfU1RBVFVTX0FM
-SVZFLgoKPiArCSAqCj4gKwkgKiBSZXR1cm4gRFJNX1RBU0tfU1RBVFVTX0NPTVBMRVRFLCBpZiB0
-aGUgdGFzayAoam9iKSBoYXMKPiArCSAqIGJlZW4gYWJvcnRlZCBvciBpcyB1bmtub3duIHRvIHRo
-ZSBoYXJkd2FyZSwgaS5lLiBpZgo+ICsJICogdGhlIHRhc2sgaXMgb3V0IG9mIHRoZSBoYXJkd2Fy
-ZSwgYW5kIG1heWJlIGl0IGlzIG5vdwo+ICsJICogaW4gdGhlIGRvbmUgbGlzdCwgb3IgaXQgd2Fz
-IGNvbXBsZXRlZCBsb25nIGFnbywgb3IKPiArCSAqIGlmIGl0IGlzIHVua25vd24gdG8gdGhlIGhh
-cmR3YXJlLgoKV2hlcmUgJ2NvbXBsZXRlJyBzZWVtcyB0byBtZWFuIGEgdmFyaWV0eSBvZiB0aGlu
-Z3M6CgogICogVGhlIGpvYiBjb21wbGV0ZWQgc3VjY2Vzc2Z1bGx5IChpLmUuIHRoZSB0aW1lb3V0
-IHJhY2VkKSwgdGhpcyBpcyB0aGUgCnNpdHVhdGlvbiB0aGF0IFBhbmZyb3N0IGRldGVjdHMuIElu
-IHRoaXMgY2FzZSAoYW5kIG9ubHkgdGhpcyBjYXNlKSB0aGUgCkdQVSByZXNldCB3aWxsICpub3Qq
-IGhhcHBlbi4KCiAgKiBUaGUgam9iIGZhaWxlZCAoYWJvcnRlZCkgYW5kIGlzIG5vIGxvbmdlciBv
-biB0aGUgaGFyZHdhcmUuIFBhbmZyb3N0IApjdXJyZW50bHkgaGFuZGxlcyBhIGpvYiBmYWlsdXJl
-IGJ5IHRyaWdnZXJpbmcgZHJtX3NjaGVkX2ZhdWx0KCkgdG8gCnRyaWdnZXIgdGhlIHRpbWVvdXQg
-aGFuZGxlci4gQnV0IHRoZSB0aW1lb3V0IGhhbmRsZXIgZG9lc24ndCBoYW5kbGUgdGhpcyAKZGlm
-ZmVyZW50bHkgc28gd2lsbCByZXR1cm4gRFJNX1RBU0tfU1RBVFVTX0FMSVZFLgoKICAqIFRoZSBq
-b2IgaXMgInVua25vd24gdG8gaGFyZHdhcmUiLiBUaGVyZSBhcmUgc29tZSBjb3JuZXIgY2FzZXMg
-aW4gClBhbmZyb3N0IChzcGVjaWZpY2FsbHkgdHdvIGVhcmx5IHJldHVybnMgZnJvbSBwYW5mcm9z
-dF9qb2JfaHdfc3VibWl0KCkpIAp3aGVyZSB0aGUgam9iIG5ldmVyIGFjdHVhbGx5IGxhbmRzIG9u
-IHRoZSBoYXJkd2FyZSwgYnV0IHRoZSBzY2hlZHVsZXIgCmlzbid0IGluZm9ybWVkLiBXZSBjdXJy
-ZW50bHkgcmVseSBvbiB0aGUgdGltZW91dCBoYW5kbGluZyB0byByZWNvdmVyIApmcm9tIHRoYXQu
-IEhvd2V2ZXIsIGFnYWluLCB0aGUgdGltZW91dCBoYW5kbGVyIGRvZXNuJ3Qga25vdyBhYm91dCB0
-aGlzIApzb28gd2lsbCByZXR1cm4gRFJNX1RBU0tfU1RBVFVTX0FMSVZFLgoKU28gb2YgdGhlIGZv
-dXIgY2FzZXMgbGlzdGVkIGluIHRoZXNlIGNvbW1lbnRzLCBQYW5mcm9zdCBpcyBvbmx5IGdldHRp
-bmcgCjIgJ2NvcnJlY3QnIGFmdGVyIHRoaXMgY2hhbmdlLgoKQnV0IHdoYXQgSSByZWFsbHkgd2Fu
-dCB0byBrbm93IGlzIHdoYXQgdGhlIHNjaGVkdWxlciBpcyBwbGFubmluZyB0byBkbyAKaW4gdGhl
-c2Ugc2l0dWF0aW9ucz8gVGhlIFBhbmZyb3N0IHJldHVybiB2YWx1ZSBpbiB0aGlzIHBhdGNoIGlz
-IHJlYWxseSBhIAoiZGlkIHdlIHRyaWdnZXIgYSBHUFUgcmVzZXQiIC0gYW5kIGRvZXNuJ3Qgc2Vl
-bSB0byBtYXRjaCB0aGUgCmRlc2NyaXB0aW9ucyBhYm92ZS4KClN0ZXZlCgo+ICAgCSAqLwo+IC0J
-dm9pZCAoKnRpbWVkb3V0X2pvYikoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNjaGVkX2pvYik7Cj4g
-KwllbnVtIGRybV90YXNrX3N0YXR1cyAoKnRpbWVkb3V0X2pvYikoc3RydWN0IGRybV9zY2hlZF9q
-b2IgKnNjaGVkX2pvYik7Cj4gICAKPiAgIAkvKioKPiAgICAgICAgICAgICogQGZyZWVfam9iOiBD
-YWxsZWQgb25jZSB0aGUgam9iJ3MgZmluaXNoZWQgZmVuY2UgaGFzIGJlZW4gc2lnbmFsZWQKPiAK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Am 09.12.20 um 19:55 schrieb Darren Salt:
+> On the resize attempt failing with -EINVAL, instead report an informational
+> message indicating that the requested BAR size is not listed as supported by
+> the VBIOS.
+>
+> Without this, as I have an RX 5600 XT which lists only 256MB, 512MB and
+> 1024MB as supported, I see
+>      [drm:amdgpu_device_resize_fb_bar] *ERROR* Problem resizing BAR0 (-22).
+
+Well NAK, we just recently discussed that internally and the key point 
+is that we should not have tried to resize things in the first place 
+since that means a lot of churn for the PCIe subsystem.
+
+So this is really an error and we should try to avoid it.
+
+But the fact that you run into this in the first place is really 
+interesting, I thought we haven't sold hardware with that configuration yet.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 355fa0057c26..d80ba03913a7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1136,6 +1136,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+>   	r = pci_resize_resource(adev->pdev, 0, rbar_size);
+>   	if (r == -ENOSPC)
+>   		DRM_INFO("Not enough PCI address space for a large BAR.");
+> +	else if (r == -EINVAL)
+> +		DRM_INFO("VBIOS does not support exposing all VRAM via a large BAR.");
+>   	else if (r && r != -ENOTSUPP)
+>   		DRM_ERROR("Problem resizing BAR0 (%d).", r);
+>   
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
