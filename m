@@ -2,71 +2,43 @@ Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A2D9C4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C5FAC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FF6C23DE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FF6C23DE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D778823108
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D778823108
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE7E36EB75;
-	Thu, 10 Dec 2020 21:45:44 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FB86EB6F
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:40 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id z3so4970173qtw.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5q7IxEEBVNbhrWNFGVaIunVgQt+SK1wcHAT1QD3GwYE=;
- b=sh126Mca+dMiy4ynAwKft4ta1WPfrv8KPhczqvVpXceUX70qP+Wb140S5CXqM06e+i
- rfngdV8o31t4IIb3gxhGEbYkYll1Bhw7HWyelPjoZc5uKwmOGNjJ8ccocwL1bd12f9fR
- I7vY0KwUOQtpctkHd0LW//OaEV6JUhY1A8aotQZ1HVxDTsdUi6F6aumAMXvwORZaZWLA
- kGeCdajBBDrLHl/JBsDfEkVvf3gR8Swj8soLWGoSTx9fV/bpvKfEbyha+r8Os26sVR57
- pLeEZwMa/viRslqwblwFWG76it94tFSIHmbf51bbtQIlgwxm49Vv9qSur1fNPyGK2MQk
- SDbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5q7IxEEBVNbhrWNFGVaIunVgQt+SK1wcHAT1QD3GwYE=;
- b=P2MFmngyIGsZeJrEXUyylSyWcr4fssP2aN4UAY7RX+BFjdlxZdOu9M2kRVSdRj1Khd
- fxg5RQ1CM9xRH7dW7ygCa8mS1QI7CSSCKvQLaWTdiuqDVTeNqTiw7qrZKVatBdaDOYQb
- 6EbKX2mDID3sG51YlQBziBwlF3SuzIBJ+iUtjhfTgjQxTNVZ5ng6dpN93+hhSYex+toE
- 5ggxphoPd4lu/t48uVPWVc09Q7XVKyQDmGyhgUw+LAFARN/9cdxSSAgrf4UGHcpcsGu9
- TPbMzO972/18MCH7QxXGPcKPdIjR2rpbx/DW7cJwNZRw/Yn3q7zXfb9moexCwTYJQ7ge
- kUPg==
-X-Gm-Message-State: AOAM530LB1Uv/Xi9FiCzTlTEvehbkgQ7MnSzu1kAkYwMLlWTMWGzgc54
- Lp1GLm4UlFU5URoE72lN7z2TpsLn1Pw=
-X-Google-Smtp-Source: ABdhPJwMc0fkJ9nOXrSOadWBcNfCiWREbwMetB+IQ64FAiZOx2K/Z6odfXDp/dNPhzh+T0noEH7iVA==
-X-Received: by 2002:a05:622a:303:: with SMTP id
- q3mr11442105qtw.24.1607636739363; 
- Thu, 10 Dec 2020 13:45:39 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 13:45:38 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/7] drm/amdgpu: no need to call pci_ignore_hotplug for _PR3
-Date: Thu, 10 Dec 2020 16:45:16 -0500
-Message-Id: <20201210214518.704305-5-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20201210214518.704305-1-alexander.deucher@amd.com>
-References: <20201210214518.704305-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19DE86EB71;
+	Thu, 10 Dec 2020 22:01:14 +0000 (UTC)
+Received: from mail1.protonmail.ch (mail1.protonmail.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A08966EB6F;
+ Thu, 10 Dec 2020 22:01:12 +0000 (UTC)
+Date: Thu, 10 Dec 2020 22:01:01 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1607637670;
+ bh=FmTLQjfSj2V4sIkgLBfO1ZQUi/M+NWkIe67YWDNBQuo=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=A23OApJGdY2kZ3w4Qq6w+IYE9/5+sfej7hEwUoUWHx7Pi+QSrN90KmqEnQeQ27UMo
+ WD6+jdepWn3l8gKv/e10t3gGzYHMk8ddmJVq7BpmmfHh9UnSVEg9TxabVoFbu4NdcG
+ RssK30ZMipm/RI0N7h0mh+pz1fVLzlc5BF3RkrOmosrq2fPNV28fmmHJWjsZFbupkJ
+ WXcY+6WPl6qSq2ISyMwJEGXXHTq/s8Ad1+SR12TsNoGRmuJEdIhi0xfqJcmTlcnaCZ
+ O/5ENDxCwSXUal6Oauar+7j2yf3NzLIBDqcHcNEr5ZLe5rKmMT9HTEkdV4lS1cD2uD
+ EGVDsRhieFAOA==
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v2 0/3] Experimental freesync video mode optimization
+Message-ID: <MC46k2jDYAeDTZaSlv6T5iIq5ibkh2yYwW3KZ-XLXLwoRByjkWsEr6-6eQM4iZqmkiLoleyh84S290ytAub0bK-esJje1OGKIEilcz_iikY=@emersion.fr>
+In-Reply-To: <20201210184823.285415-1-aurabindo.pillai@amd.com>
+References: <20201210184823.285415-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,48 +51,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: stylon.wang@amd.com, thong.thai@amd.com, shashank.sharma@amd.com,
+ Martin Peres <martin.peres@free.fr>, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, wayne.lin@amd.com,
+ alexander.deucher@amd.com, Harry.Wentland@amd.com, nicholas.kazlauskas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The platform knows it's doing d3cold.
+Hi,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+(CC dri-devel, Pekka and Martin who might be interested in this as well.)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 90b8ce762aee..4f97d493eeda 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1352,20 +1352,13 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
- 		 */
--		if (amdgpu_is_atpx_hybrid()) {
--			pci_ignore_hotplug(pdev);
--		} else {
-+		if (!amdgpu_is_atpx_hybrid()) {
- 			amdgpu_device_cache_pci_state(pdev);
- 			pci_disable_device(pdev);
- 			pci_ignore_hotplug(pdev);
- 			pci_set_power_state(pdev, PCI_D3cold);
- 		}
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
--	} else if (amdgpu_device_supports_boco(drm_dev)) {
--		/* Only need to handle PCI state in the driver for ATPX
--		 * PCI core handles it for _PR3.
--		 */
--		pci_ignore_hotplug(pdev);
- 	} else if (amdgpu_device_supports_baco(drm_dev)) {
- 		amdgpu_device_baco_enter(drm_dev);
- 	}
--- 
-2.25.4
+On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
 
+> This patchset enables freesync video mode usecase where the userspace
+> can request a freesync compatible video mode such that switching to this
+> mode does not trigger blanking.
+>
+> This feature is guarded by a module parameter which is disabled by
+> default. Enabling this paramters adds additional modes to the driver
+> modelist, and also enables the optimization to skip modeset when using
+> one of these modes.
+
+Thanks for working on this, it's an interesting feature! However I'd like to
+take some time to think about the user-space API for this.
+
+As I understand it, some new synthetic modes are added, and user-space can
+perform a test-only atomic *without* ALLOW_MODESET to figure out whether it can
+switch to a mode without blanking the screen.
+
+However the exact modes amdgpu adds are just some guesses. I think it would be
+great if user-space could control the min/max refresh rate values directly.
+Not only this would remove the need for the kernel to hard-code "well-known
+video refresh rates", but this would also enable more use-cases. For instance
+some users might want to mitigate flickering on their screen by reducing the
+VRR range. Some users might want to lower their screen refresh rate for power
+savings.
+
+What do you think? Would you be fine with adding min/max VRR range properties?
+
+If you're scared about the user-space code requirement, I can provide that.
+
+Thanks,
+
+Simon Ser
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
