@@ -8,62 +8,61 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3DBDC4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D3E4C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C50523DE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C50523DE3
+	by mail.kernel.org (Postfix) with ESMTPS id D721C23DE3
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D721C23DE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24666EB71;
-	Thu, 10 Dec 2020 21:45:38 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F456EB6C
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:37 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id bd6so3220896qvb.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C5D6EB72;
+	Thu, 10 Dec 2020 21:45:40 +0000 (UTC)
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89036EB71
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:38 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id j18so1306075qvu.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=kgmqPb7ccl8GHqnVsmfAZPP9ktePnHechaUnV+DC0Sk=;
- b=cfI4gbbPNGPm3qKpxDhOCFyB92w/GfxJRsfuFDpb43kNBGxP+8f5U1T/+DHK72rFRD
- NrGLSg9EPzBnwpt1uNVyM2kcjqOQqYuQOJsg/v9iJtm9HW68g22CSIIOBJqxzbKuUdb7
- jeKW+5CZZdOwOH9FQo67m4BtsUTASivyp4+LO4PGPrD7I5mzGMccRKkw9no2SaO5NQsS
- 87uFbZvtnNKfwRcAeVQ/Cm6O9bb92AlhSfETwX08oUfjsUPxfIZQrwKpvb/xtCOQThC5
- L1U+5fZHIEsAJ/Oy8oPGhT6jWKSEIwT+Ywc5R7YiGF73rzL9kl+iK0ZSfFCIg7J409j5
- 5aWQ==
+ bh=VEWsBhAB2DPdOwd1ORZITkKFsFwAfEyxwnxAkQnb29s=;
+ b=iSfuih9wJODqM1qF1syFnwfh1L1ub6pGqZW1rRlE7/4DR/bi02s1UwzPRGxR62Wd5e
+ fmn+McwxJP50SaNdpF1Jxhwd0mHk/Iimkdz0dgak1a5grOT+5NpnXX7DBJNP98lIdY0W
+ 4FqNPxewITPyVoWqDNi5wmZgzMlm2L/8h9SuJIT6TPKi5cqd58rsgfErFMA50pnVxEky
+ M1Ql0n4ihzs+sht12nNI+VL0GCE0FGqFEZZKRrbGPHRXaH9V8odCaiNW1QZATmVWnTZv
+ sd4xZfW3oerWSKtFT3AMde3V2MODWwQH2HRiitGdVJf3DDN2kywcmdcld9kHIjMyUuWd
+ +GLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=kgmqPb7ccl8GHqnVsmfAZPP9ktePnHechaUnV+DC0Sk=;
- b=c5pUF/X+7/J68UJZeesoTUqrnabOwyVuls1CPNqXmrHDUZ/wIabU5WBx02LK8VuAKV
- meASuK8b1/45V1SHFbAOUP/6Xpzw4wF7ItMB48RSw5rTBdFFm4ZKs8zmLJlK6WqTZVqw
- ml/nEtzlUmiWGVl9gUpSqiUiLpFlMGCQu/cmLIffCsaxBqv2/DCoqlGVb18lGMwbzkDi
- LC2NkcOxIwpaXUISYw0mVo3yYTt9wz259yKDmJr855r4HKqIm9q8TUhzXNM+VEsbEnmV
- +OASdjydQ7ZSaex4Qmw4OrMbMld/rNR3pcU/pFq6Kz7zpEHKfgxfGLv0Cxtay1izuvGD
- SNEA==
-X-Gm-Message-State: AOAM532gjcTX9JpmOEgnpYKCBiQOdzdABkschguGH6IyPZnTGHwHdkHy
- xgEv4D8upxdV2wNYnGPOeemYisjXJG8=
-X-Google-Smtp-Source: ABdhPJyj8gO3aCvbuSGHxOs87DY4w5u71dyzySGFPDRWmvPa54ta8sCBY/Efqik9Qzgz6TE8ar6DdQ==
-X-Received: by 2002:a05:6214:98d:: with SMTP id
- dt13mr7928959qvb.37.1607636736999; 
- Thu, 10 Dec 2020 13:45:36 -0800 (PST)
+ bh=VEWsBhAB2DPdOwd1ORZITkKFsFwAfEyxwnxAkQnb29s=;
+ b=TtYcjMjcPJ6McDqEfT9XSq/IwV93nZ4YNjnjiUZb5znd3LdQLFvygqaK5tjTOs3Ee3
+ 9LjeWcsj2eGVH4lOUk4YK0GOniPr3xIytYTN+WRwbU/WhATfdh8dVQLy3KJQnWTSUu+U
+ xQ5/8YLAQnJbQGm2Ddr6zKMZMznu/BMoZRr4ci72geR8sT5MOprPnSEfW8pTSQJfKhJ7
+ 8ubnL4Y9OyJmQXllSlXpG7L9ZX/AY25elzNkeYBtGQV8XS7IwC8tamFeW1R33mVN1yXq
+ 2yOnx9aBUkPjrlF4wHLq0mahzT4tH6M5CkGcgxuzOvXJSbrOg5cu8aQvlX4tNQn4nf7f
+ cUsw==
+X-Gm-Message-State: AOAM531c2BN5jl1WXzuFMZqXIiH8Y2rg1Pad1AVH3mWAo9p1G+BJbDYv
+ C7cfVv0B4k04fApUep01iYGU66xL90U=
+X-Google-Smtp-Source: ABdhPJywPidhL+GmpPQoxA6cxR9FUqNUKn1BWk4YJaLI7Y6ZfgBnG4yn7bCpHDcqkOITrx+Vz4qWzA==
+X-Received: by 2002:a0c:d80e:: with SMTP id h14mr11726778qvj.13.1607636737857; 
+ Thu, 10 Dec 2020 13:45:37 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.36
+ by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 13:45:36 -0800 (PST)
+ Thu, 10 Dec 2020 13:45:37 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/7] drm/amdgpu: add check for ACPI power resources
-Date: Thu, 10 Dec 2020 16:45:13 -0500
-Message-Id: <20201210214518.704305-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/7] drm/amdgpu: update amdgpu_device_supports_boco()
+Date: Thu, 10 Dec 2020 16:45:14 -0500
+Message-Id: <20201210214518.704305-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201210214518.704305-1-alexander.deucher@amd.com>
 References: <20201210214518.704305-1-alexander.deucher@amd.com>
@@ -85,49 +84,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check if the device has ACPI power resources so we can
-enable runtime pm if so.
+Change it to check if the device has ACPI power resources.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 4 ++++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 38c029af60c7..c228e7470d51 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1024,6 +1024,7 @@ struct amdgpu_device {
- 	/* enable runtime pm on the device */
- 	bool                            runpm;
- 	bool                            in_runpm;
-+	bool                            has_pr3;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index e243490462d8..6637b84aeb85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -229,7 +229,7 @@ bool amdgpu_device_supports_atpx(struct drm_device *dev)
+ }
  
- 	bool                            pm_sysfs_en;
- 	bool                            ucode_sysfs_en;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 38fb903338a4..ec8fff7839ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -133,6 +133,7 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
- int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ /**
+- * amdgpu_device_supports_boco - Is the device a dGPU with HG/PX power control
++ * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
+  *
+  * @dev: drm_device pointer
+  *
+@@ -240,7 +240,7 @@ bool amdgpu_device_supports_boco(struct drm_device *dev)
  {
- 	struct drm_device *dev;
-+	struct pci_dev *parent;
- 	int r, acpi_status;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
  
- 	dev = adev_to_drm(adev);
-@@ -144,6 +145,9 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 	    !pci_is_thunderbolt_attached(dev->pdev))
- 		flags |= AMD_IS_PX;
- 
-+	parent = pci_upstream_bridge(adev->pdev);
-+	adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
-+
- 	/* amdgpu_device_init should report only fatal error
- 	 * like memory allocation failure or iomapping failure,
- 	 * or memory manager initialization failure, it must
+-	if (adev->flags & AMD_IS_PX)
++	if (adev->has_pr3)
+ 		return true;
+ 	return false;
+ }
 -- 
 2.25.4
 
