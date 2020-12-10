@@ -2,85 +2,63 @@ Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44906C4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50F97C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECA5723D22
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 14:25:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECA5723D22
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id C319F2310C
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:02:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C319F2310C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86566E5A4;
-	Thu, 10 Dec 2020 14:25:30 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAAC6E418
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 14:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607610328;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P+5nI8MX4nGh/Q/51ilCNBuc96LnCOEPhqwbdVY/mzs=;
- b=NyRCNg0Q/iqYS/vVhUXKQpURvP24/kVoZepOtfLQdwY1wdC20X3yIgt7BWAaNi0qePDUVU
- yq697GPR6YTKU+bj9C4HOoSWqynMj/Lezz/wcLB+bUlYZLXhEIoMwNHODb6GDFPH0UrRi2
- onyEDEvFDK7h/ldqKEQ5Z0E/lXySkEc=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-398-CxE7cUdIMlW8PQw8Tohoig-1; Thu, 10 Dec 2020 09:25:23 -0500
-X-MC-Unique: CxE7cUdIMlW8PQw8Tohoig-1
-Received: by mail-qt1-f199.google.com with SMTP id a11so2988348qto.16
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 06:25:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=P+5nI8MX4nGh/Q/51ilCNBuc96LnCOEPhqwbdVY/mzs=;
- b=ozn4kFxTnj70OxKbQznZy0NYPcryiAidHgcGoxzy9hxwGWqociEDHT2/7Z6zzMozcu
- uR9t3FoLRSgEbFy8Kzs3ukgaztIxMfljYd3X4ACqeVUPsaDD5qyjg1jPCUgHBOQxAzsu
- HGcA5GyMMkGn3XJsf03JlgB1fhU3R3pcs50UdyX2e5EtS2ldBoE8k336TbbiGAGlpXZ8
- Z+h8LXQp6BOWr19gmngw1N+3iwlfyO2qbtwHr6bFAUW/OPguC449mbbHOTFkelyyhjG9
- IcadH0j2+Di+XsGqJFv84UPfzQ+OLkt3jCCf5OgkQAA94vFzv/P2+lZGZ2Xiv7brduU1
- EDYA==
-X-Gm-Message-State: AOAM533puG8C0/UozY9xzthziJy9fJcnzlr3lH3wjDL2rEGqLm8vjipV
- dJSxwycK7/jLvvYGsrbbfI43c4dchgnwp6tB8Kz8bx4lTWlBKMk8ZSgcjcQwIfzMuRr09gXXFsc
- 4ArHPpehm1tdnuNUHo6Y5YgjpmA==
-X-Received: by 2002:a0c:a544:: with SMTP id y62mr9541787qvy.11.1607610322714; 
- Thu, 10 Dec 2020 06:25:22 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxbQUpweQacGoVojZsahTLbr5M0WhArJH/OPJYqPZzXpLr7vA3he5J+K/RzThH7OKhXEopLDg==
-X-Received: by 2002:a0c:a544:: with SMTP id y62mr9541754qvy.11.1607610322353; 
- Thu, 10 Dec 2020 06:25:22 -0800 (PST)
-Received: from xps13 ([136.56.20.95])
- by smtp.gmail.com with ESMTPSA id m8sm3529259qkn.41.2020.12.10.06.25.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 06:25:21 -0800 (PST)
-Date: Thu, 10 Dec 2020 09:25:19 -0500
-From: Jeremy Cline <jcline@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 13/20] drm/nouveau: Remove references to struct
- drm_device.pdev
-Message-ID: <20201210142519.GA47366@xps13>
-References: <20201201103542.2182-1-tzimmermann@suse.de>
- <20201201103542.2182-14-tzimmermann@suse.de>
- <20201209180426.GA8635@xps13>
- <c018ff5d-7305-4de6-cf04-bfe6e29f7800@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6797A6E536;
+	Thu, 10 Dec 2020 15:02:02 +0000 (UTC)
+Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
+ [IPv6:2001:8b0:897:1651::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E65D66E536
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 15:02:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=moreofthesa.me.uk; s=201708; h=Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QQSj6rLbCn8bmwL8wDdAWEQ81KFgxrdhzEsuvqSpEEw=; b=PD3yFF7gOrEghR3YBFHGkMm+W
+ jbNKCzA0M64EmD9VA+ComicFXecmvW+bRiaREOz/3pfYg16GBNf4oLh1WswUTWQux2c25aA6E9Fon
+ ScJNOVgpczvKzxH6vU233wQGAJEZZ6vFuSMhXeBwxnxup22lAr33almbiC27DHwZJG0aMewkKMDJM
+ G5RNEN5tNkrpsrArQ7Bi4OPGgfjLM70hbt1Znzrc92Zkys90ucP7s6RdfqDW7HfKrQOnGmywIQEPF
+ hEHaZgw3h374cXtNq4FI30WlU7eMhl+zyIzhCmRm7XaEAnD3JKr0F7gJJSrHOfuf3YuG7vbFwqpTE
+ sQC6O9Yug==;
+Received: from [2001:8b0:897:1650::2]
+ by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
+ (envelope-from <devspam@moreofthesa.me.uk>)
+ id 1knNSA-000557-WF; Thu, 10 Dec 2020 15:01:59 +0000
+Date: Thu, 10 Dec 2020 13:59:25 +0000
+From: Darren Salt <devspam@moreofthesa.me.uk>
+To: christian.koenig@amd.com
+Subject: Re: [PATCH] amdgpu: resize BAR0 to the maximum available size,
+ even if it doesn't cover VRAM
+Message-ID: <58E21FF244%devspam@moreofthesa.me.uk>
+In-Reply-To: <621ae252-ab39-383e-61a9-746fb47c6e01@gmail.com>
+References: <20201210005744.5877-1-devspam@moreofthesa.me.uk> 
+ <621ae252-ab39-383e-61a9-746fb47c6e01@gmail.com>
+Mail-Followup-To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
+ Darren Salt <devspam@moreofthesa.me.uk>
+User-Agent: Messenger-Pro/2.73.6.4250 (Qt/5.11.3) (Linux-x86_64)
+X-No-Archive: no
+X-Orwell-Date: Thu, 13159 Dec 1984 13:59:25 +0000
 MIME-Version: 1.0
-In-Reply-To: <c018ff5d-7305-4de6-cf04-bfe6e29f7800@suse.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jcline@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Type: multipart/mixed; boundary="1454987343--1007793855--1630567166"
+X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
+X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
+X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
+ SAEximRunCond expanded to false
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,337 +70,356 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBEZWMgMTAsIDIwMjAgYXQgMDg6NTY6MDhBTSArMDEwMCwgVGhvbWFzIFppbW1lcm1h
-bm4gd3JvdGU6Cj4gSGkKPiAKPiBBbSAwOS4xMi4yMCB1bSAxOTowNCBzY2hyaWViIEplcmVteSBD
-bGluZToKPiA+IEhpLAo+ID4gCj4gPiBPbiBUdWUsIERlYyAwMSwgMjAyMCBhdCAxMTozNTozNUFN
-ICswMTAwLCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToKPiA+ID4gVXNpbmcgc3RydWN0IGRybV9k
-ZXZpY2UucGRldiBpcyBkZXByZWNhdGVkLiBDb252ZXJ0IG5vdXZlYXUgdG8gc3RydWN0Cj4gPiA+
-IGRybV9kZXZpY2UuZGV2LiBObyBmdW5jdGlvbmFsIGNoYW5nZXMuCj4gPiA+IAo+ID4gPiBTaWdu
-ZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KPiA+ID4g
-Q2M6IEJlbiBTa2VnZ3MgPGJza2VnZ3NAcmVkaGF0LmNvbT4KPiA+ID4gLS0tCj4gPiA+ICAgZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52MDQvYXJiLmMgICAgICB8IDEyICsrKysrKystLS0t
-LQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0L2Rpc3AuaCAgICAgfCAx
-NCArKysrKysrKy0tLS0tLQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0
-L2h3LmMgICAgICAgfCAxMCArKysrKystLS0tCj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvbm91dmVhdV9hYmkxNi5jICAgICB8ICA3ICsrKystLS0KPiA+ID4gICBkcml2ZXJzL2dwdS9k
-cm0vbm91dmVhdS9ub3V2ZWF1X2FjcGkuYyAgICAgIHwgIDIgKy0KPiA+ID4gICBkcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Jpb3MuYyAgICAgIHwgMTEgKysrKysrKystLS0KPiA+ID4g
-ICBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Nvbm5lY3Rvci5jIHwgMTAgKysrKysr
-LS0tLQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfZHJtLmMgICAgICAg
-fCAgNSArKy0tLQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfZmJjb24u
-YyAgICAgfCAgNiArKysrLS0KPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1
-X3ZnYS5jICAgICAgIHwgMjAgKysrKysrKysrKysrLS0tLS0tLS0KPiA+ID4gICAxMCBmaWxlcyBj
-aGFuZ2VkLCA1OCBpbnNlcnRpb25zKCspLCAzOSBkZWxldGlvbnMoLSkKPiA+ID4gCj4gPiAKPiA+
-IEkgYmVsaWV2ZSB0aGVyZSdzIGEgdXNlIG9mIGRybV9kZXZpY2UucGRldiBpbgo+ID4gZHJpdmVy
-cy9ncHUvZHJtL25vdXZlYXUvZGlzcG52MDQvZGZwLmMgaW4gdGhlCj4gPiBudjA0X2RmcF91cGRh
-dGVfYmFja2xpZ2h0KCkgZnVuY3Rpb24uCj4gCj4gT2gsIEkgc2VlISBJdCdzIFBvd2VyUEMtb25s
-eS4KPiAKPiA+IAo+ID4gT3RoZXIgdGhhbiB0aGF0LCB0aGlzIGxvb2tzIGdvb2QgdG8gbWUuCj4g
-Cj4gV2l0aCB0aGUgZm9yZ290dGVuIHBkZXYgZml4ZXMsIGNhbiBJIGNvdW50IHRoaXMgYXMgYW4g
-QWNrZWQtYnk/Cj4gCgpZZWFoLCB3aXRoIHRoYXQgZml4OgoKUmV2aWV3ZWQtYnk6IEplcmVteSBD
-bGluZSA8amNsaW5lQHJlZGhhdC5jb20+Cgo+IEJlc3QgcmVnYXJkcwo+IFRob21hcwo+IAo+ID4g
-Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9hcmIu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0L2FyYi5jCj4gPiA+IGluZGV4IDlk
-NGEyZDk3NTA3ZS4uMWQzNTQyZDYwMDZiIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vbm91dmVhdS9kaXNwbnYwNC9hcmIuYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91
-dmVhdS9kaXNwbnYwNC9hcmIuYwo+ID4gPiBAQCAtMjAwLDE2ICsyMDAsMTcgQEAgbnYwNF91cGRh
-dGVfYXJiKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGludCBWQ2xrLCBpbnQgYnBwLAo+ID4gPiAg
-IAlpbnQgTUNsayA9IG5vdXZlYXVfaHdfZ2V0X2Nsb2NrKGRldiwgUExMX01FTU9SWSk7Cj4gPiA+
-ICAgCWludCBOVkNsayA9IG5vdXZlYXVfaHdfZ2V0X2Nsb2NrKGRldiwgUExMX0NPUkUpOwo+ID4g
-PiAgIAl1aW50MzJfdCBjZmcxID0gbnZpZl9yZDMyKGRldmljZSwgTlYwNF9QRkJfQ0ZHMSk7Cj4g
-PiA+ICsJc3RydWN0IHBjaV9kZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRldi0+ZGV2KTsKPiA+ID4g
-ICAJc2ltX2RhdGEucGNsa19raHogPSBWQ2xrOwo+ID4gPiAgIAlzaW1fZGF0YS5tY2xrX2toeiA9
-IE1DbGs7Cj4gPiA+ICAgCXNpbV9kYXRhLm52Y2xrX2toeiA9IE5WQ2xrOwo+ID4gPiAgIAlzaW1f
-ZGF0YS5icHAgPSBicHA7Cj4gPiA+ICAgCXNpbV9kYXRhLnR3b19oZWFkcyA9IG52X3R3b19oZWFk
-cyhkZXYpOwo+ID4gPiAtCWlmICgoZGV2LT5wZGV2LT5kZXZpY2UgJiAweGZmZmYpID09IDB4MDFh
-MCAvKkNISVBTRVRfTkZPUkNFKi8gfHwKPiA+ID4gLQkgICAgKGRldi0+cGRldi0+ZGV2aWNlICYg
-MHhmZmZmKSA9PSAweDAxZjAgLypDSElQU0VUX05GT1JDRTIqLykgewo+ID4gPiArCWlmICgocGRl
-di0+ZGV2aWNlICYgMHhmZmZmKSA9PSAweDAxYTAgLypDSElQU0VUX05GT1JDRSovIHx8Cj4gPiA+
-ICsJICAgIChwZGV2LT5kZXZpY2UgJiAweGZmZmYpID09IDB4MDFmMCAvKkNISVBTRVRfTkZPUkNF
-MiovKSB7Cj4gPiA+ICAgCQl1aW50MzJfdCB0eXBlOwo+ID4gPiAtCQlpbnQgZG9tYWluID0gcGNp
-X2RvbWFpbl9ucihkZXYtPnBkZXYtPmJ1cyk7Cj4gPiA+ICsJCWludCBkb21haW4gPSBwY2lfZG9t
-YWluX25yKHBkZXYtPmJ1cyk7Cj4gPiA+ICAgCQlwY2lfcmVhZF9jb25maWdfZHdvcmQocGNpX2dl
-dF9kb21haW5fYnVzX2FuZF9zbG90KGRvbWFpbiwgMCwgMSksCj4gPiA+ICAgCQkJCSAgICAgIDB4
-N2MsICZ0eXBlKTsKPiA+ID4gQEAgLTI1MSwxMSArMjUyLDEyIEBAIHZvaWQKPiA+ID4gICBub3V2
-ZWF1X2NhbGNfYXJiKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGludCB2Y2xrLCBpbnQgYnBwLCBp
-bnQgKmJ1cnN0LCBpbnQgKmx3bSkKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBub3V2ZWF1X2Ry
-bSAqZHJtID0gbm91dmVhdV9kcm0oZGV2KTsKPiA+ID4gKwlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9
-IHRvX3BjaV9kZXYoZGV2LT5kZXYpOwo+ID4gPiAgIAlpZiAoZHJtLT5jbGllbnQuZGV2aWNlLmlu
-Zm8uZmFtaWx5IDwgTlZfREVWSUNFX0lORk9fVjBfS0VMVklOKQo+ID4gPiAgIAkJbnYwNF91cGRh
-dGVfYXJiKGRldiwgdmNsaywgYnBwLCBidXJzdCwgbHdtKTsKPiA+ID4gLQllbHNlIGlmICgoZGV2
-LT5wZGV2LT5kZXZpY2UgJiAweGZmZjApID09IDB4MDI0MCAvKkNISVBTRVRfQzUxKi8gfHwKPiA+
-ID4gLQkJIChkZXYtPnBkZXYtPmRldmljZSAmIDB4ZmZmMCkgPT0gMHgwM2QwIC8qQ0hJUFNFVF9D
-NTEyKi8pIHsKPiA+ID4gKwllbHNlIGlmICgocGRldi0+ZGV2aWNlICYgMHhmZmYwKSA9PSAweDAy
-NDAgLypDSElQU0VUX0M1MSovIHx8Cj4gPiA+ICsJCSAocGRldi0+ZGV2aWNlICYgMHhmZmYwKSA9
-PSAweDAzZDAgLypDSElQU0VUX0M1MTIqLykgewo+ID4gPiAgIAkJKmJ1cnN0ID0gMTI4Owo+ID4g
-PiAgIAkJKmx3bSA9IDB4MDQ4MDsKPiA+ID4gICAJfSBlbHNlCj4gPiA+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9kaXNwLmggYi9kcml2ZXJzL2dwdS9kcm0v
-bm91dmVhdS9kaXNwbnYwNC9kaXNwLmgKPiA+ID4gaW5kZXggNWFjZTVlOTA2OTQ5Li5mMGEyNDEy
-NjY0MWEgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0
-L2Rpc3AuaAo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9kaXNw
-LmgKPiA+ID4gQEAgLTEzMCw3ICsxMzAsNyBAQCBzdGF0aWMgaW5saW5lIGJvb2wKPiA+ID4gICBu
-dl90d29faGVhZHMoc3RydWN0IGRybV9kZXZpY2UgKmRldikKPiA+ID4gICB7Cj4gPiA+ICAgCXN0
-cnVjdCBub3V2ZWF1X2RybSAqZHJtID0gbm91dmVhdV9kcm0oZGV2KTsKPiA+ID4gLQljb25zdCBp
-bnQgaW1wbCA9IGRldi0+cGRldi0+ZGV2aWNlICYgMHgwZmYwOwo+ID4gPiArCWNvbnN0IGludCBp
-bXBsID0gdG9fcGNpX2RldihkZXYtPmRldiktPmRldmljZSAmIDB4MGZmMDsKPiA+ID4gICAJaWYg
-KGRybS0+Y2xpZW50LmRldmljZS5pbmZvLmZhbWlseSA+PSBOVl9ERVZJQ0VfSU5GT19WMF9DRUxT
-SVVTICYmIGltcGwgIT0gMHgwMTAwICYmCj4gPiA+ICAgCSAgICBpbXBsICE9IDB4MDE1MCAmJiBp
-bXBsICE9IDB4MDFhMCAmJiBpbXBsICE9IDB4MDIwMCkKPiA+ID4gQEAgLTE0MiwxNCArMTQyLDE0
-IEBAIG52X3R3b19oZWFkcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQo+ID4gPiAgIHN0YXRpYyBp
-bmxpbmUgYm9vbAo+ID4gPiAgIG52X2dmNF9kaXNwX2FyY2goc3RydWN0IGRybV9kZXZpY2UgKmRl
-dikKPiA+ID4gICB7Cj4gPiA+IC0JcmV0dXJuIG52X3R3b19oZWFkcyhkZXYpICYmIChkZXYtPnBk
-ZXYtPmRldmljZSAmIDB4MGZmMCkgIT0gMHgwMTEwOwo+ID4gPiArCXJldHVybiBudl90d29faGVh
-ZHMoZGV2KSAmJiAodG9fcGNpX2RldihkZXYtPmRldiktPmRldmljZSAmIDB4MGZmMCkgIT0gMHgw
-MTEwOwo+ID4gPiAgIH0KPiA+ID4gICBzdGF0aWMgaW5saW5lIGJvb2wKPiA+ID4gICBudl90d29f
-cmVnX3BsbChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQo+ID4gPiAgIHsKPiA+ID4gICAJc3RydWN0
-IG5vdXZlYXVfZHJtICpkcm0gPSBub3V2ZWF1X2RybShkZXYpOwo+ID4gPiAtCWNvbnN0IGludCBp
-bXBsID0gZGV2LT5wZGV2LT5kZXZpY2UgJiAweDBmZjA7Cj4gPiA+ICsJY29uc3QgaW50IGltcGwg
-PSB0b19wY2lfZGV2KGRldi0+ZGV2KS0+ZGV2aWNlICYgMHgwZmYwOwo+ID4gPiAgIAlpZiAoaW1w
-bCA9PSAweDAzMTAgfHwgaW1wbCA9PSAweDAzNDAgfHwgZHJtLT5jbGllbnQuZGV2aWNlLmluZm8u
-ZmFtaWx5ID49IE5WX0RFVklDRV9JTkZPX1YwX0NVUklFKQo+ID4gPiAgIAkJcmV0dXJuIHRydWU7
-Cj4gPiA+IEBAIC0xNjAsOSArMTYwLDExIEBAIHN0YXRpYyBpbmxpbmUgYm9vbAo+ID4gPiAgIG52
-X21hdGNoX2RldmljZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBkZXZpY2UsCj4g
-PiA+ICAgCQl1bnNpZ25lZCBzdWJfdmVuZG9yLCB1bnNpZ25lZCBzdWJfZGV2aWNlKQo+ID4gPiAg
-IHsKPiA+ID4gLQlyZXR1cm4gZGV2LT5wZGV2LT5kZXZpY2UgPT0gZGV2aWNlICYmCj4gPiA+IC0J
-CWRldi0+cGRldi0+c3Vic3lzdGVtX3ZlbmRvciA9PSBzdWJfdmVuZG9yICYmCj4gPiA+IC0JCWRl
-di0+cGRldi0+c3Vic3lzdGVtX2RldmljZSA9PSBzdWJfZGV2aWNlOwo+ID4gPiArCXN0cnVjdCBw
-Y2lfZGV2ICpwZGV2ID0gdG9fcGNpX2RldihkZXYtPmRldik7Cj4gPiA+ICsKPiA+ID4gKwlyZXR1
-cm4gcGRldi0+ZGV2aWNlID09IGRldmljZSAmJgo+ID4gPiArCQlwZGV2LT5zdWJzeXN0ZW1fdmVu
-ZG9yID09IHN1Yl92ZW5kb3IgJiYKPiA+ID4gKwkJcGRldi0+c3Vic3lzdGVtX2RldmljZSA9PSBz
-dWJfZGV2aWNlOwo+ID4gPiAgIH0KPiA+ID4gICAjaW5jbHVkZSA8c3ViZGV2L2Jpb3MvaW5pdC5o
-Pgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52MDQvaHcu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0L2h3LmMKPiA+ID4gaW5kZXggYjY3
-NGQ2OGVmMjhhLi5mN2QzNTY1N2FhNjQgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9ub3V2ZWF1L2Rpc3BudjA0L2h3LmMKPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvZGlzcG52MDQvaHcuYwo+ID4gPiBAQCAtMjE0LDE0ICsyMTQsMTUgQEAgbm91dmVhdV9od19w
-bGx2YWxzX3RvX2NsayhzdHJ1Y3QgbnZrbV9wbGxfdmFscyAqcHYpCj4gPiA+ICAgaW50Cj4gPiA+
-ICAgbm91dmVhdV9od19nZXRfY2xvY2soc3RydWN0IGRybV9kZXZpY2UgKmRldiwgZW51bSBudmJp
-b3NfcGxsX3R5cGUgcGxsdHlwZSkKPiA+ID4gICB7Cj4gPiA+ICsJc3RydWN0IHBjaV9kZXYgKnBk
-ZXYgPSB0b19wY2lfZGV2KGRldi0+ZGV2KTsKPiA+ID4gICAJc3RydWN0IG52a21fcGxsX3ZhbHMg
-cGxsdmFsczsKPiA+ID4gICAJaW50IHJldDsKPiA+ID4gICAJaW50IGRvbWFpbjsKPiA+ID4gLQlk
-b21haW4gPSBwY2lfZG9tYWluX25yKGRldi0+cGRldi0+YnVzKTsKPiA+ID4gKwlkb21haW4gPSBw
-Y2lfZG9tYWluX25yKHBkZXYtPmJ1cyk7Cj4gPiA+ICAgCWlmIChwbGx0eXBlID09IFBMTF9NRU1P
-UlkgJiYKPiA+ID4gLQkgICAgKGRldi0+cGRldi0+ZGV2aWNlICYgMHgwZmYwKSA9PSBDSElQU0VU
-X05GT1JDRSkgewo+ID4gPiArCSAgICAocGRldi0+ZGV2aWNlICYgMHgwZmYwKSA9PSBDSElQU0VU
-X05GT1JDRSkgewo+ID4gPiAgIAkJdWludDMyX3QgbXBsbFA7Cj4gPiA+ICAgCQlwY2lfcmVhZF9j
-b25maWdfZHdvcmQocGNpX2dldF9kb21haW5fYnVzX2FuZF9zbG90KGRvbWFpbiwgMCwgMyksCj4g
-PiA+ICAgCQkJCSAgICAgIDB4NmMsICZtcGxsUCk7Cj4gPiA+IEBAIC0yMzIsNyArMjMzLDcgQEAg
-bm91dmVhdV9od19nZXRfY2xvY2soc3RydWN0IGRybV9kZXZpY2UgKmRldiwgZW51bSBudmJpb3Nf
-cGxsX3R5cGUgcGxsdHlwZSkKPiA+ID4gICAJCXJldHVybiA0MDAwMDAgLyBtcGxsUDsKPiA+ID4g
-ICAJfSBlbHNlCj4gPiA+ICAgCWlmIChwbGx0eXBlID09IFBMTF9NRU1PUlkgJiYKPiA+ID4gLQkg
-ICAgKGRldi0+cGRldi0+ZGV2aWNlICYgMHhmZjApID09IENISVBTRVRfTkZPUkNFMikgewo+ID4g
-PiArCSAgICAocGRldi0+ZGV2aWNlICYgMHhmZjApID09IENISVBTRVRfTkZPUkNFMikgewo+ID4g
-PiAgIAkJdWludDMyX3QgY2xvY2s7Cj4gPiA+ICAgCQlwY2lfcmVhZF9jb25maWdfZHdvcmQocGNp
-X2dldF9kb21haW5fYnVzX2FuZF9zbG90KGRvbWFpbiwgMCwgNSksCj4gPiA+IEBAIC0zMDksNiAr
-MzEwLDcgQEAgdm9pZAo+ID4gPiAgIG5vdXZlYXVfaHdfc2F2ZV92Z2FfZm9udHMoc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwgYm9vbCBzYXZlKQo+ID4gPiAgIHsKPiA+ID4gICAJc3RydWN0IG5vdXZl
-YXVfZHJtICpkcm0gPSBub3V2ZWF1X2RybShkZXYpOwo+ID4gPiArCXN0cnVjdCBwY2lfZGV2ICpw
-ZGV2ID0gdG9fcGNpX2RldihkZXYtPmRldik7Cj4gPiA+ICAgCXVpbnQ4X3QgbWlzYywgZ3I0LCBn
-cjUsIGdyNiwgc2VxMiwgc2VxNDsKPiA+ID4gICAJYm9vbCBncmFwaGljc21vZGU7Cj4gPiA+ICAg
-CXVuc2lnbmVkIHBsYW5lOwo+ID4gPiBAQCAtMzI3LDcgKzMyOSw3IEBAIG5vdXZlYXVfaHdfc2F2
-ZV92Z2FfZm9udHMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBzYXZlKQo+ID4gPiAgIAlO
-Vl9JTkZPKGRybSwgIiVzaW5nIFZHQSBmb250c1xuIiwgc2F2ZSA/ICJTYXYiIDogIlJlc3RvciIp
-Owo+ID4gPiAgIAkvKiBtYXAgZmlyc3QgNjRLaUIgb2YgVlJBTSwgaG9sZHMgVkdBIGZvbnRzIGV0
-YyAqLwo+ID4gPiAtCWlvdnJhbSA9IGlvcmVtYXAocGNpX3Jlc291cmNlX3N0YXJ0KGRldi0+cGRl
-diwgMSksIDY1NTM2KTsKPiA+ID4gKwlpb3ZyYW0gPSBpb3JlbWFwKHBjaV9yZXNvdXJjZV9zdGFy
-dChwZGV2LCAxKSwgNjU1MzYpOwo+ID4gPiAgIAlpZiAoIWlvdnJhbSkgewo+ID4gPiAgIAkJTlZf
-RVJST1IoZHJtLCAiRmFpbGVkIHRvIG1hcCBWUkFNLCAiCj4gPiA+ICAgCQkJCQkiY2Fubm90IHNh
-dmUvcmVzdG9yZSBWR0EgZm9udHMuXG4iKTsKPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9ub3V2ZWF1L25vdXZlYXVfYWJpMTYuYyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25v
-dXZlYXVfYWJpMTYuYwo+ID4gPiBpbmRleCA5YTViZTZmMzI0MjQuLmYwOGIzMWQ4NGQ0ZCAxMDA2
-NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9hYmkxNi5jCj4g
-PiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYWJpMTYuYwo+ID4gPiBA
-QCAtMTgxLDYgKzE4MSw3IEBAIG5vdXZlYXVfYWJpMTZfaW9jdGxfZ2V0cGFyYW0oQUJJMTZfSU9D
-VExfQVJHUykKPiA+ID4gICAJc3RydWN0IG52aWZfZGV2aWNlICpkZXZpY2UgPSAmZHJtLT5jbGll
-bnQuZGV2aWNlOwo+ID4gPiAgIAlzdHJ1Y3QgbnZrbV9nciAqZ3IgPSBudnh4X2dyKGRldmljZSk7
-Cj4gPiA+ICAgCXN0cnVjdCBkcm1fbm91dmVhdV9nZXRwYXJhbSAqZ2V0cGFyYW0gPSBkYXRhOwo+
-ID4gPiArCXN0cnVjdCBwY2lfZGV2ICpwZGV2ID0gdG9fcGNpX2RldihkZXYtPmRldik7Cj4gPiA+
-ICAgCXN3aXRjaCAoZ2V0cGFyYW0tPnBhcmFtKSB7Cj4gPiA+ICAgCWNhc2UgTk9VVkVBVV9HRVRQ
-QVJBTV9DSElQU0VUX0lEOgo+ID4gPiBAQCAtMTg4LDEzICsxODksMTMgQEAgbm91dmVhdV9hYmkx
-Nl9pb2N0bF9nZXRwYXJhbShBQkkxNl9JT0NUTF9BUkdTKQo+ID4gPiAgIAkJYnJlYWs7Cj4gPiA+
-ICAgCWNhc2UgTk9VVkVBVV9HRVRQQVJBTV9QQ0lfVkVORE9SOgo+ID4gPiAgIAkJaWYgKGRldmlj
-ZS0+aW5mby5wbGF0Zm9ybSAhPSBOVl9ERVZJQ0VfSU5GT19WMF9TT0MpCj4gPiA+IC0JCQlnZXRw
-YXJhbS0+dmFsdWUgPSBkZXYtPnBkZXYtPnZlbmRvcjsKPiA+ID4gKwkJCWdldHBhcmFtLT52YWx1
-ZSA9IHBkZXYtPnZlbmRvcjsKPiA+ID4gICAJCWVsc2UKPiA+ID4gICAJCQlnZXRwYXJhbS0+dmFs
-dWUgPSAwOwo+ID4gPiAgIAkJYnJlYWs7Cj4gPiA+ICAgCWNhc2UgTk9VVkVBVV9HRVRQQVJBTV9Q
-Q0lfREVWSUNFOgo+ID4gPiAgIAkJaWYgKGRldmljZS0+aW5mby5wbGF0Zm9ybSAhPSBOVl9ERVZJ
-Q0VfSU5GT19WMF9TT0MpCj4gPiA+IC0JCQlnZXRwYXJhbS0+dmFsdWUgPSBkZXYtPnBkZXYtPmRl
-dmljZTsKPiA+ID4gKwkJCWdldHBhcmFtLT52YWx1ZSA9IHBkZXYtPmRldmljZTsKPiA+ID4gICAJ
-CWVsc2UKPiA+ID4gICAJCQlnZXRwYXJhbS0+dmFsdWUgPSAwOwo+ID4gPiAgIAkJYnJlYWs7Cj4g
-PiA+IEBAIC0yMDUsNyArMjA2LDcgQEAgbm91dmVhdV9hYmkxNl9pb2N0bF9nZXRwYXJhbShBQkkx
-Nl9JT0NUTF9BUkdTKQo+ID4gPiAgIAkJY2FzZSBOVl9ERVZJQ0VfSU5GT19WMF9QQ0lFOiBnZXRw
-YXJhbS0+dmFsdWUgPSAyOyBicmVhazsKPiA+ID4gICAJCWNhc2UgTlZfREVWSUNFX0lORk9fVjBf
-U09DIDogZ2V0cGFyYW0tPnZhbHVlID0gMzsgYnJlYWs7Cj4gPiA+ICAgCQljYXNlIE5WX0RFVklD
-RV9JTkZPX1YwX0lHUCA6Cj4gPiA+IC0JCQlpZiAoIXBjaV9pc19wY2llKGRldi0+cGRldikpCj4g
-PiA+ICsJCQlpZiAoIXBjaV9pc19wY2llKHBkZXYpKQo+ID4gPiAgIAkJCQlnZXRwYXJhbS0+dmFs
-dWUgPSAxOwo+ID4gPiAgIAkJCWVsc2UKPiA+ID4gICAJCQkJZ2V0cGFyYW0tPnZhbHVlID0gMjsK
-PiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYWNwaS5j
-IGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9hY3BpLmMKPiA+ID4gaW5kZXggNjlh
-ODRkMDE5N2QwLi43YzE1ZjY0NDg0MjggMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9ub3V2ZWF1L25vdXZlYXVfYWNwaS5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2
-ZWF1L25vdXZlYXVfYWNwaS5jCj4gPiA+IEBAIC0zNzcsNyArMzc3LDcgQEAgbm91dmVhdV9hY3Bp
-X2VkaWQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
-Y3RvcikKPiA+ID4gICAJCXJldHVybiBOVUxMOwo+ID4gPiAgIAl9Cj4gPiA+IC0JaGFuZGxlID0g
-QUNQSV9IQU5ETEUoJmRldi0+cGRldi0+ZGV2KTsKPiA+ID4gKwloYW5kbGUgPSBBQ1BJX0hBTkRM
-RShkZXYtPmRldik7Cj4gPiA+ICAgCWlmICghaGFuZGxlKQo+ID4gPiAgIAkJcmV0dXJuIE5VTEw7
-Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Jpb3Mu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYmlvcy5jCj4gPiA+IGluZGV4IGQy
-MDRlYThhNTYxOC4uN2NjNjgzYjhkYzdhIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vbm91dmVhdS9ub3V2ZWF1X2Jpb3MuYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91
-dmVhdS9ub3V2ZWF1X2Jpb3MuYwo+ID4gPiBAQCAtMTEwLDYgKzExMCw5IEBAIHN0YXRpYyBpbnQg
-Y2FsbF9sdmRzX21hbnVmYWN0dXJlcl9zY3JpcHQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3Ry
-dWN0IGRjYl9vdXRwCj4gPiA+ICAgCXN0cnVjdCBudmJpb3MgKmJpb3MgPSAmZHJtLT52YmlvczsK
-PiA+ID4gICAJdWludDhfdCBzdWIgPSBiaW9zLT5kYXRhW2Jpb3MtPmZwLnhsYXRlZF9lbnRyeSAr
-IHNjcmlwdF0gKyAoYmlvcy0+ZnAubGlua19jX2luY3JlbWVudCAmJiBkY2JlbnQtPm9yICYgRENC
-X09VVFBVVF9DID8gMSA6IDApOwo+ID4gPiAgIAl1aW50MTZfdCBzY3JpcHRvZnMgPSBST00xNihi
-aW9zLT5kYXRhW2Jpb3MtPmluaXRfc2NyaXB0X3RibHNfcHRyICsgc3ViICogMl0pOwo+ID4gPiAr
-I2lmZGVmIF9fcG93ZXJwY19fCj4gPiA+ICsJc3RydWN0IHBjaV9kZXYgKnBkZXYgPSB0b19wY2lf
-ZGV2KGRldi0+ZGV2KTsKPiA+ID4gKyNlbmRpZgo+ID4gPiAgIAlpZiAoIWJpb3MtPmZwLnhsYXRl
-ZF9lbnRyeSB8fCAhc3ViIHx8ICFzY3JpcHRvZnMpCj4gPiA+ICAgCQlyZXR1cm4gLUVJTlZBTDsK
-PiA+ID4gQEAgLTEyMyw4ICsxMjYsOCBAQCBzdGF0aWMgaW50IGNhbGxfbHZkc19tYW51ZmFjdHVy
-ZXJfc2NyaXB0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHN0cnVjdCBkY2Jfb3V0cAo+ID4gPiAg
-ICNpZmRlZiBfX3Bvd2VycGNfXwo+ID4gPiAgIAkvKiBQb3dlcmJvb2sgc3BlY2lmaWMgcXVpcmtz
-ICovCj4gPiA+ICAgCWlmIChzY3JpcHQgPT0gTFZEU19SRVNFVCAmJgo+ID4gPiAtCSAgICAoZGV2
-LT5wZGV2LT5kZXZpY2UgPT0gMHgwMTc5IHx8IGRldi0+cGRldi0+ZGV2aWNlID09IDB4MDE4OSB8
-fAo+ID4gPiAtCSAgICAgZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgwMzI5KSkKPiA+ID4gKwkgICAg
-KHBkZXYtPmRldmljZSA9PSAweDAxNzkgfHwgcGRldi0+ZGV2aWNlID09IDB4MDE4OSB8fAo+ID4g
-PiArCSAgICAgcGRldi0+ZGV2aWNlID09IDB4MDMyOSkpCj4gPiA+ICAgCQludl93cml0ZV90bWRz
-KGRldiwgZGNiZW50LT5vciwgMCwgMHgwMiwgMHg3Mik7Cj4gPiA+ICAgI2VuZGlmCj4gPiA+IEBA
-IC0yMDgwLDExICsyMDgzLDEzIEBAIG5vdXZlYXVfYmlvc19pbml0KHN0cnVjdCBkcm1fZGV2aWNl
-ICpkZXYpCj4gPiA+ICAgewo+ID4gPiAgIAlzdHJ1Y3Qgbm91dmVhdV9kcm0gKmRybSA9IG5vdXZl
-YXVfZHJtKGRldik7Cj4gPiA+ICAgCXN0cnVjdCBudmJpb3MgKmJpb3MgPSAmZHJtLT52YmlvczsK
-PiA+ID4gKwlzdHJ1Y3QgcGNpX2RldiAqcGRldjsKPiA+ID4gICAJaW50IHJldDsKPiA+ID4gICAJ
-Lyogb25seSByZWxldmFudCBmb3IgUENJIGRldmljZXMgKi8KPiA+ID4gLQlpZiAoIWRldi0+cGRl
-dikKPiA+ID4gKwlpZiAoIWRldl9pc19wY2koZGV2LT5kZXYpKQo+ID4gPiAgIAkJcmV0dXJuIDA7
-Cj4gPiA+ICsJcGRldiA9IHRvX3BjaV9kZXYoZGV2LT5kZXYpOwo+ID4gPiAgIAlpZiAoIU5WSW5p
-dFZCSU9TKGRldikpCj4gPiA+ICAgCQlyZXR1cm4gLUVOT0RFVjsKPiA+ID4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfY29ubmVjdG9yLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Nvbm5lY3Rvci5jCj4gPiA+IGluZGV4IDhiNGIzNjg4Yzdh
-ZS4uMTRjMjllNjhkYjhmIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVh
-dS9ub3V2ZWF1X2Nvbm5lY3Rvci5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1
-L25vdXZlYXVfY29ubmVjdG9yLmMKPiA+ID4gQEAgLTQxMSw2ICs0MTEsNyBAQCBzdGF0aWMgc3Ry
-dWN0IG5vdXZlYXVfZW5jb2RlciAqCj4gPiA+ICAgbm91dmVhdV9jb25uZWN0b3JfZGRjX2RldGVj
-dChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ID4gPiAgIHsKPiA+ID4gICAJc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiA9IGNvbm5lY3Rvci0+ZGV2Owo+ID4gPiArCXN0cnVjdCBwY2lf
-ZGV2ICpwZGV2ID0gdG9fcGNpX2RldihkZXYtPmRldik7Cj4gPiA+ICAgCXN0cnVjdCBub3V2ZWF1
-X2VuY29kZXIgKm52X2VuY29kZXIgPSBOVUxMLCAqZm91bmQgPSBOVUxMOwo+ID4gPiAgIAlzdHJ1
-Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Cj4gPiA+ICAgCWludCByZXQ7Cj4gPiA+IEBAIC00Mzgs
-MTEgKzQzOSwxMSBAQCBub3V2ZWF1X2Nvbm5lY3Rvcl9kZGNfZGV0ZWN0KHN0cnVjdCBkcm1fY29u
-bmVjdG9yICpjb25uZWN0b3IpCj4gPiA+ICAgCQkJCWJyZWFrOwo+ID4gPiAgIAkJCWlmIChzd2l0
-Y2hlcm9vX2RkYykKPiA+ID4gLQkJCQl2Z2Ffc3dpdGNoZXJvb19sb2NrX2RkYyhkZXYtPnBkZXYp
-Owo+ID4gPiArCQkJCXZnYV9zd2l0Y2hlcm9vX2xvY2tfZGRjKHBkZXYpOwo+ID4gPiAgIAkJCWlm
-IChudmttX3Byb2JlX2kyYyhudl9lbmNvZGVyLT5pMmMsIDB4NTApKQo+ID4gPiAgIAkJCQlmb3Vu
-ZCA9IG52X2VuY29kZXI7Cj4gPiA+ICAgCQkJaWYgKHN3aXRjaGVyb29fZGRjKQo+ID4gPiAtCQkJ
-CXZnYV9zd2l0Y2hlcm9vX3VubG9ja19kZGMoZGV2LT5wZGV2KTsKPiA+ID4gKwkJCQl2Z2Ffc3dp
-dGNoZXJvb191bmxvY2tfZGRjKHBkZXYpOwo+ID4gPiAgIAkJCWJyZWFrOwo+ID4gPiAgIAkJfQo+
-ID4gPiBAQCAtNDkwLDYgKzQ5MSw3IEBAIG5vdXZlYXVfY29ubmVjdG9yX3NldF9lbmNvZGVyKHN0
-cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCj4gPiA+ICAgCXN0cnVjdCBub3V2ZWF1X2Nv
-bm5lY3RvciAqbnZfY29ubmVjdG9yID0gbm91dmVhdV9jb25uZWN0b3IoY29ubmVjdG9yKTsKPiA+
-ID4gICAJc3RydWN0IG5vdXZlYXVfZHJtICpkcm0gPSBub3V2ZWF1X2RybShjb25uZWN0b3ItPmRl
-dik7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjb25uZWN0b3ItPmRldjsKPiA+
-ID4gKwlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IHRvX3BjaV9kZXYoZGV2LT5kZXYpOwo+ID4gPiAg
-IAlpZiAobnZfY29ubmVjdG9yLT5kZXRlY3RlZF9lbmNvZGVyID09IG52X2VuY29kZXIpCj4gPiA+
-ICAgCQlyZXR1cm47Cj4gPiA+IEBAIC01MTEsOCArNTEzLDggQEAgbm91dmVhdV9jb25uZWN0b3Jf
-c2V0X2VuY29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKPiA+ID4gICAJCWNv
-bm5lY3Rvci0+ZG91Ymxlc2Nhbl9hbGxvd2VkID0gdHJ1ZTsKPiA+ID4gICAJCWlmIChkcm0tPmNs
-aWVudC5kZXZpY2UuaW5mby5mYW1pbHkgPT0gTlZfREVWSUNFX0lORk9fVjBfS0VMVklOIHx8Cj4g
-PiA+ICAgCQkgICAgKGRybS0+Y2xpZW50LmRldmljZS5pbmZvLmZhbWlseSA9PSBOVl9ERVZJQ0Vf
-SU5GT19WMF9DRUxTSVVTICYmCj4gPiA+IC0JCSAgICAgKGRldi0+cGRldi0+ZGV2aWNlICYgMHgw
-ZmYwKSAhPSAweDAxMDAgJiYKPiA+ID4gLQkJICAgICAoZGV2LT5wZGV2LT5kZXZpY2UgJiAweDBm
-ZjApICE9IDB4MDE1MCkpCj4gPiA+ICsJCSAgICAgKHBkZXYtPmRldmljZSAmIDB4MGZmMCkgIT0g
-MHgwMTAwICYmCj4gPiA+ICsJCSAgICAgKHBkZXYtPmRldmljZSAmIDB4MGZmMCkgIT0gMHgwMTUw
-KSkKPiA+ID4gICAJCQkvKiBIVyBpcyBicm9rZW4gKi8KPiA+ID4gICAJCQljb25uZWN0b3ItPmlu
-dGVybGFjZV9hbGxvd2VkID0gZmFsc2U7Cj4gPiA+ICAgCQllbHNlCj4gPiA+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2RybS5jIGIvZHJpdmVycy9ncHUvZHJt
-L25vdXZlYXUvbm91dmVhdV9kcm0uYwo+ID4gPiBpbmRleCBkMTQxYTVmMDA0YWYuLjFiMjE2OWU5
-YzI5NSAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9k
-cm0uYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2RybS5jCj4g
-PiA+IEBAIC0xMTUsOCArMTE1LDggQEAgbm91dmVhdV9wbGF0Zm9ybV9uYW1lKHN0cnVjdCBwbGF0
-Zm9ybV9kZXZpY2UgKnBsYXRmb3JtZGV2KQo+ID4gPiAgIHN0YXRpYyB1NjQKPiA+ID4gICBub3V2
-ZWF1X25hbWUoc3RydWN0IGRybV9kZXZpY2UgKmRldikKPiA+ID4gICB7Cj4gPiA+IC0JaWYgKGRl
-di0+cGRldikKPiA+ID4gLQkJcmV0dXJuIG5vdXZlYXVfcGNpX25hbWUoZGV2LT5wZGV2KTsKPiA+
-ID4gKwlpZiAoZGV2X2lzX3BjaShkZXYtPmRldikpCj4gPiA+ICsJCXJldHVybiBub3V2ZWF1X3Bj
-aV9uYW1lKHRvX3BjaV9kZXYoZGV2LT5kZXYpKTsKPiA+ID4gICAJZWxzZQo+ID4gPiAgIAkJcmV0
-dXJuIG5vdXZlYXVfcGxhdGZvcm1fbmFtZSh0b19wbGF0Zm9ybV9kZXZpY2UoZGV2LT5kZXYpKTsK
-PiA+ID4gICB9Cj4gPiA+IEBAIC03NjAsNyArNzYwLDYgQEAgc3RhdGljIGludCBub3V2ZWF1X2Ry
-bV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwKPiA+ID4gICAJaWYgKHJldCkKPiA+ID4gICAJ
-CWdvdG8gZmFpbF9kcm07Cj4gPiA+IC0JZHJtX2Rldi0+cGRldiA9IHBkZXY7Cj4gPiA+ICAgCXBj
-aV9zZXRfZHJ2ZGF0YShwZGV2LCBkcm1fZGV2KTsKPiA+ID4gICAJcmV0ID0gbm91dmVhdV9kcm1f
-ZGV2aWNlX2luaXQoZHJtX2Rldik7Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-bm91dmVhdS9ub3V2ZWF1X2ZiY29uLmMgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1
-X2ZiY29uLmMKPiA+ID4gaW5kZXggMjRlYzUzMzllZmI0Li40ZmMwZmE2OTY0NjEgMTAwNjQ0Cj4g
-PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfZmJjb24uYwo+ID4gPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2ZiY29uLmMKPiA+ID4gQEAgLTM5
-Niw3ICszOTYsOSBAQCBub3V2ZWF1X2ZiY29uX2NyZWF0ZShzdHJ1Y3QgZHJtX2ZiX2hlbHBlciAq
-aGVscGVyLAo+ID4gPiAgIAlOVl9JTkZPKGRybSwgImFsbG9jYXRlZCAlZHglZCBmYjogMHglbGx4
-LCBibyAlcFxuIiwKPiA+ID4gICAJCWZiLT53aWR0aCwgZmItPmhlaWdodCwgbnZiby0+b2Zmc2V0
-LCBudmJvKTsKPiA+ID4gLQl2Z2Ffc3dpdGNoZXJvb19jbGllbnRfZmJfc2V0KGRldi0+cGRldiwg
-aW5mbyk7Cj4gPiA+ICsJaWYgKGRldl9pc19wY2koZGV2LT5kZXYpKQo+ID4gPiArCQl2Z2Ffc3dp
-dGNoZXJvb19jbGllbnRfZmJfc2V0KHRvX3BjaV9kZXYoZGV2LT5kZXYpLCBpbmZvKTsKPiA+ID4g
-Kwo+ID4gPiAgIAlyZXR1cm4gMDsKPiA+ID4gICBvdXRfdW5sb2NrOgo+ID4gPiBAQCAtNTQ4LDcg
-KzU1MCw3IEBAIG5vdXZlYXVfZmJjb25faW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQo+ID4g
-PiAgIAlpbnQgcmV0Owo+ID4gPiAgIAlpZiAoIWRldi0+bW9kZV9jb25maWcubnVtX2NydGMgfHwK
-PiA+ID4gLQkgICAgKGRldi0+cGRldi0+Y2xhc3MgPj4gOCkgIT0gUENJX0NMQVNTX0RJU1BMQVlf
-VkdBKQo+ID4gPiArCSAgICAodG9fcGNpX2RldihkZXYtPmRldiktPmNsYXNzID4+IDgpICE9IFBD
-SV9DTEFTU19ESVNQTEFZX1ZHQSkKPiA+ID4gICAJCXJldHVybiAwOwo+ID4gPiAgIAlmYmNvbiA9
-IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBub3V2ZWF1X2ZiZGV2KSwgR0ZQX0tFUk5FTCk7Cj4gPiA+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3ZnYS5jIGIvZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV92Z2EuYwo+ID4gPiBpbmRleCBjODVkZDhhZmEz
-YzMuLjdjNGIzNzRiM2VjYSAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvbm91dmVhdV92Z2EuYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2
-ZWF1X3ZnYS5jCj4gPiA+IEBAIC04NywxOCArODcsMjAgQEAgbm91dmVhdV92Z2FfaW5pdChzdHJ1
-Y3Qgbm91dmVhdV9kcm0gKmRybSkKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZGV2aWNl
-ICpkZXYgPSBkcm0tPmRldjsKPiA+ID4gICAJYm9vbCBydW50aW1lID0gbm91dmVhdV9wbW9wc19y
-dW50aW1lKCk7Cj4gPiA+ICsJc3RydWN0IHBjaV9kZXYgKnBkZXY7Cj4gPiA+ICAgCS8qIG9ubHkg
-cmVsZXZhbnQgZm9yIFBDSSBkZXZpY2VzICovCj4gPiA+IC0JaWYgKCFkZXYtPnBkZXYpCj4gPiA+
-ICsJaWYgKCFkZXZfaXNfcGNpKGRldi0+ZGV2KSkKPiA+ID4gICAJCXJldHVybjsKPiA+ID4gKwlw
-ZGV2ID0gdG9fcGNpX2RldihkZXYtPmRldik7Cj4gPiA+IC0JdmdhX2NsaWVudF9yZWdpc3Rlcihk
-ZXYtPnBkZXYsIGRldiwgTlVMTCwgbm91dmVhdV92Z2Ffc2V0X2RlY29kZSk7Cj4gPiA+ICsJdmdh
-X2NsaWVudF9yZWdpc3RlcihwZGV2LCBkZXYsIE5VTEwsIG5vdXZlYXVfdmdhX3NldF9kZWNvZGUp
-Owo+ID4gPiAgIAkvKiBkb24ndCByZWdpc3RlciBUaHVuZGVyYm9sdCBlR1BVIHdpdGggdmdhX3N3
-aXRjaGVyb28gKi8KPiA+ID4gLQlpZiAocGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKGRldi0+
-cGRldikpCj4gPiA+ICsJaWYgKHBjaV9pc190aHVuZGVyYm9sdF9hdHRhY2hlZChwZGV2KSkKPiA+
-ID4gICAJCXJldHVybjsKPiA+ID4gLQl2Z2Ffc3dpdGNoZXJvb19yZWdpc3Rlcl9jbGllbnQoZGV2
-LT5wZGV2LCAmbm91dmVhdV9zd2l0Y2hlcm9vX29wcywgcnVudGltZSk7Cj4gPiA+ICsJdmdhX3N3
-aXRjaGVyb29fcmVnaXN0ZXJfY2xpZW50KHBkZXYsICZub3V2ZWF1X3N3aXRjaGVyb29fb3BzLCBy
-dW50aW1lKTsKPiA+ID4gICAJaWYgKHJ1bnRpbWUgJiYgbm91dmVhdV9pc192MV9kc20oKSAmJiAh
-bm91dmVhdV9pc19vcHRpbXVzKCkpCj4gPiA+ICAgCQl2Z2Ffc3dpdGNoZXJvb19pbml0X2RvbWFp
-bl9wbV9vcHMoZHJtLT5kZXYtPmRldiwgJmRybS0+dmdhX3BtX2RvbWFpbik7Cj4gPiA+IEBAIC0x
-MDksMTcgKzExMSwxOSBAQCBub3V2ZWF1X3ZnYV9maW5pKHN0cnVjdCBub3V2ZWF1X2RybSAqZHJt
-KQo+ID4gPiAgIHsKPiA+ID4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IGRybS0+ZGV2Owo+
-ID4gPiAgIAlib29sIHJ1bnRpbWUgPSBub3V2ZWF1X3Btb3BzX3J1bnRpbWUoKTsKPiA+ID4gKwlz
-dHJ1Y3QgcGNpX2RldiAqcGRldjsKPiA+ID4gICAJLyogb25seSByZWxldmFudCBmb3IgUENJIGRl
-dmljZXMgKi8KPiA+ID4gLQlpZiAoIWRldi0+cGRldikKPiA+ID4gKwlpZiAoIWRldl9pc19wY2ko
-ZGV2LT5kZXYpKQo+ID4gPiAgIAkJcmV0dXJuOwo+ID4gPiArCXBkZXYgPSB0b19wY2lfZGV2KGRl
-di0+ZGV2KTsKPiA+ID4gLQl2Z2FfY2xpZW50X3JlZ2lzdGVyKGRldi0+cGRldiwgTlVMTCwgTlVM
-TCwgTlVMTCk7Cj4gPiA+ICsJdmdhX2NsaWVudF9yZWdpc3RlcihwZGV2LCBOVUxMLCBOVUxMLCBO
-VUxMKTsKPiA+ID4gLQlpZiAocGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKGRldi0+cGRldikp
-Cj4gPiA+ICsJaWYgKHBjaV9pc190aHVuZGVyYm9sdF9hdHRhY2hlZChwZGV2KSkKPiA+ID4gICAJ
-CXJldHVybjsKPiA+ID4gLQl2Z2Ffc3dpdGNoZXJvb191bnJlZ2lzdGVyX2NsaWVudChkZXYtPnBk
-ZXYpOwo+ID4gPiArCXZnYV9zd2l0Y2hlcm9vX3VucmVnaXN0ZXJfY2xpZW50KHBkZXYpOwo+ID4g
-PiAgIAlpZiAocnVudGltZSAmJiBub3V2ZWF1X2lzX3YxX2RzbSgpICYmICFub3V2ZWF1X2lzX29w
-dGltdXMoKSkKPiA+ID4gICAJCXZnYV9zd2l0Y2hlcm9vX2ZpbmlfZG9tYWluX3BtX29wcyhkcm0t
-PmRldi0+ZGV2KTsKPiA+ID4gICB9Cj4gPiA+IC0tIAo+ID4gPiAyLjI5LjIKPiA+ID4gCj4gPiA+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPiA+IGlu
-dGVsLWd2dC1kZXYgbWFpbGluZyBsaXN0Cj4gPiA+IGludGVsLWd2dC1kZXZAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vaW50ZWwtZ3Z0LWRldgo+ID4gPiAKPiA+IAo+ID4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiA+
-IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gPiAKPiAKPiAtLSAKPiBUaG9t
-YXMgWmltbWVybWFubgo+IEdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXIKPiBTVVNFIFNvZnR3YXJl
-IFNvbHV0aW9ucyBHZXJtYW55IEdtYkgKPiBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcs
-IEdlcm1hbnkKPiAoSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpCj4gR2VzY2jDpGZ0c2bDvGhyZXI6
-IEZlbGl4IEltZW5kw7ZyZmZlcgo+IAoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+This message is in MIME format.
+
+--1454987343--1007793855--1630567166
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+I demand that Christian K=C3=B6nig may or may not have written...
+
+> Am 10.12.20 um 01:57 schrieb Darren Salt:
+>> This allows BAR0 resizing to be done for cards which don't advertise
+>> support for a size large enough to cover the VRAM but which do adverti=
+se
+>> at least one size larger than the default. For example, my RX 5600 XT,=
+
+>> which advertises 256MB, 512MB and 1GB.
+
+> I've never seen such a configuration except for engineering samples. Ca=
+n
+> you send me a dump of the relevant PCI configuration space?
+
+=E2=80=9Clspci -nn -v -xxxx=E2=80=9D output is attached. (Sapphire RX 560=
+0 XT Pulse; not an
+early one.)
+
+My current kernel has another patch, applied on top of this patch, which
+allows ignoring the size list. As such, that BAR is currently 8GB instead=
+ of
+the 1GB which it should be. I've not noticed any significant problems as =
+yet.
+
+If the card should be advertising larger sizes too then its VBIOS needs
+fixing; but as a lot of these already out there won't get that fix, some =
+sort
+of override (quirk, I expect, with a module option for cards not covered)=
+
+would, I think, be warranted.
+
+> In general we could do this, but instead of just blindly trying=20
+> different values we should just pick a supported one in the first place=
+.
+
+By using pci_rebar_get_possible_sizes() etc.? That looks reasonable to me=
+.
+It'll also require some patching in the PCI subsystem to expose relevant
+functions.
+
+
+--1454987343--1007793855--1630567166
+Content-Type: text/plain; name="gpu-lspci-dump.txt"
+Content-Disposition: attachment; filename="gpu-lspci-dump.txt"
+Content-Transfer-Encoding: quoted-printable
+
+28:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [A=
+MD/ATI] Device [1002:731f] (rev ca) (prog-if 00 [VGA controller])=0A=
+	Subsystem: Sapphire Technology Limited Device [1da2:e416]=0A=
+	Flags: bus master, fast devsel, latency 0, IRQ 41=0A=
+	Memory at 600000000 (64-bit, prefetchable) [size=3D8G]=0A=
+	Memory at 500000000 (64-bit, prefetchable) [size=3D256M]=0A=
+	I/O ports at e000 [size=3D256]=0A=
+	Memory at fcb00000 (32-bit, non-prefetchable) [size=3D512K]=0A=
+	Expansion ROM at fcb80000 [disabled] [size=3D128K]=0A=
+	Capabilities: [48] Vendor Specific Information: Len=3D08 <?>=0A=
+	Capabilities: [50] Power Management version 3=0A=
+	Capabilities: [64] Express Legacy Endpoint, MSI 00=0A=
+	Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+=0A=
+	Capabilities: [100] Vendor Specific Information: ID=3D0001 Rev=3D1 Len=3D=
+010 <?>=0A=
+	Capabilities: [150] Advanced Error Reporting=0A=
+	Capabilities: [200] #15=0A=
+	Capabilities: [240] Power Budgeting <?>=0A=
+	Capabilities: [270] #19=0A=
+	Capabilities: [2a0] Access Control Services=0A=
+	Capabilities: [2b0] Address Translation Service (ATS)=0A=
+	Capabilities: [2c0] Page Request Interface (PRI)=0A=
+	Capabilities: [2d0] Process Address Space ID (PASID)=0A=
+	Capabilities: [320] Latency Tolerance Reporting=0A=
+	Capabilities: [400] #25=0A=
+	Capabilities: [410] #26=0A=
+	Capabilities: [440] #27=0A=
+	Kernel driver in use: amdgpu=0A=
+00: 02 10 1f 73 07 04 10 00 ca 00 00 03 10 00 80 00=0A=
+10: 0c 00 00 00 06 00 00 00 0c 00 00 00 05 00 00 00=0A=
+20: 01 e0 00 00 00 00 b0 fc 00 00 00 00 a2 1d 16 e4=0A=
+30: 00 00 b8 fc 48 00 00 00 00 00 00 00 ff 01 00 00=0A=
+40: 00 00 00 00 00 00 00 00 09 50 08 00 a2 1d 16 e4=0A=
+50: 01 64 03 f0 08 00 00 00 00 00 00 00 00 00 00 00=0A=
+60: 00 00 00 00 10 a0 12 00 a1 8f 00 00 30 29 09 00=0A=
+70: 04 0d 40 00 40 00 04 11 00 00 00 00 00 00 00 00=0A=
+80: 00 00 00 00 00 00 00 00 9f 09 73 00 40 04 00 00=0A=
+90: 1e 00 80 01 04 00 1f 00 00 00 00 00 00 00 00 00=0A=
+a0: 05 00 81 00 00 40 e0 fe 00 00 00 00 22 40 00 00=0A=
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+100: 0b 00 01 15 01 00 01 01 00 00 00 00 00 00 00 00=0A=
+110: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+130: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+140: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+150: 01 00 02 20 00 00 00 00 00 00 00 00 30 20 46 00=0A=
+160: 00 20 00 00 00 20 00 00 a0 00 00 00 00 00 00 00=0A=
+170: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+190: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+1f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+200: 15 00 01 24 00 70 00 00 40 0d 00 00 e0 1f 00 00=0A=
+210: 02 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+220: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+230: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+240: 04 00 01 27 00 00 00 00 00 81 07 00 00 00 00 00=0A=
+250: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+260: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+270: 19 00 01 2a 00 00 00 00 00 00 00 00 00 7f 00 7f=0A=
+280: 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f=0A=
+290: 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 00 00 00=0A=
+2a0: 0d 00 01 2b 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+2b0: 0f 00 01 2c 20 00 00 80 00 00 00 00 00 00 00 00=0A=
+2c0: 13 00 01 2d 00 00 00 01 00 01 00 00 00 00 00 00=0A=
+2d0: 1b 00 01 32 06 10 00 00 00 00 00 00 00 00 00 00=0A=
+2e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+2f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+310: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+320: 18 00 01 40 01 10 01 10 00 00 00 00 00 00 00 00=0A=
+330: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+340: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+350: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+360: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+370: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+390: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+3f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+400: 25 00 01 41 01 00 00 80 01 00 00 80 00 00 00 00=0A=
+410: 26 00 01 44 00 00 00 00 00 00 00 00 0f 00 00 00=0A=
+420: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+430: f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0=0A=
+440: 27 00 01 00 00 00 00 00 38 9c 00 00 38 9c 00 00=0A=
+450: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
+460: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
+470: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
+480: 38 9c 00 00 38 9c 00 00 00 00 00 00 00 00 00 00=0A=
+490: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+4f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+510: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+520: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+530: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+540: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+550: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+560: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+570: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+590: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+5f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+610: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+620: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+630: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+640: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+650: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+660: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+670: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+690: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+6f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+710: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+720: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+730: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+740: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+750: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+760: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+770: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+7f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+810: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+820: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+830: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+840: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+850: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+860: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+870: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+890: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+8f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+910: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+920: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+930: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+940: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+950: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+960: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+970: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+990: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+9f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+a90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+aa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ab0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ac0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ad0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ae0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+af0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+b90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ba0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+bb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+bc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+bd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+be0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+bf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+c90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ca0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+cb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+cc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+cd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ce0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+cf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+d90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+da0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+db0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+dc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+dd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+de0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+df0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+e90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ea0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+eb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ec0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ed0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ee0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ef0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+f90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+fa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+
+--1454987343--1007793855--1630567166
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--1454987343--1007793855--1630567166--
