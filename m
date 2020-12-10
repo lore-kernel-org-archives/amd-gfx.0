@@ -2,56 +2,119 @@ Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3293CC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 00:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19490C4361B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 02:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19D7F233EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 00:57:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19D7F233EF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
+	by mail.kernel.org (Postfix) with ESMTPS id BFAA123A7C
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 02:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFAA123A7C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCF486E182;
-	Thu, 10 Dec 2020 00:57:47 +0000 (UTC)
-Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
- [IPv6:2001:8b0:897:1651::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 411866E183
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 00:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=moreofthesa.me.uk; s=201708; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7sc6KoQnme7DSMEiUqVIxMl7DS+a515r/y+p8Ou+whk=; b=c+yu6UnlFWH5GWRHPXphk3peJQ
- sQ4ZehSe5O1aNHUqOBE9TeDtxeT5mM3fftRh1OvqZcmd7V+xP8+ZFH4wlGe7KuTu5s1Tdz3UzwGQj
- xqEqwd3C1HL2R0EIwXCkuD94ASvrSgpcIZj0vIq3jgMnXAxxGoM1bslDDEsN+23SEJhtwr4tlBkQS
- nWUb7jHGk9nIFMVyQQDvSGmw3cC2RGhMa1O0z9YWty5uTGPGj1vZ4GRzGrk4yU99SNGkZyw+yOqvR
- MM5/Xk+O5wLD+POj+RkNRQ2JZ7ptRZ6fWjtaL8O5N8vbjHE12jTrWMsrOJ8iQ96iX6QBZpU5d8a7T
- 7Iemx67g==;
-Received: from [2001:8b0:897:1650::2] (helo=flibble.moreofthesa.me.uk)
- by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
- (envelope-from <devspam@moreofthesa.me.uk>)
- id 1knAHA-0004ax-Ae; Thu, 10 Dec 2020 00:57:44 +0000
-From: Darren Salt <devspam@moreofthesa.me.uk>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] amdgpu: resize BAR0 to the maximum available size,
- even if it doesn't cover VRAM
-Date: Thu, 10 Dec 2020 00:57:44 +0000
-Message-Id: <20201210005744.5877-1-devspam@moreofthesa.me.uk>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3659689A08;
+	Thu, 10 Dec 2020 02:14:55 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700072.outbound.protection.outlook.com [40.107.70.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C94D89A08;
+ Thu, 10 Dec 2020 02:14:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CN4YobxiuJpV+z5MrYctzXcLRcwTXhlxqVWCzDsssBLYmlP7+RAdR7RNFve/N+o+ZQgueD75rrbqIxALSq4n9HXCVksd3vRS6Np/o6wx/eKxqsKUQ0RPg+2DV8hx91TSzLBB4RjubGHjKsI3YBm3sqALM/JnWAYBbUL31sMJwuIFtvr5La27Zgx+dii8ddH6VD0C8kXEQlhvRWXTWT/gQkeB0dZn5QgEd32cPg1iZjKX820RlcaL6GiF4yeSX85kVfBbjnRDrk3xlGZXuFM+ylbhugZ3zQ3kmn6a7EFzhITtQ65Qhs5fMK6mec3sDE7J1eeD/e8/zMemIdy2rmjqcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F7+A+G+w7VJKtZhSl1xZodym/Tku10zV2CRkjB9BzEQ=;
+ b=PphzNTvFeMleKgMyqsYrTyDtAWBjrNfF/hvj6B/+uS7P3zqPGvhxLLk2PD4dIKFoZQYfxM6hpCzQTA4dTvC6r/9M7VahEndnG38cszsrbMEyO0frT2UALtEY4sJdIheEhYWlubdRdhJc7KaTpd2Y+rZltr2doqJvUEqNtoDNv6Kb/mX7v+6O1OK30xzjDesz4OjJlEyvGgG5Zk41zlmau/wzGr1nVJ1ZGTmcopUfw9yA/9sXXlc97jwxd/lJGn9AwalrUjMi+6CdmNefWiLbzxD+uohDNuPGyy15JYA1GxbEPyZSNcyO5Mp4qxmcyrnSAO4EryhuZEuIVZ+6pLAjDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F7+A+G+w7VJKtZhSl1xZodym/Tku10zV2CRkjB9BzEQ=;
+ b=KJmlww5pMhcXiAtNrehC4DZLfcJyWwy9qCYT9EVNUB1xaZoeFRW4Dlfz5T1h1hqfwaThLrQX9/inA2zG+tmgl0GKZQH9B4szomedLW9502UGo+uvsr9UskRO7OlyCdlET4FXYZLPwe9btACrLabgLm6fo7xhetbzn9IMzwfL/7Y=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM5PR1201MB0217.namprd12.prod.outlook.com (2603:10b6:4:54::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.13; Thu, 10 Dec
+ 2020 02:14:52 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::d055:19dc:5b0f:ed56]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::d055:19dc:5b0f:ed56%6]) with mapi id 15.20.3654.012; Thu, 10 Dec 2020
+ 02:14:52 +0000
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/1] Timeout handler now returns a value
+Date: Wed,  9 Dec 2020 21:14:37 -0500
+Message-Id: <20201210021438.9190-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.29.2.404.ge67fbf927d
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: YT1PR01CA0136.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::15) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
-X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
-X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
- SAEximRunCond expanded to false
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain.amd.com (165.204.55.250) by
+ YT1PR01CA0136.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.12 via Frontend Transport; Thu, 10 Dec 2020 02:14:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: b219ada4-ea9d-4dca-fc00-08d89cb160d1
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0217:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0217F66C863ED3EF4AAC66E799CB0@DM5PR1201MB0217.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2sDLup11V8gktvXVxYAzWDfd08cDCjJjyX6Hg7R1dlaReAMRcaCP0m3Vtgpr9HfO7i7A24UFVSC4q6/E4QLpkFt/X3rtBM0GzE0mMEeCc614ri3K2I28WlmPcOozF7tH50+BBEn9loQ0MV+lc6b7kQ3dyDqz2wQE3K6mHQIJQuUuwTqLDGxRhxdkL3g7DUbcHArGLO+Xn648jooNy2/a+KxRlM6WYHgHxYnLZjWssXNha7g7NbOfpodqWMr+1uu0uc1p1k07pZt1lzOigrkrVg8kBNlho0xFiegB/pBWkapQwQ9GgDpxOX98hiNYzWIVK49UFhjnD7YwMFodaPmBNo+kewKsHuylr3cPCKbp9dQm274QA7DcqjeBXDbBriJT
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(376002)(366004)(7416002)(26005)(8676002)(52116002)(66556008)(66946007)(956004)(8936002)(83380400001)(7696005)(2616005)(36756003)(86362001)(4744005)(16526019)(6666004)(4326008)(1076003)(508600001)(54906003)(6486002)(186003)(44832011)(34490700003)(5660300002)(2906002)(66476007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TEhMOERNdkVIYXhvV3J5UDN4YXJDOU5ZMHBKVHhzR0dYeG9QTUdDbms3QnpT?=
+ =?utf-8?B?V1hBSnN0VjlNRTllRVdLS1VpT1ZrZkZ6SFdjeUF2NHVENkEvSy9sQ0s0M05B?=
+ =?utf-8?B?V0pBdDFXc1NOSC9SS2JFRDF6cDJsQSswbGMraU9YcGxHQUJ2cnJySmk4eWhw?=
+ =?utf-8?B?NTBEdmtlcHVMTU11SldqYWx2MjZucEZLdFJGTXpPdE5tbzdIV3QxM1VNa1lF?=
+ =?utf-8?B?M0JHTVhBZTEyQzdyeGwyT2hFVFRGSERweGRuV1hYSnBZaHNpV1lTMS9FM0tP?=
+ =?utf-8?B?bHdBNW9Velp2c0lwVmJTdGtPNi9sd2VXbVNrUjJ2N3ZoS3Y3UjdTZCtVT2hK?=
+ =?utf-8?B?eGltdDhVdDJZaldCdGhYeTR0UlhSY2s4R3d1bmJ1U1RKUFJwVkRZbzdiTWRq?=
+ =?utf-8?B?VWs1a3A1YXBPWGdLVnZYNVcrOFIrRkZmMVZQdUVjdndRQ1hYVDEzdlVaZ2Vy?=
+ =?utf-8?B?SUVVTVNlY1oxNHFNeXN6RGJ4aWFBSDZ4dVJGN2NJVFV0TDhxVFFkMG5YZ0hR?=
+ =?utf-8?B?bXQ4Q1krVG05dkJDVldnbmdEdTY2QjlqeFFaQW1XM1A2NmJRaVlSaWdpbnJ0?=
+ =?utf-8?B?dXExTEZ1aFdNSmxBNVBJMGI5S2tpTGYrdFRFVlIxN2ppTytkeDFmU3lSNU16?=
+ =?utf-8?B?Sml6TXphUXlyQzkxdE5VUWdMT1V5YzVscENhUE9rN2d1L00zdkk0QU5weFVi?=
+ =?utf-8?B?cThXSXRnMWtISjRPMzZ6Zk5oNXdGbmV2TlVFUkFEcWNQazFUdG8zMlZMTjVj?=
+ =?utf-8?B?NWJZRzJtN1lzajdqUkJ3U0xEdlNRMXpZZDZzK0V1bGhpVjRBVHBsRXZLd2hp?=
+ =?utf-8?B?MWNlc0VtNzdUbGpzOGtHay9XSHpwb0puQWVJQmFENUx2NEhoeFF3QUVNOUZX?=
+ =?utf-8?B?UUhTQlA1aG1GM2VtUEN3cVRtb3QrNXhyajdoNUNPS05wZjdma2JUTnZpV3JW?=
+ =?utf-8?B?R3NSSHJiMjNwSWxBUWsxMStDZGxpcmZtd1pjeXZnYjkzQ0l0RmRuNFBBK3d6?=
+ =?utf-8?B?bXFiNkVSSTFndCtJdlU4anZFOVYydVhnYW43UkEvSnE0SzVRdFRBMzExencr?=
+ =?utf-8?B?N3hMcmNjbEdQZ3JZNy9YNkdpZCtQejR5NGRIeFU4TmpjZ0FxZXdJckhpRVJp?=
+ =?utf-8?B?eFVaenhXWEwyTW1PTXUrTm5KL0RuRVRhTXNiYXcrejhGWmZxcHFneThmc2lW?=
+ =?utf-8?B?VkIwVzkwdXBMd1pjRGNKQzJLMXRlVmlMMWZkaFdUOGw5K3dXdmYzVzVNV2Vq?=
+ =?utf-8?B?RDFaNWh0R00rbUNGWHMvbTFVdjU2ZDhiVVV6RFZxL2NVa3FTU0JHZUNkcExK?=
+ =?utf-8?Q?2ZZFQlaqh77Zcb15yUSymWPAMSLcnBFXVG?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2020 02:14:51.9664 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: b219ada4-ea9d-4dca-fc00-08d89cb160d1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CDA41J5BtvK2Lgm2jetKEYuBAMKoCXyKJWDE8ykQayUCrTd0AgDJniJzv6quCW8R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,110 +126,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Darren Salt <devspam@moreofthesa.me.uk>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>, Rob Herring <robh@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Steven Price <steven.price@arm.com>, Eric Anholt <eric@anholt.net>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Qiang Yu <yuq825@gmail.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows BAR0 resizing to be done for cards which don't advertise support
-for a size large enough to cover the VRAM but which do advertise at least
-one size larger than the default. For example, my RX 5600 XT, which
-advertises 256MB, 512MB and 1GB.
+The driver's timeout handler now returns a value back up to DRM.
 
-Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 +++++++++++++++++-----
- 1 file changed, 35 insertions(+), 9 deletions(-)
+This patch doesn't change current behaviour. I request it'd be applied
+so that Andrey G. can take advantage of the value sent back up to DRM
+from the GPU driver.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 355fa0057c26..ec3610b4110b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1078,6 +1078,11 @@ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
- 		__clear_bit(wb, adev->wb.used);
- }
- 
-+static inline u32 bytes_to_size_pci(u64 bytes)
-+{
-+	return order_base_2(((bytes >> 20) | 1)) - 1;
-+}
-+
- /**
-  * amdgpu_device_resize_fb_bar - try to resize FB BAR
-  *
-@@ -1090,20 +1095,25 @@ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
- int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- {
- 	u64 space_needed = roundup_pow_of_two(adev->gmc.real_vram_size);
--	u32 rbar_size = order_base_2(((space_needed >> 20) | 1)) - 1;
-+	u32 rbar_size = bytes_to_size_pci(space_needed);
- 	struct pci_bus *root;
- 	struct resource *res;
-+	u64 current_bytes;
-+	u32 current_size;
- 	unsigned i;
- 	u16 cmd;
- 	int r;
-+	bool nospc = false;
- 
- 	/* Bypass for VF */
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	/* skip if the bios has already enabled large BAR */
--	if (adev->gmc.real_vram_size &&
--	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
-+	current_bytes = pci_resource_len(adev->pdev, 0);
-+	current_size = bytes_to_size_pci(current_bytes);
-+
-+	/* Skip if the BIOS has already enabled large BAR, covering the VRAM */
-+	if (current_size >= rbar_size)
- 		return 0;
- 
- 	/* Check if the root BUS has 64bit memory resources */
-@@ -1121,6 +1131,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 	if (!res)
- 		return 0;
- 
-+	dev_dbg(adev->dev, "BIOS-allocated BAR0 was %lluMB; trying to get %lluMB",
-+	        current_bytes >> 20, space_needed >> 20);
-+
- 	/* Disable memory decoding while we change the BAR addresses and size */
- 	pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
- 	pci_write_config_word(adev->pdev, PCI_COMMAND,
-@@ -1133,11 +1146,24 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 
- 	pci_release_resource(adev->pdev, 0);
- 
--	r = pci_resize_resource(adev->pdev, 0, rbar_size);
--	if (r == -ENOSPC)
--		DRM_INFO("Not enough PCI address space for a large BAR.");
--	else if (r && r != -ENOTSUPP)
--		DRM_ERROR("Problem resizing BAR0 (%d).", r);
-+	while (rbar_size > current_size) {
-+		r = pci_resize_resource(adev->pdev, 0, rbar_size);
-+		if (r == 0 || r == -ENOTSUPP) {
-+			break;
-+		} else if (r == -ENOSPC) {
-+			if (!nospc) {
-+				/* Warn only the first time */
-+				dev_info(adev->dev, "Not enough PCI address space for a large BAR.");
-+				nospc = true;
-+			}
-+			--rbar_size;
-+		} else if (r == -EINVAL) {
-+			--rbar_size;
-+		} else {
-+			dev_err(adev->dev, "Problem resizing BAR0 (%d).", r);
-+			break;
-+		}
-+	}
- 
- 	pci_assign_unassigned_bus_resources(adev->pdev->bus);
- 
+I'm still working on the last patch which takes advantage of this
+patch, and as such they are separate works.
+
+This patch can be applied safely without changing the current DRM
+behaviour.
+
+Luben Tuikov (1):
+  drm/scheduler: Job timeout handler returns status (v2)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  6 +++--
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c | 10 +++++++-
+ drivers/gpu/drm/lima/lima_sched.c       |  4 +++-
+ drivers/gpu/drm/panfrost/panfrost_job.c |  9 ++++---
+ drivers/gpu/drm/scheduler/sched_main.c  |  4 +---
+ drivers/gpu/drm/v3d/v3d_sched.c         | 32 +++++++++++++------------
+ include/drm/gpu_scheduler.h             | 20 +++++++++++++---
+ 7 files changed, 57 insertions(+), 28 deletions(-)
+
 -- 
-2.20.1
+2.29.2.404.ge67fbf927d
 
 _______________________________________________
 amd-gfx mailing list
