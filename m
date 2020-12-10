@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A15EC4167B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E730BC4361B
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D99E823DE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D99E823DE3
+	by mail.kernel.org (Postfix) with ESMTPS id A1EE223DE3
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1EE223DE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA1E6EB73;
-	Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 112716EB6F
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id bd6so3220984qvb.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D346C6EB74;
+	Thu, 10 Dec 2020 21:45:42 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B4536EB74
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:42 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id l14so3233996qvh.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Nmsb9RyCDXcbEXdfXYJFiNY49Xf+30QfPdx+IUDAKEc=;
- b=V5typAYx3pgQ+Xn756miYK5orRIZMc+DbIMm4Fy8+Ns/+sdP5njCW/sEe8qLVjzq3M
- EbDPWTrw287jWVSxDKN31K2rZikue+jpf71Mjo3I8RwGDH7syblnD3IkQGZcH5XDnP6k
- aS9bzrOjVggUUrWJU4KHTMouHu+kUY8JoJAdKROZ6GIaBdjDS1SGmHQIN1MIkfhtmUlV
- vPY9cQU3mNTmKdvkBXzf5D5MEMsH3iKWAxnHl2He4VFolsvwrUxRzuPL9hsbo9Rm5zHx
- v1o+VpEHCQDW3fjvfsSY+FCPSJy+4jy+27SkqLGJGzKL5S1maMR7YP/4RXkGk3PPho24
- a4Qg==
+ bh=GzY2E6p/B+PgOaBvnRwx3vE2JgoCIUoSDhWwIqLXn7c=;
+ b=iCYeAS0qR7d+hL2DeI2FRKIZO48EwLSPTiFwkC7Mavl/KxhMuKMmeg/aeNrJ0zdbPv
+ EZBxeFAxLsGhaWNjCwb/fhXei715ny4Xuq2aolQcGj532uINlcHjm7yxdo0LczMIT5Rh
+ 0Hhe8iHi6UgNEfxm1m/R9aI/6vRHP0Cw4nCDBFjLVLKT8nPUp5Sfmzmbd3l5hw0gGrml
+ 3xc+D0cV4v/8B9X7ACkH2zYxY7a7/hNofD298m3A1w63zrXxbmn58Ebb3WuQy1fK+JJS
+ mlVTk1/J1UiIoS7F4NRbR9IASg7lIJsxDAFz0zTz2IEpgeQ1yaLg0Bg8134JweNkliVz
+ Hcuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Nmsb9RyCDXcbEXdfXYJFiNY49Xf+30QfPdx+IUDAKEc=;
- b=uM92YF5O3+dHK5GBHoxDV7DlPaWXQ/5GG6pqDEhzRLDdISbbs8xLPvUzeqMXQtUbLU
- hFUT8Zfw0c7U1kYN9+bZcJQ7VcSYPiHWKQRbvA95ahbGRwOosa18c2llR41Qrx00KZPV
- /Vgumc4mp+DkWdv8xHcujNfu5kSvQYIOmYbawN/XvqCC2NRJ5IdS5SgN/XuikHS4Qajs
- O5bykfGEDCl+4dj/td8+LGqTjzplN8YyFnBXKts7YlzMg8K76kVix63Gm0a95tYA7RFs
- 9wsyzVKnHw4hAu6tGateg0q0LpzWSuiy3B1wX5BIXmbIGiwL/oejrEx2/Lm/fVU+YIq6
- /suw==
-X-Gm-Message-State: AOAM533hyETbo/skQyC9L3Le/4T3M5JIHWnSxPMFUeRqPBGuOz13Z92X
- wpirmNk5o4eF3LkY4/O6Uff2me3iejw=
-X-Google-Smtp-Source: ABdhPJx2usmtrUpkpDxD1RpMw/EZ9KqPx2+tlVmT/gjW02owWis/sKpiO9ZM0FWQ7IqEwWebWZVK2w==
-X-Received: by 2002:a0c:b59a:: with SMTP id g26mr11351899qve.26.1607636740150; 
- Thu, 10 Dec 2020 13:45:40 -0800 (PST)
+ bh=GzY2E6p/B+PgOaBvnRwx3vE2JgoCIUoSDhWwIqLXn7c=;
+ b=eOVZT7OvvARyr1V0AOHn9HHMy0iafX9HsWqiehJm8Sa/vNOraDcHHxr2VqLpqax2dd
+ I/JYJETLZTqTiEI0qUmIUg1fygbJLUe5dx73/WKKDaUS1CStW2Kw9CRc0z/lCnHLfLKb
+ NZo+BzDnhYbMtFMw2VqwCZ94moDotZilA5nI7s5oJ6gECav2oTaMAeCebM15xgYI2L2X
+ nj3aFM4T3jzRHnGBHC/lYLPCIjfq+kyQcctEyfBRqCTVWpSAeW3HQcMpOWWwPSe5obFb
+ 3jCFuhF91WWVI5Hcy0ZtnbUKrQOQykbDJZ2l5I2Kqbk9AItLICXrRM0yjLvbjunKE3Og
+ 6Nlw==
+X-Gm-Message-State: AOAM532AIBemgvhZ1F9UgCtpVFqqdBS+OFxmJOr3ha+Bury5TqzyMzG1
+ +Op4iwxV374+LEGOLXR09pwL1IAfHzA=
+X-Google-Smtp-Source: ABdhPJzI2+93hAM4CsI65V5eeKX/TU7x9FBag5bcu8vt8NqL/8PcoDA0I4iCGnNqCuvbtrrcamFKNg==
+X-Received: by 2002:a0c:b415:: with SMTP id u21mr11607006qve.0.1607636741110; 
+ Thu, 10 Dec 2020 13:45:41 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.39
+ by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 13:45:39 -0800 (PST)
+ Thu, 10 Dec 2020 13:45:40 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/7] drm/amdgpu: simplify logic in atpx resume handling
-Date: Thu, 10 Dec 2020 16:45:17 -0500
-Message-Id: <20201210214518.704305-6-alexander.deucher@amd.com>
+Subject: [PATCH 7/7] drm/amdgpu: print what method we are using for runtime pm
+Date: Thu, 10 Dec 2020 16:45:18 -0500
+Message-Id: <20201210214518.704305-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201210214518.704305-1-alexander.deucher@amd.com>
 References: <20201210214518.704305-1-alexander.deucher@amd.com>
@@ -84,37 +84,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Simplify the logic in the runtime resume handling for
-atpx
+So we know when it's enabled and what method we are using.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 4f97d493eeda..cac2724e7615 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1382,16 +1382,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
- 		 */
--		if (amdgpu_is_atpx_hybrid()) {
--			pci_set_master(pdev);
--		} else {
-+		if (!amdgpu_is_atpx_hybrid()) {
- 			pci_set_power_state(pdev, PCI_D0);
- 			amdgpu_device_load_pci_state(pdev);
- 			ret = pci_enable_device(pdev);
- 			if (ret)
- 				return ret;
--			pci_set_master(pdev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index af049041ea3f..b16b32797624 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -163,9 +163,11 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 	if (amdgpu_device_supports_atpx(dev) &&
+ 	    (amdgpu_runtime_pm != 0)) { /* enable runpm by default for atpx */
+ 		adev->runpm = true;
++		dev_info(adev->dev, "Using ATPX for runtime pm\n");
+ 	} else if (amdgpu_device_supports_boco(dev) &&
+ 		   (amdgpu_runtime_pm != 0)) { /* enable runpm by default for boco */
+ 		adev->runpm = true;
++		dev_info(adev->dev, "Using BOCO for runtime pm\n");
+ 	} else if (amdgpu_device_supports_baco(dev) &&
+ 		   (amdgpu_runtime_pm != 0)) {
+ 		switch (adev->asic_type) {
+@@ -187,6 +189,8 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 			adev->runpm = true;
+ 			break;
  		}
-+		pci_set_master(pdev);
- 	} else if (amdgpu_device_supports_boco(drm_dev)) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
++		if (adev->runpm)
++			dev_info(adev->dev, "Using BACO for runtime pm\n");
+ 	}
+ 
+ 	/* Call ACPI methods: require modeset init
 -- 
 2.25.4
 
