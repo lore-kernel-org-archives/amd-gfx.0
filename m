@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41321C4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A15EC4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01F3123DE3
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01F3123DE3
+	by mail.kernel.org (Postfix) with ESMTPS id D99E823DE3
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 21:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D99E823DE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E52C6EB6F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA1E6EB73;
 	Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 749666EB6F
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:39 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id a13so3228997qvv.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:39 -0800 (PST)
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112716EB6F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 21:45:41 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id bd6so3220984qvb.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 13:45:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=blZh7FwkV34quuPck4M2Sb9yStE/XggHo/8FtkLMoKY=;
- b=FWN84L2nBUOX2Q1pNCWCmXm3P37BucptSC9ImTOk4k1xUVAcMav11TMeqShaNUHQE/
- rTyZgZLD80I0y22V/5Sdcg+huGT2FYOcEodm7A2amOTSRX1s+RojwggTH4mFsOP9iKZE
- sKQwocjUWfzLgO9l3xLWuz4afXsIMuKRVM3slz8no6yq/aRwyc3IH3RyXWcHWC3/Cl2a
- vtJWsSMdtro2Mq9gCBmcHdfx0iq1IF8zTYoM/a4KG64iqOfubtnIH68kere/+/wRyUJg
- M2BMWmRmt81fk8v2ebnhiemrg5ref2ZfUIzL3omVzTcE7rJv1Z8bULtF89zWP6EVsNBY
- NQQQ==
+ bh=Nmsb9RyCDXcbEXdfXYJFiNY49Xf+30QfPdx+IUDAKEc=;
+ b=V5typAYx3pgQ+Xn756miYK5orRIZMc+DbIMm4Fy8+Ns/+sdP5njCW/sEe8qLVjzq3M
+ EbDPWTrw287jWVSxDKN31K2rZikue+jpf71Mjo3I8RwGDH7syblnD3IkQGZcH5XDnP6k
+ aS9bzrOjVggUUrWJU4KHTMouHu+kUY8JoJAdKROZ6GIaBdjDS1SGmHQIN1MIkfhtmUlV
+ vPY9cQU3mNTmKdvkBXzf5D5MEMsH3iKWAxnHl2He4VFolsvwrUxRzuPL9hsbo9Rm5zHx
+ v1o+VpEHCQDW3fjvfsSY+FCPSJy+4jy+27SkqLGJGzKL5S1maMR7YP/4RXkGk3PPho24
+ a4Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=blZh7FwkV34quuPck4M2Sb9yStE/XggHo/8FtkLMoKY=;
- b=OqPZ8HIoPWFOfGuFClqkDawrj6xMvJ2EySaFAijAW8+/WH7IiiRitt+N/ylYWrrEcN
- 5zWSEja/muj9lySJWUkOUboEoEZzsM+GK2cnrurQCb82hrcggbj6rbo3V86xFAzoxAdn
- oQx1WeV4kN7VY6RwKxzZjR6sb98Jnyv3vDCBK66Z9SYr8/awfhDJ8C/UXydx32jKAy1V
- 67lOnKBu1vVSo579GBQ9G2Ry6sIrow9cDNDim6vA8ArmOAS/erTddaYI97puXb9DUlo1
- NCL5ZCCV7/36/EUfWEClbSQjDRXOj5KY6SsBkWvnSGhzPKL4mtr56p+KZUDxRyHsXDP4
- J5TA==
-X-Gm-Message-State: AOAM533dw/4alVDlDEpseuDxz0sbQ+7NYTgBdZjSrcnyC6N2qg4q/3bB
- 5nkvkpd+s9XvcykMp8XIHStpFZNGPOo=
-X-Google-Smtp-Source: ABdhPJw9Or4WlK1IpExdPJ4qm5Xnc3EbvWmYzqPm1uAKpODj1+6EEbiC5UyzOViESMkqRtu9r+v1Wg==
-X-Received: by 2002:a0c:f107:: with SMTP id i7mr11439209qvl.35.1607636738606; 
- Thu, 10 Dec 2020 13:45:38 -0800 (PST)
+ bh=Nmsb9RyCDXcbEXdfXYJFiNY49Xf+30QfPdx+IUDAKEc=;
+ b=uM92YF5O3+dHK5GBHoxDV7DlPaWXQ/5GG6pqDEhzRLDdISbbs8xLPvUzeqMXQtUbLU
+ hFUT8Zfw0c7U1kYN9+bZcJQ7VcSYPiHWKQRbvA95ahbGRwOosa18c2llR41Qrx00KZPV
+ /Vgumc4mp+DkWdv8xHcujNfu5kSvQYIOmYbawN/XvqCC2NRJ5IdS5SgN/XuikHS4Qajs
+ O5bykfGEDCl+4dj/td8+LGqTjzplN8YyFnBXKts7YlzMg8K76kVix63Gm0a95tYA7RFs
+ 9wsyzVKnHw4hAu6tGateg0q0LpzWSuiy3B1wX5BIXmbIGiwL/oejrEx2/Lm/fVU+YIq6
+ /suw==
+X-Gm-Message-State: AOAM533hyETbo/skQyC9L3Le/4T3M5JIHWnSxPMFUeRqPBGuOz13Z92X
+ wpirmNk5o4eF3LkY4/O6Uff2me3iejw=
+X-Google-Smtp-Source: ABdhPJx2usmtrUpkpDxD1RpMw/EZ9KqPx2+tlVmT/gjW02owWis/sKpiO9ZM0FWQ7IqEwWebWZVK2w==
+X-Received: by 2002:a0c:b59a:: with SMTP id g26mr11351899qve.26.1607636740150; 
+ Thu, 10 Dec 2020 13:45:40 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.37
+ by smtp.gmail.com with ESMTPSA id y9sm4776989qtm.96.2020.12.10.13.45.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 13:45:38 -0800 (PST)
+ Thu, 10 Dec 2020 13:45:39 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/7] drm/amdgpu: support runtime pm for GPUs that support BOCO
-Date: Thu, 10 Dec 2020 16:45:15 -0500
-Message-Id: <20201210214518.704305-4-alexander.deucher@amd.com>
+Subject: [PATCH 6/7] drm/amdgpu: simplify logic in atpx resume handling
+Date: Thu, 10 Dec 2020 16:45:17 -0500
+Message-Id: <20201210214518.704305-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201210214518.704305-1-alexander.deucher@amd.com>
 References: <20201210214518.704305-1-alexander.deucher@amd.com>
@@ -84,29 +84,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable runtime pm on non HG/PX BOCO capable boards.
+Simplify the logic in the runtime resume handling for
+atpx
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index ec8fff7839ef..af049041ea3f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -161,7 +161,10 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 	}
- 
- 	if (amdgpu_device_supports_atpx(dev) &&
--	    (amdgpu_runtime_pm != 0)) { /* enable runpm by default for boco */
-+	    (amdgpu_runtime_pm != 0)) { /* enable runpm by default for atpx */
-+		adev->runpm = true;
-+	} else if (amdgpu_device_supports_boco(dev) &&
-+		   (amdgpu_runtime_pm != 0)) { /* enable runpm by default for boco */
- 		adev->runpm = true;
- 	} else if (amdgpu_device_supports_baco(dev) &&
- 		   (amdgpu_runtime_pm != 0)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 4f97d493eeda..cac2724e7615 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1382,16 +1382,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 		/* Only need to handle PCI state in the driver for ATPX
+ 		 * PCI core handles it for _PR3.
+ 		 */
+-		if (amdgpu_is_atpx_hybrid()) {
+-			pci_set_master(pdev);
+-		} else {
++		if (!amdgpu_is_atpx_hybrid()) {
+ 			pci_set_power_state(pdev, PCI_D0);
+ 			amdgpu_device_load_pci_state(pdev);
+ 			ret = pci_enable_device(pdev);
+ 			if (ret)
+ 				return ret;
+-			pci_set_master(pdev);
+ 		}
++		pci_set_master(pdev);
+ 	} else if (amdgpu_device_supports_boco(drm_dev)) {
+ 		/* Only need to handle PCI state in the driver for ATPX
+ 		 * PCI core handles it for _PR3.
 -- 
 2.25.4
 
