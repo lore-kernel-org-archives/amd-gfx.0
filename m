@@ -2,63 +2,120 @@ Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50F97C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B40A8C4167B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C319F2310C
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C319F2310C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
+	by mail.kernel.org (Postfix) with ESMTPS id 32A3C2310E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 15:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32A3C2310E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6797A6E536;
-	Thu, 10 Dec 2020 15:02:02 +0000 (UTC)
-Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
- [IPv6:2001:8b0:897:1651::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E65D66E536
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 15:02:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=moreofthesa.me.uk; s=201708; h=Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QQSj6rLbCn8bmwL8wDdAWEQ81KFgxrdhzEsuvqSpEEw=; b=PD3yFF7gOrEghR3YBFHGkMm+W
- jbNKCzA0M64EmD9VA+ComicFXecmvW+bRiaREOz/3pfYg16GBNf4oLh1WswUTWQux2c25aA6E9Fon
- ScJNOVgpczvKzxH6vU233wQGAJEZZ6vFuSMhXeBwxnxup22lAr33almbiC27DHwZJG0aMewkKMDJM
- G5RNEN5tNkrpsrArQ7Bi4OPGgfjLM70hbt1Znzrc92Zkys90ucP7s6RdfqDW7HfKrQOnGmywIQEPF
- hEHaZgw3h374cXtNq4FI30WlU7eMhl+zyIzhCmRm7XaEAnD3JKr0F7gJJSrHOfuf3YuG7vbFwqpTE
- sQC6O9Yug==;
-Received: from [2001:8b0:897:1650::2]
- by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
- (envelope-from <devspam@moreofthesa.me.uk>)
- id 1knNSA-000557-WF; Thu, 10 Dec 2020 15:01:59 +0000
-Date: Thu, 10 Dec 2020 13:59:25 +0000
-From: Darren Salt <devspam@moreofthesa.me.uk>
-To: christian.koenig@amd.com
-Subject: Re: [PATCH] amdgpu: resize BAR0 to the maximum available size,
- even if it doesn't cover VRAM
-Message-ID: <58E21FF244%devspam@moreofthesa.me.uk>
-In-Reply-To: <621ae252-ab39-383e-61a9-746fb47c6e01@gmail.com>
-References: <20201210005744.5877-1-devspam@moreofthesa.me.uk> 
- <621ae252-ab39-383e-61a9-746fb47c6e01@gmail.com>
-Mail-Followup-To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
- Darren Salt <devspam@moreofthesa.me.uk>
-User-Agent: Messenger-Pro/2.73.6.4250 (Qt/5.11.3) (Linux-x86_64)
-X-No-Archive: no
-X-Orwell-Date: Thu, 13159 Dec 1984 13:59:25 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A846E3F7;
+	Thu, 10 Dec 2020 15:20:37 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2081.outbound.protection.outlook.com [40.107.223.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF766E3F7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Dec 2020 15:20:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Kmh9L3joo3stKsuZvN87J+2VDjYSZoSlEcqC5Ya/K0J3vKHzPPDNKXiIkmUF3Ut6fSnaE9OxmqqhvjaRN0AZbMwP+xVPMKIEPe7WIkLSDFtiEet2B6UaWTtJvYFoXuI0Je1U2TukfbXeJxkNuTGuT2Kmvn2QLBONqSQuyQK+txqgxuSe9vP2LOs4qbiPOFZyRtkkmTZO4mzztbCHrAkQyX+mfhJDgR6dvkJRq/N+fmwgxSqPH1wijxSPUQBZ7fP6t2bBgeDmHR3JlwkbY/YoBvfZgdnWP7k8bmcXyGP2tIU3G/MA/MAH7/EwnZsYh8dlEvuVKApRH9JsnQa4DExqaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FerrFQUuCM7v5TVMVCe1Y7TJXK7dGKgMe9UXj7WyHMU=;
+ b=ZrPRIj/UHcQzOZG9h5Akib0ZjASCaD7TFsYhvrfaximugHpEyGYjR0AJlG5x6KPVl8hJ4GnViHHlANasgc4waqV+ywxdwE/QteUeNaVi4K5Z+WGyLuzgf2uRdfOkmYcb+HPrCDmVbhbX0tIEw6HVzJandvGBeZy63NRfbHJaWE7jBEKH0QUkoAFNUpUzP659LelZuvezIrbYzukDtFJ9IN2OBx9KlWh6YxmHmMxaFcAP2BX8UgmoPx8Rwyz/BTTpcTc7PUUzjl140ndWJFJzdmMrf+BC65GkVcT4GZZQYIJ+j25kUhxkcwSuqQuj5XR0gsbKY0wFLX1HhDa+DtluWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FerrFQUuCM7v5TVMVCe1Y7TJXK7dGKgMe9UXj7WyHMU=;
+ b=BpGRq0FwlCWIVDtr8ApGAS2IlcD7m7plfd4qI5Hhfh6p3+WdG+tY8ehJjs4ER2psxS8YRUEwt6TwgyoBBeVX/EpZLtSdu9LC5o5Z+8LuIB8g4fJjlMcNAqr6btHTihaFZGIA2nC0+d1RgNDFBfdaV8oOvgjMVllgBOLZ7Kt2p2c=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB2467.namprd12.prod.outlook.com (2603:10b6:207:4c::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Thu, 10 Dec
+ 2020 15:20:34 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af%5]) with mapi id 15.20.3632.019; Thu, 10 Dec 2020
+ 15:20:34 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amd/pm: update the data strucutre for SMU metrics
+ exchange
+Thread-Topic: [PATCH 2/2] drm/amd/pm: update the data strucutre for SMU
+ metrics exchange
+Thread-Index: AQHWzsOcT4NDKuOsSEe+Yfa/TIpDyqnwclkU
+Date: Thu, 10 Dec 2020 15:20:34 +0000
+Message-ID: <MN2PR12MB44886A9AF80CE5113738756AF7CB0@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20201210071031.198001-1-evan.quan@amd.com>,
+ <20201210071031.198001-2-evan.quan@amd.com>
+In-Reply-To: <20201210071031.198001-2-evan.quan@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-10T15:20:33.972Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [192.161.78.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: e258ebcf-6ca1-4f24-1a3e-08d89d1f2416
+x-ms-traffictypediagnostic: BL0PR12MB2467:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB24672E0C3EDCE185A4E452D5F7CB0@BL0PR12MB2467.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:923;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: P2U0Hrv98ZMtnx88EFSydR2+zKohd5J0r782BCjsnBGRTJEY/dATVOJ9gGAHqrR6Ji6kXOIjdVaq31gSwHUDLp5vQG0SztzvAooBTIoDSX+GB1BTCzcF3dLyvrq5FEJe46FM4SXNbSH8tcUH0PuJgMGqsVyFYTFylP6DCE1ft39mlUEak1qYPsHp3cm9nprJ1A1H7lPfnE0mhBTG4Mly+RBTfgdVj5A0TQv9mO2AAQ1N2abObUp04mAypORUCylwZP4KeKzI8yZHFuTZ/TvFCGX1NRSDQiZuMCEAEHYPa/SkQ6UTrNGxkkfMtuT9AC5p
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(346002)(376002)(19627405001)(6506007)(66556008)(83380400001)(15650500001)(76116006)(53546011)(2906002)(8676002)(9686003)(66446008)(508600001)(55016002)(33656002)(7696005)(52536014)(110136005)(71200400001)(66476007)(86362001)(186003)(66946007)(26005)(8936002)(5660300002)(64756008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?yJTGZUgcOTrrfdpbvkmscez/4yOrYsK+5f78GNjgFvjbKe1oWM8yZkaPmdNV?=
+ =?us-ascii?Q?rnwJsVRFcrrLJx5ufmSKaSySH4KahfV0BW22/N0vN4gZ2pQmjZjQ16kzXwZV?=
+ =?us-ascii?Q?oIeS2ozrPU+uNU4FygKx1DuaWAvTKEASDJkcaSJ1+PYgYfhqb/Wf9n9kj1Zh?=
+ =?us-ascii?Q?2tcDhU/5x671RGq2tXEAzgEnXnVq01++v70E+3y9sJWWwr9Ap4rlITFEMxCy?=
+ =?us-ascii?Q?L1u7tFa6oSmktxlqvRpI8ECLnOURqbYM9flQ+vWw3OBipxb94aMXUzm8y2XX?=
+ =?us-ascii?Q?/vcEggxqn94DjRFrZyj26C+IbHp75Cr0FBYiDrHkliCbcsbuZDoBmX00RGty?=
+ =?us-ascii?Q?A0xb0xeyKvtKJm3rZ3ZWZQDvOyajrMEPD8J9s3glyq47fhmKCpLE9OBbc6BC?=
+ =?us-ascii?Q?Cwu36gWx5NqsOK1HKbxaRK+YtPL2HbLfxKR9yZQktDF9gVw2Pw42qW/SoPOh?=
+ =?us-ascii?Q?YHyi0EnjYzt3dkfPemjbBznMuP3dKeGtpPb7vPd2hFerY9x/W9CS5mre89mI?=
+ =?us-ascii?Q?6mi/YuvG/PmDUBYuvo9W01EzVgBaWpmauz/doBF5L11LP80RFw69FeCMql+P?=
+ =?us-ascii?Q?b86rsgDb9eH9PNVP5HhfIOlXIAs3G628RLh4uXYyMEAoUjfWDnJN699sJGz+?=
+ =?us-ascii?Q?91ADUDIW700NrDb0vQYpcw5OMDgIf4VPYiqewz4uFaekKIWantpdUdPyrpPv?=
+ =?us-ascii?Q?vKDxbNYsn3i2OAxDCUlc1kgJ2kEEF2cZ3K58GFopVJ6V8WS0vl0uoI6kIZNy?=
+ =?us-ascii?Q?OxrEN+5qRcngopp6BEJgkffwqKHJQJlkwonK3bHo8WGxgD5q6S5Atgsct2zO?=
+ =?us-ascii?Q?EtAut0lL2zi6KciQn0KFr13sqEnisvIKysOtOeRIa/x/BtGv/Vl+FpVm33vh?=
+ =?us-ascii?Q?O+GdJeF2SvbP/mhM2+7JfR4Pj95UPkef9QS652oSeFXyThqcJ2tkXHz9KEY+?=
+ =?us-ascii?Q?hmxXmM+kmoWBY+lEwszE44TNsqe6KVo3vW1N1Vu2Wek=3D?=
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="1454987343--1007793855--1630567166"
-X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
-X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
-X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
- SAEximRunCond expanded to false
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e258ebcf-6ca1-4f24-1a3e-08d89d1f2416
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2020 15:20:34.7173 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bfQToXYDrLM2ISk/FmocsY+UnRCj1FdJ+yr7VP1LNg+cZUcKeOW6YbA6qZxchg+hCTn9YRYE6eU5VJROaTNdkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2467
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,348 +127,488 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1653186294=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This message is in MIME format.
+--===============1653186294==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44886A9AF80CE5113738756AF7CB0MN2PR12MB4488namp_"
 
---1454987343--1007793855--1630567166
-Content-Type: text/plain; charset=utf-8
+--_000_MN2PR12MB44886A9AF80CE5113738756AF7CB0MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-I demand that Christian K=C3=B6nig may or may not have written...
+[AMD Public Use]
 
-> Am 10.12.20 um 01:57 schrieb Darren Salt:
->> This allows BAR0 resizing to be done for cards which don't advertise
->> support for a size large enough to cover the VRAM but which do adverti=
-se
->> at least one size larger than the default. For example, my RX 5600 XT,=
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com>
+Sent: Thursday, December 10, 2020 2:10 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>
+Subject: [PATCH 2/2] drm/amd/pm: update the data strucutre for SMU metrics =
+exchange
 
->> which advertises 256MB, 512MB and 1GB.
+This is needed for Sienna Cichlid.
 
-> I've never seen such a configuration except for engineering samples. Ca=
-n
-> you send me a dump of the relevant PCI configuration space?
+Change-Id: I57aa099cd1b2020cf0c8b05d8463239ec33790cf
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 75 ++++++++++---------
+ 1 file changed, 39 insertions(+), 36 deletions(-)
 
-=E2=80=9Clspci -nn -v -xxxx=E2=80=9D output is attached. (Sapphire RX 560=
-0 XT Pulse; not an
-early one.)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index acbf6e97ffd0..0c4885273291 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -515,7 +515,7 @@ static int sienna_cichlid_tables_init(struct smu_contex=
+t *smu)
+                        PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+         SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+                        PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+-       SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetrics_t),
++       SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetricsExte=
+rnal_t),
+                        PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+         SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest=
+_t),
+                        PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -527,7 +527,7 @@ static int sienna_cichlid_tables_init(struct smu_contex=
+t *smu)
+                        sizeof(DpmActivityMonitorCoeffIntExternal_t), PAGE_=
+SIZE,
+                        AMDGPU_GEM_DOMAIN_VRAM);
 
-My current kernel has another patch, applied on top of this patch, which
-allows ignoring the size list. As such, that BAR is currently 8GB instead=
- of
-the 1GB which it should be. I've not noticed any significant problems as =
-yet.
+-       smu_table->metrics_table =3D kzalloc(sizeof(SmuMetrics_t), GFP_KERN=
+EL);
++       smu_table->metrics_table =3D kzalloc(sizeof(SmuMetricsExternal_t), =
+GFP_KERNEL);
+         if (!smu_table->metrics_table)
+                 goto err0_out;
+         smu_table->metrics_time =3D 0;
+@@ -556,7 +556,8 @@ static int sienna_cichlid_get_smu_metrics_data(struct s=
+mu_context *smu,
+                                                uint32_t *value)
+ {
+         struct smu_table_context *smu_table=3D &smu->smu_table;
+-       SmuMetrics_t *metrics =3D (SmuMetrics_t *)smu_table->metrics_table;
++       SmuMetrics_t *metrics =3D
++               &(((SmuMetricsExternal_t *)(smu_table->metrics_table))->Smu=
+Metrics);
+         int ret =3D 0;
 
-If the card should be advertising larger sizes too then its VBIOS needs
-fixing; but as a lot of these already out there won't get that fix, some =
-sort
-of override (quirk, I expect, with a module option for cards not covered)=
+         mutex_lock(&smu->metrics_lock);
+@@ -3152,52 +3153,54 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struc=
+t smu_context *smu,
+         struct smu_table_context *smu_table =3D &smu->smu_table;
+         struct gpu_metrics_v1_0 *gpu_metrics =3D
+                 (struct gpu_metrics_v1_0 *)smu_table->gpu_metrics_table;
+-       SmuMetrics_t metrics;
++       SmuMetricsExternal_t metrics_external;
++       SmuMetrics_t *metrics =3D
++               &(metrics_external.SmuMetrics);
+         int ret =3D 0;
 
-would, I think, be warranted.
+         ret =3D smu_cmn_get_metrics_table(smu,
+-                                       &metrics,
++                                       &metrics_external,
+                                         true);
+         if (ret)
+                 return ret;
 
-> In general we could do this, but instead of just blindly trying=20
-> different values we should just pick a supported one in the first place=
-.
+         smu_v11_0_init_gpu_metrics_v1_0(gpu_metrics);
 
-By using pci_rebar_get_possible_sizes() etc.? That looks reasonable to me=
-.
-It'll also require some patching in the PCI subsystem to expose relevant
-functions.
+-       gpu_metrics->temperature_edge =3D metrics.TemperatureEdge;
+-       gpu_metrics->temperature_hotspot =3D metrics.TemperatureHotspot;
+-       gpu_metrics->temperature_mem =3D metrics.TemperatureMem;
+-       gpu_metrics->temperature_vrgfx =3D metrics.TemperatureVrGfx;
+-       gpu_metrics->temperature_vrsoc =3D metrics.TemperatureVrSoc;
+-       gpu_metrics->temperature_vrmem =3D metrics.TemperatureVrMem0;
++       gpu_metrics->temperature_edge =3D metrics->TemperatureEdge;
++       gpu_metrics->temperature_hotspot =3D metrics->TemperatureHotspot;
++       gpu_metrics->temperature_mem =3D metrics->TemperatureMem;
++       gpu_metrics->temperature_vrgfx =3D metrics->TemperatureVrGfx;
++       gpu_metrics->temperature_vrsoc =3D metrics->TemperatureVrSoc;
++       gpu_metrics->temperature_vrmem =3D metrics->TemperatureVrMem0;
+
+-       gpu_metrics->average_gfx_activity =3D metrics.AverageGfxActivity;
+-       gpu_metrics->average_umc_activity =3D metrics.AverageUclkActivity;
+-       gpu_metrics->average_mm_activity =3D metrics.VcnActivityPercentage;
++       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity;
++       gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivity;
++       gpu_metrics->average_mm_activity =3D metrics->VcnActivityPercentage=
+;
+
+-       gpu_metrics->average_socket_power =3D metrics.AverageSocketPower;
+-       gpu_metrics->energy_accumulator =3D metrics.EnergyAccumulator;
++       gpu_metrics->average_socket_power =3D metrics->AverageSocketPower;
++       gpu_metrics->energy_accumulator =3D metrics->EnergyAccumulator;
+
+-       if (metrics.AverageGfxActivity <=3D SMU_11_0_7_GFX_BUSY_THRESHOLD)
+-               gpu_metrics->average_gfxclk_frequency =3D metrics.AverageGf=
+xclkFrequencyPostDs;
++       if (metrics->AverageGfxActivity <=3D SMU_11_0_7_GFX_BUSY_THRESHOLD)
++               gpu_metrics->average_gfxclk_frequency =3D metrics->AverageG=
+fxclkFrequencyPostDs;
+         else
+-               gpu_metrics->average_gfxclk_frequency =3D metrics.AverageGf=
+xclkFrequencyPreDs;
+-       gpu_metrics->average_uclk_frequency =3D metrics.AverageUclkFrequenc=
+yPostDs;
+-       gpu_metrics->average_vclk0_frequency =3D metrics.AverageVclk0Freque=
+ncy;
+-       gpu_metrics->average_dclk0_frequency =3D metrics.AverageDclk0Freque=
+ncy;
+-       gpu_metrics->average_vclk1_frequency =3D metrics.AverageVclk1Freque=
+ncy;
+-       gpu_metrics->average_dclk1_frequency =3D metrics.AverageDclk1Freque=
+ncy;
+-
+-       gpu_metrics->current_gfxclk =3D metrics.CurrClock[PPCLK_GFXCLK];
+-       gpu_metrics->current_socclk =3D metrics.CurrClock[PPCLK_SOCCLK];
+-       gpu_metrics->current_uclk =3D metrics.CurrClock[PPCLK_UCLK];
+-       gpu_metrics->current_vclk0 =3D metrics.CurrClock[PPCLK_VCLK_0];
+-       gpu_metrics->current_dclk0 =3D metrics.CurrClock[PPCLK_DCLK_0];
+-       gpu_metrics->current_vclk1 =3D metrics.CurrClock[PPCLK_VCLK_1];
+-       gpu_metrics->current_dclk1 =3D metrics.CurrClock[PPCLK_DCLK_1];
+-
+-       gpu_metrics->throttle_status =3D metrics.ThrottlerStatus;
+-
+-       gpu_metrics->current_fan_speed =3D metrics.CurrFanSpeed;
++               gpu_metrics->average_gfxclk_frequency =3D metrics->AverageG=
+fxclkFrequencyPreDs;
++       gpu_metrics->average_uclk_frequency =3D metrics->AverageUclkFrequen=
+cyPostDs;
++       gpu_metrics->average_vclk0_frequency =3D metrics->AverageVclk0Frequ=
+ency;
++       gpu_metrics->average_dclk0_frequency =3D metrics->AverageDclk0Frequ=
+ency;
++       gpu_metrics->average_vclk1_frequency =3D metrics->AverageVclk1Frequ=
+ency;
++       gpu_metrics->average_dclk1_frequency =3D metrics->AverageDclk1Frequ=
+ency;
++
++       gpu_metrics->current_gfxclk =3D metrics->CurrClock[PPCLK_GFXCLK];
++       gpu_metrics->current_socclk =3D metrics->CurrClock[PPCLK_SOCCLK];
++       gpu_metrics->current_uclk =3D metrics->CurrClock[PPCLK_UCLK];
++       gpu_metrics->current_vclk0 =3D metrics->CurrClock[PPCLK_VCLK_0];
++       gpu_metrics->current_dclk0 =3D metrics->CurrClock[PPCLK_DCLK_0];
++       gpu_metrics->current_vclk1 =3D metrics->CurrClock[PPCLK_VCLK_1];
++       gpu_metrics->current_dclk1 =3D metrics->CurrClock[PPCLK_DCLK_1];
++
++       gpu_metrics->throttle_status =3D metrics->ThrottlerStatus;
++
++       gpu_metrics->current_fan_speed =3D metrics->CurrFanSpeed;
+
+         gpu_metrics->pcie_link_width =3D
+                         smu_v11_0_get_current_pcie_link_width(smu);
+--
+2.29.0
 
 
---1454987343--1007793855--1630567166
-Content-Type: text/plain; name="gpu-lspci-dump.txt"
-Content-Disposition: attachment; filename="gpu-lspci-dump.txt"
+--_000_MN2PR12MB44886A9AF80CE5113738756AF7CB0MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-28:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [A=
-MD/ATI] Device [1002:731f] (rev ca) (prog-if 00 [VGA controller])=0A=
-	Subsystem: Sapphire Technology Limited Device [1da2:e416]=0A=
-	Flags: bus master, fast devsel, latency 0, IRQ 41=0A=
-	Memory at 600000000 (64-bit, prefetchable) [size=3D8G]=0A=
-	Memory at 500000000 (64-bit, prefetchable) [size=3D256M]=0A=
-	I/O ports at e000 [size=3D256]=0A=
-	Memory at fcb00000 (32-bit, non-prefetchable) [size=3D512K]=0A=
-	Expansion ROM at fcb80000 [disabled] [size=3D128K]=0A=
-	Capabilities: [48] Vendor Specific Information: Len=3D08 <?>=0A=
-	Capabilities: [50] Power Management version 3=0A=
-	Capabilities: [64] Express Legacy Endpoint, MSI 00=0A=
-	Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+=0A=
-	Capabilities: [100] Vendor Specific Information: ID=3D0001 Rev=3D1 Len=3D=
-010 <?>=0A=
-	Capabilities: [150] Advanced Error Reporting=0A=
-	Capabilities: [200] #15=0A=
-	Capabilities: [240] Power Budgeting <?>=0A=
-	Capabilities: [270] #19=0A=
-	Capabilities: [2a0] Access Control Services=0A=
-	Capabilities: [2b0] Address Translation Service (ATS)=0A=
-	Capabilities: [2c0] Page Request Interface (PRI)=0A=
-	Capabilities: [2d0] Process Address Space ID (PASID)=0A=
-	Capabilities: [320] Latency Tolerance Reporting=0A=
-	Capabilities: [400] #25=0A=
-	Capabilities: [410] #26=0A=
-	Capabilities: [440] #27=0A=
-	Kernel driver in use: amdgpu=0A=
-00: 02 10 1f 73 07 04 10 00 ca 00 00 03 10 00 80 00=0A=
-10: 0c 00 00 00 06 00 00 00 0c 00 00 00 05 00 00 00=0A=
-20: 01 e0 00 00 00 00 b0 fc 00 00 00 00 a2 1d 16 e4=0A=
-30: 00 00 b8 fc 48 00 00 00 00 00 00 00 ff 01 00 00=0A=
-40: 00 00 00 00 00 00 00 00 09 50 08 00 a2 1d 16 e4=0A=
-50: 01 64 03 f0 08 00 00 00 00 00 00 00 00 00 00 00=0A=
-60: 00 00 00 00 10 a0 12 00 a1 8f 00 00 30 29 09 00=0A=
-70: 04 0d 40 00 40 00 04 11 00 00 00 00 00 00 00 00=0A=
-80: 00 00 00 00 00 00 00 00 9f 09 73 00 40 04 00 00=0A=
-90: 1e 00 80 01 04 00 1f 00 00 00 00 00 00 00 00 00=0A=
-a0: 05 00 81 00 00 40 e0 fe 00 00 00 00 22 40 00 00=0A=
-b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-100: 0b 00 01 15 01 00 01 01 00 00 00 00 00 00 00 00=0A=
-110: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-130: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-140: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-150: 01 00 02 20 00 00 00 00 00 00 00 00 30 20 46 00=0A=
-160: 00 20 00 00 00 20 00 00 a0 00 00 00 00 00 00 00=0A=
-170: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-190: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-1f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-200: 15 00 01 24 00 70 00 00 40 0d 00 00 e0 1f 00 00=0A=
-210: 02 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-220: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-230: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-240: 04 00 01 27 00 00 00 00 00 81 07 00 00 00 00 00=0A=
-250: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-260: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-270: 19 00 01 2a 00 00 00 00 00 00 00 00 00 7f 00 7f=0A=
-280: 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f=0A=
-290: 00 7f 00 7f 00 7f 00 7f 00 7f 00 7f 00 00 00 00=0A=
-2a0: 0d 00 01 2b 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-2b0: 0f 00 01 2c 20 00 00 80 00 00 00 00 00 00 00 00=0A=
-2c0: 13 00 01 2d 00 00 00 01 00 01 00 00 00 00 00 00=0A=
-2d0: 1b 00 01 32 06 10 00 00 00 00 00 00 00 00 00 00=0A=
-2e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-2f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-310: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-320: 18 00 01 40 01 10 01 10 00 00 00 00 00 00 00 00=0A=
-330: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-340: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-350: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-360: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-370: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-390: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-3f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-400: 25 00 01 41 01 00 00 80 01 00 00 80 00 00 00 00=0A=
-410: 26 00 01 44 00 00 00 00 00 00 00 00 0f 00 00 00=0A=
-420: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-430: f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0 f0=0A=
-440: 27 00 01 00 00 00 00 00 38 9c 00 00 38 9c 00 00=0A=
-450: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
-460: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
-470: 38 9c 00 00 38 9c 00 00 38 9c 00 00 38 9c 00 00=0A=
-480: 38 9c 00 00 38 9c 00 00 00 00 00 00 00 00 00 00=0A=
-490: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-4f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-510: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-520: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-530: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-540: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-550: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-560: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-570: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-590: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-5f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-610: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-620: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-630: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-640: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-650: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-660: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-670: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-690: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-6f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-710: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-720: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-730: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-740: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-750: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-760: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-770: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-7f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-810: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-820: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-830: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-840: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-850: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-860: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-870: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-890: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-8f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-910: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-920: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-930: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-940: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-950: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-960: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-970: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-990: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-9f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-a90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-aa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ab0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ac0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ad0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ae0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-af0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-b90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ba0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-bb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-bc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-bd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-be0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-bf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-c90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ca0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-cb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-cc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-cd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ce0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-cf0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-d90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-da0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-db0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-dc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-dd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-de0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-df0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-e90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ea0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-eb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ec0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ed0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ee0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ef0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-f90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-fa0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
-ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00=0A=
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan@amd.com&gt;<br>
+<b>Sent:</b> Thursday, December 10, 2020 2:10 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
+ &lt;Evan.Quan@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amd/pm: update the data strucutre for SMU m=
+etrics exchange</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This is needed for Sienna Cichlid.<br>
+<br>
+Change-Id: I57aa099cd1b2020cf0c8b05d8463239ec33790cf<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
+---<br>
+&nbsp;.../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c&nbsp;&nbsp; | 75 ++++++++=
+++---------<br>
+&nbsp;1 file changed, 39 insertions(+), 36 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
+index acbf6e97ffd0..0c4885273291 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
+@@ -515,7 +515,7 @@ static int sienna_cichlid_tables_init(struct smu_contex=
+t *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, =
+AMDGPU_GEM_DOMAIN_VRAM);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_INIT(tables, SMU=
+_TABLE_WATERMARKS, sizeof(Watermarks_t),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, =
+AMDGPU_GEM_DOMAIN_VRAM);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_INIT(tables, SMU_TABLE_SMU_=
+METRICS, sizeof(SmuMetrics_t),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_INIT(tables, SMU_TABLE_SMU_=
+METRICS, sizeof(SmuMetricsExternal_t),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, =
+AMDGPU_GEM_DOMAIN_VRAM);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_INIT(tables, SMU=
+_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, =
+AMDGPU_GEM_DOMAIN_VRAM);<br>
+@@ -527,7 +527,7 @@ static int sienna_cichlid_tables_init(struct smu_contex=
+t *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(DpmA=
+ctivityMonitorCoeffIntExternal_t), PAGE_SIZE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_=
+DOMAIN_VRAM);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;metrics_table =3D kzall=
+oc(sizeof(SmuMetrics_t), GFP_KERNEL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;metrics_table =3D kzall=
+oc(sizeof(SmuMetricsExternal_t), GFP_KERNEL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_table-&gt;metrics=
+_table)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto err0_out;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;metrics_time=
+ =3D 0;<br>
+@@ -556,7 +556,8 @@ static int sienna_cichlid_get_smu_metrics_data(struct s=
+mu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *value)<=
+br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table=3D &amp;smu-&gt;smu_table;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t *metrics =3D (SmuMetrics=
+_t *)smu_table-&gt;metrics_table;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t *metrics =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; &amp;(((SmuMetricsExternal_t *)(smu_table-&gt;metrics_table))-&g=
+t;SmuMetrics);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;me=
+trics_lock);<br>
+@@ -3152,52 +3153,54 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struc=
+t smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct gpu_metrics_v1_0 *g=
+pu_metrics =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (struct gpu_metrics_v1_0 *)smu_table-&gt;gpu_metrics_=
+table;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetricsExternal_t metrics_external=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t *metrics =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; &amp;(metrics_external.SmuMetrics);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_metric=
+s_table(smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &amp;metrics,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &amp;metrics_external,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_v11_0_init_gpu_metrics=
+_v1_0(gpu_metrics);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_edge =3D =
+metrics.TemperatureEdge;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_hotspot =
+=3D metrics.TemperatureHotspot;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_mem =3D m=
+etrics.TemperatureMem;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrgfx =3D=
+ metrics.TemperatureVrGfx;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrsoc =3D=
+ metrics.TemperatureVrSoc;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrmem =3D=
+ metrics.TemperatureVrMem0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_edge =3D =
+metrics-&gt;TemperatureEdge;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_hotspot =
+=3D metrics-&gt;TemperatureHotspot;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_mem =3D m=
+etrics-&gt;TemperatureMem;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrgfx =3D=
+ metrics-&gt;TemperatureVrGfx;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrsoc =3D=
+ metrics-&gt;TemperatureVrSoc;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;temperature_vrmem =3D=
+ metrics-&gt;TemperatureVrMem0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_gfx_activity =
+=3D metrics.AverageGfxActivity;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_umc_activity =
+=3D metrics.AverageUclkActivity;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_mm_activity =
+=3D metrics.VcnActivityPercentage;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_gfx_activity =
+=3D metrics-&gt;AverageGfxActivity;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_umc_activity =
+=3D metrics-&gt;AverageUclkActivity;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_mm_activity =
+=3D metrics-&gt;VcnActivityPercentage;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socket_power =
+=3D metrics.AverageSocketPower;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;energy_accumulator =
+=3D metrics.EnergyAccumulator;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_socket_power =
+=3D metrics-&gt;AverageSocketPower;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;energy_accumulator =
+=3D metrics-&gt;EnergyAccumulator;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (metrics.AverageGfxActivity &lt;=
+=3D SMU_11_0_7_GFX_BUSY_THRESHOLD)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gpu_metrics-&gt;average_gfxclk_frequency =3D metrics.AverageGfxc=
+lkFrequencyPostDs;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (metrics-&gt;AverageGfxActivity &l=
+t;=3D SMU_11_0_7_GFX_BUSY_THRESHOLD)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gpu_metrics-&gt;average_gfxclk_frequency =3D metrics-&gt;Average=
+GfxclkFrequencyPostDs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gpu_metrics-&gt;average_gfxclk_frequency =3D metrics.AverageGfxc=
+lkFrequencyPreDs;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_uclk_frequenc=
+y =3D metrics.AverageUclkFrequencyPostDs;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_vclk0_frequen=
+cy =3D metrics.AverageVclk0Frequency;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_dclk0_frequen=
+cy =3D metrics.AverageDclk0Frequency;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_vclk1_frequen=
+cy =3D metrics.AverageVclk1Frequency;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_dclk1_frequen=
+cy =3D metrics.AverageDclk1Frequency;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_gfxclk =3D me=
+trics.CurrClock[PPCLK_GFXCLK];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_socclk =3D me=
+trics.CurrClock[PPCLK_SOCCLK];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_uclk =3D metr=
+ics.CurrClock[PPCLK_UCLK];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_vclk0 =3D met=
+rics.CurrClock[PPCLK_VCLK_0];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_dclk0 =3D met=
+rics.CurrClock[PPCLK_DCLK_0];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_vclk1 =3D met=
+rics.CurrClock[PPCLK_VCLK_1];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_dclk1 =3D met=
+rics.CurrClock[PPCLK_DCLK_1];<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;throttle_status =3D m=
+etrics.ThrottlerStatus;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_fan_speed =3D=
+ metrics.CurrFanSpeed;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gpu_metrics-&gt;average_gfxclk_frequency =3D metrics-&gt;Average=
+GfxclkFrequencyPreDs;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_uclk_frequenc=
+y =3D metrics-&gt;AverageUclkFrequencyPostDs;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_vclk0_frequen=
+cy =3D metrics-&gt;AverageVclk0Frequency;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_dclk0_frequen=
+cy =3D metrics-&gt;AverageDclk0Frequency;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_vclk1_frequen=
+cy =3D metrics-&gt;AverageVclk1Frequency;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;average_dclk1_frequen=
+cy =3D metrics-&gt;AverageDclk1Frequency;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_gfxclk =3D me=
+trics-&gt;CurrClock[PPCLK_GFXCLK];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_socclk =3D me=
+trics-&gt;CurrClock[PPCLK_SOCCLK];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_uclk =3D metr=
+ics-&gt;CurrClock[PPCLK_UCLK];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_vclk0 =3D met=
+rics-&gt;CurrClock[PPCLK_VCLK_0];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_dclk0 =3D met=
+rics-&gt;CurrClock[PPCLK_DCLK_0];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_vclk1 =3D met=
+rics-&gt;CurrClock[PPCLK_VCLK_1];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_dclk1 =3D met=
+rics-&gt;CurrClock[PPCLK_DCLK_1];<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;throttle_status =3D m=
+etrics-&gt;ThrottlerStatus;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;current_fan_speed =3D=
+ metrics-&gt;CurrFanSpeed;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_metrics-&gt;pcie_link_=
+width =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_v=
+11_0_get_current_pcie_link_width(smu);<br>
+-- <br>
+2.29.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
---1454987343--1007793855--1630567166
+--_000_MN2PR12MB44886A9AF80CE5113738756AF7CB0MN2PR12MB4488namp_--
+
+--===============1653186294==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -422,4 +619,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---1454987343--1007793855--1630567166--
+--===============1653186294==--
