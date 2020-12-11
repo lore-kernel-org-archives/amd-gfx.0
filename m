@@ -1,45 +1,58 @@
-Return-Path: <SRS0=6/kp=FO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=QenQ=FP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C5FAC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 850D7C4361B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 00:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D778823108
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Dec 2020 22:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D778823108
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	by mail.kernel.org (Postfix) with ESMTPS id BCAD623DB4
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 00:55:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCAD623DB4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19DE86EB71;
-	Thu, 10 Dec 2020 22:01:14 +0000 (UTC)
-Received: from mail1.protonmail.ch (mail1.protonmail.ch [185.70.40.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A08966EB6F;
- Thu, 10 Dec 2020 22:01:12 +0000 (UTC)
-Date: Thu, 10 Dec 2020 22:01:01 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1607637670;
- bh=FmTLQjfSj2V4sIkgLBfO1ZQUi/M+NWkIe67YWDNBQuo=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=A23OApJGdY2kZ3w4Qq6w+IYE9/5+sfej7hEwUoUWHx7Pi+QSrN90KmqEnQeQ27UMo
- WD6+jdepWn3l8gKv/e10t3gGzYHMk8ddmJVq7BpmmfHh9UnSVEg9TxabVoFbu4NdcG
- RssK30ZMipm/RI0N7h0mh+pz1fVLzlc5BF3RkrOmosrq2fPNV28fmmHJWjsZFbupkJ
- WXcY+6WPl6qSq2ISyMwJEGXXHTq/s8Ad1+SR12TsNoGRmuJEdIhi0xfqJcmTlcnaCZ
- O/5ENDxCwSXUal6Oauar+7j2yf3NzLIBDqcHcNEr5ZLe5rKmMT9HTEkdV4lS1cD2uD
- EGVDsRhieFAOA==
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v2 0/3] Experimental freesync video mode optimization
-Message-ID: <MC46k2jDYAeDTZaSlv6T5iIq5ibkh2yYwW3KZ-XLXLwoRByjkWsEr6-6eQM4iZqmkiLoleyh84S290ytAub0bK-esJje1OGKIEilcz_iikY=@emersion.fr>
-In-Reply-To: <20201210184823.285415-1-aurabindo.pillai@amd.com>
-References: <20201210184823.285415-1-aurabindo.pillai@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBDC6E506;
+	Fri, 11 Dec 2020 00:55:10 +0000 (UTC)
+Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
+ [IPv6:2001:8b0:897:1651::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB6C6E5BB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 00:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=moreofthesa.me.uk; s=201708; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zs2LedRXX7CiQRbs+3w6P8eOyWbf0dJyVRlV/3kmDKs=; b=C7FvWm8hahFt9vWsaZE1n1GJyr
+ Jm6zvdVWYmRJpmIDI/ZMhu5QieFSP9W+slZ68VC0dj7XocpQwPl0NT/s2NC2sFHas66aEGr2Y6QU7
+ fJOQS6XWRK+RuzbOHtIcLv+eiZUB78A9Se1nFnmN1LQtIE5kD62CYCCAH+f8lQOxX6jaXFTfSGEJC
+ ftlrh8PedDsiHlTZ+RxfutbV3lmuiZBnUF6CWWJLq3+fKgPrcxMLJh9//V5JGPXVa72mYvckUV0C7
+ mavCe3byEnwiQQXwds3Iw8wC0/RsTi+x32tYtWIi4Exsu4F9QBaOEShRU9vvaa+Nwl+vrxWB6aGCZ
+ 8iCkay0w==;
+Received: from [2001:8b0:897:1650::2] (helo=flibble.moreofthesa.me.uk)
+ by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
+ (envelope-from <devspam@moreofthesa.me.uk>)
+ id 1knWiA-0002lw-PH; Fri, 11 Dec 2020 00:55:06 +0000
+From: Darren Salt <devspam@moreofthesa.me.uk>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/7] pci: export PCI BAR size-reading functions
+Date: Fri, 11 Dec 2020 00:55:00 +0000
+Message-Id: <20201211005506.4554-2-devspam@moreofthesa.me.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201211005506.4554-1-devspam@moreofthesa.me.uk>
+References: <20201211005506.4554-1-devspam@moreofthesa.me.uk>
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
+X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
+X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
+ SAEximRunCond expanded to false
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,54 +64,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: stylon.wang@amd.com, thong.thai@amd.com, shashank.sharma@amd.com,
- Martin Peres <martin.peres@free.fr>, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>,
- DRI Development <dri-devel@lists.freedesktop.org>, wayne.lin@amd.com,
- alexander.deucher@amd.com, Harry.Wentland@amd.com, nicholas.kazlauskas@amd.com
+Cc: Darren Salt <devspam@moreofthesa.me.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+This is to assist driver modules which do BAR resizing.
 
-(CC dri-devel, Pekka and Martin who might be interested in this as well.)
+Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
+---
+ drivers/pci/pci.c   | 2 ++
+ drivers/pci/pci.h   | 2 --
+ include/linux/pci.h | 4 ++++
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index e578d34095e9..3f6042d9ad83 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3579,6 +3579,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
+ 	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
+ 	return (cap & PCI_REBAR_CAP_SIZES) >> 4;
+ }
++EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
+ 
+ /**
+  * pci_rebar_get_current_size - get the current size of a BAR
+@@ -3600,6 +3601,7 @@ int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
+ 	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+ 	return (ctrl & PCI_REBAR_CTRL_BAR_SIZE) >> PCI_REBAR_CTRL_BAR_SHIFT;
+ }
++EXPORT_SYMBOL(pci_rebar_get_current_size);
+ 
+ /**
+  * pci_rebar_set_size - set a new size for a BAR
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index f86cae9aa1f4..8373d94414e9 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -608,8 +608,6 @@ int acpi_get_rc_resources(struct device *dev, const char *hid, u16 segment,
+ 			  struct resource *res);
+ #endif
+ 
+-u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
+-int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+ int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size);
+ static inline u64 pci_rebar_size_to_bytes(int size)
+ {
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 22207a79762c..5aa035622741 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1226,7 +1226,11 @@ void pci_update_resource(struct pci_dev *dev, int resno);
+ int __must_check pci_assign_resource(struct pci_dev *dev, int i);
+ int __must_check pci_reassign_resource(struct pci_dev *dev, int i, resource_size_t add_size, resource_size_t align);
+ void pci_release_resource(struct pci_dev *dev, int resno);
++
++u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
++int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+ int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
++
+ int pci_select_bars(struct pci_dev *dev, unsigned long flags);
+ bool pci_device_is_present(struct pci_dev *pdev);
+ void pci_ignore_hotplug(struct pci_dev *dev);
+-- 
+2.20.1
 
-> This patchset enables freesync video mode usecase where the userspace
-> can request a freesync compatible video mode such that switching to this
-> mode does not trigger blanking.
->
-> This feature is guarded by a module parameter which is disabled by
-> default. Enabling this paramters adds additional modes to the driver
-> modelist, and also enables the optimization to skip modeset when using
-> one of these modes.
-
-Thanks for working on this, it's an interesting feature! However I'd like to
-take some time to think about the user-space API for this.
-
-As I understand it, some new synthetic modes are added, and user-space can
-perform a test-only atomic *without* ALLOW_MODESET to figure out whether it can
-switch to a mode without blanking the screen.
-
-However the exact modes amdgpu adds are just some guesses. I think it would be
-great if user-space could control the min/max refresh rate values directly.
-Not only this would remove the need for the kernel to hard-code "well-known
-video refresh rates", but this would also enable more use-cases. For instance
-some users might want to mitigate flickering on their screen by reducing the
-VRR range. Some users might want to lower their screen refresh rate for power
-savings.
-
-What do you think? Would you be fine with adding min/max VRR range properties?
-
-If you're scared about the user-space code requirement, I can provide that.
-
-Thanks,
-
-Simon Ser
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
