@@ -2,78 +2,72 @@ Return-Path: <SRS0=QenQ=FP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21209C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15935C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB7F723D50
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 10:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB7F723D50
+	by mail.kernel.org (Postfix) with ESMTPS id BABB523EB3
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:20:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BABB523EB3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9D026ED87;
-	Fri, 11 Dec 2020 10:28:41 +0000 (UTC)
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4DCB6ED85;
- Fri, 11 Dec 2020 10:28:40 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id b73so8771325edf.13;
- Fri, 11 Dec 2020 02:28:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE6B6EDCA;
+	Fri, 11 Dec 2020 12:20:34 +0000 (UTC)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B70B6EDC6;
+ Fri, 11 Dec 2020 12:20:32 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id w13so13034432lfd.5;
+ Fri, 11 Dec 2020 04:20:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=F/owxLzE2PZQ78sXM58LscfIGvWvo6S0TJeSHHmmBj0=;
- b=N5hz4xtIY/AE02gAI7AW6xybL0Wvg40sNhYCAD++yREJrhl4D0/JyZPI4sivIAzCxe
- 7XzwiSLkxOgJQvy/Hv/fu44f1D3kGe/WLQYmv+8HlpzX50EsSLLbwprNE8gtk944V/r3
- 6fJWWHRlvpx1U5hJ34FbIKNea+1l1mUAI5fuw7h7eAs+FB4ePuucrlrE6hn1O9zYn9d1
- fw8Ytiu/8MDDJk3ocgaasiP2SXyW8xU2knKIOJs/M50enqYACuwXcMcoijJOeUfysWaf
- RcRVAgImJnOcnb2c1jng8BW3oO0HXQmLEciSDgOxwbWJVdArw1J7O1H7s+fBSFAB6WJz
- wSRw==
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=aN+eJU9kdQqnxT2tyGWW76jiJXyiAxGt1tBEBUeg2Wk=;
+ b=eYEeRHlRCbsYpjeien1nKxZfzA/u7sRWPTX6hsOc2USVHENNWRycHM6GzgA6tA3uIM
+ EqdKABfa0eb/alzcCQ7Kv53rKRl4nInvmCJ0c5ncOkD+34YSirHPAeQpcWnszfKm9EDC
+ 8P3+3hWPk+atS9VaqBsb/5gJ/iL4aLkTNpahOz2s6UJ3fYAzXu7hRnsDuOrSHy9G2EZG
+ F/vqgS3ggLzMjJUrajHv56z13JZntsHPK6YLVOCCyPP47j/TVhO1a2C37y1+id+F0X2D
+ 3N/Zbs7k7QvmK96ZRt/e8b3Y9g3RklKP1Se4SKnWB7corXc1W+78mBw8GD2OfjCtYcRG
+ l9Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=F/owxLzE2PZQ78sXM58LscfIGvWvo6S0TJeSHHmmBj0=;
- b=awzbL2RAbtx95DHmNeALo/WgilWJ7RISN+Ka/M+thXeZgLVs9CbRgAYu+YaXBJY98X
- CaSjuUqB5o/VzXhFJa0apiBFzCVBNnVeNA2CqO8D0HMG28e1Q/CYwfeea8942jaP9T8N
- spbk0OZXs5TVBO+bRjebEEpjBTa4dlKxLSb0vpfmMnSpXr/KsQa3j8ImVpsSUlIfqVJs
- P4VH1HKR/70zuN+8RvIelYV8KztjFlPvcXlitX5zXU+sT8K2ti9X554x3iNOAJJafnMy
- pXzU3Wv2QYBsjUI4SOvDLuUPQ1rYceKRZarH5Gnh0GgWwIIX/frvHh9iwlZ9tVsciY0U
- ELEA==
-X-Gm-Message-State: AOAM533sGFwHarYxWZ7iOWksQe3f8tJ3sTmPHDEnTcUFeEvijPnOJGmG
- z12Q/fS1XntXKwi3Dgcr7pw=
-X-Google-Smtp-Source: ABdhPJwFp+52hU4Sau8I+cVyTleemh2198k9q61APOazokRtq4JSKXi/2WYN0l6VMqayH7QrpE4poQ==
-X-Received: by 2002:a50:ee97:: with SMTP id f23mr10667050edr.311.1607682519585; 
- Fri, 11 Dec 2020 02:28:39 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id t19sm6465250eje.86.2020.12.11.02.28.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Dec 2020 02:28:38 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=aN+eJU9kdQqnxT2tyGWW76jiJXyiAxGt1tBEBUeg2Wk=;
+ b=UAAHNsgrYiKyfpDxMqXPIhV17Okd9fncaQEgj5uvQ0Tn/vxVFKKrhlHGRyfXsyHMen
+ ytkoJIR5SwVPiZm1tcSpy+TuprSOijc1Hiea8kM9L3aI3Y599J7JKeaErm71MQcq7QGo
+ YTWh+IlVbZhpIVLhE388flvH/1UEFBeFCXht2SUmhsJgm+9v/ewwN1En5MK71UALOX2w
+ S4Cph91Jy9UcRZnToCmYnNu5GRV2hFX901SWWUQe9iZ/PVjHHYu3gb+759ClJ7jSXhRh
+ X4w5ihCDG4TYZRSUDKEIUuLFPgS8A5gwATlPoNW7xGboHn9cHOnHlF/G9eDT3ORawCZV
+ U8zQ==
+X-Gm-Message-State: AOAM5312UHNgBMZ8ANaongcFbB2ECU7U9IYyZ00nKVM1omAzjHxgPn7L
+ bclDS886mCMozEyJRccYp3M=
+X-Google-Smtp-Source: ABdhPJysQbreFYHm+fLhwOuQL7R8nC+idHxFrIQUyya8kt9GjtqKGH9FemUF6WUKn7SudYI/4LiR3Q==
+X-Received: by 2002:ac2:5442:: with SMTP id d2mr4705351lfn.154.1607689230833; 
+ Fri, 11 Dec 2020 04:20:30 -0800 (PST)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id m20sm862465lfc.172.2020.12.11.04.20.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Dec 2020 04:20:30 -0800 (PST)
+Date: Fri, 11 Dec 2020 14:20:19 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH v2 0/3] Experimental freesync video mode optimization
-To: Pekka Paalanen <ppaalanen@gmail.com>,
- Shashank Sharma <shashank.sharma@amd.com>
+Message-ID: <20201211142019.19dae2aa@eldfell>
+In-Reply-To: <53f5b48c-c2b5-ed66-0c0e-bba0b22dba03@gmail.com>
 References: <20201210184823.285415-1-aurabindo.pillai@amd.com>
  <MC46k2jDYAeDTZaSlv6T5iIq5ibkh2yYwW3KZ-XLXLwoRByjkWsEr6-6eQM4iZqmkiLoleyh84S290ytAub0bK-esJje1OGKIEilcz_iikY=@emersion.fr>
  <0b7132b8-a890-b4f0-0a0c-260015fa0bbb@amd.com>
  <20201211115549.32ade81b@eldfell>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <53f5b48c-c2b5-ed66-0c0e-bba0b22dba03@gmail.com>
-Date: Fri, 11 Dec 2020 11:28:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <53f5b48c-c2b5-ed66-0c0e-bba0b22dba03@gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20201211115549.32ade81b@eldfell>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,482 +79,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Cc: stylon.wang@amd.com, thong.thai@amd.com, Simon Ser <contact@emersion.fr>,
- amd-gfx@lists.freedesktop.org, Martin Peres <martin.peres@free.fr>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ nicholas.kazlauskas@amd.com, Martin Peres <martin.peres@free.fr>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>,
  DRI Development <dri-devel@lists.freedesktop.org>, wayne.lin@amd.com,
- alexander.deucher@amd.com, Harry.Wentland@amd.com, nicholas.kazlauskas@amd.com
-Content-Type: multipart/mixed; boundary="===============0338029749=="
+ alexander.deucher@amd.com, Harry.Wentland@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1260289071=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0338029749==
-Content-Type: multipart/alternative;
- boundary="------------FC82B3FD5A4781A0AEC371BD"
-Content-Language: en-US
+--===============1260289071==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/1etLWcPkUcsFqMuruRxLddG"; protocol="application/pgp-signature"
 
-This is a multi-part message in MIME format.
---------------FC82B3FD5A4781A0AEC371BD
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+--Sig_/1etLWcPkUcsFqMuruRxLddG
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Am 11.12.20 um 10:55 schrieb Pekka Paalanen:
-> On Fri, 11 Dec 2020 09:56:07 +0530
-> Shashank Sharma <shashank.sharma@amd.com> wrote:
->
->> Hello Simon,
->>
->> Hope you are doing well,
->>
->> I was helping out Aurabindo and the team with the design, so I have
->> taken the liberty of adding some comments on behalf of the team,
->> Inline.
->>
->> On 11/12/20 3:31 am, Simon Ser wrote:
->>> Hi,
->>>
->>> (CC dri-devel, Pekka and Martin who might be interested in this as
->>> well.)
-> Thanks for the Cc! This is very interesting to me, and because it was
-> not Cc'd to dri-devel@ originally, I would have missed this otherwise.
->
->>> On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
->>>   
->>>> This patchset enables freesync video mode usecase where the userspace
->>>> can request a freesync compatible video mode such that switching to this
->>>> mode does not trigger blanking.
->>>>
->>>> This feature is guarded by a module parameter which is disabled by
->>>> default. Enabling this paramters adds additional modes to the driver
->>>> modelist, and also enables the optimization to skip modeset when using
->>>> one of these modes.
->>> Thanks for working on this, it's an interesting feature! However I'd like to
->>> take some time to think about the user-space API for this.
->>>
->>> As I understand it, some new synthetic modes are added, and user-space can
->>> perform a test-only atomic *without* ALLOW_MODESET to figure out whether it can
->>> switch to a mode without blanking the screen.
->> The implementation is in those lines, but a bit different. The idea
->> is to:
->>
->> - check if the monitor supports VRR,
->>
->> - If it does, add some new modes which are in the VRR tolerance
->> range, as new video modes in the list (with driver flag).
->>
->> - when you get modeset on any of these modes, skip the full modeset,
->> and just adjust the front_porch timing
->>
->> so they are not test-only as such, for any user-space these modes
->> will be as real as any other probed modes of the list.
-> But is it worth to allow a modeset to be glitch-free if the userspace
-> does not know they are glitch-free? I think if this is going in, it
-> would be really useful to give the guarantees to userspace explicitly,
-> and not leave this feature at an "accidentally no glitch sometimes"
-> level.
->
->
-> I have been expecting and hoping for the ability to change video mode
-> timings without a modeset ever since I learnt that VRR is about
-> front-porch adjustment, quite a while ago.
->
-> This is how I envision userspace making use of it:
->
-> Let us have a Wayland compositor, which uses fixed-frequency video
-> modes, because it wants predictable vblank cycles. IOW, it will not
-> enable VRR as such.
+On Fri, 11 Dec 2020 11:28:36 +0100
+Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> wrote:
 
-Well in general please keep in mind that this is just a short term 
-solution for X11 applications.
+> Am 11.12.20 um 10:55 schrieb Pekka Paalanen:
+> > On Fri, 11 Dec 2020 09:56:07 +0530
+> > Shashank Sharma <shashank.sharma@amd.com> wrote:
+> > =20
+> >> Hello Simon,
+> >>
+> >> Hope you are doing well,
+> >>
+> >> I was helping out Aurabindo and the team with the design, so I have
+> >> taken the liberty of adding some comments on behalf of the team,
+> >> Inline.
+> >>
+> >> On 11/12/20 3:31 am, Simon Ser wrote: =20
+> >>> Hi,
+> >>>
+> >>> (CC dri-devel, Pekka and Martin who might be interested in this as
+> >>> well.) =20
+> > Thanks for the Cc! This is very interesting to me, and because it was
+> > not Cc'd to dri-devel@ originally, I would have missed this otherwise.
+> > =20
+> >>> On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <aurabi=
+ndo.pillai@amd.com> wrote:
+> >>>    =20
+> >>>> This patchset enables freesync video mode usecase where the userspace
+> >>>> can request a freesync compatible video mode such that switching to =
+this
+> >>>> mode does not trigger blanking.
+> >>>>
+> >>>> This feature is guarded by a module parameter which is disabled by
+> >>>> default. Enabling this paramters adds additional modes to the driver
+> >>>> modelist, and also enables the optimization to skip modeset when usi=
+ng
+> >>>> one of these modes. =20
+> >>> Thanks for working on this, it's an interesting feature! However I'd =
+like to
+> >>> take some time to think about the user-space API for this.
+> >>>
+> >>> As I understand it, some new synthetic modes are added, and user-spac=
+e can
+> >>> perform a test-only atomic *without* ALLOW_MODESET to figure out whet=
+her it can
+> >>> switch to a mode without blanking the screen. =20
+> >> The implementation is in those lines, but a bit different. The idea
+> >> is to:
+> >>
+> >> - check if the monitor supports VRR,
+> >>
+> >> - If it does, add some new modes which are in the VRR tolerance
+> >> range, as new video modes in the list (with driver flag).
+> >>
+> >> - when you get modeset on any of these modes, skip the full modeset,
+> >> and just adjust the front_porch timing
+> >>
+> >> so they are not test-only as such, for any user-space these modes
+> >> will be as real as any other probed modes of the list. =20
+> > But is it worth to allow a modeset to be glitch-free if the userspace
+> > does not know they are glitch-free? I think if this is going in, it
+> > would be really useful to give the guarantees to userspace explicitly,
+> > and not leave this feature at an "accidentally no glitch sometimes"
+> > level.
+> >
+> >
+> > I have been expecting and hoping for the ability to change video mode
+> > timings without a modeset ever since I learnt that VRR is about
+> > front-porch adjustment, quite a while ago.
+> >
+> > This is how I envision userspace making use of it:
+> >
+> > Let us have a Wayland compositor, which uses fixed-frequency video
+> > modes, because it wants predictable vblank cycles. IOW, it will not
+> > enable VRR as such. =20
+>=20
+> Well in general please keep in mind that this is just a short term=20
+> solution for X11 applications.
 
-For things like Wayland we probably want to approach this from a 
-completely different vector.
+I guess someone should have mentioned that. :-)
 
-> When the Wayland compositor starts, it will choose *some* video mode
-> for an output. It may or may not be what a KMS driver calls "preferred
-> mode", because it depends on things like user preferences. The
-> compositor makes the initial modeset to this mode.
+Do we really want to add more Xorg-only features in the kernel?
 
-I think the general idea we settled on is that we specify an earliest 
-display time for each frame and give feedback to the application when a 
-frame was actually displayed.
+It feels like "it's a short term solution for X11" could be almost used
+as an excuse to avoid proper uAPI design process. However, with uAPI
+there is no "short term". Once it's in, it's there for decades. So why
+does it matter if you design it for Xorg foremost? Are others forbidden
+to make use of it? Or do you deliberately want to design it so that
+it's not generally useful and it will indeed end up being a short term
+feature? Planned obsolescence from the start?
 
-This approach should also be able to handle multiple applications with 
-different refresh rates. E.g. just think of a video playback with 25 and 
-another one with 30 Hz in two windows when the max refresh rate is 
-something like 120Hz.
+> For things like Wayland we probably want to approach this from a=20
+> completely different vector.
+>=20
+> > When the Wayland compositor starts, it will choose *some* video mode
+> > for an output. It may or may not be what a KMS driver calls "preferred
+> > mode", because it depends on things like user preferences. The
+> > compositor makes the initial modeset to this mode. =20
+>=20
+> I think the general idea we settled on is that we specify an earliest=20
+> display time for each frame and give feedback to the application when a=20
+> frame was actually displayed.
 
-Regards,
-Christian.
+That is indeed something completely different, and feels like it would
+be several years in the future, while the proposed scheme or the
+min/max properties could be done fairly quickly. But I'm not in a hurry.
 
->
-> Use case 1:
->
-> A Wayland client comes up and determines that its window would really
-> like a refresh rate of, say, 47.5 Hz. Yes, it's not a traditional video
-> player rate, but let's assume the application has its reasons. The
-> client tells the compositor this (Wayland protocol still to be designed
-> to be able to do that). (Hey, this could be how future games should
-> implement refresh rate controls in cooperation with the window system.)
->
-> The compositor sees the wish, and according to its complex policy
-> rules, determines that yes, it shall try to honor that wish by changing
-> the whole output temporarily to 47.5 Hz if possible.
->
-> The compositor takes the original video mode it modeset on the output,
-> and adjusts the front-porch to create a new custom 47.5 Hz mode. Using
-> this mode, the compositor does a TEST_ONLY atomic commit *without*
-> ALLOW_MODESET.
->
-> If the test commit succeeds, the compositor knows that changing timings
-> will not cause any kind of glitch, flicker, blanking, or freeze, and
-> proceeds to commit this video mode without ALLOW_MODESET. The whole
-> output becomes 47.5 Hz until the compositor policy again determines
-> that it is time to change, e.g. to go back to the original mode. Going
-> back to the original mode also needs to work without ALLOW_MODESET -
-> but a compositor cannot test for this with atomic TEST_ONLY commits.
->
-> If the test commit fails, the compositor knows that it cannot change
-> the timings like this without risking a visible glitch. Therefore the
-> compositor does not change the video mode timings, and the client's
-> wish is not granted.
->
-> The client adapts to whatever the refresh rate is in any case.
->
-> Use case 2:
->
-> A client comes up, and starts presenting frames with a target timestamp
-> (Wayland protocol for this still to be designed). The compositor
-> analyzes the target timestamp, and according to the complex compositor
-> policy, determines that it should try to adjust video mode timings to
-> better meet the target timestamps.
->
-> Like in use case 1, the compositor creates a new custom video mode and
-> tests if it can be applied without any glitch. If yes, it is used. If
-> not, it is not used.
->
-> This use case is more complicated, because the video mode timing
-> changes may happen refresh by refresh, which means they need to
-> apply for the very next front-porch in the scanout cycle in
-> hardware. Hence, I'm not sure this use case is realistic. It can also
-> be argued that this is better implemented by just enabling VRR and
-> handling the flip timing in userspace, in the compositor: issue an
-> atomic flip at the exact time it needs to be executed instead of
-> issuing it well in advance and letting the driver wait for vblank.
->
->
-> Worth to note: neither case needs the kernel to expose new manufactured
-> video modes. Whether the feature is available or not is detected by an
-> atomic TEST_ONLY commit without ALLOW_MODESET.
->
->>> However the exact modes amdgpu adds are just some guesses. I think it would be
->>> great if user-space could control the min/max refresh rate values directly.
-> Setting min==max could be used to achieve the fixed refresh rate
-> proposed here, but it would also allow setting custom min < max limits.
-> This would be more flexible, but I'm not sure what the use case for it
-> could look like... oh, there are the use cases mentioned below: user
-> preferences. :-)
->
-> Maybe the min/max setting is better than fiddling with custom video
-> modes. If we have min/max to control, then there is no problem with
-> going back to the "original" video mode like in my example use case 1.
->
->>> Not only this would remove the need for the kernel to hard-code "well-known
->>> video refresh rates", but this would also enable more use-cases. For instance
->>> some users might want to mitigate flickering on their screen by reducing the
->>> VRR range. Some users might want to lower their screen refresh rate for power
->>> savings.
->>>
->>> What do you think? Would you be fine with adding min/max VRR range properties?
->>>
->>> If you're scared about the user-space code requirement, I can
->>> provide that.
->> This sounds like a reasonable approach, and there is no reason why we
->> can't do this if we have the proper userspace support as you
->> mentioned.
-> Maybe the min/max controls are the way to go, considering that
-> the seamless refresh rate change feature in general cannot be
-> implemented without VRR. Or can it?
->
-> But if it can be implemented while not supporting VRR on some hardware,
-> then the video mode fiddling without ALLOW_MODESET is still a usable
-> approach. Or maybe such a driver could special-case VRR=enabled &&
-> min==max.
->
-> Yeah, min/max controls seems like the best idea to me so far.
->
->
-> Thanks,
-> pq
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Setting the earliest display time for a flip does not fully cover what
+video mode timing adjustment or min/max frame time or refresh rate
+property would offer: prediction of when the next flip can happen.
+Choosing display times requires knowing the possible display times, so
+something more is needed. The min/max properties would fit in.
 
+> This approach should also be able to handle multiple applications with=20
+> different refresh rates. E.g. just think of a video playback with 25 and=
+=20
+> another one with 30 Hz in two windows when the max refresh rate is=20
+> something like 120Hz.
 
---------------FC82B3FD5A4781A0AEC371BD
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Am 11.12.20 um 10:55 schrieb Pekka
-      Paalanen:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20201211115549.32ade81b@eldfell">
-      <pre class="moz-quote-pre" wrap="">On Fri, 11 Dec 2020 09:56:07 +0530
-Shashank Sharma <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a> wrote:
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Hello Simon,
-
-Hope you are doing well,
-
-I was helping out Aurabindo and the team with the design, so I have
-taken the liberty of adding some comments on behalf of the team,
-Inline.
-
-On 11/12/20 3:31 am, Simon Ser wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hi,
-
-(CC dri-devel, Pekka and Martin who might be interested in this as
-well.)
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Thanks for the Cc! This is very interesting to me, and because it was
-not Cc'd to dri-devel@ originally, I would have missed this otherwise.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <a class="moz-txt-link-rfc2396E" href="mailto:aurabindo.pillai@amd.com">&lt;aurabindo.pillai@amd.com&gt;</a> wrote:
- 
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">This patchset enables freesync video mode usecase where the userspace
-can request a freesync compatible video mode such that switching to this
-mode does not trigger blanking.
-
-This feature is guarded by a module parameter which is disabled by
-default. Enabling this paramters adds additional modes to the driver
-modelist, and also enables the optimization to skip modeset when using
-one of these modes.  
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Thanks for working on this, it's an interesting feature! However I'd like to
-take some time to think about the user-space API for this.
-
-As I understand it, some new synthetic modes are added, and user-space can
-perform a test-only atomic *without* ALLOW_MODESET to figure out whether it can
-switch to a mode without blanking the screen.  
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-The implementation is in those lines, but a bit different. The idea
-is to:
-
-- check if the monitor supports VRR,
-
-- If it does, add some new modes which are in the VRR tolerance
-range, as new video modes in the list (with driver flag).
-
-- when you get modeset on any of these modes, skip the full modeset,
-and just adjust the front_porch timing
-
-so they are not test-only as such, for any user-space these modes
-will be as real as any other probed modes of the list.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-But is it worth to allow a modeset to be glitch-free if the userspace
-does not know they are glitch-free? I think if this is going in, it
-would be really useful to give the guarantees to userspace explicitly,
-and not leave this feature at an "accidentally no glitch sometimes"
-level.
-
-
-I have been expecting and hoping for the ability to change video mode
-timings without a modeset ever since I learnt that VRR is about
-front-porch adjustment, quite a while ago.
-
-This is how I envision userspace making use of it:
-
-Let us have a Wayland compositor, which uses fixed-frequency video
-modes, because it wants predictable vblank cycles. IOW, it will not
-enable VRR as such.</pre>
-    </blockquote>
-    <br>
-    Well in general please keep in mind that this is just a short term
-    solution for X11 applications.<br>
-    <br>
-    For things like Wayland we probably want to approach this from a
-    completely different vector.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20201211115549.32ade81b@eldfell">
-      <pre class="moz-quote-pre" wrap="">When the Wayland compositor starts, it will choose *some* video mode
-for an output. It may or may not be what a KMS driver calls "preferred
-mode", because it depends on things like user preferences. The
-compositor makes the initial modeset to this mode.</pre>
-    </blockquote>
-    <br>
-    I think the general idea we settled on is that we specify an
-    earliest display time for each frame and give feedback to the
-    application when a frame was actually displayed.<br>
-    <br>
-    This approach should also be able to handle multiple applications
-    with different refresh rates. E.g. just think of a video playback
-    with 25 and another one with 30 Hz in two windows when the max
-    refresh rate is something like 120Hz.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20201211115549.32ade81b@eldfell">
-      <pre class="moz-quote-pre" wrap="">
-
-Use case 1:
-
-A Wayland client comes up and determines that its window would really
-like a refresh rate of, say, 47.5 Hz. Yes, it's not a traditional video
-player rate, but let's assume the application has its reasons. The
-client tells the compositor this (Wayland protocol still to be designed
-to be able to do that). (Hey, this could be how future games should
-implement refresh rate controls in cooperation with the window system.)
-
-The compositor sees the wish, and according to its complex policy
-rules, determines that yes, it shall try to honor that wish by changing
-the whole output temporarily to 47.5 Hz if possible.
-
-The compositor takes the original video mode it modeset on the output,
-and adjusts the front-porch to create a new custom 47.5 Hz mode. Using
-this mode, the compositor does a TEST_ONLY atomic commit *without*
-ALLOW_MODESET.
-
-If the test commit succeeds, the compositor knows that changing timings
-will not cause any kind of glitch, flicker, blanking, or freeze, and
-proceeds to commit this video mode without ALLOW_MODESET. The whole
-output becomes 47.5 Hz until the compositor policy again determines
-that it is time to change, e.g. to go back to the original mode. Going
-back to the original mode also needs to work without ALLOW_MODESET -
-but a compositor cannot test for this with atomic TEST_ONLY commits.
-
-If the test commit fails, the compositor knows that it cannot change
-the timings like this without risking a visible glitch. Therefore the
-compositor does not change the video mode timings, and the client's
-wish is not granted.
-
-The client adapts to whatever the refresh rate is in any case.
-
-Use case 2:
-
-A client comes up, and starts presenting frames with a target timestamp
-(Wayland protocol for this still to be designed). The compositor
-analyzes the target timestamp, and according to the complex compositor
-policy, determines that it should try to adjust video mode timings to
-better meet the target timestamps.
-
-Like in use case 1, the compositor creates a new custom video mode and
-tests if it can be applied without any glitch. If yes, it is used. If
-not, it is not used.
-
-This use case is more complicated, because the video mode timing
-changes may happen refresh by refresh, which means they need to
-apply for the very next front-porch in the scanout cycle in
-hardware. Hence, I'm not sure this use case is realistic. It can also
-be argued that this is better implemented by just enabling VRR and
-handling the flip timing in userspace, in the compositor: issue an
-atomic flip at the exact time it needs to be executed instead of
-issuing it well in advance and letting the driver wait for vblank.
-
-
-Worth to note: neither case needs the kernel to expose new manufactured
-video modes. Whether the feature is available or not is detected by an
-atomic TEST_ONLY commit without ALLOW_MODESET.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">However the exact modes amdgpu adds are just some guesses. I think it would be
-great if user-space could control the min/max refresh rate values directly.
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Setting min==max could be used to achieve the fixed refresh rate
-proposed here, but it would also allow setting custom min &lt; max limits.
-This would be more flexible, but I'm not sure what the use case for it
-could look like... oh, there are the use cases mentioned below: user
-preferences. :-)
-
-Maybe the min/max setting is better than fiddling with custom video
-modes. If we have min/max to control, then there is no problem with
-going back to the "original" video mode like in my example use case 1.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Not only this would remove the need for the kernel to hard-code "well-known
-video refresh rates", but this would also enable more use-cases. For instance
-some users might want to mitigate flickering on their screen by reducing the
-VRR range. Some users might want to lower their screen refresh rate for power
-savings.
-
-What do you think? Would you be fine with adding min/max VRR range properties?
-
-If you're scared about the user-space code requirement, I can
-provide that.  
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-This sounds like a reasonable approach, and there is no reason why we
-can't do this if we have the proper userspace support as you
-mentioned.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Maybe the min/max controls are the way to go, considering that
-the seamless refresh rate change feature in general cannot be
-implemented without VRR. Or can it?
-
-But if it can be implemented while not supporting VRR on some hardware,
-then the video mode fiddling without ALLOW_MODESET is still a usable
-approach. Or maybe such a driver could special-case VRR=enabled &amp;&amp;
-min==max.
-
-Yeah, min/max controls seems like the best idea to me so far.
+But that's just an extension to what I already described and completely
+possible with the proposed and the min/max approaches.
 
 
 Thanks,
 pq
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
 
---------------FC82B3FD5A4781A0AEC371BD--
+--Sig_/1etLWcPkUcsFqMuruRxLddG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
---===============0338029749==
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl/TZAMACgkQI1/ltBGq
+qqeuRg//VGMe7yVxCc95Igl3ZsaqyMlcbpaK8D4T1qNBaDzmgorCfvbFpTMVfZZ0
+dmSmjhT4CYMWx4D4MNa9hUtubydGZ3EEyfbUi5vvC7YNs1MrdP/VcUk4HsKU6XY9
+zUHiNEc6/CciWliJ8Llj/1r08zzRxsdJ7gsLZQ6poN6VPQBO4noK4wkcxgO1GIAZ
+caT8SwRlKi77frO+H3eJ6jB6ACpiLwLzNoqvykfacvF/vle2n9p50y7t5cv0ZbQq
+OG8IKB3DybzHlcgiP2tYZCmVuQWDkZ+urbxkMJWxlfXZ4zgM/6HipgC61sVorfmA
+rvZqQft2ijyYKNawT/n3Z3E1PEWLJstQi1gXJrwTqE5pbTdbAwhKJx5vbO6lf7Zx
+v+A678KS3wBbudFWOSMAkOWR7bPstAhPfQUJEkrLDNerS4CVtwoNFQnpga5tRYVf
+Fz/ZyttpuhRA7JPjRre2tUNjslzBImhfB0FOsLFeQCQDItztT6BI2vb041/l2ZEN
+hxtW4LeP1eoeYUg5qmZzdn8NT9hLO6UGXm8sOXMC2Opku92b6NZTk+XDaohrQMH+
+x7vuAls9MArqytv83vcp4JyfkM7bOa9aAJUs3Ri+7CnLQOcOhldPOGQKyyfKvXzN
+OOwOvjr8MgupgDlaSAjZXWGr9YJsIUYbFkoj+YxRnYvSDc9mZEY=
+=W5CX
+-----END PGP SIGNATURE-----
+
+--Sig_/1etLWcPkUcsFqMuruRxLddG--
+
+--===============1260289071==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -571,4 +256,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0338029749==--
+--===============1260289071==--
