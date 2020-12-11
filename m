@@ -2,114 +2,75 @@ Return-Path: <SRS0=QenQ=FP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B914FC4361B
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACABEC4361B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6242123E1B
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6242123E1B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5F77323EF1
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 09:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F77323EF1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C2B6ECC5;
-	Fri, 11 Dec 2020 09:06:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5A76ECC5
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 09:06:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F0Jzy3u/vUVwrmWGsI/SXXDfZ/AFNaOWuDM6w5kTJ0M0kQj5lWep94dFMsbTU+JerLYbRpYbGJM4/W/5AGKcld9ncrjO56aPrfntbwHniy+X/H4O0X9pvJ2dbAQf6SS20S8IawbP91eNpQ7PYmSX3aTSbAxO9TvoCg2bPS9PSgmIx98Er5t1E/xvghhGHAEghS4Ii6RrZ2RTtIUCpve622LKhXsFQr3xuhcBoOybJj4ztzpiXjTz7XUS4PmGZjrBvau5fsB3FumhuCXD+fkJ3rj5ZheaovKit5qu1GywtSN0zhNvsrJQNZ7A1wUr5KEMtPUPk8/MTD5RbScYQofWQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I5pu2veyvPAfRFqC7GW8Tal6On4bCSqNU5mhXrQS8Os=;
- b=KE3SgripyTZoub/9rWd+EHbztH7tdynUfC7R0L916wxT5ccaaPcpc2qYyDsh02NaRwjYJaT2CjBxffGqCYy59TN6Bew61qoFS4pSCb03QCnEnm75q4aKfyO/JYR9B6GFUrlJPZP7QLPjs8AkFWtUcaBLN691uJKj1Qm5aIhD8H5EDMS2STpohbXNWoZ4gYVgHQFwoKG6DEBazSbi8fggMtr264/hA3QTJxAaD4SlUyv871yPYiAidfwq0snrhTjUYGeaBZXzocsV6ZGrlgruprkENd4OIkGvSypXFtGcnX43UEJFSPfNpJMidoSxlLYSWODeirRfA2/vQCJaGQd5Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I5pu2veyvPAfRFqC7GW8Tal6On4bCSqNU5mhXrQS8Os=;
- b=hLJlqL7X3R6Tww2yllTyRMRg/HiOrWIwVBsLKXQR7m2swr6v8h1mCOOH7AQuC8iPIm9XFXAI2TSm6R9s/EHAJy0dFXbIdt9L+wf1NYIA+3UYEwqcYFjCk7VgIKmO4v6ZDLAVJTctzO1VB03SYAHtEa/wrhaY61XfOlXOXsgEnNw=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
- by MW2PR12MB2585.namprd12.prod.outlook.com (2603:10b6:907:3::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.23; Fri, 11 Dec
- 2020 09:06:07 +0000
-Received: from MWHPR12MB1854.namprd12.prod.outlook.com
- ([fe80::38a7:197b:75f0:6030]) by MWHPR12MB1854.namprd12.prod.outlook.com
- ([fe80::38a7:197b:75f0:6030%12]) with mapi id 15.20.3654.017; Fri, 11 Dec
- 2020 09:06:07 +0000
-From: Likun Gao <likun.gao@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: skip vram operation for BAMACO runtime
-Date: Fri, 11 Dec 2020 17:04:48 +0800
-Message-Id: <20201211090448.113278-1-likun.gao@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HK0PR01CA0065.apcprd01.prod.exchangelabs.com
- (2603:1096:203:a6::29) To MWHPR12MB1854.namprd12.prod.outlook.com
- (2603:10b6:300:114::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D5E96ECE7;
+	Fri, 11 Dec 2020 09:07:53 +0000 (UTC)
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9236ECE7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 09:07:52 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id u19so8565721edx.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 01:07:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=2uC5uI5r9WoacbKJDeePEZlG1BDYJm247+OaScIR7DA=;
+ b=e6E2OZtFQtR1FSJYBlRe/upCVVEO5cybi+FW1gNUdw8ylMQ2Q5YlRXHmVVdxeO19+B
+ VT3K0/v7ZW8FIEyiBQGlipE2C/pVWDy2t/+S8JuivfOLI0L9eQFvUiIHaEMRBQ5jZgia
+ mIErJzmFsjcMfR1BDnhHl5O+j2AIB8T6FmZPmMAJ+3LPRjJc2YRPUACVLpf2rg5tQJ94
+ Wu0KJKmuLm6HJ3tSb7b0oPE7wzp5mQadkId+py+XIVjXGX4ZDW3z+JQWqkQhM0tmZCoi
+ TzgMp6oGQmobN39wN8CZcFLmeDUz9Qo0T9hVr+GlfOCKiqRzYRptY8yI5RjVcvQ12tfA
+ 5oWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=2uC5uI5r9WoacbKJDeePEZlG1BDYJm247+OaScIR7DA=;
+ b=sM9u8d7u7+eFePzbCe7pNMxi8zWW0Y6AuObI96zrXmZBq+XP1uTVHuJbelKiqr1tbo
+ yUUcD29eXmtnHVnQbzn1l0apOwwLptN+Rz/yM4rzSUG3SkIInAa6ddOd90G0uUP6W42b
+ HHT1iQVRclRpiaMhJ40iPJy5O8D1r2IRCPTkKwk/mnOZBaaCWfWdDyUSzR9PFxQ/eh3d
+ YPo+4SI6nCc0Z6/19Qo0iPfk+5SaqQJbs6GA3gzQHL1baMjvZf63pXF3Zd+PN7zWkdfP
+ pNzvOpOZ9lQAARXlzrNd7gq5sRWewW1vm/TUPC1Jk8nNm+meZk4A3jCozD9+r1ZtmfjF
+ e92Q==
+X-Gm-Message-State: AOAM532aG/fAPFdQK+KS82eeLf5FW/QXw6wx8Z4tuhBe4Fv/i7F4IQVW
+ lk0jTgo2GQHMfmOcA6tr3jqLQqnlBio=
+X-Google-Smtp-Source: ABdhPJxY/Qm7gpYzzwguVhAX0QBjZzHgOxMcp151379KwCDBN1rdJczDKzUsx0gfVhhRXGrSOWsVqg==
+X-Received: by 2002:aa7:c0d6:: with SMTP id j22mr10766403edp.31.1607677670524; 
+ Fri, 11 Dec 2020 01:07:50 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id f18sm7106562edt.60.2020.12.11.01.07.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 11 Dec 2020 01:07:50 -0800 (PST)
+Subject: Re: [PATCH 1/7] pci: export PCI BAR size-reading functions
+To: Darren Salt <devspam@moreofthesa.me.uk>, amd-gfx@lists.freedesktop.org
+References: <20201211005506.4554-1-devspam@moreofthesa.me.uk>
+ <20201211005506.4554-2-devspam@moreofthesa.me.uk>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a4bae8bb-dc56-7e43-b0f8-4545ec909e87@gmail.com>
+Date: Fri, 11 Dec 2020 10:07:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from lnx-glk.amd.com (180.167.199.189) by
- HK0PR01CA0065.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Fri, 11 Dec 2020 09:06:06 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ebeb9cee-c000-45db-50ea-08d89db3ff1d
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2585:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB25852C561F27FFA781604ACEEFCA0@MW2PR12MB2585.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xuoDsbDT1BmX01rNLEgbgimM7pXRvQnzZTK0sI3rtckhTPPe7yNTZF6JYIygS3TQkciqabUM/SAqNoyfEnvQhss9Uu/1AWcMivy/ett5vq8ayOz6OzWGRxN16YHOJa6VxM66Ya5B+Cb1bbiDubVnKRVr7sex+A42RH8MxXqVO8XT9Flw+kYLJBYC3r0avqUBotwnlpuOPH4PUCzVvGUxlt6snRvQKUZJxPyjGyY2o2rND7hEHOU1ieKM8NIdb1ahA9BvUkXGXMcmGazCY70miL9AiqwOvAZo5BNCVgiaEyDjP9/tE2qKYq0vGQa1temwqtlRXcDXVF+gdgjtipp/VIkdxBibQLGbdkh4azTn5dPJ36TAQiG4cVQEHZsJN9+v
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(366004)(6666004)(8936002)(6916009)(54906003)(36756003)(6486002)(186003)(4326008)(86362001)(26005)(16526019)(5660300002)(8676002)(34490700003)(508600001)(66946007)(2616005)(7696005)(2906002)(44832011)(66556008)(52116002)(1076003)(66476007)(83380400001)(956004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?cCJ76qvLdeqXBU3c/8fhHstbswzzqXqUy3WLPZnuq9zQkUhQPoPWDvnp3VAa?=
- =?us-ascii?Q?uN0DmXx1A9EvkRlKN4HM+L+2GwmhVtqdXAtE/CaMqNC/WFqVhsmPJhp6hUR7?=
- =?us-ascii?Q?CFsZU3Ol27So/yA3HJ0yYexbCUluasdXtuOMyyGDHFU+seCA4rsEjbtq1aFb?=
- =?us-ascii?Q?13dBlC90jRIqt6qVl2VAKBbxnttLp5S/AksD82xJeZsb5xw31TR5aawW2q8E?=
- =?us-ascii?Q?/eskVlTuAXayC6TAhNiiOq2nEullOqw23opVpTSZCgxIYLbm6fK3bBayPTRA?=
- =?us-ascii?Q?ibiG8V0VDSmlB0DU01cv0Aho1+wgQwSaxZJaIEmPwJoKviBltW+wbJAt/Rnt?=
- =?us-ascii?Q?h/HPRTu0R8aA5KVSjLUCJLErmSwnxqTH5KeKB1Fi9p8AICt+URSPFd1lv0hU?=
- =?us-ascii?Q?sS0/1WsSa0RYxTolQnnIPg655tFUkHhk3rxPYJGQjQ0H067q/OsmqIKooplo?=
- =?us-ascii?Q?kjRAUfxa0Lm5et2JFjeEnxzzkAr5cMheL9SloAMhEt7s4xSoXF5VNxvi75QY?=
- =?us-ascii?Q?5f5mRe5N5x2t9GJ1W4mLVXIldp9nE90ujRIKsCVeHft+B0sJufMYoxQxQVEL?=
- =?us-ascii?Q?M+g9HQlEIZDUS3vx4OTfOniTn31LxkK+9vole9frx1ZntWlIsu6Y5uwf82B5?=
- =?us-ascii?Q?i5fFcmPpFvGPXSm9V8eadUcCTGRe1qu7uaC3j4kAE0xu+mVD6o0/Ve3COiLS?=
- =?us-ascii?Q?huzWS3v6BaTYU4B6TJU37KVFJZaO6EJAdvyvrL1LrF5v7KydhcZ6AKo7h7iC?=
- =?us-ascii?Q?65DUON8+OY0DHCqEYCkINXC3rITOzM/40wiPvC7lYe4tvHuI+NGraVMlyvfs?=
- =?us-ascii?Q?HhC2PldZuc9tFeuAScRGRwbHZtXsuQ4xdqi9f8P2Pj+D6ORmQZPIbipTL9Cf?=
- =?us-ascii?Q?6Jc6Fgam1wYz4eD0zy0/s85514SQn3M7dfzcUuTx8AEc564jxlW98jxcqm5L?=
- =?us-ascii?Q?heFgeBzpc+tyyTifEgysb2aG7qbJy6RUINAC/1BWGl+CpB3m2UMor2PJQHXm?=
- =?us-ascii?Q?Geml?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2020 09:06:07.6184 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebeb9cee-c000-45db-50ea-08d89db3ff1d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hG9lEoakYvtfBw0OQgcpyYE8C2snFnv6Rro1FRKsRzF1OSuCFSHSdH8rlm4IK4Tk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2585
+In-Reply-To: <20201211005506.4554-2-devspam@moreofthesa.me.uk>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,231 +82,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun Gao <Likun.Gao@amd.com>, Kenneth Feng <Kenneth.Feng@amd.com>,
- Hawking Zhang <hawking.zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+Am 11.12.20 um 01:55 schrieb Darren Salt:
+> This is to assist driver modules which do BAR resizing.
+>
+> Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
+> ---
+>   drivers/pci/pci.c   | 2 ++
+>   drivers/pci/pci.h   | 2 --
+>   include/linux/pci.h | 4 ++++
+>   3 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index e578d34095e9..3f6042d9ad83 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -3579,6 +3579,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
+>   	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
+>   	return (cap & PCI_REBAR_CAP_SIZES) >> 4;
+>   }
+> +EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
+>   
+>   /**
+>    * pci_rebar_get_current_size - get the current size of a BAR
+> @@ -3600,6 +3601,7 @@ int pci_rebar_get_current_size(struct pci_dev *pdev, int bar)
+>   	pci_read_config_dword(pdev, pos + PCI_REBAR_CTRL, &ctrl);
+>   	return (ctrl & PCI_REBAR_CTRL_BAR_SIZE) >> PCI_REBAR_CTRL_BAR_SHIFT;
+>   }
+> +EXPORT_SYMBOL(pci_rebar_get_current_size);
 
-Skip vram related operation for bamaco rumtime suspend and resume as
-vram is alive when BAMACO.
-It can save about 32ms when suspend and about 15ms when resume.
+This is unnecessary. You can just look at the resource size instead 
+which is also more defensive regarding problems/errors.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: I6ad39765de5ed1aac2dc51e96ed7a21a727272cd
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 72 +++++++++++++---------
- 2 files changed, 50 insertions(+), 31 deletions(-)
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0ec7c28c4d5a..66b790dfb151 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2464,7 +2464,8 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
- 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
- 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
- 
--	amdgpu_device_fill_reset_magic(adev);
-+	if ((amdgpu_runtime_pm != 2) || !adev->in_runpm)
-+		amdgpu_device_fill_reset_magic(adev);
- 
- 	r = amdgpu_device_enable_mgpu_fan_boost();
- 	if (r)
-@@ -3706,7 +3707,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 	amdgpu_amdkfd_suspend(adev, !fbcon);
- 
- 	/* evict vram memory */
--	amdgpu_bo_evict_vram(adev);
-+	if ((amdgpu_runtime_pm != 2) || !adev->in_runpm)
-+		amdgpu_bo_evict_vram(adev);
- 
- 	amdgpu_fence_driver_suspend(adev);
- 
-@@ -3718,7 +3720,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 	 * This second call to evict vram is to evict the gart page table
- 	 * using the CPU.
- 	 */
--	amdgpu_bo_evict_vram(adev);
-+	if ((amdgpu_runtime_pm != 2) || !adev->in_runpm)
-+		amdgpu_bo_evict_vram(adev);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 523d22db094b..67e74b43a1ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -397,10 +397,12 @@ static int psp_tmr_init(struct psp_context *psp)
- 		}
- 	}
- 
--	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
--	ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm) {
-+		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
-+		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
- 				      AMDGPU_GEM_DOMAIN_VRAM,
- 				      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+	}
- 
- 	return ret;
- }
-@@ -504,8 +506,10 @@ static int psp_tmr_terminate(struct psp_context *psp)
- 		return ret;
- 
- 	/* free TMR memory buffer */
--	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
--	amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm) {
-+		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
-+		amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, pptr);
-+	}
- 
- 	return 0;
- }
-@@ -795,9 +799,10 @@ int psp_xgmi_terminate(struct psp_context *psp)
- 	psp->xgmi_context.initialized = 0;
- 
- 	/* free xgmi shared memory */
--	amdgpu_bo_free_kernel(&psp->xgmi_context.xgmi_shared_bo,
--			&psp->xgmi_context.xgmi_shared_mc_addr,
--			&psp->xgmi_context.xgmi_shared_buf);
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)
-+		amdgpu_bo_free_kernel(&psp->xgmi_context.xgmi_shared_bo,
-+				&psp->xgmi_context.xgmi_shared_mc_addr,
-+				&psp->xgmi_context.xgmi_shared_buf);
- 
- 	return 0;
- }
-@@ -812,7 +817,8 @@ int psp_xgmi_initialize(struct psp_context *psp)
- 	    !psp->adev->psp.ta_xgmi_start_addr)
- 		return -ENOENT;
- 
--	if (!psp->xgmi_context.initialized) {
-+	if (!psp->xgmi_context.initialized &&
-+	    ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)) {
- 		ret = psp_xgmi_init_shared_buf(psp);
- 		if (ret)
- 			return ret;
-@@ -1122,9 +1128,10 @@ static int psp_ras_terminate(struct psp_context *psp)
- 	psp->ras.ras_initialized = false;
- 
- 	/* free ras shared memory */
--	amdgpu_bo_free_kernel(&psp->ras.ras_shared_bo,
--			&psp->ras.ras_shared_mc_addr,
--			&psp->ras.ras_shared_buf);
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)
-+		amdgpu_bo_free_kernel(&psp->ras.ras_shared_bo,
-+				&psp->ras.ras_shared_mc_addr,
-+				&psp->ras.ras_shared_buf);
- 
- 	return 0;
- }
-@@ -1145,7 +1152,8 @@ static int psp_ras_initialize(struct psp_context *psp)
- 		return 0;
- 	}
- 
--	if (!psp->ras.ras_initialized) {
-+	if (!psp->ras.ras_initialized &&
-+	    ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)) {
- 		ret = psp_ras_init_shared_buf(psp);
- 		if (ret)
- 			return ret;
-@@ -1257,7 +1265,8 @@ static int psp_hdcp_initialize(struct psp_context *psp)
- 		return 0;
- 	}
- 
--	if (!psp->hdcp_context.hdcp_initialized) {
-+	if (!psp->hdcp_context.hdcp_initialized &&
-+	    ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)) {
- 		ret = psp_hdcp_init_shared_buf(psp);
- 		if (ret)
- 			return ret;
-@@ -1325,9 +1334,10 @@ static int psp_hdcp_terminate(struct psp_context *psp)
- 	psp->hdcp_context.hdcp_initialized = false;
- 
- 	/* free hdcp shared memory */
--	amdgpu_bo_free_kernel(&psp->hdcp_context.hdcp_shared_bo,
--			      &psp->hdcp_context.hdcp_shared_mc_addr,
--			      &psp->hdcp_context.hdcp_shared_buf);
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)
-+		amdgpu_bo_free_kernel(&psp->hdcp_context.hdcp_shared_bo,
-+				      &psp->hdcp_context.hdcp_shared_mc_addr,
-+				      &psp->hdcp_context.hdcp_shared_buf);
- 
- 	return 0;
- }
-@@ -1404,7 +1414,8 @@ static int psp_dtm_initialize(struct psp_context *psp)
- 		return 0;
- 	}
- 
--	if (!psp->dtm_context.dtm_initialized) {
-+	if (!psp->dtm_context.dtm_initialized &&
-+	    ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)) {
- 		ret = psp_dtm_init_shared_buf(psp);
- 		if (ret)
- 			return ret;
-@@ -1472,9 +1483,10 @@ static int psp_dtm_terminate(struct psp_context *psp)
- 	psp->dtm_context.dtm_initialized = false;
- 
- 	/* free hdcp shared memory */
--	amdgpu_bo_free_kernel(&psp->dtm_context.dtm_shared_bo,
--			      &psp->dtm_context.dtm_shared_mc_addr,
--			      &psp->dtm_context.dtm_shared_buf);
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)
-+		amdgpu_bo_free_kernel(&psp->dtm_context.dtm_shared_bo,
-+				      &psp->dtm_context.dtm_shared_mc_addr,
-+				      &psp->dtm_context.dtm_shared_buf);
- 
- 	return 0;
- }
-@@ -1563,7 +1575,8 @@ static int psp_rap_initialize(struct psp_context *psp)
- 		return 0;
- 	}
- 
--	if (!psp->rap_context.rap_initialized) {
-+	if (!psp->rap_context.rap_initialized &&
-+	    ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm)) {
- 		ret = psp_rap_init_shared_buf(psp);
- 		if (ret)
- 			return ret;
-@@ -1602,9 +1615,10 @@ static int psp_rap_terminate(struct psp_context *psp)
- 	psp->rap_context.rap_initialized = false;
- 
- 	/* free rap shared memory */
--	amdgpu_bo_free_kernel(&psp->rap_context.rap_shared_bo,
--			      &psp->rap_context.rap_shared_mc_addr,
--			      &psp->rap_context.rap_shared_buf);
-+	if ((amdgpu_runtime_pm !=2) || !psp->adev->in_runpm)
-+		amdgpu_bo_free_kernel(&psp->rap_context.rap_shared_bo,
-+				      &psp->rap_context.rap_shared_mc_addr,
-+				      &psp->rap_context.rap_shared_buf);
- 
- 	return ret;
- }
-@@ -2261,10 +2275,12 @@ static int psp_resume(void *handle)
- 
- 	DRM_INFO("PSP is resuming...\n");
- 
--	ret = psp_mem_training(psp, PSP_MEM_TRAIN_RESUME);
--	if (ret) {
--		DRM_ERROR("Failed to process memory training!\n");
--		return ret;
-+	if ((amdgpu_runtime_pm != 2) || !psp->adev->in_runpm) {
-+		ret = psp_mem_training(psp, PSP_MEM_TRAIN_RESUME);
-+		if (ret) {
-+			DRM_ERROR("Failed to process memory training!\n");
-+			return ret;
-+		}
- 	}
- 
- 	mutex_lock(&adev->firmware.mutex);
--- 
-2.25.1
+>   
+>   /**
+>    * pci_rebar_set_size - set a new size for a BAR
+> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> index f86cae9aa1f4..8373d94414e9 100644
+> --- a/drivers/pci/pci.h
+> +++ b/drivers/pci/pci.h
+> @@ -608,8 +608,6 @@ int acpi_get_rc_resources(struct device *dev, const char *hid, u16 segment,
+>   			  struct resource *res);
+>   #endif
+>   
+> -u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
+> -int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+>   int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size);
+>   static inline u64 pci_rebar_size_to_bytes(int size)
+>   {
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 22207a79762c..5aa035622741 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1226,7 +1226,11 @@ void pci_update_resource(struct pci_dev *dev, int resno);
+>   int __must_check pci_assign_resource(struct pci_dev *dev, int i);
+>   int __must_check pci_reassign_resource(struct pci_dev *dev, int i, resource_size_t add_size, resource_size_t align);
+>   void pci_release_resource(struct pci_dev *dev, int resno);
+> +
+> +u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
+> +int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+>   int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
+> +
+>   int pci_select_bars(struct pci_dev *dev, unsigned long flags);
+>   bool pci_device_is_present(struct pci_dev *pdev);
+>   void pci_ignore_hotplug(struct pci_dev *dev);
 
 _______________________________________________
 amd-gfx mailing list
