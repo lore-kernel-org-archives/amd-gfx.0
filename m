@@ -2,80 +2,52 @@ Return-Path: <SRS0=QenQ=FP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B77AC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 16:47:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F22EC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 16:49:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B311C23106
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 16:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B311C23106
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AA00123106
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 16:49:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA00123106
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E036E030;
-	Fri, 11 Dec 2020 16:46:59 +0000 (UTC)
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAF26E030
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 16:46:59 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id cw27so10037536edb.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 08:46:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=VxoVgFzLbdhyTE4dB2RGZVMGFEa4V6eheU916zoUJ5o=;
- b=rwqsBmjAl1C5DPTZdhMyHgZqkPrLyq5y5d/qZN53wE0jnJfOB3o8vILxRMQFT7vKz0
- gBXNl0/sD3vW+WqN7605JfWvucuVD1Ng7jhRbDC7JWE+Q0xwAZ7tJ/57G5Nz85aJlkLG
- vtTn19qMFfYyvR7e4hbdyIEyO4EqyCNhr1NRvm7thHQ0lKeMFaujHbwVexAZ8554Vq17
- Lt+1Gr/Id+7HwfkeEl6454s6qOOX1MUqZ/cA3NoAGg4h1aOSm12fIucJIagFnG0uxe10
- XQBkfSHVXfvPrEkts2gHaQ6nNtUFr4gy1oMcItiIz5LFjkyGkld9kH3uQdJxmWFKT0NK
- K9LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=VxoVgFzLbdhyTE4dB2RGZVMGFEa4V6eheU916zoUJ5o=;
- b=dViab0pYER+TrehTuSy6IEjXFD4IxTqyNyOWKEGbs/PlKsG8GXXlf8xjjmBVGKwxl4
- di5GdDHseI89hcP+PQ+2bttc97fYQ6scIwwNPPNfEJLey0lT+Yd5Y9Vh2Vvlnj5iy2wR
- cDb915QSBt80BYYbJyUnhufI808sCCXOgVkqwcnyq5FCpSR5ygkCQxPFDDknOsrTV5XL
- cq0459Ifzyn69k6ljoCED3A3cBGT1hRGJ8/78nUWGIBC6T6IHmhFNX5/IpLxXujQ5gmj
- cQjxkx7xUBvGO0REZFTOd/kSWGbmuogPRVljGKMeW7qplptU0FiXNtRI7goroZV/7x5f
- GaoA==
-X-Gm-Message-State: AOAM533qdeXDT+kdqkuSH91Ly34OQnPdK9B+GVgvk/WcDqNihkMLCyoL
- hR3POp/6qmWbG0CC+JyAkxKzyX5ASww=
-X-Google-Smtp-Source: ABdhPJxB6gSYQ9v80kch/i0+6rPaar/9x0iZwKyp2bEZkC4BpdoGazIGFglM0ERKp5/jQYv8dAmYWA==
-X-Received: by 2002:a50:c19a:: with SMTP id m26mr12654922edf.302.1607705217737; 
- Fri, 11 Dec 2020 08:46:57 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id z9sm7256809eju.123.2020.12.11.08.46.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Dec 2020 08:46:56 -0800 (PST)
-Subject: Re: [PATCH] amdgpu: resize BAR0 to the maximum available size, even
- if it doesn't cover VRAM
-To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- Darren Salt <devspam@moreofthesa.me.uk>
-References: <20201210005744.5877-1-devspam@moreofthesa.me.uk>
- <621ae252-ab39-383e-61a9-746fb47c6e01@gmail.com>
- <58E21FF244%devspam@moreofthesa.me.uk>
- <9d3cee7f-366e-4e7e-9f63-b0a51af7436c@gmail.com>
- <58E26045D8%devspam@moreofthesa.me.uk>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <77805324-8fdc-8d72-f033-7d75ae04947e@gmail.com>
-Date: Fri, 11 Dec 2020 17:46:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 428766E030;
+	Fri, 11 Dec 2020 16:49:05 +0000 (UTC)
+X-Greylist: delayed 510 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Dec 2020 16:04:32 UTC
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B36786E440
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Dec 2020 16:04:32 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1243001aca9a018be89b1b.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f12:4300:1aca:9a01:8be8:9b1b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id F10EB1EC0283;
+ Fri, 11 Dec 2020 16:55:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1607702158;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Wk20W9o+oBR4Y7j7QLiN431q4nnn5/lI7oRCb6pYJn4=;
+ b=YhYEOW6Bq666YL1g0gQ0mXuIVu34aNve69ajIv0OTQO/Se3LJxDd7tjmRKXHT8ROuS8YpY
+ 73E9UWDuBXllCYiLWMDRhuloygunuNdCc8THxUlry8HTCr4zLNAHi3I1zThhuHG2ifL3P9
+ VYf+pkGbaWo3jlVr0PQdCpkcDEm+Y0c=
+Date: Fri, 11 Dec 2020 16:55:53 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Chiawen Huang <chiawen.huang@amd.com>
+Subject: 8353d30e747f ("drm/amd/display: disable stream if pixel clock
+ changed with link active")
+Message-ID: <20201211155553.GC25974@zn.tnic>
 MIME-Version: 1.0
-In-Reply-To: <58E26045D8%devspam@moreofthesa.me.uk>
-Content-Language: en-US
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 11 Dec 2020 16:49:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,28 +59,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTEuMTIuMjAgdW0gMDI6NDIgc2NocmllYiBEYXJyZW4gU2FsdDoKPiBJIGRlbWFuZCB0aGF0
-IENocmlzdGlhbiBLw7ZuaWcgbWF5IG9yIG1heSBub3QgaGF2ZSB3cml0dGVuLi4uCgpbU05JUF0K
-CldlbGwgSSBkaWQgd3JvdGUgdGhhdCA6KQoKPiBJIHVzZWQgZGQ6ICMgZGQgaWY9L3N5cy9rZXJu
-ZWwvZGVidWcvZHJpLzAvYW1kZ3B1X3ZyYW0gYnM9MTA0ODU3NiAKPiBjb3VudD0xIHNraXA9NjEy
-NyB8IGhleGR1bXAgLUMgfHRhaWwKClRoYXQgd29uJ3Qgd29yay4gYW1kZ3B1X3ZyYW0gdXNlcyBh
-IE1NSU8gcmVnaXN0ZXIgcGFpciB0byBhY2Nlc3MgVlJBTSAKd2hpY2ggd29ya3MgZXZlbiB3aGVu
-IGl0IGlzbid0IENQVSB2aXNpYmxlLgoKVGhpbmtpbmcgbW9yZSBhYm91dCBpdCB1bXIgd291bGQg
-cHJvYmFibHkgdXNlIHRoaXMgYXMgd2VsbCwgc28gdGhhdCAKd29uJ3Qgd29yayBlaXRoZXIuCgpZ
-b3UgY291bGQgdHJ5IHRvIHVzZSBkZCBvbiAvZGV2L21lbSB3aXRoIHRoZSBvZmZzZXQgb2YgdGhl
-IEJBUi4KCj4gQW55d2F5IEkgYWdyZWUgdGhhdCBhIFBDSSBzdWJzeXN0ZW0gcXVpcmsgbWlnaHQg
-YmUgYXBwcm9wcmlhdGVkLgoKSSdtIGdvaW5nIHRvIGRpc2N1c3MgQU1EIGludGVybmFsbHkgd2h5
-IHlvdSBoYXZlIHN1Y2ggc3RyYW5nZSB2YWx1ZXMgaW4gCnRoZSBSQkFSIHJlZ2lzdGVycy4KPj4g
-SnVzdCBzZW5kIHRoYXQgdG8gbWUgYXMgYSBjb21wbGV0ZSBhbmQgY2xlYW4gcGF0Y2hzZXQuIAo+
-IERvbmUsIHRob3VnaCBvbmx5IHRvIHRoZSBsaXN0LiAKCkkgaGF2ZSBhIGZldyBjb21tZW50cyBv
-biB0aGUgcGF0Y2hlcy4gVGhleSBjYW4gdXNlIHNvbWUgcG9saXNoaW5nLCBidXQgCmluIGdlbmVy
-YWwgdGhlIGFwcHJvYWNoIGxvb2tzIHNvbGlkIHRvIG1lLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hi,
+
+patch in $Subject breaks booting on a laptop here, GPU details are
+below. The machine stops booting right when it attempts to switch modes
+during boot, to a higher mode than the default VGA one. Machine doesn't
+ping and is otherwise unresponsive so that a hard reset is the only
+thing that helps.
+
+Reverting that patch ontop of -rc7 fixes it and the machine boots just fine.
+
+Thx.
+
+[    1.628086] ata1.00: supports DRM functions and may not be fully accessible
+[    1.632050] ata1.00: supports DRM functions and may not be fully accessible
+[    1.895818] [drm] amdgpu kernel modesetting enabled.
+[    1.897628] [drm] initializing kernel modesetting (CARRIZO 0x1002:0x9874 0x103C:0x807E 0xC4).
+[    1.898256] [drm] register mmio base: 0xD0C00000
+[    1.898422] [drm] register mmio size: 262144
+[    1.898583] [drm] add ip block number 0 <vi_common>
+[    1.898759] [drm] add ip block number 1 <gmc_v8_0>
+[    1.898931] [drm] add ip block number 2 <cz_ih>
+[    1.899082] [drm] add ip block number 3 <gfx_v8_0>
+[    1.899241] [drm] add ip block number 4 <sdma_v3_0>
+[    1.899439] [drm] add ip block number 5 <powerplay>
+[    1.899573] [drm] add ip block number 6 <dm>
+[    1.899693] [drm] add ip block number 7 <uvd_v6_0>
+[    1.899827] [drm] add ip block number 8 <vce_v3_0>
+[    1.911458] [drm] BIOS signature incorrect 5b 7
+[    1.912551] [drm] UVD is enabled in physical mode
+[    1.912707] [drm] VCE enabled in physical mode
+[    1.912921] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, fragment size is 9-bit
+[    1.913837] [drm] Detected VRAM RAM=512M, BAR=512M
+[    1.913998] [drm] RAM width 128bits UNKNOWN
+[    1.915149] [drm] amdgpu: 512M of VRAM memory ready
+[    1.915306] [drm] amdgpu: 3072M of GTT memory ready.
+[    1.915468] [drm] GART: num cpu pages 262144, num gpu pages 262144
+[    1.916139] [drm] PCIE GART of 1024M enabled (table at 0x000000F400900000).
+[    1.918733] [drm] Found UVD firmware Version: 1.91 Family ID: 11
+[    1.918950] [drm] UVD ENC is disabled
+[    1.919680] [drm] Found VCE firmware Version: 52.4 Binary ID: 3
+[    1.925963] [drm] DM_PPLIB: values for Engine clock
+[    1.926106] [drm] DM_PPLIB:   300000
+[    1.926205] [drm] DM_PPLIB:   360000
+[    1.926304] [drm] DM_PPLIB:   423530
+[    1.926404] [drm] DM_PPLIB:   514290
+[    1.926516] [drm] DM_PPLIB:   626090
+[    1.926629] [drm] DM_PPLIB:   720000
+[    1.926743] [drm] DM_PPLIB: Validation clocks:
+[    1.926952] [drm] DM_PPLIB:    engine_max_clock: 72000
+[    1.927117] [drm] DM_PPLIB:    memory_max_clock: 80000
+[    1.927281] [drm] DM_PPLIB:    level           : 8
+[    1.927435] [drm] DM_PPLIB: values for Display clock
+[    1.927594] [drm] DM_PPLIB:   300000
+[    1.927708] [drm] DM_PPLIB:   400000
+[    1.927822] [drm] DM_PPLIB:   496560
+[    1.927936] [drm] DM_PPLIB:   626090
+[    1.928048] [drm] DM_PPLIB:   685720
+[    1.928161] [drm] DM_PPLIB:   757900
+[    1.928275] [drm] DM_PPLIB: Validation clocks:
+[    1.928419] [drm] DM_PPLIB:    engine_max_clock: 72000
+[    1.928584] [drm] DM_PPLIB:    memory_max_clock: 80000
+[    1.928748] [drm] DM_PPLIB:    level           : 8
+[    1.928901] [drm] DM_PPLIB: values for Memory clock
+[    1.929058] [drm] DM_PPLIB:   333000
+[    1.929172] [drm] DM_PPLIB:   800000
+[    1.929403] [drm] DM_PPLIB: Validation clocks:
+[    1.929549] [drm] DM_PPLIB:    engine_max_clock: 72000
+[    1.929716] [drm] DM_PPLIB:    memory_max_clock: 80000
+[    1.929919] [drm] DM_PPLIB:    level           : 8
+[    1.930148] [drm] Display Core initialized with v3.2.104!
+[    2.003938] [drm] UVD initialized successfully.
+[    2.204023] [drm] VCE initialized successfully.
+[    2.206228] [drm] fb mappable at 0xA0EE4000
+[    2.206375] [drm] vram apper at 0xA0000000
+[    2.206514] [drm] size 14745600
+[    2.206654] [drm] fb depth is 24
+[    2.206760] [drm]    pitch is 10240
+[    2.207123] fbcon: amdgpudrmfb (fb0) is primary device
+[    2.301263] amdgpu 0000:00:01.0: [drm] fb0: amdgpudrmfb frame buffer device
+[    2.320735] [drm] Initialized amdgpu 3.40.0 20150101 for 0000:00:01.0 on minor 0
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
