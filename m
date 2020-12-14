@@ -2,71 +2,65 @@ Return-Path: <SRS0=8Fgq=FS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6333DC4361B
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8258DC4361B
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:05:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E3132253D
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E3132253D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 27F692253D
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 16:05:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27F692253D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C996E32F;
-	Mon, 14 Dec 2020 16:03:46 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17D6E6E3DB
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 16:03:44 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id 22so5797376qkf.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 08:03:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=69czKCp4n2Zx65mhINca2uP2JKK13Xmiet9JXqlGmZ4=;
- b=O+Svf5kcELLtY/9rdftFfMYukqLjl1jW59e3MAl/5JdaS0V3ILaNxCTJNBmYdxiamQ
- SKqt41IzV9tyhQ8cpzb7uHpViWwVkuNnf2xHZ05bRjOcrnloJZc1trGCx2r2ieWtGQhn
- gFB2KEsex4XtMP3hH+1CABJ/vr/H6b8kz+kSr4ybH7qZBZgTVFJc05iExLGIsdeOcFAO
- 1d8jZpTrN9iz2n7o6Yb/TK0COufV404ZRl3ohyA64EpoZpteqASBYdSucIY2O/0s8y6U
- wma9qYnYmV8eHPMDUzG0/1uzmzur5uB+aSgsJhEOpWHFP2RZ2KwGCfacU9Qf6xIOTRrQ
- IYfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=69czKCp4n2Zx65mhINca2uP2JKK13Xmiet9JXqlGmZ4=;
- b=kmiE+igDOBwk73NJ2FccciyHACxDLHGcIFxQ1WVXwqKknvctDTmvX+0cc2cv5el9qm
- AMtXwVrqDnbLF8HJ1AmqX2ZAWyOh9R/pGgcm6sbsrBjE2d7IUmN9RnWrdpBiq5mWmyvd
- 5ods2o8f6kaVeMHfrQKtNcLNJ3+4NpKrIWGd8uVEcH2xivitEy4BUFav1AKPYe6iy0V2
- HEiG0ENs6cCIkVXsg+4HdmddC5kDEcChs+4UFHfccWBvDnqgB4iQe9nBuT5Xs7ayUlZT
- ieJrN5RJE6dBEuxLO1d+K3hIpOXk2RKyZPZQK2xDFtpUO64v9avCZQrlos2cxvuROu+O
- f8lw==
-X-Gm-Message-State: AOAM531HOWPchV+olpKCDJKoNPq3ffBUaIz1fAn4u6WOxdF+wqNYGY6y
- VjLNBY15rDE4M4Cz0gCvEAv0XQKfCVs=
-X-Google-Smtp-Source: ABdhPJz01aprx2RUgGynyZHDAqEoIrCdVTDjwkS7s6Ebe43X2Cz9A1+cgwPtzYOJKXAs/F8cXIGxeQ==
-X-Received: by 2002:a37:9c82:: with SMTP id
- f124mr31848648qke.369.1607961822611; 
- Mon, 14 Dec 2020 08:03:42 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id b33sm15440494qta.62.2020.12.14.08.03.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Dec 2020 08:03:42 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fix regression in vbios reservation handling on
- headless
-Date: Mon, 14 Dec 2020 11:03:35 -0500
-Message-Id: <20201214160335.771801-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED1A6E3EF;
+	Mon, 14 Dec 2020 16:05:48 +0000 (UTC)
+Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
+ [IPv6:2001:8b0:897:1651::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAA0A89A9F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Dec 2020 16:05:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=moreofthesa.me.uk; s=201708; h=Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/LLfPnwPv+xy5ik0BT7mCiIofpDnoIFTdS6n9UnY6AU=; b=0CGQ4Dmn0xGxY54eB0B1rcdW9R
+ qro4LwWQY1Z/xVft78ZFH8K3L3XqBM2iFMFPGI1mLJO8aK1AgqAaIs8SLrbgYZoMT80+zsCYqthVQ
+ PmuwGh6t3L4KQg+E+TVLI2VRaq6jAH7f+yS7ZnZgChCow2JYqMdUEjYsS8S2o1YqiUINN+9eEs03h
+ jImKRyoACPkdnWhctV9Fvty58VZvyn4mO0sMKKUS3FUkn/Ewym+9aeuSLBicO/+bHqyLO2d+sv3Zy
+ /lCSicuU6AYlFGtDyhYuUJc9o/r4p8+bPq3WFDIHBcFcXVkjHoUShYbCzo/mW5jXVN0UV3ipSwBk1
+ HXOLNyZA==;
+Received: from [2001:8b0:897:1650::2]
+ by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
+ (envelope-from <devspam@moreofthesa.me.uk>)
+ id 1koqLb-00068Y-Ii; Mon, 14 Dec 2020 16:05:15 +0000
+Date: Mon, 14 Dec 2020 15:46:58 +0000
+From: Darren Salt <devspam@moreofthesa.me.uk>
+To: christian.koenig@amd.com
+Subject: Re: [PATCH 3/7] amdgpu: resize BAR0 to the maximum available size,
+ even if it doesn't cover VRAM (v2)
+Message-ID: <58E43922F8%devspam@moreofthesa.me.uk>
+In-Reply-To: <1d482d3c-ef99-ffdf-84c6-61182fd0f757@gmail.com>
+References: <20201211005506.4554-1-devspam@moreofthesa.me.uk> 
+ <20201211005506.4554-4-devspam@moreofthesa.me.uk> 
+ <67019c3e-13cb-0196-73f1-2e71b0a5b6f9@gmail.com> 
+ <58E2B73AC8%devspam@moreofthesa.me.uk> 
+ <1d482d3c-ef99-ffdf-84c6-61182fd0f757@gmail.com>
+Mail-Followup-To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
+ Darren Salt <devspam@moreofthesa.me.uk>
+User-Agent: Messenger-Pro/2.73.6.4250 (Qt/5.11.3) (Linux-x86_64)
+X-No-Archive: no
+X-Orwell-Date: Mon, 13163 Dec 1984 15:46:58 +0000
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
+X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
+X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
+ SAEximRunCond expanded to false
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +72,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need to move the check under the non-headless case, otherwise
-we always reserve the VGA save size.
-
-Fixes: 157fe68d74c2ad ("drm/amdgpu: fix size calculation with stolen vga memory")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 02af47ddddbc..c2ced5be6d7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -496,13 +496,14 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
- 		break;
- 	}
- 
--	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE))
-+	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE)) {
- 		size = 0;
--	else
-+	} else {
- 		size = amdgpu_gmc_get_vbios_fb_size(adev);
- 
--	if (adev->mman.keep_stolen_vga_memory)
--		size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
-+		if (adev->mman.keep_stolen_vga_memory)
-+			size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
-+	}
- 
- 	/* set to 0 if the pre-OS buffer uses up most of vram */
- 	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SSBkZW1hbmQgdGhhdCBDaHJpc3RpYW4gS8O2bmlnIG1heSBvciBtYXkgbm90IGhhdmUgd3JpdHRl
+bi4uLgoKPiBBbSAxMS4xMi4yMCB1bSAxODozMSBzY2hyaWViIERhcnJlbiBTYWx0Ogo+PCBbU05J
+UF0KPj4+IElmIHRoYXQgaXNuJ3QgdGhlIGNhc2UgdXNlIGZscygpIHRvIGdldCB0aGUgaGlnaGVz
+dCBzZXQgYml0IDwgMTMuCj4+IFRoYXQgc3VnZ2VzdHMgdGhhdCBpdCdsbCBiZSBlYXNpZXN0IHRv
+IGNsZWFyIGVhY2ggYml0IGFmdGVyIHRoZQo+PiBjb3JyZXNwb25kaW5nIHNpemUgaXMgY2hlY2tl
+ZCwgSSB0aGluay4KCj4gT2ssIHdlbGwgeW91IGRvbid0IHNlZW0gdG8gdW5kZXJzdGFuZCBteSBj
+b25zdHJhaW4gaGVyZTogTmV2ZXIgY2hlY2sgCj4gbW9yZSB0aGFuIG9uZSBzaXplIQoKQ2hlY2tp
+bmcgY29udGV4dDogaXQgYXBwZWFyZWQgdG8gYmUgdGhlIGZvcigpIHN0YXRlbWVudCBpdHNlbGYg
+cmF0aGVyIHRoYW4KdGhlIHdob2xlIGxvb3AuIEl0IGRpZG4ndCBoZWxwIHRoYXQg4oCcdHJ5IGFu
+ZCBlcnJvcuKAnSBsb29rcyBsaWtlIOKAnHRyeSB0byBlcnJvcuKAnQp0byBtZTsgSSBub3cgdGhp
+bmsgdGhhdCB5b3UgbWVhbnQg4oCcdHJpYWwgYW5kIGVycm9y4oCdLgoKPiBGaW5kIHRoZSBmaXJz
+dCB2YWxpZCBzaXplIHdoaWNoIGlzIGdvb2QgZm9yIHlvdSBhbmQgdGhlbiB0cnkgdG8gcmVzaXpl
+IAo+IHRvIHRoYXQgb25lLCBpZiB0aGlzIGRvZXNuJ3Qgd29yayBhYm9ydC4KClNvLCBiYXNpY2Fs
+bHksIHN0b3AgZXZlbiB3aGVuIHRoZSBuZXh0IHNpemUgZG93biB3b3VsZCBiZSBmaW5lLCBlLmcu
+IDE2R0Ig4oaSCjhHQi4gSnVzdCBhcyB3ZWxsIHRoYXQgc2l6ZSBsaW1pdGluZyBpcyBkb25lIGlu
+IGEgbGF0ZXIgcGF0Y2gsIHRob3VnaCBJCndvbmRlciB3aGV0aGVyIHRoYXQgc2hvdWxkIGFsbG93
+IHBlci1HUFUgY29uZmlndXJhdGlvbiAobm90IHNvbWV0aGluZyBmb3IKdGhpcyBwYXRjaCBzZXJp
+ZXMsIHRob3VnaCkuCgo+PiBBbHNvLCB0aGlzIGxvb2tzIGxpa2UgaXQncyBhZGRpbmcgY29tcGxl
+eGl0eSB0byB0cnkgdG8gbWFrZQo+PiByYXJlbHktZXhlY3V0ZWQgY29kZSBzbGlnaHRseSBmYXN0
+ZXIgaW4gc29tZSBjYXNlcyAoSSBjYW4ndCBzZWUgaXQKPj4gaGVscGluZyB3aGVyZSBhdmFpbGFi
+bGVfc2l6ZXMgPT0gMHgzRjAwLCBmb3IgZXhhbXBsZSkuCgo+IFRoZSBpbnRlbnRpb24gaGVyZSBp
+cyBub3QgdG8gbWFrZSB0aGUgY29kZSBmYXN0ZXIsIGJ1dCB0byBwcmV2ZW50IGlzc3VlcyBvbgo+
+IHN5c3RlbSB3aGVyZSB3ZSBwcm9iZSBtdWx0aXBsZSBHUFVzIGF0IG9uY2UuCgpQcmVzdW1hYmx5
+IHNpbXVsdGFuZW91cyBwcm9iZXMgYW5kIHJhbmRvbSBvcmRlcmluZ+KApgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
