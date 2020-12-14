@@ -2,72 +2,131 @@ Return-Path: <SRS0=QenQ=FP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.9 required=3.0 tests=BAYES_00,DATE_IN_FUTURE_48_96,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15935C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A5A3C4361B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BABB523EB3
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:20:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BABB523EB3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2D88D23D50
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Dec 2020 12:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D88D23D50
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE6B6EDCA;
-	Fri, 11 Dec 2020 12:20:34 +0000 (UTC)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B70B6EDC6;
- Fri, 11 Dec 2020 12:20:32 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id w13so13034432lfd.5;
- Fri, 11 Dec 2020 04:20:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=aN+eJU9kdQqnxT2tyGWW76jiJXyiAxGt1tBEBUeg2Wk=;
- b=eYEeRHlRCbsYpjeien1nKxZfzA/u7sRWPTX6hsOc2USVHENNWRycHM6GzgA6tA3uIM
- EqdKABfa0eb/alzcCQ7Kv53rKRl4nInvmCJ0c5ncOkD+34YSirHPAeQpcWnszfKm9EDC
- 8P3+3hWPk+atS9VaqBsb/5gJ/iL4aLkTNpahOz2s6UJ3fYAzXu7hRnsDuOrSHy9G2EZG
- F/vqgS3ggLzMjJUrajHv56z13JZntsHPK6YLVOCCyPP47j/TVhO1a2C37y1+id+F0X2D
- 3N/Zbs7k7QvmK96ZRt/e8b3Y9g3RklKP1Se4SKnWB7corXc1W+78mBw8GD2OfjCtYcRG
- l9Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=aN+eJU9kdQqnxT2tyGWW76jiJXyiAxGt1tBEBUeg2Wk=;
- b=UAAHNsgrYiKyfpDxMqXPIhV17Okd9fncaQEgj5uvQ0Tn/vxVFKKrhlHGRyfXsyHMen
- ytkoJIR5SwVPiZm1tcSpy+TuprSOijc1Hiea8kM9L3aI3Y599J7JKeaErm71MQcq7QGo
- YTWh+IlVbZhpIVLhE388flvH/1UEFBeFCXht2SUmhsJgm+9v/ewwN1En5MK71UALOX2w
- S4Cph91Jy9UcRZnToCmYnNu5GRV2hFX901SWWUQe9iZ/PVjHHYu3gb+759ClJ7jSXhRh
- X4w5ihCDG4TYZRSUDKEIUuLFPgS8A5gwATlPoNW7xGboHn9cHOnHlF/G9eDT3ORawCZV
- U8zQ==
-X-Gm-Message-State: AOAM5312UHNgBMZ8ANaongcFbB2ECU7U9IYyZ00nKVM1omAzjHxgPn7L
- bclDS886mCMozEyJRccYp3M=
-X-Google-Smtp-Source: ABdhPJysQbreFYHm+fLhwOuQL7R8nC+idHxFrIQUyya8kt9GjtqKGH9FemUF6WUKn7SudYI/4LiR3Q==
-X-Received: by 2002:ac2:5442:: with SMTP id d2mr4705351lfn.154.1607689230833; 
- Fri, 11 Dec 2020 04:20:30 -0800 (PST)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id m20sm862465lfc.172.2020.12.11.04.20.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Dec 2020 04:20:30 -0800 (PST)
-Date: Fri, 11 Dec 2020 14:20:19 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7AE6EDDD;
+	Fri, 11 Dec 2020 12:57:36 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BCA36EDDB;
+ Fri, 11 Dec 2020 12:57:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YwscxGM9MZZ8+uNTfSCRin85JG2o3jk2C3UIH6w1lagteRB59MzAaI0vbaMaMbdR9TvXT0wXhYET+LIA0o4/2628rDq1v27W4AzrgyjXOCzTLu4IunnKdm0XSv5Ni4c0YNqGZx+/jtf3kj4RmA+7KooxO42KdTEs7ATTX4ns+Sze+XH/Eta9z7yM5ZLDygmlrlSx19pw6dwMlAMrMzP/NiF8urVJb6ZGFzKSwvqCxhzYpDMcgDTsxFGsD8v0hd5Hv8eKzgqP3DK5YFw7itPp7PZm1LyjWrmhIuoc6PzidfAMtoiSHZ3MIlBtSfP8jGqE/UnBNOy8lIDkL/A7zuQVCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ICtG5/c9bsjcxycSzG70txUqJ2sGPo8GCOdEeoyIgpg=;
+ b=UByuCsGN48yC6r3W1vVCI/kQvbMcHHOs7x7X+v4xv2/S3x9IUIYyUP4pYcwNNzRSTSFvxSon5Bmde+0IrjH4+pUFVcBuCyZGeUhr4aOUFTpPP/rSU6leD4wRhXazB4uJlt6SwRLuBUH0QtDtuIuj/8H1dpRexDuCxBTOtfV31XOpCSAWjfzAimyLlQ9oF2YYSV7pfKkbanzKh7LpWvhASvmYDcTT5nOvHgyYRlEM6cVfBv6wM8YaWzqln0c6RdjUZejYC2GpU3Uo1+/KM5XGmuznQk168qLl+9RVnCU+0oop/M8LbxdXLV4DTYLYAMeF8y3p86QbeU+ZAz0IN/7irQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ICtG5/c9bsjcxycSzG70txUqJ2sGPo8GCOdEeoyIgpg=;
+ b=FOKWeloKAV7kxksCNmJfIrbaX30KecU0X7g3rUIaFvi3QFQNKq0WmHkrOGbREZ01S7EhGsH7x5KEDUdYRJzvKvp2r6U38+blxqtx9NSSnohimzaUnjXN99/wfbTrhG5FCR2esAYs87EZYiJtaeK6ucDRrnqOaTG/jUgmt5GJ3v8=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4334.namprd12.prod.outlook.com (2603:10b6:208:1d1::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Fri, 11 Dec
+ 2020 12:57:31 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3654.016; Fri, 11 Dec 2020
+ 12:57:31 +0000
 Subject: Re: [PATCH v2 0/3] Experimental freesync video mode optimization
-Message-ID: <20201211142019.19dae2aa@eldfell>
-In-Reply-To: <53f5b48c-c2b5-ed66-0c0e-bba0b22dba03@gmail.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 References: <20201210184823.285415-1-aurabindo.pillai@amd.com>
  <MC46k2jDYAeDTZaSlv6T5iIq5ibkh2yYwW3KZ-XLXLwoRByjkWsEr6-6eQM4iZqmkiLoleyh84S290ytAub0bK-esJje1OGKIEilcz_iikY=@emersion.fr>
  <0b7132b8-a890-b4f0-0a0c-260015fa0bbb@amd.com>
  <20201211115549.32ade81b@eldfell>
  <53f5b48c-c2b5-ed66-0c0e-bba0b22dba03@gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ <20201211142019.19dae2aa@eldfell>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <c262b694-fb5d-accd-2582-4adb967ea890@amd.com>
+Date: Mon, 14 Dec 2020 21:57:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20201211142019.19dae2aa@eldfell>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM0PR01CA0133.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:168::38) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM0PR01CA0133.eurprd01.prod.exchangelabs.com (2603:10a6:208:168::38) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
+ Transport; Fri, 11 Dec 2020 12:57:29 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4e492308-222f-472b-443d-08d89dd452bc
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4334:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4334B90B8BD27C6838DFF94883CA0@MN2PR12MB4334.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iKzLwN0yg2nZv0y6EqvvkwTDtatBjBvqL1Bk5AaYZND4yxW3P8Ls/xsTyLMYUv5B9mO02QXbUOpfjtDmphdtN7+lzuMCciQwA7OIDfJcka9VQ3+7Z18mehwmdKdgeoSvHV+4Lp0xBWtr0P+GMieAAL4oqrYDaMf4So9jFNLxbpqCgjq674Rnuf7WmURoiPllwR+LehnV9VXt4A+Uhhe6omq4Res+gOXYQye7UhwMtZTextc3eINpLfRbzeP55qmLAaOqSTjw8wAhZr5Lyh1xIIwya8GmfgAptfQiDd8lNSJgRP055ywE0j70mkBTU7bSNVaaakbe5zN7dO4T+3bZk0l4e/vWvtgD4cpEcybZv3BP663l2PnmGZ5h2pu7MsmwdVkPPmiSo55eXKAJNipOXQqPRiqxDHU9UGXjdRgMQGk1h3p58KNX1sLjocEZUZ3d
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(366004)(136003)(6666004)(31696002)(86362001)(2616005)(8936002)(5660300002)(66476007)(66556008)(31686004)(34490700003)(8676002)(36756003)(4326008)(52116002)(186003)(66946007)(16526019)(508600001)(54906003)(2906002)(53546011)(6486002)(110136005)(83380400001)(66574015)(367364002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eDIyWG9qYkZhMDRzVzJVdEZuVmFKRlJyMm8xRlJxTy9HMWpDbTZYbjVsaXpR?=
+ =?utf-8?B?V3lMMCs4RXlnOXVjcW43OXZ2TEJFeUNhVTY1WWFKNEM2UW5ENEE5UUVmSnFE?=
+ =?utf-8?B?M2VFbm1lNDROZkdvNGdaYnZIbEVRdFR6dVRzbmxRUS9KTEJlOEZWMUpQSmJD?=
+ =?utf-8?B?V0p3OS9zbm1ENFBzR25qNnBNSnVhdVlLVW1GOEtQOEFzTjVDQ3h0eG4rQkhE?=
+ =?utf-8?B?eThWRUhaVngrVjlRMEhXZndmL3AwVkZpY1FvWVYvVGNFdFYxaHArWXdmMFpa?=
+ =?utf-8?B?S3FVbjZhZGxkSjIrSXhQL2NGVEJDZ3pPK3E2Z0hVTy9nRXpxbWJHTVZIbFZU?=
+ =?utf-8?B?aklxRmpXWGpSdFdZejRCMTBVTnhVTUdDeHpxOENwbSs1NHQ3UlBOYm1vQ0Zm?=
+ =?utf-8?B?bzEzYUhRTVpMei84UEJnMXB1bXdwZjF2WnUyY000K2RFTDRYV1M0MDlhbFpo?=
+ =?utf-8?B?dTY1VTI1azcvcnpjQzErdS9BbnJPdU51bnFqM3N2MXM3a2FxRVhEUnFNRmNy?=
+ =?utf-8?B?eWp0VEZVekJaNU1TZTZxbUxNYm1JcUpvMjVzL3VKN01VVk42K3p3QXpuWGdQ?=
+ =?utf-8?B?UXN1UmdJbXQ1TmQrbUxlaGlxK2xDSmxISkpJR2JhZkxsTy84bWNXY1IxZWl3?=
+ =?utf-8?B?Q2NVYXFxQ01Xd0haQ1ArOXF4M0Y3dmdwWnBZRmZjVUx2T0t2WlZETTQ0RFNY?=
+ =?utf-8?B?cDRpNU9kRm9HTGNSaXkxVktUSjUxLzY2YTQ0UzR5QUZpL0JiOVo3cmw0RVVz?=
+ =?utf-8?B?eDRsMzZRVWcvc2hGS3M3dmQxNEVZYlJveUJYektpMkFjMlhnb0VsbExuS25j?=
+ =?utf-8?B?MUxqMkk3aVliejNoNWUySHNoQWtmcXJsd24xMTEwUG1VOHBZelNlaUJadjFO?=
+ =?utf-8?B?MG8rVzN3Y2ZLZzFVbnp2ZzVLL1pZMFJSb1hzM0NlRXhzWVdPRVg3S0QxNElE?=
+ =?utf-8?B?NGV2RFhVb3NLdCtlZCtTL1BEOGVwMjlGQ0syaDJWSktWODBuSHVic1IvYzRw?=
+ =?utf-8?B?M0FmRGs5ZndpZk9HSlhJTGYvWDRjZ29iSkhrb3ZsMmoyZWRsWk1nOXFiRkFm?=
+ =?utf-8?B?SU9jeHM4SFlwSnhWU01GdW9XVzZBL05vZ3ZlenYxQzlvQzJVQUlJNXJLdUJI?=
+ =?utf-8?B?eGI2WEZ6czhJUVhlcEhwcjA3WXl6VHB2bk5nVUNMU3ZGbjIwYmI1M0dUQmVu?=
+ =?utf-8?B?OGtsa0N5eVM3MmNQMTFFYlhPaGIrWWg5YW92OWVPZXN1SWVBMzF0MFZ1NTdj?=
+ =?utf-8?B?TnpnTjduNmp2aGI3azNKdDZKSFh5K0JiWURTc0owTWxtdzZ5OThXSVNqUW9C?=
+ =?utf-8?B?WDRyaHVWWTAwekJQWFpGellFaDdmWUdlY1dpU0lYT2RwcHhFTFlyNXo3REpx?=
+ =?utf-8?B?UDFqd1VUVUx5a1dlSCttZVQvMGhJWExTcVVoR1VjTnR0WFpqTGN4bFFTL0ln?=
+ =?utf-8?Q?3/s6OTIg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2020 12:57:31.7733 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e492308-222f-472b-443d-08d89dd452bc
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fK+u7MVuVzwgizxhNB3nWb6lKqoawbljaA8/TMCwYKq9mPGsIdLwcTIQF0V9CFst
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4334
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,179 +140,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, thong.thai@amd.com, Simon Ser <contact@emersion.fr>,
  Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- nicholas.kazlauskas@amd.com, Martin Peres <martin.peres@free.fr>,
+ Martin Peres <martin.peres@free.fr>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>,
  DRI Development <dri-devel@lists.freedesktop.org>, wayne.lin@amd.com,
- alexander.deucher@amd.com, Harry.Wentland@amd.com, christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============1260289071=="
+ alexander.deucher@amd.com, Harry.Wentland@amd.com, nicholas.kazlauskas@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1260289071==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/1etLWcPkUcsFqMuruRxLddG"; protocol="application/pgp-signature"
-
---Sig_/1etLWcPkUcsFqMuruRxLddG
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 11 Dec 2020 11:28:36 +0100
-Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> wrote:
-
-> Am 11.12.20 um 10:55 schrieb Pekka Paalanen:
-> > On Fri, 11 Dec 2020 09:56:07 +0530
-> > Shashank Sharma <shashank.sharma@amd.com> wrote:
-> > =20
-> >> Hello Simon,
-> >>
-> >> Hope you are doing well,
-> >>
-> >> I was helping out Aurabindo and the team with the design, so I have
-> >> taken the liberty of adding some comments on behalf of the team,
-> >> Inline.
-> >>
-> >> On 11/12/20 3:31 am, Simon Ser wrote: =20
-> >>> Hi,
-> >>>
-> >>> (CC dri-devel, Pekka and Martin who might be interested in this as
-> >>> well.) =20
-> > Thanks for the Cc! This is very interesting to me, and because it was
-> > not Cc'd to dri-devel@ originally, I would have missed this otherwise.
-> > =20
-> >>> On Thursday, December 10th, 2020 at 7:48 PM, Aurabindo Pillai <aurabi=
-ndo.pillai@amd.com> wrote:
-> >>>    =20
-> >>>> This patchset enables freesync video mode usecase where the userspace
-> >>>> can request a freesync compatible video mode such that switching to =
-this
-> >>>> mode does not trigger blanking.
-> >>>>
-> >>>> This feature is guarded by a module parameter which is disabled by
-> >>>> default. Enabling this paramters adds additional modes to the driver
-> >>>> modelist, and also enables the optimization to skip modeset when usi=
-ng
-> >>>> one of these modes. =20
-> >>> Thanks for working on this, it's an interesting feature! However I'd =
-like to
-> >>> take some time to think about the user-space API for this.
-> >>>
-> >>> As I understand it, some new synthetic modes are added, and user-spac=
-e can
-> >>> perform a test-only atomic *without* ALLOW_MODESET to figure out whet=
-her it can
-> >>> switch to a mode without blanking the screen. =20
-> >> The implementation is in those lines, but a bit different. The idea
-> >> is to:
-> >>
-> >> - check if the monitor supports VRR,
-> >>
-> >> - If it does, add some new modes which are in the VRR tolerance
-> >> range, as new video modes in the list (with driver flag).
-> >>
-> >> - when you get modeset on any of these modes, skip the full modeset,
-> >> and just adjust the front_porch timing
-> >>
-> >> so they are not test-only as such, for any user-space these modes
-> >> will be as real as any other probed modes of the list. =20
-> > But is it worth to allow a modeset to be glitch-free if the userspace
-> > does not know they are glitch-free? I think if this is going in, it
-> > would be really useful to give the guarantees to userspace explicitly,
-> > and not leave this feature at an "accidentally no glitch sometimes"
-> > level.
-> >
-> >
-> > I have been expecting and hoping for the ability to change video mode
-> > timings without a modeset ever since I learnt that VRR is about
-> > front-porch adjustment, quite a while ago.
-> >
-> > This is how I envision userspace making use of it:
-> >
-> > Let us have a Wayland compositor, which uses fixed-frequency video
-> > modes, because it wants predictable vblank cycles. IOW, it will not
-> > enable VRR as such. =20
->=20
-> Well in general please keep in mind that this is just a short term=20
-> solution for X11 applications.
-
-I guess someone should have mentioned that. :-)
-
-Do we really want to add more Xorg-only features in the kernel?
-
-It feels like "it's a short term solution for X11" could be almost used
-as an excuse to avoid proper uAPI design process. However, with uAPI
-there is no "short term". Once it's in, it's there for decades. So why
-does it matter if you design it for Xorg foremost? Are others forbidden
-to make use of it? Or do you deliberately want to design it so that
-it's not generally useful and it will indeed end up being a short term
-feature? Planned obsolescence from the start?
-
-> For things like Wayland we probably want to approach this from a=20
-> completely different vector.
->=20
-> > When the Wayland compositor starts, it will choose *some* video mode
-> > for an output. It may or may not be what a KMS driver calls "preferred
-> > mode", because it depends on things like user preferences. The
-> > compositor makes the initial modeset to this mode. =20
->=20
-> I think the general idea we settled on is that we specify an earliest=20
-> display time for each frame and give feedback to the application when a=20
-> frame was actually displayed.
-
-That is indeed something completely different, and feels like it would
-be several years in the future, while the proposed scheme or the
-min/max properties could be done fairly quickly. But I'm not in a hurry.
-
-Setting the earliest display time for a flip does not fully cover what
-video mode timing adjustment or min/max frame time or refresh rate
-property would offer: prediction of when the next flip can happen.
-Choosing display times requires knowing the possible display times, so
-something more is needed. The min/max properties would fit in.
-
-> This approach should also be able to handle multiple applications with=20
-> different refresh rates. E.g. just think of a video playback with 25 and=
-=20
-> another one with 30 Hz in two windows when the max refresh rate is=20
-> something like 120Hz.
-
-But that's just an extension to what I already described and completely
-possible with the proposed and the min/max approaches.
-
-
-Thanks,
-pq
-
---Sig_/1etLWcPkUcsFqMuruRxLddG
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl/TZAMACgkQI1/ltBGq
-qqeuRg//VGMe7yVxCc95Igl3ZsaqyMlcbpaK8D4T1qNBaDzmgorCfvbFpTMVfZZ0
-dmSmjhT4CYMWx4D4MNa9hUtubydGZ3EEyfbUi5vvC7YNs1MrdP/VcUk4HsKU6XY9
-zUHiNEc6/CciWliJ8Llj/1r08zzRxsdJ7gsLZQ6poN6VPQBO4noK4wkcxgO1GIAZ
-caT8SwRlKi77frO+H3eJ6jB6ACpiLwLzNoqvykfacvF/vle2n9p50y7t5cv0ZbQq
-OG8IKB3DybzHlcgiP2tYZCmVuQWDkZ+urbxkMJWxlfXZ4zgM/6HipgC61sVorfmA
-rvZqQft2ijyYKNawT/n3Z3E1PEWLJstQi1gXJrwTqE5pbTdbAwhKJx5vbO6lf7Zx
-v+A678KS3wBbudFWOSMAkOWR7bPstAhPfQUJEkrLDNerS4CVtwoNFQnpga5tRYVf
-Fz/ZyttpuhRA7JPjRre2tUNjslzBImhfB0FOsLFeQCQDItztT6BI2vb041/l2ZEN
-hxtW4LeP1eoeYUg5qmZzdn8NT9hLO6UGXm8sOXMC2Opku92b6NZTk+XDaohrQMH+
-x7vuAls9MArqytv83vcp4JyfkM7bOa9aAJUs3Ri+7CnLQOcOhldPOGQKyyfKvXzN
-OOwOvjr8MgupgDlaSAjZXWGr9YJsIUYbFkoj+YxRnYvSDc9mZEY=
-=W5CX
------END PGP SIGNATURE-----
-
---Sig_/1etLWcPkUcsFqMuruRxLddG--
-
---===============1260289071==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1260289071==--
+QW0gMTEuMTIuMjAgdW0gMTM6MjAgc2NocmllYiBQZWtrYSBQYWFsYW5lbjoKPiBPbiBGcmksIDEx
+IERlYyAyMDIwIDExOjI4OjM2ICswMTAwCj4gQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWlj
+aHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4+IEFtIDExLjEyLjIwIHVtIDEwOjU1IHNj
+aHJpZWIgUGVra2EgUGFhbGFuZW46Cj4+PiBPbiBGcmksIDExIERlYyAyMDIwIDA5OjU2OjA3ICsw
+NTMwCj4+PiBTaGFzaGFuayBTaGFybWEgPHNoYXNoYW5rLnNoYXJtYUBhbWQuY29tPiB3cm90ZToK
+Pj4+ICAgCj4+Pj4gSGVsbG8gU2ltb24sCj4+Pj4KPj4+PiBIb3BlIHlvdSBhcmUgZG9pbmcgd2Vs
+bCwKPj4+Pgo+Pj4+IEkgd2FzIGhlbHBpbmcgb3V0IEF1cmFiaW5kbyBhbmQgdGhlIHRlYW0gd2l0
+aCB0aGUgZGVzaWduLCBzbyBJIGhhdmUKPj4+PiB0YWtlbiB0aGUgbGliZXJ0eSBvZiBhZGRpbmcg
+c29tZSBjb21tZW50cyBvbiBiZWhhbGYgb2YgdGhlIHRlYW0sCj4+Pj4gSW5saW5lLgo+Pj4+Cj4+
+Pj4gT24gMTEvMTIvMjAgMzozMSBhbSwgU2ltb24gU2VyIHdyb3RlOgo+Pj4+PiBIaSwKPj4+Pj4K
+Pj4+Pj4gKENDIGRyaS1kZXZlbCwgUGVra2EgYW5kIE1hcnRpbiB3aG8gbWlnaHQgYmUgaW50ZXJl
+c3RlZCBpbiB0aGlzIGFzCj4+Pj4+IHdlbGwuKQo+Pj4gVGhhbmtzIGZvciB0aGUgQ2MhIFRoaXMg
+aXMgdmVyeSBpbnRlcmVzdGluZyB0byBtZSwgYW5kIGJlY2F1c2UgaXQgd2FzCj4+PiBub3QgQ2Mn
+ZCB0byBkcmktZGV2ZWxAIG9yaWdpbmFsbHksIEkgd291bGQgaGF2ZSBtaXNzZWQgdGhpcyBvdGhl
+cndpc2UuCj4+PiAgIAo+Pj4+PiBPbiBUaHVyc2RheSwgRGVjZW1iZXIgMTB0aCwgMjAyMCBhdCA3
+OjQ4IFBNLCBBdXJhYmluZG8gUGlsbGFpIDxhdXJhYmluZG8ucGlsbGFpQGFtZC5jb20+IHdyb3Rl
+Ogo+Pj4+PiAgICAgIAo+Pj4+Pj4gVGhpcyBwYXRjaHNldCBlbmFibGVzIGZyZWVzeW5jIHZpZGVv
+IG1vZGUgdXNlY2FzZSB3aGVyZSB0aGUgdXNlcnNwYWNlCj4+Pj4+PiBjYW4gcmVxdWVzdCBhIGZy
+ZWVzeW5jIGNvbXBhdGlibGUgdmlkZW8gbW9kZSBzdWNoIHRoYXQgc3dpdGNoaW5nIHRvIHRoaXMK
+Pj4+Pj4+IG1vZGUgZG9lcyBub3QgdHJpZ2dlciBibGFua2luZy4KPj4+Pj4+Cj4+Pj4+PiBUaGlz
+IGZlYXR1cmUgaXMgZ3VhcmRlZCBieSBhIG1vZHVsZSBwYXJhbWV0ZXIgd2hpY2ggaXMgZGlzYWJs
+ZWQgYnkKPj4+Pj4+IGRlZmF1bHQuIEVuYWJsaW5nIHRoaXMgcGFyYW10ZXJzIGFkZHMgYWRkaXRp
+b25hbCBtb2RlcyB0byB0aGUgZHJpdmVyCj4+Pj4+PiBtb2RlbGlzdCwgYW5kIGFsc28gZW5hYmxl
+cyB0aGUgb3B0aW1pemF0aW9uIHRvIHNraXAgbW9kZXNldCB3aGVuIHVzaW5nCj4+Pj4+PiBvbmUg
+b2YgdGhlc2UgbW9kZXMuCj4+Pj4+IFRoYW5rcyBmb3Igd29ya2luZyBvbiB0aGlzLCBpdCdzIGFu
+IGludGVyZXN0aW5nIGZlYXR1cmUhIEhvd2V2ZXIgSSdkIGxpa2UgdG8KPj4+Pj4gdGFrZSBzb21l
+IHRpbWUgdG8gdGhpbmsgYWJvdXQgdGhlIHVzZXItc3BhY2UgQVBJIGZvciB0aGlzLgo+Pj4+Pgo+
+Pj4+PiBBcyBJIHVuZGVyc3RhbmQgaXQsIHNvbWUgbmV3IHN5bnRoZXRpYyBtb2RlcyBhcmUgYWRk
+ZWQsIGFuZCB1c2VyLXNwYWNlIGNhbgo+Pj4+PiBwZXJmb3JtIGEgdGVzdC1vbmx5IGF0b21pYyAq
+d2l0aG91dCogQUxMT1dfTU9ERVNFVCB0byBmaWd1cmUgb3V0IHdoZXRoZXIgaXQgY2FuCj4+Pj4+
+IHN3aXRjaCB0byBhIG1vZGUgd2l0aG91dCBibGFua2luZyB0aGUgc2NyZWVuLgo+Pj4+IFRoZSBp
+bXBsZW1lbnRhdGlvbiBpcyBpbiB0aG9zZSBsaW5lcywgYnV0IGEgYml0IGRpZmZlcmVudC4gVGhl
+IGlkZWEKPj4+PiBpcyB0bzoKPj4+Pgo+Pj4+IC0gY2hlY2sgaWYgdGhlIG1vbml0b3Igc3VwcG9y
+dHMgVlJSLAo+Pj4+Cj4+Pj4gLSBJZiBpdCBkb2VzLCBhZGQgc29tZSBuZXcgbW9kZXMgd2hpY2gg
+YXJlIGluIHRoZSBWUlIgdG9sZXJhbmNlCj4+Pj4gcmFuZ2UsIGFzIG5ldyB2aWRlbyBtb2RlcyBp
+biB0aGUgbGlzdCAod2l0aCBkcml2ZXIgZmxhZykuCj4+Pj4KPj4+PiAtIHdoZW4geW91IGdldCBt
+b2Rlc2V0IG9uIGFueSBvZiB0aGVzZSBtb2Rlcywgc2tpcCB0aGUgZnVsbCBtb2Rlc2V0LAo+Pj4+
+IGFuZCBqdXN0IGFkanVzdCB0aGUgZnJvbnRfcG9yY2ggdGltaW5nCj4+Pj4KPj4+PiBzbyB0aGV5
+IGFyZSBub3QgdGVzdC1vbmx5IGFzIHN1Y2gsIGZvciBhbnkgdXNlci1zcGFjZSB0aGVzZSBtb2Rl
+cwo+Pj4+IHdpbGwgYmUgYXMgcmVhbCBhcyBhbnkgb3RoZXIgcHJvYmVkIG1vZGVzIG9mIHRoZSBs
+aXN0Lgo+Pj4gQnV0IGlzIGl0IHdvcnRoIHRvIGFsbG93IGEgbW9kZXNldCB0byBiZSBnbGl0Y2gt
+ZnJlZSBpZiB0aGUgdXNlcnNwYWNlCj4+PiBkb2VzIG5vdCBrbm93IHRoZXkgYXJlIGdsaXRjaC1m
+cmVlPyBJIHRoaW5rIGlmIHRoaXMgaXMgZ29pbmcgaW4sIGl0Cj4+PiB3b3VsZCBiZSByZWFsbHkg
+dXNlZnVsIHRvIGdpdmUgdGhlIGd1YXJhbnRlZXMgdG8gdXNlcnNwYWNlIGV4cGxpY2l0bHksCj4+
+PiBhbmQgbm90IGxlYXZlIHRoaXMgZmVhdHVyZSBhdCBhbiAiYWNjaWRlbnRhbGx5IG5vIGdsaXRj
+aCBzb21ldGltZXMiCj4+PiBsZXZlbC4KPj4+Cj4+Pgo+Pj4gSSBoYXZlIGJlZW4gZXhwZWN0aW5n
+IGFuZCBob3BpbmcgZm9yIHRoZSBhYmlsaXR5IHRvIGNoYW5nZSB2aWRlbyBtb2RlCj4+PiB0aW1p
+bmdzIHdpdGhvdXQgYSBtb2Rlc2V0IGV2ZXIgc2luY2UgSSBsZWFybnQgdGhhdCBWUlIgaXMgYWJv
+dXQKPj4+IGZyb250LXBvcmNoIGFkanVzdG1lbnQsIHF1aXRlIGEgd2hpbGUgYWdvLgo+Pj4KPj4+
+IFRoaXMgaXMgaG93IEkgZW52aXNpb24gdXNlcnNwYWNlIG1ha2luZyB1c2Ugb2YgaXQ6Cj4+Pgo+
+Pj4gTGV0IHVzIGhhdmUgYSBXYXlsYW5kIGNvbXBvc2l0b3IsIHdoaWNoIHVzZXMgZml4ZWQtZnJl
+cXVlbmN5IHZpZGVvCj4+PiBtb2RlcywgYmVjYXVzZSBpdCB3YW50cyBwcmVkaWN0YWJsZSB2Ymxh
+bmsgY3ljbGVzLiBJT1csIGl0IHdpbGwgbm90Cj4+PiBlbmFibGUgVlJSIGFzIHN1Y2guCj4+IFdl
+bGwgaW4gZ2VuZXJhbCBwbGVhc2Uga2VlcCBpbiBtaW5kIHRoYXQgdGhpcyBpcyBqdXN0IGEgc2hv
+cnQgdGVybQo+PiBzb2x1dGlvbiBmb3IgWDExIGFwcGxpY2F0aW9ucy4KPiBJIGd1ZXNzIHNvbWVv
+bmUgc2hvdWxkIGhhdmUgbWVudGlvbmVkIHRoYXQuIDotKQo+Cj4gRG8gd2UgcmVhbGx5IHdhbnQg
+dG8gYWRkIG1vcmUgWG9yZy1vbmx5IGZlYXR1cmVzIGluIHRoZSBrZXJuZWw/CgpXZWxsLCBteSBw
+cmVmZXJyZWQgc29sdXRpb24gd2FzIHRvIGFkZCB0aGUgbW9kZSBpbiB1c2Vyc3BhY2UgaW5zdGVh
+ZCA6KQoKPiBJdCBmZWVscyBsaWtlICJpdCdzIGEgc2hvcnQgdGVybSBzb2x1dGlvbiBmb3IgWDEx
+IiBjb3VsZCBiZSBhbG1vc3QgdXNlZAo+IGFzIGFuIGV4Y3VzZSB0byBhdm9pZCBwcm9wZXIgdUFQ
+SSBkZXNpZ24gcHJvY2Vzcy4gSG93ZXZlciwgd2l0aCB1QVBJCj4gdGhlcmUgaXMgbm8gInNob3J0
+IHRlcm0iLiBPbmNlIGl0J3MgaW4sIGl0J3MgdGhlcmUgZm9yIGRlY2FkZXMuIFNvIHdoeQo+IGRv
+ZXMgaXQgbWF0dGVyIGlmIHlvdSBkZXNpZ24gaXQgZm9yIFhvcmcgZm9yZW1vc3Q/IEFyZSBvdGhl
+cnMgZm9yYmlkZGVuCj4gdG8gbWFrZSB1c2Ugb2YgaXQ/IE9yIGRvIHlvdSBkZWxpYmVyYXRlbHkg
+d2FudCB0byBkZXNpZ24gaXQgc28gdGhhdAo+IGl0J3Mgbm90IGdlbmVyYWxseSB1c2VmdWwgYW5k
+IGl0IHdpbGwgaW5kZWVkIGVuZCB1cCBiZWluZyBhIHNob3J0IHRlcm0KPiBmZWF0dXJlPyBQbGFu
+bmVkIG9ic29sZXNjZW5jZSBmcm9tIHRoZSBzdGFydD8KClllcyBleGFjdGx5LiBXZSBuZWVkIHNv
+bWV0aGluZyB3aGljaCB3b3JrcyBmb3Igbm93IGFuZCBjYW4gYmUgcmVtb3ZlZCAKYWdhaW4gbGF0
+ZXIgb24gd2hlbiB3ZSBoYXZlIGEgYmV0dGVyIHNvbHV0aW9uLiBBZGRpbmcgc29tZSBleHRyYSBt
+b2RlcyAKaXMgbm90IGNvbnNpZGVyZWQgVUFQSSBzaW5jZSBib3RoIGRpc3BsYXlzIGFuZCBkcml2
+ZXJzIGFyZSBkb2luZyB0aGlzIApmb3IgYSBjb3VwbGUgb2YgZGlmZmVyZW50IHB1cnBvc2VzIGFs
+cmVhZHkuCgpBbm90aGVyIG1haW4gcmVhc29uIGlzIHRoYXQgdGhpcyBhcHByb2FjaCB3b3JrcyB3
+aXRoIGV4aXN0aW5nIG1lZGlhIApwbGF5ZXJzIGxpa2UgbXB2IGFuZCBrb2RpIHdpdGhvdXQgY2hh
+bmdpbmcgdGhlbSBiZWNhdXNlIHdlIGRvIHByZXR0eSAKbXVjaCB0aGUgc2FtZSB0aGluZyBpbiB0
+aGUga2VybmVsIHdoaWNoIFRWcyBkbyBpbiB0aGVpciBFRElELgoKRS5nLiB3aGVuIHN0YXJ0aW5n
+IHRvIHBsYXkgYSB2aWRlbyBrb2RpIHdpbGwgYXV0b21hdGljYWxseSB0cnkgdG8gc3dpdGNoIAp0
+byBhIG1vZGUgd2hpY2ggaGFzIHRoZSBzYW1lIGZwcyBhcyB0aGUgdmlkZW8uCgo+Cj4+IEZvciB0
+aGluZ3MgbGlrZSBXYXlsYW5kIHdlIHByb2JhYmx5IHdhbnQgdG8gYXBwcm9hY2ggdGhpcyBmcm9t
+IGEKPj4gY29tcGxldGVseSBkaWZmZXJlbnQgdmVjdG9yLgo+Pgo+Pj4gV2hlbiB0aGUgV2F5bGFu
+ZCBjb21wb3NpdG9yIHN0YXJ0cywgaXQgd2lsbCBjaG9vc2UgKnNvbWUqIHZpZGVvIG1vZGUKPj4+
+IGZvciBhbiBvdXRwdXQuIEl0IG1heSBvciBtYXkgbm90IGJlIHdoYXQgYSBLTVMgZHJpdmVyIGNh
+bGxzICJwcmVmZXJyZWQKPj4+IG1vZGUiLCBiZWNhdXNlIGl0IGRlcGVuZHMgb24gdGhpbmdzIGxp
+a2UgdXNlciBwcmVmZXJlbmNlcy4gVGhlCj4+PiBjb21wb3NpdG9yIG1ha2VzIHRoZSBpbml0aWFs
+IG1vZGVzZXQgdG8gdGhpcyBtb2RlLgo+PiBJIHRoaW5rIHRoZSBnZW5lcmFsIGlkZWEgd2Ugc2V0
+dGxlZCBvbiBpcyB0aGF0IHdlIHNwZWNpZnkgYW4gZWFybGllc3QKPj4gZGlzcGxheSB0aW1lIGZv
+ciBlYWNoIGZyYW1lIGFuZCBnaXZlIGZlZWRiYWNrIHRvIHRoZSBhcHBsaWNhdGlvbiB3aGVuIGEK
+Pj4gZnJhbWUgd2FzIGFjdHVhbGx5IGRpc3BsYXllZC4KPiBUaGF0IGlzIGluZGVlZCBzb21ldGhp
+bmcgY29tcGxldGVseSBkaWZmZXJlbnQsIGFuZCBmZWVscyBsaWtlIGl0IHdvdWxkCj4gYmUgc2V2
+ZXJhbCB5ZWFycyBpbiB0aGUgZnV0dXJlLCB3aGlsZSB0aGUgcHJvcG9zZWQgc2NoZW1lIG9yIHRo
+ZQo+IG1pbi9tYXggcHJvcGVydGllcyBjb3VsZCBiZSBkb25lIGZhaXJseSBxdWlja2x5LiBCdXQg
+SSdtIG5vdCBpbiBhIGh1cnJ5LgoKWDExIGFscmVhZHkgc3VwcG9ydHMgdGhhdCB3aXRoIHRoZSBE
+UkkzIGV4dGVuc2lvbi4gQWxzbyBzZWUgVkRQQVUgCnByZXNlbnQgYW5kIHRoZSBWdWxrYW4gZXh0
+ZW5zaW9uIGZvciByZWZlcmVuY2UgYXBwbGljYXRpb24gQVBJIAppbXBsZW1lbnRhdGlvbnMsIHNv
+IHRoYXQgc3R1ZmYgaXMgYWxyZWFkeSBwcmVzZW50LgoKSXQncyBqdXN0IG5vdCB3aXJlZCB1cCBj
+b3JyZWN0bHkgd2l0aCBLTVMgYW5kIHdlIGRvbid0IGhhdmUgYW55dGhpbmcgCnNpbWlsYXIgaW4g
+V2F5bGFuZCBhcyBmYXIgYXMgSSBrbm93LgoKPiBTZXR0aW5nIHRoZSBlYXJsaWVzdCBkaXNwbGF5
+IHRpbWUgZm9yIGEgZmxpcCBkb2VzIG5vdCBmdWxseSBjb3ZlciB3aGF0Cj4gdmlkZW8gbW9kZSB0
+aW1pbmcgYWRqdXN0bWVudCBvciBtaW4vbWF4IGZyYW1lIHRpbWUgb3IgcmVmcmVzaCByYXRlCj4g
+cHJvcGVydHkgd291bGQgb2ZmZXI6IHByZWRpY3Rpb24gb2Ygd2hlbiB0aGUgbmV4dCBmbGlwIGNh
+biBoYXBwZW4uCj4gQ2hvb3NpbmcgZGlzcGxheSB0aW1lcyByZXF1aXJlcyBrbm93aW5nIHRoZSBw
+b3NzaWJsZSBkaXNwbGF5IHRpbWVzLCBzbwo+IHNvbWV0aGluZyBtb3JlIGlzIG5lZWRlZC4gVGhl
+IG1pbi9tYXggcHJvcGVydGllcyB3b3VsZCBmaXQgaW4uCgpXZWxsIHlvdSBuZWVkIHRvIGNvbW11
+bmljYXRlIHRvIHRoZSBhcHBsaWNhdGlvbiB3aGF0IHRoZSBtaW5pbXVtIGFuZCAKbWF4aW11bSBy
+ZWZyZXNoIHJhdGVzIGFyZSBieSBzb21lIGV4dGVuc2lvbiBvZiB0aGUgbW9kZSBkZXNjcmlwdGlv
+bi4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCgo+Cj4+IFRoaXMgYXBwcm9hY2ggc2hvdWxkIGFsc28g
+YmUgYWJsZSB0byBoYW5kbGUgbXVsdGlwbGUgYXBwbGljYXRpb25zIHdpdGgKPj4gZGlmZmVyZW50
+IHJlZnJlc2ggcmF0ZXMuIEUuZy4ganVzdCB0aGluayBvZiBhIHZpZGVvIHBsYXliYWNrIHdpdGgg
+MjUgYW5kCj4+IGFub3RoZXIgb25lIHdpdGggMzAgSHogaW4gdHdvIHdpbmRvd3Mgd2hlbiB0aGUg
+bWF4IHJlZnJlc2ggcmF0ZSBpcwo+PiBzb21ldGhpbmcgbGlrZSAxMjBIei4KPiBCdXQgdGhhdCdz
+IGp1c3QgYW4gZXh0ZW5zaW9uIHRvIHdoYXQgSSBhbHJlYWR5IGRlc2NyaWJlZCBhbmQgY29tcGxl
+dGVseQo+IHBvc3NpYmxlIHdpdGggdGhlIHByb3Bvc2VkIGFuZCB0aGUgbWluL21heCBhcHByb2Fj
+aGVzLgo+Cj4KPiBUaGFua3MsCj4gcHEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
