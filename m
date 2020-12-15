@@ -2,113 +2,114 @@ Return-Path: <SRS0=Z3Jh=FT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00A35C4361B
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 15:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7D25C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 15:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D9B422571
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 15:45:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D9B422571
+	by mail.kernel.org (Postfix) with ESMTPS id 5599C22571
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 15:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5599C22571
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3192289D1D;
-	Tue, 15 Dec 2020 15:45:46 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37F5489D1D
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 15:45:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C916E3EE;
+	Tue, 15 Dec 2020 15:47:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0546A6E3EE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 15:47:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YIHy3fmsFRUUV75GFVkNEXXn0zPLiZR+LgH2wdBjBOeUuta7EBrFBnGUHt+BoGs/w2ZQwuzIGDr+OfxtLWTMkzx0WN1riFnaIniRnjgQxgbq1FM6GN8q8znCliDUp224WXQX7IMtU7pGUjLETSsNaFU/nz4D7mdOATW5XmIFQPxL3RRl+f2280ynFx1mv7H1gw1pSSi46Lh5ohoRWlYy3ujHUlk5J+P6hNgxRdRqtEyi1TPD+DIsFvHMYBIKY8OXqB6Pv1PnJaVnTw6PVa6AUpoOivjmrsHCsaBq+qen83G2Zg8KXXw6vlbpVFw8C/AeW9f9qEtb4zDWMk170GNOPQ==
+ b=PkBs01ZpBYIY4IrmHMQri1i1kthHpRzy1jwS7k0IqN8IlaRFPRqRf/9D/Y/phWEksqIiVNZudmxQdZvN6p/WeRV/BmnHfoT6MTGzcxVO135Kxy0gZrfpOB4xlkV529/zr3wmaEJdt18xMbOVBoIxW5gBe7kLHlkf1fy8NXrdPBO2R3sJFLt4hT40vDg7wCmOBXJyV1+zDQmrZyOdzflgxniX5A0RLnMxGKVludgj0jWhY/6fDrQdhqxsuJPLfRicAneqdwKmErATOwFJQfTMH0T3uoL1Glh0qJAMTvE+bMtYY8gTxGjte/fG9tEeJTlPrne5uec6ol8XNcjdZL8Ekw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IXIninq8gGQxjq9LfwAze12Vyw9d1u0NZsnD3lQd0oo=;
- b=hzPmNmjxNqqpw9/A3PVHVnHE91CtfQuyNoSzwbnrRcCUt9gHJqLcrdu1TabwwlHS+PkGjWv2II2CdYfOQCaiMYTo+frcHmANdlk0yhbhHywBuutsvIU1jzoOqkm5XYhomtdy+RJJBz2+Ewq7owsEfULNIUFduiv+LIFP4Zl1dM2gxhBY0rXFENiHS6hlmwwKZWB609fvioySvZA9nIITB7SXgOrS90dgPk9Zp7E7nDZL5dPsjDMsTlJ0vpoyAcWAkyeVKgZ2wV1QtlbvGHU0gsEJ75j48XZnkHq01MYU/ZbVu5tcKmv5x+E9aj4N51yfKd3g0Hrjaserjc/oQrHigg==
+ bh=as6vnfVI5PbtnCsgn4mJW+2MfK10AW8adP2dgOl1I8w=;
+ b=mIpxRC36tAAWCqpI+XM9hNArGM4jiWCbAK5kejtyRDX2gqbxDEXFbekQH9SD7mrhG0A4NRSfAuWj5SJ/xD/eUz5KGMiFYc7sJs8B1T7XNNZh/gPJlH/0jvaTzDIcLlMJvHcPpwMXOSvJwqdcQr63A1WwFwqhLmNfU+VN1Ftkl7B0EmRu1ICyEJrNDjYsoefhv/qeaSx0LJW9nlhEYN7YxVMx3+h6RiU2WH0JWP6ATKGz3+J/dOWhu++bnD+N4ygIKl/MTm4l2nZu38kg1qLN7UPS2aTs+OWNdhLtfNFTDNAUNJvz0kj3H+onUbPJD+4hBllVWuTCrHYAjduel+9gow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IXIninq8gGQxjq9LfwAze12Vyw9d1u0NZsnD3lQd0oo=;
- b=iLJASVlvlEzL3AViqMljetNo/7FJt9QfIqRQRrp5h8Gnb6k64Nh/NeeZG7fQ+1VQWr322XkCre3QAbzZtMhcaDeQAoug5Kl5m7OlUcMpjmZqv5jAWPcoTLoUr5AywKgWPKxSbyhIq/DNBS8ejxE+PhWvukg3dk9k7FJ0iK7lnSI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
+ bh=as6vnfVI5PbtnCsgn4mJW+2MfK10AW8adP2dgOl1I8w=;
+ b=zWcEXvYSQHDcQraFmJ9K6v3Ha2SJCGxQJ/tmmwWSESttJix5b5Vktl3Azdofb9kfRuErHe6PpwLHRPk3Vm7FTZvlLvJFNPHjF/7fypT7QnTN3jnhPqSt7/fG1IPfdTw+2c+CgvlNt1DB2ddIvh4fxYpn2cp3/iQoGrUdrcyfzQ4=
+Authentication-Results: alien8.de; dkim=none (message not signed)
+ header.d=none;alien8.de; dmarc=none action=none header.from=amd.com;
 Received: from CH2PR12MB3781.namprd12.prod.outlook.com (2603:10b6:610:27::11)
- by CH2PR12MB4181.namprd12.prod.outlook.com (2603:10b6:610:a8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.17; Tue, 15 Dec
- 2020 15:45:42 +0000
+ by CH2PR12MB4263.namprd12.prod.outlook.com (2603:10b6:610:a6::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.20; Tue, 15 Dec
+ 2020 15:47:11 +0000
 Received: from CH2PR12MB3781.namprd12.prod.outlook.com
  ([fe80::3d69:e706:b212:e31f]) by CH2PR12MB3781.namprd12.prod.outlook.com
  ([fe80::3d69:e706:b212:e31f%7]) with mapi id 15.20.3654.025; Tue, 15 Dec 2020
- 15:45:42 +0000
+ 15:47:11 +0000
+Date: Tue, 15 Dec 2020 10:47:03 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Add get_dig_frontend implementation for DCEx
-Date: Tue, 15 Dec 2020 10:45:05 -0500
-Message-Id: <20201215154505.1321860-1-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.29.2
+To: Borislav Petkov <bp@alien8.de>
+Subject: Re: 8353d30e747f ("drm/amd/display: disable stream if pixel clock
+ changed with link active")
+Message-ID: <20201215154703.6gwm2ew337pqysq4@outlook.office365.com>
+References: <20201211155553.GC25974@zn.tnic>
+In-Reply-To: <20201211155553.GC25974@zn.tnic>
 X-Originating-IP: [2607:fea8:56e0:6d60::bef5]
-X-ClientProxiedBy: CH0PR13CA0001.namprd13.prod.outlook.com
- (2603:10b6:610:b1::6) To CH2PR12MB3781.namprd12.prod.outlook.com
+X-ClientProxiedBy: CH2PR17CA0011.namprd17.prod.outlook.com
+ (2603:10b6:610:53::21) To CH2PR12MB3781.namprd12.prod.outlook.com
  (2603:10b6:610:27::11)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::bef5) by
- CH0PR13CA0001.namprd13.prod.outlook.com (2603:10b6:610:b1::6) with Microsoft
+Received: from outlook.office365.com (2607:fea8:56e0:6d60::bef5) by
+ CH2PR17CA0011.namprd17.prod.outlook.com (2603:10b6:610:53::21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3676.15 via Frontend Transport; Tue, 15 Dec 2020 15:45:41 +0000
+ 15.20.3654.12 via Frontend Transport; Tue, 15 Dec 2020 15:47:09 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d283ef4f-286f-402a-6075-08d8a1107af4
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4181:
+X-MS-Office365-Filtering-Correlation-Id: 6be21561-6e70-41b1-25f1-08d8a110af94
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4263:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB41817F4FEBEA251E5181A4EA98C60@CH2PR12MB4181.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:109;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB42635E01F259594506FE150A98C60@CH2PR12MB4263.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dmwXVAPkI/+IoGXqeOi9mwWWf3qR5H5bXx/GVG9htojC6W0bWCbIUM0fMQd+MQtXtPWESOLSLc0RyH1dFZiCt6TMNBsb/cuangFINYXQbyx7sMcpKrlyVIlvM8x/v+Kyfd9CmoaB+IlcpM6Ns3GJJoxGMFBkm9T5Yb3oh8juxO0qqXJ2Xjh+cMifWtRa8wxc16pOw58WEFX15pSWbUovM4g98p6JmiNz5UjS+EI0IoOgeL92W3FD8trB1aH/baxm6VIIW8qNr/Rglgt1Q5xHxj8y1WT0WXDvzfGpicFsZqh0LsxiCpkBdt/B8kajw1fKu2xZoHmj6kKD8hSIOIS6qtiF94osk62L6Kpf1ocQAsLh7DeYvMVDFj3uNVGXQCZS
+X-Microsoft-Antispam-Message-Info: 0VMuSEKNPQcqdbIBK62pIF3PA3oTNtrNNAOJQODSjn21+vkZsNLFivh6fQu2BbtzY3PnqTmeTnaxGwxkZww0SKMhDCNz+rPHDjNWmZQXR3HRb58gwn/jthDlTmcDdniaULojL9Q10LfxeKh8ecWODCljEC+B40tV9O7ko2plMi2VMQoU3g+96BEo9viVBbUEAtHvUIv3f3sBFyOlzV8fqq3v5iQJW4zCdUy5nkxd7Rv3HZnUIpV2/iWAuQ/EOGLb2ccDS5JyKFBnsNMmsPBlD6nGEwr48MfPC0ebAfSCY1BZ/QsOXExRhiPyh/XpxTnsLhP1xLUdSNhky6XlJ/uZ4UFaOj6tUYoCKgskN+iubnRHOEpigTxgFxqOUJIeN/jFqfHCbK2Xn9f2S49cHFeY4km8WhwWHFCdZuEgikgFdje6l+3KXzGpDexyRbW/8RN6kVt9Id1OVCNL6aUSUKohieenF+npofOLztFKGjsum1Y=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3781.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(366004)(136003)(4326008)(2616005)(186003)(34490700003)(66476007)(36756003)(6666004)(66556008)(8676002)(16526019)(6486002)(6506007)(66946007)(508600001)(5660300002)(6512007)(1076003)(86362001)(52116002)(83380400001)(6916009)(8936002)(54906003)(2906002);
+ SFS:(4636009)(366004)(346002)(136003)(376002)(8936002)(6916009)(55016002)(21480400003)(1076003)(508600001)(86362001)(83380400001)(9686003)(45080400002)(966005)(5660300002)(6666004)(44144004)(7696005)(52116002)(54906003)(8676002)(34490700003)(66556008)(66946007)(2906002)(4326008)(16526019)(6506007)(66476007)(186003)(2700100001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Uu+LQU0Io4tYIJc+Kc57TNiO2o5OS+mDx/uXSOpZKlnElPxHmEiJJizS8i1Q?=
- =?us-ascii?Q?2EwszjxNBTUNHdATHUfki1/gPVY4WEBIRmTm1Qj6kqQ3CiWENYZ40/vpOH03?=
- =?us-ascii?Q?NX0spzLKClnJx9V6fWD+9jYqSaqi7/3bo5WytqwMUBIhm/I2eTMbg3oT27Bs?=
- =?us-ascii?Q?25XNFAGNn3OgnjCTPEWmtxSm/qIMfGy+Uw6yxcBi7hhHl+D45dRbz3x9/QHA?=
- =?us-ascii?Q?8O/4FWGCTl8EFWlFZj8iuWrJKPV2jM1ErrIX8LK39fEFxjXQGI5Bip9NTKi0?=
- =?us-ascii?Q?pW82yBPRkRktBzM+nGluOEY143FCyvxGuaeazQhn0bJc+g3Qq7Te8JMED9qe?=
- =?us-ascii?Q?4E6lJyN0WLpKjgpn70PCToouyCwEQtrLflDlQZ4xCrS6a25l29IE4pq9aS/S?=
- =?us-ascii?Q?o/5lLfq0ltO3Ye3MKcQAW6GaaVE/4B8Ugy7CjpYAJ7hwb9HoJGusFdwBcN44?=
- =?us-ascii?Q?CY78yYJA2hdxugyL58UR1dlv3p1k2EMCh43JHWH8gWD7lYi+Cl+CNOFVaMHy?=
- =?us-ascii?Q?KsPDcdu34tyoNsE65G5+lWfHFZJkws46aRd8mrAA6XVg3DRj5nZkzUAZBHeE?=
- =?us-ascii?Q?N48ezrNHwbFeLJxmfnrtpNOv5c+rqPkaBqtYtPZDKP9iuhuzv6j9ch4SxW+w?=
- =?us-ascii?Q?RGIPcItPql8Hg+9/2FFj+Us4FbPQO7EY9Arx+5uBDOa1xnhxba1mTT61Xyn7?=
- =?us-ascii?Q?zGPQ/KO472BJJwYHZuwl7lEOZ9X3nQwpvVwgf2p4oJR7FLQWpiSF5A/N1IyA?=
- =?us-ascii?Q?5FXtGmYnZIgqcCnV21rsVaeuQXLdmNgrKj27a/yu53DgKvuaQc3ceTaN8VZZ?=
- =?us-ascii?Q?i0CoJfFO0YeEYhhmei5/Cwo39QnDJT/EP2PeyiY5dJ+98BdRGCMH3tAdlRPs?=
- =?us-ascii?Q?HYLkkG2HjjbSodMRXiMD3x2hJ2dQDoHpqQmr2DinMG0oziq3Pipq8qdtNwZF?=
- =?us-ascii?Q?7UuP0lsB5IM5oqpvwVPCVCAbKAIJ6ctY5OylgF9D54hq8dN7eyNw7YjFNDGr?=
- =?us-ascii?Q?sD2yEX35RnGeBVAMlgQC6evCRg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?2sR1Ft8/SYO8aPZUbE3WR3IMEDmbsdz/NmzbP/7DfXmyWBUfvD8wfiF17/VJ?=
+ =?us-ascii?Q?gbgYbFUUWGYB8WajUiUUhQbzUN/2Zp2zBoGLNLdY7N7Iu0GrtLqy0jfiGbq6?=
+ =?us-ascii?Q?8KM7Rnv5c76FSiSYnYmbY+zc8fYtlYDqLCWkmayn38JX7qnxWClpdRl41d8R?=
+ =?us-ascii?Q?QV2atNPyLAQXgNXvUilc8fqWaOpZKTYAwk3ZYZrbrkVFNh8/nbuW37W3TuSu?=
+ =?us-ascii?Q?4YM3qW2TFqrXDbaShmcNlAJDevJ1nBXhwJfnQKQL9jV0hMjOimnuPxZ1Wodu?=
+ =?us-ascii?Q?34+vTwg2eVsI8iKGpbJ+Bom62OyKIBNMuEZh9grvVU6PBqbyaOXWkLuvDVGr?=
+ =?us-ascii?Q?/9Sz65Bgk3tkNm/pqYph9mPbC61U9asLxXavA1rH5YZlxIe5rid3H5wTC8c6?=
+ =?us-ascii?Q?+aWd7f570jTjQFG/aSa1X4NZsbeKEYXiGIn7juG/lkYd8hzinuYrHPr65QCQ?=
+ =?us-ascii?Q?t4UrJTB0g5h7NXggTS7s61sTr9tU34PVGE1icFd8YnjKTaLpUoKOrn6/7H2i?=
+ =?us-ascii?Q?NQSNReea0KBG7NnK8ZeVLHpODjA7UHEq/ttL4zjO55n3riTkg51qe7c6QsLn?=
+ =?us-ascii?Q?mjJaa7NbYunhCwULlbr281ZuIsEyR/6y428irN7k1RZsEpsT7xpO27BwIyny?=
+ =?us-ascii?Q?Z1vUetBVo/TXtUIyxv8fHcI99mhgoFfh5KrCdYyECBBQwRn4e/5i97B2MxpN?=
+ =?us-ascii?Q?s5HhQaD4/gP2/pYFgPb9lXJhql7NVho8HsEYuzqWqrV+CKs5AZ8fHbm/jYgV?=
+ =?us-ascii?Q?NsgFqkT9Ezs1BVB3hedzk8do2w7aPQb5rM/CqA4qvbBEw5Gc3JfSQKcLTXuz?=
+ =?us-ascii?Q?8WirqaClA2u/hD4IhvGxr6KgvK0lE11grdgvhTpMEoIBOJp/0r4uUrADFZ8s?=
+ =?us-ascii?Q?YxWD7Lcb4AXdc2mo/RraNEQ2NXAVHTkvOW6D+oJnzf+eGbfseWwa7aIuneEP?=
+ =?us-ascii?Q?taYS4Vh+R0TehEH5oQbn08RCJfc7pMaR4MvGBpbeCDQMRexopW0ST7Uphg4D?=
+ =?us-ascii?Q?3nPkXEU+b9Mc/obKM5bTAhDmow=3D=3D?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3781.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2020 15:45:42.6430 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2020 15:47:10.8696 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: d283ef4f-286f-402a-6075-08d8a1107af4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6be21561-6e70-41b1-25f1-08d8a110af94
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nsXyC/k37whGPQagf7i2P9D4nKV0+wh6YOIYaY7JY3qEohHd2NC5kmJq4qgT79YCqeF6Wy83d6ZI9b8XilbtcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4181
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6wmR08GuAKa/CqnYceOVMFfWZ7+8Y7LjvH86aZV/fS3OxdBdtcrZH47OcMt8KQRKsxuezcleeBE+yJrwFttn7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4263
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,117 +121,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>, Chiawen Huang <chiawen.huang@amd.com>,
- Borislav Petkov <bp@alien8.de>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Chiawen Huang <chiawen.huang@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1408831528=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some old ASICs might not implement/require get_dig_frontend helper; in
-this scenario, we can have a NULL pointer exception when we try to call
-it inside vbios disable operation. For example, this situation might
-happen when using Polaris12 with an eDP panel. This commit avoids this
-situation by adding a specific get_dig_frontend implementation for DCEx.
+--===============1408831528==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r6crck3f3aqflpg5"
+Content-Disposition: inline
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Harry Wentland <Harry.Wentland@amd.com>
-Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Cc: Chiawen Huang <chiawen.huang@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../drm/amd/display/dc/dce/dce_link_encoder.c | 43 ++++++++++++++++++-
- .../drm/amd/display/dc/dce/dce_link_encoder.h |  2 +
- 2 files changed, 44 insertions(+), 1 deletion(-)
+--r6crck3f3aqflpg5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-index 4592ccdfa9b0..f355cd1e9090 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-@@ -120,6 +120,7 @@ static const struct link_encoder_funcs dce110_lnk_enc_funcs = {
- 	.is_dig_enabled = dce110_is_dig_enabled,
- 	.destroy = dce110_link_encoder_destroy,
- 	.get_max_link_cap = dce110_link_encoder_get_max_link_cap,
-+	.get_dig_frontend = dce110_get_dig_frontend,
- };
- 
- static enum bp_result link_transmitter_control(
-@@ -235,6 +236,45 @@ static void set_link_training_complete(
- 
- }
- 
-+unsigned int dce110_get_dig_frontend(struct link_encoder *enc)
-+{
-+	struct dce110_link_encoder *enc110 = TO_DCE110_LINK_ENC(enc);
-+	u32 value;
-+	enum engine_id result;
-+
-+	REG_GET(DIG_BE_CNTL, DIG_FE_SOURCE_SELECT, &value);
-+
-+	switch (value) {
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGA:
-+		result = ENGINE_ID_DIGA;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGB:
-+		result = ENGINE_ID_DIGB;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGC:
-+		result = ENGINE_ID_DIGC;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGD:
-+		result = ENGINE_ID_DIGD;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGE:
-+		result = ENGINE_ID_DIGE;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGF:
-+		result = ENGINE_ID_DIGF;
-+		break;
-+	case DCE110_DIG_FE_SOURCE_SELECT_DIGG:
-+		result = ENGINE_ID_DIGG;
-+		break;
-+	default:
-+		// invalid source select DIG
-+		ASSERT(false);
-+		result = ENGINE_ID_UNKNOWN;
-+	}
-+
-+	return result;
-+}
-+
- void dce110_link_encoder_set_dp_phy_pattern_training_pattern(
- 	struct link_encoder *enc,
- 	uint32_t index)
-@@ -1665,7 +1705,8 @@ static const struct link_encoder_funcs dce60_lnk_enc_funcs = {
- 	.disable_hpd = dce110_link_encoder_disable_hpd,
- 	.is_dig_enabled = dce110_is_dig_enabled,
- 	.destroy = dce110_link_encoder_destroy,
--	.get_max_link_cap = dce110_link_encoder_get_max_link_cap
-+	.get_max_link_cap = dce110_link_encoder_get_max_link_cap,
-+	.get_dig_frontend = dce110_get_dig_frontend
- };
- 
- void dce60_link_encoder_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.h
-index cb714a48b171..fc6ade824c23 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.h
-@@ -295,6 +295,8 @@ void dce110_link_encoder_connect_dig_be_to_fe(
- 	enum engine_id engine,
- 	bool connect);
- 
-+unsigned int dce110_get_dig_frontend(struct link_encoder *enc);
-+
- void dce110_link_encoder_set_dp_phy_pattern_training_pattern(
- 	struct link_encoder *enc,
- 	uint32_t index);
--- 
-2.29.2
+Hi Boris,
+
+Could you check if your branch has this commit:
+
+ drm/amd/display: Fix module load hangs when connected to an eDP
+
+If so, could you try this patch:
+
+ https://patchwork.freedesktop.org/series/84965/
+
+Thanks
+
+On 12/11, Borislav Petkov wrote:
+> Hi,
+>=20
+> patch in $Subject breaks booting on a laptop here, GPU details are
+> below. The machine stops booting right when it attempts to switch modes
+> during boot, to a higher mode than the default VGA one. Machine doesn't
+> ping and is otherwise unresponsive so that a hard reset is the only
+> thing that helps.
+>=20
+> Reverting that patch ontop of -rc7 fixes it and the machine boots just fi=
+ne.
+>=20
+> Thx.
+>=20
+> [    1.628086] ata1.00: supports DRM functions and may not be fully acces=
+sible
+> [    1.632050] ata1.00: supports DRM functions and may not be fully acces=
+sible
+> [    1.895818] [drm] amdgpu kernel modesetting enabled.
+> [    1.897628] [drm] initializing kernel modesetting (CARRIZO 0x1002:0x98=
+74 0x103C:0x807E 0xC4).
+> [    1.898256] [drm] register mmio base: 0xD0C00000
+> [    1.898422] [drm] register mmio size: 262144
+> [    1.898583] [drm] add ip block number 0 <vi_common>
+> [    1.898759] [drm] add ip block number 1 <gmc_v8_0>
+> [    1.898931] [drm] add ip block number 2 <cz_ih>
+> [    1.899082] [drm] add ip block number 3 <gfx_v8_0>
+> [    1.899241] [drm] add ip block number 4 <sdma_v3_0>
+> [    1.899439] [drm] add ip block number 5 <powerplay>
+> [    1.899573] [drm] add ip block number 6 <dm>
+> [    1.899693] [drm] add ip block number 7 <uvd_v6_0>
+> [    1.899827] [drm] add ip block number 8 <vce_v3_0>
+> [    1.911458] [drm] BIOS signature incorrect 5b 7
+> [    1.912551] [drm] UVD is enabled in physical mode
+> [    1.912707] [drm] VCE enabled in physical mode
+> [    1.912921] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, fr=
+agment size is 9-bit
+> [    1.913837] [drm] Detected VRAM RAM=3D512M, BAR=3D512M
+> [    1.913998] [drm] RAM width 128bits UNKNOWN
+> [    1.915149] [drm] amdgpu: 512M of VRAM memory ready
+> [    1.915306] [drm] amdgpu: 3072M of GTT memory ready.
+> [    1.915468] [drm] GART: num cpu pages 262144, num gpu pages 262144
+> [    1.916139] [drm] PCIE GART of 1024M enabled (table at 0x000000F400900=
+000).
+> [    1.918733] [drm] Found UVD firmware Version: 1.91 Family ID: 11
+> [    1.918950] [drm] UVD ENC is disabled
+> [    1.919680] [drm] Found VCE firmware Version: 52.4 Binary ID: 3
+> [    1.925963] [drm] DM_PPLIB: values for Engine clock
+> [    1.926106] [drm] DM_PPLIB:   300000
+> [    1.926205] [drm] DM_PPLIB:   360000
+> [    1.926304] [drm] DM_PPLIB:   423530
+> [    1.926404] [drm] DM_PPLIB:   514290
+> [    1.926516] [drm] DM_PPLIB:   626090
+> [    1.926629] [drm] DM_PPLIB:   720000
+> [    1.926743] [drm] DM_PPLIB: Validation clocks:
+> [    1.926952] [drm] DM_PPLIB:    engine_max_clock: 72000
+> [    1.927117] [drm] DM_PPLIB:    memory_max_clock: 80000
+> [    1.927281] [drm] DM_PPLIB:    level           : 8
+> [    1.927435] [drm] DM_PPLIB: values for Display clock
+> [    1.927594] [drm] DM_PPLIB:   300000
+> [    1.927708] [drm] DM_PPLIB:   400000
+> [    1.927822] [drm] DM_PPLIB:   496560
+> [    1.927936] [drm] DM_PPLIB:   626090
+> [    1.928048] [drm] DM_PPLIB:   685720
+> [    1.928161] [drm] DM_PPLIB:   757900
+> [    1.928275] [drm] DM_PPLIB: Validation clocks:
+> [    1.928419] [drm] DM_PPLIB:    engine_max_clock: 72000
+> [    1.928584] [drm] DM_PPLIB:    memory_max_clock: 80000
+> [    1.928748] [drm] DM_PPLIB:    level           : 8
+> [    1.928901] [drm] DM_PPLIB: values for Memory clock
+> [    1.929058] [drm] DM_PPLIB:   333000
+> [    1.929172] [drm] DM_PPLIB:   800000
+> [    1.929403] [drm] DM_PPLIB: Validation clocks:
+> [    1.929549] [drm] DM_PPLIB:    engine_max_clock: 72000
+> [    1.929716] [drm] DM_PPLIB:    memory_max_clock: 80000
+> [    1.929919] [drm] DM_PPLIB:    level           : 8
+> [    1.930148] [drm] Display Core initialized with v3.2.104!
+> [    2.003938] [drm] UVD initialized successfully.
+> [    2.204023] [drm] VCE initialized successfully.
+> [    2.206228] [drm] fb mappable at 0xA0EE4000
+> [    2.206375] [drm] vram apper at 0xA0000000
+> [    2.206514] [drm] size 14745600
+> [    2.206654] [drm] fb depth is 24
+> [    2.206760] [drm]    pitch is 10240
+> [    2.207123] fbcon: amdgpudrmfb (fb0) is primary device
+> [    2.301263] amdgpu 0000:00:01.0: [drm] fb0: amdgpudrmfb frame buffer d=
+evice
+> [    2.320735] [drm] Initialized amdgpu 3.40.0 20150101 for 0000:00:01.0 =
+on minor 0
+>=20
+>=20
+> --=20
+> Regards/Gruss,
+>     Boris.
+>=20
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpeopl=
+e.kernel.org%2Ftglx%2Fnotes-about-netiquette&amp;data=3D04%7C01%7CRodrigo.S=
+iqueira%40amd.com%7C9c55e386aad44fc9531608d89ded4100%7C3dd8961fe4884e608e11=
+a82d994e183d%7C0%7C0%7C637432989642100749%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiM=
+C4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
+=3DWVk3xRmBn3A75KLQKaBG7FzktecRG6GS7rXJE7bEPBg%3D&amp;reserved=3D0
+
+--=20
+Rodrigo Siqueira
+https://siqueira.tech
+
+--r6crck3f3aqflpg5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl/Y2nIACgkQWJzP/com
+vP/qGxAAsv0BmC8nDcY2I75iwcCkgTSTjlnqlYjzn0XfkQnFHIyjO17yyw25EtHT
+/V2uxaZ57+OzjnghsNZ7+s6rz5YJtjxvsqzsdH6k1ljMt43UMtx/uEjK1YvcnccE
+fYuYNgnfrnhVHngGIm8VABDkrQLXzInyGIXx2ZCmJcJR0gttee4ss7aDFKBOeCB/
+K4Lp7Cy+xEuHge5AIPKBQSXB+wYQq/3oXnc2U1otvakhV69fkPdUUrSzoEcGoZjx
+Wxm8FrY73AcEoAD0+Ulvp1vHvC7K3jvCA46q9n6yALzZWtL2N6WukFMLLsuv1Yib
+fawh5I38LNlVqJpP6yeEywCYtxcgKnn1KCZgp7kP1RazALD5iLI4E8OkEpSbUh+7
+PIy7+/y6DWwENaNlBE+A1d2daFPXdT+rDgQTGhaHuIt6B18mH4GLM5opQGstrukb
+klG97nnBwKBOLUUKfm+paNwAP1f8mSFXQvICy8p/KT71nY+rmKU5nBd0VHgC2IZ6
+pVGJ+/MidoYpFepMOyO6Bs4puisl45vSBqvmDZ7kfCd/+tsHUjLwDQQPn5DQksam
+C31PVTiCd8rjLWUMwPmEPelZkwzbJosHrIyW/W1J+F4O/Vxyhb/Gs+1aOoQyQoQ2
+K+3P3XrdFPkwvXDtkX2vKJsLRe3XdjawTnsCzYVlFPRI7UDJSRY=
+=qkH6
+-----END PGP SIGNATURE-----
+
+--r6crck3f3aqflpg5--
+
+--===============1408831528==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1408831528==--
