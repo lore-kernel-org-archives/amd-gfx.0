@@ -2,130 +2,131 @@ Return-Path: <SRS0=Z3Jh=FT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 358C8C4361B
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 04:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53F51C4361B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 06:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBAF52246B
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 04:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBAF52246B
+	by mail.kernel.org (Postfix) with ESMTPS id EB41122285
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 06:52:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB41122285
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A6DC89533;
-	Tue, 15 Dec 2020 04:09:54 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700081.outbound.protection.outlook.com [40.107.70.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD59889533
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 04:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD176E0D8;
+	Tue, 15 Dec 2020 06:52:48 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B08EB6E0D8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 06:52:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lR0WKYfnyChsth21q9Ugh+2E1RGa6xp7QIiiHgGqJvJYZehUJ4OpmZX0OIX6dwRTZLuFJJviuBmrrbL/HK/7LMbR2vl+K7Cvn+WYrj2rMAdPBFSlPRv7icwWKGeX4+VVObBLyB0oPRZ2ml90OxnwKJaFun2kQWd4DNytseucoD8hGhWK3kPnMgjcoAS/k3cgFwCVZ5si8oJ8WZyjuuVzs1Qz4K0ipPvVdlTk+VQe4bdx90P3c61ksbIzqLkhvs3ZGnls1/dSxWYXr9TXpLaGj0ahrwq49NGTGSlPZol+OgWeVxP+yqj6GS7YWUCleylK67VOq8EoCJ7agzv4BRcHDg==
+ b=cDCb52aepPcai8F8wJX1vKH+1vrI2ZiuFI4rFtdFWPeXNuUkAeIRhnCho6WxR9FZZfpZwhJdFlJSvVL3m1uZD/vwcBdZ7MFGU2a9QV9lI8l75HHoX4IPh84+cC7fYC0zaBNmZLeZ30ig+e5uygj3aqsfh/nRwYgcOVLjCo0xySLV8VpdWdXRcntcsU3vUXJ4Fjbi3rHWgc9gjW/aZxQAwo5hn7yumPK1U88vfKZ5mIsw2URz1MrYgH36c+1u2FzsX4SNLAhy+YmHnL4y09ZQpNHpHfbKGbJ3ln1kwC/NZScHknON6HsfSMYlNJ/0BdMLgoWNQujtMzL766VcNm3UTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZylwAFjBoqunqvsRY1tdaDk23lFO/tUunVV486Eacro=;
- b=U3v5cPm09VnfNopIx+NN4XN2lpxeCxjEBu9JA+v4s8GUQnGLHHqn001LcngHo8jqKwiZeR/s/4WNplO6drazaWkwhhzIn10qcS9cy5N0IovmWa2mtw2S90BHjHj5dUf8pGW5gMl6Esl8gJjWFkNpbNvNBY+199lj+53tWM2YbJkZOLQGeiWCjHaDgN/ux7PCVOFQjJLdLTJy36ajIJOyCx6F3RnXtdvzR11r96hHpv2fGu6RFtXCNlChtxhFOmNNWmJYYAjFhtL8oG4HdrTVgB5zkgnqaj1zAez4tjM/J1E4xupOGCuyPejZV9qGUF9apkfBM6hiGDOYpC971dDBYw==
+ bh=Wv+kL5x0LWpddiuNV7VmaJuSQj2xCIjhcgiAtqkZCiA=;
+ b=gfYT5L7JbBc6FwNFVKJbc6SwKu9trY+cnwdplF/hk9StyNZbmVno1aavliYWYx3pr0+kQJA3gOKPhlchmbB1pGTizKaOIXATrLfbSdN/hLuyZOnM6l6C97a4xaaovmOw5fUOtOc268At1S5D0Df7Xw0isXSM0Tj6JJC9IrlYqk768FagpCGTt3vTpP75JliQfqOPQbqolWXI3zx2G1q1ZrZXfwrMScILUUeypSmp1TyKqITJwjSiAv5kVEbf494dhhTv6iXNWC2gThBFxua5IdMQgSJhxlsI3d1jYAX4JoYs1sVLwzFgXfNBSiVyFNmexQ6WrCmTRR9AWi3271QLvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZylwAFjBoqunqvsRY1tdaDk23lFO/tUunVV486Eacro=;
- b=LWJoZjY8xX2pT78AQeRcOtn4GqxXXQ3qNTJs1PjOjEgDfpFwfaaIMmItsxBMuH4hHm852ttcU4zfyVV6ELxxVWXKV6IBS+ClfuU4gmc+PSn8PaaNBWDEdYFicUHBNt2YUqKIodPdbHqsH7prMzg10WEGl+jx3dEomg2nrZ7K78M=
-Received: from DM5PR12MB4679.namprd12.prod.outlook.com (2603:10b6:4:a2::37) by
- DM5PR12MB1836.namprd12.prod.outlook.com (2603:10b6:3:114::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12; Tue, 15 Dec 2020 04:09:51 +0000
-Received: from DM5PR12MB4679.namprd12.prod.outlook.com
- ([fe80::5893:e219:4408:ec72]) by DM5PR12MB4679.namprd12.prod.outlook.com
- ([fe80::5893:e219:4408:ec72%3]) with mapi id 15.20.3654.018; Tue, 15 Dec 2020
- 04:09:50 +0000
-From: "Cornij, Nikola" <Nikola.Cornij@amd.com>
-To: Simon Ser <contact@emersion.fr>
-Subject: Overlay issues
-Thread-Topic: Overlay issues
-Thread-Index: AdbSl9sxMkfhaFWoRjW4p/7OX2aWMg==
-Date: Tue, 15 Dec 2020 04:09:50 +0000
-Message-ID: <DM5PR12MB4679C807DB8DB502AC4793DCEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
+ bh=Wv+kL5x0LWpddiuNV7VmaJuSQj2xCIjhcgiAtqkZCiA=;
+ b=awSl3w3g63nYjkpn3VnvpOY5vQazi9AECFlYxBobFh88ytLn6gAJE7hiTLcjzrmeycI4/TT7xHa6iphNaKrpqhI1MHMzNSjewwjWTcu//XcT6LvF/CAM3rKKg21O/l3oM11rD4PVhveCuWpg0lKFOKSxUJf3H7iT66oFUbQIlEc=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR1201MB0037.namprd12.prod.outlook.com (2603:10b6:910:1c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.17; Tue, 15 Dec
+ 2020 06:52:44 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::bc0f:dd2:ef80:de2]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::bc0f:dd2:ef80:de2%12]) with mapi id 15.20.3654.025; Tue, 15 Dec 2020
+ 06:52:44 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: fix regression in vbios reservation handling
+ on headless
+Thread-Topic: [PATCH] drm/amdgpu: fix regression in vbios reservation handling
+ on headless
+Thread-Index: AQHW0jK2bM3uWivptE+5lwcfGieyh6n3uS0A
+Date: Tue, 15 Dec 2020 06:52:44 +0000
+Message-ID: <CY4PR12MB1287AAC9F459FB3DA433EAEFF1C60@CY4PR12MB1287.namprd12.prod.outlook.com>
+References: <20201214160335.771801-1-alexander.deucher@amd.com>
+In-Reply-To: <20201214160335.771801-1-alexander.deucher@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-08T21:11:26Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-15T06:52:02Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=6ce2bdf9-7c0e-4ecf-8912-00008769d35e;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=f5c6a869-7e6c-4a06-9a50-000003eafcb6;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-15T04:09:49Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-15T06:52:42Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: bce8b94b-7e56-4b3b-a721-00005330ce69
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 338e272c-9b38-4804-8da7-000069f75fa2
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 dlp-product: dlpe-windows
 dlp-version: 11.5.0.60
 dlp-reaction: no-action
-authentication-results: emersion.fr; dkim=none (message not signed)
- header.d=none;emersion.fr; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.55.250]
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e81e3412-0958-4fe5-787a-08d8a0af44e8
-x-ms-traffictypediagnostic: DM5PR12MB1836:
+x-ms-office365-filtering-correlation-id: 1379e930-b843-4def-2032-08d8a0c60683
+x-ms-traffictypediagnostic: CY4PR1201MB0037:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB183686BABF00E6C52CE8C4C8EEC60@DM5PR12MB1836.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:513;
+x-microsoft-antispam-prvs: <CY4PR1201MB0037A0B84D9121A602CE2B7CF1C60@CY4PR1201MB0037.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:224;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fT1PnZkqvE/Y5pYLK1mlScpfOacusT2FTnkZZC1NwPwwYh2VibvpaRnFTHKwWiXroy4atwB9MxYvY4/dZ6cXx8a9lA6yYDT9EGRzxVV5i9Lfay4d7rCbXmASSXZeHHZxh0LAJ8ditueo1XHRjZMOBITz7IqQ+DBbewROp7lmkpz3gF+n9uVulMVTJ81nn4VIey+xtT9rL8Ohoz73ogljLbJ50nqFp4FRQqSTjZc4jLMImybbz4fjCAyKW6wYDYUGvj9rzllvQLc6XshwcWIXXJSHN6vIVhc8S9POhOJAXmLclO6QC24wbQZUyRatB99Epr0axXS05k3z2DZnnOTasqTiUb6FywM+tNfa8+qr0rp04lhO9MgIfvPa90nVw4hDsXPksc6Fu6sqVqnd8TkmIw==
+x-microsoft-antispam-message-info: sYc72OZu+i8IxzhtUQG4km9FcwLo0DyQhlLE1bJoXxUwb0IKVRIH9XMAQ99Gvk/O0+hI8SGIdIfDuujxAQF1Ztr693pCyb1zxXi6T5wwXiHygw/XiXvmxLMLQRJU70fV7scYA4p7k4p4WcDC/K2ngEVHxEbRz7O7j7ruU5t2pjsOiT3csnTV5n1F1vlL8iDJ2B8IVLh9dnu5opjQF3mHdt9Z14CoDiGWVTegK1ayKGlaJaa+VAj3ShRJRswUDxrOGdA6KUew8aTsw2Qh1OlZ3+yXkY/bdx8rVYNUZK5ULH8vZIjP8f2gWFKOokfKg9eRpbXkoeeadzxl4F6ZQbc4fstmydjeY5cbyRRIn4IVvgQ=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB4679.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(136003)(376002)(76116006)(6506007)(2906002)(6916009)(186003)(7696005)(7116003)(66446008)(66556008)(53546011)(71200400001)(45080400002)(508600001)(83380400001)(966005)(26005)(86362001)(66476007)(9686003)(5660300002)(64756008)(66946007)(33656002)(55016002)(8936002)(4326008)(52536014)(8676002)(3480700007)(54906003);
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(376002)(136003)(86362001)(66476007)(66946007)(66556008)(8936002)(76116006)(186003)(55016002)(64756008)(8676002)(966005)(26005)(5660300002)(53546011)(508600001)(6506007)(9686003)(66446008)(4326008)(33656002)(45080400002)(71200400001)(110136005)(52536014)(83380400001)(2906002)(7696005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?Q1p1YWl1cC90UXBkSCs3ekN2VEFkSXRnWVRsdGhOZ3IxQ2NSRXFxa2NrZHc3?=
- =?utf-8?B?TGlQUUhtTjFrd2dKQ0hDSzBkTWcxUFBZUzk1dENBZWVkVmE5VmZlRDVlbmZQ?=
- =?utf-8?B?c1p3THpDelJrOUluOHZTU2k2Zk03R1gvSExCYkUxOER1SFdldE1JM2ZFTjQr?=
- =?utf-8?B?VmN5Rlg5YzFKenA5eGpzTnBvYnI0SUlPa2ROMDlIMGZna1RsK3F4bGd3UVdw?=
- =?utf-8?B?NWlnK3BGSWkrS1JoTnRvemdKN0RIbW5hMkgvejJxN0pNblo5L2tJNjdwcGFv?=
- =?utf-8?B?cGJqQzh1WGdaZUd0MHpkQnU5VkJCLzd2T2x4WWthWllHMWtpdHJWL24zeUZj?=
- =?utf-8?B?dm0vNC8rT2t5TXl0MGp0SWZXazArM3NjaGVCcm1KVmxiK0g2eTliQ3AxM1dl?=
- =?utf-8?B?cVU3ZzdzdGl4OGRPU3FDbXpLQmVzRWJtSzB0VjBUbXQva2VZSFg1dE54aENu?=
- =?utf-8?B?RmF6b0VxeUJjUW9iNnE1WnRYL3hxUmF1emsyZE5takVsOTJMbHhCanJsOTVv?=
- =?utf-8?B?aUx5cFFESFRkdGY0blVWS0w4VkZETVlwRVpLTFFWejV0ek96UDlZNWxaM1Ux?=
- =?utf-8?B?N1RHMitPSmZ4aE9mOHU3Y1RqQTU4dnNNUGp2Zlh5VFcxNjdmQW1RaTh6dkp0?=
- =?utf-8?B?M0prckpTVTlZK291ZFNJSlFaYUdsajNiVXlHblQwZkJvQUY2Nzh3emxhWWRQ?=
- =?utf-8?B?U1gyakpLVXlWaldEd3NXdmJvOXhnbW1PZ1l6QitNVlNvWmc5QzRXc0M1cWx3?=
- =?utf-8?B?WTdJWWlSL1lGSW9RNTN1cHc1a21LaWJpbnpJd2NFVThjRllJZm8zbUo0NFdr?=
- =?utf-8?B?enNzbTF4eWYxOXA4VWZ4K01mcWtxdkc5ditTMjdlRzVESm1YUlBqN2pEcTNU?=
- =?utf-8?B?dDhzV0RQdDg3MDFKTnpSTGd4R21SbmkweEVaYmFyVTBzdWs0NVRoNWlIL1VO?=
- =?utf-8?B?bkNNM3VINmpxdFVCUGxIUWQzWXZuQ0R3UlVHVHQxeS9idFlBeGVjSm9MWnUr?=
- =?utf-8?B?RXg4SVdHV2ZhWkxpY3JhbExObC91TGtPbUtobERrUFhLMmI5bXlMUDlIRWV0?=
- =?utf-8?B?RG5xWlFvbE5DNnF5bmlieDJacE1pdjAzdE5sSjdHYjQyTDhHeDIzNUEzUlRt?=
- =?utf-8?B?dk9BeitTdjIzSkhoV2oxcTlMWktYNU92V2xVT0RDWlpGemY4WWtFWG50V1VK?=
- =?utf-8?B?WFlMcEVaZGRQSzE1WW1zdk1iUGwwZnFNaUIvR2EyWVR6b1FoMnJwdkZ4bHI4?=
- =?utf-8?B?aDZkYkZtQ01vTXBodTF5UnU5c2RReGduY3YrVERUVUl6SzdFZFc4VUxVbVVa?=
- =?utf-8?Q?VF9XyW52jrQ1c=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?jh7bylQWt6SXXBKiNvQjqUlWuNhSQ35fOVpB6re998UOPSn+7WSDOcOpGYiR?=
+ =?us-ascii?Q?nst41m62ex+HHomt+6cJH3/xPRSYxf0NawC+mxmx5P7g4gdwwHKRaMLcHa/4?=
+ =?us-ascii?Q?5OEfRk88WHKZfzbXo1zkqbyhc7e+sYRMI0R5j6Kqg1GhDg6J4fhBgt+bx3/Y?=
+ =?us-ascii?Q?CZSr16WNqZ6t3ll0WzqeLNkX01KuMlJaq83BzgOI40L+R1j6BKwgQHfMsLEx?=
+ =?us-ascii?Q?UvR25/envaSYvkIeO9hksg43QhJFh0QxxdZS9EQ2D333axyFsFLMXdi6Ckdf?=
+ =?us-ascii?Q?I9Ix6Rv5uctFLwYtuVq+/yLayyUqCr1zbpwAKxML+xcegwPoMHTl5xst7Dwi?=
+ =?us-ascii?Q?dGXCaJl5h0yFlBzzYTzaNbRE0Xm7G1C2UMIVdXvM7oj1PdwhN0feYFYHkT/I?=
+ =?us-ascii?Q?yFpeB/hRuPGm/61o3OnA3i6zR+osRjkIGHdsgFUKVcmhLOPNHvyhxtZ2FyZM?=
+ =?us-ascii?Q?oBlakhdV3WZPq352dSxUEnXT2+ab+eJMgHSOs13wFQLOYnJnQnV3GBLOcVaD?=
+ =?us-ascii?Q?Jr+rojJil4QzievMzt2z5d8sQYJtaRY50jdmVLAopGwQcuczshcC1HSKw4R0?=
+ =?us-ascii?Q?hA4wv6IAb+uM1PH72Bv4FEgv13fBd/O0xPFp/sc8iHJPKa0ynlXT/BPCF01T?=
+ =?us-ascii?Q?IpkVJFuVRZHH8/aQX07WtjdagmyjV3olz77HIm5pz/L9KBMp3zmj+qUxrVPS?=
+ =?us-ascii?Q?Ob5DL415KOV4u0NqymSG24i4vL636XWw7c/yh9rpuLztqIMQN/HHYz6JhDje?=
+ =?us-ascii?Q?sy7S8IWwHSWfV1DGCy6Gq19FURIlal42bUr/vCZ/Jr4TleAUoGdHokAhqF3I?=
+ =?us-ascii?Q?YYEXy4Z6S9wKslYvYTlV0uL8S2/fCnOzfb+Z/A4O7ZR66EVqgCzAvcFxNE5e?=
+ =?us-ascii?Q?KpXPwWlV9XxuwqhUhFjv4Xp7CZVPObvsKe8T5mDOZFFxtGLqM2jHDNPCslBQ?=
+ =?us-ascii?Q?ZkcOJ1X6HUTukg9F+juCD/KyhN/geg6sTx97Yl6CN3db/EHbV0W6ljnARawH?=
+ =?us-ascii?Q?V9li?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4679.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e81e3412-0958-4fe5-787a-08d8a0af44e8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2020 04:09:50.7322 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1379e930-b843-4def-2032-08d8a0c60683
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2020 06:52:44.5321 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uo2FC2NZPOxS3zZM0NZ7al5yfgAislmxhS2pa8/FTUEfjosslGneQWs3jQl5D6HRE3B5w0gCBxzQkEP/4OguNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1836
+X-MS-Exchange-CrossTenant-userprincipalname: HH1YKQ/vS/doSU9tMoxDrz2WrAoBQO5BtI8TDPOM+itBuFeHz68MRh+cS+T2GBYhfMmk70/SfQQkorUC/v2RYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0037
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,11 +138,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -149,60 +146,56 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Public Use]
 
-Hi Simon,
-
-Just to keep you updated, I've reproduced issue '[1] - Overlay plane: position not updated when CRTC_X is negative' on Ubuntu using IGT. Seems to happen only with smaller FBs (so far tried 24x24 and I can repro, but 300x300 is OK).
-
-I'll look into fixing this.
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
 Regards,
-
-Nikola
-
+Guchun
 
 -----Original Message-----
-From: Cornij, Nikola 
-Sent: Tuesday, December 8, 2020 4:11 PM
-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexdeucher@gmail.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amd/display: add cursor pitch check
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Tuesday, December 15, 2020 12:04 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix regression in vbios reservation handling on headless
 
-[AMD Public Use]
+We need to move the check under the non-headless case, otherwise we always reserve the VGA save size.
 
-Very good, thanks!
+Fixes: 157fe68d74c2ad ("drm/amdgpu: fix size calculation with stolen vga memory")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-I'll take a look at the overlay ones, then.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 02af47ddddbc..c2ced5be6d7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -496,13 +496,14 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
+-	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE))
++	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE)) {
+ 		size = 0;
+-	else
++	} else {
+ 		size = amdgpu_gmc_get_vbios_fb_size(adev);
+ 
+-	if (adev->mman.keep_stolen_vga_memory)
+-		size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
++		if (adev->mman.keep_stolen_vga_memory)
++			size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
++	}
+ 
+ 	/* set to 0 if the pre-OS buffer uses up most of vram */
+ 	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
+--
+2.25.4
 
------Original Message-----
-From: Simon Ser <contact@emersion.fr>
-Sent: Tuesday, December 8, 2020 7:00 AM
-To: Cornij, Nikola <Nikola.Cornij@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amd/display: add cursor pitch check
-
-Hi Nikola,
-
-On Tuesday, December 8th, 2020 at 2:36 AM, Cornij, Nikola <Nikola.Cornij@amd.com> wrote:
-
-> [AMD Public Use]
->
-> Hi Simon,
->
-> It looks to me I'm kinda late to the party to look at your questions 
-> under https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Farchives%2Famd-gfx%2F2020-November%2F056032.html&amp;data=04%7C01%7CNikola.Cornij%40amd.com%7C6a860bd758d044c4a3bf08d89b70d628%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637430256236209108%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=T5ijUId6nrrKK3R7c62wVllZ1rEhKdmi95Foijvjf5M%3D&amp;reserved=0...
->
-> Does the commit below and
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> s.freedesktop.org%2Farchives%2Famd-gfx%2F2020-December%2F057048.html&amp;data=04%7C01%7CNikola.Cornij%40amd.com%7C6a860bd758d044c4a3bf08d89b70d628%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637430256236209108%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=6GKjptsf0S%2FWzg9CwSnp89EkaQoMxgyq9JvVcVhJIyU%3D&amp;reserved=0 mean the above issue is now on its way to resolution?
-
-Yes, I've figured everything out about the cursor, thanks!
-
-If you have time, another thing I need feedback about is overlay planes. I have some bug reports [1] [2] about corruption when using a small 24x24 buffer near the edges of the screen. However everything works fine with a bigger 256x256 buffer. Is there a minimum buffer size for the overlay plane?
-
-Simon
-
-[1]: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1385&amp;data=04%7C01%7CNikola.Cornij%40amd.com%7C6a860bd758d044c4a3bf08d89b70d628%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637430256236209108%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=rXhMSAySLeVbVP7Pw6vw2B0%2BnrNcKqsveeFKRYMWNhE%3D&amp;reserved=0
-[2]: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1386&amp;data=04%7C01%7CNikola.Cornij%40amd.com%7C6a860bd758d044c4a3bf08d89b70d628%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637430256236209108%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=gD%2FTWuBAVM8AuEfbY7c6tp%2Byns6I6hd9SihTKrO4so0%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7C6e2ac830fdaa4d6cb9a008d8a049d71e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637435586296954490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=1hJTxX95ydbW92ukjgJHvc9L3kC2%2FWCDJKBpAVnbpuc%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
