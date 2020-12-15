@@ -1,48 +1,59 @@
-Return-Path: <SRS0=8Fgq=FS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Z3Jh=FT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D882C4361B
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 23:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B31EC4361B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18C6F2074B
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Dec 2020 23:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18C6F2074B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id D08AF2074B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Dec 2020 01:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D08AF2074B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE7D689EB4;
-	Mon, 14 Dec 2020 23:50:31 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D95B89EB4;
- Mon, 14 Dec 2020 23:50:30 +0000 (UTC)
-Date: Mon, 14 Dec 2020 23:50:24 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607989830;
- bh=SJV+58ZVFlykR+8LRz85SA+mdMX5Zhf60lyRr0nr08Q=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=noYICguQ2NPaSUjL8UbaTSj/fY6r5/rKVdP3h/Al4d6IRimcNzEwCphdZ7W0hnMVJ
- JbYUASrm8lG1k2c0p4w3Euoye4WedxrhjF6Mo7oS36wKTu49cqe50Eju+YVToOJsPD
- 8JPpfKkmvyYeWnrhvNegQ4GBFpPdivp24+r9MhUiY2ogVuA30uL47yVMYeDwvqqgTd
- szMVAuBqHFKc7f0ng+7AAVaSfC7qD4l1oA7Ewf/bdXDVapj9BzmlxjWZy1jctH0425
- Ro/lNuCmbpco19I2MJbL4M2QigLTTX6sngbKyaLBLHe/HtxPlLfvwLl5UVJBa6SYoi
- duhngK04mmI2Q==
-From: Will Deacon <will@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Subject: Re: [PATCH] drm/amd/display: Revert "add DCN support for aarch64"
-Message-ID: <20201214235024.GB14575@willie-the-truck>
-References: <20201214175225.38975-1-ardb@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89A266E0C6;
+	Tue, 15 Dec 2020 01:09:06 +0000 (UTC)
+Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
+ [IPv6:2001:8b0:897:1651::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 919D46E0C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Dec 2020 01:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=moreofthesa.me.uk; s=201708; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LYAKmIxtrK+kH2QeM0Im/tjE/RBuc9fpbJsNF/EBqr8=; b=eQLXM4A1Lw8phM9z0LtrEXqS27
+ 3zZt+wgjEzAjaOUkTd3LxAif9pO9SDGAUft9tRFDySNr/Nu4G8PUR12FRvEh4StPSDZmxV9ayBz3X
+ InAqAncOu6H1lfL+XtY8ZfCmL3YcpUCCiB+W09MKnm3XhAaOuQzEsQBwkQqM1slZZ0UT1l6NcPIuQ
+ 2rFI294FtPFYDGwRPHkBsLPopdQ1zaG9ZPYi7HBUG8/PDHy5X5EzfEFqglM3VW8mo9EiSEpS7XCGu
+ iNtKQm8vlKq8gDYXYrzuxFrcAjKxwjXzhFBm5IHfUNN2ADvRuDZQMVkykjy4plEKJokaSbGTVOA2p
+ hFC/q0MQ==;
+Received: from [2001:8b0:897:1650::2] (helo=flibble.moreofthesa.me.uk)
+ by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
+ (envelope-from <devspam@moreofthesa.me.uk>)
+ id 1koypr-000334-95; Tue, 15 Dec 2020 01:09:03 +0000
+From: Darren Salt <devspam@moreofthesa.me.uk>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/8] pci: add BAR bytes->size helper & expose size->bytes
+ helper
+Date: Tue, 15 Dec 2020 01:08:56 +0000
+Message-Id: <20201215010902.18945-3-devspam@moreofthesa.me.uk>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201215010902.18945-1-devspam@moreofthesa.me.uk>
+References: <20201215010902.18945-1-devspam@moreofthesa.me.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201214175225.38975-1-ardb@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
+X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
+X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
+ SAEximRunCond expanded to false
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,74 +65,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Catalin Marinas <catalin.marinas@arm.com>, amd-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Daniel Kolesa <daniel@octaforge.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Martin <dave.martin@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Darren Salt <devspam@moreofthesa.me.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 14, 2020 at 06:52:25PM +0100, Ard Biesheuvel wrote:
-> This reverts commit c38d444e44badc557cf29fdfdfb823604890ccfa.
-> =
+This is to assist driver modules which do BAR resizing.
 
-> Simply disabling -mgeneral-regs-only left and right is risky, given that
-> the standard AArch64 ABI permits the use of FP/SIMD registers anywhere,
-> and GCC is known to use SIMD registers for spilling, and may invent
-> other uses of the FP/SIMD register file that have nothing to do with the
-> floating point code in question. Note that putting kernel_neon_begin()
-> and kernel_neon_end() around the code that does use FP is not sufficient
-> here, the problem is in all the other code that may be emitted with
-> references to SIMD registers in it.
-> =
+Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
+---
+ drivers/pci/pci.h   | 4 ----
+ include/linux/pci.h | 9 +++++++++
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-> So the only way to do this properly is to put all floating point code in
-> a separate compilation unit, and only compile that unit with
-> -mgeneral-regs-only. But perhaps the use of floating point here is
-> something that should be reconsidered entirely.
-> =
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index 640ae7d74fc3..0fa31ff3d4e4 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -610,10 +610,6 @@ int acpi_get_rc_resources(struct device *dev, const char *hid, u16 segment,
+ 
+ int pci_rebar_get_current_size(struct pci_dev *pdev, int bar);
+ int pci_rebar_set_size(struct pci_dev *pdev, int bar, int size);
+-static inline u64 pci_rebar_size_to_bytes(int size)
+-{
+-	return 1ULL << (size + 20);
+-}
+ 
+ struct device_node;
+ 
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 9999040cfad9..41e93ea9756b 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1226,6 +1226,15 @@ void pci_update_resource(struct pci_dev *dev, int resno);
+ int __must_check pci_assign_resource(struct pci_dev *dev, int i);
+ int __must_check pci_reassign_resource(struct pci_dev *dev, int i, resource_size_t add_size, resource_size_t align);
+ void pci_release_resource(struct pci_dev *dev, int resno);
++static __always_inline int pci_rebar_bytes_to_size(u64 bytes)
++{
++	bytes = roundup_pow_of_two(bytes);
++	return order_base_2(((bytes >> 20) | 1)) - 1;
++}
++static __always_inline u64 pci_rebar_size_to_bytes(int size)
++{
++	return 1ULL << (size + 20);
++}
+ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
+ int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
+ int pci_select_bars(struct pci_dev *dev, unsigned long flags);
+-- 
+2.20.1
 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Dave Martin <dave.martin@arm.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian K=F6nig" <christian.koenig@amd.com>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Daniel Kolesa <daniel@octaforge.org>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
->  drivers/gpu/drm/amd/display/Kconfig                   |  2 +-
->  drivers/gpu/drm/amd/display/dc/calcs/Makefile         |  7 --
->  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile       |  7 --
->  drivers/gpu/drm/amd/display/dc/dcn10/Makefile         |  7 --
->  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 81 ++++++++-----=
--------
->  drivers/gpu/drm/amd/display/dc/dcn20/Makefile         |  4 -
->  drivers/gpu/drm/amd/display/dc/dcn21/Makefile         |  4 -
->  drivers/gpu/drm/amd/display/dc/dml/Makefile           | 13 ----
->  drivers/gpu/drm/amd/display/dc/dsc/Makefile           |  5 --
->  drivers/gpu/drm/amd/display/dc/os_types.h             |  4 -
->  10 files changed, 32 insertions(+), 102 deletions(-)
-
-I didn't notice we'd enabled this for arm64, but I agree with the reasoning
-in the commit message, so:
-
-Acked-by: Will Deacon <will@kernel.org>
-
-The long and short of it is that it is not safe to compile kernel C code
-without -mgeneral-regs-only on arm64.
-
-Will
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
