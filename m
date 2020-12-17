@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53525C4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 04:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BEBCC4361B
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 04:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA5522376F
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 04:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA5522376F
+	by mail.kernel.org (Postfix) with ESMTPS id C6A912376F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 04:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6A912376F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 524D189D58;
-	Thu, 17 Dec 2020 04:15:31 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A2C89D58
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 04:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB7F89D99;
+	Thu, 17 Dec 2020 04:15:34 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700078.outbound.protection.outlook.com [40.107.70.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC5389D6C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 04:15:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nUr7GEzIMV4p/8vvRsvJ/HzQpfIHVbBKU8hMq4luutEsV//v0C2JrjNyS+J1GLSG0wRBLn9+ZGGalHHmUQyzprxaIzvSd/9B1YJ+DAOe7kWA3Mrbyqyg9LyRhaSqCb0iL9hlHOS7gUE9C/sQnTmrOsrmqaGJXp2tg5SdurwEAAoLYNwz3qzzbfSWlIuaz+P2aARmHFuJmXJ0sVPERz/h91cnS/sTLnK4I5qkhKaAj2XNZy+wFacOg5l6lOgUKkqejl7Zyd5FuyttGGoPfi9InL2TK2/9/MBv/M1AawLVAJawKU0KCEtG7Gmq0mCTbhwH2hdRBU6ZH3j4IN9HlH0cow==
+ b=Aqo6IwUmn1oWSM8lm1iCRADFVIkdtModqLFfkXcRfFdWYsZEXVjrlDHHDZS4KB9ATJhU0SrlvgvYFboHygeyxDBmmM5DVkZR3NUsYGgbSFvjzPOLoYYMYpY4pZZCPlFGI0/QoFnutXOZIfZdb/r0mPgem1U3QavvOttKZSKlmAgmJHTry2IAHTeNgz3NjbAVcnHW9Y9ewu/dVuMXv35+P9EMdBBiJMHr9BcHJAfNESatAi1UhQ1u+CN6UrwV/ukXgQ0NzuaP+oDhP0aDtjZhdevbHFHB4W4nuadsHLOIs97USGeo5NbMDgrZxy8NCF8BelWVg+CnbvXGYlrzb6oGnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gMLER0ulCRkryMrz98vtEkH6eFzIOldjUIQ5KtabaKo=;
- b=fSWNmSXrXiGSUu4B0Ycaher9Acm1F4qsZ6rLS26RQQXfzWrmDYeJxeBRsHhk/+UfZI3Xru7mGPlTtWb5duq61ETcbHiefXd4AwccS88v3oQo4RtEtwM7Zt4hhprlwhZCW7wYu9s4vJQug/ztg9xhCzvrY1rDs49AbxFC89zRqhfghN41C48QG47pDTvCiQvt0os6TCYmSUHr7zaPaQ2/J7oKbm5TJOZKpzRrRLv9xM7Z7UYZuU6JgMlMob1SJlkuSwdnIdTlakKmELqAuyY8hGY1a+lr6o5CLNnxg065zmPefFm/8xXO5u/Tju/970ZpvC4XaRc7TqobmDF6Mpq3tQ==
+ bh=UzAuMSsLBfZVFu2KbYg9qKvVfMHmV9Aqf/m+mEIPl4E=;
+ b=J7omc8hOq1h4lgmsaTHPSTFL3isau592l5MR2VjtPDLGe4WY+gfJLeYlYyi2D6MLXcHNrNttgeql7uxy3ADZVFTA+Oc5OPWvYuLLgWUiF6f/OcvPnZdF7dlA7woj6ROtvCEwJzS8p8C0+jclEY60VqTElyy4OTpvEI8harv3Gxb+A+r1t2ndRzBOBnRMDc+aRp33FCfJ/7JU/q4TmgrVdyPWLX2g3zitJPdGs9JAHuIODBOj8HwzxPr7lN7rQdxPQR/mszWTzgeoYZ6dXi1BDAN00UpKod+4OGxRZWnO0DZwcaOrPTsuF2ZVq2U7lBvIU1JwLhodI35eNsZ8fa/d0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gMLER0ulCRkryMrz98vtEkH6eFzIOldjUIQ5KtabaKo=;
- b=NEp/WYon7d3YWT6q79CnF7uPVJ5/J0fPGX2MSJp8s1vMqWQkQNDD4XIgZmTOcJYb/Y8WCMxZdFGcmayv+B7xO3yB3hUtlwsAtNBSUVvqTjoFwOtYBPi4Sg5JuVp9eYgaYFuVm+CaZqjcutnRxMusGDJrKHjI+GkbbC94t5NGNlQ=
+ bh=UzAuMSsLBfZVFu2KbYg9qKvVfMHmV9Aqf/m+mEIPl4E=;
+ b=LF5bLGL5rHpTFr0fU3SlwH2SYVVPmPSMMbskTAHTW7mvBkJihui53zY6apnVsSD0TjZwDILGRUMwsSeoGGFouzTDZo5QtGWFo2CG8DLYXDyQDUufxVEpah6KJd6v6IHvwa15Qlm8XeZhlANZP125MDisggNHegge9vLoYgRyRng=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -46,16 +46,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB2359.namprd12.prod.outlook.com (2603:10b6:4:b4::12) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3676.25; Thu, 17 Dec 2020 04:15:28 +0000
+ 15.20.3676.25; Thu, 17 Dec 2020 04:15:31 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5a6:dfb2:fdfd:2d91]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5a6:dfb2:fdfd:2d91%6]) with mapi id 15.20.3654.026; Thu, 17 Dec 2020
- 04:15:28 +0000
+ 04:15:31 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amd/pm: enable Sienna Cichlid overdrive support
-Date: Thu, 17 Dec 2020 12:14:54 +0800
-Message-Id: <20201217041455.87870-2-evan.quan@amd.com>
+Subject: [PATCH 3/3] drm/amd/pm: support overdrive vddgfx offset setting(V2)
+Date: Thu, 17 Dec 2020 12:14:55 +0800
+Message-Id: <20201217041455.87870-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20201217041455.87870-1-evan.quan@amd.com>
 References: <20201217041455.87870-1-evan.quan@amd.com>
@@ -68,48 +68,48 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (180.167.199.189) by
  HKAPR03CA0009.apcprd03.prod.outlook.com (2603:1096:203:c8::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3676.9 via Frontend Transport; Thu, 17 Dec 2020 04:15:24 +0000
+ 15.20.3676.9 via Frontend Transport; Thu, 17 Dec 2020 04:15:30 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c1b0b1a6-ce5f-4881-0b1f-08d8a24262c4
+X-MS-Office365-Filtering-Correlation-Id: 3d8d8f6c-5b8a-4272-edf7-08d8a24264e4
 X-MS-TrafficTypeDiagnostic: DM5PR12MB2359:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB23590F5018F11955CE1BAAFCE4C40@DM5PR12MB2359.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB23590459C76BC17ECB04580AE4C40@DM5PR12MB2359.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:843;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vGCNGKPs+EanPatwbqHjH862OGGnpBB93kc/ye45t6Q+HYHdzufRjhiMNVH/lhYBhvbP1eq70w33/hh+9parj/fwMQzZ8uiC9MXgdjMVKFl+ewfGuuqRTHP3j88tMkrcG+AZR7G2daJxqbD2naCldALnGRyowFYH5NNmER1NtMqwreNfBteXvogCRfdyzGRmwjLKdfpFshKMpTakGAgMtrMr3FTATvP0DfFS0JN3lm9UPdH1FRngQGN2fDtPkzzlvBsvotVEnt5Gp62YZuGbPkKMfG+oxQ+0IEoHUs/xkhpmz/v0OGhwf07NNpF91Edde6pb66dTZ94Ba8cCLStiyqvQA2ZBHNHvgN28Xl1/WV6gZZvKxXAwpcFhwLHkZQj8AI8gxmhvp58JU+ETTweLCQ==
+X-Microsoft-Antispam-Message-Info: jaOjqc1KW3kmVBqCzVCn5xvE93q2HYjABjB3b3oH6mq2N2OytPpjpBIFfjCtcCHYYokmteTERZXOyLdY6JButyBHAPAOyxJriJ3YiDPWFVRFCuBfyvpaO1vZYYn7FwCt7kcKL+wZ7kY5eGJH1rr7rPoM5+EtWEHFynyX7AzUij4FdEIzwnnWANkGgkejDax/3reKOocW6FOhToj7ifh2dmffpzh7jHVycRpUhjOIdQSJGh9GXoTewQFArhnRak54g8fhmDRboBshoGSToQOFPP4xz27PkMFp9MUVcs0oXYNNIme5LkCPTnCdj3wKuWE5GHpWwBAqiF4vME3chTCI06XSADCm9AKRfg7cTIMqnxamsn+JrK7CM/gNyzAkxxALkkDjYrJc1A8ABtcma4ziIw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(39860400002)(346002)(366004)(376002)(66476007)(66556008)(8936002)(54906003)(36756003)(1076003)(26005)(8676002)(316002)(83380400001)(186003)(16526019)(66946007)(86362001)(7696005)(52116002)(6486002)(2906002)(5660300002)(4326008)(478600001)(6916009)(44832011)(956004)(66574015)(6666004)(2616005);
+ SFS:(4636009)(396003)(136003)(39860400002)(346002)(366004)(376002)(66476007)(66556008)(8936002)(54906003)(36756003)(1076003)(26005)(8676002)(316002)(83380400001)(186003)(16526019)(66946007)(86362001)(7696005)(52116002)(6486002)(2906002)(5660300002)(4326008)(478600001)(6916009)(44832011)(956004)(6666004)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?iql8GMzyMls08vbduHhUo+4CpuFJZRttyVBt7hIcnUP/KGoDbs6bTeLPUnTT?=
- =?us-ascii?Q?6zC0gCmfd5qAAGjSMR8Vg1NJSx+xpOJhvYyeOOoOnJJ1CQCXy5kCVCpW0FdA?=
- =?us-ascii?Q?TL2hDIxhcUIw/YtciK8yN9RquVXnKy7nWYt/at/DzFDoJZkv4IEVRaScLN42?=
- =?us-ascii?Q?ChYTlVWU7TrtzQT1q3Q485CiyS4qqoyiO0CKgAwdcVIlQ0G8WQs64lP7YqgB?=
- =?us-ascii?Q?oH2t6N6L2w73CtFQviXHg3Fs4/eynwDvEQar2fnJOxF4JiMLdihe1BJDlKZC?=
- =?us-ascii?Q?eIc55HXxNbd7eachunurmcQwxrjaIAcfcS693fjx8tiVU+I+Vl2JXSoM68pP?=
- =?us-ascii?Q?97DppUVhkFVS6O4pvUy2NdvasxfeznwS9ZwvYu1reGSBZA5vHySVoOf4IqJZ?=
- =?us-ascii?Q?IwehjoBQegtmNF3D7bgXJMLDn7TqbWS3WRz/xULaVR/bJmhPEjhxgZbUC9cr?=
- =?us-ascii?Q?e4dbFCMU3RCt0zlpJKBB+ReWVgQL0sno7RRBCyqVKhLkDlWcu5yXBRO7DfwQ?=
- =?us-ascii?Q?tV0Hho0+oImF6PaUs9PkPAOv/sJ9Y2+lnC4N3oZLCynPez7btlAp4qpqY6Vx?=
- =?us-ascii?Q?mASqpj6J3tIF43DjzhGDykI+pwAsZLgbuWxPbUQYt7b+JnUHxluxwkF8RqX1?=
- =?us-ascii?Q?uZOfOF5eGvvN+q4JdX52J0eMdowhboaZRwWZjst9Iz6G5lT/sAeKNCdzNK8I?=
- =?us-ascii?Q?V1YxPWWJZ7qhJn8pknVBWStdMroTjyquveyNM412JCIrwy8D6mJ9p7k7ypvT?=
- =?us-ascii?Q?p4XJVuJ1ISmsPdWL5jCN5HT0l6/pz71LaHbnkK5gZzBmlcqXnk2g/wW/GYaV?=
- =?us-ascii?Q?D7atcxvIDvFpmB7afSQHAz9E5yIucEqUS2iTy7hghDBSdGG9BaOCB01GeWMk?=
- =?us-ascii?Q?PUyC4nRBYU2RSzcQEyQhgkSmRPPMoWjWEY8rZqfPKwi84ae8/7vxpP7Blsx1?=
- =?us-ascii?Q?xMiotsfuCDgh+i3NGgSETQEh2zxqi4g5A0FfOGUZ3Ef3Azi0L4QuxFzyYJDr?=
- =?us-ascii?Q?6Bzy?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?5qCPhhuPj81CyeLCqefwh0UNftwnxHTNlcQUWXI8VApufBybOhMCzGGmB4eM?=
+ =?us-ascii?Q?/R7XKIl1ZoRmDX4zeWPvREpWCO3MB4v7eVM/JGeMzMtGePuXxlFSNSNXYFCF?=
+ =?us-ascii?Q?KnaHCK5mWPePCD6m1PgqT8AmTkN6hBeSKu/0OSgjsMDL2Eqc3p1gGDiKB4Nd?=
+ =?us-ascii?Q?Vjzanp3J/he7bZ7pREcueaKkyhdfmhYmizxuaNlSqNZFBHIEhfKgAJaKOdaK?=
+ =?us-ascii?Q?IXW8JDlvcAuZVKuy/QMUicyCYQ6kItyPJ7hzugf7XSJWpAZQDDOCuL7cQyhq?=
+ =?us-ascii?Q?GIhd5CRUJjgLMLSqJNL8ld/WRUyMwEzGtzxR+RFVVeanCUNPloDpaDyJoUtI?=
+ =?us-ascii?Q?zlDJdjWpGdr6dabh9wK5M/I72p0UPcQhpK6C5DJjPhZbE/8kzkzGC+fuiq8v?=
+ =?us-ascii?Q?qWtoI2Kn34vMAIWC+mbf0Lv/o+vu04eJ2wzx6Bh3ORBfnd5LOcceczcyTvPX?=
+ =?us-ascii?Q?WIzpUvGxKlZoijZ4/2D/dATUPmy0zxIP/hgqkUJ3MmutCfPwmnpt8fWalOUU?=
+ =?us-ascii?Q?2gPWC3zxxTwGy6tnH1uZl+J5SBjgAdGLMc1W5GyvwGhYrR2KbvI8BYvtnMx6?=
+ =?us-ascii?Q?rgCc3Z/NUXwgiBTXuFADquTdYyMDmnaekXF+EjyAhULPWy8TI0tzpU+FmWoL?=
+ =?us-ascii?Q?KKxf5QzTtIJ2fmZ71/6TwXnDLW7tYzp3onUhTO6Il33P+HRNs/ojSyE9IHB8?=
+ =?us-ascii?Q?cBPRR/5V6dBuSPEIakutuvaXVJ7Cw77uAhJNq2AO8FNC2e6w7r84YI+ZImJx?=
+ =?us-ascii?Q?fN9CQVIR6OOVe2S9CfBLkkLAF5ur+/7FsXPpTH82aUDrI+hPP6gy0HNGlUH1?=
+ =?us-ascii?Q?iyOll4y0CSrI7oJfcuniy83C80OGjHFSf4WSvxO3CcmC1Jg/gxL6fp6HqrYO?=
+ =?us-ascii?Q?2mgE8epU6wX9hDy7TbVGv/5lZZA/Vi/DEYG3bPpO1H63s0+Os5SVFbf1bbL0?=
+ =?us-ascii?Q?JTiILIkavjj+fTZSGsfUXwlaIuZLSHgSEbOcV3jyvKRh5tE5NCRH3sDskFOj?=
+ =?us-ascii?Q?lssd?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2020 04:15:28.0592 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2020 04:15:31.5841 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1b0b1a6-ce5f-4881-0b1f-08d8a24262c4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d8d8f6c-5b8a-4272-edf7-08d8a24264e4
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o7AtsbSgXvvAZYdoWXB0LTnSeDv4PA1SXijLNbmRAM2wtCSOyMWNNTbzsYfjvdc3
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6ZOvaDeQ3LTFc81YQGWhbgtusmksJO1+UCUYAxKDcd6WC457BuxDfThQhEzT/E6z
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2359
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,315 +128,224 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable Sienna Cichlid gfxclk/uclk overdrive support.
+This is supported by Sienna Cichlid, Navy Flounder and Dimgrey
+Cavefish. For these ASICs, the target voltage calculation can be
+illustrated by "voltage = voltage calculated from v/f curve +
+overdrive vddgfx offset".
 
-Change-Id: I93535076f5857c0dfeb012a993bc85a16ca4df84
+V2: limit the smu_version check for Sienna Cichlid only
+
+Here are some sample usages about this new OD setting:
+1. Check current vddgfx offset setting by
+cat /sys/class/drm/card0/device/pp_od_clk_voltage
+...
+...
+OD_VDDGFX_OFFSET:
+0mV
+...
+...
+
+2. Set new vddgfx offset by
+echo "vo 10" > /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card0/device/pp_od_clk_voltage
+...
+...
+OD_VDDGFX_OFFSET:
+10mV
+...
+...
+3. Commit the new setting by
+echo "c" > /sys/class/drm/card0/device/pp_od_clk_voltage
+
+Change-Id: Ie13c06d9bbcdbeaad4379a7f697510c8d233f4af
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            |   3 +-
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 241 ++++++++++++++++++
- 2 files changed, 243 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  3 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 17 ++++++-
+ drivers/gpu/drm/amd/pm/inc/smu_types.h        |  1 +
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 51 +++++++++++++++++++
+ 4 files changed, 70 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index f775aac6c1bd..270f8db5115a 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -157,7 +157,8 @@ enum PP_OD_DPM_TABLE_COMMAND {
+ 	PP_OD_EDIT_MCLK_VDDC_TABLE,
+ 	PP_OD_EDIT_VDDC_CURVE,
+ 	PP_OD_RESTORE_DEFAULT_TABLE,
+-	PP_OD_COMMIT_DPM_TABLE
++	PP_OD_COMMIT_DPM_TABLE,
++	PP_OD_EDIT_VDDGFX_OFFSET
+ };
+ 
+ struct pp_states_info {
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 7b6ef05a1d35..73aa78a158a6 100644
+index 73aa78a158a6..a68c8ba68c55 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -730,7 +730,8 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
-  *
-  * - minimum and maximum engine clock labeled OD_SCLK
-  *
-- * - maximum memory clock labeled OD_MCLK
-+ * - minimum(not available for Vega20 and Navi1x) and maximum memory
-+ *   clock labeled OD_MCLK
-  *
+@@ -736,6 +736,12 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
   * - three <frequency, voltage> points labeled OD_VDDC_CURVE.
   *   They can be used to calibrate the sclk voltage curve.
+  *
++ * - voltage offset(in mV) applied on target voltage calculation.
++ *   This is available for Sienna Cichlid, Navy Flounder and Dimgrey
++ *   Cavefish. For these ASICs, the target voltage calculation can be
++ *   illustrated by "voltage = voltage calculated from v/f curve +
++ *   overdrive vddgfx offset"
++ *
+  * - a list of valid ranges for sclk, mclk, and voltage curve points
+  *   labeled OD_RANGE
+  *
+@@ -756,6 +762,11 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
+  *   600mV. "vc 2 1000 1000" will update point3 with clock set
+  *   as 1000Mhz and voltage 1000mV.
+  *
++ *   To update the voltage offset applied for gfxclk/voltage calculation,
++ *   enter the new value by writing a string that contains "vo offset".
++ *   This is supported by Sienna Cichlid, Navy Flounder and Dimgrey Cavefish.
++ *   And the offset can be a positive or negative value.
++ *
+  * - When you have edited all of the states as needed, write "c" (commit)
+  *   to the file to commit your changes
+  *
+@@ -796,6 +807,8 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 		type = PP_OD_COMMIT_DPM_TABLE;
+ 	else if (!strncmp(buf, "vc", 2))
+ 		type = PP_OD_EDIT_VDDC_CURVE;
++	else if (!strncmp(buf, "vo", 2))
++		type = PP_OD_EDIT_VDDGFX_OFFSET;
+ 	else
+ 		return -EINVAL;
+ 
+@@ -803,7 +816,8 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 
+ 	tmp_str = buf_cpy;
+ 
+-	if (type == PP_OD_EDIT_VDDC_CURVE)
++	if ((type == PP_OD_EDIT_VDDC_CURVE) ||
++	     (type == PP_OD_EDIT_VDDGFX_OFFSET))
+ 		tmp_str++;
+ 	while (isspace(*++tmp_str));
+ 
+@@ -899,6 +913,7 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 		size = smu_print_clk_levels(&adev->smu, SMU_OD_SCLK, buf);
+ 		size += smu_print_clk_levels(&adev->smu, SMU_OD_MCLK, buf+size);
+ 		size += smu_print_clk_levels(&adev->smu, SMU_OD_VDDC_CURVE, buf+size);
++		size += smu_print_clk_levels(&adev->smu, SMU_OD_VDDGFX_OFFSET, buf+size);
+ 		size += smu_print_clk_levels(&adev->smu, SMU_OD_RANGE, buf+size);
+ 	} else if (adev->powerplay.pp_funcs->print_clock_levels) {
+ 		size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+index 720d15612fe1..4a3827c8bfb6 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+@@ -240,6 +240,7 @@ enum smu_clk_type {
+ 	SMU_OD_MCLK,
+ 	SMU_OD_VDDC_CURVE,
+ 	SMU_OD_RANGE,
++	SMU_OD_VDDGFX_OFFSET,
+ 	SMU_CLK_COUNT,
+ };
+ 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index cbee4ca43707..d1de617e85c6 100644
+index d1de617e85c6..f6faa90e32c1 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -913,6 +913,22 @@ static bool sienna_cichlid_is_support_fine_grained_dpm(struct smu_context *smu,
- 	return dpm_desc->SnapToDiscrete == 0 ? true : false;
- }
- 
-+static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
-+						   enum SMU_11_0_7_ODFEATURE_CAP cap)
-+{
-+	return od_table->cap[cap];
-+}
-+
-+static void sienna_cichlid_get_od_setting_range(struct smu_11_0_7_overdrive_table *od_table,
-+						enum SMU_11_0_7_ODSETTING_ID setting,
-+						uint32_t *min, uint32_t *max)
-+{
-+	if (min)
-+		*min = od_table->min[setting];
-+	if (max)
-+		*max = od_table->max[setting];
-+}
-+
- static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 			enum smu_clk_type clk_type, char *buf)
- {
-@@ -921,11 +937,15 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
- 	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
- 	PPTable_t *pptable = (PPTable_t *)table_context->driver_pptable;
-+	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
-+	OverDriveTable_t *od_table =
-+		(OverDriveTable_t *)table_context->overdrive_table;
- 	int i, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	uint32_t freq_values[3] = {0};
+@@ -946,6 +946,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
  	uint32_t mark_index = 0;
  	uint32_t gen_speed, lane_width;
-+	uint32_t min_value, max_value;
+ 	uint32_t min_value, max_value;
++	uint32_t smu_version;
  
  	switch (clk_type) {
  	case SMU_GFXCLK:
-@@ -1001,6 +1021,53 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
- 					(lane_width == dpm_context->dpm_tables.pcie_table.pcie_lane[i]) ?
- 					"*" : "");
+@@ -1043,6 +1044,23 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		size += sprintf(buf + size, "0: %uMhz\n1: %uMHz\n", od_table->UclkFmin, od_table->UclkFmax);
  		break;
-+	case SMU_OD_SCLK:
+ 
++	case SMU_OD_VDDGFX_OFFSET:
 +		if (!smu->od_enabled || !od_table || !od_settings)
 +			break;
 +
-+		if (!sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_GFXCLK_LIMITS))
++		/*
++		 * OD GFX Voltage Offset functionality is supported only by 58.41.0
++		 * and onwards SMU firmwares.
++		 */
++		smu_cmn_get_smc_version(smu, NULL, &smu_version);
++		if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
++		     (smu_version < 0x003a2900))
 +			break;
 +
-+		size += sprintf(buf + size, "OD_SCLK:\n");
-+		size += sprintf(buf + size, "0: %uMhz\n1: %uMhz\n", od_table->GfxclkFmin, od_table->GfxclkFmax);
++		size += sprintf(buf + size, "OD_VDDGFX_OFFSET:\n");
++		size += sprintf(buf + size, "%dmV\n", od_table->VddGfxOffset);
 +		break;
 +
-+	case SMU_OD_MCLK:
-+		if (!smu->od_enabled || !od_table || !od_settings)
-+			break;
+ 	case SMU_OD_RANGE:
+ 		if (!smu->od_enabled || !od_table || !od_settings)
+ 			break;
+@@ -1770,10 +1788,18 @@ static int sienna_cichlid_get_dpm_ultimate_freq(struct smu_context *smu,
+ static void sienna_cichlid_dump_od_table(struct smu_context *smu,
+ 					 OverDriveTable_t *od_table)
+ {
++	struct amdgpu_device *adev = smu->adev;
++	uint32_t smu_version;
 +
-+		if (!sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_UCLK_LIMITS))
-+			break;
+ 	dev_dbg(smu->adev->dev, "OD: Gfxclk: (%d, %d)\n", od_table->GfxclkFmin,
+ 							  od_table->GfxclkFmax);
+ 	dev_dbg(smu->adev->dev, "OD: Uclk: (%d, %d)\n", od_table->UclkFmin,
+ 							od_table->UclkFmax);
 +
-+		size += sprintf(buf + size, "OD_MCLK:\n");
-+		size += sprintf(buf + size, "0: %uMhz\n1: %uMHz\n", od_table->UclkFmin, od_table->UclkFmax);
-+		break;
-+
-+	case SMU_OD_RANGE:
-+		if (!smu->od_enabled || !od_table || !od_settings)
-+			break;
-+
-+		size = sprintf(buf, "%s:\n", "OD_RANGE");
-+
-+		if (sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_GFXCLK_LIMITS)) {
-+			sienna_cichlid_get_od_setting_range(od_settings, SMU_11_0_7_ODSETTING_GFXCLKFMIN,
-+							    &min_value, NULL);
-+			sienna_cichlid_get_od_setting_range(od_settings, SMU_11_0_7_ODSETTING_GFXCLKFMAX,
-+							    NULL, &max_value);
-+			size += sprintf(buf + size, "SCLK: %7uMhz %10uMhz\n",
-+					min_value, max_value);
++	smu_cmn_get_smc_version(smu, NULL, &smu_version);
++	if (!((adev->asic_type == CHIP_SIENNA_CICHLID) &&
++	       (smu_version < 0x003a2900)))
++		dev_dbg(smu->adev->dev, "OD: VddGfxOffset: %d\n", od_table->VddGfxOffset);
+ }
+ 
+ static int sienna_cichlid_set_default_od_settings(struct smu_context *smu)
+@@ -1826,9 +1852,11 @@ static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
+ 		(OverDriveTable_t *)table_context->overdrive_table;
+ 	struct smu_11_0_7_overdrive_table *od_settings =
+ 		(struct smu_11_0_7_overdrive_table *)smu->od_settings;
++	struct amdgpu_device *adev = smu->adev;
+ 	enum SMU_11_0_7_ODSETTING_ID freq_setting;
+ 	uint16_t *freq_ptr;
+ 	int i, ret = 0;
++	uint32_t smu_version;
+ 
+ 	if (!smu->od_enabled) {
+ 		dev_warn(smu->adev->dev, "OverDrive is not enabled!\n");
+@@ -1964,6 +1992,29 @@ static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
+ 		}
+ 		break;
+ 
++	case PP_OD_EDIT_VDDGFX_OFFSET:
++		if (size != 1) {
++			dev_info(smu->adev->dev, "invalid number of parameters: %d\n", size);
++			return -EINVAL;
 +		}
 +
-+		if (sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_UCLK_LIMITS)) {
-+			sienna_cichlid_get_od_setting_range(od_settings, SMU_11_0_7_ODSETTING_UCLKFMIN,
-+							    &min_value, NULL);
-+			sienna_cichlid_get_od_setting_range(od_settings, SMU_11_0_7_ODSETTING_UCLKFMAX,
-+							    NULL, &max_value);
-+			size += sprintf(buf + size, "MCLK: %7uMhz %10uMhz\n",
-+					min_value, max_value);
++		/*
++		 * OD GFX Voltage Offset functionality is supported only by 58.41.0
++		 * and onwards SMU firmwares.
++		 */
++		smu_cmn_get_smc_version(smu, NULL, &smu_version);
++		if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
++		     (smu_version < 0x003a2900)) {
++			dev_err(smu->adev->dev, "OD GFX Voltage offset functionality is supported "
++						"only by 58.41.0 and onwards SMU firmwares!\n");
++			return -EOPNOTSUPP;
 +		}
++
++		od_table->VddGfxOffset = (int16_t)input[0];
++
++		sienna_cichlid_dump_od_table(smu, od_table);
 +		break;
 +
  	default:
- 		break;
+ 		return -ENOSYS;
  	}
-@@ -1731,6 +1798,179 @@ static int sienna_cichlid_set_default_od_settings(struct smu_context *smu)
- 	return 0;
- }
- 
-+static int sienna_cichlid_od_setting_check_range(struct smu_context *smu,
-+						 struct smu_11_0_7_overdrive_table *od_table,
-+						 enum SMU_11_0_7_ODSETTING_ID setting,
-+						 uint32_t value)
-+{
-+	if (value < od_table->min[setting]) {
-+		dev_warn(smu->adev->dev, "OD setting (%d, %d) is less than the minimum allowed (%d)\n",
-+					  setting, value, od_table->min[setting]);
-+		return -EINVAL;
-+	}
-+	if (value > od_table->max[setting]) {
-+		dev_warn(smu->adev->dev, "OD setting (%d, %d) is greater than the maximum allowed (%d)\n",
-+					  setting, value, od_table->max[setting]);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
-+					    enum PP_OD_DPM_TABLE_COMMAND type,
-+					    long input[], uint32_t size)
-+{
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	OverDriveTable_t *od_table =
-+		(OverDriveTable_t *)table_context->overdrive_table;
-+	struct smu_11_0_7_overdrive_table *od_settings =
-+		(struct smu_11_0_7_overdrive_table *)smu->od_settings;
-+	enum SMU_11_0_7_ODSETTING_ID freq_setting;
-+	uint16_t *freq_ptr;
-+	int i, ret = 0;
-+
-+	if (!smu->od_enabled) {
-+		dev_warn(smu->adev->dev, "OverDrive is not enabled!\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!smu->od_settings) {
-+		dev_err(smu->adev->dev, "OD board limits are not set!\n");
-+		return -ENOENT;
-+	}
-+
-+	if (!(table_context->overdrive_table && table_context->boot_overdrive_table)) {
-+		dev_err(smu->adev->dev, "Overdrive table was not initialized!\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (type) {
-+	case PP_OD_EDIT_SCLK_VDDC_TABLE:
-+		if (!sienna_cichlid_is_od_feature_supported(od_settings,
-+							    SMU_11_0_7_ODCAP_GFXCLK_LIMITS)) {
-+			dev_warn(smu->adev->dev, "GFXCLK_LIMITS not supported!\n");
-+			return -ENOTSUPP;
-+		}
-+
-+		for (i = 0; i < size; i += 2) {
-+			if (i + 2 > size) {
-+				dev_info(smu->adev->dev, "invalid number of input parameters %d\n", size);
-+				return -EINVAL;
-+			}
-+
-+			switch (input[i]) {
-+			case 0:
-+				if (input[i + 1] > od_table->GfxclkFmax) {
-+					dev_info(smu->adev->dev, "GfxclkFmin (%ld) must be <= GfxclkFmax (%u)!\n",
-+						input[i + 1], od_table->GfxclkFmax);
-+					return -EINVAL;
-+				}
-+
-+				freq_setting = SMU_11_0_7_ODSETTING_GFXCLKFMIN;
-+				freq_ptr = &od_table->GfxclkFmin;
-+				break;
-+
-+			case 1:
-+				if (input[i + 1] < od_table->GfxclkFmin) {
-+					dev_info(smu->adev->dev, "GfxclkFmax (%ld) must be >= GfxclkFmin (%u)!\n",
-+						input[i + 1], od_table->GfxclkFmin);
-+					return -EINVAL;
-+				}
-+
-+				freq_setting = SMU_11_0_7_ODSETTING_GFXCLKFMAX;
-+				freq_ptr = &od_table->GfxclkFmax;
-+				break;
-+
-+			default:
-+				dev_info(smu->adev->dev, "Invalid SCLK_VDDC_TABLE index: %ld\n", input[i]);
-+				dev_info(smu->adev->dev, "Supported indices: [0:min,1:max]\n");
-+				return -EINVAL;
-+			}
-+
-+			ret = sienna_cichlid_od_setting_check_range(smu, od_settings,
-+								    freq_setting, input[i + 1]);
-+			if (ret)
-+				return ret;
-+
-+			*freq_ptr = (uint16_t)input[i + 1];
-+		}
-+		break;
-+
-+	case PP_OD_EDIT_MCLK_VDDC_TABLE:
-+		if (!sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_UCLK_LIMITS)) {
-+			dev_warn(smu->adev->dev, "UCLK_LIMITS not supported!\n");
-+			return -ENOTSUPP;
-+		}
-+
-+		for (i = 0; i < size; i += 2) {
-+			if (i + 2 > size) {
-+				dev_info(smu->adev->dev, "invalid number of input parameters %d\n", size);
-+				return -EINVAL;
-+			}
-+
-+			switch (input[i]) {
-+			case 0:
-+				if (input[i + 1] > od_table->UclkFmax) {
-+					dev_info(smu->adev->dev, "UclkFmin (%ld) must be <= UclkFmax (%u)!\n",
-+						input[i + 1], od_table->UclkFmax);
-+					return -EINVAL;
-+				}
-+
-+				freq_setting = SMU_11_0_7_ODSETTING_UCLKFMIN;
-+				freq_ptr = &od_table->UclkFmin;
-+				break;
-+
-+			case 1:
-+				if (input[i + 1] < od_table->UclkFmin) {
-+					dev_info(smu->adev->dev, "UclkFmax (%ld) must be >= UclkFmin (%u)!\n",
-+						input[i + 1], od_table->UclkFmin);
-+					return -EINVAL;
-+				}
-+
-+				freq_setting = SMU_11_0_7_ODSETTING_UCLKFMAX;
-+				freq_ptr = &od_table->UclkFmax;
-+				break;
-+
-+			default:
-+				dev_info(smu->adev->dev, "Invalid MCLK_VDDC_TABLE index: %ld\n", input[i]);
-+				dev_info(smu->adev->dev, "Supported indices: [0:min,1:max]\n");
-+				return -EINVAL;
-+			}
-+
-+			ret = sienna_cichlid_od_setting_check_range(smu, od_settings,
-+								    freq_setting, input[i + 1]);
-+			if (ret)
-+				return ret;
-+
-+			*freq_ptr = (uint16_t)input[i + 1];
-+		}
-+		break;
-+
-+	case PP_OD_RESTORE_DEFAULT_TABLE:
-+		memcpy(table_context->overdrive_table,
-+				table_context->boot_overdrive_table,
-+				sizeof(OverDriveTable_t));
-+		fallthrough;
-+
-+	case PP_OD_COMMIT_DPM_TABLE:
-+		sienna_cichlid_dump_od_table(smu, od_table);
-+
-+		ret = smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE,
-+					   0, (void *)od_table, true);
-+		if (ret) {
-+			dev_err(smu->adev->dev, "Failed to import overdrive table!\n");
-+			return ret;
-+		}
-+		break;
-+
-+	default:
-+		return -ENOSYS;
-+	}
-+
-+	return ret;
-+}
-+
- static int sienna_cichlid_run_btc(struct smu_context *smu)
- {
- 	return smu_cmn_send_smc_msg(smu, SMU_MSG_RunDcBtc, NULL);
-@@ -2855,6 +3095,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
- 	.set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
- 	.set_default_od_settings = sienna_cichlid_set_default_od_settings,
-+	.od_edit_dpm_table = sienna_cichlid_od_edit_dpm_table,
- 	.run_btc = sienna_cichlid_run_btc,
- 	.set_power_source = smu_v11_0_set_power_source,
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
 -- 
 2.29.0
 
