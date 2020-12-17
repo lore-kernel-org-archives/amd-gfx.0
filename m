@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71351C4361B
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD3EFC2BB9A
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19E0E235DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19E0E235DD
+	by mail.kernel.org (Postfix) with ESMTPS id 80A4423426
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Dec 2020 17:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80A4423426
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F586E1BC;
-	Thu, 17 Dec 2020 17:32:30 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7E5F6E1BC
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 17:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DAE8896E7;
+	Thu, 17 Dec 2020 17:42:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5279E896E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Dec 2020 17:42:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SAmP8Sw6gDWzyvZiNIrpR2+C2OgC4fTP7xTVSTKlLyifBcz5J2DcbSwG/58cvRP1rd5UKVr66YkMwKkENTA/QJB1qw/8AVwbN9DtInqt4UEvOSb4i9XU1Nzdzx+7PAj9eumdCYTJwxwhsKEFkuUNbRg/1Bk8yd2Jk9wPcRj2QOEBWLOMCO0hyy/dRH0HQKoxBLiLcupirUzZH3UqmET8ZwusZXI1CLC5CREM6TlNegOgtp3uplw++7FsZVTtFLQ5FDQOOrylOkcM8DTa4BHSmvPDR32pySG+zH7wSp14FULtULttScvHvetauZ63KJDeece7TPLvXrZoasgb+gPrAQ==
+ b=cFQvjb1ehEwPMKNztf4gjYVOcPTJH5qaMgKAwnsxdPjg/98HcmFE9/EPifNIkRuJlOZi7gKVrUU6pSnnaYZcLhs4q0atm6BkQpXqduvkYsTpjnIzSRdbyYaXZY6nS5X6C5ienawVVhtr8onGeeBQxqsoM3n9tKi2YIBY860lcNaK1D1vtgokj8bNiREsePVAN6XUJC9kISyb0ZBRprLez4MblP2S2A1G7q7zLtHu7hqgpsI/bzOMckWhj8crt1UUbrhDrg7rhg+nRr98rp4lnRuQoH0HesqJ1BMJKTad/s51zE2M9rM+u+nkJV78czmZa7KqPRuo6HyYuDji+uhrCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cjcl5a60TT10WJYguuAojMvQ4IiYw6D/cn9zG7amMRw=;
- b=maKJruLWhVp0ft1tsdoRjwdv3uu3lXIRHC8Z5l5HLi8C6pmC+tAQW4em3T/SG/fTf9smPUakXQdchy1/dmqep3j3HntAfYEHt5XBBwyBKKauvcOjkqH27vqeWwQs2ILq9zdo9MBR/5P9vx7kGgDQM4DxpYneAzRVTz+OFdb5iK+7EuPFPj9kuVTMDaWeBeUCBg+Q9b9XPvUG3544MuB0ZCimlmV6dR2tnnQ6AWPa85I1f5iS/UX8gTQMwHWORjL9x1mB8BsdQqRDti3aYCKy4C+FxjKFkJjNo1xMEhw217SFYll0cWKw0Pfnww3dEyQQVHuEyjVw7LOJWpWz3N6sNQ==
+ bh=Yr9ojSaHfSIhwwDKrVovY6NzhrNo6XEhpoT88L1fr3c=;
+ b=DFt3CcKlsPUo5SftK70mSqEHWyuvselDPy5FZQWT5M5icbA2tiH9C1FFteTmIx3SogId/jL0lUNZR3dBUyl88HC+RLJjiL8I+k6XOvVigfayc6WCT7QDBccbGC1+hpP/zR5/wYTOv8FJ0SSlJyWM/pin4F62Dfo/bLhrNluLEv+Tor+Nd/bGy3rmW1ZvKXGP9lpuOdpUvEtTBsxJlC/8J8uDHvc9Q5ZEwklocnbZH1MDUEYybNpbenhjLIIQh5uV52n4z+AfCOKgILjvUKxW2Mzlzwc/RO/u3+Vy79KePIaNyoTqGA03qpGmrXqU9J6TmUiRI4GBi2faT1oqVXA23A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cjcl5a60TT10WJYguuAojMvQ4IiYw6D/cn9zG7amMRw=;
- b=reSCD9QHu6W+tf4NDSZFq+sHjp9PWeS+MXfp2Y9UiFAGsozaiNQI11aKF9K7P6dp4NDxw6OJqqxMSFaKIjdH+PItMIdSRwlwkhImvCx7S5IICVID7U/NJj0ihEjNjY9Pu5tsOOSdA5sIWu0P6t15F/4aASmybMXAIL8exJdpCjc=
+ bh=Yr9ojSaHfSIhwwDKrVovY6NzhrNo6XEhpoT88L1fr3c=;
+ b=FM2Q2g60TsWJnAyEDwMH5J5JA4f5AzI3hsQ9AdnYQ0MgM6fPuKm6k0faAt+bPaQF6UvybPyluNyrFqpgzfszOZGqdBJrkVemkaQ+hya6xyx6/0dWTlADpxZTf7pHtSRpThvpHzGBBeA9hsE/YqQaMk1ET7OidIkCCyBzZ7AsYRI=
 Received: from MW3PR12MB4554.namprd12.prod.outlook.com (2603:10b6:303:55::21)
- by MW3PR12MB4460.namprd12.prod.outlook.com (2603:10b6:303:2f::7) with
- Microsoft SMTP Server (version=TLS1_2,
+ by MWHPR1201MB0253.namprd12.prod.outlook.com (2603:10b6:301:52::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.15; Thu, 17 Dec
- 2020 17:32:27 +0000
+ 2020 17:41:59 +0000
 Received: from MW3PR12MB4554.namprd12.prod.outlook.com
  ([fe80::858e:d929:4fab:5ac3]) by MW3PR12MB4554.namprd12.prod.outlook.com
  ([fe80::858e:d929:4fab:5ac3%8]) with mapi id 15.20.3654.025; Thu, 17 Dec 2020
- 17:32:26 +0000
+ 17:41:59 +0000
 From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
 To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kazlauskas, Nicholas"
  <Nicholas.Kazlauskas@amd.com>
@@ -55,20 +55,21 @@ Subject: Re: [PATCH 2/2] drm/amd/display: enable idle optimizations for linux
  (MALL stutter)
 Thread-Topic: [PATCH 2/2] drm/amd/display: enable idle optimizations for linux
  (MALL stutter)
-Thread-Index: AQHW1JV86Pyo88/tb0uKRGAsJd7p5an7hDGAgAAHUlo=
-Date: Thu, 17 Dec 2020 17:32:26 +0000
-Message-ID: <MW3PR12MB4554D9CAF479797E24D4108EF9C40@MW3PR12MB4554.namprd12.prod.outlook.com>
+Thread-Index: AQHW1JV86Pyo88/tb0uKRGAsJd7p5an7hDGAgAAHUlqAAALYZw==
+Date: Thu, 17 Dec 2020 17:41:59 +0000
+Message-ID: <MW3PR12MB45540F913662D5CE5ABFC87BF9C40@MW3PR12MB4554.namprd12.prod.outlook.com>
 References: <20201217165459.3570331-1-Bhawanpreet.Lakha@amd.com>,
  <20201217165459.3570331-2-Bhawanpreet.Lakha@amd.com>,
- <MN2PR12MB448896B7772424C662E2EFD8F7C40@MN2PR12MB4488.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB448896B7772424C662E2EFD8F7C40@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <MN2PR12MB448896B7772424C662E2EFD8F7C40@MN2PR12MB4488.namprd12.prod.outlook.com>,
+ <MW3PR12MB4554D9CAF479797E24D4108EF9C40@MW3PR12MB4554.namprd12.prod.outlook.com>
+In-Reply-To: <MW3PR12MB4554D9CAF479797E24D4108EF9C40@MW3PR12MB4554.namprd12.prod.outlook.com>
 Accept-Language: en-CA, en-US
 Content-Language: en-CA
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-17T17:32:26.731Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-17T17:41:59.762Z;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
@@ -77,46 +78,46 @@ authentication-results: amd.com; dkim=none (message not signed)
 x-originating-ip: [165.204.54.211]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f49bce66-84c0-4f23-02a0-08d8a2b1b903
-x-ms-traffictypediagnostic: MW3PR12MB4460:
+x-ms-office365-filtering-correlation-id: 70257a70-db8d-4070-90be-08d8a2b30e7b
+x-ms-traffictypediagnostic: MWHPR1201MB0253:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MW3PR12MB446003944CB094B66B33A18DF9C40@MW3PR12MB4460.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-microsoft-antispam-prvs: <MWHPR1201MB0253E0AFC81A3498248E4C4DF9C40@MWHPR1201MB0253.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Y0RlotTdNOB0CZMU7vkJPUZ0yksKOCkAI9efdgkY5DHyoGlmcddlXZb9CVax1KITlTE64BHGLDFiDAP/itODUnGhGdoiDLRSBXz9nP1PFviSawTu0RVIOkZHrT9cOEUqVt5mjPBv/b+gjdUTjPCTpbCgPginLZougEGYQJyZXC7rwBL2xiF0fOzCIrWTp2BMspqUZ6LFA4xk8MkHD5V6jV9QLfwLmIu6flBEIz5GGHF3ZvJasvqUDWAf8jzpYXfc+JU2e+M2ICI5htaS9/iOAYnRD+j4s0H1kGhWYpvytZBS8I3bi2mTyAYGioKFp2S7
+x-microsoft-antispam-message-info: H1vrejUKF0JmXYT8F2ZoCL2zT1zWphvN/Zg/am74YS2sVBCt8Rvi1W1TAJoDkTJpMRozRX++Aa75uccg8agH52wVReX6auvV4cOfLWf0H5ffLeYO/wmwNg259tL0qq2RQRUsXI1+lidgPyJVSRVrX09Qgx8giLe43lmd5R6Jhl9KVgcEIQuB4lXeWAne7qnHOAZcJdlZdt2NhInK1w25KPBDJGluagf8OQ4uTxDZyAYnBoJSMV5ZOTzXtMXsKvdM7rxpDzdzcuns1g9oBRRat8YfRyWukMr+5NC2SRmyY2491LFyKPiJRYnAesBMQszF
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW3PR12MB4554.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(366004)(39860400002)(136003)(396003)(66556008)(9686003)(2906002)(64756008)(4326008)(66476007)(5660300002)(6506007)(76116006)(66446008)(7696005)(110136005)(83380400001)(91956017)(66946007)(33656002)(8676002)(186003)(86362001)(55016002)(52536014)(478600001)(53546011)(71200400001)(316002)(6636002)(26005)(8936002)(19627405001);
+ SFS:(4636009)(396003)(346002)(366004)(376002)(39860400002)(136003)(8676002)(186003)(91956017)(8936002)(86362001)(6506007)(7696005)(6636002)(53546011)(66446008)(5660300002)(316002)(9686003)(66476007)(33656002)(64756008)(26005)(66946007)(71200400001)(110136005)(66556008)(478600001)(2906002)(76116006)(2940100002)(19627405001)(83380400001)(55016002)(4326008)(52536014);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?aIPAD8h+My/OkkWyPSbBi7HPVw4hYN5X7s+Iz/c+HVMkX7WdSjDT6BJ+5Fwt?=
- =?us-ascii?Q?OTE6a+SdP5VIndx5jsz4SnbG73NsOiyJ4bBYvIpwtCQ24oshZatdJiHV4Em+?=
- =?us-ascii?Q?qrsuZPRVKGVHc2ZgoEudfMPX6XQo7jH6tGLAGqec0YGkMXNMqWKztMbQYplh?=
- =?us-ascii?Q?+TWmrJYcYmJIMZXFbWAbDJ5gHfvsLYVgLJcrs8HIpwTq5MmwIL9fkLi3EaTM?=
- =?us-ascii?Q?qbYpahpWRLpOLwSUY7nBpykxQx8ja3uHYSrfBKJOpLeEKdUk++e6LoSrkk4n?=
- =?us-ascii?Q?Af42eqWtTxIgaaNxolAGLGfWGSNcwpWY9i2HHdIPca00J4MLDvr16sE7kzhJ?=
- =?us-ascii?Q?z196tFcl7lBg657M6a+VhPfRCrPbGOeMoP4rqFOuwy97E3jZ9Jd4JWm9ffeB?=
- =?us-ascii?Q?t3QMjt/Eeu7g8t/XTZ9AQRMFeoUxIp7lVKJ6qMsx5R1Ash0mFB+PdYbMkgfD?=
- =?us-ascii?Q?IzOBRBc2JIw5qci4E+O11D9CKsm4mOREKlKI9IDlk4rnfF02j/rJndy3Xtyd?=
- =?us-ascii?Q?F54g4OfrhA1DMajhGyATv/zFYg2sXfxybOGtQSu+j/pU2x3LoE1WpZR44v7x?=
- =?us-ascii?Q?fVYrJiw4E1wxu7k+XHAKpeKal7oAYfgBSdGXoohrXELEvlnSbfnY1Ugmb0Kq?=
- =?us-ascii?Q?1Ro3lXj7jo4tWUvPWw6tEke0ShUqU9SXt2nXchyGEZf5KLin3vrr5CG7VP+P?=
- =?us-ascii?Q?Hp7Rqqm4pFBb5Yd4QV1nOLC1xyaHm3cwrQoalvNQTaYeOZ2g85q4oM17CZdx?=
- =?us-ascii?Q?5v26psDbvHoBZRu/hleJc6vK/X0QUTrfgo/jjmVANenii8kVIYZuYWrxSTV1?=
- =?us-ascii?Q?9Nux9o/pmgq+s61/TaFJ5D+Sh2KthAJEMXSZC/I6T63Omarwojk09n+JTVJw?=
- =?us-ascii?Q?PRzgsHpxzcqiQTr+I2pgQhZaqfJ39T2dvoayGOY0kGwWD2c1DznSnkcsoBoP?=
- =?us-ascii?Q?5uh1MEIzWdzrFt7DAl2Myr5h8mOzF0RQrDQGvdVYEQc=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?FSHIH5TyMdGrZRf3kKDDvri+r1KlPOmfai4cILFvRr3eebwRADNBG8h5E25C?=
+ =?us-ascii?Q?05G9xAfFTjX3H/KJJk4mMQvuR1tD9wctKCCoay65icy0CGlUBwCVhUurBW3G?=
+ =?us-ascii?Q?RZa2SF7ZtaRn47fslWFXozHpLg4az1S/ObjZlIMGJ7EU7+SpBIjMXleQ+Seb?=
+ =?us-ascii?Q?comTg7TSlw2CEHL8yAyc9WbX00ybZBcWb8z6iUA12GZWiOmSs3saRzkJ0O70?=
+ =?us-ascii?Q?KgdYbuHyE4skr47qnONwIRLwq/j1nQ46GrYeU/S9nVANO9+ISClK+w0MnuKQ?=
+ =?us-ascii?Q?CFkuSWWu1DPCOO1L63BTxCQYcm7H9AbuA07Mumo1YvXZuATBJaGpUdp1OrFK?=
+ =?us-ascii?Q?JtD5kYlylePy5gl732hb/9YlSGOulk40wwiXtHLh8Y0yJpP/dOC9bqWUmXRy?=
+ =?us-ascii?Q?MYIR4igrcX0c/mDmBlL5c8hczqt2AqmlApB24818sJGhcprJGeekTBfNbYbm?=
+ =?us-ascii?Q?do2emCLNr+jxvL2kDBjeAJRSFipSz7JAJyP9bwOIVqmGS8r+UNDYRxgY/cQu?=
+ =?us-ascii?Q?4263mU61WlT+cfQCCBpGYJIPveDquX2Ci+Eth9iy8/9RYg9MUmG5NEL744bf?=
+ =?us-ascii?Q?DHdNWSK/USt2bedE0MHc7xrC1dTB8hdW7B9JzRhEWiGuB0Ws8BKiMBpSEzg8?=
+ =?us-ascii?Q?QEia+lJcP/amyMxm4B4JioQZCNCr6ErfGww2GiA4cxoBOZs+JmGBmJsgqf4Z?=
+ =?us-ascii?Q?XcqX+62EjwCT/Tlt+ICclQeNbjDBYhyLCE/GlGdvq95DpTM+9HI2o55llKzp?=
+ =?us-ascii?Q?ofwnA45TyanTy2kEq6+Ej2ZvzN8kdyYb4VTr4UU5Dm4jOBlzH/d9vePXbELm?=
+ =?us-ascii?Q?jYGiJClRzt2i8JkX2qOWWHEmYSmgsYUe5ny4r01T1dOYHhpXDsJg78gax5Xv?=
+ =?us-ascii?Q?AMCXBOOp3u1umfawQ02e4MVPQ44AycVu0pOF9M36PwNbsZm4MaC57CILMtym?=
+ =?us-ascii?Q?/2ZDGboCZkBQHT6zcobwQztlRwnMGKQcQGBiL+Hik7g=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4554.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f49bce66-84c0-4f23-02a0-08d8a2b1b903
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2020 17:32:26.8255 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70257a70-db8d-4070-90be-08d8a2b30e7b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2020 17:41:59.7405 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OhM36CRptI+4sFL8UKkjprbmiF/bZq5oI8EKHccIWrmNitCi9JGojQNfgoQ94Voc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4460
+X-MS-Exchange-CrossTenant-userprincipalname: 9GgXuEbZZo8lOr+Gs9+TAiqs8uK2m4gmHRduYl5/3g/roikLmwH79HQi6ZpBvXCo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,20 +130,33 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1347809122=="
+Content-Type: multipart/mixed; boundary="===============1463353781=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1347809122==
+--===============1463353781==
 Content-Language: en-CA
 Content-Type: multipart/alternative;
-	boundary="_000_MW3PR12MB4554D9CAF479797E24D4108EF9C40MW3PR12MB4554namp_"
+	boundary="_000_MW3PR12MB45540F913662D5CE5ABFC87BF9C40MW3PR12MB4554namp_"
 
---_000_MW3PR12MB4554D9CAF479797E24D4108EF9C40MW3PR12MB4554namp_
+--_000_MW3PR12MB45540F913662D5CE5ABFC87BF9C40MW3PR12MB4554namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
+
+Actually, I will drop the guards and if we see issues related to this, we c=
+an block it.
+
+Bhawan
+________________________________
+From: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Sent: December 17, 2020 12:32 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Kazlauskas, Nicholas <N=
+icholas.Kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amd/display: enable idle optimizations for lin=
+ux (MALL stutter)
 
 I would but MALL is not fully validated so it might cause underflow issues =
 if we keep it enabled by default. I can create a feature flag mask if that =
@@ -300,7 +314,7 @@ index 33642566bcb2..9d245033eb3d 100644
 2.25.1
 
 
---_000_MW3PR12MB4554D9CAF479797E24D4108EF9C40MW3PR12MB4554namp_
+--_000_MW3PR12MB45540F913662D5CE5ABFC87BF9C40MW3PR12MB4554namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -320,9 +334,8 @@ ign=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-I would but MALL is not fully validated so it might cause underflow issues =
-if we keep it enabled by default. I can create a feature flag mask if that =
-helps?</div>
+Actually, I will drop the guards and if we see issues related to this, we c=
+an block it.</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
@@ -334,8 +347,43 @@ Bhawan<br>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
-t;Alexander.Deucher@amd.com&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lakha, Bhawanpreet &l=
+t;Bhawanpreet.Lakha@amd.com&gt;<br>
+<b>Sent:</b> December 17, 2020 12:32 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Kazlauskas=
+, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amd/display: enable idle optimizations =
+for linux (MALL stutter)</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+I would but MALL is not fully validated so it might cause underflow issues =
+if we keep it enabled by default. I can create a feature flag mask if that =
+helps?</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Bhawan<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander =
+&lt;Alexander.Deucher@amd.com&gt;<br>
 <b>Sent:</b> December 17, 2020 12:04 PM<br>
 <b>To:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Kazlauskas=
 , Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
@@ -366,11 +414,11 @@ Can we drop the Kconfig?&nbsp; With that, the series is:</div>
 t; color:rgb(0,0,0)">
 Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
-<div id=3D"x_appendonsend"></div>
+<div id=3D"x_x_appendonsend"></div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Bhawanpreet Lakha &=
-lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Bhawanpreet Lakha=
+ &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
 <b>Sent:</b> Thursday, December 17, 2020 11:54 AM<br>
 <b>To:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;; Deuche=
 r, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
@@ -381,9 +429,9 @@ olas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
 linux (MALL stutter)</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">[Why]<br>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText">[Why]<br>
 We can only use this feature when the display is idle. When active vblank<b=
 r>
 irq count is 0 we know all the displays are idle.<br>
@@ -540,12 +588,13 @@ ofile bw_val_profile;<br>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_MW3PR12MB4554D9CAF479797E24D4108EF9C40MW3PR12MB4554namp_--
+--_000_MW3PR12MB45540F913662D5CE5ABFC87BF9C40MW3PR12MB4554namp_--
 
---===============1347809122==
+--===============1463353781==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -556,4 +605,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1347809122==--
+--===============1463353781==--
