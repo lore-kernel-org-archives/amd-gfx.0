@@ -7,30 +7,30 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB76DC3526B
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D95DCC3526C
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 964D723B5D
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 964D723B5D
+	by mail.kernel.org (Postfix) with ESMTPS id 8E7F023B5D
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:30:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E7F023B5D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411FD89453;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC2389856;
 	Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2083.outbound.protection.outlook.com [40.107.100.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 014BF89453
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 22:29:57 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760055.outbound.protection.outlook.com [40.107.76.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B5A189856
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 22:29:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F9fq5aNaEJezw0h0KRoeFcv5BEomx/sL7D674CDSPnqMWMJBnjtQ3hRi6871Nrtim4xeFT06eZ+gQIwYGPuVuaM1/A0Q8QppGZ4Fozh8ANcLbroCZhB5L/Y7OssiPY71Fp6z5//WwE9olqLRRJyUQ4/N9KgtJLaDVhC3TpYOB9Js/xvkRat1M2HPuGVDkUhQX+zTWID6vXzsHva/jDaAjzy9XYtKGpaf44eeYNbX0qQuunJfTkGTYQKS05S30nzwuHijSkEonhSUBDKFrhAYnr8rG0me7xXhFVxFb5siI2wiOY4sM3rnPyc7abCUfjciwUoGBLeHT46bEgwPrnULhg==
+ b=T3o17g8T32Bezt3zhF69fFeXAnSTZ0czqnffeYDd1HE2MLNOBgVPhUK8SUz3q5O3w4FoQXungguli8UsXPNbALuOxej4TlPo8Zp5T27H7SiRwk6vdqS95AIvDRS6+fDYFUVARmghrqQrhJdjUP3xO+0zteoInktamNAws/ujzh2TSLMkTtt7gNWNCfXD1isTgMIus3elwJMVhv9EtRPKR99E6UBeHdsUxqxk070COzgW7UwCtrd2G3edUpNMe0wf4P58a0A2bV0hbBEtpP7adfgJDDGOcZvGtV7yVw5lff3Hi4TruW5fWpXZvjtLILZD4ifDxbijvF5kcb0RfMVMqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ecYnjrVhVzMh1Yp2MOc5gdhyJCyG+DpMNhDV++0l0L4=;
- b=FDSUMufNFUKASwHukde8LCKFhl+pAuluFzeSj88Oyxn0UbaQ+v/4RTtuU0oqFQdR+mmV1xFbQi+yK7aLCOmdlSAAhgcpsW3sQJUcaffj5IwigNE3JuXmkDjJiSInpPvIWwmE4ODltDaXj8cw++POpg+ak0QnxNlSMte9A3o/f4sgKJ2xx6wKnghfxu41vWP/oWoNS8GeaVaBjXT8C2X5iARvbKrsAhYD1p75aUh57B03TQuPcZujvpX2PZtfo7weNCiiovjybSfjp9lvmm84cxgYNGZSdNPNuvdeMmeh7F7MUapj+Nx+UdzQMw0yA8RfYe6vnfey4/wWW3ZrCSy9AA==
+ bh=mmjR2tw+1/ni7qHbL/nq/yc93p8/PNn5kmZmuyql3dw=;
+ b=mO0OMow3YSh2Lx2VV8RNQHkTIsVMxuvFLg+Ki/Ifz8upEyjIOuKybADXrBrgOLbv3inp4hOufWrnCf1fSJJKQkqre0KlE8r1ajBgfRD+o9Ep1GDYvFJBE0I0zNMSBWhw1WIAH89LhPK/9eJJ7kl830jQv8jgcLBuI+/O8FnuzEtsj6L8t9ixITygYBlsMDI7GI59uS9ifXeqKVXxVPS3XPVj7Mdog3TCUFRs7DAOd5S4UXe0hcRIKr8oJ2+WFvGQ4LTw1SG5FxXvNJdWgQqKMVpJU0RZRCJZ8rR9+ngNap9W79npMuxgi/F42DYP3jK9vw/6PEm1xr90TAp13/0aIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -38,45 +38,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ecYnjrVhVzMh1Yp2MOc5gdhyJCyG+DpMNhDV++0l0L4=;
- b=apBef6kRAM0tcvQIIhh9uyCXlfYLORAn5ogSi4+hREM0K3JqyhA+gubSNz2y0vWVijdRxmATO3HdMd8RWuRxlpLembPo1EjdDBeY3UMmn5LVvA8/sUnt54Ww2KLNwDGk9RMxQ0r3RTjpKYlXZutIahrHiKoUjs6CvX5OXww996Y=
-Received: from BN6PR02CA0037.namprd02.prod.outlook.com (2603:10b6:404:5f::23)
- by SA0PR12MB4480.namprd12.prod.outlook.com (2603:10b6:806:99::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.17; Fri, 18 Dec
- 2020 22:29:55 +0000
-Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:5f:cafe::c3) by BN6PR02CA0037.outlook.office365.com
- (2603:10b6:404:5f::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Fri, 18 Dec 2020 22:29:55 +0000
+ bh=mmjR2tw+1/ni7qHbL/nq/yc93p8/PNn5kmZmuyql3dw=;
+ b=xTUDVz81iUwfIDoy43iCJ2jOgWmS7T1azuL3FkPwViHQdu1Wa6sHeG+bkf2sZX+z3DHtijSH0LjTyTqjBTgdo4C9mtpdoJdLEk8WXkohnYZcYBoyPuSkZiE6WM9LqNfDAhoBc0un8i/8EURIxP1qMX3qQ9bcZLeIxYKtQolJQoo=
+Received: from DS7PR03CA0065.namprd03.prod.outlook.com (2603:10b6:5:3bb::10)
+ by BYAPR12MB2598.namprd12.prod.outlook.com (2603:10b6:a03:6a::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.25; Fri, 18 Dec
+ 2020 22:29:56 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3bb:cafe::45) by DS7PR03CA0065.outlook.office365.com
+ (2603:10b6:5:3bb::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.28 via Frontend
+ Transport; Fri, 18 Dec 2020 22:29:56 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.3676.25 via Frontend Transport; Fri, 18 Dec 2020 22:29:54 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 18 Dec
- 2020 16:29:52 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 16:29:50 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 18 Dec
- 2020 16:29:52 -0600
+ 2020 16:29:50 -0600
 Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 18 Dec 2020 16:29:51 -0600
+ via Frontend Transport; Fri, 18 Dec 2020 16:29:49 -0600
 From: Bindu Ramamurthy <bindu.r@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/14] drm/amd/display: To modify the condition in indicating
- branch device
-Date: Fri, 18 Dec 2020 17:28:54 -0500
-Message-ID: <20201218222904.393785-5-bindu.r@amd.com>
+Subject: [PATCH 02/14] drm/amd/display: Interfaces for hubp blank and soft
+ reset
+Date: Fri, 18 Dec 2020 17:28:52 -0500
+Message-ID: <20201218222904.393785-3-bindu.r@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201218222904.393785-1-bindu.r@amd.com>
 References: <20201218222904.393785-1-bindu.r@amd.com>
@@ -84,27 +84,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9b37b753-f97c-479f-43b1-08d8a3a47163
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4480:
-X-Microsoft-Antispam-PRVS: <SA0PR12MB44807516312EAEA167120342F5C30@SA0PR12MB4480.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
+X-MS-Office365-Filtering-Correlation-Id: a5f30301-88a2-4a95-d1e6-08d8a3a4717a
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2598:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2598070B9224A3DE202E9F61F5C30@BYAPR12MB2598.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5Fwwvhb17zvaA6Bhy4D5fuYfe85D2y1inV5BHZoc6ezU4V2vwI1P8CK8smcP9BXW5G+RCOhnaUoY7x75GvzIVhRGrpXJHktFb4Q1Re27y5twU7v8fb4ReoqGg0XPLatr5jdRzIFpMQUPoWtFtChMbQr/K8UoE+U0NPIJr6f4jYtMxYg3M3cj+GIDI2LdsYimq48u+h12R9qVGIuMRBf1jfbFy2yyCbMEzeg2T7y0iOQ3DLH3RhxmeF799Da7Pgm/HqNfxCPxYWoYBDukDDrrzmlCJI/pdFIEmSAO9xhRjqkLEQKHP5Kc1q1o+kWy55JpSiXVRW0Ol03IHasI96TlkOGFkYNKCBm+dciO7kt7ZctcFme2P0suLM4uxv/O9KcY7gHkdnyamctSRmKz9FZ8xw==
+X-Microsoft-Antispam-Message-Info: yMggRwHt1JJO6+PW4h5dzVxzt1G/OdrtoO/rp0fmsmZ68BxaFXAmZiuuL8+hNLb0SfxZQp5EGd6pHphdeFZFqmvFa+/3vRh58GbT298KhiY3uydFOXC2px/YGv74FwkwJjauPFLxqm2+sy43PIOSVHGatpca3DUHlLec9aSMixMlF8ZyOhMQXfM73xYmjnMI4w/EX3FQ83YcOd1ZqGI5F1EuTeqLP+3ESt6hl81pHPpjqsWz07jEB7GP12UzDGIH9BPosrolpt/89IlriWwuspz8JdUXd30l+EKvF7JO/OjeYntAKElM8ow/dPM7njz1iztZpY31qdEVqV0c0TuZ5XYfMI7y16+ax3biA5e8D7ZYpLfzREiex4u/Ur4XSzY5u6paH0KQ4kGcIhou7GV5Gk5RE4sT2H+SSqewTQzJjop6kHr+BTXXens+YIJPsSL7hWrOkpEYsTouL8kfZC0woA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(39860400002)(136003)(46966005)(7696005)(316002)(2616005)(426003)(4326008)(8936002)(86362001)(356005)(5660300002)(8676002)(26005)(83380400001)(478600001)(70206006)(70586007)(6916009)(1076003)(54906003)(82310400003)(81166007)(2906002)(186003)(82740400003)(336012)(36756003)(47076004);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(136003)(376002)(39860400002)(46966005)(6916009)(186003)(1076003)(2906002)(426003)(4326008)(8676002)(356005)(7696005)(81166007)(47076004)(316002)(70206006)(82740400003)(6666004)(8936002)(86362001)(36756003)(2616005)(83380400001)(336012)(82310400003)(26005)(478600001)(70586007)(5660300002)(54906003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2020 22:29:54.4780 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b37b753-f97c-479f-43b1-08d8a3a47163
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2020 22:29:54.5794 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5f30301-88a2-4a95-d1e6-08d8a3a4717a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4480
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2598
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,48 +116,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Martin Tsai <martin.tsai@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Martin Tsai <martin.tsai@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-[why]
-The sink count change HPD_IRQ will be ignored if the branch device has only
-DP DFP.
+[WHY]
+HUBP blanking sequence on DCN30 requires us to check if HUBP is in blank
+and also toggle HUBP_DISABLE, which should instead be called
+HUBP_SOFT_RESET for what it does in HW.
 
-[how]
-To remove the port type restriction.
-
-Signed-off-by: Martin Tsai <martin.tsai@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
 Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c  | 18 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h  |  4 ++++
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  2 ++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c  |  2 ++
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h   |  2 ++
+ 5 files changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 6b11d4af54af..2fc12239b22c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -3173,13 +3173,7 @@ static void get_active_converter_info(
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+index 41679ad531c5..9e796dfeac20 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+@@ -1241,6 +1241,22 @@ void hubp1_vtg_sel(struct hubp *hubp, uint32_t otg_inst)
+ 	REG_UPDATE(DCHUBP_CNTL, HUBP_VTG_SEL, otg_inst);
+ }
  
- 	/* DPCD 0x5 bit 0 = 1, it indicate it's branch device */
--	if (ds_port.fields.PORT_TYPE == DOWNSTREAM_DP) {
--		link->dpcd_caps.is_branch_dev = false;
--	}
--
--	else {
--		link->dpcd_caps.is_branch_dev = ds_port.fields.PORT_PRESENT;
--	}
-+	link->dpcd_caps.is_branch_dev = ds_port.fields.PORT_PRESENT;
++bool hubp1_in_blank(struct hubp *hubp)
++{
++	uint32_t in_blank;
++	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
++
++	REG_GET(DCHUBP_CNTL, HUBP_IN_BLANK, &in_blank);
++	return in_blank ? true : false;
++}
++
++void hubp1_soft_reset(struct hubp *hubp, bool reset)
++{
++	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
++
++	REG_UPDATE(DCHUBP_CNTL, HUBP_DISABLE, reset ? 1 : 0);
++}
++
+ void hubp1_init(struct hubp *hubp)
+ {
+ 	//do nothing
+@@ -1272,6 +1288,8 @@ static const struct hubp_funcs dcn10_hubp_funcs = {
  
- 	switch (ds_port.fields.PORT_TYPE) {
- 	case DOWNSTREAM_VGA:
+ 	.dmdata_set_attributes = NULL,
+ 	.dmdata_load = NULL,
++	.hubp_soft_reset = hubp1_soft_reset,
++	.hubp_in_blank = hubp1_in_blank,
+ };
+ 
+ /*****************************************/
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
+index 780af5b3c16f..a9a6ed7f4f99 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
+@@ -260,6 +260,7 @@
+ 	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_NO_OUTSTANDING_REQ, mask_sh),\
+ 	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_VTG_SEL, mask_sh),\
+ 	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_DISABLE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_IN_BLANK, mask_sh),\
+ 	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PIPES, mask_sh),\
+ 	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_BANKS, mask_sh),\
+ 	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, PIPE_INTERLEAVE, mask_sh),\
+@@ -455,6 +456,7 @@
+ 	type HUBP_VTG_SEL;\
+ 	type HUBP_UNDERFLOW_STATUS;\
+ 	type HUBP_UNDERFLOW_CLEAR;\
++	type HUBP_IN_BLANK;\
+ 	type NUM_PIPES;\
+ 	type NUM_BANKS;\
+ 	type PIPE_INTERLEAVE;\
+@@ -772,5 +774,7 @@ void hubp1_vready_workaround(struct hubp *hubp,
+ 
+ void hubp1_init(struct hubp *hubp);
+ void hubp1_read_state_common(struct hubp *hubp);
++bool hubp1_in_blank(struct hubp *hubp);
++void hubp1_soft_reset(struct hubp *hubp, bool reset);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+index b7e44e53a342..0df0da2e6a4d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+@@ -1595,6 +1595,8 @@ static struct hubp_funcs dcn20_hubp_funcs = {
+ 	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
+ 	.hubp_init = hubp1_init,
+ 	.validate_dml_output = hubp2_validate_dml_output,
++	.hubp_in_blank = hubp1_in_blank,
++	.hubp_soft_reset = hubp1_soft_reset,
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+index af462fe4260d..88ffa9ff1ed1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -509,6 +509,8 @@ static struct hubp_funcs dcn30_hubp_funcs = {
+ 	.hubp_clear_underflow = hubp2_clear_underflow,
+ 	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
+ 	.hubp_init = hubp3_init,
++	.hubp_in_blank = hubp1_in_blank,
++	.hubp_soft_reset = hubp1_soft_reset,
+ };
+ 
+ bool hubp3_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index 315e3061c592..22f3f643ed1b 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -188,6 +188,8 @@ struct hubp_funcs {
+ 	void (*set_unbounded_requesting)(
+ 		struct hubp *hubp,
+ 		bool enable);
++	bool (*hubp_in_blank)(struct hubp *hubp);
++	void (*hubp_soft_reset)(struct hubp *hubp, bool reset);
+ 
+ };
+ 
 -- 
 2.25.1
 
