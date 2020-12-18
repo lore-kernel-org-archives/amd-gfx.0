@@ -7,30 +7,30 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B753AC4361B
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB76DC3526B
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B57C23B5D
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B57C23B5D
+	by mail.kernel.org (Postfix) with ESMTPS id 964D723B5D
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 964D723B5D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF7C893A8;
-	Fri, 18 Dec 2020 22:29:55 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9A893A8
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 22:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411FD89453;
+	Fri, 18 Dec 2020 22:29:59 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2083.outbound.protection.outlook.com [40.107.100.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 014BF89453
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 22:29:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f0okBbSDA76O/zXQOYYyu9Q79Y1KQlGI0f0WbnDG8s5Vhik/iBC2nRXxJxv2o7B6hcXrUfrV/eP3ySdF+W3zcCo5Kh7ueQQlKFZjlcizZXaYpnMS+AKBYCJrDFLXwVcMQwe/ng0TaXqeQd8EG9WmGBOZT1Xf2Kims7R6SYmFoOCYJEctdnLQZjBUrjVg10HvaxLhjIR9CnBNth/YdmtGttLRmfgbj4edW9ykLs3j5zf67t2oSbFR3KXgUlZcob3E8aLOSSDj4FJ6HAf0CrD8MIrQUpinoD3/L8Te1xddC8SCzsp3XxwQaknYenA6OwlSpSxgqLa4/BUQ/VLPbeHkjg==
+ b=F9fq5aNaEJezw0h0KRoeFcv5BEomx/sL7D674CDSPnqMWMJBnjtQ3hRi6871Nrtim4xeFT06eZ+gQIwYGPuVuaM1/A0Q8QppGZ4Fozh8ANcLbroCZhB5L/Y7OssiPY71Fp6z5//WwE9olqLRRJyUQ4/N9KgtJLaDVhC3TpYOB9Js/xvkRat1M2HPuGVDkUhQX+zTWID6vXzsHva/jDaAjzy9XYtKGpaf44eeYNbX0qQuunJfTkGTYQKS05S30nzwuHijSkEonhSUBDKFrhAYnr8rG0me7xXhFVxFb5siI2wiOY4sM3rnPyc7abCUfjciwUoGBLeHT46bEgwPrnULhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tSDEXLdFlK4A1ti2rXJQixzEjTzq5n+py/Q02i7Z3c8=;
- b=GBEu1L54cCYKJbomrdV/aCj5w6mKYuW/J9fQ++MeLbRRYu8r/bYHfevwMtGnYbnorA3KusPkIFjbo9t34Coroxe80LK8M3Tka4rCbGq1SkJr4zwrxX7XYPum6FUR+6BkgMPQppsm7kDBdichUn+r68EeD9j4oxoC7/8TBcar88qgG7RozNLsZiPpG4HI008gD/5ZyamMx0Wxm+qYlln2ujz8vlg8YhXv7a/P+0r3BzwVhsXamQSjGRIrOTMkWN+UGnJjNjGGhThrWQpskVSgSskLg3kReK8OfVsuwf4fEXBZQihMaHyK5ZcN5bXGeZbMCt2nHW9KNjl3ymM2rVCA3g==
+ bh=ecYnjrVhVzMh1Yp2MOc5gdhyJCyG+DpMNhDV++0l0L4=;
+ b=FDSUMufNFUKASwHukde8LCKFhl+pAuluFzeSj88Oyxn0UbaQ+v/4RTtuU0oqFQdR+mmV1xFbQi+yK7aLCOmdlSAAhgcpsW3sQJUcaffj5IwigNE3JuXmkDjJiSInpPvIWwmE4ODltDaXj8cw++POpg+ak0QnxNlSMte9A3o/f4sgKJ2xx6wKnghfxu41vWP/oWoNS8GeaVaBjXT8C2X5iARvbKrsAhYD1p75aUh57B03TQuPcZujvpX2PZtfo7weNCiiovjybSfjp9lvmm84cxgYNGZSdNPNuvdeMmeh7F7MUapj+Nx+UdzQMw0yA8RfYe6vnfey4/wWW3ZrCSy9AA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -38,41 +38,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tSDEXLdFlK4A1ti2rXJQixzEjTzq5n+py/Q02i7Z3c8=;
- b=F4lSy0UoMd3C3GO7AG7WLYfrDR7Z5komlPtDr6Turl8rB7wnqUbydDU3zjWaWl2hvD3BFVyE3CgTe9k0vbcfvT4NbiqgzuBKsvEl/XRwjyaOkKx4NWsau+yBQcf0pvlSJxMc1RogMiUGVHPsVsGmIi1mll7QePLl+WGAUkDkc1A=
-Received: from DS7PR03CA0087.namprd03.prod.outlook.com (2603:10b6:5:3bb::32)
- by BL0PR12MB4932.namprd12.prod.outlook.com (2603:10b6:208:1c2::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.25; Fri, 18 Dec
- 2020 22:29:52 +0000
-Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::dd) by DS7PR03CA0087.outlook.office365.com
- (2603:10b6:5:3bb::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.28 via Frontend
- Transport; Fri, 18 Dec 2020 22:29:52 +0000
+ bh=ecYnjrVhVzMh1Yp2MOc5gdhyJCyG+DpMNhDV++0l0L4=;
+ b=apBef6kRAM0tcvQIIhh9uyCXlfYLORAn5ogSi4+hREM0K3JqyhA+gubSNz2y0vWVijdRxmATO3HdMd8RWuRxlpLembPo1EjdDBeY3UMmn5LVvA8/sUnt54Ww2KLNwDGk9RMxQ0r3RTjpKYlXZutIahrHiKoUjs6CvX5OXww996Y=
+Received: from BN6PR02CA0037.namprd02.prod.outlook.com (2603:10b6:404:5f::23)
+ by SA0PR12MB4480.namprd12.prod.outlook.com (2603:10b6:806:99::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.17; Fri, 18 Dec
+ 2020 22:29:55 +0000
+Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:5f:cafe::c3) by BN6PR02CA0037.outlook.office365.com
+ (2603:10b6:404:5f::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
+ Transport; Fri, 18 Dec 2020 22:29:55 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3676.25 via Frontend Transport; Fri, 18 Dec 2020 22:29:50 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3676.25 via Frontend Transport; Fri, 18 Dec 2020 22:29:54 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 18 Dec
- 2020 16:29:49 -0600
+ 2020 16:29:52 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 18 Dec
+ 2020 16:29:52 -0600
 Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 18 Dec 2020 16:29:43 -0600
+ via Frontend Transport; Fri, 18 Dec 2020 16:29:51 -0600
 From: Bindu Ramamurthy <bindu.r@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/14] drm/amd/display: handler not correctly checked at
- remove_irq_handler
-Date: Fri, 18 Dec 2020 17:28:51 -0500
-Message-ID: <20201218222904.393785-2-bindu.r@amd.com>
+Subject: [PATCH 04/14] drm/amd/display: To modify the condition in indicating
+ branch device
+Date: Fri, 18 Dec 2020 17:28:54 -0500
+Message-ID: <20201218222904.393785-5-bindu.r@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201218222904.393785-1-bindu.r@amd.com>
 References: <20201218222904.393785-1-bindu.r@amd.com>
@@ -80,27 +84,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 975041bb-9cc7-4dfa-381b-08d8a3a46ef4
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4932:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB49325BB0E4F11959244DB1BBF5C30@BL0PR12MB4932.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Office365-Filtering-Correlation-Id: 9b37b753-f97c-479f-43b1-08d8a3a47163
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4480:
+X-Microsoft-Antispam-PRVS: <SA0PR12MB44807516312EAEA167120342F5C30@SA0PR12MB4480.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7uTMfEBrE41BY5llPHGQvhH2R4uCrIZCRs9wFeEn3yJ4Q/T3XVL4+oyXskf+gIM0D0fN8enMqiLgKk2xfazwp2XQRCtYZPU9iZtI9qdS4FLDXA1CwFSMrYKdiBh8aF/lXhe9c5JPb1AE2Y4fp44IWAK4Q5RfF8mBnaeETdC+kzRwPf5ohF/B8nBSNPHn3mhMUV58nizk8ZcGpAoFw+2uiLRCG1wSh+nGM093q8RxxzPCcMfafkk0q96Wl6DGahT8eIG81Q78rSd4ui/RyoVn/XSI5pq9jw5RyRmTT/sAGV4SHhX3cgk0Yk0ND55PZT1oMhprR2nCdV37d5ydTO5DUMsqJEiB3JwBUY5m6yv1EMxVCt97Arxgd0sUV4x9524Hk0a4bX6cT70yE4DnUVFqOE0hgOrhRFMnBu+p1DjhjnHeqaQxuoIxQaAbbv79QyuogD8pQzrsf0DQXdta5kzUwQ==
+X-Microsoft-Antispam-Message-Info: 5Fwwvhb17zvaA6Bhy4D5fuYfe85D2y1inV5BHZoc6ezU4V2vwI1P8CK8smcP9BXW5G+RCOhnaUoY7x75GvzIVhRGrpXJHktFb4Q1Re27y5twU7v8fb4ReoqGg0XPLatr5jdRzIFpMQUPoWtFtChMbQr/K8UoE+U0NPIJr6f4jYtMxYg3M3cj+GIDI2LdsYimq48u+h12R9qVGIuMRBf1jfbFy2yyCbMEzeg2T7y0iOQ3DLH3RhxmeF799Da7Pgm/HqNfxCPxYWoYBDukDDrrzmlCJI/pdFIEmSAO9xhRjqkLEQKHP5Kc1q1o+kWy55JpSiXVRW0Ol03IHasI96TlkOGFkYNKCBm+dciO7kt7ZctcFme2P0suLM4uxv/O9KcY7gHkdnyamctSRmKz9FZ8xw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(39860400002)(346002)(46966005)(8936002)(82740400003)(82310400003)(83380400001)(7696005)(47076004)(356005)(186003)(426003)(316002)(36756003)(54906003)(26005)(86362001)(1076003)(70586007)(5660300002)(336012)(4326008)(478600001)(6666004)(6916009)(2616005)(8676002)(81166007)(70206006)(2906002);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(376002)(39860400002)(136003)(46966005)(7696005)(316002)(2616005)(426003)(4326008)(8936002)(86362001)(356005)(5660300002)(8676002)(26005)(83380400001)(478600001)(70206006)(70586007)(6916009)(1076003)(54906003)(82310400003)(81166007)(2906002)(186003)(82740400003)(336012)(36756003)(47076004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2020 22:29:50.3428 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 975041bb-9cc7-4dfa-381b-08d8a3a46ef4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2020 22:29:54.4780 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b37b753-f97c-479f-43b1-08d8a3a47163
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4932
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4480
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,47 +116,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Rodrigo.Siqueira@amd.com,
+Cc: Martin Tsai <martin.tsai@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+From: Martin Tsai <martin.tsai@amd.com>
 
 [why]
-handler is supposedly passed in as a function pointer;
-however, the entire struct amdgpu_dm_irq_handler_data
-gets from the list is used to check match.
+The sink count change HPD_IRQ will be ignored if the branch device has only
+DP DFP.
 
 [how]
-use the interrupt_handler within amdgpu_dm_irq_handler_data
-for checking match.
+To remove the port type restriction.
 
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Martin Tsai <martin.tsai@amd.com>
 Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 357778556b06..26ed70e5538a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -165,7 +165,10 @@ static struct list_head *remove_irq_handler(struct amdgpu_device *adev,
- 		handler = list_entry(entry, struct amdgpu_dm_irq_handler_data,
- 				     list);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 6b11d4af54af..2fc12239b22c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3173,13 +3173,7 @@ static void get_active_converter_info(
+ 	}
  
--		if (ih == handler) {
-+		if (handler == NULL)
-+			continue;
-+
-+		if (ih == handler->handler) {
- 			/* Found our handler. Remove it from the list. */
- 			list_del(&handler->list);
- 			handler_removed = true;
+ 	/* DPCD 0x5 bit 0 = 1, it indicate it's branch device */
+-	if (ds_port.fields.PORT_TYPE == DOWNSTREAM_DP) {
+-		link->dpcd_caps.is_branch_dev = false;
+-	}
+-
+-	else {
+-		link->dpcd_caps.is_branch_dev = ds_port.fields.PORT_PRESENT;
+-	}
++	link->dpcd_caps.is_branch_dev = ds_port.fields.PORT_PRESENT;
+ 
+ 	switch (ds_port.fields.PORT_TYPE) {
+ 	case DOWNSTREAM_VGA:
 -- 
 2.25.1
 
