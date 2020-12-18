@@ -2,125 +2,76 @@ Return-Path: <SRS0=OQM/=FW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A9D8C4361B
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 14:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38541C4361B
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 14:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F125023A9F
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 14:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F125023A9F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B02EE23AAA
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Dec 2020 14:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B02EE23AAA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A13BE89E86;
-	Fri, 18 Dec 2020 14:02:13 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F5889E86
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 14:02:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J5s4FEMsw67OqAQg/Q9jIXmi3/afhwiE57nOt3iwYfSCqxUM/wdFri7VoTi4UP0+YrN5xrT/Ko5Dyo4rOQYBPz8Bi92Xsu5bx/1wZ+H3fCTTMTBE/MMm+XSi8ILocXKCfrt29jeWMshrkdVhgb4hov8OtVE1Fexa2/Kby0qw/oTpGG5lG5b2W8FNk/CtKwqX5xgPYgTkdkff47YXJ6hp8yVRM4ZNSQ+hA9kmvvtIK8vyMkjSKpzz1DKOBiNZQl/xeDd0hJVlJUd3UaTK3JV1D0iXD6cNUb+ZMX9qKEZG2pbvZdFWuNZPymxmFVdiIqHRWp9oskKd3l9k8J578muUbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VHf/uRaV/IKwbohowr4pyhIMuscsIAey9zyYeM0L1Cg=;
- b=OASGD7h6tlMQv/zrR/fkai3f9lN87/rf1ZME09QWoOr/WpJoTrkaenhkpXot+6T+l3iIB2zUwlvyjPpY6VKILWm9mIlE9BAN2wcwvezb2+a/un/RE0uQeNU7OuHxA7A3llfbsIVR3ppGFD2kPqM+p3LddSt4t1S5z+2nmb3KxT77PKTwYKjm6nwCicnYUyGfMGxE0Gm+VHO53XbXn3AjPBcurrCBtX0mHGhdDcr+j/+U8XFR3//dwYCNkXHyqN5YrsRmgk6G9iS0sWjjTTMi86mnMQEey47+SX+euT+vqpv2GR9CthJa6LV5dbTjQ1ZNMVrkeu7Dh6dOYOFz6eZjxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VHf/uRaV/IKwbohowr4pyhIMuscsIAey9zyYeM0L1Cg=;
- b=tXhNhFD9srzMqVZEO9mkpiZr1RTu6ziQbb51VLYtSLsm1bOTaaeaclEIqv+4QuLlI/6XriQAOQRRgOSIBEJRaoxitWbnMRv+hY5Nj46gya3yXbz1Gx0CvO83Gw81DPwY/LsMgl9qbWapG99WVePpf8DzgL1cQBFDm/knepXOApw=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4440.namprd12.prod.outlook.com (2603:10b6:208:26e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.25; Fri, 18 Dec
- 2020 14:02:08 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3654.025; Fri, 18 Dec 2020
- 14:02:08 +0000
-Subject: Re: [PATCH 1/1] drm/amdgpu: cleanup vce,vcn,uvd ring selftests
-To: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20201218135547.5921-1-nirmoy.das@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <6ef74186-56a2-6f38-b73b-b618fd1b5db0@amd.com>
-Date: Fri, 18 Dec 2020 15:02:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20201218135547.5921-1-nirmoy.das@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM8P190CA0024.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:219::29) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 743346E0F1;
+	Fri, 18 Dec 2020 14:30:32 +0000 (UTC)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D935A6E0F1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 14:30:30 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id v14so2525855wml.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Dec 2020 06:30:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=VVM1v56DoUti6dx/dKRWAI3CHXJoVJMQZgrNm3EbUAQ=;
+ b=NPPjpOE+3n6qcILCnP6HXHc26zXRKCd9QKz/eK/oaiyAFVcjZxjbupMedJxF07DDxu
+ dzjLYyjB0WVeaNfHqHOPiBxiyGrjqm5PICkz2UZwreR5XIJc2UQGQHd+aIgDN+E55Q8m
+ 8J348qqJj6dH0pDl4EgNHWtOAkeYjwMfJ2pTY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=VVM1v56DoUti6dx/dKRWAI3CHXJoVJMQZgrNm3EbUAQ=;
+ b=qW4nyV6ffFK+5X4QQ/lIjPmn+jsqbfzeUDuJqCwhtmRWu8QKxlsd0jUPvbdOjiHUvs
+ 4ML+HxECjLF8x0qqBCWM8pD+4LnB8ToAObTX9UReX57sGqZsvT83mhNSY2HBTMsFzEKW
+ 1NyKJrU+/B8ealNVDTIhzjW56NTbqlCrC4ENPyp73e0yXBe/qa91t0xrshre/UrOKO7y
+ nTm03sOOtcjsyL5lhodeG31GGfg4M9wszf6bBJ0PPLcQgdJSAsv+1DdXbxstO8nKZ/lH
+ clJFAaYjFF4N2C2x02GtQhClRD2Yai2N2iHgq58yt99oJC0l3ahrWbGAPlS0+DtorH4c
+ jngg==
+X-Gm-Message-State: AOAM53075HRkimEm3Tj+DivD8wWSWALOEluqN41ZVHQxaxubR+9cuT2X
+ qk9d9/CSGwx8LPABf+EsC3R8lw==
+X-Google-Smtp-Source: ABdhPJwi1tmOS76zbyTcN9wCTzRtcMOIS857KbLiEJCiKIsjd1UiUiokEfX0AGdGBKQ/rsyJ40TSVA==
+X-Received: by 2002:a1c:e1c6:: with SMTP id y189mr4416450wmg.172.1608301829473; 
+ Fri, 18 Dec 2020 06:30:29 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id y68sm13662732wmc.0.2020.12.18.06.30.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Dec 2020 06:30:28 -0800 (PST)
+Date: Fri, 18 Dec 2020 15:30:26 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
+Message-ID: <X9y9Asbm7YLGAqHD@phenom.ffwll.local>
+References: <CAKMK7uEgY4gYqowUZP0FZYHB7FNPCqApWojmSnuwhQ9WnY6hLA@mail.gmail.com>
+ <8083b9f8-ee43-504f-0690-7add68472ca9@amd.com>
+ <CAKMK7uGQtOgHxXQ_AK7f0unrwOnLQm3nb-VUJ_pW6vonRazu0Q@mail.gmail.com>
+ <74140041-d838-87ce-5408-806d860cf9b3@amd.com>
+ <X9tIrE0Ak68HJ391@phenom.ffwll.local>
+ <864df6cc-33f4-6624-6756-5a171ad7ed4f@amd.com>
+ <e1549b76-eed4-fa91-88c6-083e0dfe5595@amd.com>
+ <cf18edc7-e1a6-7a6e-3944-63f3463577b9@amd.com>
+ <CAKMK7uF5NRARdA1BrsYSBgYw-ioTc_P54LXLCi4LQ21S3NZc1Q@mail.gmail.com>
+ <19ec7cb6-e1aa-e4ac-9cb1-a08d60c07af4@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM8P190CA0024.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3676.28 via Frontend Transport; Fri, 18 Dec 2020 14:02:07 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 07908488-7763-49f6-71d3-08d8a35d8232
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4440:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4440FF6CA18BCFCD5AEE01CC83C30@MN2PR12MB4440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9FQEgW8YOj7JHbWdFmr3L/qdf3RbFGUvdnm64ja3QzkCrdjNiddwSb0X45chMXUOYjzGzzVThvLVbbJPiCT444yEAggOlcHPqUZESjIOSPjiH5cc7bkPdXQ6ltlcac2zdYYgSUjM8AQpq5sIB8AyFuuwfkrDzKufvrWYqLRIJ1Xwb8Bl08RiqO4z8tx3SRUoB4aHpMrUpyposeOdzI44r5dDjfLeElSiA1NAufWlsEknDFlLBpJhdhJsKkkiJf/nZbx1Lca/oPbDleWaqdIVnbziUes17J3VKm9/20KBEXgbCeBAti+GpEXWpZwFJV5TXi3xIp/dS5L0DwP6MmxMeNEParorzU6ugTC/MsIOEy3Cy2rufEVL+r4m2zweUZ5yJ9AQQba8QiU2Asi3uboW6JENwGApRZ+/Z8ThFGQ6yh1bdo+RCpaBDfIl6+9eOHPYi0Re1gXsAJEgdDlxoIDNlb1fBHLUQZSZNd5fh5/f1mU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(366004)(376002)(30864003)(6486002)(66556008)(2616005)(31686004)(66476007)(6666004)(52116002)(2906002)(31696002)(66946007)(16526019)(8676002)(478600001)(8936002)(316002)(5660300002)(36756003)(186003)(86362001)(83380400001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Q2lIZkxWdittODdXdGJvVHdDSlZ4TGdNa1NnZUh1ZU1GMnN2cnN4ekVZV1Fz?=
- =?utf-8?B?dHZvSGFWRnp5YnJSakhWajhJSlljOU9qQ0R6YXVOL3MwS1Q2L0hlQ3JJOW9S?=
- =?utf-8?B?ZktTZk5YdnhwRDZKSEhxZmZsTkFOM0ZkSC9uaE1OR0ZYSjBYZTFYVCt3U0p2?=
- =?utf-8?B?V2wreFl4N1k2NXNlKzNmakQ1azA4VitFWlMrU1Y5Q1V4azNCbFByMFJZMUtW?=
- =?utf-8?B?TFBWZG1wOFVVSkxFKzAzQlZHaU5yL0VENUlzOE5zQnVIaFhYTkRXaSswQVNE?=
- =?utf-8?B?SWM5UWNaV1pjYU03cG44d3hRUXNNWnE4TVRkb0lXTWsrQ3VIeXlPYVNhd0lo?=
- =?utf-8?B?cnl2ZTlhUlVvWWI1YXV3a2RrYkx1ZmtXbE1pTEZabjBZOXByZndqS2hUcGVP?=
- =?utf-8?B?ZlBqK3h0WjEyUk5teGRjeDlUT3I1cHk4YlQzL2I4ZUplQUZSRGVWR2o5MVoy?=
- =?utf-8?B?N3JpZnY1SStFRG5aQXlFVlA4VTNxVEFtajN6d0IzeW5xK0FOV0c3UGtZTmdz?=
- =?utf-8?B?RWRJNkxKdkZaVExOTEdLL3pIL2ZVM2tlS2EvZktOeE0xc0pKY01iNjNKUnRj?=
- =?utf-8?B?QTV1MUtvQUNDcDc4Umx5VTJSSEliN1ZvR3dOamNTODdHaDgvUHkvSDBkVDA4?=
- =?utf-8?B?WmFMTTdYOTBzUVE3dWY2Q0dLK2VLRHdWQjNGQ0hrWk9JV3U5SlRlek8wVUhr?=
- =?utf-8?B?T29rWW1jWHI0K0xTNDFveGFGaUZsSzc5WkM3bEY2eTNnWHVxaWZ6NHNxeTZo?=
- =?utf-8?B?d2IxRzRmTWJUdFFXNUtRVXNxYTV4NTVKcHRhSkVKbzNLVjQ5Sk9ndEg0WmJx?=
- =?utf-8?B?Sk4rRjRXaGxya3dVVHYxajZsUk5zV3Mwc1krRENBUmRKcC9qbkNCL0wySGZi?=
- =?utf-8?B?bEhjcmVVcmlpTGxtYWJZL2dvRXREMmh5c05HcGdVOGpvZ2g2VXgydFloZU9i?=
- =?utf-8?B?Zk1tQ2drb1F4VkxNMjF1QWJjam5Oa0dUaXpNejM5V3NleVFweXhWb084NHFF?=
- =?utf-8?B?bVFSVVg1NW5FZW1jMnA0Z1Z2Y3p6eU5rUWZuN3hMOGFNSmxEZGFsY2tvYTFj?=
- =?utf-8?B?U3JnZGZKTi81TkxPVklmd2tlbVNtUktCZjJKTmxUWTllNVRXbnJVa0lvN1g2?=
- =?utf-8?B?QjZuNXpVV1RnUGV1L0ZhZjhSQkFNMVovcDlSZlptN0E4bGFTbFo4MlYreExt?=
- =?utf-8?B?RWRidG1PSVRBd1Q4cWFmQlJxQ0lLVTlQVzA2aXVYd2lpaUhyVWpPckVocE1Z?=
- =?utf-8?B?TmtuQ3ZSaUFPcFA3eFdpd0dxdm5QZWNjQkFQL3BRdWRTOHZ5L3prb1VYME1l?=
- =?utf-8?B?NTVwR2VVSEpuL0h5Sm5IeUQ0bDBlTHl4aGQ5cmNIb0h5ei94d1k1T0lZTkY5?=
- =?utf-8?B?RFZVUmNqa2cxV1U0NnQ3eEtFU2Q3UEVQTGgrWHkveXY3cUpWcWJIV2c1cGhh?=
- =?utf-8?Q?Fhvfq+Mq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2020 14:02:08.2646 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07908488-7763-49f6-71d3-08d8a35d8232
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3YXBZjhSi/YqJcOTcOQnBQeE3VsiWt97fSMPPgp0yWk1Zkc/BAvo7urpI851HZbU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4440
+Content-Disposition: inline
+In-Reply-To: <19ec7cb6-e1aa-e4ac-9cb1-a08d60c07af4@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,374 +83,315 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Rob Herring <robh@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <Alexander.Deucher@amd.com>, Qiang Yu <yuq825@gmail.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.12.20 um 14:55 schrieb Nirmoy Das:
-> Use amdgpu_sa_bo instead of amdgpu_bo.
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 56 +++++++------------------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 17 ++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 47 ++++++++++-----------
->   3 files changed, 45 insertions(+), 75 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index 8b989670ed66..3c723e25dd5d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -1057,7 +1057,7 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser *parser, uint32_t ib_idx)
->   	return 0;
->   }
->   
-> -static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
-> +static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_sa_bo *bo,
->   			       bool direct, struct dma_fence **fence)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> @@ -1071,19 +1071,6 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
->   	unsigned offset_idx = 0;
->   	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
->   
-> -	amdgpu_bo_kunmap(bo);
-> -	amdgpu_bo_unpin(bo);
-> -
-> -	if (!ring->adev->uvd.address_64_bit) {
-> -		struct ttm_operation_ctx ctx = { true, false };
-> -
-> -		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
-> -		amdgpu_uvd_force_into_uvd_segment(bo);
-> -		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> -		if (r)
-> -			goto err;
-> -	}
-> -
->   	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
->   				     AMDGPU_IB_POOL_DELAYED, &job);
->   	if (r)
-> @@ -1101,7 +1088,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
->   	data[3] = PACKET0(offset[offset_idx] + UVD_NO_OP, 0);
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = amdgpu_sa_bo_gpu_addr(bo);
->   	ib->ptr[0] = data[0];
->   	ib->ptr[1] = addr;
->   	ib->ptr[2] = data[1];
-> @@ -1115,33 +1102,17 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
->   	ib->length_dw = 16;
->   
->   	if (direct) {
-> -		r = dma_resv_wait_timeout_rcu(bo->tbo.base.resv,
-> -							true, false,
-> -							msecs_to_jiffies(10));
-> -		if (r == 0)
-> -			r = -ETIMEDOUT;
-> -		if (r < 0)
-> -			goto err_free;
-> -
->   		r = amdgpu_job_submit_direct(job, ring, &f);
->   		if (r)
->   			goto err_free;
->   	} else {
-> -		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.base.resv,
-> -				     AMDGPU_SYNC_ALWAYS,
-> -				     AMDGPU_FENCE_OWNER_UNDEFINED);
-> -		if (r)
-> -			goto err_free;
-> -
->   		r = amdgpu_job_submit(job, &adev->uvd.entity,
->   				      AMDGPU_FENCE_OWNER_UNDEFINED, &f);
->   		if (r)
->   			goto err_free;
->   	}
->   
-> -	amdgpu_bo_fence(bo, f, false);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
->   
->   	if (fence)
->   		*fence = dma_fence_get(f);
-> @@ -1153,8 +1124,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
->   	amdgpu_job_free(job);
->   
->   err:
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
+On Thu, Dec 17, 2020 at 04:06:38PM -0500, Andrey Grodzovsky wrote:
+> =
 
-The fence is undefined here and should probably be replaced with NULL. 
-Same for other places.
+> On 12/17/20 3:48 PM, Daniel Vetter wrote:
+> > On Thu, Dec 17, 2020 at 9:38 PM Andrey Grodzovsky
+> > <Andrey.Grodzovsky@amd.com> wrote:
+> > > =
 
->   	return r;
->   }
->   
-> @@ -1165,16 +1135,17 @@ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
->   			      struct dma_fence **fence)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> -	struct amdgpu_bo *bo = NULL;
-> +	struct amdgpu_sa_bo *bo = NULL;
->   	uint32_t *msg;
->   	int r, i;
->   
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      &bo, NULL, (void **)&msg);
-> +	r = amdgpu_sa_bo_new(&adev->ib_pools[AMDGPU_IB_POOL_DIRECT],
-> +			     &bo, 1024, PAGE_SIZE);
-> +
->   	if (r)
->   		return r;
->   
-> +	msg = amdgpu_sa_bo_cpu_addr(bo);
->   	/* stitch together an UVD create msg */
->   	msg[0] = cpu_to_le32(0x00000de4);
->   	msg[1] = cpu_to_le32(0x00000000);
-> @@ -1197,16 +1168,17 @@ int amdgpu_uvd_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
->   			       bool direct, struct dma_fence **fence)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> -	struct amdgpu_bo *bo = NULL;
-> +	struct amdgpu_sa_bo *bo = NULL;
+> > > On 12/17/20 3:10 PM, Christian K=F6nig wrote:
+> > > > [SNIP]
+> > > > > > > By eliminating such users, and replacing them with local maps=
+ which
+> > > > > > > > are strictly bound in how long they can exist (and hence we=
+ can
+> > > > > > > > serialize against them finishing in our hotunplug code).
+> > > > > > > Not sure I see how serializing against BO map/unmap helps - o=
+ur problem as
+> > > > > > > you described is that once
+> > > > > > > device is extracted and then something else quickly takes it'=
+s place in the
+> > > > > > > PCI topology
+> > > > > > > and gets assigned same physical IO ranges, then our driver wi=
+ll start
+> > > > > > > accessing this
+> > > > > > > new device because our 'zombie' BOs are still pointing to tho=
+se ranges.
+> > > > > > Until your driver's remove callback is finished the ranges stay=
+ reserved.
+> > > > > =
 
-Please don't set the variable to NULL. The compiler should complain when 
-we use this uninitialized. Same for other places.
+> > > > > The ranges stay reserved until unmapped which happens in bo->dest=
+roy
+> > > > I'm not sure of that. Why do you think that?
+> > > =
 
-Apart from that looks good to me,
-Christian.
+> > > Because of this sequence
+> > > ttm_bo_release->destroy->amdgpu_bo_destroy->amdgpu_bo_kunmap->...->io=
+unmap
+> > > Is there another place I am missing ?
+> > iounmap is just the mapping, it doesn't reserve anything in the resourc=
+e tree.
+> > =
 
->   	uint32_t *msg;
->   	int r, i;
->   
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      &bo, NULL, (void **)&msg);
-> +	r = amdgpu_sa_bo_new(&adev->ib_pools[AMDGPU_IB_POOL_DIRECT],
-> +			     &bo, 1024, PAGE_SIZE);
-> +
->   	if (r)
->   		return r;
->   
-> +	msg = amdgpu_sa_bo_cpu_addr(bo);
->   	/* stitch together an UVD destroy msg */
->   	msg[0] = cpu_to_le32(0x00000de4);
->   	msg[1] = cpu_to_le32(0x00000002);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index 0d5284b936e4..bce29d6975d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -81,7 +81,7 @@ MODULE_FIRMWARE(FIRMWARE_VEGA20);
->   
->   static void amdgpu_vce_idle_work_handler(struct work_struct *work);
->   static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -				     struct amdgpu_bo *bo,
-> +				     struct amdgpu_sa_bo *bo,
->   				     struct dma_fence **fence);
->   static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
->   				      bool direct, struct dma_fence **fence);
-> @@ -437,7 +437,7 @@ void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
->    * Open up a stream for HW test
->    */
->   static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -				     struct amdgpu_bo *bo,
-> +				     struct amdgpu_sa_bo *bo,
->   				     struct dma_fence **fence)
->   {
->   	const unsigned ib_size_dw = 1024;
-> @@ -454,7 +454,7 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
->   
->   	ib = &job->ibs[0];
->   
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = amdgpu_sa_bo_gpu_addr(bo);
->   
->   	/* stitch together an VCE create msg */
->   	ib->length_dw = 0;
-> @@ -1130,16 +1130,16 @@ int amdgpu_vce_ring_test_ring(struct amdgpu_ring *ring)
->   int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo = NULL;
-> +	struct amdgpu_sa_bo *bo = NULL;
-> +	struct amdgpu_device *adev = ring->adev;
->   	long r;
->   
->   	/* skip vce ring1/2 ib test for now, since it's not reliable */
->   	if (ring != &ring->adev->vce.ring[0])
->   		return 0;
->   
-> -	r = amdgpu_bo_create_reserved(ring->adev, 512, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      &bo, NULL, NULL);
-> +	r = amdgpu_sa_bo_new(&adev->ib_pools[AMDGPU_IB_POOL_DIRECT],
-> +			     &bo, 512, PAGE_SIZE);
->   	if (r)
->   		return r;
->   
-> @@ -1158,8 +1158,7 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   		r = 0;
->   
->   error:
-> +	amdgpu_sa_bo_free(adev, &bo, fence);
->   	dma_fence_put(fence);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
->   	return r;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 4a77c7424dfc..ae4a80724ce2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -488,7 +488,7 @@ int amdgpu_vcn_dec_sw_ring_test_ring(struct amdgpu_ring *ring)
->   }
->   
->   static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
-> -				   struct amdgpu_bo *bo,
-> +				   struct amdgpu_sa_bo *bo,
->   				   struct dma_fence **fence)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> @@ -504,7 +504,8 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   		goto err;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = amdgpu_sa_bo_gpu_addr(bo);
-> +
->   	ib->ptr[0] = PACKET0(adev->vcn.internal.data0, 0);
->   	ib->ptr[1] = addr;
->   	ib->ptr[2] = PACKET0(adev->vcn.internal.data1, 0);
-> @@ -521,9 +522,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   	if (r)
->   		goto err_free;
->   
-> -	amdgpu_bo_fence(bo, f, false);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
->   
->   	if (fence)
->   		*fence = dma_fence_get(f);
-> @@ -535,25 +534,27 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
->   	amdgpu_job_free(job);
->   
->   err:
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
->   	return r;
->   }
->   
->   static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					 struct amdgpu_bo **bo)
-> +					 struct amdgpu_sa_bo **bo)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	uint32_t *msg;
->   	int r, i;
->   
->   	*bo = NULL;
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      bo, NULL, (void **)&msg);
-> +
-> +	r = amdgpu_sa_bo_new(&adev->ib_pools[AMDGPU_IB_POOL_DIRECT],
-> +			     bo, 1024, PAGE_SIZE);
-> +
->   	if (r)
->   		return r;
->   
-> +	msg = amdgpu_sa_bo_cpu_addr(*bo);
-> +
->   	msg[0] = cpu_to_le32(0x00000028);
->   	msg[1] = cpu_to_le32(0x00000038);
->   	msg[2] = cpu_to_le32(0x00000001);
-> @@ -575,18 +576,19 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->   }
->   
->   static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
-> -					  struct amdgpu_bo **bo)
-> +					  struct amdgpu_sa_bo **bo)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	uint32_t *msg;
->   	int r, i;
->   
->   	*bo = NULL;
-> -	r = amdgpu_bo_create_reserved(adev, 1024, PAGE_SIZE,
-> -				      AMDGPU_GEM_DOMAIN_VRAM,
-> -				      bo, NULL, (void **)&msg);
-> +	r = amdgpu_sa_bo_new(&adev->ib_pools[AMDGPU_IB_POOL_DIRECT],
-> +			     bo, 1024, PAGE_SIZE);
-> +
->   	if (r)
->   		return r;
-> +	msg = amdgpu_sa_bo_cpu_addr(*bo);
->   
->   	msg[0] = cpu_to_le32(0x00000028);
->   	msg[1] = cpu_to_le32(0x00000018);
-> @@ -603,7 +605,7 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo;
-> +	struct amdgpu_sa_bo *bo;
->   	long r;
->   
->   	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
-> @@ -633,7 +635,7 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   }
->   
->   static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
-> -				   struct amdgpu_bo *bo,
-> +				   struct amdgpu_sa_bo *bo,
->   				   struct dma_fence **fence)
->   {
->   	struct amdgpu_vcn_decode_buffer *decode_buffer = NULL;
-> @@ -651,7 +653,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   		goto err;
->   
->   	ib = &job->ibs[0];
-> -	addr = amdgpu_bo_gpu_offset(bo);
-> +	addr = amdgpu_sa_bo_gpu_addr(bo);
->   	ib->length_dw = 0;
->   
->   	ib->ptr[ib->length_dw++] = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
-> @@ -671,9 +673,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	if (r)
->   		goto err_free;
->   
-> -	amdgpu_bo_fence(bo, f, false);
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
->   
->   	if (fence)
->   		*fence = dma_fence_get(f);
-> @@ -685,15 +685,14 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	amdgpu_job_free(job);
->   
->   err:
-> -	amdgpu_bo_unreserve(bo);
-> -	amdgpu_bo_unref(&bo);
-> +	amdgpu_sa_bo_free(adev, &bo, f);
->   	return r;
->   }
->   
->   int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
->   	struct dma_fence *fence = NULL;
-> -	struct amdgpu_bo *bo;
-> +	struct amdgpu_sa_bo *bo;
->   	long r;
->   
->   	r = amdgpu_vcn_dec_get_create_msg(ring, 1, &bo);
+> > And I don't think we should keep resources reserved past the pci
+> > remove callback, because that would upset the pci subsystem trying to
+> > assign resources to a newly hotplugged pci device.
+> =
 
+> =
+
+> I assumed we are talking about VA ranges still mapped in the page table. I
+> just assumed
+> that part of ioremap is also reservation of the mapped physical ranges. In
+> fact, if we
+> do can explicitly reserve those ranges (as you mention here) then together
+> with postponing
+> system memory pages freeing/releasing back to the page pool until after BO
+> is unmapped
+> from the kernel address space I believe this could solve the issue of qui=
+ck
+> HW reinsertion
+> and make all the drm_dev_ener/exit guarding obsolete.
+
+We can't reserve these ranges, that's what I tried to explaine:
+- kernel/resource.c isn't very consistently used
+- the pci core will get pissed if there's suddenly a range in the middle
+  of a bridge that it can't use
+- nesting is allowed for resources, so this doesn't actually garuantee
+  much
+
+I just wanted to point out that ioremap does do any reserving, so not
+enough by far.
+
+We really have to stop using any mmio ranges before the pci remove
+callback is finished.
+-Daniel
+
+> =
+
+> Andrey
+> =
+
+> =
+
+> > Also from a quick check amdgpu does not reserve the pci bars it's
+> > using. Somehow most drm drivers don't do that, not exactly sure why,
+> > maybe auto-enumeration of resources just works too good and we don't
+> > need the safety net of kernel/resource.c anymore.
+> > -Daniel
+> > =
+
+> > =
+
+> > > > > which for most internally allocated buffers is during sw_fini whe=
+n last drm_put
+> > > > > is called.
+> > > > > =
+
+> > > > > =
+
+> > > > > > If that's not the case, then hotunplug would be fundamentally i=
+mpossible
+> > > > > > ot handle correctly.
+> > > > > > =
+
+> > > > > > Of course all the mmio actions will time out, so it might take =
+some time
+> > > > > > to get through it all.
+> > > > > =
+
+> > > > > I found that PCI code provides pci_device_is_present function
+> > > > > we can use to avoid timeouts - it reads device vendor and checks =
+if all 1s is
+> > > > > returned
+> > > > > or not. We can call it from within register accessors before tryi=
+ng read/write
+> > > > That's way to much overhead! We need to keep that much lower or it =
+will result
+> > > > in quite a performance drop.
+> > > > =
+
+> > > > I suggest to rather think about adding drm_dev_enter/exit guards.
+> > > =
+
+> > > Sure, this one is just a bit upstream to the disconnect event. Eventu=
+ally none
+> > > of them is watertight.
+> > > =
+
+> > > Andrey
+> > > =
+
+> > > =
+
+> > > > Christian.
+> > > > =
+
+> > > > > > > Another point regarding serializing - problem  is that some o=
+f those BOs are
+> > > > > > > very long lived, take for example the HW command
+> > > > > > > ring buffer Christian mentioned before -
+> > > > > > > (amdgpu_ring_init->amdgpu_bo_create_kernel), it's life span
+> > > > > > > is basically for the entire time the device exists, it's dest=
+royed only in
+> > > > > > > the SW fini stage (when last drm_dev
+> > > > > > > reference is dropped) and so should I grab it's dma_resv_lock=
+ from
+> > > > > > > amdgpu_pci_remove code and wait
+> > > > > > > for it to be unmapped before proceeding with the PCI remove c=
+ode ? This can
+> > > > > > > take unbound time and that why I don't understand
+> > > > > > > how serializing will help.
+> > > > > > Uh you need to untangle that. After hw cleanup is done no one i=
+s allowed
+> > > > > > to touch that ringbuffer bo anymore from the kernel.
+> > > > > =
+
+> > > > > I would assume we are not allowed to touch it once we identified =
+the device is
+> > > > > gone in order to minimize the chance of accidental writes to some=
+ other
+> > > > > device which might now
+> > > > > occupy those IO ranges ?
+> > > > > =
+
+> > > > > =
+
+> > > > > >    That's what
+> > > > > > drm_dev_enter/exit guards are for. Like you say we cant wait fo=
+r all sw
+> > > > > > references to disappear.
+> > > > > =
+
+> > > > > Yes, didn't make sense to me why would we use vmap_local for inte=
+rnally
+> > > > > allocated buffers. I think we should also guard registers read/wr=
+ites for the
+> > > > > same reason as above.
+> > > > > =
+
+> > > > > =
+
+> > > > > > The vmap_local is for mappings done by other drivers, through t=
+he dma-buf
+> > > > > > interface (where "other drivers" can include fbdev/fbcon, if yo=
+u use the
+> > > > > > generic helpers).
+> > > > > > -Daniel
+> > > > > =
+
+> > > > > Ok, so I assumed that with vmap_local you were trying to solve th=
+e problem of
+> > > > > quick reinsertion
+> > > > > of another device into same MMIO range that my driver still point=
+s too but
+> > > > > actually are you trying to solve
+> > > > > the issue of exported dma buffers outliving the device ? For this=
+ we have
+> > > > > drm_device refcount in the GEM layer
+> > > > > i think.
+> > > > > =
+
+> > > > > Andrey
+> > > > > =
+
+> > > > > =
+
+> > > > > > > Andrey
+> > > > > > > =
+
+> > > > > > > =
+
+> > > > > > > > It doesn't
+> > > > > > > > solve all your problems, but it's a tool to get there.
+> > > > > > > > -Daniel
+> > > > > > > > =
+
+> > > > > > > > > Andrey
+> > > > > > > > > =
+
+> > > > > > > > > =
+
+> > > > > > > > > > - handle fbcon somehow. I think shutting it all down sh=
+ould work out.
+> > > > > > > > > > - worst case keep the system backing storage around for=
+ shared dma-buf
+> > > > > > > > > > until the other non-dynamic driver releases it. for vra=
+m we require
+> > > > > > > > > > dynamic importers (and maybe it wasn't such a bright id=
+ea to allow
+> > > > > > > > > > pinning of importer buffers, might need to revisit that=
+).
+> > > > > > > > > > =
+
+> > > > > > > > > > Cheers, Daniel
+> > > > > > > > > > =
+
+> > > > > > > > > > > Christian.
+> > > > > > > > > > > =
+
+> > > > > > > > > > > > Andrey
+> > > > > > > > > > > > =
+
+> > > > > > > > > > > > =
+
+> > > > > > > > > > > > > -Daniel
+> > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > Christian.
+> > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > I loaded the driver with vm_update_mode=3D3
+> > > > > > > > > > > > > > > meaning all VM updates done using CPU and has=
+n't seen any OOPs after
+> > > > > > > > > > > > > > > removing the device. I guess i can test it mo=
+re by allocating GTT and
+> > > > > > > > > > > > > > > VRAM BOs
+> > > > > > > > > > > > > > > and trying to read/write to them after device=
+ is removed.
+> > > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > Andrey
+> > > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > > Regards,
+> > > > > > > > > > > > > > > > Christian.
+> > > > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > > > Andrey
+> > > > > > > > > > > > > > > _____________________________________________=
+__
+> > > > > > > > > > > > > > > amd-gfx mailing list
+> > > > > > > > > > > > > > > amd-gfx@lists.freedesktop.org
+> > > > > > > > > > > > > > > https://nam11.safelinks.protection.outlook.co=
+m/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx=
+&amp;data=3D04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cc632e5bd5a1f402ac40608d=
+8a2cd2072%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637438349203619335%7=
+CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
+LCJXVCI6Mn0%3D%7C1000&amp;sdata=3DtKk0GTmSnkLVV42HuQaPAj01qFiwDW6Zs%2Bgi2ho=
+q%2BvA%3D&amp;reserved=3D0
+> > > > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > > > =
+
+> > =
+
+> > =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
