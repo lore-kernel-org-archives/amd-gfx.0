@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D8ACC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A199C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E6AA2333F
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E6AA2333F
+	by mail.kernel.org (Postfix) with ESMTPS id 60B37225AA
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60B37225AA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA00F6E8A4;
-	Wed, 23 Dec 2020 02:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268156E8A6;
+	Wed, 23 Dec 2020 02:17:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACEB6E8A4;
- Wed, 23 Dec 2020 02:17:15 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 80E0B23341;
- Wed, 23 Dec 2020 02:17:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7AD6E8A6;
+ Wed, 23 Dec 2020 02:17:57 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 45DC222257;
+ Wed, 23 Dec 2020 02:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608689835;
- bh=7smt5Nbw/mwOG2CpwBEnVx/tDr69zosBjPJScyDkKb4=;
+ s=k20201202; t=1608689877;
+ bh=nN9Ek+XfS7t86dlUxeOWMAuYnxTfcRem9IKOOOBXP6Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EzNSjTdxQnou4rChDgn38dEMbxSnDH4J7sGrxV7/NLjejx2YFONwCPgr6NaTab4SV
- 3546wF7Uc8IkbOhTtq8k+IRpHRDpICsLNzr94ehL6OFHXhAJB/mpCzEgDh5XcTclQ0
- SlE0W+v5xtyWB6ht+EFBPp+Fs+kiTCTn6YueBPibpIZOVvSMvGhfwatPh+/zoOxAP8
- rF9S3P/GpECXj2dHpWWESL5y/jaO1Qu2Uk9pfkA0pD30s2T/a+jJAzlqwcN57RVbVq
- b3kxfPck7A+t76l/s5ga3L7rB+k0YjEkvJawO8fQqxC0+ofLGzAJEWB9TgzoqrPKcN
- I6/wojApY2BFA==
+ b=b16gscDBFh4+Z1vIiE9g2I3Z5kV02iSbHzCMh08lz9F+PT3R2bjMEJbS/mMP9S4Un
+ e2gJ0gUOffcKWW5IVhYjo2iZLQzTCCqZjWfH/reKUKsOL8qFl7zHIaIRguQ5q3Ndm4
+ 9E1K9P/m7gEyAE7g6X0U808xsx/i7oTMGJF8a0iPVSWPDZn2poHWFkL4UNTjCxN0k3
+ eciSA/OfTKJghDttYBTyvyMLWYW4vwtt8QhdhfMl6/BlWmrD0ONBjxWWfMpp1RCJU8
+ MPom+0VVH6yza4vnwxPkTJodaafuWKCihnNcMUySEiYisWfLC5d22RiNlVXSd6jMmS
+ 8FCM3nVMNt8/g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 036/217] drm/amdgpu: add missing clock gating
- info in amdgpu_pm_info
-Date: Tue, 22 Dec 2020 21:13:25 -0500
-Message-Id: <20201223021626.2790791-36-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 068/217] drm/amd/amdgpu: Fix incorrect logic to
+ increment VCN doorbell index
+Date: Tue, 22 Dec 2020 21:13:57 -0500
+Message-Id: <20201223021626.2790791-68-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201223021626.2790791-1-sashal@kernel.org>
 References: <20201223021626.2790791-1-sashal@kernel.org>
@@ -59,51 +59,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Kevin Wang <kevin1.wang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Monk Liu <monk.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kevin Wang <kevin1.wang@amd.com>
+From: Bokun Zhang <Bokun.Zhang@amd.com>
 
-[ Upstream commit 71037bfc78bf63a6640792ace925741767fb6bfc ]
+[ Upstream commit 25a35065c066496935217748b1662a7fcf26ed58 ]
 
-add missing clock gating informations in amdgpu_pm_info
-1. AMD_CG_SUPPORT_VCN_MGCG
-2. AMD_CG_SUPPORT_HDP_DS
-3. AMD_CG_SUPPORT_HDP_SD
-4. AMD_CG_SUPPORT_IH_CG
-5. AMD_CG_SUPPORT_JPEG_MGCG
+- The original logic uses a counter based index assignment,
+  which is incorrect if we only assign VCN1 to this VF but no VCN0
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+  The doorbell index is absolute, so we can calculate it by
+  using index variable i and j
+
+Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+Reviewed-by: Monk Liu <monk.liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 529816637c731..0cfba189cde6c 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -63,6 +63,11 @@ static const struct cg_flag_name clocks[] = {
- 	{AMD_CG_SUPPORT_DRM_LS, "Digital Right Management Light Sleep"},
- 	{AMD_CG_SUPPORT_ROM_MGCG, "Rom Medium Grain Clock Gating"},
- 	{AMD_CG_SUPPORT_DF_MGCG, "Data Fabric Medium Grain Clock Gating"},
-+	{AMD_CG_SUPPORT_VCN_MGCG, "VCN Medium Grain Clock Gating"},
-+	{AMD_CG_SUPPORT_HDP_DS, "Host Data Path Deep Sleep"},
-+	{AMD_CG_SUPPORT_HDP_SD, "Host Data Path Shutdown"},
-+	{AMD_CG_SUPPORT_IH_CG, "Interrupt Handler Clock Gating"},
-+	{AMD_CG_SUPPORT_JPEG_MGCG, "JPEG Medium Grain Clock Gating"},
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index b5f8f3d731cb0..8ecdddf33e18e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -155,6 +155,13 @@ static int vcn_v3_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
  
- 	{AMD_CG_SUPPORT_ATHUB_MGCG, "Address Translation Hub Medium Grain Clock Gating"},
- 	{AMD_CG_SUPPORT_ATHUB_LS, "Address Translation Hub Light Sleep"},
++	/*
++	 * Note: doorbell assignment is fixed for SRIOV multiple VCN engines
++	 * Formula:
++	 *   vcn_db_base  = adev->doorbell_index.vcn.vcn_ring0_1 << 1;
++	 *   dec_ring_i   = vcn_db_base + i * (adev->vcn.num_enc_rings + 1)
++	 *   enc_ring_i,j = vcn_db_base + i * (adev->vcn.num_enc_rings + 1) + 1 + j
++	 */
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		vcn_doorbell_index = adev->doorbell_index.vcn.vcn_ring0_1;
+ 		/* get DWORD offset */
+@@ -192,9 +199,7 @@ static int vcn_v3_0_sw_init(void *handle)
+ 		ring = &adev->vcn.inst[i].ring_dec;
+ 		ring->use_doorbell = true;
+ 		if (amdgpu_sriov_vf(adev)) {
+-			ring->doorbell_index = vcn_doorbell_index;
+-			/* NOTE: increment so next VCN engine use next DOORBELL DWORD */
+-			vcn_doorbell_index++;
++			ring->doorbell_index = vcn_doorbell_index + i * (adev->vcn.num_enc_rings + 1);
+ 		} else {
+ 			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 8 * i;
+ 		}
+@@ -216,9 +221,7 @@ static int vcn_v3_0_sw_init(void *handle)
+ 			ring = &adev->vcn.inst[i].ring_enc[j];
+ 			ring->use_doorbell = true;
+ 			if (amdgpu_sriov_vf(adev)) {
+-				ring->doorbell_index = vcn_doorbell_index;
+-				/* NOTE: increment so next VCN engine use next DOORBELL DWORD */
+-				vcn_doorbell_index++;
++				ring->doorbell_index = vcn_doorbell_index + i * (adev->vcn.num_enc_rings + 1) + 1 + j;
+ 			} else {
+ 				ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 2 + j + 8 * i;
+ 			}
 -- 
 2.27.0
 
