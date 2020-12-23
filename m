@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B275C433E9
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCBA1C43381
 	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF56A23159
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF56A23159
+	by mail.kernel.org (Postfix) with ESMTPS id 87C1A2313C
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87C1A2313C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B176E898;
-	Wed, 23 Dec 2020 02:16:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2B26E8A1;
+	Wed, 23 Dec 2020 02:17:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 896096E892;
- Wed, 23 Dec 2020 02:16:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7CF432312E;
- Wed, 23 Dec 2020 02:16:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0AB26E897;
+ Wed, 23 Dec 2020 02:16:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B500223139;
+ Wed, 23 Dec 2020 02:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608689814;
- bh=Vx3ezAW5GJLBA67L7m77bVSFJqgm6ZZ07DOmRVrLuZQ=;
+ s=k20201202; t=1608689818;
+ bh=nA1IdGe3B+/2p3KYi1kkF0FwnQzejUL02uJ+uHEq1uE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Krz+61sH3vYZl1a28xJqKdjQU2B0vvkNOyjTW7amKFEhEd48T1CH/EAgvwH+23FNI
- TEf2qpbjHgVh0gFuwujnYjw+8753nE6cwDOzn8c/Rk7T/HS4SIvk45PKSG4V9Jsrqo
- vymIRX5u2+JqWd5HzT8tMx/4wsELm2PfW18rpiOLP3DWXoGbmYbVxhG2DRHRa5LSPQ
- 4prMWkWF2AxfBLwMyrerN9NJeMS2igqIzER36tV+n7SD7D4grnjjdM3rcVziux8C/U
- Yc1OjSHKFBm4jnzkoQnmus0rs4i0tjU9yTTHrNbkco5J726frHJ6rOqSGuXWJ6Q48N
- c3iPRJlGnYiiQ==
+ b=BwZXr/2zBRZQLixaFMzoSAf/LULe5lvCzLHSMkdMH6dk2Wtand3K+OpSoCQL+8T4b
+ cVNM/yaJeZo+J6tvZJbZltC7Bda38Ra0BC6YCsm9K/Hi9h6BTPJ82c/0px2XzjnOC0
+ dzs+eTAkPm3psI8hnBbA7FCCq5QZ4ahYiFlzPf1o9I9+7P8oo/y4syEgq9Pz/WtFa3
+ 16WQYVxPQMQ3sQgdFopKmsJ1RGbqqldEzdceZT5iuC78MGiOR+71NdSfMFMYr7oInA
+ d4hiNH6L+tq7EGT8589D1zP5J0e3YT4VbO8rLDI6ZN2P3ELyGoY9gLWrMVV0rz9FIe
+ I9vyL7nwkqWew==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 021/217] drm/amd/display: stop top_mgr when type
- change to non-MST during s3
-Date: Tue, 22 Dec 2020 21:13:10 -0500
-Message-Id: <20201223021626.2790791-21-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 024/217] drm/amd/display: fix recout calculation
+ for left side clip
+Date: Tue, 22 Dec 2020 21:13:13 -0500
+Message-Id: <20201223021626.2790791-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201223021626.2790791-1-sashal@kernel.org>
 References: <20201223021626.2790791-1-sashal@kernel.org>
@@ -59,69 +59,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Lewis Huang <Lewis.Huang@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Tony Cheng <Tony.Cheng@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ amd-gfx@lists.freedesktop.org, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <Lewis.Huang@amd.com>
+From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 
-[ Upstream commit e748b59fb74e8725c8774a4b0753fabba9de7b97 ]
+[ Upstream commit 84aef2ab0977199784671295a07043191233d7c7 ]
 
-[Why]
-Driver keeps the invalid information cause report the
-incorrect monitor which save in remote sink to OS
+Recout calculation does not corrrectly handle plane
+clip rect that extends beyond the left most border
+of stream source rect. This change adds handling by
+truncating the invisible clip rect.
 
-[How]
-When connector type change from MST to non-MST,
-stop the topology manager.
-
-Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 5b0cedfa824a9..59c5915665112 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -854,6 +854,7 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 	struct dpcd_caps prev_dpcd_caps;
- 	bool same_dpcd = true;
- 	enum dc_connection_type new_connection_type = dc_connection_none;
-+	enum dc_connection_type pre_connection_type = dc_connection_none;
- 	bool perform_dp_seamless_boot = false;
- 	const uint32_t post_oui_delay = 30; // 30ms
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 59d48cf819ea8..6d606cc32b09e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -796,6 +796,8 @@ static void calculate_recout(struct pipe_ctx *pipe_ctx)
+ 	} else
+ 		data->recout.x = 0;
  
-@@ -889,6 +890,7 @@ static bool dc_link_detect_helper(struct dc_link *link,
++	if (stream->src.x > surf_clip.x)
++		surf_clip.width -= stream->src.x - surf_clip.x;
+ 	data->recout.width = surf_clip.width * stream->dst.width / stream->src.width;
+ 	if (data->recout.width + data->recout.x > stream->dst.x + stream->dst.width)
+ 		data->recout.width = stream->dst.x + stream->dst.width - data->recout.x;
+@@ -804,6 +806,8 @@ static void calculate_recout(struct pipe_ctx *pipe_ctx)
+ 	if (stream->src.y < surf_clip.y)
+ 		data->recout.y += (surf_clip.y - stream->src.y) * stream->dst.height
+ 						/ stream->src.height;
++	else if (stream->src.y > surf_clip.y)
++		surf_clip.height -= stream->src.y - surf_clip.y;
  
- 	link_disconnect_sink(link);
- 	if (new_connection_type != dc_connection_none) {
-+		pre_connection_type = link->type;
- 		link->type = new_connection_type;
- 		link->link_state_valid = false;
- 
-@@ -962,6 +964,12 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 				return true;
- 			}
- 
-+			// link switch from MST to non-MST stop topology manager
-+			if (pre_connection_type == dc_connection_mst_branch &&
-+				link->type != dc_connection_mst_branch) {
-+				dm_helpers_dp_mst_stop_top_mgr(link->ctx, link);
-+			}
-+
- 			if (link->type == dc_connection_mst_branch) {
- 				LINK_INFO("link=%d, mst branch is now Connected\n",
- 					  link->link_index);
+ 	data->recout.height = surf_clip.height * stream->dst.height / stream->src.height;
+ 	if (data->recout.height + data->recout.y > stream->dst.y + stream->dst.height)
 -- 
 2.27.0
 
