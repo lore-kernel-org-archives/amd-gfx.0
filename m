@@ -2,43 +2,71 @@ Return-Path: <SRS0=7Usp=F3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D25C2C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 18:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 826F0C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 20:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95DF622287
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 18:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95DF622287
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id 3991B22283
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3991B22283
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3112789DBC;
-	Wed, 23 Dec 2020 18:38:27 +0000 (UTC)
-X-Greylist: delayed 597 seconds by postgrey-1.36 at gabe;
- Wed, 23 Dec 2020 18:38:25 UTC
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD0889DBC
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 18:38:25 +0000 (UTC)
-Received: from [192.168.0.6] (ip5f5ae91b.dynamic.kabel-deutschland.de
- [95.90.233.27])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 268EE206466DA
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 19:28:26 +0100 (CET)
-To: amd-gfx@lists.freedesktop.org
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: Seamless boot/fastboot on AMD Raven
-Message-ID: <5ebb89e8-b493-54df-3522-12cb65ec05a0@molgen.mpg.de>
-Date: Wed, 23 Dec 2020 19:28:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A770A6E88D;
+	Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C296E88D;
+ Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id p12so357327qvj.13;
+ Wed, 23 Dec 2020 12:48:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rB/ma7etmTQsKntGAzFzwoTV6KnJ2Xebg8sYZNhBMok=;
+ b=ZaO9a1XBy6eQGLx4GqEzrV18vlkRvWIq3nGa03GBpBqBNAfr+gPtuAZurutDf8WBH1
+ iaKKhNRncrAoApWWyHoOVnPyHTZjCCZP51poFxKfvqhJQL3+CZw8CXwhHEsboxuF7XI1
+ 6FqHYpFizHik0OUMTIY5FQuZjlDTZ1zOegD5GwDsTvvgLINtYPmru+2a4KGY83EfXCpz
+ mriJRFfC5uAeRItuME+AASGg3oe1uTiUFtIlzy4b5pIbknMOt+bHIJ1V4d8UHl+sKRdp
+ 3fGztZ2fDzut3jNocSy3fl+VeieDFuMbwrzlTun/Cyl5I9VTVcUFz6QnClVLvg73HagZ
+ PC/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rB/ma7etmTQsKntGAzFzwoTV6KnJ2Xebg8sYZNhBMok=;
+ b=MTFyhk6k+UPXfIIJYdzj9N4BW3BnibZ8E1nQhxb/pVrwl1BzntAm/kSHRSMwrGjorS
+ BUuUL0EoMfCjxaG9akacNqnGkWW3SpQPPvlHvnb3slShQDekSe0W9gtnZwxqdr3uZHd7
+ H6c2tIqnnuEjKjK1YnTruL5SNAE0p41XUwF3UXa/Q2TtRRyTUWWJCXly7kQg1napWBlC
+ w2Xiaznz3ZDK0H5QlEEHj8BNFBDbZaTJV4TGQZGbr/2TLaeHeMPbhOaewiPuva4OJ23M
+ h8WToPVA8nxd9JY2JgtpzQPIQnXdUvyaCn+KHidKFzW2HcUHrZvoYVkUsRvcgR7FgNQN
+ crMA==
+X-Gm-Message-State: AOAM5309skVDY+GGKrOwwb53cNdim3XK6gfjCSZJmnOxVrKEoNzhqdju
+ reP6kUQRe/TuW3dKSXmNBYtdYGKb6iU=
+X-Google-Smtp-Source: ABdhPJwCjGKYxwYsYimRluvfcFLUcGIMVOiSW90wvRCfmC53B8CbMm8RhbJAtFT65JDb082KrWc16g==
+X-Received: by 2002:a0c:b9a8:: with SMTP id v40mr26973083qvf.36.1608756482156; 
+ Wed, 23 Dec 2020 12:48:02 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.241])
+ by smtp.gmail.com with ESMTPSA id a5sm16313150qtn.57.2020.12.23.12.48.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Dec 2020 12:48:01 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu, amdkfd drm-fixes-5.11
+Date: Wed, 23 Dec 2020 15:47:52 -0500
+Message-Id: <20201223204752.4019-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,19 +78,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RGVhciBBTUQgZm9sa3MsCgoKT24gYSBzeXN0ZW0gd2l0aCBBTUQgUnl6ZW4gMyAyMjAwRyBbMV0g
-KFJYIFZlZ2EgOCwgUmF2ZW4sIAoweDEwMDI6MHgxNWRkKSwgTGludXggNS4xMCBzdGlsbCBtYWtl
-cyBhIG1vZGVzZXQgYmV0d2VlbiBlbnRlcmluZyB0aGUgCkxVS1MgcGFzc3BocmFzZSBhbmQgR0RN
-IGdyYXBoaWNhbCBsb2dpbiBtYW5hZ2VyLiBJcyB0aGVyZSBhIHdheSB0byB1c2UgCnRoZSBmaXJt
-d2FyZSByZXNvbHV0aW9uLCB3aGljaCBpcyBlZmlmYiBhbHNvIHVzZXM/IEkgdGhpbmssIEFNROKA
-mXMgdGVybSAKZm9yIHRoYXQgaXMgKnNlYW1sZXNzIGJvb3QqLCBhbmQgSW50ZWwgY2FsbHMgaXQg
-KmZhc3Rib290KiAKKGBpOTE1LmZhc3Rib290PTFgKS4KCgpLaW5kIHJlZ2FyZHMsCgpQYXVsCgoK
-WzFdOiBodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9MaXN0X29mX0FNRF9SeXplbl9wcm9j
-ZXNzb3JzI0FQVXNfMgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hi Dave, Daniel,
+
+Fixes for 5.11.
+
+The following changes since commit 6ae09fa49147e557eb6aebbb5b2059b63706d454:
+
+  drm/amdgpu/disply: fix documentation warnings in display manager (2020-12-16 13:27:17 -0500)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.11-2020-12-23
+
+for you to fetch changes up to a135a1b4c4db1f3b8cbed9676a40ede39feb3362:
+
+  drm/amd/display: Fix memory leaks in S3 resume (2020-12-23 15:03:15 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.11-2020-12-23:
+
+amdgpu:
+- Vangogh SMU fixes
+- Arcturus gfx9 fixes
+- Misc display fixes
+- Sienna Cichlid SMU update
+- Fix S3 display memory leak
+- Fix regression caused by DP sub-connector support
+
+amdkfd:
+- Properly require pcie atomics for gfx10
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu: fix vbios reservation handling on SR-IOV
+      drm/amdgpu: only set DP subconnector type on DP and eDP connectors
+      drm/amdgpu: Fix a copy-pasta comment
+
+Aric Cyr (1):
+      drm/amd/display: Multi-display underflow observed
+
+Eryk Brol (1):
+      drm/amd/display: Remove unnecessary NULL check
+
+Evan Quan (1):
+      drm/amd/pm: bump Sienna Cichlid smu_driver_if version to match latest pmfw
+
+Harish Kasiviswanathan (1):
+      drm/amdkfd: PCIe atomics required for gfx10
+
+Hawking Zhang (3):
+      drm/amdgpu: check number of gfx ring before init cp gfx
+      drm/amdgpu: remove unnecessary asic type check
+      drm/amdgpu: check gfx pipe availability before toggling its interrupts
+
+Jake Wang (2):
+      drm/amd/display: updated wm table for Renoir
+      drm/amd/display: always program DPPDTO unless not safe to lower
+
+Josip Pavic (1):
+      drm/amd/display: add getter routine to retrieve mpcc mux
+
+Martin Tsai (2):
+      drm/amd/display: Modify the hdcp device count check condition
+      drm/amd/display: To modify the condition in indicating branch device
+
+Michael Strauss (1):
+      drm/amd/display: Update RN/VGH active display count workaround
+
+Qingqing Zhuo (1):
+      drm/amd/display: handler not correctly checked at remove_irq_handler
+
+Rizvi (1):
+      drm/amd/display: gradually ramp ABM intensity
+
+Stylon Wang (1):
+      drm/amd/display: Fix memory leaks in S3 resume
+
+Sung Lee (1):
+      drm/amd/display: Acquire DSC during split stream for ODM only if top_pipe
+
+Wesley Chalmers (1):
+      drm/amd/display: Interfaces for hubp blank and soft reset
+
+Xiaomeng Hou (1):
+      drm/amd/pm: check pmfw version before issuing RlcPowerNotify message
+
+Yongqiang Sun (2):
+      drm/amd/display: change SMU repsonse timeout to 2s.
+      drm/amd/display: [FW Promotion] Release 0.0.47
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     | 10 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  3 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              | 21 ++++++++-----
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              | 11 +++----
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 12 ++++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  5 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  5 ++-
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 36 +++++++++-------------
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        |  2 +-
+ .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c |  9 +-----
+ drivers/gpu/drm/amd/display/dc/core/dc.c           | 20 ------------
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  8 +----
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c  | 18 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h  |  4 +++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c   | 12 ++++++++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.h   |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  2 ++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 12 ++++++--
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c   |  1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c  |  2 ++
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c   |  1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |  2 ++
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h        |  4 +++
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  4 +--
+ .../drm/amd/display/modules/hdcp/hdcp1_execution.c |  8 +++--
+ .../drm/amd/display/modules/hdcp/hdcp2_execution.c |  7 +++--
+ .../drm/amd/display/modules/power/power_helpers.c  | 35 +++++++++++++++------
+ .../drm/amd/display/modules/power/power_helpers.h  |  1 +
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h             |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  9 ++++--
+ 32 files changed, 161 insertions(+), 111 deletions(-)
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
