@@ -2,122 +2,134 @@ Return-Path: <SRS0=7Usp=F3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF569C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 551E0C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 05:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C1D802333E
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 02:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1D802333E
+	by mail.kernel.org (Postfix) with ESMTPS id E55BB2158C
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 05:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E55BB2158C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 599F06E8BF;
-	Wed, 23 Dec 2020 02:25:08 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DF7F6E8BF
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 02:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0754E6E8C4;
+	Wed, 23 Dec 2020 05:48:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D64C6E8C4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Dec 2020 05:48:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UOIb5lkyeUldJz8j4bNgBVvsdua4+TLlSkRJj1RRclCq30laj+Dm8ntUkxCil2C/UWPgpireuAT2hSVKrpbTmcG7apU/tv2zEiObzuHtV8cX23/Ek06wFyIwjRCcpwPM7W/AvtS+y7ml0lNWg0IRe3tylI6KjK7oZT02VecbyA2w0Ls4Opqcz+UlnxkJnDCjIQ6bCw4Qyw7oZdi5aGR8fmx6H4X0n9iJJcyZQRY7lzn5WsPoLuM3wRr/VdVJDWCTEBRDHCXMr17hDJyqriwy6lNwExhumGc8LaR14la46jcSacuhrQB4wAbbtM/DgeCWisJ1/ogJUFlrtwheMSPoMg==
+ b=DQTDVXxhmxim/jOXBCEjbc1CZfPRa8kgpE7QQx0u4hjPp3akswf3G/17a18wC9HZ64ZAZOEgGPM1BK6PaSRqiQwocuRCFUFDks3Zdbc1IlQpSpwDFgvw2QYVvViAfxYqfk4GRcBZZstrnd4Jm6axUof+M8PMXvzvDok48hdb28opAHG/sgPKHDhriAqgxqT74dIWSlKEIfjqqW5T6nK92NQU8LZm5q8uI1ahtsKgODS0TBtNzwBhpubpu2HP7uT2yMsGZvmzPeIMwiuIgFgpeQ4NvgWI3OVy61tafYNGy0p9ODsycdstKEZiyFhmWnBYKLsvRrvEl/befOC5rX3CBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btyjJCAl0GyQyie+AUkbpj6RIo9BruhRTocIvx0Riiw=;
- b=LCbNuuGTlfjZwo9jBZfR+8wPgFkOK8jCMhd5Qn3dvIEdNBflQSYkc0PNEhcK94VUvsAQ208w0sNVMvrG+eZ7F20QjpO0+eagiBHr1HaEaAbeHv2Ty6KCN7qYU6I97KesbFp4+IQ+XWynTsHvPdS3NHPJlWnt3dUn+cQUaL5GwAUZqgzzxUDmhBi/wfQrj0l3dc1c83zbKxAVCVMCzL340SZ+B2Y6WHN4NsRfnwY3XyNo6nwrdTK6JyzoU91hHxQHC6/SOU2dknDp8+pSHWMBc1LuTR50+Qgnb4aPgzhcahuXEoEUPAbWX4klcGK6dsLq1uCa6tDLqbmeZqIimr5Brw==
+ bh=h43AqLUsbakspAnZC3u+002F6dPSx+cu95c1dOplbPw=;
+ b=Eplel2EQ1GY5NSpluKLi1VwrHlUyxnH4PwpfqfXw0r42YR23QKvkcm/Y4VgiKVk7rGYl9a56bSe4RlIbbWykGydkI1KGOJsvwtcb326+CV+UPfrBaGKvcUAxwD8Ne88SYipXw/Lu+yw5yOqkzXmBXQMeKZEyu7itEqhNgUXFbdOUPNng4jTbnM6dp5Z7U4YtqRjamB96BnpV1Sym211VzeGLke/K2of1PptlUxMqNS4a7Xj/it/AaQMYUTeT2qJUL/duBrn1Fmz9B/UohG1zQd0Msgi4th9RCSQn9//1OGaPyZkqaSHG7kfmysGUKZdd96ZRysL1QweaoeYuEDS7jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btyjJCAl0GyQyie+AUkbpj6RIo9BruhRTocIvx0Riiw=;
- b=kWZg5HubQrV3PBX4nfV4or+vcLC92eKnYcWK2ZqZIsXtdi/1HPszhVk7x7zexeI/aDYM0a+z1sZey/o6ZPsVgUwMhbPj+jkrTeZSZ9iWF952vlYBH3PPWbISpE5GkIAHHj9788m3rVvCepYaJW8xxe/BZHOGCmtKxvkxB0JA8ms=
-Received: from MN2PR12MB3549.namprd12.prod.outlook.com (2603:10b6:208:107::17)
- by MN2PR12MB3616.namprd12.prod.outlook.com (2603:10b6:208:cc::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.33; Wed, 23 Dec
- 2020 02:25:05 +0000
-Received: from MN2PR12MB3549.namprd12.prod.outlook.com
- ([fe80::f1ce:cb7c:334c:97e6]) by MN2PR12MB3549.namprd12.prod.outlook.com
- ([fe80::f1ce:cb7c:334c:97e6%3]) with mapi id 15.20.3676.033; Wed, 23 Dec 2020
- 02:25:05 +0000
-From: "Jian, Jane" <Jane.Jian@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Sierra Guiza, Alejandro (Alex)"
- <Alex.Sierra@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop psp ih programming for sriov guest on
- navi
-Thread-Topic: [PATCH] drm/amdgpu: drop psp ih programming for sriov guest on
- navi
-Thread-Index: AQHW2FMYawdR0yq7BUaRzW4jyLWdoaoD9Klg
-Date: Wed, 23 Dec 2020 02:25:05 +0000
-Message-ID: <MN2PR12MB3549F3ACB6E369404420C884FFDE0@MN2PR12MB3549.namprd12.prod.outlook.com>
-References: <20201222111037.31281-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20201222111037.31281-1-Hawking.Zhang@amd.com>
+ bh=h43AqLUsbakspAnZC3u+002F6dPSx+cu95c1dOplbPw=;
+ b=vvziF/rGs/kqwmUTjBDnkKD5uFl95/TWgaf9Y/8uxO/DZedylYwCpBsqd+9sfr6RJC6mkC0sREBMFnM695E/E/cf0Olw8Gr6uCXWKXRNAki1Ed/KgogIZPmtue0hyWt/2pOt/I0609rOvg3ZgkB+0JUCxSY05sLWp/TkwwZ3WuU=
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com (2603:10b6:4:a2::37) by
+ DM5PR1201MB0121.namprd12.prod.outlook.com (2603:10b6:4:56::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3700.27; Wed, 23 Dec 2020 05:48:36 +0000
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::5893:e219:4408:ec72]) by DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::5893:e219:4408:ec72%3]) with mapi id 15.20.3676.033; Wed, 23 Dec 2020
+ 05:48:36 +0000
+From: "Cornij, Nikola" <Nikola.Cornij@amd.com>
+To: Simon Ser <contact@emersion.fr>
+Subject: RE: Overlay issues
+Thread-Topic: Overlay issues
+Thread-Index: AdbSl9sxMkfhaFWoRjW4p/7OX2aWMgAIDMeAABHbJ1ABe+bI4A==
+Date: Wed, 23 Dec 2020 05:48:36 +0000
+Message-ID: <DM5PR12MB46792E5F8DF0F128FF01D79EEEDE0@DM5PR12MB4679.namprd12.prod.outlook.com>
+References: <DM5PR12MB4679C807DB8DB502AC4793DCEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
+ <05FNtjCma79AawCUxH3mqJ8sWHmoIXFXhQWW0N_b-mpl7QvuW3JN3AbtPUiR0y1LOf3tLhWFWv8YjuIEvJ3dci9y1EHk_D9a9L1BAyWyxRs=@emersion.fr>
+ <DM5PR12MB4679F2B26887B76BC025161AEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB4679F2B26887B76BC025161AEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=2ff0658b-377b-4bb3-8280-00005370ff28;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-23T02:23:53Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-15T16:36:37Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=fdbe14bf-82bc-429b-8095-000000e8c469;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-23T05:48:34Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 2716fe3d-0322-4b9f-a143-0000b5414032
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+dlp-product: dlpe-windows
+dlp-version: 11.5.0.60
+dlp-reaction: no-action
+authentication-results: emersion.fr; dkim=none (message not signed)
+ header.d=none;emersion.fr; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.250]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 047f3832-5b02-4d78-b303-08d8a6e9f5d1
-x-ms-traffictypediagnostic: MN2PR12MB3616:
+x-ms-office365-filtering-correlation-id: 0f7653bc-9a51-4ca0-23dc-08d8a7066451
+x-ms-traffictypediagnostic: DM5PR1201MB0121:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3616B91375E4BA081A4C5950FFDE0@MN2PR12MB3616.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-microsoft-antispam-prvs: <DM5PR1201MB0121E229E865F19C64FBF387EEDE0@DM5PR1201MB0121.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5YfVgmNV+nFcOiIiBjdUC/ftkvzyTi+9v8muCXCAWxFfQx+P9XwD7l/e4Lm+gHJG/Z9CDTF6njHrHPb/WaKJDLbO0tCv2U8yEbGmkI6abNBOx3GD2d94Dc0NyjPLLOCCklgTZPGOiy4mGlkf1vk4fAsqwYiBnaWFzB5tSBbToS6oz+tX7kHhIOX/thWe+InAO9LMv54ZD5cJOvauPNm0FfETFFCSC37N8cu90AoYU4Y0nYHqh0hm1d1ljgae6iK8zf+yyoiDNbETmYBA2GBbpbuV+NaV6NTuxAW7TH0oTOLPrVDiLFO+DC78IZSCT6SrCeBTgoml6iEO57jEIB+cuqG91B5lFr8un4sIsJLMlF+DeAQezg4GicMmyZOq8aCgyluEabbbwxK8YFXE6zoRgA==
+x-microsoft-antispam-message-info: 8gpqXJL0JTShXLlIUe1nrUyQQJ9mNflKmC2OcYtmaJakB/Al4UKLZmCyLQ/pRG5VwWHkJmsFyi/JSerXfCehurF2a0lOw3+EoZJf5g4ZvxVJPG4rO2ZhoggL5bcYBt2YegHiLR5Yx8bYdnm/M7nVaYZkP9jcMITD5PC5YJCIdbRjmr3+8bPQsOzuYcMr2oYcZ7XXU0q2ecee2dmtTos0PdXRyIqSgS0ImJdnG+P/PC9mC+f8Or+lUrOGqE1GJlE6JwsUfkJixQS7yrj0RfJ9H3I3I+au61e2c58kj1/bboshNPhO92CIum6Qt6QA/U7OPK6xKulpdbAupSY5gqeSUUdXRkViFwdW6U5RmlMP1JLo1GZXvGD50p301lmz7UmObJ8wfCM3M0eGwDrZ6gmHiA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39850400004)(136003)(396003)(376002)(346002)(366004)(66446008)(186003)(33656002)(8936002)(26005)(52536014)(7696005)(55016002)(53546011)(2906002)(316002)(66556008)(66476007)(110136005)(6636002)(83380400001)(86362001)(64756008)(5660300002)(76116006)(66946007)(8676002)(6506007)(4326008)(9686003)(478600001)(71200400001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB4679.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(39860400002)(396003)(366004)(346002)(64756008)(66476007)(52536014)(66556008)(66946007)(4326008)(66446008)(5660300002)(6506007)(53546011)(33656002)(8676002)(55016002)(86362001)(76116006)(9686003)(83380400001)(2906002)(7116003)(7696005)(186003)(478600001)(8936002)(3480700007)(6916009)(54906003)(316002)(26005)(71200400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?9vYbyXNrZ6X3h3RHCZoXNlla/+l+I+su+jabNi/8Xspjoic2gpQvH1cENujP?=
- =?us-ascii?Q?xBTXuZmHtSAQNlCGe7nBfgPQEnvaN/BcwDyd/oPlYBP/E5lrr28P6Z88mFe5?=
- =?us-ascii?Q?qvyBvdtfe3yXKlWgt+FP1VWCPANq1F/AwHMQTvkmPq3CW189e94Q+fV9fA5H?=
- =?us-ascii?Q?2RRLsSANmtACCXVg717O3l9/6sdHMvNUW0EuBptNBW26MT95BJk7zhU4bs3P?=
- =?us-ascii?Q?ne0OCMeyezaEEPt2rfbhiGeDqtKYhOgnTsF/TIwA65kyLdKSANJs31MSnK6V?=
- =?us-ascii?Q?2oLYkXXPwCH4Tx9GAdMrSKybiyLSU6S51pJXfu6hoTgbFDEz0VxLdcj1A19F?=
- =?us-ascii?Q?OMFuKMc7g1lXz+ic76QW+TKh2WfNegssaNy2Et1+ZzW50al/W1VSv+1c91j6?=
- =?us-ascii?Q?mGW4jjDetomuqla68jl8EIEMGUL+QJhEBmk094yINM5H3DCw7FtkQjBYv4qp?=
- =?us-ascii?Q?A/4fPgg7Qdm6TLVBRW1AHrw18ssf/xoEeRGz8ehsyyQnYaxDMy0mqVURcQya?=
- =?us-ascii?Q?iBquisNuf89QRztnWtnsh/yqbYdh9UZ0QjC61B7usb+HZP2wj+Re07jcJOas?=
- =?us-ascii?Q?FDpNCuK79gaoA2xqcGyhYiPLty9P2mKZomsuT20G37aKAxW+t1hXU3UZgEMv?=
- =?us-ascii?Q?9nKiqTQzRyypkSy7ixfbr8F98IlQ9W6q1YTmbphgqCKP0JIgEPBmgPUDP3sT?=
- =?us-ascii?Q?WHeMOF1mLQJjGw/ldZ7T4xvhwZYz+Ma5hnQBvHHJkWKCzCFCHboLbHi4qhqG?=
- =?us-ascii?Q?ghLj0LUEKmLJ+eq6AQQPiwfV4Pp6peY8q+bTUOR0bhCa7qDgpVZDoRtWOv/f?=
- =?us-ascii?Q?3bB692j9hVImY2//ciY8jQRsdlhNPieTX4XckhTkijnL9aRMo7Ch584gShjo?=
- =?us-ascii?Q?4zN+pPxmo2VqIkwKwbmbIXLDgaGdVtEXu+Cd5D2OnSeqJbdin4sngoOxaVqq?=
- =?us-ascii?Q?JmgUNEeiNXy5PwEn4VVja+qGKf/5UHbr2Ox6sBxYLEE=3D?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?Vys5aVRhZEZELyt3OWo3K21ZcUFrSGdmSytqVUZkY0tONTArcDRZM1RaeHFH?=
+ =?utf-8?B?Sytsb1oxcytYOFZFSlArUThiN3ljQStYL0xlWlhJSVFPNS9QZ3NuUVFWQ0ZR?=
+ =?utf-8?B?MmxZTGIwUVFYL05BdUNPT0ZWUExFQU5xV2xvZWs1ZHJMQTh5Ry95ZWNQTjIz?=
+ =?utf-8?B?enA3ZGcyVCtnZkpORnc2TlJWSjVucEVpWHI0cWFReUhJanlsRjg5dWZnc1lE?=
+ =?utf-8?B?V1RTajhiOHhCTFFBbHRCRHRCblQxcmUwbHA5b3lRaFN2eFllZXNReWhKQ1RY?=
+ =?utf-8?B?TDdCWGJTK3N5ekJVSWwrbVQzNTlIMVI4elM1b3J2NGkweEFpTi8wQmxGMVpz?=
+ =?utf-8?B?NCs5NUdyQTdFTzAvWThpdEl4eFNIZ2ZnYnFGcm4yWlN6d3NzU3RoOFlYL1JM?=
+ =?utf-8?B?YkRWU3E5ZDBHd1owWnhFTlJ2WjNIa1lBcExpdVVpNWxMNGpVUjlaYlZkTDE2?=
+ =?utf-8?B?SnJpa21qR2RCWnNVNVlsZU5OdFh5Y3hqTVpwWDVNTnhmc3JzQStIeHlOc2Zx?=
+ =?utf-8?B?NTUrZ0FFZGdZRjRUOVFpc3E2NUZiODdBMktFZXJmT1drdGlXSFdoYnRSMlh6?=
+ =?utf-8?B?YTBDVXpSK3pTSTN0NlVTMy9MbEFFTytrdC9HZXNldnVjU1dpTXE5dVh0WDNE?=
+ =?utf-8?B?c2pHcER3ZmFDeU1CYTlybmFja29najVWUmp2MTU4U1kxT2NHaHkwUlZrdnZT?=
+ =?utf-8?B?dm1uYXhaOWxXWUlYUnUrZi83V1lFcVdwYzJkUVViZWNac1BrNkdkLzdwenN2?=
+ =?utf-8?B?RkRUR2ZWdVJQNityRllKTW02ZHpFZDUzckdZUUJONC9UdUF4ZTg0enBFV3JW?=
+ =?utf-8?B?Yzg5ZFkwazdtWExFaVUvZ05WZStqa1RXeVpOejhjR2dkVXRVMm5PQkp6SVhS?=
+ =?utf-8?B?cGhvUE1tUGVxcUNkM21CbEpONnFyUnNHQmNZQjdUMHEvZG5sTm9aWjhmSk1I?=
+ =?utf-8?B?UUNOTnV6UVRZbTIvb1pmaDExU2pWZ3lEZDJEcC85dGxwWndRTXAraFgwVkRD?=
+ =?utf-8?B?NEdKZUVBLzM4TUdpeXVDNk14cHFBb2N3bnlaemxsUWt4ZnhKU05QckptTU1I?=
+ =?utf-8?B?bU9BVU9CbWtwakFDeFRRRDdXMlNsMFJBRk15RDdKMDNENUtHQTE2MnBJdk45?=
+ =?utf-8?B?dW40bmJlZStwSkZlanVYM08xZE9qOFNuRmdjOGxkRWgwYTNSckNxWmVNZnMv?=
+ =?utf-8?B?WnFYQWp6WHJ4WkdPcUNaQnlOaVlERjU1QWl5TXBhUnIvR0JLYjFpWWxkUGFN?=
+ =?utf-8?B?ZHRMOSs1ZVNkNTVmenhERDM5UktrSmdsU2phY28rUE9aWlpJSE5zQzNtRWFa?=
+ =?utf-8?Q?XHgJnTVXrsJvI=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 047f3832-5b02-4d78-b303-08d8a6e9f5d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2020 02:25:05.3677 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4679.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7653bc-9a51-4ca0-23dc-08d8a7066451
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2020 05:48:36.5947 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tA82/Po7D6tm+xsxRdIIf5mpomUbNuPRnjBnCrhDrg5gWh/upx6gZmvAYOh7T2+bYPYuLwG8++kUNiJgdpjgKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3616
+X-MS-Exchange-CrossTenant-userprincipalname: YCJxU+V05CJCyorlLzTb7jHs1oSMY83sZVQt5sMulNrub60uJ4vH+0LwpvOQjuaFj6OR3DbU4dsbLXcZ+WV/Nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,70 +141,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
 
-Reviewed by Jane Jian <Jane.Jian@amd.com>
+Hi Simon,
+
+Another interim update: so far to me it looks like this is an issue if there's fewer than 24 pixels left on the screen when moving the FB outside of the left edge (e.g. with 300x300 FB size, it repros with X = -280). When this happens, what looks like a boundary condition in our driver is hit and destination rectangle update is skipped.
+
+I need to do some more digging to fully understand why is this condition in place and how to avoid it.
+
+Regards,
+
+Nikola
 
 -----Original Message-----
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-Sent: Tuesday, December 22, 2020 7:11 PM
-To: amd-gfx@lists.freedesktop.org; Sierra Guiza, Alejandro (Alex) <Alex.Sierra@amd.com>; Jian, Jane <Jane.Jian@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: drop psp ih programming for sriov guest on navi
+From: Cornij, Nikola 
+Sent: Tuesday, December 15, 2020 11:37 AM
+To: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexdeucher@gmail.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: RE: Overlay issues
 
-the psp access ih path is not needed in navi
+[AMD Public Use]
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Change-Id: Ib68bfb1b13e1cec03ec27bc9a867e2b37fc2fc8a
----
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+Yeah, but... it works with bigger FBs (300x300). So looks like some clipping somewhere works OK until a corner-case is reached.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 060357625504..f4e4040bbd25 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -151,14 +151,7 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
- /* enable_intr field is only valid in ring0 */
- if (ih == &adev->irq.ih)
- tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
--if (amdgpu_sriov_vf(adev)) {
--if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
--dev_err(adev->dev, "PSP program IH_RB_CNTL failed!\n");
--return -ETIMEDOUT;
--}
--} else {
--WREG32(ih_regs->ih_rb_cntl, tmp);
--}
-+WREG32(ih_regs->ih_rb_cntl, tmp);
+-----Original Message-----
+From: Simon Ser <contact@emersion.fr>
+Sent: Tuesday, December 15, 2020 2:58 AM
+To: Cornij, Nikola <Nikola.Cornij@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: Re: Overlay issues
 
- if (enable) {
- ih->enabled = true;
-@@ -268,14 +261,7 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
- tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABLE, 0);
- tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABLE, 1);
- }
--if (amdgpu_sriov_vf(adev)) {
--if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp)) {
--dev_err(adev->dev, "PSP program IH_RB_CNTL failed!\n");
--return -ETIMEDOUT;
--}
--} else {
--WREG32(ih_regs->ih_rb_cntl, tmp);
--}
-+WREG32(ih_regs->ih_rb_cntl, tmp);
+On Tuesday, December 15th, 2020 at 5:09 AM, Cornij, Nikola <Nikola.Cornij@amd.com> wrote:
 
- if (ih == &adev->irq.ih) {
- /* set the ih ring 0 writeback address whether it's enabled or not */
---
-2.17.1
+> [AMD Public Use]
+>
+> Hi Simon,
+>
+> Just to keep you updated, I've reproduced issue '[1] - Overlay plane:
+> position not updated when CRTC_X is negative' on Ubuntu using IGT.
+> Seems to happen only with smaller FBs (so far tried 24x24 and I can 
+> repro, but 300x300 is OK).
+>
+> I'll look into fixing this.
 
+Thanks for the update and for looking into this! Let me know if I can help with anything. Nicholas replied on the issue tracker that overlay planes couldn't have negative positions, so I was thinking of having a look at the SRC_Y handling (see if we can do the same for SRC_X), experimenting with FB sizes and SRC_W/H to figure out what's the overlay max size still triggering the bug. If we really can't emulate neg SRC_X we should fail atomic commits with negative SRC_X by returning EINVAL (so that user-space can fall back to not using the plane in this case).
+
+Simon
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
