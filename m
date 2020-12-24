@@ -1,72 +1,133 @@
-Return-Path: <SRS0=7Usp=F3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=M7yn=F4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 826F0C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 20:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A8A8C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 02:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3991B22283
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3991B22283
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 068992256F
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Dec 2020 02:20:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 068992256F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A770A6E88D;
-	Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28C296E88D;
- Wed, 23 Dec 2020 20:48:03 +0000 (UTC)
-Received: by mail-qv1-xf2e.google.com with SMTP id p12so357327qvj.13;
- Wed, 23 Dec 2020 12:48:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rB/ma7etmTQsKntGAzFzwoTV6KnJ2Xebg8sYZNhBMok=;
- b=ZaO9a1XBy6eQGLx4GqEzrV18vlkRvWIq3nGa03GBpBqBNAfr+gPtuAZurutDf8WBH1
- iaKKhNRncrAoApWWyHoOVnPyHTZjCCZP51poFxKfvqhJQL3+CZw8CXwhHEsboxuF7XI1
- 6FqHYpFizHik0OUMTIY5FQuZjlDTZ1zOegD5GwDsTvvgLINtYPmru+2a4KGY83EfXCpz
- mriJRFfC5uAeRItuME+AASGg3oe1uTiUFtIlzy4b5pIbknMOt+bHIJ1V4d8UHl+sKRdp
- 3fGztZ2fDzut3jNocSy3fl+VeieDFuMbwrzlTun/Cyl5I9VTVcUFz6QnClVLvg73HagZ
- PC/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rB/ma7etmTQsKntGAzFzwoTV6KnJ2Xebg8sYZNhBMok=;
- b=MTFyhk6k+UPXfIIJYdzj9N4BW3BnibZ8E1nQhxb/pVrwl1BzntAm/kSHRSMwrGjorS
- BUuUL0EoMfCjxaG9akacNqnGkWW3SpQPPvlHvnb3slShQDekSe0W9gtnZwxqdr3uZHd7
- H6c2tIqnnuEjKjK1YnTruL5SNAE0p41XUwF3UXa/Q2TtRRyTUWWJCXly7kQg1napWBlC
- w2Xiaznz3ZDK0H5QlEEHj8BNFBDbZaTJV4TGQZGbr/2TLaeHeMPbhOaewiPuva4OJ23M
- h8WToPVA8nxd9JY2JgtpzQPIQnXdUvyaCn+KHidKFzW2HcUHrZvoYVkUsRvcgR7FgNQN
- crMA==
-X-Gm-Message-State: AOAM5309skVDY+GGKrOwwb53cNdim3XK6gfjCSZJmnOxVrKEoNzhqdju
- reP6kUQRe/TuW3dKSXmNBYtdYGKb6iU=
-X-Google-Smtp-Source: ABdhPJwCjGKYxwYsYimRluvfcFLUcGIMVOiSW90wvRCfmC53B8CbMm8RhbJAtFT65JDb082KrWc16g==
-X-Received: by 2002:a0c:b9a8:: with SMTP id v40mr26973083qvf.36.1608756482156; 
- Wed, 23 Dec 2020 12:48:02 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.241])
- by smtp.gmail.com with ESMTPSA id a5sm16313150qtn.57.2020.12.23.12.48.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Dec 2020 12:48:01 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.11
-Date: Wed, 23 Dec 2020 15:47:52 -0500
-Message-Id: <20201223204752.4019-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6CF89D02;
+	Thu, 24 Dec 2020 02:20:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADDD889D02;
+ Thu, 24 Dec 2020 02:20:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kXX6TdwJLEO7yXJ+4GOPseWqoJhEGOkCp8NGSE7Rdz7+EtgYBOZle+HnokA8w9nyZk+8/nIxaKmTNSb7/hs+vUZCnH+crFW5bagpr4iJN35E5ZF+MOnROW//4ZfqZUpqn6XOa+FBftSzvrZaH0RbJvBB1vyRHu/V6kbVv7kxiUQ6FuM1FYzK/fcwKi48Urxo1JPEueYAl+KPky+myypHE6DbHcAnBt1CZ3lrNAy4NibwqxiwiyyrI0rvLWb/IqL1W4Noe3EuHZb6A3tbTT00jmG0sEoV3EDQH2Nr4KcdgbfDebYsp4uhn+xlPhZcftEFnEd0512p3Vz1smecgDCsmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NDBacsgTp6tZ7qtLhdaHQMrWybO4xX1BzkbEwqFMH6M=;
+ b=FKIyOhuq8LbdfbvpYT57e+ijfhffq+K1WLQkaZU8f6KxM48fGNJQK0gaRZEdT71vghZwt9AWXDpQ09agP6LBqyV6qs0JeXhGbTxG7howG8Kdr7mygDyzZlk0eUyPb/zsf9fvVhePHy9bE3k89RYkqEwUf5/5xKc9r0as6C7a3DyIFAprAn8wZdu1nnUzLleiOXhXPWdUgJ0a5IxpJg87RDjjGZ/6a7tZgqA6Yb2b3XQO6K8bNd/Y73HhI/hzPQdAjnqhiYFYsShwGnZm0pMLQ0rUNckC9kf46Mq0O2Jhq04tUd/gdrQJ2zpY90TwEp/8Us6w+x1tFj+jm/R500q7QA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NDBacsgTp6tZ7qtLhdaHQMrWybO4xX1BzkbEwqFMH6M=;
+ b=X2mg6uxJ2oruJosi6osc9q9q/3exTliEKFVOApN8G1gja5ZReD+DUe9TwQfLZM7T23TxMCABubgRO0xFn6L02shQJSbBI50bIyFIw/1GHIOxHucG2+d5Ku+aCsDONIW0oyH1TcQWA7k3mRIF8LXzAtcmwemGjZjEjtp+biOK+Ms=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR1201MB0040.namprd12.prod.outlook.com (2603:10b6:910:1b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Thu, 24 Dec
+ 2020 02:20:08 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::bc0f:dd2:ef80:de2]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::bc0f:dd2:ef80:de2%12]) with mapi id 15.20.3676.033; Thu, 24 Dec 2020
+ 02:20:08 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: Chenyang Li <lichenyang@loongson.cn>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu:Fixed the wrong macro definition in
+ amdgpu_trace.h
+Thread-Topic: [PATCH] drm/amdgpu:Fixed the wrong macro definition in
+ amdgpu_trace.h
+Thread-Index: AQHW2Po2g9HrUdT/OkGoQXnRvVK/tqoFhHAA
+Date: Thu, 24 Dec 2020 02:20:08 +0000
+Message-ID: <CY4PR12MB12876422B7A4B93E4D9177DFF1DD0@CY4PR12MB1287.namprd12.prod.outlook.com>
+References: <20201223011926.15924-1-lichenyang@loongson.cn>
+In-Reply-To: <20201223011926.15924-1-lichenyang@loongson.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-24T02:19:39Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=b9ca3e02-d507-444f-ae1b-0000c1cd4d7a;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-24T02:20:05Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 96109746-5da2-41cc-a45f-00002e415244
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+dlp-product: dlpe-windows
+dlp-version: 11.5.0.60
+dlp-reaction: no-action
+authentication-results: loongson.cn; dkim=none (message not signed)
+ header.d=none;loongson.cn; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 3a22792c-31fb-4410-a42c-08d8a7b26f3a
+x-ms-traffictypediagnostic: CY4PR1201MB0040:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR1201MB0040C97B0C057647CEAE9136F1DD0@CY4PR1201MB0040.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1186;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: pvkxZAIfvnVA1bpwyW3b10Sd+J+kznxl5UvHiPAgIhg/sBeyozIkg1krrXg/0K1RKBzr5CUL1/p99tZg+T1FqTLBN2ZJ9qbSDVzfC1CzOh9zQYRNmPjkmEdVwdLPzFK8yJqChu8VnOvCrRKIl2kzcR8t9VBfmlaYfkOYxXXfUJtNmhRSkOlUBYi0NEwt9m2G1WR6ysYuMT9ny7cbdktpCqZD8/Wm88UKgNARXHAv/YIQBQZeSUGQcAYoIWX+UPUhCEW2T7Pt4v+Px+55duRl58EL+AuNdCEZK/J0LzHYaca/nQikt+mrht1mZyVJErNXfcPHKnrtMgGsOJXBQNe3aU/8BBiax6Q4+c89prAy/c3LUnzgEOzprt/ChfIllopbEeWOgEwVm5iihJu+BXvljSHIUztrdmelayMLvPqC64M=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(396003)(376002)(366004)(39860400002)(55016002)(45080400002)(966005)(83380400001)(6506007)(316002)(53546011)(2906002)(9686003)(64756008)(5660300002)(66446008)(110136005)(7696005)(66556008)(66476007)(52536014)(76116006)(66946007)(71200400001)(478600001)(8676002)(8936002)(33656002)(86362001)(26005)(186003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?eX0dO3sqsGbUnZ/LVyhYl3Q/ih8PAA2jYNUsGsVWm9YeIbgAw223n8NRXqFr?=
+ =?us-ascii?Q?yaybQMDWGNzVU/VpupoDrZPycYpf9bPZyERJXpyfxC1tqh1zPu+cmyDFDACn?=
+ =?us-ascii?Q?mmPFcf7g3teu8FS3m1Zr/U+WVEPRtQuglwEgm0sxX76UfpnkzjIx7B+d6G87?=
+ =?us-ascii?Q?uozq1SuJhBF/edhxNoC+dLWGyqmveGqj5pnpJ0F2QLsnGnJyXbZK5DgiwMCz?=
+ =?us-ascii?Q?f6yszuJGrD6JiwTZgSFZ9uYhOLzNtQvwIfc65vMBOdBMRK2SKUGZxyF6DzDF?=
+ =?us-ascii?Q?QOgCnlrts4Uy/5XiW4KHaTp+oQXjNCCKrEwF/VAo6c/lTWYXUiykq/4O+yCF?=
+ =?us-ascii?Q?sHsupkgct+4R3klLqSWxYi3QlqoLqKFYyY2FAB2eXZj/pA4zBznYfPJUwEt4?=
+ =?us-ascii?Q?0XuR3D/hBV4L4ueHBHRPT4qZZ0AIwW+nDYjb719sZX3x18UBtfOE5OdVNBRp?=
+ =?us-ascii?Q?R4trdBl62jKuqnQxKlxZDj4Y7XYFMzYq+qQ58q3xaInRHiFn98cOyXbiQc+K?=
+ =?us-ascii?Q?t1LqSAErzMxnNeVtuLgw+mkHlyn1VUZK3sVIs5N8jflGdpxlgTm5bI5NECby?=
+ =?us-ascii?Q?DAqzgDsRQttgbevPRpumaw5C9cXYcpWnfqtR0iprV031jPc0jYWGnyRCyuIj?=
+ =?us-ascii?Q?E3N4NbS+V66KqB6J44bxss66XjKheDSIHT5JfACZT4RQCUu1qYSdLqoalVcq?=
+ =?us-ascii?Q?ZjJ0U/VG2CBo3PeePSN5BiyhD1JF0vvHpi/Hh1rn/pG0SZfR+xA10RISSYPk?=
+ =?us-ascii?Q?9+0Iwh1tNXHvvQCHSYFr1E71MIFYLAF65HkMNXNEg6xVDwm9Y/0X+GDBVhT9?=
+ =?us-ascii?Q?qH7UrBo19dCaOhyGaSEfV3kJZsVG5OzDpjFS2C0Dj7u9KhY6M8JrsaKUVOMQ?=
+ =?us-ascii?Q?55P7jXxKACSWd6JoZufMfYFDCSictfLiTHPsSivMdaRTlC3HKKHpFsWsR95l?=
+ =?us-ascii?Q?+rR0shueEYvh53SPR32HaqdeAVz5e7raVDF6ire8ZJg=3D?=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a22792c-31fb-4410-a42c-08d8a7b26f3a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Dec 2020 02:20:08.4166 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2AV/xTAhJGxdffzfoew029lc+iHrkK7ODUv+X6aLWL5OJ0I32+Y+g4H7jdJDcry7gLBQx6sycrhF+nXHPGlbRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0040
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,134 +139,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+[AMD Public Use]
 
-Fixes for 5.11.
+Nice catch and the patch is:
 
-The following changes since commit 6ae09fa49147e557eb6aebbb5b2059b63706d454:
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-  drm/amdgpu/disply: fix documentation warnings in display manager (2020-12-16 13:27:17 -0500)
+Regards,
+Guchun
 
-are available in the Git repository at:
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Chenyang Li
+Sent: Wednesday, December 23, 2020 9:19 AM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu:Fixed the wrong macro definition in amdgpu_trace.h
 
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.11-2020-12-23
+In line 24 "_AMDGPU_TRACE_H" is missing an underscore.
 
-for you to fetch changes up to a135a1b4c4db1f3b8cbed9676a40ede39feb3362:
+Signed-off-by: Chenyang Li <lichenyang@loongson.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  drm/amd/display: Fix memory leaks in S3 resume (2020-12-23 15:03:15 -0500)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index ee9480d14cbc..86cfb3d55477 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -21,7 +21,7 @@
+  *
+  */
+ 
+-#if !defined(_AMDGPU_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
++#if !defined(_AMDGPU_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
+ #define _AMDGPU_TRACE_H_
+ 
+ #include <linux/stringify.h>
+-- 
+2.29.2
 
-----------------------------------------------------------------
-amd-drm-fixes-5.11-2020-12-23:
-
-amdgpu:
-- Vangogh SMU fixes
-- Arcturus gfx9 fixes
-- Misc display fixes
-- Sienna Cichlid SMU update
-- Fix S3 display memory leak
-- Fix regression caused by DP sub-connector support
-
-amdkfd:
-- Properly require pcie atomics for gfx10
-
-----------------------------------------------------------------
-Alex Deucher (3):
-      drm/amdgpu: fix vbios reservation handling on SR-IOV
-      drm/amdgpu: only set DP subconnector type on DP and eDP connectors
-      drm/amdgpu: Fix a copy-pasta comment
-
-Aric Cyr (1):
-      drm/amd/display: Multi-display underflow observed
-
-Eryk Brol (1):
-      drm/amd/display: Remove unnecessary NULL check
-
-Evan Quan (1):
-      drm/amd/pm: bump Sienna Cichlid smu_driver_if version to match latest pmfw
-
-Harish Kasiviswanathan (1):
-      drm/amdkfd: PCIe atomics required for gfx10
-
-Hawking Zhang (3):
-      drm/amdgpu: check number of gfx ring before init cp gfx
-      drm/amdgpu: remove unnecessary asic type check
-      drm/amdgpu: check gfx pipe availability before toggling its interrupts
-
-Jake Wang (2):
-      drm/amd/display: updated wm table for Renoir
-      drm/amd/display: always program DPPDTO unless not safe to lower
-
-Josip Pavic (1):
-      drm/amd/display: add getter routine to retrieve mpcc mux
-
-Martin Tsai (2):
-      drm/amd/display: Modify the hdcp device count check condition
-      drm/amd/display: To modify the condition in indicating branch device
-
-Michael Strauss (1):
-      drm/amd/display: Update RN/VGH active display count workaround
-
-Qingqing Zhuo (1):
-      drm/amd/display: handler not correctly checked at remove_irq_handler
-
-Rizvi (1):
-      drm/amd/display: gradually ramp ABM intensity
-
-Stylon Wang (1):
-      drm/amd/display: Fix memory leaks in S3 resume
-
-Sung Lee (1):
-      drm/amd/display: Acquire DSC during split stream for ODM only if top_pipe
-
-Wesley Chalmers (1):
-      drm/amd/display: Interfaces for hubp blank and soft reset
-
-Xiaomeng Hou (1):
-      drm/amd/pm: check pmfw version before issuing RlcPowerNotify message
-
-Yongqiang Sun (2):
-      drm/amd/display: change SMU repsonse timeout to 2s.
-      drm/amd/display: [FW Promotion] Release 0.0.47
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     | 10 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              | 21 ++++++++-----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              | 11 +++----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 12 ++++----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  5 +--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  5 ++-
- .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 36 +++++++++-------------
- .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        |  2 +-
- .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c |  9 +-----
- drivers/gpu/drm/amd/display/dc/core/dc.c           | 20 ------------
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  8 +----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c  | 18 +++++++++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h  |  4 +++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c   | 12 ++++++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.h   |  1 +
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  2 ++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 12 ++++++--
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c   |  1 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c  |  2 ++
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c   |  1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |  2 ++
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h        |  4 +++
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  4 +--
- .../drm/amd/display/modules/hdcp/hdcp1_execution.c |  8 +++--
- .../drm/amd/display/modules/hdcp/hdcp2_execution.c |  7 +++--
- .../drm/amd/display/modules/power/power_helpers.c  | 35 +++++++++++++++------
- .../drm/amd/display/modules/power/power_helpers.h  |  1 +
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h             |  2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  9 ++++--
- 32 files changed, 161 insertions(+), 111 deletions(-)
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7C8d902bda929a44a4eac508d8a7114368%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637443040220638596%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=%2ByVfo1XiGQKDHkf354Kpi2edjFzsUT3FIlAXAM6O6AE%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
