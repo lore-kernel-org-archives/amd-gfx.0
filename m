@@ -2,57 +2,54 @@ Return-Path: <SRS0=dnVN=F7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A52E4C433E0
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 20:56:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D116C433DB
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 20:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C20AA22513
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 20:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C20AA22513
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+	by mail.kernel.org (Postfix) with ESMTPS id 7CAC922513
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 20:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CAC922513
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=126.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 373CD8979D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 515E1897EB;
 	Sun, 27 Dec 2020 20:56:47 +0000 (UTC)
-Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 622598961E
- for <amd-gfx@lists.freedesktop.org>; Sat, 26 Dec 2020 08:56:10 +0000 (UTC)
-Received: from li-pc.loongson.cn (unknown [10.20.41.71])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9Dx38un+uZf7ZIFAA--.13080S2; 
- Sat, 26 Dec 2020 16:56:07 +0800 (CST)
-From: Chenyang Li <lichenyang@loongson.cn>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Paul Menzel <pmenzel@molgen.mpg.de>, Chen Guchun <Guchun.Chen@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix macro name _AMDGPU_TRACE_H_ in preprocessor
- if condition
-Date: Sat, 26 Dec 2020 16:56:07 +0800
-Message-Id: <20201226085607.155289-1-lichenyang@loongson.cn>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-X-CM-TRANSID: AQAAf9Dx38un+uZf7ZIFAA--.13080S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF4kKrWkZryDCrWDGw4rKrg_yoW3ZFg_CF
- W5Zrs3Xr13CFnFv3Wavw15Zw1jyrW5Zr4kur1FgF9ayryj93yDXFy7Wr97Xan3WFn7uFnr
- Xw40gr15AwnxCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb7xYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
- 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
- 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
- cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkIecxEwVCm-wCF04k20xvY
- 0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I
- 0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAI
- cVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcV
- CF04k26cxKx2IYs7xG6Fyj6rWUJwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv
- 6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j50edUUUUU=
-X-CM-SenderInfo: xolfxvxq1d0wo6or00hjvr0hdfq/1tbiAQACA13QvMyeeQAAsa
+X-Greylist: delayed 1948 seconds by postgrey-1.36 at gabe;
+ Sun, 27 Dec 2020 08:57:26 UTC
+Received: from m15114.mail.126.com (m15114.mail.126.com [220.181.15.114])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2D8893E8;
+ Sun, 27 Dec 2020 08:57:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=m5oVi0TtWHQkthGZkb
+ SLeLd7sFG2BGbk2xXapv0duR4=; b=eL7TScYOee7UjWzkvmx0DdVX31cX73QcLX
+ 9oZZVrlz9cccRKGpRZ0az7Jn4lulbkJuDoUQKzlpdegPmo/ehwTqSZhLto6gRLzj
+ +chCXQ4zUAu3vBLFacn/EGx54FjlPGWQ10OQjqjPlT5r0oW9xy5Mn8FMu0nS+mWz
+ I1I8cdDhk=
+Received: from localhost.localdomain (unknown [36.112.86.14])
+ by smtp7 (Coremail) with SMTP id DsmowADX32_DROhf0ypiMg--.29381S2;
+ Sun, 27 Dec 2020 16:24:37 +0800 (CST)
+From: Defang Bo <bodefang@126.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/radeon:avoid null pointer dereference when dev is not
+ bound
+Date: Sun, 27 Dec 2020 16:24:29 +0800
+Message-Id: <1609057469-3844200-1-git-send-email-bodefang@126.com>
+X-Mailer: git-send-email 2.7.4
+X-CM-TRANSID: DsmowADX32_DROhf0ypiMg--.29381S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKryxurWxZFWUKw45ur47XFb_yoWkuwc_uw
+ 10va4xWaykZwnYqF1Y9F1Ivr9rtFsY9rZ5WFn7ta4fXry7X348ZayUXFyUWr47Wa1UAF90
+ vF4vq3ySyrsFgjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUgTmDUUUUU==
+X-Originating-IP: [36.112.86.14]
+X-CM-SenderInfo: pergvwxdqjqiyswou0bp/1tbi6wUI11pD9bQS2AAAsj
 X-Mailman-Approved-At: Sun, 27 Dec 2020 20:56:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,34 +62,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, Defang Bo <bodefang@126.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an underscore in amdgpu_trace.h line 24 "_AMDGPU_TRACE_H".
+[Why]
+Similar to commit<0fa375e6>. If the set_state/can_switch code access the drm_device when dev is not bound,
+a null pointer dereference can happen.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Signed-off-by: Chenyang Li <lichenyang@loongson.cn>
+[How]
+Add sanity checks to prevent it.
+
+Signed-off-by: Defang Bo <bodefang@126.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_device.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index ee9480d14cbc..86cfb3d55477 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -21,7 +21,7 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 266e3cb..50a1a60 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1224,6 +1224,9 @@ static void radeon_switcheroo_set_state(struct pci_dev *pdev, enum vga_switchero
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
  
--#if !defined(_AMDGPU_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-+#if !defined(_AMDGPU_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
- #define _AMDGPU_TRACE_H_
++	if (!dev)
++		return;
++
+ 	if (radeon_is_px(dev) && state == VGA_SWITCHEROO_OFF)
+ 		return;
  
- #include <linux/stringify.h>
+@@ -1257,6 +1260,9 @@ static void radeon_switcheroo_set_state(struct pci_dev *pdev, enum vga_switchero
+ static bool radeon_switcheroo_can_switch(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
++
++	if (!dev)
++		return false;
+ 
+ 	/*
+ 	 * FIXME: open_count is protected by drm_global_mutex but that would lead to
 -- 
-2.29.2
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
