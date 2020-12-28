@@ -1,121 +1,114 @@
-Return-Path: <SRS0=dnVN=F7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=oLN9=GA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1E5CC433E0
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 22:30:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFBA1C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 07:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5642F22838
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Dec 2020 22:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5642F22838
+	by mail.kernel.org (Postfix) with ESMTPS id A5C3F207D1
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Dec 2020 07:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5C3F207D1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99A8893B8;
-	Sun, 27 Dec 2020 22:29:58 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680079.outbound.protection.outlook.com [40.107.68.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D149892DE;
- Sun, 27 Dec 2020 22:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0180898CE;
+	Mon, 28 Dec 2020 07:03:07 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2056.outbound.protection.outlook.com [40.107.102.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8068A898CE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Dec 2020 07:03:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WPIsfd/s0VxA/eQAiTG/k7sRPmQ0T6DOoz5kBlJ60JpgyDmfYeSfk2dd+yjz9PbNLqhtu87+FQePTfJllsqiPm6LTEieCAzLCOfzKJK8RMWwezr/+UTsQj8fH2/I0gToEqjP1vc0AozqxjdTQ+gtUML65VPaPBvJDT6tufIww6vYyGiiIAzINcLmGUoWt7VxGm/nxX5lqYOt7etmviBc1Gm7USh/HfzH0gce+Ed5D0d3y5DFgziDboQD0xoCYAh8IIkikX8HLnP01QnueD5Buwewf7gj3b8aW/TeWro0a8kGJXKgoC2LSABApbrwRuKBMRXW7dMR+l15Ec/SPZLgVA==
+ b=n3HLrtNn66adFTaiUDsPwYsDPwJF2zDyEXY1wirRZ9VGoxaH4TEXx0qE0S2amI4+Z9WLa0guELX+PUsBIZvheUfCwztNyJPYaxGFwnMPhBCNZ461dp6N/7SnSvQjENFdakSl/zUO4l13Glm8q+P45KEgsJhoyExq9YpqUolSpXiStV/XegtsWSkqt4KiAcS554rwrzl1+qyIWkvYiGX4xNjVp0h5ukVRA5invXya49ghgkPQ0riuEjTtfj8tUEmRc1DT6R5X0Pgy+BzioTkW68OTvPTm9OSKhOk4aVba3p2Yd1x9sg2WvEbrUy3SdLb1rggG7a/KVjMgbTeX6+MiGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jcMzdM4hkvFco7ldIxy+eAoiZTptoYSy2UokWQbfHEA=;
- b=S7UiCmDuH4S/rgsSQTc+YsjOFG3wLvJpR7q9EA6mka+3f6nYrsxEKgXXm6zkkOd02jyLAKjM8UKFE0Ek8D1LsQEG1l7qzP0itua/5iBGySNx3JzZ0OIUwAelNH6louWO2yRLJT6GFA7cO6q80ni+LlgjnCSDLiL6heSAhQz/WX18Fi7as73vGhzgOfcvC76QsKmuKUAGJszRSFc/7TURQOBqxp53Kz5P29jjduZpeBPAE57/vBSIIyDfKin9S/saU+feVV75j+nJ9OHcAYCoEUzQmzyq3q2e31WiUIHGlFz21cvxhKArE6d1z3kYQ38N446d/zyxgElqFaKbMavWYQ==
+ bh=KD9m1jJQ2030H0N6c0yWUS0KKpWzNVcUBswVjqqr/30=;
+ b=LIVcV3dc7I/72yTmKHPuPU+ngM1ctyfCoiN8uEotM3fFT+vslzM1eTB7QPCelt9B+Z/ww9xhST5au+KPsDUT/a40FOFpQWl3BjXF4KHjfHLQtivQYe20GRYtg5lwZBI8TDOGWCCbVthPoYcObo6ANBtsexblCJ02KSaGkV7nVYQyzTAD0nzkB+IoG2c3PwjX5upb09+mBEkx1oePTSL0YYdB7/NXBZ80V1xOqCPp2Ce4W5qTrFIxKcxKzvMitTK0++73B7tG9MBCnmQVIGZmZl/HWXdwOYM7yfLxWEgg1/afrH6lD24Vqw2HR/Ys4Hay8/weLQvCilbY7+/WvQSniw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jcMzdM4hkvFco7ldIxy+eAoiZTptoYSy2UokWQbfHEA=;
- b=n7vXN+wT0SlquvWGrEVG6kQXRsdjNKLnoMx2zowLxpUPewIRWylkZey0dm3vDgc80PTprn8hbN1X6cSq4QELoRnWW52pfoHDQ0Kmp0nH/eSmYb1IjujO1FOQficWU2d22vpiVZKwDS1rcERXgQSe3ZdFoTmTC3W+3e9JbXXyIZ0=
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com (2603:10b6:5:11d::25)
- by DM5PR12MB1948.namprd12.prod.outlook.com (2603:10b6:3:10d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Sun, 27 Dec
- 2020 22:29:54 +0000
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::4109:2abb:d4b0:b835]) by DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::4109:2abb:d4b0:b835%7]) with mapi id 15.20.3700.031; Sun, 27 Dec 2020
- 22:29:53 +0000
-From: "Bridgman, John" <John.Bridgman@amd.com>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>, Linux List Kernel Mailing
- <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: [bug] Radeon 3900XT not switch to graphic mode on kernel 5.10
-Thread-Topic: [bug] Radeon 3900XT not switch to graphic mode on kernel 5.10
-Thread-Index: AQHW3G87f8XovBdTjUy+YtIPDk0L+6oLhDRb
-Date: Sun, 27 Dec 2020 22:29:53 +0000
-Message-ID: <DM6PR12MB30973924E8019A301E830BF0E8DA0@DM6PR12MB3097.namprd12.prod.outlook.com>
-References: <CABXGCsPsXSTh+WO2XESOU+Q1ocrWmS1c1YJFarzmA=woK_ke5Q@mail.gmail.com>
-In-Reply-To: <CABXGCsPsXSTh+WO2XESOU+Q1ocrWmS1c1YJFarzmA=woK_ke5Q@mail.gmail.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-27T22:29:52.410Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [72.139.202.183]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e75ea3c3-f4aa-4741-5cf0-08d8aab6eeba
-x-ms-traffictypediagnostic: DM5PR12MB1948:
-x-microsoft-antispam-prvs: <DM5PR12MB1948905C40A5296BD8DF675EE8DA0@DM5PR12MB1948.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9UZbUcV0VgOS9zevI7EVxiq6z6TON1eo5U+eo+O/kZbPy4Df0TV35sJewBNGqZy7IFSTKGGVTR/ayAh4S0dqvHkiMZootG9+8DB+nKA+ARJs6rfDVt8o8ZIddAq5sg2A4uIh29UbRlHkM3K8MFWiMrXWClBKD0Z+n3XdKuxfYfQatDVlqvu4iXKoOx2bCK6R7pligDhfwKc2v3rajROy8MkIxiiE0zJp5ym9oB1WsQgKC25k/GelsYeAH+nDqo7vFCRpTAYvoZ7+4AyGOBjYJo6D0dd9gARfbNLqD/MjJdlPgzVTlFpm0iZJoyz2g3SeGIfmZREUDTG4LWomTOsmfOjhKf3bkTaOWhG0iO+WyBWS/Q9XyS62iPbGqjgzaMkMPqsU2tf3dHqVxHllLWBLMEgyUs2WxERDSDMHm8evbjJvavDbJl7yqbOShjVxoLGPLT4C64ymQsFJamdlXAZ+vw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3097.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(366004)(39860400002)(346002)(136003)(26005)(186003)(66446008)(7696005)(86362001)(66946007)(91956017)(76116006)(52536014)(64756008)(66476007)(83380400001)(19627405001)(966005)(55016002)(6506007)(66556008)(8936002)(8676002)(110136005)(316002)(53546011)(45080400002)(478600001)(5660300002)(9686003)(2906002)(33656002)(71200400001)(166002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?a2bW6410TLplU04ZOcthI3kMPsx9dxa1GYSLAnr35fInueHALKh52JGWLw?=
- =?iso-8859-1?Q?RsumrC6cvFrLuE6Tdp0NfmbcMhm2Kf9uhfx8ew4sZz/vlMHmxdRMWLfgEI?=
- =?iso-8859-1?Q?rCzxa8o/mjSJl/1yJ18VqfOEM/++JO4/6i18KMlem1MYwsvrdYsE/B3JgQ?=
- =?iso-8859-1?Q?1v5jYX8QzCx7oMUuzqVZ5i3HLFfcnPWR6N7xqbCsDHEBd1qv41RpWblm/1?=
- =?iso-8859-1?Q?oD642VHDrYtR/yKc/1G/oAI8XU10Q8LRQbXDpo2/wT9gZXE7Ox2ZZvinNz?=
- =?iso-8859-1?Q?UROrihkWUmHb5ulNR6tP+gzS3f0XC3UfybFOZgt0FjwQPepWsE4bkAY1rm?=
- =?iso-8859-1?Q?966hLkH1QiY5pUKlz0vEz9kwV3PNfEYWc4LgplnrxeEStva9meGPwHX9zQ?=
- =?iso-8859-1?Q?0y098k7U5E8n1JDeIinh2HO3e42izKIpJHZlWpGw1J1vT+w/ehdC/M+EO7?=
- =?iso-8859-1?Q?dmp1ZuSjdk9JCUCeeXnmY6qSniTCXSxebzMJdfngygd4hycc+y0JkGl/x6?=
- =?iso-8859-1?Q?6JR/qBIcypieUSQQErubsi6myI4i2k89q8E7WxVtlMo091szzLnlLghBOK?=
- =?iso-8859-1?Q?m+FUsSHqZFGduQwjtPIXck6OlP9enknBjdApTh1FUL1heohWpvWfcrrKt6?=
- =?iso-8859-1?Q?Tj5KGM69lcrVJjmbwRNG/U//fU4YjoqUvbwpBGmMqwe+bbS69MusWrkfdl?=
- =?iso-8859-1?Q?2XEOpSzLjrCUJF4l31NT92fVCIWaUm0galY7EIqUBs8APbcC512vVe0C2q?=
- =?iso-8859-1?Q?/T4krcU3xqBcpK5LNcDvGs0Cp1LpWQufFYLe1eynRHuPcwZB1aNKAggAlJ?=
- =?iso-8859-1?Q?VaQMH/XeRJNq+oXLAKsOJ4rXMyWOvDFvUpE4EVS+sa4hK0Uh7MJhkRjoRT?=
- =?iso-8859-1?Q?tL7DCxuhmMLikCl2/rjq7EplJvuMRKhteWYYN6x++79WR5aU6YdGuigSuL?=
- =?iso-8859-1?Q?a0W5ShNrc7RgNPEy08OeI+tVJjncv9Jln7qTngnKynkeYb0c7vDe+Cby7A?=
- =?iso-8859-1?Q?iUE7GMDZcydNnGveo=3D?=
-x-ms-exchange-transport-forked: True
+ bh=KD9m1jJQ2030H0N6c0yWUS0KKpWzNVcUBswVjqqr/30=;
+ b=a+2MoLJYfMOTM4ApnzJRowp0vJByPuuoQKT2/QPKVLngexKYUa+5V8tt2UKPR7YPYHF4ZxH1nKN9N29FFSXBImFsc1LjmhV58mc23TOe9HOfT2lCD6BM8FXOTWXlVwN5kBQc00uyYWvdF8omtpfBYFrcQjVkqm9b1NXfohNA6iM=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
+ by MWHPR1201MB2542.namprd12.prod.outlook.com (2603:10b6:300:e8::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Mon, 28 Dec
+ 2020 07:03:04 +0000
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::38a7:197b:75f0:6030]) by MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::38a7:197b:75f0:6030%12]) with mapi id 15.20.3700.031; Mon, 28 Dec
+ 2020 07:03:04 +0000
+From: Likun Gao <likun.gao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: add amdgpu_hdp structure
+Date: Mon, 28 Dec 2020 15:02:47 +0800
+Message-Id: <20201228070248.2867202-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HKAPR04CA0001.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::11) To MWHPR12MB1854.namprd12.prod.outlook.com
+ (2603:10b6:300:114::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from lnx-glk.amd.com (180.167.199.189) by
+ HKAPR04CA0001.apcprd04.prod.outlook.com (2603:1096:203:d0::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3700.27 via Frontend Transport; Mon, 28 Dec 2020 07:03:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: fbb48caf-6a4d-4ff8-07ad-08d8aafe9f80
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2542:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2542FAB743446943E0E2C478EFD90@MWHPR1201MB2542.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1Zz/qCDO6RqNvp4EicRB6Xzz82gtVMl9AObnxvMTtRBrIcN1I5I0GvlyEvPStKyCPlJHrVGXbUBAuT9RQi0mS/gQH1uoYuh/tNjaQyWH2AGC3aPvhQkyDbliCnCc756PZFXAGpH4dOpCpRJkCvnk7C6KXa5QODg6TPr5J2V5uWTBy/dYRQDJa8oQKEJ6zYh+jIb678ZYRRawl1Dp+lLn3Cgmg9LbEuzPHlijYEapGW813JfZ/c9/kEHrYcNSWUlF60yfxLVH6QLztPP6sB4q1dpGcsaKtfynQtz5ZVFX0oeAi9oud0wR1NwJFUGLBBApK7JA/n3Y6t3U0m5lec9DfzzbooOwCy5vVuUIdJMwbJxAgBUUsRShkPQ3xIKPpFrhF89qqGgzuP2ZLK9RHmtAgg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(6666004)(5660300002)(6916009)(4326008)(186003)(54906003)(83380400001)(36756003)(2906002)(66946007)(86362001)(2616005)(52116002)(66476007)(44832011)(956004)(6486002)(7696005)(66556008)(16526019)(8676002)(478600001)(8936002)(1076003)(26005)(316002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Qrnjtmra3QLVeE9wiZrTnw3lq2kIMzgeE6p8/ufCzjB7BlhIZ/s+SdbwbX1r?=
+ =?us-ascii?Q?PR6opiL77nEH05QewcewuokCOA3+EhDhW/D/eXL9H6JPn6Yxnr6n9qVO80yF?=
+ =?us-ascii?Q?wqDEQdvCyDk1sIKUZY3+i6qYpGSR16hOaSM7EVy0r3fxEkkZXpGaLhNudwMs?=
+ =?us-ascii?Q?QqjzQl2/aosQQXdSspwOoq7XTlkbQXdEUgpnoIPW9jSofrlndLonArFpzU+E?=
+ =?us-ascii?Q?laod5h9S2YtznvJ2FBn3LoZeMm9MmFGtRotWrXXBhtU+6hT3sPTMQTz/D7EZ?=
+ =?us-ascii?Q?rhajzcD1MDnjgbHt1AXVwXe37TNBBsnztGxuylBpSzcG40W3EBIkKSRkx+nF?=
+ =?us-ascii?Q?F5kIb5nB4jsJzn/2zYJg4xgTgrJ0NFTLw0pxwTdMFt+5OeUy13ca7nPhrOhF?=
+ =?us-ascii?Q?YYeHn2utmO3RGTKJQXODyb9qvZJsGJvhfTXU+uN5o5DnEO+ggU0i+QxuUlt9?=
+ =?us-ascii?Q?aNV77S2k7SeL2+LITSY+iBf64JsjW8Novl1pjfdiepbosVzAXn+oNWFGVnbL?=
+ =?us-ascii?Q?H2Z9zdmGDLyMd++yAHQ8GHpKJoHotJQODKFghq2g0VoClVENRxbqlJa/Rogc?=
+ =?us-ascii?Q?DFTR1L/7ULcCb++O9I7JYey4q9SBfQrxQ4AMUUQ8fNPZmOepfLt9eEtUDdS3?=
+ =?us-ascii?Q?SWpFdGWrRFua2Uwc7DDUg4lNgNq3bgtcmx4WN7budf42sQGdICqwSrQtL5TA?=
+ =?us-ascii?Q?uJlpKO+3ppkKRTIrjWGzpK/dpnlhjpbIL4u8pJ1raOsnxWSCL7eWYH3k/kJa?=
+ =?us-ascii?Q?eKEDarea5pcykyxpmK+ih8kyibsaB4GTRFckgkpjEjkI2TS6rZMlJNwxskL6?=
+ =?us-ascii?Q?utXidwNYPd8u8e8FVBHKZXxInu1tlcn/uDKsrAsMAX9nP6QTc0bPA3dkmWzF?=
+ =?us-ascii?Q?kIG7APPieTDq/Ky89TqDVCSVv/QfoeWOrKYEeZVuVS80EZ7+VTlVntjIs+uT?=
+ =?us-ascii?Q?J8NZMTFhjzL8W3ZjrXWFnJgsYt7DXEA14L4Zb+NQpqk/K0w5TEaDnaSLTn54?=
+ =?us-ascii?Q?AMsE?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3097.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e75ea3c3-f4aa-4741-5cf0-08d8aab6eeba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Dec 2020 22:29:53.7436 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ftLP3ehqT0KQVcwA9ZBlx6w1ARlvPnsw7JFcs9jpoYiHpe5bw2U6EmOMQl+Xykzsgo88CDLF8/biwrnZFAIBbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1948
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2020 07:03:04.6318 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbb48caf-6a4d-4ff8-07ad-08d8aafe9f80
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +yYF67SuDMnNAwzJiccl/8Raf8K2g2kwwmhTU3GYUcrAjvVf3vuhvPmPrMk5Yi/1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,261 +120,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0905476547=="
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0905476547==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB30973924E8019A301E830BF0E8DA0DM6PR12MB3097namp_"
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
---_000_DM6PR12MB30973924E8019A301E830BF0E8DA0DM6PR12MB3097namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+amdgpu_hdp hold all the callbacks for hdp
 
-[AMD Official Use Only - Internal Distribution Only]
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  4 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h | 40 +++++++++++++++++++++++++
+ 2 files changed, 44 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
 
-If you want to pick up the firmware directly it is maintained at...
-
-https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git=
-/tree/amdgpu
-
-
--rw-r--r-- sienna_cichlid_ce.bin 263296   logstatsplain
--rw-r--r-- sienna_cichlid_dmcub.bin 80244 logstatsplain
--rw-r--r-- sienna_cichlid_me.bin 263424   logstatsplain
--rw-r--r-- sienna_cichlid_mec.bin 268592  logstatsplain
--rw-r--r-- sienna_cichlid_mec2.bin 268592 logstatsplain
--rw-r--r-- sienna_cichlid_pfp.bin 263424  logstatsplain
--rw-r--r-- sienna_cichlid_rlc.bin 128592  logstatsplain
--rw-r--r-- sienna_cichlid_sdma.bin 34048  logstatsplain
--rw-r--r-- sienna_cichlid_smc.bin 247396  logstatsplain
--rw-r--r-- sienna_cichlid_sos.bin 215152  logstatsplain
--rw-r--r-- sienna_cichlid_ta.bin 333568   logstatsplain
--rw-r--r-- sienna_cichlid_vcn.bin 504224  logstatsplain
-
-My understanding was that the firmware was also added to Fedora back in Nov=
-ember but I'm having a tough time finding confirmation of that.
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mikhail =
-Gavrilov <mikhail.v.gavrilov@gmail.com>
-Sent: December 27, 2020 11:39 AM
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Linux List Kernel Mailing=
- <linux-kernel@vger.kernel.org>; dri-devel <dri-devel@lists.freedesktop.org=
->
-Subject: [bug] Radeon 3900XT not switch to graphic mode on kernel 5.10
-
-Hi folks.
-I bought myself a gift a new AMD 6900 XT graphics card to replace the
-AMD Radeon VII.
-But all joy was overshadowed that this video card did not working in Linux.
-Output on the my boot screen was ended with message "fb0: switching to
-amdgpudrmfb from EFI VGA" and videocard not switched to graphic mode.
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fphotos.=
-app.goo.gl%2FzwpErNrusq9CNyES7&amp;data=3D04%7C01%7Cjohn.bridgman%40amd.com=
-%7C37ba164fc80241451b9808d8aa864aa2%7C3dd8961fe4884e608e11a82d994e183d%7C0%=
-7C0%7C637446841356919588%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIj=
-oiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=3DY3V3lbEaXNwHiak=
-gRUAeO7gBJASeElBaIwZ9Vmd0AgU%3D&amp;reserved=3D0
-
-I suppose the root of cause my problem here:
-
-[    3.961326] amdgpu 0000:0b:00.0: Direct firmware load for
-amdgpu/sienna_cichlid_sos.bin failed with error -2
-[    3.961359] amdgpu 0000:0b:00.0: amdgpu: failed to init sos firmware
-[    3.961433] [drm:psp_sw_init [amdgpu]] *ERROR* Failed to load psp firmwa=
-re!
-[    3.961529] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* sw_init
-of IP block <psp> failed -2
-[    3.961549] amdgpu 0000:0b:00.0: amdgpu: amdgpu_device_ip_init failed
-[    3.961569] amdgpu 0000:0b:00.0: amdgpu: Fatal error during GPU init
-[    3.961911] amdgpu: probe of 0000:0b:00.0 failed with error -2
-
-Can anybody here help me get firmware?
-my distro: Fedora Rawhide
-kernel: 5.10 rc6
-mesa: from git 21.0.0 devel
-
-Sorry for disturb and merry xmas.
-
-
---
-Best Regards,
-Mike Gavrilov.
-
---_000_DM6PR12MB30973924E8019A301E830BF0E8DA0DM6PR12MB3097namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>If you want to pick up the firmware directly it is maintained at...
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<a href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-f=
-irmware.git/tree/amdgpu">https://git.kernel.org/pub/scm/linux/kernel/git/fi=
-rmware/linux-firmware.git/tree/amdgpu</a><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: &quot;Courier New&quot;, monospace; font-size: =
-11pt;">-rw-r--r-- sienna_cichlid_ce.bin 263296&nbsp;&nbsp; logstatsplain</s=
-pan>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_dmcub.bin 80244 logstatsplain</span><=
-/div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_me.bin 263424 &nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_mec.bin 268592&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_mec2.bin 268592 logstatsplain</span><=
-/div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_pfp.bin 263424&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_rlc.bin 128592&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_sdma.bin 34048&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_smc.bin 247396&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_sos.bin 215152&nbsp; logstatsplain</s=
-pan></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
-ize: 11pt;">-rw-r--r-- sienna_cichlid_ta.bin 333568&nbsp;&nbsp; logstatspla=
-in</span></div>
-<span style=3D"font-family: &quot;Courier New&quot;, monospace; font-size: =
-11pt;">-rw-r--r-- sienna_cichlid_vcn.bin 504224&nbsp; logstatsplain</span><=
-br>
-</div>
-<div><br>
-</div>
-<div>My understanding was that the firmware was also added to Fedora back i=
-n November but I'm having a tough time finding confirmation of that.<br>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<div style=3D"font-size:12pt"><br>
-</div>
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Mikhail Gavrilov &lt;mikhai=
-l.v.gavrilov@gmail.com&gt;<br>
-<b>Sent:</b> December 27, 2020 11:39 AM<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Linux List K=
-ernel Mailing &lt;linux-kernel@vger.kernel.org&gt;; dri-devel &lt;dri-devel=
-@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> [bug] Radeon 3900XT not switch to graphic mode on kernel 5.=
-10</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Hi folks.<br>
-I bought myself a gift a new AMD 6900 XT graphics card to replace the<br>
-AMD Radeon VII.<br>
-But all joy was overshadowed that this video card did not working in Linux.=
-<br>
-Output on the my boot screen was ended with message &quot;fb0: switching to=
-<br>
-amdgpudrmfb from EFI VGA&quot; and videocard not switched to graphic mode.<=
-br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Fphotos.app.goo.gl%2FzwpErNrusq9CNyES7&amp;amp;data=3D04%7C01%7Cjohn.bri=
-dgman%40amd.com%7C37ba164fc80241451b9808d8aa864aa2%7C3dd8961fe4884e608e11a8=
-2d994e183d%7C0%7C0%7C637446841356919588%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4=
-wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;amp;sdat=
-a=3DY3V3lbEaXNwHiakgRUAeO7gBJASeElBaIwZ9Vmd0AgU%3D&amp;amp;reserved=3D0">ht=
-tps://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fphotos.ap=
-p.goo.gl%2FzwpErNrusq9CNyES7&amp;amp;data=3D04%7C01%7Cjohn.bridgman%40amd.c=
-om%7C37ba164fc80241451b9808d8aa864aa2%7C3dd8961fe4884e608e11a82d994e183d%7C=
-0%7C0%7C637446841356919588%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ=
-IjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;amp;sdata=3DY3V3lbEaX=
-NwHiakgRUAeO7gBJASeElBaIwZ9Vmd0AgU%3D&amp;amp;reserved=3D0</a><br>
-<br>
-I suppose the root of cause my problem here:<br>
-<br>
-[&nbsp;&nbsp;&nbsp; 3.961326] amdgpu 0000:0b:00.0: Direct firmware load for=
-<br>
-amdgpu/sienna_cichlid_sos.bin failed with error -2<br>
-[&nbsp;&nbsp;&nbsp; 3.961359] amdgpu 0000:0b:00.0: amdgpu: failed to init s=
-os firmware<br>
-[&nbsp;&nbsp;&nbsp; 3.961433] [drm:psp_sw_init [amdgpu]] *ERROR* Failed to =
-load psp firmware!<br>
-[&nbsp;&nbsp;&nbsp; 3.961529] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR=
-* sw_init<br>
-of IP block &lt;psp&gt; failed -2<br>
-[&nbsp;&nbsp;&nbsp; 3.961549] amdgpu 0000:0b:00.0: amdgpu: amdgpu_device_ip=
-_init failed<br>
-[&nbsp;&nbsp;&nbsp; 3.961569] amdgpu 0000:0b:00.0: amdgpu: Fatal error duri=
-ng GPU init<br>
-[&nbsp;&nbsp;&nbsp; 3.961911] amdgpu: probe of 0000:0b:00.0 failed with err=
-or -2<br>
-<br>
-Can anybody here help me get firmware?<br>
-my distro: Fedora Rawhide<br>
-kernel: 5.10 rc6<br>
-mesa: from git 21.0.0 devel<br>
-<br>
-Sorry for disturb and merry xmas.<br>
-<br>
-<br>
---<br>
-Best Regards,<br>
-Mike Gavrilov.<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB30973924E8019A301E830BF0E8DA0DM6PR12MB3097namp_--
-
---===============0905476547==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 100a431f0792..92e9d1f1207b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -107,6 +107,7 @@
+ #include "amdgpu_gfxhub.h"
+ #include "amdgpu_df.h"
+ #include "amdgpu_smuio.h"
++#include "amdgpu_hdp.h"
+ 
+ #define MAX_GPU_INSTANCE		16
+ 
+@@ -924,6 +925,9 @@ struct amdgpu_device {
+ 	/* nbio */
+ 	struct amdgpu_nbio		nbio;
+ 
++	/* hdp */
++	struct amdgpu_hdp		hdp;
++
+ 	/* smuio */
+ 	struct amdgpu_smuio		smuio;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+new file mode 100644
+index 000000000000..43caf9f8cc11
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -0,0 +1,40 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __AMDGPU_HDP_H__
++#define __AMDGPU_HDP_H__
++
++struct amdgpu_hdp_funcs {
++	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
++	void (*invalidate_hdp)(struct amdgpu_device *adev,
++			       struct amdgpu_ring *ring);
++	void (*reset_ras_error_count)(struct amdgpu_device *adev);
++	void (*update_clock_gating)(struct amdgpu_device *adev, bool enable);
++	void (*get_clock_gating_state)(struct amdgpu_device *adev, u32 *flags);
++	void (*init_registers)(struct amdgpu_device *adev);
++};
++
++struct amdgpu_hdp {
++	const struct amdgpu_hdp_funcs		*funcs;
++};
++
++#endif /* __AMDGPU_HDP_H__ */
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0905476547==--
