@@ -2,56 +2,121 @@ Return-Path: <SRS0=yA2I=GB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9C93C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 13:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB454C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 14:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8955321D1B
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 13:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8955321D1B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 6E709207CF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 14:54:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E709207CF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28374892D8;
-	Tue, 29 Dec 2020 13:17:52 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9D8892D8;
- Tue, 29 Dec 2020 13:17:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4E9DB21D94;
- Tue, 29 Dec 2020 13:17:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609247871;
- bh=/F0pVA4fXwFR9+ASZLEn4ZXCoj1TXo6VOfZ8bBDJ4CU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=MvFOxqVG0xg1HqXw+Km3C7TeLc5ZL4OH2zRC+4f76ZcxmW6e+IGRNxaOOLWYL1a1F
- 2prZ+DzS3QnN2FQ3gIoB7OMHqFYkfBxyJavNe4iUwIBaPQnmXEg75oi3+5eCNTZQFG
- mfxslhszeUpBedEvEzTg8GYxk5HKfl09UjjFGaB7WQcE5jE4F3y0T5p21MEjiYAXjf
- ItYWDAWqW7SWzoc08Cngbb3320oNARD+9UGtRaMPXa56PBjzs+3PcWpB1wrX2pfyGa
- SdOvfc5Ue73U/J/kDDlXszsg1Er11ojvUeSaR8sTvI16XUc7aeIpVr7PIaFVcAEf9G
- Y5zY350JvLinQ==
-Received: by mail-oi1-f173.google.com with SMTP id l200so14554583oig.9;
- Tue, 29 Dec 2020 05:17:51 -0800 (PST)
-X-Gm-Message-State: AOAM533II94hnOPKk3slPXWKSW3yKAZLeHpTGwodaV9dnmTkBlgkp1y/
- FliZ5zdu+HuokWjk+qKgym6RVN2mFRol++KuYNA=
-X-Google-Smtp-Source: ABdhPJxkoRHEdJN7wSqQxlJ23qPIRj71Tyf2zqcnbaEAVMi+hGw4XqZSC29HlinZcC0SViqpm4qk95TMJazFZxsh/2g=
-X-Received: by 2002:aca:210f:: with SMTP id 15mr2251767oiz.174.1609247870640; 
- Tue, 29 Dec 2020 05:17:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4492689121;
+	Tue, 29 Dec 2020 14:54:51 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4C68909F;
+ Tue, 29 Dec 2020 14:54:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fy3zPyVHuJx8rLsjcfNcwrlSOSENQt7dhBdEJ6kXT6RTr+seJMREtm/HVHoAxs+RxrLy6PaFxDImWOB6aWFYvM+2wLfXgi6YoBYGwNCEbn6eRiHfvNB3WiijCGHMjpBGyliA1tOAxIAbrQKexhGDgrVOLVvxqykMZs15hNXJiMpNHgjO2Q+YCalEEEQpGiCy+MzKE5KhQD4063XZ/o9CfurkefdYW1w9hAZPJe7rjAYvWS+LKO8Z9wMtKEZBUUrELIcblxlvHZWGb+8vKDxwGK7jR1GhkB71brQXKgOqHp9FE2jyFmaaahQOK738HTaYDFzrpzpyqpS8G9HzAt66Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l36LdGe0jadREC7AZgmJvaVS0XvMLlsRv12qHPvh3hY=;
+ b=R6VB/UzUT66Wt7mgnyXzmJlM4jzY2uMFVS8bDE/ibkEH5a5B3VKtH19VGOPlAq/S7PuhEzUY2ibu+YJSMSE1oeDdwojsDYi7S5g/t502peknPlqw0tc51zMWAI7jtPpmFp4gSUX7LtR+zsfof/8AJdD+bzlnuJQtYcO5InqkWzILJoZVb3mIsKKi/2ZJ1+R4HA9bW43+Qd1PpIoUs1PTolI7oIZeCvaXOA8NPTYc6NTrWHloBnRXbhYWg1jSsRfW7a1aRpKubfJ6DEpL+Znu1SjN2Q91I+PI4vQLc2CIY0VSsSyKBAUiyYDJG02SBhOY/4wNR8uPMNeIbuEjU+3afw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l36LdGe0jadREC7AZgmJvaVS0XvMLlsRv12qHPvh3hY=;
+ b=x6YfyK9m5LBBB64owcxb442Q/glTo3z2jEfK8zotjLOxpBnN0lm6bQN1BnYtjnZiXa+6Yy33dFToe9yis6ZllfEKcn/2yEeVCiu7a7qRFlP/lgI+LnJ56KkJnejj3H6ZXrT1jSl0F6lLh3cOe5DRZkTo8sGV5/8fvA9eOEJKMdE=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB4995.namprd12.prod.outlook.com (2603:10b6:208:1c7::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Tue, 29 Dec
+ 2020 14:54:47 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af%4]) with mapi id 15.20.3700.031; Tue, 29 Dec 2020
+ 14:54:47 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Sasha Levin <sashal@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.4 006/130] drm/amd/display: Do not silently
+ accept DCC for multiplane formats.
+Thread-Topic: [PATCH AUTOSEL 5.4 006/130] drm/amd/display: Do not silently
+ accept DCC for multiplane formats.
+Thread-Index: AQHW2NHkhN4MzVxT606iF0xiPNNptKoOMxwD
+Date: Tue, 29 Dec 2020 14:54:47 +0000
+Message-ID: <MN2PR12MB448885CD6421AD53DCF46EE8F7D80@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20201223021813.2791612-1-sashal@kernel.org>,
+ <20201223021813.2791612-6-sashal@kernel.org>
+In-Reply-To: <20201223021813.2791612-6-sashal@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-29T14:54:46.420Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [192.161.78.241]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ae002fb2-925a-4498-6f0e-08d8ac09af70
+x-ms-traffictypediagnostic: BL0PR12MB4995:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB4995FE91910899D1BD5E9D06F7D80@BL0PR12MB4995.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:663;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: AfEa3GhsnaZbg06m8IJaW/s9ay49DGHxxYo49ASj5q+eXLOHi7VERwGBUBR0RiEiJs5oct9tnts8AJBYe/ubEwnqC86Z/VBl5jcsKihvTtqs9jxPMewIFsmJ924l2FhxzQ9h1vQijtS7i+xM8vBtoqWCOCK5tNK0o/sNp/S4EzLt3dtyqZ9if4ZxsUgvPHdxbVGc9DxUW/Z33U1+b86uqb4CI7DLRk42ujB0N+tgJKnsSB5MbnNj28HRRkxxaNiIBakY1W1KYOBSordeo4g1tOIK3edeupsFiysGqZbwKNAYdTREGHgmnDC8RNNvyR3kShpg/CKe7ALPxDhke08my4uuGmYC+fwUVzJVBJqDGHhO2eDvU9ay3uTz9fuAzavxYC9PGzj5BXonq/NEDt76xdftVreMfKSPp5JkrOeiXOE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(396003)(376002)(346002)(366004)(966005)(83380400001)(64756008)(5660300002)(9686003)(52536014)(66476007)(186003)(86362001)(66946007)(33656002)(6506007)(54906003)(26005)(166002)(110136005)(4326008)(8936002)(55016002)(66446008)(76116006)(71200400001)(66556008)(2906002)(53546011)(45080400002)(8676002)(19627405001)(478600001)(316002)(7696005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?Tyi2E4eZgme9s155AUdeTgEI3+84Xokd4btc1lQcD+Ju2IA4rdnx8Bbe90bg?=
+ =?us-ascii?Q?XbOSOD3FR/MiDs233UFlQ5fmFKDt8CIdmGWQLnpjR+wnGRPCBLO3k+k0jSlX?=
+ =?us-ascii?Q?AQdSC3xkXVdmUV6DE4tVHIK0SOq6CK4LonTwK0klQlTx9bLhBM021xH6xfTx?=
+ =?us-ascii?Q?KSh/QRmH47C+LoslWX2IuDNFUumvjhzefTOatEWWEzdNNMzQCPgBzzYYJa7G?=
+ =?us-ascii?Q?yRVAoy/c1w4vmmRRIpVsGWa2GsTZQeybmpQgiZvSscZ7q7kGsHxZdD94/NqP?=
+ =?us-ascii?Q?WF7e+qcUt3fOn+lrxGYHd5mJEl9NI10ZSrlXsezZ/kRVuu4l3PVgkYhf/W7L?=
+ =?us-ascii?Q?0sZEzgGjnnSHsMlf22/1qb2CPPxdhfjLzg3PD4tX1jVDOk7h5O6MVujSlhvM?=
+ =?us-ascii?Q?8h03EZ+1cXo6LuxU6OWr6VcteKii2Kq/k43ErtKGcXZBze0c3EIjYEfikk6z?=
+ =?us-ascii?Q?lZsaQiq5YfhIZ4tmaET9Ubko1nSuCPCMYQe0psyqqYmHnPRyDsh8L4QtnDFO?=
+ =?us-ascii?Q?L+umYdr9oVMiMDN/vsfFOyl5zGvV7QTFyRwgmnSlc/BNNfDNliOZOumh0reU?=
+ =?us-ascii?Q?1lU4oVnrDWjWU0HOZsh0o4b8V3OEejy8G+eeXROdpH3hVVC9RYQkTHc99uSO?=
+ =?us-ascii?Q?0QiKk12B3CyxEPZyN53K5JC0Xkl0fXPKr+b4JIkxBxmBZoSYBmm+kCptxYL1?=
+ =?us-ascii?Q?bcIb3F7ovew/vT9dErHC42boYqiCQcW0n/C2mDQiQeHd7bTQIvhC2hdtrhJm?=
+ =?us-ascii?Q?nVhD7Vdt7nuwnS+8MVf6IfNwo/sXUyNFTovaHzGtGlUOuyRxUN+d1tO3EZYK?=
+ =?us-ascii?Q?eHqw4CYyRTCAvysQBAwpp7OAUqjIjvlLY2VHt4Dc900CvX9lMpFRHskwd1V0?=
+ =?us-ascii?Q?KZ+GuqZUG352eiPPluikGtTnZ2Rvb2QVf7evU5pbEb8LPWK5a0G4sPQOZVhK?=
+ =?us-ascii?Q?LlTIe6bIqx8I0Wnf/jYTeuFRgwoquzgvADL37KJDddg=3D?=
 MIME-Version: 1.0
-References: <20201214175225.38975-1-ardb@kernel.org>
- <CADnq5_M-U5QO_tmQQ8Q+v+kZXvUc7vjXnmKWYFjX1FmOJYk1OQ@mail.gmail.com>
- <CAMj1kXHnPXqBnQsNQh3nJxDePxK=D55KES3BdVeJ0cFvYxAXAg@mail.gmail.com>
-In-Reply-To: <CAMj1kXHnPXqBnQsNQh3nJxDePxK=D55KES3BdVeJ0cFvYxAXAg@mail.gmail.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Tue, 29 Dec 2020 14:17:39 +0100
-X-Gmail-Original-Message-ID: <CAMj1kXE7Z7=YJq4qYaB9NDDwi8nsXsg-KEXQ8V9wQB=uLCsdrw@mail.gmail.com>
-Message-ID: <CAMj1kXE7Z7=YJq4qYaB9NDDwi8nsXsg-KEXQ8V9wQB=uLCsdrw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Revert "add DCN support for aarch64"
-To: Alex Deucher <alexdeucher@gmail.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae002fb2-925a-4498-6f0e-08d8ac09af70
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2020 14:54:47.0491 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kK76bbo26yhhuPYjbImf7MeRwmXyrCNpcqGA+LZZM0IfxYBt7RFRepS1yHDW39c5FWECd8EHFIOq4UjZa1nS2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4995
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +128,209 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Dave Martin <dave.martin@arm.com>, David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Daniel Kolesa <daniel@octaforge.org>,
- Alex Deucher <alexander.deucher@amd.com>, Will Deacon <will@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Content-Type: multipart/mixed; boundary="===============0783696404=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAxNiBEZWMgMjAyMCBhdCAyMzoyNiwgQXJkIEJpZXNoZXV2ZWwgPGFyZGJAa2VybmVs
-Lm9yZz4gd3JvdGU6Cj4KPiBPbiBXZWQsIDE2IERlYyAyMDIwIGF0IDE5OjAwLCBBbGV4IERldWNo
-ZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPgo+ID4gT24gTW9uLCBEZWMgMTQs
-IDIwMjAgYXQgMTI6NTMgUE0gQXJkIEJpZXNoZXV2ZWwgPGFyZGJAa2VybmVsLm9yZz4gd3JvdGU6
-Cj4gPiA+Cj4gPiA+IFRoaXMgcmV2ZXJ0cyBjb21taXQgYzM4ZDQ0NGU0NGJhZGM1NTdjZjI5ZmRm
-ZGZiODIzNjA0ODkwY2NmYS4KPiA+ID4KPiA+ID4gU2ltcGx5IGRpc2FibGluZyAtbWdlbmVyYWwt
-cmVncy1vbmx5IGxlZnQgYW5kIHJpZ2h0IGlzIHJpc2t5LCBnaXZlbiB0aGF0Cj4gPiA+IHRoZSBz
-dGFuZGFyZCBBQXJjaDY0IEFCSSBwZXJtaXRzIHRoZSB1c2Ugb2YgRlAvU0lNRCByZWdpc3RlcnMg
-YW55d2hlcmUsCj4gPiA+IGFuZCBHQ0MgaXMga25vd24gdG8gdXNlIFNJTUQgcmVnaXN0ZXJzIGZv
-ciBzcGlsbGluZywgYW5kIG1heSBpbnZlbnQKPiA+ID4gb3RoZXIgdXNlcyBvZiB0aGUgRlAvU0lN
-RCByZWdpc3RlciBmaWxlIHRoYXQgaGF2ZSBub3RoaW5nIHRvIGRvIHdpdGggdGhlCj4gPiA+IGZs
-b2F0aW5nIHBvaW50IGNvZGUgaW4gcXVlc3Rpb24uIE5vdGUgdGhhdCBwdXR0aW5nIGtlcm5lbF9u
-ZW9uX2JlZ2luKCkKPiA+ID4gYW5kIGtlcm5lbF9uZW9uX2VuZCgpIGFyb3VuZCB0aGUgY29kZSB0
-aGF0IGRvZXMgdXNlIEZQIGlzIG5vdCBzdWZmaWNpZW50Cj4gPiA+IGhlcmUsIHRoZSBwcm9ibGVt
-IGlzIGluIGFsbCB0aGUgb3RoZXIgY29kZSB0aGF0IG1heSBiZSBlbWl0dGVkIHdpdGgKPiA+ID4g
-cmVmZXJlbmNlcyB0byBTSU1EIHJlZ2lzdGVycyBpbiBpdC4KPiA+ID4KPiA+ID4gU28gdGhlIG9u
-bHkgd2F5IHRvIGRvIHRoaXMgcHJvcGVybHkgaXMgdG8gcHV0IGFsbCBmbG9hdGluZyBwb2ludCBj
-b2RlIGluCj4gPiA+IGEgc2VwYXJhdGUgY29tcGlsYXRpb24gdW5pdCwgYW5kIG9ubHkgY29tcGls
-ZSB0aGF0IHVuaXQgd2l0aAo+ID4gPiAtbWdlbmVyYWwtcmVncy1vbmx5LiBCdXQgcGVyaGFwcyB0
-aGUgdXNlIG9mIGZsb2F0aW5nIHBvaW50IGhlcmUgaXMKPiA+ID4gc29tZXRoaW5nIHRoYXQgc2hv
-dWxkIGJlIHJlY29uc2lkZXJlZCBlbnRpcmVseS4KPiA+ID4KPiA+ID4gQ2M6IENhdGFsaW4gTWFy
-aW5hcyA8Y2F0YWxpbi5tYXJpbmFzQGFybS5jb20+Cj4gPiA+IENjOiBXaWxsIERlYWNvbiA8d2ls
-bEBrZXJuZWwub3JnPgo+ID4gPiBDYzogRGF2ZSBNYXJ0aW4gPGRhdmUubWFydGluQGFybS5jb20+
-Cj4gPiA+IENjOiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgo+ID4gPiBDYzogTGVvIExp
-IDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4gPiA+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+Cj4gPiA+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5r
-b2VuaWdAYW1kLmNvbT4KPiA+ID4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4K
-PiA+ID4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPiA+ID4gQ2M6IERhbmll
-bCBLb2xlc2EgPGRhbmllbEBvY3RhZm9yZ2Uub3JnPgo+ID4gPiBDYzogYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKPiA+ID4gQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-PiA+ID4gU2lnbmVkLW9mZi1ieTogQXJkIEJpZXNoZXV2ZWwgPGFyZGJAa2VybmVsLm9yZz4KPiA+
-Cj4gPiBDYW4gcmViYXNlIHRoaXMgb24gTGludXMnIG1hc3RlciBicmFuY2g/ICBUaGVyZSB3ZXJl
-IGEgbnVtYmVyIG9mIG5ldwo+ID4gYXNpY3MgYWRkZWQgd2hpY2ggY29weSBwYXN0ZWQgdGhlIEFS
-TTY0IHN1cHBvcnQuCj4gPgo+Cj4gTm90IHN1cmUgd2hhdCB5b3UgYXJlIGFza2luZyBtZSBoZXJl
-LiBSZXZlcnRpbmcgY29tbWl0IGMzOGQ0NDRlNDRiYWRjNQo+IG9uIHRvcCBvZiBtYWlubGluZSBp
-cyBub3QgZ29pbmcgdG8gZml4IHRoZSBvdGhlciBjb2RlIHRoYXQgd2FzIGFkZGVkLgo+IE9yIGFy
-ZSB5b3UgYXNraW5nIG1lIHRvIGdvIGFuZCBmaW5kIHRoZSBwYXRjaGVzIChob3cgbWFueT8pIHRo
-YXQgYWRkZWQKPiBuZXcgQVNJQ3MgYW5kIGZpeCB0aGVtIGZvciBhcm02ND8KPgo+IE5vdGUgdGhh
-dCB0aGlzIGNvZGUgaXMgY3JpdGljYWxseSBicm9rZW4sIGFzIGl0IG1heSBjb3JydXB0IHVzZXIK
-PiBwcm9jZXNzIHN0YXRlIGFyYml0cmFyaWx5LiBTbyBpZiBuZXcgY29kZSB3YXMgYWRkZWQgdGhh
-dCBjb250YWlucyB0aGUKPiBzYW1lIGJ1ZywgaXQgc2hvdWxkIGJlIHJldmVydGVkIHNvIHRoYXQg
-dGhlIHJlc3BlY3RpdmUgYXV0aG9ycyBjYW4gZml4Cj4gaXQgYW5kIHJlc3VibWl0Lgo+CgpJcyB0
-aGlzIHNpbXBseSBhYm91dCBkcm9wcGluZyB0aGUgbmV3bHkgYWRkZWQgcmVmZXJlbmNlcyB0bwok
-KGRtbF9yY2ZsYWdzKSBmcm9tIHRoZSBNYWtlZmlsZT8gQmVjYXVzZSB0aGF0IGlzIHF1aXRlIHRy
-aXZpYWwgLi4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0783696404==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB448885CD6421AD53DCF46EE8F7D80MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB448885CD6421AD53DCF46EE8F7D80MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+I don't know if these fixes related to modifiers make sense in the pre-modi=
+fier code base.  Bas, Nick?
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Sasha Le=
+vin <sashal@kernel.org>
+Sent: Tuesday, December 22, 2020 9:16 PM
+To: linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; stable@vge=
+r.kernel.org <stable@vger.kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>; dri-devel@lists.freedesktop.org <dri-d=
+evel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.f=
+reedesktop.org>; Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>; Deucher, Alex=
+ander <Alexander.Deucher@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauska=
+s@amd.com>
+Subject: [PATCH AUTOSEL 5.4 006/130] drm/amd/display: Do not silently accep=
+t DCC for multiplane formats.
+
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+
+[ Upstream commit b35ce7b364ec80b54f48a8fdf9fb74667774d2da ]
+
+Silently accepting it could result in corruption.
+
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d2dd387c95d86..ce70c42a2c3ec 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2734,7 +2734,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
+                 return 0;
+
+         if (format >=3D SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
+-               return 0;
++               return -EINVAL;
+
+         if (!dc->cap_funcs.get_dcc_compression_cap)
+                 return -EINVAL;
+--
+2.27.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
+r.deucher%40amd.com%7Cfb9f2581393f494acd1708d8a6e905fc%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637442867044150000%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
+a=3DZYz1FjTl6SoWX1B91t0McdUai%2FzRF9C8uBmE%2BNQNod4%3D&amp;reserved=3D0
+
+--_000_MN2PR12MB448885CD6421AD53DCF46EE8F7D80MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I don't know if these fixes related to modifiers make sense in the pre-modi=
+fier code base.&nbsp; Bas, Nick?<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Sasha Levin &lt;sashal@kernel=
+.org&gt;<br>
+<b>Sent:</b> Tuesday, December 22, 2020 9:16 PM<br>
+<b>To:</b> linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt=
+;; stable@vger.kernel.org &lt;stable@vger.kernel.org&gt;<br>
+<b>Cc:</b> Sasha Levin &lt;sashal@kernel.org&gt;; dri-devel@lists.freedeskt=
+op.org &lt;dri-devel@lists.freedesktop.org&gt;; amd-gfx@lists.freedesktop.o=
+rg &lt;amd-gfx@lists.freedesktop.org&gt;; Bas Nieuwenhuizen &lt;bas@basnieu=
+wenhuizen.nl&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;;
+ Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
+<b>Subject:</b> [PATCH AUTOSEL 5.4 006/130] drm/amd/display: Do not silentl=
+y accept DCC for multiplane formats.</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Bas Nieuwenhuizen &lt;bas@basnieuwenhuizen.n=
+l&gt;<br>
+<br>
+[ Upstream commit b35ce7b364ec80b54f48a8fdf9fb74667774d2da ]<br>
+<br>
+Silently accepting it could result in corruption.<br>
+<br>
+Signed-off-by: Bas Nieuwenhuizen &lt;bas@basnieuwenhuizen.nl&gt;<br>
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Reviewed-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas@amd.com&gt;<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Signed-off-by: Sasha Levin &lt;sashal@kernel.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index d2dd387c95d86..ce70c42a2c3ec 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -2734,7 +2734,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (format &gt;=3D SURFACE=
+_PIXEL_FORMAT_VIDEO_BEGIN)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return 0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dc-&gt;cap_funcs.get_=
+dcc_compression_cap)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+-- <br>
+2.27.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Calexander.deucher%40amd.com%7Cfb9f2581393f494acd1708d8a6e905fc%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637442867044150000%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C1000&amp;amp;sdata=3DZYz1FjTl6SoWX1B91t0McdUai%2FzRF9C8uBmE%2BNQNod4%3D&a=
+mp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3D=
+https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;=
+data=3D04%7C01%7Calexander.deucher%40amd.com%7Cfb9f2581393f494acd1708d8a6e9=
+05fc%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637442867044150000%7CUnkn=
+own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXV=
+CI6Mn0%3D%7C1000&amp;amp;sdata=3DZYz1FjTl6SoWX1B91t0McdUai%2FzRF9C8uBmE%2BN=
+QNod4%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB448885CD6421AD53DCF46EE8F7D80MN2PR12MB4488namp_--
+
+--===============0783696404==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0783696404==--
