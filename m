@@ -2,115 +2,129 @@ Return-Path: <SRS0=yA2I=GB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B2C4C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 06:21:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2538C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 06:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E19D0207AE
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 06:21:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E19D0207AE
+	by mail.kernel.org (Postfix) with ESMTPS id 9ECC0207AE
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Dec 2020 06:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ECC0207AE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B60F892A7;
-	Tue, 29 Dec 2020 06:21:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E028892A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 06:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E89890ED;
+	Tue, 29 Dec 2020 06:27:14 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760048.outbound.protection.outlook.com [40.107.76.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E778E890ED
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Dec 2020 06:27:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Glw5ERmHmBjNM5zp6iMJbc+lC8c4RLIEdSi59CwyIZ/XCfjvN6WTQT373l20NpRhaJz3AF5W+2099+sDUStYpoQgUsCgGWD23vHkmd4JJ1+U90HLCOOJ1NA6fyVUif4SmaEDmjldDHoR5g0CzoHpvMgGUIDur3SYsXf0wTNwPiSWvRBHlnz8Vm3rwATtbxzgEU6eskXnbuv0QA/KdZEsXTmckC0pKM4uV+jbt6FtaVjRqXBM7MDRoyLlKeiS9XR0jwaVjGyaiLqOaooAKqGAAEoAOtWhOMCxg/GnskkE/4+eB4gBHBOm/Qu6iG/Z7w0KTfXDhgThet4GfuRRMY6RcA==
+ b=T8nI8FhLl2zA4fvHDTcmQeDB8vifl3Sjs/G0F6n0+ny1EydoccmrDXxYQO+EEobfOeLmD4vLDeDK2z2AywzyDbZtnv5jzqmH6j6PHqB8k/cl6lb+qjtUuj7bdNHIwDQKP8U7gLfE09F25uZxXT3n8/gF2TEfSr9WnHtBwV/gnIXJAw1idt8S+NUIGGk/Q78Sps/4zKuvX4vk9UohNsftupg3ckKlipuV/h+z5q3KE7L4Q/S6S4Opfhp1FaAKD1gnWLvsAkIbSiKajipcYdmCd/5xd+n54eNkGdiPnxVZaT47930oyAKU7jnzihtZ2kHS2d+3J4pHE0QY8H6JyrtGsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9h4RuB19Aj+MW41PkY60tYtuYiLb0bO5QnjDO0hJOl0=;
- b=L97nisDnVTLoNhp+TtOzgmR7Coqv6UeGOMO83i5eY/uiOPNngAAIe+Txfv6/nxi6wpXN6jrVIasK61JcbwIbPoxI81VkAMx+uFyC7b+iWq3YSrH13mIWD3VtSY19bx7eF6bEmD2qGj5UlbCuv9WqCWotv5lHEqGC63PWRutev2XYlO06faDlq2jLXGC7Nj899v2d+pzoexnkvkMB2WtMjWuS0+O7VtyW3RblgDfyc84lf8/DLI0eEBYkmVMi/KvgjvrvbXziXTz1CHnKsnBkshboSmwH1SWLM0CdLNHMng2gmf+TOkq2vWu3GV7OguAK8Ch99Em2bTdaFpkgY+eu1A==
+ bh=lNwRRf4ZICyMEBCZ/ZN97X6A6zpSQm9ZbJhZkjU+0ME=;
+ b=D5BNKZLhz5NNm3hiGSoNgqP3THn7r6kUjvTbpaBCKRYmhTiRq0PeDMRYxaNAodAJhES5EMG7T/bwRRAJBa/aJM6eS39dfYXkDO8DNfQtvsds4Xx2OSavSG0kGEl8o572CxFgW61/N/OTyd2W+8MnW/qPB8jn6sl+5ckzQMa3oPxj/NfJljS/k2Vz9UTI+KxyWIpIogXM7S7ZBLbHeYXItJ0pINzujyebLw/nStOw7FtFAR5sVbe40LXiWdp3cXWCZNKWTpCqQxs/so964aCKKpSxludwU32tqT735J3CUsSB9YpqJBsJS5z93b33Fy8SFuwQRvdgyBvh1RRYEho3tQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9h4RuB19Aj+MW41PkY60tYtuYiLb0bO5QnjDO0hJOl0=;
- b=bQmOIPgUTnL/LkQeC9nSUz/f5NTTLNSN+pmyTCuhL8pKZ7+gNmEOOl8f1Ce0Ar+bWArCO+azZptETulSYEe8lsE3X8kveeQBTaVGzGYUG+147Ia0jdMgdJ0pnxRfXBuQ3zvNSazpFGDyS8deJltmr/A2D7qJmjNb8zL5s7XK+LA=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB3280.namprd12.prod.outlook.com (2603:10b6:208:ad::29)
+ bh=lNwRRf4ZICyMEBCZ/ZN97X6A6zpSQm9ZbJhZkjU+0ME=;
+ b=20Tvk9IVALdsIgDqNoGiNP4+u8sVlK9qwoyVcSxtQd1hMwWb5Yx1U3hIUhXFhVKKxuMyJeBTQEdflKFbg5bLcxd5KsQkZ1bpUBVVXoFk3yBkNW/yqXsPScCwa3wcg93FtCdFBC61WK5lqYdEeHnvcIQN6fM0kqAkhByk7ax808I=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by BL0PR12MB4897.namprd12.prod.outlook.com (2603:10b6:208:17e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Tue, 29 Dec
- 2020 06:21:18 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::709e:b0ae:fbde:fcc6]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::709e:b0ae:fbde:fcc6%7]) with mapi id 15.20.3700.031; Tue, 29 Dec 2020
- 06:21:18 +0000
-From: Kevin Wang <kevin1.wang@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	Harry.Wentland@amd.com
-Subject: [PATCH] drm/amd/display: fix sysfs amdgpu_current_backlight_pwm NULL
- pointer issue
-Date: Tue, 29 Dec 2020 14:21:01 +0800
-Message-Id: <20201229062101.29900-1-kevin1.wang@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [58.247.170.245]
-X-ClientProxiedBy: HK2P15301CA0022.APCP153.PROD.OUTLOOK.COM
- (2603:1096:202:1::32) To MN2PR12MB3022.namprd12.prod.outlook.com
- (2603:10b6:208:ce::32)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from kevin-u1804-kvm.amd.com (58.247.170.245) by
- HK2P15301CA0022.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3742.2 via Frontend Transport; Tue, 29 Dec 2020 06:21:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a340b2cd-205a-4da4-4205-08d8abc1f413
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3280:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB32803D559A80FA01FC12F3B0A2D80@MN2PR12MB3280.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +dg/9SGxuAJKp7NlHAIhbFkyc7y6f9R50x806wZ7xtxfIKhml4c0qUclr1cfqFCagF+aTcjYtnTLDzctEe+eaO/ezSGOFzXgVci4Q5uPbNM2YqAJMb7ijhuggPwSCOdjVatggmkSyYRPjOHUhehWF3YImD3wZfnVQmKKBRGhFkvZmkS8qtxHeQHug0rFrNsjwZZUTQWa7hno+2+yIbBfc0/Rt6+DYzMSRC41+OwYius6OomMns+x8T1ZzLE4zEcAH4/LP8waUlDMIiD2e6Jvi8FUiC47AsYLHGEJnORLzz8N+6l6ryYiqt2L+nt3/xxiwpzCCHVnvhHHVNMt/2TGvRYkcqHRN6HKtor6AIY9TcSP25KbMZaOI/h6tDXQpCrl51Zv1aosfTFWKkimWoFDAA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(346002)(396003)(136003)(66556008)(316002)(186003)(52116002)(5660300002)(2906002)(66946007)(6666004)(478600001)(83380400001)(36756003)(1076003)(6636002)(26005)(45080400002)(2616005)(7696005)(8676002)(86362001)(16526019)(6486002)(4326008)(8936002)(66476007)(956004);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19; Tue, 29 Dec
+ 2020 06:27:11 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::e863:8081:a14d:b03f]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::e863:8081:a14d:b03f%5]) with mapi id 15.20.3700.031; Tue, 29 Dec 2020
+ 06:27:11 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/5] drm/amdgpu: switch hdp callback functions for hdp v4
+Thread-Topic: [PATCH 3/5] drm/amdgpu: switch hdp callback functions for hdp v4
+Thread-Index: AQHW3Pp8zdnWU/9Y4EOaxQ7PrUfnR6oNmhHg
+Date: Tue, 29 Dec 2020 06:27:11 +0000
+Message-ID: <MN2PR12MB4549DBAD958F7A00611B731097D80@MN2PR12MB4549.namprd12.prod.outlook.com>
+References: <20201228091834.3240927-1-likun.gao@amd.com>
+ <20201228091834.3240927-3-likun.gao@amd.com>
+In-Reply-To: <20201228091834.3240927-3-likun.gao@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-29T06:26:44Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=a72124d6-efad-431a-a8e5-0000a41e490e;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-12-29T06:27:08Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: fe820f54-d6c5-4d3b-ad80-0000480f6e95
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+dlp-product: dlpe-windows
+dlp-version: 11.5.0.60
+dlp-reaction: no-action
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [49.207.204.171]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: d89a72d5-19b7-4256-0b0c-08d8abc2c6ba
+x-ms-traffictypediagnostic: BL0PR12MB4897:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB4897D76C8D6D2B09D14691DA97D80@BL0PR12MB4897.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2733;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rHYQLTQxWaNODH0G5dHh1e/jveqFA7V/YsXP8+Gl9gdwsGraVYnGXFjww5mZXZVS5MtfjwyTtoY5z6GPzRRVJF68YldMbFghxSZiiLpVU0VuOSJo6IO0lSZT3ghUQXBzBPbZRzyx3UFi6Ig7uI+aGE1/FjIy+J2ZDBwqpLpBoRfTwnJ7m3nR0g0cXreeZYksZyFMSNFaAWKqS7MbZ1uEmKGVAjUT0Ak97v2MOV6YjwLozPK7AoFwWmOWHBjY0LHMngUgiTWMZ7s9MqcMLj554yOH3/yTJgcJJ9hjbrCi+Lv5BvwVtxtApQvv2ZxCsUfy8qfNMUfopMH+d2po6gMWDqSlUNm0y6O7YstQ12mUiRXeCGYkFAr1RZMwAy4QSMzAnVoBswRAgrtF1uqWCq9oYC8D/sagjoO5NfLaytyuVXFHIT4/1nvdb7os5Y6DUIXglddRJ/aEpYNP1qRMuHDSNA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(396003)(136003)(366004)(376002)(30864003)(4326008)(186003)(478600001)(2906002)(45080400002)(6506007)(26005)(55236004)(52536014)(64756008)(66556008)(66946007)(66446008)(76116006)(66476007)(5660300002)(9686003)(55016002)(83380400001)(8936002)(110136005)(54906003)(8676002)(316002)(71200400001)(86362001)(7696005)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?kz68qgeoxzMsxsNYBS0Sgllko5nv+5MjF1BzmkcD08EVQ2lLaVdOKj2O7Twh?=
- =?us-ascii?Q?aUILI1Y88hOUsrmjvaNttaas31QZs9On4DubBd1yzPvGO0FJ5NYkrnH6gmyN?=
- =?us-ascii?Q?QYfH8f0B8f7eQNsVm+BaPHPNOb8ON2yxaGuWxSMmWNyTW5/4kRxhw0cQKC4/?=
- =?us-ascii?Q?CIP5+0z2qgJc8YRSDWYRqiyupHZkat8XovMVx0CtDuNIcz6SadPtWz62RGZ3?=
- =?us-ascii?Q?VMmFm4G+zlvwItC3XJ1rxKn01XVIMeCxh/PKSSYomrvA0f7JizUec56mHD6B?=
- =?us-ascii?Q?qnr27X1CTPD2uFQGHOEq/uPXNZk4PUKhAFrUeT4JW3/OBBIwFggW5BQtQGZ6?=
- =?us-ascii?Q?fxoQkwvoCfdaBnINt5lRAy1HMNa45c9JwLLKbqmBbXsO6Xh6pqVlqmWpcmtf?=
- =?us-ascii?Q?QWS+/9PZvyFCysMCuz3JPIbsCRMECmt4YZn0QisjqbUKboLgH9tgbfAwMd9G?=
- =?us-ascii?Q?Gsw0gf3v4RWerdJFWUNfw7m8ODUWV8sP+CshPNcNVy07rsTAIXxLyFLThShL?=
- =?us-ascii?Q?TGwWlkwl0HJ8RllXyUEZgesYTxQim0tJ30RYEhb4qZB5orH1duzLKemzSVja?=
- =?us-ascii?Q?TXvOI7+Z/65l9kfziE/BfaboznAPmPMmvljl5JkOx3ahNWB221qB3W+hFzQH?=
- =?us-ascii?Q?dLNF60Fgkjmj+70F+DbG26uj7QguDlYqgErwTe1/Y+8GRKg3gPBWNiCjxrBI?=
- =?us-ascii?Q?F+ax8by7cKDTV6i7iXkg2wXr1ALKmouIxV7rDYHnpuv1bDvzNLch82CraFGr?=
- =?us-ascii?Q?vYIk0aFDzCWrPv7liF1ZApmvjKT+zlc3Y9B8PhmRobxz+ELun8ROZYQK7mdd?=
- =?us-ascii?Q?ORWAct/mjxVyYwTLKeRPvFf61HyTKH9JsVaAzs8hsa6XII1lWMvar267SF34?=
- =?us-ascii?Q?kHQ2juaruGWdvAc1wzEwyzZHaOa19tamAOUfeXOeUUwf/zZioH3bwHVA4Hey?=
- =?us-ascii?Q?CwzBd8FK/rWjTn+etG8JBVFPbWCud7rAbbZcCHGpiPS08gQxM8giDNfkny7J?=
- =?us-ascii?Q?BaWO?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?kA/YVBYBLClevq4+Bph9GTZFHfqSRTtDXFy0V5vvXi7Sn23YF/LdzcXdQh2n?=
+ =?us-ascii?Q?5UDyaVxfyYXMG071B16Hhb/gxXP2A/NH9HZmQ1FnCn6rm2g7KREzh1m7R31Q?=
+ =?us-ascii?Q?8h/72z4Ef9Z1DuQG/SL4w9ENqQKDh5cQoYzLPbzNt86VDn9EpKfxHgDJSijh?=
+ =?us-ascii?Q?xSCl3Or0cv4igzF+5yQ+H/6+g1NzwkE+vntsDAY3UDipc9nUHQFHqH1V9tUo?=
+ =?us-ascii?Q?Zl0vbOPWsIWmrs/SdPA5dR89QfXbo4QzbzsQ+xOp0Ak7gPrCKTYp6LF5H5fY?=
+ =?us-ascii?Q?xRvWcnbKoVwSRNb6/JuQzG7sOYGHA3I0dal3Zq1mMw20cTYVzuL/36ihUQrg?=
+ =?us-ascii?Q?s+e+sWkUf80/7qhkk0sSezx1FW7Iq+OZwcF/FkV48pg+ywjJ/rZb3ItZNZwP?=
+ =?us-ascii?Q?/yx39eqLwbNstlc4OKNPDriCDuKTZK4/NfTWEGModDSZSniQ39dIpD+Z8VAN?=
+ =?us-ascii?Q?vT9Lr9EExEBxgPnEx3X7Qyi65AICMP/Qj9txqRG3jSWVClWTcOTLXdVaW28b?=
+ =?us-ascii?Q?OHBq0oV2UkwrcN45PhJCCKe1ZmtpA5PvG1umX++gxjbzad/6MRt9QMI+DptF?=
+ =?us-ascii?Q?kJT4wotF0pUPA+WYoq4ALJmt0UbGEykZTd0PG+CMhzQsJGCde1iL3zRk+YlX?=
+ =?us-ascii?Q?0hcj6lee/GBQySvwhXFQmo1ZfEUH4qiWN9/QYBdJ/OcM2Bt9ji++6yDp0UWU?=
+ =?us-ascii?Q?4AMQnPxP9ib0i+XlXN8cP7bSeOnT2cX+ywKTDVP3/OtOV1okL/0kVyB9xa1v?=
+ =?us-ascii?Q?YNSWfWO8p8RVOlNa5gSwRbtYhBQFljX/E5COtQsFk2O8g8pXLjWGxhZRlez7?=
+ =?us-ascii?Q?9Bxs+EyYbUGHbwUNhUupwXr9AA02lGbEUY5+l22XIc6NDyq+Duk+V5wMJSEe?=
+ =?us-ascii?Q?PQ50t2KWcqkEUrvCf7hWDzV4fHH06LCiMXzCtc1sPolFvYqhLDBcVKWA8Rqr?=
+ =?us-ascii?Q?x+QYeeZ60B7bG+lXkLUPqWFJ1eXOi7B1+P1HJNpDADo=3D?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Dec 2020 06:21:18.3696 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: a340b2cd-205a-4da4-4205-08d8abc1f413
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jik/dzLslh3275gUczWIOoqKOe95gFR+UVKrwk6q2nrpcKtc29q82gWkiNUET1n6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3280
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d89a72d5-19b7-4256-0b0c-08d8abc2c6ba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2020 06:27:11.8125 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZevLdvPAkmwEaB93oewQDZiblBWpwgESdp/UsWT+c+0dK5fvupiQRFl+E+gGbNLA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,97 +136,369 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Kevin Wang <kevin1.wang@amd.com>
+Cc: "Gao, Likun" <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-fix NULL pointer issue when read sysfs amdgpu_current_backlight_pwm sysfs node.
+[AMD Public Use]
 
-calltrace:
-[  248.273833] BUG: kernel NULL pointer dereference, address: 0000000000000130
-[  248.273930] #PF: supervisor read access in kernel mode
-[  248.273993] #PF: error_code(0x0000) - not-present page
-[  248.274054] PGD 0 P4D 0
-[  248.274092] Oops: 0000 [#1] SMP PTI
-[  248.274138] CPU: 2 PID: 1377 Comm: cat Tainted: G           OE     5.9.0-rc5-drm-next-5.9+ #1
-[  248.274233] Hardware name: System manufacturer System Product Name/Z170-A, BIOS 3802 03/15/2018
-[  248.274641] RIP: 0010:dc_link_get_backlight_level+0x5/0x70 [amdgpu]
-[  248.274718] Code: 67 ff ff ff 41 b9 03 00 00 00 e9 45 ff ff ff d1 ea e9 55 ff ff ff 0f 1f 44 00 00 66 2e
-0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 <48> 8b 87 30 01 00 00 48 8b 00 48 8b 88 88 03 00 00 48 8d 81 e8 01
-[  248.274919] RSP: 0018:ffffb5ad809b3df0 EFLAGS: 00010203
-[  248.274982] RAX: ffffa0f77d1c0010 RBX: ffffa0f793ae9168 RCX: 0000000000000001
-[  248.275064] RDX: ffffa0f79753db00 RSI: 0000000000000001 RDI: 0000000000000000
-[  248.275145] RBP: ffffb5ad809b3e00 R08: ffffb5ad809b3da0 R09: 0000000000000000
-[  248.275225] R10: ffffb5ad809b3e68 R11: 0000000000000000 R12: ffffa0f793ae9190
-[  248.275306] R13: ffffb5ad809b3ef0 R14: 0000000000000001 R15: ffffa0f793ae9168
-[  248.275388] FS:  00007f5f1ec4d540(0000) GS:ffffa0f79ec80000(0000) knlGS:0000000000000000
-[  248.275480] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  248.275547] CR2: 0000000000000130 CR3: 000000042a03c005 CR4: 00000000003706e0
-[  248.275628] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[  248.275708] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[  248.275789] Call Trace:
-[  248.276124]  ? current_backlight_read+0x24/0x40 [amdgpu]
-[  248.276194]  seq_read+0xc3/0x3f0
-[  248.276240]  full_proxy_read+0x5c/0x90
-[  248.276290]  vfs_read+0xa7/0x190
-[  248.276334]  ksys_read+0xa7/0xe0
-[  248.276379]  __x64_sys_read+0x1a/0x20
-[  248.276429]  do_syscall_64+0x37/0x80
-[  248.276477]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[  248.276538] RIP: 0033:0x7f5f1e75c191
-[  248.276585] Code: fe ff ff 48 8d 3d b7 9d 0a 00 48 83 ec 08 e8 46 4d 02 00 66 0f 1f 44 00 00 48 8d 05 71 07
-2e 00 8b 00 85 c0 75 13 31 c0 0f 05 <48> 3d 00 f0 ff ff 77 57 f3 c3 0f 1f 44 00 00 41 54 55 49 89 d4 53Hw
-[  248.276784] RSP: 002b:00007ffcb1fc3f38 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-[  248.276872] RAX: ffffffffffffffda RBX: 0000000000020000 RCX: 00007f5f1e75c191
-[  248.276953] RDX: 0000000000020000 RSI: 00007f5f1ec2b000 RDI: 0000000000000003
-[  248.277034] RBP: 0000000000020000 R08: 00000000ffffffff R09: 0000000000000000
-[  248.277115] R10: 0000000000000022 R11: 0000000000000246 R12: 00007f5f1ec2b000
-[  248.277195] R13: 0000000000000003 R14: 00007f5f1ec2b00f R15: 0000000000020000
-[  248.277279] Modules linked in: amdgpu(OE) iommu_v2 gpu_sched ttm(OE) drm_kms_helper cec drm
-i2c_algo_bit fb_sys_fops syscopyarea sysfillrect sysimgblt rpcsec_gss_krb5 auth_rpcgss nfsv4 nfs
-lockd grace fscache nls_iso8859_1 snd_hda_codec_realtek snd_hda_codec_hdmi snd_hda_codec_generic
-ledtrig_audio intel_rapl_msr intel_rapl_common snd_hda_intel snd_intel_dspcfg x86_pkg_temp_thermal
-intel_powerclamp snd_hda_codec snd_hda_core snd_hwdep snd_pcm snd_seq_midi snd_seq_midi_event mei_hdcp
-coretemp snd_rawmidi snd_seq kvm_intel kvm snd_seq_device snd_timer irqbypass joydev snd input_leds soundcore
-crct10dif_pclmul crc32_pclmul ghash_clmulni_intel aesni_intel crypto_simd cryptd glue_helper rapl intel_cstate
-mac_hid mei_me serio_raw mei eeepc_wmi wmi_bmof asus_wmi mxm_wmi intel_wmi_thunderbolt acpi_pad sparse_keymap
-efi_pstore sch_fq_codel parport_pc ppdev lp parport sunrpc ip_tables x_tables autofs4 hid_logitech_hidpp
-hid_logitech_dj hid_generic usbhid hid e1000e psmouse ahci libahci wmi video
-[  248.278211] CR2: 0000000000000130
-[  248.278221] ---[ end trace 1fbe72fe6f91091d ]---
-[  248.357226] RIP: 0010:dc_link_get_backlight_level+0x5/0x70 [amdgpu]
-[  248.357272] Code: 67 ff ff ff 41 b9 03 00 00 00 e9 45 ff ff ff d1 ea e9 55 ff ff ff 0f 1f 44 00 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 <48> 8b 87 30 01 00 00 48 8b 00 48 8b 88 88 03 00 00 48 8d 81 e8 01
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 9e1071b2181f..f4a2088ab179 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2487,9 +2487,14 @@ enum dc_status dc_link_validate_mode_timing(
- static struct abm *get_abm_from_stream_res(const struct dc_link *link)
- {
- 	int i;
--	struct dc *dc = link->ctx->dc;
-+	struct dc *dc = NULL;
- 	struct abm *abm = NULL;
- 
-+	if (!link || !link->ctx)
-+		return NULL;
-+
-+	dc = link->ctx->dc;
-+
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		struct pipe_ctx pipe_ctx = dc->current_state->res_ctx.pipe_ctx[i];
- 		struct dc_stream_state *stream = pipe_ctx.stream;
--- 
-2.17.1
+>-----Original Message-----
+>From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Likun
+>Gao
+>Sent: Monday, December 28, 2020 2:49 PM
+>To: amd-gfx@lists.freedesktop.org
+>Cc: Gao, Likun <Likun.Gao@amd.com>; Zhang, Hawking
+><Hawking.Zhang@amd.com>
+>Subject: [PATCH 3/5] drm/amdgpu: switch hdp callback functions for hdp v4
+>
+>[CAUTION: External Email]
+>
+>From: Likun Gao <Likun.Gao@amd.com>
+>
+>Switch to use the HDP functions which unfied on hdp structure instead of the
+>scattered hdp callback functions.
+>
+>Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+>Change-Id: I75016df403eca537fa30519e2918207461ec6f28
+>---
+> drivers/gpu/drm/amd/amdgpu/Makefile   |  2 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  7 ++-
+> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 21 +------
+> drivers/gpu/drm/amd/amdgpu/soc15.c    | 82 +++------------------------
+> 4 files changed, 15 insertions(+), 97 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
+>b/drivers/gpu/drm/amd/amdgpu/Makefile
+>index c6262689e14e..d741fee91a37 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/Makefile
+>+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+>@@ -71,7 +71,7 @@ amdgpu-y += \
+>        vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_v7_0.o
+>vega10_reg_init.o \
+>        vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o navi10_reg_init.o
+>navi14_reg_init.o \
+>        arct_reg_init.o navi12_reg_init.o mxgpu_nv.o sienna_cichlid_reg_init.o
+>vangogh_reg_init.o \
+>-       nbio_v7_2.o dimgrey_cavefish_reg_init.o
+>+       nbio_v7_2.o dimgrey_cavefish_reg_init.o hdp_v4_0.o
+>
+> # add DF block
+> amdgpu-y += \
+>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>index 92e9d1f1207b..ae4bcdd630e6 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>@@ -89,6 +89,7 @@
+> #include "amdgpu_gfx.h"
+> #include "amdgpu_sdma.h"
+> #include "amdgpu_nbio.h"
+>+#include "amdgpu_hdp.h"
+> #include "amdgpu_dm.h"
+> #include "amdgpu_virt.h"
+> #include "amdgpu_csa.h"
+>@@ -1209,8 +1210,10 @@ int emu_soc_asic_init(struct amdgpu_device
+>*adev);  #define amdgpu_asic_read_bios_from_rom(adev, b, l) (adev)-
+>>asic_funcs->read_bios_from_rom((adev), (b), (l))  #define
+>amdgpu_asic_read_register(adev, se, sh, offset, v)((adev)->asic_funcs-
+>>read_register((adev), (se), (sh), (offset), (v)))  #define
+>amdgpu_asic_get_config_memsize(adev) (adev)->asic_funcs-
+>>get_config_memsize((adev))
+>-#define amdgpu_asic_flush_hdp(adev, r) (adev)->asic_funcs-
+>>flush_hdp((adev), (r)) -#define amdgpu_asic_invalidate_hdp(adev, r)
+>(adev)->asic_funcs->invalidate_hdp((adev), (r))
+>+#define amdgpu_asic_flush_hdp(adev, r) \
+>+       ((adev)->asic_funcs->flush_hdp ?
+>+(adev)->asic_funcs->flush_hdp((adev), (r)) : (adev)->hdp.funcs-
+>>flush_hdp((adev), (r))) #define amdgpu_asic_invalidate_hdp(adev, r) \
+>+       ((adev)->asic_funcs->invalidate_hdp ?
+>+(adev)->asic_funcs->invalidate_hdp((adev), (r)) :
+>+(adev)->hdp.funcs->invalidate_hdp((adev), (r)))
+> #define amdgpu_asic_need_full_reset(adev) (adev)->asic_funcs-
+>>need_full_reset((adev))
+> #define amdgpu_asic_init_doorbell_index(adev) (adev)->asic_funcs-
+>>init_doorbell_index((adev))
+> #define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)->asic_funcs-
+>>get_pcie_usage((adev), (cnt0), (cnt1))) diff --git
+>a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>index e22268f9dba7..7b1f50fa9dac 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>@@ -31,8 +31,6 @@
+> #include "amdgpu_atomfirmware.h"
+> #include "amdgpu_gem.h"
+>
+>-#include "hdp/hdp_4_0_offset.h"
+>-#include "hdp/hdp_4_0_sh_mask.h"
+> #include "gc/gc_9_0_sh_mask.h"
+> #include "dce/dce_12_0_offset.h"
+> #include "dce/dce_12_0_sh_mask.h"
+>@@ -1571,7 +1569,6 @@ static int gmc_v9_0_hw_init(void *handle)
+>        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>        bool value;
+>        int r, i;
+>-       u32 tmp;
+>
+>        /* The sequence of these two function calls matters.*/
+>        gmc_v9_0_init_golden_registers(adev);
+>@@ -1590,24 +1587,10 @@ static int gmc_v9_0_hw_init(void *handle)
+>        if (adev->mmhub.funcs->update_power_gating)
+>                adev->mmhub.funcs->update_power_gating(adev, true);
+>
+>-       switch (adev->asic_type) {
+>-       case CHIP_ARCTURUS:
+>-               WREG32_FIELD15(HDP, 0, HDP_MMHUB_CNTL, HDP_MMHUB_GCC,
+>1);
+>-               break;
+>-       default:
+>-               break;
+>-       }
+>-
+>-       WREG32_FIELD15(HDP, 0, HDP_MISC_CNTL, FLUSH_INVALIDATE_CACHE,
+>1);
+>-
+>-       tmp = RREG32_SOC15(HDP, 0, mmHDP_HOST_PATH_CNTL);
+>-       WREG32_SOC15(HDP, 0, mmHDP_HOST_PATH_CNTL, tmp);
+>-
+>-       WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE, (adev-
+>>gmc.vram_start >> 8));
+>-       WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE_HI, (adev-
+>>gmc.vram_start >> 40));
+>+       adev->hdp.funcs->init_registers(adev);
+>
+>        /* After HDP is initialized, flush HDP.*/
+>-       adev->nbio.funcs->hdp_flush(adev, NULL);
+>+       adev->hdp.funcs->flush_hdp(adev, NULL);
+>
+>        if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_ALWAYS)
+>                value = false;
+>diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>index 0d3def7269bb..6426ecd1861b 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>@@ -40,8 +40,6 @@
+> #include "gc/gc_9_0_sh_mask.h"
+> #include "sdma0/sdma0_4_0_offset.h"
+> #include "sdma1/sdma1_4_0_offset.h"
+>-#include "hdp/hdp_4_0_offset.h"
+>-#include "hdp/hdp_4_0_sh_mask.h"
+> #include "nbio/nbio_7_0_default.h"
+> #include "nbio/nbio_7_0_offset.h"
+> #include "nbio/nbio_7_0_sh_mask.h"
+>@@ -59,6 +57,7 @@
+> #include "nbio_v6_1.h"
+> #include "nbio_v7_0.h"
+> #include "nbio_v7_4.h"
+>+#include "hdp_v4_0.h"
+> #include "vega10_ih.h"
+> #include "vega20_ih.h"
+> #include "navi10_ih.h"
+>@@ -84,14 +83,6 @@
+> #define mmMP0_MISC_LIGHT_SLEEP_CTRL
+>0x01ba
+> #define mmMP0_MISC_LIGHT_SLEEP_CTRL_BASE_IDX
+>0
+>
+>-/* for Vega20 register name change */
+>-#define mmHDP_MEM_POWER_CTRL   0x00d4
+>-#define HDP_MEM_POWER_CTRL__IPH_MEM_POWER_CTRL_EN_MASK
+>0x00000001L
+>-#define HDP_MEM_POWER_CTRL__IPH_MEM_POWER_LS_EN_MASK
+>0x00000002L
+>-#define HDP_MEM_POWER_CTRL__RC_MEM_POWER_CTRL_EN_MASK
+>0x00010000L
+>-#define HDP_MEM_POWER_CTRL__RC_MEM_POWER_LS_EN_MASK
+>0x00020000L
+>-#define mmHDP_MEM_POWER_CTRL_BASE_IDX  0
+>-
+> /*
+>  * Indirect registers accessor
+>  */
+>@@ -700,6 +691,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
+>                adev->nbio.funcs = &nbio_v6_1_funcs;
+>                adev->nbio.hdp_flush_reg = &nbio_v6_1_hdp_flush_reg;
+>        }
+>+       adev->hdp.funcs = &hdp_v4_0_funcs;
+>
+>        if (adev->asic_type == CHIP_VEGA20 || adev->asic_type ==
+>CHIP_ARCTURUS)
+>                adev->df.funcs = &df_v3_6_funcs; @@ -835,21 +827,6 @@ int
+>soc15_set_ip_blocks(struct amdgpu_device *adev)
+>        return 0;
+> }
+>
+>-static void soc15_flush_hdp(struct amdgpu_device *adev, struct
+>amdgpu_ring *ring) -{
+>-       adev->nbio.funcs->hdp_flush(adev, ring);
+>-}
+>-
+>-static void soc15_invalidate_hdp(struct amdgpu_device *adev,
+>-                                struct amdgpu_ring *ring)
+>-{
+>-       if (!ring || !ring->funcs->emit_wreg)
+>-               WREG32_SOC15_NO_KIQ(HDP, 0,
+>mmHDP_READ_CACHE_INVALIDATE, 1);
+>-       else
+>-               amdgpu_ring_emit_wreg(ring, SOC15_REG_OFFSET(
+>-                       HDP, 0, mmHDP_READ_CACHE_INVALIDATE), 1);
+>-}
+>-
+> static bool soc15_need_full_reset(struct amdgpu_device *adev)  {
+>        /* change this when we implement soft reset */ @@ -858,10 +835,7 @@
+>static bool soc15_need_full_reset(struct amdgpu_device *adev)
+>
+> static void vega20_reset_hdp_ras_error_count(struct amdgpu_device
+>*adev)  {
+>-       if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP))
+>-               return;
+>-       /*read back hdp ras counter to reset it to 0 */
+>-       RREG32_SOC15(HDP, 0, mmHDP_EDC_CNT);
+>+       adev->hdp.funcs->reset_ras_error_count(adev);
+> }
+>
+> static void soc15_get_pcie_usage(struct amdgpu_device *adev, uint64_t
+>*count0, @@ -1012,8 +986,6 @@ static const struct amdgpu_asic_funcs
+>soc15_asic_funcs =
+>        .set_uvd_clocks = &soc15_set_uvd_clocks,
+>        .set_vce_clocks = &soc15_set_vce_clocks,
+>        .get_config_memsize = &soc15_get_config_memsize,
+>-       .flush_hdp = &soc15_flush_hdp,
+>-       .invalidate_hdp = &soc15_invalidate_hdp,
+>        .need_full_reset = &soc15_need_full_reset,
+>        .init_doorbell_index = &vega10_doorbell_index_init,
+>        .get_pcie_usage = &soc15_get_pcie_usage, @@ -1035,8 +1007,6 @@
+>static const struct amdgpu_asic_funcs vega20_asic_funcs =
+>        .set_uvd_clocks = &soc15_set_uvd_clocks,
+>        .set_vce_clocks = &soc15_set_vce_clocks,
+>        .get_config_memsize = &soc15_get_config_memsize,
+>-       .flush_hdp = &soc15_flush_hdp,
+>-       .invalidate_hdp = &soc15_invalidate_hdp,
 
+>        .reset_hdp_ras_error_count = &vega20_reset_hdp_ras_error_count,
+
+Could you remove this asic function also ? You may use this check before calling hdp reset errors function.
+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP))
+
+Regards,
+Lijo
+
+>        .need_full_reset = &soc15_need_full_reset,
+>        .init_doorbell_index = &vega20_doorbell_index_init, @@ -1422,41
+>+1392,6 @@ static int soc15_common_soft_reset(void *handle)
+>        return 0;
+> }
+>
+>-static void soc15_update_hdp_light_sleep(struct amdgpu_device *adev,
+>bool enable) -{
+>-       uint32_t def, data;
+>-
+>-       if (adev->asic_type == CHIP_VEGA20 ||
+>-               adev->asic_type == CHIP_ARCTURUS ||
+>-               adev->asic_type == CHIP_RENOIR) {
+>-               def = data = RREG32(SOC15_REG_OFFSET(HDP, 0,
+>mmHDP_MEM_POWER_CTRL));
+>-
+>-               if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
+>-                       data |=
+>HDP_MEM_POWER_CTRL__IPH_MEM_POWER_CTRL_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__IPH_MEM_POWER_LS_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__RC_MEM_POWER_CTRL_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__RC_MEM_POWER_LS_EN_MASK;
+>-               else
+>-                       data &=
+>~(HDP_MEM_POWER_CTRL__IPH_MEM_POWER_CTRL_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__IPH_MEM_POWER_LS_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__RC_MEM_POWER_CTRL_EN_MASK |
+>-
+>HDP_MEM_POWER_CTRL__RC_MEM_POWER_LS_EN_MASK);
+>-
+>-               if (def != data)
+>-                       WREG32(SOC15_REG_OFFSET(HDP, 0,
+>mmHDP_MEM_POWER_CTRL), data);
+>-       } else {
+>-               def = data = RREG32(SOC15_REG_OFFSET(HDP, 0,
+>mmHDP_MEM_POWER_LS));
+>-
+>-               if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
+>-                       data |= HDP_MEM_POWER_LS__LS_ENABLE_MASK;
+>-               else
+>-                       data &= ~HDP_MEM_POWER_LS__LS_ENABLE_MASK;
+>-
+>-               if (def != data)
+>-                       WREG32(SOC15_REG_OFFSET(HDP, 0,
+>mmHDP_MEM_POWER_LS), data);
+>-       }
+>-}
+>-
+> static void soc15_update_drm_clock_gating(struct amdgpu_device *adev,
+>bool enable)  {
+>        uint32_t def, data;
+>@@ -1517,7 +1452,7 @@ static int
+>soc15_common_set_clockgating_state(void *handle,
+>                                state == AMD_CG_STATE_GATE);
+>                adev->nbio.funcs->update_medium_grain_light_sleep(adev,
+>                                state == AMD_CG_STATE_GATE);
+>-               soc15_update_hdp_light_sleep(adev,
+>+               adev->hdp.funcs->update_clock_gating(adev,
+>                                state == AMD_CG_STATE_GATE);
+>                soc15_update_drm_clock_gating(adev,
+>                                state == AMD_CG_STATE_GATE); @@ -1534,7 +1469,7 @@
+>static int soc15_common_set_clockgating_state(void *handle,
+>                                state == AMD_CG_STATE_GATE);
+>                adev->nbio.funcs->update_medium_grain_light_sleep(adev,
+>                                state == AMD_CG_STATE_GATE);
+>-               soc15_update_hdp_light_sleep(adev,
+>+               adev->hdp.funcs->update_clock_gating(adev,
+>                                state == AMD_CG_STATE_GATE);
+>                soc15_update_drm_clock_gating(adev,
+>                                state == AMD_CG_STATE_GATE); @@ -1542,7 +1477,7 @@
+>static int soc15_common_set_clockgating_state(void *handle,
+>                                state == AMD_CG_STATE_GATE);
+>                break;
+>        case CHIP_ARCTURUS:
+>-               soc15_update_hdp_light_sleep(adev,
+>+               adev->hdp.funcs->update_clock_gating(adev,
+>                                state == AMD_CG_STATE_GATE);
+>                break;
+>        default:
+>@@ -1561,10 +1496,7 @@ static void
+>soc15_common_get_clockgating_state(void *handle, u32 *flags)
+>
+>        adev->nbio.funcs->get_clockgating_state(adev, flags);
+>
+>-       /* AMD_CG_SUPPORT_HDP_LS */
+>-       data = RREG32(SOC15_REG_OFFSET(HDP, 0, mmHDP_MEM_POWER_LS));
+>-       if (data & HDP_MEM_POWER_LS__LS_ENABLE_MASK)
+>-               *flags |= AMD_CG_SUPPORT_HDP_LS;
+>+       adev->hdp.funcs->get_clock_gating_state(adev, flags);
+>
+>        /* AMD_CG_SUPPORT_DRM_MGCG */
+>        data = RREG32(SOC15_REG_OFFSET(MP0, 0,
+>mmMP0_MISC_CGTT_CTRL0));
+>--
+>2.25.1
+>
+>_______________________________________________
+>amd-gfx mailing list
+>amd-gfx@lists.freedesktop.org
+>https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.f
+>reedesktop.org%2Fmailman%2Flistinfo%2Famd-
+>gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7Cba137ed79c354d2620a1
+>08d8ab119d0c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637447
+>439441071208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ
+>IjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=8nzvnyY
+>DrhrG5HXAXut4N%2FXUYpWcrHbObXOxnDjwm1Y%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
