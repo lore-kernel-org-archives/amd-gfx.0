@@ -7,114 +7,117 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E604C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Dec 2020 17:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EB94C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Dec 2020 18:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B32C322287
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Dec 2020 17:11:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B32C322287
+	by mail.kernel.org (Postfix) with ESMTPS id 06B29206FC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Dec 2020 18:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06B29206FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1786F893DB;
-	Wed, 30 Dec 2020 17:11:38 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E55B8935B
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Dec 2020 17:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872D689193;
+	Wed, 30 Dec 2020 18:03:15 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB5E89193
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Dec 2020 18:03:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DZM07OUOLBRnObr7YSlwAAPnogheIDqy622Iypr3HXNb48Kod3exUoruAf6pVlokKjCNXXTADw86sfsGbOnxMDpXu3Ab6Cg6qG2LrSR2Ae9p38WwtSMeqvCV1sENnGaghZABXY+mURKMq0qk1mnObP0xhvNTcBBbsMhTDIWTbMfbyuRxklExj6W7c+2Nltu5UizTK6E/W6dm4ZIm1M48RIe0RKQhG5ctfTCkOIizHEEM16XLAruvpkgs2YtMEckK4y8JN8+bgQnkhb319iWgVKMZ8deDVgPYdAB3dDr/TP+qXJQoPlZ5egsg3ouZXj8akHpKCjbc3YsS3E0hlu2VIg==
+ b=ADjnOr6iujVTS6zyETAniez+dkOcsRledrD9bYqOlF1zOVmnb0Y6LbsaadZ+doYBormNHdOL50NAX7z1rHatmJq1K5yzTzaWSuFi8LILkZoYnZzkOU3Jq74eX7VXdp4F3HkhpJOM6kUH/wuHPIF1LFyLSlew19MwR7OTh5zOr6pGldA96HHBzZyAS7dUCl4l6u377bcbSMBjXzqvCnGMaFwkLjCvQ0UxSGvwcadV4n2rpw/TDwISm85EvC5t8hYoQsfndDBTIBELtsRG1s5SuGjq595py/zcYosyofmcsaPs2rUzzwWoJNumLn1Z8Yqao0nDuvCDWxGaC13XvLreAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h8Vd3AC5evP7CBjXkTZTo/gbu1yi0eVQY7phNhKtfnM=;
- b=LGDsKk3qAi53OpgeKWDyYsaRLGQjCA9MtZ+KbqfyzGuqc0xlXZbxO9tiDxAGjkGiHT55mnSAWBNGT9UtGNglvXxZnVOUYPANhHfuRJxaFCxjPBE7zfSrP2awof1wMBSH1pNPT17yqKtFDCyzByRzV5ATCSyt83cf+La88Sc2867NGRxYl8c7jO6VgrY0caCbuHFAJFKOhTb73iZOjjTh9J4iqqWyoO5BPVc4bWZVewVut3v7HZU6ZgbgP10aUCTOSfPXgcpHsl458htFytSPaUhdwWm7+2W0vKNd06UNCGWqd4RTIsrb/z17zynaxbBqy2Yfvz1j1kEsyhxZAV0anw==
+ bh=L+pKA7ac9FoGSfp9xFjiGpnN2HvgiGr4m8mT8WyB9bQ=;
+ b=oOkN1xem5R3NkzsNUJlfQSApVz0PkNkzohtypvcrWAcLqrg6kB+nGtYzEjkivYBkQtVF+WQCioqXvovPX2/vZmBxuUMeORX1CE6X5o33RDfPBflX3ImbaFFUJoONIZKaTg8g2QDswtSZni6r9sThKdsoZ+f2GlDM+n4R/+LvjGUcAJIjFePg9YsI0QYDeQ0Z4au3VbrZxbiM4Mo7HaqE0YqCGiuYMzc0eiyRVkejS3vhfPaTA82P4AC3Vq8FgFLZlUyqILtMIJCsKF+SnqDJhVuwiq63+EwMaLAqU0Xgx47sitw5cHX3ouTXfQpFd29GqB80RivXdCURdXnoG1atzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h8Vd3AC5evP7CBjXkTZTo/gbu1yi0eVQY7phNhKtfnM=;
- b=iKtmPx1uOEWyuMuYZBW5+qNjcC/EzACldI+TLIvH3qMZzR8+tMJ7ZUASmvsq0Sx+lK9q1D1GKN6FDTHcfgM15cpaz3n3S/5MUenFiTJPTXlDQ74enojRXo5sINQrlxg4CpE7PIKBh6Zxg5fj4xygpKItJphhBngA1kaaL16f9EY=
-Received: from DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17)
- by DM5PR12MB1674.namprd12.prod.outlook.com (2603:10b6:4:11::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.27; Wed, 30 Dec
- 2020 17:11:35 +0000
-Received: from DM6PR12MB4156.namprd12.prod.outlook.com
- ([fe80::b803:7e6e:40ec:4a0d]) by DM6PR12MB4156.namprd12.prod.outlook.com
- ([fe80::b803:7e6e:40ec:4a0d%7]) with mapi id 15.20.3721.020; Wed, 30 Dec 2020
- 17:11:35 +0000
-From: "Wu, Hersen" <hersenxs.wu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Li, Roman" <Roman.Li@amd.com>
-Subject: [PATCH] drm/amd/display: disable dcn10 pipe split by default
+ bh=L+pKA7ac9FoGSfp9xFjiGpnN2HvgiGr4m8mT8WyB9bQ=;
+ b=t+kpfbcIcHZxXWoI8nsuTs3gqEt2tk8TwOjYP1c1Ad36z+0JpQLx7JP6O21ybFvc4sbbh6so/iIPCnRBmtfBQbDRAd0x/nhczPannZWXY4M9VT/CfkM52Op/555cMuUu5vIczd0DP1ADvzXwuXt7b5TecZz6DsOmExLsj07Nv5I=
+Received: from MN2PR12MB3198.namprd12.prod.outlook.com (2603:10b6:208:101::12)
+ by MN2PR12MB2894.namprd12.prod.outlook.com (2603:10b6:208:10a::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.31; Wed, 30 Dec
+ 2020 18:03:02 +0000
+Received: from MN2PR12MB3198.namprd12.prod.outlook.com
+ ([fe80::217f:e1ff:9766:e78c]) by MN2PR12MB3198.namprd12.prod.outlook.com
+ ([fe80::217f:e1ff:9766:e78c%7]) with mapi id 15.20.3700.031; Wed, 30 Dec 2020
+ 18:03:02 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: "Wu, Hersen" <hersenxs.wu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amd/display: disable dcn10 pipe split by default
 Thread-Topic: [PATCH] drm/amd/display: disable dcn10 pipe split by default
-Thread-Index: AQHW3szJ9p//noNmJkKEV5oLNQFPeg==
-Date: Wed, 30 Dec 2020 17:11:35 +0000
-Message-ID: <DM6PR12MB415686CF8CCA926086E15F52FDD70@DM6PR12MB4156.namprd12.prod.outlook.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
+Thread-Index: AQHW3szJ9p//noNmJkKEV5oLNQFPeqoP7S3w
+Date: Wed, 30 Dec 2020 18:03:02 +0000
+Message-ID: <MN2PR12MB3198E21B95D39C8B1561D73B89D70@MN2PR12MB3198.namprd12.prod.outlook.com>
+References: <DM6PR12MB415686CF8CCA926086E15F52FDD70@DM6PR12MB4156.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB415686CF8CCA926086E15F52FDD70@DM6PR12MB4156.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-30T17:11:35.043Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2607:fea8:3c60:9c20:2dec:b5f3:a578:8cd]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-12-30T18:00:25Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=173aa68b-25cc-438f-a034-7609dc6638a6;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+dlp-product: dlpe-windows
+dlp-version: 11.5.0.60
+dlp-reaction: no-action
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.250]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f231177c-4c94-4d96-e7a4-08d8ace5f65f
-x-ms-traffictypediagnostic: DM5PR12MB1674:
+x-ms-office365-filtering-correlation-id: a822e69e-5866-4b22-ebde-08d8aced26a2
+x-ms-traffictypediagnostic: MN2PR12MB2894:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB16743F62E625BFA10B8FAA0FFDD70@DM5PR12MB1674.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB2894CD0FBD8115E7C058C18589D70@MN2PR12MB2894.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:400;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: cBW+JnUI1Jolf7w++f8ACN0VLQnRh/T7lsivpMEQo4F9rgHX9UEQQsrtIGhdsBBGFGIVCgEpLa+T7w+mbSADpTDZP7UD+4IpU44j67LlqajWsgfQLHuwnQbxKdzMR/i/8E5YOH/+0SGcLJ/biivFZ6sDP0sM5Afj7hqTfKZf2s4EZCgLhQfiNWR3g8yeCkCF5GjJA9ByekRz1i6rAxFMP3zW6E8qkagHnMrZ7vKDhNEKvD+a8ylcNGrtjRdirp9qOjAtJgXdn2/pBBf7EsHvrpYqTjmkFkZvkgteShnFBHAe0IWwhWRGJzKW5tKeCab00RIKS4TnUfWYmNs273dSFIMgyOof29Rv0judMQNrwAbdiwZbm8Oo7QsFmZWVYo/u5cdMPa30NWmQU6XLvQAr5w==
+x-microsoft-antispam-message-info: IeFl4TsusCW1bfJaUVO6OInJY7qm4rDbryFN/r976Q8aIUlNOYuY7aIHXfRhfzzGtvWJIfN72gEqTBrYdbmpb2n3IZlZlxcF0DbJR8fOqot99dDqv1DZSRQXeqyuFlSWRnQNngL3rxzUU3VmTjvzRgcbuLRZuZGuZbPfFdeQdyZHWiSXsqqD8m0cHjSDGahnHoTsGFAKao6c9x0E5MBqUat3W4OdHwMejflngVXXUTc8tg8myZf1fsBL1oR0FKPp7c7KQRyywRfBIfdBBAzOtSMdxz/hL3V8oiw/DLZhcP4pNFa0ulZw050c4QoVsN/W2d7xcNE880j801xST18bmV0KKv3Oz7KXI5ZqBliiqgpB0UZuz5TV/ErZAXhj581gnCutQ/liVIE4WcDZWrSGoA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(346002)(366004)(396003)(33656002)(8676002)(83380400001)(9686003)(71200400001)(6636002)(8936002)(86362001)(7696005)(6506007)(186003)(478600001)(66446008)(91956017)(66476007)(110136005)(55016002)(66946007)(76116006)(52536014)(64756008)(66556008)(316002)(5660300002)(2906002)(19627405001);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(396003)(136003)(366004)(83380400001)(55016002)(76116006)(33656002)(53546011)(86362001)(6506007)(26005)(71200400001)(110136005)(5660300002)(8936002)(66556008)(186003)(8676002)(316002)(2906002)(7696005)(6636002)(64756008)(52536014)(478600001)(66946007)(9686003)(66476007)(66446008);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?FK32XSAwN8+vZEJ2GErXGhy2E/pGZSQyLwxl27WUr19qmNkCbrnGpQjlaA?=
- =?iso-8859-1?Q?+Yr6Do6p5iMBEsQ7EDudQ5y3hlqGGqsoNidWv6MfXsGF4Nmovsfo5abwfV?=
- =?iso-8859-1?Q?+ps9tY1bfXKzrS60YC8T/HLhO1/YDsC+17jtwRwssYjtL2WMwiMlLMjOZq?=
- =?iso-8859-1?Q?ZXZ2aMqJ+Tqf57M+7jwm9rnnLB7TAx3Y+Yi2UirH0EIX1v6+UQ9pl1eKv7?=
- =?iso-8859-1?Q?ePV4eGaGwuEawKPRDnSqOdfrWxujqC7x+sZQwG3XbKyxS4+I/3pCpQ+XBq?=
- =?iso-8859-1?Q?8c67NO1C8sE2oabiX6OIHoWzo6s2RfNERlk7WOwBChBFuQG/G5VEaHwYeR?=
- =?iso-8859-1?Q?7aAwwSCOsCTRC14nAMWjj+V9+rTWI0T75Tt2Vg7E3ok/oeIH6VDf0R6ZNv?=
- =?iso-8859-1?Q?i1L73uEpUdeh5tctadVpKYlZYLWehGDrYasvFG35Yff1PiCCCXZUJTRsS1?=
- =?iso-8859-1?Q?HdZheFnBHUuDnjP5aeP0LHpNsYnSl5Q5x1VqOy6NwzS8cPueKkvpUN2YDT?=
- =?iso-8859-1?Q?PrVJsjh+IlNKz1apXE/tVWiAKf7GrFK8lZ+WK0UeCOlH/9vkaYyhrZuSl9?=
- =?iso-8859-1?Q?Vr0VFIjiKIWoxg09fiCJWYITvKo5kgusM9FyvwVob9NB3u+p2h+Q+8edPF?=
- =?iso-8859-1?Q?CHcAyPStn52xA5/pUbStRN6m6FSaEbRddDQJ2QJZnF14IZPUdIPepvaY2e?=
- =?iso-8859-1?Q?QnhCBBGoPnCze2KYOSodJWNyExAS1AbqbZA25FJgXF2qEiDkkcn5D2KgQU?=
- =?iso-8859-1?Q?RW3rGdTE0FrMmF3ADCkkCFRmuYjiF77+xZt+Zy0Anrgg9b59gh2zxRCc4T?=
- =?iso-8859-1?Q?P1f7rj4DPwQPyFG+ALbL+rrO3yxZ9/RXqELNQzUTkjo2VjjZ72GGpIKCVV?=
- =?iso-8859-1?Q?n7ivO5Q2KVU8As2Trsz9rve5LPmcdtMhl9hUPJembd5T+sXdyUDiPDk2oY?=
- =?iso-8859-1?Q?i/fUpTx6VNm1/S3Md8uQm6zwIzjtuJwShD2Jd+CG758piigHNBa97bpgpT?=
- =?iso-8859-1?Q?6FDRGYD6dsIqUO1mVhCpbZcF4fehIzDAMrWyESNYGxn4JwXsqjnwPbDpJW?=
- =?iso-8859-1?Q?tUdInUK1Ol5SSEWDLikVazc=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?pWZS0JJzk+kUI9VWj94ee1BTctORa7+mmVeXUJDqhmfOGZgVwwpYkBRjcesM?=
+ =?us-ascii?Q?uWe2phgkyBZDN3sEMHEJ2o1eDRAmEvPDX9vbLEleq1QPkKz+BB2F0L/nqYss?=
+ =?us-ascii?Q?JFQ3/7ukKyYc3DxnJXaZxiaUdfvjYR8pqTWXVXiXS38WkiK1G6bKtPZVNAiu?=
+ =?us-ascii?Q?y4WKBtTGlfOEyRPHFv2OlKDjikYL9wwc3uD9Wn6U5rOAH82Gy3QeYp8PFRf+?=
+ =?us-ascii?Q?ooieZm5HEzS+ylABINX289+rA2lSnl1cdoccVKrd9UdvAUiUcdvEqvCE2TfC?=
+ =?us-ascii?Q?gShFyW2p0FFbgS+wMLM7YdPOSDwySkhKl4Qj+06u6L5sgCvGkt6QPzMiF20a?=
+ =?us-ascii?Q?4nS7P6Vmn+v1HHd1CLCNIuVPfDFbpcQU1pligRBsU2jqQUwEDct7kyv7lgAF?=
+ =?us-ascii?Q?omQJSIqxaQotrWctmxag7MYQbZjUBb7oQeAKLbod0u39bOZl8FVj/9nzH1wV?=
+ =?us-ascii?Q?4yOGRZyPHNr9cAIUMQDbWjC1BiVOllJYfh/cG0ksIuZA/K7bJrAAt1OR3nSj?=
+ =?us-ascii?Q?kjWO84HEkhJRS8c6yaibAxsV8szXws/+Tf4B5LX3U09rP5vpwRkpLMIP+Gin?=
+ =?us-ascii?Q?aAbqVdvlrRSTwJQpt7ZNjmLuoYnBGmYy8w8jS2NKC9p60ywXZnU9tC8YkSC9?=
+ =?us-ascii?Q?SisHz1PoKfYHuceAbboxqgy9oE4JIjy2NhCs0OOUcU6l+QdNO42D9Pn/YS6C?=
+ =?us-ascii?Q?93Y9ZzMRMKTWaM7j1kld3M30GuVW8vx3fJOAHXvbsUwLTXsVSFusCKtyb9uT?=
+ =?us-ascii?Q?pnuiwPowUWp7Yk9ebNMceKqDgYweG9C0vyNPFTRvxYbC7iYBQkV3vnfvrxeO?=
+ =?us-ascii?Q?OztMmlNTTs3yoEVPYZ++O3S1KXKeHP9FMb7i2pXGckVY4lruaE1ScFUqSiEh?=
+ =?us-ascii?Q?k4sb3H28IOm22Gk9IYnWUw2Z2XYQ7CV0gBeXCcA2jZHBCRdHSvVjvUlt4Bz2?=
+ =?us-ascii?Q?7qMyE/8hUCKUCBrHqK3xrBXEHaJvcAFfvrowlk4bP7o=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4156.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f231177c-4c94-4d96-e7a4-08d8ace5f65f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Dec 2020 17:11:35.2549 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3198.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a822e69e-5866-4b22-ebde-08d8aced26a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Dec 2020 18:03:02.7193 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9oKED+wFuGvyHI+RXe9ywE0emO1A2rX045ImWEW9qaPbS9AORYvU8sEEJA8gctyJ/jVmeLEKC8z3e9kiSPfemw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1674
+X-MS-Exchange-CrossTenant-userprincipalname: Ic1ShbNwJKpXliobnthzkxu7DgF7j/Z4O+iFEKrAUKiydxOZ1O8hzvDXIZmPsY2C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2894
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,20 +129,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1118094744=="
+Content-Type: multipart/mixed; boundary="===============1460549626=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1118094744==
-Content-Language: en-CA
+--===============1460549626==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB415686CF8CCA926086E15F52FDD70DM6PR12MB4156namp_"
+	boundary="_000_MN2PR12MB3198E21B95D39C8B1561D73B89D70MN2PR12MB3198namp_"
 
---_000_DM6PR12MB415686CF8CCA926086E15F52FDD70DM6PR12MB4156namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MN2PR12MB3198E21B95D39C8B1561D73B89D70MN2PR12MB3198namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
+
+
+Reviewed-by: Roman Li <Roman.Li@amd.com<mailto:Roman.Li@amd.com>>
+
+From: Wu, Hersen <hersenxs.wu@amd.com>
+Sent: Wednesday, December 30, 2020 12:12 PM
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
+d.com>; Li, Roman <Roman.Li@amd.com>
+Subject: [PATCH] drm/amd/display: disable dcn10 pipe split by default
+
 
 [Why] the initial purpose of dcn10 pipe split is to support
 some high bandwidth mode which requires dispclk greater
@@ -152,7 +165,7 @@ result shows battery life is longer with pipe split disabled.
 [How] disable pipe split by default. Pipe split could be
 still enabled when required dispclk is greater than max dispclk.
 
-Signed-off-by: hersen wu <hersenxs.wu@amd.com>
+Signed-off-by: hersen wu <hersenxs.wu@amd.com<mailto:hersenxs.wu@amd.com>>
 ---
  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
@@ -178,76 +191,247 @@ index bdc37831535e..17eafe209946 100644
 2.17.1
 
 
-
---_000_DM6PR12MB415686CF8CCA926086E15F52FDD70DM6PR12MB4156namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MN2PR12MB3198E21B95D39C8B1561D73B89D70MN2PR12MB3198namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
+	{mso-style-name:msipheader87abd423;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader87abd423" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Reviewed-by: Roman Li &lt;<a href=3D"mailto:Roman=
+.Li@amd.com">Roman.Li@amd.com</a>&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-[Why] the initial purpose of dcn10 pipe split is to support
-<div>some high bandwidth mode which requires dispclk greater</div>
-<div>than max dispclk. By initial bring up power measurement</div>
-<div>data, it showed power consumption is less with pipe split</div>
-<div>for dcn block. This could be reason for enable pipe split</div>
-<div>by default. By battery life measurement of some Chromebooks,</div>
-<div>result shows battery life is longer with pipe split disabled.</div>
-<div><br>
-</div>
-<div>[How] disable pipe split by default. Pipe split could be</div>
-<div>still enabled when required dispclk is greater than max dispclk.</div>
-<div><br>
-</div>
-<div>Signed-off-by: hersen wu &lt;hersenxs.wu@amd.com&gt;</div>
-<div>---</div>
-<div>&nbsp;drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 4 ++--</=
-div>
-<div>&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)</div>
-<div><br>
-</div>
-<div>diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/d=
-rivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c</div>
-<div>index bdc37831535e..17eafe209946 100644</div>
-<div>--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c</div>
-<div>+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c</div>
-<div>@@ -608,8 +608,8 @@ static const struct dc_debug_options debug_default=
-s_drv =3D {</div>
-<div>&nbsp; .disable_pplib_clock_request =3D false,</div>
-<div>&nbsp; .disable_pplib_wm_range =3D false,</div>
-<div>&nbsp; .pplib_wm_report_mode =3D WM_REPORT_DEFAULT,</div>
-<div>- .pipe_split_policy =3D MPC_SPLIT_DYNAMIC,</div>
-<div>- .force_single_disp_pipe_split =3D true,</div>
-<div>+ .pipe_split_policy =3D MPC_SPLIT_AVOID,</div>
-<div>+ .force_single_disp_pipe_split =3D false,</div>
-<div>&nbsp; .disable_dcc =3D DCC_ENABLE,</div>
-<div>&nbsp; .voltage_align_fclk =3D true,</div>
-<div>&nbsp; .disable_stereo_support =3D true,</div>
-<div>-- </div>
-<div>2.17.1</div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wu, Hersen &lt;hersenxs.wu@amd.com&gt; =
 <br>
-<br>
+<b>Sent:</b> Wednesday, December 30, 2020 12:12 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org; Deucher, Alexander &lt;Alexander.=
+Deucher@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: disable dcn10 pipe split by defaul=
+t<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">[Why] t=
+he initial purpose of dcn10 pipe split is to support
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">some hi=
+gh bandwidth mode which requires dispclk greater<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">than ma=
+x dispclk. By initial bring up power measurement<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">data, i=
+t showed power consumption is less with pipe split<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">for dcn=
+ block. This could be reason for enable pipe split<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">by defa=
+ult. By battery life measurement of some Chromebooks,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">result =
+shows battery life is longer with pipe split disabled.<o:p></o:p></span></p=
+>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">[How] d=
+isable pipe split by default. Pipe split could be<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">still e=
+nabled when required dispclk is greater than max dispclk.<o:p></o:p></span>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Signed-=
+off-by: hersen wu &lt;<a href=3D"mailto:hersenxs.wu@amd.com">hersenxs.wu@am=
+d.com</a>&gt;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">---<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;d=
+rivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 4 ++--<o:p></o:p></s=
+pan></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;1=
+ file changed, 2 insertions(+), 2 deletions(-)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">diff --=
+git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/d=
+rm/amd/display/dc/dcn10/dcn10_resource.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">index b=
+dc37831535e..17eafe209946 100644<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">--- a/d=
+rivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+++ b/d=
+rivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">@@ -608=
+,8 +608,8 @@ static const struct dc_debug_options debug_defaults_drv =3D {<=
+o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.disable_pplib_clock_request =3D false,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.disable_pplib_wm_range =3D false,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.pplib_wm_report_mode =3D WM_REPORT_DEFAULT,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">- .pipe=
+_split_policy =3D MPC_SPLIT_DYNAMIC,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">- .forc=
+e_single_disp_pipe_split =3D true,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ .pipe=
+_split_policy =3D MPC_SPLIT_AVOID,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">+ .forc=
+e_single_disp_pipe_split =3D false,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.disable_dcc =3D DCC_ENABLE,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.voltage_align_fclk =3D true,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+.disable_stereo_support =3D true,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">-- <o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">2.17.1<=
+o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
 </div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB415686CF8CCA926086E15F52FDD70DM6PR12MB4156namp_--
+--_000_MN2PR12MB3198E21B95D39C8B1561D73B89D70MN2PR12MB3198namp_--
 
---===============1118094744==
+--===============1460549626==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -258,4 +442,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1118094744==--
+--===============1460549626==--
