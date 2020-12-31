@@ -7,30 +7,30 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A8E7C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 08:48:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BEAB2C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 09:06:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECF2F207A1
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 08:48:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECF2F207A1
+	by mail.kernel.org (Postfix) with ESMTPS id 6A12922262
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 09:06:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A12922262
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 917DA89B20;
-	Thu, 31 Dec 2020 08:48:24 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750070.outbound.protection.outlook.com [40.107.75.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A94989B20
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Dec 2020 08:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B46F897F5;
+	Thu, 31 Dec 2020 09:06:32 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 271C5897F5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Dec 2020 09:06:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XYU2HFdLmVUeCZKZMM/1WGcT87tgpk5uWIodWhoBTrrmwejhV//mOpRzs5VnvTLrTmDwiVC6mG3rJ3hMqdlU8xw/+l9NKoDZrjaxjjJ1gdHNv7kTbqX47BmB6ClATuLeJYJOpZq0MDgHNVTZLWVffH58KGXHdIa/Ntb2iN32joXPAFfTtdqGqLN73cyAx8cmLS8DRooc3SDCok+XkLZgi5Xp9IZgJi0Kes8D8ov998Mj3RImwO9+dhfPavi8F6JJZ8/zxQjDXTpYW6cna4BTT8LqyHiY/K6z9t6pbN40s/NGQgwwketymS1hrIkl9YrK7qwe7rj8tROj6Y21/FqDCA==
+ b=jxGFmhB8ENXlpPg+TXs6LT1ME3Gf2eK94s06cb2oahskm2DDMzOGzq86NRho6UbbwWQkdESwLuA3vQlJsRwpEFH26APZtcEzwAV4BdST61YYWtnzvmMal9hpvQJ+ug5qwSjbdIJnXBjTx9U7/htoEAPsPlYvQWjP5qcLoOz6LHXGPS/PrNQuPYnSqcDd8pxaaYu6DisZHQZ1eD/UUvnh6Z06YV6qjv0J6mq7Wpd4l13iUTLwcjd8mJPr/6Ug5a1lCqfCn9xf9E7KLSBx9LwCGBgIXkGxgwBRu4zWqm0rA7hND5Bqexqj0s09o31FhAz00q6sEB1qcy5oeLAfubB/WA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T1Hjgzk8F+4VpGny1FvOJdLDqEovzCGOlSO79jRWAUw=;
- b=dUWKImb0j4LnLG34dHa/kD1/Af+f9mooWz9KjE1E6PvGZK4xI77QwyLvCsQtFHnkPh8BeqMgR+7X+ozjG24BKuuHEgzUvJBKk771KMv16pQaeVz3SPFjizOazsSWIqL/hY6X2G/yxfKfJAgXUv2Efzu1Mg3Hcryd4GTBPxfbM3ig3EN8P7RZ5tImEkg+RaV2c85mgyek601afu7DbcUzlWyxuhYHMozZxpPBqoWPMpynfU3mQEhdCALOQXGFE4QBKje2i12atIJ3OfDuShiG9Q9GR2PKSlJeNSOj8re0V+7eiWWlefUDWuAjma+F19kb3AQ+ikFezAfkWlJzYrXqAQ==
+ bh=OFiTzi63rklhZwa9FPC1AAWYtpBOjxy61BwdkGIGxdw=;
+ b=QwZwDQHLmwOD9DAUXQMYQoO3AZYG9oFbbozOgmV8ofYNcUYSRWgxON6P1fCkwTJyMymdetHRB/UVh9qmHm5iRy04d80iMxAqdC231Rg78ao5ifRqi/7KODYlA+Nf+EuO1oT5VFC7Jx1KFoJLHgbYJNlFHuuCLzdn7XyfSwWzEvUGHWIeFZo9qw2+ywaSHM8OLRejPrud3gNvjPFo/DLpREETObaHM93XlMMCr93FU2RcWtiLddkpKEg4YQG8pNqZQ6NAEA5bFZXCbZi+n+a5+DQbfWdmZLz/8EKzRyLieCI0tQ4HLZdQVvBBWRi2SGZjmvkQuvxnlhibGQETWX2fRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -38,18 +38,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T1Hjgzk8F+4VpGny1FvOJdLDqEovzCGOlSO79jRWAUw=;
- b=Y1Gad08Pi1LM0jlAa1oBMFMbICmdevgQlK96CfkWXi7mOZCsZImxDxN4Pdia7Sd6A6tpnvYla2nCLhIEanmwYu+1Np8zcsZBi6ANVpFAkYs2vTKv2LwfSze+//WMgHkURu/2EyLG+7yi9uhPVj3GLjQalVghIwgBE+kgvvIDWfg=
-Received: from MW2PR16CA0042.namprd16.prod.outlook.com (2603:10b6:907:1::19)
- by MWHPR1201MB0208.namprd12.prod.outlook.com (2603:10b6:301:56::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.21; Thu, 31 Dec
- 2020 08:48:17 +0000
-Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::a) by MW2PR16CA0042.outlook.office365.com
- (2603:10b6:907:1::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19 via Frontend
- Transport; Thu, 31 Dec 2020 08:48:17 +0000
+ bh=OFiTzi63rklhZwa9FPC1AAWYtpBOjxy61BwdkGIGxdw=;
+ b=NT8MmLEM3gQRD5loxUmNrve4IARV/mAX0F/uXkUB7/dFNm7qCw2XhOkwWyhwah5S89B/8Nt0XQEwAsaxXVpUME8wMaVt/SQujvBW53OB4SkDSko3xiXXCsqnzyVaLEEJLYQmd7y5WwBwXYJKcV/U89Ee82/qjDqeTZiF5iSR4XA=
+Received: from MW4PR03CA0008.namprd03.prod.outlook.com (2603:10b6:303:8f::13)
+ by DM5PR12MB1529.namprd12.prod.outlook.com (2603:10b6:4:3::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3700.28; Thu, 31 Dec 2020 09:06:28 +0000
+Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::52) by MW4PR03CA0008.outlook.office365.com
+ (2603:10b6:303:8f::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.22 via Frontend
+ Transport; Thu, 31 Dec 2020 09:06:28 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -57,52 +57,52 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
+ CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3700.29 via Frontend Transport; Thu, 31 Dec 2020 08:48:14 +0000
+ 15.20.3700.29 via Frontend Transport; Thu, 31 Dec 2020 09:06:25 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 31 Dec
- 2020 02:48:09 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ 2020 03:06:25 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 31 Dec
- 2020 02:48:09 -0600
-Received: from willgu.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Thu, 31 Dec 2020 02:48:08 -0600
+ 2020 03:06:24 -0600
+Received: from willgu.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Thu, 31 Dec 2020 03:06:23 -0600
 From: Jiawei Gu <Jiawei.Gu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix potential NULL pointer when check_atom_bios()
- fails
-Date: Thu, 31 Dec 2020 16:47:41 +0800
-Message-ID: <20201231084741.11865-1-Jiawei.Gu@amd.com>
+Subject: [PATCH] drm/amdgpu: fix potential memory leak during navi12
+ deinitialization
+Date: Thu, 31 Dec 2020 17:06:16 +0800
+Message-ID: <20201231090616.14908-1-Jiawei.Gu@amd.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fa4b6831-9d78-4dc5-ecb6-08d8ad68cf88
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0208:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB02087376350173584484628EF8D60@MWHPR1201MB0208.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:590;
+X-MS-Office365-Filtering-Correlation-Id: c22f78d6-5005-4032-670f-08d8ad6b5a53
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1529:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB15296E4E9CC40298A52819C8F8D60@DM5PR12MB1529.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:873;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LeFK/022ch5R6yzcf1AGNGdRsvFunp5jjTZNj9BsWTBU8zhBGI29DydZ1+wNopr37DjaG/tHBjhfZd1r2FSVzRDrBIm9JA8G9+ZVOUGW63PuKtUeYBslqXE41CjYCHpPbSpM0FRYY6wog/EnvjCHYgqHxnONzuYhKtYg0rRdrGOZ/4YHI2QnUS0gxXwMMBGtTeWpU/BAs74huUHz4N+nEEZUKxaqLvUZINPKbsnlkt6AiI/iKwVSu/qjAgQOqF6VkgTC7yktfzzuy+L65lgVcIqaqiURpxZvoGiqWa9xOIYCcVIpKYgETR7tIxWlLvXUg/Eh2SdnAyDEyZTmpjRRhZcA1fyp0q0YxNdLTojkyBtXBHubYpa7BeGS70FKZxMGTO6r04qcq3RWMKK2KaiwJkJYCr5SGDpH8hF+edhDOhVPua9ZN1Ku1bemG6oK400+6DvFfriGEfTXaRw/6x5EFQ==
+X-Microsoft-Antispam-Message-Info: XBFtCsu/0QCQIE8AnYZzKW864TXh3fZgOQiClHYjZw/1z2hsfbcGttK50ZzoFWu8HbggqhYZ5is/Nv6ilub88f2pZotEmkrcvC88xCbUlxdpzpmYCsiTboFw/jf6V9emDj1QE68m0rs1qnQxyLCT1hVh6/+32OHJrNo6Sj/ymW0eUFeJslmr8v0KqQBBHbXmoB4E3gjh6m+lMRE0BapLDz4T6x/Ol+m6KVYMbE0C6yiX40nmxwLEfz41ZQH4GYEvhOoSHJd0I5IvXPDm0Ho29/wFBzm/+Vc6f7mz0yMEZUP1EYUBxgmSSrwUcjlNxn7Lz/hNfTQc8eo4qUr6M4yQubpWaXt4tH2dPf0yRVUHeVWnMVwY7+y+6rcgQVtBF3D/NvRGL7nl5OaD0+KWKPfMjC62JYj0RtMpHHdYxtlazQiLo+4cvUsFU/8qktX9ASGdx03guqzA6yEH3vCGmsB5fg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(46966006)(70206006)(82740400003)(47076005)(336012)(83380400001)(6916009)(186003)(81166007)(6666004)(70586007)(356005)(5660300002)(26005)(2906002)(478600001)(7696005)(4326008)(1076003)(8936002)(82310400003)(2616005)(426003)(86362001)(36756003)(8676002)(316002)(54906003);
+ SFS:(4636009)(376002)(136003)(396003)(39860400002)(346002)(46966006)(54906003)(4326008)(70206006)(47076005)(2906002)(82310400003)(8676002)(356005)(26005)(81166007)(426003)(5660300002)(1076003)(6666004)(8936002)(478600001)(7696005)(186003)(86362001)(36756003)(6916009)(2616005)(82740400003)(70586007)(83380400001)(336012)(316002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Dec 2020 08:48:14.1307 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa4b6831-9d78-4dc5-ecb6-08d8ad68cf88
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Dec 2020 09:06:25.9777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c22f78d6-5005-4032-670f-08d8ad6b5a53
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0208
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,38 +120,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Asic funcs pointer needs being checked whether is NULL. Because when
-check_atom_bios() fails in req_init_data handshake, asic funcs pointer
-is not initialized yet.
+Navi12 HDCP & DTM deinitialization needs continue to free bo if already
+created though initialized flag is not set.
 
 Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 6333cada1e09..efdf639f6593 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -155,7 +155,7 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu_device *adev)
- 	u8 header[AMD_VBIOS_SIGNATURE_END+1] = {0};
- 	int len;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index b44b46dd60f2..4956fbd512d9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1316,8 +1316,12 @@ static int psp_hdcp_terminate(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
  
--	if (!adev->asic_funcs->read_bios_from_rom)
-+	if (!adev->asic_funcs || !adev->asic_funcs->read_bios_from_rom)
- 		return false;
+-	if (!psp->hdcp_context.hdcp_initialized)
+-		return 0;
++	if (!psp->hdcp_context.hdcp_initialized) {
++		if (psp->hdcp_context.hdcp_shared_buf)
++			goto out;
++		else
++			return 0;
++	}
  
- 	/* validate VBIOS signature */
-@@ -348,7 +348,8 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
- 	if (adev->flags & AMD_IS_APU)
- 		return igp_read_bios_from_vram(adev);
- 	else
--		return amdgpu_asic_read_disabled_bios(adev);
-+		return (!adev->asic_funcs || !adev->asic_funcs->read_disabled_bios) ?
-+			false : amdgpu_asic_read_disabled_bios(adev);
- }
+ 	ret = psp_hdcp_unload(psp);
+ 	if (ret)
+@@ -1325,6 +1329,7 @@ static int psp_hdcp_terminate(struct psp_context *psp)
  
- #ifdef CONFIG_ACPI
+ 	psp->hdcp_context.hdcp_initialized = false;
+ 
++out:
+ 	/* free hdcp shared memory */
+ 	amdgpu_bo_free_kernel(&psp->hdcp_context.hdcp_shared_bo,
+ 			      &psp->hdcp_context.hdcp_shared_mc_addr,
+@@ -1463,8 +1468,12 @@ static int psp_dtm_terminate(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
+-	if (!psp->dtm_context.dtm_initialized)
+-		return 0;
++	if (!psp->dtm_context.dtm_initialized) {
++		if (psp->dtm_context.dtm_shared_buf)
++			goto out;
++		else
++			return 0;
++	}
+ 
+ 	ret = psp_dtm_unload(psp);
+ 	if (ret)
+@@ -1472,6 +1481,7 @@ static int psp_dtm_terminate(struct psp_context *psp)
+ 
+ 	psp->dtm_context.dtm_initialized = false;
+ 
++out:
+ 	/* free hdcp shared memory */
+ 	amdgpu_bo_free_kernel(&psp->dtm_context.dtm_shared_bo,
+ 			      &psp->dtm_context.dtm_shared_mc_addr,
 -- 
 2.17.1
 
