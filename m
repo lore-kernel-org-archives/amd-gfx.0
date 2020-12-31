@@ -2,45 +2,71 @@ Return-Path: <SRS0=M3Em=GD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACCADC433E6
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 10:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4003BC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 20:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78B54223E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 10:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78B54223E0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=hisilicon.com
+	by mail.kernel.org (Postfix) with ESMTPS id CE0AB207A3
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 20:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE0AB207A3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AFF389B70;
-	Thu, 31 Dec 2020 10:42:44 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95AB989829;
- Thu, 31 Dec 2020 00:56:25 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4D5qSj6yzvzMCRW;
- Thu, 31 Dec 2020 08:55:17 +0800 (CST)
-Received: from localhost.localdomain (10.69.192.56) by
- DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.498.0; Thu, 31 Dec 2020 08:56:16 +0800
-From: Tian Tao <tiantao6@hisilicon.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>
-Subject: [PATCH] drm/amd/display: remove unused including <linux/version.h>
-Date: Thu, 31 Dec 2020 08:56:17 +0800
-Message-ID: <1609376177-42827-1-git-send-email-tiantao6@hisilicon.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id E61B289C1C;
+	Thu, 31 Dec 2020 20:52:08 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7868D89BFB;
+ Thu, 31 Dec 2020 20:52:07 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id p22so19040158edu.11;
+ Thu, 31 Dec 2020 12:52:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M4An2ikClnWimyLo/HuSeT7fgSzheBJPPXkyucZEwSY=;
+ b=G+GtrXJ4FW0cRf8GuZVwDqb6EDmExGHjsDYh2HTa4gQFPuYBxbxu4Z6sFZH/sNz/kT
+ 1eKoxK8gh+4EZ6ogKS4O/8NXISD4XFJsCGoEfiziC+ouUqKu34H1ku4UyXCMUvs7eWfa
+ A6lVIbd7APGf5/glem3WeReZuy6usPgRB1szX6GGLhNa/Wi3AF62eDEFaHbwMkl9qC/B
+ OPf/kb+A1auUv+2NuXJNK95Xws9NMG6pOpC8vuQOicuYTmdAlapWy9E88lUqu5Q0j3Rg
+ 3kHJrBFczmODdytJE1xPlfqcVkah0B8U5RjC4KWDgE22LHZMSZHKyJkv8STsVRHebKAv
+ DUTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M4An2ikClnWimyLo/HuSeT7fgSzheBJPPXkyucZEwSY=;
+ b=J+sDq6ebz/CECGM3xoHsJSpu6Hgk2S3CiAN0mc68Wb/P627RzTkQL9n1IYmff4AT9D
+ fpPBkCv5JtheZos5rYzF40aF4RnGt7gsQC7jCYcC62uPRvBnjsjrFWn4uEsqDegfPjWT
+ LirBvoeR67+4ACtVoI3caGaVsnjT8BgTE/qFh4tzvqzJ/MjkryjOqlDKJSPwKglQPpF6
+ 4vzhtdRHUiYmn74b8RVJJIyGCQQwmGXqxHGvwpeKXv8gLaFG7M937sLCHWohASX59LBY
+ 44rTFNLys4gpBpgGVFXndbVvU0Yi2c9ITxH9Ahz5GSe/5q3zJIjxk1Fu0qfH4avxTmdO
+ UXNw==
+X-Gm-Message-State: AOAM532Io28Hqo6Z0Uj65V4ojS1nI88fF/L9SnoCfKEAgsnXo1nc6NeC
+ Xc8J8h87++fwz97W8lawpkTyCDFV3ow=
+X-Google-Smtp-Source: ABdhPJxWSjjjZMXDcdkHDq+vAi1Occidxsq4qb0m35BBXnyVW5fw4xU3QovP2hhT3prUiv/W+cHGIA==
+X-Received: by 2002:a50:a684:: with SMTP id e4mr56056487edc.148.1609447925825; 
+ Thu, 31 Dec 2020 12:52:05 -0800 (PST)
+Received: from twisty.localdomain
+ (dynamic-2a01-0c23-8404-e900-6cbb-50d4-b91e-5b37.c23.pool.telefonica.de.
+ [2a01:c23:8404:e900:6cbb:50d4:b91e:5b37])
+ by smtp.gmail.com with ESMTPSA id z1sm18462558edm.89.2020.12.31.12.52.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Dec 2020 12:52:05 -0800 (PST)
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Fix pageflipping for XOrg in Linux 5.11+
+Date: Thu, 31 Dec 2020 21:51:36 +0100
+Message-Id: <20201231205136.11422-1-mario.kleiner.de@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-Originating-IP: [10.69.192.56]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 31 Dec 2020 10:42:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,59 +78,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, mario.kleiner.de@gmail.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove including <linux/version.h> that don't need it.
+Commit 816853f9dc4057b6c7ee3c45ca9bd5905 ("drm/amd/display: Set new
+format info for converted metadata.") may fix the getfb2 ioctl, but
+in exchange it completely breaks all pageflipping for classic user
+space, e.g., XOrg, as tested with both amdgpu-ddx and modesetting-ddx.
+This leads to massive tearing, broken visual timing/timestamping etc.
 
-Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
+Reason is that the classic pageflip ioctl doesn't allow a fb format
+change during flip, and at least X uses classic pageflip ioctl and no
+atomic modesetting api at all.
+
+As one attempted workaround, only set the new format info for converted
+metadata if the calling client isn't X. Not sure if this is the best
+way, or if a better check would not be "not all atomic clients" or
+similar? In any case it works for XOrg X-Server. Checking the ddx
+code of intel-ddx/modesetting-ddx/amdgpu-ddx as well as grepping over
+Mesa doesn't show any users of the getfb2 ioctl(), so the need for this
+format info assignment seems to be more the exception than the rule?
+
+Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for converted metadata.")
+Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c   | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 1 -
- 3 files changed, 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5675c1f..3255531 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -60,7 +60,6 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index f764803c53a4..cb414b3d327a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -828,7 +828,8 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
+ 			if (!format_info)
+ 				return -EINVAL;
  
- #include <linux/module.h>
- #include <linux/moduleparam.h>
--#include <linux/version.h>
- #include <linux/types.h>
- #include <linux/pm_runtime.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index f6f487e..3244a6e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -25,7 +25,6 @@
+-			afb->base.format = format_info;
++			if (afb->base.comm[0] != 'X')
++				afb->base.format = format_info;
+ 		}
+ 	}
  
- #include <linux/string.h>
- #include <linux/acpi.h>
--#include <linux/version.h>
- #include <linux/i2c.h>
- 
- #include <drm/drm_probe_helper.h>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 8ab0b90..5b0a4a7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -23,7 +23,6 @@
-  *
-  */
- 
--#include <linux/version.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_dp_mst_helper.h>
 -- 
-2.7.4
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
