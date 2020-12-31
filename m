@@ -2,65 +2,107 @@ Return-Path: <SRS0=M3Em=GD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A272AC433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 06:35:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A8E7C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 08:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CAD0207A3
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 06:35:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CAD0207A3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id ECF2F207A1
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Dec 2020 08:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECF2F207A1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6FC8914F;
-	Thu, 31 Dec 2020 06:35:16 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16F048914F
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Dec 2020 06:35:15 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id r9so17335895otk.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Dec 2020 22:35:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JMov9HGSkQrL5k36f7DSwCGAF0Qzu+5pZPMfFh3HyTo=;
- b=f6BbxCN7R1cZ1WvFo5pfDW/oO7XFggUa9JkTy2/JcpCgl9pytlPTF5HVp8fLg0RsGK
- lTFk7dr5X4H0JmheATZ2cm/Lmq84Wx7Pr24/dFJYEl5DUCr1f9oNIiIJ0eZPoPo7CVac
- wgJtfLdILbQ3/64ge4tfqylU6sStixkOPyYj94CK5h5ttE8/NRVQwO46D+OBjWnZuD3T
- GEw2yZ5vlu6eI6afBo4NNMrIz0b8EZTIpZEMJ7EvarBihbPf2j5hAShKiCGlYM/G1dDV
- bQeEQpks7YckPuGwJMOCnqvKOoGgaD5UHuAnPcfy4OvYVsn666NaXA4couLftFEkX3A9
- SVew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JMov9HGSkQrL5k36f7DSwCGAF0Qzu+5pZPMfFh3HyTo=;
- b=OkKnbOaHMmRxBt7+fKx+G6z+gEYXzLnhbltJBfOjokye019pF0RJcJabQl7K1oPMBF
- bWhnADpHzCIfJWL0b88VWhJ/vHVMKFBYL+N/r3veYvOWvWWZDzMy/opAi2+6hk2DWWsi
- T+2AOIj42p1w8VQ3ybpFR6n83l8uW3N452U2pMOBe0K+IWYPEDv6Qs4kX09ahxD6E75i
- dBSD0TVkmIoik33f3C18bpp4bWLnoRDeMAjQTMev/60HU9xLEy8eLlNI/mwiA8puTb4I
- navddbltuPQHmg3Ojczt32oV9Ka12soKshCNhJon+yT2yhJcS5t6PRRSkLMFi/QUr3xx
- K9qw==
-X-Gm-Message-State: AOAM532RhyW994j9qkB19wrL6gkKf3XN9DvBdlrmzM1d3Su7Wtx0pKHW
- Ib6Ki4WHg8cD6nCch1naUY0iz4/I7pGw3f/h84Y=
-X-Google-Smtp-Source: ABdhPJxtN2/XvVCPZ8Qe89yCyaJcm2dQvynPMr2wgQaw5BttIrz+2j+xUNkXloLI9110mzjFsP94r9UY5b2PYx9nN7A=
-X-Received: by 2002:a05:6830:1b7b:: with SMTP id
- d27mr42476339ote.132.1609396514310; 
- Wed, 30 Dec 2020 22:35:14 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 917DA89B20;
+	Thu, 31 Dec 2020 08:48:24 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750070.outbound.protection.outlook.com [40.107.75.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A94989B20
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Dec 2020 08:48:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XYU2HFdLmVUeCZKZMM/1WGcT87tgpk5uWIodWhoBTrrmwejhV//mOpRzs5VnvTLrTmDwiVC6mG3rJ3hMqdlU8xw/+l9NKoDZrjaxjjJ1gdHNv7kTbqX47BmB6ClATuLeJYJOpZq0MDgHNVTZLWVffH58KGXHdIa/Ntb2iN32joXPAFfTtdqGqLN73cyAx8cmLS8DRooc3SDCok+XkLZgi5Xp9IZgJi0Kes8D8ov998Mj3RImwO9+dhfPavi8F6JJZ8/zxQjDXTpYW6cna4BTT8LqyHiY/K6z9t6pbN40s/NGQgwwketymS1hrIkl9YrK7qwe7rj8tROj6Y21/FqDCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T1Hjgzk8F+4VpGny1FvOJdLDqEovzCGOlSO79jRWAUw=;
+ b=dUWKImb0j4LnLG34dHa/kD1/Af+f9mooWz9KjE1E6PvGZK4xI77QwyLvCsQtFHnkPh8BeqMgR+7X+ozjG24BKuuHEgzUvJBKk771KMv16pQaeVz3SPFjizOazsSWIqL/hY6X2G/yxfKfJAgXUv2Efzu1Mg3Hcryd4GTBPxfbM3ig3EN8P7RZ5tImEkg+RaV2c85mgyek601afu7DbcUzlWyxuhYHMozZxpPBqoWPMpynfU3mQEhdCALOQXGFE4QBKje2i12atIJ3OfDuShiG9Q9GR2PKSlJeNSOj8re0V+7eiWWlefUDWuAjma+F19kb3AQ+ikFezAfkWlJzYrXqAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T1Hjgzk8F+4VpGny1FvOJdLDqEovzCGOlSO79jRWAUw=;
+ b=Y1Gad08Pi1LM0jlAa1oBMFMbICmdevgQlK96CfkWXi7mOZCsZImxDxN4Pdia7Sd6A6tpnvYla2nCLhIEanmwYu+1Np8zcsZBi6ANVpFAkYs2vTKv2LwfSze+//WMgHkURu/2EyLG+7yi9uhPVj3GLjQalVghIwgBE+kgvvIDWfg=
+Received: from MW2PR16CA0042.namprd16.prod.outlook.com (2603:10b6:907:1::19)
+ by MWHPR1201MB0208.namprd12.prod.outlook.com (2603:10b6:301:56::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.21; Thu, 31 Dec
+ 2020 08:48:17 +0000
+Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::a) by MW2PR16CA0042.outlook.office365.com
+ (2603:10b6:907:1::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19 via Frontend
+ Transport; Thu, 31 Dec 2020 08:48:17 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3700.29 via Frontend Transport; Thu, 31 Dec 2020 08:48:14 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 31 Dec
+ 2020 02:48:09 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 31 Dec
+ 2020 02:48:09 -0600
+Received: from willgu.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Thu, 31 Dec 2020 02:48:08 -0600
+From: Jiawei Gu <Jiawei.Gu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix potential NULL pointer when check_atom_bios()
+ fails
+Date: Thu, 31 Dec 2020 16:47:41 +0800
+Message-ID: <20201231084741.11865-1-Jiawei.Gu@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20201231050841.12297-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20201231050841.12297-1-Hawking.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 31 Dec 2020 01:35:03 -0500
-Message-ID: <CADnq5_MN4bKhd2QjtpKtQBKXvCyb+9e46kKYgdYQ6K=g+PHAVA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: switched to cached noretry setting for vangogh
-To: Hawking Zhang <Hawking.Zhang@amd.com>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fa4b6831-9d78-4dc5-ecb6-08d8ad68cf88
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0208:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB02087376350173584484628EF8D60@MWHPR1201MB0208.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:590;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LeFK/022ch5R6yzcf1AGNGdRsvFunp5jjTZNj9BsWTBU8zhBGI29DydZ1+wNopr37DjaG/tHBjhfZd1r2FSVzRDrBIm9JA8G9+ZVOUGW63PuKtUeYBslqXE41CjYCHpPbSpM0FRYY6wog/EnvjCHYgqHxnONzuYhKtYg0rRdrGOZ/4YHI2QnUS0gxXwMMBGtTeWpU/BAs74huUHz4N+nEEZUKxaqLvUZINPKbsnlkt6AiI/iKwVSu/qjAgQOqF6VkgTC7yktfzzuy+L65lgVcIqaqiURpxZvoGiqWa9xOIYCcVIpKYgETR7tIxWlLvXUg/Eh2SdnAyDEyZTmpjRRhZcA1fyp0q0YxNdLTojkyBtXBHubYpa7BeGS70FKZxMGTO6r04qcq3RWMKK2KaiwJkJYCr5SGDpH8hF+edhDOhVPua9ZN1Ku1bemG6oK400+6DvFfriGEfTXaRw/6x5EFQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(46966006)(70206006)(82740400003)(47076005)(336012)(83380400001)(6916009)(186003)(81166007)(6666004)(70586007)(356005)(5660300002)(26005)(2906002)(478600001)(7696005)(4326008)(1076003)(8936002)(82310400003)(2616005)(426003)(86362001)(36756003)(8676002)(316002)(54906003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Dec 2020 08:48:14.1307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa4b6831-9d78-4dc5-ecb6-08d8ad68cf88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,45 +114,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: emily.deng@amd.com, Jiawei Gu <Jiawei.Gu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 31, 2020 at 12:08 AM Hawking Zhang <Hawking.Zhang@amd.com> wrote:
->
-> global noretry setting is cached to gmc.noretry
->
-> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Asic funcs pointer needs being checked whether is NULL. Because when
+check_atom_bios() fails in req_init_data handshake, asic funcs pointer
+is not initialized yet.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> index b72c8e4ca36b..07104a1de308 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> @@ -310,7 +310,7 @@ static void mmhub_v2_3_setup_vmid_config(struct amdgpu_device *adev)
->                 /* Send no-retry XNACK on fault to suppress VM fault storm. */
->                 tmp = REG_SET_FIELD(tmp, MMVM_CONTEXT1_CNTL,
->                                     RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
-> -                                   !amdgpu_noretry);
-> +                                   !adev->gmc.noretry);
->                 WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_CNTL,
->                                     i * hub->ctx_distance, tmp);
->                 WREG32_SOC15_OFFSET(MMHUB, 0, mmMMVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 6333cada1e09..efdf639f6593 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -155,7 +155,7 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu_device *adev)
+ 	u8 header[AMD_VBIOS_SIGNATURE_END+1] = {0};
+ 	int len;
+ 
+-	if (!adev->asic_funcs->read_bios_from_rom)
++	if (!adev->asic_funcs || !adev->asic_funcs->read_bios_from_rom)
+ 		return false;
+ 
+ 	/* validate VBIOS signature */
+@@ -348,7 +348,8 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+ 	if (adev->flags & AMD_IS_APU)
+ 		return igp_read_bios_from_vram(adev);
+ 	else
+-		return amdgpu_asic_read_disabled_bios(adev);
++		return (!adev->asic_funcs || !adev->asic_funcs->read_disabled_bios) ?
++			false : amdgpu_asic_read_disabled_bios(adev);
+ }
+ 
+ #ifdef CONFIG_ACPI
+-- 
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
