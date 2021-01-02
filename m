@@ -1,69 +1,52 @@
-Return-Path: <SRS0=sK2M=GF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=L9B0=GG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A300C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 19:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05257C433DB
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 06:32:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 493C6207AA
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 19:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 493C6207AA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6447C20782
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Jan 2021 06:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6447C20782
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=davidecorrado.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABF0489895;
-	Sat,  2 Jan 2021 19:40:24 +0000 (UTC)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1FDF89895;
- Sat,  2 Jan 2021 19:40:23 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id e25so14146190wme.0;
- Sat, 02 Jan 2021 11:40:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YhH59cUpxM3ar3hFdofPVsQNkrEjDYLFpmjf7Z+Kio8=;
- b=vgAAlPS4yN+iEIaEJndHAj+krPzNqzFNDzRKd7Tj0/b9n9zAKcWUze/M4e24ttPa36
- 79WX4x1oZBUNxfStM9lFimxml5LKAGyrGKK/uebEfuqdJ7y2Z6qNFBF5ii7ZVtkMxEIf
- wRS7l8rbMsNaAxxE9COm5biPbm+E/BloLKBcpK/avLoYpSBP7OPSpk4Zqm+1wJU1LBTJ
- iXJ4L2i3Ih37xs79PhmCNHo56+RlrEVNwpY6ptpxlEGt//FIu28yXdgz4mCUsQEp3MJu
- jbR0cy5PaC5LHc/PmKVzH5GnsljKJAJq8QpWxSP6p9ZwBFGbWtHNDav/tzgh7/Ue3rPk
- yhSw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF65289B49;
+	Sun,  3 Jan 2021 06:32:22 +0000 (UTC)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA0F8985A;
+ Sat,  2 Jan 2021 18:50:46 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id y5so21363913iow.5;
+ Sat, 02 Jan 2021 10:50:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YhH59cUpxM3ar3hFdofPVsQNkrEjDYLFpmjf7Z+Kio8=;
- b=GoX+7i1Rq4dZMLNGWyX/1eALXLjOLXyptyO+9E5w8FkkIpuBvKUYasZgj7eCwKxIeI
- VGc9bZHfKu/SG6ZKSB/9FAjXtCFaScB/jbx2BjNxmhFrSJEf7fkTzSjtpRTpipWxuT4A
- eAgO+Xvh7CCZ7FNsHfsfgflualCSar9HfigRChPS8G9R0e3W2yQF1ZawyTQaf66y16P2
- E/u5v6xPBt/VY2DU70an6GPZ6/Lku2ZRpTSovXmDKQH1x8rLYfPuDDeYn1wzutgskL3J
- X0H5+aivU5fI7YAop16qmHAnoV1QagJfF5w2ao/MlZ3V/hwV4RyDgJdSMrjx/M3OD3lE
- 7ZTw==
-X-Gm-Message-State: AOAM530TL1ySm69TKK8+FQ0k/yytTLRP3h15eBHtKDz85GI0v+aXiBQg
- xZ2nQ0HfAQhCvyi7C1XjarnuJ+NQl3NnAq8SADM=
-X-Google-Smtp-Source: ABdhPJxw+GVCpPi7onqnkHa5jnru+AJ1avElZYfDZ17WBM93oRZh4RELPErrkdUucMDmCjRoPbAZOIvMqtBj7kBI3wA=
-X-Received: by 2002:a1c:5410:: with SMTP id i16mr20608175wmb.30.1609616422385; 
- Sat, 02 Jan 2021 11:40:22 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=U+nEvYMhuyW6PaypDd/7+1xbjn6+DExMKU2y+xWKoMo=;
+ b=te0bgvD5lXMSmA27Y4VuxPXH10PKMeYY9RkBMBuyMV+Nf6f6Eeny3sufT1EhnoCGif
+ kdgQxyoiocUKZt8s1JWEUpFSn6tw/HTe4KLWuJlUTJndO1d4rRDk/d67ieREb0xyp0yJ
+ dYiVeg5D2UlKH2KRuaxxFCP9t0eumiz3E2T9zChkpmXcq0U+vDL5NcyK5SSrg012Gia9
+ oFOyq3I+mY1B7iQCUk3OWlxAvXzu8Z6xDA49xok72K9TUPPvfrbWu4RQkOEipq072e+5
+ /KN3TTW9sTtbb+jBJd2Ju45m3VJIeDHcdudLU20eNLndB3qcTK7IbERyolQ2xF1WAJel
+ X3qQ==
+X-Gm-Message-State: AOAM530/tKkjGP/GyoRP1VStmCB4GTSs+b82355QZZpi7OwnMmcnqWnr
+ LQJxUcD498kUgwQ3zw39eYY/z1YRu/tLvkJtktc=
+X-Google-Smtp-Source: ABdhPJzTLhFY/dKxIbceehQmCOBJtPtQzWWGyD8lzHgA4m5oZrHUCB8Jn4aoAVTEVSdnhN9SzqBiWsAIbRcoiVde09o=
+X-Received: by 2002:a5e:de4a:: with SMTP id e10mr7994789ioq.52.1609613445496; 
+ Sat, 02 Jan 2021 10:50:45 -0800 (PST)
 MIME-Version: 1.0
-References: <20201231205136.11422-1-mario.kleiner.de@gmail.com>
- <CAP+8YyE4H5mL3uj-T4uG0nz75XmgaZ6etXX6YxxdtO4-rL=5qA@mail.gmail.com>
- <CAEsyxyiLrpB872LdAW8-HMVC-rxf7YF8K+B51Ae9nyEvGaG1Sw@mail.gmail.com>
- <CAP+8YyHcUt0Rv_0ov5DCcm+wxeQFCqiW1vC_Pe4TdKzRzmu3fw@mail.gmail.com>
- <CAEsyxyiRNz8GRfM1hAxzVHAFwYzkyiM6OTvvjOAHtQCoCyhRjg@mail.gmail.com>
- <CAKb7UvhTtJ_w65ESmvb216Nf=YyQ7=3_HjXtoGTNP1azqVeo4A@mail.gmail.com>
-In-Reply-To: <CAKb7UvhTtJ_w65ESmvb216Nf=YyQ7=3_HjXtoGTNP1azqVeo4A@mail.gmail.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Sat, 2 Jan 2021 20:40:11 +0100
-Message-ID: <CAEsyxyiKetNtMZboEaMGOMGiNk=r-66U=tAgi5hf7Ja6VAz0iA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix pageflipping for XOrg in Linux 5.11+
-To: Ilia Mirkin <imirkin@alum.mit.edu>
+From: Davide Corrado <davide@davidecorrado.eu>
+Date: Sat, 2 Jan 2021 19:50:33 +0100
+Message-ID: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
+Subject: amdgpu does not support 3840x2160@30Hz on kaveri apu
+To: alexander.deucher@amd.com
+X-Mailman-Approved-At: Sun, 03 Jan 2021 06:32:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,93 +58,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: multipart/mixed; boundary="===============0671320185=="
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0996894592=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0671320185==
-Content-Type: multipart/alternative; boundary="00000000000014bc5905b7f00748"
+--===============0996894592==
+Content-Type: multipart/alternative; boundary="000000000000a5062005b7ef5591"
 
---00000000000014bc5905b7f00748
+--000000000000a5062005b7ef5591
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Jan 2, 2021 at 7:51 PM Ilia Mirkin <imirkin@alum.mit.edu> wrote:
+hello, I'd like to report this issue that I am having since I updated my
+display (samsung U28E590). The amdgpu does not support the native
+resolution of my new monitor, which is 3840x2160*.* Using a HDMI or DVI
+connection (I tried both, same results), the maximum supported refresh is
+30Hz, so I'm stuck with that (don't have a displayport). The radeon module
+works fine, I'm having this issue just when I use amdgpu (which I'd like
+to, because performance is better).
 
-> On Sat, Jan 2, 2021 at 1:35 PM Mario Kleiner <mario.kleiner.de@gmail.com>
-> wrote:
-> > I'm less sure about nouveau. It uses modifiers, but has atomic support
-> > only on nv50+ and that atomic support is off by default -- needs a
-> > nouveau.nouveau_atomic=1 boot parameter to switch it on. It seems to
-> > enable modifier support unconditionally regardless if atomic or not,
-> > see:
-> >
-> https://elixir.bootlin.com/linux/v5.11-rc1/source/drivers/gpu/drm/nouveau/nouveau_display.c#L703
-> >
-> > Atm. nouveau doesn't assign a new format_info though, so wouldn't
-> > trigger this issue atm.
->
-> Note that pre-nv50, no modifiers exist. Also,
-> drm_drv_uses_atomic_modeset() doesn't care whether the client is an
-> atomic client or not. It will return true for nv50+ no matter what.
-> nouveau_atomic=1 affects whether atomic UAPI is exposed. Not sure if
-> this impacts your discussion.
->
->
-Thanks Ilia. So nouveau is fine in any case, as nv50 => modifiers and
-atomic commit even if atomic UAPI is off. Also
-drm_drv_uses_atomic_modeset() is the right choice, as my patch should check
-if the atomic driver uses atomic commit, it doesn't care about atomic UAPI
-or the client being atomic.
+Some info of my hardware:
 
--mario
+cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G
+kernel version (I tried different ones and different linux distros, same
+results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020
+x86_64 x86_64 x86_64 GNU/Linux
+Monitor: Samsung U28E590.
 
---00000000000014bc5905b7f00748
+description:
+If I boot the system using amdgpu and no video mode selection, the system
+boots but I don't get a screen during boot and in wayland. I can connect
+using ssh, so the system is running fine, just no display; If I force a
+full HD resolution with "video:" in the kernel line, I can see the boot
+process but the screen disappears when wayland starts (because the default
+resolution is 3840x2160@30Hz). Using a full HD monitor results in no
+issues, so it must be related to this very 4k resolution.
+
+As I have already stated, radeon module works with the same
+software/hardware configuration.
+thanks you so much for your time :-)
+
+-- 
+Davide Corrado
+UNIX Team Leader
+
+Via Abramo Lincoln, 25
+20129 Milano
+
+Tel +39 3474259950
+
+--000000000000a5062005b7ef5591
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr">On Sat, Jan 2, 2021 at 7:51 PM Ilia Mirki=
-n &lt;<a href=3D"mailto:imirkin@alum.mit.edu">imirkin@alum.mit.edu</a>&gt; =
-wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">On Sat, Jan 2, 2021 at 1:35 PM Mario Kleiner &lt;<a href=
-=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mario.kleiner.de@g=
-mail.com</a>&gt; wrote:<br>
-&gt; I&#39;m less sure about nouveau. It uses modifiers, but has atomic sup=
-port<br>
-&gt; only on nv50+ and that atomic support is off by default -- needs a<br>
-&gt; nouveau.nouveau_atomic=3D1 boot parameter to switch it on. It seems to=
-<br>
-&gt; enable modifier support unconditionally regardless if atomic or not,<b=
-r>
-&gt; see:<br>
-&gt; <a href=3D"https://elixir.bootlin.com/linux/v5.11-rc1/source/drivers/g=
-pu/drm/nouveau/nouveau_display.c#L703" rel=3D"noreferrer" target=3D"_blank"=
->https://elixir.bootlin.com/linux/v5.11-rc1/source/drivers/gpu/drm/nouveau/=
-nouveau_display.c#L703</a><br>
-&gt;<br>
-&gt; Atm. nouveau doesn&#39;t assign a new format_info though, so wouldn&#3=
-9;t<br>
-&gt; trigger this issue atm.<br>
-<br>
-Note that pre-nv50, no modifiers exist. Also,<br>
-drm_drv_uses_atomic_modeset() doesn&#39;t care whether the client is an<br>
-atomic client or not. It will return true for nv50+ no matter what.<br>
-nouveau_atomic=3D1 affects whether atomic UAPI is exposed. Not sure if<br>
-this impacts your discussion.<br>
-<br></blockquote><div><br></div><div>Thanks Ilia. So nouveau is fine in any=
- case, as nv50 =3D&gt; modifiers and atomic commit even if atomic UAPI is o=
-ff. Also drm_drv_uses_atomic_modeset() is the right choice, as my patch sho=
-uld check if the atomic driver uses atomic commit, it doesn&#39;t care abou=
-t atomic UAPI or the client being atomic.</div><div><br></div><div>-mario</=
-div><div>=C2=A0</div></div></div>
+<div dir=3D"ltr"><div>hello, I&#39;d like to report this issue that I am ha=
+ving since I updated my display (samsung U28E590). The amdgpu does not supp=
+ort the native resolution of my new monitor, which is 3840x2160<i>.</i> Usi=
+ng a HDMI or DVI connection (I tried both, same results), the maximum suppo=
+rted refresh is 30Hz, so I&#39;m stuck with that (don&#39;t have a displayp=
+ort). The radeon module works fine, I&#39;m having this issue just when I u=
+se amdgpu (which I&#39;d like to, because performance is better).</div><div=
+><br></div><div>Some info of my hardware:</div><div><br></div><div>cpu: AMD=
+ A10-7870K Radeon R7, 12 Compute Cores 4C+8G</div><div>kernel version (I tr=
+ied different ones and different linux distros, same results!): 5.9.16-200.=
+fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020 x86_64 x86_64 x86_64 GNU/Li=
+nux</div><div>Monitor: Samsung U28E590.</div><div><br></div><div>descriptio=
+n:<br></div><div>If I boot the system using amdgpu and no video mode select=
+ion, the system boots but I don&#39;t get a screen during boot and in wayla=
+nd. I can connect using ssh, so the system is running fine, just no display=
+; If I force a full HD resolution with &quot;video:&quot; in the kernel lin=
+e, I can see the boot process but the screen disappears when wayland starts=
+ (because the default resolution is 3840x2160@30Hz). Using a full HD monito=
+r results in no issues, so it must be related to this very 4k resolution.<b=
+r></div><div><br></div><div>As I have already stated, radeon module works w=
+ith the same software/hardware configuration.<br></div>thanks you so much f=
+or your time :-)<br><div><div><br>-- <br><div dir=3D"ltr" class=3D"gmail_si=
+gnature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=
+=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr">Davide Corrado<br><div=
+>UNIX Team Leader<span><br></span></div><div><br></div>Via Abramo Lincoln, =
+25<br>20129 Milano<br><br>Tel +39 3474259950<br></div></div></div></div></d=
+iv></div></div></div></div></div></div>
 
---00000000000014bc5905b7f00748--
+--000000000000a5062005b7ef5591--
 
---===============0671320185==
+--===============0996894592==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -172,4 +154,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0671320185==--
+--===============0996894592==--
