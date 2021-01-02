@@ -2,67 +2,66 @@ Return-Path: <SRS0=sK2M=GF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 148B5C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 15:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60E85C433DB
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 18:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3864D207F7
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 15:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3864D207F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	by mail.kernel.org (Postfix) with ESMTPS id 00084207CD
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 Jan 2021 18:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00084207CD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63439898C8;
-	Sat,  2 Jan 2021 15:49:38 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29917898C8
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 Jan 2021 15:49:37 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id w12so21337899ilm.12
- for <amd-gfx@lists.freedesktop.org>; Sat, 02 Jan 2021 07:49:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D19B898BC;
+	Sat,  2 Jan 2021 18:35:07 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D68898AF;
+ Sat,  2 Jan 2021 18:35:06 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id m5so26850237wrx.9;
+ Sat, 02 Jan 2021 10:35:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=y4RMABFY4cam25pp++JHTzZi05jOgkYVGLfUEVbzTZo=;
- b=UsxY1mHAR6WzpNzE4vj0ZSzBveA5AtK70NXOrjCVnkNOp0pJ55xpTXbRN/yNmm+62q
- WQBus2Vu3a5lsz5o60opGK90q/YbHyAtonEV1gk9mCSLc5xtQ/wF5xXKE0rFjDX22avf
- fRm+sscSCgP8iaPjrIlZB1GZY0nOkGvF+IjaPqfUoVQOr6uusz1YaWqndiK52uKcDXif
- +JSY2ONfv1znAGCFPZIcgmdE4VSEBoqMNjZ0YW/lvnBXua7nqN5lklCv8musJfhz/XAL
- MUlbLmCnH3Bbi097zmdr5t0oF2y5r/nvF57kZHcDU/8QWo7HZyaL841QZLwIygWYnfYX
- YHLg==
+ :cc; bh=GpHuNKw7qLRBcfNt3Fox/IAI2b27BTyigIUJlqA9DoU=;
+ b=uwdgIiUdTbEEi6+uNon0c6gFbUsMydqRmqxd9a6KQuzEHx4Ggy68dB7rq+TL8z3M9M
+ ycBPPVg47VEidGvW0Y4RglN+hi/jmcKif+XrOSckWIg7/XSLzUbYK2SglrPwtzHJUmJH
+ aW3KMyZGFRB+Z2AnCxFOM3KjcPvKTbImVFU2CSWz4qrT3kbgiNaPB2fVMOULesa93z+B
+ D+IuWLffOWdfUvIvMVBreMiXH0jH1HDPgS6bauz8+WKM0a6xKBQgWTRhsF8BeBHVeT6a
+ htzVweUc6Ib4QU5waENUOntDT4kcH8+6f0T/m/p/VYROy4Jm6DQqDmjaJ9NrjULPWmkb
+ Vgng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=y4RMABFY4cam25pp++JHTzZi05jOgkYVGLfUEVbzTZo=;
- b=gK1lRTeEbrGkmLPanvXiZJbIAzsRkIMdY9Jch/dXf7C4hsuBjvtjgHtAb/HR3BXYHr
- 6h9pTgbAeEeMz8fROHVkZfGEYTd/bCf7GeXgiMjlwPcdftQ3roCBGoNQlCHVNxQD7/AR
- cxBT7CXe+f+g/WaMf/h4Qe+8bZFCN/NcVdPltyJR8LG4xOWSyvRsxqxD+dgSNWu1ThSh
- JOknfGnNM4CUxyrM/LVlf/jOQzt8MSPpTfoN91oslXu9DF7LitiEm3v5LM8LcqMFIuSv
- ZvyAW/dD8uMDtjsLrAXSFQpkXt0/yBFlqSp2cOVmqycxoAfrwInXaB20QxPVT/NVh0uB
- K2JQ==
-X-Gm-Message-State: AOAM53328BwAD+U27DvjyLw2fMfwo3oZIj7mIsP63KZVqIaETv3VUW3x
- /MUYPPAAPvksPDAHXLo87p75+FGx+jqcQKFhMbinHQ==
-X-Google-Smtp-Source: ABdhPJyJmI7hKjlFT1fI8Ky1YfYeHcb4007xcMaEm3MVdkqZvaJesWJkP92LITnm3hD37+dgRds6pNJ3JT4TakhcYQQ=
-X-Received: by 2002:a05:6e02:ca5:: with SMTP id
- 5mr62748369ilg.40.1609602576500; 
- Sat, 02 Jan 2021 07:49:36 -0800 (PST)
+ bh=GpHuNKw7qLRBcfNt3Fox/IAI2b27BTyigIUJlqA9DoU=;
+ b=B1chqvxwRj8hvWgpzT7+bXmcj2FbAizyicyxWg5n1PUOXl8aegVjow7Sz44nSswA30
+ WUr4d9neDWpIbGtnVDL/RKO33B3SMspEQq3J9zUJ3xqKHkKgSlztjvETDhof5od2U74Q
+ yDODah5JhrJWYavAqL2bOKSB4Em5l/ATHZcF3u4ouh1QPThGo1ZlItf3QmswUql1yvMy
+ x/8AoMI3RcjYPCIldZ97BmXtq+5BFxCAFx4IhiqPxCTWRVrAyxl4fbcbLjf0vAgqFjzd
+ dgOWcbfGidNfXbW4VzydYDdjktITry1fi6OrMV5yS029hl8P9EwPUUd7FfLEmj/I1TSs
+ peww==
+X-Gm-Message-State: AOAM531ieOCKCelDUorD5nWBGT0nlCdRalmIjtGNVTxM9DFbb6gQF7vB
+ b+ODtlcBgqm9fnk6FihMtWj75FEuBhpwCjgWo4o=
+X-Google-Smtp-Source: ABdhPJzQjpBPVEFZhAunvHy7HqDlPUm05Y5R0abwPyaiBuYnZlBOaV0U6/EUtr1aEAgCFerWSGm0jwGte1Xf7jtbLOc=
+X-Received: by 2002:adf:e8c9:: with SMTP id k9mr72329819wrn.107.1609612505304; 
+ Sat, 02 Jan 2021 10:35:05 -0800 (PST)
 MIME-Version: 1.0
 References: <20201231205136.11422-1-mario.kleiner.de@gmail.com>
  <CAP+8YyE4H5mL3uj-T4uG0nz75XmgaZ6etXX6YxxdtO4-rL=5qA@mail.gmail.com>
  <CAEsyxyiLrpB872LdAW8-HMVC-rxf7YF8K+B51Ae9nyEvGaG1Sw@mail.gmail.com>
-In-Reply-To: <CAEsyxyiLrpB872LdAW8-HMVC-rxf7YF8K+B51Ae9nyEvGaG1Sw@mail.gmail.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Sat, 2 Jan 2021 16:49:47 +0100
-Message-ID: <CAP+8YyHcUt0Rv_0ov5DCcm+wxeQFCqiW1vC_Pe4TdKzRzmu3fw@mail.gmail.com>
+ <CAP+8YyHcUt0Rv_0ov5DCcm+wxeQFCqiW1vC_Pe4TdKzRzmu3fw@mail.gmail.com>
+In-Reply-To: <CAP+8YyHcUt0Rv_0ov5DCcm+wxeQFCqiW1vC_Pe4TdKzRzmu3fw@mail.gmail.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Sat, 2 Jan 2021 19:34:54 +0100
+Message-ID: <CAEsyxyiRNz8GRfM1hAxzVHAFwYzkyiM6OTvvjOAHtQCoCyhRjg@mail.gmail.com>
 Subject: Re: [PATCH] drm/amd/display: Fix pageflipping for XOrg in Linux 5.11+
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,136 +82,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jan 2, 2021 at 4:05 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
+On Sat, Jan 2, 2021 at 4:49 PM Bas Nieuwenhuizen
+<bas@basnieuwenhuizen.nl> wrote:
 >
-> On Sat, Jan 2, 2021 at 3:05 PM Bas Nieuwenhuizen
-> <bas@basnieuwenhuizen.nl> wrote:
+> On Sat, Jan 2, 2021 at 4:05 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
 > >
-> > I think the problem here is that application A can set the FB and then
-> > application B can use getfb2 (say ffmpeg).
+> > On Sat, Jan 2, 2021 at 3:05 PM Bas Nieuwenhuizen
+> > <bas@basnieuwenhuizen.nl> wrote:
+> > >
+> > > I think the problem here is that application A can set the FB and then
+> > > application B can use getfb2 (say ffmpeg).
+> >
+> >
+> > Yes. That, and also the check for 'X' won't get us far, because if i
+> > use my own software Psychtoolbox under Vulkan in direct display mode
+> > (leased RandR outputs), e.g., under radv or amdvlk, then the ->comm
+> > name will be "PTB mainthread" and 'P' != 'X'. But the Vulkan drivers
+> > all use legacy pageflips as well in der WSI/drm, so if Vulkan gets
+> > framebuffers with DCC modifiers, it would just fail the same way.
+> >
+> > Neither would it work to check for atomic client, as they sometimes
+> > use atomic commit ioctl only for certain use cases, e.g., setting HDR
+> > metadata, but still use the legacy pageflip ioctl for flipping.
+> >
+> > So that patch of mine is not the proper solution for anything non-X.
+> >
+> > >
+> > > https://lists.freedesktop.org/archives/dri-devel/2021-January/292761.html
+> > > would be my alternative patch.
+> > >
+> >
+> > I also produced and tested hopefully better alternative to my original
+> > one yesterday, but was too tired to send it. I just sent it out to
+> > you:
+> > https://lists.freedesktop.org/archives/dri-devel/2021-January/292763.html
+> >
+> > This one keeps the format_info check as is for non-atomic drivers, but
+> > no longer rejects pageflip if the underlying kms driver is atomic. I
+> > checked, and current atomic drivers use the drm_atomic... helper for
+> > implementing legacy pageflips, and that helper just wraps the pageflip
+> > into a "set new fb on plane" + atomic check + atomic commit.
+> >
+> > My understanding is that one can do these format changes safely under
+> > atomic commit, so i hope this would be safe and future proof.
 >
+> So I think the difference between your patch and mine seem to boil
+> down to whether we want any uabi extension, since AFAICT none of the
+> pre-atomic drivers support modifiers.
 >
-> Yes. That, and also the check for 'X' won't get us far, because if i
-> use my own software Psychtoolbox under Vulkan in direct display mode
-> (leased RandR outputs), e.g., under radv or amdvlk, then the ->comm
-> name will be "PTB mainthread" and 'P' != 'X'. But the Vulkan drivers
-> all use legacy pageflips as well in der WSI/drm, so if Vulkan gets
-> framebuffers with DCC modifiers, it would just fail the same way.
+
+That's a point: Although the uabi extension would only relax rules,
+instead of tighten them, so current drm clients would be ok, i guess.
+
+Afaict the current non-atomic modesetting drivers are:
+
+gma500, shmobile, radeon, nouveau, amdgpu non-DC.
+
+gma500, shmobile and radeon don't use modifiers, and probably won't
+get any in the future?
+
+Also amdgpu without DC? Atm. you only enable explicit modifiers for >=
+FAMILY_AI, ie. Vega and later, and DC is a requirement for Vega and
+later, so modifiers ==> DC ==> atomic.
+
+But some of your code was moved from amdgpu_dm to amdgpu_display
+specifically to allow compiling it without DC, and any client i tested
+apart from Waylands weston (and that only for cursor planes) didn't
+use addfb2 ioctl with modifiers at all, so all of X and Vulkan
+currently hits the new convert_tiling_flags_to_modifier() fallback
+code that converts old style tiling flags into modifiers. That
+fallback path is the reason for triggering this issue in the first
+place, as it converts some tiling flags to DCC/DCC-retile modifiers
+and therefore changes the format_info.
+
+Modifiers are only enabled if DC is on. So as long as nobody decides
+to add modifiers in the legacy non-DC kms path, we'd be ok.
+
+I'm less sure about nouveau. It uses modifiers, but has atomic support
+only on nv50+ and that atomic support is off by default -- needs a
+nouveau.nouveau_atomic=1 boot parameter to switch it on. It seems to
+enable modifier support unconditionally regardless if atomic or not,
+see:
+https://elixir.bootlin.com/linux/v5.11-rc1/source/drivers/gpu/drm/nouveau/nouveau_display.c#L703
+
+Atm. nouveau doesn't assign a new format_info though, so wouldn't
+trigger this issue atm.
+
+So i think the decision is about relaxing uabi a bit with my patch,
+vs. less future-proofing with your patch?
+
+Atm. both patches would solve the immediate problem, which is very
+serious for my users' use cases, so I'd be ok with any of them. I just
+don't want this issue to repeat in the future. Tracking it down killed
+almost two full days for me, although I involuntarily learned more
+about the current state of modifiers in kernel and user space than I
+ever thought I wanted to know :/.
+
+-mario
+
+
+
+> >
+> > > (I'm not good at detecting the effects of tearing  apparently but
+> > > tested this avoids the pageflip failure by debug-prints)
+> >
+> >
+> > XOrg log (e.g., ~/.local/share/xorg/XOrg0.log on current Ubuntu's) is
+> > a good place on native XOrg, where the amdgpu-ddx was flooding the log
+> > with present flip failures. Or drm.debug=4 for the kernel log.
+> >
+> > Piglit has the OML_sync_control tests for timing correctness, although
+> > they are mostly pointless if not run in fullscreen mode, which they
+> > are not by default.
+> >
+> > I can also highly recommend (sudo apt install octave-psychtoolbox-3)
+> > on Debian/Ubutu based systems for X11. It is used for neuroscience and
+> > medical research and critically depends on properly working pageflips
+> > and timestamping on native X11/GLX under OpenGL and recently also
+> > under Vulkan/WSI (radv,anv,amdvlk) in direct display mode. Working
+> > FOSS AMD and Intel are especially critical for this research, so far
+> > under X11+Mesa/OpenGL, but lately also under Vulkan direct display
+> > mode. It has many built-in correctness tests and will shout angrily if
+> > something software-detectable is broken wrt. pageflipping or timing.
+> > E.g., octave-cli --eval PerceptualVBLSyncTest
+> > PerceptualVBLSyncTest creates a flicker pattern that will tear like
+> > crazy under Mesa if pageflipping isn't used. Also good to test
+> > synchronization on dual-display setups, e.g., for udal-display stereo
+> > presentation.
+> >
+> > I was actually surprised that this patch made it through the various
+> > test suites and into drm-next. I thought page-flipping was covered
+> > well enough somewhere.
 >
-> Neither would it work to check for atomic client, as they sometimes
-> use atomic commit ioctl only for certain use cases, e.g., setting HDR
-> metadata, but still use the legacy pageflip ioctl for flipping.
->
-> So that patch of mine is not the proper solution for anything non-X.
+> I don't think there are any tests using the AMDGPU implicit modifiers
+> (not in IGT for anything except linear at least)
 >
 > >
-> > https://lists.freedesktop.org/archives/dri-devel/2021-January/292761.html
-> > would be my alternative patch.
+> > Happy new year!
+> > -mario
 > >
->
-> I also produced and tested hopefully better alternative to my original
-> one yesterday, but was too tired to send it. I just sent it out to
-> you:
-> https://lists.freedesktop.org/archives/dri-devel/2021-January/292763.html
->
-> This one keeps the format_info check as is for non-atomic drivers, but
-> no longer rejects pageflip if the underlying kms driver is atomic. I
-> checked, and current atomic drivers use the drm_atomic... helper for
-> implementing legacy pageflips, and that helper just wraps the pageflip
-> into a "set new fb on plane" + atomic check + atomic commit.
->
-> My understanding is that one can do these format changes safely under
-> atomic commit, so i hope this would be safe and future proof.
-
-So I think the difference between your patch and mine seem to boil
-down to whether we want any uabi extension, since AFAICT none of the
-pre-atomic drivers support modifiers.
-
->
-> > (I'm not good at detecting the effects of tearing  apparently but
-> > tested this avoids the pageflip failure by debug-prints)
->
->
-> XOrg log (e.g., ~/.local/share/xorg/XOrg0.log on current Ubuntu's) is
-> a good place on native XOrg, where the amdgpu-ddx was flooding the log
-> with present flip failures. Or drm.debug=4 for the kernel log.
->
-> Piglit has the OML_sync_control tests for timing correctness, although
-> they are mostly pointless if not run in fullscreen mode, which they
-> are not by default.
->
-> I can also highly recommend (sudo apt install octave-psychtoolbox-3)
-> on Debian/Ubutu based systems for X11. It is used for neuroscience and
-> medical research and critically depends on properly working pageflips
-> and timestamping on native X11/GLX under OpenGL and recently also
-> under Vulkan/WSI (radv,anv,amdvlk) in direct display mode. Working
-> FOSS AMD and Intel are especially critical for this research, so far
-> under X11+Mesa/OpenGL, but lately also under Vulkan direct display
-> mode. It has many built-in correctness tests and will shout angrily if
-> something software-detectable is broken wrt. pageflipping or timing.
-> E.g., octave-cli --eval PerceptualVBLSyncTest
-> PerceptualVBLSyncTest creates a flicker pattern that will tear like
-> crazy under Mesa if pageflipping isn't used. Also good to test
-> synchronization on dual-display setups, e.g., for udal-display stereo
-> presentation.
->
-> I was actually surprised that this patch made it through the various
-> test suites and into drm-next. I thought page-flipping was covered
-> well enough somewhere.
-
-I don't think there are any tests using the AMDGPU implicit modifiers
-(not in IGT for anything except linear at least)
-
->
-> Happy new year!
-> -mario
->
-> >
-> > On Thu, Dec 31, 2020 at 9:52 PM Mario Kleiner
-> > <mario.kleiner.de@gmail.com> wrote:
-> > >
-> > > Commit 816853f9dc4057b6c7ee3c45ca9bd5905 ("drm/amd/display: Set new
-> > > format info for converted metadata.") may fix the getfb2 ioctl, but
-> > > in exchange it completely breaks all pageflipping for classic user
-> > > space, e.g., XOrg, as tested with both amdgpu-ddx and modesetting-ddx.
-> > > This leads to massive tearing, broken visual timing/timestamping etc.
-> > >
-> > > Reason is that the classic pageflip ioctl doesn't allow a fb format
-> > > change during flip, and at least X uses classic pageflip ioctl and no
-> > > atomic modesetting api at all.
-> > >
-> > > As one attempted workaround, only set the new format info for converted
-> > > metadata if the calling client isn't X. Not sure if this is the best
-> > > way, or if a better check would not be "not all atomic clients" or
-> > > similar? In any case it works for XOrg X-Server. Checking the ddx
-> > > code of intel-ddx/modesetting-ddx/amdgpu-ddx as well as grepping over
-> > > Mesa doesn't show any users of the getfb2 ioctl(), so the need for this
-> > > format info assignment seems to be more the exception than the rule?
-> > >
-> > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for converted metadata.")
-> > > Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > > index f764803c53a4..cb414b3d327a 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > > @@ -828,7 +828,8 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
-> > >                         if (!format_info)
-> > >                                 return -EINVAL;
-> > >
-> > > -                       afb->base.format = format_info;
-> > > +                       if (afb->base.comm[0] != 'X')
-> > > +                               afb->base.format = format_info;
-> > >                 }
-> > >         }
-> > >
-> > > --
-> > > 2.25.1
 > > >
 _______________________________________________
 amd-gfx mailing list
