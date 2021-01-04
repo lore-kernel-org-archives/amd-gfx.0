@@ -2,55 +2,123 @@ Return-Path: <SRS0=8zgd=GH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FA41C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E05BBC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B96B2207BC
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B96B2207BC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=davidecorrado.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 8305622516
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 15:58:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8305622516
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72EE889F33;
-	Mon,  4 Jan 2021 15:22:51 +0000 (UTC)
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754D189F61;
- Mon,  4 Jan 2021 15:01:44 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id x15so25555444ilq.1;
- Mon, 04 Jan 2021 07:01:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ULNOsqWsWG/Y0sZF+wwgdwl1ApvW+03QwvSjNQ+ZxL4=;
- b=uQ0VxNBnDs5XpgJFxbKC1MMJE3Zk/pjiniSyO2anV9m+785UUsyT1ey80yYPvxPNBN
- BtxOUDw6G2PEOTjPJDzgwUJmH42n7qsiTgaW4ZyNk8WRuGBJ7FuaYRUz5jzgMt/nizQG
- mLNZCCQilWbQXFlDNAXDg3Wn3os1HZJvI6SoaVw/tuySUgYdLVPzDlO/TyEZJW1O8gax
- kxI8VSpvoMxVyveEongJqehyrfajwEOsK3MfQXFXfGrBhwRbN4Nm5ENRr2sTeJydBDG7
- iyl+KKRn222hIvitizelVmFTZLTvTTyyGu+Lwp2lOQ2KZk+H1qBqhhDxUJIuvS+8CBMA
- d1Tw==
-X-Gm-Message-State: AOAM533uk48bfJ7NQ0Ox70JJG9zTQvfifk+1al3V9BG4xFW5vaAiNtKh
- ic9kmcmBb2Wgh5biAkIMG/Q2pgvCXp8IS80GGPQ=
-X-Google-Smtp-Source: ABdhPJyQBXk8OuM30+srhP5cXkgxv8nXL9d32m/S/yR0WvXNyib++LzUhIW8o7XI7wB3JJKIl9r9+k+hjg29t2NN8Nc=
-X-Received: by 2002:a92:bd0f:: with SMTP id c15mr70881682ile.296.1609772503790; 
- Mon, 04 Jan 2021 07:01:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E026E029;
+	Mon,  4 Jan 2021 15:58:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD0A6E029
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 15:58:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eqQ2MTZ9rpwATOe3vVzA9Ujevt7Y72aOrUkkxahAtfRBt6kNIfzqQKnOlFRr9UufdV4SjFNtSHsbkfmosx7/IfRGiG7Ncabd/dz7vWqk1JxbiK1JmNc/cc0Gsy1b+qAQpMcZARcCLU1jN8B9b4xohgQj5qBKohATESlTFHzzk570616MuHswgxbqg3Ql6Ly6FPABGPNMqzXo3Z7ZbIqsZ7EJh7C8GI8LHcQADv1DQKxdbrCPqywC8zLmT2ryhhNL0ngczWo1WVYAyioII3gByxw4+EapQ6PCrJ06GffHZztFuwxCCNAO6ReIP6S3f8SO33ubp1gmgm6Pm6nnQKKc1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IAtFLgYwmMfYEgNv59NeMi5zO5t3+S/4Pk7ApdksB2I=;
+ b=DNIBiyq+TjMHMhGrvG0APafgZMLxI4s/QIJhcOAni89JlZaJDkzIRLEWwrXvQnwIhrDIbSSO2btcwrGA04I2qiNCC+jf0XiTIQto+7AyDmEMIwSXpt6MMRjx6EhnImm2WEAbbMivm0MHPNg2LOhWJjzfY3ArR+axgHhqXwpifF576CLyndQiwNDQebbt2RlwFoCFNZt6mCZ+rg8/3tT3n4xxjb0m5BkkMNgO4qJBAKFyxR7lJqKPyVyjyCiee1iSk4XmSq5QZXN5slkP0izJtEcrBr3FgcQ4vsuf2QpDVGeN6vgsyKyk50XdnIg32xNze7+8bujrTJR43KItMxDgSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IAtFLgYwmMfYEgNv59NeMi5zO5t3+S/4Pk7ApdksB2I=;
+ b=b3dQYrF7yLeim+eFN2paQTx34yTg/DwX2ry8q3PYAValhWSgWYBBEME8BTuqohS7pCGKM79YtnAIU0MNitU4hPEDZSk/rlPQx9BI/SSt5R9EK7OuJsHr4IaurAR0zC44V7DAZOXJBPoNsCoTa1yllnUtLOe1AQfnJPZD54gzAHo=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3382.namprd12.prod.outlook.com (2603:10b6:a03:a9::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19; Mon, 4 Jan
+ 2021 15:58:35 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::c415:a6:f78f:82f5]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::c415:a6:f78f:82f5%6]) with mapi id 15.20.3676.035; Mon, 4 Jan 2021
+ 15:58:35 +0000
+Subject: Re: [PATCH 1/3] drm/amd/display: Add module parameter for freesync
+ video mode
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20201210024526.1151447-1-aurabindo.pillai@amd.com>
+ <20201210024526.1151447-2-aurabindo.pillai@amd.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <eeb2a4ee-57fe-3df6-b731-ccbf57a470e7@amd.com>
+Date: Mon, 4 Jan 2021 10:58:32 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
+In-Reply-To: <20201210024526.1151447-2-aurabindo.pillai@amd.com>
+Content-Language: en-US
+X-Originating-IP: [165.204.55.211]
+X-ClientProxiedBy: YT1PR01CA0051.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::20) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
-References: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
- <MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20@MN2PR12MB4488.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20@MN2PR12MB4488.namprd12.prod.outlook.com>
-From: Davide Corrado <davide@davidecorrado.eu>
-Date: Mon, 4 Jan 2021 16:01:32 +0100
-Message-ID: <CAM0ywnxDNcROH-3BMxfTMp28+YL-5rcn=5=pZxgaa_ge3L+vug@mail.gmail.com>
-Subject: Re: amdgpu does not support 3840x2160@30Hz on kaveri apu
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-X-Mailman-Approved-At: Mon, 04 Jan 2021 15:22:49 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YT1PR01CA0051.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3721.19 via Frontend Transport; Mon, 4 Jan 2021 15:58:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 933ad9ef-a91e-455f-8bbc-08d8b0c997d4
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3382:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3382DF0462F8AA944E38D853ECD20@BYAPR12MB3382.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZVUS03kG78YX/WLoBmd4EEyBITmxGtoAfbv9sqdc7LuLO5AdsuWHGtvDUs287d1Z+PF/RxA8YWxcWzPL4xEJCUmvEe/+nXIRn7qW5RRW0845c1uXnb5i9p0ZBjyF5mL4Y514mKtgEjWn/F5BWDszc7ZYM6bp8SvdyxkfGE81W/UQdBQ8hIJpDUJMi5IxMfF+kRB8n3v6XBj69aflAr3Y6HbXmadGujhC6cCEsiTwAD3brxv22TIoS1LzXwsfVmhNhurUevU728chgf27aJFgZzjx+2KHhGNBW2KHYQui6WgwA3tDGXojSWhqp5ZDhQ1AMkZkG1Grh1i9IVw6nMO+9V0zCHz7WJ07Vz8dm73I1jzx/SnfWqLTQSBCnWDTPxuOMwsVZsSpTl1D+gEXOBmgTE0v5rNVGqFzHmtj/4ipq71IjfbzYstvjxkIwL9FuquY5Ju6IZbSmgvbYX0s/GOnzg1xcNh/y3T0cvlPlyuK8hc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(16576012)(66556008)(16526019)(26005)(186003)(66946007)(8936002)(53546011)(2906002)(52116002)(31686004)(316002)(86362001)(66476007)(5660300002)(36756003)(8676002)(31696002)(6486002)(4326008)(478600001)(83380400001)(956004)(2616005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dzNiS0RDUVZTcU5RN1F4ZEcyUDU0STZrL2lhWlhPOHcvQ3QxemhFTEZBQjRl?=
+ =?utf-8?B?TW9EVUtKSVFSKzVKQ3VLaXVEeWhJMm5SQnhTZUUyMGRONXJpK1BtVi8rc1VD?=
+ =?utf-8?B?YVlVSnUvblhIbG9zNlRvamdCWkJVdkdUM3lnaWlIamE5ODAwaDQ1SlJBeWdW?=
+ =?utf-8?B?aDg2NHc4UVpseFNVeEtoSGN6ZVYrR25RcXdPSzdyVXhobXRXWHY5RkdxQVRr?=
+ =?utf-8?B?b3JSdFVXNy9qdTNuTlF1ano1SUl5ZkNUVkxOQ2dTYWtvbDJDTjJIZHRMZ3N1?=
+ =?utf-8?B?Z1hGOThTNjhUR2xKUldJeWpIbk5OR3lpNk0za3g5Z1phTzAyT3N4QjF0WEV2?=
+ =?utf-8?B?b3ZuNE5TcFB1akZNZVZaVk1VbXo3a1c5Y0JkNjhjSEx6dGpWczlrVGlpWXFs?=
+ =?utf-8?B?Z1p5Zzg5Y0J1SVBSc0NsMVN4WGtuTnYycHlnWUttdXA4Mjkyc2pWemNFakUv?=
+ =?utf-8?B?cU1lcnB6UUVoZDI2SkFIS28yamI4bXRUbHhpQWp3WVF2UW1pMW9oSnh1RXc2?=
+ =?utf-8?B?NVB3WUNVeTJlRkE4bTlzdHVZdmhWTTNFR0Jkek9Vd1FyRWViVTVDY1F2c1dT?=
+ =?utf-8?B?TlFGUEYyUUtQRm9qY3NzZmdtTm8xODErZzc3aHMwVkIzT2szZ0d5bkV6SEtO?=
+ =?utf-8?B?ekRTRDd3dXgvaTQwUTJYOFBKeHJ1ci8rcnNIWExTbDJnYWJKUzYrMHo0RG53?=
+ =?utf-8?B?cXFqR1J2R3V6dmZ3cVI5T1dqREt1RzNqQUhlTlhHbkJRUVcvMFU1RXpwWXRw?=
+ =?utf-8?B?UW9HTVg3elJEdGVHaXZJQURkWVgwZkZTbW1tNXJycllhWUxhdFRCZU9idG15?=
+ =?utf-8?B?MEVuUkhGMmFlckt3SHdKQ0tFdlVEa3RDU3lETDROcmdoVXRuTHVrY201c3B3?=
+ =?utf-8?B?djh6bEowV1BCcnFtVVhTVVJ6NHltc3YySHlkRnZFUzRYU1U4enRzYzExeVd4?=
+ =?utf-8?B?Mm1yS1FPMFl0UlhObkxtNFU4TnVFd2JvcmtBTlFNclg1WGp4K0ozSzdLL0Mz?=
+ =?utf-8?B?ODloNlJYTmRvVmIxNmNlanUwckN3WklkUEtFWnlERzRWelFSNTBzaGllekR0?=
+ =?utf-8?B?WmRIeCt0MnVCZDJFZFpFbjFnV3YzNVgvSlpLckpHTjV2VVNSQ2UrNm41dlBk?=
+ =?utf-8?B?Y01DVjRzaW45b1Z0aWdMalJ6dFBKdHZPV1FZZHJ4dUsycEZNSWcvU0JXaUNS?=
+ =?utf-8?B?ajZURml3azNadHJKUVA4Rnh3RWUyVHY3OXJLb0hMT1J4d242RGdPck9KU3BH?=
+ =?utf-8?B?a2xON0hjN3ZoQit1THE5UDRZR3gwdVYrK21pVStmd2F4VU9YT2thMXo5dGlI?=
+ =?utf-8?Q?WuVSTWbrZrAqxhcvpSyZ996Dx8dZBRaQOt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 15:58:35.3790 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 933ad9ef-a91e-455f-8bbc-08d8b0c997d4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YcBvpf1AUyyqVLWSVeQABAqmlLbOoxidoJooU3N9K+0sCc4VWc0LUGKX/G41MdA2QeSHhVDwQ4dvfCef7q2Mhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,269 +130,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "airlied@linux.ie" <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0500547257=="
+Cc: stylon.wang@amd.com, thong.thai@amd.com, shashank.sharma@amd.com,
+ wayne.lin@amd.com, alexander.deucher@amd.com, Harry.Wentland@amd.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0500547257==
-Content-Type: multipart/alternative; boundary="00000000000041faa705b8145e80"
+On 2020-12-09 9:45 p.m., Aurabindo Pillai wrote:
+> [Why&How]
+> Adds a module parameter to enable experimental freesync video mode modeset
+> optimization. Enabling this mode allows the driver to skip a full modeset when
+> freesync compatible modes are requested by the userspace. This paramters also
+> adds some standard modes based on the connected monitor's VRR range.
+> 
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
---00000000000041faa705b8145e80
-Content-Type: text/plain; charset="UTF-8"
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-SOLVED
-
-I opened a ticket here:
-
-https://gitlab.freedesktop.org/drm/amd/-/issues/1425
-
-and they suggested, at the end, the same hint (amdgpu.dc=1).
-
-... which, I was sure, I already tried with no results. Maybe I just
-misspelled it, and it didn't work.
-
-It's working now, thank you so much for your help.
-
-
-
-
-
-On Mon, Jan 4, 2021 at 3:01 PM Deucher, Alexander <Alexander.Deucher@amd.com>
-wrote:
-
-> [AMD Official Use Only - Internal Distribution Only]
->
-> You might try enabling DC (the newer modesetting infrastructure).  Append
-> amdgpu.dc=1 to the kernel command line in grub.
->
-> Alex
->
-> ------------------------------
-> *From:* Davide Corrado <davide@davidecorrado.eu>
-> *Sent:* Saturday, January 2, 2021 1:50 PM
-> *To:* Deucher, Alexander <Alexander.Deucher@amd.com>
-> *Cc:* Koenig, Christian <Christian.Koenig@amd.com>; airlied@linux.ie <
-> airlied@linux.ie>; daniel@ffwll.ch <daniel@ffwll.ch>;
-> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;
-> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>;
-> linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>
-> *Subject:* amdgpu does not support 3840x2160@30Hz on kaveri apu
->
-> hello, I'd like to report this issue that I am having since I updated my
-> display (samsung U28E590). The amdgpu does not support the native
-> resolution of my new monitor, which is 3840x2160*.* Using a HDMI or DVI
-> connection (I tried both, same results), the maximum supported refresh is
-> 30Hz, so I'm stuck with that (don't have a displayport). The radeon module
-> works fine, I'm having this issue just when I use amdgpu (which I'd like
-> to, because performance is better).
->
-> Some info of my hardware:
->
-> cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G
-> kernel version (I tried different ones and different linux distros, same
-> results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020
-> x86_64 x86_64 x86_64 GNU/Linux
-> Monitor: Samsung U28E590.
->
-> description:
-> If I boot the system using amdgpu and no video mode selection, the system
-> boots but I don't get a screen during boot and in wayland. I can connect
-> using ssh, so the system is running fine, just no display; If I force a
-> full HD resolution with "video:" in the kernel line, I can see the boot
-> process but the screen disappears when wayland starts (because the default
-> resolution is 3840x2160@30Hz). Using a full HD monitor results in no
-> issues, so it must be related to this very 4k resolution.
->
-> As I have already stated, radeon module works with the same
-> software/hardware configuration.
-> thanks you so much for your time :-)
->
-> --
-> Davide Corrado
-> UNIX Team Leader
->
-> Via Abramo Lincoln, 25
-> 20129 Milano
->
-> Tel +39 3474259950
->
-
-
--- 
-Davide Corrado
-UNIX Team Leader
-
-Via Abramo Lincoln, 25
-20129 Milano
-
-Tel +39 3474259950
-
---00000000000041faa705b8145e80
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>SOLVED<br></div><div><br></div><div>I opened a ticket=
- here:</div><div><br></div><div><a href=3D"https://gitlab.freedesktop.org/d=
-rm/amd/-/issues/1425">https://gitlab.freedesktop.org/drm/amd/-/issues/1425<=
-/a></div><div><br></div><div>and they suggested, at the end, the same hint =
-(amdgpu.dc=3D1).</div><div><br></div><div>... which, I was sure, I already =
-tried with no results. Maybe I just misspelled it, and it didn&#39;t work.<=
-/div><div><br></div><div>It&#39;s working now, thank you so much for your h=
-elp.</div><div><br></div><div><br></div><div><br></div><div><br></div></div=
-><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mo=
-n, Jan 4, 2021 at 3:01 PM Deucher, Alexander &lt;<a href=3D"mailto:Alexande=
-r.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">
-
-
-
-
-<div dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:rgb(0,120,215);margin:5p=
-t" align=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
-;color:rgb(0,0,0)">
-You might try enabling DC (the newer modesetting infrastructure).=C2=A0 App=
-end amdgpu.dc=3D1 to the kernel command line in grub.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
-;color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt=
-;color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"gmail-m_-7159689094131398294appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%">
-<div id=3D"gmail-m_-7159689094131398294divRplyFwdMsg" dir=3D"ltr"><font sty=
-le=3D"font-size:11pt" face=3D"Calibri, sans-serif" color=3D"#000000"><b>Fro=
-m:</b> Davide Corrado &lt;<a href=3D"mailto:davide@davidecorrado.eu" target=
-=3D"_blank">davide@davidecorrado.eu</a>&gt;<br>
-<b>Sent:</b> Saturday, January 2, 2021 1:50 PM<br>
-<b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;<br>
-<b>Cc:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-" target=3D"_blank">Christian.Koenig@amd.com</a>&gt;; <a href=3D"mailto:air=
-lied@linux.ie" target=3D"_blank">airlied@linux.ie</a> &lt;<a href=3D"mailto=
-:airlied@linux.ie" target=3D"_blank">airlied@linux.ie</a>&gt;; <a href=3D"m=
-ailto:daniel@ffwll.ch" target=3D"_blank">daniel@ffwll.ch</a> &lt;<a href=3D=
-"mailto:daniel@ffwll.ch" target=3D"_blank">daniel@ffwll.ch</a>&gt;; <a href=
-=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org" tar=
-get=3D"_blank">amd-gfx@lists.freedesktop.org</a>&gt;; <a href=3D"mailto:dri=
--devel@lists.freedesktop.org" target=3D"_blank">dri-devel@lists.freedesktop=
-.org</a> &lt;<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_=
-blank">dri-devel@lists.freedesktop.org</a>&gt;;
- <a href=3D"mailto:linux-kernel@vger.kernel.org" target=3D"_blank">linux-ke=
-rnel@vger.kernel.org</a> &lt;<a href=3D"mailto:linux-kernel@vger.kernel.org=
-" target=3D"_blank">linux-kernel@vger.kernel.org</a>&gt;<br>
-<b>Subject:</b> amdgpu does not support 3840x2160@30Hz on kaveri apu</font>
-<div>=C2=A0</div>
-</div>
-<div>
-<div dir=3D"ltr">
-<div>hello, I&#39;d like to report this issue that I am having since I upda=
-ted my display (samsung U28E590). The amdgpu does not support the native re=
-solution of my new monitor, which is 3840x2160<i>.</i> Using a HDMI or DVI =
-connection (I tried both, same results),
- the maximum supported refresh is 30Hz, so I&#39;m stuck with that (don&#39=
-;t have a displayport). The radeon module works fine, I&#39;m having this i=
-ssue just when I use amdgpu (which I&#39;d like to, because performance is =
-better).</div>
-<div><br>
-</div>
-<div>Some info of my hardware:</div>
-<div><br>
-</div>
-<div>cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G</div>
-<div>kernel version (I tried different ones and different linux distros, sa=
-me results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020 x8=
-6_64 x86_64 x86_64 GNU/Linux</div>
-<div>Monitor: Samsung U28E590.</div>
-<div><br>
-</div>
-<div>description:<br>
-</div>
-<div>If I boot the system using amdgpu and no video mode selection, the sys=
-tem boots but I don&#39;t get a screen during boot and in wayland. I can co=
-nnect using ssh, so the system is running fine, just no display; If I force=
- a full HD resolution with &quot;video:&quot;
- in the kernel line, I can see the boot process but the screen disappears w=
-hen wayland starts (because the default resolution is 3840x2160@30Hz). Usin=
-g a full HD monitor results in no issues, so it must be related to this ver=
-y 4k resolution.<br>
-</div>
-<div><br>
-</div>
-<div>As I have already stated, radeon module works with the same software/h=
-ardware configuration.<br>
-</div>
-thanks you so much for your time :-)<br>
-<div>
-<div><br>
--- <br>
-<div dir=3D"ltr">
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">Davide Corrado<br>
-<div>UNIX Team Leader<span><br>
-</span></div>
-<div><br>
-</div>
-Via Abramo Lincoln, 25<br>
-20129 Milano<br>
-<br>
-Tel +39 3474259950<br>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</blockquote></div><br clear=3D"all"><br>-- <br><div dir=3D"ltr" class=3D"g=
-mail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr=
-"><div><div dir=3D"ltr">Davide Corrado<br><div>UNIX Team Leader<span><br></=
-span></div><div><br></div>Via Abramo Lincoln, 25<br>20129 Milano<br><br>Tel=
- +39 3474259950<br></div></div></div></div></div></div></div></div>
-
---00000000000041faa705b8145e80--
-
---===============0500547257==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 ++++++++++++
+>   2 files changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 83ac06a3ec05..efbfee93c359 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -177,6 +177,7 @@ extern int amdgpu_gpu_recovery;
+>   extern int amdgpu_emu_mode;
+>   extern uint amdgpu_smu_memory_pool_size;
+>   extern uint amdgpu_dc_feature_mask;
+> +extern uint amdgpu_exp_freesync_vid_mode;
+>   extern uint amdgpu_dc_debug_mask;
+>   extern uint amdgpu_dm_abm_level;
+>   extern struct amdgpu_mgpu_info mgpu_info;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index b2a1dd7581bf..ece51ecd53d1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -158,6 +158,7 @@ int amdgpu_mes;
+>   int amdgpu_noretry = -1;
+>   int amdgpu_force_asic_type = -1;
+>   int amdgpu_tmz;
+> +uint amdgpu_exp_freesync_vid_mode;
+>   int amdgpu_reset_method = -1; /* auto */
+>   int amdgpu_num_kcq = -1;
+>   
+> @@ -786,6 +787,17 @@ module_param_named(abmlevel, amdgpu_dm_abm_level, uint, 0444);
+>   MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto, 0 = off (default), 1 = on)");
+>   module_param_named(tmz, amdgpu_tmz, int, 0444);
+>   
+> +/**
+> + * DOC: experimental_freesync_video (uint)
+> + * Enabled the optimization to adjust front porch timing to achieve seamless mode change experience
+> + * when setting a freesync supported mode for which full modeset is not needed.
+> + * The default value: 0 (off).
+> + */
+> +MODULE_PARM_DESC(
+> +	experimental_freesync_video,
+> +	"Enable freesync modesetting optimization feature (0 = off (default), 1 = on)");
+> +module_param_named(experimental_freesync_video, amdgpu_exp_freesync_vid_mode, uint, 0444);
+> +
+>   /**
+>    * DOC: reset_method (int)
+>    * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
+> 
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0500547257==--
