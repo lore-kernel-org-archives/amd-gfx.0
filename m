@@ -2,117 +2,57 @@ Return-Path: <SRS0=8zgd=GH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26234C433E6
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 14:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2655C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 14:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCAD3221E5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 14:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCAD3221E5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4291520784
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 14:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4291520784
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=davidecorrado.eu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A063E89F38;
-	Mon,  4 Jan 2021 14:01:30 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A26089F31;
- Mon,  4 Jan 2021 14:01:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gGJu8z8kXCiUiJ0Eg59FYAMpsycGzEqHgNIVGToU1WJgjt1WIp7oA9JtYuFyhu8PTVnY5oU1k1YNJQPAOY4e9Fahl2qBSbiSWjo9J6TW9HlynkI/UnTJl9rpfDccQ99xexeJmuDyIuRmkzIje6oFx7ciLakwK2U/mSmmv9DWy8Xiu6T2LDCfItXA2I4sBcvUy3qoZwyfv78kANK9ys0jiUGRl7VszD3toGKnaJ+KZsDAe+VKLFBkpCSVZxq7xiRvAY1/zk5+1RMilt7K6e4wf6U3Vr2J4ule6huvwiKptk4z4TfU+SbYD+YOcWlfogmXsnakRTWh8mhfV1Q5wypoAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nG4DK87FyJBHwFeqgQbZAWA9LMt9fa3mRIT5OCQvZ3Y=;
- b=k3PMYefu10Ic7cJwvHgI8e+UFkxSsoGcN64ify9B+zD9zGxxl8FYEUqh+dHzhEKxnSnh52RfVFR+MnxqP5DeZ+mzSN0TL3qLPlQffxc8ko/gqMfNdE3jAzxR3ZggethxWB3d2yL2lrnmmJrLus4+JEBEB1e1+YhAVVR5awWlUbrJrAEUzmiYTAKAeq4jMYVAGDFoG6rR3AnGS8Wi7t8XxlTYEbqrfgNcV79l5iBF2W9m6lzlTnMSErIwDbY/L2ixsMNTsmAYvGX2gBNn0TipC8uaFtQteGHz8+K2qXkVfjRgs1lof0r3e8jRUOYR1Kdf+InYqdfxLBi1MAPKovXezw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nG4DK87FyJBHwFeqgQbZAWA9LMt9fa3mRIT5OCQvZ3Y=;
- b=NA93CLT2pTY/IUL7ZCnfVzTx1xZumaOQOlr7rhcFY3dHe0bUczp3KOAyci0i+RhEKv7N8WuB/tVRvEPlDxXgF6ikE0PMnfKWYL3OJBSBaQD4tOBkMcCfSMsB7eFcg7gGQTwTXAt2BK2lnxHMLVjdORN57P15ETragzfGdAe3GHg=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4829.namprd12.prod.outlook.com (2603:10b6:208:1b6::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.22; Mon, 4 Jan
- 2021 14:01:25 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::fca3:155c:bf43:94af]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::fca3:155c:bf43:94af%5]) with mapi id 15.20.3721.024; Mon, 4 Jan 2021
- 14:01:25 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Davide Corrado <davide@davidecorrado.eu>
-Subject: Re: amdgpu does not support 3840x2160@30Hz on kaveri apu
-Thread-Topic: amdgpu does not support 3840x2160@30Hz on kaveri apu
-Thread-Index: AQHW4TgwKhK/bfTKhUetBAcvabUGHqoXgPIA
-Date: Mon, 4 Jan 2021 14:01:25 +0000
-Message-ID: <MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
-In-Reply-To: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-04T14:01:25.086Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: davidecorrado.eu; dkim=none (message not signed)
- header.d=none;davidecorrado.eu; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.78.241]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4e350433-f7fb-4a89-2e34-08d8b0b939e2
-x-ms-traffictypediagnostic: MN2PR12MB4829:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4829E3B6E7ECB557EF529549F7D20@MN2PR12MB4829.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IIZoSkX/oL4rCqhUMWKnnICmR1Rh5cjB/0SZskJfzcgqxWWGH0qx35kd/jweZvEe/pNYQFPfeBRbzhMKfefHNPs3CqmAKR0ZkQFBE2lNsNl0lKfQSOYzf/hoOcypJcdVr5tECD9MPZU8VLE7AhoHGQpVdCJprLP5AZ9SYoSWAi76+HjpLGzsO6p0mMNQvZNKJ6h3tuaV+xIsNq2cGpU1bH9mLBw6S3JX14lKUvlESeGyE6+zl0QD7IsVu/6Fu0fWDzcDkxn1+wKAhOAIzoN4amYKA2bGv8WtezComHFnCbguzrCP5rJBjLM8Fh7GyPsIPPPuTHcPaEVsd6n8xG1nniu/27K5Xo+zRSoY/5fBBuKtCD28C/l0WIXo2Rz/3tKvuceR5+rVGC4Gr8t7zAGmJQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(19627405001)(186003)(33656002)(52536014)(316002)(2906002)(5660300002)(55016002)(66946007)(7696005)(9686003)(64756008)(66446008)(66556008)(54906003)(66476007)(76116006)(86362001)(71200400001)(6916009)(4326008)(53546011)(6506007)(8936002)(478600001)(8676002)(83380400001)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?Bj5XUalqaPsor9aJjXg9A47rpuZNUub/CXPAzWU1q5/RJpaOlX9VfPiSeOm7?=
- =?us-ascii?Q?AJvaf9+vvYTP3TLrZa9zF8+RhprOzFgsmeJCM8wU4Vz+nGEEayxFu8d6HyOn?=
- =?us-ascii?Q?PcQom4FnKyKNBBXQ98MCKJJFkd+eHovf85ZmRv2fDiCnSmQIiCT+ulzXuttG?=
- =?us-ascii?Q?Pq1AoAg+gFrBPuGg80hw3OEkxJ/UAqWk4gQE4gZmjzo13G5C2Y7xdmAR0UqM?=
- =?us-ascii?Q?KwAl2Y73eDrV5g4MslxYzOmOxQg01GC1vQnnQhN6vvsxAK42GtE5Kl3od4F2?=
- =?us-ascii?Q?fXVdrQDJcoE2x5eRY66QXW3qXr8V55kFs/zVuDY1gg7RxTt0qwzs8ElE7YYo?=
- =?us-ascii?Q?mIZuMXKwzJmoQ7FzWBEkGfF5CPKeRarX+ZVZ677ko2cgFSpxoeAcLb8o3ME+?=
- =?us-ascii?Q?TjLtXh/GMSpYKwFSyEIzZ5kp/+xjYeiFDsqtamZZGNcqoSkIDd0yTvHVG4Ue?=
- =?us-ascii?Q?DjSZ1u0apzZ1slX4VbIiAVSBHvPJrowUAAe9aO0PXfP5ZAgZHC1nvAGkVKHh?=
- =?us-ascii?Q?VQqlLImCiSFVmvUfH1AF5Cx8c3YhXsScUI1jzoQ5he1L53oPFX5kaMLG+bZo?=
- =?us-ascii?Q?NgmGtW6KngSUsrwS/a8B6uIVstFWTsuwcisYcGpj5m5w1h7WySGWovKYE7eX?=
- =?us-ascii?Q?juh1df46tPVr3jOXyPeii1zza9qFWMtLxzR70KoPPMqzHoeNoWcOowAUkdJi?=
- =?us-ascii?Q?WgmD6KRwN43NL3akwc1bfu8O1i9JYl6rHsGs1tCpr4fuHmos6IF3yoYVYISv?=
- =?us-ascii?Q?FZ4iHRk1xIBXWlLlstFxRdXmb+dIR0hTUh/ZzAhexa58WQh9RUhXbh50mF4F?=
- =?us-ascii?Q?GHS9UvCv/d7ol+kUmMvW9NskAoJ5XJ2Xw08wQkonQNikMEcsXtHLKhAgH8cE?=
- =?us-ascii?Q?RwLTunN3ByNLdfliUykFfX7UIt31x4KN2QJZVSUrulTtzLZrZmCxYpFcAHkl?=
- =?us-ascii?Q?7h9sBz6wCb2EobXez2dVthmfhLEJvFz7GSev7v6QK+k=3D?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77E2389F61;
+	Mon,  4 Jan 2021 14:19:46 +0000 (UTC)
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
+ [209.85.166.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E271E89D9A;
+ Mon,  4 Jan 2021 12:37:56 +0000 (UTC)
+Received: by mail-il1-f176.google.com with SMTP id q5so25107006ilc.10;
+ Mon, 04 Jan 2021 04:37:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EPHv7BVb2X/PWW1/GyJ5rqSu6qKtZbD/Q+JoLGq6Vas=;
+ b=sTVRA1h772AeoN0dWFUmd15t4EiQdimyfokCGPUGiRY2MilIOpKOQhL7DU5xjik70x
+ hqFvOEGSEE9kQ61wd8JVHB6RlRO9DnMNsSGpJqPfAnQ6b+haO20MV3vSBN3sCSfZ5A8I
+ MsxJisVpyajYAK2u4sDRxzNMTlmGzajzW1yMyB/7vUuym5q0tBFum0VExUBQjQOr+xIG
+ AzYrJwKjumZWZSqFZFI9YLB9poQZHBUEYUMCDm1DftBYx/cap6NkFzW3+y3CGMtwFzow
+ MysglqxWap0AhAkupiKscoUxjT7QpjvMWGyd41n+WJfbckGSP0pqcGQ6vT53Eiw5LuNc
+ rknw==
+X-Gm-Message-State: AOAM53361IiCOEFfxvtVtKB4obXF3ZfCW3RxxwrjxCzsxMbO0bC/kJgF
+ CGquVLsBenKiushWx5JTZ6BTbZtHDsLRF/KdMairFM8GiBQ=
+X-Google-Smtp-Source: ABdhPJw89djuFQL8TO55Mafxo8GNJRpzji4pt7+QKZU+t1Lb1hXLsGaLdOzvLaPdgap4VFUpvwYCsb3iLbsmWX22unQ=
+X-Received: by 2002:a05:6e02:1185:: with SMTP id
+ y5mr72477063ili.119.1609763876180; 
+ Mon, 04 Jan 2021 04:37:56 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e350433-f7fb-4a89-2e34-08d8b0b939e2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jan 2021 14:01:25.8263 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uhCcaLR6hXsEkWf2G1cVJvuf89EcBx6ZE+65YqcwCKpuEiLP9Aa7uBvopBwDew2MIXsH71N4mCYCnrPzHm4nog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4829
+References: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
+ <4f208b1a-b90a-6afb-79a7-c5027f7529b2@gmail.com>
+ <CAM0ywnycLPS9de-3QLhoreM=dNrsn4-=un8EFsw8Wf5g4z91Dw@mail.gmail.com>
+In-Reply-To: <CAM0ywnycLPS9de-3QLhoreM=dNrsn4-=un8EFsw8Wf5g4z91Dw@mail.gmail.com>
+From: Davide Corrado <davide@davidecorrado.eu>
+Date: Mon, 4 Jan 2021 13:37:45 +0100
+Message-ID: <CAM0ywnxfw6CngRnVhB-9f_5TOVaGe9KO6LJ310vqiguz=wj10Q@mail.gmail.com>
+Subject: Re: amdgpu does not support 3840x2160@30Hz on kaveri apu
+To: christian.koenig@amd.com
+X-Mailman-Approved-At: Mon, 04 Jan 2021 14:19:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,205 +64,246 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "airlied@linux.ie" <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1747741065=="
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>
+Content-Type: multipart/mixed; boundary="===============1662458382=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1747741065==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20MN2PR12MB4488namp_"
+--===============1662458382==
+Content-Type: multipart/alternative; boundary="0000000000000315b605b8125c11"
 
---_000_MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
+--0000000000000315b605b8125c11
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - Internal Distribution Only]
+Btw, should the driver switch to the lower supported resolution then?
 
-You might try enabling DC (the newer modesetting infrastructure).  Append a=
-mdgpu.dc=3D1 to the kernel command line in grub.
+Il Lun 4 Gen 2021, 13:04 Davide Corrado <davide@davidecorrado.eu> ha
+scritto:
 
-Alex
-
-________________________________
-From: Davide Corrado <davide@davidecorrado.eu>
-Sent: Saturday, January 2, 2021 1:50 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Koenig, Christian <Christian.Koenig@amd.com>; airlied@linux.ie <airlied=
-@linux.ie>; daniel@ffwll.ch <daniel@ffwll.ch>; amd-gfx@lists.freedesktop.or=
-g <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedesktop.org <dri-dev=
-el@lists.freedesktop.org>; linux-kernel@vger.kernel.org <linux-kernel@vger.=
-kernel.org>
-Subject: amdgpu does not support 3840x2160@30Hz on kaveri apu
-
-hello, I'd like to report this issue that I am having since I updated my di=
-splay (samsung U28E590). The amdgpu does not support the native resolution =
-of my new monitor, which is 3840x2160. Using a HDMI or DVI connection (I tr=
-ied both, same results), the maximum supported refresh is 30Hz, so I'm stuc=
-k with that (don't have a displayport). The radeon module works fine, I'm h=
-aving this issue just when I use amdgpu (which I'd like to, because perform=
-ance is better).
-
-Some info of my hardware:
-
-cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G
-kernel version (I tried different ones and different linux distros, same re=
-sults!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020 x86_64 =
-x86_64 x86_64 GNU/Linux
-Monitor: Samsung U28E590.
-
-description:
-If I boot the system using amdgpu and no video mode selection, the system b=
-oots but I don't get a screen during boot and in wayland. I can connect usi=
-ng ssh, so the system is running fine, just no display; If I force a full H=
-D resolution with "video:" in the kernel line, I can see the boot process b=
-ut the screen disappears when wayland starts (because the default resolutio=
-n is 3840x2160@30Hz). Using a full HD monitor results in no issues, so it m=
-ust be related to this very 4k resolution.
-
-As I have already stated, radeon module works with the same software/hardwa=
-re configuration.
-thanks you so much for your time :-)
-
---
-Davide Corrado
-UNIX Team Leader
-
-Via Abramo Lincoln, 25
-20129 Milano
-
-Tel +39 3474259950
-
---_000_MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> Hello. This resolution is supported by the Apu and the motherboard specs.
+> Will try what you suggest and let you know
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-You might try enabling DC (the newer modesetting infrastructure).&nbsp; App=
-end amdgpu.dc=3D1 to the kernel command line in grub.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Davide Corrado &lt;da=
-vide@davidecorrado.eu&gt;<br>
-<b>Sent:</b> Saturday, January 2, 2021 1:50 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; airlied@linu=
-x.ie &lt;airlied@linux.ie&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;; amd=
--gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel=
-@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;;
- linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;<br>
-<b>Subject:</b> amdgpu does not support 3840x2160@30Hz on kaveri apu</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">
-<div>hello, I'd like to report this issue that I am having since I updated =
-my display (samsung U28E590). The amdgpu does not support the native resolu=
-tion of my new monitor, which is 3840x2160<i>.</i> Using a HDMI or DVI conn=
-ection (I tried both, same results),
- the maximum supported refresh is 30Hz, so I'm stuck with that (don't have =
-a displayport). The radeon module works fine, I'm having this issue just wh=
-en I use amdgpu (which I'd like to, because performance is better).</div>
-<div><br>
-</div>
-<div>Some info of my hardware:</div>
-<div><br>
-</div>
-<div>cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G</div>
-<div>kernel version (I tried different ones and different linux distros, sa=
-me results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020 x8=
-6_64 x86_64 x86_64 GNU/Linux</div>
-<div>Monitor: Samsung U28E590.</div>
-<div><br>
-</div>
-<div>description:<br>
-</div>
-<div>If I boot the system using amdgpu and no video mode selection, the sys=
-tem boots but I don't get a screen during boot and in wayland. I can connec=
-t using ssh, so the system is running fine, just no display; If I force a f=
-ull HD resolution with &quot;video:&quot;
- in the kernel line, I can see the boot process but the screen disappears w=
-hen wayland starts (because the default resolution is 3840x2160@30Hz). Usin=
-g a full HD monitor results in no issues, so it must be related to this ver=
-y 4k resolution.<br>
-</div>
-<div><br>
-</div>
-<div>As I have already stated, radeon module works with the same software/h=
-ardware configuration.<br>
-</div>
-thanks you so much for your time :-)<br>
-<div>
-<div><br>
--- <br>
-<div dir=3D"ltr" class=3D"x_gmail_signature">
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">
-<div>
-<div dir=3D"ltr">Davide Corrado<br>
-<div>UNIX Team Leader<span><br>
-</span></div>
-<div><br>
-</div>
-Via Abramo Lincoln, 25<br>
-20129 Milano<br>
-<br>
-Tel +39 3474259950<br>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+> Il Lun 4 Gen 2021, 12:10 Christian K=C3=B6nig <ckoenig.leichtzumerken@gma=
+il.com>
+> ha scritto:
+>
+>> Hi Davide,
+>>
+>> adding a few of our AMD display people.
+>>
+>> In general as already suggested by others opening a bug report to track
+>> this is the right thing to do.
+>>
+>> In the past we had a few bug reports like this because amdgpu is more
+>> strict in checking hardware limitations.
+>>
+>> For example it can be that your HDMI port on the board can only handle a
+>> certain maximum pixel clock, but radeon is ignoring this while amdgpu is=
+n't.
+>>
+>> What you can try to do is to manually override the used mode, e.g. copy
+>> the modeline used when radeon is active and manually add that using xran=
+dr
+>> when amdgpu is active and see if it works or not.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 02.01.21 um 19:50 schrieb Davide Corrado:
+>>
+>> hello, I'd like to report this issue that I am having since I updated my
+>> display (samsung U28E590). The amdgpu does not support the native
+>> resolution of my new monitor, which is 3840x2160*.* Using a HDMI or DVI
+>> connection (I tried both, same results), the maximum supported refresh i=
+s
+>> 30Hz, so I'm stuck with that (don't have a displayport). The radeon modu=
+le
+>> works fine, I'm having this issue just when I use amdgpu (which I'd like
+>> to, because performance is better).
+>>
+>> Some info of my hardware:
+>>
+>> cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G
+>> kernel version (I tried different ones and different linux distros, same
+>> results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 2020
+>> x86_64 x86_64 x86_64 GNU/Linux
+>> Monitor: Samsung U28E590.
+>>
+>> description:
+>> If I boot the system using amdgpu and no video mode selection, the syste=
+m
+>> boots but I don't get a screen during boot and in wayland. I can connect
+>> using ssh, so the system is running fine, just no display; If I force a
+>> full HD resolution with "video:" in the kernel line, I can see the boot
+>> process but the screen disappears when wayland starts (because the defau=
+lt
+>> resolution is 3840x2160@30Hz). Using a full HD monitor results in no
+>> issues, so it must be related to this very 4k resolution.
+>>
+>> As I have already stated, radeon module works with the same
+>> software/hardware configuration.
+>> thanks you so much for your time :-)
+>>
+>> --
+>> Davide Corrado
+>> UNIX Team Leader
+>>
+>> Via Abramo Lincoln, 25
+>> 20129 Milano
+>>
+>> Tel +39 3474259950
+>>
+>> _______________________________________________
+>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedeskt=
+op.org/mailman/listinfo/amd-gfx
+>>
+>>
+>>
 
---_000_MN2PR12MB44884E8F0C885F8DCDCF37CDF7D20MN2PR12MB4488namp_--
+--0000000000000315b605b8125c11
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============1747741065==
+<div dir=3D"auto">Btw, should the driver switch to the lower supported reso=
+lution then?</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"=
+gmail_attr">Il Lun 4 Gen 2021, 13:04 Davide Corrado &lt;<a href=3D"mailto:d=
+avide@davidecorrado.eu">davide@davidecorrado.eu</a>&gt; ha scritto:<br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex"><div dir=3D"auto">Hello. This resolution i=
+s supported by the Apu and the motherboard specs. Will try what you suggest=
+ and let you know</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">Il Lun 4 Gen 2021, 12:10 Christian K=C3=B6nig &lt;<a href=
+=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank" rel=3D"noref=
+errer">ckoenig.leichtzumerken@gmail.com</a>&gt; ha scritto:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div>
+    <div>Hi Davide,<br>
+      <br>
+      adding a few of our AMD display people.<br>
+      <br>
+      In general as already suggested by others opening a bug report to
+      track this is the right thing to do.<br>
+      <br>
+      In the past we had a few bug reports like this because amdgpu is
+      more strict in checking hardware limitations.<br>
+      <br>
+      For example it can be that your HDMI port on the board can only
+      handle a certain maximum pixel clock, but radeon is ignoring this
+      while amdgpu isn&#39;t.<br>
+      <br>
+      What you can try to do is to manually override the used mode, e.g.
+      copy the modeline used when radeon is active and manually add that
+      using xrandr when amdgpu is active and see if it works or not.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 02.01.21 um 19:50 schrieb Davide Corrado:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div>hello, I&#39;d like to report this issue that I am having sinc=
+e
+          I updated my display (samsung U28E590). The amdgpu does not
+          support the native resolution of my new monitor, which is
+          3840x2160<i>.</i> Using a HDMI or DVI connection (I tried
+          both, same results), the maximum supported refresh is 30Hz, so
+          I&#39;m stuck with that (don&#39;t have a displayport). The radeo=
+n
+          module works fine, I&#39;m having this issue just when I use
+          amdgpu (which I&#39;d like to, because performance is better).</d=
+iv>
+        <div><br>
+        </div>
+        <div>Some info of my hardware:</div>
+        <div><br>
+        </div>
+        <div>cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G</div>
+        <div>kernel version (I tried different ones and different linux
+          distros, same results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec
+          21 14:08:22 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</div>
+        <div>Monitor: Samsung U28E590.</div>
+        <div><br>
+        </div>
+        <div>description:<br>
+        </div>
+        <div>If I boot the system using amdgpu and no video mode
+          selection, the system boots but I don&#39;t get a screen during
+          boot and in wayland. I can connect using ssh, so the system is
+          running fine, just no display; If I force a full HD resolution
+          with &quot;video:&quot; in the kernel line, I can see the boot pr=
+ocess
+          but the screen disappears when wayland starts (because the
+          default resolution is 3840x2160@30Hz). Using a full HD monitor
+          results in no issues, so it must be related to this very 4k
+          resolution.<br>
+        </div>
+        <div><br>
+        </div>
+        <div>As I have already stated, radeon module works with the same
+          software/hardware configuration.<br>
+        </div>
+        thanks you so much for your time :-)<br>
+        <div>
+          <div><br>
+            -- <br>
+            <div dir=3D"ltr" data-smartmail=3D"gmail_signature">
+              <div dir=3D"ltr">
+                <div>
+                  <div dir=3D"ltr">
+                    <div>
+                      <div dir=3D"ltr">
+                        <div>
+                          <div dir=3D"ltr">Davide Corrado<br>
+                            <div>UNIX Team Leader<span><br>
+                              </span></div>
+                            <div><br>
+                            </div>
+                            Via Abramo Lincoln, 25<br>
+                            20129 Milano<br>
+                            <br>
+                            Tel +39 3474259950<br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset></fieldset>
+      <pre>_______________________________________________
+amd-gfx mailing list
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" rel=3D"noreferrer noreferr=
+er" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
+an/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </div>
+
+</blockquote></div>
+</blockquote></div>
+
+--0000000000000315b605b8125c11--
+
+--===============1662458382==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -333,4 +314,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1747741065==--
+--===============1662458382==--
