@@ -2,74 +2,74 @@ Return-Path: <SRS0=8zgd=GH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1795C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 10:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DC59C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A72421E92
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 10:30:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A72421E92
+	by mail.kernel.org (Postfix) with ESMTPS id 46F11207BC
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46F11207BC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEDAA89B8F;
-	Mon,  4 Jan 2021 10:30:06 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C066A89B8F;
- Mon,  4 Jan 2021 10:30:05 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id b73so26781089edf.13;
- Mon, 04 Jan 2021 02:30:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D216896F7;
+	Mon,  4 Jan 2021 11:10:53 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE348959D;
+ Mon,  4 Jan 2021 11:10:53 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id lt17so36283399ejb.3;
+ Mon, 04 Jan 2021 03:10:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=jAhrbtwG+6ed+DNQFu7tc1nkJ8bzBT1BIhV7/2UdB10=;
- b=l04tFPwzaoF0zdTU7cz/VYnZwFenJvq+6H2844tIXzDoJXbZHx9j88yn0WiYBUYhyI
- g/5KR4LIhTq1qvXRadGko2OM2/rAf+Ay+PsNxYI380Z+19LFl5NaDvB9RDbf6HZO5j4L
- AikIzMyVojiH6DByDfdZBL5FdA+a49Juw87c8DkrcXzZANFiHQQma9UIU7a9+slbIxyy
- SuTcmRMAjsmmXMfwfZGQpgbrQ0tdwszPYruUQ4IEAvEQYsVwzU2Iv/cK1jByXbT3apvW
- 0r0VCsrrO/BxiiAa1DXNGwd6OslZNm5FRle/SCeJugN1w1cBND9/p3IwNQ/pCMnYqq42
- e+LQ==
+ :mime-version:in-reply-to:content-language;
+ bh=Rk2YpDC6uC3V35j3Wtc7z2xlC0RaiWUROEaWtiO4S5E=;
+ b=fZizny6rNj0WMLhl/C7ruJTgUye/lc8FNDyUDS7m5IcQld27yljA//KfsI/moUU5jD
+ Pn3jWG56Tmjqnh2Ij9nh9/za4nJG5YMgig6+RRBk8VWi/PSkMr5mhvyjT5jHIwt05aaN
+ BGE+tl0+XCZAKH0TKtxsS6W37z1jP5H3oks7k+uf1FVskEFWKMtFl922SM4TG0DcnNPB
+ yWoAmpKh7O+YftQ4OMVcUHdWE8dhVuH0baYzEntKPCm5afVjudclbHPcL9xpyBIxLgDg
+ vtJ54WQ45aZqRCn2eCdjKuuVlT2G6txYzF/id5T34G/nWOa+NMwuvq/ed4OVEOqgk6OM
+ k9cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=jAhrbtwG+6ed+DNQFu7tc1nkJ8bzBT1BIhV7/2UdB10=;
- b=YWS0UvhzyhOb9O/GVYwwJ4D4pfUlkAvXXbSYbDEnXSjTvXWe+DwdTcwM8fGqs0XhbY
- JBju+MhaCkC9rA60Rt+tba1iQxbt54lFCi7l/gJKdXtoHaabP+zCQWZorWfJ5TceMDao
- MMN2uoGs67UNEQ9oZn8P5W1VcSfJTmOL+c2FY+xQFJ2NlM5ptwde4C5y1qdSdXN46/lg
- haTSgPFnFJHlO6w1a6NYksSZ0xfwZAQZG5tpaGCVnJFJfg8q/orrqIdlVt2zXusCCk1o
- G8kTSmM7tcGH7m8GROPABuRf+tOrGjl/OI5LYHH5acD1whhP2J+Wc+QmUj6MpkyfSpNK
- 3m0Q==
-X-Gm-Message-State: AOAM533p/9wMxHlsikgZtk1UbmrIb+3MR/cWP3AKvl8dRDjY10dsocIo
- nO+DSVMv/cVxNWtkPGFSVgpSHdqYWxY=
-X-Google-Smtp-Source: ABdhPJxlAHsRyzbqfkpxBlPhMpweSghzFeOZhDyg/PLSiYniV5RQenWYKGpTMH1D6wgWLiQgPtj9VA==
-X-Received: by 2002:a50:d552:: with SMTP id f18mr65083171edj.168.1609756204494; 
- Mon, 04 Jan 2021 02:30:04 -0800 (PST)
+ :content-language;
+ bh=Rk2YpDC6uC3V35j3Wtc7z2xlC0RaiWUROEaWtiO4S5E=;
+ b=Sj1AJT+nGexP1x3ZdhT+DwV4oKwtom2D4Tvfq8Wt8CUXlhBI4DSoCkbYJMBMtKGW0Q
+ 68l6lzaouqpUIJ1wGwFyxVmTB7CmjakX/ShWBq5OQtm4cGf9DJqEgzKJK/AFIAeBNlpd
+ BW7c/SahSD6hH+igAafevmKum1p4hJ7/7bvcC3wv2jlKfq693ssLd5TIUHXlyKiZ+DuG
+ 3KsYRavXCxSmo70zMgBpzTkcphlQPBnKmouIqha68eooAfXYKoK9mDRfUZLgiMzdZiTp
+ 3oLEtUupjSpRrS2N2unTffo0qFRFlA98Vl5qrbmEIV5uRuJfpw/ba7qmHJWZk3agcHdP
+ FwmQ==
+X-Gm-Message-State: AOAM532pgs0dbmnm9p/jLuN1XrGkIpsKzS7XVAhsvaK8pkTL101p+Xr1
+ MbCg7yWc6xJkvXw8Gukt3cTz09PAa7k=
+X-Google-Smtp-Source: ABdhPJwLbAcwYBRjyaBVMhQ4STvIzDTAVprCdtFEnhvi8JkwPO6VRLFSKiP7ccch0GAT5GJhDVns/w==
+X-Received: by 2002:a17:907:2131:: with SMTP id
+ qo17mr65090955ejb.546.1609758651677; 
+ Mon, 04 Jan 2021 03:10:51 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id a20sm44145107edr.70.2021.01.04.02.30.03
+ by smtp.gmail.com with ESMTPSA id f18sm43461660edt.60.2021.01.04.03.10.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Jan 2021 02:30:04 -0800 (PST)
-Subject: Re: [PATCH] drm: Check actual format for legacy pageflip.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- dri-devel@lists.freedesktop.org
-References: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
+ Mon, 04 Jan 2021 03:10:51 -0800 (PST)
+Subject: Re: amdgpu does not support 3840x2160@30Hz on kaveri apu
+To: Davide Corrado <davide@davidecorrado.eu>, alexander.deucher@amd.com
+References: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <70bdaf24-8a05-f28c-9cbf-6709a5e35c6b@gmail.com>
-Date: Mon, 4 Jan 2021 11:30:02 +0100
+Message-ID: <4f208b1a-b90a-6afb-79a7-c5027f7529b2@gmail.com>
+Date: Mon, 4 Jan 2021 12:10:50 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
+In-Reply-To: <CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,37 +83,221 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
-Cc: mario.kleiner.de@gmail.com, daniel.vetter@ffwll.ch, zhan.liu@amd.com,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- nicholas.kazlauskas@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0318284043=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDIuMDEuMjEgdW0gMTU6MDIgc2NocmllYiBCYXMgTmlldXdlbmh1aXplbjoKPiBXaXRoIG1v
-ZGlmaWVycyBvbmUgY2FuIGFjdHVhbGx5IGhhdmUgZGlmZmVyZW50IGZvcm1hdF9pbmZvIHN0cnVj
-dHMKPiBmb3IgdGhlIHNhbWUgZm9ybWF0LCB3aGljaCBub3cgbWF0dGVycyBmb3IgQU1ER1BVIHNp
-bmNlIHdlIGNvbnZlcnQKPiBpbXBsaWNpdCBtb2RpZmllcnMgdG8gZXhwbGljaXQgbW9kaWZpZXJz
-IHdpdGggbXVsdGlwbGUgcGxhbmVzLgo+Cj4gSSBjaGVja2VkIG90aGVyIGRyaXZlcnMgYW5kIGl0
-IGRvZXNuJ3QgbG9vayBsaWtlIHRoZXkgZW5kIHVwIHRyaWdnZXJpbmcKPiB0aGlzIGNhc2Ugc28g
-SSB0aGluayB0aGlzIGlzIHNhZmUgdG8gcmVsYXguCj4KPiBTaWduZWQtb2ZmLWJ5OiBCYXMgTmll
-dXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5odWl6ZW4ubmw+Cj4gRml4ZXM6IDgxNjg1M2Y5ZGM0
-MCAoImRybS9hbWQvZGlzcGxheTogU2V0IG5ldyBmb3JtYXQgaW5mbyBmb3IgY29udmVydGVkIG1l
-dGFkYXRhLiIpCgpJIGRvbid0IGtub3cgdGhlIGRldGFpbHMgb2YgdGhlIGNvZGUgYXQgYWxsLCBi
-dXQgZnJvbSBhIGhpZ2ggbGV2ZWwgcG9pbnQgCm9mIHZpZXcgdGhhdCBtYWtlcyBtdWNoIG1vcmUg
-c2Vuc2UgdGhhbiB0aGUgb3JpZ2luYWwgcGF0Y2guCgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9k
-cm1fcGxhbmUuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
-ZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYwo+IGluZGV4IGU2MjMxOTQ3Zjk4Ny4uZjUwODU5
-OTBjZmFjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYwo+IEBAIC0xMTYzLDcgKzExNjMsNyBAQCBpbnQg
-ZHJtX21vZGVfcGFnZV9mbGlwX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gICAJaWYg
-KHJldCkKPiAgIAkJZ290byBvdXQ7Cj4gICAKPiAtCWlmIChvbGRfZmItPmZvcm1hdCAhPSBmYi0+
-Zm9ybWF0KSB7Cj4gKwlpZiAob2xkX2ZiLT5mb3JtYXQtPmZvcm1hdCAhPSBmYi0+Zm9ybWF0LT5m
-b3JtYXQpIHsKPiAgIAkJRFJNX0RFQlVHX0tNUygiUGFnZSBmbGlwIGlzIG5vdCBhbGxvd2VkIHRv
-IGNoYW5nZSBmcmFtZSBidWZmZXIgZm9ybWF0LlxuIik7Cj4gICAJCXJldCA9IC1FSU5WQUw7Cj4g
-ICAJCWdvdG8gb3V0OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0318284043==
+Content-Type: multipart/alternative;
+ boundary="------------AEA7A8BB94443FE0B183B10A"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------AEA7A8BB94443FE0B183B10A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi Davide,
+
+adding a few of our AMD display people.
+
+In general as already suggested by others opening a bug report to track 
+this is the right thing to do.
+
+In the past we had a few bug reports like this because amdgpu is more 
+strict in checking hardware limitations.
+
+For example it can be that your HDMI port on the board can only handle a 
+certain maximum pixel clock, but radeon is ignoring this while amdgpu isn't.
+
+What you can try to do is to manually override the used mode, e.g. copy 
+the modeline used when radeon is active and manually add that using 
+xrandr when amdgpu is active and see if it works or not.
+
+Regards,
+Christian.
+
+Am 02.01.21 um 19:50 schrieb Davide Corrado:
+> hello, I'd like to report this issue that I am having since I updated 
+> my display (samsung U28E590). The amdgpu does not support the native 
+> resolution of my new monitor, which is 3840x2160/./ Using a HDMI or 
+> DVI connection (I tried both, same results), the maximum supported 
+> refresh is 30Hz, so I'm stuck with that (don't have a displayport). 
+> The radeon module works fine, I'm having this issue just when I use 
+> amdgpu (which I'd like to, because performance is better).
+>
+> Some info of my hardware:
+>
+> cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G
+> kernel version (I tried different ones and different linux distros, 
+> same results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec 21 14:08:22 UTC 
+> 2020 x86_64 x86_64 x86_64 GNU/Linux
+> Monitor: Samsung U28E590.
+>
+> description:
+> If I boot the system using amdgpu and no video mode selection, the 
+> system boots but I don't get a screen during boot and in wayland. I 
+> can connect using ssh, so the system is running fine, just no display; 
+> If I force a full HD resolution with "video:" in the kernel line, I 
+> can see the boot process but the screen disappears when wayland starts 
+> (because the default resolution is 3840x2160@30Hz). Using a full HD 
+> monitor results in no issues, so it must be related to this very 4k 
+> resolution.
+>
+> As I have already stated, radeon module works with the same 
+> software/hardware configuration.
+> thanks you so much for your time :-)
+>
+> -- 
+> Davide Corrado
+> UNIX Team Leader
+>
+> Via Abramo Lincoln, 25
+> 20129 Milano
+>
+> Tel +39 3474259950
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------AEA7A8BB94443FE0B183B10A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">Hi Davide,<br>
+      <br>
+      adding a few of our AMD display people.<br>
+      <br>
+      In general as already suggested by others opening a bug report to
+      track this is the right thing to do.<br>
+      <br>
+      In the past we had a few bug reports like this because amdgpu is
+      more strict in checking hardware limitations.<br>
+      <br>
+      For example it can be that your HDMI port on the board can only
+      handle a certain maximum pixel clock, but radeon is ignoring this
+      while amdgpu isn't.<br>
+      <br>
+      What you can try to do is to manually override the used mode, e.g.
+      copy the modeline used when radeon is active and manually add that
+      using xrandr when amdgpu is active and see if it works or not.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 02.01.21 um 19:50 schrieb Davide Corrado:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAM0ywnxwE9bRafJJZcg4w8GooXiDrJKV0gt+p9XJv=Y6HrmA0w@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div>hello, I'd like to report this issue that I am having since
+          I updated my display (samsung U28E590). The amdgpu does not
+          support the native resolution of my new monitor, which is
+          3840x2160<i>.</i> Using a HDMI or DVI connection (I tried
+          both, same results), the maximum supported refresh is 30Hz, so
+          I'm stuck with that (don't have a displayport). The radeon
+          module works fine, I'm having this issue just when I use
+          amdgpu (which I'd like to, because performance is better).</div>
+        <div><br>
+        </div>
+        <div>Some info of my hardware:</div>
+        <div><br>
+        </div>
+        <div>cpu: AMD A10-7870K Radeon R7, 12 Compute Cores 4C+8G</div>
+        <div>kernel version (I tried different ones and different linux
+          distros, same results!): 5.9.16-200.fc33.x86_64 #1 SMP Mon Dec
+          21 14:08:22 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</div>
+        <div>Monitor: Samsung U28E590.</div>
+        <div><br>
+        </div>
+        <div>description:<br>
+        </div>
+        <div>If I boot the system using amdgpu and no video mode
+          selection, the system boots but I don't get a screen during
+          boot and in wayland. I can connect using ssh, so the system is
+          running fine, just no display; If I force a full HD resolution
+          with "video:" in the kernel line, I can see the boot process
+          but the screen disappears when wayland starts (because the
+          default resolution is 3840x2160@30Hz). Using a full HD monitor
+          results in no issues, so it must be related to this very 4k
+          resolution.<br>
+        </div>
+        <div><br>
+        </div>
+        <div>As I have already stated, radeon module works with the same
+          software/hardware configuration.<br>
+        </div>
+        thanks you so much for your time :-)<br>
+        <div>
+          <div><br>
+            -- <br>
+            <div dir="ltr" class="gmail_signature"
+              data-smartmail="gmail_signature">
+              <div dir="ltr">
+                <div>
+                  <div dir="ltr">
+                    <div>
+                      <div dir="ltr">
+                        <div>
+                          <div dir="ltr">Davide Corrado<br>
+                            <div>UNIX Team Leader<span><br>
+                              </span></div>
+                            <div><br>
+                            </div>
+                            Via Abramo Lincoln, 25<br>
+                            20129 Milano<br>
+                            <br>
+                            Tel +39 3474259950<br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------AEA7A8BB94443FE0B183B10A--
+
+--===============0318284043==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0318284043==--
