@@ -7,120 +7,117 @@ X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEE3FC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18DF8C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 907D52250E
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:07:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 907D52250E
+	by mail.kernel.org (Postfix) with ESMTPS id BA1F2221F1
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:16:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA1F2221F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7418932A;
-	Mon,  4 Jan 2021 16:07:03 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680088.outbound.protection.outlook.com [40.107.68.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85CFA8932A
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 16:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 688BD89FFD;
+	Mon,  4 Jan 2021 16:16:35 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770054.outbound.protection.outlook.com [40.107.77.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4848889FFD
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 16:16:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oGUX+rG17NjtsbLQQxVBLGgllOtQI6XQtyrkn+Dd13gkxtD6+Rxe7j0A5Esq1xD6khXe2NmeBdQnQLEuFeKP+e8nQp+TFVEpRyCgSmq6acl/vFUCuEnAqun/EtzorS9bk9ICvOiSlMB1OqsHQdF6bTLWEax5jh4JcRCrI5+89bwS9Z25XxyC+BYPocK5BK2rruXrvS7f5y+HSfl3bnICbwo4OB1hmNXuj2FOYwdFNNSMrOY1I/X3yVmQou4buv5PPQT8ovA3A4BRmmup6Xu5x91DfWbowFxeNNIlKjuUT0nCRFfFjV/z5C+cezda6urB/IL1tKtQiWcz41fAwEswsw==
+ b=IYQGIGudbJMPclR4ga3KO5CsXrLNarcuiRSoCJQiVvj7xY9s6moJVimsgfx1awiIcJFaOAFrdwXN9Kb00uuzSxPcfM1lVtrI0eOTY3BPh4RsacwybiqZPQ9F0Hx8xmiTmNcfcjBWPbQAJ9vd/Ka/BdSCjssG8GfWAOHK40x1mpfacsJYcCPoUK8vetD2CAS+aymyZz6zzdltptiCo9ra3ng8T+jYJxNVDzH93gk3mwqp9dJYmlUhmhi88UaASj8qlAwrM8zdX/3AMYU4HHVic1S8li0s+jr8wc3HinjbfZ06yD1f7t1HzkzBTFH/0GoxVip5i4UdhZ/v/LGki+K+KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yc/mo1c4qG0Uru1n2v50ijW3UPrQuOUWmje6OytuPN4=;
- b=NEdINu7YmoVzHC4ZrfzM8QhvVpZ8hLGWHW4DepXV7tJpzsKwwvdZxMtIbQ/Yan0MCTQRyQ8nkpHp9DfyH95ee+YSVlFnjF9ZJZblQI8Kud3a6MW9MxNNn7yzFNmk4URhVr8IklDXEfNqpIAlaFgSdj81PG/EUBokgyJ4DxEsMgPEEqaBhHtzoSehL/KasT82XPcVKDy77Ve4czZqmWnNYCfpzkKM2AURYdvxQUMFyZ8sXtsmoBURFNyn67WbZ2H/7pW0keswm2xpwLxv8DlihdqVSw2kV8hfs83qdgYf22ZOBeaSTddajVFeNccauZThEeLzWyNVJkjmlQGWU3+esg==
+ bh=HpMovhTkbsDKhazXFFLKC1S1p8EA7N+zP6zFV5Cf5K8=;
+ b=Ro2nePGNg5mkkGSXPYJubnMQabR60B/nFNbATuDswxXEwPydSscuusHP2TsjfvgJyMwBKVh0xW7kq89jPx+xa+IDNhc56ArgdlWYDaXxrpGIgRKfoVignIBAC/mafZKJlxe5ARZ0yRxdUEUEaASippmseyw/v+4JGaLiDZWJ1JYXk9pwTJ2OCuFq7tAt795Kl+bnrAeQe5Zo4cpphLPrjFEEYNa9ieZD6xwJJZlmB24pES7eu7iMRs1C2Rye+2UwpWkjotGkLgKVRL69MuSw4zs2upUzhgjbAQFYLrrfYc7JClF/Jb1G6U61l/WAw5UW80thtwgswc2FzJbEbLxekA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yc/mo1c4qG0Uru1n2v50ijW3UPrQuOUWmje6OytuPN4=;
- b=BbbdKtETbgjtMO+t3VWlshwYd8QYXjgDi0E2u/q/33UhWSJfGIDpHcb6nYQdzNmcAke2qMzJX8DSkYsH/kuYzk4AIomzUJJcL3KPSJELxLwx2XWKg8z9fDz0jq9no30oXiv5RS+UDhszT8zg7wuUByOudaNncrAZqRZQeYrUOlc=
+ bh=HpMovhTkbsDKhazXFFLKC1S1p8EA7N+zP6zFV5Cf5K8=;
+ b=uBZGbnqnBAT/DOJ2cuVT4iA7vdvypn4jq1EYGsLEAOaPIVRrH2uIw/0MNq9OdwSryDiKqJ9PENlmyhZa7k7Du3Gl8GmRlTl4qCXdEwGAOU2JEC61ijrbirV+6FtjqC7BYR5x6Ov6rwFEpjd/I1WLIPtawP/1mHMlwpFKsUgBOPg=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB3061.namprd12.prod.outlook.com (2603:10b6:a03:a8::33)
+ by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.20; Mon, 4 Jan
- 2021 16:06:59 +0000
+ 2021 16:16:33 +0000
 Received: from BYAPR12MB3560.namprd12.prod.outlook.com
  ([fe80::c415:a6:f78f:82f5]) by BYAPR12MB3560.namprd12.prod.outlook.com
  ([fe80::c415:a6:f78f:82f5%6]) with mapi id 15.20.3676.035; Mon, 4 Jan 2021
- 16:06:59 +0000
-Subject: Re: [PATCH v2 2/3] drm/amd/display: Add freesync video modes based on
- preferred modes
-To: Shashank Sharma <shashank.sharma@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20201210184823.285415-1-aurabindo.pillai@amd.com>
- <20201210184823.285415-3-aurabindo.pillai@amd.com>
- <acf8fbcf-12ba-a55f-630e-cf9c856dd7e6@amd.com>
+ 16:16:32 +0000
+Subject: Re: [PATCH 3/3] drm/amd/display: Skip modeset for front porch change
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20201210024526.1151447-1-aurabindo.pillai@amd.com>
+ <20201210024526.1151447-4-aurabindo.pillai@amd.com>
 From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <eca515aa-fba2-3a1b-016c-f29e06e5a2da@amd.com>
-Date: Mon, 4 Jan 2021 11:06:56 -0500
+Message-ID: <bd9b0cdf-4886-dfac-39d2-f1440d50ec39@amd.com>
+Date: Mon, 4 Jan 2021 11:16:29 -0500
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
-In-Reply-To: <acf8fbcf-12ba-a55f-630e-cf9c856dd7e6@amd.com>
+In-Reply-To: <20201210024526.1151447-4-aurabindo.pillai@amd.com>
 Content-Language: en-US
 X-Originating-IP: [165.204.55.211]
-X-ClientProxiedBy: YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::28) To BYAPR12MB3560.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0122.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::31) To BYAPR12MB3560.namprd12.prod.outlook.com
  (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [172.31.148.234] (165.204.55.211) by
- YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::28) with Microsoft
+ YT1PR01CA0122.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::31) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3721.19 via Frontend Transport; Mon, 4 Jan 2021 16:06:57 +0000
+ 15.20.3721.19 via Frontend Transport; Mon, 4 Jan 2021 16:16:31 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 44eb53b1-6f0e-4782-9205-08d8b0cac43d
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3061:
+X-MS-Office365-Filtering-Correlation-Id: 628641c6-19a7-4fec-e685-08d8b0cc1a0d
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4289:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3061242008759D0AE1A3C084ECD20@BYAPR12MB3061.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <BY5PR12MB42891313F16BDADA709D5571ECD20@BY5PR12MB4289.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:800;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9Rcm04ZbL9rVP+G+9Ef51TfW8p1VEmgbtXcpDL2fbuf5UctNleyhV9yArbWJo83O+DUfVLOXzmfuFe2pVnwAgmX5kWCd3v+R4rOGtFOLEctFzr3lkwXPkU2m2nOC/tl2zLOsBkp41Pw7nSvu+jPX0+So1XiToCd/zevymSVuCAyMu9akplzgcBTf+y2fzVLNyTBbCOQCbsjzWqka4/ot550d8XgNptPQ3vleiuHxly7W5iihIy+PvPDr4xQB6RGPnUX1TJDo9XMog4Wv2r/gMnNFqD/vYT2HoWzaLUYCWssJcDFGNKlDzIcvIC+v6g0MwwWZ3oyGoCtrrXP9dd4MWwHYztQ6GrneN4UB905CtuxMxY0LersHKlhBUIdDgJc8H/vgbdcm7oaxWO8gw4H93GKq1CNVstq/WJF82rSOcXNtcnwgTa/SdOtZVl+wPQHNo0SgTRutZdv1Pv8wDogbpMTEENLVhCmFYxbO31RgH8Q=
+X-Microsoft-Antispam-Message-Info: 3AtsXpqbAhv3Ubdruem2SmSNg90yGIRn6vfgwBTz8zleVhVbHY0oy4QCmrkH9VSqfCJ69G7vAq4a3eXRM7MAM+J5fN9jU93iiolVCkF58Q0zO4zIRoC7i0RS65GRrSNMkwzK2PS1yBBn9fKVKzKwjL7qmwoYLgONh3066LBJBHvk3GAGVlQkYKCNzKJLZVYGUXTlWJV6Pou+C1BaM8G4yb4kp0Ck6iOLXA2YVnspZ+N3PruOxObj3w3iZtewZkm09K61wo0Hd5vgyKbFXDZ9xDmo48GY99RHmVvWd5DvLVYdUEsP1hAGacSdayubNp7qe3+EBpAQnOpCVOEBSh1uKTkTz9OJXiGTKGJNxLTELkgnKltUNCJfoxcqiE45qeWaV/LZGDyy+qy1Cwunf4cIzHcajBKKz76Q/fyxcAqlvZ+J2ibhLhnxFxV2K6vp412zDDSxyBaOjt6xco9cUiXOauqgQaC/ErUez+9LHxAETQQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(2906002)(8936002)(53546011)(478600001)(956004)(2616005)(16526019)(186003)(26005)(31686004)(5660300002)(66556008)(66476007)(36756003)(8676002)(31696002)(6486002)(66946007)(4326008)(86362001)(52116002)(83380400001)(110136005)(316002)(4001150100001)(16576012)(45980500001)(43740500002);
+ SFS:(4636009)(396003)(39860400002)(376002)(346002)(136003)(366004)(8676002)(83380400001)(2906002)(16576012)(316002)(30864003)(478600001)(31686004)(52116002)(5660300002)(6486002)(26005)(66556008)(31696002)(66946007)(86362001)(186003)(16526019)(8936002)(66476007)(53546011)(2616005)(36756003)(956004)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SzhsNTFoemZjRHAzd2NHWVFwMk16U1dpMi91UDJSSlNqRFB6Q2NKbmRRQVJ6?=
- =?utf-8?B?aEUvZ2tqL2xGeVE1c210TGcra2dZb3NVMW1hbSsvK1hncjhQU1I2emNIQU1q?=
- =?utf-8?B?TDRpMTNsNHRHcVdUdVZxTGVCMlcrZ01yR2NXait0UGFRSDlzSnJETkExc1Fq?=
- =?utf-8?B?RUhqNjRWRGppN0ZWOUd3WXB0VlhRVGpYRzQxNmtJOWFUQUtnOG5XRGVLTUF5?=
- =?utf-8?B?OUw4Y2hvK2VFakhSRjZ6OXdLdndRRS9VS21XS3FGdUcxV2dOeUtGYzV1L2Qy?=
- =?utf-8?B?YlZ1U3daUzRURXJCM09WQkxTRkM1TWZaaTcxOUtNbnZtWXcyM3BIMnM3T081?=
- =?utf-8?B?VG12Z3NGVE53L3poMCt2QlRYS0pZMmVHK2tsRi80cHpjWEpOWUg2eFhRL2h4?=
- =?utf-8?B?Zlc4bnRiajB0bVE0ZEFGV1JoSkkvaHQ0NjVzNW1ha0RoL2kwaWxsWE45cjdC?=
- =?utf-8?B?MlZjTkoyK1JVN21QYjAyek81U09pMVMrNUNjeXRDQzhkUE9CMXg2UFBPSmZz?=
- =?utf-8?B?Tm9Zb0pWN09mZ0lsYm41KytmM0lOdDZ1S0I3L0wyRDdUSWNMQXBPdW9sYm1h?=
- =?utf-8?B?RlhRamhQS2VzbE5NUk5WRm9qbWE5QlUyNUcvd0x1Y3J2OFRIUitFSkhWQ2dm?=
- =?utf-8?B?aCt6QTMwVlNQNnNXMGNzVVh4dHJCUDJsN2d0endPYUZQK1RsUFZ6S2VkMW9m?=
- =?utf-8?B?d1dRMVNyQkxTdk5iVDNUSHBlbElLNVVLYlJKZHVGUTc1Z1RiNlNJb2c4OHJu?=
- =?utf-8?B?aVk0dUJ5Mk9WTWd5ektCV2YrQXhIWTNSMDRMMThaODNJMDVmQkZuSURRckhU?=
- =?utf-8?B?SzAwWjd5bWJHV1hQcWNEL1hMelJ0SlJmQVRySEVCanVJSWI5Q2JjQndWM0NS?=
- =?utf-8?B?YldjQ3laMDE4N3hSVFB2L3pMYllGUmF5RWxQeTBHSVBKNTZhcnRhSnJSUW8z?=
- =?utf-8?B?V2RXVm0rMUF3OGdCMzN6TURtSTExSmNieW5WU3Y0dzJacmZ1eG93QW5qdHNR?=
- =?utf-8?B?bXFKc0NUeTlxN0E4a0xFamNWb21NaFYrTE5BdTVDMHNFbWlyU1QvTERobmVI?=
- =?utf-8?B?d3c3RUgyVGxLUmxqOGNJUThhcWtPL2t0RU1rNFhaSVB3VnZqa293YUdXaE1U?=
- =?utf-8?B?eTAyRlNxM3l0a3cwSkV5ZVJ2c1U1akxNb0FrZWtQaUUyb3RTdHZRQUNZb0tL?=
- =?utf-8?B?WTZaT1hobVFQaVRocElpNzhzZmFBR01HbTlHZ3dGNTZDZ3ZQK2RUVUxPajRF?=
- =?utf-8?B?STZDbVRQblBRVVZGcFdsamd3QkVPa1BlcEptZEkzQVZneDY2WWE2YnM1MlNU?=
- =?utf-8?Q?iAs7iI2o2UIKIlu1elmbT0Ku66+vd8jQYx?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bnZZa0hObmc4SGxpWGdJWW9ZekxxY0hKWnJ2bzRjOWJSNFovSk9CclV1SCtW?=
+ =?utf-8?B?TGkvVHJBa1NlWGVWcVhrK2RoL2w0bDJwWCtNaXM3R2NHSTJEUHpnU2QxeHpw?=
+ =?utf-8?B?bGZkMFRTVEVpbFA3dU12U1NtRkFKakZ3TG43VU5JVTVrd3VwK1IwRGJ2QVhj?=
+ =?utf-8?B?M2pmZ3hMSVFHTHoyWFBSM0pLQk4zZmM5bmg2ako2WHlWM1hFNnhCVmJldnVr?=
+ =?utf-8?B?MGxPMCtQSGlFM01RN1daYVFtZVM0cVF0eVdTWWFWM0QxbTlselRBUUVkU01t?=
+ =?utf-8?B?TzB4TmNtQVFhYU9HbTlmOHpNcHc3TEs4dXJ6OW9BVURLeHFtdVh3bEdsTEU4?=
+ =?utf-8?B?MmJsczVSdzVTSy9WcXE0NzRqcnRRVDg4M21MRVRvUEgwRWtWNDFXQTZzMFRp?=
+ =?utf-8?B?K1B6b0I1YjU0M3lIK1NMb3NlQkZUT0JiWGtsUmF0NE1DRHd3Z0hORWZMN3l5?=
+ =?utf-8?B?czZDOXEzZ2ZPVWg2Zm1odXoxalJQMms4TG04dE0wY0VvVmxydGdnZjFWeGdY?=
+ =?utf-8?B?b1UxZnpLWmJsd2lpZEdaald5Njlmd1NyS1lFYllSRHdyZUxUSHpZUmN0cThm?=
+ =?utf-8?B?a3U2UUhmVGxkMnVIYU5FSXNjVXU0bmgrTTlZcTU5Z1dNVUQ4UWxFdUhjS1Uy?=
+ =?utf-8?B?emRUa2g5REExTWEwbzdQSnI2TXMxakRzd2V2M1pndm5QVi9PaVE3dVVlckdY?=
+ =?utf-8?B?QUF2Y3ZrWURyL1lzTjczbk1neVZpTllwSWYxZkx1N0hMUzY0SG1tZVh0K2hk?=
+ =?utf-8?B?Ui9wUFptNnBLYXFtY2MxMzkrSmlKYUVpcUk3OUhGOER5UmRQdWlEeFUyUlhz?=
+ =?utf-8?B?ZStoY1RMcTF1eEZUa0hCd3B5USs2d1BtV0Zucyt1dm9heER2WFd6a2RYQ05W?=
+ =?utf-8?B?MWFRa1FPYktSb3NmUEFLZGpKU2wvbjRZQmlSd0VUM20ycnJmd2xzNTY0YTRV?=
+ =?utf-8?B?N1lRK1pTdHViMkNDRUFOWGljMFJrTUJVV0czY0h5VGJDM2h0TVNZYmlSN20v?=
+ =?utf-8?B?NzNkWGNmTHpIZTdHd05ta2poN2l1V3FqK05QTElyT0dsWmdha3ltZW9YM1ZN?=
+ =?utf-8?B?dEtsQ0ZoV2ZsNklOOTZ3MDI1NGMrU2Q0cFpVQnh0OGtTdjFrKzB2Yi9HVit3?=
+ =?utf-8?B?VWk1N056R0tYRXF0NUIxaVQ0bUYrOXM1WlhGVHo3anpUTzF4NWdzMlhqbG1y?=
+ =?utf-8?B?TzJ4Y3JxMUJ0WFdEcmgvbVdDTFc4WGtKQVR5VnFycEE1LzJmK29wcEpKOXN0?=
+ =?utf-8?B?Si8wWXhvNFlqS0dyeEcxTWdoY29ZeER0bUVCeWxpdHBwTmJkQUpEZHNFZmYr?=
+ =?utf-8?Q?Zu1/Qkt2SW7H1Y3skS2e1IxG346tUJJk21?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 16:06:59.3617 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 16:16:32.8421 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44eb53b1-6f0e-4782-9205-08d8b0cac43d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 628641c6-19a7-4fec-e685-08d8b0cc1a0d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pkj4jpnJnqdVI+7uW7BvlU2joyBJq01uNQqN8zpQdnstR0hIldUgWg4BRzkjHJ2fMI+wtDKpNuYXExtLmsLu+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3061
+X-MS-Exchange-CrossTenant-UserPrincipalName: m2CgAw/Qwk2hQIHy+l8pki1TqBU21GB+DmblClxbgzj72KKLftrsWelP95iWrAFROTbad8QlxT5Z00pjqber4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,185 +129,346 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, stylon.wang@amd.com, thong.thai@amd.com,
- Harry.Wentland@amd.com, wayne.lin@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: stylon.wang@amd.com, thong.thai@amd.com, shashank.sharma@amd.com,
+ wayne.lin@amd.com, alexander.deucher@amd.com, Harry.Wentland@amd.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0xMi0xMSAxMjo1NCBhLm0uLCBTaGFzaGFuayBTaGFybWEgd3JvdGU6Cj4gCj4gT24g
-MTEvMTIvMjAgMTI6MTggYW0sIEF1cmFiaW5kbyBQaWxsYWkgd3JvdGU6Cj4+IFtXaHkmSG93XQo+
-PiBJZiBleHBlcmltZW50YWwgZnJlZXN5bmMgdmlkZW8gbW9kZSBtb2R1bGUgcGFyYW1ldGVyIGlz
-IGVuYWJsZWQsIGFkZAo+PiBmZXcgZXh0cmEgZGlzcGxheSBtb2RlcyBpbnRvIHRoZSBkcml2ZXIn
-cyBtb2RlIGxpc3QgY29ycmVzcG9uZGluZyB0byBjb21tb24KPj4gdmlkZW8gZnJhbWUgcmF0ZXMu
-IFdoZW4gdXNlcnNwYWNlIHNldHMgdGhlc2UgbW9kZXMsIG5vIG1vZGVzZXQgd2lsbCBiZQo+PiBw
-ZXJmb3JtZWQgKGlmIGN1cnJlbnQgbW9kZSB3YXMgb25lIG9mIGZyZWVzeW5jIG1vZGVzIG9yIHRo
-ZSBiYXNlIGZyZWVzeW5jIG1vZGUKPj4gYmFzZWQgb2ZmIHdoaWNoIHRpbWluZ3MgaGF2ZSBiZWVu
-IGdlbmVyYXRlZCBmb3IgdGhlIHJlc3Qgb2YgdGhlIGZyZWVzeW5jIG1vZGVzKQo+PiBzaW5jZSB0
-aGVzZSBtb2RlcyBvbmx5IGRpZmZlciBmcm9tIHRoZSBiYXNlIG1vZGUgd2l0aCBmcm9udCBwb3Jj
-aCB0aW1pbmcuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEF1cmFiaW5kbyBQaWxsYWkgPGF1cmFiaW5k
-by5waWxsYWlAYW1kLmNvbT4KPj4gLS0tCj4+ICAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jIHwgMTY3ICsrKysrKysrKysrKysrKysrKwo+PiAgIDEgZmlsZSBj
-aGFuZ2VkLCAxNjcgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4gaW5kZXggZmJmZjhkNjkzZTAzLi5k
-MTU0NTNiNDAwZDIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+PiBAQCAtNTE3OCw2ICs1MTc4LDU0IEBAIHN0YXRpYyB2
-b2lkIGRtX2VuYWJsZV9wZXJfZnJhbWVfY3J0Y19tYXN0ZXJfc3luYyhzdHJ1Y3QgZGNfc3RhdGUg
-KmNvbnRleHQpCj4+ICAgCXNldF9tYXN0ZXJfc3RyZWFtKGNvbnRleHQtPnN0cmVhbXMsIGNvbnRl
-eHQtPnN0cmVhbV9jb3VudCk7Cj4+ICAgfQo+PiAgIAo+PiArc3RhdGljIHN0cnVjdCBkcm1fZGlz
-cGxheV9tb2RlICoKPj4gK2dldF9oaWdoZXN0X3JlZnJlc2hfcmF0ZV9tb2RlKHN0cnVjdCBhbWRn
-cHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAo+PiArCQkJICBib29sIHVzZV9wcm9iZWRfbW9k
-ZXMpCj4+ICt7Cj4+ICsJc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm0sICptX2hpZ2ggPSBOVUxM
-Owo+IEkgd291bGQgcHJlZmVyIG1faGlnaCB0byBiZSByZW5hbWVkIGFzIG1fcHJlZiwgaW5kaWNh
-dGluZyBpdCdzIHRoZSBwcmVmZXJyZWQgbW9kZQo+PiArCXUxNiBjdXJyZW50X3JlZnJlc2gsIGhp
-Z2hlc3RfcmVmcmVzaDsKPj4gKwlzdHJ1Y3QgbGlzdF9oZWFkICpsaXN0X2hlYWQgPSB1c2VfcHJv
-YmVkX21vZGVzID8KPj4gKwkJCQkJCSAgICAmYWNvbm5lY3Rvci0+YmFzZS5wcm9iZWRfbW9kZXMg
-Ogo+PiArCQkJCQkJICAgICZhY29ubmVjdG9yLT5iYXNlLm1vZGVzOwo+PiArCS8qIEZpbmQgdGhl
-IHByZWZlcnJlZCBtb2RlICovCj4+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeSAobSwgbGlzdF9oZWFk
-LCBoZWFkKSB7Cj4+ICsJCWlmICghKG0tPnR5cGUgJiBEUk1fTU9ERV9UWVBFX1BSRUZFUlJFRCkp
-Cj4+ICsJCQljb250aW51ZTsKPj4gKwo+PiArCQltX2hpZ2ggPSBtOwo+PiArCQloaWdoZXN0X3Jl
-ZnJlc2ggPSBkcm1fbW9kZV92cmVmcmVzaChtX2hpZ2gpOwo+PiArCQlicmVhazsKPj4gKwl9Cj4+
-ICsKPj4gKwlpZiAoIW1faGlnaCkgewo+PiArCQkvKiBQcm9iYWJseSBhbiBFRElEIHdpdGggbm8g
-cHJlZmVycmVkIG1vZGUuIEZhbGxiYWNrIHRvIGZpcnN0IGVudHJ5ICovCj4+ICsJCW1faGlnaCA9
-IGxpc3RfZmlyc3RfZW50cnlfb3JfbnVsbCgmYWNvbm5lY3Rvci0+YmFzZS5tb2RlcywKPj4gKwkJ
-CQkJCSAgc3RydWN0IGRybV9kaXNwbGF5X21vZGUsIGhlYWQpOwo+PiArCQlpZiAoIW1faGlnaCkK
-Pj4gKwkJCXJldHVybiBOVUxMOwo+PiArCQllbHNlCj4+ICsJCQloaWdoZXN0X3JlZnJlc2ggPSBk
-cm1fbW9kZV92cmVmcmVzaChtX2hpZ2gpOwo+PiArCX0KPj4gKwo+IAo+IE9wdGlvbmFsIGNsZWFu
-dXAgc3VnZ2VzdGVkIGJlbG93IG1ha2VzIGNvZGUgbW9yZSByZWFkYWJsZToKPiAKPiAKPiAvKiBG
-aW5kIHRoZSBwcmVmZXJyZWQgbW9kZSAqLwo+IAo+IGxpc3RfZm9yX2VhY2hfZW50cnkgKG0sIGxp
-c3RfaGVhZCwgaGVhZCkgewo+ICDCoMKgwqAgaWYgKG0tPnR5cGUgJiBEUk1fTU9ERV9UWVBFX1BS
-RUZFUlJFRCkgewo+ICDCoMKgwqAgwqDCoMKgIG1fcHJlZiA9IG07Cj4gIMKgwqDCoCDCoMKgwqAg
-YnJlYWs7Cj4gIMKgwqDCoCB9Cj4gfQo+IAo+IGlmICghbV9wcmVmKSB7Cj4gIMKgwqDCoCAvKiBQ
-cm9iYWJseSBhbiBFRElEIHdpdGggbm8gcHJlZmVycmVkIG1vZGUuIEZhbGxiYWNrIHRvIGZpcnN0
-IGVudHJ5ICovCj4gIMKgwqDCoCBtX3ByZWYgPSBsaXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJmFj
-b25uZWN0b3ItPmJhc2UubW9kZXMsCj4gIMKgwqDCoCDCoMKgwqAgwqDCoMKgIMKgwqDCoCDCoMKg
-wqAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgwqDCoMKgIMKgIHN0cnVjdCBkcm1fZGlzcGxheV9tb2Rl
-LCBoZWFkKTsKPiAgwqDCoMKgIGlmICghbV9wcmVmKSB7Cj4gIMKgwqDCoCDCoMKgwqAgRFJNX0RF
-QlVHX0RSSVZFUigiTm8gcHJlZmVycmVkIG1vZGUgZm91bmQgaW4gRURJRFxuIik7Cj4gIMKgwqDC
-oCDCoMKgwqAgcmV0dXJuIE5VTEw7Cj4gIMKgwqDCoCB9Cj4gfQo+IAo+IGhpZ2hlc3RfcmVmcmVz
-aCA9IGRybV9tb2RlX3ZyZWZyZXNoKG1fcHJlZik7CgpBZ3JlZWQgd2l0aCB0aGlzIGNsZWFudXAg
-LSBuYW1pbmcgaXMgY29uZnVzaW5nIGFzIGlzLgoKPj4gKwkvKgo+PiArCSAqIEZpbmQgdGhlIG1v
-ZGUgd2l0aCBoaWdoZXN0IHJlZnJlc2ggcmF0ZSB3aXRoIHNhbWUgcmVzb2x1dGlvbi4KPj4gKwkg
-KiBGb3Igc29tZSBtb25pdG9ycywgcHJlZmVycmVkIG1vZGUgaXMgbm90IHRoZSBtb2RlIHdpdGgg
-aGlnaGVzdAo+PiArCSAqIHN1cHBvcnRlZCByZWZyZXNoIHJhdGUuCj4+ICsJICovCj4+ICsJbGlz
-dF9mb3JfZWFjaF9lbnRyeSAobSwgbGlzdF9oZWFkLCBoZWFkKSB7Cj4+ICsJCWN1cnJlbnRfcmVm
-cmVzaCAgPSBkcm1fbW9kZV92cmVmcmVzaChtKTsKPj4gKwo+PiArCQlpZiAobS0+aGRpc3BsYXkg
-PT0gbV9oaWdoLT5oZGlzcGxheSAmJgo+PiArCQkgICAgbS0+dmRpc3BsYXkgPT0gbV9oaWdoLT52
-ZGlzcGxheSAmJgo+PiArCQkgICAgaGlnaGVzdF9yZWZyZXNoIDwgY3VycmVudF9yZWZyZXNoKSB7
-Cj4+ICsJCQloaWdoZXN0X3JlZnJlc2ggPSBjdXJyZW50X3JlZnJlc2g7Cj4+ICsJCQltX2hpZ2gg
-PSBtOwo+PiArCQl9Cj4+ICsJfQo+PiArCj4+ICsJcmV0dXJuIG1faGlnaDsKPj4gK30KPj4gKwo+
-PiAgIHN0YXRpYyBzdHJ1Y3QgZGNfc3RyZWFtX3N0YXRlICoKPj4gICBjcmVhdGVfc3RyZWFtX2Zv
-cl9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAo+PiAgIAkJICAg
-ICAgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICpkcm1fbW9kZSwKPj4gQEAgLTcwMDYs
-NiArNzA1NCwxMjQgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9kZGNfZ2V0X21v
-ZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCj4+ICAgCX0KPj4gICB9Cj4+ICAg
-Cj4+ICtzdGF0aWMgYm9vbCBpc19kdXBsaWNhdGVfbW9kZShzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5l
-Y3RvciAqYWNvbm5lY3RvciwKPj4gKwkJCSAgICAgIHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICpt
-b2RlKQo+PiArewo+PiArCXN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptOwo+PiArCj4+ICsJbGlz
-dF9mb3JfZWFjaF9lbnRyeSAobSwgJmFjb25uZWN0b3ItPmJhc2UucHJvYmVkX21vZGVzLCBoZWFk
-KSB7Cj4+ICsJCWlmIChkcm1fbW9kZV9lcXVhbChtLCBtb2RlKSkKPj4gKwkJCXJldHVybiB0cnVl
-Owo+PiArCX0KPj4gKwo+PiArCXJldHVybiBmYWxzZTsKPj4gK30KPj4gKwo+PiArc3RhdGljIHVp
-bnQgYWRkX2ZzX21vZGVzKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAo+
-PiArCQkJIHN0cnVjdCBkZXRhaWxlZF9kYXRhX21vbml0b3JfcmFuZ2UgKnJhbmdlKQo+PiArewo+
-PiArCWNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptLCAqbV9zYXZlOwo+PiArCXN0cnVj
-dCBkcm1fZGlzcGxheV9tb2RlICpuZXdfbW9kZTsKPj4gKwl1aW50IGk7Cj4+ICsJdWludDY0X3Qg
-dGFyZ2V0X3Z0b3RhbCwgdGFyZ2V0X3Z0b3RhbF9kaWZmOwo+PiArCXVpbnQzMl90IG5ld19tb2Rl
-c19jb3VudCA9IDA7Cj4+ICsJdWludDY0X3QgbnVtLCBkZW47Cj4gbnVtLCBkZW4sIHRhcmdldF92
-dG90YWwsIHRhcmdldF92dG90YWxfZGlmZiBjYW4gZ28gaW5zaWRlIHRoZSBsaXN0X2Zvcl9lYWNo
-X2VudHJ5KCkgbG9vcDsKPj4gKwo+PiArCS8qIFN0YW5kYXJkIEZQUyB2YWx1ZXMKPj4gKwkgKgo+
-PiArCSAqIDIzLjk3NiAtIFRWL05UU0MKPj4gKwkgKiAyNAkgIC0gQ2luZW1hCj4+ICsJICogMjUg
-ICAgIC0gVFYvUEFMCj4+ICsJICogMjkuOTcgIC0gVFYvTlRTQwo+PiArCSAqIDMwICAgICAtIFRW
-L05UU0MKPj4gKwkgKiA0OAkgIC0gQ2luZW1hIEhGUgo+PiArCSAqIDUwCSAgLSBUVi9QQUwKPiBJ
-IG1pc3NlZCB0aGlzIGxhc3QgdGltZSwgYnV0IHdoeSBkb24ndCB3ZSBoYXZlIDYwIGZwcyBoZXJl
-ID8gTW9zdCBwcmVmZXJyZWQgbW9kZXMgYXJlIDYwZnBzIGluIGdlbmVyYWwuIE9yIHdhcyBpdCBt
-aXNzZWQgaW4gY29tbWVudCBvbmx5ID8KCkl0IHNob3VsZCBiZSBpbiB0aGlzIGxpc3QsIGJ1dCB0
-aGF0IGJyaW5ncyB1cCBhbm90aGVyIHBvaW50IHRoYXQgbmVlZHMgCnRvIGJlIGFkZHJlc3NlZCAt
-IGlmIHRoZSBtb2RlIGFscmVhZHkgZXhpc3RzIGluIHRoZSBtb2RlbGlzdCB0aGVuIHdlIApzaG91
-bGQgc2tpcCBhZGRpbmcgYSBkdXBsaWNhdGUgbW9kZS4KCj4+ICsJICovCj4+ICsJY29uc3QgdWlu
-dDMyX3QgbmVlZGVkcmF0ZXNbXSA9IHsgMjM5NzYsIDI0MDAwLCAyNTAwMCwgMjk5NzAsCj4+ICsJ
-CQkJCSAzMDAwMCwgNDgwMDAsIDUwMDAwLCA3MjAwMCwgOTYwMDAgfTsKPiAKPj4gKwo+PiArCS8q
-Cj4+ICsJICogRmluZCBtb2RlIHdpdGggaGlnaGVzdCByZWZyZXNoIHJhdGUgd2l0aCB0aGUgc2Ft
-ZSByZXNvbHV0aW9uCj4+ICsJICogYXMgdGhlIHByZWZlcnJlZCBtb2RlLiBTb21lIG1vbml0b3Jz
-IHJlcG9ydCBhIHByZWZlcnJlZCBtb2RlCj4+ICsJICogd2l0aCBsb3dlciByZXNvbHV0aW9uIHRo
-YW4gdGhlIGhpZ2hlc3QgcmVmcmVzaCByYXRlIHN1cHBvcnRlZC4KPj4gKwkgKi8KPj4gKwo+PiAr
-CW1fc2F2ZSA9IGdldF9oaWdoZXN0X3JlZnJlc2hfcmF0ZV9tb2RlKGFjb25uZWN0b3IsIHRydWUp
-Owo+PiArCWlmICghbV9zYXZlKQo+PiArCQlnb3RvIG91dDsKPj4gKwo+PiArCWxpc3RfZm9yX2Vh
-Y2hfZW50cnkgKG0sICZhY29ubmVjdG9yLT5iYXNlLnByb2JlZF9tb2RlcywgaGVhZCkgewo+PiAr
-CQlpZiAobSAhPSBtX3NhdmUpCj4+ICsJCQljb250aW51ZTsKPiAKPiBOb3cgd2hlbiBJIHRoaW5r
-IGFib3V0IGl0IGFnYWluLAo+IAo+IC0gd2UgYWxyZWFkeSB3ZW50IHRocm91Z2ggdGhlIGxpc3Qg
-KGFjb25uZWN0b3ItPmJhc2UucHJvYmVkX21vZGVzKSBpbiBmdW5jdGlvbiBnZXRfaGlnaGVzdF9y
-ZWZyZXNoX3JhdGVfbW9kZSgpLCBhbmQgZ290IHRoZSBtX3NhdmUgbW9kZS4KPiAKPiAtIHRoZW4g
-d2UgYXJlIGFnYWluIGdvaW5nIHRocm91Z2ggdGhlIHNhbWUgbGlzdCwgdG8gZmluZCBtID0gbV9z
-YXZlLCB3aHkgPyBBbSBJIG1pc3Npbmcgc29tZXRoaW5nIG9yIHdlIGNhbiB1c2UgbV9zYXZlIGRp
-cmVjdGx5IGhlcmUKPiAKPiBzb21lIHRoaW5nIGxpa2U6Cj4gCj4gbV9zYXZlID0gZ2V0X2hpZ2hl
-c3RfcmVmcmVzaF9yYXRlX21vZGUoYWNvbm5lY3RvciwgdHJ1ZSk7Cj4gCj4gaWYgKG1fc2F2ZSnC
-oCB7Cj4gCj4gICAgIGZvciAoaSA9IDA7IGkgPCBzaXplb2YobmVlZGVkcmF0ZXMpIC8gc2l6ZW9m
-KHVpbnQzMl90KTsgaSsrKSB7Cj4gICAgICAgICAvLyBkbyB0aGUgc2FtZSB0aGluZyBoZXJlCj4g
-ICAgIH0KPiB9Cj4gCj4gVGhpcyB3b3VsZCBzYXZlIGFub3RoZXIgaXRlcmF0aW9uIHRocm91Z2gg
-dGhlIHByb2JlZF9tb2Rlcy4KPiAKPj4gKwo+PiArCQlmb3IgKGkgPSAwOyBpIDwgc2l6ZW9mKG5l
-ZWRlZHJhdGVzKSAvIHNpemVvZih1aW50MzJfdCk7IGkrKykgewo+IEFSUkFZX1NJWkUoKSBoZXJl
-OyBhbHNvIGluc3RlYWQgb2YgY2FsY3VsYXRpbmcgaXQgZm9yIGV2ZXJ5IGl0ZXJhdGlvbiwgd2Ug
-Y2FuIHVzZSBhIGxvY2FsIHZhcmlhYmxlIHU4IGxlbiA9IEFSUkFZX1NJWkUobmVlZGVkcmF0ZXMp
-OyBOb3Qgc3VyZSBpZiBjb21waWxlciB3aWxsIGRvIHRoYXQgZm9yIHVzIHRob3VnaCA7LSkKPj4g
-KwkJCWlmIChkcm1fbW9kZV92cmVmcmVzaChtKSAqIDEwMDAgPCBuZWVkZWRyYXRlc1tpXSkKPj4g
-KwkJCQljb250aW51ZTsKPj4gKwo+PiArCQkJaWYgKG5lZWRlZHJhdGVzW2ldIDwgcmFuZ2UtPm1p
-bl92ZnJlcSAqIDEwMDApCj4+ICsJCQkJY29udGludWU7Cj4+ICsKPj4gKwkJCW51bSA9ICh1bnNp
-Z25lZCBsb25nIGxvbmcpbS0+Y2xvY2sgKiAxMDAwICogMTAwMDsKPj4gKwkJCWRlbiA9IG5lZWRl
-ZHJhdGVzW2ldICogKHVuc2lnbmVkIGxvbmcgbG9uZyltLT5odG90YWw7Cj4+ICsJCQl0YXJnZXRf
-dnRvdGFsID0gZGl2X3U2NChudW0sIGRlbik7Cj4+ICsJCQl0YXJnZXRfdnRvdGFsX2RpZmYgPSB0
-YXJnZXRfdnRvdGFsIC0gbS0+dnRvdGFsOwo+PiArCj4+ICsJCQkvKiBDaGVjayBmb3IgaWxsZWdh
-bCBtb2RlcyAqLwo+PiArCQkJaWYgKG0tPnZzeW5jX3N0YXJ0ICsgdGFyZ2V0X3Z0b3RhbF9kaWZm
-IDwgbS0+dmRpc3BsYXkgfHwKPj4gKwkJCSAgICBtLT52c3luY19lbmQgKyB0YXJnZXRfdnRvdGFs
-X2RpZmYgPCBtLT52c3luY19zdGFydCB8fAo+PiArCQkJICAgIG0tPnZ0b3RhbCArIHRhcmdldF92
-dG90YWxfZGlmZiA8IG0tPnZzeW5jX2VuZCkKPj4gKwkJCQljb250aW51ZTsKPj4gKwo+PiArCQkJ
-bmV3X21vZGUgPSBkcm1fbW9kZV9kdXBsaWNhdGUoYWNvbm5lY3Rvci0+YmFzZS5kZXYsIG0pOwo+
-PiArCQkJaWYgKCFuZXdfbW9kZSkKPj4gKwkJCQlnb3RvIG91dDsKPj4gKwo+PiArCQkJbmV3X21v
-ZGUtPnZ0b3RhbCArPSAodTE2KXRhcmdldF92dG90YWxfZGlmZjsKPj4gKwkJCW5ld19tb2RlLT52
-c3luY19zdGFydCArPSAodTE2KXRhcmdldF92dG90YWxfZGlmZjsKPj4gKwkJCW5ld19tb2RlLT52
-c3luY19lbmQgKz0gKHUxNil0YXJnZXRfdnRvdGFsX2RpZmY7Cj4+ICsJCQluZXdfbW9kZS0+dHlw
-ZSAmPSB+RFJNX01PREVfVFlQRV9QUkVGRVJSRUQ7Cj4+ICsJCQluZXdfbW9kZS0+dHlwZSB8PSBE
-Uk1fTU9ERV9UWVBFX0RSSVZFUjsKPiAKPiBKdXN0IEZZSSwgQWxsIHRoZSBETVQgbW9kZXMgYW5k
-IENFQV9NT0RFUyBmcm9tIEVESUQgYWxzbyB1c2UgdGhpcyBmbGFnLCBzbyBldmVuIHRob3VnaCBp
-dCdzIHRoZSByaWdodCBmbGFnIHRvIHNldCwgaXQncyBub3QgdW5pcXVlIGVub3VnaCB0byBpZGVu
-dGlmeSBpdCBhcyBGUyBtb2RlLgo+IAo+IC0gU2hhc2hhbmsKCkkgZG9uJ3QgdGhpbmsgd2Ugc2hv
-dWxkIGV2ZW4gYmUgYm90aGVyaW5nIHRyeWluZyB0byBpZGVudGlmeSB3aGV0aGVyIHRoZSAKbW9k
-ZSB3YXMgYSBGUyBtb2RlIG9yIG5vdCBzaW5jZSB0aGUgZnJvbnQgcG9yY2ggbW9kZXNldCBza2lw
-IApvcHRpbWl6YXRpb24gY2FuIGFwcGx5IGdlbmVyaWNhbGx5IChhdCBsZWFzdCBhcyBhbiBleHBl
-cmltZW50YWwgb3B0LWluIApmZWF0dXJlIGZvciBub3cpLgoKUmVnYXJkcywKTmljaG9sYXMgS2F6
-bGF1c2thcwoKPiAKPj4gKwo+PiArCQkJaWYgKCFpc19kdXBsaWNhdGVfbW9kZShhY29ubmVjdG9y
-LCBuZXdfbW9kZSkpIHsKPj4gKwkJCQlkcm1fbW9kZV9wcm9iZWRfYWRkKCZhY29ubmVjdG9yLT5i
-YXNlLCBuZXdfbW9kZSk7Cj4+ICsJCQkJbmV3X21vZGVzX2NvdW50ICs9IDE7Cj4+ICsJCQl9IGVs
-c2UKPj4gKwkJCQlkcm1fbW9kZV9kZXN0cm95KGFjb25uZWN0b3ItPmJhc2UuZGV2LCBuZXdfbW9k
-ZSk7Cj4+ICsJCX0KPj4gKwl9Cj4+ICsgb3V0Ogo+PiArCXJldHVybiBuZXdfbW9kZXNfY291bnQ7
-Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfYWRkX2ZyZWVz
-eW5jX21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCj4+ICsJCQkJCQkgICBz
-dHJ1Y3QgZWRpZCAqZWRpZCkKPj4gK3sKPj4gKwl1aW50OF90IGk7Cj4+ICsJc3RydWN0IGRldGFp
-bGVkX3RpbWluZyAqdGltaW5nOwo+PiArCXN0cnVjdCBkZXRhaWxlZF9ub25fcGl4ZWwgKmRhdGE7
-Cj4+ICsJc3RydWN0IGRldGFpbGVkX2RhdGFfbW9uaXRvcl9yYW5nZSAqcmFuZ2U7Cj4+ICsJc3Ry
-dWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFtZGdwdV9kbV9jb25uZWN0b3IgPQo+PiArCQl0b19h
-bWRncHVfZG1fY29ubmVjdG9yKGNvbm5lY3Rvcik7Cj4+ICsKPj4gKwlpZiAoIShhbWRncHVfZXhw
-X2ZyZWVzeW5jX3ZpZF9tb2RlICYmIGVkaWQpKQo+PiArCQlyZXR1cm47Cj4+ICsKPj4gKwlpZiAo
-ZWRpZC0+dmVyc2lvbiA9PSAxICYmIGVkaWQtPnJldmlzaW9uID4gMSkgewo+PiArCQlmb3IgKGkg
-PSAwOyBpIDwgNDsgaSsrKSB7Cj4+ICsJCQl0aW1pbmcgPSAmZWRpZC0+ZGV0YWlsZWRfdGltaW5n
-c1tpXTsKPj4gKwkJCWRhdGEgPSAmdGltaW5nLT5kYXRhLm90aGVyX2RhdGE7Cj4+ICsJCQlyYW5n
-ZSA9ICZkYXRhLT5kYXRhLnJhbmdlOwo+PiArCj4+ICsJCQkvKiBDaGVjayBpZiBtb25pdG9yIGhh
-cyBjb250aW51b3VzIGZyZXF1ZW5jeSBtb2RlICovCj4+ICsJCQlpZiAoZGF0YS0+dHlwZSA9PSBF
-RElEX0RFVEFJTF9NT05JVE9SX1JBTkdFICYmCj4+ICsJCQkgICAgcmFuZ2UtPm1heF92ZnJlcSAt
-IHJhbmdlLT5taW5fdmZyZXEgPiAxMCkgewo+PiArCQkJCWFtZGdwdV9kbV9jb25uZWN0b3ItPm51
-bV9tb2RlcyArPSBhZGRfZnNfbW9kZXMoYW1kZ3B1X2RtX2Nvbm5lY3RvciwgcmFuZ2UpOwo+PiAr
-CQkJCWJyZWFrOwo+PiArCQkJfQo+PiArCQl9Cj4+ICsJfQo+PiArfQo+PiArCj4+ICAgc3RhdGlj
-IGludCBhbWRncHVfZG1fY29ubmVjdG9yX2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAq
-Y29ubmVjdG9yKQo+PiAgIHsKPj4gICAJc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFtZGdw
-dV9kbV9jb25uZWN0b3IgPQo+PiBAQCAtNzAyMSw2ICs3MTg3LDcgQEAgc3RhdGljIGludCBhbWRn
-cHVfZG1fY29ubmVjdG9yX2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9y
-KQo+PiAgIAl9IGVsc2Ugewo+PiAgIAkJYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9kZGNfZ2V0X21vZGVz
-KGNvbm5lY3RvciwgZWRpZCk7Cj4+ICAgCQlhbWRncHVfZG1fY29ubmVjdG9yX2FkZF9jb21tb25f
-bW9kZXMoZW5jb2RlciwgY29ubmVjdG9yKTsKPj4gKwkJYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hZGRf
-ZnJlZXN5bmNfbW9kZXMoY29ubmVjdG9yLCBlZGlkKTsKPj4gICAJfQo+PiAgIAlhbWRncHVfZG1f
-ZmJjX2luaXQoY29ubmVjdG9yKTsKPj4gICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+On 2020-12-09 9:45 p.m., Aurabindo Pillai wrote:
+> [Why&How]
+> Inorder to enable freesync video mode, driver adds extra
+> modes based on preferred modes for common freesync frame rates.
+> When commiting these mode changes, a full modeset is not needed.
+> If the change in only in the front porch timing value, skip full
+> modeset and continue using the same stream.
+> 
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 169 ++++++++++++++++--
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+>   2 files changed, 153 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f699a3d41cad..c8c72887906a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -217,6 +217,9 @@ static bool amdgpu_dm_psr_disable_all(struct amdgpu_display_manager *dm);
+>   static const struct drm_format_info *
+>   amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+>   
+> +static bool
+> +is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+> +				 struct drm_crtc_state *new_crtc_state);
+>   /*
+>    * dm_vblank_get_counter
+>    *
+> @@ -5096,8 +5099,11 @@ copy_crtc_timing_for_drm_display_mode(const struct drm_display_mode *src_mode,
+>   static void
+>   decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+>   					const struct drm_display_mode *native_mode,
+> -					bool scale_enabled)
+> +					bool scale_enabled, bool fs_mode)
+>   {
+> +	if (fs_mode)
+> +		return;
+> +
+>   	if (scale_enabled) {
+>   		copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
+>   	} else if (native_mode->clock == drm_mode->clock &&
+> @@ -5241,6 +5247,24 @@ get_highest_freesync_mode(struct amdgpu_dm_connector *aconnector,
+>   	return m_high;
+>   }
+>   
+> +static bool is_freesync_video_mode(struct drm_display_mode *mode,
+> +				   struct amdgpu_dm_connector *aconnector)
+> +{
+> +	struct drm_display_mode *high_mode;
+> +
+> +	high_mode = get_highest_freesync_mode(aconnector, false);
+> +	if (!high_mode)
+> +		return false;
+> +
+> +	if (high_mode->clock == 0 ||
+> +	    high_mode->hdisplay != mode->hdisplay ||
+> +	    high_mode->clock != mode->clock ||
+> +	    !mode)
+> +		return false;
+> +	else
+> +		return true;
+> +}
+> +
+
+Need to check that the other parameters are the same:
+- hsync_start
+- hsync_end
+- htotal
+- hskew
+- vdisplay
+- vscan
+
+etc.
+
+>   static struct dc_stream_state *
+>   create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   		       const struct drm_display_mode *drm_mode,
+> @@ -5253,17 +5277,21 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   	const struct drm_connector_state *con_state =
+>   		dm_state ? &dm_state->base : NULL;
+>   	struct dc_stream_state *stream = NULL;
+> -	struct drm_display_mode mode = *drm_mode;
+> +	struct drm_display_mode saved_mode, mode = *drm_mode;
+> +	struct drm_display_mode *freesync_mode = NULL;
+>   	bool native_mode_found = false;
+>   	bool scale = dm_state ? (dm_state->scaling != RMX_OFF) : false;
+>   	int mode_refresh;
+>   	int preferred_refresh = 0;
+> +	bool is_fs_vid_mode = 0;
+>   #if defined(CONFIG_DRM_AMD_DC_DCN)
+>   	struct dsc_dec_dpcd_caps dsc_caps;
+>   #endif
+>   	uint32_t link_bandwidth_kbps;
+> -
+>   	struct dc_sink *sink = NULL;
+> +
+> +	memset(&saved_mode, 0, sizeof(struct drm_display_mode));
+> +
+>   	if (aconnector == NULL) {
+>   		DRM_ERROR("aconnector is NULL!\n");
+>   		return stream;
+> @@ -5316,20 +5344,33 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>   		 */
+>   		DRM_DEBUG_DRIVER("No preferred mode found\n");
+>   	} else {
+> +		is_fs_vid_mode = is_freesync_video_mode(&mode, aconnector);
+> +		if (is_fs_vid_mode) {
+> +			freesync_mode = get_highest_freesync_mode(aconnector, false);
+> +			if (freesync_mode) {
+> +				saved_mode = mode;
+> +				mode = *freesync_mode;
+> +			}
+> +		}
+> +
+>   		decide_crtc_timing_for_drm_display_mode(
+>   				&mode, preferred_mode,
+> -				dm_state ? (dm_state->scaling != RMX_OFF) : false);
+> +				dm_state ? (dm_state->scaling != RMX_OFF) : false,
+> +				freesync_mode ? true : false);
+
+I don't think we need an additional flag here - scaling/freesync behave 
+the same, maybe just rename the variable in the function.
+
+Regards,
+Nicholas Kazlauskas
+
+>   		preferred_refresh = drm_mode_vrefresh(preferred_mode);
+>   	}
+>   
+>   	if (!dm_state)
+>   		drm_mode_set_crtcinfo(&mode, 0);
+>   
+> -	/*
+> +	if (dm_state && is_fs_vid_mode && freesync_mode)
+> +		drm_mode_set_crtcinfo(&saved_mode, 0);
+> +
+> +       /*
+>   	* If scaling is enabled and refresh rate didn't change
+>   	* we copy the vic and polarities of the old timings
+>   	*/
+> -	if (!scale || mode_refresh != preferred_refresh)
+> +	if (!(scale && freesync_mode) || mode_refresh != preferred_refresh)
+>   		fill_stream_properties_from_drm_display_mode(stream,
+>   			&mode, &aconnector->base, con_state, NULL, requested_bpc);
+>   	else
+> @@ -7881,13 +7922,29 @@ static void update_stream_irq_parameters(
+>   	if (new_crtc_state->vrr_supported &&
+>   	    config.min_refresh_in_uhz &&
+>   	    config.max_refresh_in_uhz) {
+> +		/*
+> +		 * if freesync compatible mode was set, config.state will be set
+> +		 * in atomic check
+> +		 */
+> +		if (config.state == VRR_STATE_ACTIVE_FIXED &&
+> +		    config.fixed_refresh_in_uhz && config.max_refresh_in_uhz &&
+> +		    config.min_refresh_in_uhz &&
+> +		    (!drm_atomic_crtc_needs_modeset(&new_crtc_state->base) ||
+> +		     new_crtc_state->freesync_video_mode)) {
+> +			vrr_params.max_refresh_in_uhz = config.max_refresh_in_uhz;
+> +			vrr_params.min_refresh_in_uhz = config.min_refresh_in_uhz;
+> +			vrr_params.fixed_refresh_in_uhz = config.fixed_refresh_in_uhz;
+> +			vrr_params.state = VRR_STATE_ACTIVE_FIXED;
+> +			goto out;
+> +		}
+> +
+>   		config.state = new_crtc_state->base.vrr_enabled ?
+>   			VRR_STATE_ACTIVE_VARIABLE :
+>   			VRR_STATE_INACTIVE;
+> -	} else {
+> +	} else
+>   		config.state = VRR_STATE_UNSUPPORTED;
+> -	}
+>   
+> +out:
+>   	mod_freesync_build_vrr_params(dm->freesync_module,
+>   				      new_stream,
+>   				      &config, &vrr_params);
+> @@ -8205,7 +8262,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>   		 * as part of commit.
+>   		 */
+>   		if (amdgpu_dm_vrr_active(dm_old_crtc_state) !=
+> -		    amdgpu_dm_vrr_active(acrtc_state)) {
+> +		    amdgpu_dm_vrr_active(acrtc_state) ||
+> +		    acrtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED ||
+> +		    acrtc_state->freesync_video_mode) {
+>   			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>   			dc_stream_adjust_vmin_vmax(
+>   				dm->dc, acrtc_state->stream,
+> @@ -8896,6 +8955,7 @@ static void get_freesync_config_for_crtc(
+>   			to_amdgpu_dm_connector(new_con_state->base.connector);
+>   	struct drm_display_mode *mode = &new_crtc_state->base.mode;
+>   	int vrefresh = drm_mode_vrefresh(mode);
+> +	bool fs_vid_mode = false;
+>   
+>   	new_crtc_state->vrr_supported = new_con_state->freesync_capable &&
+>   					vrefresh >= aconnector->min_vfreq &&
+> @@ -8903,17 +8963,26 @@ static void get_freesync_config_for_crtc(
+>   
+>   	if (new_crtc_state->vrr_supported) {
+>   		new_crtc_state->stream->ignore_msa_timing_param = true;
+> -		config.state = new_crtc_state->base.vrr_enabled ?
+> -				VRR_STATE_ACTIVE_VARIABLE :
+> -				VRR_STATE_INACTIVE;
+> -		config.min_refresh_in_uhz =
+> -				aconnector->min_vfreq * 1000000;
+> -		config.max_refresh_in_uhz =
+> -				aconnector->max_vfreq * 1000000;
+> +		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED ||
+> +			new_crtc_state->freesync_video_mode;
+> +
+> +		config.min_refresh_in_uhz = aconnector->min_vfreq * 1000000;
+> +		config.max_refresh_in_uhz = aconnector->max_vfreq * 1000000;
+>   		config.vsif_supported = true;
+>   		config.btr = true;
+> -	}
+>   
+> +		if (fs_vid_mode) {
+> +			config.state = VRR_STATE_ACTIVE_FIXED;
+> +			config.fixed_refresh_in_uhz = new_crtc_state->freesync_config.fixed_refresh_in_uhz;
+> +			goto out;
+> +		}
+> +		else if (new_crtc_state->base.vrr_enabled && !fs_vid_mode)
+> +			config.state = VRR_STATE_ACTIVE_VARIABLE;
+> +		else
+> +			config.state = VRR_STATE_INACTIVE;
+> +
+> +	}
+> +out:
+>   	new_crtc_state->freesync_config = config;
+>   }
+>   
+> @@ -8926,6 +8995,51 @@ static void reset_freesync_config_for_crtc(
+>   	       sizeof(new_crtc_state->vrr_infopacket));
+>   }
+>   
+> +static bool
+> +is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+> +				 struct drm_crtc_state *new_crtc_state)
+> +{
+> +	struct drm_display_mode old_mode, new_mode;
+> +
+> +	if (!old_crtc_state || !new_crtc_state)
+> +		return false;
+> +
+> +	old_mode = old_crtc_state->mode;
+> +	new_mode = new_crtc_state->mode;
+> +
+> +	if (old_mode.clock       == new_mode.clock &&
+> +	    old_mode.hdisplay    == new_mode.hdisplay &&
+> +	    old_mode.vdisplay    == new_mode.vdisplay &&
+> +	    old_mode.htotal      == new_mode.htotal &&
+> +	    old_mode.vtotal      != new_mode.vtotal &&
+> +	    old_mode.hsync_start == new_mode.hsync_start &&
+> +	    old_mode.vsync_start != new_mode.vsync_start &&
+> +	    old_mode.hsync_end   == new_mode.hsync_end &&
+> +	    old_mode.vsync_end   != new_mode.vsync_end &&
+> +	    old_mode.hskew       == new_mode.hskew &&
+> +	    old_mode.vscan       == new_mode.vscan &&
+> +	    (old_mode.vsync_end - old_mode.vsync_start) ==
+> +	    (new_mode.vsync_end - new_mode.vsync_start))
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
+> +static void set_freesync_fixed_config(struct dm_crtc_state *dm_new_crtc_state) {
+> +	uint64_t num, den, res;
+> +	struct drm_crtc_state *new_crtc_state = &dm_new_crtc_state->base;
+> +
+> +	dm_new_crtc_state->freesync_config.state = VRR_STATE_ACTIVE_FIXED;
+> +
+> +	num = (unsigned long long)new_crtc_state->mode.clock * 1000 * 1000000;
+> +	den = (unsigned long long)new_crtc_state->mode.htotal *
+> +	      (unsigned long long)new_crtc_state->mode.vtotal;
+> +
+> +	res = div_u64(num, den);
+> +	dm_new_crtc_state->freesync_config.fixed_refresh_in_uhz = res;
+> +	dm_new_crtc_state->freesync_video_mode = true;
+> +}
+> +
+>   static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   				struct drm_atomic_state *state,
+>   				struct drm_crtc *crtc,
+> @@ -9016,6 +9130,11 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   		 * TODO: Refactor this function to allow this check to work
+>   		 * in all conditions.
+>   		 */
+> +		if (dm_new_crtc_state->stream &&
+> +		    is_timing_unchanged_for_freesync(new_crtc_state, old_crtc_state) &&
+> +		    amdgpu_exp_freesync_vid_mode)
+> +			goto skip_modeset;
+> +
+>   		if (dm_new_crtc_state->stream &&
+>   		    dc_is_stream_unchanged(new_stream, dm_old_crtc_state->stream) &&
+>   		    dc_is_stream_scaling_unchanged(new_stream, dm_old_crtc_state->stream)) {
+> @@ -9047,6 +9166,22 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   		if (!dm_old_crtc_state->stream)
+>   			goto skip_modeset;
+>   
+> +		if (dm_new_crtc_state->stream &&
+> +		    is_timing_unchanged_for_freesync(new_crtc_state, old_crtc_state) &&
+> +		    amdgpu_exp_freesync_vid_mode) {
+> +			new_crtc_state->mode_changed = false;
+> +			DRM_DEBUG_DRIVER(
+> +				"Mode change not required for front porch change, "
+> +				"setting mode_changed to %d",
+> +				new_crtc_state->mode_changed);
+> +
+> +			set_freesync_fixed_config(dm_new_crtc_state);
+> +
+> +			goto skip_modeset;
+> +		} else if (aconnector &&
+> +			   is_freesync_video_mode(&new_crtc_state->mode, aconnector))
+> +			set_freesync_fixed_config(dm_new_crtc_state);
+> +
+>   		ret = dm_atomic_get_state(state, &dm_state);
+>   		if (ret)
+>   			goto fail;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 251af783f6b1..28f2d8c9b260 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -453,6 +453,7 @@ struct dm_crtc_state {
+>   
+>   	bool freesync_timing_changed;
+>   	bool freesync_vrr_info_changed;
+> +	bool freesync_video_mode;
+>   
+>   	bool dsc_force_changed;
+>   	bool vrr_supported;
+> 
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
