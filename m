@@ -2,65 +2,66 @@ Return-Path: <SRS0=8zgd=GH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CC19C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:45:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96C75C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AE3B207BC
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:45:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AE3B207BC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4D864224DE
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 16:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D864224DE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E488C89F45;
-	Mon,  4 Jan 2021 16:45:53 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5331089F45
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 16:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609778751;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U5A588aZGpfVy5zsSnCSRhs6l4RkKAapxTpg6TKoXyU=;
- b=aqtIOYlfQ1XjDF91u/BtaHC0I7nHTU21mDxaaey4NB0CimcptaDwwVHgG/857sfTKnuc/7
- FqavdV64glbPj8Cmk84SCjNGh4Yq12g1Et4bkhQ/vDLy0ZKIhm7yQoG3G/yDdgulWIzrAU
- nCJwBfGsja031pf6tLrCEhLaF4NjO+8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-586-B9UpKEz6Nk-h34HrwGlTSg-1; Mon, 04 Jan 2021 11:45:49 -0500
-X-MC-Unique: B9UpKEz6Nk-h34HrwGlTSg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3DA25107ACE4;
- Mon,  4 Jan 2021 16:45:48 +0000 (UTC)
-Received: from omen.home (ovpn-112-183.phx2.redhat.com [10.3.112.183])
- by smtp.corp.redhat.com (Postfix) with ESMTP id BF99D60BFA;
- Mon,  4 Jan 2021 16:45:47 +0000 (UTC)
-Date: Mon, 4 Jan 2021 09:45:47 -0700
-From: Alex Williamson <alex.williamson@redhat.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: Couple of issues with amdgpu on my WX4100
-Message-ID: <20210104094547.06a61444@omen.home>
-In-Reply-To: <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
-References: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
- <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1CF89E33;
+	Mon,  4 Jan 2021 16:49:54 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A2589269
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 16:49:52 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id q25so26571444otn.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Jan 2021 08:49:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ADp4lEVraZTLeVKOMRDcoROWSOgJwyfYA2//fcjztG0=;
+ b=jkGJ89KsT+l95hEx5OE9Og9EOzXja5RSCbOS2HY46N1SV0rg1j/OmsN/SNqtKzpvIL
+ 8Dbgt+qVBEsR7+AcAy1sFJuSqXMZ7a82BbgkWoZdX7DrEmcZR08SDiZU7qt60kmQHhGy
+ D05vi5Tdgr1KI0GLNJdT/oFQ8xFwlVMCdrbSuEuahGUO42TXEFjT/HtQjp3vw6Lebvl9
+ rPyVPWR3BFS/nzfGrErqnbv8jIkYps/GyQ6yTYc16WWVZFO0WDo5NTPBSKvjsIU6AR0y
+ xvDRq0Xc8eeITBXfe0IRnS6DbQL1aLPQ2oPDdVHTV7WfYjkwepH3xnlZkVtRXzH0d2XN
+ ztOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ADp4lEVraZTLeVKOMRDcoROWSOgJwyfYA2//fcjztG0=;
+ b=JCxFE3odhfe2IxO90FSMqnI3QjLWaVxSsG2qKuJX4PCWPRxP6qv+HR4qJASVzBh6v7
+ BIemHBNbbFvZRDL+2GI06bWGEz2vTZvm2eBSGvK/88spQbsCbNQbmB6JMI1Wble2mjam
+ gKVCiJx1FGIKWHyE6m+QpD1F+qb2leARiIdCU0WQuYIwlXjK52hqzrFssXBMAZbJtxji
+ TON6dqDG9MFsTd5drlb8swx9KgA+UY56PTnGt5w8G8sjuZsvWaeGTb5ORmJ9VT2xyTi4
+ qnAfZOcioZRvcup6TIxoTafPwDPM9UPOk6CG1ng4BmczdHY84hSjjH16RWR20V3etain
+ g8/Q==
+X-Gm-Message-State: AOAM530r5EUuOKseAnecnuahoQdpEUrPZX8giiboBG8yTp2cF79BB30j
+ YHXU6L5YAJNAJV1yg2iyyCDy7cYSQYK0mwFRS9Ev6azh
+X-Google-Smtp-Source: ABdhPJzV9k6C8M7vEYpyCLYE9nMb4fdqyctt47FlcOYr5CacHgW2YBy7I+ExM4pWni4X8zxY9dOEDofqItLCWG8+dqY=
+X-Received: by 2002:a05:6830:1d66:: with SMTP id
+ l6mr52719910oti.23.1609778992291; 
+ Mon, 04 Jan 2021 08:49:52 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=alex.williamson@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <20201231090616.14908-1-Jiawei.Gu@amd.com>
+In-Reply-To: <20201231090616.14908-1-Jiawei.Gu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 4 Jan 2021 11:49:41 -0500
+Message-ID: <CADnq5_PHnq2f0R-cf1XypnpZVPh190JC3ah+sg0RmPO88DshVg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix potential memory leak during navi12
+ deinitialization
+To: Jiawei Gu <Jiawei.Gu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,61 +73,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Maxim Levitsky <mlevitsk@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Emily Deng <emily.deng@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCA0IEphbiAyMDIxIDEyOjM0OjM0ICswMTAwCkNocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cgo+IEhpIE1heGltLAo+IAo+IEkgY2FuJ3QgaGVs
-cCB3aXRoIHRoZSBkaXNwbGF5IHJlbGF0ZWQgc3R1ZmYuIFByb2JhYmx5IGJlc3QgYXBwcm9hY2gg
-dG8gCj4gZ2V0IHRoaXMgZml4ZXMgd291bGQgYmUgdG8gb3BlbiB1cCBhIGJ1ZyB0cmFja2VyIGZv
-ciB0aGlzIG9uIEZETy4KPiAKPiBCdXQgSSdtIHRoZSBvbmUgd2hvIGltcGxlbWVudGVkIHRoZSBy
-ZXNpemVhYmxlIEJBUiBzdXBwb3J0IGFuZCB5b3VyIAo+IGFuYWx5c2lzIG9mIHRoZSBwcm9ibGVt
-IHNvdW5kcyBhYm91dCBjb3JyZWN0IHRvIG1lLgo+IAo+IFRoZSByZWFzb24gd2h5IHRoaXMgd29y
-a3Mgb24gTGludXggaXMgbW9zdCBsaWtlbHkgYmVjYXVzZSB3ZSByZXN0b3JlIHRoZSAKPiBCQVIg
-c2l6ZSBvbiByZXN1bWUgKGFuZCBtYXliZSBkdXJpbmcgaW5pdGlhbCBib290IGFzIHdlbGwpLgo+
-IAo+IFNlZSB0aGlzIHBhdGNoIGZvciByZWZlcmVuY2U6Cj4gCj4gY29tbWl0IGQzMjUyYWNlMGJj
-NjUyYTFhMjQ0NDU1NTU2YjZhNTQ5Zjk2OWJmOTkKPiBBdXRob3I6IENocmlzdGlhbiBLw7ZuaWcg
-PGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+IERhdGU6wqDCoCBGcmkgSnVuIDI5
-IDE5OjU0OjU1IDIwMTggLTA1MDAKPiAKPiAgwqDCoMKgIFBDSTogUmVzdG9yZSByZXNpemVkIEJB
-UiBzdGF0ZSBvbiByZXN1bWUKPiAKPiAgwqDCoMKgIFJlc2l6ZSBCQVJzIGFmdGVyIHJlc3VtZSB0
-byB0aGUgZXhwZWN0ZWQgc2l6ZSBhZ2Fpbi4KPiAKPiAgwqDCoMKgIEJ1Z0xpbms6IGh0dHBzOi8v
-YnVnemlsbGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTk5OTU5Cj4gIMKgwqDCoCBGaXhl
-czogZDY4OTVhZDM5ZjNiICgiZHJtL2FtZGdwdTogcmVzaXplIFZSQU0gQkFSIGZvciBDUFUgYWNj
-ZXNzIHY2IikKPiAgwqDCoMKgIEZpeGVzOiAyNzZiNzM4ZGViNWIgKCJQQ0k6IEFkZCByZXNpemFi
-bGUgQkFSIGluZnJhc3RydWN0dXJlIikKPiAgwqDCoMKgIFNpZ25lZC1vZmYtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAgwqDCoMKgIFNpZ25lZC1vZmYt
-Ynk6IEJqb3JuIEhlbGdhYXMgPGJoZWxnYWFzQGdvb2dsZS5jb20+Cj4gIMKgwqDCoCBDQzogc3Rh
-YmxlQHZnZXIua2VybmVsLm9yZ8KgwqDCoMKgwqAgIyB2NC4xNSsKPiAKPiAKPiBJdCBzaG91bGQg
-YmUgdHJpdmlhbCB0byBhZGQgdGhpcyB0byB0aGUgcmVzZXQgbW9kdWxlIGFzIHdlbGwuIE1vc3Qg
-Cj4gbGlrZWx5IGV2ZW4gY29tcGxldGVseSB2ZW5kb3IgaW5kZXBlbmRlbnQgc2luY2UgSSdtIG5v
-dCBzdXJlIHdoYXQgYSBidXMgCj4gcmVzZXQgd2lsbCBkbyB0byB0aGlzIGNvbmZpZ3VyYXRpb24g
-YW5kIHJlc3RvcmluZyBpdCBhbGwgdGhlIHRpbWUgc2hvdWxkIAo+IGJlIHRoZSBtb3N0IGRlZmVu
-c2l2ZSBhcHByb2FjaC4KCkhtbSwgdGhpcyBzaG91bGQgYWxyZWFkeSBiZSB1c2VkIGJ5IHRoZSBi
-dXMvc2xvdCByZXNldCBwYXRoOgoKcGNpX2J1c19yZXN0b3JlX2xvY2tlZCgpL3BjaV9zbG90X3Jl
-c3RvcmVfbG9ja2VkKCkKIHBjaV9kZXZfcmVzdG9yZSgpCiAgcGNpX3Jlc3RvcmVfc3RhdGUoKQog
-ICBwY2lfcmVzdG9yZV9yZWJhcl9zdGF0ZSgpCgpWRklPIHN1cHBvcnQgZm9yIHJlc2l6ZWFibGUg
-QkFScyBoYXMgYmVlbiBvbiBteSB0b2RvIGxpc3QsIGJ1dCBJIGRvbid0CmhhdmUgYWNjZXNzIHRv
-IGFueSBzeXN0ZW1zIHRoYXQgaGF2ZSBib3RoIGEgY2FwYWJsZSBkZXZpY2UgYW5kID40RwpkZWNv
-ZGluZyBlbmFibGVkIGluIHRoZSBCSU9TLiAgSWYgd2UgaGF2ZSBhIGNvbnNpc3RlbnQgdmlldyBv
-ZiB0aGUgQkFSCnNpemUgYWZ0ZXIgdGhlIEJBUnMgYXJlIGV4cGFuZGVkLCBJJ20gbm90IHN1cmUg
-d2h5IGl0IGRvZXNuJ3QganVzdAp3b3JrLiAgRldJVywgUUVNVSBjdXJyZW50bHkgaGlkZXMgdGhl
-IFJFQkFSIGNhcGFiaWxpdHkgdG8gdGhlIGd1ZXN0CmJlY2F1c2UgdGhlIGtlcm5lbCBkcml2ZXIg
-ZG9lc24ndCBzdXBwb3J0IGVtdWxhdGlvbiB0aHJvdWdoIGNvbmZpZwpzcGFjZSAoaWUuIGl0J3Mg
-cmVhZC1vbmx5LCB3aGljaCB0aGUgc3BlYyBkb2Vzbid0IHN1cHBvcnQpLgoKQUlVSSwgcmVzb3Vy
-Y2UgYWxsb2NhdGlvbiBjYW4gZmFpbCB3aGVuIGVuYWJsaW5nIFJFQkFSIHN1cHBvcnQsIHdoaWNo
-CmlzIGEgcHJvYmxlbSBpZiB0aGUgZmFpbHVyZSBvY2N1cnMgb24gdGhlIGhvc3QgYnV0IG5vdCB0
-aGUgZ3Vlc3Qgc2luY2UKd2UgaGF2ZSBubyBtZWFucyB2aWEgdGhlIGhhcmR3YXJlIHByb3RvY29s
-IHRvIGV4cG9zZSBzdWNoIGEgY29uZGl0aW9uLgpUaGVyZWZvcmUgdGhlIG1vZGVsIEkgd2FzIGNv
-bnNpZGVyaW5nIGZvciB2ZmlvLXBjaSB3b3VsZCBiZSB0byBzaW1wbHkKcHJlLWVuYWJsZSBSRUJB
-UiBhdCB0aGUgbWF4IHNpemUuICBJdCBtaWdodCBiZSBzdWZmaWNpZW50bHkgc2FmZSB0bwp0ZXN0
-IEJBUiBleHBhbnNpb24gb24gaW5pdGlhbGl6YXRpb24gYW5kIHRoZW4gYWxsb3cgdXNlciBjb250
-cm9sLCBidXQKSSdtIGNvbmNlcm5lZCB0aGF0IHJlc291cmNlIGF2YWlsYWJpbGl0eSBjb3VsZCBj
-aGFuZ2Ugd2hpbGUgYWxyZWFkeSBpbgp1c2UgYnkgdGhlIHVzZXIuICBUaGFua3MsCgpBbGV4Cgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Dec 31, 2020 at 4:06 AM Jiawei Gu <Jiawei.Gu@amd.com> wrote:
+>
+> Navi12 HDCP & DTM deinitialization needs continue to free bo if already
+> created though initialized flag is not set.
+>
+> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index b44b46dd60f2..4956fbd512d9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -1316,8 +1316,12 @@ static int psp_hdcp_terminate(struct psp_context *psp)
+>         if (amdgpu_sriov_vf(psp->adev))
+>                 return 0;
+>
+> -       if (!psp->hdcp_context.hdcp_initialized)
+> -               return 0;
+> +       if (!psp->hdcp_context.hdcp_initialized) {
+> +               if (psp->hdcp_context.hdcp_shared_buf)
+> +                       goto out;
+> +               else
+> +                       return 0;
+> +       }
+>
+>         ret = psp_hdcp_unload(psp);
+>         if (ret)
+> @@ -1325,6 +1329,7 @@ static int psp_hdcp_terminate(struct psp_context *psp)
+>
+>         psp->hdcp_context.hdcp_initialized = false;
+>
+> +out:
+>         /* free hdcp shared memory */
+>         amdgpu_bo_free_kernel(&psp->hdcp_context.hdcp_shared_bo,
+>                               &psp->hdcp_context.hdcp_shared_mc_addr,
+> @@ -1463,8 +1468,12 @@ static int psp_dtm_terminate(struct psp_context *psp)
+>         if (amdgpu_sriov_vf(psp->adev))
+>                 return 0;
+>
+> -       if (!psp->dtm_context.dtm_initialized)
+> -               return 0;
+> +       if (!psp->dtm_context.dtm_initialized) {
+> +               if (psp->dtm_context.dtm_shared_buf)
+> +                       goto out;
+> +               else
+> +                       return 0;
+> +       }
+>
+>         ret = psp_dtm_unload(psp);
+>         if (ret)
+> @@ -1472,6 +1481,7 @@ static int psp_dtm_terminate(struct psp_context *psp)
+>
+>         psp->dtm_context.dtm_initialized = false;
+>
+> +out:
+>         /* free hdcp shared memory */
+>         amdgpu_bo_free_kernel(&psp->dtm_context.dtm_shared_bo,
+>                               &psp->dtm_context.dtm_shared_mc_addr,
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
