@@ -2,126 +2,75 @@ Return-Path: <SRS0=8zgd=GH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4E5EC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:34:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C039CC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7749820770
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:34:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7749820770
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 58C5F21D79
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Jan 2021 11:40:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58C5F21D79
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCFE89E33;
-	Mon,  4 Jan 2021 11:34:44 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 362E289E59;
- Mon,  4 Jan 2021 11:34:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f39hgusMSXOts6qYK9RxoMxRiQiIRcURMBf16FMo2eQMNyd95HXAbO6WUoH5UAYHPkj2oBdBFXPuQH0ct0NRWDiWLXZm76soZ1E4MqJQa4l0H8U3SJMjzxRSz1NBx2fbiaDDv5A7FzB6R+dRRbwvsGAONPa831FGVizCQcluDL2MSueYhjbnz3G/jRdEhavw7SmMY+A4gr7B8SNLePnJJF7NA0loebNWxTEPooVS+8eGFn/wQakM4TUr2418qswuVzGkkrEx8Ok3zq6rPo0/7urbVZJvu6fnzww/+k2k2s0lIavEG3uaU0FJ1PJgX6fon6GGRa2ZUhyTHJhVrQOvXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=njljiKasQSb+1KY7AA0qRgaHyrqXP/mgYqD6rx8k9q0=;
- b=JrWN1p5RdqIgnGr1JSogYKCwEhUgEDTgdDK/K3JprXZQ1qFD/Qb0ymZqk3ARwzetu1vQRm6luctw+gZ9SslNGYVWVFZ+VxIeNSE0bjTku9haeVYqeYPx34bePjIZroYF4DDdTBvO2dmIATWBtCkNxfSxR+P1ZIOrXd7gxhpFCU1uMpu/Gl5cw6oqYSD5ThVOc4HyKaQbtqUZHm5AcKa/eRtqjiBEIzcGcARfT/dPQ+ZgKHSbboJMP1IBvCR9xEVhSYikKLNxK62qSzeucRiDMS5NU1x7J1OZ1uxy5FEi2eeXiwymXq4pYQDavPehNxUGU8Cc7KQcv/yoZkSG/9AjrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=njljiKasQSb+1KY7AA0qRgaHyrqXP/mgYqD6rx8k9q0=;
- b=T9a7j+3AQf/dVM2CJSd6WKry9Fv5yEef+O+iUKjxh6bMYhq/1yw1iP5I6mu3VVlz0OJC4+ZG8B4ViO6GiprPKk1KKjOWJOCuzlCSxloS7tSMivcmYnuy4MdjP4V0cbLtqpAW34HBTpqZ+vq709nxp+70/2S0xXP8rmDfmL4fip4=
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3680.namprd12.prod.outlook.com (2603:10b6:208:169::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.23; Mon, 4 Jan
- 2021 11:34:40 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3721.024; Mon, 4 Jan 2021
- 11:34:40 +0000
-Subject: Re: Couple of issues with amdgpu on my WX4100
-To: Maxim Levitsky <mlevitsk@redhat.com>, amd-gfx@lists.freedesktop.org
-References: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
-Date: Mon, 4 Jan 2021 12:34:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6A189B38;
+	Mon,  4 Jan 2021 11:40:36 +0000 (UTC)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C3389B4D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Jan 2021 11:40:34 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id cw27so27014286edb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Jan 2021 03:40:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=upMIWoJVSSELgkryH6Gyrp5NHWaD194lNsb6DfYSLt8=;
+ b=qyW8lXoAsvj7HhTm/Iujsf6F+/7kmn1HtTsv22ZaiPARBB1ZGaHpCpspcA677SqN5f
+ Y98dNVsnBG/wFsLYJCGes9IwSRxyfe0A/yiYbP9WuNXz1wHmR7jsEO4PSY5NVgEcC+GE
+ sjpFiwhk8CnRbyDLEhJ5iH2gdvcC3J6e1K24x19TtU6ihWbHo94SvGq8nOEO2VNZ4Ogc
+ EYXabFLTrFmF+6F/qCcV4nd5pUmqLA0ACOQhh5WWCzpI8U/E6q/D+odMTUM2qKePMsA9
+ Yuka06W9XZq+06lEc5XFW6as0sSG1R6PjOfMYALvBEE8cjGqV6IbXaVYs7BUaqxtpMHz
+ RlcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=upMIWoJVSSELgkryH6Gyrp5NHWaD194lNsb6DfYSLt8=;
+ b=dy2a14gBhOsshGqCXj4j7leXxdDR972E3VIEKj/mR9+GnLMYf4wS4twyRwZZ5Ugmvb
+ uFam7zWoJJEH6RJBCEQqa/BTQd59w9lMPlq5fqV48q3N/rtq3TEYBLvT1dTDff7nuCC4
+ CIn6L8KFerLUf6LdES5MWWPpFttOxvLOTxmuOMpO19oKeAyflAoApRcXT/Hu/GiWnupZ
+ sfo6ufRgHjlX3uecaXclTeEpE0rab5/vLmRRJ0d6/yfluVfXa6pNujHFTem2bOclWoMZ
+ 0ljoDUdsh+UKK/RKbvY1Z498uzt762L66FXpeQicJmKVH+ODir1kHin5kpZqeWnXiy12
+ Ni+A==
+X-Gm-Message-State: AOAM530ogvJoiAfm/aDf3xFP47bqgOggkAz00QunP9y/5iVxfhPX12Fh
+ 5OGEc6+LP6W28JdmV0aAUGw=
+X-Google-Smtp-Source: ABdhPJzgfdKpzykhGcjRJruDZqDSCeKt9JDrB9PpjnsbbGwKFOJFCDwQbJM7KheAGOpqMOjKTLS9Lg==
+X-Received: by 2002:a50:cdc8:: with SMTP id h8mr71612965edj.293.1609760433236; 
+ Mon, 04 Jan 2021 03:40:33 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id j23sm30151262edv.45.2021.01.04.03.40.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Jan 2021 03:40:32 -0800 (PST)
+Subject: Re: [PATCH 5/5] drm/amdgpu: remove redundant logic related HDP
+To: Likun Gao <likun.gao@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20201228091834.3240927-1-likun.gao@amd.com>
+ <20201228091834.3240927-5-likun.gao@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <4d5202ed-f0ca-34e1-8a9d-a68ce167e05b@gmail.com>
+Date: Mon, 4 Jan 2021 12:40:31 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM0PR05CA0086.eurprd05.prod.outlook.com
- (2603:10a6:208:136::26) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR05CA0086.eurprd05.prod.outlook.com (2603:10a6:208:136::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.20 via Frontend
- Transport; Mon, 4 Jan 2021 11:34:39 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2c28f409-6fdf-48d3-5085-08d8b0a4b95f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3680:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3680F4CA76AFF674B673715483D20@MN2PR12MB3680.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ibs3I+RKKW8NOHfpAGRW/KEZkUdWLfWwMcacZapz2ewgqerg78xyS/Ex4jrj03x6Q2aBvPbwwxg9htLLXkDx/5SPyBT03mJdQk8NvNioeCT3T9+IfVOst6QmQaMjXRJa6JxtqlZwOMyn3y4XuzD8Nq/C2CXAqau4w1R8ITK/Euq5/+EI3yy1XkGEn2xPlaXhHtmpqIewbmPeEVlMek/ivBlkX/sBqZEA+Nsn23FAvFdqqGyxZO4PAOeODoAzyBkpZj3QELSPRY/MLe9WTBaMT5KXgWBqvV6JkzMqlT/2xQ74OdYsThRf/1hRjMUXuRhulaxVlD3RO6gskKaoWNPbogs+PIuEwfGRPdX0DIcDmk9N5zbgZb2N0jR0iJAyxebvYCavHvgbJ9hzbB7mX0CLd1maM1F3jep1/Qqrrn3nbGcfi9pB62nihcaH9NncduXOCv8MIwgUJKFfjbky70vFEn0moF+9zbD9Xx7J45vE+cwwtpJ0tWsiD41uEuLFL2+tVLRYgRhNJqrzNqjQOk3KrBmIIJyFYXtd2kwHT3NXhEx7IrZ7qpY9PIgEeUwiPc7O
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(39860400002)(366004)(136003)(66556008)(16526019)(36756003)(66476007)(2906002)(8936002)(31696002)(166002)(966005)(5660300002)(86362001)(316002)(54906003)(2616005)(30864003)(478600001)(66574015)(52116002)(6666004)(6486002)(83380400001)(33964004)(66946007)(31686004)(8676002)(186003)(4326008)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RFJheEFNclVTbFRESmJsY3N5SytFR2N2N3M4bGwvWktHRWkzUFZpRWJ2WDZz?=
- =?utf-8?B?aTdIbEhvQlA5aXR1ZmhKNkV5N0EwYjc0OVJNUFkzVDlLMzh0Q0Z5REkzU3Vj?=
- =?utf-8?B?WkVvWW1CdnhPdll2SWgxN3RhV2IvNUE1WmI1ejJ1cFJLQ1BzZUx1Zi8wTXNG?=
- =?utf-8?B?OVdZdmpYTjdvVGxRTWlHQ3Erc3dxdi9aQWQ4Y0dBN2szTEpuNTVhS08yeDc2?=
- =?utf-8?B?SzdiTEFjZ3ZzQjNDaHhkT2tXT3N2MkVMMVovL2FqOVNvMmZEb2xaVFMzNHVO?=
- =?utf-8?B?THFvdTFhRHl4TUdhRzM0MW50ajUxTTRMalJ4NU5YYitUcCsvdG5DNFg1Y3ZL?=
- =?utf-8?B?N2xTUHFKaHJyNXNJaWh6ZjFoSVR3YVMyd044N052RlFYTVluZmNPV0NKNDQv?=
- =?utf-8?B?TVV2Y3hZbVBnRTBacTg3KzNhWmdKOTZBWEVlTTRueXlJQnVzSUFLcnNCL0ov?=
- =?utf-8?B?aHV1KzVYTDBxWHgrellCc0I5b0Qvd3YvMmFkSDhpRkpwcFpuUU03dlFwUU0y?=
- =?utf-8?B?QVc5L2FJUkcwYVMxN3dmdC9VK3YwMUZHUkgzUXE5SmFDbnJhTHZTY2t3cWRB?=
- =?utf-8?B?eW5pNWYwN2FTaGNBNXYrcFVzYTM4bmVIbkltVGhlUFNadTZRUVladjhRbkVC?=
- =?utf-8?B?WU5yMGM3Wmo0OWhZVHVrb1JsaDBrc3psM2F4SnBEMTBMS2s1YlpaMG1HK3Rx?=
- =?utf-8?B?R0ZiSzdTVDBPaHZZZUtldjJZd3FUWVAzWVRZd3JqOG5pdzhWQkdvU2xVcE9l?=
- =?utf-8?B?dVhOZGV2L2JQamcvQ0xYMHRaQkh3SUhVQ3JPaXB6dHlRdjQzRXdlZ2MrTHRQ?=
- =?utf-8?B?aStXcDI4MXZVeUNTM24yUUVqTDBUVFJ1bUlCaG5jRkRKSG55NG5rSlpQeHZ2?=
- =?utf-8?B?OEtzK3pPZm5FVUx2RVZFS2d3RG5oNnp1dFVEUGhGNkZlbiszTzZUSnk0c01O?=
- =?utf-8?B?SWJZKzArdlJtQUhGZ0c0dTNmQzVOSFQrd09rUm9rMmFIeGlXUDV1Wi9XN3hS?=
- =?utf-8?B?MTR1YWp6SEdlSGdVUWdPQVIzM2VnOUpQS2FjZjhaSDRLajZNZ1pjWk9RU0ZY?=
- =?utf-8?B?NE5FVWJXTHE2YytIV2dFblJsdDlJRkpndXNLcjNBT1hNd0l3Tk4rbC81dlNy?=
- =?utf-8?B?QStOaDNWZ1NHZEJxYnRNZEhiNnFhSFIxb3ZBekZMbEVkMVFPVEVZYlZ1U0pj?=
- =?utf-8?B?TGRyeStWSjI0czFFZ2lIeWZmeXc4N3ZLMk0rRmFHWTI0U3FLcHcvWENxUmtz?=
- =?utf-8?B?YkwvMXlEN29EOTQ3eFNnQU4yaFE4N0wyVm5sVEIydnB6RmxPbGdSSWdSRTBo?=
- =?utf-8?B?dy9vUHg3TldFOGNaRkdqT0hhOHl1MmNKLzEybTVOL09uem5mRnJWTjRLZ0ZI?=
- =?utf-8?B?ZXZxbnYrZ2E0MC9ON0UxN2lkanN6dkdqYVpkcGlEbEltRlFZWXJjRklKdFlk?=
- =?utf-8?Q?WyKbSRDB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 11:34:40.2772 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c28f409-6fdf-48d3-5085-08d8b0a4b95f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EbCsvJFmghXA4CEdVMWVgy/Uy6ZlPW0F29ySZiiN+kPoHTW8nPNMQQVjCgkqTeOo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3680
+In-Reply-To: <20201228091834.3240927-5-likun.gao@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,382 +82,263 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Williamson <alwillia@redhat.com>
-Content-Type: multipart/mixed; boundary="===============0638712614=="
+Reply-To: christian.koenig@amd.com
+Cc: Hawking Zhang <hawking.zhang@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0638712614==
-Content-Type: multipart/alternative;
- boundary="------------C3B739F6FD0F2314864E9293"
-Content-Language: en-US
+Looks like a nice cleanup to me.
 
---------------C3B739F6FD0F2314864E9293
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Just one question: We have a flush_hdp and invalidate_hdp callback in 
+the asic structure as well.
 
-Hi Maxim,
+Would it make sense to replace those as well in the long term?
 
-I can't help with the display related stuff. Probably best approach to 
-get this fixes would be to open up a bug tracker for this on FDO.
-
-But I'm the one who implemented the resizeable BAR support and your 
-analysis of the problem sounds about correct to me.
-
-The reason why this works on Linux is most likely because we restore the 
-BAR size on resume (and maybe during initial boot as well).
-
-See this patch for reference:
-
-commit d3252ace0bc652a1a244455556b6a549f969bf99
-Author: Christian König <ckoenig.leichtzumerken@gmail.com>
-Date:   Fri Jun 29 19:54:55 2018 -0500
-
-     PCI: Restore resized BAR state on resume
-
-     Resize BARs after resume to the expected size again.
-
-     BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=199959
-     Fixes: d6895ad39f3b ("drm/amdgpu: resize VRAM BAR for CPU access v6")
-     Fixes: 276b738deb5b ("PCI: Add resizable BAR infrastructure")
-     Signed-off-by: Christian König <christian.koenig@amd.com>
-     Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-     CC: stable@vger.kernel.org      # v4.15+
-
-
-It should be trivial to add this to the reset module as well. Most 
-likely even completely vendor independent since I'm not sure what a bus 
-reset will do to this configuration and restoring it all the time should 
-be the most defensive approach.
-
-Let me know if you got any more questions on this.
-
-Regards,
+Thanks,
 Christian.
 
-Am 02.01.21 um 23:42 schrieb Maxim Levitsky:
-> Hi!
+Am 28.12.20 um 10:18 schrieb Likun Gao:
+> From: Likun Gao <Likun.Gao@amd.com>
 >
-> I am using this card for about a year and I would like first to say thanks
-> for open source driver that you made for it, for the big navi
-> and for the threadripper which brought back fun to the computing.
+> Remove hdp_flush function from amdgpu_nbio struct as it have been unfied
+> into hdp struct.
+> Remove the include about hdp register which was not used.
 >
-> I bought that card primary to use as a host GPU in VFIO enabled multi-seat
-> system I am building, and recently I was able (with a minor issue I managed to
-> solve, more about it later) to pass that GPU to both linux and windows guest
-> mostly flawlessly.
+> Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+> Change-Id: I7b1ce7424a97efe82ccb6ce63505e724530715ac
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  1 -
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  1 -
+>   drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c   | 10 ----------
+>   drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c   | 13 -------------
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c   | 10 ----------
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c   | 10 ----------
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c   | 10 ----------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  1 -
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  1 -
+>   drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  1 -
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  1 -
+>   11 files changed, 59 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+> index e62cc0e1a5ad..4ba0024aedf1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+> @@ -57,7 +57,6 @@ struct amdgpu_nbio_funcs {
+>   	u32 (*get_pcie_port_data_offset)(struct amdgpu_device *adev);
+>   	u32 (*get_rev_id)(struct amdgpu_device *adev);
+>   	void (*mc_access_enable)(struct amdgpu_device *adev, bool enable);
+> -	void (*hdp_flush)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+>   	u32 (*get_memsize)(struct amdgpu_device *adev);
+>   	void (*sdma_doorbell_range)(struct amdgpu_device *adev, int instance,
+>   			bool use_doorbell, int doorbell_index, int doorbell_size);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 5f4805e4d04a..a896e3d0fcf8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -38,7 +38,6 @@
+>   #include "gc/gc_9_0_sh_mask.h"
 >   
-> I do have experience in kernel development, and debugging so I am willing
-> to test patches, etc. Any help is welcome!
+>   #include "vega10_enum.h"
+> -#include "hdp/hdp_4_0_offset.h"
 >   
-> So these are the issues:
+>   #include "soc15_common.h"
+>   #include "clearstate_gfx9.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+> index b5c3db16c2b0..b860f1c7b5b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+> @@ -80,15 +80,6 @@ static void nbio_v2_3_mc_access_enable(struct amdgpu_device *adev, bool enable)
+>   		WREG32_SOC15(NBIO, 0, mmBIF_FB_EN, 0);
+>   }
 >   
-> 1.(the biggest issue): The amdgpu driver often crashes when plugging an input.
->
-> I tested this now on purpose with 'amdgpu.dc=1' by slowly plugging and unplugging
-> an input connector while I wait for the output to stabilize between each cycle,
-> and still the issue reproduced after a dozen (or so) tries.
-> (It only happens when I plug the connector, and never happens when I unplug it)
->
-> Then I unloaded the amdgpu driver and loaded it again with dc=0.
-> This does sort of work but takes a lot of time. The dmesg output is attached
-> (amdgpu_dc1_plug_bug.txt)
+> -static void nbio_v2_3_hdp_flush(struct amdgpu_device *adev,
+> -				struct amdgpu_ring *ring)
+> -{
+> -	if (!ring || !ring->funcs->emit_wreg)
+> -		WREG32_NO_KIQ((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -	else
+> -		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -}
+> -
+>   static u32 nbio_v2_3_get_memsize(struct amdgpu_device *adev)
+>   {
+>   	return RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_RCC_CONFIG_MEMSIZE);
+> @@ -366,7 +357,6 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
+>   	.get_pcie_data_offset = nbio_v2_3_get_pcie_data_offset,
+>   	.get_rev_id = nbio_v2_3_get_rev_id,
+>   	.mc_access_enable = nbio_v2_3_mc_access_enable,
+> -	.hdp_flush = nbio_v2_3_hdp_flush,
+>   	.get_memsize = nbio_v2_3_get_memsize,
+>   	.sdma_doorbell_range = nbio_v2_3_sdma_doorbell_range,
+>   	.vcn_doorbell_range = nbio_v2_3_vcn_doorbell_range,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+> index d2f1fe55d388..8427f10712ff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+> @@ -50,18 +50,6 @@ static void nbio_v6_1_mc_access_enable(struct amdgpu_device *adev, bool enable)
+>   		WREG32_SOC15(NBIO, 0, mmBIF_FB_EN, 0);
+>   }
 >   
-> I did try to increase the number of tries in dm_helpers_read_local_edid, to
-> something silly like 1000, but no luck.
+> -static void nbio_v6_1_hdp_flush(struct amdgpu_device *adev,
+> -				struct amdgpu_ring *ring)
+> -{
+> -	if (!ring || !ring->funcs->emit_wreg)
+> -		WREG32_SOC15_NO_KIQ(NBIO, 0,
+> -				    mmBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL,
+> -				    0);
+> -	else
+> -		amdgpu_ring_emit_wreg(ring, SOC15_REG_OFFSET(
+> -			NBIO, 0, mmBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL), 0);
+> -}
+> -
+>   static u32 nbio_v6_1_get_memsize(struct amdgpu_device *adev)
+>   {
+>   	return RREG32_SOC15(NBIO, 0, mmRCC_PF_0_0_RCC_CONFIG_MEMSIZE);
+> @@ -266,7 +254,6 @@ const struct amdgpu_nbio_funcs nbio_v6_1_funcs = {
+>   	.get_pcie_data_offset = nbio_v6_1_get_pcie_data_offset,
+>   	.get_rev_id = nbio_v6_1_get_rev_id,
+>   	.mc_access_enable = nbio_v6_1_mc_access_enable,
+> -	.hdp_flush = nbio_v6_1_hdp_flush,
+>   	.get_memsize = nbio_v6_1_get_memsize,
+>   	.sdma_doorbell_range = nbio_v6_1_sdma_doorbell_range,
+>   	.enable_doorbell_aperture = nbio_v6_1_enable_doorbell_aperture,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+> index ae685813c419..3c00666a13e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+> @@ -60,15 +60,6 @@ static void nbio_v7_0_mc_access_enable(struct amdgpu_device *adev, bool enable)
+>   		WREG32_SOC15(NBIO, 0, mmBIF_FB_EN, 0);
+>   }
 >   
-> I also tried to remove the code below the
-> 'Abort detection for non-DP connectors if we have no EDID'
-> Also no luck.
->
->
-> This bug pretty much makes it impossible to use the card daily as is
-> since I do connect/disconnect monitors often, especially due to VFIO usage.
+> -static void nbio_v7_0_hdp_flush(struct amdgpu_device *adev,
+> -				struct amdgpu_ring *ring)
+> -{
+> -	if (!ring || !ring->funcs->emit_wreg)
+> -		WREG32_NO_KIQ((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -	else
+> -		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -}
+> -
+>   static u32 nbio_v7_0_get_memsize(struct amdgpu_device *adev)
+>   {
+>   	return RREG32_SOC15(NBIO, 0, mmRCC_CONFIG_MEMSIZE);
+> @@ -292,7 +283,6 @@ const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
+>   	.get_pcie_data_offset = nbio_v7_0_get_pcie_data_offset,
+>   	.get_rev_id = nbio_v7_0_get_rev_id,
+>   	.mc_access_enable = nbio_v7_0_mc_access_enable,
+> -	.hdp_flush = nbio_v7_0_hdp_flush,
+>   	.get_memsize = nbio_v7_0_get_memsize,
+>   	.sdma_doorbell_range = nbio_v7_0_sdma_doorbell_range,
+>   	.vcn_doorbell_range = nbio_v7_0_vcn_doorbell_range,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
+> index aa36022670f9..598ce0e93627 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
+> @@ -56,15 +56,6 @@ static void nbio_v7_2_mc_access_enable(struct amdgpu_device *adev, bool enable)
+>   		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN, 0);
+>   }
 >   
-> 2. I found out that running without the new DC framework (amdgpu.dc=0) solves
-> issue 1 completely (but costs HDMI sound - HDMI sound only works with amdgpu.dc=1)
->
-> I am using this card like that for about at least half an year and haven't had
-> a single connector plug/unplug related crash.
->
-> Issue 2 however is that in this mode (I haven't tried to reproduce this
-> with amdgpu.dc=1 yet), sometimes when I unbind the amdgpu driver
-> the amdgpu complains about a leaked connector and crashes a bit later on.
-> I haven't yet tracked the combination of things needed
-> to trigger this, but it did happen to me about 3 times already.
+> -static void nbio_v7_2_hdp_flush(struct amdgpu_device *adev,
+> -				struct amdgpu_ring *ring)
+> -{
+> -	if (!ring || !ring->funcs->emit_wreg)
+> -		WREG32_NO_KIQ((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -	else
+> -		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -}
+> -
+>   static u32 nbio_v7_2_get_memsize(struct amdgpu_device *adev)
+>   {
+>   	return RREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF0_0_RCC_CONFIG_MEMSIZE);
+> @@ -325,7 +316,6 @@ const struct amdgpu_nbio_funcs nbio_v7_2_funcs = {
+>   	.get_pcie_port_data_offset = nbio_v7_2_get_pcie_port_data_offset,
+>   	.get_rev_id = nbio_v7_2_get_rev_id,
+>   	.mc_access_enable = nbio_v7_2_mc_access_enable,
+> -	.hdp_flush = nbio_v7_2_hdp_flush,
+>   	.get_memsize = nbio_v7_2_get_memsize,
+>   	.sdma_doorbell_range = nbio_v7_2_sdma_doorbell_range,
+>   	.vcn_doorbell_range = nbio_v7_2_vcn_doorbell_range,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> index eadc9526d33f..4bc1d1434065 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> @@ -82,15 +82,6 @@ static void nbio_v7_4_mc_access_enable(struct amdgpu_device *adev, bool enable)
+>   		WREG32_SOC15(NBIO, 0, mmBIF_FB_EN, 0);
+>   }
 >   
-> I did put a WARN_ON(1) to __drm_connector_put_safe, to see who
-> is the caller that triggers the delayed work that frees the connector when it is
-> too late.
->
-> I attached a backtrace with the above WARN_ON and the crash (connector_leak_bug.txt)
-> I also attached the script 'amdgpu_unbind' for the reference that I use to unbind
-> the amdgpu driver.
+> -static void nbio_v7_4_hdp_flush(struct amdgpu_device *adev,
+> -				struct amdgpu_ring *ring)
+> -{
+> -	if (!ring || !ring->funcs->emit_wreg)
+> -		WREG32_NO_KIQ((adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -	else
+> -		amdgpu_ring_emit_wreg(ring, (adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL) >> 2, 0);
+> -}
+> -
+>   static u32 nbio_v7_4_get_memsize(struct amdgpu_device *adev)
+>   {
+>   	return RREG32_SOC15(NBIO, 0, mmRCC_CONFIG_MEMSIZE);
+> @@ -541,7 +532,6 @@ const struct amdgpu_nbio_funcs nbio_v7_4_funcs = {
+>   	.get_pcie_data_offset = nbio_v7_4_get_pcie_data_offset,
+>   	.get_rev_id = nbio_v7_4_get_rev_id,
+>   	.mc_access_enable = nbio_v7_4_mc_access_enable,
+> -	.hdp_flush = nbio_v7_4_hdp_flush,
+>   	.get_memsize = nbio_v7_4_get_memsize,
+>   	.sdma_doorbell_range = nbio_v7_4_sdma_doorbell_range,
+>   	.vcn_doorbell_range = nbio_v7_4_vcn_doorbell_range,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index ce56e93c6886..c8c22c1d1e65 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -46,7 +46,6 @@
+>   #include "sdma6/sdma6_4_2_2_sh_mask.h"
+>   #include "sdma7/sdma7_4_2_2_offset.h"
+>   #include "sdma7/sdma7_4_2_2_sh_mask.h"
+> -#include "hdp/hdp_4_0_offset.h"
+>   #include "sdma0/sdma0_4_1_default.h"
 >   
-> 3. When doing VFIO passthrough of this card, I found out that it doesn't
-> suffer that much from the reset bug. As long as I shut down the guest
-> in clean manner, I can start it again). The vendor_reset module however
-> makes the reset work even when I shut down the guest right in the middle
-> of a 3D app running and I tested it many times.
+>   #include "soc15_common.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> index b208b81005bb..d345e324837d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -32,7 +32,6 @@
 >   
-> _However_ this only works if I never load the amdgpu linux driver.
-> Otherwise a windows guest still boots but all 3D apps in it crash very early.
->
-> I tried both the stock drivers that windows auto installs and latest AMD
-> workstation drivers from AMD site.
->
-> Linux guests do work.
+>   #include "gc/gc_10_1_0_offset.h"
+>   #include "gc/gc_10_1_0_sh_mask.h"
+> -#include "hdp/hdp_5_0_0_offset.h"
+>   #include "ivsrcid/sdma0/irqsrcs_sdma0_5_0.h"
+>   #include "ivsrcid/sdma1/irqsrcs_sdma1_5_0.h"
 >   
-> I found out that amdgpu driver resizes the device bars (I have TRX40 platform,
-> so I don't know if this platform supports the AMD Smart Memory or not,
-> but according to lspci the device does support resizable BARs).
->
-> If I patch the amdgpu's bar resize out, then, the windows guest _does_ work
-> regardless if I loaded amdgpu prior or not. Linux guests also still work.
-> I haven't measured the performance impact of this.
->
-> For debugging this, I did try to hide the PCI_EXT_CAP_ID_REBAR capability
-> from the VM, but it made no difference.
->
-> I suspect that once the GPU is resetted, the bars
-> revert to their original sizes, but VFIO uses the sizes that are cached
-> by the kernel, so that the guest thinks that the bars are of one size
-> while they are of an another. I don't have an idea though why this
-> does work with a Linux guest.
->
-> I had attached the pci config with amdgpu running, once with my patch that
-> stops it from resizing the bars, and once without that patch for reference.
-> (amdgpu_pciconfig_noresize.txt, amdgpu_pciconfig_resize.txt)
->
->
-> 4. I found out that amdgpu runtime PM sometimes breaks the card if last
-> output is disconnected from it. I didn't debug it much as I just disabled
-> it with amdgpu.runpm=0) I will do more debug on this later.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> index 312ecf6d24a0..7cd67cb2ac5f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> @@ -36,7 +36,6 @@
+>   #include "vce/vce_4_0_default.h"
+>   #include "vce/vce_4_0_sh_mask.h"
+>   #include "nbif/nbif_6_1_offset.h"
+> -#include "hdp/hdp_4_0_offset.h"
+>   #include "mmhub/mmhub_1_0_offset.h"
+>   #include "mmhub/mmhub_1_0_sh_mask.h"
+>   #include "ivsrcid/uvd/irqsrcs_uvd_7_0.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> index c734e31a9e65..6117931fa8d7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -32,7 +32,6 @@
 >   
->
-> Please let me know if you have any questions,
-> Don't hesitate to ask me for more information.
->
-> My setup:
-> 3 outputs, all HDMI, converted with DP->HDMI adapters, of which 2 are 1080P
-> monitors, and 1 is a 1080P TV. The issues I describe above are reproducible
-> on all the outputs.
->
->
-> I am running 5.10.0 kernel with few patches and kvm-queue branch
-> merged for my day to day work on KVM.
+>   #include "vcn/vcn_1_0_offset.h"
+>   #include "vcn/vcn_1_0_sh_mask.h"
+> -#include "hdp/hdp_4_0_offset.h"
+>   #include "mmhub/mmhub_9_1_offset.h"
+>   #include "mmhub/mmhub_9_1_sh_mask.h"
 >   
-> You can find the exact kernel I use and its .config on
-> https://gitlab.com/maximlevitsky/linux/-/commits/kernel-starship-5.10
->   
->
-> Best regards,
-> 	Maxim Levitsky
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------C3B739F6FD0F2314864E9293
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Hi Maxim,<br>
-      <br>
-      I can't help with the display related stuff. Probably best
-      approach to get this fixes would be to open up a bug tracker for
-      this on FDO.<br>
-      <br>
-      But I'm the one who implemented the resizeable BAR support and
-      your analysis of the problem sounds about correct to me.<br>
-      <br>
-      The reason why this works on Linux is most likely because we
-      restore the BAR size on resume (and maybe during initial boot as
-      well).<br>
-      <br>
-      See this patch for reference:<br>
-      <br>
-      commit d3252ace0bc652a1a244455556b6a549f969bf99<br>
-      Author: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-      Date:&nbsp;&nbsp; Fri Jun 29 19:54:55 2018 -0500<br>
-      <br>
-      &nbsp;&nbsp;&nbsp; PCI: Restore resized BAR state on resume<br>
-      &nbsp;&nbsp;&nbsp; <br>
-      &nbsp;&nbsp;&nbsp; Resize BARs after resume to the expected size again.<br>
-      &nbsp;&nbsp;&nbsp; <br>
-      &nbsp;&nbsp;&nbsp; BugLink: <a class="moz-txt-link-freetext" href="https://bugzilla.kernel.org/show_bug.cgi?id=199959">https://bugzilla.kernel.org/show_bug.cgi?id=199959</a><br>
-      &nbsp;&nbsp;&nbsp; Fixes: d6895ad39f3b (&quot;drm/amdgpu: resize VRAM BAR for CPU
-      access v6&quot;)<br>
-      &nbsp;&nbsp;&nbsp; Fixes: 276b738deb5b (&quot;PCI: Add resizable BAR infrastructure&quot;)<br>
-      &nbsp;&nbsp;&nbsp; Signed-off-by: Christian König
-      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
-      &nbsp;&nbsp;&nbsp; Signed-off-by: Bjorn Helgaas <a class="moz-txt-link-rfc2396E" href="mailto:bhelgaas@google.com">&lt;bhelgaas@google.com&gt;</a><br>
-      &nbsp;&nbsp;&nbsp; CC: <a class="moz-txt-link-abbreviated" href="mailto:stable@vger.kernel.org">stable@vger.kernel.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # v4.15+<br>
-      <br>
-      <br>
-      It should be trivial to add this to the reset module as well. Most
-      likely even completely vendor independent since I'm not sure what
-      a bus reset will do to this configuration and restoring it all the
-      time should be the most defensive approach.<br>
-      <br>
-      Let me know if you got any more questions on this.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 02.01.21 um 23:42 schrieb Maxim Levitsky:<br>
-    </div>
-    <blockquote type="cite" cite="mid:4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com">
-      <pre class="moz-quote-pre" wrap="">Hi!
-
-I am using this card for about a year and I would like first to say thanks
-for open source driver that you made for it, for the big navi
-and for the threadripper which brought back fun to the computing.
-
-I bought that card primary to use as a host GPU in VFIO enabled multi-seat
-system I am building, and recently I was able (with a minor issue I managed to 
-solve, more about it later) to pass that GPU to both linux and windows guest 
-mostly flawlessly.
- 
-I do have experience in kernel development, and debugging so I am willing
-to test patches, etc. Any help is welcome!
- 
-So these are the issues:
- 
-1.(the biggest issue): The amdgpu driver often crashes when plugging an input.
-
-I tested this now on purpose with 'amdgpu.dc=1' by slowly plugging and unplugging 
-an input connector while I wait for the output to stabilize between each cycle, 
-and still the issue reproduced after a dozen (or so) tries.
-(It only happens when I plug the connector, and never happens when I unplug it)
-
-Then I unloaded the amdgpu driver and loaded it again with dc=0.
-This does sort of work but takes a lot of time. The dmesg output is attached 
-(amdgpu_dc1_plug_bug.txt)
- 
-I did try to increase the number of tries in dm_helpers_read_local_edid, to 
-something silly like 1000, but no luck.
- 
-I also tried to remove the code below the
-'Abort detection for non-DP connectors if we have no EDID'
-Also no luck.
-
-
-This bug pretty much makes it impossible to use the card daily as is
-since I do connect/disconnect monitors often, especially due to VFIO usage.
- 
-2. I found out that running without the new DC framework (amdgpu.dc=0) solves
-issue 1 completely (but costs HDMI sound - HDMI sound only works with amdgpu.dc=1)
-
-I am using this card like that for about at least half an year and haven't had 
-a single connector plug/unplug related crash.
-
-Issue 2 however is that in this mode (I haven't tried to reproduce this
-with amdgpu.dc=1 yet), sometimes when I unbind the amdgpu driver 
-the amdgpu complains about a leaked connector and crashes a bit later on. 
-I haven't yet tracked the combination of things needed
-to trigger this, but it did happen to me about 3 times already.
- 
-I did put a WARN_ON(1) to __drm_connector_put_safe, to see who
-is the caller that triggers the delayed work that frees the connector when it is
-too late.
-
-I attached a backtrace with the above WARN_ON and the crash (connector_leak_bug.txt)
-I also attached the script 'amdgpu_unbind' for the reference that I use to unbind
-the amdgpu driver.
- 
-3. When doing VFIO passthrough of this card, I found out that it doesn't
-suffer that much from the reset bug. As long as I shut down the guest
-in clean manner, I can start it again). The vendor_reset module however
-makes the reset work even when I shut down the guest right in the middle
-of a 3D app running and I tested it many times.
- 
-_However_ this only works if I never load the amdgpu linux driver. 
-Otherwise a windows guest still boots but all 3D apps in it crash very early.
-
-I tried both the stock drivers that windows auto installs and latest AMD 
-workstation drivers from AMD site.
-
-Linux guests do work.
- 
-I found out that amdgpu driver resizes the device bars (I have TRX40 platform,
-so I don't know if this platform supports the AMD Smart Memory or not,
-but according to lspci the device does support resizable BARs).
-
-If I patch the amdgpu's bar resize out, then, the windows guest _does_ work
-regardless if I loaded amdgpu prior or not. Linux guests also still work.
-I haven't measured the performance impact of this.
-
-For debugging this, I did try to hide the PCI_EXT_CAP_ID_REBAR capability 
-from the VM, but it made no difference. 
-
-I suspect that once the GPU is resetted, the bars
-revert to their original sizes, but VFIO uses the sizes that are cached
-by the kernel, so that the guest thinks that the bars are of one size
-while they are of an another. I don't have an idea though why this
-does work with a Linux guest.
-
-I had attached the pci config with amdgpu running, once with my patch that
-stops it from resizing the bars, and once without that patch for reference.
-(amdgpu_pciconfig_noresize.txt, amdgpu_pciconfig_resize.txt)
-
-
-4. I found out that amdgpu runtime PM sometimes breaks the card if last
-output is disconnected from it. I didn't debug it much as I just disabled
-it with amdgpu.runpm=0) I will do more debug on this later.
- 
-
-Please let me know if you have any questions,
-Don't hesitate to ask me for more information.
-
-My setup:
-3 outputs, all HDMI, converted with DP-&gt;HDMI adapters, of which 2 are 1080P
-monitors, and 1 is a 1080P TV. The issues I describe above are reproducible
-on all the outputs.
-
-
-I am running 5.10.0 kernel with few patches and kvm-queue branch 
-merged for my day to day work on KVM.
- 
-You can find the exact kernel I use and its .config on
-<a class="moz-txt-link-freetext" href="https://gitlab.com/maximlevitsky/linux/-/commits/kernel-starship-5.10">https://gitlab.com/maximlevitsky/linux/-/commits/kernel-starship-5.10</a>
- 
-
-Best regards,
-	Maxim Levitsky
-
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C3B739F6FD0F2314864E9293--
-
---===============0638712614==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0638712614==--
