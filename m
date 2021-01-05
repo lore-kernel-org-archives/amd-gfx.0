@@ -3,125 +3,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89348C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 10:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61ABCC433E6
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 13:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E28D2250E
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 10:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E28D2250E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 27EB322AAC
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 13:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27EB322AAC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67BA46E0D2;
-	Tue,  5 Jan 2021 10:27:39 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB4596E0D2;
- Tue,  5 Jan 2021 10:27:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MglR6e6hJg89YKZ2CwKhARMfz96EUSJpU0uM5eWp5ajmXmcwU9l7DCqd3g8uSfjoqchFoBmRuKHFIzexAHSL07x9HXei8UTC6GXIrjA4zNI0iRZfAjhjwbJCml0xxa49Nr61H3nwbhY4Uxp+aTX0Zft2uv07cpUe/LdFc3Bsu0X03P5txZ/N8m9KRuo0x1F/vObpVrQ4YFmQfyPw+mmPxu3ROtBM3OCs3edAfVXSTUYJnJLX6w2l8aZPbYc99aHKtLeecuYW5joTBUZmA6E0GeeXvccJvYjZ3OU02HZnmnuhXGCmXKn6xtJTbMzQES9S118XDMduLRNZI7opiyt0lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Df/4GF+Pyrd4doSxXC2AtUplCDtBUVY3uTcEooSgyZ8=;
- b=WQawHe+gXrh4e+L3z59wn+ljWT/5O2J46VBTJ42taASnLPmPTQwclvCkMANfiEQkcJjywIlhuP5sDuO4JOSXN9qLBFRvov7NilRyLLFAsWH8H1wzTSlFrjhdtlRBHs55X0vAmU5PHYcfGHn3Ab0xNPHQnT1OjBHsL2gfmk5PCiWx3P5m9Y6OtpFkCzo3up7jel/0TbmgEX/tueGBwdNnVAG14VFX/kdJkHdKQkfPZiyfsFfqxgRhCXH8EC943Aqz/dU8F/Z0wYUXpul5bNrzkPDQlH6Nfd5XzpYr6xcwTZSoIWUm1nHs07TH3kBjqt/4W6xt/QZAA2pGPWh7VeWMIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Df/4GF+Pyrd4doSxXC2AtUplCDtBUVY3uTcEooSgyZ8=;
- b=tlLxChHURROGlboAtJnt0C5kjgbwEUh2c5t92bA1fvR58uonY9OEqoat2Ul3PS4tAFW72i1rV22uxllQbEw15gY+UobBpIZ7o20wxkeN9xxZUAiwHinhnctsXphMdsgYuMf3RPyJJJ3EFkG9NqNzMjsWxv01DeyKfO8qLu8ifaU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2451.namprd12.prod.outlook.com (2603:10b6:207:4e::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19; Tue, 5 Jan
- 2021 10:27:33 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3742.006; Tue, 5 Jan 2021
- 10:27:32 +0000
-Subject: Re: [PATCH v2] drm/amdgpu:fix IH overflow on Cz
-To: Defang Bo <bodefang@126.com>, airlied@linux.ie, daniel@ffwll.ch,
- alexander.deucher@amd.com
-References: <1609831941-2277695-1-git-send-email-bodefang@126.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <f03d6316-4dfe-4409-8ea1-d1bca8a16360@amd.com>
-Date: Tue, 5 Jan 2021 11:27:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <1609831941-2277695-1-git-send-email-bodefang@126.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM9P193CA0010.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:20b:21e::15) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE5B589AB3;
+	Tue,  5 Jan 2021 13:05:05 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E0489AB3;
+ Tue,  5 Jan 2021 13:05:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1F3D622240;
+ Tue,  5 Jan 2021 13:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1609851904;
+ bh=ecAslWQ6B5/J70Zk/sQRf9wb8OWGumYxLhSFQeps2yg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=t5OUpmLL3CQBRciwQZ9jJ3AS//j7ilUb7E/S6WXwp2LSnjSCkf7eg6jM7XLsdGOGK
+ LBDUNtCxXuVBHFTQjFnHuAGUOV5owEThc/ZWhneOCZ4h0f/44KYiFbkDvkevZbVdSa
+ B1dmHuSClf8v5hKnbiqH98wvuWVoxEP3I8MpWxh35VdFqPAmi+ijwOZ7BoxlSy19tW
+ cdEzSuPEnBAX2MG3ShZ1fBpdwzE2OJhLMGlQyJMmBQQuKN1UIEiiJV76UyCJl0p+wL
+ Wg+Awld/73fYQxHcNxQeOTt/GfPV9HjExvnGTll84c4fGN0SN04KqOfWTjzpJ2anqV
+ uF1f4RruQLrRQ==
+Date: Tue, 5 Jan 2021 13:04:58 +0000
+From: Will Deacon <will@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Revert "add DCN support for aarch64"
+Message-ID: <20210105130458.GA11108@willie-the-truck>
+References: <20201214175225.38975-1-ardb@kernel.org>
+ <CADnq5_M-U5QO_tmQQ8Q+v+kZXvUc7vjXnmKWYFjX1FmOJYk1OQ@mail.gmail.com>
+ <CAMj1kXHnPXqBnQsNQh3nJxDePxK=D55KES3BdVeJ0cFvYxAXAg@mail.gmail.com>
+ <CAMj1kXE7Z7=YJq4qYaB9NDDwi8nsXsg-KEXQ8V9wQB=uLCsdrw@mail.gmail.com>
+ <CADnq5_PKV4Hekm9Dd_1U2e2RAeb3Mhz_uFSCabWgBNk2gCaAYw@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM9P193CA0010.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3721.20 via Frontend Transport; Tue, 5 Jan 2021 10:27:31 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cfccc9a5-2765-4dba-6961-08d8b1648322
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2451:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB245157B4C07340EA59A3B71D83D10@BL0PR12MB2451.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:854;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RmJXzuMwFYe+BPRDpRFNrfjG7FfBuYtPLQ8P5sbHzoyepgMZjcBy3/foI3R5pcDvvwK4oLwtxdPZYSXeGoiPaEzLuWuAThxafzU+184QwdgafV1tcyQeflRclQ9eH1de98yDsF17Inf0/MQn1GcJ1Luy42KiFroirhT/eak87Y6do3srjHe/dUTl/bKdngsrbh2yEq+ZqArczbNNQL+SJKGd/URd2ANJvTMjTq/BacDi8KssyYsdKv4u8zjeqHrgfaijJBzbP5VN8GBh6jar3yVU7KXeyGuCOnV2nfxAEvX03lXbCI1qYGPJAoGMnuNHutqDvOjPmrfeiOk19OMSl6H/oNsc+/HdiHT/aaPUwwQ+oH9NGZrjfoR4PjLVRUTSq0M8CsvX1hPXCYvcP2QN36DrfeV7JCbx8D6GGFq5t7+UOdnW1CRVYuZjCdm14hycXtCwEp9z1GL2nrIFbXkVtXydjgj2OZ9aeVvNEqD/un9lqZw3lPv4koNWJ/4c8KWp
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(346002)(396003)(136003)(8676002)(4326008)(6636002)(52116002)(316002)(6486002)(2616005)(8936002)(6666004)(31696002)(478600001)(5660300002)(36756003)(16526019)(186003)(83380400001)(66946007)(66556008)(66476007)(2906002)(31686004)(86362001)(525324002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V1p3dzU5YzlBcEIveG55Z0VOa203N1lOWE9aaE96N21NbEtlbE9uejN5ZE5T?=
- =?utf-8?B?QTBoZnpsQ0dEMi9vQXBiMFZwdzdNN1NJMEt4emtYeUZtbTVxZzR6cStLQ2ll?=
- =?utf-8?B?bk5aSmJtalF1cURrTVlPbkFtWEF2b3AzY000ZkdDaUduN2djQjVnNzc0OERN?=
- =?utf-8?B?NGxSYkpFTGVLUGYzVjJvUFU2YVVvL3VERmhtRFEvMVd3bUoweEN5SUpjTndu?=
- =?utf-8?B?VGJrVU5YZWVCbG9VSWlOcUZSUDBmZmxSTVlUa1VCUjM3Q0kyRVREbHpiOGdZ?=
- =?utf-8?B?NTJOSHV2cUhnY3l5MVNOWmlIYkZjckZGSmhpV3VteTZYU0tuSkY2VWNkbVFF?=
- =?utf-8?B?OC8zcmxnN1B0dUY2SmpqWTBJeDlwdUMwUVVoY2M1R1FobmtrTDJlcEpQY3ZN?=
- =?utf-8?B?RVg4OGRLdkQ0QlVaQjArQk1lYlZ1NkYweG1TdmoybUZSc3BJQXJDbW0wZmdQ?=
- =?utf-8?B?R2x4YlI4WlVCS3gybXdualkvbjhRUlhQREN1SWh1a0doY3hJLzk0em85Sytm?=
- =?utf-8?B?VkNNdC96NG8zcUIxRGp1WDNrTjJyTFIwSkFWWkZmeFVxbzRTWTRHeFRWaVNV?=
- =?utf-8?B?MTcvd1k1R1gxdnJEU243dEhMVXZZMWFnOVY2Ykkza0xjaDRoN3dlOVd1OTFJ?=
- =?utf-8?B?QnU5UUFxTllLT2dqUkowcU56dnYxQmM3VGpRd2tVNEdSazNBTjE5TkY4VHRi?=
- =?utf-8?B?SHFYekIzcWNoY3JPWDBvTnc4RkliTWJiN1pQZmRQUlJ4Wm81NFZYemQ5VW91?=
- =?utf-8?B?T08xcyt3eTdRc1hhWUxvd21odzA2b09zcnhiY213a2dod0M0WGowQ09nMnhk?=
- =?utf-8?B?a2szN3JVVUlzbHk1b1NHOG55QWpPNytiSjdNaG5XVXFLREFoN1hjZEU4blc2?=
- =?utf-8?B?Y2ROYnBhU1FjTHhHY01tSjZ5eHpmREp2NFAvRTNQaUVqVzF1QTR4RU0rZnJl?=
- =?utf-8?B?WnVVeHFYOXp6bEZseTNvdWdLYUo1bk5ZeU1kY2NRZ3A2Ly9KKzF2Ull0c1BO?=
- =?utf-8?B?QW82aGp5TThPUjhkNjdTalpMVzNqVWxvV0hVcy9OaVVjSzNNT0ZPdnBBSkxk?=
- =?utf-8?B?RTE0SU84QWxMb3A3cWJlL0lUT1FxT2p6NXp0a09MazRmNVRZdXd0WnJUYm13?=
- =?utf-8?B?ei9XQUtFVCtTOUxBZFcrLzBkdUVvOHFRcElGanpPTjdZSWRuYzlWV24zeVFI?=
- =?utf-8?B?UlMxTWwzYjMyZHlCSVJ6MGxIeDloeTNaQzFuY0tpUHEwekp0b0k3ZUJnZWZG?=
- =?utf-8?B?TUx5M25ydE9RZUZJdk50aG03MlJSSXV1b3NCallYUTQraVJ0NVdTejRJQ3FE?=
- =?utf-8?B?eWJVVWZTTVpUZ2FlTTd6aGh1a1JEVkxMWEQ5cHRaYWZJeDRUZkVKZnRZSitV?=
- =?utf-8?B?NE5TSmpxbGdqeUVQMlFHYXFla3U2RkgvcUFSUkhMY3lQMUZwTFV2Z3I2bEFR?=
- =?utf-8?Q?EWQXSNoL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2021 10:27:32.5992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfccc9a5-2765-4dba-6961-08d8b1648322
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1RlCTqQAG4uYd9SQUczkScWVbsydbp8ny0eX6hmlNR21b2CPYnj+117HjkVN47FW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2451
+Content-Disposition: inline
+In-Reply-To: <CADnq5_PKV4Hekm9Dd_1U2e2RAeb3Mhz_uFSCabWgBNk2gCaAYw@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,99 +60,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Rob Herring <robh@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Daniel Kolesa <daniel@octaforge.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Dave Martin <dave.martin@arm.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.01.21 um 08:32 schrieb Defang Bo:
-> Similar to commit <b82175750131>("drm/amdgpu: fix IH overflow on Vega10 v2").
-> When an ring buffer overflow happens the appropriate bit is set in the WPTR
-> register which is also written back to memory. But clearing the bit in the
-> WPTR doesn't trigger another memory writeback.
->
-> So what can happen is that we end up processing the buffer overflow over and
-> over again because the bit is never cleared. Resulting in a random system
-> lockup because of an infinite loop in an interrupt handler.
+On Mon, Jan 04, 2021 at 11:27:24AM -0500, Alex Deucher wrote:
+> On Tue, Dec 29, 2020 at 8:17 AM Ard Biesheuvel <ardb@kernel.org> wrote:
+> >
+> > On Wed, 16 Dec 2020 at 23:26, Ard Biesheuvel <ardb@kernel.org> wrote:
+> > >
+> > > On Wed, 16 Dec 2020 at 19:00, Alex Deucher <alexdeucher@gmail.com> wr=
+ote:
+> > > >
+> > > > On Mon, Dec 14, 2020 at 12:53 PM Ard Biesheuvel <ardb@kernel.org> w=
+rote:
+> > > > >
+> > > > > This reverts commit c38d444e44badc557cf29fdfdfb823604890ccfa.
+> > > > >
+> > > > > Simply disabling -mgeneral-regs-only left and right is risky, giv=
+en that
+> > > > > the standard AArch64 ABI permits the use of FP/SIMD registers any=
+where,
+> > > > > and GCC is known to use SIMD registers for spilling, and may inve=
+nt
+> > > > > other uses of the FP/SIMD register file that have nothing to do w=
+ith the
+> > > > > floating point code in question. Note that putting kernel_neon_be=
+gin()
+> > > > > and kernel_neon_end() around the code that does use FP is not suf=
+ficient
+> > > > > here, the problem is in all the other code that may be emitted wi=
+th
+> > > > > references to SIMD registers in it.
+> > > > >
+> > > > > So the only way to do this properly is to put all floating point =
+code in
+> > > > > a separate compilation unit, and only compile that unit with
+> > > > > -mgeneral-regs-only. But perhaps the use of floating point here is
+> > > > > something that should be reconsidered entirely.
+> > > > >
+> > > > > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > > > > Cc: Will Deacon <will@kernel.org>
+> > > > > Cc: Dave Martin <dave.martin@arm.com>
+> > > > > Cc: Rob Herring <robh@kernel.org>
+> > > > > Cc: Leo Li <sunpeng.li@amd.com>
+> > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > Cc: "Christian K=F6nig" <christian.koenig@amd.com>
+> > > > > Cc: David Airlie <airlied@linux.ie>
+> > > > > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > > > > Cc: Daniel Kolesa <daniel@octaforge.org>
+> > > > > Cc: amd-gfx@lists.freedesktop.org
+> > > > > Cc: dri-devel@lists.freedesktop.org
+> > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > > >
+> > > > Can rebase this on Linus' master branch?  There were a number of new
+> > > > asics added which copy pasted the ARM64 support.
+> > > >
+> > >
+> > > Not sure what you are asking me here. Reverting commit c38d444e44badc5
+> > > on top of mainline is not going to fix the other code that was added.
+> > > Or are you asking me to go and find the patches (how many?) that added
+> > > new ASICs and fix them for arm64?
+> > >
+> > > Note that this code is critically broken, as it may corrupt user
+> > > process state arbitrarily. So if new code was added that contains the
+> > > same bug, it should be reverted so that the respective authors can fix
+> > > it and resubmit.
+> > >
+> >
+> > Is this simply about dropping the newly added references to
+> > $(dml_rcflags) from the Makefile? Because that is quite trivial ...
+> =
 
-Really good point. I haven't had time to look into other generations 
-since fixing this for Vega.
+> Yes, I was thinking something like the attached patch.
+> =
 
-One major typo below which needs to be fixed.
+> Alex
 
->
-> Signed-off-by: Defang Bo <bodefang@126.com>
+> From fbc93ca7d7739861ce63f6b483cf23d7cf1d69fb Mon Sep 17 00:00:00 2001
+> From: Alex Deucher <alexander.deucher@amd.com>
+> Date: Mon, 4 Jan 2021 11:24:20 -0500
+> Subject: [PATCH] drm/amdgpu/display: drop DCN support for aarch64
+> =
+
+> From Ard:
+> =
+
+> "Simply disabling -mgeneral-regs-only left and right is risky, given that
+> the standard AArch64 ABI permits the use of FP/SIMD registers anywhere,
+> and GCC is known to use SIMD registers for spilling, and may invent
+> other uses of the FP/SIMD register file that have nothing to do with the
+> floating point code in question. Note that putting kernel_neon_begin()
+> and kernel_neon_end() around the code that does use FP is not sufficient
+> here, the problem is in all the other code that may be emitted with
+> references to SIMD registers in it.
+> =
+
+> So the only way to do this properly is to put all floating point code in
+> a separate compilation unit, and only compile that unit with
+> -mgeneral-regs-only."
+> =
+
+> Disable support until the code can be properly refactored to support this
+> properly on aarch64.
+> =
+
+> Reported-by: Ard Biesheuvel <ardb@kernel.org>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
-> Changes since v1:
-> - Modify the code and correct the wrong fix.
-> ---
-> ---
->   drivers/gpu/drm/amd/amdgpu/cz_ih.c | 38 ++++++++++++++++++++++++--------------
->   1 file changed, 24 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> index 1dca0cabc326..45dd47f45fa2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> @@ -190,22 +190,32 @@ static u32 cz_ih_get_wptr(struct amdgpu_device *adev,
->   			  struct amdgpu_ih_ring *ih)
->   {
->   	u32 wptr, tmp;
-> -
-> +
->   	wptr = le32_to_cpu(*ih->wptr_cpu);
->   
-> -	if (REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW)) {
-> -		wptr = REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
-> -		/* When a ring buffer overflow happen start parsing interrupt
-> -		 * from the last not overwritten vector (wptr + 16). Hopefully
-> -		 * this should allow us to catchup.
-> -		 */
-> -		dev_warn(adev->dev, "IH ring buffer overflow (0x%08X, 0x%08X, 0x%08X)\n",
-> -			wptr, ih->rptr, (wptr + 16) & ih->ptr_mask);
-> -		ih->rptr = (wptr + 16) & ih->ptr_mask;
-> -		tmp = RREG32(mmIH_RB_CNTL);
-> -		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> -		WREG32(mmIH_RB_CNTL, tmp);
-> -	}
-> +	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> +		goto out;
-> +
-> +	wptr = RREG32(mmIH_RB_CNTL);
+>  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
+>  drivers/gpu/drm/amd/display/dc/calcs/Makefile |  4 ----
+>  .../gpu/drm/amd/display/dc/clk_mgr/Makefile   | 21 -------------------
+>  drivers/gpu/drm/amd/display/dc/dcn10/Makefile |  7 -------
+>  .../drm/amd/display/dc/dcn10/dcn10_resource.c |  7 -------
+>  drivers/gpu/drm/amd/display/dc/dcn20/Makefile |  4 ----
+>  drivers/gpu/drm/amd/display/dc/dcn21/Makefile |  4 ----
+>  drivers/gpu/drm/amd/display/dc/dcn30/Makefile |  5 -----
+>  .../gpu/drm/amd/display/dc/dcn301/Makefile    |  4 ----
+>  .../gpu/drm/amd/display/dc/dcn302/Makefile    |  4 ----
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile   |  4 ----
+>  drivers/gpu/drm/amd/display/dc/dsc/Makefile   |  4 ----
+>  drivers/gpu/drm/amd/display/dc/os_types.h     |  4 ----
+>  13 files changed, 1 insertion(+), 73 deletions(-)
 
-That's the wrong register, you need to read the write pointer and not 
-the control register.
+Acked-by: Will Deacon <will@kernel.org>
 
-Same problem in all other patches.
-
-Regards,
-Christian.
-
-> +
-> +	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> +		goto out;
-> +
-> +	wptr = REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
-> +
-> +	/* When a ring buffer overflow happen start parsing interrupt
-> +	 * from the last not overwritten vector (wptr + 16). Hopefully
-> +	 * this should allow us to catchup.
-> +	 */
-> +	dev_warn(adev->dev, "IH ring buffer overflow (0x%08X, 0x%08X, 0x%08X)\n",
-> +		wptr, ih->rptr, (wptr + 16) & ih->ptr_mask);
-> +	ih->rptr = (wptr + 16) & ih->ptr_mask;
-> +	tmp = RREG32(mmIH_RB_CNTL);
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> +	WREG32(mmIH_RB_CNTL, tmp);
-> +
-> +
-> +out:
->   	return (wptr & ih->ptr_mask);
->   }
->   
-
+Will
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
