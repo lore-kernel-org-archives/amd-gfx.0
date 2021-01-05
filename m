@@ -7,30 +7,30 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06255C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 07:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AAEFC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 07:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9ED8222482
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 07:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ED8222482
+	by mail.kernel.org (Postfix) with ESMTPS id D347221973
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 07:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D347221973
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED94689EA9;
-	Tue,  5 Jan 2021 07:09:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E49189EA9
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 07:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8D389580;
+	Tue,  5 Jan 2021 07:51:19 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB58B89580
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 07:51:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c/rnHNhAFih5QM/0oXh37VZ23/CgiXL1rd2fRIy/IcPZJFwZUw4s9s98nY5PAvp8aJqi9gx/vfMD/zzP5IUN8OeQR/t6nSRtK0MVnYjQLJ+NqEk5G0IDXAsMZ5pG64789YJJ3DlA0aSd/p+jdLX4AEL4CgJ3J/JsFzIY73yTUcFXuvAgrSt1E3J1qyJ6DptAXEgRsuEMwYfnplP2U7ZsD+KhhVBhiuJiUupvZW+1IJ2eQcmBdEz34k0VQgotSOMwVPfD9qbjXqugv9wSLaBg269S4aMXlghBKDg8hL8WzAiBT2PE5BAo5gjrM4YrlO9vgGyz2CpiMJH4aXa8zmT4+w==
+ b=RZbGQ/x9mpR3dOacYBQ/xbXIVG/f9Cf1YaxV0tWt7NzWOAPsTldWsO34AjB0A85YdM/THvdsXsOyJ+XmXfxdxvhXoqjyiF0F+3+jZ3kedNYpiUHq1UztiHw/OvSTsxHcVZfAZ6kc3rwIgqMKLRicfFapJ+lPvF57M1EKx0bfySgptItaAMVIaol65vqegvtV+zRO5c+mFcM2vztQHP1fmMJ5Y0nxxexBx9JGs7R0NhCvVrLDHHqHVhO6zUG6ZzFcx90rcV1BeTyfDwK+AFrSRVG7zab8fCj2wDaggYs4CL0aVg9uTcsQk6G2dS9NKlyyRXi0XZvdYyvaxi+WuT/5cA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M7EmC7aSjppldBip1TeEAM9GdnrRIvUwCLchRCFMigI=;
- b=DO3c+Ts6Z8uJEkD/qYH6DykqhGiwPF/e78uquLmdUeU1oupY0cOHoWXKKCY8nGRIe0Xoh2j6y2zbWrxMfNRxVYEHwvBgRP1Wx8XFPPQLrQ/DmH5lNR3QRK3B9giu84yeX/aVK0as6RiGs6W4+11JcxIk6YuSzhLsuLhyMvGj4Gd7d+tvpkZMp4EVQyfBWpDiylM9l2tP53s0W1itOmPqKsi6TeLL0RxSs/nGVgx6WlXqmsBEe0MOl10245DF/M45rAFIp040m3XwJxlStlGIaXPewI4RSIxsTe+QCZ3kvkl7JPo7aC+BghXGY73hTXANzJ7stZEilEMB3WZmgJ7Z3w==
+ bh=3PumIH1Yo0xi9F4m1QTKHnwll/9p88Yl6NTHsH+c45k=;
+ b=UF3k5qBUB+MP0N6NLg+KG8Fm8X6Qrfeoi9qTImzBG5KOuhq8FMpio9N/oFW2fVhQvlZAnbB2n5yfGV1bJdObArY9tWaqBwnCxA8LFheJsfakg8pkOJgULRqmFb5QtQeaYD/SHP/VElGgbdBS3mTcSfyVCF40ClfZE8ZmAWLlokUIgn2p1u8aB+tZuPBJZE+UB2E8vveUfbZycW9epZG56/EZ02/2c0xeuedWXRh8swcLvqFZaxbZamEKG3yPa3P9GcbQB1VhYNT5mu4tDvRkbiEimXauB9zGEfDrH9BM6u5FziWRvXjHJyuMTTso3IIwxP8TZmXAoNCJjMxSdgJS5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -38,18 +38,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M7EmC7aSjppldBip1TeEAM9GdnrRIvUwCLchRCFMigI=;
- b=1cA40A65jQaIS8/eZthPf+2kHVQQsxSQqGPz+yV5FYBhsJRPoM+PFePVFdxAkP1Re9oqFX5NkKXYp45/KbVTWf3/Ai83LDqtxVjTUF4wd2J98mQkTfCi+7qzUnfcq7LGVFAi+vRCtQkWWljTLbdkBKNUKu1HPprPa0CBSsh38Kw=
-Received: from BN8PR15CA0027.namprd15.prod.outlook.com (2603:10b6:408:c0::40)
- by BN8PR12MB3171.namprd12.prod.outlook.com (2603:10b6:408:99::18)
+ bh=3PumIH1Yo0xi9F4m1QTKHnwll/9p88Yl6NTHsH+c45k=;
+ b=gcxqamLLLs3T1bALv1s+RwG4k8RziIrlSwLtbdbpvBv4KTcnsAzKQwOSN7PrYwOGrq2lIf0Vup7XR53bj8YqZXpFXA7TG+MZ2oTt9/geQpKz/h1WjUqbRdAUFjd5pktoEiYSb/VSAlVitUPx9qOpg+6j4j/3Y0eDTvaXWC/D9uc=
+Received: from MWHPR22CA0050.namprd22.prod.outlook.com (2603:10b6:300:12a::12)
+ by CY4PR12MB1429.namprd12.prod.outlook.com (2603:10b6:903:42::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.22; Tue, 5 Jan
- 2021 07:09:19 +0000
-Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:c0:cafe::4) by BN8PR15CA0027.outlook.office365.com
- (2603:10b6:408:c0::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19 via Frontend
- Transport; Tue, 5 Jan 2021 07:09:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.21; Tue, 5 Jan
+ 2021 07:51:15 +0000
+Received: from CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:12a:cafe::a4) by MWHPR22CA0050.outlook.office365.com
+ (2603:10b6:300:12a::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
+ Transport; Tue, 5 Jan 2021 07:51:15 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -57,47 +57,51 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
+ CO1NAM11FT026.mail.protection.outlook.com (10.13.175.67) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3721.23 via Frontend Transport; Tue, 5 Jan 2021 07:09:17 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ 15.20.3721.23 via Frontend Transport; Tue, 5 Jan 2021 07:51:13 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 5 Jan 2021
- 01:09:17 -0600
+ 01:51:12 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 5 Jan 2021
+ 01:51:12 -0600
 Received: from victor-test02.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Tue, 5 Jan 2021 01:09:16 -0600
+ Transport; Tue, 5 Jan 2021 01:51:11 -0600
 From: Victor Zhao <Victor.Zhao@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/psp: fix psp gfx ctrl cmds
-Date: Tue, 5 Jan 2021 15:08:22 +0800
-Message-ID: <20210105070822.25795-1-Victor.Zhao@amd.com>
+Subject: [PATCH v2] drm/amdgpu/psp: fix psp gfx ctrl cmds
+Date: Tue, 5 Jan 2021 15:50:53 +0800
+Message-ID: <20210105075053.4986-1-Victor.Zhao@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4b70e223-7403-46d3-85df-08d8b148d11f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3171:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB317181A5A4D0EE6768C37515FAD10@BN8PR12MB3171.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-MS-Office365-Filtering-Correlation-Id: 0016bc60-4825-4f25-1e20-08d8b14eacac
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1429:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1429510CFC14E41F5AADEB11FAD10@CY4PR12MB1429.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MoWtUN0eTj0B59a94aNbVsZN3UGYqrmu4X03GWEIhR+T/XtHyRM3dftyq8szbhBTFWet/LJzzB1hWZl9AvyYHmNvYvpv6cxWrufXJVh/hKSPpE4TaytRPzHPaWSy/F/NSSikh0u3O8CnCtvrtPnrr8EilDrH89UDH1DZ9J/6YkBaQxGVAC2GPTGZJNxYWEhzViXn4W8odBB9xr22/B30JOvPHvkEU+TiJwfesTf1JXIcipq2Qq4oBOF+C7punvBeNR1G2rQTxGp4xxY8WlGH5CpoQ8qYG3COKGkdVRmWZccLSS5ndDarmjo+jWdT9yocr6VcF3bc5noz014sUayggJR4HEx1SYGzEvlooLMf1iu1dx6tIGOuuITObJoVs2fH9Kv6RpfTKHmmrJrfzZ6VM5q77VHTh51mNOI+oJNZhRjLezFTNmpxNqGceT7Bn8BWHsbkh9fhQiF4PJw6eT+jsQ==
+X-Microsoft-Antispam-Message-Info: KqRALgnkwbmZ5rY7ZZK6taOYqQbqrxeIA+fb6uiLAeHOAjYE8gHqC7lgDFrRGqFBqyuaBTj7N4nEppNjQo2etGbAHfzx4WL2Ldsm3Ett4JtkDn2gtMaqbC/Fr5/iPyiwDXHqM0dplDJzarF6qE/7V2fXb3YVYn2CjuGXBJkhuJjrc7kts1AsdNKhNs+ZiJjaCaFIlyFTpiE46IuSwZOkasOktXX1K68NAOpIfCOJEd4j71Zp3dYWPf1W1p27XhZ6ZS7fH8yGm7dIDR36a75SWbJTC+7Jp53GVdOCFhG7PhEf/mHkwZLL1iSrQrc9U/n+Bt17m7dCPOyNL7q0rXB6rNgz1HnXSLPq3LvYaQT3AjLSUiN5AnfjjdHf/gTAUAxA/p0UF+BIPHKbuhLBgsNnt1dzW5a7DoCsQGBO+cB5GH4s9dlCZQmPfLTgnH6qvJlF9Fh2CJwqD4LZPdb277fuOA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(346002)(136003)(39860400002)(396003)(376002)(46966006)(70586007)(4326008)(426003)(356005)(70206006)(478600001)(1076003)(8936002)(82740400003)(82310400003)(186003)(6666004)(336012)(2616005)(86362001)(83380400001)(7696005)(316002)(8676002)(6916009)(47076005)(26005)(81166007)(36756003)(5660300002)(2906002);
+ SFS:(4636009)(136003)(376002)(39860400002)(346002)(396003)(46966006)(2906002)(70586007)(82740400003)(6916009)(1076003)(8936002)(47076005)(36756003)(70206006)(81166007)(82310400003)(5660300002)(86362001)(478600001)(316002)(6666004)(356005)(2616005)(8676002)(186003)(7696005)(83380400001)(26005)(336012)(426003)(4326008);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2021 07:09:17.5961 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b70e223-7403-46d3-85df-08d8b148d11f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2021 07:51:13.3762 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0016bc60-4825-4f25-1e20-08d8b14eacac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3171
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,50 +120,28 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 psp GFX_CTRL_CMD_ID_CONSUME_CMD different for windows and linux,
-according to psp, linux cmds are not correct
+according to psp, linux cmds are not correct.
+
+v2: only correct GFX_CTRL_CMD_ID_CONSUME_CMD.
 
 Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h | 26 +++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-index d65a5339d354..602ea5cd9f3d 100644
+index d65a5339d354..3ba7bdfde65d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
 +++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-@@ -39,18 +39,20 @@
- */
- enum psp_gfx_crtl_cmd_id
- {
--    GFX_CTRL_CMD_ID_INIT_RBI_RING   = 0x00010000,   /* initialize RBI ring */
--    GFX_CTRL_CMD_ID_INIT_GPCOM_RING = 0x00020000,   /* initialize GPCOM ring */
--    GFX_CTRL_CMD_ID_DESTROY_RINGS   = 0x00030000,   /* destroy rings */
--    GFX_CTRL_CMD_ID_CAN_INIT_RINGS  = 0x00040000,   /* is it allowed to initialized the rings */
--    GFX_CTRL_CMD_ID_ENABLE_INT      = 0x00050000,   /* enable PSP-to-Gfx interrupt */
--    GFX_CTRL_CMD_ID_DISABLE_INT     = 0x00060000,   /* disable PSP-to-Gfx interrupt */
--    GFX_CTRL_CMD_ID_MODE1_RST       = 0x00070000,   /* trigger the Mode 1 reset */
--    GFX_CTRL_CMD_ID_GBR_IH_SET      = 0x00080000,   /* set Gbr IH_RB_CNTL registers */
+@@ -47,7 +47,7 @@ enum psp_gfx_crtl_cmd_id
+     GFX_CTRL_CMD_ID_DISABLE_INT     = 0x00060000,   /* disable PSP-to-Gfx interrupt */
+     GFX_CTRL_CMD_ID_MODE1_RST       = 0x00070000,   /* trigger the Mode 1 reset */
+     GFX_CTRL_CMD_ID_GBR_IH_SET      = 0x00080000,   /* set Gbr IH_RB_CNTL registers */
 -    GFX_CTRL_CMD_ID_CONSUME_CMD     = 0x000A0000,   /* send interrupt to psp for updating write pointer of vf */
--    GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING = 0x000C0000, /* destroy GPCOM ring */
--
--    GFX_CTRL_CMD_ID_MAX             = 0x000F0000,   /* max command ID */
-+    GFX_CTRL_CMD_ID_INIT_RBI_RING       = 0x00010000,   /* initialize RBI ring */
-+    GFX_CTRL_CMD_ID_INIT_GPCOM_RING     = 0x00020000,   /* initialize GPCOM ring */
-+    GFX_CTRL_CMD_ID_DESTROY_RINGS       = 0x00030000,   /* destroy rings */
-+    GFX_CTRL_CMD_ID_CAN_INIT_RINGS      = 0x00040000,   /* is it allowed to initialized the rings */
-+    GFX_CTRL_CMD_ID_ENABLE_INT          = 0x00050000,   /* enable PSP-to-Gfx interrupt */
-+    GFX_CTRL_CMD_ID_DISABLE_INT         = 0x00060000,   /* disable PSP-to-Gfx interrupt */
-+    GFX_CTRL_CMD_ID_MODE1_RST           = 0x00070000,   /* trigger the Mode 1 reset */
-+    GFX_CTRL_CMD_ID_GBR_IH_SET          = 0x00080000,   /* set Gbr IH_RB_CNTL registers */
-+    GFX_CTRL_CMD_ID_CONSUME_CMD         = 0x00090000,   /* send interrupt to PSP for SRIOV ring write pointer update */
-+    GFX_CTRL_CMD_ID_MODE2_RST           = 0x000A0000,   /* trigger the Mode 2 reset */
-+    GFX_CTRL_CMD_ID_DESTROY_RBI_RING    = 0x000B0000,   /* destroy RBI ring */
-+    GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING  = 0x000C0000,   /* destroy GPCOM ring */
-+
-+    GFX_CTRL_CMD_ID_MAX                 = 0x000F0000,   /* max command ID */
- };
++    GFX_CTRL_CMD_ID_CONSUME_CMD     = 0x00090000,   /* send interrupt to psp for updating write pointer of vf */
+     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING = 0x000C0000, /* destroy GPCOM ring */
  
- 
+     GFX_CTRL_CMD_ID_MAX             = 0x000F0000,   /* max command ID */
 -- 
 2.25.1
 
