@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFD6EC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 17:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85A7AC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 18:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 97A4B20449
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 17:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97A4B20449
+	by mail.kernel.org (Postfix) with ESMTPS id 3D36D22CF8
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Jan 2021 18:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D36D22CF8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E2188130;
-	Tue,  5 Jan 2021 17:52:58 +0000 (UTC)
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4719B88130
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Jan 2021 17:52:56 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id 19so60081qkm.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Jan 2021 09:52:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8036E060;
+	Tue,  5 Jan 2021 18:23:13 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 855B1893DB;
+ Tue,  5 Jan 2021 18:23:11 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id q75so434755wme.2;
+ Tue, 05 Jan 2021 10:23:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=KdBK+gac7RiZ1BPColKtSI5XBFmEiri3RCHe0eQPboE=;
- b=lm43+dr3llnTeguzWgoL69HUvNXPEuJkTlp6xbCTxrD8WxWjakiGoJIdRtAySi+5Yj
- tVSkX8XaHXXKvFobFIUq3IaRlU3U4P+ROxfJ8UJIkTyJ3TPDY7db9E/VI2W4PK5Nt28c
- EL8ZZUpZVjR0Hws2PB1bNOUoEDY397+Q9fsVoEUhHW0gwnv6STrqIDfTX2SPMf6X4MmB
- UzCuTer/YrNWE9UjUAP7orZCyjf+e1EjL7+X+Vk84/T7QYhghBD+DyNMNhWjuRMMhF/L
- TkDR0+UInmsHcCE8Ei1dCsKZ1al0jaLvUM9qZZa2ZaUg/IvW9ZpuoHtcImeCgM3g+uz3
- Nj9A==
+ bh=XbsqBUoZzkjorKTH3umIQHuh6+k2QQ/7n59Ix1PhJD0=;
+ b=bJGem1lDKecIaABSnPwBHtiIiy8vq9BJVCuRKqxAeQa9HXwXTekjgYSkZLqwe2zBoI
+ V1NUaY2VRfIee75FuHGNgKCWAb03cpjuTy0dfywbslJauOLOF2xAo6+lJcYu8ZnWSc3r
+ fjIoia7yCXIdolosNdGbdxeUjtyhz63PNNMzzysIiyrFUBD77lhA8vYvN+HxGqUDDsGx
+ +673sosttQVLZEznUTckWqjENemS8W7ay4vkDL8wExM/C6PlozkSxrgKOqxsprPs4reO
+ ysKotjDx9fhRboJYvqVA9Xl85aYbyrTmiuUs9A6FzdYk/WC27Yz267fj9NnaoIZ1C2YV
+ dA9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=KdBK+gac7RiZ1BPColKtSI5XBFmEiri3RCHe0eQPboE=;
- b=spLhAlqSWcEKUTw2QC8fQE4vkfdPLvZ1+Buo0MwjmJ9SO2zpz0c5AuckpHgvAu13Sx
- 2bWA2GJ8qNXzQd+auxnytbwsokey2Po1CTZIIvw7X7pQd75pkK0AL4R7MNbLo03rKrVc
- RiurNeUb87FFuZUYjMi+lv9DNlyU1UM1EJtswOo+P0C+KaUORRT70bpPIW4tEMH6bzS4
- 1bicEmF7dT6At4AWj9VuXndzHmS8mZygKvVpnm/bTkzzuj9hofLJ2C6rqFrCcXaAvqyk
- 6XmAgkJO6aSEyG6YVOI2bO0KgVtfsAXONRCxX1vrKKLAZTZbPnjVgfPUYIOKpivseeCw
- XRmw==
-X-Gm-Message-State: AOAM533WqF1C2DuR5023DFK2izzurL70fzaOzII+KjDWaZPny5C2mwd1
- HhAKlEzJbaEGKWGWW3liZVQ3NjIVVOM=
-X-Google-Smtp-Source: ABdhPJwiHIhEGk6/RqvN+/MgYKsYOvdk815Ez1fzQVikEu4jvOibZ1XN+ehwZT0zodum4hBi2HPm2g==
-X-Received: by 2002:ae9:e8c5:: with SMTP id a188mr588809qkg.479.1609869175218; 
- Tue, 05 Jan 2021 09:52:55 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.241])
- by smtp.gmail.com with ESMTPSA id c7sm422729qkm.99.2021.01.05.09.52.54
+ bh=XbsqBUoZzkjorKTH3umIQHuh6+k2QQ/7n59Ix1PhJD0=;
+ b=Z+XUyiawbRvDngawO0cVC4w5oS2F8gdvHUuhH380/lFCMCZ7BsyQrolxwMGXwwwlip
+ a0QvhZG9Uop2VCRsZAFIGmAbAhmiUq06n1amNwl3Grzx8nz+z2StFnExBKasL/SXPBaZ
+ kIHMDXu+XbotfrjqIin74TivrK9VQ+6LDdaVYkztxu7E6gipX2bo6v/LaALX2D+844FE
+ lU9NcK9H8yiyx179rYtZr8raK0TWsluJ5JOO88t3PhpyeBP2EdOnGn0/fKyL1OHgYswz
+ 3fzHGC6viYuGbdJFgItUA9iEXVR0xxdg8dHhng4eHb2EI4hRZHjAkKGGppuURoEDsUKH
+ 1dOg==
+X-Gm-Message-State: AOAM532PA+tJg1tyuwmxYREjhYfduzwabjdGMFt788cNgxh12FVQD8Z9
+ +w5Pqi4/WdfAyZP8KCLZDQY=
+X-Google-Smtp-Source: ABdhPJy0arRNhltgt3OzLnTabxsGG2YIa0NoidVOctCDHTGRzC1bg9XMjzTZVCye/saVCG16uTfPQw==
+X-Received: by 2002:a1c:f70f:: with SMTP id v15mr391756wmh.38.1609870990293;
+ Tue, 05 Jan 2021 10:23:10 -0800 (PST)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:bc55:70b5:dce4:a5cb])
+ by smtp.gmail.com with ESMTPSA id d9sm844587wrc.87.2021.01.05.10.23.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Jan 2021 09:52:54 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/hdmi - enable runtime pm for CI AMD display audio
-Date: Tue,  5 Jan 2021 12:52:45 -0500
-Message-Id: <20210105175245.963451-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+ Tue, 05 Jan 2021 10:23:09 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: bp@alien8.de,
+	ray.huang@amd.com
+Subject: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
+Date: Tue,  5 Jan 2021 19:23:08 +0100
+Message-Id: <20210105182309.1362-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,53 +78,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We are able to power down the GPU and audio via the GPU driver
-so flag these asics as supporting runtime pm.
-
-Reviewed-by: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- sound/pci/hda/hda_intel.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index d539f52009a1..2ea46b5a9a23 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2597,7 +2597,8 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_AMD_SB },
- 	/* ATI HDMI */
- 	{ PCI_DEVICE(0x1002, 0x0002),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0x1308),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
- 	{ PCI_DEVICE(0x1002, 0x157a),
-@@ -2659,9 +2660,11 @@ static const struct pci_device_id azx_ids[] = {
- 	{ PCI_DEVICE(0x1002, 0xaab0),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
- 	{ PCI_DEVICE(0x1002, 0xaac0),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0xaac8),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0xaad8),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
- 	  AZX_DCAPS_PM_RUNTIME },
--- 
-2.29.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RHJpdmVycyBhcmUgbm90IHN1cHBvc2VkIHRvIGluaXQgdGhlIHBhZ2UgcG9vbCBkaXJlY3RseSBh
+bnkgbW9yZS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyB8IDMg
+LS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
+ZW9uX3R0bS5jCmluZGV4IGQ0MzI4ZmY1Nzc1Ny4uMzViNzE1ZjgyZWQ4IDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3JhZGVvbl90dG0uYwpAQCAtNzI5LDkgKzcyOSw2IEBAIGludCByYWRlb25fdHRtX2lu
+aXQoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCiAJfQogCXJkZXYtPm1tYW4uaW5pdGlhbGl6
+ZWQgPSB0cnVlOwogCi0JdHRtX3Bvb2xfaW5pdCgmcmRldi0+bW1hbi5iZGV2LnBvb2wsIHJkZXYt
+PmRldiwgcmRldi0+bmVlZF9zd2lvdGxiLAotCQkgICAgICBkbWFfYWRkcmVzc2luZ19saW1pdGVk
+KCZyZGV2LT5wZGV2LT5kZXYpKTsKLQogCXIgPSByYWRlb25fdHRtX2luaXRfdnJhbShyZGV2KTsK
+IAlpZiAocikgewogCQlEUk1fRVJST1IoIkZhaWxlZCBpbml0aWFsaXppbmcgVlJBTSBoZWFwLlxu
+Iik7Ci0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
