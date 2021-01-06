@@ -2,68 +2,89 @@ Return-Path: <SRS0=majj=GJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69970C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 20:21:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 084DCC433E9
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 20:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15C7422B40
+	by mail.kernel.org (Postfix) with ESMTPS id B407622B40
 	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 20:21:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15C7422B40
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B407622B40
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF926E22F;
-	Wed,  6 Jan 2021 20:21:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 283116E233;
+	Wed,  6 Jan 2021 20:21:54 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 475B16E22C
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 20:21:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A75489C19
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 18:10:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609964481;
+ s=mimecast20190719; t=1609956638;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kMcMhmiQgTA7jnKtH0ur2sIAemyreT6MD3q+Cz9diyc=;
- b=Z05hPKJQOg4aQx7cp9l/NwIX9a85o8S6YMZH6BOZRm9jjZY/F4hJVD0UEa/7ykiuuKZGX3
- 1AgLYfoMu9tl3nbr1q8EDRuOzqEY+ElyKWiCX0nkU1DbpVhsH3v8iQkbXXoSzDwDz7ts0s
- E7MkxCaj01+f2tjQ5PAYcSiaeqSMb+U=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-481-NfD7wAvfNGuLSl8n2LRKrA-1; Wed, 06 Jan 2021 15:21:16 -0500
-X-MC-Unique: NfD7wAvfNGuLSl8n2LRKrA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDEBD100F342;
- Wed,  6 Jan 2021 20:21:14 +0000 (UTC)
-Received: from starship (unknown [10.35.206.196])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0653419C66;
- Wed,  6 Jan 2021 20:21:09 +0000 (UTC)
-Message-ID: <5081e1a58c5f2f362cb02dc9e6ee8ce91e994e1a.camel@redhat.com>
-Subject: Re: Couple of issues with amdgpu on my WX4100
-From: Maxim Levitsky <mlevitsk@redhat.com>
-To: Alex Williamson <alex.williamson@redhat.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Date: Wed, 06 Jan 2021 22:21:08 +0200
-In-Reply-To: <20210104094547.06a61444@omen.home>
-References: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
- <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
- <20210104094547.06a61444@omen.home>
-User-Agent: Evolution 3.36.5 (3.36.5-1.fc32)
+ bh=QC0mNMerYXipku1/5188pVRpHGHyjTqis+pQEfPaR4I=;
+ b=Q5xEmAJh+keWrbKWMZasnzBIYG4W5//7lQp1n95bngoHogtGcaQ2AnGaLfyiRkMPLfOfUr
+ ZTMyT3+qvP7o8FoK1xXIrFlfHKpO7/kJCL9ft252gNZW1qor6VrgQv11jHN5/QXNm+iOJm
+ egESfxljNaPh7keYjYdOFmzaZZ8RnL0=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-45-kOXI9YC2PzW9LcbT-FTT_w-1; Wed, 06 Jan 2021 13:10:36 -0500
+X-MC-Unique: kOXI9YC2PzW9LcbT-FTT_w-1
+Received: by mail-ed1-f70.google.com with SMTP id u17so2213069edi.18
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Jan 2021 10:10:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=QC0mNMerYXipku1/5188pVRpHGHyjTqis+pQEfPaR4I=;
+ b=kMWCZrJB7xnkTq6t9mZWfeCRGMJmPvjSScWvO7OFCXSzo5FLZoRngG8+6jkZws8e1p
+ My5RnAGkJQ6kmnsYm1yVAnZRt/XsBbcMzzv9hUdsEKdfCe4Ba/9QBfi2UcuV0feJtGFt
+ tq3wTxeABx0vATuE5QoRG9XmhrSFJFQTmlgLmDgdMl1Rk45Ey84jiZCdvibHhr3/NM1g
+ gSUwyv0/BKmrka9ComFVDSUuS2ICKfNrR5rsYJ5LeCscRT70KpiXuTLKCqMK80qFVjbs
+ +3OiA/dvWDr2nzqHL/A1IXgzAL5kpCWdW/JXqko8KNvmKubiVTlT/3ccIqaK+NKeXUUC
+ 5WnQ==
+X-Gm-Message-State: AOAM531yXTn1tLS/e+I3NxmhzYdIG1/4ftc7xa6lb2wUZRCyQzHnBpJb
+ Z2LUKGJba0kt1QLi81aWkTfXVIiRxthspv4BEUPVjDpgI8IrwLtU/QjleeDrjrjhUdEejXmbnpP
+ on/ifV+hhhrpTvv2nA4e5eHh/3A==
+X-Received: by 2002:a17:906:6693:: with SMTP id
+ z19mr3599207ejo.376.1609956635017; 
+ Wed, 06 Jan 2021 10:10:35 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzMe7h7yf1aLz93FCBRG3pJGCFGBZlQ538sdE8RQoyUGhFyBnWHSvu5igAM8ejnPrNVoUkQQQ==
+X-Received: by 2002:a17:906:6693:: with SMTP id
+ z19mr3599198ejo.376.1609956634814; 
+ Wed, 06 Jan 2021 10:10:34 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
+ by smtp.gmail.com with ESMTPSA id h23sm1563977ejg.37.2021.01.06.10.10.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Jan 2021 10:10:34 -0800 (PST)
+Subject: Re: radeon kernel driver not suppressing ACPI_VIDEO_NOTIFY_PROBE
+ events when it should
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <ed5b59f0-cfbf-57e8-2cdf-2d0e2c0c45bf@redhat.com>
+ <CADnq5_NSBBP+c+7aGpBkUSx6h4_7zz8o-yUW3ffW0Jn2GFD1AQ@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <c11f3b78-a100-4657-7c07-1c3894296a5d@redhat.com>
+Date: Wed, 6 Jan 2021 19:10:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <CADnq5_NSBBP+c+7aGpBkUSx6h4_7zz8o-yUW3ffW0Jn2GFD1AQ@mail.gmail.com>
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mlevitsk@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 X-Mailman-Approved-At: Wed, 06 Jan 2021 20:21:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,98 +97,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDIxLTAxLTA0IGF0IDA5OjQ1IC0wNzAwLCBBbGV4IFdpbGxpYW1zb24gd3JvdGU6
-Cj4gT24gTW9uLCA0IEphbiAyMDIxIDEyOjM0OjM0ICswMTAwCj4gQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiAKPiA+IEhpIE1heGltLAo+ID4gCj4g
-PiBJIGNhbid0IGhlbHAgd2l0aCB0aGUgZGlzcGxheSByZWxhdGVkIHN0dWZmLiBQcm9iYWJseSBi
-ZXN0IGFwcHJvYWNoIHRvIAo+ID4gZ2V0IHRoaXMgZml4ZXMgd291bGQgYmUgdG8gb3BlbiB1cCBh
-IGJ1ZyB0cmFja2VyIGZvciB0aGlzIG9uIEZETy4KPiA+IAo+ID4gQnV0IEknbSB0aGUgb25lIHdo
-byBpbXBsZW1lbnRlZCB0aGUgcmVzaXplYWJsZSBCQVIgc3VwcG9ydCBhbmQgeW91ciAKPiA+IGFu
-YWx5c2lzIG9mIHRoZSBwcm9ibGVtIHNvdW5kcyBhYm91dCBjb3JyZWN0IHRvIG1lLgo+ID4gCj4g
-PiBUaGUgcmVhc29uIHdoeSB0aGlzIHdvcmtzIG9uIExpbnV4IGlzIG1vc3QgbGlrZWx5IGJlY2F1
-c2Ugd2UgcmVzdG9yZSB0aGUgCj4gPiBCQVIgc2l6ZSBvbiByZXN1bWUgKGFuZCBtYXliZSBkdXJp
-bmcgaW5pdGlhbCBib290IGFzIHdlbGwpLgo+ID4gCj4gPiBTZWUgdGhpcyBwYXRjaCBmb3IgcmVm
-ZXJlbmNlOgo+ID4gCj4gPiBjb21taXQgZDMyNTJhY2UwYmM2NTJhMWEyNDQ0NTU1NTZiNmE1NDlm
-OTY5YmY5OQo+ID4gQXV0aG9yOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVy
-a2VuQGdtYWlsLmNvbT4KPiA+IERhdGU6ICAgRnJpIEp1biAyOSAxOTo1NDo1NSAyMDE4IC0wNTAw
-Cj4gPiAKPiA+ICAgICAgUENJOiBSZXN0b3JlIHJlc2l6ZWQgQkFSIHN0YXRlIG9uIHJlc3VtZQo+
-ID4gCj4gPiAgICAgIFJlc2l6ZSBCQVJzIGFmdGVyIHJlc3VtZSB0byB0aGUgZXhwZWN0ZWQgc2l6
-ZSBhZ2Fpbi4KPiA+IAo+ID4gICAgICBCdWdMaW5rOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5v
-cmcvc2hvd19idWcuY2dpP2lkPTE5OTk1OQo+ID4gICAgICBGaXhlczogZDY4OTVhZDM5ZjNiICgi
-ZHJtL2FtZGdwdTogcmVzaXplIFZSQU0gQkFSIGZvciBDUFUgYWNjZXNzIHY2IikKPiA+ICAgICAg
-Rml4ZXM6IDI3NmI3MzhkZWI1YiAoIlBDSTogQWRkIHJlc2l6YWJsZSBCQVIgaW5mcmFzdHJ1Y3R1
-cmUiKQo+ID4gICAgICBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+Cj4gPiAgICAgIFNpZ25lZC1vZmYtYnk6IEJqb3JuIEhlbGdhYXMgPGJo
-ZWxnYWFzQGdvb2dsZS5jb20+Cj4gPiAgICAgIENDOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICAg
-ICAgIyB2NC4xNSsKPiA+IApIaSEKVGhhbmtzIGZvciB0aGUgZmVlZGJhY2shCiAKU28gSSB3ZW50
-IG92ZXIgcWVtdSBjb2RlIGFuZCBpbmRlZWQgdGhlIHFlbXUgKGFzIG9wcG9zZWQgdG8gdGhlIGtl
-cm5lbAp3aGVyZSBJIHRyaWVkIHRvIGhpZGUgdGhlIFBDSV9FWFRfQ0FQX0lEX1JFQkFSKSBpbmRl
-ZWQgZG9lcyBoaWRlIHRoaXMKcGNpIGNhcGFiaWxpdHkgZnJvbSB0aGUgZ3Vlc3QuCiAKSG93ZXZl
-ciBleGFjdGx5IGFzIEFsZXggbWVudGlvbmVkIHRoZSBrZXJuZWwgZG9lcyBpbmRlZWQgcmVzdG9y
-ZQp0aGUgcmViYXIgc3RhdGUsIGFuZCBldmVuIHdpdGggdGhhdCBjb2RlIHBhdGNoZWQgb3V0IEkg
-Zm91bmQgb3V0IHRoYXQKcmViYXIgc3RhdGUgcGVyc2lzdHMgYWNyb3NzIHRoZSByZXNldCB0aGF0
-IHRoZSB2ZW5kb3JfcmVzZXQgbW9kdWxlIApkb2VzIChCQUNPIEkgdGhpbmspLgogClRoZXJlZm9y
-ZSB0aGUgTGludXggZ3Vlc3Qgc2VlcyB0aGUgZnVsbCA0RyBiYXIgYW5kIGhhcHBpbHkgdXNlcyBp
-dCwgCndoaWxlIHRoZSB3aW5kb3dzIGd1ZXN0J3MgZHJpdmVyIGFwcGFyZW50bHkgaGFzIGEgYnVn
-IHdoZW4gdGhlIGJhcgppcyB0aGF0IGxhcmdlLgogCkkgcGF0Y2hlZCB0aGUgYW1kZ3B1IHRvIHJl
-c2l6ZSB0aGUgYmFyIHRvIHZhcmlvdXMgb3RoZXIgc2l6ZXMsIGFuZAp0aGUgd2luZG93cyBkcml2
-ZXIgYXBwYXJlbnRseSB3b3JrcyB1cCB0byBhIDJHQiBiYXIuCiAKU28gcHJldHR5IG11Y2ggb3Ro
-ZXIgdGhhbiBhIGJ1ZyBpbiB0aGUgd2luZG93cyBkcml2ZXIsIGFuZCBmYWN0CnRoYXQgVkZJTyBk
-b2Vzbid0IHN1cHBvcnQgcmVzaXphYmxlIGJhcnMgdGhlcmUgaXMgbm90aGluZyB3cm9uZyBoZXJl
-LgogClNpbmNlIG15IHN5c3RlbSBkb2VzIHN1cHBvcnQgYWJvdmUgNEcgZGVjb2RpbmcgYW5kIEkg
-ZG8gaGF2ZSBhIG5pY2UKdmZpbyBmcmllbmRseSBkZXZpY2UgdGhhdCBkb2VzIHN1cHBvcnQgYSBy
-ZXNpemFibGUgYmFyLCBJIGRvIHZvbHVudGVlcgp0byBhZGQgc3VwcG9ydCBmb3IgdGhpcyB0byBW
-RklPIGFzIHRpbWUgYW5kIHJlc291cmNlcyBwZXJtaXQuCiAKQWxzbyBpdCB3b3VsZCBiZSBuaWNl
-IGlmIGl0IHdhcyBlaXRoZXIgcG9zc2libGUgdG8gbWFrZSBhbWRncHUgCihvciB0aGUgd2hvbGUg
-c3lzdGVtKSBvcHRpb25hbGx5IGF2b2lkIHJlc2l6aW5nIGJhcnMgd2hlbiBhIAprZXJuZWwgY29t
-bWFuZCBsaW5lIC8gbW9kdWxlIHBhcmFtIGlzIGdpdmVuLApvciBldmVuIGJldHRlciBsZXQgdGhl
-IGFtZGdwdSByZXNpemUgdGhlIGJhciB0byBpdHMgb3JpZ2luYWwKc2l6ZSB3aGVuIGl0IGlzIHVu
-bG9hZGVkIHdoaWNoIElNSE8gaXMgdGhlIGJlc3Qgc29sdXRpb24gCmZvciB0aGlzIHByb2JsZW0u
-CiAKSSB0aGluayBJIGNhbiBwcmVwYXJlIGEgcGF0Y2ggdG8gbWFrZSBhbWRncHUgcmVzdG9yZSAK
-dGhlIGJhciBzaXplIG9uIHVubG9hZCBpZiB5b3UgdGhpbmsgdGhhdAp0aGlzIGlzIHRoZSByaWdo
-dCBzb2x1dGlvbi4KCj4gPiAKPiA+IEl0IHNob3VsZCBiZSB0cml2aWFsIHRvIGFkZCB0aGlzIHRv
-IHRoZSByZXNldCBtb2R1bGUgYXMgd2VsbC4gTW9zdCAKPiA+IGxpa2VseSBldmVuIGNvbXBsZXRl
-bHkgdmVuZG9yIGluZGVwZW5kZW50IHNpbmNlIEknbSBub3Qgc3VyZSB3aGF0IGEgYnVzIAo+ID4g
-cmVzZXQgd2lsbCBkbyB0byB0aGlzIGNvbmZpZ3VyYXRpb24gYW5kIHJlc3RvcmluZyBpdCBhbGwg
-dGhlIHRpbWUgc2hvdWxkIAo+ID4gYmUgdGhlIG1vc3QgZGVmZW5zaXZlIGFwcHJvYWNoLgoKPiAK
-PiBIbW0sIHRoaXMgc2hvdWxkIGFscmVhZHkgYmUgdXNlZCBieSB0aGUgYnVzL3Nsb3QgcmVzZXQg
-cGF0aDoKPiAKPiBwY2lfYnVzX3Jlc3RvcmVfbG9ja2VkKCkvcGNpX3Nsb3RfcmVzdG9yZV9sb2Nr
-ZWQoKQo+ICBwY2lfZGV2X3Jlc3RvcmUoKQo+ICAgcGNpX3Jlc3RvcmVfc3RhdGUoKQo+ICAgIHBj
-aV9yZXN0b3JlX3JlYmFyX3N0YXRlKCkKPiAKPiBWRklPIHN1cHBvcnQgZm9yIHJlc2l6ZWFibGUg
-QkFScyBoYXMgYmVlbiBvbiBteSB0b2RvIGxpc3QsIGJ1dCBJIGRvbid0Cj4gaGF2ZSBhY2Nlc3Mg
-dG8gYW55IHN5c3RlbXMgdGhhdCBoYXZlIGJvdGggYSBjYXBhYmxlIGRldmljZSBhbmQgPjRHCj4g
-ZGVjb2RpbmcgZW5hYmxlZCBpbiB0aGUgQklPUy4gIElmIHdlIGhhdmUgYSBjb25zaXN0ZW50IHZp
-ZXcgb2YgdGhlIEJBUgo+IHNpemUgYWZ0ZXIgdGhlIEJBUnMgYXJlIGV4cGFuZGVkLCBJJ20gbm90
-IHN1cmUgd2h5IGl0IGRvZXNuJ3QganVzdAo+IHdvcmsuICBGV0lXLCBRRU1VIGN1cnJlbnRseSBo
-aWRlcyB0aGUgUkVCQVIgY2FwYWJpbGl0eSB0byB0aGUgZ3Vlc3QKPiBiZWNhdXNlIHRoZSBrZXJu
-ZWwgZHJpdmVyIGRvZXNuJ3Qgc3VwcG9ydCBlbXVsYXRpb24gdGhyb3VnaCBjb25maWcKPiBzcGFj
-ZSAoaWUuIGl0J3MgcmVhZC1vbmx5LCB3aGljaCB0aGUgc3BlYyBkb2Vzbid0IHN1cHBvcnQpLgo+
-IAo+IEFJVUksIHJlc291cmNlIGFsbG9jYXRpb24gY2FuIGZhaWwgd2hlbiBlbmFibGluZyBSRUJB
-UiBzdXBwb3J0LCB3aGljaAo+IGlzIGEgcHJvYmxlbSBpZiB0aGUgZmFpbHVyZSBvY2N1cnMgb24g
-dGhlIGhvc3QgYnV0IG5vdCB0aGUgZ3Vlc3Qgc2luY2UKPiB3ZSBoYXZlIG5vIG1lYW5zIHZpYSB0
-aGUgaGFyZHdhcmUgcHJvdG9jb2wgdG8gZXhwb3NlIHN1Y2ggYSBjb25kaXRpb24uCj4gVGhlcmVm
-b3JlIHRoZSBtb2RlbCBJIHdhcyBjb25zaWRlcmluZyBmb3IgdmZpby1wY2kgd291bGQgYmUgdG8g
-c2ltcGx5Cj4gcHJlLWVuYWJsZSBSRUJBUiBhdCB0aGUgbWF4IHNpemUuICBJdCBtaWdodCBiZSBz
-dWZmaWNpZW50bHkgc2FmZSB0bwo+IHRlc3QgQkFSIGV4cGFuc2lvbiBvbiBpbml0aWFsaXphdGlv
-biBhbmQgdGhlbiBhbGxvdyB1c2VyIGNvbnRyb2wsIGJ1dAo+IEknbSBjb25jZXJuZWQgdGhhdCBy
-ZXNvdXJjZSBhdmFpbGFiaWxpdHkgY291bGQgY2hhbmdlIHdoaWxlIGFscmVhZHkgaW4KPiB1c2Ug
-YnkgdGhlIHVzZXIuICBUaGFua3MsCgpBcyBtZW50aW9uZWQgaW4gb3RoZXIgcmVwbGllcyBpbiB0
-aGlzIHRocmVhZCBhbmQgd2hhdCBteSBmaXJzdAp0aG91Z2h0IGFib3V0IHRoaXMsIHRoaXMgd2ls
-bCBpbmRlZWQgd2lsbCBicmVhayBvbiBkZXZpY2VzIHdoaWNoCmRvbid0IGFjY3VyYXRlbHkgcmVw
-b3J0IHRoZSBtYXhpbXVtIGJhciBzaXplIHRoYXQgdGhleSBhY3R1YWxseSBuZWVkLgpFdmVuIHRo
-ZSBzcGVjIGl0c2VsZiBzYXlzIHRoYXQgaXQgaXMgdmVuZG9yIHNwZWNpZmljIHRvIGRldGVybWlu
-ZSB0aGUKb3B0aW1hbCBiYXIgc2l6ZS4KCldlIGNhbiBhbHNvIGFsbG93IGd1ZXN0IHRvIHJlc2l6
-ZSB0aGUgYmFyIGFuZCBpZiB0aGF0IGZhaWxzLApleHBvc2UgdGhlIGVycm9yIHZpYSBhIHZpcnR1
-YWwgQUVSIG1lc3NhZ2Ugb24gdGhlIHJvb3QgcG9ydAp3aGVyZSB0aGUgZGV2aWNlIGlzIGF0dGFj
-aGVkPyAKCkkgcGVyc29uYWxseSBkb24ndCBrbm93IGlmIHRoaXMgaXMgcG9zc2libGUvd29ydGgg
-aXQuCgoKQmVzdCByZWdhcmRzLAoJTWF4aW0gTGV2aXRza3kKCj4gCj4gQWxleAoKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi,
+
+On 1/6/21 6:07 PM, Alex Deucher wrote:
+> On Wed, Jan 6, 2021 at 11:25 AM Hans de Goede <hdegoede@redhat.com> wrote:
+>>
+>> Hi All,
+>>
+>> I get Cc-ed on all Fedora kernel bugs and this one stood out to me:
+>>
+>> https://bugzilla.redhat.com/show_bug.cgi?id=1911763
+>>
+>> Since I've done a lot of work on the acpi-video code I thought I should
+>> take a look. I've managed to help the user with a kernel-commandline
+>> option which stops video.ko (the acpi-video kernel module) from emitting
+>> key-press events for ACPI_VIDEO_NOTIFY_PROBE events.
+>>
+>> This is on a Dell Vostro laptop with i915/radeon hybrid gfx.
+>>
+>> I was thinking about adding a DMI quirk for this, but from the brief time
+>> that I worked on nouveau (and specifically hybrid gfx setups) I know that
+>> these events get fired on hybrid gfx setups when the discrete GPU is
+>> powered down and something happens which requires the discrete GPUs drivers
+>> attention, like an external monitor being plugged into a connector handled
+>> by the dGPU (note that is not the case here).
+>>
+>> So I took a quick look at the radeon code and the radeon_atif_handler()
+>> function from drivers/gpu/drm/radeon/radeon_acpi.c. When successful that
+>> returns NOTIFY_BAD which suppresses the key-press.
+>>
+>> But in various cases it returns NOTIFY_DONE instead which does not
+>> suppress the key-press event. So I think that the spurious key-press events
+>> which the user is seeing should be avoided by this function returning
+>> NOTIFY_BAD.
+>>
+>> Specifically I'm wondering if we should not return
+>> NOTIFY_BAD when count == 0?   I guess this can cause problems if there
+>> are multiple GPUs, but we could check if the acpi-event is for the
+>> pci-device the radeon driver is bound to. This would require changing the
+>> acpi-notify code to also pass the acpi_device pointer as part of the
+>> acpi_bus_event but that should not be a problem.
+>>
+> 
+> For A+A PX/HG systems, we'd want the notifications for both the dGPU
+> and the APU since some of the events are relevant to one or the other.
+> ATIF_DGPU_DISPLAY_EVENT is only relevant to the dGPU, while
+> ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST would be possibly relevant to
+> both (if there was a mux), but mainly the APU.
+> ATIF_SYSTEM_POWER_SOURCE_CHANGE_REQUEST would be relevant to both.
+> The other events have extended bits to determine which GPU the event
+> is targeted at.
+
+Right, but AFAIK on hybrid systems there are 2 ACPI video-bus devices,
+one for each of the iGPU and dGPU which is why I suggested passing 
+the video-bus acpi_device as extra data in acpi_bus_event and then
+radeon_atif_handler() could check if the acpi_device is the companion
+device of the GPU. This assumes that events for GPU# will also
+originate from (through an ACPI ASL notify call) the ACPI video-bus
+which belongs to that GPU.
+
+This all assumes though that the problem is that radeon_atif_handler() 
+does not return NOTIFY_BAD when the event count being 0 (in other words
+a spurious event). It is also possibly that one of the earlier checks in
+radeon_atif_handler() is failing...
+
+I guess that a first step in debugging this would be to ask the reporter
+to run a kernel with some debugging printk-s added to radeon_atif_handler(),
+to see which code-path in radeon_atif_handler we end up in
+(assuming that radeon_atif_handler() gets called at all).
+
+Any suggestions for other debugging printk-s, before I prepare a Fedora
+kernel for the reporter to test?
+
+Regards,
+
+Hans
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
