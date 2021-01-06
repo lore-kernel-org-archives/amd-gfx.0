@@ -2,129 +2,69 @@ Return-Path: <SRS0=majj=GJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 319B6C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 12:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 782FFC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E23EE22CB9
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 12:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E23EE22CB9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7403122DD3
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 13:02:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7403122DD3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6605F6E02A;
-	Wed,  6 Jan 2021 12:54:33 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6696E02A
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 12:54:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I06a5U/GI+e1epIIxGpw/4J9CxGzNppjjh//+nJbwQZsUyMmpzm4DvnVVSStgolBKN++IOQHUzIxJPp/mABF0brjxcwtQvGtEbSRLoP1vaCgPzg1x1Pgxgt10n05Hk27mbE4ZnPAEDx/yR70W5luZw1pbmfOWkQoVkGBtspjzUmlA07mCKyK/x0/Aw7YnyR8VbMJOXzgUb9xSACwTLsWdJ4HIH9qfGggdZXugbp7xrZLSjC6No9y54EF2DNqJvvrS2oHJDnREkX8W/IM1aQAYswsWb5lzBjA9ljUCKdmjWr2JBAtRvqjMknGoVoazTD+UoNwaHGrM3CG/mOrWChSRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zjjcbehx+kCZWzs9aBMgW77zNLCYXkNvjIwBQ2ettc=;
- b=ZYB+bHoWVac1PeMBtzTZrxeEzsot3+D665CLl6mgCWj1eFy8L7Y3Rax8IXGXJ2P1C5lbpWii6CwnTYrQTCWIbO+14PUTWgBolXGRX7TJO3mO47lwqx6/eVEiASnMfwVjr4OPydtxebd3FjgmYAUlw3GbGltrZsM8FtkucTGXk1EgN+X5ZeBydq3TqGGZR/Q98gdCeIYXJqHcMxKDun7zbeTC04sdIY7k57qgU7Gkb+cHRCoTLInrtAWQ/uLPjXhExMa/Zwt/Y5DXiB8UNh1S+5RWi0bxJzPGjd2JWdnI3mlprg28Go06fyDoAUT3LuML4k+tV3ENIlRGCRAYqd7nqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 085596E08E;
+	Wed,  6 Jan 2021 13:02:12 +0000 (UTC)
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF376E08E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 13:02:10 +0000 (UTC)
+Received: by mail-il1-x12a.google.com with SMTP id x15so3086832ilq.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Jan 2021 05:02:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zjjcbehx+kCZWzs9aBMgW77zNLCYXkNvjIwBQ2ettc=;
- b=HwbOBQyDFEoAs7r0QWqsWeiSO4c84fMjl5oS8dhjDIIDciBymst4A/btZMPRP+ZQkpd3mJ/c9PL3PazI+m4yOFhWUyTPjVPQ6P3cFlZ4vTBP6ch8TbQdnmzJHCybudu0lQZMHP1iKt9//h3wlGTn6F3A66HkbbtXzpPYD5IgIxU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4947.namprd12.prod.outlook.com (2603:10b6:208:17d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Wed, 6 Jan
- 2021 12:54:30 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3742.006; Wed, 6 Jan 2021
- 12:54:30 +0000
-Subject: Re: [PATCH] drm/amdgpu: don't limit gtt size on apus
-To: Joshua Ashton <joshua@froggi.es>, Alex Deucher <alexdeucher@gmail.com>
+ d=basnieuwenhuizen.nl; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=m7DqY8tQUt8ix3QOM9b8ek0hxEL6faH6j749wsj05wM=;
+ b=I1duaJsBX3uHzY+9NWHPR5REwJs9796iWy2URyHUmMfXtQl0Xrsrb8hkEt/BlsNYNN
+ UEfVBh8SaN0NwGId13mqpSigF7LbC0x+JVqMaiI5CzH5V1kRaeVm/qfUuPpcsejKlHiL
+ 7YDWvD+7VOrgWNgL8NLSlNbi5EoVjjHQbteGVnD9fO/v/cL/lGYJj3CZyJnTydu8/Wiz
+ uudLKFGibmhrWT96Jf5QVNNVx//qv28Jgb2TlqlRAWZ1JsBIjAEL4FvHHSNdnBnYaPTn
+ gK5k1BqfIgKSw5cSx9Ez9lcT/ZT9S2/t2+7viYcFqrPuj9jrlZZAHPZ47WhM94GDRhAh
+ Oq/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=m7DqY8tQUt8ix3QOM9b8ek0hxEL6faH6j749wsj05wM=;
+ b=PhdzRqaeuhlwLiA3V9yYnSuUU1c6p1ksgqfQlpYlCxmq328MXUwGiXsls54MXHxl+7
+ Rg8nv0AV4jfePT4xsIZfeV9HtxewL1YQ0FwIcFbNWeStdxr6Gx6YARkqS8oxUKQfvMtz
+ ARi3+sFyCH7CrqUX+l8zII5hzNcCV9O2/nQN2wwDkk0QSx4ZAsitAWzFodSwV+/9NNoD
+ 6MwijfxsgWN9tF6Cn6Uxr5r+YZ9rK0FwTzq3XSNUgKOa/RCop+Jq7P0BINZ55v/zDgcq
+ os4tTXxCjXUke+c6p5fXFLmXFg3jAicRfIeahovhkkswxlDxk8JTZle8OCpHfRdcflSm
+ ANqg==
+X-Gm-Message-State: AOAM533Wv0SpUNRlHC6v9l4kzsKX2c1HExzzMqidXvUTzn6ZTEZxqrfu
+ N7rTynNadD23bXK45apqv1v9fIYO3Vr2LHvVHWJ4q8YvbUE=
+X-Google-Smtp-Source: ABdhPJwdl/neyw55yk8EkWDWAwa5U0YIv15U3uVHRkjsRSRInCcZokw73uVZ2/a+ROFxZ1M71b1DHxTyKOYmZNNQUn8=
+X-Received: by 2002:a05:6e02:ca5:: with SMTP id 5mr4019115ilg.40.1609938130187; 
+ Wed, 06 Jan 2021 05:02:10 -0800 (PST)
+MIME-Version: 1.0
 References: <20210105220359.1392555-1-joshua@froggi.es>
  <CADnq5_NcKG9H-dK0Kh2ksF8et+fnFkMdsejkg_RWrNeJ1JS4ng@mail.gmail.com>
  <6d6b0ae7-f732-167b-2bc1-6e517f6c8e99@froggi.es>
  <9902861e-77bd-d6dc-7284-0ad9bcf117b6@amd.com>
  <a8f72dc6-8504-269e-56e8-699b20135a07@froggi.es>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <4a3fe8b7-4248-e5c2-d6c0-5075596ca852@amd.com>
-Date: Wed, 6 Jan 2021 13:54:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <a8f72dc6-8504-269e-56e8-699b20135a07@froggi.es>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM0PR10CA0045.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:150::25) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR10CA0045.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:150::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
- Transport; Wed, 6 Jan 2021 12:54:29 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d4f2a9e6-f88f-4371-514b-08d8b2423557
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4947:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB494758E79A9583FB766A37ED83D00@BL0PR12MB4947.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ANBL6wCM8eYyupgT1de4jd0HMOl7xFZfTcrDPE9bsupaVMBlgrXmS8nb6pkKvPlUQZkwc9EnnuAjnPsBZ5l+u9voH6I2Ocvszwh9KRxb1doag/0xjLxRgyfkStxT7jnhRk4dBrvhhcxia4B6nvXcqAkVvk2GD1JQ4zOC2WTOi7zc07WtLvkJPLmANaEoXPW6vx6cnMXtETIxC+mS0vPEynhRn8JBe3t9LB1B+RBQtH1DRw+UYZMt0Z09Wac+6iLJNKiHyq8ZHe5rv8nX+AMADoz8rd4QpPvRXciJThwvQ84X+1TvUQVZ4vXn+tn+tojufKbin9b5PUHtf2U0MvyOUHO1XhQjRgW36NHB/ADAV00YQQwrBk1g2Hx+cXa6Efq//D6jvG+cYaVKwLHGqQuoq+qoN6tAP7uil8ooPR2VZQ7IkfPN4prX7QyOElrbYuP6DGGtap0JHZopRNQQSCa2Y6W/IlahI6ryQux0gYtiohFZVj0cLVLUH8qwIC48FeFuW5QwnMHQ7sqJPTGGR5hbrQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(86362001)(2906002)(31686004)(31696002)(4326008)(6666004)(478600001)(5660300002)(8676002)(66476007)(45080400002)(66946007)(2616005)(66556008)(66574015)(6486002)(83380400001)(16526019)(186003)(52116002)(8936002)(966005)(53546011)(36756003)(316002)(110136005)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bDdVNm5CTkRhdE5qeGtrQ3dnSk8vRnQrL2ZFYVd6VUFFME5haDVsUzRBRkl3?=
- =?utf-8?B?UHpoRW1TamNTWGJsOUltTmU2eVIrakJsbFViajhla1E1SHFEU05JVjJKRFly?=
- =?utf-8?B?bUZjWDFsbnZjZWpnZXA5elRVUXhLNmFPd0VBcnpDK1dKMndERUYwbmRHMFo2?=
- =?utf-8?B?TkF5d2M4NG5qdFp6emxMUGU5aXo5bEt2RHNvMXkwZGF5TFhyREtQQ2xaWHhu?=
- =?utf-8?B?VzhUWGtTT2FDdnB1RGdNNWo4UzdYUDZZNm1IeGRpWjEwM1hDVmxiSFZoVERs?=
- =?utf-8?B?ZTBjRlZOblFxK2cwdHZlWWsxaHA3S0RvbEdibkV1Q0dZdjhqSGpzRENPUmMv?=
- =?utf-8?B?NlRTeHNJeDRyUUU1NlpNRk12UlhBSG5lTTZuWFA1cDRQbnl3emdBSURwT2hx?=
- =?utf-8?B?d0NHWkNkL21JREc2MmZiR1NDKzl0MTIwQVRxa2dPdmlXRkJTeS91VGgxRytN?=
- =?utf-8?B?aHBvRjQzMUVtemV0V0RKR1FyYU1JYW45VlZmZnN3UmcvUFk5dEV4aHdieFUy?=
- =?utf-8?B?TkI3YVhhN0RPWEFRYjhvV2pBUlF2bFBIMDBiUmFuNGlNMjdzd1VVdkw5MElp?=
- =?utf-8?B?TVhNZzQrbHcrRjRUQmRnOWFvM2NaY3hnMWx2Y1RIUzR4UU9ZTlFDYVlxc1pC?=
- =?utf-8?B?dTVEc1dPWmFtVGk0Tk1UZVZsRytnb2NqM1N3T0NKVmd2NHIvRWpmRUJPdXp3?=
- =?utf-8?B?dVJYNmxVZmhjc2FZTzBxMTVjaytWSVJ0QkN1WXBiSnJLV3lEZFVTZjJFTFoy?=
- =?utf-8?B?dXVpWUQ4THZNMkE5UlJid0NTU3FlMklId3pKOStBL0RCRHJRZjVYSC82RXMx?=
- =?utf-8?B?WGJGUE4zK1NBRElkSUN0UTN6K0pOdnF6QmNkWkJTak01aVhGVElZVFpJdVpp?=
- =?utf-8?B?emhnL0MrblZQSDdTTU1uRlhHL05WODlRSnhLSHZhQjB3OXIrR0FzYWJIMDh1?=
- =?utf-8?B?OHdIZUp0NHpXZnNPaGRkTnZ0NDlwZnVRVm14SDZ4YXdzd2FpQ3NnQkNwZjZW?=
- =?utf-8?B?WE5GRi9Qbm1KT1VmWUEvWnhydFJ1bnlKUWFjVXJtcGxteHp6cmF2cmZGQWRn?=
- =?utf-8?B?aDYwU1FWS3FmdTl3cG9IVHBBNmdNUmtjejUzRWNjSG9iMHppK0prdWZyRktS?=
- =?utf-8?B?Q0dNcUVjaDU0NG9BazJjY280a0F6UnNKdUpsT2J3Si9iNWlYQWxKYmg5NzZ6?=
- =?utf-8?B?L1l4QnRHMXkwRlA1UDRxM0s2NmF2VmpmaFJDSVNTT0M3SDJPMHcvV0JXb2o1?=
- =?utf-8?B?NWsxZ0NmQWdZN3pwaGcySVJSdVFNTTRjS2ZGeUZ0VHhtNGxsajd2eHF2WjFu?=
- =?utf-8?B?cS9OdkJLdmxWOURqUDlXbURuQ05ab2lTakxyQTlIU3YzWDNUalN6T2o1SzVy?=
- =?utf-8?B?TnB1a3VhdDFkaWZpaGo2S2xnZnhDeXpRL2V2dnA0MHJOdnpmS1p4NzlmK1Qv?=
- =?utf-8?Q?EAhan8dD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2021 12:54:30.3876 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4f2a9e6-f88f-4371-514b-08d8b2423557
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ep/YPN7JMomQBJ7qavgUxLiG+vZqR7ga0sF0v3nMJFA03dGBxx09TmuaXM/XnfKW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4947
+ <4a3fe8b7-4248-e5c2-d6c0-5075596ca852@amd.com>
+In-Reply-To: <4a3fe8b7-4248-e5c2-d6c0-5075596ca852@amd.com>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Wed, 6 Jan 2021 14:02:17 +0100
+Message-ID: <CAP+8YyE2wBHAcn8H-Sr=+kKmE45kUhA=KBJL08ciZJESS4XSmA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: don't limit gtt size on apus
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,126 +76,481 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Joshua Ashton <joshua@froggi.es>
+Content-Type: multipart/mixed; boundary="===============0451579218=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDEuMjEgdW0gMTM6NDcgc2NocmllYiBKb3NodWEgQXNodG9uOgo+Cj4KPiBPbiAxLzYv
-MjEgNzo1MiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMDUuMDEuMjEgdW0gMjM6
-MzEgc2NocmllYiBKb3NodWEgQXNodG9uOgo+Pj4gT24gMS81LzIxIDEwOjEwIFBNLCBBbGV4IERl
-dWNoZXIgd3JvdGU6Cj4+Pj4gT24gVHVlLCBKYW4gNSwgMjAyMSBhdCA1OjA1IFBNIEpvc2h1YSBB
-c2h0b24gPGpvc2h1YUBmcm9nZ2kuZXM+IHdyb3RlOgo+Pj4+Pgo+Pj4+PiBTaW5jZSBjb21taXQg
-MjQ1NjI1MjM2ODhiICgiUmV2ZXJ0ICJkcm0vYW1kL2FtZGdwdTogc2V0IGd0dCBzaXplCj4+Pj4+
-IGFjY29yZGluZyB0byBzeXN0ZW0gbWVtb3J5IHNpemUgb25seSIiKSwgdGhlIEdUVCBzaXplIHdh
-cyBsaW1pdGVkIGJ5Cj4+Pj4+IDNHaUIgb3IgVlJBTSBzaXplLgo+Pj4+Cj4+Pj4gVGhlIGNvbW1p
-dCBpbiBxdWVzdGlvbiB3YXMgdG8gZml4IGEgaGFuZyB3aXRoIGNlcnRhaW4gdGVzdHMgb24gQVBV
-cy4KPj4+PiBUaGF0IHNob3VsZCBiZSB0ZXN0ZWQgYWdhaW4gYmVmb3JlIHdlIHJlLWVuYWJsZSB0
-aGlzLsKgIElmIGl0IGlzIGZpeGVkLAo+Pj4+IHdlIHNob3VsZCBqdXN0IHJldmVydCB0aGUgcmV2
-ZXJ0IHJhdGhlciB0aGFuIHNwZWNpYWwgY2FzZSBkR1BVcy4KPj4+Pgo+Pj4+IEFsZXgKPj4+Pgo+
-Pj4KPj4+IEkgdGhpbmsgdGhlIGNvbW1pdCBiZWZvcmUgdGhlIHJldmVydCAoYmE4NTFlZWQ4OTVj
-KSBoYXMgc29tZSAKPj4+IGZ1bmRhbWVudGFsIHByb2JsZW1zOgo+Pj4KPj4+IEl0IHdhcyBhbHdh
-eXMgc3BlY2lmeWluZyBtYXgoM0dpQiwgMy80dGhzIFJBTSkgb2YgR1RULCBldmVuIGlmIHRoYXQg
-Cj4+PiB3b3VsZG4ndCBmaXQgaW50byBzYXksIDFHaUIgb3IgMkdpQiBvZiBhdmFpbGFibGUgUkFN
-Lgo+Pj4KPj4+IExpbWl0aW5nIEdUVCB0byBtaW4obWF4KDNHaUIsIFZSQU0pLCAzLzR0aHMgUkFN
-KSBzaXplIG9uIGRHUFVzIG1ha2VzIAo+Pj4gc2Vuc2UgYWxzbyBhbmQgaXMgYSBzZW5zaWJsZSBs
-aW1pdCB0byBhdm9pZCBzaWxseSBzaXR1YXRpb25zIHdpdGggCj4+PiBvdmVyYWxsb2NhdGlvbiBh
-bmQgcG90ZW50aWFsIE9PTS4KPj4+Cj4+PiBUaGlzIHBhdGNoIHNvbHZlcyBib3RoIG9mIHRob3Nl
-IGlzc3Vlcy4KPj4KPj4gTm8sIEFsZXggaXMgcmlnaHQgdGhpcyBhcHByb2FjaCB3YXMgYWxyZWFk
-eSB0cmllZCBhbmQgaXQgY2F1c2VzIAo+PiBwcm9ibGVtcy4KPj4KPj4gQWRkaXRpb25hbCB0byB0
-aGF0IHdoeSBzaG91bGQgdGhpcyBiZSBhbiBpc3N1ZT8gRXZlbiB3aGVuIFZSQU0gaXMgCj4+IHZl
-cnkgc21hbGwgb24gQVBVcyB3ZSBzdGlsbCB1c2UgM0dpQiBvZiBHVFQuCj4+Cj4+IFJlZ2FyZHMs
-Cj4+IENocmlzdGlhbi4KPgo+IFRoZSBwcm9ibGVtIGlzIHRoYXQgM0dpQiBvZiBHVFQgaXNuJ3Qg
-ZW5vdWdoIGZvciBtb3N0IG1vZGVybiBnYW1lcy4KCllvdSBzZWVtIHRvIG1pc3VuZGVyc3RhbmQg
-d2hhdCB0aGUgR1RUIHNpemUgbWVhbnMgaGVyZS4gVGhpcyBpcyB0aGUgCmFtb3VudCBvZiBtZW1v
-cnkgYW4gYXBwbGljYXRpb24gY2FuIGxvY2sgZG93biBpbiBhIHNpbmdsZSBjb21tYW5kIApzdWJt
-aXNzaW9ucy4KCkl0IGlzIHN0aWxsIHBvc3NpYmxlIGZvciB0aGUgZ2FtZSB0byB1c2UgYWxsIG9m
-IHN5c3RlbSBtZW1vcnkgZm9yIAp0ZXh0dXJlcyBldGMuLi4gaXQgY2FuIGp1c3QgaGFwcGVuIHRo
-YXQgc29tZSBidWZmZXJzIGFyZSB0ZW1wb3JhcnkgCm1hcmtlZCBhcyBpbmFjY2Vzc2libGUgZm9y
-IHRoZSBHUFUuCgo+IE15IGxhcHRvcCBoYXMgYSAxMjhNaUIgY2FydmVvdXQgd2hpY2ggaXMgbm90
-IHBvc3NpYmxlIHRvIGJlIGNvbmZpZ3VyZWQgCj4gaW4gdGhlIEJJT1Mgc28gSSBhbSBzdHVjayB3
-aXRoIHRoYXQgc2l6ZSB3aXRob3V0IGV4dHJhIGtlcm5lbCAKPiBwYXJhbWV0ZXJzIHdoaWNoIHNo
-b3VsZG4ndCBiZSBuZWNlc3NhcnkuCgpEaWQgeW91IHJhbiBpbnRvIHByb2JsZW1zIHdpdGhvdXQg
-dGhlIHBhcmFtZXRlcj8KCj4KPiBJZiB5b3UgZGlzbGlrZSB0aGUgYXBwcm9hY2ggb2Yga2VlcGlu
-ZyB0aGUgZXh0cmEgY2hlY2sgZm9yIGRHUFVzIGFuZCAKPiBsaW1pdGluZyBHVFQgdGhlcmUsIHRo
-ZW4gSSB3b3VsZCBzYXkgdGhhdCB3ZSBzaG91bGQgdXNlCj4gwqDCoMKgwqBndHRfc2l6ZSA9IDMv
-NHRocyBzeXN0ZW0gbWVtb3J5Cj4gZm9yIGFsbCBkZXZpY2VzIGluc3RlYWQgb2YKPiDCoMKgwqDC
-oGd0dF9zaXplID0gbWF4KDMvNHRocyBzeXN0ZW0gbWVtb3J5LCAzR2lCKQo+IGFzIGl0IHdhcyBi
-ZWZvcmUgdGhlIHJldmVydCwgYXMgaXQgaXMgcHJvYmxlbWF0aWMgb24gc3lzdGVtcyB3aXRoIDwg
-Cj4gM0dpQiBvZiBzeXN0ZW0gbWVtb3J5LgoKWWVhaCwgdGhhdCdzIGluZGVlZCBub3QgYSBnb29k
-IGlkZWEuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gLSBKb3NoaWUg8J+QuOKcqAo+Cj4+Cj4+
-Pgo+Pj4gLSBKb3NoaWUg8J+QuOKcqAo+Pj4KPj4+Pgo+Pj4+Pgo+Pj4+PiBUaGlzIGlzIHByb2Js
-ZW1hdGljIG9uIEFQVXMsIGVzcGVjaWFsbHkgd2l0aCBhIHNtYWxsIGNhcnZlb3V0Cj4+Pj4+IHdo
-aWNoIGNhbiBiZSBhcyBsb3cgYXMgYSBmaXhlZCAxMjhNaUIsIGFzIHRoZXJlIHdvdWxkIGJlIHZl
-cnkgYSAKPj4+Pj4gbGltaXRlZAo+Pj4+PiAzR2lCIGF2YWlsYWJsZSBmb3IgdmlkZW8gbWVtb3J5
-Lgo+Pj4+PiBUaGlzIG9idmlvdXNseSBkb2VzIG5vdCBtZWV0IHRoZSBkZW1hbmRzIG9mIG1vZGVy
-biBhcHBsaWNhdGlvbnMuCj4+Pj4+Cj4+Pj4+IFRoaXMgcGF0Y2ggbWFrZXMgaXQgc28gdGhlIEdU
-VCBzaXplIGhldXJpc3RpYyBhbHdheXMgdXNlcyAzLzR0aHMgb2YKPj4+Pj4gdGhlIHN5c3RlbSBt
-ZW1vcnkgc2l6ZSBvbiBBUFVzIChsaW1pdGluZyB0aGUgc2l6ZSBieSAzR2lCL1ZSQU0gc2l6ZQo+
-Pj4+PiBvbmx5IG9uIGRldmljZXMgd2l0aCBkZWRpY2F0ZWQgdmlkZW8gbWVtb3J5KS4KPj4+Pj4K
-Pj4+Pj4gRml4ZXM6IDI0NTYyNTIzNjg4YiAoIlJldmVydCBkcm0vYW1kL2FtZGdwdTogc2V0IGd0
-dCBzaXplIAo+Pj4+PiBhY2NvcmRpbmcgdG8KPj4+Pj4gc3lzdGVtIG1lbW9yeSBzaXplIG9ubHki
-KQo+Pj4+Pgo+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBKb3NodWEgQXNodG9uIDxqb3NodWFAZnJvZ2dp
-LmVzPgo+Pj4+PiAtLS0KPj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rydi5jIHzCoCA1ICsrKy0tCj4+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90dG0uYyB8IDEyICsrKysrKysrKy0tLQo+Pj4+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDEy
-IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgCj4+Pj4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+Pj4+IGluZGV4IDcyZWZkNTc5ZWM1ZS4u
-YTVhNDFlOTI3MmQ2IDEwMDY0NAo+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZHJ2LmMKPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jCj4+Pj4+IEBAIC0xOTIsOCArMTkyLDkgQEAgbW9kdWxlX3BhcmFtX25hbWVkKGdh
-cnRzaXplLCBhbWRncHVfZ2FydF9zaXplLCAKPj4+Pj4gdWludCwgMDYwMCk7Cj4+Pj4+Cj4+Pj4+
-IMKgIC8qKgo+Pj4+PiDCoMKgICogRE9DOiBndHRzaXplIChpbnQpCj4+Pj4+IC0gKiBSZXN0cmlj
-dCB0aGUgc2l6ZSBvZiBHVFQgZG9tYWluIGluIE1pQiBmb3IgdGVzdGluZy4gVGhlIAo+Pj4+PiBk
-ZWZhdWx0IGlzIC0xIChJdCdzIFZSQU0gc2l6ZSBpZiAzR0IgPCBWUkFNIDwgMy80IFJBTSwKPj4+
-Pj4gLSAqIG90aGVyd2lzZSAzLzQgUkFNIHNpemUpLgo+Pj4+PiArICogUmVzdHJpY3QgdGhlIHNp
-emUgb2YgR1RUIGRvbWFpbiBpbiBNaUIgZm9yIHRlc3RpbmcuIFRoZSAKPj4+Pj4gZGVmYXVsdCBp
-cyAtMSAoT24gQVBVcyB0aGlzIGlzIDMvNHRoCj4+Pj4+ICsgKiBvZiB0aGUgc3lzdGVtIG1lbW9y
-eTsgb24gZEdQVXMgdGhpcyBpcyAzR2lCIG9yIFZSQU0gc2l6ZWQsIAo+Pj4+PiB3aGljaGV2ZXIg
-aXMgYmlnZ2VyLAo+Pj4+PiArICogd2l0aCBhbiB1cHBlciBib3VuZCBvZiAzLzR0aCBvZiBzeXN0
-ZW0gbWVtb3J5Lgo+Pj4+PiDCoMKgICovCj4+Pj4+IMKgIE1PRFVMRV9QQVJNX0RFU0MoZ3R0c2l6
-ZSwgIlNpemUgb2YgdGhlIEdUVCBkb21haW4gaW4gbWVnYWJ5dGVzIAo+Pj4+PiAoLTEgPSBhdXRv
-KSIpOwo+Pj4+PiDCoCBtb2R1bGVfcGFyYW1fbmFtZWQoZ3R0c2l6ZSwgYW1kZ3B1X2d0dF9zaXpl
-LCBpbnQsIDA2MDApOwo+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3R0bS5jIAo+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV90dG0uYwo+Pj4+PiBpbmRleCA0ZDhmMTlhYjEwMTQuLjI5NGYyNmY0ZjMxMCAxMDA2NDQKPj4+
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+Pj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+Pj4+PiBAQCAtMTg2
-NSw5ICsxODY1LDE1IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-Cj4+Pj4+ICphZGV2KQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1
-Y3Qgc3lzaW5mbyBzaTsKPj4+Pj4KPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc2lfbWVtaW5mbygmc2kpOwo+Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBn
-dHRfc2l6ZSA9IG1pbihtYXgoKEFNREdQVV9ERUZBVUxUX0dUVF9TSVpFX01CIDw8IAo+Pj4+PiAy
-MCksCj4+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGFkZXYtPmdtYy5tY192cmFtX3NpemUpLAo+Pj4+PiAtwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoKHVpbnQ2NF90
-KXNpLnRvdGFscmFtICogCj4+Pj4+IHNpLm1lbV91bml0ICogMy80KSk7Cj4+Pj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGd0dF9zaXplID0gKHVpbnQ2NF90KXNpLnRvdGFscmFtICog
-c2kubWVtX3VuaXQgKiAzLzQ7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8q
-IElmIHdlIGhhdmUgZGVkaWNhdGVkIG1lbW9yeSwgbGltaXQgb3VyIEdUVCBzaXplIHRvCj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiAzR2lCIG9yIFZSQU0gc2l6ZSwgd2hp
-Y2hldmVyIGlzIGJpZ2dlcgo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICov
-Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghKGFkZXYtPmZsYWdzICYg
-QU1EX0lTX0FQVSkpIHsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGd0dF9zaXplID0gCj4+Pj4+IG1pbihtYXgoQU1ER1BVX0RFRkFVTFRfR1RUX1NJ
-WkVfTUIgPDwgMjAsCj4+Pj4+ICsgYWRldi0+Z21jLm1jX3ZyYW1fc2l6ZSksCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Z3R0X3NpemUpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4+IMKg
-wqDCoMKgwqDCoMKgwqAgfQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgIGVsc2UKPj4+Pj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ3R0X3NpemUgPSAodWludDY0X3QpYW1kZ3B1X2d0
-dF9zaXplIDw8IDIwOwo+Pj4+PiAtLSAKPj4+Pj4gMi4zMC4wCj4+Pj4+Cj4+Pj4+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+IGh0dHBz
-Oi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUy
-RiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngm
-YW1wO2RhdGE9MDQlN0MwMSU3Q2NocmlzdGlhbi5rb2VuaWclNDBhbWQuY29tJTdDODkwZjNmM2Ji
-OTE0NDkyOWQ1MjMwOGQ4YjI0MTNhMzUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgz
-ZCU3QzAlN0MwJTdDNjM3NDU1MzQwNTIxNzkzOTg0JTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5
-SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJ
-Nk1uMCUzRCU3QzEwMDAmYW1wO3NkYXRhPWl4NXFNRUhYQyUyQmVPbHk0T2xnWjRtYkZQSUd6Mzdn
-MEpQYXdIZmg0MTJ3RSUzRCZhbXA7cmVzZXJ2ZWQ9MCAKPj4+Pj4KPj4KCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0451579218==
+Content-Type: multipart/alternative; boundary="0000000000005c4dec05b83aee0e"
+
+--0000000000005c4dec05b83aee0e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jan 6, 2021 at 1:54 PM Christian K=C3=B6nig <christian.koenig@amd.c=
+om>
+wrote:
+
+> Am 06.01.21 um 13:47 schrieb Joshua Ashton:
+> >
+> >
+> > On 1/6/21 7:52 AM, Christian K=C3=B6nig wrote:
+> >> Am 05.01.21 um 23:31 schrieb Joshua Ashton:
+> >>> On 1/5/21 10:10 PM, Alex Deucher wrote:
+> >>>> On Tue, Jan 5, 2021 at 5:05 PM Joshua Ashton <joshua@froggi.es>
+> wrote:
+> >>>>>
+> >>>>> Since commit 24562523688b ("Revert "drm/amd/amdgpu: set gtt size
+> >>>>> according to system memory size only""), the GTT size was limited b=
+y
+> >>>>> 3GiB or VRAM size.
+> >>>>
+> >>>> The commit in question was to fix a hang with certain tests on APUs.
+> >>>> That should be tested again before we re-enable this.  If it is fixe=
+d,
+> >>>> we should just revert the revert rather than special case dGPUs.
+> >>>>
+> >>>> Alex
+> >>>>
+> >>>
+> >>> I think the commit before the revert (ba851eed895c) has some
+> >>> fundamental problems:
+> >>>
+> >>> It was always specifying max(3GiB, 3/4ths RAM) of GTT, even if that
+> >>> wouldn't fit into say, 1GiB or 2GiB of available RAM.
+> >>>
+> >>> Limiting GTT to min(max(3GiB, VRAM), 3/4ths RAM) size on dGPUs makes
+> >>> sense also and is a sensible limit to avoid silly situations with
+> >>> overallocation and potential OOM.
+> >>>
+> >>> This patch solves both of those issues.
+> >>
+> >> No, Alex is right this approach was already tried and it causes
+> >> problems.
+> >>
+> >> Additional to that why should this be an issue? Even when VRAM is
+> >> very small on APUs we still use 3GiB of GTT.
+> >>
+> >> Regards,
+> >> Christian.
+> >
+> > The problem is that 3GiB of GTT isn't enough for most modern games.
+>
+> You seem to misunderstand what the GTT size means here. This is the
+> amount of memory an application can lock down in a single command
+> submissions.
+>
+> It is still possible for the game to use all of system memory for
+> textures etc... it can just happen that some buffers are temporary
+> marked as inaccessible for the GPU.
+>
+
+For Vulkan we (both RADV and AMDVLK) use GTT as the total size. Usage in
+modern games is essentially "bindless" so there is no way to track at a
+per-submission level what memory needs to be resident. (and even with
+tracking applications are allowed to use all the memory in a single draw
+call, which would be unsplittable anyway ...)
+
+
+> > My laptop has a 128MiB carveout which is not possible to be configured
+> > in the BIOS so I am stuck with that size without extra kernel
+> > parameters which shouldn't be necessary.
+>
+> Did you ran into problems without the parameter?
+>
+> >
+> > If you dislike the approach of keeping the extra check for dGPUs and
+> > limiting GTT there, then I would say that we should use
+> >     gtt_size =3D 3/4ths system memory
+> > for all devices instead of
+> >     gtt_size =3D max(3/4ths system memory, 3GiB)
+> > as it was before the revert, as it is problematic on systems with <
+> > 3GiB of system memory.
+>
+> Yeah, that's indeed not a good idea.
+>
+> Regards,
+> Christian.
+>
+> >
+> > - Joshie =F0=9F=90=B8=E2=9C=A8
+> >
+> >>
+> >>>
+> >>> - Joshie =F0=9F=90=B8=E2=9C=A8
+> >>>
+> >>>>
+> >>>>>
+> >>>>> This is problematic on APUs, especially with a small carveout
+> >>>>> which can be as low as a fixed 128MiB, as there would be very a
+> >>>>> limited
+> >>>>> 3GiB available for video memory.
+> >>>>> This obviously does not meet the demands of modern applications.
+> >>>>>
+> >>>>> This patch makes it so the GTT size heuristic always uses 3/4ths of
+> >>>>> the system memory size on APUs (limiting the size by 3GiB/VRAM size
+> >>>>> only on devices with dedicated video memory).
+> >>>>>
+> >>>>> Fixes: 24562523688b ("Revert drm/amd/amdgpu: set gtt size
+> >>>>> according to
+> >>>>> system memory size only")
+> >>>>>
+> >>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> >>>>> ---
+> >>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++--
+> >>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 +++++++++---
+> >>>>>   2 files changed, 12 insertions(+), 5 deletions(-)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> index 72efd579ec5e..a5a41e9272d6 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> @@ -192,8 +192,9 @@ module_param_named(gartsize, amdgpu_gart_size,
+> >>>>> uint, 0600);
+> >>>>>
+> >>>>>   /**
+> >>>>>    * DOC: gttsize (int)
+> >>>>> - * Restrict the size of GTT domain in MiB for testing. The
+> >>>>> default is -1 (It's VRAM size if 3GB < VRAM < 3/4 RAM,
+> >>>>> - * otherwise 3/4 RAM size).
+> >>>>> + * Restrict the size of GTT domain in MiB for testing. The
+> >>>>> default is -1 (On APUs this is 3/4th
+> >>>>> + * of the system memory; on dGPUs this is 3GiB or VRAM sized,
+> >>>>> whichever is bigger,
+> >>>>> + * with an upper bound of 3/4th of system memory.
+> >>>>>    */
+> >>>>>   MODULE_PARM_DESC(gttsize, "Size of the GTT domain in megabytes
+> >>>>> (-1 =3D auto)");
+> >>>>>   module_param_named(gttsize, amdgpu_gtt_size, int, 0600);
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>> index 4d8f19ab1014..294f26f4f310 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>> @@ -1865,9 +1865,15 @@ int amdgpu_ttm_init(struct amdgpu_device
+> >>>>> *adev)
+> >>>>>                  struct sysinfo si;
+> >>>>>
+> >>>>>                  si_meminfo(&si);
+> >>>>> -               gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB <<
+> >>>>> 20),
+> >>>>> -                              adev->gmc.mc_vram_size),
+> >>>>> -                              ((uint64_t)si.totalram *
+> >>>>> si.mem_unit * 3/4));
+> >>>>> +               gtt_size =3D (uint64_t)si.totalram * si.mem_unit * =
+3/4;
+> >>>>> +               /* If we have dedicated memory, limit our GTT size =
+to
+> >>>>> +                * 3GiB or VRAM size, whichever is bigger
+> >>>>> +                */
+> >>>>> +               if (!(adev->flags & AMD_IS_APU)) {
+> >>>>> +                       gtt_size =3D
+> >>>>> min(max(AMDGPU_DEFAULT_GTT_SIZE_MB << 20,
+> >>>>> + adev->gmc.mc_vram_size),
+> >>>>> +                               gtt_size);
+> >>>>> +               }
+> >>>>>          }
+> >>>>>          else
+> >>>>>                  gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
+> >>>>> --
+> >>>>> 2.30.0
+> >>>>>
+> >>>>> _______________________________________________
+> >>>>> amd-gfx mailing list
+> >>>>> amd-gfx@lists.freedesktop.org
+> >>>>>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Cchrist=
+ian.koenig%40amd.com%7C890f3f3bb9144929d52308d8b2413a35%7C3dd8961fe4884e608=
+e11a82d994e183d%7C0%7C0%7C637455340521793984%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sda=
+ta=3Dix5qMEHXC%2BeOly4OlgZ4mbFPIGz37g0JPawHfh412wE%3D&amp;reserved=3D0
+> >>>>>
+> >>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--0000000000005c4dec05b83aee0e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 6, 2021 at 1:54 PM Christ=
+ian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com">christian.ko=
+enig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">Am 06.01.21 um 13:47 schrieb Joshua Ashton:<br>
+&gt;<br>
+&gt;<br>
+&gt; On 1/6/21 7:52 AM, Christian K=C3=B6nig wrote:<br>
+&gt;&gt; Am 05.01.21 um 23:31 schrieb Joshua Ashton:<br>
+&gt;&gt;&gt; On 1/5/21 10:10 PM, Alex Deucher wrote:<br>
+&gt;&gt;&gt;&gt; On Tue, Jan 5, 2021 at 5:05 PM Joshua Ashton &lt;<a href=
+=3D"mailto:joshua@froggi.es" target=3D"_blank">joshua@froggi.es</a>&gt; wro=
+te:<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Since commit 24562523688b (&quot;Revert &quot;drm/amd/=
+amdgpu: set gtt size<br>
+&gt;&gt;&gt;&gt;&gt; according to system memory size only&quot;&quot;), the=
+ GTT size was limited by<br>
+&gt;&gt;&gt;&gt;&gt; 3GiB or VRAM size.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; The commit in question was to fix a hang with certain test=
+s on APUs.<br>
+&gt;&gt;&gt;&gt; That should be tested again before we re-enable this.=C2=
+=A0 If it is fixed,<br>
+&gt;&gt;&gt;&gt; we should just revert the revert rather than special case =
+dGPUs.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Alex<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; I think the commit before the revert (ba851eed895c) has some <=
+br>
+&gt;&gt;&gt; fundamental problems:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; It was always specifying max(3GiB, 3/4ths RAM) of GTT, even if=
+ that <br>
+&gt;&gt;&gt; wouldn&#39;t fit into say, 1GiB or 2GiB of available RAM.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Limiting GTT to min(max(3GiB, VRAM), 3/4ths RAM) size on dGPUs=
+ makes <br>
+&gt;&gt;&gt; sense also and is a sensible limit to avoid silly situations w=
+ith <br>
+&gt;&gt;&gt; overallocation and potential OOM.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This patch solves both of those issues.<br>
+&gt;&gt;<br>
+&gt;&gt; No, Alex is right this approach was already tried and it causes <b=
+r>
+&gt;&gt; problems.<br>
+&gt;&gt;<br>
+&gt;&gt; Additional to that why should this be an issue? Even when VRAM is =
+<br>
+&gt;&gt; very small on APUs we still use 3GiB of GTT.<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt; Christian.<br>
+&gt;<br>
+&gt; The problem is that 3GiB of GTT isn&#39;t enough for most modern games=
+.<br>
+<br>
+You seem to misunderstand what the GTT size means here. This is the <br>
+amount of memory an application can lock down in a single command <br>
+submissions.<br>
+<br>
+It is still possible for the game to use all of system memory for <br>
+textures etc... it can just happen that some buffers are temporary <br>
+marked as inaccessible for the GPU.<br></blockquote><div><br></div><div>For=
+ Vulkan we (both RADV and AMDVLK) use GTT as the total size. Usage in moder=
+n games is essentially &quot;bindless&quot; so there is no way to track at =
+a per-submission level what memory needs to be resident. (and even with tra=
+cking applications are allowed to use all the memory in a single draw call,=
+ which would be unsplittable anyway ...)<br></div><div> <br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; My laptop has a 128MiB carveout which is not possible to be configured=
+ <br>
+&gt; in the BIOS so I am stuck with that size without extra kernel <br>
+&gt; parameters which shouldn&#39;t be necessary.<br>
+<br>
+Did you ran into problems without the parameter?<br>
+<br>
+&gt;<br>
+&gt; If you dislike the approach of keeping the extra check for dGPUs and <=
+br>
+&gt; limiting GTT there, then I would say that we should use<br>
+&gt; =C2=A0=C2=A0=C2=A0=C2=A0gtt_size =3D 3/4ths system memory<br>
+&gt; for all devices instead of<br>
+&gt; =C2=A0=C2=A0=C2=A0=C2=A0gtt_size =3D max(3/4ths system memory, 3GiB)<b=
+r>
+&gt; as it was before the revert, as it is problematic on systems with &lt;=
+ <br>
+&gt; 3GiB of system memory.<br>
+<br>
+Yeah, that&#39;s indeed not a good idea.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; - Joshie =F0=9F=90=B8=E2=9C=A8<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; - Joshie =F0=9F=90=B8=E2=9C=A8<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; This is problematic on APUs, especially with a small c=
+arveout<br>
+&gt;&gt;&gt;&gt;&gt; which can be as low as a fixed 128MiB, as there would =
+be very a <br>
+&gt;&gt;&gt;&gt;&gt; limited<br>
+&gt;&gt;&gt;&gt;&gt; 3GiB available for video memory.<br>
+&gt;&gt;&gt;&gt;&gt; This obviously does not meet the demands of modern app=
+lications.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; This patch makes it so the GTT size heuristic always u=
+ses 3/4ths of<br>
+&gt;&gt;&gt;&gt;&gt; the system memory size on APUs (limiting the size by 3=
+GiB/VRAM size<br>
+&gt;&gt;&gt;&gt;&gt; only on devices with dedicated video memory).<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Fixes: 24562523688b (&quot;Revert drm/amd/amdgpu: set =
+gtt size <br>
+&gt;&gt;&gt;&gt;&gt; according to<br>
+&gt;&gt;&gt;&gt;&gt; system memory size only&quot;)<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Signed-off-by: Joshua Ashton &lt;<a href=3D"mailto:jos=
+hua@froggi.es" target=3D"_blank">joshua@froggi.es</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |=C2=A0=
+ 5 +++--<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 ++=
++++++++---<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 2 files changed, 12 insertions(+), 5 deletions(=
+-)<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c <=
+br>
+&gt;&gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt;&gt;&gt;&gt; index 72efd579ec5e..a5a41e9272d6 100644<br>
+&gt;&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&gt;&gt;&gt;&gt;&gt; @@ -192,8 +192,9 @@ module_param_named(gartsize, amdgp=
+u_gart_size, <br>
+&gt;&gt;&gt;&gt;&gt; uint, 0600);<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 /**<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0 * DOC: gttsize (int)<br>
+&gt;&gt;&gt;&gt;&gt; - * Restrict the size of GTT domain in MiB for testing=
+. The <br>
+&gt;&gt;&gt;&gt;&gt; default is -1 (It&#39;s VRAM size if 3GB &lt; VRAM &lt=
+; 3/4 RAM,<br>
+&gt;&gt;&gt;&gt;&gt; - * otherwise 3/4 RAM size).<br>
+&gt;&gt;&gt;&gt;&gt; + * Restrict the size of GTT domain in MiB for testing=
+. The <br>
+&gt;&gt;&gt;&gt;&gt; default is -1 (On APUs this is 3/4th<br>
+&gt;&gt;&gt;&gt;&gt; + * of the system memory; on dGPUs this is 3GiB or VRA=
+M sized, <br>
+&gt;&gt;&gt;&gt;&gt; whichever is bigger,<br>
+&gt;&gt;&gt;&gt;&gt; + * with an upper bound of 3/4th of system memory.<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0 */<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 MODULE_PARM_DESC(gttsize, &quot;Size of the GTT=
+ domain in megabytes <br>
+&gt;&gt;&gt;&gt;&gt; (-1 =3D auto)&quot;);<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0 module_param_named(gttsize, amdgpu_gtt_size, in=
+t, 0600);<br>
+&gt;&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c <=
+br>
+&gt;&gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt; index 4d8f19ab1014..294f26f4f310 100644<br>
+&gt;&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt; @@ -1865,9 +1865,15 @@ int amdgpu_ttm_init(struct amdg=
+pu_device <br>
+&gt;&gt;&gt;&gt;&gt; *adev)<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct sysinfo si;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 si_meminfo(&amp;si);<br>
+&gt;&gt;&gt;&gt;&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_=
+SIZE_MB &lt;&lt; <br>
+&gt;&gt;&gt;&gt;&gt; 20),<br>
+&gt;&gt;&gt;&gt;&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;gmc.mc_vram_size)=
+,<br>
+&gt;&gt;&gt;&gt;&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((uint64_t)si.totalram * <=
+br>
+&gt;&gt;&gt;&gt;&gt; si.mem_unit * 3/4));<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gtt_size =3D (uint64_t)si.totalram * si.m=
+em_unit * 3/4;<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* If we have dedicated memory, limit our=
+ GTT size to<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * 3GiB or VRAM size, whichever is b=
+igger<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!(adev-&gt;flags &amp; AMD_IS_APU)) {=
+<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 gtt_size =3D <br>
+&gt;&gt;&gt;&gt;&gt; min(max(AMDGPU_DEFAULT_GTT_SIZE_MB &lt;&lt; 20,<br>
+&gt;&gt;&gt;&gt;&gt; + adev-&gt;gmc.mc_vram_size),<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gtt_size);<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }<br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else<=
+br>
+&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gtt_size =3D (uint64_t)amdgpu_gt=
+t_size &lt;&lt; 20;<br>
+&gt;&gt;&gt;&gt;&gt; -- <br>
+&gt;&gt;&gt;&gt;&gt; 2.30.0<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; _______________________________________________<br>
+&gt;&gt;&gt;&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt;&gt;&gt;&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" targe=
+t=3D"_blank">amd-gfx@lists.freedesktop.org</a><br>
+&gt;&gt;&gt;&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.=
+com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-g=
+fx&amp;amp;data=3D04%7C01%7Cchristian.koenig%40amd.com%7C890f3f3bb9144929d5=
+2308d8b2413a35%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637455340521793=
+984%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1=
+haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3Dix5qMEHXC%2BeOly4OlgZ4mbFPIGz37g=
+0JPawHfh412wE%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=3D"_blank"=
+>https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.=
+freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%7C01%7Cchr=
+istian.koenig%40amd.com%7C890f3f3bb9144929d52308d8b2413a35%7C3dd8961fe4884e=
+608e11a82d994e183d%7C0%7C0%7C637455340521793984%7CUnknown%7CTWFpbGZsb3d8eyJ=
+WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;=
+amp;sdata=3Dix5qMEHXC%2BeOly4OlgZ4mbFPIGz37g0JPawHfh412wE%3D&amp;amp;reserv=
+ed=3D0</a> <br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div></div>
+
+--0000000000005c4dec05b83aee0e--
+
+--===============0451579218==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0451579218==--
