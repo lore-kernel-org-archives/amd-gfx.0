@@ -2,67 +2,72 @@ Return-Path: <SRS0=majj=GJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E5FBC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 21:28:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 167B5C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 22:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF31B2313B
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 21:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF31B2313B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9209323137
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Jan 2021 22:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9209323137
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A06B8929F;
-	Wed,  6 Jan 2021 21:28:42 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F7689152
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Jan 2021 21:27:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609968461;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=yoHpt4zDYO1k6h9cr2ReVEpkPY4WN/rFBT3ndPAITWY=;
- b=iNUsT846w7EumaaZ10cmntOHiQoJ1z5V8z2yIuvvJDWY/BEidxtsmYgj7I3mILD4ikjn4B
- oV5HH4dexTq2zoE5AGnTCJz4/icv0IlvOa4jb1s7SlaIC3YWKT5VtiLqbAEOm/mSf9gUOy
- Qb43Ws19sFb6+mB+PzWQUoWKr81lKMg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-124-cxn40vahMXeCYY0QVTRpiQ-1; Wed, 06 Jan 2021 16:27:36 -0500
-X-MC-Unique: cxn40vahMXeCYY0QVTRpiQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 44851809DC9;
- Wed,  6 Jan 2021 21:27:35 +0000 (UTC)
-Received: from starship (unknown [10.35.206.196])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 584CA5D9CD;
- Wed,  6 Jan 2021 21:27:33 +0000 (UTC)
-Message-ID: <efc25ad84748f8f343e8d13e818af917e73ea4d5.camel@redhat.com>
-Subject: Re: Couple of issues with amdgpu on my WX4100
-From: Maxim Levitsky <mlevitsk@redhat.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-Date: Wed, 06 Jan 2021 23:27:32 +0200
-In-Reply-To: <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
-References: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
- <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
-User-Agent: Evolution 3.36.5 (3.36.5-1.fc32)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 406366E250;
+	Wed,  6 Jan 2021 22:27:37 +0000 (UTC)
+Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
+ [IPv6:2607:f8b0:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB7C6E250;
+ Wed,  6 Jan 2021 22:27:36 +0000 (UTC)
+Received: by mail-il1-x12c.google.com with SMTP id v3so4788859ilo.5;
+ Wed, 06 Jan 2021 14:27:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4cfivIbb4vClwBT8GFO5dGsDNdti6rRfErFk1Qp1zfQ=;
+ b=A0tjFadvZgQ/aNebTq5gTl4Pao6jGpPRS20lB5hcFXH/GFj6KSpijdKooERq7n/g/D
+ jWxZqwVSm/22XdjcHJeWrSpV7D7SiUmpjK3DMTL7516aGTUJC8lB/Gx7brPMjOuky6Ro
+ bBQzvQhouShJjGa60K0ryP4mBGRys6sacKCLEwa/bS4h55s9E/PZX3AsbV9b6dXokKfT
+ kBg5rEFrlB/McRQBo5peVA2qzF9VZmJYcqZiGLlg1TRwMMhJ/bHzn8V83Ov7NXSCyEYO
+ 7+ZHNvg7PoR/gKXY14liyZV0Scx3Zjtg2ivKiiEj9WaC4QNe+xiJ0xR20WyBA7XZfdpH
+ aeyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4cfivIbb4vClwBT8GFO5dGsDNdti6rRfErFk1Qp1zfQ=;
+ b=f/XEdQFuIYAoyp5bS/MMO+o8krjL78/cVb79jbcUjU9InGmOvsUKOOO7GbIBfiBqlb
+ 1jEWnJ93FyslTTXxxUUolFHO+1X/hzyi/xcvsMm77rBlTgN2IM4H9YH2P0NCG1oCQAiX
+ Ukk45ur76v64JLStiVIIiZlVjfQ7qVSUY9xGKOVLYXKxY/5e0ChLAi8dFiHz+xFrpf7d
+ Q/Rjvockj2Z8mV9FA14KpxvdaIV3y0/s/UGF/IhLVpGc12CZi3JkBZmHqvkNnce7rC6R
+ GlTc2+CkNmi54VweR3C7YMmcefjenEjUPO6iqewwf3JIaK4DJSDsNhYaO7k2+JguneXh
+ 2jvQ==
+X-Gm-Message-State: AOAM531+mF2fWuMQ1GO6TEwuhvWdtaaXMdGsqPZrnmNemAWSQTrNLr4M
+ 4jyj2klm2rvIGZjXBuzNQ1Ovc0cn1BU=
+X-Google-Smtp-Source: ABdhPJz9xcHwIKTOgqbrJI8VYNb710RWrS6vUWEcLIqOCL7ccEaj1vKCcNaYXL0fzSBrFvSzj12Geg==
+X-Received: by 2002:a05:6e02:b27:: with SMTP id
+ e7mr6242154ilu.279.1609972056013; 
+ Wed, 06 Jan 2021 14:27:36 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.241])
+ by smtp.gmail.com with ESMTPSA id h1sm2829383ilj.8.2021.01.06.14.27.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Jan 2021 14:27:35 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.11
+Date: Wed,  6 Jan 2021 17:27:21 -0500
+Message-Id: <20210106222721.3934-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mlevitsk@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Mailman-Approved-At: Wed, 06 Jan 2021 21:28:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,24 +79,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Williamson <alwillia@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMDIxLTAxLTA0IGF0IDEyOjM0ICswMTAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3Rl
-Ogo+IEhpIE1heGltLAo+IAo+IEkgY2FuJ3QgaGVscCB3aXRoIHRoZSBkaXNwbGF5IHJlbGF0ZWQg
-c3R1ZmYuIFByb2JhYmx5IGJlc3QgYXBwcm9hY2ggdG8gZ2V0IHRoaXMgZml4ZXMgd291bGQgYmUg
-dG8gb3BlbiB1cCBhIGJ1ZyB0cmFja2VyIGZvciB0aGlzIG9uIEZETy4KCkRvbmUsIGJ1Z3MgYXJl
-IG9wZW5lZApodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL2lzc3Vlcy8x
-NDI5Cmh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0vaXNzdWVzLzE0MzAK
-CkFib3V0IHRoZSBFRElEIGlzc3VlLCB0aGVyZSBkbyBzZWVtIHRvIGJlIGZldyBvcGVuIGJ1Z3Mg
-YWJvdXQgaXQsCmJ1dCB3aGF0IGRpZmZlcnMgaW4gbXkgY2FzZSBJIHRoaW5rIGlzIHRoYXQgRURJ
-RCBmYWlsdXJlIGhhcHBlbnMKb25seSBvbmNlIGluIGEgd2hpbGUsIHJhdGhlciB0aGF0IGFsd2F5
-cywgYW5kIGl0IHNlZW1zIHRvIGJyaW5nCnRoZSB3aG9sZSBkZXZpY2UgZG93bi4KCkJlc3QgcmVn
-YXJkcywKCU1heGltIExldml0c2t5CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+Hi Dave, Daniel,
+
+New URL.  FDO ran out of disk space, so I'm attempting to move to gitlab.
+Let me know if you run into any issues.
+
+Thanks
+
+The following changes since commit 5b2fc08c455bbf749489254a81baeffdf4c0a693:
+
+  Merge tag 'amd-drm-fixes-5.11-2020-12-23' of git://people.freedesktop.org/~agd5f/linux into drm-next (2020-12-24 10:31:16 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.11-2021-01-06
+
+for you to fetch changes up to 5efc1f4b454c6179d35e7b0c3eda0ad5763a00fc:
+
+  Revert "drm/amd/display: Fix memory leaks in S3 resume" (2021-01-06 16:25:06 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.11-2021-01-06:
+
+amdgpu:
+- Telemetry fix for VGH
+- Powerplay fixes for RV
+- Powerplay fixes for RN
+- RAS fixes for Sienna Cichlid
+- Blank screen regression fix
+- Drop DCN support for aarch64
+- Misc other fixes
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu/display: drop DCN support for aarch64
+      Revert "drm/amd/display: Fix memory leaks in S3 resume"
+
+Arnd Bergmann (1):
+      drm/amd/display: Fix unused variable warning
+
+Dennis Li (3):
+      drm/amdgpu: fix a memory protection fault when remove amdgpu device
+      drm/amdgpu: fix a GPU hang issue when remove device
+      drm/amdgpu: fix no bad_pages issue after umc ue injection
+
+Hawking Zhang (1):
+      drm/amdgpu: switched to cached noretry setting for vangogh
+
+Jiawei Gu (1):
+      drm/amdgpu: fix potential memory leak during navi12 deinitialization
+
+John Clements (2):
+      drm/amd/pm: updated PM to I2C controller port on sienna cichlid
+      drm/amdgpu: enable ras eeprom support for sienna cichlid
+
+Kevin Wang (1):
+      drm/amd/display: fix sysfs amdgpu_current_backlight_pwm NULL pointer issue
+
+Xiaojian Du (4):
+      drm/amd/pm: correct the sensor value of power for vangogh
+      drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
+      drm/amd/pm: fix the failure when change power profile for renoir
+      drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  25 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |   8 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |   2 +-
+ drivers/gpu/drm/amd/display/Kconfig                |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   7 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   2 +-
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile      |   4 -
+ drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile    |  21 ---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   7 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/Makefile      |   7 -
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |   7 -
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile      |   4 -
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile      |   4 -
+ drivers/gpu/drm/amd/display/dc/dcn30/Makefile      |   5 -
+ drivers/gpu/drm/amd/display/dc/dcn301/Makefile     |   4 -
+ drivers/gpu/drm/amd/display/dc/dcn302/Makefile     |   4 -
+ drivers/gpu/drm/amd/display/dc/dml/Makefile        |   4 -
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile        |   4 -
+ drivers/gpu/drm/amd/display/dc/os_types.h          |   4 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   | 166 +++++++++++++++++++--
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h   |   3 +
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |   3 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |   1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |   1 +
+ 27 files changed, 200 insertions(+), 113 deletions(-)
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
