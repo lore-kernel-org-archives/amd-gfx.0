@@ -2,75 +2,117 @@ Return-Path: <SRS0=Ke3f=GK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEF72C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 20:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96306C433E9
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 20:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58A57233EE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 20:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58A57233EE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 59DC02311E
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 20:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59DC02311E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15F786E511;
-	Thu,  7 Jan 2021 20:08:35 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6C86E511;
- Thu,  7 Jan 2021 20:08:34 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id t16so6865767wra.3;
- Thu, 07 Jan 2021 12:08:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=cbsXkUE5/xAhX30+BkWSJfE/azN413SHz22foDWrET0=;
- b=hltFMKbfqdAGJ/Gv/8ua6xfoDLImUOSZMJL6nnqLifpb/KjDYlsfROSBEO+nEcqOvs
- T1gHLru+Xyoxc7td15arjK5W6ms0jFC+sf0R5p5hcPJKoJ+SitjKV091V8J75nR75FGG
- G0TlH0oApTLc/TtZikikRrnhiiAzMyKf/Dl5PYku/WcDeqzxTx0pAP4XLuA68UkfKU58
- bv0P5R9IBHaKFNofKyXphgeXdDbQGSGxyO1bGUnRIhdNyh9HJv9JB3toq9UZqW16nKjl
- Kah6DYMrrenya7UqAq/SoB1Eylo3srdlsT7tBDajDp0DSLR2aAf7zwMLe611rpGiH0Ce
- pfVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=cbsXkUE5/xAhX30+BkWSJfE/azN413SHz22foDWrET0=;
- b=Cl5BO4al3QNh8Qx4Jen1e+/u1fzUrhGTwYA0lufh0Y7V8wwR2Kd9riyZU5JGcJbSiy
- NLkrS9NHkiM2Hj/B+I8v5OIXc8ZNDLv+e6HlRAi0Jnd7394ga+jOLeTDCJlqJfsHiGIZ
- +EGL9QBIOjejlFoXdhbQ/YXAWZPoX8r9A+NaVebAhIWbaIIg8BxQlxIPdpJp+ubdcBj7
- ByNBqGFE3ontn6Kj42oFKw+GeZk10lzD6ECQmLTxNVrC/nHu/LeU5/YKFfdMlw2VZKmk
- TRKSEoi97nbfPjFcKvyXpGk85EmIsmHz/KOUb2BjhuG9NYztHqsEG5GBQcKwKlQYVwRA
- Xz0w==
-X-Gm-Message-State: AOAM531MR41vkJjoSt/vTBC3KL/HoKdLgJkthpoGmL/lbdgBZyKGmYML
- QMnEPoy0rceIrYZ9VeHMUkny4JBL2wI=
-X-Google-Smtp-Source: ABdhPJxXr2t4g1B5tTgNEJoVb8TYUAssV1w30/0R3lpMn/exksuNga67eUKTKrVluFuyduQ4nO7IXw==
-X-Received: by 2002:a5d:43cc:: with SMTP id v12mr265457wrr.319.1610050112466; 
- Thu, 07 Jan 2021 12:08:32 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id v20sm8955002wml.34.2021.01.07.12.08.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Jan 2021 12:08:31 -0800 (PST)
-Subject: Re: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20210105182309.1362-1-christian.koenig@amd.com>
- <X/dN/YFtnVAIllds@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ffa9d7f2-fe68-fb6a-8422-82b8949dbe1e@gmail.com>
-Date: Thu, 7 Jan 2021 21:08:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEA566E513;
+	Thu,  7 Jan 2021 20:53:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61406E513;
+ Thu,  7 Jan 2021 20:53:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fEMLzeyvYugrzzz6Gjor5q2Ed+JGqiB1wYOJamt1j66h+W3+GTxSCtAdBu1re5WHxljqfRZaAzW0GvULt4swz5eWh5qvaLwgBEK4nAHU7tG3q/GNQRO4sZo767z8LmjtDDMGJ5dSS01SzaXjEqrBlPgzLRQJXTdHyRRUEa9SgsB5kEiPpAkjb2c0p/XVAjBHx9DeTFGj64/3sCeZoMuZPmHgXPm8BNgUSD/xMlRsQiKoAZHpXLy21wGcz88xAsBbsF2wakDvgnJzbJMsDtfAPxQ/b/OVkyqY460X1ZqWHtqawH5v7eq8SHfp6+mazrLjgXjt4ye6fTAxEd0gl/Yvmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uvmcB8uDveyFne9AHAwJJXk+TQWtKph3eezQRBX5JFk=;
+ b=iN97+RI7YfsVhf9x5chzPVxDlQ+x2U6OgnphAXVdtS312hppqU6DI0xrMfkhkDllAj7NBomzINqxdCpCp0ODfeqlu/J1fgrskzzBJpCOUeeLiLqPHWySM94enqp30LEvB9m2KgsJJQxU303dmsX+JSDuMO3pYhMkPmbiMUR44ShCIl5rISnwL31Q2GQFx5DTLlR7x3sSMYG57MBlrNGUNGtoyOKI7aqGNpE+R/PgHzPzxLR8SdAXdYTAvEOmTWcSj56siXJK4eMTzzNXb4XF286U5HXXvCuVmNlvxyLhsbfEAQ2yftUgXUBeXzSwomMtdR+ByJywT1GderHNpFAqFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uvmcB8uDveyFne9AHAwJJXk+TQWtKph3eezQRBX5JFk=;
+ b=zqwcUTWzS7VDTPabizOY/8JUlKTyUFeSZ5YzAcOVlk3OancSrGnXiu31x6Jn62m2XBVtjpvWdBnbCff344xaSzRYGz3F1tQ23Mn3l822LmGFb8KFCZxYs5eNyqrr9TmgeIAZBrYBDc2zZDO/MiRZwMhDFDPS1VnNo4deRl90OUs=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
+ by DM6PR12MB3595.namprd12.prod.outlook.com (2603:10b6:5:118::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Thu, 7 Jan
+ 2021 20:53:38 +0000
+Received: from DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::1cf5:9c9e:7374:4540]) by DM5PR12MB1753.namprd12.prod.outlook.com
+ ([fe80::1cf5:9c9e:7374:4540%12]) with mapi id 15.20.3742.006; Thu, 7 Jan 2021
+ 20:53:38 +0000
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/3] Revert "drm/amd/display: Expose new CRC window property"
+ and changes associated with this commit
+Date: Thu,  7 Jan 2021 15:53:18 -0500
+Message-Id: <20210107205321.166698-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [2607:fea8:56e0:6d60:2ddc:b09e:3e2e:10b3]
+X-ClientProxiedBy: BN9PR03CA0064.namprd03.prod.outlook.com
+ (2603:10b6:408:fc::9) To DM5PR12MB1753.namprd12.prod.outlook.com
+ (2603:10b6:3:10d::16)
 MIME-Version: 1.0
-In-Reply-To: <X/dN/YFtnVAIllds@phenom.ffwll.local>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:2ddc:b09e:3e2e:10b3)
+ by BN9PR03CA0064.namprd03.prod.outlook.com (2603:10b6:408:fc::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
+ Transport; Thu, 7 Jan 2021 20:53:37 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d2cf8031-5167-4c7e-50d2-08d8b34e4eeb
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3595:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB35954D4CF5ACEFF3E6585E0698AF0@DM6PR12MB3595.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:279;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yfVWAZ94sZkIRw1Aqf4RP4Eb7fPA7MNp9rKkk6wJ7WmfQlZ81+XqlxlabuGgf6kYkTM91ibco3FSMaMJltmgIFFzjPbsFF9k/0aqzbFSUf7poN0vDjge5WQ7vJMNyFySSkkt9/eycNifOslIj0vloyvAdMyYpCozjNksOO6vZyVybothaF36BLWvkTvMANKrCOsYh4KKGQe/1PfLrBTnXzbXv6Z7oR/rbh6jYOLYUGv/aC3csF1AcRZ5tBQCUU33a77BnWbgkgfEGwvVEbx/FUZLBCOS7BiC9qv9q/AeJp/3DgvIgr/jfxAYj8vFWtrJPDd5/gadQmNQu0Ry7Y1rgY3C2K0ztTRNb9YhMmqACyrbmACHwRjrZ2qwM/4wp+M8iCeGGbZoEEIDddQzUMLMXi1O1Oq43sjvU7l8J+ZLvvCvXEnHa8pwsyJeeL2yiR78MQLOEeU1tLIA/4c/R5kFlw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(366004)(2906002)(86362001)(6512007)(6666004)(478600001)(4326008)(8676002)(54906003)(5660300002)(66946007)(2616005)(66556008)(66476007)(1076003)(83380400001)(186003)(6486002)(16526019)(52116002)(8936002)(966005)(316002)(6506007)(36756003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?3ebCvlZaqBxSX3A/Mufg68gZWNLpLfx4a1ocFe7IxxiOJfTho3kzp2dEyUsq?=
+ =?us-ascii?Q?cS76Snspg4FqMckoAhnsBIGynXwPxNjyJFsSvrXLLlZ+vc3m0mxzJz2NVIVU?=
+ =?us-ascii?Q?17Tq//QZAI+wMfI/gO05SKW3+fiHW/Dsi1oW+dRXi+cv3uUeJWcEP2nulokS?=
+ =?us-ascii?Q?BouacqtRsS6ORxxTCVg3547hVDZbNRveHF3TTjdZyEAHEQXYsZoHsO02XK47?=
+ =?us-ascii?Q?H8jZWGTi48UXeJc57WyEy+qNg0J0jtgaKC+6w27kZ4Y3vTv7UehP2v6MqRlS?=
+ =?us-ascii?Q?VxZjfS7Vy8VkiXRKrZCRSsyBVKxEK/73w001z/dn7z/0DfdjjO5UpCZLNA9r?=
+ =?us-ascii?Q?vzASQ3LrbIQWP3OwR7gpH3uEjknNvP2kDgdn7MCU5/aD6Y+BIIATd8MhB3np?=
+ =?us-ascii?Q?Q3YtzI1M2mPPyKzqPbbSUqCVumeHEBayhieMobKkrnQkgCyK0lAJNBcT0A2c?=
+ =?us-ascii?Q?3YRMN9xe+cx6A/M9H+K2y0DC4YaYI9P6BpwC74kANjW66My0ZW7jRJm2hbJz?=
+ =?us-ascii?Q?52ClYGQDsM/DIfVZWAqUXKn7ERE+a8fhWvr6aZ75wsn6k04XRUGiHClFSKB6?=
+ =?us-ascii?Q?PBRSzh3vmGXAiTaga+dA2MiJ2kAo+TThu6pq60HEytTW+OuxJoKcPfdb8ADK?=
+ =?us-ascii?Q?gmPtAsTzkML2Ool92JS75IkAxcCMxc2TsxtfZB7hvzeR5nPt8xns6Xee3zUY?=
+ =?us-ascii?Q?HTRlsE1SpIgjD2phddzjd+X2DoMtNEFhwEEq/U80hIUfxn7AynpGccUGy80F?=
+ =?us-ascii?Q?8ZQ69ZzDG9ejdrkv6slFgcpnihtplRi7eWnNQ22lm+BTbSjC2ZqX8AYJ5bCo?=
+ =?us-ascii?Q?zWg5bWr+TkULBHXKqUWdD1xDEyuGv2gVaebFtfeMKSJLpswel8WijBV/bCwa?=
+ =?us-ascii?Q?fPCAyxnrNN2xiNwfZW6rML2HQJY/YZW+NdDlZaSlW8EgbTJ9bwMNZ3Xn5kQ2?=
+ =?us-ascii?Q?Q3ePwb3tnAqmlqnKkWz0QRyQ4OTY3bdRRqIw5jOvXOGC0RRVy9fqctftbue0?=
+ =?us-ascii?Q?m42W6Du9W4NfA25h1WBSC/IoT4pmo0fKoUFovUveLgO8Ul+X8G5v6VbsReil?=
+ =?us-ascii?Q?wfyH4qmT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 20:53:38.4511 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2cf8031-5167-4c7e-50d2-08d8b34e4eeb
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mks76EgOA0s5bxN5SKeayRNL5jHF7bCMdi/qt41l4D583z6FzBgDGaCTJbRS9QHd7aXfA5HcJ3qRwtyLzhC0OA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3595
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +124,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: ray.huang@amd.com, bp@alien8.de, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Roman Li <Roman.Li@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>,
+ Harry Wentland <Harry.Wentland@amd.com>, Bindu R <Bindu.R@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDcuMDEuMjEgdW0gMTk6MDcgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFR1ZSwgSmFu
-IDA1LCAyMDIxIGF0IDA3OjIzOjA4UE0gKzAxMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+
-IERyaXZlcnMgYXJlIG5vdCBzdXBwb3NlZCB0byBpbml0IHRoZSBwYWdlIHBvb2wgZGlyZWN0bHkg
-YW55IG1vcmUuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4KPiBQbGVhc2UgaW5jbHVkZSByZXBvcnRlZC1ieSBjcmVkaXRzIGFu
-ZCBsaW5rIHRvIHRoZSBidWcgcmVwb3J0cyBvbgo+IGxvcmUua2VybmVsLm9yZyB3aGVuIG1lcmdp
-bmcgdGhpcy4gQWxzbyBJIGd1ZXNzIHRoaXMgc2hvdWxkIGhhdmUgYSBGaXhlczoKPiBsaW5lPwoK
-SSdtIG5vdCBhd2FyZSBvZiBhIGJ1ZyByZXBvcnQsIGJ1dCB0aGUgcmVwb3J0ZWQtYnkvRml4ZXMg
-bGluZXMgYXJlIAppbmRlZWQgbWlzc2luZy4KCkJUVzogQW55IGlkZWEgd2h5IGRpbSBhZGQtbGlu
-ayBkb2Vzbid0IHdvcms/Cgo+IEFuZCBtYXliZSBzb21lIHdvcmRzIG9uIGhvdy93aHkgc3R1ZmYg
-Ymxvd3MgdXAuCgpKdXN0IGEgdHlwby4gSSd2ZSBmb3Jnb3QgdG8gcmVtb3ZlIHR3byBsaW5lcyBp
-biByYWRlb24gd2hpbGUgcmViYXNpbmcgCmFuZCBzdGlsbCBoYWQgdGhlIHN5bWJvbHMgZXhwb3J0
-ZWQgc28gbmV2ZXIgbm90aWNlZCB0aGlzLgoKQ2hyaXN0aWFuLgoKPiAtRGFuaWVsCj4KPj4gLS0t
-Cj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgfCAzIC0tLQo+PiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
-bl90dG0uYwo+PiBpbmRleCBkNDMyOGZmNTc3NTcuLjM1YjcxNWY4MmVkOCAxMDA2NDQKPj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPj4gQEAgLTcyOSw5ICs3MjksNiBAQCBpbnQgcmFk
-ZW9uX3R0bV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQo+PiAgIAl9Cj4+ICAgCXJk
-ZXYtPm1tYW4uaW5pdGlhbGl6ZWQgPSB0cnVlOwo+PiAgIAo+PiAtCXR0bV9wb29sX2luaXQoJnJk
-ZXYtPm1tYW4uYmRldi5wb29sLCByZGV2LT5kZXYsIHJkZXYtPm5lZWRfc3dpb3RsYiwKPj4gLQkJ
-ICAgICAgZG1hX2FkZHJlc3NpbmdfbGltaXRlZCgmcmRldi0+cGRldi0+ZGV2KSk7Cj4+IC0KPj4g
-ICAJciA9IHJhZGVvbl90dG1faW5pdF92cmFtKHJkZXYpOwo+PiAgIAlpZiAocikgewo+PiAgIAkJ
-RFJNX0VSUk9SKCJGYWlsZWQgaW5pdGlhbGl6aW5nIFZSQU0gaGVhcC5cbiIpOwo+PiAtLSAKPj4g
-Mi4yNS4xCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2RyaS1kZXZlbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hi,
+
+A couple of weeks ago, Daniel highlighted  [1] some issue related to a
+patch entitle "drm/amd/display: Expose new CRC window property". After
+discussion, we realize that we can revert that patch because we will
+need to create a debugfs or full UAPI for CRC soon, which will make this
+code obsolete. We got two other patches related to this same code; for
+this reason, this patchset reverts all changes associated with that
+specific commit.
+
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Cc: Harry Wentland <Harry.Wentland@amd.com>
+Cc: Roman Li <Roman.Li@amd.com>
+Cc: Bindu R <Bindu.R@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+
+1. https://www.spinics.net/lists/dri-devel/msg283767.html 
+
+Thanks
+
+Rodrigo Siqueira (3):
+  Revert "drm/amd/display: Fix unused variable warning"
+  Revert "drm/amdgpu/disply: fix documentation warnings in display
+    manager"
+  Revert "drm/amd/display: Expose new CRC window property"
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 ++----------------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  38 -----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  56 +------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   5 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   2 +
+ 5 files changed, 14 insertions(+), 229 deletions(-)
+
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
