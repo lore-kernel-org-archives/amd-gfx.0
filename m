@@ -5,35 +5,34 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30A80C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 844B0C433DB
 	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 08:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E096C23133
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 08:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E096C23133
+	by mail.kernel.org (Postfix) with ESMTPS id 4839B23133
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 08:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4839B23133
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35D66E425;
-	Thu,  7 Jan 2021 08:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2347D6E409;
+	Thu,  7 Jan 2021 08:08:02 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6276E409;
- Thu,  7 Jan 2021 08:07:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0CA6E409;
+ Thu,  7 Jan 2021 08:07:58 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ADC3BAEAC;
- Thu,  7 Jan 2021 08:07:57 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id D5013AE9A;
+ Thu,  7 Jan 2021 08:07:56 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
  joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [PATCH v3 5/8] drm/i915/gt: Remove references to struct
- drm_device.pdev
-Date: Thu,  7 Jan 2021 09:07:45 +0100
-Message-Id: <20210107080748.4768-6-tzimmermann@suse.de>
+Subject: [PATCH v3 3/8] drm/hibmc: Remove references to struct drm_device.pdev
+Date: Thu,  7 Jan 2021 09:07:43 +0100
+Message-Id: <20210107080748.4768-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210107080748.4768-1-tzimmermann@suse.de>
 References: <20210107080748.4768-1-tzimmermann@suse.de>
@@ -49,156 +48,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gvt-dev@lists.freedesktop.org
+Cc: Sam Ravnborg <sam@ravnborg.org>, Xinliang Liu <xinliang.liu@linaro.org>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ John Stultz <john.stultz@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Chen Feng <puck.chen@hisilicon.com>,
+ Tian Tao <tiantao6@hisilicon.com>, intel-gvt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert i915 to struct
+Using struct drm_device.pdev is deprecated. Convert hibmc to struct
 drm_device.dev. No functional changes.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c      | 10 +++++-----
- drivers/gpu/drm/i915/gt/intel_ppgtt.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_rc6.c       |  4 ++--
- drivers/gpu/drm/i915/gt/intel_reset.c     |  6 +++---
- 5 files changed, 12 insertions(+), 12 deletions(-)
+v3:
+	* rebased
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 1847d3c2ea99..a1e872ecc3f1 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1252,7 +1252,7 @@ bool intel_engine_is_idle(struct intel_engine_cs *engine)
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Tian Tao <tiantao6@hisilicon.com>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Tian Tao  <tiantao6@hisilicon.com>
+Cc: John Stultz <john.stultz@linaro.org>
+Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
+Cc: Chen Feng <puck.chen@hisilicon.com>
+---
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 13 ++--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |  2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c   | 61 +++++++++++++++++++
+ 3 files changed, 68 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
+
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 0d4e9023f54d..0a2edc7b754a 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -210,8 +210,8 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
  
- 	/* Waiting to drain ELSP? */
- 	if (execlists_active(&engine->execlists)) {
--		synchronize_hardirq(engine->i915->drm.pdev->irq);
-+		synchronize_hardirq(to_pci_dev(engine->i915->drm.dev)->irq);
- 
- 		intel_engine_flush_submission(engine);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index eece0844fbe9..fd6c8fa54812 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -769,7 +769,7 @@ static unsigned int chv_get_total_gtt_size(u16 gmch_ctrl)
- static int ggtt_probe_common(struct i915_ggtt *ggtt, u64 size)
+ static int hibmc_hw_map(struct hibmc_drm_private *priv)
  {
- 	struct drm_i915_private *i915 = ggtt->vm.i915;
--	struct pci_dev *pdev = i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	phys_addr_t phys_addr;
- 	int ret;
+-	struct drm_device *dev = &priv->dev;
+ 	struct pci_dev *pdev = dev->pdev;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	resource_size_t addr, size, ioaddr, iosize;
  
-@@ -839,7 +839,7 @@ static struct resource pci_resource(struct pci_dev *pdev, int bar)
- static int gen8_gmch_probe(struct i915_ggtt *ggtt)
- {
- 	struct drm_i915_private *i915 = ggtt->vm.i915;
--	struct pci_dev *pdev = i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	unsigned int size;
- 	u16 snb_gmch_ctl;
+ 	ioaddr = pci_resource_start(pdev, 1);
+@@ -255,13 +255,14 @@ static int hibmc_unload(struct drm_device *dev)
+ 	if (dev->irq_enabled)
+ 		drm_irq_uninstall(dev);
  
-@@ -983,7 +983,7 @@ static u64 iris_pte_encode(dma_addr_t addr,
- static int gen6_gmch_probe(struct i915_ggtt *ggtt)
- {
- 	struct drm_i915_private *i915 = ggtt->vm.i915;
--	struct pci_dev *pdev = i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	unsigned int size;
- 	u16 snb_gmch_ctl;
+-	pci_disable_msi(dev->pdev);
++	pci_disable_msi(to_pci_dev(dev->dev));
  
-@@ -1046,7 +1046,7 @@ static int i915_gmch_probe(struct i915_ggtt *ggtt)
- 	phys_addr_t gmadr_base;
- 	int ret;
- 
--	ret = intel_gmch_probe(i915->bridge_dev, i915->drm.pdev, NULL);
-+	ret = intel_gmch_probe(i915->bridge_dev, to_pci_dev(i915->drm.dev), NULL);
- 	if (!ret) {
- 		drm_err(&i915->drm, "failed to set up gmch\n");
- 		return -EIO;
-@@ -1091,7 +1091,7 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
- 
- 	ggtt->vm.gt = gt;
- 	ggtt->vm.i915 = i915;
--	ggtt->vm.dma = &i915->drm.pdev->dev;
-+	ggtt->vm.dma = i915->drm.dev;
- 
- 	if (INTEL_GEN(i915) <= 5)
- 		ret = i915_gmch_probe(ggtt);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 46d9aceda64c..01b7d08532f2 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -301,7 +301,7 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt)
- 
- 	ppgtt->vm.gt = gt;
- 	ppgtt->vm.i915 = i915;
--	ppgtt->vm.dma = &i915->drm.pdev->dev;
-+	ppgtt->vm.dma = i915->drm.dev;
- 	ppgtt->vm.total = BIT_ULL(INTEL_INFO(i915)->ppgtt_size);
- 
- 	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index d7b8e4457fc2..cce53fb9589c 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -485,14 +485,14 @@ static bool rc6_supported(struct intel_rc6 *rc6)
- static void rpm_get(struct intel_rc6 *rc6)
- {
- 	GEM_BUG_ON(rc6->wakeref);
--	pm_runtime_get_sync(&rc6_to_i915(rc6)->drm.pdev->dev);
-+	pm_runtime_get_sync(rc6_to_i915(rc6)->drm.dev);
- 	rc6->wakeref = true;
+ 	return 0;
  }
  
- static void rpm_put(struct intel_rc6 *rc6)
+ static int hibmc_load(struct drm_device *dev)
  {
- 	GEM_BUG_ON(!rc6->wakeref);
--	pm_runtime_put(&rc6_to_i915(rc6)->drm.pdev->dev);
-+	pm_runtime_put(rc6_to_i915(rc6)->drm.dev);
- 	rc6->wakeref = false;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 761b50eca33b..fa8f1e98dd0a 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -179,7 +179,7 @@ static int i915_do_reset(struct intel_gt *gt,
- 			 intel_engine_mask_t engine_mask,
- 			 unsigned int retry)
- {
--	struct pci_dev *pdev = gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
- 	int err;
- 
- 	/* Assert reset for at least 20 usec, and wait for acknowledgement. */
-@@ -208,7 +208,7 @@ static int g33_do_reset(struct intel_gt *gt,
- 			intel_engine_mask_t engine_mask,
- 			unsigned int retry)
- {
--	struct pci_dev *pdev = gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
- 
- 	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
- 	return wait_for_atomic(g4x_reset_complete(pdev), 50);
-@@ -218,7 +218,7 @@ static int g4x_do_reset(struct intel_gt *gt,
- 			intel_engine_mask_t engine_mask,
- 			unsigned int retry)
- {
--	struct pci_dev *pdev = gt->i915->drm.pdev;
-+	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
- 	struct intel_uncore *uncore = gt->uncore;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
  	int ret;
  
+@@ -269,8 +270,7 @@ static int hibmc_load(struct drm_device *dev)
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = drmm_vram_helper_init(dev, pci_resource_start(dev->pdev, 0),
+-				    priv->fb_size);
++	ret = drmm_vram_helper_init(dev, pci_resource_start(pdev, 0), priv->fb_size);
+ 	if (ret) {
+ 		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
+ 		goto err;
+@@ -286,11 +286,11 @@ static int hibmc_load(struct drm_device *dev)
+ 		goto err;
+ 	}
+ 
+-	ret = pci_enable_msi(dev->pdev);
++	ret = pci_enable_msi(pdev);
+ 	if (ret) {
+ 		drm_warn(dev, "enabling MSI failed: %d\n", ret);
+ 	} else {
+-		ret = drm_irq_install(dev, dev->pdev->irq);
++		ret = drm_irq_install(dev, pdev->irq);
+ 		if (ret)
+ 			drm_warn(dev, "install irq failed: %d\n", ret);
+ 	}
+@@ -326,7 +326,6 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 	}
+ 
+ 	dev = &priv->dev;
+-	dev->pdev = pdev;
+ 	pci_set_drvdata(pdev, dev);
+ 
+ 	ret = pcim_enable_device(pdev);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+index 86d712090d87..410bd019bb35 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+@@ -83,7 +83,7 @@ int hibmc_ddc_create(struct drm_device *drm_dev,
+ 	connector->adapter.owner = THIS_MODULE;
+ 	connector->adapter.class = I2C_CLASS_DDC;
+ 	snprintf(connector->adapter.name, I2C_NAME_SIZE, "HIS i2c bit bus");
+-	connector->adapter.dev.parent = &drm_dev->pdev->dev;
++	connector->adapter.dev.parent = drm_dev->dev;
+ 	i2c_set_adapdata(&connector->adapter, connector);
+ 	connector->adapter.algo_data = &connector->bit_data;
+ 
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
+new file mode 100644
+index 000000000000..77f075075db2
+--- /dev/null
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
+@@ -0,0 +1,61 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Hisilicon Hibmc SoC drm driver
++ *
++ * Based on the bochs drm driver.
++ *
++ * Copyright (c) 2016 Huawei Limited.
++ *
++ * Author:
++ *	Rongrong Zou <zourongrong@huawei.com>
++ *	Rongrong Zou <zourongrong@gmail.com>
++ *	Jianhua Li <lijianhua@huawei.com>
++ */
++
++#include <linux/pci.h>
++
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_gem_vram_helper.h>
++#include <drm/drm_print.h>
++
++#include "hibmc_drm_drv.h"
++
++int hibmc_mm_init(struct hibmc_drm_private *hibmc)
++{
++	struct drm_vram_mm *vmm;
++	int ret;
++	struct drm_device *dev = hibmc->dev;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
++
++	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(pdev, 0),
++				       hibmc->fb_size);
++	if (IS_ERR(vmm)) {
++		ret = PTR_ERR(vmm);
++		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++void hibmc_mm_fini(struct hibmc_drm_private *hibmc)
++{
++	if (!hibmc->dev->vram_mm)
++		return;
++
++	drm_vram_helper_release_mm(hibmc->dev);
++}
++
++int hibmc_dumb_create(struct drm_file *file, struct drm_device *dev,
++		      struct drm_mode_create_dumb *args)
++{
++	return drm_gem_vram_fill_create_dumb(file, dev, 0, 128, args);
++}
++
++const struct drm_mode_config_funcs hibmc_mode_funcs = {
++	.mode_valid = drm_vram_helper_mode_valid,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit,
++	.fb_create = drm_gem_fb_create,
++};
 -- 
 2.29.2
 
