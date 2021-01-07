@@ -4,122 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D879AC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:21:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA54BC433DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:32:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 86563233CE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:21:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86563233CE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 18617233CE
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 17:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18617233CE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55D526E48C;
-	Thu,  7 Jan 2021 17:21:35 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22A536E489;
- Thu,  7 Jan 2021 17:21:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VTb4dUtBC3btDIzPfh4Zth+gx+uuvGsCpe7h4G3FBFAzkzdlpDhnASDo9fdDyMhoAgnzqaW55wCjGgBqw4pp8p2TFb9RKCnwBhdJ0pPKzUDvateGkI0zXY0f7sqmu92nEzOhjxJ1g1Zt5C7UoVWmttrCu49dvj+a1nSZopEmzHJjdnFnP3KIZn7FLjtBMIfzyh27N48DTs2/Dlzm0O4cdpejY/IKTh2aMygPfdJxktvgAB/G7QLA19+S/lIhzq8buFz8vhN+9mxFuAWg9X0qO5zAwBwyYD8VU8xpf8S0N+fHmbLtxCLUfQr+uLcnGS0ZADHerz7SpKxxhR3J9KlbEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e3ZOj/Z5Zcm2AmYwu3D3Fh686yykaJi3Ad/Y9bH5HdQ=;
- b=fgSoS4O+8liewd+Pf1FG3shBHwCuZ9VWy7veUheHSiAY80TmguJhQ0W9TptJ5Z75VuFVHIh33yN+twxWWvaWWRIojVfWiSSV/hyDXm4xSzpfgE0+kSVI2XU5aSeKEduKhBIn11pIBu+miB/kv3DRKFZfCQ/E18EScAlfNScIzj2cVpZeUzqhRJ9if+yiqvQz7a2cTccA18aQp07VzUiaA/TQbjKjPHokmWBq5hezhJ6t3IrrTxYeOmUP6pLgk+KnGjP+rx0biio3u6VMSWSHVs+51NQfyPfz9YiMSS22B2rC3kQ4oKNZCr1JwPUIXHMv/JaADqH0VlCdSGUexhLksg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e3ZOj/Z5Zcm2AmYwu3D3Fh686yykaJi3Ad/Y9bH5HdQ=;
- b=IeuX1svtD1mPmedS8usOtWdJzMPRzUjUF6f/fIfpwaj7+EdiatQmArOmCPVMEENUy5lUxwnZWuNVtYX+sT8/yqH97cquMnm7kYvXKNlCrAaZixww2Ll7ezH2VoomICzjc4hU4JkzUNETzbK3XFQ1oJjO8bNIrwNRM1ge8mV1o4c=
-Received: from DM6PR12MB2971.namprd12.prod.outlook.com (2603:10b6:5:118::28)
- by DM5PR12MB1324.namprd12.prod.outlook.com (2603:10b6:3:76::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.20; Thu, 7 Jan
- 2021 17:21:32 +0000
-Received: from DM6PR12MB2971.namprd12.prod.outlook.com
- ([fe80::64a5:97ca:ceaf:17e0]) by DM6PR12MB2971.namprd12.prod.outlook.com
- ([fe80::64a5:97ca:ceaf:17e0%7]) with mapi id 15.20.3742.006; Thu, 7 Jan 2021
- 17:21:32 +0000
-From: "Liu, Zhan" <Zhan.Liu@amd.com>
-To: 'Bas Nieuwenhuizen' <bas@basnieuwenhuizen.nl>, 'Mario Kleiner'
- <mario.kleiner.de@gmail.com>
-Subject: RE: [PATCH] drm: Check actual format for legacy pageflip.
-Thread-Topic: [PATCH] drm: Check actual format for legacy pageflip.
-Thread-Index: AQHW4Q/ijhWSZnncqUOk53kroda28KoUdpYAgANS5wCAACfwy4ACxqrQgAG371A=
-Date: Thu, 7 Jan 2021 17:21:32 +0000
-Message-ID: <DM6PR12MB297104CA9471887DE00F64489EAF0@DM6PR12MB2971.namprd12.prod.outlook.com>
-References: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
- <CAEsyxyheUd-jyd7X=7HJcOWqcrHgwsTAFyVhW9rJhutEdb=6MQ@mail.gmail.com>,
- <CAP+8YyHJpE39aea8OhGuQNjaGjLq4vcK-hNL+pC_wL5qsHwv2A@mail.gmail.com>
- <DM6PR12MB29719139A32F7BA9037AA45B9ED20@DM6PR12MB2971.namprd12.prod.outlook.com>
- <DM6PR12MB2971F5C08DA2DB1646E9FC379ED00@DM6PR12MB2971.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2971F5C08DA2DB1646E9FC379ED00@DM6PR12MB2971.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-04T20:45:58.803Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: basnieuwenhuizen.nl; dkim=none (message not signed)
- header.d=none;basnieuwenhuizen.nl; dmarc=none action=none
- header.from=amd.com;
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8f7e5712-8abf-49f3-25f5-08d8b330adba
-x-ms-traffictypediagnostic: DM5PR12MB1324:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB132492B524C4B83D149290389EAF0@DM5PR12MB1324.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: r5LTw1IJhUIJIojbPCYF+U83UZ13NShU0V3baodWZ58jJ7XJtmhIAOTWAoBptg4tNqwXH9V+Z5Nk+HcWuzkhJ47t58APuFNrZLo9YDf/nouyubGYnmCUomze6u3ei27BN5CqBK7NVuS6Ry/Yu3IaM5zdsC3fgeaw+sPdiDClywRX8oh69KlJwUFycCXYRPm6JJYbllKUeBCGt2dQmnG8XUhXdrrIa0j3IwQZiXa/hdUIYkrM2+dEpuLl9G3HpUUmQS4TVpY21KNHjD3EAwP3CiEuR+y3EDyFXb4P47fzJwGmOVJ4fJo9mM55AUJiCiyx2nCbXNJMwD0vJe1KctJSiSdoNgRjXp7HAtoy0d8osj/ESmEs+RURnFCllrvz2Z8PwdGf3yV49+MrAcFLeFUyuA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2971.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(39860400002)(366004)(346002)(66446008)(4326008)(55016002)(33656002)(66946007)(66574015)(5660300002)(110136005)(26005)(66476007)(9686003)(86362001)(478600001)(76116006)(2906002)(64756008)(66556008)(71200400001)(6506007)(53546011)(83380400001)(7696005)(8676002)(316002)(54906003)(52536014)(8936002)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?gM1Tmc7ReM0nHdTMRm42gn2YegimG6rpOjGupvusJ6uby2uXVBbMuNUUl7?=
- =?iso-8859-1?Q?Je0fUr0I78a2e1tY4DNJZnPrMn3DrpKLPTUurSRCPuoTsydGDnDNxwScdb?=
- =?iso-8859-1?Q?hWHeWnEMqsdJFdDq70u2UCh8On+47esO5Vy2DeWYmD+KQZDwY8aAvHMLST?=
- =?iso-8859-1?Q?5gLPGXHmKExCu1yA1xrJJ3Ac2otX8GomPcnBZU2PN/VS25dYcQ+SgHS5Uz?=
- =?iso-8859-1?Q?MQAeetMy64Vg7t1nusKspuMtZUAJd9g4vfPic+TXnZ8j6ls9TaIYBMSOap?=
- =?iso-8859-1?Q?VqbhuOPm1jqoO8/iCi/meBB+VQXuz+CNDQXEWZ8A98mYEMye8IRODqXCqr?=
- =?iso-8859-1?Q?2NIGKQHKKosUoAwQv1l3VdV2L0LL8GVXtCmNPF03b+wxWCb7kcCfi/Qf/V?=
- =?iso-8859-1?Q?8pjJ66l0BWuQDhr4bApjwxeHaYZtxz0pjYDnDLngEWpAv0+ptt0MNQOw4w?=
- =?iso-8859-1?Q?ly3ImrXwPtq4VBggYHJUVHizUneEyS+11NmBZBC6QS8VO0GLoVsKre92wh?=
- =?iso-8859-1?Q?DsCzb4+vsnorPWRNuWb2MGLhnici7boX07/HjUp5cjWj2vusPpoGbf9w0g?=
- =?iso-8859-1?Q?qo+vvpQV0ZLv3qX4FVc7T2w+V2kZpcdoVlOnrBmjIHnrW2UFwdW88Ol5RT?=
- =?iso-8859-1?Q?PkDROTxHS4yBuxiQibauzebr0TD5E/PtgXk4df4br7jq7ek4w1nTeD05uH?=
- =?iso-8859-1?Q?PieLFNYlS9yzMzoKcO3c3bxGuzKDilLfhpj1QeTJJWqcu+PWPdB7R8hl2W?=
- =?iso-8859-1?Q?21c4YzvXTuwOFxB8kMlEKK8x0ixSGMu/Yq41Avg4bUaC0mLsW2xPzMrb5h?=
- =?iso-8859-1?Q?ZGdSbGfiQy2kW8ctZgK7E4DgsBAA+BDirpl3FUyRb7TAcK5+hFiR/gsRzz?=
- =?iso-8859-1?Q?SsZjw5QfU89DUuIsj8OMgRAsRJpmmFaXQzf7gQzxSa+9ZpST9U2/Pt0PGb?=
- =?iso-8859-1?Q?ZdjSaUFq5ZpYOAafjkF8yGHKhokISx1AYwI3IEthC8X3AKO50AxVDV7NA1?=
- =?iso-8859-1?Q?Ibiu0hReorVoDMYCo=3D?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 970256E4BB;
+	Thu,  7 Jan 2021 17:32:53 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C65F16E4C5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 17:32:52 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id i9so6458163wrc.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 09:32:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=ns3knrCobRUeVGnustOcrOCTHp2ymD+OHw5Wwf+enN8=;
+ b=Xh2I+dhrEkjrrM79DPTOC/+IIS9u4zL6yMPCdm4GAM6p8lWjzfT9jesKrXQwl4Yd6V
+ zdZGL31IbutxG16PThQ5C9OJ18GW/VrFOelT5tL4XMGuJvnn9bvKaeqVA4PjrtUqICQM
+ vuBijLR4L596mqSDl+GsZvWPq1VMqSuftXfRY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=ns3knrCobRUeVGnustOcrOCTHp2ymD+OHw5Wwf+enN8=;
+ b=dclkdOmkQj/qiTAWViokyzqV6h/fY+BozPRewxFprc3TJAI0vayH2BOibyYRNXZ5qR
+ PGFHHYn44RbgJCl9ZXiK8go7ex0H5EL1NkZu2xMrUS+9nQpRMje0Vcgta42gV2ULxEwH
+ ylEjnMrBzoTbfgaBWk7TpZeSkJ7j1M4J/AZNQCHKx73lWsyWSzj3d9VzJHYiJoaahy+K
+ QDtU9wNd8d1bJ94gaEljJG7vc/lxALw+JM2iQRNyTtsb0sHS2Fus4en3CnUhbEEhHmWq
+ YyAt1X08NgLulzDR5BkRyzwQc97Nq2t2nkgdW4Prwxr1NTP0ktMHtl3z/x1h7fO8MMhb
+ hRsg==
+X-Gm-Message-State: AOAM533P2jyrLMbLGUPJhN2Ixnd1T/ai8Z+y+xpZaOphEOBcTwQnmlya
+ vfofjYnZt45Csy9TYpS5alwiVw==
+X-Google-Smtp-Source: ABdhPJyFFJJg8UFo8BWP9wmIXy5K3RkFEVYlehjNeRNizFdC4esnHO+39m2GeRVyiI6HvpG2gMKYnA==
+X-Received: by 2002:a5d:43d2:: with SMTP id v18mr10065029wrr.326.1610040771171; 
+ Thu, 07 Jan 2021 09:32:51 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id z63sm8991088wme.8.2021.01.07.09.32.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jan 2021 09:32:49 -0800 (PST)
+Date: Thu, 7 Jan 2021 18:32:47 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: christian.koenig@amd.com
+Subject: Re: [PATCH v2] drm/amdgpu: Do not change amdgpu framebuffer format
+ during page flip
+Message-ID: <X/dFvzGu0lIK0mtT@phenom.ffwll.local>
+References: <20201229211044.109020-1-zhan.liu@amd.com>
+ <81e9467f-3498-2d6a-3822-902f2afb74c9@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2971.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f7e5712-8abf-49f3-25f5-08d8b330adba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2021 17:21:32.6805 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X7ubQ3NVkNGHIBxc9Juek37TZBBVZr8Eye/WyAvCzMyR3It5b7OOfwmG/jvjK8hh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1324
+Content-Disposition: inline
+In-Reply-To: <81e9467f-3498-2d6a-3822-902f2afb74c9@gmail.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,117 +77,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: 'Daniel Vetter' <daniel.vetter@ffwll.ch>,
- 'amd-gfx list' <amd-gfx@lists.freedesktop.org>,
- 'dri-devel' <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- =?iso-8859-1?B?J1ZpbGxlIFN5cmrkbOQn?= <ville.syrjala@linux.intel.com>
+Cc: Stylon.Wang@amd.com, Zhan Liu <zhan.liu@amd.com>, Chao-kai.Wang@amd.com,
+ dri-devel@lists.freedesktop.org, Nikola.Cornij@amd.com,
+ amd-gfx@lists.freedesktop.org, bas@basnieuwenhuizen.nl,
+ Nicholas.Kazlauskas@amd.com
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On Sun, Jan 03, 2021 at 04:43:37PM +0100, Christian K=F6nig wrote:
+> Am 29.12.20 um 22:10 schrieb Zhan Liu:
+> > [Why]
+> > Driver cannot change amdgpu framebuffer (afb) format while doing
+> > page flip. Force system doing so will cause ioctl error, and result in
+> > breaking several functionalities including FreeSync.
+> > =
 
-> -----Original Message-----
-> From: Liu, Zhan
-> Sent: 2021/January/06, Wednesday 10:04 AM
-> To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>; Mario Kleiner
-> <mario.kleiner.de@gmail.com>
-> Cc: dri-devel <dri-devel@lists.freedesktop.org>; amd-gfx list <amd-
-> gfx@lists.freedesktop.org>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Daniel Vetter <daniel.vetter@ffwll.ch>;
-> Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Ville Syrj=E4l=E4
-> <ville.syrjala@linux.intel.com>
-> Subject: RE: [PATCH] drm: Check actual format for legacy pageflip.
->
->
-> > -----Original Message-----
-> > From: Liu, Zhan <Zhan.Liu@amd.com>
-> > Sent: 2021/January/04, Monday 3:46 PM
-> > To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>; Mario Kleiner
-> > <mario.kleiner.de@gmail.com>
-> > Cc: dri-devel <dri-devel@lists.freedesktop.org>; amd-gfx list <amd-
-> > gfx@lists.freedesktop.org>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Daniel Vetter <daniel.vetter@ffwll.ch>;
-> > Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Ville Syrj=E4l=E4
-> > <ville.syrjala@linux.intel.com>
-> > Subject: Re: [PATCH] drm: Check actual format for legacy pageflip.
-> >
-> >
-> >
-> > + Ville
-> >
-> > On Sat, Jan 2, 2021 at 4:31 PM Mario Kleiner
-> > <mario.kleiner.de@gmail.com>
-> > wrote:
-> > >
-> > > On Sat, Jan 2, 2021 at 3:02 PM Bas Nieuwenhuizen
-> > > <bas@basnieuwenhuizen.nl> wrote:
-> > > >
-> > > > With modifiers one can actually have different format_info structs
-> > > > for the same format, which now matters for AMDGPU since we convert
-> > > > implicit modifiers to explicit modifiers with multiple planes.
-> > > >
-> > > > I checked other drivers and it doesn't look like they end up
-> > > > triggering this case so I think this is safe to relax.
-> > > >
-> > > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for
-> > > >converted metadata.")
-> > > > ---
-> > > >  drivers/gpu/drm/drm_plane.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_plane.c
-> > > > b/drivers/gpu/drm/drm_plane.c index e6231947f987..f5085990cfac
-> > > > 100644
-> > > > --- a/drivers/gpu/drm/drm_plane.c
-> > > > +++ b/drivers/gpu/drm/drm_plane.c
-> > > > @@ -1163,7 +1163,7 @@ int drm_mode_page_flip_ioctl(struct
-> > drm_device
-> > > >*dev,
-> > > >         if (ret)
-> > > >                 goto out;
-> > > >
-> > > > -       if (old_fb->format !=3D fb->format) {
-> > > > +       if (old_fb->format->format !=3D fb->format->format) {
-> > >
-> >
-> > I agree with this patch, though considering the original way was made
-> > by Ville, I will wait for Ville's input first. Adding my "Acked-by" her=
-e.
-> >
-> > This patch is:
-> > Acked-by: Zhan Liu <zhan.liu@amd.com>
+> > If afb format is forced to change during page flip, following message
+> > will appear in dmesg.log:
+> > =
 
-Since there is no objection from the community on this patch over the past =
-few days, and this patch totally makes sense to me, this patch is:
+> > "[drm:drm_mode_page_flip_ioctl [drm]]
+> > Page flip is not allowed to change frame buffer format."
+> > =
 
-Reviewed-by: Zhan Liu <zhan.liu@amd.com>
+> > [How]
+> > Do not change afb format while doing page flip. It is okay to check
+> > whether afb format is valid here, however, forcing afb format change
+> > shouldn't happen here.
+> =
 
->
-> Ping...
->
-> >
-> > > This was btw. the original way before Ville made it more strict
-> > > about
-> > > 4 years ago, to catch issues related to tiling, and more complex
-> > > layouts, like the dcc tiling/retiling introduced by your modifier
-> > > patches. That's why I hope my alternative patch is a good solution
-> > > for atomic drivers while keeping the strictness for potential legacy
-> > > drivers.
-> > >
-> > > -mario
-> > >
-> > > >                 DRM_DEBUG_KMS("Page flip is not allowed to change
-> > > >frame buffer format.\n");
-> > > >                 ret =3D -EINVAL;
-> > > >                 goto out;
-> > > > --
-> > > > 2.29.2
-> > > >
+> I don't think this we can do this.
+> =
+
+> It is perfectly valid for a page flip to switch between linear and tiled
+> formats on an I+A or A+A laptop.
+
+It is, but that's not the bug here. struct drm_framebuffer.format is
+supposed to be invariant over the lifetime of a drm_fb object, you need to
+set it when the fb is created and never change it afterwards. So the patch
+here isn't yet the real deal.
+
+Also this means the implicit tiling information cannot be changed after a
+fb is created for a given bo, but we've discussed this at length and that
+limitation should be all ok.
+-Daniel
+
+> =
+
+> Christian.
+> =
+
+> > =
+
+> > Signed-off-by: Zhan Liu <zhan.liu@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 3 ++-
+> >   1 file changed, 2 insertions(+), 1 deletion(-)
+> > =
+
+> > Thanks Nick and Bas. Here is my second patch for review.
+> > =
+
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_display.c
+> > index a638709e9c92..8a12e27ff4ec 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > @@ -832,7 +832,8 @@ static int convert_tiling_flags_to_modifier(struct =
+amdgpu_framebuffer *afb)
+> >   			if (!format_info)
+> >   				return -EINVAL;
+> > -			afb->base.format =3D format_info;
+> > +			if (!afb->base.format)
+> > +				afb->base.format =3D format_info;
+> >   		}
+> >   	}
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
