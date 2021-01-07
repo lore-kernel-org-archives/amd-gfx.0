@@ -2,67 +2,66 @@ Return-Path: <SRS0=Ke3f=GK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCF88C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 09:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35789C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 09:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F8C423142
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 09:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F8C423142
+	by mail.kernel.org (Postfix) with ESMTPS id D204B2312E
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 09:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D204B2312E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2A2F6E416;
-	Thu,  7 Jan 2021 09:04:18 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7193A6E420
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 09:04:17 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id y23so4861372wmi.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 01:04:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87CBA6E416;
+	Thu,  7 Jan 2021 09:23:39 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C52966E40B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 09:23:37 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id m5so4897224wrx.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 01:23:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=enb4Nt3fTLMHrulGqTJpjJIRVO21F5Z7R2GigQ0UdLw=;
- b=PccwS+g2JWld3SUsy2YbbLhonB7wbu/PfugysVeKA4JPTpxkznKcb6H/ZfHM7ZSjgk
- mBVPr46pfMZCEI5Rn+ohmfK0FfOep/uJZ30iRY4HHgAj6l3YvXPhHalBb8cgi098WsXi
- J6IzRxLTESVpH7HfLzTspHtlewle7L5bsxNFI=
+ bh=+e02meJbOEwKLwj6oUSgS6KVWB989AVXKC9B0emrKxg=;
+ b=gSo9xyUWtO+QK7ZZIQZaWxJbaY0gEyFixXMm1elErruod5z9vfkc8pB8JHhRunS24T
+ KjEIg/3CZ+0IyUByHKgaX81VapXlbL8/8EZX6Oc7EbxTvkLlO1ZxDcaxWBd+iKyDm10i
+ SPcP435Nj6RliLoTnc9bBzNdg0C9mb7xG6G2o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=enb4Nt3fTLMHrulGqTJpjJIRVO21F5Z7R2GigQ0UdLw=;
- b=NV5DH0Xb13jk4SQ9ye1jjYvlPAafJqB6pVu+rfOvys57oH+pklTF1J0IZP9BiC50fd
- BhQuWD+zJWTKeJZxZ85PRSZ98jeIy4Yt5HnwfEcaW/GOlR14qfLunwde5hYBokQ1F87i
- dZKCZBGevY8A4r2++xgAdZc6hGE864ay+7T5HQvOVQCiL0+uBqtqe4OEeEmFBVCr9B2O
- 8HgoTxAxVwlhCURKQRqfL2PDcWjy5afjha9RMgkT9D51tHKwLRPCV280VpB3eh7ssuy0
- SBLp1oJf11U7nfzbzVHywyfK00MDTTBGnaPKGBAaUSmbIO1q6/pDnwZbEGBGqOPTpgMW
- h0MA==
-X-Gm-Message-State: AOAM531mXYPQYAu5hAlzpJu+Yx8DLxZVKaQs6TfNY2uqanVog89aEABM
- IHcGWQXxjhykExZ77x37GhsW2g==
-X-Google-Smtp-Source: ABdhPJw+qmglJkV0NOIpNmij4HcaJMBpyEzUaoO6nO4MqvkWOt2ySIbGX3XQ2ir97hhtWNvatOX18Q==
-X-Received: by 2002:a05:600c:274d:: with SMTP id
- 13mr7145629wmw.77.1610010255838; 
- Thu, 07 Jan 2021 01:04:15 -0800 (PST)
+ bh=+e02meJbOEwKLwj6oUSgS6KVWB989AVXKC9B0emrKxg=;
+ b=WEbGpmPNxJhSrNsDnfYbaxrHOaoaGEwSAPtfLaduQ63qg3bF6NT/9dX4LTcqgVbi2c
+ iQehdRyEO1fRKR47hvJkjPAdQQnC80YY13MbN9AX7/1YYx8xGohxbQq9/ON/FF8uY2AG
+ T9P4fB4+f9ZhW3vBSwVkia3gw5qvd/tTi7zK/CaYqKOHW6KM+WQNTYCdtj45tzFdmJbX
+ M7ciCMfIq2yMnxvwx3PkULnGWoaCgvj0gMwvfXQ2EpQNMIPF4cNdp5hg+yiwYdW1isq2
+ HlITg/6UPIfeRRT/ff4Q8ZcMaQb6lAcdEEWdiVOEj+X3o7fVAg2r8Za06UCbY+3/u/jg
+ 4CKg==
+X-Gm-Message-State: AOAM531RkIyvI/W2dlIL2BLy1w5JbPvYjU+aS+v8xvqfLCD4hIsggzvg
+ 70J4jQRQ452C7s9tJf95wOU8hA==
+X-Google-Smtp-Source: ABdhPJwGNl6b2Hp10dYwob5T8lOgV3uXJN/Ajo/zXVeS8Ipq2JoX59fzUx6eRAY/AjcNqhjSY247RQ==
+X-Received: by 2002:adf:ba0c:: with SMTP id o12mr7919474wrg.322.1610011416456; 
+ Thu, 07 Jan 2021 01:23:36 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id q143sm6567737wme.28.2021.01.07.01.04.14
+ by smtp.gmail.com with ESMTPSA id f7sm12921874wmc.1.2021.01.07.01.23.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jan 2021 01:04:14 -0800 (PST)
-Date: Thu, 7 Jan 2021 10:04:13 +0100
+ Thu, 07 Jan 2021 01:23:35 -0800 (PST)
+Date: Thu, 7 Jan 2021 10:23:33 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [pull] amdgpu drm-fixes-5.11
-Message-ID: <X/bOjcOWcFFwf+q8@phenom.ffwll.local>
-References: <20210106222721.3934-1-alexander.deucher@amd.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH 00/35] Add HMM-based SVM memory manager to KFD
+Message-ID: <X/bTFWL3HYVc8LEF@phenom.ffwll.local>
+References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210106222721.3934-1-alexander.deucher@amd.com>
+In-Reply-To: <20210107030127.20393-1-Felix.Kuehling@amd.com>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,111 +74,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, daniel.vetter@ffwll.ch,
- airlied@gmail.com, dri-devel@lists.freedesktop.org,
+Cc: alex.sierra@amd.com, philip.yang@amd.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 06, 2021 at 05:27:21PM -0500, Alex Deucher wrote:
-> Hi Dave, Daniel,
+On Wed, Jan 06, 2021 at 10:00:52PM -0500, Felix Kuehling wrote:
+> This is the first version of our HMM based shared virtual memory manager
+> for KFD. There are still a number of known issues that we're working through
+> (see below). This will likely lead to some pretty significant changes in
+> MMU notifier handling and locking on the migration code paths. So don't
+> get hung up on those details yet.
 > 
-> New URL.  FDO ran out of disk space, so I'm attempting to move to gitlab.
-> Let me know if you run into any issues.
+> But I think this is a good time to start getting feedback. We're pretty
+> confident about the ioctl API, which is both simple and extensible for the
+> future. (see patches 4,16) The user mode side of the API can be found here:
+> https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/blob/fxkamd/hmm-wip/src/svm.c
+> 
+> I'd also like another pair of eyes on how we're interfacing with the GPU VM
+> code in amdgpu_vm.c (see patches 12,13), retry page fault handling (24,25),
+> and some retry IRQ handling changes (32).
+> 
+> 
+> Known issues:
+> * won't work with IOMMU enabled, we need to dma_map all pages properly
+> * still working on some race conditions and random bugs
+> * performance is not great yet
 
-Worked fine. Did you puing linux-next to update your tree location? Also
-legacy fd.o git seems back in shape, at least I can push.
+Still catching up, but I think there's another one for your list:
+
+ * hmm gpu context preempt vs page fault handling. I've had a short
+   discussion about this one with Christian before the holidays, and also
+   some private chats with Jerome. It's nasty since no easy fix, much less
+   a good idea what's the best approach here.
+
+I'll try to look at this more in-depth when I'm catching up on mails.
 -Daniel
 
 > 
-> Thanks
+> Alex Sierra (12):
+>   drm/amdgpu: replace per_device_list by array
+>   drm/amdkfd: helper to convert gpu id and idx
+>   drm/amdkfd: add xnack enabled flag to kfd_process
+>   drm/amdkfd: add ioctl to configure and query xnack retries
+>   drm/amdkfd: invalidate tables on page retry fault
+>   drm/amdkfd: page table restore through svm API
+>   drm/amdkfd: SVM API call to restore page tables
+>   drm/amdkfd: add svm_bo reference for eviction fence
+>   drm/amdgpu: add param bit flag to create SVM BOs
+>   drm/amdkfd: add svm_bo eviction mechanism support
+>   drm/amdgpu: svm bo enable_signal call condition
+>   drm/amdgpu: add svm_bo eviction to enable_signal cb
 > 
-> The following changes since commit 5b2fc08c455bbf749489254a81baeffdf4c0a693:
+> Philip Yang (23):
+>   drm/amdkfd: select kernel DEVICE_PRIVATE option
+>   drm/amdkfd: add svm ioctl API
+>   drm/amdkfd: Add SVM API support capability bits
+>   drm/amdkfd: register svm range
+>   drm/amdkfd: add svm ioctl GET_ATTR op
+>   drm/amdgpu: add common HMM get pages function
+>   drm/amdkfd: validate svm range system memory
+>   drm/amdkfd: register overlap system memory range
+>   drm/amdkfd: deregister svm range
+>   drm/amdgpu: export vm update mapping interface
+>   drm/amdkfd: map svm range to GPUs
+>   drm/amdkfd: svm range eviction and restore
+>   drm/amdkfd: register HMM device private zone
+>   drm/amdkfd: validate vram svm range from TTM
+>   drm/amdkfd: support xgmi same hive mapping
+>   drm/amdkfd: copy memory through gart table
+>   drm/amdkfd: HMM migrate ram to vram
+>   drm/amdkfd: HMM migrate vram to ram
+>   drm/amdgpu: reserve fence slot to update page table
+>   drm/amdgpu: enable retry fault wptr overflow
+>   drm/amdkfd: refine migration policy with xnack on
+>   drm/amdkfd: add svm range validate timestamp
+>   drm/amdkfd: multiple gpu migrate vram to vram
 > 
->   Merge tag 'amd-drm-fixes-5.11-2020-12-23' of git://people.freedesktop.org/~agd5f/linux into drm-next (2020-12-24 10:31:16 +1000)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |    3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |    4 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |   16 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   13 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |   83 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |    7 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    5 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   90 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   47 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   10 +
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   32 +-
+>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   32 +-
+>  drivers/gpu/drm/amd/amdkfd/Kconfig            |    1 +
+>  drivers/gpu/drm/amd/amdkfd/Makefile           |    4 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  170 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |    8 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  866 ++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |   59 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   52 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  200 +-
+>  .../amd/amdkfd/kfd_process_queue_manager.c    |    6 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 2564 +++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  135 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |    1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |   10 +-
+>  include/uapi/linux/kfd_ioctl.h                |  169 +-
+>  26 files changed, 4296 insertions(+), 291 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.h
 > 
-> are available in the Git repository at:
+> -- 
+> 2.29.2
 > 
->   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.11-2021-01-06
-> 
-> for you to fetch changes up to 5efc1f4b454c6179d35e7b0c3eda0ad5763a00fc:
-> 
->   Revert "drm/amd/display: Fix memory leaks in S3 resume" (2021-01-06 16:25:06 -0500)
-> 
-> ----------------------------------------------------------------
-> amd-drm-fixes-5.11-2021-01-06:
-> 
-> amdgpu:
-> - Telemetry fix for VGH
-> - Powerplay fixes for RV
-> - Powerplay fixes for RN
-> - RAS fixes for Sienna Cichlid
-> - Blank screen regression fix
-> - Drop DCN support for aarch64
-> - Misc other fixes
-> 
-> ----------------------------------------------------------------
-> Alex Deucher (2):
->       drm/amdgpu/display: drop DCN support for aarch64
->       Revert "drm/amd/display: Fix memory leaks in S3 resume"
-> 
-> Arnd Bergmann (1):
->       drm/amd/display: Fix unused variable warning
-> 
-> Dennis Li (3):
->       drm/amdgpu: fix a memory protection fault when remove amdgpu device
->       drm/amdgpu: fix a GPU hang issue when remove device
->       drm/amdgpu: fix no bad_pages issue after umc ue injection
-> 
-> Hawking Zhang (1):
->       drm/amdgpu: switched to cached noretry setting for vangogh
-> 
-> Jiawei Gu (1):
->       drm/amdgpu: fix potential memory leak during navi12 deinitialization
-> 
-> John Clements (2):
->       drm/amd/pm: updated PM to I2C controller port on sienna cichlid
->       drm/amdgpu: enable ras eeprom support for sienna cichlid
-> 
-> Kevin Wang (1):
->       drm/amd/display: fix sysfs amdgpu_current_backlight_pwm NULL pointer issue
-> 
-> Xiaojian Du (4):
->       drm/amd/pm: correct the sensor value of power for vangogh
->       drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
->       drm/amd/pm: fix the failure when change power profile for renoir
->       drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  25 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |   8 +-
->  drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |   2 +-
->  drivers/gpu/drm/amd/display/Kconfig                |   2 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   7 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   2 +-
->  drivers/gpu/drm/amd/display/dc/calcs/Makefile      |   4 -
->  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile    |  21 ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   7 +-
->  drivers/gpu/drm/amd/display/dc/dcn10/Makefile      |   7 -
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |   7 -
->  drivers/gpu/drm/amd/display/dc/dcn20/Makefile      |   4 -
->  drivers/gpu/drm/amd/display/dc/dcn21/Makefile      |   4 -
->  drivers/gpu/drm/amd/display/dc/dcn30/Makefile      |   5 -
->  drivers/gpu/drm/amd/display/dc/dcn301/Makefile     |   4 -
->  drivers/gpu/drm/amd/display/dc/dcn302/Makefile     |   4 -
->  drivers/gpu/drm/amd/display/dc/dml/Makefile        |   4 -
->  drivers/gpu/drm/amd/display/dc/dsc/Makefile        |   4 -
->  drivers/gpu/drm/amd/display/dc/os_types.h          |   4 -
->  .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   | 166 +++++++++++++++++++--
->  .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h   |   3 +
->  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |   3 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |   1 +
->  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |   1 +
->  27 files changed, 200 insertions(+), 113 deletions(-)
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
 -- 
 Daniel Vetter
