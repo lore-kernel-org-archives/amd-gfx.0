@@ -2,65 +2,66 @@ Return-Path: <SRS0=Ke3f=GK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FEB2C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20974C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:51:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 520F9235FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 520F9235FD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5DE55235FA
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 22:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DE55235FA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3CB46E554;
-	Thu,  7 Jan 2021 22:16:46 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7027D6E54C;
- Thu,  7 Jan 2021 22:16:45 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id 9so9166555oiq.3;
- Thu, 07 Jan 2021 14:16:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 180E86E55E;
+	Thu,  7 Jan 2021 22:51:33 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8C16E55E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 22:51:32 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id d8so7937686otq.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 14:51:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+jRKvQW+d+8xxLOyAbc+/4+AB7j0K7moUW56qBQ83Bg=;
- b=lz5ZcF1ciL8XAetMv1QqRfxjiiq8EaLXJJ3XVNVvkXhYJ4eVnbDV0DpX1WYVnanhQr
- CX8bW8gWTlF8UX03Jm4DCRY5VfMr4CNCezhTb4TmZTdv0cOBjABPD1aRYA3ad9Vov3we
- JhwwHTX05Vmb8GqJWzLAwM5ZWw8rEcOzfsQrjgnEl7jOiZbdWAaGdSROz8taD4q9kx76
- qyb0w61gRvw9Mizi/cQKzrI2NCE2+SVgHm19SUIejNiwoYyGJf8Mc2Bok755ZMDoJzK/
- zV1fYh3SsDx5EhcRNnL9lt+0FIWMA0pB1FsdYkbcDfERi4w1z6924sW1XTUtpFwgwSHl
- 9JCQ==
+ :cc:content-transfer-encoding;
+ bh=8etBVdqy1PU3Fg+6000Dt+bWabsA9eDlA9n8Xkn/Rps=;
+ b=XTxkClgeozn0L0W8Sg6U+YPhEL9rW/XdzJW6Fu4RPbjzApFUaQTCVZRb8y6QLIHZ9B
+ Jnpbc7ymuBNgeV875mu0Re5wsTLKTVJzNeNocTdK/ArCWfX7Li/UtCu8XwNublFIdiCl
+ ZzJoHgQvi3Suxx4Yd7bDBMt3KD/mXFo57el3E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+jRKvQW+d+8xxLOyAbc+/4+AB7j0K7moUW56qBQ83Bg=;
- b=t5SZCnu6akBItUF2rKUtnsJCmBkZ9kSCr8wjXVP2MRVNrU3t2JJ5Ced23qzfTmonqi
- EQEWQc22OY9drBQ78D0t1CnVDQOLK7uBPKInomTrG5s+rl/h2+2grBGnTCEWCARAzboB
- vAgmn1qHIST3UrlWlh1KanorvjlrdfJ/97sQ2ZuttI8buBTeyUzRIm6103WogjYG5Wka
- KQUGRJSW7Exc591b4i4aOAgPKjsi00NBKkQF1taq0fJd9hBHW3Aqvj9j2/fya4zrtXUF
- sR0TQUnzplPFqBseiTvG84BMt9Pur/utwGHDqbkS95z3mdHz0AhiMeWB0isMstCPBlgb
- SA5g==
-X-Gm-Message-State: AOAM531CGXIVCXK/KtUmRMlKDMLX8dUNRAi1D32ZoImDKt2VU7K9a1AR
- VDpLWqOpEMb6fH5S7/kUZV85uTKE54Rg18D0H+jtquJXBAo=
-X-Google-Smtp-Source: ABdhPJzvai3bPIiW/v1e2to9k66+h2chGzfJmZCPxZWJZWUJzQd/E76/kfsjB5RRsKAn2up4KGN+2pTU0YFHtxcNCSA=
-X-Received: by 2002:a54:4083:: with SMTP id i3mr482404oii.120.1610057804892;
- Thu, 07 Jan 2021 14:16:44 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=8etBVdqy1PU3Fg+6000Dt+bWabsA9eDlA9n8Xkn/Rps=;
+ b=I6yZHjYNKAaCfnrjCv6vtXmbkPLghr45VZeSmmVaEgyFL1D+UjT/p1ifWv0FTjSCgx
+ 86utUsdFb/mocmbf5Wm8FJ//QYrl82qql3wupGLiLAYb6QS6YLO8X1L3vjHAjLqy/ruC
+ f9YP2c7H/n0sx5rP6x07/CbiM6VYqtQEU4Gt3poKKAnmwPS/+2BOLIC/Ta2DybirDkJR
+ yWNZncvt/N4oieTWWqROTAEZQOASb2RxYZGYxGVDBtcIcEiH73lDSsrH8U9r2W0KUOmO
+ h0iCZFqVx9dLWbQ5eKCzQ/Ey6FIxpspUb/9VL3U8NmABkvlZrbaLUnLdxtfMC2SkA/eZ
+ R18g==
+X-Gm-Message-State: AOAM533CtGT5HOb9CU8wE5T37snO1+qXclBeEzwXMf1I4InjoqFezbhT
+ Bu9z/ZgvQWm9QQ+RnS6TzXgnzqWi5l0BYpX9VBqDtA==
+X-Google-Smtp-Source: ABdhPJxBWS+nqRGEj4vO/ZNbUmmmfTauQr9D5dWuWNwolRfJ0+JaKeaqs7kbb3FYEbNQ6qYv49uNiVaVBM46CqJqF8A=
+X-Received: by 2002:a9d:23ca:: with SMTP id t68mr561915otb.281.1610059891724; 
+ Thu, 07 Jan 2021 14:51:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20210107205321.166698-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20210107205321.166698-1-Rodrigo.Siqueira@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Jan 2021 17:16:34 -0500
-Message-ID: <CADnq5_PP7cWfX+HPJa=7gG1tBj53-m2isvg_faqrPVBkBMwO1Q@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Revert "drm/amd/display: Expose new CRC window
- property" and changes associated with this commit
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+References: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
+ <CAEsyxyheUd-jyd7X=7HJcOWqcrHgwsTAFyVhW9rJhutEdb=6MQ@mail.gmail.com>
+ <X/dLdN1z6/Viqy9v@phenom.ffwll.local>
+ <CAEsyxyjaYkBzp_nPifhUpUJ=7vJO7MbeimeZM5H13Cta7bj9Ew@mail.gmail.com>
+ <CAKMK7uFBrkQhV=-Hqr3EfqAPn2Vu+hM9PVKh290fw2jQJ5TPCA@mail.gmail.com>
+ <CAEsyxyihZQNf-_UXeQQ+8XHad226XPMFqoJ9hFfoDae9NVi6pg@mail.gmail.com>
+In-Reply-To: <CAEsyxyihZQNf-_UXeQQ+8XHad226XPMFqoJ9hFfoDae9NVi6pg@mail.gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 7 Jan 2021 23:51:20 +0100
+Message-ID: <CAKMK7uGz9pJs+StfaHaxzqrEO3mQdLSrvpZK8ocx1jRUqCMmww@mail.gmail.com>
+Subject: Re: [PATCH] drm: Check actual format for legacy pageflip.
+To: Mario Kleiner <mario.kleiner.de@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,64 +73,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Roman Li <Roman.Li@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>, Bindu R <Bindu.R@amd.com>
+Cc: zhan.liu@amd.com, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 7, 2021 at 3:53 PM Rodrigo Siqueira
-<Rodrigo.Siqueira@amd.com> wrote:
+On Thu, Jan 7, 2021 at 7:16 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
 >
-> Hi,
+> On Thu, Jan 7, 2021 at 7:04 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>>
+>> On Thu, Jan 7, 2021 at 7:00 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
+>> >
+>> > On Thu, Jan 7, 2021 at 6:57 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>> >>
+>> >> On Sat, Jan 02, 2021 at 04:31:36PM +0100, Mario Kleiner wrote:
+>> >> > On Sat, Jan 2, 2021 at 3:02 PM Bas Nieuwenhuizen
+>> >> > <bas@basnieuwenhuizen.nl> wrote:
+>> >> > >
+>> >> > > With modifiers one can actually have different format_info structs
+>> >> > > for the same format, which now matters for AMDGPU since we convert
+>> >> > > implicit modifiers to explicit modifiers with multiple planes.
+>> >> > >
+>> >> > > I checked other drivers and it doesn't look like they end up triggering
+>> >> > > this case so I think this is safe to relax.
+>> >> > >
+>> >> > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>> >> > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for converted metadata.")
+>> >> > > ---
+>> >> > >  drivers/gpu/drm/drm_plane.c | 2 +-
+>> >> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+>> >> > >
+>> >> > > diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+>> >> > > index e6231947f987..f5085990cfac 100644
+>> >> > > --- a/drivers/gpu/drm/drm_plane.c
+>> >> > > +++ b/drivers/gpu/drm/drm_plane.c
+>> >> > > @@ -1163,7 +1163,7 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
+>> >> > >         if (ret)
+>> >> > >                 goto out;
+>> >> > >
+>> >> > > -       if (old_fb->format != fb->format) {
+>> >> > > +       if (old_fb->format->format != fb->format->format) {
+>> >> >
+>> >> > This was btw. the original way before Ville made it more strict about
+>> >> > 4 years ago, to catch issues related to tiling, and more complex
+>> >> > layouts, like the dcc tiling/retiling introduced by your modifier
+>> >> > patches. That's why I hope my alternative patch is a good solution for
+>> >> > atomic drivers while keeping the strictness for potential legacy
+>> >> > drivers.
+>> >>
+>> >> Yeah this doesn't work in full generality, because hw might need to do a
+>> >> full modeset to do a full modeset to reallocate resources (like scanout
+>> >> fifo space) if the format changes.
+>> >>
+>> >> But for atomic drivers that should be caught in ->atomic_check, which
+>> >> should result in -EINVAL, so should do the right thing. So it should be
+>> >> all good, but imo needs a comment to explain what's going on:
+>> >>
+>> >>         /*
+>> >>          * Only check the FOURCC format code, excluding modifiers. This is
+>> >>          * enough for all legacy drivers. Atomic drivers have their own
+>> >>          * checks in their ->atomic_check implementation, which will
+>> >>          * return -EINVAL if any hw or driver constraint is violated due
+>> >>          * to modifier changes.
+>> >>          */
+>> >>
+>> >> Also can you pls cc: intel-gfx to get this vetted by the intel-gfx ci?
+>> >>
+>> >> With that:
+>> >>
+>> >> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>> >>
+>> >
+>> > Ah, my "atomic expert", posting simultaneously with myself :). Happy new year. Opinions on my variant, just replied a minute ago?
+>>
+>> Full disclosure, Ville wanted to do something similar since forever
+>> I'm not a huge fan of removing limitations of legacy ioctls. Worst
+>> case we break something, best case no gain in features since why don't
+>> you just use atomic. Since this (amdgpu modifiers) broke something we
+>> have to fix it, hence I'd go with the more minimal version from Bas
+>> here.
+>>
 >
-> A couple of weeks ago, Daniel highlighted  [1] some issue related to a
-> patch entitle "drm/amd/display: Expose new CRC window property". After
-> discussion, we realize that we can revert that patch because we will
-> need to create a debugfs or full UAPI for CRC soon, which will make this
-> code obsolete. We got two other patches related to this same code; for
-> this reason, this patchset reverts all changes associated with that
-> specific commit.
->
-> Cc: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-> Cc: Harry Wentland <Harry.Wentland@amd.com>
-> Cc: Roman Li <Roman.Li@amd.com>
-> Cc: Bindu R <Bindu.R@amd.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Fair point. Means though that somebody will have to convert many user-space clients, e.g., all OSS Vulkan drivers. And XOrg could not do that, as the kernel uabi even blocks use of atomic drmSetClientCap(...ATOMIC...) for any process whose taskname starts with 'X', as a workaround for a modesetting-ddx with broken atomic implementation. So at least for (pun ahead) "X" applications, atomic modesetting is not an option.
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+If you ask for atomic v2 in the setclientcap ioctl you'll get atomic
+even if you're X. The issue is no one's caring enough to fix it up
+Xorg atomic support to make that happen.
 
+And yes the vulkan drivers should attempt at least some atomic, the
+reason for that was that amdgpu didn't have atomic back when the
+original code was typed. Maybe it'll happen with more modifier use,
+now that both amdgpu and i915 support them.
+-Daniel
+
+> For my use cases, X11/XOrg native is still the only display server capable enough to fulfill the needs, although I'm mixing in a bit of Vulkan/WSI/DirectDisplay for direct DRM/KMS access to work around some limitations, e.g., to get HDR or fp16 support.
 >
-> 1. https://www.spinics.net/lists/dri-devel/msg283767.html
+>> But in general your patch should be correct too.
+>> -Daniel
+>>
 >
-> Thanks
+> Thanks for the feedback. I rest my case.
+> -mario
 >
-> Rodrigo Siqueira (3):
->   Revert "drm/amd/display: Fix unused variable warning"
->   Revert "drm/amdgpu/disply: fix documentation warnings in display
->     manager"
->   Revert "drm/amd/display: Expose new CRC window property"
->
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 ++----------------
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  38 -----
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  56 +------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   5 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c |   2 +
->  5 files changed, 14 insertions(+), 229 deletions(-)
->
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>> >
+>> > thanks,
+>> > -mario
+>> >
+>> >> >
+>> >> > -mario
+>> >> >
+>> >> > >                 DRM_DEBUG_KMS("Page flip is not allowed to change frame buffer format.\n");
+>> >> > >                 ret = -EINVAL;
+>> >> > >                 goto out;
+>> >> > > --
+>> >> > > 2.29.2
+>> >> > >
+>> >>
+>> >> --
+>> >> Daniel Vetter
+>> >> Software Engineer, Intel Corporation
+>> >> http://blog.ffwll.ch
+>>
+>>
+>>
+>> --
+>> Daniel Vetter
+>> Software Engineer, Intel Corporation
+>> http://blog.ffwll.ch
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
