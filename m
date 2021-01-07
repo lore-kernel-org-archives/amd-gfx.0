@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF75FC433E6
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 275CCC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CD8F23100
+	by mail.kernel.org (Postfix) with ESMTPS id DCB9C230F9
 	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CD8F23100
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCB9C230F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 238016E420;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508E66E42A;
 	Thu,  7 Jan 2021 03:03:02 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDE66E425;
- Thu,  7 Jan 2021 03:02:58 +0000 (UTC)
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 910EB6E3EF;
+ Thu,  7 Jan 2021 03:02:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dRaUid0CAyNzkmQmX3vXWv5edzhWN6oieNXRgg29N823bSmbvQyhv8EIkMH2iSJPLjcslcxNys5Xdl67y/E75lMT3Hquzg/JOHdYEoTZ0i2AJX267c03PzC3/r/TEehKBTWl9ISZLi9Y7rwSASaCMcrnSLs6ablO1qGIWuAIrMArtVNZmiBLk0xG8Kp3c26jhimi6CPv2/lT9WEVdY48nq8Slym2khJq88klnOHi+3VVYFZTV7LYozsaHeZZq/0gU+kRiLzst7KUDyDQsLfun6n24lk4ZVNlJQrSsZIoAAc8guLA1DImt0NHHAj0uDXKw4kgYSKyC3WIJzb+uGuIPQ==
+ b=IHFhuh5r85fyQploh9ptc2WcLT/6GMqWasdRJdJa0o+5TRw5oGB/dclFxrKaNf+xYdqle1zsX2/Ne6RLAy5vdywF/1nb+gwzg0niRNHBocsEH2PCRciM+c+qF+jNb+ee6mDS5soJJZJ1Nsvesa7tTQ28PIJw8M/Cl6wi/MyGhm94BYgMNTyphDblPxPJpACMEDKodV48H4UsFnrog6wvcd/6gpGO3i1/SMrpXXujhcjQp19lSbNdGOXxjkjIOvpOYELBeb6NIOo5SmVtmEDJARnBBXR7pNtwU/Fukpv5fAqlx8Mjf1cQbF+WHBvDKI0FsakPoayTZBvmgbifcGhk/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1uM8d1EyC3bKrdl/0k/6aM/WfUoIgX4+U8DwjagjBbY=;
- b=S2U0gtZKupnyrvo+MAhmDkgRILS/cT7sgH8y9Pmg9IMcBm3XDwv62dXWZ8OwvpRaNJV/LWldSTHPeTmPi6UW1QkdILaKONC72FNwA4gzTPwipzXll00K0ec7zCa4PcFvX0+Y6IHlBPXaXfARmDFh6dMACB9vk08A4xi9UCKO6yn8LsSdiq2gQhUMa9xkM0xS+QJcGlGA/wKm9+CskidC6s5LR7I8x4Pejce7jvhGwqaLkEHbJYE4ih0wd5+ZwtDzOIoqMUgfPZx1QwxaRFWZr1FT4kCGPJELbyzSMwHsZw2HZ+VjL+evuUxm9LaFllT8yq2Xizs18Sqd/3CloG2jPA==
+ bh=YYNX2yK6gQ5e9vD0axMjZfzC/31lPz2w8gHoniE3CHI=;
+ b=ieaPdFICgT7uaWj6x9ILdCjQdmY2xyE1Oy2HYfhXQ+UW4vU1Nhk28UzSYFBqefVvWVjfgtofovRqapFtjY1HqhOCu/jIHSwZDLvzPp1UXL5/Zx1L4F8emSxJNW6vNxBREW8bSLk80NfZHSWOJQ2dM3c6f5HSglANwgkDm2xcyovXcXnoDVvqz+kdz3ty42+mb/QFHRFHxkuV6SuqzLL0ylcRc5qajvwrKKUtsiwa4d+TnRpIVKnavVRv7IsujA4cLfN3Lnc60dAIhKs4Toi8GdQ6Z3PNjWCi5mbzA4aDO81PlVgxjFmwNJWmE+YTc0sC2ZjysG47DSoUgIKwHrtNrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1uM8d1EyC3bKrdl/0k/6aM/WfUoIgX4+U8DwjagjBbY=;
- b=CVydvg9fLq9wUs8Ewvq1UTis2saV6xU0XVl3IqnOEihUQ7q8s4jHo/9yCzsefv9Hghm3abkHs75a72rV7lcIhZ4a6WxdT6I8PcRdMisqWVeeqeccGUQ1VAzwC7FXznNY4sfe4gFlU1NM3w6vLDzkBFqX2E+crR8FV7enL5EBQSk=
+ bh=YYNX2yK6gQ5e9vD0axMjZfzC/31lPz2w8gHoniE3CHI=;
+ b=e+9+77pZvgJxt8rkyZ5KhdHyWxk0d31G+Tu5xS8vbTxnWvzGykp58f/yyhjAQou/c312uhDzelx4jEjgHA0v/UCWvihM6OTTvGHBU3qUEc7zu+ym/U4yrYYVPnwc/MxyiOem5oU3glIMgjVXMVIXydNtEGUtriPPP9FCxDNIfjw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -46,17 +46,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB3999.namprd12.prod.outlook.com (2603:10b6:208:158::27)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.24; Thu, 7 Jan
- 2021 03:02:57 +0000
+ 2021 03:02:58 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::9425:559:83c0:991b]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::9425:559:83c0:991b%9]) with mapi id 15.20.3742.006; Thu, 7 Jan 2021
- 03:02:57 +0000
+ 03:02:58 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 15/35] drm/amdkfd: add xnack enabled flag to kfd_process
-Date: Wed,  6 Jan 2021 22:01:07 -0500
-Message-Id: <20210107030127.20393-16-Felix.Kuehling@amd.com>
+Subject: [PATCH 17/35] drm/amdkfd: register HMM device private zone
+Date: Wed,  6 Jan 2021 22:01:09 -0500
+Message-Id: <20210107030127.20393-18-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210107030127.20393-1-Felix.Kuehling@amd.com>
 References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
@@ -69,48 +69,48 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3742.6 via Frontend Transport; Thu, 7 Jan 2021 03:02:56 +0000
+ 15.20.3742.6 via Frontend Transport; Thu, 7 Jan 2021 03:02:57 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fb3be138-30c7-41bf-5ef6-08d8b2b8bc38
+X-MS-Office365-Filtering-Correlation-Id: f9c88bd2-cf3c-4406-0336-08d8b2b8bcce
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3999:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB399942BA903815B152B634B992AF0@MN2PR12MB3999.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB399998B2B63D6534180C25EA92AF0@MN2PR12MB3999.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2hyJ0QgnQIlcBJQbcwZtyjYpQSAQIZB1bedKPgLT/ZXnAX4sySzdwz5DLc5JlrrJvXu6CEqGJQ5IsSqszzNbmjQzbGzBh8FPD4KhfDOEaopRgijs1j97v8sJqNJBqpbE2Rpk66frDAIKnQWxfbt7rwg9BEqEwdYUOPdqXgZ6ubKAqeDSiHp9XdihWJUzzIossUGuikaHzlEJrzEt3NH/vEaBHvnYs+brpbwgunLhoyIK4E78znEEM858C4Z5yAI5HWkoaED536Fg8WNvjSYk+jygMs0Op7k5PEgPan5hFG48etPxQSHvidaVE3Q6dEKdyBpzb0XN3Z7tz5R6O+t4wpJDnTGE47b2GjbgaSbqRGUpXtK1B2ed7pbM1/hZuT3Hk4LVMycYZMnS2WRBpICFjQ==
+X-Microsoft-Antispam-Message-Info: zwRC7MWlP+mEE4ojHNjYLB2ScU6BaUpKlpJgLmFrbZolnGQdmhMYaE5xnPO7XuyJ64UKhw4r7w1QdxJuWs01cKpPNAb7T9iFavqxciXPJ+a5O7wtiQPaTPYDYCrOuTERqH3jLfEdvL4Fyu4CRjeeDZHTAV3X4DAtrLlj2gTNKf+gORJzJ8egpLzoz0OIy1bTWZm5dmkgurwK7lEfKVLZD+onpT/97DTLy3o3tTrUWtNG6QGvkUmxT3AvdYFZg2lkk1EJgd34kKzgyN2y26xbYgbrJiWxypx9oc/rIYgsjyHjSviC/EoljuuEWBvBh2NUkHGoKr4JzdWRlzKmSR2HsXBL17co2GSvt/6Ou7XEqVTsW+MR5cT6RQHLEpb+kFG18oZkc9RpBBrSRs76bLZaTg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(396003)(376002)(366004)(136003)(39860400002)(316002)(6666004)(7696005)(2616005)(956004)(8936002)(4326008)(66476007)(8676002)(478600001)(5660300002)(26005)(52116002)(1076003)(86362001)(16526019)(66946007)(450100002)(186003)(6486002)(36756003)(83380400001)(2906002)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?H+NSK+xRc8dZvSDcc4EP6L1uJxFFgQX6ie1SjgegpxGPEi9bFwbkRkEomtcZ?=
- =?us-ascii?Q?l39qyf/pawcBFEKckURealTMaKdmO8kTCcDoQ+qRR6YufFmDEp2DHbaz1awZ?=
- =?us-ascii?Q?8Ck31nLMiEcoBwRix4xUKEs6Hg92VldAogCEHecPHd9njuZCCOTxC0xo8zF2?=
- =?us-ascii?Q?rcOGd2LBubDsEGmnZ/zUvhj7qtGSUgxDXu3snTS2dqv1mhNiiBsK1mX8peLK?=
- =?us-ascii?Q?A6aX2MpeUfKlad7ABQ2mryqC4UjOZXxD5gZrpBf4uvlzSdvWNzpwiDEo29To?=
- =?us-ascii?Q?ephutNhXbugWJz4vHq9iDsXs/WZnmFgAHuQo0c+D0d1czmf1jvcZQsFSvVsA?=
- =?us-ascii?Q?l8U+HwYK5i0rEcwzx3InYBIC8ULyi/9x45DmjrbflkB8SpJEd7V6tqhAwECc?=
- =?us-ascii?Q?dxz5LLAYLl26R0DuopCoTXdU2MDTaga4paCTVRGbpV1KJ+mdMY1WezIaniTn?=
- =?us-ascii?Q?J9weAdwCIqBWKmnBTdTjI8YvwR5ZLeRppTKWJAGc194yKkcoOAzkcZ97O0TG?=
- =?us-ascii?Q?eQb5gaOn4+QdemxgrrqyrpReFzj5mruN8gv9mnmt3ulTvJyz3Cpbi5RrAMCz?=
- =?us-ascii?Q?5ePqA+PuoQpVH/C7bK4ZdGoWe+YglqL8dgRei3lYPOPu9SmvFXPzarVoWor6?=
- =?us-ascii?Q?/Ct0ZrG0PO3S5HkEiP6dKCFTcFXSvkp9cwpb68QntcOZlmpQlI4JTvOY/lTy?=
- =?us-ascii?Q?qyNcKqzLj7k3O+cDIwaoHTZp8/EsUFIkFBqX4s8AilMSzSk2rYx/09SpYpaT?=
- =?us-ascii?Q?J6RpAutFyvnnKCBXEKAEx9vT+Yj802ZIT+vNcWqSQCpwnZhOt6j6bXh6y26m?=
- =?us-ascii?Q?XbVZhADEVnHcfku9+/5JXekWtmFKwsw8seiiRLSoLkU0Q5ET3YJnWGLwpQXz?=
- =?us-ascii?Q?3/f7pRtxrmrozjr3E+L7rSv91tk8Iawhi7vpRWeg5IrmyGVeT4UQBA9Q4M15?=
- =?us-ascii?Q?JG81rxS7YKKIiJ3PSk3i4qpxVK7VcvFqxCnq1c8K6VJPDjIqq+E/FUFv1d6b?=
- =?us-ascii?Q?pq6p?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?sEABZGU0LKchRMR7lma7eU7TtKjGwWT+xF0FteNFjTNaNjMXvChhZo6Oatpl?=
+ =?us-ascii?Q?c0fp6vaMcdG2dE6I81r655COST/3jZiOUiKHXFFWOXpmE7A1P9UlcXaYnOP8?=
+ =?us-ascii?Q?WNwf+4GDA3ojpLrU2Z6hoW3rt8xtK2uZHa4EuIpmnZmgB5FEQwh/NtJjcqe3?=
+ =?us-ascii?Q?eiKgHc/rJKpCa1ddgKQHCBo4GzVsAoHKNh9yILRLNgZk9dynmGHaDzY+Xy3H?=
+ =?us-ascii?Q?VPE8S2mElHWjqMoVG4ENIqLqXaDCZwknwM13wC6eaM7zmNFAm545NdAZHrG5?=
+ =?us-ascii?Q?WI1ZZu/flkyD01BXAmEe6pRhAeAwPeDYg79UBoa4dnEbDlJ59raZmeTsaKN5?=
+ =?us-ascii?Q?UVdYfHbjLBszGgN4IdGFOZbtqKXPhR71g/W4STsqc2xuV/MFeeUR2C/D/pcq?=
+ =?us-ascii?Q?6UWS9JXYMaHljDs8+9BzM8H9pn6xVubvHIAsLjk1ze8jXz8uXVEg9kEGzka9?=
+ =?us-ascii?Q?NpidUetnb0Dp8ONlHzw7dDLu/3DQhhVOz/A7yaXETVHZ8bg3H79ztslad0LJ?=
+ =?us-ascii?Q?8umv0KWetOU2w9atoy3LQDZKDznBCLter0szMxG3TicXV7vBZkqN24q7tFg5?=
+ =?us-ascii?Q?42zCeFFlNmAjqrJrrbLpMZE/dzoK7JAD6WEgebyGTnhV163UYdoT9c5rBb32?=
+ =?us-ascii?Q?N9MrMGtdz3d85snmjgXzVexugAwyUWhS36OI9pUun+K6tcoiocZSCB+Nqkf8?=
+ =?us-ascii?Q?rmH7YFxkzadB66+CeYdtA7TcNGi5qOWW08E+WzLmYalHszWPJmPjrIu/35bD?=
+ =?us-ascii?Q?q1l2ppO++/WIVhvEfVrD5VAGtZrm3e5tvwBNmtovMiDDU7SKvURhYIU5FLvw?=
+ =?us-ascii?Q?YCTpQYs8oMuBEB/mxQHcAF6PTDRsIV3LhgZmVfv3i6tD93x2CwwgfaCDyrBD?=
+ =?us-ascii?Q?on5tZzfhBL77slsPdGnjcJx9NMzBZeU7h33vOB9e0JpTjDKn3xRW8r7bpijr?=
+ =?us-ascii?Q?INsNSYySC0ane+3xMZLlIf15AUT0hFzXmoevtxXm0mWzETpvB/G+lwOSmF8A?=
+ =?us-ascii?Q?vcPt?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 03:02:57.0121 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 03:02:58.2138 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb3be138-30c7-41bf-5ef6-08d8b2b8bc38
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9c88bd2-cf3c-4406-0336-08d8b2b8bcce
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dqmtuSa+crAih6DLQ3Rf4b/m9fT+Gad+Z0Wix+fjAsjQdDw6w/plLmUph2DgBKVmZsoFRhm7gETQvV8matq2zw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: OiRAn7OutGhD1x7p/DaYZSb/Vilod2dWqcj4PwwRN7bOSXrW0alsVY1gBMwH5VJbyQ1udJrR3R6LbmLfxVK8Gw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3999
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,100 +123,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, philip.yang@amd.com
+Cc: alex.sierra@amd.com, Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-This flag is useful at cpu invalidation page table
-decision. Between select queue eviction or page fault.
+Register vram memory as MEMORY_DEVICE_PRIVATE type resource, to
+allocate vram backing pages for page migration.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  4 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 36 ++++++++++++++++++++++++
- 2 files changed, 40 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |   3 +
+ drivers/gpu/drm/amd/amdkfd/Makefile        |   3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c   | 101 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.h   |  48 ++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |   3 +
+ 5 files changed, 157 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index f1e95773e19b..7a4b4b6dcf32 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -821,6 +821,8 @@ struct kfd_process {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index db96d69eb45e..562bb5b69137 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -30,6 +30,7 @@
+ #include <linux/dma-buf.h>
+ #include "amdgpu_xgmi.h"
+ #include <uapi/linux/kfd_ioctl.h>
++#include "kfd_migrate.h"
  
- 	/* shared virtual memory registered by this process */
- 	struct svm_range_list svms;
-+
-+	bool xnack_enabled;
- };
+ /* Total memory size in system memory and all GPU VRAM. Used to
+  * estimate worst case amount of memory to reserve for page tables
+@@ -170,12 +171,14 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+ 		}
  
- #define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
-@@ -874,6 +876,8 @@ struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
- struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 							struct kfd_process *p);
- 
-+bool kfd_process_xnack_supported(struct kfd_process *p);
-+
- int kfd_reserved_mem_mmap(struct kfd_dev *dev, struct kfd_process *process,
- 			  struct vm_area_struct *vma);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0f31538b2a91..f7a50a364d78 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1157,6 +1157,39 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
- 	return 0;
+ 		kgd2kfd_device_init(adev->kfd.dev, adev_to_drm(adev), &gpu_resources);
++		svm_migrate_init(adev);
+ 	}
  }
  
-+bool kfd_process_xnack_supported(struct kfd_process *p)
+ void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev)
+ {
+ 	if (adev->kfd.dev) {
++		svm_migrate_fini(adev);
+ 		kgd2kfd_device_exit(adev->kfd.dev);
+ 		adev->kfd.dev = NULL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
+index 387ce0217d35..a93301dbc464 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Makefile
++++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+@@ -55,7 +55,8 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
+ 		$(AMDKFD_PATH)/kfd_dbgmgr.o \
+ 		$(AMDKFD_PATH)/kfd_smi_events.o \
+ 		$(AMDKFD_PATH)/kfd_crat.o \
+-		$(AMDKFD_PATH)/kfd_svm.o
++		$(AMDKFD_PATH)/kfd_svm.o \
++		$(AMDKFD_PATH)/kfd_migrate.o
+ 
+ ifneq ($(CONFIG_AMD_IOMMU_V2),)
+ AMDKFD_FILES += $(AMDKFD_PATH)/kfd_iommu.o
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+new file mode 100644
+index 000000000000..1950b86f1562
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -0,0 +1,101 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <linux/types.h>
++#include <linux/hmm.h>
++#include <linux/dma-direction.h>
++#include <linux/dma-mapping.h>
++#include "amdgpu_sync.h"
++#include "amdgpu_object.h"
++#include "amdgpu_vm.h"
++#include "amdgpu_mn.h"
++#include "kfd_priv.h"
++#include "kfd_svm.h"
++#include "kfd_migrate.h"
++
++static void svm_migrate_page_free(struct page *page)
 +{
-+	int i;
-+
-+	/* On most GFXv9 GPUs, the retry mode in the SQ must match the
-+	 * boot time retry setting. Mixing processes with different
-+	 * XNACK/retry settings can hang the GPU.
-+	 *
-+	 * Different GPUs can have different noretry settings depending
-+	 * on HW bugs or limitations. We need to find at least one
-+	 * XNACK mode for this process that's compatible with all GPUs.
-+	 * Fortunately GPUs with retry enabled (noretry=0) can run code
-+	 * built for XNACK-off. On GFXv9 it may perform slower.
-+	 *
-+	 * Therefore applications built for XNACK-off can always be
-+	 * supported and will be our fallback if any GPU does not
-+	 * support retry.
-+	 */
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct kfd_dev *dev = p->pdds[i]->dev;
-+
-+		/* Only consider GFXv9 and higher GPUs. Older GPUs don't
-+		 * support the SVM APIs and don't need to be considered
-+		 * for the XNACK mode selection.
-+		 */
-+		if (dev->device_info->asic_family >= CHIP_VEGA10 &&
-+		    dev->noretry)
-+			return false;
-+	}
-+
-+	return true;
 +}
 +
- /*
-  * On return the kfd_process is fully operational and will be freed when the
-  * mm is released
-@@ -1194,6 +1227,9 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	if (err != 0)
- 		goto err_init_apertures;
- 
-+	/* Check XNACK support after PDDs are created in kfd_init_apertures */
-+	process->xnack_enabled = kfd_process_xnack_supported(process);
++/**
++ * svm_migrate_to_ram - CPU page fault handler
++ * @vmf: CPU vm fault vma, address
++ *
++ * Context: vm fault handler, mm->mmap_sem is taken
++ *
++ * Return:
++ * 0 - OK
++ * VM_FAULT_SIGBUS - notice application to have SIGBUS page fault
++ */
++static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
++{
++	return VM_FAULT_SIGBUS;
++}
 +
- 	err = svm_range_list_init(process);
- 	if (err)
- 		goto err_init_svm_range_list;
++static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
++	.page_free		= svm_migrate_page_free,
++	.migrate_to_ram		= svm_migrate_to_ram,
++};
++
++int svm_migrate_init(struct amdgpu_device *adev)
++{
++	struct kfd_dev *kfddev = adev->kfd.dev;
++	struct dev_pagemap *pgmap;
++	struct resource *res;
++	unsigned long size;
++	void *r;
++
++	/* Page migration works on Vega10 or newer */
++	if (kfddev->device_info->asic_family < CHIP_VEGA10)
++		return -EINVAL;
++
++	pgmap = &kfddev->pgmap;
++	memset(pgmap, 0, sizeof(*pgmap));
++
++	/* TODO: register all vram to HMM for now.
++	 * should remove reserved size
++	 */
++	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
++	res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
++	if (IS_ERR(res))
++		return -ENOMEM;
++
++	pgmap->type = MEMORY_DEVICE_PRIVATE;
++	pgmap->res = *res;
++	pgmap->ops = &svm_migrate_pgmap_ops;
++	pgmap->owner = adev;
++	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
++	r = devm_memremap_pages(adev->dev, pgmap);
++	if (IS_ERR(r)) {
++		pr_err("failed to register HMM device memory\n");
++		return PTR_ERR(r);
++	}
++
++	pr_info("HMM registered %ldMB device memory\n", size >> 20);
++
++	return 0;
++}
++
++void svm_migrate_fini(struct amdgpu_device *adev)
++{
++	memunmap_pages(&adev->kfd.dev->pgmap);
++}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+new file mode 100644
+index 000000000000..98ab685d3e17
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+@@ -0,0 +1,48 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef KFD_MIGRATE_H_
++#define KFD_MIGRATE_H_
++
++#include <linux/rwsem.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/sched/mm.h>
++#include <linux/hmm.h>
++#include "kfd_priv.h"
++#include "kfd_svm.h"
++
++#if defined(CONFIG_DEVICE_PRIVATE)
++int svm_migrate_init(struct amdgpu_device *adev);
++void svm_migrate_fini(struct amdgpu_device *adev);
++
++#else
++static inline int svm_migrate_init(struct amdgpu_device *adev)
++{
++	DRM_WARN_ONCE("DEVICE_PRIVATE kernel config option is not enabled, "
++		      "add CONFIG_DEVICE_PRIVATE=y in config file to fix\n");
++	return -ENODEV;
++}
++static inline void svm_migrate_fini(struct amdgpu_device *adev) {}
++#endif
++#endif /* KFD_MIGRATE_H_ */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 7a4b4b6dcf32..d5367e770b39 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -317,6 +317,9 @@ struct kfd_dev {
+ 	unsigned int max_doorbell_slices;
+ 
+ 	int noretry;
++
++	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
++	struct dev_pagemap pgmap;
+ };
+ 
+ enum kfd_mempool {
 -- 
 2.29.2
 
