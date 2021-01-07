@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6435C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6369BC433E6
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0E7423101
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0E7423101
+	by mail.kernel.org (Postfix) with ESMTPS id 286E5230F9
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 03:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 286E5230F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053BF6E40D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 947276E423;
 	Thu,  7 Jan 2021 03:02:57 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219B26E413;
- Thu,  7 Jan 2021 03:02:55 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1C26E3FE;
+ Thu,  7 Jan 2021 03:02:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=amWTZqiXVXxNpP4fM5uikrLc3EVZjjqbE4A2GZKhOFGOWLGPnweqHK51EConQTnm4+3kMcK1MO709+keJ/fJqvYDseebSdidenKU6+K9DPc0y2nIHv7vPylR8NNrQpQUASER4PNwA758jAO4+Q4KXJn3Uuvv+/iqnj75nQsLz1+/JXn/DyJhhXF9H71iNQA3yzNGsQKAum2ZFfcj8Jz7KmHDNOR+6xYaTfKXGBOCKgxmdup6LaKOZvLwEHpc7ZeuIVtkFfGXaJvVZUd8bdPrDgPlD8gZky2VuxCRRdo0neBlZjIfnMRmAIPsLPZQYHfmFFMQAl2GmAaC6jbhtlSJ+Q==
+ b=HTGyINU3mKeiOUFb9uI5AmPmxLhHp3IBbIUBARvpYmgzDknV8w9r/Dc5VSOvXc9GaqMNL8QQWX4CULVwrPTJvbPtRCsogNBonc3/JTFu4YKWQMTr8W+ZeqjW71TN6wcHLECeVqlF62K6+Ygbb3jBiZr8S7w3K3ybEBltQYKeePBDMWCZQi9xH0neBgxOxK/Bx63OqAGRLdhtNWP/Ys1ofnhG2ngtYhLhuQ83uWVPLUrcxIcZbL4Kdjt7Io8UQGscdR3jBKsaTneXsjtS6Q/hw0HyR8rgBWDmLXzT8EWEhXir0bToGItvA9zF8kDm1km06985oWpvezieSbvzc0peRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aFPGJevZgpETqRnH6+B3KeESM5YYJMlq731h9WxB82E=;
- b=cO5ZGa8tHGKqIiPkiRLg/r21DA1ywWou9okiUeSBl6wmIBivuz92SvCEVPKV7yjCO1ISvo0a8LTpet3MMftApE2ZxIdgznwGwQ0leoiBp2nUh0WVaflZBO4+xqDnJoP++zHLsWATrMy/WkiaiJnhTzGhzUZiVQ4d8Bju4rgZCawQeDFdm+En1eDl0mlfQYINf0u63rv0TUGLsajEo2KRy/6gt5Cxf8kiq3jMRPGn1g4pSVIWHbKWDRAgByOVqdvbZH0b5+B1MsCE4yzVlxOOfAGjiTCNGM9hVwiN62VWM+2PhGHLZXRMtdGfqI2yEwjhy2WemX9kFP1PuM6+8U8L2w==
+ bh=Pemfn7GBsU+zeI6Kcpk22IyId8VMfMz26SK9lCOMv6g=;
+ b=krEkyR/d5B4sTEK3Z9BIQlQMbeVQyyTVZYcNjszHfyeaZpv/RoGURx5yRmbEHov2Z3gz3UazmZ9EFl7n6ABI2y0PqZNciCpzOpsKv6jhDmACUOY1js+9Nc/dkQmC/FQIUwJOejXXEPOQty2Y3q8BglWjLCkiXS9Evk4scMJz4IUgm7+z8vDCMg65XiKu90fy+D1Y59BcJKHKXSmK1YBmEyK6CJnFrB3Izpf6H+LNTLT51Jin7ZtQP4evNwgK/r2AaJAVguXUoroK9NtY4PviidmpmdfAsFEfay/OUbJBicFPlpsaAZ3e8TkotiBndkv6M2Xnz0Hbsee0QNVXjeDE6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aFPGJevZgpETqRnH6+B3KeESM5YYJMlq731h9WxB82E=;
- b=CDB4umLpegYCTK8p82XgoRPewwmyESvsXPJYEJeNNDZWwjdpBGEByKOi9FfNIwCoW1aS76iUyhsk12HNLobt5Pdkr1CnJyly00HY9y85cmx99BsQ9ukDdmpJ613afAkPZgfh8/zxpb4LhGVJzFlgFAFTiDWGZ8fVSTUYSyTSXRs=
+ bh=Pemfn7GBsU+zeI6Kcpk22IyId8VMfMz26SK9lCOMv6g=;
+ b=J7vZkaP7PW/QPcIW3vdonEJpCxuICqRqepWd7PurJzzhzqIOycdEeprZINxvmzEBSadNQUs7vjCLsqo26+KOeXGOksBldS27NURfrgxpu2Ck980tAoSQWyry8ilrfibzBdb0NqDJ0itFXtDqq+IXs1Rll7azF5y6ZVXRT++1ri8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -46,17 +46,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB3999.namprd12.prod.outlook.com (2603:10b6:208:158::27)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.24; Thu, 7 Jan
- 2021 03:02:54 +0000
+ 2021 03:02:50 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::9425:559:83c0:991b]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::9425:559:83c0:991b%9]) with mapi id 15.20.3742.006; Thu, 7 Jan 2021
- 03:02:54 +0000
+ 03:02:50 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 11/35] drm/amdkfd: deregister svm range
-Date: Wed,  6 Jan 2021 22:01:03 -0500
-Message-Id: <20210107030127.20393-12-Felix.Kuehling@amd.com>
+Subject: [PATCH 07/35] drm/amdkfd: add svm ioctl GET_ATTR op
+Date: Wed,  6 Jan 2021 22:00:59 -0500
+Message-Id: <20210107030127.20393-8-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210107030127.20393-1-Felix.Kuehling@amd.com>
 References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
@@ -69,48 +69,48 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3742.6 via Frontend Transport; Thu, 7 Jan 2021 03:02:53 +0000
+ 15.20.3742.6 via Frontend Transport; Thu, 7 Jan 2021 03:02:50 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a6fa2fe0-8c2f-4397-f5c9-08d8b2b8ba54
+X-MS-Office365-Filtering-Correlation-Id: ca294bb6-1ee3-4735-b9cc-08d8b2b8b814
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3999:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB399903E469D0737DF043F99C92AF0@MN2PR12MB3999.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB39995BC03B9120846FF0894492AF0@MN2PR12MB3999.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:972;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GaE5v6eb3t2yhWhv7kRAE4XJJoQzcH/qlG/Ovlr+yzOloCDmOO3hrlGOv3TNE+pfyW9mvEwEBCQhA5+L7K6zQ8nV8/YAWTeUYx+y7NU2eWyRrO9H87doygIZepbLRuhkrSwm3fHbZyl+jIBZITZ3nimCNJB7OYcNc3od3lwXDkIm6lb39o4yI7ah4xZwM3mEZZrlRHMD7VvDO7I+hywdFJGM9EoFZZlOK9gxHuA8c/rVJH4PX4bg/VStcPKh61XFJgFydnLjRZP87vj3TLxnKnwkVmK9GCw5ruE6LTsVSCKpghXkjAOcYnyCfsODh73AuF0/U2T1kU9QTpictRWXYUjH6JsnXhBQ/FCyBlNGXwU8jKgkCVqiZ6P70w8d8yfadMkdIoT8aV1H6yQLkT5kTA==
+X-Microsoft-Antispam-Message-Info: oJHULn/0gRNvzWpPo+zkIME/xX4jki6ytLCCvSLuFWJACvuJ0Ftm/w+zEvpPVtoTClQs0TrXt+rJp9PuhguYFiO5oxD+kkmi+Njcx1mP8BeB+8njaSgqKC+XYtmBrwhZK9DJ5L64XvjyjmzbRYBcylBvOEk0LtwROiELkLYbIM6E5qxVAixOqnY9/KYHrm5iLwSD3SVZ40LqzCcaaS1v+oWsqknDJMzWKxuVD5YorRLyV2fHYtk0wxgknxbQTd9Ev5FbcJpazCg8TRDBfyud+TTKMCjCPK1gI3iq3CuVjD/hzVOy9+sqpcxcV+2UkMrXMkjd+eSuRdumaN0mQ6qnRqn3o4aA2BP1GUUCamlU2UiOQGZnDUOATGDHVOOLA65MTvjr/reVikA8zsONMQXiJg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(366004)(136003)(39860400002)(316002)(6666004)(7696005)(2616005)(956004)(8936002)(4326008)(66476007)(8676002)(478600001)(5660300002)(26005)(52116002)(1076003)(86362001)(16526019)(66946007)(450100002)(186003)(6486002)(36756003)(83380400001)(2906002)(66556008);
+ SFS:(4636009)(346002)(396003)(376002)(366004)(136003)(39860400002)(316002)(7696005)(2616005)(956004)(8936002)(4326008)(66476007)(8676002)(478600001)(5660300002)(26005)(52116002)(1076003)(86362001)(16526019)(66946007)(450100002)(186003)(6486002)(36756003)(83380400001)(2906002)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?dvF+iKkxwOAH95LKCXJXHiWdrSnIxJ8o9Nz7OCZqFSMUVdFw/RgZAAt27AMa?=
- =?us-ascii?Q?gBn3BCSrk8iV5ohKuNHMUFqXfu+eKo6n04a7iuoJsD8xdMHG8/79YYaTNiPW?=
- =?us-ascii?Q?PdJvyNy63q2wR2exssQPB7QGREAG2XcvlRA8WDONrFnbV/TjLUfDmvlPcaS2?=
- =?us-ascii?Q?Nf4qnZyarcVCuDZcCp6n6xBfkJz6ag8YAW+OmXq8fEC2YYS1ZUgiRJGeMZIM?=
- =?us-ascii?Q?Arwan693eGPNoCJq0RTNPqwBpARsLVjmqCi7tdD6XtcWWiP4cjn1lKqc0TPs?=
- =?us-ascii?Q?XGgz9OI6+eYFtFl8jK4a0cJe2gssfQXCa43sTc4kOebrGKskNGmxuE7Z1Jb/?=
- =?us-ascii?Q?ZfCdVduxgEhYCZ4t9+ReQQKdRTEr+YxF1NOks/T4idvoLq0iyWyzfKO+AlJP?=
- =?us-ascii?Q?mEWTO3ci/oFLpudhHWb20kRoslhGrbpNYm/4L5Xx82Hb+j2jeEraXxocl7bG?=
- =?us-ascii?Q?qhJ67lGokmBg4cyadpM0ix4Ytg+c4U+wf0OidxqRpN6ivuaTwHsNpuB8+TRT?=
- =?us-ascii?Q?PnwQ5ecEve2dVggeFHAy+D9IuR3lZndyVL2AIpK6zPNYs4mQjUtJRceFa0ZK?=
- =?us-ascii?Q?Jwyn/BjFdjERvO28sTqcdQDvsIqSLESy2N/Nbpwrbus1tjQvLkK2oHe81u9g?=
- =?us-ascii?Q?sUCghDsUiHy6orBrPn3pXC7jOal9SeDfDflj5sBzMbBZD6YbT05mGDzqVoGF?=
- =?us-ascii?Q?4vJyO9xZkh20eEbir7vCKacX/cNQklA9tT43ev70OhC1QlMDt4ONMocxUqJm?=
- =?us-ascii?Q?P0nhNzu4m0IF2Gfc6mv49doPUiGP9oAorWYm2VZoKnm1X0bCQDet997Kcy2w?=
- =?us-ascii?Q?xqDGq6Lia+cQM+yWi0fz7389lww9wu75XgabTGBTL8NX9WH8UCMCbEtX6Kxj?=
- =?us-ascii?Q?kK+KHdDXhKdHy/ErUIAcGYTC4mk+QLgC9Ukx7avbDE5qZH4g13i4pHd0aJAD?=
- =?us-ascii?Q?K0m6udNmwbUWXbC5mHhTXwPT3J+Ja9GETqw2edB1GTBWY2mB2xKrQ0sTwCEN?=
- =?us-ascii?Q?Wh21?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?uxf/TVeB7l7xX6gYZfyF7Ti0JKjIzrCS3jcVf0D51fE6hqU1X1GVXVva+RsB?=
+ =?us-ascii?Q?tRhVRROiaTD/7P+H12n2C9zehOVWSQZ7BgiF0jEO3unbWq/PdLp4y/lzj/z1?=
+ =?us-ascii?Q?j0ZElVTdxv/5qCf2TG2Sdh7txhke/zh7sVPhf2ot8DdhhUYCfIMSG+KfGYVi?=
+ =?us-ascii?Q?uyjq7udLYJDy02+fZRaynyfrZFxd2jRv8SC0+090bPjYx8NGnjg4Rwcn2GIa?=
+ =?us-ascii?Q?NNXBUzjw8/nryTk1GXDs3NNf511Vt1mYH96NpVPQVTuTeSG4WhSbZA33YqoM?=
+ =?us-ascii?Q?5U80a9V05Xinm2O3ztnvMcCBELM+4ZDmbFK+dagGiyhmZyQ6HjzwJMOzvH5k?=
+ =?us-ascii?Q?YztrBs/D9fqTSQ4coE4ADixCtjWTvxHunFF9+wx51/BlOOT7k9r0MTNG5jMS?=
+ =?us-ascii?Q?AcougUDIXawXhqWAE18aYj6vkNrUaKmwfdKMyaKz4m7uT91SPbhlbud+19Hc?=
+ =?us-ascii?Q?+BDg+Nd+R/YtQBvLqVFlz5aR9E4uZ3EqJHUP641ZI6tgDtsr9C388qeTIdhc?=
+ =?us-ascii?Q?utq1khm7k5FmrdOqrO2XAsWknDAiA9X6zhfUk4+0Z6wjsNXysPxHEOm3y7CN?=
+ =?us-ascii?Q?BzrxXex3ml2mR3XWoyKRQC9uQa0prI0Z+lOLcR3C89DobAS4E76ohcVNvWm8?=
+ =?us-ascii?Q?HfqVflBOxxHO6abWysFRIQ2TjR3JfvbFUq4OwMykKg9+tjcWRuc1gL8FDQwX?=
+ =?us-ascii?Q?60LtT7VYPH+6pJx7Gea0oYNPFOrRKgFS2uuN6aYe1RJjQzwIAUaiATQqXBgF?=
+ =?us-ascii?Q?X6PJqDTZMBYoZKiuEFzEkxF4wAftCUsLjsl3E5q2kD7+7cadwINIaSJenimN?=
+ =?us-ascii?Q?vle3e/dnyobczfoyuB1EAEj7iHOVTse/s2dsxca8xK3Y7wcJYY/7F8gBkeSM?=
+ =?us-ascii?Q?Ab/TzYq0k4zo9DDH61f7uX+2rufqu7ugaTlN2vkNcOyHZXVOr3pR+ZeB1cQm?=
+ =?us-ascii?Q?T/RTiIOFqyLVoBr+iSb4NR8ZlX9KleYTZvAjUMZtBhoO+NGPw5FBN/IvfBPy?=
+ =?us-ascii?Q?lDNl?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 03:02:54.2025 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 03:02:50.4062 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6fa2fe0-8c2f-4397-f5c9-08d8b2b8ba54
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca294bb6-1ee3-4735-b9cc-08d8b2b8b814
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hLRnVlPFtyFRpv1gw6ace9W4ADvBPE9WvyDK51Htb86tJEryvowfopsHVb1NMjdR3oW7gFgDPBiGgYOp1oNAQg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: rVwdjBkzwGl6Sj+Ojq4VlRf6qW4R+alW3a+VOKgadFU/PXXsF87TOr68ctAt+k5Jl9Cn5EpYTgUXXuGSIFosLw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3999
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,126 +131,216 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Philip Yang <Philip.Yang@amd.com>
 
-When application explicitly call unmap or unmap from mmput when
-application exit, driver will receive MMU_NOTIFY_UNMAP event to remove
-svm range from process svms object tree and list first, unmap from GPUs
-(in the following patch).
-
-Split the svm ranges to handle unmap partial svm range.
+Get the intersection of attributes over all memory in the given
+range
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 86 ++++++++++++++++++++++++++++
- 1 file changed, 86 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 175 ++++++++++++++++++++++++++-
+ 1 file changed, 173 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ad007261f54c..55500ec4972f 100644
+index 0b0410837be9..017e77e9ae1e 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -699,15 +699,101 @@ static void svm_range_srcu_free_work(struct work_struct *work_struct)
- 	mutex_unlock(&svms->free_list_lock);
+@@ -75,8 +75,8 @@ static void
+ svm_range_set_default_attributes(int32_t *location, int32_t *prefetch_loc,
+ 				 uint8_t *granularity, uint32_t *flags)
+ {
+-	*location = 0;
+-	*prefetch_loc = 0;
++	*location = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++	*prefetch_loc = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
+ 	*granularity = 9;
+ 	*flags =
+ 		KFD_IOCTL_SVM_FLAG_HOST_ACCESS | KFD_IOCTL_SVM_FLAG_COHERENT;
+@@ -581,6 +581,174 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 	return r;
  }
  
-+static void
-+svm_range_unmap_from_cpu(struct mm_struct *mm, unsigned long start,
-+			 unsigned long last)
++static int
++svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
++		   uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
 +{
-+	struct list_head remove_list;
-+	struct list_head update_list;
-+	struct list_head insert_list;
++	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
++	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
++	bool get_preferred_loc = false;
++	bool get_prefetch_loc = false;
++	bool get_granularity = false;
++	bool get_accessible = false;
++	bool get_flags = false;
++	uint64_t last = start + size - 1UL;
++	struct mm_struct *mm = current->mm;
++	uint8_t granularity = 0xff;
++	struct interval_tree_node *node;
 +	struct svm_range_list *svms;
-+	struct svm_range new = {0};
 +	struct svm_range *prange;
-+	struct svm_range *tmp;
-+	struct kfd_process *p;
-+	int r;
++	uint32_t prefetch_loc = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++	uint32_t location = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++	uint32_t flags = 0xffffffff;
++	int gpuidx;
++	uint32_t i;
 +
-+	p = kfd_lookup_process_by_mm(mm);
-+	if (!p)
-+		return;
++	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
++		 start + size - 1, nattr);
++
++	mmap_read_lock(mm);
++	if (!svm_range_is_valid(mm, start, size)) {
++		pr_debug("invalid range\n");
++		mmap_read_unlock(mm);
++		return -EINVAL;
++	}
++	mmap_read_unlock(mm);
++
++	for (i = 0; i < nattr; i++) {
++		switch (attrs[i].type) {
++		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
++			get_preferred_loc = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
++			get_prefetch_loc = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_ACCESS:
++			if (!svm_get_supported_dev_by_id(
++					p, attrs[i].value, NULL))
++				return -EINVAL;
++			get_accessible = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
++			get_flags = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_GRANULARITY:
++			get_granularity = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_CLR_FLAGS:
++		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
++		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
++			fallthrough;
++		default:
++			pr_debug("get invalid attr type 0x%x\n", attrs[i].type);
++			return -EINVAL;
++		}
++	}
++
 +	svms = &p->svms;
-+
-+	pr_debug("notifier svms 0x%p [0x%lx 0x%lx]\n", svms, start, last);
 +
 +	svms_lock(svms);
 +
-+	r = svm_range_handle_overlap(svms, &new, start, last, &update_list,
-+				     &insert_list, &remove_list, NULL);
-+	if (r) {
-+		svms_unlock(svms);
-+		kfd_unref_process(p);
-+		return;
++	node = interval_tree_iter_first(&svms->objects, start, last);
++	if (!node) {
++		pr_debug("range attrs not found return default values\n");
++		svm_range_set_default_attributes(&location, &prefetch_loc,
++						 &granularity, &flags);
++		/* TODO: Automatically create SVM ranges and map them on
++		 * GPU page faults
++		if (p->xnack_enabled)
++			bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
++			FIXME: Only set bits for supported GPUs
++			FIXME: I think this should be done inside
++			svm_range_set_default_attributes, so that it will
++			apply to all newly created ranges
++		 */
++
++		goto fill_values;
 +	}
++	bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
++	bitmap_fill(bitmap_aip, MAX_GPU_INSTANCE);
 +
-+	mutex_lock(&svms->free_list_lock);
-+	list_for_each_entry_safe(prange, tmp, &remove_list, remove_list) {
-+		pr_debug("remove svms 0x%p [0x%lx 0x%lx]\n", prange->svms,
-+			 prange->it_node.start, prange->it_node.last);
-+		svm_range_unlink(prange);
++	while (node) {
++		struct interval_tree_node *next;
 +
-+		pr_debug("schedule to free svms 0x%p [0x%lx 0x%lx]\n",
-+			 prange->svms, prange->it_node.start,
-+			 prange->it_node.last);
-+		list_add_tail(&prange->remove_list, &svms->free_list);
++		prange = container_of(node, struct svm_range, it_node);
++		next = interval_tree_iter_next(node, start, last);
++
++		if (get_preferred_loc) {
++			if (prange->preferred_loc ==
++					KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
++			    (location != KFD_IOCTL_SVM_LOCATION_UNDEFINED &&
++			     location != prange->preferred_loc)) {
++				location = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++				get_preferred_loc = false;
++			} else {
++				location = prange->preferred_loc;
++			}
++		}
++		if (get_prefetch_loc) {
++			if (prange->prefetch_loc ==
++					KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
++			    (prefetch_loc != KFD_IOCTL_SVM_LOCATION_UNDEFINED &&
++			     prefetch_loc != prange->prefetch_loc)) {
++				prefetch_loc = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++				get_prefetch_loc = false;
++			} else {
++				prefetch_loc = prange->prefetch_loc;
++			}
++		}
++		if (get_accessible) {
++			bitmap_and(bitmap_access, bitmap_access,
++				   prange->bitmap_access, MAX_GPU_INSTANCE);
++			bitmap_and(bitmap_aip, bitmap_aip,
++				   prange->bitmap_aip, MAX_GPU_INSTANCE);
++		}
++		if (get_flags)
++			flags &= prange->flags;
++
++		if (get_granularity && prange->granularity < granularity)
++			granularity = prange->granularity;
++
++		node = next;
 +	}
-+	if (!list_empty(&svms->free_list))
-+		schedule_work(&svms->srcu_free_work);
-+	mutex_unlock(&svms->free_list_lock);
-+
-+	/* prange in update_list is unmapping from cpu, remove it from insert
-+	 * list
-+	 */
-+	list_for_each_entry_safe(prange, tmp, &update_list, update_list) {
-+		list_del(&prange->list);
-+		mutex_lock(&svms->free_list_lock);
-+		list_add_tail(&prange->remove_list, &svms->free_list);
-+		mutex_unlock(&svms->free_list_lock);
-+	}
-+	mutex_lock(&svms->free_list_lock);
-+	if (!list_empty(&svms->free_list))
-+		schedule_work(&svms->srcu_free_work);
-+	mutex_unlock(&svms->free_list_lock);
-+
-+	list_for_each_entry_safe(prange, tmp, &insert_list, list)
-+		svm_range_add_to_svms(prange);
-+
++fill_values:
 +	svms_unlock(svms);
-+	kfd_unref_process(p);
++
++	for (i = 0; i < nattr; i++) {
++		switch (attrs[i].type) {
++		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
++			attrs[i].value = location;
++			break;
++		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
++			attrs[i].value = prefetch_loc;
++			break;
++		case KFD_IOCTL_SVM_ATTR_ACCESS:
++			gpuidx = kfd_process_gpuidx_from_gpuid(p,
++							       attrs[i].value);
++			if (gpuidx < 0) {
++				pr_debug("invalid gpuid %x\n", attrs[i].value);
++				return -EINVAL;
++			}
++			if (test_bit(gpuidx, bitmap_access))
++				attrs[i].type = KFD_IOCTL_SVM_ATTR_ACCESS;
++			else if (test_bit(gpuidx, bitmap_aip))
++				attrs[i].type =
++					KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE;
++			else
++				attrs[i].type = KFD_IOCTL_SVM_ATTR_NO_ACCESS;
++			break;
++		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
++			attrs[i].value = flags;
++			break;
++		case KFD_IOCTL_SVM_ATTR_GRANULARITY:
++			attrs[i].value = (uint32_t)granularity;
++			break;
++		}
++	}
++
++	return 0;
 +}
 +
- /**
-  * svm_range_cpu_invalidate_pagetables - interval notifier callback
-  *
-+ * MMU range unmap notifier to remove svm ranges
-  */
- static bool
- svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
- 				    const struct mmu_notifier_range *range,
- 				    unsigned long cur_seq)
- {
-+	unsigned long start = range->start >> PAGE_SHIFT;
-+	unsigned long last = (range->end - 1) >> PAGE_SHIFT;
-+	struct svm_range_list *svms;
-+
-+	svms = container_of(mni, struct svm_range_list, notifier);
-+
-+	if (range->event == MMU_NOTIFY_RELEASE) {
-+		pr_debug("cpu release range [0x%lx 0x%lx]\n", range->start,
-+			 range->end - 1);
-+		return true;
-+	}
-+	if (range->event == MMU_NOTIFY_UNMAP) {
-+		pr_debug("mm 0x%p unmap range [0x%lx 0x%lx]\n", range->mm,
-+			 start, last);
-+		svm_range_unmap_from_cpu(mni->mm, start, last);
-+		return true;
-+	}
-+
- 	return true;
- }
- 
+ int
+ svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
+ 	  uint64_t size, uint32_t nattrs, struct kfd_ioctl_svm_attribute *attrs)
+@@ -594,6 +762,9 @@ svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
+ 	case KFD_IOCTL_SVM_OP_SET_ATTR:
+ 		r = svm_range_set_attr(p, start, size, nattrs, attrs);
+ 		break;
++	case KFD_IOCTL_SVM_OP_GET_ATTR:
++		r = svm_range_get_attr(p, start, size, nattrs, attrs);
++		break;
+ 	default:
+ 		r = EINVAL;
+ 		break;
 -- 
 2.29.2
 
