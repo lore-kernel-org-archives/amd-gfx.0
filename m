@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1728C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7C47C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:08:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2EF9A23370
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:04:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2EF9A23370
+	by mail.kernel.org (Postfix) with ESMTPS id 727DC23370
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:08:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 727DC23370
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C43806E48C;
-	Thu,  7 Jan 2021 18:04:45 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F1F6E4BA
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 18:04:45 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id n42so7085450ota.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 10:04:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA4DC6E4B1;
+	Thu,  7 Jan 2021 18:08:02 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1FE36E48C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 18:08:01 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id d13so6488164wrc.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 10:08:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eLyXgWRSoofUa0NPDgI7e+KGuRahccA9SYiCL0diGDk=;
- b=Acadoadnt0+KY/VfHGcq4rNimtnM+p4qL3Tt4iYSXXxt19uNfZ+GMGxVDpoCSSMBoe
- OH0HosmiEeFt1ppD+v9R8e3UUja1ZoO+VUMw9Ig3PyBQsXK64SlAaCSNI6AkUcZFgQN7
- Wp5zq7h2x6icnXruoVDteB71AoElVa99MX31M=
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=wGoiidMHz8t7Nlo+6hdGgFlQcakaOeGgVDEu54EY9eM=;
+ b=V3RtjHiVZTwHt4CEaP5BHMPrH6OrnSQ2+Tl56mXX1FLH2e5yooKoc9HswJjkCqOZA9
+ 7CaSjZImUCFzlWOVmZXELZnmyHrKZKXcjNWCBC/US1f7q4l8g+XJIjjA0xmpzHScGW9f
+ qvVEYeBVJVJPev0hOEoZX2M/SFnBsRcQ3djhU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eLyXgWRSoofUa0NPDgI7e+KGuRahccA9SYiCL0diGDk=;
- b=W7xDgyU7LD04fbDg05rXwMEihd3YKAlBUD9ndA5l9rd8uI+xR9mnfA/D9xfhi7u2xJ
- 8w1TALP8tC5dhEEslXxJ5ooWmdW/0lhpcA8Ps9siB2Y5gZaXYF3nw6HFAbtbGxt+KbLy
- tKdHysJ9mZCMSejztrQFmcXAUCpSKe02oa/bkpx0lWygaTzoQeaa60b+EZyIs/Sp3O4z
- h2bH2jEM7f4DahZSpGgb7oe9wFOfOSiMOdmJ+IOvLue421ifl5FhYrHElxEBHm6KfaOa
- gqh6ejRtpSQhYPpIc0gyC0XbxCuaT1szWENU/EeyN7gCAr0yebjVIVJr9D0BjUMD38sW
- lGPQ==
-X-Gm-Message-State: AOAM531WqGnen5SlUTY25GUw+wxsqucsQr+VRGdaMG+fN0o2uQToHK1A
- +SPEYE8nvt0Ew3E2/vJ6jY7xiL6duYt636WuAMFd7A==
-X-Google-Smtp-Source: ABdhPJwUTSITES/u+cYmw2eICdz5U6SGiNVjYorsZbLttMZamIOwEw/GAk0xiAtq3nCaMQffGe80pPReyb/x4XmBDfI=
-X-Received: by 2002:a9d:23ca:: with SMTP id t68mr7548910otb.281.1610042684372; 
- Thu, 07 Jan 2021 10:04:44 -0800 (PST)
-MIME-Version: 1.0
-References: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
- <CAEsyxyheUd-jyd7X=7HJcOWqcrHgwsTAFyVhW9rJhutEdb=6MQ@mail.gmail.com>
- <X/dLdN1z6/Viqy9v@phenom.ffwll.local>
- <CAEsyxyjaYkBzp_nPifhUpUJ=7vJO7MbeimeZM5H13Cta7bj9Ew@mail.gmail.com>
-In-Reply-To: <CAEsyxyjaYkBzp_nPifhUpUJ=7vJO7MbeimeZM5H13Cta7bj9Ew@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=wGoiidMHz8t7Nlo+6hdGgFlQcakaOeGgVDEu54EY9eM=;
+ b=me+VOtd7tfTPma/ZeA0DovWeT5WdlpmDaNiqgwjmUAXM0dg5RPv6HbRJFcl0QKxH4K
+ rE37muSima/wbsTCOJzxHGvp4w5d/3sWP/0gO9HS01YG7qiTN+zegU1PbPd3YnpAmhWp
+ F4a7+ZKtNdAqVtkeJ20/btfqmKFahlagb11SHOvEcNbIPQ79zMQSF5EkHRyDuJDYW43L
+ YfE86d8ZPysW2yHzeiEzNDrHlvNngleWeeHtVsPYBVzdZ9uaTHiZfT0oLLbU/mv73PuX
+ 5HH4Eqkv0sGHpOFw6yhv8D+Dh8mNf71b1+8lEJ/R6UxnPq+rWz0c0R41uzwV389JXR4B
+ KOZw==
+X-Gm-Message-State: AOAM530FoRfTevPvT9ormncn0cLCynBDHNE8jby11zcIcggqHIFtZx18
+ SOsL8HX6UJQOollWhhN4JYpvXg==
+X-Google-Smtp-Source: ABdhPJxLTRPnSqHS0bPohlc6/QsONxqhxq7SrtoJGd6k+648J1Spgwjtch68KAGbLtapxkkhGrnAjw==
+X-Received: by 2002:adf:94c7:: with SMTP id 65mr9835120wrr.423.1610042880415; 
+ Thu, 07 Jan 2021 10:08:00 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v11sm9332372wrt.25.2021.01.07.10.07.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jan 2021 10:07:59 -0800 (PST)
+Date: Thu, 7 Jan 2021 19:07:57 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 7 Jan 2021 19:04:33 +0100
-Message-ID: <CAKMK7uFBrkQhV=-Hqr3EfqAPn2Vu+hM9PVKh290fw2jQJ5TPCA@mail.gmail.com>
-Subject: Re: [PATCH] drm: Check actual format for legacy pageflip.
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
+Message-ID: <X/dN/YFtnVAIllds@phenom.ffwll.local>
+References: <20210105182309.1362-1-christian.koenig@amd.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210105182309.1362-1-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,112 +75,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhan.liu@amd.com, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ray.huang@amd.com, bp@alien8.de, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 7, 2021 at 7:00 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
->
-> On Thu, Jan 7, 2021 at 6:57 PM Daniel Vetter <daniel@ffwll.ch> wrote:
->>
->> On Sat, Jan 02, 2021 at 04:31:36PM +0100, Mario Kleiner wrote:
->> > On Sat, Jan 2, 2021 at 3:02 PM Bas Nieuwenhuizen
->> > <bas@basnieuwenhuizen.nl> wrote:
->> > >
->> > > With modifiers one can actually have different format_info structs
->> > > for the same format, which now matters for AMDGPU since we convert
->> > > implicit modifiers to explicit modifiers with multiple planes.
->> > >
->> > > I checked other drivers and it doesn't look like they end up triggering
->> > > this case so I think this is safe to relax.
->> > >
->> > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->> > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for converted metadata.")
->> > > ---
->> > >  drivers/gpu/drm/drm_plane.c | 2 +-
->> > >  1 file changed, 1 insertion(+), 1 deletion(-)
->> > >
->> > > diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
->> > > index e6231947f987..f5085990cfac 100644
->> > > --- a/drivers/gpu/drm/drm_plane.c
->> > > +++ b/drivers/gpu/drm/drm_plane.c
->> > > @@ -1163,7 +1163,7 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
->> > >         if (ret)
->> > >                 goto out;
->> > >
->> > > -       if (old_fb->format != fb->format) {
->> > > +       if (old_fb->format->format != fb->format->format) {
->> >
->> > This was btw. the original way before Ville made it more strict about
->> > 4 years ago, to catch issues related to tiling, and more complex
->> > layouts, like the dcc tiling/retiling introduced by your modifier
->> > patches. That's why I hope my alternative patch is a good solution for
->> > atomic drivers while keeping the strictness for potential legacy
->> > drivers.
->>
->> Yeah this doesn't work in full generality, because hw might need to do a
->> full modeset to do a full modeset to reallocate resources (like scanout
->> fifo space) if the format changes.
->>
->> But for atomic drivers that should be caught in ->atomic_check, which
->> should result in -EINVAL, so should do the right thing. So it should be
->> all good, but imo needs a comment to explain what's going on:
->>
->>         /*
->>          * Only check the FOURCC format code, excluding modifiers. This is
->>          * enough for all legacy drivers. Atomic drivers have their own
->>          * checks in their ->atomic_check implementation, which will
->>          * return -EINVAL if any hw or driver constraint is violated due
->>          * to modifier changes.
->>          */
->>
->> Also can you pls cc: intel-gfx to get this vetted by the intel-gfx ci?
->>
->> With that:
->>
->> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>
->
-> Ah, my "atomic expert", posting simultaneously with myself :). Happy new year. Opinions on my variant, just replied a minute ago?
+On Tue, Jan 05, 2021 at 07:23:08PM +0100, Christian K=F6nig wrote:
+> Drivers are not supposed to init the page pool directly any more.
+> =
 
-Full disclosure, Ville wanted to do something similar since forever
-I'm not a huge fan of removing limitations of legacy ioctls. Worst
-case we break something, best case no gain in features since why don't
-you just use atomic. Since this (amdgpu modifiers) broke something we
-have to fix it, hence I'd go with the more minimal version from Bas
-here.
+> Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
 
-But in general your patch should be correct too.
+Please include reported-by credits and link to the bug reports on
+lore.kernel.org when merging this. Also I guess this should have a Fixes:
+line?
+
+And maybe some words on how/why stuff blows up.
 -Daniel
 
->
-> thanks,
-> -mario
->
->> >
->> > -mario
->> >
->> > >                 DRM_DEBUG_KMS("Page flip is not allowed to change frame buffer format.\n");
->> > >                 ret = -EINVAL;
->> > >                 goto out;
->> > > --
->> > > 2.29.2
->> > >
->>
->> --
->> Daniel Vetter
->> Software Engineer, Intel Corporation
->> http://blog.ffwll.ch
+> ---
+>  drivers/gpu/drm/radeon/radeon_ttm.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> =
 
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon=
+/radeon_ttm.c
+> index d4328ff57757..35b715f82ed8 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> @@ -729,9 +729,6 @@ int radeon_ttm_init(struct radeon_device *rdev)
+>  	}
+>  	rdev->mman.initialized =3D true;
+>  =
 
+> -	ttm_pool_init(&rdev->mman.bdev.pool, rdev->dev, rdev->need_swiotlb,
+> -		      dma_addressing_limited(&rdev->pdev->dev));
+> -
+>  	r =3D radeon_ttm_init_vram(rdev);
+>  	if (r) {
+>  		DRM_ERROR("Failed initializing VRAM heap.\n");
+> -- =
 
--- 
+> 2.25.1
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
 Daniel Vetter
 Software Engineer, Intel Corporation
 http://blog.ffwll.ch
