@@ -2,68 +2,126 @@ Return-Path: <SRS0=Ke3f=GK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C25CC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75C7FC433DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 19:43:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1165F233FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 18:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1165F233FD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 105C1233CF
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Jan 2021 19:43:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 105C1233CF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142066E4CA;
-	Thu,  7 Jan 2021 18:16:27 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE5876E4BB;
- Thu,  7 Jan 2021 18:16:25 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id e25so6373163wme.0;
- Thu, 07 Jan 2021 10:16:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8dtWKf6tRrhItSb5VhyeomkPrRBxGDF94Fh/7b2h+YY=;
- b=f83GeQ61iiYHRgZlKHsI0NE3Poh5y7ac0clGNTTttboEkJrJPRmg/+NeT8jBVAn4n4
- O0YutMlfykSaqaoo2PKPxMMKu6dxZzkvp8yljIYEdraVGkdgLwhMLjb/WFH2zMg9lB4o
- 2uy6o/cqz5pfHwJmMOmeM3wIv4zgmiD+1D5U4g4w3DpeOuSENTuDLhp5m0QBGWWG7D+W
- gmnSCqrMdy3SLZdkIYNt+2CNEHmBZ1/1yUNSJd1ApXfRu8JP7pPxPBSbxru23uh8Fu6S
- mt9Yl2oOlwCSeDyRqt81dv5SJoBIvUNlSEi4tDE+PCkz1UQ/l9qzHwdYHdl0/kMcsHmz
- lRDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8dtWKf6tRrhItSb5VhyeomkPrRBxGDF94Fh/7b2h+YY=;
- b=BjYrEj2aC5Y3fL3QrnauKeL9RiMu5s09aN7aNx6NysoQMwEt64ht1+RkXriqi5KR8J
- Djd4vrTbVFD5VRT3AluCOkcRprPoIbVNJm7aXynyV3bTtCSIBZfV4lx/yH+t43h9ser5
- 3yHy+Tw9d2PR0h+B7UN5RwZ4TaXSNHa9Q26QDgsg92mPJAX3eJuU8AkozusfM4p2k3u1
- vfhVU5rl4BrbNnJBncY+eWDPE1dCOzshIeRY+ssUjQtM/ZY6ZYmP9P9OTJoTPIjJ7kWo
- IeEDzJaJQe12l0elLBj2bJ8kV6H4Sqrnrb5nHKjFuhJ7phz1hwA/wJiWDS3BFH1MFJfB
- XcsQ==
-X-Gm-Message-State: AOAM531a8PYJv2laWA3++rNYLPErCA3vOU+uUgkwgvDMQzfBf/a75LxB
- vux7voxH/q6oN2ds2qGr/y/9D/Hhk7JYr+52CPE=
-X-Google-Smtp-Source: ABdhPJyohHOLXBDF2A+Es2kLllyqYL17Slm04RyTmG+z6+wwMM/DHVW0vxca8BAi/jzXtANNzMv5DOzyLYd8vHqLgUQ=
-X-Received: by 2002:a7b:cc90:: with SMTP id p16mr8709260wma.105.1610043384314; 
- Thu, 07 Jan 2021 10:16:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C05F6E50C;
+	Thu,  7 Jan 2021 19:43:56 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ADF66E50B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Jan 2021 19:43:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mNUTTMKYgrD0Wi3LHyHXufyXabaRye96Q2AN3Qby00PxWZZo1ixD6ItTptDnPWLeavVno4W+C3SVKLLgKTivtkUKq0tGfIOo3z4qBd/mdy5JQ8e9LHvPCdymuoygSWuqV0FUUCWVrW4100VRIQhFQcMZTrMemnfBQH6XBp9d2o4wF7IiCN1OmUmeXyu5qF8HsPzLe584CCk8VwcAELj8VfsXV/vvMq9Sd609DZ+C6uDqJR43oePBraa0AzTNq3SK154I2T178XPoSXhu2xOEaGL18QvHVQWSpUgb2/MH7AMzUWzIS+LaK5m+BjMqjnBYWQJPJdgYSqE+VG9FOA30Dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aok+qtFJFxV4JVwDnzN+sPCqaaUSCQou7Y8hvJP15tU=;
+ b=Zg+St2jNlsKIo+1R7K4gaykWeer51YhwZBcUiSN6gme15iUMi1do6ALgp9uj+s+rMvtaItPJusF/saV/TVBPECf1yJr956am4PiydzS8t7DXpecN0WbzBG+YV3LH5YRlXTyP6N0SuZO6ay0DGKDmerEFcI99lDvXxnBGA0R/FksGFmFOz/gjbzRIta1VwBhS2MNebeRl1Labxhe6hHqfitF2DY5qhwe8bFD+CKrJHTQbi1jyj/IAgg2u1gsgzp2JTTugdVuHXVmM/VtW+GWWCufkYvb3RJ4JB6a0BXikpj15sGDa78Hh3vvrLmvTw2AbE3jEfH0TrWJsqTDGJCaC/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aok+qtFJFxV4JVwDnzN+sPCqaaUSCQou7Y8hvJP15tU=;
+ b=tohEZfgzU5HfElmGAW+FMxi+vT2ReO58VoTALeSpw6kl+rZg7Z89IFeRnqwSuTlJcUrChqM2qNk2v8B29GvdRMFTZc92bIzUKlYbgCB+v2/xBpbVZ5OBYSWH2TGkZtHX0H63bgFw3NhNL8m+7gOhL53/YdAYnEPzt9zfLoGUuTA=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1787.namprd12.prod.outlook.com (2603:10b6:3:113::12)
+ by DM5PR12MB2565.namprd12.prod.outlook.com (2603:10b6:4:b8::37) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19; Thu, 7 Jan
+ 2021 19:43:54 +0000
+Received: from DM5PR12MB1787.namprd12.prod.outlook.com
+ ([fe80::24ac:3d8c:c5ab:63ad]) by DM5PR12MB1787.namprd12.prod.outlook.com
+ ([fe80::24ac:3d8c:c5ab:63ad%4]) with mapi id 15.20.3721.024; Thu, 7 Jan 2021
+ 19:43:53 +0000
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu: Use IP discovery data to determine
+ VCN enablement instead of MMSCH
+To: Bokun Zhang <Bokun.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210105225427.19570-1-Bokun.Zhang@amd.com>
+From: Leo Liu <leo.liu@amd.com>
+Message-ID: <b011e768-ac0c-0f2c-eca1-7f9b4d70a8e9@amd.com>
+Date: Thu, 7 Jan 2021 14:43:52 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210105225427.19570-1-Bokun.Zhang@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2607:9880:2088:19:6ee9:17cd:c08e:4022]
+X-ClientProxiedBy: YT1PR01CA0074.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::13) To DM5PR12MB1787.namprd12.prod.outlook.com
+ (2603:10b6:3:113::12)
 MIME-Version: 1.0
-References: <20210102140235.514039-1-bas@basnieuwenhuizen.nl>
- <CAEsyxyheUd-jyd7X=7HJcOWqcrHgwsTAFyVhW9rJhutEdb=6MQ@mail.gmail.com>
- <X/dLdN1z6/Viqy9v@phenom.ffwll.local>
- <CAEsyxyjaYkBzp_nPifhUpUJ=7vJO7MbeimeZM5H13Cta7bj9Ew@mail.gmail.com>
- <CAKMK7uFBrkQhV=-Hqr3EfqAPn2Vu+hM9PVKh290fw2jQJ5TPCA@mail.gmail.com>
-In-Reply-To: <CAKMK7uFBrkQhV=-Hqr3EfqAPn2Vu+hM9PVKh290fw2jQJ5TPCA@mail.gmail.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Thu, 7 Jan 2021 19:16:12 +0100
-Message-ID: <CAEsyxyihZQNf-_UXeQQ+8XHad226XPMFqoJ9hFfoDae9NVi6pg@mail.gmail.com>
-Subject: Re: [PATCH] drm: Check actual format for legacy pageflip.
-To: Daniel Vetter <daniel@ffwll.ch>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:9880:2088:19:6ee9:17cd:c08e:4022]
+ (2607:9880:2088:19:6ee9:17cd:c08e:4022) by
+ YT1PR01CA0074.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3742.6 via Frontend Transport; Thu, 7 Jan 2021 19:43:53 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3cc208e2-f7b8-4828-7648-08d8b34490b5
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2565:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB25658C4FC4DDEB6C5613EC9BE5AF0@DM5PR12MB2565.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: G6oCEN1B8RBaxP9pHsj6nUmPT+1ES+DjFxgzDzxROMAjMs8oIFavFoRQWpZHInIcLUpNJzwSel0CVc9lOFJ967AXcbCN8fCG93oZDaW4s2BFsGpSzZ1slmZrgCEW/ODxoswLgBdDARukE6NXFybtT2e62Narg/D5aaMOfuh2CCIeY3mBpV6MmNiAK7T2Cq1HsDRlqaH+SPGJCN6za4GvPPFsjc2KVvG+vpHkjNAZUSMxx1uVB6g7zr4POUT73rgMBjp3fKuqZHN5aN5jVPNl6FQjvdnXhvp1d3qZLsaT1MM7v173NPXc6h3Jvf4cBNj7IuFWlEyNQC53VHQe/hWDY1cfU9mOTd4/EdPmHw3dATH/lGqj3Ck9t1OTyUe4zjpmNt8xyTNuFnEcUCeIh/L4LBsh5ZS9n+2ue0auqqpn9dAI9iClK+tnG2nJbTT0vWZ2icWY+pJGA4VEr1yRJmnZ/+TC0qQxSJzJBbUQckT5bUECsUZEFg5CPHh4I0kEjt4m
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1787.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(376002)(346002)(39860400002)(366004)(83380400001)(52116002)(2906002)(16526019)(36756003)(8936002)(316002)(186003)(6486002)(31686004)(8676002)(44832011)(53546011)(86362001)(478600001)(66556008)(2616005)(66946007)(31696002)(5660300002)(66476007)(21314003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Si8va3pUSFF2c1NCcEE4Vy9JOHdzeE5OYjFZNGsxb2lzdk5SK0ZPbTN5TS9U?=
+ =?utf-8?B?bHRGVlpvbVhVVE0wTElyVUFyMzdpZ1lybmVDR0FJaTJjak04N3JYV1p6NmNh?=
+ =?utf-8?B?UzZmQk80QkxuRjJEU0Rtd24vUlRzaUFRM20yY2k0R3RtZnRrdEV6V3p2NHF1?=
+ =?utf-8?B?eUk4RkQvWTU1Vlk1RFc0amJ6UGx4bUxEL3hFUVMvaWhKekhTek5MRmxLNk9W?=
+ =?utf-8?B?NUNRLzFCQ1hhdUJqNTZEaFpzbzVDZS9LUlkzZTV1SEt1c0srdmkxQ0NUUmlT?=
+ =?utf-8?B?T01BUWpxc2JDK0s4ZGRBY3JQSXdnV29FM1FYWk9ad0E3U3dOU3l3UjViZjRm?=
+ =?utf-8?B?akZFcDZ4czFEWmFPUHM1SGJVTDNBV2JYSDVkZFZ3ZHJCK0lLZDVvck96Vmx1?=
+ =?utf-8?B?b0dDSU8xN1plQWRKbHJvd0h2VEtVZDIycjlVMCtqb3doY2ZmV1M4dHlVeWdU?=
+ =?utf-8?B?dElUTTlseXduK285UkJGYnkxaHc1a3pzZERyUzJFNzQvR0dSeUZlaHM4OHBN?=
+ =?utf-8?B?QzVyZHRKWm9qMnlZd3VzRHpWY2lPdm9OM0MvbmR0S01DYzdUZStqNktLS1ZW?=
+ =?utf-8?B?UzV0cUlGMHlseVQ3eTBaemFnMnppWXZkMWpzRytqc1FrSmNROWJhUW1zV2Ra?=
+ =?utf-8?B?d1VqS0RaSTd5Tk82WklHenJSMnorV0daTUhuMEZnR3R0ZmRVNU95SDE4Y0x5?=
+ =?utf-8?B?bk1hYS8yTXBld1hZczZ3U0prWDRJYUxZc3NDd1gzSWRPTXRTRFZGdStIQUdY?=
+ =?utf-8?B?bDM2a0hlWnlvL1J2UUEwOWh1MGxyeXJvODI5NXJHUllHL3FhZTA5a1QxQWI2?=
+ =?utf-8?B?U0ZHVUd6cHFPRDJyak1KNnN4TlJuWUx2Zm9nTTVYa3dEU2o0Y3ZXTlc4Q1BE?=
+ =?utf-8?B?aFhGVU4ydEJ6NlRLZmxUVlpiNTNiL2EvaVlsWm9wVUxaZzkxSUYrSGswb2dT?=
+ =?utf-8?B?eHJVUHoyMDNUc1M2a1FZQXpnU3dxbUtXZEU5NWcvNnJHVEQ5Z0dZaUtVbDBS?=
+ =?utf-8?B?UHNTOHRYWkltTmZ1eTdoWWkvZU43blRsL0JiOXRuVlBaUU93NzlFcmhMYktM?=
+ =?utf-8?B?WnF5TWVFVS80b0NUU0R6TkZRdjgrY1hoSU5ZWlY5VjVvZGhqWXpKblp2QU9s?=
+ =?utf-8?B?M3hBT2ZoYmVDNXIvMWxoNmMwQlc3UnVLVElZTkQ1bk9rdk9UekhPY1lCVU9o?=
+ =?utf-8?B?ZStlelNLQUxjUGRXRVZMZE9qam9KMEh0TlNtNDBDOHVqelZuUUtPbFBMYVVK?=
+ =?utf-8?B?NXhBbk9ha096ZTZraUtyTmdiQ28xdEZnUktRNnZPelVWdFFXMk1WZE81SjJD?=
+ =?utf-8?B?RXl2YXNaajVocjJTWWY1emxDN1Ywd1c3b005T25tQzNVUjZaVzIyT3hXdXBo?=
+ =?utf-8?B?ZWhSOU02REM1Tk1GM296N092YWk3WXJReDVvcUlsK3E4YkhhZ2JYNmhzZTNy?=
+ =?utf-8?Q?B1oHBAGC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1787.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2021 19:43:53.8735 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cc208e2-f7b8-4828-7648-08d8b34490b5
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4JMrt8ICZR3yqmC6a3THMP7nLpua/hTP66jZuzW55BdrYMLFF04PJA97q9IpnLHh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2565
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,325 +133,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhan.liu@amd.com, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: multipart/mixed; boundary="===============0430861051=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0430861051==
-Content-Type: multipart/alternative; boundary="000000000000febe3f05b8536f87"
 
---000000000000febe3f05b8536f87
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, Jan 7, 2021 at 7:04 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-
-> On Thu, Jan 7, 2021 at 7:00 PM Mario Kleiner <mario.kleiner.de@gmail.com>
-> wrote:
-> >
-> > On Thu, Jan 7, 2021 at 6:57 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >>
-> >> On Sat, Jan 02, 2021 at 04:31:36PM +0100, Mario Kleiner wrote:
-> >> > On Sat, Jan 2, 2021 at 3:02 PM Bas Nieuwenhuizen
-> >> > <bas@basnieuwenhuizen.nl> wrote:
-> >> > >
-> >> > > With modifiers one can actually have different format_info structs
-> >> > > for the same format, which now matters for AMDGPU since we convert
-> >> > > implicit modifiers to explicit modifiers with multiple planes.
-> >> > >
-> >> > > I checked other drivers and it doesn't look like they end up
-> triggering
-> >> > > this case so I think this is safe to relax.
-> >> > >
-> >> > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> >> > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for
-> converted metadata.")
-> >> > > ---
-> >> > >  drivers/gpu/drm/drm_plane.c | 2 +-
-> >> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >> > >
-> >> > > diff --git a/drivers/gpu/drm/drm_plane.c
-> b/drivers/gpu/drm/drm_plane.c
-> >> > > index e6231947f987..f5085990cfac 100644
-> >> > > --- a/drivers/gpu/drm/drm_plane.c
-> >> > > +++ b/drivers/gpu/drm/drm_plane.c
-> >> > > @@ -1163,7 +1163,7 @@ int drm_mode_page_flip_ioctl(struct
-> drm_device *dev,
-> >> > >         if (ret)
-> >> > >                 goto out;
-> >> > >
-> >> > > -       if (old_fb->format != fb->format) {
-> >> > > +       if (old_fb->format->format != fb->format->format) {
-> >> >
-> >> > This was btw. the original way before Ville made it more strict about
-> >> > 4 years ago, to catch issues related to tiling, and more complex
-> >> > layouts, like the dcc tiling/retiling introduced by your modifier
-> >> > patches. That's why I hope my alternative patch is a good solution for
-> >> > atomic drivers while keeping the strictness for potential legacy
-> >> > drivers.
-> >>
-> >> Yeah this doesn't work in full generality, because hw might need to do a
-> >> full modeset to do a full modeset to reallocate resources (like scanout
-> >> fifo space) if the format changes.
-> >>
-> >> But for atomic drivers that should be caught in ->atomic_check, which
-> >> should result in -EINVAL, so should do the right thing. So it should be
-> >> all good, but imo needs a comment to explain what's going on:
-> >>
-> >>         /*
-> >>          * Only check the FOURCC format code, excluding modifiers. This
-> is
-> >>          * enough for all legacy drivers. Atomic drivers have their own
-> >>          * checks in their ->atomic_check implementation, which will
-> >>          * return -EINVAL if any hw or driver constraint is violated due
-> >>          * to modifier changes.
-> >>          */
-> >>
-> >> Also can you pls cc: intel-gfx to get this vetted by the intel-gfx ci?
-> >>
-> >> With that:
-> >>
-> >> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> >>
-> >
-> > Ah, my "atomic expert", posting simultaneously with myself :). Happy new
-> year. Opinions on my variant, just replied a minute ago?
+On 2021-01-05 5:54 p.m., Bokun Zhang wrote:
+> In the past, we use MMSCH to determine whether a VCN is enabled or not.
+> This is not reliable since after a FLR, MMSCH may report junk data.
 >
-> Full disclosure, Ville wanted to do something similar since forever
-> I'm not a huge fan of removing limitations of legacy ioctls. Worst
-> case we break something, best case no gain in features since why don't
-> you just use atomic. Since this (amdgpu modifiers) broke something we
-> have to fix it, hence I'd go with the more minimal version from Bas
-> here.
+> It is better to use IP discovery data.
 >
+> Change-Id: I8b6c32c34017b20dcaebffdaa78bb07178e9d03c
+> Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 73 +++++++++++++++++----------
+>   1 file changed, 45 insertions(+), 28 deletions(-)
 >
-Fair point. Means though that somebody will have to convert many user-space
-clients, e.g., all OSS Vulkan drivers. And XOrg could not do that, as the
-kernel uabi even blocks use of atomic drmSetClientCap(...ATOMIC...) for any
-process whose taskname starts with 'X', as a workaround for a
-modesetting-ddx with broken atomic implementation. So at least for (pun
-ahead) "X" applications, atomic modesetting is not an option.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> index def583916294..02cac6e33219 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> @@ -27,6 +27,7 @@
+>   #include "amdgpu_pm.h"
+>   #include "soc15.h"
+>   #include "soc15d.h"
+> +#include "soc15_hw_ip.h"
+>   #include "vcn_v2_0.h"
+>   #include "mmsch_v3_0.h"
+>   
+> @@ -60,6 +61,17 @@ static int amdgpu_ucode_id_vcns[] = {
+>   	AMDGPU_UCODE_ID_VCN1
+>   };
+>   
+> +#define VCN_BLOCK_ENCODE_DISABLE_MASK 0x80
+> +#define VCN_BLOCK_DECODE_DISABLE_MASK 0x40
+> +#define VCN_BLOCK_QUEUE_DISABLE_MASK 0xC0
+> +
+> +enum vcn_ring_type {
+> +	VCN_ENCODE_RING,
+> +	VCN_DECODE_RING,
+> +	VCN_UNIFIED_RING,
+> +};
+> +
+> +static bool vcn_v3_0_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type type, uint32_t vcn_instance);
+>   static int vcn_v3_0_start_sriov(struct amdgpu_device *adev);
+>   static void vcn_v3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+>   static void vcn_v3_0_set_enc_ring_funcs(struct amdgpu_device *adev);
+> @@ -311,18 +323,26 @@ static int vcn_v3_0_hw_init(void *handle)
+>   				continue;
+>   
+>   			ring = &adev->vcn.inst[i].ring_dec;
+> -			if (ring->sched.ready) {
+> +			if (vcn_v3_0_is_disabled_vcn(adev, VCN_DECODE_RING, i)) {
+Since this is for SRIOV path only, and this doesn't apply to bare-metal, 
+so please rename the function to something like xxx_sriov instead.
 
-For my use cases, X11/XOrg native is still the only display server capable
-enough to fulfill the needs, although I'm mixing in a bit of
-Vulkan/WSI/DirectDisplay for direct DRM/KMS access to work around some
-limitations, e.g., to get HDR or fp16 support.
+Regards,
 
-But in general your patch should be correct too.
-> -Daniel
->
->
-Thanks for the feedback. I rest my case.
--mario
+Leo
 
 
-> >
-> > thanks,
-> > -mario
-> >
-> >> >
-> >> > -mario
-> >> >
-> >> > >                 DRM_DEBUG_KMS("Page flip is not allowed to change
-> frame buffer format.\n");
-> >> > >                 ret = -EINVAL;
-> >> > >                 goto out;
-> >> > > --
-> >> > > 2.29.2
-> >> > >
-> >>
-> >> --
-> >> Daniel Vetter
-> >> Software Engineer, Intel Corporation
-> >> http://blog.ffwll.ch
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
->
-
---000000000000febe3f05b8536f87
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jan 7, 2021 at 7:04 PM Daniel Vet=
-ter &lt;<a href=3D"mailto:daniel@ffwll.ch">daniel@ffwll.ch</a>&gt; wrote:<b=
-r></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">On Thu, Jan 7, 2021 at 7:00 PM Mario Kleiner &lt;<a href=3D"mail=
-to:mario.kleiner.de@gmail.com" target=3D"_blank">mario.kleiner.de@gmail.com=
-</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Thu, Jan 7, 2021 at 6:57 PM Daniel Vetter &lt;<a href=3D"mailto:dan=
-iel@ffwll.ch" target=3D"_blank">daniel@ffwll.ch</a>&gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; On Sat, Jan 02, 2021 at 04:31:36PM +0100, Mario Kleiner wrote:<br>
-&gt;&gt; &gt; On Sat, Jan 2, 2021 at 3:02 PM Bas Nieuwenhuizen<br>
-&gt;&gt; &gt; &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl" target=3D"_bla=
-nk">bas@basnieuwenhuizen.nl</a>&gt; wrote:<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; With modifiers one can actually have different format_in=
-fo structs<br>
-&gt;&gt; &gt; &gt; for the same format, which now matters for AMDGPU since =
-we convert<br>
-&gt;&gt; &gt; &gt; implicit modifiers to explicit modifiers with multiple p=
-lanes.<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; I checked other drivers and it doesn&#39;t look like the=
-y end up triggering<br>
-&gt;&gt; &gt; &gt; this case so I think this is safe to relax.<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; Signed-off-by: Bas Nieuwenhuizen &lt;<a href=3D"mailto:b=
-as@basnieuwenhuizen.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<b=
-r>
-&gt;&gt; &gt; &gt; Fixes: 816853f9dc40 (&quot;drm/amd/display: Set new form=
-at info for converted metadata.&quot;)<br>
-&gt;&gt; &gt; &gt; ---<br>
-&gt;&gt; &gt; &gt;=C2=A0 drivers/gpu/drm/drm_plane.c | 2 +-<br>
-&gt;&gt; &gt; &gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/d=
-rm/drm_plane.c<br>
-&gt;&gt; &gt; &gt; index e6231947f987..f5085990cfac 100644<br>
-&gt;&gt; &gt; &gt; --- a/drivers/gpu/drm/drm_plane.c<br>
-&gt;&gt; &gt; &gt; +++ b/drivers/gpu/drm/drm_plane.c<br>
-&gt;&gt; &gt; &gt; @@ -1163,7 +1163,7 @@ int drm_mode_page_flip_ioctl(struc=
-t drm_device *dev,<br>
-&gt;&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-&gt;&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0goto out;<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (old_fb-&gt;format !=3D f=
-b-&gt;format) {<br>
-&gt;&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (old_fb-&gt;format-&gt;fo=
-rmat !=3D fb-&gt;format-&gt;format) {<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; This was btw. the original way before Ville made it more stri=
-ct about<br>
-&gt;&gt; &gt; 4 years ago, to catch issues related to tiling, and more comp=
-lex<br>
-&gt;&gt; &gt; layouts, like the dcc tiling/retiling introduced by your modi=
-fier<br>
-&gt;&gt; &gt; patches. That&#39;s why I hope my alternative patch is a good=
- solution for<br>
-&gt;&gt; &gt; atomic drivers while keeping the strictness for potential leg=
-acy<br>
-&gt;&gt; &gt; drivers.<br>
-&gt;&gt;<br>
-&gt;&gt; Yeah this doesn&#39;t work in full generality, because hw might ne=
-ed to do a<br>
-&gt;&gt; full modeset to do a full modeset to reallocate resources (like sc=
-anout<br>
-&gt;&gt; fifo space) if the format changes.<br>
-&gt;&gt;<br>
-&gt;&gt; But for atomic drivers that should be caught in -&gt;atomic_check,=
- which<br>
-&gt;&gt; should result in -EINVAL, so should do the right thing. So it shou=
-ld be<br>
-&gt;&gt; all good, but imo needs a comment to explain what&#39;s going on:<=
-br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Only check the FOURCC format c=
-ode, excluding modifiers. This is<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * enough for all legacy drivers.=
- Atomic drivers have their own<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * checks in their -&gt;atomic_ch=
-eck implementation, which will<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * return -EINVAL if any hw or dr=
-iver constraint is violated due<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * to modifier changes.<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt;&gt;<br>
-&gt;&gt; Also can you pls cc: intel-gfx to get this vetted by the intel-gfx=
- ci?<br>
-&gt;&gt;<br>
-&gt;&gt; With that:<br>
-&gt;&gt;<br>
-&gt;&gt; Reviewed-by: Daniel Vetter &lt;<a href=3D"mailto:daniel.vetter@ffw=
-ll.ch" target=3D"_blank">daniel.vetter@ffwll.ch</a>&gt;<br>
-&gt;&gt;<br>
-&gt;<br>
-&gt; Ah, my &quot;atomic expert&quot;, posting simultaneously with myself :=
-). Happy new year. Opinions on my variant, just replied a minute ago?<br>
-<br>
-Full disclosure, Ville wanted to do something similar since forever<br>
-I&#39;m not a huge fan of removing limitations of legacy ioctls. Worst<br>
-case we break something, best case no gain in features since why don&#39;t<=
-br>
-you just use atomic. Since this (amdgpu modifiers) broke something we<br>
-have to fix it, hence I&#39;d go with the more minimal version from Bas<br>
-here.<br>
-<br></blockquote><div><br></div><div>Fair point. Means though that somebody=
- will have to convert many user-space clients, e.g., all OSS Vulkan drivers=
-. And XOrg could not do that, as the kernel uabi even blocks use of atomic =
-drmSetClientCap(...ATOMIC...) for any process whose taskname starts with &#=
-39;X&#39;, as a workaround for a modesetting-ddx with broken atomic impleme=
-ntation. So at least for (pun ahead) &quot;X&quot; applications, atomic mod=
-esetting is not an option.<br></div><div><br></div><div>For my use cases, X=
-11/XOrg native is still the only display server capable enough to fulfill t=
-he needs, although I&#39;m mixing in a bit of Vulkan/WSI/DirectDisplay for =
-direct DRM/KMS access to work around some limitations, e.g., to get HDR or =
-fp16 support.<br></div><div><br></div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">
-But in general your patch should be correct too.<br>
--Daniel<br>
-<br></blockquote><div><div><br></div><div>Thanks for the feedback. I rest m=
-y case.</div><div>-mario</div>=C2=A0</div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex">
-&gt;<br>
-&gt; thanks,<br>
-&gt; -mario<br>
-&gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; -mario<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0DRM_DEBUG_KMS(&quot;Page flip is not allowed to change frame buffer f=
-ormat.\n&quot;);<br>
-&gt;&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0ret =3D -EINVAL;<br>
-&gt;&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0goto out;<br>
-&gt;&gt; &gt; &gt; --<br>
-&gt;&gt; &gt; &gt; 2.29.2<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt;<br>
-&gt;&gt; --<br>
-&gt;&gt; Daniel Vetter<br>
-&gt;&gt; Software Engineer, Intel Corporation<br>
-&gt;&gt; <a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer" target=3D"_bla=
-nk">http://blog.ffwll.ch</a><br>
-<br>
-<br>
-<br>
--- <br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-<a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer" target=3D"_blank">http:=
-//blog.ffwll.ch</a><br>
-</blockquote></div></div>
-
---000000000000febe3f05b8536f87--
-
---===============0430861051==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +				ring->sched.ready = false;
+> +				dev_info(adev->dev, "ring %s is disabled by hypervisor\n", ring->name);
+> +			} else {
+>   				ring->wptr = 0;
+>   				ring->wptr_old = 0;
+>   				vcn_v3_0_dec_ring_set_wptr(ring);
+> +				ring->sched.ready = true;
+>   			}
+>   
+>   			for (j = 0; j < adev->vcn.num_enc_rings; ++j) {
+>   				ring = &adev->vcn.inst[i].ring_enc[j];
+> -				if (ring->sched.ready) {
+> +				if (vcn_v3_0_is_disabled_vcn(adev, VCN_ENCODE_RING, i)) {
+> +					ring->sched.ready = false;
+> +					dev_info(adev->dev, "ring %s is disabled by hypervisor\n", ring->name);
+> +				} else {
+>   					ring->wptr = 0;
+>   					ring->wptr_old = 0;
+>   					vcn_v3_0_enc_ring_set_wptr(ring);
+> +					ring->sched.ready = true;
+>   				}
+>   			}
+>   		}
+> @@ -1266,6 +1286,29 @@ static int vcn_v3_0_start(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +static bool vcn_v3_0_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type type, uint32_t vcn_instance)
+> +{
+> +	bool ret = false;
+> +
+> +	int major;
+> +	int minor;
+> +	int revision;
+> +
+> +	/* if cannot find IP data, then this VCN does not exist */
+> +	if (amdgpu_discovery_get_ip_version(adev, VCN_HWID, vcn_instance, &major, &minor, &revision) != 0)
+> +		return true;
+> +
+> +	if ((type == VCN_ENCODE_RING) && (revision & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
+> +		ret = true;
+> +	} else if ((type == VCN_DECODE_RING) && (revision & VCN_BLOCK_DECODE_DISABLE_MASK)) {
+> +		ret = true;
+> +	} else if ((type == VCN_UNIFIED_RING) && (revision & VCN_BLOCK_QUEUE_DISABLE_MASK)) {
+> +		ret = true;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+>   {
+>   	int i, j;
+> @@ -1283,8 +1326,6 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+>   	uint32_t table_size;
+>   	uint32_t size, size_dw;
+>   
+> -	bool is_vcn_ready;
+> -
+>   	struct mmsch_v3_0_cmd_direct_write
+>   		direct_wt = { {0} };
+>   	struct mmsch_v3_0_cmd_direct_read_modify_write
+> @@ -1476,30 +1517,6 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+>   		}
+>   	}
+>   
+> -	/* 6, check each VCN's init_status
+> -	 * if it remains as 0, then this VCN is not assigned to current VF
+> -	 * do not start ring for this VCN
+> -	 */
+> -	size = sizeof(struct mmsch_v3_0_init_header);
+> -	table_loc = (uint32_t *)table->cpu_addr;
+> -	memcpy(&header, (void *)table_loc, size);
+> -
+> -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+> -		if (adev->vcn.harvest_config & (1 << i))
+> -			continue;
+> -
+> -		is_vcn_ready = (header.inst[i].init_status == 1);
+> -		if (!is_vcn_ready)
+> -			DRM_INFO("VCN(%d) engine is disabled by hypervisor\n", i);
+> -
+> -		ring = &adev->vcn.inst[i].ring_dec;
+> -		ring->sched.ready = is_vcn_ready;
+> -		for (j = 0; j < adev->vcn.num_enc_rings; ++j) {
+> -			ring = &adev->vcn.inst[i].ring_enc[j];
+> -			ring->sched.ready = is_vcn_ready;
+> -		}
+> -	}
+> -
+>   	return 0;
+>   }
+>   
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0430861051==--
