@@ -2,65 +2,80 @@ Return-Path: <SRS0=yWhT=GL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84C6BC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 16:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D79DC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 16:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A4C6239A1
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 16:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A4C6239A1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 040F8238E8
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 16:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 040F8238E8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6C96E839;
-	Fri,  8 Jan 2021 16:07:11 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B372C6E837
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 16:07:10 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id j20so10103373otq.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 08:07:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Rc87f5rcCCpjuKD9UzipTakrSFwOvXYCMJeaB8uYEFs=;
- b=Zj7vtsigcTGkdoFGJTyED5S0D7tY00PF2LLmHYRmqZdXjLvXrBI/xlZ76GoSJjps18
- 7TQ2d1zNy9BcZTZ6uWfAmDIUjftb4WrcQGUKSoVfHSRYjdVAkmtvxmYU8hbuvG7rv5PF
- BG9s0wpRBQQolgFQmPfFvDXiMblGzLbuiDZnc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB1F6E839;
+	Fri,  8 Jan 2021 16:31:24 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05EF96E839
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 16:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610123481;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hm2iTN4Ch7eQ7rVA/cjFV3xEn4oZYCZuK1hpWr0tCPQ=;
+ b=QJxyeYG8PAV3WepdyRkB44HGe6jWMJzakvJbax59FYdb4hNEkSDqhKHBjABg2slBLYcEHS
+ 1v+3y5bF9yNqXTazsFos97j1DiLWel3QekHpO0rbWkidZqXl/+gufACNGI1QL1IkYzeFkP
+ Itlf8Lqgi7xeoix9Ntg3wUrL74arJt0=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-28-GS2hJAr3PoGruOsioD7gXA-1; Fri, 08 Jan 2021 11:31:19 -0500
+X-MC-Unique: GS2hJAr3PoGruOsioD7gXA-1
+Received: by mail-qt1-f199.google.com with SMTP id h18so8683241qtr.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 08:31:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Rc87f5rcCCpjuKD9UzipTakrSFwOvXYCMJeaB8uYEFs=;
- b=aBbzQhXN8AGlB9xXixW+vTKST2S7iV+ltqUQjX2DO2vv1rj0cEmq1MlB+HXsVPw+QL
- bxHUb0pbhM9qaCLVj0JOL+rYV4sUQbNSvapmY1VAW6a2ZptRL1ihTNxWr5tGj53fO02w
- tslLBsdz9+WV359sPqwKUFvQ0e3D001xde5gbplKf9JuDLaMnvZUIzICVfdz9LTlOzXd
- ydMbbJVaAh2+ANwF/LnfTHRS2S4iIDk8cRwhwBlguRXHuIqMwJSQQvDG7FsTl+Rb/SSg
- +pJ+xySz8VNl/wmfn9VlawXoks/uHzVou+/820SVyDVDbig5ekxotNkgAAsvy8RDu01U
- WvTg==
-X-Gm-Message-State: AOAM532c49xohsiWJ9ph32D3A8/bmdVKz+OEM+PTNPbw9exkJc62WmdY
- nAoODhDrF/qZ1K8B/fcjM7QgdsQfIhFsSV+NlvUCUg==
-X-Google-Smtp-Source: ABdhPJycCpGcqWJUPmSgstMxIYVT6KYz20KQqoKOmH1P+VcKoApiRxZPodagCRld7keCSL9g98154hNSvnVyQNgHnBk=
-X-Received: by 2002:a05:6830:1bef:: with SMTP id
- k15mr2993042otb.303.1610122029943; 
- Fri, 08 Jan 2021 08:07:09 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hm2iTN4Ch7eQ7rVA/cjFV3xEn4oZYCZuK1hpWr0tCPQ=;
+ b=Sig+x6kF0a+9q3xLZ8/2BP/Dig5PGcOLoKRTaDUizJ+iIP0Q6di235/v2pkr5iXqMB
+ slTADpqJhjvoc0KSdyy3BnHFpNlyEFNaDiqGCBqykx44b6wCaqySHiWh8EN0W8LP4DoA
+ Oj/eEukG0KC+LPzKN/1GZjsNsYJpeReZsJYmHvNn1H/iUt9sDzlZ4zOymTnVUl90vXCB
+ u9kZDXNmV9FVcy+aKBGk264qcQy0U8pWTLIJDa/wUE3Fk8/5Gtnf7iVhd0VHR4suS24m
+ Q7+ZE/NO3v0PqrBgkQZS9g8xLAcEXmKgRava5OTQfes3TQB+9xRZ9fLDJlsLSEQ0XQwB
+ JsxQ==
+X-Gm-Message-State: AOAM533pCscXIl1bezYdy0GvwDRieIGZ9pBau9n0t0zsjMHUcQwrVrAH
+ bX5bTeohoKsZfnd3rj/KS3cESUwVSKd8g9e41VbFpGw3Df8gOI793TUBtwHIl+TcF1PDGRD1W8Z
+ O0nudToDtO28WnTtWezi6Yj2HkA==
+X-Received: by 2002:ac8:51d8:: with SMTP id d24mr4135464qtn.73.1610123478678; 
+ Fri, 08 Jan 2021 08:31:18 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxBnGy1jCLvkpt/z1jwaPxBdD90nC52UKT9/YFaMGtjVtSVhqQal7YRrNSavwFt1MBOyKYr2Q==
+X-Received: by 2002:ac8:51d8:: with SMTP id d24mr4135443qtn.73.1610123478342; 
+ Fri, 08 Jan 2021 08:31:18 -0800 (PST)
+Received: from dev.jcline.org ([2605:a601:a63a:4d01:c440:5c61:43ba:350c])
+ by smtp.gmail.com with ESMTPSA id 14sm4989879qkv.25.2021.01.08.08.31.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jan 2021 08:31:17 -0800 (PST)
+From: Jeremy Cline <jcline@redhat.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix out-of-bounds read in
+ kdf_create_vcrat_image_cpu()
+Date: Fri,  8 Jan 2021 11:31:04 -0500
+Message-Id: <20210108163104.411442-1-jcline@redhat.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
- <X/bTFWL3HYVc8LEF@phenom.ffwll.local>
- <6daf9ebc-507e-6e83-04dd-d7c5fc6998d6@amd.com>
- <X/hux3eX8Ywf61h7@phenom.ffwll.local>
- <ed44f9cf-a7fc-f02b-dfd7-26b14310bc79@amd.com>
-In-Reply-To: <ed44f9cf-a7fc-f02b-dfd7-26b14310bc79@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 8 Jan 2021 17:06:58 +0100
-Message-ID: <CAKMK7uF3GHAMuW2EL7TuX6b0TdVpkUB9wG4vOz_oMwCLL9K4BQ@mail.gmail.com>
-Subject: Re: [PATCH 00/35] Add HMM-based SVM memory manager to KFD
-To: Felix Kuehling <felix.kuehling@amd.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jcline@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,217 +87,248 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, "Yang, Philip" <philip.yang@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jeremy Cline <jcline@redhat.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Kent Russell <kent.russell@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 8, 2021 at 4:58 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
->
-> Am 2021-01-08 um 9:40 a.m. schrieb Daniel Vetter:
-> > On Thu, Jan 07, 2021 at 11:25:41AM -0500, Felix Kuehling wrote:
-> >> Am 2021-01-07 um 4:23 a.m. schrieb Daniel Vetter:
-> >>> On Wed, Jan 06, 2021 at 10:00:52PM -0500, Felix Kuehling wrote:
-> >>>> This is the first version of our HMM based shared virtual memory manager
-> >>>> for KFD. There are still a number of known issues that we're working through
-> >>>> (see below). This will likely lead to some pretty significant changes in
-> >>>> MMU notifier handling and locking on the migration code paths. So don't
-> >>>> get hung up on those details yet.
-> >>>>
-> >>>> But I think this is a good time to start getting feedback. We're pretty
-> >>>> confident about the ioctl API, which is both simple and extensible for the
-> >>>> future. (see patches 4,16) The user mode side of the API can be found here:
-> >>>> https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/blob/fxkamd/hmm-wip/src/svm.c
-> >>>>
-> >>>> I'd also like another pair of eyes on how we're interfacing with the GPU VM
-> >>>> code in amdgpu_vm.c (see patches 12,13), retry page fault handling (24,25),
-> >>>> and some retry IRQ handling changes (32).
-> >>>>
-> >>>>
-> >>>> Known issues:
-> >>>> * won't work with IOMMU enabled, we need to dma_map all pages properly
-> >>>> * still working on some race conditions and random bugs
-> >>>> * performance is not great yet
-> >>> Still catching up, but I think there's another one for your list:
-> >>>
-> >>>  * hmm gpu context preempt vs page fault handling. I've had a short
-> >>>    discussion about this one with Christian before the holidays, and also
-> >>>    some private chats with Jerome. It's nasty since no easy fix, much less
-> >>>    a good idea what's the best approach here.
-> >> Do you have a pointer to that discussion or any more details?
-> > Essentially if you're handling an hmm page fault from the gpu, you can
-> > deadlock by calling dma_fence_wait on a (chain of, possibly) other command
-> > submissions or compute contexts with dma_fence_wait. Which deadlocks if
-> > you can't preempt while you have that page fault pending. Two solutions:
-> >
-> > - your hw can (at least for compute ctx) preempt even when a page fault is
-> >   pending
->
-> Our GFXv9 GPUs can do this. GFXv10 cannot.
+KASAN reported a slab-out-of-bounds read of size 1 in
+kdf_create_vcrat_image_cpu().
 
-Uh, why did your hw guys drop this :-/
+This occurs when, for example, when on an x86_64 with a single NUMA node
+because kfd_fill_iolink_info_for_cpu() is a no-op, but afterwards the
+sub_type_hdr->length, which is out-of-bounds, is read and multiplied by
+entries. Fortunately, entries is 0 in this case so the overall
+crat_table->length is still correct.
 
-> > - lots of screaming in trying to come up with an alternate solution. They
-> >   all suck.
->
-> My idea for GFXv10 is to avoid preemption for memory management purposes
-> and rely 100% on page faults instead. That is, if the memory manager
-> needs to prevent GPU access to certain memory, just invalidate the GPU
-> page table entries pointing to that memory. No waiting for fences is
-> necessary, except for the SDMA job that invalidates the PTEs, which runs
-> on a special high-priority queue that should never deadlock. That should
-> prevent the CPU getting involved in deadlocks in kernel mode. But you
-> can still deadlock the GPU in user mode if all compute units get stuck
-> in page faults and can't switch to any useful work any more. So it's
-> possible that we won't be able to use GPU page faults on our GFXv10 GPUs.
+This refactors the helper functions to accept the crat_table directly
+and calculate the table entry pointer based on the current table length.
+This allows us to avoid an out-of-bounds read and hopefully makes the
+pointer arithmetic clearer. It should have no functional change beyond
+removing the out-of-bounds read.
 
-This only works if _everything_ in the system works like this, since
-you're defacto breaking the cross-driver contract. As soon as there's
-some legacy gl workload (userptr) or another driver involved, this
-approach falls apart.
+Fixes: b7b6c38529c9 ("drm/amdkfd: Calculate CPU VCRAT size dynamically (v2)")
+Signed-off-by: Jeremy Cline <jcline@redhat.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 86 +++++++++++++--------------
+ 1 file changed, 40 insertions(+), 46 deletions(-)
 
-I do think it can be rescued with what I call gang scheduling of
-engines: I.e. when a given engine is running a context (or a group of
-engines, depending how your hw works) that can cause a page fault, you
-must flush out all workloads running on the same engine which could
-block a dma_fence (preempt them, or for non-compute stuff, force their
-completion). And the other way round, i.e. before you can run a legacy
-gl workload with a dma_fence on these engines you need to preempt all
-ctxs that could cause page faults and take them at least out of the hw
-scheduler queue.
-
-Just reserving an sdma engine for copy jobs and ptes updates and that
-stuff is necessary, but not sufficient.
-
-Another approach that Jerome suggested is to track the reverse
-dependency graph of all dma_fence somehow and make sure that direct
-reclaim never recurses on an engine you're serving a pagefault for.
-Possible in theory, but in practice I think not feasible to implement
-because way too much work to implement.
-
-Either way it's imo really nasty to come up with a scheme here that
-doesn't fail in some corner, or becomes really nasty with inconsistent
-rules across different drivers and hw :-(
-
-Cheers, Daniel
-
->
-> Regards,
->   Felix
->
-> >
-> > Note that the dma_fence_wait is hard requirement, because we need that for
-> > mmu notifiers and shrinkers, disallowing that would disable dynamic memory
-> > management. Which is the current "ttm is self-limited to 50% of system
-> > memory" limitation Christian is trying to lift. So that's really not
-> > a restriction we can lift, at least not in upstream where we need to also
-> > support old style hardware which doesn't have page fault support and
-> > really has no other option to handle memory management than
-> > dma_fence_wait.
-> >
-> > Thread was here:
-> >
-> > https://lore.kernel.org/dri-devel/CAKMK7uGgoeF8LmFBwWh5mW1k4xWjuUh3hdSFpVH1NBM7K0=edA@mail.gmail.com/
-> >
-> > There's a few ways to resolve this (without having preempt-capable
-> > hardware), but they're all supremely nasty.
-> > -Daniel
-> >
-> >> Thanks,
-> >>   Felix
-> >>
-> >>
-> >>> I'll try to look at this more in-depth when I'm catching up on mails.
-> >>> -Daniel
-> >>>
-> >>>> Alex Sierra (12):
-> >>>>   drm/amdgpu: replace per_device_list by array
-> >>>>   drm/amdkfd: helper to convert gpu id and idx
-> >>>>   drm/amdkfd: add xnack enabled flag to kfd_process
-> >>>>   drm/amdkfd: add ioctl to configure and query xnack retries
-> >>>>   drm/amdkfd: invalidate tables on page retry fault
-> >>>>   drm/amdkfd: page table restore through svm API
-> >>>>   drm/amdkfd: SVM API call to restore page tables
-> >>>>   drm/amdkfd: add svm_bo reference for eviction fence
-> >>>>   drm/amdgpu: add param bit flag to create SVM BOs
-> >>>>   drm/amdkfd: add svm_bo eviction mechanism support
-> >>>>   drm/amdgpu: svm bo enable_signal call condition
-> >>>>   drm/amdgpu: add svm_bo eviction to enable_signal cb
-> >>>>
-> >>>> Philip Yang (23):
-> >>>>   drm/amdkfd: select kernel DEVICE_PRIVATE option
-> >>>>   drm/amdkfd: add svm ioctl API
-> >>>>   drm/amdkfd: Add SVM API support capability bits
-> >>>>   drm/amdkfd: register svm range
-> >>>>   drm/amdkfd: add svm ioctl GET_ATTR op
-> >>>>   drm/amdgpu: add common HMM get pages function
-> >>>>   drm/amdkfd: validate svm range system memory
-> >>>>   drm/amdkfd: register overlap system memory range
-> >>>>   drm/amdkfd: deregister svm range
-> >>>>   drm/amdgpu: export vm update mapping interface
-> >>>>   drm/amdkfd: map svm range to GPUs
-> >>>>   drm/amdkfd: svm range eviction and restore
-> >>>>   drm/amdkfd: register HMM device private zone
-> >>>>   drm/amdkfd: validate vram svm range from TTM
-> >>>>   drm/amdkfd: support xgmi same hive mapping
-> >>>>   drm/amdkfd: copy memory through gart table
-> >>>>   drm/amdkfd: HMM migrate ram to vram
-> >>>>   drm/amdkfd: HMM migrate vram to ram
-> >>>>   drm/amdgpu: reserve fence slot to update page table
-> >>>>   drm/amdgpu: enable retry fault wptr overflow
-> >>>>   drm/amdkfd: refine migration policy with xnack on
-> >>>>   drm/amdkfd: add svm range validate timestamp
-> >>>>   drm/amdkfd: multiple gpu migrate vram to vram
-> >>>>
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |    3 +
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |    4 +-
-> >>>>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |   16 +-
-> >>>>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   13 +-
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |   83 +
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |    7 +
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    5 +
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   90 +-
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   47 +-
-> >>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   10 +
-> >>>>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   32 +-
-> >>>>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   32 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/Kconfig            |    1 +
-> >>>>  drivers/gpu/drm/amd/amdkfd/Makefile           |    4 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  170 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |    8 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  866 ++++++
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |   59 +
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   52 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  200 +-
-> >>>>  .../amd/amdkfd/kfd_process_queue_manager.c    |    6 +-
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 2564 +++++++++++++++++
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  135 +
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |    1 +
-> >>>>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |   10 +-
-> >>>>  include/uapi/linux/kfd_ioctl.h                |  169 +-
-> >>>>  26 files changed, 4296 insertions(+), 291 deletions(-)
-> >>>>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> >>>>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-> >>>>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> >>>>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> >>>>
-> >>>> --
-> >>>> 2.29.2
-> >>>>
-> >>>> _______________________________________________
-> >>>> dri-devel mailing list
-> >>>> dri-devel@lists.freedesktop.org
-> >>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
-
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 8cac497c2c45..e50db2c0f4ee 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -829,21 +829,24 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
+ /* kfd_fill_cu_for_cpu - Fill in Compute info for the given CPU NUMA node
+  *
+  *	@numa_node_id: CPU NUMA node id
+- *	@avail_size: Available size in the memory
+- *	@sub_type_hdr: Memory into which compute info will be filled in
++ *	@avail_size: Available space in bytes at the end of the @crat_table.
++ *	@crat_table: The CRAT table to append the Compute info to;
++ *		on success the table length and total_entries count is updated.
+  *
+  *	Return 0 if successful else return -ve value
+  */
+ static int kfd_fill_cu_for_cpu(int numa_node_id, int *avail_size,
+-				int proximity_domain,
+-				struct crat_subtype_computeunit *sub_type_hdr)
++				struct crat_header *crat_table)
+ {
+ 	const struct cpumask *cpumask;
++	struct crat_subtype_computeunit *sub_type_hdr;
+ 
+ 	*avail_size -= sizeof(struct crat_subtype_computeunit);
+ 	if (*avail_size < 0)
+ 		return -ENOMEM;
+ 
++	sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
++		crat_table->length);
+ 	memset(sub_type_hdr, 0, sizeof(struct crat_subtype_computeunit));
+ 
+ 	/* Fill in subtype header data */
+@@ -855,36 +858,42 @@ static int kfd_fill_cu_for_cpu(int numa_node_id, int *avail_size,
+ 
+ 	/* Fill in CU data */
+ 	sub_type_hdr->flags |= CRAT_CU_FLAGS_CPU_PRESENT;
+-	sub_type_hdr->proximity_domain = proximity_domain;
++	sub_type_hdr->proximity_domain = crat_table->num_domains;
+ 	sub_type_hdr->processor_id_low = kfd_numa_node_to_apic_id(numa_node_id);
+ 	if (sub_type_hdr->processor_id_low == -1)
+ 		return -EINVAL;
+ 
+ 	sub_type_hdr->num_cpu_cores = cpumask_weight(cpumask);
+ 
++	crat_table->length += sub_type_hdr->length;
++	crat_table->total_entries++;
++
+ 	return 0;
+ }
+ 
+ /* kfd_fill_mem_info_for_cpu - Fill in Memory info for the given CPU NUMA node
+  *
+  *	@numa_node_id: CPU NUMA node id
+- *	@avail_size: Available size in the memory
+- *	@sub_type_hdr: Memory into which compute info will be filled in
++ *	@avail_size: Available space in bytes at the end of the @crat_table.
++ *	@crat_table: The CRAT table to append the Memory info to;
++ *		on success the table length and total_entries count is updated.
+  *
+  *	Return 0 if successful else return -ve value
+  */
+ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+-			int proximity_domain,
+-			struct crat_subtype_memory *sub_type_hdr)
++			struct crat_header *crat_table)
+ {
+ 	uint64_t mem_in_bytes = 0;
+ 	pg_data_t *pgdat;
+ 	int zone_type;
++	struct crat_subtype_memory *sub_type_hdr;
+ 
+ 	*avail_size -= sizeof(struct crat_subtype_memory);
+ 	if (*avail_size < 0)
+ 		return -ENOMEM;
+ 
++	sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
++		crat_table->length);
+ 	memset(sub_type_hdr, 0, sizeof(struct crat_subtype_memory));
+ 
+ 	/* Fill in subtype header data */
+@@ -905,27 +914,37 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+ 
+ 	sub_type_hdr->length_low = lower_32_bits(mem_in_bytes);
+ 	sub_type_hdr->length_high = upper_32_bits(mem_in_bytes);
+-	sub_type_hdr->proximity_domain = proximity_domain;
++	sub_type_hdr->proximity_domain = crat_table->num_domains;
++
++	crat_table->length += sub_type_hdr->length;
++	crat_table->total_entries++;
+ 
+ 	return 0;
+ }
+ 
+ #ifdef CONFIG_X86_64
++/* kfd_fill_iolink_info_for_cpu() - Add IO link info to a Virtual CRAT
++ *
++ * @numa_node_id: The NUMA node ID for the CPU; as from for_each_online_node()
++ * @avail_size: Available space in bytes at the end of the @crat_table.
++ * @crat_table: The CRAT table to append the IO link info to; on success the
++ *              table length and total_entries count is updated.
++ *
++ * Return: 0 if successful else return -ve value
++ */
+ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+-				uint32_t *num_entries,
+-				struct crat_subtype_iolink *sub_type_hdr)
++				struct crat_header *crat_table)
+ {
+ 	int nid;
+ 	struct cpuinfo_x86 *c = &cpu_data(0);
+ 	uint8_t link_type;
++	struct crat_subtype_iolink *sub_type_hdr;
+ 
+ 	if (c->x86_vendor == X86_VENDOR_AMD)
+ 		link_type = CRAT_IOLINK_TYPE_HYPERTRANSPORT;
+ 	else
+ 		link_type = CRAT_IOLINK_TYPE_QPI_1_1;
+ 
+-	*num_entries = 0;
+-
+ 	/* Create IO links from this node to other CPU nodes */
+ 	for_each_online_node(nid) {
+ 		if (nid == numa_node_id) /* node itself */
+@@ -935,6 +954,8 @@ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+ 		if (*avail_size < 0)
+ 			return -ENOMEM;
+ 
++		sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
++			crat_table->length);
+ 		memset(sub_type_hdr, 0, sizeof(struct crat_subtype_iolink));
+ 
+ 		/* Fill in subtype header data */
+@@ -947,8 +968,8 @@ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+ 		sub_type_hdr->proximity_domain_to = nid;
+ 		sub_type_hdr->io_interface_type = link_type;
+ 
+-		(*num_entries)++;
+-		sub_type_hdr++;
++		crat_table->length += sub_type_hdr->length;
++		crat_table->total_entries++;
+ 	}
+ 
+ 	return 0;
+@@ -966,12 +987,8 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	struct crat_header *crat_table = (struct crat_header *)pcrat_image;
+ 	struct acpi_table_header *acpi_table;
+ 	acpi_status status;
+-	struct crat_subtype_generic *sub_type_hdr;
+ 	int avail_size = *size;
+ 	int numa_node_id;
+-#ifdef CONFIG_X86_64
+-	uint32_t entries = 0;
+-#endif
+ 	int ret = 0;
+ 
+ 	if (!pcrat_image)
+@@ -1003,48 +1020,25 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	crat_table->total_entries = 0;
+ 	crat_table->num_domains = 0;
+ 
+-	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
+-
+ 	for_each_online_node(numa_node_id) {
+ 		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
+ 			continue;
+ 
+ 		/* Fill in Subtype: Compute Unit */
+-		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
+-			crat_table->num_domains,
+-			(struct crat_subtype_computeunit *)sub_type_hdr);
++		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size, crat_table);
+ 		if (ret < 0)
+ 			return ret;
+-		crat_table->length += sub_type_hdr->length;
+-		crat_table->total_entries++;
+-
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr->length);
+ 
+ 		/* Fill in Subtype: Memory */
+-		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
+-			crat_table->num_domains,
+-			(struct crat_subtype_memory *)sub_type_hdr);
++		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size, crat_table);
+ 		if (ret < 0)
+ 			return ret;
+-		crat_table->length += sub_type_hdr->length;
+-		crat_table->total_entries++;
+-
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr->length);
+ 
+ 		/* Fill in Subtype: IO Link */
+ #ifdef CONFIG_X86_64
+-		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+-				&entries,
+-				(struct crat_subtype_iolink *)sub_type_hdr);
++		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size, crat_table);
+ 		if (ret < 0)
+ 			return ret;
+-		crat_table->length += (sub_type_hdr->length * entries);
+-		crat_table->total_entries += entries;
+-
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-				sub_type_hdr->length * entries);
+ #else
+ 		pr_info("IO link not available for non x86 platforms\n");
+ #endif
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.28.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
