@@ -4,114 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 882BCC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7635CC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:59:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4586A23A9C
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4586A23A9C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3038C23A9C
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3038C23A9C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70346E8F7;
-	Fri,  8 Jan 2021 21:51:24 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D4A6E8D0
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 21:51:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=alKbeOP+t2+wM3Mf1HsA+MRYKhB2fYYkkTIsD2ZvLeTRso4EeYysoCF9A4pCO6b9bFs6qhvlabdxneNmEU/AzfxeGQRqu7L4q8X3SsbvNqZyHr357f5Pdre4aetS5rcAcXtcuFvz2yB6EAnGyLQDb1Iy4ivmvLAgZ8Ud+MZvLNswJGSEg2paKXdGEGxuMgXQTH4NBQyfDdPIySUVga6l4tEOKd7sQirNfeDxKnP9huQwsW+AjGcokebnuwqGfYl1x81l70ZzNaC5LGdEljKaVum+rFeQj03d0m+j0jblLNjKY/q8QQdMo31wAj9ZQpKsfyhMBAYLYm4J9+t4QaTMbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4EczWL0NLh0pC1t0eaadpSaZTz4qRawfJFyEviMr/BM=;
- b=M7y5CMAvehecd2iQRjy52hiwknx5vvQYS/34Kmcw9d1RG5J6imNLVG2yJ1qkWx0npmjNG2DbGcs2/MI4ye1ZvHuplFJWWjfaUMIl2n9W76hznAFTj28eeWJ7AORLnVn2f+9fpBkC5NrlclSuPjrTuqJp9KQYgNAtu+luAjQxD+7/hcxSj6kiRg1B6JE+roqiiZZR8w7UVuUKo2yyvPeUI8uBk457R0fkS0f3/WcnYNFGQxNJocxcGQ6imOikMp1z96rqoGCj/n7ElHWS4n1hEWEPQWtnvegiFaMpksxcPtyvc27zeYe6mLzmYVr7wlnfZnfybSiH0k8DGke/exFAQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4EczWL0NLh0pC1t0eaadpSaZTz4qRawfJFyEviMr/BM=;
- b=WwlWk0yYJOeJiSmhCDphSXkbZJHOKQ8JlkhCcij/SJ6kQlZL3fnmAmz6EseWQW+xzLO8Mim3L+lRE5YDrmpGaclh6lL6R4Kk9/0ZW/xH7Tb029tILAolSGUhbXWM7wm3osGQNpOhaJYTYAjcQwnGY59R8Iy1nZivTexlpW47Uy4=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
- by DM5PR12MB1882.namprd12.prod.outlook.com (2603:10b6:3:112::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.8; Fri, 8 Jan
- 2021 21:51:22 +0000
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540]) by DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540%12]) with mapi id 15.20.3742.009; Fri, 8 Jan 2021
- 21:51:22 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 21/21] drm/amd/display: change SMU repsonse timeout to 2s
-Date: Fri,  8 Jan 2021 16:50:07 -0500
-Message-Id: <20210108215007.851249-22-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
-References: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
-X-Originating-IP: [2607:fea8:56e0:6d60:691c:c3e7:a457:38d0]
-X-ClientProxiedBy: BN6PR19CA0063.namprd19.prod.outlook.com
- (2603:10b6:404:e3::25) To DM5PR12MB1753.namprd12.prod.outlook.com
- (2603:10b6:3:10d::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 083EB6E85B;
+	Fri,  8 Jan 2021 21:59:03 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC796E85B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 21:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610143140;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rY5ZPZc+UpoVk06JLNrDEFfoZnlAUfsw6zwHWZ87dfE=;
+ b=LpwCU7be2zrxz6UPu3uslW09NzPMOBdHdbxdYLAf0LH6vZH56Qksxti4BFyJKH8niVHV3i
+ tiTTgFhXv3ZVTCV35DvkooZ5te24X1dG1kO4zloSFYfTcuIi8WmNK418YiUAKCF95Dtwyi
+ w78gk07ad9ntKW5rg1tQeEB+iH3wi3M=
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-46-i-S2FEeZN2madiEDXDAE9A-1; Fri, 08 Jan 2021 16:58:56 -0500
+X-MC-Unique: i-S2FEeZN2madiEDXDAE9A-1
+Received: by mail-io1-f71.google.com with SMTP id 191so8935195iob.15
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 13:58:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rY5ZPZc+UpoVk06JLNrDEFfoZnlAUfsw6zwHWZ87dfE=;
+ b=Ed11q0EF/haW3YY8oY3zoPINjX80aL/Pm/fdqvidfM0CmIkGXHNgJyTws3QfVHGfoI
+ +TZHeMtIu6+URKwfJopiK68gBphK0FwPgftjfY/4GvX1goRVAVTvDE1PoKdubjrr/3HW
+ 2YUSgPbaZW8jTQO25ooeExysfZPgGRm5urysChKA+ZGdgTB6WB++nCYvPpa5D5fvcGc1
+ ivRA9paLiYtTUPXY7Iuv+/3suqJWShNv2XpqNHU3h0b67efTKrFJ8oVw1UWqMOWvyfTL
+ Uf5AC9dzZYK2Su3HNSDnbxGX8S3wkPNqwAzEJ4H0ZvFIUGaFv/wrDx3NtKfXUMP9510X
+ BzkQ==
+X-Gm-Message-State: AOAM530XUJieCVlFfvc9GBZB9tQkPF1l6/heRNPVo/StTt19vj2W7x3l
+ dzVupufOl5EgzeuUHDRYGPlk3m/S1PMSnHUuYQBr7tayw93sznmK6/SJSGq0o855lGfs6DLJibD
+ U1Hx5cGeYqjzODINv70bQvrIhJQ==
+X-Received: by 2002:a6b:1454:: with SMTP id 81mr7014766iou.96.1610143135590;
+ Fri, 08 Jan 2021 13:58:55 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxcL32QS4piiA/+xZFlxxD2vJ8+gVoEA1QeikN8eAe85m5gz3Phc/CaInN+y9uuwjkvaGhbYw==
+X-Received: by 2002:a6b:1454:: with SMTP id 81mr7014752iou.96.1610143135364;
+ Fri, 08 Jan 2021 13:58:55 -0800 (PST)
+Received: from dev.jcline.org ([2605:a601:a63a:4d01:c440:5c61:43ba:350c])
+ by smtp.gmail.com with ESMTPSA id h18sm5961873ioh.30.2021.01.08.13.58.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jan 2021 13:58:54 -0800 (PST)
+From: Jeremy Cline <jcline@redhat.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH] amdgpu: Avoid sleeping during FPU critical sections
+Date: Fri,  8 Jan 2021 16:58:38 -0500
+Message-Id: <20210108215838.470637-1-jcline@redhat.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:691c:c3e7:a457:38d0)
- by BN6PR19CA0063.namprd19.prod.outlook.com (2603:10b6:404:e3::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
- Transport; Fri, 8 Jan 2021 21:51:21 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8cc49708-ce48-46ff-7714-08d8b41f8a03
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1882:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18827AC05F447E521DF0BCD198AE0@DM5PR12MB1882.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7BgbIhsN5NoesO618A9p0rF1yLs5/3bu7ELWyxyQoDAeQN9BK8e8J7x9NG3M2qr3upVmBDZabqdrlaXJSYpEZy1YBmf5E3uON7yKWgPi1zGXhDGXymeYaBIUlif1082v06YKabX/DoMeYK2nFkwEg6LM3V6JAJzbsBEuwwibQIjLIxh6twB1SmwkZvwpCwoVjwIbU5dtGFbxAnFDezY0XuzCZHAri2MCxyApwFBSm020SWmuUhLOtuPZV1gW26LWvPYpVIsTNeepQFRn+JnlVfw0c68Oe6OJUhBWT3RX+tMZToMwJrCxYBqI0klkIMmVS4bwFHM8Hj0VjDhWtu8JyYymSUEZL/S/Yme63rFtaurCE+MFIVkaHkC83xcb7jzierPXfmA1PGqX8V7UbHGppA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(39860400002)(346002)(376002)(396003)(5660300002)(6512007)(478600001)(86362001)(66476007)(6486002)(4326008)(52116002)(83380400001)(6916009)(66946007)(66556008)(8676002)(1076003)(16526019)(36756003)(2906002)(6666004)(316002)(54906003)(6506007)(186003)(2616005)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?dWBzo3LVO3CfM65Lq5dHNl6L5XI0elirOWH/LZ9QRLJypwOsqXW/IuX9303E?=
- =?us-ascii?Q?rrA468U57o8fPihBofY3XmEbyekM5PQXyfncsr07Rz0tUsZFXvKkPOXMcoSZ?=
- =?us-ascii?Q?uynLoKhhrQSvbgpUTil9FF1KpTx8ueqlBFnbEmV99cjfmUJVaCN2LEOdcp6U?=
- =?us-ascii?Q?bOrCbyRfo9nVFMVMncGqdYUPbf0zTPMsRKlXneHDXmcCUATRIQRnpAjFfkdD?=
- =?us-ascii?Q?B41FoXomXg9gBnj6DxeWfy7f19oL+cOOQIip/UqfUnFsk/NADXbm2ZaLlR3J?=
- =?us-ascii?Q?60TWJKZW6/xES61ADcqGpe7js3J0MPD4hkh4EV1+0HgvKkze3+zxqA4KzIFp?=
- =?us-ascii?Q?yoZB9Y0SSdrquv8krkil1qKxNFtCSunHRt1YWk6Smapj3BXrf0vsq6sCXhTy?=
- =?us-ascii?Q?JH4Ws6X3hvcqzAoNkQ8y9CqDVIRpCruXWqg323dV9MsFHYr1TcWI8Xh6LxIt?=
- =?us-ascii?Q?Ud9v8FDQvdiic+mdnC4VkDRWvAwPjnVFYhIYUBAQIVdwnlG6wm0coxiNnr6g?=
- =?us-ascii?Q?MNLIEFebhqepG696mC0TPsWAxvi5j0+8/eP2jHnDDgVWwcfDvQ5+4kOR7oaw?=
- =?us-ascii?Q?y7HHj0d8Z2Sq+NVGoHAUzobxRtvIBA1257EtnGEpkgHfUNsktmkQGt9Ox3fl?=
- =?us-ascii?Q?b0w3cTPKQxwTNA0f44sj9YLZfrwNXRtC4OTdZ6qvI5koeVeFaaVIAuSgXIGF?=
- =?us-ascii?Q?cZodvrwgPHuM45xYzK+UG92QXXmZrlCnDVFf5/HJR6g5lDl4O3+bCgt/gObG?=
- =?us-ascii?Q?1qPEgkRXmK0o5+yBqYOZDyPyLAVHT6DOnaGFhApMF56ov6yu9WOjVYy8HYnw?=
- =?us-ascii?Q?T5L4nnND/TACtkIBvJWUOkRGM/IsNpPIeaIfAZKy8R6sLKKjr0cGiGDPR36F?=
- =?us-ascii?Q?NBfWI2O8hxu2kUxxtU6mKBzDrtP5LwyqIxLQ7T/a1ZgroEVdhLNHwb5xzzFg?=
- =?us-ascii?Q?5P0iGuta64RxRFN5bzH2hwfLsYrJ3r/thsz8ZCq9koUGw6XWR4hqTQE9itq8?=
- =?us-ascii?Q?/PSBKj4qh8lxEobPftNcjWiAwQ67BD+5dvrH3U2eLc5geDQec0+K46JLKSX+?=
- =?us-ascii?Q?SIEh/vEy?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 21:51:22.3534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cc49708-ce48-46ff-7714-08d8b41f8a03
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xhs31uxPqIOcYWgbb29jC2w8N6WFEYEVa7QMCaHl4comh5I4IQbeAIaRNz92lGtqXuH0yAtKegObzh0YSnd2lQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1882
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jcline@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,46 +85,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Chris Park <Chris.Park@amd.com>,
- Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jeremy Cline <jcline@redhat.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+dcn20_resource_construct() includes a number of kzalloc(GFP_KERNEL)
+calls which can sleep, but kernel_fpu_begin() disables preemption and
+sleeping in this context is invalid.
 
-[why]
-driver has sent PMFW VBIOSSMC_MSG_SetDisplayIdleOptimizations while SMU
-still processing a previous VBIOSSMC_MSG_SetHardMinDcfclkByFreq message.
+The only places the FPU appears to be required is in the
+init_soc_bounding_box() function and when calculating the
+{min,max}_fill_clk_mhz. Narrow the scope to just these two parts to
+avoid sleeping while using the FPU.
 
-[how]
-same as RN, change the time out to2s.
-
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
-Reviewed-by: Chris Park <Chris.Park@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Fixes: 7a8a3430be15 ("amdgpu: Wrap FPU dependent functions in dc20")
+Cc: Timothy Pearson <tpearson@raptorengineering.com>
+Signed-off-by: Jeremy Cline <jcline@redhat.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
-index cfa8e02cf103..68942bbc7472 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
-@@ -103,7 +103,7 @@ int dcn301_smu_send_msg_with_param(
- 	/* Trigger the message transaction by writing the message ID */
- 	REG_WRITE(MP1_SMN_C2PMSG_67, msg_id);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index e04ecf0fc0db..a4fa5bf016c1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -3622,6 +3622,7 @@ static bool init_soc_bounding_box(struct dc *dc,
+ 	if (bb && ASICREV_IS_NAVI12_P(dc->ctx->asic_id.hw_internal_rev)) {
+ 		int i;
  
--	result = dcn301_smu_wait_for_response(clk_mgr, 10, 1000);
-+	result = dcn301_smu_wait_for_response(clk_mgr, 10, 200000);
++		DC_FP_START();
+ 		dcn2_0_nv12_soc.sr_exit_time_us =
+ 				fixed16_to_double_to_cpu(bb->sr_exit_time_us);
+ 		dcn2_0_nv12_soc.sr_enter_plus_exit_time_us =
+@@ -3721,6 +3722,7 @@ static bool init_soc_bounding_box(struct dc *dc,
+ 			dcn2_0_nv12_soc.clock_limits[i].dram_speed_mts =
+ 					fixed16_to_double_to_cpu(bb->clock_limits[i].dram_speed_mts);
+ 		}
++		DC_FP_END();
+ 	}
  
- 	ASSERT(result == VBIOSSMC_Result_OK);
+ 	if (pool->base.pp_smu) {
+@@ -3777,8 +3779,6 @@ static bool dcn20_resource_construct(
+ 	enum dml_project dml_project_version =
+ 			get_dml_project_version(ctx->asic_id.hw_internal_rev);
  
+-	DC_FP_START();
+-
+ 	ctx->dc_bios->regs = &bios_regs;
+ 	pool->base.funcs = &dcn20_res_pool_funcs;
+ 
+@@ -3959,8 +3959,10 @@ static bool dcn20_resource_construct(
+ 				ranges.reader_wm_sets[i].wm_inst = i;
+ 				ranges.reader_wm_sets[i].min_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MIN;
+ 				ranges.reader_wm_sets[i].max_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
++				DC_FP_START();
+ 				ranges.reader_wm_sets[i].min_fill_clk_mhz = (i > 0) ? (loaded_bb->clock_limits[i - 1].dram_speed_mts / 16) + 1 : 0;
+ 				ranges.reader_wm_sets[i].max_fill_clk_mhz = loaded_bb->clock_limits[i].dram_speed_mts / 16;
++				DC_FP_END();
+ 
+ 				ranges.num_reader_wm_sets = i + 1;
+ 			}
+@@ -4125,12 +4127,10 @@ static bool dcn20_resource_construct(
+ 		pool->base.oem_device = NULL;
+ 	}
+ 
+-	DC_FP_END();
+ 	return true;
+ 
+ create_fail:
+ 
+-	DC_FP_END();
+ 	dcn20_resource_destruct(pool);
+ 
+ 	return false;
 -- 
-2.25.1
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
