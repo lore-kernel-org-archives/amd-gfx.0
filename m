@@ -2,59 +2,61 @@ Return-Path: <SRS0=yWhT=GL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0277CC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:34:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A53C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 04:22:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90FCF23447
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:34:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90FCF23447
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 44EBE2075A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 04:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44EBE2075A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB57E6E5C1;
-	Fri,  8 Jan 2021 03:34:43 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A98F89AB2;
- Fri,  8 Jan 2021 01:25:58 +0000 (UTC)
-IronPort-SDR: qJ0/s6Vwr11mS2WDP73KJnIGXLvNyL/aMzZ4/Ql/vmbZywXJQwGgMplAqHHJiUX/kZYdBsuoSD
- rSSgUAPlQpPQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="157303847"
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="157303847"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 17:25:54 -0800
-IronPort-SDR: dpNH9qSYuYIBw62EWL+TLzSeYmqNw2b9mioG7lQv+Kfdfa2UKb2ixWdcUja7k+ONJ1aKsc9DoS
- wiutIdZOMLaQ==
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="379933498"
-Received: from shao2-debian.sh.intel.com (HELO [10.239.13.117])
- ([10.239.13.117])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 17:25:51 -0800
-Subject: Re: [kbuild-all] Re: [PATCH v3 8/8] drm: Upcast struct drm_device.dev
- to struct pci_device; replace pdev
-To: Thomas Zimmermann <tzimmermann@suse.de>, kernel test robot
- <lkp@intel.com>, airlied@linux.ie, daniel@ffwll.ch,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com
-References: <20210107080748.4768-9-tzimmermann@suse.de>
- <202101071706.J19283ri-lkp@intel.com>
- <3c496f96-5efa-41d2-5911-1495619fab68@suse.de>
-From: Rong Chen <rong.a.chen@intel.com>
-Message-ID: <7486aeef-9fa4-91cb-8e95-383990cf3567@intel.com>
-Date: Fri, 8 Jan 2021 09:25:01 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDDB96E5C1;
+	Fri,  8 Jan 2021 04:22:43 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3C76E5C1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 04:22:43 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id j12so8530380ota.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Jan 2021 20:22:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=+qGin/mouuTch80f6s1C4bbREeYiH+VskoOFwfQsjRk=;
+ b=ci3U5IUSBS/SNtQeoCnJwa1nemPx47sEFMBzATbTJ9mnVEn5OHu47zGgJhCCom8lxQ
+ AZ1SXf4QpL2TnzQGHv0AbOazDEIjPRJB8fYk/04asBdqOo0/VDSlYNTeA7J31xPoNPek
+ XY041lWnzQMdzUA5sq4tSV53bZgSKfqmMnREfHSjE0GRgGA31taq+Hy0Nc2eMqeNkjlU
+ DZspqOr6Qzf6OmCvubAyYAE3QMhxZgGCjYYGv2BpzQG3f8esFMtxOF4CoxSQln21ewz5
+ P5UlHgQbzKI0IbdaBOkJGv4/sEsl1tb+LMUMO0Mil3lexqWReLJAwbHHX/wy6pw8nJRa
+ EGvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=+qGin/mouuTch80f6s1C4bbREeYiH+VskoOFwfQsjRk=;
+ b=im+qO8i/mFwEGkj+2qPC5tHX4Yy6JWC9eZWQ+u2liEC+SV2/nM2EQxRJP6GXr2QSBL
+ 3nIZWF3pMwKTvUQ8lQGkxH4Jp43/ff7BnEP9vFGexy2u0r6YJthu13UDC/CjiGzgXclS
+ o+jxxT+QUV7PLcoyu7CclRSA/BiDs5WUBgkCCl1OwAwPjk7jYL1DiK7WZeFf98GcJ6oJ
+ J9lEq5tSTNf92Uksvj4oLr0VzjAL7GoJhUdamVXI51SYvvDwZJXGVTeLdhesdStKDN7S
+ /GXllttt/1PmJdJnU58ChVBWU0DlJuY4Y4e5KedgG+Tx3+uEqM0ZOTIhk9STbiyhYdmy
+ nWIw==
+X-Gm-Message-State: AOAM530YbBQAiwy9iU2nxYqxvbqbbX7hOWayHT0eFajHzGsrfIhzARar
+ Zf9v12imgqM47yQPjwXaB9Ila29UqmXA3ggDiCmaEUQbbOw6QQ==
+X-Google-Smtp-Source: ABdhPJx6uiEzq7DSd3x7MNuq7eJepep3AogF4PaiJpV3VJAg4/10ROl8VuZq5Egl1eXPKJDHT5shkm4Kv8pr07CXrHU=
+X-Received: by 2002:a05:6830:1c2d:: with SMTP id
+ f13mr1314788ote.365.1610079762460; 
+ Thu, 07 Jan 2021 20:22:42 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <3c496f96-5efa-41d2-5911-1495619fab68@suse.de>
-Content-Language: en-US
-X-Mailman-Approved-At: Fri, 08 Jan 2021 03:34:43 +0000
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Thu, 7 Jan 2021 23:20:56 -0500
+Message-ID: <CAPEhTTFa_c3L8gpxT3=HOrQi9mQxhH2GaGo9_mfdc8gKpV2MXA@mail.gmail.com>
+Subject: AMDGPU VCE 1: some info needed
+To: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,417 +68,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Sam Ravnborg <sam@ravnborg.org>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
-
-Thanks for the feedback, do you mean the patch was applied to a wrong base?
-
-Best Regards,
-Rong Chen
-
-On 1/7/21 6:45 PM, Thomas Zimmermann wrote:
-> AFAICT these are false positives. The instances have been fixed already.
->
-> Am 07.01.21 um 10:45 schrieb kernel test robot:
->> Hi Thomas,
->>
->> I love your patch! Yet something to improve:
->>
->> [auto build test ERROR on drm-tip/drm-tip]
->> [cannot apply to drm-intel/for-linux-next linus/master v5.11-rc2 =
-
->> next-20210104]
->> [If your patch is applied to the wrong git tree, kindly drop us a note.
->> And when submitting patch, we suggest to use '--base' as documented in
->> https://git-scm.com/docs/git-format-patch]
->>
->> url: =
-
->> https://github.com/0day-ci/linux/commits/Thomas-Zimmermann/drm-Move-stru=
-ct-drm_device-pdev-to-legacy/20210107-161007
->> base:=A0=A0 git://anongit.freedesktop.org/drm/drm-tip drm-tip
->> config: x86_64-randconfig-s021-20210107 (attached as .config)
->> compiler: gcc-9 (Debian 9.3.0-15) 9.3.0
->> reproduce:
->> =A0=A0=A0=A0=A0=A0=A0=A0 # apt-get install sparse
->> =A0=A0=A0=A0=A0=A0=A0=A0 # sparse version: v0.6.3-208-g46a52ca4-dirty
->> =A0=A0=A0=A0=A0=A0=A0=A0 # =
-
->> https://github.com/0day-ci/linux/commit/380912f7b62c23322562c40e19efd7ad=
-84d57e9c
->> =A0=A0=A0=A0=A0=A0=A0=A0 git remote add linux-review https://github.com/=
-0day-ci/linux
->> =A0=A0=A0=A0=A0=A0=A0=A0 git fetch --no-tags linux-review =
-
->> Thomas-Zimmermann/drm-Move-struct-drm_device-pdev-to-legacy/20210107-161=
-007
->> =A0=A0=A0=A0=A0=A0=A0=A0 git checkout 380912f7b62c23322562c40e19efd7ad84=
-d57e9c
->> =A0=A0=A0=A0=A0=A0=A0=A0 # save the attached .config to linux build tree
->> =A0=A0=A0=A0=A0=A0=A0=A0 make W=3D1 C=3D1 CF=3D'-fdiagnostic-prefix -D__=
-CHECK_ENDIAN__' =
-
->> ARCH=3Dx86_64
->>
->> If you fix the issue, kindly add following tag as appropriate
->> Reported-by: kernel test robot <lkp@intel.com>
->>
->> All errors (new ones prefixed by >>):
->>
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_device.c: In function =
-
->> 'oaktrail_chip_setup':
->>>> drivers/gpu/drm/gma500/oaktrail_device.c:509:26: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 509 |=A0 if (pci_enable_msi(dev->pdev))
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> -- =
-
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds.c: In function =
-
->> 'oaktrail_lvds_set_power':
->>>> drivers/gpu/drm/gma500/oaktrail_lvds.c:63:25: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0=A0 63 |=A0=A0 pm_request_idle(&dev->pdev->dev);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> -- =
-
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function 'get_c=
-lock':
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:69:11: warning: =
-
->> variable 'tmp' set but not used [-Wunused-but-set-variable]
->> =A0=A0=A0=A0=A0=A0 69 |=A0 u32 val, tmp;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function 'get_d=
-ata':
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:83:11: warning: =
-
->> variable 'tmp' set but not used [-Wunused-but-set-variable]
->> =A0=A0=A0=A0=A0=A0 83 |=A0 u32 val, tmp;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~
->> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function =
-
->> 'oaktrail_lvds_i2c_init':
->>>> drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:148:35: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 148 |=A0 chan->adapter.dev.parent =3D &dev->pdev->dev;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> -- =
-
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function 'vmw_driver_l=
-oad':
->>>> drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:661:22: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 661 |=A0 pci_set_master(dev->pdev);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 In file included from drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:31:
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:690:47: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 690 |=A0 dev_priv->io_start =3D pci_resource_start(dev->=
-pdev, 0);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
-
->> 'pci_resource_start'
->> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
-
->> ((dev)->resource[(bar)].start)
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
- ^~~
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:691:49: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 691 |=A0 dev_priv->vram_start =3D pci_resource_start(dev=
-->pdev, 1);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
-
->> 'pci_resource_start'
->> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
-
->> ((dev)->resource[(bar)].start)
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
- ^~~
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:692:49: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 692 |=A0 dev_priv->mmio_start =3D pci_resource_start(dev=
-->pdev, 2);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
-
->> 'pci_resource_start'
->> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
-
->> ((dev)->resource[(bar)].start)
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
- ^~~
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:842:33: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 842 |=A0 ret =3D pci_request_regions(dev->pdev, "vmwgfx =
-probe");
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:851:33: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 851 |=A0=A0 ret =3D pci_request_region(dev->pdev, 2, "vm=
-wgfx stealth =
-
->> probe");
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:859:35: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 859 |=A0=A0 ret =3D vmw_irq_install(dev, dev->pdev->irq);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1005:27: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1005 |=A0=A0 pci_release_region(dev->pdev, 2);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1007:28: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1007 |=A0=A0 pci_release_regions(dev->pdev);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function =
-
->> 'vmw_driver_unload':
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1056:27: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1056 |=A0=A0 pci_release_region(dev->pdev, 2);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1058:28: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1058 |=A0=A0 pci_release_regions(dev->pdev);
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function 'vmw_probe':
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1522:7: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1522 |=A0 dev->pdev =3D pdev;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0 dev
->> -- =
-
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_fb.c: In function 'vmw_fb_init':
->>>> drivers/gpu/drm/vmwgfx/vmwgfx_fb.c:641:42: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0=A0 641 |=A0 struct device *device =3D &vmw_priv->dev->pdev-=
->dev;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 dev
->> =A0=A0=A0 In file included from drivers/gpu/drm/vmwgfx/vmwgfx_fb.c:35:
->> =A0=A0=A0 At top level:
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_kms.h:256:23: warning: =
-
->> 'vmw_cursor_plane_formats' defined but not used =
-
->> [-Wunused-const-variable=3D]
->> =A0=A0=A0=A0=A0 256 | static const uint32_t vmw_cursor_plane_formats[] =
-=3D {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~~~~~~~~~~~~~~~~~~~~~
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_kms.h:248:23: warning: =
-
->> 'vmw_primary_plane_formats' defined but not used =
-
->> [-Wunused-const-variable=3D]
->> =A0=A0=A0=A0=A0 248 | static const uint32_t vmw_primary_plane_formats[] =
-=3D {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~
->> -- =
-
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
-
->> 'vmw_cmdbuf_set_pool_size':
->>>> drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1233:48: error: 'struct =
-
->>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1233 |=A0 man->map =3D dma_alloc_coherent(&dev_priv->dev->p=
-dev->dev, =
-
->> size,
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
-
->> 'vmw_cmdbuf_man_create':
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1316:28: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1316 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &dev_priv->dev->pde=
-v->dev,
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1325:22: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1325 |=A0=A0=A0=A0=A0 &dev_priv->dev->pdev->dev,
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 dev
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
-
->> 'vmw_cmdbuf_remove_pool':
->> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1390:42: error: 'struct =
-
->> drm_device' has no member named 'pdev'; did you mean 'dev'?
->> =A0=A0=A0=A0 1390 | dma_free_coherent(&man->dev_priv->dev->pdev->dev,
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 ^~~~
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 dev
->>
->>
->> vim +509 drivers/gpu/drm/gma500/oaktrail_device.c
->>
->> 1b082ccf5901108 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-03=A0 503
->> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 504=
-=A0 static int =
-
->> oaktrail_chip_setup(struct drm_device *dev)
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 505=
-=A0 {
->> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 506=
-=A0=A0=A0=A0=A0 struct =
-
->> drm_psb_private *dev_priv =3D dev->dev_private;
->> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 507=
-=A0=A0=A0=A0=A0 int ret;
->> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 508
->> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11 @509=
-=A0=A0=A0=A0=A0 if =
-
->> (pci_enable_msi(dev->pdev))
->> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 510=
- dev_warn(dev->dev, =
-
->> "Enabling MSI failed!\n");
->> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 511
->> 8512e0748729a49 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 512=
- dev_priv->regmap =3D =
-
->> oaktrail_regmap;
->> 8512e0748729a49 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 513
->> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 514=
-=A0=A0=A0=A0=A0 ret =3D =
-
->> mid_chip_setup(dev);
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 515=
-=A0=A0=A0=A0=A0 if (ret < 0)
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 516=
- return ret;
->> 4086b1e2b19729e Kirill A. Shutemov 2012-05-03=A0 517=A0=A0=A0=A0=A0 if =
-
->> (!dev_priv->has_gct) {
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 518=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 /* Now =
-
->> pull the BIOS data */
->> d839ede47a56ff5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-03=A0 519 =
-
->> psb_intel_opregion_init(dev);
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 520 =
-
->> psb_intel_init_bios(dev);
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 521=
-=A0=A0=A0=A0=A0 }
->> 6528c897966c7d5 Patrik Jakobsson=A0=A0 2013-11-07=A0 522 =
-
->> gma_intel_setup_gmbus(dev);
->> 5f503148efdda26 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-03=A0 523 =
-
->> oaktrail_hdmi_setup(dev);
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 524=
-=A0=A0=A0=A0=A0 return 0;
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 525=
-=A0 }
->> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 526
->>
->> ---
->> 0-DAY CI Kernel Test Service, Intel Corporation
->> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
->>
->
->
-> _______________________________________________
-> kbuild-all mailing list -- kbuild-all@lists.01.org
-> To unsubscribe send an email to kbuild-all-leave@lists.01.org
-
+Hi there,
+
+Some of you may remember I was working on porting VCE 1 from Radeon to
+AMDGPU a few years ago... about 3 and a half years. I hadn't had time
+to work on it until last Holidays. But why do I persist in this work?
+Because GCN 1st gen was still used in some GPU produced 4 years ago
+(Radeon 520 and just before R5 and R7 in the entry level).
+
+I'm pretty happy with where the code is sitting now, however I have
+some questions.
+
+1- should the firmware be validated like it was under Radeon and as it
+is done for the newly ported UVD 3.1 code? This would mean having to
+work with keyselect, isn't it?
+
+2- last time I worked on VCE 1.0, Christian was saying that it was
+possible a new VCE firmware could be provided for AMDGPU. Then, it
+wasn't that clear, GCN 1.0 (SI) being in trouble and it was considered
+to strip it from AMDGPU. And a few months ago, UVD and DC were added
+for SI to AMDGPU and a new UVD firmware was released (yeah!). So, is
+it possible to have a new VCE firmware? I produced an "updated" tahiti
+VCE file where a header is added (script available on my account on
+GitHub). Still, if this can be useful, I'd prefer an official
+firmware.
+
+3- is there any documentation about VCE 1.0 that would help me
+complete this work?
+3.1- Some variables that were previously defined are not available
+under sid.c, vce_v1_0_d.h, vce_v1_0_sh_mask.h and others. Since the
+new values (mostly in the range of 0x8xxx) are completely different
+from the ones defined under Radeon (in the range of 0x2xxxx), I'd like
+to be sure to use the good ones. I would assume the masks and shifts
+are still valid though.
+
+3.2- Some statuses are undefined, sometimes magic values appear here
+and there without being ever defined or documented (status 0x337f
+anyone?), even under CIK or they don't seem to be easily portable from
+other VCE versions. Having a name for a value is really helpful
+without an official documentation, when the code is supposed to be
+self-documented. I've been able to identify some of them by looking at
+variables used under Radeon or under AMDGPU's UVD 3.1. Interestingly,
+some variables were previously defined under Radeon, but were left
+aside in AMDGPU...
+
+3.3- Being able to know how to properly set/reset which part, in what
+order, etc.
+
+4- Any input about 40 bit address limitation on VCE 1.0 and how to
+handle it if it applies?
+
+5- Any chance to have some code reviewed even if it still doesn't work
+if I send it on this list?
+
+6- I have some patches on the side to help document the code and
+define variables (even for Radeon), a few typos fixed, etc. Should I
+send them on this list?
+
+Cheers
+
+Alexandre Demers
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
