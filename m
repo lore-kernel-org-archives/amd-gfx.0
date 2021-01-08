@@ -2,75 +2,113 @@ Return-Path: <SRS0=yWhT=GL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DA8AC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 08:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACC21C4332E
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 08:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 981CB23435
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 08:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 981CB23435
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6D5E32226A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 08:55:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D5E32226A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E196A6E7D3;
-	Fri,  8 Jan 2021 08:11:22 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2D4B6E7D3
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 08:11:21 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id w5so8049031wrm.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 00:11:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=rRG6a4AIT44rxqdduD/czYsc+caHHBs2lWy2O7YahqI=;
- b=owl9qqo9rA20y0aKWX3gbjWX+VzqRNDKDwtUwuBIaWQwbqOmorlrbooAqyDDn2gctm
- D5wWbjvy/U7n/puBJrLkNlOK9eDHZaO/b7Zz4sIEY/IKNt3nK0+B+mKM1Jyp4Bwj0m1H
- 6ZkJlLhHSziFTqxkYBV66T+ob5tqSIQCQqDvp0CrfCpMyioo+YuvgVZvCq+ax3tkDL3z
- NHucM/emGxdIgK75tqzr7DEbTYUyAUR9VW70lCQhh01CUMwR8SqQe/Hyvk99EGti51dK
- lYm4Uu0iNo8I32C+aAxKUs66pCJQjgbR7uS6ptx0pvBKPUdek2O05rio/CzyG7D+jthV
- OE9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=rRG6a4AIT44rxqdduD/czYsc+caHHBs2lWy2O7YahqI=;
- b=SCzrwPP0U43WeSIoUwC+8Z/vKhJn35GyjAnoFsI8zXGKSHkiUr6oKwqy03ELQQlRrc
- cSYdVNx3fgVi5Q2XPfsvRJJj50CD20GIHFB3TdjV4PQq+ik+O41LWEKK1lDULl28JXCL
- DoBj67MfsQ6n3g5YKSHwfal7Ku0u5xqTPMUjw4HSSOcGDiFYz22wnoJf52MqgqeJiSL4
- vxTNIg8Uy9vfuE7BRQJlGBQ/6WyPvR5XLST/9BjFzwWVsT1lsuEkOkNipXd6lDpRDQQ0
- 7P0zFCC2I5vg7SDAj0Z9GpJrNuFYjThpf9McMEWYff6ibY+PNROewRqbA59rlnCSvmWQ
- QbhA==
-X-Gm-Message-State: AOAM531WPqnxmIPK8aoH2OK/cDzSmDhnEM12dWEcwQq64qWB1UBJjw/R
- c7s9QbHeI7KZr9R8MXhYtVY=
-X-Google-Smtp-Source: ABdhPJyCww1vtas1oljupQVD1ODINj2sfpIbH1g6vwPY1j4vrt76uSnpgAvRFoD2B9rKNogXfF6feA==
-X-Received: by 2002:adf:c5d3:: with SMTP id v19mr2358907wrg.365.1610093480427; 
- Fri, 08 Jan 2021 00:11:20 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id a62sm11203585wmf.7.2021.01.08.00.11.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Jan 2021 00:11:19 -0800 (PST)
-Subject: Re: AMDGPU VCE 1: some info needed
-To: Alexandre Demers <alexandre.f.demers@gmail.com>,
- Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>
-References: <CAPEhTTFa_c3L8gpxT3=HOrQi9mQxhH2GaGo9_mfdc8gKpV2MXA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d06c8a25-d9db-3a96-064f-964382de73a6@gmail.com>
-Date: Fri, 8 Jan 2021 09:11:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E196E7D9;
+	Fri,  8 Jan 2021 08:55:31 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F196E7D9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 08:55:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M+wSUGMLOzY/VHYpQFUTIta52dOx7UVHLgh7tLjMuNJ+er+Ec5nVYzZhw3T7YQ2nJVdGtmdcJ1nHpI7eTc5GgYRkCDXyjQ2zYrVEyMBWAKLOPJdxncdG+lrNfThMXGGT7weINvT4f7GRIa8pEZaQH4ikWMCjxZa4Ot3x8QagfvMMYxYiqPRhxRP1fMzRhVNxryP0yq1p4e+5DxuIsoAe0kcElwLA+CUJnEX+5vinSyIHhbhDcf/eAdvkfYq7X8tDoLdNaT7fr8nesXlU35oXpJeweMh3jQOnIhcuVNVKSaRFR5/xuzwP4RjssDTbV9z0T0aXfX6t2OiiiCvFxVHywQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IlrRYeM1VEDKEYB5vCrME61L3MwviEvi7+eEXbV2IM0=;
+ b=mi0d82XhPZCr6gjhHqFFtRP/hjGyRV+IvSo7gnPMwJEys9MzkWAWlBf14k5TGjsj87PDygawhl8hKC+8j3+LFsZYItmrzY9RFPva1/j4EeOEonlLDXGwlXrtdNT4Spb1kpjeCk/MPVlEJOfRonsf20wIny5VLE1gaZ9r+P/ZDyoRXMfBMdhq6f1wfKaGOSRG+mw8XNtO1miY71iXYmj/7mgqmjCYpDEyqk0k0wFw1HzzSWVgABs/7Lo0C70fQawbmHQxI9B2D0tG1hWtIF5S4j61Sb9hU95S0DDiNbgZeWfQh9TF/ZQqJUuXBZ82ny00FwkoxjQnISfjQ9Xvv/NHVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IlrRYeM1VEDKEYB5vCrME61L3MwviEvi7+eEXbV2IM0=;
+ b=ytPf5vvsbS1eZERwa9XTRU+giD4xcMji4b9A9JtwBjWoNGmn05XvxLwLaDUI2y665QULpIOTMWG3ahOveGyDboXHicHCRAFHMxdkEeoYMcKgs0Jlq/prYUMI+THGDqB8+11X/GeeOvNdA3hh+kmX5/rV2cVOlFOWGXo088a6Xfo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MW2PR12MB2458.namprd12.prod.outlook.com (2603:10b6:907:8::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.20; Fri, 8 Jan
+ 2021 08:55:29 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3742.009; Fri, 8 Jan 2021
+ 08:55:29 +0000
+From: Huang Rui <ray.huang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/7] implement the processor fine grain feature for vangogh
+Date: Fri,  8 Jan 2021 16:55:00 +0800
+Message-Id: <20210108085507.1164588-1-ray.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2PR02CA0162.apcprd02.prod.outlook.com
+ (2603:1096:201:1f::22) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
-In-Reply-To: <CAPEhTTFa_c3L8gpxT3=HOrQi9mQxhH2GaGo9_mfdc8gKpV2MXA@mail.gmail.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd.amd.com (180.167.199.189) by
+ HK2PR02CA0162.apcprd02.prod.outlook.com (2603:1096:201:1f::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3742.6 via Frontend Transport; Fri, 8 Jan 2021 08:55:27 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4532adbe-85c0-497c-ec9c-08d8b3b32649
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2458:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24582D217944A160C4695D66ECAE0@MW2PR12MB2458.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: l6wq8wgUXt12yfmcJuFDFxodlzKP4sf2Emcr8w/gxclW5GFRPwlTFlynzlrGW16j/X2Lrmu9PJMivWxC23QNwDyd2CVFPhtwf57ofLvYVOriXW79Wz3W1A1bXWKjxnZ1ramXuTjvY8DqewdVocOq/X0zp7U4kcysKbQ8o0kNBA3PeBG1GrKYFEIE8WxQJS4Rj+iPwLFXfw0rF4kIbzYLqALR+gQojka+FBy3avvTYQS/M62hYl96EOs8RrK+e0Hre0ejsYXM3FPGWnQlojtp6ErmOyfeY2/kAqlmC1pLRR41N73IyHDA/Yuql1V8PZhh7fAELV0K0cblt6PHKG/Vkk8uN/snKK644cj5deg0MB8AZWK+g9G2OUNTh5ON+A1Q
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(39860400002)(346002)(376002)(2616005)(956004)(83380400001)(36756003)(26005)(1076003)(7696005)(86362001)(4326008)(66946007)(6916009)(186003)(2906002)(8676002)(8936002)(52116002)(6666004)(6486002)(478600001)(316002)(66476007)(54906003)(66556008)(5660300002)(16526019);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?GK/iVSmGtgijV43DIgEzHKm8YBGIlOxskviFDj6rSC9nwKzwmjjVUI2x5Wac?=
+ =?us-ascii?Q?QQ46d9Sv7PiDryLSZ+vSL4UwaKUfUQ6DS9+1nC6rA/X56/QG6kVROtxPXONk?=
+ =?us-ascii?Q?CC2rJ4mYYkAXOnwmup1lVX8CWzp7iZZ0m9MtqX3tB/C/e17qLq0cJWH8Xk0X?=
+ =?us-ascii?Q?82Di541/gvDdirMEMFXavpn+YbqDpmTPY1w+L78hPuJta5tuJg6fnMF8GECN?=
+ =?us-ascii?Q?1w7K5oF8xI1G0u2gij5qwLb45cAzEz3kcR0dNUYmeqoUvtVyntULu+Oqy9px?=
+ =?us-ascii?Q?cBWpsjN7hhYO9UKWoCFOuTEktshVbJv7X5ppEAuJ9lknUdjUoYZh2XYabU3k?=
+ =?us-ascii?Q?aS8n7K6YkRwXGzjyPTYhP68mkPbc7mS0CMAacGdQJs24Efl2oPNaHe7Jmk+W?=
+ =?us-ascii?Q?tpWi2tjAwR9zJm7zIHVr3gGJcJwh0jugp1SUVnHP0UTf5w+grQoQNZ4QqE4Z?=
+ =?us-ascii?Q?73gGoLU2V8t58xBtm07F/pMwWwwG1zUqxAqPhxXMd2138LzFzQXdbZWCQEIH?=
+ =?us-ascii?Q?hFzPSJC5VxgXccu2ujzBlk1sxKnga89Fd7e7xUmC6XaE6+9GnoUcY1qH9t7l?=
+ =?us-ascii?Q?xaKi5luoj6MWyhUC6HiSJai1V/aelLVmJFgSdbfG3O4P1m+vZNWN+1i9MOMx?=
+ =?us-ascii?Q?34Sqhqxj7gJwGMAZXeSX+/obktcnFhAjLaUE3HGEUoUqP/Y7OR0/dTNZxKiQ?=
+ =?us-ascii?Q?PNGp7YLTyPopYVYIebWobT+5hLs1BmiCFJU11SpPCyV7Z2kFwZ2yVYK5vpFz?=
+ =?us-ascii?Q?LwpJEtg5BPPGlXLgPSqBp5g2fh5PaHcn5BF03x42kve2QUX46neRma5/AKe9?=
+ =?us-ascii?Q?FQcQGqMkP42FFZysnb7EpUMR8ouFuwHWrUuPlsSZTbFj5tRZeW3SJ/xYX7np?=
+ =?us-ascii?Q?HyWfePFEIs/wZKn2E1vDE/8QclsP4zZWLnjFsNmDJxOjgCXP1McENL3gqzOY?=
+ =?us-ascii?Q?/qZ2RoKjQGWhHig6Ry69hnotv9XiXf6SpPCZaMJ16tObucyOfhb0VNegKd8g?=
+ =?us-ascii?Q?RJok?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 08:55:29.4192 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4532adbe-85c0-497c-ec9c-08d8b3b32649
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yvpTeNA7SZke2fS+SBMLuohZdPWiXCn30OmL67kbk2zhKuy3oWaOJr0ssR1Rohi/SHPXD8s0zCn6BQT3joVmCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2458
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,115 +120,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>, Xiaojian Du <xiaojian.du@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alexandre,
+These series are to implement the processor fine grain feature which is similar
+with the gfx fine grain on vangogh. Please take a look.
 
-Am 08.01.21 um 05:20 schrieb Alexandre Demers:
-> Hi there,
->
-> Some of you may remember I was working on porting VCE 1 from Radeon to
-> AMDGPU a few years ago... about 3 and a half years. I hadn't had time
-> to work on it until last Holidays. But why do I persist in this work?
-> Because GCN 1st gen was still used in some GPU produced 4 years ago
-> (Radeon 520 and just before R5 and R7 in the entry level).
+Thanks,
+Ray
 
-Yes and that is really valued.
+Huang Rui (7):
+  drm/amd/pm: remove vcn/jpeg powergating feature checking for vangogh
+  drm/amd/pm: enhance the real response for smu message
+  drm/amd/pm: clean up get_allowed_feature_mask function
+  drm/amd/pm: initial feature_enabled/feature_support bitmap for vangogh
+  drm/amd/pm: don't mark all apu as true on feature mask
+  drm/amd/pm: implement the processor clocks which read by metric
+  drm/amd/pm: implement processor fine grain feature for vangogh
 
-If we can get that working and and it is feature equivalent to radeon 
-I'm perfectly fine to merge this.
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |   2 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  28 +++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |   8 +
+ drivers/gpu/drm/amd/pm/inc/smu_types.h        |   1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  14 ++
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 190 +++++++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   8 +-
+ 7 files changed, 181 insertions(+), 70 deletions(-)
 
-> I'm pretty happy with where the code is sitting now, however I have
-> some questions.
->
-> 1- should the firmware be validated like it was under Radeon and as it
-> is done for the newly ported UVD 3.1 code? This would mean having to
-> work with keyselect, isn't it?
-
-No, that should only be necessary for UVD.
-
-> 2- last time I worked on VCE 1.0, Christian was saying that it was
-> possible a new VCE firmware could be provided for AMDGPU. Then, it
-> wasn't that clear, GCN 1.0 (SI) being in trouble and it was considered
-> to strip it from AMDGPU. And a few months ago, UVD and DC were added
-> for SI to AMDGPU and a new UVD firmware was released (yeah!). So, is
-> it possible to have a new VCE firmware? I produced an "updated" tahiti
-> VCE file where a header is added (script available on my account on
-> GitHub). Still, if this can be useful, I'd prefer an official
-> firmware.
-
-Leo and I can push once more on this, but no guarantee that this will 
-ever see the day of light.
-
-It was a really long and taxing process of getting UVD for SI out of the 
-door.
-
-> 3- is there any documentation about VCE 1.0 that would help me
-> complete this work?
-
-Unfortunately not, we only have what was exposed with the initial code drop.
-
-> 3.1- Some variables that were previously defined are not available
-> under sid.c, vce_v1_0_d.h, vce_v1_0_sh_mask.h and others. Since the
-> new values (mostly in the range of 0x8xxx) are completely different
-> from the ones defined under Radeon (in the range of 0x2xxxx), I'd like
-> to be sure to use the good ones. I would assume the masks and shifts
-> are still valid though.
-
-Do you have an example of what you need?
-
-> 3.2- Some statuses are undefined, sometimes magic values appear here
-> and there without being ever defined or documented (status 0x337f
-> anyone?), even under CIK or they don't seem to be easily portable from
-> other VCE versions. Having a name for a value is really helpful
-> without an official documentation, when the code is supposed to be
-> self-documented. I've been able to identify some of them by looking at
-> variables used under Radeon or under AMDGPU's UVD 3.1. Interestingly,
-> some variables were previously defined under Radeon, but were left
-> aside in AMDGPU...
->
-> 3.3- Being able to know how to properly set/reset which part, in what
-> order, etc.
-
-Sorry, I don't think we can help with documentation here. What I can do 
-is to test your stuff on SI hardware if you get stuck with something and 
-report back what might be the issue.
-
-> 4- Any input about 40 bit address limitation on VCE 1.0 and how to
-> handle it if it applies?
-
-You mean the 24 bit address limitation of UVD, don't you? That should 
-not apply to VCE in general.
-
-> 5- Any chance to have some code reviewed even if it still doesn't work
-> if I send it on this list?
-
-Let's try to get it working first.
-
-> 6- I have some patches on the side to help document the code and
-> define variables (even for Radeon), a few typos fixed, etc. Should I
-> send them on this list?
-
-For radeon we are more or less in a maintenance mode. If it just adds 
-comments then we can certainly add it, but if you have any functional 
-change I would be a bit hesitated.
-
-Regards,
-Christian.
-
->
-> Cheers
->
-> Alexandre Demers
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
