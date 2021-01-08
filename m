@@ -2,115 +2,72 @@ Return-Path: <SRS0=yWhT=GL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82F7EC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 22:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3D26C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 22:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F02F207C5
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 22:12:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F02F207C5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9712223AA7
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 22:18:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9712223AA7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF4BF6E83C;
-	Fri,  8 Jan 2021 22:12:14 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12AD96E83C
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 22:12:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EtBvnI5RbKo97Y/OgwOap1mOSa+p3z7VtmjE4zzqqiE7lT2kO1tcaXn5NPwvbnhxCS00PnZxQYqmKz4DR7+nuBpSvE7JRY0NX0plFff263jUaZhkGjChaCPWA6Hom0q7qJnAdI0XHAukaFpKa4QJqY6eqLIkz+4W9zX53xhc+rnwqevu+yI9YplF07x93rppPRaaiqB9nY7LSYDkWSZ0JCTDQ9SnOsYKng8P4nVYNK+HTsbBSofsq6KsAhIpTvElVGIakbUlNvvEQjdEtJjn+Icy/ad+BjqS283tvDJhcv57TRg0afdEhtO2/vwvCG6K5CLBtmiHcUBB+N4fd2URJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h7HrKTxSBZfjL/bY618i4qlkvtglSgq/oR0pNor+YdU=;
- b=FMo2h0X5NBBCztAtXcTUONLyFJC+Y/uHrKwesUzw1u7pPraOKYWh06KfFYl46yAuMX+93pGxOVHm7ByOYv+QwALXSVYhc7Sg/+oLHdxnS4jFDiFX2Ka1OTM3iDvhz/RCU7x2bwZBPXh3eKGP7R2DqPHVzKdCaUE0KqThTR9EBCD4pe/3ZP80KyRiJs9KLdUBOQuSwicjD89T+pKPJlu7v13+y+z2hevBU1YVbESlyd/VVngyU3VHe4pJt6eRFD4fGjOL/s7ba2B2w37TOb86DLzIrxn63v10K2FBC8SCIXWhXJzrR7u/RSp4Xhay7k5ivcDI2ieMOOB0c90N219bhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h7HrKTxSBZfjL/bY618i4qlkvtglSgq/oR0pNor+YdU=;
- b=FBI+BKYUsAlge9GG29aE8JBsTegy5uZA3QM5AL3hyobNa6l1ankotUkBm+gmbeQz2ftDJuLyWioJJKA4wXzLpKJaZ8EIdURFpu4IUS7rbaNx/5WzQGslaovmoCl5OwywEgF44FlzYIQsp8vYSgIJxO/DKagNJVq8bPp8RR7005o=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
- by DM6PR12MB3113.namprd12.prod.outlook.com (2603:10b6:5:11b::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Fri, 8 Jan
- 2021 22:12:11 +0000
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540]) by DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540%12]) with mapi id 15.20.3742.009; Fri, 8 Jan 2021
- 22:12:11 +0000
-Date: Fri, 8 Jan 2021 17:12:07 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 00/21] DC Patches January 08, 2021
-Message-ID: <20210108221207.i5olrzm2ip4bdbbn@outlook.office365.com>
-References: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
-X-Originating-IP: [2607:fea8:56e0:6d60:691c:c3e7:a457:38d0]
-X-ClientProxiedBy: BN6PR1401CA0019.namprd14.prod.outlook.com
- (2603:10b6:405:4b::29) To DM5PR12MB1753.namprd12.prod.outlook.com
- (2603:10b6:3:10d::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23AB76E85A;
+	Fri,  8 Jan 2021 22:18:27 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67F16E85A;
+ Fri,  8 Jan 2021 22:18:25 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id e22so10766975iom.5;
+ Fri, 08 Jan 2021 14:18:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZAA4GEabP2WbqMGV6M0QYIgP9gptr1kSSDvRx2PFu9Q=;
+ b=LbrSWgU2FrFicKfYApwqmep5Lv0BQyathar2eHiYAsC/io+vfkSlY9t4WarObRgQJH
+ BpspHUGXkUCii7nyJO1gx/X5UT1kg7cy2s1zuP9+exjKlEO3wESHUKcxFMRhHg4aClq9
+ 5XHixxVGAsMYdZ9Ockh3Bdm+8emelwN5VoPJYpluUsOWT1DSp4VqzkYJ6yEgF/7A1N60
+ oeHnLvcS1IJeHYETY04Q2FIIU1g6OeAF14ZKBzrYike1/Zbe41GV0bsDm3qMBXwJHvV7
+ pHgTE7jC6e64s0+hRzjla64UOgafO1JYp5S9NxYnr9FM8IYivgKFeJ8jgf9IA2z+3RWK
+ tYQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZAA4GEabP2WbqMGV6M0QYIgP9gptr1kSSDvRx2PFu9Q=;
+ b=Op6WlPs4nw8saU4spR4ss+u0vnsrCJNggrk8D5C/9f77jdiBYGpZgjw6MbviyIL+Gn
+ /p6oz4DjuEMnfJXllb8wbfZDFFyRUZnxZEsksyEINtN1ZHEYkM+g9FamqUWj8mUSEDeY
+ 9XS1rc5cpSVc13kFS3qHfyKhWLicNnlmbk6MhCDn/gPpLm0Y2Gj2m87o2ryqiRrzzCuh
+ 2m8g9vJZVDukARIfm7x2JnGfiAeb0tr75feJ9oULvoOpgmZo60WjWlVxicdmnS64BMaO
+ gGXVLGZL1jVHgbfF2WYnEN7x4xdfdyCiunbfctMsKVSEFLSD7x8DzmoWWwtoXctjEmlD
+ 51Ag==
+X-Gm-Message-State: AOAM530JgOYWkNPkj+9anJkwB+cEYy7XyCyy/5MHUBEPURdWAqVxBmfp
+ 0fCCUrkcdlOkP2Ub3IuTAMsQVnclg2A=
+X-Google-Smtp-Source: ABdhPJyaBspF8HfBg9g2hrc72ZRdxyNg0Xz3+Ig8YPS+5pZE576mAb2dVE2o/jLwQt0XMZm7Zqt5KQ==
+X-Received: by 2002:a05:6602:1cb:: with SMTP id
+ w11mr6989282iot.45.1610144304711; 
+ Fri, 08 Jan 2021 14:18:24 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.241])
+ by smtp.gmail.com with ESMTPSA id y5sm7944732ilh.24.2021.01.08.14.18.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jan 2021 14:18:24 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] radeon, amdgpu drm-next-5.12
+Date: Fri,  8 Jan 2021 17:18:11 -0500
+Message-Id: <20210108221811.3868-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from outlook.office365.com (2607:fea8:56e0:6d60:691c:c3e7:a457:38d0)
- by BN6PR1401CA0019.namprd14.prod.outlook.com (2603:10b6:405:4b::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
- Transport; Fri, 8 Jan 2021 22:12:10 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 476eaf80-ed49-4b8e-4288-08d8b422727a
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3113:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB31134D27281D237144AE35A498AE0@DM6PR12MB3113.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pW542dDZa/tEuams2Q2xsEaAf1EHucma96aVV+RJKOcp/72gJAqHECazgo00azpz7hdWzKPbWDVU6TO1kLEpcnBrJwQ4j9Mkvg2qK0mtMx4GGOY3/OjCPVr3KG11XJL2rBnMc0per3yz8V6rTc3vynlkOFmrc2Y63TJKFGU41tOW+jFHcqBhrlkJ83LftOOPltTve6n//MckWdkkKLcS8p7uethWnBmTyl8O/6nmC+mnbs3h00J1ITyt4oUe3GxrZjXU/CFTes+wBWMcfPwAnGQSMI9vuuoOVvcoMw4MfveUcP2PBVpaCbzdrIQ6P/t7qoHnJ/GMsO8ErmXUys0haHdil0y+B8rd5WkbltYKCzt02R+tPul1rD4BUtX0CHHK+bLIXKuxJ03Ce8+R9+S5IXXV72ixYQh8djO6JSd+QCwMDmH55qscHDFws6lmCAWNutoo0oxqwU6YqH2PiCvOxMdPLdJncb7Qr3ShWBJg2ZCvt8aZEjGVOhsCrX8d6bMrmffh8Bha+9BobwA2USog+A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(396003)(376002)(136003)(186003)(16526019)(7696005)(52116002)(6506007)(44144004)(1076003)(5660300002)(9686003)(21480400003)(83380400001)(8936002)(55016002)(86362001)(966005)(2906002)(66556008)(66946007)(66476007)(478600001)(316002)(4326008)(6916009)(6666004)(8676002)(2700100001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?wWJeHCGpSIkDOeNKMEWP5l4xdZzrS/NVcfBSanZdl4ME/MShnjSNgwULEOBf?=
- =?us-ascii?Q?aQsqRpv/yWA9gvfascuwSqlcCH58LFKKt38X7wIiybUS1sBArFsLQpwfwZyr?=
- =?us-ascii?Q?Gy6hwhiQFvOCsnnX8q6aW4ZyHEKDpsH80PVwj+b+s8CwTBhBFwW/syaTKf7L?=
- =?us-ascii?Q?GQu6DsVvClJzpDfAViE4eCvoUliFAg2jhy9xCDiPkyi/eb5K9bqh+EuM62NV?=
- =?us-ascii?Q?8TSKk0k4Ok3kA9sBt6+yEWMVyVZHd5xXV5bILjUMQKRY1h+bcdZU8sKmfPes?=
- =?us-ascii?Q?hLaw3vZaOjSZXj2MkCx0nqfa7gsZ0JwmujvAsQIBrcA4cO19eYBemUYY5dzc?=
- =?us-ascii?Q?VGSMSANCKV6JMaCJOxaThWKAGLepN5Yx3ZOphBf0YUIZvxE82jKCxyDhTEDO?=
- =?us-ascii?Q?eeUh6IkqYJ3oAArU2s2Y34PCnj1c1CZATiP8tEpKL1cSPmqXaIXcALpbJ9ec?=
- =?us-ascii?Q?/r3AWDaRZ3kJUkIzkbmTk594IMSmy59XGUoMh7dKTnUxNuwHNsy1XHat2VJd?=
- =?us-ascii?Q?iv/VK0x2pzAqa6PLsjt/NnstFrsIGzyZC2Z0n54Mx4/bKe9Jeyo2y1MgMvqj?=
- =?us-ascii?Q?Iz75wj+0cEHwOU138PlrgDhlTdwt5doxpsFcIKeQd185MvRIx1OvNv3s2qFg?=
- =?us-ascii?Q?3M6LAUnnYPssL67Y5WsP+vw0qbC8CEkH3ihXP++PBOdvg+jrtHEWYdCx+5Ne?=
- =?us-ascii?Q?2kXhFfkWvnsy3bhQdsR9tBcyRrOVfXnBZ63oDfLCCG0WdPJLnQi4PG0NTrRI?=
- =?us-ascii?Q?lUezuxV28+2zrreM2r3N2lhqxqB9eIyETLbCEguXcAYZvLHislz8wCciVZXv?=
- =?us-ascii?Q?QDJb0KLb5YyOjo+Tko4AqscQQhTvHJknz6BFox2UrK7lvsFVEoioc130vUmz?=
- =?us-ascii?Q?CZeVpGB4DsllUcp3OCj51tMhXMHQ11tr1DkTV2aeigiChX/NsfbzRWat4AiQ?=
- =?us-ascii?Q?bwpIkDbkHuTQTmASfNmK560t8Ytd8oLmXlI5hlEnPBXfnHDPazfZgM/cX3qs?=
- =?us-ascii?Q?ACJ9Ya8ZQffL30JFYy41XCYAM4X9y73VHC1IoHFCFXoqtxk3xTokdW7YJ7eY?=
- =?us-ascii?Q?W38LNiZr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 22:12:11.4198 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 476eaf80-ed49-4b8e-4288-08d8b422727a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0khetlsmxRhusAt2WlYicgjB+hHTpH5LD94Q8UzocseVAfgY+4+JLzr8dDshrwYjvkrjdyor1Cg7b9y89tX/bQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3113
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,167 +79,308 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, roman.li@amd.com, "Wheeler,
- Daniel" <Daniel.Wheeler@amd.com>, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
-Content-Type: multipart/mixed; boundary="===============0342696980=="
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0342696980==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="br5h6lgo3z6lvvxz"
-Content-Disposition: inline
+Hi Dave, Daniel,
 
---br5h6lgo3z6lvvxz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+First set of new changes for 5.12.
 
-+Daniel
+The following changes since commit a135a1b4c4db1f3b8cbed9676a40ede39feb3362:
 
-On 01/08, Rodrigo Siqueira wrote:
-> Happy new year, this is the first code promotion of the year; for this
-> reason, most of the changes are related to fixes.
->=20
-> This DC patchset brings improvements in multiple areas. In summary, we ha=
-ve:
-> * Multiple fixes and code refactoring.
-> * Updates on HUBP operations
->=20
-> Best Regards
->=20
-> Aric Cyr (2):
->   drm/amd/display: 3.2.117
->   drm/amd/display: 3.2.118
->=20
-> Bhawanpreet Lakha (1):
->   drm/amd/display: enable HUBP blank behaviour
->=20
-> Charlene Liu (1):
->   drm/amd/display: change SMU repsonse timeout to 2s
->=20
-> Chiawen Huang (1):
->   drm/amd/display: removed unnecessary check when dpp clock increasing
->=20
-> Jacky Liao (1):
->   drm/amd/display: Fix assert being hit with GAMCOR memory shut down
->=20
-> Jun Lei (1):
->   drm/amd/display: implement T12 compliance
->=20
-> Lewis Huang (1):
->   drm/amd/display: Separate fec debug flag and monitor patch
->=20
-> Li, Roman (1):
->   drm/amd/display: disable dcn10 pipe split by default
->=20
-> Mike Hsieh (1):
->   drm/amd/display: Remove unused P010 debug flag
->=20
-> Nikola Cornij (1):
->   drm/amd/display: Add a missing DCN3.01 API mapping
->=20
-> Qingqing Zhuo (1):
->   drm/amd/display: NULL pointer hang
->=20
-> Raymond Yang (1):
->   drm/amd/display: fix seamless boot stream adding algorithm
->=20
-> Stylon Wang (1):
->   drm/amd/display: Revert patch causing black screen
->=20
-> Wesley Chalmers (6):
->   drm/amd/display: Initialize stack variable
->   drm/amd/display: HUBP_IN_BLANK for DCN30
->   drm/amd/display: Remove HUBP_DISABLE from default
->   drm/amd/display: Unblank hubp based on plane visibility
->   drm/amd/display: New path for enabling DPG
->   drm/amd/display: New sequence for HUBP blank
->=20
-> Yu-ting Shen (1):
->   drm/amd/display: doesn't reprogram AMD OUI
->=20
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 -
->  .../gpu/drm/amd/display/dc/basics/dc_common.c | 20 ++++--
->  .../gpu/drm/amd/display/dc/basics/dc_common.h |  4 +-
->  .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |  3 +-
->  .../display/dc/clk_mgr/dcn301/dcn301_smu.c    |  2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc.c      | 12 ++++
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 31 ++++++--
->  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 49 +++++++++----
->  .../gpu/drm/amd/display/dc/core/dc_resource.c | 28 +++++---
->  drivers/gpu/drm/amd/display/dc/dc.h           |  3 +-
->  drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  3 +
->  drivers/gpu/drm/amd/display/dc/dc_link.h      |  8 +++
->  drivers/gpu/drm/amd/display/dc/dc_stream.h    | 11 +++
->  .../display/dc/dce110/dce110_hw_sequencer.c   | 31 ++++++++
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h |  2 +-
->  .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 36 ++++++++--
->  .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |  5 ++
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  1 +
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c  |  2 +-
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 11 +++
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |  1 +
->  .../drm/amd/display/dc/dcn10/dcn10_resource.c |  4 +-
->  .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h | 22 ++++--
->  .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 12 +++-
->  .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 +
->  .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 +
->  .../drm/amd/display/dc/dcn30/dcn30_dpp_cm.c   |  7 --
->  .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h |  1 +
->  .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 70 ++++++++++++++++++-
->  .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  4 ++
->  .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  2 +
->  .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.c |  1 +
->  .../drm/amd/display/dc/dcn301/dcn301_init.c   |  1 +
->  .../amd/display/dc/dcn301/dcn301_resource.c   |  1 +
->  .../dc/dml/dcn30/display_mode_vba_30.c        |  2 +-
->  .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
->  .../amd/display/dc/inc/hw/timing_generator.h  |  1 +
->  .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 ++
->  38 files changed, 332 insertions(+), 68 deletions(-)
->=20
-> --=20
-> 2.25.1
->=20
+  drm/amd/display: Fix memory leaks in S3 resume (2020-12-23 15:03:15 -0500)
 
---=20
-Rodrigo Siqueira
-https://siqueira.tech
+are available in the Git repository at:
 
---br5h6lgo3z6lvvxz
-Content-Type: application/pgp-signature; name="signature.asc"
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.12-2021-01-08
 
------BEGIN PGP SIGNATURE-----
+for you to fetch changes up to 044a48f420b9d3c19a135b821c34de5b2bee4075:
 
-iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl/42LIACgkQWJzP/com
-vP8sMQ/+IZViK4shpfVJuay8gQYFkk247K8k4cmrvDNBD9wP//ubEx5U34gxCSN/
-L1sg8k28smIt9NokYmThPKL6IHUmQ8mbtIAL8P23hy44JPTOFAilShh7/n/lQ35y
-XPQaOP3Wv+/H1qz71rygVJzbSA6tLhU7np02NplOWC2zSwZoBt/yr56cu3HH9lep
-erGi/TPZ+z7UrM0Jjw6zfUcPdjwlO/8BXGQL0s6xQAfQz+Gvt4CfkMsXz5YzFB7V
-ox+fYAbOiYIi/9RdLGfKXQN3qBnfKfz/ompxHgbk3x6j5gdIUvzEKKZdB/3/ny7m
-r3AzHwr7aAS8z7NWLV/PBDoHMeR4LdsrqkLpWmVqiJLncl7ZUzYY6VFrq8JnN2w3
-xIP8YtB0B89CFKMbuSG6YtftWPtKSm6wU23x5adlTl5P8vsVd74P53hfonVpN+rj
-fTPAoaNuedbtVt/zqp32k7lSVwnPnkjfmZQ+Pqo38hJgO1BXnSxxSUI6oeqRxLwq
-VsYvqde3KIqb0P090b0euWt0gyUsH8/KgCin3YqSLWh/JIhOpNmiE19dscG2CQdi
-ml6IuaOEHnJPPaXdI8eY+/ciMcFMX413eIwht5N+Po4ukThD9yAGYWtM6WgIf9H/
-e+eZil8lLQaaxCXmsLoIzn0O6Sp+As/08+e+4VTxPM+ku6Xt7So=
-=xP9b
------END PGP SIGNATURE-----
+  drm/amdgpu: fix DRM_INFO flood if display core is not supported (bug 210921) (2021-01-08 15:18:57 -0500)
 
---br5h6lgo3z6lvvxz--
+----------------------------------------------------------------
+amd-drm-next-5.12-2021-01-08:
 
---===============0342696980==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+amdgpu:
+- Rework IH ring handling on vega and navi
+- Rework HDP handling for vega and navi
+- swSMU documenation updates
+- Overdrive support for Sienna Cichlid and newer asics
+- swSMU updates for vangogh
+- swSMU updates for renoir
+- Enable FP16 on DCE8-11
+- Misc code cleanups and bug fixes
 
+radeon:
+- Fixes for platforms that can't access PCI resources correctly
+- Misc code cleanups
+
+----------------------------------------------------------------
+Alex Deucher (6):
+      drm/amdgpu: fix handling of irq domains on soc15 and newer GPUs
+      drm/amdkfd: check both client id and src id in interrupt handlers
+      drm/amdgpu: take runtime pm reference when we attach a buffer
+      drm/amdgpu/display: drop DCN support for aarch64
+      Revert "drm/amd/display: Fix memory leaks in S3 resume"
+      drm/amdgpu/display: fix build with CONFIG_DRM_AMD_DC_DCN disabled
+
+Alexandre Demers (1):
+      drm/amdgpu: fix DRM_INFO flood if display core is not supported (bug 210921)
+
+Arnd Bergmann (1):
+      drm/amd/display: Fix unused variable warning
+
+Bhawanpreet Lakha (1):
+      drm/amd/display: enable idle optimizations for linux (MALL stutter)
+
+Chen Li (2):
+      drm/radeon: use writel to avoid gcc optimization v3
+      drm/amdgpu: use GTT for uvd_get_create/destory_msg
+
+Chenyang Li (1):
+      drm/amdgpu: Fix macro name _AMDGPU_TRACE_H_ in preprocessor if condition
+
+Defang Bo (1):
+      drm/amdgpu: Add check to prevent IH overflow
+
+Dennis Li (3):
+      drm/amdgpu: fix a memory protection fault when remove amdgpu device
+      drm/amdgpu: fix a GPU hang issue when remove device
+      drm/amdgpu: fix no bad_pages issue after umc ue injection
+
+Emily.Deng (2):
+      drm/amdgpu: Add new mode 2560x1440
+      drm/amdgpu: Correct the read sclk for navi10
+
+Evan Quan (3):
+      drm/amd/pm: populate Sienna Cichlid default overdrive table settings
+      drm/amd/pm: enable Sienna Cichlid overdrive support
+      drm/amd/pm: support overdrive vddgfx offset setting(V2)
+
+Hawking Zhang (33):
+      drm/amdgpu: add amdgpu_ih_regs structure
+      drm/amdgpu: add helper to init ih ring regs for vega10
+      drm/amdgpu: add helper to enable an ih ring for vega10
+      drm/amdgpu: add helper to toggle ih ring interrupts for vega10
+      drm/amdgpu: switch to ih_init_register_offset for vega10
+      drm/amdgpu: switch to ih_toggle_interrupts for vega10
+      drm/amdgpu: switch to ih_enable_ring for vega10
+      drm/amdgpu: use cached ih rb control reg offsets for vega10
+      drm/amdgpu: correct ih cg programming for vega10 ih block
+      drm/amdgpu: add helper to init ih ring regs for navi10
+      drm/amdgpu: add helper to enable an ih ring for navi10
+      drm/amdgpu: add helper to toggle ih ring interrupts for navi10
+      drm/amdgpu: switch to ih_init_register_offset for navi10
+      drm/amdgpu: switch to ih_toggle_interrupts for navi10
+      drm/amdgpu: switch to ih_enable_ring for navi10
+      drm/amdgpu: use cached ih rb control reg offsets for navi10
+      drm/amdgpu: add a helper function to decode iv
+      drm/amdgpu: switch to common decode iv helper
+      drm/amdgpu: add osssys v4_2 ip headers (v2)
+      drm/amdgpu: create vega20 ih blocks
+      drm/amdgpu: reroute vmc/utcl2 interrupts to ih ring 1 for arcturus
+      drm/amdgpu: switch to vega20 ih block for vega20/arcturus
+      drm/amdgpu: retire the vega20 code path from navi10 ih block
+      drm/amdgpu: correct ih_chicken programming for vega10/vega20 ih blocks
+      drm/amdgpu: drop IH_CHICKEN programming from vega10 ih block
+      drm/amdgpu: drop ih reroute function from psp v11
+      drm/amdgpu: don't create ih ring 1 and ring 2 for APU
+      drm/amdgpu: enable software ih ring for vega20 ih block
+      drm/amdgpu: set ih soft ring enabled flag for vega and navi
+      drm/amdgpu: de-initialize software ih ring
+      drm/amdgpu: drop psp ih programming for sriov guest on navi
+      drm/amdgpu: switched to cached noretry setting for vangogh
+      drm/amdgpu: add amdgpu_hdp structure
+
+Jiansong Chen (1):
+      drm/amdgpu: remove unnecessary asic check for sdma5.2
+
+Jiawei Gu (2):
+      drm/amdgpu: fix potential NULL pointer when check_atom_bios() fails
+      drm/amdgpu: fix potential memory leak during navi12 deinitialization
+
+Jinzhou Su (1):
+      drm/amd/pm: Add interface for request WGPs
+
+John Clements (2):
+      drm/amd/pm: updated PM to I2C controller port on sienna cichlid
+      drm/amdgpu: enable ras eeprom support for sienna cichlid
+
+Joshua Aberback (2):
+      drm/amd/display: Update idle optimization handling
+      drm/amd/display: Create and Destroy PSR resources for DCN302
+
+Kevin Wang (1):
+      drm/amd/display: fix sysfs amdgpu_current_backlight_pwm NULL pointer issue
+
+Likun Gao (6):
+      drm/amdgpu: add hdp version 4 functions
+      drm/amdgpu: add hdp version 5 functions
+      drm/amdgpu: switch hdp callback functions for hdp v4
+      drm/amdgpu: switch hdp callback functions for hdp v5
+      drm/amdgpu: remove redundant logic related HDP
+      drm/amdgpu: remove redundant include of navi10_enum
+
+Mario Kleiner (2):
+      drm/amd/display: Check plane scaling against format specific hw plane caps.
+      drm/amd/display: Enable fp16 also on DCE-8/10/11.
+
+Markus Elfring (2):
+      drm/amd/display: Return directly after a failed kzalloc() in dc_create()
+      drm/amd/display: Use common error handling code in dc_create()
+
+Ryan Taylor (1):
+      drm/amd/pm: add pptable_funcs documentation (v3)
+
+Tao Zhou (1):
+      drm/amdkfd: check more client ids in interrupt handler
+
+Tian Tao (3):
+      drm/amd/display: remove unused including <linux/version.h>
+      drm/amd/display: remove useless else if
+      drm/amd/display: fix comparison pointer to bool warning in dc.c
+
+Victor Zhao (1):
+      drm/amdgpu/psp: fix psp gfx ctrl cmds
+
+Xiaojian Du (16):
+      drm/amd/pm: correct the sensor value of power for vangogh
+      drm/amd/pm: add support to umd P-state "fetch" function for vangogh
+      drm/amd/pm: add new feature map macros to resolve duplicate name
+      drm/amd/pm: add two new sysfs nodes for vangogh
+      drm/amd/pm: enable the "fetch" function of pp_dpm_vclk/dclk for vangogh
+      drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
+      drm/amd/pm: add the fine grain tuning function for renoir
+      drm/amd/pm: enable the fine grain tuning function for renoir
+      drm/amd/pm: add some basic functions to support umd P-state function for vangogh.
+      drm/amd/pm: add some basic functions to support umd P-state function for vangogh.
+      drm/amd/pm: add support to umd P-state function for vangogh
+      drm/amd/pm: fix the failure when change power profile for renoir
+      drm/amd/pm: enable dclk/vclk dpm function in "auto" power profile for vangogh
+      drm/amd/pm: improve the fine grain tuning function for RV/RV2/PCO
+      drm/amd/pm: add the parameters of power profiles for vangogh
+      drm/amd/pm: modify the fine grain tuning function for Renoir
+
+Zheng Yongjun (1):
+      gpu/drm/radeon: use DIV_ROUND_UP macro to do calculation
+
+pengzhou (1):
+      drm/amdgpu: do optimization for psp command submit
+
+ drivers/gpu/drm/amd/amdgpu/Makefile                |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c |    1 -
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        |   16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h            |   40 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c             |   43 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h             |   17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   29 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |    8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |    8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h          |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |    4 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v2_0.c            |    1 -
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.c            |    1 -
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c                 |   37 +-
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c           |    5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |    9 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |    1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   14 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   39 +-
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |  137 +++
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h              |   31 +
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c              |  212 ++++
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_0.h              |   31 +
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c            |   36 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c             |  478 +++----
+ drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c             |   10 -
+ drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c             |   23 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c             |   10 -
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c             |   10 -
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |   10 -
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |  160 +--
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |   38 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |    1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |    1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             |   31 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |  100 +-
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c              |   37 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c              |    1 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |    1 -
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c             |  483 +++-----
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c             |  700 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.h             |   30 +
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |   54 +-
+ drivers/gpu/drm/amd/display/Kconfig                |    2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  112 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |    7 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |    2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |    1 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    1 -
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile      |    4 -
+ drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile    |   21 -
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |   31 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |    7 +-
+ drivers/gpu/drm/amd/display/dc/dc.h                |    4 +
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |    1 +
+ .../drm/amd/display/dc/dce100/dce100_resource.c    |    2 +-
+ .../drm/amd/display/dc/dce110/dce110_resource.c    |    2 +-
+ .../gpu/drm/amd/display/dc/dce80/dce80_resource.c  |    2 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/Makefile      |    7 -
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |    7 -
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile      |    4 -
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile      |    4 -
+ drivers/gpu/drm/amd/display/dc/dcn30/Makefile      |    5 -
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c |   13 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h |    2 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c  |    1 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |    4 +
+ drivers/gpu/drm/amd/display/dc/dcn301/Makefile     |    4 -
+ drivers/gpu/drm/amd/display/dc/dcn302/Makefile     |    4 -
+ .../drm/amd/display/dc/dcn302/dcn302_resource.c    |   15 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile        |    4 -
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile        |    4 -
+ drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |    2 +
+ drivers/gpu/drm/amd/display/dc/os_types.h          |    4 -
+ .../amd/include/asic_reg/oss/osssys_4_2_0_offset.h |  345 ++++++
+ .../include/asic_reg/oss/osssys_4_2_0_sh_mask.h    | 1300 ++++++++++++++++++++
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |    3 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  163 ++-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            |  535 ++++++++
+ .../gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h   |    1 -
+ drivers/gpu/drm/amd/pm/inc/smu_types.h             |    2 +
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |  166 ++-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h   |    3 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   10 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |    2 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  332 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  881 ++++++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.h   |   26 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |  224 +++-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |    1 +
+ drivers/gpu/drm/radeon/r600_cs.c                   |    4 +-
+ drivers/gpu/drm/radeon/radeon_uvd.c                |   38 +-
+ 100 files changed, 5956 insertions(+), 1298 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v5_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vega20_ih.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_2_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_2_0_sh_mask.h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0342696980==--
