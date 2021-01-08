@@ -2,122 +2,59 @@ Return-Path: <SRS0=yWhT=GL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9603AC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0277CC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E8692370D
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:18:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E8692370D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 90FCF23447
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 03:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90FCF23447
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 281C76E5CA;
-	Fri,  8 Jan 2021 03:18:06 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 592866E5C1;
- Fri,  8 Jan 2021 03:18:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c4bw5w+hNOcxGBnFSC3N1FAAWEYqriGJpmVdG1//TCnQ+sRvk4ZpGCCdlqY5PRpT/LEllwlHxqk7Jj/mRKrRdeC3qim++5vqI7JG1C8jQkD98macwF/A7/S8xAice+SLdjhZ2ITcxslodnDzyO0qpIcGEbvImhKSDfNl/DiAAEjK27vQKWEaGvIgcsLPyCrSvnR5lPaoAMrSo9bVZskAayNUdtQrgFDPu7R2iO3ie1UFLtiUlfMjFN0iSynJfVmwjQbZ8pLc/tkUe0VML7p0bXeaJPQ2DW6jPDBF0qwd3pnI/j86bAhO9LGBWRBKtJ3W3PTCkfweb2FMZC+umjrVWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ORUMKLs2G2NCJa8qOXWl9AmKT8HV1ZgYMGS2QwXYEw=;
- b=IMWVm5R40/RpwCUJ+v5ypcJTLpH2Vs/4Qwzzm2xaSanbsIkdt145HX+6Oy51YOq2uYXtZ3+fsS0QYPt4lHM8YM6gdysPp1AJMR8lx2owx73WaDoPF9D75skOL0d7zAh/zdjUL/jYU6r+MTv06c3yIpQbtsJHyAk4FbIlUiFtyHMr+yTtGCmUNV1ZQSfmegO1pwwWXILd/N0xHE9wUeN6FQS9joo5169jAb6Nwuwc7KlNt6msrzEroJsncn8wSQeM8zdwO+f5ttOU+PRKMUDK6EG5ELtqC6TgTnMh2tnRTVe0eXy6n0JsGk9Deorb0TeddOi39EtZSvY6J5ZjgUXteQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ORUMKLs2G2NCJa8qOXWl9AmKT8HV1ZgYMGS2QwXYEw=;
- b=xY336fwB+7SAc/NnHjlPPKX5yC1wNqNJjNN6vy5A37Xj3BcTiSJJspdNDMlCVpl3/ABQ/ciuY8a5tM5F0ERW5aXM2doRAmok+5mORftf+rUZVfT3R7PIwdPRkWdasIKHcSFdF9lKXBTyP/n2jxr6ebYA4/xR90QLjLZFSKKG8OU=
-Received: from BN8PR12MB4770.namprd12.prod.outlook.com (2603:10b6:408:a1::30)
- by BN6PR12MB1938.namprd12.prod.outlook.com (2603:10b6:404:fe::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.8; Fri, 8 Jan
- 2021 03:17:59 +0000
-Received: from BN8PR12MB4770.namprd12.prod.outlook.com
- ([fe80::a440:d0d:9875:252]) by BN8PR12MB4770.namprd12.prod.outlook.com
- ([fe80::a440:d0d:9875:252%6]) with mapi id 15.20.3742.006; Fri, 8 Jan 2021
- 03:17:59 +0000
-From: "Lin, Wayne" <Wayne.Lin@amd.com>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH 3/3] Revert "drm/amd/display: Expose new CRC window
- property"
-Thread-Topic: [PATCH 3/3] Revert "drm/amd/display: Expose new CRC window
- property"
-Thread-Index: AQHW5TcvUlKgcGjnKUeMDor6+QmNyKodDaiQ
-Date: Fri, 8 Jan 2021 03:17:59 +0000
-Message-ID: <BN8PR12MB4770440F3C5E2BAEC3F7914AFCAE0@BN8PR12MB4770.namprd12.prod.outlook.com>
-References: <20210107205321.166698-1-Rodrigo.Siqueira@amd.com>
- <20210107205321.166698-4-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20210107205321.166698-4-Rodrigo.Siqueira@amd.com>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=1c80195c-f5bf-4754-886a-fed532e267bf;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-01-08T03:12:23Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.249]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1df5b3a5-9b4b-4f62-c8d9-08d8b3840074
-x-ms-traffictypediagnostic: BN6PR12MB1938:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR12MB19386C704FED357A1A5E54F8FCAE0@BN6PR12MB1938.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:338;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9wCLVrC4yB3HTW8/9rduTiMY67Z2pDKBkpS4WE5xsCeboVOftKCRJK75DpaL64f43mQXP1osPm9Iv4acPwo/tTxTho3Icbq0RYSwfW35D+4DfpRXudVf9ut7hFZnttmh0fZdmoFjpFoaDCzNrwnKF7DP/Na+1umPUGhImkwlTdPTDtHg6mUgb8nNf05BmkjhqUu10rm8NJCrq6an9W99T1enuRrBYBCdeaIpeuV2uE9oJDGSBdTJvheVh4SyByJcMGWLmYQ8KFph1+ugahPscI+QZvcg49ES3/V2BenknRrSdcvZCrIPVJRIZeepGb2dD+nDKOxGtRWPwQe/m+Y4EytntdnVsK2S6rH5QsBzuev4BmyCGJQbusroDJ3Gkk+K6koGZfmk7SCNkz/qTR1MUg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB4770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(110136005)(7696005)(9686003)(316002)(54906003)(86362001)(55016002)(53546011)(30864003)(83380400001)(478600001)(6506007)(64756008)(186003)(66556008)(33656002)(2906002)(66476007)(52536014)(8676002)(4326008)(26005)(5660300002)(76116006)(8936002)(66946007)(71200400001)(66446008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?JnVV6lY1/0au+a/na7UGOgjiZp9dQ0ZSH0ggCTYxMRSy28dXSuo8+RicrfaD?=
- =?us-ascii?Q?MDtYKQaOAlQetGWAeDcDMbWkPb335aJWMhkIupQ7igTF8xVWNyI/BI6x7GvD?=
- =?us-ascii?Q?oTGu8fKDNZvWFDOBKzU9fRAJOhio9vn2J88QsD0z2vW0AVsDnEzbiyeZY+p9?=
- =?us-ascii?Q?hFnM92U4bHeABmjamTMn2bqCwVY/ox96elhhLAdFsK5XmW+ZQLW6FzEfCUg1?=
- =?us-ascii?Q?hD3/0oTXbSmdeo/31kW435JXxqEbUt6TwaLdwkf6zDVHayv5Q7V+2pl81xoK?=
- =?us-ascii?Q?6z/gRyeviyv6CWaSIbaNUhIJeIm9ZWGhbNowGG5EjpCq8s+bTn8aY1skjJ+s?=
- =?us-ascii?Q?1gpVwzWorG9v8j97qZE7qMZYhLn+aKzCCNuxFBZXq1HH/cd6IJ5/L+I2kHYE?=
- =?us-ascii?Q?MYVCxv13T61JH3fRV7l1JIZtI+0XEfjqa9cV4K0r6uu/ERPtCvF+nD++11CD?=
- =?us-ascii?Q?dxBqG7F9mvwQcv10zeiPH8DqTj++fD+nFluD8phppGR15Ralf+DtwdVipAc9?=
- =?us-ascii?Q?d3qhel38MtsD8tLmNo/WmWFC1xSr7WW03MOGDuM1Pbm+8TrxD6+Fa9q9bK5/?=
- =?us-ascii?Q?2o5i3VZGR+NJy//umIa5/9gCVfEhPM2IChwryl3GK/pQ2ykcDi46ahGcg/l6?=
- =?us-ascii?Q?MToKBAzO0Aq+C482oh2v5hSruXGFrinBuJ6mwjila/fFLluPXCUVEdHJ8nXh?=
- =?us-ascii?Q?RcP0loy2qaHi7Q6bRLanroCZcRnj8aQ+uldwlUcclMDKmUlzD1u4CsYs+nAN?=
- =?us-ascii?Q?KL/MytmyozAX+0oxVlSPMj5SPmFmiWSCikmfjgsIZQIoYZFTP0YYsvOpW8pm?=
- =?us-ascii?Q?aylomwUUFMnOBlxEjtnJ8LYWE7OeKLRhynE1IVjCmrqDc8tID4YmRVJMiL4j?=
- =?us-ascii?Q?XxlJUJVvDUqTDiMKHBZKTpezjYcyufqRRSs20u8j9PJ+sHYaNrZhhAdCjCBT?=
- =?us-ascii?Q?xSWBqDZWPiFvZfxSkJ5yUoEAl2SD2TEuk+GEcAWZJsY=3D?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB57E6E5C1;
+	Fri,  8 Jan 2021 03:34:43 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A98F89AB2;
+ Fri,  8 Jan 2021 01:25:58 +0000 (UTC)
+IronPort-SDR: qJ0/s6Vwr11mS2WDP73KJnIGXLvNyL/aMzZ4/Ql/vmbZywXJQwGgMplAqHHJiUX/kZYdBsuoSD
+ rSSgUAPlQpPQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="157303847"
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="157303847"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2021 17:25:54 -0800
+IronPort-SDR: dpNH9qSYuYIBw62EWL+TLzSeYmqNw2b9mioG7lQv+Kfdfa2UKb2ixWdcUja7k+ONJ1aKsc9DoS
+ wiutIdZOMLaQ==
+X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="379933498"
+Received: from shao2-debian.sh.intel.com (HELO [10.239.13.117])
+ ([10.239.13.117])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2021 17:25:51 -0800
+Subject: Re: [kbuild-all] Re: [PATCH v3 8/8] drm: Upcast struct drm_device.dev
+ to struct pci_device; replace pdev
+To: Thomas Zimmermann <tzimmermann@suse.de>, kernel test robot
+ <lkp@intel.com>, airlied@linux.ie, daniel@ffwll.ch,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com
+References: <20210107080748.4768-9-tzimmermann@suse.de>
+ <202101071706.J19283ri-lkp@intel.com>
+ <3c496f96-5efa-41d2-5911-1495619fab68@suse.de>
+From: Rong Chen <rong.a.chen@intel.com>
+Message-ID: <7486aeef-9fa4-91cb-8e95-383990cf3567@intel.com>
+Date: Fri, 8 Jan 2021 09:25:01 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB4770.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1df5b3a5-9b4b-4f62-c8d9-08d8b3840074
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2021 03:17:59.6214 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8lAwu98soerx2KBCkziv1L+ZowOO79pOlyxMLyOhbPk1OqWHT5k6o9P0/MDtrZbY48YPJacdvOW3USzGXu2f2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1938
+In-Reply-To: <3c496f96-5efa-41d2-5911-1495619fab68@suse.de>
+Content-Language: en-US
+X-Mailman-Approved-At: Fri, 08 Jan 2021 03:34:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,412 +66,416 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Roman" <Roman.Li@amd.com>, "R, Bindu" <Bindu.R@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: kbuild-all@lists.01.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Sam Ravnborg <sam@ravnborg.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="windows-1252"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+Hi Thomas,
 
-Thanks Siqueira.
-Comments below.
+Thanks for the feedback, do you mean the patch was applied to a wrong base?
 
-> -----Original Message-----
-> From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
-> Sent: Friday, January 8, 2021 4:53 AM
-> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> Cc: Lin, Wayne <Wayne.Lin@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wentland, Harry
-> <Harry.Wentland@amd.com>; Li, Roman <Roman.Li@amd.com>; R, Bindu <Bindu.R@amd.com>; Daniel Vetter <daniel@ffwll.ch>
-> Subject: [PATCH 3/3] Revert "drm/amd/display: Expose new CRC window property"
->
-> This reverts commit 110d586ba77ed573eb7464ca69b6490ec0b70c5f.
->
-> Cc: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-> Cc: Harry Wentland <Harry.Wentland@amd.com>
-> Cc: Roman Li <Roman.Li@amd.com>
-> Cc: Bindu R <Bindu.R@amd.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 142 +-----------------  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |
-> 19 ---  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  56 +------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   3 -
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c |   2 +
->  5 files changed, 12 insertions(+), 210 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a06554745238..0515ed0d125c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -938,41 +938,6 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_  }  #endif
->
-> -#ifdef CONFIG_DEBUG_FS
-> -static int create_crtc_crc_properties(struct amdgpu_display_manager *dm) -{
-> -dm->crc_win_x_start_property =
-> -drm_property_create_range(adev_to_drm(dm->adev),
-> -  DRM_MODE_PROP_ATOMIC,
-> -  "AMD_CRC_WIN_X_START", 0, U16_MAX);
-> -if (!dm->crc_win_x_start_property)
-> -return -ENOMEM;
-> -
-> -dm->crc_win_y_start_property =
-> -drm_property_create_range(adev_to_drm(dm->adev),
-> -  DRM_MODE_PROP_ATOMIC,
-> -  "AMD_CRC_WIN_Y_START", 0, U16_MAX);
-> -if (!dm->crc_win_y_start_property)
-> -return -ENOMEM;
-> -
-> -dm->crc_win_x_end_property =
-> -drm_property_create_range(adev_to_drm(dm->adev),
-> -  DRM_MODE_PROP_ATOMIC,
-> -  "AMD_CRC_WIN_X_END", 0, U16_MAX);
-> -if (!dm->crc_win_x_end_property)
-> -return -ENOMEM;
-> -
-> -dm->crc_win_y_end_property =
-> -drm_property_create_range(adev_to_drm(dm->adev),
-> -  DRM_MODE_PROP_ATOMIC,
-> -  "AMD_CRC_WIN_Y_END", 0, U16_MAX);
-> -if (!dm->crc_win_y_end_property)
-> -return -ENOMEM;
-> -
-> -return 0;
-> -}
-> -#endif
-> -
->  static int amdgpu_dm_init(struct amdgpu_device *adev)  {
->  struct dc_init_data init_data;
-> @@ -1119,10 +1084,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->
->  dc_init_callbacks(adev->dm.dc, &init_params);
->  }
-> -#endif
-> -#ifdef CONFIG_DEBUG_FS
-> -if (create_crtc_crc_properties(&adev->dm))
-> -DRM_ERROR("amdgpu: failed to create crc property.\n");
->  #endif
->  if (amdgpu_dm_initialize_drm_device(adev)) {
->  DRM_ERROR(
-> @@ -5456,64 +5417,12 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
->  state->crc_src = cur->crc_src;
->  state->cm_has_degamma = cur->cm_has_degamma;
->  state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb; -#ifdef CONFIG_DEBUG_FS
-> -state->crc_window = cur->crc_window;
-> -#endif
-> +
->  /* TODO Duplicate dc_stream after objects are stream object is flattened */
->
->  return &state->base;
->  }
->
-> -#ifdef CONFIG_DEBUG_FS
-> -static int amdgpu_dm_crtc_atomic_set_property(struct drm_crtc *crtc,
-> -    struct drm_crtc_state *crtc_state,
-> -    struct drm_property *property,
-> -    uint64_t val)
-> -{
-> -struct drm_device *dev = crtc->dev;
-> -struct amdgpu_device *adev = drm_to_adev(dev);
-> -struct dm_crtc_state *dm_new_state =
-> -to_dm_crtc_state(crtc_state);
-> -
-> -if (property == adev->dm.crc_win_x_start_property)
-> -dm_new_state->crc_window.x_start = val;
-> -else if (property == adev->dm.crc_win_y_start_property)
-> -dm_new_state->crc_window.y_start = val;
-> -else if (property == adev->dm.crc_win_x_end_property)
-> -dm_new_state->crc_window.x_end = val;
-> -else if (property == adev->dm.crc_win_y_end_property)
-> -dm_new_state->crc_window.y_end = val;
-> -else
-> -return -EINVAL;
-> -
-> -return 0;
-> -}
-> -
-> -static int amdgpu_dm_crtc_atomic_get_property(struct drm_crtc *crtc,
-> -    const struct drm_crtc_state *state,
-> -    struct drm_property *property,
-> -    uint64_t *val)
-> -{
-> -struct drm_device *dev = crtc->dev;
-> -struct amdgpu_device *adev = drm_to_adev(dev);
-> -struct dm_crtc_state *dm_state =
-> -to_dm_crtc_state(state);
-> -
-> -if (property == adev->dm.crc_win_x_start_property)
-> -*val = dm_state->crc_window.x_start;
-> -else if (property == adev->dm.crc_win_y_start_property)
-> -*val = dm_state->crc_window.y_start;
-> -else if (property == adev->dm.crc_win_x_end_property)
-> -*val = dm_state->crc_window.x_end;
-> -else if (property == adev->dm.crc_win_y_end_property)
-> -*val = dm_state->crc_window.y_end;
-> -else
-> -return -EINVAL;
-> -
-> -return 0;
-> -}
-> -#endif
-> -
->  static inline int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)  {
->  enum dc_irq_source irq_source;
-> @@ -5599,10 +5508,6 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
->  .enable_vblank = dm_enable_vblank,
->  .disable_vblank = dm_disable_vblank,
->  .get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
-> -#ifdef CONFIG_DEBUG_FS
-> -.atomic_set_property = amdgpu_dm_crtc_atomic_set_property,
-> -.atomic_get_property = amdgpu_dm_crtc_atomic_get_property,
-> -#endif
->  };
->
->  static enum drm_connector_status
-> @@ -6829,25 +6734,6 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->  return 0;
->  }
->
-> -#ifdef CONFIG_DEBUG_FS
-> -static void attach_crtc_crc_properties(struct amdgpu_display_manager *dm,
-> -struct amdgpu_crtc *acrtc)
-> -{
-> -drm_object_attach_property(&acrtc->base.base,
-> -   dm->crc_win_x_start_property,
-> -   0);
-> -drm_object_attach_property(&acrtc->base.base,
-> -   dm->crc_win_y_start_property,
-> -   0);
-> -drm_object_attach_property(&acrtc->base.base,
-> -   dm->crc_win_x_end_property,
-> -   0);
-> -drm_object_attach_property(&acrtc->base.base,
-> -   dm->crc_win_y_end_property,
-> -   0);
-> -}
-> -#endif
-> -
->  static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->         struct drm_plane *plane,
->         uint32_t crtc_index)
-> @@ -6895,9 +6781,7 @@ static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->  drm_crtc_enable_color_mgmt(&acrtc->base, MAX_COLOR_LUT_ENTRIES,
->     true, MAX_COLOR_LUT_ENTRIES);
->  drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES); -#ifdef CONFIG_DEBUG_FS
-> -attach_crtc_crc_properties(dm, acrtc);
-> -#endif
-> +
->  return 0;
->
->  fail:
-> @@ -8538,7 +8422,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->   */
->  for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
->  struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-> -bool configure_crc = false;
->
->  dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
->
-> @@ -8548,30 +8431,21 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->  dc_stream_retain(dm_new_crtc_state->stream);
->  acrtc->dm_irq_params.stream = dm_new_crtc_state->stream;
->  manage_dm_interrupts(adev, acrtc, true);
-> -}
-> +
->  #ifdef CONFIG_DEBUG_FS
-> -if (new_crtc_state->active &&
-> -amdgpu_dm_is_valid_crc_source(dm_new_crtc_state->crc_src)) {
->  /**
->   * Frontend may have changed so reapply the CRC capture
->   * settings for the stream.
->   */
->  dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-> -dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
-> -
-> -if (amdgpu_dm_crc_window_is_default(dm_new_crtc_state)) {
-> -if (!old_crtc_state->active || drm_atomic_crtc_needs_modeset(new_crtc_state))
-> -configure_crc = true;
-> -} else {
-> -if (amdgpu_dm_crc_window_changed(dm_new_crtc_state, dm_old_crtc_state))
-> -configure_crc = true;
-> -}
->
-> -if (configure_crc)
-> +if (amdgpu_dm_is_valid_crc_source(dm_new_crtc_state->crc_src)) {
->  amdgpu_dm_crtc_configure_crc_source(
-> -crtc, dm_new_crtc_state, dm_new_crtc_state->crc_src);
-> -}
-> +crtc, dm_new_crtc_state,
-> +dm_new_crtc_state->crc_src);
-> +}
->  #endif
-> +}
->  }
->
->  for_each_new_crtc_in_state(state, crtc, new_crtc_state, j) diff --git
-> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index ef394e941d9d..9d22d62ac2d1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -343,13 +343,6 @@ struct amdgpu_display_manager {
->   */
->  uint32_t active_vblank_irq_count;
->
-> -#ifdef CONFIG_DEBUG_FS
-> -/* set the crc calculation window*/
-> -struct drm_property *crc_win_x_start_property;
-> -struct drm_property *crc_win_y_start_property;
-> -struct drm_property *crc_win_x_end_property;
-> -struct drm_property *crc_win_y_end_property;
-> -#endif
->  /**
->   * @mst_encoders:
->   *
-> @@ -436,15 +429,6 @@ struct dm_plane_state {
->  struct dc_plane_state *dc_state;
->  };
->
-> -#ifdef CONFIG_DEBUG_FS
-> -struct crc_rec {
-> -uint16_t x_start;
-> -uint16_t y_start;
-> -uint16_t x_end;
-> -uint16_t y_end;
-> -};
-> -#endif
-> -
->  struct dm_crtc_state {
->  struct drm_crtc_state base;
->  struct dc_stream_state *stream;
-> @@ -467,9 +451,6 @@ struct dm_crtc_state {
->  struct dc_info_packet vrr_infopacket;
->
->  int abm_level;
-> -#ifdef CONFIG_DEBUG_FS
-> -struct crc_rec crc_window;
-> -#endif
->  };
->
->  #define to_dm_crtc_state(x) container_of(x, struct dm_crtc_state, base) diff --git
-> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-> index 7b886a779a8c..c29dc11619f7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-> @@ -81,41 +81,6 @@ const char *const *amdgpu_dm_crtc_get_crc_sources(struct drm_crtc *crtc,
->  return pipe_crc_sources;
->  }
->
-> -static void amdgpu_dm_set_crc_window_default(struct dm_crtc_state *dm_crtc_state) -{
-> -dm_crtc_state->crc_window.x_start = 0;
-> -dm_crtc_state->crc_window.y_start = 0;
-> -dm_crtc_state->crc_window.x_end = 0;
-> -dm_crtc_state->crc_window.y_end = 0;
-> -}
-> -
-> -bool amdgpu_dm_crc_window_is_default(struct dm_crtc_state *dm_crtc_state) -{
-> -bool ret = true;
-> -
-> -if ((dm_crtc_state->crc_window.x_start != 0) ||
-> -(dm_crtc_state->crc_window.y_start != 0) ||
-> -(dm_crtc_state->crc_window.x_end != 0) ||
-> -(dm_crtc_state->crc_window.y_end != 0))
-> -ret = false;
-> -
-> -return ret;
-> -}
-> -
-> -bool amdgpu_dm_crc_window_changed(struct dm_crtc_state *dm_new_crtc_state,
-> -struct dm_crtc_state *dm_old_crtc_state)
-> -{
-> -bool ret = false;
-> -
-> -if ((dm_new_crtc_state->crc_window.x_start != dm_old_crtc_state->crc_window.x_start) ||
-> -(dm_new_crtc_state->crc_window.y_start != dm_old_crtc_state->crc_window.y_start) ||
-> -(dm_new_crtc_state->crc_window.x_end != dm_old_crtc_state->crc_window.x_end) ||
-> -(dm_new_crtc_state->crc_window.y_end != dm_old_crtc_state->crc_window.y_end))
-> -ret = true;
-> -
-> -return ret;
-> -}
-> -
->  int
->  amdgpu_dm_crtc_verify_crc_source(struct drm_crtc *crtc, const char *src_name,
->   size_t *values_cnt)
-> @@ -140,7 +105,6 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
->  struct dc_stream_state *stream_state = dm_crtc_state->stream;
->  bool enable = amdgpu_dm_is_valid_crc_source(source);
->  int ret = 0;
-> -struct crc_params *crc_window = NULL, tmp_window;
->
->  /* Configuration will be deferred to stream enable. */
->  if (!stream_state)
-> @@ -149,25 +113,9 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
->  mutex_lock(&adev->dm.dc_lock);
->
->  /* Enable CRTC CRC generation if necessary. */
-> -if (dm_is_crc_source_crtc(source) || source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE) {
-> -if (!enable)
-> -amdgpu_dm_set_crc_window_default(dm_crtc_state);
-> -
-> -if (!amdgpu_dm_crc_window_is_default(dm_crtc_state)) {
-> -crc_window = &tmp_window;
-> -
-> -tmp_window.windowa_x_start = dm_crtc_state->crc_window.x_start;
-> -tmp_window.windowa_y_start = dm_crtc_state->crc_window.y_start;
-> -tmp_window.windowa_x_end = dm_crtc_state->crc_window.x_end;
-> -tmp_window.windowa_y_end = dm_crtc_state->crc_window.y_end;
-> -tmp_window.windowb_x_start = dm_crtc_state->crc_window.x_start;
-> -tmp_window.windowb_y_start = dm_crtc_state->crc_window.y_start;
-> -tmp_window.windowb_x_end = dm_crtc_state->crc_window.x_end;
-> -tmp_window.windowb_y_end = dm_crtc_state->crc_window.y_end;
-> -}
-> -
-> +if (dm_is_crc_source_crtc(source)) {
-Should still keep the condition "source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE", this solves
- the problem that it doesn't really turn off crc generation.
->  if (!dc_stream_configure_crc(stream_state->ctx->dc,
-> -     stream_state, crc_window, enable, enable)) {
-> +     stream_state, NULL, enable, enable)) {
->  ret = -EINVAL;
->  goto unlock;
->  }
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-> index 0235bfb246e5..f7d731797d3f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-> @@ -47,9 +47,6 @@ static inline bool amdgpu_dm_is_valid_crc_source(enum amdgpu_dm_pipe_crc_source
->
->  /* amdgpu_dm_crc.c */
->  #ifdef CONFIG_DEBUG_FS
-> -bool amdgpu_dm_crc_window_is_default(struct dm_crtc_state *dm_crtc_state); -bool amdgpu_dm_crc_window_changed(struct
-> dm_crtc_state *dm_new_crtc_state,
-> -struct dm_crtc_state *dm_old_crtc_state);
->  int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
->  struct dm_crtc_state *dm_crtc_state,
->  enum amdgpu_dm_pipe_crc_source source); diff --git
-> a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index f4a2088ab179..da292cea0f56 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -3272,6 +3272,8 @@ void core_link_enable_stream(
->  }
->  }
->
-> +dc->hwss.enable_audio_stream(pipe_ctx);
-Original patch doesn't add this line.
-> +
->  /* turn off otg test pattern if enable */
->  if (pipe_ctx->stream_res.tg->funcs->set_test_pattern)
->  pipe_ctx->stream_res.tg->funcs->set_test_pattern(pipe_ctx->stream_res.tg,
-> --
-> 2.25.1
+Best Regards,
+Rong Chen
 
-Thanks!
-Wayne Lin
+On 1/7/21 6:45 PM, Thomas Zimmermann wrote:
+> AFAICT these are false positives. The instances have been fixed already.
+>
+> Am 07.01.21 um 10:45 schrieb kernel test robot:
+>> Hi Thomas,
+>>
+>> I love your patch! Yet something to improve:
+>>
+>> [auto build test ERROR on drm-tip/drm-tip]
+>> [cannot apply to drm-intel/for-linux-next linus/master v5.11-rc2 =
+
+>> next-20210104]
+>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>> And when submitting patch, we suggest to use '--base' as documented in
+>> https://git-scm.com/docs/git-format-patch]
+>>
+>> url: =
+
+>> https://github.com/0day-ci/linux/commits/Thomas-Zimmermann/drm-Move-stru=
+ct-drm_device-pdev-to-legacy/20210107-161007
+>> base:=A0=A0 git://anongit.freedesktop.org/drm/drm-tip drm-tip
+>> config: x86_64-randconfig-s021-20210107 (attached as .config)
+>> compiler: gcc-9 (Debian 9.3.0-15) 9.3.0
+>> reproduce:
+>> =A0=A0=A0=A0=A0=A0=A0=A0 # apt-get install sparse
+>> =A0=A0=A0=A0=A0=A0=A0=A0 # sparse version: v0.6.3-208-g46a52ca4-dirty
+>> =A0=A0=A0=A0=A0=A0=A0=A0 # =
+
+>> https://github.com/0day-ci/linux/commit/380912f7b62c23322562c40e19efd7ad=
+84d57e9c
+>> =A0=A0=A0=A0=A0=A0=A0=A0 git remote add linux-review https://github.com/=
+0day-ci/linux
+>> =A0=A0=A0=A0=A0=A0=A0=A0 git fetch --no-tags linux-review =
+
+>> Thomas-Zimmermann/drm-Move-struct-drm_device-pdev-to-legacy/20210107-161=
+007
+>> =A0=A0=A0=A0=A0=A0=A0=A0 git checkout 380912f7b62c23322562c40e19efd7ad84=
+d57e9c
+>> =A0=A0=A0=A0=A0=A0=A0=A0 # save the attached .config to linux build tree
+>> =A0=A0=A0=A0=A0=A0=A0=A0 make W=3D1 C=3D1 CF=3D'-fdiagnostic-prefix -D__=
+CHECK_ENDIAN__' =
+
+>> ARCH=3Dx86_64
+>>
+>> If you fix the issue, kindly add following tag as appropriate
+>> Reported-by: kernel test robot <lkp@intel.com>
+>>
+>> All errors (new ones prefixed by >>):
+>>
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_device.c: In function =
+
+>> 'oaktrail_chip_setup':
+>>>> drivers/gpu/drm/gma500/oaktrail_device.c:509:26: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 509 |=A0 if (pci_enable_msi(dev->pdev))
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> -- =
+
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds.c: In function =
+
+>> 'oaktrail_lvds_set_power':
+>>>> drivers/gpu/drm/gma500/oaktrail_lvds.c:63:25: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0=A0 63 |=A0=A0 pm_request_idle(&dev->pdev->dev);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> -- =
+
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function 'get_c=
+lock':
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:69:11: warning: =
+
+>> variable 'tmp' set but not used [-Wunused-but-set-variable]
+>> =A0=A0=A0=A0=A0=A0 69 |=A0 u32 val, tmp;
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function 'get_d=
+ata':
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:83:11: warning: =
+
+>> variable 'tmp' set but not used [-Wunused-but-set-variable]
+>> =A0=A0=A0=A0=A0=A0 83 |=A0 u32 val, tmp;
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~
+>> =A0=A0=A0 drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c: In function =
+
+>> 'oaktrail_lvds_i2c_init':
+>>>> drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c:148:35: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 148 |=A0 chan->adapter.dev.parent =3D &dev->pdev->dev;
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> -- =
+
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function 'vmw_driver_l=
+oad':
+>>>> drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:661:22: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 661 |=A0 pci_set_master(dev->pdev);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 In file included from drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:31:
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:690:47: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 690 |=A0 dev_priv->io_start =3D pci_resource_start(dev->=
+pdev, 0);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
+
+>> 'pci_resource_start'
+>> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
+
+>> ((dev)->resource[(bar)].start)
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+ ^~~
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:691:49: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 691 |=A0 dev_priv->vram_start =3D pci_resource_start(dev=
+->pdev, 1);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
+
+>> 'pci_resource_start'
+>> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
+
+>> ((dev)->resource[(bar)].start)
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+ ^~~
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:692:49: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 692 |=A0 dev_priv->mmio_start =3D pci_resource_start(dev=
+->pdev, 2);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0 include/linux/pci.h:1854:40: note: in definition of macro =
+
+>> 'pci_resource_start'
+>> =A0=A0=A0=A0 1854 | #define pci_resource_start(dev, bar) =
+
+>> ((dev)->resource[(bar)].start)
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+ ^~~
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:842:33: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 842 |=A0 ret =3D pci_request_regions(dev->pdev, "vmwgfx =
+probe");
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:851:33: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 851 |=A0=A0 ret =3D pci_request_region(dev->pdev, 2, "vm=
+wgfx stealth =
+
+>> probe");
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:859:35: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 859 |=A0=A0 ret =3D vmw_irq_install(dev, dev->pdev->irq);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1005:27: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1005 |=A0=A0 pci_release_region(dev->pdev, 2);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1007:28: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1007 |=A0=A0 pci_release_regions(dev->pdev);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function =
+
+>> 'vmw_driver_unload':
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1056:27: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1056 |=A0=A0 pci_release_region(dev->pdev, 2);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1058:28: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1058 |=A0=A0 pci_release_regions(dev->pdev);
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c: In function 'vmw_probe':
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_drv.c:1522:7: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1522 |=A0 dev->pdev =3D pdev;
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0 dev
+>> -- =
+
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_fb.c: In function 'vmw_fb_init':
+>>>> drivers/gpu/drm/vmwgfx/vmwgfx_fb.c:641:42: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0=A0 641 |=A0 struct device *device =3D &vmw_priv->dev->pdev-=
+>dev;
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 dev
+>> =A0=A0=A0 In file included from drivers/gpu/drm/vmwgfx/vmwgfx_fb.c:35:
+>> =A0=A0=A0 At top level:
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_kms.h:256:23: warning: =
+
+>> 'vmw_cursor_plane_formats' defined but not used =
+
+>> [-Wunused-const-variable=3D]
+>> =A0=A0=A0=A0=A0 256 | static const uint32_t vmw_cursor_plane_formats[] =
+=3D {
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~~~~~~~~~~~~~~~~~~~~~
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_kms.h:248:23: warning: =
+
+>> 'vmw_primary_plane_formats' defined but not used =
+
+>> [-Wunused-const-variable=3D]
+>> =A0=A0=A0=A0=A0 248 | static const uint32_t vmw_primary_plane_formats[] =
+=3D {
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> -- =
+
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
+
+>> 'vmw_cmdbuf_set_pool_size':
+>>>> drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1233:48: error: 'struct =
+
+>>>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1233 |=A0 man->map =3D dma_alloc_coherent(&dev_priv->dev->p=
+dev->dev, =
+
+>> size,
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
+
+>> 'vmw_cmdbuf_man_create':
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1316:28: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1316 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &dev_priv->dev->pde=
+v->dev,
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1325:22: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1325 |=A0=A0=A0=A0=A0 &dev_priv->dev->pdev->dev,
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 dev
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c: In function =
+
+>> 'vmw_cmdbuf_remove_pool':
+>> =A0=A0=A0 drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c:1390:42: error: 'struct =
+
+>> drm_device' has no member named 'pdev'; did you mean 'dev'?
+>> =A0=A0=A0=A0 1390 | dma_free_coherent(&man->dev_priv->dev->pdev->dev,
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 ^~~~
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 dev
+>>
+>>
+>> vim +509 drivers/gpu/drm/gma500/oaktrail_device.c
+>>
+>> 1b082ccf5901108 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-03=A0 503
+>> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 504=
+=A0 static int =
+
+>> oaktrail_chip_setup(struct drm_device *dev)
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 505=
+=A0 {
+>> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 506=
+=A0=A0=A0=A0=A0 struct =
+
+>> drm_psb_private *dev_priv =3D dev->dev_private;
+>> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 507=
+=A0=A0=A0=A0=A0 int ret;
+>> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 508
+>> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11 @509=
+=A0=A0=A0=A0=A0 if =
+
+>> (pci_enable_msi(dev->pdev))
+>> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 510=
+ dev_warn(dev->dev, =
+
+>> "Enabling MSI failed!\n");
+>> 9c0b6fcdc9faee5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 511
+>> 8512e0748729a49 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 512=
+ dev_priv->regmap =3D =
+
+>> oaktrail_regmap;
+>> 8512e0748729a49 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-11=A0 513
+>> 1b22edfd6efd02b Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 514=
+=A0=A0=A0=A0=A0 ret =3D =
+
+>> mid_chip_setup(dev);
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 515=
+=A0=A0=A0=A0=A0 if (ret < 0)
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 516=
+ return ret;
+>> 4086b1e2b19729e Kirill A. Shutemov 2012-05-03=A0 517=A0=A0=A0=A0=A0 if =
+
+>> (!dev_priv->has_gct) {
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 518=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 /* Now =
+
+>> pull the BIOS data */
+>> d839ede47a56ff5 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-03=A0 519 =
+
+>> psb_intel_opregion_init(dev);
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 520 =
+
+>> psb_intel_init_bios(dev);
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 521=
+=A0=A0=A0=A0=A0 }
+>> 6528c897966c7d5 Patrik Jakobsson=A0=A0 2013-11-07=A0 522 =
+
+>> gma_intel_setup_gmbus(dev);
+>> 5f503148efdda26 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2012-05-03=A0 523 =
+
+>> oaktrail_hdmi_setup(dev);
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 524=
+=A0=A0=A0=A0=A0 return 0;
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 525=
+=A0 }
+>> aa0c45fdca0cff3 Alan Cox=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2011-11-29=A0 526
+>>
+>> ---
+>> 0-DAY CI Kernel Test Service, Intel Corporation
+>> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+>>
+>
+>
+> _______________________________________________
+> kbuild-all mailing list -- kbuild-all@lists.01.org
+> To unsubscribe send an email to kbuild-all-leave@lists.01.org
 
 _______________________________________________
 amd-gfx mailing list
