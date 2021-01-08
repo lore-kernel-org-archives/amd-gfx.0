@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04C23C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F7A6C433E6
 	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A906323A9C
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A906323A9C
+	by mail.kernel.org (Postfix) with ESMTPS id 0EAEF23A9C
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Jan 2021 21:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EAEF23A9C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1076E8F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76ED46E8F4;
 	Fri,  8 Jan 2021 21:50:56 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89AE56E8F4
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 016826E8F4
  for <amd-gfx@lists.freedesktop.org>; Fri,  8 Jan 2021 21:50:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=McQKaCXYqTNpdsKn6ZfRdyDj8abf2PPS4LAVB1oJMiF41btpzk8MlP8+x+hb6alIWqZHyOMC6xvsLRWMO9aQ8+ctUWBSFPlq/J5zm9rflht9rmvkHx856U2GD4Yt6fJGxTgXV51o2YMQhBAl2TG+qMkMJm44Kju7qH/QYnnGl3b/XrHlAX1J9NGx689x816+G+20WkTeNmUx6hT86pzw5E14Rkk8VD1uG60DnGKiklFKnBtizjDNuLOQ2vPoqLnMClECkWtlV/0JjO2ukwnOAHNibKcmgVfRgpnVWIzd1+EDoYBR+2mICom7Sw+58jc8HO2cpu8x/Jc/NqsMeRPJDA==
+ b=A71Rlz2BEmekRGASmmYVcfmhDtwYjCZoHL+7p7oQ6Lpm4lzCRKTvQ21z3AQsN0rw2TbtOjUSxjkebLPL0U6KSkhl8klaZSoShndW5p1yOsun/BSFAgOc9SGWCEzkmhOIkyrwOlkLX4QUSduWNnpnrCy3oS4fklYq6VNqIsvLi8imIpgL07/lk51YTS34zKKnApLOaFNlB7wBmf60QPJPx/JML2mCWr7E7ZEMTDSEdXWSZBx5nf5jhJqmihkSbbKtGgzer4CizdXbvktpe+J4juaGmT4mD6fjysucJnLSHcp7Ssr5TKyqEAPOaVImOqEm6u2ujSwjli9+vRQxVHpPag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDriSmDaYXixrnYf5dXwlyJ0zmZjyBirNnJDZJT+IlE=;
- b=ktcBQMoqh5JrImC78d6WjYUWndLmVfK20hdhAm3+Y5YPN1sCIyO7RgGV9pdxMRy6tro6FGrOVlfqhBYP5NTmW5yK/cxGA0vbp8ICt7cYUwsMhZuxqL14n7BIW1EqXCIySpTrWn5PMGCBB3zPJ3AFbQ1Xk4N6MXefSBN2Zg2BQxwwbA/YQFoJsNfqXvFsnurXfL9hkw1GIx7PyaSEpUUog7H5tMnQw9gfNDNo2VmYYmmF0ho2kErX63wU0hnvqLRE996Jy47fW9QuFTAA/x/3z9PUGBTqXJSOmCBYiE2w9iG6D+lk1W2FZs8nQY8oLurJV9yYYCaI6hHHPigEwgCaDg==
+ bh=OYOAvyC/nmMEY0RDbecio59F1xf/nbcFAUG4eIFxp8s=;
+ b=QBmmpCqbavUI1S56tOfYl9LzfHfQEdAV/FCo3PgCihdr5QtZVq9uJ0sN2+bDF9jHbzO2f1MVVAoyVmqA1b3TJKnYYAXLxbUV3UPgTkFrWH4SdLURcCoMksj3J5hHEJoOmmpRq6d4+UPk9g+tpvLi0XlUUD1LbRwEq0NhhGl+Ml62CokqmZPmBh4ke4vaqY6vAX5Q1LylYkxAnWyEwMdr7Ty2ceeJOlOeqycTcwRfRK3SriP3bpJ5u64bvJYsmYuyY9vHizWUPNaPRRuU9XD4x1eUc+2JB1FMIL3HR9HtT8hEN9HriwaEl+IQGgztxxHsZGgupMdlupwh6LYjku951A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDriSmDaYXixrnYf5dXwlyJ0zmZjyBirNnJDZJT+IlE=;
- b=WIvoutRqvBnQf1NOhB2Z4RoeVmhcdVzTe8C2GYJpVwiFVt4REmpVGOfTEADGN6BqzeG+wljU/Za5lBaXubcLbITNO3UcvMtpQhwqiXnRCElIbFtQMUEkO7JPvKjPk0UxouRp96V4Wlk8syLkjCAAuJOzrxotdJFv0voeeoWLEok=
+ bh=OYOAvyC/nmMEY0RDbecio59F1xf/nbcFAUG4eIFxp8s=;
+ b=Iv1ocxWAQ2kT1fOcpFp6vpMfu2Xf1XUsT1KG/QWz0J9oluZQGX6rvEJJBxroB3z2KcvE518NNEiilgXxcN0aFCafYb7AbUPtDD31+zD+aorxyZNsTG9NcjQiNxos3dGpFjirIVH6mviXssIFb5ENo7uM+mFoKItG1TkfVSlGyfk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
  by DM5PR12MB1882.namprd12.prod.outlook.com (2603:10b6:3:112::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.8; Fri, 8 Jan
- 2021 21:50:52 +0000
+ 2021 21:50:54 +0000
 Received: from DM5PR12MB1753.namprd12.prod.outlook.com
  ([fe80::1cf5:9c9e:7374:4540]) by DM5PR12MB1753.namprd12.prod.outlook.com
  ([fe80::1cf5:9c9e:7374:4540%12]) with mapi id 15.20.3742.009; Fri, 8 Jan 2021
- 21:50:52 +0000
+ 21:50:54 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 16/21] drm/amd/display: enable HUBP blank behaviour
-Date: Fri,  8 Jan 2021 16:50:02 -0500
-Message-Id: <20210108215007.851249-17-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 17/21] drm/amd/display: Add a missing DCN3.01 API mapping
+Date: Fri,  8 Jan 2021 16:50:03 -0500
+Message-Id: <20210108215007.851249-18-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
 References: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
@@ -68,49 +68,49 @@ Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:691c:c3e7:a457:38d0)
  by BN6PR19CA0063.namprd19.prod.outlook.com (2603:10b6:404:e3::25) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
- Transport; Fri, 8 Jan 2021 21:50:51 +0000
+ Transport; Fri, 8 Jan 2021 21:50:52 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: eadc81e3-702f-4a32-e68e-08d8b41f785b
+X-MS-Office365-Filtering-Correlation-Id: f0ef227a-2c1f-4b1a-64dc-08d8b41f7923
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1882:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18823732725D08D17DF584D598AE0@DM5PR12MB1882.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1882DB5CCAA0401D8B2FDF1998AE0@DM5PR12MB1882.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /ZATARXQ8vrD6jxLP8OnyO3248LS5kcO14rPABZ3QL128ukECRh/HeP6aE/8AAhb3ivwPaHESrZ4mlDIooe6eMYoARk7IAcYoBTkeyrckEo6LaCDx7XLgA7IW54x9boe2oOjFGrVaSif20JrPOTnv85/lgFZIxDMAAR1VTX9ZggoPWdwE1Rrn/TE0PYrUqHuI4m6dtpdSpCxq2GjqJyk+yCcyQxYz4Tgxi5t5eH84jnHZifya20iul1x0XAghuuCCTGPTYDVnD7jPJzjNaO03R0ItNOUljlaE6lux3EgK2ggcZm5KVqxF7Q68VGNSrl0FRyxBYJmEluh4Bm65CM58XZ+08L6X+lZk16p9oehh1y6Mf9Id1D89yOWSVHW7x9uKc7C7vZX5YqQi/1hze/Ufg==
+X-Microsoft-Antispam-Message-Info: hay+z6Ub4N3sM70djBDo6PeQqQN5rGxkgS6dNTHg55tO5pvk5zfhT0JA69PUbQla22DNre3aKIwzko7WM8ew3IoNv3pnbx1lwxqKsW4AyTJ3uvVSLQvfC3AVo0Dopb4BsCXb2D3PMSqpauS/bAVfMs/pSHegon60WuGHYK8zSv+VjfMT1O8Gq7ayY4+tSKxT/k032dh+Srdi/KfX7bSDfDERZQNCsdnWh2AcNrEyvEzAAWwadlo/Vnj2cflgAKlRUm6JjV40ldVhpotsVIFs1pFQodrZLpCiVAkbwgHzgAJV4HgJhSkIL/aEZ+rHD/Mc3jhwzPg9i536WjNU6D7xsSOi/72mo73YJy+deHkLyKi9z9RU300WNOHQJDcdNc2+nvGVHdvhZS8VIOxYMCKXSQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(39860400002)(346002)(376002)(396003)(5660300002)(6512007)(478600001)(86362001)(66476007)(6486002)(4326008)(52116002)(83380400001)(6916009)(66946007)(66556008)(8676002)(1076003)(16526019)(36756003)(2906002)(6666004)(316002)(6506007)(186003)(2616005)(8936002);
+ SFS:(4636009)(136003)(366004)(39860400002)(346002)(376002)(396003)(5660300002)(6512007)(478600001)(86362001)(66476007)(6486002)(4326008)(52116002)(6916009)(66946007)(66556008)(8676002)(1076003)(16526019)(36756003)(2906002)(6666004)(316002)(54906003)(6506007)(186003)(2616005)(8936002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Tt03i+/yOqB+a74Jo277IYPXkE2NG8a60TLbhA97oj0uAinYr8zaXULRLZqg?=
- =?us-ascii?Q?oO2U70iyhJSahp0uuNws/mScTPUY7VqCL91nu5VKAIsninPPBhjHxKIPYML+?=
- =?us-ascii?Q?BTAFB3F8vP2CMLM0mmQVoIQb01RaUCAoDs8YxzoAwURSyPAArwg/oql/SX26?=
- =?us-ascii?Q?xxw+oTEJy0J6dlE04Ah+WCqR6Pyz6M/avEYcTWWAE8YmmgXs5NDtVHqCq79j?=
- =?us-ascii?Q?g9PfK0aFaxb1038muZrvrvmEHMpx+YPcRnd6N8Y/R85MeVY0+upCzM4GqAkf?=
- =?us-ascii?Q?Te8sW5O4FXEh1eQLnj9v2HbhE61R0Ws8ZHZoQeammZUBam4oZ0NIT5VbKmxt?=
- =?us-ascii?Q?bzYbWf3B8WpFWtIGLqTUEthljvkqQGZrfZXrxSRREzfJCEJjOpKJUaMHC80v?=
- =?us-ascii?Q?8OLMMXoa3W1SjdI1fOcJ3Q+Vb5rD2pMc3RbOD2F9s9FMo4UWKaulxlFx85wD?=
- =?us-ascii?Q?Opq45auLXZyJC6vp3lSHtY54Qjmc+YyUxr+uLzC+yP97AKEqJG4FljY531+Q?=
- =?us-ascii?Q?5b8xDVSHvZjN6NBfMoTujsR59BD1PKOjkM4aNu/KX1r7b2kBFSWJ5/MvW4At?=
- =?us-ascii?Q?rsp51eaxIYDp4XJ9rw0PiCfBqd+gj0F9LPpU3uAMtjpjQWnzdpQQtJ4r69fp?=
- =?us-ascii?Q?TF4J5xF8nKLniJciVOMA+ZUKnEV8EODt6nAH2oN6GTwDSYhVi807SXkDXH5j?=
- =?us-ascii?Q?eRxSXzM8jFsKYWoopQ41udUHefo49zfSeAmlTZw0sgxf55/2UUR8I1cDcRk5?=
- =?us-ascii?Q?AXgzmRDm4QbUfKboE2t6Q67OavVrjVorR1Jo/xpD/Td9QAgtEOF5YuMfH6u4?=
- =?us-ascii?Q?4APuRkK/Mxi6J/74Y0A+IL5vG9cwa/ovqjznbgB8H8ZWXETco+zAONlpibwB?=
- =?us-ascii?Q?5hazuqMkJWFOfanlxxQrF/ke/NrWIDCGNoGm1oZ2CuuaQnNEqOLsNGWZMFjf?=
- =?us-ascii?Q?4z39Svex4tI8Lk9THpFVTrWTx5d1VGk7SMGUjKIUMGzVTFqFzn5f3Ac7AHmn?=
- =?us-ascii?Q?dXE+ZAR9Vzg/GaBtSMnvcWoo/gAgiKFbREr6GHrfzVdsqWj1K5wI2zuXohQy?=
- =?us-ascii?Q?gRjxAT33?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?wA4XkQ3psImiNtHxUD3NGEOvjTJpy8VAcoo0hoLwAcNqDbzVXilzDI3mjP1k?=
+ =?us-ascii?Q?QkIw2PwcceZwl5a98C0UQsM38vYxkUAlZ7VuHOGXquR91DXGT7zhw+Ojh2aI?=
+ =?us-ascii?Q?eNObeOfRG+llfB4om0ImWD1qdZgtvp+65HTpyX+mEoW+zVaMYceh0rz2lC2q?=
+ =?us-ascii?Q?bnRtXk9DIgsnmg1GC2gm479WFZXlV+xEQ5gdTlzqjMqiqiX1gT8O3cXXj0ZA?=
+ =?us-ascii?Q?XgweYvc4qwwy3Sz+xxs4ZfBJwu7Mb4XoDpox5rizpWb1ijzI2xXf4ZlR+Zya?=
+ =?us-ascii?Q?w9kwxDXfxtztQ+v9ceuowmSfF476ibUnRoM6JR3R1jz1WHct9Rzzhs0PZiee?=
+ =?us-ascii?Q?kUk4wUmfE11FgfuDiSUCkMyebaxtWcOyJzGENqEdA9XC4wHhpzkgdsZLqxXy?=
+ =?us-ascii?Q?7nZpZkknKPmRCtoQFwdmADLSIkY30Soitzh44LcuXl08QeAB8JE3banMOeW+?=
+ =?us-ascii?Q?PmVQaoKGQWsIcK6f1DaGHzaottTBvo6Vk1/ToAr0XTGUsNGiBImadtCvwmz7?=
+ =?us-ascii?Q?nGnd747SduTYnO5kQMndY57zeocVKGfCiF/pcJ9iCUIk+0RqSv+ZUjzkeijH?=
+ =?us-ascii?Q?qTTAzOR6UNKXdEUEFe3KLk5ndIinmiIppsNH1RySSp2BJA54ty0wKeJXaeBW?=
+ =?us-ascii?Q?sJ8V5ClrQ4oGfwaMsaNIgrXitL1M4qQrwbornHYsyXUmgyHG7q+Ig+Gx2Zts?=
+ =?us-ascii?Q?l9IcmTiQ56LkTCnAFlPtYyLbj7mhzJsMzKSir9MNdS2i5wskgqHD9cwsfJer?=
+ =?us-ascii?Q?91mViLUoIHQYLDSySiAWi0RRbMMNhbpYv5y/VMXsjmxbu8uc+ryHUBx74KUg?=
+ =?us-ascii?Q?J8TnIv5On8yIg2dTFAGFGxRntwx1sEW7oW2oCNBinrVPIIH0YUZLDrH4mlJ1?=
+ =?us-ascii?Q?bUQGm0DOOxgvBO6PYA0ZieoLvvXktqGj4HaNPuzbDvmBepu+XZlz80LJSLAC?=
+ =?us-ascii?Q?x45rVGlV61h0yGIYWlaATQjy+zIZNuyZCr0SuqHe7lpiEqFlB1psSQ+dmQfU?=
+ =?us-ascii?Q?FQPizA513hMXtJhxHfD8gSZPkcPwlF0skBQAnSTal0gWGs5J/rxVPx659PbI?=
+ =?us-ascii?Q?sTk1HImC?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 21:50:52.7050 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 21:50:54.1044 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: eadc81e3-702f-4a32-e68e-08d8b41f785b
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0ef227a-2c1f-4b1a-64dc-08d8b41f7923
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: umj3tg7YUosJVTC4L8dBi03Ojk8TxpM31GTvBKMnvZlGqmCoFSqbp5jBzmI+f1epZ+vV+67f01b96cW/4lo+Gw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: w+iyiayiTYG0qpBdUTaz6VVqdolA8VESBm+Z6ZlpQtwGpBTY3ILi64WiVBf4Re6ox+T+rFcguErUIxVu8l44zQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1882
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,177 +123,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, bindu.r@amd.com
+Cc: Zhan Liu <Zhan.Liu@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, Nikola Cornij <nikola.cornij@amd.com>,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+From: Nikola Cornij <nikola.cornij@amd.com>
 
-- Reverts "drm/amd/display: Revert HUBP blank behaviour for now"
-- Hubp blank will fail if the pipe is locked (this is the case on
-linux), so add a check to make sure pipe isn't locked, if it is then
-defer the blank to post_unlock.
+[why]
+Required for DSC MST
 
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 11 +++++++++
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |  1 +
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  8 +++++++
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 23 +++++++++++++++++--
- .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.c |  1 +
- .../dc/dml/dcn30/display_mode_vba_30.c        |  2 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
- .../amd/display/dc/inc/hw/timing_generator.h  |  1 +
- 8 files changed, 45 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index f033397a84e9..6138f4887de7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -659,6 +659,16 @@ void optc1_unlock(struct timing_generator *optc)
- 			OTG_MASTER_UPDATE_LOCK, 0);
- }
- 
-+bool optc1_is_locked(struct timing_generator *optc)
-+{
-+	struct optc *optc1 = DCN10TG_FROM_TG(optc);
-+	uint32_t locked;
-+
-+	REG_GET(OTG_MASTER_UPDATE_LOCK, UPDATE_LOCK_STATUS, &locked);
-+
-+	return (locked == 1);
-+}
-+
- void optc1_get_position(struct timing_generator *optc,
- 		struct crtc_position *position)
- {
-@@ -1513,6 +1523,7 @@ static const struct timing_generator_funcs dcn10_tg_funcs = {
- 		.enable_crtc_reset = optc1_enable_crtc_reset,
- 		.disable_reset_trigger = optc1_disable_reset_trigger,
- 		.lock = optc1_lock,
-+		.is_locked = optc1_is_locked,
- 		.unlock = optc1_unlock,
- 		.enable_optc_clock = optc1_enable_optc_clock,
- 		.set_drr = optc1_set_drr,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
-index b12bd9aae52f..b222c67973d4 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
-@@ -638,6 +638,7 @@ void optc1_set_blank(struct timing_generator *optc,
- 		bool enable_blanking);
- 
- bool optc1_is_blanked(struct timing_generator *optc);
-+bool optc1_is_locked(struct timing_generator *optc);
- 
- void optc1_program_blank_color(
- 		struct timing_generator *optc,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index b74f79575cdf..18653c423c96 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1765,6 +1765,14 @@ void dcn20_post_unlock_program_front_end(
- 		}
- 	}
- 
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
-+
-+		if (pipe->vtp_locked) {
-+			dc->hwss.set_hubp_blank(dc, pipe, true);
-+			pipe->vtp_locked = false;
-+		}
-+	}
- 	/* WA to apply WM setting*/
- 	if (hwseq->wa.DEGVIDCN21)
- 		dc->res_pool->hubbub->funcs->apply_DEDCN21_147_wa(dc->res_pool->hubbub);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 7f26c9444933..e5cc8f8c363f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -891,6 +891,25 @@ void dcn30_set_disp_pattern_generator(const struct dc *dc,
- 		const struct tg_color *solid_color,
- 		int width, int height, int offset)
- {
--	pipe_ctx->stream_res.opp->funcs->opp_set_disp_pattern_generator(pipe_ctx->stream_res.opp, test_pattern,
--			color_space, color_depth, solid_color, width, height, offset);
-+	struct stream_resource *stream_res = &pipe_ctx->stream_res;
-+
-+	if (test_pattern != CONTROLLER_DP_TEST_PATTERN_VIDEOMODE) {
-+		pipe_ctx->vtp_locked = false;
-+		/* turning on DPG */
-+		stream_res->opp->funcs->opp_set_disp_pattern_generator(stream_res->opp, test_pattern, color_space,
-+				color_depth, solid_color, width, height, offset);
-+
-+		/* Defer hubp blank if tg is locked */
-+		if (stream_res->tg->funcs->is_tg_enabled(stream_res->tg)) {
-+			if (stream_res->tg->funcs->is_locked(stream_res->tg))
-+				pipe_ctx->vtp_locked = true;
-+			else
-+				dc->hwss.set_hubp_blank(dc, pipe_ctx, true);
-+		}
-+	} else {
-+		dc->hwss.set_hubp_blank(dc, pipe_ctx, false);
-+		/* turning off DPG */
-+		stream_res->opp->funcs->opp_set_disp_pattern_generator(stream_res->opp, test_pattern, color_space,
-+				color_depth, solid_color, width, height, offset);
-+	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
-index 3ba3991ee612..8980c90b2277 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
-@@ -309,6 +309,7 @@ static struct timing_generator_funcs dcn30_tg_funcs = {
- 		.enable_crtc_reset = optc1_enable_crtc_reset,
- 		.disable_reset_trigger = optc1_disable_reset_trigger,
- 		.lock = optc3_lock,
-+		.is_locked = optc1_is_locked,
- 		.unlock = optc1_unlock,
- 		.lock_doublebuffer_enable = optc3_lock_doublebuffer_enable,
- 		.lock_doublebuffer_disable = optc3_lock_doublebuffer_disable,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 319dec59bcd1..1fe3fb14afd4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -5558,7 +5558,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 		}
- 	}
- 
--	if (mode_lib->vba.MinActiveDRAMClockChangeMargin > 0 && PrefetchMode == 0) {
-+	if (mode_lib->vba.MinActiveDRAMClockChangeMargin > 0) {
- 		*DRAMClockChangeSupport = dm_dram_clock_change_vactive;
- 	} else if (((mode_lib->vba.SynchronizedVBlank == true || mode_lib->vba.TotalNumberOfActiveOTG == 1 || SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank > 0) && PrefetchMode == 0)) {
- 		*DRAMClockChangeSupport = dm_dram_clock_change_vblank;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 2d77eac66cb0..8efa1b80546d 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -333,6 +333,7 @@ struct pipe_ctx {
- 	union pipe_update_flags update_flags;
- 	struct dwbc *dwbc;
- 	struct mcif_wb *mcif_wb;
-+	bool vtp_locked;
- };
- 
- struct resource_context {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-index f7632fe25976..754832d216fd 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-@@ -190,6 +190,7 @@ struct timing_generator_funcs {
- 	void (*set_blank)(struct timing_generator *tg,
- 					bool enable_blanking);
- 	bool (*is_blanked)(struct timing_generator *tg);
-+	bool (*is_locked)(struct timing_generator *tg);
- 	void (*set_overscan_blank_color) (struct timing_generator *tg, const struct tg_color *color);
- 	void (*set_blank_color)(struct timing_generator *tg, const struct tg_color *color);
- 	void (*set_colors)(struct timing_generator *tg,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index 4825c5c1c6ed..35f5bf08ae96 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -1731,6 +1731,7 @@ static struct resource_funcs dcn301_res_pool_funcs = {
+ 	.populate_dml_pipes = dcn30_populate_dml_pipes_from_context,
+ 	.acquire_idle_pipe_for_layer = dcn20_acquire_idle_pipe_for_layer,
+ 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
++	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
+ 	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
+ 	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
+ 	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
 -- 
 2.25.1
 
