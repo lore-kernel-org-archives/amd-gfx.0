@@ -2,81 +2,63 @@ Return-Path: <SRS0=Lmxy=GM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C59B2C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 02:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E184C433DB
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 12:42:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78A542311E
-	for <amd-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 02:26:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78A542311E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3AB4A23A03
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 Jan 2021 12:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AB4A23A03
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22F6E6E904;
-	Sat,  9 Jan 2021 02:26:24 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0736E904
- for <amd-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 02:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610159180;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3deUTSWo7icL2/kX+c+a8SQqHFNh2K28a4hRCkAQWWY=;
- b=DDrS+FmDUx23tshFtaYJ8a9k3zaUTIMWjR86PUomG56Cw+CNJj24rEy0lmo/g/O24pj+YG
- jCAVUtHMLqZ8L8Ljv/TDRhGGyrv2dTx4vm0cwBs3nJNC0ndcaPJMUllCn3kPXr9dKF0NLH
- WkOOAp/FEp3U0JnaI7cZafxNCpE8B7A=
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
- [209.85.166.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-23-SQhDOczyPiKfbw9s7O61_w-1; Fri, 08 Jan 2021 21:26:16 -0500
-X-MC-Unique: SQhDOczyPiKfbw9s7O61_w-1
-Received: by mail-io1-f70.google.com with SMTP id m9so9287532ioa.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Jan 2021 18:26:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7329F6E7D7;
+	Sat,  9 Jan 2021 12:42:43 +0000 (UTC)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692B46E7D7
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 Jan 2021 12:42:42 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id s26so29555360lfc.8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 09 Jan 2021 04:42:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=ikIOv+7uh9vQ41ioXNZ3hAXp041WPdGPQZbdKGEX79A=;
+ b=MmdNcn5qLYNajDkfmY5KQVO4zajlOUOZVxl+J2xwmfoRWzAzBonsddg5to1X9tKoh+
+ ONF9Rqyq4BaEyquYr0ie5vyoQA2X4zPs+FoH/d932TkEnSemRauw+YR0n2v8vgl27mXE
+ 46zxKpH7ARu239f/m1pnKzYh4w/sfiEsdxAkq8hdjQlGfJHOVbE/brbBwFKK6fBUemi1
+ cGvtjH+dkUijQKi7y7NzERA5JOAQq7hXjYNczvL5q2UI4m+EH+fnUKvxe6m2iAqTl0Q6
+ klMdCofm0/odoTrxw0SWKbDZo0VCiBMffLW0V3p3qyDX4vcB+2J9zDIxQa4kzeDpCdAX
+ 0zTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=3deUTSWo7icL2/kX+c+a8SQqHFNh2K28a4hRCkAQWWY=;
- b=J2Ztv0CryCG2FlsyfIuetPMg5guunG9onWKqN87w9h7kqBklt1+FNGiQtGvIMuQGjt
- mhx7T/DOXgRYt3dlqJLvdGFFGJU87lx4TON4K1TUoF5cu1nk5ya7bXT9f5i32mEgcR8U
- 5FPJQuEQC9ZFzfRuPRxkPow6v7FRAW65/wjJakDFd0q3a/MAPN4LV9Y5xHUJ2IYkDEgt
- emTmden9Pxg+YG/LXWgCx3MVKcWA5wU1vwELHRIkgyQRxfeGIlNG/CHYE5mtRMJ5BTRm
- umC/1OfZkTHdhc4xq2jTG6fEtBST9h933P+1TaNNIGCkMmyNpIm39g5AyF/y4b8h82+0
- qPvA==
-X-Gm-Message-State: AOAM533nZEL8qidGycVSsCLD59NyLl8UJOsB7CwC171HUrYsqPl+WtLC
- R/e3LXnPrLZvtV7Vg7e1IZX+90WQVSnW8OPK1jjOVW+dBvAZq7Ib//KLhsRf1B/kFdiXKBRY3c1
- zNi0lbEPS8MYm1fvVECoQ4ZjA/w==
-X-Received: by 2002:a92:6e12:: with SMTP id j18mr6527505ilc.47.1610159175659; 
- Fri, 08 Jan 2021 18:26:15 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzp6AdgQP1S6tAvq+SLTyOQGHsKz+zbQT3eexm4d0LcPmSvkxbYAXledHnV+hNlWHIra9IjOQ==
-X-Received: by 2002:a92:6e12:: with SMTP id j18mr6527493ilc.47.1610159175334; 
- Fri, 08 Jan 2021 18:26:15 -0800 (PST)
-Received: from xps13 ([2605:a601:a63a:4d01:b7b1:2714:939a:40b8])
- by smtp.gmail.com with ESMTPSA id s10sm3003553iob.4.2021.01.08.18.26.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Jan 2021 18:26:14 -0800 (PST)
-Date: Fri, 8 Jan 2021 21:26:12 -0500
-From: Jeremy Cline <jcline@redhat.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix out-of-bounds read in
- kdf_create_vcrat_image_cpu()
-Message-ID: <20210109022612.GB248768@xps13>
-References: <20210108163104.411442-1-jcline@redhat.com>
- <a341f82d-5933-3df3-f665-cbb4fb5fc5ff@amd.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=ikIOv+7uh9vQ41ioXNZ3hAXp041WPdGPQZbdKGEX79A=;
+ b=XxbaZ5k5+1XiUD3Ve+zyUVD5wc+QMERbtaVQyqJ6fIdeOq18P20xnoTUCyKrMV5yEf
+ KRTheJYgz6ZgheYmXDmCSLCqHTB/s2C6/O8GxpG8zfbkf6jz9xSqsv4lO0SwgCT1t9HP
+ TX+DapMYyOl96CdlIKEq/Fny46PUb1OJW0qm/R6HX7HFDNChuFGpgh/yrCNfAuYKox/g
+ UG2dsgjl+q0/v2+2/6QBtaDB0BfDM2HQq0R/rhiP+XKWnMlu2otkZLW/B1ulPSseHVtS
+ PgMbZ5+h1+J9smaCY0gjuJD4fe6CJBbrtwNBkmuU6qk6VUYKivsCzVn0wccpN51mWdms
+ oO1w==
+X-Gm-Message-State: AOAM531KA+xwrItYD7/0XddyowPRN/nit/fblZwrU1PDb4Ix9Kp+1XE9
+ qRZezozIcxRNoNsfTZ/W6iFxZ4oy5OPYvCJWymw=
+X-Google-Smtp-Source: ABdhPJxaZJFRx+p07G6orAPhJvnDxsw/NtkHOVCUUXZCTL3zNYvIEtWcg+HnqUDbYmK9VcajNZKHYnmYyNuUk9wOVrY=
+X-Received: by 2002:a19:f203:: with SMTP id q3mr3396509lfh.166.1610196160164; 
+ Sat, 09 Jan 2021 04:42:40 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <a341f82d-5933-3df3-f665-cbb4fb5fc5ff@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jcline@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Sat, 9 Jan 2021 17:42:29 +0500
+Message-ID: <CABXGCsPZvfsUBiMr5fdQYRf26bMchN=UL8oXojgoVbWtwJhXjQ@mail.gmail.com>
+Subject: BUG: key ffff8b521bda9148 has not been registered!
+To: bvanassche@acm.org, Peter Zijlstra <peterz@infradead.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,271 +70,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Kent Russell <kent.russell@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 08, 2021 at 06:46:17PM -0500, Felix Kuehling wrote:
-> Am 2021-01-08 um 11:31 a.m. schrieb Jeremy Cline:
-> > KASAN reported a slab-out-of-bounds read of size 1 in
-> > kdf_create_vcrat_image_cpu().
-> >
-> > This occurs when, for example, when on an x86_64 with a single NUMA node
-> > because kfd_fill_iolink_info_for_cpu() is a no-op, but afterwards the
-> > sub_type_hdr->length, which is out-of-bounds, is read and multiplied by
-> > entries. Fortunately, entries is 0 in this case so the overall
-> > crat_table->length is still correct.
-> 
-> That's a pretty big change to fix that. Wouldn't it be enough to add a
-> simple check after calling kfd_fill_iolink_info_for_cpu:
-> 
->     if (entries) {
->     	crat_table->length += (sub_type_hdr->length * entries);
->     	crat_table->total_entries += entries;
->     }
-> 
-> Or change the output parameters of the kfd_fill_..._for_cpu functions
-> from num_entries to size_filled, so the caller doesn't need to read
-> sub_type_hdr->length any more.
-> 
+Hi folks!
+I started to see this message every boot after replacing Radeon VII to 6900XT.
 
-For sure. I felt like this was a bit tidier afterwards, but that's an
-opinion and not one I hold strongly. I'll look at preparing a smaller fix
-next week.
+$ journalctl | grep "BUG: key"
+Dec 31 05:19:42 localhost.localdomain kernel: BUG: key
+ffff98b59ab01148 has not been registered!
+Dec 31 05:25:44 localhost.localdomain kernel: BUG: key
+ffff8d425ba01148 has not been registered!
+Jan 02 17:36:25 localhost.localdomain kernel: BUG: key
+ffff935e5a959148 has not been registered!
+Jan 03 03:29:08 localhost.localdomain kernel: BUG: key
+ffff8d425b0b9148 has not been registered!
+Jan 03 03:33:35 localhost.localdomain kernel: BUG: key
+ffff8bc35aef9148 has not been registered!
+Jan 03 16:47:44 localhost.localdomain kernel: BUG: key
+ffff9a3cdb959148 has not been registered!
+Jan 06 14:59:58 localhost.localdomain kernel: BUG: key
+ffff97b6db9f9148 has not been registered!
+Jan 07 14:51:49 localhost.localdomain kernel: BUG: key
+ffff8f2dda569148 has not been registered!
+Jan 07 15:08:23 localhost.localdomain kernel: BUG: key
+ffffa0849bd31148 has not been registered!
+Jan 08 18:07:28 localhost.localdomain kernel: BUG: key
+ffff89721a0e9148 has not been registered!
+Jan 08 18:12:51 localhost.localdomain kernel: BUG: key
+ffff8b521bda9148 has not been registered!
 
-Thanks,
-Jeremy
+Here is trace:
+[    6.333672] [drm] REG_WAIT timeout 1us * 100000 tries -
+mpc2_assert_idle_mpcc line:480
+[    6.335258] BUG: key ffff8b521bda9148 has not been registered!
+[    6.335271] ------------[ cut here ]------------
+[    6.335273] DEBUG_LOCKS_WARN_ON(1)
+[    6.335279] WARNING: CPU: 18 PID: 525 at
+kernel/locking/lockdep.c:4618 lockdep_init_map_waits+0x18b/0x210
+[    6.335284] Modules linked in: fjes(-) amdgpu(+) iommu_v2 gpu_sched
+ttm drm_kms_helper crct10dif_pclmul crc32_pclmul crc32c_intel cec drm
+ghash_clmulni_intel ccp igb nvme nvme_core dca i2c_algo_bit wmi
+pinctrl_amd fuse
+[    6.335298] CPU: 18 PID: 525 Comm: systemd-udevd Not tainted
+5.10.0-0.rc6.20201204git34816d20f173.92.fc34.x86_64 #1
+[    6.335302] Hardware name: System manufacturer System Product
+Name/ROG STRIX X570-I GAMING, BIOS 2802 10/21/2020
+[    6.335306] RIP: 0010:lockdep_init_map_waits+0x18b/0x210
+[    6.335309] Code: 00 85 c0 0f 84 75 ff ff ff 8b 3d 18 c4 f1 01 85
+ff 0f 85 67 ff ff ff 48 c7 c6 68 43 60 97 48 c7 c7 1d 90 5a 97 e8 70
+1f b6 00 <0f> 0b e9 4d ff ff ff e8 19 59 bc 00 85 c0 74 21 44 8b 1d e6
+c3 f1
+[    6.335315] RSP: 0018:ffff9e5a013d3910 EFLAGS: 00010282
+[    6.335317] RAX: 0000000000000016 RBX: ffffffff97247d80 RCX: ffff8b5908fdb238
+[    6.335320] RDX: 00000000ffffffd8 RSI: 0000000000000027 RDI: ffff8b5908fdb230
+[    6.335322] RBP: ffff8b520e2a7978 R08: 0000000000000000 R09: 0000000000000000
+[    6.335325] R10: ffff9e5a013d3740 R11: ffff8b592e2fffe8 R12: ffff8b521bda9148
+[    6.335327] R13: 0000000000000000 R14: ffff8b521bc30330 R15: ffff8b521bc30330
+[    6.335330] FS:  00007fe019eb9140(0000) GS:ffff8b5908e00000(0000)
+knlGS:0000000000000000
+[    6.335333] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    6.335336] CR2: 00007fe018f5e000 CR3: 00000001142ee000 CR4: 0000000000350ee0
+[    6.335338] Call Trace:
+[    6.335342]  __kernfs_create_file+0x7b/0x100
+[    6.335344]  sysfs_add_file_mode_ns+0xa3/0x190
+[    6.335347]  sysfs_create_bin_file+0x50/0x70
+[    6.335428]  hdcp_create_workqueue+0x3bd/0x410 [amdgpu]
+[    6.335499]  amdgpu_dm_init.isra.0.cold+0x136/0x126d [amdgpu]
+[    6.335570]  ? psp_set_srm+0xb0/0xb0 [amdgpu]
+[    6.335637]  ? hdcp_update_display+0x1f0/0x1f0 [amdgpu]
+[    6.335641]  ? dev_printk_emit+0x3e/0x40
+[    6.335709]  dm_hw_init+0xe/0x20 [amdgpu]
+[    6.335776]  amdgpu_device_init.cold+0x18c3/0x1bbc [amdgpu]
+[    6.335781]  ? pci_bus_read_config_word+0x39/0x50
+[    6.335831]  amdgpu_driver_load_kms+0x2b/0x1f0 [amdgpu]
+[    6.335879]  amdgpu_pci_probe+0x129/0x1b0 [amdgpu]
+[    6.335889]  local_pci_probe+0x42/0x80
+[    6.335891]  pci_device_probe+0xd9/0x1a0
+[    6.335896]  really_probe+0x205/0x460
+[    6.335898]  driver_probe_device+0xe1/0x150
+[    6.335901]  device_driver_attach+0xa8/0xb0
+[    6.335904]  __driver_attach+0x8c/0x150
+[    6.335907]  ? device_driver_attach+0xb0/0xb0
+[    6.335909]  ? device_driver_attach+0xb0/0xb0
+[    6.335911]  bus_for_each_dev+0x67/0x90
+[    6.335914]  bus_add_driver+0x12e/0x1f0
+[    6.335917]  driver_register+0x8b/0xe0
+[    6.335919]  ? 0xffffffffc0e4c000
+[    6.335922]  do_one_initcall+0x67/0x320
+[    6.335925]  ? rcu_read_lock_sched_held+0x3f/0x80
+[    6.335928]  ? trace_kmalloc+0xb2/0xe0
+[    6.335930]  ? kmem_cache_alloc_trace+0x157/0x270
+[    6.335934]  do_init_module+0x5c/0x260
+[    6.335936]  __do_sys_init_module+0x13d/0x1a0
+[    6.335940]  do_syscall_64+0x33/0x40
+[    6.335943]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[    6.335945] RIP: 0033:0x7fe01aab2efe
+[    6.335948] Code: 48 8b 0d 7d 1f 0c 00 f7 d8 64 89 01 48 83 c8 ff
+c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00
+00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4a 1f 0c 00 f7 d8 64 89
+01 48
+[    6.335953] RSP: 002b:00007ffdf4879928 EFLAGS: 00000246 ORIG_RAX:
+00000000000000af
+[    6.335957] RAX: ffffffffffffffda RBX: 00005636774ad820 RCX: 00007fe01aab2efe
+[    6.335959] RDX: 00005636774856e0 RSI: 0000000000b4f95e RDI: 00007fe01840f010
+[    6.335962] RBP: 00007fe01840f010 R08: 000056367748bd30 R09: 0000000000b4f970
+[    6.335964] R10: 00005633142fc82b R11: 0000000000000246 R12: 00005636774856e0
+[    6.335967] R13: 00005636774d22d0 R14: 0000000000000000 R15: 00005636774a1d80
+[    6.335971] irq event stamp: 343839
+[    6.335973] hardirqs last  enabled at (343839):
+[<ffffffff96162861>] console_unlock+0x511/0x640
+[    6.335977] hardirqs last disabled at (343838):
+[<ffffffff961627c8>] console_unlock+0x478/0x640
+[    6.335981] softirqs last  enabled at (343730):
+[<ffffffff96e01112>] asm_call_irq_on_stack+0x12/0x20
+[    6.335984] softirqs last disabled at (343657):
+[<ffffffff96e01112>] asm_call_irq_on_stack+0x12/0x20
+[    6.335987] ---[ end trace a4445e953bea9224 ]---
 
-> >
-> > This refactors the helper functions to accept the crat_table directly
-> > and calculate the table entry pointer based on the current table length.
-> > This allows us to avoid an out-of-bounds read and hopefully makes the
-> > pointer arithmetic clearer. It should have no functional change beyond
-> > removing the out-of-bounds read.
-> >
-> > Fixes: b7b6c38529c9 ("drm/amdkfd: Calculate CPU VCRAT size dynamically (v2)")
-> > Signed-off-by: Jeremy Cline <jcline@redhat.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 86 +++++++++++++--------------
-> >  1 file changed, 40 insertions(+), 46 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > index 8cac497c2c45..e50db2c0f4ee 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > @@ -829,21 +829,24 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
-> >  /* kfd_fill_cu_for_cpu - Fill in Compute info for the given CPU NUMA node
-> >   *
-> >   *	@numa_node_id: CPU NUMA node id
-> > - *	@avail_size: Available size in the memory
-> > - *	@sub_type_hdr: Memory into which compute info will be filled in
-> > + *	@avail_size: Available space in bytes at the end of the @crat_table.
-> > + *	@crat_table: The CRAT table to append the Compute info to;
-> > + *		on success the table length and total_entries count is updated.
-> >   *
-> >   *	Return 0 if successful else return -ve value
-> >   */
-> >  static int kfd_fill_cu_for_cpu(int numa_node_id, int *avail_size,
-> > -				int proximity_domain,
-> > -				struct crat_subtype_computeunit *sub_type_hdr)
-> > +				struct crat_header *crat_table)
-> >  {
-> >  	const struct cpumask *cpumask;
-> > +	struct crat_subtype_computeunit *sub_type_hdr;
-> >  
-> >  	*avail_size -= sizeof(struct crat_subtype_computeunit);
-> >  	if (*avail_size < 0)
-> >  		return -ENOMEM;
-> >  
-> > +	sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
-> > +		crat_table->length);
-> >  	memset(sub_type_hdr, 0, sizeof(struct crat_subtype_computeunit));
-> >  
-> >  	/* Fill in subtype header data */
-> > @@ -855,36 +858,42 @@ static int kfd_fill_cu_for_cpu(int numa_node_id, int *avail_size,
-> >  
-> >  	/* Fill in CU data */
-> >  	sub_type_hdr->flags |= CRAT_CU_FLAGS_CPU_PRESENT;
-> > -	sub_type_hdr->proximity_domain = proximity_domain;
-> > +	sub_type_hdr->proximity_domain = crat_table->num_domains;
-> >  	sub_type_hdr->processor_id_low = kfd_numa_node_to_apic_id(numa_node_id);
-> >  	if (sub_type_hdr->processor_id_low == -1)
-> >  		return -EINVAL;
-> >  
-> >  	sub_type_hdr->num_cpu_cores = cpumask_weight(cpumask);
-> >  
-> > +	crat_table->length += sub_type_hdr->length;
-> > +	crat_table->total_entries++;
-> > +
-> >  	return 0;
-> >  }
-> >  
-> >  /* kfd_fill_mem_info_for_cpu - Fill in Memory info for the given CPU NUMA node
-> >   *
-> >   *	@numa_node_id: CPU NUMA node id
-> > - *	@avail_size: Available size in the memory
-> > - *	@sub_type_hdr: Memory into which compute info will be filled in
-> > + *	@avail_size: Available space in bytes at the end of the @crat_table.
-> > + *	@crat_table: The CRAT table to append the Memory info to;
-> > + *		on success the table length and total_entries count is updated.
-> >   *
-> >   *	Return 0 if successful else return -ve value
-> >   */
-> >  static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
-> > -			int proximity_domain,
-> > -			struct crat_subtype_memory *sub_type_hdr)
-> > +			struct crat_header *crat_table)
-> >  {
-> >  	uint64_t mem_in_bytes = 0;
-> >  	pg_data_t *pgdat;
-> >  	int zone_type;
-> > +	struct crat_subtype_memory *sub_type_hdr;
-> >  
-> >  	*avail_size -= sizeof(struct crat_subtype_memory);
-> >  	if (*avail_size < 0)
-> >  		return -ENOMEM;
-> >  
-> > +	sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
-> > +		crat_table->length);
-> >  	memset(sub_type_hdr, 0, sizeof(struct crat_subtype_memory));
-> >  
-> >  	/* Fill in subtype header data */
-> > @@ -905,27 +914,37 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
-> >  
-> >  	sub_type_hdr->length_low = lower_32_bits(mem_in_bytes);
-> >  	sub_type_hdr->length_high = upper_32_bits(mem_in_bytes);
-> > -	sub_type_hdr->proximity_domain = proximity_domain;
-> > +	sub_type_hdr->proximity_domain = crat_table->num_domains;
-> > +
-> > +	crat_table->length += sub_type_hdr->length;
-> > +	crat_table->total_entries++;
-> >  
-> >  	return 0;
-> >  }
-> >  
-> >  #ifdef CONFIG_X86_64
-> > +/* kfd_fill_iolink_info_for_cpu() - Add IO link info to a Virtual CRAT
-> > + *
-> > + * @numa_node_id: The NUMA node ID for the CPU; as from for_each_online_node()
-> > + * @avail_size: Available space in bytes at the end of the @crat_table.
-> > + * @crat_table: The CRAT table to append the IO link info to; on success the
-> > + *              table length and total_entries count is updated.
-> > + *
-> > + * Return: 0 if successful else return -ve value
-> > + */
-> >  static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
-> > -				uint32_t *num_entries,
-> > -				struct crat_subtype_iolink *sub_type_hdr)
-> > +				struct crat_header *crat_table)
-> >  {
-> >  	int nid;
-> >  	struct cpuinfo_x86 *c = &cpu_data(0);
-> >  	uint8_t link_type;
-> > +	struct crat_subtype_iolink *sub_type_hdr;
-> >  
-> >  	if (c->x86_vendor == X86_VENDOR_AMD)
-> >  		link_type = CRAT_IOLINK_TYPE_HYPERTRANSPORT;
-> >  	else
-> >  		link_type = CRAT_IOLINK_TYPE_QPI_1_1;
-> >  
-> > -	*num_entries = 0;
-> > -
-> >  	/* Create IO links from this node to other CPU nodes */
-> >  	for_each_online_node(nid) {
-> >  		if (nid == numa_node_id) /* node itself */
-> > @@ -935,6 +954,8 @@ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
-> >  		if (*avail_size < 0)
-> >  			return -ENOMEM;
-> >  
-> > +		sub_type_hdr = (typeof(sub_type_hdr))((char *)crat_table +
-> > +			crat_table->length);
-> >  		memset(sub_type_hdr, 0, sizeof(struct crat_subtype_iolink));
-> >  
-> >  		/* Fill in subtype header data */
-> > @@ -947,8 +968,8 @@ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
-> >  		sub_type_hdr->proximity_domain_to = nid;
-> >  		sub_type_hdr->io_interface_type = link_type;
-> >  
-> > -		(*num_entries)++;
-> > -		sub_type_hdr++;
-> > +		crat_table->length += sub_type_hdr->length;
-> > +		crat_table->total_entries++;
-> >  	}
-> >  
-> >  	return 0;
-> > @@ -966,12 +987,8 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
-> >  	struct crat_header *crat_table = (struct crat_header *)pcrat_image;
-> >  	struct acpi_table_header *acpi_table;
-> >  	acpi_status status;
-> > -	struct crat_subtype_generic *sub_type_hdr;
-> >  	int avail_size = *size;
-> >  	int numa_node_id;
-> > -#ifdef CONFIG_X86_64
-> > -	uint32_t entries = 0;
-> > -#endif
-> >  	int ret = 0;
-> >  
-> >  	if (!pcrat_image)
-> > @@ -1003,48 +1020,25 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
-> >  	crat_table->total_entries = 0;
-> >  	crat_table->num_domains = 0;
-> >  
-> > -	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
-> > -
-> >  	for_each_online_node(numa_node_id) {
-> >  		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
-> >  			continue;
-> >  
-> >  		/* Fill in Subtype: Compute Unit */
-> > -		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
-> > -			crat_table->num_domains,
-> > -			(struct crat_subtype_computeunit *)sub_type_hdr);
-> > +		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size, crat_table);
-> >  		if (ret < 0)
-> >  			return ret;
-> > -		crat_table->length += sub_type_hdr->length;
-> > -		crat_table->total_entries++;
-> > -
-> > -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-> > -			sub_type_hdr->length);
-> >  
-> >  		/* Fill in Subtype: Memory */
-> > -		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
-> > -			crat_table->num_domains,
-> > -			(struct crat_subtype_memory *)sub_type_hdr);
-> > +		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size, crat_table);
-> >  		if (ret < 0)
-> >  			return ret;
-> > -		crat_table->length += sub_type_hdr->length;
-> > -		crat_table->total_entries++;
-> > -
-> > -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-> > -			sub_type_hdr->length);
-> >  
-> >  		/* Fill in Subtype: IO Link */
-> >  #ifdef CONFIG_X86_64
-> > -		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
-> > -				&entries,
-> > -				(struct crat_subtype_iolink *)sub_type_hdr);
-> > +		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size, crat_table);
-> >  		if (ret < 0)
-> >  			return ret;
-> > -		crat_table->length += (sub_type_hdr->length * entries);
-> > -		crat_table->total_entries += entries;
-> > -
-> > -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-> > -				sub_type_hdr->length * entries);
-> >  #else
-> >  		pr_info("IO link not available for non x86 platforms\n");
-> >  #endif
-> 
+$ /usr/src/kernels/`uname -r`/scripts/faddr2line
+/lib/debug/lib/modules/`uname -r`/vmlinux lockdep_init_map_waits+0x18b
+lockdep_init_map_waits+0x18b/0x210:
+lockdep_init_map_waits at kernel/locking/lockdep.c:4618 (discriminator 7)
 
+$ git blame -L 4613,4623 kernel/locking/lockdep.c
+Blaming lines:   0% (11/6357), done.
+108c14858b9ea kernel/locking/lockdep.c (Bart Van Assche 2019-02-14
+15:00:53 -0800 4613)          * statically or must have been
+registered as a dynamic key.
+fbb9ce9530fd9 kernel/lockdep.c         (Ingo Molnar     2006-07-03
+00:24:50 -0700 4614)          */
+108c14858b9ea kernel/locking/lockdep.c (Bart Van Assche 2019-02-14
+15:00:53 -0800 4615)         if (!static_obj(key) &&
+!is_dynamic_key(key)) {
+108c14858b9ea kernel/locking/lockdep.c (Bart Van Assche 2019-02-14
+15:00:53 -0800 4616)                 if (debug_locks)
+108c14858b9ea kernel/locking/lockdep.c (Bart Van Assche 2019-02-14
+15:00:53 -0800 4617)                         printk(KERN_ERR "BUG: key
+%px has not been registered!\n", key);
+fbb9ce9530fd9 kernel/lockdep.c         (Ingo Molnar     2006-07-03
+00:24:50 -0700 4618)                 DEBUG_LOCKS_WARN_ON(1);
+fbb9ce9530fd9 kernel/lockdep.c         (Ingo Molnar     2006-07-03
+00:24:50 -0700 4619)                 return;
+fbb9ce9530fd9 kernel/lockdep.c         (Ingo Molnar     2006-07-03
+00:24:50 -0700 4620)         }
+fbb9ce9530fd9 kernel/lockdep.c         (Ingo Molnar     2006-07-03
+00:24:50 -0700 4621)         lock->key = key;
+c8a2500586564 kernel/lockdep.c         (Peter Zijlstra  2009-04-17
+09:40:49 +0200 4622)
+c8a2500586564 kernel/lockdep.c         (Peter Zijlstra  2009-04-17
+09:40:49 +0200 4623)         if (unlikely(!debug_locks))
+
+Looks this issue also triggering the next issue, see backtrace:
+WARNING: CPU: 29 PID: 1186 at net/netfilter/nf_tables_api.c:622
+nft_chain_parse_hook+0x26d/0x310 [nf_tables]
+
+Who can help fix this?
+
+Full kernel logs is here: https://pastebin.com/d2Nq01SX
+
+--
+Best Regards,
+Mike Gavrilov.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
