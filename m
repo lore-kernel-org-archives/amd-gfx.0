@@ -2,52 +2,52 @@ Return-Path: <SRS0=2jl+=GO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3C11C433E9
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 08:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 244A9C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 08:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 278E522AAB
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 08:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 278E522AAB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id A7C78216C4
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 08:27:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7C78216C4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFEB6E071;
-	Mon, 11 Jan 2021 08:27:22 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14E7D6E913;
- Sat,  9 Jan 2021 09:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=orTrwl6mDAQHr3qpvUBQdkm781G49tmCK2vydKoShek=; b=UwQt0S0ZTez3nYn6wqD4k/xQyg
- oovrXB/K0vpV1JZiwhqQj1Z11RB1FRONgP9z5FT19CugTW+kUMY3fFfUUMrL3e/LeJ9oJx4cWy9XB
- wBiLpGKwChJAXwT8NnJFh3kU4r4uxpP1tL+saoOO9kRd01AcQ3BhdUjrU2qTREpp7X9Q3EC+IaOGL
- fSK7AvLp8274SkrwZdCswjgXOXse5gaUALd4DYZR8vT9PD3u4nwz06dNq4suk3A06E4yWGlvUeyKr
- Ro1UHnY5q8es01SI36HIcp9yrbBbMEBmHG0Tm4V3J0k5iomw0++9icz7l0o+aZ1D41tD+bKaTpcxo
- PKC4WJWg==;
-Received: from hch by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
- Linux)) id 1kyAUb-000PHa-89; Sat, 09 Jan 2021 09:25:08 +0000
-Date: Sat, 9 Jan 2021 09:25:05 +0000
-From: Christoph Hellwig <hch@infradead.org>
-To: Christian K??nig <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 1/4] pci: export pci_rebar_get_possible_sizes
-Message-ID: <20210109092505.GA95206@infradead.org>
-References: <20210105134404.1545-1-christian.koenig@amd.com>
- <20210105134404.1545-2-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850E06E061;
+	Mon, 11 Jan 2021 08:27:23 +0000 (UTC)
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9753A6E8D2;
+ Sat,  9 Jan 2021 11:10:48 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f1c3a00cbbba2c7022ca5ed.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f1c:3a00:cbbb:a2c7:22c:a5ed])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 605FE1EC03C5;
+ Sat,  9 Jan 2021 12:10:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1610190645;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=q+HNSAGnLFdN3MqrWehu4yxQ5T20BGbWSK/3vkyYElA=;
+ b=Ok0yeXOXW8ybckg0olUt1FFTby51CazQVYF1FBaFakZqXwf9om8iZCD0/A2s705ivuuMmF
+ XC0m1A1lDsScrNXVBhD1b+HKtU6mOo/B134ei1m99gAnQY2TZuQVEh6xxYJO25m3u3uebV
+ zPjEh7pOEfP7XYRxmxOJPq7PqiNPP44=
+Date: Sat, 9 Jan 2021 12:10:35 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
+Message-ID: <20210109111035.GA4234@zn.tnic>
+References: <20210105182309.1362-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210105134404.1545-2-christian.koenig@amd.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20210105182309.1362-1-christian.koenig@amd.com>
 X-Mailman-Approved-At: Mon, 11 Jan 2021 08:27:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,27 +60,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: bhelgaas@google.com, devspam@moreofthesa.me.uk,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 05, 2021 at 02:44:01PM +0100, Christian K??nig wrote:
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index e578d34095e9..ef80ed451415 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3579,6 +3579,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
->  	pci_read_config_dword(pdev, pos + PCI_REBAR_CAP, &cap);
->  	return (cap & PCI_REBAR_CAP_SIZES) >> 4;
->  }
-> +EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
-
-EXPORT_SYMBOL_GPL please for such internals.
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBKYW4gMDUsIDIwMjEgYXQgMDc6MjM6MDhQTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBEcml2ZXJzIGFyZSBub3Qgc3VwcG9zZWQgdG8gaW5pdCB0aGUgcGFnZSBwb29s
+IGRpcmVjdGx5IGFueSBtb3JlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb25fdHRtLmMgfCAzIC0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkK
+PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYwo+IGluZGV4IGQ0MzI4ZmY1Nzc1Ny4u
+MzViNzE1ZjgyZWQ4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiBAQCAt
+NzI5LDkgKzcyOSw2IEBAIGludCByYWRlb25fdHRtX2luaXQoc3RydWN0IHJhZGVvbl9kZXZpY2Ug
+KnJkZXYpCj4gIAl9Cj4gIAlyZGV2LT5tbWFuLmluaXRpYWxpemVkID0gdHJ1ZTsKPiAgCj4gLQl0
+dG1fcG9vbF9pbml0KCZyZGV2LT5tbWFuLmJkZXYucG9vbCwgcmRldi0+ZGV2LCByZGV2LT5uZWVk
+X3N3aW90bGIsCj4gLQkJICAgICAgZG1hX2FkZHJlc3NpbmdfbGltaXRlZCgmcmRldi0+cGRldi0+
+ZGV2KSk7Cj4gLQo+ICAJciA9IHJhZGVvbl90dG1faW5pdF92cmFtKHJkZXYpOwo+ICAJaWYgKHIp
+IHsKPiAgCQlEUk1fRVJST1IoIkZhaWxlZCBpbml0aWFsaXppbmcgVlJBTSBoZWFwLlxuIik7Cj4g
+LS0gCgpXYXMgZmluYWxseSBhYmxlIHRvIHRlc3QgdGhvc2UgZHVyaW5nIHdvcmtzdGF0aW9uIGh3
+IG1haW50ZW5hbmNlIHNvIEkKd2FzIGFibGUgdG8gaW5zdGFsbCBhIG5ldyBrZXJuZWwgYW5kIHJl
+Ym9vdC4KClJlcG9ydGVkLWJ5OiBCb3Jpc2xhdiBQZXRrb3YgPGJwQHN1c2UuZGU+ClRlc3RlZC1i
+eTogQm9yaXNsYXYgUGV0a292IDxicEBzdXNlLmRlPgoKVGhhbmtzIGZvciB0aGUgZml4ZXMhCgot
+LSAKUmVnYXJkcy9HcnVzcywKICAgIEJvcmlzLgoKaHR0cHM6Ly9wZW9wbGUua2VybmVsLm9yZy90
+Z2x4L25vdGVzLWFib3V0LW5ldGlxdWV0dGUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
