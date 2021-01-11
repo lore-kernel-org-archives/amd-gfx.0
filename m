@@ -1,116 +1,120 @@
-Return-Path: <SRS0=WAQI=GN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=2jl+=GO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3D21C433DB
-	for <amd-gfx@archiver.kernel.org>; Sun, 10 Jan 2021 23:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67C77C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73DFD22A85
-	for <amd-gfx@archiver.kernel.org>; Sun, 10 Jan 2021 23:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73DFD22A85
+	by mail.kernel.org (Postfix) with ESMTPS id 126A42247F
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 126A42247F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA44289C49;
-	Sun, 10 Jan 2021 23:12:48 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760047.outbound.protection.outlook.com [40.107.76.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1378589C49
- for <amd-gfx@lists.freedesktop.org>; Sun, 10 Jan 2021 23:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B86899A7;
+	Mon, 11 Jan 2021 04:07:45 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7563A899AB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 04:07:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HIhyvqmyoXCPjdfcHb+H6zlSvw2yE1qJuN976FoHfPuDKtGyBW5qnotdw7cPadsSfHoIx4PFkJaR39YPUWl2PgzWjTgHut0mWtQd9RXKLnwhfUJghkBHI3syXQxgDBQD7bpQCrNGU9E7PdxQDWu12CZV9qMPxmgstAdJSTHd4P+6w4LdS4Wdby0c7wvWm3/IoUsFYPQ1z+HUHUMbnam9DbUeId+ZEf/lvn5auOWq1QFQESqsc3BMqKIWzTS8shhjDcwveRS1X9zPD7LkRcdHeycP/xn1AyBCsGvJjnm2RyGZXZXnxMPl/uZSzxOi3eiMHQQk3QfaPZ9OsrDT3gekMQ==
+ b=IxP1C/GzI01ddRAmIOYs0Lj93xr2+YhXYnDK9BripdaLuEX5ziVHXLAJe2khck+okdWLBwQe8D8+VSF6kl7OKu9qbbIPna4cBj2ZehbprW4eNhECSoKXwNxLHCBMfKrIl/e0kchL+54cCu7NUx9A2sYknXNHPMb6PkLmNdogYPY1sYKgzX16jh13lYJsLqDBzxGGRoJV6TBgdwE7BihsTFehj1bI+exVETwcgjcN3rJFmPHvgHcPlquTAeuuQUQIhKfBtERKzD2uWSmw6kmBVFYD93x2rtOZnFqI2AJh5Ryu7lY1GxXAPG/M5rmN0uJYWySEMSk+ztHWLd3Bvq/tYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I8uFO6BKZ0Djm4Y/0neRjInpmXElgrZxmgHG3SLIiRs=;
- b=O9J0AiRJo6AQMHiPDYdA+nERGjTNvOEJN1wAiI+nXRDyrZpho0AQWEvgiQhbYSgqWfMQmO7Fn2UddN8ZnghULu34jMLxo0QeYdAkd2I8+P0euqJOXx0LA/yS2LPyCgkQV+lLfblEZFxKYX5OB5A7vtKxbd3j/dmL/ft/kuOdjAnZ1aDWKuwR7KAwVhDKNTovnY8/OJWHzt3vAmvEvb4c7b9cNwuX0d8apAMfDjf1ZOdr1qKCKMeJ49zb/sU+Kf8y/3u9EZrdf5bgx9N5G83NwOLLkpebUup0cuUnAdnI3SgBHRpDLMH8L7LU6NYuXbwzTLuMNdsrEJu3WKkExHES+Q==
+ bh=wJVJ/j1jMqoMIt+yUYHRdBLB5LF2LXOkT9ExFzjo+yk=;
+ b=MZhhbzZTXo60vVfG4iq295fnE+mquq41jNP7Rdyl9TdwbBGXM14+7qFHjBjcw+pUJtqFsCd9PqHfal9Lopn55ul4TNuy1W+tqkxlrivtzMBUglXj0BmE320q5/jChdsXFthqiP3bEMEHbYG7JIDK2af3gm9iVzeAzd0ncZDelEcpRXq3ABwclHwrG9NucW2/6AiXY5cjEsiAynBeBaqbfnnYBFVjOecYBvCp8cR0/e5ACxHeYWwtJlKT2eg2FOh+plVp6RiAkIzc7Ocq/oQ+Mln2aXAojALVmNkqyv660772vtEqqyDgwDdRRkp2fFhQeKpb00TYKZ4uQukY3eEn0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I8uFO6BKZ0Djm4Y/0neRjInpmXElgrZxmgHG3SLIiRs=;
- b=JsGawoGRYQ53W0Sd00VQJ28uUkxpMavEcNalqjAaVZqD1YfeOdgpipcF3hcAbhfU33DsYukdojTAvRB9ZDAj0y6AyMbF4g6JfDuT37oV/srtSwaAyYKBb/j5fUYkyrd+hKoXAedOKQb4ZELctrrIpm72AgUceNV3on9G0yTFbds=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
- by DM5PR12MB1516.namprd12.prod.outlook.com (2603:10b6:4:5::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3742.6; Sun, 10 Jan 2021 23:12:42 +0000
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540]) by DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::1cf5:9c9e:7374:4540%12]) with mapi id 15.20.3742.012; Sun, 10 Jan
- 2021 23:12:42 +0000
-Date: Sun, 10 Jan 2021 18:12:39 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 06/21] drm/amd/display: Remove HUBP_DISABLE from default
-Message-ID: <20210110231239.bkc3xlezt4ipitmi@outlook.office365.com>
-References: <20210108215007.851249-1-Rodrigo.Siqueira@amd.com>
- <20210108215007.851249-7-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20210108215007.851249-7-Rodrigo.Siqueira@amd.com>
-X-Originating-IP: [2607:fea8:56e0:6d60:f821:e4d6:e781:8a0c]
-X-ClientProxiedBy: YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::45) To DM5PR12MB1753.namprd12.prod.outlook.com
- (2603:10b6:3:10d::16)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from outlook.office365.com (2607:fea8:56e0:6d60:f821:e4d6:e781:8a0c)
- by YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::45) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6 via Frontend
- Transport; Sun, 10 Jan 2021 23:12:41 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2e04333d-6002-4496-d3fe-08d8b5bd3ba4
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1516:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB15167B8B924A25205329F16198AC0@DM5PR12MB1516.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oRGxTGCcNeaI20o73ok60mrqD6LbHSY+rnIWqRZTLrcvhht8hr8sVKSTFnxTCf4DRjHtb4mCP8yhGJsXxZZMPyB7dzeO8nL3DYSd1eUaIFvBLfekRDY/jwO8+akCRXX4E/4QZ0g4MZu9e3uK3d8G/xZUiWs1bKPU/8hMgn8U/XtIPL9mdRv6++0sdR5lNdWjcwvJaWS4BcpQZuaRLvHI57klHdX1noMi/3SXy7bPZ1qAxwrEJvyp6qg215PlBbmJUZ3dAhjueCXhupSoAbxvxkgsyzMq2s7tpXcjv2CETXcNqKhCPMwFBYkcZ1lcVe82pPXzp0HqhGx3O7P6wJVtWyIIjwFitnSrL2PPbiZlqnopb6ssSEa13xpzXjW9Qf8jo9xG5j/uh6up1IL/NetdZt3ve5upzuuRJAkqAEjwbZQMZc45AVHPp31ai+0ohUQir3DokrgQZLl6pFu8LxBDWY0vY4h2nzN9N6o+LfLSxDGyQct8edPyGyYyIDtgYDa0vZPAGzWpVjEWtIK9L7FfiQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(396003)(136003)(39860400002)(346002)(66946007)(66476007)(4326008)(2906002)(66556008)(9686003)(478600001)(44144004)(966005)(186003)(8936002)(83380400001)(7696005)(6506007)(16526019)(6916009)(52116002)(21480400003)(86362001)(1076003)(55016002)(316002)(5660300002)(54906003)(8676002)(2700100001);
+ bh=wJVJ/j1jMqoMIt+yUYHRdBLB5LF2LXOkT9ExFzjo+yk=;
+ b=l3iXYuKCnL3sjA2Ekc7nSgp4jaY6KiAVeF5UQeW7q3FX+QEIPrCyVNzienmayEX9CbkeC73GOH+1KQmeJBH/TnIicfjc4t0O4yXigJihY43UqEZD2vB/s/cSfgMtJLkUm1OabcFrp+TvC/VKZhRWprzKlcAPrkXsZnpB+d/MQnk=
+Received: from BYAPR12MB2615.namprd12.prod.outlook.com (2603:10b6:a03:61::29)
+ by BYAPR12MB2774.namprd12.prod.outlook.com (2603:10b6:a03:71::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.12; Mon, 11 Jan
+ 2021 04:07:43 +0000
+Received: from BYAPR12MB2615.namprd12.prod.outlook.com
+ ([fe80::886a:6185:379a:c41c]) by BYAPR12MB2615.namprd12.prod.outlook.com
+ ([fe80::886a:6185:379a:c41c%6]) with mapi id 15.20.3742.012; Mon, 11 Jan 2021
+ 04:07:43 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Chen, Horace" <Horace.Chen@amd.com>, "Chen, Horace"
+ <Horace.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: fix issue when 2 ring job timeout
+Thread-Topic: [PATCH] drm/amdgpu: fix issue when 2 ring job timeout
+Thread-Index: AQHW5Cl9cazjK7DmB0apGn+wE1/EF6odltAAgAQ+UFA=
+Date: Mon, 11 Jan 2021 04:07:43 +0000
+Message-ID: <BYAPR12MB2615965BC711BDB28671302EE4AB0@BYAPR12MB2615.namprd12.prod.outlook.com>
+References: <20210106124258.31129-1-horace.chen@amd.com>
+ <CY4PR12MB1573ED17C8D9078A8F1A4D65E1AE0@CY4PR12MB1573.namprd12.prod.outlook.com>
+In-Reply-To: <CY4PR12MB1573ED17C8D9078A8F1A4D65E1AE0@CY4PR12MB1573.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-01-08T11:34:34Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=fc04de37-7944-44aa-a785-87f1fade6dc2;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: eb781b3e-07e1-4ad9-caee-08d8b5e67211
+x-ms-traffictypediagnostic: BYAPR12MB2774:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BYAPR12MB2774922A9D8EB42D1240083FE4AB0@BYAPR12MB2774.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FtQG1LWFS5VL47nqDNctY0Zl1Pg5cpsUpVzGbhTeDdqEyDAkd3/YpAzUrNhMHprztAgNhRyYdIuXjBD6eEZCpK+/meWyxf4xoDLCVTF+tzGE+coDZas1HQ5wYtWSsueLvNozr2uTlMjxp/2GzxtcuOR+Wsmfft0tYZ9NeBhD+LSx+kpiJU6bHvTp+TY8oS2tPYlrAl7+tj8BOAkz3YoEaZ91WuT2pyTEGq8XH8RuWeZOJvDyE+LhIkRedsIrM/MXwFmjKgKbpjgkYkliyHaeMoMMx3lTVu+FxkAq89czDVVKAFNqdMNcQbJgxOKKaH7x3k90GOgNrW6KwTmdsMvlmAQ9fkk/tsbQuXKO0TbHkKqqQONIhRytsyAHKrKjCPsrzOiv9p7PBF5rNBrgfru2AMKCP0QqZdyqSzXT8xiCoBs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB2615.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(39860400002)(346002)(366004)(376002)(478600001)(8936002)(53546011)(66446008)(66556008)(64756008)(5660300002)(316002)(52536014)(83380400001)(66476007)(966005)(71200400001)(55016002)(110136005)(45080400002)(2906002)(8676002)(9686003)(86362001)(6506007)(76116006)(26005)(66946007)(4326008)(7696005)(54906003)(33656002)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?lcF+q2UGAonW1ffB90zP+DP6b6rLsifhv3zjOQopPpe+lIsVQT0gur+/qD2c?=
- =?us-ascii?Q?82RUxEjkglfTEC6Qayx9U1rQCONCoyhww2WXsdCSzuFdhEYE3UJxDnQjUyHC?=
- =?us-ascii?Q?0aNu5nRq+UcO4wDv2n4DPkGuyh4XaUzS2MM7QET0sJ3bmd1Qop1AltzNSAGB?=
- =?us-ascii?Q?48fA0RKb1ocPvIl75wp4AmyBOjxVQu1X5kOUq6cCRbdbIy2Rufwt1sbnfpb+?=
- =?us-ascii?Q?h0IliOUIaoaDS4nRMD0s1UQ55/GGculsI7T6n0+umJRt4II3VHdrOj6OSWIp?=
- =?us-ascii?Q?qqbfR+nB5CDE0GPWQbiaHlRxyH/kT/foDaEpsdWQt4/FFbhZ/gsRA3X8Yk7I?=
- =?us-ascii?Q?XpOzXkdjp/cPHNZqkBXZXaMyA97lgo7tLURH6Wx4aUF8ihHyBFNQ+uulQjCw?=
- =?us-ascii?Q?7Zl9KVT22qgBUIGLGRPkO4n7agyRaMlErA03bsBSuGeP1r1depbSa7ZtmCZn?=
- =?us-ascii?Q?wFmXSpNUAl6vUVq4WVAnkih4XTlnoVmuUIMxvpky40gDqnj3U+jmVqdHWtni?=
- =?us-ascii?Q?sLuEq6T+2pgF350zvLJE2wqQ/fHPbIUafQcvDThWcnCi3xG6Y/DrMGlvKjkA?=
- =?us-ascii?Q?AK4bTOppf/KxnJwqPJkxBjB5uzcxB+qFQSNlkM6Avg2ZktYTjrt9y7LEJmNX?=
- =?us-ascii?Q?mOz7c6Ev4v+a518nz6lLCS6f54GaYrM7bfrGsgeAS8k8dVUFLSf7eVvC48ds?=
- =?us-ascii?Q?c9PUfarxnFWM+AILt5QoQSkAo/C5dNuiidlB8EkgKOXSzdQK9bfGEX+DFuCK?=
- =?us-ascii?Q?tafnyXYkBjA2HwMzlNzadRMzZR9U+Eg6YrduXFmiYkD3WRtTNeMBAfEEgNZv?=
- =?us-ascii?Q?Orkk5CsKqCYJBaRY0xv3lGpfSsRY5iYX+iImuwtQJCmQvnXYp3+pLsdW6g71?=
- =?us-ascii?Q?XrLDoNVmg/h2t9kWze5WaFH5eFlEUMcthZf2wvxOB1KRaMFP6RJXHD2WL1Ka?=
- =?us-ascii?Q?LVBb4Ov3de8LmSQHHia43H87f2krWt8vMdWp0lzuQCFwO31YUkTtg/SwJuvr?=
- =?us-ascii?Q?2BjJnKBhT5oArZo+v0ORBHitLFaOoglPodvbt9G0d+s8Fv1JFUJ/ZWCl32sP?=
- =?us-ascii?Q?p4jEwVRw?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?rMYI10BiR3vwbHeHPSF2BFwchotsV2R8NsG32bsG3aixWEKiIjECIr3wL2hl?=
+ =?us-ascii?Q?tWcFCafNVzr/raXbhq04fK/6jP7IfS1LCEYTk0VOspDyWphGhyYFNz7o7/55?=
+ =?us-ascii?Q?cV1YUbD8UXVrPi8y3upm3KMHswMAFgmurV3i/xDurd8QKv4Z3kdrpFnIiUjm?=
+ =?us-ascii?Q?Ru2PLiW0XS+tPsJFxPSecF5xW0riL3canvIUlopHigndmvM6Hjk17bC9tQMX?=
+ =?us-ascii?Q?WSJKlJbSv9XSwRK5v/eppN69iG3DnPwRHjI2wvffQMb/M02fHQa8JlmCA4HL?=
+ =?us-ascii?Q?MFN5RPjJffLwJQ9KXleHqNzKHrYG/prOVC5pzlFw48kpo9YoQ0KDzpZ1411/?=
+ =?us-ascii?Q?qMr3xs6+ieSL59ktj48lVxaX8JVpzx8ZR+1ss1CvxeII+wCmbB/uScqi4IT3?=
+ =?us-ascii?Q?mYthwuRCzDBHfskKc37V/k0SahfUTBpQAra8jfsCyaGcD5l+3Dzu7B75B7mY?=
+ =?us-ascii?Q?cCOKo2rCIUWuFaHUy+cgxgbDT/pwc6CUdJWwP5u+JWXqNqWPCGRF9pIaDpDf?=
+ =?us-ascii?Q?tJgZJ8n4zvtXFrChBxVqv4OMsbKv7kKIKUdP7otdCMUQpS61On0SWC/jyTod?=
+ =?us-ascii?Q?bxwehqP17fXWYbFhSSWQMLjZvQudZJlJn2hh1Z0j8rJgM2lMj9gn2Boncj6n?=
+ =?us-ascii?Q?H9rMTjgTbB/iI0185HQOLnDFAyPPVcOuYHPSZBwlYbCFE1W4tVOAT06vHEA4?=
+ =?us-ascii?Q?kAdLOmGTwnU4gQ8smQRuZQUYDe0f6/6bHFkacOl1dVhLyzkdW0BvRv2UPFRv?=
+ =?us-ascii?Q?jlzIPayxj0MgWEXWUzqZxQv5iHcfilJ8XMX5fMNIXsG+0XJ7JYvnAqNNSgQ/?=
+ =?us-ascii?Q?0CXZHO8s5y+IqjzFUVwCqqaovEMNqg564Yu6u/nBcVNJ4F6KYaJKlSFaEoF3?=
+ =?us-ascii?Q?o9peJx6LzCsn1SBvo8l2qiODQh2OGuLRdy+8ngV7JQZktODMhyTJHrlJzTO1?=
+ =?us-ascii?Q?AZP8y3fVhYyPJFFOYf+9bRsA+rB+9NBTpUhWwUkTEL0=3D?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2021 23:12:42.4350 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e04333d-6002-4496-d3fe-08d8b5bd3ba4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wTN/ABA3gAjAUcLnnIXFJN8wff9vRF5eg4Qy56jLOvJwVq0zsIsqDhTJCwF72ZQfa5x+dbfTHTMcPz0R7HRnGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1516
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2615.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb781b3e-07e1-4ad9-caee-08d8b5e67211
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2021 04:07:43.2740 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3b9VLCXvmFQRcWQH3TpGxhageGBd4f6pNRvynYo7vXj8/oYoJAyXrgkhLCj83igE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2774
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,162 +126,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
- Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, roman.li@amd.com, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
-Content-Type: multipart/mixed; boundary="===============1325724056=="
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang, 
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1325724056==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xqnqzzcs63fvbxo3"
-Content-Disposition: inline
+Hi Horace,
 
---xqnqzzcs63fvbxo3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The XGMI part should be already well protected by hive->hive_lock. So, I think you need the non-XGMI part only.
+Also, it seems better to place the modifications within the hive check.
+        /*
+         * Here we trylock to avoid chain of resets executing from
+         * either trigger by jobs on different adevs in XGMI hive or jobs on
+         * different schedulers for same device while this TO handler is running.
+         * We always reset all schedulers for device and all devices for XGMI
+         * hive so that should take care of them too.
+         */
+        hive = amdgpu_get_xgmi_hive(adev);
+        if (hive) {
+                if (atomic_cmpxchg(&hive->in_reset, 0, 1) != 0) {
+                        DRM_INFO("Bailing on TDR for s_job:%llx, hive: %llx as another already in progress",
+                                job ? job->base.id : -1, hive->hive_id);
+                        amdgpu_put_xgmi_hive(hive);
+                        return 0;
+                }
+                mutex_lock(&hive->hive_lock);
+        } else {
++		/* if current dev is already in reset, skip adding list to prevent race issue */
++		if (!amdgpu_device_lock_adev(adev, hive)) {
++			dev_info(adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
++					job ? job->base.id : -1);
++			r = 0;
++			goto skip_recovery;
++		}
+}
 
-Hi,
+BR
+Evan
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Chen, Horace
+Sent: Friday, January 8, 2021 7:35 PM
+To: Chen, Horace <Horace.Chen@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Xiao, Jack <Jack.Xiao@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: fix issue when 2 ring job timeout
 
-After a discussion, we decided to drop this patch from the weekly
-promotion. Please, don't apply this change to amd-staging-drm-next.
+[AMD Public Use]
 
-Thanks
+Hi Christian,
 
-On 01/08, Rodrigo Siqueira wrote:
-> From: Wesley Chalmers <Wesley.Chalmers@amd.com>
->=20
-> [WHY]
-> HW team plans to rename HUBP_DISABLE to HUBP_SOFT_RESET in future HW
-> revisions. Those future revisions should not inherit the HUBP_DISABLE
-> name.
->=20
-> Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
-> Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-> Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h |  2 +-
->  .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h | 22 ++++++++++++++-----
->  2 files changed, 18 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h b/drivers/=
-gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-> index a9a6ed7f4f99..80794fed6e20 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-> @@ -450,7 +450,6 @@
-> =20
->  #define DCN_HUBP_REG_FIELD_BASE_LIST(type) \
->  	type HUBP_BLANK_EN;\
-> -	type HUBP_DISABLE;\
->  	type HUBP_TTU_DISABLE;\
->  	type HUBP_NO_OUTSTANDING_REQ;\
->  	type HUBP_VTG_SEL;\
-> @@ -644,6 +643,7 @@
-> =20
->  #define DCN_HUBP_REG_FIELD_LIST(type) \
->  	DCN_HUBP_REG_FIELD_BASE_LIST(type);\
-> +	type HUBP_DISABLE;\
->  	type ALPHA_PLANE_EN
-> =20
->  struct dcn_mi_registers {
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h b/drivers/=
-gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-> index f501c02c244b..98ec1f9171b6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
-> @@ -161,7 +161,7 @@
->  	DCN21_HUBP_REG_COMMON_VARIABLE_LIST;\
->  	uint32_t DCN_DMDATA_VM_CNTL
-> =20
-> -#define DCN2_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> +#define DCN2_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type) \
->  	DCN_HUBP_REG_FIELD_BASE_LIST(type); \
->  	type DMDATA_ADDRESS_HIGH;\
->  	type DMDATA_MODE;\
-> @@ -186,8 +186,12 @@
->  	type SURFACE_TRIPLE_BUFFER_ENABLE;\
->  	type VMID
-> =20
-> -#define DCN21_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> -	DCN2_HUBP_REG_FIELD_VARIABLE_LIST(type);\
-> +#define DCN2_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> +	DCN2_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type); \
-> +	type HUBP_DISABLE
-> +
-> +#define DCN21_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type) \
-> +	DCN2_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type);\
->  	type REFCYC_PER_VM_GROUP_FLIP;\
->  	type REFCYC_PER_VM_REQ_FLIP;\
->  	type REFCYC_PER_VM_GROUP_VBLANK;\
-> @@ -196,8 +200,12 @@
->  	type REFCYC_PER_META_CHUNK_FLIP_C; \
->  	type VM_GROUP_SIZE
-> =20
-> -#define DCN30_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> -	DCN21_HUBP_REG_FIELD_VARIABLE_LIST(type);\
-> +#define DCN21_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> +	DCN21_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type);\
-> +	type HUBP_DISABLE
-> +
-> +#define DCN30_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type) \
-> +	DCN21_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type);\
->  	type PRIMARY_SURFACE_DCC_IND_BLK;\
->  	type SECONDARY_SURFACE_DCC_IND_BLK;\
->  	type PRIMARY_SURFACE_DCC_IND_BLK_C;\
-> @@ -216,6 +224,10 @@
->  	type ROW_TTU_MODE; \
->  	type NUM_PKRS
-> =20
-> +#define DCN30_HUBP_REG_FIELD_VARIABLE_LIST(type) \
-> +	DCN30_HUBP_REG_FIELD_VARIABLE_LIST_COMMON(type);\
-> +	type HUBP_DISABLE
-> +
->  struct dcn_hubp2_registers {
->  	DCN30_HUBP_REG_COMMON_VARIABLE_LIST;
->  };
-> --=20
-> 2.25.1
->=20
+Can you help review this change?
 
---=20
-Rodrigo Siqueira
-https://siqueira.tech
+This issue happens when 2 jobs on 2 schedulers time out at the same time. Which will lead 2 threads to enter amdgpu_device_gpu_recover() at the same time. The problem is that if device is not an XGMI node, the adev->gmc.xgmi.head will be added to device_list which is a stack variable. 
+So the first thread will get the device in to its device list and start to iterate, meanwhile the second thread may rob the device away from the first thread and add to its own device list. This will cause the first thread get in to a bad state in its iteration.
 
---xqnqzzcs63fvbxo3
-Content-Type: application/pgp-signature; name="signature.asc"
+The solution is to lock the device earily, before we add device to the local device list.
 
------BEGIN PGP SIGNATURE-----
+Thanks & Regards,
+Horace.
 
-iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl/7ieEACgkQWJzP/com
-vP+lYw/8DsV+UzVUefuYdgnW+BJ+Y2l3xX1nN+Q3OhG8fh0nLakrKO+lxLlOVOYt
-K6iS7KB7fsRwhhky404n7YhZNk6QGiv5iBrNv6rIRZIbPzNmUzCogCTCCN9mtD9P
-iZlBMyyOD7duE2pYK4XVaDj606Lvk3SbiDAAiO2pZb5pPIQgLQQnLcfro4Q5sBwE
-8C23izLgW8bW/9V436bKNOftcfWY0vEGLHhbmgaPCiOk0XK1VcPtifh8xdag1iZf
-Xg6xsS6n2y/f4yiYY7l5Z5hOtTQMTzG+s+0GArBhGqmO1paFxa86akgXk7BS0gBk
-mEnYJxwc+104kXTqaTwTJp+hyeYQt7naPl/kQgEmmQhZXe9F1t93Wi6eWEyiX44m
-IMIxfF8SjxrJTAMtr4xHfo79LTp5HMJJNMjjPO6JQDX3cIdVgAaqJOQv5IQUToAy
-O6t+84bEG5h70pS4lapmdS++oW2XQ+n0NoJ7D0Eu/864rYGLpBWj2A2UcXsY6fr3
-G46fym299Mee3j1v0dik4GypzAmr42wwB1ZwF3EdH52//DZwGUkaiSeG/9wfeDEL
-U/sPn3G/zT9Fg8KaSEO+fpWyAI9GMyGQ2ktrTIo/CIzSGEbtNqQoedOhRqqz5BkA
-eeiH6yJhFba+4TQgE3JwDyNLZeDLFEKPu+0Xn5X25NMc0GOcOvA=
-=fhvK
------END PGP SIGNATURE-----
+-----Original Message-----
+From: Horace Chen <horace.chen@amd.com> 
+Sent: Wednesday, January 6, 2021 8:43 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chen, Horace <Horace.Chen@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Xiaojie Yuan <xiaojie.yuan@amd.com>
+Subject: [PATCH] drm/amdgpu: fix issue when 2 ring job timeout
 
---xqnqzzcs63fvbxo3--
+Fix a racing issue when 2 rings job timeout simultaneously.
 
---===============1325724056==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+If 2 rings timed out at the same time, the
+amdgpu_device_gpu_recover will be reentered. Then the
+adev->gmc.xgmi.head will be grabbed by 2 local linked list,
+which may cause wild pointer issue in iterating.
 
+lock the device earily to prevent the node be added to 2
+different lists.
+
+Signed-off-by: Horace Chen <horace.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 25 ++++++++++++++++------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9a3cb98d03be..233dae27c8eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4620,23 +4620,34 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (adev->gmc.xgmi.num_physical_nodes > 1) {
+ 		if (!hive)
+ 			return -ENODEV;
++
++		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
++			if (!amdgpu_device_lock_adev(tmp_adev, hive)) {
++				dev_info(tmp_adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
++						job ? job->base.id : -1);
++				r = 0;
++				goto skip_recovery;
++			}
++		}
++
+ 		if (!list_is_first(&adev->gmc.xgmi.head, &hive->device_list))
+ 			list_rotate_to_front(&adev->gmc.xgmi.head, &hive->device_list);
+ 		device_list_handle = &hive->device_list;
+ 	} else {
++		/* if current dev is already in reset, skip adding list to prevent race issue */
++		if (!amdgpu_device_lock_adev(adev, hive)) {
++			dev_info(adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
++					job ? job->base.id : -1);
++			r = 0;
++			goto skip_recovery;
++		}
++
+ 		list_add_tail(&adev->gmc.xgmi.head, &device_list);
+ 		device_list_handle = &device_list;
+ 	}
+ 
+ 	/* block all schedulers and reset given job's ring */
+ 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+-		if (!amdgpu_device_lock_adev(tmp_adev, hive)) {
+-			dev_info(tmp_adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
+-				  job ? job->base.id : -1);
+-			r = 0;
+-			goto skip_recovery;
+-		}
+-
+ 		/*
+ 		 * Try to put the audio codec into suspend state
+ 		 * before gpu reset started.
+-- 
+2.17.1
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7Ceaa1c2da82ed436ce1d308d8b3c9657d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637457025191663857%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=XJGrL9%2B4Fs9sNpdqXdEpBqgaUfQ46BUxKvQfdcuDwVs%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1325724056==--
