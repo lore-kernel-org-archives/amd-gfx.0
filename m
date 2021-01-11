@@ -7,51 +7,39 @@ X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E6A8C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 11:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BDE2C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 11:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90231224BD
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 11:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90231224BD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 02B09224BD
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 11:57:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02B09224BD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08DDB89F3C;
-	Mon, 11 Jan 2021 11:52:14 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
- by gabe.freedesktop.org (Postfix) with ESMTP id 960AB89E59
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 11:52:12 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id E14F22A6042;
- Mon, 11 Jan 2021 12:52:11 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 5rk8souwyV3d; Mon, 11 Jan 2021 12:52:11 +0100 (CET)
-Received: from thor (24.99.2.85.dynamic.wline.res.cust.swisscom.ch
- [85.2.99.24])
- by netline-mail3.netline.ch (Postfix) with ESMTPSA id AE1122A6016;
- Mon, 11 Jan 2021 12:52:11 +0100 (CET)
-Received: from localhost ([::1]) by thor with esmtp (Exim 4.94)
- (envelope-from <michel@daenzer.net>)
- id 1kyvkC-000YB6-De; Mon, 11 Jan 2021 12:52:11 +0100
-Subject: Re: [PATCH v2] drm/amdgpu:Limit the resolution for virtual_display
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-To: "Deng, Emily" <Emily.Deng@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <20210107032927.660772-1-Emily.Deng@amd.com>
- <BY5PR12MB4115BE023BAF8FE53E2070158FAE0@BY5PR12MB4115.namprd12.prod.outlook.com>
- <CADnq5_N0hYURmnApHxhk3xmY426jyRNCBn97JoNxAq8t3f=Ojw@mail.gmail.com>
- <BY5PR12MB411578DED560A6B45727AA2C8FAB0@BY5PR12MB4115.namprd12.prod.outlook.com>
- <e6fe7c66-6033-9556-dcac-cb5970ce87fe@daenzer.net>
-Message-ID: <e21ec168-a4e5-2280-e3bc-42ee11c4476c@daenzer.net>
-Date: Mon, 11 Jan 2021 12:52:11 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F62A89FED;
+	Mon, 11 Jan 2021 11:57:57 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B72B89FED
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 11:57:56 +0000 (UTC)
+Received: from [192.168.0.6] (ip5f5aeab5.dynamic.kabel-deutschland.de
+ [95.90.234.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 13074206446A2;
+ Mon, 11 Jan 2021 12:57:53 +0100 (CET)
+Subject: Re: [PATCH] drm/amdgpu: enable gpu recovery for navy_flounder
+To: Jiansong Chen <Jiansong.Chen@amd.com>
+References: <20210111094938.2764-1-Jiansong.Chen@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <ea359d1f-169a-7b93-94aa-8bcaf38cef39@molgen.mpg.de>
+Date: Mon, 11 Jan 2021 12:57:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <e6fe7c66-6033-9556-dcac-cb5970ce87fe@daenzer.net>
-Content-Language: en-CA
+In-Reply-To: <20210111094938.2764-1-Jiansong.Chen@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,22 +51,20 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Tao Zhou <Tao.Zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wMS0xMSAxMjo1MCBwLm0uLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDIx
-LTAxLTExIDU6NTUgYS5tLiwgRGVuZywgRW1pbHkgd3JvdGU6Cj4+IFtBTUQgT2ZmaWNpYWwgVXNl
-IE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0KPj4KPj4gWWVzLCBpdCBqdXN0IHdv
-bid0IHJlcG9ydCBiaWdnZXIgdGhhbiAxNjM4NCBtb2RlIHRvIHVzZXIgbW9kZSwgYXMgaXQgCj4+
-IHdvbid0IHdvcmsgcHJvcGVybHkuCj4gCj4gLi4uIHdpdGggWG9yZyAvIGdsYW1vci4gSXQgZG9l
-c24ndCBhZmZlY3Qgb3RoZXIgdXNlci1zcGFjZS4KCkxldCBtZSByZXBocmFzZTogVGhpcyB3b3Vs
-ZCBhcnRpZmljaWFsbHkgbGltaXQgb3RoZXIgdXNlci1zcGFjZS4KCgotLSAKRWFydGhsaW5nIE1p
-Y2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0
-LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-TWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+RGVhciBKaWFuc29uZywKCgpBbSAxMS4wMS4yMSB1bSAxMDo0OSBzY2hyaWViIEppYW5zb25nIENo
+ZW46Cj4gRW5hYmxlIGdwdSByZWNvdmVyeSBmb3IgbmF2eV9mbG91bmRlciBieSBkZWZhdWx0IHRv
+IHRyaWdnZXIKPiByZXNldCBvbmNlIG5lZWRlZC4KClvigKZdCgpXaHkgd2FzIGl0IGRpc2FibGVk
+IGJlZm9yZT8gV2VyZSBzb21lIGJ1Z3MgZml4ZWQsIHRoYXQgaXQgd29ya3Mgbm93PwoKSG93IGRp
+ZCB5b3UgdGVzdCB0aGlzPyBJcyB0aGVyZSBhIGNvbW1hbmQgdG8g4oCcY3Jhc2jigJwgdGhlIEdQ
+VSwgc28gaXQgY2FuIApiZSByZWNvdmVyZWQ/CgpQbGVhc2UgZXh0ZW5kIHRoZSBjb21taXQgbWVz
+c2FnZSBhY2NvcmRpbmdseS4KCgpLaW5kIHJlZ2FyZHMsCgpQYXVsCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
