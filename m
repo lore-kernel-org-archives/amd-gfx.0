@@ -2,75 +2,73 @@ Return-Path: <SRS0=2jl+=GO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E535CC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 16:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CA73C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 16:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2399F2247F
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 16:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2399F2247F
+	by mail.kernel.org (Postfix) with ESMTPS id D8E322247F
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 16:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8E322247F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA16889E9B;
-	Mon, 11 Jan 2021 16:15:29 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A7C289EAE
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 16:15:29 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id v14so320683wml.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 08:15:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255146E10B;
+	Mon, 11 Jan 2021 16:17:25 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E7F16E106
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 16:17:24 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id t16so373001wra.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 08:17:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Wu+aIl4CRbVSeoL9NWzE2OdEeJlEvO9iGcl5g7RI+kE=;
- b=ZVZ0dYWnBueMl5OJhf8FFxsB8S42EUHpSBADs+YvGuBxo6vu6gI2bnKaZaz57lAb3I
- Bw41didEjf62rpvchVuPNisd8KUh1kGpAOWa7C5xkNZvfdI1P8ZUYun7Vaxy907nypUf
- QwKRP0ED3AqQRSbCvMApKhtTANt/eTAsbtWcE=
+ bh=PFfOMnMUvCXZoGavvI7jgp9lu2mi/boaKsLt1jdkV5Q=;
+ b=EnIeQoYvAkibxFcvyJbtZ9bpK2Itc2GTfUajOD6SpjxbVmmI2paMOrA8cUULohQmjc
+ 1vgCyorUpj99XRl7OG2YCL2xD5TxCYL9bHKRdIrQwp9Go5dhe4fHOjrMlgcmj/XfLx0U
+ +2iFUWYFCXCPCs47IzfHLNxFBtXc+vz5MDUPE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=Wu+aIl4CRbVSeoL9NWzE2OdEeJlEvO9iGcl5g7RI+kE=;
- b=l8SQc4gSnQHvgzU1HZ7oxhSvjEpXrK/QsW15qFg3qnlgYZL9siDtQnGaoAypYAgtEG
- e3T7Kj9Tu8y1SVrhnHc9W4hmXAwZbpDkYUvnf/mg++Zuc/9hrqhvfIFvQpwRvxqIfEGO
- mE3WRFquxzN2NgEGWkSv7iRSn5ckXujSrglgBqJckVEXtLDR82pKWmXuHiNq8JSiaL7M
- 7pQvEb42LMk1FmO8emYmmn3vrASKKBu/ICg7Izki1vh3drhiEj4EaHTSfdKNmTPqC95p
- wKEqMoWnUiAeHE8I3TTRc8VigqPYIAOb85CX/O9mc2y4fe6uICNqzf5/kZL+qdYLojEY
- uAMw==
-X-Gm-Message-State: AOAM5326cp82uVUgIoE0d3TjzqjiioP1cuh2nVV+zcbv1tzf7u3V1X+6
- UtGrAQUZnPlh0RXRdc7TTf6/Lg==
-X-Google-Smtp-Source: ABdhPJxC/8gfcm/UQlcKnhv36CzIqaDhwLgpi0svomKkb/ltlMBz/GLWOEFx/o4isYI9oMDA/53XpA==
-X-Received: by 2002:a7b:cbc9:: with SMTP id n9mr377240wmi.83.1610381727808;
- Mon, 11 Jan 2021 08:15:27 -0800 (PST)
+ bh=PFfOMnMUvCXZoGavvI7jgp9lu2mi/boaKsLt1jdkV5Q=;
+ b=Y9wOlpYZ2onirj4aDo0HcGGSLt+HBGvCxFoG7x57JZ6ybYl5lLnWRI5rtv9MTB3gbT
+ CBAz+xKKtgcBgBvZVhwnZAKAJjoub6ob6ONjAwkjY8pwQrmCK4Mm/l8+/ISySVRCi//X
+ NDUK/o2Wqa/lvUbpo6ZXcBaqCNw5IOQlpUDUAV3iFAuyyQuOHtqlabmM8Yz1HU57GSpU
+ YnUq4IX8fXUJYkYTwQqQv1rbw6l1eJ2LPApH+aAE0jYJ8xQg8tIQgGg0gaLWq1WPHiBb
+ rSu4f0csdLl5KXAFrWYldiMBXP6IXTVBGTVNVjSdJllgF/PeghXYX+k4qQ1NJMJS2uy7
+ umzw==
+X-Gm-Message-State: AOAM530UhnVvfXcnXDSbDpbiOLmykuzQcVRHjuQey53ePPQyzgzP6GjK
+ bYrf/i0qP6DOdOFCSuVx56u/IQ==
+X-Google-Smtp-Source: ABdhPJwDp8ZDAsTmKngfRKZUOq0MlyK+j4rc7OjdUXUG2+CLLcdyU6ZUE4TltnrNJUedJtb2wvaf1g==
+X-Received: by 2002:a5d:6502:: with SMTP id x2mr17306933wru.254.1610381842727; 
+ Mon, 11 Jan 2021 08:17:22 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id o8sm129983wrm.17.2021.01.11.08.15.26
+ by smtp.gmail.com with ESMTPSA id h9sm323464wme.11.2021.01.11.08.17.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Jan 2021 08:15:27 -0800 (PST)
-Date: Mon, 11 Jan 2021 17:15:25 +0100
+ Mon, 11 Jan 2021 08:17:21 -0800 (PST)
+Date: Mon, 11 Jan 2021 17:17:20 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v3 01/12] drm: Add dummy page per device or GEM object
-Message-ID: <X/x5nXM7bZDl+MWR@phenom.ffwll.local>
-References: <X/c1IXX11chjHyl4@phenom.ffwll.local>
- <75c8a6f3-1e71-3242-6576-c0e661d6a62f@amd.com>
- <X/c3PKL70HXBt3Jk@phenom.ffwll.local>
- <589ece1f-2718-87ab-ec07-4044c3df1c58@amd.com>
- <a140ca34-9cfc-9c2f-39e2-1af156faabfe@amd.com>
- <b73319b2-1723-6650-8d03-d8f775119e53@amd.com>
- <29ef0c97-ac1b-a8e6-ee57-16727ff1803e@amd.com>
- <62645d03-704f-571e-bfe6-7d992b010a08@amd.com>
- <SN6PR12MB46235A1D04FDF4BBD9E60F94EAAE0@SN6PR12MB4623.namprd12.prod.outlook.com>
- <X/x5RD0xQxWUYvQ3@phenom.ffwll.local>
+To: christian.koenig@amd.com
+Subject: Re: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
+Message-ID: <X/x6EP1HE/sjQla0@phenom.ffwll.local>
+References: <20210105182309.1362-1-christian.koenig@amd.com>
+ <X/dN/YFtnVAIllds@phenom.ffwll.local>
+ <ffa9d7f2-fe68-fb6a-8422-82b8949dbe1e@gmail.com>
+ <X/hs1Rvm57zGPU8y@phenom.ffwll.local>
+ <d066b08c-756c-bbef-0f30-d8c68ef92dbf@amd.com>
+ <CAKMK7uGcRM8E0hYZeJCUuON7+uZnyEVtwU0HrNwhoWcw9V2uNA@mail.gmail.com>
+ <42d82248-0bec-ea1c-8d6e-d032a2e53c43@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <X/x5RD0xQxWUYvQ3@phenom.ffwll.local>
+In-Reply-To: <42d82248-0bec-ea1c-8d6e-d032a2e53c43@gmail.com>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,225 +81,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "eric@anholt.net" <eric@anholt.net>,
- "ppaalanen@gmail.com" <ppaalanen@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "yuq825@gmail.com" <yuq825@gmail.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "l.stach@pengutronix.de" <l.stach@pengutronix.de>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>,
+ Borislav Petkov <bp@alien8.de>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 11, 2021 at 05:13:56PM +0100, Daniel Vetter wrote:
-> On Fri, Jan 08, 2021 at 04:49:55PM +0000, Grodzovsky, Andrey wrote:
-> > Ok then, I guess I will proceed with the dummy pages list implementatio=
-n then.
-> > =
-
-> > Andrey
-> > =
-
-> > ________________________________
-> > From: Koenig, Christian <Christian.Koenig@amd.com>
-> > Sent: 08 January 2021 09:52
-> > To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Daniel Vetter <dani=
-el@ffwll.ch>
-> > Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-=
-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; daniel.vette=
-r@ffwll.ch <daniel.vetter@ffwll.ch>; robh@kernel.org <robh@kernel.org>; l.s=
-tach@pengutronix.de <l.stach@pengutronix.de>; yuq825@gmail.com <yuq825@gmai=
-l.com>; eric@anholt.net <eric@anholt.net>; Deucher, Alexander <Alexander.De=
-ucher@amd.com>; gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>; pp=
-aalanen@gmail.com <ppaalanen@gmail.com>; Wentland, Harry <Harry.Wentland@am=
-d.com>
-> > Subject: Re: [PATCH v3 01/12] drm: Add dummy page per device or GEM obj=
-ect
-> > =
-
-> > Mhm, I'm not aware of any let over pointer between TTM and GEM and we
-> > worked quite hard on reducing the size of the amdgpu_bo, so another
-> > extra pointer just for that corner case would suck quite a bit.
-> =
-
-> We have a ton of other pointers in struct amdgpu_bo (or any of it's lower
-> things) which are fairly single-use, so I'm really not much seeing the
-> point in making this a special case. It also means the lifetime management
-> becomes a bit iffy, since we can't throw away the dummy page then the last
-> reference to the bo is released (since we don't track it there), but only
-> when the last pointer to the device is released. Potentially this means a
-> pile of dangling pages hanging around for too long.
-
-Also if you really, really, really want to have this list, please don't
-reinvent it since we have it already. drmm_ is exactly meant for resources
-that should be freed when the final drm_device reference disappears.
--Daniel
- =
-
-> If you need some ideas for redundant pointers:
-> - destroy callback (kinda not cool to not have this const anyway), we
->   could refcount it all with the overall gem bo. Quite a bit of work.
-> - bdev pointer, if we move the device ttm stuff into struct drm_device, or
->   create a common struct ttm_device, we can ditch that
-> - We could probably merge a few of the fields and find 8 bytes somewhere
-> - we still have 2 krefs, would probably need to fix that before we can
->   merge the destroy callbacks
-> =
-
-> So there's plenty of room still, if the size of a bo struct is really that
-> critical. Imo it's not.
-> =
-
-> =
-
-> > =
-
-> > Christian.
-> > =
-
-> > Am 08.01.21 um 15:46 schrieb Andrey Grodzovsky:
-> > > Daniel had some objections to this (see bellow) and so I guess I need
-> > > you both to agree on the approach before I proceed.
-> > >
-> > > Andrey
-> > >
-> > > On 1/8/21 9:33 AM, Christian K=F6nig wrote:
-> > >> Am 08.01.21 um 15:26 schrieb Andrey Grodzovsky:
-> > >>> Hey Christian, just a ping.
-> > >>
-> > >> Was there any question for me here?
-> > >>
-> > >> As far as I can see the best approach would still be to fill the VMA
-> > >> with a single dummy page and avoid pointers in the GEM object.
-> > >>
-> > >> Christian.
-> > >>
-> > >>>
-> > >>> Andrey
-> > >>>
-> > >>> On 1/7/21 11:37 AM, Andrey Grodzovsky wrote:
-> > >>>>
-> > >>>> On 1/7/21 11:30 AM, Daniel Vetter wrote:
-> > >>>>> On Thu, Jan 07, 2021 at 11:26:52AM -0500, Andrey Grodzovsky wrote:
-> > >>>>>> On 1/7/21 11:21 AM, Daniel Vetter wrote:
-> > >>>>>>> On Tue, Jan 05, 2021 at 04:04:16PM -0500, Andrey Grodzovsky wro=
+On Mon, Jan 11, 2021 at 11:16:13AM +0100, Christian K=F6nig wrote:
+> Am 08.01.21 um 16:53 schrieb Daniel Vetter:
+> > On Fri, Jan 8, 2021 at 3:36 PM Christian K=F6nig <christian.koenig@amd.=
+com> wrote:
+> > > Am 08.01.21 um 15:31 schrieb Daniel Vetter:
+> > > > On Thu, Jan 07, 2021 at 09:08:29PM +0100, Christian K=F6nig wrote:
+> > > > > Am 07.01.21 um 19:07 schrieb Daniel Vetter:
+> > > > > > On Tue, Jan 05, 2021 at 07:23:08PM +0100, Christian K=F6nig wro=
 te:
-> > >>>>>>>> On 11/23/20 3:01 AM, Christian K=F6nig wrote:
-> > >>>>>>>>> Am 23.11.20 um 05:54 schrieb Andrey Grodzovsky:
-> > >>>>>>>>>> On 11/21/20 9:15 AM, Christian K=F6nig wrote:
-> > >>>>>>>>>>> Am 21.11.20 um 06:21 schrieb Andrey Grodzovsky:
-> > >>>>>>>>>>>> Will be used to reroute CPU mapped BO's page faults once
-> > >>>>>>>>>>>> device is removed.
-> > >>>>>>>>>>> Uff, one page for each exported DMA-buf? That's not
-> > >>>>>>>>>>> something we can do.
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> We need to find a different approach here.
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> Can't we call alloc_page() on each fault and link them toge=
-ther
-> > >>>>>>>>>>> so they are freed when the device is finally reaped?
-> > >>>>>>>>>> For sure better to optimize and allocate on demand when we r=
-each
-> > >>>>>>>>>> this corner case, but why the linking ?
-> > >>>>>>>>>> Shouldn't drm_prime_gem_destroy be good enough place to free=
- ?
-> > >>>>>>>>> I want to avoid keeping the page in the GEM object.
-> > >>>>>>>>>
-> > >>>>>>>>> What we can do is to allocate a page on demand for each fault
-> > >>>>>>>>> and link
-> > >>>>>>>>> the together in the bdev instead.
-> > >>>>>>>>>
-> > >>>>>>>>> And when the bdev is then finally destroyed after the last
-> > >>>>>>>>> application
-> > >>>>>>>>> closed we can finally release all of them.
-> > >>>>>>>>>
-> > >>>>>>>>> Christian.
-> > >>>>>>>> Hey, started to implement this and then realized that by
-> > >>>>>>>> allocating a page
-> > >>>>>>>> for each fault indiscriminately
-> > >>>>>>>> we will be allocating a new page for each faulting virtual
-> > >>>>>>>> address within a
-> > >>>>>>>> VA range belonging the same BO
-> > >>>>>>>> and this is obviously too much and not the intention. Should I
-> > >>>>>>>> instead use
-> > >>>>>>>> let's say a hashtable with the hash
-> > >>>>>>>> key being faulting BO address to actually keep allocating and
-> > >>>>>>>> reusing same
-> > >>>>>>>> dummy zero page per GEM BO
-> > >>>>>>>> (or for that matter DRM file object address for non imported
-> > >>>>>>>> BOs) ?
-> > >>>>>>> Why do we need a hashtable? All the sw structures to track this
-> > >>>>>>> should
-> > >>>>>>> still be around:
-> > >>>>>>> - if gem_bo->dma_buf is set the buffer is currently exported as
-> > >>>>>>> a dma-buf,
-> > >>>>>>>     so defensively allocate a per-bo page
-> > >>>>>>> - otherwise allocate a per-file page
-> > >>>>>>
-> > >>>>>> That exactly what we have in current implementation
-> > >>>>>>
-> > >>>>>>
-> > >>>>>>> Or is the idea to save the struct page * pointer? That feels a
-> > >>>>>>> bit like
-> > >>>>>>> over-optimizing stuff. Better to have a simple implementation
-> > >>>>>>> first and
-> > >>>>>>> then tune it if (and only if) any part of it becomes a problem
-> > >>>>>>> for normal
-> > >>>>>>> usage.
-> > >>>>>>
-> > >>>>>> Exactly - the idea is to avoid adding extra pointer to
-> > >>>>>> drm_gem_object,
-> > >>>>>> Christian suggested to instead keep a linked list of dummy pages
-> > >>>>>> to be
-> > >>>>>> allocated on demand once we hit a vm_fault. I will then also
-> > >>>>>> prefault the entire
-> > >>>>>> VA range from vma->vm_end - vma->vm_start to vma->vm_end and map
-> > >>>>>> them
-> > >>>>>> to that single dummy page.
-> > >>>>> This strongly feels like premature optimization. If you're worried
-> > >>>>> about
-> > >>>>> the overhead on amdgpu, pay down the debt by removing one of the
-> > >>>>> redundant
-> > >>>>> pointers between gem and ttm bo structs (I think we still have
-> > >>>>> some) :-)
-> > >>>>>
-> > >>>>> Until we've nuked these easy&obvious ones we shouldn't play "avoi=
-d 1
-> > >>>>> pointer just because" games with hashtables.
-> > >>>>> -Daniel
-> > >>>>
-> > >>>>
-> > >>>> Well, if you and Christian can agree on this approach and suggest
-> > >>>> maybe what pointer is
-> > >>>> redundant and can be removed from GEM struct so we can use the
-> > >>>> 'credit' to add the dummy page
-> > >>>> to GEM I will be happy to follow through.
-> > >>>>
-> > >>>> P.S Hash table is off the table anyway and we are talking only
-> > >>>> about linked list here since by prefaulting
-> > >>>> the entire VA range for a vmf->vma i will be avoiding redundant
-> > >>>> page faults to same VMA VA range and so
-> > >>>> don't need to search and reuse an existing dummy page but simply
-> > >>>> create a new one for each next fault.
-> > >>>>
-> > >>>> Andrey
-> > >>
+> > > > > > > Drivers are not supposed to init the page pool directly any m=
+ore.
+> > > > > > > =
+
+> > > > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
+> > > > > > Please include reported-by credits and link to the bug reports =
+on
+> > > > > > lore.kernel.org when merging this. Also I guess this should hav=
+e a Fixes:
+> > > > > > line?
+> > > > > I'm not aware of a bug report, but the reported-by/Fixes lines ar=
+e indeed
+> > > > > missing.
+> > > > This one here:
+> > > > =
+
+> > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Flore.kernel.org%2Fdri-devel%2F20201231104020.GA4504%40zn.tnic%2F&amp;data=
+=3D04%7C01%7Cchristian.koenig%40amd.com%7C3aede203348b4f32ea3108d8b3e224ec%=
+7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637457131179258488%7CUnknown%7=
+CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn=
+0%3D%7C1000&amp;sdata=3DbHVw4lj1f8g4ohVTeuKNkb0LAbLwY6N4KWortr3VtAo%3D&amp;=
+reserved=3D0
+> > > > =
+
+> > > > Or did I get confused, and the above is yet another bug?
+> > > Yeah, but that was just reported by mail. The bug tracker I've saw was
+> > > opened after the patch was already pushed.
+> > Still good to give reported-by credits for mailing list reports and
+> > link to lore.kernel.org for the report, that's not just useful for
+> > bugzilla reports.
+> =
+
+> That's indeed true, but I was distracted by the fact that drm-misc-fixes
+> wasn't up to date :)
+> =
+
+> Going to add that earlier next time.
+> =
+
+> > > > > BTW: Any idea why dim add-link doesn't work?
+> > > > Hm we occasionally have fun with email parsing (it's hard) and espe=
+cially
+> > > > python changes in how encodings are handled differently between pyt=
+hon2
+> > > > and python3. If you have a specific example I can try and take a lo=
+ok why
+> > > > it doesn't work.
+> > > It just looks up and doesn't seem to do anything. I'm not familiar wi=
+th
+> > > python so I can just describe the symptoms.
+> > I meant tell me which mail (patchwork or lore) and I'll try to
+> > reproduce and see what's maybe up.
+> =
+
+> It doesn't seem to work in general. E.g. any patch I try I just don't get
+> any progress in over 10 Minutes.
+> =
+
+> Maybe some server is not responding?
+
+Uh dim add-link pretty similar to dim apply-patch, it takes the mbox on
+stdin and does only local git stuff with it.
+-Daniel
+
+> =
+
+> Christian.
+> =
+
+> > -Daniel
+> > =
+
+> > > Christian.
+> > > =
+
+> > > > -Daniel
+> > > > =
+
+> > > > > > And maybe some words on how/why stuff blows up.
+> > > > > Just a typo. I've forgot to remove two lines in radeon while reba=
+sing and
+> > > > > still had the symbols exported so never noticed this.
+> > > > > =
+
+> > > > > Christian.
+> > > > > =
+
+> > > > > > -Daniel
+> > > > > > =
+
+> > > > > > > ---
+> > > > > > >     drivers/gpu/drm/radeon/radeon_ttm.c | 3 ---
+> > > > > > >     1 file changed, 3 deletions(-)
+> > > > > > > =
+
+> > > > > > > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gp=
+u/drm/radeon/radeon_ttm.c
+> > > > > > > index d4328ff57757..35b715f82ed8 100644
+> > > > > > > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> > > > > > > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> > > > > > > @@ -729,9 +729,6 @@ int radeon_ttm_init(struct radeon_device =
+*rdev)
+> > > > > > >             }
+> > > > > > >             rdev->mman.initialized =3D true;
+> > > > > > > -  ttm_pool_init(&rdev->mman.bdev.pool, rdev->dev, rdev->need=
+_swiotlb,
+> > > > > > > -                dma_addressing_limited(&rdev->pdev->dev));
+> > > > > > > -
+> > > > > > >             r =3D radeon_ttm_init_vram(rdev);
+> > > > > > >             if (r) {
+> > > > > > >                     DRM_ERROR("Failed initializing VRAM heap.=
+\n");
+> > > > > > > --
+> > > > > > > 2.25.1
+> > > > > > > =
+
+> > > > > > > _______________________________________________
+> > > > > > > dri-devel mailing list
+> > > > > > > dri-devel@lists.freedesktop.org
+> > > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3=
+A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04=
+%7C01%7Cchristian.koenig%40amd.com%7C3aede203348b4f32ea3108d8b3e224ec%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637457131179258488%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C1000&amp;sdata=3DpHzuAsJcXf5HlAfJ7wYYc%2BsizZhSLBGWXBhCyVNRCfo%3D&amp;res=
+erved=3D0
 > > =
 
 > =
 
-> -- =
-
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
 
 -- =
 
