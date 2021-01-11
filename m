@@ -7,114 +7,115 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19EC9C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D67DFC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:31:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8171224D3
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:29:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8171224D3
+	by mail.kernel.org (Postfix) with ESMTPS id 9439E22527
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Jan 2021 04:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9439E22527
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2111689B29;
-	Mon, 11 Jan 2021 04:29:19 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770080.outbound.protection.outlook.com [40.107.77.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A55889B29
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 04:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4205789BB3;
+	Mon, 11 Jan 2021 04:31:02 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED4289B96
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Jan 2021 04:31:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M+toR85y7hiRXth9L9LV6J2A3GL8/O7Ta+0B5VQ9r1xgRV/9p5VcopKXzPU/9gKmgAm5LfVWFDN89inmRNpc0wzwttDoX5Y1uFaRd5IrqED1hYE6fmtaFoso+aCYAITJoxa6zQ5WU2mblh43jjcBnY2efg+tjYPgkP/6La3PWTxTab5UITIGeM32VaX0nnoirNM/ps4sDA6vIUyxDXolp4a66Cg7lr19VKD2b9TpCc/E79FzxJde73y+keZCXM9dz1Y5zzHrUMrcU+LrlGp9I8pb2y04qpxmQFrRArmauQRprojNqUVxNF5LRMN/hv2ANII51V/GXlefDgGiMNqM9g==
+ b=ih3bnJNlwV3kQCQQbjRwOFoew4ym6KtAkff3YkIwHax/MoHu7n8eWpA0cWvNsELcnF4dMtuYrY0tk4mA7NHbYE19pr7MuDUPUBUIXboAWtdjunTm+Fo1v5rP9pDNrXSBt53hQ0O+hiKaNx/2SpjVplZxX+OC0Ttl1TnIMiooXW2yOpgBWn1Lx/XzwgcI/KfFtL5up4y9gSAXBMYAHDMLrqerCiTK2hZvqpkh12TJ1G2qzM7Jhtg0OYpQXRvRqp8X5xjS/WT0RZBPrrQ/vFdu8W31I2Sep7WgBVz/N0LS2zDICPjTBK767csaKVx1RHyK8QqTprBd6dQkkMpahbc3ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jTAlqkByOcX76vwnX+2yzGwQIm5jNVRt36ans1wcHXs=;
- b=KJHBua02FD73/Vn1lHzyAM8RdzWRWExfx9vdmsNlVQfsOflB/YW7poZ5iJwmMQwIl9Ss3kO1z01nZ5BHPWRTc0yykin6Diu1dGUv42/89gfUTaOdB1NWEtTQ3nh04BejWG6RTdnOJN9LwzbyfyAfSaygCbX5sRfrfUwOQ9EpxC+u+AL8RsbWzYtiessN2cmgWp/1M50rAJJ2yTH2ltxTFC0F/5V+Brzsf8S9TZhoPUtli7DTcurcf2+DmdT0Y5JnYAc/ywx3JT1nUCoqqng+IgzTp+5/ZGCgdZeoi0EnwyIYTylz3rO0xHK6U/mtOg/BQdtjkh4Oo4wlGGR/KXt7mw==
+ bh=y/jX+sMMvmaSE0Goiw0E1mCs/XfKvDKyDSVOQBHLHAM=;
+ b=HBz25oPfFtdaIEfmSIaC2lVM81bbgESCVfXTWJhliIGgxja2iyn2UHFmQCxGvxLbgFPsKGPEwlDJDDQlDZPM6aa66xIoGizfMbtYr1G1Z8KKCRkvt6rE6jGDi/fqIK6BjI1XyQiulWpLNthb73WFBAd5j+YPvSNQRVgxBbA0pTnbIlzMbRDNm+23yeoNMyOvTzaAyF9GObjna2OR+NDsQ129o/KNhyP79btc4tlHkysfL/VOw1Sak4blHeyNQPqck3Fj52LClQzIVTvAEhkjuXl+iQjzk0DfnCnNbo6jMKZsgIP3EEltCWmRCaM7l1UsFz96LhBD/IZpdQDhIvhLGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jTAlqkByOcX76vwnX+2yzGwQIm5jNVRt36ans1wcHXs=;
- b=3dOJRiqVlhaf6vEETzdNwrNFjzvxkpgbMnQ/WaQoXb19V4TX5TjjYUPAzYpHA0kDyDhMNd6p6q/EYEYcDUvqwEHIT8bFaHCZ7WJjrmX/5MR6U50ipsLEu6ZzleXQHmKd43m83J5rTOWXjYkcJ0p0iShuHHiloPFzPAfSyZssL5Y=
+ bh=y/jX+sMMvmaSE0Goiw0E1mCs/XfKvDKyDSVOQBHLHAM=;
+ b=xPaEV56Bh34OuipSJobg0blp6bVCZU3a5cMZf3mDSWJiTDpOKHpSWaCumpg/jQd9n4bc/ExKFmK/YId++mjTzwgYjt+q+byYGHVEvMMnRWFbq4Ejddq8bUt581oMOPFFG6di7IDQcKiPDWJxLzcoD4LNu4E6lQANosD/aNBaLtY=
 Received: from BYAPR12MB2615.namprd12.prod.outlook.com (2603:10b6:a03:61::29)
  by BYAPR12MB2888.namprd12.prod.outlook.com (2603:10b6:a03:137::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.9; Mon, 11 Jan
- 2021 04:29:15 +0000
+ 2021 04:30:59 +0000
 Received: from BYAPR12MB2615.namprd12.prod.outlook.com
  ([fe80::886a:6185:379a:c41c]) by BYAPR12MB2615.namprd12.prod.outlook.com
  ([fe80::886a:6185:379a:c41c%6]) with mapi id 15.20.3742.012; Mon, 11 Jan 2021
- 04:29:15 +0000
+ 04:30:59 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
 To: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 2/7] drm/amd/pm: enhance the real response for smu
- message (v2)
-Thread-Topic: [PATCH v2 2/7] drm/amd/pm: enhance the real response for smu
- message (v2)
-Thread-Index: AQHW59IDmB0UmvlYDECbKTI+Kv2fC6oh1OHw
-Date: Mon, 11 Jan 2021 04:29:15 +0000
-Message-ID: <BYAPR12MB2615086347303B9457D83747E4AB0@BYAPR12MB2615.namprd12.prod.outlook.com>
+Subject: RE: [PATCH v2 7/7] drm/amd/pm: implement processor fine grain feature
+ for vangogh (v2)
+Thread-Topic: [PATCH v2 7/7] drm/amd/pm: implement processor fine grain
+ feature for vangogh (v2)
+Thread-Index: AQHW59IEij41i9HaWEyH5gWpAmargaoh1XOQ
+Date: Mon, 11 Jan 2021 04:30:59 +0000
+Message-ID: <BYAPR12MB261506E2AF60836DB710D9F1E4AB0@BYAPR12MB2615.namprd12.prod.outlook.com>
 References: <20210111042610.2234748-1-ray.huang@amd.com>
-In-Reply-To: <20210111042610.2234748-1-ray.huang@amd.com>
+ <20210111042610.2234748-2-ray.huang@amd.com>
+In-Reply-To: <20210111042610.2234748-2-ray.huang@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=040b561d-698c-4550-88e3-367163984bc8;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=050aaa90-ff4d-4af2-a79f-9475807dfe38;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
  Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-11T04:28:49Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-11T04:30:52Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 60644a79-6d2c-4e45-3320-08d8b5e9746f
+x-ms-office365-filtering-correlation-id: a4957486-313c-4077-44fb-08d8b5e9b22f
 x-ms-traffictypediagnostic: BYAPR12MB2888:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB2888BDF48BB74E29FAD96571E4AB0@BYAPR12MB2888.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-microsoft-antispam-prvs: <BYAPR12MB28885E2E59E620C91F5D5472E4AB0@BYAPR12MB2888.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TXarrzUIrCbzd7Thad4NiO+PKjdyf6gZwvDQCoxWbFMnrUudVVv8DbHM/VSBn3ZNvUpdf2teE7f3YZXIMyhECi2sJNdWepAUceCCtim66M3+AvKBsfq9Uvu4ZM0iiRd+NFjgq8+ePO4kT63uvtNOtCYV/KbASsxj4/8/bxS1nY4T0XzRNiPh7pqom65DisUd9jK6YDA4fhX0dMjpN4hLlJ3spSVDI7SX1d09Dq3khcjePQZhcpKIEzZMJ7exl/lzu1htu2oNZAs94vhGTnQpfZApe1eGmvnE0IjoyIvIUTrb4odHM59X9brqSuMagBCtR3/nyI8YCSA6xvcWA7PJR+eC5Z640HYpEN4ppBizjeFf0/BQK1Tqk4cFei/oLIZZ/fL758uU+LE3CfWSRTB+zw==
+x-microsoft-antispam-message-info: WvQb+pVBunYQgbxTn1veR/yFE/KoT3N1URw/GB+1vKIOY5h3KMVBg+VI91+wbSnIIYByI5QjoSc0L0s0OcUCTUr5hTcqLhFn7nZUl1ChKx2yEqoplVCNQLSX1oRUGzLl50pqJ5sHO4DOBuOPLCcUiFUsU8GL+DB9JaQcl+eHY/3tjNKl4V1QH6y9RHHxLWWQozO0i5BgWt27t4Lqyp9qqCSkH8CEtkuHNnnGa2V8oEkaeLv0FL7Dtu6QWa9VLCMMMKtDUdw9SUtYIdyQZzYYRHxgreuWhYsy19ABg6lSewj2Q4Wtr07YWxBbBrfmADS7EDMhyOTCr/0xKarx9uJt/UqW2hO4CLdqcHYgxH6jzknH43A/6DksgUJ+ZuqrLfQLNVdZn3Q7/xcLCcf+Xweziw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB2615.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(136003)(396003)(346002)(66946007)(53546011)(478600001)(64756008)(66556008)(66476007)(186003)(4326008)(8676002)(6506007)(5660300002)(52536014)(2906002)(15650500001)(76116006)(66446008)(71200400001)(83380400001)(7696005)(55016002)(110136005)(33656002)(26005)(54906003)(8936002)(9686003)(86362001)(316002);
+ SFS:(4636009)(366004)(376002)(39860400002)(136003)(396003)(346002)(66946007)(53546011)(478600001)(64756008)(66556008)(66476007)(186003)(4326008)(8676002)(6506007)(5660300002)(52536014)(2906002)(76116006)(66446008)(71200400001)(83380400001)(7696005)(55016002)(110136005)(33656002)(26005)(54906003)(8936002)(9686003)(86362001)(316002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?vg1Kp6njPZ6SDYqis7cSXHeorjdBjZ/AZ+/0TX+Ec/Nk15PDA10ybx8R4dmg?=
- =?us-ascii?Q?Jm5ikbH99KJ2rq8FIL7DYoEcKUmGHipnEQsE4gLheft9pweHDMY4nq3Yljah?=
- =?us-ascii?Q?LaZoYJ5f6D3W+c8poK09GY4223lyZL/lx30YR94fFvNEkOnactMTNeygpdEf?=
- =?us-ascii?Q?+g1qGUKPafsoW9v6IhXLLa/zJYHiEXiF9d1phX3YF7ANourI7X0dlsXlDod9?=
- =?us-ascii?Q?g92XYcoGx2/GuyIdWRvtBlxhe1wQlXwPuU8cSYvPvyuAc2Aa9jtD1HAEzGvm?=
- =?us-ascii?Q?FEFPKd86keTmtoihCUFzM0yHPxyU8eVkUkqyoLGbI33fTtFI51zwDvM3AFPu?=
- =?us-ascii?Q?K1kHoI8QkVUEwm8nMvDvMJoqgtIhvut9L1iyqUNaBX902DdwmzcnQ/2ntOSx?=
- =?us-ascii?Q?WFFUuOA+8TPf58sQ2KglTBtzIGv3mwpwPq2uLvk76k5yBs6DemGds7QjisDF?=
- =?us-ascii?Q?jHbtYN5w2mgVQCuHyFISddfv4GAe7L7ewM3Ai5WFIsT8ZkHEJkpzg2obV7sY?=
- =?us-ascii?Q?tABW96wYL7UK2eyoEia3vHRmd+ba4iAQMbkrO/mzgPBChzPazBocsIFkoihL?=
- =?us-ascii?Q?nqhGZDRhtQdkdguoW0C/pXI2Fi5PAkcFFtbsrue3HL5bPfA4hdKYmzEXJYpo?=
- =?us-ascii?Q?P+4aiMuT4Bhx+4p/1/7aPB/OLDx3W2zQqg7yDJMwiOssWU3aoQtYUPdmvEGA?=
- =?us-ascii?Q?YlolM5wMEE03vq4NJJbSWvB7LPxOhTOK0bnN0aO1pNa5sqcl0H5GTAGk+Sxn?=
- =?us-ascii?Q?3f4Xv0QzP3ti8Y/HgOj0Rj0T9XjchJT/OWWJbVQfAOIBT+gaKbd82LU/CThB?=
- =?us-ascii?Q?83NgJTwl+ND2aowb9IOjlJ+jUZTGfjT3mc41oI9D8oeZzVe3JPMo5rn58rJI?=
- =?us-ascii?Q?LObL5Fq45pXMAyf4mn3SehF+qE5Xt9u/orP3V2aMNP78qxDCYUV0vpajmNmo?=
- =?us-ascii?Q?gD6qdTqvh7ZiCecXakIhH8fdqGVna1y1BpL/q/qq5H4=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?M96VdOBtSidv/8LaVdmLbGE/OBaRItrYDV9rrFBsgtsJA2EVdUokXVuqm0C4?=
+ =?us-ascii?Q?0bQ3MXsSEVMq8dN8e7X2U11x66p10bR6xBbW03VsFFMfROw8YmbEKjajNaVP?=
+ =?us-ascii?Q?6QLUvKirpEuyIQ7ru1hboYfhYU1KJplKyekwlKRhU3aVC3pO1UZHlDefj9jz?=
+ =?us-ascii?Q?8jWPuJuZ1aSP6pWvTvea4+/fX8qHHa46iSUU2tbzT/LpJKEcxrnynWD5M9CL?=
+ =?us-ascii?Q?J404nPYclxZ++b4V8yQ1RoLf2ac2WtGA55BF8XEWpRXdpgzrOiWKfPuP1lNI?=
+ =?us-ascii?Q?thTpu6bVs6+jSetGOseWiCxUoJ8+hy59vWXZwg6oSDS+RrPD23VcP4m0Se2T?=
+ =?us-ascii?Q?HX3NHuJp6ZsVQ2dxD/A1klsLRNElKodu++4rEsOme53B9BR8cuPCmRcRFhJ7?=
+ =?us-ascii?Q?PwNhgqc9FPMkyPDclY/BkflsBvstu9N+7IDOS63PE5zGgmPxiMQtlxHbATqK?=
+ =?us-ascii?Q?akVfdiIDn2HAL/Hsf9bazv5LdLSXV4SDdQClQYs9xVlI2OTrJTYoyM3krHw2?=
+ =?us-ascii?Q?UKuPGHOwgJ3xD2prpPUKZ7FU/jZ8xZW9rRKwOIJ3hEoQrfMbbWts44L3ocmX?=
+ =?us-ascii?Q?oKP1MjL7oSXJwyFWBTz3Y5Vhgsfg1VTZAjOysmJo0sGVE8sOGi5+wiwkbNHt?=
+ =?us-ascii?Q?E8kyK/M1wSmUizay6rjpqutmAPfKq0RyilVUx6WV4YbMODSPJYsJ9W4qwUBi?=
+ =?us-ascii?Q?I1pq75ggtEKTmu+q74wqGhe/v2L0dmyMHSzaqidLPgvzAivnScQ8FX73d5SH?=
+ =?us-ascii?Q?A/9Nu8Na4og8t+AvOerhi75B0cS1BoOd4OBkdFaRKnjj9RALMm7zVn/Xxfhg?=
+ =?us-ascii?Q?mtwFDsHm9N2wtbyTcyPYicO2/tWwxDEiQPd2D4AGkxrt68XFsAUaaIxknyWS?=
+ =?us-ascii?Q?KyhDiIAkbiSxLKcs/NXdJpk+hV7C/zWL3aczNMMp5dDG+ZorVyiN6ud4LkI+?=
+ =?us-ascii?Q?FR0z9pX3LzzA/Z7g8TEjRYBhpC4VCe9V32EnYZiEGKU=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2615.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60644a79-6d2c-4e45-3320-08d8b5e9746f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2021 04:29:15.7777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4957486-313c-4077-44fb-08d8b5e9b22f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2021 04:30:59.3465 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2UogtimAzoMn1HtbvyjuVo5/0CoI9wClxBZkwSUZvaPMVDmYaPN8tmuVfRIVDpdE
+X-MS-Exchange-CrossTenant-userprincipalname: yAHsSIL/lGiA9qKWCZc4YT90gkpa5dBRPqR2tHfmmwL7e1ffdjU0cV6tVzM2Nra9
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2888
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,59 +145,223 @@ From: Huang, Ray <Ray.Huang@amd.com>
 Sent: Monday, January 11, 2021 12:26 PM
 To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.com>; Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Huang, Ray <Ray.Huang@amd.com>
-Subject: [PATCH v2 2/7] drm/amd/pm: enhance the real response for smu message (v2)
+Subject: [PATCH v2 7/7] drm/amd/pm: implement processor fine grain feature for vangogh (v2)
 
-The user prefers to know the real response value from C2PMSG 90 register
-which is written by firmware not -EIO.
+This patch is to implement the processor fine grain feature for vangogh.
+It's similar with gfx clock, the only difference is below:
 
-v2: return C2PMSG 90 value
+echo "p core_id level value" > pp_od_clk_voltage
+
+1. "p" - set the cclk (processor) frequency 2. "core_id" - 0/1/2/3, represents which cpu core you want to select 2. "level" - 0 or 1, "0" represents the min value,  "1" represents the
+   max value
+3. "value" - the target value of cclk frequency, it should be limited in
+   the safe range
+
+v2: fix some missing changes as Evan's suggestion.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  3 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  6 ++
+ drivers/gpu/drm/amd/pm/inc/smu_types.h        |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 80 ++++++++++++++++++-
+ 5 files changed, 90 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index f8260769061c..59cf650efbd9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -92,7 +92,7 @@ static int smu_cmn_wait_for_response(struct smu_context *smu)
- for (i = 0; i < timeout; i++) {
- cur_value = RREG32_SOC15_NO_KIQ(MP1, 0, mmMP1_SMN_C2PMSG_90);
- if ((cur_value & MP1_C2PMSG_90__CONTENT_MASK) != 0)
--return cur_value == 0x1 ? 0 : -EIO;
-+return cur_value;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 57b24c4c205b..a41875ac5dfb 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -156,6 +156,7 @@ enum {
+ enum PP_OD_DPM_TABLE_COMMAND {
+ PP_OD_EDIT_SCLK_VDDC_TABLE,
+ PP_OD_EDIT_MCLK_VDDC_TABLE,
++PP_OD_EDIT_CCLK_VDDC_TABLE,
+ PP_OD_EDIT_VDDC_CURVE,
+ PP_OD_RESTORE_DEFAULT_TABLE,
+ PP_OD_COMMIT_DPM_TABLE,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index a5be03aa384b..75cefcb25a44 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -800,6 +800,8 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
 
- udelay(1);
+ if (*buf == 's')
+ type = PP_OD_EDIT_SCLK_VDDC_TABLE;
++else if (*buf == 'p')
++type = PP_OD_EDIT_CCLK_VDDC_TABLE;
+ else if (*buf == 'm')
+ type = PP_OD_EDIT_MCLK_VDDC_TABLE;
+ else if(*buf == 'r')
+@@ -916,6 +918,7 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ size += smu_print_clk_levels(&adev->smu, SMU_OD_VDDC_CURVE, buf+size);
+ size += smu_print_clk_levels(&adev->smu, SMU_OD_VDDGFX_OFFSET, buf+size);
+ size += smu_print_clk_levels(&adev->smu, SMU_OD_RANGE, buf+size);
++size += smu_print_clk_levels(&adev->smu, SMU_OD_CCLK, buf+size);
+ } else if (adev->powerplay.pp_funcs->print_clock_levels) {
+ size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
+ size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK, buf+size); diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 97d788451624..25ee9f51813b 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -465,6 +465,12 @@ struct smu_context
+ uint32_t gfx_default_soft_max_freq;
+ uint32_t gfx_actual_hard_min_freq;
+ uint32_t gfx_actual_soft_max_freq;
++
++uint32_t cpu_default_soft_min_freq;
++uint32_t cpu_default_soft_max_freq;
++uint32_t cpu_actual_soft_min_freq;
++uint32_t cpu_actual_soft_max_freq;
++uint32_t cpu_core_id_select;
+ };
+
+ struct i2c_adapter;
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+index 8e428c728e0e..b76270e8767c 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+@@ -237,6 +237,7 @@ enum smu_clk_type {
+ SMU_SCLK,
+ SMU_MCLK,
+ SMU_PCIE,
++SMU_OD_CCLK,
+ SMU_OD_SCLK,
+ SMU_OD_MCLK,
+ SMU_OD_VDDC_CURVE,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 63be82386964..b2b2955c1024 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -449,11 +449,22 @@ static int vangogh_print_fine_grain_clk(struct smu_context *smu,
+ (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq);
  }
-@@ -101,7 +101,7 @@ static int smu_cmn_wait_for_response(struct smu_context *smu)
- if (i == timeout)
- return -ETIME;
+ break;
++case SMU_OD_CCLK:
++if (smu->od_enabled) {
++size = sprintf(buf, "CCLK_RANGE in Core%d:\n",  smu->cpu_core_id_select);
++size += sprintf(buf + size, "0: %10uMhz\n",
++(smu->cpu_actual_soft_min_freq > 0) ? smu->cpu_actual_soft_min_freq : smu->cpu_default_soft_min_freq);
++size += sprintf(buf + size, "1: %10uMhz\n",
++(smu->cpu_actual_soft_max_freq > 0) ? smu->cpu_actual_soft_max_freq : smu->cpu_default_soft_max_freq);
++}
++break;
+ case SMU_OD_RANGE:
+ if (smu->od_enabled) {
+ size = sprintf(buf, "%s:\n", "OD_RANGE");
+ size += sprintf(buf + size, "SCLK: %7uMhz %10uMhz\n",
+ smu->gfx_default_hard_min_freq, smu->gfx_default_soft_max_freq);
++size += sprintf(buf + size, "CCLK: %7uMhz %10uMhz\n",
++smu->cpu_default_soft_min_freq, smu->cpu_default_soft_max_freq);
+ }
+ break;
+ case SMU_SOCCLK:
+@@ -1245,7 +1256,7 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,  }
 
--return RREG32_SOC15_NO_KIQ(MP1, 0, mmMP1_SMN_C2PMSG_90) == 0x1 ? 0 : -EIO;
-+return RREG32_SOC15_NO_KIQ(MP1, 0, mmMP1_SMN_C2PMSG_90);
+ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABLE_COMMAND type,
+-long input[], uint32_t size)
++long input[], uint32_t size)
+ {
+ int ret = 0;
+
+@@ -1255,6 +1266,34 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
  }
 
- int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
-@@ -123,7 +123,7 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ switch (type) {
++case PP_OD_EDIT_CCLK_VDDC_TABLE:
++if (size != 3) {
++dev_err(smu->adev->dev, "Input parameter number not correct (should be 4 for processor)\n");
++return -EINVAL;
++}
++if (input[0] >= boot_cpu_data.x86_max_cores) {
++dev_err(smu->adev->dev, "core index is overflow, should be less than %d\n",
++boot_cpu_data.x86_max_cores);
++}
++smu->cpu_core_id_select = input[0];
++if (input[1] == 0) {
++if (input[2] < smu->cpu_default_soft_min_freq) {
++dev_warn(smu->adev->dev, "Fine grain setting minimum cclk (%ld) MHz is less than the minimum allowed (%d) MHz\n",
++input[2], smu->cpu_default_soft_min_freq);
++return -EINVAL;
++}
++smu->cpu_actual_soft_min_freq = input[2];
++} else if (input[1] == 1) {
++if (input[2] > smu->cpu_default_soft_max_freq) {
++dev_warn(smu->adev->dev, "Fine grain setting maximum cclk (%ld) MHz is greater than the maximum allowed (%d) MHz\n",
++input[2], smu->cpu_default_soft_max_freq);
++return -EINVAL;
++}
++smu->cpu_actual_soft_max_freq = input[2];
++} else {
++return -EINVAL;
++}
++break;
+ case PP_OD_EDIT_SCLK_VDDC_TABLE:
+ if (size != 2) {
+ dev_err(smu->adev->dev, "Input parameter number not correct\n"); @@ -1286,6 +1325,8 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
+ } else {
+ smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
+ smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
++smu->cpu_actual_soft_min_freq = smu->cpu_default_soft_min_freq;
++smu->cpu_actual_soft_max_freq = smu->cpu_default_soft_max_freq;
 
- mutex_lock(&smu->message_lock);
- ret = smu_cmn_wait_for_response(smu);
--if (ret) {
-+if (ret != 0x1) {
- dev_err(adev->dev, "Msg issuing pre-check failed and "
-        "SMU may be not in the right state!\n");
- goto out;
-@@ -136,9 +136,9 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
- smu_cmn_send_msg_without_waiting(smu, (uint16_t)index);
+ ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinGfxClk,
+ smu->gfx_actual_hard_min_freq, NULL); @@ -1300,6 +1341,20 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
+ dev_err(smu->adev->dev, "Restore the default soft max sclk failed!");
+ return ret;
+ }
++
++ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinCclk,
++      smu->cpu_actual_soft_min_freq, NULL);
++if (ret) {
++dev_err(smu->adev->dev, "Set hard min cclk failed!");
++return ret;
++}
++
++ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxCclk,
++      smu->cpu_actual_soft_max_freq, NULL);
++if (ret) {
++dev_err(smu->adev->dev, "Set soft max cclk failed!");
++return ret;
++}
+ }
+ break;
+ case PP_OD_COMMIT_DPM_TABLE:
+@@ -1326,6 +1381,24 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
+ dev_err(smu->adev->dev, "Set soft max sclk failed!");
+ return ret;
+ }
++
++ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinCclk,
++      ((smu->cpu_core_id_select << 20)
++       | smu->cpu_actual_soft_min_freq),
++      NULL);
++if (ret) {
++dev_err(smu->adev->dev, "Set hard min cclk failed!");
++return ret;
++}
++
++ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxCclk,
++      ((smu->cpu_core_id_select << 20)
++       | smu->cpu_actual_soft_max_freq),
++      NULL);
++if (ret) {
++dev_err(smu->adev->dev, "Set soft max cclk failed!");
++return ret;
++}
+ }
+ break;
+ default:
+@@ -1351,6 +1424,11 @@ static int vangogh_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+ smu->gfx_actual_hard_min_freq = 0;
+ smu->gfx_actual_soft_max_freq = 0;
 
- ret = smu_cmn_wait_for_response(smu);
--if (ret) {
-+if (ret != 0x1) {
- dev_err(adev->dev, "failed send message: %10s (%d) \tparam: 0x%08x response %#x\n",
--       smu_get_message_name(smu, msg), index, param, ret);
-+smu_get_message_name(smu, msg), index, param, ret);
- goto out;
++smu->cpu_default_soft_min_freq = 1400;
++smu->cpu_default_soft_max_freq = 3500;
++smu->cpu_actual_soft_min_freq = 0;
++smu->cpu_actual_soft_max_freq = 0;
++
+ return 0;
  }
 
 --
