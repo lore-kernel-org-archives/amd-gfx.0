@@ -7,62 +7,62 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57ECAC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0B41C43333
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E11D922CE3
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E11D922CE3
+	by mail.kernel.org (Postfix) with ESMTPS id 7357E2311F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:02:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7357E2311F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C2F16E16F;
-	Tue, 12 Jan 2021 09:01:35 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5B056E161
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:01:34 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id d26so1568707wrb.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 01:01:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1A106E161;
+	Tue, 12 Jan 2021 09:02:07 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8DE6E15C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:02:06 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id 190so1196295wmz.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 01:02:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=rvdotRgawhIL6mvIVyI/dyFURn6mdvmeVOlnSFghUUA=;
- b=WA27r8HUAy4eaksQTJck5ZrE7peKFw6nOcSJzp6aNX42gNXEoazVRHEX7/Cvwiv6LU
- lgpRQki72QahsKTP8Vq57/SfBopknVJuQ+aXAqD1CkjuIS4CmiheckhThItM1QWgygHb
- AVLYjBmdEoUhkULwQflLRgWBYkPrmr1t++3FI=
+ bh=rZz2K+xmI9KYAQXkeWraiWvHtNnjuShlY4VafGUK3lg=;
+ b=IgGCJFvTXWnjCxp5A8MZH4yixnA/mor/V1N+X/j5Tzh52IfA3hnsK2/eeRKgG01Ho+
+ b5coBGLmeV9a24ssSTZVpUZKUlmuC7+R6uRRxQRoUTDET1tztcNwX3FZUneoh2wReWK5
+ QmeE4NOnL7fi+wQ0EkqDACfIx+vUSQJxsVVFk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=rvdotRgawhIL6mvIVyI/dyFURn6mdvmeVOlnSFghUUA=;
- b=FW3pI4lelwBkVpaVpAyWn0PADlvsPq1udqZTjkCaVFGa+e5aJI2NpN9+LPUdAwrsHW
- 9yiLvDwEGNDO5T1sFAa44saCyFC8qR5L/INWchc4ELjNQpDDiIvBjmrQ4N3cRjq8zLnB
- gjy2x6gN4Hq4GyU6Ca87yR3CMiQAUgSP48vc1FuVDqIc0VVaTUeNx80fnnZKK71i9GV4
- GmSm6VF3lA5Stm4q/wggWvbwjI9WqIJ1cvDH2yPY0wKR+DgEtEfLmtlzFQE4MAODLOOs
- nL4suqpku1qWtWTGSZYh1OkzsYwsUyKKeNJsu9mGIXHEy+PiYiAHSNx1Ol3jcAxe6Gv1
- 3EFw==
-X-Gm-Message-State: AOAM533cksCrwWNY6ILfJ5loAYMRSNlztGbQxZhi9rwkVkZ5ol6A+MG/
- gqjAXBIKdiYiGrwyoMJpdSyRqA==
-X-Google-Smtp-Source: ABdhPJzE1BHOOjXJ8oRIHu9inyACpheLoIi8I07LnC3sMfePGXduVT29tRmGL2joiZ8b+wtwZ1gnkg==
-X-Received: by 2002:adf:ec41:: with SMTP id w1mr3169707wrn.12.1610442093566;
- Tue, 12 Jan 2021 01:01:33 -0800 (PST)
+ bh=rZz2K+xmI9KYAQXkeWraiWvHtNnjuShlY4VafGUK3lg=;
+ b=rKuhpPgzOvEwHq7nsNmgZxQHcMwY1+K8Z7OnLMFqspHXkc3ZPeYfLUFggYQUOXjY71
+ F7+lnyJzZEhRMhCizv5b242YoFivw1GJG/Wc+QReaJ+mYQWXXm0Ljvz0Ins93J5yHvqQ
+ lHVXZSqKrxJISU+HuJpxep7VRm/bMfvTpujl/UvBrFSuB0XJuUYBkRMUXk6+MxhJI34z
+ 7Ryi+1IWgGSJVuAS3otKu2jq3nKJNAqke6wLgPviVasBxLkpMyZlyJps6pAcyScEbEbN
+ CzFgJa3cezXS4PYpC6+GvHkSSTLvoHD2e0Lhv0L55ikghrHgh0R9y11jfSs1L2rgQo4l
+ csTA==
+X-Gm-Message-State: AOAM530Rk1rCXUa29OSgpNomqUqSXBWp0QRr4wVg5fcUt2qwqVUUeH2Y
+ ncocVe3HjH8Qi9iOmobxQDqlzg==
+X-Google-Smtp-Source: ABdhPJy1qvHQ4l2ruCiangPZFDyO1qWSdxx0i9kHmcfz8VakWj32hrpkcKv7cGEHubZIlIismq9o2Q==
+X-Received: by 2002:a7b:c10e:: with SMTP id w14mr2487290wmi.161.1610442125309; 
+ Tue, 12 Jan 2021 01:02:05 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id a62sm2667930wmf.7.2021.01.12.01.01.32
+ by smtp.gmail.com with ESMTPSA id v11sm3726018wrt.25.2021.01.12.01.02.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jan 2021 01:01:32 -0800 (PST)
-Date: Tue, 12 Jan 2021 10:01:30 +0100
+ Tue, 12 Jan 2021 01:02:04 -0800 (PST)
+Date: Tue, 12 Jan 2021 10:02:02 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/6] drm: Implement drm_need_swiotlb() in drm_cache.c
-Message-ID: <X/1laqvIEeBKhOHw@phenom.ffwll.local>
+Subject: Re: [PATCH 3/6] drm: Build drm_memory.o only for legacy drivers
+Message-ID: <X/1litpudYSPhFMA@phenom.ffwll.local>
 References: <20210112081035.6882-1-tzimmermann@suse.de>
- <20210112081035.6882-3-tzimmermann@suse.de>
+ <20210112081035.6882-4-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210112081035.6882-3-tzimmermann@suse.de>
+In-Reply-To: <20210112081035.6882-4-tzimmermann@suse.de>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,124 +84,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 12, 2021 at 09:10:31AM +0100, Thomas Zimmermann wrote:
-> The function is declared in drm_cache.h. I also removed the curly
-> braces from the for loop to adhere to kernel coding style.
-> 
+On Tue, Jan 12, 2021 at 09:10:32AM +0100, Thomas Zimmermann wrote:
+> The file contains I/O-memory functions that are only used by legacy
+> drivers.
+
+Yay!
+
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-s/implement in/move to/ in the subject. Also would be nice to add
-kerneldoc while moving (there's not kerneldoc for drm_memory) to avoid the
-new warning. With that fixed:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-It's mildly confusing, but in a way drm_cache.c is our "hack around
-dma-api layering issues" pile, so fits :-) Maybe we should even make this
-the official DOC: kerneldoc intro section for this file ...
-
-Cheers, Daniel
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
 > ---
->  drivers/gpu/drm/drm_cache.c  | 32 ++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_memory.c | 33 ---------------------------------
->  2 files changed, 32 insertions(+), 33 deletions(-)
+>  drivers/gpu/drm/Makefile | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-> index 0fe3c496002a..49551a7fa22f 100644
-> --- a/drivers/gpu/drm/drm_cache.c
-> +++ b/drivers/gpu/drm/drm_cache.c
-> @@ -30,6 +30,7 @@
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index fefaff4c832d..ba0ecb7756c6 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -5,7 +5,7 @@
 >  
->  #include <linux/export.h>
->  #include <linux/highmem.h>
-> +#include <xen/xen.h>
+>  drm-y       :=	drm_auth.o drm_cache.o \
+>  		drm_file.o drm_gem.o drm_ioctl.o drm_irq.o \
+> -		drm_memory.o drm_drv.o \
+> +		drm_drv.o \
+>  		drm_sysfs.o drm_hashtab.o drm_mm.o \
+>  		drm_crtc.o drm_fourcc.o drm_modes.o drm_edid.o \
+>  		drm_encoder_slave.o \
+> @@ -20,7 +20,8 @@ drm-y       :=	drm_auth.o drm_cache.o \
+>  		drm_client_modeset.o drm_atomic_uapi.o drm_hdcp.o \
+>  		drm_managed.o drm_vblank_work.o
 >  
->  #include <drm/drm_cache.h>
->  
-> @@ -176,3 +177,34 @@ drm_clflush_virt_range(void *addr, unsigned long length)
->  #endif
->  }
->  EXPORT_SYMBOL(drm_clflush_virt_range);
-> +
-> +bool drm_need_swiotlb(int dma_bits)
-> +{
-> +	struct resource *tmp;
-> +	resource_size_t max_iomem = 0;
-> +
-> +	/*
-> +	 * Xen paravirtual hosts require swiotlb regardless of requested dma
-> +	 * transfer size.
-> +	 *
-> +	 * NOTE: Really, what it requires is use of the dma_alloc_coherent
-> +	 *       allocator used in ttm_dma_populate() instead of
-> +	 *       ttm_populate_and_map_pages(), which bounce buffers so much in
-> +	 *       Xen it leads to swiotlb buffer exhaustion.
-> +	 */
-> +	if (xen_pv_domain())
-> +		return true;
-> +
-> +	/*
-> +	 * Enforce dma_alloc_coherent when memory encryption is active as well
-> +	 * for the same reasons as for Xen paravirtual hosts.
-> +	 */
-> +	if (mem_encrypt_active())
-> +		return true;
-> +
-> +	for (tmp = iomem_resource.child; tmp; tmp = tmp->sibling)
-> +		max_iomem = max(max_iomem,  tmp->end);
-> +
-> +	return max_iomem > ((u64)1 << dma_bits);
-> +}
-> +EXPORT_SYMBOL(drm_need_swiotlb);
-> diff --git a/drivers/gpu/drm/drm_memory.c b/drivers/gpu/drm/drm_memory.c
-> index f4f2bffdd5bd..e4f20a2eb6e7 100644
-> --- a/drivers/gpu/drm/drm_memory.c
-> +++ b/drivers/gpu/drm/drm_memory.c
-> @@ -37,7 +37,6 @@
->  #include <linux/highmem.h>
->  #include <linux/pci.h>
->  #include <linux/vmalloc.h>
-> -#include <xen/xen.h>
->  
->  #include <drm/drm_agpsupport.h>
->  #include <drm/drm_cache.h>
-> @@ -138,35 +137,3 @@ void drm_legacy_ioremapfree(struct drm_local_map *map, struct drm_device *dev)
->  		iounmap(map->handle);
->  }
->  EXPORT_SYMBOL(drm_legacy_ioremapfree);
-> -
-> -bool drm_need_swiotlb(int dma_bits)
-> -{
-> -	struct resource *tmp;
-> -	resource_size_t max_iomem = 0;
-> -
-> -	/*
-> -	 * Xen paravirtual hosts require swiotlb regardless of requested dma
-> -	 * transfer size.
-> -	 *
-> -	 * NOTE: Really, what it requires is use of the dma_alloc_coherent
-> -	 *       allocator used in ttm_dma_populate() instead of
-> -	 *       ttm_populate_and_map_pages(), which bounce buffers so much in
-> -	 *       Xen it leads to swiotlb buffer exhaustion.
-> -	 */
-> -	if (xen_pv_domain())
-> -		return true;
-> -
-> -	/*
-> -	 * Enforce dma_alloc_coherent when memory encryption is active as well
-> -	 * for the same reasons as for Xen paravirtual hosts.
-> -	 */
-> -	if (mem_encrypt_active())
-> -		return true;
-> -
-> -	for (tmp = iomem_resource.child; tmp; tmp = tmp->sibling) {
-> -		max_iomem = max(max_iomem,  tmp->end);
-> -	}
-> -
-> -	return max_iomem > ((u64)1 << dma_bits);
-> -}
-> -EXPORT_SYMBOL(drm_need_swiotlb);
+> -drm-$(CONFIG_DRM_LEGACY) += drm_legacy_misc.o drm_bufs.o drm_context.o drm_dma.o drm_scatter.o drm_lock.o
+> +drm-$(CONFIG_DRM_LEGACY) += drm_bufs.o drm_context.o drm_dma.o drm_legacy_misc.o drm_lock.o \
+> +		drm_memory.o drm_scatter.o
+>  drm-$(CONFIG_DRM_LIB_RANDOM) += lib/drm_random.o
+>  drm-$(CONFIG_DRM_VM) += drm_vm.o
+>  drm-$(CONFIG_COMPAT) += drm_ioc32.o
 > -- 
 > 2.29.2
 > 
