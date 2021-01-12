@@ -2,42 +2,42 @@ Return-Path: <SRS0=dvhx=GP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B73D7C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 11:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3CB5C4332B
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 11:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56696223C8
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 11:36:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56696223C8
+	by mail.kernel.org (Postfix) with ESMTPS id 5F799224BD
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 11:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F799224BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2AEC6E1DE;
-	Tue, 12 Jan 2021 11:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBE3F6E1E0;
+	Tue, 12 Jan 2021 11:36:11 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC3DC6E1DE
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 11:36:07 +0000 (UTC)
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D0FE6E1DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 11:36:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lyD4bTO0F12TPBUaddFxKnKmrJjXWbFAfRQblXrZPSypkhgmNWB/8fmrIBSWko7mAzXlexX+RCExRoqPRHEnn62IBql+r+PIs1yC9gImZqOm2VF6OTC+6mei9x8+RnJdHYZl9FthH7X6i0ENkZn1E3R5To8ANAkmJNmKdokJBoo2yV2ANqavpcNHubnU7jxiJCDOTowsAuAG18AV5vQpNAWiPtEEbZ1b59TCd8cA+BaaDhKumKV342OITe9ueoLwjCUn1S7Pyg3q1qouCCd7FaJR+zxJyWmbHm8wy4i9U7CZzqYwIeVeEcZzW0xjY9ECyo+z/J23yyA2bVB73e3/3A==
+ b=hdH+FwFm6ZejxmofqoCzh8mDv+Y7nOJ1g8ckPVB5zk9sMGEomyuvibAgrOs/QK+OL7/5vIUADDDUqIIEGaSPdz71O6GNmJno6Eas3c0NrdKzHcLMIRcNNMXqzm5hqd/KPPZky4O/HZ9HVEf1ZEl+Gj/Jha4OhDEE/bIMLFgsdguuhOc8dPyUtfsbFmXu45Ozc8/TXHeDOeBF62dLdCc2qRG+4aLD9vXTqeLVIaNx1pAA9BX7Wx+ufBDzm/reKgkK5ycwDAQ3afYbrzWpXNxhKfOPjDkR52vju5GJu2fKkXhJfFT8oAftyLngTPFZPxtpY1zMIAzrlGLanrjDFNhkQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dNlokguUm6HjE1+SYyUhqeesJCc2be/m4QcZ61iWafQ=;
- b=hpEgihPM2ImryX+awAzq9eBTxlTEzqEnukVfsUH40dFcqzAgNHE3ggNHFdCXBByPZ1kbWdpvZluvlpz7VwCH2JjpCbCdV/YLAn9sadvzv5/47D4i12wdcVDBz6uzhbh45VsC2uRiXQ3vBbImmhkz93cm9e7fKo14uE2uLer9i/lKlrWSgBd4marTi68itvkgC3GcIVkgPmsl1u8xIcd5YJdLbbZ1VbTIRm/5XQw7kZVwxiBdBzdU3VOCATwbEWhVv1WbikDJaM69WgkvGdfX8iF4MluWHf5a2qEGKfDdoM4jkk8Qgf1ctxHOJOeMg5V6FQekC3FMK8inCfc6tAfQAQ==
+ bh=slS7TeiR3BkgcozUZseBEI1rSIHNaBufy55GdsiFByM=;
+ b=iNrG7CKSa0Cx8RruAn3+Sgl0WSQMNrRHFmUfE3XEbtF9saInyzfszbrb7+8PNvPOx1D19A5UKdZex9neW6+RQZGWvKCPWxZAHr54mrDAMGcQ3uzJZ+mlhN9cyKtXZkmHd46Arr0VtQYJTIqM2KyhKUw619CQYnDIOJ+ViWtpb9lQXlKCRx/ecrDdgub7QB+qDn3Tg8UQdp89ZtOL6o3oN5QrGkr3XiB7TwApJsYw45Vu8E5va66KMIgJ8/vGo3rBZtqe+i1bFcnvPsoLp7gkKX0OwGv7skWfGMZ2TUWOH27w5THFi/3mvcX//3Ix3Eoq1EWHkxDiRwvhiMHEFriMdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dNlokguUm6HjE1+SYyUhqeesJCc2be/m4QcZ61iWafQ=;
- b=r5yQqA+zvtcCzhtNDTCcDGmRnGOwEbwbyB8hARI/Kqh9YDB1SQv6axa9BKHZppP4Uw9Owpof2qX6KrMNkZpYqUqWE/G4E64toc/xHkMmauXfN+OTgy+r1jv8H06Dfdnft0fTHOvGH0oMX8szEfaSIY4NVtmk5wRujY8gZ+HGfXQ=
+ bh=slS7TeiR3BkgcozUZseBEI1rSIHNaBufy55GdsiFByM=;
+ b=KL3Shrf0ILlyYlIYzGU+a32QcsGxk/CBAckCGu+Suyfp/aEx69jsBaFmAJLTfuSy3YAS9iiqUOq3JBTAiSA96klXNPoMZ0DrpyCI8MDQG8nbvo8n9HT26r6+uf460iyvFrdQDuDbnSG0hStMFxL8ZuH4TM2yapEMV251BJhA2X8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received: from BN6PR12MB1124.namprd12.prod.outlook.com (2603:10b6:404:19::10)
  by BN7PR12MB2660.namprd12.prod.outlook.com (2603:10b6:408:29::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Tue, 12 Jan
- 2021 11:36:04 +0000
+ 2021 11:36:07 +0000
 Received: from BN6PR12MB1124.namprd12.prod.outlook.com
  ([fe80::7cc1:989:4a2a:ab1e]) by BN6PR12MB1124.namprd12.prod.outlook.com
  ([fe80::7cc1:989:4a2a:ab1e%10]) with mapi id 15.20.3742.012; Tue, 12 Jan 2021
- 11:36:04 +0000
+ 11:36:07 +0000
 From: Xiaojian Du <Xiaojian.Du@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/pm: support the function to change power profile
- mode for vangogh
-Date: Tue, 12 Jan 2021 19:35:29 +0800
-Message-Id: <20210112113530.28540-1-Xiaojian.Du@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: fix one superfluous error for renoir
+Date: Tue, 12 Jan 2021 19:35:30 +0800
+Message-Id: <20210112113530.28540-2-Xiaojian.Du@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210112113530.28540-1-Xiaojian.Du@amd.com>
+References: <20210112113530.28540-1-Xiaojian.Du@amd.com>
 X-Originating-IP: [58.247.170.245]
 X-ClientProxiedBy: HK2PR0302CA0002.apcprd03.prod.outlook.com
  (2603:1096:202::12) To BN6PR12MB1124.namprd12.prod.outlook.com
@@ -66,48 +67,48 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from jenkins-MyrtleD.amd.com (58.247.170.245) by
  HK2PR0302CA0002.apcprd03.prod.outlook.com (2603:1096:202::12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3763.3 via Frontend Transport; Tue, 12 Jan 2021 11:36:02 +0000
+ 15.20.3763.3 via Frontend Transport; Tue, 12 Jan 2021 11:36:05 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9a9c86ab-4cf8-44c4-da72-08d8b6ee3f04
+X-MS-Office365-Filtering-Correlation-Id: 1ee076e1-12eb-42f7-1bc8-08d8b6ee40ce
 X-MS-TrafficTypeDiagnostic: BN7PR12MB2660:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN7PR12MB2660F269DD10DA9635C41FB4F1AA0@BN7PR12MB2660.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <BN7PR12MB26603BAB39254B21ECF78709F1AA0@BN7PR12MB2660.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VSB5JaRJzCoKsPJepavL6cp9wReYVGDEW4HccGyH7LbFlYZzg0scQTvSt7JQ7z3L8xEtu7b+oY6s/pQN5VDBK5GUjcCTnlhat9Ftni/vU0bpD/bHKHXCmpyS9+99Y/ymOH7Pk90i/stZSDh9B81rvJrvb9PiFbzyvMWKGE3I0S/oEBIGL8xLh/C3brZnJxWlqyUeeICbPaNt37VqnRE5mzrftQv9Niw8DDso/4uRBR+ADRJZNN8GIlQTl7SZGNUE6+sgmlU7y/mMYq2Yb6qvNTFqATKRFAUPa2t9SLbYZG7KCgSntZRNb+zCZX6nQfyxmfwGSK1BICuvTWBz1zoKeVPs7AusvVNTgoqb5MssAlSO4ZmI/15Aq8j1MS3VZT+9BznHw7P8t0cjxsS84B/Bzw==
+X-Microsoft-Antispam-Message-Info: MMB4X6SnYO268qNL2mNYIyDd5aDC1XDUG5t5cVXLJYZErg6OcMw1/oW7EpIRyuiNkNfOAblKQxHT6I2EG5FrPu0ytWMmj1cHm8RCt1dM0KGKwOaVIH9j48Be5WMqyPMKgjRK5XhAShI26i+xOG39nUVJwo3VsbhLwu2iB0uodtkD5yYxt3JycFydgjdLFgZJQTstfnUVSnj9756rpi542XzoClzzbmSzESI1Fe8Nrc0oEeUXO58JITNgjv2uPhh/4IGPYeFO9rub3KQbSxXL5whr4v+fCEtV4tbbFIxqO45UcxZErdUDTJ2DrPlJHKJXo/50gBcAxEVlO7g/gYM5Xoe2nZ3Rt+ZO6UlIrF34C44UHOWy7zEqEy7tQcdnnaMIxKh5/nBitRw8xAWbwrGzTQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR12MB1124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(66946007)(6486002)(186003)(66476007)(7696005)(316002)(52116002)(4326008)(16526019)(83380400001)(26005)(5660300002)(2906002)(478600001)(86362001)(6666004)(8676002)(1076003)(6916009)(54906003)(956004)(36756003)(8936002)(66556008)(2616005);
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(66946007)(6486002)(186003)(66476007)(7696005)(316002)(52116002)(4326008)(16526019)(26005)(5660300002)(2906002)(478600001)(86362001)(6666004)(8676002)(1076003)(6916009)(54906003)(956004)(36756003)(8936002)(66556008)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?+GAhloUhLl5c2D7ZVNkxXtfvPRcLO34pdLkNASHwzrzQwlswqqRDNkx6WoBs?=
- =?us-ascii?Q?ZfSFLkKRXaQPtNzbqowHVYc89tDkMqq5Qqq6cam2bUPot0SUaBYnaR1cTLvP?=
- =?us-ascii?Q?zFDEkAhD2eSrpUdtU/nXc8d9xYfplVMrRpXF2B6abKxFZvSH5kGp696N9Gr/?=
- =?us-ascii?Q?A+N7wPjhxwXI7pCFttnT4TMZdO1S0/GPxil1YYfikPy8Wn1sTNvTGi+iXU+s?=
- =?us-ascii?Q?VFg2CN5nE0j0TydToCgg3xZACkvusCf68CJ529fYoJOwrCgJP2zvtmWXspL4?=
- =?us-ascii?Q?mDpGj5eF87fHaY5WOZtCx9jTLf2FvQvwtbwtT28pmJhw3R8IYDaCZ6qKcu0e?=
- =?us-ascii?Q?Nuq9WSgRl6bsWSFQzuQFKVqnF0q0XyuMltpma03oFWfVNJk8uGUBBGwzkj2u?=
- =?us-ascii?Q?uoMpktbUkSIMm/u+R9a/G4ZJGsW86GDG/6Il7jqXZF2QlIK8W/0Ls0Rxt2ue?=
- =?us-ascii?Q?US2JsRmumHyzE7WJfxb+mhSlPceU/Kbym7di4dJV8J9YMu7sE/6FS2rQE+4r?=
- =?us-ascii?Q?d8+UCYKxoyqd/aUHujWRGlIUztMXereYPWO357hqwjYj9ptK/iIgJn+0POMy?=
- =?us-ascii?Q?1jyhRUHS/cSRR1LMM9/Ex2ogWq9oZ+eITb+q2o/V9gLR3ULAy0ENiY4I9uiq?=
- =?us-ascii?Q?C8GZ2hSYsqp9qBdowJgGNxCidm150MPLaQmSZFVCMsw3KWtK8U2f/p+bSQdR?=
- =?us-ascii?Q?JBzcE177+pYTsrPslZ1LHgYa/PoIYWA3omTk8Qdl4DQtz/+DCSS6VnvFbWsI?=
- =?us-ascii?Q?q9UnkxKoO7Sw4rWtQJpi7JoxpNK73Sa33HFZgrULhi09Ceq4enUbkufsUF07?=
- =?us-ascii?Q?19NSnKJ03Dusc+cDF7tEL7rmHTux+9j586OTd0dZrNVN/QHSBSF7Ge8s1dT8?=
- =?us-ascii?Q?UHdFFA4/wofLaVaiRQPQhxqslbgfhKZ4S0/TRh8F4ROe1LArlWXiLUlPaPAH?=
- =?us-ascii?Q?LFUGuPssCCOuMzfcw7pFdLHWg6DMFPt8AnnXBzcX/OqbreldgYBOYRRgEdLY?=
- =?us-ascii?Q?DFn1?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fgBmlbBftIEvYPlnCsN1twIEereEcSJ7m2EDB6ANIX1W3e4YxRdvBaR7pgcm?=
+ =?us-ascii?Q?F6R8y37sLpB7nz5weu9XVVY+VN0lx6JPS9+eGDJ+XSsPc8xnOyFzRupXgFPU?=
+ =?us-ascii?Q?gSLwMRE/EmrmD0B6+TUdWsbDmZe6BjzVUoHdHaQaqPyMB96aQMgnK+/VWwrP?=
+ =?us-ascii?Q?SmT8pFFWWxJRujo+vXY9h3nbAdRzZdcQ6mVHq7QkcaYv9eKjvrfETTPaNBCA?=
+ =?us-ascii?Q?12TuQ0z/VIHkusW9JZk3MfpCWq271p+l1VSyxL4N++SxpRCVCfveerLueLTV?=
+ =?us-ascii?Q?JRQxHwkRNis1xssj3DzJaMsklFtaf7Bgx/5P01xsUYy2mz/YJE54KI3saHhg?=
+ =?us-ascii?Q?e8XKgLuWTsKQdmwmFuQ6/t07/juwlqei0tTdbaeLerrET9mS2IvWk11MK4R2?=
+ =?us-ascii?Q?3jEPwRT3VAYG7uJFOXQBjS0djohDips7LwgBs673IdNtbKozh62vH7giqs0R?=
+ =?us-ascii?Q?8gfrdnkiwTupadh5LzrV+uePZcH7GyQ3Mi6svNF8medCdFCdD0t1cgc1ER0n?=
+ =?us-ascii?Q?jTyu8qNhPS/rZf/ErRqstMEkcT9bNexXK10VVFxFyLCdvNINXM3fhg070UpM?=
+ =?us-ascii?Q?KUwgYcucHYfuR+lD1pdpDY5jABmLlw+klH17CEq8VMFqsyZSiGc7qwr+JDrS?=
+ =?us-ascii?Q?q53dzPftnkkNRib5eaQ7dIXZrClmARASmuF+F3AUbt1AXfVUCEtC6tHEzRzW?=
+ =?us-ascii?Q?b53/cI+H3DHOaTvd3ZrCInyBF5X/G9ZGFvbnHlF5REp/ULkNqgbC2wvSWLjw?=
+ =?us-ascii?Q?Sg9gsyP+thKAkShPqxGzpPks3+Fx++b/gamZUBT84gjzhu/V+QnYAPA3Hc/4?=
+ =?us-ascii?Q?5fQ+1DVDXsWtvmkYbrjO4aV4IjgxDhn1WB4Gjv/uzP9it5cTqNPlTYAkU+g9?=
+ =?us-ascii?Q?pUZxT5M+3A4yO/eJ/ra3BXx6jE4LhrOsD4IYPYBuwvtQJsohKzdWW5nhuyeV?=
+ =?us-ascii?Q?OcRthyy0SsnwU3C9n/g5i7BZFUR/GTHM6ahQcW/D6LDyFoD9rCw5HUv0Vv9+?=
+ =?us-ascii?Q?kNBE?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2021 11:36:04.6560 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2021 11:36:07.5607 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a9c86ab-4cf8-44c4-da72-08d8b6ee3f04
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ee076e1-12eb-42f7-1bc8-08d8b6ee40ce
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3LcGC4zfp70xPPeLkqK9o3tSxhQClKeSCrEa456K7YHUlHpeNwGDXLrapVjfvI8U7LnYErHN8vx2bGn04bJz1w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3EgCvnwB0uTfxR/6PLD3Gp3YUT9NiUBKgjZEiC39MgZMmk3NK0qJx0F+cwC3NwuThl7MkSaaWDQpbng9WBayQg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,45 +132,24 @@ From: Xiaojian Du <xiaojian.du@amd.com>
 
 From: Xiaojian Du <Xiaojian.Du@amd.com>
 
-This patch is to support the function to change power profile mode for
-vangogh. Vangogh supports 5 kinds of power profile mode:
+This patch is to fix one superfluous error for renoir.
+Renoir supports 5 kinds of power profile mode:
 "FULL SCREEN 3D", "VIDEO", "VR", "COMPUTE" and "CUSTOM".
+After loading amdgpu driver, the driver will set "BOOTUP_DEFAULT"
+mode to APU, and it will get one superfluouserror error,
+which is saying "Unsupported power profile mode 0 on RENOIR",
+but it will not make any other harmful events, so fix this error.
 
 Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index a38433ed3a72..a092b71ff1ec 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -178,6 +178,14 @@ static struct cmn2asic_mapping vangogh_table_map[SMU_TABLE_COUNT] = {
- 	TAB_MAP_VALID(DPMCLOCKS),
- };
- 
-+static struct cmn2asic_mapping vangogh_workload_map[PP_SMC_POWER_PROFILE_COUNT] = {
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_FULLSCREEN3D,		WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO,		WORKLOAD_PPLIB_VIDEO_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VR,			WORKLOAD_PPLIB_VR_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE,		WORKLOAD_PPLIB_COMPUTE_BIT),
-+	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
-+};
-+
- static int vangogh_tables_init(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
-@@ -725,7 +733,8 @@ static int vangogh_get_power_profile_mode(struct smu_context *smu,
- {
- 	static const char *profile_name[] = {
- 					"BOOTUP_DEFAULT",
--					"FULL_SCREEN_3D",
-+					"3D_FULL_SCREEN",
-+					"POWER_SAVING",
- 					"VIDEO",
- 					"VR",
- 					"COMPUTE",
-@@ -765,6 +774,10 @@ static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 1f6a774278b1..f33f5141cbe1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -835,6 +835,10 @@ static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, u
  		return -EINVAL;
  	}
  
