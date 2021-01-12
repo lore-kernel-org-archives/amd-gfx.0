@@ -2,71 +2,46 @@ Return-Path: <SRS0=dvhx=GP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB4F7C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBB65C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:20:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6636E22D2A
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6636E22D2A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 281EB22DFB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 281EB22DFB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816946E19B;
-	Tue, 12 Jan 2021 09:18:33 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00D126E198
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:18:31 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id m4so299176wrx.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 01:18:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=f87gsBH+2KVPSXH+nJ57D/wr8V36ShZYd9Y32P2PsAI=;
- b=L9PD95tk5asxdssK6FkNUeFcgsqydu6mtFz7vR4nbPey+cT4DVDf1WOKiZnUpp9ZmD
- KSR1HLU8hPuhCV2Tu/oae5ICSkF66dtiOQoloary4PJs7XVuY+mJlt+AkwWC0AMBO2yj
- Vv5NWY4NyUzYbwzc2w+TXriscEZFAYX3fd0OQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=f87gsBH+2KVPSXH+nJ57D/wr8V36ShZYd9Y32P2PsAI=;
- b=j5NZRIeRjxNr3nF6OHpeWiP0JlyfC73GNdxCAMzuPJh393U5A5Zy/9jEH0Dgvi/GW/
- S1e0f8MnlzVxhPFTXcI13mLQXX7nkrO5h8bsprnqto6CqUcpPoX3gbGTmY4/q7Ym2/po
- 2F9+zfAX6n2txjWonwJsmnNp5ID76CjiLCDeJX+4eAS+0V8S5zK0hXzF+EjOqBRh5/oq
- dXxz0bFii+/L0c6asxZUITN3SxWu2Sv5T6TYDnTShRojHBs+Mapv68UkLSLkYmd4nLGu
- DsEAnq+l8GBIZTq2UMl1G5ghVfBp1gBUy0Ur7Bj3P5j+7vLHhDTjqPKihHm5nzEs4dTF
- pFCg==
-X-Gm-Message-State: AOAM5331GrvtbTsLXEqYBC9OTWFAmMW1cRmmoU3ksOY8+I7CbWRtKm1+
- A2lgOb27i+usZ1d9GjkASdy5bg==
-X-Google-Smtp-Source: ABdhPJyjVF9IanPechzGYbhoKCcezn8CSCB/pz1NPBPsHDY7evJDL6obrdoAtEpS5Tk7EHgD8iE+Qw==
-X-Received: by 2002:a5d:528a:: with SMTP id c10mr3189848wrv.117.1610443110667; 
- Tue, 12 Jan 2021 01:18:30 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g191sm3121403wmg.39.2021.01.12.01.18.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jan 2021 01:18:29 -0800 (PST)
-Date: Tue, 12 Jan 2021 10:18:28 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v2] drm: Check actual format for legacy pageflip.
-Message-ID: <X/1pZISyZm6xfQ+6@phenom.ffwll.local>
-References: <20210110021142.28221-1-bas@basnieuwenhuizen.nl>
- <CADnq5_OVtCubsGP=-=q-hYJ3e6a3=pozi7ZhDiqdUkUKLCiwMg@mail.gmail.com>
- <CAP+8YyGAuYW+qOCDmQR+_X0y-jC5sKoxm+k7V8YrAEaTM942dA@mail.gmail.com>
- <CADnq5_PZ_yE-K6BzgcSUhOZ_b9nhWpbj7nau2ZopxMLa7igpQA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A49EA88F0A;
+	Tue, 12 Jan 2021 09:20:45 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E72F88F0A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:20:44 +0000 (UTC)
+Received: from [192.168.0.6] (ip5f5aed06.dynamic.kabel-deutschland.de
+ [95.90.237.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id D25C920645D76;
+ Tue, 12 Jan 2021 10:20:42 +0100 (CET)
+Subject: Re: [PATCH] drm/amdgpu: enable gpu recovery for navy_flounder
+To: Jiansong Chen <Jiansong.Chen@amd.com>
+References: <20210111094938.2764-1-Jiansong.Chen@amd.com>
+ <ea359d1f-169a-7b93-94aa-8bcaf38cef39@molgen.mpg.de>
+ <BY5PR12MB4885C09A5D21C96E7A175753EAAB0@BY5PR12MB4885.namprd12.prod.outlook.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <cd083b58-352e-efbf-4e30-ce04009600f4@molgen.mpg.de>
+Date: Tue, 12 Jan 2021 10:20:42 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CADnq5_PZ_yE-K6BzgcSUhOZ_b9nhWpbj7nau2ZopxMLa7igpQA@mail.gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <BY5PR12MB4885C09A5D21C96E7A175753EAAB0@BY5PR12MB4885.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,125 +53,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Kleiner <mario.kleiner.de@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Zhan Liu <zhan.liu@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Tao Zhou <Tao.Zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 11, 2021 at 04:28:31PM -0500, Alex Deucher wrote:
-> On Mon, Jan 11, 2021 at 11:39 AM Bas Nieuwenhuizen
-> <bas@basnieuwenhuizen.nl> wrote:
-> >
-> > On Mon, Jan 11, 2021 at 4:02 PM Alex Deucher <alexdeucher@gmail.com> wr=
-ote:
-> > >
-> > > On Sat, Jan 9, 2021 at 9:11 PM Bas Nieuwenhuizen
-> > > <bas@basnieuwenhuizen.nl> wrote:
-> > > >
-> > > > With modifiers one can actually have different format_info structs
-> > > > for the same format, which now matters for AMDGPU since we convert
-> > > > implicit modifiers to explicit modifiers with multiple planes.
-> > > >
-> > > > I checked other drivers and it doesn't look like they end up trigge=
-ring
-> > > > this case so I think this is safe to relax.
-> > > >
-> > > > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > > Reviewed-by: Zhan Liu <zhan.liu@amd.com>
-> > > > Acked-by: Christian K=F6nig <christian.koenig@amd.com>
-> > > > Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > Fixes: 816853f9dc40 ("drm/amd/display: Set new format info for conv=
-erted metadata.")
-> > >
-> > > Do you have commit rights to drm-misc or do you need someone to commit
-> > > this for you?
-> >
-> > I don't have commit rights so if the patch could be committed for me
-> > that would be appreciated!
-> =
-
-> Pushed to drm-misc-fixes.  Thanks!
-> =
-
-> If you want access to drm-misc, I don't see any reason you shouldn't have=
- it.
-
-There's some old-school bash tooling involved since we're (not yet, I can
-hope) doing gitlab MR:
-
-https://drm.pages.freedesktop.org/maintainer-tools/getting-started.html
-
-Otherwise makes sense imo.
--Daniel
-
-> =
-
-> Alex
-> =
-
-> =
-
-> > >
-> > > Thanks!
-> > >
-> > > Alex
-> > >
-> > > > ---
-> > > >  drivers/gpu/drm/drm_plane.c | 9 ++++++++-
-> > > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plan=
-e.c
-> > > > index e6231947f987..a0cb746bcb0a 100644
-> > > > --- a/drivers/gpu/drm/drm_plane.c
-> > > > +++ b/drivers/gpu/drm/drm_plane.c
-> > > > @@ -1163,7 +1163,14 @@ int drm_mode_page_flip_ioctl(struct drm_devi=
-ce *dev,
-> > > >         if (ret)
-> > > >                 goto out;
-> > > >
-> > > > -       if (old_fb->format !=3D fb->format) {
-> > > > +       /*
-> > > > +        * Only check the FOURCC format code, excluding modifiers. =
-This is
-> > > > +        * enough for all legacy drivers. Atomic drivers have their=
- own
-> > > > +        * checks in their ->atomic_check implementation, which will
-> > > > +        * return -EINVAL if any hw or driver constraint is violate=
-d due
-> > > > +        * to modifier changes.
-> > > > +        */
-> > > > +       if (old_fb->format->format !=3D fb->format->format) {
-> > > >                 DRM_DEBUG_KMS("Page flip is not allowed to change f=
-rame buffer format.\n");
-> > > >                 ret =3D -EINVAL;
-> > > >                 goto out;
-> > > > --
-> > > > 2.29.2
-> > > >
-> > > > _______________________________________________
-> > > > amd-gfx mailing list
-> > > > amd-gfx@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGVhciBKaWFuc29uZywKCgpBbSAxMS4wMS4yMSB1bSAxMzoyNiBzY2hyaWViIENoZW4sIEppYW5z
+b25nIChTaW1vbik6Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1
+dGlvbiBPbmx5XQoKKFdoYXQgZG9lcyB0aGlzIG5vdGljZSBtZWFuIGV4YWN0bHk/IFNob3VsZCBi
+ZSByZW1vdmVkIGZvciBwdWJsaWMKbWFpbGluZyBsaXN0cy4pCgo+IFdlIGp1c3QgZW5hYmxlIGdw
+dSByZWNvdmVyeSB3aGVuIHRoZSBmZWF0dXJlIGlzIHN0YWJsZSBlbm91Z2ggZm9yCj4gbmF2eV9m
+bG91bmRlci4KClRoZW4gcGxlYXNlIG1lbnRpb24gdGhhdCBpbiB0aGUgY29tbWl0IG1lc3NhZ2Uu
+IFNvbWV0aGluZyBsaWtlOgoKID4gTm93IHRoYXQgR1BVIHJlY292ZXJ5IGlzIHN0YWJsZSBlbm91
+Z2gsIOKApgoKPiBBbmQgeW91IGNhbiB1c2UgZGVidWdmcyBpbnRlcmZhY2UgdG8gcGVyZm9ybSBh
+IG1hbnVhbAo+IEdQVSByZXNldC4gSGVyZSBpcyBtb3JlIGRldGFpbAo+IGh0dHBzOi8vZ2l0aHVi
+LmNvbS9SYWRlb25PcGVuQ29tcHV0ZS9ST0NtL2lzc3Vlcy82MTYuIFRoYW5rcyEKVGhhbmsgeW91
+LiBJdCB3b3VsZCBzdGlsbCBiZSBuaWNlLCB0byBoYXZlIHRoaXMgaW5mb3JtYXRpb24gaW4gdGhl
+IApjb21taXQgbWVzc2FnZS4KCgpLaW5kIHJlZ2FyZHMsCgpQYXVsCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
