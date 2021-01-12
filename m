@@ -2,69 +2,66 @@ Return-Path: <SRS0=dvhx=GP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6C70C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 20:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D670AC433E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 21:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72DA6230FC
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 20:23:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72DA6230FC
+	by mail.kernel.org (Postfix) with ESMTPS id 7F52E223E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 21:55:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F52E223E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9C9A898F3;
-	Tue, 12 Jan 2021 20:23:25 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7322D89C19;
- Tue, 12 Jan 2021 19:57:32 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id w2so2011231pfc.13;
- Tue, 12 Jan 2021 11:57:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C435F893ED;
+	Tue, 12 Jan 2021 21:55:44 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0D5893ED;
+ Tue, 12 Jan 2021 21:55:43 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id d20so3836871otl.3;
+ Tue, 12 Jan 2021 13:55:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=8dVFyFiyF8C+YWyOq836m8QU0axjla2SznTviLPhcFk=;
- b=KhkahF+Q+s5CL6PHq2P1p5hNDDOSnWQVZeJHVkiJzQhVDLAvJhxj8n1E9aK1rgLP+i
- D+GyyNExLtp5vqHuX6XcII2nR2HAhVZ8lkxZwd4reXmQg3exTBn6wTnseA41PObhqgKI
- X5Jnnx7uSDTirc71GLq0F9EZXxJZqur5wErdPlF/qs4NtCir6SGBgne1wRnQjWCib11j
- MvYDBmNdZlu7oLX/ViQbbPVfWB0NVLfcAMTRTy66FUwgs67AVQR+uKE0fMB3TMxEoAOJ
- ZhgSJlPdp1tiT7pk4YaB/179iyH8zmCvUlG4DSvhXQiplw8sE2Ob4oeBhvKbW0TvnMVW
- T1lg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=znljSH1AVX8WCZj65lTt4Z1+9uZGjTLRkQMrZFvuyb0=;
+ b=CV4VfIRWfi0R9/UOm+paur3SzGdcvRbnkHekd5JubxUHCQAkXkIK2Z9cPb8PyhpTvZ
+ haIsTianWtYzprVnfWkrnh82ZIrr166EBK7zYtipvKQ5n9NNGntN7JLbKaq4gZJ948xt
+ nN+TjGiXHKayMml9rDHdyTDexB6e+r6R6G7CBHE1lI5H4h4iKTSaHZCrknbDrNv0qjXu
+ w0iqKcPKP2cg8Ua4vQsnKKJJoboI9vZH/xTWJJy4AcWJx0Fiaj46mMyBV/igT4sYxqcb
+ VLTYIN/3uOEIVFlTkSCJjPKOqMpP+3QNeyPBUqcxB0n6+PGLbBGrCFnrA3DybcUqRzK1
+ avFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=8dVFyFiyF8C+YWyOq836m8QU0axjla2SznTviLPhcFk=;
- b=rxFsGU/mTp6us8EEyqCk8xRm1tJYq9ebiyfA5wWn8fqDcGZpm0ANv5obL5pcX4Ddkx
- MfVfeCz5/UJKjkSlgnjOUAeglC572ZvMzYRJemYx+nVgl8ha5tXkxWgy9Swf/xZnpo8S
- KMukreeLGNoHVPlPbhPk6hEi3I7gh376cgLw4Tu6pMR8lNVCukB1e4KAwZI7341wFulQ
- SmOw6Th05o9D588xQQ+lvxjfFS71kGR0DdP/ZZZKG+y8HEGz/5kefiAluxfu6EFbQ6P0
- 0zF1qw35hkVUgMo9KtkHxB8kodAhwQc6ArxPMdQjnMDOxALN2AQHLzXf/eSVO3LBPfAp
- ryag==
-X-Gm-Message-State: AOAM5316pZygyRwGUBRYgcXXsTJt/uIgXxSr1DKYprReVIGL0Rq/4BWs
- tRK0OMGFPcwWaMX8Tb1dNlE=
-X-Google-Smtp-Source: ABdhPJxWZJ0yiE0hSvXxmHZNYo4sSoW3/0CiG7pxMwVjn8U2zFJvSb5sR5sDJhAAPd+z95PzYX+sEg==
-X-Received: by 2002:aa7:9a07:0:b029:1a6:5f93:a19f with SMTP id
- w7-20020aa79a070000b02901a65f93a19fmr865506pfj.21.1610481451911; 
- Tue, 12 Jan 2021 11:57:31 -0800 (PST)
-Received: from jordon-HP-15-Notebook-PC.domain.name ([122.179.121.136])
- by smtp.gmail.com with ESMTPSA id 11sm4759328pgz.22.2021.01.12.11.57.27
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 Jan 2021 11:57:31 -0800 (PST)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, Xiaojian.Du@amd.com, ray.huang@amd.com, evan.quan@amd.com,
- lijo.lazar@amd.com, Jinzhou.Su@amd.com, Xiaomeng.Hou@amd.com
-Subject: [PATCH] drm: amdgpu: pm: Mark vangogh_clk_dpm_is_enabled() as static
-Date: Wed, 13 Jan 2021 01:27:22 +0530
-Message-Id: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
-X-Mailman-Approved-At: Tue, 12 Jan 2021 20:23:24 +0000
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=znljSH1AVX8WCZj65lTt4Z1+9uZGjTLRkQMrZFvuyb0=;
+ b=nPdeuJAEB65M2j4/gmX3LLiPYwgW7ju3eNGuZo06orPFILwzPPZa0HJsfZPuRsi+/e
+ x1eUWQsoSSVyPpNPbgq7GRUQFP3n/K5aPsnq4kVlGHqzp0pdZjyppeyp+fLLdI2lF5qJ
+ aqS1LIrXlpBnZCzi1AYK4Vy0EmKUOsXYJUwuQTRFHwLyp+jMf1C8TZPF9PYAdAv76AMF
+ v7dl1x26ca74dtjKddrq0FkXOGIa9jOuoBwW/WEZt8KQl/N8tVRuWkZryXSuK9kTchew
+ g6uQc5nVKV1AUyQ0gbNxdw1gIN9PHREqdjj6E1rOxu4Y/DBPBoaxt3WOHEIdvG1A/fFU
+ +F7Q==
+X-Gm-Message-State: AOAM533UUfN1HmAuKV7iQUyadDXVV3EJeffbMV6ggkypLd2n6kRrd45L
+ 18k7e315Y3ZnjG818YnFAhZcvnP29BhPzbGXPsc=
+X-Google-Smtp-Source: ABdhPJwR/ymc04CZJMQdWGDMKno7UUdM4OLE4UWCwA6cNKKLq9gjW0kQ1EOAWWo6yQOox74aWqAH8fBH3/5czIA5ZxE=
+X-Received: by 2002:a05:6830:1b7b:: with SMTP id
+ d27mr1050326ote.132.1610488542949; 
+ Tue, 12 Jan 2021 13:55:42 -0800 (PST)
+MIME-Version: 1.0
+References: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
+In-Reply-To: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Jan 2021 16:55:31 -0500
+Message-ID: <CADnq5_OtfqEHXopb=CiY7YQ4otGoR_DUF8Sirv0Yob=Fe4Nv+A@mail.gmail.com>
+Subject: Re: [PATCH] drm: amdgpu: pm: Mark vangogh_clk_dpm_is_enabled() as
+ static
+To: Souptick Joarder <jrdr.linux@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,47 +73,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Souptick Joarder <jrdr.linux@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+Cc: Jinzhou.Su@amd.com, Xiaomeng.Hou@amd.com, Xiaojian Du <Xiaojian.Du@amd.com>,
+ Dave Airlie <airlied@linux.ie>, "Lazar, Lijo" <lijo.lazar@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Huang Rui <ray.huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kernel test robot throws below warnings ->
+On Tue, Jan 12, 2021 at 3:23 PM Souptick Joarder <jrdr.linux@gmail.com> wrote:
+>
+> kernel test robot throws below warnings ->
+>
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
+> warning: no previous prototype for 'vangogh_clk_dpm_is_enabled'
+> [-Wmissing-prototypes]
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
+> warning: no previous prototype for function 'vangogh_clk_dpm_is_enabled'
+> [-Wmissing-prototypes]
+>
+> Mark vangogh_clk_dpm_is_enabled() as static.
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
 
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
-warning: no previous prototype for 'vangogh_clk_dpm_is_enabled'
-[-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
-warning: no previous prototype for function 'vangogh_clk_dpm_is_enabled'
-[-Wmissing-prototypes]
+Applied.  Thanks!
 
-Mark vangogh_clk_dpm_is_enabled() as static.
+Alex
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 75ddcad..3ffe56e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -610,7 +610,7 @@ static int vangogh_get_profiling_clk_mask(struct smu_context *smu,
- 	return 0;
- }
- 
--bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
-+static bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
- 				enum smu_clk_type clk_type)
- {
- 	enum smu_feature_mask feature_id = 0;
--- 
-1.9.1
-
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index 75ddcad..3ffe56e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -610,7 +610,7 @@ static int vangogh_get_profiling_clk_mask(struct smu_context *smu,
+>         return 0;
+>  }
+>
+> -bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
+> +static bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
+>                                 enum smu_clk_type clk_type)
+>  {
+>         enum smu_feature_mask feature_id = 0;
+> --
+> 1.9.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
