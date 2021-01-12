@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA290C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 08:10:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82DCEC433E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 08:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 615A022D2C
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 08:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 615A022D2C
+	by mail.kernel.org (Postfix) with ESMTPS id 35DA322D2C
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 08:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 35DA322D2C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDAD96E0EA;
-	Tue, 12 Jan 2021 08:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8CC6E10F;
+	Tue, 12 Jan 2021 08:10:45 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB55C6E0EA;
- Tue, 12 Jan 2021 08:10:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF006E10E;
+ Tue, 12 Jan 2021 08:10:43 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 406AEB71E;
- Tue, 12 Jan 2021 08:10:40 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2FF41AC95;
+ Tue, 12 Jan 2021 08:10:42 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com
-Subject: [PATCH 2/6] drm: Implement drm_need_swiotlb() in drm_cache.c
-Date: Tue, 12 Jan 2021 09:10:31 +0100
-Message-Id: <20210112081035.6882-3-tzimmermann@suse.de>
+Subject: [PATCH 6/6] drm: Move struct drm_device.hose to legacy section
+Date: Tue, 12 Jan 2021 09:10:35 +0100
+Message-Id: <20210112081035.6882-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210112081035.6882-1-tzimmermann@suse.de>
 References: <20210112081035.6882-1-tzimmermann@suse.de>
@@ -55,110 +55,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function is declared in drm_cache.h. I also removed the curly
-braces from the for loop to adhere to kernel coding style.
+The field is only relevant for legacy DRM drivers. Its only non-legacy
+user in the DRM core is in drm_file.c. This code is now protected by
+CONFIG_DRM_LEGACY. Radeon, the only driver that used the field, has been
+changed to maintain it's own copy.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_cache.c  | 32 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_memory.c | 33 ---------------------------------
- 2 files changed, 32 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/drm_file.c | 2 ++
+ include/drm/drm_device.h   | 9 +++++----
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-index 0fe3c496002a..49551a7fa22f 100644
---- a/drivers/gpu/drm/drm_cache.c
-+++ b/drivers/gpu/drm/drm_cache.c
-@@ -30,6 +30,7 @@
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index 80886d50d0f1..86c405d86a68 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -370,6 +370,7 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ 	list_add(&priv->lhead, &dev->filelist);
+ 	mutex_unlock(&dev->filelist_mutex);
  
- #include <linux/export.h>
- #include <linux/highmem.h>
-+#include <xen/xen.h>
- 
- #include <drm/drm_cache.h>
- 
-@@ -176,3 +177,34 @@ drm_clflush_virt_range(void *addr, unsigned long length)
++#ifdef CONFIG_DRM_LEGACY
+ #ifdef __alpha__
+ 	/*
+ 	 * Default the hose
+@@ -389,6 +390,7 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ 				dev->hose = b->sysdata;
+ 		}
+ 	}
++#endif
  #endif
- }
- EXPORT_SYMBOL(drm_clflush_virt_range);
-+
-+bool drm_need_swiotlb(int dma_bits)
-+{
-+	struct resource *tmp;
-+	resource_size_t max_iomem = 0;
-+
-+	/*
-+	 * Xen paravirtual hosts require swiotlb regardless of requested dma
-+	 * transfer size.
-+	 *
-+	 * NOTE: Really, what it requires is use of the dma_alloc_coherent
-+	 *       allocator used in ttm_dma_populate() instead of
-+	 *       ttm_populate_and_map_pages(), which bounce buffers so much in
-+	 *       Xen it leads to swiotlb buffer exhaustion.
-+	 */
-+	if (xen_pv_domain())
-+		return true;
-+
-+	/*
-+	 * Enforce dma_alloc_coherent when memory encryption is active as well
-+	 * for the same reasons as for Xen paravirtual hosts.
-+	 */
-+	if (mem_encrypt_active())
-+		return true;
-+
-+	for (tmp = iomem_resource.child; tmp; tmp = tmp->sibling)
-+		max_iomem = max(max_iomem,  tmp->end);
-+
-+	return max_iomem > ((u64)1 << dma_bits);
-+}
-+EXPORT_SYMBOL(drm_need_swiotlb);
-diff --git a/drivers/gpu/drm/drm_memory.c b/drivers/gpu/drm/drm_memory.c
-index f4f2bffdd5bd..e4f20a2eb6e7 100644
---- a/drivers/gpu/drm/drm_memory.c
-+++ b/drivers/gpu/drm/drm_memory.c
-@@ -37,7 +37,6 @@
- #include <linux/highmem.h>
- #include <linux/pci.h>
- #include <linux/vmalloc.h>
--#include <xen/xen.h>
  
- #include <drm/drm_agpsupport.h>
- #include <drm/drm_cache.h>
-@@ -138,35 +137,3 @@ void drm_legacy_ioremapfree(struct drm_local_map *map, struct drm_device *dev)
- 		iounmap(map->handle);
- }
- EXPORT_SYMBOL(drm_legacy_ioremapfree);
--
--bool drm_need_swiotlb(int dma_bits)
--{
--	struct resource *tmp;
--	resource_size_t max_iomem = 0;
--
--	/*
--	 * Xen paravirtual hosts require swiotlb regardless of requested dma
--	 * transfer size.
--	 *
--	 * NOTE: Really, what it requires is use of the dma_alloc_coherent
--	 *       allocator used in ttm_dma_populate() instead of
--	 *       ttm_populate_and_map_pages(), which bounce buffers so much in
--	 *       Xen it leads to swiotlb buffer exhaustion.
--	 */
--	if (xen_pv_domain())
--		return true;
--
--	/*
--	 * Enforce dma_alloc_coherent when memory encryption is active as well
--	 * for the same reasons as for Xen paravirtual hosts.
--	 */
--	if (mem_encrypt_active())
--		return true;
--
--	for (tmp = iomem_resource.child; tmp; tmp = tmp->sibling) {
--		max_iomem = max(max_iomem,  tmp->end);
--	}
--
--	return max_iomem > ((u64)1 << dma_bits);
--}
--EXPORT_SYMBOL(drm_need_swiotlb);
+ 	return 0;
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 939904ae88fc..d647223e8390 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -282,10 +282,6 @@ struct drm_device {
+ 	/** @pdev: PCI device structure */
+ 	struct pci_dev *pdev;
+ 
+-#ifdef __alpha__
+-	/** @hose: PCI hose, only used on ALPHA platforms. */
+-	struct pci_controller *hose;
+-#endif
+ 	/** @num_crtcs: Number of CRTCs on this device */
+ 	unsigned int num_crtcs;
+ 
+@@ -328,6 +324,11 @@ struct drm_device {
+ 	/* List of devices per driver for stealth attach cleanup */
+ 	struct list_head legacy_dev_list;
+ 
++#ifdef __alpha__
++	/** @hose: PCI hose, only used on ALPHA platforms. */
++	struct pci_controller *hose;
++#endif
++
+ 	/* Context handle management - linked list of context handles */
+ 	struct list_head ctxlist;
+ 
 -- 
 2.29.2
 
