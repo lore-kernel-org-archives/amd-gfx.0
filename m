@@ -2,76 +2,44 @@ Return-Path: <SRS0=dvhx=GP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B20DC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58CA7C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B319622D2A
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B319622D2A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id B6B1F22D2A
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Jan 2021 09:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6B1F22D2A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB386E17E;
-	Tue, 12 Jan 2021 09:16:06 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1696E17E
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:16:05 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id y17so1629964wrr.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 01:16:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=cvReRwy9emQXXnNKJ1WV85zP9TH2TW7Rwxm8NFJ4R1o=;
- b=RaR+/wkU4qcISp0cCGr/mb5nv0cFZE+Fgo9Z7NPkfZIzyihDBBzysQTaEh1dajesCN
- nIewTC3wPuZuI1X/MdST7nRqsJCfYftnR8hpr4i9SjbsoANFDYUWGLPUhgJjl5JoPCwo
- e2T47RafY6tAEpOkx4LNz6WYh83RU+uaT00Pw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=cvReRwy9emQXXnNKJ1WV85zP9TH2TW7Rwxm8NFJ4R1o=;
- b=jdQeAM/uu7/kRQLMlp1bplneG2840spUuhJ9+HTnQ1pf+49FFpGa1qfl4mEONNKF84
- Cx6tJP/L/h2As004poD9QnfoCY48damI8UNwt3VXgYoFZey8d6UPavNPVML6Cq/WHHMJ
- 3+kWPjccO+o+Rki7p7CJwpMWlFhC2BnwOVWGUxLvMF9OwQFi5iL99wKWDxRsnpSgtGHt
- GQuHcXDPgJVeFK/ANYWIfRnhxfR6fCsrlRisbRDSlqIoFjcl77V40p1IHNUEntScqXVU
- lleVLLUy/PlvkTz/mFqLrSWECBBOX6R2sHIpHSzyfwXKhFlRl+TEv8SzH05U+cktpvCt
- E8QA==
-X-Gm-Message-State: AOAM530VX5UtwT8kR4lsNWxim3gPpC8u+UOvylyMQnsoEkJb8z0eBxN/
- pCDR4A+aN58aeGH0W1B/VieyTA==
-X-Google-Smtp-Source: ABdhPJzXaM6utKjCus690qaEmvs0MavRCx3bgdQHxU7t0bIWU1r9Li7FHYU3GYXhrcARhrKXAwOtHQ==
-X-Received: by 2002:a5d:67c1:: with SMTP id n1mr3179328wrw.205.1610442964117; 
- Tue, 12 Jan 2021 01:16:04 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id e15sm3229876wrg.72.2021.01.12.01.16.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jan 2021 01:16:03 -0800 (PST)
-Date: Tue, 12 Jan 2021 10:16:01 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/2] drm/radeon: stop re-init the TTM page pool
-Message-ID: <X/1o0STyJjU+wDC7@phenom.ffwll.local>
-References: <20210105182309.1362-1-christian.koenig@amd.com>
- <X/dN/YFtnVAIllds@phenom.ffwll.local>
- <ffa9d7f2-fe68-fb6a-8422-82b8949dbe1e@gmail.com>
- <X/hs1Rvm57zGPU8y@phenom.ffwll.local>
- <d066b08c-756c-bbef-0f30-d8c68ef92dbf@amd.com>
- <CAKMK7uGcRM8E0hYZeJCUuON7+uZnyEVtwU0HrNwhoWcw9V2uNA@mail.gmail.com>
- <42d82248-0bec-ea1c-8d6e-d032a2e53c43@gmail.com>
- <X/x6EP1HE/sjQla0@phenom.ffwll.local>
- <0da70aa5-d943-687c-6d54-c825f229bf40@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E03E6E17F;
+	Tue, 12 Jan 2021 09:17:04 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A446E17F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Jan 2021 09:17:03 +0000 (UTC)
+Received: from [192.168.0.6] (ip5f5aed06.dynamic.kabel-deutschland.de
+ [95.90.237.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5815320645D7C;
+ Tue, 12 Jan 2021 10:17:00 +0100 (CET)
+Subject: Re: [PATCH] amdgpu/sriov Stop data exchange for wholegpu reset
+To: Jack Zhang <Jack.Zhang1@amd.com>
+References: <20210107104656.24107-1-Jack.Zhang1@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <f83fb269-7d37-b3bf-a6e9-d39cac9f61d6@molgen.mpg.de>
+Date: Tue, 12 Jan 2021 10:16:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0da70aa5-d943-687c-6d54-c825f229bf40@amd.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <20210107104656.24107-1-Jack.Zhang1@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,178 +51,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>,
- Borislav Petkov <bp@alien8.de>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: jazha@amd.com, Jingwen Chen <Jingwen.Chen2@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 12, 2021 at 08:53:03AM +0100, Christian K=F6nig wrote:
-> Am 11.01.21 um 17:17 schrieb Daniel Vetter:
-> > On Mon, Jan 11, 2021 at 11:16:13AM +0100, Christian K=F6nig wrote:
-> > > Am 08.01.21 um 16:53 schrieb Daniel Vetter:
-> > > > On Fri, Jan 8, 2021 at 3:36 PM Christian K=F6nig <christian.koenig@=
-amd.com> wrote:
-> > > > > Am 08.01.21 um 15:31 schrieb Daniel Vetter:
-> > > > > > On Thu, Jan 07, 2021 at 09:08:29PM +0100, Christian K=F6nig wro=
-te:
-> > > > > > > Am 07.01.21 um 19:07 schrieb Daniel Vetter:
-> > > > > > > > On Tue, Jan 05, 2021 at 07:23:08PM +0100, Christian K=F6nig=
- wrote:
-> > > > > > > > > Drivers are not supposed to init the page pool directly a=
-ny more.
-> > > > > > > > > =
-
-> > > > > > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.co=
-m>
-> > > > > > > > Please include reported-by credits and link to the bug repo=
-rts on
-> > > > > > > > lore.kernel.org when merging this. Also I guess this should=
- have a Fixes:
-> > > > > > > > line?
-> > > > > > > I'm not aware of a bug report, but the reported-by/Fixes line=
-s are indeed
-> > > > > > > missing.
-> > > > > > This one here:
-> > > > > > =
-
-> > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
-2F%2Flore.kernel.org%2Fdri-devel%2F20201231104020.GA4504%40zn.tnic%2F&amp;d=
-ata=3D04%7C01%7Cchristian.koenig%40amd.com%7Cff77249040634cf2750308d8b64c61=
-6d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637459786459556204%7CUnknow=
-n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
-6Mn0%3D%7C1000&amp;sdata=3Dm8tjDXFtsEwtcv9byq5r1sbUuqb8q%2BAn63r4aKMpcaM%3D=
-&amp;reserved=3D0
-> > > > > > =
-
-> > > > > > Or did I get confused, and the above is yet another bug?
-> > > > > Yeah, but that was just reported by mail. The bug tracker I've sa=
-w was
-> > > > > opened after the patch was already pushed.
-> > > > Still good to give reported-by credits for mailing list reports and
-> > > > link to lore.kernel.org for the report, that's not just useful for
-> > > > bugzilla reports.
-> > > That's indeed true, but I was distracted by the fact that drm-misc-fi=
-xes
-> > > wasn't up to date :)
-> > > =
-
-> > > Going to add that earlier next time.
-> > > =
-
-> > > > > > > BTW: Any idea why dim add-link doesn't work?
-> > > > > > Hm we occasionally have fun with email parsing (it's hard) and =
-especially
-> > > > > > python changes in how encodings are handled differently between=
- python2
-> > > > > > and python3. If you have a specific example I can try and take =
-a look why
-> > > > > > it doesn't work.
-> > > > > It just looks up and doesn't seem to do anything. I'm not familia=
-r with
-> > > > > python so I can just describe the symptoms.
-> > > > I meant tell me which mail (patchwork or lore) and I'll try to
-> > > > reproduce and see what's maybe up.
-> > > It doesn't seem to work in general. E.g. any patch I try I just don't=
- get
-> > > any progress in over 10 Minutes.
-> > > =
-
-> > > Maybe some server is not responding?
-> > Uh dim add-link pretty similar to dim apply-patch, it takes the mbox on
-> > stdin and does only local git stuff with it.
-> =
-
-> AH! Since it was getting a branch parameter I was assuming that it looks =
-at
-> patches on that branch!
-
-Yeah the branch parameter is just so it knows where it should add the
-Link: Since the link is presumably not there yet we can't fish out the
-original mbox from archives anyway.
--Daniel
-
-> =
-
-> Thanks for the explanation,
-> Christian.
-> =
-
-> > -Daniel
-> > =
-
-> > > Christian.
-> > > =
-
-> > > > -Daniel
-> > > > =
-
-> > > > > Christian.
-> > > > > =
-
-> > > > > > -Daniel
-> > > > > > =
-
-> > > > > > > > And maybe some words on how/why stuff blows up.
-> > > > > > > Just a typo. I've forgot to remove two lines in radeon while =
-rebasing and
-> > > > > > > still had the symbols exported so never noticed this.
-> > > > > > > =
-
-> > > > > > > Christian.
-> > > > > > > =
-
-> > > > > > > > -Daniel
-> > > > > > > > =
-
-> > > > > > > > > ---
-> > > > > > > > >      drivers/gpu/drm/radeon/radeon_ttm.c | 3 ---
-> > > > > > > > >      1 file changed, 3 deletions(-)
-> > > > > > > > > =
-
-> > > > > > > > > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/driver=
-s/gpu/drm/radeon/radeon_ttm.c
-> > > > > > > > > index d4328ff57757..35b715f82ed8 100644
-> > > > > > > > > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> > > > > > > > > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> > > > > > > > > @@ -729,9 +729,6 @@ int radeon_ttm_init(struct radeon_dev=
-ice *rdev)
-> > > > > > > > >              }
-> > > > > > > > >              rdev->mman.initialized =3D true;
-> > > > > > > > > -  ttm_pool_init(&rdev->mman.bdev.pool, rdev->dev, rdev->=
-need_swiotlb,
-> > > > > > > > > -                dma_addressing_limited(&rdev->pdev->dev)=
-);
-> > > > > > > > > -
-> > > > > > > > >              r =3D radeon_ttm_init_vram(rdev);
-> > > > > > > > >              if (r) {
-> > > > > > > > >                      DRM_ERROR("Failed initializing VRAM =
-heap.\n");
-> > > > > > > > > --
-> > > > > > > > > 2.25.1
-> > > > > > > > > =
-
-> > > > > > > > > _______________________________________________
-> > > > > > > > > dri-devel mailing list
-> > > > > > > > > dri-devel@lists.freedesktop.org
-> > > > > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhtt=
-ps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=
-=3D04%7C01%7Cchristian.koenig%40amd.com%7Cff77249040634cf2750308d8b64c616d%=
-7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637459786459556204%7CUnknown%7=
-CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn=
-0%3D%7C1000&amp;sdata=3DnBl4CRoSoA3t%2Bd4sZ4My4L27GiCiJwRenoILGU9LbO4%3D&am=
-p;reserved=3D0
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGVhciBKYWNrLAoKClRoYW5rIHlvdSBmb3IgeW91ciBwYXRjaC4KClBsZWFzZSBhZGQgYSBjb2xv
+biBhZnRlciBhbWRncHUvc3Jpb3YgaW4gdGhlIGNvbW1pdCBtZXNzYWdlIHN1bW1hcnkuCgpBbSAw
+Ny4wMS4yMSB1bSAxMTo0NiBzY2hyaWViIEphY2sgWmhhbmc6Cj4gW1doeV0KPiBXaGVuIGhvc3Qg
+dHJpZ2dlciBhIHdob2xlIGdwdSByZXNldCwgZ3Vlc3Qgd2lsbCBrZWVwCgoqaG9zdHMgdHJpZ2dl
+ciogb3IgKmhvc3QgdHJpZ2dlcnMqCgo+IHdhaXRpbmcgdGlsbCBob3N0IGZpbmlzaCByZXNldC4g
+QnV0IHRoZXJlJ3MgYSB3b3JrCgpmaW5pc2hlcwoKPiBxdWV1ZSBpbiBndWVzdCBleGNoYW5naW5n
+IGRhdGEgYmV0d2VlbiB2ZiZwZiB3aGljaCBuZWVkCgpuZWVkcwoKPiB0byBhY2Nlc3MgZnJhbWUg
+YnVmZmVyLiBEdXJpbmcgd2hvbGUgZ3B1IHJlc2V0LCBmcmFtZQo+IGJ1ZmZlciBpcyBub3QgYWNj
+ZXNzYWJsZSwgYW5kIHRoaXMgY2F1c2VzIHRoZSBjYWxsIHRyYWNlLgoKYWNjZXNzaWJsZSAoYSBz
+cGVsbCBjaGVja2VyIHNob3VsZCBoYXZlIGNhdWdodCB0aGF0KQoKQ2FuIHlvdSBwbGVhc2UgcGFz
+dGUgcGFydCBvZiB0aGUgdHJhY2UsIHNvIGl04oCZcyBlYXNpbHkgZmluZGFibGUgYnkgdXNlcnMg
+CnJ1bm5pbmcgaW50byB0aGlzLgoKPiBbSG93XQo+IEFmdGVyIHZmIGdldCByZXNldCBub3RpZmlj
+YXRpb24gZnJvbSBwZiwgc3RvcCBkYXRhIGV4Y2hhbmdlLgoKSG93IGNhbiB0aGlzIGJlIHJlcHJv
+ZHVjZWQgYW5kIHRlc3RlZD8KCgpLaW5kIHJlZ2FyZHMsCgpQYXVsCgoKPiBTaWduZWQtb2ZmLWJ5
+OiBKaW5nd2VuIENoZW4gPEppbmd3ZW4uQ2hlbjJAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBK
+YWNrIFpoYW5nIDxKYWNrLlpoYW5nMUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyB8IDEgKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvbXhncHVfYWkuYyAgICB8IDEgKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+bXhncHVfbnYuYyAgICB8IDEgKwo+ICAgMyBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykK
+PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKPiBpbmRleCA4M2Nh
+NWNiZmZlMmMuLjNlMjEyODYyY2Y1ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdmlydC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZpcnQuYwo+IEBAIC01NzEsNiArNTcxLDcgQEAgdm9pZCBhbWRncHVfdmlydF9maW5p
+X2RhdGFfZXhjaGFuZ2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJCURSTV9JTkZP
+KCJjbGVhbiB1cCB0aGUgdmYycGYgd29yayBpdGVtXG4iKTsKPiAgIAkJZmx1c2hfZGVsYXllZF93
+b3JrKCZhZGV2LT52aXJ0LnZmMnBmX3dvcmspOwo+ICAgCQljYW5jZWxfZGVsYXllZF93b3JrX3N5
+bmMoJmFkZXYtPnZpcnQudmYycGZfd29yayk7Cj4gKwkJYWRldi0+dmlydC52ZjJwZl91cGRhdGVf
+aW50ZXJ2YWxfbXMgPSAwOwo+ICAgCX0KPiAgIH0KPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvbXhncHVfYWkuYwo+IGluZGV4IDc3NjdjY2NhNTI2Yi4uM2VlNDgxNTU3ZmM5IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X2FpLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jCj4gQEAgLTI1NSw2ICsyNTUsNyBAQCBz
+dGF0aWMgdm9pZCB4Z3B1X2FpX21haWxib3hfZmxyX3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3
+b3JrKQo+ICAgCWlmICghZG93bl9yZWFkX3RyeWxvY2soJmFkZXYtPnJlc2V0X3NlbSkpCj4gICAJ
+CXJldHVybjsKPiAgIAo+ICsJYW1kZ3B1X3ZpcnRfZmluaV9kYXRhX2V4Y2hhbmdlKGFkZXYpOwo+
+ICAgCWF0b21pY19zZXQoJmFkZXYtPmluX2dwdV9yZXNldCwgMSk7Cj4gICAKPiAgIAlkbyB7Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X252LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9udi5jCj4gaW5kZXggZGQ1YzFlNmNlMDA5Li40
+OGU1ODhkM2M0MDkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhn
+cHVfbnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X252LmMKPiBA
+QCAtMjc2LDYgKzI3Niw3IEBAIHN0YXRpYyB2b2lkIHhncHVfbnZfbWFpbGJveF9mbHJfd29yayhz
+dHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4gICAJaWYgKCFkb3duX3JlYWRfdHJ5bG9jaygmYWRl
+di0+cmVzZXRfc2VtKSkKPiAgIAkJcmV0dXJuOwo+ICAgCj4gKwlhbWRncHVfdmlydF9maW5pX2Rh
+dGFfZXhjaGFuZ2UoYWRldik7Cj4gICAJYXRvbWljX3NldCgmYWRldi0+aW5fZ3B1X3Jlc2V0LCAx
+KTsKPiAgIAo+ICAgCWRvIHsKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
