@@ -2,118 +2,112 @@ Return-Path: <SRS0=tf5m=GQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49DE0C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 02:31:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58208C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 03:28:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6A54230FC
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 02:31:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6A54230FC
+	by mail.kernel.org (Postfix) with ESMTPS id DE74D22EBE
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 03:28:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE74D22EBE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3940C89B03;
-	Wed, 13 Jan 2021 02:31:06 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF86389B03;
- Wed, 13 Jan 2021 02:31:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D26F89B4D;
+	Wed, 13 Jan 2021 03:28:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2015E89B22
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 03:28:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hq8WEVfDS6YvkabmE9KoKZQ8z09rHGX9RxUyLRTfjxdDvN2ee8cHd26UPX9P3m1i8aoKw1ns2A3+njCEDHwexQ4N9UkfrxpJsDjiE2qQmqyqIcwcbs/iHT03eTXkPPwAwFh5UWwijwR8sQtjg7GHyG+j2bk1LRmwcCIwF3UBUvwCKy5tWcEWvlvhNS9+BII5f7ousPSSVZWUzslY9BgsfIiKv2SkSxgolPRNqTq3V2KG9/y++Xjt6B+6GAgTs/NCPJf52yoe1cyK5TVg1LYleUEO3gdW3hhfDTRdmjYG6YegP1jieMFwUXwa94QRoHLaytZqa4uR/wzCot8hpjlzAQ==
+ b=TlfMr5Uose4O+2TYDiGkXPVbPOn6HjYM6RAjqNlPwuZNCt9WtxQCq2rUyM0XOPWZrhLgmgJFms4d6DBoab8FCOOpVsf0qaZxQBs6Wxa1udbeIfOqk5l7oH8A0kTWCNVBY48w/rS5VUfj9emykNdC4lnwL0uce777jGBxRhatQLyhKCtb917KLZDZNl5yskszd0AkIESFXS68/q8hZTi9Hp3nEaKiASJOXf0dhzKO4jvrqD9YSYS7e+Lq7H+0IROnrQ/ZDz4wRycJNLFKAFT6gtE+gTg8Gc4rO3xoMwXo7sGTcSzoAdq5C0PGC6fifUvhjyD60hR9SrCKfV/lvTUJDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4VQENVkI+3UxW7+LVOeACLD630FhG98WZ7Y5uYGF1wM=;
- b=lvuRonDZhBnoePV8AtPvSnnegKarY10V3Tc4HjgAqOkAYu4Q+Gj13bT03Fi4B6+Lo867jo0Wnk8AldcRYvk9wKuI3+t6yHC9EBHa5jC552EPjiKRWQLpbtrF/lkuR5QHkUhm0xkGt39KNN7/UlGqJ2uCNSHqTGn4fb6cO/xKei40mupKDe35srCZW0/L98M/5NHRPPruYUcVLcbgN34amxJnEqbGma57P9yUWY66lcrDxqAqwGNfpDD932mhjX5pRavfNYdiHdOTfCSL0VzIJrgCWI41pbp57hX1OOmouW12LDMLG60q2McCXqwLtavkxMVADpRKPXTYlL+nj/e06w==
+ bh=qa0pt5EK3ZjBjOiSn1YhfSMXs0IIKsDmjrzQoUNXIXg=;
+ b=k3oNVcviqstrNM8mDU8PWhM4gys+4xroRkvmdijV0DGh3FBpftXTrocwYN9+M5oD7R9+ljWbRrF3sRNnVHEHFYL9lBcvMtIwiFYksyANMp28OqAQJFU8mrGBMVOBgusz4PX9FYFxjvys3HEcG0Qw4ljPMUOVlucqt8LYTgAvXxFZKupx7U3GITFtwW29qhziQLabqYEO51abiQkcUefvBmsxbYR1+0huiT1v0/233nHGRGMotybXaAJsA5F0FR1LBqm+buNE8v3SVKSLdIArPR1OOIFNg1RqMEs1d3KM7imyNXbsadWE7wErTh/K6KjiG3xSM8l74SJpfiC2/Fyn4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4VQENVkI+3UxW7+LVOeACLD630FhG98WZ7Y5uYGF1wM=;
- b=MOb9UYC2/pJilGPs14DinSgoxc87egwxQQ0igsqrWOJKu/ZOynNcnLx4BnkSY5zD1GCxw9y4Z/teEUX876HXHBBjhyjM6JEpm4y6Q/ljKzYlB0E4hEGCMTAkz/720KgRXHW+xZmt9hbZvGGhRoCRLjZEd4dNXecUEIMw9yzRvd8=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
- by MWHPR12MB1520.namprd12.prod.outlook.com (2603:10b6:301:f::22) with
+ bh=qa0pt5EK3ZjBjOiSn1YhfSMXs0IIKsDmjrzQoUNXIXg=;
+ b=laYTEv1sT8Fga8RZ7IsNR4O/KZCt/fDIwkP4VQ762juNxjt3dHcNNUps7lkcecUvPemSDXj9aoeoV37df0iqG4v24gPw3WB3v/PWrcRgKOD4YeMAWLDDxGrdiKA/PO8vCm20zRawRA8Q1AkqZM1m7Z0qtlC9Efq4tNZa/12lEkE=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2954.namprd12.prod.outlook.com (2603:10b6:5:188::22)
+ by DM6PR12MB3817.namprd12.prod.outlook.com (2603:10b6:5:1c9::27) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Wed, 13 Jan
- 2021 02:31:00 +0000
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3742.012; Wed, 13 Jan 2021
- 02:31:00 +0000
-Date: Wed, 13 Jan 2021 10:30:48 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm: amdgpu: pm: Mark vangogh_clk_dpm_is_enabled() as
- static
-Message-ID: <20210113023048.GC135893@hr-amd>
-References: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
- <20210113011901.GA135176@hr-amd>
- <CADnq5_NUaqHWW7A32M1BeQ+rHPS8WZ-0OnVXtD3m7pB3ZpHyYA@mail.gmail.com>
- <20210113022115.GB135893@hr-amd>
-Content-Disposition: inline
-In-Reply-To: <20210113022115.GB135893@hr-amd>
-X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HK0PR01CA0059.apcprd01.prod.exchangelabs.com
- (2603:1096:203:a6::23) To MWHPR12MB1248.namprd12.prod.outlook.com
- (2603:10b6:300:12::21)
+ 2021 03:28:03 +0000
+Received: from DM6PR12MB2954.namprd12.prod.outlook.com
+ ([fe80::19b:66f9:83d9:7cb1]) by DM6PR12MB2954.namprd12.prod.outlook.com
+ ([fe80::19b:66f9:83d9:7cb1%3]) with mapi id 15.20.3742.012; Wed, 13 Jan 2021
+ 03:28:03 +0000
+From: Darren Powell <darren.powell@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/8] amdgpu/pm: Powerplay API for smu
+Date: Tue, 12 Jan 2021 22:27:18 -0500
+Message-Id: <20210113032726.2475-1-darren.powell@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [142.126.168.115]
+X-ClientProxiedBy: YT1PR01CA0155.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::34) To DM6PR12MB2954.namprd12.prod.outlook.com
+ (2603:10b6:5:188::22)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-amd (180.167.199.189) by
- HK0PR01CA0059.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9 via Frontend
- Transport; Wed, 13 Jan 2021 02:30:56 +0000
+Received: from localhost.localdomain (142.126.168.115) by
+ YT1PR01CA0155.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3763.9 via Frontend Transport; Wed, 13 Jan 2021 03:28:02 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 07e181fd-bddb-4bf4-a4cf-08d8b76b442e
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1520:
+X-MS-Office365-Filtering-Correlation-Id: 82efc2ea-7cb0-43a2-57a4-08d8b7733c1c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3817:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB15208A0CA92CCBA863299D96ECA90@MWHPR12MB1520.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3817933D53BD75A86DA3F3F6F0A90@DM6PR12MB3817.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ppMww4jyRuZhX3plFKrVXyntiwzTDNeOT7BR/0sMSw0ZpxaciDHdKBZfm/irpr7IU0W7khcpqbBygFeDrMgzfilBzDUcpIO8vhIbNNC0ZsdYzFcbiIRLUeZnmEy/RGQh0vIAS0xN3rVbb7o6he3ZcGzw01UeKlzQAvBEXiapuduv/6WIytiawKZPT2aJ3Rr/OECS/5uwerRGVqo0s0EZNmd7+cp1BLF3JNp7QVfVMwRV4yzzyIAukdEdKeZj2XPuzBzmbfT9xaIhQztWZPIkgS/6F8g0v5sCHCTtsjm+q77Er+5Jqav2IsdcDnw41Ocd5KtrxjABaqjv1uTPL8L3KBytKOwruhg6U+l4ZvwqvZj44XK84/G7Vlw1t2DyGPb0cLVIDi8f/Ngy4QiWREPVSk7fbCGmj/Biy4FXEwt28FY=
+X-Microsoft-Antispam-Message-Info: m74kRnutTujMN3mBDrI4KnCdFLm1alZCWypAHTYSZ1KdoTO43vGjNl7xJaXxuYrQXcKchIJ5VgTpFWFSBF3PazYsKspSlUh3rsdJA+PIEQ7GKP14LOPg+sRQav6ZgY/igDk9FGOuLuvezTPBRiY1fe+Sv550sk6U1AJx6/J0zphHEmM+KnBe2Y0NSzEj4q315BIQ21siR5zffWq0zb2gZheE3VaVXMy2fT6ZXrZaHjQ0HHRlK2stuvA9bJAc4VWLIW+X75C5duYap8Jnzd25LG4S4mCEZPMxhdQXq7VTDyRTW4mRl6hFAhKs4luAh0AJPBXvC50Pf9lziBs1jbNi6XgXICBc5LzK1xedRN2Q6PR9rN0nG4AA8crK5Xt6lZmjdFvbC3jJEPEY8d9k3181P07pBEyOEc5rTipUO2dXUWEpXfzTG+/RtsnD0lUhLxc76Y2KW/peRwi6bqzHlockPA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(186003)(8936002)(83380400001)(45080400002)(966005)(16526019)(2906002)(66946007)(9686003)(8676002)(478600001)(956004)(86362001)(6496006)(4326008)(66476007)(66556008)(33716001)(54906003)(55016002)(6916009)(1076003)(33656002)(53546011)(52116002)(5660300002)(316002)(6666004)(26005);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2954.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(366004)(39860400002)(376002)(136003)(5660300002)(69590400011)(66556008)(4326008)(6506007)(8936002)(36756003)(8676002)(6512007)(6486002)(6916009)(66476007)(186003)(44832011)(66946007)(86362001)(1076003)(26005)(956004)(52116002)(478600001)(16526019)(316002)(2616005)(6666004)(2906002)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?BRTDH7ovP2xSkTh/bJgT+WwLMFUeobldxMsLpgn3ZB5WGN+xWhYSuMAbnBN+?=
- =?us-ascii?Q?4MfI05lZr5o066S6xZQAQc4TDGFAlNSEWP/4N6Nsj6LUpH3tiU8/LQKcqV64?=
- =?us-ascii?Q?kJ0JRWc7+f7pa5W/14eiTqsqRd6nBwsFdxkHR0Y6xuSye9IBAc9fwkl13CvB?=
- =?us-ascii?Q?WEungUQ1a9hI9wV7B9jl3Ufm2kFdn99meT/wa+pT91bu3F2Jf/8mcoKZUj0h?=
- =?us-ascii?Q?rMwYs+fVDsd+vGuMxDOv5cJIw+UGJL7b4iVBaD0rXpUjviVCVJV822IgaT1p?=
- =?us-ascii?Q?8Hz+92a2ak0xiPM+c6OtPR2IgY8k0WmXjeH1fxtTVX5gCZDWf3cmxJGakxvt?=
- =?us-ascii?Q?XHK+hLe+51XDS+MSLUNfVWdVuXkEeqMuapdJRWA0HuvgaGQ3gI1AJZi2u+Ve?=
- =?us-ascii?Q?SYAdEOlrHc7KeVQeEUlG1j6Hw2UP+YVrRX9Y+WkuVrMc6cw2LE7OnHPGpYyB?=
- =?us-ascii?Q?CzJ5h8UH66deVnXfvKzYaoJPegN8StjhzBuIQul2GeA2SYFiIoEPPgREzqsw?=
- =?us-ascii?Q?VKc/jIMTJmOyze5irwSx9v6pQr+l2632IX5yNl5ByQyku/MUJlH28dp2ZoIO?=
- =?us-ascii?Q?PsRTfjy5EiD/NHv00HfpSlH2+MndLzB3fqNKY3WLFrPDq44we6BseijQ45WO?=
- =?us-ascii?Q?T0fDcD7geMdP84h85ZCfz8lB4CsoJl6YssJ6Un3ixnEr0ovylYKxKqnTdYeJ?=
- =?us-ascii?Q?sdsX3w6El/SGZDj2HYMZFr1nQyzOsYWg8hCxdqIZJqw9Gup9ezDMaDO/DtD9?=
- =?us-ascii?Q?7YtilLFHyNld3HfKKYdRpW9EOh0Ig8WaXKWMStwlIbw043Sv65MBIFMumjil?=
- =?us-ascii?Q?2m5Dkw8qXS8hkBPS6Eo0ZEqFudk7Gmozz2fOGGilL8cbWQOmPQR3jmcb0Loq?=
- =?us-ascii?Q?6kG9Hv8RiEfrdYmmNtwSQfk37ZQ0H2z+Ibs8g66zfhZycpo8HBPCbCcTBl3f?=
- =?us-ascii?Q?qkCtVXUQlYg4ouXcav8IuQC0PkVBdjEJKHrNZ+DE1zgbUtTxcnCnnLvDVHzL?=
- =?us-ascii?Q?klG1?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?J5Lg1T8L1aSNl16nivycZrQiCq0wCp61/YFlOs8J9zKquMw6IDMyGZUsJtHc?=
+ =?us-ascii?Q?CsM0fqAOM5Q9W2k7AVsnUgTGFeboY3qZy/ffmRvyjNhMqjyHmoojAb7Hj0Yv?=
+ =?us-ascii?Q?wHgTx4RZnVwaeqgZg0NdgToH/L+QM4dHl6kzl96COs0WcoKYnSX2nVLl7s0t?=
+ =?us-ascii?Q?TwgbB/H+yyuGIXL4ZE4u7e1JNKdVtJxZl6CZkOax9qttu3cinU2xlBoY/LxJ?=
+ =?us-ascii?Q?79/BbTZGa9ihLMjwX2sZ3nUJehghOS37DfV3usnFTbtyLUrX5p5tYGDy+XbI?=
+ =?us-ascii?Q?AV6Am8JFxISpMKIR2r/3PB26n9ozELvRAu2bJTQLfbLJ/ZoITB4KxLFKLVQN?=
+ =?us-ascii?Q?2ObiNnruyUhU5uYNH5nwmT73lC73VX8YeqJOUys0qtm8lFU3T8WEAK7Hi+fB?=
+ =?us-ascii?Q?3Q/BsTIvaObp524I/1+mb4KaaCGyR1Gg1OBSj6+mFv/gOlXshG262u57JZqS?=
+ =?us-ascii?Q?iXIFHOMFS5oWEjv8CDB/FyjDqPIFTClL5doyLhkhKRf2cXj4HTM6LAZkjeRi?=
+ =?us-ascii?Q?v+k7GgmXULN+fpIyyIfP87hkzY+V03Uy1FE3j/5bcwTbOMSYlSTl7atuanGN?=
+ =?us-ascii?Q?4Sk1VjB7hLxW+pLk9eCAdiKDEFJmcIwcJhrXjnnWX2RKYRbRzeQoutcaiB6y?=
+ =?us-ascii?Q?2p17Z3CHcEdY2DX3NOAagSA985uzWjGW5CKhTkjIQ5RA8QSIcD+fdqbGuKnM?=
+ =?us-ascii?Q?Lvp81mx22qPBwphLWKk//PntEmfRjoQlt4sT5tGboNDwhsJ2PuQ+03eiI5Fj?=
+ =?us-ascii?Q?F64aamztPdky7oUuJd6uHhRHJdNTxrMA7lXmalVPTsL/v9d88wV6yIJ8g1Ud?=
+ =?us-ascii?Q?aG73h2Es0n3T1ST9LFSQ4G50T2Nup1A6sQLrFyUm4CPQTM/qBDrgv2KEY2qG?=
+ =?us-ascii?Q?ag/wXupq3rfsz4taWAKC+i3Qpk7kXDENx85I/S7y131YBjCNHYRekOTrkSwI?=
+ =?us-ascii?Q?upUUdlaUd8BQ+sb1SdXXw+FLxHd4DVpbVBxNY8z/o7T3jd0LYdb5BOb8DMeb?=
+ =?us-ascii?Q?zSTf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2954.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 02:31:00.5266 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 03:28:02.9708 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07e181fd-bddb-4bf4-a4cf-08d8b76b442e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82efc2ea-7cb0-43a2-57a4-08d8b7733c1c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w7xBlLwSDAQxTpKBuK4+ozA2ffcm6u+Aqm/xq2QfEq8SwYQ8ZYV29lQyMNDKViK4aAKMZyITFOr1c5f7twotNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1520
+X-MS-Exchange-CrossTenant-UserPrincipalName: fYm9Ko62HEp6ZtcATfrtiPFxnDz2gaMlQIYWO+QmnUxh/7b0nsuiE3QJ0vKFGnEHZqJ2An5Ms13re5pRVY0ddA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,91 +119,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Su, Jinzhou \(Joe\)" <Jinzhou.Su@amd.com>, "Du,
- Xiaojian" <Xiaojian.Du@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Hou,
- Xiaomeng \(Matthew\)" <Xiaomeng.Hou@amd.com>,
- Souptick Joarder <jrdr.linux@gmail.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
- Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Darren Powell <darren.powell@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 13, 2021 at 10:21:26AM +0800, Huang Rui wrote:
-> On Wed, Jan 13, 2021 at 10:13:02AM +0800, Alex Deucher wrote:
-> > On Tue, Jan 12, 2021 at 8:19 PM Huang Rui <ray.huang@amd.com> wrote:
-> > >
-> > > On Wed, Jan 13, 2021 at 03:57:22AM +0800, Souptick Joarder wrote:
-> > > > kernel test robot throws below warnings ->
-> > > >
-> > > > drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
-> > > > warning: no previous prototype for 'vangogh_clk_dpm_is_enabled'
-> > > > [-Wmissing-prototypes]
-> > > > drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
-> > > > warning: no previous prototype for function 'vangogh_clk_dpm_is_enabled'
-> > > > [-Wmissing-prototypes]
-> > > >
-> > > > Mark vangogh_clk_dpm_is_enabled() as static.
-> > > >
-> > > > Reported-by: kernel test robot <lkp@intel.com>
-> > > > Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > > > index 75ddcad..3ffe56e 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > > > @@ -610,7 +610,7 @@ static int vangogh_get_profiling_clk_mask(struct smu_context *smu,
-> > > >       return 0;
-> > > >  }
-> > > >
-> > > > -bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
-> > > > +static bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
-> > > >                               enum smu_clk_type clk_type)
-> > >
-> > > Ah, I have another patch which will use this function in another file.
-> > >
-> > 
-> > I can drop it if you plan to land those patches soon.
-> 
-> Thanks Alex. Yes, I will upload them after verify them on the new firmware
-> today.
+=== Description ===
+Patches to add the Powerplay API to smu and simplify dpm/pm calling code
 
-Sorry Alex, I miss read the function name as "cclk_dpm".
-This patch is good, please go forward to apply it.
+* Version 2 Updates 
+ 0001: updated the structure name to swsmu_pm_funcs
+ 0002: No Changes
+ 0003: changed error return value of smu_get_fan_control_mode to AMD_FAN_CTRL_NONE
+       fixed type in amdgpu_hwmon_get_pwm1_enable() print statement
+       fixed indent flagged by checkpatch.pl
+ 0004: remove check for error during swsmu amdgpu_dpm_get_pp_num_states() call to match previous powerplay behaviour
+ 0005: add comment to highlight assignment that changes uint32_t value to int
+       fix errors flagged by checkpatch.pl
+ 0006: fix errors flagged by checkpatch
+ 0007: fix errors and warnings flagged by checkpatch
+ 0008: No Changes
 
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+=== Test System ===
+* DESKTOP(AMD FX-8350 + NAVI10(731F/ca), BIOS: F2)
+ + ISO(Ubuntu 20.04.1 LTS)
+ + Kernel(5.9.0-rc5-custom-pmcallback-00865-gd3b9ec1a13c9)
 
-Thanks,
-Ray
+=== Patch Summary ===
+   linux: (git://people.freedesktop.org/~agd5f/linux) origin/amd-staging-drm-next @ d3b9ec1a13c9 
+    + b401b8ff07ca amdgpu/pm: Powerplay API for smu , added get_performance_level
+    + 924fb45c2fc9 amdgpu/pm: Powerplay API for smu , changed 6 dpm reset functions to use API
+    + 22459821a119 amdgpu/pm: Powerplay API for smu , changed 6 pm hwmon fan functions to use API
+    + 9a1dff6ed4a4 amdgpu/pm: Powerplay API for smu , changed 9 pm power functions to use API
+    + eeaf9dad054a amdgpu/pm: Powerplay API for smu , changed 5 dpm powergating & sensor functions to use API
+    + c10bf38a4250 amdgpu/pm: Powerplay API for smu , changes to clock and profile mode functions
+    + 73c150926ef3 amdgpu/pm: Powerplay API for smu , changed 4 dpm functions to use API
+    + f840fb27c965 amdgpu/pm: Powerplay API for smu , updates to some pm functions
 
-> 
-> Thanks,
-> Ray
-> 
-> > 
-> > Alex
-> > 
-> > 
-> > > Thanks,
-> > > Ray
-> > >
-> > > >  {
-> > > >       enum smu_feature_mask feature_id = 0;
-> > > > --
-> > > > 1.9.1
-> > > >
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org
-> > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cray.huang%40amd.com%7C19fce6891f2d4f6df7de08d8b768c8a9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637461007972405505%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=v2JGTkklMHOE2hN1s4dYZ1hT7ctLeUHpwkpn1M3nyi8%3D&amp;reserved=0
+=== Tests ===
+** 0001
+ amdgpu_get_power_dpm_force_performance_level()    <- /sys/class/drm/card0/device/power_dpm_force_performance_level
+** 0002
+ amdgpu_dpm_set_mp1_state              <- systemctl suspend
+ amdgpu_dpm_mode2_reset                <- untested: needs Arctic Islands Hardware (VEGAx, RAVEN)
+ amdgpu_dpm_switch_power_profile       <- untested
+ amdgpu_dpm_set_xgmi_pstate            <- untested: amdgpu_xgmi_set_pstate():411 pstate switching disabled
+ amdgpu_dpm_set_df_cstate              <- untested: needs ras enabled hardware
+ amdgpu_dpm_enable_mgpu_fan_boost      <- untested: needs multi-gpu hardware
+** 0003
+ amdgpu_hwmon_get_pwm1_enable                    <- /sys/class/drm/card0/device/hwmon/hwmon?/pwm1_enable
+ amdgpu_hwmon_set_pwm1_enable                    <- /sys/class/drm/card0/device/hwmon/hwmon?/pwm1_enable
+ amdgpu_hwmon_set_pwm1                           <- /sys/class/drm/card0/device/hwmon/hwmon?/pwm1
+ amdgpu_hwmon_get_pwm1                           <- /sys/class/drm/card0/device/hwmon/hwmon?/pwm1
+ amdgpu_hwmon_get_fan1_input                     <- /sys/class/drm/card0/device/hwmon/hwmon?/fan1_input
+ amdgpu_hwmon_get_fan1_target                    <- /sys/class/drm/card0/device/hwmon/hwmon?/fan1_target
+ amdgpu_hwmon_set_fan1_target                    <- /sys/class/drm/card0/device/hwmon/hwmon?/fan1_target
+ amdgpu_hwmon_get_fan1_enable                    <- /sys/class/drm/card0/device/hwmon/hwmon?/fan1_enable
+ amdgpu_hwmon_set_fan1_enable                    <- /sys/class/drm/card0/device/hwmon/hwmon?/fan1_enable
+** 0004
+ amdgpu_get_power_dpm_state                      <- /sys/class/drm/card0/device/power_dpm_state
+ amdgpu_set_power_dpm_force_performance_level    <- /sys/class/drm/card0/device/power_dpm_force_performance_level
+ amdgpu_get_pp_num_states                        <- /sys/class/drm/card0/device/pp_num_states
+ amdgpu_get_pp_cur_state                         <- /sys/class/drm/card0/device/pp_cur_state
+ amdgpu_get_pp_table                             <- /sys/class/drm/card0/device/pp_table
+ amdgpu_get_pp_features                          <- /sys/class/drm/card0/device/pp_features
+ amdgpu_hwmon_show_power_cap_max                 <- /sys/class/drm/card0/device/hwmon/hwmon?/power1_cap_max
+ amdgpu_hwmon_show_power_cap                     <- /sys/class/drm/card0/device/hwmon/hwmon?/power1_cap
+ amdgpu_hwmon_set_power_cap                      <- /sys/class/drm/card0/device/hwmon/hwmon?/power1_cap
+** 0005
+ amdgpu_dpm_baco_enter                  <- untested: called from runtime.pm 
+ amdgpu_dpm_baco_exit                   <- untested: called from runtime.pm 
+ amdgpu_dpm_is_baco_supported           <- untested: needs other Hardware(cik, vi, soc15)
+ amdgpu_dpm_baco_reset                  <- untested: needs other Hardware(cik, vi, soc15)
+** 0006
+ amdgpu_get_pp_dpm_sclk              <- /sys/class/drm/card0/device/pp_dpm_sclk
+ amdgpu_set_pp_dpm_sclk              <- /sys/class/drm/card0/device/pp_dpm_sclk
+ amdgpu_get_pp_dpm_mclk              <- /sys/class/drm/card0/device/pp_dpm_mclk
+ amdgpu_set_pp_dpm_mclk              <- /sys/class/drm/card0/device/pp_dpm_mclk
+ amdgpu_get_pp_dpm_socclk            <- /sys/class/drm/card0/device/pp_dpm_socclk
+ amdgpu_set_pp_dpm_socclk            <- /sys/class/drm/card0/device/pp_dpm_socclk
+ amdgpu_get_pp_dpm_fclk              <- /sys/class/drm/card0/device/pp_dpm_fclk
+ amdgpu_set_pp_dpm_fclk              <- /sys/class/drm/card0/device/pp_dpm_fclk
+ amdgpu_get_pp_dpm_dcefclk           <- /sys/class/drm/card0/device/pp_dpm_dcefclk
+ amdgpu_set_pp_dpm_dcefclk           <- /sys/class/drm/card0/device/pp_dpm_dcefclk
+ amdgpu_get_pp_dpm_pcie              <- /sys/class/drm/card0/device/pp_dpm_pcie
+ amdgpu_set_pp_dpm_pcie              <- /sys/class/drm/card0/device/pp_dpm_pcie
+ amdgpu_get_pp_power_profile_mode    <- /sys/class/drm/card0/device/pp_power_profile_mode
+ amdgpu_set_pp_power_profile_mode    <- /sys/class/drm/card0/device/pp_power_profile_mode
+ amdgpu_get_gpu_metrics              <- /sys/class/drm/card0/device/gpu_metrics
+** 0007
+ amdgpu_pm_compute_clocks            <- untested
+ amdgpu_dpm_set_powergating_by_smu   <- untested
+ amdgpu_dpm_get_mclk                 <- untested
+ amdgpu_dpm_get_sclk                 <- untested
+** 0008
+ amdgpu_get_pp_od_clk_voltage                 <- /sys/class/drm/card0/device/pp_od_clk_voltage
+ amdgpu_set_pp_od_clk_voltage                 <- /sys/class/drm/card0/device/pp_od_clk_voltage
+ amdgpu_set_pp_table                          <- /sys/class/drm/card0/device/pp_table
+ amdgpu_set_power_dpm_force_performance_level <- /sys/class/drm/card0/device/power_dpm_force_performance_level
+
+=== Summary of Untested Functions ===
+** 0002
+ amdgpu_dpm_mode2_reset                <- untested: needs Arctic Islands Hardware (VEGAx, RAVEN)
+ amdgpu_dpm_switch_power_profile       <- untested: called during initialization
+ amdgpu_dpm_set_xgmi_pstate            <- untested: amdgpu_xgmi_set_pstate():411 pstate switching disabled
+ amdgpu_dpm_set_df_cstate              <- untested: needs ras enabled hardware
+ amdgpu_dpm_enable_mgpu_fan_boost      <- untested: needs multi-gpu hardware
+** 0005
+ amdgpu_dpm_baco_enter                  <- untested: called from runtime.pm 
+ amdgpu_dpm_baco_exit                   <- untested: called from runtime.pm 
+ amdgpu_dpm_is_baco_supported           <- untested: needs other Hardware(cik, vi, soc15)
+ amdgpu_dpm_baco_reset                  <- untested: needs other Hardware(cik, vi, soc15)
+** 0007
+ amdgpu_pm_compute_clocks            <- untested
+ amdgpu_dpm_set_powergating_by_smu   <- untested
+ amdgpu_dpm_get_mclk                 <- untested
+ amdgpu_dpm_get_sclk                 <- untested
+** 0008
+ amdgpu_get_pp_od_clk_voltage                 <- file not found
+ amdgpu_set_pp_od_clk_voltage                 <- file not found
+ amdgpu_set_pp_table                          <- no binary data to test with
+
+
+=== Cover Letter ===
+Darren Powell (8):
+  amdgpu/pm: Powerplay API for smu , added get_performance_level
+  amdgpu/pm: Powerplay API for smu , changed 6 dpm reset functions to
+    use API
+  amdgpu/pm: Powerplay API for smu , changed 6 pm hwmon fan functions to
+    use API
+  amdgpu/pm: Powerplay API for smu , changed 9 pm power functions to use
+    API
+  amdgpu/pm: Powerplay API for smu , changed 5 dpm powergating & sensor
+    functions to use API
+  amdgpu/pm: Powerplay API for smu , changes to clock and profile mode
+    functions
+  amdgpu/pm: Powerplay API for smu , changed 4 dpm functions to use API
+  amdgpu/pm: Powerplay API for smu , updates to some pm functions
+
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c       | 228 +++------
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c        | 597 +++++-----------------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  79 ++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 358 ++++++++++---
+ 4 files changed, 534 insertions(+), 728 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
