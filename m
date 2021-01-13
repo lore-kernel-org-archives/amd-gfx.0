@@ -2,65 +2,42 @@ Return-Path: <SRS0=tf5m=GQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A552C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43558C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D48E23339
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D48E23339
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id D2B3D23339
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2B3D23339
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4352F6E9DB;
-	Wed, 13 Jan 2021 13:51:42 +0000 (UTC)
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 138D66E29D
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 09:05:43 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id r63so1497857ybf.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 01:05:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=z4yscdUtnULssD517mPJjeUd6WoWX4L14ZsynTjehpE=;
- b=gQiVjvfdEnlpPrip4XFGYfnfhL0KJn51/01qEAIqjTGZc70poNi+CRUjJPvM7nKrZz
- QrjGWlB9KBoayjdqhB82y6MHFvpXBPRRRxMlkhoVeyHDlcm7msl4+/E7jp5dovvTd0lE
- kdQWw2hdRVCtYvgvZkC1Yiqd2IZh3f0jfgaV+xfUexmrnMzUECHzRUkUkgOpKpxkULhL
- twuOJawkJEqEBPcy7aHAiRVCkzE/gOhjwfbsQPfoXOJTMTwkBufbPqdZBNm68tRIRJd+
- LJlb9l4yU0uXF4eJmlCXpAPH/8FEBkNfX8S7NYgF7Q9ZmUr5WuJqRvgeEo3xGKdWV87k
- Yqhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=z4yscdUtnULssD517mPJjeUd6WoWX4L14ZsynTjehpE=;
- b=AfCJOK6VB81Ab1q7MSK+7p0ps/8K/9QfYBmH/azkCaHDUtdkcps1M6Necf0FnFgNEv
- +0u14Xr6KhsSaENHKz6Dut82Q4ze5uhRaQ8DE244Utm93dGksehv//4B2XpCTUQ3kMXJ
- j48Vl3yEubufPfJA6lLy7TxKWAohQJLI7zQEWLq5LLnVIHfd5DDTgbzp2lwaTWMamz+I
- Y79i9iU6Lhj4/l6wavQk9TF5tlmbP0RXHSSE355D8S9+4P01ytzEbozzwwb5Fy+YeOg9
- JSveVNUlXDVPvfAf2FR5IhmFHuBwij0D+1P+bbUrM3PyCQ5UwI9tiUmowlQ0ahiZeHA/
- nFXQ==
-X-Gm-Message-State: AOAM532z0tO0u2WG25/B6WuYxYFy6BA3W5Ibb4ldZSaJSlmUCDxQM68/
- Btsdln7U3YWoXsLj8VZALUWRGKN26mDVjhEdC9BTEGJSTRo=
-X-Google-Smtp-Source: ABdhPJzz9ehIIAkaS0O0SN1vnbzmbyWsyv9HVlqwG2IjdQ3O6qaIrTsUjssBMp2zyVqohFo3jYvLEaLtCQhRlpVR2nQ=
-X-Received: by 2002:a25:bf82:: with SMTP id l2mr1874100ybk.1.1610528743093;
- Wed, 13 Jan 2021 01:05:43 -0800 (PST)
-MIME-Version: 1.0
-Received: by 2002:a05:7110:7a1:b029:30:3664:8494 with HTTP; Wed, 13 Jan 2021
- 01:05:42 -0800 (PST)
-In-Reply-To: <CAKR_QV+SN2Q962_v0WpeCL9tRBUBQpZ+EO6FvF8ZQ-8DG8UwMg@mail.gmail.com>
-References: <CAKR_QV+SN2Q962_v0WpeCL9tRBUBQpZ+EO6FvF8ZQ-8DG8UwMg@mail.gmail.com>
-From: Tom Psyborg <pozega.tomislav@gmail.com>
-Date: Wed, 13 Jan 2021 10:05:42 +0100
-Message-ID: <CAKR_QVJ6NRXZhrJEph=HxPe2O_DYwzhE3Hj52BKkX2PGEMoyAw@mail.gmail.com>
-Subject: Re: mclk stuck at low state
-To: amd-gfx@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C5A06E9E0;
+	Wed, 13 Jan 2021 13:51:43 +0000 (UTC)
+Received: from out30-56.freemail.mail.aliyun.com
+ (out30-56.freemail.mail.aliyun.com [115.124.30.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3126E3EC;
+ Wed, 13 Jan 2021 09:44:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+ MF=abaci-bugfix@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0ULbS2qg_1610531056; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:abaci-bugfix@linux.alibaba.com
+ fp:SMTPD_---0ULbS2qg_1610531056) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 13 Jan 2021 17:44:23 +0800
+From: Yang Li <abaci-bugfix@linux.alibaba.com>
+To: airlied@linux.ie
+Subject: [PATCH] drm/amd/display: Simplify bool comparison
+Date: Wed, 13 Jan 2021 17:44:15 +0800
+Message-Id: <1610531055-56146-1-git-send-email-abaci-bugfix@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Wed, 13 Jan 2021 13:51:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,30 +50,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "alexander.deucher" <alexander.deucher@amd.com>
+Cc: sunpeng.li@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Yang Li <abaci-bugfix@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Fix the following coccicheck warning:
+./drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c:3141:30-39:
+WARNING: Comparison to bool
 
-I see the message didn't make it to the mailing list? Any reason for that?
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <abaci-bugfix@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 10/01/2021, Tom Psyborg <pozega.tomislav@gmail.com> wrote:
-> Hi
->
-> Have an ubuntu 16.04 system here with kernel version 5.6.14, running
-> on a laptop with FX9830P APU.
-> During graphic load I notice the memory clock is always at the low
-> state - 667MHz, never switching to 1200MHz. These two states are the
-> only ones listed in pp_dpm_mclk output.
-> I checked system memory with dmidecode, it is reported as 2400MHz.
-> Same bug is still present with live booted ubuntu 20.10
->
-> Does this introduce any regression in performance, or is just a
-> cosmetic bug and actual mclk is the same as system memory clock?
->
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+index 45f0289..f33e3de 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+@@ -3138,7 +3138,7 @@ static void CalculateFlipSchedule(
+ 				4.0 * (TimeForFetchingMetaPTEImmediateFlip / LineTime + 0.125),
+ 				1) / 4.0;
+ 
+-		if ((GPUVMEnable == true || DCCEnable == true)) {
++		if ((GPUVMEnable || DCCEnable)) {
+ 			mode_lib->vba.ImmediateFlipBW[0] = BandwidthAvailableForImmediateFlip
+ 					* ImmediateFlipBytes / TotImmediateFlipBytes;
+ 			TimeForFetchingRowInVBlankImmediateFlip = dml_max(
+-- 
+1.8.3.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
