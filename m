@@ -2,113 +2,64 @@ Return-Path: <SRS0=tf5m=GQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10537C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 15:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56D71C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 16:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A9F6523382
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 15:27:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9F6523382
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id D9BF9233F6
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 16:47:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9BF9233F6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCB26E829;
-	Wed, 13 Jan 2021 15:27:57 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770043.outbound.protection.outlook.com [40.107.77.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC7326E829
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 15:27:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FXKTO5D3AYXey5zUpTK5Vfi+rRpIfIgv/2JxP2lqxM8Io80yhi3VM1P6JczrO6OUzqzyseok+xO49qXV2ooW7lm9l3PrKoEIC8yxOj9NyTMVhF86NoF8bD1lU6DjUVBddSfyaNqs08AExdp7Q1KoQSt0HBgxhxgVpVr5VjRMxiK9NThKCwdHVu/xf/bR98DNdd/UYluXiJR8m1nH3NG+O5ZiOX8+JIvUHTv1pvQY/4cSSqTkn9Zaf0GPm+sH0qSuShTWOgkeYTYc7NE9cfPUdH0h1s/estcoWOA3cIo+kwkVpKliqPzVc4lf3bZnThIfNMhWbZBxfke155wgCnDoXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sDy7kICbf2Cx1XADg7pFo+6pPuzDqMBDRw3SDy5k3CA=;
- b=MycQarX2JhofIg1R1JKsvio0uECeQPNXAM3u/Rs4rXLS8b2HXLR9KremajQr1Px/xzL2mCw2Mt71CxEtuFkbmWrkh7OyoUMeYgzCdf79b/vkftAocy3oMDauXOlOz9ZPe2abLZG7vhopFZ0LcawE610WJQn4E98pYqRbRVAM+7WwLsFQL2p7I8KkvF1f332ZIyKiEYhkZb6wgfUI0Lkoen9RuTXuC+zSSDFKNsV5b+PjKVaQ+7+vmAOixPzNKuKKKzTlJCvqtDLlJAFCRJYMSGphYLmEy54JFQDU0uQun3YEmgL2kSXXJM1exYFFK73sBi2WmLnpgRQI8l/IRdks8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sDy7kICbf2Cx1XADg7pFo+6pPuzDqMBDRw3SDy5k3CA=;
- b=iyzQaiS5P/Hi575PEUovzcKySFQyB26pPsXqm8RT3CuSZEY9tG84o69zxUX1sVqvew9TYOjCzH1DyicCdjkAD+wgVsl6+hTT/aW/JVCEpA24fg1HLrvJRMdGU62Yd7Fw7rN38vpZ1VTlAMEtTl5BN9rgrNfXQcxinF10jIFVOYk=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
- by MW2PR12MB2457.namprd12.prod.outlook.com (2603:10b6:907:10::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10; Wed, 13 Jan
- 2021 15:27:53 +0000
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3742.012; Wed, 13 Jan 2021
- 15:27:53 +0000
-Date: Wed, 13 Jan 2021 23:27:45 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add green_sardine device id (v2)
-Message-ID: <20210113152745.GA283203@hr-amd>
-References: <20210113152404.1307212-1-alexander.deucher@amd.com>
-Content-Disposition: inline
-In-Reply-To: <20210113152404.1307212-1-alexander.deucher@amd.com>
-X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HKAPR03CA0023.apcprd03.prod.outlook.com
- (2603:1096:203:c9::10) To MWHPR12MB1248.namprd12.prod.outlook.com
- (2603:10b6:300:12::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 251146EB33;
+	Wed, 13 Jan 2021 16:47:57 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80D886EB33
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 16:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610556474;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mMP7Uu1omhLwuQabuN/ve5GPqmI9hcJSvp6O8aAN+hk=;
+ b=Cdncl/Ib2uGksThsZn0L4NIsAMGIXWkk4S8iHIiH6IkXJrTrKfBmUbt5tQwavV4cPMggqe
+ 3Wx+Fvc03ShotvbX2V6u+oOgR/CUdjQYvP23Uz2f6NdbBOrgsMhf+9pPV2HXM7JB8eT5ml
+ bu0OgGdiCe5squUrEulU6kFmiO0Hlsc=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-382-OEGxfA5QMVy3HCehMr_M6A-1; Wed, 13 Jan 2021 11:47:51 -0500
+X-MC-Unique: OEGxfA5QMVy3HCehMr_M6A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D6BA7806660;
+ Wed, 13 Jan 2021 16:47:49 +0000 (UTC)
+Received: from redhat.com (ovpn-112-31.rdu2.redhat.com [10.10.112.31])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 431A81001901;
+ Wed, 13 Jan 2021 16:47:49 +0000 (UTC)
+Date: Wed, 13 Jan 2021 11:47:47 -0500
+From: Jerome Glisse <jglisse@redhat.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH 00/35] Add HMM-based SVM memory manager to KFD
+Message-ID: <20210113164747.GA521755@redhat.com>
+References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-amd (180.167.199.189) by
- HKAPR03CA0023.apcprd03.prod.outlook.com (2603:1096:203:c9::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3784.6 via Frontend Transport; Wed, 13 Jan 2021 15:27:51 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 819058ad-43c4-48c0-8e87-08d8b7d7cb69
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2457:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24570A58958C26BAA54E444EECA90@MW2PR12MB2457.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:407;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ip1DbgHboy5O8jEpdAkMKC3PmLAdGx9mUptOV661Vm2/94ZX1wzntHLgnJt/ZS073p5DjgG2q+lG6s3+1FrMpCW4VSmiIB4G/DycvRwtspQndE36kYf38/vVSG4glZWTBY/nggjixq3j6+INWIP3qCcnkeCfEBfKEPVY3jm/cBJz6BfIEuHPLRA0vPl2dUGY5a7OnbYyOnOJ57fre0b3+/N65WckqYNxLGxsAA2S+3JQ23hp281ZOrd8FUGI8wT+EH26umIAfcmPZl+5idbXDxK9IICtlJoDpZRDzuoyM/8P5qlIZQUONbVJp97xKyorj+A1OtCkBdN8IialS6B/qe+Kty9eOzt4/FvjlrUliqbvns4jr9aQPpwj/fQYNqLxhNcLBJY6E1b4kB9b/4ZLMw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(376002)(39860400002)(396003)(136003)(33656002)(86362001)(316002)(478600001)(8936002)(1076003)(26005)(6666004)(4326008)(2906002)(6496006)(186003)(16526019)(55016002)(9686003)(52116002)(33716001)(8676002)(54906003)(5660300002)(66476007)(66946007)(956004)(6916009)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?B0RJ7/F50Kt4dJVv0uq1EJWfhPqq5B8kIR3i6y0xXG+w8g+qXsyc9yxWgqSI?=
- =?us-ascii?Q?LnKJ+1c2y2h3ecHMX1vPmt9Sd2dpgf8O4uWPw2D/RKDgd2901bfbqdI4lYFh?=
- =?us-ascii?Q?KytVICW9neLKag90TYnLIzvDRs+6NobKWDJJL+MRiDTGrnIF4e+08Y4WuchE?=
- =?us-ascii?Q?Kf4cH1eoyF7CUhOA3QuOxRCNwNCl0z0n5OfUyqm1zjz/bSsQHDeLyQJUWwRr?=
- =?us-ascii?Q?lkUEII4JoJzEy4dHSlQl50Z4lUbReIacjPILF82Qw15rP4BE1CgZaYZlsPkt?=
- =?us-ascii?Q?W2F9B3evV1AS2jdAYyNRkmZ1WK98+2zAEN/SHp3islGURJz8fIxbuyqtHYgV?=
- =?us-ascii?Q?d+kDlvtAHbC7hiEzL9RjPpZBa6Ifp9mPv2H7jtNylzKEYCg++W6Eolu+tcyJ?=
- =?us-ascii?Q?mk6+KzMqYwV7+3Veo4X/eG0t8vrrc+d63m/6hvGzY4no9oy0+fKfYOxtsd3b?=
- =?us-ascii?Q?esRbga/SQKv/ArT8stGhZWADmXACdDH6gRhYY16KC2GdYoTQaVfyUNXmG5Qv?=
- =?us-ascii?Q?TPa74avzZpuFYWuNcwe3dbk+PZMlAgk21+TuXqDmjpF5E85MdP1i11EoLlza?=
- =?us-ascii?Q?ljY8GZ3JTB6Dw+1wBRT+gjkVsuk5z/DxhDSfCrgbbdirlGSABh1isQ0n2O/q?=
- =?us-ascii?Q?2VjKVOlqW3CewvQuwf5svVKawJNy1GCZNnY7dRacEMUk4edirPDhczva6X3U?=
- =?us-ascii?Q?MXKhifpcQlmyPrCdjV6WYHCAxslaH0wNl6kUakLiIXTKpXWx9dR4Zx7aRwm3?=
- =?us-ascii?Q?utk+Z3t7XUa5uNb/Lz9/aiCOhtgWu8QCuIZhOVXbkS7jH3OCPNw2fvCgCT/U?=
- =?us-ascii?Q?9SjSPzeKhvIplsdcdmfOU0kvaS19aZyFnCOUnacsT1vmzTZ/4/LAU9Q3CIEz?=
- =?us-ascii?Q?06Hrtyfwmf081AJxyzlQiayaSBCuwF0TZB/xL3OV/riCQ+/JPMQCtF7QMJEq?=
- =?us-ascii?Q?JoVXYTtqAlUuCvzQHWYYv80I+81s7RMM+xn3aSBjGaBs5ppvBQBHrxl1p5TE?=
- =?us-ascii?Q?jjyE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 15:27:53.0819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 819058ad-43c4-48c0-8e87-08d8b7d7cb69
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ib75KS0n2hSF2IFRLJ3C9/PaFmk4VVoqlz/5gi2EWFo3kN9DDJcAY+031FnbDwXexUvlhf2pOEd3LBPViPAbqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2457
+In-Reply-To: <20210107030127.20393-1-Felix.Kuehling@amd.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jglisse@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,49 +71,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liang,
- Prike" <Prike.Liang@amd.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: alex.sierra@amd.com, philip.yang@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 13, 2021 at 11:24:03PM +0800, Alex Deucher wrote:
-> From: Prike Liang <Prike.Liang@amd.com>
-> 
-> Add green_sardine PCI id support and map it to renoir asic type.
-> 
-> v2: add apu flag
-> 
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Huang Rui <ray.huang@amd.com>
+On Wed, Jan 06, 2021 at 10:00:52PM -0500, Felix Kuehling wrote:
+> This is the first version of our HMM based shared virtual memory manager
+> for KFD. There are still a number of known issues that we're working thro=
+ugh
+> (see below). This will likely lead to some pretty significant changes in
+> MMU notifier handling and locking on the migration code paths. So don't
+> get hung up on those details yet.
 
-Series are Reviewed-by: Huang Rui <ray.huang@amd.com>
+[...]
 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org # 5.10.x
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index cac2724e7615..6a402d8b5573 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1085,6 +1085,7 @@ static const struct pci_device_id pciidlist[] = {
->  
->  	/* Renoir */
->  	{0x1002, 0x1636, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
-> +	{0x1002, 0x1638, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
->  
->  	/* Navi12 */
->  	{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
-> -- 
-> 2.29.2
-> 
+> Known issues:
+> * won't work with IOMMU enabled, we need to dma_map all pages properly
+> * still working on some race conditions and random bugs
+> * performance is not great yet
+
+What would those changes looks like ? Seeing the issue below i do not
+see how they inter-play with mmu notifier. Can you elaborate.
+
+Cheers,
+J=C3=A9r=C3=B4me
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
