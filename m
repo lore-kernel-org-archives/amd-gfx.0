@@ -7,38 +7,36 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE407C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E874C433E6
 	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41F6423382
+	by mail.kernel.org (Postfix) with ESMTPS id CDC9A23339
 	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 13:51:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41F6423382
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDC9A23339
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2986E9DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3853A6E9D6;
 	Wed, 13 Jan 2021 13:51:42 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 13 Jan 2021 09:15:23 UTC
 Received: from out30-131.freemail.mail.aliyun.com
  (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B68386E2ED;
- Wed, 13 Jan 2021 09:15:23 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04420;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846FF6E3D3;
+ Wed, 13 Jan 2021 09:33:03 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
  MF=abaci-bugfix@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0ULbca43_1610528935; 
+ TI=SMTPD_---0ULbomAn_1610530367; 
 Received: from
  j63c13417.sqa.eu95.tbsite.net(mailfrom:abaci-bugfix@linux.alibaba.com
- fp:SMTPD_---0ULbca43_1610528935) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 13 Jan 2021 17:10:18 +0800
+ fp:SMTPD_---0ULbomAn_1610530367) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 13 Jan 2021 17:33:01 +0800
 From: Yang Li <abaci-bugfix@linux.alibaba.com>
 To: airlied@linux.ie
 Subject: [PATCH] drm/amd/display: Simplify bool comparison
-Date: Wed, 13 Jan 2021 17:08:53 +0800
-Message-Id: <1610528933-26973-1-git-send-email-abaci-bugfix@linux.alibaba.com>
+Date: Wed, 13 Jan 2021 17:32:45 +0800
+Message-Id: <1610530365-46152-1-git-send-email-abaci-bugfix@linux.alibaba.com>
 X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Wed, 13 Jan 2021 13:51:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,35 +61,28 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following coccicheck warning:
-./drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c:1228:9-20:
+./drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c:580:23-31:
 WARNING: Comparison to bool
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Yang Li <abaci-bugfix@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 319dec5..3827501 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -1219,13 +1219,13 @@ static bool CalculatePrefetchSchedule(
- 			dml_print("DML: prefetch_bw_equ: %f\n", prefetch_bw_equ);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
+index 4d3f7d5..904c2d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
+@@ -577,7 +577,7 @@ void dpp1_power_on_degamma_lut(
+ 	struct dcn10_dpp *dpp = TO_DCN10_DPP(dpp_base);
  
- 			if (prefetch_bw_equ > 0) {
--				if (GPUVMEnable == true) {
-+				if (GPUVMEnable) {
- 					Tvm_equ = dml_max3(*Tno_bw + PDEAndMetaPTEBytesFrame * HostVMInefficiencyFactor / prefetch_bw_equ, Tvm_trips, LineTime / 4);
- 				} else {
- 					Tvm_equ = LineTime / 4;
- 				}
+ 	REG_SET(CM_MEM_PWR_CTRL, 0,
+-			SHARED_MEM_PWR_DIS, power_on == true ? 0:1);
++			SHARED_MEM_PWR_DIS, power_on ? 0:1);
  
--				if ((GPUVMEnable == true || myPipe->DCCEnable == true)) {
-+				if ((GPUVMEnable || myPipe->DCCEnable)) {
- 					Tr0_equ = dml_max4(
- 							(MetaRowByte + PixelPTEBytesPerRow * HostVMInefficiencyFactor) / prefetch_bw_equ,
- 							Tr0_trips,
+ }
+ 
 -- 
 1.8.3.1
 
