@@ -2,136 +2,114 @@ Return-Path: <SRS0=tf5m=GQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D0ABC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 00:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ABF2C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 01:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05EA32312E
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 00:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05EA32312E
+	by mail.kernel.org (Postfix) with ESMTPS id 13EE4230F9
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Jan 2021 01:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13EE4230F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48EBB8996E;
-	Wed, 13 Jan 2021 00:54:28 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700050.outbound.protection.outlook.com [40.107.70.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BAB98996E
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Jan 2021 00:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE0989A67;
+	Wed, 13 Jan 2021 01:19:15 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750070.outbound.protection.outlook.com [40.107.75.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1708489A34;
+ Wed, 13 Jan 2021 01:19:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ju2QOO/+GZbjtSYnumhd3KjtPzr2zB0yrdpLuxPM1/bFmuYx5qPww7azcEw08eqHWQT3UUjCcft7IGPXTMtc+L/fBeNL2LQdIBZC+nj7aPJDsTo2f/zLsTNNyIN1eKxMFCuufEKd+V8EF8gZiGp0/RgUKr9uI0I07Fko+3WD2Hi9JmHnvQExLDKa9iRie8PpsBp79URALf/LFXIrvlwP860zhuAfdKyvWp8/skjFZ1saWvoa/JxDQ5mNFI7DVIzeMkdFXxTURWTqLTvEZrENXzlwHBcj9uIPOlAc1laoelt314eATDP/LXoq1L0naIsLuhIEiF3Oh0NUfxEgEqwYpA==
+ b=SVDgay178Gwse+jWUnup5HkOrVExYQ/+CWee5JFPI6cTi7Ez3mA5UOwk1yCBh8MbcIrusSLPYTxiQ6fN5ZDD25GulOmF5xaJo8gJsEoFJf79G1Rln/+b+hA5k1BpssiQMf8KrCVp7qsrS3XVcIhSyel5fWrUojgDvCat/qDun+MEJYvFHlha4SEGdDowYnzF7slylp7vMDGSljsgkfLR8CEKAYFjPS8YtQf25GUlvD+uD2S6L3ojzqfHM9/7brwc8AglHzOFriWcPe1HPA4c0H8sg9lMrSm3UJqOUgN3h8rP4/Pr3oXofX3a7Q1v7WJy5qmQJ6+LBnBH/e7FBg8Fkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dsb8eY0EkZ9wQXdhTYl6tNH4DsdEb34QLhsfakcagzQ=;
- b=BUKoRXjTXmHJpFBZBHNlvMnfoIs0I9TBc39cdCl9+k0JxoP9s6ntCP9sbR3DlbnUDnqnVSOC2tiRFSsii1gdG/pEIjkrDhRSo77ZeCOQYoghOIKknRQuDMhosqaDCxMcWecSs5n/RgyioiOXGdygY75aaEaxqQiLNjAYdv44yfsw1pFaU0YBdJb1aSnfT/P9qFjq+zfT/8nPA7YUUZCrzms91L+hYrDUQPoFLLfDBn1QvoYfeyGFNHEEDajYY6oRd3FiiuUYQkl6PJ5G9lA4QTQrr9DZu2uIgL9BZvvXbLh51p4e2YtU+A+7yHUKz0EfqA07IsMRxjqo+/cpBuMpAA==
+ bh=txyxzjYE4nXvsxr+LYJPsb19d8ssy3/HsrXgAPdMclU=;
+ b=LEj25A6vvibKOge3gUskleUfu2TAfQr39gyjCReagZehkhxvnRZB9aBIy9SpldlfJ3SEDjuon+kQyN/YUCtJp5Vv1XCNqpz9oN3wXVVRD9MhJZAAnk8B77IJY86ixcWG4sFVyhu9/J7+himAhoG6G6Fjptjnpa/vurdWXbUBpb3ItPGQxLW2jZKkd2eDN+cbwdKdT2Jn2kr5IzC1fORJELhAWA0Mh6pmHFNN3YSWXQBwy31bEy9ufuPdIzdI6GPBmWCb6WXGwmS5eipt15wAqUF47RLCOTS17eB5naFUwNfVTH/DenrRFlPExtBuwvlnwpNv8ATUnxRcdU8s5KLTgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dsb8eY0EkZ9wQXdhTYl6tNH4DsdEb34QLhsfakcagzQ=;
- b=e96lfEckRAsRvcSpjEhRDm6gV6TwyQXNb5RsjPUL2+wT47Z+vpT5pxxYxJGOqCXzPwWrj+q+CqkYEhNntAkhWJ6Qz8U+/tdeELnp1rdQMeORwmGxAj8d3F6q8DtzrwjjlS09IJ6iliKilCIya83Tt5MdpqMw602sXZ1VeA4o3lA=
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
- DM5PR12MB1881.namprd12.prod.outlook.com (2603:10b6:3:10f::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3742.9; Wed, 13 Jan 2021 00:54:24 +0000
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::196d:529b:914e:a60a]) by DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::196d:529b:914e:a60a%6]) with mapi id 15.20.3742.012; Wed, 13 Jan 2021
- 00:54:24 +0000
-From: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu/display: buffer INTERRUPT_LOW_IRQ_CONTEXT
- interrupt work
-Thread-Topic: [PATCH 2/2] drm/amdgpu/display: buffer INTERRUPT_LOW_IRQ_CONTEXT
- interrupt work
-Thread-Index: AQHW4l887vXbH/oRiUG4Vi4a4ZyNF6ojlgDggAExo+A=
-Date: Wed, 13 Jan 2021 00:54:24 +0000
-Message-ID: <DM6PR12MB2602BB06DF419732C61BC49BE3A90@DM6PR12MB2602.namprd12.prod.outlook.com>
-References: <1609740098-32603-1-git-send-email-xiaogang.chen@amd.com>
- <1609740098-32603-2-git-send-email-xiaogang.chen@amd.com>
- <DM6PR12MB2602BC4EAE9C70F573C504C0E3AA0@DM6PR12MB2602.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2602BC4EAE9C70F573C504C0E3AA0@DM6PR12MB2602.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-12T06:37:35Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=0885edfe-4a3c-42a3-a80b-0000dadc764b;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2021-01-13T00:54:17Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: cca9c0b9-7f37-435a-b6d0-0000adcac0aa
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
-dlp-product: dlpe-windows
-dlp-version: 11.5.0.60
-dlp-reaction: no-action
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [99.129.135.138]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: bef8b191-f46b-4b91-bd82-08d8b75dc592
-x-ms-traffictypediagnostic: DM5PR12MB1881:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1881D8887B2E2C64997DE6B5E3A90@DM5PR12MB1881.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KWHSSXcJ7RBX79ktJePfuV1UTwyGmd6T2VxreGdN9khu2bC31a0IjqPzv5KxE6PMAxP4llukJzzKHQkNH1ljkHYFNAy4epoiDHm+TFDk35l6mDbnsACkHEVsfPgNNOaP5Dj7jhV8Dnnte2UqxTFaqT/e27k7Myog4ptLC+ns/FB8FUbvvmrxvQtII4dlmOH0KyBN1b7667chOXlxaOiNCmLoFf08pbfzZMULixgLmC3pkkYsdqRIk1AVXjNpkeF35GNjH+GiuYiJXO2/DKthJcaXMAavnwVfeUsO/rggO2j/bBFsE4mNsuaMY/c55e0SendyvmJTeg7VjY+w3wj9SxuiLnf6a5RKtsG5WF+25ekRY0Q9nANhBhS1gScBiiFjfWhoqcUfhJIXkmvEzmqWwQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39850400004)(376002)(136003)(396003)(346002)(8936002)(110136005)(66556008)(64756008)(66476007)(316002)(7696005)(6636002)(76116006)(83380400001)(8676002)(66446008)(186003)(9686003)(52536014)(55016002)(33656002)(53546011)(2906002)(6506007)(478600001)(5660300002)(86362001)(66946007)(26005)(30864003)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?iIW4r2pAVmEDhRgBfOQXEL+gkdHqRXGJFQbAjForSLQU+pNJQRTMv1ax49WD?=
- =?us-ascii?Q?orWP3/42BLt/wFFJsGUNROInAtDL9k/nG4QXMdUjRqLlQThigMvjvqmRqn1S?=
- =?us-ascii?Q?PpQLEbYKWDKtlFTqP4u0yEoCyXDJN2Jab99psx/yQWJQb61Pg54uNhjsVWpt?=
- =?us-ascii?Q?QUhpBYqr39Y5X4Ih9CyH965l5LBGpqbXgBFctuILdb6FmuFzIrz7r6ho28Sy?=
- =?us-ascii?Q?2Nir8Gxeq+yVt3ZYVUWrw3AZHncDkWdX89EgEd3L1mnKpd33OHAqm/012UhV?=
- =?us-ascii?Q?vJDA7WrJlppUN3/P8MkJiB5ah9Xur78y3LxyST4FLWdOrCKwQ0htQCzqDVIW?=
- =?us-ascii?Q?P/wBQmW9HO2f8mXOY3YwaSkUcIs7AJg5VR1f4tlXv1Iaeo9H7d622wVGvU3C?=
- =?us-ascii?Q?oUVrL4USslbHCtJ+QvKzlU6pQV/M/XZ9ak1eqdztIzDkYqio4tL3SNfBnJaW?=
- =?us-ascii?Q?0cwThMz2k871yfzjZDwPmqUcYBDkrzul0QabVK7F9WgXEIeoODW1bD8+B9S3?=
- =?us-ascii?Q?JH3Fl2YDP7U3R7WJUm4d8VKDxj2eZJdymRkKwF07/IsiKfl6pelTBx3RaP4U?=
- =?us-ascii?Q?a6IWRV+UDEMvuLCV3A6we7oHqK++YLq1xnjAqPc4Ki4ZDOaCvDjNb5rPG/hz?=
- =?us-ascii?Q?aTxVB7NJl55vtcayLmjXrZfyeqsKj//uxKUDPu/eXNRQtZ9Ob3I4q1rp/3hg?=
- =?us-ascii?Q?eRfKrAnzFvfbXPomJJ1EebsRou7wLP4eD9cKyntWD038Xw/saXNDVDtjIq/j?=
- =?us-ascii?Q?9nrrUWjt+ep2lkAtnAwPYi6HnRiOf+kYKsQ46Ayikkzvf93O2Wqgr8SCT8rO?=
- =?us-ascii?Q?4grsgljQQ8JdAFns/irZwTY6BoqMvlro8cNC8lvldtHoxNbVvzw+au3hpAa0?=
- =?us-ascii?Q?khMuG4/0c+P9D/9g2rn4WJxg+wLPt6t4kCsDWHcLlqSy6WIFWRwuz7s1KWez?=
- =?us-ascii?Q?L2OmOVC03J3L/embZNT0ExcXrz8pcoDhd8WVLJ/0HGU=3D?=
+ bh=txyxzjYE4nXvsxr+LYJPsb19d8ssy3/HsrXgAPdMclU=;
+ b=AIZItQTTGJ+TNy9Wq/WCKNeeOp+0Xvv9H3g1+MXvnZiwfFvCH9oX2Z/G8F2jl0jFDpV18IphJos7/VftDMgOZt3Uwt1AXftxMNRa09/Bc76Y1UaHXVMDQvAG7wYrwH5Wr0cwjVrwmdGUv/VbzOVHUhRGtIx6jsw/idskq1KQV6s=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MWHPR1201MB0031.namprd12.prod.outlook.com (2603:10b6:301:57::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Wed, 13 Jan
+ 2021 01:19:11 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3742.012; Wed, 13 Jan 2021
+ 01:19:11 +0000
+Date: Wed, 13 Jan 2021 09:19:01 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: Souptick Joarder <jrdr.linux@gmail.com>
+Subject: Re: [PATCH] drm: amdgpu: pm: Mark vangogh_clk_dpm_is_enabled() as
+ static
+Message-ID: <20210113011901.GA135176@hr-amd>
+References: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <1610481442-6606-1-git-send-email-jrdr.linux@gmail.com>
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2PR03CA0062.apcprd03.prod.outlook.com
+ (2603:1096:202:17::32) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (180.167.199.189) by
+ HK2PR03CA0062.apcprd03.prod.outlook.com (2603:1096:202:17::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3763.2 via Frontend Transport; Wed, 13 Jan 2021 01:19:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c97688c8-4a1f-4714-d2b2-08d8b7613bab
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0031:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB0031728951A92C1854D7B84EECA90@MWHPR1201MB0031.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1169;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DBlMwqPliRShg2JqedQTJiumzniYUAdvaper8Mp/p1yzdZPKmI1LRNoANQzkCZhx/Wsqq1LPCpPCIw3G3Zddjm8LQ8hMT2bsNTZzGVM3B0DNMXPKXK+0MBvH51rJCoE/oiNMB5p8DFsajzpBlXqObDr3NiyrfS0+olDNNegkOUcAQL9LZ1jwT68FJiSKDdfuySRnT09fwGcRdLSyYOebm8qooELiANqn7J7QqGIAWQDpEll9uPARQ/4OjlhMFGBzX+DWPJEp3KGkj4kDEO+IZgHgsKRRN9kooDqFJoTsG6GAwl1eGrYpod3V0Ee7bHwgYbA9wMdJQpZ6CnPCI8RQLmFw8h3UiFYNgrtRceCRTTtoRQ2DSX9U5j+pK5DfZYWh
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(39860400002)(136003)(346002)(366004)(6666004)(26005)(9686003)(54906003)(66946007)(55016002)(186003)(66556008)(16526019)(2906002)(1076003)(33716001)(4326008)(66476007)(52116002)(86362001)(6496006)(83380400001)(956004)(5660300002)(8936002)(8676002)(316002)(478600001)(33656002)(6916009);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?BmDrVFX3WkhuI2t/cd8GNSHTf22MA6YA38kJctTf5YylxhnBevGqqUrpzlJ1?=
+ =?us-ascii?Q?aZbnhMSRvO92QbIA6HadXmXYMdB3f3ZmErqY/IhlS0oTSCbXWEqynQZbrZ9u?=
+ =?us-ascii?Q?OOm4ohLmV2YR7c8xQyonLUcdJksycJKx7ad7+Uto261VDO8rR1uBpdjO+xsQ?=
+ =?us-ascii?Q?5HzFAhxchn2cpWk2p4dvTE4EEkUUZsVCoLFvBuioIpS93c7k+EBFa1RYyqkd?=
+ =?us-ascii?Q?JiD6AXPadJfFPlIC6hppd1LUudP0XlctOhFIXWDOKQcDHIbikrVUv57CJzS7?=
+ =?us-ascii?Q?BKE+gTKvqr3oHAtZus6PlXOuqTXJuU/DEWMGokN1+DWDvl48YH+dWEqPoxcW?=
+ =?us-ascii?Q?eQGoYuBew0ydsYmhFV3yPfv42fX6IxWHq86XA1tX6pmt4yDBFv3iObPAsV3F?=
+ =?us-ascii?Q?KXf82g5HI4mq0s1nwiI43w51zELrKekZRZHRgWIQsu+ZMCm1dBZzxi0RcfaZ?=
+ =?us-ascii?Q?e3BZvZwBdO7GBIFfDoxP03Llkobva4mrnwjBh/UaaBguZfHAK180gf8wOmuM?=
+ =?us-ascii?Q?Cau4WQrSmRkbph+hRh8feIW2IF3RvhML50hhYbqCgTf/A5LPowTD9+WxOkRB?=
+ =?us-ascii?Q?cVB2nU5lEQD5rrDvxbTVIkUOCvXfFsAM4gQ6Vfnz3M/35D2EvHpPv7McB1SU?=
+ =?us-ascii?Q?/J/Vgiu2gJcx3voALZY1FLcFNTUmm1iM7Pl8HxfwetlxvohMTcP36tQ+AzIe?=
+ =?us-ascii?Q?9ZsG/bukg4/q8ADRHJ2bNTurhN50yFho7g/EZ0ZA6fL2QtXp7xtYTXQs5Ybo?=
+ =?us-ascii?Q?iSPb/mxmk92gCVgDmxq0/SkPRvM5XaTuHlG15qGD6j6UwFPCveMTF387eUc2?=
+ =?us-ascii?Q?RURJjQBOPSjZjfabIn/FIvHPPI+3iwhdpMNKzcFdJsYNTZUdJ1Ta7ZjYIaBy?=
+ =?us-ascii?Q?q52zh6NRWfIaUWTUEod8ZLB2b9V3FyMWJJ0idxeQdgLPSFSM5rZIDdpi5J9T?=
+ =?us-ascii?Q?rA9L/TsX0jpsnRvvDl4w3AIcVp6N2Z9inSe/jn739FOcZyQs/tQkfkZiOIfj?=
+ =?us-ascii?Q?W3yu?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bef8b191-f46b-4b91-bd82-08d8b75dc592
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jan 2021 00:54:24.6895 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vyJXF6zOHD8pbjuja7OLAZ4HDsqPDT178M8HwDi+gt7l2GBGYZ5EyIdhLMQ5JnM8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1881
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 01:19:11.1423 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Network-Message-Id: c97688c8-4a1f-4714-d2b2-08d8b7613bab
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YFdbuGVnWbZ54EpVvoij9TzhWI63kA2vGyQ6PoNPL7Ln5CBQGrcR/679VUqviPTv1T03tkIBwWB97+2Cm2n/qA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0031
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,295 +121,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Su, Jinzhou \(Joe\)" <Jinzhou.Su@amd.com>, "Du,
+ Xiaojian" <Xiaojian.Du@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Hou,
+ Xiaomeng \(Matthew\)" <Xiaomeng.Hou@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On Wed, Jan 13, 2021 at 03:57:22AM +0800, Souptick Joarder wrote:
+> kernel test robot throws below warnings ->
+> 
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
+> warning: no previous prototype for 'vangogh_clk_dpm_is_enabled'
+> [-Wmissing-prototypes]
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:594:6:
+> warning: no previous prototype for function 'vangogh_clk_dpm_is_enabled'
+> [-Wmissing-prototypes]
+> 
+> Mark vangogh_clk_dpm_is_enabled() as static.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index 75ddcad..3ffe56e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -610,7 +610,7 @@ static int vangogh_get_profiling_clk_mask(struct smu_context *smu,
+>  	return 0;
+>  }
+>  
+> -bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
+> +static bool vangogh_clk_dpm_is_enabled(struct smu_context *smu,
+>  				enum smu_clk_type clk_type)
 
+Ah, I have another patch which will use this function in another file.
 
-Would you give review?
+Thanks,
+Ray
 
-Thanks
-Xiaogang
-
-PS: Remove drm mailing list as this patch addresses amd display specific.
-
------Original Message-----
-From: Chen, Xiaogang 
-Sent: Tuesday, January 12, 2021 12:38 AM
-To: amd-gfx@lists.freedesktop.org; Wentland, Harry <Harry.Wentland@amd.com>; dri-devel@lists.freedesktop.org; airlied@linux.ie
-Subject: RE: [PATCH 2/2] drm/amdgpu/display: buffer INTERRUPT_LOW_IRQ_CONTEXT interrupt work
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Any comment?
-
------Original Message-----
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-Sent: Monday, January 4, 2021 12:02 AM
-To: amd-gfx@lists.freedesktop.org; Wentland, Harry <Harry.Wentland@amd.com>; dri-devel@lists.freedesktop.org; airlied@linux.ie
-Cc: Chen, Xiaogang <Xiaogang.Chen@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/display: buffer INTERRUPT_LOW_IRQ_CONTEXT interrupt work
-
-From: Xiaogang Chen <xiaogang.chen@amd.com>
-
-amdgpu DM handles INTERRUPT_LOW_IRQ_CONTEXT interrupt(hpd, hpd_rx) by using work queue and uses single work_struct. If previous interrupt has not been handled new interrupts(same type) will be discarded and driver just sends "amdgpu_dm_irq_schedule_work FAILED" message out.
-If some important hpd, hpd_rx related interrupts are missed by driver the hot (un)plug devices may cause system hang or unstable, such as system resumes from S3 sleep with mst device connected.
-
-This patch dynamically allocates new amdgpu_dm_irq_handler_data for new interrupts if previous INTERRUPT_LOW_IRQ_CONTEXT interrupt work has not been handled. So the new interrupt works can be queued to the same workqueue_struct, instead discard the new interrupts.
-All allocated amdgpu_dm_irq_handler_data are put into a single linked list and will be reused after.
-
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  14 +--  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 114 ++++++++++++++-------
- 2 files changed, 80 insertions(+), 48 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index c9d82b9..730e540 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -69,18 +69,6 @@ struct common_irq_params {  };
- 
- /**
-- * struct irq_list_head - Linked-list for low context IRQ handlers.
-- *
-- * @head: The list_head within &struct handler_data
-- * @work: A work_struct containing the deferred handler work
-- */
--struct irq_list_head {
--	struct list_head head;
--	/* In case this interrupt needs post-processing, 'work' will be queued*/
--	struct work_struct work;
--};
--
--/**
-  * struct dm_compressor_info - Buffer info used by frame buffer compression
-  * @cpu_addr: MMIO cpu addr
-  * @bo_ptr: Pointer to the buffer object @@ -270,7 +258,7 @@ struct amdgpu_display_manager {
- 	 * Note that handlers are called in the same order as they were
- 	 * registered (FIFO).
- 	 */
--	struct irq_list_head irq_handler_list_low_tab[DAL_IRQ_SOURCES_NUMBER];
-+	struct list_head irq_handler_list_low_tab[DAL_IRQ_SOURCES_NUMBER];
- 
- 	/**
- 	 * @irq_handler_list_high_tab:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 3577785..ada344a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -82,6 +82,7 @@ struct amdgpu_dm_irq_handler_data {
- 	struct amdgpu_display_manager *dm;
- 	/* DAL irq source which registered for this interrupt. */
- 	enum dc_irq_source irq_source;
-+	struct work_struct work;
- };
- 
- #define DM_IRQ_TABLE_LOCK(adev, flags) \ @@ -111,20 +112,10 @@ static void init_handler_common_data(struct amdgpu_dm_irq_handler_data *hcd,
-  */
- static void dm_irq_work_func(struct work_struct *work)  {
--	struct irq_list_head *irq_list_head =
--		container_of(work, struct irq_list_head, work);
--	struct list_head *handler_list = &irq_list_head->head;
--	struct amdgpu_dm_irq_handler_data *handler_data;
--
--	list_for_each_entry(handler_data, handler_list, list) {
--		DRM_DEBUG_KMS("DM_IRQ: work_func: for dal_src=%d\n",
--				handler_data->irq_source);
-+	struct amdgpu_dm_irq_handler_data *handler_data =
-+	 container_of(work, struct amdgpu_dm_irq_handler_data, work);
- 
--		DRM_DEBUG_KMS("DM_IRQ: schedule_work: for dal_src=%d\n",
--			handler_data->irq_source);
--
--		handler_data->handler(handler_data->handler_arg);
--	}
-+	handler_data->handler(handler_data->handler_arg);
- 
- 	/* Call a DAL subcomponent which registered for interrupt notification
- 	 * at INTERRUPT_LOW_IRQ_CONTEXT.
-@@ -156,7 +147,7 @@ static struct list_head *remove_irq_handler(struct amdgpu_device *adev,
- 		break;
- 	case INTERRUPT_LOW_IRQ_CONTEXT:
- 	default:
--		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source].head;
-+		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source];
- 		break;
- 	}
- 
-@@ -287,7 +278,8 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
- 		break;
- 	case INTERRUPT_LOW_IRQ_CONTEXT:
- 	default:
--		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source].head;
-+		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source];
-+		INIT_WORK(&handler_data->work, dm_irq_work_func);
- 		break;
- 	}
- 
-@@ -369,7 +361,7 @@ void amdgpu_dm_irq_unregister_interrupt(struct amdgpu_device *adev,  int amdgpu_dm_irq_init(struct amdgpu_device *adev)  {
- 	int src;
--	struct irq_list_head *lh;
-+	struct list_head *lh;
- 
- 	DRM_DEBUG_KMS("DM_IRQ\n");
- 
-@@ -378,9 +370,7 @@ int amdgpu_dm_irq_init(struct amdgpu_device *adev)
- 	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
- 		/* low context handler list init */
- 		lh = &adev->dm.irq_handler_list_low_tab[src];
--		INIT_LIST_HEAD(&lh->head);
--		INIT_WORK(&lh->work, dm_irq_work_func);
--
-+		INIT_LIST_HEAD(lh);
- 		/* high context handler init */
- 		INIT_LIST_HEAD(&adev->dm.irq_handler_list_high_tab[src]);
- 	}
-@@ -397,8 +387,11 @@ int amdgpu_dm_irq_init(struct amdgpu_device *adev)  void amdgpu_dm_irq_fini(struct amdgpu_device *adev)  {
- 	int src;
--	struct irq_list_head *lh;
-+	struct list_head *lh;
-+	struct list_head *entry, *tmp;
-+	struct amdgpu_dm_irq_handler_data *handler;
- 	unsigned long irq_table_flags;
-+
- 	DRM_DEBUG_KMS("DM_IRQ: releasing resources.\n");
- 	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
- 		DM_IRQ_TABLE_LOCK(adev, irq_table_flags); @@ -407,7 +400,15 @@ void amdgpu_dm_irq_fini(struct amdgpu_device *adev)
- 		 * (because no code can schedule a new one). */
- 		lh = &adev->dm.irq_handler_list_low_tab[src];
- 		DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
--		flush_work(&lh->work);
-+
-+		if (!list_empty(lh)) {
-+			list_for_each_safe(entry, tmp, lh) {
-+
-+				handler = list_entry(entry, struct amdgpu_dm_irq_handler_data,
-+									 list);
-+				flush_work(&handler->work);
-+			}
-+		}
- 	}
- }
- 
-@@ -417,6 +418,8 @@ int amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	struct list_head *hnd_list_h;
- 	struct list_head *hnd_list_l;
- 	unsigned long irq_table_flags;
-+	struct list_head *entry, *tmp;
-+	struct amdgpu_dm_irq_handler_data *handler;
- 
- 	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
- 
-@@ -427,14 +430,22 @@ int amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	 * will be disabled from manage_dm_interrupts on disable CRTC.
- 	 */
- 	for (src = DC_IRQ_SOURCE_HPD1; src <= DC_IRQ_SOURCE_HPD6RX; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, false);
- 
- 		DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
--		flush_work(&adev->dm.irq_handler_list_low_tab[src].work);
- 
-+		if (!list_empty(hnd_list_l)) {
-+
-+			list_for_each_safe(entry, tmp, hnd_list_l) {
-+
-+				handler = list_entry(entry, struct amdgpu_dm_irq_handler_data,
-+									 list);
-+				flush_work(&handler->work);
-+			}
-+		}
- 		DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
- 	}
- 
-@@ -454,7 +465,7 @@ int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
- 
- 	/* re-enable short pulse interrupts HW interrupt */
- 	for (src = DC_IRQ_SOURCE_HPD1RX; src <= DC_IRQ_SOURCE_HPD6RX; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, true); @@ -480,7 +491,7 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- 	 * will be enabled from manage_dm_interrupts on enable CRTC.
- 	 */
- 	for (src = DC_IRQ_SOURCE_HPD1; src <= DC_IRQ_SOURCE_HPD6; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, true); @@ -497,20 +508,53 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)  static void amdgpu_dm_irq_schedule_work(struct amdgpu_device *adev,
- 					enum dc_irq_source irq_source)
- {
--	unsigned long irq_table_flags;
--	struct work_struct *work = NULL;
- 
--	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-+	struct  list_head *handler_list = &adev->dm.irq_handler_list_low_tab[irq_source];
-+	struct  amdgpu_dm_irq_handler_data *handler_data;
-+	bool    work_queued = false;
- 
--	if (!list_empty(&adev->dm.irq_handler_list_low_tab[irq_source].head))
--		work = &adev->dm.irq_handler_list_low_tab[irq_source].work;
-+	if (list_empty(handler_list))
-+		return;
- 
--	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-+	list_for_each_entry(handler_data, handler_list, list) {
-+
-+		if (!queue_work(system_highpri_wq, &handler_data->work)) {
-+			continue;
-+		} else {
-+			work_queued = true;
-+			break;
-+		}
-+	}
-+
-+	if (!work_queued) {
-+
-+		struct  amdgpu_dm_irq_handler_data *handler_data_add;
-+		/*get the amdgpu_dm_irq_handler_data of first item pointed by handler_list*/
-+		handler_data = container_of(handler_list->next, struct 
-+amdgpu_dm_irq_handler_data, list);
-+
-+		/*allocate a new amdgpu_dm_irq_handler_data*/
-+		handler_data_add = kzalloc(sizeof(*handler_data), GFP_KERNEL);
-+		if (!handler_data_add) {
-+			DRM_ERROR("DM_IRQ: failed to allocate irq handler!\n");
-+			return;
-+		}
-+
-+		/*copy new amdgpu_dm_irq_handler_data members from handler_data*/
-+		handler_data_add->handler       = handler_data->handler;
-+		handler_data_add->handler_arg   = handler_data->handler_arg;
-+		handler_data_add->dm            = handler_data->dm;
-+		handler_data_add->irq_source    = irq_source;
-+
-+		list_add_tail(&handler_data_add->list, handler_list);
-+
-+		INIT_WORK(&handler_data_add->work, dm_irq_work_func);
- 
--	if (work) {
--		if (!schedule_work(work))
--			DRM_INFO("amdgpu_dm_irq_schedule_work FAILED src %d\n",
--						irq_source);
-+		if (queue_work(system_highpri_wq, &handler_data_add->work))
-+			DRM_DEBUG("__func__: a work_struct is allocated and queued, "
-+					 "src %d\n", irq_source);
-+		else
-+			DRM_ERROR("__func__: a new work_struct cannot be queued, "
-+					  "something is wrong, src %d\n", irq_source);
- 	}
- 
- }
---
-2.7.4
+>  {
+>  	enum smu_feature_mask feature_id = 0;
+> -- 
+> 1.9.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
