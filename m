@@ -6,63 +6,62 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1831C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 17:23:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13334C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 17:25:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A180B23B31
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 17:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A180B23B31
+	by mail.kernel.org (Postfix) with ESMTPS id C8BB223A5E
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Jan 2021 17:25:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8BB223A5E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54AE889DC9;
-	Thu, 14 Jan 2021 17:23:48 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E36D589C28;
- Thu, 14 Jan 2021 17:23:46 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id f132so6636035oib.12;
- Thu, 14 Jan 2021 09:23:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833648989E;
+	Thu, 14 Jan 2021 17:25:24 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A978989E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 17:25:24 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id x13so6683540oic.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Jan 2021 09:25:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=MpjDvPtGE3jxQK40Dp9TpRjPqOVlxA0emJuek+JS0vI=;
- b=cL8q5Yl6JTpO9lg1m5y/cnTQ6jXQHLr4hOo5P7c6UcqLn0HApFw2OWhozGgyCBUGbC
- gREhrMzw6dTeRw9NwVkAXHEUj4HMQ6uezsmOoN6pVa4D0dZ7z3vCOAf7q5T4ZFt9EexZ
- b68RTjmemxgaz2N6DIRNTeEgRVKJXJxuuGl2is7ImtIHbVd63htve4/KfUVVcE86VMAi
- 1AJcEKonE1w/E23aQH5L4cXMalyP7qR1wAoCqGLP6e7mbqUa1k4cWGlhxLD/FDLtouwc
- oSyyT2fOWR2drCO/rNpjbp0p3diIlLjR4O3tjXbJFzQJ/ja92DUJd+SKdxBpUue509T+
- OWVg==
+ :cc; bh=rm3jpBstCGMpbLC43K8W+P5zcBUqR4REX7i8OSCoW5o=;
+ b=c95LC5bTRbMj0OfRVn1o3pg6D7DtEWWMaxtQLiqVlP+uD+g1JUSSbjD2Ow6l6Pv+0T
+ qf682B7ACy0ebP9bu+POaaU3mFMzkJUCIJs14F5yl62d8/rDvwccDe3uNz8/RxdHoL21
+ eU1JKhFBLR8lwxRLYQaOaS2yu95lkSH/3l3cD5ZWjWWqQRw49F3Ja/jdW4m4D015frH+
+ Z14v88MauAw6RgOCGwZHO71LnUrrSqO1zrBpmh4U2F1KEX8fRhZbXwHTos3p9Nfox+os
+ riyXxRvmkBH5Xc8jJ0FrHTAHco5InXojkB4SlNdWpIl9cpILgdCK5Ri2gaCOuj8h9JXh
+ gVcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=MpjDvPtGE3jxQK40Dp9TpRjPqOVlxA0emJuek+JS0vI=;
- b=Y/vVSlNH6BOG2726kO51/pEfy2whv0tj1cb0+/vsIepuusynKyLPXN0JlU8h1AEVTn
- XwF1BL0tJ8QObG2WegV+uMFEq/9ZHhT/vhqROIDHykhJL/lN5x5zm+4pTLh5FGyGiYIX
- 7QlOJHbZ9vPnlbi3W1oRD419AY+QkSKAvhkuEv7DIYcgo8KX0kLvdsJ1QgHcoPUwqwiU
- 6kaTEjFrAvXvG+4YRSr+mAF80TDlkXJEhuqnn0B0cLpi4j3+CJDmweU3/RSSRKIPfKMJ
- 3vFPYDjmMc+GwOL0F488TrBm7ZRqoXq1Ps/DS8M5WBXfianWucHqgZTdK6gKit5jODu/
- M3YA==
-X-Gm-Message-State: AOAM532Ac8yZ8GEIuWxYeDjgUYtG/XdeB6Fe0pRc/AG3LVyY86cSQgVF
- 6B9fttYonS+6yXpf8oryq6fzzgSGZZEfTs3wvF8=
-X-Google-Smtp-Source: ABdhPJwRJ9fBj7etGLkpUidLzzwEGN6cx4RpF4hdCr5OqT6/PbRaiaq0lq5MUVBbs4QjNaxOxN2CAI+wfGTIMHjPRdw=
-X-Received: by 2002:a54:4083:: with SMTP id i3mr3154240oii.120.1610645026351; 
- Thu, 14 Jan 2021 09:23:46 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=rm3jpBstCGMpbLC43K8W+P5zcBUqR4REX7i8OSCoW5o=;
+ b=DyqGvRDcZgjZRlbYCDpPAilCgoRSmMzDNtIeHVVSaYYize10dgXU20HKgpR28gc5Uo
+ ybOs5H3swu00/IrZ5f+d9riBSi1AAuuTcgb7D4usRDZtjSIYSAQf+Nf/oG9T9VSDhEpn
+ tN1Pj/QDivUJAfJnfWwFxQ1R5poKIF6ZWelZiA7L9/GbVqqLAmx6brl5NcZGZc51YyWS
+ 6mHOy5T9sfjTjr4bW9VYA/2603V1DXryKcpzCUqjO9xnnfW1L10HIHC7ypFcEXv1LZ35
+ yVTAXcafpywYm5vJOOh1c8h64U0GBPpowGPYWpSjhy7RBByqu5uQyT8lJFnlgFGg5Pf6
+ 5vQQ==
+X-Gm-Message-State: AOAM532b0Ne76XELZsTtnnZlD7wUeRpDVaaNE7tPfm+vOBGlm59EynXz
+ 1CsKMA+1wn31tlHIKs98co/aRWBYw3O4DOs4wHo=
+X-Google-Smtp-Source: ABdhPJzyOEkTDp7aL2Pevvrl5elUNQzwH6XOYEkFUpw/Jjxk7TkQv5GD3mqvSPeEF9sVkvvWwx4Ekbqsjstjc+Lxjv0=
+X-Received: by 2002:a54:4083:: with SMTP id i3mr3157839oii.120.1610645123529; 
+ Thu, 14 Jan 2021 09:25:23 -0800 (PST)
 MIME-Version: 1.0
-References: <20210113080752.1003793-1-lee.jones@linaro.org>
- <20210113080752.1003793-23-lee.jones@linaro.org>
-In-Reply-To: <20210113080752.1003793-23-lee.jones@linaro.org>
+References: <20210114133729.24169-1-horace.chen@amd.com>
+ <20210114133729.24169-2-horace.chen@amd.com>
+ <c078b4be-c0ae-9baf-2565-ec6552611461@amd.com>
+In-Reply-To: <c078b4be-c0ae-9baf-2565-ec6552611461@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Jan 2021 12:23:35 -0500
-Message-ID: <CADnq5_OSHVH_4f8QUaFTFGQ=N0mhyPcrZmS6=76_Ff22rhEjsA@mail.gmail.com>
-Subject: Re: [PATCH 22/30] drm/amd/display/dc/core/dc_link: Fix a couple of
- function documentation issues
-To: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 14 Jan 2021 12:25:12 -0500
+Message-ID: <CADnq5_PeyQf5jz2W2Rgrp2jfpRSc+_LjHNtNL_YtyOVjJxYGww@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: set job guilty if reset skipped
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,83 +73,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Horace Chen <horace.chen@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKYW4gMTMsIDIwMjEgYXQgMzowOCBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
-YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMv
-Y29yZS9kY19saW5rLmM6MjE0OiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVy
-ICdsaW5rJyBub3QgZGVzY3JpYmVkIGluICdkY19saW5rX2RldGVjdF9zaW5rJwo+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jOjM1MDogd2Fy
-bmluZzogRnVuY3Rpb24gcGFyYW1ldGVyIG9yIG1lbWJlciAnbGluaycgbm90IGRlc2NyaWJlZCBp
-biAnZGNfbGlua19pc19kcF9zaW5rX3ByZXNlbnQnCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1Ly4uL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmM6ODQxOiB3YXJuaW5nOiBGdW5jdGlvbiBw
-YXJhbWV0ZXIgb3IgbWVtYmVyICdsaW5rJyBub3QgZGVzY3JpYmVkIGluICdkY19saW5rX2RldGVj
-dF9oZWxwZXInCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY29y
-ZS9kY19saW5rLmM6ODQxOiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVyICdy
-ZWFzb24nIG5vdCBkZXNjcmliZWQgaW4gJ2RjX2xpbmtfZGV0ZWN0X2hlbHBlcicKPiAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYzozNDAzOiB3
-YXJuaW5nOiBDYW5ub3QgdW5kZXJzdGFuZCAgKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKPgo+IENjOiBI
-YXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KPiBDYzogTGVvIExpIDxzdW5w
-ZW5nLmxpQGFtZC5jb20+Cj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
-LmNvbT4KPiBDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRl
-ciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU2lnbmVkLW9mZi1ieTogTGVl
-IEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KCkFwcGxpZWQuICBUaGFua3MhCgpBbGV4Cgo+
-IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgfCAx
-NSArKysrKystLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgOSBk
-ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9k
-Y19saW5rLmMKPiBpbmRleCAzMzY2YTQ5ZjExZGM3Li4yNzFjNGY2NmVkYjU2IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+IEBAIC0yMDYs
-NiArMjA2LDcgQEAgc3RhdGljIGJvb2wgcHJvZ3JhbV9ocGRfZmlsdGVyKGNvbnN0IHN0cnVjdCBk
-Y19saW5rICpsaW5rKQo+ICAvKioKPiAgICogZGNfbGlua19kZXRlY3Rfc2luaygpIC0gRGV0ZXJt
-aW5lIGlmIHRoZXJlIGlzIGEgc2luayBjb25uZWN0ZWQKPiAgICoKPiArICogQGxpbms6IHBvaW50
-ZXIgdG8gdGhlIGRjIGxpbmsKPiAgICogQHR5cGU6IFJldHVybmVkIGNvbm5lY3Rpb24gdHlwZQo+
-ICAgKiBEb2VzIG5vdCBkZXRlY3QgZG93bnN0cmVhbSBkZXZpY2VzLCBzdWNoIGFzIE1TVCBzaW5r
-cwo+ICAgKiBvciBkaXNwbGF5IGNvbm5lY3RlZCB0aHJvdWdoIGFjdGl2ZSBkb25nbGVzCj4gQEAg
-LTM0Miw3ICszNDMsNyBAQCBzdGF0aWMgZW51bSBzaWduYWxfdHlwZSBnZXRfYmFzaWNfc2lnbmFs
-X3R5cGUoc3RydWN0IGdyYXBoaWNzX29iamVjdF9pZCBlbmNvZGVyLAo+ICAgICAgICAgcmV0dXJu
-IFNJR05BTF9UWVBFX05PTkU7Cj4gIH0KPgo+IC0vKioKPiArLyoKPiAgICogZGNfbGlua19pc19k
-cF9zaW5rX3ByZXNlbnQoKSAtIENoZWNrIGlmIHRoZXJlIGlzIGEgbmF0aXZlIERQCj4gICAqIG9y
-IHBhc3NpdmUgRFAtSERNSSBkb25nbGUgY29ubmVjdGVkCj4gICAqLwo+IEBAIC04MjgsNyArODI5
-LDcgQEAgc3RhdGljIGJvb2wgd2FpdF9mb3JfZW50ZXJpbmdfZHBfYWx0X21vZGUoc3RydWN0IGRj
-X2xpbmsgKmxpbmspCj4gICAgICAgICByZXR1cm4gZmFsc2U7Cj4gIH0KPgo+IC0vKioKPiArLyoK
-PiAgICogZGNfbGlua19kZXRlY3QoKSAtIERldGVjdCBpZiBhIHNpbmsgaXMgYXR0YWNoZWQgdG8g
-YSBnaXZlbiBsaW5rCj4gICAqCj4gICAqIGxpbmstPmxvY2FsX3NpbmsgaXMgY3JlYXRlZCBvciBk
-ZXN0cm95ZWQgYXMgbmVlZGVkLgo+IEBAIC0zNDAwLDEwICszNDAxLDcgQEAgdm9pZCBjb3JlX2xp
-bmtfc2V0X2F2bXV0ZShzdHJ1Y3QgcGlwZV9jdHggKnBpcGVfY3R4LCBib29sIGVuYWJsZSkKPiAg
-fQo+Cj4gIC8qKgo+IC0gKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKPiAtICogIEZ1bmN0aW9uOiBkY19s
-aW5rX2VuYWJsZV9ocGRfZmlsdGVyCj4gLSAqCj4gLSAqICBAYnJpZWYKPiArICogIGRjX2xpbmtf
-ZW5hYmxlX2hwZF9maWx0ZXI6Cj4gICAqICAgICBJZiBlbmFibGUgaXMgdHJ1ZSwgcHJvZ3JhbXMg
-SFBEIGZpbHRlciBvbiBhc3NvY2lhdGVkIEhQRCBsaW5lIHVzaW5nCj4gICAqICAgICBkZWxheV9v
-bl9kaXNjb25uZWN0L2RlbGF5X29uX2Nvbm5lY3QgdmFsdWVzIGRlcGVuZGVudCBvbgo+ICAgKiAg
-ICAgbGluay0+Y29ubmVjdG9yX3NpZ25hbAo+IEBAIC0zNDExLDkgKzM0MDksOCBAQCB2b2lkIGNv
-cmVfbGlua19zZXRfYXZtdXRlKHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgsIGJvb2wgZW5hYmxl
-KQo+ICAgKiAgICAgSWYgZW5hYmxlIGlzIGZhbHNlLCBwcm9ncmFtcyBIUEQgZmlsdGVyIG9uIGFz
-c29jaWF0ZWQgSFBEIGxpbmUgd2l0aCBubwo+ICAgKiAgICAgZGVsYXlzIG9uIGNvbm5lY3Qgb3Ig
-ZGlzY29ubmVjdAo+ICAgKgo+IC0gKiAgQHBhcmFtIFtpbl0gbGluazogcG9pbnRlciB0byB0aGUg
-ZGMgbGluawo+IC0gKiAgQHBhcmFtIFtpbl0gZW5hYmxlOiBib29sZWFuIHNwZWNpZnlpbmcgd2hl
-dGhlciB0byBlbmFibGUgaGJkCj4gLSAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKgo+ICsgKiAgQGxpbms6
-ICAgcG9pbnRlciB0byB0aGUgZGMgbGluawo+ICsgKiAgQGVuYWJsZTogYm9vbGVhbiBzcGVjaWZ5
-aW5nIHdoZXRoZXIgdG8gZW5hYmxlIGhiZAo+ICAgKi8KPiAgdm9pZCBkY19saW5rX2VuYWJsZV9o
-cGRfZmlsdGVyKHN0cnVjdCBkY19saW5rICpsaW5rLCBib29sIGVuYWJsZSkKPiAgewo+IC0tCj4g
-Mi4yNS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
-ZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jan 14, 2021 at 9:48 AM Andrey Grodzovsky
+<Andrey.Grodzovsky@amd.com> wrote:
+>
+> Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>
+> Andrey
+>
+> On 1/14/21 8:37 AM, Horace Chen wrote:
+> > If 2 jobs on 2 different ring timed out the at a very
+> > short period, the reset for second job will be skipped
+> > because the reset is already in progress.
+> >
+> > But it doesn't mean the second job is not guilty since it also
+> > timed out and can be a bad job. So before skipped out from the
+> > reset, we need to increase karma for this job too.
+> >
+> > Signed-off-by: Horace Chen <horace.chen@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index a28e138ac72c..d1112e29c8b4 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4572,6 +4572,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+> >               if (atomic_cmpxchg(&hive->in_reset, 0, 1) != 0) {
+> >                       DRM_INFO("Bailing on TDR for s_job:%llx, hive: %llx as another already in progress",
+> >                               job ? job->base.id : -1, hive->hive_id);
+> > +                     if(job)
+
+space between the if and (.  E.g.,
+
+if (job)
+
+> > +                             drm_sched_increase_karma(&job->base);
+> >                       amdgpu_put_xgmi_hive(hive);
+> >                       return 0;
+> >               }
+> > @@ -4596,6 +4598,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+> >                       dev_info(adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
+> >                                       job ? job->base.id : -1);
+> >                       r = 0;
+> > +                     if(job)
+
+Same here.
+
+Alex
+
+> > +                             drm_sched_increase_karma(&job->base);
+> >                       goto skip_recovery;
+> >               }
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
