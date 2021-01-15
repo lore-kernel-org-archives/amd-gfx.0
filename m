@@ -2,129 +2,44 @@ Return-Path: <SRS0=jp5v=GS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72D36C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 11:29:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4601EC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 13:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AEE4221F7
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 11:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AEE4221F7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id DCB5B23877
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 13:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCB5B23877
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD2386E328;
-	Fri, 15 Jan 2021 11:29:34 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700047.outbound.protection.outlook.com [40.107.70.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B68176E241;
- Fri, 15 Jan 2021 11:29:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dIvVsni1Wh4Cwco3OQrWNexl63p1NEAkN4gLI6QNZkTWBhc/5h5L/g9CaxZJQBI8ieUXl3HbAXvktqPDhRflLbx/kT3JrcgWmQRxtGdqvzIPAQLHC84/F+MRnimlreTRcE4qo4Ff+X0C0OOMHws4Le2gPAQPgsk8OTrq/2wbdI/weBvqWnUkHDytXa/nOe4RE1hNdTBPO3OwzOcGvfqNTXgyUvtPX9DDBmowOBIzl6tkMQV6RddXCqRhxS/Z1AtBbmwZ9QWFFmoGhX9gz9/aeL+FqHOaMcGsYRt5smElR25l3b7ebnz0QBVjdL6F86RBG4+Kd0+5zbaWJnJL0meJsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DBcXs4QK56fyX3GaCNhODZyOyvib3Abug0GlJE2w/kA=;
- b=NfI4zXm+LpcJu9HBv9SAqRBWOGDyO2QCRzKmg/n9Bq1xuSPSVG3uoGGl4g25PFO8Gh/YhIHlPNHsxaF5fdIFUiuKp/VCkbFfmJd1MyWTN8YiWNCblBo0Lv6bPzf5TneAvoiwTgwaummslYBwwHNrDcAPmAReaii9oJm2PrUT/EDRwaG2KvVZt9LbiR1HmPuSsMmtfhiAYwdUYAb7vSum1WL4iIHuKUSEVWwd6GiNnLUmBssZwZi9vmzfP3pwvmcOk1dcsvWa5lzBP6zdyNYCmcD9M7JmLLxPIwhAy/DWwu//IhhXsjsi8WQzjVuHCTz+BQiwubKYUp6rTUeZTbFyYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DBcXs4QK56fyX3GaCNhODZyOyvib3Abug0GlJE2w/kA=;
- b=qCkZF92IYlTi0Ii0CqWmQNugQlZbqk07LhqQtiJac7enLbeoD/OCBADp04D8T1R0mokZ4syo6DfieEToJLXZcpOAiI1jpPUeHWOO2feKOBZAGaZQ7il6nn34LziW7HhjvIY3KlLebnOU4Yl4cqJnd+6frVacamSYsItoMuuRxzw=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10; Fri, 15 Jan
- 2021 11:29:31 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3763.011; Fri, 15 Jan 2021
- 11:29:31 +0000
-Subject: Re: Couple of issues with amdgpu on my WX4100
-To: Maxim Levitsky <mlevitsk@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>
-References: <4df8585ab0aac5abb1e9502d1d7cc49daa2a464f.camel@redhat.com>
- <83f4291c-abe4-2995-b4ba-9f84c9235d14@amd.com>
- <20210104094547.06a61444@omen.home>
- <5081e1a58c5f2f362cb02dc9e6ee8ce91e994e1a.camel@redhat.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <3913d354-3219-db3e-22b6-8081c76b89b5@amd.com>
-Date: Fri, 15 Jan 2021 12:29:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <5081e1a58c5f2f362cb02dc9e6ee8ce91e994e1a.camel@redhat.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM4PR0902CA0018.eurprd09.prod.outlook.com
- (2603:10a6:200:9b::28) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A72A46E41D;
+	Fri, 15 Jan 2021 13:34:14 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0796E408;
+ Fri, 15 Jan 2021 13:34:13 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7BA22AC8F;
+ Fri, 15 Jan 2021 13:34:11 +0000 (UTC)
+Subject: Re: [PATCH 01/10] drm/atomic: Pass the full state to planes async
+ atomic check and update
+To: Maxime Ripard <maxime@cerno.tech>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>
+References: <20210115125703.1315064-1-maxime@cerno.tech>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <22d7f493-eb5f-22b3-a232-867b31a50559@suse.de>
+Date: Fri, 15 Jan 2021 14:34:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR0902CA0018.eurprd09.prod.outlook.com (2603:10a6:200:9b::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9 via Frontend
- Transport; Fri, 15 Jan 2021 11:29:29 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7e28fab7-1b75-4c94-6ca5-08d8b948d354
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4126:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB412676EE05862E1FDFC5014B83A70@MN2PR12MB4126.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ootRFunQv5ytn7AJWBcxj/bPKS70E+mbT0afvxoQYyqiuvOIMOsiop1r5CWu5+6sQEWn8XssvFlCCf8X8MYmkZh0/Ixdh2eJTIAJyHTBMdZx34+ljBi5M7PU6URlaJrLlNHQJz5TrlzbB/v+e4IwUUJd3rqPCoLjVlYAAu0WE6P/YFUM7WOFYIU5d/jWfeb3/OFYWhUgQ8P2lu9Zsk1E4CKP2fq1EqkQ1JWLzo7DeGE+CD4E7Q3eQtRZ6h3pq/tK8aJhQpun9u3RfXHqFidMbILguw6DyaYnqujykKJEYSAMYyGtuqM9U0D/DmNzUokFiBrQ6Qulsa3dXcofM4hzhrhryMqPyfHlYi8R2fuC7QJImAPhtzCl1uAV47CRLWB8aqh0JHwUwUrLn/i6N07+yMKRflRamoByt8wT5P3Xet9lEgl7y7PDp440+qnvhfahglrBjhSbuZfGWW7Mib06LWVozuF/DfjMMp7VbbotMFhhdIA7LftUbD9Cs2vVXutyjS3CiB5iD9WzqObWTrOn82jrjFuL8CWzaiwK+ao6wQNL+Y58+vosiPtiAEOywFxJ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(396003)(376002)(366004)(136003)(54906003)(2616005)(110136005)(8676002)(5660300002)(45080400002)(316002)(66476007)(36756003)(4326008)(66946007)(6666004)(8936002)(66556008)(86362001)(966005)(66574015)(16526019)(186003)(83380400001)(31696002)(31686004)(6486002)(52116002)(2906002)(478600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RThxVWpYT0hERkV2UHg0NktoTmk2bzhqZXU5STF6V25sdjAxQUtGLzBabTNM?=
- =?utf-8?B?L3JLYWJEVm1VYkhYb3c4Nm5URUlyMms1ZzJvSUNEMFpZYXJVYnBPYUFzejE3?=
- =?utf-8?B?TElEVVkycVRUR1BlSHdscWl0M3ZoMFE2aXRyTHdMZ0RKV0dsaElqcnl4Vk0w?=
- =?utf-8?B?V3JrZGxHeURZdlU5bUd0WnZ3TFBLSzdOVU9ua1JIcFdKcUJxODVqQlV5N0lt?=
- =?utf-8?B?azdCNUN5V05jajU4NG5wNmJEK1k3MkJ3RlF2Q3h2ZllqRnRBR1IwQjNEMzVT?=
- =?utf-8?B?RWorSHFrcVNNbXpEVEViRTV4NnBwbHBURXowWXNLMDEzUEhuUnVzY3JraVZY?=
- =?utf-8?B?Ymt2MTgvWWlqUEtFbFYvL2ZCeUlVd3pkdE84TU1PSVpOWVd0SEZ6NDcwYy8z?=
- =?utf-8?B?NXc5ZVFOemlONEhFYW10blFLRHV0aVZJdEJrRkczZVFrTjJ0QU02cGZpUmdJ?=
- =?utf-8?B?NjVSTXhta1B2R2ozaXZXUnVTR3B3K1ZodWFGWmVQQkNoSkRRRzR0YzN6YjFF?=
- =?utf-8?B?SGtobDJPa09qbEt5bXQyNi8vTUozMEJlTk9pa0Z0d1pHUW5vZ1VvVGlsVk9y?=
- =?utf-8?B?c3RhYjc1WkExcjhQUkJYclZ6SkdYNjd2cEpoSnVzYUpHZVRCaG5pMnhRV0ky?=
- =?utf-8?B?RlFIRTVtZWlpc1VqTEgvNm9ZQUt3Y05id0dZUHF5MFp3SFFCNy80R1BzaFRR?=
- =?utf-8?B?M3JJRTRCL0RBNXBxaGhtTXJ1N2ZWV3lwNURLUHRCcGt0bzEyV21HOUJkNlRG?=
- =?utf-8?B?THR0UWdXOVpkeGF0aVEwUHpaY2VFMGRKcjl0TXVBbjZEbHQzV1hocmNkLytH?=
- =?utf-8?B?NjU1ZkFVd05EUXJOYjg1T2lTSVlQOHByOW90cU42cEtqRlp6Qm8yYlhtbFpI?=
- =?utf-8?B?amM2QjZWZHpMN3o1MmJGWDloZFkwWmJ5eTlqcTAxVTczT1lzZkp4UU9VbGRl?=
- =?utf-8?B?emZQaDZGb0VaaHdwSVZRLzRNKzJobmNwbTNiNW85aTJ4QTRxUmFZMDFYNHA1?=
- =?utf-8?B?OHo2czBzWC9mUCtqM3lpbWdrYTB0QUhqcTFSaGFYVzUzQ3pFSnkweGJwL0pR?=
- =?utf-8?B?T1JHdTV3NldjU3BWMU9velpHL0RhT2Q4N0wvOHlPSGZuRmNOYjY4dVpqblJk?=
- =?utf-8?B?Y1NNQWpnQU1yT0V2Nkp5WTJGdmtuUHkvWTc0d3V5ZzFYd21IVDg2a2Y1WHc1?=
- =?utf-8?B?bXFqNWxSbk1ZeG1BSWh2a2djZm9qUTlhcjVDcTFwbm1pSW9jKzRZTDJnTXVW?=
- =?utf-8?B?UHE4YTczazQ1L2dqUlFjQm1zRmh3QzBYVXNEK0JIVUUvNzc3M1FXUmtZUTRC?=
- =?utf-8?B?K3VVNVhIbEQxZEhiS3BhT1hYZGYrUG9mYWFVR2NvU2lBQXFJYUNCVTkzcFdK?=
- =?utf-8?B?Mkt3MjQ4aUNacVU3dWxVc3Z3YkVQSE8zVjIySk1ka3g4VmllT0JGMGJ2TWxx?=
- =?utf-8?Q?J7EqAl75?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e28fab7-1b75-4c94-6ca5-08d8b948d354
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 11:29:31.1991 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kxOo4hyQdJsGbZXkl6Z3BP1OjFOkk04mazhWSp2rrrZKHWIN+WIWXmwoxgd/41ke
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
+In-Reply-To: <20210115125703.1315064-1-maxime@cerno.tech>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,114 +51,749 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Eric Anholt <eric@anholt.net>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Sandy Huang <hjc@rock-chips.com>,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0752015356=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDEuMjEgdW0gMjE6MjEgc2NocmllYiBNYXhpbSBMZXZpdHNreToKPiBPbiBNb24sIDIw
-MjEtMDEtMDQgYXQgMDk6NDUgLTA3MDAsIEFsZXggV2lsbGlhbXNvbiB3cm90ZToKPj4gT24gTW9u
-LCA0IEphbiAyMDIxIDEyOjM0OjM0ICswMTAwCj4+IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4+Cj4+PiBIaSBNYXhpbSwKPj4+Cj4+PiBJIGNhbid0
-IGhlbHAgd2l0aCB0aGUgZGlzcGxheSByZWxhdGVkIHN0dWZmLiBQcm9iYWJseSBiZXN0IGFwcHJv
-YWNoIHRvCj4+PiBnZXQgdGhpcyBmaXhlcyB3b3VsZCBiZSB0byBvcGVuIHVwIGEgYnVnIHRyYWNr
-ZXIgZm9yIHRoaXMgb24gRkRPLgo+Pj4KPj4+IEJ1dCBJJ20gdGhlIG9uZSB3aG8gaW1wbGVtZW50
-ZWQgdGhlIHJlc2l6ZWFibGUgQkFSIHN1cHBvcnQgYW5kIHlvdXIKPj4+IGFuYWx5c2lzIG9mIHRo
-ZSBwcm9ibGVtIHNvdW5kcyBhYm91dCBjb3JyZWN0IHRvIG1lLgo+Pj4KPj4+IFRoZSByZWFzb24g
-d2h5IHRoaXMgd29ya3Mgb24gTGludXggaXMgbW9zdCBsaWtlbHkgYmVjYXVzZSB3ZSByZXN0b3Jl
-IHRoZQo+Pj4gQkFSIHNpemUgb24gcmVzdW1lIChhbmQgbWF5YmUgZHVyaW5nIGluaXRpYWwgYm9v
-dCBhcyB3ZWxsKS4KPj4+Cj4+PiBTZWUgdGhpcyBwYXRjaCBmb3IgcmVmZXJlbmNlOgo+Pj4KPj4+
-IGNvbW1pdCBkMzI1MmFjZTBiYzY1MmExYTI0NDQ1NTU1NmI2YTU0OWY5NjliZjk5Cj4+PiBBdXRo
-b3I6IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+
-Pj4gRGF0ZTogICBGcmkgSnVuIDI5IDE5OjU0OjU1IDIwMTggLTA1MDAKPj4+Cj4+PiAgICAgICBQ
-Q0k6IFJlc3RvcmUgcmVzaXplZCBCQVIgc3RhdGUgb24gcmVzdW1lCj4+Pgo+Pj4gICAgICAgUmVz
-aXplIEJBUnMgYWZ0ZXIgcmVzdW1lIHRvIHRoZSBleHBlY3RlZCBzaXplIGFnYWluLgo+Pj4KPj4+
-ICAgICAgIEJ1Z0xpbms6IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9v
-ay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmJ1Z3ppbGxhLmtlcm5lbC5vcmclMkZzaG93X2J1Zy5j
-Z2klM0ZpZCUzRDE5OTk1OSZhbXA7ZGF0YT0wNCU3QzAxJTdDY2hyaXN0aWFuLmtvZW5pZyU0MGFt
-ZC5jb20lN0MwNDg3OGY4YmFiYzY0Mzg2MzUzOTA4ZDhiMjgwYTIzYiU3QzNkZDg5NjFmZTQ4ODRl
-NjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzc0NTU2MTI4NDUyODYxNzklN0NVbmtub3du
-JTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRp
-STZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZhbXA7c2RhdGE9aVJrOVM0SWdmUUhaZ1Zm
-MW0xbiUyRjlMcE9Rek80MXBMb2M3RVdtekglMkZ5bTQlM0QmYW1wO3Jlc2VydmVkPTAKPj4+ICAg
-ICAgIEZpeGVzOiBkNjg5NWFkMzlmM2IgKCJkcm0vYW1kZ3B1OiByZXNpemUgVlJBTSBCQVIgZm9y
-IENQVSBhY2Nlc3MgdjYiKQo+Pj4gICAgICAgRml4ZXM6IDI3NmI3MzhkZWI1YiAoIlBDSTogQWRk
-IHJlc2l6YWJsZSBCQVIgaW5mcmFzdHJ1Y3R1cmUiKQo+Pj4gICAgICAgU2lnbmVkLW9mZi1ieTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4gICAgICAgU2ln
-bmVkLW9mZi1ieTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4KPj4+ICAgICAg
-IENDOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICAgICAgIyB2NC4xNSsKPj4+Cj4gSGkhCj4gVGhh
-bmtzIGZvciB0aGUgZmVlZGJhY2shCj4gICAKPiBTbyBJIHdlbnQgb3ZlciBxZW11IGNvZGUgYW5k
-IGluZGVlZCB0aGUgcWVtdSAoYXMgb3Bwb3NlZCB0byB0aGUga2VybmVsCj4gd2hlcmUgSSB0cmll
-ZCB0byBoaWRlIHRoZSBQQ0lfRVhUX0NBUF9JRF9SRUJBUikgaW5kZWVkIGRvZXMgaGlkZSB0aGlz
-Cj4gcGNpIGNhcGFiaWxpdHkgZnJvbSB0aGUgZ3Vlc3QuCj4gICAKPiBIb3dldmVyIGV4YWN0bHkg
-YXMgQWxleCBtZW50aW9uZWQgdGhlIGtlcm5lbCBkb2VzIGluZGVlZCByZXN0b3JlCj4gdGhlIHJl
-YmFyIHN0YXRlLCBhbmQgZXZlbiB3aXRoIHRoYXQgY29kZSBwYXRjaGVkIG91dCBJIGZvdW5kIG91
-dCB0aGF0Cj4gcmViYXIgc3RhdGUgcGVyc2lzdHMgYWNyb3NzIHRoZSByZXNldCB0aGF0IHRoZSB2
-ZW5kb3JfcmVzZXQgbW9kdWxlCj4gZG9lcyAoQkFDTyBJIHRoaW5rKS4KPiAgIAo+IFRoZXJlZm9y
-ZSB0aGUgTGludXggZ3Vlc3Qgc2VlcyB0aGUgZnVsbCA0RyBiYXIgYW5kIGhhcHBpbHkgdXNlcyBp
-dCwKPiB3aGlsZSB0aGUgd2luZG93cyBndWVzdCdzIGRyaXZlciBhcHBhcmVudGx5IGhhcyBhIGJ1
-ZyB3aGVuIHRoZSBiYXIKPiBpcyB0aGF0IGxhcmdlLgo+ICAgCj4gSSBwYXRjaGVkIHRoZSBhbWRn
-cHUgdG8gcmVzaXplIHRoZSBiYXIgdG8gdmFyaW91cyBvdGhlciBzaXplcywgYW5kCj4gdGhlIHdp
-bmRvd3MgZHJpdmVyIGFwcGFyZW50bHkgd29ya3MgdXAgdG8gYSAyR0IgYmFyLgo+ICAgCj4gU28g
-cHJldHR5IG11Y2ggb3RoZXIgdGhhbiBhIGJ1ZyBpbiB0aGUgd2luZG93cyBkcml2ZXIsIGFuZCBm
-YWN0Cj4gdGhhdCBWRklPIGRvZXNuJ3Qgc3VwcG9ydCByZXNpemFibGUgYmFycyB0aGVyZSBpcyBu
-b3RoaW5nIHdyb25nIGhlcmUuCj4gICAKPiBTaW5jZSBteSBzeXN0ZW0gZG9lcyBzdXBwb3J0IGFi
-b3ZlIDRHIGRlY29kaW5nIGFuZCBJIGRvIGhhdmUgYSBuaWNlCj4gdmZpbyBmcmllbmRseSBkZXZp
-Y2UgdGhhdCBkb2VzIHN1cHBvcnQgYSByZXNpemFibGUgYmFyLCBJIGRvIHZvbHVudGVlcgo+IHRv
-IGFkZCBzdXBwb3J0IGZvciB0aGlzIHRvIFZGSU8gYXMgdGltZSBhbmQgcmVzb3VyY2VzIHBlcm1p
-dC4KPiAgIAo+IEFsc28gaXQgd291bGQgYmUgbmljZSBpZiBpdCB3YXMgZWl0aGVyIHBvc3NpYmxl
-IHRvIG1ha2UgYW1kZ3B1Cj4gKG9yIHRoZSB3aG9sZSBzeXN0ZW0pIG9wdGlvbmFsbHkgYXZvaWQg
-cmVzaXppbmcgYmFycyB3aGVuIGEKPiBrZXJuZWwgY29tbWFuZCBsaW5lIC8gbW9kdWxlIHBhcmFt
-IGlzIGdpdmVuLAo+IG9yIGV2ZW4gYmV0dGVyIGxldCB0aGUgYW1kZ3B1IHJlc2l6ZSB0aGUgYmFy
-IHRvIGl0cyBvcmlnaW5hbAo+IHNpemUgd2hlbiBpdCBpcyB1bmxvYWRlZCB3aGljaCBJTUhPIGlz
-IHRoZSBiZXN0IHNvbHV0aW9uCj4gZm9yIHRoaXMgcHJvYmxlbS4KPiAgIAo+IEkgdGhpbmsgSSBj
-YW4gcHJlcGFyZSBhIHBhdGNoIHRvIG1ha2UgYW1kZ3B1IHJlc3RvcmUKPiB0aGUgYmFyIHNpemUg
-b24gdW5sb2FkIGlmIHlvdSB0aGluayB0aGF0Cj4gdGhpcyBpcyB0aGUgcmlnaHQgc29sdXRpb24u
-CgpDb21pbmcgYmFjayB0byB0aGlzIHRvcGljIG5vdywgc29ycnkgYmVlbiBhIGJpdCBidXN5IG92
-ZXIgdGhlIGxhc3QgZmV3IGRheXMuCgpCYXNpY2FsbHkgSSBkb24ndCB0aGluayB0aGF0IGFtZGdw
-dSBzaG91bGQgZG8gYW55dGhpbmcgd2hlbiBpdCBxdWl0cy4KCldoYXQgeW91IHNob3VsZCByYXRo
-ZXIgZG8gaXMgdG8gcmVzaXplIHRoZSBCQVIgdG8gdGhlIGRlZmF1bHQgdmFsdWUgb2YgCnRoZSBC
-SU9TIHdoZW4geW91IHRyaWdnZXIgdGhlIGRldmljZSByZXNldC4KCj4+PiBJdCBzaG91bGQgYmUg
-dHJpdmlhbCB0byBhZGQgdGhpcyB0byB0aGUgcmVzZXQgbW9kdWxlIGFzIHdlbGwuIE1vc3QKPj4+
-IGxpa2VseSBldmVuIGNvbXBsZXRlbHkgdmVuZG9yIGluZGVwZW5kZW50IHNpbmNlIEknbSBub3Qg
-c3VyZSB3aGF0IGEgYnVzCj4+PiByZXNldCB3aWxsIGRvIHRvIHRoaXMgY29uZmlndXJhdGlvbiBh
-bmQgcmVzdG9yaW5nIGl0IGFsbCB0aGUgdGltZSBzaG91bGQKPj4+IGJlIHRoZSBtb3N0IGRlZmVu
-c2l2ZSBhcHByb2FjaC4KPj4gSG1tLCB0aGlzIHNob3VsZCBhbHJlYWR5IGJlIHVzZWQgYnkgdGhl
-IGJ1cy9zbG90IHJlc2V0IHBhdGg6Cj4+Cj4+IHBjaV9idXNfcmVzdG9yZV9sb2NrZWQoKS9wY2lf
-c2xvdF9yZXN0b3JlX2xvY2tlZCgpCj4+ICAgcGNpX2Rldl9yZXN0b3JlKCkKPj4gICAgcGNpX3Jl
-c3RvcmVfc3RhdGUoKQo+PiAgICAgcGNpX3Jlc3RvcmVfcmViYXJfc3RhdGUoKQo+Pgo+PiBWRklP
-IHN1cHBvcnQgZm9yIHJlc2l6ZWFibGUgQkFScyBoYXMgYmVlbiBvbiBteSB0b2RvIGxpc3QsIGJ1
-dCBJIGRvbid0Cj4+IGhhdmUgYWNjZXNzIHRvIGFueSBzeXN0ZW1zIHRoYXQgaGF2ZSBib3RoIGEg
-Y2FwYWJsZSBkZXZpY2UgYW5kID40Rwo+PiBkZWNvZGluZyBlbmFibGVkIGluIHRoZSBCSU9TLiAg
-SWYgd2UgaGF2ZSBhIGNvbnNpc3RlbnQgdmlldyBvZiB0aGUgQkFSCj4+IHNpemUgYWZ0ZXIgdGhl
-IEJBUnMgYXJlIGV4cGFuZGVkLCBJJ20gbm90IHN1cmUgd2h5IGl0IGRvZXNuJ3QganVzdAo+PiB3
-b3JrLiAgRldJVywgUUVNVSBjdXJyZW50bHkgaGlkZXMgdGhlIFJFQkFSIGNhcGFiaWxpdHkgdG8g
-dGhlIGd1ZXN0Cj4+IGJlY2F1c2UgdGhlIGtlcm5lbCBkcml2ZXIgZG9lc24ndCBzdXBwb3J0IGVt
-dWxhdGlvbiB0aHJvdWdoIGNvbmZpZwo+PiBzcGFjZSAoaWUuIGl0J3MgcmVhZC1vbmx5LCB3aGlj
-aCB0aGUgc3BlYyBkb2Vzbid0IHN1cHBvcnQpLgo+Pgo+PiBBSVVJLCByZXNvdXJjZSBhbGxvY2F0
-aW9uIGNhbiBmYWlsIHdoZW4gZW5hYmxpbmcgUkVCQVIgc3VwcG9ydCwgd2hpY2gKPj4gaXMgYSBw
-cm9ibGVtIGlmIHRoZSBmYWlsdXJlIG9jY3VycyBvbiB0aGUgaG9zdCBidXQgbm90IHRoZSBndWVz
-dCBzaW5jZQo+PiB3ZSBoYXZlIG5vIG1lYW5zIHZpYSB0aGUgaGFyZHdhcmUgcHJvdG9jb2wgdG8g
-ZXhwb3NlIHN1Y2ggYSBjb25kaXRpb24uCj4+IFRoZXJlZm9yZSB0aGUgbW9kZWwgSSB3YXMgY29u
-c2lkZXJpbmcgZm9yIHZmaW8tcGNpIHdvdWxkIGJlIHRvIHNpbXBseQo+PiBwcmUtZW5hYmxlIFJF
-QkFSIGF0IHRoZSBtYXggc2l6ZS4gIEl0IG1pZ2h0IGJlIHN1ZmZpY2llbnRseSBzYWZlIHRvCj4+
-IHRlc3QgQkFSIGV4cGFuc2lvbiBvbiBpbml0aWFsaXphdGlvbiBhbmQgdGhlbiBhbGxvdyB1c2Vy
-IGNvbnRyb2wsIGJ1dAo+PiBJJ20gY29uY2VybmVkIHRoYXQgcmVzb3VyY2UgYXZhaWxhYmlsaXR5
-IGNvdWxkIGNoYW5nZSB3aGlsZSBhbHJlYWR5IGluCj4+IHVzZSBieSB0aGUgdXNlci4gIFRoYW5r
-cywKPiBBcyBtZW50aW9uZWQgaW4gb3RoZXIgcmVwbGllcyBpbiB0aGlzIHRocmVhZCBhbmQgd2hh
-dCBteSBmaXJzdAo+IHRob3VnaHQgYWJvdXQgdGhpcywgdGhpcyB3aWxsIGluZGVlZCB3aWxsIGJy
-ZWFrIG9uIGRldmljZXMgd2hpY2gKPiBkb24ndCBhY2N1cmF0ZWx5IHJlcG9ydCB0aGUgbWF4aW11
-bSBiYXIgc2l6ZSB0aGF0IHRoZXkgYWN0dWFsbHkgbmVlZC4KPiBFdmVuIHRoZSBzcGVjIGl0c2Vs
-ZiBzYXlzIHRoYXQgaXQgaXMgdmVuZG9yIHNwZWNpZmljIHRvIGRldGVybWluZSB0aGUKPiBvcHRp
-bWFsIGJhciBzaXplLgo+Cj4gV2UgY2FuIGFsc28gYWxsb3cgZ3Vlc3QgdG8gcmVzaXplIHRoZSBi
-YXIgYW5kIGlmIHRoYXQgZmFpbHMsCj4gZXhwb3NlIHRoZSBlcnJvciB2aWEgYSB2aXJ0dWFsIEFF
-UiBtZXNzYWdlIG9uIHRoZSByb290IHBvcnQKPiB3aGVyZSB0aGUgZGV2aWNlIGlzIGF0dGFjaGVk
-PwoKU291bmRzIGxpa2UgaXQgbWlnaHQgd29yayBpbiB0aGVvcnksIGJ1dCBJJ20gbm90IGFuIGV4
-cGVydCBmb3IgS1ZNLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IEkgcGVyc29uYWxseSBkb24n
-dCBrbm93IGlmIHRoaXMgaXMgcG9zc2libGUvd29ydGggaXQuCj4KPgo+IEJlc3QgcmVnYXJkcywK
-PiAJTWF4aW0gTGV2aXRza3kKPgo+PiBBbGV4Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0752015356==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="bxF4bx0Z4FsrJm9ZlyjCENABg7VfzCxqU"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--bxF4bx0Z4FsrJm9ZlyjCENABg7VfzCxqU
+Content-Type: multipart/mixed; boundary="iMJyl0HU3uEFZbtC4DSVZw9PwcP85TNwO";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Maxime Ripard <maxime@cerno.tech>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Eric Anholt <eric@anholt.net>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org
+Message-ID: <22d7f493-eb5f-22b3-a232-867b31a50559@suse.de>
+Subject: Re: [PATCH 01/10] drm/atomic: Pass the full state to planes async
+ atomic check and update
+References: <20210115125703.1315064-1-maxime@cerno.tech>
+In-Reply-To: <20210115125703.1315064-1-maxime@cerno.tech>
+
+--iMJyl0HU3uEFZbtC4DSVZw9PwcP85TNwO
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 15.01.21 um 13:56 schrieb Maxime Ripard:
+> The current atomic helpers have either their object state being passed =
+as
+> an argument or the full atomic state.
+>=20
+> The former is the pattern that was done at first, before switching to t=
+he
+> latter for new hooks or when it was needed.
+>=20
+> Let's start convert all the remaining helpers to provide a consistent
+> interface, starting with the planes atomic_async_check and
+> atomic_async_update.
+>=20
+> The conversion was done using the coccinelle script below, built tested=
+ on
+> all the drivers.
+>=20
+> @@
+> identifier plane, plane_state;
+> symbol state;
+> @@
+>=20
+>   struct drm_plane_helper_funcs {
+>   	...
+> 	int (*atomic_async_check)(struct drm_plane *plane,
+> -				  struct drm_plane_state *plane_state);
+> +				  struct drm_atomic_state *state);
+> 	...
+>   }
+>=20
+> @@
+> identifier plane, plane_state;
+> symbol state;
+> @@
+>   struct drm_plane_helper_funcs {
+>   	...
+> 	void (*atomic_async_update)(struct drm_plane *plane,
+> -				    struct drm_plane_state *plane_state);
+> +				    struct drm_atomic_state *state);
+> 	...
+>   }
+>=20
+> @ plane_atomic_func @
+> identifier helpers;
+> identifier func;
+> @@
+>=20
+> (
+>   static const struct drm_plane_helper_funcs helpers =3D {
+> 	...,
+>   	.atomic_async_check =3D func,
+> 	...,
+>   };
+> |
+>   static const struct drm_plane_helper_funcs helpers =3D {
+>   	...,
+>   	.atomic_async_update =3D func,
+>   	...,
+>   };
+> )
+>=20
+> @@
+> struct drm_plane_helper_funcs *FUNCS;
+> identifier f;
+> identifier dev;
+> identifier plane, plane_state, state;
+> @@
+>=20
+>   f(struct drm_device *dev, struct drm_atomic_state *state)
+>   {
+>   	<+...
+> -	FUNCS->atomic_async_check(plane, plane_state)
+> +	FUNCS->atomic_async_check(plane, state)
+>   	...+>
+>   }
+>=20
+> @@
+> struct drm_plane_helper_funcs *FUNCS;
+> identifier f;
+> identifier dev;
+> identifier plane, plane_state, state;
+> @@
+>=20
+>   f(struct drm_device *dev, struct drm_atomic_state *state)
+>   {
+>   	<+...
+> -	FUNCS->atomic_async_update(plane, plane_state)
+> +	FUNCS->atomic_async_update(plane, state)
+>   	...+>
+>   }
+>=20
+> @@
+> identifier mtk_plane_atomic_async_update;
+> identifier plane;
+> symbol new_state, state;
+> expression e;
+> @@
+>=20
+>    void mtk_plane_atomic_async_update(struct drm_plane *plane, struct d=
+rm_plane_state *new_state)
+> {
+>    ...
+> - struct mtk_plane_state *state =3D e;
+> + struct mtk_plane_state *new_plane_state =3D e;
+>    <+...
+> -       state
+> +       new_plane_state
+>    ...+>
+>    }
+>=20
+> @@
+> identifier plane_atomic_func.func;
+> identifier plane;
+> symbol state;
+> @@
+>=20
+>   func(struct drm_plane *plane,
+> -    struct drm_plane_state *state)
+> +    struct drm_plane_state *new_plane_state)
+>   {
+> 	<...
+> -	state
+> +	new_plane_state
+> 	...>
+>   }
+>=20
+> @ ignores_new_state @
+> identifier plane_atomic_func.func;
+> identifier plane, new_plane_state;
+> @@
+>=20
+>   func(struct drm_plane *plane, struct drm_plane_state *new_plane_state=
+)
+>   {
+> 	... when !=3D new_plane_state
+>   }
+>=20
+> @ adds_new_state depends on plane_atomic_func && !ignores_new_state @
+> identifier plane_atomic_func.func;
+> identifier plane, new_plane_state;
+> @@
+>=20
+>   func(struct drm_plane *plane, struct drm_plane_state *new_plane_state=
+)
+>   {
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state, plane);
+>   	...
+>   }
+>=20
+> @ depends on plane_atomic_func @
+> identifier plane_atomic_func.func;
+> identifier plane, plane_state;
+> @@
+>=20
+>   func(struct drm_plane *plane,
+> -     struct drm_plane_state *plane_state
+> +     struct drm_atomic_state *state
+>       )
+>   { ... }
+>=20
+> @ include depends on adds_new_state @
+> @@
+>=20
+>   #include <drm/drm_atomic.h>
+>=20
+> @ no_include depends on !include && adds_new_state @
+> @@
+>=20
+> + #include <drm/drm_atomic.h>
+>    #include <drm/...>
+>=20
+> @@
+> identifier plane_atomic_func.func;
+> identifier plane, state;
+> identifier plane_state;
+> @@
+>=20
+>   func(struct drm_plane *plane, struct drm_atomic_state *state) {
+>          ...
+>          struct drm_plane_state *plane_state =3D drm_atomic_get_new_pla=
+ne_state(state, plane);
+>          <+...
+> -       plane_state->state
+> +       state
+>          ...+>
+>   }
+>=20
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++-
+>   drivers/gpu/drm/drm_atomic_helper.c           |  4 +-
+>   drivers/gpu/drm/mediatek/mtk_drm_plane.c      | 26 +++++----
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    | 33 ++++++-----
+>   drivers/gpu/drm/rockchip/rockchip_drm_vop.c   | 16 ++++--
+>   drivers/gpu/drm/vc4/vc4_plane.c               | 56 ++++++++++--------=
+-
+>   include/drm/drm_modeset_helper_vtables.h      | 14 ++---
+>   7 files changed, 87 insertions(+), 70 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5675c1f9368a..476bf2e6a4f4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6475,7 +6475,7 @@ static int dm_plane_atomic_check(struct drm_plane=
+ *plane,
+>   }
+>  =20
+>   static int dm_plane_atomic_async_check(struct drm_plane *plane,
+> -				       struct drm_plane_state *new_plane_state)
+> +				       struct drm_atomic_state *state)
+>   {
+>   	/* Only support async updates on cursor planes. */
+>   	if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
+> @@ -6485,10 +6485,12 @@ static int dm_plane_atomic_async_check(struct d=
+rm_plane *plane,
+>   }
+>  =20
+>   static void dm_plane_atomic_async_update(struct drm_plane *plane,
+> -					 struct drm_plane_state *new_state)
+> +					 struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
+state,
+> +									   plane);
+>   	struct drm_plane_state *old_state =3D
+> -		drm_atomic_get_old_plane_state(new_state->state, plane);
+> +		drm_atomic_get_old_plane_state(state, plane);
+>  =20
+>   	trace_amdgpu_dm_atomic_update_cursor(new_state);
+>  =20
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_=
+atomic_helper.c
+> index a84dc427cf82..f9488fd25b1d 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1742,7 +1742,7 @@ int drm_atomic_helper_async_check(struct drm_devi=
+ce *dev,
+>   		return -EBUSY;
+>   	}
+>  =20
+> -	return funcs->atomic_async_check(plane, new_plane_state);
+> +	return funcs->atomic_async_check(plane, state);
+>   }
+>   EXPORT_SYMBOL(drm_atomic_helper_async_check);
+>  =20
+> @@ -1772,7 +1772,7 @@ void drm_atomic_helper_async_commit(struct drm_de=
+vice *dev,
+>   		struct drm_framebuffer *old_fb =3D plane->state->fb;
+>  =20
+>   		funcs =3D plane->helper_private;
+> -		funcs->atomic_async_update(plane, plane_state);
+> +		funcs->atomic_async_update(plane, state);
+>  =20
+>   		/*
+>   		 * ->atomic_async_update() is supposed to update the
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_plane.c b/drivers/gpu/drm=
+/mediatek/mtk_drm_plane.c
+> index 92141a19681b..30ebcfd8832f 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_plane.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_plane.c
+> @@ -77,12 +77,14 @@ static void mtk_drm_plane_destroy_state(struct drm_=
+plane *plane,
+>   }
+>  =20
+>   static int mtk_plane_atomic_async_check(struct drm_plane *plane,
+> -					struct drm_plane_state *state)
+> +					struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state,
+> +										 plane);
+>   	struct drm_crtc_state *crtc_state;
+>   	int ret;
+>  =20
+> -	if (plane !=3D state->crtc->cursor)
+> +	if (plane !=3D new_plane_state->crtc->cursor)
+>   		return -EINVAL;
+>  =20
+>   	if (!plane->state)
+> @@ -91,16 +93,16 @@ static int mtk_plane_atomic_async_check(struct drm_=
+plane *plane,
+>   	if (!plane->state->fb)
+>   		return -EINVAL;
+>  =20
+> -	ret =3D mtk_drm_crtc_plane_check(state->crtc, plane,
+> -				       to_mtk_plane_state(state));
+> +	ret =3D mtk_drm_crtc_plane_check(new_plane_state->crtc, plane,
+> +				       to_mtk_plane_state(new_plane_state));
+>   	if (ret)
+>   		return ret;
+>  =20
+> -	if (state->state)
+> -		crtc_state =3D drm_atomic_get_existing_crtc_state(state->state,
+> -								state->crtc);
+> +	if (state)
+> +		crtc_state =3D drm_atomic_get_existing_crtc_state(state,
+> +								new_plane_state->crtc);
+>   	else /* Special case for asynchronous cursor updates. */
+> -		crtc_state =3D state->crtc->state;
+> +		crtc_state =3D new_plane_state->crtc->state;
+>  =20
+>   	return drm_atomic_helper_check_plane_state(plane->state, crtc_state,=
+
+>   						   DRM_PLANE_HELPER_NO_SCALING,
+> @@ -109,9 +111,11 @@ static int mtk_plane_atomic_async_check(struct drm=
+_plane *plane,
+>   }
+>  =20
+>   static void mtk_plane_atomic_async_update(struct drm_plane *plane,
+> -					  struct drm_plane_state *new_state)
+> +					  struct drm_atomic_state *state)
+>   {
+> -	struct mtk_plane_state *state =3D to_mtk_plane_state(plane->state);
+> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
+state,
+> +									   plane);
+> +	struct mtk_plane_state *new_plane_state =3D to_mtk_plane_state(plane-=
+>state);
+>  =20
+>   	plane->state->crtc_x =3D new_state->crtc_x;
+>   	plane->state->crtc_y =3D new_state->crtc_y;
+> @@ -122,7 +126,7 @@ static void mtk_plane_atomic_async_update(struct dr=
+m_plane *plane,
+>   	plane->state->src_h =3D new_state->src_h;
+>   	plane->state->src_w =3D new_state->src_w;
+>   	swap(plane->state->fb, new_state->fb);
+> -	state->pending.async_dirty =3D true;
+> +	new_plane_state->pending.async_dirty =3D true;
+>  =20
+>   	mtk_drm_crtc_async_update(new_state->crtc, plane, new_state);
+>   }
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/d=
+rm/msm/disp/mdp5/mdp5_plane.c
+> index 83423092de2f..05fa8255caeb 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> @@ -5,6 +5,7 @@
+>    * Author: Rob Clark <robdclark@gmail.com>
+>    */
+>  =20
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_damage_helper.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_print.h>
+> @@ -438,41 +439,43 @@ static void mdp5_plane_atomic_update(struct drm_p=
+lane *plane,
+>   }
+>  =20
+>   static int mdp5_plane_atomic_async_check(struct drm_plane *plane,
+> -					 struct drm_plane_state *state)
+> +					 struct drm_atomic_state *state)
+>   {
+> -	struct mdp5_plane_state *mdp5_state =3D to_mdp5_plane_state(state);
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state,
+> +										 plane);
+> +	struct mdp5_plane_state *mdp5_state =3D to_mdp5_plane_state(new_plane=
+_state);
+>   	struct drm_crtc_state *crtc_state;
+>   	int min_scale, max_scale;
+>   	int ret;
+>  =20
+> -	crtc_state =3D drm_atomic_get_existing_crtc_state(state->state,
+> -							state->crtc);
+> +	crtc_state =3D drm_atomic_get_existing_crtc_state(state,
+> +							new_plane_state->crtc);
+>   	if (WARN_ON(!crtc_state))
+>   		return -EINVAL;
+>  =20
+>   	if (!crtc_state->active)
+>   		return -EINVAL;
+>  =20
+> -	mdp5_state =3D to_mdp5_plane_state(state);
+> +	mdp5_state =3D to_mdp5_plane_state(new_plane_state);
+>  =20
+>   	/* don't use fast path if we don't have a hwpipe allocated yet */
+>   	if (!mdp5_state->hwpipe)
+>   		return -EINVAL;
+>  =20
+>   	/* only allow changing of position(crtc x/y or src x/y) in fast path=
+ */
+> -	if (plane->state->crtc !=3D state->crtc ||
+> -	    plane->state->src_w !=3D state->src_w ||
+> -	    plane->state->src_h !=3D state->src_h ||
+> -	    plane->state->crtc_w !=3D state->crtc_w ||
+> -	    plane->state->crtc_h !=3D state->crtc_h ||
+> +	if (plane->state->crtc !=3D new_plane_state->crtc ||
+> +	    plane->state->src_w !=3D new_plane_state->src_w ||
+> +	    plane->state->src_h !=3D new_plane_state->src_h ||
+> +	    plane->state->crtc_w !=3D new_plane_state->crtc_w ||
+> +	    plane->state->crtc_h !=3D new_plane_state->crtc_h ||
+>   	    !plane->state->fb ||
+> -	    plane->state->fb !=3D state->fb)
+> +	    plane->state->fb !=3D new_plane_state->fb)
+>   		return -EINVAL;
+>  =20
+>   	min_scale =3D FRAC_16_16(1, 8);
+>   	max_scale =3D FRAC_16_16(8, 1);
+>  =20
+> -	ret =3D drm_atomic_helper_check_plane_state(state, crtc_state,
+> +	ret =3D drm_atomic_helper_check_plane_state(new_plane_state, crtc_sta=
+te,
+>   						  min_scale, max_scale,
+>   						  true, true);
+>   	if (ret)
+> @@ -485,15 +488,17 @@ static int mdp5_plane_atomic_async_check(struct d=
+rm_plane *plane,
+>   	 * also assign/unassign the hwpipe(s) tied to the plane. We avoid
+>   	 * taking the fast path for both these reasons.
+>   	 */
+> -	if (state->visible !=3D plane->state->visible)
+> +	if (new_plane_state->visible !=3D plane->state->visible)
+>   		return -EINVAL;
+>  =20
+>   	return 0;
+>   }
+>  =20
+>   static void mdp5_plane_atomic_async_update(struct drm_plane *plane,
+> -					   struct drm_plane_state *new_state)
+> +					   struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
+state,
+> +									   plane);
+>   	struct drm_framebuffer *old_fb =3D plane->state->fb;
+>  =20
+>   	plane->state->src_x =3D new_state->src_x;
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/=
+drm/rockchip/rockchip_drm_vop.c
+> index 8d15cabdcb02..fefeab73ca27 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+> @@ -1021,8 +1021,10 @@ static void vop_plane_atomic_update(struct drm_p=
+lane *plane,
+>   }
+>  =20
+>   static int vop_plane_atomic_async_check(struct drm_plane *plane,
+> -					struct drm_plane_state *state)
+> +					struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state,
+> +										 plane);
+>   	struct vop_win *vop_win =3D to_vop_win(plane);
+>   	const struct vop_win_data *win =3D vop_win->data;
+>   	int min_scale =3D win->phy->scl ? FRAC_16_16(1, 8) :
+> @@ -1031,7 +1033,7 @@ static int vop_plane_atomic_async_check(struct dr=
+m_plane *plane,
+>   					DRM_PLANE_HELPER_NO_SCALING;
+>   	struct drm_crtc_state *crtc_state;
+>  =20
+> -	if (plane !=3D state->crtc->cursor)
+> +	if (plane !=3D new_plane_state->crtc->cursor)
+>   		return -EINVAL;
+>  =20
+>   	if (!plane->state)
+> @@ -1040,9 +1042,9 @@ static int vop_plane_atomic_async_check(struct dr=
+m_plane *plane,
+>   	if (!plane->state->fb)
+>   		return -EINVAL;
+>  =20
+> -	if (state->state)
+> -		crtc_state =3D drm_atomic_get_existing_crtc_state(state->state,
+> -								state->crtc);
+> +	if (state)
+> +		crtc_state =3D drm_atomic_get_existing_crtc_state(state,
+> +								new_plane_state->crtc);
+>   	else /* Special case for asynchronous cursor updates. */
+>   		crtc_state =3D plane->crtc->state;
+>  =20
+> @@ -1052,8 +1054,10 @@ static int vop_plane_atomic_async_check(struct d=
+rm_plane *plane,
+>   }
+>  =20
+>   static void vop_plane_atomic_async_update(struct drm_plane *plane,
+> -					  struct drm_plane_state *new_state)
+> +					  struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(=
+state,
+> +									   plane);
+>   	struct vop *vop =3D to_vop(plane->state->crtc);
+>   	struct drm_framebuffer *old_fb =3D plane->state->fb;
+>  =20
+> diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_=
+plane.c
+> index 6b39cc2ca18d..48fdffebb45f 100644
+> --- a/drivers/gpu/drm/vc4/vc4_plane.c
+> +++ b/drivers/gpu/drm/vc4/vc4_plane.c
+> @@ -1118,32 +1118,34 @@ void vc4_plane_async_set_fb(struct drm_plane *p=
+lane, struct drm_framebuffer *fb)
+>   }
+>  =20
+>   static void vc4_plane_atomic_async_update(struct drm_plane *plane,
+> -					  struct drm_plane_state *state)
+> +					  struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state,
+> +										 plane);
+>   	struct vc4_plane_state *vc4_state, *new_vc4_state;
+>  =20
+> -	swap(plane->state->fb, state->fb);
+> -	plane->state->crtc_x =3D state->crtc_x;
+> -	plane->state->crtc_y =3D state->crtc_y;
+> -	plane->state->crtc_w =3D state->crtc_w;
+> -	plane->state->crtc_h =3D state->crtc_h;
+> -	plane->state->src_x =3D state->src_x;
+> -	plane->state->src_y =3D state->src_y;
+> -	plane->state->src_w =3D state->src_w;
+> -	plane->state->src_h =3D state->src_h;
+> -	plane->state->src_h =3D state->src_h;
+> -	plane->state->alpha =3D state->alpha;
+> -	plane->state->pixel_blend_mode =3D state->pixel_blend_mode;
+> -	plane->state->rotation =3D state->rotation;
+> -	plane->state->zpos =3D state->zpos;
+> -	plane->state->normalized_zpos =3D state->normalized_zpos;
+> -	plane->state->color_encoding =3D state->color_encoding;
+> -	plane->state->color_range =3D state->color_range;
+> -	plane->state->src =3D state->src;
+> -	plane->state->dst =3D state->dst;
+> -	plane->state->visible =3D state->visible;
+> +	swap(plane->state->fb, new_plane_state->fb);
+> +	plane->state->crtc_x =3D new_plane_state->crtc_x;
+> +	plane->state->crtc_y =3D new_plane_state->crtc_y;
+> +	plane->state->crtc_w =3D new_plane_state->crtc_w;
+> +	plane->state->crtc_h =3D new_plane_state->crtc_h;
+> +	plane->state->src_x =3D new_plane_state->src_x;
+> +	plane->state->src_y =3D new_plane_state->src_y;
+> +	plane->state->src_w =3D new_plane_state->src_w;
+> +	plane->state->src_h =3D new_plane_state->src_h;
+> +	plane->state->src_h =3D new_plane_state->src_h;
+> +	plane->state->alpha =3D new_plane_state->alpha;
+> +	plane->state->pixel_blend_mode =3D new_plane_state->pixel_blend_mode;=
+
+> +	plane->state->rotation =3D new_plane_state->rotation;
+> +	plane->state->zpos =3D new_plane_state->zpos;
+> +	plane->state->normalized_zpos =3D new_plane_state->normalized_zpos;
+> +	plane->state->color_encoding =3D new_plane_state->color_encoding;
+> +	plane->state->color_range =3D new_plane_state->color_range;
+> +	plane->state->src =3D new_plane_state->src;
+> +	plane->state->dst =3D new_plane_state->dst;
+> +	plane->state->visible =3D new_plane_state->visible;
+>  =20
+> -	new_vc4_state =3D to_vc4_plane_state(state);
+> +	new_vc4_state =3D to_vc4_plane_state(new_plane_state);
+>   	vc4_state =3D to_vc4_plane_state(plane->state);
+>  =20
+>   	vc4_state->crtc_x =3D new_vc4_state->crtc_x;
+> @@ -1187,23 +1189,25 @@ static void vc4_plane_atomic_async_update(struc=
+t drm_plane *plane,
+>   }
+>  =20
+>   static int vc4_plane_atomic_async_check(struct drm_plane *plane,
+> -					struct drm_plane_state *state)
+> +					struct drm_atomic_state *state)
+>   {
+> +	struct drm_plane_state *new_plane_state =3D drm_atomic_get_new_plane_=
+state(state,
+> +										 plane);
+>   	struct vc4_plane_state *old_vc4_state, *new_vc4_state;
+>   	int ret;
+>   	u32 i;
+>  =20
+> -	ret =3D vc4_plane_mode_set(plane, state);
+> +	ret =3D vc4_plane_mode_set(plane, new_plane_state);
+>   	if (ret)
+>   		return ret;
+>  =20
+>   	old_vc4_state =3D to_vc4_plane_state(plane->state);
+> -	new_vc4_state =3D to_vc4_plane_state(state);
+> +	new_vc4_state =3D to_vc4_plane_state(new_plane_state);
+>   	if (old_vc4_state->dlist_count !=3D new_vc4_state->dlist_count ||
+>   	    old_vc4_state->pos0_offset !=3D new_vc4_state->pos0_offset ||
+>   	    old_vc4_state->pos2_offset !=3D new_vc4_state->pos2_offset ||
+>   	    old_vc4_state->ptr0_offset !=3D new_vc4_state->ptr0_offset ||
+> -	    vc4_lbm_size(plane->state) !=3D vc4_lbm_size(state))
+> +	    vc4_lbm_size(plane->state) !=3D vc4_lbm_size(new_plane_state))
+>   		return -EINVAL;
+>  =20
+>   	/* Only pos0, pos2 and ptr0 DWORDS can be updated in an async update=
+
+> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm=
+_modeset_helper_vtables.h
+> index cbe613858a93..a7141e6e05c5 100644
+> --- a/include/drm/drm_modeset_helper_vtables.h
+> +++ b/include/drm/drm_modeset_helper_vtables.h
+> @@ -1286,7 +1286,7 @@ struct drm_plane_helper_funcs {
+>   	/**
+>   	 * @atomic_async_check:
+>   	 *
+> -	 * Drivers should set this function pointer to check if the plane sta=
+te
+> +	 * Drivers should set this function pointer to check if the atomic st=
+ate
+
+Using 'atomic state' sounds like all of it. I'd keep 'plane state' or=20
+use 'plane's atomic state' to be more precise.
+
+In any case:
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+>   	 * can be updated in a async fashion. Here async means "not vblank
+>   	 * synchronized".
+>   	 *
+> @@ -1300,7 +1300,7 @@ struct drm_plane_helper_funcs {
+>   	 * can not be applied in asynchronous manner.
+>   	 */
+>   	int (*atomic_async_check)(struct drm_plane *plane,
+> -				  struct drm_plane_state *state);
+> +				  struct drm_atomic_state *state);
+>  =20
+>   	/**
+>   	 * @atomic_async_update:
+> @@ -1316,11 +1316,9 @@ struct drm_plane_helper_funcs {
+>   	 * update won't happen if there is an outstanding commit modifying
+>   	 * the same plane.
+>   	 *
+> -	 * Note that unlike &drm_plane_helper_funcs.atomic_update this hook
+> -	 * takes the new &drm_plane_state as parameter. When doing async_upda=
+te
+> -	 * drivers shouldn't replace the &drm_plane_state but update the
+> -	 * current one with the new plane configurations in the new
+> -	 * plane_state.
+> +	 * When doing async_update drivers shouldn't replace the
+> +	 * &drm_plane_state but update the current one with the new plane
+> +	 * configurations in the new plane_state.
+>   	 *
+>   	 * Drivers should also swap the framebuffers between current plane
+>   	 * state (&drm_plane.state) and new_state.
+> @@ -1339,7 +1337,7 @@ struct drm_plane_helper_funcs {
+>   	 *    for deferring if needed, until a common solution is created.
+>   	 */
+>   	void (*atomic_async_update)(struct drm_plane *plane,
+> -				    struct drm_plane_state *new_state);
+> +				    struct drm_atomic_state *state);
+>   };
+>  =20
+>   /**
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--iMJyl0HU3uEFZbtC4DSVZw9PwcP85TNwO--
+
+--bxF4bx0Z4FsrJm9ZlyjCENABg7VfzCxqU
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmABmdAFAwAAAAAACgkQlh/E3EQov+A2
+cw//Sch12E2t8C0cknT7Vx9nNPJGXhOJ9vDUGBOQ7cycO96Bnhi+KYW2e3iH1JhmLcnYZ4drUNV0
+sr+9/yOS3QH1ONwwzJBUCDyHKrloKGo2kFJHufEn//i/+OV4o/ssC63YwHkF6UKIk6nu3dE+jAnD
+Wql7zRkVZc1Iwu3hm8itLm0j0+VEB59XwBLM9r/0fEaIdcuZ0/p68iITZuzcCCVB9Ly2fvPJ6FWl
+9m5cEVG3j8KfnftDctiZywlbyofHLB8rFDjngwYJ58ppG1f6EEuXkrcmh+gsBNyhAV4NP8hyXk+n
+RrkSauYh4l5lZoG2YU36hTVb4Ra0IBqgFdF2opPVjs5i8BjOmsD8TG5tI68aRzu3VKDk7bz0nkF+
+8gp6hImbc1vGMaGJVAPm/Tyr11RTHXBbwYSBMRQcWv5VFbJFI2ZoMlxR599Y/iOTXXy29DBIfb5A
+dUtryjK9k94Iz6rAKJfLc57ooVR8izpCeybfBw/7FlG1dCu1HpyepeYf4oJf9a9+buq9khUmhXzC
+2vNvrKTC/Nv5vY29InS2+CiFL9+tPdqos9nPTz2R/8Jzia4aSFDUr/AHPwXR+8vaPzf7b0Xpv42v
+pHKKAJhs22EbccctHzWW31bwWOtRgZ+Es6X75roP2FBxxswA4kIryHQHA358G+hBiCnTWbNOE3e5
+S0o=
+=lMDt
+-----END PGP SIGNATURE-----
+
+--bxF4bx0Z4FsrJm9ZlyjCENABg7VfzCxqU--
+
+--===============0752015356==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0752015356==--
