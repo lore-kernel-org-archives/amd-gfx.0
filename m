@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE9DBC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 17:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC7AEC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 17:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6901E20643
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 17:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6901E20643
+	by mail.kernel.org (Postfix) with ESMTPS id A579C20643
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Jan 2021 17:30:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A579C20643
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E732C6E0CA;
-	Fri, 15 Jan 2021 17:29:52 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760070.outbound.protection.outlook.com [40.107.76.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F2066E45D
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 17:29:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170F689381;
+	Fri, 15 Jan 2021 17:30:17 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2048.outbound.protection.outlook.com [40.107.100.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7E289381
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Jan 2021 17:30:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cTZ843/aIWzH74a2XHt+A80K/H7HdnSEeXG1Nspoo7Cb51AHoKLUXVfkGpaw7N3mMkjI/GSq7QnpZIrAJAXkFFI9Os2iK/T5hWt0sWHKyQxzlNp4d2aD8AwnSzcci9fOcZAdEKF/DTQ2/bcSlB9jD7hbbob5gp9M0RCiKJ9r4E9YUyq6ekc92doP3eZ1vtn9uCj1ERr6BMTVB5UPvxSHhUPW3ZXeawGBgZHOpS6boSsPo96YTGkClRKznpN4DKfLeZJWXdQxaKoYAtDleyiYtacl3vt3bPNu6M4LuFD/a3HSOgoh109LlBC2Vjz9VSR4h6iKnmex44eBayr1gHn27w==
+ b=fPq7AWnt4mJcbc4e7+PLxsUgune2S6f7AaeARTnI2QaZbLtP1DVKlLqLeXf5Asd29WteKhs91uOZs1/Gh1YAbDZ/9CrWv07Y6iUPjB06EiWhOOKRMOvQXj9znedA9lv4m/ZA6F16E8a+jE00xXxyCu5ZPvNdv6mpvVcDVtYxULPh/Ps+qYoht1klTWEi7DrLaiahm0Dldr1MaTsabb7WlUz++hJuww8FOtLNdGf9XhlobxaN2k+b1gSHupgDFitrqgfK6wSFnrna+PuWW3Hc+PXi+T+zRX67GhMM0zQO1qD4PhG4m8H0JzqWz5JF5u2KXWek11SgkwCd1DSS1yhglA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9woU+Yb3RWUg3pQy8oxa4ornqZPRknDWKijKZHiiql8=;
- b=il9YskyzW0nqJ39jRJpffFIcSDnOcdHWrgwjr0F4lDRsGQ0NhjKWPkvog5uVt5Y2kLxT3X6Qi0bI/p8bDoiFm91qQf7WcTtWNTLAsnwx3+wSISVrtsOFe3Ta3NM5I/bU7J2yjxgAKDUu1rmmIb5zE1yNg7+zwOMzsa6LFVK5myQohoGDGZjwIU/LKNno9SI2biiJO09Gl13gsT1s80PfdKn20Qb1xZkedfjjV1BAc1bxjMWs6Ttzl+EbsnDhzhT5CfWPHOCtRPHchYaN+i61KZ8aRi8Rrth6Piinxn+hDm5baNXdVqOctr4Dcv2BvXqCBk2ZpLs2ZTmNJUdXAfJeVw==
+ bh=E95O/6dIbpJ4PcYriq9qPB8HZ2gY/llByBj8z0CCGTI=;
+ b=ax46IWbMODZ60AacdOblXaPHwGZVv8ETzpJsG6Rtl9WRmO+C5akGcI4WfgdkIoYB9xoEyhq3uKBk7m+eD1HOz/0tgaCatwnaXMgL0Wndf1n+OQwLAaZmbpD3cBRBaGPlMSJtfqZo6iY4CYu4cC/SNNGzYZcATWh2/mXH/Me9h+HT7NmXKvBnaJCJjvUv6+qGXO1erddPS3QKkeZ/EMpFno6fjK6CKjLI65bKdK6kFH6tb1VufVJ/qwQ51xbTmfpfK/B0xZOdhEIVgDoSMcVW6K2MmV3karQzB0lUoIRfhn4sxGHxTzR+78pyFcZyYa0TzHkN03Qi2Eq1U1eh2mY0/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9woU+Yb3RWUg3pQy8oxa4ornqZPRknDWKijKZHiiql8=;
- b=2ElYwcT7ISn0Wxd6vKyB3FslBW0M7sR+prFGHdDYUM2sZ3QN3Sa0Zof0r7DYdEHVqH9THdg7qiaULtTao2SdyF41/AkfFoJOOKw03wuDsy/zql6dcaXfmcoc2QKb2m0zQQR2Nm/W8e6CS215dLbsoFnk1VH36rLg0ixDiKkfNBA=
-Received: from DS7PR03CA0176.namprd03.prod.outlook.com (2603:10b6:5:3b2::31)
- by BY5PR12MB4802.namprd12.prod.outlook.com (2603:10b6:a03:1fc::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Fri, 15 Jan
- 2021 17:29:47 +0000
-Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b2:cafe::46) by DS7PR03CA0176.outlook.office365.com
- (2603:10b6:5:3b2::31) with Microsoft SMTP Server (version=TLS1_2,
+ bh=E95O/6dIbpJ4PcYriq9qPB8HZ2gY/llByBj8z0CCGTI=;
+ b=vTnVlBzrY2iK4xcJgKYM1MgpcM8sA1WqUuPkrVLaY0hoLb2wDpWs1jkNK5hqUqgSFb6w5o7vc28dmKC+ETB0BOgyD7yh5lPkYVxd7SrQhZsSkFRBTrfcXU0xjkjk7WmbWcm+MXqMmcosPj/K6SmPugEntHzumsdO0wS2vP0RRRE=
+Received: from DM5PR2001CA0004.namprd20.prod.outlook.com (2603:10b6:4:16::14)
+ by BY5PR12MB3924.namprd12.prod.outlook.com (2603:10b6:a03:1af::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9; Fri, 15 Jan
+ 2021 17:30:13 +0000
+Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:16:cafe::ec) by DM5PR2001CA0004.outlook.office365.com
+ (2603:10b6:4:16::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9 via Frontend
- Transport; Fri, 15 Jan 2021 17:29:47 +0000
+ Transport; Fri, 15 Jan 2021 17:30:13 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -56,22 +56,25 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3763.12 via Frontend Transport; Fri, 15 Jan 2021 17:29:45 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ 15.20.3763.12 via Frontend Transport; Fri, 15 Jan 2021 17:30:11 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 15 Jan
- 2021 11:29:41 -0600
+ 2021 11:30:08 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 15 Jan
+ 2021 11:30:08 -0600
 Received: from ajacob-ThinkPad-X250.amd.com (10.180.168.240) by
  SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 15 Jan 2021 11:29:30 -0600
+ via Frontend Transport; Fri, 15 Jan 2021 11:30:02 -0600
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/16] drm/amd/display: Fixed corruptions on HPDRX link loss
- restore
-Date: Fri, 15 Jan 2021 12:27:01 -0500
-Message-ID: <20210115172714.126866-2-Anson.Jacob@amd.com>
+Subject: [PATCH 02/16] drm/amd/display: disable FEC while using eDP
+Date: Fri, 15 Jan 2021 12:27:03 -0500
+Message-ID: <20210115172714.126866-3-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210115172714.126866-1-Anson.Jacob@amd.com>
 References: <20210115172714.126866-1-Anson.Jacob@amd.com>
@@ -79,27 +82,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bf739d63-cff4-4b9d-3fae-08d8b97b2707
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4802:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB480212B52C1365D101EAFE85EBA70@BY5PR12MB4802.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1169;
+X-MS-Office365-Filtering-Correlation-Id: 08c9d0e4-4b44-45da-d138-08d8b97b3623
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3924:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3924FA389520F30CB7B64CE0EBA70@BY5PR12MB3924.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: isAEliWeLjPA4cCVPQBDzLkahEW5KM7Kc+D5GHfiTKc50doLfNWRf7TdxTA49c0lUF12gEB0XiNNlP1ijVnDHD54GNU8OfanFTjzUshfwdSh/bfmJcr7v+S3Q0vDD4fDczxqjyKPjn1iiv2KrHTwp5YioRUoJ+sLp9RIjVPoD7y6oKS1tvziVhT1KOoFvXyUVjXkQHeAEfgYOuNJ0KW45glZL5QKlBOBCdh5qlOJ+jVoi23/FtxhZnlxEtIae6f2xMrJRxo89Y5ura/4/BjEWC2stFO0BKP2dkR2tBk5cHgla6yZvnJG4LdvrhCf95Ur0XPT2Atc0lPxMa3UkvjrXNN6qj+p1VEfYu0JyMY666jKpwtXU77verxFkfL5ZmZKe3sOdBwoF2BdZ4YQ0XiHNsIKFLDdjKr9UPsZtbTWYibvxHeDoY/zd0TwvpHGWIhDgV3i566iDDTiTyvS5uoEtKQBzMOpq687bR9Y7diVCAWu4Jh/GvE2hLjiEHl3vmLG
+X-Microsoft-Antispam-Message-Info: PrflJAaCBtAiRrjOKFmKAUKltAS3QyZQMnofRCGsMtoO8NBiJVJ2jmfk8TJlVLJH5PmQ+eSnwiXrLZaLklDDLW+kOOfCprj3Q6Mzs+O4bA9wW65R057WdVwvSiXK6CThPwwvV1kmo3nQxOQgu7Vvx4eZOWS4hxGwXgPSJrVDomxlloiJSVvoakG/ZDOG6XrG/Z7A3G6sR0v+geEEgVfRHF4Febs39OEwDoWc/wWtG+Sn20vWpr99csslJl84l405MXON/Oib45XSFdPuZlUVm8aPR8qsvfl3Ow0EelXASsaJgU4zewKCMOYVjrC799KFdSuj20lolxD4e9yBupV8oKCvnnI17f6pL6ayB5wD/aQtqRWa1Z7D7xAOs7OgLClAndU1+GlaiunDDwWBaUv/oOxrPoAshIp2QhAL5VaRZ+7Q+WnI0n5BOI+XHJdCbzF1Qpx8oGBJm0AA7ny9Kyrps3Dz86qLVaeHroWK/ccKz7M31LRvOWgsl3Juv6cuancL
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(46966006)(70586007)(70206006)(336012)(1076003)(83380400001)(34020700004)(2616005)(186003)(86362001)(5660300002)(82740400003)(426003)(8936002)(26005)(2906002)(356005)(316002)(6666004)(36756003)(7696005)(47076005)(81166007)(54906003)(8676002)(4326008)(82310400003)(6916009)(478600001);
+ SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(46966006)(83380400001)(54906003)(6916009)(26005)(47076005)(86362001)(186003)(7696005)(36756003)(478600001)(5660300002)(82310400003)(8936002)(4326008)(426003)(1076003)(336012)(316002)(2906002)(8676002)(356005)(81166007)(70206006)(70586007)(82740400003)(2616005)(34020700004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 17:29:45.8908 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf739d63-cff4-4b9d-3fae-08d8b97b2707
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 17:30:11.2428 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08c9d0e4-4b44-45da-d138-08d8b97b3623
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4802
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3924
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,54 +114,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vladimir Stempen <Vladimir.Stempen@amd.com>, Aric Cyr <Aric.Cyr@amd.com>,
- Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Anson Jacob <anson.jacob@amd.com>, Aurabindo.Pillai@amd.com,
+ Nikola Cornij <Nikola.Cornij@amd.com>, Anson Jacob <anson.jacob@amd.com>,
+ Aurabindo.Pillai@amd.com, Mike Hsieh <chun-wei.hsieh@amd.com>,
  Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vladimir Stempen <vladimir.stempen@amd.com>
+From: Mike Hsieh <chun-wei.hsieh@amd.com>
 
-[why]
-Heavy corruption or blank screen reported on wake,
-with 6k display connected and FEC enabled
+[Why]
+FEC over eDP support is incomplete.
 
-[how]
-When Disable/Enable stream for display pipes on HPDRX,
-DC should take into account ODM split pipes.
+[How]
+Disable FEC over eDP.
 
-Signed-off-by: Vladimir Stempen <Vladimir.Stempen@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Signed-off-by: Mike Hsieh <chun-wei.hsieh@amd.com>
+Reviewed-by: Nikola Cornij <Nikola.Cornij@amd.com>
 Acked-by: Anson Jacob <anson.jacob@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index b2d859f32d54..5064c216b26a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -3045,14 +3045,14 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
- 		for (i = 0; i < MAX_PIPES; i++) {
- 			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
- 			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
--					pipe_ctx->stream->link == link)
-+					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
- 				core_link_disable_stream(pipe_ctx);
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 4f58a5c43548..c7d6ceb8fed8 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -3700,9 +3700,10 @@ bool dc_link_should_enable_fec(const struct dc_link *link)
+ 	bool is_fec_disable = false;
+ 	bool ret = false;
  
- 		for (i = 0; i < MAX_PIPES; i++) {
- 			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
- 			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
--					pipe_ctx->stream->link == link)
-+					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
- 				core_link_enable_stream(link->dc->current_state, pipe_ctx);
- 		}
+-	if (link->connector_signal != SIGNAL_TYPE_DISPLAY_PORT_MST &&
++	if ((link->connector_signal != SIGNAL_TYPE_DISPLAY_PORT_MST &&
+ 			link->local_sink &&
+-			link->local_sink->edid_caps.panel_patch.disable_fec)
++			link->local_sink->edid_caps.panel_patch.disable_fec) ||
++			link->connector_signal == SIGNAL_TYPE_EDP) // Disable FEC for eDP
+ 		is_fec_disable = true;
  
+ 	if (dc_link_is_fec_supported(link) && !link->dc->debug.disable_fec && !is_fec_disable)
 -- 
 2.25.1
 
