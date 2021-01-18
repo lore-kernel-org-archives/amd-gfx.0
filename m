@@ -2,46 +2,128 @@ Return-Path: <SRS0=twpl=GV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.4 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C17EC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49F9EC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A67E22472
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:41:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A67E22472
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id EF70D22C9C
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 14:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF70D22C9C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F4DE6E3BB;
-	Mon, 18 Jan 2021 14:41:00 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B60946E25A;
- Mon, 18 Jan 2021 14:40:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3F1C6B812;
- Mon, 18 Jan 2021 14:40:58 +0000 (UTC)
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-References: <20210107080748.4768-1-tzimmermann@suse.de>
- <20210107080748.4768-3-tzimmermann@suse.de>
- <324f0bd9-7430-f42e-1170-4dbfc06ea904@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 2/8] drm/amdgpu: Remove references to struct
- drm_device.pdev
-Message-ID: <5ce5f636-d428-c611-9db1-3172de2d56d2@suse.de>
-Date: Mon, 18 Jan 2021 15:40:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD776E2C7;
+	Mon, 18 Jan 2021 14:53:23 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFD296E2C7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 14:53:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ogLA3pwOd4P7NGklI267XTaLjeP7DfHEwIf4BxtKRfC40oXv1m3zoeJUVgpRGgVc8i5jTXvOL/FMZHcng0alLPf8pUWmORvS2hGdbZGfeBcVILy8nBP0b8Q69iRNT4+eUrxSanToOS4TOWSYkx58II676C8JSY4nnKwrP7Jjg5eOHl/e7+YoOCdQ/8moXu6MMZVE/vLNroiKlO66gVmWcT3RO+zI/SWvbf6sPHJMxkCSl3H8G5mkDNIVmBs5yR26yexZSBL7ucZ1gI6XtrfzD3Ml2Z9NELIiniN2IherU60HAUXVEEJ8d+o45FXFJZ/PRi9ytR9TpChU7QX1UNhgmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HCfMcOXYzqQftZ+B1I+6tb+MLCGe+YmQCMatSFNFK+U=;
+ b=C5zaSvCLYYiBx1VQskC15Iwrk6/LBP/xPuXMP59uXhNin19pNywwFy8zyT6TVcWQA103D1u5anF/kjdAms2egebS72MgKCQGWWArBdV7JCR0Ot5DgQTECL+9MrY861TYZhhBfzCBVy8hbkvf6F513LsdAUmqMtPctI9aTNqxkzEjbtLr6dJpg7RREpuSkcPBX5qlUal4XUY009bC7VUFS+1jtpyHnqfqvwTCHdNjEnoUKDfpdcRc/FrvpZ/RugTl2YFoctD50jYFK0LEVOPHSmbCO/YLJq5SsJs6QhXYd0Rl+y1ZzMzL5Js9vk/diSW6kRAIB5hfB1AGOcoG9BcStQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HCfMcOXYzqQftZ+B1I+6tb+MLCGe+YmQCMatSFNFK+U=;
+ b=zgADdaRTc255aEHjggnLv8fxk0Tx0RYFkDm+LD/wDblfsu7mcdg1BWuQsYZSKLbtesevj834/Tmx8i7kaWwMHfoPQY6yLOs+aypcCDCjS4quYGzMIjQw2zchcWp7Hqj67emUoR/kj70xYi2H5Fvzv0no4UxICIyQt9SQaUbx0gY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4536.namprd12.prod.outlook.com (2603:10b6:208:263::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.13; Mon, 18 Jan
+ 2021 14:53:20 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3763.014; Mon, 18 Jan 2021
+ 14:53:20 +0000
+Subject: Re: [PATCH 1/1] drm/amdkfd: Enable userptr support when KFD is enabled
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210115182423.32368-1-Felix.Kuehling@amd.com>
+ <a4af46c0-f33e-d93a-4eae-bee52892e8bf@gmail.com>
+ <b94a787c-f7f2-1141-c7df-c0950f8d1904@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <30326fb3-a772-e297-af3f-bfb970bcf275@amd.com>
+Date: Mon, 18 Jan 2021 15:53:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <b94a787c-f7f2-1141-c7df-c0950f8d1904@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM4PR0701CA0019.eurprd07.prod.outlook.com
+ (2603:10a6:200:42::29) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-In-Reply-To: <324f0bd9-7430-f42e-1170-4dbfc06ea904@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM4PR0701CA0019.eurprd07.prod.outlook.com (2603:10a6:200:42::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.4 via Frontend
+ Transport; Mon, 18 Jan 2021 14:53:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2c94d377-5a3c-4bc8-af78-08d8bbc0cbd8
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4536:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB45366BA176740281E378700283A40@MN2PR12MB4536.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TDXyQWEQtatAvs2Hgke81lcK+X595B5LWHFEHr7L85N1vt2cp/OnyLbOsGN5GWHK/wZf7jhAYlkWn9V85xOgBYeu4q19wPKn3xVQu7wkNVPeGBxYi0U3ccuCgeyOE7NE89aX+ShihycneDXy7X3rWKpaWT8V4l7rx26vgXvZ223Cowq5ZSn19sf+uRseO1avzIH0IyqIW8ug2RNYtjUEZQEz/WM0xdyERosrHhd8mGIJDCQQGYapqG7vcvufRUktpyoaAWwc0C2pMPwXgYptQGGHyyee/lUQ1o46D+RQkwASSRnHChfipIfGKODRwWOxNOHglYmyP/HFkmfTpzWVFaR+dr5DCQTx57MkEi57gPwodZBGb5O7R38nNb0+9ImOSYwpaL0l8h+gq0DvJrPH4jPS7TgR0oOhcubC07LQTB2MatBLxXzR6PITcVukEHgpjDVdRMOhCA1ik8r9beJEwsurDCj+cmyk7TgvwiEq/NU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(66556008)(31696002)(36756003)(186003)(6666004)(16526019)(31686004)(66476007)(2616005)(66946007)(52116002)(6486002)(316002)(8676002)(86362001)(8936002)(2906002)(478600001)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VTRDZG93dXpza2VJSzFJY3dDd21EUURUbkJ3SHRzdDdnUGs1Ym1pelhSMnBN?=
+ =?utf-8?B?bnJnWHpFbEo2TWpnVThvNmIrTlR5S01lbzhsYjhRVjkrcGpMMlNaeGsrTHFJ?=
+ =?utf-8?B?OUhQOVJSOE5zakJPQzZGZHY2OG0yT3MzRTJSZEZTdm1idzVrNlVEZTZyNVZV?=
+ =?utf-8?B?WE5pb1NMN1JQQm41OXEzY1FEU3IxR2J2MTdueU9VazJ2MDlvYUtHWVppVmZ6?=
+ =?utf-8?B?UUxVdnd0K0R5cFU2cFU4cUxiRDhtWmRPazlObVU1ams1c0RQNjRxOWNrK0ww?=
+ =?utf-8?B?a2lKZXkrbjRmZ0dxczFqck91aHJXSHZkZXczS2tIaGxUeUp0WGsrYUUveVoy?=
+ =?utf-8?B?OVcwNDBUaFhvbjZUUzBRQTlZa3NUTFk4ZWY2cDFjRkhQN2dncFBXeHdERkZF?=
+ =?utf-8?B?YXp3OXR2a1cvclhBOGJxR2hwMVZlenlURkVsK1A5VzJPcTJCTnNUVC9vUENU?=
+ =?utf-8?B?WGJhUm80VFNOYUo0UU55Rkk1QlNSbVdkQnJUdUpieEN6akVuZkFYQnAweWpx?=
+ =?utf-8?B?c3FRc1dUUGlqRStNalJWY2VXenA2aVdrQjJNejE5b0pXdDZiZ29WdE1Kd3E3?=
+ =?utf-8?B?MGtvVHM2Rm5iQWJRYURCUW00RGY0QXJldDVTL1RYbENZOFFZa01EMmdPbHNo?=
+ =?utf-8?B?anNxTmFXNWJyaUZrV2J6SUMxcExGL3ZOMkFGZjUvN2Jick9EL2krQ3JmNXZQ?=
+ =?utf-8?B?RmJudUMveDlyT3FSZlc4VTRFUS9QcE5VVXF0SjhHUFEzSWJIRDdoZkx1KzFl?=
+ =?utf-8?B?OEJDR3Q5UHdtd1NQQmcraDk2NzgxSk5ZNkR6elVFVXpGOE5TbFNRWURaNklR?=
+ =?utf-8?B?R1NtSmxYTklxeEg4QnR1N0dxQkpaemRDN3A1NWlUc0lnakQzYmFaNDJRbE1D?=
+ =?utf-8?B?ZlhDWkQ5Y1dmTEFVZ08zM3NPendWVDlMTFVwOHl2Nks3cS9Pd3NjeitlRHc1?=
+ =?utf-8?B?RnpROWsweE50cHVhcC9KQk1sbUlCdk1jOEFyeTBOL09rZm94cVJDekpLTEln?=
+ =?utf-8?B?U0dxY0NveDYzUTVzQ1dZaEJIOU15c1Vuc0drc3FtVzdWaE5pcjdBV3IwbFVz?=
+ =?utf-8?B?TEdyN2dXZzFEZDkrMnVGaGZYSHNOejRZd2FsMUIvTHBDQUsrelVwc2Q3ZlEy?=
+ =?utf-8?B?WFJiYXFSVEdJRkZ3Vm00S2UvcXdiNkhIQVlITG5zQ1pjLytOWklLZ25tS0c5?=
+ =?utf-8?B?Vzl5anVLTEhmbWFvaG9yOC8vYVV5SkI2Z29hU1ZtUU5VL21JNjk4VENubXlr?=
+ =?utf-8?B?N0hhYUtPblB0aCtnZ2lZcGc4clJKY1R0cDRtVVpPa3RyQS9GK3p3RUZoMy9x?=
+ =?utf-8?B?WmI2dDN4M2VUUkpUMTFkdkRvZTlXTWxkdnZFU0tPTDd3WU1MOHphbzdyYjZm?=
+ =?utf-8?B?b2E1enhwTnhUNlhsUTNGbC80Uis1TUV1bUFSRi80amFiRDJUbEU2YUR6MWpG?=
+ =?utf-8?B?TUlqdlJxSWdSa0d3QmtrTkJrMkdYaEV6UlZ4bnpiUzRwbkg3NDBnUlYwOHBj?=
+ =?utf-8?Q?Z59gZfqrav99plX8AbYjrl6f6fi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c94d377-5a3c-4bc8-af78-08d8bbc0cbd8
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 14:53:20.3254 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C3jADhGjRfnHod29FjD/q3ICoRCAfg6BvyTbl84DGXFclO1ZeWgJXrHwoLnoFFjT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4536
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,475 +135,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gvt-dev@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>
-Content-Type: multipart/mixed; boundary="===============1016638413=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1016638413==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="3LINWdxmtI9vdGF9kmT6YxohPgw1hyDMI"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---3LINWdxmtI9vdGF9kmT6YxohPgw1hyDMI
-Content-Type: multipart/mixed; boundary="sp1nKZl7wUYiHKZ1rDHSx2QZCQqmdHH2P";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- airlied@linux.ie, daniel@ffwll.ch, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- intel-gvt-dev@lists.freedesktop.org
-Message-ID: <5ce5f636-d428-c611-9db1-3172de2d56d2@suse.de>
-Subject: Re: [PATCH v3 2/8] drm/amdgpu: Remove references to struct
- drm_device.pdev
-References: <20210107080748.4768-1-tzimmermann@suse.de>
- <20210107080748.4768-3-tzimmermann@suse.de>
- <324f0bd9-7430-f42e-1170-4dbfc06ea904@amd.com>
-In-Reply-To: <324f0bd9-7430-f42e-1170-4dbfc06ea904@amd.com>
-
---sp1nKZl7wUYiHKZ1rDHSx2QZCQqmdHH2P
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 18.01.21 um 14:50 schrieb Christian K=C3=B6nig:
-> Hi Thomas,
->=20
-> this patch unfortunately completely broke amdgpu.
->=20
-> See the splat below:
->=20
-> [=C2=A0=C2=A0 74.553881]=20
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> [=C2=A0=C2=A0 74.554060] BUG: KASAN: null-ptr-deref in=20
-> drm_pci_set_busid+0x38/0x100 [drm]
-> [=C2=A0=C2=A0 74.554393] Read of size 4 at addr 0000000000000038 by tas=
-k Xorg/1115
->=20
-> [=C2=A0=C2=A0 74.554585] CPU: 6 PID: 1115 Comm: Xorg Not tainted 5.11.0=
--rc2+ #75
-> [=C2=A0=C2=A0 74.554594] Hardware name: System manufacturer System Prod=
-uct=20
-> Name/PRIME X399-A, BIOS 0808 10/12/2018
-> [=C2=A0=C2=A0 74.554600] Call Trace:
-> [=C2=A0=C2=A0 74.554605]=C2=A0 dump_stack+0x9d/0xce
-> [=C2=A0=C2=A0 74.554616]=C2=A0 ? drm_pci_set_busid+0x38/0x100 [drm]
-> [=C2=A0=C2=A0 74.554787]=C2=A0 kasan_report.cold+0x5d/0xd1
-> [=C2=A0=C2=A0 74.554799]=C2=A0 ? drm_pci_set_busid+0x38/0x100 [drm]
-> [=C2=A0=C2=A0 74.554969]=C2=A0 __asan_load4+0x6b/0x90
-> [=C2=A0=C2=A0 74.554978]=C2=A0 drm_pci_set_busid+0x38/0x100 [drm]
-> [=C2=A0=C2=A0 74.555148]=C2=A0 drm_setversion+0x2ce/0x350 [drm]
-> [=C2=A0=C2=A0 74.555315]=C2=A0 ? drm_is_current_master+0x5d/0x70 [drm]
-> [=C2=A0=C2=A0 74.555481]=C2=A0 drm_ioctl_kernel+0x16d/0x1c0 [drm]
-> [=C2=A0=C2=A0 74.555648]=C2=A0 ? drm_ioctl_permit+0xb0/0xb0 [drm]
-> [=C2=A0=C2=A0 74.555811]=C2=A0 ? drm_setversion+0x350/0x350 [drm]
-> [=C2=A0=C2=A0 74.555973]=C2=A0 ? check_stack_object+0x2d/0xb0
-> [=C2=A0=C2=A0 74.555985]=C2=A0 drm_ioctl+0x363/0x5a0 [drm]
-> [=C2=A0=C2=A0 74.556147]=C2=A0 ? drm_ioctl_permit+0xb0/0xb0 [drm]
-> [=C2=A0=C2=A0 74.556310]=C2=A0 ? drm_ioctl_kernel+0x1c0/0x1c0 [drm]
-> [=C2=A0=C2=A0 74.556473]=C2=A0 ? __kasan_check_write+0x14/0x20
-> [=C2=A0=C2=A0 74.556481]=C2=A0 ? _raw_spin_lock_irqsave+0x8e/0xf0
-> [=C2=A0=C2=A0 74.556492]=C2=A0 ? _raw_spin_trylock_bh+0x100/0x100
-> [=C2=A0=C2=A0 74.556504]=C2=A0 amdgpu_drm_ioctl+0x7e/0xd0 [amdgpu]
-> [=C2=A0=C2=A0 74.557409]=C2=A0 __x64_sys_ioctl+0xc3/0x100
-> [=C2=A0=C2=A0 74.557418]=C2=A0 do_syscall_64+0x38/0x90
-> [=C2=A0=C2=A0 74.557427]=C2=A0 entry_SYSCALL_64_after_hwframe+0x44/0xa9=
-
->=20
-> Any idea what's going wrong here?
-
-I meanwhile posted an updated patchset with a fix in patch 1. [1] Maybe=20
-you can apply this one and test.
-
-The original bug report and testing is at [2]. Apparently, DRM core has=20
-to be changed together with drivers. I'm honestly not sure why.
-
-Best regards
-Thomas
-
-[1]=20
-https://lore.kernel.org/dri-devel/20210118131420.15874-1-tzimmermann@suse=
-=2Ede/T/#m8a0cdf02375a4e23e194d2e7eb80e8738632ea84
-[2]=20
-https://lore.kernel.org/dri-devel/7851c78c-8c57-3c84-cd49-a72703095a5d@su=
-se.de/
-
->=20
-> Thanks in advance,
-> Christian.
->=20
-> Am 07.01.21 um 09:07 schrieb Thomas Zimmermann:
->> Using struct drm_device.pdev is deprecated. Convert amdgpu to struct
->> drm_device.dev. No functional changes.
->>
->> v3:
->> =C2=A0=C2=A0=C2=A0=C2=A0* rebased
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->> Acked-by: Sam Ravnborg <sam@ravnborg.org>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=C2=A0 | 17 ++++++++-=
---------
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |=C2=A0 1 +
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 1 -
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 2 +-
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
- | 10 +++++-----
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 2 +-
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c=C2=A0=C2=A0=C2=A0=C2=A0=
- | 10 +++++-----
->> =C2=A0 7 files changed, 21 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 7d16395ede0a..f7e2a878411e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -1423,9 +1423,9 @@ static void amdgpu_switcheroo_set_state(struct=20
->> pci_dev *pdev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* don't suspen=
-d or resume card normally */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev->switch_pow=
-er_state =3D DRM_SWITCH_POWER_CHANGING;
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_set_power_state(dev->p=
-dev, PCI_D0);
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_load_pci_sta=
-te(dev->pdev);
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D pci_enable_device(de=
-v->pdev);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_set_power_state(pdev, =
-PCI_D0);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_load_pci_sta=
-te(pdev);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D pci_enable_device(pd=
-ev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 DRM_WARN("pci_enable_device failed (%d)\n", r);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_r=
-esume(dev, true);
->> @@ -1437,10 +1437,10 @@ static void amdgpu_switcheroo_set_state(struct=
-=20
->> pci_dev *pdev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_kms_helper_=
-poll_disable(dev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev->switch_pow=
-er_state =3D DRM_SWITCH_POWER_CHANGING;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_s=
-uspend(dev, true);
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_cache_pci_st=
-ate(dev->pdev);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_device_cache_pci_st=
-ate(pdev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Shut down th=
-e device */
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_disable_device(dev->pd=
-ev);
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_set_power_state(dev->p=
-dev, PCI_D3cold);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_disable_device(pdev);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_set_power_state(pdev, =
-PCI_D3cold);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev->switch_pow=
-er_state =3D DRM_SWITCH_POWER_OFF;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> =C2=A0 }
->> @@ -1703,8 +1703,7 @@ static void=20
->> amdgpu_device_enable_virtual_display(struct amdgpu_device *adev)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->enable_virtual_display =3D false;=
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (amdgpu_virtual_display) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_device *ddev =3D=
- adev_to_drm(adev);
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *pci_address_na=
-me =3D pci_name(ddev->pdev);
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *pci_address_na=
-me =3D pci_name(adev->pdev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char *pciaddstr=
-, *pciaddstr_tmp, *pciaddname_tmp, *pciaddname;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pciaddstr =3D k=
-strdup(amdgpu_virtual_display, GFP_KERNEL);
->> @@ -3397,7 +3396,7 @@ int amdgpu_device_init(struct amdgpu_device *ade=
-v,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> -=C2=A0=C2=A0=C2=A0 pci_enable_pcie_error_reporting(adev->ddev.pdev);
->> +=C2=A0=C2=A0=C2=A0 pci_enable_pcie_error_reporting(adev->pdev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Post card if necessary */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (amdgpu_device_need_post(adev)) {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> index f764803c53a4..0150a51b65ef 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> @@ -926,6 +926,7 @@ amdgpu_display_user_framebuffer_create(struct=20
->> drm_device *dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-struct drm_file *file_priv,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-const struct drm_mode_fb_cmd2 *mode_cmd)
->> =C2=A0 {
->> +=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D drm_to_adev(dev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_gem_object *obj;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_framebuffer *amdgpu_fb;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 72efd579ec5e..b4ea67e12ada 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -1204,7 +1204,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev=
-,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> -=C2=A0=C2=A0=C2=A0 ddev->pdev =3D pdev;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_set_drvdata(pdev, ddev);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D amdgpu_driver_load_kms(adev, en=
-t->driver_data);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->> index 0bf7d36c6686..51cd49c6f38f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->> @@ -271,7 +271,7 @@ static int amdgpufb_create(struct drm_fb_helper=20
->> *helper,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_INFO("fb depth is %d\n", fb->format=
-->depth);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_INFO("=C2=A0=C2=A0 pitch is %d\n", =
-fb->pitches[0]);
->> -=C2=A0=C2=A0=C2=A0 vga_switcheroo_client_fb_set(adev_to_drm(adev)->pd=
-ev, info);
->> +=C2=A0=C2=A0=C2=A0 vga_switcheroo_client_fb_set(adev->pdev, info);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> =C2=A0 out:
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index d0a1fee1f5f6..a5c42c3004a0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -619,7 +619,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev,=20
->> void *data,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int r =3D 0;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (args->va_address < AMDGPU_VA_RESERV=
-ED_SIZE) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 "va_address 0x%LX is in reserved area 0x%LX\n",
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 args->va_address, AMDGPU_VA_RESERVED_SIZE);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;=
-
->> @@ -627,7 +627,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev,=20
->> void *data,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (args->va_address >=3D AMDGPU_GMC_HO=
-LE_START &&
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 args->va_addres=
-s < AMDGPU_GMC_HOLE_END) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 "va_address 0x%LX is in VA hole 0x%LX-0x%LX\n",
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 args->va_address, AMDGPU_GMC_HOLE_START,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 AMDGPU_GMC_HOLE_END);
->> @@ -639,14 +639,14 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, =
-
->> void *data,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vm_size =3D adev->vm_manager.max_pfn * =
-AMDGPU_GPU_PAGE_SIZE;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vm_size -=3D AMDGPU_VA_RESERVED_SIZE;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (args->va_address + args->map_size >=
- vm_size) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 "va_address 0x%llx is in top reserved area 0x%llx\n",
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 args->va_address + args->map_size, vm_size);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;=
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ((args->flags & ~valid_flags) && (ar=
-gs->flags & ~prt_flags)) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev, "=
-invalid flags combination 0x%08X\n",
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev, "invalid=
- flags combination 0x%08X\n",
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 args->flags);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;=
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> @@ -658,7 +658,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev,=20
->> void *data,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case AMDGPU_VA_OP_REPLACE:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default:
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev, "=
-unsupported operation %d\n",
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev, "unsuppo=
-rted operation %d\n",
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 args->operation);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;=
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
->> index 47cad23a6b9e..bca4dddd5a15 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
->> @@ -176,7 +176,7 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct=20
->> drm_device *dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c->rec =3D *rec;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c->adapter.owner =3D THIS_MODULE;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c->adapter.class =3D I2C_CLASS_DDC;
->> -=C2=A0=C2=A0=C2=A0 i2c->adapter.dev.parent =3D &dev->pdev->dev;
->> +=C2=A0=C2=A0=C2=A0 i2c->adapter.dev.parent =3D dev->dev;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c->dev =3D dev;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c_set_adapdata(&i2c->adapter, i2c);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_init(&i2c->mutex);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index b16b32797624..3c37cf1ae8b7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -142,7 +142,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device=20
->> *adev, unsigned long flags)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (amdgpu_is_atpx=
-_hybrid() ||
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_ha=
-s_atpx_dgpu_power_cntl()) &&
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((flags & AMD_I=
-S_APU) =3D=3D 0) &&
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !pci_is_thunderbolt_attach=
-ed(dev->pdev))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !pci_is_thunderbolt_attach=
-ed(to_pci_dev(dev->dev)))
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flags |=3D AMD_=
-IS_PX;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parent =3D pci_upstream_bridge(adev->pd=
-ev);
->> @@ -156,7 +156,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device=20
->> *adev, unsigned long flags)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_device_init(adev, flags);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_err(&dev->pdev->dev, "=
-Fatal error during GPU init\n");
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_err(dev->dev, "Fatal e=
-rror during GPU init\n");
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> @@ -199,7 +199,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device=20
->> *adev, unsigned long flags)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 acpi_status =3D amdgpu_acpi_init(adev);=
-
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (acpi_status)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(&dev->pdev->dev, "=
-Error during ACPI methods call\n");
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev->dev, "Error d=
-uring ACPI methods call\n");
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (adev->runpm) {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* only need to=
- skip on ATPX */
->> @@ -735,10 +735,10 @@ int amdgpu_info_ioctl(struct drm_device *dev,=20
->> void *data, struct drm_file *filp)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dev_info)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 return -ENOMEM;
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->device_id =3D de=
-v->pdev->device;
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->device_id =3D ad=
-ev->pdev->device;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->chip_=
-rev =3D adev->rev_id;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->exter=
-nal_rev =3D adev->external_rev_id;
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->pci_rev =3D dev-=
->pdev->revision;
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->pci_rev =3D adev=
-->pdev->revision;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->famil=
-y =3D adev->family;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->num_s=
-hader_engines =3D=20
->> adev->gfx.config.max_shader_engines;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info->num_s=
-hader_arrays_per_engine =3D=20
->> adev->gfx.config.max_sh_per_se;
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---sp1nKZl7wUYiHKZ1rDHSx2QZCQqmdHH2P--
-
---3LINWdxmtI9vdGF9kmT6YxohPgw1hyDMI
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmAFnfgFAwAAAAAACgkQlh/E3EQov+AX
-GA//duTS/2yAqmrnaJKXvyZu2WS2snSREtb1C3w69MsbA8/ZE6Li7MhPthTbHUzybZ92oZjUh2se
-mgoLKwUroeV1U2C25uwaPQvrb6hRxmxwZFmWYDYeZVoplouob3JvSAi1apdTt9It712U2COP2xIy
-QtsIBN3RJq2hTkLkGsezA+GpExxaRnkIaBLFBuKQf+hzz3rWaU2pklhXe1RehrDS/5C9jaXo/bW4
-jCOtlj4H24rJe5pxWtiZexbqAFKTV19Ev0j3ZBgUkoeeMOS/IO1oPQpvLF2A1zWGvQKogCI3Z1/J
-ZyIz22/bqdQ75h5lxOxjvEJUKfMu7yo5uo7FbUpjaXB/qYVMB4Svv+GFJL6Tcg2nHnQynaPQqLS/
-Cd05++5Bt4v90Mrl/A95eyCvYNw+6qX7fES83H+9eILQjpZtF/qVIUk8ywQoQHBdTITN+GJV0XJi
-csPr2iwTvzGDwC41zfIN2CQcmtnzEt6rmmah4/q/e6fQxE/QDp4gj/Y0a9aIXZXiR7fJiFkEh5dt
-XRXfCssiMiAGCJIF+hhFGFvjwKlSjgxBcMrgmlle0X0Rxw1jRmnpyGYGWwMwgPYzjsTFXwx8k/d5
-SU5E6q6laZljthTZwtsTtDCJv3Y61tb1pfy0Ou+8EaR3Usb9L+AeCN1uAHNhQihOVmMlq6O0UI8V
-MM8=
-=BZ+m
------END PGP SIGNATURE-----
-
---3LINWdxmtI9vdGF9kmT6YxohPgw1hyDMI--
-
---===============1016638413==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1016638413==--
+QW0gMTguMDEuMjEgdW0gMTU6Mzcgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBBbSAyMDIxLTAx
+LTE4IHVtIDI6NTMgYS5tLiBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4+IEFtIDE1LjAxLjIx
+IHVtIDE5OjI0IHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+PiBST0NtIHVzZXIgbW9kZSBkZXBl
+bmRzIG9uIHVzZXJwdHIgc3VwcG9ydC4gV2l0aG91dCBpdCwgS0ZEIGlzIGJhc2ljYWxseQo+Pj4g
+dXNlbGVzcy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3Vl
+aGxpbmdAYW1kLmNvbT4KPj4+IC0tLQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L0tjb25maWcgfCAxICsKPj4+ICDCoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPj4+
+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQvS2NvbmZpZwo+Pj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnCj4+PiBpbmRleCBlOGZiMTBjNDFm
+MTYuLjI4MDBiMmJiMjUyMiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL0tjb25maWcKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcK
+Pj4+IEBAIC04LDUgKzgsNiBAQCBjb25maWcgSFNBX0FNRAo+Pj4gIMKgwqDCoMKgwqAgZGVwZW5k
+cyBvbiBEUk1fQU1ER1BVICYmIChYODZfNjQgfHwgQVJNNjQgfHwgUFBDNjQpCj4+PiAgwqDCoMKg
+wqDCoCBpbXBseSBBTURfSU9NTVVfVjIgaWYgWDg2XzY0Cj4+PiAgwqDCoMKgwqDCoCBzZWxlY3Qg
+TU1VX05PVElGSUVSCj4+PiArwqDCoMKgIHNlbGVjdCBEUk1fQU1ER1BVX1VTRVJQVFIKPj4gSSB0
+aGluayB3ZSBzaG91bGQgcmF0aGVyIG1ha2UgdGhhdCBhIGRlcGVuZHMgb24uIE90aGVyd2lzZSB3
+ZSBzZWxlY3QgYQo+PiB2aXNpYmxlIGNvbmZpZyBvcHRpb24uCj4gSSB3YXMgY29uc2lkZXJpbmcg
+dGhhdC4gVGhlIHByb2JsZW0gd2l0aCB0aGF0IGlzLCB0aGF0IHRoZSBIU0FfQU1ECj4gb3B0aW9u
+IHdvbid0IGV2ZW4gc2hvdyB1cCBpbiBtZW51Y29uZmlnIHVubGVzcyBEUk1fQU1ER1BVX1VTRVJQ
+VFIgaXMKPiBzZWxlY3RlZC4gSSdkIHJhdGhlciBhbHdheXMgc2hvdyB0aGUgSFNBX0FNRCBvcHRp
+b24gYW5kIHNlbGVjdCB3aGF0IGl0Cj4gbmVlZHMuCj4KPiBJcyB0aGVyZSBhIGdvb2QgcmVhc29u
+IHdoeSBBTURHUFVfVVNFUlBUUiBpcyBhICJ2aXNpYmxlIiBjb25maWcgb3B0aW9uPwo+IFdoYXQg
+d291bGQgYmUgYSByZWFzb24gZm9yIGEgdXNlciB0byBkZWxpYmVyYXRlbHkgZGlzYWJsZSB0aGlz
+PwoKVGhlIHByb2JsZW0gaXMgdGhlIE1NVSBub3RpZmllciBkZXBlbmRlbmN5LCBub3QgZXZlcnli
+b2R5IHdhbnRzIGl0cy4KCkknbSBqdXN0IG5vdCBzdXJlIGlmIGl0J3MgbGVnYWwgdG8gZm9yY2Vm
+dWxseSBzZWxlY3QgYSB2aXNpYmxlIGNvbmZpZyAKb3B0aW9uLiBFLmcuIHdoYXQgaGFwcGVucyBp
+ZiBhbiB1c2VyIHVuc2VsZWN0cyBEUk1fQU1ER1BVX1VTRVJQVFIgYWZ0ZXIgCml0IHdhcyBzZWxl
+Y3RlZCBoZXJlPwoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMsCj4gIMKgIEZlbGl4
+Cj4KPgo+PiBDaHJpc3RpYW4uCj4+Cj4+PiAgwqDCoMKgwqDCoCBoZWxwCj4+PiAgwqDCoMKgwqDC
+oMKgwqAgRW5hYmxlIHRoaXMgaWYgeW91IHdhbnQgdG8gdXNlIEhTQSBmZWF0dXJlcyBvbiBBTUQg
+R1BVIGRldmljZXMuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
