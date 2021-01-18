@@ -2,112 +2,125 @@ Return-Path: <SRS0=twpl=GV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55B21C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 12:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBBA0C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 049BC221F8
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 12:33:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 049BC221F8
+	by mail.kernel.org (Postfix) with ESMTPS id 64BAA206F9
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 13:22:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64BAA206F9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74FD96E207;
-	Mon, 18 Jan 2021 12:33:14 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE4426E207
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 12:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF346E218;
+	Mon, 18 Jan 2021 13:22:08 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750058.outbound.protection.outlook.com [40.107.75.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C100C6E218
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 13:22:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e4/xfxN1L0kxCkgpxZQWm42ZICr1UP8GMY6S7FNbE1GIUGDR69WQ/u1vdT3U7JbD4n9VBkapF8EHvhzxNbD6FUIhmYAZ1rdftcBkWOrfXQoahJ7mKSTh3+yfDgI0OFxSJYUrt/B5eFo/4esxhEuvuvA5HJdSzULqRKAjNz9W9Vic0EGLR9Sm17WO08bECdQstKtlXUT/R2slfwkca6d02TK5aYRhkzHykla81DJxCK1YQOZoY89/XIDaikiQ4dUzMi0MoSikcSsc4cNPaJST5xNc+iL50dZrZefIebINvzTu9MsxLqwY+S6eBF0V4dE9xqiaebRQkV/+JexsGfh1Pw==
+ b=Gvh4uL/N8FTDovkh74Situ9TaGhKh6ZNBnmRzu5WUmnsAOu/keybahofM++GbLp7vvTGOdmfQMPEUDkcQjJVecwTVx/g9aRfXDnPm26gKoS5M+fw1kj4axQTFxNu6b1tWAY0pNKB3DXJowMm8l17/nm3YdX2MQEy9U3xICs4lOWlpYXg/jth+GYwGb4jEyBSnHHiaEf58rJhEuSXAcfLLNUl1o5+Q9efVEFYBZ37AheXsw3xE8KOK5mHCWzp/gbVD1KyPLmGk6SOO/ni4QFatF3KKrgWO47IL8sCEQ41MZCL6qRuihFgI1/tlNtIh6/vKMPYdANekJGXzOp0ssNMNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IhGl3+cjEmhTR7nOjcqsni8L6csn2BbOGxstJ/02gfI=;
- b=m0fPS5yKUxsktbQgU4loirZkH2o0WIveJOcxTpS9tOQeKMRVXsD9FuM81ulIgUcjXixFxfcndHqdatbCnlbVx29iLQmcJz1ao1zArAHoolSEfLNWlAOHtORqXZwO45/A7UXGr8MBAP/VPrGiWo4IBocQC+At8dEFEJkw7h5Cnorle/3EAQJdoHgLYP3KL0+9QeabvMiCJppLpxga/d3ICVm5YGu5Duz2HOHOm10jzYtqh7pZ9+g1OerdCYqQoUfE+uJbjLDned0d9bf4pAyxUabgeEBly4v/iULDqtQhDFi3i+79x1RUr2Q7aNWDackLbNV3FHK3o3GOKOV0rXpecw==
+ bh=f2I3H59mdV+j9anavipuzN1TAjHZ/TVeKeJ2P8QALkE=;
+ b=kzj2eDmQZgrKvro2XWkFHSHvKjUz/18x3OtyKNhEIHZhNKdRDsPxVjIgL68JCIBk44LfqBTP6Un7WJrAgijy3kBACzWCfAWtFiR8pja8RoqCwaeEZDASL11QcUZDBs3l9e4PbhMlCIXFujbfQMVggeCCfTlmXxlEt4Rshl/vX7UviyEU4uKLYaIWaL5jeFdR3Tt3oTw+/7tdQHu98Gh11hXJSKlADQcX4Mqax8uECQsxlTAJQGgI1XYbhQxDtYXNdpoEr+ut4vM4f8bCJ80Ewm5VIt2aszGr5uRwNmIYxTFe08Ag5LVX65XGaYrkOqwyN4z1sjhB+BEscrqstk6fsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IhGl3+cjEmhTR7nOjcqsni8L6csn2BbOGxstJ/02gfI=;
- b=LoQRmZ75F9R4J5wr97XXU8KKLs8nrcpZTn90v9PdUWQJ+t7gGbpQjjz7K9UJQSySkvb3PbOKUd3ZOJylzWGoy/hlXpnWs+Fruyk6XdvHmAroAJi3aOIo6qFquOgWrpxA21M+PCH+JrzR3d1N4mrpyQoZ8mM6smZLVz1FPNQoaDQ=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
- by MWHPR12MB1744.namprd12.prod.outlook.com (2603:10b6:300:111::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10; Mon, 18 Jan
- 2021 12:33:10 +0000
-Received: from MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
- ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3763.014; Mon, 18 Jan 2021
- 12:33:10 +0000
-From: Huang Rui <ray.huang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdgpu: fix build error without x86 kconfig (v2)
-Date: Mon, 18 Jan 2021 20:32:48 +0800
-Message-Id: <20210118123248.22570-1-ray.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HK2PR0302CA0008.apcprd03.prod.outlook.com
- (2603:1096:202::18) To MWHPR12MB1248.namprd12.prod.outlook.com
- (2603:10b6:300:12::21)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-amd.amd.com (180.167.199.189) by
- HK2PR0302CA0008.apcprd03.prod.outlook.com (2603:1096:202::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3784.6 via Frontend Transport; Mon, 18 Jan 2021 12:33:09 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1303d224-f002-41fe-2bbc-08d8bbad3740
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1744:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB174494B8EBDDF47CF66E3FD7ECA40@MWHPR12MB1744.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rze3QqDkWcnaS+h0zdBpfflgBslCNMn6Jgw+J/oUKfDnQoBK046NjajsNql1K7r32xBvOjIjAHEkP0ajbUrW+x3WengSWFjs7Fu3Rg/VZuWXNI8KpRITYlmtWmvpJdsyJuMLbx21rlAEU67EDlBhXlCqA6gARiF3LGFgbQ9a0zXNuWyd4a9Z45C+Vs5m+ojUMRqv3yuyN0zh4BZWuQK8YOnzjHsigbXl9YjL+glxGM4rlZ51Y0CB415ndVYkYR6ARQEiOG43wekH64+7Rq9Gp2qyzLeb+jQv4xEskNG8+xnO8AtlJOdnyUa5UcqBc42gewiHFGT3CNk1S2jbuR+YKrWYyB/84N6i3/buBEpoReBea79d0Qxu0rV+c9mZfhUwgoWwsyXR556MvwqFMPI7+g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(39860400002)(136003)(376002)(396003)(36756003)(186003)(66946007)(8936002)(2616005)(5660300002)(1076003)(2906002)(86362001)(6666004)(4326008)(66556008)(478600001)(316002)(16526019)(6486002)(66476007)(956004)(54906003)(8676002)(7696005)(52116002)(83380400001)(26005)(6916009);
+ bh=f2I3H59mdV+j9anavipuzN1TAjHZ/TVeKeJ2P8QALkE=;
+ b=VvMAIinctH88aNV/+meDFZBdKcZaG/3BmHXPBgiXQqnDl8VBYVIHmmr4RP55AqYpZNsZpCZgrfVMkrGMTLtmTzssq1dmsTICxdwcpsnmgs+M17eG27l8qC4eNv4hsME1VC7NezbusUMkBcVSNb2vC7asc8rXH+uVHbMSES5xHJQ=
+Received: from DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17)
+ by DM6PR12MB4059.namprd12.prod.outlook.com (2603:10b6:5:215::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9; Mon, 18 Jan
+ 2021 13:22:06 +0000
+Received: from DM6PR12MB4156.namprd12.prod.outlook.com
+ ([fe80::b803:7e6e:40ec:4a0d]) by DM6PR12MB4156.namprd12.prod.outlook.com
+ ([fe80::b803:7e6e:40ec:4a0d%9]) with mapi id 15.20.3763.014; Mon, 18 Jan 2021
+ 13:22:06 +0000
+From: "Wu, Hersen" <hersenxs.wu@amd.com>
+To: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] Revert "drm/amd/display: Tune min clk values for MPO for
+ RV"
+Thread-Topic: [PATCH] Revert "drm/amd/display: Tune min clk values for MPO for
+ RV"
+Thread-Index: AQHW7YmmBbhZRHqq90WJ1kKbJIl026otXjhQ
+Date: Mon, 18 Jan 2021 13:22:06 +0000
+Message-ID: <DM6PR12MB4156C4367E5755786E85E75AFDA40@DM6PR12MB4156.namprd12.prod.outlook.com>
+References: <20210118110341.489585-1-Pratik.Vishwakarma@amd.com>
+In-Reply-To: <20210118110341.489585-1-Pratik.Vishwakarma@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-18T13:22:01Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=91ec07ec-002d-41c9-b519-c1741d9a2f13;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:fea8:3c60:9c20:5c34:a4d4:1511:51e8]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b8f46b24-3ecb-448d-cefe-08d8bbb40d48
+x-ms-traffictypediagnostic: DM6PR12MB4059:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB40591A3149238C8CFA33654AFDA40@DM6PR12MB4059.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:93;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: f54N+JZBKpH17I3gOp+MOgxRm8uhSdG6xp9mHR9l9iZEXCG7Cx2mc5SlG1foQbrLhxr/pFvgPoMVX7MKTnEnXElSvWb0KyMcuA7vNIoxRkTWqjE0Bm9eXGojPV8j9wEGCShMbzuUgPkcBZHXjes4n70zVoGiCM6mp+d3ddKD9gWvieM8O3hsspVT6IMfbtSX+wHE83ui+xNP4BtdWPd2OuN1RQhqbAnM+RL8XHHlI4p55B9C6VU+oHWdHIZug3KFs/ZYg8YQHWo6PjVqDGHxbfQ/xRzFNexeWLW9VR0tvPzq2TSH0hawMRLBy86qKeLPVuTCu2qGwFyJwPoo4vpb2h9efXBHO3gHqpJbyFAtu2vpXPfbaRu7Vooj5Rq2JDBVexQPGyIKUfcVv61EQq3yDg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(66446008)(64756008)(66556008)(9686003)(2906002)(316002)(186003)(110136005)(52536014)(55016002)(66946007)(66476007)(76116006)(478600001)(8936002)(8676002)(6506007)(5660300002)(86362001)(53546011)(83380400001)(33656002)(7696005)(71200400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?qfi63Dw1kCgBeyWcwdyif8zk+on3KYe7jWQIc1YlhQG/6DDq03rLXu7qPP/t?=
- =?us-ascii?Q?UonQlc5XVvMDfE0gcUTsEcEcXNyhyrqqK2N+xZH3nIRlnZ+1CRE87Mze8FjB?=
- =?us-ascii?Q?5jg0HfhozRCv35glRxGmnj2wOHGyKqYAtciZCUENdV1VmrOIXA+xjH/qhwWc?=
- =?us-ascii?Q?1oQP8FMtQXLa8vSUENEu8ac6HcvMEQMRnojbZikwpBSAluyPgt9nyi/eTROT?=
- =?us-ascii?Q?xFmacZmprrLASP9BhSO2SMHT623EydZwYNvN2GusQkb33zPSOAoRKjYt1CUJ?=
- =?us-ascii?Q?/JRTylUoFF5Tsoc49ypZrXlBQc2YhIMqjJSOnmMRa2VbOdbtWwuDNvF51Vbp?=
- =?us-ascii?Q?tn5PRtWmCshbuCKrd37MfmmY5hIy0ySF6jZuEu+mOxJ1cJhOR1helhxTZnwu?=
- =?us-ascii?Q?Abv0d5vEE/3b/xbQB2k5FnPxP8TuPUtwJyiGAVK/nqCMmxbj6XG0+wLSafIl?=
- =?us-ascii?Q?+9lfrzuIiFLCzhrKI4Msry7mmrkIRrtGNzKjW2P1q46/4jWTF66XGdOxtoY3?=
- =?us-ascii?Q?U/gA8RlaQMKC5HHEOZ1GJDZbyqf2JDGimAkB/dVxBlOdTkd6ASNzTIVO1Zrx?=
- =?us-ascii?Q?E2DMvSkdfqUTP/nJGWTD6sFwyroOdSa9GcUaaPMWtMBO84UJhy9t2PUAI/yV?=
- =?us-ascii?Q?lQ/OfZnSYYrlGpK0ps1hd+hhZl1v/8AO3addRYQnBi7mhVjxGB9FX2eVgFio?=
- =?us-ascii?Q?dKcFl3Ud5qvRgqNDdtIK6HmkgQahWl5ar+/aC5uYiYgmgFtvKP6h11MO55Xs?=
- =?us-ascii?Q?r4ZSQaWVi57qDccdr77nDibsJGiW53Kr2jEO5ArxMgfng8pGwyrPEK9Ld284?=
- =?us-ascii?Q?rOT1/vmwub1T38yQGNDcSF6Pmin+G0b48wXo/3VxONHZPXoHFCDF0Qp9ThF0?=
- =?us-ascii?Q?7T/RURKHWfOpJN1cGIQsfKtuNb64pE6Ij7dtMlRd7QiREnRrDfywRLuLWNiB?=
- =?us-ascii?Q?KHigMLH5G6UEzbK5svefjNqavsE+Uq16Cg8K4nVuavz79CljB0H4pdlj+WYX?=
- =?us-ascii?Q?1liR?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?kfo6egY4iBCgugmefSukQGfEwVDwRqfi+kxIgKVSzi4Xkh+vYwluKNFt2/7w?=
+ =?us-ascii?Q?LS31hCEvvvmOzgdkUqu8sMGsQZpMzMWdg4milMnhLQZQpEkEmmHY4l7FlcAm?=
+ =?us-ascii?Q?FUs1qZSez/+rgzeWFWvRijiPZgubVzvmRmRWhqp0JeiMA0jeDtaEC8SlWgro?=
+ =?us-ascii?Q?B/FDy7XeROCiHvX6fRs7B1UwDdBF2UyoO8X/Bgteymj79DbuCFpRGL1RwgR4?=
+ =?us-ascii?Q?UOfiozwKGwNsKvR2uragJasQyp20/tJnNUJdOzruK3sX6w8RmGXRrV2UvF40?=
+ =?us-ascii?Q?t7oNUc6IV9Uv2B8IAbiVgG/UCc5KfSjMU//5rRjmCgkxlgUd7SaDu5LUcbhE?=
+ =?us-ascii?Q?jIFZcjAc0j2gpv36IyEjrw6U4WYCCfMYti9d+3EZq5zH0Ac2RHkaAiUdD4pH?=
+ =?us-ascii?Q?Bt23YJ54cUwwFJGS3XMr4HCh1mIS+veYiUbnxu4p96S2xBFSkGvA7GOsKhC3?=
+ =?us-ascii?Q?e/OLi39F8ShhPdOLbpa6DJshqSO2MTmSC7NNf7jRoGkjR2G3nILHn20AIozQ?=
+ =?us-ascii?Q?bKTi682qZqDQfrA5kDbCl9lw2lgTJJyJDCiaertC7jtplPTpAGMDl3jWy7sJ?=
+ =?us-ascii?Q?sexTbeqw993ehknb7lOo+kL1rqjxxV7njaHXG8Ou+oe+AkgxX3u69lA1WRo9?=
+ =?us-ascii?Q?dHKpaV7UPIG7SwrtpFTlikEUwdNCICzKzmDHs/n7tg8f1zFbk4FGceJS6+6L?=
+ =?us-ascii?Q?YGXmzy1KtSNElcggvm632xOJLTgibVCs0Jm8hl/JCI3UmJshelsw4tmC+XXf?=
+ =?us-ascii?Q?wtDMk94K2/z0TZ1L4DqDRd4qDVgyxdxVLFhSjn2uk2yhk10IWwkfgRTWNxkL?=
+ =?us-ascii?Q?c26xLnE49DYyGQJdyvpFy+gdzo/zaIqRynswizvzTjKir209wbQwou1t8R/P?=
+ =?us-ascii?Q?jG0ZMmyKqTEs1/haRWi02iqECu4FIl3a3Tk2ZMUhzAlIMcZ1WuE9NwZQeW1/?=
+ =?us-ascii?Q?FJhKkbFQ1592itwiZKf601eL1nxr1ix8qCuxmy7c+nuRfLjlPJlETYaQ1Vzl?=
+ =?us-ascii?Q?y1rcLDC3IMWFtKdg6fMy/C6bdEkZT08N0dga/EKaKJbYxnna56YDRwDgR3ql?=
+ =?us-ascii?Q?QUiX9khrAI04Pr0kaDbcGtDOfnGivEfskJoQ5lmw452ukIKeekuhv/Bux90g?=
+ =?us-ascii?Q?Q410Y1aoB4Bi?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1303d224-f002-41fe-2bbc-08d8bbad3740
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 12:33:10.6432 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UqPJrbw8YET/xuNawb7vEOcib8JJIwEK4i9tMP7XcpBK9FvF+yhro8KRje533BCS7gybvLyk/pE6tULbI0r1/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1744
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4156.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8f46b24-3ecb-448d-cefe-08d8bbb40d48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2021 13:22:06.3043 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Q2wdn+lJ5mHjHjDc2E33Jj8yyUHzVcetQTTd1xKzkQF2eScZgachE8X+L1rRw9iorVAyyA45MqF3Pv3q2QrbnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,149 +132,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Huang Rui <ray.huang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to fix below build error while we are using the kconfig
-without x86.
+[AMD Official Use Only - Internal Distribution Only]
 
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_get_smu_metrics_data':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:300:10:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
-  300 |          boot_cpu_data.x86_max_cores * sizeof(uint16_t));
-      |          ^~~~~~~~~~~~~
-      |          boot_cpuid
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_read_sensor':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1320:11:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
- 1320 |   *size = boot_cpu_data.x86_max_cores * sizeof(uint16_t);
-      |           ^~~~~~~~~~~~~
-      |           boot_cpuid
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_od_edit_dpm_table':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1460:19:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
- 1460 |   if (input[0] >= boot_cpu_data.x86_max_cores) {
-      |                   ^~~~~~~~~~~~~
-      |                   boot_cpuid
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 
-v2: fix #ifdef and add comment for APU only
+-----Original Message-----
+From: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com> 
+Sent: Monday, January 18, 2021 6:04 AM
+To: Wu, Hersen <hersenxs.wu@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>
+Subject: [PATCH] Revert "drm/amd/display: Tune min clk values for MPO for RV"
 
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+This reverts commit 6f3fca64cfb91fedf9b34ea27b2581e88d48c9b2.
+Flash line issue when MPO enabled on idle screen was fixed by commit 9d03bb102028 ("drm/amd/display: disable dcn10 pipe split by default")
+
+This patch is no more required
+
+Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c              |  4 ++--
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h         |  2 ++
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c    | 17 ++++++++++++-----
- 3 files changed, 16 insertions(+), 7 deletions(-)
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    | 30 ++-----------------
+ 1 file changed, 3 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 80d6298912aa..e9b569b76716 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3633,12 +3633,12 @@ static void amdgpu_debugfs_prints_cpu_info(struct seq_file *m,
- 	int i;
- 
- 	if (is_support_cclk_dpm(adev)) {
--		p_val = kcalloc(boot_cpu_data.x86_max_cores, sizeof(uint16_t),
-+		p_val = kcalloc(adev->smu.cpu_core_num, sizeof(uint16_t),
- 				GFP_KERNEL);
- 
- 		if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_CPU_CLK,
- 					    (void *)p_val, &size)) {
--			for (i = 0; i < boot_cpu_data.x86_max_cores; i++)
-+			for (i = 0; i < adev->smu.cpu_core_num; i++)
- 				seq_printf(m, "\t%u MHz (CPU%d)\n",
- 					   *(p_val + i), i);
- 		}
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 25ee9f51813b..a087e00382e6 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -466,11 +466,13 @@ struct smu_context
- 	uint32_t gfx_actual_hard_min_freq;
- 	uint32_t gfx_actual_soft_max_freq;
- 
-+	/* APU only */
- 	uint32_t cpu_default_soft_min_freq;
- 	uint32_t cpu_default_soft_max_freq;
- 	uint32_t cpu_actual_soft_min_freq;
- 	uint32_t cpu_actual_soft_max_freq;
- 	uint32_t cpu_core_id_select;
-+	uint16_t cpu_core_num;
- };
- 
- struct i2c_adapter;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 2f0cb0ea243b..dc41abe7b1d3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -297,7 +297,7 @@ static int vangogh_get_smu_metrics_data(struct smu_context *smu,
- 		break;
- 	case METRICS_AVERAGE_CPUCLK:
- 		memcpy(value, &metrics->CoreFrequency[0],
--		       boot_cpu_data.x86_max_cores * sizeof(uint16_t));
-+		       smu->cpu_core_num * sizeof(uint16_t));
- 		break;
- 	default:
- 		*value = UINT_MAX;
-@@ -335,6 +335,13 @@ static int vangogh_init_smc_tables(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+#ifdef CONFIG_X86
-+	/* AMD x86 APU only */
-+	smu->cpu_core_num = boot_cpu_data.x86_max_cores;
-+#else
-+	smu->cpu_core_num = 4;
-+#endif
-+
- 	return smu_v11_0_init_smc_tables(smu);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+index 75b8240ed059..e133edc587d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+@@ -187,17 +187,6 @@ static void ramp_up_dispclk_with_dpp(
+ 	clk_mgr->base.clks.max_supported_dppclk_khz = new_clocks->max_supported_dppclk_khz;
  }
  
-@@ -1317,7 +1324,7 @@ static int vangogh_read_sensor(struct smu_context *smu,
- 		ret = vangogh_get_smu_metrics_data(smu,
- 						   METRICS_AVERAGE_CPUCLK,
- 						   (uint32_t *)data);
--		*size = boot_cpu_data.x86_max_cores * sizeof(uint16_t);
-+		*size = smu->cpu_core_num * sizeof(uint16_t);
- 		break;
- 	default:
- 		ret = -EOPNOTSUPP;
-@@ -1457,9 +1464,9 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
- 			dev_err(smu->adev->dev, "Input parameter number not correct (should be 4 for processor)\n");
- 			return -EINVAL;
+-static bool is_mpo_enabled(struct dc_state *context) -{
+-	int i;
+-
+-	for (i = 0; i < context->stream_count; i++) {
+-		if (context->stream_status[i].plane_count > 1)
+-			return true;
+-	}
+-	return false;
+-}
+-
+ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			struct dc_state *context,
+ 			bool safe_to_lower)
+@@ -295,22 +284,9 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		if (pp_smu->set_hard_min_fclk_by_freq &&
+ 				pp_smu->set_hard_min_dcfclk_by_freq &&
+ 				pp_smu->set_min_deep_sleep_dcfclk) {
+-			// Only increase clocks when display is active and MPO is enabled
+-			if (display_count && is_mpo_enabled(context)) {
+-				pp_smu->set_hard_min_fclk_by_freq(&pp_smu->pp_smu,
+-						((new_clocks->fclk_khz / 1000) *  101) / 100);
+-				pp_smu->set_hard_min_dcfclk_by_freq(&pp_smu->pp_smu,
+-						((new_clocks->dcfclk_khz / 1000) * 101) / 100);
+-				pp_smu->set_min_deep_sleep_dcfclk(&pp_smu->pp_smu,
+-						(new_clocks->dcfclk_deep_sleep_khz + 999) / 1000);
+-			} else {
+-				pp_smu->set_hard_min_fclk_by_freq(&pp_smu->pp_smu,
+-						new_clocks->fclk_khz / 1000);
+-				pp_smu->set_hard_min_dcfclk_by_freq(&pp_smu->pp_smu,
+-						new_clocks->dcfclk_khz / 1000);
+-				pp_smu->set_min_deep_sleep_dcfclk(&pp_smu->pp_smu,
+-						(new_clocks->dcfclk_deep_sleep_khz + 999) / 1000);
+-			}
++			pp_smu->set_hard_min_fclk_by_freq(&pp_smu->pp_smu, new_clocks->fclk_khz / 1000);
++			pp_smu->set_hard_min_dcfclk_by_freq(&pp_smu->pp_smu, new_clocks->dcfclk_khz / 1000);
++			pp_smu->set_min_deep_sleep_dcfclk(&pp_smu->pp_smu, 
++(new_clocks->dcfclk_deep_sleep_khz + 999) / 1000);
  		}
--		if (input[0] >= boot_cpu_data.x86_max_cores) {
-+		if (input[0] >= smu->cpu_core_num) {
- 			dev_err(smu->adev->dev, "core index is overflow, should be less than %d\n",
--				boot_cpu_data.x86_max_cores);
-+				smu->cpu_core_num);
- 		}
- 		smu->cpu_core_id_select = input[0];
- 		if (input[1] == 0) {
-@@ -1535,7 +1542,7 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
- 				break;
- 			}
- 
--			for (i = 0; i < boot_cpu_data.x86_max_cores; i++) {
-+			for (i = 0; i < smu->cpu_core_num; i++) {
- 				ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinCclk,
- 								      (i << 20) | smu->cpu_actual_soft_min_freq,
- 								      NULL);
--- 
+ 	}
+ }
+--
 2.25.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
