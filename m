@@ -2,117 +2,84 @@ Return-Path: <SRS0=twpl=GV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BF35C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 15:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CD37C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 16:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A963522AAA
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 15:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A963522AAA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCEE822CA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Jan 2021 16:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCEE822CA1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3602B6E2F2;
-	Mon, 18 Jan 2021 15:50:24 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCD2989FCE
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 15:50:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f9zx+z3dr6Fzd5Z9fEHk+PxmWa7bBPaUX71DsaRIAdd/w+iq8Ve2ULK17Qx40ThYR4vNx7E9sHWzVupq6aCF9HTGSW9RolbOn0eOnsbLa9z06+l/doxnNvwooPU1JtZqRES9hZ9w8DiUFah+K/7N19u8JXDhtavtq12ENsL2mF8vDgDcNiO2O6mWQ96f9lXkxNcQ19koGzmpyOsH8Wsbb8cY6sXy5EvZKMiV2WXK3muJ/Bcom8zXMtbF4TbzvpWbKizfVybeQQIL+GLIDL1AblII2qXGQprHLa8rizrrxo6k939SGqrPzeCWvJ28qB/cAcV00n508s73i4PrOCo9qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBUUpFA2bqES/KD7WxvKmRlzNQ439Bnqdc/Vq40WmMU=;
- b=YpaHjiJ+Ij9S8AELzbN8CdrSbBdBuwh/zVKHZCTCCXzQeAhjx15xht/saDcJwpzaw5les9Iz3ecQgXfReJjIRqYm+y3mQXG/+v9rLpzuRDpW/lr/11FwTLKkZqrsuxruz+CCzJRr893sx1VTK0Px2bKQ3yB8R3/wJdV2PtfE5ndHffqhxOjezvBesBP7gyCBQjDu/UzbnEJEOLKe37WQ9KayrvBQQjWAbnM95gvC74AGIjT16ppzuANGY9FH85W3ZOfZF0Um/o32HHyrRHqTT/EV4RvLDjzBxWa9sCywq303qI7gxIqaFBJClX75eNHG2gngNUWmZ0pGFhcOvkzUuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBUUpFA2bqES/KD7WxvKmRlzNQ439Bnqdc/Vq40WmMU=;
- b=A4ey9z6nCnDQ3bJCPc5OE2eS2R3whlITbEqUeC7IR0Wbqy6MmI4wtPc28W7FaSUTSF0CrtvKLd+itQ2nd8qFnD3cfg/LAoH2ZFLIrkKYGvXSJjWa1NPgoCxBh3p91vei0tJ8nfbWIS95IHJ+/db3Ck3JXYAcrbc1wf+DuAHakR8=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB3984.namprd12.prod.outlook.com (2603:10b6:208:16f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.12; Mon, 18 Jan
- 2021 15:50:21 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::b0c4:9a8b:4c4c:76af%6]) with mapi id 15.20.3763.014; Mon, 18 Jan 2021
- 15:50:21 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amdgpu: fix build error without x86 kconfig (v2)
-Thread-Topic: [PATCH v2] drm/amdgpu: fix build error without x86 kconfig (v2)
-Thread-Index: AQHW7ZYVe/WspVxcmE6i+Y9/RHhQgKoth+R5
-Date: Mon, 18 Jan 2021 15:50:20 +0000
-Message-ID: <MN2PR12MB44887CBDD43B3F3D3B869A67F7A40@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210118123248.22570-1-ray.huang@amd.com>
-In-Reply-To: <20210118123248.22570-1-ray.huang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-18T15:50:20.460Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.78.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 373d26c5-b22d-44a8-4261-08d8bbc8c2f5
-x-ms-traffictypediagnostic: MN2PR12MB3984:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3984E4004F46332ACA9CAF37F7A40@MN2PR12MB3984.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:398;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KlCiWe3WYXPjVgr8PL4MlHTQT3vEQpn4KF7uP/k2Rmk4esaBMQKVTpypU6QPS/GNAqJfRSvLINpyFzjUkhUwNi7+2RK3D4SHO71+aVDZdxyXyLZbnjLpuhrl//gnfyU9Qjy3h5YivNcDieIuAML+GkubCXCgF5lUBDnYElKgqnIs9XVgsmSIaCKev73TE0u0qjk812CVb2faq/A7jw7W79yYqwLKwHMqJam9wI/+wcQipputFjQ9uZJaRxH6+r02JfT4IK4CCg8m7uudPOyo8CjDey9j8LaZhmjeMiQQDBPmXq1PSuOd0XijjX5AM+Kk0xIClWtjOPHiHZ+NACgtQk5gbsnUDG7IVI67WF/jj62mB5ULPB3RPlD4HMXomMAmdrZ4GbKz3IFXT5oK/R2Svg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(366004)(396003)(346002)(136003)(66476007)(66946007)(66446008)(66556008)(33656002)(64756008)(76116006)(8936002)(71200400001)(26005)(8676002)(83380400001)(478600001)(316002)(2906002)(110136005)(7696005)(6506007)(186003)(5660300002)(86362001)(9686003)(4326008)(19627405001)(55016002)(52536014)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?2QZY3uJCGSwa91Pw0hSRFDOejrvk7Rtjl1QedGVWNoDTBVPvEGMGZx28vWTg?=
- =?us-ascii?Q?ztEp9do+F9/uhZ0NFBP+kQN4K6CnKJK86omrxD3ZrOJ33rB2SeFTs6xQ4P5/?=
- =?us-ascii?Q?N1JOjxVYuyoq1eLx6LFfpWRbb0wySo/EYd/h2AJYhZW2bcvGjGNjbtxkKqs/?=
- =?us-ascii?Q?a0VkeQV6PXobyDMHOwvEpZmkJtgyTPMann1wQDOEEvmcwBH+lxUrIw1SCXIX?=
- =?us-ascii?Q?dG+m4XKqXOeZ5SqQ1UV+05sMYoNoOmxwmfIPr+Y5Yy9kvVDcyovM6cB7qAWp?=
- =?us-ascii?Q?FbrChajiY1Lvvz1ycjbbOB63r+Dqzt7r/OfdpTYXaMv+Hi0KhtE53VSi1Dul?=
- =?us-ascii?Q?dIXFjGg4indlGr8U1XTl//DncZpLelc6GILbi+j+uNVJEyp9R6kRTMEg04H8?=
- =?us-ascii?Q?pNoo2gRK5ApiqEFwsMYaO79A96SxRh5wXVCG0JnmKvJ0j/97mQ7RNlyACMX/?=
- =?us-ascii?Q?XoysuAGV44LUjwNcXErE2Q8vCICiDLE1UtyypIrnPfryTYybsez0eA5lPKvQ?=
- =?us-ascii?Q?EzS/SgG+mjnQPoJNHnUZwb2ztlVY4TYUIeVZ3PAvT1+SiYUNp5faQ02tyzBz?=
- =?us-ascii?Q?diZPZLWX5w/mfHyJYCNApPbI4qF1z6cTSzhsr1IRhIXIAxen/G1i1Ql2R+wN?=
- =?us-ascii?Q?JlJAV0xRuWJD1V+yJ23QteZPB++QhOFogz+4HDa/sHFWrNljVR6NYaCQ+YoE?=
- =?us-ascii?Q?bMhDqLsBuYMw5q1Iuol/rQjxk/w7pgXEk6CAAX1eQRDjxCMtE0ejlktgB8hR?=
- =?us-ascii?Q?hSuqPkL/ssqpMdENTlGfH5xieo3kdFp7Hqg/zQ7uaVMvvy+VhUdaENDt50dT?=
- =?us-ascii?Q?BkDhkV+GCHDonxOXDmfJnhapsgmrwLB4JPQXgv7BtMWtK4xli3ue720HfRQ8?=
- =?us-ascii?Q?E6Mz4SXCivNMUC+/6nTBubQuCFFpody3dWk+4BTwT+gGNZy6Uir+lwUMVcs3?=
- =?us-ascii?Q?OpHMzqlhivCnlAubMBsuPEq5Cuu0LaKcCCXS4LeLh9o=3D?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2F66E207;
+	Mon, 18 Jan 2021 16:03:49 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 546076E207
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 16:03:48 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id b5so7951892ejv.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Jan 2021 08:03:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=5Qg1vYij6LaXIiOOeXXTw/Wa7ZHv8Ka+X/jIrPJVJzw=;
+ b=PkCWi1VqGU9XQUN5cBrOT9qTXOIQ3lq3aK6c6nb5VuvMkXMDOwygtAMFBkjdsnQH6Z
+ t+2YK+T1SFdedRzCq45vPEb64xt+slD5OJSRyd5iJ/uAGZh6yV5ibskk5ZRuWpaRp9Zb
+ KFRW/GAsETyCHQHoupcO5FHN3O5HXhNRkhYHY7FLlz5H6O0H65xmNZPVnprf6EmwLg8l
+ bymmUINu+zaw0TQxp2TFYlFZtwpHnePsMttQ/YaAD9g35DPhrdnIuwbiXkYxdyiOTT9Z
+ 1byvGkPg58jwHpI271HIODtE2o8tLULH/cP6eaVayIrldUANDzObGFWdVGqOLZsZ0Wep
+ miNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=5Qg1vYij6LaXIiOOeXXTw/Wa7ZHv8Ka+X/jIrPJVJzw=;
+ b=odYwpAEu7r4fufkqSDxKW8lT8wBdgZs5Qj6OPjo8sgo2HQbXlIqc/wncKiqRkHBrXN
+ Wd5C5NmyY+Z5ZpZG8IHeztLR+OgXrNrjd81GIMgKXbWi9zP0lTxhGVBJViFPXbDBF2i1
+ d6uPT+TmePrOL8N5nDce6D3dPfHR1tyViCJW6vm4fBRtNwFV3IislRRIhMHx7RsQMs96
+ JkIid6bSKUku5/gnSZOjcoUaFvKxDpkhicWayT4o31STWFlgzKCmwPqEni0Wl9n9YSHy
+ 7Qf2abwGUiHu/Lq0XAqa5qQlVQ9zwuHfXd08UoXc+Y0KA2wyAMFTrlj/jOkgVPq863vZ
+ BNmA==
+X-Gm-Message-State: AOAM532KV3/MmvLU8YXM6GIswE0R59r7mjnjZNYJkVjuNGRGF0dwYJO1
+ cZFgpgqfBt+udc7A8MUMQJS7axrg42Y=
+X-Google-Smtp-Source: ABdhPJzopdJLXFfoG6mYEFDeVIxVm6XtMXEOHCTgXiH1YQ4/Ks7YoH9OR4G14TPycmAx7uww8yT0zQ==
+X-Received: by 2002:a17:906:d159:: with SMTP id
+ br25mr261520ejb.398.1610985826748; 
+ Mon, 18 Jan 2021 08:03:46 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id o10sm9735735eju.89.2021.01.18.08.03.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Jan 2021 08:03:46 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: change the fence ring wait timeout
+To: "Deng, Emily" <Emily.Deng@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Sun, Roy"
+ <Roy.Sun@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20210113063612.31468-1-Roy.Sun@amd.com>
+ <318aa468-c009-8edf-d6bd-8408ee79c42e@gmail.com>
+ <BY5PR12MB41152A0706EA9F1A7D0E88288FA80@BY5PR12MB4115.namprd12.prod.outlook.com>
+ <bf77173f-1c26-70bd-75c7-81178f1b3e70@amd.com>
+ <BY5PR12MB4115F8236F52722D43CA0BDF8FA40@BY5PR12MB4115.namprd12.prod.outlook.com>
+ <05ae70f5-2692-7b64-359d-c307f02b93bf@amd.com>
+ <BY5PR12MB41150A7947A27D2A52F76B9E8FA40@BY5PR12MB4115.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e34e2deb-2c52-a4ad-c436-1b59ecdaa28b@gmail.com>
+Date: Mon, 18 Jan 2021 17:03:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 373d26c5-b22d-44a8-4261-08d8bbc8c2f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2021 15:50:20.9998 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dbl3AMH3wgen4ZETj6gJOofB3XiqIFYsJfF6Jf5tWiHIelb84KuI/CV7GvHoA93HxXJwU0lj4su8FB/5hne+kw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3984
+In-Reply-To: <BY5PR12MB41150A7947A27D2A52F76B9E8FA40@BY5PR12MB4115.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,495 +91,203 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: multipart/mixed; boundary="===============0446535696=="
+Reply-To: christian.koenig@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0446535696==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44887CBDD43B3F3D3B869A67F7A40MN2PR12MB4488namp_"
-
---_000_MN2PR12MB44887CBDD43B3F3D3B869A67F7A40MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Huang, Ray <Ray.Huang@amd.com>
-Sent: Monday, January 18, 2021 7:32 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
-md.com>; Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: [PATCH v2] drm/amdgpu: fix build error without x86 kconfig (v2)
-
-This patch is to fix below build error while we are using the kconfig
-without x86.
-
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_get_smu_metrics_data':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:300:10:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
-  300 |          boot_cpu_data.x86_max_cores * sizeof(uint16_t));
-      |          ^~~~~~~~~~~~~
-      |          boot_cpuid
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_read_sensor':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1320:11:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
- 1320 |   *size =3D boot_cpu_data.x86_max_cores * sizeof(uint16_t);
-      |           ^~~~~~~~~~~~~
-      |           boot_cpuid
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function
-'vangogh_od_edit_dpm_table':
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1460:19:
-error: 'boot_cpu_data' undeclared (first use in this function); did you
-mean 'boot_cpuid'?
- 1460 |   if (input[0] >=3D boot_cpu_data.x86_max_cores) {
-      |                   ^~~~~~~~~~~~~
-      |                   boot_cpuid
-
-v2: fix #ifdef and add comment for APU only
-
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c              |  4 ++--
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h         |  2 ++
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c    | 17 ++++++++++++-----
- 3 files changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 80d6298912aa..e9b569b76716 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3633,12 +3633,12 @@ static void amdgpu_debugfs_prints_cpu_info(struct s=
-eq_file *m,
-         int i;
-
-         if (is_support_cclk_dpm(adev)) {
--               p_val =3D kcalloc(boot_cpu_data.x86_max_cores, sizeof(uint1=
-6_t),
-+               p_val =3D kcalloc(adev->smu.cpu_core_num, sizeof(uint16_t),
-                                 GFP_KERNEL);
-
-                 if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_CPU_CLK=
-,
-                                             (void *)p_val, &size)) {
--                       for (i =3D 0; i < boot_cpu_data.x86_max_cores; i++)
-+                       for (i =3D 0; i < adev->smu.cpu_core_num; i++)
-                                 seq_printf(m, "\t%u MHz (CPU%d)\n",
-                                            *(p_val + i), i);
-                 }
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_smu.h
-index 25ee9f51813b..a087e00382e6 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -466,11 +466,13 @@ struct smu_context
-         uint32_t gfx_actual_hard_min_freq;
-         uint32_t gfx_actual_soft_max_freq;
-
-+       /* APU only */
-         uint32_t cpu_default_soft_min_freq;
-         uint32_t cpu_default_soft_max_freq;
-         uint32_t cpu_actual_soft_min_freq;
-         uint32_t cpu_actual_soft_max_freq;
-         uint32_t cpu_core_id_select;
-+       uint16_t cpu_core_num;
- };
-
- struct i2c_adapter;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 2f0cb0ea243b..dc41abe7b1d3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -297,7 +297,7 @@ static int vangogh_get_smu_metrics_data(struct smu_cont=
-ext *smu,
-                 break;
-         case METRICS_AVERAGE_CPUCLK:
-                 memcpy(value, &metrics->CoreFrequency[0],
--                      boot_cpu_data.x86_max_cores * sizeof(uint16_t));
-+                      smu->cpu_core_num * sizeof(uint16_t));
-                 break;
-         default:
-                 *value =3D UINT_MAX;
-@@ -335,6 +335,13 @@ static int vangogh_init_smc_tables(struct smu_context =
-*smu)
-         if (ret)
-                 return ret;
-
-+#ifdef CONFIG_X86
-+       /* AMD x86 APU only */
-+       smu->cpu_core_num =3D boot_cpu_data.x86_max_cores;
-+#else
-+       smu->cpu_core_num =3D 4;
-+#endif
-+
-         return smu_v11_0_init_smc_tables(smu);
- }
-
-@@ -1317,7 +1324,7 @@ static int vangogh_read_sensor(struct smu_context *sm=
-u,
-                 ret =3D vangogh_get_smu_metrics_data(smu,
-                                                    METRICS_AVERAGE_CPUCLK,
-                                                    (uint32_t *)data);
--               *size =3D boot_cpu_data.x86_max_cores * sizeof(uint16_t);
-+               *size =3D smu->cpu_core_num * sizeof(uint16_t);
-                 break;
-         default:
-                 ret =3D -EOPNOTSUPP;
-@@ -1457,9 +1464,9 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB
-                         dev_err(smu->adev->dev, "Input parameter number no=
-t correct (should be 4 for processor)\n");
-                         return -EINVAL;
-                 }
--               if (input[0] >=3D boot_cpu_data.x86_max_cores) {
-+               if (input[0] >=3D smu->cpu_core_num) {
-                         dev_err(smu->adev->dev, "core index is overflow, s=
-hould be less than %d\n",
--                               boot_cpu_data.x86_max_cores);
-+                               smu->cpu_core_num);
-                 }
-                 smu->cpu_core_id_select =3D input[0];
-                 if (input[1] =3D=3D 0) {
-@@ -1535,7 +1542,7 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB
-                                 break;
-                         }
-
--                       for (i =3D 0; i < boot_cpu_data.x86_max_cores; i++)=
- {
-+                       for (i =3D 0; i < smu->cpu_core_num; i++) {
-                                 ret =3D smu_cmn_send_smc_msg_with_param(sm=
-u, SMU_MSG_SetSoftMinCclk,
-                                                                       (i <=
-< 20) | smu->cpu_actual_soft_min_freq,
-                                                                       NULL=
-);
---
-2.25.1
-
-
---_000_MN2PR12MB44887CBDD43B3F3D3B869A67F7A40MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Ray &lt;Ray.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Monday, January 18, 2021 7:32 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
- &lt;Ray.Huang@amd.com&gt;; Stephen Rothwell &lt;sfr@canb.auug.org.au&gt;<b=
-r>
-<b>Subject:</b> [PATCH v2] drm/amdgpu: fix build error without x86 kconfig =
-(v2)</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This patch is to fix below build error while we ar=
-e using the kconfig<br>
-without x86.<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function<br>
-'vangogh_get_smu_metrics_data':<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:300:10:<br>
-error: 'boot_cpu_data' undeclared (first use in this function); did you<br>
-mean 'boot_cpuid'?<br>
-&nbsp; 300 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boot_cpu=
-_data.x86_max_cores * sizeof(uint16_t));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; ^~~~~~~~~~~~~<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; boot_cpuid<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function<br>
-'vangogh_read_sensor':<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1320:11:<br>
-error: 'boot_cpu_data' undeclared (first use in this function); did you<br>
-mean 'boot_cpuid'?<br>
-&nbsp;1320 |&nbsp;&nbsp; *size =3D boot_cpu_data.x86_max_cores * sizeof(uin=
-t16_t);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; ^~~~~~~~~~~~~<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; boot_cpuid<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c: In function<br>
-'vangogh_od_edit_dpm_table':<br>
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:1460:19:<br>
-error: 'boot_cpu_data' undeclared (first use in this function); did you<br>
-mean 'boot_cpuid'?<br>
-&nbsp;1460 |&nbsp;&nbsp; if (input[0] &gt;=3D boot_cpu_data.x86_max_cores) =
-{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~~=
-~~~~<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boot_cpui=
-d<br>
-<br>
-v2: fix #ifdef and add comment for APU only<br>
-<br>
-Reported-by: Stephen Rothwell &lt;sfr@canb.auug.org.au&gt;<br>
-Signed-off-by: Huang Rui &lt;ray.huang@amd.com&gt;<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 ++--<br>
-&nbsp;drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; |&nbsp; 2 ++<br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c&nbsp;&nbsp;&nbsp; | 17 +=
-+++++++++++-----<br>
-&nbsp;3 files changed, 16 insertions(+), 7 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index 80d6298912aa..e9b569b76716 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -3633,12 +3633,12 @@ static void amdgpu_debugfs_prints_cpu_info(struct s=
-eq_file *m,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_support_cclk_dpm(ad=
-ev)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; p_val =3D kcalloc(boot_cpu_data.x86_max_cores, sizeof(uint16_t),=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; p_val =3D kcalloc(adev-&gt;smu.cpu_core_num, sizeof(uint16_t),<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GFP_KERNEL);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_CP=
-U_CLK,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void *)p_val, &amp;size)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i =
-&lt; boot_cpu_data.x86_max_cores; i++)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i =
-&lt; adev-&gt;smu.cpu_core_num; i++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;\t%u MHz (CP=
-U%d)\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(p_val + i), i);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_smu.h<br>
-index 25ee9f51813b..a087e00382e6 100644<br>
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
-@@ -466,11 +466,13 @@ struct smu_context<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gfx_actual_hard_m=
-in_freq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gfx_actual_soft_m=
-ax_freq;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APU only */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cpu_default_soft_=
-min_freq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cpu_default_soft_=
-max_freq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cpu_actual_soft_m=
-in_freq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cpu_actual_soft_m=
-ax_freq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cpu_core_id_selec=
-t;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t cpu_core_num;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;struct i2c_adapter;<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-index 2f0cb0ea243b..dc41abe7b1d3 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-@@ -297,7 +297,7 @@ static int vangogh_get_smu_metrics_data(struct smu_cont=
-ext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case METRICS_AVERAGE_CPUCL=
-K:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; memcpy(value, &amp;metrics-&gt;CoreFrequency[0],<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boot_cpu_data.x86_max_=
-cores * sizeof(uint16_t));<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;cpu_core_num *=
- sizeof(uint16_t));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *value =3D UINT_MAX;<br>
-@@ -335,6 +335,13 @@ static int vangogh_init_smc_tables(struct smu_context =
-*smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
-+#ifdef CONFIG_X86<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD x86 APU only */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;cpu_core_num =3D boot_cpu_dat=
-a.x86_max_cores;<br>
-+#else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;cpu_core_num =3D 4;<br>
-+#endif<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_v11_0_init_smc_=
-tables(smu);<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -1317,7 +1324,7 @@ static int vangogh_read_sensor(struct smu_context *sm=
-u,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D vangogh_get_smu_metrics_data(smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; METRICS_AVERAGE_CPUCLK,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; (uint32_t *)data);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; *size =3D boot_cpu_data.x86_max_cores * sizeof(uint16_t);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; *size =3D smu-&gt;cpu_core_num * sizeof(uint16_t);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D -EOPNOTSUPP;<br>
-@@ -1457,9 +1464,9 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
-rr(smu-&gt;adev-&gt;dev, &quot;Input parameter number not correct (should b=
-e 4 for processor)\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (input[0] &gt;=3D boot_cpu_data.x86_max_cores) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (input[0] &gt;=3D smu-&gt;cpu_core_num) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
-rr(smu-&gt;adev-&gt;dev, &quot;core index is overflow, should be less than =
-%d\n&quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boot_cpu_data.x86_max_cores);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;cpu_core_num);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;cpu_core_id_select =3D input[0];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (input[1] =3D=3D 0) {<br>
-@@ -1535,7 +1542,7 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i =
-&lt; boot_cpu_data.x86_max_cores; i++) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i =
-&lt; smu-&gt;cpu_core_num; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_smc_msg_wit=
-h_param(smu, SMU_MSG_SetSoftMinCclk,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (i &lt;&lt; 20) | smu-&gt;cpu=
-_actual_soft_min_freq,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL);<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB44887CBDD43B3F3D3B869A67F7A40MN2PR12MB4488namp_--
-
---===============0446535696==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0446535696==--
+QW0gMTguMDEuMjEgdW0gMTI6NTYgc2NocmllYiBEZW5nLCBFbWlseToKPiBbQU1EIE9mZmljaWFs
+IFVzZSBPbmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldCj4KPj4gLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2Vu
+aWdAYW1kLmNvbT4KPj4gU2VudDogTW9uZGF5LCBKYW51YXJ5IDE4LCAyMDIxIDM6NDkgUE0KPj4g
+VG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBTdW4sIFJveSA8Um95LlN1bkBh
+bWQuY29tPjsKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gU3ViamVjdDogUmU6
+IFtQQVRDSF0gZHJtL2FtZGdwdTogY2hhbmdlIHRoZSBmZW5jZSByaW5nIHdhaXQgdGltZW91dAo+
+Pgo+PiBNaG0sIHdlIGNvdWxkIGNoYW5nZSBhbWRncHVfZmVuY2Vfd2FpdF9lbXB0eSgpIHRvIHRp
+bWVvdXQuIEJ1dCBJIHRoaW5rCj4+IHRoYXQgd2FpdGluZyBmb3JldmVyIGhlcmUgaXMgaW50ZW50
+aW9uYWwgYW5kIHRoZSByaWdodCB0aGluZyB0byBkby4KPj4KPj4gV2hhdCBoYXBwZW5zIGlzIHRo
+YXQgd2Ugd2FpdCBmb3IgdGhlIGhhcmR3YXJlIHRvIG1ha2Ugc3VyZSB0aGF0IG5vdGhpbmcgaXMK
+Pj4gd3JpdGluZyB0byBhbnkgbWVtb3J5IGJlZm9yZSB3ZSB1bmxvYWQgdGhlIGRyaXZlci4KPj4K
+Pj4gTm93IHRoZSBWQ04gYmxvY2sgaGFzIGNyYXNoZWQgYW5kIGRvZXNuJ3QgcmVzcG9uZCwgYnV0
+IHdlIGNhbid0IGd1YXJhbnRlZQo+PiB0aGF0IGl0IGlzIG5vdCBhY2NpZGVudGFsbHkgd3JpdGlu
+ZyBhbnl3aGVyZS4KPj4KPj4gVGhlIG9ubHkgYWx0ZXJuYXRpdmUgd2UgaGF2ZSBpcyB0byB0aW1l
+IG91dCBhbmQgcHJvY2VlZCB3aXRoIHRoZSBkcml2ZXIgdW5sb2FkLAo+PiByaXNraW5nIGNvcnJ1
+cHRpbmcgdGhlIG1lbW9yeSB3ZSBmcmVlIGR1cmluZyB0aGF0IHNob3VsZCB0aGUgaGFyZHdhcmUK
+Pj4gY29udGludWUgdG8gZG8gc29tZXRoaW5nLgo+IEhpIENocmlzdGlhbiwKPiAgICAgIFRoYW5r
+cyB5b3VyIHN1Z2dlc3Rpb24sIGJ1dCBzdGlsbCBub3QgcXVpdGUgY2xlYXJseSwgY291bGQgeW91
+IGRldGFpbCB0aGUgc29sdXRpb24gdG8gYXZvaWQga2VybmVsIG5vdCBsb2NrdXA/CgpXZWxsIGFz
+IEkgc2FpZCB0aGF0IHRoZSBrZXJuZWwgbG9ja3MgdXAgaXMgaW50ZW50aW9uYWwgaGVyZS4KClJl
+Z2FyZHMsCkNocmlzdGlhbi4KCj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4gQW0gMTgu
+MDEuMjEgdW0gMDM6MDEgc2NocmllYiBEZW5nLCBFbWlseToKPj4+IFtBTUQgT2ZmaWNpYWwgVXNl
+IE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0KPj4+Cj4+Pj4gLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0KPj4+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktv
+ZW5pZ0BhbWQuY29tPgo+Pj4+IFNlbnQ6IFRodXJzZGF5LCBKYW51YXJ5IDE0LCAyMDIxIDk6NTAg
+UE0KPj4+PiBUbzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT47IFN1biwgUm95IDxS
+b3kuU3VuQGFtZC5jb20+Owo+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4g
+U3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogY2hhbmdlIHRoZSBmZW5jZSByaW5nIHdh
+aXQgdGltZW91dAo+Pj4+Cj4+Pj4gQW0gMTQuMDEuMjEgdW0gMDM6MDAgc2NocmllYiBEZW5nLCBF
+bWlseToKPj4+Pj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlv
+biBPbmx5XQo+Pj4+Pgo+Pj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4+Pj4+IEZy
+b206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJl
+aGFsZiBPZgo+Pj4+Pj4gQ2hyaXN0aWFuIEvDtm5pZwo+Pj4+Pj4gU2VudDogV2VkbmVzZGF5LCBK
+YW51YXJ5IDEzLCAyMDIxIDEwOjAzIFBNCj4+Pj4+PiBUbzogU3VuLCBSb3kgPFJveS5TdW5AYW1k
+LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+PiBTdWJqZWN0OiBSZTog
+W1BBVENIXSBkcm0vYW1kZ3B1OiBjaGFuZ2UgdGhlIGZlbmNlIHJpbmcgd2FpdCB0aW1lb3V0Cj4+
+Pj4+Pgo+Pj4+Pj4gQW0gMTMuMDEuMjEgdW0gMDc6MzYgc2NocmllYiBSb3kgU3VuOgo+Pj4+Pj4+
+IFRoaXMgZml4IGJ1ZyB3aGVyZSB3aGVuIHRoZSBlbmdpbmUgaGFuZywgdGhlIGZlbmNlIHJpbmcg
+d2lsbCB3YWl0Cj4+Pj4+Pj4gd2l0aG91dCBxdWl0IGFuZCBjYXVzZSBrZXJuZWwgY3Jhc2gKPj4+
+Pj4+IE5BSywgdGhpcyBibG9ja2luZyBpcyBpbnRlbnRpb25hbCB1bmxpbWl0ZWQgYmVjYXVzZSBv
+dGhlcndpc2Ugd2UKPj4+Pj4+IHdpbGwgY2F1c2UgYSBtZW1vcnkgY29ycnVwdGlvbi4KPj4+Pj4+
+Cj4+Pj4+PiBXaGF0IGlzIHRoZSBhY3R1YWwgYnVnIHlvdSBhcmUgdHJ5aW5nIHRvIGZpeCBoZXJl
+Pwo+Pj4+PiBXaGVuIHNvbWUgZW5naW5lIGhhbmcgZHVyaW5nIGluaXRpYWxpemF0aW9uLCB0aGUg
+SUIgdGVzdCB3aWxsIGZhaWwsCj4+Pj4+IGFuZCBmZW5jZSB3aWxsIG5ldmVyIGNvbWUgYmFjaywg
+dGhlbiBuZXZlciBjb3VsZCB3YWl0IHRoZSBmZW5jZSBiYWNrLgo+Pj4+PiBXaHkgd2UgbmVlZCB0
+byB3YWl0IGhlcmUgZm9yZXZlcj8gV2UnZCBiZXR0ZXIgbm90IHVzZSBmb3JldmVyIHdhaXQKPj4+
+Pj4gd2hpY2gKPj4+PiB3aWxsIGNhdXNlIGtlcm5lbCBjcmFzaCBhbmQgbG9ja3VwLiBBbmQgd2Ug
+aGF2ZQo+Pj4+IGFtZGdwdV9mZW5jZV9kcml2ZXJfZm9yY2VfY29tcGxldGlvbiB3aWxsIGxldCBt
+ZW1vcnkgZnJlZS4gV2Ugc2hvdWxkCj4+Pj4gcmVtb3ZlIGFsbCB0aG9zZSBmb3JldmVyIHdhaXQs
+IGFuZCByZXBsYWNlIHRoZW0gd2l0aCBvbmUgdGltZW91dCwKPj4+PiBhbmQgZG8gdGhlIGNvcnJl
+Y3QgZXJyb3IgcHJvY2VzcyBpZiB0aW1lb3V0Lgo+Pj4+Cj4+Pj4gVGhpcyB3YWl0IGhlcmUgaXMg
+dG8gbWFrZSBzdXJlIHdlIG5ldmVyIG92ZXJ3cml0ZSB0aGUgc29mdHdhcmUgZmVuY2UKPj4+PiBy
+aW5nIGJ1ZmZlci4gV2l0aG91dCBpdCB3ZSB3b3VsZCBub3Qgc2lnbmFsIGFsbCBmZW5jZXMgaW4K
+Pj4+PiBhbWRncHVfZmVuY2VfZHJpdmVyX2ZvcmNlX2NvbXBsZXRpb24oKSBhbmQgY2F1c2UgZWl0
+aGVyIG1lbW9yeSBsZWFrCj4+Pj4gb3IgY29ycnVwdGlvbi4KPj4+Pgo+Pj4+IFdhaXRpbmcgaGVy
+ZSBmb3JldmVyIGlzIHRoZSByaWdodCB0aGluZyB0byBkbyBldmVuIHdoZW4gdGhhdCBtZWFucwo+
+Pj4+IHRoYXQgdGhlIHN1Ym1pc3Npb24gdGhyZWFkIGdldHMgc3R1Y2sgZm9yZXZlciwgY2F1c2Ug
+dGhhdCBpcyBzdGlsbAo+Pj4+IGJldHRlciB0aGFuIG1lbW9yeSBjb3JydXB0aW9uLgo+Pj4+Cj4+
+Pj4gQnV0IHRoaXMgc2hvdWxkIG5ldmVyIGhhcHBlbiBpbiBwcmFjdGljZSBhbmQgaXMgb25seSBo
+ZXJlIGZvcgo+Pj4+IHByZWNhdXRpb24uIFNvIGRvIHlvdSByZWFsbHkgc2VlIHRoYXQgaW4gcHJh
+Y3RpY2U/Cj4+PiBZZXMsIHdlIGhpdCB0aGUgaXNzdWUgd2hlbiB2Y24gaWIgdGVzdCBmYWlsLiBD
+b3VsZCB5b3UgZ2l2ZSBzb21lIHN1Z2dlc3Rpb25zCj4+IGFib3V0IGhvdyB0byBmaXggdGhpcz8K
+Pj4+IFsgIDk1OC4zMDE2ODVdIGZhaWxlZCB0byByZWFkIHJlZzoxYTZjMAo+Pj4KPj4+IFsgIDk1
+OS4wMzY2NDVdIGdtY192MTBfMF9wcm9jZXNzX2ludGVycnVwdDogNDIgY2FsbGJhY2tzIHN1cHBy
+ZXNzZWQKPj4+Cj4+PiBbICA5NTkuMDM2NjUzXSBhbWRncHUgMDAwMDowMDowNy4wOiBbbW1odWJd
+IHBhZ2UgZmF1bHQgKHNyY19pZDowCj4+PiByaW5nOjAgdm1pZDowIHBhc2lkOjAsIGZvciBwcm9j
+ZXNzICBwaWQgMCB0aHJlYWQgIHBpZCAwKQo+Pj4KPj4+IFsgIDk1OS4wMzgwNDNdIGFtZGdwdSAw
+MDAwOjAwOjA3LjA6ICAgaW4gcGFnZSBzdGFydGluZyBhdCBhZGRyZXNzCj4+IDB4MDAwMDAwMDAw
+MDU2NzAwMCBmcm9tIGNsaWVudCAxOAo+Pj4gWyAgOTU5LjAzOTAxNF0gYW1kZ3B1IDAwMDA6MDA6
+MDcuMDogW21taHViXSBwYWdlIGZhdWx0IChzcmNfaWQ6MAo+Pj4gcmluZzowIHZtaWQ6MCBwYXNp
+ZDowLCBmb3IgcHJvY2VzcyAgcGlkIDAgdGhyZWFkICBwaWQgMCkKPj4+Cj4+PiBbICA5NTkuMDQw
+MjAyXSBhbWRncHUgMDAwMDowMDowNy4wOiAgIGluIHBhZ2Ugc3RhcnRpbmcgYXQgYWRkcmVzcwo+
+PiAweDAwMDAwMDAwMDA1NjcwMDAgZnJvbSBjbGllbnQgMTgKPj4+IFsgIDk1OS4wNDExNzRdIGFt
+ZGdwdSAwMDAwOjAwOjA3LjA6IFttbWh1Yl0gcGFnZSBmYXVsdCAoc3JjX2lkOjAKPj4+IHJpbmc6
+MCB2bWlkOjAgcGFzaWQ6MCwgZm9yIHByb2Nlc3MgIHBpZCAwIHRocmVhZCAgcGlkIDApCj4+Pgo+
+Pj4gWyAgOTU5LjA0MjM1M10gYW1kZ3B1IDAwMDA6MDA6MDcuMDogICBpbiBwYWdlIHN0YXJ0aW5n
+IGF0IGFkZHJlc3MKPj4gMHgwMDAwMDAwMDAwNTY3MDAwIGZyb20gY2xpZW50IDE4Cj4+PiBbICA5
+NTkuMDQzMzI1XSBhbWRncHUgMDAwMDowMDowNy4wOiBbbW1odWJdIHBhZ2UgZmF1bHQgKHNyY19p
+ZDowCj4+PiByaW5nOjAgdm1pZDowIHBhc2lkOjAsIGZvciBwcm9jZXNzICBwaWQgMCB0aHJlYWQg
+IHBpZCAwKQo+Pj4KPj4+IFsgIDk1OS4wNDQ1MDhdIGFtZGdwdSAwMDAwOjAwOjA3LjA6ICAgaW4g
+cGFnZSBzdGFydGluZyBhdCBhZGRyZXNzCj4+IDB4MDAwMDAwMDAwMDU2NzAwMCBmcm9tIGNsaWVu
+dCAxOAo+Pj4gWyAgOTU5LjA0NTQ4MF0gYW1kZ3B1IDAwMDA6MDA6MDcuMDogW21taHViXSBwYWdl
+IGZhdWx0IChzcmNfaWQ6MAo+Pj4gcmluZzowIHZtaWQ6MCBwYXNpZDowLCBmb3IgcHJvY2VzcyAg
+cGlkIDAgdGhyZWFkICBwaWQgMCkKPj4+Cj4+PiBbICA5NTkuMDQ2NjU5XSBhbWRncHUgMDAwMDow
+MDowNy4wOiAgIGluIHBhZ2Ugc3RhcnRpbmcgYXQgYWRkcmVzcwo+PiAweDAwMDAwMDAwMDA1Njcw
+MDAgZnJvbSBjbGllbnQgMTgKPj4+IFsgIDk1OS4wNDc2MzFdIGFtZGdwdSAwMDAwOjAwOjA3LjA6
+IFttbWh1Yl0gcGFnZSBmYXVsdCAoc3JjX2lkOjAKPj4+IHJpbmc6MCB2bWlkOjAgcGFzaWQ6MCwg
+Zm9yIHByb2Nlc3MgIHBpZCAwIHRocmVhZCAgcGlkIDApCj4+Pgo+Pj4gWyAgOTU5LjA0ODgxNV0g
+YW1kZ3B1IDAwMDA6MDA6MDcuMDogICBpbiBwYWdlIHN0YXJ0aW5nIGF0IGFkZHJlc3MKPj4gMHgw
+MDAwMDAwMDAwNTY3MDAwIGZyb20gY2xpZW50IDE4Cj4+PiBbICA5NTkuMDQ5Nzg3XSBhbWRncHUg
+MDAwMDowMDowNy4wOiBbbW1odWJdIHBhZ2UgZmF1bHQgKHNyY19pZDowCj4+PiByaW5nOjAgdm1p
+ZDowIHBhc2lkOjAsIGZvciBwcm9jZXNzICBwaWQgMCB0aHJlYWQgIHBpZCAwKQo+Pj4KPj4+IFsg
+IDk1OS4wNTA5NzNdIGFtZGdwdSAwMDAwOjAwOjA3LjA6ICAgaW4gcGFnZSBzdGFydGluZyBhdCBh
+ZGRyZXNzCj4+IDB4MDAwMDAwMDAwMDU2NzAwMCBmcm9tIGNsaWVudCAxOAo+Pj4gWyAgOTU5LjA1
+MTk1MF0gYW1kZ3B1IDAwMDA6MDA6MDcuMDogW21taHViXSBwYWdlIGZhdWx0IChzcmNfaWQ6MAo+
+Pj4gcmluZzowIHZtaWQ6MCBwYXNpZDowLCBmb3IgcHJvY2VzcyAgcGlkIDAgdGhyZWFkICBwaWQg
+MCkKPj4+Cj4+PiBbICA5NTkuMDUzMTIzXSBhbWRncHUgMDAwMDowMDowNy4wOiAgIGluIHBhZ2Ug
+c3RhcnRpbmcgYXQgYWRkcmVzcwo+PiAweDAwMDAwMDAwMDA1NjcwMDAgZnJvbSBjbGllbnQgMTgK
+Pj4+IFsgIDk2Ny4yMDg3MDVdIGFtZGdwdSAwMDAwOjAwOjA3LjA6IFtkcm06YW1kZ3B1X2liX3Jp
+bmdfdGVzdHMgW2FtZGdwdV1dCj4+ICpFUlJPUiogSUIgdGVzdCBmYWlsZWQgb24gdmNuX2VuYzAg
+KC0xMTApLgo+Pj4gWyAgOTY3LjIwOTg3OV0gW2RybTphbWRncHVfZGV2aWNlX2luaXQgW2FtZGdw
+dV1dICpFUlJPUiogaWIgcmluZyB0ZXN0Cj4+IGZhaWxlZCAoLTExMCkuCj4+Pgo+Pj4KPj4+IFsg
+MTIwOS4zODQ2NjhdIElORk86IHRhc2sgbW9kcHJvYmU6MjM5NTcgYmxvY2tlZCBmb3IgbW9yZSB0
+aGFuIDEyMAo+PiBzZWNvbmRzLgo+Pj4gWyAxMjA5LjM4NTYwNV0gICAgICAgVGFpbnRlZDogRyAg
+ICAgICAgICAgT0UgICAgIDUuNC4wLTU4LWdlbmVyaWMgIzY0fjE4LjA0LjEtCj4+IFVidW50dQo+
+Pj4gWyAxMjA5LjM4NjQ1MV0gImVjaG8gMCA+IC9wcm9jL3N5cy9rZXJuZWwvaHVuZ190YXNrX3Rp
+bWVvdXRfc2VjcyIKPj4gZGlzYWJsZXMgdGhpcyBtZXNzYWdlLgo+Pj4gWyAxMjA5LjM4NzM0Ml0g
+bW9kcHJvYmUgICAgICAgIEQgICAgMCAyMzk1NyAgIDEyMjEgMHg4MDAwNDAwNgo+Pj4KPj4+IFsg
+MTIwOS4zODczNDRdIENhbGwgVHJhY2U6Cj4+Pgo+Pj4gWyAxMjA5LjM4NzM1NF0gIF9fc2NoZWR1
+bGUrMHgyOTMvMHg3MjAKPj4+Cj4+PiBbIDEyMDkuMzg3MzU2XSAgc2NoZWR1bGUrMHgzMy8weGEw
+Cj4+Pgo+Pj4gWyAxMjA5LjM4NzM1N10gIHNjaGVkdWxlX3RpbWVvdXQrMHgxZDMvMHgzMjAKPj4+
+Cj4+PiBbIDEyMDkuMzg3MzU5XSAgPyBzY2hlZHVsZSsweDMzLzB4YTAKPj4+Cj4+PiBbIDEyMDku
+Mzg3MzYwXSAgPyBzY2hlZHVsZV90aW1lb3V0KzB4MWQzLzB4MzIwCj4+Pgo+Pj4gWyAxMjA5LjM4
+NzM2M10gIGRtYV9mZW5jZV9kZWZhdWx0X3dhaXQrMHgxYjIvMHgxZTAKPj4+Cj4+PiBbIDEyMDku
+Mzg3MzY0XSAgPyBkbWFfZmVuY2VfcmVsZWFzZSsweDEzMC8weDEzMAo+Pj4KPj4+IFsgMTIwOS4z
+ODczNjZdICBkbWFfZmVuY2Vfd2FpdF90aW1lb3V0KzB4ZmQvMHgxMTAKPj4+Cj4+PiBbIDEyMDku
+Mzg3NzczXSAgYW1kZ3B1X2ZlbmNlX3dhaXRfZW1wdHkrMHg5MC8weGMwIFthbWRncHVdCj4+Pgo+
+Pj4gWyAxMjA5LjM4NzgzOV0gIGFtZGdwdV9mZW5jZV9kcml2ZXJfZmluaSsweGQ2LzB4MTEwIFth
+bWRncHVdCj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+Pj4+IFJlZ2FyZHMs
+Cj4+Pj4+PiBDaHJpc3RpYW4uCj4+Pj4+Pgo+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFJveSBTdW4g
+PFJveS5TdW5AYW1kLmNvbT4KPj4+Pj4+PiAtLS0KPj4+Pj4+PiAgICAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIHwgNDgKPj4+Pj4+ICsrKysrKysrKysrKysrKysr
+KysrLS0tCj4+Pj4+Pj4gICAgICAxIGZpbGUgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKSwgNSBk
+ZWxldGlvbnMoLSkKPj4+Pj4+Pgo+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwo+Pj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4+Pj4+PiBpbmRleCA2YjBhZWVlNjFiOGIuLjczOGVhNjUw
+NzdlYSAxMDA2NDQKPj4+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZmVuY2UuYwo+Pj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9mZW5jZS5jCj4+Pj4+Pj4gQEAgLTQxLDYgKzQxLDggQEAKPj4+Pj4+PiAgICAgICNpbmNsdWRl
+ICJhbWRncHUuaCIKPj4+Pj4+PiAgICAgICNpbmNsdWRlICJhbWRncHVfdHJhY2UuaCIKPj4+Pj4+
+Pgo+Pj4+Pj4+ICsjZGVmaW5lIEFNREdQVV9GRU5DRV9USU1FT1VUICBtc2Vjc190b19qaWZmaWVz
+KDEwMDApICNkZWZpbmUKPj4+Pj4+PiArQU1ER1BVX0ZFTkNFX0dGWF9YR01JX1RJTUVPVVQgbXNl
+Y3NfdG9famlmZmllcygyMDAwKQo+Pj4+Pj4+ICAgICAgLyoKPj4+Pj4+PiAgICAgICAqIEZlbmNl
+cwo+Pj4+Pj4+ICAgICAgICogRmVuY2VzIG1hcmsgYW4gZXZlbnQgaW4gdGhlIEdQVXMgcGlwZWxp
+bmUgYW5kIGFyZSB1c2VkIEBACj4+Pj4+Pj4gLTEwNCw2Cj4+Pj4+Pj4gKzEwNiwzOCBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfZmVuY2Vfd3JpdGUoc3RydWN0IGFtZGdwdV9yaW5nCj4+Pj4+Pj4gKypy
+aW5nLAo+Pj4+Pj4+ICt1MzIKPj4+Pj4+IHNlcSkKPj4+Pj4+PiAgICAgICpkcnYtPmNwdV9hZGRy
+ID0gY3B1X3RvX2xlMzIoc2VxKTsKPj4+Pj4+PiAgICAgIH0KPj4+Pj4+Pgo+Pj4+Pj4+ICsvKioK
+Pj4+Pj4+PiArICogYW1kZ3B1X2ZlbmNlX3dhaXRfdGltZW91dCAtIGdldCB0aGUgZmVuY2Ugd2Fp
+dCB0aW1lb3V0Cj4+Pj4+Pj4gKyAqCj4+Pj4+Pj4gKyAqIEByaW5nOiByaW5nIHRoZSBmZW5jZSBp
+cyBhc3NvY2lhdGVkIHdpdGgKPj4+Pj4+PiArICoKPj4+Pj4+PiArICogUmV0dXJucyB0aGUgdmFs
+dWUgb2YgdGhlIGZlbmNlIHdhaXQgdGltZW91dC4KPj4+Pj4+PiArICovCj4+Pj4+Pj4gK2xvbmcg
+YW1kZ3B1X2ZlbmNlX3dhaXRfdGltZW91dChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpIHsgbG9u
+Zwo+Pj4+Pj4+ICt0bW9fZ2Z4LCB0bW9fbW0sIHRtbzsgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYgPSByaW5nLT5hZGV2Owo+Pj4+Pj4+ICt0bW9fbW0gPSB0bW9fZ2Z4ID0gQU1ER1BVX0ZFTkNF
+X1RJTUVPVVQ7IGlmCj4+Pj4gKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkKPj4+Pj4+PiAreyB0bW9f
+bW0gPSA4ICogQU1ER1BVX0ZFTkNFX1RJTUVPVVQ7IH0gaWYKPj4+Pj4+PiArKGFtZGdwdV9zcmlv
+dl9ydW50aW1lKGFkZXYpKSB7IHRtb19nZnggPSA4ICoKPj4+PiBBTURHUFVfRkVOQ0VfVElNRU9V
+VDsKPj4+Pj4+PiArfSBlbHNlIGlmIChhZGV2LT5nbWMueGdtaS5oaXZlX2lkKSB7IHRtb19nZngg
+PQo+Pj4+Pj4+ICtBTURHUFVfRkVOQ0VfR0ZYX1hHTUlfVElNRU9VVDsgfSBpZiAocmluZy0+ZnVu
+Y3MtPnR5cGUgPT0KPj4+Pj4+PiArQU1ER1BVX1JJTkdfVFlQRV9VVkQgfHwKPj4+Pj4+PiArcmlu
+Zy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9WQ0UgfHwgdHlwZSA9PQo+Pj4+Pj4+
+ICtyaW5nLT5mdW5jcy0+QU1ER1BVX1JJTkdfVFlQRV9VVkRfRU5DIHx8IHR5cGUgPT0KPj4+Pj4+
+PiArcmluZy0+ZnVuY3MtPkFNREdQVV9SSU5HX1RZUEVfVkNOX0RFQyB8fCB0eXBlID09Cj4+Pj4+
+Pj4gK3JpbmctPmZ1bmNzLT5BTURHUFVfUklOR19UWVBFX1ZDTl9FTkMgfHwgdHlwZSA9PQo+Pj4+
+Pj4+ICtyaW5nLT5mdW5jcy0+QU1ER1BVX1JJTkdfVFlQRV9WQ05fSlBFRykKPj4+Pj4+PiArdG1v
+ID0gdG1vX21tOwo+Pj4+Pj4+ICtlbHNlCj4+Pj4+Pj4gK3RtbyA9IHRtb19nZng7Cj4+Pj4+Pj4g
+K3JldHVybiB0bW87Cj4+Pj4+Pj4gK30KPj4+Pj4+PiArCj4+Pj4+Pj4gICAgICAvKioKPj4+Pj4+
+PiAgICAgICAqIGFtZGdwdV9mZW5jZV9yZWFkIC0gcmVhZCBhIGZlbmNlIHZhbHVlCj4+Pj4+Pj4g
+ICAgICAgKgo+Pj4+Pj4+IEBAIC0xNjYsMTAgKzIwMCwxMiBAQCBpbnQgYW1kZ3B1X2ZlbmNlX2Vt
+aXQoc3RydWN0IGFtZGdwdV9yaW5nCj4+Pj4+Pj4gKnJpbmcsCj4+Pj4+PiBzdHJ1Y3QgZG1hX2Zl
+bmNlICoqZiwKPj4+Pj4+PiAgICAgIHJjdV9yZWFkX3VubG9jaygpOwo+Pj4+Pj4+Cj4+Pj4+Pj4g
+ICAgICBpZiAob2xkKSB7Cj4+Pj4+Pj4gLXIgPSBkbWFfZmVuY2Vfd2FpdChvbGQsIGZhbHNlKTsK
+Pj4+Pj4+PiArbG9uZyB0aW1lb3V0Owo+Pj4+Pj4+ICt0aW1lb3V0ID0gYW1kZ3B1X2ZlbmNlX3dh
+aXRfdGltZW91dChyaW5nKTsgciA9Cj4+Pj4+Pj4gK2RtYV9mZW5jZV93YWl0X3RpbWVvdXQob2xk
+LCBmYWxzZSwgdGltZW91dCk7Cj4+Pj4+Pj4gICAgICBkbWFfZmVuY2VfcHV0KG9sZCk7Cj4+Pj4+
+Pj4gICAgICBpZiAocikKPj4+Pj4+PiAtcmV0dXJuIHI7Cj4+Pj4+Pj4gK3JldHVybiByIDwgMCA/
+IHIgOiAwOwo+Pj4+Pj4+ICAgICAgfQo+Pj4+Pj4+ICAgICAgfQo+Pj4+Pj4+Cj4+Pj4+Pj4gQEAg
+LTM0MywxMCArMzc5LDEyIEBAIGludCBhbWRncHVfZmVuY2Vfd2FpdF9lbXB0eShzdHJ1Y3QKPj4+
+Pj4+IGFtZGdwdV9yaW5nICpyaW5nKQo+Pj4+Pj4+ICAgICAgcmV0dXJuIDA7Cj4+Pj4+Pj4gICAg
+ICB9Cj4+Pj4+Pj4gICAgICByY3VfcmVhZF91bmxvY2soKTsKPj4+Pj4+PiAtCj4+Pj4+Pj4gLXIg
+PSBkbWFfZmVuY2Vfd2FpdChmZW5jZSwgZmFsc2UpOwo+Pj4+Pj4+ICsKPj4+Pj4+PiArbG9uZyB0
+aW1lb3V0Owo+Pj4+Pj4+ICt0aW1lb3V0ID0gYW1kZ3B1X2ZlbmNlX3dhaXRfdGltZW91dChyaW5n
+KTsgciA9Cj4+Pj4+Pj4gK2RtYV9mZW5jZV93YWl0X3RpbWVvdXQoZmVuY2UsIGZhbHNlLCB0aW1l
+b3V0KTsKPj4+Pj4+PiAgICAgIGRtYV9mZW5jZV9wdXQoZmVuY2UpOwo+Pj4+Pj4+IC1yZXR1cm4g
+cjsKPj4+Pj4+PiArcmV0dXJuIHIgPCAwID8gciA6IDA7Cj4+Pj4+Pj4gICAgICB9Cj4+Pj4+Pj4K
+Pj4+Pj4+PiAgICAgIC8qKgo+Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPj4+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4+PiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJv
+dGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbAo+Pj4+Pj4gaXMKPj4+Pj4+
+IHRzLmYKPj4+Pj4+IHJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLQo+
+Pj4+Pj4KPj4gZ2Z4JmFtcDtkYXRhPTA0JTdDMDElN0NFbWlseS5EZW5nJTQwYW1kLmNvbSU3Qzhi
+MTE2MjI5OTM4YjQ2Mwo+PiBkZjg3ZjA4ZDhiN2NiZjYwNyU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTEx
+YTgyZDk5NGUxODNkJTdDMCU3QzAlNwo+PiBDNjM3NDYxNDMzOTM2MDQ5NTQ0JTdDVW5rbm93biU3
+Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXcKPj4gTURBaUxDSlFJam9pVjJsdU16SWlMQ0pC
+VGlJNklrMWhhV3dpTENKWFZDSTZNbjAlM0QlN0MxMDAwJmFtcDtzZGEKPj4gdGE9SE9jTEhtbWJs
+T1VIWEFURkJsNUhDNkxPbUZxMG9YZ2xBaDJHRndkNnN1cyUzRCZhbXA7cmVzZXJ2ZQo+Pj4+Pj4g
+ZD0wCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
