@@ -2,72 +2,47 @@ Return-Path: <SRS0=qt+g=GW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F35EC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1638C433E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5A532312E
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:35:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5A532312E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A73E522241
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A73E522241
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0936E846;
-	Tue, 19 Jan 2021 08:35:25 +0000 (UTC)
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A378984F;
- Tue, 19 Jan 2021 08:35:24 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id f11so20958754ljm.8;
- Tue, 19 Jan 2021 00:35:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=xh8WuxUDU5grDfa/XdPbIcMCyLHqz+o1HuYkqoK66i0=;
- b=QoA+QbZp+sikSqOP76GAaFooZT53Ow63Nuhm3fqo0nOHeDHMG0VuLm59HULi+o5m1g
- CfT5b74PowV2nGk2stasDcz5LMqr45U8EuqqklCGLyxV+0Yv6yOqU6X0nfZ4e2oobEME
- t8mBhmxKoA9mqJUzKZWcgBIMFtfuOt9Ah+mdpLsmTK3sRJEG7l14IQDcASlaFMD8wS51
- aaYxFNlfUCEV8gpolw5gCVyCMZAevCQwcFEopibsiRPP8rvSu76cbvKAFXDu6Jw5qwEc
- 1yqP49Iwz+3SiOEwdg7kx3xEzqtPyV46+0/Cj2YcoGwd+9pVFN2eTr87l7eFOEmun5xz
- KG3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=xh8WuxUDU5grDfa/XdPbIcMCyLHqz+o1HuYkqoK66i0=;
- b=IouMBp+4tsR6nDrVto/1f8U2PFxl7NOA9dxCeGL9TPVryjaw3SQAsAd57GreIYBP2C
- L8dC2zGjDHjFT718sJkKdMJXwAv7Ga0a+tG9A0Khop6911vmuoYbt2mLmu1zn9sEvEbQ
- 7/4b7VHNBkKkzr80QHLFAP8+naWC5C+z9UShdoLNlRLow1x8nurIQK+WHShMMGCBuiR4
- ngQlfjSMccfzlNCzacTo8jnUFrHxt48OnQ9NIN0sNY6vrMaZx8axkIYTIS2CXKpgyLDS
- rq85z/z+dArgUtoRHIbcLm9JU6+bJkpw1uxo8MJgeMztTIL2Lea9h0cfv+6Ft85Vokrv
- VqjQ==
-X-Gm-Message-State: AOAM5325p5B7xZBPIMuxu6owOwNp1IBQFd3M5nNHK44LZLM+tiO9oEUA
- hQG7uP9/ZZzDmWsIwVdkWRw=
-X-Google-Smtp-Source: ABdhPJx2nA/9u2nKPbGOSTmFIAND/YZk3KCEMUW30idO5hV6VuxpPD1ZSkFnPIsqXTqqQhuexYBfgQ==
-X-Received: by 2002:a2e:8512:: with SMTP id j18mr1510691lji.31.1611045323077; 
- Tue, 19 Jan 2021 00:35:23 -0800 (PST)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id c16sm2211125lft.264.2021.01.19.00.35.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Jan 2021 00:35:22 -0800 (PST)
-Date: Tue, 19 Jan 2021 10:35:10 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Subject: Re: [PATCH v3 1/3] drm/amd/display: Add module parameter for
- freesync video mode
-Message-ID: <20210119103510.01f55ee4@eldfell>
-In-Reply-To: <b38e46b7707ba9a899384baedc7efe4e70c439bf.camel@amd.com>
-References: <20210104210800.789944-1-aurabindo.pillai@amd.com>
- <20210104210800.789944-2-aurabindo.pillai@amd.com>
- <20210114111445.1d2bbf62@eldfell>
- <b38e46b7707ba9a899384baedc7efe4e70c439bf.camel@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51D1C6E846;
+	Tue, 19 Jan 2021 08:37:39 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0338989FCE;
+ Tue, 19 Jan 2021 07:34:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 56BDE2072D;
+ Tue, 19 Jan 2021 07:34:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1611041692;
+ bh=IHictolKla5yDu5FZfUO1rh8bRpb2Cxn0PR9IXxBXwE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pJKRUktF0pMQuMXzTCJGj7MDGmt/AtfrCiFcDtu5XCvqdrT91p/6j4CVfFcreyO9H
+ 7mFm5luE+1mPdszP4lE09aW/dhF6tvRNrp8g2mrMvhdHgbTCuYvUyIlILY+lfoi4jK
+ wV47cLYq5Tw4FYaWLBZMtvLaxw7n7ImDGvXZh9tA=
+Date: Tue, 19 Jan 2021 08:34:48 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v4 10/14] dmr/amdgpu: Move some sysfs attrs creation to
+ default_attr
+Message-ID: <YAaLmBMlDRr56erH@kroah.com>
+References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1611003683-3534-11-git-send-email-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1611003683-3534-11-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailman-Approved-At: Tue, 19 Jan 2021 08:37:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,125 +54,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, shashank.sharma@amd.com, thong.thai@amd.com,
- dri-devel@lists.freedesktop.org,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- wayne.lin@amd.com, alexander.deucher@amd.com, nicholas.kazlauskas@amd.com
-Content-Type: multipart/mixed; boundary="===============0354097954=="
+Cc: robh@kernel.org, ckoenig.leichtzumerken@gmail.com,
+ dri-devel@lists.freedesktop.org, eric@anholt.net, ppaalanen@gmail.com,
+ amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ Alexander.Deucher@amd.com, yuq825@gmail.com, Harry.Wentland@amd.com,
+ l.stach@pengutronix.de
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0354097954==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/fAfjNpz1Akj+iHvP1bdqmi5"; protocol="application/pgp-signature"
+On Mon, Jan 18, 2021 at 04:01:19PM -0500, Andrey Grodzovsky wrote:
+>  static struct pci_driver amdgpu_kms_pci_driver = {
+>  	.name = DRIVER_NAME,
+>  	.id_table = pciidlist,
+> @@ -1595,6 +1607,7 @@ static struct pci_driver amdgpu_kms_pci_driver = {
+>  	.shutdown = amdgpu_pci_shutdown,
+>  	.driver.pm = &amdgpu_pm_ops,
+>  	.err_handler = &amdgpu_pci_err_handler,
+> +	.driver.dev_groups = amdgpu_sysfs_groups,
 
---Sig_/fAfjNpz1Akj+iHvP1bdqmi5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Shouldn't this just be:
+	groups - amdgpu_sysfs_groups,
 
-On Mon, 18 Jan 2021 09:36:47 -0500
-Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
+Why go to the "driver root" here?
 
-> On Thu, 2021-01-14 at 11:14 +0200, Pekka Paalanen wrote:
-> >=20
-> > Hi,
-> >=20
-> > please document somewhere that ends up in git history (commit
-> > message,
-> > code comments, description of the parameter would be the best but
-> > maybe
-> > there isn't enough space?) what Christian K=C3=B6nig explained in
-> >=20
-> > =20
-> > https://lists.freedesktop.org/archives/dri-devel/2020-December/291254.h=
-tml
-> >=20
-> > that this is a stop-gap feature intended to be removed as soon as
-> > possible (when a better solution comes up, which could be years).
-> >=20
-> > So far I have not seen a single mention of this intention in your
-> > patch
-> > submissions, and I think it is very important to make known. =20
->=20
-> Hi,
->=20
-> Thanks for the headsup, I shall add the relevant info in the next
-> verison.
->=20
-> >=20
-> > I also did not see an explanation of why this instead of
-> > manufacturing
-> > these video modes in userspace (an idea mentioned by Christian in the
-> > referenced email). I think that too should be part of a commit
-> > message. =20
->=20
-> This is an opt-in feature, which shall be superseded by a better
-> solution. We also add a set of common modes for scaling similarly.
-> Userspace can still add whatever mode they want. So I dont see a reason
-> why this cant be in the kernel.
+Other than that tiny thing, looks good to me, nice cleanup!
 
-Hi,
-
-sorry, I think that kind of thinking is backwards. There needs to be a
-reason to put something in the kernel, and if there is no reason, then
-it remains in userspace. So what's the reason to put this in the kernel?
-
-One example reason why this should not be in the kernel is that the set
-of video modes to manufacture is a kind of policy, which modes to add
-and which not. Userspace knows what modes it needs, and establishing
-the modes in the kernel instead is second-guessing what the userspace
-would want. So if userspace needs to manufacture modes in userspace
-anyway as some modes might be missed by the kernel, then why bother in
-the kernel to begin with? Why should the kernel play catch-up with what
-modes userspace wants when we already have everything userspace needs
-to make its own modes, even to add them to the kernel mode list?
-
-Does manufacturing these extra video modes to achieve fast timing
-changes require AMD hardware-specific knowledge, as opposed to the
-general VRR approach of simply adjusting the front porch?
-
-Something like this should also be documented in a commit message. Or
-if you insist that "no reason to not put this in the kernel" is reason
-enough, then write that down, because it does not seem obvious to me or
-others that this feature needs to be in the kernel.
-
-
-Thanks,
-pq
-
---Sig_/fAfjNpz1Akj+iHvP1bdqmi5
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmAGmb4ACgkQI1/ltBGq
-qqeshQ//W0890n+Hwi29RgSXln6rBJKoJhk5yWxXaS30OpE7indW26U+A/c1bNJf
-Mnh85h6Zrg6J66bdHgESUi/cA+303/r56myUjEa89mAvHxcDszyZS3a8fQs9x+Yv
-5QCnML3PdTS6sbyg4JdqpXXSGIkM7OgYgEIaHf7bw7nKngSxUjhf+Ms+Kdf+AOGp
-tU6+lrNZzLkEEbjAW+eEf+cnLMkCOaPrTGtXw/2b4fe2MUhXqLL7LarVUMMuLQRZ
-HjJKqNUZ3ATM4oczTGf3k1u3pXwk3lN7Idgc6T0A1nzJJJluJRkMpV8c6kSJCtS2
-CFpwaVr+GH9GFHBwzLuQY8hBdzRSqzIGAbc8tHFQwPcGe5a61SB4KbAuA62FliY/
-VVYLf44njwzeALhRnlORdWvobjD3BT9oMGBtqvev7+EjjLTzsFQ3WlavUMlmU3Di
-kbFcAbM2hRFAWRzcFI50mRXRs3wy0TuGzah9P+zzg43hdclmyTp/1lRfEQZ6kWJX
-BzzgRUVYNLBOHGma5pY63q/VDpnNg2wdDYU1PgZZRK5P9F0j7zfq4/KsGNuaAiaQ
-37YUXuNnj/p7kDjHx27dwKmlogmGLM2D3wx22S7IAkEZWIESKPKKa2kSjQvVzfCH
-AlhuHOvyoFwBj4BzbfPc2nkSNbJdyZ2qztKnUC8OCEZBb8y6LyE=
-=vt/2
------END PGP SIGNATURE-----
-
---Sig_/fAfjNpz1Akj+iHvP1bdqmi5--
-
---===============0354097954==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+greg k-h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0354097954==--
