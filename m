@@ -2,47 +2,80 @@ Return-Path: <SRS0=qt+g=GW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1638C433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:37:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C6A1C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A73E522241
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A73E522241
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id C380123133
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:41:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C380123133
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D1C6E846;
-	Tue, 19 Jan 2021 08:37:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0338989FCE;
- Tue, 19 Jan 2021 07:34:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 56BDE2072D;
- Tue, 19 Jan 2021 07:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1611041692;
- bh=IHictolKla5yDu5FZfUO1rh8bRpb2Cxn0PR9IXxBXwE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pJKRUktF0pMQuMXzTCJGj7MDGmt/AtfrCiFcDtu5XCvqdrT91p/6j4CVfFcreyO9H
- 7mFm5luE+1mPdszP4lE09aW/dhF6tvRNrp8g2mrMvhdHgbTCuYvUyIlILY+lfoi4jK
- wV47cLYq5Tw4FYaWLBZMtvLaxw7n7ImDGvXZh9tA=
-Date: Tue, 19 Jan 2021 08:34:48 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH v4 10/14] dmr/amdgpu: Move some sysfs attrs creation to
- default_attr
-Message-ID: <YAaLmBMlDRr56erH@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A61D86E83E;
+	Tue, 19 Jan 2021 08:41:16 +0000 (UTC)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F26D6E05F;
+ Tue, 19 Jan 2021 08:41:15 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id f1so6388287edr.12;
+ Tue, 19 Jan 2021 00:41:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=jbajsnWmLsh7AuXO6S3iYEH0pskMB7HpIyTwepG9y2I=;
+ b=JUhJbQDNG3FW30vUGs0cNiOv+Ka793mRlKgtS8/h6wO5vPng9mLLHGJXWve8Jqf9E6
+ laavNC5vJ1BoN4BTdbcmRPLnB/cgbBj9Mj8lqmli8rsBF64/5yd/DL5dq0SUqavEMuaQ
+ O28ax3/GTjMutH60/Aogc0HSYda4BqnTAIYFewmiC56kza+FILSpTR54X4XP50DfB1cd
+ we1ljBBShoKtrjs0qwCc8O/pJyMuU5b8bNGGkslTsCX0WHZGNLx64STKGXbMkDGpfUaq
+ /pozZU/Vm63JLjoHti636qUNtmUGjFjvn3ASJVjlNEFTdC7e0+Ya9WjK8C85YFlAbKUx
+ hMAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=jbajsnWmLsh7AuXO6S3iYEH0pskMB7HpIyTwepG9y2I=;
+ b=oOOVuZzWK/BP2dwZGQAqoRwvw9wJC1ah2cIqL6mQPluBNnOAwFwwszdIQMlgkQ/MES
+ 7e33cJBO+1iKlM8H2OBeLlrXrQCXEjXzkBXl86+FktgXNnLncE5fcf111E0Bp6V6a+1J
+ LhKKZ0nJag++lMIrrVGhBY5PP8Tw5yGj+i6JdgYYvJVouINLrFVkjwbVGkl7XlqI3Nza
+ w+OvLIK+dMatU2QcYqMkPDXFC1hn5m6av17cv+mduM9LI/wHAApnmRq2lOKuGI9zTqig
+ QQW1n0R+wXkJfN1tCdPTo7wDGXVYh0yvWMxxa4v4b5ZUbxZTS+rNVce7SBX3nTrXowD4
+ 16Ww==
+X-Gm-Message-State: AOAM5315M+M8nyGl6c+cZIEyyr2r7ITydz3aDCsxufRtCgXYGWrfxQQm
+ iZKHCiKBbZ9Ka/QM7eksFbx1DIEwQhQ=
+X-Google-Smtp-Source: ABdhPJy+uZ21KND8s92muaO/U+I+dXCTHOywyNQg/AzfxI+gL28iIPKdUagKgALRbRusTXmtioPbZQ==
+X-Received: by 2002:a05:6402:524f:: with SMTP id
+ t15mr693034edd.158.1611045673851; 
+ Tue, 19 Jan 2021 00:41:13 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id y59sm12316376ede.59.2021.01.19.00.41.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Jan 2021 00:41:13 -0800 (PST)
+Subject: Re: [PATCH v4 01/14] drm/ttm: Remap all page faults to per process
+ dummy page.
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, robh@kernel.org, l.stach@pengutronix.de,
+ yuq825@gmail.com, eric@anholt.net
 References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
- <1611003683-3534-11-git-send-email-andrey.grodzovsky@amd.com>
+ <1611003683-3534-2-git-send-email-andrey.grodzovsky@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <0c881825-dc9a-67dd-7b73-21f583a05e96@gmail.com>
+Date: Tue, 19 Jan 2021 09:41:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1611003683-3534-11-git-send-email-andrey.grodzovsky@amd.com>
-X-Mailman-Approved-At: Tue, 19 Jan 2021 08:37:38 +0000
+In-Reply-To: <1611003683-3534-2-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,34 +87,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, ckoenig.leichtzumerken@gmail.com,
- dri-devel@lists.freedesktop.org, eric@anholt.net, ppaalanen@gmail.com,
- amd-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- Alexander.Deucher@amd.com, yuq825@gmail.com, Harry.Wentland@amd.com,
- l.stach@pengutronix.de
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ Harry.Wentland@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 18, 2021 at 04:01:19PM -0500, Andrey Grodzovsky wrote:
->  static struct pci_driver amdgpu_kms_pci_driver = {
->  	.name = DRIVER_NAME,
->  	.id_table = pciidlist,
-> @@ -1595,6 +1607,7 @@ static struct pci_driver amdgpu_kms_pci_driver = {
->  	.shutdown = amdgpu_pci_shutdown,
->  	.driver.pm = &amdgpu_pm_ops,
->  	.err_handler = &amdgpu_pci_err_handler,
-> +	.driver.dev_groups = amdgpu_sysfs_groups,
+Am 18.01.21 um 22:01 schrieb Andrey Grodzovsky:
+> On device removal reroute all CPU mappings to dummy page.
+>
+> v3:
+> Remove loop to find DRM file and instead access it
+> by vma->vm_file->private_data. Move dummy page installation
+> into a separate function.
+>
+> v4:
+> Map the entire BOs VA space into on demand allocated dummy page
+> on the first fault for that BO.
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo_vm.c | 82 ++++++++++++++++++++++++++++++++++++++++-
+>   include/drm/ttm/ttm_bo_api.h    |  2 +
+>   2 files changed, 83 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index 6dc96cf..ed89da3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -34,6 +34,8 @@
+>   #include <drm/ttm/ttm_bo_driver.h>
+>   #include <drm/ttm/ttm_placement.h>
+>   #include <drm/drm_vma_manager.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_managed.h>
+>   #include <linux/mm.h>
+>   #include <linux/pfn_t.h>
+>   #include <linux/rbtree.h>
+> @@ -380,25 +382,103 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>   }
+>   EXPORT_SYMBOL(ttm_bo_vm_fault_reserved);
+>   
+> +static void ttm_bo_release_dummy_page(struct drm_device *dev, void *res)
+> +{
+> +	struct page *dummy_page = (struct page *)res;
+> +
+> +	__free_page(dummy_page);
+> +}
+> +
+> +vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	struct ttm_buffer_object *bo = vma->vm_private_data;
+> +	struct ttm_bo_device *bdev = bo->bdev;
+> +	struct drm_device *ddev = bo->base.dev;
+> +	vm_fault_t ret = VM_FAULT_NOPAGE;
+> +	unsigned long address = vma->vm_start;
+> +	unsigned long num_prefault = (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+> +	unsigned long pfn;
+> +	struct page *page;
+> +	int i;
+> +
+> +	/*
+> +	 * Wait for buffer data in transit, due to a pipelined
+> +	 * move.
+> +	 */
+> +	ret = ttm_bo_vm_fault_idle(bo, vmf);
+> +	if (unlikely(ret != 0))
+> +		return ret;
 
-Shouldn't this just be:
-	groups - amdgpu_sysfs_groups,
+This is superfluous and probably quite harmful here because we wait for 
+the hardware to do something.
 
-Why go to the "driver root" here?
+We map a dummy page instead of the real BO content to the whole range 
+anyway, so no need to wait for the real BO content to show up.
 
-Other than that tiny thing, looks good to me, nice cleanup!
+> +
+> +	/* Allocate new dummy page to map all the VA range in this VMA to it*/
+> +	page = alloc_page(GFP_KERNEL | __GFP_ZERO);
+> +	if (!page)
+> +		return VM_FAULT_OOM;
+> +
+> +	pfn = page_to_pfn(page);
+> +
+> +	/*
+> +	 * Prefault the entire VMA range right away to avoid further faults
+> +	 */
+> +	for (i = 0; i < num_prefault; ++i) {
 
-greg k-h
+Maybe rename the variable to num_pages. I was confused for a moment why 
+we still prefault.
+
+Alternative you can just drop i and do "for (addr = vma->vm_start; addr 
+< vma->vm_end; addr += PAGE_SIZE)".
+
+> +
+> +		if (unlikely(address >= vma->vm_end))
+> +			break;
+> +
+> +		if (vma->vm_flags & VM_MIXEDMAP)
+> +			ret = vmf_insert_mixed_prot(vma, address,
+> +						    __pfn_to_pfn_t(pfn, PFN_DEV),
+> +						    prot);
+> +		else
+> +			ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+> +
+> +		/* Never error on prefaulted PTEs */
+> +		if (unlikely((ret & VM_FAULT_ERROR))) {
+> +			if (i == 0)
+> +				return VM_FAULT_NOPAGE;
+> +			else
+> +				break;
+
+This should probably be modified to either always return the error or 
+always ignore it.
+
+Apart from that looks good to me.
+
+Christian.
+
+> +		}
+> +
+> +		address += PAGE_SIZE;
+> +	}
+> +
+> +	/* Set the page to be freed using drmm release action */
+> +	if (drmm_add_action_or_reset(ddev, ttm_bo_release_dummy_page, page))
+> +		return VM_FAULT_OOM;
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(ttm_bo_vm_dummy_page);
+> +
+>   vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+>   {
+>   	struct vm_area_struct *vma = vmf->vma;
+>   	pgprot_t prot;
+>   	struct ttm_buffer_object *bo = vma->vm_private_data;
+> +	struct drm_device *ddev = bo->base.dev;
+>   	vm_fault_t ret;
+> +	int idx;
+>   
+>   	ret = ttm_bo_vm_reserve(bo, vmf);
+>   	if (ret)
+>   		return ret;
+>   
+>   	prot = vma->vm_page_prot;
+> -	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
+> +	if (drm_dev_enter(ddev, &idx)) {
+> +		ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
+> +		drm_dev_exit(idx);
+> +	} else {
+> +		ret = ttm_bo_vm_dummy_page(vmf, prot);
+> +	}
+>   	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>   		return ret;
+>   
+>   	dma_resv_unlock(bo->base.resv);
+>   
+>   	return ret;
+> +
+> +	return ret;
+>   }
+>   EXPORT_SYMBOL(ttm_bo_vm_fault);
+>   
+> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+> index e17be32..12fb240 100644
+> --- a/include/drm/ttm/ttm_bo_api.h
+> +++ b/include/drm/ttm/ttm_bo_api.h
+> @@ -643,4 +643,6 @@ void ttm_bo_vm_close(struct vm_area_struct *vma);
+>   int ttm_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
+>   		     void *buf, int len, int write);
+>   
+> +vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot);
+> +
+>   #endif
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
