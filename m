@@ -2,128 +2,126 @@ Return-Path: <SRS0=qt+g=GW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D244C4332B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FDADC433E9
 	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 18:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5CD222E00
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 18:34:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5CD222E00
+	by mail.kernel.org (Postfix) with ESMTPS id 058F52310C
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 18:34:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 058F52310C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287516E890;
-	Tue, 19 Jan 2021 18:18:21 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2055.outbound.protection.outlook.com [40.107.100.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C416D6E890;
- Tue, 19 Jan 2021 18:18:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC61F892DE;
+	Tue, 19 Jan 2021 16:39:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F3E6E42D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 16:39:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OphlmUy4eKpro2GPm4NKdQWHXbgTjUfLX6/1NJhT2AiJi+hfz2/awFtGVwL7RhaJRMODRIXUxWcMwk7diEERhjRfQnR9dfSAcyzfYXiZxvQplwNfSpAYQUQ2m9p+f5YIrmbIEzOFzvXAw1/jaP+Jd4e8YT7wnOJmc7iT9Rw/j59/Yx+uKNUPQYPig9C2IDz71/Tj3JP0KN9QjnK4m805Z6UjJ0vvcekjJlUwVAyiJEwtafGhO5WmgMyAbitB1fVZC0cfQOwcju2lGp0aTNSOEbaUtYzQZdPjVMGDWmAz4qRRD7WzlnaPguNxQicoT1GdXT+FpDT+xF98mfzYZ+Iu9Q==
+ b=g11HmG0ve+U5C38GK3HxjE0fdde8Am8ONuRJWYeOn6yNFmiwKbf3JNqboLkSOSnCxBk7hIJAsC3nmTTfaftMa6JUyh0x2x2ME1FE96Ki09Rz2/J1TQ+VjUeZ4vQLyaZolmRaW5/pESgUAmiTZ8fLsEojywNb9VJ1qjm18DeLRdFLP6/kM8irL35YPF33FpMPqWKpoSIWGTNylNavRsVKiW59vUpIlkMPJsIr1AOD+916hQK8Omqun8yGqA9355RHCAIFdFGiyZSd5QLj2XFsQ5jIkwOZ2M0bI7lFEjzTSXH9EkDGwvtTqWNjkUNWpTO9am1MDaZ7js5LOeHdvlfvAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S+fj62N4N2554/9NIInQ3yyidUu4EMsFdIEYRYw+J6U=;
- b=NA6lOzMdkEfXfFKaMM54gLHZ1xMBQJUFpe7eQShWWoLOcORhImRrBidkUhVXmhHasYstz7+g70oQH68rYb25+IxPS8F1riFgVGRdxDzTS2MenUaaJUY3/NUiAiBZZEJ5CcihE352fkB0nAI7IypUTKUZt5n5yDtQtUERlHjXXQFF5OKbZfY9Vc5gVd7v1krPi/DbzfZ4ddO/qFfvGxEl5jNoRhp/5ZeWDy/z6JomRO85H/YSuVvt4MkSeMAeoRZojSGXmNJy6IZmwobiRrgLpwcQxEnsLQooq350wt61eadYF39tE/+Mjf0qnyI8aH1K9HZ5uY83+lC0PRuMjdKVCQ==
+ bh=cPFYvF+JNhj3wznQ8O9n5jxHbRGGwH0WbajGA22htW0=;
+ b=lC4q/YPGLedx+/Yu8DuADmWectTwJ1DuGIqSfZHClReRe9DBtmlsyj3XxepKG950Pd/B02Pp8bsptbtgiiPKwiXxbOgErNsJKMwTEmLsYBGaOaAqHeoF0iTLXakE7SMU/F7VoONLzu4BD+Pr/qP0EqRy13DXHZUA60SGaFVvwkMUdT6EfJRs6pNQ6NePhsZmkkxVcmgq65XU9zUtQyZ7mNRiPBNKzlp39rQ+G/VPqDgaIyqsUETYtTFcb1hJ0VfBxpVYf/D+ADxZM0ILlAvkaB1kObp564uMpjC+OA2VTzAGaPyJ3JbAp+ZAy/Jf/1WW5b2d9sdobYzX+M/oPb7GEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S+fj62N4N2554/9NIInQ3yyidUu4EMsFdIEYRYw+J6U=;
- b=oE4+dhM75o3rFvdy7sPOuZqaiPVnyr9GfNqpwvdWnIFakKfDciNjQROP/D7L1AbGhljHXaKb+oYvwtHzGx9GwtWNzBLNSEMQ509DvKl3YKNQr6go51tcgGEV9msubmOHOdVRd9pfNo9tZctVyzFH9ot480Tj9qjLojKvP/6PIvE=
-Authentication-Results: amd.com; dkim=none (message not signed)
+ bh=cPFYvF+JNhj3wznQ8O9n5jxHbRGGwH0WbajGA22htW0=;
+ b=3uPC7hqWt2juATfgnHIAU1A99qHx9AGzLlFMMBLPecgLJxC3Pq81rAqLmrd/TVcz+vnqBTkChHemWMwZJthDiUDlqGqNpAt7PdGIFPoTrRntXQJWizEjQ6qpep9RXajrcZh3UtSEhs0YPoM9Jnfh815CMCuJAD1RW8GW460HwsQ=
+Received: from CY4PR12MB1573.namprd12.prod.outlook.com (2603:10b6:910:d::23)
+ by CY4PR12MB1303.namprd12.prod.outlook.com (2603:10b6:903:40::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Tue, 19 Jan
+ 2021 16:39:52 +0000
+Received: from CY4PR12MB1573.namprd12.prod.outlook.com
+ ([fe80::b1e2:6f8b:b4e9:6ef0]) by CY4PR12MB1573.namprd12.prod.outlook.com
+ ([fe80::b1e2:6f8b:b4e9:6ef0%9]) with mapi id 15.20.3763.014; Tue, 19 Jan 2021
+ 16:39:52 +0000
+From: "Chen, Horace" <Horace.Chen@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: =?gb2312?B?u9i4tDogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogcmFjZSBpc3N1ZSB3aGVu?=
+ =?gb2312?Q?_jobs_on_2_ring_timeout?=
+Thread-Topic: [PATCH 1/2] drm/amdgpu: race issue when jobs on 2 ring timeout
+Thread-Index: AQHW7l3KPN/nhp3RQUq08BpKjF1LaqovA2gAgAAdf+M=
+Date: Tue, 19 Jan 2021 16:39:52 +0000
+Message-ID: <CY4PR12MB157352A2F7BF029B68A4A769E1A30@CY4PR12MB1573.namprd12.prod.outlook.com>
+References: <20210119122236.8039-1-horace.chen@amd.com>,
+ <3365c92c-9dbd-56df-4ba0-55793806cac7@amd.com>
+In-Reply-To: <3365c92c-9dbd-56df-4ba0-55793806cac7@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-19T16:39:56.489Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SA0PR12MB4542.namprd12.prod.outlook.com (2603:10b6:806:73::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.11; Tue, 19 Jan
- 2021 18:18:18 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::5d30:b29d:5f5b:6921]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::5d30:b29d:5f5b:6921%5]) with mapi id 15.20.3763.014; Tue, 19 Jan 2021
- 18:18:18 +0000
-Subject: Re: [PATCH v4 00/14] RFC Support hot device unplug in amdgpu
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
- <YAbpxbTifiupYJML@phenom.ffwll.local>
- <c4f911dc-99a9-387c-21d1-a3ca2cfd78da@amd.com>
- <CAKMK7uFKMgKAQSCgunjStuUTbuiwdR3zjwtn_Ms1XJjO0ML2EA@mail.gmail.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <755e7c8a-5bd7-6414-8141-249a1ba5a865@amd.com>
-Date: Tue, 19 Jan 2021 13:18:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <CAKMK7uFKMgKAQSCgunjStuUTbuiwdR3zjwtn_Ms1XJjO0ML2EA@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:c1b5:6dec:d289:5430]
-X-ClientProxiedBy: YT1PR01CA0105.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::14) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:c1b5:6dec:d289:5430]
- (2607:fea8:3edf:49b0:c1b5:6dec:d289:5430) by
- YT1PR01CA0105.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3784.11 via Frontend Transport; Tue, 19 Jan 2021 18:18:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3820920a-d931-49b2-4c28-08d8bca69841
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4542:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4542A92A725252F69A0CFD5FEAA39@SA0PR12MB4542.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qZ6cPLMq3UEb7yfAyBjYGDwUOXiPMoEd4dZy34VCJlzZnySd4D8WXIj4E2ZJPnEWw9kQFcqsXexgQzCGwQjlvkOwUV+om/zu4wp27ZFRy157i7NSLCwNkhz5FkmJCDa37YNUtr7H1wOwfyzR5YT7iMvyrFMxBHL46Szy5RTwaVRMjUPYvANxv5rievlzkEdpUJTKFRjhDCIzk1iy915Drwhw6zV/w5D130wo/wLoemEXIXbqBSDdYlRbfJ0f50xcvFRVMGzy1LfSflj6F9tg/LCWTzlCTEnf/gKp335j2V1ZMXaHw+xa+zS4pmTd5kwEXHmeuCZZZvgc9Aevq5eQ/YXurTZ6yT12QWuW7LyAVp95eTiuyf4sJbzeuSIDe1Ngl26J+3ceSufP403w58qDJOl/o8/nPAyau3TaWslspNAZj6r9FaLp4E/ouO8mG/ep5nkjRvhYuD9WxIPf+XGRWWWTn0tcIp+OkSZkO19iLWMrXqdyw5InUhEYSzhnS+p0eTuYT8c6Zm5lGEV6+AmjA6PncN/TFqcBk4YhzjLniWRPoxuZJrZzhUvHtEtg/T7b
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(346002)(366004)(39850400004)(52116002)(66556008)(66476007)(66946007)(54906003)(316002)(2906002)(5660300002)(8676002)(31696002)(31686004)(86362001)(36756003)(83380400001)(478600001)(7416002)(2616005)(6916009)(4326008)(966005)(53546011)(8936002)(45080400002)(6486002)(186003)(16526019)(30864003)(45980500001)(43740500002);
+x-originating-ip: [61.152.208.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: eed5610d-dc91-4b94-9dfe-08d8bc98d8ae
+x-ms-traffictypediagnostic: CY4PR12MB1303:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB1303622689DFBB3CC30374A6E1A30@CY4PR12MB1303.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2887;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: sYQO4JDZPnVUuhnDAnHVV2CUCAL1X44rC9DR6OZvLHiXzNgsdnMn7OypwR6A9EpMAKbr2VF2jVJsK8GSjcJJ7C36S0fjGScoA2/VfzxSRExUreXFFXIZlKuYR9i7aeOCaUQ5oCKaHLLRsD0iIs7oQPKex3e8sIYw7EZbMwwKj+8uM+wuVHAX14HU+T0zBiP+2MSqzkhWCl2qxdc9rw25XV7gaQnWdJshJPzRwgAW7n9vhFbVAw3KlHS/wHNsdFMDFculMi9Fnb/k/JPB5xwQBbCYyFzEUxJ4Hncm72I2TuqcZczgfnKYRMg99AZdp56uPPdcZqPBksCgRbEW0HvtUPPVyAPB+iXDFVwj35iN+Lj1Govvv6FEZ0/GdjGfhUeixVIr7YSBh+ETM/Y45M9Bew==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1573.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(346002)(396003)(376002)(7696005)(76116006)(91956017)(19627405001)(4326008)(66446008)(9686003)(2906002)(66946007)(64756008)(110136005)(66476007)(26005)(66556008)(55016002)(5660300002)(52536014)(71200400001)(316002)(86362001)(8936002)(224303003)(83380400001)(186003)(54906003)(6506007)(478600001)(53546011)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NjVWakdObjVRenExM25DSnRaa0RUVkxvaDY4TTUzTzEyY3M1emF4Mi9yZlVq?=
- =?utf-8?B?b0lSeEdDUXBlWTlSQzI5MUtRTW4vZmpnRzZQWi9aT0hNU0FMZkVXRVJ4Wmkv?=
- =?utf-8?B?bkgyNmxCOXIzUThvYkxuRnJCMFNwK2hyNUdjUnVUQnRpR2ppT2tNT1hyUGND?=
- =?utf-8?B?eFBuOWNqbGNOL1dWMklzdzEwNXRpeUZRWmFVMXhDbkl5cHdPKzZ1U0QxMlAv?=
- =?utf-8?B?MzlydGFzZEtDbWhjYm9EZlNDeEJNV0NZWkhuWHJJT2ZwOG5MUG9xWnpqT2R6?=
- =?utf-8?B?Z3Y1UFVCWUhFY21iTDc4UzJZY0VzR2N0VWxXMmJBaXhxaEtqek9tV00rMHpz?=
- =?utf-8?B?dlNnOHhhTzRBK1J1OW1sV05pT3FHQzVxRjlmR1JpNHhNUWQrd1RGdm0xVjh4?=
- =?utf-8?B?ampvMVFiU0JpVUJFcmpDMHZoUjEzUENrUDBzL2tkbmlSR29xdnF3VWJ5RnBp?=
- =?utf-8?B?Tm9ENURzWjFUWTZVdzhBeUxzSmlzS1FpR2VxRzdQMkJ1c3BQaVJ0ajNPZDVG?=
- =?utf-8?B?NmJ6MHdLN0tGWG43OXpDRVk5ZDM5T05VV0hieXVUbnVuZmtWQkNKTkRqbXhG?=
- =?utf-8?B?R2w1NVFCc3cvSHdBTkRuSzU3RkFUakUvV1BBSEI1ZmdnZTlETDRGQlluQXBy?=
- =?utf-8?B?OGl6Tm1KUnh5cjBjRUg5a1QxYnU1Y2tjTUcxUTJ5TUJ1MFBhTkY0Ny8wdm00?=
- =?utf-8?B?d285L3NvckVmSkRxKzZ3b0xGRXFvdjh1N3oxN2RHQTkzSjZpS0M4dGJnQ01i?=
- =?utf-8?B?TU55aFJRZDBsd3pJYnE4UGV4TEpvZ2g3cVZweHQxMUdnc3BNN3FKcUl3Tk9R?=
- =?utf-8?B?ZnI4TzBpL1JEMHcvbVkvYWk0Um5JV1ZaNU9NUjNWTGp6VEwyTXYyYVB5VVJ2?=
- =?utf-8?B?YjlFaGJIdmVBb25oRVEwSUFZVVJaa1YxTXZjZUNGV1NyNXFSdkVYRmU5b3N0?=
- =?utf-8?B?OU9vWFpFRDVPaVBEYldyUTQvYjBiZUNPUldhL0trVzJKT2M2Y0V5QzdocU4w?=
- =?utf-8?B?VTBmTGd0YkVIdHhqdWdtYTJ3Q0w2cTFKc3JmWXptY2txMjY0akNzRzlUWThs?=
- =?utf-8?B?WGEwTzcyeE01YnE1THhlaUFCK0hjNDEwRlhwckcwL092UE1QNGV1cXdkSHY4?=
- =?utf-8?B?LzBEYUhHVnNsSXI2Uk5kTktXaXpxeEJIaGdiendUTDFWR2NPaTl0KzNUdUtH?=
- =?utf-8?B?RjkrV0pvUVpJMVZRMFdxN2dZM1FrUUxFNDh3Sks2ZEprbnI1anp4b3grbXFX?=
- =?utf-8?B?VjhVdHZzS1ZTb2JQTDlsK2tITHpuNEdudFQ2SWxNOTdkWW96TGFYL3ZZcDB0?=
- =?utf-8?B?elJEUGZTYTNPUkpuTkc2emFtT2VBbXE3aXdlQ29IdmViS0VLYTM1VjNJbXNN?=
- =?utf-8?B?Vm9xU3RPUk5zUER2TmRnTGtsNG1vUUY1b1NXZ2hYZmV0OExoRnFadmtKTTNx?=
- =?utf-8?B?Nmp1U2J6SndyN25MVEp2MGpmOE4wUVJoUkJKMlNITmFYREc5K0tFRUQ0Nzc5?=
- =?utf-8?B?bUlOU29HSEdkRjZYYXpwUWRMZ0dFOXBpeGI5M0p5cjZFVGRNVjJSSXBycHlk?=
- =?utf-8?B?UEU4UT09?=
+x-ms-exchange-antispam-messagedata: =?gb2312?B?VUFvZ3dLRnJaRXhwSEg5dlgxbjM5dzZtQWl0c0xYZDBpWCthdk80NHVGQjNn?=
+ =?gb2312?B?WjM1NWZXYlVodlJaajJNd2dDZG55M045THdKa05MaVZOdFN6QkxoL3lXbGNS?=
+ =?gb2312?B?QzIzS1NuendmYXlxTUl5NnhhS2g4TTJZUERWWXYrZFBrMkZRaktuVnRUUmhF?=
+ =?gb2312?B?WUF4YnlZY09DQTExQzVVN3J4TlRnUmZObXFETWl3NnJmbGZZYnVOWEpjc0NL?=
+ =?gb2312?B?Skt3V0UzbkVWYWdoaGNzWVFOSWF5QzJCL3JOZWhCRkRiT3ZOK2IvanFCQTZ6?=
+ =?gb2312?B?Q0k1UGJuY3pQcTBLSGsrRVRmSHV4bHdLWkg4Tm9TYWsydUVJeU1RU09ydk9W?=
+ =?gb2312?B?SU5KZVRpUHhzVVdmUzdjUHYweWw0M2lPdW56N3VCQnY3aWw5ZStlM1NwOGox?=
+ =?gb2312?B?bWJXZkxtcnlEU2UxNlBZSnh1eWZtd09ObFFCTGQ4VEZvQXpsVXFpN0R4aUZ6?=
+ =?gb2312?B?ZFpQcTBsQ2VWOEF0bEpRNFU1anpjcXViVEJsbnFXb01BZENHQlJ5WkM0RkVk?=
+ =?gb2312?B?VW9aOGhDNnEzRWdDc3F6NTFFQzJ4QnBZakVrdEI4aUJ0R0NxU3JtZlZQbTZN?=
+ =?gb2312?B?YXhBSFh2VlFYRytIK2ZkYVIxNzM5M2RiZkxMTnFKR0Jybm1FaWNacE0rdEVu?=
+ =?gb2312?B?Vkk4THEvbjdvNktyUlJHRDB2QW9WTmM1bDRpVE9QdU9CZ2xtcmYwa1pqRzNo?=
+ =?gb2312?B?STR1OTNBakd6T2xiZDIxM0NmWFFrWkhuNjl0ZngvNG1FcnVRVC9sdFNQcDlp?=
+ =?gb2312?B?b2svd0Vqek16UXdXaC9lTTQvMjl1RGZoTWtxWFQxaGNwRE5PQmlsc1U2Zkw3?=
+ =?gb2312?B?YURIT0prQW9KbU5ZeVlRTXc4aHR0R3JiVk5nTi9hNkNVaTNWZTdJVmxSa2RF?=
+ =?gb2312?B?eURYaUhIWkovSzZIWDB2N3M4NjNRVlFYaUQ4RzFoeUZLOHErUFBRV2VPbWpN?=
+ =?gb2312?B?K0N2dTdGamJkZGxzblZSWm8vZWt3cFpHekJvUVhPbWlrZWJaa0FyQVVMUzI0?=
+ =?gb2312?B?Sk03ODNvekQ4dGlGK0U3YVYzQUlpcFBja3R6UnBvNDUvNERaVUUwR2p5R0Fp?=
+ =?gb2312?B?OE9TU1pWVlVoNGd5UFkvcDZFWTBYSDdBVnFQQVhpcEJvaVpDQS9qVXBjZTBM?=
+ =?gb2312?B?ck1MNkpHNFFQR21oRzhaUDBiWi9JQkhkTXBTZkZQdmNldjVXdjJBQ0kyVE9Z?=
+ =?gb2312?B?WlZkYzFlMzFoWkxaV04xNGd5M1kvd1VVTXkyNkpSR2V0MHNZOHRZTXoxbDY3?=
+ =?gb2312?B?UzFxWFZkaWV6Skl0WTJWc2pPeXc4anE2dmpzc1QvQnRtaGFyMkptTTFNQmx5?=
+ =?gb2312?Q?8yjOkRLC0G0Dc=3D?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3820920a-d931-49b2-4c28-08d8bca69841
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2021 18:18:17.9823 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 64gVmh0MR4g65pDXziPUdRxb+sFwbakPFyngs6+z0r9sUYF2epebOgmV6G20pgREXf/YdHsVZLTQ9dinDwiQlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4542
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1573.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eed5610d-dc91-4b94-9dfe-08d8bc98d8ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2021 16:39:52.7069 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MeAX371w4EoJhs1jRjYrIqtjUdKKxiE2ln6WOJGKHNcmIN4U1tgpOc0g6F87ELbn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,212 +133,445 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
- Pekka Paalanen <ppaalanen@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <Alexander.Deucher@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu,
+ Feifei" <Feifei.Xu@amd.com>, "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============1333009408=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--===============1333009408==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB157352A2F7BF029B68A4A769E1A30CY4PR12MB1573namp_"
 
-On 1/19/21 1:08 PM, Daniel Vetter wrote:
-> On Tue, Jan 19, 2021 at 6:31 PM Andrey Grodzovsky
-> <Andrey.Grodzovsky@amd.com> wrote:
->>
->> On 1/19/21 9:16 AM, Daniel Vetter wrote:
->>> On Mon, Jan 18, 2021 at 04:01:09PM -0500, Andrey Grodzovsky wrote:
->>>> Until now extracting a card either by physical extraction (e.g. eGPU with
->>>> thunderbolt connection or by emulation through  syfs -> /sys/bus/pci/devices/device_id/remove)
->>>> would cause random crashes in user apps. The random crashes in apps were
->>>> mostly due to the app having mapped a device backed BO into its address
->>>> space was still trying to access the BO while the backing device was gone.
->>>> To answer this first problem Christian suggested to fix the handling of mapped
->>>> memory in the clients when the device goes away by forcibly unmap all buffers the
->>>> user processes has by clearing their respective VMAs mapping the device BOs.
->>>> Then when the VMAs try to fill in the page tables again we check in the fault
->>>> handlerif the device is removed and if so, return an error. This will generate a
->>>> SIGBUS to the application which can then cleanly terminate.This indeed was done
->>>> but this in turn created a problem of kernel OOPs were the OOPSes were due to the
->>>> fact that while the app was terminating because of the SIGBUSit would trigger use
->>>> after free in the driver by calling to accesses device structures that were already
->>>> released from the pci remove sequence.This was handled by introducing a 'flush'
->>>> sequence during device removal were we wait for drm file reference to drop to 0
->>>> meaning all user clients directly using this device terminated.
->>>>
->>>> v2:
->>>> Based on discussions in the mailing list with Daniel and Pekka [1] and based on the document
->>>> produced by Pekka from those discussions [2] the whole approach with returning SIGBUS and
->>>> waiting for all user clients having CPU mapping of device BOs to die was dropped.
->>>> Instead as per the document suggestion the device structures are kept alive until
->>>> the last reference to the device is dropped by user client and in the meanwhile all existing and new CPU mappings of the BOs
->>>> belonging to the device directly or by dma-buf import are rerouted to per user
->>>> process dummy rw page.Also, I skipped the 'Requirements for KMS UAPI' section of [2]
->>>> since i am trying to get the minimal set of requirements that still give useful solution
->>>> to work and this is the'Requirements for Render and Cross-Device UAPI' section and so my
->>>> test case is removing a secondary device, which is render only and is not involved
->>>> in KMS.
->>>>
->>>> v3:
->>>> More updates following comments from v2 such as removing loop to find DRM file when rerouting
->>>> page faults to dummy page,getting rid of unnecessary sysfs handling refactoring and moving
->>>> prevention of GPU recovery post device unplug from amdgpu to scheduler layer.
->>>> On top of that added unplug support for the IOMMU enabled system.
->>>>
->>>> v4:
->>>> Drop last sysfs hack and use sysfs default attribute.
->>>> Guard against write accesses after device removal to avoid modifying released memory.
->>>> Update dummy pages handling to on demand allocation and release through drm managed framework.
->>>> Add return value to scheduler job TO handler (by Luben Tuikov) and use this in amdgpu for prevention
->>>> of GPU recovery post device unplug
->>>> Also rebase on top of drm-misc-mext instead of amd-staging-drm-next
->>>>
->>>> With these patches I am able to gracefully remove the secondary card using sysfs remove hook while glxgears
->>>> is running off of secondary card (DRI_PRIME=1) without kernel oopses or hangs and keep working
->>>> with the primary card or soft reset the device without hangs or oopses
->>>>
->>>> TODOs for followup work:
->>>> Convert AMDGPU code to use devm (for hw stuff) and drmm (for sw stuff and allocations) (Daniel)
->>>> Support plugging the secondary device back after unplug - currently still experiencing HW error on plugging back.
->>>> Add support for 'Requirements for KMS UAPI' section of [2] - unplugging primary, display connected card.
->>>>
->>>> [1] - Discussions during v3 of the patchset https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg55576.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7C9055ea164ca14a0cbce108d8bca53d37%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637466765176719365%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=AqqeqmhF%2BZ1%2BRwMgtpmfoW1gtEnLGxiy3U5OMm%2BBqk8%3D&amp;reserved=0
->>>> [2] - drm/doc: device hot-unplug for userspace https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg259755.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7C9055ea164ca14a0cbce108d8bca53d37%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637466765176719365%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=oHHyRtTMTNQAnkzptG0B8%2FeeniU1z2DSca8L4yCYJcE%3D&amp;reserved=0
->>>> [3] - Related gitlab ticket https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1081&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7C9055ea164ca14a0cbce108d8bca53d37%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637466765176719365%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=inKlV%2F5QIPw%2BhHvLM46X27%2Fcjr%2FXyhxmrC0xYXBhHuE%3D&amp;reserved=0
->>> btw have you tried this out with some of the igts we have? core_hotunplug
->>> is the one I'm thinking of. Might be worth to extend this for amdgpu
->>> specific stuff (like run some batches on it while hotunplugging).
->> No, I mostly used just running glxgears while testing which covers already
->> exported/imported dma-buf case and a few manually hacked tests in libdrm amdgpu
->> test suite
->>
->>
->>> Since there's so many corner cases we need to test here (shared dma-buf,
->>> shared dma_fence) I think it would make sense to have a shared testcase
->>> across drivers.
->>
->> Not familiar with IGT too much, is there an easy way to setup shared dma bufs
->> and fences
->> use cases there or you mean I need to add them now ?
-> We do have test infrastructure for all of that, but the hotunplug test
-> doesn't have that yet I think.
+--_000_CY4PR12MB157352A2F7BF029B68A4A769E1A30CY4PR12MB1573namp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpI
+aSBBbmRyZXksDQoNCkkgdGhpbmsgdGhlIGxpc3QgaW4gdGhlIFhHTUkgaGl2ZSB3b24ndCBiZSBi
+cmVhayBpbiB0aGUgbWlkZGxlIGlmIHdlIGxvY2sgdGhlIGRldmljZSBiZWZvcmUgd2UgY2hhbmdl
+IHRoZSBsaXN0LiBCZWNhdXNlIGlmIDIgZGV2aWNlcyBpbiAxIGhpdmUgd2VudCBpbnRvIHRoZSBm
+dW5jdGlvbiwgaXQgd2lsbCBmb2xsb3cgdGhlIHNhbWUgc2VxdWVuY2UgdG8gbG9jayB0aGUgZGV2
+aWNlcy4gU28gb25lIG9mIHRoZW0gd2lsbCBkZWZpbmF0ZWx5IGJyZWFrIGF0IHRoZSBmaXJzdCBk
+ZXZpY2UuIEkgYWRkIGl0ZXJhdGUgZGV2aWNlcyBoZXJlIGlzIGp1c3QgdG8gbG9jayBhbGwgZGV2
+aWNlIGluIHRoZSBoaXZlIHNpbmNlIHdlIHdpbGwgY2hhbmdlIHRoZSBkZXZpY2Ugc2VxdWVuY2Ug
+aW4gdGhlIGhpdmUgc29vbiBhZnRlci4NCg0KVGhlIHJlYXNvbiB0byBicmVhayB0aGUgaW50ZXJh
+dGlvbiBpbiB0aGUgbWlkZGxlIGlzIHRoYXQgdGhlIGxpc3QgaXMgY2hhbmdlZCBkdXJpbmcgdGhl
+IGl0ZXJhdGlvbiB3aXRob3V0IHRha2luZyBhbnkgbG9jay4gSXQgaXMgcXVpdGUgYmFkIHNpbmNl
+IEknbSBmaXhpbmcgb25lIG9mIHRoaXMgaXNzdWUuIEFuZCBmb3IgWEdNSSBoaXZlLCB0aGVyZSBh
+cmUgMiBsb2NrcyBwcm90ZWN0aW5nIHRoZSBsaXN0LCBvbmUgaXMgdGhlIGRldmljZSBsb2NrIEkg
+Y2hhbmdlZCBoZXJlLCB0aGUgb3RoZXIgb25lIGlzIGluIGZyb250IG9mIG15IGNoYW5nZSwgdGhl
+cmUgaXMgYSBoaXZlLT5sb2NrIHRvIHByb3RlY3QgdGhlIGhpdmUuDQoNCkV2ZW4gdGhlIGJhZCB0
+aGluZyByZWFsbHkgaGFwcGVuZWQsIEkgdGhpbmsgbW92aW5nIGJhY2sgdGhyb3VnaCB0aGUgbGlz
+dCBpcyBhbHNvIHZlcnkgZGVuZ2Vyb3VzIHNpbmNlIHdlIGRvbid0IGtub3cgd2hhdCB0aGUgbGlz
+dCBmaW5hbGx5IGJlLCBVbmxlc3Mgd2Ugc3RhY2sgdGhlIGRldmljZXMgd2UgaGF2ZSBpdGVyYXRl
+ZCB0aHJvdWdoIGEgbWlycm9yZWQgbGlzdC4gVGhhdCBjYW4gYmUgYSBiaWcgY2hhbmdlLg0KDQoN
+CkknbSBvayB0byBzZXBlcmF0ZSB0aGUgbG9ja2luZyBpbiBhbWRncHVfZGV2aWNlX2xvY2tfYWRl
+diBoZXJlLCBJJ2xsIGRvIHNvbWUgdGVzdCBhbmQgdXBkYXRlIHRoZSBjb2RlIGxhdGVyLg0KDQpU
+aGFua3MgJiBSZWdhcmRzLA0KSG9yYWNlLg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18NCreivP7IyzogR3JvZHpvdnNreSwgQW5kcmV5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29t
+Pg0Kt6LLzcqxvOQ6IDIwMjHE6jHUwjE5yNUgMjI6MzMNCsrVvP7IyzogQ2hlbiwgSG9yYWNlIDxI
+b3JhY2UuQ2hlbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0Ks63LzTogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFt
+ZC5jb20+OyBUdWlrb3YsIEx1YmVuIDxMdWJlbi5UdWlrb3ZAYW1kLmNvbT47IEtvZW5pZywgQ2hy
+aXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFs
+ZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1kLmNvbT47
+IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBMaXUsIE1vbmsgPE1vbmsu
+TGl1QGFtZC5jb20+OyBYdSwgRmVpZmVpIDxGZWlmZWkuWHVAYW1kLmNvbT47IFdhbmcsIEtldmlu
+KFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPjsgWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5A
+YW1kLmNvbT4NCtb3zOI6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiByYWNlIGlzc3VlIHdo
+ZW4gam9icyBvbiAyIHJpbmcgdGltZW91dA0KDQoNCk9uIDEvMTkvMjEgNzoyMiBBTSwgSG9yYWNl
+IENoZW4gd3JvdGU6DQo+IEZpeCBhIHJhY2luZyBpc3N1ZSB3aGVuIGpvYnMgb24gMiByaW5ncyB0
+aW1lb3V0IHNpbXVsdGFuZW91c2x5Lg0KPg0KPiBJZiAyIHJpbmdzIHRpbWVkIG91dCBhdCB0aGUg
+c2FtZSB0aW1lLCB0aGUgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3Zlcg0KPiB3aWxsIGJlIHJlZW50
+ZXJlZC4gVGhlbiB0aGUgYWRldi0+Z21jLnhnbWkuaGVhZCB3aWxsIGJlIGdyYWJiZWQNCj4gYnkg
+MiBsb2NhbCBsaW5rZWQgbGlzdCwgd2hpY2ggbWF5IGNhdXNlIHdpbGQgcG9pbnRlciBpc3N1ZSBp
+bg0KPiBpdGVyYXRpbmcuDQo+DQo+IGxvY2sgdGhlIGRldmljZSBlYXJpbHkgdG8gcHJldmVudCB0
+aGUgbm9kZSBiZSBhZGRlZCB0byAyIGRpZmZlcmVudA0KPiBsaXN0cy4NCj4NCj4gU2lnbmVkLW9m
+Zi1ieTogSG9yYWNlIENoZW4gPGhvcmFjZS5jaGVuQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQyICsrKysrKysrKysrKysr
+Ky0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRp
+b25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMN
+Cj4gaW5kZXggNGQ0MzQ4MDNmYjQ5Li45NTc0ZGEzYWJjMzIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gQEAgLTQ1NDAsNiArNDU0MCw3IEBA
+IGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LA0KPiAgICAgICAgaW50IGksIHIgPSAwOw0KPiAgICAgICAgYm9vbCBuZWVkX2VtZXJnZW5jeV9y
+ZXN0YXJ0ID0gZmFsc2U7DQo+ICAgICAgICBib29sIGF1ZGlvX3N1c3BlbmRlZCA9IGZhbHNlOw0K
+PiArICAgICBib29sIGdldF9kZXZfbG9jayA9IGZhbHNlOw0KPg0KPiAgICAgICAgLyoNCj4gICAg
+ICAgICAqIFNwZWNpYWwgY2FzZTogUkFTIHRyaWdnZXJlZCBhbmQgZnVsbCByZXNldCBpc24ndCBz
+dXBwb3J0ZWQNCj4gQEAgLTQ1ODIsMjggKzQ1ODMsNDUgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1
+X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgICAgICAgKiBCdWlsZCBs
+aXN0IG9mIGRldmljZXMgdG8gcmVzZXQuDQo+ICAgICAgICAgKiBJbiBjYXNlIHdlIGFyZSBpbiBY
+R01JIGhpdmUgbW9kZSwgcmVzb3J0IHRoZSBkZXZpY2UgbGlzdA0KPiAgICAgICAgICogdG8gcHV0
+IGFkZXYgaW4gdGhlIDFzdCBwb3NpdGlvbi4NCj4gKyAgICAgICoNCj4gKyAgICAgICogbG9jayB0
+aGUgZGV2aWNlIGJlZm9yZSB3ZSB0cnkgdG8gb3BlcmF0ZSB0aGUgbGlua2VkIGxpc3QNCj4gKyAg
+ICAgICogaWYgZGlkbid0IGdldCB0aGUgZGV2aWNlIGxvY2ssIGRvbid0IHRvdWNoIHRoZSBsaW5r
+ZWQgbGlzdCBzaW5jZQ0KPiArICAgICAgKiBvdGhlcnMgbWF5IGl0ZXJhdGluZyBpdC4NCj4gICAg
+ICAgICAqLw0KPiAgICAgICAgSU5JVF9MSVNUX0hFQUQoJmRldmljZV9saXN0KTsNCj4gICAgICAg
+IGlmIChhZGV2LT5nbWMueGdtaS5udW1fcGh5c2ljYWxfbm9kZXMgPiAxKSB7DQo+ICAgICAgICAg
+ICAgICAgIGlmICghaGl2ZSkNCj4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVOT0RF
+VjsNCj4gLSAgICAgICAgICAgICBpZiAoIWxpc3RfaXNfZmlyc3QoJmFkZXYtPmdtYy54Z21pLmhl
+YWQsICZoaXZlLT5kZXZpY2VfbGlzdCkpDQo+IC0gICAgICAgICAgICAgICAgICAgICBsaXN0X3Jv
+dGF0ZV90b19mcm9udCgmYWRldi0+Z21jLnhnbWkuaGVhZCwgJmhpdmUtPmRldmljZV9saXN0KTsN
+Cj4gLSAgICAgICAgICAgICBkZXZpY2VfbGlzdF9oYW5kbGUgPSAmaGl2ZS0+ZGV2aWNlX2xpc3Q7
+DQo+ICsNCj4gKyAgICAgICAgICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCAmaGl2
+ZS0+ZGV2aWNlX2xpc3QsIGdtYy54Z21pLmhlYWQpIHsNCj4gKyAgICAgICAgICAgICAgICAgICAg
+IGdldF9kZXZfbG9jayA9IGFtZGdwdV9kZXZpY2VfbG9ja19hZGV2KHRtcF9hZGV2LCBoaXZlKTsN
+Cj4gKyAgICAgICAgICAgICAgICAgICAgIGlmICghZ2V0X2Rldl9sb2NrKQ0KPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KDQpXaGF0IGFib3V0IHVubG9ja2luZyBiYWNr
+IGFsbCB0aGUgZGV2aWNlcyB5b3UgYWxyZWFkeSBsb2NrZWQgaWYgdGhlIGJyZWFrDQpoYXBwZW5z
+IGluIHRoZSBtaWRkbGUgb2YgdGhlIGl0ZXJhdGlvbiA/DQpOb3RlIHRoYXQgYXQgc2tpcF9yZWNv
+dmVyeTogd2UgZG9uJ3QgZG8gaXQuIEJUVywgaSBzZWUgdGhpcyBpc3N1ZSBpcyBhbHJlYWR5IGlu
+DQp0aGUgY3VycmVudCBjb2RlLg0KDQpBbHNvLCBtYXliZSBub3cgaXQncyBiZXR0ZXIgdG8gc2Vw
+YXJhdGUgdGhlIGFjdHVhbCBsb2NraW5nIGluDQphbWRncHVfZGV2aWNlX2xvY2tfYWRldg0KZnJv
+bSB0aGUgb3RoZXIgc3R1ZmYgZ29pbmcgb24gdGhlcmUgc2luY2UgSSBkb24ndCB0aGluayB5b3Ug
+d291bGQgd29udCB0byB0b2dnbGUNCnN0dWZmDQpsaWtlIGFkZXYtPm1wMV9zdGF0ZSBiYWNrIGFu
+ZCBmb3J0aCBhbmQgYWxzbyB0aGUgZnVuY3Rpb24gbmFtZSBpcyBub3QNCmRlc2NyaXB0aXZlIG9m
+DQp0aGUgb3RoZXIgc3R1ZmYgZ29pbmcgb24gdGhlcmUgYW55d2F5Lg0KDQpBbmRyZXkNCg0KDQo+
+ICsgICAgICAgICAgICAgfQ0KPiArICAgICAgICAgICAgIGlmIChnZXRfZGV2X2xvY2spIHsNCj4g
+KyAgICAgICAgICAgICAgICAgICAgIGlmICghbGlzdF9pc19maXJzdCgmYWRldi0+Z21jLnhnbWku
+aGVhZCwgJmhpdmUtPmRldmljZV9saXN0KSkNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgbGlzdF9yb3RhdGVfdG9fZnJvbnQoJmFkZXYtPmdtYy54Z21pLmhlYWQsICZoaXZlLT5kZXZp
+Y2VfbGlzdCk7DQo+ICsgICAgICAgICAgICAgICAgICAgICBkZXZpY2VfbGlzdF9oYW5kbGUgPSAm
+aGl2ZS0+ZGV2aWNlX2xpc3Q7DQo+ICsgICAgICAgICAgICAgfQ0KPiAgICAgICAgfSBlbHNlIHsN
+Cj4gLSAgICAgICAgICAgICBsaXN0X2FkZF90YWlsKCZhZGV2LT5nbWMueGdtaS5oZWFkLCAmZGV2
+aWNlX2xpc3QpOw0KPiAtICAgICAgICAgICAgIGRldmljZV9saXN0X2hhbmRsZSA9ICZkZXZpY2Vf
+bGlzdDsNCj4gKyAgICAgICAgICAgICBnZXRfZGV2X2xvY2sgPSBhbWRncHVfZGV2aWNlX2xvY2tf
+YWRldihhZGV2LCBoaXZlKTsNCj4gKyAgICAgICAgICAgICB0bXBfYWRldiA9IGFkZXY7DQo+ICsg
+ICAgICAgICAgICAgaWYgKGdldF9kZXZfbG9jaykgew0KPiArICAgICAgICAgICAgICAgICAgICAg
+bGlzdF9hZGRfdGFpbCgmYWRldi0+Z21jLnhnbWkuaGVhZCwgJmRldmljZV9saXN0KTsNCj4gKyAg
+ICAgICAgICAgICAgICAgICAgIGRldmljZV9saXN0X2hhbmRsZSA9ICZkZXZpY2VfbGlzdDsNCj4g
+KyAgICAgICAgICAgICB9DQo+ICsgICAgIH0NCj4gKw0KPiArICAgICBpZiAoIWdldF9kZXZfbG9j
+aykgew0KPiArICAgICAgICAgICAgIGRldl9pbmZvKHRtcF9hZGV2LT5kZXYsICJCYWlsaW5nIG9u
+IFREUiBmb3Igc19qb2I6JWxseCwgYXMgYW5vdGhlciBhbHJlYWR5IGluIHByb2dyZXNzIiwNCj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBqb2IgPyBqb2ItPmJhc2UuaWQg
+OiAtMSk7DQo+ICsgICAgICAgICAgICAgciA9IDA7DQo+ICsgICAgICAgICAgICAgLyogZXZlbiB3
+ZSBza2lwcGVkIHRoaXMgcmVzZXQsIHN0aWxsIG5lZWQgdG8gc2V0IHRoZSBqb2IgdG8gZ3VpbHR5
+ICovDQo+ICsgICAgICAgICAgICAgZ290byBza2lwX3JlY292ZXJ5Ow0KPiAgICAgICAgfQ0KPg0K
+PiAgICAgICAgLyogYmxvY2sgYWxsIHNjaGVkdWxlcnMgYW5kIHJlc2V0IGdpdmVuIGpvYidzIHJp
+bmcgKi8NCj4gICAgICAgIGxpc3RfZm9yX2VhY2hfZW50cnkodG1wX2FkZXYsIGRldmljZV9saXN0
+X2hhbmRsZSwgZ21jLnhnbWkuaGVhZCkgew0KPiAtICAgICAgICAgICAgIGlmICghYW1kZ3B1X2Rl
+dmljZV9sb2NrX2FkZXYodG1wX2FkZXYsIGhpdmUpKSB7DQo+IC0gICAgICAgICAgICAgICAgICAg
+ICBkZXZfaW5mbyh0bXBfYWRldi0+ZGV2LCAiQmFpbGluZyBvbiBURFIgZm9yIHNfam9iOiVsbHgs
+IGFzIGFub3RoZXIgYWxyZWFkeSBpbiBwcm9ncmVzcyIsDQo+IC0gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgam9iID8gam9iLT5iYXNlLmlkIDogLTEpOw0KPiAtICAgICAgICAgICAgICAg
+ICAgICAgciA9IDA7DQo+IC0gICAgICAgICAgICAgICAgICAgICBnb3RvIHNraXBfcmVjb3Zlcnk7
+DQo+IC0gICAgICAgICAgICAgfQ0KPiAtDQo+ICAgICAgICAgICAgICAgIC8qDQo+ICAgICAgICAg
+ICAgICAgICAqIFRyeSB0byBwdXQgdGhlIGF1ZGlvIGNvZGVjIGludG8gc3VzcGVuZCBzdGF0ZQ0K
+PiAgICAgICAgICAgICAgICAgKiBiZWZvcmUgZ3B1IHJlc2V0IHN0YXJ0ZWQuDQo=
+
+--_000_CY4PR12MB157352A2F7BF029B68A4A769E1A30CY4PR12MB1573namp_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Andrey,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I think the list in the XGMI hive won't be break in the middle if we lock t=
+he device before we change the list. Because if 2 devices in 1 hive went in=
+to the function, it will follow the same sequence to lock the devices. So o=
+ne of them will definately break
+ at the first device. I add iterate devices here is just to lock all device=
+ in the hive since we will change the device sequence in the hive soon afte=
+r.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+The reason to break the interation in the middle is that the list is change=
+d during the iteration without taking any lock. It is quite bad since I'm f=
+ixing one of this issue. And for XGMI hive, there are 2 locks protecting th=
+e list, one is the device lock I
+ changed here, the other one is in front of my change, there is a hive-&gt;=
+lock to protect the hive.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Even the bad thing really happened, I think moving back through the list is=
+ also very dengerous since we don't know what the list finally be, Unless w=
+e stack the devices we have iterated through a mirrored list. That can be a=
+ big change.<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I'm ok to seperate the locking in <font size=3D"2"><span style=3D"font-size=
+:11pt">amdgpu_device_lock_adev here, I'll do some test and update the code =
+later.<br>
+</span></font></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<font size=3D"2"><span style=3D"font-size:11pt"><br>
+</span></font></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<font size=3D"2"><span style=3D"font-size:11pt">Thanks &amp; Regards,</span=
+></font></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<font size=3D"2"><span style=3D"font-size:11pt">Horace.</span></font><br>
+</div>
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> Grodz=
+ovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2021=C4=EA1=D4=C219=C8=D5 22:33<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> Chen, Horace &lt;Horace.Chen@amd.com&gt;; amd-gf=
+x@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>=B3=AD=CB=CD:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; Tuikov, Luben &l=
+t;Luben.Tuikov@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Xiao, Jack &lt;J=
+ack.Xiao@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Liu, Mo=
+nk
+ &lt;Monk.Liu@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.com&gt;; Wang, Kevi=
+n(Yang) &lt;Kevin1.Wang@amd.com&gt;; Xiaojie Yuan &lt;xiaojie.yuan@amd.com&=
+gt;<br>
+<b>=D6=F7=CC=E2:</b> Re: [PATCH 1/2] drm/amdgpu: race issue when jobs on 2 =
+ring timeout</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
 >
->>> Only specific thing would be some hooks to keep the gpu
->>> busy in some fashion while we yank the driver.
->>
->> Do you mean like staring X and some active rendering on top (like glxgears)
->> automatically from within IGT ?
-> Nope, igt is meant to be bare metal testing so you don't have to drag
-> the entire winsys around (which in a wayland world, is not really good
-> for driver testing anyway, since everything is different). We use this
-> for our pre-merge ci for drm/i915.
+<div class=3D"PlainText"><br>
+On 1/19/21 7:22 AM, Horace Chen wrote:<br>
+&gt; Fix a racing issue when jobs on 2 rings timeout simultaneously.<br>
+&gt;<br>
+&gt; If 2 rings timed out at the same time, the amdgpu_device_gpu_recover<b=
+r>
+&gt; will be reentered. Then the adev-&gt;gmc.xgmi.head will be grabbed<br>
+&gt; by 2 local linked list, which may cause wild pointer issue in<br>
+&gt; iterating.<br>
+&gt;<br>
+&gt; lock the device earily to prevent the node be added to 2 different<br>
+&gt; lists.<br>
+&gt;<br>
+&gt; Signed-off-by: Horace Chen &lt;horace.chen@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 42 ++++++++++=
++++++-------<br>
+&gt;&nbsp;&nbsp; 1 file changed, 30 insertions(+), 12 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index 4d434803fb49..9574da3abc32 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -4540,6 +4540,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_devi=
+ce *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool need_emergency_restart =
+=3D false;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool audio_suspended =3D fal=
+se;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; bool get_dev_lock =3D false;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Special case: RAS tr=
+iggered and full reset isn't supported<br>
+&gt; @@ -4582,28 +4583,45 @@ int amdgpu_device_gpu_recover(struct amdgpu_de=
+vice *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Build list of device=
+s to reset.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * In case we are in XG=
+MI hive mode, resort the device list<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to put adev in the 1=
+st position.<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * lock the device before we try to ope=
+rate the linked list<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * if didn't get the device lock, don't=
+ touch the linked list since<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * others may iterating it.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;device_l=
+ist);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.num_ph=
+ysical_nodes &gt; 1) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!hive)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+-ENODEV;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (!list_is_first(&amp;adev-&gt;gmc.xgmi.head, &amp;hive-&gt;device_li=
+st))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_rotate_to_front(&a=
+mp;adev-&gt;gmc.xgmi.head, &amp;hive-&gt;device_list);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; device_list_handle =3D &amp;hive-&gt;device_list;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; list_for_each_entry(tmp_adev, &amp;hive-&gt;device_list, gmc.xgmi.head)=
+ {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_dev_lock =3D amdgpu=
+_device_lock_adev(tmp_adev, hive);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!get_dev_lock)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+<br>
+<br>
+What about unlocking back all the devices you already locked if the break<b=
+r>
+happens in the middle of the iteration ?<br>
+Note that at skip_recovery: we don't do it. BTW, i see this issue is alread=
+y in <br>
+the current code.<br>
+<br>
+Also, maybe now it's better to separate the actual locking in <br>
+amdgpu_device_lock_adev<br>
+from the other stuff going on there since I don't think you would wont to t=
+oggle <br>
+stuff<br>
+like adev-&gt;mp1_state back and forth and also the function name is not <b=
+r>
+descriptive of<br>
+the other stuff going on there anyway.<br>
+<br>
+Andrey<br>
+<br>
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (get_dev_lock) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!list_is_first(&amp=
+;adev-&gt;gmc.xgmi.head, &amp;hive-&gt;device_list))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; list_rotate_to_front(&amp;adev-&gt;gmc.xgmi.head, =
+&amp;hive-&gt;device_list);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_list_handle =3D =
+&amp;hive-&gt;device_list;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; list_add_tail(&amp;adev-&gt;gmc.xgmi.head, &amp;device_list);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; device_list_handle =3D &amp;device_list;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; get_dev_lock =3D amdgpu_device_lock_adev(adev, hive);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp_adev =3D adev;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (get_dev_lock) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_add_tail(&amp;adev=
+-&gt;gmc.xgmi.head, &amp;device_list);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_list_handle =3D =
+&amp;device_list;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!get_dev_lock) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_info(tmp_adev-&gt;dev, &quot;Bailing on TDR for s_job:%llx, as anot=
+her already in progress&quot;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jo=
+b ? job-&gt;base.id : -1);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /* even we skipped this reset, still need to set the job to guilty */<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; goto skip_recovery;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* block all schedulers and =
+reset given job's ring */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(tmp_adev=
+, device_list_handle, gmc.xgmi.head) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (!amdgpu_device_lock_adev(tmp_adev, hive)) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(tmp_adev-&gt;d=
+ev, &quot;Bailing on TDR for s_job:%llx, as another already in progress&quo=
+t;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; job ? job-&gt;base.id : -1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto skip_recovery;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * Try to put the audio codec into suspend state<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * before gpu reset started.<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
 
+--_000_CY4PR12MB157352A2F7BF029B68A4A769E1A30CY4PR12MB1573namp_--
 
-So i keep it busy by X/glxgers which is manual operation. What you suggest
-then is some client within IGT which opens the device and starts submitting jobs
-(which is much like what libdrm amdgpu tests already do) ? And this
-part is the amdgou specific code I just need to port from libdrm to here ?
+--===============1333009408==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Andrey
-
-
->
->>> But just to get it started
->>> you can throw in entirely amdgpu specific subtests and just share some of
->>> the test code.
->>> -Daniel
->>
->> Im general, I wasn't aware of this test suite and looks like it does what i test
->> among other stuff.
->> I will definitely  try to run with it although the rescan part will not work as
->> plugging
->> the device back is in my TODO list and not part of the scope for this patchset
->> and so I will
->> probably comment the re-scan section out while testing.
-> amd gem has been using libdrm-amd thus far iirc, but for things like
-> this I think it'd be worth to at least consider switching. Display
-> team has already started to use some of the test and contribute stuff
-> (I think the VRR testcase is from amd).
-> -Daniel
->
->> Andrey
->>
->>
->>>> Andrey Grodzovsky (13):
->>>>     drm/ttm: Remap all page faults to per process dummy page.
->>>>     drm: Unamp the entire device address space on device unplug
->>>>     drm/ttm: Expose ttm_tt_unpopulate for driver use
->>>>     drm/sched: Cancel and flush all oustatdning jobs before finish.
->>>>     drm/amdgpu: Split amdgpu_device_fini into early and late
->>>>     drm/amdgpu: Add early fini callback
->>>>     drm/amdgpu: Register IOMMU topology notifier per device.
->>>>     drm/amdgpu: Fix a bunch of sdma code crash post device unplug
->>>>     drm/amdgpu: Remap all page faults to per process dummy page.
->>>>     dmr/amdgpu: Move some sysfs attrs creation to default_attr
->>>>     drm/amdgpu: Guard against write accesses after device removal
->>>>     drm/sched: Make timeout timer rearm conditional.
->>>>     drm/amdgpu: Prevent any job recoveries after device is unplugged.
->>>>
->>>> Luben Tuikov (1):
->>>>     drm/scheduler: Job timeout handler returns status
->>>>
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  11 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c      |  17 +--
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 149 ++++++++++++++++++++--
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |  20 ++-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c         |  15 ++-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c          |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h          |   1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           |   9 ++
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c       |  25 ++--
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           |  26 ++--
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h           |   3 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c           |  19 ++-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c           |  12 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        |  10 ++
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.h        |   2 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c           |  53 +++++---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h           |   3 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c           |   1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c          |  70 ++++++++++
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h          |  52 +-------
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           |  21 ++-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |   8 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c      |  14 +-
->>>>    drivers/gpu/drm/amd/amdgpu/cik_ih.c               |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/cz_ih.c                |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/iceland_ih.c           |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/navi10_ih.c            |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/psp_v11_0.c            |  16 +--
->>>>    drivers/gpu/drm/amd/amdgpu/psp_v12_0.c            |   8 +-
->>>>    drivers/gpu/drm/amd/amdgpu/psp_v3_1.c             |   8 +-
->>>>    drivers/gpu/drm/amd/amdgpu/si_ih.c                |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/tonga_ih.c             |   2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/vega10_ih.c            |   2 +-
->>>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-
->>>>    drivers/gpu/drm/amd/include/amd_shared.h          |   2 +
->>>>    drivers/gpu/drm/drm_drv.c                         |   3 +
->>>>    drivers/gpu/drm/etnaviv/etnaviv_sched.c           |  10 +-
->>>>    drivers/gpu/drm/lima/lima_sched.c                 |   4 +-
->>>>    drivers/gpu/drm/panfrost/panfrost_job.c           |   9 +-
->>>>    drivers/gpu/drm/scheduler/sched_main.c            |  18 ++-
->>>>    drivers/gpu/drm/ttm/ttm_bo_vm.c                   |  82 +++++++++++-
->>>>    drivers/gpu/drm/ttm/ttm_tt.c                      |   1 +
->>>>    drivers/gpu/drm/v3d/v3d_sched.c                   |  32 ++---
->>>>    include/drm/gpu_scheduler.h                       |  17 ++-
->>>>    include/drm/ttm/ttm_bo_api.h                      |   2 +
->>>>    45 files changed, 583 insertions(+), 198 deletions(-)
->>>>
->>>> --
->>>> 2.7.4
->>>>
->
->
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1333009408==--
