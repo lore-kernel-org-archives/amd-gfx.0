@@ -2,80 +2,106 @@ Return-Path: <SRS0=qt+g=GW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AEBFC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 400ADC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 229DE23103
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 08:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 229DE23103
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E4F6123100
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Jan 2021 09:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4F6123100
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B46686E05F;
-	Tue, 19 Jan 2021 08:55:38 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77F196E05F;
- Tue, 19 Jan 2021 08:55:37 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id w1so27341764ejf.11;
- Tue, 19 Jan 2021 00:55:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Isfs6+bREtGkcerT8XE8Q10j4KM2FAYsOdVBD5LYLqg=;
- b=eiuet6itwRxv8dPaEg5edheIuDazxh0I6uDfn+apuZhMyMM138Gcaxk7NpJNAramBK
- PsP/mzyhKtqCV1Ymhl8g+fuJLPVQZa1d0DU8C+hw7p1HBiJOCSCR5kRyV/FUXapipTci
- YKnPG1dKFfCu1eHrzqFyB5zLOfbp6X+efeBRrW6FZ6aPu/JcpNInDdTlZ0OTUcTq1e6S
- 1noBSuLKxueXQPtdAg8GWIGOMrH4kjCpURzOIF3e0NF0v9M2qnxmk0U50R6on8MiJ5Jo
- BN68wA18XdvLnedXzGFBP3Zf8oUMsmWjtCG2tqp+Rpl6bX7kXBjcdqkPj7fgaQJj9XUi
- 94hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=Isfs6+bREtGkcerT8XE8Q10j4KM2FAYsOdVBD5LYLqg=;
- b=Bhgs58OGnC2GWij7ggB+8ZHz0lJ+/sadt4JnUvwyfDZsuoRqN368KbR8aY5b8P9ZXM
- aWCrYtOjau8S9GxdcuFzETv1oJAx+HBD3bGUQdu+5dTOAGeUdbs3UL4p/I7mYq/NYTf6
- uBLG1FcElMp88hiNWBQDONh83lS/hPg2HmtU0GZLA+2Jiu7VgG8C6upleC6MUmfxZfDf
- J1ZrFNqKUz3YcCAI8eFvCO31Mlvm8DvqO4MAMMksJ3HHfKLV68K67hLB0ksdKmOD67eG
- fGnzBq6mqrHFQpq+0keDj2bAL/fHqLS0oM1dMyMiVnQH7Wkj7TRDPW++LsQQQPuYtAFe
- YtjQ==
-X-Gm-Message-State: AOAM532CQuLESS9vrv2xQ7rODfG6yEd4kimMfqUqbz3MPJbiU1qHQVEK
- cBdl7chE4IeSXA8tPqQ/bRk=
-X-Google-Smtp-Source: ABdhPJwgvD7dg0GrzJTa6Z3YX1ypd4JtUKMyS6tKaD5VS6w0vnD5j1c4vsHnYjW/l48S/phVkLdJ5w==
-X-Received: by 2002:a17:906:7215:: with SMTP id
- m21mr2289497ejk.248.1611046536043; 
- Tue, 19 Jan 2021 00:55:36 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id w11sm10516404edj.8.2021.01.19.00.55.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jan 2021 00:55:35 -0800 (PST)
-Subject: Re: [PATCH v4 11/14] drm/amdgpu: Guard against write accesses after
- device removal
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, robh@kernel.org, l.stach@pengutronix.de,
- yuq825@gmail.com, eric@anholt.net
-References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
- <1611003683-3534-12-git-send-email-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <35ecd67f-620f-df50-3e03-d24dc12452d6@gmail.com>
-Date: Tue, 19 Jan 2021 09:55:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F98B89BE8;
+	Tue, 19 Jan 2021 09:07:00 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5C1789BE8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Jan 2021 09:06:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OCDnZwZ4+LrmfBjQNDykTVx3BWhZ42rl+8cJvJi3QXrGY6oziUcEETNM/ZT71m0ND+2kzHvKFx9rWFi2YlOtK37GzULNZvwX+Alv89D5LrCu5cG5flLQcdbtSH8Aw1noFG4LrWCf17sokwNckCwlY7q0aj1VcyOvcH1vKNFo66ayS91QoahehHfiYkBvf98EoCADCTfAQ1oxgZyCFs4w7/8IQ7ARJSfn4Vp8mnDhRySprhRaQOH6LT0h0sWSOVPNm0PsiercTgYbGDYDrKNAmge0An2Ih4FwMmpOAyPasqXix0ZJQyNdFR7ACGJyvJdXQ6gyYJMpzOxPJkgsaZQ5+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MhwRW1HTLJ6+J8WpdI4wlBJ6w3nYnfSz0JS6qit80zw=;
+ b=mduw4nd2NT+SB1bpoxVEQ6gK+qXfMcU9N9/A4BcIKStVuZkYKmL0v7gbtZzCexdUsl9HZJfqrkvg6Dcrd5TcvAfviO9A+dtqUq102tr+4Dzk0wdBr6NIATdUnhdDkjI3NtFF3CQik5m3WR+3OxVdHEs1dmcZT5WuYFTPWEVzoGWNQakPC49iUuA+6DPPgg3s+kZDoKxf+iR4r4Us1TDizzIyvtHujF7BRWp1m71V0RjlbwierQ7NINopj3iTj3RLazbVnUfEKr+G9QsRh4l6+0/aDgb8CQpX1pzg8jNAi1Y9OGCbdSNRJqnH6JuG1WzTble7KpUkeepGDFnNkXkQBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MhwRW1HTLJ6+J8WpdI4wlBJ6w3nYnfSz0JS6qit80zw=;
+ b=yE0cWCDmqHF/5ylaezTPkLdTroLWhQlm386gVirUNcG2FTbjh8dHC+NHtmPn0TW27rY7IlkvplYzmgb3siANxiIGuv9hci5Cxfem4aNSyT67CSdwmbjgP/pjmN9mwoCZEMDHqSSk/KDCdFTE7NHW//eBKTKAxPp845Hj0JpI2mg=
+Received: from BN0PR04CA0097.namprd04.prod.outlook.com (2603:10b6:408:ec::12)
+ by CH2PR12MB3862.namprd12.prod.outlook.com (2603:10b6:610:21::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.13; Tue, 19 Jan
+ 2021 09:06:57 +0000
+Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ec:cafe::b1) by BN0PR04CA0097.outlook.office365.com
+ (2603:10b6:408:ec::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11 via Frontend
+ Transport; Tue, 19 Jan 2021 09:06:57 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3763.12 via Frontend Transport; Tue, 19 Jan 2021 09:06:55 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 19 Jan
+ 2021 03:06:53 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 19 Jan
+ 2021 03:06:52 -0600
+Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Tue, 19 Jan 2021 03:06:46 -0600
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: add error handling to
+ amdgpu_virt_read_pf2vf_data
+Date: Tue, 19 Jan 2021 17:06:42 +0800
+Message-ID: <20210119090642.3311634-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1611003683-3534-12-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9a1dfc7b-40d5-45b6-2a85-08d8bc5991ba
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3862:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB38620DAF030ED8F77A887647B7A30@CH2PR12MB3862.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 55DDZl55KODdhEdHgxC/bwzuBAtc1zRw9CZUGl6sZJzfRyDOzyKZODmZ1pioDBRuNDgFoA5gtn2crhqMXdztUlg0wbb51sulBSdkT7Hj9/JzAxXjVNpnJT0/70YphwXP2rDYonPetKvkHXxtQ0mygZoYn7Hy/tRfIaQBcjFq8QrJzrQCoQkiwim61DyDSBfwFaGHjhruEtnzLeh8HnRUeOFgbTKavA8ZIVHEfg3tcIeBTenC/c6wOL1ZFTcs7M6G29NUYZL1Pjj0DcZ2eY5zgyu8cCU+IaVzS9OM9auCEP8+0fioQEaI9zPGgN3PUkK/R3FPJ67tRHjkecmMmQ4U39PG4ltKAaLyUSqosYY/SuV/fGdj7EnweRhxdZGrsmRqs4wL7AGY0kVdoF/Mp+MQI+W9esoLetyvJ7fggE4toiEJHaH07T6SF4TrdhoIZ+tyfJPNtyTF4pGUsHEzrh7nOA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(46966006)(426003)(478600001)(356005)(47076005)(8936002)(82310400003)(2906002)(54906003)(6916009)(316002)(70586007)(70206006)(6666004)(336012)(36756003)(8676002)(1076003)(82740400003)(86362001)(4326008)(26005)(5660300002)(83380400001)(7696005)(81166007)(186003)(2616005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2021 09:06:55.5493 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a1dfc7b-40d5-45b6-2a85-08d8bc5991ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,684 +113,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
- Harry.Wentland@amd.com
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.01.21 um 22:01 schrieb Andrey Grodzovsky:
-> This should prevent writing to memory or IO ranges possibly
-> already allocated for other uses after our device is removed.
+[Why]
+when vram lost happened in guest, try to write vram can lead to
+kernel stuck.
 
-Wow, that adds quite some overhead to every register access. I'm not 
-sure we can do this.
+[How]
+When the readback data is invalid, don't do write work, directly
+reschedule a new work.
 
-Christian.
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 57 ++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  9 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 53 +++++++++++++---------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |  3 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 70 ++++++++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   | 49 ++-------------------
->   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c     | 16 ++-----
->   drivers/gpu/drm/amd/amdgpu/psp_v12_0.c     |  8 +---
->   drivers/gpu/drm/amd/amdgpu/psp_v3_1.c      |  8 +---
->   9 files changed, 184 insertions(+), 89 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e99f4f1..0a9d73c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -72,6 +72,8 @@
->   
->   #include <linux/iommu.h>
->   
-> +#include <drm/drm_drv.h>
-> +
->   MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
->   MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
->   MODULE_FIRMWARE("amdgpu/raven_gpu_info.bin");
-> @@ -404,13 +406,21 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
->    */
->   void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if (offset < adev->rmmio_size)
->   		writeb(value, adev->rmmio + offset);
->   	else
->   		BUG();
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -427,9 +437,14 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
->   			uint32_t reg, uint32_t v,
->   			uint32_t acc_flags)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if ((reg * 4) < adev->rmmio_size) {
->   		if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
->   		    amdgpu_sriov_runtime(adev) &&
-> @@ -444,6 +459,8 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
->   	}
->   
->   	trace_amdgpu_device_wreg(adev->pdev->device, reg, v);
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /*
-> @@ -454,9 +471,14 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
->   void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
->   			     uint32_t reg, uint32_t v)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if (amdgpu_sriov_fullaccess(adev) &&
->   	    adev->gfx.rlc.funcs &&
->   	    adev->gfx.rlc.funcs->is_rlcg_access_range) {
-> @@ -465,6 +487,8 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
->   	} else {
->   		writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
->   	}
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -499,15 +523,22 @@ u32 amdgpu_io_rreg(struct amdgpu_device *adev, u32 reg)
->    */
->   void amdgpu_io_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if ((reg * 4) < adev->rio_mem_size)
->   		iowrite32(v, adev->rio_mem + (reg * 4));
->   	else {
->   		iowrite32((reg * 4), adev->rio_mem + (mmMM_INDEX * 4));
->   		iowrite32(v, adev->rio_mem + (mmMM_DATA * 4));
->   	}
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -544,14 +575,21 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
->    */
->   void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if (index < adev->doorbell.num_doorbells) {
->   		writel(v, adev->doorbell.ptr + index);
->   	} else {
->   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
->   	}
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -588,14 +626,21 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
->    */
->   void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
->   {
-> +	int idx;
-> +
->   	if (adev->in_pci_err_recovery)
->   		return;
->   
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
-> +
->   	if (index < adev->doorbell.num_doorbells) {
->   		atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), v);
->   	} else {
->   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
->   	}
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -682,6 +727,10 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
->   	unsigned long flags;
->   	void __iomem *pcie_index_offset;
->   	void __iomem *pcie_data_offset;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
->   
->   	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
->   	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
-> @@ -692,6 +741,8 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
->   	writel(reg_data, pcie_data_offset);
->   	readl(pcie_data_offset);
->   	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> @@ -711,6 +762,10 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
->   	unsigned long flags;
->   	void __iomem *pcie_index_offset;
->   	void __iomem *pcie_data_offset;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return;
->   
->   	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
->   	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
-> @@ -727,6 +782,8 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
->   	writel((u32)(reg_data >> 32), pcie_data_offset);
->   	readl(pcie_data_offset);
->   	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);
-> +
-> +	drm_dev_exit(idx);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index fe1a39f..1beb4e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -31,6 +31,8 @@
->   #include "amdgpu_ras.h"
->   #include "amdgpu_xgmi.h"
->   
-> +#include <drm/drm_drv.h>
-> +
->   /**
->    * amdgpu_gmc_get_pde_for_bo - get the PDE for a BO
->    *
-> @@ -98,6 +100,10 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
->   {
->   	void __iomem *ptr = (void *)cpu_pt_addr;
->   	uint64_t value;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&adev->ddev, &idx))
-> +		return 0;
->   
->   	/*
->   	 * The following is for PTE only. GART does not have PDEs.
-> @@ -105,6 +111,9 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
->   	value = addr & 0x0000FFFFFFFFF000ULL;
->   	value |= flags;
->   	writeq(value, ptr + (gpu_page_idx * 8));
-> +
-> +	drm_dev_exit(idx);
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 523d22d..89e2bfe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -37,6 +37,8 @@
->   
->   #include "amdgpu_ras.h"
->   
-> +#include <drm/drm_drv.h>
-> +
->   static int psp_sysfs_init(struct amdgpu_device *adev);
->   static void psp_sysfs_fini(struct amdgpu_device *adev);
->   
-> @@ -248,7 +250,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
->   		   struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr)
->   {
->   	int ret;
-> -	int index;
-> +	int index, idx;
->   	int timeout = 2000;
->   	bool ras_intr = false;
->   	bool skip_unsupport = false;
-> @@ -256,6 +258,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
->   	if (psp->adev->in_pci_err_recovery)
->   		return 0;
->   
-> +	if (!drm_dev_enter(&psp->adev->ddev, &idx))
-> +		return 0;
-> +
->   	mutex_lock(&psp->mutex);
->   
->   	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
-> @@ -266,8 +271,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
->   	ret = psp_ring_cmd_submit(psp, psp->cmd_buf_mc_addr, fence_mc_addr, index);
->   	if (ret) {
->   		atomic_dec(&psp->fence_value);
-> -		mutex_unlock(&psp->mutex);
-> -		return ret;
-> +		goto exit;
->   	}
->   
->   	amdgpu_asic_invalidate_hdp(psp->adev, NULL);
-> @@ -307,8 +311,8 @@ psp_cmd_submit_buf(struct psp_context *psp,
->   			 psp->cmd_buf_mem->cmd_id,
->   			 psp->cmd_buf_mem->resp.status);
->   		if (!timeout) {
-> -			mutex_unlock(&psp->mutex);
-> -			return -EINVAL;
-> +			ret = -EINVAL;
-> +			goto exit;
->   		}
->   	}
->   
-> @@ -316,8 +320,10 @@ psp_cmd_submit_buf(struct psp_context *psp,
->   		ucode->tmr_mc_addr_lo = psp->cmd_buf_mem->resp.fw_addr_lo;
->   		ucode->tmr_mc_addr_hi = psp->cmd_buf_mem->resp.fw_addr_hi;
->   	}
-> -	mutex_unlock(&psp->mutex);
->   
-> +exit:
-> +	mutex_unlock(&psp->mutex);
-> +	drm_dev_exit(idx);
->   	return ret;
->   }
->   
-> @@ -354,8 +360,7 @@ static int psp_load_toc(struct psp_context *psp,
->   	if (!cmd)
->   		return -ENOMEM;
->   	/* Copy toc to psp firmware private buffer */
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->toc_start_addr, psp->toc_bin_size);
-> +	psp_copy_fw(psp, psp->toc_start_addr, psp->toc_bin_size);
->   
->   	psp_prep_load_toc_cmd_buf(cmd, psp->fw_pri_mc_addr, psp->toc_bin_size);
->   
-> @@ -570,8 +575,7 @@ static int psp_asd_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->asd_start_addr, psp->asd_ucode_size);
-> +	psp_copy_fw(psp, psp->asd_start_addr, psp->asd_ucode_size);
->   
->   	psp_prep_asd_load_cmd_buf(cmd, psp->fw_pri_mc_addr,
->   				  psp->asd_ucode_size);
-> @@ -726,8 +730,7 @@ static int psp_xgmi_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->ta_xgmi_start_addr, psp->ta_xgmi_ucode_size);
-> +	psp_copy_fw(psp, psp->ta_xgmi_start_addr, psp->ta_xgmi_ucode_size);
->   
->   	psp_prep_ta_load_cmd_buf(cmd,
->   				 psp->fw_pri_mc_addr,
-> @@ -982,8 +985,7 @@ static int psp_ras_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->ta_ras_start_addr, psp->ta_ras_ucode_size);
-> +	psp_copy_fw(psp, psp->ta_ras_start_addr, psp->ta_ras_ucode_size);
->   
->   	psp_prep_ta_load_cmd_buf(cmd,
->   				 psp->fw_pri_mc_addr,
-> @@ -1219,8 +1221,7 @@ static int psp_hdcp_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->ta_hdcp_start_addr,
-> +	psp_copy_fw(psp, psp->ta_hdcp_start_addr,
->   	       psp->ta_hdcp_ucode_size);
->   
->   	psp_prep_ta_load_cmd_buf(cmd,
-> @@ -1366,8 +1367,7 @@ static int psp_dtm_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->ta_dtm_start_addr, psp->ta_dtm_ucode_size);
-> +	psp_copy_fw(psp, psp->ta_dtm_start_addr, psp->ta_dtm_ucode_size);
->   
->   	psp_prep_ta_load_cmd_buf(cmd,
->   				 psp->fw_pri_mc_addr,
-> @@ -1507,8 +1507,7 @@ static int psp_rap_load(struct psp_context *psp)
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -	memcpy(psp->fw_pri_buf, psp->ta_rap_start_addr, psp->ta_rap_ucode_size);
-> +	psp_copy_fw(psp, psp->ta_rap_start_addr, psp->ta_rap_ucode_size);
->   
->   	psp_prep_ta_load_cmd_buf(cmd,
->   				 psp->fw_pri_mc_addr,
-> @@ -2778,6 +2777,20 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
->   	return count;
->   }
->   
-> +void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
-> +{
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&psp->adev->ddev, &idx))
-> +		return;
-> +
-> +	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> +	memcpy(psp->fw_pri_buf, start_addr, bin_size);
-> +
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +
->   static DEVICE_ATTR(usbc_pd_fw, S_IRUGO | S_IWUSR,
->   		   psp_usbc_pd_fw_sysfs_read,
->   		   psp_usbc_pd_fw_sysfs_write);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> index da250bc..ac69314 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -400,4 +400,7 @@ int psp_init_ta_microcode(struct psp_context *psp,
->   			  const char *chip_name);
->   int psp_get_fw_attestation_records_addr(struct psp_context *psp,
->   					uint64_t *output_ptr);
-> +
-> +void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 1a612f5..d656494 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -35,6 +35,8 @@
->   #include "amdgpu.h"
->   #include "atom.h"
->   
-> +#include <drm/drm_drv.h>
-> +
->   /*
->    * Rings
->    * Most engines on the GPU are fed via ring buffers.  Ring
-> @@ -463,3 +465,71 @@ int amdgpu_ring_test_helper(struct amdgpu_ring *ring)
->   	ring->sched.ready = !r;
->   	return r;
->   }
-> +
-> +void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
-> +{
-> +	int idx;
-> +	int i = 0;
-> +
-> +	if (!drm_dev_enter(&ring->adev->ddev, &idx))
-> +		return;
-> +
-> +	while (i <= ring->buf_mask)
-> +		ring->ring[i++] = ring->funcs->nop;
-> +
-> +	drm_dev_exit(idx);
-> +
-> +}
-> +
-> +void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
-> +{
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&ring->adev->ddev, &idx))
-> +		return;
-> +
-> +	if (ring->count_dw <= 0)
-> +		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
-> +	ring->ring[ring->wptr++ & ring->buf_mask] = v;
-> +	ring->wptr &= ring->ptr_mask;
-> +	ring->count_dw--;
-> +
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
-> +					      void *src, int count_dw)
-> +{
-> +	unsigned occupied, chunk1, chunk2;
-> +	void *dst;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(&ring->adev->ddev, &idx))
-> +		return;
-> +
-> +	if (unlikely(ring->count_dw < count_dw))
-> +		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
-> +
-> +	occupied = ring->wptr & ring->buf_mask;
-> +	dst = (void *)&ring->ring[occupied];
-> +	chunk1 = ring->buf_mask + 1 - occupied;
-> +	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
-> +	chunk2 = count_dw - chunk1;
-> +	chunk1 <<= 2;
-> +	chunk2 <<= 2;
-> +
-> +	if (chunk1)
-> +		memcpy(dst, src, chunk1);
-> +
-> +	if (chunk2) {
-> +		src += chunk1;
-> +		dst = (void *)ring->ring;
-> +		memcpy(dst, src, chunk2);
-> +	}
-> +
-> +	ring->wptr += count_dw;
-> +	ring->wptr &= ring->ptr_mask;
-> +	ring->count_dw -= count_dw;
-> +
-> +	drm_dev_exit(idx);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index accb243..f90b81f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -300,53 +300,12 @@ static inline void amdgpu_ring_set_preempt_cond_exec(struct amdgpu_ring *ring,
->   	*ring->cond_exe_cpu_addr = cond_exec;
->   }
->   
-> -static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
-> -{
-> -	int i = 0;
-> -	while (i <= ring->buf_mask)
-> -		ring->ring[i++] = ring->funcs->nop;
-> -
-> -}
-> -
-> -static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
-> -{
-> -	if (ring->count_dw <= 0)
-> -		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
-> -	ring->ring[ring->wptr++ & ring->buf_mask] = v;
-> -	ring->wptr &= ring->ptr_mask;
-> -	ring->count_dw--;
-> -}
-> +void amdgpu_ring_clear_ring(struct amdgpu_ring *ring);
->   
-> -static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
-> -					      void *src, int count_dw)
-> -{
-> -	unsigned occupied, chunk1, chunk2;
-> -	void *dst;
-> -
-> -	if (unlikely(ring->count_dw < count_dw))
-> -		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
-> -
-> -	occupied = ring->wptr & ring->buf_mask;
-> -	dst = (void *)&ring->ring[occupied];
-> -	chunk1 = ring->buf_mask + 1 - occupied;
-> -	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
-> -	chunk2 = count_dw - chunk1;
-> -	chunk1 <<= 2;
-> -	chunk2 <<= 2;
-> +void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v);
->   
-> -	if (chunk1)
-> -		memcpy(dst, src, chunk1);
-> -
-> -	if (chunk2) {
-> -		src += chunk1;
-> -		dst = (void *)ring->ring;
-> -		memcpy(dst, src, chunk2);
-> -	}
-> -
-> -	ring->wptr += count_dw;
-> -	ring->wptr &= ring->ptr_mask;
-> -	ring->count_dw -= count_dw;
-> -}
-> +void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
-> +					      void *src, int count_dw);
->   
->   int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index bd4248c..b3ce5be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -269,10 +269,8 @@ static int psp_v11_0_bootloader_load_kdb(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy PSP KDB binary to memory */
-> -	memcpy(psp->fw_pri_buf, psp->kdb_start_addr, psp->kdb_bin_size);
-> +	psp_copy_fw(psp, psp->kdb_start_addr, psp->kdb_bin_size);
->   
->   	/* Provide the PSP KDB to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> @@ -302,10 +300,8 @@ static int psp_v11_0_bootloader_load_spl(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy PSP SPL binary to memory */
-> -	memcpy(psp->fw_pri_buf, psp->spl_start_addr, psp->spl_bin_size);
-> +	psp_copy_fw(psp, psp->spl_start_addr, psp->spl_bin_size);
->   
->   	/* Provide the PSP SPL to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> @@ -335,10 +331,8 @@ static int psp_v11_0_bootloader_load_sysdrv(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy PSP System Driver binary to memory */
-> -	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
-> +	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
->   
->   	/* Provide the sys driver to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> @@ -371,10 +365,8 @@ static int psp_v11_0_bootloader_load_sos(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy Secure OS binary to PSP memory */
-> -	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
-> +	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
->   
->   	/* Provide the PSP secure OS to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> index c4828bd..618e5b6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-> @@ -138,10 +138,8 @@ static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy PSP System Driver binary to memory */
-> -	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
-> +	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
->   
->   	/* Provide the sys driver to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> @@ -179,10 +177,8 @@ static int psp_v12_0_bootloader_load_sos(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy Secure OS binary to PSP memory */
-> -	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
-> +	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
->   
->   	/* Provide the PSP secure OS to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-> index f2e725f..d0a6cccd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-> @@ -102,10 +102,8 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy PSP System Driver binary to memory */
-> -	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
-> +	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
->   
->   	/* Provide the sys driver to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-> @@ -143,10 +141,8 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
->   	if (ret)
->   		return ret;
->   
-> -	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-> -
->   	/* Copy Secure OS binary to PSP memory */
-> -	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
-> +	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
->   
->   	/* Provide the PSP secure OS to bootloader */
->   	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index c649944e49da..3dd7eec52344 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -558,10 +558,14 @@ static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
+ static void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
+ {
+ 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device, virt.vf2pf_work.work);
++	int ret;
+ 
+-	amdgpu_virt_read_pf2vf_data(adev);
++	ret = amdgpu_virt_read_pf2vf_data(adev);
++	if (ret)
++		goto out;
+ 	amdgpu_virt_write_vf2pf_data(adev);
+ 
++out:
+ 	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
+ }
+ 
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
