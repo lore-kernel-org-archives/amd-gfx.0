@@ -2,68 +2,126 @@ Return-Path: <SRS0=ixe6=GX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF012C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE9A8C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB6F62339D
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB6F62339D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 6C80E23358
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C80E23358
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E59A88D18;
-	Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2722D89B0C
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id v21so6045430otj.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 08:00:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=4dN1cx/5iD95hw6USiM1+PU00umlijoKLbsTp4otznU=;
- b=hbNJwz3JAGr30TqjiecvbnpfxhwDffLV4um0mquVmpgcrMoYlv/DE9ys775M8OdyY3
- X7lsCmc9uk8rSPuOmW7m3N+/57snYq8MPrZShQifY9cSvLPAJ/tueAf1zhaN5/LCTc7h
- 4fVgYtdnYx14ofsdRvU6UMSdF7k4zVPqhEZWA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=4dN1cx/5iD95hw6USiM1+PU00umlijoKLbsTp4otznU=;
- b=XEM3R77U/mebBO48CxnXtiBfCiJd4wLRbZ4qesOvLqXdNDB8po90Ub0Tb+cm/mRqaW
- THjytK4k51XaVs8iQ75xnX+vceJxnZHi2AIjS1Aa2nEEylFfCPkWs5h3O9Aa1usxCqFu
- PRMqPROVEXNX7VHDXcqU7jkDiDiHmtqdffizCVeTy7IhfqCNl5PkDEVqag/RnumPXWIh
- 2lj1pzLYZAEu9opvAI4ey/adwhSIlBmt2euw2eZjSsoCPx965nMnZs7oYFWGaB2h8hvt
- 6blDWuqoIolXRr+q9iDcZgd1pFh7p8iM9DWh0+qHIWaMZ9AIObjVz+9RG+Bv5OQlxasG
- xqXA==
-X-Gm-Message-State: AOAM5321hLJQ/dGAq31nsJkdSe8pDx9Dc7ZYtY6QAnXUkmMfA/gGogSD
- BE/tumGUNi1gBw3HVqWPXfstMcDpPKHtKc4dci59Gw==
-X-Google-Smtp-Source: ABdhPJxjuUBizGYfjK8nt7KcEhfPI6vQYztiyBvUcXboxWrllv0Ri9dqYtto4i2tZD8YZLJ5Rrsg8XuGEhkMws3pkqw=
-X-Received: by 2002:a05:6830:1bef:: with SMTP id
- k15mr7331346otb.303.1611158403219; 
- Wed, 20 Jan 2021 08:00:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B27898CE;
+	Wed, 20 Jan 2021 16:40:00 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E39898CE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 16:39:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mf9vKrQrhnM9jyPTkdQICGO/5WoyPCmnyI/c36UI/gtHeT5Vglf5c4+SgG1F2+inHXrnTDgUC8xfjEl3SEvm6aPsWyFWq5aBN38l4QH8I2jq26FufIAjAXfPQblC7KGmoGBKiZ+tCREgwKDyLh2ZJA2bPGBcPfy+asTfdllO/KmGMASkCDVaJJCCuNZFPBW7mCd7Fekd3PtWcGBN859R6nujIguzR59CK+9rTizddPGp654CGBha+cinQM4hjSXiPDpZT4gZ6/5qTUWPTI2eEtzLZIQi1S5gjAi3eGQfqr+1ZNPNeq27s9oBJkkPxIaVOKBsEZH3t/x00hgrDtEhdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zfBH0XDE0VTBv0BlNN7Vfc7BJXjMuvXVUqCWT1Lm2Ss=;
+ b=QwLLo8DIJlkgTDHgIJC8ERbXSfLP784WfyBgPGGYuoTTG6yu91+uwDiAlPJkivJSrvMEZsCcLCGMnbeeTF33talrm1YdfBiniEnksToCeQCGQIuo1xDdpytfHPJ/nmAa/W+PGLM9pRRfd5oaP+dSAYwUXrwyi6ONTtwrEkzsAh0qNsnkpdkJsiwkaG1pXrWYf7WKLzblHN83G05xJJZOiW56MikuOUSUGmhD3ql2dYaqSrNSJlcggxL6WnUxE+Dicrl4UGv4pIzuustQ12QbZdWl81juhwa+1Aty/ip72V1pMlu/l6KYIJzNrCB2wMhPz/9h7cSFQ7LbdPnDfQv8XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zfBH0XDE0VTBv0BlNN7Vfc7BJXjMuvXVUqCWT1Lm2Ss=;
+ b=3GGngXYxOFoJoeMBpUkcXK8Wyr26UJx+kVvE5nXeAc4ofYJUZqjutpyWGTNFDoJY/NgXNOvWq3pO7IlEe5925N5Euy/DKu22i7YIhiMj1PbyP58xz3lXTYT2hVKSlOlPiTG2YL+GXqxnx8O+/9qSAJCDCsH2ay8DHOPLnbCCk80=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Wed, 20 Jan
+ 2021 16:39:57 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::5d30:b29d:5f5b:6921]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::5d30:b29d:5f5b:6921%5]) with mapi id 15.20.3763.014; Wed, 20 Jan 2021
+ 16:39:57 +0000
+Subject: Re: [PATCH] drm/amdgpu: race issue when jobs on 2 ring timeout
+To: Horace Chen <horace.chen@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210120141250.4095-1-horace.chen@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <54b28e65-226d-a9a2-2448-c2decd1a7d58@amd.com>
+Date: Wed, 20 Jan 2021 11:39:54 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210120141250.4095-1-horace.chen@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:39c9:c8e8:c41f:6637]
+X-ClientProxiedBy: YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::26) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
-References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
- <YAbpxbTifiupYJML@phenom.ffwll.local>
- <c4f911dc-99a9-387c-21d1-a3ca2cfd78da@amd.com>
- <CAKMK7uFKMgKAQSCgunjStuUTbuiwdR3zjwtn_Ms1XJjO0ML2EA@mail.gmail.com>
- <755e7c8a-5bd7-6414-8141-249a1ba5a865@amd.com>
- <YAfyPEB2gpMnW/PP@phenom.ffwll.local>
- <8ea4b2d7-d5f3-3708-724d-c70520603283@amd.com>
-In-Reply-To: <8ea4b2d7-d5f3-3708-724d-c70520603283@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 20 Jan 2021 16:59:52 +0100
-Message-ID: <CAKMK7uE11MonjPB3dmy6u=b029am1p2KqJ57DgLUGu-9QgtebA@mail.gmail.com>
-Subject: Re: [PATCH v4 00/14] RFC Support hot device unplug in amdgpu
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:39c9:c8e8:c41f:6637]
+ (2607:fea8:3edf:49b0:39c9:c8e8:c41f:6637) by
+ YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.12 via Frontend
+ Transport; Wed, 20 Jan 2021 16:39:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 24727191-e1b8-4481-0aa0-08d8bd6205b5
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4351:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4351B88BAC94BAE59B47B4EBEAA20@SA0PR12MB4351.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /5tWIEoKjG/0W/zOBOgZaZf7J6TK6qqgaR9FN2YMiVAHcD8K0co5T0ccK5v0ZEkega3CaJ8E1/aHEj4VoPFfnoYRkNYLqSP0cyzwX0yk22fWm292mmXy+9TwQC4OMZ8gH+QwXfBAXauZq5ouHCWooxrdOwDGwfAigZWMTFDRHFHLLXg2UmPov0D/UBKVi7TOxJ2CyI1ffNr8/+jHzo3M5huNampFHGVRz1RRDQ773QV57umHFeeQoujhFHl3RX8HkRXC5VuTFSsPTWjKbm0Mqh7G84y3pSyJ9MBJ+mnckacaUuaJ5OrXSB+niWINKle+bkFR0a5NCEfsB+KnGtC8voacnINKHwWmZgMY7xCW9c629VCND1LWd4SxHGI0kNyyGKGjva3Iakw+45RK278uKpFa6r/5ELklAx1w6FUaRdbqfK9pJOKxsJI0d/SDOjgsNn+wKs/Zx1ZYKzhQ9XZxr7MBFnK6O/POtnIGgs/SFQI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(39860400002)(396003)(376002)(366004)(86362001)(5660300002)(8676002)(31686004)(316002)(31696002)(54906003)(83380400001)(36756003)(66556008)(66476007)(66946007)(8936002)(2616005)(52116002)(6486002)(478600001)(186003)(16526019)(2906002)(53546011)(4326008)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SHd4OVhvamRsVFRLR0xYL2pIVVVkMVQ4T3pzUkp5NnlucHB6R0RQbVQwU2xR?=
+ =?utf-8?B?QlFJS09KTElYa2IzbTkrNG0zeUdQcE5XZFRCQnMraURnTFdoSTAzeDRTRnY1?=
+ =?utf-8?B?L25qTk5OWUxyMGI5dVdWdGh6Z0FDV3JMN3c2cG81cVlzM0haSWRzd3MwckdZ?=
+ =?utf-8?B?ZFpIQnR5SXdzNFZ4UjkreldLMWtlazlpVUlZZ21aTzlOMURlTU8yOXZxeU90?=
+ =?utf-8?B?dkY4R292dWRvR2lBZndoeHZCS0Z5VDVnYzNtWXZzTVNxT29uQXQxNEorRHFK?=
+ =?utf-8?B?UWVubGV4UWRYT3FzRGwybTNxQ25PTU1KWmxZVXNUYnpxbG56SkJtWEI1S0R1?=
+ =?utf-8?B?V3c2REZtN011VXdxbEh2ejNRMlE2YzVoZ2c1ZGpXNE9ncUQ1VTRwQUlQTnFK?=
+ =?utf-8?B?Uk9FbHh2TGg2Z0JTZE96NFh1VC81Qzh5bFVLd3dNMTBPaWlsUnI0bHlDOHVC?=
+ =?utf-8?B?ekNnTVpXRjU1OFFYYU5hbHhYQ0xKSDJmSHZJbzlmMXdYUDBnUm93UVRtejZN?=
+ =?utf-8?B?d2NNcW1RZ3J2VnR0cFN4eW5TNWJ4YXNRNUJCVktBZmpjU2pSNnJjeHJkTU8y?=
+ =?utf-8?B?c2JBN3NNUkh0eUxWbGRGMSt3dzVOa3NzRm5xeGxmQjJKSmM1TktLUUh6ZUVE?=
+ =?utf-8?B?WkdDYlJ1SW5qaUVsYlloRlFCRno4dlM0RU1EdnJYckVxeDFpZGtxSVROMUJm?=
+ =?utf-8?B?Y1g4S3VNTU9Cd0o2R0grVUg0TS9oL29yOUhndkhKQUFPZFVYK2UzOTFHbnBL?=
+ =?utf-8?B?Q2lyZG40Qy82TVJXemlXNVlzZXg5cUpnWDB4ak1CWEZTeklvY2tIdlJYaExr?=
+ =?utf-8?B?QXBlb3c0bHlURXBrNmxOQ3dTdlowMW0xTEgvb0RvUmNIdU42RExGM3pWZ212?=
+ =?utf-8?B?aC9RME1BdTJROUlzd1F1WDhCNWovUUZuODNva3haVmFseVUxL0w0aFkyaFB1?=
+ =?utf-8?B?MWlJYURMcnhhSzh4eFRiWk5kMFJ4Y2FRVDArcnZ3NU4xdkRaWVBMYzNvU3JF?=
+ =?utf-8?B?OEwvQ2hpcDNZN2FFM2tyZHNoanpCaldQdGpBSUR2eTc1T3lXb3ExQ1h4YW4w?=
+ =?utf-8?B?QmJTekphdndra3VMcDlsVmtpWVp5MDM0bGVBSlMwc2hOUWxFcDFJVjU4RUwr?=
+ =?utf-8?B?NWh1MUFmTkkwMnRQVkJjUElNUHFUMyswRDJaRmZRNmFpaVlHT1hyYm1Rek9h?=
+ =?utf-8?B?dWVlSWRjeE5zWmNLYnF6L0JoWU1FZFlXdzhWc2FVTFRxZlN6NEpvQ3JYM1do?=
+ =?utf-8?B?TWZzQ2pEUkVHcVo0OUFsbUpSZGNITVNXT1FlQ2VWQzExd0JCQWZXZ2hHUE1S?=
+ =?utf-8?B?cCtrQVYzRnZuTmV1SGVTanVKcWhrU2RPbE8rL1pDRTJFc3ZVZWVmekNTS2d6?=
+ =?utf-8?B?SHVBOHMwdHd5OTVXcGQ5d0EzWDJLVWxSRnRJQTBaZlpmRlUwcXAzcm82d0Fk?=
+ =?utf-8?B?UVJySlVqcnJmUVRkbUM3QU9aY0JIVFIyeDh1YTBNK2lJam1vNWJhakE2dzRx?=
+ =?utf-8?B?bWFwSnJ6K2wzQUNNVmROS0RuTUdaZHUwRHhxcTZ4Yy8rcDNLT3lEejFsYXg1?=
+ =?utf-8?B?VGRrQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24727191-e1b8-4481-0aa0-08d8bd6205b5
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2021 16:39:57.5419 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y5Zeg1/KSYBOyAgw5xNvzIv/0hIuudwEB5xlfE3ljTKFw29ShC6des5E7UauMDtbDw5UKfGySc3o1d367fsH/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,243 +133,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
- Pekka Paalanen <ppaalanen@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <Alexander.Deucher@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 20, 2021 at 3:20 PM Andrey Grodzovsky
-<Andrey.Grodzovsky@amd.com> wrote:
+
+On 1/20/21 9:12 AM, Horace Chen wrote:
+> Fix a racing issue when jobs on 2 rings timeout simultaneously.
 >
+> If 2 rings timed out at the same time, the
+> amdgpu_device_gpu_recover will be reentered. Then the
+> adev->gmc.xgmi.head will be grabbed by 2 local linked list,
+> which may cause wild pointer issue in iterating.
 >
-> On 1/20/21 4:05 AM, Daniel Vetter wrote:
-> > On Tue, Jan 19, 2021 at 01:18:15PM -0500, Andrey Grodzovsky wrote:
-> >> On 1/19/21 1:08 PM, Daniel Vetter wrote:
-> >>> On Tue, Jan 19, 2021 at 6:31 PM Andrey Grodzovsky
-> >>> <Andrey.Grodzovsky@amd.com> wrote:
-> >>>> On 1/19/21 9:16 AM, Daniel Vetter wrote:
-> >>>>> On Mon, Jan 18, 2021 at 04:01:09PM -0500, Andrey Grodzovsky wrote:
-> >>>>>> Until now extracting a card either by physical extraction (e.g. eGPU with
-> >>>>>> thunderbolt connection or by emulation through  syfs -> /sys/bus/pci/devices/device_id/remove)
-> >>>>>> would cause random crashes in user apps. The random crashes in apps were
-> >>>>>> mostly due to the app having mapped a device backed BO into its address
-> >>>>>> space was still trying to access the BO while the backing device was gone.
-> >>>>>> To answer this first problem Christian suggested to fix the handling of mapped
-> >>>>>> memory in the clients when the device goes away by forcibly unmap all buffers the
-> >>>>>> user processes has by clearing their respective VMAs mapping the device BOs.
-> >>>>>> Then when the VMAs try to fill in the page tables again we check in the fault
-> >>>>>> handlerif the device is removed and if so, return an error. This will generate a
-> >>>>>> SIGBUS to the application which can then cleanly terminate.This indeed was done
-> >>>>>> but this in turn created a problem of kernel OOPs were the OOPSes were due to the
-> >>>>>> fact that while the app was terminating because of the SIGBUSit would trigger use
-> >>>>>> after free in the driver by calling to accesses device structures that were already
-> >>>>>> released from the pci remove sequence.This was handled by introducing a 'flush'
-> >>>>>> sequence during device removal were we wait for drm file reference to drop to 0
-> >>>>>> meaning all user clients directly using this device terminated.
-> >>>>>>
-> >>>>>> v2:
-> >>>>>> Based on discussions in the mailing list with Daniel and Pekka [1] and based on the document
-> >>>>>> produced by Pekka from those discussions [2] the whole approach with returning SIGBUS and
-> >>>>>> waiting for all user clients having CPU mapping of device BOs to die was dropped.
-> >>>>>> Instead as per the document suggestion the device structures are kept alive until
-> >>>>>> the last reference to the device is dropped by user client and in the meanwhile all existing and new CPU mappings of the BOs
-> >>>>>> belonging to the device directly or by dma-buf import are rerouted to per user
-> >>>>>> process dummy rw page.Also, I skipped the 'Requirements for KMS UAPI' section of [2]
-> >>>>>> since i am trying to get the minimal set of requirements that still give useful solution
-> >>>>>> to work and this is the'Requirements for Render and Cross-Device UAPI' section and so my
-> >>>>>> test case is removing a secondary device, which is render only and is not involved
-> >>>>>> in KMS.
-> >>>>>>
-> >>>>>> v3:
-> >>>>>> More updates following comments from v2 such as removing loop to find DRM file when rerouting
-> >>>>>> page faults to dummy page,getting rid of unnecessary sysfs handling refactoring and moving
-> >>>>>> prevention of GPU recovery post device unplug from amdgpu to scheduler layer.
-> >>>>>> On top of that added unplug support for the IOMMU enabled system.
-> >>>>>>
-> >>>>>> v4:
-> >>>>>> Drop last sysfs hack and use sysfs default attribute.
-> >>>>>> Guard against write accesses after device removal to avoid modifying released memory.
-> >>>>>> Update dummy pages handling to on demand allocation and release through drm managed framework.
-> >>>>>> Add return value to scheduler job TO handler (by Luben Tuikov) and use this in amdgpu for prevention
-> >>>>>> of GPU recovery post device unplug
-> >>>>>> Also rebase on top of drm-misc-mext instead of amd-staging-drm-next
-> >>>>>>
-> >>>>>> With these patches I am able to gracefully remove the secondary card using sysfs remove hook while glxgears
-> >>>>>> is running off of secondary card (DRI_PRIME=1) without kernel oopses or hangs and keep working
-> >>>>>> with the primary card or soft reset the device without hangs or oopses
-> >>>>>>
-> >>>>>> TODOs for followup work:
-> >>>>>> Convert AMDGPU code to use devm (for hw stuff) and drmm (for sw stuff and allocations) (Daniel)
-> >>>>>> Support plugging the secondary device back after unplug - currently still experiencing HW error on plugging back.
-> >>>>>> Add support for 'Requirements for KMS UAPI' section of [2] - unplugging primary, display connected card.
-> >>>>>>
-> >>>>>> [1] - Discussions during v3 of the patchset https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg55576.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=T4JLiSl7m4R%2FhcfcAxomY%2FMJ8QiTHaJ%2FJaqNZVT%2FDsk%3D&amp;reserved=0
-> >>>>>> [2] - drm/doc: device hot-unplug for userspace https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg259755.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=qitlHw6tqm4eGRstKccgh8zIPgILbS%2FJUa5yZGmSQcU%3D&amp;reserved=0
-> >>>>>> [3] - Related gitlab ticket https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1081&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=UzOXP6bHYY6f7MCs4ZbSSvfY0DJ%2FEVPeIqedAi%2BZGG8%3D&amp;reserved=0
-> >>>>> btw have you tried this out with some of the igts we have? core_hotunplug
-> >>>>> is the one I'm thinking of. Might be worth to extend this for amdgpu
-> >>>>> specific stuff (like run some batches on it while hotunplugging).
-> >>>> No, I mostly used just running glxgears while testing which covers already
-> >>>> exported/imported dma-buf case and a few manually hacked tests in libdrm amdgpu
-> >>>> test suite
-> >>>>
-> >>>>
-> >>>>> Since there's so many corner cases we need to test here (shared dma-buf,
-> >>>>> shared dma_fence) I think it would make sense to have a shared testcase
-> >>>>> across drivers.
-> >>>> Not familiar with IGT too much, is there an easy way to setup shared dma bufs
-> >>>> and fences
-> >>>> use cases there or you mean I need to add them now ?
-> >>> We do have test infrastructure for all of that, but the hotunplug test
-> >>> doesn't have that yet I think.
-> >>>
-> >>>>> Only specific thing would be some hooks to keep the gpu
-> >>>>> busy in some fashion while we yank the driver.
-> >>>> Do you mean like staring X and some active rendering on top (like glxgears)
-> >>>> automatically from within IGT ?
-> >>> Nope, igt is meant to be bare metal testing so you don't have to drag
-> >>> the entire winsys around (which in a wayland world, is not really good
-> >>> for driver testing anyway, since everything is different). We use this
-> >>> for our pre-merge ci for drm/i915.
-> >>
-> >> So i keep it busy by X/glxgers which is manual operation. What you suggest
-> >> then is some client within IGT which opens the device and starts submitting jobs
-> >> (which is much like what libdrm amdgpu tests already do) ? And this
-> >> part is the amdgou specific code I just need to port from libdrm to here ?
-> > Yup. For i915 tests we have an entire library already for small workloads,
-> > including some that just spin forever (useful for reset testing and could
-> > also come handy for unload testing).
-> > -Daniel
+> lock the device earily to prevent the node be added to 2
+> different lists.
 >
+> also increase karma for the skipped job since the job is also
+> timed out and should be guilty.
 >
-> Does it mean I would have to drag in the entire infrastructure code from
-> within libdrm amdgpu code that allows for command submissions through
-> our IOCTLs ?
-
-No it's perfectly fine to use libdrm in igt tests, we do that too. I
-just mean we have some additional helpers to submit specific workloads
-for intel gpu, like rendercpy to move data with the 3d engine (just
-using copy engines only isn't good enough sometimes for testing), or
-the special hanging batchbuffers we use for reset testing, or in
-general for having precise control over race conditions and things
-like that.
-
-One thing that was somewhat annoying for i915 but shouldn't be a
-problem for amdgpu is that igt builds on intel. So we have stub
-functions for libdrm-intel, since libdrm-intel doesn't build on arm.
-Shouldn't be a problem for you.
--Daniel
-
-
-> Andrey
+> Signed-off-by: Horace Chen <horace.chen@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 70 +++++++++++++++++++---
+>   1 file changed, 61 insertions(+), 9 deletions(-)
 >
-> >
-> >> Andrey
-> >>
-> >>
-> >>>>> But just to get it started
-> >>>>> you can throw in entirely amdgpu specific subtests and just share some of
-> >>>>> the test code.
-> >>>>> -Daniel
-> >>>> Im general, I wasn't aware of this test suite and looks like it does what i test
-> >>>> among other stuff.
-> >>>> I will definitely  try to run with it although the rescan part will not work as
-> >>>> plugging
-> >>>> the device back is in my TODO list and not part of the scope for this patchset
-> >>>> and so I will
-> >>>> probably comment the re-scan section out while testing.
-> >>> amd gem has been using libdrm-amd thus far iirc, but for things like
-> >>> this I think it'd be worth to at least consider switching. Display
-> >>> team has already started to use some of the test and contribute stuff
-> >>> (I think the VRR testcase is from amd).
-> >>> -Daniel
-> >>>
-> >>>> Andrey
-> >>>>
-> >>>>
-> >>>>>> Andrey Grodzovsky (13):
-> >>>>>>      drm/ttm: Remap all page faults to per process dummy page.
-> >>>>>>      drm: Unamp the entire device address space on device unplug
-> >>>>>>      drm/ttm: Expose ttm_tt_unpopulate for driver use
-> >>>>>>      drm/sched: Cancel and flush all oustatdning jobs before finish.
-> >>>>>>      drm/amdgpu: Split amdgpu_device_fini into early and late
-> >>>>>>      drm/amdgpu: Add early fini callback
-> >>>>>>      drm/amdgpu: Register IOMMU topology notifier per device.
-> >>>>>>      drm/amdgpu: Fix a bunch of sdma code crash post device unplug
-> >>>>>>      drm/amdgpu: Remap all page faults to per process dummy page.
-> >>>>>>      dmr/amdgpu: Move some sysfs attrs creation to default_attr
-> >>>>>>      drm/amdgpu: Guard against write accesses after device removal
-> >>>>>>      drm/sched: Make timeout timer rearm conditional.
-> >>>>>>      drm/amdgpu: Prevent any job recoveries after device is unplugged.
-> >>>>>>
-> >>>>>> Luben Tuikov (1):
-> >>>>>>      drm/scheduler: Job timeout handler returns status
-> >>>>>>
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  11 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c      |  17 +--
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 149 ++++++++++++++++++++--
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |  20 ++-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c         |  15 ++-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c          |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h          |   1 +
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           |   9 ++
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c       |  25 ++--
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           |  26 ++--
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h           |   3 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_job.c           |  19 ++-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c           |  12 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        |  10 ++
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.h        |   2 +
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c           |  53 +++++---
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h           |   3 +
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c           |   1 +
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c          |  70 ++++++++++
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h          |  52 +-------
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           |  21 ++-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |   8 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c      |  14 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/cik_ih.c               |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/cz_ih.c                |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/iceland_ih.c           |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/navi10_ih.c            |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v11_0.c            |  16 +--
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v12_0.c            |   8 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v3_1.c             |   8 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/si_ih.c                |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/tonga_ih.c             |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/vega10_ih.c            |   2 +-
-> >>>>>>     drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-
-> >>>>>>     drivers/gpu/drm/amd/include/amd_shared.h          |   2 +
-> >>>>>>     drivers/gpu/drm/drm_drv.c                         |   3 +
-> >>>>>>     drivers/gpu/drm/etnaviv/etnaviv_sched.c           |  10 +-
-> >>>>>>     drivers/gpu/drm/lima/lima_sched.c                 |   4 +-
-> >>>>>>     drivers/gpu/drm/panfrost/panfrost_job.c           |   9 +-
-> >>>>>>     drivers/gpu/drm/scheduler/sched_main.c            |  18 ++-
-> >>>>>>     drivers/gpu/drm/ttm/ttm_bo_vm.c                   |  82 +++++++++++-
-> >>>>>>     drivers/gpu/drm/ttm/ttm_tt.c                      |   1 +
-> >>>>>>     drivers/gpu/drm/v3d/v3d_sched.c                   |  32 ++---
-> >>>>>>     include/drm/gpu_scheduler.h                       |  17 ++-
-> >>>>>>     include/drm/ttm/ttm_bo_api.h                      |   2 +
-> >>>>>>     45 files changed, 583 insertions(+), 198 deletions(-)
-> >>>>>>
-> >>>>>> --
-> >>>>>> 2.7.4
-> >>>>>>
-> >>>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 4d434803fb49..d59d3182ac2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4460,6 +4460,46 @@ static void amdgpu_device_unlock_adev(struct amdgpu_device *adev)
+>   	up_write(&adev->reset_sem);
+>   }
+>   
+> +/*
+> + * to lockup a list of amdgpu devices in a hive safely, if not a hive
+> + * with multiple nodes, it will be same as amdgpu_device_lock_adev.
+> + *
+> + * unlock won't require roll back.
+> + */
+> +static bool amdgpu_device_lock_hive_adev(struct amdgpu_device *adev, struct amdgpu_hive_info *hive)
+> +{
+> +	struct amdgpu_device *tmp_adev = NULL;
+> +
+> +	if (adev->gmc.xgmi.num_physical_nodes > 1) {
+> +		if (!hive) {
+> +			dev_err(adev->dev, "Hive is NULL while device has multiple xgmi nodes");
+> +			return false;
+> +		}
+> +		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
+> +			if (!amdgpu_device_lock_adev(tmp_adev, hive))
+> +				goto roll_back;
+> +		}
+> +		return true;
+> +	} else {
+> +		return amdgpu_device_lock_adev(adev, hive);
+> +	}
+> +roll_back:
+> +	if (!list_is_first(&tmp_adev->gmc.xgmi.head, &hive->device_list)) {
+> +		/*
+> +		 * if the lockup iteration break in the middle of a hive,
+> +		 * it may means there may has a race issue,
+> +		 * or a hive device locked up independently.
+> +		 * we may be in trouble and may not,
+> +		 * so will try to roll back the lock and give out a warnning.
+> +		 */
+> +		dev_warn(tmp_adev->dev, "Hive lock iteration broke in the middle. Rolling back to unlock");
+> +		list_for_each_entry_continue_reverse(tmp_adev, &hive->device_list, gmc.xgmi.head) {
+> +			amdgpu_device_unlock_adev(tmp_adev);
+> +		}
+> +	}
+> +	return false;
+> +}
+> +
+>   static void amdgpu_device_resume_display_audio(struct amdgpu_device *adev)
+>   {
+>   	struct pci_dev *p = NULL;
+> @@ -4573,11 +4613,32 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   			DRM_INFO("Bailing on TDR for s_job:%llx, hive: %llx as another already in progress",
+>   				job ? job->base.id : -1, hive->hive_id);
+>   			amdgpu_put_xgmi_hive(hive);
+> +			if (job)
+> +				drm_sched_increase_karma(&job->base);
+>   			return 0;
+>   		}
+>   		mutex_lock(&hive->hive_lock);
+>   	}
+>   
+> +	/*
+> +	 * lock the device before we try to operate the linked list
+> +	 * if didn't get the device lock, don't touch the linked list since
+> +	 * others may iterating it.
+> +	 */
+> +	if (!amdgpu_device_lock_hive_adev(adev, hive)) {
+> +		dev_info(adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
+> +					job ? job->base.id : -1);
+> +
+> +		if (adev->gmc.xgmi.num_physical_nodes > 1 && !hive)
+> +			r = -ENODEV;
+> +		else
+> +			r = 0;
 
 
+You can just change amdgpu_device_lock_hive_adev return type to int instead
+of code duplication, maybe returning EAGAIN for actual locking failure.
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Andrey
+
+
+> +		/* even we skipped this reset, still need to set the job to guilty */
+> +		if (job)
+> +			drm_sched_increase_karma(&job->base);
+> +		goto skip_recovery;
+> +	}
+> +
+>   	/*
+>   	 * Build list of devices to reset.
+>   	 * In case we are in XGMI hive mode, resort the device list
+> @@ -4585,8 +4646,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   	 */
+>   	INIT_LIST_HEAD(&device_list);
+>   	if (adev->gmc.xgmi.num_physical_nodes > 1) {
+> -		if (!hive)
+> -			return -ENODEV;
+>   		if (!list_is_first(&adev->gmc.xgmi.head, &hive->device_list))
+>   			list_rotate_to_front(&adev->gmc.xgmi.head, &hive->device_list);
+>   		device_list_handle = &hive->device_list;
+> @@ -4597,13 +4656,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   
+>   	/* block all schedulers and reset given job's ring */
+>   	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+> -		if (!amdgpu_device_lock_adev(tmp_adev, hive)) {
+> -			dev_info(tmp_adev->dev, "Bailing on TDR for s_job:%llx, as another already in progress",
+> -				  job ? job->base.id : -1);
+> -			r = 0;
+> -			goto skip_recovery;
+> -		}
+> -
+>   		/*
+>   		 * Try to put the audio codec into suspend state
+>   		 * before gpu reset started.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
