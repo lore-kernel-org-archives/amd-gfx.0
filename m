@@ -2,122 +2,101 @@ Return-Path: <SRS0=ixe6=GX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64248C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8633C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0167B23381
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0167B23381
+	by mail.kernel.org (Postfix) with ESMTPS id 679602339D
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:58:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 679602339D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185EE6E342;
-	Wed, 20 Jan 2021 15:05:49 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760089.outbound.protection.outlook.com [40.107.76.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5FB36E0AD;
- Wed, 20 Jan 2021 15:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF4776E32F;
+	Wed, 20 Jan 2021 15:58:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1DC6E321
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 15:58:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JRgU3C6zSo9EdOjDblT8YcpgCza+witqO9yQUEHGgHccKVMZDgeVFTfirDzZppUH4zZVRIAaAGOxNne+4BEpflD14n1LDfm7ye87C12UJGe4DJMH7jjZMotHmghyAI1ntYTKorYwf7EBY4ozvx/VzKG0p7puV/O4Vx1VYX79Hr3JiTmDRYM0Y5Nx8BoF/MpfIgSwJa4xqZysJdUERHtkiHnhuFWIJ6t8dgjSQ57Qem+WtSjYubbVT8g82sBaExWcFiznCsNdWUfGEMQD0zzW+MuzaRvAh/ldb0kaNff/2BEa9Ps1nTDdmQAnn9IQJ+EoCBSv46D9RMeH7OUFBHyFiw==
+ b=MNH6+KxWUQDserRmvZRfGyULVQWbYSJlZt+lDTQ7jazWZQXUxU95S5B8vWGv+pnx7ipf2AT0g5zUQvVVO8wxzd9FKzAaPv3ddk+v3whgygLd35r//15O8YCSYERW8At5PpY/I1rz2K6ZNNVuqv2HWiKlfXM57p59bKMsuDMItyhJRrJ6IOMc624MNPvRBAvV62D0IbTBchyoLEDX6dqE7ekKxNf/yGcXc/tb0tOjWb4OPG8HoPy6hp0Fq5XIbfMwL9X/l+xqT935DDfSq5KloQyPwg96DgEEmBvYtzn7UY0l9Chdn/ONu2sq7+clRkPqpyAI1MW6iKDXtRwa7Qz5ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kbknr0iM5W3FZOmTCFSaF0x2qobr6MutnlCqwjQgTIk=;
- b=myzgwOdMnDvs10cG7Z3zaMKKOlcGl1nQ/uLyqrNGDDXUL2EFp2a7FiPwhJXx82ezgCNFh8k+ckgiHg8X4V/vi+FN1pQ6ZzbQIBRCYlnHjw2ZYiYLpeir4pysNA8uG8hSnc3ksKBvKw4fER6BinxJ9eexcswGOpITKrfOuG769ml+yNunrzdfw/2pJMT28xo7qaynuyJOk3DMghJXzP5u7Sc9I2BN2KnirDDTyKNXiWcOBzNg+31w7nB0XzZrl//pt22pevIkiWI8YFnwWtlnFQ6Y7hiMMFol85SrXXGCRk5M6KiR7qCZZ6BzSu+lEYZ/bAKs0T9k7DozTOCAneBn0g==
+ bh=WNDh3V7J9o8hCwZiMj+FWhTXTLjgzDJbmWcFJTcZnPo=;
+ b=JqiIz5bFDjrQkDuczk97vcdLvUdad+fh09SS9ljamCIucBg+/Z7I6L/mG7u5eLGUVY4WIoLHUEPbDw6M98zpiZwMQEL/Df8/bLz5caafRfaOO10rNn9u8odG2fZfR3xWBZth7DGrHYo6sNLWcv3+ckuNM8d4oleupm83DlbJugN6gf3kpZynIAeMZbb0c0G08YJO2LWoc2Tqq3W/XJJ0yONsmObAwNk1hMzyLhDEPHYJc2yOcxSr+AmEmchHuSSEg56/89imRPR5hmTbEGtrqUfvLF1o9GWt+jZSf406rBJFWbO5TcCL1XpFKMyHfnkJvwMm+Nw85HqWEjG9b1befQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kbknr0iM5W3FZOmTCFSaF0x2qobr6MutnlCqwjQgTIk=;
- b=SAVrgyUZU4u6f4Yby6XqzF+tJ8LtMvvpIssx73pZEV02pb4L3CCVsLlla3TZbETb/agzYCJLUZmXvalXdB/M9wsxo9Uqdw9SbOmls8sLudQfXlXUK/E+yzfqAfxGbU4hYAuMF0i5fWb3gV62ns7rF1yrY85gVKqAoFnTabjSgcI=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MW3PR12MB4569.namprd12.prod.outlook.com (2603:10b6:303:57::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9; Wed, 20 Jan
- 2021 15:05:44 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::172:235e:14a4:bdc6]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::172:235e:14a4:bdc6%7]) with mapi id 15.20.3763.014; Wed, 20 Jan 2021
- 15:05:44 +0000
-Subject: Re: [PATCH] drm/amdgpu: Assign boolean values to a bool variable
-To: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
-References: <1611127007-39308-1-git-send-email-abaci-bugfix@linux.alibaba.com>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <3e2d3292-8611-68de-e1ed-7266fd41ce76@amd.com>
-Date: Wed, 20 Jan 2021 10:05:40 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <1611127007-39308-1-git-send-email-abaci-bugfix@linux.alibaba.com>
+ bh=WNDh3V7J9o8hCwZiMj+FWhTXTLjgzDJbmWcFJTcZnPo=;
+ b=XlNyLdyTb4YdU8rl+PVLsOOw7YJDNI77hSyYOknfz1VSSpPwWbcpbmZRYtwnZpt1lFGRF9IHoTc1Q44LoqfhgJfrhVbT1HopR/xZj+N+Obeirs63lk1pyse/8ejHdR/TW9tBmh2evRnqgwg6og9ORX3hFB9TXuwzfcVvYKkNETs=
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
+ DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3784.11; Wed, 20 Jan 2021 15:58:34 +0000
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::8059:4b52:4ba5:94b7]) by DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::8059:4b52:4ba5:94b7%2]) with mapi id 15.20.3742.014; Wed, 20 Jan 2021
+ 15:58:34 +0000
+From: "Zhu, James" <James.Zhu@amd.com>
+To: "Liu, Aaron" <Aaron.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
+Thread-Topic: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
+Thread-Index: AQHW7wENcHzFsR4MIUGo3QKOJrgldqowrBDQ
+Date: Wed, 20 Jan 2021 15:58:34 +0000
+Message-ID: <DM5PR12MB25174F3DF3A018A0A1132E5BE4A20@DM5PR12MB2517.namprd12.prod.outlook.com>
+References: <20210120075102.4004746-1-aaron.liu@amd.com>
+In-Reply-To: <20210120075102.4004746-1-aaron.liu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [165.204.84.11]
-X-ClientProxiedBy: MN2PR10CA0012.namprd10.prod.outlook.com
- (2603:10b6:208:120::25) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.7.88] (165.204.84.11) by
- MN2PR10CA0012.namprd10.prod.outlook.com (2603:10b6:208:120::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.11 via Frontend
- Transport; Wed, 20 Jan 2021 15:05:42 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 19b72e77-b6b7-4c42-d91b-08d8bd54dc55
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4569:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW3PR12MB456997BD27ED04D4E96B38988CA20@MW3PR12MB4569.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zq7+ji74h4V5iwCZ+lsMkahwHMUB3NRLbE4UEpoPbcwKyh63c6igY19ia56+AARG9s17ZRJaKeHAIm+vnX/58s/IQ2jn7B8dKFUyZUdj10EeWIwwEAgZwnQLa2xH0LkUIGZWhyXy/2Rw5VoYWk6iLxDeFN1bR8d5NxmTkEgcuIl7/Uou8pz/g8S2xhl8ZheweK1KZdHZB3lHBYUPsFMclIEKde/vgzYUJYlyKbfwTosrtVOUA68zPiNJZ4A3QzCXBbvXQkdfSBcNQnkCx2vyLfQur6yUGYD2mEfO4C4VgqGB4Re37nsW8xsx46EfIxTLttLU5uNnE3TB+0voqZl0bcT5ufs6xWnK9Msj3Yfupvy3v0bJuWgXZA6VceM2gFPAjt6GANg9pownSCnhJDyamRO9yT9CZdvyyVNw39zNggPm0uOLRoUg5b7TlOr35ZdY3rXad5CmVXXKHViEXcMDVETMZGufH1puoTI3HgUWKBvPGZyTinS6mzHJdw9EeK/4QIytNclQwuM/Yahn7P4n1aZdH0AI7NGvIdCqmVpshRaYyVMFxVYrveeH5xhsfeCT0rrtszgCoe/NZXd9OO5N3CZVmux5DzLClYnCJ/htiuI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(346002)(39860400002)(136003)(376002)(66476007)(4326008)(8936002)(6916009)(31686004)(36756003)(8676002)(316002)(66556008)(956004)(186003)(44832011)(16576012)(83380400001)(2906002)(66946007)(16526019)(86362001)(5660300002)(52116002)(6486002)(31696002)(2616005)(26005)(53546011)(478600001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-20T15:58:34.095Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.251]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c297d49d-a3e1-472a-612b-08d8bd5c3e1d
+x-ms-traffictypediagnostic: DM6PR12MB3354:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3354B26AFFE96309B18D5DD0E4A29@DM6PR12MB3354.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:590;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: gWzypLu9s90xMiCYZG1Dt4ywhzQ2yB37wp53sSeM7e/uK4Hvn6kv2hfW+6lzBn4bivZ7pWPvXkQQrNaZUp4/YxXsFwbFtelHchDrcYrTNPdknJlsKh1DbwZ+0YIpyUgXbfnm6cqcMCtVaoOI3C/3cyNesGBlFpQzw96yE9Gnw+9/z8qtIndr41pSYohCPEdl46sg3e7A85HJt6l3hBCShl0yVyZlwH2gGex1/iPVeWNh9vz5Fawb5QaqrOp9F6tG9y66kKtrjm+imw1bBjDQ1SrboOFqQ/zrN1XFWFEsFycG7UJxKAa8jTLjcYsggbM6O4V+v6HGMcxJYTf1ebChdxgWRGMdgihaLjcFS8mrz/w7iEW8b79f4bNKAq/hfM7AJ/hNHPc1jN6efbM2ZJN7KQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(366004)(136003)(346002)(396003)(19627405001)(186003)(71200400001)(316002)(76116006)(26005)(8936002)(55016002)(9686003)(7696005)(6506007)(53546011)(4326008)(8676002)(83380400001)(91956017)(478600001)(66476007)(33656002)(66946007)(66446008)(5660300002)(66556008)(52536014)(64756008)(86362001)(110136005)(2906002)(54906003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?K0tlNXdkendkYWZSSlFBRmUyZEV2U3dmY2w2UGRRbzlUVFBKL04zSnRtVE5Y?=
- =?utf-8?B?TTR2V0xRVHlwVFZUbFFsS2d1UVVMMS91RFRKZFNPZEVkTUdrckp2UnMreWNj?=
- =?utf-8?B?SllMTDhWU3UyOVN1TUNMazBPODl4YzBBdDdpU09lSlZTOEVaV2d3WW42M2lx?=
- =?utf-8?B?cGxndnUrQjBFeWNqMkZrUUNPOElMc3gwS0ZXaXNSSGRZdHZrUnJKTWh5cG5V?=
- =?utf-8?B?cWZ4UHZ6YUVheWVoS29scTJkMkJRUG8raCtOQlBWZEgrOURnL1J6aENzc3l4?=
- =?utf-8?B?NEdvOG9OK25ockNxK0ZpcEhKME13MGtoZjZoYmJGclJiR3lYdi9SYzNtbVRZ?=
- =?utf-8?B?N2pWMUM0TEd4cFZvR0RCbEx2Q0hySFVPUXRaTzRGOFVmUGpOQXduNFphaGF6?=
- =?utf-8?B?dzdScHJ2V3hHNTNCbk9jR2k5RGhESHlvTEN0andlR3VvZnE3bWNWOFpTSnpL?=
- =?utf-8?B?MGphQW1POWpTeUN6WXZqTHpqb1BsbEordDAwSmxMMkJGNC90OGJiamhVZVN5?=
- =?utf-8?B?eDNFZS9VbWhFZHhWZnI4Kzl0ZW13OTJYVm5PbnJTRlNPVHR1N0JzRW9BVDdI?=
- =?utf-8?B?ZDdXYXRwbDNYSVNtM29PRFJGdjNQUEErT0ZkQjBHb2NHYm5jWkVFRWlETDB2?=
- =?utf-8?B?LzJkSFkvUEpOaHVjK0VUN3ZNK0NwdTZaVGF2VU9IdHdaWXI2NWl3NDExeW1J?=
- =?utf-8?B?Mzc1OG90cUhMQTBNU05OaTJjRjY2MnIyNnN6SDA0T00zeXFoTTVEdS95OE83?=
- =?utf-8?B?Q2pTU2U5TGtJSTFONkVYcVdWMXBlRTFBTzZGVDlnVHhGNmNrMWthKzE5RU9j?=
- =?utf-8?B?YlVYL0NGbkM5TU13MjhERlI3RkNIVk1CTTRlRWdYWEFIbFpvUG1ibk9wYjdV?=
- =?utf-8?B?Skd2eUMwQzVGQWNKd1BGTjgwSWxNZUpCamJ3YjFreUhJa2RRSHpieW5oeUIv?=
- =?utf-8?B?V1NXL0pUbXNrQzM5cXJjUnN6RmQyQkZndVplV0p5VFQ1VzNlUDJiWHRTeW5D?=
- =?utf-8?B?QUJNNklnRnM5RGUzOEV0MmFoL0ZkMEZlL1ZYN1YrQ01zKzgwdkVqTjVxR3ZX?=
- =?utf-8?B?dm5DMnBLa0taNUVFZ1RINkZIT2crRThzUGxndit0TWV3R0tyUTVaVmI1endI?=
- =?utf-8?B?TlROdHRZZjYxYXE4a3d0bTczU1R0OGNYMWlZQnJpVGw5V28xZFlkRk5oL0tT?=
- =?utf-8?B?OWNjRWcyVXl2Z213aDROZzFvVkVQT3pQaEJVc1F4cTAzdUswc1FlODdNWlZG?=
- =?utf-8?B?aC9JRng1Z3JmOUpEV3lBWml0UTRPVzdyaDhwRk5RZCtCU0tqa0FiRG9rT2dF?=
- =?utf-8?Q?Rd37vXqmUKJVVe+P7I6JuYabH4GUpvzD0n?=
+x-ms-exchange-antispam-messagedata: cVF20FwspqtWIM8n8Kb6PG9aTycjRiQGvpuxV9afLeynt2/DeZgPwAC6U5FHMYI/+aYUvO0E5d589y12oVcdb1+VFE3XC4qlYn3QI49lvFCNjVy0XnAoz8P5Pt+mTo5prhbUhMN6jOmBphr8QnErb4WftTdgOBZHHB7iHzk6RnRZ653rEpDbIBUFZUXmPD5IJgcI6Nk/izpv+NKzfCBBXfEOGWQ+U1SsGBqtW+4hrYgsqZzyMwaFUm38zKRp5VbDEo/oCIObKy2XqdHTzuL1pMVM4PUvpPAuOrtl8JkCqRemFG0r4+N0y3b99fC5SRa6yJ/Z5eS10YjH12errSoPgOYb9GfAvja6ZnHq9ydL7F48z+jSk+NfrwZtGL0zvXrMTPG9xXosWouFsxJy4Hq9sXId3N4NlqIFk8memdbeElOQM4nyz0vHJr2UQ1FETKJCn2NKfbFj58JgoJP/S7Km4VnOjgoZ5mXKgq28/ylhDKeRZU81dg+1Ia9RCpb64XctcvrdbzJZFIWbglyaWQHLzeetN92VYLyG3Kr/6W6YnNnhiQNuljFZJ6oCIgmDClvtwBcjLa8HetHOd/uMZghRqusebtgahfu+do6T16FCt/llo7GYq8t5v1K/+NQCaXVQyyaxmRvg2WZVZI1gwOrNZ3z80tFdwO+6z0mKVH9KITPf3A4H4Ngpd7aPfEQrdj7zqwKeN9McVpoM5ZzlKsRG+TwuaV6yA2aMPc/IKX6ZHEQ=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19b72e77-b6b7-4c42-d91b-08d8bd54dc55
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2021 15:05:44.6293 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tj56jqmNAW+m6vE4LxbX4RgcuNkr1ui/C1phqpNFLbbV2bnpdbt04y9BY2Nzv/Q32de8P+gskhvvVtZKmMUJHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4569
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c297d49d-a3e1-472a-612b-08d8bd5c3e1d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2021 15:58:34.8379 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: at3Drjhkgp+tEZL1QOCWTwyco4QmN8BKclLgelv0iGUmrDZt68Or6omfGioNTUMo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,130 +108,210 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmytro.Laktyushkin@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- luben.tuikov@amd.com, Eric.Bernstein@amd.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, Bhawanpreet.Lakha@amd.com,
- christian.koenig@amd.com, yebin10@huawei.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Boyuan" <Boyuan.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>
+Content-Type: multipart/mixed; boundary="===============0824795229=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-01-20 2:16 a.m., Jiapeng Zhong wrote:
-> Fix the following coccicheck warnings:
-> 
-> ./drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c:
-> 1009:6-16: WARNING: Assignment of 0/1 to bool variable.
-> 
-> ./drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c:
-> 200:2-10: WARNING: Assignment of 0/1 to bool variable.
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+--===============0824795229==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_"
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+--_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Harry
+[AMD Official Use Only - Internal Distribution Only]
 
-> ---
->   .../display/dc/dml/dcn30/display_rq_dlg_calc_30.c  | 32 +++++++++++-----------
->   1 file changed, 16 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-> index 5b5916b..0f14f20 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
-> @@ -165,8 +165,8 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
->   	unsigned int swath_bytes_c = 0;
->   	unsigned int full_swath_bytes_packed_l = 0;
->   	unsigned int full_swath_bytes_packed_c = 0;
-> -	bool req128_l = 0;
-> -	bool req128_c = 0;
-> +	bool req128_l = false;
-> +	bool req128_c = false;
->   	bool surf_linear = (pipe_src_param.sw_mode == dm_sw_linear);
->   	bool surf_vert = (pipe_src_param.source_scan == dm_vert);
->   	unsigned int log2_swath_height_l = 0;
-> @@ -191,37 +191,37 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
->   		total_swath_bytes = 2 * full_swath_bytes_packed_l;
->   
->   	if (total_swath_bytes <= detile_buf_size_in_bytes) { //full 256b request
-> -		req128_l = 0;
-> -		req128_c = 0;
-> +		req128_l = false;
-> +		req128_c = false;
->   		swath_bytes_l = full_swath_bytes_packed_l;
->   		swath_bytes_c = full_swath_bytes_packed_c;
->   	} else if (!rq_param->yuv420) {
-> -		req128_l = 1;
-> -		req128_c = 0;
-> +		req128_l = true;
-> +		req128_c = false;
->   		swath_bytes_c = full_swath_bytes_packed_c;
->   		swath_bytes_l = full_swath_bytes_packed_l / 2;
->   	} else if ((double)full_swath_bytes_packed_l / (double)full_swath_bytes_packed_c < 1.5) {
-> -		req128_l = 0;
-> -		req128_c = 1;
-> +		req128_l = false;
-> +		req128_c = true;
->   		swath_bytes_l = full_swath_bytes_packed_l;
->   		swath_bytes_c = full_swath_bytes_packed_c / 2;
->   
->   		total_swath_bytes = 2 * swath_bytes_l + 2 * swath_bytes_c;
->   
->   		if (total_swath_bytes > detile_buf_size_in_bytes) {
-> -			req128_l = 1;
-> +			req128_l = true;
->   			swath_bytes_l = full_swath_bytes_packed_l / 2;
->   		}
->   	} else {
-> -		req128_l = 1;
-> -		req128_c = 0;
-> +		req128_l = true;
-> +		req128_c = false;
->   		swath_bytes_l = full_swath_bytes_packed_l/2;
->   		swath_bytes_c = full_swath_bytes_packed_c;
->   
->   		total_swath_bytes = 2 * swath_bytes_l + 2 * swath_bytes_c;
->   
->   		if (total_swath_bytes > detile_buf_size_in_bytes) {
-> -			req128_c = 1;
-> +			req128_c = true;
->   			swath_bytes_c = full_swath_bytes_packed_c/2;
->   		}
->   	}
-> @@ -1006,8 +1006,8 @@ static void dml_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
->   
->   	double min_dst_y_ttu_vblank = 0;
->   	unsigned int dlg_vblank_start = 0;
-> -	bool dual_plane = 0;
-> -	bool mode_422 = 0;
-> +	bool dual_plane = false;
-> +	bool mode_422 = false;
->   	unsigned int access_dir = 0;
->   	unsigned int vp_height_l = 0;
->   	unsigned int vp_width_l = 0;
-> @@ -1021,7 +1021,7 @@ static void dml_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
->   	double hratio_c = 0;
->   	double vratio_l = 0;
->   	double vratio_c = 0;
-> -	bool scl_enable = 0;
-> +	bool scl_enable = false;
->   
->   	double line_time_in_us = 0;
->   	//	double vinit_l;
-> @@ -1156,7 +1156,7 @@ static void dml_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
->   	// Source
->   	//			 dcc_en			  = src.dcc;
->   	dual_plane = is_dual_plane((enum source_format_class)(src->source_format));
-> -	mode_422 = 0; // TODO
-> +	mode_422 = false; // TODO
->   	access_dir = (src->source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
->   	vp_height_l = src->viewport_height;
->   	vp_width_l = src->viewport_width;
-> 
+Reviewed-by: James Zhu <James.Zhu@amd.com>
+
+
+Thanks & Best Regards!
+
+
+James Zhu
+
+________________________________
+From: Liu, Aaron <Aaron.Liu@amd.com>
+Sent: Wednesday, January 20, 2021 2:51 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Zhang, Boyuan <Boyuan.Zhang@amd.com>; Zhu, James <James.Zhu@amd.co=
+m>; Liu, Leo <Leo.Liu@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
+
+Enable VCN 3.0 PG and CG for Yellow Carp by setting up flags.
+
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c
+index 801cf79353dd..903e1ae166c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -1020,9 +1020,13 @@ static int nv_common_early_init(void *handle)
+                         AMD_CG_SUPPORT_HDP_LS |
+                         AMD_CG_SUPPORT_ATHUB_MGCG |
+                         AMD_CG_SUPPORT_ATHUB_LS |
+-                       AMD_CG_SUPPORT_IH_CG;
++                       AMD_CG_SUPPORT_IH_CG |
++                       AMD_CG_SUPPORT_VCN_MGCG |
++                       AMD_CG_SUPPORT_JPEG_MGCG;
+                 adev->pg_flags =3D AMD_PG_SUPPORT_GFX_PG |
+-                       AMD_PG_SUPPORT_VCN_DPG;
++                       AMD_PG_SUPPORT_VCN |
++                       AMD_PG_SUPPORT_VCN_DPG |
++                       AMD_PG_SUPPORT_JPEG;
+                 adev->external_rev_id =3D adev->rev_id + 0x01;
+                 break;
+         default:
+--
+2.25.1
+
+
+--_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by:<span style=3D"color:#c0c0c0"> </span>James<span style=3D"color=
+:#c0c0c0">
+</span>Zhu<span style=3D"color:#c0c0c0"> </span>&lt;James.Zhu@amd.com&gt;<b=
+r>
+</div>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">Thanks &amp; Best Regards=
+!</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Aaron &lt;Aaron.=
+Liu@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, January 20, 2021 2:51 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
+ &lt;Ray.Huang@amd.com&gt;; Zhang, Boyuan &lt;Boyuan.Zhang@amd.com&gt;; Zhu=
+, James &lt;James.Zhu@amd.com&gt;; Liu, Leo &lt;Leo.Liu@amd.com&gt;; Liu, A=
+aron &lt;Aaron.Liu@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Enable VCN 3.0 PG and CG for Yellow Carp by settin=
+g up flags.<br>
+<br>
+Signed-off-by: Aaron Liu &lt;aaron.liu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nv.c | 8 ++++++--<br>
+&nbsp;1 file changed, 6 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c<br>
+index 801cf79353dd..903e1ae166c5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+@@ -1020,9 +1020,13 @@ static int nv_common_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_HDP_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_ATHUB_MGCG |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_ATHUB_LS |<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_I=
+H_CG;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_I=
+H_CG |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_V=
+CN_MGCG |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_J=
+PEG_MGCG;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_GFX_PG |<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
+CN_DPG;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
+CN |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
+CN_DPG |<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_J=
+PEG;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D adev-&gt;rev_id + 0x01;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_--
+
+--===============0824795229==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0824795229==--
