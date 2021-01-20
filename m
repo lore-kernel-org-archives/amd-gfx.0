@@ -4,126 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	UPPERCASE_50_75,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79601C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 03:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F208C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 03:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 041F92310D
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 03:11:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 041F92310D
+	by mail.kernel.org (Postfix) with ESMTPS id 9F9552310B
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 03:13:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F9552310B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6BC6E062;
-	Wed, 20 Jan 2021 03:11:31 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98AED6E062
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 03:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB2489F6B;
+	Wed, 20 Jan 2021 03:13:01 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690085.outbound.protection.outlook.com [40.107.69.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B683D89F6B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 03:12:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cvPk/HvI1RsW5QmYBV0vb0p3e44EjyOGCOov5uRavi4oWKucS8Y5UguKttcNHoawq9RRCPO1SnNcTNnsZWg5O4Jfou0uvRkv4AraeyR+Sg2n5o8GIOleMJXP64KJIYKITkzacLg2IMcCe++pzRVuTsto6arUKm1XufCYNvpE52w/bujaQZAyqZxIVegjabyMUW/A5H78kZci3MQMaw85gXHR5pmoE2i5kWT9/tmvzXqbGStZ1PmM2w2rPi+JE0/Wz0RR4samTFlQFsYeMU4PzXaaOC2F9QxJiPgPUuW7wfHJelE+tQNRq4DzT4XbBq8uixL8gBSldJmYBaZ9/ovpcA==
+ b=QnWvPpb44GHpjM6uDHQXz0ysA67/ovG97y3WogKW7zXwzbmzmgUp2phH5gpGQge+VUyuXY3J72XjmgWpHyI9lJQ1SeBjkTy73Vx/dBV4ZJMM9883w7Kp4WrL2b3FDxpmsONwd4IVlhUGcFDZokDfFXQhcPn1/IUwXDW3ROsbNgOFAM14eb1G1SF4WIqvZm0ADgANxSw0PDs76w6BQAp/LjG4DAsjJtQ956fwSdZvUgTNR+DC2U3JnzElFdw6/l+lhZzAcDmZrPIu+bu8Cf99CRpm0JCc1KDRm7c9hwQ4jwbO7Ydy3OC4XnSHBRFL9IN60EHFyCnplOg1ln5nR1+ZAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7cC8sLc6IH+GH4STVXXNVwAnFJ46lP6V7PnfRKMLxc=;
- b=YnIhtwA4S9UahaetiagzpgCLpw1rvmmNfBqzpNS/zn5qL1WE/hb6x6rPIyf9hMB9LpdHpg+/0eZW/Sa7C1BvZBEofejSGsXUwNuBlugWh3z+n4vvVv5BtB9NiLvBbqGiVD4yQZPUfsWkXNtrUsP/aQCran2W47pR7zV2SdCfVBKWRrGmlsjuGb89lF+mtgRc7SHBTbHAQf8j6jv3MxVNZku7AsHKgMhmcFDy1gjtLyPmpcBRtabMHBlodql1rUmwpBWa7/ucNpHxW3Se2j/easlN1MKAK7NEt6QBwNXSBWhz6vhEE/yo2aqttYDQuKQ/5NnWgWBMcPqed+xjDNYmUQ==
+ bh=TYpaSYU0kMxnyNEzinu//oVmzgHxGN+f7Y7Rx+hTZ6A=;
+ b=eZlKlj1Kf9FDBof+uh9uSO4lX+eF/dvlXZCqKQqgbFw0XX7FxFdMtHxa3kw7yU/VC6gLHbTcdcV167yudh2JnzQEDpO6k5xD5ikCp++7W9gPEM35ZZuj8QF8DjBCRJe8OXtvSpEvIQyIYRyNk+DED3FwlOcZjen3z/0KqKS9sM1bxl4GT6pHk17BBziSOaQjwzUK72hdEZv6ygasKlCN3fErPeDF2w15d47Fz3FsdGYOhT0BLmUHYdW71oCkxw7DSgST3PKP/NDiTv4hl5aUQc7zyVB1jmZ3UgMTx4ZmoPaM/sn3ZXGAxUUdM4ROVDIdVc9irvgzpvAepxuybop5Ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7cC8sLc6IH+GH4STVXXNVwAnFJ46lP6V7PnfRKMLxc=;
- b=Aqsy4iNbQzdPzBrK7D+MjcLa/7/MtUie+uZV06hMPI4pkHxy40D56n1lV0siJ2j2SFQEtgRcT3k63FCkKqO/e2EyCjRmSETC60ZLW4pA5vus0z/w7aaxGoN2sqcUO1hDANyXkZOuAPbX4Oul3X3E2ZivM8OTRBXPr5YjXaJxupY=
-Received: from CY4PR12MB1159.namprd12.prod.outlook.com (2603:10b6:903:36::17)
- by CY4PR1201MB2549.namprd12.prod.outlook.com (2603:10b6:903:da::10)
+ bh=TYpaSYU0kMxnyNEzinu//oVmzgHxGN+f7Y7Rx+hTZ6A=;
+ b=tuSDZYlnzjdDEYwsNomDjln7nfrJnQIUP1QQRk8d4Nv+bueBswXbZrO0KLrXrpCIR3gROrE5lfW1h+OalcxRpC1aSoT8jK3F6lietofcPvPzXpnYCtts9F+2qSsW0Ib/dBrzn75CAfCjsw2BShGnDiCZuWrQeRF7RBuZlYARIrY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MWHPR1201MB0175.namprd12.prod.outlook.com (2603:10b6:301:50::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.11; Wed, 20 Jan
- 2021 03:11:26 +0000
-Received: from CY4PR12MB1159.namprd12.prod.outlook.com
- ([fe80::82f:2413:1026:786a]) by CY4PR12MB1159.namprd12.prod.outlook.com
- ([fe80::82f:2413:1026:786a%12]) with mapi id 15.20.3763.014; Wed, 20 Jan 2021
- 03:11:26 +0000
-From: "Liu, Aaron" <Aaron.Liu@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: update mmhub mgcg&ls for mmhub_v2_3
-Thread-Topic: [PATCH] drm/amdgpu: update mmhub mgcg&ls for mmhub_v2_3
-Thread-Index: AQHW7s+oCiM6noChy0m67z5WqyGZuqovxA+AgAAR1mA=
-Date: Wed, 20 Jan 2021 03:11:26 +0000
-Message-ID: <CY4PR12MB1159CB448D9D51F7D09F15CAF0A20@CY4PR12MB1159.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Wed, 20 Jan
+ 2021 03:12:58 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::8c0d:7831:bfa8:d98%6]) with mapi id 15.20.3763.014; Wed, 20 Jan 2021
+ 03:12:58 +0000
+Date: Wed, 20 Jan 2021 11:12:51 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Liu, Aaron" <Aaron.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: update mmhub mgcg&ls for mmhub_v2_3
+Message-ID: <20210120031251.GA611756@hr-amd>
 References: <20210120015732.3986339-1-aaron.liu@amd.com>
  <20210120020619.GA610615@hr-amd>
-In-Reply-To: <20210120020619.GA610615@hr-amd>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-20T03:11:01Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=86eac40b-d6fb-4465-9344-00005a833d86;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2021-01-20T03:11:01Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: e66763b4-fa70-474b-8562-0000b39aaf78
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 57c69686-05d4-44cc-7771-08d8bcf1131f
-x-ms-traffictypediagnostic: CY4PR1201MB2549:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR1201MB2549352835CD63FE2D419E3BF0A29@CY4PR1201MB2549.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3173;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: spCBUy15GmZbOWUWT3QKLUS7tMc/4CvRlm6nxe84EJVf+ZWsHikQYoon84ACBO3p9p/xTXXmf+PY52ti6kyz+UA1IEOLQGk9q5vqQjpi2GMrcA5S9PH27hmwKmYlCp5X7CECx9BrodpcotMVoyHmMUBSQfvtZIsaEdJGctYkQd910tGxQCm9xQV7ZYEXg31B2jC5pDT3xRq2+sV9TwlCqhqsHBsg+4wZw8Ro7LQGQiLlMIow1HG9/av8vfifGDrf3/cDu3MsLwgn6da4nhmYx60PMcy2/dQALhTcJ+ARtLmGBVr61vrynZC/ea4QQNJwCLio6/WxwXPKLMqGMymonPBonAaFeq5BHgUGPQKBvt5tjJLQ7Ujm3jKqGLaxiZiln34AHYRXJAGYmRx2m7zARg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1159.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(366004)(376002)(346002)(52536014)(7696005)(5660300002)(316002)(53546011)(8676002)(2906002)(66476007)(6506007)(76116006)(66446008)(64756008)(66556008)(4326008)(26005)(186003)(66946007)(83380400001)(8936002)(478600001)(6636002)(54906003)(55016002)(33656002)(6862004)(9686003)(86362001)(71200400001)(15650500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?cI6YLJkPOcN5pYEZ8NzFSjBOmnQqCrZnGZqgdUwQiF5rFQW83NzeI+eaqL8V?=
- =?us-ascii?Q?p2wvFZF2qLHp2X0BW/iJyIyt7ySmgL2c1BSm3xnjpJwUrJPHnTzNN2l2V5iH?=
- =?us-ascii?Q?0FDWvKRSHdHfMYUsmu1mrM+bw5nG+g4IC17dQlpK2AOa3nwjLJZtThT9DtqE?=
- =?us-ascii?Q?stGShMm9OpCN6d5mcb/hCM2QNI12iRWIX+qREnx1NwbbK6+oXv19/JXiPtBU?=
- =?us-ascii?Q?IiJVtTE51w037w/PwranNMTkKMHY38Ax9jUiDPkLp4VWREJt6oPDUMT2269b?=
- =?us-ascii?Q?zAV1oW6zRlrZyqcdFDUAP0aaQY1xiB8vraTvr1sMko5Oe74Ocb6rn42Ymkvv?=
- =?us-ascii?Q?2bWibg9F4r2md8hA+ZW+d1UY1qmLbCr8UDw62WC5QjfDZD6tUGYdFi2XLE9w?=
- =?us-ascii?Q?FV4oxJGzxXQ10Qphe8HS3u4IDewRNDJso7TUd18CrTw+GmtDgmANuYjFE+tm?=
- =?us-ascii?Q?G4lOYLfi9MYNJJuHEfinJ6IX4uOYbptri2/OCQ1gvKqmcGevRPXrMw94G8dp?=
- =?us-ascii?Q?Tti3xF1XuiDDHVsPe0w9i10d2cBz9tcx97So6d/ZIBUYy4OrkjvSFoYRfzS2?=
- =?us-ascii?Q?8G/OqJ5Y5ZKy3EgFvumMMesGc7x6XAVEyocjpGX0EGy2h/rd77QSgi2CvhNN?=
- =?us-ascii?Q?rPQCws5+sBH5xMATfTHF5xSTm1MBN99ugwHYQQOKNF26+pbRH7LXeNVLBCMA?=
- =?us-ascii?Q?/D4Chnc3mB1pjIQPYzN5Yxt+KE0zztR9DEY609SWkyRo4nXB4eU9uUADzXNG?=
- =?us-ascii?Q?yDsSSpt5j237uTJNFZCOXloLbo3iGmqK+c6yhLFz9/H5bEvbwqwDXqcpQMRM?=
- =?us-ascii?Q?KOaO9/mG2guvkL1mcv+dW0oPRf0oMa+0RNUXNghLUu1fs2TP4NilrFyDbUEw?=
- =?us-ascii?Q?jpX6POC5DgFszmvfmmHPCAVNTAYHWCI6R3j6t+AwrFc/MaWhxdfQkZTPZsKw?=
- =?us-ascii?Q?EiXRTUof6vZjPfViZ5r6fIGC3AW1WCzdYmJZ54XSw9A=3D?=
+ <CY4PR12MB1159CB448D9D51F7D09F15CAF0A20@CY4PR12MB1159.namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <CY4PR12MB1159CB448D9D51F7D09F15CAF0A20@CY4PR12MB1159.namprd12.prod.outlook.com>
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK0PR01CA0070.apcprd01.prod.exchangelabs.com
+ (2603:1096:203:a6::34) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (180.167.199.189) by
+ HK0PR01CA0070.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11 via Frontend
+ Transport; Wed, 20 Jan 2021 03:12:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6334fa05-230a-4b0c-fa01-08d8bcf14970
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0175:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB01750FF0126541A2BCC4F0C4ECA20@MWHPR1201MB0175.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1WG0uzg8rDKjWLLqFW+BjTtZjrJ4c/IYUYzPqVh6K54/HBCicVKncF0tqvMqIzKfQejAhmqylMHsNaSSbqxNXVHJly/vt2Erj3jvG161f9JOh9ypQ9B1HZC/CGo26170rmHvSJmRRTejb6S1Jy2CQHMT8lbJErFY72Ilxtnl3XBRnNRTctdSmQz22y2tyMCY2ybRJiv4rDp/cNjPJzl+vh9drEpTDphIHFPWMBR0Iv43mEqhPSsludb8HxGvbZl7rQ3sqTKQz2ApYOFhx4KmFVvwMSTXsUTuz9ksMgzYF+HCsEOwxwPfW64ZDi3WFizj0sLSLGpD9htJKGPZWLHg1jyGq7BwEPo6yIXeji7pUE8A+0oxEz46rWICTKuv8iCeft66QNAqZl68VYbdupxukmbws/0DygmXpsKq3OaFjnSkfA/nGWi+q45MxYwkV0PUd+hsaY+0PuHGvyf6QkCCvzs40eYruTMZJ9G8f1JaHFbTVZptJVPFGaIcjhMQmcDdntnfkZPOgRHJGv5OEbaAWQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(136003)(376002)(366004)(39860400002)(83380400001)(6862004)(16526019)(33656002)(33716001)(86362001)(66556008)(66946007)(6496006)(66476007)(478600001)(55016002)(5660300002)(53546011)(52116002)(6636002)(8936002)(8676002)(54906003)(6666004)(2906002)(956004)(186003)(316002)(26005)(15650500001)(9686003)(4326008)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?0GlXzSvJsnns7Dn5AKmVS8f/CfQGjxRlbl4mU9m3K344YRpTN3UzQ2DQrcVi?=
+ =?us-ascii?Q?qTjGmoIU3eTC7ueLqh/MTfL5XxaTSbWLgLk7F+df9CrFKhf2icdlV8Des+7d?=
+ =?us-ascii?Q?G4oruWe5HoUJ22zyd8mWlpifwjN+VC+c2Se/zRsKdxlMxm0EkBhXlfLVofk8?=
+ =?us-ascii?Q?GgL11YFPtLm3CDGhOv5Vke9YdscVgl3FI0RGRfGl8uzRmLAE3RJQvTUJxq+G?=
+ =?us-ascii?Q?/4waDNLXp6GcsJg8r6UQVjNiHpwR4n3W4PaikPBnsQgNx8YVD6AD9C8H/S3Z?=
+ =?us-ascii?Q?Q1CSXrdyA1IY0Oyp4YYVMGVprufg6o8gZVIPTQHg2rLC3zCQS6wPU1HKzPm4?=
+ =?us-ascii?Q?z+ZVF9UyVj7KI6KP/5eBm1hmZvntCUMcUId78FAawKMJYfpqbMENltbBL6dF?=
+ =?us-ascii?Q?YqgCjBrqBtOPVHb98vQSSmQuFdvbEl7Y61crIXfnQSp13VJtJva4Fe2MQLN7?=
+ =?us-ascii?Q?AidjovuB+EDFzhHqo1qY9/6/AEekxXN8up8n0H94HXhpxTQ+D/CJJk19e7wf?=
+ =?us-ascii?Q?BOnGCgvG5ksYskKO7LSiiWXl6M+OcB4CDiwmfp0lIezQUf+LohDL7eaSUR9A?=
+ =?us-ascii?Q?fajl9+94aDYXVblWScxN92iuU5Y0Z2M+nVm5IEolPexLb1Hd/+kDJ/+a9s1T?=
+ =?us-ascii?Q?OKNaXGQbUmph0rNsvbC0W0VtJVBl+1C6h/omI6nSN/RQq+BNrEiLegRaxzyk?=
+ =?us-ascii?Q?o+zMlIAB6NWlw6lOof+XrSwt/yHwFSdHdHkTFagPSdSRLFa4qkTFHoELbTkr?=
+ =?us-ascii?Q?O8/mX987pS4QMgJ4j9CQdLEyRcbk7Tyts9Rnh/j9qAviGHukIsLV/fGCLU+G?=
+ =?us-ascii?Q?DlRE3Ie+fagzXyPU+Giq5GEucHz2mIN+/nFvJQdjI6HwO8mQJVkaBLSCy8tg?=
+ =?us-ascii?Q?qp0zjh/AqUAMp9YyqbzBD5VQibi8RVTJpVblUU3Qw5V3c+y2SrARwUYHZs1Z?=
+ =?us-ascii?Q?05E9q3o5jf7nXUpdAMqn7gVIyyTCpsLlsR7K99mANv/PzPlPM1z+lD1dQ0wT?=
+ =?us-ascii?Q?EnYH?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6334fa05-230a-4b0c-fa01-08d8bcf14970
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1159.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57c69686-05d4-44cc-7771-08d8bcf1131f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2021 03:11:26.5975 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HW+DfZhXs2VyQt1T6QcqMTG0sDJZX2djJU8b0JDvnINnYZo+PZxZZTIzH2b7AIcm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2549
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2021 03:12:58.1564 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e7vrXV6zvHiYbAJKsI9EAlnydfAT/zApymVc8CEvEVcUpRWkFMYu7OhzSS0pYi4Ozq7joLlbX83Q3NAaS2w4RA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,242 +130,248 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On Wed, Jan 20, 2021 at 11:11:26AM +0800, Liu, Aaron wrote:
+> [AMD Official Use Only - Internal Distribution Only]
+> 
+> This patch has been Verfied on Van Gogh.
+> 
 
-This patch has been Verfied on Van Gogh.
+Thanks.
 
---
-Best Regards
-Aaron Liu
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-> -----Original Message-----
-> From: Huang, Ray <Ray.Huang@amd.com>
-> Sent: Wednesday, January 20, 2021 10:06 AM
-> To: Liu, Aaron <Aaron.Liu@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: update mmhub mgcg&ls for
-> mmhub_v2_3
+> --
+> Best Regards
+> Aaron Liu
 > 
-> On Wed, Jan 20, 2021 at 09:57:32AM +0800, Liu, Aaron wrote:
-> > Starting from vangogh, the ATCL2 and DAGB0 registers relative to
-> > mgcg/ls has changed.
-> >
-> > For MGCG:
-> > Replace mmMM_ATC_L2_MISC_CG with mmMM_ATC_L2_CGTT_CLK_CTRL.
-> >
-> > For MGLS:
-> > Replace mmMM_ATC_L2_MISC_CG with mmMM_ATC_L2_CGTT_CLK_CTRL.
-> > Add DAGB0_(WR/RD)_CGTT_CLK_CTRL registers.
-> >
-> > Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-> 
-> Could you double verify it on vangogh as well?
-> 
-> After that, patch is
-> 
-> Acked-by: Huang Rui <ray.huang@amd.com>
-> 
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 84
-> > ++++++++++++++++++-------
-> >  1 file changed, 61 insertions(+), 23 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> > b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> > index 92f02883daa3..8f2edba5bc9e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> > @@ -492,12 +492,11 @@
-> > mmhub_v2_3_update_medium_grain_clock_gating(struct amdgpu_device
-> *adev,  {
-> >  	uint32_t def, data, def1, data1;
-> >
-> > -	def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
-> > +	def  = data  = RREG32_SOC15(MMHUB, 0,
-> mmMM_ATC_L2_CGTT_CLK_CTRL);
-> >  	def1 = data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
-> >
-> >  	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_MGCG)) {
-> > -		data |= MM_ATC_L2_MISC_CG__ENABLE_MASK;
-> > -
-> > +		data &=
-> ~MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK;
-> >  		data1 &=
-> ~(DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
-> >  		           DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
-> >  		           DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
-> @@ -506,8
-> > +505,7 @@ mmhub_v2_3_update_medium_grain_clock_gating(struct
-> amdgpu_device *adev,
-> >  		           DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK);
-> >
-> >  	} else {
-> > -		data &= ~MM_ATC_L2_MISC_CG__ENABLE_MASK;
-> > -
-> > +		data |=
-> MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK;
-> >  		data1 |= (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
-> >  			  DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
-> >  			  DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
-> @@ -517,7 +515,7 @@
-> > mmhub_v2_3_update_medium_grain_clock_gating(struct amdgpu_device
-> *adev,
-> >  	}
-> >
-> >  	if (def != data)
-> > -		WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG, data);
-> > +		WREG32_SOC15(MMHUB, 0,
-> mmMM_ATC_L2_CGTT_CLK_CTRL, data);
-> >  	if (def1 != data1)
-> >  		WREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2,
-> data1);  } @@ -526,17
-> > +524,44 @@ static void
-> > mmhub_v2_3_update_medium_grain_light_sleep(struct amdgpu_device
-> *adev,
-> >  					   bool enable)
-> >  {
-> > -	uint32_t def, data;
-> > -
-> > -	def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
-> > -
-> > -	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS))
-> > -		data |= MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK;
-> > -	else
-> > -		data &= ~MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK;
-> > +	uint32_t def, data, def1, data1, def2, data2;
-> > +
-> > +	def  = data  = RREG32_SOC15(MMHUB, 0,
-> mmMM_ATC_L2_CGTT_CLK_CTRL);
-> > +	def1 = data1 = RREG32_SOC15(MMHUB, 0,
-> mmDAGB0_WR_CGTT_CLK_CTRL);
-> > +	def2 = data2 = RREG32_SOC15(MMHUB, 0,
-> mmDAGB0_RD_CGTT_CLK_CTRL);
-> > +
-> > +	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS)) {
-> > +		data &=
-> ~MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK;
-> > +		data1
-> &= !(DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
-> > +		data2 &= !(DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK
-> |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
-> > +	} else {
-> > +		data |=
-> MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK;
-> > +		data1 |= (DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK
-> |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
-> > +		data2 |= (DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
-> > +	}
-> >
-> >  	if (def != data)
-> > -		WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG, data);
-> > +		WREG32_SOC15(MMHUB, 0,
-> mmMM_ATC_L2_CGTT_CLK_CTRL, data);
-> > +	if (def1 != data1)
-> > +		WREG32_SOC15(MMHUB, 0, mmDAGB0_WR_CGTT_CLK_CTRL,
-> data1);
-> > +	if (def2 != data2)
-> > +		WREG32_SOC15(MMHUB, 0, mmDAGB0_RD_CGTT_CLK_CTRL,
-> data2);
-> >  }
-> >
-> >  static int mmhub_v2_3_set_clockgating(struct amdgpu_device *adev, @@
-> > -555,26 +580,39 @@ static int mmhub_v2_3_set_clockgating(struct
+> > -----Original Message-----
+> > From: Huang, Ray <Ray.Huang@amd.com>
+> > Sent: Wednesday, January 20, 2021 10:06 AM
+> > To: Liu, Aaron <Aaron.Liu@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>
+> > Subject: Re: [PATCH] drm/amdgpu: update mmhub mgcg&ls for
+> > mmhub_v2_3
+> > 
+> > On Wed, Jan 20, 2021 at 09:57:32AM +0800, Liu, Aaron wrote:
+> > > Starting from vangogh, the ATCL2 and DAGB0 registers relative to
+> > > mgcg/ls has changed.
+> > >
+> > > For MGCG:
+> > > Replace mmMM_ATC_L2_MISC_CG with mmMM_ATC_L2_CGTT_CLK_CTRL.
+> > >
+> > > For MGLS:
+> > > Replace mmMM_ATC_L2_MISC_CG with mmMM_ATC_L2_CGTT_CLK_CTRL.
+> > > Add DAGB0_(WR/RD)_CGTT_CLK_CTRL registers.
+> > >
+> > > Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+> > 
+> > Could you double verify it on vangogh as well?
+> > 
+> > After that, patch is
+> > 
+> > Acked-by: Huang Rui <ray.huang@amd.com>
+> > 
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 84
+> > > ++++++++++++++++++-------
+> > >  1 file changed, 61 insertions(+), 23 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> > > b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> > > index 92f02883daa3..8f2edba5bc9e 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> > > @@ -492,12 +492,11 @@
+> > > mmhub_v2_3_update_medium_grain_clock_gating(struct amdgpu_device
+> > *adev,  {
+> > >  	uint32_t def, data, def1, data1;
+> > >
+> > > -	def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
+> > > +	def  = data  = RREG32_SOC15(MMHUB, 0,
+> > mmMM_ATC_L2_CGTT_CLK_CTRL);
+> > >  	def1 = data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
+> > >
+> > >  	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_MGCG)) {
+> > > -		data |= MM_ATC_L2_MISC_CG__ENABLE_MASK;
+> > > -
+> > > +		data &=
+> > ~MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK;
+> > >  		data1 &=
+> > ~(DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
+> > >  		           DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
+> > >  		           DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
+> > @@ -506,8
+> > > +505,7 @@ mmhub_v2_3_update_medium_grain_clock_gating(struct
 > > amdgpu_device *adev,
-> >
-> >  static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev,
-> > u32 *flags)  {
-> > -	int data, data1;
-> > +	int data, data1, data2, data3;
-> >
-> >  	if (amdgpu_sriov_vf(adev))
-> >  		*flags = 0;
-> >
-> > -	data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
-> > -	data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
-> > +	data = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
-> > +	data1  = RREG32_SOC15(MMHUB, 0,
-> mmMM_ATC_L2_CGTT_CLK_CTRL);
-> > +	data2 = RREG32_SOC15(MMHUB, 0, mmDAGB0_WR_CGTT_CLK_CTRL);
-> > +	data3 = RREG32_SOC15(MMHUB, 0, mmDAGB0_RD_CGTT_CLK_CTRL);
-> >
-> >  	/* AMD_CG_SUPPORT_MC_MGCG */
-> > -	if ((data & MM_ATC_L2_MISC_CG__ENABLE_MASK) &&
-> > -	    !(data1 & (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
-> > +	if (!(data & (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
-> >  		       DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
-> >  		       DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
-> >  		       DAGB0_CNTL_MISC2__DISABLE_RDRET_CG_MASK |
-> >  		       DAGB0_CNTL_MISC2__DISABLE_TLBWR_CG_MASK |
-> > -		       DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK)))
-> > -		*flags |= AMD_CG_SUPPORT_MC_MGCG;
-> > +		       DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK))
-> > +		&& !(data1 &
-> MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK)) {
-> > +			*flags |= AMD_CG_SUPPORT_MC_MGCG;
-> > +	}
-> >
-> >  	/* AMD_CG_SUPPORT_MC_LS */
-> > -	if (data & MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK)
-> > +	if (!(data1 & MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK)
-> > +		&& !(data2 &
-> (DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK))
-> > +		&& !(data3 &
-> (DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
-> > +
-> 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK)))
-> >  		*flags |= AMD_CG_SUPPORT_MC_LS;
-> >  }
-> >
-> > --
-> > 2.25.1
-> >
+> > >  		           DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK);
+> > >
+> > >  	} else {
+> > > -		data &= ~MM_ATC_L2_MISC_CG__ENABLE_MASK;
+> > > -
+> > > +		data |=
+> > MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK;
+> > >  		data1 |= (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
+> > >  			  DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
+> > >  			  DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
+> > @@ -517,7 +515,7 @@
+> > > mmhub_v2_3_update_medium_grain_clock_gating(struct amdgpu_device
+> > *adev,
+> > >  	}
+> > >
+> > >  	if (def != data)
+> > > -		WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG, data);
+> > > +		WREG32_SOC15(MMHUB, 0,
+> > mmMM_ATC_L2_CGTT_CLK_CTRL, data);
+> > >  	if (def1 != data1)
+> > >  		WREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2,
+> > data1);  } @@ -526,17
+> > > +524,44 @@ static void
+> > > mmhub_v2_3_update_medium_grain_light_sleep(struct amdgpu_device
+> > *adev,
+> > >  					   bool enable)
+> > >  {
+> > > -	uint32_t def, data;
+> > > -
+> > > -	def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
+> > > -
+> > > -	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS))
+> > > -		data |= MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK;
+> > > -	else
+> > > -		data &= ~MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK;
+> > > +	uint32_t def, data, def1, data1, def2, data2;
+> > > +
+> > > +	def  = data  = RREG32_SOC15(MMHUB, 0,
+> > mmMM_ATC_L2_CGTT_CLK_CTRL);
+> > > +	def1 = data1 = RREG32_SOC15(MMHUB, 0,
+> > mmDAGB0_WR_CGTT_CLK_CTRL);
+> > > +	def2 = data2 = RREG32_SOC15(MMHUB, 0,
+> > mmDAGB0_RD_CGTT_CLK_CTRL);
+> > > +
+> > > +	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS)) {
+> > > +		data &=
+> > ~MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK;
+> > > +		data1
+> > &= !(DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
+> > > +		data2 &= !(DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK
+> > |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
+> > > +	} else {
+> > > +		data |=
+> > MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK;
+> > > +		data1 |= (DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK
+> > |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
+> > > +		data2 |= (DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
+> > > +	}
+> > >
+> > >  	if (def != data)
+> > > -		WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG, data);
+> > > +		WREG32_SOC15(MMHUB, 0,
+> > mmMM_ATC_L2_CGTT_CLK_CTRL, data);
+> > > +	if (def1 != data1)
+> > > +		WREG32_SOC15(MMHUB, 0, mmDAGB0_WR_CGTT_CLK_CTRL,
+> > data1);
+> > > +	if (def2 != data2)
+> > > +		WREG32_SOC15(MMHUB, 0, mmDAGB0_RD_CGTT_CLK_CTRL,
+> > data2);
+> > >  }
+> > >
+> > >  static int mmhub_v2_3_set_clockgating(struct amdgpu_device *adev, @@
+> > > -555,26 +580,39 @@ static int mmhub_v2_3_set_clockgating(struct
+> > > amdgpu_device *adev,
+> > >
+> > >  static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev,
+> > > u32 *flags)  {
+> > > -	int data, data1;
+> > > +	int data, data1, data2, data3;
+> > >
+> > >  	if (amdgpu_sriov_vf(adev))
+> > >  		*flags = 0;
+> > >
+> > > -	data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);
+> > > -	data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
+> > > +	data = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2);
+> > > +	data1  = RREG32_SOC15(MMHUB, 0,
+> > mmMM_ATC_L2_CGTT_CLK_CTRL);
+> > > +	data2 = RREG32_SOC15(MMHUB, 0, mmDAGB0_WR_CGTT_CLK_CTRL);
+> > > +	data3 = RREG32_SOC15(MMHUB, 0, mmDAGB0_RD_CGTT_CLK_CTRL);
+> > >
+> > >  	/* AMD_CG_SUPPORT_MC_MGCG */
+> > > -	if ((data & MM_ATC_L2_MISC_CG__ENABLE_MASK) &&
+> > > -	    !(data1 & (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
+> > > +	if (!(data & (DAGB0_CNTL_MISC2__DISABLE_WRREQ_CG_MASK |
+> > >  		       DAGB0_CNTL_MISC2__DISABLE_WRRET_CG_MASK |
+> > >  		       DAGB0_CNTL_MISC2__DISABLE_RDREQ_CG_MASK |
+> > >  		       DAGB0_CNTL_MISC2__DISABLE_RDRET_CG_MASK |
+> > >  		       DAGB0_CNTL_MISC2__DISABLE_TLBWR_CG_MASK |
+> > > -		       DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK)))
+> > > -		*flags |= AMD_CG_SUPPORT_MC_MGCG;
+> > > +		       DAGB0_CNTL_MISC2__DISABLE_TLBRD_CG_MASK))
+> > > +		&& !(data1 &
+> > MM_ATC_L2_CGTT_CLK_CTRL__SOFT_OVERRIDE_MASK)) {
+> > > +			*flags |= AMD_CG_SUPPORT_MC_MGCG;
+> > > +	}
+> > >
+> > >  	/* AMD_CG_SUPPORT_MC_LS */
+> > > -	if (data & MM_ATC_L2_MISC_CG__MEM_LS_ENABLE_MASK)
+> > > +	if (!(data1 & MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK)
+> > > +		&& !(data2 &
+> > (DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK))
+> > > +		&& !(data3 &
+> > (DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+> > > +
+> > 	DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK)))
+> > >  		*flags |= AMD_CG_SUPPORT_MC_LS;
+> > >  }
+> > >
+> > > --
+> > > 2.25.1
+> > >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
