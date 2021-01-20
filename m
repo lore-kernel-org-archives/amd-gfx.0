@@ -2,101 +2,68 @@ Return-Path: <SRS0=ixe6=GX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8633C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:58:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF012C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:00:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 679602339D
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 15:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 679602339D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id EB6F62339D
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB6F62339D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF4776E32F;
-	Wed, 20 Jan 2021 15:58:37 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1DC6E321
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 15:58:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MNH6+KxWUQDserRmvZRfGyULVQWbYSJlZt+lDTQ7jazWZQXUxU95S5B8vWGv+pnx7ipf2AT0g5zUQvVVO8wxzd9FKzAaPv3ddk+v3whgygLd35r//15O8YCSYERW8At5PpY/I1rz2K6ZNNVuqv2HWiKlfXM57p59bKMsuDMItyhJRrJ6IOMc624MNPvRBAvV62D0IbTBchyoLEDX6dqE7ekKxNf/yGcXc/tb0tOjWb4OPG8HoPy6hp0Fq5XIbfMwL9X/l+xqT935DDfSq5KloQyPwg96DgEEmBvYtzn7UY0l9Chdn/ONu2sq7+clRkPqpyAI1MW6iKDXtRwa7Qz5ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WNDh3V7J9o8hCwZiMj+FWhTXTLjgzDJbmWcFJTcZnPo=;
- b=JqiIz5bFDjrQkDuczk97vcdLvUdad+fh09SS9ljamCIucBg+/Z7I6L/mG7u5eLGUVY4WIoLHUEPbDw6M98zpiZwMQEL/Df8/bLz5caafRfaOO10rNn9u8odG2fZfR3xWBZth7DGrHYo6sNLWcv3+ckuNM8d4oleupm83DlbJugN6gf3kpZynIAeMZbb0c0G08YJO2LWoc2Tqq3W/XJJ0yONsmObAwNk1hMzyLhDEPHYJc2yOcxSr+AmEmchHuSSEg56/89imRPR5hmTbEGtrqUfvLF1o9GWt+jZSf406rBJFWbO5TcCL1XpFKMyHfnkJvwMm+Nw85HqWEjG9b1befQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WNDh3V7J9o8hCwZiMj+FWhTXTLjgzDJbmWcFJTcZnPo=;
- b=XlNyLdyTb4YdU8rl+PVLsOOw7YJDNI77hSyYOknfz1VSSpPwWbcpbmZRYtwnZpt1lFGRF9IHoTc1Q44LoqfhgJfrhVbT1HopR/xZj+N+Obeirs63lk1pyse/8ejHdR/TW9tBmh2evRnqgwg6og9ORX3hFB9TXuwzfcVvYKkNETs=
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3784.11; Wed, 20 Jan 2021 15:58:34 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::8059:4b52:4ba5:94b7]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::8059:4b52:4ba5:94b7%2]) with mapi id 15.20.3742.014; Wed, 20 Jan 2021
- 15:58:34 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: "Liu, Aaron" <Aaron.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
-Thread-Topic: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
-Thread-Index: AQHW7wENcHzFsR4MIUGo3QKOJrgldqowrBDQ
-Date: Wed, 20 Jan 2021 15:58:34 +0000
-Message-ID: <DM5PR12MB25174F3DF3A018A0A1132E5BE4A20@DM5PR12MB2517.namprd12.prod.outlook.com>
-References: <20210120075102.4004746-1-aaron.liu@amd.com>
-In-Reply-To: <20210120075102.4004746-1-aaron.liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-01-20T15:58:34.095Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.55.251]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: c297d49d-a3e1-472a-612b-08d8bd5c3e1d
-x-ms-traffictypediagnostic: DM6PR12MB3354:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3354B26AFFE96309B18D5DD0E4A29@DM6PR12MB3354.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:590;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gWzypLu9s90xMiCYZG1Dt4ywhzQ2yB37wp53sSeM7e/uK4Hvn6kv2hfW+6lzBn4bivZ7pWPvXkQQrNaZUp4/YxXsFwbFtelHchDrcYrTNPdknJlsKh1DbwZ+0YIpyUgXbfnm6cqcMCtVaoOI3C/3cyNesGBlFpQzw96yE9Gnw+9/z8qtIndr41pSYohCPEdl46sg3e7A85HJt6l3hBCShl0yVyZlwH2gGex1/iPVeWNh9vz5Fawb5QaqrOp9F6tG9y66kKtrjm+imw1bBjDQ1SrboOFqQ/zrN1XFWFEsFycG7UJxKAa8jTLjcYsggbM6O4V+v6HGMcxJYTf1ebChdxgWRGMdgihaLjcFS8mrz/w7iEW8b79f4bNKAq/hfM7AJ/hNHPc1jN6efbM2ZJN7KQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(366004)(136003)(346002)(396003)(19627405001)(186003)(71200400001)(316002)(76116006)(26005)(8936002)(55016002)(9686003)(7696005)(6506007)(53546011)(4326008)(8676002)(83380400001)(91956017)(478600001)(66476007)(33656002)(66946007)(66446008)(5660300002)(66556008)(52536014)(64756008)(86362001)(110136005)(2906002)(54906003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: cVF20FwspqtWIM8n8Kb6PG9aTycjRiQGvpuxV9afLeynt2/DeZgPwAC6U5FHMYI/+aYUvO0E5d589y12oVcdb1+VFE3XC4qlYn3QI49lvFCNjVy0XnAoz8P5Pt+mTo5prhbUhMN6jOmBphr8QnErb4WftTdgOBZHHB7iHzk6RnRZ653rEpDbIBUFZUXmPD5IJgcI6Nk/izpv+NKzfCBBXfEOGWQ+U1SsGBqtW+4hrYgsqZzyMwaFUm38zKRp5VbDEo/oCIObKy2XqdHTzuL1pMVM4PUvpPAuOrtl8JkCqRemFG0r4+N0y3b99fC5SRa6yJ/Z5eS10YjH12errSoPgOYb9GfAvja6ZnHq9ydL7F48z+jSk+NfrwZtGL0zvXrMTPG9xXosWouFsxJy4Hq9sXId3N4NlqIFk8memdbeElOQM4nyz0vHJr2UQ1FETKJCn2NKfbFj58JgoJP/S7Km4VnOjgoZ5mXKgq28/ylhDKeRZU81dg+1Ia9RCpb64XctcvrdbzJZFIWbglyaWQHLzeetN92VYLyG3Kr/6W6YnNnhiQNuljFZJ6oCIgmDClvtwBcjLa8HetHOd/uMZghRqusebtgahfu+do6T16FCt/llo7GYq8t5v1K/+NQCaXVQyyaxmRvg2WZVZI1gwOrNZ3z80tFdwO+6z0mKVH9KITPf3A4H4Ngpd7aPfEQrdj7zqwKeN9McVpoM5ZzlKsRG+TwuaV6yA2aMPc/IKX6ZHEQ=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E59A88D18;
+	Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2722D89B0C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 16:00:04 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id v21so6045430otj.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Jan 2021 08:00:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=4dN1cx/5iD95hw6USiM1+PU00umlijoKLbsTp4otznU=;
+ b=hbNJwz3JAGr30TqjiecvbnpfxhwDffLV4um0mquVmpgcrMoYlv/DE9ys775M8OdyY3
+ X7lsCmc9uk8rSPuOmW7m3N+/57snYq8MPrZShQifY9cSvLPAJ/tueAf1zhaN5/LCTc7h
+ 4fVgYtdnYx14ofsdRvU6UMSdF7k4zVPqhEZWA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=4dN1cx/5iD95hw6USiM1+PU00umlijoKLbsTp4otznU=;
+ b=XEM3R77U/mebBO48CxnXtiBfCiJd4wLRbZ4qesOvLqXdNDB8po90Ub0Tb+cm/mRqaW
+ THjytK4k51XaVs8iQ75xnX+vceJxnZHi2AIjS1Aa2nEEylFfCPkWs5h3O9Aa1usxCqFu
+ PRMqPROVEXNX7VHDXcqU7jkDiDiHmtqdffizCVeTy7IhfqCNl5PkDEVqag/RnumPXWIh
+ 2lj1pzLYZAEu9opvAI4ey/adwhSIlBmt2euw2eZjSsoCPx965nMnZs7oYFWGaB2h8hvt
+ 6blDWuqoIolXRr+q9iDcZgd1pFh7p8iM9DWh0+qHIWaMZ9AIObjVz+9RG+Bv5OQlxasG
+ xqXA==
+X-Gm-Message-State: AOAM5321hLJQ/dGAq31nsJkdSe8pDx9Dc7ZYtY6QAnXUkmMfA/gGogSD
+ BE/tumGUNi1gBw3HVqWPXfstMcDpPKHtKc4dci59Gw==
+X-Google-Smtp-Source: ABdhPJxjuUBizGYfjK8nt7KcEhfPI6vQYztiyBvUcXboxWrllv0Ri9dqYtto4i2tZD8YZLJ5Rrsg8XuGEhkMws3pkqw=
+X-Received: by 2002:a05:6830:1bef:: with SMTP id
+ k15mr7331346otb.303.1611158403219; 
+ Wed, 20 Jan 2021 08:00:03 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c297d49d-a3e1-472a-612b-08d8bd5c3e1d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2021 15:58:34.8379 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: at3Drjhkgp+tEZL1QOCWTwyco4QmN8BKclLgelv0iGUmrDZt68Or6omfGioNTUMo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
+References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
+ <YAbpxbTifiupYJML@phenom.ffwll.local>
+ <c4f911dc-99a9-387c-21d1-a3ca2cfd78da@amd.com>
+ <CAKMK7uFKMgKAQSCgunjStuUTbuiwdR3zjwtn_Ms1XJjO0ML2EA@mail.gmail.com>
+ <755e7c8a-5bd7-6414-8141-249a1ba5a865@amd.com>
+ <YAfyPEB2gpMnW/PP@phenom.ffwll.local>
+ <8ea4b2d7-d5f3-3708-724d-c70520603283@amd.com>
+In-Reply-To: <8ea4b2d7-d5f3-3708-724d-c70520603283@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 20 Jan 2021 16:59:52 +0100
+Message-ID: <CAKMK7uE11MonjPB3dmy6u=b029am1p2KqJ57DgLUGu-9QgtebA@mail.gmail.com>
+Subject: Re: [PATCH v4 00/14] RFC Support hot device unplug in amdgpu
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,210 +75,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Boyuan" <Boyuan.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============0824795229=="
+Cc: Rob Herring <robh@kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Qiang Yu <yuq825@gmail.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <Alexander.Deucher@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0824795229==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_"
-
---_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-by: James Zhu <James.Zhu@amd.com>
-
-
-Thanks & Best Regards!
-
-
-James Zhu
-
-________________________________
-From: Liu, Aaron <Aaron.Liu@amd.com>
-Sent: Wednesday, January 20, 2021 2:51 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
-md.com>; Zhang, Boyuan <Boyuan.Zhang@amd.com>; Zhu, James <James.Zhu@amd.co=
-m>; Liu, Leo <Leo.Liu@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp
-
-Enable VCN 3.0 PG and CG for Yellow Carp by setting up flags.
-
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
-v.c
-index 801cf79353dd..903e1ae166c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -1020,9 +1020,13 @@ static int nv_common_early_init(void *handle)
-                         AMD_CG_SUPPORT_HDP_LS |
-                         AMD_CG_SUPPORT_ATHUB_MGCG |
-                         AMD_CG_SUPPORT_ATHUB_LS |
--                       AMD_CG_SUPPORT_IH_CG;
-+                       AMD_CG_SUPPORT_IH_CG |
-+                       AMD_CG_SUPPORT_VCN_MGCG |
-+                       AMD_CG_SUPPORT_JPEG_MGCG;
-                 adev->pg_flags =3D AMD_PG_SUPPORT_GFX_PG |
--                       AMD_PG_SUPPORT_VCN_DPG;
-+                       AMD_PG_SUPPORT_VCN |
-+                       AMD_PG_SUPPORT_VCN_DPG |
-+                       AMD_PG_SUPPORT_JPEG;
-                 adev->external_rev_id =3D adev->rev_id + 0x01;
-                 break;
-         default:
---
-2.25.1
-
-
---_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Wed, Jan 20, 2021 at 3:20 PM Andrey Grodzovsky
+<Andrey.Grodzovsky@amd.com> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by:<span style=3D"color:#c0c0c0"> </span>James<span style=3D"color=
-:#c0c0c0">
-</span>Zhu<span style=3D"color:#c0c0c0"> </span>&lt;James.Zhu@amd.com&gt;<b=
-r>
-</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature">
-<div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">Thanks &amp; Best Regards=
-!</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">James Zhu<br>
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Aaron &lt;Aaron.=
-Liu@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, January 20, 2021 2:51 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
- &lt;Ray.Huang@amd.com&gt;; Zhang, Boyuan &lt;Boyuan.Zhang@amd.com&gt;; Zhu=
-, James &lt;James.Zhu@amd.com&gt;; Liu, Leo &lt;Leo.Liu@amd.com&gt;; Liu, A=
-aron &lt;Aaron.Liu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: enable VCN PG and CG for yellow carp</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Enable VCN 3.0 PG and CG for Yellow Carp by settin=
-g up flags.<br>
-<br>
-Signed-off-by: Aaron Liu &lt;aaron.liu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nv.c | 8 ++++++--<br>
-&nbsp;1 file changed, 6 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
-v.c<br>
-index 801cf79353dd..903e1ae166c5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-@@ -1020,9 +1020,13 @@ static int nv_common_early_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_HDP_LS |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_ATHUB_MGCG |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_ATHUB_LS |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_I=
-H_CG;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_I=
-H_CG |<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_V=
-CN_MGCG |<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_J=
-PEG_MGCG;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_GFX_PG |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
-CN_DPG;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
-CN |<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_V=
-CN_DPG |<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_J=
-PEG;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D adev-&gt;rev_id + 0x01;<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+>
+> On 1/20/21 4:05 AM, Daniel Vetter wrote:
+> > On Tue, Jan 19, 2021 at 01:18:15PM -0500, Andrey Grodzovsky wrote:
+> >> On 1/19/21 1:08 PM, Daniel Vetter wrote:
+> >>> On Tue, Jan 19, 2021 at 6:31 PM Andrey Grodzovsky
+> >>> <Andrey.Grodzovsky@amd.com> wrote:
+> >>>> On 1/19/21 9:16 AM, Daniel Vetter wrote:
+> >>>>> On Mon, Jan 18, 2021 at 04:01:09PM -0500, Andrey Grodzovsky wrote:
+> >>>>>> Until now extracting a card either by physical extraction (e.g. eGPU with
+> >>>>>> thunderbolt connection or by emulation through  syfs -> /sys/bus/pci/devices/device_id/remove)
+> >>>>>> would cause random crashes in user apps. The random crashes in apps were
+> >>>>>> mostly due to the app having mapped a device backed BO into its address
+> >>>>>> space was still trying to access the BO while the backing device was gone.
+> >>>>>> To answer this first problem Christian suggested to fix the handling of mapped
+> >>>>>> memory in the clients when the device goes away by forcibly unmap all buffers the
+> >>>>>> user processes has by clearing their respective VMAs mapping the device BOs.
+> >>>>>> Then when the VMAs try to fill in the page tables again we check in the fault
+> >>>>>> handlerif the device is removed and if so, return an error. This will generate a
+> >>>>>> SIGBUS to the application which can then cleanly terminate.This indeed was done
+> >>>>>> but this in turn created a problem of kernel OOPs were the OOPSes were due to the
+> >>>>>> fact that while the app was terminating because of the SIGBUSit would trigger use
+> >>>>>> after free in the driver by calling to accesses device structures that were already
+> >>>>>> released from the pci remove sequence.This was handled by introducing a 'flush'
+> >>>>>> sequence during device removal were we wait for drm file reference to drop to 0
+> >>>>>> meaning all user clients directly using this device terminated.
+> >>>>>>
+> >>>>>> v2:
+> >>>>>> Based on discussions in the mailing list with Daniel and Pekka [1] and based on the document
+> >>>>>> produced by Pekka from those discussions [2] the whole approach with returning SIGBUS and
+> >>>>>> waiting for all user clients having CPU mapping of device BOs to die was dropped.
+> >>>>>> Instead as per the document suggestion the device structures are kept alive until
+> >>>>>> the last reference to the device is dropped by user client and in the meanwhile all existing and new CPU mappings of the BOs
+> >>>>>> belonging to the device directly or by dma-buf import are rerouted to per user
+> >>>>>> process dummy rw page.Also, I skipped the 'Requirements for KMS UAPI' section of [2]
+> >>>>>> since i am trying to get the minimal set of requirements that still give useful solution
+> >>>>>> to work and this is the'Requirements for Render and Cross-Device UAPI' section and so my
+> >>>>>> test case is removing a secondary device, which is render only and is not involved
+> >>>>>> in KMS.
+> >>>>>>
+> >>>>>> v3:
+> >>>>>> More updates following comments from v2 such as removing loop to find DRM file when rerouting
+> >>>>>> page faults to dummy page,getting rid of unnecessary sysfs handling refactoring and moving
+> >>>>>> prevention of GPU recovery post device unplug from amdgpu to scheduler layer.
+> >>>>>> On top of that added unplug support for the IOMMU enabled system.
+> >>>>>>
+> >>>>>> v4:
+> >>>>>> Drop last sysfs hack and use sysfs default attribute.
+> >>>>>> Guard against write accesses after device removal to avoid modifying released memory.
+> >>>>>> Update dummy pages handling to on demand allocation and release through drm managed framework.
+> >>>>>> Add return value to scheduler job TO handler (by Luben Tuikov) and use this in amdgpu for prevention
+> >>>>>> of GPU recovery post device unplug
+> >>>>>> Also rebase on top of drm-misc-mext instead of amd-staging-drm-next
+> >>>>>>
+> >>>>>> With these patches I am able to gracefully remove the secondary card using sysfs remove hook while glxgears
+> >>>>>> is running off of secondary card (DRI_PRIME=1) without kernel oopses or hangs and keep working
+> >>>>>> with the primary card or soft reset the device without hangs or oopses
+> >>>>>>
+> >>>>>> TODOs for followup work:
+> >>>>>> Convert AMDGPU code to use devm (for hw stuff) and drmm (for sw stuff and allocations) (Daniel)
+> >>>>>> Support plugging the secondary device back after unplug - currently still experiencing HW error on plugging back.
+> >>>>>> Add support for 'Requirements for KMS UAPI' section of [2] - unplugging primary, display connected card.
+> >>>>>>
+> >>>>>> [1] - Discussions during v3 of the patchset https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg55576.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=T4JLiSl7m4R%2FhcfcAxomY%2FMJ8QiTHaJ%2FJaqNZVT%2FDsk%3D&amp;reserved=0
+> >>>>>> [2] - drm/doc: device hot-unplug for userspace https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Fdri-devel%2Fmsg259755.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=qitlHw6tqm4eGRstKccgh8zIPgILbS%2FJUa5yZGmSQcU%3D&amp;reserved=0
+> >>>>>> [3] - Related gitlab ticket https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1081&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cbe51719dbdac41f5176b08d8bd2279ec%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637467303085005502%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=UzOXP6bHYY6f7MCs4ZbSSvfY0DJ%2FEVPeIqedAi%2BZGG8%3D&amp;reserved=0
+> >>>>> btw have you tried this out with some of the igts we have? core_hotunplug
+> >>>>> is the one I'm thinking of. Might be worth to extend this for amdgpu
+> >>>>> specific stuff (like run some batches on it while hotunplugging).
+> >>>> No, I mostly used just running glxgears while testing which covers already
+> >>>> exported/imported dma-buf case and a few manually hacked tests in libdrm amdgpu
+> >>>> test suite
+> >>>>
+> >>>>
+> >>>>> Since there's so many corner cases we need to test here (shared dma-buf,
+> >>>>> shared dma_fence) I think it would make sense to have a shared testcase
+> >>>>> across drivers.
+> >>>> Not familiar with IGT too much, is there an easy way to setup shared dma bufs
+> >>>> and fences
+> >>>> use cases there or you mean I need to add them now ?
+> >>> We do have test infrastructure for all of that, but the hotunplug test
+> >>> doesn't have that yet I think.
+> >>>
+> >>>>> Only specific thing would be some hooks to keep the gpu
+> >>>>> busy in some fashion while we yank the driver.
+> >>>> Do you mean like staring X and some active rendering on top (like glxgears)
+> >>>> automatically from within IGT ?
+> >>> Nope, igt is meant to be bare metal testing so you don't have to drag
+> >>> the entire winsys around (which in a wayland world, is not really good
+> >>> for driver testing anyway, since everything is different). We use this
+> >>> for our pre-merge ci for drm/i915.
+> >>
+> >> So i keep it busy by X/glxgers which is manual operation. What you suggest
+> >> then is some client within IGT which opens the device and starts submitting jobs
+> >> (which is much like what libdrm amdgpu tests already do) ? And this
+> >> part is the amdgou specific code I just need to port from libdrm to here ?
+> > Yup. For i915 tests we have an entire library already for small workloads,
+> > including some that just spin forever (useful for reset testing and could
+> > also come handy for unload testing).
+> > -Daniel
+>
+>
+> Does it mean I would have to drag in the entire infrastructure code from
+> within libdrm amdgpu code that allows for command submissions through
+> our IOCTLs ?
 
---_000_DM5PR12MB25174F3DF3A018A0A1132E5BE4A20DM5PR12MB2517namp_--
+No it's perfectly fine to use libdrm in igt tests, we do that too. I
+just mean we have some additional helpers to submit specific workloads
+for intel gpu, like rendercpy to move data with the 3d engine (just
+using copy engines only isn't good enough sometimes for testing), or
+the special hanging batchbuffers we use for reset testing, or in
+general for having precise control over race conditions and things
+like that.
 
---===============0824795229==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+One thing that was somewhat annoying for i915 but shouldn't be a
+problem for amdgpu is that igt builds on intel. So we have stub
+functions for libdrm-intel, since libdrm-intel doesn't build on arm.
+Shouldn't be a problem for you.
+-Daniel
 
+
+> Andrey
+>
+> >
+> >> Andrey
+> >>
+> >>
+> >>>>> But just to get it started
+> >>>>> you can throw in entirely amdgpu specific subtests and just share some of
+> >>>>> the test code.
+> >>>>> -Daniel
+> >>>> Im general, I wasn't aware of this test suite and looks like it does what i test
+> >>>> among other stuff.
+> >>>> I will definitely  try to run with it although the rescan part will not work as
+> >>>> plugging
+> >>>> the device back is in my TODO list and not part of the scope for this patchset
+> >>>> and so I will
+> >>>> probably comment the re-scan section out while testing.
+> >>> amd gem has been using libdrm-amd thus far iirc, but for things like
+> >>> this I think it'd be worth to at least consider switching. Display
+> >>> team has already started to use some of the test and contribute stuff
+> >>> (I think the VRR testcase is from amd).
+> >>> -Daniel
+> >>>
+> >>>> Andrey
+> >>>>
+> >>>>
+> >>>>>> Andrey Grodzovsky (13):
+> >>>>>>      drm/ttm: Remap all page faults to per process dummy page.
+> >>>>>>      drm: Unamp the entire device address space on device unplug
+> >>>>>>      drm/ttm: Expose ttm_tt_unpopulate for driver use
+> >>>>>>      drm/sched: Cancel and flush all oustatdning jobs before finish.
+> >>>>>>      drm/amdgpu: Split amdgpu_device_fini into early and late
+> >>>>>>      drm/amdgpu: Add early fini callback
+> >>>>>>      drm/amdgpu: Register IOMMU topology notifier per device.
+> >>>>>>      drm/amdgpu: Fix a bunch of sdma code crash post device unplug
+> >>>>>>      drm/amdgpu: Remap all page faults to per process dummy page.
+> >>>>>>      dmr/amdgpu: Move some sysfs attrs creation to default_attr
+> >>>>>>      drm/amdgpu: Guard against write accesses after device removal
+> >>>>>>      drm/sched: Make timeout timer rearm conditional.
+> >>>>>>      drm/amdgpu: Prevent any job recoveries after device is unplugged.
+> >>>>>>
+> >>>>>> Luben Tuikov (1):
+> >>>>>>      drm/scheduler: Job timeout handler returns status
+> >>>>>>
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  11 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c      |  17 +--
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 149 ++++++++++++++++++++--
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |  20 ++-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c         |  15 ++-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c          |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h          |   1 +
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           |   9 ++
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c       |  25 ++--
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           |  26 ++--
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h           |   3 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_job.c           |  19 ++-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c           |  12 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        |  10 ++
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.h        |   2 +
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c           |  53 +++++---
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h           |   3 +
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c           |   1 +
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c          |  70 ++++++++++
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h          |  52 +-------
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           |  21 ++-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |   8 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c      |  14 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/cik_ih.c               |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/cz_ih.c                |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/iceland_ih.c           |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/navi10_ih.c            |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v11_0.c            |  16 +--
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v12_0.c            |   8 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/psp_v3_1.c             |   8 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/si_ih.c                |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/tonga_ih.c             |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/vega10_ih.c            |   2 +-
+> >>>>>>     drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-
+> >>>>>>     drivers/gpu/drm/amd/include/amd_shared.h          |   2 +
+> >>>>>>     drivers/gpu/drm/drm_drv.c                         |   3 +
+> >>>>>>     drivers/gpu/drm/etnaviv/etnaviv_sched.c           |  10 +-
+> >>>>>>     drivers/gpu/drm/lima/lima_sched.c                 |   4 +-
+> >>>>>>     drivers/gpu/drm/panfrost/panfrost_job.c           |   9 +-
+> >>>>>>     drivers/gpu/drm/scheduler/sched_main.c            |  18 ++-
+> >>>>>>     drivers/gpu/drm/ttm/ttm_bo_vm.c                   |  82 +++++++++++-
+> >>>>>>     drivers/gpu/drm/ttm/ttm_tt.c                      |   1 +
+> >>>>>>     drivers/gpu/drm/v3d/v3d_sched.c                   |  32 ++---
+> >>>>>>     include/drm/gpu_scheduler.h                       |  17 ++-
+> >>>>>>     include/drm/ttm/ttm_bo_api.h                      |   2 +
+> >>>>>>     45 files changed, 583 insertions(+), 198 deletions(-)
+> >>>>>>
+> >>>>>> --
+> >>>>>> 2.7.4
+> >>>>>>
+> >>>
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0824795229==--
