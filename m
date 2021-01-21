@@ -2,46 +2,133 @@ Return-Path: <SRS0=VJnr=GY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46837C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 09:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A0B7C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 10:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B07812399A
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 09:21:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B07812399A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id B4D4F207CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 10:42:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4D4F207CC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488AC6E528;
-	Thu, 21 Jan 2021 09:21:00 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219BA6E528
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 09:20:59 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5DD762395A;
- Thu, 21 Jan 2021 09:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611220858;
- bh=Ny1jGTuvmijljUHkCpNQfb40xdnkqS7RhGcjw3Z6mKw=;
- h=From:To:Cc:Subject:Date:From;
- b=mwvcsZNsrAjXMeBVD1cqm2o//a2q7fkvW8QGAmwrUYlFkxL77CavBnKS7/zAX+QUj
- CkCYlMqGqJZ9GaHDwUeGul9DIE9JY35r03T2mjWvb99IiBdy3W4exm1qwf6ZCkzGoC
- 5t0LK3peQl4rG3stXhAGQep10sjUSy67x31p6Uf+8dL3QHrxjqDkOk6dryytA0KF8P
- 64AiS1qktsyEkikf7OEoBNH4VhtrdxJBez7nf72tjYr2WTGnTtgc/58tEKU23uhgND
- G6fDCsbKdX6OH3w26BVeRC5ASIMTwfQJJnbiidZSM3CvttFBXg0/+4LcWytzFSZ/JL
- srL9PdME/uZlg==
-From: Ard Biesheuvel <ardb@kernel.org>
-To: stable@vger.kernel.org
-Subject: [PATCH -stable] drm/amdgpu/display: drop DCN support for aarch64
-Date: Thu, 21 Jan 2021 10:20:40 +0100
-Message-Id: <20210121092040.110267-1-ardb@kernel.org>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 916136E53C;
+	Thu, 21 Jan 2021 10:42:43 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760080.outbound.protection.outlook.com [40.107.76.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB306E8C1;
+ Thu, 21 Jan 2021 10:42:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GUdWbxAibndlgM/aT7wMOQ395ffdFI3axEkSOKatfdpOLLMwvhFmnvev37oguSno7j5ZEpL5zgg9Ry8OoBnoN/AoVE/OX8RflS4TJdYRbpjJNCW2LRNO3FM6LsfX0nLiBOBrU3Zy3FFsNck24DukeR0dg6LB2yt45/fPHl98knXziTFgKXeKNWcBdB0ZLrtilDOGQP1MNDLcNSKgNMyxeuF/MBq9JP7OkxtaYxAPU46LkuuF4MYtD1kE9a3NzHLPSL6UooNCJVw3HJc1cLiHO7aE+neR/7oinYpHq103PPncvOAdzSCF3eyr2ZB19+4xPMp+RXjoIfwOSBM/kMlslg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wrg7/PvJ9DD4Rwx9YnWPAEp2ajfXFarbDJus4NLK7tM=;
+ b=Y2PKPnoBOqlMpnqrliYDDwTi2njAKr3yaUKd5KU9SYqvFP/5VIvfaOQddx9xXdw9cKVKXKjGOaFdn7nczH+iukei23W1DkheOfnowalm1chFNP1yLJnPIyLNACe4gociU91GQA88wjaMb39TMc4pEGY8Ha5B9m42z5Ge6L23ZYjB5Fh28BtB0vyCVdgmzEQiPBkDU5cyD6rZf3nje7k8gPhH9EFWsQ2PGcs0DlFTSQDwtEK36ATPP/iJOKPu1pYrHdACt/mvRgr+Z7BkHHtbpfASERz3h658U6Ypf8JbwgwCSjFGD5sh2N05TxqRBDI9+Hzgco54eVHQFLgWXkMU0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wrg7/PvJ9DD4Rwx9YnWPAEp2ajfXFarbDJus4NLK7tM=;
+ b=vVq0nFI2afqAdA64bhL3+If9HUN71oYmfLhidRCp+9kh7RGn+AVbONufz4YLAZl4vbfEmKhVk32KNJ7GK9EIke8s7jB4DaWsI0riY1B7MzkE4cPsN7N+I/DLZzMPOzDOdNLEXipCB9kZ7s07bN426+hDYbJO95DIVDyllBTXEOY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Thu, 21 Jan
+ 2021 10:42:40 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3784.011; Thu, 21 Jan 2021
+ 10:42:40 +0000
+Subject: Re: [PATCH v4 07/14] drm/amdgpu: Register IOMMU topology notifier per
+ device.
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, robh@kernel.org, l.stach@pengutronix.de,
+ yuq825@gmail.com, eric@anholt.net
+References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1611003683-3534-8-git-send-email-andrey.grodzovsky@amd.com>
+ <2978ebf8-858d-6e8e-5657-1d0d615d56e0@gmail.com>
+ <2e6b1fd8-d20f-ce57-44f2-f679d1530ff9@amd.com>
+ <1a0f32ef-3700-83b7-1260-813f9048a41f@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <5453ccd3-178e-b25a-285d-cfda6297736f@amd.com>
+Date: Thu, 21 Jan 2021 11:42:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <1a0f32ef-3700-83b7-1260-813f9048a41f@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM0PR08CA0031.eurprd08.prod.outlook.com
+ (2603:10a6:208:d2::44) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM0PR08CA0031.eurprd08.prod.outlook.com (2603:10a6:208:d2::44) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3784.12 via Frontend Transport; Thu, 21 Jan 2021 10:42:37 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: a2a1c1fb-90ca-49a4-0fcf-08d8bdf94619
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4374:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB43741FB007F1E754E55A1F5B83A10@MN2PR12MB4374.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EUsSS4KgVcB3BAGBhkKTaGylSEquylZwxwKu8FgAXG4P36HJEyOV8YmpuaT3OJ5fuxMbm8rZ5EAMkISWmjveFvuzl3pjD/Nr5b2O3Vx7acZpbjSbR5NBUyNiy14R1VOXZkkVfwABeDkYLSKpHZ57tp8ueXeSAJu1BVn6RCgnha92bhAJifdDiy2waZ3Z/fmPiH5jHPJ6UwlZtrbeBPtdTslo8aUEvzSvf07i4+sG0Z9wClRUvlppRri4ue99hUGaOY864YXGE7xuE5/c3SKEe4EGj/H4feBrhM+ZUdOrBBsz2WWGgG+ZPM9xBNVUjHd77Mu595/3DtFyOuzmABGoE5PEPqZRRnXZdBoF22EMusTCtWwBtEVBrWDvceJt6mzSW2pJbcLtZoS3ijhlinI0stUHHrDEZVqf//BiCu1c8RH8jztlNe+DPJcUwUCXILO/ldNexhGysk5sfcwQHwlciHXdzqIZGwYnVztywtNQm8IRrQtfO+vCDHmhKojGjT7Y+E7Jyixez3KYr94xEP1tkw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(396003)(366004)(39860400002)(346002)(66574015)(4326008)(186003)(16526019)(2906002)(31686004)(53546011)(36756003)(6666004)(83380400001)(966005)(52116002)(2616005)(45080400002)(316002)(66556008)(478600001)(8936002)(5660300002)(86362001)(6486002)(31696002)(66476007)(66946007)(8676002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RHBTejNaRElEalZpaXBFOXlQRlE1ekQ2Njk4a2doaWFYVzM3cmhMb1FITFU0?=
+ =?utf-8?B?Y0QwY1VHVzdHeTJwZzZIWmtMVVQ2akllcUJ0L0VYY3YxMEJ6enh2L3ZlMERo?=
+ =?utf-8?B?VXh5L2hwNDNNdElWUzd0SHQ0WFVNTVBQZlpmL0dnVXlUUS9Hcm9yaUhBUXda?=
+ =?utf-8?B?NDRwRVJESnZLM2l1TEtpbWxJSDZFT0Z2aFNmTUVSYXJyWWVLZjZ1RHdzY3Vu?=
+ =?utf-8?B?RUtTOW9lNkRGQWV6MytsOG4zR29sZWltNXZuZHNWcHlBenM1REcxaWpYR3RD?=
+ =?utf-8?B?WTFDcUorVXBnUzNUTFp2YUJOUmROTGdoRFlrTHRldVZVUHpvUjZwK1pyOENo?=
+ =?utf-8?B?VmREdkNVTlBQcXlDT0xKU1BnLzA0QU5JSXRrVW53cGpsVUdMM3czMFVtcUFL?=
+ =?utf-8?B?L2RDQStlZ25kVDQrTmtkOFh0RDdmRlE5VDc2ZUVuUERxaEFoTFlGSXluemRv?=
+ =?utf-8?B?UkRnNStjRVl1WEZUVHAyNk5EanNvNzJOSXNVSzQ2OGN0S25SeDVsbzZDeXdj?=
+ =?utf-8?B?TWVybjIyc2NXQkNiUWIwM0dRZ3dycHNxRnRLZnExcXVPYUpCc3Z3Qkc1U0U5?=
+ =?utf-8?B?UnBVSTBwSnE0UkFTT2Iwd0FpeEplOEltSXBpSXg0WTZqcEVMNHBMcCtXWTl5?=
+ =?utf-8?B?NVZNeXlHdEt5ZjF6cDRWUWYwNkRUVW1oekowbFp2Z241YWVYVmJ6TjI1a3BC?=
+ =?utf-8?B?SGxOb1hHZW9Zc3FOZUJsLzJtK09rNFVnOXk0WlE2YzRNVTM0VnR1OHlPVjk1?=
+ =?utf-8?B?NjRPdURubFlxY1M4MDZvOVlRTnhyWm1hYzN2NmZVc2J5ZlZrZnRMOERrREhF?=
+ =?utf-8?B?TFkvUms1ZzlIdkJSWlFhdFNxc0ZoOHF3YXdjTExmTEpTb1Fwa3dOdEsrRkZq?=
+ =?utf-8?B?dW93eFZWeU9VRFJVU2pxQTJaendHMDM4YlN6WmppZWJTZUdHaFVVcEJJRDgz?=
+ =?utf-8?B?MGxTUU9OVCtVeXlNRVdvTXRwaS9OYjdYUTlOTGFqSWFTU1ZjeE9CRGo0Q1Jz?=
+ =?utf-8?B?c0swYmVMbTl6REgvdENxOUduT2dvQTdnbjI4cTBXUlR0a0srMG9Na283M2VK?=
+ =?utf-8?B?YWhZSFdEa2J5L0QyWHM0Ym9BMFVmbjR2MFNLM21sK1FDRU8xNDZVVVh0WFlq?=
+ =?utf-8?B?TEZ5dVJaNzM2c20wb0JXbUMxQlJaUE1iSFZKdTE5Wkx2L1Fha1o0YjIrRG1G?=
+ =?utf-8?B?OThXWGtHNUR4R24zZTVOYlZOVThnZ3hmbjZ3L2o2QTF0Rk9icDRGSkR2dG83?=
+ =?utf-8?B?NU1OemttSWlxSmlENXN6WXdjVjJCQlNObjBsU2ZOVkpidHh5T2xDMlNSYUpP?=
+ =?utf-8?B?dHlYTWo5bnpnTm53RDh0UktEb3ljRGdmOFRQTXpxZDZLNU56NGNORlNxQnA5?=
+ =?utf-8?B?RTM5enVxSTd5eS96dzEvcUJ1am51NStHb2U2RjJhMVJuQjJYTnVuVUg1Z3dZ?=
+ =?utf-8?B?Vm0wVUZ1STFwTFFybTFVMmhlM3E3cmZzTk5yMHJuT3Fwd1FUdEdJQ094eHFH?=
+ =?utf-8?Q?YtBPaWNSH6ONU89Eb66kAyKygj5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2a1c1fb-90ca-49a4-0fcf-08d8bdf94619
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2021 10:42:40.4932 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DlfcunMR/PHb0Oj9bRNRt+9AtfbcIoVu7sq6iVkDniSNnUsA4FKtJoVSr/zeN0+h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,343 +140,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Will Deacon <will@kernel.org>,
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- Ard Biesheuvel <ardb@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ Harry.Wentland@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
-
-commit c241ed2f0ea549c18cff62a3708b43846b84dae3 upstream.
-
-From Ard:
-
-"Simply disabling -mgeneral-regs-only left and right is risky, given that
-the standard AArch64 ABI permits the use of FP/SIMD registers anywhere,
-and GCC is known to use SIMD registers for spilling, and may invent
-other uses of the FP/SIMD register file that have nothing to do with the
-floating point code in question. Note that putting kernel_neon_begin()
-and kernel_neon_end() around the code that does use FP is not sufficient
-here, the problem is in all the other code that may be emitted with
-references to SIMD registers in it.
-
-So the only way to do this properly is to put all floating point code in
-a separate compilation unit, and only compile that unit with
--mgeneral-regs-only."
-
-Disable support until the code can be properly refactored to support this
-properly on aarch64.
-
-Acked-by: Will Deacon <will@kernel.org>
-Reported-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ardb: backport to v5.10 by reverting c38d444e44badc55 instead]
-Acked-by: Alex Deucher <alexander.deucher@amd.com> # v5.10 backport
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
-The original commit does not apply cleanly to v5.10, as it reverts a
-combination of patches, some of which are not present in v5.10.
-
-This patch is a straight revert of c38d444e44badc55, which is the only
-change that needs to be backed out from v5.10, and amounts to the same
-thing as the original mainline commit.
-
- drivers/gpu/drm/amd/display/Kconfig                   |  2 +-
- drivers/gpu/drm/amd/display/dc/calcs/Makefile         |  7 --
- drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile       |  7 --
- drivers/gpu/drm/amd/display/dc/dcn10/Makefile         |  7 --
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 81 ++++++++------------
- drivers/gpu/drm/amd/display/dc/dcn20/Makefile         |  4 -
- drivers/gpu/drm/amd/display/dc/dcn21/Makefile         |  4 -
- drivers/gpu/drm/amd/display/dc/dml/Makefile           | 13 ----
- drivers/gpu/drm/amd/display/dc/dsc/Makefile           |  5 --
- drivers/gpu/drm/amd/display/dc/os_types.h             |  4 -
- 10 files changed, 32 insertions(+), 102 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 60dfdd432aba..3c410d236c49 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -6,7 +6,7 @@ config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
--	select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON)) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-+	select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-index 64f515d74410..4674aca8f206 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-@@ -33,10 +33,6 @@ ifdef CONFIG_PPC64
- calcs_ccflags := -mhard-float -maltivec
- endif
- 
--ifdef CONFIG_ARM64
--calcs_rcflags := -mgeneral-regs-only
--endif
--
- ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
-@@ -57,9 +53,6 @@ endif
- CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_ccflags) -Wno-tautological-compare
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_rcflags)
- 
- BW_CALCS = dce_calcs.o bw_fixed.o custom_float.o
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-index 1a495759a034..52b1ce775a1e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-@@ -104,13 +104,6 @@ ifdef CONFIG_PPC64
- CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
- endif
- 
--# prevent build errors:
--# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
--# this file is unused on arm64, just like on ppc64
--ifdef CONFIG_ARM64
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := -mgeneral-regs-only
--endif
--
- AMD_DAL_CLK_MGR_DCN21 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn21/,$(CLK_MGR_DCN21))
- 
- AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/Makefile b/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-index 733e6e6e43bd..62ad1a11bff9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-@@ -31,11 +31,4 @@ DCN10 = dcn10_init.o dcn10_resource.o dcn10_ipp.o dcn10_hw_sequencer.o \
- 
- AMD_DAL_DCN10 = $(addprefix $(AMDDALPATH)/dc/dcn10/,$(DCN10))
- 
--# fix:
--# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
--# aarch64 does not support soft-float, so use hard-float and handle this in code
--ifdef CONFIG_ARM64
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn10/dcn10_resource.o := -mgeneral-regs-only
--endif
--
- AMD_DISPLAY_FILES += $(AMD_DAL_DCN10)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index a78712caf124..462d3d981ea5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -1339,47 +1339,6 @@ static uint32_t read_pipe_fuses(struct dc_context *ctx)
- 	return value;
- }
- 
--/*
-- * Some architectures don't support soft-float (e.g. aarch64), on those
-- * this function has to be called with hardfloat enabled, make sure not
-- * to inline it so whatever fp stuff is done stays inside
-- */
--static noinline void dcn10_resource_construct_fp(
--	struct dc *dc)
--{
--	if (dc->ctx->dce_version == DCN_VERSION_1_01) {
--		struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
--		struct dcn_ip_params *dcn_ip = dc->dcn_ip;
--		struct display_mode_lib *dml = &dc->dml;
--
--		dml->ip.max_num_dpp = 3;
--		/* TODO how to handle 23.84? */
--		dcn_soc->dram_clock_change_latency = 23;
--		dcn_ip->max_num_dpp = 3;
--	}
--	if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
--		dc->dcn_soc->urgent_latency = 3;
--		dc->debug.disable_dmcu = true;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
--	}
--
--
--	dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
--	ASSERT(dc->dcn_soc->number_of_channels < 3);
--	if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
--		dc->dcn_soc->number_of_channels = 2;
--
--	if (dc->dcn_soc->number_of_channels == 1) {
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
--		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
--		if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
--			dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
--		}
--	}
--}
--
- static bool dcn10_resource_construct(
- 	uint8_t num_virtual_links,
- 	struct dc *dc,
-@@ -1531,15 +1490,37 @@ static bool dcn10_resource_construct(
- 	memcpy(dc->dcn_ip, &dcn10_ip_defaults, sizeof(dcn10_ip_defaults));
- 	memcpy(dc->dcn_soc, &dcn10_soc_defaults, sizeof(dcn10_soc_defaults));
- 
--#if defined(CONFIG_ARM64)
--	/* Aarch64 does not support -msoft-float/-mfloat-abi=soft */
--	DC_FP_START();
--	dcn10_resource_construct_fp(dc);
--	DC_FP_END();
--#else
--	/* Other architectures we build for build this with soft-float */
--	dcn10_resource_construct_fp(dc);
--#endif
-+	if (dc->ctx->dce_version == DCN_VERSION_1_01) {
-+		struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
-+		struct dcn_ip_params *dcn_ip = dc->dcn_ip;
-+		struct display_mode_lib *dml = &dc->dml;
-+
-+		dml->ip.max_num_dpp = 3;
-+		/* TODO how to handle 23.84? */
-+		dcn_soc->dram_clock_change_latency = 23;
-+		dcn_ip->max_num_dpp = 3;
-+	}
-+	if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-+		dc->dcn_soc->urgent_latency = 3;
-+		dc->debug.disable_dmcu = true;
-+		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
-+	}
-+
-+
-+	dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
-+	ASSERT(dc->dcn_soc->number_of_channels < 3);
-+	if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
-+		dc->dcn_soc->number_of_channels = 2;
-+
-+	if (dc->dcn_soc->number_of_channels == 1) {
-+		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
-+		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
-+		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
-+		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
-+		if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-+			dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
-+		}
-+	}
- 
- 	pool->base.pp_smu = dcn10_pp_smu_create(ctx);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-index 624cb1341ef1..5fcaf78334ff 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-@@ -17,10 +17,6 @@ ifdef CONFIG_PPC64
- CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -maltivec
- endif
- 
--ifdef CONFIG_ARM64
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mgeneral-regs-only
--endif
--
- ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-index 51a2f3d4c194..07684d3e375a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-@@ -13,10 +13,6 @@ ifdef CONFIG_PPC64
- CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -maltivec
- endif
- 
--ifdef CONFIG_ARM64
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mgeneral-regs-only
--endif
--
- ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index dbc7e2abe379..417331438c30 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -33,10 +33,6 @@ ifdef CONFIG_PPC64
- dml_ccflags := -mhard-float -maltivec
- endif
- 
--ifdef CONFIG_ARM64
--dml_rcflags := -mgeneral-regs-only
--endif
--
- ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
-@@ -64,13 +60,6 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
- endif
- ifdef CONFIG_DRM_AMD_DC_DCN3_0
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
-@@ -78,8 +67,6 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
- endif
- CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_rcflags)
- 
- DML = display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o \
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-index f2624a1156e5..ea29cf95d470 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-@@ -10,10 +10,6 @@ ifdef CONFIG_PPC64
- dsc_ccflags := -mhard-float -maltivec
- endif
- 
--ifdef CONFIG_ARM64
--dsc_rcflags := -mgeneral-regs-only
--endif
--
- ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
-@@ -32,7 +28,6 @@ endif
- endif
- 
- CFLAGS_$(AMDDALPATH)/dc/dsc/rc_calc.o := $(dsc_ccflags)
--CFLAGS_REMOVE_$(AMDDALPATH)/dc/dsc/rc_calc.o := $(dsc_rcflags)
- 
- DSC = dc_dsc.o rc_calc.o rc_calc_dpi.o
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 95cb56929e79..126c2f3a4dd3 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -55,10 +55,6 @@
- #include <asm/fpu/api.h>
- #define DC_FP_START() kernel_fpu_begin()
- #define DC_FP_END() kernel_fpu_end()
--#elif defined(CONFIG_ARM64)
--#include <asm/neon.h>
--#define DC_FP_START() kernel_neon_begin()
--#define DC_FP_END() kernel_neon_end()
- #elif defined(CONFIG_PPC64)
- #include <asm/switch_to.h>
- #include <asm/cputable.h>
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAuMDEuMjEgdW0gMjA6Mzggc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBQaW5nCj4K
+PiBBbmRyZXkKPgo+IE9uIDEvMjAvMjEgMTI6MDEgQU0sIEFuZHJleSBHcm9kem92c2t5IHdyb3Rl
+Ogo+Pgo+PiBPbiAxLzE5LzIxIDM6NDggQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBB
+bSAxOC4wMS4yMSB1bSAyMjowMSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+IEhhbmRs
+ZSBhbGwgRE1BIElPTU1VIGdyb3B1cCByZWxhdGVkIGRlcGVuZGVuY2llcyBiZWZvcmUgdGhlCj4+
+Pj4gZ3JvdXAgaXMgcmVtb3ZlZC4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9k
+em92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+Pj4+IC0tLQo+Pj4+IMKgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5owqDCoMKgwqDCoMKgwqAgfMKgIDUgKysrKwo+
+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQ2IAo+
+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+IMKgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmPCoMKgIHzCoCAyICstCj4+Pj4gwqAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaMKgwqAgfMKgIDEgKwo+Pj4+IMKgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDEwICsrKysrKysKPj4+PiDC
+oCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfMKgIDIgKysKPj4+
+PiDCoCA2IGZpbGVzIGNoYW5nZWQsIDY1IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4+
+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAK
+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+Pj4gaW5kZXggNDc4
+YTdkOC4uMjk1MzQyMCAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUuaAo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+Cj4+Pj4gQEAgLTUxLDYgKzUxLDcgQEAKPj4+PiDCoCAjaW5jbHVkZSA8bGludXgvZG1hLWZlbmNl
+Lmg+Cj4+Pj4gwqAgI2luY2x1ZGUgPGxpbnV4L3BjaS5oPgo+Pj4+IMKgICNpbmNsdWRlIDxsaW51
+eC9hZXIuaD4KPj4+PiArI2luY2x1ZGUgPGxpbnV4L25vdGlmaWVyLmg+Cj4+Pj4gwqAgwqAgI2lu
+Y2x1ZGUgPGRybS90dG0vdHRtX2JvX2FwaS5oPgo+Pj4+IMKgICNpbmNsdWRlIDxkcm0vdHRtL3R0
+bV9ib19kcml2ZXIuaD4KPj4+PiBAQCAtMTA0MSw2ICsxMDQyLDEwIEBAIHN0cnVjdCBhbWRncHVf
+ZGV2aWNlIHsKPj4+PiDCoCDCoMKgwqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW5fcGNpX2Vycl9yZWNvdmVyeTsKPj4+PiDC
+oMKgwqDCoMKgIHN0cnVjdCBwY2lfc2F2ZWRfc3RhdGXCoMKgwqDCoMKgwqDCoMKgwqAgKnBjaV9z
+dGF0ZTsKPj4+PiArCj4+Pj4gK8KgwqDCoCBzdHJ1Y3Qgbm90aWZpZXJfYmxvY2vCoMKgwqDCoMKg
+wqDCoCBuYjsKPj4+PiArwqDCoMKgIHN0cnVjdCBibG9ja2luZ19ub3RpZmllcl9oZWFkwqDCoMKg
+IG5vdGlmaWVyOwo+Pj4+ICvCoMKgwqAgc3RydWN0IGxpc3RfaGVhZMKgwqDCoMKgwqDCoMKgIGRl
+dmljZV9ib19saXN0Owo+Pj4+IMKgIH07Cj4+Pj4gwqAgwqAgc3RhdGljIGlubGluZSBzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqZHJtX3RvX2FkZXYoc3RydWN0IAo+Pj4+IGRybV9kZXZpY2UgKmRkZXYp
+Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+
+Pj4+IGluZGV4IDQ1ZTIzZTMuLmU5OWY0ZjEgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+Pj4gQEAgLTcwLDYgKzcwLDggQEAKPj4+PiDC
+oCAjaW5jbHVkZSA8ZHJtL3Rhc2tfYmFycmllci5oPgo+Pj4+IMKgICNpbmNsdWRlIDxsaW51eC9w
+bV9ydW50aW1lLmg+Cj4+Pj4gwqAgKyNpbmNsdWRlIDxsaW51eC9pb21tdS5oPgo+Pj4+ICsKPj4+
+PiDCoCBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS92ZWdhMTBfZ3B1X2luZm8uYmluIik7Cj4+Pj4g
+wqAgTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvdmVnYTEyX2dwdV9pbmZvLmJpbiIpOwo+Pj4+IMKg
+IE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L3JhdmVuX2dwdV9pbmZvLmJpbiIpOwo+Pj4+IEBAIC0z
+MjAwLDYgKzMyMDIsMzkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhdHRyaWJ1dGUgCj4+Pj4gKmFt
+ZGdwdV9kZXZfYXR0cmlidXRlc1tdID0gewo+Pj4+IMKgIH07Cj4+Pj4gwqAgwqAgK3N0YXRpYyBp
+bnQgYW1kZ3B1X2lvbW11X2dyb3VwX25vdGlmaWVyKHN0cnVjdCBub3RpZmllcl9ibG9jayAqbmIs
+Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQg
+bG9uZyBhY3Rpb24sIHZvaWQgKmRhdGEpCj4+Pj4gK3sKPj4+PiArwqDCoMKgIHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2ID0gY29udGFpbmVyX29mKG5iLCBzdHJ1Y3QgCj4+Pj4gYW1kZ3B1X2Rl
+dmljZSwgbmIpOwo+Pj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBOVUxMOwo+Pj4+
+ICsKPj4+PiArwqDCoMKgIC8qCj4+Pj4gK8KgwqDCoMKgICogRm9sbG93aW5nIGlzIGEgc2V0IG9m
+IElPTU1VIGdyb3VwIGRlcGVuZGVuY2llcyB0YWtlbiBjYXJlIAo+Pj4+IG9mIGJlZm9yZQo+Pj4+
+ICvCoMKgwqDCoCAqIGRldmljZSdzIElPTU1VIGdyb3VwIGlzIHJlbW92ZWQKPj4+PiArwqDCoMKg
+wqAgKi8KPj4+PiArwqDCoMKgIGlmIChhY3Rpb24gPT0gSU9NTVVfR1JPVVBfTk9USUZZX0RFTF9E
+RVZJQ0UpIHsKPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHNwaW5fbG9jaygmdHRtX2JvX2ds
+b2IubHJ1X2xvY2spOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBsaXN0X2Zvcl9lYWNoX2VudHJ5KGJv
+LCAmYWRldi0+ZGV2aWNlX2JvX2xpc3QsIGJvKSB7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgaWYgKGJvLT50Ym8udHRtKQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+dHRtX3R0X3VucG9wdWxhdGUoYm8tPnRiby5iZGV2LCBiby0+dGJvLnR0bSk7Cj4+Pj4gK8KgwqDC
+oMKgwqDCoMKgIH0KPj4+PiArwqDCoMKgwqDCoMKgwqAgc3Bpbl91bmxvY2soJnR0bV9ib19nbG9i
+LmxydV9sb2NrKTsKPj4+Cj4+PiBUaGF0IGFwcHJvYWNoIHdvbid0IHdvcmsuIHR0bV90dF91bnBv
+cHVsYXRlKCkgbWlnaHQgc2xlZXAgb24gYW4gCj4+PiBJT01NVSBsb2NrLgo+Pj4KPj4+IFlvdSBu
+ZWVkIHRvIHVzZSBhIG11dGV4IGhlcmUgb3IgZXZlbiBiZXR0ZXIgbWFrZSBzdXJlIHlvdSBjYW4g
+YWNjZXNzIAo+Pj4gdGhlIGRldmljZV9ib19saXN0IHdpdGhvdXQgYSBsb2NrIGluIHRoaXMgbW9t
+ZW50Lgo+Pj4KPj4+IENocmlzdGlhbi4KPj4KPj4KPj4gSSBjYW4gdGhpbmsgb2Ygc3dpdGNoaW5n
+IHRvIFJDVSBsaXN0ID8gT3RoZXJ3aXNlLCBlbGVtZW50cyBhcmUgYWRkZWQKPj4gb24gQk8gY3Jl
+YXRlIGFuZCBkZWxldGVkIG9uIEJPIGRlc3Ryb3ksIGhvdyBjYW4gaSBwcmV2ZW50IGFueSBvZiAK
+Pj4gdGhvc2UgZnJvbQo+PiBoYXBwZW5pbmcgd2hpbGUgaW4gdGhpcyBzZWN0aW9uIGJlc2lkZXMg
+bXV0ZXggPyBNYWtlIGEgY29weSBsaXN0IGFuZCAKPj4gcnVuIG92ZXIgaXQgaW5zdGVhZCA/CgpS
+Q1Ugd29uJ3Qgd29yayBzaW5jZSB0aGUgQk8gaXMgbm90IFJDVSBwcm90ZWN0ZWQuCgpXaGF0IHlv
+dSBjYW4gdHJ5IHNvbWV0aGluZyBsaWtlIHRoaXM6CgpzcGluX2xvY2soJnR0bV9ib19nbG9iLmxy
+dV9sb2NrKTsKd2hpbGUgKGxpc3Rfbm90X2VtcHR5KCZhZGV2LT5kZXZpY2VfYm9fbGlzdCkpIHsK
+IMKgwqDCoCBibyA9IGxpc3RfZmlyc3RfZW50cnkoJmFkZXYtPmRldmljZV9ib19saXN0KTsKIMKg
+wqDCoCBsaXN0X2RlbChiby0+Li4uKTsKIMKgwqDCoCBzcGluX3VubG9jaygmdHRtX2JvX2dsb2Iu
+bHJ1X2xvY2spOwogwqDCoMKgIHR0bV90dF91bnBvcHVsYXRlKGJvKTsKIMKgwqDCoCBzcGluX2xv
+Y2soJnR0bV9ib19nbG9iLmxydV9sb2NrKTsKfS4uLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPj4K
+Pj4gQW5kcmV5Cj4+Cj4+Cj4+Pgo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGFkZXYt
+PmlycS5paC51c2VfYnVzX2FkZHIpCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1
+X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloKTsKPj4+PiArwqDCoMKgwqDCoMKgwqAg
+aWYgKGFkZXYtPmlycS5paDEudXNlX2J1c19hZGRyKQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGFtZGdwdV9paF9yaW5nX2ZpbmkoYWRldiwgJmFkZXYtPmlycS5paDEpOwo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoCBpZiAoYWRldi0+aXJxLmloMi51c2VfYnVzX2FkZHIpCj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYW1kZ3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloMik7
+Cj4+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfZ2FydF9kdW1teV9wYWdlX2Zpbmko
+YWRldik7Cj4+Pj4gK8KgwqDCoCB9Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgcmV0dXJuIE5PVElGWV9P
+SzsKPj4+PiArfQo+Pj4+ICsKPj4+PiArCj4+Pj4gwqAgLyoqCj4+Pj4gwqDCoCAqIGFtZGdwdV9k
+ZXZpY2VfaW5pdCAtIGluaXRpYWxpemUgdGhlIGRyaXZlcgo+Pj4+IMKgwqAgKgo+Pj4+IEBAIC0z
+MzA0LDYgKzMzMzksOCBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2
+aWNlIAo+Pj4+ICphZGV2LAo+Pj4+IMKgIMKgwqDCoMKgwqAgSU5JVF9XT1JLKCZhZGV2LT54Z21p
+X3Jlc2V0X3dvcmssIAo+Pj4+IGFtZGdwdV9kZXZpY2VfeGdtaV9yZXNldF9mdW5jKTsKPj4+PiDC
+oCArwqDCoMKgIElOSVRfTElTVF9IRUFEKCZhZGV2LT5kZXZpY2VfYm9fbGlzdCk7Cj4+Pj4gKwo+
+Pj4+IMKgwqDCoMKgwqAgYWRldi0+Z2Z4LmdmeF9vZmZfcmVxX2NvdW50ID0gMTsKPj4+PiDCoMKg
+wqDCoMKgIGFkZXYtPnBtLmFjX3Bvd2VyID0gcG93ZXJfc3VwcGx5X2lzX3N5c3RlbV9zdXBwbGll
+ZCgpID4gMDsKPj4+PiDCoCBAQCAtMzU3NSw2ICszNjEyLDE1IEBAIGludCBhbWRncHVfZGV2aWNl
+X2luaXQoc3RydWN0IAo+Pj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+Pj4gwqDCoMKgwqDCoCBp
+ZiAoYW1kZ3B1X2RldmljZV9jYWNoZV9wY2lfc3RhdGUoYWRldi0+cGRldikpCj4+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIHBjaV9yZXN0b3JlX3N0YXRlKHBkZXYpOwo+Pj4+IMKgICvCoMKgwqAgQkxP
+Q0tJTkdfSU5JVF9OT1RJRklFUl9IRUFEKCZhZGV2LT5ub3RpZmllcik7Cj4+Pj4gK8KgwqDCoCBh
+ZGV2LT5uYi5ub3RpZmllcl9jYWxsID0gYW1kZ3B1X2lvbW11X2dyb3VwX25vdGlmaWVyOwo+Pj4+
+ICsKPj4+PiArwqDCoMKgIGlmIChhZGV2LT5kZXYtPmlvbW11X2dyb3VwKSB7Cj4+Pj4gK8KgwqDC
+oMKgwqDCoMKgIHIgPSBpb21tdV9ncm91cF9yZWdpc3Rlcl9ub3RpZmllcihhZGV2LT5kZXYtPmlv
+bW11X2dyb3VwLCAKPj4+PiAmYWRldi0+bmIpOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAocikK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGZhaWxlZDsKPj4+PiArwqDCoMKgIH0K
+Pj4+PiArCj4+Pj4gwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+PiDCoCDCoCBmYWlsZWQ6Cj4+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmMgCj4+
+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jCj4+Pj4gaW5kZXgg
+MGRiOTMzMC4uNDg2YWQ2ZCAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ2FydC5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dhcnQuYwo+Pj4+IEBAIC05Miw3ICs5Miw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2dh
+cnRfZHVtbXlfcGFnZV9pbml0KHN0cnVjdCAKPj4+PiBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4+
+IMKgwqAgKgo+Pj4+IMKgwqAgKiBGcmVlcyB0aGUgZHVtbXkgcGFnZSB1c2VkIGJ5IHRoZSBkcml2
+ZXIgKGFsbCBhc2ljcykuCj4+Pj4gwqDCoCAqLwo+Pj4+IC1zdGF0aWMgdm9pZCBhbWRncHVfZ2Fy
+dF9kdW1teV9wYWdlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+Pj4gK3ZvaWQg
+YW1kZ3B1X2dhcnRfZHVtbXlfcGFnZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
+Pj4+IMKgIHsKPj4+PiDCoMKgwqDCoMKgIGlmICghYWRldi0+ZHVtbXlfcGFnZV9hZGRyKQo+Pj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmggCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZ2FydC5oCj4+Pj4gaW5kZXggYWZhMmUyOC4uNTY3OGQ5YyAxMDA2NDQK
+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5oCj4+Pj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaAo+Pj4+IEBAIC02
+MSw2ICs2MSw3IEBAIGludCBhbWRncHVfZ2FydF90YWJsZV92cmFtX3BpbihzdHJ1Y3QgCj4+Pj4g
+YW1kZ3B1X2RldmljZSAqYWRldik7Cj4+Pj4gwqAgdm9pZCBhbWRncHVfZ2FydF90YWJsZV92cmFt
+X3VucGluKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4+PiDCoCBpbnQgYW1kZ3B1X2dh
+cnRfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+Pj4gwqAgdm9pZCBhbWRncHVf
+Z2FydF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4+PiArdm9pZCBhbWRncHVf
+Z2FydF9kdW1teV9wYWdlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+Pj4+IMKg
+IGludCBhbWRncHVfZ2FydF91bmJpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQ2
+NF90IG9mZnNldCwKPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgcGFn
+ZXMpOwo+Pj4+IMKgIGludCBhbWRncHVfZ2FydF9tYXAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsIHVpbnQ2NF90IG9mZnNldCwKPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X29iamVjdC5jCj4+Pj4gaW5kZXggNmNjOTkxOS4uNGExZGU2OSAxMDA2NDQKPj4+
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4+PiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4+PiBAQCAt
+OTQsNiArOTQsMTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2JvX2Rlc3Ryb3koc3RydWN0IAo+Pj4+
+IHR0bV9idWZmZXJfb2JqZWN0ICp0Ym8pCj4+Pj4gwqDCoMKgwqDCoCB9Cj4+Pj4gwqDCoMKgwqDC
+oCBhbWRncHVfYm9fdW5yZWYoJmJvLT5wYXJlbnQpOwo+Pj4+IMKgICvCoMKgwqAgc3Bpbl9sb2Nr
+KCZ0dG1fYm9fZ2xvYi5scnVfbG9jayk7Cj4+Pj4gK8KgwqDCoCBsaXN0X2RlbCgmYm8tPmJvKTsK
+Pj4+PiArwqDCoMKgIHNwaW5fdW5sb2NrKCZ0dG1fYm9fZ2xvYi5scnVfbG9jayk7Cj4+Pj4gKwo+
+Pj4+IMKgwqDCoMKgwqAga2ZyZWUoYm8tPm1ldGFkYXRhKTsKPj4+PiDCoMKgwqDCoMKgIGtmcmVl
+KGJvKTsKPj4+PiDCoCB9Cj4+Pj4gQEAgLTYxMyw2ICs2MTcsMTIgQEAgc3RhdGljIGludCBhbWRn
+cHVfYm9fZG9fY3JlYXRlKHN0cnVjdCAKPj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+IMKg
+wqDCoMKgwqAgaWYgKGJwLT50eXBlID09IHR0bV9ib190eXBlX2RldmljZSkKPj4+PiDCoMKgwqDC
+oMKgwqDCoMKgwqAgYm8tPmZsYWdzICY9IH5BTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JF
+UVVJUkVEOwo+Pj4+IMKgICvCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJmJvLT5ibyk7Cj4+Pj4gKwo+
+Pj4+ICvCoMKgwqAgc3Bpbl9sb2NrKCZ0dG1fYm9fZ2xvYi5scnVfbG9jayk7Cj4+Pj4gK8KgwqDC
+oCBsaXN0X2FkZF90YWlsKCZiby0+Ym8sICZhZGV2LT5kZXZpY2VfYm9fbGlzdCk7Cj4+Pj4gK8Kg
+wqDCoCBzcGluX3VubG9jaygmdHRtX2JvX2dsb2IubHJ1X2xvY2spOwo+Pj4+ICsKPj4+PiDCoMKg
+wqDCoMKgIHJldHVybiAwOwo+Pj4+IMKgIMKgIGZhaWxfdW5yZXNlcnZlOgo+Pj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggCj4+Pj4gYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKPj4+PiBpbmRleCA5YWMz
+NzU2Li41YWU4NTU1IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9vYmplY3QuaAo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9vYmplY3QuaAo+Pj4+IEBAIC0xMTAsNiArMTEwLDggQEAgc3RydWN0IGFtZGdwdV9ibyB7
+Cj4+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgbGlzdF9oZWFkwqDCoMKgwqDCoMKgwqAgc2hhZG93X2xp
+c3Q7Cj4+Pj4gwqAgwqDCoMKgwqDCoCBzdHJ1Y3Qga2dkX21lbcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgKmtmZF9ibzsKPj4+PiArCj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgbGlzdF9o
+ZWFkwqDCoMKgwqDCoMKgwqAgYm87Cj4+Pj4gwqAgfTsKPj4+PiDCoCDCoCBzdGF0aWMgaW5saW5l
+IHN0cnVjdCBhbWRncHVfYm8gKnR0bV90b19hbWRncHVfYm8oc3RydWN0IAo+Pj4+IHR0bV9idWZm
+ZXJfb2JqZWN0ICp0Ym8pCj4+Pgo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5v
+dXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFp
+bG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wNCU3QzAxJTdDYW5kcmV5Lmdyb2R6
+b3Zza3klNDBhbWQuY29tJTdDMGM3MDNlYjZlNzM3NDQ5NjJkM2IwOGQ4YmM1NmYzMDMlN0MzZGQ4
+OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3NDY2NDI4OTIzOTA1Njcy
+JTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1
+TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzEwMDAmYW1wO3NkYXRhPTJUa3o0
+RU1PRXdGTFFKVU9rMWl4ZDI4YzJhZDFIcWpCVklETyUyRlgwT2dxTSUzRCZhbXA7cmVzZXJ2ZWQ9
+MCAKPj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
