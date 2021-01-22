@@ -1,66 +1,55 @@
-Return-Path: <SRS0=42b/=GZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Q3L8=G2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1231BC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 23:12:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7DE3C433DB
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Jan 2021 09:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4B0D23B51
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 23:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4B0D23B51
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 51DD3233FA
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Jan 2021 09:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51DD3233FA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F2C86EA6D;
-	Fri, 22 Jan 2021 23:12:55 +0000 (UTC)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 063166EA6D
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 23:12:53 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id j8so1821568oon.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 15:12:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Os8k03BqbtSOL3+fuAtyokdDSmCdkOBvDHH+wPmtqa8=;
- b=VUVhWJjnutD/X0Gv3gTC/depzXb1lkOvR0EjD/4d4/hML0wkqZg9FDvU8v1+aKp2Ck
- gizd1l5hsGh6NXOuXbTW7mrENAFB0FBpQX5YPT5oQSdgkBBR7KCCHSROvWIO+1+gRYjr
- 6JjRsQMrR8/wy6h2tQZr1P2XW2n/pc1FYsAjVyi5rGvjHby+sIDIia1BK2xMgGGRzOLu
- 9504+5hIOZClxCQ5kSk0gZBrGV8g95aSbFMxsrafavmOis8R0qgWu4Mlbp4TCgpWSljZ
- qrkGoQnzHRur6VZjn3Y4f06sEuOxA0AHCy3tcW77VLNAXolroQZE7soXU3xyay1tFyu7
- 5fOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Os8k03BqbtSOL3+fuAtyokdDSmCdkOBvDHH+wPmtqa8=;
- b=Pq5tIh122icBX6NolFIiaTAxCRYCjxRGb1Lmdqzsh00Hxq0Y88ZPFV+cNILWas3hFJ
- x0uXeeoQUG8nCP/SGtbsy+AZPqVCglFxwC63oKeBRSv3QfE3H7CE/2vIR7qj2SfmkKrB
- Ht5upd3xJib7cj/ttdPvycCuZoDDt+fPcP+BqAJoj8yNtJNLkBbkTVqZi2L0UNEUTRnh
- O7x1NBO0M4Q+0hVQ0lDEu7mhgA0eJtgRuVMH2wcfD+f/EIcqT2eZiH0dtWZgwBCyvqV0
- 1pFlvGBpRDeuCAzRmrb3gbV2T4hPIXr2nP/UBnV3W/TAzgy75cqjHDdtUnffAKtB7ZcX
- joWw==
-X-Gm-Message-State: AOAM531e0UCGlPfTrylaVK9ysY2jw7tvafPT0UnIwN7ZWGTCfHRda2oE
- 06UzhkcwNE0drj01g2IfdlFb/g79PKUPYmGzOkQ=
-X-Google-Smtp-Source: ABdhPJz0JhQkXjD2pwtlsLPpSoy+ATIhEzILngEMYGM4zf0Dzu5moB8HbxAn1STWD9DZm2dE7efa+6Tg6aWX7fArvL4=
-X-Received: by 2002:a4a:bc8d:: with SMTP id m13mr5395753oop.72.1611357173349; 
- Fri, 22 Jan 2021 15:12:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDEB6EACA;
+	Sat, 23 Jan 2021 09:38:34 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3412689F49;
+ Fri, 22 Jan 2021 18:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=9NCYCn2uu0Groq7HNmcJIKyI4plVDNVRCWewLnn9RN8=; b=cXJUHCxcSZmb3WBbTCOSR35MIH
+ SKSZ/AI9tzSgOHhz++Q5LuNVk/ofOefgqfOGpcSMlZwWBvgsKoeC1nEyEVjBVv3ZS6oB2/lECoM+s
+ Zv5elCywH+h7Nmoy/IN2QsQCb1IraI5aaHYbGpWAoLx6TqwwJD1DaCPhX+yrN3IJWyrjE5wDWB7Zp
+ 3xny6jzWKrsozJ6vFU+CStctgeG0CmgnZfCzrajZAcPc1rvIU4rAgpTNufmzG17Q2jvk2AzSezD5u
+ 6yh3gAOHP6dzU+/9IjeChfFqrTewesgwEUZIEb03HkrEcTX3wimImj/NLUduZmdqclatfa940PiJX
+ YC8/qVBw==;
+Received: from [2601:1c0:6280:3f0::9abc]
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1l30l4-0007me-0q; Fri, 22 Jan 2021 18:02:06 +0000
+Subject: Re: linux-next: Tree for Jan 22 (amdgpu)
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20210122180643.7039571c@canb.auug.org.au>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <64dd3a50-a836-c1b7-738e-6b6b5433117a@infradead.org>
+Date: Fri, 22 Jan 2021 10:02:00 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-References: <20210121084131.866028-1-evan.quan@amd.com>
-In-Reply-To: <20210121084131.866028-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 Jan 2021 18:12:41 -0500
-Message-ID: <CADnq5_NAi6C4Kxo7pvRPupppFLYpdas0Pjch+o_d6EN26QMN=A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: correct string parsing for extra separator
- characters case
-To: Evan Quan <evan.quan@amd.com>
+In-Reply-To: <20210122180643.7039571c@canb.auug.org.au>
+Content-Language: en-US
+X-Mailman-Approved-At: Sat, 23 Jan 2021 09:38:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +61,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 21, 2021 at 3:41 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Supplement of previous fix "2d873f24dfaf drm/amdgpu/pm: Account for extra
-> separator characters in sysfs interface".
->
-> Change-Id: Ie9e9a78ad8530ba4b46ea27e28559d5dcda5c033
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+On 1/21/21 11:06 PM, Stephen Rothwell wrote:
+> Hi all,
+> 
+> Changes since 20210121:
+> 
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+on i386:
 
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index ba1539f6e0ce..ac150e63dd25 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -1866,6 +1866,8 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
->                 memcpy(buf_cpy, buf, count-i);
->                 tmp_str = buf_cpy;
->                 while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
-> +                       if (strlen(sub_str) == 0)
-> +                               continue;
->                         ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
->                         if (ret)
->                                 return -EINVAL;
-> --
-> 2.29.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "__divdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+
+
+
+-- 
+~Randy
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
