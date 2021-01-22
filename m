@@ -2,75 +2,64 @@ Return-Path: <SRS0=42b/=GZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1808BC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79E4FC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0E2423AC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:06:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0E2423AC1
+	by mail.kernel.org (Postfix) with ESMTPS id 33F6D235DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 15:16:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33F6D235DD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 652336EA01;
-	Fri, 22 Jan 2021 15:06:21 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB06B6E9FB
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 15:06:19 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id gx5so8093796ejb.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Jan 2021 07:06:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99B06EA25;
+	Fri, 22 Jan 2021 15:16:57 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D67E6EA22;
+ Fri, 22 Jan 2021 15:16:57 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id 63so5375553oty.0;
+ Fri, 22 Jan 2021 07:16:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=TbxKy+jCWmqkl2QSpm+qJC+FeEgfl3xQ59nOTsT/E7Y=;
- b=uUOsQ5fsVQd1TuUujLXH4GAF2RUFhgUA1N2pf9iaS6YLgxY3SAhGNhHclQN9kcNY+5
- UuPVN52Qdt2mshuu2gyPW5LKBVSUrpBqgalJ4/ohk/ovmdb1ePsBgsS0Zsi2L2Q9EP+L
- kkCWP5lJg+rz1lyld/ndl1LrO9l9P6BC33tMjrHvT7UtWIxzhPGgcDDO6XcsGf39Cd0H
- OhZ+LWq1dkfoZBjUPAlFk6LwpoWNlg8zGa2xsf0n9w+hJrJc+bkfJmD8ME7EeVGLMLj6
- LJyAihO6paZ6MSs0AeKdfz9/ZgCb8A2Nbi18bCcI9EvicP9WTalZqG9TVNk2vfNQUTZP
- s0Sg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=J7hsM5X337RBXgA8zRlxgywXuUZqHJFg0yJyxLbobjc=;
+ b=CCJrN+kO4vxq6UZ/Wj22Wm6u8zl0Uidb/urVTs8ZtEy49rZyeCu8sXikgTz/wN3NGe
+ Nd25JRPX8MevMmw8d6kqnVvqCj5rgB8pdDT0UZK2GB0S4GgROoL0Pgx7XX5Ay5iAvwtH
+ C9Gc9IbuV5X5aIRQR415UN6y2IY6w0jNzePrVYormbygKQW/LMw0QXFu6rUFSq30Pls3
+ tRRgq75SOOdBf0hyrIxySdha/kfIv+FXFwCVePREWolv1I5w0nVA/NVXwIzTxH84VxBR
+ TkIQUm5m8TMEtBAR6vK+YS/xWJQa1ASd6RqP5N2TyE3BYksgAIZ+NIMroCh463FR0qT5
+ mmyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=TbxKy+jCWmqkl2QSpm+qJC+FeEgfl3xQ59nOTsT/E7Y=;
- b=jSwoYW4DYkbBQ+Xh36Ouidy/0kbkbe3FbUGjDkag3lpSTR4Kw6H5ign3FHR5hp1FZR
- kBZLi2UDIyyvyj3jPHoeeWrK/LaNh/hKd0YUrGfwIMLX4Gttcwh9I4ITc30O51RqcGW+
- nOs0HrvVKGDfn3FTs8NRmUDVCmYWz+zAKWfmEAtuw8ZvlkNtbK8d4orn1IqvaQotimry
- 4MxcTYur7fUc0lKFICrCm8saMzLKPUEj7IHy8Bu8dtEgOeprqRRIUVxg7h86aWIUSfoP
- td7lYvfEZVjGJSVBL3AL49GXsEeh9j7oB/Jf2miabofVKtKNo6yRMoPZ3GlkIS5auJhu
- X54w==
-X-Gm-Message-State: AOAM533ubWMLqD/Uebpb4R7HV6440gqFcc3LGmmRAWRkghrTiW+VlkXx
- k/TyNfKq/w867pW1cSnC0iqn50L8NM4=
-X-Google-Smtp-Source: ABdhPJzgb9J8gPMCnmYebpDdihewxV5u5qvdvHgwcK+f+4VHVjZDS8Vc1stgEOismoqL//mNxk00uA==
-X-Received: by 2002:a17:906:bc5a:: with SMTP id
- s26mr3130668ejv.327.1611327978386; 
- Fri, 22 Jan 2021 07:06:18 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id k21sm5576514edq.60.2021.01.22.07.06.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Jan 2021 07:06:17 -0800 (PST)
-Subject: Re: [PATCH] tests/amdgpu/vcn: clean abundant codes
-To: Sonny Jiang <sonny.jiang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210122150439.15911-1-sonny.jiang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <8c3e7533-6470-692e-d7d4-6962ae07b283@gmail.com>
-Date: Fri, 22 Jan 2021 16:06:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=J7hsM5X337RBXgA8zRlxgywXuUZqHJFg0yJyxLbobjc=;
+ b=M7VVDfI03HK+UMYM5xCSPd4xPmbpyd0j7Xj7r1DQWQt9SztNKMBWVTzr03AHwFQR9h
+ dTziR3SrjsmaPceQ8xWQjoHg2a/piS774xPCtr3OmS0WQqVQ2UT+6C6M+7aizepV+utE
+ HxsSv3iU4XKGq49je5BuG8XOwtAzV0XEHrcdzJm68ual4OPoLgZFIedUxJr3F5EXmk8d
+ 1BWfWX9MGnillfA9Gauf5S6OV8/BLVwXi4+P9ICTTTTuKJOfr/8YPA6cYaHkOptRoDNe
+ dDT46/eRiGROlqAl3aMkpYhVQIGJwWAoY1BqPKj7lDFv8IY2I/wnHvWNSRHz1YAWeg9p
+ KFLA==
+X-Gm-Message-State: AOAM530JZ/yOHTFoHpeKe9RtV+69mjvRy6ENPkG0XxJ5xsr1T8qDg4JF
+ k+gCnHHQtzGq5vXidf57KhETabiUbBQm6+8hBNk=
+X-Google-Smtp-Source: ABdhPJzKjbvT4HLqe+JUjy1xMTgv1OV5BygQ+3I+v0cQ5ltL+ymiZWeskpC0NMssThgkmNlCPeiHIyzSzj0Uw2ZvmBE=
+X-Received: by 2002:a9d:1293:: with SMTP id g19mr3634062otg.311.1611328616464; 
+ Fri, 22 Jan 2021 07:16:56 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210122150439.15911-1-sonny.jiang@amd.com>
-Content-Language: en-US
+References: <20210119155029.18943-1-aurabindo.pillai@amd.com>
+ <20210122103248.779e70bf@eldfell> <YAqeHZlDBrgALLo9@phenom.ffwll.local>
+In-Reply-To: <YAqeHZlDBrgALLo9@phenom.ffwll.local>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 22 Jan 2021 10:16:45 -0500
+Message-ID: <CADnq5_NkgDQqm8uTziTOhb9sv3jEzyfoCt_q_P1RA_mvpmkfEQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] Experimental freesync video mode optimization
+To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,26 +71,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stylon Wang <stylon.wang@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, Thong Thai <thong.thai@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Wayne Lin <wayne.lin@amd.com>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjIuMDEuMjEgdW0gMTY6MDQgc2NocmllYiBTb25ueSBKaWFuZzoKPiBSZW1vdmUgdXNlbGVz
-cyBjb2Rlcy4KPgo+IFNpZ25lZC1vZmYtYnk6IFNvbm55IEppYW5nIDxzb25ueS5qaWFuZ0BhbWQu
-Y29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4KCj4gLS0tCj4gICB0ZXN0cy9hbWRncHUvdmNuX3Rlc3RzLmMgfCAyIC0tCj4gICAxIGZp
-bGUgY2hhbmdlZCwgMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUv
-dmNuX3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvdmNuX3Rlc3RzLmMKPiBpbmRleCAwZjViNDI0MS4u
-MWNhNjYyOTcgMTAwNjQ0Cj4gLS0tIGEvdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5jCj4gKysrIGIv
-dGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5jCj4gQEAgLTEwMiw4ICsxMDIsNiBAQCBDVV9CT09MIHN1
-aXRlX3Zjbl90ZXN0c19lbmFibGUodm9pZCkKPiAgIAkJcmV0dXJuIENVX0ZBTFNFOwo+ICAgCj4g
-ICAJZmFtaWx5X2lkID0gZGV2aWNlX2hhbmRsZS0+aW5mby5mYW1pbHlfaWQ7Cj4gLQljaGlwX3Jl
-diA9IGRldmljZV9oYW5kbGUtPmluZm8uY2hpcF9yZXY7Cj4gLQljaGlwX2lkID0gZGV2aWNlX2hh
-bmRsZS0+aW5mby5jaGlwX2V4dGVybmFsX3JldjsKPiAgIAlhc2ljX2lkID0gZGV2aWNlX2hhbmRs
-ZS0+aW5mby5hc2ljX2lkOwo+ICAgCWNoaXBfcmV2ID0gZGV2aWNlX2hhbmRsZS0+aW5mby5jaGlw
-X3JldjsKPiAgIAljaGlwX2lkID0gZGV2aWNlX2hhbmRsZS0+aW5mby5jaGlwX2V4dGVybmFsX3Jl
-djsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Fri, Jan 22, 2021 at 4:43 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Fri, Jan 22, 2021 at 10:32:48AM +0200, Pekka Paalanen wrote:
+> > On Tue, 19 Jan 2021 10:50:26 -0500
+> > Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
+> >
+> > > Changes in V5
+> > > =============
+> > >
+> > > * More info in commit messages on the rationale of changes being added
+> > > to the kernel.
+> > > * Minor fixes
+> >
+> > Hi,
+> >
+> > thank you for adding the explanations in the commit messages I asked
+> > for. It is now up to DRM maintainers to determine if this is
+> > conceptually fine.
+> >
+> > I do see that apparently setting the opt-in option does not yet taint
+> > the kernel although Daniel Vetter suggested it might be a good idea. I
+> > guess tainting the kernel would make it easier to remove this feature
+> > in the future because it would be easier to dismiss people that claim a
+> > kernel regression due to the removal.
+>
+> Reading the descriptions I'm honestly not sure why this isn't enabled by
+> default?
+>
+> Maybe the explanations should also capture why this is maybe not a good
+> idea ...
+
+I don't know that it's a bad idea, I guess we are just cautious to
+avoid unforeseen consequences until we have more real world experience
+using the feature.  One issue brought up as a possible problem, but
+not actually verified to my knowledge, was the possibility of using a
+bit more power with freesync modes.  E.g., if you just change the
+front porch to set the refresh to 48 Hz on a 90Hz mode, you are
+technically running the display phys at the higher clock speed so you
+can seamlessly transition to 90Hz or whatever.  I don't know that it
+uses that much additional power and lets you get some nice features in
+a relatively seamless manner that already works today with most media
+players.
+
+I guess for media player folks, is this something you'd like as is?  A
+more explicit API may be nicer, but I think I think the ultimate
+solution will end up getting tied up in what are plans are for bigger
+features like more advanced flip queues and stuff like that.  So this
+seems like a nice intermediate step.
+
+Alex
+
+
+> -Daniel
+>
+> >
+> >
+> > Thanks,
+> > pq
+> >
+> >
+> > > --
+> > >
+> > > This patchset enables freesync video mode usecase where the userspace
+> > > can request a freesync compatible video mode such that switching to this
+> > > mode does not trigger blanking.
+> > >
+> > > This feature is guarded by a module parameter which is disabled by
+> > > default. Enabling this paramters adds additional modes to the driver
+> > > modelist, and also enables the optimization to skip modeset when using
+> > > one of these modes.
+> > >
+> > > --
+> > >
+> > > Aurabindo Pillai (3):
+> > >   drm/amd/display: Add module parameter for freesync video mode
+> > >   drm/amd/display: Add freesync video modes based on preferred modes
+> > >   drm/amd/display: Skip modeset for front porch change
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 401 ++++++++++++++++--
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+> > >  4 files changed, 382 insertions(+), 35 deletions(-)
+> > >
+> >
+>
+>
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
