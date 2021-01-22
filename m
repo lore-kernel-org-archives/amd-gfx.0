@@ -1,102 +1,70 @@
-Return-Path: <SRS0=VJnr=GY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=42b/=GZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24514C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 23:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61EF4C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 08:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6F3E206B7
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Jan 2021 23:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6F3E206B7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id EB30923381
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Jan 2021 08:33:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB30923381
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555B26E979;
-	Thu, 21 Jan 2021 23:44:11 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690045.outbound.protection.outlook.com [40.107.69.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392FD6E979
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Jan 2021 23:44:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iD6H1YqFNqr1nYuuz+Hi/hq53d1JdDAKYVhY+2Tq6l3SYntYMilqPIhJAErHDVl2WF3yg240KgqX5oKyhS5qdmigwb7iSVEwigcyMzIZhmHjLA5VefnwSEu68tv6LVbkH8g73g3edHT6cd9upPHZFx/67gyBwG1+L4+13RPdfODbiAFYxZKJX9zvyo7mJj/QUIY13LYiTfsQIQ4ITtkHujCWc0aptPGah0J/X/iZoLJk6M1rkQp5qhQ2L5SCh/kX3fUSRqfb7jFWOiGjV17s71mozrRDoix+JRPCWKsXjEmmH3LMoSFYfxehoxNAYRU38rE+9aOOhzhrqkU8aFIbVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AIdbtfBffv1H8H0R2WtTASzNghvjIBqElXCGzZDACZc=;
- b=CvUcoCJV2eCJipttsaqHQFcF4C57chcM0AngBMnUu0LNzPMnaMcUIvrIc4mz+yQGsE4fHCV2zzDDyD8IqgggbH6pTeJ3EWVvyvCkx7MpUa2xgnMiPE89adhwRjVRLD9BG6kdn1YvsMYotLsMTDUq69nqjaDQbV+HBMcP+T8mqvAI9qC3pJ2AJ5T2hGFdfuzxzgVdi/uTEnVkR5jJfdK0aOcqw7j8bDTupGH5nk4IBi+HS8e7sdTFmrRl2NutiLl3hT9r986hUcxp6qchhvDiM/1MTgimk8MEZPP+1aSU/mXqyu4MhKaA3hIgN2wbinQXI1sPnwEeSZeretTNrJHv3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AIdbtfBffv1H8H0R2WtTASzNghvjIBqElXCGzZDACZc=;
- b=iqzbDgevg6jl8w9sJSkftX7jYXZuWqIa9oetblru1fafvrTktBAzw2tlczBp+nBQh9AD8uQh9Fpduf8i0j5xO/pjnDi2sIsHvdXQyW4ckBdm0DnR8Ksr5NR3BIayMG9ck6gr9+WNWkomOYFHLRDmgf1S2GLwlKtEso3O49sUMGE=
-Received: from BN6PR18CA0016.namprd18.prod.outlook.com (2603:10b6:404:121::26)
- by BYAPR12MB4598.namprd12.prod.outlook.com (2603:10b6:a03:10d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.12; Thu, 21 Jan
- 2021 23:44:08 +0000
-Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:121:cafe::8d) by BN6PR18CA0016.outlook.office365.com
- (2603:10b6:404:121::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.14 via Frontend
- Transport; Thu, 21 Jan 2021 23:44:08 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
- (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
- action=none header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3784.12 via Frontend Transport; Thu, 21 Jan 2021 23:44:08 +0000
-Received: from Rohit-Dev.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 21 Jan
- 2021 17:44:06 -0600
-From: Rohit Khaire <rohit.khaire@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Use PSP for IH programming on Navi SRIOV
-Date: Thu, 21 Jan 2021 18:44:01 -0500
-Message-ID: <20210121234401.20425-1-rohit.khaire@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58D1A6E9B8;
+	Fri, 22 Jan 2021 08:33:03 +0000 (UTC)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34FCC6E2EF;
+ Fri, 22 Jan 2021 08:33:02 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id i17so5619997ljn.1;
+ Fri, 22 Jan 2021 00:33:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=UAOgDLhkwDAPgBAhgPJ03q8lgpe5rgt+2Rr0dvOQx0M=;
+ b=gaT446LHooL37TgBEL84NKNo1iCIcAjWD7l4VlLh+R23TGHCTn35WEk3i0Acygm/TQ
+ mE5RP1K4LSsY7gSDlUW/Nfr7yW3gIO+PaAF/ZBksLMsJ9n0keqZyNpZNkugDf+gWZjWj
+ 0Z5WvwRRHb+xG0yixYMFdKN2hHBdena/yf3vzoghLD9zWhNOAl/1aUG/2o4goUgQRytf
+ 0vObZwuLy6T47rZLeAiP/UlwWdF+f55eJPDNoD32ORl4mAkSg8ncWJM+ZflV2PdN0cDb
+ cpEMsEIKumvX0tszVz7G6M5VJr+XqWWp7qKKNyl4KXUkYBPoFxN8J9YdGAJrC2kJALv5
+ UpnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=UAOgDLhkwDAPgBAhgPJ03q8lgpe5rgt+2Rr0dvOQx0M=;
+ b=hnIxV+ACUFuhm5+8a5KbVG7kQ2RQdJSxEeRsdtqXCO252ca+BZoSheyuF84lnrqaQO
+ CJYuU+TH65CZvW4Vn+ZvuJLiDXsDbtRwEqFpYg1flSRaPoHEBpwA9aO2dRIk780zosAB
+ aRcB6rCAVlbC1VwWW+5Esyu5ZgRXi4171sNfDlDlVYU6veCaVKLc5K8OXPWlfBEbTy5Z
+ 5r06zy4RSSvIScEu8cAsHY70G5BintKrglMp1F5/Zl22flvPpVQkhbkfOqfux6cYvNsb
+ Zy2o2JCp2zTMG0jvpaq+NqxlACR5oo5EpwI9+DBcsS7zNm/Lfg0fRleZvymKVcdRZ/v3
+ UcXw==
+X-Gm-Message-State: AOAM531Ql8iDtHS4BasZIrRUx8PZPr1sz9RBut+xAObYdR7iR+8/FAwM
+ 7WoWKdSru9qYJa3GVPSHODk=
+X-Google-Smtp-Source: ABdhPJyQSu5OIxfJsC0PPcNIwbNDCpAQbQ+31lPNMtsK4zHsjJtLPTR16Xwj2299wV3xRyQD1ASPAQ==
+X-Received: by 2002:a2e:6a1a:: with SMTP id f26mr1807723ljc.416.1611304378865; 
+ Fri, 22 Jan 2021 00:32:58 -0800 (PST)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id m26sm859302ljj.134.2021.01.22.00.32.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Jan 2021 00:32:58 -0800 (PST)
+Date: Fri, 22 Jan 2021 10:32:48 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Subject: Re: [PATCH 0/3] Experimental freesync video mode optimization
+Message-ID: <20210122103248.779e70bf@eldfell>
+In-Reply-To: <20210119155029.18943-1-aurabindo.pillai@amd.com>
+References: <20210119155029.18943-1-aurabindo.pillai@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB01.amd.com (10.181.40.142) To SATLEXMB01.amd.com
- (10.181.40.142)
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dbd2fd3f-ac5f-41c8-095d-08d8be6671f5
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4598:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB4598C0F6A6A999F0522BB99F87A19@BYAPR12MB4598.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 14zhO/1XfJMdopk1I7KvLNOV4Asj+nsVf8hL6QyV8jgeV5FfgEjDYPFWapIYATgJtQlXZ0bLI7QS3xWFd6o6tUcKp8bh0JYbHyVgW0d7EGVeQlVxeU1I4acscOgA0TKWd63jtkQpnf2tSWh9ZALhLwUQBwJLLwjmJEGwNQzRCNQ81aCAlEDhTO+UKZc6LsYcHoe+2FRCZ2bfnwcPAPqVgJpmzcHkPLGbCeO31tXv58zhFntf50PnYcK0Kg6vGk2IcK5W98dDRmrjn/YoLqz9AE4jXhWayTkXI6AHb5LTL/H56jOhKHkH2dNSSH34w0PGuH6syPex7xqaii84jhvVKaVzp3m7acXepHTQATqOynHsUP+IRtOxhqdLoADDOOmWnqosWjh7BaDyGcp289hCWgv7tHTWYKKMNHlEKner1ALmGIAJs+BkUk0AwQZmePROE0srzkujyJNbcur0IwivCRW74D4yfc+P0opI7GE4DlI1yApVVGkqLcDaJT7XxpIb
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(396003)(136003)(39860400002)(376002)(346002)(46966006)(70586007)(336012)(36756003)(54906003)(426003)(81166007)(4326008)(2616005)(316002)(6666004)(5660300002)(6916009)(44832011)(8676002)(70206006)(16526019)(8936002)(47076005)(186003)(26005)(1076003)(82740400003)(86362001)(7696005)(478600001)(82310400003)(356005)(83380400001)(2906002)(36610700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2021 23:44:08.0321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbd2fd3f-ac5f-41c8-095d-08d8be6671f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4598
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,86 +76,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei
- Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>, Rohit Khaire <rohit.khaire@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: stylon.wang@amd.com, thong.thai@amd.com, shashank.sharma@amd.com,
+ dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ wayne.lin@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1505765708=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-New policy will disable direct mmio access
-of this register on VF
+--===============1505765708==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/2OQpgE_ch2PVYDSFuTJOi36"; protocol="application/pgp-signature"
 
-Signed-off-by: Rohit Khaire <rohit.khaire@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+--Sig_/2OQpgE_ch2PVYDSFuTJOi36
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index f4e4040bbd25..48933d6f1145 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -143,6 +143,7 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ih_regs *ih_regs;
- 	uint32_t tmp;
-+	int r;
- 
- 	ih_regs = &ih->ih_regs;
- 
-@@ -151,7 +152,16 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
- 	/* enable_intr field is only valid in ring0 */
- 	if (ih == &adev->irq.ih)
- 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
--	WREG32(ih_regs->ih_rb_cntl, tmp);
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		r = psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL, tmp);
-+		if (r) {
-+			DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
-+			return r;
-+		}
-+	} else {
-+		WREG32(ih_regs->ih_rb_cntl, tmp);
-+	}
- 
- 	if (enable) {
- 		ih->enabled = true;
-@@ -246,6 +256,7 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ih_regs *ih_regs;
- 	uint32_t tmp;
-+	int r;
- 
- 	ih_regs = &ih->ih_regs;
- 
-@@ -261,7 +272,16 @@ static int navi10_ih_enable_ring(struct amdgpu_device *adev,
- 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_ENABLE, 0);
- 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_FULL_DRAIN_ENABLE, 1);
- 	}
--	WREG32(ih_regs->ih_rb_cntl, tmp);
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		r = psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL, tmp);
-+		if (r) {
-+			DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
-+			return r;
-+		}
-+	} else {
-+		WREG32(ih_regs->ih_rb_cntl, tmp);
-+	}
- 
- 	if (ih == &adev->irq.ih) {
- 		/* set the ih ring 0 writeback address whether it's enabled or not */
--- 
-2.17.1
+On Tue, 19 Jan 2021 10:50:26 -0500
+Aurabindo Pillai <aurabindo.pillai@amd.com> wrote:
+
+> Changes in V5
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> * More info in commit messages on the rationale of changes being added
+> to the kernel.
+> * Minor fixes
+
+Hi,
+
+thank you for adding the explanations in the commit messages I asked
+for. It is now up to DRM maintainers to determine if this is
+conceptually fine.
+
+I do see that apparently setting the opt-in option does not yet taint
+the kernel although Daniel Vetter suggested it might be a good idea. I
+guess tainting the kernel would make it easier to remove this feature
+in the future because it would be easier to dismiss people that claim a
+kernel regression due to the removal.
+
+
+Thanks,
+pq
+
+
+> --
+>=20
+> This patchset enables freesync video mode usecase where the userspace
+> can request a freesync compatible video mode such that switching to this
+> mode does not trigger blanking.
+>=20
+> This feature is guarded by a module parameter which is disabled by
+> default. Enabling this paramters adds additional modes to the driver
+> modelist, and also enables the optimization to skip modeset when using
+> one of these modes.
+>=20
+> --
+>=20
+> Aurabindo Pillai (3):
+>   drm/amd/display: Add module parameter for freesync video mode
+>   drm/amd/display: Add freesync video modes based on preferred modes
+>   drm/amd/display: Skip modeset for front porch change
+>=20
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 401 ++++++++++++++++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+>  4 files changed, 382 insertions(+), 35 deletions(-)
+>=20
+
+
+--Sig_/2OQpgE_ch2PVYDSFuTJOi36
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmAKjbAACgkQI1/ltBGq
+qqcsoA/+PIp4+UXyB6r/x3rWCOPvF5s4zJbzAOvksgWmwh478fk+K/T+mwXhIkvl
+aOkc56acYrkMgZ+5V+lk5NRF+ty7euGML2hMk+UEhp3scoXpiIPQ3yG051Po8SLJ
+D3uh51arzMaV0CKCyi/0hb83N4aITHtgmK7hyQheVClsbRJjDR7eL/e0G+XVl9On
+jlS7he3O6QZoW0PnzgDNrv+wppffDeaFuu5P/SD4SKlrGEdpRbWecxagrNw11cSg
+H/x4SwAqb6NuAGoM/a/O3qrgj/szyol7Ibs0CgE3cDyksSGG1BTvUt75g1HVR7qF
+KnAHbXDYND3NUK5/l5Q2CyKmAEqTzkiUWI6YBy9GQGnMGhittFL26HMQirzUG0aF
+UCyLUVG+2ZXso59hTWwDrMsXp0J+8WZOw2PCoiHMeRLPtLzozRzi8k+wDvRX+GLX
+E1ViF6TjkU6nBXs7as/EG9sd5qZdcWKDdBPZ9dpre18q9G8blEoVCa+4BgsP4k8L
+rkeEL6PWG/VqPFRK1opYeBs+W5zUjWu2wo9ERcAlwS4xY96qpZzPRnEZi1LWlRuP
+v/QTOHw27u9Ii+SURz79vaMQJdiHdXm0hFFiaxDkT/hVJ6tX0BnFJOH2wnm/1+aG
+MGCXDFzU6UL+mp+KjzO/hEFgkFRDiW8ST0HedNcDEn4C/HNyxCQ=
+=F4YM
+-----END PGP SIGNATURE-----
+
+--Sig_/2OQpgE_ch2PVYDSFuTJOi36--
+
+--===============1505765708==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1505765708==--
