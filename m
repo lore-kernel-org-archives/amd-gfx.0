@@ -7,45 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9CADC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D845C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:48:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FD4222512
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:24:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8FD4222512
+	by mail.kernel.org (Postfix) with ESMTPS id 3C29022582
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 12:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C29022582
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3694A6E082;
-	Mon, 25 Jan 2021 12:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AEFF6E139;
+	Mon, 25 Jan 2021 12:48:56 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 976ED6E082;
- Mon, 25 Jan 2021 12:24:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D80B322472;
- Mon, 25 Jan 2021 12:24:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFFC16E104;
+ Mon, 25 Jan 2021 12:48:55 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5CA5022242;
+ Mon, 25 Jan 2021 12:48:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611577449;
- bh=61aLXnewGYT9pW69xQYb5+pJ+KbuONrN6DKFyYDPFOQ=;
+ s=k20201202; t=1611578935;
+ bh=se/FbQzcYysZD1EUhPOo2TaDIwNovBNtkDv0eXU7IjM=;
  h=From:To:Cc:Subject:Date:From;
- b=sxpg1Z0P1BDyGQORROsgzEAv87fhNu0NhIOxsa9G9N//mYQ/Z1/9rvYANgnJ/bYGP
- iHZOJzXdK89VJj3DL/38vZAYlSkf02YLEAl9cqX+Acme98VSbl6gEWp9LxyhTECUDF
- K/RMRNPDt+ESva8julDgcZwqUlmB+eNf+Rs/GqfCzGnZN+R2uQpu2RoJs+c3cnKwmP
- lU6ykNqHRJLTIczgSuV5Yrd7ml5vQDsvrKrX8xvq1qGKHWEVC91QfOSjcxBs53moKe
- h+wFuTCoj/7UNN+PK2p1IuW2Y84Ce3PDxXxJyGk4kmRY8YYXdb0XqMF0DBwtWYeh0T
- QoLbwE5pi97sA==
+ b=tOVJ4eqUv2zP/nYVpAo9hE/5oML2JQ3sukeCtcxh2TFGxUbLiVgsQdjAStlse5uIv
+ y20U37xqi0PqnPh2CdB85vTeLa20ONJ7Whj2l6ieJ2uBMe5+oxfAIKAzaXuKuMUBf7
+ eG+JSnIIcfRMb6yGebqoOK6xPXZmVMEUlPAzxzzO1l1htyPbRp0y2ew9cCUq98002O
+ 8gRoNVY00FEOFcryKke37/qp9ZTVnA76pUmeDBucC2iWB/7tgIIYdyjFjXdWe5elhD
+ cAxnue7V35+6PoW5nYtatrPwXYGcowhky+3NWK9V6n9+dldGZCre4xKaaBHsn780EE
+ EDVr/k2qcqpHA==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Nathan Chancellor <natechancellor@gmail.com>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Subject: [PATCH] amdgpu: fix clang build warning
-Date: Mon, 25 Jan 2021 13:23:20 +0100
-Message-Id: <20210125122402.4036126-1-arnd@kernel.org>
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH] drm/amd/display: fix unused variable warning
+Date: Mon, 25 Jan 2021 13:48:43 +0100
+Message-Id: <20210125124849.102037-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,12 +58,11 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Aberback <joshua.aberback@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- Nirmoy Das <nirmoy.das@amd.com>, dri-devel@lists.freedesktop.org,
- Will Deacon <will@kernel.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Simon Ser <contact@emersion.fr>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -72,87 +70,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-clang warns about the -mhard-float command line arguments
-on architectures that do not support this:
+After all users of the 'dm' warnings got hidden in an #ifdef,
+the compiler started warning about it being unused:
 
-clang: error: argument unused during compilation: '-mhard-float' [-Werror,-Wunused-command-line-argument]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:5380:33: error: unused variable 'dm' [-Werror,-Wunused-variable]
 
-Move this into the gcc-specific arguments.
+Add another such #ifdef.
 
-Fixes: e77165bf7b02 ("drm/amd/display: Add DCN3 blocks to Makefile")
+Fixes: 98ab5f3513f9 ("drm/amd/display: Fix deadlock during gpu reset v3")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/Makefile  | 6 ++++--
- drivers/gpu/drm/amd/display/dc/dcn301/Makefile | 3 ++-
- drivers/gpu/drm/amd/display/dc/dcn302/Makefile | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-index c20331eb62e0..dfd77b3cc84d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-@@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a90dc4d31c32..37bf2dd87e1e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5377,7 +5377,9 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+ 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	struct amdgpu_display_manager *dm = &adev->dm;
++#endif
+ 	int rc = 0;
  
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -45,6 +45,8 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
- endif
- 
- ifdef CONFIG_X86
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-index 3ca7d911d25c..09264716d1dc 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-@@ -14,7 +14,7 @@ DCN301 = dcn301_init.o dcn301_resource.o dcn301_dccg.o \
- 		dcn301_dio_link_encoder.o dcn301_hwseq.o dcn301_panel_cntl.o dcn301_hubbub.o
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -mhard-float -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -25,6 +25,7 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
-+CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o += -mhard-float
- endif
- 
- ifdef CONFIG_X86
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-index 8d4924b7dc22..101620a8867a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-@@ -13,7 +13,7 @@
- DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
- endif
- 
- ifdef CONFIG_PPC64
-@@ -24,6 +24,7 @@ ifdef CONFIG_CC_IS_GCC
- ifeq ($(call cc-ifversion, -lt, 0701, y), y)
- IS_OLD_GCC = 1
- endif
-+CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o += -mhard-float
- endif
- 
- ifdef CONFIG_X86
+ 	if (enable) {
 -- 
 2.29.2
 
