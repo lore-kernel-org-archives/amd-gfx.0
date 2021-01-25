@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9886C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35262C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96EF421707
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96EF421707
+	by mail.kernel.org (Postfix) with ESMTPS id D64FC21707
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D64FC21707
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D8989C07;
-	Mon, 25 Jan 2021 15:50:14 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB4F289C07
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 15:50:12 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id n7so3300187oic.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 07:50:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8C389C07;
+	Mon, 25 Jan 2021 15:51:26 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6381089C07;
+ Mon, 25 Jan 2021 15:51:25 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id k8so13158584otr.8;
+ Mon, 25 Jan 2021 07:51:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+SCPV4BZFoyRsHuoLx615eoKnvKtVamQHxepBfbqx7M=;
- b=oPAF8mPxf3i/aKjZBVEehR7jPY0ZKjBs4W5tfaDX8FBGXmeNOcgnljk2/LlV1oaL+i
- P8QucBzErKiclBQCKzr6sYDKlN2QP64ihkJbt9iURUKtfnJkqwvuQ0bX5X39hbqEzyOw
- cH/qbiCmCTXeR1G662Fg/dVCHIx5tQ23EpagoaneJlHuGeontLbDMGgIDh89SO055zO8
- aan+fv3aP0W5wwazVL54wTSUraayjFi+b2SjV+b6jVTLjbc2KApSGAPrF/n29LvQMBBi
- bZIOW9tN8vaiww9COS2Vzf5/2MM/OMBAzOJUIWChGigI0R8OEgix1OqKAhOEGFzOOWgg
- gOmA==
+ :cc; bh=AnH8Zx3d2Pw4vQ7JjSbzPf+jFEKtnCEURYKMXZ7izF4=;
+ b=ZcxU7anJ2ZSWMdXAhgnTS6vQEEaxIWbMi+Sl+qOBbZIW5+oXuoVr2qGbaXlCtdyBZV
+ Aa7S5SWpJxIKk/p5bp5oozc2iQ7Nk1DfJjxzTFy2mO2M0rmvHXUwH3bvrhyzJngc+jRQ
+ N7iOVvDIrbxs3ktZ23PBBxzgcg4o5Sek/QAVmLZY3BH6YyWNH/YfXEXA0XRpCM4VH2y0
+ X6fCWC5YmfgsR9kSlOo3kHtWmUW1/36BHlts/+u8vXOhqnhVmg7cCpbtPFIuk8Q6GIpS
+ QxOSH6I02N5gup190GQSXndTJdlB1RKSikDgABqI9KkBxNjQb32svdstebhNzsZRlM5y
+ OoOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+SCPV4BZFoyRsHuoLx615eoKnvKtVamQHxepBfbqx7M=;
- b=cJWcCDKFBjp8GbiH2d5M1sTRfY688kxIiO3Q83lWQmmrbV4VF/KUXeumWHYWTBoG2C
- mKPQYVCXxvL7Mj+A7IWRS2nFCXuMLuy4whdEjSSHH9UU93gFUcQltYrTyBQf9P4JqAtu
- NlU+X7DFEGZfXYiJwJvKsRIR74bpSMOymXv4gyv+aMJQO53/i7uay9QiQuUYzmU9ljnz
- mwiET9o5rmvqichlnwp6Y1Fq28+fRf8Gl4NmzhDn8f/nMXI2HpJ7MLevDCNOJAK8N5Zp
- GJB/6SFhlRxDcicTKVbOLk9KeReIMkzSwXEcLqOUzwG3lp96eOADQBpVsbqHOyKr0hyE
- sxbA==
-X-Gm-Message-State: AOAM533AAC1/aYBl7pgwO6oMrZA3/+lBlvF9oEmT0Go280x3Tbu2/WqA
- AG7ZBe/7B/ZCdE2b0YHeCoQHdYpDXgscsoFCEpg=
-X-Google-Smtp-Source: ABdhPJxEAfCVI5pVrdHU3xIgVq8j5ev1W+mk3AfPWV2EUQT3sibZcsN0BKMA+6aUw2N0xb34Hp1cYBMybhgtQ6buGCg=
-X-Received: by 2002:aca:1a17:: with SMTP id a23mr493083oia.120.1611589811978; 
- Mon, 25 Jan 2021 07:50:11 -0800 (PST)
+ bh=AnH8Zx3d2Pw4vQ7JjSbzPf+jFEKtnCEURYKMXZ7izF4=;
+ b=o01SVp9+l7iToT/2r2e++hQDQk78I597peU+MpXBijxI1WO6VAUHFlhq4xwPI6fc8V
+ AtaV9KBx3CUAxysTXlKyDXzed7LsFCYRs+RLlaVeuh5Esx1L8ytXowfupUpyt2B/pH7r
+ Gg76BcruC5FwSzCE3uYPrz3m6DkVZ85zJi8hFRZ87Uo6IsXw4FD1qqJteggoIaCPbTMR
+ zRYkazWciPulMY1vNbfW1X9klmA/3P4azBA73QDxrvbflqMtYTYY0Hbgl9P11TD8FKOG
+ luPmanfWzkRZZzDcwUcqCNj5S9dTnpl+M3dGwOFoB28N+EDagwTgx6hhLbSfsQtsRSiT
+ tIsw==
+X-Gm-Message-State: AOAM5314vDM+41jIZVPfSpOAywNAdK+1psqKWzDCIp9nJdKBTzXhHE78
+ G7jLcbgANIODKQfNf4XfyOdZrC1t83sYmL1BcUY=
+X-Google-Smtp-Source: ABdhPJxkHywTepuBn+fqbpyLJEosnBpNCyVcv27jF2qPKIMyyV4cAkh1nb0ayowYwrnFaAztgS4G1/tHe/M5JWEe6AA=
+X-Received: by 2002:a9d:784a:: with SMTP id c10mr931304otm.132.1611589884729; 
+ Mon, 25 Jan 2021 07:51:24 -0800 (PST)
 MIME-Version: 1.0
-References: <YA6FW84XDSakXqNb@mwanda>
-In-Reply-To: <YA6FW84XDSakXqNb@mwanda>
+References: <20210125122402.4036126-1-arnd@kernel.org>
+In-Reply-To: <20210125122402.4036126-1-arnd@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Jan 2021 10:50:00 -0500
-Message-ID: <CADnq5_PL8baNFhVpydh02gDbk88aqeFC76wox9qZXXEXzf6uQQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix bitwise vs logical negate
-To: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Mon, 25 Jan 2021 10:51:13 -0500
+Message-ID: <CADnq5_MLYdu+cY88yzmv+D6A0twg64C0vLBEhPazCgGseEWg=Q@mail.gmail.com>
+Subject: Re: [PATCH] amdgpu: fix clang build warning
+To: Arnd Bergmann <arnd@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,56 +71,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>, David Airlie <airlied@linux.ie>,
- kernel-janitors@vger.kernel.org, Aaron Liu <aaron.liu@amd.com>,
+Cc: Joshua Aberback <joshua.aberback@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, Roman Li <Roman.Li@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Liu ChengZhe <ChengZhe.Liu@amd.com>, Huang Rui <ray.huang@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jiansong Chen <Jiansong.Chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Will Deacon <will@kernel.org>, Nirmoy Das <nirmoy.das@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Nathan Chancellor <natechancellor@gmail.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 25, 2021 at 3:46 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+On Mon, Jan 25, 2021 at 7:24 AM Arnd Bergmann <arnd@kernel.org> wrote:
 >
-> There was a mixup between logical and bitwise negate so it just sets
-> "data1" and "data2" to zero.
+> From: Arnd Bergmann <arnd@arndb.de>
 >
-> Fixes: 3c9a7b7d6e75 ("drm/amdgpu: update mmhub mgcg&ls for mmhub_v2_3")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> clang warns about the -mhard-float command line arguments
+> on architectures that do not support this:
+>
+> clang: error: argument unused during compilation: '-mhard-float' [-Werror,-Wunused-command-line-argument]
+>
+> Move this into the gcc-specific arguments.
+>
+> Fixes: e77165bf7b02 ("drm/amd/display: Add DCN3 blocks to Makefile")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Someone else sent the same fix last week.  Applied that one.
-
-Thanks!
+Applied.  Thanks!
 
 Alex
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn30/Makefile  | 6 ++++--
+>  drivers/gpu/drm/amd/display/dc/dcn301/Makefile | 3 ++-
+>  drivers/gpu/drm/amd/display/dc/dcn302/Makefile | 3 ++-
+>  3 files changed, 8 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> index 1961745e89c7..ab9be5ad5a5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> @@ -531,12 +531,12 @@ mmhub_v2_3_update_medium_grain_light_sleep(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
+> index c20331eb62e0..dfd77b3cc84d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
+> @@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
 >
->         if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS)) {
->                 data &= ~MM_ATC_L2_CGTT_CLK_CTRL__MGLS_OVERRIDE_MASK;
-> -               data1 &= !(DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> +               data1 &= ~(DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
->                         DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
->                         DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
->                         DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
->                         DAGB0_WR_CGTT_CLK_CTRL__LS_OVERRIDE_REGISTER_MASK);
-> -               data2 &= !(DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
-> +               data2 &= ~(DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_MASK |
->                         DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_WRITE_MASK |
->                         DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_READ_MASK |
->                         DAGB0_RD_CGTT_CLK_CTRL__LS_OVERRIDE_RETURN_MASK |
+>
+>  ifdef CONFIG_X86
+> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
+> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
+> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
+> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
+>  endif
+>
+>  ifdef CONFIG_PPC64
+> @@ -45,6 +45,8 @@ ifdef CONFIG_CC_IS_GCC
+>  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+>  IS_OLD_GCC = 1
+>  endif
+> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
+> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
+>  endif
+>
+>  ifdef CONFIG_X86
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
+> index 3ca7d911d25c..09264716d1dc 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
+> @@ -14,7 +14,7 @@ DCN301 = dcn301_init.o dcn301_resource.o dcn301_dccg.o \
+>                 dcn301_dio_link_encoder.o dcn301_hwseq.o dcn301_panel_cntl.o dcn301_hubbub.o
+>
+>  ifdef CONFIG_X86
+> -CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -mhard-float -msse
+> +CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -msse
+>  endif
+>
+>  ifdef CONFIG_PPC64
+> @@ -25,6 +25,7 @@ ifdef CONFIG_CC_IS_GCC
+>  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+>  IS_OLD_GCC = 1
+>  endif
+> +CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o += -mhard-float
+>  endif
+>
+>  ifdef CONFIG_X86
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+> index 8d4924b7dc22..101620a8867a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+> @@ -13,7 +13,7 @@
+>  DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
+>
+>  ifdef CONFIG_X86
+> -CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
+> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
+>  endif
+>
+>  ifdef CONFIG_PPC64
+> @@ -24,6 +24,7 @@ ifdef CONFIG_CC_IS_GCC
+>  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
+>  IS_OLD_GCC = 1
+>  endif
+> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o += -mhard-float
+>  endif
+>
+>  ifdef CONFIG_X86
 > --
 > 2.29.2
 >
