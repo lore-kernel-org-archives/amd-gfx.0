@@ -6,60 +6,62 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35262C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 147DAC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D64FC21707
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 15:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D64FC21707
+	by mail.kernel.org (Postfix) with ESMTPS id C2EEF22C9E
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 17:57:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2EEF22C9E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8C389C07;
-	Mon, 25 Jan 2021 15:51:26 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6381089C07;
- Mon, 25 Jan 2021 15:51:25 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id k8so13158584otr.8;
- Mon, 25 Jan 2021 07:51:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25E7E6E153;
+	Mon, 25 Jan 2021 17:57:17 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6BF6E09F;
+ Mon, 25 Jan 2021 17:57:16 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id e70so13564389ote.11;
+ Mon, 25 Jan 2021 09:57:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AnH8Zx3d2Pw4vQ7JjSbzPf+jFEKtnCEURYKMXZ7izF4=;
- b=ZcxU7anJ2ZSWMdXAhgnTS6vQEEaxIWbMi+Sl+qOBbZIW5+oXuoVr2qGbaXlCtdyBZV
- Aa7S5SWpJxIKk/p5bp5oozc2iQ7Nk1DfJjxzTFy2mO2M0rmvHXUwH3bvrhyzJngc+jRQ
- N7iOVvDIrbxs3ktZ23PBBxzgcg4o5Sek/QAVmLZY3BH6YyWNH/YfXEXA0XRpCM4VH2y0
- X6fCWC5YmfgsR9kSlOo3kHtWmUW1/36BHlts/+u8vXOhqnhVmg7cCpbtPFIuk8Q6GIpS
- QxOSH6I02N5gup190GQSXndTJdlB1RKSikDgABqI9KkBxNjQb32svdstebhNzsZRlM5y
- OoOg==
+ :cc; bh=NMwzKT7ktJmn3D6xJkxUVnsUn1OrLX46FlrL0AsY5fw=;
+ b=lHktMZfRoJ9IkZ9W26uHmuqwOTgpnAXPGphalH6M4iKPwEZ8Iza28yVZ6sCiTdK9hh
+ Fi4XI1NmRY9amiOz1KqIrQhAr/SaSGdmWmmdQHH4Ewc+66zelYSegcqFZHTMdvte6dLz
+ Dr+XC0f0dv6QI51aYemLRokUs3F1IvIN4blvQt/PsvEQqFyPAwKaRjJkAuMhRJiydfBG
+ 45D0mfwmgkahSVtagxndYT21sLYdl7nn/ZvuuE0RTcIXAbYmsy3ZlzRYUcEofwYTJ2+e
+ L4O8VW7f2i5ig9PVeWTERfbOCrygg+VNc/ePyE92oRRXh5/5qDYj1O3k/lApS/dMKfz/
+ Ff3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=AnH8Zx3d2Pw4vQ7JjSbzPf+jFEKtnCEURYKMXZ7izF4=;
- b=o01SVp9+l7iToT/2r2e++hQDQk78I597peU+MpXBijxI1WO6VAUHFlhq4xwPI6fc8V
- AtaV9KBx3CUAxysTXlKyDXzed7LsFCYRs+RLlaVeuh5Esx1L8ytXowfupUpyt2B/pH7r
- Gg76BcruC5FwSzCE3uYPrz3m6DkVZ85zJi8hFRZ87Uo6IsXw4FD1qqJteggoIaCPbTMR
- zRYkazWciPulMY1vNbfW1X9klmA/3P4azBA73QDxrvbflqMtYTYY0Hbgl9P11TD8FKOG
- luPmanfWzkRZZzDcwUcqCNj5S9dTnpl+M3dGwOFoB28N+EDagwTgx6hhLbSfsQtsRSiT
- tIsw==
-X-Gm-Message-State: AOAM5314vDM+41jIZVPfSpOAywNAdK+1psqKWzDCIp9nJdKBTzXhHE78
- G7jLcbgANIODKQfNf4XfyOdZrC1t83sYmL1BcUY=
-X-Google-Smtp-Source: ABdhPJxkHywTepuBn+fqbpyLJEosnBpNCyVcv27jF2qPKIMyyV4cAkh1nb0ayowYwrnFaAztgS4G1/tHe/M5JWEe6AA=
-X-Received: by 2002:a9d:784a:: with SMTP id c10mr931304otm.132.1611589884729; 
- Mon, 25 Jan 2021 07:51:24 -0800 (PST)
+ bh=NMwzKT7ktJmn3D6xJkxUVnsUn1OrLX46FlrL0AsY5fw=;
+ b=KENKjkZtp95suPXtHJL4A2Sc+rfG+Y2r/roFbgaUJHsWa8ZyYiqnw240J7E+YJyyR6
+ wTXrIxZEoWd6pOoaPDcQBtvIH0RlGLd+Guwnnm1fcKqLeAVzKr0+kLs0BrI8xAwnnYoF
+ LETbut2JAIWLoj5xk03LeRow/qGyFcQVO5o0I9PCB9xl+8+JHCi5o6E8175ON8OmYHJl
+ kLmfLb7G7eCWc92du/aHtdmfd/ct2QqjcO/tegSHxSxyy9yL7aB9EuN30urMU4OZAzBm
+ Al5xBEQGIOAILevmd7LjcupGTV3om22BIZRJi61DovZdPoeb/WBA4OSEXiL5eD4r5wvC
+ N+Og==
+X-Gm-Message-State: AOAM532QKJvVtVVYEJ6zhwgTJSM0dwVrL9y27LyXB7typhy5MPsbWSx9
+ QRoZ3UdUKrD0U/JS1MxOvufsOKvta1eQ2XIYfb0=
+X-Google-Smtp-Source: ABdhPJy502347firlsqDo862ryJ46G2dwR7qIM2clQvlt3priNlSlIo000RxSPOgvJ6cQ79rgGqCkMw/xZPyQB+UShY=
+X-Received: by 2002:a9d:784a:: with SMTP id c10mr1328195otm.132.1611597435531; 
+ Mon, 25 Jan 2021 09:57:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20210125122402.4036126-1-arnd@kernel.org>
-In-Reply-To: <20210125122402.4036126-1-arnd@kernel.org>
+References: <20210121061704.21090-1-mario.kleiner.de@gmail.com>
+ <20210121061704.21090-3-mario.kleiner.de@gmail.com>
+In-Reply-To: <20210121061704.21090-3-mario.kleiner.de@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Jan 2021 10:51:13 -0500
-Message-ID: <CADnq5_MLYdu+cY88yzmv+D6A0twg64C0vLBEhPazCgGseEWg=Q@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu: fix clang build warning
-To: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 25 Jan 2021 12:57:04 -0500
+Message-ID: <CADnq5_MaiO_OmULhcv2qtVBK2kXURd15Xe4QgBm05HxHhc-ASg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Fix HDMI deep color output for DCE
+ 6-11.
+To: Mario Kleiner <mario.kleiner.de@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,121 +73,210 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Aberback <joshua.aberback@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, Roman Li <Roman.Li@amd.com>,
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Will Deacon <will@kernel.org>, Nirmoy Das <nirmoy.das@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Nathan Chancellor <natechancellor@gmail.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 25, 2021 at 7:24 AM Arnd Bergmann <arnd@kernel.org> wrote:
+On Thu, Jan 21, 2021 at 1:17 AM Mario Kleiner
+<mario.kleiner.de@gmail.com> wrote:
 >
-> From: Arnd Bergmann <arnd@arndb.de>
+> This fixes corrupted display output in HDMI deep color
+> 10/12 bpc mode at least as observed on AMD Mullins, DCE-8.3.
 >
-> clang warns about the -mhard-float command line arguments
-> on architectures that do not support this:
+> It will hopefully also provide fixes for other DCE's up to
+> DCE-11, assuming those will need similar fixes, but i could
+> not test that for HDMI due to lack of suitable hw, so viewer
+> discretion is advised.
 >
-> clang: error: argument unused during compilation: '-mhard-float' [-Werror,-Wunused-command-line-argument]
+> dce110_stream_encoder_hdmi_set_stream_attribute() is used for
+> HDMI setup on all DCE's and is missing color_depth assignment.
 >
-> Move this into the gcc-specific arguments.
+> dce110_program_pix_clk() is used for pixel clock setup on HDMI
+> for DCE 6-11, and is missing color_depth assignment.
 >
-> Fixes: e77165bf7b02 ("drm/amd/display: Add DCN3 blocks to Makefile")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Additionally some of the underlying Atombios specific encoder
+> and pixelclock setup functions are missing code which is in
+> the classic amdgpu kms modesetting path and the in the radeon
+> kms driver for DCE6/DCE8.
+>
+> encoder_control_digx_v3() - Was missing setup code wrt. amdgpu
+> and radeon kms classic drivers. Added here, but untested due to
+> lack of suitable test hw.
+>
+> encoder_control_digx_v4() - Added missing setup code.
+> Successfully tested on AMD mullins / DCE-8.3 with HDMI deep color
+> output at 10 bpc and 12 bpc.
+>
+> Note that encoder_control_digx_v5() has proper setup code in place
+> and is used, e.g., by DCE-11.2, but this code wasn't used for deep
+> color setup due to the missing cntl.color_depth setup in the calling
+> function for HDMI.
+>
+> set_pixel_clock_v5() - Missing setup code wrt. classic amdgpu/radeon
+> kms. Added here, but untested due to lack of hw.
+>
+> set_pixel_clock_v6() - Missing setup code added. Successfully tested
+> on AMD mullins DCE-8.3. This fixes corrupted display output at HDMI
+> deep color output with 10 bpc or 12 bpc.
+>
+> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+>
+> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
 
-Applied.  Thanks!
+These make sense. I've applied the series.  I'll let the display guys
+gauge the other points in your cover letter.
 
 Alex
 
+
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn30/Makefile  | 6 ++++--
->  drivers/gpu/drm/amd/display/dc/dcn301/Makefile | 3 ++-
->  drivers/gpu/drm/amd/display/dc/dcn302/Makefile | 3 ++-
->  3 files changed, 8 insertions(+), 4 deletions(-)
+>  .../drm/amd/display/dc/bios/command_table.c   | 61 +++++++++++++++++++
+>  .../drm/amd/display/dc/dce/dce_clock_source.c | 14 +++++
+>  .../amd/display/dc/dce/dce_stream_encoder.c   |  1 +
+>  3 files changed, 76 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> index c20331eb62e0..dfd77b3cc84d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> @@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+> index 070459e3e407..afc10b954ffa 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+> @@ -245,6 +245,23 @@ static enum bp_result encoder_control_digx_v3(
+>                                         cntl->enable_dp_audio);
+>         params.ucLaneNum = (uint8_t)(cntl->lanes_number);
 >
+> +       switch (cntl->color_depth) {
+> +       case COLOR_DEPTH_888:
+> +               params.ucBitPerColor = PANEL_8BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_101010:
+> +               params.ucBitPerColor = PANEL_10BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_121212:
+> +               params.ucBitPerColor = PANEL_12BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_161616:
+> +               params.ucBitPerColor = PANEL_16BIT_PER_COLOR;
+> +               break;
+> +       default:
+> +               break;
+> +       }
+> +
+>         if (EXEC_BIOS_CMD_TABLE(DIGxEncoderControl, params))
+>                 result = BP_RESULT_OK;
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -msse
->  endif
+> @@ -274,6 +291,23 @@ static enum bp_result encoder_control_digx_v4(
+>                                         cntl->enable_dp_audio));
+>         params.ucLaneNum = (uint8_t)(cntl->lanes_number);
 >
->  ifdef CONFIG_PPC64
-> @@ -45,6 +45,8 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mhard-float
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o += -mhard-float
->  endif
+> +       switch (cntl->color_depth) {
+> +       case COLOR_DEPTH_888:
+> +               params.ucBitPerColor = PANEL_8BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_101010:
+> +               params.ucBitPerColor = PANEL_10BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_121212:
+> +               params.ucBitPerColor = PANEL_12BIT_PER_COLOR;
+> +               break;
+> +       case COLOR_DEPTH_161616:
+> +               params.ucBitPerColor = PANEL_16BIT_PER_COLOR;
+> +               break;
+> +       default:
+> +               break;
+> +       }
+> +
+>         if (EXEC_BIOS_CMD_TABLE(DIGxEncoderControl, params))
+>                 result = BP_RESULT_OK;
 >
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-> index 3ca7d911d25c..09264716d1dc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/Makefile
-> @@ -14,7 +14,7 @@ DCN301 = dcn301_init.o dcn301_resource.o dcn301_dccg.o \
->                 dcn301_dio_link_encoder.o dcn301_hwseq.o dcn301_panel_cntl.o dcn301_hubbub.o
+> @@ -1057,6 +1091,19 @@ static enum bp_result set_pixel_clock_v5(
+>                  * driver choose program it itself, i.e. here we program it
+>                  * to 888 by default.
+>                  */
+> +               if (bp_params->signal_type == SIGNAL_TYPE_HDMI_TYPE_A)
+> +                       switch (bp_params->color_depth) {
+> +                       case TRANSMITTER_COLOR_DEPTH_30:
+> +                               /* yes this is correct, the atom define is wrong */
+> +                               clk.sPCLKInput.ucMiscInfo |= PIXEL_CLOCK_V5_MISC_HDMI_32BPP;
+> +                               break;
+> +                       case TRANSMITTER_COLOR_DEPTH_36:
+> +                               /* yes this is correct, the atom define is wrong */
+> +                               clk.sPCLKInput.ucMiscInfo |= PIXEL_CLOCK_V5_MISC_HDMI_30BPP;
+> +                               break;
+> +                       default:
+> +                               break;
+> +                       }
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -mhard-float -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o := -msse
->  endif
+>                 if (EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))
+>                         result = BP_RESULT_OK;
+> @@ -1135,6 +1182,20 @@ static enum bp_result set_pixel_clock_v6(
+>                  * driver choose program it itself, i.e. here we pass required
+>                  * target rate that includes deep color.
+>                  */
+> +               if (bp_params->signal_type == SIGNAL_TYPE_HDMI_TYPE_A)
+> +                       switch (bp_params->color_depth) {
+> +                       case TRANSMITTER_COLOR_DEPTH_30:
+> +                               clk.sPCLKInput.ucMiscInfo |= PIXEL_CLOCK_V6_MISC_HDMI_30BPP_V6;
+> +                               break;
+> +                       case TRANSMITTER_COLOR_DEPTH_36:
+> +                               clk.sPCLKInput.ucMiscInfo |= PIXEL_CLOCK_V6_MISC_HDMI_36BPP_V6;
+> +                               break;
+> +                       case TRANSMITTER_COLOR_DEPTH_48:
+> +                               clk.sPCLKInput.ucMiscInfo |= PIXEL_CLOCK_V6_MISC_HDMI_48BPP;
+> +                               break;
+> +                       default:
+> +                               break;
+> +                       }
 >
->  ifdef CONFIG_PPC64
-> @@ -25,6 +25,7 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> +CFLAGS_$(AMDDALPATH)/dc/dcn301/dcn301_resource.o += -mhard-float
->  endif
+>                 if (EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))
+>                         result = BP_RESULT_OK;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> index fb733f573715..466f8f5803c9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> @@ -871,6 +871,20 @@ static bool dce110_program_pix_clk(
+>         bp_pc_params.flags.SET_EXTERNAL_REF_DIV_SRC =
+>                                         pll_settings->use_external_clk;
 >
->  ifdef CONFIG_X86
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> index 8d4924b7dc22..101620a8867a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
-> @@ -13,7 +13,7 @@
->  DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
+> +       switch (pix_clk_params->color_depth) {
+> +       case COLOR_DEPTH_101010:
+> +               bp_pc_params.color_depth = TRANSMITTER_COLOR_DEPTH_30;
+> +               break;
+> +       case COLOR_DEPTH_121212:
+> +               bp_pc_params.color_depth = TRANSMITTER_COLOR_DEPTH_36;
+> +               break;
+> +       case COLOR_DEPTH_161616:
+> +               bp_pc_params.color_depth = TRANSMITTER_COLOR_DEPTH_48;
+> +               break;
+> +       default:
+> +               break;
+> +       }
+> +
+>         if (clk_src->bios->funcs->set_pixel_clock(
+>                         clk_src->bios, &bp_pc_params) != BP_RESULT_OK)
+>                 return false;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> index ada57f745fd7..19e380e0a330 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> @@ -564,6 +564,7 @@ static void dce110_stream_encoder_hdmi_set_stream_attribute(
+>         cntl.enable_dp_audio = enable_audio;
+>         cntl.pixel_clock = actual_pix_clk_khz;
+>         cntl.lanes_number = LANE_COUNT_FOUR;
+> +       cntl.color_depth = crtc_timing->display_color_depth;
 >
->  ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
-> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -msse
->  endif
->
->  ifdef CONFIG_PPC64
-> @@ -24,6 +24,7 @@ ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
->  endif
-> +CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o += -mhard-float
->  endif
->
->  ifdef CONFIG_X86
+>         if (enc110->base.bp->funcs->encoder_control(
+>                         enc110->base.bp, &cntl) != BP_RESULT_OK)
 > --
-> 2.29.2
+> 2.25.1
 >
 > _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
