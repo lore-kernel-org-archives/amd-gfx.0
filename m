@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81770C433E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A4D7C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:44:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2969722AEC
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2969722AEC
+	by mail.kernel.org (Postfix) with ESMTPS id C90B822240
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Jan 2021 13:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C90B822240
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD0989F0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0D389F75;
 	Mon, 25 Jan 2021 13:44:21 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
  (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F94889E86
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7666689F0A
  for <amd-gfx@lists.freedesktop.org>; Mon, 25 Jan 2021 13:44:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BdDIpiqSPN9lczwrPYt3195fRQn1vpFzDXhpzcBQGJrt++vpCouVKZ9FKSB5kn4UbUQfak35jljk9j/1RvxWF356Fc0OWTsJnPMFPlBgnFwc/CZaMKIr8gymsNPmvG2B6bAj7i7xxb4aojW1gnN5zk/y1k3DTzyGdmdNvKiJoDzhjByUjV4HPofLlgKBi4jZ/lU6+gvRpvORekMa7rXgH7RpHQB3Wva2BAMoGwpUgA6zrqfDOcO5XV0W1VQxl8SiAvPJ0m1G7hwCidZi0erzhK2A0jKkF1phDlmXqYbEPYtFGoZibNoROeRZSk1weIiB1szWNZh0LVto9d99qdLYpw==
+ b=OpUV+oyar7cojiKxWKTzzD1E7iIHNQvINdz+LiojPdsdYJYC+YkS0+igp4nmTJB97q8DZGdxsFxc3fK8FAknEcoAu385dlmHgAos4ehqjjz1fsVOX2jiZquKcN/W6IQ0c/DVx48CFI5NCzmEaUEfCwoIxgVzK091BQe+fmx7OdeUnHbD7z5b3SOuLgWs7K5rHBKPoFmLaomx2viFxCFHcf1u/aX+Uvkeu2aedIpHvbeBAYfviuiDmFH/bSi3Cne734bAJfD+dsbC+1WIi/JJXCwxUGzgzfrZ8XWGQZ9WCPSRH3HyOlmFI0rj2oWl6GCeX6rhwCBIfh1BKn5IQc6wFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iqbj1VyZK6lqDtVrr1qjqDhcq3LxO/Td/RP8Km6iRJw=;
- b=fdXg48HHjHIF8gAGK6VOb/w3nKJiV8VD6B+hpI3TQFWSGkOD2Z0aLNyKG1GKUY+9diaeQu4YDi2lYemkrUTpBoszmxsqKmJCvcwf10kTyOXGqh0SS5NkE+QGXTO6rQYBZLE0jS/DNqClmsL7H5g2owHHEBsl5bkKvPHYu2G225xlFxjWrCC16yI8JCxI9YyM8GniVY9mTDgrit/jR5mSSr06/xo5I3wVaT1Ab0zbyKcZl2BGSm97T55oi48kubiU/eQPBRVClX15VckezyG6HWOKEJA89ndMoUlXCEGrhBIPf38f43HcEEMdzzhzJvtJ+rCvOwaIf6g2vWiYgD9sPw==
+ bh=Va6RxLEABGgFSB8DDDQXXH5Wh/I3tUxpO/V4s+FbJsg=;
+ b=O9Rw+YPpxZ5OjVD5gYvayw1dlfhbzfNh+KoCXwugoXk7OjsYgOjbqUnKWoJ3j+jurlAvIe6fmc4k7QyaN3JvdxO+Zkfa7T49NlCAChw5/Jv57ntMJHf8DERSs+nF34vE6fO3Vw2pCKnORudwxSvYCc5hVDzv1YHt6tYuGcGw+91CjeThzlhaan1Fj6QTucV3ih0TfzLbo/L6tU3kQzvGM//s7Xk3VPDQPcfe1qFSvNejTKQeqn+Mn45fIwjr6F1UpRf1GzCjKtuaJ8xCV8/xvSbMHU2HGTuBdHj2DIkV4QyF4vEM+5EHEufLHJgifJplqqA9eG/GC7+zIDB+REna2Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iqbj1VyZK6lqDtVrr1qjqDhcq3LxO/Td/RP8Km6iRJw=;
- b=VGELMfIrmZ7E7CHGfnnyQlfvw2mH1J5GHNqwWBT/7R6jh0XN1iZ90KDLm0TirNA/dvD7yAnhC5Ex8/PvWtDFMmD05MtGrnII6o9nKUfbvtrBoqVaRAvKt84EpoAvWXHSOLTXQ+OinlMLxFiyJqCGYUZ6oLyJeZtL31dZzsdCPik=
+ bh=Va6RxLEABGgFSB8DDDQXXH5Wh/I3tUxpO/V4s+FbJsg=;
+ b=wAl6JWWSPr6R3MU3coF7Pg42yCn8iFmJxT+7/Ci9rC6qGQ6miVl29SgJpp8N24Vs7n9GddkVvXvmmj5sYDuQyH74pC3KB/6wsVw9hzyzJoEClRXi2PQSKBjr4Vawlyy81G17GBqIpfMoRL77kJ5HTXJHNbVYXpkycgOQSyJdLGk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -52,9 +52,10 @@ Received: from DM6PR12MB2601.namprd12.prod.outlook.com
  13:44:17 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [RFC 1/7] drm/amd/display: Introduce FPU directory inside DC
-Date: Mon, 25 Jan 2021 08:43:07 -0500
-Message-Id: <20210125134313.305184-2-Rodrigo.Siqueira@amd.com>
+Subject: [RFC 2/7] drm/amd/display: Moves dcn30_set_mcif_arb_params to FPU
+ folder
+Date: Mon, 25 Jan 2021 08:43:08 -0500
+Message-Id: <20210125134313.305184-3-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210125134313.305184-1-Rodrigo.Siqueira@amd.com>
 References: <20210125134313.305184-1-Rodrigo.Siqueira@amd.com>
@@ -68,50 +69,50 @@ Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:7f86:f3af:1efb:628a)
  by YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.12 via Frontend
- Transport; Mon, 25 Jan 2021 13:44:16 +0000
+ Transport; Mon, 25 Jan 2021 13:44:17 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cae306ea-2259-47ba-a17a-08d8c1374f11
+X-MS-Office365-Filtering-Correlation-Id: 3dbe6239-663d-40e6-3aa0-08d8c1374f7c
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4041:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB40416EA0F59F44778F68231298BD9@DM6PR12MB4041.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4041B0FC2A7D5815F0E459D598BD9@DM6PR12MB4041.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:972;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OsYR2ruxMNVeJLzWpgTB5sD1mEg38tsLQH+a4PoKu5KvIkYiBCE+yNyHbV5Qq1ts8zen9XeQAZRku0qJwyMIfLW4ziucLp2zhz8Ftun0ma1qKcW/Dabu8FM4SDnGsiONv/54mPP8ocBbGvutzpZAuIxI6G2tW3YT/5I/HjHchsP3nS+WsYGuX41t26+B03E5H1lnElRmTauBsUQn3Vr9uwi6mX8+21/mYMBEHyWPrqIMW7Ef2pMV4fUG4ku3P1oMFg9bNs7d9L3AGXMOkKyvYiS1m2pmFKddAfjWclS3tlkMLXptLp9r92TWN/cObipd3eqgpDMIGUeQvsoHnAOvI3GP6KTHY5pfD3BoER1ObHIfO345znxut9BHFpscBhcxWqAMQpEpo+jCYk/sWKjV4g==
+X-Microsoft-Antispam-Message-Info: 0Ev8Y96BDv8HJT+d9L/oZefHQT/pu5Q/9WQVEnGKMmLlmL+B92MG8g3NmhKjHzh8sq7cCPZuQuGocuiH2qge+c7LMvJgGn2qi01/GHKAGgr8dhnapT1v+ZiV99jKTWGYnMQ3JLHg85nr44PIDnvAYFI73OuaNMDtzgd2JK1JLpe5/ZdAaMXEUVk0DLumtVdt2qc8vwXYiXr0gJ+ninSepD95v+wIYeJRAv7C0BDRBQH/6rEbIfYWyxB0hv1i7MThh3wnVoI+KN2jlJkjRc03hKpEXFQrZFcCp/dSIF6eTbc5psp/7lupk8ICv4WrPb7i788gDZForWG199Qi9LLfPrp0Q8oG5mzH7s06xgngiC+ZW0B9AnUv5Rw81Zh1myur7/6/aOe4JMnH8I0cLBWTSw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(376002)(136003)(396003)(366004)(39860400002)(346002)(2616005)(316002)(16526019)(4326008)(6916009)(1076003)(30864003)(66946007)(5660300002)(66556008)(478600001)(66476007)(54906003)(6506007)(6666004)(52116002)(36756003)(8936002)(6512007)(83380400001)(8676002)(2906002)(86362001)(6486002)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?nztuR0J4h15up2odD+jKsCPTaQAeJSc2ZRcMZKRCTtU2lrGQDdtak1MCV/FX?=
- =?us-ascii?Q?OkiVtp3h5G3KQY9qk1uoGQ1FWAF7m8uRNW3S238u3yqUCRd8JT7kXALvN6JV?=
- =?us-ascii?Q?N90QYq4dcx+8t7z3EUKonBiAyKOdxj8YyqotGLQnWTfhidxCi/t2i4PF35zb?=
- =?us-ascii?Q?vwlDbX4YMC1KRv3FZYnqA9qhxuFimh/XmrQ5zBD/vqo4Jt5QSb+6HNTxHpLD?=
- =?us-ascii?Q?IJkLyz3KbVB//jEwjhxSXJmkd6htuoJ0i7B997Ld42Q6OKHo+73MEHFid7uD?=
- =?us-ascii?Q?yCNxzHDZqgvbSmR/FKYoPhtk4hS5DFZbR3nG6OkQgGIIjFL9aPEPhJxr2t+f?=
- =?us-ascii?Q?DYR8cml+vFFCEwbMyaz6n6Q5A1PJv4e81CbNgvxI7+QqjcxsRgLfC1WwUUw8?=
- =?us-ascii?Q?WF2f4IbB7b1UdOtPwRbQSLmIQNH/aQ8w3dKkHB1OKUj7DdOkInq8ma6lk6wj?=
- =?us-ascii?Q?MkRh5SXkcyQPj9Pq/8fxq8ZjC6/LmhUcA2W7lvnqUDuk33h94XOGyFWnT2DX?=
- =?us-ascii?Q?OZotMEU6GJcyUSdM/SH4abfUc+BDUIZzaoafVBXYP7reDYpwjmO4QZsjczZp?=
- =?us-ascii?Q?I88bl7YTWMacwyXr4eurCP5Yid//vGfgK7RhYGgOV4woBDXIYsw3BBgFWXXs?=
- =?us-ascii?Q?NSgah5BijtxNdIw12cPSRbp7EUdZkCC203CNUdDkVULAiyM13rjUOXpapu+q?=
- =?us-ascii?Q?eM/BXg1GQ6RoILl3Jhbv3/bcE/TpRyQocKiPH/jMVMIDqfK/AswLgue7MRN3?=
- =?us-ascii?Q?ra4o9aFYPY4I4svEGh4zkLONL0t+xTOSAIQQeDGKf25d2UVppS38QtFgPil/?=
- =?us-ascii?Q?CdkWj52TfFE7VjXSQvi/Dv4Vup5stdufA85jGmzVNZFJ91//9JIECD0lQ8QN?=
- =?us-ascii?Q?vYa9sNXD/wD2G2yQqFZvD8fxncHHS8jtNQqAigjjlmRaGdFGt3X0Fla8yM7/?=
- =?us-ascii?Q?zs0Ck5cUQQTwTeqEWD50oM5LO0rSRLzzn6vzBi+SX5sqNI/Pa6Okgz3QZJg+?=
- =?us-ascii?Q?XEvpdEEo+3WJ3zOq/qoo3wC3X2myldkN6uJ9eAO4VXF4qUT+b1BtsuFrxaFs?=
- =?us-ascii?Q?Z0FJZlHDQlBrlOyAK9C2lRsdfAX44goXPiqZv/bMcqRxkpRb9ujMBrX3vjZT?=
- =?us-ascii?Q?3VjYkXSvvf6Zlhn2HNRE2m4N/NOzQc2IBg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?tposJGVtNNmrQfq1p95+n1vsnDMXXAcgRVlHECk/lgQX5+O4ldAWy2o6O5dS?=
+ =?us-ascii?Q?xYaAfJwSjT3MYfHaOKlnTDH5eGB/IqicPFSMPViYZeum2n01BrbGCGMMUeXZ?=
+ =?us-ascii?Q?gbMZo1gy06gF/zOiHjrtW9PrWm72ApDwE6oYPMrEmx5qf060rpvbixb0r++D?=
+ =?us-ascii?Q?i1c57SkvvvJitc9QNnj0j9oP1HWr6q7Ri0uIAwNuqi+ea9oqrqbF3CBj4lIc?=
+ =?us-ascii?Q?lDggWq7jsjCec3Z5vgQVDcCEU/GnmUzc32QJCeh0AczRdysdANXLQRUubSDO?=
+ =?us-ascii?Q?kWNwEFY3g3dAKfGzcH7F2mAG621dU3wfruJ7CH7xZJHf3vfayWDFO7v9ucA/?=
+ =?us-ascii?Q?SyNJwXlSFm+i/FrGwaKiHbS8YEMcXgSh+yinn0xSwwrQyspJqDAq3aDc9GEc?=
+ =?us-ascii?Q?yqRvbyf/FvZLK8DBFw5K6iPpG3WigfpsuyHNm3PFCoEmqwqwkcN43mIgbrwl?=
+ =?us-ascii?Q?1r41hLl+c3ghLhmUyZgKUo6K7zPBLsnhMievMUH4afQZnjHT3JQBX7SP87rm?=
+ =?us-ascii?Q?gB3wlOS+Qbzl86VTtMI0hIyy2Eo8UYEZi+QDmwzGfP6G5hBK8TF6ltGm/1mf?=
+ =?us-ascii?Q?x+w6WImIEAHvqDYoofYMnlYWwrchA9Wcl5ck4qJE/L1nAfsIWbNpU0HNiEyW?=
+ =?us-ascii?Q?xyV7UOuFTp7k4t7/jlzEkmychch3UVmAAwWLNmNAj17zugz7RkSmxrvfS/i/?=
+ =?us-ascii?Q?7T1pBIyMPaSypjfjeUarw6MXnOB1x5v878bjoN4F35TUFy9GhhbctwlM20x4?=
+ =?us-ascii?Q?N95h5zUdaaQbbsYlSJjktpAxbkjAckgGybkVD652Z/+q4xd/xkiBFra+38UU?=
+ =?us-ascii?Q?RFmjUjJcYWyo7l5PdB7fRLUCFwK2gkeUy5liNVDDnFIcQGuaDYG7eVnx+nP1?=
+ =?us-ascii?Q?jXVc3CSTngzcb2uV0Zssc1ad8fyAiV3yjV0C+1WwJcpTZfLucfKKtWCep2vZ?=
+ =?us-ascii?Q?BDwlgApECHMiqaofH2Ussx95m8FLTldcOlphpaYXFCR9InBh4XCkU8Cw0X8o?=
+ =?us-ascii?Q?S0Z29S2x65M06Ppfu4juh7V/V25iZh/dHMm3Z8ccdkMttDZHw2u7T5lIBdvL?=
+ =?us-ascii?Q?WGD7PmjNeryWjZ7N3qjAzs5XsqvWTq91Spcvi3ZjAqhaHnG5NGJR74IaTpRW?=
+ =?us-ascii?Q?iHDE/uwceNNo9+0kPO0wZCPFDwADZ1Lt+Q=3D=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae306ea-2259-47ba-a17a-08d8c1374f11
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dbe6239-663d-40e6-3aa0-08d8c1374f7c
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2021 13:44:16.9051 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2021 13:44:17.5827 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: slDdelh0DFi02wSeATQTYA03iO96hW8yGIToV82tZOoCt+4CKuTDKnyHpoo5KXb0IXmlzp6oaYofhTwJMmFnFQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: d3eiWsr4K5qr6prhHLbBPK9GlyM36D4WNEBh3OIZMGok8qOKsGKbn/TeW8LD32i0SZxs2n7EZZ/UBmd7GMCaTw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4041
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,469 +134,274 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The display core files rely on FPU operation, which requires to be
-compiled with special flags. Ideally, we don't want these FPU operations
-to get spread around the DC code; nevertheless, it happens in the
-current source. This commit introduces a new directory named
-fpu_operation that intends to centralize all files that require the FPU
-compilation flag. As part of this new component, this patch also moves
-one of the functions that require FPU access to a single shared file.
-Notice that this is the first part of the work, and it does not fix the
-FPU issue yet; we still need other patches for achieving the complete
-isolation of this file.
+The function dcn30_set_mcif_arb_params uses some double-precision
+operation; for this reason, this commit moves this function to the
+directory fpu_operation, where all FPU operations should be centralized.
 
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile       |   1 +
- .../drm/amd/display/dc/dcn30/dcn30_resource.c |  92 +----------
- .../drm/amd/display/dc/dcn30/dcn30_resource.h |   2 -
- .../amd/display/dc/dcn301/dcn301_resource.c   |   3 +-
- .../amd/display/dc/dcn302/dcn302_resource.c   |   3 +-
- .../drm/amd/display/dc/fpu_operation/Makefile |  57 +++++++
- .../display/dc/fpu_operation/dcn3x_commons.c  | 146 ++++++++++++++++++
- .../display/dc/fpu_operation/dcn3x_commons.h  |  32 ++++
- 8 files changed, 242 insertions(+), 94 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operation/Makefile
- create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.h
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c | 81 +-----------------
+ .../drm/amd/display/dc/dcn30/dcn30_resource.h | 11 ---
+ .../amd/display/dc/dcn301/dcn301_resource.c   |  2 +-
+ .../amd/display/dc/dcn302/dcn302_resource.c   |  2 +-
+ .../display/dc/fpu_operation/dcn3x_commons.c  | 84 +++++++++++++++++++
+ .../display/dc/fpu_operation/dcn3x_commons.h  |  3 +
+ 6 files changed, 90 insertions(+), 93 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index bf8fe0471b8f..61dd2c5865c7 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -33,6 +33,7 @@ DC_LIBS += dcn21
- DC_LIBS += dcn30
- DC_LIBS += dcn301
- DC_LIBS += dcn302
-+DC_LIBS += fpu_operation
- endif
- 
- DC_LIBS += dce120
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index dcf848f747a5..02e3107f04ee 100644
+index 02e3107f04ee..b82d616f8a21 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -34,6 +34,7 @@
- #include "dcn20/dcn20_resource.h"
- 
- #include "dcn30_resource.h"
-+#include "fpu_operation/dcn3x_commons.h"
- 
- #include "dcn10/dcn10_ipp.h"
- #include "dcn30/dcn30_hubbub.h"
-@@ -1470,95 +1471,6 @@ int dcn30_populate_dml_pipes_from_context(
+@@ -1471,85 +1471,6 @@ int dcn30_populate_dml_pipes_from_context(
  	return pipe_cnt;
  }
  
--void dcn30_populate_dml_writeback_from_context(
--	struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
+-unsigned int dcn30_calc_max_scaled_time(
+-		unsigned int time_per_pixel,
+-		enum mmhubbub_wbif_mode mode,
+-		unsigned int urgent_watermark)
 -{
--	int pipe_cnt, i, j;
--	double max_calc_writeback_dispclk;
--	double writeback_dispclk;
--	struct writeback_st dout_wb;
+-	unsigned int time_per_byte = 0;
+-	unsigned int total_free_entry = 0xb40;
+-	unsigned int buf_lh_capability;
+-	unsigned int max_scaled_time;
 -
--	for (i = 0, pipe_cnt = 0; i < dc->res_pool->pipe_count; i++) {
--		struct dc_stream_state *stream = res_ctx->pipe_ctx[i].stream;
+-	if (mode == PACKED_444) /* packed mode 32 bpp */
+-		time_per_byte = time_per_pixel/4;
+-	else if (mode == PACKED_444_FP16) /* packed mode 64 bpp */
+-		time_per_byte = time_per_pixel/8;
 -
--		if (!stream)
+-	if (time_per_byte == 0)
+-		time_per_byte = 1;
+-
+-	buf_lh_capability = (total_free_entry*time_per_byte*32) >> 6; /* time_per_byte is in u6.6*/
+-	max_scaled_time   = buf_lh_capability - urgent_watermark;
+-	return max_scaled_time;
+-}
+-
+-void dcn30_set_mcif_arb_params(
+-		struct dc *dc,
+-		struct dc_state *context,
+-		display_e2e_pipe_params_st *pipes,
+-		int pipe_cnt)
+-{
+-	enum mmhubbub_wbif_mode wbif_mode;
+-	struct display_mode_lib *dml = &context->bw_ctx.dml;
+-	struct mcif_arb_params *wb_arb_params;
+-	int i, j, k, dwb_pipe;
+-
+-	/* Writeback MCIF_WB arbitration parameters */
+-	dwb_pipe = 0;
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-
+-		if (!context->res_ctx.pipe_ctx[i].stream)
 -			continue;
--		max_calc_writeback_dispclk = 0;
 -
--		/* Set writeback information */
--		pipes[pipe_cnt].dout.wb_enable = 0;
--		pipes[pipe_cnt].dout.num_active_wb = 0;
--		for (j = 0; j < stream->num_wb_info; j++) {
--			struct dc_writeback_info *wb_info = &stream->writeback_info[j];
+-		for (j = 0; j < MAX_DWB_PIPES; j++) {
+-			struct dc_writeback_info *writeback_info = &context->res_ctx.pipe_ctx[i].stream->writeback_info[j];
 -
--			if (wb_info->wb_enabled && wb_info->writeback_source_plane &&
--					(wb_info->writeback_source_plane == res_ctx->pipe_ctx[i].plane_state)) {
--				pipes[pipe_cnt].dout.wb_enable = 1;
--				pipes[pipe_cnt].dout.num_active_wb++;
--				dout_wb.wb_src_height = wb_info->dwb_params.cnv_params.crop_en ?
--					wb_info->dwb_params.cnv_params.crop_height :
--					wb_info->dwb_params.cnv_params.src_height;
--				dout_wb.wb_src_width = wb_info->dwb_params.cnv_params.crop_en ?
--					wb_info->dwb_params.cnv_params.crop_width :
--					wb_info->dwb_params.cnv_params.src_width;
--				dout_wb.wb_dst_width = wb_info->dwb_params.dest_width;
--				dout_wb.wb_dst_height = wb_info->dwb_params.dest_height;
+-			if (writeback_info->wb_enabled == false)
+-				continue;
 -
--				/* For IP that doesn't support WB scaling, set h/v taps to 1 to avoid DML validation failure */
--				if (dc->dml.ip.writeback_max_hscl_taps > 1) {
--					dout_wb.wb_htaps_luma = wb_info->dwb_params.scaler_taps.h_taps;
--					dout_wb.wb_vtaps_luma = wb_info->dwb_params.scaler_taps.v_taps;
--				} else {
--					dout_wb.wb_htaps_luma = 1;
--					dout_wb.wb_vtaps_luma = 1;
--				}
--				dout_wb.wb_htaps_chroma = 0;
--				dout_wb.wb_vtaps_chroma = 0;
--				dout_wb.wb_hratio = wb_info->dwb_params.cnv_params.crop_en ?
--					(double)wb_info->dwb_params.cnv_params.crop_width /
--						(double)wb_info->dwb_params.dest_width :
--					(double)wb_info->dwb_params.cnv_params.src_width /
--						(double)wb_info->dwb_params.dest_width;
--				dout_wb.wb_vratio = wb_info->dwb_params.cnv_params.crop_en ?
--					(double)wb_info->dwb_params.cnv_params.crop_height /
--						(double)wb_info->dwb_params.dest_height :
--					(double)wb_info->dwb_params.cnv_params.src_height /
--						(double)wb_info->dwb_params.dest_height;
--				if (wb_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_ARGB ||
--					wb_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_RGBA)
--					dout_wb.wb_pixel_format = dm_444_64;
--				else
--					dout_wb.wb_pixel_format = dm_444_32;
+-			//wb_arb_params = &context->res_ctx.pipe_ctx[i].stream->writeback_info[j].mcif_arb_params;
+-			wb_arb_params = &context->bw_ctx.bw.dcn.bw_writeback.mcif_wb_arb[dwb_pipe];
 -
--				/* Workaround for cases where multiple writebacks are connected to same plane
--				 * In which case, need to compute worst case and set the associated writeback parameters
--				 * This workaround is necessary due to DML computation assuming only 1 set of writeback
--				 * parameters per pipe
--				 */
--				writeback_dispclk = dml30_CalculateWriteBackDISPCLK(
--						dout_wb.wb_pixel_format,
--						pipes[pipe_cnt].pipe.dest.pixel_rate_mhz,
--						dout_wb.wb_hratio,
--						dout_wb.wb_vratio,
--						dout_wb.wb_htaps_luma,
--						dout_wb.wb_vtaps_luma,
--						dout_wb.wb_src_width,
--						dout_wb.wb_dst_width,
--						pipes[pipe_cnt].pipe.dest.htotal,
--						dc->current_state->bw_ctx.dml.ip.writeback_line_buffer_buffer_size);
+-			if (writeback_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_ARGB ||
+-				writeback_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_RGBA)
+-				wbif_mode = PACKED_444_FP16;
+-			else
+-				wbif_mode = PACKED_444;
 -
--				if (writeback_dispclk > max_calc_writeback_dispclk) {
--					max_calc_writeback_dispclk = writeback_dispclk;
--					pipes[pipe_cnt].dout.wb = dout_wb;
--				}
+-			for (k = 0; k < sizeof(wb_arb_params->cli_watermark)/sizeof(wb_arb_params->cli_watermark[0]); k++) {
+-				wb_arb_params->cli_watermark[k] = get_wm_writeback_urgent(dml, pipes, pipe_cnt) * 1000;
+-				wb_arb_params->pstate_watermark[k] = get_wm_writeback_dram_clock_change(dml, pipes, pipe_cnt) * 1000;
 -			}
--		}
+-			wb_arb_params->time_per_pixel = (1000000 << 6) / context->res_ctx.pipe_ctx[i].stream->phy_pix_clk; /* time_per_pixel should be in u6.6 format */
+-			wb_arb_params->slice_lines = 32;
+-			wb_arb_params->arbitration_slice = 2; /* irrelevant since there is no YUV output */
+-			wb_arb_params->max_scaled_time = dcn30_calc_max_scaled_time(wb_arb_params->time_per_pixel,
+-					wbif_mode,
+-					wb_arb_params->cli_watermark[0]); /* assume 4 watermark sets have the same value */
+-			wb_arb_params->dram_speed_change_duration = dml->vba.WritebackAllowDRAMClockChangeEndPosition[j] * pipes[0].clks_cfg.refclk_mhz; /* num_clock_cycles = us * MHz */
 -
--		pipe_cnt++;
+-			dwb_pipe++;
+-
+-			if (dwb_pipe >= MAX_DWB_PIPES)
+-				return;
+-		}
+-		if (dwb_pipe >= MAX_DWB_PIPES)
+-			return;
 -	}
 -
 -}
 -
- unsigned int dcn30_calc_max_scaled_time(
- 		unsigned int time_per_pixel,
- 		enum mmhubbub_wbif_mode mode,
-@@ -2489,7 +2401,7 @@ static const struct resource_funcs dcn30_res_pool_funcs = {
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+ static struct dc_cap_funcs cap_funcs = {
+ 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
+ };
+@@ -2402,7 +2323,7 @@ static const struct resource_funcs dcn30_res_pool_funcs = {
  	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
  	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
--	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
-+	.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
- 	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
+ 	.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
+-	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
++	.set_mcif_arb_params = dcn3x_set_mcif_arb_params,
  	.find_first_free_match_stream_enc_for_link = dcn10_find_first_free_match_stream_enc_for_link,
  	.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
+ 	.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
-index 8ce7f6d39a20..b91e2856097f 100644
+index b91e2856097f..42960574cce9 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
 +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
-@@ -60,8 +60,6 @@ void dcn30_calculate_wm_and_dlg(
- 		display_e2e_pipe_params_st *pipes,
- 		int pipe_cnt,
- 		int vlevel);
--void dcn30_populate_dml_writeback_from_context(
--		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes);
+@@ -42,17 +42,6 @@ struct resource_pool *dcn30_create_resource_pool(
+ 		const struct dc_init_data *init_data,
+ 		struct dc *dc);
  
- int dcn30_populate_dml_pipes_from_context(
- 	struct dc *dc, struct dc_state *context,
+-void dcn30_set_mcif_arb_params(
+-		struct dc *dc,
+-		struct dc_state *context,
+-		display_e2e_pipe_params_st *pipes,
+-		int pipe_cnt);
+-
+-unsigned int dcn30_calc_max_scaled_time(
+-		unsigned int time_per_pixel,
+-		enum mmhubbub_wbif_mode mode,
+-		unsigned int urgent_watermark);
+-
+ bool dcn30_validate_bandwidth(struct dc *dc, struct dc_state *context,
+ 		bool fast_validate);
+ void dcn30_calculate_wm_and_dlg(
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index 5d4b2c60192e..e57f365aef95 100644
+index e57f365aef95..8369b009a853 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -35,6 +35,7 @@
- #include "dcn301_resource.h"
- 
- #include "dcn20/dcn20_resource.h"
-+#include "fpu_operation/dcn3x_commons.h"
- 
- #include "dcn10/dcn10_ipp.h"
- #include "dcn301/dcn301_hubbub.h"
-@@ -1630,7 +1631,7 @@ static struct resource_funcs dcn301_res_pool_funcs = {
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+@@ -1632,7 +1632,7 @@ static struct resource_funcs dcn301_res_pool_funcs = {
  	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
  	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
--	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
-+	.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
- 	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
+ 	.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
+-	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
++	.set_mcif_arb_params = dcn3x_set_mcif_arb_params,
  	.find_first_free_match_stream_enc_for_link = dcn10_find_first_free_match_stream_enc_for_link,
  	.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
+ 	.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-index 22ba0be88faf..c0f4a6d10cb6 100644
+index c0f4a6d10cb6..0554a3dd3214 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-@@ -42,6 +42,7 @@
- 
- #include "dcn20/dcn20_dsc.h"
- #include "dcn20/dcn20_resource.h"
-+#include "fpu_operation/dcn3x_commons.h"
- 
- #include "dcn10/dcn10_resource.h"
- 
-@@ -1240,7 +1241,7 @@ static struct resource_funcs dcn302_res_pool_funcs = {
- 		.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+@@ -1242,7 +1242,7 @@ static struct resource_funcs dcn302_res_pool_funcs = {
  		.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
  		.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
--		.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
-+		.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
- 		.set_mcif_arb_params = dcn30_set_mcif_arb_params,
+ 		.populate_dml_writeback_from_context = dcn3x_populate_dml_writeback_from_context,
+-		.set_mcif_arb_params = dcn30_set_mcif_arb_params,
++		.set_mcif_arb_params = dcn3x_set_mcif_arb_params,
  		.find_first_free_match_stream_enc_for_link = dcn10_find_first_free_match_stream_enc_for_link,
  		.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
-diff --git a/drivers/gpu/drm/amd/display/dc/fpu_operation/Makefile b/drivers/gpu/drm/amd/display/dc/fpu_operation/Makefile
-new file mode 100644
-index 000000000000..8a0957bfa8ba
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/fpu_operation/Makefile
-@@ -0,0 +1,57 @@
-+# 
-+# Copyright 2020 Advanced Micro Devices, Inc.
-+# 
-+# Permission is hereby granted, free of charge, to any person obtaining a
-+# copy of this software and associated documentation files (the "Software"),
-+# to deal in the Software without restriction, including without limitation
-+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+# and/or sell copies of the Software, and to permit persons to whom the
-+# Software is furnished to do so, subject to the following conditions:
-+# 
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+# 
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+# OTHER DEALINGS IN THE SOFTWARE.
-+# 
-+# Authors: AMD
-+# 
-+# 
-+
-+DCN3X_COMMONS = dcn3x_commons.o
-+
-+ifdef CONFIG_X86
-+dcn3x_commons_ccflags := -mhard-float -msse
-+endif
-+
-+ifdef CONFIG_PPC64
-+dcn3x_commons_ccflags := -mhard-float -maltivec
-+endif
-+
-+ifdef CONFIG_CC_IS_GCC
-+ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-+IS_OLD_GCC = 1
-+endif
-+endif
-+
-+ifdef CONFIG_X86
-+ifdef IS_OLD_GCC
-+# Stack alignment mismatch, proceed with caution.
-+# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-+# (8B stack alignment).
-+dcn3x_commons_ccflags := -mpreferred-stack-boundary=4
-+else
-+dcn3x_commons_ccflags :=  -msse2
-+endif
-+endif
-+
-+CFLAGS_$(AMDDALPATH)/dc/fpu_operation/dcn3x_commons.o += $(dcn3x_commons_ccflags)
-+
-+AMD_DAL_DCN3X_COMMONS = $(addprefix $(AMDDALPATH)/dc/fpu_operation/,$(DCN3X_COMMONS))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_DCN3X_COMMONS)
+ 		.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
 diff --git a/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.c b/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.c
-new file mode 100644
-index 000000000000..767ca59551c1
---- /dev/null
+index 767ca59551c1..707f782127a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.c
 +++ b/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.c
-@@ -0,0 +1,146 @@
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+
-+/**
-+ * DOC: overview
-+ *
-+ * The DCN architecture relies on FPU operations, which require special
-+ * compilation flags and the kernel_fpu_begin/end macros. Ideally, we want to
-+ * avoid spreading this sort of function across multiple object files for
-+ * keeping the FPU work manageable; furthermore, we want to avoid messing with
-+ * userspace applications that use double precision. This file aims to
-+ * centralize all DCN30  functions that require FPU access - including those
-+ * shared between other DCN3x architecture (i.e., DCN3.01 and DCN3.02) - in a
-+ * single place. Notice that this file follows the following pattern:
-+ *
-+ * - Functions shared between multiple DCN architecture starts with dcn3x;
-+ * - The functions available in this file are exposed by via public functions
-+ *   that calls functions that need FPU operation under the
-+ *   kernel_fpu_begin/end macros.
-+ */
-+
-+#include "resource.h"
-+#include "dml/dcn30/display_mode_vba_30.h"
-+
-+#include "fpu_operation/dcn3x_commons.h"
-+
-+static void _dcn3x_populate_dml_writeback_from_context(struct dc *dc,
-+		struct resource_context *res_ctx,
-+		display_e2e_pipe_params_st *pipes)
+@@ -137,6 +137,90 @@ static void _dcn3x_populate_dml_writeback_from_context(struct dc *dc,
+ 
+ }
+ 
++static unsigned int dcn3x_calc_max_scaled_time(unsigned int time_per_pixel,
++	enum mmhubbub_wbif_mode mode, unsigned int urgent_watermark)
 +{
-+	int pipe_cnt, i, j;
-+	double max_calc_writeback_dispclk;
-+	double writeback_dispclk;
-+	struct writeback_st dout_wb;
++	unsigned int time_per_byte = 0;
++	unsigned int total_free_entry = 0xb40;
++	unsigned int buf_lh_capability;
++	unsigned int max_scaled_time;
 +
-+	for (i = 0, pipe_cnt = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct dc_stream_state *stream = res_ctx->pipe_ctx[i].stream;
++	if (mode == PACKED_444) /* packed mode 32 bpp */
++		time_per_byte = time_per_pixel/4;
++	else if (mode == PACKED_444_FP16) /* packed mode 64 bpp */
++		time_per_byte = time_per_pixel/8;
 +
-+		if (!stream)
++	if (time_per_byte == 0)
++		time_per_byte = 1;
++
++	buf_lh_capability = (total_free_entry*time_per_byte*32) >> 6; /* time_per_byte is in u6.6*/
++	max_scaled_time   = buf_lh_capability - urgent_watermark;
++	return max_scaled_time;
++}
++
++static void _dcn3x_set_mcif_arb_params(struct dc *dc, struct dc_state *context,
++		display_e2e_pipe_params_st *pipes,
++		int pipe_cnt)
++{
++	enum mmhubbub_wbif_mode wbif_mode;
++	struct display_mode_lib *dml = &context->bw_ctx.dml;
++	struct mcif_arb_params *wb_arb_params;
++	int i, j, k, dwb_pipe;
++
++	/* Writeback MCIF_WB arbitration parameters */
++	dwb_pipe = 0;
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++
++		if (!context->res_ctx.pipe_ctx[i].stream)
 +			continue;
-+		max_calc_writeback_dispclk = 0;
 +
-+		/* Set writeback information */
-+		pipes[pipe_cnt].dout.wb_enable = 0;
-+		pipes[pipe_cnt].dout.num_active_wb = 0;
-+		for (j = 0; j < stream->num_wb_info; j++) {
-+			struct dc_writeback_info *wb_info = &stream->writeback_info[j];
++		for (j = 0; j < MAX_DWB_PIPES; j++) {
++			struct dc_writeback_info *writeback_info = &context->res_ctx.pipe_ctx[i].stream->writeback_info[j];
 +
-+			if (wb_info->wb_enabled && wb_info->writeback_source_plane &&
-+					(wb_info->writeback_source_plane == res_ctx->pipe_ctx[i].plane_state)) {
-+				pipes[pipe_cnt].dout.wb_enable = 1;
-+				pipes[pipe_cnt].dout.num_active_wb++;
-+				dout_wb.wb_src_height = wb_info->dwb_params.cnv_params.crop_en ?
-+					wb_info->dwb_params.cnv_params.crop_height :
-+					wb_info->dwb_params.cnv_params.src_height;
-+				dout_wb.wb_src_width = wb_info->dwb_params.cnv_params.crop_en ?
-+					wb_info->dwb_params.cnv_params.crop_width :
-+					wb_info->dwb_params.cnv_params.src_width;
-+				dout_wb.wb_dst_width = wb_info->dwb_params.dest_width;
-+				dout_wb.wb_dst_height = wb_info->dwb_params.dest_height;
++			if (writeback_info->wb_enabled == false)
++				continue;
 +
-+				/* For IP that doesn't support WB scaling, set h/v taps to 1 to avoid DML validation failure */
-+				if (dc->dml.ip.writeback_max_hscl_taps > 1) {
-+					dout_wb.wb_htaps_luma = wb_info->dwb_params.scaler_taps.h_taps;
-+					dout_wb.wb_vtaps_luma = wb_info->dwb_params.scaler_taps.v_taps;
-+				} else {
-+					dout_wb.wb_htaps_luma = 1;
-+					dout_wb.wb_vtaps_luma = 1;
-+				}
-+				dout_wb.wb_htaps_chroma = 0;
-+				dout_wb.wb_vtaps_chroma = 0;
-+				dout_wb.wb_hratio = wb_info->dwb_params.cnv_params.crop_en ?
-+					(double)wb_info->dwb_params.cnv_params.crop_width /
-+						(double)wb_info->dwb_params.dest_width :
-+					(double)wb_info->dwb_params.cnv_params.src_width /
-+						(double)wb_info->dwb_params.dest_width;
-+				dout_wb.wb_vratio = wb_info->dwb_params.cnv_params.crop_en ?
-+					(double)wb_info->dwb_params.cnv_params.crop_height /
-+						(double)wb_info->dwb_params.dest_height :
-+					(double)wb_info->dwb_params.cnv_params.src_height /
-+						(double)wb_info->dwb_params.dest_height;
-+				if (wb_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_ARGB ||
-+					wb_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_RGBA)
-+					dout_wb.wb_pixel_format = dm_444_64;
-+				else
-+					dout_wb.wb_pixel_format = dm_444_32;
++			//wb_arb_params = &context->res_ctx.pipe_ctx[i].stream->writeback_info[j].mcif_arb_params;
++			wb_arb_params = &context->bw_ctx.bw.dcn.bw_writeback.mcif_wb_arb[dwb_pipe];
 +
-+				/* Workaround for cases where multiple writebacks are connected to same plane
-+				 * In which case, need to compute worst case and set the associated writeback parameters
-+				 * This workaround is necessary due to DML computation assuming only 1 set of writeback
-+				 * parameters per pipe
-+				 */
-+				writeback_dispclk = dml30_CalculateWriteBackDISPCLK(
-+						dout_wb.wb_pixel_format,
-+						pipes[pipe_cnt].pipe.dest.pixel_rate_mhz,
-+						dout_wb.wb_hratio,
-+						dout_wb.wb_vratio,
-+						dout_wb.wb_htaps_luma,
-+						dout_wb.wb_vtaps_luma,
-+						dout_wb.wb_src_width,
-+						dout_wb.wb_dst_width,
-+						pipes[pipe_cnt].pipe.dest.htotal,
-+						dc->current_state->bw_ctx.dml.ip.writeback_line_buffer_buffer_size);
++			if (writeback_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_ARGB ||
++				writeback_info->dwb_params.cnv_params.fc_out_format == DWB_OUT_FORMAT_64BPP_RGBA)
++				wbif_mode = PACKED_444_FP16;
++			else
++				wbif_mode = PACKED_444;
 +
-+				if (writeback_dispclk > max_calc_writeback_dispclk) {
-+					max_calc_writeback_dispclk = writeback_dispclk;
-+					pipes[pipe_cnt].dout.wb = dout_wb;
-+				}
++			for (k = 0; k < sizeof(wb_arb_params->cli_watermark)/sizeof(wb_arb_params->cli_watermark[0]); k++) {
++				wb_arb_params->cli_watermark[k] = get_wm_writeback_urgent(dml, pipes, pipe_cnt) * 1000;
++				wb_arb_params->pstate_watermark[k] = get_wm_writeback_dram_clock_change(dml, pipes, pipe_cnt) * 1000;
 +			}
-+		}
++			wb_arb_params->time_per_pixel = (1000000 << 6) / context->res_ctx.pipe_ctx[i].stream->phy_pix_clk; /* time_per_pixel should be in u6.6 format */
++			wb_arb_params->slice_lines = 32;
++			wb_arb_params->arbitration_slice = 2; /* irrelevant since there is no YUV output */
++			wb_arb_params->max_scaled_time = dcn3x_calc_max_scaled_time(wb_arb_params->time_per_pixel,
++					wbif_mode,
++					wb_arb_params->cli_watermark[0]); /* assume 4 watermark sets have the same value */
++			wb_arb_params->dram_speed_change_duration = dml->vba.WritebackAllowDRAMClockChangeEndPosition[j] * pipes[0].clks_cfg.refclk_mhz; /* num_clock_cycles = us * MHz */
 +
-+		pipe_cnt++;
++			dwb_pipe++;
++
++			if (dwb_pipe >= MAX_DWB_PIPES)
++				return;
++		}
++		if (dwb_pipe >= MAX_DWB_PIPES)
++			return;
 +	}
 +
 +}
 +
-+void dcn3x_populate_dml_writeback_from_context(struct dc *dc,
-+	struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
++void dcn3x_set_mcif_arb_params(struct dc *dc, struct dc_state *context,
++		display_e2e_pipe_params_st *pipes,
++		int pipe_cnt)
 +{
 +	DC_FP_START();
-+	_dcn3x_populate_dml_writeback_from_context(dc, res_ctx, pipes);
++	_dcn3x_set_mcif_arb_params(dc, context, pipes, pipe_cnt);
 +	DC_FP_END();
 +}
++
+ void dcn3x_populate_dml_writeback_from_context(struct dc *dc,
+ 	struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
+ {
 diff --git a/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.h b/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.h
-new file mode 100644
-index 000000000000..c3d6297d3585
---- /dev/null
+index c3d6297d3585..b3b6d8a66c28 100644
+--- a/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.h
 +++ b/drivers/gpu/drm/amd/display/dc/fpu_operation/dcn3x_commons.h
-@@ -0,0 +1,32 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
+@@ -29,4 +29,7 @@
+ void dcn3x_populate_dml_writeback_from_context(struct dc *dc,
+ 	struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes);
+ 
++void dcn3x_set_mcif_arb_params(struct dc *dc, struct dc_state *context,
++	display_e2e_pipe_params_st *pipes, int pipe_cnt);
 +
-+#ifndef _DCN3X_COMMONS_H_
-+#define _DCN3X_COMMONS_H_
-+
-+void dcn3x_populate_dml_writeback_from_context(struct dc *dc,
-+	struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes);
-+
-+#endif /* _DCN3X_COMMONS_H_ */
+ #endif /* _DCN3X_COMMONS_H_ */
 -- 
 2.25.1
 
