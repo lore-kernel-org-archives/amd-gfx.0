@@ -5,37 +5,37 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE2F2C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EC99C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7606620658
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7606620658
+	by mail.kernel.org (Postfix) with ESMTPS id 1141F20656
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1141F20656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC066E479;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEAD6E48F;
 	Tue, 26 Jan 2021 21:44:39 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1F96E441;
- Tue, 26 Jan 2021 21:44:38 +0000 (UTC)
-IronPort-SDR: zpmRRWNsv2ZC3MT+/wJ578z7Xf0F+pNStj05QtsZwZvhO/BuUk3FjW9HIks0F+BjnbEr8Qkedz
- T7UV6k1LjJUA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770829"
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770829"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3FFB6E171;
+ Tue, 26 Jan 2021 21:44:37 +0000 (UTC)
+IronPort-SDR: czDphdFDFSSebhkpN1AfIxsFWFVeVVre7XpD+ZiomSwypPelfgYXXEbLx2y5GMn87JQ+B+cjFT
+ BpCUb8ws9GMA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770827"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770827"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Jan 2021 13:44:37 -0800
-IronPort-SDR: 2ae6tLysyhXYthrpXKJY7bn1HEolCNzb8kVzjeOw1gYWAb9q6U2u4NBMDYgFtUTNzIk+XORYCO
- RuLb09byOB9A==
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139891"
+IronPort-SDR: jB94TEEMFBkJrl7atXpKz+il2NJU9Q8ef60DYeuRMlLjJ1PRfvZy1XoNdkK7mqYeAUktlL3zX+
+ GDY761QES78A==
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139884"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 26 Jan 2021 13:44:37 -0800
+ 26 Jan 2021 13:44:36 -0800
 From: Brian Welty <brian.welty@intel.com>
 To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  Tejun Heo <tj@kernel.org>, dri-devel@lists.freedesktop.org,
@@ -47,9 +47,9 @@ To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: [RFC PATCH 3/9] drm, cgroup: Initialize drmcg properties
-Date: Tue, 26 Jan 2021 13:46:20 -0800
-Message-Id: <20210126214626.16260-4-brian.welty@intel.com>
+Subject: [RFC PATCH 1/9] cgroup: Introduce cgroup for drm subsystem
+Date: Tue, 26 Jan 2021 13:46:18 -0800
+Message-Id: <20210126214626.16260-2-brian.welty@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210126214626.16260-1-brian.welty@intel.com>
 References: <20210126214626.16260-1-brian.welty@intel.com>
@@ -65,157 +65,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogS2VubnkgSG8gPEtlbm55LkhvQGFtZC5jb20+Cgpkcm1jZyBpbml0aWFsaXphdGlvbiBp
-bnZvbHZlcyBhbGxvY2F0aW5nIGEgcGVyIGNncm91cCwgcGVyIGRldmljZSBkYXRhCnN0cnVjdHVy
-ZSBhbmQgc2V0dGluZyB0aGUgZGVmYXVsdHMuICBUaGVyZSBhcmUgdHdvIGVudHJ5IHBvaW50cyBm
-b3IKZHJtY2cgaW5pdDoKCjEpIFdoZW4gc3RydWN0IGRybWNnIGlzIGNyZWF0ZWQgdmlhIGNzc19h
-bGxvYywgaW5pdGlhbGl6YXRpb24gaXMgZG9uZQogIGZvciBlYWNoIGRldmljZQoKMikgV2hlbiBE
-Uk0gZGV2aWNlcyBhcmUgY3JlYXRlZCBhZnRlciBkcm1jZ3MgYXJlIGNyZWF0ZWQsIHBlcgogIGRl
-dmljZSBkcm1jZyBkYXRhIHN0cnVjdHVyZSBpcyBhbGxvY2F0ZWQgYXQgdGhlIGJlZ2lubmluZyBv
-ZgogIERSTSBkZXZpY2UgY3JlYXRpb24gc3VjaCB0aGF0IGRybWNnIGNhbiBiZWdpbiB0cmFja2lu
-ZyB1c2FnZQogIHN0YXRpc3RpY3MKCkVudHJ5IHBvaW50ICMyIHVzdWFsbHkgYXBwbGllcyB0byB0
-aGUgcm9vdCBjZ3JvdXAgc2luY2UgaXQgY2FuIGJlCmNyZWF0ZWQgYmVmb3JlIERSTSBkZXZpY2Vz
-IGFyZSBhdmFpbGFibGUuICBUaGUgZHJtY2cgY29udHJvbGxlciB3aWxsIGdvCnRocm91Z2ggYWxs
-IGV4aXN0aW5nIGRybSBjZ3JvdXBzIGFuZCBpbml0aWFsaXplIHRoZW0gd2l0aCB0aGUgbmV3IGRl
-dmljZQphY2NvcmRpbmdseS4KCkV4dGVuZGluZyBLZW5ueSdzIG9yaWdpbmFsIHdvcmssIHRoaXMg
-aGFzIGJlZW4gc2ltcGxpZmllZCBzb21lIGFuZAp0aGUgY3VzdG9tX2luaXQgY2FsbGJhY2sgaGFz
-IGJlZW4gcmVtb3ZlZC4gKEJyaWFuKQoKU2lnbmVkLW9mZi1ieSBLZW5ueSBIbyA8S2VubnkuSG9A
-YW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQnJpYW4gV2VsdHkgPGJyaWFuLndlbHR5QGludGVsLmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jICB8ICAzICsrCiBpbmNsdWRlL2RybS9k
-cm1fY2dyb3VwLmggICB8IDE3ICsrKysrKysKIGluY2x1ZGUvZHJtL2RybV9kZXZpY2UuaCAgIHwg
-IDcgKysrCiBpbmNsdWRlL2xpbnV4L2Nncm91cF9kcm0uaCB8IDEzICsrKysrKwoga2VybmVsL2Nn
-cm91cC9kcm0uYyAgICAgICAgfCA5NSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrLQogNSBmaWxlcyBjaGFuZ2VkLCAxMzQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX2Rydi5jCmluZGV4IDNiOTQwOTI2ZDY3Mi4uZGFjNzQyNDQ1YjM4IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMK
-QEAgLTU3MCw2ICs1NzAsNyBAQCBzdGF0aWMgdm9pZCBkcm1fZGV2X2luaXRfcmVsZWFzZShzdHJ1
-Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpyZXMpCiAJLyogUHJldmVudCB1c2UtYWZ0ZXItZnJl
-ZSBpbiBkcm1fbWFuYWdlZF9yZWxlYXNlIHdoZW4gZGVidWdnaW5nIGlzCiAJICogZW5hYmxlZC4g
-U2xpZ2h0bHkgYXdrd2FyZCwgYnV0IGNhbid0IHJlYWxseSBiZSBoZWxwZWQuICovCiAJZGV2LT5k
-ZXYgPSBOVUxMOworCW11dGV4X2Rlc3Ryb3koJmRldi0+ZHJtY2dfbXV0ZXgpOwogCW11dGV4X2Rl
-c3Ryb3koJmRldi0+bWFzdGVyX211dGV4KTsKIAltdXRleF9kZXN0cm95KCZkZXYtPmNsaWVudGxp
-c3RfbXV0ZXgpOwogCW11dGV4X2Rlc3Ryb3koJmRldi0+ZmlsZWxpc3RfbXV0ZXgpOwpAQCAtNjEy
-LDYgKzYxMyw3IEBAIHN0YXRpYyBpbnQgZHJtX2Rldl9pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJbXV0ZXhfaW5pdCgmZGV2LT5maWxlbGlzdF9tdXRleCk7CiAJbXV0ZXhfaW5pdCgmZGV2
-LT5jbGllbnRsaXN0X211dGV4KTsKIAltdXRleF9pbml0KCZkZXYtPm1hc3Rlcl9tdXRleCk7CisJ
-bXV0ZXhfaW5pdCgmZGV2LT5kcm1jZ19tdXRleCk7CiAKIAlyZXQgPSBkcm1tX2FkZF9hY3Rpb24o
-ZGV2LCBkcm1fZGV2X2luaXRfcmVsZWFzZSwgTlVMTCk7CiAJaWYgKHJldCkKQEAgLTY1Miw2ICs2
-NTQsNyBAQCBzdGF0aWMgaW50IGRybV9kZXZfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAog
-CWlmIChyZXQpCiAJCWdvdG8gZXJyOwogCisJZHJtY2dfZGV2aWNlX2Vhcmx5X2luaXQoZGV2KTsK
-IAlyZXR1cm4gMDsKIAogZXJyOgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2Nncm91cC5o
-IGIvaW5jbHVkZS9kcm0vZHJtX2Nncm91cC5oCmluZGV4IDUzMGM5YTBiMzIzOC4uNDNjYWYxYjZh
-MGRlIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fY2dyb3VwLmgKKysrIGIvaW5jbHVkZS9k
-cm0vZHJtX2Nncm91cC5oCkBAIC00LDYgKzQsMTcgQEAKICNpZm5kZWYgX19EUk1fQ0dST1VQX0hf
-XwogI2RlZmluZSBfX0RSTV9DR1JPVVBfSF9fCiAKKyNpbmNsdWRlIDxkcm0vZHJtX2ZpbGUuaD4K
-Kworc3RydWN0IGRybV9kZXZpY2U7CisKKy8qKgorICogUGVyIERSTSBkZXZpY2UgcHJvcGVydGll
-cyBmb3IgRFJNIGNncm91cCBjb250cm9sbGVyIGZvciB0aGUgcHVycG9zZQorICogb2Ygc3Rvcmlu
-ZyBwZXIgZGV2aWNlIGRlZmF1bHRzCisgKi8KK3N0cnVjdCBkcm1jZ19wcm9wcyB7Cit9OworCiAj
-aWZkZWYgQ09ORklHX0NHUk9VUF9EUk0KIAogdm9pZCBkcm1jZ19iaW5kKHN0cnVjdCBkcm1fbWlu
-b3IgKCooKmFjcV9kbSkodW5zaWduZWQgaW50IG1pbm9yX2lkKSksCkBAIC0xNSw2ICsyNiw4IEBA
-IHZvaWQgZHJtY2dfcmVnaXN0ZXJfZGV2KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpOwogCiB2b2lk
-IGRybWNnX3VucmVnaXN0ZXJfZGV2KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpOwogCit2b2lkIGRy
-bWNnX2RldmljZV9lYXJseV9pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXZpY2UpOworCiAjZWxz
-ZQogCiBzdGF0aWMgaW5saW5lIHZvaWQgZHJtY2dfYmluZCgKQEAgLTM1LDUgKzQ4LDkgQEAgc3Rh
-dGljIGlubGluZSB2b2lkIGRybWNnX3VucmVnaXN0ZXJfZGV2KHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYpCiB7CiB9CiAKK3N0YXRpYyBpbmxpbmUgdm9pZCBkcm1jZ19kZXZpY2VfZWFybHlfaW5pdChz
-dHJ1Y3QgZHJtX2RldmljZSAqZGV2aWNlKQoreworfQorCiAjZW5kaWYgLyogQ09ORklHX0NHUk9V
-UF9EUk0gKi8KICNlbmRpZiAvKiBfX0RSTV9DR1JPVVBfSF9fICovCmRpZmYgLS1naXQgYS9pbmNs
-dWRlL2RybS9kcm1fZGV2aWNlLmggYi9pbmNsdWRlL2RybS9kcm1fZGV2aWNlLmgKaW5kZXggZDY0
-NzIyM2U4MzkwLi4xY2RjY2M5YTY1M2MgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9kZXZp
-Y2UuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fZGV2aWNlLmgKQEAgLTgsNiArOCw3IEBACiAKICNp
-bmNsdWRlIDxkcm0vZHJtX2hhc2h0YWIuaD4KICNpbmNsdWRlIDxkcm0vZHJtX21vZGVfY29uZmln
-Lmg+CisjaW5jbHVkZSA8ZHJtL2RybV9jZ3JvdXAuaD4KIAogc3RydWN0IGRybV9kcml2ZXI7CiBz
-dHJ1Y3QgZHJtX21pbm9yOwpAQCAtMzE4LDYgKzMxOSwxMiBAQCBzdHJ1Y3QgZHJtX2RldmljZSB7
-CiAJICovCiAJc3RydWN0IGRybV9mYl9oZWxwZXIgKmZiX2hlbHBlcjsKIAorICAgICAgICAvKiog
-XG5hbWUgRFJNIENncm91cCAqLworCS8qQHsgKi8KKwlzdHJ1Y3QgbXV0ZXggZHJtY2dfbXV0ZXg7
-CisJc3RydWN0IGRybWNnX3Byb3BzIGRybWNnX3Byb3BzOworCS8qQH0gKi8KKwogCS8qIEV2ZXJ5
-dGhpbmcgYmVsb3cgaGVyZSBpcyBmb3IgbGVnYWN5IGRyaXZlciwgbmV2ZXIgdXNlISAqLwogCS8q
-IHByaXZhdGU6ICovCiAjaWYgSVNfRU5BQkxFRChDT05GSUdfRFJNX0xFR0FDWSkKZGlmZiAtLWdp
-dCBhL2luY2x1ZGUvbGludXgvY2dyb3VwX2RybS5oIGIvaW5jbHVkZS9saW51eC9jZ3JvdXBfZHJt
-LmgKaW5kZXggMzA3YmI3NWRiMjQ4Li41MGYwNTU4MDQ0MDAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUv
-bGludXgvY2dyb3VwX2RybS5oCisrKyBiL2luY2x1ZGUvbGludXgvY2dyb3VwX2RybS5oCkBAIC0x
-MiwxMSArMTIsMTkgQEAKIAogI2lmZGVmIENPTkZJR19DR1JPVVBfRFJNCiAKKy8qKgorICogUGVy
-IERSTSBjZ3JvdXAsIHBlciBkZXZpY2UgcmVzb3VyY2VzIChzdWNoIGFzIHN0YXRpc3RpY3MgYW5k
-IGxpbWl0cykKKyAqLworc3RydWN0IGRybWNnX2RldmljZV9yZXNvdXJjZSB7CisJLyogZm9yIHBl
-ciBkZXZpY2Ugc3RhdHMgKi8KK307CisKIC8qKgogICogVGhlIERSTSBjZ3JvdXAgY29udHJvbGxl
-ciBkYXRhIHN0cnVjdHVyZS4KICAqLwogc3RydWN0IGRybWNnIHsKIAlzdHJ1Y3QgY2dyb3VwX3N1
-YnN5c19zdGF0ZQljc3M7CisJc3RydWN0IGRybWNnX2RldmljZV9yZXNvdXJjZQkqZGV2X3Jlc291
-cmNlc1tNQVhfRFJNX0RFVl07CiB9OwogCiAvKioKQEAgLTQwLDYgKzQ4LDggQEAgc3RhdGljIGlu
-bGluZSBzdHJ1Y3QgZHJtY2cgKmNzc190b19kcm1jZyhzdHJ1Y3QgY2dyb3VwX3N1YnN5c19zdGF0
-ZSAqY3NzKQogICovCiBzdGF0aWMgaW5saW5lIHN0cnVjdCBkcm1jZyAqZHJtY2dfZ2V0KHN0cnVj
-dCB0YXNrX3N0cnVjdCAqdGFzaykKIHsKKwlpZiAoIWNncm91cF9zdWJzeXNfZW5hYmxlZChncHVf
-Y2dycF9zdWJzeXMpKQorCQlyZXR1cm4gTlVMTDsKIAlyZXR1cm4gY3NzX3RvX2RybWNnKHRhc2tf
-Z2V0X2Nzcyh0YXNrLCBncHVfY2dycF9pZCkpOwogfQogCkBAIC03MCw2ICs4MCw5IEBAIHN0YXRp
-YyBpbmxpbmUgc3RydWN0IGRybWNnICpkcm1jZ19wYXJlbnQoc3RydWN0IGRybWNnICpjZykKIAog
-I2Vsc2UgLyogQ09ORklHX0NHUk9VUF9EUk0gKi8KIAorc3RydWN0IGRybWNnX2RldmljZV9yZXNv
-dXJjZSB7Cit9OworCiBzdHJ1Y3QgZHJtY2cgewogfTsKIApkaWZmIC0tZ2l0IGEva2VybmVsL2Nn
-cm91cC9kcm0uYyBiL2tlcm5lbC9jZ3JvdXAvZHJtLmMKaW5kZXggMDYxYmI5YzQ1OGU0Li44MzY5
-MjljMjdkZTggMTAwNjQ0Ci0tLSBhL2tlcm5lbC9jZ3JvdXAvZHJtLmMKKysrIGIva2VybmVsL2Nn
-cm91cC9kcm0uYwpAQCAtMSwxMSArMSwxNSBAQAogLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
-IE1JVAotLy8gQ29weXJpZ2h0IDIwMTkgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgorLyoK
-KyAqIENvcHlyaWdodCAyMDE5IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KKyAqIENvcHly
-aWdodCDCqSAyMDIxIEludGVsIENvcnBvcmF0aW9uCisgKi8KICNpbmNsdWRlIDxsaW51eC9iaXRt
-YXAuaD4KICNpbmNsdWRlIDxsaW51eC9tdXRleC5oPgogI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4K
-ICNpbmNsdWRlIDxsaW51eC9jZ3JvdXAuaD4KICNpbmNsdWRlIDxsaW51eC9jZ3JvdXBfZHJtLmg+
-CiAjaW5jbHVkZSA8ZHJtL2RybV9maWxlLmg+CisjaW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4KICNp
-bmNsdWRlIDxkcm0vZHJtX2RldmljZS5oPgogI2luY2x1ZGUgPGRybS9kcm1fY2dyb3VwLmg+CiAK
-QEAgLTU0LDYgKzU4LDI2IEBAIHZvaWQgZHJtY2dfdW5iaW5kKHZvaWQpCiB9CiBFWFBPUlRfU1lN
-Qk9MKGRybWNnX3VuYmluZCk7CiAKKy8qIGNhbGxlciBtdXN0IGhvbGQgZGV2LT5kcm1jZ19tdXRl
-eCAqLworc3RhdGljIGlubGluZSBpbnQgaW5pdF9kcm1jZ19zaW5nbGUoc3RydWN0IGRybWNnICpk
-cm1jZywgc3RydWN0IGRybV9kZXZpY2UgKmRldikKK3sKKwlpbnQgbWlub3IgPSBkZXYtPnByaW1h
-cnktPmluZGV4OworCXN0cnVjdCBkcm1jZ19kZXZpY2VfcmVzb3VyY2UgKmRkciA9IGRybWNnLT5k
-ZXZfcmVzb3VyY2VzW21pbm9yXTsKKworCWlmIChkZHIgPT0gTlVMTCkgeworCQlkZHIgPSBremFs
-bG9jKHNpemVvZihzdHJ1Y3QgZHJtY2dfZGV2aWNlX3Jlc291cmNlKSwKKwkJCUdGUF9LRVJORUwp
-OworCisJCWlmICghZGRyKQorCQkJcmV0dXJuIC1FTk9NRU07CisJfQorCisJLyogc2V0IGRlZmF1
-bHRzIGhlcmUgKi8KKwlkcm1jZy0+ZGV2X3Jlc291cmNlc1ttaW5vcl0gPSBkZHI7CisKKwlyZXR1
-cm4gMDsKK30KKwogLyoqCiAgKiBkcm1jZ19yZWdpc3Rlcl9kZXYgLSByZWdpc3RlciBhIERSTSBk
-ZXZpY2UgZm9yIHVzYWdlIGluIGRybSBjZ3JvdXAKICAqIEBkZXY6IERSTSBkZXZpY2UKQEAgLTEz
-NywyMyArMTYxLDYxIEBAIHN0YXRpYyBpbnQgZHJtX21pbm9yX2Zvcl9lYWNoKGludCAoKmZuKShp
-bnQgaWQsIHZvaWQgKnAsIHZvaWQgKmRhdGEpLAogCXJldHVybiByYzsKIH0KIAorc3RhdGljIGlu
-dCBkcm1jZ19jc3NfZnJlZV9mbihpbnQgaWQsIHZvaWQgKnB0ciwgdm9pZCAqZGF0YSkKK3sKKwlz
-dHJ1Y3QgZHJtX21pbm9yICptaW5vciA9IHB0cjsKKwlzdHJ1Y3QgZHJtY2cgKmRybWNnID0gZGF0
-YTsKKworCWlmIChtaW5vci0+dHlwZSAhPSBEUk1fTUlOT1JfUFJJTUFSWSkKKwkJcmV0dXJuIDA7
-CisKKwlrZnJlZShkcm1jZy0+ZGV2X3Jlc291cmNlc1ttaW5vci0+aW5kZXhdKTsKKworCXJldHVy
-biAwOworfQorCiBzdGF0aWMgdm9pZCBkcm1jZ19jc3NfZnJlZShzdHJ1Y3QgY2dyb3VwX3N1YnN5
-c19zdGF0ZSAqY3NzKQogewogCXN0cnVjdCBkcm1jZyAqZHJtY2cgPSBjc3NfdG9fZHJtY2coY3Nz
-KTsKIAorCWRybV9taW5vcl9mb3JfZWFjaCgmZHJtY2dfY3NzX2ZyZWVfZm4sIGRybWNnKTsKKwog
-CWtmcmVlKGRybWNnKTsKIH0KIAorc3RhdGljIGludCBpbml0X2RybWNnX2ZuKGludCBpZCwgdm9p
-ZCAqcHRyLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fbWlub3IgKm1pbm9yID0gcHRyOwor
-CXN0cnVjdCBkcm1jZyAqZHJtY2cgPSBkYXRhOworCWludCByYzsKKworCWlmIChtaW5vci0+dHlw
-ZSAhPSBEUk1fTUlOT1JfUFJJTUFSWSkKKwkJcmV0dXJuIDA7CisKKwltdXRleF9sb2NrKCZtaW5v
-ci0+ZGV2LT5kcm1jZ19tdXRleCk7CisJcmMgPSBpbml0X2RybWNnX3NpbmdsZShkcm1jZywgbWlu
-b3ItPmRldik7CisJbXV0ZXhfdW5sb2NrKCZtaW5vci0+ZGV2LT5kcm1jZ19tdXRleCk7CisKKwly
-ZXR1cm4gcmM7Cit9CisKIHN0YXRpYyBzdHJ1Y3QgY2dyb3VwX3N1YnN5c19zdGF0ZSAqCiBkcm1j
-Z19jc3NfYWxsb2Moc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUgKnBhcmVudF9jc3MpCiB7CiAJ
-c3RydWN0IGRybWNnICpwYXJlbnQgPSBjc3NfdG9fZHJtY2cocGFyZW50X2Nzcyk7CiAJc3RydWN0
-IGRybWNnICpkcm1jZzsKKwlpbnQgcmM7CiAKIAlkcm1jZyA9IGt6YWxsb2Moc2l6ZW9mKHN0cnVj
-dCBkcm1jZyksIEdGUF9LRVJORUwpOwogCWlmICghZHJtY2cpCiAJCXJldHVybiBFUlJfUFRSKC1F
-Tk9NRU0pOwogCisJcmMgPSBkcm1fbWlub3JfZm9yX2VhY2goJmluaXRfZHJtY2dfZm4sIGRybWNn
-KTsKKwlpZiAocmMpIHsKKwkJZHJtY2dfY3NzX2ZyZWUoJmRybWNnLT5jc3MpOworCQlyZXR1cm4g
-RVJSX1BUUihyYyk7CisJfQorCiAJaWYgKCFwYXJlbnQpCiAJCXJvb3RfZHJtY2cgPSBkcm1jZzsK
-IApAQCAtMTcxLDMgKzIzMywzNCBAQCBzdHJ1Y3QgY2dyb3VwX3N1YnN5cyBncHVfY2dycF9zdWJz
-eXMgPSB7CiAJLmxlZ2FjeV9jZnR5cGVzCT0gZmlsZXMsCiAJLmRmbF9jZnR5cGVzCT0gZmlsZXMs
-CiB9OworCisvKioKKyAqIGRybWNnX2RldmljZV9lYXJseV9pbml0IC0gaW5pdGlhbGl6ZSBkZXZp
-Y2Ugc3BlY2lmaWMgcmVzb3VyY2VzIGZvciBEUk0gY2dyb3VwcworICogQGRldjogdGhlIHRhcmdl
-dCBEUk0gZGV2aWNlCisgKgorICogQWxsb2NhdGUgYW5kIGluaXRpYWxpemUgZGV2aWNlIHNwZWNp
-ZmljIHJlc291cmNlcyBmb3IgZXhpc3RpbmcgRFJNIGNncm91cHMuCisgKiBUeXBpY2FsbHkgb25s
-eSB0aGUgcm9vdCBjZ3JvdXAgZXhpc3RzIGJlZm9yZSB0aGUgaW5pdGlhbGl6YXRpb24gb2YgQGRl
-di4KKyAqLwordm9pZCBkcm1jZ19kZXZpY2VfZWFybHlfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2KQoreworCXN0cnVjdCBjZ3JvdXBfc3Vic3lzX3N0YXRlICpwb3M7CisKKwlpZiAocm9vdF9k
-cm1jZyA9PSBOVUxMKQorCQlyZXR1cm47CisKKwkvKiBpbml0IGNncm91cHMgY3JlYXRlZCBiZWZv
-cmUgcmVnaXN0cmF0aW9uIChpLmUuIHJvb3QgY2dyb3VwKSAqLworCXJjdV9yZWFkX2xvY2soKTsK
-Kwljc3NfZm9yX2VhY2hfZGVzY2VuZGFudF9wcmUocG9zLCAmcm9vdF9kcm1jZy0+Y3NzKSB7CisJ
-CWNzc19nZXQocG9zKTsKKwkJcmN1X3JlYWRfdW5sb2NrKCk7CisKKwkJbXV0ZXhfbG9jaygmZGV2
-LT5kcm1jZ19tdXRleCk7CisJCWluaXRfZHJtY2dfc2luZ2xlKGNzc190b19kcm1jZyhwb3MpLCBk
-ZXYpOworCQltdXRleF91bmxvY2soJmRldi0+ZHJtY2dfbXV0ZXgpOworCisJCXJjdV9yZWFkX2xv
-Y2soKTsKKwkJY3NzX3B1dChwb3MpOworCX0KKwlyY3VfcmVhZF91bmxvY2soKTsKK30KK0VYUE9S
-VF9TWU1CT0woZHJtY2dfZGV2aWNlX2Vhcmx5X2luaXQpOwotLSAKMi4yMC4xCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Kenny Ho <Kenny.Ho@amd.com>
+
+With the increased importance of machine learning, data science and
+other cloud-based applications, GPUs are already in production use in
+data centers today.  Existing GPU resource management is very coarse
+grain, however, as sysadmins are only able to distribute workload on a
+per-GPU basis.  An alternative is to use GPU virtualization (with or
+without SRIOV) but it generally acts on the entire GPU instead of the
+specific resources in a GPU.  With a drm cgroup controller, we can
+enable alternate, fine-grain, sub-GPU resource management (in addition
+to what may be available via GPU virtualization.)
+
+Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
+---
+ Documentation/admin-guide/cgroup-v2.rst | 18 ++++-
+ Documentation/cgroup-v1/drm.rst         |  1 +
+ include/linux/cgroup_drm.h              | 92 +++++++++++++++++++++++++
+ include/linux/cgroup_subsys.h           |  4 ++
+ init/Kconfig                            |  5 ++
+ kernel/cgroup/Makefile                  |  1 +
+ kernel/cgroup/drm.c                     | 42 +++++++++++
+ 7 files changed, 161 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/cgroup-v1/drm.rst
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
+
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index 63521cd36ce5..b099e1d71098 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -63,8 +63,10 @@ v1 is available under :ref:`Documentation/admin-guide/cgroup-v1/index.rst <cgrou
+        5-7-1. RDMA Interface Files
+      5-8. HugeTLB
+        5.8-1. HugeTLB Interface Files
+-     5-8. Misc
+-       5-8-1. perf_event
++     5-9. GPU
++       5-9-1. GPU Interface Files
++     5-10. Misc
++       5-10-1. perf_event
+      5-N. Non-normative information
+        5-N-1. CPU controller root cgroup process behaviour
+        5-N-2. IO controller root cgroup process behaviour
+@@ -2160,6 +2162,18 @@ HugeTLB Interface Files
+ 	are local to the cgroup i.e. not hierarchical. The file modified event
+ 	generated on this file reflects only the local events.
+ 
++GPU
++---
++
++The "gpu" controller regulates the distribution and accounting of
++of GPU-related resources.
++
++GPU Interface Files
++~~~~~~~~~~~~~~~~~~~~
++
++TODO
++
++
+ Misc
+ ----
+ 
+diff --git a/Documentation/cgroup-v1/drm.rst b/Documentation/cgroup-v1/drm.rst
+new file mode 100644
+index 000000000000..5f5658e1f5ed
+--- /dev/null
++++ b/Documentation/cgroup-v1/drm.rst
+@@ -0,0 +1 @@
++Please see ../cgroup-v2.rst for details
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+new file mode 100644
+index 000000000000..345af54a5d41
+--- /dev/null
++++ b/include/linux/cgroup_drm.h
+@@ -0,0 +1,92 @@
++/* SPDX-License-Identifier: MIT
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ */
++#ifndef _CGROUP_DRM_H
++#define _CGROUP_DRM_H
++
++#include <linux/cgroup.h>
++
++#ifdef CONFIG_CGROUP_DRM
++
++/**
++ * The DRM cgroup controller data structure.
++ */
++struct drmcg {
++	struct cgroup_subsys_state	css;
++};
++
++/**
++ * css_to_drmcg - get the corresponding drmcg ref from a cgroup_subsys_state
++ * @css: the target cgroup_subsys_state
++ *
++ * Return: DRM cgroup that contains the @css
++ */
++static inline struct drmcg *css_to_drmcg(struct cgroup_subsys_state *css)
++{
++	return css ? container_of(css, struct drmcg, css) : NULL;
++}
++
++/**
++ * drmcg_get - get the drmcg reference that a task belongs to
++ * @task: the target task
++ *
++ * This increase the reference count of the css that the @task belongs to
++ *
++ * Return: reference to the DRM cgroup the task belongs to
++ */
++static inline struct drmcg *drmcg_get(struct task_struct *task)
++{
++	return css_to_drmcg(task_get_css(task, gpu_cgrp_id));
++}
++
++/**
++ * drmcg_put - put a drmcg reference
++ * @drmcg: the target drmcg
++ *
++ * Put a reference obtained via drmcg_get
++ */
++static inline void drmcg_put(struct drmcg *drmcg)
++{
++	if (drmcg)
++		css_put(&drmcg->css);
++}
++
++/**
++ * drmcg_parent - find the parent of a drm cgroup
++ * @cg: the target drmcg
++ *
++ * This does not increase the reference count of the parent cgroup
++ *
++ * Return: parent DRM cgroup of @cg
++ */
++static inline struct drmcg *drmcg_parent(struct drmcg *cg)
++{
++	return css_to_drmcg(cg->css.parent);
++}
++
++#else /* CONFIG_CGROUP_DRM */
++
++struct drmcg {
++};
++
++static inline struct drmcg *css_to_drmcg(struct cgroup_subsys_state *css)
++{
++	return NULL;
++}
++
++static inline struct drmcg *drmcg_get(struct task_struct *task)
++{
++	return NULL;
++}
++
++static inline void drmcg_put(struct drmcg *drmcg)
++{
++}
++
++static inline struct drmcg *drmcg_parent(struct drmcg *cg)
++{
++	return NULL;
++}
++
++#endif	/* CONFIG_CGROUP_DRM */
++#endif	/* _CGROUP_DRM_H */
+diff --git a/include/linux/cgroup_subsys.h b/include/linux/cgroup_subsys.h
+index acb77dcff3b4..f4e627942115 100644
+--- a/include/linux/cgroup_subsys.h
++++ b/include/linux/cgroup_subsys.h
+@@ -61,6 +61,10 @@ SUBSYS(pids)
+ SUBSYS(rdma)
+ #endif
+ 
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++SUBSYS(gpu)
++#endif
++
+ /*
+  * The following subsystems are not supported on the default hierarchy.
+  */
+diff --git a/init/Kconfig b/init/Kconfig
+index b77c60f8b963..bee29f51e380 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -1027,6 +1027,11 @@ config CGROUP_RDMA
+ 	  Attaching processes with active RDMA resources to the cgroup
+ 	  hierarchy is allowed even if can cross the hierarchy's limit.
+ 
++config CGROUP_DRM
++	bool "DRM controller (EXPERIMENTAL)"
++	help
++	  Provides accounting and enforcement of resources in the DRM subsystem.
++
+ config CGROUP_FREEZER
+ 	bool "Freezer controller"
+ 	help
+diff --git a/kernel/cgroup/Makefile b/kernel/cgroup/Makefile
+index 5d7a76bfbbb7..31f186f58121 100644
+--- a/kernel/cgroup/Makefile
++++ b/kernel/cgroup/Makefile
+@@ -4,5 +4,6 @@ obj-y := cgroup.o rstat.o namespace.o cgroup-v1.o freezer.o
+ obj-$(CONFIG_CGROUP_FREEZER) += legacy_freezer.o
+ obj-$(CONFIG_CGROUP_PIDS) += pids.o
+ obj-$(CONFIG_CGROUP_RDMA) += rdma.o
++obj-$(CONFIG_CGROUP_DRM) += drm.o
+ obj-$(CONFIG_CPUSETS) += cpuset.o
+ obj-$(CONFIG_CGROUP_DEBUG) += debug.o
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+new file mode 100644
+index 000000000000..5e38a8230922
+--- /dev/null
++++ b/kernel/cgroup/drm.c
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: MIT
++// Copyright 2019 Advanced Micro Devices, Inc.
++#include <linux/slab.h>
++#include <linux/cgroup.h>
++#include <linux/cgroup_drm.h>
++
++static struct drmcg *root_drmcg __read_mostly;
++
++static void drmcg_css_free(struct cgroup_subsys_state *css)
++{
++	struct drmcg *drmcg = css_to_drmcg(css);
++
++	kfree(drmcg);
++}
++
++static struct cgroup_subsys_state *
++drmcg_css_alloc(struct cgroup_subsys_state *parent_css)
++{
++	struct drmcg *parent = css_to_drmcg(parent_css);
++	struct drmcg *drmcg;
++
++	drmcg = kzalloc(sizeof(struct drmcg), GFP_KERNEL);
++	if (!drmcg)
++		return ERR_PTR(-ENOMEM);
++
++	if (!parent)
++		root_drmcg = drmcg;
++
++	return &drmcg->css;
++}
++
++struct cftype files[] = {
++	{ }	/* terminate */
++};
++
++struct cgroup_subsys gpu_cgrp_subsys = {
++	.css_alloc	= drmcg_css_alloc,
++	.css_free	= drmcg_css_free,
++	.early_init	= false,
++	.legacy_cftypes	= files,
++	.dfl_cftypes	= files,
++};
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
