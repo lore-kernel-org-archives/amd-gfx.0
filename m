@@ -2,40 +2,40 @@ Return-Path: <SRS0=fKyo=G5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62609C433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7B4DC433E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 296C920656
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 296C920656
+	by mail.kernel.org (Postfix) with ESMTPS id 7920E20656
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7920E20656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE4586E4A2;
-	Tue, 26 Jan 2021 21:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6412A6E491;
+	Tue, 26 Jan 2021 21:44:41 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99966E441;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA036E441;
  Tue, 26 Jan 2021 21:44:38 +0000 (UTC)
-IronPort-SDR: dliIqAcnv56CarRt8oqIDhNWRF4ukNMhxT+z5LCYAFxyTUQeTfaxhehGGD5YT3sH7mq1gbUhg1
- lfPzJG3AdSxw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770832"
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770832"
+IronPort-SDR: 276D3R91aoDuLzhUyiJfRUdmY6V5DERd5YgwREUr52dyvOTF3Of4jZ4FUHXHl6LsynZH78bc7S
+ j48Chhexu1tw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770825"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770825"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 13:44:37 -0800
-IronPort-SDR: pdeKR/xjdpNl2KwR8XT6CRTsjZqfBTuYkjMrDL/Jrs5DbJUnwWYjD7mizYUvmzpwEqsIk3YlZL
- tKEP+ihW4vJw==
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139899"
+ 26 Jan 2021 13:44:36 -0800
+IronPort-SDR: pxx/maiC2y8TN8v4a9MNIpLQaukuEIO7m6+F+beuK12x15k/ghwB9/i8eJB1vT2jFY5rzFHq4M
+ l0e928oDl2bA==
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139880"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 26 Jan 2021 13:44:37 -0800
+ 26 Jan 2021 13:44:36 -0800
 From: Brian Welty <brian.welty@intel.com>
 To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  Tejun Heo <tj@kernel.org>, dri-devel@lists.freedesktop.org,
@@ -47,12 +47,10 @@ To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: [RFC PATCH 6/9] drmcg: Add memory.total file
-Date: Tue, 26 Jan 2021 13:46:23 -0800
-Message-Id: <20210126214626.16260-7-brian.welty@intel.com>
+Subject: [RFC PATCH 0/9] cgroup support for GPU devices 
+Date: Tue, 26 Jan 2021 13:46:17 -0800
+Message-Id: <20210126214626.16260-1-brian.welty@intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210126214626.16260-1-brian.welty@intel.com>
-References: <20210126214626.16260-1-brian.welty@intel.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,84 +68,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following control is introduced in order to display total memory that
-exists for the DRM device. DRM drivers can advertise this value by
-writing to drm_device.drmcg_props. This is needed in order to effectively
-use the other memory controls.
-Normally for system memory this is available to the user using procfs.
+We'd like to revisit the proposal of a GPU cgroup controller for managing
+GPU devices but with just a basic set of controls.  This series is based on 
+the prior patch series from Kenny Ho [1].  We take Kenny's base patches
+which implement the basic framework for the controller, but we propose an
+alternate set of control files.  Here we've taken a subset of the controls
+proposed in earlier discussion on ML here [2]. 
 
-   memory.total
-      Read-only value, displays total memory for a device, shown
-      only in root cgroup.
+This series proposes a set of device memory controls (gpu.memory.current,
+gpu.memory.max, and gpu.memory.total) and accounting of GPU time usage
+(gpu.sched.runtime).  GPU time sharing controls are left as future work.
+These are implemented within the GPU controller along with integration/usage
+of the device memory controls by the i915 device driver.
 
-Signed-off-by: Brian Welty <brian.welty@intel.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  4 ++++
- include/drm/drm_cgroup.h                |  2 ++
- kernel/cgroup/drm.c                     | 10 ++++++++++
- 3 files changed, 16 insertions(+)
+As an accelerator or GPU device is similar in many respects to a CPU with
+(or without) attached system memory, the basic principle here is try to
+copy the semantics of existing controls from other controllers when possible
+and where these controls serve the same underlying purpose.
+For example, the memory.max and memory.current controls are based on
+same controls from MEMCG controller.
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 405912710b3a..ccc25f03a898 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2189,6 +2189,10 @@ MEM controller.  All memory amounts are in bytes.
-         DRM device memory.  If memory usage reaches this limit,
-         subsequent device memory allocations will fail.
- 
-+  memory.total
-+        Read-only value, displays total memory for a device, shown only in
-+        root cgroup.
-+
- While some DRM devices may be capable to present multiple memory segments
- to the user, the intent with above controls is to aggregate all user
- allocatable backing store.  Any support for multiple memory segments is
-diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
-index 8b4c4e798b11..9ba0e372eeee 100644
---- a/include/drm/drm_cgroup.h
-+++ b/include/drm/drm_cgroup.h
-@@ -15,11 +15,13 @@ struct drmcg;
-  * of storing per device defaults
-  */
- struct drmcg_props {
-+	u64 memory_total;
- };
- 
- enum drmcg_res_type {
- 	DRMCG_TYPE_MEM_CURRENT,
- 	DRMCG_TYPE_MEM_MAX,
-+	DRMCG_TYPE_MEM_TOTAL,
- 	__DRMCG_TYPE_LAST,
- };
- 
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index bec41f343208..08e75eb67593 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -283,6 +283,10 @@ static int drmcg_seq_show_fn(int id, void *ptr, void *data)
- 		else
- 			seq_printf(sf, "%ld\n", ddr->memory.max * PAGE_SIZE);
- 		break;
-+	case DRMCG_TYPE_MEM_TOTAL:
-+		seq_printf(sf, "%d:%d %llu\n", DRM_MAJOR, minor->index,
-+			   minor->dev->drmcg_props.memory_total);
-+		break;
- 	default:
- 		seq_printf(sf, "%d:%d\n", DRM_MAJOR, minor->index);
- 		break;
-@@ -374,6 +378,12 @@ struct cftype files[] = {
- 		.private = DRMCG_TYPE_MEM_MAX,
- 		.flags = CFTYPE_NOT_ON_ROOT
- 	},
-+	{
-+		.name = "memory.total",
-+		.seq_show = drmcg_seq_show,
-+		.private = DRMCG_TYPE_MEM_TOTAL,
-+		.flags = CFTYPE_ONLY_ON_ROOT,
-+	},
- 	{ }	/* terminate */
- };
- 
+Following with the implementation used by the existing RDMA controller,
+here we introduce a general purpose drm_cgroup_try_charge and uncharge
+pair of exported functions. These functions are to be used for
+charging and uncharging all current and future DRM resource controls.
+
+Patches 1 - 4 are part original work and part refactoring of the prior
+work from Kenny Ho from his series for GPU / DRM controller v2 [1].
+
+Patches 5 - 7 introduce new controls to the GPU / DRM controller for device
+memory accounting and GPU time tracking.
+
+Patch 8 introduces DRM support for associating GEM objects with a cgroup.
+
+Patch 9 implements i915 changes to use cgroups for device memory charging
+and enforcing device memory allocation limit.
+
+[1] https://lists.freedesktop.org/archives/dri-devel/2020-February/257052.html
+[2] https://lists.freedesktop.org/archives/dri-devel/2019-November/242599.html
+
+Brian Welty (6):
+  drmcg: Add skeleton seq_show and write for drmcg files
+  drmcg: Add support for device memory accounting via page counter
+  drmcg: Add memory.total file
+  drmcg: Add initial support for tracking gpu time usage
+  drm/gem: Associate GEM objects with drm cgroup
+  drm/i915: Use memory cgroup for enforcing device memory limit
+
+Kenny Ho (3):
+  cgroup: Introduce cgroup for drm subsystem
+  drm, cgroup: Bind drm and cgroup subsystem
+  drm, cgroup: Initialize drmcg properties
+
+ Documentation/admin-guide/cgroup-v2.rst    |  58 ++-
+ Documentation/cgroup-v1/drm.rst            |   1 +
+ drivers/gpu/drm/drm_drv.c                  |  11 +
+ drivers/gpu/drm/drm_gem.c                  |  89 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c   |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_region.c |  23 +-
+ drivers/gpu/drm/i915/intel_memory_region.c |  13 +-
+ drivers/gpu/drm/i915/intel_memory_region.h |   2 +-
+ include/drm/drm_cgroup.h                   |  85 ++++
+ include/drm/drm_device.h                   |   7 +
+ include/drm/drm_gem.h                      |  17 +
+ include/linux/cgroup_drm.h                 | 113 +++++
+ include/linux/cgroup_subsys.h              |   4 +
+ init/Kconfig                               |   5 +
+ kernel/cgroup/Makefile                     |   1 +
+ kernel/cgroup/drm.c                        | 533 +++++++++++++++++++++
+ 16 files changed, 954 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/cgroup-v1/drm.rst
+ create mode 100644 include/drm/drm_cgroup.h
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
+
 -- 
 2.20.1
 
