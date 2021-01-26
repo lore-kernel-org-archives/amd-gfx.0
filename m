@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CAD1C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F5DFC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F321E20656
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F321E20656
+	by mail.kernel.org (Postfix) with ESMTPS id 6911320658
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6911320658
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2467E6E4AF;
-	Tue, 26 Jan 2021 21:44:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190CD6E4C4;
+	Tue, 26 Jan 2021 21:44:42 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBFB66E455;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A81FC6E171;
  Tue, 26 Jan 2021 21:44:38 +0000 (UTC)
-IronPort-SDR: C5eR9fq5lAHjmNH4Hhk0/VNlefwZB6fD3Yd83bdZVt6dElo/q4lbe+VHyaJjeh9OJdgc08utPw
- d6Hnzd38byZA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770833"
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770833"
+IronPort-SDR: dqGHWBPCwJtOL62md5ftqlE2LP5ddcd9eXG5nTdPQDzc4X+we9T1XtYmyNFr+hRvK7uFNODShF
+ RU+GZDx27jUQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770830"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770830"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Jan 2021 13:44:37 -0800
-IronPort-SDR: 5gXBtpv/bdceklTZYWdFrkeFvdqPkHTvqOWtCrbOr1mtMjc+Wz1YWJEHoMl1+Kit9uYn5G06dz
- ksz3Gj04BC5g==
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139902"
+IronPort-SDR: OfkL2jyeVJD0ADEkQs01vPNC8EYhXhZqLWDvifr1sAW3vHpmZx6di1vf+NueX71l7Z9hPJ6sGc
+ DsdvaaXNBPZw==
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139893"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  26 Jan 2021 13:44:37 -0800
@@ -47,9 +47,9 @@ To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: [RFC PATCH 7/9] drmcg: Add initial support for tracking gpu time usage
-Date: Tue, 26 Jan 2021 13:46:24 -0800
-Message-Id: <20210126214626.16260-8-brian.welty@intel.com>
+Subject: [RFC PATCH 4/9] drmcg: Add skeleton seq_show and write for drmcg files
+Date: Tue, 26 Jan 2021 13:46:21 -0800
+Message-Id: <20210126214626.16260-5-brian.welty@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210126214626.16260-1-brian.welty@intel.com>
 References: <20210126214626.16260-1-brian.welty@intel.com>
@@ -65,144 +65,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Single control below is added to DRM cgroup controller in order to track
-user execution time for GPU devices.  It is up to device drivers to
-charge execution time to the cgroup via drm_cgroup_try_charge().
-
-  sched.runtime
-      Read-only value, displays current user execution time for each DRM
-      device. The expectation is that this is incremented by DRM device
-      driver's scheduler upon user context completion or context switch.
-      Units of time are in microseconds for consistency with cpu.stats.
-
-Signed-off-by: Brian Welty <brian.welty@intel.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  9 +++++++++
- include/drm/drm_cgroup.h                |  2 ++
- include/linux/cgroup_drm.h              |  2 ++
- kernel/cgroup/drm.c                     | 20 ++++++++++++++++++++
- 4 files changed, 33 insertions(+)
-
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index ccc25f03a898..f1d0f333a49e 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2205,6 +2205,15 @@ thresholds are hit, this would then allow the DRM device driver to invoke
- some equivalent to OOM-killer or forced memory eviction for the device
- backed memory in order to attempt to free additional space.
- 
-+The below set of control files are for time accounting of DRM devices. Units
-+of time are in microseconds.
-+
-+  sched.runtime
-+        Read-only value, displays current user execution time for each DRM
-+        device. The expectation is that this is incremented by DRM device
-+        driver's scheduler upon user context completion or context switch.
-+
-+
- Misc
- ----
- 
-diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
-index 9ba0e372eeee..315dab8a93b8 100644
---- a/include/drm/drm_cgroup.h
-+++ b/include/drm/drm_cgroup.h
-@@ -22,6 +22,7 @@ enum drmcg_res_type {
- 	DRMCG_TYPE_MEM_CURRENT,
- 	DRMCG_TYPE_MEM_MAX,
- 	DRMCG_TYPE_MEM_TOTAL,
-+	DRMCG_TYPE_SCHED_RUNTIME,
- 	__DRMCG_TYPE_LAST,
- };
- 
-@@ -79,5 +80,6 @@ void drm_cgroup_uncharge(struct drmcg *drmcg,struct drm_device *dev,
- 			 enum drmcg_res_type type, u64 usage)
- {
- }
-+
- #endif /* CONFIG_CGROUP_DRM */
- #endif /* __DRM_CGROUP_H__ */
-diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
-index 3570636473cf..0fafa663321e 100644
---- a/include/linux/cgroup_drm.h
-+++ b/include/linux/cgroup_drm.h
-@@ -19,6 +19,8 @@
-  */
- struct drmcg_device_resource {
- 	struct page_counter memory;
-+	seqlock_t sched_lock;
-+	u64 exec_runtime;
- };
- 
- /**
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index 08e75eb67593..64e9d0dbe8c8 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -81,6 +81,7 @@ static inline int init_drmcg_single(struct drmcg *drmcg, struct drm_device *dev)
- 	/* set defaults here */
- 	page_counter_init(&ddr->memory,
- 			  parent_ddr ? &parent_ddr->memory : NULL);
-+	seqlock_init(&ddr->sched_lock);
- 	drmcg->dev_resources[minor] = ddr;
- 
- 	return 0;
-@@ -287,6 +288,10 @@ static int drmcg_seq_show_fn(int id, void *ptr, void *data)
- 		seq_printf(sf, "%d:%d %llu\n", DRM_MAJOR, minor->index,
- 			   minor->dev->drmcg_props.memory_total);
- 		break;
-+	case DRMCG_TYPE_SCHED_RUNTIME:
-+		seq_printf(sf, "%d:%d %llu\n", DRM_MAJOR, minor->index,
-+			   ktime_to_us(ddr->exec_runtime));
-+		break;
- 	default:
- 		seq_printf(sf, "%d:%d\n", DRM_MAJOR, minor->index);
- 		break;
-@@ -384,6 +389,12 @@ struct cftype files[] = {
- 		.private = DRMCG_TYPE_MEM_TOTAL,
- 		.flags = CFTYPE_ONLY_ON_ROOT,
- 	},
-+	{
-+		.name = "sched.runtime",
-+		.seq_show = drmcg_seq_show,
-+		.private = DRMCG_TYPE_SCHED_RUNTIME,
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+	},
- 	{ }	/* terminate */
- };
- 
-@@ -440,6 +451,10 @@ EXPORT_SYMBOL(drmcg_device_early_init);
-  * choose to enact some form of memory reclaim, but the exact behavior is left
-  * to the DRM device driver to define.
-  *
-+ * For @res type of DRMCG_TYPE_SCHED_RUNTIME:
-+ * For GPU time accounting, add @usage amount of GPU time to @drmcg for
-+ * the given device.
-+ *
-  * Returns 0 on success.  Otherwise, an error code is returned.
-  */
- int drm_cgroup_try_charge(struct drmcg *drmcg, struct drm_device *dev,
-@@ -466,6 +481,11 @@ int drm_cgroup_try_charge(struct drmcg *drmcg, struct drm_device *dev,
- 			err = 0;
- 		}
- 		break;
-+	case DRMCG_TYPE_SCHED_RUNTIME:
-+		write_seqlock(&res->sched_lock);
-+		res->exec_runtime = ktime_add(res->exec_runtime, usage);
-+		write_sequnlock(&res->sched_lock);
-+		break;
- 	default:
- 		err = -EINVAL;
- 		break;
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QWRkIGJhc2ljIC5zZXFfc2hvdyBhbmQgLndyaXRlIGZ1bmN0aW9ucyBmb3IgdXNlIHdpdGggRFJN
+IGNncm91cCBjb250cm9sCmZpbGVzLiAgVGhpcyBpcyBiYXNlZCBvbiBvcmlnaW5hbCB3b3JrIGZy
+b20gS2VubnkgSG8gYW5kIGV4dHJhY3RlZCBmcm9tCnBhdGNoZXMgWzFdIGFuZCBbMl0uICBIYXMg
+YmVlbiBzaW1wbGlmaWVkIHRvIHJlbW92ZSBoYXZpbmcgZGlmZmVyZW50IGZpbGUKdHlwZXMgYW5k
+IGZ1bmN0aW9ucyBmb3IgZWFjaC4KClsxXSBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9h
+cmNoaXZlcy9kcmktZGV2ZWwvMjAyMC1GZWJydWFyeS8yNTQ5ODYuaHRtbApbMl0gaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIwMjAtRmVicnVhcnkvMjU0
+OTkwLmh0bWwKCkNvLWRldmVsb3BlZC1ieTogS2VubnkgSG8gPEtlbm55LkhvQGFtZC5jb20+ClNp
+Z25lZC1vZmYtYnk6IEJyaWFuIFdlbHR5IDxicmlhbi53ZWx0eUBpbnRlbC5jb20+Ci0tLQogaW5j
+bHVkZS9kcm0vZHJtX2Nncm91cC5oIHwgICA1ICsrCiBrZXJuZWwvY2dyb3VwL2RybS5jICAgICAg
+fCAxMDIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAyIGZpbGVzIGNo
+YW5nZWQsIDEwNyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2Nn
+cm91cC5oIGIvaW5jbHVkZS9kcm0vZHJtX2Nncm91cC5oCmluZGV4IDQzY2FmMWI2YTBkZS4uMTI1
+MjZkZWY5ZmJmIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fY2dyb3VwLmgKKysrIGIvaW5j
+bHVkZS9kcm0vZHJtX2Nncm91cC5oCkBAIC0xLDUgKzEsNiBAQAogLyogU1BEWC1MaWNlbnNlLUlk
+ZW50aWZpZXI6IE1JVAogICogQ29weXJpZ2h0IDIwMTkgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywg
+SW5jLgorICogQ29weXJpZ2h0IMKpIDIwMjEgSW50ZWwgQ29ycG9yYXRpb24KICAqLwogI2lmbmRl
+ZiBfX0RSTV9DR1JPVVBfSF9fCiAjZGVmaW5lIF9fRFJNX0NHUk9VUF9IX18KQEAgLTE1LDYgKzE2
+LDEwIEBAIHN0cnVjdCBkcm1fZGV2aWNlOwogc3RydWN0IGRybWNnX3Byb3BzIHsKIH07CiAKK2Vu
+dW0gZHJtY2dfcmVzX3R5cGUgeworCV9fRFJNQ0dfVFlQRV9MQVNULAorfTsKKwogI2lmZGVmIENP
+TkZJR19DR1JPVVBfRFJNCiAKIHZvaWQgZHJtY2dfYmluZChzdHJ1Y3QgZHJtX21pbm9yICgqKCph
+Y3FfZG0pKHVuc2lnbmVkIGludCBtaW5vcl9pZCkpLApkaWZmIC0tZ2l0IGEva2VybmVsL2Nncm91
+cC9kcm0uYyBiL2tlcm5lbC9jZ3JvdXAvZHJtLmMKaW5kZXggODM2OTI5YzI3ZGU4Li5hZWNlMTFm
+YWEwYmMgMTAwNjQ0Ci0tLSBhL2tlcm5lbC9jZ3JvdXAvZHJtLmMKKysrIGIva2VybmVsL2Nncm91
+cC9kcm0uYwpAQCAtNSw2ICs1LDcgQEAKICAqLwogI2luY2x1ZGUgPGxpbnV4L2JpdG1hcC5oPgog
+I2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+CisjaW5jbHVkZSA8bGludXgvc2VxX2ZpbGUuaD4KICNp
+bmNsdWRlIDxsaW51eC9zbGFiLmg+CiAjaW5jbHVkZSA8bGludXgvY2dyb3VwLmg+CiAjaW5jbHVk
+ZSA8bGludXgvY2dyb3VwX2RybS5oPgpAQCAtMTIsNiArMTMsNyBAQAogI2luY2x1ZGUgPGRybS9k
+cm1fZHJ2Lmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9kZXZpY2UuaD4KICNpbmNsdWRlIDxkcm0vZHJt
+X2Nncm91cC5oPgorI2luY2x1ZGUgPGRybS9kcm1faW9jdGwuaD4KIAogc3RhdGljIHN0cnVjdCBk
+cm1jZyAqcm9vdF9kcm1jZyBfX3JlYWRfbW9zdGx5OwogCkBAIC0yMjIsNiArMjI0LDEwNiBAQCBk
+cm1jZ19jc3NfYWxsb2Moc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUgKnBhcmVudF9jc3MpCiAJ
+cmV0dXJuICZkcm1jZy0+Y3NzOwogfQogCitzdGF0aWMgaW50IGRybWNnX2FwcGx5X3ZhbHVlKHN0
+cnVjdCBkcm1jZ19kZXZpY2VfcmVzb3VyY2UgKmRkciwKKwkJCSAgICAgZW51bSBkcm1jZ19yZXNf
+dHlwZSB0eXBlLCBjaGFyICpidWYpCit7CisJaW50IHJldCA9IDA7CisJdW5zaWduZWQgbG9uZyB2
+YWw7CisKKwlzd2l0Y2ggKHR5cGUpIHsKKwlkZWZhdWx0OgorCQlicmVhazsKKwl9CisKKwlyZXR1
+cm4gcmV0OworfQorCitzdGF0aWMgaW50IGRybWNnX3NlcV9zaG93X2ZuKGludCBpZCwgdm9pZCAq
+cHRyLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fbWlub3IgKm1pbm9yID0gcHRyOworCXN0
+cnVjdCBzZXFfZmlsZSAqc2YgPSBkYXRhOworCXN0cnVjdCBkcm1jZyAqZHJtY2cgPSBjc3NfdG9f
+ZHJtY2coc2VxX2NzcyhzZikpOworCWVudW0gZHJtY2dfcmVzX3R5cGUgdHlwZSA9IHNlcV9jZnQo
+c2YpLT5wcml2YXRlOworCXN0cnVjdCBkcm1jZ19kZXZpY2VfcmVzb3VyY2UgKmRkcjsKKworCWlm
+IChtaW5vci0+dHlwZSAhPSBEUk1fTUlOT1JfUFJJTUFSWSkKKwkJcmV0dXJuIDA7CisKKwlkZHIg
+PSBkcm1jZy0+ZGV2X3Jlc291cmNlc1ttaW5vci0+aW5kZXhdOworCWlmIChkZHIgPT0gTlVMTCkK
+KwkJcmV0dXJuIDA7CisKKwlzZXFfcHJpbnRmKHNmLCAiJWQ6JWQgIiwgRFJNX01BSk9SLCBtaW5v
+ci0+aW5kZXgpOworCXN3aXRjaCAodHlwZSkgeworCWRlZmF1bHQ6CisJCXNlcV9wdXRzKHNmLCAi
+XG4iKTsKKwkJYnJlYWs7CisJfQorCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgZHJtY2df
+c2VxX3Nob3coc3RydWN0IHNlcV9maWxlICpzZiwgdm9pZCAqdikKK3sKKwlyZXR1cm4gZHJtX21p
+bm9yX2Zvcl9lYWNoKCZkcm1jZ19zZXFfc2hvd19mbiwgc2YpOworfQorCitzdGF0aWMgc3NpemVf
+dCBkcm1jZ193cml0ZShzdHJ1Y3Qga2VybmZzX29wZW5fZmlsZSAqb2YsIGNoYXIgKmJ1ZiwKKwkJ
+CSAgIHNpemVfdCBuYnl0ZXMsIGxvZmZfdCBvZmYpCit7CisJc3RydWN0IGRybWNnICpkcm1jZyA9
+IGNzc190b19kcm1jZyhvZl9jc3Mob2YpKTsKKwllbnVtIGRybWNnX3Jlc190eXBlIHR5cGUgPSBv
+Zl9jZnQob2YpLT5wcml2YXRlOworCWNoYXIgKmNmdF9uYW1lID0gb2ZfY2Z0KG9mKS0+bmFtZTsK
+KwljaGFyICpsaW1pdHMgPSBzdHJzdHJpcChidWYpOworCXN0cnVjdCBkcm1jZ19kZXZpY2VfcmVz
+b3VyY2UgKmRkcjsKKwlzdHJ1Y3QgZHJtX21pbm9yICpkbTsKKwljaGFyICpsaW5lOworCWNoYXIg
+c2F0dHJbMjU2XTsKKwlpbnQgbWlub3IsIHJldCA9IDA7CisKKwl3aGlsZSAoIXJldCAmJiBsaW1p
+dHMgIT0gTlVMTCkgeworCQlsaW5lID0gIHN0cnNlcCgmbGltaXRzLCAiXG4iKTsKKworCQlpZiAo
+c3NjYW5mKGxpbmUsCisJCQlfX3N0cmluZ2lmeShEUk1fTUFKT1IpIjoldSAlMjU1W15cdFxuXSIs
+CisJCQkJCQkJJm1pbm9yLCBzYXR0cikgIT0gMikgeworCQkJcHJfZXJyKCJkcm1jZzogZXJyb3Ig
+cGFyc2luZyAlcyAiLCBjZnRfbmFtZSk7CisJCQlwcl9jb250X2Nncm91cF9uYW1lKGRybWNnLT5j
+c3MuY2dyb3VwKTsKKwkJCXByX2NvbnQoIlxuIik7CisKKwkJCWNvbnRpbnVlOworCQl9CisKKwkJ
+bXV0ZXhfbG9jaygmZHJtY2dfbXV0ZXgpOworCQlpZiAoYWNxdWlyZV9kcm1fbWlub3IpCisJCQlk
+bSA9IGFjcXVpcmVfZHJtX21pbm9yKG1pbm9yKTsKKwkJZWxzZQorCQkJZG0gPSBOVUxMOworCQlt
+dXRleF91bmxvY2soJmRybWNnX211dGV4KTsKKworCQlpZiAoSVNfRVJSX09SX05VTEwoZG0pKSB7
+CisJCQlwcl9lcnIoImRybWNnOiBpbnZhbGlkIG1pbm9yICVkIGZvciAlcyAiLAorCQkJCQltaW5v
+ciwgY2Z0X25hbWUpOworCQkJcHJfY29udF9jZ3JvdXBfbmFtZShkcm1jZy0+Y3NzLmNncm91cCk7
+CisJCQlwcl9jb250KCJcbiIpOworCisJCQljb250aW51ZTsKKwkJfQorCisJCW11dGV4X2xvY2so
+JmRtLT5kZXYtPmRybWNnX211dGV4KTsKKwkJZGRyID0gZHJtY2ctPmRldl9yZXNvdXJjZXNbbWlu
+b3JdOworCQlyZXQgPSBkcm1jZ19hcHBseV92YWx1ZShkZHIsIHR5cGUsIHNhdHRyKTsKKwkJbXV0
+ZXhfdW5sb2NrKCZkbS0+ZGV2LT5kcm1jZ19tdXRleCk7CisKKwkJbXV0ZXhfbG9jaygmZHJtY2df
+bXV0ZXgpOworCQlpZiAocHV0X2RybV9kZXYpCisJCQlwdXRfZHJtX2RldihkbS0+ZGV2KTsgLyog
+cmVsZWFzZSBmcm9tIGFjcXVpcmVfZHJtX21pbm9yICovCisJCW11dGV4X3VubG9jaygmZHJtY2df
+bXV0ZXgpOworCX0KKworCXJldHVybiByZXQgPzogbmJ5dGVzOworfQorCiBzdHJ1Y3QgY2Z0eXBl
+IGZpbGVzW10gPSB7CiAJeyB9CS8qIHRlcm1pbmF0ZSAqLwogfTsKLS0gCjIuMjAuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
