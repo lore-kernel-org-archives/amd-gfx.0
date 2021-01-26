@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F5DFC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D560C43381
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6911320658
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6911320658
+	by mail.kernel.org (Postfix) with ESMTPS id 1539620656
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1539620656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 190CD6E4C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C961A6E4CD;
 	Tue, 26 Jan 2021 21:44:42 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A81FC6E171;
- Tue, 26 Jan 2021 21:44:38 +0000 (UTC)
-IronPort-SDR: dqGHWBPCwJtOL62md5ftqlE2LP5ddcd9eXG5nTdPQDzc4X+we9T1XtYmyNFr+hRvK7uFNODShF
- RU+GZDx27jUQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770830"
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770830"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA4A6E171;
+ Tue, 26 Jan 2021 21:44:39 +0000 (UTC)
+IronPort-SDR: i6iOgqrfjh06BCyVnkGE6fMAyuKsG3RXDWwORUvdlRWH3xmnoKHRphCnHSRkbRhpz7Fzi+3CGd
+ Opold4RlhU6g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770834"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770834"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Jan 2021 13:44:37 -0800
-IronPort-SDR: OfkL2jyeVJD0ADEkQs01vPNC8EYhXhZqLWDvifr1sAW3vHpmZx6di1vf+NueX71l7Z9hPJ6sGc
- DsdvaaXNBPZw==
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139893"
+IronPort-SDR: mYnmEKpeuO6WzUZ+VqUfEZoCLGgLnNVRdsnqkI9kHOqYXasjUVc8ONVGKSZVdtN0WcB9l6Bhut
+ EMTwDuPgUGOQ==
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139905"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
  26 Jan 2021 13:44:37 -0800
@@ -47,9 +47,9 @@ To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: [RFC PATCH 4/9] drmcg: Add skeleton seq_show and write for drmcg files
-Date: Tue, 26 Jan 2021 13:46:21 -0800
-Message-Id: <20210126214626.16260-5-brian.welty@intel.com>
+Subject: [RFC PATCH 8/9] drm/gem: Associate GEM objects with drm cgroup
+Date: Tue, 26 Jan 2021 13:46:25 -0800
+Message-Id: <20210126214626.16260-9-brian.welty@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210126214626.16260-1-brian.welty@intel.com>
 References: <20210126214626.16260-1-brian.welty@intel.com>
@@ -65,84 +65,202 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QWRkIGJhc2ljIC5zZXFfc2hvdyBhbmQgLndyaXRlIGZ1bmN0aW9ucyBmb3IgdXNlIHdpdGggRFJN
-IGNncm91cCBjb250cm9sCmZpbGVzLiAgVGhpcyBpcyBiYXNlZCBvbiBvcmlnaW5hbCB3b3JrIGZy
-b20gS2VubnkgSG8gYW5kIGV4dHJhY3RlZCBmcm9tCnBhdGNoZXMgWzFdIGFuZCBbMl0uICBIYXMg
-YmVlbiBzaW1wbGlmaWVkIHRvIHJlbW92ZSBoYXZpbmcgZGlmZmVyZW50IGZpbGUKdHlwZXMgYW5k
-IGZ1bmN0aW9ucyBmb3IgZWFjaC4KClsxXSBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9h
-cmNoaXZlcy9kcmktZGV2ZWwvMjAyMC1GZWJydWFyeS8yNTQ5ODYuaHRtbApbMl0gaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIwMjAtRmVicnVhcnkvMjU0
-OTkwLmh0bWwKCkNvLWRldmVsb3BlZC1ieTogS2VubnkgSG8gPEtlbm55LkhvQGFtZC5jb20+ClNp
-Z25lZC1vZmYtYnk6IEJyaWFuIFdlbHR5IDxicmlhbi53ZWx0eUBpbnRlbC5jb20+Ci0tLQogaW5j
-bHVkZS9kcm0vZHJtX2Nncm91cC5oIHwgICA1ICsrCiBrZXJuZWwvY2dyb3VwL2RybS5jICAgICAg
-fCAxMDIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAyIGZpbGVzIGNo
-YW5nZWQsIDEwNyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2Nn
-cm91cC5oIGIvaW5jbHVkZS9kcm0vZHJtX2Nncm91cC5oCmluZGV4IDQzY2FmMWI2YTBkZS4uMTI1
-MjZkZWY5ZmJmIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fY2dyb3VwLmgKKysrIGIvaW5j
-bHVkZS9kcm0vZHJtX2Nncm91cC5oCkBAIC0xLDUgKzEsNiBAQAogLyogU1BEWC1MaWNlbnNlLUlk
-ZW50aWZpZXI6IE1JVAogICogQ29weXJpZ2h0IDIwMTkgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywg
-SW5jLgorICogQ29weXJpZ2h0IMKpIDIwMjEgSW50ZWwgQ29ycG9yYXRpb24KICAqLwogI2lmbmRl
-ZiBfX0RSTV9DR1JPVVBfSF9fCiAjZGVmaW5lIF9fRFJNX0NHUk9VUF9IX18KQEAgLTE1LDYgKzE2
-LDEwIEBAIHN0cnVjdCBkcm1fZGV2aWNlOwogc3RydWN0IGRybWNnX3Byb3BzIHsKIH07CiAKK2Vu
-dW0gZHJtY2dfcmVzX3R5cGUgeworCV9fRFJNQ0dfVFlQRV9MQVNULAorfTsKKwogI2lmZGVmIENP
-TkZJR19DR1JPVVBfRFJNCiAKIHZvaWQgZHJtY2dfYmluZChzdHJ1Y3QgZHJtX21pbm9yICgqKCph
-Y3FfZG0pKHVuc2lnbmVkIGludCBtaW5vcl9pZCkpLApkaWZmIC0tZ2l0IGEva2VybmVsL2Nncm91
-cC9kcm0uYyBiL2tlcm5lbC9jZ3JvdXAvZHJtLmMKaW5kZXggODM2OTI5YzI3ZGU4Li5hZWNlMTFm
-YWEwYmMgMTAwNjQ0Ci0tLSBhL2tlcm5lbC9jZ3JvdXAvZHJtLmMKKysrIGIva2VybmVsL2Nncm91
-cC9kcm0uYwpAQCAtNSw2ICs1LDcgQEAKICAqLwogI2luY2x1ZGUgPGxpbnV4L2JpdG1hcC5oPgog
-I2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+CisjaW5jbHVkZSA8bGludXgvc2VxX2ZpbGUuaD4KICNp
-bmNsdWRlIDxsaW51eC9zbGFiLmg+CiAjaW5jbHVkZSA8bGludXgvY2dyb3VwLmg+CiAjaW5jbHVk
-ZSA8bGludXgvY2dyb3VwX2RybS5oPgpAQCAtMTIsNiArMTMsNyBAQAogI2luY2x1ZGUgPGRybS9k
-cm1fZHJ2Lmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9kZXZpY2UuaD4KICNpbmNsdWRlIDxkcm0vZHJt
-X2Nncm91cC5oPgorI2luY2x1ZGUgPGRybS9kcm1faW9jdGwuaD4KIAogc3RhdGljIHN0cnVjdCBk
-cm1jZyAqcm9vdF9kcm1jZyBfX3JlYWRfbW9zdGx5OwogCkBAIC0yMjIsNiArMjI0LDEwNiBAQCBk
-cm1jZ19jc3NfYWxsb2Moc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUgKnBhcmVudF9jc3MpCiAJ
-cmV0dXJuICZkcm1jZy0+Y3NzOwogfQogCitzdGF0aWMgaW50IGRybWNnX2FwcGx5X3ZhbHVlKHN0
-cnVjdCBkcm1jZ19kZXZpY2VfcmVzb3VyY2UgKmRkciwKKwkJCSAgICAgZW51bSBkcm1jZ19yZXNf
-dHlwZSB0eXBlLCBjaGFyICpidWYpCit7CisJaW50IHJldCA9IDA7CisJdW5zaWduZWQgbG9uZyB2
-YWw7CisKKwlzd2l0Y2ggKHR5cGUpIHsKKwlkZWZhdWx0OgorCQlicmVhazsKKwl9CisKKwlyZXR1
-cm4gcmV0OworfQorCitzdGF0aWMgaW50IGRybWNnX3NlcV9zaG93X2ZuKGludCBpZCwgdm9pZCAq
-cHRyLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fbWlub3IgKm1pbm9yID0gcHRyOworCXN0
-cnVjdCBzZXFfZmlsZSAqc2YgPSBkYXRhOworCXN0cnVjdCBkcm1jZyAqZHJtY2cgPSBjc3NfdG9f
-ZHJtY2coc2VxX2NzcyhzZikpOworCWVudW0gZHJtY2dfcmVzX3R5cGUgdHlwZSA9IHNlcV9jZnQo
-c2YpLT5wcml2YXRlOworCXN0cnVjdCBkcm1jZ19kZXZpY2VfcmVzb3VyY2UgKmRkcjsKKworCWlm
-IChtaW5vci0+dHlwZSAhPSBEUk1fTUlOT1JfUFJJTUFSWSkKKwkJcmV0dXJuIDA7CisKKwlkZHIg
-PSBkcm1jZy0+ZGV2X3Jlc291cmNlc1ttaW5vci0+aW5kZXhdOworCWlmIChkZHIgPT0gTlVMTCkK
-KwkJcmV0dXJuIDA7CisKKwlzZXFfcHJpbnRmKHNmLCAiJWQ6JWQgIiwgRFJNX01BSk9SLCBtaW5v
-ci0+aW5kZXgpOworCXN3aXRjaCAodHlwZSkgeworCWRlZmF1bHQ6CisJCXNlcV9wdXRzKHNmLCAi
-XG4iKTsKKwkJYnJlYWs7CisJfQorCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgZHJtY2df
-c2VxX3Nob3coc3RydWN0IHNlcV9maWxlICpzZiwgdm9pZCAqdikKK3sKKwlyZXR1cm4gZHJtX21p
-bm9yX2Zvcl9lYWNoKCZkcm1jZ19zZXFfc2hvd19mbiwgc2YpOworfQorCitzdGF0aWMgc3NpemVf
-dCBkcm1jZ193cml0ZShzdHJ1Y3Qga2VybmZzX29wZW5fZmlsZSAqb2YsIGNoYXIgKmJ1ZiwKKwkJ
-CSAgIHNpemVfdCBuYnl0ZXMsIGxvZmZfdCBvZmYpCit7CisJc3RydWN0IGRybWNnICpkcm1jZyA9
-IGNzc190b19kcm1jZyhvZl9jc3Mob2YpKTsKKwllbnVtIGRybWNnX3Jlc190eXBlIHR5cGUgPSBv
-Zl9jZnQob2YpLT5wcml2YXRlOworCWNoYXIgKmNmdF9uYW1lID0gb2ZfY2Z0KG9mKS0+bmFtZTsK
-KwljaGFyICpsaW1pdHMgPSBzdHJzdHJpcChidWYpOworCXN0cnVjdCBkcm1jZ19kZXZpY2VfcmVz
-b3VyY2UgKmRkcjsKKwlzdHJ1Y3QgZHJtX21pbm9yICpkbTsKKwljaGFyICpsaW5lOworCWNoYXIg
-c2F0dHJbMjU2XTsKKwlpbnQgbWlub3IsIHJldCA9IDA7CisKKwl3aGlsZSAoIXJldCAmJiBsaW1p
-dHMgIT0gTlVMTCkgeworCQlsaW5lID0gIHN0cnNlcCgmbGltaXRzLCAiXG4iKTsKKworCQlpZiAo
-c3NjYW5mKGxpbmUsCisJCQlfX3N0cmluZ2lmeShEUk1fTUFKT1IpIjoldSAlMjU1W15cdFxuXSIs
-CisJCQkJCQkJJm1pbm9yLCBzYXR0cikgIT0gMikgeworCQkJcHJfZXJyKCJkcm1jZzogZXJyb3Ig
-cGFyc2luZyAlcyAiLCBjZnRfbmFtZSk7CisJCQlwcl9jb250X2Nncm91cF9uYW1lKGRybWNnLT5j
-c3MuY2dyb3VwKTsKKwkJCXByX2NvbnQoIlxuIik7CisKKwkJCWNvbnRpbnVlOworCQl9CisKKwkJ
-bXV0ZXhfbG9jaygmZHJtY2dfbXV0ZXgpOworCQlpZiAoYWNxdWlyZV9kcm1fbWlub3IpCisJCQlk
-bSA9IGFjcXVpcmVfZHJtX21pbm9yKG1pbm9yKTsKKwkJZWxzZQorCQkJZG0gPSBOVUxMOworCQlt
-dXRleF91bmxvY2soJmRybWNnX211dGV4KTsKKworCQlpZiAoSVNfRVJSX09SX05VTEwoZG0pKSB7
-CisJCQlwcl9lcnIoImRybWNnOiBpbnZhbGlkIG1pbm9yICVkIGZvciAlcyAiLAorCQkJCQltaW5v
-ciwgY2Z0X25hbWUpOworCQkJcHJfY29udF9jZ3JvdXBfbmFtZShkcm1jZy0+Y3NzLmNncm91cCk7
-CisJCQlwcl9jb250KCJcbiIpOworCisJCQljb250aW51ZTsKKwkJfQorCisJCW11dGV4X2xvY2so
-JmRtLT5kZXYtPmRybWNnX211dGV4KTsKKwkJZGRyID0gZHJtY2ctPmRldl9yZXNvdXJjZXNbbWlu
-b3JdOworCQlyZXQgPSBkcm1jZ19hcHBseV92YWx1ZShkZHIsIHR5cGUsIHNhdHRyKTsKKwkJbXV0
-ZXhfdW5sb2NrKCZkbS0+ZGV2LT5kcm1jZ19tdXRleCk7CisKKwkJbXV0ZXhfbG9jaygmZHJtY2df
-bXV0ZXgpOworCQlpZiAocHV0X2RybV9kZXYpCisJCQlwdXRfZHJtX2RldihkbS0+ZGV2KTsgLyog
-cmVsZWFzZSBmcm9tIGFjcXVpcmVfZHJtX21pbm9yICovCisJCW11dGV4X3VubG9jaygmZHJtY2df
-bXV0ZXgpOworCX0KKworCXJldHVybiByZXQgPzogbmJ5dGVzOworfQorCiBzdHJ1Y3QgY2Z0eXBl
-IGZpbGVzW10gPSB7CiAJeyB9CS8qIHRlcm1pbmF0ZSAqLwogfTsKLS0gCjIuMjAuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This patch adds tracking of which cgroup to make charges against for a
+given GEM object.  We associate the current task's cgroup with GEM objects
+as they are created.  First user of this is for charging DRM cgroup for
+device memory allocations.  The intended behavior is for device drivers to
+make the cgroup charging calls at the time that backing store is allocated
+or deallocated for the object.
+
+Exported functions are provided for charging memory allocations for a
+GEM object to DRM cgroup. To aid in debugging, we store how many bytes
+have been charged inside the GEM object.  Add helpers for setting and
+clearing the object's associated cgroup which will check that charges are
+not being leaked.
+
+For shared objects, this may make the charge against a cgroup that is
+potentially not the same cgroup as the process using the memory.  Based
+on the memory cgroup's discussion of "memory ownership", this seems
+acceptable [1].
+
+[1] https://www.kernel.org/doc/Documentation/cgroup-v2.txt, "Memory Ownership"
+
+Signed-off-by: Brian Welty <brian.welty@intel.com>
+---
+ drivers/gpu/drm/drm_gem.c | 89 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_gem.h     | 17 ++++++++
+ 2 files changed, 106 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index c2ce78c4edc3..a12da41eaafe 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -29,6 +29,7 @@
+ #include <linux/slab.h>
+ #include <linux/mm.h>
+ #include <linux/uaccess.h>
++#include <linux/cgroup_drm.h>
+ #include <linux/fs.h>
+ #include <linux/file.h>
+ #include <linux/module.h>
+@@ -112,6 +113,89 @@ drm_gem_init(struct drm_device *dev)
+ 	return drmm_add_action(dev, drm_gem_init_release, NULL);
+ }
+ 
++/**
++ * drm_gem_object_set_cgroup - associate GEM object with a cgroup
++ * @obj: GEM object which is being associated with a cgroup
++ * @task: task associated with process control group to use
++ *
++ * This will acquire a reference on cgroup and use for charging GEM
++ * memory allocations.
++ * This helper could be extended in future to migrate charges to another
++ * cgroup, print warning if this usage occurs.
++ */
++void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
++			       struct task_struct *task)
++{
++	/* if object has existing cgroup, we migrate the charge... */
++	if (obj->drmcg) {
++		pr_warn("DRM: need to migrate cgroup charge of %lld\n",
++			atomic64_read(&obj->drmcg_bytes_charged));
++	}
++	obj->drmcg = drmcg_get(task);
++}
++EXPORT_SYMBOL(drm_gem_object_set_cgroup);
++
++/**
++ * drm_gem_object_unset_cgroup - clear GEM object's associated cgroup
++ * @obj: GEM object
++ *
++ * This will release a reference on cgroup.
++ */
++void drm_gem_object_unset_cgroup(struct drm_gem_object *obj)
++{
++	WARN_ON(atomic64_read(&obj->drmcg_bytes_charged));
++	drmcg_put(obj->drmcg);
++}
++EXPORT_SYMBOL(drm_gem_object_unset_cgroup);
++
++/**
++ * drm_gem_object_charge_mem - try charging size bytes to DRM cgroup
++ * @obj: GEM object which is being charged
++ * @size: number of bytes to charge
++ *
++ * Try to charge @size bytes to GEM object's associated DRM cgroup.  This
++ * will fail if a successful charge would cause the current device memory
++ * usage to go above the cgroup's GPU memory maximum limit.
++ *
++ * Returns 0 on success.  Otherwise, an error code is returned.
++ */
++int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size)
++{
++	int ret;
++
++	ret = drm_cgroup_try_charge(obj->drmcg, obj->dev,
++				    DRMCG_TYPE_MEM_CURRENT, size);
++	if (!ret)
++		atomic64_add(size, &obj->drmcg_bytes_charged);
++	return ret;
++}
++EXPORT_SYMBOL(drm_gem_object_charge_mem);
++
++/**
++ * drm_gem_object_uncharge_mem - uncharge size bytes from DRM cgroup
++ * @obj: GEM object which is being uncharged
++ * @size: number of bytes to uncharge
++ *
++ * Uncharge @size bytes from the DRM cgroup associated with specified
++ * GEM object.
++ *
++ * Returns 0 on success.  Otherwise, an error code is returned.
++ */
++void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size)
++{
++	u64 charged = atomic64_read(&obj->drmcg_bytes_charged);
++
++	if (WARN_ON(!charged))
++		return;
++	if (WARN_ON(size > charged))
++		size = charged;
++
++	atomic64_sub(size, &obj->drmcg_bytes_charged);
++	drm_cgroup_uncharge(obj->drmcg, obj->dev, DRMCG_TYPE_MEM_CURRENT,
++			    size);
++}
++EXPORT_SYMBOL(drm_gem_object_uncharge_mem);
++
+ /**
+  * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+  * @dev: drm_device the object should be initialized for
+@@ -156,6 +240,8 @@ void drm_gem_private_object_init(struct drm_device *dev,
+ 	obj->dev = dev;
+ 	obj->filp = NULL;
+ 
++	drm_gem_object_set_cgroup(obj, current);
++
+ 	kref_init(&obj->refcount);
+ 	obj->handle_count = 0;
+ 	obj->size = size;
+@@ -950,6 +1036,9 @@ drm_gem_object_release(struct drm_gem_object *obj)
+ 
+ 	dma_resv_fini(&obj->_resv);
+ 	drm_gem_free_mmap_offset(obj);
++
++	/* Release reference on cgroup used with GEM object charging */
++	drm_gem_object_unset_cgroup(obj);
+ }
+ EXPORT_SYMBOL(drm_gem_object_release);
+ 
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 240049566592..06ea10fc17bc 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -37,6 +37,7 @@
+ #include <linux/kref.h>
+ #include <linux/dma-resv.h>
+ 
++#include <drm/drm_cgroup.h>
+ #include <drm/drm_vma_manager.h>
+ 
+ struct dma_buf_map;
+@@ -222,6 +223,17 @@ struct drm_gem_object {
+ 	 */
+ 	struct file *filp;
+ 
++	/**
++	 * @drmcg:
++	 *
++	 * cgroup used for charging GEM object page allocations against. This
++	 * is set to the current cgroup during GEM object creation.
++	 * Charging policy is up to the DRM driver to implement and should be
++	 * charged when allocating backing store from device memory.
++	 */
++	struct drmcg *drmcg;
++	atomic64_t drmcg_bytes_charged;
++
+ 	/**
+ 	 * @vma_node:
+ 	 *
+@@ -417,4 +429,9 @@ int drm_gem_fence_array_add_implicit(struct xarray *fence_array,
+ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+ 			    u32 handle, u64 *offset);
+ 
++void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
++			       struct task_struct *task);
++void drm_gem_object_unset_cgroup(struct drm_gem_object *obj);
++int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size);
++void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size);
+ #endif /* __DRM_GEM_H__ */
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
