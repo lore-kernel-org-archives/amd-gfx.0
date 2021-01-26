@@ -2,40 +2,40 @@ Return-Path: <SRS0=fKyo=G5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7B4DC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D092C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7920E20656
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7920E20656
+	by mail.kernel.org (Postfix) with ESMTPS id 3CD8020656
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 21:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CD8020656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6412A6E491;
-	Tue, 26 Jan 2021 21:44:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 145B36E4AD;
+	Tue, 26 Jan 2021 21:44:40 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA036E441;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4914F6E171;
  Tue, 26 Jan 2021 21:44:38 +0000 (UTC)
-IronPort-SDR: 276D3R91aoDuLzhUyiJfRUdmY6V5DERd5YgwREUr52dyvOTF3Of4jZ4FUHXHl6LsynZH78bc7S
- j48Chhexu1tw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770825"
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770825"
+IronPort-SDR: 78/eRlEvNkkR8qf7PBlMeKsmzGXEHeBH5z3/1c14GMoeENQHKjov/NWVSDUyOPeacEAPKIILP0
+ fnkuCkdZ8JTQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9876"; a="198770828"
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="198770828"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 13:44:36 -0800
-IronPort-SDR: pxx/maiC2y8TN8v4a9MNIpLQaukuEIO7m6+F+beuK12x15k/ghwB9/i8eJB1vT2jFY5rzFHq4M
- l0e928oDl2bA==
-X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139880"
+ 26 Jan 2021 13:44:37 -0800
+IronPort-SDR: tIdx5mzUYWnmP9Naq10L31XyFyKJMLQZTtXw82/SLdxN/7YkQ4w8MmNV01yngExONP6ZgG/XHX
+ VLknynncDPPQ==
+X-IronPort-AV: E=Sophos;i="5.79,377,1602572400"; d="scan'208";a="362139887"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 26 Jan 2021 13:44:36 -0800
+ 26 Jan 2021 13:44:37 -0800
 From: Brian Welty <brian.welty@intel.com>
 To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  Tejun Heo <tj@kernel.org>, dri-devel@lists.freedesktop.org,
@@ -47,10 +47,12 @@ To: Brian Welty <brian.welty@intel.com>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: [RFC PATCH 0/9] cgroup support for GPU devices 
-Date: Tue, 26 Jan 2021 13:46:17 -0800
-Message-Id: <20210126214626.16260-1-brian.welty@intel.com>
+Subject: [RFC PATCH 2/9] drm, cgroup: Bind drm and cgroup subsystem
+Date: Tue, 26 Jan 2021 13:46:19 -0800
+Message-Id: <20210126214626.16260-3-brian.welty@intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210126214626.16260-1-brian.welty@intel.com>
+References: <20210126214626.16260-1-brian.welty@intel.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,80 +70,283 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We'd like to revisit the proposal of a GPU cgroup controller for managing
-GPU devices but with just a basic set of controls.  This series is based on 
-the prior patch series from Kenny Ho [1].  We take Kenny's base patches
-which implement the basic framework for the controller, but we propose an
-alternate set of control files.  Here we've taken a subset of the controls
-proposed in earlier discussion on ML here [2]. 
+From: Kenny Ho <Kenny.Ho@amd.com>
 
-This series proposes a set of device memory controls (gpu.memory.current,
-gpu.memory.max, and gpu.memory.total) and accounting of GPU time usage
-(gpu.sched.runtime).  GPU time sharing controls are left as future work.
-These are implemented within the GPU controller along with integration/usage
-of the device memory controls by the i915 device driver.
+Since the drm subsystem can be compiled as a module and drm devices can
+be added and removed during run time, add several functions to bind the
+drm subsystem as well as drm devices with drmcg.
 
-As an accelerator or GPU device is similar in many respects to a CPU with
-(or without) attached system memory, the basic principle here is try to
-copy the semantics of existing controls from other controllers when possible
-and where these controls serve the same underlying purpose.
-For example, the memory.max and memory.current controls are based on
-same controls from MEMCG controller.
+Two pairs of functions:
+drmcg_bind/drmcg_unbind - used to bind/unbind the drm subsystem to the
+cgroup subsystem as the drm core initialize/exit.
 
-Following with the implementation used by the existing RDMA controller,
-here we introduce a general purpose drm_cgroup_try_charge and uncharge
-pair of exported functions. These functions are to be used for
-charging and uncharging all current and future DRM resource controls.
+drmcg_register_dev/drmcg_unregister_dev - used to register/unregister
+drm devices to the cgroup subsystem as the devices are presented/removed
+from userspace.
 
-Patches 1 - 4 are part original work and part refactoring of the prior
-work from Kenny Ho from his series for GPU / DRM controller v2 [1].
-
-Patches 5 - 7 introduce new controls to the GPU / DRM controller for device
-memory accounting and GPU time tracking.
-
-Patch 8 introduces DRM support for associating GEM objects with a cgroup.
-
-Patch 9 implements i915 changes to use cgroups for device memory charging
-and enforcing device memory allocation limit.
-
-[1] https://lists.freedesktop.org/archives/dri-devel/2020-February/257052.html
-[2] https://lists.freedesktop.org/archives/dri-devel/2019-November/242599.html
-
-Brian Welty (6):
-  drmcg: Add skeleton seq_show and write for drmcg files
-  drmcg: Add support for device memory accounting via page counter
-  drmcg: Add memory.total file
-  drmcg: Add initial support for tracking gpu time usage
-  drm/gem: Associate GEM objects with drm cgroup
-  drm/i915: Use memory cgroup for enforcing device memory limit
-
-Kenny Ho (3):
-  cgroup: Introduce cgroup for drm subsystem
-  drm, cgroup: Bind drm and cgroup subsystem
-  drm, cgroup: Initialize drmcg properties
-
- Documentation/admin-guide/cgroup-v2.rst    |  58 ++-
- Documentation/cgroup-v1/drm.rst            |   1 +
- drivers/gpu/drm/drm_drv.c                  |  11 +
- drivers/gpu/drm/drm_gem.c                  |  89 ++++
- drivers/gpu/drm/i915/gem/i915_gem_mman.c   |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_region.c |  23 +-
- drivers/gpu/drm/i915/intel_memory_region.c |  13 +-
- drivers/gpu/drm/i915/intel_memory_region.h |   2 +-
- include/drm/drm_cgroup.h                   |  85 ++++
- include/drm/drm_device.h                   |   7 +
- include/drm/drm_gem.h                      |  17 +
- include/linux/cgroup_drm.h                 | 113 +++++
- include/linux/cgroup_subsys.h              |   4 +
- init/Kconfig                               |   5 +
- kernel/cgroup/Makefile                     |   1 +
- kernel/cgroup/drm.c                        | 533 +++++++++++++++++++++
- 16 files changed, 954 insertions(+), 9 deletions(-)
- create mode 100644 Documentation/cgroup-v1/drm.rst
+Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
+---
+ drivers/gpu/drm/drm_drv.c  |   8 +++
+ include/drm/drm_cgroup.h   |  39 +++++++++++
+ include/linux/cgroup_drm.h |   4 ++
+ kernel/cgroup/drm.c        | 131 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 182 insertions(+)
  create mode 100644 include/drm/drm_cgroup.h
- create mode 100644 include/linux/cgroup_drm.h
- create mode 100644 kernel/cgroup/drm.c
 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 20d22e41d7ce..3b940926d672 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -42,6 +42,7 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_cgroup.h>
+ 
+ #include "drm_crtc_internal.h"
+ #include "drm_internal.h"
+@@ -893,6 +894,8 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+ 	if (drm_core_check_feature(dev, DRIVER_MODESET))
+ 		drm_modeset_register_all(dev);
+ 
++	drmcg_register_dev(dev);
++
+ 	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
+ 		 driver->name, driver->major, driver->minor,
+ 		 driver->patchlevel, driver->date,
+@@ -928,6 +931,8 @@ EXPORT_SYMBOL(drm_dev_register);
+  */
+ void drm_dev_unregister(struct drm_device *dev)
+ {
++	drmcg_unregister_dev(dev);
++
+ 	if (drm_core_check_feature(dev, DRIVER_LEGACY))
+ 		drm_lastclose(dev);
+ 
+@@ -1030,6 +1035,7 @@ static const struct file_operations drm_stub_fops = {
+ 
+ static void drm_core_exit(void)
+ {
++	drmcg_unbind();
+ 	unregister_chrdev(DRM_MAJOR, "drm");
+ 	debugfs_remove(drm_debugfs_root);
+ 	drm_sysfs_destroy();
+@@ -1056,6 +1062,8 @@ static int __init drm_core_init(void)
+ 	if (ret < 0)
+ 		goto error;
+ 
++	drmcg_bind(&drm_minor_acquire, &drm_dev_put);
++
+ 	drm_core_init_complete = true;
+ 
+ 	DRM_DEBUG("Initialized\n");
+diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
+new file mode 100644
+index 000000000000..530c9a0b3238
+--- /dev/null
++++ b/include/drm/drm_cgroup.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: MIT
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ */
++#ifndef __DRM_CGROUP_H__
++#define __DRM_CGROUP_H__
++
++#ifdef CONFIG_CGROUP_DRM
++
++void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev));
++
++void drmcg_unbind(void);
++
++void drmcg_register_dev(struct drm_device *dev);
++
++void drmcg_unregister_dev(struct drm_device *dev);
++
++#else
++
++static inline void drmcg_bind(
++		struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev))
++{
++}
++
++static inline void drmcg_unbind(void)
++{
++}
++
++static inline void drmcg_register_dev(struct drm_device *dev)
++{
++}
++
++static inline void drmcg_unregister_dev(struct drm_device *dev)
++{
++}
++
++#endif /* CONFIG_CGROUP_DRM */
++#endif /* __DRM_CGROUP_H__ */
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+index 345af54a5d41..307bb75db248 100644
+--- a/include/linux/cgroup_drm.h
++++ b/include/linux/cgroup_drm.h
+@@ -5,6 +5,10 @@
+ #define _CGROUP_DRM_H
+ 
+ #include <linux/cgroup.h>
++#include <drm/drm_file.h>
++
++/* limit defined per the way drm_minor_alloc operates */
++#define MAX_DRM_DEV (64 * DRM_MINOR_RENDER)
+ 
+ #ifdef CONFIG_CGROUP_DRM
+ 
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 5e38a8230922..061bb9c458e4 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -1,11 +1,142 @@
+ // SPDX-License-Identifier: MIT
+ // Copyright 2019 Advanced Micro Devices, Inc.
++#include <linux/bitmap.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/cgroup.h>
+ #include <linux/cgroup_drm.h>
++#include <drm/drm_file.h>
++#include <drm/drm_device.h>
++#include <drm/drm_cgroup.h>
+ 
+ static struct drmcg *root_drmcg __read_mostly;
+ 
++/* global mutex for drmcg across all devices */
++static DEFINE_MUTEX(drmcg_mutex);
++
++static DECLARE_BITMAP(known_devs, MAX_DRM_DEV);
++
++static struct drm_minor (*(*acquire_drm_minor)(unsigned int minor_id));
++
++static void (*put_drm_dev)(struct drm_device *dev);
++
++/**
++ * drmcg_bind - Bind DRM subsystem to cgroup subsystem
++ * @acq_dm: function pointer to the drm_minor_acquire function
++ * @put_ddev: function pointer to the drm_dev_put function
++ *
++ * This function binds some functions from the DRM subsystem and make
++ * them available to the drmcg subsystem.
++ *
++ * drmcg_unbind does the opposite of this function
++ */
++void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev))
++{
++	mutex_lock(&drmcg_mutex);
++	acquire_drm_minor = acq_dm;
++	put_drm_dev = put_ddev;
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_bind);
++
++/**
++ * drmcg_unbind - Unbind DRM subsystem from cgroup subsystem
++ *
++ * drmcg_bind does the opposite of this function
++ */
++void drmcg_unbind(void)
++{
++	mutex_lock(&drmcg_mutex);
++	acquire_drm_minor = NULL;
++	put_drm_dev = NULL;
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_unbind);
++
++/**
++ * drmcg_register_dev - register a DRM device for usage in drm cgroup
++ * @dev: DRM device
++ *
++ * This function make a DRM device visible to the cgroup subsystem.
++ * Once the drmcg is aware of the device, drmcg can start tracking and
++ * control resource usage for said device.
++ *
++ * drmcg_unregister_dev reverse the operation of this function
++ */
++void drmcg_register_dev(struct drm_device *dev)
++{
++	if (WARN_ON(dev->primary->index >= MAX_DRM_DEV))
++		return;
++
++	mutex_lock(&drmcg_mutex);
++	set_bit(dev->primary->index, known_devs);
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_register_dev);
++
++/**
++ * drmcg_unregister_dev - Iterate through all stored DRM minors
++ * @dev: DRM device
++ *
++ * Unregister @dev so that drmcg no longer control resource usage
++ * of @dev.  The @dev was registered to drmcg using
++ * drmcg_register_dev function
++ */
++void drmcg_unregister_dev(struct drm_device *dev)
++{
++	if (WARN_ON(dev->primary->index >= MAX_DRM_DEV))
++		return;
++
++	mutex_lock(&drmcg_mutex);
++	clear_bit(dev->primary->index, known_devs);
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_unregister_dev);
++
++/**
++ * drm_minor_for_each - Iterate through all stored DRM minors
++ * @fn: Function to be called for each pointer.
++ * @data: Data passed to callback function.
++ *
++ * The callback function will be called for each registered device, passing
++ * the minor, the @drm_minor entry and @data.
++ *
++ * If @fn returns anything other than %0, the iteration stops and that
++ * value is returned from this function.
++ */
++static int drm_minor_for_each(int (*fn)(int id, void *p, void *data),
++		void *data)
++{
++	int rc = 0;
++
++	mutex_lock(&drmcg_mutex);
++	if (acquire_drm_minor) {
++		unsigned int minor;
++		struct drm_minor *dm;
++
++		minor = find_next_bit(known_devs, MAX_DRM_DEV, 0);
++		while (minor < MAX_DRM_DEV) {
++			dm = acquire_drm_minor(minor);
++
++			if (IS_ERR(dm))
++				continue;
++
++			rc = fn(minor, (void *)dm, data);
++
++			put_drm_dev(dm->dev); /* release from acquire_drm_minor */
++
++			if (rc)
++				break;
++
++			minor = find_next_bit(known_devs, MAX_DRM_DEV, minor+1);
++		}
++	}
++	mutex_unlock(&drmcg_mutex);
++
++	return rc;
++}
++
+ static void drmcg_css_free(struct cgroup_subsys_state *css)
+ {
+ 	struct drmcg *drmcg = css_to_drmcg(css);
 -- 
 2.20.1
 
