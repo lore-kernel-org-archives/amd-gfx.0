@@ -2,68 +2,50 @@ Return-Path: <SRS0=fKyo=G5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F8A1C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 18:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8835BC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F379207A0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 18:17:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F379207A0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 20CAD22A83
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Jan 2021 20:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20CAD22A83
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4E7E893A3;
-	Tue, 26 Jan 2021 18:17:24 +0000 (UTC)
-Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
- [IPv6:2607:f8b0:4864:20::72a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD90893A3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 18:17:24 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id r77so16676477qka.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 10:17:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lTpwyJHgQk7FXhYlA6hc0Xmept2/SbS4lw4XoRFkGww=;
- b=PqdVhsQOJ99wrA+e6YDSNLVpYDNxIxrYbTFrJKqLfluXnPU0wi2Mzf7PJb/b99I10t
- ikOtBn4HEmTLxPLZ20+5N2zldZQzrd8c8DK+NaYH7AEt6yfvmI96X/AIV07xyO9HG3zW
- ZbffDmN6xnLIUtHmBNKQaajHR1+k6kjM5X3eOUaiggfPqXyVK6/XondzXUVX0QucZ4g7
- xi8OY2fOXMaePegElJX3IrMtkE8xPn63U+tqJTYOQ/hShi1gbvWEbKtQv9ZZxx1XJHR5
- 7oZkf4upsQdnm8WxpqeZvybPTyvuMmYFqi+QM9MEJ6zT09dlQmuo4QNR5iCnAmjV0suo
- JMDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lTpwyJHgQk7FXhYlA6hc0Xmept2/SbS4lw4XoRFkGww=;
- b=WidehSnJx7RWVm9NVE53ak0Yg3cdRPsii0k3a4vlHp3fKYaLOF+4i7s/oBaxA5MgDt
- 38PBYCqJjBdyw8GOzB3oPaDA+tTPetZo41PuSoYLWVxvm80/ZcXpYo3hUKEF9TOXCiCG
- WzhJ7R5pECNSGWkY0Hyg527bdn1KD2blgppnYHPnupGEp7lHTlazqDrL14F65p9U8vUF
- JHS6pnnMaPnvBP6rF+pmuOq4PAalQbx7edUcYc/WEDT6/bCQ2kC4s1olR/CFcqGaLNLi
- xGnaf5i+eg29yi4O0Nnn1WZs+vYRHgRiQ4HAb0QAHEMvhTSjPou2CitcTJ3W8hJ07FmW
- x86w==
-X-Gm-Message-State: AOAM532MSUhRc9QXYo0moL2L5yYmWRSqYR6GUkMPXf2RMYcSfso3675x
- i+Pi96naw9Xs1kZtjikWCxHV/EnVwMg=
-X-Google-Smtp-Source: ABdhPJzTZSl1ypNTIQGez0mnmXoqNjvSEOJSIBr1/1nNu++pUrZPnZgdlmy+h+IZQs/Fcpq15jxnfg==
-X-Received: by 2002:a37:9ec8:: with SMTP id h191mr6783455qke.174.1611685038514; 
- Tue, 26 Jan 2021 10:17:18 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id q50sm14374129qtb.32.2021.01.26.10.17.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jan 2021 10:17:18 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/pm/smu11: fix static fan speed readback
-Date: Tue, 26 Jan 2021 13:17:02 -0500
-Message-Id: <20210126181702.48944-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id A033E6E1B6;
+	Tue, 26 Jan 2021 20:23:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E346E1B6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 20:23:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F2B122241;
+ Tue, 26 Jan 2021 20:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611692602;
+ bh=+EsghCNbKfoMSubSdhekrk7Lexni+2yNl926lkdHUas=;
+ h=From:To:Cc:Subject:Date:From;
+ b=qwRjUfaK417oQM28DFY8h3Ud1rcErIYR4T7Bmp0ZdAgKa8w/gXoTZIhygR/b+QPRG
+ ThnmNkLq6RievbT9icGV7yrwEj9kslvhrvzHMBIAe+3azHatZ+o54YYVY/VFvQvBG1
+ 2gntQ3GiBy8pF00YTQQcx72bZ9S7TkTNnBSvI0+t+3R2q4faV0Vu9DS2TNjfCIy/sl
+ BN+RCQ+4b7QG2hM1TNlRmNed7E7oQyQNG8sJnffJFrhym128OmaPciCSTCDWH32zBb
+ eAWcDx0UiTtUizZXKQiyM8Yvcav5WB15Ojw/VbEQ8Gjnt6a25MtgXar7j9Ql1PQyCB
+ tvzORGfjCd4Jg==
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Rafael J . Wysocki" <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Corentin Chary <corentin.chary@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
+Date: Tue, 26 Jan 2021 14:23:17 -0600
+Message-Id: <20210126202317.2914080-1-helgaas@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,39 +58,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
+ acpi4asus-user@lists.sourceforge.net, amd-gfx@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-acpi@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The xclk needs to be divided by 4.
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-Fixes: acab02c1af43d3 ("drm/amdgpu/pm/smu11: Fix fan set speed bug")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+The double negative makes it hard to read "if (!ACPI_FAILURE(status))".
+Replace it with "if (ACPI_SUCCESS(status))".
+
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 147efe12973c..36dac106ed4b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1245,7 +1245,11 @@ int smu_v11_0_get_fan_speed_rpm(struct smu_context *smu,
- 	if (!tach_period)
- 		return -EINVAL;
+This isn't really an ACPI patch, but I'm sending it to you, Rafael, since
+it seems easier to just apply these all at once.  But I'd be happy to split
+them up into individual patches if you'd rather.
+
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 4 ++--
+ drivers/gpu/drm/radeon/radeon_bios.c     | 4 ++--
+ drivers/hwmon/acpi_power_meter.c         | 4 ++--
+ drivers/platform/x86/asus-laptop.c       | 6 +++---
+ drivers/spi/spi.c                        | 2 +-
+ sound/pci/hda/hda_intel.c                | 4 ++--
+ 6 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 6333cada1e09..055f600eeed8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -291,7 +291,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+ 			continue;
  
--	crystal_clock_freq = amdgpu_asic_get_xclk(adev);
-+	/*
-+	 * crystal_clock_freq div by 4 is required since the fan control
-+	 * module refers to 25MHz
-+	 */
-+	crystal_clock_freq = amdgpu_asic_get_xclk(adev) / 4;
+ 		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+-		if (!ACPI_FAILURE(status)) {
++		if (ACPI_SUCCESS(status)) {
+ 			found = true;
+ 			break;
+ 		}
+@@ -304,7 +304,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+ 				continue;
  
- 	tmp64 = (uint64_t)crystal_clock_freq * 60 * 10000;
- 	do_div(tmp64, (tach_period * 8));
+ 			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+-			if (!ACPI_FAILURE(status)) {
++			if (ACPI_SUCCESS(status)) {
+ 				found = true;
+ 				break;
+ 			}
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index bb29cf02974d..43bbbfd6ade8 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -205,7 +205,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+ 			continue;
+ 
+ 		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+-		if (!ACPI_FAILURE(status)) {
++		if (ACPI_SUCCESS(status)) {
+ 			found = true;
+ 			break;
+ 		}
+@@ -218,7 +218,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+ 				continue;
+ 
+ 			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+-			if (!ACPI_FAILURE(status)) {
++			if (ACPI_SUCCESS(status)) {
+ 				found = true;
+ 				break;
+ 			}
+diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+index 848718ab7312..7d3ddcba34ce 100644
+--- a/drivers/hwmon/acpi_power_meter.c
++++ b/drivers/hwmon/acpi_power_meter.c
+@@ -161,7 +161,7 @@ static ssize_t set_avg_interval(struct device *dev,
+ 	mutex_lock(&resource->lock);
+ 	status = acpi_evaluate_integer(resource->acpi_dev->handle, "_PAI",
+ 				       &args, &data);
+-	if (!ACPI_FAILURE(status))
++	if (ACPI_SUCCESS(status))
+ 		resource->avg_interval = temp;
+ 	mutex_unlock(&resource->lock);
+ 
+@@ -232,7 +232,7 @@ static ssize_t set_cap(struct device *dev, struct device_attribute *devattr,
+ 	mutex_lock(&resource->lock);
+ 	status = acpi_evaluate_integer(resource->acpi_dev->handle, "_SHL",
+ 				       &args, &data);
+-	if (!ACPI_FAILURE(status))
++	if (ACPI_SUCCESS(status))
+ 		resource->cap = temp;
+ 	mutex_unlock(&resource->lock);
+ 
+diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
+index 0edafe687fa9..bfea656e910c 100644
+--- a/drivers/platform/x86/asus-laptop.c
++++ b/drivers/platform/x86/asus-laptop.c
+@@ -861,7 +861,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+ 	 * The significance of others is yet to be found.
+ 	 */
+ 	rv = acpi_evaluate_integer(asus->handle, "SFUN", NULL, &temp);
+-	if (!ACPI_FAILURE(rv))
++	if (ACPI_SUCCESS(rv))
+ 		len += sprintf(page + len, "SFUN value         : %#x\n",
+ 			       (uint) temp);
+ 	/*
+@@ -873,7 +873,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+ 	 * takes several seconds to run on some systems.
+ 	 */
+ 	rv = acpi_evaluate_integer(asus->handle, "HWRS", NULL, &temp);
+-	if (!ACPI_FAILURE(rv))
++	if (ACPI_SUCCESS(rv))
+ 		len += sprintf(page + len, "HWRS value         : %#x\n",
+ 			       (uint) temp);
+ 	/*
+@@ -884,7 +884,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+ 	 * silently ignored.
+ 	 */
+ 	rv = acpi_evaluate_integer(asus->handle, "ASYM", NULL, &temp);
+-	if (!ACPI_FAILURE(rv))
++	if (ACPI_SUCCESS(rv))
+ 		len += sprintf(page + len, "ASYM value         : %#x\n",
+ 			       (uint) temp);
+ 	if (asus->dsdt_info) {
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 720ab34784c1..801d8b499788 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2210,7 +2210,7 @@ static acpi_status acpi_register_spi_device(struct spi_controller *ctlr,
+ 		return AE_OK;
+ 
+ 	if (!lookup.max_speed_hz &&
+-	    !ACPI_FAILURE(acpi_get_parent(adev->handle, &parent_handle)) &&
++	    ACPI_SUCCESS(acpi_get_parent(adev->handle, &parent_handle)) &&
+ 	    ACPI_HANDLE(ctlr->dev.parent) == parent_handle) {
+ 		/* Apple does not use _CRS but nested devices for SPI slaves */
+ 		acpi_spi_parse_apple_properties(adev, &lookup);
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 770ad25f1907..fe8049cd2765 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1444,7 +1444,7 @@ static bool atpx_present(void)
+ 		dhandle = ACPI_HANDLE(&pdev->dev);
+ 		if (dhandle) {
+ 			status = acpi_get_handle(dhandle, "ATPX", &atpx_handle);
+-			if (!ACPI_FAILURE(status)) {
++			if (ACPI_SUCCESS(status)) {
+ 				pci_dev_put(pdev);
+ 				return true;
+ 			}
+@@ -1454,7 +1454,7 @@ static bool atpx_present(void)
+ 		dhandle = ACPI_HANDLE(&pdev->dev);
+ 		if (dhandle) {
+ 			status = acpi_get_handle(dhandle, "ATPX", &atpx_handle);
+-			if (!ACPI_FAILURE(status)) {
++			if (ACPI_SUCCESS(status)) {
+ 				pci_dev_put(pdev);
+ 				return true;
+ 			}
 -- 
-2.29.2
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
