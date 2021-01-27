@@ -7,133 +7,115 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61E54C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 04:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 341FCC433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 04:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F15012070E
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 04:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F15012070E
+	by mail.kernel.org (Postfix) with ESMTPS id D14A92070C
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 04:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D14A92070C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D696E50B;
-	Wed, 27 Jan 2021 04:46:43 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE586E50B
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 04:46:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7614E6E50B;
+	Wed, 27 Jan 2021 04:49:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B19186E50B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 04:49:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JHaRq/gNubuDqzzzc6AmXdQX+f2Y6OiC9o8RvnW6kP9Nx9ttTZJQ6t6Xr5nKnfIva3x0ecDey2WgKenRiQ8DRTWC9piB7E+jHKhFLN3dETPQLXc7kSp4C716Qw9cmvG+4+NPU0wdo0XhqyTxAYbv1FA5HI8+K+wDrhNHsIv3RZZ5pNXjKow4qnSqDJE8vI6ZNKUfeatGZ/zJtQlzBZhk5Xdnqfq4EOOJy/MjDyr8fcQ8uNg1EJs2PfcINlFsuH4IYa/CWTlUwLPemHhMQBWHJJp6MzV9K6GIe8FIHnphaDy1Yk0YgpJ1ttspd71b6uUpxfFg4kQPsPq/Q/9g7ABdhw==
+ b=GD6/tw+Uhm/40p3FGaB7EbKtVK//d3ndlVKuUAC2gxLSoEGcHAsJxxu0fJkFX5d9PgAVjK7CLFcew2OVS3tEnCAanQkcTCYGm3K9epk6JoZTSCNUn4koQrzrybdHkVP2DbIfzE9OqKrQ+92+anz1VAnasksanvTsAq3gkXt2g0Su5+l0bb2XidYN443c6N4HrsECQanhBwUi+1maIC2o9B1GvE+F0IsezqTBdUK88KZ5Nra2kVJo5K1aaEGAUPZlgFwWWp4PawQa/2/eSC0sMFq18UFnBLaZUAeD34dFqUOWpvfI8jLTQmAhJ41UbJua5kvnHHEdo4zMyP/3bZBdaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nVHTN6SXQBasE1NNhU+jO3l4ONyDUBVePYQWDYMu+ys=;
- b=n6ywN58EEZ9MsdbUEnDNuJsPxXoiVhl8bebuhekqn2PPE6bZOEZ2z2pVxOVFOm3AeXRaNe/vqtvaZiDS4tyt9LWTQ3HXf3ZMofUjKUptlPG/rxUpqkIqZhsQOcpL9GF5WF+t/dYmfroo8WcVxsXFGgrW5WbJqv8AyNeZeKIzAK1SA5HLWHHwV6CpPvlpwcdRPDJJYVPT+s971fij0IZaTfiqTovd/ceS4oFcf5HzZ2yEXCl339SNxGbM2p4s1eC2A/wJTTNSOV8fEqmtyxi6ryXWlW2lUi/Eq+L+l4MXyjuUqKIJz7qm43/f873VTHAmWG8nk/Jx044l/tt/s9H1Eg==
+ bh=at2lxNanldrY6SouHo6oKGdfglfHQTEfqSFXnMDIjc8=;
+ b=NTUOjSJQSu4f7SfSTYe4WdBz8qMMmFwl9jZgs54uQ/9a0SNVHSXCr9pGA3IoIAGEtzLqchkZO/dANCZGMt4dGn/0xBoIqMkv2bWCSwnvel4Lq2mIiqfuBqaKOgW8CMTEtQTfOJjmkQdBmgPzSCqAjI0UwB1Pkwow5u+iRDabTkjxhj7QM/riYEPLN0NsPvIMazXv05IyY6AXwcI/xUFvoTDZEOAQ0xYRnHgZ/AHVa/K5uEn0+uFX3U0mlXJw45AFd5KiSnpsdiUfQq3NtI+90krFeMmz2CCVdW136LDhij9BLHfOxxesHBEq2fuZtccvfPhsEcu72L8Sgmm25JUcZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nVHTN6SXQBasE1NNhU+jO3l4ONyDUBVePYQWDYMu+ys=;
- b=SDrr0PfmbGVIEpkv1fglP6ZfimvGQ6q5H9TX/tq6H8rvorRToGBmmXOunMDgLSi3dMH7DLGPy6C9BtIO2ftm7hRcipYL6FpeNiuMrdwcAFT7rplRtvuHeva27a5OdLC9lRa1UCQVmuE9xhrR6RupwVbd8ITIbjsDoVzOuZY+jkQ=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4127.namprd12.prod.outlook.com (2603:10b6:208:1d1::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.13; Wed, 27 Jan
- 2021 04:46:40 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::b0c4:9a8b:4c4c:76af%6]) with mapi id 15.20.3763.019; Wed, 27 Jan 2021
- 04:46:40 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, "Rafael J . Wysocki"
- <rjw@rjwysocki.net>, Len Brown <lenb@kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, Jean Delvare <jdelvare@suse.com>, Guenter Roeck
- <linux@roeck-us.net>, Corentin Chary <corentin.chary@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>
-Subject: RE: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
-Thread-Topic: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
-Thread-Index: AQHW9CEa0TospenDMUOKMvLoLeXOnao65hRw
-Date: Wed, 27 Jan 2021 04:46:39 +0000
-Message-ID: <MN2PR12MB44887C0B80BE4E74DAAD7712F7BB0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210126202317.2914080-1-helgaas@kernel.org>
-In-Reply-To: <20210126202317.2914080-1-helgaas@kernel.org>
+ bh=at2lxNanldrY6SouHo6oKGdfglfHQTEfqSFXnMDIjc8=;
+ b=pfAucToRsV4LKuXeUoR3ZLm4IPSEM0pHoj0syOVXoUHR1Web/W2tjBP53uhZrk1B8n8kK7EYBzmpkXfOVzO+4w03WYzCRAMbVvM6bmTJ4rigPO8wYhYNYTqy0W0f9bymIvuGm9y5wfejBaC5rOSrHQlw2famZWAodISEkIuZ470=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB3178.namprd12.prod.outlook.com (2603:10b6:5:18d::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3784.13; Wed, 27 Jan 2021 04:48:58 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::e008:e79e:33f0:bdf]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::e008:e79e:33f0:bdf%9]) with mapi id 15.20.3784.019; Wed, 27 Jan 2021
+ 04:48:58 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: Enable gfx DCS feature
+Thread-Topic: [PATCH] drm/amd/pm: Enable gfx DCS feature
+Thread-Index: AQHW9E2q/953EaQDD0egl8P7q3tgVao63W2AgAAI2tA=
+Date: Wed, 27 Jan 2021 04:48:57 +0000
+Message-ID: <DM6PR12MB407539857A58BB9C4F37D008FCBB9@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <20210127014146.10902-1-kenneth.feng@amd.com>
+ <DM6PR12MB4650AC724ECE20958063ACD1B0BB9@DM6PR12MB4650.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB4650AC724ECE20958063ACD1B0BB9@DM6PR12MB4650.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-01-27T04:46:34Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-01-27T04:48:56Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=b6e609d1-e788-41ac-84b2-0000b0d8c7a3;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=ecda6635-be0c-4e9b-9eb5-2511c521a7ec;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2021-01-27T04:46:27Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 6262156f-5ca0-4436-acdb-00004a4c3923
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2021-01-27T04:46:36Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 5b2e73a1-3424-4c79-b2c8-0000b87650fd
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.219.66.138]
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7242b501-e44b-4a8e-76f3-08d8c27e896d
-x-ms-traffictypediagnostic: MN2PR12MB4127:
+x-ms-office365-filtering-correlation-id: 0ad42581-7e03-4400-9c4a-08d8c27edbae
+x-ms-traffictypediagnostic: DM6PR12MB3178:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB41273E72C0EAA8BBD52F5FAAF7BB9@MN2PR12MB4127.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1227;
+x-microsoft-antispam-prvs: <DM6PR12MB31786923E021815076D56DCDFCBB9@DM6PR12MB3178.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1388;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: U7EYK2p5cao/l+G4O8bN4pyf/mh1vNLFEvIUA1mhdS8V4IZtvxxLp7MeRtjHrQkNhHfKp9CjvCtgLygFp2vEUJ5Ihwyzspv9EXCOAlvThLgzqBrHreBk4r7rapnF4DKkjfzIOqqp8PhEvJxLXZJR1OPFRhxpKEGYp62HtenrH6xgeFWvPu0Aut/0gIcHhyZz0VFmNcZGVB41t7iS7kWlfJRru9Sr3Ibvg5e8guU9mL2PnpB2kaPXLbkt3jmL049xjy8XOZzWwXsLfBTE2SimD+RQtmGvSuehWfpavHMD8H1XLHnjKyMnC1+G+y4Il7lv9IW7a6ynpm9VNAp9m8ET9nOE/tZYa6aoDkEly+9CHT2i12IV36X1erUNj6aSeCuUDL4zlvlbxnNP5feCAgHJ+oiXIwwET9WlvufaCnLCHVgJXEfNNeB4pAoMzaq1M/pBTjirMtSOJk/1cVsei5iVUg==
+x-microsoft-antispam-message-info: rrFS2WvWBs1JlJZpdYCzbZrN5aU0T0CItEs8H/JpCwzGe2yiAbWv8uY5pOnEl8cnVjk3SxHc8o0xwX8aOEvqK69HooUNOFg/q68NBP3oTPf73EZIliO8a28GadMYvIqnVNvTuRbuDIEMIVZuNWkAbPDSYxpTTPOwYpCi1arsWwrLrIXikXtx+X4fWjzoO37pN2WdsA1gy738UNCxhEN2CdorSVc91gMKjdRx/OPX/EYQI9tHhjfi1iIfbyXTW5sbmEEniiQ16J2wCUZlh/yQ4S/x+vp6rM4DukmPnWAFy4MkCnF0/5eGk8Oce0FjQPbUmsSr0wILFfoRQ2RltaltM8oCFiZYJqK7C2o5DVbcOtYMVKmH/kQjf+1Gv/ayUD1UMU2U/NZ8U6lbP0LK+x8getre9iEOxu0O4YB3aaUOJajFcrxsXfbXh4lzDqgtvcHW72aksCULu0pssVAE+3BH3c7pOhb9nNX7xV5/nY7CEMdbcJoF729HpdENLBO4EwHy7nrsk5C4hE/RnUR8Wyq0pcEgIBXoxWDnr4yda6SR2/DnxlG8VOACjzVSfVs11xBW
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(136003)(376002)(346002)(396003)(478600001)(71200400001)(83380400001)(186003)(33656002)(66446008)(316002)(53546011)(76116006)(8676002)(8936002)(26005)(86362001)(2906002)(7416002)(6506007)(5660300002)(110136005)(55016002)(66556008)(64756008)(66476007)(52536014)(9686003)(66946007)(7696005)(54906003)(921005)(4326008)(46800400006);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(136003)(396003)(346002)(376002)(52536014)(186003)(83380400001)(66946007)(55016002)(110136005)(6506007)(66556008)(76116006)(9686003)(8676002)(4326008)(966005)(66446008)(8936002)(64756008)(26005)(66476007)(53546011)(5660300002)(316002)(478600001)(86362001)(33656002)(2906002)(7696005)(45080400002)(71200400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?8ucgcD/j5Q2CIfTgzYgDZKeXQq5fC1GIpn2Ag7kf0TrP7Lm2MpMu//wVoa5N?=
- =?us-ascii?Q?VYZAPUS0kLgGPnZnzm96ULGZznhhZvF/eTeJa3mtAVUzq4yymPbGUsnMIJIj?=
- =?us-ascii?Q?ooczaPq6OFi6K8tLDNancA78JfsZX+6TyVe/7RNNQOSzxLGG6Q22xNepVBtk?=
- =?us-ascii?Q?U4V74qzg+WfedQY5U/7S4hpQSMdwoTGy2/bbsELmcckvfF19o4BxM6B+YMOP?=
- =?us-ascii?Q?YP3sk7A4SEiyQUppy5dJpW5GUipxk6NXRFOGO5xuft1N4vfgUxSLH5A02jy8?=
- =?us-ascii?Q?BXeyGHFjeiPay9U99tmMVQoSnPWbo9j3ErGa+4fHRHzuCyQxZMnAvdyHZYJC?=
- =?us-ascii?Q?wnExpecHF/BxyHGH7C52WqfSb0IdmXqMLrHP96RnwG9kDdBA95aj62hbBKMk?=
- =?us-ascii?Q?J8tXJfYyTXqAu5l9BkS6mk421sbMF4l09tGEr/GZNTzuoMqZIm7uZNWHZkk4?=
- =?us-ascii?Q?sTTbih5d4DOaEQ9dC/8XFjZaFs3MAWWf/B1T4INcbNx6m2XRL5EaQsisYRvO?=
- =?us-ascii?Q?41oE9XYkvVikJlaJQCZe5ivQMk8siucuL823IuhrG6FRraPLwluFail+hYYe?=
- =?us-ascii?Q?tUDPMRnBHxpjX6WdMoTkHVFOZOTwAZcVTe08wxbe0Y62vKI9q5OtrQuBCMY6?=
- =?us-ascii?Q?PMwGSjyBXxCslZ+JGhpyQ7FaaaXOz2+4oazX5nzbyW837co68nieDLbjnlaM?=
- =?us-ascii?Q?yk1FAltST1huBrZOl2D5uB/7/3k7fCeMyi8UciWih3Tct3C/mo8T+FrunhdK?=
- =?us-ascii?Q?beMScss2UpuddWGthH1Sw3AORnEaxbfY1AqhbM44O56GD0ryVF81Y1N+TGu3?=
- =?us-ascii?Q?C6CNFXRLeJgxniiRyteUamZzwvuLccEmWYTW8WBXFLsUWTi2grPU6hDTY/ZV?=
- =?us-ascii?Q?ju+COQHfpFedkfqIJwFnbqW8sCmD5xnzVJre3zTqgILmOd8dMaNd64d/IQ1G?=
- =?us-ascii?Q?TICmxfiCxxlFy2QpJh+mGl97AYDS1lJcdpaTXi9WRR0DvIYnS5/3m4+qsshD?=
- =?us-ascii?Q?TqAnSP6w/vMJXFa/8n6xQYV+ydkmJ5v7tUTH5s90+clWR45MavnMQKhK6LKL?=
- =?us-ascii?Q?avgYo15Q?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?f1P8jbvLMN6KaIC9pTLIklE4zuo9AoqzW0fQRJGLu7AnOUiwYAwEtqNkBp+n?=
+ =?us-ascii?Q?6QAU8nebZ9aBSUMstbJociCypdxdpG4MpRSrc4HiLsnob8yvlZlkfKE/3lp6?=
+ =?us-ascii?Q?cmnVOJof7Owr5nLQtDPrnXzizmnk0bkwyjCj9cnPjjajN2W83YflNXLsIY0y?=
+ =?us-ascii?Q?lQnH+9HZ5pLTZI4qdoTJlDmVrCQe20x/n7bjmcO4gRrVrjxJs98q8ycUuq0B?=
+ =?us-ascii?Q?pc3fIkzdRImcEw1PiPySanvjYk/x8F0E6GZF2jDfRMihQa4lXH8o4N7DugYk?=
+ =?us-ascii?Q?WBHdwL8FLIfdRcHmYm+j6vYGtixVic6az3BjHkKof3XHHSnEVA+pOUn2LrD+?=
+ =?us-ascii?Q?wkggJL0ufVIuyG0ArOzVhup3C53VvI81cHgcHC+4CLYqUaBGP0BEWDpz0gZN?=
+ =?us-ascii?Q?HkpJzcDbfjK3mSEBPjqhVm6ev2Zqqi3k2bFSmV9l7fNdFtKdNYKWFKZi2loJ?=
+ =?us-ascii?Q?2UVpYWF0HH/ZQ4JlNowriIxQ1nuOrbkq8rkgBCOiCVtHM3wCzy/uCiaeUhHE?=
+ =?us-ascii?Q?STgO+PuRJ0LhqdJWc6FApwQo0PcU5AU/fvNYc1hvp3md9uHbol0QMMbUlylO?=
+ =?us-ascii?Q?Lv9cHF8YEX7sbAvzqXayGK21kMDyOiLdzIS+GRM44jIz7uro90zKR6Y3wpel?=
+ =?us-ascii?Q?gKQ9ks6dEuHAPEpb0teBSMXGh9pP3JZLu+z8E4B9AMiEzagBxqUo9umsq8+m?=
+ =?us-ascii?Q?9tm7GzZmMJdqOTAZoIG3p4nUeoH55EQlFfLMmD7WBNs+C6jMr/VRy6FIRlDL?=
+ =?us-ascii?Q?CLK9c7i/r/eWAeuxUK23fpVvJ9ccJPopX+axmzfw5OgCD6iPgdhxSRrDutEP?=
+ =?us-ascii?Q?MF+euPP5shk5FUv4yvV+Tzk02uQ6waNhVrchzvYRQ78NMHTpgeKKIPrS9bnW?=
+ =?us-ascii?Q?yCPyLJmdfTE0bLKfXI0m4qAHGCg9ouYNn7bKlYts5oTb5KUeawqEiAUfPQgT?=
+ =?us-ascii?Q?zJvfxDi4RACS9iUVT2vVAro3Ok3xB3k0MbdsmJz7x80pzuVqD/LkVWPnSW3b?=
+ =?us-ascii?Q?kjxEnFhEhoxyFJxNl4/M1yAze30G6hvVxdbfuCcu9r5Ai45RYjsNzCDk0OO8?=
+ =?us-ascii?Q?07ciOBQO?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7242b501-e44b-4a8e-76f3-08d8c27e896d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2021 04:46:39.6910 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ad42581-7e03-4400-9c4a-08d8c27edbae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2021 04:48:57.9031 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wYxdZuD2WdzQtFxXmvokOadjHQpbMgheeg0HBZiFBWxX0tkATa1SE4x9GY+bPTfQ8EsgvxRRKQ9knOet4ADk6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4127
+X-MS-Exchange-CrossTenant-userprincipalname: dJRS3GY6qi8cVuuMxxBttZXL/eARY5FyhKllvDoulGQQhe4JxLUimEcI5XaHz7KRCa13T8I1uJ+h3JdkjOzRyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3178
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,13 +127,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "acpi4asus-user@lists.sourceforge.net" <acpi4asus-user@lists.sourceforge.net>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -159,201 +135,107 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Public Use]
 
++	if (adev->asic_type == CHIP_NAVY_FLOUNDER || adev->asic_type == CHIP_DIMGREY_CAVEFISH)
+
+We shall consider merge the logic to adev->asic_type > CHIP_ SIENNA_CICHLID. I think it is also supported in SIENNA_CICHLID, right? So we haven't verified on SIENNA_CICHLID yet?
+
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhou1, Tao
+Sent: Wednesday, January 27, 2021 12:15
+To: Feng, Kenneth <Kenneth.Feng@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: Enable gfx DCS feature
+
+[AMD Public Use]
+
+
+
 > -----Original Message-----
-> From: Bjorn Helgaas <helgaas@kernel.org>
-> Sent: Tuesday, January 26, 2021 3:23 PM
-> To: Rafael J . Wysocki <rjw@rjwysocki.net>; Len Brown <lenb@kernel.org>;
-> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Jean Delvare <jdelvare@suse.com>; Guenter
-> Roeck <linux@roeck-us.net>; Corentin Chary <corentin.chary@gmail.com>;
-> Mark Brown <broonie@kernel.org>; Jaroslav Kysela <perex@perex.cz>;
-> Takashi Iwai <tiwai@suse.com>
-> Cc: linux-spi@vger.kernel.org; acpi4asus-user@lists.sourceforge.net; linux-
-> hwmon@vger.kernel.org; amd-gfx@lists.freedesktop.org; alsa-devel@alsa-
-> project.org; linux-acpi@vger.kernel.org; Bjorn Helgaas
-> <bhelgaas@google.com>
-> Subject: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
+> From: Kenneth Feng <kenneth.feng@amd.com>
+> Sent: Wednesday, January 27, 2021 9:42 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Feng, Kenneth 
+> <Kenneth.Feng@amd.com>
+> Subject: [PATCH] drm/amd/pm: Enable gfx DCS feature
 > 
-> From: Bjorn Helgaas <bhelgaas@google.com>
+> Background:
+> Gfx Duty Cycle Scaling(DCS) is applied on the small power limit skus.
+> When the current/power/temperature exceeds the limit with the heavy 
+> workload, the gfx core can be shut off and powered on back and forth.
+> The ON time and OFF time is determined by the firmware according to 
+> the accumulated power credits.
+> This feature is different from gfxoff.Gfxoff is applied in the idle 
+> case and DCS is applied in the case with heavey workload.There are two types of DCS:
+> Async DCS and Frame-aligned DCS.Frame-aligned DCS is applied on 3D 
+> fullscreen and VR workload.
+> Since we only supports Async DCS now,disalbe DCS when the 3D 
+> fullscreen or the VR workload type is chosen.
 > 
-> The double negative makes it hard to read "if (!ACPI_FAILURE(status))".
-> Replace it with "if (ACPI_SUCCESS(status))".
+> Verification:
+> The power is lowerer or the perf/watt is increased in the throttling case.
+> To be simplified, the entry/exit counter can be observed from the firmware.
 > 
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 > ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c  | 12 
+> ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> This isn't really an ACPI patch, but I'm sending it to you, Rafael, since it seems
-> easier to just apply these all at once.  But I'd be happy to split them up into
-> individual patches if you'd rather.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 24f3c96a5e5e..436d94cbb166 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -261,6 +261,9 @@ sienna_cichlid_get_allowed_feature_mask(struct
+> smu_context *smu,
+>  		*(uint64_t *)feature_mask |=
+> FEATURE_MASK(FEATURE_DPM_GFX_GPO_BIT);
+>  	}
 > 
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 4 ++--
->  drivers/gpu/drm/radeon/radeon_bios.c     | 4 ++--
+> +	if (adev->asic_type == CHIP_NAVY_FLOUNDER || adev->asic_type ==
+> CHIP_DIMGREY_CAVEFISH)
 
-For radeon and amdgpu:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+[Tao]: So DCS is unsupported on SIENNA_CICHLID currently?
 
->  drivers/hwmon/acpi_power_meter.c         | 4 ++--
->  drivers/platform/x86/asus-laptop.c       | 6 +++---
->  drivers/spi/spi.c                        | 2 +-
->  sound/pci/hda/hda_intel.c                | 4 ++--
->  6 files changed, 12 insertions(+), 12 deletions(-)
+> +		*(uint64_t *)feature_mask |=
+> FEATURE_MASK(FEATURE_GFX_DCS_BIT);
+> +
+>  	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
+>  		*(uint64_t *)feature_mask |=
+> FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
+>  					|
+> FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
+> @@ -1437,6 +1440,15 @@ static int
+> sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
+>  	smu_cmn_send_smc_msg_with_param(smu,
+> SMU_MSG_SetWorkloadMask,
+>  				    1 << workload_type, NULL);
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> index 6333cada1e09..055f600eeed8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> @@ -291,7 +291,7 @@ static bool amdgpu_atrm_get_bios(struct
-> amdgpu_device *adev)
->  			continue;
+> +	/* have to disable dcs if it's the 3D fullscreen or VR workload type */
+> +	if (smu->adev->asic_type == CHIP_NAVY_FLOUNDER ||
+> +		smu->adev->asic_type == CHIP_DIMGREY_CAVEFISH) {
+
+[Tao]: Tab should be replaced with space here.
+
+> +		ret = smu_cmn_feature_set_enabled(smu,
+> SMU_FEATURE_GFX_DCS_BIT, (workload_type ==
+> +			WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT ||
+> workload_type == WORKLOAD_PPLIB_VR_BIT) ? 0 : 1);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	return ret;
+>  }
 > 
->  		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
-> -		if (!ACPI_FAILURE(status)) {
-> +		if (ACPI_SUCCESS(status)) {
->  			found = true;
->  			break;
->  		}
-> @@ -304,7 +304,7 @@ static bool amdgpu_atrm_get_bios(struct
-> amdgpu_device *adev)
->  				continue;
-> 
->  			status = acpi_get_handle(dhandle, "ATRM",
-> &atrm_handle);
-> -			if (!ACPI_FAILURE(status)) {
-> +			if (ACPI_SUCCESS(status)) {
->  				found = true;
->  				break;
->  			}
-> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c
-> b/drivers/gpu/drm/radeon/radeon_bios.c
-> index bb29cf02974d..43bbbfd6ade8 100644
-> --- a/drivers/gpu/drm/radeon/radeon_bios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
-> @@ -205,7 +205,7 @@ static bool radeon_atrm_get_bios(struct
-> radeon_device *rdev)
->  			continue;
-> 
->  		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
-> -		if (!ACPI_FAILURE(status)) {
-> +		if (ACPI_SUCCESS(status)) {
->  			found = true;
->  			break;
->  		}
-> @@ -218,7 +218,7 @@ static bool radeon_atrm_get_bios(struct
-> radeon_device *rdev)
->  				continue;
-> 
->  			status = acpi_get_handle(dhandle, "ATRM",
-> &atrm_handle);
-> -			if (!ACPI_FAILURE(status)) {
-> +			if (ACPI_SUCCESS(status)) {
->  				found = true;
->  				break;
->  			}
-> diff --git a/drivers/hwmon/acpi_power_meter.c
-> b/drivers/hwmon/acpi_power_meter.c
-> index 848718ab7312..7d3ddcba34ce 100644
-> --- a/drivers/hwmon/acpi_power_meter.c
-> +++ b/drivers/hwmon/acpi_power_meter.c
-> @@ -161,7 +161,7 @@ static ssize_t set_avg_interval(struct device *dev,
->  	mutex_lock(&resource->lock);
->  	status = acpi_evaluate_integer(resource->acpi_dev->handle, "_PAI",
->  				       &args, &data);
-> -	if (!ACPI_FAILURE(status))
-> +	if (ACPI_SUCCESS(status))
->  		resource->avg_interval = temp;
->  	mutex_unlock(&resource->lock);
-> 
-> @@ -232,7 +232,7 @@ static ssize_t set_cap(struct device *dev, struct
-> device_attribute *devattr,
->  	mutex_lock(&resource->lock);
->  	status = acpi_evaluate_integer(resource->acpi_dev->handle,
-> "_SHL",
->  				       &args, &data);
-> -	if (!ACPI_FAILURE(status))
-> +	if (ACPI_SUCCESS(status))
->  		resource->cap = temp;
->  	mutex_unlock(&resource->lock);
-> 
-> diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-
-> laptop.c
-> index 0edafe687fa9..bfea656e910c 100644
-> --- a/drivers/platform/x86/asus-laptop.c
-> +++ b/drivers/platform/x86/asus-laptop.c
-> @@ -861,7 +861,7 @@ static ssize_t infos_show(struct device *dev, struct
-> device_attribute *attr,
->  	 * The significance of others is yet to be found.
->  	 */
->  	rv = acpi_evaluate_integer(asus->handle, "SFUN", NULL, &temp);
-> -	if (!ACPI_FAILURE(rv))
-> +	if (ACPI_SUCCESS(rv))
->  		len += sprintf(page + len, "SFUN value         : %#x\n",
->  			       (uint) temp);
->  	/*
-> @@ -873,7 +873,7 @@ static ssize_t infos_show(struct device *dev, struct
-> device_attribute *attr,
->  	 * takes several seconds to run on some systems.
->  	 */
->  	rv = acpi_evaluate_integer(asus->handle, "HWRS", NULL, &temp);
-> -	if (!ACPI_FAILURE(rv))
-> +	if (ACPI_SUCCESS(rv))
->  		len += sprintf(page + len, "HWRS value         : %#x\n",
->  			       (uint) temp);
->  	/*
-> @@ -884,7 +884,7 @@ static ssize_t infos_show(struct device *dev, struct
-> device_attribute *attr,
->  	 * silently ignored.
->  	 */
->  	rv = acpi_evaluate_integer(asus->handle, "ASYM", NULL, &temp);
-> -	if (!ACPI_FAILURE(rv))
-> +	if (ACPI_SUCCESS(rv))
->  		len += sprintf(page + len, "ASYM value         : %#x\n",
->  			       (uint) temp);
->  	if (asus->dsdt_info) {
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c index
-> 720ab34784c1..801d8b499788 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -2210,7 +2210,7 @@ static acpi_status acpi_register_spi_device(struct
-> spi_controller *ctlr,
->  		return AE_OK;
-> 
->  	if (!lookup.max_speed_hz &&
-> -	    !ACPI_FAILURE(acpi_get_parent(adev->handle, &parent_handle))
-> &&
-> +	    ACPI_SUCCESS(acpi_get_parent(adev->handle, &parent_handle))
-> &&
->  	    ACPI_HANDLE(ctlr->dev.parent) == parent_handle) {
->  		/* Apple does not use _CRS but nested devices for SPI slaves
-> */
->  		acpi_spi_parse_apple_properties(adev, &lookup); diff --git
-> a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c index
-> 770ad25f1907..fe8049cd2765 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -1444,7 +1444,7 @@ static bool atpx_present(void)
->  		dhandle = ACPI_HANDLE(&pdev->dev);
->  		if (dhandle) {
->  			status = acpi_get_handle(dhandle, "ATPX",
-> &atpx_handle);
-> -			if (!ACPI_FAILURE(status)) {
-> +			if (ACPI_SUCCESS(status)) {
->  				pci_dev_put(pdev);
->  				return true;
->  			}
-> @@ -1454,7 +1454,7 @@ static bool atpx_present(void)
->  		dhandle = ACPI_HANDLE(&pdev->dev);
->  		if (dhandle) {
->  			status = acpi_get_handle(dhandle, "ATPX",
-> &atpx_handle);
-> -			if (!ACPI_FAILURE(status)) {
-> +			if (ACPI_SUCCESS(status)) {
->  				pci_dev_put(pdev);
->  				return true;
->  			}
 > --
-> 2.25.1
+> 2.17.1
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Chawking.zhang%40amd.com%7Cebc62214ec3d4a52ea6e08d8c27a2956%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637473177242163482%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=imvlk8AvH7ttaSnLksU0exYYWxyOGh5sXwl%2FcLm7Afg%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
