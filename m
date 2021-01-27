@@ -2,105 +2,72 @@ Return-Path: <SRS0=2QJd=G6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B97F6C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 01:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22A21C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 02:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 662C7206A4
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 01:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 662C7206A4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 87A1F206A4
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Jan 2021 02:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87A1F206A4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5E8B8967A;
-	Wed, 27 Jan 2021 01:42:23 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327BE8967A
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 01:42:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MTf5id5RM9jpB8b5cEAklN/MbpGPPaQ74KtZ7TBFJWP0BBOFC4BkfeAM6L6fQb7G/tZrnzt10BPiCgptoe8byfr1CGRLeTiYrS9HG5u2+vXympJBMDsoryTEGSMSXYkbHyTyGbfSKIeEweUQa/wr5PbFkzJAhumEi/I+t3NC4VjzQYtca9IGl98QIAyUcJREuLrlNYx9CyaklfWUMSx6YimLsvR+9jXZ2KPScARTXyGcRtpaSDsW4LDVzy5fI3rzNd2tsKDtbjOO64ycq5O/y4zircgo1f6ZILA6JfYAxcs5VPs0c49/mKWx0FiZMt6CfoVao9K8MY9fpyEqan4SWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVffawLyB2yKjEmJ1QknKtvkHxto4f8eZmrF5E1hhS4=;
- b=fyBk3j65kH5e8PtrlmGYKLuO37TkZrs174hZcP8xDlTXs5sDH7u/Wh3XsxBRaGpqUIRXvXGIcpOL9xnFPli9GVztPsNIZoqmyL4qN+bFfGtjD+ka49RHDdADwC0Y3gUv0KdAbU9jPkiT2gmb3Sajdyd73n5YcKHZ5bRHORxFJeN+d4js/3o4tX8aDhiSt6EnOAiNrAzRdgLK2E3tMmbCsmyZinkEUGu/wNkeFgVBFEUj0EGaecsn20iVsbvuWSRfAFHuv2vsiB7yLdR/7aTygcXfbKYMRkH3F1RaO5TlpOkccDW6WksZuh/q/Jb+MY+u03FHK7WpKt5QM4AqAmvxUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVffawLyB2yKjEmJ1QknKtvkHxto4f8eZmrF5E1hhS4=;
- b=ua8Hs1rUHKWORV/mgB/OELuthXDxHgGAYlbjqg/Omo8FkntHUKPx9Y1qxdcN6JFLAyZG49Upmds7Zvo9lp7JdJGvhKpHn9PqzidIWf5HBe5m55R3GnAY2HH/WuJj8cWyyAaC3KrM6zagWSanhqwsPz2d05J/txAmw50sGNy710Y=
-Received: from MWHPR04CA0041.namprd04.prod.outlook.com (2603:10b6:300:ee::27)
- by MW2PR12MB2459.namprd12.prod.outlook.com (2603:10b6:907:c::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.11; Wed, 27 Jan
- 2021 01:42:19 +0000
-Received: from CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ee:cafe::a5) by MWHPR04CA0041.outlook.office365.com
- (2603:10b6:300:ee::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.14 via Frontend
- Transport; Wed, 27 Jan 2021 01:42:19 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
- (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
- action=none header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT009.mail.protection.outlook.com (10.13.175.61) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3784.12 via Frontend Transport; Wed, 27 Jan 2021 01:42:17 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 26 Jan
- 2021 19:42:16 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 26 Jan
- 2021 19:42:16 -0600
-Received: from kenneth-u1804-kvm.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Tue, 26 Jan 2021 19:42:15 -0600
-From: Kenneth Feng <kenneth.feng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Enable gfx DCS feature
-Date: Wed, 27 Jan 2021 09:41:46 +0800
-Message-ID: <20210127014146.10902-1-kenneth.feng@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3D5F6E4E6;
+	Wed, 27 Jan 2021 02:18:28 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 750536E4E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Jan 2021 02:17:07 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id i20so258683otl.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Jan 2021 18:17:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=6RQrtHgaCb4lMM8fMMEFtRSX9i0mstcMB4wNsJgI/MI=;
+ b=T6Lo6Ii/bnJxz2vRaiF2Gti0hvCGinxBzrtBlwrYo4bXEVfvVVpjiPCrFs9/pdbu2c
+ 7rGnPVQR9bFaaslAIsvoLPhfZEtbU4K265AixqeJ8C+/+l3dlIT1luwdttlDeiY5d0ga
+ uIw4XRQ1cQ1jHFTeXsSFNNJvNTdEZ84Ip4V3ZIxjPopth8YVVts2rRtbftVuIZ45jS8g
+ rCV4GRV6KI8OkXEKkGLhv/DRESs4HWNySBNhNo4CY9I8+fWWAwwVweHdfJO2v62yyXUr
+ efRdqh3U7FP4+F5lkGMraytiEcrqwoG1ziFQ+aHvjd/VARCjEjZKtRAMbNRcGm5/wW+k
+ 2jrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=6RQrtHgaCb4lMM8fMMEFtRSX9i0mstcMB4wNsJgI/MI=;
+ b=Den/oIRyO1eST6fOMhzsJZdIXedOOx9Cs4yTCvjyek2YXmDTwQmk7OkAaUopL+J/El
+ QhXBDFCbs/c463m0YuZLFhJBGnIoBLqUy9rFPCt/1xD2Cn2aWbhAEQvHPsI9PgucX00O
+ 6gBmwrLBaJBsjnlGiyk3KV5diz8ocJWdbFsCMMMLqz4vS/8S0o2+iP6wllbXaUlZ3/25
+ NbP0v1YjU1Ngl3WTcXovrKi5XAdlP4K5LM+inqjFs6Aw/PhHaXQgGCpCNe+DV/vImp0Q
+ zsa3P1CFmJCWXODj1/jqGfD5zZNDxIU9bbFqn3NbX6D87Wc0jrKStc1ZATBU2T72Ic0T
+ /tkQ==
+X-Gm-Message-State: AOAM533h8yIfnvkWfI9JFVdLsXKpAZd2UucWWUjIErOadg15jdrYMP7z
+ cOKqM/rVchHqOGWumb6+ask=
+X-Google-Smtp-Source: ABdhPJyifwvpQ79A0lInOexsJ2UPKtY+Jo11Y/jeVCEYoOuTRlsI5eNy2f6YDNYsG6g4Fj+ErKD5Ow==
+X-Received: by 2002:a05:6830:402f:: with SMTP id
+ i15mr6023104ots.345.1611713826628; 
+ Tue, 26 Jan 2021 18:17:06 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id s69sm173201oih.38.2021.01.26.18.17.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 26 Jan 2021 18:17:05 -0800 (PST)
+Date: Tue, 26 Jan 2021 18:17:04 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH] ACPI: Test for ACPI_SUCCESS rather than !ACPI_FAILURE
+Message-ID: <20210127021704.GA44695@roeck-us.net>
+References: <20210126202317.2914080-1-helgaas@kernel.org>
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8d247587-115c-47a5-c758-08d8c264c7ad
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2459:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2459B9F7D4D9796AB7658F288EBB9@MW2PR12MB2459.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yLCY+cYdP6J/oItYFDNKwzb5CqPN1FuI5CfXIRCRZ53sZOFJVsDm1xs4IvKATVjguLeH0aXMovJw95YGzXJ97m1oOoYVnPVCLSH+w056do8ASB79teTFn7egJOUwIMV2mbEQca9ebK0b+ASvxjto6sw19JCH1ki7QZNkiDHMb09L5tHT4IGC3NCokp6KfCo/KCmtk1mry/szmf3gcKu0hOgKpsYKfSlRInsotYKKMBudUZvNPg8cPSyRlnYr1fsnkT4fSKjsLt5Jn98pVmjLwhjVBIasgeZgi/zfRtFviagWOmlIDkrUqWh2+4hm0Qrsjm5BvMsN5vyPbvej+02iUHq3M2twl4g5QJu7F8rmBTLHxkRrzOi2fH5XbQQm5MCrdyyXtUScyGBSSrZbwR/yvtTcIsJPqaaBTq5rcRHDxT+G1T3id2LO4KSM5raf30Wy5SbLMDMD1kBONcU5+aEALYccipeDnvtiP0Q22ookRg7vR5EXPvIHakDES2lwwMaLX1slRzx/kpccxVa4IaYqhMjlwdsOxDyeSRmYA7W6BEw+ign83ez41WWOUqyljwxinoySHfZOjh/21/XCd9viMTkSsYPI2WRKSLmR3VHPuZrdgZOrrLD2XkBzkrujceB6
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(346002)(39860400002)(46966006)(6666004)(47076005)(81166007)(82310400003)(356005)(54906003)(336012)(86362001)(83380400001)(26005)(478600001)(44832011)(2906002)(1076003)(186003)(7696005)(6916009)(426003)(8936002)(70586007)(8676002)(70206006)(36756003)(316002)(2616005)(5660300002)(4326008)(82740400003)(36610700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2021 01:42:17.3789 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d247587-115c-47a5-c758-08d8c264c7ad
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2459
+Content-Disposition: inline
+In-Reply-To: <20210126202317.2914080-1-helgaas@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Wed, 27 Jan 2021 02:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,67 +79,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tao.zhou1@amd.com, Kenneth Feng <kenneth.feng@amd.com>
+Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jean Delvare <jdelvare@suse.com>, acpi4asus-user@lists.sourceforge.net,
+ "Rafael J . Wysocki" <rjw@rjwysocki.net>, Takashi Iwai <tiwai@suse.com>,
+ amd-gfx@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ linux-acpi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Corentin Chary <corentin.chary@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, linux-spi@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Len Brown <lenb@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Background:
-Gfx Duty Cycle Scaling(DCS) is applied on the small power limit skus.
-When the current/power/temperature exceeds the limit with the heavy workload,
-the gfx core can be shut off and powered on back and forth.
-The ON time and OFF time is determined by the firmware according to
-the accumulated power credits.
-This feature is different from gfxoff.Gfxoff is applied in the idle case
-and DCS is applied in the case with heavey workload.There are two types of DCS:
-Async DCS and Frame-aligned DCS.Frame-aligned DCS is applied on 3D fullscreen
-and VR workload.
-Since we only supports Async DCS now,disalbe DCS when the 3D fullscreen or
-the VR workload type is chosen.
+On Tue, Jan 26, 2021 at 02:23:17PM -0600, Bjorn Helgaas wrote:
+> From: Bjorn Helgaas <bhelgaas@google.com>
+> 
+> The double negative makes it hard to read "if (!ACPI_FAILURE(status))".
+> Replace it with "if (ACPI_SUCCESS(status))".
+> 
+> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+> ---
+> 
+> This isn't really an ACPI patch, but I'm sending it to you, Rafael, since
+> it seems easier to just apply these all at once.  But I'd be happy to split
+> them up into individual patches if you'd rather.
+> 
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 4 ++--
+>  drivers/gpu/drm/radeon/radeon_bios.c     | 4 ++--
+>  drivers/hwmon/acpi_power_meter.c         | 4 ++--
 
-Verification:
-The power is lowerer or the perf/watt is increased in the throttling case.
-To be simplified, the entry/exit counter can be observed from the firmware.
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c  | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 24f3c96a5e5e..436d94cbb166 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -261,6 +261,9 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFX_GPO_BIT);
- 	}
- 
-+	if (adev->asic_type == CHIP_NAVY_FLOUNDER || adev->asic_type == CHIP_DIMGREY_CAVEFISH)
-+		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_DCS_BIT);
-+
- 	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
- 					| FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
-@@ -1437,6 +1440,15 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
- 	smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
- 				    1 << workload_type, NULL);
- 
-+	/* have to disable dcs if it's the 3D fullscreen or VR workload type */
-+	if (smu->adev->asic_type == CHIP_NAVY_FLOUNDER ||
-+		smu->adev->asic_type == CHIP_DIMGREY_CAVEFISH) {
-+		ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_GFX_DCS_BIT, (workload_type ==
-+			WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT || workload_type == WORKLOAD_PPLIB_VR_BIT) ? 0 : 1);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return ret;
- }
- 
--- 
-2.17.1
-
+>  drivers/platform/x86/asus-laptop.c       | 6 +++---
+>  drivers/spi/spi.c                        | 2 +-
+>  sound/pci/hda/hda_intel.c                | 4 ++--
+>  6 files changed, 12 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index 6333cada1e09..055f600eeed8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -291,7 +291,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+>  			continue;
+>  
+>  		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+> -		if (!ACPI_FAILURE(status)) {
+> +		if (ACPI_SUCCESS(status)) {
+>  			found = true;
+>  			break;
+>  		}
+> @@ -304,7 +304,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+>  				continue;
+>  
+>  			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+> -			if (!ACPI_FAILURE(status)) {
+> +			if (ACPI_SUCCESS(status)) {
+>  				found = true;
+>  				break;
+>  			}
+> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+> index bb29cf02974d..43bbbfd6ade8 100644
+> --- a/drivers/gpu/drm/radeon/radeon_bios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
+> @@ -205,7 +205,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+>  			continue;
+>  
+>  		status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+> -		if (!ACPI_FAILURE(status)) {
+> +		if (ACPI_SUCCESS(status)) {
+>  			found = true;
+>  			break;
+>  		}
+> @@ -218,7 +218,7 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
+>  				continue;
+>  
+>  			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+> -			if (!ACPI_FAILURE(status)) {
+> +			if (ACPI_SUCCESS(status)) {
+>  				found = true;
+>  				break;
+>  			}
+> diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+> index 848718ab7312..7d3ddcba34ce 100644
+> --- a/drivers/hwmon/acpi_power_meter.c
+> +++ b/drivers/hwmon/acpi_power_meter.c
+> @@ -161,7 +161,7 @@ static ssize_t set_avg_interval(struct device *dev,
+>  	mutex_lock(&resource->lock);
+>  	status = acpi_evaluate_integer(resource->acpi_dev->handle, "_PAI",
+>  				       &args, &data);
+> -	if (!ACPI_FAILURE(status))
+> +	if (ACPI_SUCCESS(status))
+>  		resource->avg_interval = temp;
+>  	mutex_unlock(&resource->lock);
+>  
+> @@ -232,7 +232,7 @@ static ssize_t set_cap(struct device *dev, struct device_attribute *devattr,
+>  	mutex_lock(&resource->lock);
+>  	status = acpi_evaluate_integer(resource->acpi_dev->handle, "_SHL",
+>  				       &args, &data);
+> -	if (!ACPI_FAILURE(status))
+> +	if (ACPI_SUCCESS(status))
+>  		resource->cap = temp;
+>  	mutex_unlock(&resource->lock);
+>  
+> diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
+> index 0edafe687fa9..bfea656e910c 100644
+> --- a/drivers/platform/x86/asus-laptop.c
+> +++ b/drivers/platform/x86/asus-laptop.c
+> @@ -861,7 +861,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+>  	 * The significance of others is yet to be found.
+>  	 */
+>  	rv = acpi_evaluate_integer(asus->handle, "SFUN", NULL, &temp);
+> -	if (!ACPI_FAILURE(rv))
+> +	if (ACPI_SUCCESS(rv))
+>  		len += sprintf(page + len, "SFUN value         : %#x\n",
+>  			       (uint) temp);
+>  	/*
+> @@ -873,7 +873,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+>  	 * takes several seconds to run on some systems.
+>  	 */
+>  	rv = acpi_evaluate_integer(asus->handle, "HWRS", NULL, &temp);
+> -	if (!ACPI_FAILURE(rv))
+> +	if (ACPI_SUCCESS(rv))
+>  		len += sprintf(page + len, "HWRS value         : %#x\n",
+>  			       (uint) temp);
+>  	/*
+> @@ -884,7 +884,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+>  	 * silently ignored.
+>  	 */
+>  	rv = acpi_evaluate_integer(asus->handle, "ASYM", NULL, &temp);
+> -	if (!ACPI_FAILURE(rv))
+> +	if (ACPI_SUCCESS(rv))
+>  		len += sprintf(page + len, "ASYM value         : %#x\n",
+>  			       (uint) temp);
+>  	if (asus->dsdt_info) {
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index 720ab34784c1..801d8b499788 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -2210,7 +2210,7 @@ static acpi_status acpi_register_spi_device(struct spi_controller *ctlr,
+>  		return AE_OK;
+>  
+>  	if (!lookup.max_speed_hz &&
+> -	    !ACPI_FAILURE(acpi_get_parent(adev->handle, &parent_handle)) &&
+> +	    ACPI_SUCCESS(acpi_get_parent(adev->handle, &parent_handle)) &&
+>  	    ACPI_HANDLE(ctlr->dev.parent) == parent_handle) {
+>  		/* Apple does not use _CRS but nested devices for SPI slaves */
+>  		acpi_spi_parse_apple_properties(adev, &lookup);
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 770ad25f1907..fe8049cd2765 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -1444,7 +1444,7 @@ static bool atpx_present(void)
+>  		dhandle = ACPI_HANDLE(&pdev->dev);
+>  		if (dhandle) {
+>  			status = acpi_get_handle(dhandle, "ATPX", &atpx_handle);
+> -			if (!ACPI_FAILURE(status)) {
+> +			if (ACPI_SUCCESS(status)) {
+>  				pci_dev_put(pdev);
+>  				return true;
+>  			}
+> @@ -1454,7 +1454,7 @@ static bool atpx_present(void)
+>  		dhandle = ACPI_HANDLE(&pdev->dev);
+>  		if (dhandle) {
+>  			status = acpi_get_handle(dhandle, "ATPX", &atpx_handle);
+> -			if (!ACPI_FAILURE(status)) {
+> +			if (ACPI_SUCCESS(status)) {
+>  				pci_dev_put(pdev);
+>  				return true;
+>  			}
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
