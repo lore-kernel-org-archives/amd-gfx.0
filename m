@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A6D6C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54DA0C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBA5D64E00
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBA5D64E00
+	by mail.kernel.org (Postfix) with ESMTPS id D44AF64E00
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D44AF64E00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88B296EC21;
-	Fri, 29 Jan 2021 21:28:10 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1DCC89D43
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 21:28:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F276EC24;
+	Fri, 29 Jan 2021 21:28:11 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0596EC21
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 21:28:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JjtnjlGc8vc65GZs9mgoif6T5CVav559oLMN0sZY6c9M7wVBD0nP5M3O0Z5zAJlARYa600GA1ls8mp0CLX2PX/L5smgnr3lh5N+HQ9U1p0QedgsE3CWrBDpve0YxsN7Yxtvwk9gHeEb4dppDfCV7CH7LaeLGvGDPuiy68xD5OZdLIcdfyXKenu3766wO6mPU/i7M2DGBW7MFYplfwEeYgNysngTTouF5XH9Z9wzzWaom7XTDQy3R6sJWHhJIuC13xe6Pt65GVqxNprUS3Q0bK8avQvJ+RhYhmgzPKTFaXmsNxxTgogQGQwqt9MIsM0OtYjkfFNcSfKmZ0wEGpsUuTw==
+ b=DKDBe8PJthrA0gpSTJZ2/Ww0O62rqnOPNAnWEI3ZEH9kEfv3mT1fJN8Q6IGwRXz7BWL/YeLvvT/sRsV+V+D23lZaiNlnwBE+fES/P4fUajKFPMcpkPY0h19jMOY+K9uYowiL7dCCmapXcAYuB5Wh0ioe9cIFnqaEGmCWmt//1KXJehkeItByNTeJFCH3M4YTkQjMWS/yCwKE1KSG8BB83MYxt1xhwf4REfR6RpeoV+yiD1gGtKrA5CF0nmASf7vhGiHL64pvpA6NkwUm4FI8w2Osew0DhYb/KSN2+duH2PX4bAv+b5gTVUftb9uV8GXH6Xj7E8K3ZgWH4i93/njQXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WgXiyU6xeoE24igRb0gu63BEpg571j0gfZow3MEdufs=;
- b=Xz9A+G9KcGRjpgZV1StaxejQHvOf2+NjAJlaWgW8CuZ7V8EqgNeFxEGv88QDNL5vigwEiHPclyzTV/HwMA1IsZdhpArEl3jGrCZ7cHb5AF2pKmawwO+or04AYV/x7hjzxuUgKCcv08YVnBV5kvgcYqhkcSrQyuICGp16vJeQnwwRmFBsS3Etgdkmzdk/odIapB4V6yAIQnklFQCaqaCTtru0GIjxfcSAwmlow7+y5AcZESxe2jGj1E6G3B26ee1w5p+XQlsCJlCcE/z+YvGagvVVxvAgB0rJsuuAWiS5FpDGZa9IgSAKy2vGBCceDGXo3v09D4vqLL+JP9GlbVg72g==
+ bh=LDpVrGFVyX7F6O9UjUyPevQiJjMvVFBXfgd78Zkp+OQ=;
+ b=OBSVT7Mhh85Z5XF/NSsIETURNcb+jxeqRvQC1KOuggtu1DVi30VsxPDB8L/wNlyeo2bzuAyTJ+RfGvU4oqabwiDFRCr47rFN2ZJEn12R8MoGX/pV4v3NeKwfC2WE07nNIaE5plsnq/J6Z8TgDQ98l1AsIy/i+9mAAIW2EuH2U2aVYuvrPqzcp4Y9hNxK8PqMdj3LsScvuvbc7rYjRv1mm6mC9UUiPlmARnemWRvXIXYukiKk5wWaCQdSytU3tEtxpXgCYLyxCRG7ZCoo71k/gmS3wr59LA7IhGuFGdNsNd9R6EUDe5U4PyTr+ydlOKDJa1TnKuKXGc/gS5QILBNH5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WgXiyU6xeoE24igRb0gu63BEpg571j0gfZow3MEdufs=;
- b=nd9iogIe7J448inWX/r7EK0u5dX8Hq4frHDLpANonndQdzAlakvnABeBoVy+DbTjF2M+VNXe020O9/ifAR/vjzSjFWSNaY9BknZ/R1QNprqTSDCKhWEDbm6BICkfCUc7V3dKV7acr0R9wncPgoqwoFY9rlN5l4QLeRLfkQvaRNU=
-Received: from MW4PR04CA0165.namprd04.prod.outlook.com (2603:10b6:303:85::20)
- by DM6PR12MB4154.namprd12.prod.outlook.com (2603:10b6:5:21d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.19; Fri, 29 Jan
- 2021 21:28:03 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:85:cafe::2d) by MW4PR04CA0165.outlook.office365.com
- (2603:10b6:303:85::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=LDpVrGFVyX7F6O9UjUyPevQiJjMvVFBXfgd78Zkp+OQ=;
+ b=aV//enVq2owQd40AGDM/AxoiLhe9lOlMjsMGfGh5TfUBqIs1UJqPbprN9ZKqEuqcNbaGbvlM8XQcjJgqCCE7ryRLT8p6ggZXDYk2AbF524hNgmffReXM36AeUXqZ6CBpu8eZeSXdlXOhWnsH7qV4ND2MEZ3TenKNbg7vysCfgLg=
+Received: from MW2PR16CA0027.namprd16.prod.outlook.com (2603:10b6:907::40) by
+ MW2PR12MB2361.namprd12.prod.outlook.com (2603:10b6:907:7::32) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3805.17; Fri, 29 Jan 2021 21:28:07 +0000
+Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:0:cafe::d6) by MW2PR16CA0027.outlook.office365.com
+ (2603:10b6:907::40) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.16 via Frontend
- Transport; Fri, 29 Jan 2021 21:28:03 +0000
+ Transport; Fri, 29 Jan 2021 21:28:07 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -56,25 +56,26 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
+ CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3784.12 via Frontend Transport; Fri, 29 Jan 2021 21:28:01 +0000
+ 15.20.3784.12 via Frontend Transport; Fri, 29 Jan 2021 21:28:05 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 29 Jan
- 2021 15:28:00 -0600
+ 2021 15:28:04 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 29 Jan
- 2021 15:28:00 -0600
+ 2021 15:28:04 -0600
 Received: from Bumblebee.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Fri, 29 Jan 2021 15:27:59 -0600
+ Transport; Fri, 29 Jan 2021 15:28:03 -0600
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/27] drm/amd/display: Drop SOC bounding box hookup in DM/DC
-Date: Fri, 29 Jan 2021 16:27:26 -0500
-Message-ID: <20210129212752.38865-2-Anson.Jacob@amd.com>
+Subject: [PATCH 05/27] drm/amd/display: reuse current context instead of
+ recreating one
+Date: Fri, 29 Jan 2021 16:27:30 -0500
+Message-ID: <20210129212752.38865-6-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210129212752.38865-1-Anson.Jacob@amd.com>
 References: <20210129212752.38865-1-Anson.Jacob@amd.com>
@@ -82,27 +83,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e30b3c4c-2ec1-4e58-c147-08d8c49cc19c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4154:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB41543215B85EA61CFE83485AEBB99@DM6PR12MB4154.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:71;
+X-MS-Office365-Filtering-Correlation-Id: b3ff50a9-4b10-49cc-e6c2-08d8c49cc449
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2361:
+X-Microsoft-Antispam-PRVS: <MW2PR12MB23610667D13730B8D964EBF6EBB99@MW2PR12MB2361.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tftXEa3PcmWAndU8Kh/KYD6z6bafjy3ysTDvY0A8dcRIcFU5OEr2avGCIoyA1rB5AEsDw6vXfdNhOsZ8gBAJmdj38cPfL/yOlgiAB4IT1rromb2gN7sVniUI4HNZfyXuj61DR3cH1y7tpQwCQLdz2wLaHP8zZ3an3AbqieOieIlgzHkVhazdP+1kx6QJkArdvnLilHQBWl8NrobyEmXGXmITodoMlfoFJA3OlJTZ96+kHENO2Wwr6F4DBjkgR9eO0mA5TZ1jlutk2UBU72MsjmzvhIQOkiWUnQRkdYHVx79GAQNZFuqZjtSqT811GVcYOAFsGtx6X1eGHNapBcky6EySyJK4n4Lzh2eTDJsjA6mNxs8IV1UeA7/z4hBtrKviawqyggRVbV5bsa+o6InO1bYd6v9aDvbWDZjpPc90di0D356MEgW5OOKoHJdtz/QLVv01rl0Iuq40J3nC57kBak6W+plNqBs9fY4mmdbJrmGr60gCnKB6OzYbuCQQ/GGKV/Um87Q1lJNxnjsvQo/mHT8CBAYXJvDLaRCtv3NF/k+Mt1fDVIdM9mGU0XyK+Kv1uDUPW3EF0Pwpf7V3jbHf3uQkecI4eZKPVJ7dP+MUNrEqucb1JxzSh+YzR35YEX7euf30eQMSU+UhXR7brBZ0pw==
+X-Microsoft-Antispam-Message-Info: 2vU6Msydm+DDmNjttuSA5/cSg4xFdRUicc6EOeYcbMR/ZvvSRX3J4h835MpECnCL3kDKXqyfiJLpsUpbYs5HfcVoT5P7r+c937GUyAxPA7bWDkXY4LC+kp4dRB/kJone21SDGJ0v/b3qCgzyOJvmBHPTqhLhsRlZkG/6chtD/m+4zXdUW+76j8V2keYqtyXEKTXUm+whzU2FTI6RBBnMHfUGVJqvWsfJB+l8sMxJwIRtfbQSvxppngOZOIOn3vf9IEDJ5IBzA+eOl/jHUrbfKonCvZueq10Tn/9NrmLUEUV3cGry0JSIyVstNmcPYG8kWfDeFZ1EC2LQ43qTlcPlLzBlZ3cfYsfrAr9nZ5Xkw5zvHk/4Aa24FQbzNlMv1LmeI/z4PeOhF4fSySYK3ztzuzWHBKYrDoGt/UNT9CpRcglx7RKYiMw9wq1zaAk0UZ4IScfr9tcgFYWnQAtDBGf5d1XXt9xjo/bxSiHetsoBRVGUTSRCcK5CFRdbDa2oNyerocL3mUnLh2oOwTc5uq4AUMYlgWbYlj+9OhMrcLfUgxpks0FGJVSs7orrabj4HUaaxYx4xbnFkTlgNMLcuWC11XM3XHCLD8zbz5HYoDfS1aE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(46966006)(426003)(82740400003)(8936002)(7696005)(6666004)(70586007)(4326008)(70206006)(2906002)(2616005)(82310400003)(6916009)(81166007)(186003)(8676002)(1076003)(86362001)(30864003)(36756003)(336012)(356005)(5660300002)(83380400001)(478600001)(316002)(54906003)(26005)(47076005)(52103002)(158003001);
+ SFS:(4636009)(376002)(39860400002)(396003)(136003)(346002)(46966006)(83380400001)(8936002)(8676002)(81166007)(6666004)(4326008)(2906002)(82310400003)(7696005)(356005)(82740400003)(70586007)(1076003)(70206006)(86362001)(186003)(426003)(26005)(5660300002)(47076005)(36756003)(478600001)(6916009)(54906003)(336012)(316002)(2616005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 21:28:01.3524 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e30b3c4c-2ec1-4e58-c147-08d8c49cc19c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 21:28:05.8355 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3ff50a9-4b10-49cc-e6c2-08d8c49cc449
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4154
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,481 +115,199 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Roman Li <Roman.Li@amd.com>, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, bindu.r@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
 [Why]
-There aren't any ASIC where we use these binaries and they aren't
-useful for future use since it's inconvenient to extend and maintain
-these structures.
+Currently we discard the current context and recreate it. The current
+context is what is applied to the HW so we should be re-using this
+rather than creating a new context.
+
+Recreating the context can lead to mismatch between new context and the
+current context
+
+For example: gsl groups get changed when we create a new context this
+can cause issues in a multi display config (with flip immediate) because
+we don't align the existing gsl groups in the new and current context.
+If we reuse the current context the gsl group assignment stays the same.
 
 [How]
-Drop the support from DM and DC for now.
+Instead of discarding the current context, we instead just copy the
+current state and add/remove planes and streams.
 
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
-Acked-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Hersen Wu <hersenxs.wu@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 -
- drivers/gpu/drm/amd/display/dc/core/dc.c      |   1 -
- drivers/gpu/drm/amd/display/dc/dc.h           |   6 -
- .../drm/amd/display/dc/dcn20/dcn20_resource.c | 111 ------------------
- .../drm/amd/display/dc/dcn30/dcn30_resource.c | 107 +----------------
- .../amd/display/dc/dcn301/dcn301_resource.c   | 107 +----------------
- 6 files changed, 4 insertions(+), 330 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++---------
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 27 +++++++++++++------
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 +--
+ 3 files changed, 30 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e490fc2486f7..a63aec164628 100644
+index a63aec164628..68209d0a420a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1015,8 +1015,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+@@ -1936,7 +1936,7 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
+ 		dc_commit_updates_for_stream(
+ 			dm->dc, bundle->surface_updates,
+ 			dc_state->stream_status->plane_count,
+-			dc_state->streams[k], &bundle->stream_update, dc_state);
++			dc_state->streams[k], &bundle->stream_update);
+ 	}
  
- 	init_data.flags.power_down_display_on_boot = true;
+ cleanup:
+@@ -1967,8 +1967,7 @@ static void dm_set_dpms_off(struct dc_link *link)
  
--	init_data.soc_bounding_box = adev->dm.soc_bounding_box;
--
- 	/* Display Core create. */
- 	adev->dm.dc = dc_create(&init_data);
+ 	stream_update.stream = stream_state;
+ 	dc_commit_updates_for_stream(stream_state->ctx->dc, NULL, 0,
+-				     stream_state, &stream_update,
+-				     stream_state->ctx->dc->current_state);
++				     stream_state, &stream_update);
+ 	mutex_unlock(&adev->dm.dc_lock);
+ }
+ 
+@@ -7730,7 +7729,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				    struct drm_crtc *pcrtc,
+ 				    bool wait_for_vblank)
+ {
+-	uint32_t i;
++	int i;
+ 	uint64_t timestamp_ns;
+ 	struct drm_plane *plane;
+ 	struct drm_plane_state *old_plane_state, *new_plane_state;
+@@ -7771,7 +7770,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		amdgpu_dm_commit_cursors(state);
+ 
+ 	/* update planes when needed */
+-	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
++	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
+ 		struct drm_crtc *crtc = new_plane_state->crtc;
+ 		struct drm_crtc_state *new_crtc_state;
+ 		struct drm_framebuffer *fb = new_plane_state->fb;
+@@ -7994,8 +7993,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 						     bundle->surface_updates,
+ 						     planes_count,
+ 						     acrtc_state->stream,
+-						     &bundle->stream_update,
+-						     dc_state);
++						     &bundle->stream_update);
+ 
+ 		/**
+ 		 * Enable or disable the interrupts on the backend.
+@@ -8331,13 +8329,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
+ 		struct dm_connector_state *dm_old_con_state = to_dm_connector_state(old_con_state);
+ 		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
+-		struct dc_surface_update dummy_updates[MAX_SURFACES];
++		struct dc_surface_update surface_updates[MAX_SURFACES];
+ 		struct dc_stream_update stream_update;
+ 		struct dc_info_packet hdr_packet;
+ 		struct dc_stream_status *status = NULL;
+ 		bool abm_changed, hdr_changed, scaling_changed;
+ 
+-		memset(&dummy_updates, 0, sizeof(dummy_updates));
++		memset(&surface_updates, 0, sizeof(surface_updates));
+ 		memset(&stream_update, 0, sizeof(stream_update));
+ 
+ 		if (acrtc) {
+@@ -8394,16 +8392,15 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		 * To fix this, DC should permit updating only stream properties.
+ 		 */
+ 		for (j = 0; j < status->plane_count; j++)
+-			dummy_updates[j].surface = status->plane_states[0];
++			surface_updates[j].surface = status->plane_states[j];
+ 
+ 
+ 		mutex_lock(&dm->dc_lock);
+ 		dc_commit_updates_for_stream(dm->dc,
+-						     dummy_updates,
++						surface_updates,
+ 						     status->plane_count,
+ 						     dm_new_crtc_state->stream,
+-						     &stream_update,
+-						     dc_state);
++						     &stream_update);
+ 		mutex_unlock(&dm->dc_lock);
+ 	}
  
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1efc67befad4..2bb0ec6a86b8 100644
+index 8fa179cbed32..e3a65d1714ca 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -712,7 +712,6 @@ static bool dc_construct(struct dc *dc,
+@@ -2695,8 +2695,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 		struct dc_surface_update *srf_updates,
+ 		int surface_count,
+ 		struct dc_stream_state *stream,
+-		struct dc_stream_update *stream_update,
+-		struct dc_state *state)
++		struct dc_stream_update *stream_update)
+ {
+ 	const struct dc_stream_status *stream_status;
+ 	enum surface_update_type update_type;
+@@ -2715,6 +2714,12 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 
+ 
+ 	if (update_type >= UPDATE_TYPE_FULL) {
++		struct dc_plane_state *new_planes[MAX_SURFACES];
++
++		memset(new_planes, 0, sizeof(new_planes));
++
++		for (i = 0; i < surface_count; i++)
++			new_planes[i] = srf_updates[i].surface;
+ 
+ 		/* initialize scratch memory for building context */
+ 		context = dc_create_state(dc);
+@@ -2723,15 +2728,21 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 			return;
+ 		}
+ 
+-		dc_resource_state_copy_construct(state, context);
++		dc_resource_state_copy_construct(
++				dc->current_state, context);
+ 
+-		for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-			struct pipe_ctx *new_pipe = &context->res_ctx.pipe_ctx[i];
+-			struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++		/*remove old surfaces from context */
++		if (!dc_rem_all_planes_for_stream(dc, stream, context)) {
++			DC_ERROR("Failed to remove streams for new validate context!\n");
++			return;
++		}
+ 
+-			if (new_pipe->plane_state && new_pipe->plane_state != old_pipe->plane_state)
+-				new_pipe->plane_state->force_full_update = true;
++		/* add surface to context */
++		if (!dc_add_all_planes_for_stream(dc, stream, new_planes, surface_count, context)) {
++			DC_ERROR("Failed to add streams for new validate context!\n");
++			return;
+ 		}
++
  	}
  
- 	dc->dcn_ip = dcn_ip;
--	dc->soc_bounding_box = init_params->soc_bounding_box;
- #endif
  
- 	if (!dc_construct_ctx(dc, init_params)) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 71d46ade24e5..f8aad222dc1b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -638,7 +638,6 @@ struct dc {
- 
- 	const char *build_id;
- 	struct vm_helper *vm_helper;
--	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
- };
- 
- enum frame_buffer_mode {
-@@ -676,11 +675,6 @@ struct dc_init_data {
- 	struct dc_config flags;
- 	uint64_t log_mask;
- 
--	/**
--	 * gpu_info FW provided soc bounding box struct or 0 if not
--	 * available in FW
--	 */
--	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
- 	struct dpcd_vendor_signature vendor_signature;
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	bool force_smu_not_present;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 5ed18cac57e8..064f158ce671 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3606,7 +3606,6 @@ static enum dml_project get_dml_project_version(uint32_t hw_internal_rev)
- static bool init_soc_bounding_box(struct dc *dc,
- 				  struct dcn20_resource_pool *pool)
- {
--	const struct gpu_info_soc_bounding_box_v1_0 *bb = dc->soc_bounding_box;
- 	struct _vcs_dpi_soc_bounding_box_st *loaded_bb =
- 			get_asic_rev_soc_bb(dc->ctx->asic_id.hw_internal_rev);
- 	struct _vcs_dpi_ip_params_st *loaded_ip =
-@@ -3614,116 +3613,6 @@ static bool init_soc_bounding_box(struct dc *dc,
- 
- 	DC_LOGGER_INIT(dc->ctx->logger);
- 
--	/* TODO: upstream NV12 bounding box when its launched */
--	if (!bb && ASICREV_IS_NAVI12_P(dc->ctx->asic_id.hw_internal_rev)) {
--		DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
--		return false;
--	}
--
--	if (bb && ASICREV_IS_NAVI12_P(dc->ctx->asic_id.hw_internal_rev)) {
--		int i;
--
--		dcn2_0_nv12_soc.sr_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_exit_time_us);
--		dcn2_0_nv12_soc.sr_enter_plus_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_enter_plus_exit_time_us);
--		dcn2_0_nv12_soc.urgent_latency_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_us);
--		dcn2_0_nv12_soc.urgent_latency_pixel_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_data_only_us);
--		dcn2_0_nv12_soc.urgent_latency_pixel_mixed_with_vm_data_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_mixed_with_vm_data_us);
--		dcn2_0_nv12_soc.urgent_latency_vm_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_vm_data_only_us);
--		dcn2_0_nv12_soc.urgent_out_of_order_return_per_channel_pixel_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_only_bytes);
--		dcn2_0_nv12_soc.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_and_vm_bytes);
--		dcn2_0_nv12_soc.urgent_out_of_order_return_per_channel_vm_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_vm_only_bytes);
--		dcn2_0_nv12_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_only);
--		dcn2_0_nv12_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm);
--		dcn2_0_nv12_soc.pct_ideal_dram_sdp_bw_after_urgent_vm_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_vm_only);
--		dcn2_0_nv12_soc.max_avg_sdp_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_sdp_bw_use_normal_percent);
--		dcn2_0_nv12_soc.max_avg_dram_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_dram_bw_use_normal_percent);
--		dcn2_0_nv12_soc.writeback_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_latency_us);
--		dcn2_0_nv12_soc.ideal_dram_bw_after_urgent_percent =
--				fixed16_to_double_to_cpu(bb->ideal_dram_bw_after_urgent_percent);
--		dcn2_0_nv12_soc.max_request_size_bytes =
--				le32_to_cpu(bb->max_request_size_bytes);
--		dcn2_0_nv12_soc.dram_channel_width_bytes =
--				le32_to_cpu(bb->dram_channel_width_bytes);
--		dcn2_0_nv12_soc.fabric_datapath_to_dcn_data_return_bytes =
--				le32_to_cpu(bb->fabric_datapath_to_dcn_data_return_bytes);
--		dcn2_0_nv12_soc.dcn_downspread_percent =
--				fixed16_to_double_to_cpu(bb->dcn_downspread_percent);
--		dcn2_0_nv12_soc.downspread_percent =
--				fixed16_to_double_to_cpu(bb->downspread_percent);
--		dcn2_0_nv12_soc.dram_page_open_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_page_open_time_ns);
--		dcn2_0_nv12_soc.dram_rw_turnaround_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_rw_turnaround_time_ns);
--		dcn2_0_nv12_soc.dram_return_buffer_per_channel_bytes =
--				le32_to_cpu(bb->dram_return_buffer_per_channel_bytes);
--		dcn2_0_nv12_soc.round_trip_ping_latency_dcfclk_cycles =
--				le32_to_cpu(bb->round_trip_ping_latency_dcfclk_cycles);
--		dcn2_0_nv12_soc.urgent_out_of_order_return_per_channel_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_bytes);
--		dcn2_0_nv12_soc.channel_interleave_bytes =
--				le32_to_cpu(bb->channel_interleave_bytes);
--		dcn2_0_nv12_soc.num_banks =
--				le32_to_cpu(bb->num_banks);
--		dcn2_0_nv12_soc.num_chans =
--				le32_to_cpu(bb->num_chans);
--		dcn2_0_nv12_soc.vmm_page_size_bytes =
--				le32_to_cpu(bb->vmm_page_size_bytes);
--		dcn2_0_nv12_soc.dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->dram_clock_change_latency_us);
--		// HACK!! Lower uclock latency switch time so we don't switch
--		dcn2_0_nv12_soc.dram_clock_change_latency_us = 10;
--		dcn2_0_nv12_soc.writeback_dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_dram_clock_change_latency_us);
--		dcn2_0_nv12_soc.return_bus_width_bytes =
--				le32_to_cpu(bb->return_bus_width_bytes);
--		dcn2_0_nv12_soc.dispclk_dppclk_vco_speed_mhz =
--				le32_to_cpu(bb->dispclk_dppclk_vco_speed_mhz);
--		dcn2_0_nv12_soc.xfc_bus_transport_time_us =
--				le32_to_cpu(bb->xfc_bus_transport_time_us);
--		dcn2_0_nv12_soc.xfc_xbuf_latency_tolerance_us =
--				le32_to_cpu(bb->xfc_xbuf_latency_tolerance_us);
--		dcn2_0_nv12_soc.use_urgent_burst_bw =
--				le32_to_cpu(bb->use_urgent_burst_bw);
--		dcn2_0_nv12_soc.num_states =
--				le32_to_cpu(bb->num_states);
--
--		for (i = 0; i < dcn2_0_nv12_soc.num_states; i++) {
--			dcn2_0_nv12_soc.clock_limits[i].state =
--					le32_to_cpu(bb->clock_limits[i].state);
--			dcn2_0_nv12_soc.clock_limits[i].dcfclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dcfclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].fabricclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].fabricclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].dispclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dispclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].dppclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dppclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].phyclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].phyclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].socclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].socclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].dscclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dscclk_mhz);
--			dcn2_0_nv12_soc.clock_limits[i].dram_speed_mts =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dram_speed_mts);
--		}
--	}
--
- 	if (pool->base.pp_smu) {
- 		struct pp_smu_nv_clock_table max_clocks = {0};
- 		unsigned int uclk_states[8] = {0};
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index e5bb15d8487b..dcf848f747a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -1716,125 +1716,22 @@ static bool is_soc_bounding_box_valid(struct dc *dc)
- static bool init_soc_bounding_box(struct dc *dc,
- 				  struct dcn30_resource_pool *pool)
- {
--	const struct gpu_info_soc_bounding_box_v1_0 *bb = dc->soc_bounding_box;
- 	struct _vcs_dpi_soc_bounding_box_st *loaded_bb = &dcn3_0_soc;
- 	struct _vcs_dpi_ip_params_st *loaded_ip = &dcn3_0_ip;
- 
- 	DC_LOGGER_INIT(dc->ctx->logger);
- 
--	if (!bb && !is_soc_bounding_box_valid(dc)) {
-+	if (!is_soc_bounding_box_valid(dc)) {
- 		DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
- 		return false;
- 	}
- 
--	if (bb && !is_soc_bounding_box_valid(dc)) {
--		int i;
--
--		dcn3_0_soc.sr_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_exit_time_us);
--		dcn3_0_soc.sr_enter_plus_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_enter_plus_exit_time_us);
--		dcn3_0_soc.urgent_latency_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_us);
--		dcn3_0_soc.urgent_latency_pixel_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_data_only_us);
--		dcn3_0_soc.urgent_latency_pixel_mixed_with_vm_data_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_mixed_with_vm_data_us);
--		dcn3_0_soc.urgent_latency_vm_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_vm_data_only_us);
--		dcn3_0_soc.urgent_out_of_order_return_per_channel_pixel_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_only_bytes);
--		dcn3_0_soc.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_and_vm_bytes);
--		dcn3_0_soc.urgent_out_of_order_return_per_channel_vm_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_vm_only_bytes);
--		dcn3_0_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_only);
--		dcn3_0_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm);
--		dcn3_0_soc.pct_ideal_dram_sdp_bw_after_urgent_vm_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_vm_only);
--		dcn3_0_soc.max_avg_sdp_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_sdp_bw_use_normal_percent);
--		dcn3_0_soc.max_avg_dram_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_dram_bw_use_normal_percent);
--		dcn3_0_soc.writeback_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_latency_us);
--		dcn3_0_soc.ideal_dram_bw_after_urgent_percent =
--				fixed16_to_double_to_cpu(bb->ideal_dram_bw_after_urgent_percent);
--		dcn3_0_soc.max_request_size_bytes =
--				le32_to_cpu(bb->max_request_size_bytes);
--		dcn3_0_soc.dram_channel_width_bytes =
--				le32_to_cpu(bb->dram_channel_width_bytes);
--		dcn3_0_soc.fabric_datapath_to_dcn_data_return_bytes =
--				le32_to_cpu(bb->fabric_datapath_to_dcn_data_return_bytes);
--		dcn3_0_soc.dcn_downspread_percent =
--				fixed16_to_double_to_cpu(bb->dcn_downspread_percent);
--		dcn3_0_soc.downspread_percent =
--				fixed16_to_double_to_cpu(bb->downspread_percent);
--		dcn3_0_soc.dram_page_open_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_page_open_time_ns);
--		dcn3_0_soc.dram_rw_turnaround_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_rw_turnaround_time_ns);
--		dcn3_0_soc.dram_return_buffer_per_channel_bytes =
--				le32_to_cpu(bb->dram_return_buffer_per_channel_bytes);
--		dcn3_0_soc.round_trip_ping_latency_dcfclk_cycles =
--				le32_to_cpu(bb->round_trip_ping_latency_dcfclk_cycles);
--		dcn3_0_soc.urgent_out_of_order_return_per_channel_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_bytes);
--		dcn3_0_soc.channel_interleave_bytes =
--				le32_to_cpu(bb->channel_interleave_bytes);
--		dcn3_0_soc.num_banks =
--				le32_to_cpu(bb->num_banks);
--		dcn3_0_soc.num_chans =
--				le32_to_cpu(bb->num_chans);
--		dcn3_0_soc.gpuvm_min_page_size_bytes =
--				le32_to_cpu(bb->vmm_page_size_bytes);
--		dcn3_0_soc.dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->dram_clock_change_latency_us);
--		dcn3_0_soc.writeback_dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_dram_clock_change_latency_us);
--		dcn3_0_soc.return_bus_width_bytes =
--				le32_to_cpu(bb->return_bus_width_bytes);
--		dcn3_0_soc.dispclk_dppclk_vco_speed_mhz =
--				le32_to_cpu(bb->dispclk_dppclk_vco_speed_mhz);
--		dcn3_0_soc.xfc_bus_transport_time_us =
--				le32_to_cpu(bb->xfc_bus_transport_time_us);
--		dcn3_0_soc.xfc_xbuf_latency_tolerance_us =
--				le32_to_cpu(bb->xfc_xbuf_latency_tolerance_us);
--		dcn3_0_soc.use_urgent_burst_bw =
--				le32_to_cpu(bb->use_urgent_burst_bw);
--		dcn3_0_soc.num_states =
--				le32_to_cpu(bb->num_states);
--
--		for (i = 0; i < dcn3_0_soc.num_states; i++) {
--			dcn3_0_soc.clock_limits[i].state =
--					le32_to_cpu(bb->clock_limits[i].state);
--			dcn3_0_soc.clock_limits[i].dcfclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dcfclk_mhz);
--			dcn3_0_soc.clock_limits[i].fabricclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].fabricclk_mhz);
--			dcn3_0_soc.clock_limits[i].dispclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dispclk_mhz);
--			dcn3_0_soc.clock_limits[i].dppclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dppclk_mhz);
--			dcn3_0_soc.clock_limits[i].phyclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].phyclk_mhz);
--			dcn3_0_soc.clock_limits[i].socclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].socclk_mhz);
--			dcn3_0_soc.clock_limits[i].dscclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dscclk_mhz);
--			dcn3_0_soc.clock_limits[i].dram_speed_mts =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dram_speed_mts);
--		}
--	}
--
- 	loaded_ip->max_num_otg = pool->base.res_cap->num_timing_generator;
- 	loaded_ip->max_num_dpp = pool->base.pipe_count;
- 	loaded_ip->clamp_min_dcfclk = dc->config.clamp_min_dcfclk;
- 	dcn20_patch_bounding_box(dc, loaded_bb);
- 
--	if (!bb && dc->ctx->dc_bios->funcs->get_soc_bb_info) {
-+	if (dc->ctx->dc_bios->funcs->get_soc_bb_info) {
- 		struct bp_soc_bb_info bb_info = {0};
- 
- 		if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index 35f5bf08ae96..5d4b2c60192e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -1489,124 +1489,21 @@ static bool is_soc_bounding_box_valid(struct dc *dc)
- static bool init_soc_bounding_box(struct dc *dc,
- 				  struct dcn301_resource_pool *pool)
- {
--	const struct gpu_info_soc_bounding_box_v1_0 *bb = dc->soc_bounding_box;
- 	struct _vcs_dpi_soc_bounding_box_st *loaded_bb = &dcn3_01_soc;
- 	struct _vcs_dpi_ip_params_st *loaded_ip = &dcn3_01_ip;
- 
- 	DC_LOGGER_INIT(dc->ctx->logger);
- 
--	if (!bb && !is_soc_bounding_box_valid(dc)) {
-+	if (!is_soc_bounding_box_valid(dc)) {
- 		DC_LOG_ERROR("%s: not valid soc bounding box/n", __func__);
- 		return false;
- 	}
- 
--	if (bb && !is_soc_bounding_box_valid(dc)) {
--		int i;
--
--		dcn3_01_soc.sr_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_exit_time_us);
--		dcn3_01_soc.sr_enter_plus_exit_time_us =
--				fixed16_to_double_to_cpu(bb->sr_enter_plus_exit_time_us);
--		dcn3_01_soc.urgent_latency_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_us);
--		dcn3_01_soc.urgent_latency_pixel_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_data_only_us);
--		dcn3_01_soc.urgent_latency_pixel_mixed_with_vm_data_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_pixel_mixed_with_vm_data_us);
--		dcn3_01_soc.urgent_latency_vm_data_only_us =
--				fixed16_to_double_to_cpu(bb->urgent_latency_vm_data_only_us);
--		dcn3_01_soc.urgent_out_of_order_return_per_channel_pixel_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_only_bytes);
--		dcn3_01_soc.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_pixel_and_vm_bytes);
--		dcn3_01_soc.urgent_out_of_order_return_per_channel_vm_only_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_vm_only_bytes);
--		dcn3_01_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_only);
--		dcn3_01_soc.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm);
--		dcn3_01_soc.pct_ideal_dram_sdp_bw_after_urgent_vm_only =
--				fixed16_to_double_to_cpu(bb->pct_ideal_dram_sdp_bw_after_urgent_vm_only);
--		dcn3_01_soc.max_avg_sdp_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_sdp_bw_use_normal_percent);
--		dcn3_01_soc.max_avg_dram_bw_use_normal_percent =
--				fixed16_to_double_to_cpu(bb->max_avg_dram_bw_use_normal_percent);
--		dcn3_01_soc.writeback_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_latency_us);
--		dcn3_01_soc.ideal_dram_bw_after_urgent_percent =
--				fixed16_to_double_to_cpu(bb->ideal_dram_bw_after_urgent_percent);
--		dcn3_01_soc.max_request_size_bytes =
--				le32_to_cpu(bb->max_request_size_bytes);
--		dcn3_01_soc.dram_channel_width_bytes =
--				le32_to_cpu(bb->dram_channel_width_bytes);
--		dcn3_01_soc.fabric_datapath_to_dcn_data_return_bytes =
--				le32_to_cpu(bb->fabric_datapath_to_dcn_data_return_bytes);
--		dcn3_01_soc.dcn_downspread_percent =
--				fixed16_to_double_to_cpu(bb->dcn_downspread_percent);
--		dcn3_01_soc.downspread_percent =
--				fixed16_to_double_to_cpu(bb->downspread_percent);
--		dcn3_01_soc.dram_page_open_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_page_open_time_ns);
--		dcn3_01_soc.dram_rw_turnaround_time_ns =
--				fixed16_to_double_to_cpu(bb->dram_rw_turnaround_time_ns);
--		dcn3_01_soc.dram_return_buffer_per_channel_bytes =
--				le32_to_cpu(bb->dram_return_buffer_per_channel_bytes);
--		dcn3_01_soc.round_trip_ping_latency_dcfclk_cycles =
--				le32_to_cpu(bb->round_trip_ping_latency_dcfclk_cycles);
--		dcn3_01_soc.urgent_out_of_order_return_per_channel_bytes =
--				le32_to_cpu(bb->urgent_out_of_order_return_per_channel_bytes);
--		dcn3_01_soc.channel_interleave_bytes =
--				le32_to_cpu(bb->channel_interleave_bytes);
--		dcn3_01_soc.num_banks =
--				le32_to_cpu(bb->num_banks);
--		dcn3_01_soc.num_chans =
--				le32_to_cpu(bb->num_chans);
--		dcn3_01_soc.gpuvm_min_page_size_bytes =
--				le32_to_cpu(bb->vmm_page_size_bytes);
--		dcn3_01_soc.dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->dram_clock_change_latency_us);
--		dcn3_01_soc.writeback_dram_clock_change_latency_us =
--				fixed16_to_double_to_cpu(bb->writeback_dram_clock_change_latency_us);
--		dcn3_01_soc.return_bus_width_bytes =
--				le32_to_cpu(bb->return_bus_width_bytes);
--		dcn3_01_soc.dispclk_dppclk_vco_speed_mhz =
--				le32_to_cpu(bb->dispclk_dppclk_vco_speed_mhz);
--		dcn3_01_soc.xfc_bus_transport_time_us =
--				le32_to_cpu(bb->xfc_bus_transport_time_us);
--		dcn3_01_soc.xfc_xbuf_latency_tolerance_us =
--				le32_to_cpu(bb->xfc_xbuf_latency_tolerance_us);
--		dcn3_01_soc.use_urgent_burst_bw =
--				le32_to_cpu(bb->use_urgent_burst_bw);
--		dcn3_01_soc.num_states =
--				le32_to_cpu(bb->num_states);
--
--		for (i = 0; i < dcn3_01_soc.num_states; i++) {
--			dcn3_01_soc.clock_limits[i].state =
--					le32_to_cpu(bb->clock_limits[i].state);
--			dcn3_01_soc.clock_limits[i].dcfclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dcfclk_mhz);
--			dcn3_01_soc.clock_limits[i].fabricclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].fabricclk_mhz);
--			dcn3_01_soc.clock_limits[i].dispclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dispclk_mhz);
--			dcn3_01_soc.clock_limits[i].dppclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dppclk_mhz);
--			dcn3_01_soc.clock_limits[i].phyclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].phyclk_mhz);
--			dcn3_01_soc.clock_limits[i].socclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].socclk_mhz);
--			dcn3_01_soc.clock_limits[i].dscclk_mhz =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dscclk_mhz);
--			dcn3_01_soc.clock_limits[i].dram_speed_mts =
--					fixed16_to_double_to_cpu(bb->clock_limits[i].dram_speed_mts);
--		}
--	}
--
- 	loaded_ip->max_num_otg = pool->base.res_cap->num_timing_generator;
- 	loaded_ip->max_num_dpp = pool->base.pipe_count;
- 	dcn20_patch_bounding_box(dc, loaded_bb);
- 
--	if (!bb && dc->ctx->dc_bios->funcs->get_soc_bb_info) {
-+	if (dc->ctx->dc_bios->funcs->get_soc_bb_info) {
- 		struct bp_soc_bb_info bb_info = {0};
- 
- 		if (dc->ctx->dc_bios->funcs->get_soc_bb_info(dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 80b67b860091..a4f7ec888c67 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -294,8 +294,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 		struct dc_surface_update *srf_updates,
+ 		int surface_count,
+ 		struct dc_stream_state *stream,
+-		struct dc_stream_update *stream_update,
+-		struct dc_state *state);
++		struct dc_stream_update *stream_update);
+ /*
+  * Log the current stream state.
+  */
 -- 
 2.25.1
 
