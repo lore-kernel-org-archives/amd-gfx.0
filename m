@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D1B8C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32C27C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 136B164E08
+	by mail.kernel.org (Postfix) with ESMTPS id DE6C364E08
 	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 136B164E08
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE6C364E08
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5AF6EB6A;
-	Fri, 29 Jan 2021 15:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA71C6EB69;
+	Fri, 29 Jan 2021 15:37:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29A886EB68;
- Fri, 29 Jan 2021 15:37:53 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E400464E20;
- Fri, 29 Jan 2021 15:37:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6DE6EB6B;
+ Fri, 29 Jan 2021 15:37:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 06CAC64E27;
+ Fri, 29 Jan 2021 15:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611934673;
- bh=QHgxueEDRYVRGiS1NoUc2gkhOgR2nFDtfZVzB9GvPbU=;
+ s=k20201202; t=1611934676;
+ bh=Tn1QHHcsJqiutpk3sC7RqJ7WncRkDf7SD0f8luhEqt0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HuNi6saVEGBnq5+DkgBQbJUEOnDi8+46aASy0gd/1g6Bl0O8vWdas6nU+gzVl+dJu
- bMjsNCRuwxiMbw2gzsFjT3F3fqL8YwbHi7g9djRwCTgOj+kHuaHoak++Z77UG5gD66
- FvBXfPPlEFZgFwRckEF5993MM2EnwcGGIh+JkBVV9rZywrtfS7wTwXkC6NhYWOIhDd
- tksgt6hopGYqAnC4fIhIMUmf3giADab3nuwn2+2rDaRiTG1Y+Ap1BPuu/uH4atbo7u
- B2dCnlYZ1a7JrD4cRBc38K3DYQXmnP6PCOsCEXoqn1X2OgTvP4DrjJsRIwhMZEtvRh
- uxqQWAcGQsQrg==
+ b=UQSKiFdhMTNO6vJFJAhmIx7kfHQSJtcoKez1lL4w9KqO02ptUPIZkYlYkYbgdl5vV
+ iSjDD8DDue/oe8haD2viD59rNFy2iGXA+Dr+c0OHn7G+JAn5w90CFV+za0/KI7IBD/
+ gjhn0bD4mIlX4zoIdNrMfEQUz5uHIKp5vyRG2GQkvMVwkxkQSzI/XQgW8cwWaQEZab
+ GqNwzg36VeOb3bVdjjPUrAQ6LlOxqK1VWlxrjde0parhRFagRR+tYXnQN4K3A2+DKK
+ mELagjoIjHv11NyWjOSEfGc1npckzATfIh1OuMqjmGizeO+msAR9ArevgOzqcpA58D
+ 1WCgcLKG4wArg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 31/41] drm/amd/display: Change function
- decide_dp_link_settings to avoid infinite looping
-Date: Fri, 29 Jan 2021 10:37:02 -0500
-Message-Id: <20210129153713.1592185-31-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 33/41] drm/amd/display: Fixed corruptions on
+ HPDRX link loss restore
+Date: Fri, 29 Jan 2021 10:37:04 -0500
+Message-Id: <20210129153713.1592185-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210129153713.1592185-1-sashal@kernel.org>
 References: <20210129153713.1592185-1-sashal@kernel.org>
@@ -59,51 +59,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <anson.jacob@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Bing Guo <bing.guo@amd.com>, Jun Lei <Jun.Lei@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
+ Anson Jacob <anson.jacob@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Vladimir Stempen <vladimir.stempen@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bing Guo <bing.guo@amd.com>
+From: Vladimir Stempen <vladimir.stempen@amd.com>
 
-[ Upstream commit 4716a7c50c5c66d6ddc42401e1e0ba13b492e105 ]
+[ Upstream commit 4b08d8c78360241d270396a9de6eb774e88acd00 ]
 
-Why:
-Function decide_dp_link_settings() loops infinitely when required bandwidth
-can't be supported.
+[why]
+Heavy corruption or blank screen reported on wake,
+with 6k display connected and FEC enabled
 
-How:
-Check the required bandwidth against verified_link_cap before trying to
-find a link setting for it.
+[how]
+When Disable/Enable stream for display pipes on HPDRX,
+DC should take into account ODM split pipes.
 
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Bing Guo <bing.guo@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Signed-off-by: Vladimir Stempen <vladimir.stempen@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Anson Jacob <anson.jacob@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 98464886341f6..004e2b32e02fa 100644
+index 004e2b32e02fa..17e6fd8201395 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2375,6 +2375,9 @@ static bool decide_dp_link_settings(struct dc_link *link, struct dc_link_setting
- 			initial_link_setting;
- 	uint32_t link_bw;
+@@ -3023,14 +3023,14 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 		for (i = 0; i < MAX_PIPES; i++) {
+ 			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+ 			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
+-					pipe_ctx->stream->link == link)
++					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
+ 				core_link_disable_stream(pipe_ctx);
+ 		}
  
-+	if (req_bw > dc_link_bandwidth_kbps(link, &link->verified_link_cap))
-+		return false;
-+
- 	/* search for the minimum link setting that:
- 	 * 1. is supported according to the link training result
- 	 * 2. could support the b/w requested by the timing
+ 		for (i = 0; i < MAX_PIPES; i++) {
+ 			pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
+ 			if (pipe_ctx && pipe_ctx->stream && !pipe_ctx->stream->dpms_off &&
+-					pipe_ctx->stream->link == link)
++					pipe_ctx->stream->link == link && !pipe_ctx->prev_odm_pipe)
+ 				core_link_enable_stream(link->dc->current_state, pipe_ctx);
+ 		}
+ 
 -- 
 2.27.0
 
