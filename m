@@ -7,75 +7,74 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D46BFC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BABE6C433E9
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5779764E00
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5779764E00
+	by mail.kernel.org (Postfix) with ESMTPS id 3E71A64E00
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 21:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E71A64E00
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0C906EC22;
-	Fri, 29 Jan 2021 21:28:14 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56486EC22
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 21:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA4F6EC28;
+	Fri, 29 Jan 2021 21:28:15 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E33B76EC22
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 21:28:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ecV+OC0vZAfrHYiUx1LClTbrQPIBUCxhQsDpwhkMl2qDrWrSMU2LzL4Vzqx6t3h5cecjGbGFd3G5hwKu58y79FKwFN6M5pBmBDgi3pGdH39QzoKRvrpk44XMEhSUVvIuGTFvJaG007rQY5qmD0SYatobA5h7JzTjD+/9brT6v58+vtMA/vj+P1nQ/gcB4pSLADMi+O8oJKdMCTlv7MLnrg6M6KIxJewHUebG8eLhPQASgce+iWa4yD+je4CrsJFtLTEms/dZxFOn4qHMBALzQie3Pd6zL6V6quXrBGPYxUJ6/zeS/nqm0OatSmRUeCIIxP/lQ3ji4WpFYStW0suTrg==
+ b=mRqiR8D8pMo2Oca7o/sQcE7NmQlgq1Q8N9G05FQdj4uiNCKjBXsj38RHxUpbnrONXM7eR3vv3TNqdR6EvlQiRMUy95iiMVywrRZw94Wu5ckXtLVhYUFlUqAgF0rvKE7s3+P/FTmAy89HWYia7r4Fu6P/6L+H6/n3s8Wve8i3vt37dFK48A5DplVkGrDyGIWPqo1bfEuJ06IYBGoNwmDNkfaJpC7Y4yLn7g5dl9o/CwMm1DiUVX41n+HcyZgkWABjwo1OSFOsg3zyVlEcFZcBVTwQlMc6G6IbXYHL9zuWcRvm4P+O2aeqWtlJEgewRiT9uffK5Su5G6uK+xsEM7mazA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrNGa28/unt6FxTV59+V4FZYDadfqUB69rXRPR3gmPw=;
- b=KaQLcWUl+bMguvxkXOmZQ/RiZLaFDgMd72nyj2cgWy1zmH6zkRBo8TPRnr1w5Yl2Hmr8UtuByJDF4nOX20bQiA64plUvMq0etwerqA9ujZi0scEUYWgPWN6b6UZGLj9m+ovji7E4lWqy263xyZjdgkeHwVVpa/t16xu89H/a71q5MfnAX7Xc4BHF8aDJSTa7OSu6vemZjdtm2jl/87pz1YGirfyMIzmyeIyQS+z7B7h93gi6viW3v7o0Uoft4cNBwmAJ1Odojdo8rFz9nCB/bPoNEtnIBLZ8mXWFBLd+Rgw2rUe6cLC0TUHR1ieS6sBK5yJTu6blgFf/uiG89Jpl+g==
+ bh=cNkpCgVB8zwQC0c4kkni2C8DIF0petzP/XG1/2FzNMk=;
+ b=jcYCVFTxu38F2RuLKAhprbR9ROusCjq1kJZKy8vyHXelLM9fAntMn0OYdEnNMT2aqTvORXAcTN0xuEb2vv03zHdHsZwau942LAGHvreXPYEIGYMfN3moBu4m7b1683e4GSrfm25KU59/rjPRnWPsTfirN/rx3fInyPvhTK5oMiRbjfU3tp4wVNsEWpkxtIrgLjDRscILQ9yrxoAdledDiO1L/5kB1HXXVhkFEBa2eS9DHDm1L1TAZyyxmW8gWwHJZ9ZOP34ieP6idfy6l6umA9b/fqBtlgjj/rVxAU/D+0IEQN3TqCK9LJThMvI2aoHchdr7ljSYxqIXqjNE7H0mZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrNGa28/unt6FxTV59+V4FZYDadfqUB69rXRPR3gmPw=;
- b=P6e4gmqsnFvGn6ifA6vPfbfbfnhKRAJKcrTrHpcekNEAIfvbYi3inJQlbBiFCxyV/mThBRQQVBPa8IzTQwQyxiKy8v08e68l8MY4tvw4QdnNtiCQXm9X/9AhkyzNH1aiGki6ElSKkw4qheGtJ4/xmyHikrI0I4ZZeY6+lsoBUow=
-Received: from BN6PR03CA0082.namprd03.prod.outlook.com (2603:10b6:405:6f::20)
- by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.16; Fri, 29 Jan
- 2021 21:28:08 +0000
-Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:6f:cafe::99) by BN6PR03CA0082.outlook.office365.com
- (2603:10b6:405:6f::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=cNkpCgVB8zwQC0c4kkni2C8DIF0petzP/XG1/2FzNMk=;
+ b=g0J3NEvLsM5JIj6E32gdPoERUpr4XYODkNupCmNO0V6v7/PUBds6gGoPSlTCpN8RDd6CMRqCn8YhQL+2DTp//XQJPQOQGo0qG7rU/cSBozItaeCL7khcVpaJO9tr5VjRNw49eYtRltMn238mMg7lDfLeSVP/hvhMBYIH5i8/Rw8=
+Received: from MW2PR16CA0027.namprd16.prod.outlook.com (2603:10b6:907::40) by
+ MN2PR12MB3168.namprd12.prod.outlook.com (2603:10b6:208:af::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3784.11; Fri, 29 Jan 2021 21:28:09 +0000
+Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:0:cafe::d6) by MW2PR16CA0027.outlook.office365.com
+ (2603:10b6:907::40) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.16 via Frontend
- Transport; Fri, 29 Jan 2021 21:28:08 +0000
+ Transport; Fri, 29 Jan 2021 21:28:09 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT011.mail.protection.outlook.com (10.13.176.140) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3784.12 via Frontend Transport; Fri, 29 Jan 2021 21:28:06 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3784.12 via Frontend Transport; Fri, 29 Jan 2021 21:28:07 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 29 Jan
- 2021 15:28:05 -0600
+ 2021 15:28:06 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 29 Jan
  2021 15:28:05 -0600
 Received: from Bumblebee.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Fri, 29 Jan 2021 15:28:04 -0600
+ Transport; Fri, 29 Jan 2021 15:28:05 -0600
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/27] drm/amd/display: Set power_gated to true for seamless
- boot pipe init
-Date: Fri, 29 Jan 2021 16:27:31 -0500
-Message-ID: <20210129212752.38865-7-Anson.Jacob@amd.com>
+Subject: [PATCH 07/27] drm/amd/display: correct some hdcp variable naming
+Date: Fri, 29 Jan 2021 16:27:32 -0500
+Message-ID: <20210129212752.38865-8-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210129212752.38865-1-Anson.Jacob@amd.com>
 References: <20210129212752.38865-1-Anson.Jacob@amd.com>
@@ -83,27 +82,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2004f8a7-fc7e-41f8-ef7b-08d8c49cc49b
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4048:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB40485A67255251A6CD349B81EBB99@MN2PR12MB4048.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 3f30b5bc-1f2d-4b2b-3e8a-08d8c49cc53a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3168:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3168D6836AEA61CB4AF88746EBB99@MN2PR12MB3168.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YoOXcaDHKn5K6QR0gYGWUmH+dR89UCnIc27eFhhVcFE5aam4RPahym81QSJy0KlZwlOID4MqVez1dAYp4WpnBhXddKu39FKK/MBkaw8jNAjJvaxIssorORmSl3wC0tuE3Lee5mcq+cgThmQ0WopfQY1hr9DAL0gqBT9SDg+tn9RRAgRwerxcfh9cEZcVbXBIiKfhqydgJM/gmcVG/8jyGTwcznxV0FDdJTzRJGgPm33V4Qjj3u/K4as+xOVdvOFpHry4e7Qz7uQg09BsPIbx7qylrMRy0L/li+e+IdMkn+RumRGLHxphtFXiUXQYd6zgc/FcKUtKd8xhiVJ11Nwm3/uybByaJPDn7ti8V6MQs7PA+3xsMZ4ixPMRo3iJXIsec2LXhRNwIvgfByaFSQ8SOSsSmZYKdR9GGfazAy+DMdgkMRG/e8gr+LCoYtJxbZfXAGOxqkV7UbwGJ8Gu4d7VwLtekxLOX/xfw54ZW1217a3WYUUR8j0xnZvo5B11k1SH+sDxy3YcxBj0LSoTy9cQ7B8nsK9WVVVqgjHla+R3ArWHnAbxaS377MtfQnOM6ruFWuSEBPVdVtMxoNMEpZgwR/PtfadbVzSCtZY4NYrFsDw=
+X-Microsoft-Antispam-Message-Info: osRcI25nRWxXvzrsEUbZYMZwFV0OlJ4w3gHZ2Wnyp1yqa40R+rv1/drCy81swHB39/Q0PuL88lolxQwI+0mc43fGtTYQur56uDeU+ViRzT1iRZLFhKlSCURyr+fk+Hke1GhV6CBWogLqNRe4OJMvN7felo9/Aueq2hlNzoxFq+QbgVb7aCPVzWOlSqOuq1Y46b93CJL7jD4gURhH95wPcNkEV/6ZNqJ9skodb4YhPpTADqIfoSS6t6wnZepYi0uMVS9LiQUvN+Y8rD8gULhDFK2ySWcTIO2nvayeAXQ0q54kauJMcREJrt/hOpGFmLrsG0fwsJRoSMF7JS8xuqBuHSFaUaSIrOngm5MYkRhEMAz+hVByIAga+3McREYYRsH61lcbq5Y/xkxWp1wWIZNizVw5euVa5UVJHcBU9LfosLw9oHk4EU016FNer28UZTtaIeS2Rtq5rsRL9WR3bAHSMNMOwEUmaBQe7jMX8OQffsJPxs0udQ8d5xOJxG6wqcjrGzNoP+SHcxM0izoZNHhpyf6E416Yk+f0uYqZ3l1LTfUpQ///4DzrZlNR8kWAXfNDL7rfix5azoUnxJgCzbGFzuqDfwxc36DugMAqtBEqkFHn5s0V8f8pKb7+vMRyXQVC
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(136003)(346002)(46966006)(26005)(82310400003)(5660300002)(336012)(7696005)(316002)(86362001)(4326008)(186003)(426003)(1076003)(70206006)(54906003)(2616005)(47076005)(8676002)(36756003)(8936002)(478600001)(70586007)(356005)(6666004)(6916009)(81166007)(83380400001)(82740400003)(2906002);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(136003)(346002)(396003)(46966006)(6666004)(36756003)(47076005)(82740400003)(186003)(426003)(6916009)(82310400003)(2616005)(4326008)(70206006)(86362001)(336012)(8676002)(316002)(7696005)(54906003)(356005)(83380400001)(5660300002)(2906002)(70586007)(478600001)(81166007)(8936002)(1076003)(26005)(21314003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 21:28:06.4971 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2004f8a7-fc7e-41f8-ef7b-08d8c49cc49b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 21:28:07.4107 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f30b5bc-1f2d-4b2b-3e8a-08d8c49cc53a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3168
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,47 +114,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lewis Huang <Lewis.Huang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Martin Leung <Martin.Leung@amd.com>, Bhawanpreet.Lakha@amd.com,
- bindu.r@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, George Shen <George.Shen@amd.com>,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <Lewis.Huang@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why]
-In seamless boot without a flip case, the flag power_gated didn't
-get cleared when resetting path mode because the plane_state is null.
-The following sequence will cause this issue:
-    1. OS call set mode to clone/extended
-    2. Reset path mode to remove edp
+[why]
+In HDCP update stream config interface, some variables are named as
+xxx_supported, but in fact the variable indicates whether or not xxx_enabled.
+Correct the naming so it is less confusing to read the code.
 
-[How]
-Set power gated default to true in seamless boot pipe
-
-Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: George Shen <George.Shen@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |  7 ++++---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 14 +++++++-------
+ drivers/gpu/drm/amd/display/dc/dm_cp_psp.h         |  7 ++++---
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h    |  2 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |  2 +-
+ drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h |  4 ++--
+ 6 files changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 7a30d1d9b535..2f315a47b765 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1224,6 +1224,7 @@ void dcn10_init_pipes(struct dc *dc, struct dc_state *context)
- 			// signals when OTG blanked. This is to prevent pipe from
- 			// requesting data while in PSR.
- 			tg->funcs->tg_init(tg);
-+			hubp->power_gated = true;
- 			continue;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index c2cd184f0bbd..b297ddc24d3a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -449,11 +449,12 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
+ 		link->mode = mod_hdcp_signal_type_to_operation_mode(aconnector->dc_sink->sink_signal);
  
+ 	display->controller = CONTROLLER_ID_D0 + config->otg_inst;
+-	display->dig_fe = config->stream_enc_inst;
+-	link->dig_be = config->link_enc_inst;
++	display->dig_fe = config->dig_fe;
++	link->dig_be = config->dig_be;
+ 	link->ddc_line = aconnector->dc_link->ddc_hw_inst + 1;
+ 	link->dp.rev = aconnector->dc_link->dpcd_caps.dpcd_rev.raw;
+-	link->dp.mst_supported = config->mst_supported;
++	link->dp.assr_enabled = config->assr_enabled;
++	link->dp.mst_enabled = config->mst_enabled;
+ 	display->adjust.disable = 1;
+ 	link->adjust.auth_delay = 3;
+ 	link->adjust.hdcp1.disable = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 55f20d731b25..8506739a22f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -3169,17 +3169,17 @@ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
+ {
+ 	struct cp_psp *cp_psp = &pipe_ctx->stream->ctx->cp_psp;
+ 	if (cp_psp && cp_psp->funcs.update_stream_config) {
+-		struct cp_psp_stream_config config;
+-
+-		memset(&config, 0, sizeof(config));
++		struct cp_psp_stream_config config = {0};
++		enum dp_panel_mode panel_mode =
++				dp_get_panel_mode(pipe_ctx->stream->link);
+ 
+ 		config.otg_inst = (uint8_t) pipe_ctx->stream_res.tg->inst;
+-		/*stream_enc_inst*/
+-		config.stream_enc_inst = (uint8_t) pipe_ctx->stream_res.stream_enc->stream_enc_inst;
+-		config.link_enc_inst = pipe_ctx->stream->link->link_enc_hw_inst;
++		config.dig_fe = (uint8_t) pipe_ctx->stream_res.stream_enc->stream_enc_inst;
++		config.dig_be = pipe_ctx->stream->link->link_enc_hw_inst;
+ 		config.dpms_off = dpms_off;
+ 		config.dm_stream_ctx = pipe_ctx->stream->dm_stream_context;
+-		config.mst_supported = (pipe_ctx->stream->signal ==
++		config.assr_enabled = (panel_mode == DP_PANEL_MODE_EDP);
++		config.mst_enabled = (pipe_ctx->stream->signal ==
+ 				SIGNAL_TYPE_DISPLAY_PORT_MST);
+ 		cp_psp->funcs.update_stream_config(cp_psp->handle, &config);
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
+index 5da7677627a1..cac0b2c0d31b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
+@@ -30,9 +30,10 @@ struct dc_link;
+ 
+ struct cp_psp_stream_config {
+ 	uint8_t otg_inst;
+-	uint8_t link_enc_inst;
+-	uint8_t stream_enc_inst;
+-	uint8_t mst_supported;
++	uint8_t dig_be;
++	uint8_t dig_fe;
++	uint8_t assr_enabled;
++	uint8_t mst_enabled;
+ 	void *dm_stream_ctx;
+ 	bool dpms_off;
+ };
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index 6c678cfb82e3..5c22cf7e6118 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -397,7 +397,7 @@ static inline uint8_t is_dp_hdcp(struct mod_hdcp *hdcp)
+ static inline uint8_t is_dp_mst_hdcp(struct mod_hdcp *hdcp)
+ {
+ 	return (hdcp->connection.link.mode == MOD_HDCP_MODE_DP &&
+-			hdcp->connection.link.dp.mst_supported);
++			hdcp->connection.link.dp.mst_enabled);
+ }
+ 
+ static inline uint8_t is_hdmi_dvi_sl_hdcp(struct mod_hdcp *hdcp)
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index 3a367a5968ae..b26ed64eaf98 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -106,7 +106,7 @@ enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
+ 	dtm_cmd->dtm_in_message.topology_update_v2.dig_be = link->dig_be;
+ 	dtm_cmd->dtm_in_message.topology_update_v2.dig_fe = display->dig_fe;
+ 	if (is_dp_hdcp(hdcp))
+-		dtm_cmd->dtm_in_message.topology_update_v2.is_assr = link->dp.assr_supported;
++		dtm_cmd->dtm_in_message.topology_update_v2.is_assr = link->dp.assr_enabled;
+ 
+ 	dtm_cmd->dtm_in_message.topology_update_v2.dp_mst_vcid = display->vc_id;
+ 	dtm_cmd->dtm_in_message.topology_update_v2.max_hdcp_supported_version =
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+index eed560eecbab..d223ed3be5d3 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+@@ -101,8 +101,8 @@ enum mod_hdcp_status {
+ 
+ struct mod_hdcp_displayport {
+ 	uint8_t rev;
+-	uint8_t assr_supported;
+-	uint8_t mst_supported;
++	uint8_t assr_enabled;
++	uint8_t mst_enabled;
+ };
+ 
+ struct mod_hdcp_hdmi {
 -- 
 2.25.1
 
