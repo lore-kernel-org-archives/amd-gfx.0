@@ -2,64 +2,52 @@ Return-Path: <SRS0=nuNM=HA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1224C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30285C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8936960C3D
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8936960C3D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id DEFE164E24
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEFE164E24
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184656EB5B;
-	Fri, 29 Jan 2021 15:23:49 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB08F6EB5B
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 15:23:47 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id w8so10225266oie.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Jan 2021 07:23:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tLLs2HIgNLEiVX5tgRDKgvIjee581F5GvhWCWiuauSo=;
- b=mHP2OVKAVMA1fM7BF7qEJGk3wF+yF+TvFh2S75pfCs4cpHfBueQ5uq5Tsg0jcZQnjT
- fyzzVnrdHp93SxUuWuocqLAoW1hx6Rhv3Mah+UeIfWW9ch9sF7r0pwbzwMU2c32WRu6/
- 9WxmyrT1TfT1rI0XM01ciIWZnlANcwgBBU8z+Y7GePeprS3b8TkqY6F/DdubwxW+hOAw
- sKZHyUCHQxMN5csx6v39wCRY7OrWMZSj8lkPUbS3Th/UDLcZ3/r8OjHcLXBJHXiN0Lwu
- afO72I8MZDIlz8NWjvnsfpZMutD86JNl+KUDECSZriE9I/YW5fERoArpp6wwdsvoiJA6
- bE7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tLLs2HIgNLEiVX5tgRDKgvIjee581F5GvhWCWiuauSo=;
- b=kJ33o52kpZQk3y+tqkccBJc2F8J+BvcL0SHMaBYQ3ZZKktoHlsGWJulTGvJJ1uVQrW
- TbHeMakd33pEDwbpu4FFEOIKOx2aPpjsXwnx2s1bdqtj6RJIHFFfqdXKHLXLnpwtuVOP
- wFwPFjYt4W37e/4NUvn7uOsLu0ZbG5jTgNgCsUdKnI6Ln8mrttGltZ7Gkuog0IsEf4Sv
- 7t9w97GLzD/QpjewW8pGmEMp58rqJlijF23pp6Fe4G0OyeOVh7aSoiwCbJ6/T9voQ+dR
- AJ7VUxHCBGelKH6IM801TQcjkAEkmdxQT7crH3HZx7vkslulke9UB1TmZrEAe26wjYXN
- 4Huw==
-X-Gm-Message-State: AOAM532R5lNy0xJEtvpfzSYs8y4KgGgstMZztdBMcOumeSD0CBFWdLkj
- EkjAKQX42nD3qgi9xb9ZHUf39KB4etVwfI/Yq/kcN8ED
-X-Google-Smtp-Source: ABdhPJzM7+u5RofwWWO9arrNQa0eGUkJFS+v42HSTP7OFZisJRuaw8xlNMvUP5ID9ij1Zd7xjRbkIqi4gZ7+8dgGQgE=
-X-Received: by 2002:aca:1a17:: with SMTP id a23mr2912509oia.120.1611933827029; 
- Fri, 29 Jan 2021 07:23:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 072556EB67;
+	Fri, 29 Jan 2021 15:37:52 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 518C26EB62;
+ Fri, 29 Jan 2021 15:37:50 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ECDC864E21;
+ Fri, 29 Jan 2021 15:37:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611934670;
+ bh=oN+BjilV+IP08eYlsu3JkzNWAmIGUjZmGP4JJFAvjSs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gJP6y4+fK4+o4fyMIg+nns3NNthDLR7eVk44MR0l3fUP4JdClsfWlX5Wkgp3HN5Xm
+ R5cnMOdmuUBp1TcFMu0OGDxfe/RS79AciVbuJyeKGRTuXT+DXNECFKbEzcBtO/iv4X
+ 1XeaZjTuRd5DQ8ukRF3zpgzPjQCUjQqAoVZShhWFYC4wq6QI4tkmphpcomohuny29D
+ snYP+roeGB58dULW1ZFgO+nyq9GUGXiXKFFAAG/U2vGIniCBbTtDPdb9QMDGMSod+1
+ q1fEAPMDhvtkD3rH5DMbh28hfQkH4vR2S/rW623flajeuXQ79Xz6VcHLXjmOju9ouz
+ V8V3zyX/T6DNg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 29/41] drm/amd/display: Update
+ dram_clock_change_latency for DCN2.1
+Date: Fri, 29 Jan 2021 10:37:00 -0500
+Message-Id: <20210129153713.1592185-29-sashal@kernel.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210129153713.1592185-1-sashal@kernel.org>
+References: <20210129153713.1592185-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20210129030721.23031-1-kenneth.feng@amd.com>
-In-Reply-To: <20210129030721.23031-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 29 Jan 2021 10:23:35 -0500
-Message-ID: <CADnq5_PssThcofkfThPCssNc9LF432YbQkbrFu666yzq=x2B=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: enable ACDC feature
-To: Kenneth Feng <kenneth.feng@amd.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,47 +59,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
+ Jake Wang <haonan.wang2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Tony Cheng <Tony.Cheng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 28, 2021 at 10:07 PM Kenneth Feng <kenneth.feng@amd.com> wrote:
->
-> The power limit and clock ragne are different in AC mode and DC mode.
-> Firmware does the setting after this feature is enabled.
-> Applied on mobile skus.
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+From: Jake Wang <haonan.wang2@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[ Upstream commit 901c1ec05ef277ce9d43cb806a225b28b3efe89a ]
 
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index dffdcebc80e1..faddfa9f5642 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -261,6 +261,9 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
->                 *(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFX_GPO_BIT);
->         }
->
-> +       if (smu->dc_controlled_by_gpio)
-> +               *(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_ACDC_BIT);
-> +
->         if ((adev->pm.pp_feature & PP_GFX_DCS_MASK) && adev->asic_type > CHIP_SIENNA_CICHLID)
->                 *(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_DCS_BIT);
->
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+[WHY]
+dram clock change latencies get updated using ddr4 latency table, but
+does that update does not happen before validation. This value
+should not be the default and should be number received from
+df for better mode support.
+This may cause a PState hang on high refresh panels with short vblanks
+such as on 1080p 360hz or 300hz panels.
+
+[HOW]
+Update latency from 23.84 to 11.72.
+
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index e73785e74cba8..20441127783ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -295,7 +295,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
+ 	.num_banks = 8,
+ 	.num_chans = 4,
+ 	.vmm_page_size_bytes = 4096,
+-	.dram_clock_change_latency_us = 23.84,
++	.dram_clock_change_latency_us = 11.72,
+ 	.return_bus_width_bytes = 64,
+ 	.dispclk_dppclk_vco_speed_mhz = 3600,
+ 	.xfc_bus_transport_time_us = 4,
+-- 
+2.27.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
