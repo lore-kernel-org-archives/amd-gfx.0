@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2B16C433E9
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F210C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E5CF64E29
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E5CF64E29
+	by mail.kernel.org (Postfix) with ESMTPS id 62B2164E3A
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Jan 2021 15:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62B2164E3A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D74636EB6D;
-	Fri, 29 Jan 2021 15:38:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 276776EB71;
+	Fri, 29 Jan 2021 15:38:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE6DC6EB68;
- Fri, 29 Jan 2021 15:37:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 73B4764E25;
- Fri, 29 Jan 2021 15:37:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1A2C6EB71;
+ Fri, 29 Jan 2021 15:38:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A881664E37;
+ Fri, 29 Jan 2021 15:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611934674;
- bh=D/tlQgjXAB4nMKA/FtiIDvM7nFaD0RUkXeM/gFAlG8E=;
+ s=k20201202; t=1611934705;
+ bh=3eSuLmnkEQxyn1kIi6VU+yURhO7h3WPw6ZW8154zkAM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d+17QieR2/Q9tNf/NGnLpg5qaNtYzyFjfbvAQ3XHSlRt6cGkz4yAAZsL+27hkFHy/
- FIuC/g8/gNsLhApaj5JDzfoYTPJ6sDTW2daRezfksRDMDrnN8RIJob0L0Ce3CUVQzv
- FlCaMf58IfY3Re468rdUgMV+IkdUyLxwbBv3SI99OgZlLCqoDmOPxSjhlf2DlinQGS
- Hqi+i5DoBW/G1FtdHIgWD3lTDAt4OaA7KjH14ngK9VS7NIUELAvKnXHDGS9Fd8+wGB
- yF+oc2ceGnIeu0AKPS+yDWyzq5DTx2yRhCCxy9BaMKqSfo6VPROAw/pmOqaZqBB0Nb
- mpICxAdEu1v4A==
+ b=eNpqz07KVvIiBEAE0VLjn1KzG02Evsw6flX259gfJeDWFChg+2RncAxB2QErvRucj
+ DKDWzKwonOPL/nInBSqlZpX3LCetsguXBZ1uyWvKchBh0MsTpWCYcT8WDYTHs69NJG
+ t4k8XW3N10LARWAxkqQ6qph14DvrKZZ0QtZqILdGHcOiBOLkyklx+M3C/JF9AVvNA0
+ W8Y7ZPM7RzHrrqwzTg/8DF50h5ypyfPm/1w/t6/g6kTcjp4NOLRwepTe7FywL1EWq0
+ NmnakiFA/kpskZe3LIPHtYy8Eu/cjUjAlsnNqFY9rh6Vc2I5ft87BdQ1GVRNBvXOM+
+ 8K3covm0tnWAA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 32/41] drm/amd/display: Use hardware sequencer
- functions for PG control
-Date: Fri, 29 Jan 2021 10:37:03 -0500
-Message-Id: <20210129153713.1592185-32-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 15/19] drm/amd/display: Update
+ dram_clock_change_latency for DCN2.1
+Date: Fri, 29 Jan 2021 10:38:02 -0500
+Message-Id: <20210129153806.1592565-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210129153713.1592185-1-sashal@kernel.org>
-References: <20210129153713.1592185-1-sashal@kernel.org>
+In-Reply-To: <20210129153806.1592565-1-sashal@kernel.org>
+References: <20210129153806.1592565-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -59,91 +59,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Eric Yang <eric.yang2@amd.com>,
- Anson Jacob <anson.jacob@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
+ Jake Wang <haonan.wang2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Tony Cheng <Tony.Cheng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Jake Wang <haonan.wang2@amd.com>
 
-[ Upstream commit c74f865f14318217350aa33363577cb95b06eb82 ]
+[ Upstream commit 901c1ec05ef277ce9d43cb806a225b28b3efe89a ]
 
-[Why & How]
-These can differ per ASIC or not be present. Don't call the dcn20 ones
-directly but rather the ones defined by the ASIC init table.
+[WHY]
+dram clock change latencies get updated using ddr4 latency table, but
+does that update does not happen before validation. This value
+should not be the default and should be number received from
+df for better mode support.
+This may cause a PState hang on high refresh panels with short vblanks
+such as on 1080p 360hz or 300hz panels.
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Anson Jacob <anson.jacob@amd.com>
+[HOW]
+Update latency from 23.84 to 11.72.
+
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 18 ++++++++++++++----
- .../gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  9 +++++++--
- 2 files changed, 21 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index d0f3bf953d027..0d1e7b56fb395 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -646,8 +646,13 @@ static void power_on_plane(
- 	if (REG(DC_IP_REQUEST_CNTL)) {
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 1);
--		hws->funcs.dpp_pg_control(hws, plane_id, true);
--		hws->funcs.hubp_pg_control(hws, plane_id, true);
-+
-+		if (hws->funcs.dpp_pg_control)
-+			hws->funcs.dpp_pg_control(hws, plane_id, true);
-+
-+		if (hws->funcs.hubp_pg_control)
-+			hws->funcs.hubp_pg_control(hws, plane_id, true);
-+
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 0);
- 		DC_LOG_DEBUG(
-@@ -1079,8 +1084,13 @@ void dcn10_plane_atomic_power_down(struct dc *dc,
- 	if (REG(DC_IP_REQUEST_CNTL)) {
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 1);
--		hws->funcs.dpp_pg_control(hws, dpp->inst, false);
--		hws->funcs.hubp_pg_control(hws, hubp->inst, false);
-+
-+		if (hws->funcs.dpp_pg_control)
-+			hws->funcs.dpp_pg_control(hws, dpp->inst, false);
-+
-+		if (hws->funcs.hubp_pg_control)
-+			hws->funcs.hubp_pg_control(hws, hubp->inst, false);
-+
- 		dpp->funcs->dpp_reset(dpp);
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 0);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 01530e686f437..f1e9b3b06b924 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1069,8 +1069,13 @@ static void dcn20_power_on_plane(
- 	if (REG(DC_IP_REQUEST_CNTL)) {
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 1);
--		dcn20_dpp_pg_control(hws, pipe_ctx->plane_res.dpp->inst, true);
--		dcn20_hubp_pg_control(hws, pipe_ctx->plane_res.hubp->inst, true);
-+
-+		if (hws->funcs.dpp_pg_control)
-+			hws->funcs.dpp_pg_control(hws, pipe_ctx->plane_res.dpp->inst, true);
-+
-+		if (hws->funcs.hubp_pg_control)
-+			hws->funcs.hubp_pg_control(hws, pipe_ctx->plane_res.hubp->inst, true);
-+
- 		REG_SET(DC_IP_REQUEST_CNTL, 0,
- 				IP_REQUEST_EN, 0);
- 		DC_LOG_DEBUG(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index bb7add5ea2273..a6d5beada6634 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -257,7 +257,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
+ 	.num_banks = 8,
+ 	.num_chans = 4,
+ 	.vmm_page_size_bytes = 4096,
+-	.dram_clock_change_latency_us = 23.84,
++	.dram_clock_change_latency_us = 11.72,
+ 	.return_bus_width_bytes = 64,
+ 	.dispclk_dppclk_vco_speed_mhz = 3600,
+ 	.xfc_bus_transport_time_us = 4,
 -- 
 2.27.0
 
