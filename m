@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9626FC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2817C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 543CA61481
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 543CA61481
+	by mail.kernel.org (Postfix) with ESMTPS id 8E5AB64DFA
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E5AB64DFA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE856E7D5;
-	Mon,  1 Feb 2021 14:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC7F6E7D2;
+	Mon,  1 Feb 2021 14:38:20 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD3C6E7D3
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 14:38:17 +0000 (UTC)
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B53E76E7D2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 14:38:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CtwCqdm1ARGt2lALTgpR1YH0VwgJ4bNdDWlvLAV7MXjF6FrCFV/tqw1Kdqqb3Ta2aXO1oJIQZsMY7w6nsRsQ6RWrCmP2eJJulUuqW6s98J0rX7r4AVWz0TCS+M41VeMJ6IDLhKCf8QQqX7LE5p6CU8NrpPDW4bjIxjYBNYDqsO2oPCcR+QsnAXm/5PMXhhByVwWPBjbsL3pIzVIOf/Me2w0hvUIAIF7oHmBsyMxbkFPmKhNWDPBQwGJ17IDWAzWkPKBPr9OWIU/F+JtRIrtiTMTYohC/2kx4NfrxnBLHztTVHFJ/RU9ugU8kAqVYo1FeZ488t74T9Cb+Fp65l1wx7A==
+ b=VgzcqVf2D1IG0XsON3tu1kmY9ijd2pD8TIHGUhoFBmv901/UKBv20T63Su4MyEThWlc0hJxVlN7sMPB9soH7SyCUtKtG2JBKvf+RureeV6Ivaa/dV+/pwsjrbBbHj9GkSO7U3sk7qB4P9DlyWnRlUUDjFl58kQ4HmIJsdYevijhivpLLpT4z8MlkCjLOoHH+5Xz1ZEXRsGWTF8qxW6zctIj18fDLVTxbQ++0o8TwhPfXBPFH14wd/uf5OIXqWKZ64+hzRrMNIqgFKeIM/Zbc6X/rXr/7EXhukZ/OD4+BP3lUQM7yjOJ0yjq9FpHiLebCqxj87QJGjxmz1wAm3TL6Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lvgBDXTRkx/T+hOREm32AW4HVDOF7hZ92APH9bfTpgo=;
- b=GVOqPHO8567U1ZpTOzz/VmcFPYoHdh0qd/Jh/k/ymrUxFXg3ux4Of/V9PNAm8n8kxjDw73I7yPIG8/ORwidVwbsffUTExMFAf4AAtdN4s2alSomtiLCre7KjStJBDRUBPVMMNkDJ9sLUjBWw16/iv9HiJaVnNZ0KD68Wecs7AUSnk39TQUlXA52N5bZ1edt7f1hE2XHkGD5c/QLG96i+Z9GGkn9nAiatm4UPBMDg6eJjsTUzLg9bkpGpGqLubLys/BDt5n86vm4fQQGZbVIuXP9le1ASf8P6Q2YQiSuKOGl6jwNVDaSUkUs+dkD9TrB5TdXPWtZ2gfuyZNHK9HuIXw==
+ bh=CFAN2a5t6msIFIISrskmiuC7vEfnPEt7UQskqL4ebL0=;
+ b=h1OU+lVH8WC1IBAyDi48AUn2R9COOSL+4qJeLG5jaQoLCNaoLo0G/5qtrCZEyzGWPLnAr2GwFRbd0vwVTc20K821FHAUrISIVCE6r5CvghCwfC/5yQIqK6sovUJtererxnxfajkqLCWndXAk/dXEhmnxDJis3xvMYVEN8a8YrUuN1Qt3Aulye09ORklO/p9vjevLKXEt2rjSlwCSKGM9HGAYEnQvs/dlCb17djwaWFW69fVSpv9Y+3m2V+lziE6h+9H1Yz1Eom7hVr5rmfOzTzqUgnweLFAKINuxgUmEZdAy/gPgksq8L2/HTwlZAOK0697W3gS8+By7AnswEPh0mA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lvgBDXTRkx/T+hOREm32AW4HVDOF7hZ92APH9bfTpgo=;
- b=ywddp1gQ4rG9Q0UkbrbRst214PH9n5/yLh9wP5G8SRLGIlEndpKaarvkLlv+zGHP/GgCg7tSPp5UtCZ8c0jbYtwGcXPSSMMRkgbLRX8kAd/GfiFQTgXdUUvYOtS1V093s7p5HlQSumbV5YvPBGXzfqjF/sW3buR9HPb5Dwo0ROg=
+ bh=CFAN2a5t6msIFIISrskmiuC7vEfnPEt7UQskqL4ebL0=;
+ b=gZSHM30D++lG0yHFtTzx2sTtYhNQfxcgIaEGQkNE+a1GyglmCBZgFSjLVIpZhL2wuQwzrQdSuqU3ax8E9EG/FXeu5bRrsv91w5qSLFok7JtyYeIExx7kPaeik+ShiNnt3I+8oDDdt/UsRgHfeZXrGo7IzjWYu+1GzcQAO30mdIU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,17 @@ Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
  by DM5PR12MB2373.namprd12.prod.outlook.com (2603:10b6:4:b1::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.20; Mon, 1 Feb
- 2021 14:38:16 +0000
+ 2021 14:38:18 +0000
 Received: from DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::f872:3677:28c3:660b]) by DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::f872:3677:28c3:660b%5]) with mapi id 15.20.3805.027; Mon, 1 Feb 2021
- 14:38:16 +0000
+ 14:38:18 +0000
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/amdgpu: add wave limit functionality for gfx8,9
-Date: Mon,  1 Feb 2021 15:37:59 +0100
-Message-Id: <20210201143800.26908-3-nirmoy.das@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: enable gfx wave limiting for high priority
+ compute jobs
+Date: Mon,  1 Feb 2021 15:38:00 +0100
+Message-Id: <20210201143800.26908-4-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210201143800.26908-1-nirmoy.das@amd.com>
 References: <20210201143800.26908-1-nirmoy.das@amd.com>
@@ -67,49 +68,49 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from brihaspati.fritz.box (93.229.32.223) by
  AM0PR04CA0144.eurprd04.prod.outlook.com (2603:10a6:208:55::49) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3805.16 via Frontend Transport; Mon, 1 Feb 2021 14:38:14 +0000
+ 15.20.3805.16 via Frontend Transport; Mon, 1 Feb 2021 14:38:17 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cff2e5a0-26d8-454c-01dd-08d8c6bf02d1
+X-MS-Office365-Filtering-Correlation-Id: 32d2fc18-93a9-480d-cfb8-08d8c6bf0420
 X-MS-TrafficTypeDiagnostic: DM5PR12MB2373:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB237334FBD98597098A47BB388BB69@DM5PR12MB2373.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB237388BC66A687AE4FBB81728BB69@DM5PR12MB2373.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:208;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QqicbHigeOounDRK3p+4M2iaUPhg6PEDSLLd/TxkRCeoqtsivBmmVZQNCTVplrfKcShSBL3vpjt+0rMF+eI3I56y1LSDYgrj+1WAmPXP6rzshvSltbt30bHQCzHXhUC5JbFDxRAE5h90+5NSDeDjpiBVJe2f66trWtBz5lqkYB42IDNzwd07UWZw7gPC+uoe9aedpS/g2a/h4VVLzFOpkH6uhA0X56m4QYXmu/A2q+IdRbFO7ltU2WFeM6miWLyF+RdEqxP6B+BkdNSu49+TS4useutVoyazXMDhLFV6iD7zq9tdRiUKgxqCi7mmlciuVAEo1DNjxguGnTymTlg7VK7cUgvLj6MaiO2LMwhPnqVTFdY2UJ72qoMeWj0ThWDK1+w4NamIvacwj5Iq8QYyfBPTuorKrIdZr9m0Q7Vj6W60cZpE40qEq6GvoeBW4QEUxTuN92tox2pl1bwhRgQcsKHuHS/KU8MY/0lW8iePyJH1Lx5HGIPFiRVxQ/iiPSGzQADFEZuBFebLYBJ2WPMcIQ==
+X-Microsoft-Antispam-Message-Info: 9roFG8ugqmlxj/XaPOphaA8F3eRpiRsQ4VdPH6mOovw9BJcrRDFkwWGWisREhaFvHV2OrjB2E945mOQRIPygorq3Xau0bRF9XRZLdVUIbl/WK2H1wPTvOYHOHrOaVR/nv5McnqlZ5Anef+vSQfiJOdKw697ky+madYyAJgU38QZibXUf8G4EIvr0C+0sbvmBuBLHvUMOU8m/LEQic+/VBMsWECDfPd/4mp7LfdE3WerSRf4j9fw71QWMTGdunzGAvB+2YLWljuNRXdg9r6jp9pbqRUIw3mazMGWlhnf41HiTQn2yE3AmY6FupfsXnFgiJC+vLr/L90AvWT6rlxxhh0cb7PUiwiau59jlmbPhgCP7oT4TvLoustApObBgo74sb5zX0IAFgDQKDJW94JWvvQCr3i3sJgGDEuukvA9EXPZM9h2yQQyx3xi12zl/+iQrIPVGrfBDdXgCt/jUKy0lq5y0T3L4SqExV2kKFK9DA2QRXMY/ImX0rZvfNmIittBe5aUZi1MDPoxcjI5oARGJcA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(39860400002)(346002)(396003)(376002)(136003)(2616005)(6916009)(44832011)(6506007)(26005)(186003)(36756003)(316002)(52116002)(6486002)(956004)(6512007)(86362001)(6666004)(8936002)(2906002)(8676002)(66946007)(16526019)(66556008)(83380400001)(478600001)(4326008)(66476007)(5660300002)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?5krAvHiuVGpR/3qPWa+IP8kpYMu693vcxs/J+7OdK/9cb9/X5ZBT5BygaWox?=
- =?us-ascii?Q?C0fmtur1rprfnDfr/AQ2AH8vatIJzYEoUu3Ns5s9I8uRfDjdJOMgJzGLJRid?=
- =?us-ascii?Q?kFRPUz1yoj8CuVlEmwRDqSbk0t1ig3D5cuEgcxdniCl47A39vAU2xLFESmqZ?=
- =?us-ascii?Q?H1NOmtpstUoDzr4aI6o8PZQAOid/G2x8UeEW79nKtcTeicyFX2+sHjROjrqa?=
- =?us-ascii?Q?6M3dJ3rWeTZ7GsaqwmEL4JMvzOR8fcG2HAedvTMIz3kqKK5qrBc0WCGp7WfV?=
- =?us-ascii?Q?IJr64Ox2vCdK4EsKQwpHxGLxYcU9Dmwuy6/ZsMpdNT+CVdUqGUgrdWhSARW6?=
- =?us-ascii?Q?HB4NMUMGPUxXqp+c4HzYOzduND57Mu/87lYhK8B9a476JQw1YZxNV43EBO35?=
- =?us-ascii?Q?4U/cNB/bsB4vVpazbOeNXfk+yL6AiBms1yM8J65nkUIRfkXBGQKf2HzMugfp?=
- =?us-ascii?Q?UaINz+Bz7X4l671tw4K+f0OB5M+m/R87s0NBZi6I7g8kfi8mDhLiRuliO3eQ?=
- =?us-ascii?Q?xCZ7IvEVkrGCHEr/WuBO2pU9l9sU6xItk82IqFyLM7t823Lq+5YS6qTIl4Wj?=
- =?us-ascii?Q?T0zN4yIbyDU30KYp2/8sQT2sFctBhbenVThU47Ty8Dp2u00QvNOstQIcuOG3?=
- =?us-ascii?Q?EgAlsB9t+Cx5Z43tsvVxY1ZPsb3ubVxp4evkTOKDG7j5d4lLmpoKW/jyKGQ5?=
- =?us-ascii?Q?gjs+MwFw73Wpi7y6fiqmep2SaUYEmSn0AxVB3nzLbdifSgC/wVMVtIMHUaRF?=
- =?us-ascii?Q?8OdsIHRqoxBQ1e/OxSOXnQ3U7YqkmeQSPb+OA0NlO1cSNX1nPt4ZDpfGAiL0?=
- =?us-ascii?Q?XsiX//n/vP1aZkYGLHxBch0di3EB/wEo0utDfbmnHOnja2Y7FPSkSWHFsaBI?=
- =?us-ascii?Q?Y1ajflLden7IXKi/C6evd9aFog13t8cITqJ6APKNHy3DxWnQ4oxIkU+zK1ue?=
- =?us-ascii?Q?FmRP3PQ5pGk0ET+OAf3uWidxhK8yAnT/KWu6mdpKjUQaLmS4sjcQK35WIblT?=
- =?us-ascii?Q?eJlJ/lpskcVibFERxEP+u6h0qU3aOcvIG+Q8pxCndNvXhKTpAFRYH6gE8Sur?=
- =?us-ascii?Q?oLfZjDhR?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?omTXp8MyzvuQsJQ1NCbFF0naod0tx/1hIfqO9hZJcR5XwBw0RoEv/aHKtvhQ?=
+ =?us-ascii?Q?e27HwWGsbTQEHFvgiNFHs52lmYVF37Ux335HUCZsLsmJNVIs0sDDJaQVGcSy?=
+ =?us-ascii?Q?gembWPCMf9I/bIhe7toKF2mgAxZhdomC5yAz/b+KQVLb/VmjCzw5L7ULOCSK?=
+ =?us-ascii?Q?UkzRiN+5/3+tiwdmH+iRqbQg1zDIaZ5y4RxUqVFBIGEeoZpkuaGV6BLiWbBu?=
+ =?us-ascii?Q?SormQbNsslbMR6p5O6sVEzptwe2xGyq4Dur5rR2Dib8AJfGFK9DovEebFVSW?=
+ =?us-ascii?Q?lXuBxB0xoXX3208Z1EidqZMVGXmLNPU2vagK6vScMXp9HDxYiKQOp++LExgT?=
+ =?us-ascii?Q?TtSxH0LbIpDICmEUQZ29FgTohASQzJVDmQPayiXQKiXgUwYVNoD4UenDZKkJ?=
+ =?us-ascii?Q?U4PsH2mZgTsR2Y9u2kaoc9hCV4wAvS5VENhsA4nUJxfv3fDYPA2XDkrgV0bW?=
+ =?us-ascii?Q?Jb+lC7brTWf3PGHwO1z4XOZtuS7mCK7qyKV/ulBuMdAfpUVuuAHWH1mHcGKg?=
+ =?us-ascii?Q?nMRZOoKrtJ6dCzU7HM7qJLbwJWTxT9OTLNSK3luN2iCPmohQNzUTky7aDGdx?=
+ =?us-ascii?Q?uSbdxy2W3rPR177bOyRVH2IK5S2AFXR4lEK96yeIS/NcAJL4joKPidgYnoS4?=
+ =?us-ascii?Q?X5nMLSFKYdO9q30EB1AM5DZhzf5ciKPu1sUkP51hsPIlYuAwXywvLdTUby+w?=
+ =?us-ascii?Q?aDlzcdL2ipWerdTytBg48AguQWW2PfC3ZoX2zCnLTULvNEkUyeJdC9i6451t?=
+ =?us-ascii?Q?zVJV2IRnV1lQSGprhMjNnavt2W6wK5IgUFrb4K2EqK9CN1lsS3RNbMjhnHdh?=
+ =?us-ascii?Q?jXSeTpO8pmnmdxl3LAiqiyFj2UdM5AzGcMXdlYQkKpKmfIrOd4Pvv8tj404j?=
+ =?us-ascii?Q?bL7uf/ICBFJIx3meBEZZeb8V3Xa5PgVMVwUiaqA7Yf70O0BKngCoqKd5Br+n?=
+ =?us-ascii?Q?8yfd0jqgTpG5J76OlRBDm/vHJX3t1dqzNUZPEP3UNQqdtTGZGyAlgIE++iAc?=
+ =?us-ascii?Q?F9uchsv2tyO0M07O2GsA7rnEE5VAqHoZqN6TIavcWu7qKylv/uFd489AUwk5?=
+ =?us-ascii?Q?LWMP66oa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cff2e5a0-26d8-454c-01dd-08d8c6bf02d1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32d2fc18-93a9-480d-cfb8-08d8c6bf0420
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2021 14:38:16.3219 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2021 14:38:18.6435 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bEfVyvDliuLctX6aIVDSQfau6V6+CE9xJmwg1Beo4AxZ2hmM2ZqqImqc7DX42fEfAHVXpA4oFYhp6kUQoPSFPA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: oJe0E4s/9mCYHZgT+j7tcywwGXxiHhZ+nwnlUVc4kSTX6lNwK3GUedybtidtCr7A7QHYtI9PF20OkXxynLAV1w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,132 +131,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Wave limiting can be use to load balance high priority
-compute jobs along with gfx jobs. When enabled, this will reserve
-~75% of waves for compute jobs.
+Enable gfx wave limiting for gfx jobs before pushing high priority
+compute jobs so that high priority compute jobs gets more resources
+to finish early.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 18 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 21 ++++++++++++++++++++-
- 3 files changed, 38 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 7112137689db..220eec886f23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -197,6 +197,7 @@ struct amdgpu_ring_funcs {
- 	void (*soft_recovery)(struct amdgpu_ring *ring, unsigned vmid);
- 	int (*preempt_ib)(struct amdgpu_ring *ring);
- 	void (*emit_mem_sync)(struct amdgpu_ring *ring);
-+	void (*emit_wave_limit)(struct amdgpu_ring *ring, bool enable);
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 024d0a563a65..5360c759d9aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -195,6 +195,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	if ((ib->flags & AMDGPU_IB_FLAG_EMIT_MEM_SYNC) && ring->funcs->emit_mem_sync)
+ 		ring->funcs->emit_mem_sync(ring);
  
- struct amdgpu_ring {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index b0284c4659ba..bdfd29a22b3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -29,6 +29,7 @@
++	if (ring->funcs->emit_wave_limit &&
++	    ring->priority == DRM_SCHED_PRIORITY_HIGH)
++		ring->funcs->emit_wave_limit(ring, true);
++
+ 	if (ring->funcs->insert_start)
+ 		ring->funcs->insert_start(ring);
  
- #include "amdgpu.h"
- #include "amdgpu_gfx.h"
-+#include "amdgpu_ring.h"
- #include "vi.h"
- #include "vi_structs.h"
- #include "vid.h"
-@@ -6845,6 +6846,19 @@ static void gfx_v8_0_emit_mem_sync_compute(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, 0x0000000A);	/* poll interval */
+@@ -295,6 +299,11 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	ring->current_ctx = fence_ctx;
+ 	if (vm && ring->funcs->emit_switch_buffer)
+ 		amdgpu_ring_emit_switch_buffer(ring);
++
++	if (ring->funcs->emit_wave_limit &&
++	    ring->priority == DRM_SCHED_PRIORITY_HIGH)
++		ring->funcs->emit_wave_limit(ring, false);
++
+ 	amdgpu_ring_commit(ring);
+ 	return 0;
  }
- 
-+#define mmSPI_WCL_PIPE_PERCENT_GFX_DEFAULT	0x07ffffff
-+static void gfx_v8_0_emit_wave_limit(struct amdgpu_ring *ring, bool enable)
-+{
-+	uint32_t val;
-+
-+	/* mmSPI_WCL_PIPE_PERCENT_GFX is 7 bit multiplier register to limit
-+	 * number of gfx waves. Setting 5 bit will make sure gfx only gets
-+	 * around 25% of gpu resources.
-+	 */
-+	val = enable ? 0x1f : mmSPI_WCL_PIPE_PERCENT_GFX_DEFAULT;
-+	amdgpu_ring_emit_wreg(ring, mmSPI_WCL_PIPE_PERCENT_GFX, val);
-+}
-+
- static const struct amd_ip_funcs gfx_v8_0_ip_funcs = {
- 	.name = "gfx_v8_0",
- 	.early_init = gfx_v8_0_early_init,
-@@ -6928,7 +6942,8 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
- 		7 + /* gfx_v8_0_ring_emit_pipeline_sync */
- 		VI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /* gfx_v8_0_ring_emit_vm_flush */
- 		7 + 7 + 7 + /* gfx_v8_0_ring_emit_fence_compute x3 for user fence, vm fence */
--		7, /* gfx_v8_0_emit_mem_sync_compute */
-+		7 + /* gfx_v8_0_emit_mem_sync_compute */
-+		5, /* gfx_v8_0_emit_wave_limit for updating mmSPI_WCL_PIPE_PERCENT_GFX register */
- 	.emit_ib_size =	7, /* gfx_v8_0_ring_emit_ib_compute */
- 	.emit_ib = gfx_v8_0_ring_emit_ib_compute,
- 	.emit_fence = gfx_v8_0_ring_emit_fence_compute,
-@@ -6942,6 +6957,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
- 	.emit_mem_sync = gfx_v8_0_emit_mem_sync_compute,
-+	.emit_wave_limit = gfx_v8_0_emit_wave_limit,
- };
- 
- static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_kiq = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7b13f9dd965a..027997e95e46 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -52,6 +52,7 @@
- 
- #include "asic_reg/pwr/pwr_10_0_offset.h"
- #include "asic_reg/pwr/pwr_10_0_sh_mask.h"
-+#include "asic_reg/gc/gc_9_0_default.h"
- 
- #define GFX9_NUM_GFX_RINGS     1
- #define GFX9_MEC_HPD_SIZE 4096
-@@ -6667,6 +6668,22 @@ static void gfx_v9_0_emit_mem_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, 0x0000000A); /* POLL_INTERVAL */
- }
- 
-+static void gfx_v9_0_emit_wave_limit(struct amdgpu_ring *ring, bool enable)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	uint32_t val;
-+
-+
-+	/* mmSPI_WCL_PIPE_PERCENT_GFX is 7 bit multiplier register to limit
-+	 * number of gfx waves. Setting 5 bit will make sure gfx only gets
-+	 * around 25% of gpu resources.
-+	 */
-+	val = enable ? 0x1f : mmSPI_WCL_PIPE_PERCENT_GFX_DEFAULT;
-+	amdgpu_ring_emit_wreg(ring,
-+			      SOC15_REG_OFFSET(GC, 0, mmSPI_WCL_PIPE_PERCENT_GFX),
-+			      val);
-+}
-+
- static const struct amd_ip_funcs gfx_v9_0_ip_funcs = {
- 	.name = "gfx_v9_0",
- 	.early_init = gfx_v9_0_early_init,
-@@ -6756,7 +6773,8 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
- 		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
- 		2 + /* gfx_v9_0_ring_emit_vm_flush */
- 		8 + 8 + 8 + /* gfx_v9_0_ring_emit_fence x3 for user fence, vm fence */
--		7, /* gfx_v9_0_emit_mem_sync */
-+		7 + /* gfx_v9_0_emit_mem_sync */
-+		5, /* gfx_v9_0_emit_wave_limit for updating mmSPI_WCL_PIPE_PERCENT_GFX register */
- 	.emit_ib_size =	7, /* gfx_v9_0_ring_emit_ib_compute */
- 	.emit_ib = gfx_v9_0_ring_emit_ib_compute,
- 	.emit_fence = gfx_v9_0_ring_emit_fence,
-@@ -6772,6 +6790,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
- 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
- 	.emit_mem_sync = gfx_v9_0_emit_mem_sync,
-+	.emit_wave_limit = gfx_v9_0_emit_wave_limit,
- };
- 
- static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
 -- 
 2.30.0
 
