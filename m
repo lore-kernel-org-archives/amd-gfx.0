@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D1F1C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13B27C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:56:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CED660234
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CED660234
+	by mail.kernel.org (Postfix) with ESMTPS id A0D6060234
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:56:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0D6060234
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 907896E84F;
-	Mon,  1 Feb 2021 16:56:17 +0000 (UTC)
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B973C6E84E
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 16:56:16 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id k193so16884019qke.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Feb 2021 08:56:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20E536E850;
+	Mon,  1 Feb 2021 16:56:18 +0000 (UTC)
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [IPv6:2607:f8b0:4864:20::72f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9846E84F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 16:56:17 +0000 (UTC)
+Received: by mail-qk1-x72f.google.com with SMTP id a7so16854220qkb.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Feb 2021 08:56:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=XQRaESDjB1cZsn7fhU9n9TLLN24WJqMw1q9m06faaXU=;
- b=LltcgI0S6+pY8q9d8fowIeza0ncAfQ1fAX7z7rgAAlyfvcrMQOX6M9vhOn8ByKf4qs
- x8NhKaDoDYnKF+AHIG3eIvHeVMtN4xHkv5TXuW78onP1Y1lvmLUQ/hx9zJyuQAf7Rpe0
- cmrmWp8lOXO7wVaeas1M2LVclxEhgpXGeJfLzyERaEADajqpBWgyPSlm7ooMrA3ePjIx
- GCWIclPt204FNH2Mb3nK1296qqAvcnXRYnV0R1kHB8cbgw52AKtetmg2mQ55Naa3o20V
- Z+mlCBBR44I3Xw/n5Mbp5avbb2qINbyB5J7Xd2PgUJFz6p8EYIEqNEu+Yf0wUEReM7D8
- fhMw==
+ bh=szLtBxA82rf8gRpC8JXx2vFQfvEGxG6EktmUTDT8+gU=;
+ b=KNS0X0454hqGKxKwozWTgsevlN5T8v7uzlNcUQDzbcPpS+urJWYqxVYbxaB6XmSuOi
+ 9aLebcWLqPqqv2mG/xubKtrUeJ3EuteUnxc+xPLirVDSyDTuALjDggFG4lEFZud8lz+v
+ EUVsINkECfTR6xJaiKGPE2JOFb1E+mtX/92yE45cNrJORqdIeU5eptjWodcT3oro4xPm
+ 7FOtW3XvrctGjRZDP4+ay+wr1379QHcdfFwDpaO/vVe5+fRGBi8/VkrszbjVJ6yzSfce
+ HzTm4n48Rs49YXdkBblyNwI/9jWjOSvNrlfMY9uf1ekYyhkPhczYH23u2wzuuJNwx6H4
+ HGvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=XQRaESDjB1cZsn7fhU9n9TLLN24WJqMw1q9m06faaXU=;
- b=W6iiXJIh/VWegJT2x3gSGAesK8zqWCt/+4TGk+Jg2uNiORHsWF8x/hpqYC3vMWIeAD
- uQJkpXQHUsKglSnf0KhLcFMrJnyzSgT0hYqBeSY33sJXVjs0tR1HftoSsdP50vhTkD34
- C4RMAw21nZPyg/mMp9CMn5CV+SLM/CSjyaEmOKptj9e7nz66fN46U/l1l3KtPQyDbJ9M
- bFKqKtwWaHCXEJkIdfo7gqxMt5oPgzwrqGvuMRnghjPc+cxV6j9amsTpNrK/Q97k5450
- ycbT6Bdon1w7vzQBcsbvHq1gAMB/Az93TROmCmMKof04QccBKzz9K9lncs17k0kRmq9S
- WLKA==
-X-Gm-Message-State: AOAM530qZg0+UpoH4Qn+QDCEzJX46st4vLVoNZNf79Vhp6q5eErT1+Ex
- ITjSLoPOHD9gSFD5a80OgEWZc7WxBRg=
-X-Google-Smtp-Source: ABdhPJwKXdQNnzOHwm6MLa3kvobYcqYi0UnARlsgt5N/+iywQYb3GH837TlwXBTGT9532xCEkiZ8SA==
-X-Received: by 2002:a37:9dcf:: with SMTP id
- g198mr17180350qke.486.1612198575366; 
- Mon, 01 Feb 2021 08:56:15 -0800 (PST)
+ bh=szLtBxA82rf8gRpC8JXx2vFQfvEGxG6EktmUTDT8+gU=;
+ b=lI1UXwEy51NWD0fEhbHMp/UQIWPxf8o5X1GitH0ux1tJiU/4hyHLB/5pH5n5zNNoOk
+ M91D2YCNlD3KCZJKz/oX+SDflD1grJ8dCmGWyiyNdau166rt4jdgb9OH4oCO9dQ49JZX
+ yYO+HHdnIEb0n21EXYK9aO2sO22qGjtRFE1byx/1jKDl2Mn1PhWcaFuj0pU2JZZ1D0nA
+ 2bQujjYjADIqdS1ii53eoPJw1hy23czo/5h8cd0ACqeVbJdwKauU68pVKLI1zZzFc0SQ
+ US2785/BKwx2idrV8y2+HLY7LX835OUeo34+6nuJy3vNy7z5cvGmZ5tTgSNDIaUoAdtz
+ t9nA==
+X-Gm-Message-State: AOAM531iHAtAMKSKiWcLaQyAoDfMme1buFCF7jpgmLb/5awQM96mvOnM
+ 6aQ60H4W9Obx2pu83gaRWMiXpGejIY4=
+X-Google-Smtp-Source: ABdhPJxuownBwCojeu+uxuR+KmcDOqebdzgMGbvZ6qtC2mb7i8irIQvcm9mRUc+JNldP0Op3auIkWA==
+X-Received: by 2002:a05:620a:cf5:: with SMTP id
+ c21mr17244370qkj.207.1612198576128; 
+ Mon, 01 Feb 2021 08:56:16 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id v145sm15022479qka.27.2021.02.01.08.56.14
+ by smtp.gmail.com with ESMTPSA id v145sm15022479qka.27.2021.02.01.08.56.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Feb 2021 08:56:14 -0800 (PST)
+ Mon, 01 Feb 2021 08:56:15 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/amdgpu: add video decode/encode cap tables and asic
- callbacks (v2)
-Date: Mon,  1 Feb 2021 11:56:03 -0500
-Message-Id: <20210201165605.465228-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: add INFO ioctl support for querying video
+ caps (v3)
+Date: Mon,  1 Feb 2021 11:56:04 -0500
+Message-Id: <20210201165605.465228-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210201165605.465228-1-alexander.deucher@amd.com>
 References: <20210201165605.465228-1-alexander.deucher@amd.com>
@@ -86,899 +86,154 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For each asic family.  Will be used to populate tables
-for the new INFO ioctl query.
+We currently hardcode these in mesa, but querying them from
+the kernel makes more sense since there may be board specific
+limitations that the kernel driver is better suited to
+determining.
 
-v2: add max_pixels_per_frame to handle the portrait case
+Userpace patches that use this interface:
+https://gitlab.freedesktop.org/leoliu/drm/-/commits/info_video_caps
+https://gitlab.freedesktop.org/leoliu/mesa/-/commits/info_video_caps
 
-Reviewed-by: Leo Liu <leo.liu@amd.com> (v1)
+v2: reorder the codecs to better align with mesa
+v3: add max_pixels_per_frame to handle the portrait case, squash in
+    memory leak fix
+
+Reviewed-by: Leo Liu <leo.liu@amd.com> (v2)
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik.c   |  75 ++++++++++
- drivers/gpu/drm/amd/amdgpu/nv.c    | 179 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/si.c    | 109 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/soc15.c | 230 +++++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/vi.c    | 188 +++++++++++++++++++++++
- 5 files changed, 781 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 58 +++++++++++++++++++++++++
+ include/uapi/drm/amdgpu_drm.h           | 34 +++++++++++++++
+ 2 files changed, 92 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index 13737b317f7c..12ed86deaa84 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -70,6 +70,80 @@
- #include "amdgpu_amdkfd.h"
- #include "dce_virtual.h"
- 
-+static const struct amdgpu_video_codec_info cik_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 0,
-+	},
-+};
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 3c37cf1ae8b7..390362beda0e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -983,6 +983,64 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 				min_t(u64, size, sizeof(ras_mask))) ?
+ 			-EFAULT : 0;
+ 	}
++	case AMDGPU_INFO_VIDEO_CAPS: {
++		const struct amdgpu_video_codecs *codecs;
++		struct drm_amdgpu_info_video_caps *caps;
++		int r;
 +
-+static const struct amdgpu_video_codecs cik_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(cik_video_codecs_encode_array),
-+	.codec_array = cik_video_codecs_encode_array,
-+};
++		switch (info->video_cap.type) {
++		case AMDGPU_INFO_VIDEO_CAPS_DECODE:
++			r = amdgpu_asic_query_video_codecs(adev, false, &codecs);
++			if (r)
++				return -EINVAL;
++			break;
++		case AMDGPU_INFO_VIDEO_CAPS_ENCODE:
++			r = amdgpu_asic_query_video_codecs(adev, true, &codecs);
++			if (r)
++				return -EINVAL;
++			break;
++			break;
++		default:
++			DRM_DEBUG_KMS("Invalid request %d\n",
++				      info->video_cap.type);
++			return -EINVAL;
++		}
 +
-+static const struct amdgpu_video_codec_info cik_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 41,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 4,
-+	},
-+};
++		caps = kzalloc(sizeof(*caps), GFP_KERNEL);
++		if (!caps)
++			return -ENOMEM;
 +
-+static const struct amdgpu_video_codecs cik_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(cik_video_codecs_decode_array),
-+	.codec_array = cik_video_codecs_decode_array,
-+};
++		for (i = 0; i < codecs->codec_count; i++) {
++			int idx = codecs->codec_array[i].codec_type;
 +
-+static int cik_query_video_codecs(struct amdgpu_device *adev, bool encode,
-+				  const struct amdgpu_video_codecs **codecs)
-+{
-+	switch (adev->asic_type) {
-+	case CHIP_BONAIRE:
-+	case CHIP_HAWAII:
-+	case CHIP_KAVERI:
-+	case CHIP_KABINI:
-+	case CHIP_MULLINS:
-+		if (encode)
-+			*codecs = &cik_video_codecs_encode;
-+		else
-+			*codecs = &cik_video_codecs_decode;
-+		return 0;
-+	default:
-+		return -EINVAL;
++			switch (idx) {
++			case AMDGPU_VIDEO_CODEC_TYPE_MPEG2:
++			case AMDGPU_VIDEO_CODEC_TYPE_MPEG4:
++			case AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC:
++			case AMDGPU_VIDEO_CODEC_TYPE_VC1:
++			case AMDGPU_VIDEO_CODEC_TYPE_HEVC:
++			case AMDGPU_VIDEO_CODEC_TYPE_JPEG:
++			case AMDGPU_VIDEO_CODEC_TYPE_VP9:
++			case AMDGPU_VIDEO_CODEC_TYPE_AV1:
++				caps->codec_info[idx].valid = 1;
++				caps->codec_info[idx].max_width =
++					codecs->codec_array[i].max_width;
++				caps->codec_info[idx].max_height =
++					codecs->codec_array[i].max_height;
++				caps->codec_info[idx].max_pixels_per_frame =
++					codecs->codec_array[i].max_pixels_per_frame;
++				caps->codec_info[idx].max_level =
++					codecs->codec_array[i].max_level;
++				break;
++			default:
++				break;
++			}
++		}
++		r = copy_to_user(out, caps,
++				 min((size_t)size, sizeof(*caps))) ? -EFAULT : 0;
++		kfree(caps);
++		return r;
 +	}
-+}
+ 	default:
+ 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+ 		return -EINVAL;
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 7fb9c09ee93f..728566542f8a 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -782,6 +782,12 @@ struct drm_amdgpu_cs_chunk_data {
+ #define AMDGPU_INFO_VRAM_LOST_COUNTER		0x1F
+ /* query ras mask of enabled features*/
+ #define AMDGPU_INFO_RAS_ENABLED_FEATURES	0x20
++/* query video encode/decode caps */
++#define AMDGPU_INFO_VIDEO_CAPS			0x21
++	/* Subquery id: Decode */
++	#define AMDGPU_INFO_VIDEO_CAPS_DECODE		0
++	/* Subquery id: Encode */
++	#define AMDGPU_INFO_VIDEO_CAPS_ENCODE		1
+ 
+ /* RAS MASK: UMC (VRAM) */
+ #define AMDGPU_INFO_RAS_ENABLED_UMC			(1 << 0)
+@@ -878,6 +884,10 @@ struct drm_amdgpu_info {
+ 		struct {
+ 			__u32 type;
+ 		} sensor_info;
++
++		struct {
++			__u32 type;
++		} video_cap;
+ 	};
+ };
+ 
+@@ -1074,6 +1084,30 @@ struct drm_amdgpu_info_vce_clock_table {
+ 	__u32 pad;
+ };
+ 
++/* query video encode/decode caps */
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2			0
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4			1
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1			2
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC		3
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC			4
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG			5
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9			6
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1			7
++#define AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT			8
++
++struct drm_amdgpu_info_video_codec_info {
++	__u32 valid;
++	__u32 max_width;
++	__u32 max_height;
++	__u32 max_pixels_per_frame;
++	__u32 max_level;
++	__u32 pad;
++};
++
++struct drm_amdgpu_info_video_caps {
++	struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT];
++};
 +
  /*
-  * Indirect registers accessor
+  * Supported GPU families
   */
-@@ -1944,6 +2018,7 @@ static const struct amdgpu_asic_funcs cik_asic_funcs =
- 	.get_pcie_replay_count = &cik_get_pcie_replay_count,
- 	.supports_baco = &cik_asic_supports_baco,
- 	.pre_asic_init = &cik_pre_asic_init,
-+	.query_video_codecs = &cik_query_video_codecs,
- };
- 
- static int cik_common_early_init(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 66279f0c6808..09341e85fbb0 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -64,6 +64,184 @@
- 
- static const struct amd_ip_funcs nv_common_ip_funcs;
- 
-+/* Navi */
-+static const struct amdgpu_video_codec_info nv_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs nv_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(nv_video_codecs_encode_array),
-+	.codec_array = nv_video_codecs_encode_array,
-+};
-+
-+/* Navi1x */
-+static const struct amdgpu_video_codec_info nv_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VP9,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs nv_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(nv_video_codecs_decode_array),
-+	.codec_array = nv_video_codecs_decode_array,
-+};
-+
-+/* Sienna Cichlid */
-+static const struct amdgpu_video_codec_info sc_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 8192 * 4352,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VP9,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 8192 * 4352,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_AV1,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 8192 * 4352,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs sc_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(sc_video_codecs_decode_array),
-+	.codec_array = sc_video_codecs_decode_array,
-+};
-+
-+static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
-+				 const struct amdgpu_video_codecs **codecs)
-+{
-+	switch (adev->asic_type) {
-+	case CHIP_SIENNA_CICHLID:
-+	case CHIP_NAVY_FLOUNDER:
-+	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_VANGOGH:
-+		if (encode)
-+			*codecs = &nv_video_codecs_encode;
-+		else
-+			*codecs = &sc_video_codecs_decode;
-+		return 0;
-+	case CHIP_NAVI10:
-+	case CHIP_NAVI14:
-+	case CHIP_NAVI12:
-+		if (encode)
-+			*codecs = &nv_video_codecs_encode;
-+		else
-+			*codecs = &nv_video_codecs_decode;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- /*
-  * Indirect registers accessor
-  */
-@@ -825,6 +1003,7 @@ static const struct amdgpu_asic_funcs nv_asic_funcs =
- 	.supports_baco = &nv_asic_supports_baco,
- 	.pre_asic_init = &nv_pre_asic_init,
- 	.update_umd_stable_pstate = &nv_update_umd_stable_pstate,
-+	.query_video_codecs = &nv_query_video_codecs,
- };
- 
- static int nv_common_early_init(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 3cf0589bfea5..da258ff75042 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -905,6 +905,114 @@ static const u32 hainan_mgcg_cgcg_init[] =
- 	0x3630, 0xfffffff0, 0x00000100,
- };
- 
-+/* XXX: update when we support VCE */
-+#if 0
-+/* tahiti, pitcarin, verde */
-+static const struct amdgpu_video_codec_info tahiti_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(tahiti_video_codecs_encode_array),
-+	.codec_array = tahiti_video_codecs_encode_array,
-+};
-+#else
-+static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
-+{
-+	.codec_count = 0,
-+	.codec_array = NULL,
-+};
-+#endif
-+/* oland and hainan don't support encode */
-+static const struct amdgpu_video_codecs hainan_video_codecs_encode =
-+{
-+	.codec_count = 0,
-+	.codec_array = NULL,
-+};
-+
-+/* tahiti, pitcarin, verde, oland */
-+static const struct amdgpu_video_codec_info tahiti_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 41,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 2048,
-+		.max_height = 1152,
-+		.max_pixels_per_frame = 2048 * 1152,
-+		.max_level = 4,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs tahiti_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(tahiti_video_codecs_decode_array),
-+	.codec_array = tahiti_video_codecs_decode_array,
-+};
-+
-+/* hainan doesn't support decode */
-+static const struct amdgpu_video_codecs hainan_video_codecs_decode =
-+{
-+	.codec_count = 0,
-+	.codec_array = NULL,
-+};
-+
-+static int si_query_video_codecs(struct amdgpu_device *adev, bool encode,
-+				 const struct amdgpu_video_codecs **codecs)
-+{
-+	switch (adev->asic_type) {
-+	case CHIP_VERDE:
-+	case CHIP_TAHITI:
-+	case CHIP_PITCAIRN:
-+		if (encode)
-+			*codecs = &tahiti_video_codecs_encode;
-+		else
-+			*codecs = &tahiti_video_codecs_decode;
-+		return 0;
-+	case CHIP_OLAND:
-+		if (encode)
-+			*codecs = &hainan_video_codecs_encode;
-+		else
-+			*codecs = &tahiti_video_codecs_decode;
-+		return 0;
-+	case CHIP_HAINAN:
-+		if (encode)
-+			*codecs = &hainan_video_codecs_encode;
-+		else
-+			*codecs = &hainan_video_codecs_decode;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static u32 si_pcie_rreg(struct amdgpu_device *adev, u32 reg)
- {
- 	unsigned long flags;
-@@ -1897,6 +2005,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
- 	.get_pcie_replay_count = &si_get_pcie_replay_count,
- 	.supports_baco = &si_asic_supports_baco,
- 	.pre_asic_init = &si_pre_asic_init,
-+	.query_video_codecs = &si_query_video_codecs,
- };
- 
- static uint32_t si_get_rev_id(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 2396be16c28e..a81fd7de72b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -83,6 +83,234 @@
- #define mmMP0_MISC_LIGHT_SLEEP_CTRL                                                             0x01ba
- #define mmMP0_MISC_LIGHT_SLEEP_CTRL_BASE_IDX                                                    0
- 
-+/* Vega, Raven, Arcturus */
-+static const struct amdgpu_video_codec_info vega_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs vega_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(vega_video_codecs_encode_array),
-+	.codec_array = vega_video_codecs_encode_array,
-+};
-+
-+/* Vega */
-+static const struct amdgpu_video_codec_info vega_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs vega_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(vega_video_codecs_decode_array),
-+	.codec_array = vega_video_codecs_decode_array,
-+};
-+
-+/* Raven */
-+static const struct amdgpu_video_codec_info rv_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VP9,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs rv_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(rv_video_codecs_decode_array),
-+	.codec_array = rv_video_codecs_decode_array,
-+};
-+
-+/* Renoir, Arcturus */
-+static const struct amdgpu_video_codec_info rn_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VP9,
-+		.max_width = 8192,
-+		.max_height = 4352,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs rn_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(rn_video_codecs_decode_array),
-+	.codec_array = rn_video_codecs_decode_array,
-+};
-+
-+static int soc15_query_video_codecs(struct amdgpu_device *adev, bool encode,
-+				    const struct amdgpu_video_codecs **codecs)
-+{
-+	switch (adev->asic_type) {
-+	case CHIP_VEGA20:
-+	case CHIP_VEGA10:
-+	case CHIP_VEGA12:
-+		if (encode)
-+			*codecs = &vega_video_codecs_encode;
-+		else
-+			*codecs = &vega_video_codecs_decode;
-+		return 0;
-+	case CHIP_RAVEN:
-+		if (encode)
-+			*codecs = &vega_video_codecs_encode;
-+		else
-+			*codecs = &rv_video_codecs_decode;
-+		return 0;
-+	case CHIP_ARCTURUS:
-+	case CHIP_RENOIR:
-+		if (encode)
-+			*codecs = &vega_video_codecs_encode;
-+		else
-+			*codecs = &rn_video_codecs_decode;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- /*
-  * Indirect registers accessor
-  */
-@@ -988,6 +1216,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
- 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
- 	.supports_baco = &soc15_supports_baco,
- 	.pre_asic_init = &soc15_pre_asic_init,
-+	.query_video_codecs = &soc15_query_video_codecs,
- };
- 
- static const struct amdgpu_asic_funcs vega20_asic_funcs =
-@@ -1009,6 +1238,7 @@ static const struct amdgpu_asic_funcs vega20_asic_funcs =
- 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
- 	.supports_baco = &soc15_supports_baco,
- 	.pre_asic_init = &soc15_pre_asic_init,
-+	.query_video_codecs = &soc15_query_video_codecs,
- };
- 
- static int soc15_common_early_init(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index d56b474b3a21..462368d2804b 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -79,6 +79,193 @@
- #include "mxgpu_vi.h"
- #include "amdgpu_dm.h"
- 
-+/* Topaz */
-+static const struct amdgpu_video_codecs topaz_video_codecs_encode =
-+{
-+	.codec_count = 0,
-+	.codec_array = NULL,
-+};
-+
-+/* Tonga, CZ, ST, Fiji */
-+static const struct amdgpu_video_codec_info tonga_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs tonga_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(tonga_video_codecs_encode_array),
-+	.codec_array = tonga_video_codecs_encode_array,
-+};
-+
-+/* Polaris */
-+static const struct amdgpu_video_codec_info polaris_video_codecs_encode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 2304,
-+		.max_pixels_per_frame = 4096 * 2304,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs polaris_video_codecs_encode =
-+{
-+	.codec_count = ARRAY_SIZE(polaris_video_codecs_encode_array),
-+	.codec_array = polaris_video_codecs_encode_array,
-+};
-+
-+/* Topaz */
-+static const struct amdgpu_video_codecs topaz_video_codecs_decode =
-+{
-+	.codec_count = 0,
-+	.codec_array = NULL,
-+};
-+
-+/* Tonga */
-+static const struct amdgpu_video_codec_info tonga_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs tonga_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(tonga_video_codecs_decode_array),
-+	.codec_array = tonga_video_codecs_decode_array,
-+};
-+
-+/* CZ, ST, Fiji, Polaris */
-+static const struct amdgpu_video_codec_info cz_video_codecs_decode_array[] =
-+{
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG2,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 3,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 5,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_MPEG4_AVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 52,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_VC1,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 4,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_HEVC,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 186,
-+	},
-+	{
-+		.codec_type = AMDGPU_VIDEO_CODEC_TYPE_JPEG,
-+		.max_width = 4096,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
-+		.max_level = 0,
-+	},
-+};
-+
-+static const struct amdgpu_video_codecs cz_video_codecs_decode =
-+{
-+	.codec_count = ARRAY_SIZE(cz_video_codecs_decode_array),
-+	.codec_array = cz_video_codecs_decode_array,
-+};
-+
-+static int vi_query_video_codecs(struct amdgpu_device *adev, bool encode,
-+				 const struct amdgpu_video_codecs **codecs)
-+{
-+	switch (adev->asic_type) {
-+	case CHIP_TOPAZ:
-+		if (encode)
-+			*codecs = &topaz_video_codecs_encode;
-+		else
-+			*codecs = &topaz_video_codecs_decode;
-+		return 0;
-+	case CHIP_TONGA:
-+		if (encode)
-+			*codecs = &tonga_video_codecs_encode;
-+		else
-+			*codecs = &tonga_video_codecs_decode;
-+		return 0;
-+	case CHIP_POLARIS10:
-+	case CHIP_POLARIS11:
-+	case CHIP_POLARIS12:
-+	case CHIP_VEGAM:
-+		if (encode)
-+			*codecs = &polaris_video_codecs_encode;
-+		else
-+			*codecs = &cz_video_codecs_decode;
-+		return 0;
-+	case CHIP_FIJI:
-+	case CHIP_CARRIZO:
-+	case CHIP_STONEY:
-+		if (encode)
-+			*codecs = &tonga_video_codecs_encode;
-+		else
-+			*codecs = &cz_video_codecs_decode;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- /*
-  * Indirect registers accessor
-  */
-@@ -1093,6 +1280,7 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
- 	.get_pcie_replay_count = &vi_get_pcie_replay_count,
- 	.supports_baco = &vi_asic_supports_baco,
- 	.pre_asic_init = &vi_pre_asic_init,
-+	.query_video_codecs = &vi_query_video_codecs,
- };
- 
- #define CZ_REV_BRISTOL(rev)	 \
 -- 
 2.29.2
 
