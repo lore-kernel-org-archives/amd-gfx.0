@@ -1,56 +1,56 @@
 Return-Path: <SRS0=/n0Y=HD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD1E6C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0643AC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65EEF64EAA
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65EEF64EAA
+	by mail.kernel.org (Postfix) with ESMTPS id 8525B64D9E
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 16:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8525B64D9E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 294B96E844;
-	Mon,  1 Feb 2021 16:47:52 +0000 (UTC)
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2FB56E840;
- Mon,  1 Feb 2021 16:47:50 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id a25so20454579ljn.0;
- Mon, 01 Feb 2021 08:47:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBA256E847;
+	Mon,  1 Feb 2021 16:51:20 +0000 (UTC)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD3816E843;
+ Mon,  1 Feb 2021 16:51:19 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id f1so23724114lfu.3;
+ Mon, 01 Feb 2021 08:51:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yIZiOJ02BYreIZzEaXfykuQ92i8lgVKM8HuqwHuBPWc=;
- b=qgZJnkcssMWM+89wIgyQw+SQ4SVW47u/G/Dc2hHiebYRA1VAndqCaGhfST0cohXPDj
- 5z0ks432uKnR4bkAmOREXcHJ/TDOrB3N1WynzryP+HfANmi2jxQNnNVRiePRQbHnirUx
- rTepZWehTgMZ73kP1TT2hCJAhTSSf9blZIeVSRRZb78vScyCtkyUFoCJQ9WONlbTEy6t
- 2fd9okCvRpH5tTrbm+WuP9PcrOOcPEadQRJhspoeXA+8bjgLZrH/H3R9ANIu0xiofxIj
- xOoRAxLnzOKZ8y49ocUK/9MCBsi3nbuxMnWFXHRjjUd6DVHKtxAbakzFoqiZn/tRVqEA
- V49g==
+ :cc; bh=wF7mWC2M9iBBc+ACGYALfCAPMzd/Re2kA54W5usB+9c=;
+ b=cOQzkJjTPteBDAyEwI88kZ6IB+wiDX+1y1GIGJanexyB8HynFGGumgPPIB53qiYArs
+ +e7ZbAKr52jZx90yInF//sIz6yDHJwouIdUUpr7f+3RpMaze56OrOgLqkai2EYjbnhH4
+ +TjotrLukfQlGShqfr5pes94GebIp75G5LolNlKBcwL38rvVt6GF8CQLI1q9GB1HPcmR
+ z6CAHvTshHpQ4KeHiHwtBkg9OEvkkecyzIew0dLXYR5N/LDEFQ7bsggyocEzRyVr7DKk
+ qvBdOSvfJVBUqSYoCtiKeZRvkxoEahCvcvZBJrQYAMMjBUSPic/kfUiYpdD6bVKsvhMk
+ 3tsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=yIZiOJ02BYreIZzEaXfykuQ92i8lgVKM8HuqwHuBPWc=;
- b=hWeekuoUdffxkqWJ53xRNF8RMqcxc0YJAkC80bpB+kKfKnqj3XOI7boEMSYZP6sQV8
- QikhpWgKyMowai/7qp2wSO4e1rnCrF9S4vcbtQRZe5hYtCoIFsuL5mWWR3AbiZnF7i5L
- mEabphdDNC6s980Skb/E0bly9kKZwxEijZvex+A4fpMq8vGmKxpbaC0ZN01K6VOeqcbN
- jnIgybRczK1zhdhi7KwBvBG1vlmqezAYk/AEFDmO1zaGcLBdIFyNZRuG6s7f/zMBhy4T
- azuQUQaSIzAYmN5SurOmuhHmI+kyvAaSvuoBanyWbBUssCCxsw7djEsBTRmEuCo/OO5+
- 9DZQ==
-X-Gm-Message-State: AOAM5334EZ+eLCfWlDhDmqCd6lScl0c0w3lfkM/+hCvly8nhTpdEL+gH
- 3hqxOlx402CKB3BoFU6M7F0vf9N4UnNiJ1K6U4Q=
-X-Google-Smtp-Source: ABdhPJyVksRp7dMQFreT6iFGkvyIERFPWm8QjTXwXG+7UDkdzz/KPtPtHl3yLc6PyzhjU98Vtf5kjidXFzK+Ikds2kQ=
-X-Received: by 2002:a2e:a0ce:: with SMTP id f14mr10339298ljm.180.1612198069310; 
- Mon, 01 Feb 2021 08:47:49 -0800 (PST)
+ bh=wF7mWC2M9iBBc+ACGYALfCAPMzd/Re2kA54W5usB+9c=;
+ b=PsVU2xr/M8Jc6XO8IjPWFH15w3Lc1pdNliYMwB5+CLbzTQVQd/k36lxw0csUYVNNuc
+ cWuIUjYr7kD9QV86q2kFGp09knYrUIiso4e1v9GgpIccBW/bZQI5sSJiCKTP3eRA2+0f
+ qSstZciQc8vcjd0rBf1tNd0HFKkA7UHt4ufBLVEM7fThAt5HaHJjo4DZocEoX9xFLZ6w
+ iYCanFdk0GFwt3FuLU1JMjwjxCiLmmiHsj/uzugQENcntGuXd7vI4AYoggLig+NDxeK8
+ Uic22p9jyAR6uv3cShZTz/7UAbxNGMAY1ZioGI8miEIeaRQVh+F6ZE6KxA6lRzqQQn37
+ DWkw==
+X-Gm-Message-State: AOAM532He+ENE2NfkiZWYWNLvNtc4+kPlUA7XkZm3oAjFSKjrCqeeKch
+ G87xIvzlvAGUiocWx13YZ1ZYNN/giR3q5TLjfk4=
+X-Google-Smtp-Source: ABdhPJwU19Ykz6zVy5HPScLPfN7sZ41eNDew+I/XiJKnUJb0R2TV/4YtlOqZLFcdbXx3hMrOMozaP/L2VFq0o4gRw5Y=
+X-Received: by 2002:a19:ec03:: with SMTP id b3mr9452260lfa.608.1612198278259; 
+ Mon, 01 Feb 2021 08:51:18 -0800 (PST)
 MIME-Version: 1.0
 References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
  <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
@@ -64,8 +64,8 @@ References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
  <YBgU9Vu0BGV8kCxD@phenom.ffwll.local>
 In-Reply-To: <YBgU9Vu0BGV8kCxD@phenom.ffwll.local>
 From: Kenny Ho <y2kenny@gmail.com>
-Date: Mon, 1 Feb 2021 11:47:38 -0500
-Message-ID: <CAOWid-d5Z-xnn_MhMNoMs3HdW7n8e6Uw5YAGH7NNu7LX0Af_0A@mail.gmail.com>
+Date: Mon, 1 Feb 2021 11:51:07 -0500
+Message-ID: <CAOWid-eXMqcNpjFxbcuUDU7Y-CCYJRNT_9mzqFYm1jeCPdADGQ@mail.gmail.com>
 Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
 To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,23 +93,17 @@ Cc: Song Liu <songliubraving@fb.com>, Andrii Nakryiko <andriin@fb.com>,
  Dave Airlie <airlied@gmail.com>,
  Alexei Starovoitov <alexei.starovoitov@gmail.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============1691413484=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1691413484==
-Content-Type: multipart/alternative; boundary="0000000000003a990405ba491d13"
-
---0000000000003a990405ba491d13
-Content-Type: text/plain; charset="UTF-8"
+[Resent in plain text.]
 
 On Mon, Feb 1, 2021 at 9:49 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-
->
 > - there's been a pile of cgroups proposal to manage gpus at the drm
 >   subsystem level, some by Kenny, and frankly this at least looks a bit
 >   like a quick hack to sidestep the consensus process for that.
->
 No Daniel, this is quick *draft* to get a conversation going.  Bpf was
 actually a path suggested by Tejun back in 2018 so I think you are
 mischaracterizing this quite a bit.
@@ -125,45 +119,7 @@ Do what the intel driver or bpf is doing?  It's not difficult to hook
 into cgroup for identification purposes."
 
 Kenny
-
---0000000000003a990405ba491d13
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Mon, Feb 1, 2021 at 9:49 AM Daniel Vet=
-ter &lt;<a href=3D"mailto:daniel@ffwll.ch">daniel@ffwll.ch</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-- there&#39;s been a pile of cgroups proposal to manage gpus at the drm<br>
-=C2=A0 subsystem level, some by Kenny, and frankly this at least looks a bi=
-t<br>
-=C2=A0 like a quick hack to sidestep the consensus process for that.<br></b=
-lockquote><div>No Daniel, this is quick *draft* to get a conversation going=
-.=C2=A0 Bpf was actually a path suggested by Tejun back in 2018 so I think =
-you are mischaracterizing this quite a bit.<br><br></div><div>&quot;2018-11=
--20 Kenny Ho:<br><span class=3D"gmail-im">To put the questions in more conc=
-rete terms, let say a user wants to<br>=C2=A0expose certain part of a gpu t=
-o a particular cgroup similar to the<br>=C2=A0way selective cpu cores are e=
-xposed to a cgroup via cpuset, how<br>=C2=A0should we go about enabling suc=
-h functionality?<br>
-<br>2018-11-20 Tejun Heo:<br></span>
-Do what the intel driver or <span class=3D"gmail-il">bpf</span> is doing?=
-=C2=A0 It&#39;s not difficult to hook<br>
-into cgroup for identification purposes.&quot;</div></div><div class=3D"gma=
-il_quote"><br></div><div class=3D"gmail_quote">Kenny<br></div></div>
-
---0000000000003a990405ba491d13--
-
---===============1691413484==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1691413484==--
