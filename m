@@ -2,75 +2,124 @@ Return-Path: <SRS0=/n0Y=HD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F208DC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D077EC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 15:00:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05B6564DAD
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 14:49:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05B6564DAD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 5F62264EA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Feb 2021 15:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F62264EA4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA4606E7DC;
-	Mon,  1 Feb 2021 14:49:30 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 993986E7DC
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 14:49:29 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id m1so10147182wml.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Feb 2021 06:49:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=EGmzCB5chSwq9pe2qQDXhGstL/uSMglbti4AeZbvc9M=;
- b=T0u0mZ+Z3spqI5csq8199vdWw2F0HEI5De5S85KRWxCdxr+4jQR5HF/ESPI+khBobI
- 0kID6zY387C7nAXsNhluEAdeknIbOqrsZ2D0JaogcRsYEATDQywghJ/9qSSQ5q5A55FI
- yWsOBfzIjs33oPqk4PuKrYwi8nfXeV5MoJxBo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=EGmzCB5chSwq9pe2qQDXhGstL/uSMglbti4AeZbvc9M=;
- b=fWQNE23PL/LJmh17laRHv2fBjcXjw90UTn4eRi7HhXti+ehLepfmVUIvu/epWMtT/L
- 5mT51g5eus/ZOEzP/98WY+fGyEVyraYpDzdMBkE8BaX18+bFs4lE0fH5QO0+0zcQOHj/
- kwo0bQuME6LL0zFFO54VO1NU+SHTARciijPkbKtn/a/ByvYoeCbInfeJxMNHw8rvERwh
- Jnul5bwdxKmVboPcBFlYiGMxqoSTrjT5jWxlC4Su9OQLxv1Bp10na/yOwPW0lYdglWVg
- /LHHc4PUC74lFLgh9DbGU69sur7f8IO4/huTDsLQ+bhLqK6LNgztCjlLwMMPBgQhyQpX
- 0TuA==
-X-Gm-Message-State: AOAM531WBUwmD6rfbEhwvsWPAZOVSyNYF5YawOO79bADd4f5dzd9y48j
- jrxuRl2Ed5fRmfzYkpXVhH9z7w==
-X-Google-Smtp-Source: ABdhPJzB4Q25SCm85fnRZK3Sfm9L/kEowDZQU6EzC3QxehecRfUoCDENb9bS5nw1au+0MSHzKsed+A==
-X-Received: by 2002:a7b:cd97:: with SMTP id y23mr15626961wmj.0.1612190968210; 
- Mon, 01 Feb 2021 06:49:28 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z18sm26511725wro.91.2021.02.01.06.49.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Feb 2021 06:49:27 -0800 (PST)
-Date: Mon, 1 Feb 2021 15:49:25 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Dave Airlie <airlied@gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-Message-ID: <YBgU9Vu0BGV8kCxD@phenom.ffwll.local>
-References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
- <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
- <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
- <CAOWid-eQSPru0nm8+Xo3r6C0pJGq+5r8mzM8BL2dgNn2c9mt2Q@mail.gmail.com>
- <CAADnVQKuoZDB-Xga5STHdGSxvSP=B6jQ40kLdpL1u+J98bv65A@mail.gmail.com>
- <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
- <20201103210418.q7hddyl7rvdplike@ast-mbp.dhcp.thefacebook.com>
- <CAOWid-djQ_NRfCbOTnZQ-A8Pr7jMP7KuZEJDSsvzWkdw7qc=yA@mail.gmail.com>
- <20201103232805.6uq4zg3gdvw2iiki@ast-mbp.dhcp.thefacebook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C636E5CF;
+	Mon,  1 Feb 2021 15:00:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFE236E5CF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Feb 2021 15:00:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J0Aw1hmSKC4YxyO3lOz7P68NHIb/INdiyXBcaTyRm+G7TzSAwqZprAiisRKsmM60ythP0sgogmFqYQJHVsAjh/yUPrckgp4ayFVVrR/DpXI7YsOqXkBVwrOKvz6ykyjCBVYzRrTou6uxC7KsgDvnhIJxUfGdW/7L45pc8tdf7WUPEwFDaSdfeQjXv3X+QUx4nzQxMGwZGDMWjbLSw0d5y4K5wCNuzYxdokKu4i/uoMmeO1WC2HTtmqYnUyBmbSmhGyzrXsMVkx/Hf9HT0JYQnd/ZZObM2UziDTZtdbCmvxhH+HVneaJHhtI1rOFxby+IegCOlq646mSlMPgd/Virkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=69MIuJHCuZ2SXdRW2LPI1gP4FmEydHaLOKnWo0dR3xk=;
+ b=Wfoq44TtKy33T9iD1M5mFbfbiAhMw3e21LvtqF1A712FGRf99emJsEsU1MhI0wmc842kYk8FCWbUEnZajFDYtZDIy+ZlGGTloTx4FvYVADiRhr2m2oCIwcYh/Dt1dKyhMRIDm53l77zGCLZxjkD7MzEUJAVgBzrZfCV765tYP5fPQKWYpfpn7V0FoPoWkZn56/F8DR20yaWL/uHK5SKrXz8NAWuyZlNi2jm+ygFFdmqANCUu9Y32HGaUZyubKDAJ+p1G3dOw9Rlskb098RNIvv64hnqJR0i4e18DSDhXla6FHgxQXhMEwgrO24ClRml8GH3QLpV9PzeRTxt20w9vgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=69MIuJHCuZ2SXdRW2LPI1gP4FmEydHaLOKnWo0dR3xk=;
+ b=5U3q9VK79BYJ23fjwvbPlKUGFiuFEoQ4nqdmgz7hwHivIvsGTmcqBck4ggggwUxBjVpMAVaOqKyJQ0qNeOgpC4QfnIpEV5N9q7LqalvpqJFXkLgyiag80N1JjLcZd0MdiOTRqtD+pRtRpHwxksp+BDq8NUJ6LHE7Gi3T4uVEcr8=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.17; Mon, 1 Feb
+ 2021 15:00:51 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::44f:9f01:ece7:f0e5%3]) with mapi id 15.20.3805.024; Mon, 1 Feb 2021
+ 15:00:51 +0000
+Subject: Re: [PATCH 1/4] drm/amdgpu: fix ring priority assignment
+To: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210201143800.26908-1-nirmoy.das@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <46571899-9beb-0348-5711-6c146e316fb0@amd.com>
+Date: Mon, 1 Feb 2021 16:00:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210201143800.26908-1-nirmoy.das@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM9P193CA0005.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21e::10) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201103232805.6uq4zg3gdvw2iiki@ast-mbp.dhcp.thefacebook.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM9P193CA0005.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3805.17 via Frontend Transport; Mon, 1 Feb 2021 15:00:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: aaa9a3d9-4c8c-4f7c-0ee1-08d8c6c22a64
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4374:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB43742C79F50F62929DF512E683B69@MN2PR12MB4374.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9ZiC5dtMqGnm8nmRGll6Nh0W0eSGiJHIdDsiSmAwOG2PCpX9Ka5XOZXpaXh7Ms8I95qVUvIQO8bzvRltjgb4EfLtqqk4VQrwQBTcCBWlv3Ip8sBK6LLlukPKAK4IlUek6tZtsblZON9DX4MVd3jOr2ksVhkLE6WhxUBktJUQlmA27dvZH82pdv/Yl9X8ceCIAHES2L1dsHLNxx9ykJEY7bhYWIsZTbXTPuEBzx+oTMEgUb3xncEGhB2BomU0+LRbKeMBLsOwuGUB9G3ql0xAuvD4jv3dL+8ktpsx6+9u4Ijj5aJ6sxWBPwSvJMM8jB3XpXnyPb35uXPMkdNNv4vWl/61ib/5qcvR3S2LvJ0DTSVZNYkweEzbG4BHdVKiKSUb9/8Z2YaRn+lilbJO4GCLaq8CNMo6P7YqbwviHvsMCLyUNyjjM1igolT+c2C2hggBW5Pd8g3Mo8mrUufAWWqroLeIUorKJoCB2mEX059ziGACHRNnLvqAPrM3brCBNSfD3wDcVwy5KNpnmURORgUYSQghcljlsCCMjoPeBPnVG8HZLHCLzXTuvm0J8n7OEmIxeL34wuaVdGtN/nRwu95NQpEyXKQ08paoXaWeaBiaydI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(136003)(346002)(396003)(39860400002)(316002)(6666004)(36756003)(8936002)(6486002)(83380400001)(31686004)(52116002)(4326008)(186003)(2906002)(478600001)(86362001)(31696002)(66476007)(8676002)(66556008)(66946007)(5660300002)(16526019)(2616005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WUVvZTY3Q1Q2eURzRnpXQ0JqcVZINDVQN3lEMkUyT3pzTkhwYUdMcEozaDds?=
+ =?utf-8?B?TlpwMi95eG1RRWNaNVBiNmUxR0pSRUllOUdjc2JBblVNN3ZkQXhQcVdlN3ZY?=
+ =?utf-8?B?YWhmVVpUV1pUenVqWE44MGJyVmhqK3FYS0NraWp3L1FVZHR6eVhRd0Jucktl?=
+ =?utf-8?B?QlpDdVRIQmtKTmZodHdldERLUnJlOTh3SXYvNWtBUXFpb1hPaldzZnZtSUxt?=
+ =?utf-8?B?cVlHSnNNQ3VwL0hSckI1cnpoYjA2ck1JRmt5VlZ0bzA5Z2Rsamk2aHhPYTBh?=
+ =?utf-8?B?bTNhQzZLdEl4VWRsUlpSeTNpb2J0TXowRzFUS1JJV2ZjUGl6c1VPc3FuYTJP?=
+ =?utf-8?B?YVdMVmV2eUwyT1dWaTBCd0VCY1RPMXVoWWlpYTdZbHlXWkE2cllpU2c1ak5U?=
+ =?utf-8?B?REcxT25mSmFnSS96UEVIay9EbWEzQ25wTWNxVWVVUXFtaCtIb0tSc3QrMnBI?=
+ =?utf-8?B?alhWREJoYzY1cFpYK09oVzg0SWlqT1hIcFNvK1VZMmhRWVVTQlRWRzE0WXVC?=
+ =?utf-8?B?VUdYSGZWUHhaaTJETXA2eGE4VTRJcndDT0NoOVFoK0pyVXBtelJPdWNJYncw?=
+ =?utf-8?B?Q3c4T0ZtcmUraXVtUlN4Unl6SW5JUUtyMURHbGo5eDlJL21pTlVYblJUME5h?=
+ =?utf-8?B?NWM5YjZ0Qk41TmlLWTUwd2k5SkxTRXBkZDI4SzFuV1RwQkVLZTVIekY4M3Ex?=
+ =?utf-8?B?Y1ZidkU2QTBFR2R0a3NhTnhIUk00bU1WaTQrSGk3OThGZDBKY2ZUbHFlV1Ax?=
+ =?utf-8?B?WHpXQ1RBenZUa3k1YU1UY3locFZQSlNyZTlFdHM1UGpWUTQ0dm5remZDTUlW?=
+ =?utf-8?B?M0xUSnFLR0NSTm03YTFEak4wYkduVHZleFJnMTREMnF3bHdEbHZ2VCtpYUlt?=
+ =?utf-8?B?dmsvSW5Kelo2aU5oQ1h0eitLdTdlQ0tOMWFtV1RMR2h4T3d0Z2l5VnU5ZDVz?=
+ =?utf-8?B?bXBqSFdJZStaK3dWS2hYZElxV2hBR2JOTmMzbitEK2h0eXRSVTFqSVVKMWE3?=
+ =?utf-8?B?MVFYbDlkNFpNSDcvKzVGUndWYWpOYk5EekxHOHJIVnpYYTM0RDhOZmNDM2hn?=
+ =?utf-8?B?ZnRsSkl0MUtrQkt5Q3V6dzJhUVBsSS9CN2c4ZE93NURzek5xcG1sVlNGNHE5?=
+ =?utf-8?B?UmpPZC9uYU4wdEx1QVArL0NWVHFPd1lZY09rbG5GNUhyaHJsV3NLTkh1cGdy?=
+ =?utf-8?B?NzNFSFo2bWlMNDVMd2RHQnpmNVY5UVdmb2duVmVDVGtWVGNJeURhVVpDWS9Q?=
+ =?utf-8?B?czRoblZxaFZPNFhJem5MOTMvWFR4NVRSVlRLZU1NSTE3TWxOQjdkWVhUOFNv?=
+ =?utf-8?B?WlpHYk5XeGx1YzhYUXNvYXIxc1pOZDZUZmQ0WmxyTExYYWhOdzBaNVNqRWVW?=
+ =?utf-8?B?aXdKUWRaRnJFRFVZV2JWa0NxckFTem5VNy91czdZQitreHhYL3Q2bG92aTli?=
+ =?utf-8?B?alJzQ0lEbG9OYkNpcW9SbEFXa2xKc0hnNmVkM05zUllJNkN1UXV0SjZIZytW?=
+ =?utf-8?Q?khktqQ97F58HjcX+1LVJ6UB0oDw?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aaa9a3d9-4c8c-4f7c-0ee1-08d8c6c22a64
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2021 15:00:51.2879 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xQTd6skR2XqIjIGY8DtVPwrFRx9ZKCTxc2LjK/03jeSsrkiidF8hXp+N+K+Z+bBl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,106 +131,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Song Liu <songliubraving@fb.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Kenny Ho <Kenny.Ho@amd.com>,
- "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
- Brian Welty <brian.welty@intel.com>, John Fastabend <john.fastabend@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>, Kenny Ho <y2kenny@gmail.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Network Development <netdev@vger.kernel.org>, KP Singh <kpsingh@chromium.org>,
- Yonghong Song <yhs@fb.com>, bpf <bpf@vger.kernel.org>,
- Andrii Nakryiko <andriin@fb.com>, Martin KaFai Lau <kafai@fb.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alexander.Deucher@amd.com, Alan.Harrison@amd.com, Felix.Kuehling@amd.com,
+ ray.huang@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adding gpu folks.
+Am 01.02.21 um 15:37 schrieb Nirmoy Das:
+> Assign correct ring priority.
+>
+> Fixes: 33abcb1f5a17 ("drm/amdgpu: set compute queue priority at mqd_init")
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 1a612f51ecd9..b3d064383807 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -258,7 +258,8 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>   	}
+>   
+>   	ring->max_dw = max_dw;
+> -	ring->priority = DRM_SCHED_PRIORITY_NORMAL;
+> +	ring->priority = (hw_prio == AMDGPU_GFX_PIPE_PRIO_HIGH) ?
+> +		DRM_SCHED_PRIORITY_HIGH : DRM_SCHED_PRIORITY_NORMAL;
+>   	mutex_init(&ring->priority_mutex);
 
-On Tue, Nov 03, 2020 at 03:28:05PM -0800, Alexei Starovoitov wrote:
-> On Tue, Nov 03, 2020 at 05:57:47PM -0500, Kenny Ho wrote:
-> > On Tue, Nov 3, 2020 at 4:04 PM Alexei Starovoitov
-> > <alexei.starovoitov@gmail.com> wrote:
-> > >
-> > > On Tue, Nov 03, 2020 at 02:19:22PM -0500, Kenny Ho wrote:
-> > > > On Tue, Nov 3, 2020 at 12:43 AM Alexei Starovoitov
-> > > > <alexei.starovoitov@gmail.com> wrote:
-> > > > > On Mon, Nov 2, 2020 at 9:39 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > >
-> > > Sounds like either bpf_lsm needs to be made aware of cgv2 (which would
-> > > be a great thing to have regardless) or cgroup-bpf needs a drm/gpu specific hook.
-> > > I think generic ioctl hook is too broad for this use case.
-> > > I suspect drm/gpu internal state would be easier to access inside
-> > > bpf program if the hook is next to gpu/drm. At ioctl level there is 'file'.
-> > > It's probably too abstract for the things you want to do.
-> > > Like how VRAM/shader/etc can be accessed through file?
-> > > Probably possible through a bunch of lookups and dereferences, but
-> > > if the hook is custom to GPU that info is likely readily available.
-> > > Then such cgroup-bpf check would be suitable in execution paths where
-> > > ioctl-based hook would be too slow.
-> > Just to clarify, when you say drm specific hook, did you mean just a
-> > unique attach_type or a unique prog_type+attach_type combination?  (I
-> > am still a bit fuzzy on when a new prog type is needed vs a new attach
-> > type.  I think prog type is associated with a unique type of context
-> > that the bpf prog will get but I could be missing some nuances.)
-> > 
-> > When I was thinking of doing an ioctl wide hook, the file would be the
-> > device file and the thinking was to have a helper function provided by
-> > device drivers to further disambiguate.  For our (AMD's) driver, we
-> > have a bunch of ioctls for set/get/create/destroy
-> > (https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c#L1763)
-> > so the bpf prog can make the decision after the disambiguation.  For
-> > example, we have an ioctl called "kfd_ioctl_set_cu_mask."  You can
-> 
-> Thanks for the pointer.
-> That's one monster ioctl. So much copy_from_user.
-> BPF prog would need to be sleepable to able to examine the args in such depth.
-> After quick glance at the code I would put a new hook into
-> kfd_ioctl() right before
-> retcode = func(filep, process, kdata);
-> At this point kdata is already copied from user space 
-> and usize, that is cmd specific, is known.
-> So bpf prog wouldn't need to copy that data again.
-> That will save one copy.
-> To drill into details of kfd_ioctl_set_cu_mask() the prog would
-> need to be sleepable to do second copy_from_user of cu_mask.
-> At least it's not that big.
-> Yes, the attachment point will be amd driver specific,
-> but the program doesn't need to be.
-> It can be generic tracing prog that is agumented to use BTF.
-> Something like writeable tracepoint with BTF support would do.
-> So on the bpf side there will be minimal amount of changes.
-> And in the driver you'll add one or few writeable tracepoints
-> and the result of the tracepoint will gate
-> retcode = func(filep, process, kdata);
-> call in kfd_ioctl().
-> The writeable tracepoint would need to be cgroup-bpf based.
-> So that's the only tricky part. BPF infra doesn't have
-> cgroup+tracepoint scheme. It's probably going to be useful
-> in other cases like this. See trace_nbd_send_request.
+I think we should rather nuke the ring->priority and priority_mutex 
+fields here, cause that is completely unused right now.
 
+(We can of course keep the priority field around, but I suggest to use 
+the hw priority directly).
 
-Yeah I think this proposal doesn't work:
+Christian.
 
-- inspecting ioctl arguments that need copying outside of the
-  driver/subsystem doing that copying is fundamentally racy
+>   
+>   	if (!ring->no_scheduler) {
 
-- there's been a pile of cgroups proposal to manage gpus at the drm
-  subsystem level, some by Kenny, and frankly this at least looks a bit
-  like a quick hack to sidestep the consensus process for that.
-
-So once we push this into drivers it's not going to be a bpf hook anymore
-I think.
-
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
