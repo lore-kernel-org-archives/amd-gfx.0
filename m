@@ -4,41 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CCF8C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9032DC433E6
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 13:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F054D60232
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 13:31:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F054D60232
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
+	by mail.kernel.org (Postfix) with ESMTPS id 227AD64DDA
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Feb 2021 13:31:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 227AD64DDA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A24046E480;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13856E48E;
 	Tue,  2 Feb 2021 13:31:36 +0000 (UTC)
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 398B56E917;
- Tue,  2 Feb 2021 09:06:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R261e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=alimailimapcm10staff010182156082;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0UNfe6ce_1612256773; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0UNfe6ce_1612256773) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 02 Feb 2021 17:06:24 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: convert sysfs sprintf/snprintf family to
- sysfs_emit
-Date: Tue,  2 Feb 2021 17:06:12 +0800
-Message-Id: <1612256772-70147-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
+X-Greylist: delayed 455 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Feb 2021 12:27:10 UTC
+Received: from mail-m17640.qiye.163.com (mail-m17640.qiye.163.com
+ [59.111.176.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4CE89D7F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Feb 2021 12:27:10 +0000 (UTC)
+Received: from ubuntu.localdomain (unknown [157.0.31.124])
+ by mail-m17640.qiye.163.com (Hmail) with ESMTPA id 7EA72540468;
+ Tue,  2 Feb 2021 20:19:32 +0800 (CST)
+From: Bernard Zhao <bernard@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Martin Tsai <martin.tsai@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>,
+ Vladimir Stempen <vladimir.stempen@amd.com>,
+ jinlong zhang <jinlong.zhang@amd.com>,
+ Joshua Aberback <joshua.aberback@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] amd/display: remove unneeded variable: "pattern"
+Date: Tue,  2 Feb 2021 04:19:24 -0800
+Message-Id: <20210202121927.15153-1-bernard@vivo.com>
+X-Mailer: git-send-email 2.29.0
+MIME-Version: 1.0
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZSk1MShhCQh1KShpOVkpNSklJTUNITElDQkNVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
+ FZT0tIVUpKS0hNSlVLWQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6PCI6TBw5DT8NEzY9MigBKQg1
+ VhBPCz5VSlVKTUpJSU1DSExISEpDVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSU9ZV1kIAVlBSUNDTDcG
+X-HM-Tid: 0a7762af0364d995kuws7ea72540468
 X-Mailman-Approved-At: Tue, 02 Feb 2021 13:31:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,63 +66,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, john.clements@amd.com,
- christian.koenig@amd.com
-MIME-Version: 1.0
+Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following coccicheck warning:
+Remove unneeded variable: "pattern".
 
-./drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:220:8-16: WARNING: use
-scnprintf or sprintf.
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:249:8-16: WARNING: use
-scnprintf or sprintf.
-
-Reported-by: Abaci Robot<abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 541ef6b..2913d57 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -186,7 +186,7 @@ static ssize_t amdgpu_xgmi_show_attrs(struct kobject *kobj,
- 		kobj, struct amdgpu_hive_info, kobj);
- 
- 	if (attr == &amdgpu_xgmi_hive_id)
--		return snprintf(buf, PAGE_SIZE, "%llu\n", hive->hive_id);
-+		return sysfs_emit(buf, "%llu\n", hive->hive_id);
- 
- 	return 0;
- }
-@@ -217,7 +217,7 @@ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 
--	return snprintf(buf, PAGE_SIZE, "%llu\n", adev->gmc.xgmi.node_id);
-+	return sysfs_emit(buf, "%llu\n", adev->gmc.xgmi.node_id);
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index f95bade59624..d77ae58210f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -126,9 +126,7 @@ static void dpcd_set_training_pattern(
+ static enum dc_dp_training_pattern decide_cr_training_pattern(
+ 		const struct dc_link_settings *link_settings)
+ {
+-	enum dc_dp_training_pattern pattern = DP_TRAINING_PATTERN_SEQUENCE_1;
+-
+-	return pattern;
++	return DP_TRAINING_PATTERN_SEQUENCE_1;
  }
  
-@@ -246,7 +246,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
- 
- 	adev->df.funcs->set_fica(adev, ficaa_pie_status_in, 0, 0);
- 
--	return snprintf(buf, PAGE_SIZE, "%u\n", error_count);
-+	return sysfs_emit(buf, "%u\n", error_count);
- }
- 
- 
+ static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *link,
 -- 
-1.8.3.1
+2.29.0
 
 _______________________________________________
 amd-gfx mailing list
