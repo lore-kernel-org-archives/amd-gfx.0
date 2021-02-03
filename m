@@ -2,122 +2,61 @@ Return-Path: <SRS0=BBBq=HF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 193C2C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 08:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB0CCC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 08:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A21C664DD4
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 08:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A21C664DD4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id AFCF264F72
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 08:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFCF264F72
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB4E86EA13;
-	Wed,  3 Feb 2021 08:41:40 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0901C6EA13
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 08:41:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LVAh9zfLfeP0b97ciqhCo9NRaz+SYUiik9CHuEcw2D7T2FnucSmBn+p9moVEKBMu0mCJhR0ikizfu8uXPm3VxtI5f7/z7bKkfs2sUwYHMBBxLXdrsdth2T9zXaCgl9mHjawVNs3aMnaV4npd/jSfnf5NPKJd1SrfXgmOPlU1yPwoJKEaNDFc2e3p+nR6SLPGBXmp9TFW5hcr9XHx7WcMFBbTj/w8SCPIpOipzayuPG0GgcMNFpXewUiKcbHfLPMALIVtx1v2Pdz1U5EbIOtLoB/EJh7Gp1IkfTO+vL1bnKrQqEQSsq2IXC+qOgAtz5BrIlPydeC/Voyn1UM66Zmlhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d7OLG9M6y8HTuPDXgQzOsmOI40z0nnJxOomfZ0kqTts=;
- b=MP2op0Fh9tVmpWeJ8qmUYTl7LSODB0ppZ3Kdo/aXdQHs8Dd8lLwUnTUKgtSDjEWtn+K8aOjPP3jCWAmckGDZ7YizjOOoUUqhRTNvJMN1XFCDqufWY5xSTRrc4Ww+7ybwE+CGmxl+48T0HmXwQ0LxqpzvzAs9UFqoqXZoaoQ1S7Mse2C5tfkFHV5vCyElCrDFLpon2yG1LLK6mrVUyhRcYMvau4WY6r7usEA7I9DaISdEcjlpmjPOeImIMX1dl2OWDasy0e8V59Gnsybr6P4bnLInZRy8UkplYKeubBFn+14idkdfvRdV4ut6HV6CUtJqniqtEce1rHtgbZoIIh6JWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d7OLG9M6y8HTuPDXgQzOsmOI40z0nnJxOomfZ0kqTts=;
- b=Rzou54usXwtTLgQp+VhfvuU4TFzP6ab+Brx9axaSgQU6JWTHrYyx9ShsCGNXmdUBzkBWD8tZCjE5yqZBeruoVSd00sgZAHk45JvB9mlVcj2k/7AwTcbjWnuQzOqsvOQbcB/XT35ZIjM77NJ4d+DEjlgJT6+jGOCOSREbu00e3Cg=
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
- by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.17; Wed, 3 Feb
- 2021 08:41:37 +0000
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::c1a6:7b2b:9494:776a]) by MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::c1a6:7b2b:9494:776a%3]) with mapi id 15.20.3805.027; Wed, 3 Feb 2021
- 08:41:37 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amd/pm: add support for hwmon control of slow and
- fast PPT limit on vangogh
-Thread-Topic: [PATCH 2/2] drm/amd/pm: add support for hwmon control of slow
- and fast PPT limit on vangogh
-Thread-Index: AQHW+gY59W15tlpzGUG+7fSNrgJUIapGGxqg
-Date: Wed, 3 Feb 2021 08:41:37 +0000
-Message-ID: <MN2PR12MB454913D174D1FAA77D3512E097B49@MN2PR12MB4549.namprd12.prod.outlook.com>
-References: <20210203082514.28303-1-Xiaomeng.Hou@amd.com>
- <20210203082514.28303-2-Xiaomeng.Hou@amd.com>
-In-Reply-To: <20210203082514.28303-2-Xiaomeng.Hou@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-02-03T08:41:34Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=db263989-38aa-469e-b4e6-5024623ab075;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [49.207.213.69]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4caa92d0-f2f3-4584-c647-08d8c81f8551
-x-ms-traffictypediagnostic: MN2PR12MB4126:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB41266D917E7BC41680E353CC97B49@MN2PR12MB4126.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: thIJOyfK4f0q1DJl/F82zk7Vpmz3uNFHZzRKWKX4BZWeLWyJbyq6/xAlZjg0s9ODm8eKfwW0ocIFdpaozhdiYf3bXUgb9zDRhviJ/Kd/H5PbTlD0nSP3hSsRQ1agXaZFoMK93ZHRHtgjCElnRtakKYJGmAzKeQwoU7rHnPIC0pmn1ReyH0pEBNG1QEVEXLO4ksL6+RpAOnUDmdu1qgBhAcQZKSnGaJwTOCmvA5AC8izMBOCFHaZSRDpqD66opJPoCExEdqfMA4MDMLp9HASit0gLat1RWBvwDh0mEfMgBax/Ujjd0Bvrej8IrwoADTbupLxxa63eEDHohatQ4oL65381gIvGcgMB4zCwbIZQFuBuIX8IkCbesKwxBpX4BgikeWdV/9o7PCoASem/K+LwWpFg544eep5dFkYJ2j07UWO5Fsxs/qWYgzL766XvGOC+lg0jvumcrHqhlLgo8mUuu8W+criuolbeMcJrnz85ojG+cR/J1yfOf16HeYSYSSshJl3FgmXEiO5VAjIenId1Aw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(5660300002)(71200400001)(66946007)(478600001)(76116006)(30864003)(7696005)(66476007)(66556008)(8936002)(55016002)(54906003)(316002)(52536014)(86362001)(64756008)(55236004)(8676002)(53546011)(26005)(6506007)(83380400001)(186003)(33656002)(66446008)(2906002)(4326008)(9686003)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?rseI8l32li7G63iFY7cc/QSCZmz3Ks+W9UZZPgK0Sw1lSEgs9lHxoiVGIEUz?=
- =?us-ascii?Q?1kfyy1te6u+C3zXxU7bdVZtG+ImGXhZ/R8nsnCKQovWsUvfh8RLpTwylq26L?=
- =?us-ascii?Q?9Xa8g5RVgtHgjKzhGqtMrVwUN0XsklIplN9avhdBKr+rRitPh5oK5WMyzFDJ?=
- =?us-ascii?Q?wgwBe0Ab+cygbX7FlG6AkrJEc2wtedTlhbP3qEQgIqbre6Bggw3T5AGIuyRe?=
- =?us-ascii?Q?rR1QK+Q5v+zss+cGyumVlz3ahw3Q5a57zTA7wy7T053giEouaIW8aV/VpAIt?=
- =?us-ascii?Q?E/cU/r/VDDaK0Ro1J8upFfSHgrrIlh5zAITviDcLD3pMFFEHHFAp0dzY8Ick?=
- =?us-ascii?Q?5qWnTXrig2L99U92Q5K2RBTVWiEuH1cY3VodOXLJNEhAyUdg13gB2wpC5ubB?=
- =?us-ascii?Q?W56p/1JryVgUw2ANiJVbCH085jySnh1E+ooQHp+DvoR7xhBHg9niNLXJnkxv?=
- =?us-ascii?Q?z8T0Un6ljhT7/v3Y++esru0mtT7my9sQNQzS03qxEq80j/qVIeNLZW4s/0CM?=
- =?us-ascii?Q?76jWvytdS+HwBslIXBVGOZdZgN2/UMzJJBcFwxBxbvfpEpOxPtJQ4FjKn8jB?=
- =?us-ascii?Q?LTQmWiraYE0UACAx5Jqjjpth5wLUrwpziDvUEERxqZNFKgsnCF5037nBQXz5?=
- =?us-ascii?Q?8H3+k5Mt1mt+dz8Dt/5X+sKouDrDB1IVMB23n3IHH4bnFOS/tpoMeNc3Z+Qm?=
- =?us-ascii?Q?7lBDm6xCssD1eoCsvmoSiJtNglt2DnNdjCk0NPCDnivPu7PpMUw1BAw4Qhqg?=
- =?us-ascii?Q?6ChauHce1MlTGlSZBvE59pfK8zoHC4Ms/QZVOR372R2qLuz3LBGp7kRsulOa?=
- =?us-ascii?Q?0BSyGzMkJjHeB9+v+qcBqJ+S7BZ+Y/4/ZuXWkAetByBhCXgNsbqNmtZZzYrs?=
- =?us-ascii?Q?cGbV5by8mmJDXcQtaYYL4YskQM4K+MKU0Ae83eBHTCqxwD2gpGLs/cWhuj0N?=
- =?us-ascii?Q?gsgYl3FATgW4ACGO4uWkaxvZhaZOVtQC3mPQd0a38IWDhRNahTinYL117Qfs?=
- =?us-ascii?Q?NH6RkKJ4ip0pSSqT5p7Lt8hzKbd5Iic1Bjx6x8fAo6d1Q0m93vC1n5uCQ222?=
- =?us-ascii?Q?Ntlk1p10?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC906EA1A;
+	Wed,  3 Feb 2021 08:48:53 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555ED6E9DC
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 08:48:52 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id d7so22659283otf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 00:48:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=VwNp0a42H2HJdUXf2U+NyyGMLQI597ulmFnoEoIfRg8=;
+ b=bp4qJgQbbTLWXuU91TsSZAOI41pytifc2W9dIiVN6dXquO6uybAKvlcCPaPH1NpkHd
+ P0Mq76vN/q5u7f/lrfgPGRqu2/rWYgb0PAnpfpAeEQ4C/t0wMWRE7aOx1JX0e82Xot46
+ WQy0xA2TsNhyd9sdod7biEaozcsh5EHAWKcec=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=VwNp0a42H2HJdUXf2U+NyyGMLQI597ulmFnoEoIfRg8=;
+ b=dGZrzcMTYSXg9lfBg3TeW6PwygGc1v27OANbBXQA1ivgPvNAlnSZhd+xzQ2jhzthSg
+ xqCERYSZDQg4G7UC9LpAjKi5OELZ++1TLxZg4JjtLi+uQ5CKeIZcBxwqglkNBe1IWPQP
+ yI3nOQSqg0HkZMc1HM+J8W1eF4Cwii0IlEF55IL6eEtpkLwN5TmqA298XoZ46t+650Rd
+ 4WZSCjq/wFDwsrhENAenE1z9lTLRh7zI82BDQkVTy+2MpmprNzT4ygUnJnN1m429wzHe
+ 8W52p7ClWLd77Sv4sgFZjadaxdjKP1gjsg5Eq9HKnh6cU/WqOZZ6M65uuSZdPa1GAbVx
+ E4Ug==
+X-Gm-Message-State: AOAM530kXAOHHwhSwBSBSdqpbAvGYSIRLyu019AOMvj6NDmDtp6DIGKd
+ T94sfCPas7Ewd+qVluZFB+Gnm1JteH85DW3vMVtMrQ==
+X-Google-Smtp-Source: ABdhPJwFJFhQYQVJPg8AcL5xpSmXQT4nU/vhOSOoGYxm48EBQ+vEBz006Z/ZUAjAOMfXzIp+7+twjGV9i1z1MNucNfM=
+X-Received: by 2002:a9d:6c96:: with SMTP id c22mr1296084otr.303.1612342130615; 
+ Wed, 03 Feb 2021 00:48:50 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4caa92d0-f2f3-4584-c647-08d8c81f8551
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Feb 2021 08:41:37.8130 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: b31yWXD86b1YwMMTr0XvnjoAQK6i7na3P1B4c590PZzvXTMY+/fm6368fym5m8AI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
+References: <CAH1Ww+TPCSyiaC3oeoWPtsi-vDfDY=K4ByoLD37-onMvsAB5Rg@mail.gmail.com>
+ <58e41b62-b8e0-b036-c87d-a84d53f5a26e@amd.com>
+In-Reply-To: <58e41b62-b8e0-b036-c87d-a84d53f5a26e@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 3 Feb 2021 09:48:39 +0100
+Message-ID: <CAKMK7uGTFYWnBG+JtbAK=zQVT1dT=nKor_SHP-t958oebgn8_A@mail.gmail.com>
+Subject: Re: [amdgpu] deadlock
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,415 +68,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
- Ray" <Ray.Huang@amd.com>, "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, Daniel Gomez <daniel@qtec.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
-
-<> One minor comment below.
-
------Original Message-----
-From: Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com> 
-Sent: Wednesday, February 3, 2021 1:55 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Huang, Ray <Ray.Huang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: add support for hwmon control of slow and fast PPT limit on vangogh
-
-Implement hwmon API for reading/setting slow and fast PPT limit.
-
-APU power is managed to system-level requirements through the PPT (package power tracking) feature. PPT is intended to limit power to the requirements of the power source and could be dynamically updated to maximize APU performance within the system power budget.
-
-Here FAST_PPT_LIMIT manages the ~10 ms moving average of APU power, while SLOW_PPT_LIMIT manages the configurable, thermally significant moving average of APU power (default ~5000 ms).
-
-User could read slow/fast ppt limit using command "cat power*_cap" or "sensors" in the hwmon device directory. User could adjust values of slow/fast ppt limit as needed depending on workloads through command "echo ## > power*_cap".
-
-Example:
-$ echo 15000000 > power1_cap
-$ echo 18000000 > power2_cap
-$ sensors
-amdgpu-pci-0300
-Adapter: PCI adapter
-slowPPT:     9.04W (cap = 15.00 W)
-fastPPT:     9.04W (cap = 18.00 W)
-
-v2: align with existing interfaces for the getting/setting of PPT
-    limits. Encode the upper 8 bits of limit value to distinguish
-    slow and fast power limit type.
-
-Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  45 +++++++-
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  13 +++
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |   9 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  13 ++-
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |   8 +-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 103 ++++++++++++++++++
- 6 files changed, 182 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index cf475ac01b27..d49f36b01e97 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3059,7 +3059,8 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
- 					 char *buf)
- {
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
--	uint32_t limit = 0;
-+	int limit_type = to_sensor_dev_attr(attr)->index;
-+	uint32_t limit = limit_type << 24;
- 	ssize_t size;
- 	int r;
- 
-@@ -3093,7 +3094,8 @@ static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
- 					 char *buf)
- {
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
--	uint32_t limit = 0;
-+	int limit_type = to_sensor_dev_attr(attr)->index;
-+	uint32_t limit = limit_type << 24;
- 	ssize_t size;
- 	int r;
- 
-@@ -3122,6 +3124,15 @@ static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
- 	return size;
- }
- 
-+static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
-+					 struct device_attribute *attr,
-+					 char *buf)
-+{
-+	int limit_type = to_sensor_dev_attr(attr)->index;
-+
-+	return snprintf(buf, PAGE_SIZE, "%s\n",
-+		limit_type == SMU_POWER_LIMIT_FAST_PPT ? "fastPPT" : "slowPPT"); }
- 
- static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
- 		struct device_attribute *attr,
-@@ -3129,6 +3140,7 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
- 		size_t count)
- {
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
-+	int limit_type = to_sensor_dev_attr(attr)->index;
- 	int err;
- 	u32 value;
- 
-@@ -3143,7 +3155,7 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
- 		return err;
- 
- 	value = value / 1000000; /* convert to Watt */
--
-+	value |= limit_type << 24;
- 
- 	err = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (err < 0) {
-@@ -3355,6 +3367,12 @@ static SENSOR_DEVICE_ATTR(power1_average, S_IRUGO, amdgpu_hwmon_show_power_avg,  static SENSOR_DEVICE_ATTR(power1_cap_max, S_IRUGO, amdgpu_hwmon_show_power_cap_max, NULL, 0);  static SENSOR_DEVICE_ATTR(power1_cap_min, S_IRUGO, amdgpu_hwmon_show_power_cap_min, NULL, 0);  static SENSOR_DEVICE_ATTR(power1_cap, S_IRUGO | S_IWUSR, amdgpu_hwmon_show_power_cap, amdgpu_hwmon_set_power_cap, 0);
-+static SENSOR_DEVICE_ATTR(power1_label, S_IRUGO, 
-+amdgpu_hwmon_show_power_label, NULL, 0); static 
-+SENSOR_DEVICE_ATTR(power2_average, S_IRUGO, 
-+amdgpu_hwmon_show_power_avg, NULL, 1); static 
-+SENSOR_DEVICE_ATTR(power2_cap_max, S_IRUGO, 
-+amdgpu_hwmon_show_power_cap_max, NULL, 1); static 
-+SENSOR_DEVICE_ATTR(power2_cap_min, S_IRUGO, 
-+amdgpu_hwmon_show_power_cap_min, NULL, 1); static 
-+SENSOR_DEVICE_ATTR(power2_cap, S_IRUGO | S_IWUSR, 
-+amdgpu_hwmon_show_power_cap, amdgpu_hwmon_set_power_cap, 1); static 
-+SENSOR_DEVICE_ATTR(power2_label, S_IRUGO, 
-+amdgpu_hwmon_show_power_label, NULL, 1);
- static SENSOR_DEVICE_ATTR(freq1_input, S_IRUGO, amdgpu_hwmon_show_sclk, NULL, 0);  static SENSOR_DEVICE_ATTR(freq1_label, S_IRUGO, amdgpu_hwmon_show_sclk_label, NULL, 0);  static SENSOR_DEVICE_ATTR(freq2_input, S_IRUGO, amdgpu_hwmon_show_mclk, NULL, 0); @@ -3393,6 +3411,12 @@ static struct attribute *hwmon_attributes[] = {
- 	&sensor_dev_attr_power1_cap_max.dev_attr.attr,
- 	&sensor_dev_attr_power1_cap_min.dev_attr.attr,
- 	&sensor_dev_attr_power1_cap.dev_attr.attr,
-+	&sensor_dev_attr_power1_label.dev_attr.attr,
-+	&sensor_dev_attr_power2_average.dev_attr.attr,
-+	&sensor_dev_attr_power2_cap_max.dev_attr.attr,
-+	&sensor_dev_attr_power2_cap_min.dev_attr.attr,
-+	&sensor_dev_attr_power2_cap.dev_attr.attr,
-+	&sensor_dev_attr_power2_label.dev_attr.attr,
- 	&sensor_dev_attr_freq1_input.dev_attr.attr,
- 	&sensor_dev_attr_freq1_label.dev_attr.attr,
- 	&sensor_dev_attr_freq2_input.dev_attr.attr,
-@@ -3485,8 +3509,9 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 			effective_mode &= ~S_IWUSR;
- 	}
- 
--	if (((adev->flags & AMD_IS_APU) ||
--	     adev->family == AMDGPU_FAMILY_SI) &&	/* not implemented yet */
-+	if (((adev->family == AMDGPU_FAMILY_SI) ||
-+		 ((adev->flags & AMD_IS_APU) &&
-+	      (adev->asic_type != CHIP_VANGOGH))) &&	/* not implemented yet */
- 	    (attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
- 	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr||
- 	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr))
-@@ -3549,6 +3574,16 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	     attr == &sensor_dev_attr_temp3_label.dev_attr.attr))
- 		return 0;
- 
-+	/* only Vangogh has fast PPT limit and power labels */
-+	if (!(adev->asic_type == CHIP_VANGOGH) &&
-+	    (attr == &sensor_dev_attr_power2_average.dev_attr.attr ||
-+		 attr == &sensor_dev_attr_power2_cap_max.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_power2_cap_min.dev_attr.attr ||
-+		 attr == &sensor_dev_attr_power2_cap.dev_attr.attr ||
-+		 attr == &sensor_dev_attr_power2_label.dev_attr.attr ||
-+		 attr == &sensor_dev_attr_power1_label.dev_attr.attr))
-+		return 0;
-+
- 	return effective_mode;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 44279c2afccb..6390b6155e5a 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -161,6 +161,12 @@ enum smu_power_src_type
- 	SMU_POWER_SOURCE_COUNT,
- };
- 
-+enum smu_power_limit_type
-+{
-+	SMU_POWER_LIMIT_SLOW_PPT = 0,
-+	SMU_POWER_LIMIT_FAST_PPT,
-+};
-+
- enum smu_memory_pool_size
- {
-     SMU_MEMORY_POOL_SIZE_ZERO   = 0,
-@@ -701,6 +707,13 @@ struct pptable_funcs {
- 	 */
- 	int (*get_power_limit)(struct smu_context *smu);
- 
-+	/**
-+	 * @get_fast_ppt_limit: Get the device's fast ppt(package power tracking) limits.
-+	 *
-+	 * Currently applies to Vangogh asic only.
-+	 */
-+	int (*get_fast_ppt_limit)(struct smu_context *smu, uint32_t 
-+*fppt_limit, bool max_setting);
-+
-
-<> Since this needs a new callback anyway, it's better to define it in a more generic way and make the parameters explicit.
-
-int (*get_ppt_limit)(struct smu_context *smu, uint32_t *ppt_limit,  uint16_t ppt_type, enum cap);
-
-ppt type = PPT limit type - DEFAULT/FAST
-cap = MIN /MAX/CURRENT
-
-Thanks,
-Lijo
-
- 	/**
- 	 * @set_df_cstate: Set data fabric cstate.
- 	 */
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index c7d57e9555cc..e6ccd422d518 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -129,6 +129,15 @@ struct smu_11_0_power_context {
- 	enum smu_11_0_power_state power_state;  };
- 
-+struct smu_11_5_power_context {
-+	uint32_t	power_source;
-+	uint8_t		in_power_limit_boost_mode;
-+	enum smu_11_0_power_state power_state;
-+
-+	uint32_t	current_fast_ppt_limit;
-+	uint32_t	max_fast_ppt_limit;
-+};
-+
- enum smu_v11_0_baco_seq {
- 	BACO_SEQ_BACO = 0,
- 	BACO_SEQ_MSR,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index c00f3f531965..69e9e8af3d4b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2046,12 +2046,17 @@ int smu_get_power_limit(struct smu_context *smu,
- 			uint32_t *limit,
- 			bool max_setting)
- {
-+	uint32_t limit_type = *limit >> 24;
-+
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
- 	mutex_lock(&smu->mutex);
- 
--	*limit = (max_setting ? smu->max_power_limit : smu->current_power_limit);
-+	if (limit_type == SMU_POWER_LIMIT_FAST_PPT)
-+		smu->ppt_funcs->get_fast_ppt_limit(smu, limit, max_setting);
-+	else
-+		*limit = (max_setting ? smu->max_power_limit : 
-+smu->current_power_limit);
- 
- 	mutex_unlock(&smu->mutex);
- 
-@@ -2061,12 +2066,18 @@ int smu_get_power_limit(struct smu_context *smu,  int smu_set_power_limit(struct smu_context *smu, uint32_t limit)  {
- 	int ret = 0;
-+	uint32_t limit_type = limit >> 24;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
- 	mutex_lock(&smu->mutex);
- 
-+	if (limit_type == SMU_POWER_LIMIT_FAST_PPT) {
-+		ret = smu->ppt_funcs->set_power_limit(smu, limit);
-+		goto out;
-+	}
-+
- 	if (limit > smu->max_power_limit) {
- 		dev_err(smu->adev->dev,
- 			"New power limit (%d) is over the max allowed %d\n", diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index cf6176afd4d5..d14b1b832bb7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -474,12 +474,14 @@ int smu_v11_0_fini_smc_tables(struct smu_context *smu)  int smu_v11_0_init_power(struct smu_context *smu)  {
- 	struct smu_power_context *smu_power = &smu->smu_power;
-+	size_t size = smu->adev->asic_type == CHIP_VANGOGH ?
-+			sizeof(struct smu_11_5_power_context) :
-+			sizeof(struct smu_11_0_power_context);
- 
--	smu_power->power_context = kzalloc(sizeof(struct smu_11_0_power_context),
--					   GFP_KERNEL);
-+	smu_power->power_context = kzalloc(size, GFP_KERNEL);
- 	if (!smu_power->power_context)
- 		return -ENOMEM;
--	smu_power->power_context_size = sizeof(struct smu_11_0_power_context);
-+	smu_power->power_context_size = size;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index f0f06ef47b9e..b05eaac9808f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -122,6 +122,10 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(SetSoftMinCclk,                     PPSMC_MSG_SetSoftMinCclk,						0),
- 	MSG_MAP(SetSoftMaxCclk,                     PPSMC_MSG_SetSoftMaxCclk,						0),
- 	MSG_MAP(RequestActiveWgp,                   PPSMC_MSG_RequestActiveWgp,                     0),
-+	MSG_MAP(SetFastPPTLimit,                    PPSMC_MSG_SetFastPPTLimit,						0),
-+	MSG_MAP(SetSlowPPTLimit,                    PPSMC_MSG_SetSlowPPTLimit,						0),
-+	MSG_MAP(GetFastPPTLimit,                    PPSMC_MSG_GetFastPPTLimit,						0),
-+	MSG_MAP(GetSlowPPTLimit,                    PPSMC_MSG_GetSlowPPTLimit,						0),
- };
- 
- static struct cmn2asic_mapping vangogh_feature_mask_map[SMU_FEATURE_COUNT] = { @@ -1771,6 +1775,102 @@ static int vangogh_mode2_reset(struct smu_context *smu)
- 	return vangogh_mode_reset(smu, SMU_RESET_MODE_2);  }
- 
-+static int vangogh_get_power_limit(struct smu_context *smu) {
-+	struct smu_11_5_power_context *power_context =
-+								smu->smu_power.power_context;
-+	uint32_t ppt_limit;
-+	int ret = 0;
-+
-+	if (smu->adev->pm.fw_version < 0x43f1d00)
-+		return ret;
-+
-+	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetSlowPPTLimit, &ppt_limit);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Get slow PPT limit failed!\n");
-+		return ret;
-+	}
-+	/* convert from milliwatt to watt */
-+	smu->current_power_limit = ppt_limit / 1000;
-+	smu->max_power_limit = 29;
-+
-+	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetFastPPTLimit, &ppt_limit);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Get fast PPT limit failed!\n");
-+		return ret;
-+	}
-+	/* convert from milliwatt to watt */
-+	power_context->current_fast_ppt_limit = ppt_limit / 1000;
-+	power_context->max_fast_ppt_limit = 30;
-+
-+	return ret;
-+}
-+
-+static int vangogh_get_fast_ppt_limit(struct smu_context *smu,
-+								uint32_t *fppt_limit,
-+								bool max_setting)
-+{
-+	struct smu_11_5_power_context *power_context =
-+							smu->smu_power.power_context;
-+
-+	if (!power_context)
-+		return -EOPNOTSUPP;
-+
-+	*fppt_limit = (max_setting ?
-+				   power_context->max_fast_ppt_limit :
-+				   power_context->current_fast_ppt_limit);
-+
-+	return 0;
-+}
-+
-+static int vangogh_set_power_limit(struct smu_context *smu, uint32_t 
-+ppt_limit) {
-+	struct smu_11_5_power_context *power_context =
-+							smu->smu_power.power_context;
-+	uint32_t limit_type = ppt_limit >> 24;
-+	int ret = 0;
-+
-+	if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT)) {
-+		dev_err(smu->adev->dev, "Setting new power limit is not supported!\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	switch (limit_type) {
-+	case SMU_POWER_LIMIT_SLOW_PPT:
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+				SMU_MSG_SetSlowPPTLimit,
-+				ppt_limit * 1000, /* convert from watt to milliwatt */
-+				NULL);
-+		if (ret)
-+			return ret;
-+
-+		smu->current_power_limit = ppt_limit;
-+		break;
-+	case SMU_POWER_LIMIT_FAST_PPT:
-+		ppt_limit &= ~(SMU_POWER_LIMIT_FAST_PPT << 24);
-+		if (ppt_limit > power_context->max_fast_ppt_limit) {
-+			dev_err(smu->adev->dev,
-+				"New power limit (%d) is over the max allowed %d\n",
-+				ppt_limit, power_context->max_fast_ppt_limit);
-+			return ret;
-+		}
-+
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+				SMU_MSG_SetFastPPTLimit,
-+				ppt_limit * 1000, /* convert from watt to milliwatt */
-+				NULL);
-+		if (ret)
-+			return ret;
-+
-+		power_context->current_fast_ppt_limit = ppt_limit;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return ret;
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
- 
- 	.check_fw_status = smu_v11_0_check_fw_status, @@ -1807,6 +1907,9 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.post_init = vangogh_post_smu_init,
- 	.mode2_reset = vangogh_mode2_reset,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-+	.get_fast_ppt_limit = vangogh_get_fast_ppt_limit,
-+	.get_power_limit = vangogh_get_power_limit,
-+	.set_power_limit = vangogh_set_power_limit,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu)
---
-2.17.1
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gV2VkLCBGZWIgMywgMjAyMSBhdCA5OjM2IEFNIENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4KPiBIaSBEYW5pZWwsCj4KPiB0aGlzIGlzIG5vdCBh
+IGRlYWRsb2NrLCBidXQgcmF0aGVyIGEgaGFyZHdhcmUgbG9ja3VwLgoKQXJlIHlvdSBzdXJlPyBJ
+bWUgZ2V0dGluZyBzdHVjayBpbiBkbWFfZmVuY2Vfd2FpdCBoYXMgZ2VuZXJhbGx5IGdvb2QKY2hh
+bmNlIG9mIGJlaW5nIGEgZG1hX2ZlbmNlIGRlYWRsb2NrLiBHUFUgaGFuZyBzaG91bGQgbmV2ZXIg
+cmVzdWx0IGluCmEgZm9yZXZlciBzdHVjayBkbWFfZmVuY2UuCgpEYW5pZWwsIGNhbiB5b3UgcGxz
+IHJlLWhhbmcgeW91ciBtYWNoaW5lIGFuZCB0aGVuIGR1bXAgYmFja3RyYWNlcyBvZgphbGwgdGFz
+a3MgaW50byBkbWVzZyB3aXRoIHN5c3JxLXQsIGFuZCB0aGVuIGF0dGFjaCB0aGF0PyBXaXRob3V0
+IGFsbAp0aGUgYmFja3RyYWNlcyBpdCdzIHRyaWNreSB0byBjb25zdHJ1Y3QgdGhlIGZ1bGwgZGVw
+ZW5kZW5jeSBjaGFpbiBvZgp3aGF0J3MgZ29pbmcgb24uIEFsc28gaXMgdGhpcyBwbGFpbiAtcmM2
+LCBub3Qgc29tZSBtb3JlIHBhdGNoZXMgb24KdG9wPwotRGFuaWVsCgo+IFdoaWNoIE9wZW5DbCBz
+dGFjayBhcmUgeW91IHVzaW5nPwo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPiBBbSAwMy4w
+Mi4yMSB1bSAwOTozMyBzY2hyaWViIERhbmllbCBHb21lejoKPiA+IEhpIGFsbCwKPiA+Cj4gPiBJ
+IGhhdmUgYSBkZWFkbG9jayB3aXRoIHRoZSBhbWRncHUgbWFpbmxpbmUgZHJpdmVyIHdoZW4gcnVu
+bmluZyBpbiBwYXJhbGxlbCB0d28KPiA+IE9wZW5DTCBhcHBsaWNhdGlvbnMuIFNvIGZhciwgd2Un
+dmUgYmVlbiBhYmxlIHRvIHJlcGxpY2F0ZSBpdCBlYXNpbHkgYnkgZXhlY3V0aW5nCj4gPiBjbGlu
+Zm8gYW5kIE1hdHJpeE11bHRpcGxpY2F0aW9uIChmcm9tIEFNRCBvcGVuY2wtc2FtcGxlcykuIEl0
+J3MgcXVpdGUgb2xkIHRoZQo+ID4gb3BlbmNsLXNhbXBsZXMgc28sIGlmIHlvdSBoYXZlIGFueSBv
+dGhlciBzdWdnZXN0aW9uIGZvciB0ZXN0aW5nIEknZCBiZSB2ZXJ5Cj4gPiBoYXBweSB0byB0ZXN0
+IGl0IGFzIHdlbGwuCj4gPgo+ID4gSG93IHRvIHJlcGxpY2F0ZSB0aGUgaXNzdWU6Cj4gPgo+ID4g
+IyB3aGlsZSB0cnVlOyBkbyAvdXNyL2Jpbi9NYXRyaXhNdWx0aXBsaWNhdGlvbiAtLWRldmljZSBn
+cHUgXAo+ID4gICAgICAtLWRldmljZUlkIDAgLXggMTAwMCAteSAxMDAwIC16IDEwMDAgLXEgLXQg
+LWkgNTA7IGRvbmUKPiA+ICMgd2hpbGUgdHJ1ZTsgZG8gY2xpbmZvOyBkb25lCj4gPgo+ID4gT3V0
+cHV0Ogo+ID4KPiA+IEFmdGVyIGEgbWludXRlIG9yIGxlc3MgKHNvbWV0aW1lcyBjb3VsZCBiZSBt
+b3JlKSBJIGNhbiBzZWUgdGhhdAo+ID4gTWF0cml4TXVsdGlwbGljYXRpb24gYW5kIGNsaW5mbyBo
+YW5nLiBJbiBhZGRpdGlvbiwgd2l0aCByYWRlb250b3AgeW91IGNhbiBzZWUKPiA+IGhvdyB0aGUg
+R3JhcGhpY3MgcGlwZSBnb2VzIGZyb20gfjUwJSB0byAxMDAlLiBBbHNvIHRoZSBzaGFkZXIgY2xv
+Y2tzCj4gPiBnb2VzIHVwIGZyb20gfjM1JSB0byB+OTYlLgo+ID4KPiA+IGNsaW5mbyBrZWVwcyBw
+cmludGluZzoKPiA+IGlvY3RsKDcsIERSTV9JT0NUTF9TWU5DT0JKX1dBSVQsIDB4N2ZmZTQ2ZTVm
+OTUwKSA9IC0xIEVUSU1FIChUaW1lciBleHBpcmVkKQo+ID4KPiA+IEFuZCBNYXRyaXhNdWx0aXBs
+aWNhdGlvbiBwcmludHMgdGhlIGZvbGxvd2luZyAoc3RyYWNlKSBpZiB5b3UgdHJ5IHRvCj4gPiBr
+aWxsIHRoZSBwcm9jZXNzOgo+ID4KPiA+IHNjaGVkX3lpZWxkKCkgICAgICAgICAgICAgICAgICAg
+ICAgICAgICA9IDAKPiA+IGZ1dGV4KDB4NTU3ZTk0NTM0M2I4LCBGVVRFWF9XQUlUX0JJVFNFVF9Q
+UklWQVRFfEZVVEVYX0NMT0NLX1JFQUxUSU1FLCAwLAo+ID4gTlVMTCwgRlVURVhfQklUU0VUX01B
+VENIX0FOWXN0cmFjZTogUHJvY2VzcyA2NTEgZGV0YWNoZWQKPiA+ICAgPGRldGFjaGVkIC4uLj4K
+PiA+Cj4gPiBBZnRlciB0aGlzLCB0aGUgZ3B1IGlzIG5vdCBmdW5jdGlvbmFsIGF0IGFsbCBhbmQg
+eW91J2QgbmVlZCBhIHBvd2VyIGN5Y2xlIHJlc2V0Cj4gPiB0byByZXN0b3JlIHRoZSBzeXN0ZW0u
+Cj4gPgo+ID4gSGFyZHdhcmUgaW5mbzoKPiA+IENQVTogQU1EIFJ5emVuIEVtYmVkZGVkIFYxNjA1
+QiB3aXRoIFJhZGVvbiBWZWdhIEdmeCAoOCkgQCAyLjAwMEdIego+ID4gR1BVOiBBTUQgQVRJIFJh
+ZGVvbiBWZWdhIFNlcmllcyAvIFJhZGVvbiBWZWdhIE1vYmlsZSBTZXJpZXMKPiA+Cj4gPiAwMzow
+MC4wIFZHQSBjb21wYXRpYmxlIGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIElu
+Yy4KPiA+IFtBTUQvQVRJXSBSYXZlbiBSaWRnZSBbUmFkZW9uIFZlZ2EgU2VyaWVzIC8gUmFkZW9u
+IFZlZ2EgTW9iaWxlIFNlcmllc10KPiA+IChyZXYgODMpCj4gPiAgICAgIERldmljZU5hbWU6IEJy
+b2FkY29tIDU3NjIKPiA+ICAgICAgU3Vic3lzdGVtOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJ
+bmMuIFtBTUQvQVRJXSBSYXZlbiBSaWRnZQo+ID4gW1JhZGVvbiBWZWdhIFNlcmllcyAvIFJhZGVv
+biBWZWdhIE1vYmlsZSBTZXJpZXNdCj4gPiAgICAgIEtlcm5lbCBkcml2ZXIgaW4gdXNlOiBhbWRn
+cHUKPiA+ICAgICAgS2VybmVsIG1vZHVsZXM6IGFtZGdwdQo+ID4KPiA+IExpbnV4IGtlcm5lbCBp
+bmZvOgo+ID4KPiA+IHJvb3RAcXQ1MjIyOn4jIHVuYW1lIC1hCj4gPiBMaW51eCBxdDUyMjIgNS4x
+MS4wLXJjNi1xdGVjLXN0YW5kYXJkICMyIFNNUCBUdWUgRmViIDIgMDk6NDE6NDYgVVRDCj4gPiAy
+MDIxIHg4Nl82NCB4ODZfNjQgeDg2XzY0IEdOVS9MaW51eAo+ID4KPiA+IEJ5IGVuYWJsaW5nIHRo
+ZSBrZXJuZWwgbG9ja3Mgc3RhdHMgSSBjb3VsZCBzZWUgdGhlIE1hdHJpeE11bHRpcGxpY2F0aW9u
+IGlzCj4gPiBoYW5nZWQgaW4gdGhlIGFtZGdwdV9tbl9pbnZhbGlkYXRlX2dmeCBmdW5jdGlvbjoK
+PiA+Cj4gPiBbICA3MzguMzU5MjAyXSAxIGxvY2sgaGVsZCBieSBNYXRyaXhNdWx0aXBsaWMvNjUz
+Ogo+ID4gWyAgNzM4LjM1OTIwNl0gICMwOiBmZmZmODg4MTBlMzY0ZmUwCj4gPiAoJmFkZXYtPm5v
+dGlmaWVyX2xvY2speysuKy59LXszOjN9LCBhdDoKPiA+IGFtZGdwdV9tbl9pbnZhbGlkYXRlX2dm
+eCsweDM0LzB4YTAgW2FtZGdwdV0KPiA+Cj4gPiBJIGNhbiBzZWUgaW4gdGhlIHRoZSBhbWRncHVf
+bW5faW52YWxpZGF0ZV9nZnggZnVuY3Rpb246IHRoZQo+ID4gZG1hX3Jlc3Zfd2FpdF90aW1lb3V0
+X3JjdSB1c2VzIHdhaXRfYWxsIChmZW5jZXMpIGFuZCBNQVhfU0NIRURVTEVfVElNRU9VVCBzbywg
+SQo+ID4gZ3Vlc3MgdGhlIGNvZGUgZ2V0cyBzdHVjayB0aGVyZSB3YWl0aW5nIGZvcmV2ZXIuIEFj
+Y29yZGluZyB0byB0aGUKPiA+IGRvY3VtZW50YXRpb246ICJXaGVuIHNvbWVib2R5IHRyaWVzIHRv
+IGludmFsaWRhdGUgdGhlIHBhZ2UgdGFibGVzIHdlIGJsb2NrIHRoZQo+ID4gdXBkYXRlIHVudGls
+IGFsbCBvcGVyYXRpb25zIG9uIHRoZSBwYWdlcyBpbiBxdWVzdGlvbiBhcmUgY29tcGxldGVkLCB0
+aGVuIHRob3NlCj4gPiBwYWdlcyBhcmUgbWFya2VkICBhcyBhY2Nlc3NlZCBhbmQgYWxzbyBkaXJ0
+eSBpZiBpdCB3YXNu4oCZdCBhIHJlYWQgb25seSBhY2Nlc3MuIgo+ID4gTG9va3MgbGlrZSB0aGUg
+ZmVuY2VzIGFyZSBkZWFkbG9ja2VkIGFuZCB0aGVyZWZvcmUsIGl0IG5ldmVyIHJldHVybnMuIENv
+dWxkIGl0Cj4gPiBiZSBwb3NzaWJsZT8gYW55IGhpbnQgdG8gd2hlcmUgY2FuIEkgbG9vayB0byBm
+aXggdGhpcz8KPiA+Cj4gPiBUaGFuayB5b3UgIGluIGFkdmFuY2UuCj4gPgo+ID4gSGVyZSB0aGUg
+ZnVsbCBkbWVzZyBvdXRwdXQ6Cj4gPgo+ID4gWyAgNzM4LjMzNzcyNl0gSU5GTzogdGFzayBNYXRy
+aXhNdWx0aXBsaWM6NjUzIGJsb2NrZWQgZm9yIG1vcmUgdGhhbiAxMjIgc2Vjb25kcy4KPiA+IFsg
+IDczOC4zNDQ5MzddICAgICAgIE5vdCB0YWludGVkIDUuMTEuMC1yYzYtcXRlYy1zdGFuZGFyZCAj
+Mgo+ID4gWyAgNzM4LjM1MDM4NF0gImVjaG8gMCA+IC9wcm9jL3N5cy9rZXJuZWwvaHVuZ190YXNr
+X3RpbWVvdXRfc2VjcyIKPiA+IGRpc2FibGVzIHRoaXMgbWVzc2FnZS4KPiA+IFsgIDczOC4zNTgy
+NDBdIHRhc2s6TWF0cml4TXVsdGlwbGljIHN0YXRlOkQgc3RhY2s6ICAgIDAgcGlkOiAgNjUzCj4g
+PiBwcGlkOiAgICAgMSBmbGFnczoweDAwMDA0MDAwCj4gPiBbICA3MzguMzU4MjU0XSBDYWxsIFRy
+YWNlOgo+ID4gWyAgNzM4LjM1ODI2MV0gID8gZG1hX2ZlbmNlX2RlZmF1bHRfd2FpdCsweDFlYi8w
+eDIzMAo+ID4gWyAgNzM4LjM1ODI3Nl0gIF9fc2NoZWR1bGUrMHgzNzAvMHg5NjAKPiA+IFsgIDcz
+OC4zNTgyOTFdICA/IGRtYV9mZW5jZV9kZWZhdWx0X3dhaXQrMHgxMTcvMHgyMzAKPiA+IFsgIDcz
+OC4zNTgyOTddICA/IGRtYV9mZW5jZV9kZWZhdWx0X3dhaXQrMHgxZWIvMHgyMzAKPiA+IFsgIDcz
+OC4zNTgzMDVdICBzY2hlZHVsZSsweDUxLzB4YzAKPiA+IFsgIDczOC4zNTgzMTJdICBzY2hlZHVs
+ZV90aW1lb3V0KzB4Mjc1LzB4MzgwCj4gPiBbICA3MzguMzU4MzI0XSAgPyBkbWFfZmVuY2VfZGVm
+YXVsdF93YWl0KzB4MWViLzB4MjMwCj4gPiBbICA3MzguMzU4MzMyXSAgPyBtYXJrX2hlbGRfbG9j
+a3MrMHg0Zi8weDcwCj4gPiBbICA3MzguMzU4MzQxXSAgPyBkbWFfZmVuY2VfZGVmYXVsdF93YWl0
+KzB4MTE3LzB4MjMwCj4gPiBbICA3MzguMzU4MzQ3XSAgPyBsb2NrZGVwX2hhcmRpcnFzX29uX3By
+ZXBhcmUrMHhkNC8weDE4MAo+ID4gWyAgNzM4LjM1ODM1M10gID8gX3Jhd19zcGluX3VubG9ja19p
+cnFyZXN0b3JlKzB4MzkvMHg0MAo+ID4gWyAgNzM4LjM1ODM2Ml0gID8gZG1hX2ZlbmNlX2RlZmF1
+bHRfd2FpdCsweDExNy8weDIzMAo+ID4gWyAgNzM4LjM1ODM3MF0gID8gZG1hX2ZlbmNlX2RlZmF1
+bHRfd2FpdCsweDFlYi8weDIzMAo+ID4gWyAgNzM4LjM1ODM3NV0gIGRtYV9mZW5jZV9kZWZhdWx0
+X3dhaXQrMHgyMTQvMHgyMzAKPiA+IFsgIDczOC4zNTgzODRdICA/IGRtYV9mZW5jZV9yZWxlYXNl
+KzB4MWEwLzB4MWEwCj4gPiBbICA3MzguMzU4Mzk2XSAgZG1hX2ZlbmNlX3dhaXRfdGltZW91dCsw
+eDEwNS8weDIwMAo+ID4gWyAgNzM4LjM1ODQwNV0gIGRtYV9yZXN2X3dhaXRfdGltZW91dF9yY3Ur
+MHgxYWEvMHg1ZTAKPiA+IFsgIDczOC4zNTg0MjFdICBhbWRncHVfbW5faW52YWxpZGF0ZV9nZngr
+MHg1NS8weGEwIFthbWRncHVdCj4gPiBbICA3MzguMzU4Njg4XSAgX19tbXVfbm90aWZpZXJfcmVs
+ZWFzZSsweDFiYi8weDIxMAo+ID4gWyAgNzM4LjM1ODcxMF0gIGV4aXRfbW1hcCsweDJmLzB4MWUw
+Cj4gPiBbICA3MzguMzU4NzIzXSAgPyBmaW5kX2hlbGRfbG9jaysweDM0LzB4YTAKPiA+IFsgIDcz
+OC4zNTg3NDZdICBtbXB1dCsweDM5LzB4ZTAKPiA+IFsgIDczOC4zNTg3NTZdICBkb19leGl0KzB4
+NWMzLzB4YzAwCj4gPiBbICA3MzguMzU4NzYzXSAgPyBmaW5kX2hlbGRfbG9jaysweDM0LzB4YTAK
+PiA+IFsgIDczOC4zNTg3ODBdICBkb19ncm91cF9leGl0KzB4NDcvMHhiMAo+ID4gWyAgNzM4LjM1
+ODc5MV0gIGdldF9zaWduYWwrMHgxNWIvMHhjNTAKPiA+IFsgIDczOC4zNTg4MDddICBhcmNoX2Rv
+X3NpZ25hbF9vcl9yZXN0YXJ0KzB4YWYvMHg3MTAKPiA+IFsgIDczOC4zNTg4MTZdICA/IGxvY2tk
+ZXBfaGFyZGlycXNfb25fcHJlcGFyZSsweGQ0LzB4MTgwCj4gPiBbICA3MzguMzU4ODIyXSAgPyBf
+cmF3X3NwaW5fdW5sb2NrX2lycXJlc3RvcmUrMHgzOS8weDQwCj4gPiBbICA3MzguMzU4ODMxXSAg
+PyBrdGltZV9nZXRfbW9ub19mYXN0X25zKzB4NTAvMHhhMAo+ID4gWyAgNzM4LjM1ODg0NF0gID8g
+YW1kZ3B1X2RybV9pb2N0bCsweDZiLzB4ODAgW2FtZGdwdV0KPiA+IFsgIDczOC4zNTkwNDRdICBl
+eGl0X3RvX3VzZXJfbW9kZV9wcmVwYXJlKzB4ZjIvMHgxYjAKPiA+IFsgIDczOC4zNTkwNTRdICBz
+eXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4MTkvMHg2MAo+ID4gWyAgNzM4LjM1OTA2Ml0gIGVu
+dHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ0LzB4YTkKPiA+IFsgIDczOC4zNTkwNjld
+IFJJUDogMDAzMzoweDdmNmI4OWE1MTg4Nwo+ID4gWyAgNzM4LjM1OTA3Nl0gUlNQOiAwMDJiOjAw
+MDA3ZjZiODJiNTRiMTggRUZMQUdTOiAwMDAwMDI0NiBPUklHX1JBWDoKPiA+IDAwMDAwMDAwMDAw
+MDAwMTAKPiA+IFsgIDczOC4zNTkwODZdIFJBWDogZmZmZmZmZmZmZmZmZmUwMCBSQlg6IDAwMDA3
+ZjZiODJiNTRiNTAgUkNYOiAwMDAwN2Y2Yjg5YTUxODg3Cj4gPiBbICA3MzguMzU5MDkxXSBSRFg6
+IDAwMDA3ZjZiODJiNTRiNTAgUlNJOiAwMDAwMDAwMGMwMjA2NGMzIFJESTogMDAwMDAwMDAwMDAw
+MDAwNwo+ID4gWyAgNzM4LjM1OTA5Nl0gUkJQOiAwMDAwMDAwMGMwMjA2NGMzIFIwODogMDAwMDAw
+MDAwMDAwMDAwMyBSMDk6IDAwMDA3ZjZiODJiNTRiYmMKPiA+IFsgIDczOC4zNTkxMDFdIFIxMDog
+MDAwMDAwMDAwMDAwMDAwMSBSMTE6IDAwMDAwMDAwMDAwMDAyNDYgUjEyOiAwMDAwMDAwMTY1YTBi
+YzAwCj4gPiBbICA3MzguMzU5MTA2XSBSMTM6IDAwMDAwMDAwMDAwMDAwMDcgUjE0OiAwMDAwMDAw
+MDAwMDAwMDAxIFIxNTogMDAwMDAwMDAwMDAwMDAwMAo+ID4gWyAgNzM4LjM1OTEyOV0KPiA+ICAg
+ICAgICAgICAgICAgICBTaG93aW5nIGFsbCBsb2NrcyBoZWxkIGluIHRoZSBzeXN0ZW06Cj4gPiBb
+ICA3MzguMzU5MTQxXSAxIGxvY2sgaGVsZCBieSBraHVuZ3Rhc2tkLzU0Ogo+ID4gWyAgNzM4LjM1
+OTE0OF0gICMwOiBmZmZmZmZmZjgyOWY2ODQwIChyY3VfcmVhZF9sb2NrKXsuLi4ufS17MToyfSwg
+YXQ6Cj4gPiBkZWJ1Z19zaG93X2FsbF9sb2NrcysweDE1LzB4MTgzCj4gPiBbICA3MzguMzU5MTg3
+XSAxIGxvY2sgaGVsZCBieSBzeXN0ZW1kLWpvdXJuYWwvMTc0Ogo+ID4gWyAgNzM4LjM1OTIwMl0g
+MSBsb2NrIGhlbGQgYnkgTWF0cml4TXVsdGlwbGljLzY1MzoKPiA+IFsgIDczOC4zNTkyMDZdICAj
+MDogZmZmZjg4ODEwZTM2NGZlMAo+ID4gKCZhZGV2LT5ub3RpZmllcl9sb2NrKXsrLisufS17Mzoz
+fSwgYXQ6Cj4gPiBhbWRncHVfbW5faW52YWxpZGF0ZV9nZngrMHgzNC8weGEwIFthbWRncHVdCj4g
+Pgo+ID4gRGFuaWVsCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9kcmktZGV2ZWwKCgoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVs
+IENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
