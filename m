@@ -2,73 +2,69 @@ Return-Path: <SRS0=BBBq=HF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54C1AC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 19:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 572AAC433DB
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 19:07:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE6126024A
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 19:01:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE6126024A
+	by mail.kernel.org (Postfix) with ESMTPS id E68A664F2C
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Feb 2021 19:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E68A664F2C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 990FA6EB9B;
-	Wed,  3 Feb 2021 19:01:35 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DABA6EB98;
- Wed,  3 Feb 2021 19:01:34 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id s18so314315ljg.7;
- Wed, 03 Feb 2021 11:01:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A62D89DA8;
+	Wed,  3 Feb 2021 19:06:59 +0000 (UTC)
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119AD89D9B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Feb 2021 19:06:58 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id v126so779987qkd.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 11:06:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wIOqY6tEDX11BFk0SrIjiKiEqqNnZwVaHMuzsSoEibs=;
- b=j1WPtWwj8ipHJ5w71WVEp7IMoeVOix4P22EtplqXkjwA3n9TYe5ruFx1w3WCtU7TzM
- xFLyuYLyBBgt4rQ9pTEI63RwpaU6CH7fkZ88Wi0xGVwbsuqsBGR5WliCCTl4EOMu/qKd
- qY6Cts+PckDtVmNCpdBPZd9QtKkhizU5dNhml5JlB/UQWoDiAnl6U1aMICEdKwcL+amr
- E+pOA2+y3TkeSviLQtMzDMoojyeBShIzT+i53bi0lY2dHnXhhD5GMHQwMySDyksSlTy4
- NyeS0I5MuMzrAZAdl95lq3Yc5PvaJNIbJQxk29A3UhOaQR6k/IbdWakgsaWBB1jwKs+i
- QtIg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5urpi0LjW7Q9lIHXXG0E4+9xyGMjh7EkegNI6AqlSBY=;
+ b=AwsZ7JaZhq7wfl3naaAlEhAoedv6Fd7Kk5/PaKhgWROmsH9P+MOFtE6CL27Nq/8u8g
+ +4i48zLmy5QCGvwRohSK1lonfI59W73SP2Ph83jrFRfksY5Kvlupq7zZOlj66xXFgp44
+ tc7yGfrG09IuURmzBfO/wmRZQO8VKgQ/rFsihojTXmnDt9LEFlHPfb1Y/4HaOGoRnF8M
+ cK2Pm0hwcVWqJ1vvnRpGh+G6uc88Rwhr9wfg+kbhCvArn08dAl6zEZdHUZUjYQTEhtV3
+ pJBAy3Bpn/OF/O6mZvyKoP1lSmZ54ZyN0F9DPFnCkxyFOVyUSajakPIFLLv9IdW7Knjv
+ sohA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wIOqY6tEDX11BFk0SrIjiKiEqqNnZwVaHMuzsSoEibs=;
- b=NAsjGlADMSjdamtjCg7pDvlwrMAtJzzUqbxr3NhFxV0fg0PCn4FdtlDbWm3ZAgaccz
- PYQ1gE9jGRLZcDnp23aXsa2AcH/dLhe3fwk1C2RCZRa1OuIBMlALo/jwULVwJLGq60Pn
- BznZfjHhIVppaQP6SJsuoNrDXe+3RbsAW9mdkMBgZ5RNoD/9IYoru4z+RRlZ45GjVQ3M
- y2woy8fBMTBHiPQPOV11Et+YlslfsAj9MqgmBLCcUSkQaTCBMYu2NPok2yUbrBdEEDzM
- 8g8TKG49iM6PBU96sZ5G2WoX40R3yxJhkfoGD4ovtKDHRueWjSyTMGXY7z3DpV3f4Qu/
- puzw==
-X-Gm-Message-State: AOAM532NyQVkGoY+URxivyR0CYKssvTQVWc71dz4MUE4hCy9WmouNqYd
- dtYDwE4sBXH9GxnzpfQVJFQSiEPL807aeTIUs4o=
-X-Google-Smtp-Source: ABdhPJw+3FMaYwFnh8M7JqwAsZIKG1Zw54IRKe6pZKeZjm4sxDyTGaoE8diHwpVIsxytJbkNbiPav6MKVtm3SHLVRC0=
-X-Received: by 2002:a2e:9218:: with SMTP id k24mr2491297ljg.195.1612378891198; 
- Wed, 03 Feb 2021 11:01:31 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5urpi0LjW7Q9lIHXXG0E4+9xyGMjh7EkegNI6AqlSBY=;
+ b=K1nONp1U3loWtQAA6n0yfZ3rL89mRhDZHcQv2BklvWMciS7a+Naeu9u2bDBkMTcFPQ
+ nKxBkl0qrO2/VHioudljXmLmHB9xWckScRosrmSKEJTSDh4Ig2Qj8kbivicoxG3zkdyR
+ 7V1Nj/8DqSvfTCckn33xZTM2jMiHcrFaB9Mwtvf+HgVQbx6jy457I3qtlsNf43iBhfNS
+ 0YCc1YWh2PglmiSSU0gwsPUna15RcvyWVmCRF0qlsmevBFjCWrhfWrdvp/rYmUVIYeea
+ 6gllAuYw/2ujlcBqM6kRzrxSDQbN7Dmv1k4so7K8wvLWnvQu4PO/i0U/QBEg7BxfjMOo
+ flUg==
+X-Gm-Message-State: AOAM530givZCF8cstJXS1xp/gv7rzsBkNsmwbmi4iGGGzeFUzev6wjIU
+ iz5/iUX7YhXfx8dvsDoFmbGGK30MNvM=
+X-Google-Smtp-Source: ABdhPJx80MTiKvj1zei8dCUdrYDYWtDsxIVC8u4wqqZuK2dl604i5xGZnGsDXfCXLkt0d5kvVnywRQ==
+X-Received: by 2002:a37:c03:: with SMTP id 3mr4145471qkm.367.1612379217125;
+ Wed, 03 Feb 2021 11:06:57 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.237])
+ by smtp.gmail.com with ESMTPSA id r4sm2530434qkf.112.2021.02.03.11.06.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Feb 2021 11:06:56 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amd/display: Update NV1x SR latency values"
+Date: Wed,  3 Feb 2021 14:06:46 -0500
+Message-Id: <20210203190646.2024787-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-References: <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
- <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
- <CAOWid-eQSPru0nm8+Xo3r6C0pJGq+5r8mzM8BL2dgNn2c9mt2Q@mail.gmail.com>
- <CAADnVQKuoZDB-Xga5STHdGSxvSP=B6jQ40kLdpL1u+J98bv65A@mail.gmail.com>
- <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
- <20201103210418.q7hddyl7rvdplike@ast-mbp.dhcp.thefacebook.com>
- <CAOWid-djQ_NRfCbOTnZQ-A8Pr7jMP7KuZEJDSsvzWkdw7qc=yA@mail.gmail.com>
- <20201103232805.6uq4zg3gdvw2iiki@ast-mbp.dhcp.thefacebook.com>
- <YBgU9Vu0BGV8kCxD@phenom.ffwll.local>
- <CAOWid-eXMqcNpjFxbcuUDU7Y-CCYJRNT_9mzqFYm1jeCPdADGQ@mail.gmail.com>
- <YBqEbHyIjUjgk+es@phenom.ffwll.local>
-In-Reply-To: <YBqEbHyIjUjgk+es@phenom.ffwll.local>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Wed, 3 Feb 2021 14:01:19 -0500
-Message-ID: <CAOWid-c4Nk717xUah19B=z=2DtztbtU=_4=fQdfhqpfNJYN2gw@mail.gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,113 +76,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Song Liu <songliubraving@fb.com>, Andrii Nakryiko <andriin@fb.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Kenny Ho <Kenny.Ho@amd.com>,
- "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
- Brian Welty <brian.welty@intel.com>, John Fastabend <john.fastabend@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Martin KaFai Lau <kafai@fb.com>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Network Development <netdev@vger.kernel.org>, KP Singh <kpsingh@chromium.org>,
- Yonghong Song <yhs@fb.com>, bpf <bpf@vger.kernel.org>,
- Dave Airlie <airlied@gmail.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Alvin Lee <alvin.lee2@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Daniel,
+This reverts commit 4a3dea8932d3b1199680d2056dd91d31d94d70b7.
 
-I will have to get back to you later on the details of this because my
-head is currently context switched to some infrastructure and
-Kubernetes/golang work, so I am having a hard time digesting what you
-are saying.  I am new to the bpf stuff so this is about my own
-learning as well as a conversation starter.  The high level goal here
-is to have a path for flexibility via a bpf program.  Not just GPU or
-DRM or CU mask, but devices making decisions via an operator-written
-bpf-prog attached to a cgroup.  More inline.
+This causes blank screens for some users.
 
-On Wed, Feb 3, 2021 at 6:09 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Mon, Feb 01, 2021 at 11:51:07AM -0500, Kenny Ho wrote:
-> > On Mon, Feb 1, 2021 at 9:49 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > - there's been a pile of cgroups proposal to manage gpus at the drm
-> > >   subsystem level, some by Kenny, and frankly this at least looks a bit
-> > >   like a quick hack to sidestep the consensus process for that.
-> > No Daniel, this is quick *draft* to get a conversation going.  Bpf was
-> > actually a path suggested by Tejun back in 2018 so I think you are
-> > mischaracterizing this quite a bit.
-> >
-> > "2018-11-20 Kenny Ho:
-> > To put the questions in more concrete terms, let say a user wants to
-> >  expose certain part of a gpu to a particular cgroup similar to the
-> >  way selective cpu cores are exposed to a cgroup via cpuset, how
-> >  should we go about enabling such functionality?
-> >
-> > 2018-11-20 Tejun Heo:
-> > Do what the intel driver or bpf is doing?  It's not difficult to hook
-> > into cgroup for identification purposes."
->
-> Yeah, but if you go full amd specific for this, you might as well have a
-> specific BPF hook which is called in amdgpu/kfd and returns you the CU
-> mask for a given cgroups (and figures that out however it pleases).
->
-> Not a generic framework which lets you build pretty much any possible
-> cgroups controller for anything else using BPF. Trying to filter anything
-> at the generic ioctl just doesn't feel like a great idea that's long term
-> maintainable. E.g. what happens if there's new uapi for command
-> submission/context creation and now your bpf filter isn't catching all
-> access anymore? If it's an explicit hook that explicitly computes the CU
-> mask, then we can add more checks as needed. With ioctl that's impossible.
->
-> Plus I'm also not sure whether that's really a good idea still, since if
-> cloud companies have to built their own bespoke container stuff for every
-> gpu vendor, that's quite a bad platform we're building. And "I'd like to
-> make sure my gpu is used fairly among multiple tenents" really isn't a
-> use-case that's specific to amd.
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1388
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Cc: Jun Lei <Jun.Lei@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I don't understand what you are saying about containers here since
-bpf-progs are not the same as container nor are they deployed from
-inside a container (as far as I know, I am actually not sure how
-bpf-cgroup works with higher level cloud orchestration since folks
-like Docker just migrated to cgroup v2 very recently... I don't think
-you can specify a bpf-prog to load as part of a k8s pod definition.)
-That said, the bit I understand ("not sure whether that's really a
-good idea....cloud companies have to built their own bespoke container
-stuff for every gpu vendor...") is in fact the current status quo.  If
-you look into some of the popular ML/AI-oriented containers/apps, you
-will likely see things are mostly hardcoded to CUDA.  Since I work for
-AMD, I wouldn't say that's a good thing but this is just the reality.
-For Kubernetes at least (where my head is currently), the official
-mechanisms are Device Plugins (I am the author for the one for AMD but
-there are a few ones from Intel too, you can confirm with your
-colleagues)  and Node Feature/Labels.  Kubernetes schedules
-pod/container launched by users to the node/servers by the affinity of
-the node resources/labels, and the resources/labels in the pod
-specification created by the users.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 064f158ce671..d94a1b3ac1fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -297,8 +297,8 @@ static struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
+ 			},
+ 		},
+ 	.num_states = 5,
+-	.sr_exit_time_us = 11.6,
+-	.sr_enter_plus_exit_time_us = 13.9,
++	.sr_exit_time_us = 8.6,
++	.sr_enter_plus_exit_time_us = 10.9,
+ 	.urgent_latency_us = 4.0,
+ 	.urgent_latency_pixel_data_only_us = 4.0,
+ 	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
+-- 
+2.29.2
 
-> If this would be something very hw specific like cache assignment and
-> quality of service stuff or things like that, then vendor specific imo
-> makes sense. But for CU masks essentially we're cutting the compute
-> resources up in some way, and I kinda expect everyone with a gpu who cares
-> about isolating workloads with cgroups wants to do that.
-
-Right, but isolating workloads is quality of service stuff and *how*
-compute resources are cut up are vendor specific.
-
-Anyway, as I said at the beginning of this reply, this is about
-flexibility in support of the diversity of devices and architectures.
-CU mask is simply a concrete example of hw diversity that a
-bpf-program can encapsulate.  I can see this framework (a custom
-program making decisions in a specific cgroup and device context) use
-for other things as well.  It may even be useful within a vendor to
-handle the diversity between SKUs.
-
-Kenny
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
