@@ -2,71 +2,63 @@ Return-Path: <SRS0=vrAH=HG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 681BEC433DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 20:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7F42C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 23:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2755764E35
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 20:05:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2755764E35
+	by mail.kernel.org (Postfix) with ESMTPS id 428AE64FA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 23:52:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 428AE64FA4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C839A6EE63;
-	Thu,  4 Feb 2021 20:05:01 +0000 (UTC)
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 355426EE63
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 20:05:01 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id n15so4616292qkh.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 12:05:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C322B6EEB4;
+	Thu,  4 Feb 2021 23:52:03 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF36C6E037;
+ Thu,  4 Feb 2021 23:52:02 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id t5so6510085eds.12;
+ Thu, 04 Feb 2021 15:52:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Hat+5qMxK/YW75busIYe9uJl427/84XduJWjrFaUwCw=;
- b=UCcnpz/1mz6Zejkb6IzFRMcanywj/4CGzESoFhboqdpQJWjNfjze1RH0fvpCuofR3X
- a2mu9Kz+dXQgwt0TttssnlDBlj+qBVw939m5//IzwZr2DhscraXiJGmab60+ysJPAGwM
- 6cd7T7AlFQ+fnIhyp+6oE8NQeWSTEfoByH6dMTmtN3LXTSqztXsARwb8F1uibQYebBsc
- wWI/fNSN3gBFxv9HNB6NgoWRQQIMIlQAPvp+/XoGe6/62Vl9AJoQbeCydGDSod3zkFV7
- t8rx+6v0oDFTlYLkQgR0yawJOgDCGNdEfxzkOe7QjQAFeN44IZ5aN6/TkFjbVUy9a1kr
- fcfA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ra+uVv0AOKF5IWdsNTvTAlwtdjfa/ya/PpGduOS0OQE=;
+ b=UiDieoSxH+9MmOCXflkoXMs8JXz90gU8uIWnjkdHxFOyu6oHPCTibnG8pKNjJx2d3P
+ 0Jui5HX1bdYIpkiOUevQPtkDEisvgkWU1FFbPsHZ88ptibMRZRxXr+7qf4swrVXWXdD/
+ g5QQwK78pGC34fBprU8AhmiCLLEpqydmjwRk+DSLNEdzoAyzI+YZ0QO7ggZR5xaY6Bof
+ l/uuy5gR3r7mnkOCvQWCPQOdBuK9RGXR4VhI7sWTtJriRaYSLGkFn4fV7ujHeb8m79Tq
+ P6VTwbWRbvpSo/xY5dd2RZlgfztEFjHq56IslK0Jyp9Y1mgpokfVCZFElEkDtmIDTH+V
+ eoRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Hat+5qMxK/YW75busIYe9uJl427/84XduJWjrFaUwCw=;
- b=HyJuwhspSFPBeNnD7gYYpWcnAwzWnT/CCD1rL61h9XQXeFXR+pBYhb7KLJevPxNFiu
- fNIFWxIhs/rl62XdYg8b11VAwNlbPEaIaoCxb29oQil1InAtKC1LN31rpJytmZmgMk5t
- 0rzZJjh+ktrYIGmERTReeCfCGwXRtEMss7rBzJzSM1/EPRgWjDfJcVIDLQuwT6V6339y
- BlumTSVj6ZhHcEzkB9WxcH7IvNomiIDBtvdWj01BaEkloc2e2zxD3fZX/oA2ntWtbzTC
- cDXcNMkZ5iJgM6XG/mJ6kY2CS7DCLiVjuD9OkBatDWgbQq3iJSi1zoRe8ymYJHog77yq
- 4guQ==
-X-Gm-Message-State: AOAM533Cg+TemHT5j3gwK8wdU1Yx3qf6GVRBCU8Qo5hzmubixMhQLdMz
- rvYhQr2uW6orB21d1JDJ2xN45hTrBI4=
-X-Google-Smtp-Source: ABdhPJw1VHMePfzC3al06iqqK0OPEzvswJROWtzlaeOJvm9Fl/HHHzFRMqy2HLZn5tGG81Cfhr5KJQ==
-X-Received: by 2002:a05:620a:1111:: with SMTP id
- o17mr937972qkk.122.1612469100292; 
- Thu, 04 Feb 2021 12:05:00 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id j11sm6270714qkm.47.2021.02.04.12.04.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Feb 2021 12:04:59 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu: use runpm flag rather than fbcon for kfd
- runtime suspend (v2)
-Date: Thu,  4 Feb 2021 15:04:50 -0500
-Message-Id: <20210204200450.1900-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ra+uVv0AOKF5IWdsNTvTAlwtdjfa/ya/PpGduOS0OQE=;
+ b=GXPdxFgh7oEZeKU265qpkW+d+8yXqh8AZUHroD01a+4o2DdsvaZtksi17pnki/mQZo
+ 45kZbIjkIIPZNa87z0xTncofedWGxZmmuAkiSPVQtgpbW6eOKe9uzxfAVFcJxyeNm6hu
+ dJU8LxFmQB51E6Ck7kyHtIj05lgKgxK/2vYfCRvP+cHIe+z5xDuS3amTL8KbJ8gESAUS
+ btHxIO0f66rK5xu08i0kUe9R2WSHJL1mC3iT7kaf2+lyVB7rYfuN3bRjOszFW5Fi5TgN
+ vHAvkc5iMpOCUDo20rX6NudZzXbZlpFmuogcTxuDhtjObs1RjmDD7xWI+MXtOk7b4fSN
+ 5oKA==
+X-Gm-Message-State: AOAM531tEDGpziTD764mmX4yuj7v8sBHsracHXqpE63vdFeRbsLB8/Zr
+ LHuKM3ELzPP4ltIdhvI0v3qmxnlFxYkkXL72Ndc=
+X-Google-Smtp-Source: ABdhPJz3P2u/y0QpIszTieutFucdnAPusnOiCD+qY2tL9tm17ybEEmMv/iUN0EzUfeIDsFjdTxZlP83waDtTj6xWvyw=
+X-Received: by 2002:aa7:ce93:: with SMTP id y19mr941582edv.119.1612482721409; 
+ Thu, 04 Feb 2021 15:52:01 -0800 (PST)
 MIME-Version: 1.0
+References: <20210204045717.3823-1-alexander.deucher@amd.com>
+In-Reply-To: <20210204045717.3823-1-alexander.deucher@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 5 Feb 2021 09:51:50 +1000
+Message-ID: <CAPM=9tzKzgOTQd4zorqn8LP2QJhSLuD_xJhm5saSH2uUJE7_+w@mail.gmail.com>
+Subject: Re: [pull] amdgpu, amdkfd drm-next-5.12
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +70,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-the flag used by kfd is not actually related to fbcon, it just happens
-to align.  Use the runpm flag instead so that we can decouple it from
-the fbcon flag.
+On Thu, 4 Feb 2021 at 14:57, Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Hi Dave, Daniel,
+>
+> More fixes for 5.12.  Same PR from last week with the issue Felix reported
+> fixed and a few more additional fixes on top.
+>
+> The following changes since commit a6b8720c2f85143561c3453e1cf928a2f8586ac0:
+>
+>   Merge tag 'amd-drm-next-5.12-2021-01-20' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2021-01-20 13:08:18 +0100)
+>
+This brought an arm32 warning with it, I've applied Arnd's patch to
+drm-next to fix it.
 
-v2: fix resume as well
+https://patchwork.freedesktop.org/patch/msgid/20210125124849.102037-1-arnd@kernel.org
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+However that function has an ifdef around an ifdef that probably could
+do with cleaning up.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0ee6514ee55c..b7ebd424bbc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3734,7 +3734,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 
- 	r = amdgpu_device_ip_suspend_phase1(adev);
- 
--	amdgpu_amdkfd_suspend(adev, !fbcon);
-+	amdgpu_amdkfd_suspend(adev, adev->in_runpm);
- 
- 	/* evict vram memory */
- 	amdgpu_bo_evict_vram(adev);
-@@ -3818,7 +3818,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 			}
- 		}
- 	}
--	r = amdgpu_amdkfd_resume(adev, !fbcon);
-+	r = amdgpu_amdkfd_resume(adev, adev->in_runpm);
- 	if (r)
- 		return r;
- 
--- 
-2.29.2
-
+Dave.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
