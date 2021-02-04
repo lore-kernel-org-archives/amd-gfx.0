@@ -8,62 +8,61 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 083CEC433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7953C433E0
 	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B77A964E3F
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B77A964E3F
+	by mail.kernel.org (Postfix) with ESMTPS id 6BA8B64DD6
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BA8B64DD6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6BAC6EE19;
-	Thu,  4 Feb 2021 18:47:19 +0000 (UTC)
-Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
- [IPv6:2607:f8b0:4864:20::f31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0663989F55
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 18:47:19 +0000 (UTC)
-Received: by mail-qv1-xf31.google.com with SMTP id l14so2228193qvp.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 10:47:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F0A6EE1E;
+	Thu,  4 Feb 2021 18:47:22 +0000 (UTC)
+Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
+ [IPv6:2607:f8b0:4864:20::f30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696816EE1E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 18:47:20 +0000 (UTC)
+Received: by mail-qv1-xf30.google.com with SMTP id j4so2217553qvk.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 10:47:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GVR21d61Wyd732ar7PbASShYNL5wc7RxJ73yhaJfXZA=;
- b=EbhNOTzSOqM5sI3vuSlgJavfnNVZ3JM8mEsAtgilVeY1twXJc99eob234KOWNF72fn
- BCnZ9BJRtTCK2OIUHd9h/fCQX0jprOp3/pTmuv2QqjPgD+L2SPzlcWGRnG8KvRLsnQ+m
- Xl97ofJwaFJup1ZMEYl1CjEg9FMbwycaQhLeZB/JjNrmoAcVX9c8LI7/W+qYnmKpwrnW
- aJAA+Rlu6nr1MSfscyVdD8ejdzdAKApgbD/mAw+uQrQN9cMZ/132LOURVYvcx1InGF52
- h9uw9uo6R/ZxpeHNh+cAsoEez3qEctW3sJ5gYdIxCREe05SkVbASzy1bRNhkj0a0jyiI
- QzZw==
+ bh=lvu6pI0oVGAWMyVcRTO16TPbi/GSGcaM3u4eg+9Swxs=;
+ b=Tt4vBcCNq56UJwe1BufD6yvMlQV9xp1539NjMq1mv+fK4tHOe8qh60ELrF1ELhqsM4
+ 9/zBn1Lc5Jb8GmulNN2/zxwFXDhBGKgLSyGDyt8I0Qu3RWOtKvbhY5YyiJM3IhjdrPoV
+ mvjeVshsH4HvKveoIzhtDHoWZHY94Y8EWYuLQuO5X82CYmRBz0lhVw3yECxShJKebQl/
+ nqqjflJeI3Pn81BVM1sy3i4nPqjpf4U1PyeYhfneiLAjCdvkpLqn3/hV0YfI3OizPVHu
+ WMk+UhvkZnfCsASLNEGKi11MpUyjwS/XZSdyFxZGlcifEjkYP2IdSrSbaAtHcNYStIfd
+ azQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GVR21d61Wyd732ar7PbASShYNL5wc7RxJ73yhaJfXZA=;
- b=e5P44BCNLbxWWuOSdEX8efinNlHk16Gdf7Cw2XH8FfMbw1pQxrL32EDeDPZBJ2iwpi
- 7HFlmPwgjtGbaO7t6hHDor0RJFzGQZS8nCF6B8oofUq3SXUihFKjAE+IARjzwn2WrKOY
- uyAhu5Ic5IGTTf9qwBcg+fu9Cw5o+slFYOK0b7UMAvdI7pKrci0Tj1AhAtPWA+/T/AGn
- mmbzQPDZt5bFp7YvFCPJR3kM6acgyfXdelmZmlLfdXTeI/FJirnVbCImVGkyP3jsOIr6
- 1ygsa3O3W1hWU7d1k/lUrnMv/Zmvxd7/daK1ptI+8MhKcSHIBmwMyp3v2eLSitt2n6pi
- 4y+Q==
-X-Gm-Message-State: AOAM5332OWz2NCkCyUIcClVXgXucpMl88jtjoiUD6rt6fsCREEosjSf0
- HJIfyHrnAHRuWElVXkjItkehXrNIAWM=
-X-Google-Smtp-Source: ABdhPJxREIto6YCwteaW7zWIfv7C6qh2J6733zHnx3EQcgQWQTQqT33MG6fWeI/F7n/sJycHu/RkSA==
-X-Received: by 2002:a05:6214:b2c:: with SMTP id
- w12mr604336qvj.54.1612464438011; 
- Thu, 04 Feb 2021 10:47:18 -0800 (PST)
+ bh=lvu6pI0oVGAWMyVcRTO16TPbi/GSGcaM3u4eg+9Swxs=;
+ b=keHzwgzsbAhsZZ1zFnZfBjvtwDy+p9pE4BtILKwE/nGjPy85VkuLj9i2Mi8KSN/HIV
+ 0Do3q5jQVG/5ca9OXW/OwWhSyJygvBtWcDju7fyVt3AQglogpqHsgcLS6UsNTq41tvLl
+ UoAcKDOanRweQ0VE9HG5oqzOk71552lXAcgAM2u+AysT1fW/v5+ZJkqzIrKmX+VDMLn8
+ rBbjilvXcSPW6aANSrAg3zbIaWTMMHgfxHaUd5MRyZOP1yotRym9pQ2BjWtDRSnbnhqA
+ /U/SsI2aZ8JeHqH0CgVwnhH4cDL8/EM+9WIXWiasVCgsV0yvahFIlExBa3rMjnzg2Yz2
+ 2xFg==
+X-Gm-Message-State: AOAM5339+ni0SEAlCWU1MFg++jxthgsipTYKUeqI2bvF5aCh09QLezRu
+ yzmpzSTcapfFK2hXdRBcvC34CnsPJzE=
+X-Google-Smtp-Source: ABdhPJw43nOsPi5tiLWv/XgKEwj+YRv9HaV7DjdTcGExLQnjZnlF6xS1GyXLFuyyZNXN/8msUhNB4A==
+X-Received: by 2002:a0c:80cc:: with SMTP id 70mr816680qvb.29.1612464439525;
+ Thu, 04 Feb 2021 10:47:19 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id j188sm5833644qke.67.2021.02.04.10.47.17
+ by smtp.gmail.com with ESMTPSA id j188sm5833644qke.67.2021.02.04.10.47.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Feb 2021 10:47:17 -0800 (PST)
+ Thu, 04 Feb 2021 10:47:19 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/7] drm/amdgpu/si: add PCI reset support
-Date: Thu,  4 Feb 2021 13:47:04 -0500
-Message-Id: <20210204184706.168934-5-alexander.deucher@amd.com>
+Subject: [PATCH 7/7] drm/amdgpu/nv: add PCI reset support
+Date: Thu,  4 Feb 2021 13:47:06 -0500
+Message-Id: <20210204184706.168934-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210204184706.168934-1-alexander.deucher@amd.com>
 References: <20210204184706.168934-1-alexander.deucher@amd.com>
@@ -91,69 +90,34 @@ only be used for validation.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 37 ++++++++++++++++++++-------------
- 1 file changed, 23 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 668dd6dfe6a3..7cbc2bb03bc6 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1409,17 +1409,6 @@ static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
- 	return r;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index e6878645df93..227e4a5db10e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -564,7 +564,8 @@ nv_asic_reset_method(struct amdgpu_device *adev)
  
--static int si_asic_reset(struct amdgpu_device *adev)
--{
--	int r;
--
--	dev_info(adev->dev, "PCI CONFIG reset\n");
--
--	r = si_gpu_pci_config_reset(adev);
--
--	return r;
--}
--
- static bool si_asic_supports_baco(struct amdgpu_device *adev)
- {
- 	return false;
-@@ -1428,14 +1417,34 @@ static bool si_asic_supports_baco(struct amdgpu_device *adev)
- static enum amd_reset_method
- si_asic_reset_method(struct amdgpu_device *adev)
- {
--	if (amdgpu_reset_method != AMD_RESET_METHOD_LEGACY &&
--	    amdgpu_reset_method != -1)
-+	if (amdgpu_reset_method == AMD_RESET_METHOD_PCI)
-+		return amdgpu_reset_method;
-+	else if (amdgpu_reset_method != AMD_RESET_METHOD_LEGACY &&
-+		 amdgpu_reset_method != -1)
- 		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
--				  amdgpu_reset_method);
-+			 amdgpu_reset_method);
+ 	if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
+ 	    amdgpu_reset_method == AMD_RESET_METHOD_MODE2 ||
+-	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
++	    amdgpu_reset_method == AMD_RESET_METHOD_BACO ||
++	    amdgpu_reset_method == AMD_RESET_METHOD_PCI)
+ 		return amdgpu_reset_method;
  
- 	return AMD_RESET_METHOD_LEGACY;
- }
+ 	if (amdgpu_reset_method != -1)
+@@ -596,6 +597,10 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 		return 0;
  
-+static int si_asic_reset(struct amdgpu_device *adev)
-+{
-+	int r;
-+
-+	switch (si_asic_reset_method(adev)) {
+ 	switch (nv_asic_reset_method(adev)) {
 +	case AMD_RESET_METHOD_PCI:
 +		dev_info(adev->dev, "PCI reset\n");
-+		r = amdgpu_device_pci_reset(adev);
++		ret = amdgpu_device_pci_reset(adev);
 +		break;
-+	default:
-+		dev_info(adev->dev, "PCI CONFIG reset\n");
-+		r = si_gpu_pci_config_reset(adev);
-+		break;
-+	}
-+
-+	return r;
-+}
-+
- static u32 si_get_config_memsize(struct amdgpu_device *adev)
- {
- 	return RREG32(mmCONFIG_MEMSIZE);
+ 	case AMD_RESET_METHOD_BACO:
+ 		dev_info(adev->dev, "BACO reset\n");
+ 
 -- 
 2.29.2
 
