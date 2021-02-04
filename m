@@ -2,71 +2,67 @@ Return-Path: <SRS0=vrAH=HG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BD12C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 04:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C8D9C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 04:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18DFD64F50
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 04:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18DFD64F50
+	by mail.kernel.org (Postfix) with ESMTPS id A458764E55
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 04:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A458764E55
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F226EC72;
-	Thu,  4 Feb 2021 04:13:14 +0000 (UTC)
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 184D86EC71;
- Thu,  4 Feb 2021 04:13:13 +0000 (UTC)
-Received: by mail-qt1-x830.google.com with SMTP id d15so1492433qtw.12;
- Wed, 03 Feb 2021 20:13:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF6D96EC70;
+	Thu,  4 Feb 2021 04:31:17 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92EE6EC70
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 04:31:16 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id h192so2473492oib.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Feb 2021 20:31:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q7nM3YW8wdhCWWDuBbukrMOV0Icg4zaeK2JPFZ1TIZk=;
- b=C7duKSeHYsWSq/qICmtwTPNTOTyMSOOj0mEkzla71QUCpcJvFZ9JQLTwUz7hJX/jOW
- s3cgM5hEYMsSvyFHE5PktzO0paEp+Nbxs/D+CFWKY3vXL6cNGhaS5pq/AIcTSVVMIOas
- luvrQHV7vnnZ1R1Qjt8T3qDvVPMr8In3F6/o7Q+cMJu+QYsHLI2xPEZEsPpwNWQ9AsZd
- PyMMRRqkiUBgibhg+VjchxWncC7yRHz+RHVOXe7JdEFua0tWS/nsUZYSNy/LsTtXP5IX
- +txGLJpfaZ0wI7eM0y3HU3FVnfyHMzYVWkn8mHhDQLUIv/fCBCl3rHMycSS7+nTRtb4m
- +flA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=o0fFHhEPkXXurRUkSJACJDZKbTyYnM0J3lU92NXqMqc=;
+ b=X26CeS6I9frE5t9C08nDlQotixvRp7EeSf9nhsYNZ2KX+weBYyviITr108pL8BVbkS
+ ZSn+IO0wiVeO1NngPCc8hO/eLbzAMOReLXffINW0uOINphqRR7yvUjS2XG7j8V5haKtP
+ oIYFZcKnkdhd2x5uoYXe5ST8NWlDgPpb+b3ZRHi4OROu4BCMVPVORUAFkaZh4vI7fan9
+ 5Dv/pAClSrzdJtcn30bKU4EQ+uXC4VUo0GGPs3jEfokIYLPQVzkloOIA2f3FAEYEqM1a
+ qbDbNRdrI0SSSpoq/ek5W/3nLP07ouFzxMAS/ORyLTUTOeMIHK3wHJ/ADjJ4zODYv6Ia
+ yTKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q7nM3YW8wdhCWWDuBbukrMOV0Icg4zaeK2JPFZ1TIZk=;
- b=tc3nRyyb20PkMv/iG8Vzv+AoQLZRkAf5UPBVKOqkoUH9cmehnkOS1nF2+Iks24izW1
- IYT47mKVDCiGCazxbcvPI+MvbE0hILP5siHxW6XypP87Pc2+T19ldLJhtYWOxBCVP8Wd
- VUek8XmNzkq458XEq6s4EWnL7uAaOZW3nB/2/5wo2J+04BDtzPIPpst4SQfEAqJRwli5
- /3AMM7CzCYdC/vzWnqfBqDPp58WNrfr69ekkK/mZ33uzmVhBYik+uve8o3z5gUefIJPS
- RlxtKb6QjyapS2xypK5PtqYw1Z+7eaMgAmuuALVuSGjGOa8q0Oxv9xxPKtzAHE4qH8m5
- LMVQ==
-X-Gm-Message-State: AOAM531aj0HxjtC7LTgsjZWW0BKbeSQhjqggOx/PzYuK27ResJBUOuhD
- +Cgwo/SPj8jDS+z9kGgLIZ7XwlsT/cM=
-X-Google-Smtp-Source: ABdhPJwoTdwuMkPLffM0c9jZwV0O5zsO29qD4YsSMMk8P87MILwFnMRY1zaY4kjLubxkugsTWCX6LA==
-X-Received: by 2002:ac8:16b9:: with SMTP id r54mr5549519qtj.68.1612411991973; 
- Wed, 03 Feb 2021 20:13:11 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id s6sm3544063qtx.63.2021.02.03.20.13.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Feb 2021 20:13:11 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.11
-Date: Wed,  3 Feb 2021 23:13:00 -0500
-Message-Id: <20210204041300.4425-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=o0fFHhEPkXXurRUkSJACJDZKbTyYnM0J3lU92NXqMqc=;
+ b=pJmc5c098Xni6eKOi+goTaLP/5IzNrVRuvyiaHg9r7ruAgEq0WkWOHLhrePQNys9gx
+ 6Ba+nKUy9y2EAsGcMmF5LAVpkiqVbQxDPAg2jSFCHgeu/03lV6dquos+wuCU2A1/r0Bu
+ 5aqJ8k7FfkBENhNRxRzdyBwKmL5jYklRVB84nzpGc2FIxTSR1da+DZ7TZ0uHZckCnpAe
+ Uv0MWgryIDOFxxpu8Zc5iRjS/FCKfOHxRO8wQf+jIM28XLACdECnADHz9mYojYXdXWlN
+ VmQgamT5+ESyV3r/KWzRTn1McwUPUer7ZdzvEVDVNvAo6gSZNJUmrbyfu5tAHFi6QcVv
+ nn3Q==
+X-Gm-Message-State: AOAM532uClkR0e9jKWuwonWeFdQoo4gxIQ9bvdCDyJr1bQsOngz661rj
+ 5kA/cNEsV8yPDr+Ukhczm/WbN6A0RPA2yXWSMRg=
+X-Google-Smtp-Source: ABdhPJxeSXGhuhGaEDvo5lkdqolhwfL3T4de6CBoSQeOHmRSXin1qNNL1hn1OCDskfM7G8TUVpbUjcG8nfcnN+PGpfA=
+X-Received: by 2002:aca:530f:: with SMTP id h15mr2952527oib.5.1612413076022;
+ Wed, 03 Feb 2021 20:31:16 -0800 (PST)
 MIME-Version: 1.0
+References: <CAN_LGv3Go0DgKbjPVHFFXU+U8RRU15m-np3F6_RrVmx6FmBoHQ@mail.gmail.com>
+ <20210128052924.GC2339@MiWiFi-R3L-srv>
+ <20210203064849.GA11522@dhcp-128-65.nay.redhat.com>
+ <CADnq5_MdLTLvVdwFQJxuRaQcQFNkLUNRt267zaxULNH0FUvFeA@mail.gmail.com>
+ <87wnvoodny.fsf@x220.int.ebiederm.org>
+In-Reply-To: <87wnvoodny.fsf@x220.int.ebiederm.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 3 Feb 2021 23:31:05 -0500
+Message-ID: <CADnq5_OBZmmieaUzMhtdVbJKhx5R34c8M669VKfcE0KSWcyv4A@mail.gmail.com>
+Subject: Re: amdgpu problem after kexec
+To: "Eric W. Biederman" <ebiederm@xmission.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,61 +74,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: kexec@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Dave Young <dyoung@redhat.com>, "Alexander E. Patrakov" <patrakov@gmail.com>,
+ Baoquan He <bhe@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRGF2ZSwgRGFuaWVsLAoKRml4ZXMgZm9yIDUuMTEuCgpUaGUgZm9sbG93aW5nIGNoYW5nZXMg
-c2luY2UgY29tbWl0IGUwZWNhZmVkZTg3ZWIxYTNkMWU3MDhmMDM2NWZhZDBkNTk0ODkyODU6Cgog
-IE1lcmdlIHRhZyAnYW1kLWRybS1maXhlcy01LjExLTIwMjEtMDEtMjgnIG9mIGh0dHBzOi8vZ2l0
-bGFiLmZyZWVkZXNrdG9wLm9yZy9hZ2Q1Zi9saW51eCBpbnRvIGRybS1maXhlcyAoMjAyMS0wMS0y
-OSAxMTozNjozOCArMTAwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIEdpdCByZXBvc2l0b3J5IGF0
-OgoKICBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvYWdkNWYvbGludXguZ2l0IHRhZ3Mv
-YW1kLWRybS1maXhlcy01LjExLTIwMjEtMDItMDMKCmZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1
-cCB0byA4ZTkyYmIwZmE3NWJjYTlhNTdlNGFiYTJlMzZmNjdkODAxNmEzMDUzOgoKICBkcm0vYW1k
-L2Rpc3BsYXk6IERlY3JlbWVudCByZWZjb3VudCBvZiBkY19zaW5rIGJlZm9yZSByZWFzc2lnbm1l
-bnQgKDIwMjEtMDItMDIgMTc6NDU6MDEgLTA1MDApCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmFtZC1kcm0tZml4ZXMtNS4x
-MS0yMDIxLTAyLTAzOgoKYW1kZ3B1OgotIEZpeCByZXRyeSBpbiBnZW0gY3JlYXRlCi0gVmFuZ29n
-aCBmaXhlcwotIEZpeCBmb3IgZGlzcGxheSBmcm9tIHNoYXJlZCBidWZmZXJzCi0gVmFyaW91cyBk
-aXNwbGF5IGZpeGVzCgphbWRrZmQ6Ci0gRml4IHJlZ3Jlc3Npb24gaW4gYnVmZmVyIGZyZWUKCi0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KQmhhd2FucHJlZXQgTGFraGEgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IHJldXNl
-IGN1cnJlbnQgY29udGV4dCBpbnN0ZWFkIG9mIHJlY3JlYXRpbmcgb25lCgpDaHJpc3RpYW4gS8O2
-bmlnICgxKToKICAgICAgZHJtL2FtZGdwdTogZW5hYmxlIGZyZWVzeW5jIGZvciBBK0EgY29uZmln
-cwoKR2VvcmdlIFNoZW4gKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBEUENEIHRyYW5z
-bGF0aW9uIGZvciBMVFRQUiBBVVhfUkRfSU5URVJWQUwKCkh1YW5nIFJ1aSAoMik6CiAgICAgIGRy
-bS9hbWRncHU6IGZpeCB0aGUgaXNzdWUgdGhhdCByZXRyeSBjb25zdGFudGx5IG9uY2UgdGhlIGJ1
-ZmZlciBpcyBvdmVyc2l6ZQogICAgICBkcm0vYW1ka2ZkOiBmaXggbnVsbCBwb2ludGVyIHBhbmlj
-IHdoaWxlIGZyZWUgYnVmZmVyIGluIGtmZAoKTWlraXRhIExpcHNraSAoMSk6CiAgICAgIGRybS9h
-bWQvZGlzcGxheTogUmVsZWFzZSBEU0MgYmVmb3JlIGFjcXVpcmluZwoKU3R5bG9uIFdhbmcgKDEp
-OgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IFJldmVydCAiRml4IEVESUQgcGFyc2luZyBhZnRlciBy
-ZXN1bWUgZnJvbSBzdXNwZW5kIgoKU3VuZyBMZWUgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6
-IEFkZCBtb3JlIENsb2NrIFNvdXJjZXMgdG8gRENOMi4xCgpWaWN0b3IgTHUgKDMpOgogICAgICBk
-cm0vYW1kL2Rpc3BsYXk6IEZpeCBkY19zaW5rIGtyZWYgY291bnQgaW4gZW11bGF0ZWRfbGlua19k
-ZXRlY3QKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBGcmVlIGF0b21pYyBzdGF0ZSBhZnRlciBkcm1f
-YXRvbWljX2NvbW1pdAogICAgICBkcm0vYW1kL2Rpc3BsYXk6IERlY3JlbWVudCByZWZjb3VudCBv
-ZiBkY19zaW5rIGJlZm9yZSByZWFzc2lnbm1lbnQKClhpYW9qaWFuIER1ICgxKToKICAgICAgZHJt
-L2FtZC9wbTogZmlsbCBpbiB0aGUgZGF0YSBtZW1iZXIgb2YgdjIgZ3B1IG1ldHJpY3MgdGFibGUg
-Zm9yIHZhbmdvZ2gKCmNoZW4gZ29uZyAoMSk6CiAgICAgIGRybS9hbWRncHUvZ2Z4MTA6IHVwZGF0
-ZSBDR1RTX1RDQ19ESVNBQkxFIGFuZCBDR1RTX1VTRVJfVENDX0RJU0FCTEUgcmVnaXN0ZXIgb2Zm
-c2V0cyBmb3IgVkdICgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9n
-cHV2bS5jICAgfCAxNiArKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rpc3BsYXkuYyAgICAgICAgfCAgOCArKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZ2VtLmMgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfb2JqZWN0LmMgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjEwXzAuYyAgICAgICAgICAgICB8IDE4ICsrKysrKysrLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyAgfCA0NyArKysrKysrKysrLS0t
-LS0tLS0tLS0tCiAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMu
-YyAgICB8ICA2ICsrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYyAg
-ICAgICAgICAgfCAyNyArKysrKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvY29yZS9kY19saW5rX2RwLmMgICB8ICA2ICstLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RjX3N0cmVhbS5oICAgICAgICAgfCAgMyArLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UuYyAgfCAxMCArKysrKwogZHJpdmVycy9ncHUvZHJt
-L2FtZC9wbS9zd3NtdS9zbXUxMS92YW5nb2doX3BwdC5jICAgfCAgMyArKwogMTIgZmlsZXMgY2hh
-bmdlZCwgOTIgaW5zZXJ0aW9ucygrKSwgNTYgZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, Feb 3, 2021 at 7:56 PM Eric W. Biederman <ebiederm@xmission.com> wrote:
+>
+> Alex Deucher <alexdeucher@gmail.com> writes:
+>
+> > On Wed, Feb 3, 2021 at 3:36 AM Dave Young <dyoung@redhat.com> wrote:
+> >>
+> >> Hi Baoquan,
+> >>
+> >> Thanks for ccing.
+> >> On 01/28/21 at 01:29pm, Baoquan He wrote:
+> >> > On 01/11/21 at 01:17pm, Alexander E. Patrakov wrote:
+> >> > > Hello,
+> >> > >
+> >> > > I was trying out kexec on my new laptop, which is a HP EliteBook 735
+> >> > > G6. The problem is, amdgpu does not have hardware acceleration after
+> >> > > kexec. Also, strangely, the lines about BlueTooth are missing from
+> >> > > dmesg after kexec, but I have not tried to use BlueTooth on this
+> >> > > laptop yet. I don't know how to debug this, the relevant amdgpu lines
+> >> > > in dmesg are:
+> >> > >
+> >> > > amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB
+> >> > > test failed on gfx (-110).
+> >> > > [drm:process_one_work] *ERROR* ib ring test failed (-110).
+> >> > >
+> >> > > The good and bad dmesg files are attached. Is it a kexec problem (and
+> >> > > amdgpu is only a victim), or should I take it to amdgpu lists? Do I
+> >> > > need to provide some extra kernel arguments for debugging?
+>
+> The best debugging I can think of is can you arrange to have the amdgpu
+> modules removed before the final kexec -e?
+>
+> That would tell us if the code to shutdown the gpu exist in the rmmod
+> path aka the .remove method and is simply missing in the kexec path aka
+> the .shutdown method.
+>
+>
+> >> > I am not familiar with graphical component. Add Dave to CC to see if
+> >> > he has some comments. It would be great if amdgpu expert can have a look.
+> >>
+> >> It needs amdgpu driver people to help.  Since kexec bypass
+> >> bios/UEFI initialization so we requires drivers to implement .shutdown
+> >> method and test it to make 2nd kernel to work correctly.
+> >
+> > kexec is tricky to make work properly on our GPUs.  The problem is
+> > that there are some engines on the GPU that cannot be re-initialized
+> > once they have been initialized without an intervening device reset.
+> > APUs are even trickier because they share a lot of hardware state with
+> > the CPU.  Doing lots of extra resets adds latency.  The driver has
+> > code to try and detect if certain engines are running at driver load
+> > time and do a reset before initialization to make this work, but it
+> > apparently is not working properly on your system.
+>
+> There are two cases that I think sometimes get mixed up.
+>
+> There is kexec-on-panic in which case all of the work needs to happen in
+> the driver initialization.
+>
+> There is also a simple kexec in which case some of the work can happen
+> in the kernel that is being shutdown and sometimes that is easer.
+>
+> Does it make sense to reset your device unconditionally on driver removal?
+
+I think we tried that at some point in the past but users complained
+that it added latency or artifacts on the display at shutdown or
+reboot time.
+
+> Would it make sense to reset your device unconditionally on driver add?
+
+Pretty much the same issue there.  It adds latency and you get
+artifacts on the display when the reset happens.
+
+>
+> How can someone debug the smart logic of reset on driver load?
+
+See this block of code in amdgpu_device.c:
+        /* check if we need to reset the asic
+         *  E.g., driver was not cleanly unloaded previously, etc.
+         */
+    if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)) {
+        r = amdgpu_asic_reset(adev);
+                if (r) {
+                        dev_err(adev->dev, "asic reset on init failed\n");
+                        goto failed;
+                }
+        }
+
+You'll want to see if amdgpu_asic_need_reset_on_init() was able to
+determine that the asic needs a reset.  If it does,
+amdgpu_asic_reset() getds called to reset it.
+The tricky thing is that some reset methods require a fair amount of
+driver state and so, they are only possible when the driver is up and
+running.  Those methods are not necessarily available at driver load
+time because we need to reset the GPU before we can initialize it and
+determine that state so we end up in a kind of catch 22.
+Unfortunately, generic PCI resets don't necessarily work on many of
+our GPUs so that's not an option either.
+
+Alex
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
