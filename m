@@ -8,62 +8,65 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DC9FC433DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9130C433E6
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 051F064DD6
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 051F064DD6
+	by mail.kernel.org (Postfix) with ESMTPS id 5F6FD64E3F
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 18:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F6FD64E3F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8993B89F19;
-	Thu,  4 Feb 2021 18:47:16 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A1789F07
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 18:47:15 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id z22so3159384qto.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 10:47:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC4F89F07;
+	Thu,  4 Feb 2021 18:47:17 +0000 (UTC)
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [IPv6:2607:f8b0:4864:20::72d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D3A89F07
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 18:47:16 +0000 (UTC)
+Received: by mail-qk1-x72d.google.com with SMTP id l27so4338275qki.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 10:47:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iHNlQ9osNbV+Iyl10ZrCTWSEgOcCsrnU5L+TbAj+ukA=;
- b=LwSCAaSRkH9XSBWNQu1x5QyaNC993ShGnlxHtTaXT791fWr87MNW58FLRMgZgU53v6
- f0O1eFCYsJWqjjQaBCJubeXuYd3m06JRS3NNLEuAso4UpAm6ijzZ7/Zdqe7swcqJLozp
- QHdGkTyXZPetQxZNJhDtme5U4GMs4bkAsf+ia6im0+4j+fF34A1RdvlLeaO3v9KYbzUM
- vLH1lR/hAxdx5RThLqxmszGvqdGFEGJLB9rBupooUc3NlrqNFinJ+77IgpGoL7QD0XKR
- OWjxiVrbFX5W3PcH8KkHT42EL0oyNO8dZBRcoD6k2GMljU7+Nmhihi4eKixTdE/GOkz6
- chtg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=EBv9ys5W2Q2ZjEwPhiOrnAgmdHc5A1JT8Zr6+0xXPH0=;
+ b=TBBhfbD+rUxwHDjevvxVnZLOijZEWQ1eN99gyi4xatAQVQbfl48FWiGd8z6eUugegK
+ hsG36Pamnq/G7cdNXLW1wlK2zCwDZSY2JjVgM35bRyqxdMPJavAsoxd4rtOyyW9PDTth
+ Je0C/NXczOJBcMjg8cgWdNS0/yLct4VpyQa3wNAK2Ur6Uj/VD7saeXcHC1QLjQk5YNS6
+ wUROY/dXrVtbErA5Vnu8TiCYxgrm1NN1eVAS/C2Q/JzGU5iHIGQDvTP7CGL3e+WyF3ig
+ j85bboLa+huPZM1HIEyyuBzCTYW8xOyb52ObuuU5kY1GPG3ZAyiQ3icrgFHEt2Se5sb9
+ Csng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iHNlQ9osNbV+Iyl10ZrCTWSEgOcCsrnU5L+TbAj+ukA=;
- b=nUJIMU0k6qohWPw+OKIsWbRIVC+FG7Kj7psSK85GVX50gYLLFrBhfkdN1uUBg/HMbj
- GO+Z8rgE33p5po3ZNPxirFbn7kMRt3LdL8+KikB8kl/78KOEddzGXKgc54EcseZit8xF
- Tt2GGhjqYCu4C0nZRuLpMK2n/QDQuB9mWXgDlLt8u1taZJ/J2y4xAb4W23zJP1ZArBSd
- 7ZqwRUx9lBkerkKkc5LjeAQqGlOQnN8E7l9BP363qcQe8BrQg7IKRw0kVY8XY6ObwVwf
- /oQXR8uW9WQdO2x9Jo6/LagWIeGTSHhMOKWft1/ypn5V+W5+0a3SGoVDpHp2IOYhigjr
- wPaw==
-X-Gm-Message-State: AOAM530Rop9RzxXj+uaU4KKI9xVk+/UzDBlszUtezrL/XKs5z+xdR65h
- bk2Hi4MLGJYYqZQdrOTaU+b6FnUvgkU=
-X-Google-Smtp-Source: ABdhPJwKAFYvtxTG9NYHKGMsBfCXUIVLwNsep8mlHB4+0OqGAfBjHuo/t9q4qfc8hWpH6PAVLJf7DA==
-X-Received: by 2002:ac8:782:: with SMTP id l2mr907440qth.271.1612464434663;
- Thu, 04 Feb 2021 10:47:14 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EBv9ys5W2Q2ZjEwPhiOrnAgmdHc5A1JT8Zr6+0xXPH0=;
+ b=tVi1iosxVF41gSdB/q053rBkMbqyilTVVTT36zPhR/p+VqzE20jQs+QBQJWUywiCQV
+ 6i78JBGEq88iHZ9DaxHhCr0Sxo2DvrcJqcNMuilBFyc8x7n5Xm9JRjK5q9V9fx/TOPkA
+ j5XNbKS4jS7MrKR2LHMqq84GTGJ25FaXg5h0DNhDeFdtzjEvfXf6ZwHrH3kBAli5+8AE
+ O1NnyRYNEtug8TmNpmSj9LYfygCekrETWqBJ0BiRWJFP0hVToiPKFLaWou49hg3bxjAF
+ sUomfZCIk0AxnpyvdhC0QCoJUdR8/ky9R0iOfrhJt1vas3+7QDcicBhTzNiRNRF3naaS
+ Hg0g==
+X-Gm-Message-State: AOAM532Y2avSLdF7uP3saBrfT/uWUK4AQT+rfk4hLl3dMCLp3R44X1i9
+ mlWM+gpD0wjrae5jV+xQPBFWxTiuEIU=
+X-Google-Smtp-Source: ABdhPJxK7sEX6+JLXNSzLj5BkPfHAyiNVCi4549jprAzldmS00GIHkocdbhalR8794Rxi0rnUNB2Rw==
+X-Received: by 2002:a05:620a:64d:: with SMTP id
+ a13mr515618qka.383.1612464435502; 
+ Thu, 04 Feb 2021 10:47:15 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.237])
  by smtp.gmail.com with ESMTPSA id j188sm5833644qke.67.2021.02.04.10.47.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Feb 2021 10:47:14 -0800 (PST)
+ Thu, 04 Feb 2021 10:47:15 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/7] drm/amdgpu/si: minor clean up of reset code
-Date: Thu,  4 Feb 2021 13:47:00 -0500
-Message-Id: <20210204184706.168934-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/7] drm/amdgpu/cik: minor clean up of reset code
+Date: Thu,  4 Feb 2021 13:47:01 -0500
+Message-Id: <20210204184706.168934-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210204184706.168934-1-alexander.deucher@amd.com>
+References: <20210204184706.168934-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,43 +89,65 @@ Drop duplicate reset method logging, whitespace changes.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/cik.c | 33 +++++++++++---------------------
+ 1 file changed, 11 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 7817e5156cb5..668dd6dfe6a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1380,7 +1380,7 @@ static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index 6ee2c0e3ea50..c0fcc41ee574 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1327,13 +1327,22 @@ static void kv_restore_regs_for_reset(struct amdgpu_device *adev,
+ 	WREG32(mmGMCON_RENG_EXECUTE, save->gmcon_reng_execute);
+ }
+ 
+-static int cik_gpu_pci_config_reset(struct amdgpu_device *adev)
++/**
++ * cik_asic_pci_config_reset - soft reset GPU
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Use PCI Config method to reset the GPU.
++ *
++ * Returns 0 for success.
++ */
++static int cik_asic_pci_config_reset(struct amdgpu_device *adev)
+ {
+ 	struct kv_reset_save_regs kv_save = { 0 };
  	u32 i;
  	int r = -EINVAL;
  
 -	dev_info(adev->dev, "GPU pci config reset\n");
 +	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
  
- 	/* set mclk/sclk to bypass */
- 	si_set_clk_bypass_mode(adev);
-@@ -1404,6 +1404,7 @@ static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
- 		}
- 		udelay(1);
- 	}
-+	amdgpu_atombios_scratch_regs_engine_hung(adev, false);
+ 	if (adev->flags & AMD_IS_APU)
+ 		kv_save_regs_for_reset(adev, &kv_save);
+@@ -1361,26 +1370,6 @@ static int cik_gpu_pci_config_reset(struct amdgpu_device *adev)
+ 	if (adev->flags & AMD_IS_APU)
+ 		kv_restore_regs_for_reset(adev, &kv_save);
  
- 	return r;
- }
-@@ -1414,12 +1415,8 @@ static int si_asic_reset(struct amdgpu_device *adev)
- 
- 	dev_info(adev->dev, "PCI CONFIG reset\n");
- 
+-	return r;
+-}
+-
+-/**
+- * cik_asic_pci_config_reset - soft reset GPU
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * Use PCI Config method to reset the GPU.
+- *
+- * Returns 0 for success.
+- */
+-static int cik_asic_pci_config_reset(struct amdgpu_device *adev)
+-{
+-	int r;
+-
 -	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
 -
- 	r = si_gpu_pci_config_reset(adev);
- 
--	amdgpu_atombios_scratch_regs_engine_hung(adev, false);
+-	r = cik_gpu_pci_config_reset(adev);
 -
- 	return r;
- }
+ 	amdgpu_atombios_scratch_regs_engine_hung(adev, false);
  
+ 	return r;
 -- 
 2.29.2
 
