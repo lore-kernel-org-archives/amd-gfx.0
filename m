@@ -2,69 +2,72 @@ Return-Path: <SRS0=vrAH=HG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DEEBC433E6
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 14:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C6BC433DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 14:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6E1F64EE2
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 14:37:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6E1F64EE2
+	by mail.kernel.org (Postfix) with ESMTPS id 6481A64F42
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Feb 2021 14:43:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6481A64F42
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F776ED88;
-	Thu,  4 Feb 2021 14:37:35 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0096ED88
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Feb 2021 14:37:34 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id d7so1319562otq.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Feb 2021 06:37:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DC76ED99;
+	Thu,  4 Feb 2021 14:43:48 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F23A6ED93;
+ Thu,  4 Feb 2021 14:43:46 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id i8so5684111ejc.7;
+ Thu, 04 Feb 2021 06:43:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=iA8xk1w0OGmBpNpknetdotXKM9VURZ0GtcGGiqCSDBY=;
- b=aZmm2SLSEKBialZNvxayOKluGv+Ic2krO0tdA08ixgkNK02jIHqnGu6cXNLfOIjC14
- M7v/JY3tHcgk/TpFMctqLCIR5yzlon4hBROCpc0hJH8Y3PBS/i7kBo+lOjHjRAvELOHY
- otR2s+YHhu6Gt4fYZkouXh0dKpTdyaBQo9qtbNa+U5jLr1rFLTBzCYzMTjHnb2am0k1V
- 7X9xpXsJCF8jw2oC2k+3j9JHAl1AfFtPOi85gHd4D6FH7uPUCk6s9jmNE4J/GfR9A4IP
- 8QyuEpjXrxKxTZNqQ3G/W1xFOHcwlCSO4UE6nPtUTQ6befpVNr1DXidsBp64pWnjzUcb
- 7nLA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wedMKLv5Ufk/tyydKR+pTpkzFwgHy/gV4E2x3/ps7VM=;
+ b=eccZnehSVsG5Gc85Co868CRoSHs2yjSsTEMdR8g51N6+ZKgjGGZjTb7lYbTaBcyxWi
+ JWD8ji2wn1pRAX0ig2qvTMfI1lYsjhayrLJC8WM8Yc3dcRqEzA3Eeq04zZcHzcIIwC/3
+ KKaMRIB/2uRbYMRzx3SMMp68vzJ+BlsgJqqTAX7rp8dONrkpcjfsLsq7JqaUHYxw3GJt
+ ykV9mG+HnZMrQdVI1auF4uYPlZWnXwWydidkiBzb+J042KmTFoU9wn5gLPx63vG4Zdwf
+ jui5QNItnwdR8o9MwsIczE8onXNlsKoGJ5izSPXNwLBFStws4xjYan51nGpKFkS2jbmy
+ HVmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=iA8xk1w0OGmBpNpknetdotXKM9VURZ0GtcGGiqCSDBY=;
- b=bFjxtwGtlI64veziQA7owYsxaTlAuNccZNY+uQg1AQvWQ32jIyZV4K0pZxMvTkE0zs
- d5GhYFUE2c2ErssDAIjlKjPbdMzji1R0LjqS6yjQdTr7EtDfoIdvva1VncwR6qKB8mGJ
- pZRYa1P0obfCC3hi1q0dwBNpuhFrFxXNpxoYfqSZZf7dWkXpAYR+bvSZrZtfMrK7GdH1
- y2HH/LDUFcXidU59h8TQcqJ0orTQg/xSYFnynX+dir+VqZytSDJRgmIp2nxnGpP+Ur3e
- gIx4OhyCAIPGA37LYBn5kPjZz9j1myxjDe+vuzOo56tv6oapBBrj53WKN7kDB1AgX745
- D7Kw==
-X-Gm-Message-State: AOAM531AOCA10D2PGggI92FtNuT9WXE+xFPos8I0pBNpbGWDwufIM+Z2
- 95d9cIfKBZLOTHnSIwL+qT0EOCYaPWloRa+0nj4=
-X-Google-Smtp-Source: ABdhPJwH5IQ8UtDiBHaAzv0Zodu8zevLFlFWDIwwmesSPyrawxxijNYxSe8LnuSHueK24DcAP5QEC+PBOXxJR7wsJ14=
-X-Received: by 2002:a9d:ec7:: with SMTP id 65mr5873288otj.311.1612449453908;
- Thu, 04 Feb 2021 06:37:33 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wedMKLv5Ufk/tyydKR+pTpkzFwgHy/gV4E2x3/ps7VM=;
+ b=L5BbRpWrSmuP23WPvi9JzIQHKnOVOhWx4mLJf+5VP8fFS6wH+00k2iaLOjrulnBAgW
+ zYDyNO1HH8Iy10ifcVhfDMoUZi2dTDY67HP9Z1F4AfmJ/MCZ//GdZi3ls3WpAU9KdgaZ
+ 7YOJ1cOBvfNPX3zWEhi0IkwzqzjoR//AzPpgkh0be/vcqgKbW3nD3+wcugIjDJzzJp+c
+ yK2F2iN2jb2LxUHhPdwUSewn+bptkhrOR4YmYJf7dKztHqk57N+3wz+9N8T3hUIY+U6Y
+ VmZLk1+vUfOnIwkWTabnaxVPHKQE2hTQmQ4vWniPU4EcZmqyTzW+59SILLDCQUJqniMF
+ ZMbA==
+X-Gm-Message-State: AOAM533yBbh5NKv4Q6jIoLW5TwsxqfFnu87bTIsdPYMEOwnYIjAbBnIM
+ /XCmnVwyrZNlFyG5EXa11bKHX5jzV00=
+X-Google-Smtp-Source: ABdhPJxi1BZiobcRDGw/jHByFvcLpXoGaiIfXGbh6qbCqVpgbGQIvPG8fglsOx6Abe/N7Ky1tjvLLA==
+X-Received: by 2002:a17:906:154d:: with SMTP id
+ c13mr8394976ejd.471.1612449824860; 
+ Thu, 04 Feb 2021 06:43:44 -0800 (PST)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:db9a:1ee8:e47:9603])
+ by smtp.gmail.com with ESMTPSA id u5sm2734472edc.29.2021.02.04.06.43.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Feb 2021 06:43:43 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 01/14] drm/amdkfd: Get unique_id dynamically v2
+Date: Thu,  4 Feb 2021 15:43:30 +0100
+Message-Id: <20210204144343.2679-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20210202171748.1062530-1-alexander.deucher@amd.com>
- <20210202171748.1062530-2-alexander.deucher@amd.com>
- <MN2PR12MB454926B93FE2B67447AF46A197B49@MN2PR12MB4549.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB454926B93FE2B67447AF46A197B49@MN2PR12MB4549.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 4 Feb 2021 09:37:22 -0500
-Message-ID: <CADnq5_NH0ezDtVhOE-teJZBZNdDV22is1jVkaKxe7pcof8-qbg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: enable DPM_FLAG_MAY_SKIP_RESUME and
- DPM_FLAG_SMART_SUSPEND flags
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +79,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Leo.Liu@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 3, 2021 at 2:56 AM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
->
-> [AMD Public Use]
->
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
-> Sent: Tuesday, February 2, 2021 10:48 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 2/2] drm/amdgpu: enable DPM_FLAG_MAY_SKIP_RESUME and DPM_FLAG_SMART_SUSPEND flags
->
-> Once the device has runtime suspended, we don't need to power it back up again for system suspend.  Likewise for resume, we don't to power up the device again on resume only to power it back off again via runtime pm because it's still idle.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index b4780182f990..b78847fa769b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -206,6 +206,12 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
->                 if (amdgpu_device_supports_atpx(dev) &&
->                     !amdgpu_is_atpx_hybrid())
->                         dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
-> +               /* we want direct complete for BOCO */
-> +               if ((amdgpu_device_supports_atpx(dev) &&
-> +                   amdgpu_is_atpx_hybrid()) ||
-> +                   amdgpu_device_supports_boco(dev))
-> +                       dev_pm_set_driver_flags(dev->dev, DPM_FLAG_SMART_SUSPEND |
-> +                                               DPM_FLAG_MAY_SKIP_RESUME);
->
-> Device runtime suspend callback does -
->         amdgpu_device_suspend(drm_dev, false)
->
-> System suspend callback does -
->         amdgpu_device_suspend(drm_dev, true)
->
-> One of the effects of this flag is for KFD to decide whether to evict all processes. It is done during system suspend but not during runtime device suspend. Will that have an impact if  the system suspend routine is skipped in this way?
+From: Kent Russell <kent.russell@amd.com>
 
-+ Rajneesh
+Instead of caching the value during amdgpu_device_init, just call the
+function directly. This avoids issues where the unique_id hasn't been
+saved by the time that KFD's topology snapshot is done (e.g. Arcturus).
 
-Can you comment on this?  Idea of this patch is to not wake the device
-for system suspend and resume if it's already in runtime suspend.
+KFD's topology information from the amdgpu_device was initially cached
+at KFD initialization due to amdkfd and amdgpu being separate modules.
+Now that they are combined together, we can directly call the functions
+that we need and avoid this unnecessary duplication and complexity.
 
-Alex
+As a side-effect of this change, we also remove unique_id=0 for CPUs,
+which is obviously not unique.
 
->
-> Thanks,
-> Lijo
->
->                 pm_runtime_use_autosuspend(dev->dev);
->                 pm_runtime_set_autosuspend_delay(dev->dev, 5000);
->                 pm_runtime_allow(dev->dev);
-> --
-> 2.29.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C8a6f7c5bbab84c6e71c408d8c79e7edd%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637478830856688013%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=55Rfj9pO3cnGBiB1DkJ9yuyMMrKOvxhgYDajhIeUNkI%3D&amp;reserved=0
+v2: Drop previous patch printing unique_id in hex
+
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 6 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 1 -
+ 2 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index a3fc23873819..0be72789ccbc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -497,8 +497,6 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+ 			      dev->node_props.num_sdma_queues_per_engine);
+ 	sysfs_show_32bit_prop(buffer, offs, "num_cp_queues",
+ 			      dev->node_props.num_cp_queues);
+-	sysfs_show_64bit_prop(buffer, offs, "unique_id",
+-			      dev->node_props.unique_id);
+ 
+ 	if (dev->gpu) {
+ 		log_max_watch_addr =
+@@ -529,6 +527,9 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+ 				      dev->node_props.capability);
+ 		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
+ 				      dev->gpu->sdma_fw_version);
++		sysfs_show_64bit_prop(buffer, offs, "unique_id",
++				      amdgpu_amdkfd_get_unique_id(dev->gpu->kgd));
++
+ 	}
+ 
+ 	return sysfs_show_32bit_prop(buffer, offs, "max_engine_clk_ccompute",
+@@ -1340,7 +1341,6 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 		dev->gpu->dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS) ?
+ 		amdgpu_amdkfd_get_num_gws(dev->gpu->kgd) : 0;
+ 	dev->node_props.num_cp_queues = get_cp_queues_num(dev->gpu->dqm);
+-	dev->node_props.unique_id = amdgpu_amdkfd_get_unique_id(dev->gpu->kgd);
+ 
+ 	kfd_fill_mem_clk_max_info(dev);
+ 	kfd_fill_iolink_non_crat_info(dev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 326d9b26b7aa..416fd910e12e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -57,7 +57,6 @@
+ 
+ struct kfd_node_properties {
+ 	uint64_t hive_id;
+-	uint64_t unique_id;
+ 	uint32_t cpu_cores_count;
+ 	uint32_t simd_count;
+ 	uint32_t mem_banks_count;
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
