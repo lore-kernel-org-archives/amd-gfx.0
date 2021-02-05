@@ -8,65 +8,62 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7F99C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACF51C433E9
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 589CE64E35
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 589CE64E35
+	by mail.kernel.org (Postfix) with ESMTPS id 524EB64E35
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Feb 2021 16:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 524EB64E35
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92BA46F482;
-	Fri,  5 Feb 2021 16:15:43 +0000 (UTC)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B72F26E311
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A866F481;
+	Fri,  5 Feb 2021 16:15:44 +0000 (UTC)
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99F16F481
  for <amd-gfx@lists.freedesktop.org>; Fri,  5 Feb 2021 16:15:41 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id x3so3426999qti.5
+Received: by mail-qt1-x82d.google.com with SMTP id t17so5343146qtq.2
  for <amd-gfx@lists.freedesktop.org>; Fri, 05 Feb 2021 08:15:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=SnsaVs3yj7V6me++7B+upwy0Wfv3gAfiqlqzB/LwrTY=;
- b=Bpe5FzByTSZUPNCnb3drjCElM0z70LRcfRJGlxlBv3dRHLcYHlCo2N6NmsYO8v4vPw
- lWZ5XlKg4aoKZ9DCBaPsY8rY17G7+jniyLr0KpZVn69TfP4hIc5dSw2mSBdFYOpGv22R
- cWREWqjvjGvATFId/rviMwLtADHvBfMc5yZMnzenkvNlxMZZjQfNG7rf7CBh+PCvu6qA
- hPnv7Sn4zvDi7oZeO8K1xihMM3Zrp35ppYLatsTN4AGi0p0amQMLWqITauy2e76rrERw
- Un5lMwxk8/jmWKF7xeKn4LgWSnqwEAQSsTN1WZNaKBDHVEQ0TvIf7DYi1q3S+K6qBchu
- jfDw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hIzvhEX5+B9JAdMDjNIhocCFxbtmzF47+ALBu26I7sQ=;
+ b=kd0yYRfcXH85Ha8246MyheDO/sBhD6Ejb8q/Q5ypuHmBeNe/6lfXp/wj0qDUiaIi+I
+ GU4OVeRWot2QZOoX9Neha9/Pv3xwpVlVUojxAqDP+ea//q4pEuyB8LgzudPuBdMAlzLc
+ 2P7Mvqv2d6LfWfQeP4cjodyCLVSr2gwTYbdgSV7b2Z9LZi4LFoFhJieVTaPnP77vgF2H
+ Vuw5pTUlaQwMx2RUXV/tuwwAqwg8Flr7WM8LK+R3VWbLj+TZHhH5r5lMykInWvYnOKqy
+ fx340OA8aMeiww3iQWQLPLsfmIEcAEWNcj7Bt2io3ZZPsDK45wf+bctf+XxK5dL8CL6V
+ S4TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=SnsaVs3yj7V6me++7B+upwy0Wfv3gAfiqlqzB/LwrTY=;
- b=XiBC7Jdgp8PBlNNikWu5m6qA9UoQKmg86bWXzL2hoM33y5j191/GdL1YpCHT91i2j1
- spyujKZ2+3I0Zi08V4Q05vTPMEq9S4AepAM9TKPu+g+z8WjA+2iHKyJbV1LIx5CK95hy
- KF2qlcFvFRVyaNoBZfUQFUaPfCI77J2e8IbSExH0KmIQq3LW+R7a5NocYXT2HFT2Spcj
- Y1ptryFoW9gmrNmFkiOseLMkMOG2jX5F5Zp6Cnv1Dp17/xjJrQ4DtIB8h79swOak25xR
- N2R8qVvQ3hYgoIhcQ8yN9BbrrXr098CM1WUsrQmQ4aQubP1OXGut72TWKOfJG1xX5hIh
- EzgA==
-X-Gm-Message-State: AOAM533tfkwbz4r0dDh2mBl4SjSd1XkxyBjFuQXaiUVjLIgc7yXRcKNm
- 6ne817XQoyA4L9E+7hVyyJH8EY79EvQ=
-X-Google-Smtp-Source: ABdhPJzhWdwiFHWpAKTX/x2UCefwyPNJ4Bp/5d3sAjeVdFvmyHH62OOxE7qDpcw5/Wgjd4/4hTV+HA==
-X-Received: by 2002:ac8:590b:: with SMTP id 11mr4983473qty.114.1612541740427; 
- Fri, 05 Feb 2021 08:15:40 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hIzvhEX5+B9JAdMDjNIhocCFxbtmzF47+ALBu26I7sQ=;
+ b=bxC/MmikZgPlzD8Wb72d/5tfC2bjDlnueScOqJd4UdTk70FY8SMWrEOICpM0xUV7Bf
+ HjC49wzX/Lb3btbY/KEc0rEEQn5TSWE+p3yRfEstyBU5LC+fiJg7QDEkhvlrnmelNvLs
+ NF/RH2ndoUJdcwq7A3RFvOFX6MjZjCfTc3SNcrZ+dzi+IJbjoEv0hdrLmNc/PudHpyT4
+ Osma7iDgFJt6fhmHpD246vA8+SXP6Dn2cSsDnq7I7knoCW+0p3ifiCucgvXBPsTArEf2
+ tp0Wy0Xb1rbv8pGPU3JYg/JcHBuOXcmpo3iKdORAbuvLEKVfeKOutNKv8ozmARl2agAB
+ 6LpA==
+X-Gm-Message-State: AOAM5319ORiV1VTaqgsQEUoB6tAvCL7ZThRoDhvaOYNKnnqOCNyROkg1
+ G76GRUt+oEOItplXUb1CLgzuI2RjbFk=
+X-Google-Smtp-Source: ABdhPJyT7ZWASVCE3czbCqLEksHrIMsorc6Zke5ODLqtLi7ghLKWupC51PgJbkPfiZvDnkY6UzlHJg==
+X-Received: by 2002:ac8:3a63:: with SMTP id w90mr1314548qte.300.1612541739646; 
+ Fri, 05 Feb 2021 08:15:39 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.237])
- by smtp.gmail.com with ESMTPSA id o17sm8636947qtl.47.2021.02.05.08.15.39
+ by smtp.gmail.com with ESMTPSA id o17sm8636947qtl.47.2021.02.05.08.15.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Feb 2021 08:15:40 -0800 (PST)
+ Fri, 05 Feb 2021 08:15:39 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: enable DPM_FLAG_MAY_SKIP_RESUME and
- DPM_FLAG_SMART_SUSPEND flags (v2)
-Date: Fri,  5 Feb 2021 11:15:28 -0500
-Message-Id: <20210205161528.37055-2-alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: add a dev_pm_ops prepare callback (v2)
+Date: Fri,  5 Feb 2021 11:15:27 -0500
+Message-Id: <20210205161528.37055-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210205161528.37055-1-alexander.deucher@amd.com>
-References: <20210205161528.37055-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,44 +76,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Once the device has runtime suspended, we don't need to power it
-back up again for system suspend.  Likewise for resume, we don't
-to power up the device again on resume only to power it back off
-again via runtime pm because it's still idle.
+as per:
+https://www.kernel.org/doc/html/latest/driver-api/pm/devices.html
 
-v2: add DPM_FLAG_SMART_PREPARE as well
+The prepare callback is required to support the DPM_FLAG_SMART_SUSPEND
+driver flag.  This allows runtime pm to auto complete when the
+system goes into suspend avoiding a wake up on suspend and on resume.
+Apply this for hybrid gfx and BOCO systems where d3cold is
+provided by the ACPI platform.
 
-Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com> (v1)
+v2: check if device is runtime suspended in prepare.
+
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index b4780182f990..94672b5c2776 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -206,6 +206,13 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 		if (amdgpu_device_supports_atpx(dev) &&
- 		    !amdgpu_is_atpx_hybrid())
- 			dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
-+		/* we want direct complete for BOCO */
-+		if ((amdgpu_device_supports_atpx(dev) &&
-+		    amdgpu_is_atpx_hybrid()) ||
-+		    amdgpu_device_supports_boco(dev))
-+			dev_pm_set_driver_flags(dev->dev, DPM_FLAG_SMART_PREPARE |
-+						DPM_FLAG_SMART_SUSPEND |
-+						DPM_FLAG_MAY_SKIP_RESUME);
- 		pm_runtime_use_autosuspend(dev->dev);
- 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
- 		pm_runtime_allow(dev->dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 283e93c82b47..b1de139e883b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -36,6 +36,7 @@
+ #include <linux/vga_switcheroo.h>
+ #include <drm/drm_probe_helper.h>
+ #include <linux/mmu_notifier.h>
++#include <linux/suspend.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_irq.h"
+@@ -1271,6 +1272,27 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+ 	adev->mp1_state = PP_MP1_STATE_NONE;
+ }
+ 
++static int amdgpu_pmops_prepare(struct device *dev)
++{
++	struct drm_device *drm_dev = dev_get_drvdata(dev);
++
++	/* Return a positive number here so
++	 * DPM_FLAG_SMART_SUSPEND works properly
++	 */
++	if ((amdgpu_device_supports_atpx(drm_dev) &&
++	    amdgpu_is_atpx_hybrid()) ||
++	    amdgpu_device_supports_boco(drm_dev))
++		return pm_runtime_suspended(dev) &&
++			pm_suspend_via_firmware();
++
++	return 0;
++}
++
++static void amdgpu_pmops_complete(struct device *dev)
++{
++	/* nothing to do */
++}
++
+ static int amdgpu_pmops_suspend(struct device *dev)
+ {
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+@@ -1484,6 +1506,8 @@ long amdgpu_drm_ioctl(struct file *filp,
+ }
+ 
+ static const struct dev_pm_ops amdgpu_pm_ops = {
++	.prepare = amdgpu_pmops_prepare,
++	.complete = amdgpu_pmops_complete,
+ 	.suspend = amdgpu_pmops_suspend,
+ 	.resume = amdgpu_pmops_resume,
+ 	.freeze = amdgpu_pmops_freeze,
 -- 
 2.29.2
 
