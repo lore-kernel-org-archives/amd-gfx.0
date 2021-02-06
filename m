@@ -3,39 +3,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDC97C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 12:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2037C433DB
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 12:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C01864E53
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 12:25:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C01864E53
+	by mail.kernel.org (Postfix) with ESMTPS id 90B9564ED3
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Feb 2021 12:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90B9564ED3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE86C6E3DA;
-	Sat,  6 Feb 2021 12:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC5F16E41B;
+	Sat,  6 Feb 2021 12:29:15 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7856E3DA;
- Sat,  6 Feb 2021 12:25:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476886E415;
+ Sat,  6 Feb 2021 12:29:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DE5E6ACD4;
- Sat,  6 Feb 2021 12:25:38 +0000 (UTC)
-Date: Sat, 06 Feb 2021 13:25:38 +0100
-Message-ID: <s5ha6sh1iyl.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id CAC01ACB7;
+ Sat,  6 Feb 2021 12:29:12 +0000 (UTC)
+Date: Sat, 06 Feb 2021 13:29:12 +0100
+Message-ID: <s5h8s811isn.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Add aux_backlight module option
-In-Reply-To: <CADnq5_M--+6mCVrQ5-J+NKFeLEGRDcUAPPbmHpAaUJRi6XNBtQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Fix the brightness read via aux
+In-Reply-To: <CADnq5_PZFcXG2E28O2PrJRm+twp6Stq71EE+yckEOZbE7NUW6Q@mail.gmail.com>
 References: <20210203124241.8512-1-tiwai@suse.de>
- <20210203124241.8512-3-tiwai@suse.de>
- <CADnq5_M--+6mCVrQ5-J+NKFeLEGRDcUAPPbmHpAaUJRi6XNBtQ@mail.gmail.com>
+ <20210203124241.8512-2-tiwai@suse.de>
+ <CADnq5_PZFcXG2E28O2PrJRm+twp6Stq71EE+yckEOZbE7NUW6Q@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -61,55 +61,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 05 Feb 2021 17:34:36 +0100,
+On Fri, 05 Feb 2021 17:36:44 +0100,
 Alex Deucher wrote:
 > 
 > On Wed, Feb 3, 2021 at 7:42 AM Takashi Iwai <tiwai@suse.de> wrote:
 > >
-> > There seem devices that don't work with the aux channel backlight
-> > control.  For allowing such users to test with the other backlight
-> > control method, provide a new module option, aux_backlight, to specify
-> > enabling or disabling the aux backport support explicitly.  As
-> > default, the aux support is detected by the hardware capability.
+> > The current code tries to read the brightness value via
+> > dc_link_get_backlight_level() no matter whether it's controlled via
+> > aux or not, and this results in a bogus value returned.
+> > Fix it to read the current value via
+> > dc_link_get_backlight_level_nits() for the aux.
 > >
 > > BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1180749
 > > BugLink: https://gitlab.freedesktop.org/drm/amd/-/issues/1438
 > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h               | 1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 4 ++++
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
-> >  3 files changed, 8 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index 5993dd0fdd8e..4793cd5e69f9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -179,6 +179,7 @@ extern uint amdgpu_smu_memory_pool_size;
-> >  extern uint amdgpu_dc_feature_mask;
-> >  extern uint amdgpu_dc_debug_mask;
-> >  extern uint amdgpu_dm_abm_level;
-> > +extern int amdgpu_aux_backlight;
-> >  extern struct amdgpu_mgpu_info mgpu_info;
-> >  extern int amdgpu_ras_enable;
-> >  extern uint amdgpu_ras_mask;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 7169fb5e3d9c..5b66822da954 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -777,6 +777,10 @@ uint amdgpu_dm_abm_level;
-> >  MODULE_PARM_DESC(abmlevel, "ABM level (0 = off (default), 1-4 = backlight reduction level) ");
-> >  module_param_named(abmlevel, amdgpu_dm_abm_level, uint, 0444);
-> >
-> > +int amdgpu_aux_backlight = -1;
-> > +MODULE_PARM_DESC(aux_backlight, "Aux backlight control (0 = off, 1 = on, default auto)");
-> > +module_param_named(aux_backlight, amdgpu_aux_backlight, bint, 0444);
 > 
-> I'd suggest making this something more generic like "backlight" and
-> make -1 auto, 0 pwm, 1 aux.  That way we can handle potential future
-> types more cleanly.
+> This looks fine to me.  FWIW, I have a similar patch set here:
+> https://cgit.freedesktop.org/~agd5f/linux/log/?h=backlight_wip
 
-OK, will respin later.
+I'm fine to scratch mine as long as the issue gets fixed :)
+
+FWIW, the biggest problem so far was the aux channel backlight didn't
+work as expected, the actual backlight isn't changed by the backlight
+sysfs write.  (And the sysfs read gives a bogus value, but it's not
+the cause of the non-working backlight control.)
+
+Does the aux channel backlight really work with the current code?
+Or is this rather a device-specific issue (e.g. broken BIOS) and we
+might need to come up with a deny list or such?
 
 
 thanks,
