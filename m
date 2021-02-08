@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73027C433E6
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CC56C433E0
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2514764EDB
+	by mail.kernel.org (Postfix) with ESMTPS id 4C94764ED9
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2514764EDB
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C94764ED9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 137476E993;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3DA6E994;
 	Mon,  8 Feb 2021 17:59:17 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A85076E993;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA2C6E993;
+ Mon,  8 Feb 2021 17:59:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CD30B64EDE;
  Mon,  8 Feb 2021 17:59:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5761C64ED2;
- Mon,  8 Feb 2021 17:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612807154;
- bh=IiLzoLhnAf8Qo7a7ckbZyJ5W1HDxg+t/A2xml7ylQ/I=;
+ s=k20201202; t=1612807155;
+ bh=MYgGwpMm4Mmrwtr1ug2cuINDrU/BD+xVAfgGPokED+g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WGfzQtY7tIh9TdSqfDXeeEm00kob2eH38btw4UodQOqfJw52z9/oHjD3bJuAbtq6U
- vV5clOewOhuUoWQQd/SIjN3zlfRwiYwFZyj6+xBIr4ViLm8M53aLblgNB4KODJ1cQw
- 5IDicb+QL17M75XhNHN9clwrgNLL7n7eFqofpoCdFmV/EvT0xYVNsxtkuGEUIuyvGB
- 9YZgxY2opfhFr0tqehtEepbU+rKJ1hFyoB4isTgI60737tHMX34VAAF/3wLT0Xa9tz
- 1vK549wVCMMpBXOxgtBHvRyR3agycXSObzWXmvpMO8YCLStBVazbMhohA9QaioD5+y
- a2a2XR0un+euw==
+ b=C18OHy0HoJjm1A5C08bfstN4Unz5H4zAppkfQdPN7DLZVT/TDwtbMnFRVIAesPAq3
+ 1AGAV2kltXqJr6kZg2ylUn5dAVgZAmhV8AcESvjEkph9uLDkm9PrvzIKXKgvvP5joM
+ OZgIgNvlDhttblmBBlGvnBnnIp5LgIH2M8RNE1Ph/jeYeaqewQwfdWIJL0zdhYrZew
+ BLGjLuIzzAnomSSltWvNBOd3x5ho8kvZMcG3SHWG4f/Nym4OX/i/4IirSsRN/YZKzj
+ bO+ftMmMkDcfwH3OjU3J/RHJpO8izuUNeQmKjlp/i+ECvRt5TKQP4WEKSHSP81HpqK
+ qNu/aZDpcLNYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 11/19] drm/amd/display: Fix dc_sink kref count in
- emulated_link_detect
-Date: Mon,  8 Feb 2021 12:58:50 -0500
-Message-Id: <20210208175858.2092008-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 12/19] drm/amd/display: Free atomic state after
+ drm_atomic_commit
+Date: Mon,  8 Feb 2021 12:58:51 -0500
+Message-Id: <20210208175858.2092008-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210208175858.2092008-1-sashal@kernel.org>
 References: <20210208175858.2092008-1-sashal@kernel.org>
@@ -60,10 +60,9 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
- amd-gfx@lists.freedesktop.org, Victor Lu <victorchengchi.lu@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+ Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Victor Lu <victorchengchi.lu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -71,40 +70,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Victor Lu <victorchengchi.lu@amd.com>
 
-[ Upstream commit 3ddc818d9bb877c64f5c649beab97af86c403702 ]
+[ Upstream commit 2abaa323d744011982b20b8f3886184d56d23946 ]
 
 [why]
-prev_sink is not used anywhere else in the function and the reference to
-it from dc_link is replaced with a new dc_sink.
+drm_atomic_commit was changed so that the caller must free their
+drm_atomic_state reference on successes.
 
 [how]
-Change dc_sink_retain(prev_sink) to dc_sink_release(prev_sink).
+Add drm_atomic_commit_put after drm_atomic_commit call in
+dm_force_atomic_commit.
 
 Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Roman Li <Roman.Li@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d2dd387c95d86..99ece6ea26bdf 100644
+index 99ece6ea26bdf..9284960d24b0a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1093,8 +1093,8 @@ static void emulated_link_detect(struct dc_link *link)
- 	link->type = dc_connection_none;
- 	prev_sink = link->local_sink;
+@@ -6465,14 +6465,14 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
  
--	if (prev_sink != NULL)
--		dc_sink_retain(prev_sink);
-+	if (prev_sink)
-+		dc_sink_release(prev_sink);
+ 	ret = PTR_ERR_OR_ZERO(conn_state);
+ 	if (ret)
+-		goto err;
++		goto out;
  
- 	switch (link->connector_signal) {
- 	case SIGNAL_TYPE_HDMI_TYPE_A: {
+ 	/* Attach crtc to drm_atomic_state*/
+ 	crtc_state = drm_atomic_get_crtc_state(state, &disconnected_acrtc->base);
+ 
+ 	ret = PTR_ERR_OR_ZERO(crtc_state);
+ 	if (ret)
+-		goto err;
++		goto out;
+ 
+ 	/* force a restore */
+ 	crtc_state->mode_changed = true;
+@@ -6482,17 +6482,15 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
+ 
+ 	ret = PTR_ERR_OR_ZERO(plane_state);
+ 	if (ret)
+-		goto err;
+-
++		goto out;
+ 
+ 	/* Call commit internally with the state we just constructed */
+ 	ret = drm_atomic_commit(state);
+-	if (!ret)
+-		return 0;
+ 
+-err:
+-	DRM_ERROR("Restoring old state failed with %i\n", ret);
++out:
+ 	drm_atomic_state_put(state);
++	if (ret)
++		DRM_ERROR("Restoring old state failed with %i\n", ret);
+ 
+ 	return ret;
+ }
 -- 
 2.27.0
 
