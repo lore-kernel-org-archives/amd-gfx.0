@@ -2,65 +2,58 @@ Return-Path: <SRS0=WKN7=HK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FFEAC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 22:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 079D8C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 22:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7FCE64E82
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 22:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7FCE64E82
+	by mail.kernel.org (Postfix) with ESMTPS id 9D9D164E8F
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 22:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D9D164E8F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBA26EA07;
-	Mon,  8 Feb 2021 22:09:34 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C666EA07;
- Mon,  8 Feb 2021 22:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32AF96EA0C;
+	Mon,  8 Feb 2021 22:16:06 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABCB6EA0C;
+ Mon,  8 Feb 2021 22:16:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S68x/3EJ4ItQOBgf0xTW+6/0TNBLm17gpUIx2KgmnufaCr2UrIlU3UTemZFzdEWOgDhjVB3MXiYcJnaa8l2nN4QgqtAnBL2cTtEXhRjmW4UyMVoB7lNfF1pw9pvjjYL3VODK92B9UvcVSLxPLZhD9cOQFbI9FO94lJRIt2Aj3UKd+ZyxbABg2jGeG1tyCcMSBvGO+CMaxe3MSgw9NhNya+YWUROtOCFKFyesqL2hZ8Hw6DwAwImPSqlrrwiRFpzPLVM4rHdFbRVEWeZFJe8vxocdGFWRTaBRxzqsCnljLoME2Ow5Ttnstyw6dWUzBfX5sLh8QANaKd8hGc1zHJA0Tw==
+ b=UKrDDhBZcTK7H8XmF0qw0brtHuPiqktdckkRRi+sbXrW6EpXYZgysJmD/BWUwKbriGT/4wRG9mdehd/zKoGszbFRpVzM8wpuPU+1fg/aJIz9TgYUSk/g1uV75wOZOQh4QKiBzI58+grqT3G9Epb3PK6I/uqgXKk+VtK0klz98uQ2NHdUoNEfBcDzXnmE8HFCENlorKF9RgWOIJWw5nVHl0KHxGcaSrn7psMtZtRsRbyNcKUZOATWLxTftocycOdbdfmGfeBdSh76y4jz7D6iPSaHVGqu6xdiSEtAodfmwqUKq6pXtdlbVZ6QhkvNXmI93fi2XKOqdXZTSkD2r6ZdOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6bw8Ep5MCKkDwXIU96ouSfFPtVo+lZSGR71MSyQPx9o=;
- b=kyxQTJaShJfNa5gig/d0OTDCnO2tcqXEiJ2VqZQWGUT84m5sUa/kTIjFffq33VV0FPYtOC1i4oaZ/W3mhC60iwAoFvS2Qiqz5YrZkgSD5fnzwcEdZ8HbY/WZF0+27huUpsN3bfEB71E6o1B+s7NjyIoyoPScmKbaL1aOW18alKeut1+aS0YB/M8nE/WzHJcjCW/M+tasUUWB3PUPaJ81b8STBqPPftzqbi1NnTq8SBEWvu56QVqzhEdB2tS442yQ6+K177UWGHLYfgvhBdO6TDz24+/f+4Ou5JKqsa/bZpKsmLkLaETiBD5Atg4Iuh1B2D0Zz1nztPAgO0In2eYqNA==
+ bh=8Gy5udXJD46IA8gHlPPSroT/AN4kcBJrLGjAsaOA/+Y=;
+ b=oC7w1olRORI7JWbhft/OAnlltG7xfUTBZZLRbjECVyjcmTSpgANzZMGGQlQf9Uy5ROiva3tPoXyLs/N0Sp330mL/rgZRuO0Qmz1Ze1rDfhWCAG5JAeyH1ChXV6w0rx2Q5YlWMo0GlFs2rRTmtvnaFN9Z3FLpJS8JEEiIefbmZDSgeHieQHDsj+fLUyfSmPXR+EWPE05+ras8rotH7pFE+3NrcaYVKz7mnQ+3VN49TrEXUkb3hh3CMXqE3hp/Kp2/hG5/PZB3elpM+HtcjIiAb5RuX/tvPAJ4BF++xBn1rr5wsDo5hpyHCsoOAAOKobyoZHoet4d2Zw0ZXiZxMwWgdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6bw8Ep5MCKkDwXIU96ouSfFPtVo+lZSGR71MSyQPx9o=;
- b=ao8hN8tpSGs5uTZOmuIw/8pxNTt31/N3I6kxF7WxCHILO/E/i6kpmGAMTTP7DRv55EZYSrWnImtLXwtA/wqgCdX87dYqKn7jL+DcS2or5Podogw4Dugwurd/Hh9oK3qFMWrJ977LL2qWcpSiR6Zcqq9EzCfv9mwFAGethaB2J4o=
-Authentication-Results: pengutronix.de; dkim=none (message not signed)
- header.d=none;pengutronix.de; dmarc=none action=none header.from=amd.com;
+ bh=8Gy5udXJD46IA8gHlPPSroT/AN4kcBJrLGjAsaOA/+Y=;
+ b=Ys06p30bK7ujK0OgaPJAp13c0UxjgzBFFKuChCVRyAq0BcY+dWdRn2/mgT8NKxzVWotnnRB5iNmsylR5fuvQexC74Npr0tlXTSsrSdnLZryFeCGYK7pSGbntyOuIkUBfYsvj+oiUE6TE6aHXSvJlV0rjgkCvD7nIRDFTYM0hFwo=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SN6PR12MB2704.namprd12.prod.outlook.com (2603:10b6:805:72::20)
+ by SN1PR12MB2349.namprd12.prod.outlook.com (2603:10b6:802:2a::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.23; Mon, 8 Feb
- 2021 22:09:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.30; Mon, 8 Feb
+ 2021 22:16:01 +0000
 Received: from SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::41b1:11f5:fd1e:fc5f]) by SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::41b1:11f5:fd1e:fc5f%5]) with mapi id 15.20.3825.030; Mon, 8 Feb 2021
- 22:09:30 +0000
+ 22:16:01 +0000
 Subject: Re: [PATCH v4 11/14] drm/amdgpu: Guard against write accesses after
  device removal
-To: christian.koenig@amd.com, Daniel Vetter <daniel.vetter@ffwll.ch>
-References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
- <1611003683-3534-12-git-send-email-andrey.grodzovsky@amd.com>
- <35ecd67f-620f-df50-3e03-d24dc12452d6@gmail.com>
- <8925db97-bf81-7e5e-527d-f654713b400d@amd.com>
- <CAKMK7uHCzBpaC2YypKeQwbJiT0JG2Hq7V0BC5yC88f9nqgxUiw@mail.gmail.com>
- <8ed4a153-d503-e704-0a0d-3422877e50fa@amd.com>
- <91b8ea73-aa69-1478-2e7c-63ab1cb250ae@gmail.com>
- <7834dbdf-27ad-f21d-b58b-2772a598ea8a@amd.com>
- <07dceec0-0be9-1531-0357-353f04d1cb2b@amd.com>
+To: Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <07dceec0-0be9-1531-0357-353f04d1cb2b@amd.com>
  <69f036e2-f102-8233-37f6-5254a484bf97@amd.com>
  <0b502043-5a66-dcd5-53f9-5c190f22dc46@gmail.com>
  <78e4705d-c55f-6c68-d0f9-b1939b636121@amd.com>
@@ -68,80 +61,85 @@ References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
  <8fbeee95-b365-7f68-1e0b-1d42eb0dea70@amd.com>
  <CAKMK7uEJDfPsbnkVfunjVe2iNbpVBWY2_XHai4JntcxWkuVc3A@mail.gmail.com>
  <fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com>
+ <YCEJBfA6ce4dD3JT@phenom.ffwll.local>
+ <6c639669-b78d-b6a3-71b9-d546ca34121b@gmail.com>
+ <YCEOY5wFmpGRl7jJ@phenom.ffwll.local>
+ <90eb7a73-1981-6d20-a83d-1690321212c7@amd.com>
+ <CAKMK7uF3HkTgDhM5Lk3hnGB+35Vi-Nt7YOBJ_rpO8wZw9ifhcA@mail.gmail.com>
 From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <3f7efc21-f2fb-73a9-216c-aa1e531e35a0@amd.com>
-Date: Mon, 8 Feb 2021 17:09:28 -0500
+Message-ID: <f8b3417f-a697-c8c7-b131-5c8823f969d7@amd.com>
+Date: Mon, 8 Feb 2021 17:15:58 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com>
+In-Reply-To: <CAKMK7uF3HkTgDhM5Lk3hnGB+35Vi-Nt7YOBJ_rpO8wZw9ifhcA@mail.gmail.com>
 Content-Language: en-US
 X-Originating-IP: [2607:fea8:3edf:49b0:407a:7c93:58dc:3018]
-X-ClientProxiedBy: YT1PR01CA0085.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::24) To SN6PR12MB4623.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::6) To SN6PR12MB4623.namprd12.prod.outlook.com
  (2603:10b6:805:e9::17)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [IPv6:2607:fea8:3edf:49b0:407a:7c93:58dc:3018]
  (2607:fea8:3edf:49b0:407a:7c93:58dc:3018) by
- YT1PR01CA0085.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::24) with Microsoft
+ YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.19 via Frontend Transport; Mon, 8 Feb 2021 22:09:29 +0000
+ 15.20.3825.17 via Frontend Transport; Mon, 8 Feb 2021 22:16:00 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 78cb3ae2-16ac-427d-0f6a-08d8cc7e354a
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2704:
+X-MS-Office365-Filtering-Correlation-Id: cce074cf-2a89-4440-ce44-08d8cc7f1e3b
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2349:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB270477C02546F272EDB4D149EA8F9@SN6PR12MB2704.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <SN1PR12MB23492F87D164FF6898BA3B9CEA8F9@SN1PR12MB2349.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RjwdTWxemUVKNnOGGH3RTKVtlHpOvZlESWi6p0aI7XTAe1AfsRfIPpD4lXFRjPVhQn/Ac4+jkK4NVmns4rkEZT0S+7xf9A5GxZnF4TjqTgWZCsEOIqssLI7J2XIyjV7ZmPpyU2rfyBNUVTiaLOrrQGUCcAKy8TLpY4FVkWEwmGutJPkWUWufPEy1dynDU6z02H8KdKyTNjlEDCcTXKLbvKv7tPR4CItvKWfCT9Yu3H8w0JrIefrGH7N9+BNOvXK8Ak8JdnVICwKAKOkjvV3fdYRILg2z0f/eZbpw1eSXk1c4wHbBsKP/One2i62HCAj0+6mx3K5a6NHL71m+t1SgUKIk9QzEsDTjGgXgP6tLwoZlRGjm5x6oTdEeK3hlxF3+XPdK/XiOryHzPsyJUQTUCUFuWCH0lLrSlTgybKI9HhrbswMAPbasdV6XkAVLLpSLeoVaakSj/u7DDa13dgn9MSd3HDm6BwrbogUPnIDQGlAJAxU+D1eEfq/lWmy/HxzGQwtxAj1hPeRQYP93X6I24g+qsM8GW2DHwqYOnxU6NCmVD3iHY6lW9TN8oW93+aB0s4sTEFg/g2au/Jv947gHxRKKIy8iZ+PyeftrMWt6RbSEZdJiblbpFisScaMjziU4V2IW42X+JgBxNsek2PsixcFxKQQH6iYLu+GZc0Q9sjFAgJN2lSqzcw3DqpuDyRLq
+X-Microsoft-Antispam-Message-Info: Yyr2kQkQdFDjJyBGn0IQkoTV+GSbDtHMd5cLSgYJE6K3IqhFb1nE7LF/i5Gn0YflEkcKFTbvlHSOBXmXY8oqzh1KOs6LxlN1/dyd+jsRYfQ7Vz1f9xhKx4uRhPqyuTEgGPG3b2H6BlY0mZiZagJ8GfVSjB9sbTqEfNBHgme+N4SMHfINgr0jU4E7BPgymSy+qNExF94RRG8eSJYp5s96bG9CteHGwp3W9v+yHmADYirBJdxGz+YgTDNnGdzZnUztMSmOrgZ7q6m0e8Fl5vMZPpphzqidM45TOoCfL9TPR+tjv70UnZOluaKi6kmPaCnKq0U+n14yVY07URRY9DLTCbaerOjr0JsKiXR8NIDQcLU9hykY1HuQm1hBoZG+gjRA75qLvinqdwfHl45BAm+vjIZe3o3M5rNxHfMI44zTS8unDZt9+Q17xvLQAfrisl/DRFCrKQSx1BJRGJ2BZ2XN6RTrGT1Ri7N/i+tp4xpLIqNJJ619WPyNJz2YJOlfj5tpUgdQzMExiKe0ee61H/UKr8GQrr4hhb8rTtGLBuGg0kvU7Ys2qKzNyRgrhI9ouNopPVwq1uNPiszB+yD/GBcyw51hHeeWM/Tk1M9nsqppArVWcOU5W/nCaZeDQ/4yYH2gNL42qsCsF1JHrQG85RmQq4p0LB3EulZIPk0kAeAN+dleTxIjkxUcOXdYMgEQGVxL
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(39860400002)(366004)(376002)(66556008)(54906003)(31686004)(66946007)(316002)(66476007)(2616005)(66574015)(52116002)(86362001)(2906002)(8936002)(33964004)(186003)(966005)(6916009)(4326008)(478600001)(83380400001)(53546011)(31696002)(16526019)(166002)(36756003)(5660300002)(8676002)(45080400002)(6486002)(45980500001)(43740500002);
+ SFS:(4636009)(136003)(366004)(376002)(39860400002)(346002)(396003)(966005)(16526019)(6486002)(316002)(2906002)(54906003)(45080400002)(53546011)(186003)(110136005)(8676002)(36756003)(6636002)(478600001)(31686004)(86362001)(66556008)(8936002)(5660300002)(31696002)(83380400001)(66574015)(4326008)(66946007)(66476007)(52116002)(2616005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UXdQMFRYUU5MNGZaaVNvRmFUU0RhMWxJOTFTSm1oZG1GZFRRa29qbVZ6Qnh3?=
- =?utf-8?B?Sm5semtXR3JLamJNbk84WG10dWxSdk1oRHJDczU1dDZmSXFBV3FhV2pBcTlu?=
- =?utf-8?B?UFoxZXBGNnVOVE9tZlZFU29SQW1PcWI5b3FGVThkQkt6eHZ0anFHcUd4dU1U?=
- =?utf-8?B?ZFJWL1ZiWUxZZUxYOGVIYWp6ZmpFMlZEK2d1cEFFL1V0TEZJS3F6S0VtMFJl?=
- =?utf-8?B?aTVUKzBEL3JGVUxuUit4dnF5clJVMzlxcmhGbURYKzFObGFIOHRDN2NnczAy?=
- =?utf-8?B?WEV5T2tjUTl2dU5iNUx0NlB6MW5pV3F1Vm1nUVpMc093eDJoenVab2M2RytO?=
- =?utf-8?B?R1B0Y0ZVS3Q0L1V5YWh3NzU2Rlk2cWVKc2dkdTlWSW00MmhHSHg0WS96T1Bv?=
- =?utf-8?B?VVpVR1F3NHFqQ21YM1gzK0NnVjA0TThGTm9jQXNrclZNeDZjWlVtRThBZU5V?=
- =?utf-8?B?RWtFdVZkeEhteEl6cWxzc0pweHIzV2p5TE0vY0tvM3EvUWM4cnN3T2NnOFZJ?=
- =?utf-8?B?MTl6Z1FESjQxbGlKR2lCVEQ4VksxMU1JbEgrbG5Xc3NBeWs1amNncjIrbmMz?=
- =?utf-8?B?ZmhNUHpZeUVxcG5WcUJtZTN0ZUpmRE5INEpHL3VsaFd0cGtRRG51dzFJSUc1?=
- =?utf-8?B?SHpJWnIveDNCajQ2SXIrNjBZZTVVUzJsYXJBME9pdDZMdEw5cmdUUTVUSUZu?=
- =?utf-8?B?TmNCZTJLTi9tZW45eTgwSTUzSUNMakMyVUpJNTRsTTd5dW5raDlENTM3Wkxa?=
- =?utf-8?B?aUpsejRMT1RXcHBENzdKRTZ1c0pEbVR2aTZ3N3Z5QklXbzRTTlJ6SEpSUUM0?=
- =?utf-8?B?a0NMZ09nbDVUT2lXVmszaUtZdXR5ZGptdnZhQVlwY0pQcEVwQWE5OUpGMCsw?=
- =?utf-8?B?dkMrZWlSUEV3VWdMZjl2VWdrL3NycWkwNFpWNkRJY0doaDF4RWRjRDBrYm9h?=
- =?utf-8?B?dnNDaFI0aU0vRTdFY0dnZDh1RllDZ2M2ak9abWlWVWtja0EvUE9aVmxzSFRv?=
- =?utf-8?B?QjlwREE4VGlhR25rdjYrd0dVM2FjQlhIbDk4TVEwVy9ObVgxWEk0MnJncUJn?=
- =?utf-8?B?ZUF2bWE3NjhJbGErR2ZXVTlueGEySXRGbzZsZ3hYaFRwa2JPclpsTTU5NHR1?=
- =?utf-8?B?YStGcXVBSGZTY082bmU3eUV5ZlpiMDhORDdYTFdHdWFFUzUxMC9ra2k5azVr?=
- =?utf-8?B?OCttWTFqajhrOFIwbHREQkVPOVpjbDFRNGMwWXpUVFcrZ0lJYjZKL0JWN2R4?=
- =?utf-8?B?RCszUFk0UE12T2pmTHNFOVh5Q0VZOXR0d1NCWHpIZGx6YUlSM3F4UkRBZHNH?=
- =?utf-8?B?RHh6bnUzR2FVcHZrRG9iYWw5V3VJNWQza20zcTFReFBwVkRtSHJQZU5YeVhz?=
- =?utf-8?B?L1ZUZUxRK2Y1Z2dYL2RyT0V5bWsxTzBuQkFJSllBcE5PbHZXSjk1Y2JERFhr?=
- =?utf-8?B?L3dNcGJqdWQzVnRUZXRiZUExSkQ3SkN0NzdrTHd1cVpRTkRJdTFPRVlHZnd1?=
- =?utf-8?B?TytBK1REVlBrRyswWXJtajNobTRGb1RLam9QbTk1Q2dTenBsQnoyRjZzZVhT?=
- =?utf-8?B?M2sxZGhZdWJmRk9oQlZ2Y2N4YmlJYnhXc2Rxb1lnVzVKYlNybEFVQTY2R1lF?=
- =?utf-8?B?ZXhmL3ZqSDBtUlQxSUxiOGdjRU94L3FHK1M5dEhOd0kvcTNhd1dMc2wvRGN3?=
- =?utf-8?B?M01YTzBYOHV1SnBjUXQ1Q1NIR3hhY3ViTjNBTi9wQnQyMHFBd2ZpM1A0TUFE?=
- =?utf-8?B?R2hWREpWQ09YUTk5Q29qZWF5NE03aHVsUzE4QWg4d3dIVUxmZW53dFM2UzNy?=
- =?utf-8?B?dnpLTmRtcmNCRWNNM28wcUJFdms4Q0pFQXo1ZDFxbldBdUxvSG9mV0x1WmQw?=
- =?utf-8?Q?iS3LF3gl9DEkL?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dnBGY0xWajVRTHF3UDNlUXpkUTNLOTRpR1BBWFBXMVVIbjAreHBoRWNhOUxZ?=
+ =?utf-8?B?UlpsR0RhNDZWdmNjcmhxU2Z3akQ4MUhESkIwNHdMU09sakdaV2hPREdXUk9o?=
+ =?utf-8?B?MW5jSzloZkZwOHk3aTg3ZkRtTTltUFl4bVYzRnlZMElmZkFqd0RaVWJKQXRy?=
+ =?utf-8?B?Z2U5bkVLRXkxVTlJQ1dycEhRa2V5VStpLzBSOGMrZXhLT1F4a1JuWml2Nzc5?=
+ =?utf-8?B?cVV3R1ZKcDUxY1liVEdFdzg0MHFIV1U3OGlYcTZpbkd5YTJTeWJjcFQ3T204?=
+ =?utf-8?B?Q1IvYW5mNEJzZVI5R3pxZHJ0OUFvRU1GdVhtU2FhTlRQYm9qS2J6NVdnOFBT?=
+ =?utf-8?B?and2eDlvMEw2YlZrTWZIZG8yaktsb2FFRy9xM1AvWTE0OGlocHJPYUxNUStr?=
+ =?utf-8?B?TjFkTUoveE5KTnZvNHQ4K1Z6VlN4UjFLWUxybXpsbXd1OWx6aWJZTjB0Tm5o?=
+ =?utf-8?B?THhtRDJNVzJDYVFmdGNtWXl3OTlTUm9wL3o1cUhJSlhIN3VkSWRBaTNXT3FU?=
+ =?utf-8?B?ZXZpTW43NVMxcytybTdSRHpOcGdMRzFYZUc4ZXA4RU1Fa2d0OWc5V21JNktC?=
+ =?utf-8?B?bm91Ujd2VW5iVDJ4dUVwVlpXWVhuVk1abjY0VFNEa0wxS3dYbE9MdXdRUDJh?=
+ =?utf-8?B?cnFQU3I1VTVucURKOFJPM2ozc2w0eGRocVcwTUJsOEJPRlBVbG9lNFFEeUln?=
+ =?utf-8?B?UFJNenpodCtaaWIxTTN3MW91ZnNoaWZkSWE3WFBqVEd4WkRTZzVOUEZFUUNH?=
+ =?utf-8?B?ZHpRajZic3U4NXp3dlRUZWlOTmhCcDdEb0VRaWFZOFcydllabURVMTZQT3pK?=
+ =?utf-8?B?SWt3QmQwMHNlNUxubmVRbHB5SjFQTnRuaURxdnhjM2ZMU3NLUFR4ckpFVys1?=
+ =?utf-8?B?eWRydnpsRlJsYm5ydlF5ekk1MmZaNHh0a0dnOThPZXE1eGIvcFpPUEFLbE9u?=
+ =?utf-8?B?U2xGeGdjdUJYMnR4TVlpVC91VWJiUmNSY2R1R0FYdXlORHFGbVYyY3NuTDRW?=
+ =?utf-8?B?UEFJK2pzSC9NNUQ0a2kxUjJIb0xIdmY2SnVnRDdnbTNaclhoRld0WUVTZ3BO?=
+ =?utf-8?B?NUhoYTlxM2VveXM4TlZCVzV1Q0VReXZDaWVlK29pSXNCdXI5RnlVR25CS2Rs?=
+ =?utf-8?B?RndMK21LWnlTN0RJZHQrNnowT1Q1eHJ4YkZlcXVrVlkrTk9kUnByRjVNcWM5?=
+ =?utf-8?B?ODFXaEZLUVBCdjVkaVlKekFWRFFUWFRxazlNdy94a0JrTGhoUEFWZnlvYlFW?=
+ =?utf-8?B?djBzWWF4STdjY2VTdkl4QmNmR0xPclRwUmNoNmxyN29wSHdWYXUyeUIrVWVs?=
+ =?utf-8?B?ampzZE9HL2F4OHFEc1FDeWFYc1A4aFRuODlob2tFN0hLU20rSUwwWkFUaVpl?=
+ =?utf-8?B?RVI1QStFM0ZueHFjL3c2NlBXMUdHTmI3Y0ZULzJ6RzNBR09MNm4yU1ZkZ2pP?=
+ =?utf-8?B?THBGOUExdFFkdmpoN2REbDVsN0lnaGNkdmh6UjVSVmNBSkVsLy9yOFlyYXlF?=
+ =?utf-8?B?TTZpMlJWc1k0R293eDdHRWVYMEc0ZkFYN1VJNHI0dVRJUFE2dTZtM2hRd083?=
+ =?utf-8?B?eDFBWlFuTW5KMDdUTndQTFRrdUoxUm1kQXhXSGxGbW9TKzRhaElOc1JzTTZH?=
+ =?utf-8?B?eXhkOXBOUkJ6NnNSYk41djVNRzQ3OGg2T2tsYU9KK0dSMVUzclprL0J5N01Z?=
+ =?utf-8?B?NEhucXZLVytJZDJiRklpMlRqaHp6aFMxSHJEU3lxTklTWnFITG5zYUhRWjh6?=
+ =?utf-8?B?cmh6TExaOElnSHJZNXRCSGVqbmo0U0JNblNpUXpBYjlvN2dRVFAxRUtKOWcv?=
+ =?utf-8?B?NEJIUzJMRDZHVTBDZmd5Ni8vdDkyYlFMSFNHK05xTXVMR2ZUcDY3bURHNEk5?=
+ =?utf-8?Q?l2e2wSpXL+dNv?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78cb3ae2-16ac-427d-0f6a-08d8cc7e354a
+X-MS-Exchange-CrossTenant-Network-Message-Id: cce074cf-2a89-4440-ce44-08d8cc7f1e3b
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 22:09:30.8075 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 22:16:01.4733 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NGgUL8L4503hWslc1XCR0OYNVGIESFg0C6PFP+MkoOQpiyL1QF0Xa59Mikprcl6S4eCIZcpyl6y+MWpqt2VdHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2704
+X-MS-Exchange-CrossTenant-UserPrincipalName: +EyGqGHwXS/998jYdb80+14mBx78xjRHAJRrZpPjN7Z6QdvLtKWWN4252TlAAikKqdSNQ/ZKA8v3fLtvCKjMaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,276 +155,104 @@ Cc: Rob Herring <robh@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
  Pekka Paalanen <ppaalanen@gmail.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Alex Deucher <Alexander.Deucher@amd.com>, Lucas Stach <l.stach@pengutronix.de>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, Qiang Yu <yuq825@gmail.com>
-Content-Type: multipart/mixed; boundary="===============1220634469=="
+ Alex Deucher <Alexander.Deucher@amd.com>, Qiang Yu <yuq825@gmail.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1220634469==
-Content-Type: multipart/alternative;
- boundary="------------4B82DE5418361EFCBD5C5DB5"
-Content-Language: en-US
-
---------------4B82DE5418361EFCBD5C5DB5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 2/8/21 4:37 AM, Christian König wrote:
-> Am 07.02.21 um 22:50 schrieb Daniel Vetter:
->> [SNIP]
->>> Clarification - as far as I know there are no page fault handlers for kernel
->>> mappings. And we are talking about kernel mappings here, right ?  If there were
->>> I could solve all those issues the same as I do for user mappings, by
->>> invalidating all existing mappings in the kernel (both kmaps and ioreamps)and
->>> insert dummy zero or ~0 filled page instead.
->>> Also, I assume forcefully remapping the IO BAR to ~0 filled page would involve
->>> ioremap API and it's not something that I think can be easily done according to
->>> am answer i got to a related topic a few weeks ago
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Flinux-pci%2Fmsg103396.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=6eP0nhS%2BZwp1Y54CwfX8vaV3FTWbW8IylW5JFaf92pY%3D&amp;reserved=0 
->>> (that was the only reply
->>> i got)
->> mmiotrace can, but only for debug, and only on x86 platforms:
->>
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.kernel.org%2Fdoc%2Fhtml%2Flatest%2Ftrace%2Fmmiotrace.html&amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QBF9J%2BVIRUkUTTjvNoZR8NqFNt8CpHkcknH2qKX7dd8%3D&amp;reserved=0 
->>
->>
->> Should be feasible (but maybe not worth the effort) to extend this to
->> support fake unplug.
->
-> Mhm, interesting idea you guys brought up here.
->
-> We don't need a page fault for this to work, all we need to do is to insert 
-> dummy PTEs into the kernels page table at the place where previously the MMIO 
-> mapping has been.
-
-
-But that exactly what Mathew from linux-mm says is not a trivial thing to do, quote:
-
-"
-
-ioremap() is done through the vmalloc space.  It would, in theory, be
-possible to reprogram the page tables used for vmalloc to point to your
-magic page.  I don't think we have such a mechanism today, and there are
-lots of problems with things like TLB flushes.  It's probably going to
-be harder than you think.
-"
-
-If you believe it's actually doable then it would be useful not only for simulating device
-unplugged situation with all MMIOs returning 0xff... but for actual handling of driver accesses
-to MMIO after device is gone and, we could then drop entirely this patch as there would be no need
-to guard against such accesses post device unplug.
-
-  
-
->
->>>> But ugh ...
->>>>
->>>> Otoh validating an entire driver like amdgpu without such a trick
->>>> against 0xff reads is practically impossible. So maybe you need to add
->>>> this as one of the tasks here?
->>> Or I could just for validation purposes return ~0 from all reg reads in the 
->>> code
->>> and ignore writes if drm_dev_unplugged, this could already easily validate a 
->>> big
->>> portion of the code flow under such scenario.
->> Hm yeah if your really wrap them all, that should work too. Since
->> iommappings have __iomem pointer type, as long as amdgpu is sparse
->> warning free, should be doable to guarantee this.
->
-> Problem is that ~0 is not always a valid register value.
->
-> You would need to audit every register read that it doesn't use the returned 
-> value blindly as index or similar. That is quite a bit of work.
-
-
-But ~0 is the value that will be returned for every read post device unplug, 
-regardless if it's valid or not, and we have to cope with
-it then, no ?
-
-Andrey
-
-
->
-> Regards,
-> Christian.
->
->> -Daniel
->>
->>> Andrey
->>>
->
-
---------------4B82DE5418361EFCBD5C5DB5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/8/21 4:37 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com">Am
-      07.02.21 um 22:50 schrieb Daniel Vetter:
-      <br>
-      <blockquote type="cite">[SNIP]
-        <br>
-        <blockquote type="cite">Clarification - as far as I know there
-          are no page fault handlers for kernel
-          <br>
-          mappings. And we are talking about kernel mappings here, right
-          ?&nbsp; If there were
-          <br>
-          I could solve all those issues the same as I do for user
-          mappings, by
-          <br>
-          invalidating all existing mappings in the kernel (both kmaps
-          and ioreamps)and
-          <br>
-          insert dummy zero or ~0 filled page instead.
-          <br>
-          Also, I assume forcefully remapping the IO BAR to ~0 filled
-          page would involve
-          <br>
-          ioremap API and it's not something that I think can be easily
-          done according to
-          <br>
-          am answer i got to a related topic a few weeks ago
-          <br>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Flinux-pci%2Fmsg103396.html&amp;amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=6eP0nhS%2BZwp1Y54CwfX8vaV3FTWbW8IylW5JFaf92pY%3D&amp;amp;reserved=0">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Flinux-pci%2Fmsg103396.html&amp;amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=6eP0nhS%2BZwp1Y54CwfX8vaV3FTWbW8IylW5JFaf92pY%3D&amp;amp;reserved=0</a>
-          (that was the only reply
-          <br>
-          i got)
-          <br>
-        </blockquote>
-        mmiotrace can, but only for debug, and only on x86 platforms:
-        <br>
-        <br>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.kernel.org%2Fdoc%2Fhtml%2Flatest%2Ftrace%2Fmmiotrace.html&amp;amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=QBF9J%2BVIRUkUTTjvNoZR8NqFNt8CpHkcknH2qKX7dd8%3D&amp;amp;reserved=0">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.kernel.org%2Fdoc%2Fhtml%2Flatest%2Ftrace%2Fmmiotrace.html&amp;amp;data=04%7C01%7CAndrey.Grodzovsky%40amd.com%7Cb159d3ce264944486c8008d8cc15233a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637483738446813868%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=QBF9J%2BVIRUkUTTjvNoZR8NqFNt8CpHkcknH2qKX7dd8%3D&amp;amp;reserved=0</a>
-        <br>
-        <br>
-        Should be feasible (but maybe not worth the effort) to extend
-        this to
-        <br>
-        support fake unplug.
-        <br>
-      </blockquote>
-      <br>
-      Mhm, interesting idea you guys brought up here.
-      <br>
-      <br>
-      We don't need a page fault for this to work, all we need to do is
-      to insert dummy PTEs into the kernels page table at the place
-      where previously the MMIO mapping has been.
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-    <p>But that exactly what Mathew from linux-mm says is not a trivial
-      thing to do, quote:</p>
-    <p>&quot;</p>
-    <pre style="white-space: pre-wrap; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">ioremap() is done through the vmalloc space.  It would, in theory, be
-possible to reprogram the page tables used for vmalloc to point to your
-magic page.  I don't think we have such a mechanism today, and there are
-lots of problems with things like TLB flushes.  It's probably going to
-be harder than you think.
-&quot;
-
-If you believe it's actually doable then it would be useful not only for simulating device
-unplugged situation with all MMIOs returning 0xff... but for actual handling of driver accesses
-to MMIO after device is gone and, we could then drop entirely this patch as there would be no need
-to guard against such accesses post device unplug.
-
-&nbsp;
-</pre>
-    <blockquote type="cite" cite="mid:fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com">
-      <br>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">But ugh ...
-            <br>
-            <br>
-            Otoh validating an entire driver like amdgpu without such a
-            trick
-            <br>
-            against 0xff reads is practically impossible. So maybe you
-            need to add
-            <br>
-            this as one of the tasks here?
-            <br>
-          </blockquote>
-          Or I could just for validation purposes return ~0 from all reg
-          reads in the code
-          <br>
-          and ignore writes if drm_dev_unplugged, this could already
-          easily validate a big
-          <br>
-          portion of the code flow under such scenario.
-          <br>
-        </blockquote>
-        Hm yeah if your really wrap them all, that should work too.
-        Since
-        <br>
-        iommappings have __iomem pointer type, as long as amdgpu is
-        sparse
-        <br>
-        warning free, should be doable to guarantee this.
-        <br>
-      </blockquote>
-      <br>
-      Problem is that ~0 is not always a valid register value.
-      <br>
-      <br>
-      You would need to audit every register read that it doesn't use
-      the returned value blindly as index or similar. That is quite a
-      bit of work.
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-    <p>But ~0 is the value that will be returned for every read post
-      device unplug, regardless if it's valid or not, and we have to
-      cope with<br>
-      it then, no ?</p>
-    <p>Andrey</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com">
-      <br>
-      Regards,
-      <br>
-      Christian.
-      <br>
-      <br>
-      <blockquote type="cite">-Daniel
-        <br>
-        <br>
-        <blockquote type="cite">Andrey
-          <br>
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------4B82DE5418361EFCBD5C5DB5--
-
---===============1220634469==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1220634469==--
+Ck9uIDIvOC8yMSAxMToyMyBBTSwgRGFuaWVsIFZldHRlciB3cm90ZToKPiBPbiBNb24sIEZlYiA4
+LCAyMDIxIGF0IDM6MDAgUE0gQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPiB3cm90ZToKPj4gQW0gMDguMDIuMjEgdW0gMTE6MTEgc2NocmllYiBEYW5pZWwgVmV0dGVy
+Ogo+Pj4gT24gTW9uLCBGZWIgMDgsIDIwMjEgYXQgMTE6MDM6MTVBTSArMDEwMCwgQ2hyaXN0aWFu
+IEvDtm5pZyB3cm90ZToKPj4+PiBBbSAwOC4wMi4yMSB1bSAxMDo0OCBzY2hyaWViIERhbmllbCBW
+ZXR0ZXI6Cj4+Pj4+IE9uIE1vbiwgRmViIDA4LCAyMDIxIGF0IDEwOjM3OjE5QU0gKzAxMDAsIENo
+cmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4+PiBBbSAwNy4wMi4yMSB1bSAyMjo1MCBzY2hyaWVi
+IERhbmllbCBWZXR0ZXI6Cj4+Pj4+Pj4gW1NOSVBdCj4+Pj4+Pj4+IENsYXJpZmljYXRpb24gLSBh
+cyBmYXIgYXMgSSBrbm93IHRoZXJlIGFyZSBubyBwYWdlIGZhdWx0IGhhbmRsZXJzIGZvciBrZXJu
+ZWwKPj4+Pj4+Pj4gbWFwcGluZ3MuIEFuZCB3ZSBhcmUgdGFsa2luZyBhYm91dCBrZXJuZWwgbWFw
+cGluZ3MgaGVyZSwgcmlnaHQgPyAgSWYgdGhlcmUgd2VyZQo+Pj4+Pj4+PiBJIGNvdWxkIHNvbHZl
+IGFsbCB0aG9zZSBpc3N1ZXMgdGhlIHNhbWUgYXMgSSBkbyBmb3IgdXNlciBtYXBwaW5ncywgYnkK
+Pj4+Pj4+Pj4gaW52YWxpZGF0aW5nIGFsbCBleGlzdGluZyBtYXBwaW5ncyBpbiB0aGUga2VybmVs
+IChib3RoIGttYXBzIGFuZCBpb3JlYW1wcylhbmQKPj4+Pj4+Pj4gaW5zZXJ0IGR1bW15IHplcm8g
+b3IgfjAgZmlsbGVkIHBhZ2UgaW5zdGVhZC4KPj4+Pj4+Pj4gQWxzbywgSSBhc3N1bWUgZm9yY2Vm
+dWxseSByZW1hcHBpbmcgdGhlIElPIEJBUiB0byB+MCBmaWxsZWQgcGFnZSB3b3VsZCBpbnZvbHZl
+Cj4+Pj4+Pj4+IGlvcmVtYXAgQVBJIGFuZCBpdCdzIG5vdCBzb21ldGhpbmcgdGhhdCBJIHRoaW5r
+IGNhbiBiZSBlYXNpbHkgZG9uZSBhY2NvcmRpbmcgdG8KPj4+Pj4+Pj4gYW0gYW5zd2VyIGkgZ290
+IHRvIGEgcmVsYXRlZCB0b3BpYyBhIGZldyB3ZWVrcyBhZ28KPj4+Pj4+Pj4gaHR0cHM6Ly9uYW0x
+MS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGd3d3
+LnNwaW5pY3MubmV0JTJGbGlzdHMlMkZsaW51eC1wY2klMkZtc2cxMDMzOTYuaHRtbCZhbXA7ZGF0
+YT0wNCU3QzAxJTdDQW5kcmV5Lkdyb2R6b3Zza3klNDBhbWQuY29tJTdDOWQxYmRmNGNlZTUwNGNk
+NzFiNDkwOGQ4Y2M0ZGYzMTAlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAl
+N0MwJTdDNjM3NDgzOTgyNDU0NjA4MjQ5JTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5SldJam9p
+TUM0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMCUz
+RCU3QzEwMDAmYW1wO3NkYXRhPUFudyUyQk93SiUyQjV0dmpXM3Rta1ZOZHoxMyUyQloxOHZkcGZP
+TFdxc1VaTDdEMkklM0QmYW1wO3Jlc2VydmVkPTAgKHRoYXQgd2FzIHRoZSBvbmx5IHJlcGx5Cj4+
+Pj4+Pj4+IGkgZ290KQo+Pj4+Pj4+IG1taW90cmFjZSBjYW4sIGJ1dCBvbmx5IGZvciBkZWJ1Zywg
+YW5kIG9ubHkgb24geDg2IHBsYXRmb3JtczoKPj4+Pj4+Pgo+Pj4+Pj4+IGh0dHBzOi8vbmFtMTEu
+c2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRnd3dy5r
+ZXJuZWwub3JnJTJGZG9jJTJGaHRtbCUyRmxhdGVzdCUyRnRyYWNlJTJGbW1pb3RyYWNlLmh0bWwm
+YW1wO2RhdGE9MDQlN0MwMSU3Q0FuZHJleS5Hcm9kem92c2t5JTQwYW1kLmNvbSU3QzlkMWJkZjRj
+ZWU1MDRjZDcxYjQ5MDhkOGNjNGRmMzEwJTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4
+M2QlN0MwJTdDMCU3QzYzNzQ4Mzk4MjQ1NDYwODI0OSU3Q1Vua25vd24lN0NUV0ZwYkdac2IzZDhl
+eUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhhV3dpTENKWFZD
+STZNbjAlM0QlN0MxMDAwJmFtcDtzZGF0YT1XYTdCRk55U1ZRSkx5RDZXWTRwWkhUUDFRZmVad0Q3
+RjV5ZEJyWHV4cHBRJTNEJmFtcDtyZXNlcnZlZD0wCj4+Pj4+Pj4KPj4+Pj4+PiBTaG91bGQgYmUg
+ZmVhc2libGUgKGJ1dCBtYXliZSBub3Qgd29ydGggdGhlIGVmZm9ydCkgdG8gZXh0ZW5kIHRoaXMg
+dG8KPj4+Pj4+PiBzdXBwb3J0IGZha2UgdW5wbHVnLgo+Pj4+Pj4gTWhtLCBpbnRlcmVzdGluZyBp
+ZGVhIHlvdSBndXlzIGJyb3VnaHQgdXAgaGVyZS4KPj4+Pj4+Cj4+Pj4+PiBXZSBkb24ndCBuZWVk
+IGEgcGFnZSBmYXVsdCBmb3IgdGhpcyB0byB3b3JrLCBhbGwgd2UgbmVlZCB0byBkbyBpcyB0byBp
+bnNlcnQKPj4+Pj4+IGR1bW15IFBURXMgaW50byB0aGUga2VybmVscyBwYWdlIHRhYmxlIGF0IHRo
+ZSBwbGFjZSB3aGVyZSBwcmV2aW91c2x5IHRoZQo+Pj4+Pj4gTU1JTyBtYXBwaW5nIGhhcyBiZWVu
+Lgo+Pj4+PiBTaW1wbHkgcHRlIHRyaWNrIGlzbid0IGVub3VnaCwgYmVjYXVzZSB3ZSBuZWVkOgo+
+Pj4+PiAtIGRyb3AgYWxsIHdyaXRlcyBzaWxlbnRseQo+Pj4+PiAtIGFsbCByZWFkcyByZXR1cm4g
+MHhmZgo+Pj4+Pgo+Pj4+PiBwdGVzIGNhbid0IGRvIHRoYXQgdGhlbXNlbHZlcywgd2UgbWluaW1h
+bGx5IG5lZWQgd3JpdGUgcHJvdGVjdGlvbiBhbmQgdGhlbgo+Pj4+PiBzaWxlbnRseSBwcm9jZWVk
+IG9uIGVhY2ggd3JpdGUgZmF1bHQgd2l0aG91dCByZXN0YXJ0aW5nIHRoZSBpbnN0cnVjdGlvbi4K
+Pj4+Pj4gQmV0dGVyIHdvdWxkIGJlIHRvIG9ubHkgY2F0Y2ggcmVhZHMsIGJ1dCB4ODYgZG9lc24n
+dCBkbyB3cml0ZS1vbmx5IHB0ZQo+Pj4+PiBwZXJtaXNzaW9ucyBhZmFpay4KPj4+PiBZb3UgYXJl
+IG5vdCB0aGlua2luZyBmYXIgZW5vdWdoIDopCj4+Pj4KPj4+PiBUaGUgZHVtbXkgUFRFIGlzIHBv
+aW50IHRvIGEgZHVtbXkgTU1JTyBwYWdlIHdoaWNoIGlzIGp1c3QgbmV2ZXIgdXNlZC4KPj4+Pgo+
+Pj4+IFRoYXQgaGFzdCB0aGUgZXhhY3Qgc2FtZSBwcm9wZXJ0aWVzIHRoYW4gb3VyIHJlbW92ZWQg
+TU1JTyBzcGFjZSBqdXN0IGRvZXNuJ3QKPj4+PiBnb2VzIGJhbmFuYXMgd2hlbiBhIG5ldyBkZXZp
+Y2UgaXMgTU1JTyBtYXBwZWQgaW50byB0aGF0IGFuZCBvdXIgZHJpdmVyIHN0aWxsCj4+Pj4gdHJp
+ZXMgdG8gd3JpdGUgdGhlcmUuCj4+PiBIbSwgYnV0IHdoZXJlIGRvIHdlIGdldCBzdWNoIGEgImd1
+YXJhbnRlZWQgbmV2ZXIgdXNlZCIgbW1pbyBwYWdlIGZyb20/Cj4+IFdlbGwgd2UgaGF2ZSB0b25z
+IG9mIHVudXNlZCBJTyBzcGFjZSBvbiA2NGJpdCBzeXN0ZW1zIHRoZXNlIGRheXMuCj4+Cj4+IERv
+ZXNuJ3QgcmVhbGx5IG5lZWRzIHRvIGJlIFBDSWUgYWRkcmVzcyBzcGFjZSwgZG9lc24ndCBpdD8K
+PiBUaGF0IHNvdW5kcyB2ZXJ5IHRydXN0aW5nIHRvIG1vZGVybiBzeXN0ZW1zIG5vdCBkZWNvZGlu
+ZyByYW5kb20KPiByYW5nZXMuIEUuZy4gdGhlIHBjaSBjb2RlIHN0b3BwZWQgZXh0ZW5kaW5nIHRo
+ZSBob3N0IGJyaWRnZSB3aW5kb3dzIG9uCj4gaXRzIG93biwgZW50aXJlbHkgcmVseWluZyBvbiB0
+aGUgYWNwaSBwcm92aWRlZCByYW5nZXMsIHRvIGF2b2lkCj4gc3RvbXBpbmcgb24gc3R1ZmYgdGhh
+dCdzIHRoZSBidXQgbm90IGxpc3RlZCBhbnl3aGVyZS4KPgo+IEkgZ3Vlc3MgaWYgd2UgaGF2ZSBh
+IHJhbmdlIGJlaGluZCBhIHBjaSBicmlkZ2UsIHdoaWNoIGlzbid0IHVzZWQgYnkKPiBhbnkgZGV2
+aWNlLCBidXQgZGVjb2RlZCBieSB0aGUgYnJpZGdlLCB0aGVuIHRoYXQgc2hvdWxkIGJlIHNhZmUK
+PiBlbm91Z2guIE1heWJlIGNvdWxkIGV2ZW4gaGF2ZSBhbiBvcHRpb24gaW4gdXBzdHJlYW0gdG8g
+ZG8gdGhhdCBvbgo+IHVucGx1ZywgaWYgYSBjZXJ0YWluIGZsYWcgaXMgc2V0LCBvciBhIGNtZGxp
+bmUgb3B0aW9uLgo+IC1EYW5pZWwKCgpRdWVzdGlvbiAtIFdoeSBjYW4ndCB3ZSBqdXN0IHNldCB0
+aG9zZSBQVEVzIHRvIHBvaW50IHRvIHN5c3RlbSBtZW1vcnkgKGFub3RoZXIgClJPIGR1bW15IHBh
+Z2UpCmZpbGxlZCB3aXRoIDFzID8KCkFuZHJleQoKCj4KPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4gSXQn
+cyBhIG5pZnR5IGlkZWEgaW5kZWVkIG90aGVyd2lzZSAuLi4KPj4+IC1EYW5pZWwKPj4+Cj4+Pj4g
+UmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+Pgo+Pj4+Pj4+Pj4gQnV0IHVnaCAuLi4K
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+PiBPdG9oIHZhbGlkYXRpbmcgYW4gZW50aXJlIGRyaXZlciBsaWtl
+IGFtZGdwdSB3aXRob3V0IHN1Y2ggYSB0cmljawo+Pj4+Pj4+Pj4gYWdhaW5zdCAweGZmIHJlYWRz
+IGlzIHByYWN0aWNhbGx5IGltcG9zc2libGUuIFNvIG1heWJlIHlvdSBuZWVkIHRvIGFkZAo+Pj4+
+Pj4+Pj4gdGhpcyBhcyBvbmUgb2YgdGhlIHRhc2tzIGhlcmU/Cj4+Pj4+Pj4+IE9yIEkgY291bGQg
+anVzdCBmb3IgdmFsaWRhdGlvbiBwdXJwb3NlcyByZXR1cm4gfjAgZnJvbSBhbGwgcmVnIHJlYWRz
+IGluIHRoZSBjb2RlCj4+Pj4+Pj4+IGFuZCBpZ25vcmUgd3JpdGVzIGlmIGRybV9kZXZfdW5wbHVn
+Z2VkLCB0aGlzIGNvdWxkIGFscmVhZHkgZWFzaWx5IHZhbGlkYXRlIGEgYmlnCj4+Pj4+Pj4+IHBv
+cnRpb24gb2YgdGhlIGNvZGUgZmxvdyB1bmRlciBzdWNoIHNjZW5hcmlvLgo+Pj4+Pj4+IEhtIHll
+YWggaWYgeW91ciByZWFsbHkgd3JhcCB0aGVtIGFsbCwgdGhhdCBzaG91bGQgd29yayB0b28uIFNp
+bmNlCj4+Pj4+Pj4gaW9tbWFwcGluZ3MgaGF2ZSBfX2lvbWVtIHBvaW50ZXIgdHlwZSwgYXMgbG9u
+ZyBhcyBhbWRncHUgaXMgc3BhcnNlCj4+Pj4+Pj4gd2FybmluZyBmcmVlLCBzaG91bGQgYmUgZG9h
+YmxlIHRvIGd1YXJhbnRlZSB0aGlzLgo+Pj4+Pj4gUHJvYmxlbSBpcyB0aGF0IH4wIGlzIG5vdCBh
+bHdheXMgYSB2YWxpZCByZWdpc3RlciB2YWx1ZS4KPj4+Pj4+Cj4+Pj4+PiBZb3Ugd291bGQgbmVl
+ZCB0byBhdWRpdCBldmVyeSByZWdpc3RlciByZWFkIHRoYXQgaXQgZG9lc24ndCB1c2UgdGhlIHJl
+dHVybmVkCj4+Pj4+PiB2YWx1ZSBibGluZGx5IGFzIGluZGV4IG9yIHNpbWlsYXIuIFRoYXQgaXMg
+cXVpdGUgYSBiaXQgb2Ygd29yay4KPj4+Pj4gWWVhaCB0aGF0J3MgdGhlIGVudGlyZSBjcnV4IGhl
+cmUgOi0vCj4+Pj4+IC1EYW5pZWwKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
