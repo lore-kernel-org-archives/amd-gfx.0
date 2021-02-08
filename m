@@ -2,74 +2,90 @@ Return-Path: <SRS0=WKN7=HK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06EACC433E9
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C79ECC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91A5964E66
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91A5964E66
+	by mail.kernel.org (Postfix) with ESMTPS id 4DB0164E7E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DB0164E7E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 157826E844;
-	Mon,  8 Feb 2021 09:28:24 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFEA36E844
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 09:28:22 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id s5so17229665edw.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Feb 2021 01:28:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B960C6E44F;
+	Mon,  8 Feb 2021 09:37:24 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A8F36E44F;
+ Mon,  8 Feb 2021 09:37:23 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id y9so23474141ejp.10;
+ Mon, 08 Feb 2021 01:37:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=RqpqlhipveqcBiuMXtJzDT48U2k7wTtAD8aQNtWdrwE=;
- b=X0KKH00iQbfHWQytCenR88DRrmlAuKGMVBkDs93scQcTYYmFqC3TzDg7Mqcx+q7hIS
- kS8UjhjzXy45qYjv+jcw5wGqWlpeyobgyb212WNNopLjMPfF5UeE8Y6x5voFRntWKgyD
- 1yKD7zUoKv9h5ITRW/oDPZnsuVVLqBYJpwSZscXfbKqUBFl15/bei3KVDyQnkk7Pulti
- pLff7ySUHjEGC++p0ve0RLTGCnR0hUIqIXdj/Y7F6GB3wTR6LKS1LAg7S8OHrsrmjsL1
- 5lj+twjNSTz6/sDkVuy3BjpihmEZBW7QQCBc9HyltHbGXJ5G04vN7CADkSSiqhpwtYhG
- 5kqQ==
+ bh=h81giqyjbnN0Dtukym4bEFImyhTutcsZ70RU0hu+1zc=;
+ b=Dzca006KlNc/HlY4DRVVmvo8kU9IWqgaBT1TwdDO+1d/uzDmcatme77X5SKfrbDbnU
+ 0yjV4QfrNlxEfaiu9omhHpNJipU/J/lQCql3Kn4TZzj/7jl6ZwtUzFYDYnEzj4EUCfYo
+ PBY3CLPaTNCbipBMUk6Ry3wzmWRBUuRJEsWCgTPwEYzrR9FAjVobBuewm1rB90/ja5zQ
+ 87gQj3MMJiO0Gv9n9ijj0FXVZQTjYQwZZFq1PZBpEpaO4sR4toz+gy3z8d9Mt1Go7C3N
+ 5U8mOoV6JkRCKjk8LOyIkGBd0HJBiiegme8umZRqs5VAbx02ZtTGR9XMQ3DVSdUrYGTE
+ NxNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=RqpqlhipveqcBiuMXtJzDT48U2k7wTtAD8aQNtWdrwE=;
- b=AI7LY5MvnMSM/E82Y87/hpyO3ZWfCKnMXSRikHnsirMXFzQl3GMrscDYuQIF83+pGw
- AaGxk8NjBpUDhH/p29uxUbeX36EM0ZBTXQY0xlYLWl9OGmaJWTtRG3iAVR5+c/+l5xPN
- EPr6+nkpF44jNZFpfDOloVk+KGsrv8RxnAO5XPQIVIf5PIM5HSpImZ++eq5WFJWU/S5v
- hWnoebdut3nnKEE3Jyfd1VrG3fN59dM5IQAecNskVBs5rlY3D9b9IMYr7K+I1t47VcqS
- hGEXDgYvT/3AO4xybr/chQkQwYFkEYbjwWVvIMQuez/3tNkfWGjwclFy5RfEMh55A4Fc
- QVPQ==
-X-Gm-Message-State: AOAM530nDHxJ8RdYFSOMAQsXH07Aaq9nZTr4+udLLwLIJEkbbd0WdrRm
- R0ogwmxuZ+5vHT9P11irN6w=
-X-Google-Smtp-Source: ABdhPJzyS6sE4rFi1s0iafXFTBP2KPqV9BT77bxoRa3rEO1vXovMf5UufbCGjm/1m5VkONRTxv8ASQ==
-X-Received: by 2002:a05:6402:2547:: with SMTP id
- l7mr15778939edb.157.1612776501570; 
- Mon, 08 Feb 2021 01:28:21 -0800 (PST)
+ bh=h81giqyjbnN0Dtukym4bEFImyhTutcsZ70RU0hu+1zc=;
+ b=pXULTkupyQMJVF1v0D+iPjXC5U4WMNnsT0xZse0t/o3NdbfzJs4ZbmkzPGiUdILZw9
+ V4gql5ioYKdId4kppr7qnuSDB+/yIKs3CQhhTq+doFtc4wbJ8CSsM8n1wVSNepe1Yu73
+ fT0ZOBEVQmrb23uuHtZgyI9PUZ/VcTapS7Xn4tkl09YKs3B64gM/4yOqTmeMg41nUKvN
+ ZNJJqozQEoESNipy5maa2kS28swA08nE3bxmnhEMszbbVDXMD+jk6gOYe4EqD7B6YelZ
+ wlhTyYpNz5FK2chIF3ul8NmyMPsUh8yDAoZjmBRJhRVCM8Y+yXPlPkPQV2c+kIzetFtc
+ LA4A==
+X-Gm-Message-State: AOAM533dcnQBI74uZ5SU8m1/qosf7oAF82WJ7hFsgso49qcyWe/r1InC
+ 2fPkW33OW/2c2TbxFRcGi6U=
+X-Google-Smtp-Source: ABdhPJyKaDf3z/f2+eyYLjlwTkAz7ZdH2phX2JtU0ObDaAV2+oRy5Lt5POyzt26fTLawkDtvVxu2yw==
+X-Received: by 2002:a17:906:4dc3:: with SMTP id
+ f3mr15982951ejw.233.1612777041632; 
+ Mon, 08 Feb 2021 01:37:21 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id a15sm7491189edv.95.2021.02.08.01.28.20
+ by smtp.gmail.com with ESMTPSA id u23sm9101799edt.87.2021.02.08.01.37.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Feb 2021 01:28:21 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: extend MAX_KIQ_REG_TRY to 1000
-To: Jiawei Gu <Jiawei.Gu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210208054555.23421-1-Jiawei.Gu@amd.com>
+ Mon, 08 Feb 2021 01:37:20 -0800 (PST)
+Subject: Re: [PATCH v4 11/14] drm/amdgpu: Guard against write accesses after
+ device removal
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+References: <1611003683-3534-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1611003683-3534-12-git-send-email-andrey.grodzovsky@amd.com>
+ <35ecd67f-620f-df50-3e03-d24dc12452d6@gmail.com>
+ <8925db97-bf81-7e5e-527d-f654713b400d@amd.com>
+ <CAKMK7uHCzBpaC2YypKeQwbJiT0JG2Hq7V0BC5yC88f9nqgxUiw@mail.gmail.com>
+ <8ed4a153-d503-e704-0a0d-3422877e50fa@amd.com>
+ <91b8ea73-aa69-1478-2e7c-63ab1cb250ae@gmail.com>
+ <7834dbdf-27ad-f21d-b58b-2772a598ea8a@amd.com>
+ <07dceec0-0be9-1531-0357-353f04d1cb2b@amd.com>
+ <69f036e2-f102-8233-37f6-5254a484bf97@amd.com>
+ <0b502043-5a66-dcd5-53f9-5c190f22dc46@gmail.com>
+ <78e4705d-c55f-6c68-d0f9-b1939b636121@amd.com>
+ <CAKMK7uEm=N4kQYyzMt=nUefu2BdyKNcWikFiSJih7CthJMd2Aw@mail.gmail.com>
+ <8fbeee95-b365-7f68-1e0b-1d42eb0dea70@amd.com>
+ <CAKMK7uEJDfPsbnkVfunjVe2iNbpVBWY2_XHai4JntcxWkuVc3A@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <13337a59-f698-a91b-5662-1673e14a3cd7@gmail.com>
-Date: Mon, 8 Feb 2021 10:28:20 +0100
+Message-ID: <fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com>
+Date: Mon, 8 Feb 2021 10:37:19 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210208054555.23421-1-Jiawei.Gu@amd.com>
+In-Reply-To: <CAKMK7uEJDfPsbnkVfunjVe2iNbpVBWY2_XHai4JntcxWkuVc3A@mail.gmail.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,40 +99,68 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
-Cc: emily.deng@amd.com
+Cc: Rob Herring <robh@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <Alexander.Deucher@amd.com>, Lucas Stach <l.stach@pengutronix.de>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Qiang Yu <yuq825@gmail.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.02.21 um 06:45 schrieb Jiawei Gu:
-> Extend retry times of KIQ to avoid starvation situation caused by
-> long time full access of GPU by other VFs.
+Am 07.02.21 um 22:50 schrieb Daniel Vetter:
+> [SNIP]
+>> Clarification - as far as I know there are no page fault handlers for kernel
+>> mappings. And we are talking about kernel mappings here, right ?  If there were
+>> I could solve all those issues the same as I do for user mappings, by
+>> invalidating all existing mappings in the kernel (both kmaps and ioreamps)and
+>> insert dummy zero or ~0 filled page instead.
+>> Also, I assume forcefully remapping the IO BAR to ~0 filled page would involve
+>> ioremap API and it's not something that I think can be easily done according to
+>> am answer i got to a related topic a few weeks ago
+>> https://www.spinics.net/lists/linux-pci/msg103396.html (that was the only reply
+>> i got)
+> mmiotrace can, but only for debug, and only on x86 platforms:
+>
+> https://www.kernel.org/doc/html/latest/trace/mmiotrace.html
+>
+> Should be feasible (but maybe not worth the effort) to extend this to
+> support fake unplug.
 
-In what units is that? We also need the KIQ during interrupt handling 
-and that looks like *way* to big for that.
+Mhm, interesting idea you guys brought up here.
 
+We don't need a page fault for this to work, all we need to do is to 
+insert dummy PTEs into the kernels page table at the place where 
+previously the MMIO mapping has been.
+
+>>> But ugh ...
+>>>
+>>> Otoh validating an entire driver like amdgpu without such a trick
+>>> against 0xff reads is practically impossible. So maybe you need to add
+>>> this as one of the tasks here?
+>> Or I could just for validation purposes return ~0 from all reg reads in the code
+>> and ignore writes if drm_dev_unplugged, this could already easily validate a big
+>> portion of the code flow under such scenario.
+> Hm yeah if your really wrap them all, that should work too. Since
+> iommappings have __iomem pointer type, as long as amdgpu is sparse
+> warning free, should be doable to guarantee this.
+
+Problem is that ~0 is not always a valid register value.
+
+You would need to audit every register read that it doesn't use the 
+returned value blindly as index or similar. That is quite a bit of work.
+
+Regards,
 Christian.
 
+> -Daniel
 >
-> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 639db32c1383..e0c797a5f739 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -288,7 +288,7 @@ enum amdgpu_kiq_irq {
->   
->   #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
->   #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
-> -#define MAX_KIQ_REG_TRY 80 /* 20 -> 80 */
-> +#define MAX_KIQ_REG_TRY 1000
->   
->   int amdgpu_device_ip_set_clockgating_state(void *dev,
->   					   enum amd_ip_block_type block_type,
+>> Andrey
+>>
 
 _______________________________________________
 amd-gfx mailing list
