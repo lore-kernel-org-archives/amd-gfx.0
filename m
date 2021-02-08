@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4548DC433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9C93C433E0
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F38FD64ECB
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:58:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F38FD64ECB
+	by mail.kernel.org (Postfix) with ESMTPS id 6F54664ECE
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:58:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F54664ECE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFD426E989;
-	Mon,  8 Feb 2021 17:58:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D256E98E;
+	Mon,  8 Feb 2021 17:58:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07FF06E98E;
- Mon,  8 Feb 2021 17:58:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8FB4464EBF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6665E6E986;
  Mon,  8 Feb 2021 17:58:40 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1EF3164EC5;
+ Mon,  8 Feb 2021 17:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612807121;
- bh=JWGIl2wJdPtQsta544evU1X5AIPRaSGLq/L7vizkwzQ=;
+ s=k20201202; t=1612807120;
+ bh=rHQ6/fju4rAK1V6lDyHGd/JHhheat/zTN2GPtGP4UDU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FTRyvndFHaDwqFEcIH7iJiQD9SmTWm6vjC9vrq0CqHkvcjOQRQRxFlCYqIpVY75er
- D2Nu8+pD42+EH2JI+YYPAMKLOYFmC0lIFY7MbmiM7kCoTItCYjJ7oPi6VNOaaWxGRU
- Qk0z7NT+QTur6NVvX342Yn6cMGrPfM0+R8cPdwOmARezq/Cg+A+5xZoOO5EjEyeiFS
- cz+dHw6fTiD1rzfLMVCr0Y1KIs9ilfRbcZ6h0yfsSM+/pTKenHdc4mViv2Ky74nI4A
- DE+l1rIxlzQbHFVgrpd1lv4EEi5LuV4UDX9j4FFZylmmDkFJRSCHjl+SuHEnM74jog
- NIPWsDhkjLaUA==
+ b=Wuh401ucr71x4g5XGvSHT3IadFc1s1cealmoEV28VKxW8thbB8dI0vCWLEV4Bj+mJ
+ 3g06i1r9G0c1zaLPo/g3fuHacvE/6DF7NL3EQdVu2Jh1RInYQW3Eq98kJoVVDYwEot
+ HyfcvKboqGhRizT2LMmY5A5H6SV6rpmoGJMldsx34Juc8DghM4a4BrEFgJlT9BbH8G
+ xBVM10maqMtMyMW/LZ20sgQYhmDZcqhAvNUp3fbJvumI2W27tksWVAotaN+4T0vuqp
+ s6tFpu2bXQKz2jPt6oCTI3ngRVk4ja1Zw10nJZno0MCA6Im6VkHAeJ8e7ZGE6OmReA
+ bN20bT02E7OtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 25/36] drm/amd/display: Decrement refcount of
- dc_sink before reassignment
-Date: Mon,  8 Feb 2021 12:57:55 -0500
-Message-Id: <20210208175806.2091668-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 24/36] drm/amd/display: Free atomic state after
+ drm_atomic_commit
+Date: Mon,  8 Feb 2021 12:57:54 -0500
+Message-Id: <20210208175806.2091668-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210208175806.2091668-1-sashal@kernel.org>
 References: <20210208175806.2091668-1-sashal@kernel.org>
@@ -60,7 +60,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
  Victor Lu <victorchengchi.lu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -70,42 +70,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Victor Lu <victorchengchi.lu@amd.com>
 
-[ Upstream commit 8e92bb0fa75bca9a57e4aba2e36f67d8016a3053 ]
+[ Upstream commit 2abaa323d744011982b20b8f3886184d56d23946 ]
 
 [why]
-An old dc_sink state is causing a memory leak because it is missing a
-dc_sink_release before a new dc_sink is assigned back to
-aconnector->dc_sink.
+drm_atomic_commit was changed so that the caller must free their
+drm_atomic_state reference on successes.
 
 [how]
-Decrement the dc_sink refcount before reassigning it to a new dc_sink.
+Add drm_atomic_commit_put after drm_atomic_commit call in
+dm_force_atomic_commit.
 
 Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Roman Li <Roman.Li@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 695a5b83c00f9..022821334153b 100644
+index f1fea71a7073c..695a5b83c00f9 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2261,8 +2261,10 @@ void amdgpu_dm_update_connector_after_detect(
- 		 * TODO: check if we still need the S3 mode update workaround.
- 		 * If yes, put it here.
- 		 */
--		if (aconnector->dc_sink)
-+		if (aconnector->dc_sink) {
- 			amdgpu_dm_update_freesync_caps(connector, NULL);
-+			dc_sink_release(aconnector->dc_sink);
-+		}
+@@ -7872,14 +7872,14 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
  
- 		aconnector->dc_sink = sink;
- 		dc_sink_retain(aconnector->dc_sink);
+ 	ret = PTR_ERR_OR_ZERO(conn_state);
+ 	if (ret)
+-		goto err;
++		goto out;
+ 
+ 	/* Attach crtc to drm_atomic_state*/
+ 	crtc_state = drm_atomic_get_crtc_state(state, &disconnected_acrtc->base);
+ 
+ 	ret = PTR_ERR_OR_ZERO(crtc_state);
+ 	if (ret)
+-		goto err;
++		goto out;
+ 
+ 	/* force a restore */
+ 	crtc_state->mode_changed = true;
+@@ -7889,17 +7889,15 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
+ 
+ 	ret = PTR_ERR_OR_ZERO(plane_state);
+ 	if (ret)
+-		goto err;
+-
++		goto out;
+ 
+ 	/* Call commit internally with the state we just constructed */
+ 	ret = drm_atomic_commit(state);
+-	if (!ret)
+-		return 0;
+ 
+-err:
+-	DRM_ERROR("Restoring old state failed with %i\n", ret);
++out:
+ 	drm_atomic_state_put(state);
++	if (ret)
++		DRM_ERROR("Restoring old state failed with %i\n", ret);
+ 
+ 	return ret;
+ }
 -- 
 2.27.0
 
