@@ -2,105 +2,52 @@ Return-Path: <SRS0=WKN7=HK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFC92C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5907DC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 08A4F64E5A
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 16:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08A4F64E5A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=bfs.de
+	by mail.kernel.org (Postfix) with ESMTPS id 12E5C64EB8
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 17:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12E5C64EB8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84EDB6E953;
-	Mon,  8 Feb 2021 16:56:02 +0000 (UTC)
-X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
- Mon, 08 Feb 2021 16:04:04 UTC
-Received: from mx02-sz.bfs.de (mx01-sz.bfs.de [194.94.69.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B34D6E924;
- Mon,  8 Feb 2021 16:04:04 +0000 (UTC)
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
- by mx02-sz.bfs.de (Postfix) with ESMTPS id 74B9F204F3;
- Mon,  8 Feb 2021 16:55:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901; 
- t=1612799717;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q4HzirnLJM+HViDyDhv1Iv1CcEDPj4NYgUsCPRWFOew=;
- b=aa7jb1qMtg3IF54oaINCd8U3kJ5ybkDW3rt/h6GHNSJRpcN0o9DwwixE/Bg5YW3I8rKl+I
- qyykWQtk1m5iFB8BZpjW07wn7jV/jQtQloFMskJuctENTMAtHOvQWCbu84f5lm3DhKPb/N
- NMx/23sgYKlp+w3fbRwb+uQq+N3AIiNMzgbXyfCUKlUM4T4lAoz71oFEEURXsDNEKavkWD
- iWePkaN6/0KZDCjhToopivDBD2/x+0AELN8yGHjkT+cf6BsoYVA7Wl4QrQEfqOt61ardd9
- EzfbCYffPOuvCMOYOyZOUBK0e5csuEVpA/rGIvXdd0Kd2tPf0KCDDnBkBh2gLw==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2176.2; Mon, 8 Feb 2021
- 16:55:16 +0100
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
- 15.01.2176.002; Mon, 8 Feb 2021 16:55:16 +0100
-From: Walter Harms <wharms@bfs.de>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Colin King
- <colin.king@canonical.com>, Alex Deucher <alexander.deucher@amd.com>,
- "David
- Airlie" <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Huang Rui
- <ray.huang@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: AW: [PATCH] drm/amdgpu: fix potential integer overflow on shift of a
- int
-Thread-Topic: [PATCH] drm/amdgpu: fix potential integer overflow on shift of a
- int
-Thread-Index: AQHW/aZibC6c7NmnTEaIp1k5r3gR16pN6nEAgAAuR36AAAM1gIAATkm8
-Date: Mon, 8 Feb 2021 15:55:16 +0000
-Message-ID: <b9d63b56e0f849f1a5a2def73c899047@bfs.de>
-References: <20210207230751.8576-1-colin.king@canonical.com>
- <c6c99dba-aea9-304c-2246-e24632955479@amd.com>
- <3aed86cfb8014badbcbc4ee9f007976d@bfs.de>,
- <877bdf13-08d3-b471-40fb-02941cce3e4e@amd.com>
-In-Reply-To: <877bdf13-08d3-b471-40fb-02941cce3e4e@amd.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25962.000
-x-tm-as-result: No-10--6.728500-5.000000
-x-tmase-matchedrid: dtkKbEKn3AnRubRCcrbc5grcxrzwsv5u3dCmvEa6IiFVKNUgZ3luWnLM
- 2R9NW5DWbdmNIofb74J0NVTfdsoLhdxNhdpa5boviVJZi91I9JgORjM32hn2b63DfQXYDXXmRiM
- 0r5DoZkB5MS8Z0lVS9j9wo1JHFTI2cLf/qdMcXRsjCTunWqnclng+heom5LgRAg3B8AeZrNzn9R
- Ub2w6sFdDaNZpK9gNYEi2pD9yuIToXgRHNsAEPAMzSKGx9g8xhF8lNgsbZcW+Qh1IdwvRaDMASM
- 1FbRaAi1P0GXW6c5H7/W3GjkvPseF5Saok1/fZC72Rb2bEJC+0N5vzU/2kgxH3Oo/70kBrausTh
- 0mw9TQnfPhslDCCNNpscC5DV1Se5wxJ3bCddR8Zwju9EALAXQn0tCKdnhB581B0Hk1Q1KyLUZxE
- AlFPo846HM5rqDwqtDGOPLcPHxZMNsOtWzwsguS5xc40Grrs8djI7RHudf/gKeUc3m2FtmpDl99
- zmxDOhKUWv6klB9qHZzZxu20/SO8O5fvxIK4XIKKz2OxxCkpzNG0L98j8bMvraKq/vKbWfY+pdI
- oZ/f0rVm/fNL/ipsw==
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--6.728500-5.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25962.000
-x-tm-snts-smtp: AB96EA7908BCA3CC0F264015106D55C460AB61EC7E14EBC137F4B49FF802374F2000:9
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF17C6E983;
+	Mon,  8 Feb 2021 17:58:35 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE286E215;
+ Mon,  8 Feb 2021 17:58:34 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E981764EBE;
+ Mon,  8 Feb 2021 17:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612807114;
+ bh=K1aMfQFonvXHYyiQK0hl5trGHrfEt1bpMziYEyre7wE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=DOE9FlirVFO7twCvwZVDaBITca+04nhua5OZUAOqvNoGalYA4lkOulwDnsovoYzoe
+ KW5KBECyX+W5MxbzsW+b5uCjs0gDw09R0wZxxIjlxo/HDMBVtrTim6B5sdaDJtS7AK
+ sus6oWAwRI2zes2UkYXstLXUOia9mAem7dQ0OLvFVXaUwH/Msad5A1RR+CColCFEt9
+ Do4KgnaPuPxS99u7TND1KS7HAI3GHwcEc7o3DhsZ97Ba7OV0L0kbJIrAG1rQkI9xx6
+ CJNGJlTKcYS6Nc0DUAMX1fpswRmmTYMppUbplvgfhJlC5EkNl5BMUtX128D7Rd7764
+ lFDJ4Psnq1V8A==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.10 20/36] drm/amd/display: Fix DPCD translation for
+ LTTPR AUX_RD_INTERVAL
+Date: Mon,  8 Feb 2021 12:57:50 -0500
+Message-Id: <20210208175806.2091668-20-sashal@kernel.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210208175806.2091668-1-sashal@kernel.org>
+References: <20210208175806.2091668-1-sashal@kernel.org>
 MIME-Version: 1.0
-Authentication-Results: mx02-sz.bfs.de;
-	none
-X-Spamd-Result: default: False [-2.76 / 7.00]; ARC_NA(0.00)[];
- TO_DN_EQ_ADDR_SOME(0.00)[]; HAS_XOIP(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
- RCPT_COUNT_SEVEN(0.00)[11]; NEURAL_HAM(-0.00)[-1.000];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-2.76)[98.97%]
-X-Mailman-Approved-At: Mon, 08 Feb 2021 16:56:01 +0000
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,92 +59,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
+ Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ George Shen <george.shen@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-thx for info
-________________________________________
-Von: Christian K=F6nig <christian.koenig@amd.com>
-Gesendet: Montag, 8. Februar 2021 13:14:49
-An: Walter Harms; Colin King; Alex Deucher; David Airlie; Daniel Vetter; Hu=
-ang Rui; Junwei Zhang; amd-gfx@lists.freedesktop.org; dri-devel@lists.freed=
-esktop.org
-Cc: kernel-janitors@vger.kernel.org; linux-kernel@vger.kernel.org
-Betreff: Re: [PATCH] drm/amdgpu: fix potential integer overflow on shift of=
- a int
+From: George Shen <george.shen@amd.com>
 
-For start and end?  The hardware has 48 bit address space and that won't
-fit into 32bits.
+[ Upstream commit 2b6b7ab4b1cabfbee1af5d818efcab5d51d62c7e ]
 
-Only the fragment handling can't do more than 2GB at the same time.
+[Why]
+The translation between the DPCD value and the specified AUX_RD_INTERVAL
+in the DP spec do not match.
 
-Christian.
+[How]
+Update values to match the spec.
 
-Am 08.02.21 um 12:05 schrieb Walter Harms:
-> i am curious:
-> what is the win to have a unsigned 64 bit integer in the first
-> place ?
->
-> re,
->   wh
-> ________________________________________
-> Von: Christian K=F6nig <christian.koenig@amd.com>
-> Gesendet: Montag, 8. Februar 2021 10:17:42
-> An: Colin King; Alex Deucher; David Airlie; Daniel Vetter; Huang Rui; Jun=
-wei Zhang; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> Cc: kernel-janitors@vger.kernel.org; linux-kernel@vger.kernel.org
-> Betreff: Re: [PATCH] drm/amdgpu: fix potential integer overflow on shift =
-of a int
->
-> Am 08.02.21 um 00:07 schrieb Colin King:
->> From: Colin Ian King <colin.king@canonical.com>
->>
->> The left shift of int 32 bit integer constant 1 is evaluated using 32
->> bit arithmetic and then assigned to an unsigned 64 bit integer. In the
->> case where *frag is 32 or more this can lead to an oveflow.  Avoid this
->> by shifting 1ULL.
-> Well that can't happen. Take a look at the code in that function:
->
->>                  max_frag =3D 31;
-> ...
->>          if (*frag >=3D max_frag) {
->>                  *frag =3D max_frag;
->>                  *frag_end =3D end & ~((1ULL << max_frag) - 1);
->>          } else {
->>                  *frag_end =3D start + (1 << *frag);
->>          }
-> But I'm fine with applying the patch if it silences your warning.
->
-> Regards,
-> Christian.
->
->> Addresses-Coverity: ("Unintentional integer overflow")
->> Fixes: dfcd99f6273e ("drm/amdgpu: meld together VM fragment and huge pag=
-e handling")
->> Signed-off-by: Colin Ian King <colin.king@canonical.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
->>    1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vm.c
->> index 9d19078246c8..53a925600510 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1412,7 +1412,7 @@ static void amdgpu_vm_fragment(struct amdgpu_vm_up=
-date_params *params,
->>                *frag =3D max_frag;
->>                *frag_end =3D end & ~((1ULL << max_frag) - 1);
->>        } else {
->> -             *frag_end =3D start + (1 << *frag);
->> +             *frag_end =3D start + (1ULL << *frag);
->>        }
->>    }
->>
+Signed-off-by: George Shen <george.shen@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Anson Jacob <Anson.Jacob@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 17e6fd8201395..32b73ea866737 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -877,13 +877,13 @@ static uint32_t translate_training_aux_read_interval(uint32_t dpcd_aux_read_inte
+ 
+ 	switch (dpcd_aux_read_interval) {
+ 	case 0x01:
+-		aux_rd_interval_us = 400;
++		aux_rd_interval_us = 4000;
+ 		break;
+ 	case 0x02:
+-		aux_rd_interval_us = 4000;
++		aux_rd_interval_us = 8000;
+ 		break;
+ 	case 0x03:
+-		aux_rd_interval_us = 8000;
++		aux_rd_interval_us = 12000;
+ 		break;
+ 	case 0x04:
+ 		aux_rd_interval_us = 16000;
+-- 
+2.27.0
 
 _______________________________________________
 amd-gfx mailing list
