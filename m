@@ -2,78 +2,74 @@ Return-Path: <SRS0=WKN7=HK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4904C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:19:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06EACC433E9
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71D4A64E85
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71D4A64E85
+	by mail.kernel.org (Postfix) with ESMTPS id 91A5964E66
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Feb 2021 09:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91A5964E66
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2316E842;
-	Mon,  8 Feb 2021 09:19:00 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3053D6E841
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 09:18:59 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id s11so17220621edd.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Feb 2021 01:18:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157826E844;
+	Mon,  8 Feb 2021 09:28:24 +0000 (UTC)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFEA36E844
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Feb 2021 09:28:22 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id s5so17229665edw.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Feb 2021 01:28:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=QGcy+LVaBTe03RvcLEkLirzoNYsSN55TImtVQNmyuNc=;
- b=kaS/bnUpS3XICL+fvM+ime45O31tilIhRCELq9iFRCUV09KOVpS0RNZ1XPW1qq5EQS
- q5iL63Yhvn+cGnEHGYnZlDl9rWSiqQlDShLJ55ma3WnERHIwWcYBXAdJqSpYKMF1DI4q
- iXTrfHtretIr/vb4sFYF6At99JjD1BJ6svXG1UrvzEm6SJv9bjfQuA3c95U19I9qQq83
- ni7FvUz4P2dcg3raP53YY1Vw6i9f43qzq1KyC1zgYi91r/CZomGb6OYrBbIO/y9z5njX
- Zd0CoFhILwFoaR+I0GTnJO6slPNdMCIH1hmrmYEROXQTY37nAjYNWFSuHo53Kk/2gnwt
- qXcA==
+ bh=RqpqlhipveqcBiuMXtJzDT48U2k7wTtAD8aQNtWdrwE=;
+ b=X0KKH00iQbfHWQytCenR88DRrmlAuKGMVBkDs93scQcTYYmFqC3TzDg7Mqcx+q7hIS
+ kS8UjhjzXy45qYjv+jcw5wGqWlpeyobgyb212WNNopLjMPfF5UeE8Y6x5voFRntWKgyD
+ 1yKD7zUoKv9h5ITRW/oDPZnsuVVLqBYJpwSZscXfbKqUBFl15/bei3KVDyQnkk7Pulti
+ pLff7ySUHjEGC++p0ve0RLTGCnR0hUIqIXdj/Y7F6GB3wTR6LKS1LAg7S8OHrsrmjsL1
+ 5lj+twjNSTz6/sDkVuy3BjpihmEZBW7QQCBc9HyltHbGXJ5G04vN7CADkSSiqhpwtYhG
+ 5kqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=QGcy+LVaBTe03RvcLEkLirzoNYsSN55TImtVQNmyuNc=;
- b=lbWumgbaz89DjxDhXJ67/9IoxE6rP8XUNFH61enOLX1nU73EgLTV9XJtog+q3Ugsdz
- BGAPZ3LoGqOVwa4oMeSbjYpeSB1vODFAUT7GgCQhhYy1bSDJUyBYY0n1Bf4nLdhh9TIQ
- ZQy3cqGsgGnj2PkTJHYgkTEjVMGz9obq6hHTzKXq7GrInETDzKYypzqrG2+yes2Z7JJ0
- OpqWxBFE3f+FpspE5iANsMSLaOn6YmzL0LNdbMx/7cF+9en8+FZnemRCD0O+FluCR+Cp
- OyDdfab9BmOv/6cBcflp7+YRhgwQ2MJ9Wl5dq2IVt5vrpvMXH8UFdiMkxv+cLnDnltiR
- bmfg==
-X-Gm-Message-State: AOAM530kp7t4Jtd2+CaSR6217ZdBEm1UVg2dksXOs2iLopdjFi/9V6Mq
- BdC4Tkpj+2pX1Mt39fR3M+k=
-X-Google-Smtp-Source: ABdhPJwFPLKopzUJXReRnLoHJECO1RY11ATlvmhZi/WnrJ/Ft1BopfcxIEn7JphzmKs2nPhNqwEIjg==
-X-Received: by 2002:aa7:c895:: with SMTP id p21mr16335569eds.165.1612775937870; 
- Mon, 08 Feb 2021 01:18:57 -0800 (PST)
+ bh=RqpqlhipveqcBiuMXtJzDT48U2k7wTtAD8aQNtWdrwE=;
+ b=AI7LY5MvnMSM/E82Y87/hpyO3ZWfCKnMXSRikHnsirMXFzQl3GMrscDYuQIF83+pGw
+ AaGxk8NjBpUDhH/p29uxUbeX36EM0ZBTXQY0xlYLWl9OGmaJWTtRG3iAVR5+c/+l5xPN
+ EPr6+nkpF44jNZFpfDOloVk+KGsrv8RxnAO5XPQIVIf5PIM5HSpImZ++eq5WFJWU/S5v
+ hWnoebdut3nnKEE3Jyfd1VrG3fN59dM5IQAecNskVBs5rlY3D9b9IMYr7K+I1t47VcqS
+ hGEXDgYvT/3AO4xybr/chQkQwYFkEYbjwWVvIMQuez/3tNkfWGjwclFy5RfEMh55A4Fc
+ QVPQ==
+X-Gm-Message-State: AOAM530nDHxJ8RdYFSOMAQsXH07Aaq9nZTr4+udLLwLIJEkbbd0WdrRm
+ R0ogwmxuZ+5vHT9P11irN6w=
+X-Google-Smtp-Source: ABdhPJzyS6sE4rFi1s0iafXFTBP2KPqV9BT77bxoRa3rEO1vXovMf5UufbCGjm/1m5VkONRTxv8ASQ==
+X-Received: by 2002:a05:6402:2547:: with SMTP id
+ l7mr15778939edb.157.1612776501570; 
+ Mon, 08 Feb 2021 01:28:21 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id u27sm4412750edi.79.2021.02.08.01.18.56
+ by smtp.gmail.com with ESMTPSA id a15sm7491189edv.95.2021.02.08.01.28.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Feb 2021 01:18:57 -0800 (PST)
-Subject: Re: [bug] 5.11-rc5 brought page allocation failure issue [ttm][amdgpu]
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <CABXGCsNazWZQGfSnFgQ_K5_H9uBQ=8gBdFORXrU1FEMGMohO2w@mail.gmail.com>
- <4ce29a7e-f58a-aeb4-bef-34a7eada70d0@google.com>
- <e0c2c823-5f-efe8-cd87-6dd6cc33a33@google.com>
- <7a677c89-1974-0676-ba7d-b057ad2cab3f@gmail.com>
- <CABXGCsPnGVAGWETYD-dfrqxhciHA0NKBG2EWueOtFzL5xF9z3g@mail.gmail.com>
+ Mon, 08 Feb 2021 01:28:21 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: extend MAX_KIQ_REG_TRY to 1000
+To: Jiawei Gu <Jiawei.Gu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210208054555.23421-1-Jiawei.Gu@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <cf60a50d-d3ca-2ce9-918b-0763a26552d8@gmail.com>
-Date: Mon, 8 Feb 2021 10:18:56 +0100
+Message-ID: <13337a59-f698-a91b-5662-1673e14a3cd7@gmail.com>
+Date: Mon, 8 Feb 2021 10:28:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CABXGCsPnGVAGWETYD-dfrqxhciHA0NKBG2EWueOtFzL5xF9z3g@mail.gmail.com>
+In-Reply-To: <20210208054555.23421-1-Jiawei.Gu@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,23 +83,42 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
-Cc: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Rientjes <rientjes@google.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: emily.deng@amd.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDIuMjEgdW0gMTk6MTcgc2NocmllYiBNaWtoYWlsIEdhdnJpbG92Ogo+IE9uIFN1biwg
-MzEgSmFuIDIwMjEgYXQgMjI6MjIsIENocmlzdGlhbiBLw7ZuaWcKPiA8Y2tvZW5pZy5sZWljaHR6
-dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Pgo+PiBZZWFoLCBrbm93biBpc3N1ZS4gSSBhbHJl
-YWR5IHB1c2hlZCBNaWNoZWwncyBmaXggdG8gZHJtLW1pc2MtZml4ZXMuCj4+IFNob3VsZCBsYW5k
-IGluIHRoZSBuZXh0IC1yYyBieSB0aGUgd2Vla2VuZC4KPj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0
-aWFuLgo+IEkgY2hlY2tlZCB0aGlzIHBhdGNoIFsxXSBmb3Igc2V2ZXJhbCBkYXlzLgo+IEFuZCBJ
-IGNhbiBjb25maXJtIHRoYXQgdGhlIHJlcG9ydGVkIGlzc3VlIHdhcyBnb25lLgo+Cj4gWzFdIGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyMTAxMjgwOTUzNDYuMjQyMS0xLW1pY2hlbEBk
-YWVuemVyLm5ldC8KCkFyZSB0aGUgb3RoZXIgcHJvYmxlbXMgZ29uZSBhcyB3ZWxsPwoKUmVnYXJk
-cywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Am 08.02.21 um 06:45 schrieb Jiawei Gu:
+> Extend retry times of KIQ to avoid starvation situation caused by
+> long time full access of GPU by other VFs.
+
+In what units is that? We also need the KIQ during interrupt handling 
+and that looks like *way* to big for that.
+
+Christian.
+
+>
+> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 639db32c1383..e0c797a5f739 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -288,7 +288,7 @@ enum amdgpu_kiq_irq {
+>   
+>   #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
+>   #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
+> -#define MAX_KIQ_REG_TRY 80 /* 20 -> 80 */
+> +#define MAX_KIQ_REG_TRY 1000
+>   
+>   int amdgpu_device_ip_set_clockgating_state(void *dev,
+>   					   enum amd_ip_block_type block_type,
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
