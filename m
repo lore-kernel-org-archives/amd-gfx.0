@@ -2,58 +2,42 @@ Return-Path: <SRS0=u850=HL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5690FC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2645C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF56764EBC
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF56764EBC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 3244664EB9
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3244664EB9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=hisilicon.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B833F89D5F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E95D689DB7;
 	Tue,  9 Feb 2021 15:22:10 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B362A6EB11;
- Tue,  9 Feb 2021 12:44:45 +0000 (UTC)
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1612874684;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KEa1InnPF5EuT5Iy/fi3GjgUJ0wnNen8cYmBEvVp/GM=;
- b=DljWuqE0TWElG7FkbO1ovGUu+gNuT6NUi5nJvyQ2u2TUJhdoLvcvhVl1fKG9kjjeGXWNAg
- gbXop3plyyGft2Q59ihFq2yq49lXJyaHUrtjfKpR2c2XsOP+N6ATssHlyZu5ssfKbWAbvM
- zZKyw8wLNzIsjKZDGXm2YdJxJvlCGhMqYdCyJOlT3OhRG3w6WvCBDignDnzfW4NwRPc2Bc
- ZNvoBLz/+RQsolxKk6ZAS8CFd0cGSMmnUSw5/uRu3kZlNcvpiujsyGcLSW2O+vt9ErYp6j
- Gm1aLShfYsTtYXBRJ0Gj04KSwzGuTmWFPSdHvuHwkx27ojo9tbG2Bcfo/l6GSw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1612874684;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KEa1InnPF5EuT5Iy/fi3GjgUJ0wnNen8cYmBEvVp/GM=;
- b=hqeLNqeier5r5IG2+445JUK6Dws43OIa+df3UUiokXklC+fcpPSkMV1it6J/b07LYXzRgr
- mvwHcFurJq4JahDQ==
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu: Replace in_interrupt() usage in
- gmc_v*_process_interrupt()
-Date: Tue,  9 Feb 2021 13:44:37 +0100
-Message-Id: <20210209124439.408140-2-bigeasy@linutronix.de>
-In-Reply-To: <20210209124439.408140-1-bigeasy@linutronix.de>
-References: <20210209124439.408140-1-bigeasy@linutronix.de>
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188F98933C;
+ Tue,  9 Feb 2021 08:29:52 +0000 (UTC)
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DZbdP5wtGzjKNk;
+ Tue,  9 Feb 2021 16:28:41 +0800 (CST)
+Received: from localhost.localdomain (10.69.192.56) by
+ DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 9 Feb 2021 16:29:47 +0800
+From: Tian Tao <tiantao6@hisilicon.com>
+To: <airlied@linux.ie>, <daniel@ffwll.ch>, <sumit.semwal@linaro.org>
+Subject: [PATCH] drm/amdgpu: fix unnecessary NULL check warnings
+Date: Tue, 9 Feb 2021 16:29:23 +0800
+Message-ID: <1612859363-49070-1-git-send-email-tiantao6@hisilicon.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-Originating-IP: [10.69.192.56]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 09 Feb 2021 15:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,71 +50,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The usage of in_interrupt() in gmc_v*_process_interrupt() is intended to
-use a different code path if invoked from the interrupt handler vs
-invoked from the workqueue.
+Remove NULL checks before vfree() to fix these warnings:
+drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:102:2-8: WARNING: NULL
+check before some freeing functions is not needed.
 
-The usage of in_interrupt() in drivers is phased out and Linus clearly
-requested that code which changes behaviour depending on context should
-either be separated or the context be conveyed in an argument passed by the
-caller, which usually knows the context.
-
-gmc_v*_process_interrupt() is invoked via the ->process() callback
-from amdgpu_ih_process() which in turn is invoked either from
-amdgpu_irq_handler() (the interrupt handler) or from
-amdgpu_irq_handle_*() which is a workqueue.
-
-amdgpu_irq::ih is always processed from the interrupt handler, the other
-three struct amdgpu_ih_ring members are processed from a workqueue.
-
-Replace the in_interrupt() check with a comparison against adev->irq.ih.
-A similar check is already done to check if the ih pointer is from
-ih_soft.
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 3b7c6c31fce1f..7b6791d699e27 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -113,7 +113,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 		/* Delegate it to a different ring if the hardware hasn't
- 		 * already done it.
- 		 */
--		if (in_interrupt()) {
-+		if (entry->ih == &adev->irq.ih) {
- 			amdgpu_irq_delegate(adev, entry, 8);
- 			return 1;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index aedef9017c4c2..266296be7302d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -486,7 +486,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 		/* Delegate it to a different ring if the hardware hasn't
- 		 * already done it.
- 		 */
--		if (in_interrupt()) {
-+		if (entry->ih == &adev->irq.ih) {
- 			amdgpu_irq_delegate(adev, entry, 8);
- 			return 1;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 594a010..3e240b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -98,8 +98,7 @@ static int amdgpu_cs_bo_handles_chunk(struct amdgpu_cs_parser *p,
+ 	return 0;
+ 
+ error_free:
+-	if (info)
+-		kvfree(info);
++	kvfree(info);
+ 
+ 	return r;
+ }
 -- 
-2.30.0
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
