@@ -5,61 +5,61 @@ X-Spam-Level:
 X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03AA7C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 19:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0EF0C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 19:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6BDF64DE8
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 19:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6BDF64DE8
+	by mail.kernel.org (Postfix) with ESMTPS id 664F364DAD
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 19:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 664F364DAD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0536EB70;
-	Tue,  9 Feb 2021 19:33:17 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35F96EB70;
- Tue,  9 Feb 2021 19:33:16 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id l19so8176796oih.6;
- Tue, 09 Feb 2021 11:33:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF4E6EBA0;
+	Tue,  9 Feb 2021 19:41:18 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D886E0C5;
+ Tue,  9 Feb 2021 19:41:17 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id i3so9818176oif.1;
+ Tue, 09 Feb 2021 11:41:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jGXU9qtn1siVrBxQIZDImfVV5UyVbc4/ofHvvxvja2c=;
- b=UIsaSjRFcAQ9HKCEV6qRRUwsY7RO08OFRFtYlE+PAJQmVKsPi6ap0+S8nfjInpgKRB
- QLy30S43W4y+c0yNhsg5f9OwZKB+up40QL96WiCNDC82F7r/I2orUpQKflCrSsj6Rxyh
- qvx0PyNYwNsdtU4AWWuboppBT3nI/bw1NaRNYUEuarBfuJJB/8XW9LSkSYVfL+Esx6BL
- sLCDgZgq1kQ/KWuTEK4WdwyX/ExoPAlpjTYxCVp4jnobtZgMP9I1dADa9hT4dDjsI1A2
- yfW1TiqUURm50owZcm4aSeBTnEf8LLuctnAiaLq79yEyr9fvdZCjsNprq+PtXbP7Wctm
- 2Zmg==
+ :cc; bh=DXoXX9t+fJ8x0y0o3oj+Ni+Q4UjyYGDDZmio3Vrqotk=;
+ b=gC4VvFIYtHmzre1Gnuqb+O2KVzUhmSdr96r/12PS0RHwTh3y/Cl65SGWUwymg1dfSc
+ 0RILw3MlzO7nC82fJMVvzCTTaq4xATaZgPq81u1azvY6Ko0DD/2G6m4ncjBofq29X/at
+ GzJBaxR7qdEJpGe1jG1hjZTbvAYG0DIhOfEnkjFDXhKlCendp9nSIglkzk2tMN1kKAlx
+ o6Abxl6lLWSTwtigKbR8ZCdioVXVhLz8hxT/LAmyk6dt3qQnmgFuZwXRYJFfEM74aKxM
+ tUilAcY3BPqv4h8a+Ok9O4w+RK6iewPK0epvVgRlgSCSkSwV5XmO59Ud0z5ZS8CJWh05
+ tUIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=jGXU9qtn1siVrBxQIZDImfVV5UyVbc4/ofHvvxvja2c=;
- b=VpahqG5pejaerZREJMmqlzDDMPcF7/GeRkX0Sao8p0OhEpW6BVr9nmrQu4USeK1T9Z
- 77YfG76TEKum+DhDFXxGsOflR1JIH+12UUM/D62n+sVmDzaLD8ly38pLb73vBuXlZSUG
- JouFdMGfDR58eB5RJPdhYMA5Dqq15vdRIXT2NUzW/jJ2BW79SoWgY+y7rQCZ8RdB+QVu
- 0quKqywwBl2TKAXRxj5kq3P137n0yxMGVn7fWCbdR8fFcI1XpLzwW2DL44Ipj84HP6zQ
- XwthLnhfn4YErGD/Mm8JEdN4loHTGH/B25RmNTmJAhV9nC9rzsOj4Njr1q5FLOSXaQSr
- Uquw==
-X-Gm-Message-State: AOAM532pjOvjaYrBrGQatMiE/5SbgxIQDzN1P5Hvk9F4ZJV3uOAbtw2B
- pXSRP+kpURGbn41cls9OzXIOP3nqXQZCBEhx91M=
-X-Google-Smtp-Source: ABdhPJzt5IRKR5kMKR3YXi1nNX3zwp1qG/SU+ozaKZAMs6oHyGZg1DdyK12JqKnzmLhFTwfB32fx+h+9wNgIbtTElm0=
-X-Received: by 2002:aca:c786:: with SMTP id x128mr3523317oif.120.1612899196320; 
- Tue, 09 Feb 2021 11:33:16 -0800 (PST)
+ bh=DXoXX9t+fJ8x0y0o3oj+Ni+Q4UjyYGDDZmio3Vrqotk=;
+ b=MJpfRl5VWeCuOaobPwFQrxzU+5t6YKx/Px8lP0s/7qAyfJXQe/KaP/78dyMpbLYGed
+ GpnO5uToLiWuPFBvh+NqSKGx+falxkEyTTVQmnPQCMmPTdRz9WcIhuQ+ReLAnkvkTRam
+ e7yNYcWH61DTdJNFo4ZZXs/Kr5Syfcey2iYgGHMXpBvywPQAEEiRTpOmfjkw0SG80LEU
+ PsJQ4Pcv3hf+Rk2xp0PQHXrMncgAvn5tofp1PjtDpoIEz36j85fJt75YWP2AvfcJJDS8
+ 0hScZUKbjp9Dhb6fGVEvI2QXtZFpW4Uc5BXGCMp3gN38RfdUD9sUELaOyBOpE+x9Xllw
+ /Bzg==
+X-Gm-Message-State: AOAM532lt94vja5312hu45uZUoeUNtILW76NI/X5xX4UFx3xeiZ0w/f4
+ C3O0wnd9mYf8qjLp5icuGGp/TYUIyQU0+e2NZZ8=
+X-Google-Smtp-Source: ABdhPJyi8YAv3Mr94sjJIKowedWyGeiZtBKiNpp2j7n3eofNp2+Ob1AqBzjl96BXSvyOAQ8g+Ay8MPEWa4Qc0NozfRM=
+X-Received: by 2002:aca:c786:: with SMTP id x128mr3540978oif.120.1612899676846; 
+ Tue, 09 Feb 2021 11:41:16 -0800 (PST)
 MIME-Version: 1.0
-References: <1612859363-49070-1-git-send-email-tiantao6@hisilicon.com>
-In-Reply-To: <1612859363-49070-1-git-send-email-tiantao6@hisilicon.com>
+References: <1612780168-83989-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1612780168-83989-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 9 Feb 2021 14:33:05 -0500
-Message-ID: <CADnq5_NBv6mJPFJ-hqDtyOtn3-L-X8qJ6sEM6=8U7i5C=s6=uw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix unnecessary NULL check warnings
-To: Tian Tao <tiantao6@hisilicon.com>
+Date: Tue, 9 Feb 2021 14:41:06 -0500
+Message-ID: <CADnq5_PguFm7Qo2i1dqCAwLAWYhq68m-wdSx8B5LGUVmMbS3pw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Simplify bool comparison
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,48 +71,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>,
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Daniel Vetter <daniel@ffwll.ch>
+ Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 9, 2021 at 3:44 AM Tian Tao <tiantao6@hisilicon.com> wrote:
->
-> Remove NULL checks before vfree() to fix these warnings:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:102:2-8: WARNING: NULL
-> check before some freeing functions is not needed.
->
-> Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
-
 Applied.  Thanks!
 
 Alex
 
-
+On Mon, Feb 8, 2021 at 5:29 AM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
+>
+> Fix the following coccicheck warning:
+>
+> ./drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h:319:11-23:
+> WARNING: Comparison to bool.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 594a010..3e240b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -98,8 +98,7 @@ static int amdgpu_cs_bo_handles_chunk(struct amdgpu_cs_parser *p,
->         return 0;
+> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> index ffd3769..316301f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> @@ -309,9 +309,9 @@ static inline bool should_set_clock(bool safe_to_lower, int calc_clk, int cur_cl
+>  static inline bool should_update_pstate_support(bool safe_to_lower, bool calc_support, bool cur_support)
+>  {
+>         if (cur_support != calc_support) {
+> -               if (calc_support == true && safe_to_lower)
+> +               if (calc_support && safe_to_lower)
+>                         return true;
+> -               else if (calc_support == false && !safe_to_lower)
+> +               else if (!calc_support && !safe_to_lower)
+>                         return true;
+>         }
 >
->  error_free:
-> -       if (info)
-> -               kvfree(info);
-> +       kvfree(info);
->
->         return r;
->  }
 > --
-> 2.7.4
+> 1.8.3.1
 >
 > _______________________________________________
 > dri-devel mailing list
