@@ -2,129 +2,146 @@ Return-Path: <SRS0=u850=HL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2E5BC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 05:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78404C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 08:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5299064D73
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 05:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5299064D73
+	by mail.kernel.org (Postfix) with ESMTPS id 3C48064D9E
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 08:17:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C48064D9E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF426EA94;
-	Tue,  9 Feb 2021 05:27:29 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E109D6EA94
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Feb 2021 05:27:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F54689C6C;
+	Tue,  9 Feb 2021 07:58:19 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2059.outbound.protection.outlook.com [40.107.244.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAA589C1C;
+ Tue,  9 Feb 2021 07:58:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PWC1d1YaSCyH8SFulHszVtjlXwirqme+Qja4AtQ2i72L/A2Vsa5sHUyYypy+AqVguqZ73MK7BkBglSS+drGhpZ04abHk71O6XbnBJ8fPUXNFwxirJY5cy45JrdrHPGqph7PjmCg34Bkwaj+ffYwnFs3rULHx8LGiH/STfUqzzcS20rG3IJby8PFVZTJ2xWHlzap4ZO9/k/lcPzxfCvdqbI4xb8UB5bPTeWtXDuy0aMGrbnEg5Twf8+PEIUUmVlRHU0qxho3gfURU8ccjSe+AevVpIkqLJe813iOc9McNSRNBVFjA9rLQpjbTYSJWwDiSl2W8ECNXXW1OKw5Vw91qzA==
+ b=np5NO44SnDWkmUiCHYWpwshCJuuvRMOKBdUqxY2XSABn21z8JOH7EyrUhwZcb8aHuJcVEYFhznR47Y8HK5xcXyHqtT/nQ3EhPGBSPzQ8bVyTPLOLviA4FNSi/lOIni8iHCG60A1731/Uzui+tfeUioQ845ZzMTJDtrJTrCW2f18/U4z2vWX0k7McW6i/2Pp/xqUU53BzXTrxRJn3NOD7mAE340EJrSWYW/+7J1mNKgt4ydTUPacsQ36kGfsp0ZyDVhg2ug+sRU5B3R91DK7+z9bdu1GyW1VoKIn7Tz1aDoq4mhthtOTysXKyo0mBXnlk3OMB+nEdQqJ/0Img8mmotg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FC0x0w/tkHfkcoSkl0cmftze7yKd+5nbvWv/x5fsW34=;
- b=B5+UGvuqg8x5jzSljbuL/2F5iqgt4yMiD4sAB6PRrqxuLSn/RZeEwp5u0xcQJXKqJt1l5xoZmfDUpCXEkbaks5TP5nI7VFdL7gLIda03GYiHZetEui/gMbfKy53sEfogWWQnG8oSXVg1xLZLQOCOF8sfBqtzxt9ZqCE90C89kdPGrHeolVJEGOnByEi7hSaFQU7Wp6nGiwanHy5/Z7mDlyvVHgcTe74pjlqW2mzOr+TazgM+nzL3GVzOu/epPUPvPZjnPRxMrs5d6TwcjOo2XgDOE08q77kE6wWa2NvDyN2YPA2+XtqGv3QJLNRvp9sk0zYKKchKI05eQA74aIxJLg==
+ bh=xavj7Dekqa2fts8WYoFKhJljdZ2VX+CAuArLfz1qy7U=;
+ b=Bco02OVJmxdaBO/fq7QeK5T+yxecxBXcdgx85e5hBmIjdTe5RRsB/VT9Kjna9NKeYfavOUOlANoJ9YWHF05+GPptbH0KSM3BaMXIzK7Oqk1sHsDgXq5pi8hkvdslPnlqSm97pYR7LeWVK1sgoL7q2mWIJRhA1RM0c15s47906qN8sg19OIWDKcxrJ6jBcqyHiRi9FFxbiS3yby0RMUBwiHx8MyoMHtFHkhSWseFv6tvfRAaD3G0F3JfdSJfa2nSRlvFHSOpsq29fS5fUvLv9EnQyiR/fEl92hEyrW1aSo/iosx4R8X38lAdamhDF62aC6SNi/rT0UADYqXEKiADfGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FC0x0w/tkHfkcoSkl0cmftze7yKd+5nbvWv/x5fsW34=;
- b=1bxO4+KsYem2iH6ymoTfj3aVFYpWuM35sf/LxahcAWr2VPMVIuqSRP4lwIE4l1boB21chlXrnyBUS/oRakv1kUu6rlXsOQoX5c0ZnGS7ztEudOIQ2OFTPipNUvULkVOhOt7vuut7iIZp6OcCR2ZihqCUsiIfSWkk6BgTLyQFkPU=
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB3120.namprd12.prod.outlook.com (2603:10b6:208:cf::14)
+ bh=xavj7Dekqa2fts8WYoFKhJljdZ2VX+CAuArLfz1qy7U=;
+ b=TVwHd/iJrIvD5SJRLya3Z1xI4zP2Wsb6BvgWGjL46ArDL1ynGGRs9EZ6Wo45clKSB3cVinC/woJ5IwBv50JK1k27PWGu0cmQe6k53MQ4qFqbvJq+l5MxdaZ2YWcNhSBZGixD3ATcBpEEXJ9aZ6iFoNmKi/6HmIAkhOqmaoc52ME=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB4897.namprd12.prod.outlook.com (2603:10b6:208:17e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.23; Tue, 9 Feb
- 2021 05:27:26 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::49f7:4979:3a0a:4554]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::49f7:4979:3a0a:4554%6]) with mapi id 15.20.3825.030; Tue, 9 Feb 2021
- 05:27:26 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>, "Du, Xiaojian" <Xiaojian.Du@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amd/pm: make the error log more clear for fine grain
- tuning function
-Thread-Topic: [PATCH] drm/amd/pm: make the error log more clear for fine grain
- tuning function
-Thread-Index: AQHW7t8VR6rBx2lk/0WnCdCvinoRZKov5B86gB9xQQCAABSDow==
-Date: Tue, 9 Feb 2021 05:27:26 +0000
-Message-ID: <MN2PR12MB30225E137752C5FBF8B5D6CEA28E9@MN2PR12MB3022.namprd12.prod.outlook.com>
-References: <20210120034821.15400-1-Xiaojian.Du@amd.com>
- <MN2PR12MB3022DF9FACBC945BA0E7750CA2A20@MN2PR12MB3022.namprd12.prod.outlook.com>,
- <MWHPR12MB1248C40D2A09B5DED1C179F5EC8E9@MWHPR12MB1248.namprd12.prod.outlook.com>
-In-Reply-To: <MWHPR12MB1248C40D2A09B5DED1C179F5EC8E9@MWHPR12MB1248.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.17; Tue, 9 Feb
+ 2021 07:58:16 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3825.030; Tue, 9 Feb 2021
+ 07:58:16 +0000
+Subject: Re: [PATCH v4 11/14] drm/amdgpu: Guard against write accesses after
+ device removal
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <07dceec0-0be9-1531-0357-353f04d1cb2b@amd.com>
+ <69f036e2-f102-8233-37f6-5254a484bf97@amd.com>
+ <0b502043-5a66-dcd5-53f9-5c190f22dc46@gmail.com>
+ <78e4705d-c55f-6c68-d0f9-b1939b636121@amd.com>
+ <CAKMK7uEm=N4kQYyzMt=nUefu2BdyKNcWikFiSJih7CthJMd2Aw@mail.gmail.com>
+ <8fbeee95-b365-7f68-1e0b-1d42eb0dea70@amd.com>
+ <CAKMK7uEJDfPsbnkVfunjVe2iNbpVBWY2_XHai4JntcxWkuVc3A@mail.gmail.com>
+ <fcb2cf17-d011-55c6-1545-9fa190e358c3@gmail.com>
+ <YCEJBfA6ce4dD3JT@phenom.ffwll.local>
+ <6c639669-b78d-b6a3-71b9-d546ca34121b@gmail.com>
+ <YCEOY5wFmpGRl7jJ@phenom.ffwll.local>
+ <90eb7a73-1981-6d20-a83d-1690321212c7@amd.com>
+ <CAKMK7uF3HkTgDhM5Lk3hnGB+35Vi-Nt7YOBJ_rpO8wZw9ifhcA@mail.gmail.com>
+ <f8b3417f-a697-c8c7-b131-5c8823f969d7@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <55862d1f-42da-4a9c-0720-e6abf72615f5@amd.com>
+Date: Tue, 9 Feb 2021 08:58:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <f8b3417f-a697-c8c7-b131-5c8823f969d7@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-02-09T05:27:25.680Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9c69a01e-f024-4c43-1bb1-08d8ccbb62f5
-x-ms-traffictypediagnostic: MN2PR12MB3120:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3120CA67668534DA370B67AFA28E9@MN2PR12MB3120.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Z/VUMn5+Cp9EJHST3OFNnBD+4Ex3ScDS9rCm1aYgWZyMBdmbp2TdaRxs6fSgyq1Oin/KNu2QvL2WNLBpl+nUZReBZT9jNRXPNc2REmQjTQxWgM+5l4IFd9Co5T/wVZIrTgNCKIhln+Ky0WcNuhS7ULvlWnPcUuCm4U21QpdOwpROUs0Ts6n8fy4BqX/HnnNWPhkpSRr3fxkE55CoddakLBVLt+YLqB0yAdpC6hAosAs0R8YLMTmbs2wYDJ4OFRiZkeg2d5vWwj3+10r0dUBZ097wGsr9PBDBIG3HybE9fbfOPLD3kc0hmOH8E5oTm9F9Jan+K4NiuA4DLN1zHyNkEzNf0zNbW6FpmW7HDYoKofj939x5uQN2ERtQQwj55jXeVn5hNIQvZ8i4IucevO5wxPj+LoGKY7AceENIVMXgbMjnmJ4A4Kfc50r2wx4+qUY2QLTFO2WOM0kPL9ltwfU1u+RX0l74wKRJZ5zPdf3qnG0TNIojUMwKNjNBoXSYejbPfm3LD5/WQX1YSQ3n2eTC3w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(136003)(376002)(39860400002)(396003)(7696005)(52536014)(83380400001)(6636002)(76116006)(66446008)(186003)(91956017)(2906002)(66556008)(64756008)(66476007)(6506007)(5660300002)(8936002)(55016002)(53546011)(66946007)(33656002)(86362001)(54906003)(110136005)(8676002)(26005)(478600001)(19627405001)(71200400001)(9686003)(4326008)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?6eJZl0EZTlzcipKNz0XeIhAA/p2tMT5h3rXH5NgLlFrlkML2G0hSbbMq?=
- =?Windows-1252?Q?Z8SWK0ZXlRsz3z/3JzbPINTWs5Q9Xg23glymLjZKuhpIMWecwLp7PPtg?=
- =?Windows-1252?Q?QKndC2qhUcm67VASwpZflk2iRMZ80ON/2tELTQtJ96EPEIyp9ylXeZ+i?=
- =?Windows-1252?Q?ep2zpO2TJzDCBk0SGBhpBQcPKIBHxbl0ugOEExu4nAXyGtYCY4F8pWMe?=
- =?Windows-1252?Q?BDClpcuSTpkVPZWE1sFRYq8FxR77Epr5kN3tatgIVotUvhWgK2oW/MxO?=
- =?Windows-1252?Q?InmYEV9l0ubPH/K+jKFVSKH60KbjD4Qe4gs11GJd+J7lZ0SAiHUkSOLC?=
- =?Windows-1252?Q?V6i8czvN3N0VAKNsmnLNgIOiCbXbMAjbdOCMDRPxpfFc9vSgNB02rREd?=
- =?Windows-1252?Q?Dz7h669fLDSsoJb0CPOq7tRsB3NnPSQm+eQJt0OESH9iUaFYyzju8O0Y?=
- =?Windows-1252?Q?NmCnmMc5Bya9MghKGWDaxyw4q6wIqKH2Wxjh2U+NNsQAKD9EmbOlrPSq?=
- =?Windows-1252?Q?d5MQeRTEv5QWSEKSHYXLnISjZqDn50pNwy4dtCv41ilLEev3bWp4RG0K?=
- =?Windows-1252?Q?q7rHeFdprZl1fzc1eJ39czXagx2hPdsRGIo4hFlGOoBSprJ3pvz3V4bs?=
- =?Windows-1252?Q?51QUF/4v95O/k8KG+qaDnzjlaM8LOnsLA2HScL8EDd7FcL0CNwszU1KD?=
- =?Windows-1252?Q?DNxBti0Fphj/mTtXnMcy0blA5GssTuLs0rvOg4Zg32SL01SC1dVSRjOc?=
- =?Windows-1252?Q?yZ0r29RvlMXL9QgMMi2xPY3AdsY3hPjZKRbSvM+whue9Fxu+/oLy6po4?=
- =?Windows-1252?Q?KuSP4Rl84dNJ+HtUQieyson6dJGTXyzR04q5sScCCORRyz9YeI6z4yyD?=
- =?Windows-1252?Q?is9qmk8gqan0qk/1/1wqSWzY97guYH7lKKvP6PEWnqR6XCswdnsNe+K7?=
- =?Windows-1252?Q?3iP+p+fw50Un+5M67bEeO96Yzjv6MBQFcbajTCbFR7bSZuclU6iFMDoj?=
- =?Windows-1252?Q?MGNyJFVCRKoQfjg7UZoHTie/kLsxH+zT6AwQ+9xtQlMfSnsYhES8f0Iv?=
- =?Windows-1252?Q?MrR3LVQPOKFHIKeo0MUFCL5UYk0pWCe+8I1U3ZWEtRYBt4jBZ06H3wc+?=
- =?Windows-1252?Q?8uuKqFbUYhE29gLSEbUheZMueeSvQLf2DGcD/kns/OpGet/2IewVknpU?=
- =?Windows-1252?Q?ePP2k3k4AzXLYl9/KJC8hVPQllbRnH0PIqeiQcTnOJ7Dn+Oimudbe8pl?=
- =?Windows-1252?Q?OQizdLAK8JeD9dqUSCh/+jTPaBryQzONRxDTYiK5gw+Wt20MimYdmld2?=
- =?Windows-1252?Q?su6XKPU/ARJLUbHMKVBVSHpnybhSY3D+7HMwQnpxVmPwZKMXLTHIAIfE?=
- =?Windows-1252?Q?cu9XHbYhMg7Ox9ZCkKr+J48T4WA7yqowYFaLfax8/2MRdfFpR38xq2/t?=
+X-Originating-IP: [2a02:908:1252:fb60:444c:9a67:948b:2493]
+X-ClientProxiedBy: AM0PR01CA0089.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:10e::30) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:444c:9a67:948b:2493]
+ (2a02:908:1252:fb60:444c:9a67:948b:2493) by
+ AM0PR01CA0089.eurprd01.prod.exchangelabs.com (2603:10a6:208:10e::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.20 via Frontend
+ Transport; Tue, 9 Feb 2021 07:58:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3c1269a1-50f8-435b-cec6-08d8ccd074eb
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4897:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4897E3CA10E27C583951F865838E9@BL0PR12MB4897.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SDZgIR0VqMP/YFKJ6UGqs8m04m1jaa2JlLWptPZj8ox45Tmx9LAJf/ITCbuTkwxa7U3YARBbKQYJs1GIJKQ0ZOwGOnDDJp1D33+Lz0kf0n3x+Ep2WXY+o7XSsuW0dAndGRAzgTJGycYhGqT/WbuM6M8NEWRIHNcsWtttLZun4/UfBO7gnAKTdW4h1sjQOFumQYYNIKIs6Ez3HpdJQfxOjmJAN7ixIym6BiZmjk5x8Iv02VOXDvNOWkuac5IIcmiasQRt5MGFzA56lyaX2LVp40o4ftloOQ3zHl3TDhJgi7gOwLvZWmsBad41/J1gX08Mx+Gg7Jfwzi7foaBVjutN1jvQ1xhM1ZCLogD7I8yWtHbWOuZupVcM6xLqiviX/Pm/UWtpuETUjv64Rd4qMOJTs9d2sSkC+FiTuQYrmP7HZ0LjTTPmi40B2Ct3AhrBFMEUMRl8MrAhf/tQahHHwEJLcS6NInsncwpzVAqozyG/DFBDAchydAPAs7CMfM2NSN88wb/6FEvceP6EXFe3bQDBvcG2gHPBYg9PDgAN5QH98NzlQDIfpOzXSV/qERIUiJaUxcDYCu7SLmJpue31/6wkYcpChiK+1JHzc26YX5rJSFVL/kinpmrm7lzUC3eNxRtXVk5UK+zYm1Lr9OkP7D7PPyc7Nqr5En7+BaG/GgwKDlo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(376002)(396003)(366004)(136003)(966005)(66574015)(16526019)(5660300002)(186003)(8936002)(83380400001)(6486002)(66476007)(66556008)(4326008)(53546011)(66946007)(8676002)(86362001)(6666004)(478600001)(2616005)(316002)(2906002)(54906003)(110136005)(31686004)(31696002)(45080400002)(36756003)(52116002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VTJ5enhRL2Vad2UzVHMrek9aWGV4cGNIWnZyT3F5alBYYXZNVDg5MDJXaFFR?=
+ =?utf-8?B?YlVYNmt5WGxTMnNRMW92TS84Z05RSU9pN3B4RjJnNVFCQXhNRWlaM21jVzd4?=
+ =?utf-8?B?cDZCS2JBWmszd3RpeEd6NnBqV3Z2UzEzTEkvNVcvYi9EL05tR3lGV3dpT3Iy?=
+ =?utf-8?B?V0lVbUh4dUpZOEZYVjlMcGVFSXJoRFk4TFNnYm9BWGxUUkFOZHZETGUyRkNt?=
+ =?utf-8?B?M3IwSkFlRGdINEtab3JZTlJsZ2dML3c3T0lyWUsvY1VTeldpZ0FPN2daY2pU?=
+ =?utf-8?B?UXhLS2NoWUZiNzhkVTJKY3JoS0V2S0RiN3hqMjZuUmlxMXlwbktiNEtIZzFD?=
+ =?utf-8?B?bWE3UVpjT2VUbmpyWnFVSXZYc1QrNCtOa29oVGVPUWNYbTdrbWxETGlnR2J0?=
+ =?utf-8?B?VmxiekJ5L2w1U1MyTlZOS0Z2NVlEdFMwbUNHaitkTCs2WmJFKyt4VFZQZmNB?=
+ =?utf-8?B?VFJEOGhobmtwQkdjSS9wcnVtU29ZMnV2Y0pZUzB1aVJKRzVyWDhHL2JCRVB6?=
+ =?utf-8?B?Z2NVSlRmbEJWWVhVVTRFdG9FSWtIUG5yUENyek9lc3cyZytNd2ducVVuWS9q?=
+ =?utf-8?B?UjlXUFF5NmVINmEwbTBtOEVSS0RxVG5qd29zTER0dUpnWVpVM0dLa3pZdzdM?=
+ =?utf-8?B?Z2pJZUJGT1lGRlJuT1JGTWRyN3ZyMVhJZC9jZ1hObER5T2RDZ282cG5BaEdG?=
+ =?utf-8?B?b0xwemluMjlneWlyajMrRUlidkhSWDNoSWNURXcwRmxodWZxUmNDaXd5bjBI?=
+ =?utf-8?B?Wml5Q1hwMHZScWkzalJENGdNRUIxZE9IdUVVTGdYb0pFaXV3ZUpzSGNlTG5U?=
+ =?utf-8?B?SkJDNUZadjB3Q0RuMVNnbG43YmxuZ0NaY2dycDBwZkx6TUZCUmJ6U293K2RW?=
+ =?utf-8?B?UlFNVjhhSE0zZkl5eDAxOEhOa3hHNW91MUw2N2NWcTFJV1hCQmZidGdnZGlx?=
+ =?utf-8?B?VEZ1MFB2M1RKSUQzdlp3Y3hOaXpoZlhtbHoxcW5mTnpFZlFuczlQd3dXUW1G?=
+ =?utf-8?B?cDZJWmYzWDhzOTRxTkoxQndUNVVSaXVNdGZpRlNFM0xzUFNhemkvdWxVeEM2?=
+ =?utf-8?B?OXQxTVBhdFBrdFZwd2JKamhlbTBhN3dQOWE5MnltU2RTMUJOeXRkMGgxUlZD?=
+ =?utf-8?B?OXR6OUxxcjliSWF3UGlCOEtZVXZHVGtqU0hTU2IrTWl1S0Ziem1oYWp4RTBO?=
+ =?utf-8?B?QXlkYUZibGdiTm5OcG5nNmJTd1pNcVcwT1dxWmpVc0tTQ0ZoSDcybzZHZExI?=
+ =?utf-8?B?dWEzZGltUlFwSEw5VUhZMFRGekdtL0VCWmF4UHc5bFMxbXNnVi92czR0RUVX?=
+ =?utf-8?B?U05nNXJ4TmtQMnRZWkdzMXRIRDE4Y0huZnR5SmFNOURCZDZxSVg0T3lSQTQ3?=
+ =?utf-8?B?cSs3N1hHaUhGdlZ4TXNhUHk1dDE1NHpLdFNnWFNmeDBLL1VUYW5td2JlWHE2?=
+ =?utf-8?B?NFJvbUFKeFBxY1pVcmJHekFyNnhWMUc5eVh4WlJJSk5BMFJTb3d4MTJVTTho?=
+ =?utf-8?B?ZFRQWmprSzZtT3FPWmVCR0NieGt1ZktsZnp4UnJ4dGhMdEc4aXdMc2tGUnpk?=
+ =?utf-8?B?Qk1FR0hqVWdGZXBNOXI1TWpxRU9NUG41d1pYQjFyZlNxbERSb0QrNXNpQVF3?=
+ =?utf-8?B?WGVhS3VZMExRYzRKcWxNVnlHaVM3TVBBRWd5ZUptRkxXc1VMb0c2TTc3OHVz?=
+ =?utf-8?B?c2pOWGZBOEpkQjlLVndnU3czWHRwcHlpVXIrOUZ6Q2w0UTN0Ry9rdWwyOHdP?=
+ =?utf-8?B?MlZsZXNzY3F0S0xhSmxjZjJlV3ZEZXdEdGlSSlFhMmxubS9jTUFLYmdPd1Z3?=
+ =?utf-8?B?ejdhamFXTHI2SlpTZlVOUFlNTDJkbUZqUG1pNTViR3JtMFNYK3ErR09KMEVL?=
+ =?utf-8?Q?N41mOxoX5G3lI?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c1269a1-50f8-435b-cec6-08d8ccd074eb
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c69a01e-f024-4c43-1bb1-08d8ccbb62f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Feb 2021 05:27:26.2657 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pGXu0x/2txyDg7C8eNY+28vfPxu2MlKJFru1FCUDBO+J7Y8AsGIUBxtKkap7mjjg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3120
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2021 07:58:16.2478 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3vG19mKGaai3BJ9CRA4yBnPUqTcyJiWcBL2cSJUcZgZ0bQf179TDC8ZFIVlJHBzv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,591 +153,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: multipart/mixed; boundary="===============1955140108=="
+Cc: Rob Herring <robh@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <Alexander.Deucher@amd.com>, Qiang Yu <yuq825@gmail.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1955140108==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB30225E137752C5FBF8B5D6CEA28E9MN2PR12MB3022namp_"
-
---_000_MN2PR12MB30225E137752C5FBF8B5D6CEA28E9MN2PR12MB3022namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-If it is not in manual mode, we should give the user a hint.
-if possible, we should move this check into amdgpu_pm.c , it is also can be=
- used swsmu backend.
-
-the patch is
-Acked-by: Kevin Wang <kevin1.wang@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: Huang, Ray <Ray.Huang@amd.com>
-Sent: Tuesday, February 9, 2021 12:10 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.=
-com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deuche=
-r, Alexander <Alexander.Deucher@amd.com>
-Cc: Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: make the error log more clear for fine gra=
-in tuning function
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-+ Alex
-
-
-
-Hi all,
-
-
-
-Recently, many users reported the issue to us that fine grain not enabled. =
-Actually, most of them are just caused by not switching to =93manual=94 mod=
-e.
-
-
-
-         if (!(smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) =
-{
--               dev_warn(smu->adev->dev, "Fine grain is not enabled!\n");
-+               dev_warn(smu->adev->dev,
-+                       "pp_od_clk_voltage is not accessible if power_dpm_f=
-orce_perfomance_level is not in manual mode!\n");
-
-
-
-We have to need reminder in the warning message to tell the user where they=
- are.
-
-
-
-Any objection for this patch? I found Navi series actually didn=92t need th=
-is operation to update max/min clock levels. Would you clarify whether dGPU=
- still needs this before we move the prints into amdgpu_pm.c?
-
-
-
-However, in APU fine grain design, patch looks good for me.
-
-Acked-by: Huang Rui <ray.huang@amd.com<mailto:ray.huang@amd.com>>
-
-
-
-Thanks,
-
-Ray
-
-
-
-From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Sent: Wednesday, January 20, 2021 12:10 PM
-To: Du, Xiaojian <Xiaojian.Du@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Huang, Ray <Ray.Huang@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Lazar, =
-Lijo <Lijo.Lazar@amd.com>
-Subject: Re: [PATCH] drm/amd/pm: make the error log more clear for fine gra=
-in tuning function
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-
-
-
-________________________________
-
-From: Du, Xiaojian <Xiaojian.Du@amd.com<mailto:Xiaojian.Du@amd.com>>
-Sent: Wednesday, January 20, 2021 11:48 AM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; Quan, Evan <E=
-van.Quan@amd.com<mailto:Evan.Quan@amd.com>>; Wang, Kevin(Yang) <Kevin1.Wang=
-@amd.com<mailto:Kevin1.Wang@amd.com>>; Lazar, Lijo <Lijo.Lazar@amd.com<mail=
-to:Lijo.Lazar@amd.com>>; Du, Xiaojian <Xiaojian.Du@amd.com<mailto:Xiaojian.=
-Du@amd.com>>; Du, Xiaojian <Xiaojian.Du@amd.com<mailto:Xiaojian.Du@amd.com>=
->
-Subject: [PATCH] drm/amd/pm: make the error log more clear for fine grain t=
-uning function
-
-
-
-From: Xiaojian Du <xiaojian.du@amd.com<mailto:xiaojian.du@amd.com>>
-
-From: Xiaojian Du <Xiaojian.Du@amd.com<mailto:Xiaojian.Du@amd.com>>
-
-This patch is to make the error log more clear for fine grian tuning
-function, it covers Raven/Raven2/Picasso/Renoir/Vangogh.
-The fine grain tuning function uses the sysfs file -- pp_od_clk_voltage,
-but only when another sysfs file -- power_dpm_force_performance_level is
-switched to "manual" mode, it is allowd to access "pp_od_clk_voltage".
-
-Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com<mailto:Xiaojian.Du@amd.com>=
->
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c     | 3 ++-
- drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c      | 3 ++-
- 3 files changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers=
-/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-index 88322781e447..ed05a30d1139 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-@@ -1487,7 +1487,7 @@ static int smu10_set_fine_grain_clk_vol(struct pp_hwm=
-gr *hwmgr,
-         }
-
-         if (!smu10_data->fine_grain_enabled) {
--               pr_err("Fine grain not started\n");
-+               pr_err("pp_od_clk_voltage is not accessible if power_dpm_fo=
-rce_perfomance_level is not in manual mode!\n");
-
-[kevin]:
-
-for above codes, the old one looks better for me, i prefer to keep current =
-design.
-
-
-
-Best Regards,
-
-Kevin
-                 return -EINVAL;
-         }
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 6d3c556dbe6b..a847fa66797e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1452,7 +1452,8 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB
-         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-
-         if (!(smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) =
-{
--               dev_warn(smu->adev->dev, "Fine grain is not enabled!\n");
-+               dev_warn(smu->adev->dev,
-+                       "pp_od_clk_voltage is not accessible if power_dpm_f=
-orce_perfomance_level is not in manual mode!\n");
-                 return -EINVAL;
-         }
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index ab15570305f7..4ce8fb1d5ce9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -350,7 +350,8 @@ static int renoir_od_edit_dpm_table(struct smu_context =
-*smu,
-         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-
-         if (!(smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) =
-{
--               dev_warn(smu->adev->dev, "Fine grain is not enabled!\n");
-+               dev_warn(smu->adev->dev,
-+                       "pp_od_clk_voltage is not accessible if power_dpm_f=
-orce_perfomance_level is not in manual mode!\n");
-                 return -EINVAL;
-
-[Kevin]:
-
-Just tell the User what's going on, not why.
-
-and we'd better make a function to check manual mode , then embed it to eve=
-ry sysfs node in amdgpu_pm.c
-
-using a unify interface to return result to user.
-
-
-
-Best Regards,
-
-Kevin
-         }
-
---
-2.17.1
-
---_000_MN2PR12MB30225E137752C5FBF8B5D6CEA28E9MN2PR12MB3022namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-</div>
-<div>If it is not in manual mode, we should give the user a hint.</div>
-<div>if possible, we should move this check into amdgpu_pm.c , it is also c=
-an be used swsmu backend.</div>
-<div><br>
-</div>
-<div>the patch is&nbsp;</div>
-<div>Acked-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
-<div><br>
-</div>
-<div>Best Regards,<br>
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Huang, Ray &lt;Ray.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, February 9, 2021 12:10 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Du, Xiaojian &lt;=
-Xiaojian.Du@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.fr=
-eedesktop.org&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar=
-@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/pm: make the error log more clear for f=
-ine grain tuning function</font>
-<div>&nbsp;</div>
-</div>
-<div lang=3D"EN-US" style=3D"word-wrap:break-word">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:11pt; color:#0078D7=
-; margin:5pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-+ Alex</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Hi all,</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Recently, many users reported the issue to us that fine grain not enabled. =
-Actually, most of them are just caused by not switching to =93manual=94 mod=
-e.</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(smu_dpm_ctx-&gt;dpm_=
-level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &quot;Fine grain is not enabled!\=
-n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;pp_od_clk_=
-voltage is not accessible if power_dpm_force_perfomance_level is not in man=
-ual mode!\n&quot;);</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-We have to need reminder in the warning message to tell the user where they=
- are. </p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Any objection for this patch? I found Navi series actually didn=92t need th=
-is operation to update max/min clock levels. Would you clarify whether dGPU=
- still needs this before we move the prints into amdgpu_pm.c?</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-However, in APU fine grain design, patch looks good for me.</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Acked-by: Huang Rui &lt;<a href=3D"mailto:ray.huang@amd.com">ray.huang@amd.=
-com</a>&gt;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Thanks,</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Ray</p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt; <br>
-<b>Sent:</b> Wednesday, January 20, 2021 12:10 PM<br>
-<b>To:</b> Du, Xiaojian &lt;Xiaojian.Du@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org<br>
-<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; Quan, Evan &lt;Evan.Quan@a=
-md.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/pm: make the error log more clear for f=
-ine grain tuning function</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
--serif; color:#0078D7">[AMD Official Use Only - Internal Distribution Only]=
-</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in; font-size=
-: 11pt; font-family: Calibri, sans-serif;text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<b><span style=3D"color:black">From:</span></b><span style=3D"color:black">=
- Du, Xiaojian &lt;<a href=3D"mailto:Xiaojian.Du@amd.com">Xiaojian.Du@amd.co=
-m</a>&gt;<br>
-<b>Sent:</b> Wednesday, January 20, 2021 11:48 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@am=
-d.com</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan@amd.com">Evan.Qua=
-n@amd.com</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang@amd.=
-com">Kevin1.Wang@amd.com</a>&gt;; Lazar, Lijo &lt;<a href=3D"mailto:Lijo.La=
-zar@amd.com">Lijo.Lazar@amd.com</a>&gt;;
- Du, Xiaojian &lt;<a href=3D"mailto:Xiaojian.Du@amd.com">Xiaojian.Du@amd.co=
-m</a>&gt;; Du, Xiaojian &lt;<a href=3D"mailto:Xiaojian.Du@amd.com">Xiaojian=
-.Du@amd.com</a>&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: make the error log more clear for fine =
-grain tuning function</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-From: Xiaojian Du &lt;<a href=3D"mailto:xiaojian.du@amd.com">xiaojian.du@am=
-d.com</a>&gt;<br>
-<br>
-From: Xiaojian Du &lt;<a href=3D"mailto:Xiaojian.Du@amd.com">Xiaojian.Du@am=
-d.com</a>&gt;<br>
-<br>
-This patch is to make the error log more clear for fine grian tuning<br>
-function, it covers Raven/Raven2/Picasso/Renoir/Vangogh.<br>
-The fine grain tuning function uses the sysfs file -- pp_od_clk_voltage,<br=
->
-but only when another sysfs file -- power_dpm_force_performance_level is<br=
->
-switched to &quot;manual&quot; mode, it is allowd to access &quot;pp_od_clk=
-_voltage&quot;.<br>
-<br>
-Signed-off-by: Xiaojian Du &lt;<a href=3D"mailto:Xiaojian.Du@amd.com">Xiaoj=
-ian.Du@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c&nbsp;&nbsp;&nbsp;&nb=
-sp; | 3 ++-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; | 3 ++-<br>
-&nbsp;3 files changed, 5 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers=
-/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c<br>
-index 88322781e447..ed05a30d1139 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c<br>
-@@ -1487,7 +1487,7 @@ static int smu10_set_fine_grain_clk_vol(struct pp_hwm=
-gr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu10_data-&gt;fine_g=
-rain_enabled) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_err(&quot;Fine grain not started\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_err(&quot;pp_od_clk_voltage is not accessible if power_dpm_fo=
-rce_perfomance_level is not in manual mode!\n&quot;);</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-[kevin]:</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-for above codes, the old one looks better for me, i prefer to keep current =
-design.</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Best Regards,</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Kevin<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-index 6d3c556dbe6b..a847fa66797e 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
-@@ -1452,7 +1452,8 @@ static int vangogh_od_edit_dpm_table(struct smu_conte=
-xt *smu, enum PP_OD_DPM_TAB<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(smu_dpm_ctx-&gt;dpm_=
-level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &quot;Fine grain is not enabled!\=
-n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;pp_od_clk_=
-voltage is not accessible if power_dpm_force_perfomance_level is not in man=
-ual mode!\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-index ab15570305f7..4ce8fb1d5ce9 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-@@ -350,7 +350,8 @@ static int renoir_od_edit_dpm_table(struct smu_context =
-*smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(smu_dpm_ctx-&gt;dpm_=
-level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &quot;Fine grain is not enabled!\=
-n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;pp_od_clk_=
-voltage is not accessible if power_dpm_force_perfomance_level is not in man=
-ual mode!\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:#323130">=
-[Kevin]:</span></p>
-</div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; color:#323130">=
-Just tell the User what's going on, not why.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;text-align:justify">
-<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif">and we'd better=
- make a function to check manual mode , the<span style=3D"color:#323130">n =
-embed it t</span>o every sysfs node in amdgpu_pm.c</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;text-align:justify">
-using a unify interface to return result to user.</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;">
-Best Regards,</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in; font-size: 11pt; font-family=
-: Calibri, sans-serif;margin-bottom:12.0pt">
-Kevin<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.17.1</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB30225E137752C5FBF8B5D6CEA28E9MN2PR12MB3022namp_--
-
---===============1955140108==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1955140108==--
+CkFtIDA4LjAyLjIxIHVtIDIzOjE1IHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4KPiBPbiAy
+LzgvMjEgMTE6MjMgQU0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+IE9uIE1vbiwgRmViIDgsIDIw
+MjEgYXQgMzowMCBQTSBDaHJpc3RpYW4gS8O2bmlnIAo+PiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPiB3cm90ZToKPj4+IEFtIDA4LjAyLjIxIHVtIDExOjExIHNjaHJpZWIgRGFuaWVsIFZldHRl
+cjoKPj4+PiBPbiBNb24sIEZlYiAwOCwgMjAyMSBhdCAxMTowMzoxNUFNICswMTAwLCBDaHJpc3Rp
+YW4gS8O2bmlnIHdyb3RlOgo+Pj4+PiBBbSAwOC4wMi4yMSB1bSAxMDo0OCBzY2hyaWViIERhbmll
+bCBWZXR0ZXI6Cj4+Pj4+PiBPbiBNb24sIEZlYiAwOCwgMjAyMSBhdCAxMDozNzoxOUFNICswMTAw
+LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pj4+IEFtIDA3LjAyLjIxIHVtIDIyOjUwIHNj
+aHJpZWIgRGFuaWVsIFZldHRlcjoKPj4+Pj4+Pj4gW1NOSVBdCj4+Pj4+Pj4+PiBDbGFyaWZpY2F0
+aW9uIC0gYXMgZmFyIGFzIEkga25vdyB0aGVyZSBhcmUgbm8gcGFnZSBmYXVsdCAKPj4+Pj4+Pj4+
+IGhhbmRsZXJzIGZvciBrZXJuZWwKPj4+Pj4+Pj4+IG1hcHBpbmdzLiBBbmQgd2UgYXJlIHRhbGtp
+bmcgYWJvdXQga2VybmVsIG1hcHBpbmdzIGhlcmUsIHJpZ2h0IAo+Pj4+Pj4+Pj4gP8KgIElmIHRo
+ZXJlIHdlcmUKPj4+Pj4+Pj4+IEkgY291bGQgc29sdmUgYWxsIHRob3NlIGlzc3VlcyB0aGUgc2Ft
+ZSBhcyBJIGRvIGZvciB1c2VyIAo+Pj4+Pj4+Pj4gbWFwcGluZ3MsIGJ5Cj4+Pj4+Pj4+PiBpbnZh
+bGlkYXRpbmcgYWxsIGV4aXN0aW5nIG1hcHBpbmdzIGluIHRoZSBrZXJuZWwgKGJvdGgga21hcHMg
+Cj4+Pj4+Pj4+PiBhbmQgaW9yZWFtcHMpYW5kCj4+Pj4+Pj4+PiBpbnNlcnQgZHVtbXkgemVybyBv
+ciB+MCBmaWxsZWQgcGFnZSBpbnN0ZWFkLgo+Pj4+Pj4+Pj4gQWxzbywgSSBhc3N1bWUgZm9yY2Vm
+dWxseSByZW1hcHBpbmcgdGhlIElPIEJBUiB0byB+MCBmaWxsZWQgCj4+Pj4+Pj4+PiBwYWdlIHdv
+dWxkIGludm9sdmUKPj4+Pj4+Pj4+IGlvcmVtYXAgQVBJIGFuZCBpdCdzIG5vdCBzb21ldGhpbmcg
+dGhhdCBJIHRoaW5rIGNhbiBiZSBlYXNpbHkgCj4+Pj4+Pj4+PiBkb25lIGFjY29yZGluZyB0bwo+
+Pj4+Pj4+Pj4gYW0gYW5zd2VyIGkgZ290IHRvIGEgcmVsYXRlZCB0b3BpYyBhIGZldyB3ZWVrcyBh
+Z28KPj4+Pj4+Pj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5j
+b20vP3VybD1odHRwcyUzQSUyRiUyRnd3dy5zcGluaWNzLm5ldCUyRmxpc3RzJTJGbGludXgtcGNp
+JTJGbXNnMTAzMzk2Lmh0bWwmYW1wO2RhdGE9MDQlN0MwMSU3Q0FuZHJleS5Hcm9kem92c2t5JTQw
+YW1kLmNvbSU3QzlkMWJkZjRjZWU1MDRjZDcxYjQ5MDhkOGNjNGRmMzEwJTdDM2RkODk2MWZlNDg4
+NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzQ4Mzk4MjQ1NDYwODI0OSU3Q1Vua25v
+d24lN0NUV0ZwYkdac2IzZDhleUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pC
+VGlJNklrMWhhV3dpTENKWFZDSTZNbjAlM0QlN0MxMDAwJmFtcDtzZGF0YT1BbnclMkJPd0olMkI1
+dHZqVzN0bWtWTmR6MTMlMkJaMTh2ZHBmT0xXcXNVWkw3RDJJJTNEJmFtcDtyZXNlcnZlZD0wIAo+
+Pj4+Pj4+Pj4gKHRoYXQgd2FzIHRoZSBvbmx5IHJlcGx5Cj4+Pj4+Pj4+PiBpIGdvdCkKPj4+Pj4+
+Pj4gbW1pb3RyYWNlIGNhbiwgYnV0IG9ubHkgZm9yIGRlYnVnLCBhbmQgb25seSBvbiB4ODYgcGxh
+dGZvcm1zOgo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0
+aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZ3d3cua2VybmVsLm9yZyUyRmRvYyUy
+Rmh0bWwlMkZsYXRlc3QlMkZ0cmFjZSUyRm1taW90cmFjZS5odG1sJmFtcDtkYXRhPTA0JTdDMDEl
+N0NBbmRyZXkuR3JvZHpvdnNreSU0MGFtZC5jb20lN0M5ZDFiZGY0Y2VlNTA0Y2Q3MWI0OTA4ZDhj
+YzRkZjMxMCU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzc0
+ODM5ODI0NTQ2MDgyNDklN0NVbmtub3duJTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01E
+QWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZh
+bXA7c2RhdGE9V2E3QkZOeVNWUUpMeUQ2V1k0cFpIVFAxUWZlWndEN0Y1eWRCclh1eHBwUSUzRCZh
+bXA7cmVzZXJ2ZWQ9MCAKPj4+Pj4+Pj4KPj4+Pj4+Pj4KPj4+Pj4+Pj4gU2hvdWxkIGJlIGZlYXNp
+YmxlIChidXQgbWF5YmUgbm90IHdvcnRoIHRoZSBlZmZvcnQpIHRvIGV4dGVuZCAKPj4+Pj4+Pj4g
+dGhpcyB0bwo+Pj4+Pj4+PiBzdXBwb3J0IGZha2UgdW5wbHVnLgo+Pj4+Pj4+IE1obSwgaW50ZXJl
+c3RpbmcgaWRlYSB5b3UgZ3V5cyBicm91Z2h0IHVwIGhlcmUuCj4+Pj4+Pj4KPj4+Pj4+PiBXZSBk
+b24ndCBuZWVkIGEgcGFnZSBmYXVsdCBmb3IgdGhpcyB0byB3b3JrLCBhbGwgd2UgbmVlZCB0byBk
+byAKPj4+Pj4+PiBpcyB0byBpbnNlcnQKPj4+Pj4+PiBkdW1teSBQVEVzIGludG8gdGhlIGtlcm5l
+bHMgcGFnZSB0YWJsZSBhdCB0aGUgcGxhY2Ugd2hlcmUgCj4+Pj4+Pj4gcHJldmlvdXNseSB0aGUK
+Pj4+Pj4+PiBNTUlPIG1hcHBpbmcgaGFzIGJlZW4uCj4+Pj4+PiBTaW1wbHkgcHRlIHRyaWNrIGlz
+bid0IGVub3VnaCwgYmVjYXVzZSB3ZSBuZWVkOgo+Pj4+Pj4gLSBkcm9wIGFsbCB3cml0ZXMgc2ls
+ZW50bHkKPj4+Pj4+IC0gYWxsIHJlYWRzIHJldHVybiAweGZmCj4+Pj4+Pgo+Pj4+Pj4gcHRlcyBj
+YW4ndCBkbyB0aGF0IHRoZW1zZWx2ZXMsIHdlIG1pbmltYWxseSBuZWVkIHdyaXRlIHByb3RlY3Rp
+b24gCj4+Pj4+PiBhbmQgdGhlbgo+Pj4+Pj4gc2lsZW50bHkgcHJvY2VlZCBvbiBlYWNoIHdyaXRl
+IGZhdWx0IHdpdGhvdXQgcmVzdGFydGluZyB0aGUgCj4+Pj4+PiBpbnN0cnVjdGlvbi4KPj4+Pj4+
+IEJldHRlciB3b3VsZCBiZSB0byBvbmx5IGNhdGNoIHJlYWRzLCBidXQgeDg2IGRvZXNuJ3QgZG8g
+Cj4+Pj4+PiB3cml0ZS1vbmx5IHB0ZQo+Pj4+Pj4gcGVybWlzc2lvbnMgYWZhaWsuCj4+Pj4+IFlv
+dSBhcmUgbm90IHRoaW5raW5nIGZhciBlbm91Z2ggOikKPj4+Pj4KPj4+Pj4gVGhlIGR1bW15IFBU
+RSBpcyBwb2ludCB0byBhIGR1bW15IE1NSU8gcGFnZSB3aGljaCBpcyBqdXN0IG5ldmVyIHVzZWQu
+Cj4+Pj4+Cj4+Pj4+IFRoYXQgaGFzdCB0aGUgZXhhY3Qgc2FtZSBwcm9wZXJ0aWVzIHRoYW4gb3Vy
+IHJlbW92ZWQgTU1JTyBzcGFjZSAKPj4+Pj4ganVzdCBkb2Vzbid0Cj4+Pj4+IGdvZXMgYmFuYW5h
+cyB3aGVuIGEgbmV3IGRldmljZSBpcyBNTUlPIG1hcHBlZCBpbnRvIHRoYXQgYW5kIG91ciAKPj4+
+Pj4gZHJpdmVyIHN0aWxsCj4+Pj4+IHRyaWVzIHRvIHdyaXRlIHRoZXJlLgo+Pj4+IEhtLCBidXQg
+d2hlcmUgZG8gd2UgZ2V0IHN1Y2ggYSAiZ3VhcmFudGVlZCBuZXZlciB1c2VkIiBtbWlvIHBhZ2Ug
+ZnJvbT8KPj4+IFdlbGwgd2UgaGF2ZSB0b25zIG9mIHVudXNlZCBJTyBzcGFjZSBvbiA2NGJpdCBz
+eXN0ZW1zIHRoZXNlIGRheXMuCj4+Pgo+Pj4gRG9lc24ndCByZWFsbHkgbmVlZHMgdG8gYmUgUENJ
+ZSBhZGRyZXNzIHNwYWNlLCBkb2Vzbid0IGl0Pwo+PiBUaGF0IHNvdW5kcyB2ZXJ5IHRydXN0aW5n
+IHRvIG1vZGVybiBzeXN0ZW1zIG5vdCBkZWNvZGluZyByYW5kb20KPj4gcmFuZ2VzLiBFLmcuIHRo
+ZSBwY2kgY29kZSBzdG9wcGVkIGV4dGVuZGluZyB0aGUgaG9zdCBicmlkZ2Ugd2luZG93cyBvbgo+
+PiBpdHMgb3duLCBlbnRpcmVseSByZWx5aW5nIG9uIHRoZSBhY3BpIHByb3ZpZGVkIHJhbmdlcywg
+dG8gYXZvaWQKPj4gc3RvbXBpbmcgb24gc3R1ZmYgdGhhdCdzIHRoZSBidXQgbm90IGxpc3RlZCBh
+bnl3aGVyZS4KPj4KPj4gSSBndWVzcyBpZiB3ZSBoYXZlIGEgcmFuZ2UgYmVoaW5kIGEgcGNpIGJy
+aWRnZSwgd2hpY2ggaXNuJ3QgdXNlZCBieQo+PiBhbnkgZGV2aWNlLCBidXQgZGVjb2RlZCBieSB0
+aGUgYnJpZGdlLCB0aGVuIHRoYXQgc2hvdWxkIGJlIHNhZmUKPj4gZW5vdWdoLiBNYXliZSBjb3Vs
+ZCBldmVuIGhhdmUgYW4gb3B0aW9uIGluIHVwc3RyZWFtIHRvIGRvIHRoYXQgb24KPj4gdW5wbHVn
+LCBpZiBhIGNlcnRhaW4gZmxhZyBpcyBzZXQsIG9yIGEgY21kbGluZSBvcHRpb24uCj4+IC1EYW5p
+ZWwKPgo+Cj4gUXVlc3Rpb24gLSBXaHkgY2FuJ3Qgd2UganVzdCBzZXQgdGhvc2UgUFRFcyB0byBw
+b2ludCB0byBzeXN0ZW0gbWVtb3J5IAo+IChhbm90aGVyIFJPIGR1bW15IHBhZ2UpCj4gZmlsbGVk
+IHdpdGggMXMgPwoKClRoZW4gd3JpdGVzIGFyZSBub3QgZGlzY2FyZGVkLiBFLmcuIHRoZSAxcyB3
+b3VsZCBjaGFuZ2UgdG8gc29tZXRoaW5nIGVsc2UuCgpDaHJpc3RpYW4uCgoKPgo+IEFuZHJleQo+
+Cj4KPj4KPj4+IENocmlzdGlhbi4KPj4+Cj4+Pj4gSXQncyBhIG5pZnR5IGlkZWEgaW5kZWVkIG90
+aGVyd2lzZSAuLi4KPj4+PiAtRGFuaWVsCj4+Pj4KPj4+Pj4gUmVnYXJkcywKPj4+Pj4gQ2hyaXN0
+aWFuLgo+Pj4+Pgo+Pj4+Pgo+Pj4+Pj4+Pj4+IEJ1dCB1Z2ggLi4uCj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+PiBPdG9oIHZhbGlkYXRpbmcgYW4gZW50aXJlIGRyaXZlciBsaWtlIGFtZGdwdSB3aXRob3V0
+IHN1Y2ggYSAKPj4+Pj4+Pj4+PiB0cmljawo+Pj4+Pj4+Pj4+IGFnYWluc3QgMHhmZiByZWFkcyBp
+cyBwcmFjdGljYWxseSBpbXBvc3NpYmxlLiBTbyBtYXliZSB5b3UgCj4+Pj4+Pj4+Pj4gbmVlZCB0
+byBhZGQKPj4+Pj4+Pj4+PiB0aGlzIGFzIG9uZSBvZiB0aGUgdGFza3MgaGVyZT8KPj4+Pj4+Pj4+
+IE9yIEkgY291bGQganVzdCBmb3IgdmFsaWRhdGlvbiBwdXJwb3NlcyByZXR1cm4gfjAgZnJvbSBh
+bGwgcmVnIAo+Pj4+Pj4+Pj4gcmVhZHMgaW4gdGhlIGNvZGUKPj4+Pj4+Pj4+IGFuZCBpZ25vcmUg
+d3JpdGVzIGlmIGRybV9kZXZfdW5wbHVnZ2VkLCB0aGlzIGNvdWxkIGFscmVhZHkgCj4+Pj4+Pj4+
+PiBlYXNpbHkgdmFsaWRhdGUgYSBiaWcKPj4+Pj4+Pj4+IHBvcnRpb24gb2YgdGhlIGNvZGUgZmxv
+dyB1bmRlciBzdWNoIHNjZW5hcmlvLgo+Pj4+Pj4+PiBIbSB5ZWFoIGlmIHlvdXIgcmVhbGx5IHdy
+YXAgdGhlbSBhbGwsIHRoYXQgc2hvdWxkIHdvcmsgdG9vLiBTaW5jZQo+Pj4+Pj4+PiBpb21tYXBw
+aW5ncyBoYXZlIF9faW9tZW0gcG9pbnRlciB0eXBlLCBhcyBsb25nIGFzIGFtZGdwdSBpcyBzcGFy
+c2UKPj4+Pj4+Pj4gd2FybmluZyBmcmVlLCBzaG91bGQgYmUgZG9hYmxlIHRvIGd1YXJhbnRlZSB0
+aGlzLgo+Pj4+Pj4+IFByb2JsZW0gaXMgdGhhdCB+MCBpcyBub3QgYWx3YXlzIGEgdmFsaWQgcmVn
+aXN0ZXIgdmFsdWUuCj4+Pj4+Pj4KPj4+Pj4+PiBZb3Ugd291bGQgbmVlZCB0byBhdWRpdCBldmVy
+eSByZWdpc3RlciByZWFkIHRoYXQgaXQgZG9lc24ndCB1c2UgCj4+Pj4+Pj4gdGhlIHJldHVybmVk
+Cj4+Pj4+Pj4gdmFsdWUgYmxpbmRseSBhcyBpbmRleCBvciBzaW1pbGFyLiBUaGF0IGlzIHF1aXRl
+IGEgYml0IG9mIHdvcmsuCj4+Pj4+PiBZZWFoIHRoYXQncyB0aGUgZW50aXJlIGNydXggaGVyZSA6
+LS8KPj4+Pj4+IC1EYW5pZWwKPj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
