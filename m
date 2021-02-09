@@ -2,55 +2,51 @@ Return-Path: <SRS0=u850=HL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C31DDC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84020C433E9
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69BD864EB8
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69BD864EB8
+	by mail.kernel.org (Postfix) with ESMTPS id 43FFD64EB8
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Feb 2021 15:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43FFD64EB8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linutronix.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD5289D81;
-	Tue,  9 Feb 2021 15:22:10 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E91C6EB11;
- Tue,  9 Feb 2021 12:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 065D589CD8;
+	Tue,  9 Feb 2021 15:22:12 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de
+ [IPv6:2a0a:51c0:0:12e:550::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B29FA6EB09;
+ Tue,  9 Feb 2021 12:44:45 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020; t=1612874684;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CnAZWyHsMvRuVoQBbABX1cuaet1SaUalvFLRT0zo2Jk=;
- b=J5PpBYwt/RcstbyYuLpanmGj0CNldqmdXpMZYgEw1pksp8dQ0qe9en9G+ZHoXfgrZqfm+8
- 9iyJHbUOoNwO0Q0x4icQ9X6urJEzwutjRfmQhRcu59t1+Z51XP/9/s5QUBYeUymutfmKYA
- bVEciEHyd8PwajaExxYLkiNvOS5ugKQBJnnLOWVYy48fbvWSLd6yhhexXZHuvEErqi1bRV
- FW/EhNBzjGQwiRzajil5ouDlnzppLIMWskeNjgfMpJi5VUQRSJQq0UUjVKuWREdJTzaBrF
- Idz0l8o8XeTRKZQsPbJanyiGtV9nKbaNjr40sTqzbugR3a2GML8QbLt25P+EEA==
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=5ZcLme2Lp8VoN6Vx25D29o/w3vPmzWDf5AKB/+kO9ME=;
+ b=sOsmuNnfJ121YNbp7s4fCzyJxQs/SocqUD9Q9ZhIZquBrSM7jcKcITzQlpdcmkEH1MmJ5M
+ z6QT756YG8guhW0HF7VIe5v+8AapjDG1ozzB7vlZZ3pjbyjZg2k8+VtR/GWMCAiOduDc1s
+ bEl8dKloP9bbv2NB97tWCBV4AtryYIJmCuP+LbfkA1sVB9l79zHHdrU+HFhtxftZ4k3Q56
+ 5eQA2zpe5EOPh0zkj4qPAw6M3mO09D2D5FMqAlhpfjAk9/9ku0fy7BYc4S52zlaS6F/5rx
+ isn6r2WjwMZ4AJnMK5VggugDVhAAyAHx7HISlbGpZK0H7xnHzIyaN3eTldPX3Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
  s=2020e; t=1612874684;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CnAZWyHsMvRuVoQBbABX1cuaet1SaUalvFLRT0zo2Jk=;
- b=YzI1/qQ0aD1nYQJdqEtzhkyVqLSTh2HPyOc76EzDNDkmJZFZkUcHruVLd3c6hp4iyF25U+
- eLZmgMYxfHzAXhBA==
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=5ZcLme2Lp8VoN6Vx25D29o/w3vPmzWDf5AKB/+kO9ME=;
+ b=ltIbD7hM3Nvgs6Dmo1UOUfeDKhYS7R6Pm3//sl9+yJpXUmYf2IQNz4aAY5NOsL4CSz3skC
+ iPrEhuyc7hZdrdDQ==
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: Replace in_task() in gfx_v8_0_parse_sq_irq()
-Date: Tue,  9 Feb 2021 13:44:39 +0100
-Message-Id: <20210209124439.408140-4-bigeasy@linutronix.de>
-In-Reply-To: <20210209124439.408140-1-bigeasy@linutronix.de>
-References: <20210209124439.408140-1-bigeasy@linutronix.de>
+Subject: [PATCH v2 0/3] drm/amdgpu: Remove in_interrupt() usage.
+Date: Tue,  9 Feb 2021 13:44:36 +0100
+Message-Id: <20210209124439.408140-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 09 Feb 2021 15:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,81 +60,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gfx_v8_0_parse_sq_irq() is using in_task() to distinguish if it is
-invoked from a workqueue worker or directly from the interrupt handler.
-
-The usage of in_interrupt() in drivers is phased out and Linus clearly
-requested that code which changes behaviour depending on context should
-either be separated or the context be conveyed in an argument passed by the
-caller, which usually knows the context.
-
-gfx_v8_0_parse_sq_irq() is invoked directly either from a worker or from
-the interrupt service routine. The worker is only bypassed if the worker
-is already busy.
-
-Add an argument `from_wq' to gfx_v8_0_parse_sq_irq() which is true if
-invoked from the worker.
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 37639214cbbbd..f346afce82ea0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -6719,7 +6719,8 @@ static int gfx_v8_0_cp_ecc_error_irq(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static void gfx_v8_0_parse_sq_irq(struct amdgpu_device *adev, unsigned ih_data)
-+static void gfx_v8_0_parse_sq_irq(struct amdgpu_device *adev, unsigned ih_data,
-+				  bool from_wq)
- {
- 	u32 enc, se_id, sh_id, cu_id;
- 	char type[20];
-@@ -6757,7 +6758,7 @@ static void gfx_v8_0_parse_sq_irq(struct amdgpu_device *adev, unsigned ih_data)
- 			 * or from BH in which case we can access SQ_EDC_INFO
- 			 * instance
- 			 */
--			if (in_task()) {
-+			if (from_wq) {
- 				mutex_lock(&adev->grbm_idx_mutex);
- 				gfx_v8_0_select_se_sh(adev, se_id, sh_id, cu_id);
- 
-@@ -6795,7 +6796,7 @@ static void gfx_v8_0_sq_irq_work_func(struct work_struct *work)
- 	struct amdgpu_device *adev = container_of(work, struct amdgpu_device, gfx.sq_work.work);
- 	struct sq_work *sq_work = container_of(work, struct sq_work, work);
- 
--	gfx_v8_0_parse_sq_irq(adev, sq_work->ih_data);
-+	gfx_v8_0_parse_sq_irq(adev, sq_work->ih_data, true);
- }
- 
- static int gfx_v8_0_sq_irq(struct amdgpu_device *adev,
-@@ -6810,7 +6811,7 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device *adev,
- 	 * just print whatever info is possible directly from the ISR.
- 	 */
- 	if (work_pending(&adev->gfx.sq_work.work)) {
--		gfx_v8_0_parse_sq_irq(adev, ih_data);
-+		gfx_v8_0_parse_sq_irq(adev, ih_data, false);
- 	} else {
- 		adev->gfx.sq_work.ih_data = ih_data;
- 		schedule_work(&adev->gfx.sq_work.work);
--- 
-2.30.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rm9sa3MsCgppbiB0aGUgZGlzY3Vzc2lvbiBhYm91dCBwcmVlbXB0IGNvdW50IGNvbnNpc3RlbmN5
+IGFjcm9zcyBrZXJuZWwKY29uZmlndXJhdGlvbnM6CgogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
+ci8yMDIwMDkxNDIwNDIwOS4yNTYyNjYwOTNAbGludXRyb25peC5kZS8KCml0IHdhcyBjb25jbHVk
+ZWQgdGhhdCB0aGUgdXNhZ2Ugb2YgaW5faW50ZXJydXB0KCkgYW5kIHJlbGF0ZWQgY29udGV4dApj
+aGVja3Mgc2hvdWxkIGJlIHJlbW92ZWQgZnJvbSBub24tY29yZSBjb2RlLgoKSW4gdGhlIGxvbmcg
+cnVuLCB1c2FnZSBvZiAncHJlZW1wdGlibGUsIGluXyppcnEgZXRjLicgc2hvdWxkIGJlIGJhbm5l
+ZCBmcm9tCmRyaXZlciBjb2RlIGNvbXBsZXRlbHkuCgpUaGlzIHNlcmllcyBhZGRyZXNzZXMgcGFy
+dHMgb2YgdGhlIGFtZGdwdSBkcml2ZXIuICBUaGVyZSBhcmUgc3RpbGwgY2FsbCBzaXRlcwpsZWZ0
+IGluIGluIHRoZSBhbWRncHUgZHJpdmVyLgoKdjHigKZ2MjoKICAgLSBMaW1pdCB0byBhZG1ncHUg
+b25seQogICAtIHVzZSAiYm9vbCIgaW5zdGVhZCBvZiAiYm9vbCA9PSB0cnVlIgoKU2ViYXN0aWFu
+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
