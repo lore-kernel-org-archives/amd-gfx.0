@@ -2,68 +2,44 @@ Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFCC6C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:24:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA521C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C89964DC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:24:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C89964DC3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 836B264E7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:24:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 836B264E7C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D99C6E328;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 689326E364;
 	Wed, 10 Feb 2021 14:24:38 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2D4B6E05C
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 13:48:45 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id g84so2065574oib.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 05:48:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=2QFXyBDxvFiVCA1VEEfR64iOGKZVu759kYcPbTKWOLQ=;
- b=ne5qQ6ANRPizw7WgLnae3b3D1twGdTv0y6Qs5I3HOXEj/aiiJo3p390fKwpBFDZF++
- 1dNWfTQKxAnN3d8VqHvNIJdiiGuNpat4PDkAbJEN5eKJfKVSVcKcPQ3TkwN8PIrjGh0E
- kc5h6l4sFQXDDwZ1wNbMiwTpEz+FuXCRfBja5D650B7ltQe/VT+6E2SGBw1JUwvlW3Gv
- JJtYWCAmsy9jEsifiZuugO+Xkho0/+K9k7hf+3K678zIs09hiZXh70I+JdFM30+7d7p7
- 716XYVtVQrgh8rnnextPycM8o3lv7QpIwEKCavC2DXwE1KTRQ5kBmPf1szurEMRJiMTZ
- RMNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=2QFXyBDxvFiVCA1VEEfR64iOGKZVu759kYcPbTKWOLQ=;
- b=qOfok9URImAHIcTJxcfuoLJK3hRB/3cZeHDlJEImdmvgRZEID9XKf6L3GdYnq4/U5h
- RupwhQbJBgKUl8mD3NkXdSrcx4vH5xw8ZuTImXLo5bvCFe4fPEx3Z99UzD8fgE5HteS3
- ephQUuHkImox+0rXs76WRdmi65ZEq+0fOlIMbM8eg8QbDmUOgnl81rVMRKBcU1z/AG7d
- mQ1tu3rrspShoJvcCydLroGTjEd0so4sGAi5EWbTuNLo6LN7AoK+7tRk9+mHnfZ96mOd
- +/X1+5p36wetCseLDFcNLHVLTqC76jMFL7pvyWlHTmvNZWVf5O5OTOFODUDIUX4408MS
- 1QKQ==
-X-Gm-Message-State: AOAM530LieCQjHK0VsIuIACPT3nlfaYJPYogCIuU5JCzBZjVjmDDjwAf
- CXq6eQiINAOnN/4ZVvOSydYuY01bnnlEs9wAuiQ=
-X-Google-Smtp-Source: ABdhPJwUFMIq43j6+xe76YzpJ17DLVatBgMSzxfK7VODwDTUuEbcdcwFESe9vYW63Cp7gvLIuKKp6+bnwf76fVuo3Cg=
-X-Received: by 2002:a54:480f:: with SMTP id j15mr2148525oij.50.1612964924887; 
- Wed, 10 Feb 2021 05:48:44 -0800 (PST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFD86E226;
+ Wed, 10 Feb 2021 12:03:33 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1l9oDS-00006y-P1; Wed, 10 Feb 2021 12:03:30 +0000
+From: Colin King <colin.king@canonical.com>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH][next] drm/amd/pm: fix spelling mistake in various messages
+ "power_dpm_force_perfomance_level"
+Date: Wed, 10 Feb 2021 12:03:30 +0000
+Message-Id: <20210210120330.54066-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Received: by 2002:a05:6830:1c7d:0:0:0:0 with HTTP; Wed, 10 Feb 2021 05:48:44
- -0800 (PST)
-In-Reply-To: <CADnq5_NF=Q3V0FJNC5ev3XKoewm8bekSDEycXCwKTf6KX+xopg@mail.gmail.com>
-References: <20210129212752.38865-6-Anson.Jacob@amd.com>
- <20210210025742.7855-1-youling257@gmail.com>
- <CADnq5_NF=Q3V0FJNC5ev3XKoewm8bekSDEycXCwKTf6KX+xopg@mail.gmail.com>
-From: youling 257 <youling257@gmail.com>
-Date: Wed, 10 Feb 2021 21:48:44 +0800
-Message-ID: <CAOzgRdZVKNT6VPD75P9Yjvo0_7SC6M8qGaKY21pnFoNAazCAQg@mail.gmail.com>
-Subject: Re: [PATCH 05/27] drm/amd/display: reuse current context instead of
- recreating one
-To: Alex Deucher <alexdeucher@gmail.com>
 X-Mailman-Approved-At: Wed, 10 Feb 2021 14:24:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,39 +52,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk Brol <Eryk.Brol@amd.com>, Anson Jacob <Anson.Jacob@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
- Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, Bindu Ramamurthy <bindu.r@amd.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-test drm-next branch, can reproduce this problem.
+From: Colin Ian King <colin.king@canonical.com>
 
-2021-02-10 12:43 GMT+08:00, Alex Deucher <alexdeucher@gmail.com>:
-> On Tue, Feb 9, 2021 at 11:02 PM youling257 <youling257@gmail.com> wrote:
->>
->> From: youling 257 <youling257@gmail.com>
->>
->> This patch cause replug hdmi blackscreen,
->> https://bugzilla.kernel.org/show_bug.cgi?id=211649
->
-> Can you test with my drm-next branch:
-> https://gitlab.freedesktop.org/agd5f/linux/-/commits/drm-next
-> Are you able to repro the issue there?  I wonder if there is some
-> additional commit missing from 5.11 that causes the issue compared to
-> -next.
->
-> Thanks,
->
-> Alex
->
+There are spelling mistakes in error and warning messages, the text
+power_dpm_force_perfomance_level is missing a letter r and should be
+power_dpm_force_performance_level.  Fix them.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c     | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index ed05a30d1139..d1358a6dd2c8 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1487,7 +1487,7 @@ static int smu10_set_fine_grain_clk_vol(struct pp_hwmgr *hwmgr,
+ 	}
+ 
+ 	if (!smu10_data->fine_grain_enabled) {
+-		pr_err("pp_od_clk_voltage is not accessible if power_dpm_force_perfomance_level is not in manual mode!\n");
++		pr_err("pp_od_clk_voltage is not accessible if power_dpm_force_performance_level is not in manual mode!\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 093b01159408..8abb25a28117 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -1462,7 +1462,7 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
+ 
+ 	if (!(smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL)) {
+ 		dev_warn(smu->adev->dev,
+-			"pp_od_clk_voltage is not accessible if power_dpm_force_perfomance_level is not in manual mode!\n");
++			"pp_od_clk_voltage is not accessible if power_dpm_force_performance_level is not in manual mode!\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 5faa509f0dba..b59156dfca19 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -351,7 +351,7 @@ static int renoir_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 	if (!(smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL)) {
+ 		dev_warn(smu->adev->dev,
+-			"pp_od_clk_voltage is not accessible if power_dpm_force_perfomance_level is not in manual mode!\n");
++			"pp_od_clk_voltage is not accessible if power_dpm_force_performance_level is not in manual mode!\n");
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.30.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
