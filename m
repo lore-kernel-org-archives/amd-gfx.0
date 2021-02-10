@@ -2,129 +2,116 @@ Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2732BC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F28D6C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 16:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D75C664E42
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 14:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D75C664E42
+	by mail.kernel.org (Postfix) with ESMTPS id B425264E08
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 16:06:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B425264E08
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F74C6EC8D;
-	Wed, 10 Feb 2021 14:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7486EC9A;
+	Wed, 10 Feb 2021 16:06:18 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28F3F6EC8D
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 14:32:50 +0000 (UTC)
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E1156EC9A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 16:06:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IgXgtTsKg+uG3TNMmzJPq1YyzfVKrCVlslBdkrxBp4zgmCysu/A0ts9kXpiW+1OwengmDHjk/sUV8OISOaJ53b/b4w4ollAZ5wjVjikmtkjWmtCG+SRW0ixFpqtbMfvSJ7xmX8DIoCVyAcy6+cIIfRjNs4eQDE2moqMV0bpzgVFAJqqUFwLRMVVukEXHN5BT7a/zoVrYZJJii71cWnBtCkSmvhW4gksbgyCZ0LEVt9PUnL+8HQOCSJ3ziRKj/m/vRpyF7KyfH02tGUqrpKaAJgqI0Xcd6CVOkIvufog7lQzVwzsIN924Ycioh+CRqHnoVGRcdoKd7WGKYj9kI938cg==
+ b=WLuQEW8Ghqu8yUHkwVMSPGeBT5p2evKqzxd0uiheP7T1qxBJAziYR4nKshowlvTFOz3svgRF1bb58Mjn9kci6wUpKBIv6vW/Hh2C94HfOAhT7/KzuCpBXbNJUQPLoqJ+bi4OtobjQEKnCcH8OxpWjydk6PuCLgD0VN8uUT/DXXLedDdp4aXCmtBzLyWEB2i7ZSMZCreFazeMv6nfZBEdwdSp58JtkUZWSCAEbFV4tAGoUbPCDbqJSUP8R4mhcPEkvL4VdU7iXrH6edmq59VYZyKVvLMS4C1YV+oyJfuEOp7bmwixWxuOm6aMNsttaxS49lIxoB3B1MdwnJew5T9BMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=saBvgxi9miu3aOj4vJuQFYXDMxGbHnpaxfk9j36HAec=;
- b=bx3LXPGG9vnukccealQrZ+aaVcairExdj0f/RoJtq2XNvIZQjfwrvmQlf2mfSU9VJYleFpXdRhl5nLbbWcDeCQA+BRwHLqx9pzotrq+VSn/FXgtKmtSE859ERzHEzLj/d2akorVnACJcjNotQGXaUIqx/JdCJAGV4iLoYLOk7Pi7tH0l5NpfiqzWdoXYsetc9ZKjcEjIGk19L7ByiuEDhirDbAC2K6RWTItXw67QMGrDKys3lur/RJwBppScviS+HGvoUyw5VOwDSGUx9bH8xr9viT9TTgoLiE7C7ZCkRZE1sWhchFCAAhuAYfITTG9QFyYF8E88iKGicaQz63CGLA==
+ bh=gh2tt/6t+1Ocb/0Tc6bIiVEBwydYbmmsqUkOiIyIV5c=;
+ b=FXfxSFH1v+YkYo6UGet7m+i3TTldGuZV27Ez1ZuIXSQvbm1jfsfzJKr20la7f3CS2puBdD+hEnLoOA1V+TuqjKEoEoLOnKV4hBgchSIBdZ2QHDBNwex5Vg8RCQwlblhBFH5EB6E34dCjzWEHfFl5CpWCqTd+LzQeC72XJBovR7Y2gvTGbrRGo7rs5CtOACfRbCSlg18LAZMupcjW6LZm5DU2kL47nFJQ/iyp31CpKqNrhufu/3iiOsV2eUegnsyE8bZRAnpEEq9mUl+odhHXguTrXCsRSN3vo2eo3YfVr5lcrypDkN7FgVxAfQ6Eqvb6JzhBhHTl4faxe+fC86PqVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=saBvgxi9miu3aOj4vJuQFYXDMxGbHnpaxfk9j36HAec=;
- b=2P+QLjmCNrq5dT9bekRlvON2Syi8lWqlbN+rMzIY4cPfk8QbUJO/6QsDJIysOXY5R8/gU38XWp0IO4hJroO2BURgSoUAuWgBcrsZ3/ZP6h/gs33iI570KicBFYLOFdSzGSqfQn8KQwUR0zxShQ4n+BTIkvwEdJR6RIUhPfcHU9E=
+ bh=gh2tt/6t+1Ocb/0Tc6bIiVEBwydYbmmsqUkOiIyIV5c=;
+ b=uS8X+M6DRsul+byGylRdc5RWZ/5CiAvJyVYdGz1OvVAiF3qE8VygROhirlI4X3nWiFTIM0RsGPpGpUcQsFNomTEzLgmDUGmx5846tx9bkHP6ZL9ZkfpuiQsjzHtIrDyIb3l9Sd+U+MyxseUJ9AmCUKKHCVfITzlSc4dad5iWgsw=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.20; Wed, 10 Feb
- 2021 14:32:48 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::f073:f3ea:6ce8:1956]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::f073:f3ea:6ce8:1956%4]) with mapi id 15.20.3825.030; Wed, 10 Feb 2021
- 14:32:47 +0000
-Subject: Re: [PATCH] Revert "drm/amd/display: reuse current context instead of
- recreating one"
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20210210142537.1629905-1-alexander.deucher@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <2553a272-ae78-34bf-de8c-30aa7803a755@amd.com>
-Date: Wed, 10 Feb 2021 09:32:42 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <20210210142537.1629905-1-alexander.deucher@amd.com>
-Content-Language: en-US
-X-Originating-IP: [198.84.165.113]
-X-ClientProxiedBy: YQXPR01CA0111.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:41::40) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
+ by DM6PR12MB4138.namprd12.prod.outlook.com (2603:10b6:5:220::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.27; Wed, 10 Feb
+ 2021 16:06:15 +0000
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::452c:77af:fea7:a633]) by DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::452c:77af:fea7:a633%6]) with mapi id 15.20.3846.027; Wed, 10 Feb 2021
+ 16:06:15 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: Christian.Koenig@amd.com
+Subject: [PATCH 1/2] drm/amdgpu: do not keep debugfs dentry
+Date: Wed, 10 Feb 2021 17:06:01 +0100
+Message-Id: <20210210160602.15903-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.30.0
+X-Originating-IP: [217.86.120.56]
+X-ClientProxiedBy: AM0PR04CA0060.eurprd04.prod.outlook.com
+ (2603:10a6:208:1::37) To DM6PR12MB3916.namprd12.prod.outlook.com
+ (2603:10b6:5:1ca::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.180] (198.84.165.113) by
- YQXPR01CA0111.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:41::40) with Microsoft
+Received: from brihaspati.fritz.box (217.86.120.56) by
+ AM0PR04CA0060.eurprd04.prod.outlook.com (2603:10a6:208:1::37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.19 via Frontend Transport; Wed, 10 Feb 2021 14:32:46 +0000
+ 15.20.3846.27 via Frontend Transport; Wed, 10 Feb 2021 16:06:14 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cdac5b3f-9f95-4d28-2f74-08d8cdd0bc86
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4292:
+X-MS-Office365-Filtering-Correlation-Id: 1edf370b-d5af-4173-11e5-08d8cdddcb1b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4138:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4292637DA2BE2F51FACCC61BEC8D9@BY5PR12MB4292.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4138BE190CA4E28D135FD3B88B8D9@DM6PR12MB4138.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 77hHTz6vgBMDVhX3omW5GQ0M35DfATVZyt6No7FIGA7MaJ0muLXIq4/QENb2Z3G4lH+xHduBgjZD7PbNofAP0H8TRKOjaKMuXzM/Y8UrdEMScF+b9uP3RGZapBBfZvp9XLnAqvQIwDF8aikuBbGAh+OCu/yPrLk9bwZf4Pay68EK3LE9lX4OoPkxJG3Uqlb8Jng0hoGnruj9K1VSA0XhfrX1f0bjoY3gLDevczZ6qiLiU0KIFyAquvNGBEmT5ZnyLMy21TDxHp0vbAZ+4CeB6e1rppe7Drfiy10Hx071WLVq4+JTFv/vJ3SJL9ITzX4hZgBX3K6Nxf29p/ylKLBBSfLI1IYBT0MfImDEwcL0i3dSkNwCYeenubXf08bjCp1ISZNGV/h7Q8MvN0DYVlE9D8emNxdOaFPjXe+JK/R0WuuaDsq0I9OWrkQEfyNd/vH2Aha2Fu4xmfC+T2XYiMxGLrWVifNiTSWmVAErdf7obiXT8JWo0+442/iXXhVUoR+hpq29NNIsauFdc2Nd67eNvNHtRBuzjIAUWTMV1j+b3AGYkcIGzpvicvDvKkcFitv2Ix+veX7hZO89E+7vzWUo+88usrz7KJDQQlsrTvLd/tov2o5H8yXWAcXXVXDitLyWICElZgd4aG9reXz6mqRO6fnMd7uoqFMForXJymDo8WHv+5P1Px5n4r9SQKKm4VQR
+X-Microsoft-Antispam-Message-Info: NSsyvPX6I2p6YMVRYxu1Hc2sudLt/5xHVptION4+YhxPwTGyX0v9IBRLAadPOXMJEkh4feURSfCkOoGMDQxahR4SagrqqGhvqgafbUpfTEyykIsgpSaXOfw5Q6EMoGcrPJ/P9buX6jT/e4hb6bUBE4SAubTWs6bm9SAKmwTcU4RpYbr7Wv8Vz/BEQA5LKcs5ghhSpiYXHcuTCXDeFIL4CdH/ZaOBSe4b6BWn9a9ShIwntN1+L4wvx4PwdUQyn9IaAfqhIR9ZJYCbzpK/V9nxhzKcxGf5oVkw8akfD5HdwErthDbNk+skR4+8kLJaMnjrao6G8uq3q2gR7ZxL4rBjVtkeXTSAHnA26UWm9eORjI5cA7nMscPgy4s/EZwqFsF4767pU32chgNYr/EbAb9fVX5KM8jKjA4P2XhwvkANqYTlC+9AgX3g9fUr7zfnjEckPRr+Oy7bhIw59EE5aDw+V0P2Qgjru6KlMO/Yld/cmtphMQvTlcatOxFHMhPsVgsePLaIdXdEVkyWSI2NM7krZA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(376002)(136003)(396003)(346002)(66556008)(66476007)(316002)(8676002)(4326008)(36756003)(8936002)(186003)(53546011)(83380400001)(66946007)(956004)(478600001)(86362001)(2906002)(52116002)(966005)(31686004)(2616005)(16576012)(5660300002)(26005)(31696002)(6666004)(6486002)(16526019)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(136003)(346002)(366004)(26005)(83380400001)(6506007)(34206002)(16526019)(186003)(316002)(4326008)(5660300002)(6486002)(36756003)(478600001)(6636002)(66556008)(66476007)(66946007)(6666004)(8936002)(52116002)(6512007)(2906002)(86362001)(44832011)(8676002)(37006003)(1076003)(2616005)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?T0Zkb0NUQStuOEx5K3ozSCtWaWFKK3c5MFBFdFAzQmRUWGFWNytBMkN4RVdX?=
- =?utf-8?B?M21idXVndDlHL3V1ZngzblorUURKMWFidERkeE0xOVVhUlUrU1Z4TjMrRGdw?=
- =?utf-8?B?M3h1Znp3cmVrNWlFR2U1cUsrT2FtWWJxM3VtKzZlb2d2L0VLWjhmTloxaEM2?=
- =?utf-8?B?Sng1bE5tZFdjQkpueXVEcDU4bTdGM2F4ejJ6LzhXNWtSWnVwc3M2VUdjWis3?=
- =?utf-8?B?Umk5eHh3bUFLVVREVlMzeWExRHRJUFQ5dXRkelo3T1I2Vm9ubkFwUkdic0xm?=
- =?utf-8?B?UGQwS2VIVGM1M0liVzVYeENOOXhvazNCSmoraVUrQjZnc25kMitqUVh1a0hY?=
- =?utf-8?B?OWxTK09KdnNiYVFKWjBMWllzTVNGTTVzb3l0V0FHaXFxQ1creWhYNUJlcUpp?=
- =?utf-8?B?WXZOd21DRGVPblV0N09sMk14TGU2Y2I4YkVrWUZ6OGlBL3AybndZeDBLRzlh?=
- =?utf-8?B?bDJNMlBaOEtpSE9nWmdNb25nRmQ5NG9RQmdVckljQytrUm5yWmVNMklPM2k1?=
- =?utf-8?B?Ym82KzVzekVpN3FibHl6aDdLaEl5MGlrakFjMTJtRVhhbFlyamM0azNlamRr?=
- =?utf-8?B?T2hZSklIaitjSU5WanIzK3RTNWtiL0lPSE05Rmt5aXdtTkI2dGUwbWMyNFgw?=
- =?utf-8?B?UDdVVlpSdXJ0cllhNVVZQWdNalByVk5hUG92Tkl3cVZIMEQ0cEFxNHlCMmdn?=
- =?utf-8?B?YW4ycVNvZmtXcTcyTDI1UUNZb3VTWG14bkxnRHdINUZMSjJ1V2dHdVZKZzh2?=
- =?utf-8?B?UytKWW81YVRZU2RLQThvTEZOTDNBWHlNcUhLdXRjQ2srVmg5aHNUUDE2eVR3?=
- =?utf-8?B?SDZ1bjZsU0pkUytRc1JwRHFZRzhzOXYwdzFERWxpQ0hTSXNiZ05XMDJyOHlB?=
- =?utf-8?B?SFhObTdJUWNxd3VscmQ2YlY2WXZsL2xpV3hlWTBraWRsSXR6M3NjSEtFcTdC?=
- =?utf-8?B?Rk5XSFdReDhQQW9oeEhMelo3RStnRmljazR5dXNUeHNNZ3FtQXF1c1U5Rk1n?=
- =?utf-8?B?bm1MdHBxMVVRZWtWeGFJS0JiMS9oa1BMZ1lXSzJueUF0Z3JUVHp2SkVYajRH?=
- =?utf-8?B?NHdIZlJwVVI2dURUdlhIb1d5eGMweHFlcDFrbGgrSmYrUlpJckVFNTNMQ3FV?=
- =?utf-8?B?R0FPM0RRVm0xS0M2Ukh2cHhPaHpUL3ZrNmpFN05Bc1RlR2lQd1RsZ2dFcEZr?=
- =?utf-8?B?OUFTeWo2NWNGMWZOa21Rb1NHRHdzVHRMd3JZYW1CUlpWM1lyS1Vyd09nSGNp?=
- =?utf-8?B?NDJQZ2FlMGcrT1JTWXBCSXFpYlRCTzJnUHN3dzFTZUQyaVdqVVRRNFR2Zlpp?=
- =?utf-8?B?ak5NYm4yYUVodWptZXAvUkVoUDBBajd6dUd5YldSZ0srNnN2VG15UkRYY1NL?=
- =?utf-8?B?cFl2TVYrdGlpSm5MZFUxT0tSMWQ5UllULzBGSVlKY0FrQkk5K0N3UTdvZlEz?=
- =?utf-8?B?UFkxOXFrR1czNjB3WEc3eVV3a1UzakM2Y2FlZnRuOEYwdGNCTDZHQi91aE9k?=
- =?utf-8?B?eVkvMEcwNTFkcTJMUXlCNEJnblR1WGJMNlJYVTdBWTJOU24vWmtCZm1YMlFK?=
- =?utf-8?B?c0VldHJ4WTErSDVrSFlzUXhDdHA4cW9aOXFibXF2azVyUTF6ekFCbFg4UU5R?=
- =?utf-8?B?Vkxma25pRkhhSFRrUFBtODRUL3FEelhoaUxJUTF4Y1dKV1oyTHA2WDRhYzJS?=
- =?utf-8?B?emNJbllQUm54eUNlSE5wT2RKQjhxNXM0MjdGRDNSYlpZSTRvYzRpODBkbzRI?=
- =?utf-8?Q?EeQ3V4mgwC7GWZntHW0rQaF96nMY5GrL+vG1OYm?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?QFou/wZvviShw/5aXZu5JbqZt2vYw5GTqagCp/6ScWD1VSF1ki2GJefJF2Sl?=
+ =?us-ascii?Q?IFPUf30ArF8Qztdgi+oyYQG9mpRzYPIyF6E+VNPfev+Q3DorGv6ml4Krg/9e?=
+ =?us-ascii?Q?4zJ0w/dcQk6emlxAAYEc/nLn8xTQH2B4mZHDa4dfyx/vw1bxObpn7HE48DaI?=
+ =?us-ascii?Q?B+vFJHQ84xnDIN6w4NaBpqtbU3mMep8TzTUqJVu2onImK5xaH6SMjI00L0v+?=
+ =?us-ascii?Q?iuABs+qqfFChaGXShh1dKlCjNMZlDkdcejpGrvIB5PR9O7dOsvUNOzBmOHwB?=
+ =?us-ascii?Q?PF3Ce5nDyX+HYvVzHCVms6l43AGZNMI7zq2LYp9tx7N0Czm/IX3DhobCHWTn?=
+ =?us-ascii?Q?Lwq1fcm+a1K2FJ4tEAnieuPoJsLLl2walbsrxRhIITOzZ6SA2U5atpAXom2J?=
+ =?us-ascii?Q?2LbfRkwgbyhz2Gem453+Szo90eylF4t5ziCMvkZwyVlVt2dzfhPH/xmJer0S?=
+ =?us-ascii?Q?A2gz1fl7AaNMG5Kz9B3GlMANSU1ZrF7O1oLFI8ThnpClBwygwQxAhN4nafBQ?=
+ =?us-ascii?Q?D++QnHBS+Mp6L4sbWneJJw3UQhUuWrEQ7zlpB1f302A5lkaF5j7HscTJOaVj?=
+ =?us-ascii?Q?tSdFfp6bNg7TORO+mAsAm9hQsdBCNSG/F5BUUJGlHB8FvQbyBAjGdQGixdqL?=
+ =?us-ascii?Q?OLxy2AljKsgVWrIKnT1SFODpS59jbicYinNjryo1CakmRI55CYo9PuXBJnqu?=
+ =?us-ascii?Q?IpPyACzOQYiWwr61vokJfnMuTxfRlsKTzAkC3v+4MNLvxCXublyzmsaE95xl?=
+ =?us-ascii?Q?LoKjltcHb9Lh9hcHCJzPfTuvUJrCftmbz+n9xgh2v4lXkeGPZrqMAykW+/hw?=
+ =?us-ascii?Q?rrWIddLLy27F3aLaA0XGpY06zDcnAqAqOSKDSmseN/zMSSQOx6yLZ86H1bS5?=
+ =?us-ascii?Q?mW5Zm9POWyKQzIiB9LPEILxLj7KpH8Fw4QR3ChlqaO+wUYqIvlVWjqfAiGnd?=
+ =?us-ascii?Q?HJpf6oylx5OOjBMNLknShHm56ibm15QWNFtVu/DixaHC1VnAwiTGncU/nh6p?=
+ =?us-ascii?Q?tDm/IS5KVijlkTiiupiWw5GS7dry5VI9gj8Ddlbu8sZaw54bvkHI9xMXvYWd?=
+ =?us-ascii?Q?Bv4eZe83DhaWrvo85ExvDSbMmBtsaDn29Wre6LaN04vXaIS4Nfxo3XkX57DB?=
+ =?us-ascii?Q?qdEJICyuZvtyLTiB0HXx988ILxJ4pafu/Kgscf4OcJyfOBcm6QAHJXlZpMSZ?=
+ =?us-ascii?Q?4aiu6gz8xirUDzz9YjaHAFrEoBMJUEObKQHf7KrwK1iMEybCoj0LWBhe01dJ?=
+ =?us-ascii?Q?uZLCaERu0w1iBBoSR1wL/+x2dYoNd8smSqhjBKMc8HmKAEfraKRoVJjR7Hnb?=
+ =?us-ascii?Q?azcxAUkqeirgNh/0k3Kd5aQB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdac5b3f-9f95-4d28-2f74-08d8cdd0bc86
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1edf370b-d5af-4173-11e5-08d8cdddcb1b
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 14:32:47.7284 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 16:06:15.7367 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c47BlDStfTpPL+Fg6/9fLzBERei8xBzbtVCoVeMPfvpu+wEbpjTzQrpTT7pK/ECVhFkETgJpaHQ/uLxwf5sPEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
+X-MS-Exchange-CrossTenant-UserPrincipalName: /WGhl4c/ePyMmc1TiPsV157lCD5o7NE5JxXVurRGysTQ0fPYiG7o+NJ06ifCRc3Bv0E6SAJnOv0AKcNtqruEUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,195 +123,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2021-02-10 9:25 a.m., Alex Deucher wrote:
-> This reverts commit 8866a67ab86cc0812e65c04f1ef02bcc41e24d68.
-> 
-> This breaks hotplug of HDMI on some systems, resulting in
-> a blank screen.
-> 
-> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=211649>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
+Cleanup unwanted  debugfs dentries.
 
-Hotplug is still working from my side with this patch.
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  4 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 12 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     | 34 ++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h     |  4 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  4 ---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  3 --
+ 7 files changed, 23 insertions(+), 42 deletions(-)
 
-Same with our weekly testing reports that Daniel's been putting out.
-
-This is probably something environment or configuration specific but I 
-don't see any logs from the reporter. I'll follow up on the ticket but 
-I'd like to understand the problem in more detail before reverting this.
-
-Regards,
-Nicholas Kazlauskas
-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++++-------
->   drivers/gpu/drm/amd/display/dc/core/dc.c      | 27 ++++++-------------
->   drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 ++-
->   3 files changed, 23 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 961abf1cf040..e438baa1adc1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1934,7 +1934,7 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
->   		dc_commit_updates_for_stream(
->   			dm->dc, bundle->surface_updates,
->   			dc_state->stream_status->plane_count,
-> -			dc_state->streams[k], &bundle->stream_update);
-> +			dc_state->streams[k], &bundle->stream_update, dc_state);
->   	}
->   
->   cleanup:
-> @@ -1965,7 +1965,8 @@ static void dm_set_dpms_off(struct dc_link *link)
->   
->   	stream_update.stream = stream_state;
->   	dc_commit_updates_for_stream(stream_state->ctx->dc, NULL, 0,
-> -				     stream_state, &stream_update);
-> +				     stream_state, &stream_update,
-> +				     stream_state->ctx->dc->current_state);
->   	mutex_unlock(&adev->dm.dc_lock);
->   }
->   
-> @@ -7548,7 +7549,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->   				    struct drm_crtc *pcrtc,
->   				    bool wait_for_vblank)
->   {
-> -	int i;
-> +	uint32_t i;
->   	uint64_t timestamp_ns;
->   	struct drm_plane *plane;
->   	struct drm_plane_state *old_plane_state, *new_plane_state;
-> @@ -7589,7 +7590,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->   		amdgpu_dm_commit_cursors(state);
->   
->   	/* update planes when needed */
-> -	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
-> +	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
->   		struct drm_crtc *crtc = new_plane_state->crtc;
->   		struct drm_crtc_state *new_crtc_state;
->   		struct drm_framebuffer *fb = new_plane_state->fb;
-> @@ -7812,7 +7813,8 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->   						     bundle->surface_updates,
->   						     planes_count,
->   						     acrtc_state->stream,
-> -						     &bundle->stream_update);
-> +						     &bundle->stream_update,
-> +						     dc_state);
->   
->   		/**
->   		 * Enable or disable the interrupts on the backend.
-> @@ -8148,13 +8150,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->   		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
->   		struct dm_connector_state *dm_old_con_state = to_dm_connector_state(old_con_state);
->   		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
-> -		struct dc_surface_update surface_updates[MAX_SURFACES];
-> +		struct dc_surface_update dummy_updates[MAX_SURFACES];
->   		struct dc_stream_update stream_update;
->   		struct dc_info_packet hdr_packet;
->   		struct dc_stream_status *status = NULL;
->   		bool abm_changed, hdr_changed, scaling_changed;
->   
-> -		memset(&surface_updates, 0, sizeof(surface_updates));
-> +		memset(&dummy_updates, 0, sizeof(dummy_updates));
->   		memset(&stream_update, 0, sizeof(stream_update));
->   
->   		if (acrtc) {
-> @@ -8211,15 +8213,16 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->   		 * To fix this, DC should permit updating only stream properties.
->   		 */
->   		for (j = 0; j < status->plane_count; j++)
-> -			surface_updates[j].surface = status->plane_states[j];
-> +			dummy_updates[j].surface = status->plane_states[0];
->   
->   
->   		mutex_lock(&dm->dc_lock);
->   		dc_commit_updates_for_stream(dm->dc,
-> -						surface_updates,
-> +						     dummy_updates,
->   						     status->plane_count,
->   						     dm_new_crtc_state->stream,
-> -						     &stream_update);
-> +						     &stream_update,
-> +						     dc_state);
->   		mutex_unlock(&dm->dc_lock);
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 6cf1a5a2a5ec..58eb0d69873a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -2679,7 +2679,8 @@ void dc_commit_updates_for_stream(struct dc *dc,
->   		struct dc_surface_update *srf_updates,
->   		int surface_count,
->   		struct dc_stream_state *stream,
-> -		struct dc_stream_update *stream_update)
-> +		struct dc_stream_update *stream_update,
-> +		struct dc_state *state)
->   {
->   	const struct dc_stream_status *stream_status;
->   	enum surface_update_type update_type;
-> @@ -2698,12 +2699,6 @@ void dc_commit_updates_for_stream(struct dc *dc,
->   
->   
->   	if (update_type >= UPDATE_TYPE_FULL) {
-> -		struct dc_plane_state *new_planes[MAX_SURFACES];
-> -
-> -		memset(new_planes, 0, sizeof(new_planes));
-> -
-> -		for (i = 0; i < surface_count; i++)
-> -			new_planes[i] = srf_updates[i].surface;
->   
->   		/* initialize scratch memory for building context */
->   		context = dc_create_state(dc);
-> @@ -2712,21 +2707,15 @@ void dc_commit_updates_for_stream(struct dc *dc,
->   			return;
->   		}
->   
-> -		dc_resource_state_copy_construct(
-> -				dc->current_state, context);
-> +		dc_resource_state_copy_construct(state, context);
->   
-> -		/*remove old surfaces from context */
-> -		if (!dc_rem_all_planes_for_stream(dc, stream, context)) {
-> -			DC_ERROR("Failed to remove streams for new validate context!\n");
-> -			return;
-> -		}
-> +		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-> +			struct pipe_ctx *new_pipe = &context->res_ctx.pipe_ctx[i];
-> +			struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
->   
-> -		/* add surface to context */
-> -		if (!dc_add_all_planes_for_stream(dc, stream, new_planes, surface_count, context)) {
-> -			DC_ERROR("Failed to add streams for new validate context!\n");
-> -			return;
-> +			if (new_pipe->plane_state && new_pipe->plane_state != old_pipe->plane_state)
-> +				new_pipe->plane_state->force_full_update = true;
->   		}
-> -
->   	}
->   
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-> index e243c01b9672..b7910976b81a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-> @@ -283,7 +283,8 @@ void dc_commit_updates_for_stream(struct dc *dc,
->   		struct dc_surface_update *srf_updates,
->   		int surface_count,
->   		struct dc_stream_state *stream,
-> -		struct dc_stream_update *stream_update);
-> +		struct dc_stream_update *stream_update,
-> +		struct dc_state *state);
->   /*
->    * Log the current stream state.
->    */
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e0c797a5f739..e3d4d2dcb3a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -797,10 +797,6 @@ struct amdgpu_device {
+ 	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
+ 	struct amdgpu_debugfs		debugfs[AMDGPU_DEBUGFS_MAX_COMPONENTS];
+ 	unsigned			debugfs_count;
+-#if defined(CONFIG_DEBUG_FS)
+-	struct dentry                   *debugfs_preempt;
+-	struct dentry			*debugfs_regs[AMDGPU_DEBUGFS_MAX_COMPONENTS];
+-#endif
+ 	struct amdgpu_atif		*atif;
+ 	struct amdgpu_atcs		atcs;
+ 	struct mutex			srbm_mutex;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 4c38c5771cbc..874522217b7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1228,7 +1228,6 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+ 					  adev, debugfs_regs[i]);
+ 		if (!i && !IS_ERR_OR_NULL(ent))
+ 			i_size_write(ent->d_inode, adev->rmmio_size);
+-		adev->debugfs_regs[i] = ent;
+ 	}
+ 
+ 	return 0;
+@@ -1592,21 +1591,20 @@ DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ {
+ 	int r, i;
++	struct dentry *ent = NULL;
+ 
+-	adev->debugfs_preempt =
+-		debugfs_create_file("amdgpu_preempt_ib", 0600,
++	ent = debugfs_create_file("amdgpu_preempt_ib", 0600,
+ 				    adev_to_drm(adev)->primary->debugfs_root, adev,
+ 				    &fops_ib_preempt);
+-	if (!(adev->debugfs_preempt)) {
++	if (!ent) {
+ 		DRM_ERROR("unable to create amdgpu_preempt_ib debugsfs file\n");
+ 		return -EIO;
+ 	}
+ 
+-	adev->smu.debugfs_sclk =
+-		debugfs_create_file("amdgpu_force_sclk", 0200,
++	ent = debugfs_create_file("amdgpu_force_sclk", 0200,
+ 				    adev_to_drm(adev)->primary->debugfs_root, adev,
+ 				    &fops_sclk_set);
+-	if (!(adev->smu.debugfs_sclk)) {
++	if (!ent) {
+ 		DRM_ERROR("unable to create amdgpu_set_sclk debugsfs file\n");
+ 		return -EIO;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 1fb2a91ad30a..1efdfb9b5506 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1137,15 +1137,16 @@ static int amdgpu_ras_sysfs_remove_all(struct amdgpu_device *adev)
+  *
+  */
+ /* debugfs begin */
+-static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
++static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev,
++						struct dentry *dir)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct drm_minor *minor = adev_to_drm(adev)->primary;
+ 
+-	con->dir = debugfs_create_dir(RAS_FS_NAME, minor->debugfs_root);
+-	debugfs_create_file("ras_ctrl", S_IWUGO | S_IRUGO, con->dir,
++	dir = debugfs_create_dir(RAS_FS_NAME, minor->debugfs_root);
++	debugfs_create_file("ras_ctrl", S_IWUGO | S_IRUGO, dir,
+ 				adev, &amdgpu_ras_debugfs_ctrl_ops);
+-	debugfs_create_file("ras_eeprom_reset", S_IWUGO | S_IRUGO, con->dir,
++	debugfs_create_file("ras_eeprom_reset", S_IWUGO | S_IRUGO, dir,
+ 				adev, &amdgpu_ras_debugfs_eeprom_ops);
+ 
+ 	/*
+@@ -1156,7 +1157,7 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+ 	 * ERREVENT_ATHUB_INTERRUPT generated. Normal GPU recovery routine
+ 	 * will never be called.
+ 	 */
+-	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, con->dir,
++	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, dir,
+ 				&con->reboot);
+ 
+ 	/*
+@@ -1164,16 +1165,16 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+ 	 * of RAS IPs during ras recovery.
+ 	 */
+ 	debugfs_create_bool("disable_ras_err_cnt_harvest", 0644,
+-			con->dir, &con->disable_ras_err_cnt_harvest);
++			dir, &con->disable_ras_err_cnt_harvest);
+ }
+ 
+ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+-		struct ras_fs_if *head)
++				      struct ras_fs_if *head,
++				      struct dentry *dir)
+ {
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head->head);
+ 
+-	if (!obj || obj->ent)
++	if (!obj || !dir)
+ 		return;
+ 
+ 	get_obj(obj);
+@@ -1182,9 +1183,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+ 			head->debugfs_name,
+ 			sizeof(obj->fs_data.debugfs_name));
+ 
+-	obj->ent = debugfs_create_file(obj->fs_data.debugfs_name,
+-				       S_IWUGO | S_IRUGO, con->dir, obj,
+-				       &amdgpu_ras_debugfs_ops);
++	debugfs_create_file(obj->fs_data.debugfs_name, S_IWUGO | S_IRUGO, dir,
++			    obj, &amdgpu_ras_debugfs_ops);
+ }
+ 
+ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+@@ -1192,6 +1192,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_manager *obj;
+ 	struct ras_fs_if fs_info;
++	struct dentry *dir = NULL;
+ 
+ 	/*
+ 	 * it won't be called in resume path, no need to check
+@@ -1200,7 +1201,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ 	if (!IS_ENABLED(CONFIG_DEBUG_FS) || !con)
+ 		return;
+ 
+-	amdgpu_ras_debugfs_create_ctrl_node(adev);
++	amdgpu_ras_debugfs_create_ctrl_node(adev, dir);
+ 
+ 	list_for_each_entry(obj, &con->head, node) {
+ 		if (amdgpu_ras_is_supported(adev, obj->head.block) &&
+@@ -1208,7 +1209,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ 			sprintf(fs_info.debugfs_name, "%s_err_inject",
+ 					ras_block_str(obj->head.block));
+ 			fs_info.head = obj->head;
+-			amdgpu_ras_debugfs_create(adev, &fs_info);
++			amdgpu_ras_debugfs_create(adev, &fs_info, dir);
+ 		}
+ 	}
+ }
+@@ -1218,10 +1219,9 @@ static void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+ {
+ 	struct ras_manager *obj = amdgpu_ras_find_obj(adev, head);
+ 
+-	if (!obj || !obj->ent)
++	if (!obj)
+ 		return;
+ 
+-	obj->ent = NULL;
+ 	put_obj(obj);
+ }
+ 
+@@ -1233,8 +1233,6 @@ static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)
+ 	list_for_each_entry_safe(obj, tmp, &con->head, node) {
+ 		amdgpu_ras_debugfs_remove(adev, &obj->head);
+ 	}
+-
+-	con->dir = NULL;
+ }
+ /* debugfs end */
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 762f5e46c007..aed0716efa5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -318,8 +318,6 @@ struct amdgpu_ras {
+ 	uint32_t supported;
+ 	uint32_t features;
+ 	struct list_head head;
+-	/* debugfs */
+-	struct dentry *dir;
+ 	/* sysfs */
+ 	struct device_attribute features_attr;
+ 	struct bin_attribute badpages_attr;
+@@ -395,8 +393,6 @@ struct ras_manager {
+ 	struct list_head node;
+ 	/* the device */
+ 	struct amdgpu_device *adev;
+-	/* debugfs */
+-	struct dentry *ent;
+ 	/* sysfs */
+ 	struct device_attribute sysfs_attr;
+ 	int attr_inuse;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index aaad9e304ad9..f4d7cf60c262 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1788,7 +1788,7 @@ static void amdgpu_ttm_training_data_block_init(struct amdgpu_device *adev)
+ 		(adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+ 	ctx->train_data_size =
+ 		GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+-	
++
+ 	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
+ 			ctx->train_data_size,
+ 			ctx->p2c_train_data_offset,
+@@ -2560,11 +2560,11 @@ int amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
+ 				ttm_debugfs_entries[count].fops);
+ 		if (IS_ERR(ent))
+ 			return PTR_ERR(ent);
++
+ 		if (ttm_debugfs_entries[count].domain == TTM_PL_VRAM)
+ 			i_size_write(ent->d_inode, adev->gmc.mc_vram_size);
+ 		else if (ttm_debugfs_entries[count].domain == TTM_PL_TT)
+ 			i_size_write(ent->d_inode, adev->gmc.gart_size);
+-		adev->mman.debugfs_entries[count] = ent;
+ 	}
+ 
+ 	count = ARRAY_SIZE(amdgpu_ttm_debugfs_list);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 6c142455fc66..4df4cf2fd4dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -68,10 +68,6 @@ struct amdgpu_mman {
+ 	bool				initialized;
+ 	void __iomem			*aper_base_kaddr;
+ 
+-#if defined(CONFIG_DEBUG_FS)
+-	struct dentry			*debugfs_entries[8];
+-#endif
+-
+ 	/* buffer handling */
+ 	const struct amdgpu_buffer_funcs	*buffer_funcs;
+ 	struct amdgpu_ring			*buffer_funcs_ring;
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 10b0624ade65..83147b7d836e 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -439,9 +439,6 @@ struct smu_context
+ 	struct smu_baco_context		smu_baco;
+ 	struct smu_temperature_range	thermal_range;
+ 	void *od_settings;
+-#if defined(CONFIG_DEBUG_FS)
+-	struct dentry                   *debugfs_sclk;
+-#endif
+ 
+ 	struct smu_umd_pstate_table	pstate_table;
+ 	uint32_t pstate_sclk;
+-- 
+2.30.0
 
 _______________________________________________
 amd-gfx mailing list
