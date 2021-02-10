@@ -2,43 +2,72 @@ Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7A50C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 07:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACD76C433E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 12:46:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80ABD64E05
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 07:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80ABD64E05
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 2093464E05
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 12:46:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2093464E05
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171206E8C4;
-	Wed, 10 Feb 2021 07:52:34 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F1D6E21A;
- Wed, 10 Feb 2021 07:52:32 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E3A89AC97;
- Wed, 10 Feb 2021 07:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 885536E283;
+	Wed, 10 Feb 2021 12:46:02 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813B86E20A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 12:46:01 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id g10so2405271wrx.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 04:46:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=Rum60VafaxlPAbiRsaYr/mrmV1krBfLh/3W2IYL9TJU=;
+ b=cNgfqlzpYh6Dvez+FOYeoCbiQ3L1YjnDX3dHfkb84DKmr1b6KDoW9WhiKQIjnvtK4z
+ J+TJe1Ug8vVoPhZDx+qZrdHRhLbuSQa8xXbJpAuzBCsPXJAxSviNxwX4aYY+7bW3p5XU
+ ZRhR8v/bpXuELMHojpUsjzyoPO85NlEcIqc0k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=Rum60VafaxlPAbiRsaYr/mrmV1krBfLh/3W2IYL9TJU=;
+ b=inpzRBpMHajjV4rV8R4PBFUooTEdWeAfhf3qsM6zHJTnaNqW0vmAIr1OU69CD00yeA
+ 9a42lqX5khJLxWCUzAhsj//giUwpEhXf07LLcZoSfejx665qUevcCrILXIgRr0msUZlO
+ D/W/P0hpC2pkjJ50hzQF0tLEYCl5bYa7T5sPiA1sAdOwTx/jbnynrySznPFpo7K8fUf+
+ sNXAB1cn/VvEfz+AO/X4iTMQjPvBVHWMbCLtXCik6YukGB0Au7riBUihcs+88gDxDIY/
+ 1cvDIScewBZ674varOC26Vy9sTNQd+JxeXFtVHyC3TQktOqD7FzPTjha9/iJmB/Gbktx
+ 0aAQ==
+X-Gm-Message-State: AOAM5311TyRhvXoFX2lx+S50B10sqZ61IO6okXUE+GAFgXXENAMw9ueS
+ +WtxffmNx95JTc7Hr0yusunNqA==
+X-Google-Smtp-Source: ABdhPJxJrAvgSXX5w7P1juJ8Jbk+pBUHP84DH+1F8ehtKz9QqG6WckIdOgsKZbFxS7mzeDziW06siA==
+X-Received: by 2002:a05:6000:4e:: with SMTP id
+ k14mr3432513wrx.281.1612961160148; 
+ Wed, 10 Feb 2021 04:46:00 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id d5sm3196863wrb.14.2021.02.10.04.45.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Feb 2021 04:45:59 -0800 (PST)
+Date: Wed, 10 Feb 2021 13:45:57 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Subject: Re: [RFC PATCH 8/9] drm/gem: Associate GEM objects with drm cgroup
-To: Daniel Vetter <daniel@ffwll.ch>, Brian Welty <brian.welty@intel.com>
+Message-ID: <YCPVhc+HwiMhfjdF@phenom.ffwll.local>
 References: <20210126214626.16260-1-brian.welty@intel.com>
  <20210126214626.16260-9-brian.welty@intel.com>
  <YCJp//kMC7YjVMXv@phenom.ffwll.local>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <faeaef17-3656-ca31-3be9-49354db3116e@suse.de>
-Date: Wed, 10 Feb 2021 08:52:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ <faeaef17-3656-ca31-3be9-49354db3116e@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <YCJp//kMC7YjVMXv@phenom.ffwll.local>
+Content-Disposition: inline
+In-Reply-To: <faeaef17-3656-ca31-3be9-49354db3116e@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,298 +80,265 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Kenny Ho <Kenny.Ho@amd.com>,
- Eero Tamminen <eero.t.tamminen@intel.com>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, amd-gfx@lists.freedesktop.org,
+ Eero Tamminen <eero.t.tamminen@intel.com>, Brian Welty <brian.welty@intel.com>,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1344061703=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1344061703==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="t358AJk9LGksusmvn059A4ACV9zuTsn4c"
+On Wed, Feb 10, 2021 at 08:52:29AM +0100, Thomas Zimmermann wrote:
+> Hi
+> =
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---t358AJk9LGksusmvn059A4ACV9zuTsn4c
-Content-Type: multipart/mixed; boundary="37ZsdYh6Dp4INO2q6vcaH93ikD1BsiH24";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel@ffwll.ch>, Brian Welty <brian.welty@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Eero Tamminen <eero.t.tamminen@intel.com>, David Airlie <airlied@linux.ie>,
- Kenny Ho <Kenny.Ho@amd.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- amd-gfx@lists.freedesktop.org, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>
-Message-ID: <faeaef17-3656-ca31-3be9-49354db3116e@suse.de>
-Subject: Re: [RFC PATCH 8/9] drm/gem: Associate GEM objects with drm cgroup
-References: <20210126214626.16260-1-brian.welty@intel.com>
- <20210126214626.16260-9-brian.welty@intel.com>
- <YCJp//kMC7YjVMXv@phenom.ffwll.local>
-In-Reply-To: <YCJp//kMC7YjVMXv@phenom.ffwll.local>
-
---37ZsdYh6Dp4INO2q6vcaH93ikD1BsiH24
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 09.02.21 um 11:54 schrieb Daniel Vetter:
-> *: vmwgfx is the only non-gem driver, but there's plans to move at leas=
-t
-> vmwgfx internals (maybe not the uapi, we'll see) over to gem. Once that=
+> Am 09.02.21 um 11:54 schrieb Daniel Vetter:
+> > *: vmwgfx is the only non-gem driver, but there's plans to move at least
+> > vmwgfx internals (maybe not the uapi, we'll see) over to gem. Once that=
 's
-> done it's truly all gpu memory.
+> > done it's truly all gpu memory.
+> =
 
-Do you have a URL to the discussion?
+> Do you have a URL to the discussion?
+> =
 
-While I recent worked on GEM, I thought that vmwgfx could easily switch=20
-to the GEM internals without adopting the interface.
+> While I recent worked on GEM, I thought that vmwgfx could easily switch to
+> the GEM internals without adopting the interface.
 
-Personally, I think we should consider renaming struct drm_gem_object et =
+Zack Rusin pinged me on irc I think, not sure there's anything on
+dri-devel. zackr on freenode. I think he's working on this already.
 
-al. It's not strictly GEM UAPI, but nowadays anything memory-related.=20
-Maybe drm_mem_object would fit.
+> Personally, I think we should consider renaming struct drm_gem_object et =
+al.
+> It's not strictly GEM UAPI, but nowadays anything memory-related. Maybe
+> drm_mem_object would fit.
 
-Best regards
-Thomas
+I think abbrevations we've created that have been around for long enough
+can stay. Otherwise we'd need to rename drm into something less confusing
+too :-)
 
->> ---
->>   drivers/gpu/drm/drm_gem.c | 89 +++++++++++++++++++++++++++++++++++++=
-++
->>   include/drm/drm_gem.h     | 17 ++++++++
->>   2 files changed, 106 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->> index c2ce78c4edc3..a12da41eaafe 100644
->> --- a/drivers/gpu/drm/drm_gem.c
->> +++ b/drivers/gpu/drm/drm_gem.c
->> @@ -29,6 +29,7 @@
->>   #include <linux/slab.h>
->>   #include <linux/mm.h>
->>   #include <linux/uaccess.h>
->> +#include <linux/cgroup_drm.h>
->>   #include <linux/fs.h>
->>   #include <linux/file.h>
->>   #include <linux/module.h>
->> @@ -112,6 +113,89 @@ drm_gem_init(struct drm_device *dev)
->>   	return drmm_add_action(dev, drm_gem_init_release, NULL);
->>   }
->>  =20
->> +/**
->> + * drm_gem_object_set_cgroup - associate GEM object with a cgroup
->> + * @obj: GEM object which is being associated with a cgroup
->> + * @task: task associated with process control group to use
->> + *
->> + * This will acquire a reference on cgroup and use for charging GEM
->> + * memory allocations.
->> + * This helper could be extended in future to migrate charges to anot=
-her
->> + * cgroup, print warning if this usage occurs.
->> + */
->> +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
->> +			       struct task_struct *task)
->> +{
->> +	/* if object has existing cgroup, we migrate the charge... */
->> +	if (obj->drmcg) {
->> +		pr_warn("DRM: need to migrate cgroup charge of %lld\n",
->> +			atomic64_read(&obj->drmcg_bytes_charged));
->> +	}
->> +	obj->drmcg =3D drmcg_get(task);
->> +}
->> +EXPORT_SYMBOL(drm_gem_object_set_cgroup);
->> +
->> +/**
->> + * drm_gem_object_unset_cgroup - clear GEM object's associated cgroup=
+So gem just becomes the buffer based memory management thing in drm, which
+is the accelerator and display framework in upstream. And ttm is our
+memory manager for discrete gpus - ttm means translation table manager,
+and that part just got moved out as a helper so drivers call we needed :-)
 
->> + * @obj: GEM object
->> + *
->> + * This will release a reference on cgroup.
->> + */
->> +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj)
->> +{
->> +	WARN_ON(atomic64_read(&obj->drmcg_bytes_charged));
->> +	drmcg_put(obj->drmcg);
->> +}
->> +EXPORT_SYMBOL(drm_gem_object_unset_cgroup);
->> +
->> +/**
->> + * drm_gem_object_charge_mem - try charging size bytes to DRM cgroup
->> + * @obj: GEM object which is being charged
->> + * @size: number of bytes to charge
->> + *
->> + * Try to charge @size bytes to GEM object's associated DRM cgroup.  =
-This
->> + * will fail if a successful charge would cause the current device me=
-mory
->> + * usage to go above the cgroup's GPU memory maximum limit.
->> + *
->> + * Returns 0 on success.  Otherwise, an error code is returned.
->> + */
->> +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size)
->> +{
->> +	int ret;
->> +
->> +	ret =3D drm_cgroup_try_charge(obj->drmcg, obj->dev,
->> +				    DRMCG_TYPE_MEM_CURRENT, size);
->> +	if (!ret)
->> +		atomic64_add(size, &obj->drmcg_bytes_charged);
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL(drm_gem_object_charge_mem);
->> +
->> +/**
->> + * drm_gem_object_uncharge_mem - uncharge size bytes from DRM cgroup
->> + * @obj: GEM object which is being uncharged
->> + * @size: number of bytes to uncharge
->> + *
->> + * Uncharge @size bytes from the DRM cgroup associated with specified=
+I mean we haven't even managed to rename the cma helpers to dma helpers.
+The one thing we did manage is rename struct fence to struct dma_fence,
+because no prefix was just really bad naming accident.
 
->> + * GEM object.
->> + *
->> + * Returns 0 on success.  Otherwise, an error code is returned.
->> + */
->> +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size=
-)
->> +{
->> +	u64 charged =3D atomic64_read(&obj->drmcg_bytes_charged);
->> +
->> +	if (WARN_ON(!charged))
->> +		return;
->> +	if (WARN_ON(size > charged))
->> +		size =3D charged;
->> +
->> +	atomic64_sub(size, &obj->drmcg_bytes_charged);
->> +	drm_cgroup_uncharge(obj->drmcg, obj->dev, DRMCG_TYPE_MEM_CURRENT,
->> +			    size);
->> +}
->> +EXPORT_SYMBOL(drm_gem_object_uncharge_mem);
->> +
->>   /**
->>    * drm_gem_object_init - initialize an allocated shmem-backed GEM ob=
-ject
->>    * @dev: drm_device the object should be initialized for
->> @@ -156,6 +240,8 @@ void drm_gem_private_object_init(struct drm_device=
- *dev,
->>   	obj->dev =3D dev;
->>   	obj->filp =3D NULL;
->>  =20
->> +	drm_gem_object_set_cgroup(obj, current);
->> +
->>   	kref_init(&obj->refcount);
->>   	obj->handle_count =3D 0;
->>   	obj->size =3D size;
->> @@ -950,6 +1036,9 @@ drm_gem_object_release(struct drm_gem_object *obj=
-)
->>  =20
->>   	dma_resv_fini(&obj->_resv);
->>   	drm_gem_free_mmap_offset(obj);
->> +
->> +	/* Release reference on cgroup used with GEM object charging */
->> +	drm_gem_object_unset_cgroup(obj);
->>   }
->>   EXPORT_SYMBOL(drm_gem_object_release);
->>  =20
->> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
->> index 240049566592..06ea10fc17bc 100644
->> --- a/include/drm/drm_gem.h
->> +++ b/include/drm/drm_gem.h
->> @@ -37,6 +37,7 @@
->>   #include <linux/kref.h>
->>   #include <linux/dma-resv.h>
->>  =20
->> +#include <drm/drm_cgroup.h>
->>   #include <drm/drm_vma_manager.h>
->>  =20
->>   struct dma_buf_map;
->> @@ -222,6 +223,17 @@ struct drm_gem_object {
->>   	 */
->>   	struct file *filp;
->>  =20
->> +	/**
->> +	 * @drmcg:
->> +	 *
->> +	 * cgroup used for charging GEM object page allocations against. Thi=
-s
->> +	 * is set to the current cgroup during GEM object creation.
->> +	 * Charging policy is up to the DRM driver to implement and should b=
-e
->> +	 * charged when allocating backing store from device memory.
->> +	 */
->> +	struct drmcg *drmcg;
->> +	atomic64_t drmcg_bytes_charged;
->> +
->>   	/**
->>   	 * @vma_node:
->>   	 *
->> @@ -417,4 +429,9 @@ int drm_gem_fence_array_add_implicit(struct xarray=
- *fence_array,
->>   int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device=
- *dev,
->>   			    u32 handle, u64 *offset);
->>  =20
->> +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
->> +			       struct task_struct *task);
->> +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj);
->> +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size);
->> +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size=
-);
->>   #endif /* __DRM_GEM_H__ */
->> --=20
->> 2.20.1
->>
->=20
+Cheers, Daniel
 
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+> =
+
+> Best regards
+> Thomas
+> =
+
+> > > ---
+> > >   drivers/gpu/drm/drm_gem.c | 89 ++++++++++++++++++++++++++++++++++++=
++++
+> > >   include/drm/drm_gem.h     | 17 ++++++++
+> > >   2 files changed, 106 insertions(+)
+> > > =
+
+> > > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> > > index c2ce78c4edc3..a12da41eaafe 100644
+> > > --- a/drivers/gpu/drm/drm_gem.c
+> > > +++ b/drivers/gpu/drm/drm_gem.c
+> > > @@ -29,6 +29,7 @@
+> > >   #include <linux/slab.h>
+> > >   #include <linux/mm.h>
+> > >   #include <linux/uaccess.h>
+> > > +#include <linux/cgroup_drm.h>
+> > >   #include <linux/fs.h>
+> > >   #include <linux/file.h>
+> > >   #include <linux/module.h>
+> > > @@ -112,6 +113,89 @@ drm_gem_init(struct drm_device *dev)
+> > >   	return drmm_add_action(dev, drm_gem_init_release, NULL);
+> > >   }
+> > > +/**
+> > > + * drm_gem_object_set_cgroup - associate GEM object with a cgroup
+> > > + * @obj: GEM object which is being associated with a cgroup
+> > > + * @task: task associated with process control group to use
+> > > + *
+> > > + * This will acquire a reference on cgroup and use for charging GEM
+> > > + * memory allocations.
+> > > + * This helper could be extended in future to migrate charges to ano=
+ther
+> > > + * cgroup, print warning if this usage occurs.
+> > > + */
+> > > +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
+> > > +			       struct task_struct *task)
+> > > +{
+> > > +	/* if object has existing cgroup, we migrate the charge... */
+> > > +	if (obj->drmcg) {
+> > > +		pr_warn("DRM: need to migrate cgroup charge of %lld\n",
+> > > +			atomic64_read(&obj->drmcg_bytes_charged));
+> > > +	}
+> > > +	obj->drmcg =3D drmcg_get(task);
+> > > +}
+> > > +EXPORT_SYMBOL(drm_gem_object_set_cgroup);
+> > > +
+> > > +/**
+> > > + * drm_gem_object_unset_cgroup - clear GEM object's associated cgroup
+> > > + * @obj: GEM object
+> > > + *
+> > > + * This will release a reference on cgroup.
+> > > + */
+> > > +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj)
+> > > +{
+> > > +	WARN_ON(atomic64_read(&obj->drmcg_bytes_charged));
+> > > +	drmcg_put(obj->drmcg);
+> > > +}
+> > > +EXPORT_SYMBOL(drm_gem_object_unset_cgroup);
+> > > +
+> > > +/**
+> > > + * drm_gem_object_charge_mem - try charging size bytes to DRM cgroup
+> > > + * @obj: GEM object which is being charged
+> > > + * @size: number of bytes to charge
+> > > + *
+> > > + * Try to charge @size bytes to GEM object's associated DRM cgroup. =
+ This
+> > > + * will fail if a successful charge would cause the current device m=
+emory
+> > > + * usage to go above the cgroup's GPU memory maximum limit.
+> > > + *
+> > > + * Returns 0 on success.  Otherwise, an error code is returned.
+> > > + */
+> > > +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size)
+> > > +{
+> > > +	int ret;
+> > > +
+> > > +	ret =3D drm_cgroup_try_charge(obj->drmcg, obj->dev,
+> > > +				    DRMCG_TYPE_MEM_CURRENT, size);
+> > > +	if (!ret)
+> > > +		atomic64_add(size, &obj->drmcg_bytes_charged);
+> > > +	return ret;
+> > > +}
+> > > +EXPORT_SYMBOL(drm_gem_object_charge_mem);
+> > > +
+> > > +/**
+> > > + * drm_gem_object_uncharge_mem - uncharge size bytes from DRM cgroup
+> > > + * @obj: GEM object which is being uncharged
+> > > + * @size: number of bytes to uncharge
+> > > + *
+> > > + * Uncharge @size bytes from the DRM cgroup associated with specified
+> > > + * GEM object.
+> > > + *
+> > > + * Returns 0 on success.  Otherwise, an error code is returned.
+> > > + */
+> > > +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 siz=
+e)
+> > > +{
+> > > +	u64 charged =3D atomic64_read(&obj->drmcg_bytes_charged);
+> > > +
+> > > +	if (WARN_ON(!charged))
+> > > +		return;
+> > > +	if (WARN_ON(size > charged))
+> > > +		size =3D charged;
+> > > +
+> > > +	atomic64_sub(size, &obj->drmcg_bytes_charged);
+> > > +	drm_cgroup_uncharge(obj->drmcg, obj->dev, DRMCG_TYPE_MEM_CURRENT,
+> > > +			    size);
+> > > +}
+> > > +EXPORT_SYMBOL(drm_gem_object_uncharge_mem);
+> > > +
+> > >   /**
+> > >    * drm_gem_object_init - initialize an allocated shmem-backed GEM o=
+bject
+> > >    * @dev: drm_device the object should be initialized for
+> > > @@ -156,6 +240,8 @@ void drm_gem_private_object_init(struct drm_devic=
+e *dev,
+> > >   	obj->dev =3D dev;
+> > >   	obj->filp =3D NULL;
+> > > +	drm_gem_object_set_cgroup(obj, current);
+> > > +
+> > >   	kref_init(&obj->refcount);
+> > >   	obj->handle_count =3D 0;
+> > >   	obj->size =3D size;
+> > > @@ -950,6 +1036,9 @@ drm_gem_object_release(struct drm_gem_object *ob=
+j)
+> > >   	dma_resv_fini(&obj->_resv);
+> > >   	drm_gem_free_mmap_offset(obj);
+> > > +
+> > > +	/* Release reference on cgroup used with GEM object charging */
+> > > +	drm_gem_object_unset_cgroup(obj);
+> > >   }
+> > >   EXPORT_SYMBOL(drm_gem_object_release);
+> > > diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> > > index 240049566592..06ea10fc17bc 100644
+> > > --- a/include/drm/drm_gem.h
+> > > +++ b/include/drm/drm_gem.h
+> > > @@ -37,6 +37,7 @@
+> > >   #include <linux/kref.h>
+> > >   #include <linux/dma-resv.h>
+> > > +#include <drm/drm_cgroup.h>
+> > >   #include <drm/drm_vma_manager.h>
+> > >   struct dma_buf_map;
+> > > @@ -222,6 +223,17 @@ struct drm_gem_object {
+> > >   	 */
+> > >   	struct file *filp;
+> > > +	/**
+> > > +	 * @drmcg:
+> > > +	 *
+> > > +	 * cgroup used for charging GEM object page allocations against. Th=
+is
+> > > +	 * is set to the current cgroup during GEM object creation.
+> > > +	 * Charging policy is up to the DRM driver to implement and should =
+be
+> > > +	 * charged when allocating backing store from device memory.
+> > > +	 */
+> > > +	struct drmcg *drmcg;
+> > > +	atomic64_t drmcg_bytes_charged;
+> > > +
+> > >   	/**
+> > >   	 * @vma_node:
+> > >   	 *
+> > > @@ -417,4 +429,9 @@ int drm_gem_fence_array_add_implicit(struct xarra=
+y *fence_array,
+> > >   int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_devic=
+e *dev,
+> > >   			    u32 handle, u64 *offset);
+> > > +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
+> > > +			       struct task_struct *task);
+> > > +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj);
+> > > +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size);
+> > > +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 siz=
+e);
+> > >   #endif /* __DRM_GEM_H__ */
+> > > -- =
+
+> > > 2.20.1
+> > > =
+
+> > =
+
+> =
+
+> -- =
+
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+> (HRB 36809, AG N=FCrnberg)
+> Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+> =
 
 
---37ZsdYh6Dp4INO2q6vcaH93ikD1BsiH24--
 
---t358AJk9LGksusmvn059A4ACV9zuTsn4c
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmAjkL0FAwAAAAAACgkQlh/E3EQov+D/
-DA/9FuoxspimR/1k4JtNsUWDSx1lHZXLFoUIF3YYkJMb2+lU8r40EzEcaK4dCjMjNnJcWojEodwU
-tGeD495XQ86ZtwU/OMA9vFXVh624tywF3h9Tn4LTcX6Q3AqDk/SDTbJwVHM+7ADQlREhvlCX42N8
-XKzQe5AuN5+Eu1jU/uTJokirswB+1voV2i/m2lECZt8KKDLV3INlkY1d9XdqoIpJN1GRSKxUdLEe
-0x9m9dDUqW6mFH3RRprwl0/2yZ3qeZ/WNhEgWhN02GZ2/dWQQ2Hl72j5EQuT2ma6QK05hQakEF2q
-XXifa4i+EwR4v10sfK7Eb6wG3eD0TBjMZb4hkquJJXqK4RX78QGxoZ73ilvQyw4ESEgq8N0GvsTQ
-m+xP9BLuZaryZLP8yAjpzzFdDXFDXFKQykgPcgqXPCYkXorWtY6WAbI9AuRTQ7P0UC5EyJbKwubU
-r9m38RkjhDi7uIGeUv2/03Edkwsqcy1dud93GDFf3+IniGUbMUTn2yjWhuUK6bWiUua6PW+B0Fa+
-vqzcwhk0qPo9u+Ul5f3OcW8ihS3UqzanqI+hp4e2LL2TcwznyXEgjjfEc5k44xGwIBUw1nZ5bIGS
-7L7Fm08I8I/sxIk2d5e9UkDSEw0OePqoD8WQzNT/mhLiM2AY5OlXwxoMVpkLG79GMEozUiAQcjLS
-Wg4=
-=LnX9
------END PGP SIGNATURE-----
+-- =
 
---t358AJk9LGksusmvn059A4ACV9zuTsn4c--
-
---===============1344061703==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1344061703==--
