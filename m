@@ -2,117 +2,75 @@ Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F94AC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 17:21:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D2FDC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 18:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFB6D64DE3
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 17:21:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFB6D64DE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id C3A5464D99
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 18:22:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3A5464D99
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42EAC6EBA4;
-	Wed, 10 Feb 2021 17:21:47 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700070.outbound.protection.outlook.com [40.107.70.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA0FA6EBA4
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 17:21:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YBwhtyWZpp+XZJUmCdwK5iIfv3NbyO7UvidkPgxAwOMBYqQ6MRuS4P0jPKvPGC5PCq+YYUwbsWU4bbo6OfB9L1OkeiwzkYUfiK74qK6lPGQI8BaJLj21h4Nv0pXkfAbqzzCvSq4+GJpRrxc50jsBcSi5CPvvB2iqziVfN/uArle41YCAQDuPd/hRFgyB4UUMlFO9dUrsI/kq9SmBM/ZWs3w3gQYLeZVLxvFrTmTWbjroErQZN6C7DKgcsdT2brXpGB6X5H5m3DuyinslM1wsLe/lkValtCx5Z3+gGDntq3VzpIFchrjbkaN7yxsx5Rgkrej44rWH1KU8ZDspw0oAzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VHbcZLALFmtP0cDB6GLYEOpBFLXatBpbjYy4xqvJTJo=;
- b=iigxNyWmeipKM49SSvq9YIHfkhjEhRRkj5/dvGqQbZzX7jv3d3fyAtztjjmcl07a+XhuhLpnWhVPlXX81FlmuIdXp14g/iFuiOF1lN1bxpLul3v2Iw8401dLgFvfxWD31fBZpCMhL4/kXSTnzysEKqa5Ht0HqB7Agh86ucNRoJApzn+kfnRyZE3stquMl4FomMjWQfqJPFk/62n1/DlokKwx8vdt2ScDX3gfDt/GfL3IiPagcW+3zk+/x/qaGKU4+ZsnWBAS7eD2CiQVNGPugCDfCk7RwWeaHWIASO+OvxMUDZDfYT1EfZJ7DqrqoubEkrvxYD/NIQdCX88K+vAfwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VHbcZLALFmtP0cDB6GLYEOpBFLXatBpbjYy4xqvJTJo=;
- b=0MHniFQ8L9045f8Ei+F9F/OJ6EgFbrNeDrm+VU6OjJKKF1HbhMURdWQNESAbtu8oiT+JGw9TB9fSvUCZFmVqeeHNfJp7RnsJuYP8KaRDoSJUHJ19zVS6Jds1bvlGJGekjvBMR12oO+agFRlgZ6JHMUgT+2o4AqbJbxs1X5a46RI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
- by DM6PR12MB4877.namprd12.prod.outlook.com (2603:10b6:5:1bb::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Wed, 10 Feb
- 2021 17:21:44 +0000
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::452c:77af:fea7:a633]) by DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::452c:77af:fea7:a633%6]) with mapi id 15.20.3846.027; Wed, 10 Feb 2021
- 17:21:44 +0000
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu/display: remove hdcp_srm sysfs
-Date: Wed, 10 Feb 2021 18:21:34 +0100
-Message-Id: <20210210172134.121327-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.30.0
-X-Originating-IP: [217.86.120.56]
-X-ClientProxiedBy: AM9P193CA0017.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:20b:21e::22) To DM6PR12MB3916.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75B176ECC3;
+	Wed, 10 Feb 2021 18:22:33 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E5DB6ECC3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 18:22:31 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id q2so4159427edi.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 10:22:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=jGAOMVVeKc5mG2FhVEVgK6DZWa3CzZyy5rM1jHa48i8=;
+ b=rt1zRe3zD820r/V07EiBBoHvHjszxZP+bzrNuYg2gdeOCwcVnM8BpIGv15pswmj8OH
+ K3d47pv9WOmVE7PE2N67w7KOTgEaLcbBH4GawGiWhJwpZ88ut7Oy6oj40Jaae59bpUJy
+ Q318+zLwMk8q/AKXzTitGbEF0/zj/sgz/2aVubI5TEysN6Jl3mY/LxPLYpnhJ/vlJtP/
+ CqFaGEcSSA13UhiTFcYYzk0ebtiylBKjAEqLt2bvhr07RaH4H76am647Ap4wNaFm/Cz7
+ Nbx5lHtT71++AvsHveEdrnr7HFRUmhftYndz+RS3HBvslVl1qUXJ5C8LaR0ptccuXG0p
+ 8R7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=jGAOMVVeKc5mG2FhVEVgK6DZWa3CzZyy5rM1jHa48i8=;
+ b=kUHwfKHjnwQfINfRbZo9xu1eW8tfc52z7bkeFNVFkZatYie2FxWasEVuPOA671g/eZ
+ b1s1jdVDleRuNsfxk5/AAjyQA8b8eug6INGWaJWruQ4JwWdvqkeLodFXc2byKVzBPgLf
+ XkgEsBqrRZv9I3l0zPtbcjbMbhN6MHz9A8nt8PRQRIQRn3jiflhGP23VjV5GamPRu1uG
+ s+uyo0U+/QOA18gRA311arCJGySucjQd5g8h6r6mDV3PjsPN6sI5ToSKZ/pEi6TCQsL3
+ 5V0V6GmGW8nCsSIhEpDNLHWZwnFAVQfJbPdkpDus704oCDbCe8brPb0PvL2S38fStVC6
+ 0+JA==
+X-Gm-Message-State: AOAM530Zh+YFtSKlYIFC+RcpaBRQbNPOGsYESy5hIi3KNNxHM/QApPwB
+ 1k6GL2MgBT/bRmz5B+La1rIVpvlcvoITGQ==
+X-Google-Smtp-Source: ABdhPJyfjmC6IPMSOfbeEX2HRljhNItVvDrKOqjMLMIb1hAJLYOKIYE6SV6FU2H7JgfyT1st2KHUhg==
+X-Received: by 2002:a05:6402:20e:: with SMTP id
+ t14mr4391320edv.178.1612981350257; 
+ Wed, 10 Feb 2021 10:22:30 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:78b9:aa01:2f51:becf?
+ ([2a02:908:1252:fb60:78b9:aa01:2f51:becf])
+ by smtp.gmail.com with ESMTPSA id i18sm1673238edt.68.2021.02.10.10.22.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Feb 2021 10:22:29 -0800 (PST)
+Subject: Re: [PATCH 1/2] drm/amdgpu: do not keep debugfs dentry
+To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
+References: <20210210160602.15903-1-nirmoy.das@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a646cc69-864c-9f23-9a1b-144fa269deed@gmail.com>
+Date: Wed, 10 Feb 2021 19:22:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from brihaspati.fritz.box (217.86.120.56) by
- AM9P193CA0017.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3846.27 via Frontend Transport; Wed, 10 Feb 2021 17:21:43 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f3f29ea7-726d-494e-c8e2-08d8cde85682
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4877:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB48772BECB677BDECDD681DD18B8D9@DM6PR12MB4877.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:64;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2qYUb8SfdhGUdPKZGGPVT4U8dPtboRv2DRi3W3Zs91GHDWZCWDreyK0IfWfZdtTaWRFKYRUX7m983z3Z6SKc8rOMi7fHCkq5YF0xcgVGpnaqyeYIwT1SLCcjpO1dUwTCMO17oizPtt6O/x5cfL4e01R5WsZ1kbfI6yVHPkwQ/U4vz2EUCp86v9IiLE4iB3KvavVcDY+uTmiwmJV659zM6q4jw+8wKUfvzBqyUDLGv7jKmX9hKh8329dvz6HKhU8OLuF/F5YrAI9Y9uS0SMLSxHJS0f1jMCAzqhULlXgK9SukYmb+R6DiQvSNvr5yTFK9djonIBPEbW9kOm7GQtvFm5aPPFf/Up/z9eMWdY+8+UvV0VnGaUAGL/N09xvXXh8OHFB/yI70xgGOxhqb4Mwxe89TE5RU1AZC0WemQkj1RG3cchp5RWW+JwfTb+Ly42fnVFBeR6h0DN+vDbc/qQTkvx893sZP6aWz065eiqil+NX8BM6biXRBR5CgTqfAnLKBUwWyQZzS5NQIb0Y7QTpQRA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(136003)(346002)(366004)(52116002)(5660300002)(2906002)(1076003)(478600001)(66556008)(66476007)(66946007)(8936002)(26005)(44832011)(36756003)(2616005)(186003)(6916009)(6506007)(956004)(16526019)(86362001)(6666004)(6486002)(6512007)(316002)(4326008)(83380400001)(8676002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?MwYMpksbNtBaFO5nmh90gbWYM8EJmA3ak4oE9JF1eacVtf3BGhoqxkNqNcS3?=
- =?us-ascii?Q?rzDkszaFYEkE2IPvwWBzj3+jit7HQ5QHj6frJx5vDlSlFKkfXxgIxb8PjiKi?=
- =?us-ascii?Q?mq1hUuWSguxjHWpOtqcnJLdqG87Y3DlkcNIcEBfvmviFMkB/0NKiBpcqm1VJ?=
- =?us-ascii?Q?inrQZkNL1rZyxtLYKyJfX7oPMpLETeIhtMNgC6TcHDLkhC6ZwZnpwK88HtaA?=
- =?us-ascii?Q?UpN27QpJ+D5mXrksA3c+kSH6V+HnCsT+eYyO2V/rgT8DM1RX67be0uZ2wqBA?=
- =?us-ascii?Q?Ze5ndB6WWKY52U4u/LgsKOxgzQeIco/PuDWmKSuhvXtMGdx6msfBoFLR4kyg?=
- =?us-ascii?Q?FOwmo1XHQukmJapswPO0AyMxe7x1//30zXdsUvYy/7A2EzG3GolXjAsG8xB0?=
- =?us-ascii?Q?faFVD0qb1nElds6p1KUFjBaZYV7hgh5xfC9KviyKci5WABqhMS1GNsHh5Q/n?=
- =?us-ascii?Q?Wb1UoeO85+hUj9589jMolN21dZSItVB7Hg2KXDxFhZcyTjpnVMVUNZleohBQ?=
- =?us-ascii?Q?/Mgs7s8j5zwhGrwxM7uBgTEzq+LXvhNUsfRwvkNA0Ke4PDZ0OVsHYyPl3bdU?=
- =?us-ascii?Q?C7RnyqT8SECyKJdb4kQj/5MfsJ28B/ZaocudZ4nHq6bVmboQ1w7FWWg8NnAC?=
- =?us-ascii?Q?1Bp43WVMh2ZPPjWqGKmOw6fArV4qs+cvU0Sdcle49ZuDiiGXiookWuVgCL4u?=
- =?us-ascii?Q?zMhQUpPzCxsQBoLpSde86Rne4oU1AwRdRvlohlD/Yc8LNm8k/zj7qRq0g7Tn?=
- =?us-ascii?Q?0Y4hTDqfv7Isps8k+nQQ9Eh20I8igTHfzV1Wg6XzI7V6FLuDG1+Msm+f3GU3?=
- =?us-ascii?Q?Y+K/W+uU8j0FcYiI4dLGVkMJr0FB+kCxFAYFm+vDiT+DetzlOqCmhmPDgGHX?=
- =?us-ascii?Q?nAxPUaVDpXv8Vrni0dmtrSNWTAh+q7e+Ic6+0gMx1SU7m32xx1Nv6c5ng1Kw?=
- =?us-ascii?Q?Of/SM4VF/wcQV8JZH+qVUgpJzpgOZsJRLfNuHEVcKGLGVf7wJtOvG1DVHoGC?=
- =?us-ascii?Q?6l18xlE7uSJYIFAV5Pf3av3NrTJDRlkEYQi0DJOejNKldxpCW79XQBmTaUsu?=
- =?us-ascii?Q?JDbzhOva3Fuj4zahmQ9n2P3TKu5PIwfHfbp+HGms221RqTJuoLow1KQi0OMB?=
- =?us-ascii?Q?brAprYMbMH8tM6atGxpncw/7o+SBfagANh+ezst88NvPUFOw6I2YXtnyCr8b?=
- =?us-ascii?Q?dKE3E1P378bpQD2eLaGQWdBZ9AL79CYESmNmvU+U/TzML/USObiQswL/zLc7?=
- =?us-ascii?Q?bxJJSt8V61hO9iGXU8zYx/R/xN1wjHc91uytPGR13KJ0BZaD4JNtqUHi2hfj?=
- =?us-ascii?Q?eADpIT4dV7giENW/OhU9Txq0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3f29ea7-726d-494e-c8e2-08d8cde85682
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 17:21:44.2552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Kh3O2qiY8rPSHPrvPpMxmFrU7BhMSbIriI5HN9Z6BGtg9Tsn4ii9+jNVkovlljvZr6bjcdyjdY3HvYAAQQ3Txg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4877
+In-Reply-To: <20210210160602.15903-1-nirmoy.das@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,70 +82,291 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: amd-gfx@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes: 9037246bb2da5 ("drm/amd/display: Add sysfs interface for set/get srm")
+Am 10.02.21 um 17:06 schrieb Nirmoy Das:
+> Cleanup unwanted  debugfs dentries.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c      | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 3 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+Maybe write unnecessary instead of unwanted.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 626a8cc92d65..083d75b747c2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1128,7 +1128,7 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- 	if (adev->dm.hdcp_workqueue) {
--		hdcp_destroy(adev->dm.hdcp_workqueue);
-+		hdcp_destroy(&adev->dev->kobj, adev->dm.hdcp_workqueue);
- 		adev->dm.hdcp_workqueue = NULL;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index b297ddc24d3a..0cdbfcd475ec 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -376,7 +376,7 @@ static void event_cpirq(struct work_struct *work)
- }
- 
- 
--void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
-+void hdcp_destroy(struct kobject *kobj, struct hdcp_workqueue *hdcp_work)
- {
- 	int i = 0;
- 
-@@ -385,6 +385,7 @@ void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
- 		cancel_delayed_work_sync(&hdcp_work[i].watchdog_timer_dwork);
- 	}
- 
-+	sysfs_remove_bin_file(kobj, &hdcp_work[0].attr);
- 	kfree(hdcp_work->srm);
- 	kfree(hdcp_work->srm_temp);
- 	kfree(hdcp_work);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-index 5159b3a5e5b0..09294ff122fe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-@@ -69,7 +69,7 @@ void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
- 
- void hdcp_reset_display(struct hdcp_workqueue *work, unsigned int link_index);
- void hdcp_handle_cpirq(struct hdcp_workqueue *work, unsigned int link_index);
--void hdcp_destroy(struct hdcp_workqueue *work);
-+void hdcp_destroy(struct kobject *kobj, struct hdcp_workqueue *work);
- 
- struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct cp_psp *cp_psp, struct dc *dc);
- 
--- 
-2.30.0
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  4 ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 12 +++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     | 34 ++++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h     |  4 ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  4 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  4 ---
+>   drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     |  3 --
+>   7 files changed, 23 insertions(+), 42 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index e0c797a5f739..e3d4d2dcb3a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -797,10 +797,6 @@ struct amdgpu_device {
+>   	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
+>   	struct amdgpu_debugfs		debugfs[AMDGPU_DEBUGFS_MAX_COMPONENTS];
+>   	unsigned			debugfs_count;
+> -#if defined(CONFIG_DEBUG_FS)
+> -	struct dentry                   *debugfs_preempt;
+> -	struct dentry			*debugfs_regs[AMDGPU_DEBUGFS_MAX_COMPONENTS];
+> -#endif
+>   	struct amdgpu_atif		*atif;
+>   	struct amdgpu_atcs		atcs;
+>   	struct mutex			srbm_mutex;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 4c38c5771cbc..874522217b7c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1228,7 +1228,6 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+>   					  adev, debugfs_regs[i]);
+>   		if (!i && !IS_ERR_OR_NULL(ent))
+>   			i_size_write(ent->d_inode, adev->rmmio_size);
+> -		adev->debugfs_regs[i] = ent;
+>   	}
+>   
+>   	return 0;
+> @@ -1592,21 +1591,20 @@ DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
+>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   {
+>   	int r, i;
+> +	struct dentry *ent = NULL;
+
+Please don't initialize the variables and sort them so that r and i are 
+last.
+
+>   
+> -	adev->debugfs_preempt =
+> -		debugfs_create_file("amdgpu_preempt_ib", 0600,
+> +	ent = debugfs_create_file("amdgpu_preempt_ib", 0600,
+>   				    adev_to_drm(adev)->primary->debugfs_root, adev,
+>   				    &fops_ib_preempt);
+> -	if (!(adev->debugfs_preempt)) {
+> +	if (!ent) {
+>   		DRM_ERROR("unable to create amdgpu_preempt_ib debugsfs file\n");
+>   		return -EIO;
+>   	}
+>   
+> -	adev->smu.debugfs_sclk =
+> -		debugfs_create_file("amdgpu_force_sclk", 0200,
+> +	ent = debugfs_create_file("amdgpu_force_sclk", 0200,
+>   				    adev_to_drm(adev)->primary->debugfs_root, adev,
+>   				    &fops_sclk_set);
+> -	if (!(adev->smu.debugfs_sclk)) {
+> +	if (!ent) {
+>   		DRM_ERROR("unable to create amdgpu_set_sclk debugsfs file\n");
+>   		return -EIO;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 1fb2a91ad30a..1efdfb9b5506 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -1137,15 +1137,16 @@ static int amdgpu_ras_sysfs_remove_all(struct amdgpu_device *adev)
+>    *
+>    */
+>   /* debugfs begin */
+> -static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+> +static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev,
+> +						struct dentry *dir)
+>   {
+>   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>   	struct drm_minor *minor = adev_to_drm(adev)->primary;
+>   
+> -	con->dir = debugfs_create_dir(RAS_FS_NAME, minor->debugfs_root);
+> -	debugfs_create_file("ras_ctrl", S_IWUGO | S_IRUGO, con->dir,
+> +	dir = debugfs_create_dir(RAS_FS_NAME, minor->debugfs_root);
+> +	debugfs_create_file("ras_ctrl", S_IWUGO | S_IRUGO, dir,
+>   				adev, &amdgpu_ras_debugfs_ctrl_ops);
+> -	debugfs_create_file("ras_eeprom_reset", S_IWUGO | S_IRUGO, con->dir,
+> +	debugfs_create_file("ras_eeprom_reset", S_IWUGO | S_IRUGO, dir,
+>   				adev, &amdgpu_ras_debugfs_eeprom_ops);
+>   
+>   	/*
+> @@ -1156,7 +1157,7 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+>   	 * ERREVENT_ATHUB_INTERRUPT generated. Normal GPU recovery routine
+>   	 * will never be called.
+>   	 */
+> -	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, con->dir,
+> +	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, dir,
+>   				&con->reboot);
+>   
+>   	/*
+> @@ -1164,16 +1165,16 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+>   	 * of RAS IPs during ras recovery.
+>   	 */
+>   	debugfs_create_bool("disable_ras_err_cnt_harvest", 0644,
+> -			con->dir, &con->disable_ras_err_cnt_harvest);
+> +			dir, &con->disable_ras_err_cnt_harvest);
+>   }
+>   
+>   static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+> -		struct ras_fs_if *head)
+> +				      struct ras_fs_if *head,
+> +				      struct dentry *dir)
+>   {
+> -	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>   	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head->head);
+>   
+> -	if (!obj || obj->ent)
+> +	if (!obj || !dir)
+>   		return;
+>   
+>   	get_obj(obj);
+> @@ -1182,9 +1183,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+>   			head->debugfs_name,
+>   			sizeof(obj->fs_data.debugfs_name));
+>   
+> -	obj->ent = debugfs_create_file(obj->fs_data.debugfs_name,
+> -				       S_IWUGO | S_IRUGO, con->dir, obj,
+> -				       &amdgpu_ras_debugfs_ops);
+> +	debugfs_create_file(obj->fs_data.debugfs_name, S_IWUGO | S_IRUGO, dir,
+> +			    obj, &amdgpu_ras_debugfs_ops);
+>   }
+>   
+>   void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+> @@ -1192,6 +1192,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+>   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>   	struct ras_manager *obj;
+>   	struct ras_fs_if fs_info;
+> +	struct dentry *dir = NULL;
+>   
+>   	/*
+>   	 * it won't be called in resume path, no need to check
+> @@ -1200,7 +1201,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+>   	if (!IS_ENABLED(CONFIG_DEBUG_FS) || !con)
+>   		return;
+>   
+> -	amdgpu_ras_debugfs_create_ctrl_node(adev);
+> +	amdgpu_ras_debugfs_create_ctrl_node(adev, dir);
+
+That won't work. You need to return the created directory here.
+
+And please stop initializing variables if it isn't explicitly needed, 
+the compiler would have pointed out that there is something wrong here 
+without that.
+
+>   
+>   	list_for_each_entry(obj, &con->head, node) {
+>   		if (amdgpu_ras_is_supported(adev, obj->head.block) &&
+> @@ -1208,7 +1209,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+>   			sprintf(fs_info.debugfs_name, "%s_err_inject",
+>   					ras_block_str(obj->head.block));
+>   			fs_info.head = obj->head;
+> -			amdgpu_ras_debugfs_create(adev, &fs_info);
+> +			amdgpu_ras_debugfs_create(adev, &fs_info, dir);
+>   		}
+>   	}
+>   }
+> @@ -1218,10 +1219,9 @@ static void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+>   {
+>   	struct ras_manager *obj = amdgpu_ras_find_obj(adev, head);
+>   
+> -	if (!obj || !obj->ent)
+> +	if (!obj)
+>   		return;
+>   
+> -	obj->ent = NULL;
+>   	put_obj(obj);
+>   }
+
+Is that function really doing anything any more? I don't think so.
+
+Regards,
+Christian.
+
+>   
+> @@ -1233,8 +1233,6 @@ static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)
+>   	list_for_each_entry_safe(obj, tmp, &con->head, node) {
+>   		amdgpu_ras_debugfs_remove(adev, &obj->head);
+>   	}
+> -
+> -	con->dir = NULL;
+>   }
+>   /* debugfs end */
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index 762f5e46c007..aed0716efa5a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -318,8 +318,6 @@ struct amdgpu_ras {
+>   	uint32_t supported;
+>   	uint32_t features;
+>   	struct list_head head;
+> -	/* debugfs */
+> -	struct dentry *dir;
+>   	/* sysfs */
+>   	struct device_attribute features_attr;
+>   	struct bin_attribute badpages_attr;
+> @@ -395,8 +393,6 @@ struct ras_manager {
+>   	struct list_head node;
+>   	/* the device */
+>   	struct amdgpu_device *adev;
+> -	/* debugfs */
+> -	struct dentry *ent;
+>   	/* sysfs */
+>   	struct device_attribute sysfs_attr;
+>   	int attr_inuse;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index aaad9e304ad9..f4d7cf60c262 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1788,7 +1788,7 @@ static void amdgpu_ttm_training_data_block_init(struct amdgpu_device *adev)
+>   		(adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+>   	ctx->train_data_size =
+>   		GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+> -	
+> +
+>   	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
+>   			ctx->train_data_size,
+>   			ctx->p2c_train_data_offset,
+> @@ -2560,11 +2560,11 @@ int amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
+>   				ttm_debugfs_entries[count].fops);
+>   		if (IS_ERR(ent))
+>   			return PTR_ERR(ent);
+> +
+>   		if (ttm_debugfs_entries[count].domain == TTM_PL_VRAM)
+>   			i_size_write(ent->d_inode, adev->gmc.mc_vram_size);
+>   		else if (ttm_debugfs_entries[count].domain == TTM_PL_TT)
+>   			i_size_write(ent->d_inode, adev->gmc.gart_size);
+> -		adev->mman.debugfs_entries[count] = ent;
+>   	}
+>   
+>   	count = ARRAY_SIZE(amdgpu_ttm_debugfs_list);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 6c142455fc66..4df4cf2fd4dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -68,10 +68,6 @@ struct amdgpu_mman {
+>   	bool				initialized;
+>   	void __iomem			*aper_base_kaddr;
+>   
+> -#if defined(CONFIG_DEBUG_FS)
+> -	struct dentry			*debugfs_entries[8];
+> -#endif
+> -
+>   	/* buffer handling */
+>   	const struct amdgpu_buffer_funcs	*buffer_funcs;
+>   	struct amdgpu_ring			*buffer_funcs_ring;
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index 10b0624ade65..83147b7d836e 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -439,9 +439,6 @@ struct smu_context
+>   	struct smu_baco_context		smu_baco;
+>   	struct smu_temperature_range	thermal_range;
+>   	void *od_settings;
+> -#if defined(CONFIG_DEBUG_FS)
+> -	struct dentry                   *debugfs_sclk;
+> -#endif
+>   
+>   	struct smu_umd_pstate_table	pstate_table;
+>   	uint32_t pstate_sclk;
 
 _______________________________________________
 amd-gfx mailing list
