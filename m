@@ -2,130 +2,69 @@ Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.4 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2535C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 19:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37F57C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 21:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 76B6564ED0
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 19:50:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76B6564ED0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id EE9C964E16
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 21:06:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE9C964E16
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC826ECCB;
-	Wed, 10 Feb 2021 19:50:27 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFD1A6ECCB
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Feb 2021 19:50:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cx+U1pVHg5jilfB2DrsPNiUBeJ0yGG5aOwmbb3f7oqmuoxy6AHo9NPm/xu3Z0m4stfKWmOCa/Bh3gv1iQsqPMPheclWDFp/uWGKc7lENDS3WeoVba+xIYXCGvzByxu4IxMHoxDewGSqq+5iaf1TfGxSKpWMcT0FmZxHlXqgxFkKVA8WFuYTpqKG8fFo70kmXbgSdRZDJxfgf2cTHOII6PPnsN6fQ2WCl5BfXzzPEecUfFXtSg0aG0IqpOs01Zf8nNQn1ledEJjI1O6xkspMI1YNXWahnJVwL0nXyjnTCY75t9bM3B6yeMFei4I/DgRhTZJO6LwOExn9eINjU2m+IRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gbATD5nk87/cFd4IS3+16pO6cyN47Hkx8k/hHZELi0E=;
- b=OLziIW+nJBrzq6eruBcGTrNyxCPjTFwtzT6tNHcEnL4eiRhXTPaIXDT9ITg8nL/2oWeYEThnU3izE3SiVLAXr5uIwShLzzUWIp5NZQkEATa6W8ZawvGpAfEz5/wsOJ9shRTt1mH45RuTV3ixdLJb72oH+Dri7mRO2YKEdB8wMymUwaQFAFSCP3DYFO5k43dvdkOTmbP/lnKhkUYqRTv+L2xDaCYcmj5mjyusQ2OFdzwOeXaSNGt2Ra5J2j342fViSV3FQdBbFrRDmdRcA6iINPGJwzKuNmizEFS/YSYVnhXwi/bIF4fUy0O6jZDH4XdW6LsyBr/x9HGKwcIdtnP+vA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gbATD5nk87/cFd4IS3+16pO6cyN47Hkx8k/hHZELi0E=;
- b=tpJEaKfD+l+NzghsBMBtZN/fR1A8n4p39PbIuA9jvcHapyf7ocImrzsZZz6ZCD16dxXZwuoqNKQugQn5mmC0JSItPt0XdaszDm+esiQ5tsdZZ6umajrNrXhgs/XgZY1kMHwqpK8xUJINhQUuW9WffXTSo7HYa4m2r8ps/D/5YKA=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
- by DM6PR12MB4316.namprd12.prod.outlook.com (2603:10b6:5:21a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.26; Wed, 10 Feb
- 2021 19:50:24 +0000
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::452c:77af:fea7:a633]) by DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::452c:77af:fea7:a633%6]) with mapi id 15.20.3846.027; Wed, 10 Feb 2021
- 19:50:23 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: do not keep debugfs dentry
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
-References: <20210210160602.15903-1-nirmoy.das@amd.com>
- <a646cc69-864c-9f23-9a1b-144fa269deed@gmail.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <1970e1a3-dd26-a61f-45f6-85d2eaa288db@amd.com>
-Date: Wed, 10 Feb 2021 20:50:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-In-Reply-To: <a646cc69-864c-9f23-9a1b-144fa269deed@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [217.86.120.56]
-X-ClientProxiedBy: AM4P190CA0006.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:200:56::16) To DM6PR12MB3916.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AD1189450;
+	Wed, 10 Feb 2021 21:06:53 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 812686ECDE;
+ Wed, 10 Feb 2021 21:06:51 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id t5so4651347eds.12;
+ Wed, 10 Feb 2021 13:06:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=FrGcjihHtHTDqMK8qS//KOQi9Pnx0xxc4S99TbHEKVU=;
+ b=bZl/3bJZmk5RSlcmoT/d4XtTc2Wn3xGjMj0KurYjuqzKP4zBw+bc9QrK5efwAIIOe6
+ TwLkyTbpGG62cmzPc6yD2IOBQebOJAdMPe9YDMVFu6QQY+dLPNyqqPbKV0p968NOKC5d
+ nUNZB4C8i9imYqR02Yr92gp8e17YYrgkHNhIcmEyn5ViChdgAw1W4wIawB2H9TndL9kP
+ 6PfFGoHogcMdqZaK167oPfusEMqTyrfEoDpBsFf2QTh4jbxvNO2O6rdeptjKu0iYEVj3
+ T1IU8uOR8Db5V+pvr3BUsvmd//QfggGxnW/x5VLbKa0LMryogTVAOHDhZBNUBCy7A1OJ
+ MvWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=FrGcjihHtHTDqMK8qS//KOQi9Pnx0xxc4S99TbHEKVU=;
+ b=KYIRKwUoAGQ/JYZ+ONEWXN69m1yE2Aurn7dHDafEYYStzw+KKO/PNEZjQGv+YoBTHd
+ JzUTpR49lshDlMVSBY9379nVUguRrfknDIGRcgMP0t+vNwcOt3WE7Vt0KFdgF7cycyZA
+ xGQESUWOLBu1IOuBDblZXz9bRkIYRal9/9Y3REz97lcpVYhJntnZf0eYsXSvipk4u5ub
+ Tq1OkXaZ+jxxqs2uqFLQWibdx2sm+4HSbL0QGRIMzQYhHLJUv/aAvibRcBXp8ysYrZX9
+ Yji5ycJPAkL4UUqtzfZUpn4KpauV0/JJLLsGdNzQ7T42dPQyKZdFlaiqrtbmaK7ddx4E
+ +ovQ==
+X-Gm-Message-State: AOAM533m/gASF6dyDFAwySRlvqnZXZoguWbEah/PbrOMh3a7LANJ7d1F
+ CkihCT4tzbht1bOrgfgajncbgTO83lp7yT+59Hso0RDm
+X-Google-Smtp-Source: ABdhPJw3d0UoQNz1PuYGj9utgFV+Yk2Ofq33h8ChNMAyTB34qOS9ILkDvT4y7/HEcqQhMbCxVGqGr9Y1LC4DzCtzc6Q=
+X-Received: by 2002:aa7:d808:: with SMTP id v8mr5065111edq.380.1612991210061; 
+ Wed, 10 Feb 2021 13:06:50 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.178.87] (217.86.120.56) by
- AM4P190CA0006.EURP190.PROD.OUTLOOK.COM (2603:10a6:200:56::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3846.25 via Frontend Transport; Wed, 10 Feb 2021 19:50:22 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a6655105-cb9e-4a3e-a7ec-08d8cdfd1ae0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4316:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB43160C12E5F7B79E0B3D422A8B8D9@DM6PR12MB4316.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 07CeTVgDOVByPYBSonsNKv0mbFArRLyo7O413wRpjFAYIV/lg0S19nGpAddeB2fIIhBvtGjRfB9in4XC6pqRFG3C2UyLDFeNn6SJGafub70Jo/bLd/3vFiWORiGlXy4J8vwKRbTWOpzCD+9hlNE2+5z6mvFGsZAP3bkiVUcFxdM0MAqrC5203RpTZ+6pPSJEP2/8NbsRxumgmpA5T73NgE01OzzmJJH2lXn/KLi8tu+BB+14RArbpBn21bUfR0ioT9FSsTWnoK4xo2SbcYYsU+OunpaKmRx9iMiwVCQaOgqZx8Zau4Q1bBGu2NIsDPVE2GZsTigdyplFOE6zDJtvoICTjr8gXYJUlZWcGAcs2e6wTPnylCtXeVFcAHeWGCHL25fZl71mi9tdGBHLvW4LAO6KtBxuZTWOhMkBI1mY/Ap368rAMnQyKDZ/vhJzPc1P/hal4sQ8JjvVqGoabmyoNsMMUiz8VTpaVEIinOw+XIyRhXEMHHW5cn5gLC4LrfAGg6WYc1QS94VgYMYdy9O4DYnDJ8cag1QktgNvjcXTTf9SCwLyaFKl//ZwzWwE348NunrmtQ2K25rBFkwGI29MrvSW5uvaJN88yzB7bWF8xgY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39850400004)(346002)(136003)(396003)(366004)(5660300002)(66556008)(8676002)(4326008)(8936002)(6636002)(66946007)(66476007)(31696002)(52116002)(30864003)(66574015)(478600001)(31686004)(186003)(16526019)(2906002)(16576012)(316002)(53546011)(6666004)(110136005)(26005)(6486002)(83380400001)(956004)(2616005)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?OTd5OEpzcFBpOXk3dk43cS9UYlVzZ3VaS3hmK0kwaUxrb1B6a2JldWpwcmZY?=
- =?utf-8?B?ckIyVERScTFYVTdwbk1CaVl0RGFtSVNSa0Y2RDI1MjdYemMzQzZsc2VCZjRt?=
- =?utf-8?B?M0w1dXV3UXZSU0NyNE1neVF4d2FvTFNCY2JnRU94UjZrdUp3ekxWWURKc0sr?=
- =?utf-8?B?eXRYVzFNT0lvaDJEUWtBN0tmalcvbHJJSEo5bWdIaldyYVpxd2xBWDNobkdq?=
- =?utf-8?B?SFIvdWFHR1hPTS8zeDh5T2Z6UmdpeExkcmdXS3VzbjhnOU50emRlVGh0UlFa?=
- =?utf-8?B?SEtCbkcyclluVEE2SVBXamowVWpiMmxpVFFqdm9DVlBHd1ZmSWN0aEJ3djc0?=
- =?utf-8?B?d0szSTZ6YzhFT3FnNGtFSWx2akVaMXRhaHRiNGRMbjZ6M3ArVERsc29FRkNo?=
- =?utf-8?B?R3JodThUQzZsU3hncUdIUEYvOUFpUWRFTnJsUTJvMFdDcGZuVWdwQnhpUGNw?=
- =?utf-8?B?VWRtdUUxanJSTGlPYlNQdEMyRUlBS1h4K3dZWUd6cXJLRU1EOHJ3MXc4NEpH?=
- =?utf-8?B?d3hHVE9QaWd5dEhpbkQvNHNxdVQ5RlcxYkdLL3d6VjhxbWRIUzNSL0pxbitu?=
- =?utf-8?B?VEJtVUV5c3ZMWXlGSWRjYklOQmt2dDc3b3hGOTF0M1M0bnNRcDNNcS9JczVo?=
- =?utf-8?B?YXQ3VElZM3NSdWplKzVrQXFyT3ZyUWdnWFpwdTdNRkFZbzUzeFArUW9ESWdF?=
- =?utf-8?B?djhjNDh1SU8ycmZkaXpBeGNPQWhKU1VyU0hZYTlUaU9IM09YajhCUTVRUE5v?=
- =?utf-8?B?WWdSellZd2lvQWg3ME5IQVFHVkFpTUdwenJ2Y1BqYkxVcDdLUDFjYjVvZWpn?=
- =?utf-8?B?bXdZNE5qdFhyK3VLUzA4ekNKUkk3Z0EvL1gvSW0zeDVJamhvY2VjUGFtNWFW?=
- =?utf-8?B?TThEOHU0STFUNVo4ODRnNkxUcEthMTBoeDJmL3dlLzgwemZXdXVRdzY1UXFE?=
- =?utf-8?B?emlxN2g1bXJicmVFU0MxdXVaVUQyckxkMUlFaGp0RXJ3UkxoNStyZVcvSkpM?=
- =?utf-8?B?UzdwUlZFMy83UzRRMSs5VHZZSlFQdXhzSXF2SXYrQ2duU0RqYlJLQ1BxTjkx?=
- =?utf-8?B?YUphVnRzbDg4bUlDYjlGT0ZLK1dtd1ROOXlaYVlIVnV4NTNoWEZWWE9RU0xO?=
- =?utf-8?B?OG1SWDZrZFVPM1A2ZFlJVmJyTStVaDlKN3lraE5CUUx3ZFJqZVdMZ0JGUjFW?=
- =?utf-8?B?UGlzMFpNSjNJNW16a1Z3cExtVzlEVVJiSzNRMlhtOVR1bzV4d2FsVDZ2RlFB?=
- =?utf-8?B?bjhVbTdqVjA5a1hkbDEySUdyRWE2Z0huOVFkUjZ2Wis4dmtONGFORGpNMTlB?=
- =?utf-8?B?eVdWR2FUWmhyQ2h3UVRHZEFvSXpTM2NQRC9ibW1YR240YmYvRWdQUW5ueTcv?=
- =?utf-8?B?RitQbm5jeGJLclV0RDJJL05SWCsyVTIrU2EraExNODd4K1MxMWx4dEZHMytr?=
- =?utf-8?B?cGNJOG1oamxKUmVuWDhwMCs0dFhHS1R0ckIwSWhGc0txR01MR0IwYk1mUEFG?=
- =?utf-8?B?RG1pOXA4MUl4UzhEZkVZM1BsL2Z5UWRYVHpFaVVuUld6cjQvUXFxYktIWm1a?=
- =?utf-8?B?K3NTUm1hSnl0QWZURmNiZWt0REEwTERrZ0tRNmpCMU5WUmtzSElUeUhMWlkz?=
- =?utf-8?B?Z1cwcUkzdFBvMnR5Qm1PYXc3WjhZRWtXYUpUbkd3YWEvZUpVdjRvQ1RuWWMw?=
- =?utf-8?B?SHdKbFpuakxHVC8ySzhpc1ZQNm10ei9lVnNsdWM4MUNEMVBtQVgrQzVHV0ZF?=
- =?utf-8?Q?ZhBYAFyFq7D9KsmM5Z2oPDbABKSWlfC6L8kYUf1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6655105-cb9e-4a3e-a7ec-08d8cdfd1ae0
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 19:50:23.8273 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SWIJ9tnyF2N6xx+VCAglaNu0fC6GKCEKQ1RTk7xIiVs39gxYoMG7JQIloeEnUEKZauvSyL7IkRPV/6fUf3jTXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4316
+References: <20210121061704.21090-1-mario.kleiner.de@gmail.com>
+ <20210121061704.21090-3-mario.kleiner.de@gmail.com>
+ <CADnq5_MaiO_OmULhcv2qtVBK2kXURd15Xe4QgBm05HxHhc-ASg@mail.gmail.com>
+ <25c30592-43aa-50f6-8904-63f983391f56@amd.com>
+ <CAEsyxyh6ciQab9t6sRAPyR9RjsGLErZPSibuhCnR1YtcOym1mQ@mail.gmail.com>
+In-Reply-To: <CAEsyxyh6ciQab9t6sRAPyR9RjsGLErZPSibuhCnR1YtcOym1mQ@mail.gmail.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Wed, 10 Feb 2021 22:06:38 +0100
+Message-ID: <CAEsyxyhe7Gt_vLjAu4fr+3YWROMYgxyUnS2GSQCK2rC-S-ACug@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Fix HDMI deep color output for DCE
+ 6-11.
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,242 +76,689 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0671984977=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDIvMTAvMjEgNzoyMiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAxMC4wMi4y
-MSB1bSAxNzowNiBzY2hyaWViIE5pcm1veSBEYXM6Cj4+IENsZWFudXAgdW53YW50ZWTCoCBkZWJ1
-Z2ZzIGRlbnRyaWVzLgo+Cj4gTWF5YmUgd3JpdGUgdW5uZWNlc3NhcnkgaW5zdGVhZCBvZiB1bndh
-bnRlZC4KPgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBOaXJtb3kgRGFzIDxuaXJtb3kuZGFzQGFtZC5j
-b20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaMKgwqDC
-oMKgwqDCoMKgwqAgfMKgIDQgLS0tCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZWJ1Z2ZzLmMgfCAxMiArKystLS0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcmFzLmPCoMKgwqDCoCB8IDM0ICsrKysrKysrKystLS0tLS0tLS0tLQo+PiDC
-oCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmjCoMKgwqDCoCB8wqAgNCAt
-LS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jwqDCoMKgwqAg
-fMKgIDQgKy0tCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaMKg
-wqDCoMKgIHzCoCA0IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVf
-c211LmjCoMKgwqDCoCB8wqAgMyAtLQo+PiDCoCA3IGZpbGVzIGNoYW5nZWQsIDIzIGluc2VydGlv
-bnMoKyksIDQyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmggCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKPj4gaW5kZXggZTBjNzk3YTVmNzM5Li5lM2Q0ZDJkY2IzYTAgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC03OTcsMTAgKzc5Nyw2IEBAIHN0cnVjdCBh
-bWRncHVfZGV2aWNlIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2kyY19jaGFuICppMmNf
-YnVzW0FNREdQVV9NQVhfSTJDX0JVU107Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9kZWJ1
-Z2ZzIGRlYnVnZnNbQU1ER1BVX0RFQlVHRlNfTUFYX0NPTVBPTkVOVFNdOwo+PiDCoMKgwqDCoMKg
-IHVuc2lnbmVkwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZWJ1Z2ZzX2NvdW50Owo+PiAtI2lmIGRl
-ZmluZWQoQ09ORklHX0RFQlVHX0ZTKQo+PiAtwqDCoMKgIHN0cnVjdCBkZW50cnnCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKmRlYnVnZnNfcHJlZW1wdDsKPj4gLcKgwqDCoCBz
-dHJ1Y3QgZGVudHJ5ICpkZWJ1Z2ZzX3JlZ3NbQU1ER1BVX0RFQlVHRlNfTUFYX0NPTVBPTkVOVFNd
-Owo+PiAtI2VuZGlmCj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9hdGlmwqDCoMKgwqDCoMKg
-wqAgKmF0aWY7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9hdGNzwqDCoMKgwqDCoMKgwqAg
-YXRjczsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgbXV0ZXjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNy
-Ym1fbXV0ZXg7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGVidWdmcy5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1
-Z2ZzLmMKPj4gaW5kZXggNGMzOGM1NzcxY2JjLi44NzQ1MjIyMTdiN2MgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYwo+PiBAQCAtMTIyOCw3ICsx
-MjI4LDYgQEAgaW50IGFtZGdwdV9kZWJ1Z2ZzX3JlZ3NfaW5pdChzdHJ1Y3QgCj4+IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgYWRldiwgZGVidWdmc19yZWdzW2ldKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICgh
-aSAmJiAhSVNfRVJSX09SX05VTEwoZW50KSkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-aV9zaXplX3dyaXRlKGVudC0+ZF9pbm9kZSwgYWRldi0+cm1taW9fc2l6ZSk7Cj4+IC3CoMKgwqDC
-oMKgwqDCoCBhZGV2LT5kZWJ1Z2ZzX3JlZ3NbaV0gPSBlbnQ7Cj4+IMKgwqDCoMKgwqAgfQo+PiDC
-oCDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiBAQCAtMTU5MiwyMSArMTU5MSwyMCBAQCBERUZJTkVf
-U0lNUExFX0FUVFJJQlVURShmb3BzX3NjbGtfc2V0LCBOVUxMLAo+PiDCoCBpbnQgYW1kZ3B1X2Rl
-YnVnZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4gwqAgewo+PiDCoMKgwqDC
-oMKgIGludCByLCBpOwo+PiArwqDCoMKgIHN0cnVjdCBkZW50cnkgKmVudCA9IE5VTEw7Cj4KPiBQ
-bGVhc2UgZG9uJ3QgaW5pdGlhbGl6ZSB0aGUgdmFyaWFibGVzIGFuZCBzb3J0IHRoZW0gc28gdGhh
-dCByIGFuZCBpIAo+IGFyZSBsYXN0Lgo+Cj4+IMKgIC3CoMKgwqAgYWRldi0+ZGVidWdmc19wcmVl
-bXB0ID0KPj4gLcKgwqDCoMKgwqDCoMKgIGRlYnVnZnNfY3JlYXRlX2ZpbGUoImFtZGdwdV9wcmVl
-bXB0X2liIiwgMDYwMCwKPj4gK8KgwqDCoCBlbnQgPSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJhbWRn
-cHVfcHJlZW1wdF9pYiIsIDA2MDAsCj4+IGFkZXZfdG9fZHJtKGFkZXYpLT5wcmltYXJ5LT5kZWJ1
-Z2ZzX3Jvb3QsIGFkZXYsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAmZm9wc19pYl9wcmVlbXB0KTsKPj4gLcKgwqDCoCBpZiAoIShhZGV2LT5kZWJ1Z2ZzX3By
-ZWVtcHQpKSB7Cj4+ICvCoMKgwqAgaWYgKCFlbnQpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIERS
-TV9FUlJPUigidW5hYmxlIHRvIGNyZWF0ZSBhbWRncHVfcHJlZW1wdF9pYiBkZWJ1Z3NmcyAKPj4g
-ZmlsZVxuIik7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTzsKPj4gwqDCoMKgwqDC
-oCB9Cj4+IMKgIC3CoMKgwqAgYWRldi0+c211LmRlYnVnZnNfc2NsayA9Cj4+IC3CoMKgwqDCoMKg
-wqDCoCBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJhbWRncHVfZm9yY2Vfc2NsayIsIDAyMDAsCj4+ICvC
-oMKgwqAgZW50ID0gZGVidWdmc19jcmVhdGVfZmlsZSgiYW1kZ3B1X2ZvcmNlX3NjbGsiLCAwMjAw
-LAo+PiBhZGV2X3RvX2RybShhZGV2KS0+cHJpbWFyeS0+ZGVidWdmc19yb290LCBhZGV2LAo+PiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmZvcHNfc2Nsa19zZXQp
-Owo+PiAtwqDCoMKgIGlmICghKGFkZXYtPnNtdS5kZWJ1Z2ZzX3NjbGspKSB7Cj4+ICvCoMKgwqAg
-aWYgKCFlbnQpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIERSTV9FUlJPUigidW5hYmxlIHRvIGNy
-ZWF0ZSBhbWRncHVfc2V0X3NjbGsgZGVidWdzZnMgZmlsZVxuIik7Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCByZXR1cm4gLUVJTzsKPj4gwqDCoMKgwqDCoCB9Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgCj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4+IGluZGV4IDFmYjJhOTFhZDMwYS4uMWVmZGZiOWI1NTA2
-IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMK
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4+IEBAIC0x
-MTM3LDE1ICsxMTM3LDE2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Jhc19zeXNmc19yZW1vdmVfYWxs
-KHN0cnVjdCAKPj4gYW1kZ3B1X2RldmljZSAqYWRldikKPj4gwqDCoCAqCj4+IMKgwqAgKi8KPj4g
-wqAgLyogZGVidWdmcyBiZWdpbiAqLwo+PiAtc3RhdGljIHZvaWQgYW1kZ3B1X3Jhc19kZWJ1Z2Zz
-X2NyZWF0ZV9jdHJsX25vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgCj4+ICphZGV2KQo+PiArc3Rh
-dGljIHZvaWQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2NyZWF0ZV9jdHJsX25vZGUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgCj4+ICphZGV2LAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZGVudHJ5ICpkaXIpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBz
-dHJ1Y3QgYW1kZ3B1X3JhcyAqY29uID0gYW1kZ3B1X3Jhc19nZXRfY29udGV4dChhZGV2KTsKPj4g
-wqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX21pbm9yICptaW5vciA9IGFkZXZfdG9fZHJtKGFkZXYpLT5w
-cmltYXJ5Owo+PiDCoCAtwqDCoMKgIGNvbi0+ZGlyID0gZGVidWdmc19jcmVhdGVfZGlyKFJBU19G
-U19OQU1FLCBtaW5vci0+ZGVidWdmc19yb290KTsKPj4gLcKgwqDCoCBkZWJ1Z2ZzX2NyZWF0ZV9m
-aWxlKCJyYXNfY3RybCIsIFNfSVdVR08gfCBTX0lSVUdPLCBjb24tPmRpciwKPj4gK8KgwqDCoCBk
-aXIgPSBkZWJ1Z2ZzX2NyZWF0ZV9kaXIoUkFTX0ZTX05BTUUsIG1pbm9yLT5kZWJ1Z2ZzX3Jvb3Qp
-Owo+PiArwqDCoMKgIGRlYnVnZnNfY3JlYXRlX2ZpbGUoInJhc19jdHJsIiwgU19JV1VHTyB8IFNf
-SVJVR08sIGRpciwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LCAm
-YW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfb3BzKTsKPj4gLcKgwqDCoCBkZWJ1Z2ZzX2NyZWF0ZV9m
-aWxlKCJyYXNfZWVwcm9tX3Jlc2V0IiwgU19JV1VHTyB8IFNfSVJVR08sIAo+PiBjb24tPmRpciwK
-Pj4gK8KgwqDCoCBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJyYXNfZWVwcm9tX3Jlc2V0IiwgU19JV1VH
-TyB8IFNfSVJVR08sIGRpciwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBh
-ZGV2LCAmYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2VlcHJvbV9vcHMpOwo+PiDCoCDCoMKgwqDCoMKgIC8q
-Cj4+IEBAIC0xMTU2LDcgKzExNTcsNyBAQCBzdGF0aWMgdm9pZCAKPj4gYW1kZ3B1X3Jhc19kZWJ1
-Z2ZzX2NyZWF0ZV9jdHJsX25vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+IMKgwqDC
-oMKgwqDCoCAqIEVSUkVWRU5UX0FUSFVCX0lOVEVSUlVQVCBnZW5lcmF0ZWQuIE5vcm1hbCBHUFUg
-cmVjb3Zlcnkgcm91dGluZQo+PiDCoMKgwqDCoMKgwqAgKiB3aWxsIG5ldmVyIGJlIGNhbGxlZC4K
-Pj4gwqDCoMKgwqDCoMKgICovCj4+IC3CoMKgwqAgZGVidWdmc19jcmVhdGVfYm9vbCgiYXV0b19y
-ZWJvb3QiLCBTX0lXVUdPIHwgU19JUlVHTywgY29uLT5kaXIsCj4+ICvCoMKgwqAgZGVidWdmc19j
-cmVhdGVfYm9vbCgiYXV0b19yZWJvb3QiLCBTX0lXVUdPIHwgU19JUlVHTywgZGlyLAo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZjb24tPnJlYm9vdCk7Cj4+IMKgIMKgwqDC
-oMKgwqAgLyoKPj4gQEAgLTExNjQsMTYgKzExNjUsMTYgQEAgc3RhdGljIHZvaWQgCj4+IGFtZGdw
-dV9yYXNfZGVidWdmc19jcmVhdGVfY3RybF9ub2RlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQo+PiDCoMKgwqDCoMKgwqAgKiBvZiBSQVMgSVBzIGR1cmluZyByYXMgcmVjb3ZlcnkuCj4+IMKg
-wqDCoMKgwqDCoCAqLwo+PiDCoMKgwqDCoMKgIGRlYnVnZnNfY3JlYXRlX2Jvb2woImRpc2FibGVf
-cmFzX2Vycl9jbnRfaGFydmVzdCIsIDA2NDQsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNv
-bi0+ZGlyLCAmY29uLT5kaXNhYmxlX3Jhc19lcnJfY250X2hhcnZlc3QpOwo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBkaXIsICZjb24tPmRpc2FibGVfcmFzX2Vycl9jbnRfaGFydmVzdCk7Cj4+
-IMKgIH0KPj4gwqAgwqAgc3RhdGljIHZvaWQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2NyZWF0ZShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gLcKgwqDCoMKgwqDCoMKgIHN0cnVjdCByYXNfZnNf
-aWYgKmhlYWQpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-c3RydWN0IHJhc19mc19pZiAqaGVhZCwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZGVudHJ5ICpkaXIpCj4+IMKgIHsKPj4gLcKgwqDCoCBzdHJ1
-Y3QgYW1kZ3B1X3JhcyAqY29uID0gYW1kZ3B1X3Jhc19nZXRfY29udGV4dChhZGV2KTsKPj4gwqDC
-oMKgwqDCoCBzdHJ1Y3QgcmFzX21hbmFnZXIgKm9iaiA9IGFtZGdwdV9yYXNfZmluZF9vYmooYWRl
-diwgJmhlYWQtPmhlYWQpOwo+PiDCoCAtwqDCoMKgIGlmICghb2JqIHx8IG9iai0+ZW50KQo+PiAr
-wqDCoMKgIGlmICghb2JqIHx8ICFkaXIpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+
-IMKgIMKgwqDCoMKgwqAgZ2V0X29iaihvYmopOwo+PiBAQCAtMTE4Miw5ICsxMTgzLDggQEAgc3Rh
-dGljIHZvaWQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2NyZWF0ZShzdHJ1Y3QgCj4+IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGhlYWQtPmRlYnVnZnNfbmFt
-ZSwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2l6ZW9mKG9iai0+ZnNfZGF0YS5kZWJ1
-Z2ZzX25hbWUpKTsKPj4gwqAgLcKgwqDCoCBvYmotPmVudCA9IGRlYnVnZnNfY3JlYXRlX2ZpbGUo
-b2JqLT5mc19kYXRhLmRlYnVnZnNfbmFtZSwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIFNfSVdVR08gfCBTX0lSVUdPLCBjb24tPmRpciwgb2JqLAo+PiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmFtZGdwdV9yYXNf
-ZGVidWdmc19vcHMpOwo+PiArwqDCoMKgIGRlYnVnZnNfY3JlYXRlX2ZpbGUob2JqLT5mc19kYXRh
-LmRlYnVnZnNfbmFtZSwgU19JV1VHTyB8IAo+PiBTX0lSVUdPLCBkaXIsCj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgb2JqLCAmYW1kZ3B1X3Jhc19kZWJ1Z2ZzX29wcyk7Cj4+IMKg
-IH0KPj4gwqAgwqAgdm9pZCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlX2FsbChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKPj4gQEAgLTExOTIsNiArMTE5Miw3IEBAIHZvaWQgYW1kZ3B1X3Jh
-c19kZWJ1Z2ZzX2NyZWF0ZV9hbGwoc3RydWN0IAo+PiBhbWRncHVfZGV2aWNlICphZGV2KQo+PiDC
-oMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfcmFzICpjb24gPSBhbWRncHVfcmFzX2dldF9jb250ZXh0
-KGFkZXYpOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCByYXNfbWFuYWdlciAqb2JqOwo+PiDCoMKgwqDC
-oMKgIHN0cnVjdCByYXNfZnNfaWYgZnNfaW5mbzsKPj4gK8KgwqDCoCBzdHJ1Y3QgZGVudHJ5ICpk
-aXIgPSBOVUxMOwo+PiDCoCDCoMKgwqDCoMKgIC8qCj4+IMKgwqDCoMKgwqDCoCAqIGl0IHdvbid0
-IGJlIGNhbGxlZCBpbiByZXN1bWUgcGF0aCwgbm8gbmVlZCB0byBjaGVjawo+PiBAQCAtMTIwMCw3
-ICsxMjAxLDcgQEAgdm9pZCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlX2FsbChzdHJ1Y3QgCj4+
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+IMKgwqDCoMKgwqAgaWYgKCFJU19FTkFCTEVEKENPTkZJ
-R19ERUJVR19GUykgfHwgIWNvbikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4gwqAg
-LcKgwqDCoCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlX2N0cmxfbm9kZShhZGV2KTsKPj4gK8Kg
-wqDCoCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlX2N0cmxfbm9kZShhZGV2LCBkaXIpOwo+Cj4g
-VGhhdCB3b24ndCB3b3JrLiBZb3UgbmVlZCB0byByZXR1cm4gdGhlIGNyZWF0ZWQgZGlyZWN0b3J5
-IGhlcmUuCj4KPiBBbmQgcGxlYXNlIHN0b3AgaW5pdGlhbGl6aW5nIHZhcmlhYmxlcyBpZiBpdCBp
-c24ndCBleHBsaWNpdGx5IG5lZWRlZCwgCj4gdGhlIGNvbXBpbGVyIHdvdWxkIGhhdmUgcG9pbnRl
-ZCBvdXQgdGhhdCB0aGVyZSBpcyBzb21ldGhpbmcgd3JvbmcgaGVyZSAKPiB3aXRob3V0IHRoYXQu
-CgoKSSBrZWVwIHJlcGVhdGluZyB0aGF0LgoKCj4KPj4gwqAgwqDCoMKgwqDCoCBsaXN0X2Zvcl9l
-YWNoX2VudHJ5KG9iaiwgJmNvbi0+aGVhZCwgbm9kZSkgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-aWYgKGFtZGdwdV9yYXNfaXNfc3VwcG9ydGVkKGFkZXYsIG9iai0+aGVhZC5ibG9jaykgJiYKPj4g
-QEAgLTEyMDgsNyArMTIwOSw3IEBAIHZvaWQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2NyZWF0ZV9hbGwo
-c3RydWN0IAo+PiBhbWRncHVfZGV2aWNlICphZGV2KQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBzcHJpbnRmKGZzX2luZm8uZGVidWdmc19uYW1lLCAiJXNfZXJyX2luamVjdCIsCj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByYXNfYmxvY2tfc3RyKG9i
-ai0+aGVhZC5ibG9jaykpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmc19pbmZvLmhl
-YWQgPSBvYmotPmhlYWQ7Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9yYXNfZGVi
-dWdmc19jcmVhdGUoYWRldiwgJmZzX2luZm8pOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBh
-bWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlKGFkZXYsICZmc19pbmZvLCBkaXIpOwo+PiDCoMKgwqDC
-oMKgwqDCoMKgwqAgfQo+PiDCoMKgwqDCoMKgIH0KPj4gwqAgfQo+PiBAQCAtMTIxOCwxMCArMTIx
-OSw5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9yYXNfZGVidWdmc19yZW1vdmUoc3RydWN0IAo+PiBh
-bWRncHVfZGV2aWNlICphZGV2LAo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IHJhc19tYW5h
-Z2VyICpvYmogPSBhbWRncHVfcmFzX2ZpbmRfb2JqKGFkZXYsIGhlYWQpOwo+PiDCoCAtwqDCoMKg
-IGlmICghb2JqIHx8ICFvYmotPmVudCkKPj4gK8KgwqDCoCBpZiAoIW9iaikKPj4gwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybjsKPj4gwqAgLcKgwqDCoCBvYmotPmVudCA9IE5VTEw7Cj4+IMKgwqDC
-oMKgwqAgcHV0X29iaihvYmopOwo+PiDCoCB9Cj4KPiBJcyB0aGF0IGZ1bmN0aW9uIHJlYWxseSBk
-b2luZyBhbnl0aGluZyBhbnkgbW9yZT8gSSBkb24ndCB0aGluayBzby4KCgpZZXMsIG5vdCByZWFs
-bHkuCgpUaGFua3MgQ2hyaXN0aWFuLCBJIHdpbGwgc2VuZCB2MiBmaXhpbmcgZXZlcnl0aGluZyBh
-Ym92ZS4KCgpOaXJtb3kKCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+PiDCoCBAQCAtMTIz
-Myw4ICsxMjMzLDYgQEAgc3RhdGljIHZvaWQgCj4+IGFtZGdwdV9yYXNfZGVidWdmc19yZW1vdmVf
-YWxsKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+PiDCoMKgwqDCoMKgIGxpc3RfZm9yX2Vh
-Y2hfZW50cnlfc2FmZShvYmosIHRtcCwgJmNvbi0+aGVhZCwgbm9kZSkgewo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX3JlbW92ZShhZGV2LCAmb2JqLT5oZWFkKTsKPj4g
-wqDCoMKgwqDCoCB9Cj4+IC0KPj4gLcKgwqDCoCBjb24tPmRpciA9IE5VTEw7Cj4+IMKgIH0KPj4g
-wqAgLyogZGVidWdmcyBlbmQgKi8KPj4gwqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcmFzLmgKPj4gaW5kZXggNzYyZjVlNDZjMDA3Li5hZWQwNzE2ZWZhNWEgMTAwNjQ0Cj4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaAo+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgKPj4gQEAgLTMxOCw4ICszMTgs
-NiBAQCBzdHJ1Y3QgYW1kZ3B1X3JhcyB7Cj4+IMKgwqDCoMKgwqAgdWludDMyX3Qgc3VwcG9ydGVk
-Owo+PiDCoMKgwqDCoMKgIHVpbnQzMl90IGZlYXR1cmVzOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCBs
-aXN0X2hlYWQgaGVhZDsKPj4gLcKgwqDCoCAvKiBkZWJ1Z2ZzICovCj4+IC3CoMKgwqAgc3RydWN0
-IGRlbnRyeSAqZGlyOwo+PiDCoMKgwqDCoMKgIC8qIHN5c2ZzICovCj4+IMKgwqDCoMKgwqAgc3Ry
-dWN0IGRldmljZV9hdHRyaWJ1dGUgZmVhdHVyZXNfYXR0cjsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3Qg
-YmluX2F0dHJpYnV0ZSBiYWRwYWdlc19hdHRyOwo+PiBAQCAtMzk1LDggKzM5Myw2IEBAIHN0cnVj
-dCByYXNfbWFuYWdlciB7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZCBub2RlOwo+PiDC
-oMKgwqDCoMKgIC8qIHRoZSBkZXZpY2UgKi8KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldjsKPj4gLcKgwqDCoCAvKiBkZWJ1Z2ZzICovCj4+IC3CoMKgwqAgc3RydWN0IGRl
-bnRyeSAqZW50Owo+PiDCoMKgwqDCoMKgIC8qIHN5c2ZzICovCj4+IMKgwqDCoMKgwqAgc3RydWN0
-IGRldmljZV9hdHRyaWJ1dGUgc3lzZnNfYXR0cjsKPj4gwqDCoMKgwqDCoCBpbnQgYXR0cl9pbnVz
-ZTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-YyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPj4gaW5kZXgg
-YWFhZDllMzA0YWQ5Li5mNGQ3Y2Y2MGMyNjIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdHRtLmMKPj4gQEAgLTE3ODgsNyArMTc4OCw3IEBAIHN0YXRpYyB2b2lkIAo+
-PiBhbWRncHVfdHRtX3RyYWluaW5nX2RhdGFfYmxvY2tfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIChhZGV2LT5nbWMubWNfdnJhbV9zaXplIC0g
-R0REUjZfTUVNX1RSQUlOSU5HX09GRlNFVCk7Cj4+IMKgwqDCoMKgwqAgY3R4LT50cmFpbl9kYXRh
-X3NpemUgPQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgR0REUjZfTUVNX1RSQUlOSU5HX0RBVEFfU0la
-RV9JTl9CWVRFUzsKPj4gLQo+PiArCj4+IERSTV9ERUJVRygidHJhaW5fZGF0YV9zaXplOiVsbHgs
-cDJjX3RyYWluX2RhdGFfb2Zmc2V0OiVsbHgsYzJwX3RyYWluX2RhdGFfb2Zmc2V0OiVsbHguXG4i
-LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjdHgtPnRyYWluX2RhdGFfc2l6ZSwKPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY3R4LT5wMmNfdHJhaW5fZGF0YV9vZmZzZXQsCj4+
-IEBAIC0yNTYwLDExICsyNTYwLDExIEBAIGludCBhbWRncHVfdHRtX2RlYnVnZnNfaW5pdChzdHJ1
-Y3QgCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgdHRtX2RlYnVnZnNfZW50cmllc1tjb3VudF0uZm9wcyk7Cj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCBpZiAoSVNfRVJSKGVudCkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJl
-dHVybiBQVFJfRVJSKGVudCk7Cj4+ICsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICh0dG1fZGVi
-dWdmc19lbnRyaWVzW2NvdW50XS5kb21haW4gPT0gVFRNX1BMX1ZSQU0pCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGlfc2l6ZV93cml0ZShlbnQtPmRfaW5vZGUsIGFkZXYtPmdtYy5tY192
-cmFtX3NpemUpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZWxzZSBpZiAodHRtX2RlYnVnZnNfZW50
-cmllc1tjb3VudF0uZG9tYWluID09IFRUTV9QTF9UVCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgaV9zaXplX3dyaXRlKGVudC0+ZF9pbm9kZSwgYWRldi0+Z21jLmdhcnRfc2l6ZSk7Cj4+
-IC3CoMKgwqDCoMKgwqDCoCBhZGV2LT5tbWFuLmRlYnVnZnNfZW50cmllc1tjb3VudF0gPSBlbnQ7
-Cj4+IMKgwqDCoMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgIGNvdW50ID0gQVJSQVlfU0laRShhbWRn
-cHVfdHRtX2RlYnVnZnNfbGlzdCk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdHRtLmggCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3R0bS5oCj4+IGluZGV4IDZjMTQyNDU1ZmM2Ni4uNGRmNGNmMmZkNGRkIDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCj4+IEBAIC02OCwxMCArNjgsNiBA
-QCBzdHJ1Y3QgYW1kZ3B1X21tYW4gewo+PiDCoMKgwqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgaW5pdGlhbGl6ZWQ7Cj4+IMKgwqDCoMKgwqAgdm9pZCBfX2lvbWVtwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAqYXBlcl9iYXNlX2thZGRyOwo+PiDCoCAtI2lmIGRlZmluZWQo
-Q09ORklHX0RFQlVHX0ZTKQo+PiAtwqDCoMKgIHN0cnVjdCBkZW50cnnCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgICpkZWJ1Z2ZzX2VudHJpZXNbOF07Cj4+IC0jZW5kaWYKPj4gLQo+PiDCoMKgwqDCoMKg
-IC8qIGJ1ZmZlciBoYW5kbGluZyAqLwo+PiDCoMKgwqDCoMKgIGNvbnN0IHN0cnVjdCBhbWRncHVf
-YnVmZmVyX2Z1bmNzwqDCoMKgICpidWZmZXJfZnVuY3M7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGFt
-ZGdwdV9yaW5nwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqYnVmZmVyX2Z1bmNzX3Jpbmc7Cj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211LmggCj4+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1kZ3B1X3NtdS5oCj4+IGluZGV4IDEwYjA2MjRh
-ZGU2NS4uODMxNDdiN2Q4MzZlIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L2luYy9hbWRncHVfc211LmgKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9pbmMvYW1k
-Z3B1X3NtdS5oCj4+IEBAIC00MzksOSArNDM5LDYgQEAgc3RydWN0IHNtdV9jb250ZXh0Cj4+IMKg
-wqDCoMKgwqAgc3RydWN0IHNtdV9iYWNvX2NvbnRleHTCoMKgwqDCoMKgwqDCoCBzbXVfYmFjbzsK
-Pj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc211X3RlbXBlcmF0dXJlX3JhbmdlwqDCoMKgIHRoZXJtYWxf
-cmFuZ2U7Cj4+IMKgwqDCoMKgwqAgdm9pZCAqb2Rfc2V0dGluZ3M7Cj4+IC0jaWYgZGVmaW5lZChD
-T05GSUdfREVCVUdfRlMpCj4+IC3CoMKgwqAgc3RydWN0IGRlbnRyecKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAqZGVidWdmc19zY2xrOwo+PiAtI2VuZGlmCj4+IMKgIMKgwqDC
-oMKgwqAgc3RydWN0IHNtdV91bWRfcHN0YXRlX3RhYmxlwqDCoMKgIHBzdGF0ZV90YWJsZTsKPj4g
-wqDCoMKgwqDCoCB1aW50MzJfdCBwc3RhdGVfc2NsazsKPgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+--===============0671984977==
+Content-Type: multipart/alternative; boundary="0000000000001a038c05bb01c899"
+
+--0000000000001a038c05bb01c899
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Ping. Any bit of info appreciated wrt. the DCE-11.2+ situation.
+-mario
+
+On Mon, Jan 25, 2021 at 8:24 PM Mario Kleiner <mario.kleiner.de@gmail.com>
+wrote:
+
+> Thanks Alex and Nicholas! Brings quite a bit of extra shiny to those olde=
+r
+> asics :)
+>
+> Nicholas, any thoughts on my cover-letter wrt. why a similar patch (that =
+I
+> wrote and tested to no good or bad effect) not seem to be needed on DCN,
+> and probably not DCE-11.2+ either? Is what is left in DC for those asic's
+> just dead code? My Atombios disassembly sort of pointed into that
+> direction, but reading disassembly is not easy on the brain, and my brain
+> was getting quite mushy towards the end of digging through all the code. =
+So
+> some official statement would add peace of mind on my side. Is there a
+> certain DCE version at which your team starts validating output precision=
+ /
+> HDR etc. on hw?
+>
+> Thanks,
+> -mario
+>
+>
+> On Mon, Jan 25, 2021 at 8:16 PM Kazlauskas, Nicholas <
+> nicholas.kazlauskas@amd.com> wrote:
+>
+>> On 2021-01-25 12:57 p.m., Alex Deucher wrote:
+>> > On Thu, Jan 21, 2021 at 1:17 AM Mario Kleiner
+>> > <mario.kleiner.de@gmail.com> wrote:
+>> >>
+>> >> This fixes corrupted display output in HDMI deep color
+>> >> 10/12 bpc mode at least as observed on AMD Mullins, DCE-8.3.
+>> >>
+>> >> It will hopefully also provide fixes for other DCE's up to
+>> >> DCE-11, assuming those will need similar fixes, but i could
+>> >> not test that for HDMI due to lack of suitable hw, so viewer
+>> >> discretion is advised.
+>> >>
+>> >> dce110_stream_encoder_hdmi_set_stream_attribute() is used for
+>> >> HDMI setup on all DCE's and is missing color_depth assignment.
+>> >>
+>> >> dce110_program_pix_clk() is used for pixel clock setup on HDMI
+>> >> for DCE 6-11, and is missing color_depth assignment.
+>> >>
+>> >> Additionally some of the underlying Atombios specific encoder
+>> >> and pixelclock setup functions are missing code which is in
+>> >> the classic amdgpu kms modesetting path and the in the radeon
+>> >> kms driver for DCE6/DCE8.
+>> >>
+>> >> encoder_control_digx_v3() - Was missing setup code wrt. amdgpu
+>> >> and radeon kms classic drivers. Added here, but untested due to
+>> >> lack of suitable test hw.
+>> >>
+>> >> encoder_control_digx_v4() - Added missing setup code.
+>> >> Successfully tested on AMD mullins / DCE-8.3 with HDMI deep color
+>> >> output at 10 bpc and 12 bpc.
+>> >>
+>> >> Note that encoder_control_digx_v5() has proper setup code in place
+>> >> and is used, e.g., by DCE-11.2, but this code wasn't used for deep
+>> >> color setup due to the missing cntl.color_depth setup in the calling
+>> >> function for HDMI.
+>> >>
+>> >> set_pixel_clock_v5() - Missing setup code wrt. classic amdgpu/radeon
+>> >> kms. Added here, but untested due to lack of hw.
+>> >>
+>> >> set_pixel_clock_v6() - Missing setup code added. Successfully tested
+>> >> on AMD mullins DCE-8.3. This fixes corrupted display output at HDMI
+>> >> deep color output with 10 bpc or 12 bpc.
+>> >>
+>> >> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+>> >>
+>> >> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+>> >> Cc: Harry Wentland <harry.wentland@amd.com>
+>> >
+>> > These make sense. I've applied the series.  I'll let the display guys
+>> > gauge the other points in your cover letter.
+>> >
+>> > Alex
+>>
+>> I don't have any concerns with this patch.
+>>
+>> Even though it's already applied feel free to have my:
+>>
+>> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>>
+>> Regards,
+>> Nicholas Kazlauskas
+>>
+>> >
+>> >
+>> >> ---
+>> >>   .../drm/amd/display/dc/bios/command_table.c   | 61
+>> +++++++++++++++++++
+>> >>   .../drm/amd/display/dc/dce/dce_clock_source.c | 14 +++++
+>> >>   .../amd/display/dc/dce/dce_stream_encoder.c   |  1 +
+>> >>   3 files changed, 76 insertions(+)
+>> >>
+>> >> diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+>> b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+>> >> index 070459e3e407..afc10b954ffa 100644
+>> >> --- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+>> >> +++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+>> >> @@ -245,6 +245,23 @@ static enum bp_result encoder_control_digx_v3(
+>> >>                                          cntl->enable_dp_audio);
+>> >>          params.ucLaneNum =3D (uint8_t)(cntl->lanes_number);
+>> >>
+>> >> +       switch (cntl->color_depth) {
+>> >> +       case COLOR_DEPTH_888:
+>> >> +               params.ucBitPerColor =3D PANEL_8BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_101010:
+>> >> +               params.ucBitPerColor =3D PANEL_10BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_121212:
+>> >> +               params.ucBitPerColor =3D PANEL_12BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_161616:
+>> >> +               params.ucBitPerColor =3D PANEL_16BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       default:
+>> >> +               break;
+>> >> +       }
+>> >> +
+>> >>          if (EXEC_BIOS_CMD_TABLE(DIGxEncoderControl, params))
+>> >>                  result =3D BP_RESULT_OK;
+>> >>
+>> >> @@ -274,6 +291,23 @@ static enum bp_result encoder_control_digx_v4(
+>> >>                                          cntl->enable_dp_audio));
+>> >>          params.ucLaneNum =3D (uint8_t)(cntl->lanes_number);
+>> >>
+>> >> +       switch (cntl->color_depth) {
+>> >> +       case COLOR_DEPTH_888:
+>> >> +               params.ucBitPerColor =3D PANEL_8BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_101010:
+>> >> +               params.ucBitPerColor =3D PANEL_10BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_121212:
+>> >> +               params.ucBitPerColor =3D PANEL_12BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_161616:
+>> >> +               params.ucBitPerColor =3D PANEL_16BIT_PER_COLOR;
+>> >> +               break;
+>> >> +       default:
+>> >> +               break;
+>> >> +       }
+>> >> +
+>> >>          if (EXEC_BIOS_CMD_TABLE(DIGxEncoderControl, params))
+>> >>                  result =3D BP_RESULT_OK;
+>> >>
+>> >> @@ -1057,6 +1091,19 @@ static enum bp_result set_pixel_clock_v5(
+>> >>                   * driver choose program it itself, i.e. here we
+>> program it
+>> >>                   * to 888 by default.
+>> >>                   */
+>> >> +               if (bp_params->signal_type =3D=3D SIGNAL_TYPE_HDMI_TY=
+PE_A)
+>> >> +                       switch (bp_params->color_depth) {
+>> >> +                       case TRANSMITTER_COLOR_DEPTH_30:
+>> >> +                               /* yes this is correct, the atom
+>> define is wrong */
+>> >> +                               clk.sPCLKInput.ucMiscInfo |=3D
+>> PIXEL_CLOCK_V5_MISC_HDMI_32BPP;
+>> >> +                               break;
+>> >> +                       case TRANSMITTER_COLOR_DEPTH_36:
+>> >> +                               /* yes this is correct, the atom
+>> define is wrong */
+>> >> +                               clk.sPCLKInput.ucMiscInfo |=3D
+>> PIXEL_CLOCK_V5_MISC_HDMI_30BPP;
+>> >> +                               break;
+>> >> +                       default:
+>> >> +                               break;
+>> >> +                       }
+>> >>
+>> >>                  if (EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))
+>> >>                          result =3D BP_RESULT_OK;
+>> >> @@ -1135,6 +1182,20 @@ static enum bp_result set_pixel_clock_v6(
+>> >>                   * driver choose program it itself, i.e. here we pas=
+s
+>> required
+>> >>                   * target rate that includes deep color.
+>> >>                   */
+>> >> +               if (bp_params->signal_type =3D=3D SIGNAL_TYPE_HDMI_TY=
+PE_A)
+>> >> +                       switch (bp_params->color_depth) {
+>> >> +                       case TRANSMITTER_COLOR_DEPTH_30:
+>> >> +                               clk.sPCLKInput.ucMiscInfo |=3D
+>> PIXEL_CLOCK_V6_MISC_HDMI_30BPP_V6;
+>> >> +                               break;
+>> >> +                       case TRANSMITTER_COLOR_DEPTH_36:
+>> >> +                               clk.sPCLKInput.ucMiscInfo |=3D
+>> PIXEL_CLOCK_V6_MISC_HDMI_36BPP_V6;
+>> >> +                               break;
+>> >> +                       case TRANSMITTER_COLOR_DEPTH_48:
+>> >> +                               clk.sPCLKInput.ucMiscInfo |=3D
+>> PIXEL_CLOCK_V6_MISC_HDMI_48BPP;
+>> >> +                               break;
+>> >> +                       default:
+>> >> +                               break;
+>> >> +                       }
+>> >>
+>> >>                  if (EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))
+>> >>                          result =3D BP_RESULT_OK;
+>> >> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> >> index fb733f573715..466f8f5803c9 100644
+>> >> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> >> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+>> >> @@ -871,6 +871,20 @@ static bool dce110_program_pix_clk(
+>> >>          bp_pc_params.flags.SET_EXTERNAL_REF_DIV_SRC =3D
+>> >>
+>> pll_settings->use_external_clk;
+>> >>
+>> >> +       switch (pix_clk_params->color_depth) {
+>> >> +       case COLOR_DEPTH_101010:
+>> >> +               bp_pc_params.color_depth =3D TRANSMITTER_COLOR_DEPTH_=
+30;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_121212:
+>> >> +               bp_pc_params.color_depth =3D TRANSMITTER_COLOR_DEPTH_=
+36;
+>> >> +               break;
+>> >> +       case COLOR_DEPTH_161616:
+>> >> +               bp_pc_params.color_depth =3D TRANSMITTER_COLOR_DEPTH_=
+48;
+>> >> +               break;
+>> >> +       default:
+>> >> +               break;
+>> >> +       }
+>> >> +
+>> >>          if (clk_src->bios->funcs->set_pixel_clock(
+>> >>                          clk_src->bios, &bp_pc_params) !=3D BP_RESULT=
+_OK)
+>> >>                  return false;
+>> >> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+>> b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+>> >> index ada57f745fd7..19e380e0a330 100644
+>> >> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+>> >> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+>> >> @@ -564,6 +564,7 @@ static void
+>> dce110_stream_encoder_hdmi_set_stream_attribute(
+>> >>          cntl.enable_dp_audio =3D enable_audio;
+>> >>          cntl.pixel_clock =3D actual_pix_clk_khz;
+>> >>          cntl.lanes_number =3D LANE_COUNT_FOUR;
+>> >> +       cntl.color_depth =3D crtc_timing->display_color_depth;
+>> >>
+>> >>          if (enc110->base.bp->funcs->encoder_control(
+>> >>                          enc110->base.bp, &cntl) !=3D BP_RESULT_OK)
+>> >> --
+>> >> 2.25.1
+>> >>
+>> >> _______________________________________________
+>> >> dri-devel mailing list
+>> >> dri-devel@lists.freedesktop.org
+>> >>
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flist=
+s.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04%7C01%7Cnic=
+holas.kazlauskas%40amd.com%7C598b2b5e841940b8c27708d8c15aa80d%7C3dd8961fe48=
+84e608e11a82d994e183d%7C0%7C0%7C637471942408643835%7CUnknown%7CTWFpbGZsb3d8=
+eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
+mp;sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2dK8NM4AY%3D&amp;reserved=
+=3D0
+>> > _______________________________________________
+>> > dri-devel mailing list
+>> > dri-devel@lists.freedesktop.org
+>> >
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flist=
+s.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04%7C01%7Cnic=
+holas.kazlauskas%40amd.com%7C598b2b5e841940b8c27708d8c15aa80d%7C3dd8961fe48=
+84e608e11a82d994e183d%7C0%7C0%7C637471942408643835%7CUnknown%7CTWFpbGZsb3d8=
+eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
+mp;sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2dK8NM4AY%3D&amp;reserved=
+=3D0
+>> >
+>>
+>>
+
+--0000000000001a038c05bb01c899
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Ping. Any bit of info appreciated wrt. the DCE-11.2+ situa=
+tion.<div>-mario</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Mon, Jan 25, 2021 at 8:24 PM Mario Kleiner &lt;<a =
+href=3D"mailto:mario.kleiner.de@gmail.com">mario.kleiner.de@gmail.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div d=
+ir=3D"ltr"><div>Thanks Alex and Nicholas! Brings quite a bit of extra shiny=
+ to those older asics :)</div><div><br></div><div>Nicholas, any thoughts on=
+ my cover-letter wrt. why a similar patch (that I wrote and tested to no go=
+od or bad effect) not seem to be needed on DCN, and probably not DCE-11.2+ =
+either? Is what is left in DC for those asic&#39;s just dead code? My Atomb=
+ios disassembly sort of pointed into that direction, but reading disassembl=
+y is not easy on the brain, and my brain was getting quite mushy towards th=
+e end of digging through all the code. So some official statement would add=
+ peace of mind on my side. Is there a certain DCE version at which your tea=
+m starts validating output precision / HDR etc. on hw?<br></div><div><br></=
+div><div>Thanks,</div><div>-mario</div><div><br></div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jan 25, 2021=
+ at 8:16 PM Kazlauskas, Nicholas &lt;<a href=3D"mailto:nicholas.kazlauskas@=
+amd.com" target=3D"_blank">nicholas.kazlauskas@amd.com</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">On 2021-01-25 12:57 p=
+.m., Alex Deucher wrote:<br>
+&gt; On Thu, Jan 21, 2021 at 1:17 AM Mario Kleiner<br>
+&gt; &lt;<a href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">ma=
+rio.kleiner.de@gmail.com</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; This fixes corrupted display output in HDMI deep color<br>
+&gt;&gt; 10/12 bpc mode at least as observed on AMD Mullins, DCE-8.3.<br>
+&gt;&gt;<br>
+&gt;&gt; It will hopefully also provide fixes for other DCE&#39;s up to<br>
+&gt;&gt; DCE-11, assuming those will need similar fixes, but i could<br>
+&gt;&gt; not test that for HDMI due to lack of suitable hw, so viewer<br>
+&gt;&gt; discretion is advised.<br>
+&gt;&gt;<br>
+&gt;&gt; dce110_stream_encoder_hdmi_set_stream_attribute() is used for<br>
+&gt;&gt; HDMI setup on all DCE&#39;s and is missing color_depth assignment.=
+<br>
+&gt;&gt;<br>
+&gt;&gt; dce110_program_pix_clk() is used for pixel clock setup on HDMI<br>
+&gt;&gt; for DCE 6-11, and is missing color_depth assignment.<br>
+&gt;&gt;<br>
+&gt;&gt; Additionally some of the underlying Atombios specific encoder<br>
+&gt;&gt; and pixelclock setup functions are missing code which is in<br>
+&gt;&gt; the classic amdgpu kms modesetting path and the in the radeon<br>
+&gt;&gt; kms driver for DCE6/DCE8.<br>
+&gt;&gt;<br>
+&gt;&gt; encoder_control_digx_v3() - Was missing setup code wrt. amdgpu<br>
+&gt;&gt; and radeon kms classic drivers. Added here, but untested due to<br=
+>
+&gt;&gt; lack of suitable test hw.<br>
+&gt;&gt;<br>
+&gt;&gt; encoder_control_digx_v4() - Added missing setup code.<br>
+&gt;&gt; Successfully tested on AMD mullins / DCE-8.3 with HDMI deep color<=
+br>
+&gt;&gt; output at 10 bpc and 12 bpc.<br>
+&gt;&gt;<br>
+&gt;&gt; Note that encoder_control_digx_v5() has proper setup code in place=
+<br>
+&gt;&gt; and is used, e.g., by DCE-11.2, but this code wasn&#39;t used for =
+deep<br>
+&gt;&gt; color setup due to the missing cntl.color_depth setup in the calli=
+ng<br>
+&gt;&gt; function for HDMI.<br>
+&gt;&gt;<br>
+&gt;&gt; set_pixel_clock_v5() - Missing setup code wrt. classic amdgpu/rade=
+on<br>
+&gt;&gt; kms. Added here, but untested due to lack of hw.<br>
+&gt;&gt;<br>
+&gt;&gt; set_pixel_clock_v6() - Missing setup code added. Successfully test=
+ed<br>
+&gt;&gt; on AMD mullins DCE-8.3. This fixes corrupted display output at HDM=
+I<br>
+&gt;&gt; deep color output with 10 bpc or 12 bpc.<br>
+&gt;&gt;<br>
+&gt;&gt; Fixes: 4562236b3bc0 (&quot;drm/amd/dc: Add dc display driver (v2)&=
+quot;)<br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.d=
+e@gmail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
+&gt;&gt; Cc: Harry Wentland &lt;<a href=3D"mailto:harry.wentland@amd.com" t=
+arget=3D"_blank">harry.wentland@amd.com</a>&gt;<br>
+&gt; <br>
+&gt; These make sense. I&#39;ve applied the series.=C2=A0 I&#39;ll let the =
+display guys<br>
+&gt; gauge the other points in your cover letter.<br>
+&gt; <br>
+&gt; Alex<br>
+<br>
+I don&#39;t have any concerns with this patch.<br>
+<br>
+Even though it&#39;s already applied feel free to have my:<br>
+<br>
+Reviewed-by: Nicholas Kazlauskas &lt;<a href=3D"mailto:nicholas.kazlauskas@=
+amd.com" target=3D"_blank">nicholas.kazlauskas@amd.com</a>&gt;<br>
+<br>
+Regards,<br>
+Nicholas Kazlauskas<br>
+<br>
+&gt; <br>
+&gt; <br>
+&gt;&gt; ---<br>
+&gt;&gt;=C2=A0 =C2=A0.../drm/amd/display/dc/bios/command_table.c=C2=A0 =C2=
+=A0| 61 +++++++++++++++++++<br>
+&gt;&gt;=C2=A0 =C2=A0.../drm/amd/display/dc/dce/dce_clock_source.c | 14 +++=
+++<br>
+&gt;&gt;=C2=A0 =C2=A0.../amd/display/dc/dce/dce_stream_encoder.c=C2=A0 =C2=
+=A0|=C2=A0 1 +<br>
+&gt;&gt;=C2=A0 =C2=A03 files changed, 76 insertions(+)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c b=
+/drivers/gpu/drm/amd/display/dc/bios/command_table.c<br>
+&gt;&gt; index 070459e3e407..afc10b954ffa 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c<br>
+&gt;&gt; @@ -245,6 +245,23 @@ static enum bp_result encoder_control_digx_v3=
+(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 cntl-&gt;enable_dp_audio);<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 params.ucLaneNum =3D (uint8_t)(c=
+ntl-&gt;lanes_number);<br>
+&gt;&gt;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (cntl-&gt;color_depth) {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_888:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_8BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_101010:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_10BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_121212:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_12BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_161616:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_16BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt; +<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (EXEC_BIOS_CMD_TABLE(DIGxEnco=
+derControl, params))<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 resu=
+lt =3D BP_RESULT_OK;<br>
+&gt;&gt;<br>
+&gt;&gt; @@ -274,6 +291,23 @@ static enum bp_result encoder_control_digx_v4=
+(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 cntl-&gt;enable_dp_audio));<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 params.ucLaneNum =3D (uint8_t)(c=
+ntl-&gt;lanes_number);<br>
+&gt;&gt;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (cntl-&gt;color_depth) {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_888:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_8BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_101010:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_10BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_121212:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_12BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_161616:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params.ucB=
+itPerColor =3D PANEL_16BIT_PER_COLOR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt; +<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (EXEC_BIOS_CMD_TABLE(DIGxEnco=
+derControl, params))<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 resu=
+lt =3D BP_RESULT_OK;<br>
+&gt;&gt;<br>
+&gt;&gt; @@ -1057,6 +1091,19 @@ static enum bp_result set_pixel_clock_v5(<b=
+r>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0* driver choose program it itself, i.e. here we program it<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0* to 888 by default.<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0*/<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (bp_par=
+ams-&gt;signal_type =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0switch (bp_params-&gt;color_depth) {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0case TRANSMITTER_COLOR_DEPTH_30:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* yes this is correct, the=
+ atom define is wrong */<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk.sPCLKInput.ucMiscInfo |=
+=3D PIXEL_CLOCK_V5_MISC_HDMI_32BPP;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0case TRANSMITTER_COLOR_DEPTH_36:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* yes this is correct, the=
+ atom define is wrong */<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk.sPCLKInput.ucMiscInfo |=
+=3D PIXEL_CLOCK_V5_MISC_HDMI_30BPP;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt;<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (=
+EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 result =3D BP_RESULT_OK;<br>
+&gt;&gt; @@ -1135,6 +1182,20 @@ static enum bp_result set_pixel_clock_v6(<b=
+r>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0* driver choose program it itself, i.e. here we pass required<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0* target rate that includes deep color.<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0*/<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (bp_par=
+ams-&gt;signal_type =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0switch (bp_params-&gt;color_depth) {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0case TRANSMITTER_COLOR_DEPTH_30:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk.sPCLKInput.ucMiscInfo |=
+=3D PIXEL_CLOCK_V6_MISC_HDMI_30BPP_V6;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0case TRANSMITTER_COLOR_DEPTH_36:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk.sPCLKInput.ucMiscInfo |=
+=3D PIXEL_CLOCK_V6_MISC_HDMI_36BPP_V6;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0case TRANSMITTER_COLOR_DEPTH_48:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk.sPCLKInput.ucMiscInfo |=
+=3D PIXEL_CLOCK_V6_MISC_HDMI_48BPP;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt;<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (=
+EXEC_BIOS_CMD_TABLE(SetPixelClock, clk))<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 result =3D BP_RESULT_OK;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c=
+ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
+&gt;&gt; index fb733f573715..466f8f5803c9 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
+&gt;&gt; @@ -871,6 +871,20 @@ static bool dce110_program_pix_clk(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bp_pc_params.flags.SET_EXTERNAL_=
+REF_DIV_SRC =3D<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 pll_settings-&gt;use_external_clk;<br>
+&gt;&gt;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (pix_clk_params-&gt;color_depth=
+) {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_101010:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bp_pc_para=
+ms.color_depth =3D TRANSMITTER_COLOR_DEPTH_30;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_121212:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bp_pc_para=
+ms.color_depth =3D TRANSMITTER_COLOR_DEPTH_36;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH_161616:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bp_pc_para=
+ms.color_depth =3D TRANSMITTER_COLOR_DEPTH_48;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt; +<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (clk_src-&gt;bios-&gt;funcs-&=
+gt;set_pixel_clock(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 clk_src-&gt;bios, &amp;bp_pc_params) !=3D BP_RESUL=
+T_OK)<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 retu=
+rn false;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder=
+.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<br>
+&gt;&gt; index ada57f745fd7..19e380e0a330 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c<br>
+&gt;&gt; @@ -564,6 +564,7 @@ static void dce110_stream_encoder_hdmi_set_str=
+eam_attribute(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cntl.enable_dp_audio =3D enable_=
+audio;<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cntl.pixel_clock =3D actual_pix_=
+clk_khz;<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cntl.lanes_number =3D LANE_COUNT=
+_FOUR;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0cntl.color_depth =3D crtc_timing-&gt;d=
+isplay_color_depth;<br>
+&gt;&gt;<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (enc110-&gt;base.bp-&gt;funcs=
+-&gt;encoder_control(<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 enc110-&gt;base.bp, &amp;cntl) !=3D BP_RESULT_OK)<=
+br>
+&gt;&gt; --<br>
+&gt;&gt; 2.25.1<br>
+&gt;&gt;<br>
+&gt;&gt; _______________________________________________<br>
+&gt;&gt; dri-devel mailing list<br>
+&gt;&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blan=
+k">dri-devel@lists.freedesktop.org</a><br>
+&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dh=
+ttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp=
+;data=3D04%7C01%7Cnicholas.kazlauskas%40amd.com%7C598b2b5e841940b8c27708d8c=
+15aa80d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637471942408643835%7CU=
+nknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLC=
+JXVCI6Mn0%3D%7C1000&amp;amp;sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2=
+dK8NM4AY%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">http=
+s://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freed=
+esktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=3D04%7C01%7Cnichol=
+as.kazlauskas%40amd.com%7C598b2b5e841940b8c27708d8c15aa80d%7C3dd8961fe4884e=
+608e11a82d994e183d%7C0%7C0%7C637471942408643835%7CUnknown%7CTWFpbGZsb3d8eyJ=
+WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;=
+amp;sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2dK8NM4AY%3D&amp;amp;rese=
+rved=3D0</a><br>
+&gt; _______________________________________________<br>
+&gt; dri-devel mailing list<br>
+&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">d=
+ri-devel@lists.freedesktop.org</a><br>
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;dat=
+a=3D04%7C01%7Cnicholas.kazlauskas%40amd.com%7C598b2b5e841940b8c27708d8c15aa=
+80d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637471942408643835%7CUnkno=
+wn%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVC=
+I6Mn0%3D%7C1000&amp;amp;sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2dK8N=
+M4AY%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">https://=
+nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedeskt=
+op.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=3D04%7C01%7Cnicholas.k=
+azlauskas%40amd.com%7C598b2b5e841940b8c27708d8c15aa80d%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637471942408643835%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;=
+sdata=3Db9C3Xi%2F2RmNsGyGUN5oBF8U%2BuGyt2w4jUZ2dK8NM4AY%3D&amp;amp;reserved=
+=3D0</a><br>
+&gt; <br>
+<br>
+</blockquote></div>
+</blockquote></div>
+
+--0000000000001a038c05bb01c899--
+
+--===============0671984977==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0671984977==--
