@@ -1,66 +1,118 @@
 Return-Path: <SRS0=yskd=HN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55C1FC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 363ECC433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18B4464E3E
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:12:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18B4464E3E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E313E64DA1
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E313E64DA1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B771F6E200;
-	Thu, 11 Feb 2021 21:12:04 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9675D6E200
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:12:03 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id q2so8406277eds.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 13:12:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2WOChJtEGcYy1e7iLC67EGoDfEjUUo/ZwOaLl4WMNAo=;
- b=YcU4eWN9pwVPBsZzu4dyJoz1GrjDx9j7OqGragC5Ta9g1qvLajQdbNZLSIeltMenai
- UKQBkMIva/wVP505t6x3vhRkGumDdvyPSSsUZH2Xdqdp8VBtwyaQs10Onexi0Rpz3mki
- OUC/nLxfHoRLefW+QrT7FcPddWBxtaMwCa+nyhKiiX+iOih4DtPXMmZGOl6yugVD3hU+
- UCt06eIp7sMvATUkcKcdbg2CY31w2+nyF8/+bPIrUw2U02wDyVvLBVlvixOSTYVQtJoY
- L4YhnSC9coElLfhULA//XEIMtGrOoJtj27rg4CKp3juLyibC5liwiCiSr/Yhsnd1Pb9f
- 57RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2WOChJtEGcYy1e7iLC67EGoDfEjUUo/ZwOaLl4WMNAo=;
- b=BzPXDwJParhRbWwfDxmV52AkLLS0O1+x4ETU3duZZvcvonpI+QLEYwE/pqlCKkm651
- sh0GZ42khyOG4GpXQUvWPW687bRWXgHc15cWYLnqxNam1Z4QN97ajuqGJ0J1NAiQPEC7
- p0mI+tOINeV+Ws+lugWJGBFYlJoefVTakJ+ibO1x0VU6MGm4nI6LrmiAmrcu2y/jqzMv
- zlDUyIar+ToY7evGT3e3iwBmVv6A88Flz23IIJFwDKI5IfNsJ0wAeh7rSVi5k41niLdo
- X2tPRPsBRqGAAqeQ4n7GuQTrk4AeRZTnl5U6sOWEKRvE5XfxAby/MuM2FqgW7VDlWXHf
- sojA==
-X-Gm-Message-State: AOAM53374uW1P58tLXigu5Q2wAtCU46utgD6ZDVMxSb3s32oQtS4dU0c
- dTvUuAx/ReERWIbliRRCB9FTs8pZJuZeAjOdhwE=
-X-Google-Smtp-Source: ABdhPJwcJoy7Q87ya/pkIyqpIsksHXmmMHiZb6uddSklZ2/1wgzEMzSt+JPHkV7ZZfMucwZrUwbC6i/0oENkusX4ItY=
-X-Received: by 2002:a50:d4d9:: with SMTP id e25mr28356edj.183.1613077922233;
- Thu, 11 Feb 2021 13:12:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED196E204;
+	Thu, 11 Feb 2021 21:44:59 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558EF6E204
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:44:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g9IYCXflqz6EQMMk1GVsxm7H7mKcROvWzlTtw/hbj6nhDXOTpmhXFcs0mnfDRrF6gxC/UBW30SqxAhvyMYlTXZ2PhsZn7dLYG3G6WJ47cTOHRsFR/eSEDQQqEZBMfGxzoJqcu8Bf6IMGL3pcxnD4+fuRXyiFZiPiv2AATuvrwrGbGrQIDj3rVGL4jrmA1Gg8FxAooyPrPO1LBubEIE1teBjgkOXaxnGEVeaXxwxLHFWir1JEINf4nXLte810ENMR5Yuam8qBqw9RAIcA8pKs+yTI0ct17k7TFv0Y5kTow7q7dqVfVrsxx5yH8uGWg8gWvpr7e92QGf3Ihq/cBor5+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6aZBq8cYA4ZRFxZyjKZSZPdh7zhY3rEU2jeFRhwg5/o=;
+ b=SsisWUKH0GNAAFqW99Wurxe6BB1AWCnhpoCuGfyOB9jnuBTfB0Nj0n1QFd4hhWLoDtaRMHWhxoKgSu2lnVGAQ4FUFVy01tPMvw+bGjiHiX1zIBYW98znWl7IJrLBwM//nVKi3xt/G89XmCz9qdPEomU9ZwIQaf8PtvH0nxhNaJ/Sa3Q/rmlD27KU5rJJ9uy/Q1iSOrDDszmPH53KS3NAldj0P/MeHOhl/MEvH7siDJJwF395BMEbilJPMTdXTMqKf6xDXG7agatk4gmkoZ3YkvccQsqlHRHSZdPgzhqJlidHVt0XSOqz0S0FeUvFuRZUdIJOrY3Ir5GcXwHM2KzRhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6aZBq8cYA4ZRFxZyjKZSZPdh7zhY3rEU2jeFRhwg5/o=;
+ b=B91TGWCUXUCwobPYrktJRxKv3c//eZCFBqr4eKbELVsencP15Yov5IpN6Ahf5fq325KiTw2Q8uGHBbaTj3kkJ7DeCKLVnR4LN9uVLM1Rr5MwtGblp7mWqjK+gwoqcAVo0sxMbdD9qScdYcTsFNOFatEXgWeNbTSHvKkZBjEs2jk=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
+ by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.29; Thu, 11 Feb
+ 2021 21:44:56 +0000
+Received: from DM6PR12MB2939.namprd12.prod.outlook.com
+ ([fe80::bcb5:dc9f:c49c:9faf]) by DM6PR12MB2939.namprd12.prod.outlook.com
+ ([fe80::bcb5:dc9f:c49c:9faf%2]) with mapi id 15.20.3846.027; Thu, 11 Feb 2021
+ 21:44:56 +0000
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 00/14] DC Patches Feb 15th, 2021
+Date: Thu, 11 Feb 2021 16:44:30 -0500
+Message-Id: <20210211214444.8348-1-qingqing.zhuo@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::39) To DM6PR12MB2939.namprd12.prod.outlook.com
+ (2603:10b6:5:18b::24)
 MIME-Version: 1.0
-References: <CAEsyxyj9ArbpxWQttLhBZzU1mR_Fz=hRt1p52yMuwdmToZwuGA@mail.gmail.com>
- <CAEsyxyjPUmXGWpQDbr6E0Wccd0PvxATLPoZKE0zZ1gwPZSoLAQ@mail.gmail.com>
- <CADnq5_NdULq_V79O01UprBdfL1V=dUsvTjXS5jaGv=bJB66J_Q@mail.gmail.com>
-In-Reply-To: <CADnq5_NdULq_V79O01UprBdfL1V=dUsvTjXS5jaGv=bJB66J_Q@mail.gmail.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Thu, 11 Feb 2021 22:11:50 +0100
-Message-ID: <CAEsyxyjmHfnc-w1jsJAxL8Zw5W1R9AiiUYd1-taKxX3Q3BfWfA@mail.gmail.com>
-Subject: Re: Why no spatial dithering to 10 bit depth on DCE?
-To: Alex Deucher <alexdeucher@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (165.204.55.250) by
+ YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3825.17 via Frontend Transport; Thu, 11 Feb 2021 21:44:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2e441b99-a3ee-459b-9e3f-08d8ced645a0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4235:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4235AD3B09B1E2AFF08A782AFB8C9@DM6PR12MB4235.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FKl3iOfcaRSx9T1Qx94LdlZBMqHv24xT2u9YI43fgdehQx51+vBqIITs8C1nOZt2jsa+OKhvjXVIpZpF2VXfA2AFfVfuIPg8z94O6CgVaNopJ5OiQFFHingF9cLcdZ3g7E9gOKCPviaEm7a+a1F5XHGtT7b+CLEl87EFtqKRUpRUXXpU6+Lmy1H7WExAuWao/qpW1MZyvdP2+/DQfMNFuwA74cYAmXzVe3hfUTGgD99/smxpcUv16pV9MBWXH5ct+4v2a7OhP7TXJkMqmc9WSubsxEave0c72jxviiCPqLIczPnH0oMUixniCJueBLnlDhSvEZymOJ708WWeDZuVMCFeLuiV/B3cvYJrTgCIscZZihj6mF0xUvVSbcvSPftxUkIesNAX+cQGU054XgTi3rEJf9mzLgr/jdPUTp61RNNzucrMu+1b5EeMKICpHH3hMiOtfuOD5CBBluDp6sDNgIEacks+nIzrCxFLROpUsuX08f/XLwItsjkpMzgnza/RCLCXFG1INbkFD3ZY1QyZWOLtCHD074tqKYvcRILhfgSGd4+sGSbrjB+UBVObE/oXiQVS+ha7KhFjJEz/fFJlXw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(83380400001)(16526019)(8936002)(8676002)(478600001)(86362001)(6916009)(6506007)(66946007)(6486002)(6666004)(1076003)(52116002)(186003)(36756003)(4326008)(956004)(44832011)(69590400011)(6512007)(5660300002)(66556008)(2906002)(316002)(66476007)(2616005)(26005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fs7fgUkQ2mD/id1Si/xJd1RmgOS267MDpfVEyZYRlvLIRFZz2lYKYVxGk5zp?=
+ =?us-ascii?Q?FcINisB0qqcc2PATAiiCWhgIm6sDwyWOH+DTEH6hAlB5kBh6XgYqKqD8Gczh?=
+ =?us-ascii?Q?HU5y3U4ReHYqQW+VLuHcQ1w7vVQ+2H2Md6Q/axS4gz0Rid7l68qv3cOkYRIb?=
+ =?us-ascii?Q?YBx9s1/I3WRaHwnTuPukofbbGEK3JYKWyey/PLSiaI7PZb2cFYAUFN+9LLBx?=
+ =?us-ascii?Q?oiH4BGYxYmF4CzLDbooOcv3f6eoHpkCFot0P7IG4/DO4xSavNey25r10n4EI?=
+ =?us-ascii?Q?Y9lyjoHN509YqvAywq8x1DNVfArMeh2WIykfON+G+ssJilw5TYz/6MmV4vmD?=
+ =?us-ascii?Q?1/yPtCSVSPp/iGsB3s1vRBp5xCCd0UbH5ifEayAu+5pJUeeXOE5a6FgrLMuF?=
+ =?us-ascii?Q?Te6BCfs7981FhLrc5WLHTVMhSYKQm6u9RowgsCyiL69BTyunvfOlTbfHv+bF?=
+ =?us-ascii?Q?HkVJO7o5W8FL3zB/HdYFG250rwOLjxeIQypZ1g+bYZNCrG8/LYzNRiThcs53?=
+ =?us-ascii?Q?SvT58V+x4T3W1+AIGx1sBedLubFZqWmVWMtGI03NjSzf6Atp5yhPVhlGUoXN?=
+ =?us-ascii?Q?gVO+xkxZ5Iw45Y39tj3bA2Spp/aP11YxgkiEMGCvX+ziAJzg9Zd2nrYk9bEc?=
+ =?us-ascii?Q?nYCR6OJRMXRUxs8u6YhiDG9c+Qynvbi+RxLFrmnAqXA/7w9iY4CsHgKzPEjn?=
+ =?us-ascii?Q?qWiDSSAjZfiV9PMKgLwmmLTRorbO75Gg8OH5gOVMLprnZeyQmCOPdj9KyB7N?=
+ =?us-ascii?Q?b5XHtohjdErr79KoVZLaPyfwVHpVKgdeZtcGn1BcDpOurKZybsuInkChPFSv?=
+ =?us-ascii?Q?6uP6rLqvshwoJjR1PdPDp03DRE3g4fZL+/5RUCdTFpBK9EjkWDESG2vBOKmp?=
+ =?us-ascii?Q?85ovACjLmnvHyvGrsRDi9Ebq2AjrDDPsOVfXSG3cIwYUNggF9xRz0s2edK2e?=
+ =?us-ascii?Q?JDHhUaMzs4xVMHecCtFMxk/D2IyQO68Tsuuss/vOgdwaQFsZDivotWq4nqXG?=
+ =?us-ascii?Q?Mb1s24ub+DqeZLuTQlNdwLWYB/8iW3mQ5FONs11DxURoYx3OuujpeLeJNPSI?=
+ =?us-ascii?Q?3zH9PelXlo6Y00R2IsvBs4Vix419hES50KiJnJtBuELBg2++oReeVhXL+hfM?=
+ =?us-ascii?Q?Kbe0bbXcZgZhhvfmxMYcNgdk0cWDCBIe4WBVhPJ/9nzgl+1aY16ap86+XKf1?=
+ =?us-ascii?Q?m/Bn0ccD4nyU+kQhNuFFZrYaPWGCoKQqbP4j+GYXEQjKaAA/zDDp3AkwkeMS?=
+ =?us-ascii?Q?pjy6/gzedqWj6WRuj1TANCz4E0c6CC4Im27D4w7XrIuEEi1A0kP2pVeiObyo?=
+ =?us-ascii?Q?U2cCTGOSKHVWBlME5uI4YGJz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e441b99-a3ee-459b-9e3f-08d8ced645a0
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2021 21:44:56.1261 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wQaLKM63gw+R8OuO/4XA+Eg9k6mzdNSFaKPlVaudTMql1hUpiZs/nKxRUYpijdSY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,236 +124,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1180828891=="
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ bindu.r@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1180828891==
-Content-Type: multipart/alternative; boundary="0000000000008cc15405bb15f87d"
+This DC patchset brings improvements in multiple areas.
+In summary, we highlight:
 
---0000000000008cc15405bb15f87d
-Content-Type: text/plain; charset="UTF-8"
+* DC 3.2.123
+* Firmware release 0.0.52
+* Bug fixes on MPC OGAM sequence, display experience, etc.
+* Improvements on timing, transmitter control, etc.
 
-On Wed, Feb 10, 2021 at 10:36 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+---
 
-> On Wed, Feb 10, 2021 at 4:08 PM Mario Kleiner
-> <mario.kleiner.de@gmail.com> wrote:
-> >
-> > Resending this one as well, in the hope of some clarification or
-> background information.
-> >
->
->
-Thanks Alex.
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.52
 
-I suspect this may have been a limitation from DCE11.0 (E.g.,
-> carrizo/stoney APUs).  They had some bandwidth limitations with
-> respect to high bit depth IIRC.  I suspect it should be fine on the
-> relevant dGPUs.  The code was probably originally added for the APUs
->
+Aric Cyr (1):
+  drm/amd/display: 3.2.123
 
-That sounds as if it would make sense for me to try to submit a patch to
-you that restricts this limitation to DCE 11.0 only?
+Chris Park (1):
+  drm/amd/display: AVMUTE simplification
 
-All i can say is during my testing with DCE-8.3 over HDMI and DCE-11.2 over
-DP under amdvlk with fp16 mode and ouptut_bpc set to 10 bpc, ie. dithering
-down from 12 bpc to 10 bpc, i didn't notice any problems when hacking this
-out, and photometer measurements showed good improvements of luminance
-reproduction with dithering.
+Eric Bernstein (1):
+  drm/amd/display: Implement transmitter control v1.7
 
-and just never updated or the changes were accidentally lost when we
-> consolidated the DCE code.  Unfortunately, there are not a lot of apps
-> that work properly in Linux with >8 bits per channel.
->
->
-Mine does ;-). As does apparently the Kodi media player. And at least
-Gnome/X11 works now, whereas KDE's Kwin/X11 used to work nicely, but
-regressed. And amdvlk does have fp16 support now since a while ago, so
-that's one way to get high precision without disturbing conventional
-desktop apps. I'll probably look into Mesa's Vulkan/WSI for 10 bpc / fp16
-sometime this year if nobody beats me to it.
+Lewis Huang (1):
+  drm/amd/display: remove global optimize seamless boot stream count
 
--mario
+Martin Leung (1):
+  drm/amd/display: changing sr exit latency
 
+Nicholas Kazlauskas (2):
+  drm/amd/display: Add dc_dmub_srv helpers for in/out DMCUB commands
+  drm/amd/display: Fix MPC OGAM power on/off sequence
 
-Alex
->
->
-> > Thanks,
-> > -mario
-> >
-> > On Mon, Jan 25, 2021 at 3:56 AM Mario Kleiner <
-> mario.kleiner.de@gmail.com> wrote:
-> >>
-> >> Hi Harry and Nicholas,
-> >>
-> >> I'm still on an extended quest to squeeze as much HDR out of Linux +
-> your hw as possible, although the paid contract with Vesa has officially
-> ended by now, and stumbled over this little conundrum:
-> >>
-> >> DC's set_spatial_dither() function (see link below) has this particular
-> comment:
-> >> "/* no 10bpc on DCE11*/" followed by code that skips dithering setup if
-> the target output depth is 10 bpc:
-> >>
-> >>
-> https://elixir.bootlin.com/linux/v5.11-rc4/source/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c#L219
-> >>
-> >> I couldn't find any hint in the commit messages towards the reason, so
-> why is that?
-> >>
-> >> This gets in the way if one has a HDR-10 monitor with 10 bit native
-> output depth connected and wants to output a fp16 framebuffer and retain
-> some of the > 10 bit linear precision by use of spatial dithering down to
-> 10 bit. One only gets the same precision as a 10 bpc unorm fb. Also the
-> routine is called for all DCE's, not only DCE11, so it affects all of them.
-> >>
-> >> The same restrictions don't exist in the old kms code for amdgpu-kms
-> and radeon-kms. I added a mmio hack to Psychtoolbox to go behind the
-> drivers back and hack the FMT_BIT_DEPTH_CONTROL register to use spatial
-> dithering down to 10 bpc anyway to circumvent this limitation. My
-> photometer measurements on fp16 framebuffers feeding into 10 bit output
-> show that I get a nice looking response consistent with dithering to 10 bpc
-> properly working on DCE. Also i don't see any visual artifacts in displayed
-> pictures, so the hw seems to be just fine. This on DCE-11.2, and more
-> lightly tested on DCE-8.3.
-> >>
-> >> So i wonder if this is some leftover from some hw bringup, or if there
-> is a good reason for it being there? Maybe it could be removed or made more
-> specific to some problematic asic?
-> >>
-> >> Thanks for any insights you could provide. Stay safe,
-> >> -mario
-> >>
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+Po-Ting Chen (1):
+  drm/amd/display: Change ABM sample rate
 
---0000000000008cc15405bb15f87d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Stylon Wang (1):
+  drm/amd/display: Add Freesync HDMI support to DM
 
-<div dir=3D"ltr"><div dir=3D"ltr">On Wed, Feb 10, 2021 at 10:36 PM Alex Deu=
-cher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>=
-&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On Wed, Feb 10, 2021 at 4:08 PM Mario Kleiner<br>
-&lt;<a href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mario.k=
-leiner.de@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Resending this one as well, in the hope of some clarification or backg=
-round information.<br>
-&gt;<br>
-<br></blockquote><div><br></div><div>Thanks Alex.</div><div> <br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">
-I suspect this may have been a limitation from DCE11.0 (E.g.,<br>
-carrizo/stoney APUs).=C2=A0 They had some bandwidth limitations with<br>
-respect to high bit depth IIRC.=C2=A0 I suspect it should be fine on the<br=
->
-relevant dGPUs.=C2=A0 The code was probably originally added for the APUs<b=
-r>
-</blockquote><div><br></div><div>That sounds as if it would make sense for =
-me to try to submit a patch to you that restricts this limitation to DCE 11=
-.0 only?</div><div><br></div><div>All i can say is during my testing with D=
-CE-8.3 over HDMI and DCE-11.2 over DP under amdvlk with fp16 mode and ouptu=
-t_bpc set to 10 bpc, ie. dithering down from 12 bpc to 10 bpc, i didn&#39;t=
- notice any problems when hacking this out, and photometer measurements sho=
-wed good improvements of luminance reproduction with dithering.</div><div><=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">and just never u=
-pdated or the changes were accidentally lost when we<br>
-consolidated the DCE code.=C2=A0 Unfortunately, there are not a lot of apps=
-<br>
-that work properly in Linux with &gt;8 bits per channel.<br>
-<br></blockquote><div><br></div><div>Mine does ;-). As does apparently the =
-Kodi media player. And at least Gnome/X11 works now, whereas KDE&#39;s Kwin=
-/X11 used to work nicely, but regressed.  And amdvlk does have fp16 support=
- now since a while ago, so that&#39;s one way to get high precision without=
- disturbing conventional desktop apps. I&#39;ll probably look into Mesa&#39=
-;s Vulkan/WSI for 10 bpc / fp16 sometime this year if nobody beats me to it=
-.<br></div><div><br></div><div>-mario</div><div><br></div><div><br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">
-Alex<br>
-<br>
-<br>
-&gt; Thanks,<br>
-&gt; -mario<br>
-&gt;<br>
-&gt; On Mon, Jan 25, 2021 at 3:56 AM Mario Kleiner &lt;<a href=3D"mailto:ma=
-rio.kleiner.de@gmail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&=
-gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; Hi Harry and Nicholas,<br>
-&gt;&gt;<br>
-&gt;&gt; I&#39;m still on an extended quest to squeeze as much HDR out of L=
-inux + your hw as possible, although the paid contract with Vesa has offici=
-ally ended by now, and stumbled over this little conundrum:<br>
-&gt;&gt;<br>
-&gt;&gt; DC&#39;s set_spatial_dither() function (see link below) has this p=
-articular comment:<br>
-&gt;&gt; &quot;/* no 10bpc on DCE11*/&quot; followed by code that skips dit=
-hering setup if the target output depth is 10 bpc:<br>
-&gt;&gt;<br>
-&gt;&gt; <a href=3D"https://elixir.bootlin.com/linux/v5.11-rc4/source/drive=
-rs/gpu/drm/amd/display/dc/dce/dce_opp.c#L219" rel=3D"noreferrer" target=3D"=
-_blank">https://elixir.bootlin.com/linux/v5.11-rc4/source/drivers/gpu/drm/a=
-md/display/dc/dce/dce_opp.c#L219</a><br>
-&gt;&gt;<br>
-&gt;&gt; I couldn&#39;t find any hint in the commit messages towards the re=
-ason, so why is that?<br>
-&gt;&gt;<br>
-&gt;&gt; This gets in the way if one has a HDR-10 monitor with 10 bit nativ=
-e output depth connected and wants to output a fp16 framebuffer and retain =
-some of the &gt; 10 bit linear precision by use of spatial dithering down t=
-o 10 bit. One only gets the same precision as a 10 bpc unorm fb. Also the r=
-outine is called for all DCE&#39;s, not only DCE11, so it affects all of th=
-em.<br>
-&gt;&gt;<br>
-&gt;&gt; The same restrictions don&#39;t exist in the old kms code for amdg=
-pu-kms and radeon-kms. I added a mmio hack to Psychtoolbox to go behind the=
- drivers back and hack the FMT_BIT_DEPTH_CONTROL register to use spatial di=
-thering down to 10 bpc anyway to circumvent this limitation. My photometer =
-measurements on fp16 framebuffers feeding into 10 bit output show that I ge=
-t a nice looking response consistent with dithering to 10 bpc properly work=
-ing on DCE. Also i don&#39;t see any visual artifacts in displayed pictures=
-, so the hw seems to be just fine. This on DCE-11.2, and more lightly teste=
-d on DCE-8.3.<br>
-&gt;&gt;<br>
-&gt;&gt; So i wonder if this is some leftover from some hw bringup, or if t=
-here is a good reason for it being there? Maybe it could be removed or made=
- more specific to some problematic asic?<br>
-&gt;&gt;<br>
-&gt;&gt; Thanks for any insights you could provide. Stay safe,<br>
-&gt;&gt; -mario<br>
-&gt;&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd=
--gfx@lists.freedesktop.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
-tinfo/amd-gfx</a><br>
-</blockquote></div></div>
+Sung Lee (2):
+  drm/amd/display: Populate dcn2.1 bounding box before state duplication
+  drm/amd/display: Copy over soc values before bounding box creation
 
---0000000000008cc15405bb15f87d--
+Wesley Chalmers (2):
+  drm/amd/display: Old path for enabling DPG
+  drm/amd/display: Unblank hubp based on plane enable
 
---===============1180828891==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 175 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   8 +
+ .../gpu/drm/amd/display/dc/basics/dc_common.c |  20 +-
+ .../gpu/drm/amd/display/dc/basics/dc_common.h |   4 +-
+ .../drm/amd/display/dc/bios/command_table2.c  |  72 ++++++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  43 ++---
+ drivers/gpu/drm/amd/display/dc/dc.h           |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  22 +++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   2 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  11 --
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c |  10 +-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   2 +-
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |   9 +-
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   2 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  24 +--
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   8 +-
+ 17 files changed, 300 insertions(+), 117 deletions(-)
+
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1180828891==--
