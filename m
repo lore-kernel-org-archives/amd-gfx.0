@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2C10C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47E9CC433E9
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EB4764DA1
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EB4764DA1
+	by mail.kernel.org (Postfix) with ESMTPS id 0DD5164E45
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DD5164E45
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFB26EE6E;
-	Thu, 11 Feb 2021 21:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 721916EE74;
+	Thu, 11 Feb 2021 21:45:12 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3541F6EE6D
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:45:09 +0000 (UTC)
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFD16EE70
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:45:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TmXmpBpqdssRpqYyo2aMIW+HA4lTCCJqtO9SbL8GyK1XT5v8ThPb8mjJ3wmlyXGW9Bp3RHVGjpYCWey0rGlHK8X32E9inAEERzP4JYW3RZQjMwe9hbNjFUSq8b+L9SprAvL58KmdVQwdwMX1dhV9ppebT1Miwb7kZxyfnZVV5bkM+Z8bnTtYgssOu+8qK8hca+rLo8ejDNiYjwyBRyRldz/Bq80iyFPG6qQ2NAZjszYumy1Muq3SCjJcZ5ZwWHZ2RAPISIA/x3s5C869cjECt7DQgqAVuSan11RCCZeQD+wb8Te6k2W+mlwKCe/+4CBaNTUyKov0anQYnLaDoxoZ+g==
+ b=jbykAgSbT4AnGObsYff2egLIuhHUZbh/4Gp7JVHvFBJuayGOb1z3RQwNOdjXpa8bQsdhbUXpgYMCI1hYwR76t9+GxLYFVTe0vEhDoAT72D/HKZVZwQywHr/q6Iugg2IMnhwKL7aYYhXpm2FnKGRSsyLp2cebfjJ2xnUUNf/4CoG3oyIPEXvLRZ8MpifKH1ENROXX2dEEjLJ8PqyzwfLXJK1JX8XBHSTkQy9OjXkK+pakT40nJDH44BIp0fkK48hYvf6BiqEy1hfA7wy51+KZK8anTtNzovb0qVAqTn186vh9ygiz7Jwd+1eeUAmLNhNUfc5DVjftISt/eJ9VEc4O9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w+QI87nOfy6b16zYVcPTVJT3IJgt7Z3zCJMK37yFdiY=;
- b=cZVdDwKqMWlzFlQhdiYrVM9TlrkMi+lxYRPKlcV0AlR/cl8NZ4lse7qLiJNu48gBbIAojDVxeh2tSRL1WJ/mMeugYmCXoblkkEuaYm3mbChxasuY/S4UONzfpX1o1OXg8da/1kDQi84bg2JMK+L4JVtFaQS2S9p8X9vxadz1pDZOzDz0AiPbTG/LUkIRvhJCglWmKPHquSPw2rVxVlco88EIDNNt3wnqbRrHXtOuf5AT5ZoN2IByGoEMRzM3DHYTJ1D7q0GxSox5BEYPJElupdYipFrPnqfZPB3mqjhylHH7XkbkOJGBab1w6E30wxpbOZ4CVonjcqtF1xrS9C6xcQ==
+ bh=L5LMy/II/NTZGWqJCUy2/4Zq51f4OfIqvm+0kD5Pi1g=;
+ b=dbB0vGlQYmyBy+PewSevodyXHwkwKCbOM1QU4IDbiqFJNFEkNq4FfD7dP+tQaX4DgSHzjvfDiIOuhOP7BT2ndMX0o9iU3LYTILQPXnKc3ASstCqDfvwvpuKYjCIU3v0tmBwhsY23erN2CXe9+HnDbMYDa4ixdEdcWSFh5Ko+uiFKEPaBKhXwZAAjGFw0ZIRQELJSgDVoWY4Z/9eUBjA9g5hBFP/iylJ5dzRivNUNOVpDS4WNHeoRGL6YPBYAMgqGuEOeJ/ZlrNRM7ekEHHkqAAmtmbCpz10K5Qsechh0ODvgA/XPPwZ4NJFHpwppkbMLC6haG4Qu6PpL7C+PzcsbIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w+QI87nOfy6b16zYVcPTVJT3IJgt7Z3zCJMK37yFdiY=;
- b=uyNIJ4VVkVoob8IdjZGLrLh8ycQWyBHlMu+iHHQVHSf5Bk5SIKAdTgtbVBYeCFLcfS5h1efziGKrNkNeDGROoSedduLFrd37G+H5foiSxgaorg303XPYsyv0hdxZdMK7H5dU0dhmylYqrwGFchKnZbBB46T0ZAWEAYgGM8uwEMI=
+ bh=L5LMy/II/NTZGWqJCUy2/4Zq51f4OfIqvm+0kD5Pi1g=;
+ b=D5VbcEbGH8mP85h862vmQZ+AukUGbOnMgIljZFr3SZKoY4/7XAQityBddj4ll9sb0/8TDd4mGZP/c6hCywEk4UfPWFx3T7toL2cURUrs/pLE71aUvyFlUUGy3lrq4KRFlpD+uJJtLayGoJFxrxpIoVsweZlNcClQOhM320RYz+I=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
  by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.29; Thu, 11 Feb
- 2021 21:45:05 +0000
+ 2021 21:45:09 +0000
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::bcb5:dc9f:c49c:9faf]) by DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::bcb5:dc9f:c49c:9faf%2]) with mapi id 15.20.3846.027; Thu, 11 Feb 2021
- 21:45:05 +0000
+ 21:45:09 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/14] drm/amd/display: Fix MPC OGAM power on/off sequence
-Date: Thu, 11 Feb 2021 16:44:37 -0500
-Message-Id: <20210211214444.8348-8-qingqing.zhuo@amd.com>
+Subject: [PATCH 11/14] drm/amd/display: AVMUTE simplification
+Date: Thu, 11 Feb 2021 16:44:41 -0500
+Message-Id: <20210211214444.8348-12-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210211214444.8348-1-qingqing.zhuo@amd.com>
 References: <20210211214444.8348-1-qingqing.zhuo@amd.com>
@@ -67,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
  YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.17 via Frontend Transport; Thu, 11 Feb 2021 21:45:04 +0000
+ 15.20.3825.17 via Frontend Transport; Thu, 11 Feb 2021 21:45:08 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d88b23f5-1200-4871-24d7-08d8ced64ae7
+X-MS-Office365-Filtering-Correlation-Id: 7824fb96-3c98-431c-3bf6-08d8ced64d95
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4235:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4235B9B88621C45E8480010FFB8C9@DM6PR12MB4235.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4235ED7864FB60BCE234BD54FB8C9@DM6PR12MB4235.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: opRO2Mj2YuWqSFyh55KyvYaZQtD3KcCoNnvOvt72T7G7MsokuLUQtYy4SjjeXhIc/KVGL3O9Yl2PKJ4ZtdlXP7/mXDznv1icIug5OK0gv6BQ+IppejLPDl4tu5x2rUqolaCF6wWgKRnfBqNUJ4B0+VYQz7X159XmGf9wbd1ygZt5NoA8mT3A6YBLRf5MjTTjfACs0AQY2ccfXthaGBPRpCrcxeIuf3cue+u7VgFO7SOyCZ0G77yqw9ZDbLpJLipNa2l8wSvKZTDuN6AzvLJseVfVkI2GQTvGxin6vyUMs5ahe0RAc/qoTS+xrFZgr99cJ5VBc3GQ0HSuMsIhBm+P23uXhxAqul8coBVPDymL/zaf7uOdVuPnQkEllAlki6I306IO4JDdX8jmBULOTJW24MURNC9wjZ008afIcxllYaGeUcOPeRKyysx8H56XXUMx3Wtq3HmStUTlXMLG4vy8ul8CEgvKW+cY9uVA07XRJPup/BLSABUaoPK4y5pKJB5xTTZNMOxigKmOh2zsslD6OY/m9GG2ujj7/2voMj6yJ/jUQgmKns16bAlt93GtwExtcHPMwonSydA/Dqvez5WX3A==
+X-Microsoft-Antispam-Message-Info: QvUwe85lXEV7TM1Z7Ynej6+pgOXTICabS5FsLzo9ZtRqDUVQ128kjOs17uRtDTmqCR0fEPqsMrFPg2NRFLZZlOTB6oec4OMj8nTfarnFYK0LY6iDtsyVQVB8f1N4cz5imM9VFyAQyvrKsVFpHYy9VhVTcGVTOqyba+34bMaG+gwR+bwtmveQGIqLf9BhFMUGp2egHKGKsOy6XH82bw6wCaeQybHhRlXdl2HtDMdnbNz8uendBTjulu22M1j6lBOWN50F5aGBnWYF7A47LU0wG60TZIMgvn78JC0IijKzSbPIPts0P3q3ymIKUbj0y9mosoITIMYyQTckKWWWP2EJb5flgpQ6CR9GqdgqcUPdI+ziAnXUtuF8inVOZgFhPrbssCEFt1uBV8ibK2yXGdCdJGm76c3myib9XeK4ozwzzsAzA8Cnl691yvpSznJYAsCWOjy9FU9mK7Yli6DvNYCrG6ttTQfWAdECm6Ft39XsyjFmNuefuAtwI4UU+Fv+83IvqEvFOaSL1f01Zabtt5A9qHNoaw620xRJSHWrWE9rvq6jYAkwcypTeGU1/jTjSmKgv0tKcqhvkpZ+3k6LfIklPg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(83380400001)(16526019)(8936002)(8676002)(478600001)(86362001)(6916009)(6506007)(66946007)(6486002)(6666004)(1076003)(52116002)(186003)(36756003)(4326008)(956004)(44832011)(69590400011)(6512007)(5660300002)(66556008)(2906002)(316002)(66476007)(2616005)(26005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SZ7XTGo09our2/8cgSdrNZoVnLouHkJXcK2W1kCu4h4NZMgm1mHg2lXojYcI?=
- =?us-ascii?Q?sxrfG43Zw7L0MwmWkZQ6+C8VCc1BW8lcamWDKwO3CLk45a1RZY917Hq2LVRl?=
- =?us-ascii?Q?CSttygY/A6ghZuh9UvhKh2UHTFlLQ1vSSrBr+huhPtUtYxcHetDh8GJcQb7n?=
- =?us-ascii?Q?EgUSgBBiagzwLcOzyEB02Pxxo/exxDFzkHUuSEbcjDMEK8s8837KzR5rt+He?=
- =?us-ascii?Q?UpFVv/X1C2fKgcqqp1Z731Oc5M+gBfIpNcC9MMiCVQ7UV11cloMtQf1GnFfv?=
- =?us-ascii?Q?Sn0FpcVqefh/Jgn0yUmYY1DtVg9Ju7pq3T9OzqB4bqdLsfVHrXeKjQqCPr5s?=
- =?us-ascii?Q?audoEgbn6Wg9UFiY6nNkwe7TJs8jmqaKyLpBLgBL4D2Btug1yRE9uGZA3Bn4?=
- =?us-ascii?Q?dQbB/LMKbMiEad+vDajA8QKTWar31UHTZ3FQJCsKOxkvywMIKXAmk5y3wckY?=
- =?us-ascii?Q?sGVdUGGCv9I+P+l8ElGMtkBKjnp6pDbED83eHQniVgF6kD3QTnEMgjp9eaZx?=
- =?us-ascii?Q?jsax06iZJMB0k0d2Gd0HPcmAlkKqhCcJrO3EmVRuLbMvWrgqLUSFTqbdGuDv?=
- =?us-ascii?Q?FPKI4q6icR0AjcCeHOG2NpjcEAhZZhQ17EIsE/ILbgLIz9GfUrv/ji9r2qNv?=
- =?us-ascii?Q?SzgImyhdyK2zFup0t6iFxWoHJPpxHC6KbqAVUa1VPOujB28NAY7N6RMMlUfR?=
- =?us-ascii?Q?qzi/sk6/+lxZCQckLbJsyrkadE2tNoY/pc6rjcxnUwGEm5LArUr8G1EJWQWj?=
- =?us-ascii?Q?DHpUPed0I4CO2tfmSQUz8UYid+AgKXQ1PtjpF9B8RCrstB2WtWIrUgRdfa+9?=
- =?us-ascii?Q?DMy5pYNxkFfx5Qta0mfjxtVkGvOBBYvNANro0z7Z1G+rxMqoN4dpIfFxlYrH?=
- =?us-ascii?Q?ed0u3YqPH96CAgHOCNCVjaeoZozKvjnu2VfkD+6OKODPnTSXx4EzCIegVnIE?=
- =?us-ascii?Q?4lQGHl47Bx99rXx8U66MYPoGtEpZcUBjXRem1Yekn1zfjqLCwfVy0IUHUjPx?=
- =?us-ascii?Q?O3HfNZF9+dU8BoCuBZQqR69PA5BeuOaFRwjhYOLgzq4IA6e+YQ4Qe5W31cuj?=
- =?us-ascii?Q?6scpZ+oZ+ml+Bw3n3l5kzwxTGGp53GcM+cxE937fOb6jOs5UgSrQ80C/9G6+?=
- =?us-ascii?Q?blSX4gB7oL7XLVqb0//JE2MF8jROd2669B6wUlWCHlcPqt+I913b994GHuwi?=
- =?us-ascii?Q?GvEji6E0uEblYNr7NVu9otJgDaamz7j5EaK7eR94xjyiuDY2YCzFmuTToav/?=
- =?us-ascii?Q?gyjsZnGk9TO7WffiJ4kx6W8nhAdwc2l/xRSvGiPjDlewZLZ6NMrbEbby39NQ?=
- =?us-ascii?Q?IdOv63I/c2PWjGQYhQftuDD/?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?FVY6ZHpP/QOr7OajErOoSEo/MUeWvh4usTqARBHeAjrc8hAdr2+PADv8UmjX?=
+ =?us-ascii?Q?RY7RTDt+gwiLA7SfZ85jHnEXPA6/5FARpNznZRCvmze3/eqK3Gun5gg0u2mD?=
+ =?us-ascii?Q?Qj1qLVNC6UagNFDrvcSn6TG30e1vcwG1xsptTZ9vcWq0VA82qsn0wYhz5C8/?=
+ =?us-ascii?Q?RmNNxPi8HJeSvEWUoKRGsCT6Tnl1zepbxdN7/sacieJ3IRrpLk9F4310jTLB?=
+ =?us-ascii?Q?aAeLjA1fv00Ltwr4DER99Wb7HGcV1BEI59g+Qg/VOfWM0VoKZlDRKAsQbk6C?=
+ =?us-ascii?Q?2NSgSA2L8DGOKGT+eNbk/pDuSMnPGZj5grfpayHvXlVePD7WJSIZdRlIwBVu?=
+ =?us-ascii?Q?b2Vyr6p0hin4DOI8MRSX14UMs65nVXTGpyKAey9FbM39vekZgnFsHdimD6yn?=
+ =?us-ascii?Q?8xf4Aephc/G5zdegqMSOpl4XMvfdoLwy5CdmQIhe/1PDukFxBLcoRoell1hV?=
+ =?us-ascii?Q?6uMLpnNqV8Q5lUYvAtSS4fjF6Mklp7wn+QmsIVd/0RIuDsa1VZcusl2FIhzi?=
+ =?us-ascii?Q?orx+rn7LS3wBJWfWgG+FlcccFXlzyGWSN15djE7idMUno1sPzwiKipyFgzYZ?=
+ =?us-ascii?Q?12exsm9JHdMctSJkCMvJ+jr8TqmnpMHZ10yv6o1RSJs8XLOvFOdBG7SFv8lN?=
+ =?us-ascii?Q?SNF3t6NS7GeAkHrL5fnVwfnFf9BU+w0SXQshNpbgWvL3dk6ccPbcyqGLszC3?=
+ =?us-ascii?Q?vlCFAgv+KUbZOjVN0nnujLKVI3cx+kyMla0p+RPxWGJizx5TdfFfRKZzBg9k?=
+ =?us-ascii?Q?51wdhGkr9McfUOTZJMUqlw5nC0JdhrK2OY3OXG44AD5Nttio8lsGCk8FITSc?=
+ =?us-ascii?Q?86FeDYoLK1Gg4TOBfxWIsCdG/CowOudyqcTL6ShfpHK7nvMghgbYTWFh/5Mp?=
+ =?us-ascii?Q?n7zjVmMBNVnsJVp4PyIPU2zRNoni91i66Qu13xrd5y8+qCHCb7cEqQMCNPaB?=
+ =?us-ascii?Q?Xe2HAf3Gkmo+8UGAetxTUX9TacKaVBHnChHtmYYCdBVK3Lyx3w4Szbjlk1MV?=
+ =?us-ascii?Q?VvwjCgaO3kiO4aVIsuz76qarhZV++SILVnt3gBP6gTfudzhRLmDGvtucjI93?=
+ =?us-ascii?Q?w+CpGVlVRrRvEbxCt05ptp/GIl8wtGT9YscPNnHGB9ZUqMXfz/Ej5DSpCBhh?=
+ =?us-ascii?Q?pvKM/A+PB+Sx0iH07wTRcs6XhGknFv0kM8y+a55WJzMdvDrSTI9cqpYoUss2?=
+ =?us-ascii?Q?LOulwznfnXNL3FXUHcnX77wcYV2qomV2HlIDKy1lCYiEnHV5mipEz//lRKdt?=
+ =?us-ascii?Q?1NaQln9IyBEa1S3jE++fs2bbmet1PGpPW9i4QjFgt1zYrkOUdWSl8ceravrU?=
+ =?us-ascii?Q?Z/pDVArNwUHPEEbByDbEq1S0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d88b23f5-1200-4871-24d7-08d8ced64ae7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7824fb96-3c98-431c-3bf6-08d8ced64d95
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2021 21:45:04.9459 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2021 21:45:09.8291 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M6PoQcvwZ21B8RbNTLi+Hy5jqH0a7lV+zOFmimvgMqhvPoN7x4M2CGhKA8V8DFaY
+X-MS-Exchange-CrossTenant-UserPrincipalName: f4ZB4uE2X6qUM9Jm4CzOhsSR/2ZO1yIpzD+/yblakMPSw2FGIBcsgWvEwSmAKBMu
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,136 +126,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, bindu.r@amd.com
+Cc: Chris Park <Chris.Park@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Chris Park <Chris.Park@amd.com>
 
 [Why]
-Color corruption can occur on bootup into a login
-manager that applies a non-linear gamma LUT because
-the LUT may not actually be powered on before writing.
-
-It's cleared on the next full pipe reprogramming as
-we switch to LUTB from LUTA and the pipe accessing
-the LUT has taken it out of light sleep mode.
+Simplify AVMUTE logic in coding
 
 [How]
-The MPCC_OGAM_MEM_PWR_FORCE register does not force
-the current power mode when set to 0. It only forces
-when set light sleep, deep sleep or shutdown.
+Avoid multiple calls on TMDS AVMUTE
+as updated logic now demands it.
 
-The register to actually force power on and ignore
-sleep modes is MPCC_OGAM_MEM_PWR_DIS - a value of 0
-will enable power requests and a value of 1 will
-disable them.
-
-When PWR_FORCE!=0 is combined with PWR_DIS=0 then
-MPCC OGAM memory is forced into the state specified
-by the force bits.
-
-If PWR_FORCE is 0 then it respects the mode specified
-by MPCC_OGAM_MEM_LOW_PWR_MODE if the RAM LUT is not
-in use.
-
-We set that bit to shutdown on low power, but otherwise
-it inherits from bootup defaults.
-
-So for the fix:
-
-1. Update the sequence to "force" power on when needed
-
-We can use MPCC_OGAM_MEM_PWR_DIS for this to turn on the
-memory even when the block is in bypass and pending to be
-enabled for the next frame.
-
-We need this for both low power enabled or disabled.
-
-If we don't set this then we can run into issues when we
-first program the LUT from bootup.
-
-2. Don't apply FORCE_SEL
-
-Once we enable power requests with DIS=0 we run into the
-issue of the RAM being forced into light sleep and being
-unusable for display output. Leave this 0 like we used to
-for DCN20.
-
-3. Rely on MPCC OGAM init to determine light sleep/deep sleep
-
-MPC low power debug mode isn't enabled on any ASIC currently
-but we'll respect the setting determined during init if it
-is.
-
-Lightly tested as working with IGT tests and desktop color
-adjustment.
-
-4. Change the MPC resource default for DCN30
-
-It was interleaving the dcn20 and dcn30 versions before
-depending on the sequence.
-
-5. REG_WAIT for it to be on whenever we're powering up the
-memory
-
-Otherwise we can write register values too early and we'll
-get corruption.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
+Signed-off-by: Chris Park <Chris.Park@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  | 24 ++++++++++---------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-index 3e6f76096119..a7598356f37d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
-@@ -143,16 +143,18 @@ static void mpc3_power_on_ogam_lut(
- {
- 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 9620fb8a27dc..ab93da667d51 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -649,7 +649,7 @@ void dcn30_set_avmute(struct pipe_ctx *pipe_ctx, bool enable)
+ 	if (pipe_ctx == NULL)
+ 		return;
  
--	if (mpc->ctx->dc->debug.enable_mem_low_power.bits.mpc) {
--		// Force power on
--		REG_UPDATE(MPCC_MEM_PWR_CTRL[mpcc_id], MPCC_OGAM_MEM_PWR_DIS, power_on == true ? 1:0);
--		// Wait for confirmation when powering on
--		if (power_on)
--			REG_WAIT(MPCC_MEM_PWR_CTRL[mpcc_id], MPCC_OGAM_MEM_PWR_STATE, 0, 10, 10);
--	} else {
--		REG_SET(MPCC_MEM_PWR_CTRL[mpcc_id], 0,
--				MPCC_OGAM_MEM_PWR_FORCE, power_on == true ? 0 : 1);
--	}
-+	/*
-+	 * Powering on: force memory active so the LUT can be updated.
-+	 * Powering off: allow entering memory low power mode
-+	 *
-+	 * Memory low power mode is controlled during MPC OGAM LUT init.
-+	 */
-+	REG_UPDATE(MPCC_MEM_PWR_CTRL[mpcc_id],
-+		   MPCC_OGAM_MEM_PWR_DIS, power_on != 0);
-+
-+	/* Wait for memory to be powered on - we won't be able to write to it otherwise. */
-+	if (power_on)
-+		REG_WAIT(MPCC_MEM_PWR_CTRL[mpcc_id], MPCC_OGAM_MEM_PWR_STATE, 0, 10, 10);
- }
- 
- static void mpc3_configure_ogam_lut(
-@@ -1427,7 +1429,7 @@ const struct mpc_funcs dcn30_mpc_funcs = {
- 	.acquire_rmu = mpcc3_acquire_rmu,
- 	.program_3dlut = mpc3_program_3dlut,
- 	.release_rmu = mpcc3_release_rmu,
--	.power_on_mpc_mem_pwr = mpc20_power_on_ogam_lut,
-+	.power_on_mpc_mem_pwr = mpc3_power_on_ogam_lut,
- 	.get_mpc_out_mux = mpc1_get_mpc_out_mux,
- 
- };
+-	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal) && pipe_ctx->stream_res.stream_enc != NULL)
++	if (dc_is_hdmi_signal(pipe_ctx->stream->signal) && pipe_ctx->stream_res.stream_enc != NULL)
+ 		pipe_ctx->stream_res.stream_enc->funcs->set_avmute(
+ 				pipe_ctx->stream_res.stream_enc,
+ 				enable);
 -- 
 2.17.1
 
