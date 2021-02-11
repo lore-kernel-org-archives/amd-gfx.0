@@ -1,50 +1,119 @@
-Return-Path: <SRS0=kdbD=HM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=yskd=HN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F4D2C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 23:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57C07C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 01:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BB1E64DE3
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Feb 2021 23:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BB1E64DE3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 15FB164EC9
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 01:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15FB164EC9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBD266ED72;
-	Wed, 10 Feb 2021 23:49:31 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7146F6EA6C;
- Wed, 10 Feb 2021 23:49:30 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 660B764E0B;
- Wed, 10 Feb 2021 23:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613000970;
- bh=DFd7DSXy7nWVxMi3ogNh04lyt3UKSNz0wPfFB3/Ikgk=;
- h=Date:From:To:Cc:Subject:From;
- b=RwE0EQrcXAXhRu1tEHQ5OhsgYK9JITPA5slwojL1+mXW77Z8/D7tRuDy1HrBeaNDi
- VSoq6CR/wVeUFMyFlVpogSpN78LwdeH5XGoLpMSHKSsAS39OBexHYcGz7nUI3cSElf
- pEhdAKrevf4lPyeCXeXC2xLVhsNo2ROTK8vxd6WVAJwem1bv+G36GDRLwJXdn7jQCA
- 6HG7oiRQ/xiXWpnelxJgLOzGhYUy0qDiZUPImb86cg+e57sZh1Z4tfOz3bTKymv2N8
- Fq6+9zJNjKrznJWXV08nvgsPXEnSBZPFkS58LWHyMzO9Br/s54B6maQz3ZGArCPUPb
- vCxAkBdkPgidQ==
-Date: Wed, 10 Feb 2021 17:49:27 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH][next] drm/radeon/nislands_smc.h: Replace one-element array
- with flexible-array member in struct NISLANDS_SMC_SWSTATE
-Message-ID: <20210210234927.GA68137@embeddedor>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A1A89E47;
+	Thu, 11 Feb 2021 01:31:59 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680041.outbound.protection.outlook.com [40.107.68.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC62789DFE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 01:31:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ay/hv6xolu+XcWLl5y5QEjX6vkJ9YSS8DAPevotUgCZCPAnSTqRRgmEf5b53VyiTiCYuqyrh3GbOawWcjPsrfqsybBMUWpxU9A/O+YGxWP3TA9owjF6kkmwcNo10dwemQJj1CfFK6P+gce2+yaGIzMGWHlbBLLCSnVi8Lq+Y5Lq1sx87scsjNOhsGoMDVY9DRtJc3Ke7iVTViWA20kJiw8ccB7CVf+wBUpIDrwkTg1ErsJiKE+3VyIJJ8p59HYuNKII0sbmRJUi8JbBCwhbb6vaU5TT2tsSmDTsmFgznHTPsUnbwSvKzAdB7ca6jwHfvcUkbaaWrEWej1WcEhlLm7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+BS+b/QvBPPYettGgSx0NSW8IXlyP3l8QyYq5iWOMQE=;
+ b=Cw/Do7UolMmE/blqte44g09HlSRJdxrzgPfw22xkUQ7vjqSKfcJ6O9wh0Jlz0Vjz6co0YfYWtwFOOb/Geky+jYMYZJkRJo+z1XeU7cw1PrYEUXFQeZOZ3wk1U+E8+kCOpTZwF7V7epkG5Tkj1Ky2t7a3QVn04hpR2jCFDf7vdy58D+eXcHIfk3IjxSVgD5dtl0CdvgFYgaZuTS1t1g6bx9uk1bBmf7RRFr4QeoLkMhz8p51obenetxB/gWWxeU+ls8I3qSuh3qBgXxjGpbbRR2oKSSvLrexNBZTrwqd0GqocFI14alRQGkfwcCvoHc3DXyhUkA8xLxKlQwB/XC+z/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+BS+b/QvBPPYettGgSx0NSW8IXlyP3l8QyYq5iWOMQE=;
+ b=SJ24+wy7fUWpeq9HQ5o9aja1FietoJU+xd32H+XBD1esd9pTollNbWTWXA5Uqp339YaOAlWKhgyNzSaJxCFMzY69A3uPgT06xoVgIRIfaTRWhjMEEA+FrMB/BvqqNVF6AEsXtlsbfGsJLBWleEr0iwKxpH8DXIv/Juj562vNoV8=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3433.namprd12.prod.outlook.com (2603:10b6:5:38::14) by
+ DM6PR12MB3065.namprd12.prod.outlook.com (2603:10b6:5:3c::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3825.24; Thu, 11 Feb 2021 01:31:57 +0000
+Received: from DM6PR12MB3433.namprd12.prod.outlook.com
+ ([fe80::9d32:b262:3e68:b951]) by DM6PR12MB3433.namprd12.prod.outlook.com
+ ([fe80::9d32:b262:3e68:b951%7]) with mapi id 15.20.3846.026; Thu, 11 Feb 2021
+ 01:31:56 +0000
+From: Sonny Jiang <sonny.jiang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for share memory
+Date: Wed, 10 Feb 2021 20:31:09 -0500
+Message-Id: <20210211013109.16781-1-sonny.jiang@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [67.71.205.18]
+X-ClientProxiedBy: YQBPR0101CA0173.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::16) To DM6PR12MB3433.namprd12.prod.outlook.com
+ (2603:10b6:5:38::14)
 MIME-Version: 1.0
-Content-Disposition: inline
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (67.71.205.18) by
+ YQBPR0101CA0173.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.17 via Frontend
+ Transport; Thu, 11 Feb 2021 01:31:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 698ef785-e9f9-495a-201b-08d8ce2cd1ce
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3065:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB306539859DFB32F23AACC557FD8C9@DM6PR12MB3065.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YdkzL/Uj0nxGueqHksI+gv+Nf8SQpOC2DYWc5WYl65x9YNpZykr7Ac51Mur0HsQzYTRxqBSa16M2bnPkPuFmY//CH7Y69GVSuRoK0s/4vbYkf4fg+2KwWsoXY9ZVo0+X/OX/Y8jZ0H+qXchEqDMBRUaOcuj5C7ictxaQK81U4RqFB29LqZkBa2fscDpK5gMAmzJrhRiPMi932AOQ/0p+i0fsUdjxzWlsTT+SVC9bP4vVp5QLiWZQRSM8Wt/V/3kT2xCnh/phQGrmYkS+vZ/6Nmx06JjVSp/39MYJnY85IYRUuhqGfPA0xmsu5QeHd1CVvbRnQE+ec0UPF8Shjnx3IqIPf2b0sdc2aoUEkDLrlKJGG2mhQIi597vUZZYOBd7ZNKKcQx974OyRTrcE4fXw4vk1eVj3HsiYSyt9e7P8KCfY9/hO3ZZdJETk12jjOIfMULBxwH278GXikStLqJHlqbNu499RLZaDP6tE+gPV+rGwEOI0O0ddO6/Y716NntTSajcaePFrjIwlz1k6qceRVho8uwhpd/V4HLB66NOjbS/Ao/pI1WFi7XqQMRIvyxVnrI5c/uHfbyS/4xSAvYKYMA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3433.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(366004)(376002)(39860400002)(83380400001)(6486002)(15650500001)(86362001)(2616005)(2906002)(36756003)(6512007)(69590400011)(8936002)(6916009)(26005)(6666004)(8676002)(44832011)(5660300002)(478600001)(186003)(52116002)(16526019)(316002)(4326008)(956004)(6506007)(66946007)(1076003)(66476007)(66556008);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SNAuEuT5+RXwe0eLlpV/OQ2COaMVLYgTGnZpWauJXc+KZkPcy3/pF69bslwL?=
+ =?us-ascii?Q?FbS0+Ul5in70xO3K33iXVLbt817ZW9iAQPU2/haoafQq9uKgcfezYsGqHllI?=
+ =?us-ascii?Q?loBcmBxVjfzujU9M0ydleueXkjqm4re2iWQzs3zewe/CuB169+InCy3/lWRc?=
+ =?us-ascii?Q?RGKKHqf+Pf8AJSJUezPuJ1WBANbT9oL+sPQIgXix54Bsrlv4AEwI42WB9c1W?=
+ =?us-ascii?Q?C0/AVG9WRuDPbgbkUvabOpiiGRcVjYwHT97sak2xMz9ucoWjEgEgxGP4z+gx?=
+ =?us-ascii?Q?x/yViQerFkLI8JkIjvBy3YzSyFIwESNssyqEi4W1hikaGWpHu0GLPF3z1H//?=
+ =?us-ascii?Q?Aszy0in3s7vEDx8IgECKgaFWdBu6yOokTvjfptfafyMPwcMNiCBWAe53cxd8?=
+ =?us-ascii?Q?vXZbcC5qjat4NRfN5gwS5/L843iN3ZluO9l3bQPkvq1lyWdB78tqjTYtqRid?=
+ =?us-ascii?Q?krTi32PE6mrBtfbSp0f06rJ535IH8et1ahuMUuzach7llf5ciT03hWBaFfx6?=
+ =?us-ascii?Q?xXcGwJ890XSOWD9fkqDNIxTJR3IbuxAQG5P9FeG4lu1q5sPjHQPr1LhX5P6O?=
+ =?us-ascii?Q?AwIxQM2sbfP2cXMygNjH5T2iHV7oIN5a/wUAEHwz4p4y1BQ6ppkNjDOsd2u8?=
+ =?us-ascii?Q?lcIRpEA6zrA0oB+spOYd5YD2uSKHOHGGxTMGKKOmOnyNDlpoxFHQZ+O88j0C?=
+ =?us-ascii?Q?Wy1uTvQRBZ48waC18d3LefnGsS/hntfe0B2iqn27euQvtP+k2qJeCvAqpuFN?=
+ =?us-ascii?Q?JABHyV1HJY4mzf44vej1xDOIXVbBJdtiWnOkjG24EiCPr32K2u15nu0rbeS4?=
+ =?us-ascii?Q?o4z090783EimUKjnYL9XOm1Mn6oaSH81pRMEZIo8vpIIn4roenSI9MOTp3ME?=
+ =?us-ascii?Q?DJeJl9zyG8kIcLCc4BCW3UdrSX6u42RDl/oTnhfLCqvseiMlnDvbLopGrPNA?=
+ =?us-ascii?Q?deNFU4OJrrmkRkP3yV21AvRjX7jfNnn7AbyL7Ks9r0FONnx3iIUsAl1NOUDm?=
+ =?us-ascii?Q?HnvpJPlDp4B9rcISMqetB8c4TJ6UNvkEVlpg3dOp/YK+OGNPdHcD8FvV1jX0?=
+ =?us-ascii?Q?gbUmcys91Yfp6N5brwwCBLtdtJQhV+C5PwqUFUfyeWtNqYpIAlw7Uj0KL2Mc?=
+ =?us-ascii?Q?pzisREW9ZfafZJgRRfBB7MMlQ9jiAYrJnXHyWpSNxvyBMBm9WQQcfUCcwBC6?=
+ =?us-ascii?Q?iSIyhZm7dQircK/WN24CN2AZ1PZt8qTZa8wt7VL1p/Ljqs/0c+VWmqL5PL6d?=
+ =?us-ascii?Q?Irh6INrGp1IqOUmLhkNWeEngystLeTm3gS2J75w0pTb4YB439jR1mrpyi9/l?=
+ =?us-ascii?Q?OooHKyenz7ejySK1ZzRYbt3J?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 698ef785-e9f9-495a-201b-08d8ce2cd1ce
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3433.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2021 01:31:56.8453 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xo3dDotDYkI32tmVTEKAhlIDUTRLd2IpPSN2U+tVEj0ZR/5ox1i/yzFz9ZW+WrpJ8LDIiX80uM87O7MQjB6tJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,91 +125,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sonny Jiang <sonny.jiang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhlcmUgaXMgYSByZWd1bGFyIG5lZWQgaW4gdGhlIGtlcm5lbCB0byBwcm92aWRlIGEgd2F5IHRv
-IGRlY2xhcmUgaGF2aW5nCmEgZHluYW1pY2FsbHkgc2l6ZWQgc2V0IG9mIHRyYWlsaW5nIGVsZW1l
-bnRzIGluIGEgc3RydWN0dXJlLiBLZXJuZWwgY29kZQpzaG91bGQgYWx3YXlzIHVzZSDigJxmbGV4
-aWJsZSBhcnJheSBtZW1iZXJz4oCdWzFdIGZvciB0aGVzZSBjYXNlcy4gVGhlIG9sZGVyCnN0eWxl
-IG9mIG9uZS1lbGVtZW50IG9yIHplcm8tbGVuZ3RoIGFycmF5cyBzaG91bGQgbm8gbG9uZ2VyIGJl
-IHVzZWRbMl0uCgpVc2UgZmxleGlibGUtYXJyYXkgbWVtYmVyIGluIHN0cnVjdCBOSVNMQU5EU19T
-TUNfU1dTVEFURSwgaW5zdGVhZCBvZgpvbmUtZWxlbWVudCBhcnJheS4KCkFsc28sIHRoaXMgaGVs
-cHMgd2l0aCB0aGUgb25nb2luZyBlZmZvcnRzIHRvIGVuYWJsZSAtV2FycmF5LWJvdW5kcyBieQpm
-aXhpbmcgdGhlIGZvbGxvd2luZyB3YXJuaW5nczoKCmRyaXZlcnMvZ3B1L2RybS9yYWRlb24vbmlf
-ZHBtLmM6IEluIGZ1bmN0aW9uIOKAmG5pX2NvbnZlcnRfcG93ZXJfc3RhdGVfdG9fc21j4oCZOgpk
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL25pX2RwbS5jOjI1MjE6MjA6IHdhcm5pbmc6IGFycmF5IHN1
-YnNjcmlwdCAxIGlzIGFib3ZlIGFycmF5IGJvdW5kcyBvZiDigJhOSVNMQU5EU19TTUNfSFdfUEVS
-Rk9STUFOQ0VfTEVWRUxbMV3igJkge2FrYSDigJhzdHJ1Y3QgTklTTEFORFNfU01DX0hXX1BFUkZP
-Uk1BTkNFX0xFVkVMWzFd4oCZfSBbLVdhcnJheS1ib3VuZHNdCiAyNTIxIHwgICBzbWNfc3RhdGUt
-PmxldmVsc1tpXS5kcG0yLk1heFBTID0KICAgICAgfCAgIH5+fn5+fn5+fn5+fn5+fn5+Xn5+CmRy
-aXZlcnMvZ3B1L2RybS9yYWRlb24vbmlfZHBtLmM6MjUyMzoyMDogd2FybmluZzogYXJyYXkgc3Vi
-c2NyaXB0IDEgaXMgYWJvdmUgYXJyYXkgYm91bmRzIG9mIOKAmE5JU0xBTkRTX1NNQ19IV19QRVJG
-T1JNQU5DRV9MRVZFTFsxXeKAmSB7YWthIOKAmHN0cnVjdCBOSVNMQU5EU19TTUNfSFdfUEVSRk9S
-TUFOQ0VfTEVWRUxbMV3igJl9IFstV2FycmF5LWJvdW5kc10KIDI1MjMgfCAgIHNtY19zdGF0ZS0+
-bGV2ZWxzW2ldLmRwbTIuTmVhclREUERlYyA9IE5JU0xBTkRTX0RQTTJfTkVBUl9URFBfREVDOwog
-ICAgICB8ICAgfn5+fn5+fn5+fn5+fn5+fn5efn4KZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaV9k
-cG0uYzoyNTI0OjIwOiB3YXJuaW5nOiBhcnJheSBzdWJzY3JpcHQgMSBpcyBhYm92ZSBhcnJheSBi
-b3VuZHMgb2Yg4oCYTklTTEFORFNfU01DX0hXX1BFUkZPUk1BTkNFX0xFVkVMWzFd4oCZIHtha2Eg
-4oCYc3RydWN0IE5JU0xBTkRTX1NNQ19IV19QRVJGT1JNQU5DRV9MRVZFTFsxXeKAmX0gWy1XYXJy
-YXktYm91bmRzXQogMjUyNCB8ICAgc21jX3N0YXRlLT5sZXZlbHNbaV0uZHBtMi5BYm92ZVNhZmVJ
-bmMgPSBOSVNMQU5EU19EUE0yX0FCT1ZFX1NBRkVfSU5DOwogICAgICB8ICAgfn5+fn5+fn5+fn5+
-fn5+fn5efn4KZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaV9kcG0uYzoyNTI1OjIwOiB3YXJuaW5n
-OiBhcnJheSBzdWJzY3JpcHQgMSBpcyBhYm92ZSBhcnJheSBib3VuZHMgb2Yg4oCYTklTTEFORFNf
-U01DX0hXX1BFUkZPUk1BTkNFX0xFVkVMWzFd4oCZIHtha2Eg4oCYc3RydWN0IE5JU0xBTkRTX1NN
-Q19IV19QRVJGT1JNQU5DRV9MRVZFTFsxXeKAmX0gWy1XYXJyYXktYm91bmRzXQogMjUyNSB8ICAg
-c21jX3N0YXRlLT5sZXZlbHNbaV0uZHBtMi5CZWxvd1NhZmVJbmMgPSBOSVNMQU5EU19EUE0yX0JF
-TE9XX1NBRkVfSU5DOwogICAgICB8ICAgfn5+fn5+fn5+fn5+fn5+fn5efn4KZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9uaV9kcG0uYzoyNTI2OjM1OiB3YXJuaW5nOiBhcnJheSBzdWJzY3JpcHQgMSBp
-cyBhYm92ZSBhcnJheSBib3VuZHMgb2Yg4oCYTklTTEFORFNfU01DX0hXX1BFUkZPUk1BTkNFX0xF
-VkVMWzFd4oCZIHtha2Eg4oCYc3RydWN0IE5JU0xBTkRTX1NNQ19IV19QRVJGT1JNQU5DRV9MRVZF
-TFsxXeKAmX0gWy1XYXJyYXktYm91bmRzXQogMjUyNiB8ICAgc21jX3N0YXRlLT5sZXZlbHNbaV0u
-c3RhdGVGbGFncyB8PQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBe
-fgpkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL25pX2RwbS5jOjI1MjY6MzU6IHdhcm5pbmc6IGFycmF5
-IHN1YnNjcmlwdCAxIGlzIGFib3ZlIGFycmF5IGJvdW5kcyBvZiDigJhOSVNMQU5EU19TTUNfSFdf
-UEVSRk9STUFOQ0VfTEVWRUxbMV3igJkge2FrYSDigJhzdHJ1Y3QgTklTTEFORFNfU01DX0hXX1BF
-UkZPUk1BTkNFX0xFVkVMWzFd4oCZfSBbLVdhcnJheS1ib3VuZHNdCiAyNTI2IHwgICBzbWNfc3Rh
-dGUtPmxldmVsc1tpXS5zdGF0ZUZsYWdzIHw9CiAgICAgIHwgICB+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fl5+CiAyNTI3IHwgICAgKChpICE9IChzdGF0ZS0+cGVyZm9ybWFuY2VfbGV2
-ZWxfY291bnQgLSAxKSkgJiYgcG93ZXJfYm9vc3RfbGltaXQpID8KICAgICAgfCAgICB+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fgogMjUyOCB8ICAgIFBQU01DX1NUQVRFRkxBR19QT1dFUkJPT1NUIDogMDsKICAgICAgfCAg
-ICB+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9u
-aV9kcG0uYzoyNDQyOjIwOiB3YXJuaW5nOiBhcnJheSBzdWJzY3JpcHQgMSBpcyBhYm92ZSBhcnJh
-eSBib3VuZHMgb2Yg4oCYTklTTEFORFNfU01DX0hXX1BFUkZPUk1BTkNFX0xFVkVMWzFd4oCZIHth
-a2Eg4oCYc3RydWN0IE5JU0xBTkRTX1NNQ19IV19QRVJGT1JNQU5DRV9MRVZFTFsxXeKAmX0gWy1X
-YXJyYXktYm91bmRzXQogMjQ0MiB8ICAgc21jX3N0YXRlLT5sZXZlbHNbaSArIDFdLmFUID0gY3B1
-X3RvX2JlMzIoYV90KTsKClsxXSBodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9GbGV4aWJs
-ZV9hcnJheV9tZW1iZXIKWzJdIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvdjUuOS9w
-cm9jZXNzL2RlcHJlY2F0ZWQuaHRtbCN6ZXJvLWxlbmd0aC1hbmQtb25lLWVsZW1lbnQtYXJyYXlz
-CgpMaW5rOiBodHRwczovL2dpdGh1Yi5jb20vS1NQUC9saW51eC9pc3N1ZXMvNzkKTGluazogaHR0
-cHM6Ly9naXRodWIuY29tL0tTUFAvbGludXgvaXNzdWVzLzEwOQpCdWlsZC10ZXN0ZWQtYnk6IGtl
-cm5lbCB0ZXN0IHJvYm90IDxsa3BAaW50ZWwuY29tPgpMaW5rOiBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9sa21sLzYwMjNlZDU0LkJmSVkrOVV6ODFJNm5xMTklMjVsa3BAaW50ZWwuY29tLwpTaWdu
-ZWQtb2ZmLWJ5OiBHdXN0YXZvIEEuIFIuIFNpbHZhIDxndXN0YXZvYXJzQGtlcm5lbC5vcmc+Ci0t
-LQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaXNsYW5kc19zbWMuaCB8IDEwICsrKysrLS0tLS0K
-IDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaXNsYW5kc19zbWMuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vbmlzbGFuZHNfc21jLmgKaW5kZXggM2NmOGZjMGQ4M2Y0Li43Mzk1Y2I2YjNj
-YWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vbmlzbGFuZHNfc21jLmgKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaXNsYW5kc19zbWMuaApAQCAtMTM0LDExICsxMzQs
-MTEgQEAgdHlwZWRlZiBzdHJ1Y3QgTklTTEFORFNfU01DX0hXX1BFUkZPUk1BTkNFX0xFVkVMIE5J
-U0xBTkRTX1NNQ19IV19QRVJGT1JNQU5DRV9MRVYKIAogc3RydWN0IE5JU0xBTkRTX1NNQ19TV1NU
-QVRFCiB7Ci0gICAgdWludDhfdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmxhZ3M7Ci0g
-ICAgdWludDhfdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGV2ZWxDb3VudDsKLSAgICB1
-aW50OF90ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nMjsKLSAgICB1aW50OF90
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nMzsKLSAgICBOSVNMQU5EU19TTUNf
-SFdfUEVSRk9STUFOQ0VfTEVWRUwgICBsZXZlbHNbMV07CisJdWludDhfdCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgZmxhZ3M7CisJdWludDhfdCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgbGV2ZWxDb3VudDsKKwl1aW50OF90ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYWRk
-aW5nMjsKKwl1aW50OF90ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nMzsKKwlO
-SVNMQU5EU19TTUNfSFdfUEVSRk9STUFOQ0VfTEVWRUwgICBsZXZlbHNbXTsKIH07CiAKIHR5cGVk
-ZWYgc3RydWN0IE5JU0xBTkRTX1NNQ19TV1NUQVRFIE5JU0xBTkRTX1NNQ19TV1NUQVRFOwotLSAK
-Mi4yNy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Because of dpg, the rptr/wptr need to be saved on fw shared memory,
+and restore them back in RBC_RB_RPTR/WPTR in kernel at power up.
+
+Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 12 +++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 24 +++++++++++++++++++++++-
+ 2 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 13aa417f6be7..a19c0c35e2d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -155,6 +155,7 @@
+ 		}										\
+ 	} while (0)
+ 
++#define AMDGPU_VCN_FW_SHARED_FLAG_0_RB	(1 << 6)
+ #define AMDGPU_VCN_MULTI_QUEUE_FLAG	(1 << 8)
+ #define AMDGPU_VCN_SW_RING_FLAG		(1 << 9)
+ 
+@@ -243,6 +244,12 @@ struct amdgpu_vcn {
+ 		int inst_idx, struct dpg_pause_state *new_state);
+ };
+ 
++struct amdgpu_fw_shared_rb_ptrs_struct {
++	/* to WA DPG R/W ptr issues.*/
++	uint32_t  rptr;
++	uint32_t  wptr;
++};
++
+ struct amdgpu_fw_shared_multi_queue {
+ 	uint8_t decode_queue_mode;
+ 	uint8_t encode_generalpurpose_queue_mode;
+@@ -258,9 +265,12 @@ struct amdgpu_fw_shared_sw_ring {
+ 
+ struct amdgpu_fw_shared {
+ 	uint32_t present_flag_0;
+-	uint8_t pad[53];
++	uint8_t pad[44];
++	struct amdgpu_fw_shared_rb_ptrs_struct rb;
++	uint8_t power;
+ 	struct amdgpu_fw_shared_multi_queue multi_queue;
+ 	struct amdgpu_fw_shared_sw_ring sw_ring;
++	uint8_t padding[13];
+ } __attribute__((__packed__));
+ 
+ struct amdgpu_vcn_decode_buffer {
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index def583916294..b61d1ba1aa9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -238,7 +238,8 @@ static int vcn_v3_0_sw_init(void *handle)
+ 
+ 		fw_shared = adev->vcn.inst[i].fw_shared_cpu_addr;
+ 		fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_SW_RING_FLAG) |
+-					     cpu_to_le32(AMDGPU_VCN_MULTI_QUEUE_FLAG);
++					     cpu_to_le32(AMDGPU_VCN_MULTI_QUEUE_FLAG) |
++					     cpu_to_le32(AMDGPU_VCN_FW_SHARED_FLAG_0_RB);
+ 		fw_shared->sw_ring.is_enabled = cpu_to_le32(DEC_SW_RING_ENABLED);
+ 	}
+ 
+@@ -1074,7 +1075,13 @@ static int vcn_v3_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+ 	WREG32_SOC15(VCN, inst_idx, mmUVD_RBC_RB_WPTR,
+ 		lower_32_bits(ring->wptr));
+ 
++	/* Reset FW shared memory RBC WPTR/RPTR */
++	fw_shared->rb.rptr = 0;
++	fw_shared->rb.wptr = lower_32_bits(ring->wptr);
++
++	/*resetting done, fw can check RB ring */
+ 	fw_shared->multi_queue.decode_queue_mode &= cpu_to_le32(~FW_QUEUE_RING_RESET);
++
+ 	/* Unstall DPG */
+ 	WREG32_P(SOC15_REG_OFFSET(VCN, inst_idx, mmUVD_POWER_STATUS),
+ 		0, ~UVD_POWER_STATUS__STALL_DPG_POWER_UP_MASK);
+@@ -1239,9 +1246,11 @@ static int vcn_v3_0_start(struct amdgpu_device *adev)
+ 		/* Initialize the ring buffer's read and write pointers */
+ 		WREG32_SOC15(VCN, i, mmUVD_RBC_RB_RPTR, 0);
+ 
++		WREG32_SOC15(VCN, i, mmUVD_SCRATCH2, 0);
+ 		ring->wptr = RREG32_SOC15(VCN, i, mmUVD_RBC_RB_RPTR);
+ 		WREG32_SOC15(VCN, i, mmUVD_RBC_RB_WPTR,
+ 			lower_32_bits(ring->wptr));
++		fw_shared->rb.wptr = lower_32_bits(ring->wptr);
+ 		fw_shared->multi_queue.decode_queue_mode &= cpu_to_le32(~FW_QUEUE_RING_RESET);
+ 
+ 		fw_shared->multi_queue.encode_generalpurpose_queue_mode |= cpu_to_le32(FW_QUEUE_RING_RESET);
+@@ -1662,6 +1671,10 @@ static int vcn_v3_0_pause_dpg_mode(struct amdgpu_device *adev,
+ 				WREG32_SOC15(VCN, inst_idx, mmUVD_RB_WPTR2, lower_32_bits(ring->wptr));
+ 				fw_shared->multi_queue.encode_lowlatency_queue_mode &= cpu_to_le32(~FW_QUEUE_RING_RESET);
+ 
++				/* restore wptr/rptr with pointers saved in FW shared memory*/
++				WREG32_SOC15(VCN, inst_idx, mmUVD_RBC_RB_RPTR, fw_shared->rb.rptr);
++				WREG32_SOC15(VCN, inst_idx, mmUVD_RBC_RB_WPTR, fw_shared->rb.wptr);
++
+ 				/* Unstall DPG */
+ 				WREG32_P(SOC15_REG_OFFSET(VCN, inst_idx, mmUVD_POWER_STATUS),
+ 					0, ~UVD_POWER_STATUS__STALL_DPG_POWER_UP_MASK);
+@@ -1721,6 +1734,15 @@ static uint64_t vcn_v3_0_dec_ring_get_wptr(struct amdgpu_ring *ring)
+ static void vcn_v3_0_dec_ring_set_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	volatile struct amdgpu_fw_shared *fw_shared;
++
++	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
++		/*whenever update RBC_RB_WPTR, we save the wptr in shared rb.wptr and scratch2 */
++		fw_shared = adev->vcn.inst[ring->me].fw_shared_cpu_addr;
++		fw_shared->rb.wptr = lower_32_bits(ring->wptr);
++		WREG32_SOC15(VCN, ring->me, mmUVD_SCRATCH2,
++			lower_32_bits(ring->wptr));
++	}
+ 
+ 	if (ring->use_doorbell) {
+ 		adev->wb.wb[ring->wptr_offs] = lower_32_bits(ring->wptr);
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
