@@ -2,74 +2,70 @@ Return-Path: <SRS0=yskd=HN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9AD4C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 14:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1065C433E6
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 15:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53DB264E77
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 14:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53DB264E77
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4CD6364DE2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 15:34:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CD6364DE2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6EA6E5CC;
-	Thu, 11 Feb 2021 14:41:40 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA846E5CC
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 14:41:40 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id t5so7156232eds.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 06:41:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=5RdkK1My5TYJA4OB5zMQGIo5tONut9oVL3YDi6i4GpE=;
- b=DK1G+sJtT3vYcd7qqyWd/KQRqMm2Y13StAAeFR1bgXB7n+qSTEJvFqkpSweeny+LZZ
- 5SHEiqL0HkxcO6uojRzvuhj7NuREqhN3+ShWU+lQB9wt04pPggMB8lW3VVvM5lIUjecj
- 4IyzUg1t4xWXBY1v+blEOy60DyejsPV484tG3JQTLLEgi801iRaftauyP1sPCrpTCPzf
- 5JbyaIOwSyJbGhXuQm/SPaD14gObpfzwDJGof2xJsXVQnzElcfD223pnHGR8ySn24dFf
- 89xow1q4AQBZaFgZO9Mwo+nJcheOU5atkBrirjz5YbR0LkSDrdVcyHBJJlVMbGhx0RaA
- IeXA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED8266E084;
+	Thu, 11 Feb 2021 15:34:52 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C21A6EE36
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 15:34:52 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id l17so4396825wmq.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 07:34:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YiO4YBxo5TAk5u+vjQ05MHs/C7RLL8aWvDBGX7r8+/I=;
+ b=Ycak3/tZiINiOGiQPA//H9zGD3DQG+ZSCUZHbhuzVcPwJnjnH7T1RSl/2CDqsOOGHG
+ 9OREgwzKygBumrh3rCt+tvCgQ3IKBD60gliHM8OfZBfRAuOzxZL8iTwmI6B+PAd6GKMq
+ 4QyHjIevuicMj79oUYn6u1ALADWLaB3FhMOy0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=5RdkK1My5TYJA4OB5zMQGIo5tONut9oVL3YDi6i4GpE=;
- b=a3sBNu7EwH96F4ip4G9oElkNPeC0Tf9rfXji/MO1xmP6l2QylZiX9n1yYY6DV4y6yd
- 2G/ER06FCGK92xu3WEZVbRGNUE5cdxHNdnXsyNAq0WLZrLYaQFFVtsG5LJirZsXyWOf3
- jCOxTheThDSeYBrS8COAmt4WzvLlucjkexzqE2951nYBhDg0b4521s3cOhZjse2wowRY
- Zp/in2jx+h/Jm2JT+eAr8oD0rWYmKty/Z5a1zilRLcpCbJw+dHAxq9k5mfA/dMb0l6WD
- IH7gvAIwyJ4pIT7rZsKZbjCnZprEviX3azUqRwRtkRoGDAelE9Du2nXw2Ans1YNFyk/3
- znhg==
-X-Gm-Message-State: AOAM530VFNyJJGhedVCkudMiqabCGlb8tbLZWylRvguBDfEUv2Kbk+a5
- L6NUzj5PNhmEyhu/vakKWRuQ74ZCnaEW4g==
-X-Google-Smtp-Source: ABdhPJzGvY4FLWCQpUrmyPa8uW7jYwGaTbschyhBAMfWvpt6MUhXar2SZSOLpwHbPkmcRUliC0VErw==
-X-Received: by 2002:aa7:c906:: with SMTP id b6mr8795620edt.194.1613054498743; 
- Thu, 11 Feb 2021 06:41:38 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:f390:5f07:f58d:f83a?
- ([2a02:908:1252:fb60:f390:5f07:f58d:f83a])
- by smtp.gmail.com with ESMTPSA id hc13sm4187724ejc.5.2021.02.11.06.41.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Feb 2021 06:41:38 -0800 (PST)
-Subject: Re: [PATCH 1/1] drm/amdgpu: remove CONFIG_DRM_AMDGPU_GART_DEBUGFS
-To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
-References: <20210211143902.73181-1-nirmoy.das@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <8b251bb7-905e-1ec3-72ac-aad5a713edb2@gmail.com>
-Date: Thu, 11 Feb 2021 15:41:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YiO4YBxo5TAk5u+vjQ05MHs/C7RLL8aWvDBGX7r8+/I=;
+ b=Wkl8ubmd+Gg//48BaIRKYKasJvTd/eLeqx0WSuRln7qp7B1nCA2WfvzwPSrLoy2G3U
+ bG6O+80i5fGyWoHbIKcbvEUI3znwC30FzDqcRLUUCpSoUwVYh7Lpt7CPI/axIQo5fisw
+ fnyd9nSP2rz0h+h9SbV1Wq+1CM55ea7BWguGbJnDaejZmctYeNAfDe2yBd946wVQ2qc9
+ A/+fmJntPfBWhg67z8BsOALZ6Pm84EpsMEFe5r5YUNMN38EioH3cir5QEcmAxCJ6KYv1
+ t3QP1+Q/GyumsVh6FMQNaJG6c9HcjfG1j+raPLNxEtP1efiQgo4cfhlqSkrAeumUqoP8
+ gdNA==
+X-Gm-Message-State: AOAM533gc3KerwP0D78zVcb5KtfP6E8zwRkUtepghVC6YtLBRQZk+GY6
+ Oioi4Q7KcDte2lTmnr3wkAPO5Q==
+X-Google-Smtp-Source: ABdhPJy27ZVzMSUC8gVc8IcQPNYfCby9jG8Gl8hCwK2JGwOHY98GI2CNA2oFc8fuqtzUwL+mHSvzww==
+X-Received: by 2002:a1c:4e17:: with SMTP id g23mr5943980wmh.4.1613057690392;
+ Thu, 11 Feb 2021 07:34:50 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id g16sm9742447wmi.30.2021.02.11.07.34.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Feb 2021 07:34:49 -0800 (PST)
+Date: Thu, 11 Feb 2021 16:34:47 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Brian Welty <brian.welty@intel.com>
+Subject: Re: [RFC PATCH 8/9] drm/gem: Associate GEM objects with drm cgroup
+Message-ID: <YCVOl8/87bqRSQei@phenom.ffwll.local>
+References: <20210126214626.16260-1-brian.welty@intel.com>
+ <20210126214626.16260-9-brian.welty@intel.com>
+ <YCJp//kMC7YjVMXv@phenom.ffwll.local>
+ <dffeb6a7-90f1-e17c-9695-44678e7a39cb@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20210211143902.73181-1-nirmoy.das@amd.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <dffeb6a7-90f1-e17c-9695-44678e7a39cb@intel.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,119 +77,344 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Eero Tamminen <eero.t.tamminen@intel.com>, David Airlie <airlied@linux.ie>,
+ Kenny Ho <Kenny.Ho@amd.com>, intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTEuMDIuMjEgdW0gMTU6Mzkgc2NocmllYiBOaXJtb3kgRGFzOgo+IFJlbW92ZWQgdW51c2Vk
-IENPTkZJR19EUk1fQU1ER1BVX0dBUlRfREVCVUdGUyBjb2RlLgo+IFdlIGNhbiB1c2VkIHVtciBp
-bnN0ZWFkIG9mIHRoaXMgZ2FydCBkZWJ1Z2ZzLgo+Cj4gU2lnbmVkLW9mZi1ieTogTmlybW95IERh
-cyA8bmlybW95LmRhc0BhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9LY29uZmlnICAgICAgIHwgIDkgLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2dhcnQuYyB8IDI1IC0tLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2FydC5oIHwgIDMgLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYyAgfCA1NyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgIDQgZmls
-ZXMgY2hhbmdlZCwgOTQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvS2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25m
-aWcKPiBpbmRleCA5Mzc1ZTdmMTI0MjAuLjc0YTgxMDVmZDJjMCAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvS2NvbmZpZwo+IEBAIC0zNCwxNSArMzQsNiBAQCBjb25maWcgRFJNX0FNREdQVV9V
-U0VSUFRSCj4gICAJICBUaGlzIG9wdGlvbiBzZWxlY3RzIENPTkZJR19ITU0gYW5kIENPTkZJR19I
-TU1fTUlSUk9SIGlmIGl0Cj4gICAJICBpc24ndCBhbHJlYWR5IHNlbGVjdGVkIHRvIGVuYWJsZWQg
-ZnVsbCB1c2VycHRyIHN1cHBvcnQuCj4gICAKPiAtY29uZmlnIERSTV9BTURHUFVfR0FSVF9ERUJV
-R0ZTCj4gLQlib29sICJBbGxvdyBHQVJUIGFjY2VzcyB0aHJvdWdoIGRlYnVnZnMiCj4gLQlkZXBl
-bmRzIG9uIERSTV9BTURHUFUKPiAtCWRlcGVuZHMgb24gREVCVUdfRlMKPiAtCWRlZmF1bHQgbgo+
-IC0JaGVscAo+IC0JICBTZWxlY3RpbmcgdGhpcyBvcHRpb24gY3JlYXRlcyBhIGRlYnVnZnMgZmls
-ZSB0byBpbnNwZWN0IHRoZSBtYXBwZWQKPiAtCSAgcGFnZXMuIFVzZXMgbW9yZSBtZW1vcnkgZm9y
-IGhvdXNla2VlcGluZywgZW5hYmxlIG9ubHkgZm9yIGRlYnVnZ2luZy4KPiAtCj4gICBzb3VyY2Ug
-ImRyaXZlcnMvZ3B1L2RybS9hbWQvYWNwL0tjb25maWciCj4gICBzb3VyY2UgImRyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9LY29uZmlnIgo+ICAgc291cmNlICJkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGtmZC9LY29uZmlnIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZ2FydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQu
-Ywo+IGluZGV4IDBkYjkzMzAyNjcyMi4uMjM4MjNhNTczNzRmIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jCj4gQEAgLTIzNiw5ICsyMzYsNiBAQCBpbnQgYW1k
-Z3B1X2dhcnRfdW5iaW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCBvZmZz
-ZXQsCj4gICAJdCA9IG9mZnNldCAvIEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ICAgCXAgPSB0IC8g
-QU1ER1BVX0dQVV9QQUdFU19JTl9DUFVfUEFHRTsKPiAgIAlmb3IgKGkgPSAwOyBpIDwgcGFnZXM7
-IGkrKywgcCsrKSB7Cj4gLSNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9HQVJUX0RFQlVHRlMKPiAt
-CQlhZGV2LT5nYXJ0LnBhZ2VzW3BdID0gTlVMTDsKPiAtI2VuZGlmCj4gICAJCXBhZ2VfYmFzZSA9
-IGFkZXYtPmR1bW15X3BhZ2VfYWRkcjsKPiAgIAkJaWYgKCFhZGV2LT5nYXJ0LnB0cikKPiAgIAkJ
-CWNvbnRpbnVlOwo+IEBAIC0zMTIsOSArMzA5LDYgQEAgaW50IGFtZGdwdV9nYXJ0X2JpbmQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90IG9mZnNldCwKPiAgIAkJICAgICBpbnQg
-cGFnZXMsIHN0cnVjdCBwYWdlICoqcGFnZWxpc3QsIGRtYV9hZGRyX3QgKmRtYV9hZGRyLAo+ICAg
-CQkgICAgIHVpbnQ2NF90IGZsYWdzKQo+ICAgewo+IC0jaWZkZWYgQ09ORklHX0RSTV9BTURHUFVf
-R0FSVF9ERUJVR0ZTCj4gLQl1bnNpZ25lZCB0LHA7Cj4gLSNlbmRpZgo+ICAgCWludCByLCBpOwo+
-ICAgCj4gICAJaWYgKCFhZGV2LT5nYXJ0LnJlYWR5KSB7Cj4gQEAgLTMyMiwxMyArMzE2LDYgQEAg
-aW50IGFtZGdwdV9nYXJ0X2JpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90
-IG9mZnNldCwKPiAgIAkJcmV0dXJuIC1FSU5WQUw7Cj4gICAJfQo+ICAgCj4gLSNpZmRlZiBDT05G
-SUdfRFJNX0FNREdQVV9HQVJUX0RFQlVHRlMKPiAtCXQgPSBvZmZzZXQgLyBBTURHUFVfR1BVX1BB
-R0VfU0laRTsKPiAtCXAgPSB0IC8gQU1ER1BVX0dQVV9QQUdFU19JTl9DUFVfUEFHRTsKPiAtCWZv
-ciAoaSA9IDA7IGkgPCBwYWdlczsgaSsrLCBwKyspCj4gLQkJYWRldi0+Z2FydC5wYWdlc1twXSA9
-IHBhZ2VsaXN0ID8gcGFnZWxpc3RbaV0gOiBOVUxMOwo+IC0jZW5kaWYKPiAtCj4gICAJaWYgKCFh
-ZGV2LT5nYXJ0LnB0cikKPiAgIAkJcmV0dXJuIDA7Cj4gICAKPiBAQCAtMzczLDE0ICszNjAsNiBA
-QCBpbnQgYW1kZ3B1X2dhcnRfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAlE
-Uk1fSU5GTygiR0FSVDogbnVtIGNwdSBwYWdlcyAldSwgbnVtIGdwdSBwYWdlcyAldVxuIiwKPiAg
-IAkJIGFkZXYtPmdhcnQubnVtX2NwdV9wYWdlcywgYWRldi0+Z2FydC5udW1fZ3B1X3BhZ2VzKTsK
-PiAgIAo+IC0jaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfR0FSVF9ERUJVR0ZTCj4gLQkvKiBBbGxv
-Y2F0ZSBwYWdlcyB0YWJsZSAqLwo+IC0JYWRldi0+Z2FydC5wYWdlcyA9IHZ6YWxsb2MoYXJyYXlf
-c2l6ZShzaXplb2Yodm9pZCAqKSwKPiAtCQkJCQkgICAgICBhZGV2LT5nYXJ0Lm51bV9jcHVfcGFn
-ZXMpKTsKPiAtCWlmIChhZGV2LT5nYXJ0LnBhZ2VzID09IE5VTEwpCj4gLQkJcmV0dXJuIC1FTk9N
-RU07Cj4gLSNlbmRpZgo+IC0KPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+IEBAIC0zOTMsOSAr
-MzcyLDUgQEAgaW50IGFtZGdwdV9nYXJ0X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Cj4gICAgKi8KPiAgIHZvaWQgYW1kZ3B1X2dhcnRfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKPiAgIHsKPiAtI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX0dBUlRfREVCVUdGUwo+IC0J
-dmZyZWUoYWRldi0+Z2FydC5wYWdlcyk7Cj4gLQlhZGV2LT5nYXJ0LnBhZ2VzID0gTlVMTDsKPiAt
-I2VuZGlmCj4gICAJYW1kZ3B1X2dhcnRfZHVtbXlfcGFnZV9maW5pKGFkZXYpOwo+ICAgfQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaAo+IGluZGV4IGFmYTJlMjg3N2Q4
-Ny4uYTI1ZmU5N2IwMTk2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9nYXJ0LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Z2FydC5oCj4gQEAgLTQ2LDkgKzQ2LDYgQEAgc3RydWN0IGFtZGdwdV9nYXJ0IHsKPiAgIAl1bnNp
-Z25lZAkJCW51bV9ncHVfcGFnZXM7Cj4gICAJdW5zaWduZWQJCQludW1fY3B1X3BhZ2VzOwo+ICAg
-CXVuc2lnbmVkCQkJdGFibGVfc2l6ZTsKPiAtI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX0dBUlRf
-REVCVUdGUwo+IC0Jc3RydWN0IHBhZ2UJCQkqKnBhZ2VzOwo+IC0jZW5kaWYKPiAgIAlib29sCQkJ
-CXJlYWR5Owo+ICAgCj4gICAJLyogQXNpYyBkZWZhdWx0IHB0ZSBmbGFncyAqLwo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCAyN2FiZmJjNDgwZmMuLmNlOTI3
-NjhjZDE0NiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dHRtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBA
-QCAtMjM2NCw1OCArMjM2NCw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25z
-IGFtZGdwdV90dG1fdnJhbV9mb3BzID0gewo+ICAgCS5sbHNlZWsgPSBkZWZhdWx0X2xsc2VlaywK
-PiAgIH07Cj4gICAKPiAtI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX0dBUlRfREVCVUdGUwo+IC0K
-PiAtLyoKPiAtICogYW1kZ3B1X3R0bV9ndHRfcmVhZCAtIExpbmVhciByZWFkIGFjY2VzcyB0byBH
-VFQgbWVtb3J5Cj4gLSAqLwo+IC1zdGF0aWMgc3NpemVfdCBhbWRncHVfdHRtX2d0dF9yZWFkKHN0
-cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqYnVmLAo+IC0JCQkJICAgc2l6ZV90IHNpemUsIGxv
-ZmZfdCAqcG9zKQo+IC17Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGZpbGVfaW5v
-ZGUoZiktPmlfcHJpdmF0ZTsKPiAtCXNzaXplX3QgcmVzdWx0ID0gMDsKPiAtCWludCByOwo+IC0K
-PiAtCXdoaWxlIChzaXplKSB7Cj4gLQkJbG9mZl90IHAgPSAqcG9zIC8gUEFHRV9TSVpFOwo+IC0J
-CXVuc2lnbmVkIG9mZiA9ICpwb3MgJiB+UEFHRV9NQVNLOwo+IC0JCXNpemVfdCBjdXJfc2l6ZSA9
-IG1pbl90KHNpemVfdCwgc2l6ZSwgUEFHRV9TSVpFIC0gb2ZmKTsKPiAtCQlzdHJ1Y3QgcGFnZSAq
-cGFnZTsKPiAtCQl2b2lkICpwdHI7Cj4gLQo+IC0JCWlmIChwID49IGFkZXYtPmdhcnQubnVtX2Nw
-dV9wYWdlcykKPiAtCQkJcmV0dXJuIHJlc3VsdDsKPiAtCj4gLQkJcGFnZSA9IGFkZXYtPmdhcnQu
-cGFnZXNbcF07Cj4gLQkJaWYgKHBhZ2UpIHsKPiAtCQkJcHRyID0ga21hcChwYWdlKTsKPiAtCQkJ
-cHRyICs9IG9mZjsKPiAtCj4gLQkJCXIgPSBjb3B5X3RvX3VzZXIoYnVmLCBwdHIsIGN1cl9zaXpl
-KTsKPiAtCQkJa3VubWFwKGFkZXYtPmdhcnQucGFnZXNbcF0pOwo+IC0JCX0gZWxzZQo+IC0JCQly
-ID0gY2xlYXJfdXNlcihidWYsIGN1cl9zaXplKTsKPiAtCj4gLQkJaWYgKHIpCj4gLQkJCXJldHVy
-biAtRUZBVUxUOwo+IC0KPiAtCQlyZXN1bHQgKz0gY3VyX3NpemU7Cj4gLQkJYnVmICs9IGN1cl9z
-aXplOwo+IC0JCSpwb3MgKz0gY3VyX3NpemU7Cj4gLQkJc2l6ZSAtPSBjdXJfc2l6ZTsKPiAtCX0K
-PiAtCj4gLQlyZXR1cm4gcmVzdWx0Owo+IC19Cj4gLQo+IC1zdGF0aWMgY29uc3Qgc3RydWN0IGZp
-bGVfb3BlcmF0aW9ucyBhbWRncHVfdHRtX2d0dF9mb3BzID0gewo+IC0JLm93bmVyID0gVEhJU19N
-T0RVTEUsCj4gLQkucmVhZCA9IGFtZGdwdV90dG1fZ3R0X3JlYWQsCj4gLQkubGxzZWVrID0gZGVm
-YXVsdF9sbHNlZWsKPiAtfTsKPiAtCj4gLSNlbmRpZgo+IC0KPiAgIC8qCj4gICAgKiBhbWRncHVf
-aW9tZW1fcmVhZCAtIFZpcnR1YWwgcmVhZCBhY2Nlc3MgdG8gR1BVIG1hcHBlZCBtZW1vcnkKPiAg
-ICAqCj4gQEAgLTI1NDMsMTEgKzI0OTEsNiBAQCBpbnQgYW1kZ3B1X3R0bV9kZWJ1Z2ZzX2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAKPiAgIAlkZWJ1Z2ZzX2NyZWF0ZV9maWxl
-X3NpemUoImFtZGdwdV92cmFtIiwgbW9kZSwgcm9vdCwgYWRldiwKPiAgIAkJCQkgJmFtZGdwdV90
-dG1fdnJhbV9mb3BzLCBhZGV2LT5nbWMubWNfdnJhbV9zaXplKTsKPiAtI2lmZGVmIENPTkZJR19E
-Uk1fQU1ER1BVX0dBUlRfREVCVUdGUwo+IC0JZGVidWdmc19jcmVhdGVfZmlsZV9zaXplKCJhbWRn
-cHVfZ3R0IiwgbW9kZSwgcm9vdCwgYWRldiwKPiAtCQkJCSAmYW1kZ3B1X3R0bV9ndHRfZm9wcywg
-YWRldi0+Z21jLmdhcnRfc2l6ZSk7Cj4gLSNlbmRpZgo+IC0KPiAgIAlkZWJ1Z2ZzX2NyZWF0ZV9m
-aWxlKCJhbWRncHVfaW9tZW0iLCBtb2RlLCByb290LCBhZGV2LAo+ICAgCQkJICAgICZhbWRncHVf
-dHRtX2lvbWVtX2ZvcHMpOwo+ICAgCWNvdW50ID0gQVJSQVlfU0laRShhbWRncHVfdHRtX2RlYnVn
-ZnNfbGlzdCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Feb 10, 2021 at 02:00:57PM -0800, Brian Welty wrote:
+> 
+> On 2/9/2021 2:54 AM, Daniel Vetter wrote:
+> > On Tue, Jan 26, 2021 at 01:46:25PM -0800, Brian Welty wrote:
+> >> This patch adds tracking of which cgroup to make charges against for a
+> >> given GEM object.  We associate the current task's cgroup with GEM objects
+> >> as they are created.  First user of this is for charging DRM cgroup for
+> >> device memory allocations.  The intended behavior is for device drivers to
+> >> make the cgroup charging calls at the time that backing store is allocated
+> >> or deallocated for the object.
+> >>
+> >> Exported functions are provided for charging memory allocations for a
+> >> GEM object to DRM cgroup. To aid in debugging, we store how many bytes
+> >> have been charged inside the GEM object.  Add helpers for setting and
+> >> clearing the object's associated cgroup which will check that charges are
+> >> not being leaked.
+> >>
+> >> For shared objects, this may make the charge against a cgroup that is
+> >> potentially not the same cgroup as the process using the memory.  Based
+> >> on the memory cgroup's discussion of "memory ownership", this seems
+> >> acceptable [1].
+> >>
+> >> [1] https://www.kernel.org/doc/Documentation/cgroup-v2.txt, "Memory Ownership"
+> >>
+> >> Signed-off-by: Brian Welty <brian.welty@intel.com>
+> > 
+> > Since for now we only have the generic gpu/xpu/bikeshed.memory bucket that
+> > counts everything, why don't we also charge in these gem functions?
+> 
+> I'm not sure what you mean exactly.  You want to merge/move the charging logic
+> proposed in patch #5 (drm_cgroup_try_charge in kernel/cgroup/drm.c) into
+> drm_gem_object_charge_mem() ?
+> 
+> Or reading below, I think you are okay keeping the logic separated as is, but
+> you want much of the code in kernel/cgroup/drm.c moved to drivers/gpu/cgroup ?
+> Yes, I see that should allow to reduce number of exported functions.
+
+Both. I mean we'd need to look at the code again when it's shuffled, but
+I'd say:
+
+- cgroup code and the charging for general gpu memory moves to
+  drivers/gpu/cgroup, so dma-buf heaps can use it too.
+
+- the charging for gem buffers moves into core gem code, so it happens for
+  all gpu drivers and all gem buffer allocations.
+
+- this might or might not mean a bunch less exported stuff from the
+  cgroups files (since you don't need separate steps for linking a gem
+  object to a cgroup from the actual charging), and probably no exports
+  anymore for drivers (since they charge nothing). That will change
+  when we add charging for specific memory pools I guess, but we add that
+  when we add tha functionality.
+
+> > Also, that would remove the need for all these functions exported to
+> > drivers. Plus the cgroups setup could also move fully into drm core code,
+> > since all drivers (*) support it
+> > That way this would really be a fully
+> > generic cgroups controller, and we could land it.
+> 
+> 
+> Patch #2 proposed to have a few setup functions called during drm device
+> registration.
+> You are suggesting to have this more tightly integrated?
+
+Yeah essentially if DRIVER_GEM is set drm core would simply set this all
+up. Since with this we'd always account all gem buffers in cgroups, and it
+would make basic cgroup support a non-optional part of drm drivers.
+
+> Okay, can see what that looks like.  It's true most of the exported functions from
+> kernel/cgroup/drm.c were taking a struct drm_device pointer, so seems it can be
+> restructured as you suggest.  But I guess we will always need some logic in
+> kernel/cgroup/drm.c to encapsulate the allocation of the 'struct cgroup_subsys_state'
+> for this new controller.
+> But I'm not sure I see how this makes the controller 'fully generic' as you describe.
+
+All DRIVER_GEM would automatacially support it. And yes there'll still be
+some encapsulation ofc.
+
+> > The other things I'd do:
+> > - drop gpu scheduling controller from the initial patch series. Yes we'll
+> >   need it, but we also need vram limits and all these things for full
+> >   featured controller. Having the minimal viable cgroup controller in
+> >   upstream would unblock all these other things, and we could discuss them
+> >   in separate patch series, instead of one big bikeshed that never reaches
+> >   full consensus.
+> > 
+> > - the xpu thing is probably real, I just chatted with Android people for
+> >   their gpu memory accounting needs, and cgroups sounds like a solution
+> >   for them too. But unlike on desktop/server linux, on Android all shared
+> >   buffers are allocated from dma-buf heaps, so outside of drm, and hence a
+> >   cgroup controller that's tightly tied to drm isn't that useful. So I
+> >   think we should move the controller/charge functions up one level into
+> >   drivers/gpu/cgroups.
+> 
+> Hmm, so for this, you are asking for the cgroup logic to not directly use
+> DRM data structures?  Okay, that's why you suggest drivers/gpu/cgroups and
+> not drivers/gpu/drm/cgroups.  So this is your angle to make it 'fully
+> generic' then.....
+
+This is another flavour of "generic", maybe need to split them up:
+- make it more generic by rolling it out for all DRIVER_GEM
+- make it more generic by allowing non-drm code to charge gpu memory
+  (android's dma-buf heaps will need that, maybe v4l eventually too)
+
+> >   On the naming bikeshed I think gpu is perfectly fine, just explain in
+> >   the docs that the G stands for "general" :-) Otherwise we might need to
+> >   rename drivers/gpu to drivers/xpu too, and that's maybe one bikeshed too
+> >   far. Plus, right now it really is the controller for gpu related memory,
+> >   even if we extend it to Android (where it would also include
+> >   video/camera allocatioons). Extending this cgroup controller to
+> >   accelerators in general is maybe a bit too much.
+> >  
+> > - The other disambiguation is how we account dma-buf (well, buffer based)
+> >   gpu allocations vs HMM gpu memory allocations, that might be worth
+> >   clarifying in the docs.
+> > 
+> > - Finally to accelerate this further, I think it'd be good to pull out the
+> >   cgroup spec for this more minimized series into patch 1, as a draft.
+> >   That way we could get all stakeholders to ack on that ack, so hopefully
+> >   we're building something that will work for everyone. That way we can
+> >   hopefully untangle the controller design discussions from the
+> >   implementation bikeshedding as much as possible.
+> 
+> Okay, thanks for all the inputs.
+> I agree the 'cgroup spec' should be in first patch.  Can redo this way as well.
+> 
+> As much of the code here for the controller was Kenny's work...
+> Kenny, any input on Daniel's suggestions?
+> Otherwise, I can proceed to rework as suggested.
+
+If you're worried about acknowledgement if you end up fully rewriting
+code: Reference an old version from Kenny from archive and mention in the
+commit log it's based on that work. There's no requirement that you can
+only reuse patches from other people entirely unchanged, this kind of
+collaborative patch development mode happens all the time.
+
+Cheers, Daniel
+
+> 
+> Thanks,
+> -Brian
+> 
+> 
+> > 
+> > Cheers, Daniel
+> > 
+> > *: vmwgfx is the only non-gem driver, but there's plans to move at least
+> > vmwgfx internals (maybe not the uapi, we'll see) over to gem. Once that's
+> > done it's truly all gpu memory.
+> >> ---
+> >>  drivers/gpu/drm/drm_gem.c | 89 +++++++++++++++++++++++++++++++++++++++
+> >>  include/drm/drm_gem.h     | 17 ++++++++
+> >>  2 files changed, 106 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> >> index c2ce78c4edc3..a12da41eaafe 100644
+> >> --- a/drivers/gpu/drm/drm_gem.c
+> >> +++ b/drivers/gpu/drm/drm_gem.c
+> >> @@ -29,6 +29,7 @@
+> >>  #include <linux/slab.h>
+> >>  #include <linux/mm.h>
+> >>  #include <linux/uaccess.h>
+> >> +#include <linux/cgroup_drm.h>
+> >>  #include <linux/fs.h>
+> >>  #include <linux/file.h>
+> >>  #include <linux/module.h>
+> >> @@ -112,6 +113,89 @@ drm_gem_init(struct drm_device *dev)
+> >>  	return drmm_add_action(dev, drm_gem_init_release, NULL);
+> >>  }
+> >>  
+> >> +/**
+> >> + * drm_gem_object_set_cgroup - associate GEM object with a cgroup
+> >> + * @obj: GEM object which is being associated with a cgroup
+> >> + * @task: task associated with process control group to use
+> >> + *
+> >> + * This will acquire a reference on cgroup and use for charging GEM
+> >> + * memory allocations.
+> >> + * This helper could be extended in future to migrate charges to another
+> >> + * cgroup, print warning if this usage occurs.
+> >> + */
+> >> +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
+> >> +			       struct task_struct *task)
+> >> +{
+> >> +	/* if object has existing cgroup, we migrate the charge... */
+> >> +	if (obj->drmcg) {
+> >> +		pr_warn("DRM: need to migrate cgroup charge of %lld\n",
+> >> +			atomic64_read(&obj->drmcg_bytes_charged));
+> >> +	}
+> >> +	obj->drmcg = drmcg_get(task);
+> >> +}
+> >> +EXPORT_SYMBOL(drm_gem_object_set_cgroup);
+> >> +
+> >> +/**
+> >> + * drm_gem_object_unset_cgroup - clear GEM object's associated cgroup
+> >> + * @obj: GEM object
+> >> + *
+> >> + * This will release a reference on cgroup.
+> >> + */
+> >> +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj)
+> >> +{
+> >> +	WARN_ON(atomic64_read(&obj->drmcg_bytes_charged));
+> >> +	drmcg_put(obj->drmcg);
+> >> +}
+> >> +EXPORT_SYMBOL(drm_gem_object_unset_cgroup);
+> >> +
+> >> +/**
+> >> + * drm_gem_object_charge_mem - try charging size bytes to DRM cgroup
+> >> + * @obj: GEM object which is being charged
+> >> + * @size: number of bytes to charge
+> >> + *
+> >> + * Try to charge @size bytes to GEM object's associated DRM cgroup.  This
+> >> + * will fail if a successful charge would cause the current device memory
+> >> + * usage to go above the cgroup's GPU memory maximum limit.
+> >> + *
+> >> + * Returns 0 on success.  Otherwise, an error code is returned.
+> >> + */
+> >> +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size)
+> >> +{
+> >> +	int ret;
+> >> +
+> >> +	ret = drm_cgroup_try_charge(obj->drmcg, obj->dev,
+> >> +				    DRMCG_TYPE_MEM_CURRENT, size);
+> >> +	if (!ret)
+> >> +		atomic64_add(size, &obj->drmcg_bytes_charged);
+> >> +	return ret;
+> >> +}
+> >> +EXPORT_SYMBOL(drm_gem_object_charge_mem);
+> >> +
+> >> +/**
+> >> + * drm_gem_object_uncharge_mem - uncharge size bytes from DRM cgroup
+> >> + * @obj: GEM object which is being uncharged
+> >> + * @size: number of bytes to uncharge
+> >> + *
+> >> + * Uncharge @size bytes from the DRM cgroup associated with specified
+> >> + * GEM object.
+> >> + *
+> >> + * Returns 0 on success.  Otherwise, an error code is returned.
+> >> + */
+> >> +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size)
+> >> +{
+> >> +	u64 charged = atomic64_read(&obj->drmcg_bytes_charged);
+> >> +
+> >> +	if (WARN_ON(!charged))
+> >> +		return;
+> >> +	if (WARN_ON(size > charged))
+> >> +		size = charged;
+> >> +
+> >> +	atomic64_sub(size, &obj->drmcg_bytes_charged);
+> >> +	drm_cgroup_uncharge(obj->drmcg, obj->dev, DRMCG_TYPE_MEM_CURRENT,
+> >> +			    size);
+> >> +}
+> >> +EXPORT_SYMBOL(drm_gem_object_uncharge_mem);
+> >> +
+> >>  /**
+> >>   * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+> >>   * @dev: drm_device the object should be initialized for
+> >> @@ -156,6 +240,8 @@ void drm_gem_private_object_init(struct drm_device *dev,
+> >>  	obj->dev = dev;
+> >>  	obj->filp = NULL;
+> >>  
+> >> +	drm_gem_object_set_cgroup(obj, current);
+> >> +
+> >>  	kref_init(&obj->refcount);
+> >>  	obj->handle_count = 0;
+> >>  	obj->size = size;
+> >> @@ -950,6 +1036,9 @@ drm_gem_object_release(struct drm_gem_object *obj)
+> >>  
+> >>  	dma_resv_fini(&obj->_resv);
+> >>  	drm_gem_free_mmap_offset(obj);
+> >> +
+> >> +	/* Release reference on cgroup used with GEM object charging */
+> >> +	drm_gem_object_unset_cgroup(obj);
+> >>  }
+> >>  EXPORT_SYMBOL(drm_gem_object_release);
+> >>  
+> >> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> >> index 240049566592..06ea10fc17bc 100644
+> >> --- a/include/drm/drm_gem.h
+> >> +++ b/include/drm/drm_gem.h
+> >> @@ -37,6 +37,7 @@
+> >>  #include <linux/kref.h>
+> >>  #include <linux/dma-resv.h>
+> >>  
+> >> +#include <drm/drm_cgroup.h>
+> >>  #include <drm/drm_vma_manager.h>
+> >>  
+> >>  struct dma_buf_map;
+> >> @@ -222,6 +223,17 @@ struct drm_gem_object {
+> >>  	 */
+> >>  	struct file *filp;
+> >>  
+> >> +	/**
+> >> +	 * @drmcg:
+> >> +	 *
+> >> +	 * cgroup used for charging GEM object page allocations against. This
+> >> +	 * is set to the current cgroup during GEM object creation.
+> >> +	 * Charging policy is up to the DRM driver to implement and should be
+> >> +	 * charged when allocating backing store from device memory.
+> >> +	 */
+> >> +	struct drmcg *drmcg;
+> >> +	atomic64_t drmcg_bytes_charged;
+> >> +
+> >>  	/**
+> >>  	 * @vma_node:
+> >>  	 *
+> >> @@ -417,4 +429,9 @@ int drm_gem_fence_array_add_implicit(struct xarray *fence_array,
+> >>  int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+> >>  			    u32 handle, u64 *offset);
+> >>  
+> >> +void drm_gem_object_set_cgroup(struct drm_gem_object *obj,
+> >> +			       struct task_struct *task);
+> >> +void drm_gem_object_unset_cgroup(struct drm_gem_object *obj);
+> >> +int drm_gem_object_charge_mem(struct drm_gem_object *obj, u64 size);
+> >> +void drm_gem_object_uncharge_mem(struct drm_gem_object *obj, u64 size);
+> >>  #endif /* __DRM_GEM_H__ */
+> >> -- 
+> >> 2.20.1
+> >>
+> > 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
