@@ -2,67 +2,119 @@ Return-Path: <SRS0=bpzG=HO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9050AC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 05:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E7E3C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 06:40:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E87C64E38
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 05:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E87C64E38
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E416164E42
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 06:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E416164E42
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D42936E512;
-	Fri, 12 Feb 2021 05:32:35 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC4E6E512
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 05:32:34 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id f3so5108922oiw.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:32:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=RMfTAVPNol6WeuqEsiUBYFZXzrKBGhv/dOhUfN1HmT0=;
- b=oZYNxdFZSJnMzd8AroydNUvpsU+ku1vubkg6MBu5w6dSyY6MYa8P+prB1unmZRmcc3
- trsSsdwar+oFXuFSige+C5lNPA1zqVHHG5/fr9915GFf8YuNKdGD1zhZzn0Y7GoQUScv
- S3rom1+gMd5LZ3OGqBrvaXK1gzqlUKH/3ORdeMKpMz6u8+5ktVmI0U4QTL7zWS7Ri89a
- TsPeNxYCfvQ74WGT3VQUehulRigaX2w7C8P15ob+/VOpLOw4ngv73JzNMfdVAyZMRrYI
- yDNGiXcQYo7gpLVQXHWhyEJWk0G+3SkpLfHLgjCby3/JpPCsLP2M0Cw4Rmq1Ivy+iBk5
- V56Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=RMfTAVPNol6WeuqEsiUBYFZXzrKBGhv/dOhUfN1HmT0=;
- b=CTte8+dmcqPhSFndqVdXOO7PZgJGHy/eHHA2zEpOcv2ZnZqeQ/pg21ZZx+VJGBlnzg
- AXw16wG44p4znuMZ+F0QDanVfQMZWvjoMJK4XHAjpY/lIVkSMfYWrLuLWVWBrIC5thz5
- 3ohmSD3/e9hbV5HMNVu3nvwgGLuxAI1d68f0KJVNJE70yDFdnjm4Cad4CovjbWCU253d
- a424xV3P+FoV9TEfvHGiH01vjfwgxIM7YTxopKW1CqdTUm27OOEWK+ydxBDpmhdGeB/s
- rF9YV+XtTjBh+kqUQJ0erVqRP5DUbCzDoosfbFdrzaYNzAzO/FtUzkfnllK7bcgnS7NU
- NiKw==
-X-Gm-Message-State: AOAM530nVS6guD8Z9N3FwwPvAaSTXynlKjm6TWO4Brtw8eOCV0QH9U+8
- 7AvW0Z+0LdiamGed4sTISmLFV9Eq2GQ8T15V6SE=
-X-Google-Smtp-Source: ABdhPJwdhtIhPzdDyu606V0MZG5AcNwv6zZh7T2xJy/aku0eIWLUKH+MLxxLERfyKp5MdC9UQDG4r1cC6sG2q41PStA=
-X-Received: by 2002:aca:c786:: with SMTP id x128mr821035oif.120.1613107953886; 
- Thu, 11 Feb 2021 21:32:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41CDE89E63;
+	Fri, 12 Feb 2021 06:40:57 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760059.outbound.protection.outlook.com [40.107.76.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA73889E63;
+ Fri, 12 Feb 2021 06:40:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IsgiqMmqadRaDoHp5DMb0Ohxhbztqb6qYWrZaMtII7uV4EDj2plvPQ3klgMf1Zh+3QgusBK/mt/jn76g73yb3bc5C/OFct4ZxW+d5aMNHLcOyBZ1WJMCpuyArWwhWYfxrbhIVz5JeqCvXkKMr7SFk4/voehFMdr2k+2MGSpHXEut67uiVh56S/1BL2I1OpB5cBoLjEZkWpQzlM7pWIZ1fFXrp25xaUn5WC75+5MPyf5gLa9dHkAPXxjvday6r6VTXIVgbxBvvOJeGa4f2Tq/pgUjCjdtkhVMrPuGYaqC8Bd1jh9xHWstaZ3IQFpMW4l3a21GFhkq+guV/RuXVUEb7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SXJZnGfATmdA7350kv8gpaN2gzBNlvMrIzbw5mWsA6I=;
+ b=UB5UJ9M1Y7XTuRC5i8YOGNQwMBXxiFm+f8h7/XrYfsVjA1GdTZVtxj9+yzkIhyYQN7V2hoE3BljRTt78o/TkK1hZ0WHnaBcPASVuX5tCcSkNcXJmmQ00V06W8eewFDBN5hRKlwitqyFIvoJXT+NjkJgDT9Xbcp/DDTnf65Z/ym6Mg9Z+iV085Ri6N2w1B0FDbo4RUDJ6GlSjw+YSaEQ21HokiBRFbOGgGyT0kZl9QZgLnzH8Lqi9g0lrXInevOWa5E5fkPnBZF23Ro0k1PF3BbHEXbHSQqfGfLfD+1xVAyhkk6TPPm0BG4NYhooorQdXA+CkQ5G8lDbV4AuWFOHOEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SXJZnGfATmdA7350kv8gpaN2gzBNlvMrIzbw5mWsA6I=;
+ b=HJf/C8Pt/jrH+dkx0kz1qHjl1jigvnsXcFTTWFHpDM+B2ojHV1H61aoj6pNuQCOFkP9pa+N5coVQ1fu1EkKX4IZdLFfTc9qoVZu+IGaqoOMrBKwOVilzXt3vE/cIn2JhFpydcrhL+nGipHme3etZg2Vx1uboJLnchfIGSZ5rXos=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by BL0PR12MB4961.namprd12.prod.outlook.com (2603:10b6:208:1c9::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.27; Fri, 12 Feb
+ 2021 06:40:53 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab%8]) with mapi id 15.20.3784.028; Fri, 12 Feb 2021
+ 06:40:53 +0000
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/2] drm/amdkfd: Cleanup kfd_process if init_cwsr_apu fails
+Date: Fri, 12 Feb 2021 01:40:34 -0500
+Message-Id: <20210212064034.29912-2-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210212064034.29912-1-Felix.Kuehling@amd.com>
+References: <20210212064034.29912-1-Felix.Kuehling@amd.com>
+X-Originating-IP: [165.204.55.211]
+X-ClientProxiedBy: YT1PR01CA0082.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::21) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
-References: <CAEsyxyj9ArbpxWQttLhBZzU1mR_Fz=hRt1p52yMuwdmToZwuGA@mail.gmail.com>
- <CAEsyxyjPUmXGWpQDbr6E0Wccd0PvxATLPoZKE0zZ1gwPZSoLAQ@mail.gmail.com>
- <CADnq5_NdULq_V79O01UprBdfL1V=dUsvTjXS5jaGv=bJB66J_Q@mail.gmail.com>
- <CAEsyxyjmHfnc-w1jsJAxL8Zw5W1R9AiiUYd1-taKxX3Q3BfWfA@mail.gmail.com>
-In-Reply-To: <CAEsyxyjmHfnc-w1jsJAxL8Zw5W1R9AiiUYd1-taKxX3Q3BfWfA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 12 Feb 2021 00:32:23 -0500
-Message-ID: <CADnq5_NpZdTRBfvUxFy=7Z5OSDUJKmiE++U2jsnLHM6BJ4FAfA@mail.gmail.com>
-Subject: Re: Why no spatial dithering to 10 bit depth on DCE?
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (165.204.55.211) by
+ YT1PR01CA0082.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3825.19 via Frontend Transport; Fri, 12 Feb 2021 06:40:53 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: da5a3646-06c1-40cd-f9e2-08d8cf2124e4
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4961:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4961F300B6759AF2EC5476FA928B9@BL0PR12MB4961.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:194;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rEv2ly817hGYMyHAEy/Usv/oeOP5nqCyf8bQ+Zk0Nm+KsiTTT9Jyo33L24YQvhpaxEWSp3hCgazMqWXhQFW4x2SFT7tmGZRe84EyGrMsl8UdiVfJKSYDMT5uUQoS++W6ORgP3iR3tw3aDIwYeW/Ew3bdaNfWSu7WKAWSX3Wltcqd40cbknbrtQAjBzsAA7PdtnDqwAErhCky7ndoVtg2xOAJ0NH+KQwzq9hmJP79VcK1EN+0EtKpX1KWjfElVI6i/Embmqli+jDhpCY7hDmtl8H0k2Vwn+mUKZVAYF7bwiTvT1pjXy8vNpgwYnD3WvhJ7VNutoNCrv9dVU468svP1lvXcYCHCvokR15gu65Ff6wpoSlA6Yg/0bjRwRlU5gEuoUDyYGavq1Un1tDiNI6C+nPA79+F6Ke/NRl+3o1n6mcltFFvsZBp6edf5zg94HjMPJuRvmknqiTUgMwq9+8T9PerxTdHX7j+VTDjbged7LJcitMAXsIST8JX6g9kbfxuHHNQqYUoNJFnWojKigmERf4rDJ/fUOSdUrgL59O+7ePvkm52088ebhiXUP4OA/f1IOYfCVflucsJPc6oleir4g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(376002)(39860400002)(396003)(346002)(6512007)(8676002)(1076003)(2906002)(26005)(186003)(316002)(16526019)(450100002)(8936002)(2616005)(6486002)(6666004)(956004)(5660300002)(6506007)(66946007)(52116002)(66476007)(66556008)(86362001)(69590400011)(36756003)(83380400001)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?oc0ICPI+m6K3B56UGqU4l7TsPzuuXLSy6C9oCfVAGHgPnvZT8NEG6TCRTEje?=
+ =?us-ascii?Q?wWnn/cgldLs8/zdo2guA2Rx6AHL/PfnF+ToRZawyAWfBOh+42J2kwJoNH1Se?=
+ =?us-ascii?Q?cXEeXfRK/2Vgz2+Lab8/Q4Swlnbm5VyMaQ7K+m5pLxyblUiY+rFRSR6ec9Wp?=
+ =?us-ascii?Q?0JMD/z6Q0v8bGCcFtC/uPcdRyMxtkttyARycglDjdIZGS2PjXeE3TCsnvO/h?=
+ =?us-ascii?Q?hJVwJHtxBowpu2CokH2W+2CeoUWRgas9xroOoXxoZkGKgGGaiW52G8MLg17+?=
+ =?us-ascii?Q?eVJzbfROUKMZ5VqxS4bzggbJNW+MMjQut3T3rzJTGVhgJm49U5oZapam/+bF?=
+ =?us-ascii?Q?9iynPePRBAz8yps+C0A1f7UTm3dPj6193XQL5UEYlfkjBQDX+5yWhjOltHg+?=
+ =?us-ascii?Q?RU2O9dfACL05LYN8sA1sKzi3ekg3P5h+e2KkHZbtW3PHfuF48Lptfsb+UZJY?=
+ =?us-ascii?Q?Z4CMflE0x16Ak1/j7YpMRNN+lO4fjxugYobi+GIYNVjPFpjPrAIPHlijkXWW?=
+ =?us-ascii?Q?FObeeZb2OSrNq+KiEycbRdpDfQ07ssImN1mgrnj2UK9rpyyPhq8s70SU9Gl2?=
+ =?us-ascii?Q?DTpusDRR8OQGyu60DTf+i82PXcTAsOT9kQe06zTZW4abevon+E02ndacyf6F?=
+ =?us-ascii?Q?aA8sWRGg4a0e9e6NlWMpoQhD2LfOzp69qMm/P8FL/wwfJKrn5zATKCpVjLAe?=
+ =?us-ascii?Q?aFXYz9yIm+f4dPACN8H0tyYmcU/e+2NJjKwUrrnA/GtI2A7RUvh+FdBHMC/m?=
+ =?us-ascii?Q?DPN4gPninUkOoxICLa8iZoLvXFmNufEOXysYnKQK/POKk3WSavFGHrC9OtyS?=
+ =?us-ascii?Q?L575HtA+caHPW5ouYzJC6gt7WnsUhfukl0lMjyMSsPwM9AqbIwXrHaXLoGeG?=
+ =?us-ascii?Q?re4IObguWIPnUWUUVXvuCMn3iQm5+4KOkYKJas+ruS+1Dz+qovj2EB+dWHC9?=
+ =?us-ascii?Q?Z51ZWXu1VgpgY6Q/NFSqq+kza3d5CXifjEAbWLz6D/cru2f2F4fQirJBrdkU?=
+ =?us-ascii?Q?4zn374RSqCSw+kzNWjv5fIIHR/gttiWvJXj9cDov/ZLvoeYc1fzVRmHr1L0i?=
+ =?us-ascii?Q?r1nTI3glj9Lv2UKb3BokbOTAB/r+dB0T63gVCsFVUvXxEq2YG5lRmx1Mm3vA?=
+ =?us-ascii?Q?J/2aPeAMnECWG/w0r+Akovo7VLsR627k/SwTOYpjzWFMwSTvZ/Bz1F45SevI?=
+ =?us-ascii?Q?+nNAgqOy5bG4b6WR6RH7NBZNGTs62DurIJZSIe9FXv33pmOuL5g+KoFOGlk7?=
+ =?us-ascii?Q?2qnoto3v0eHIMXkN4psJfL52FgdL0TbxPInWMk3jNeVbClR2DZQRa5vtrNGv?=
+ =?us-ascii?Q?/SCTvRtMYBa1OPRvfi2tiP9M?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da5a3646-06c1-40cd-f9e2-08d8cf2124e4
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2021 06:40:53.4613 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cEZluHSxm9bvHp0ShqbDnWzTMjNTtlPRy8CJv72E2JWteguYXm07w30mk39/XIJf3frqiHn4idxNW8EG6duJ4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4961
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,90 +126,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 11, 2021 at 4:12 PM Mario Kleiner
-<mario.kleiner.de@gmail.com> wrote:
->
-> On Wed, Feb 10, 2021 at 10:36 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> On Wed, Feb 10, 2021 at 4:08 PM Mario Kleiner
->> <mario.kleiner.de@gmail.com> wrote:
->> >
->> > Resending this one as well, in the hope of some clarification or background information.
->> >
->>
->
-> Thanks Alex.
->
->> I suspect this may have been a limitation from DCE11.0 (E.g.,
->> carrizo/stoney APUs).  They had some bandwidth limitations with
->> respect to high bit depth IIRC.  I suspect it should be fine on the
->> relevant dGPUs.  The code was probably originally added for the APUs
->
->
-> That sounds as if it would make sense for me to try to submit a patch to you that restricts this limitation to DCE 11.0 only?
+If init_cwsr_apu fails, we currently leave the kfd_process structure in
+place anyway. The next kfd_open will then succeed, using the existing
+kfd_process structure. Fix that by cleaning up the kfd_process after a
+failure in init_cwsr_apu.
 
-I suspect older DCE 8.x APUs have similar limitations.  Although it
-may only be an issue with multiple monitors or something like that.  I
-don't remember the details.  @Harry Wentland do you remember?
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
->
-> All i can say is during my testing with DCE-8.3 over HDMI and DCE-11.2 over DP under amdvlk with fp16 mode and ouptut_bpc set to 10 bpc, ie. dithering down from 12 bpc to 10 bpc, i didn't notice any problems when hacking this out, and photometer measurements showed good improvements of luminance reproduction with dithering.
->
->> and just never updated or the changes were accidentally lost when we
->> consolidated the DCE code.  Unfortunately, there are not a lot of apps
->> that work properly in Linux with >8 bits per channel.
->>
->
-> Mine does ;-). As does apparently the Kodi media player. And at least Gnome/X11 works now, whereas KDE's Kwin/X11 used to work nicely, but regressed. And amdvlk does have fp16 support now since a while ago, so that's one way to get high precision without disturbing conventional desktop apps. I'll probably look into Mesa's Vulkan/WSI for 10 bpc / fp16 sometime this year if nobody beats me to it.
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 145cd0a17d50..a4d7682289bb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -775,10 +775,8 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 			goto out;
+ 
+ 		ret = kfd_process_init_cwsr_apu(process, filep);
+-		if (ret) {
+-			process = ERR_PTR(ret);
+-			goto out;
+-		}
++		if (ret)
++			goto out_destroy;
+ 
+ 		if (!procfs.kobj)
+ 			goto out;
+@@ -826,6 +824,14 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 	mutex_unlock(&kfd_processes_mutex);
+ 
+ 	return process;
++
++out_destroy:
++	hash_del_rcu(&process->kfd_processes);
++	mutex_unlock(&kfd_processes_mutex);
++	synchronize_srcu(&kfd_processes_srcu);
++	/* kfd_process_free_notifier will trigger the cleanup */
++	mmu_notifier_put(&process->mmu_notifier);
++	return ERR_PTR(ret);
+ }
+ 
+ struct kfd_process *kfd_get_process(const struct task_struct *thread)
+-- 
+2.17.1
 
-Sounds good.
-
-Alex
-
-> -mario
->
->
->> Alex
->>
->>
->> > Thanks,
->> > -mario
->> >
->> > On Mon, Jan 25, 2021 at 3:56 AM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
->> >>
->> >> Hi Harry and Nicholas,
->> >>
->> >> I'm still on an extended quest to squeeze as much HDR out of Linux + your hw as possible, although the paid contract with Vesa has officially ended by now, and stumbled over this little conundrum:
->> >>
->> >> DC's set_spatial_dither() function (see link below) has this particular comment:
->> >> "/* no 10bpc on DCE11*/" followed by code that skips dithering setup if the target output depth is 10 bpc:
->> >>
->> >> https://elixir.bootlin.com/linux/v5.11-rc4/source/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c#L219
->> >>
->> >> I couldn't find any hint in the commit messages towards the reason, so why is that?
->> >>
->> >> This gets in the way if one has a HDR-10 monitor with 10 bit native output depth connected and wants to output a fp16 framebuffer and retain some of the > 10 bit linear precision by use of spatial dithering down to 10 bit. One only gets the same precision as a 10 bpc unorm fb. Also the routine is called for all DCE's, not only DCE11, so it affects all of them.
->> >>
->> >> The same restrictions don't exist in the old kms code for amdgpu-kms and radeon-kms. I added a mmio hack to Psychtoolbox to go behind the drivers back and hack the FMT_BIT_DEPTH_CONTROL register to use spatial dithering down to 10 bpc anyway to circumvent this limitation. My photometer measurements on fp16 framebuffers feeding into 10 bit output show that I get a nice looking response consistent with dithering to 10 bpc properly working on DCE. Also i don't see any visual artifacts in displayed pictures, so the hw seems to be just fine. This on DCE-11.2, and more lightly tested on DCE-8.3.
->> >>
->> >> So i wonder if this is some leftover from some hw bringup, or if there is a good reason for it being there? Maybe it could be removed or made more specific to some problematic asic?
->> >>
->> >> Thanks for any insights you could provide. Stay safe,
->> >> -mario
->> >>
->> > _______________________________________________
->> > amd-gfx mailing list
->> > amd-gfx@lists.freedesktop.org
->> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
