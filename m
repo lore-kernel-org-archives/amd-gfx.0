@@ -1,120 +1,68 @@
-Return-Path: <SRS0=yskd=HN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=bpzG=HO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33A30C433E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9050AC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 05:32:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F11D764DA1
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Feb 2021 21:45:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F11D764DA1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3E87C64E38
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Feb 2021 05:32:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E87C64E38
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4016EE7E;
-	Thu, 11 Feb 2021 21:45:15 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D33926EE7A
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:45:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ER7uLz+SFL/bF94NOSoRGO1GZ2IXATMPPI2wCXbhFitEQlnHAKgJ0kRLjsXX31DI35GvuSg/M9W+ZpuYZB8ZAnckQehYWwlMB80hQC9NWzgEJkAbcNYS7yV8Vr/xEPGe17c9gdI5a4tgVxMdw9n9D/8s0uSsB27kIQRxTrH0Y+FuIOgGMoUWHPigDpopizA0u+SCUIx760yTsKxDWQKUsY5Afg4ZcknqXI+ifFIcs+p5r0+yjz9IIFTZeXT8D3qNVfju8V6ajYp9QAHiRKJsdxsDyfixL7BPfmNglkHH/PyAPMWAEXKWKJ/UPhueDIuyBWpD41APmzDaZdlOMBefXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hGqZAS4mZ2uJYjl/Bu64h78fm+DRE1f3qjhX4uQBEwA=;
- b=nMwDWAyWZREVDM/8fpGBrIHEJjloNWV+P55pAt/I8vZ4Aj3YxngxiJ1WFQvs89pfUnxW1h5wuixA4ZDPUKlrX6kXRn3sYSObv5wcZEuMoQbvWOWMWWeYcjCsymB1LPF1ckGFEFYlZgHRyxaTX13zvIoQXGISjynIRq2DB9qc3l5tyQSNISe0lHnQe0LXiue/VN+rPuus4B9sj+8Ze3g83YciOM8jTxYFDSZpQTu2cPa69HOW3/ZMbrcAej4enzXhdZNpGE+tVkWD/NrcBmBs4Cb8hbzWeZdLpMnaFw4onlxUX9i/o4XACqySEPUGvYrvEOXAq40SJniGEpVcR7kEkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hGqZAS4mZ2uJYjl/Bu64h78fm+DRE1f3qjhX4uQBEwA=;
- b=Fpcz59p4Kj80sIhGfVeequJPKKWXGEVtVDmbppflWkO/V6qJ2sUbnljkkEg1bEo1KUIxrqJA47GKs9DVuiTyTvJFD+uQQ5NxfI8hB/RYYFIhkwS483JYzEZLhToLstx0xfPY8iUSMWGFxxtlmoYxJDMYhYL8Ph2VQtuc1OprSuM=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
- by DM6PR12MB3114.namprd12.prod.outlook.com (2603:10b6:5:11e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.23; Thu, 11 Feb
- 2021 21:45:11 +0000
-Received: from DM6PR12MB2939.namprd12.prod.outlook.com
- ([fe80::bcb5:dc9f:c49c:9faf]) by DM6PR12MB2939.namprd12.prod.outlook.com
- ([fe80::bcb5:dc9f:c49c:9faf%2]) with mapi id 15.20.3846.027; Thu, 11 Feb 2021
- 21:45:11 +0000
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 12/14] drm/amd/display: Implement transmitter control v1.7
-Date: Thu, 11 Feb 2021 16:44:42 -0500
-Message-Id: <20210211214444.8348-13-qingqing.zhuo@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210211214444.8348-1-qingqing.zhuo@amd.com>
-References: <20210211214444.8348-1-qingqing.zhuo@amd.com>
-X-Originating-IP: [165.204.55.250]
-X-ClientProxiedBy: YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::39) To DM6PR12MB2939.namprd12.prod.outlook.com
- (2603:10b6:5:18b::24)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42936E512;
+	Fri, 12 Feb 2021 05:32:35 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC4E6E512
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Feb 2021 05:32:34 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id f3so5108922oiw.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Feb 2021 21:32:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=RMfTAVPNol6WeuqEsiUBYFZXzrKBGhv/dOhUfN1HmT0=;
+ b=oZYNxdFZSJnMzd8AroydNUvpsU+ku1vubkg6MBu5w6dSyY6MYa8P+prB1unmZRmcc3
+ trsSsdwar+oFXuFSige+C5lNPA1zqVHHG5/fr9915GFf8YuNKdGD1zhZzn0Y7GoQUScv
+ S3rom1+gMd5LZ3OGqBrvaXK1gzqlUKH/3ORdeMKpMz6u8+5ktVmI0U4QTL7zWS7Ri89a
+ TsPeNxYCfvQ74WGT3VQUehulRigaX2w7C8P15ob+/VOpLOw4ngv73JzNMfdVAyZMRrYI
+ yDNGiXcQYo7gpLVQXHWhyEJWk0G+3SkpLfHLgjCby3/JpPCsLP2M0Cw4Rmq1Ivy+iBk5
+ V56Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=RMfTAVPNol6WeuqEsiUBYFZXzrKBGhv/dOhUfN1HmT0=;
+ b=CTte8+dmcqPhSFndqVdXOO7PZgJGHy/eHHA2zEpOcv2ZnZqeQ/pg21ZZx+VJGBlnzg
+ AXw16wG44p4znuMZ+F0QDanVfQMZWvjoMJK4XHAjpY/lIVkSMfYWrLuLWVWBrIC5thz5
+ 3ohmSD3/e9hbV5HMNVu3nvwgGLuxAI1d68f0KJVNJE70yDFdnjm4Cad4CovjbWCU253d
+ a424xV3P+FoV9TEfvHGiH01vjfwgxIM7YTxopKW1CqdTUm27OOEWK+ydxBDpmhdGeB/s
+ rF9YV+XtTjBh+kqUQJ0erVqRP5DUbCzDoosfbFdrzaYNzAzO/FtUzkfnllK7bcgnS7NU
+ NiKw==
+X-Gm-Message-State: AOAM530nVS6guD8Z9N3FwwPvAaSTXynlKjm6TWO4Brtw8eOCV0QH9U+8
+ 7AvW0Z+0LdiamGed4sTISmLFV9Eq2GQ8T15V6SE=
+X-Google-Smtp-Source: ABdhPJwdhtIhPzdDyu606V0MZG5AcNwv6zZh7T2xJy/aku0eIWLUKH+MLxxLERfyKp5MdC9UQDG4r1cC6sG2q41PStA=
+X-Received: by 2002:aca:c786:: with SMTP id x128mr821035oif.120.1613107953886; 
+ Thu, 11 Feb 2021 21:32:33 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (165.204.55.250) by
- YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.17 via Frontend Transport; Thu, 11 Feb 2021 21:45:10 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 461a496c-7e06-4ec8-56df-08d8ced64e74
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3114:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB311426664BF779394ACE5A84FB8C9@DM6PR12MB3114.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ST0m8JBvENMgpO+jgRJvpFTXQMwOjpEiWu1ZlUzKnztmN30QjgUb6FhAIl0GPPPbbQ9FgOtxuhp2hmvoVr6V++SihCjC/EYXQS0g2TUVvpASc1gdV58XZeEbJfAl0pCmTajIc4aCrltW3zfPRrRxxzGeAttA0uD3Q0imsErdx3KWK8O+oYiN1UIrJye9gAsID8JC9NEN2QWXbI/Judman1UsRl5LYDGJ0XApVk0nRkvniAfL2S0vbAI6YW5WSEsP/6OU3+rnEyN5jk1tLu1cRmSQJefYkMHSMCEqzzL98xnxikBwQ0owBVdqcci5wdxtLmbRpRxsnKf0COAvS0wcr9PE1rNGJjXP7QYaQV7gduK51BMhL+FrY138U4SLCa9r8PPCpJPXHZ/8C1l5f22Zo7mki5JD6EbUKga1XUQEbKCPy+o2MsFupquqcdynLww0cZi45vhp8V690M3kGdZ/QI+dPPO7YUuTGEU4bNmLXFcjxHNwiIdb+jNacgttb32vNwCJYJsMwRzCFNGobjMoCq6WOl2oA0zP9Nm6CvjhUBQ9KJPfocBCRusjfft1cX4gQ36D6OjDhK+8/etZiXM1/w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(396003)(136003)(376002)(83380400001)(36756003)(26005)(16526019)(186003)(6506007)(6666004)(2906002)(69590400011)(66946007)(44832011)(2616005)(8936002)(6486002)(1076003)(66556008)(66476007)(316002)(4326008)(6512007)(956004)(5660300002)(86362001)(8676002)(478600001)(6916009)(52116002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?E/CoxZMuB/mkzVhNTi3tjFfXKykPYXdxNUj0h7I+vQT2G67lnsnzm8Y5rQHZ?=
- =?us-ascii?Q?UP9Kqc1H3sujF0RxjJZRf8Qe3KtHYENylW40NIgxUWMF2GwdQGoWC/lD/K9N?=
- =?us-ascii?Q?nFmn47ZRX+MXBO4niA3DYNT2spbNt17DYtlUGoIFaAEJGdNLbcFCxKonD4Ca?=
- =?us-ascii?Q?CObmOwwGTDAllaxAmyTH6fr3fv8wkyzz/XwhUmaXVL7b9Qcc31oTloeg9l9T?=
- =?us-ascii?Q?BZ+Gv53dbC28EPqYUputqe5LrfOA/VOisU5Momv8kuRegeNrguh6Ek0WzHEj?=
- =?us-ascii?Q?sptB2hb6WXOYmYpF1PFGG00HztdEKDDV9Ck8oF5TRXUv5eYjFjaGSd6ya60z?=
- =?us-ascii?Q?si1rHcbyEM61BuFDGZYmoO7WIl21ZTZxhp5dIu6l35K7LJs28JTiDjzKKJ2+?=
- =?us-ascii?Q?1XeS5L65f+4I9/9c9/4ucYo0Ip+CKkmvAwM20Eo0mst3yYvhqtLTawnIp5aL?=
- =?us-ascii?Q?UXm50laK5LLn6F8+s96eg42Ts+Nvldov/FKEAJ5ihjL5idQJBMq9dYTsgJR7?=
- =?us-ascii?Q?FcGDYCQrxVPvuQHK+8M9UzFaqI0Ut9wwwrBktl4YS2mxmeXnKZhUQd/Bp4zT?=
- =?us-ascii?Q?veSjHY8jzTT2cVDGH3N6Es4ndUidYdwNmwzae9WmhYnUOvG1pt4cuP5snwgB?=
- =?us-ascii?Q?aP2wcqdylCiilQj/QVBigbI+5RywkfWB0XqMNC20wbqvSASe1+EsFzWiBoDw?=
- =?us-ascii?Q?G55NCUk1iUyYx9/dtRFdk/OeyhsK0fpwDvzMxxsgV9cIzbTc03PGC9Z/ly1R?=
- =?us-ascii?Q?fV9TF5JQi4xAup2rMQ/HjGcQkcVbroPnydMExVN7b+alpgAPQuODvNvoRd+r?=
- =?us-ascii?Q?TvTRDIooJbzuzJoVTOimbE3MhhuqqJxRlzYIYoqn4UzN6UXjWRzJvVaOgFsc?=
- =?us-ascii?Q?64/YVp4mjuQDIKY3pyW9fWI3KHnjOGGMSy5qTn8m+Zcm5k9i9NVa0jUN0Xfi?=
- =?us-ascii?Q?4D4Ct+77T1ihxaGYzAoChZfyC1yvHAdZoNH5zrK8jcEosEEla/bSUdm4wjY8?=
- =?us-ascii?Q?5wvM/4fk/k90Y3dsZBvcjs801Djh+WcQWnoE4BjJRtubXXmwbnH7q5zRlBYV?=
- =?us-ascii?Q?11TZTtQIvxTfz2JB1G7/u2Ra4pubgIw3PbpjcvwQnnuksnCrslPmrhtmS56P?=
- =?us-ascii?Q?/lSx5Oq8IFJN314s3FiUr6+f+xbgFjPCnHuebzLLpd/HjEjvDBAI48l81zKT?=
- =?us-ascii?Q?WCmplT43tWvpa53+PAxgee6/lVnIuTpb9enS7gLnhJi+WwGnwOrUMEnDvjAC?=
- =?us-ascii?Q?IxNKXot0fA8RDfKbMpQJTeEJCLKB9LWACkMY+SMgSc6lCxk1aMEwFDb4NunC?=
- =?us-ascii?Q?9a5DBegoiNu6ms1jwOijB5sX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 461a496c-7e06-4ec8-56df-08d8ced64e74
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2021 21:45:11.0693 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P3YPJlsLSjA+/NS6EUx1yoD+9QCV590y4iPEUPygB8N+dl929uASUp8pgnvQ0sk4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3114
+References: <CAEsyxyj9ArbpxWQttLhBZzU1mR_Fz=hRt1p52yMuwdmToZwuGA@mail.gmail.com>
+ <CAEsyxyjPUmXGWpQDbr6E0Wccd0PvxATLPoZKE0zZ1gwPZSoLAQ@mail.gmail.com>
+ <CADnq5_NdULq_V79O01UprBdfL1V=dUsvTjXS5jaGv=bJB66J_Q@mail.gmail.com>
+ <CAEsyxyjmHfnc-w1jsJAxL8Zw5W1R9AiiUYd1-taKxX3Q3BfWfA@mail.gmail.com>
+In-Reply-To: <CAEsyxyjmHfnc-w1jsJAxL8Zw5W1R9AiiUYd1-taKxX3Q3BfWfA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 12 Feb 2021 00:32:23 -0500
+Message-ID: <CADnq5_NpZdTRBfvUxFy=7Z5OSDUJKmiE++U2jsnLHM6BJ4FAfA@mail.gmail.com>
+Subject: Re: Why no spatial dithering to 10 bit depth on DCE?
+To: Mario Kleiner <mario.kleiner.de@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,139 +74,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Eric Bernstein <eric.bernstein@amd.com>, Bhawanpreet.Lakha@amd.com,
- bindu.r@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eric Bernstein <eric.bernstein@amd.com>
+On Thu, Feb 11, 2021 at 4:12 PM Mario Kleiner
+<mario.kleiner.de@gmail.com> wrote:
+>
+> On Wed, Feb 10, 2021 at 10:36 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> On Wed, Feb 10, 2021 at 4:08 PM Mario Kleiner
+>> <mario.kleiner.de@gmail.com> wrote:
+>> >
+>> > Resending this one as well, in the hope of some clarification or background information.
+>> >
+>>
+>
+> Thanks Alex.
+>
+>> I suspect this may have been a limitation from DCE11.0 (E.g.,
+>> carrizo/stoney APUs).  They had some bandwidth limitations with
+>> respect to high bit depth IIRC.  I suspect it should be fine on the
+>> relevant dGPUs.  The code was probably originally added for the APUs
+>
+>
+> That sounds as if it would make sense for me to try to submit a patch to you that restricts this limitation to DCE 11.0 only?
 
-[Why]
-Moving definition of transmitter control from atomfirmware
-to internal header.
+I suspect older DCE 8.x APUs have similar limitations.  Although it
+may only be an issue with multiple monitors or something like that.  I
+don't remember the details.  @Harry Wentland do you remember?
 
-[How]
-Update the command table code to call 1.7 and make it the
-default fallback path.
+>
+> All i can say is during my testing with DCE-8.3 over HDMI and DCE-11.2 over DP under amdvlk with fp16 mode and ouptut_bpc set to 10 bpc, ie. dithering down from 12 bpc to 10 bpc, i didn't notice any problems when hacking this out, and photometer measurements showed good improvements of luminance reproduction with dithering.
+>
+>> and just never updated or the changes were accidentally lost when we
+>> consolidated the DCE code.  Unfortunately, there are not a lot of apps
+>> that work properly in Linux with >8 bits per channel.
+>>
+>
+> Mine does ;-). As does apparently the Kodi media player. And at least Gnome/X11 works now, whereas KDE's Kwin/X11 used to work nicely, but regressed. And amdvlk does have fp16 support now since a while ago, so that's one way to get high precision without disturbing conventional desktop apps. I'll probably look into Mesa's Vulkan/WSI for 10 bpc / fp16 sometime this year if nobody beats me to it.
+>
 
-Signed-off-by: Eric Bernstein <eric.bernstein@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
----
- .../drm/amd/display/dc/bios/command_table2.c  | 72 ++++++++++++++++++-
- 1 file changed, 71 insertions(+), 1 deletion(-)
+Sounds good.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
-index 25bdf1c38e0a..fa5271a4598e 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
-@@ -218,6 +218,10 @@ static enum bp_result transmitter_control_v1_6(
- 	struct bios_parser *bp,
- 	struct bp_transmitter_control *cntl);
- 
-+static enum bp_result transmitter_control_v1_7(
-+	struct bios_parser *bp,
-+	struct bp_transmitter_control *cntl);
-+
- static enum bp_result transmitter_control_fallback(
- 	struct bios_parser *bp,
- 	struct bp_transmitter_control *cntl);
-@@ -233,6 +237,9 @@ static void init_transmitter_control(struct bios_parser *bp)
- 	case 6:
- 		bp->cmd_tbl.transmitter_control = transmitter_control_v1_6;
- 		break;
-+	case 7:
-+		bp->cmd_tbl.transmitter_control = transmitter_control_v1_7;
-+		break;
- 	default:
- 		dm_output_to_console("Don't have transmitter_control for v%d\n", crev);
- 		bp->cmd_tbl.transmitter_control = transmitter_control_fallback;
-@@ -304,13 +311,76 @@ static enum bp_result transmitter_control_v1_6(
- 	return result;
- }
- 
-+static void transmitter_control_dmcub_v1_7(
-+		struct dc_dmub_srv *dmcub,
-+		struct dmub_dig_transmitter_control_data_v1_7 *dig)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+
-+	cmd.dig1_transmitter_control.header.type = DMUB_CMD__VBIOS;
-+	cmd.dig1_transmitter_control.header.sub_type =
-+		DMUB_CMD__VBIOS_DIG1_TRANSMITTER_CONTROL;
-+	cmd.dig1_transmitter_control.header.payload_bytes =
-+		sizeof(cmd.dig1_transmitter_control) -
-+		sizeof(cmd.dig1_transmitter_control.header);
-+	cmd.dig1_transmitter_control.transmitter_control.dig_v1_7 = *dig;
-+
-+	dc_dmub_srv_cmd_queue(dmcub, &cmd);
-+	dc_dmub_srv_cmd_execute(dmcub);
-+	dc_dmub_srv_wait_idle(dmcub);
-+}
-+
-+static enum bp_result transmitter_control_v1_7(
-+	struct bios_parser *bp,
-+	struct bp_transmitter_control *cntl)
-+{
-+	enum bp_result result = BP_RESULT_FAILURE;
-+	const struct command_table_helper *cmd = bp->cmd_helper;
-+	struct dmub_dig_transmitter_control_data_v1_7 dig_v1_7 = {0};
-+
-+	dig_v1_7.phyid = cmd->phy_id_to_atom(cntl->transmitter);
-+	dig_v1_7.action = (uint8_t)cntl->action;
-+
-+	if (cntl->action == TRANSMITTER_CONTROL_SET_VOLTAGE_AND_PREEMPASIS)
-+		dig_v1_7.mode_laneset.dplaneset = (uint8_t)cntl->lane_settings;
-+	else
-+		dig_v1_7.mode_laneset.digmode =
-+				cmd->signal_type_to_atom_dig_mode(cntl->signal);
-+
-+	dig_v1_7.lanenum = (uint8_t)cntl->lanes_number;
-+	dig_v1_7.hpdsel = cmd->hpd_sel_to_atom(cntl->hpd_sel);
-+	dig_v1_7.digfe_sel = cmd->dig_encoder_sel_to_atom(cntl->engine_id);
-+	dig_v1_7.connobj_id = (uint8_t)cntl->connector_obj_id.id;
-+	dig_v1_7.symclk_units.symclk_10khz = cntl->pixel_clock/10;
-+
-+	if (cntl->action == TRANSMITTER_CONTROL_ENABLE ||
-+		cntl->action == TRANSMITTER_CONTROL_ACTIAVATE ||
-+		cntl->action == TRANSMITTER_CONTROL_DEACTIVATE) {
-+			DC_LOG_BIOS("%s:dig_v1_7.symclk_units.symclk_10khz = %d\n",
-+			__func__, dig_v1_7.symclk_units.symclk_10khz);
-+	}
-+
-+	if (bp->base.ctx->dc->ctx->dmub_srv &&
-+		bp->base.ctx->dc->debug.dmub_command_table) {
-+		transmitter_control_dmcub_v1_7(bp->base.ctx->dmub_srv, &dig_v1_7);
-+		return BP_RESULT_OK;
-+	}
-+
-+/*color_depth not used any more, driver has deep color factor in the Phyclk*/
-+	if (EXEC_BIOS_CMD_TABLE(dig1transmittercontrol, dig_v1_7))
-+		result = BP_RESULT_OK;
-+	return result;
-+}
-+
- static enum bp_result transmitter_control_fallback(
- 	struct bios_parser *bp,
- 	struct bp_transmitter_control *cntl)
- {
- 	if (bp->base.ctx->dc->ctx->dmub_srv &&
- 	    bp->base.ctx->dc->debug.dmub_command_table) {
--		return transmitter_control_v1_6(bp, cntl);
-+		return transmitter_control_v1_7(bp, cntl);
- 	}
- 
- 	return BP_RESULT_FAILURE;
--- 
-2.17.1
+Alex
 
+> -mario
+>
+>
+>> Alex
+>>
+>>
+>> > Thanks,
+>> > -mario
+>> >
+>> > On Mon, Jan 25, 2021 at 3:56 AM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
+>> >>
+>> >> Hi Harry and Nicholas,
+>> >>
+>> >> I'm still on an extended quest to squeeze as much HDR out of Linux + your hw as possible, although the paid contract with Vesa has officially ended by now, and stumbled over this little conundrum:
+>> >>
+>> >> DC's set_spatial_dither() function (see link below) has this particular comment:
+>> >> "/* no 10bpc on DCE11*/" followed by code that skips dithering setup if the target output depth is 10 bpc:
+>> >>
+>> >> https://elixir.bootlin.com/linux/v5.11-rc4/source/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c#L219
+>> >>
+>> >> I couldn't find any hint in the commit messages towards the reason, so why is that?
+>> >>
+>> >> This gets in the way if one has a HDR-10 monitor with 10 bit native output depth connected and wants to output a fp16 framebuffer and retain some of the > 10 bit linear precision by use of spatial dithering down to 10 bit. One only gets the same precision as a 10 bpc unorm fb. Also the routine is called for all DCE's, not only DCE11, so it affects all of them.
+>> >>
+>> >> The same restrictions don't exist in the old kms code for amdgpu-kms and radeon-kms. I added a mmio hack to Psychtoolbox to go behind the drivers back and hack the FMT_BIT_DEPTH_CONTROL register to use spatial dithering down to 10 bpc anyway to circumvent this limitation. My photometer measurements on fp16 framebuffers feeding into 10 bit output show that I get a nice looking response consistent with dithering to 10 bpc properly working on DCE. Also i don't see any visual artifacts in displayed pictures, so the hw seems to be just fine. This on DCE-11.2, and more lightly tested on DCE-8.3.
+>> >>
+>> >> So i wonder if this is some leftover from some hw bringup, or if there is a good reason for it being there? Maybe it could be removed or made more specific to some problematic asic?
+>> >>
+>> >> Thanks for any insights you could provide. Stay safe,
+>> >> -mario
+>> >>
+>> > _______________________________________________
+>> > amd-gfx mailing list
+>> > amd-gfx@lists.freedesktop.org
+>> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
