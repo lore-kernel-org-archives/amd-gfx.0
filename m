@@ -2,54 +2,59 @@ Return-Path: <SRS0=jhpT=HR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14EF8C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 14:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCA54C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 14:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B54A164DEE
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 14:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B54A164DEE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
+	by mail.kernel.org (Postfix) with ESMTPS id 647EE64DF4
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 14:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 647EE64DF4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 602AB89FA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2016E328;
 	Mon, 15 Feb 2021 14:54:27 +0000 (UTC)
-X-Greylist: delayed 1010 seconds by postgrey-1.36 at gabe;
- Mon, 15 Feb 2021 10:39:29 UTC
-Received: from m12-11.163.com (m12-11.163.com [220.181.12.11])
- by gabe.freedesktop.org (Postfix) with SMTP id C4DD689FAC;
- Mon, 15 Feb 2021 10:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=qILXK4GORBkA7fjOMr
- MyU72nwmgjVF7Si6pXWrVEMZU=; b=Nx1c/GJQpxF9wDcInVh27Undlz2HAywEjs
- HZjIn2kzhlrj2E/RUgocfdTUjExJyS769GRsCs4e/f9wbbwqt9e7SVen5T9bMQxg
- cH+d8B3VbJbdi8i70f11r+sZNTskBrDJqYVOreJys/r3rzT5AcCkwjgKLvowSs0c
- s95mB//So=
-Received: from localhost.localdomain (unknown [125.70.196.55])
- by smtp7 (Coremail) with SMTP id C8CowACnI7Q8SypgiR08Nw--.5666S2;
- Mon, 15 Feb 2021 18:21:52 +0800 (CST)
-From: Chen Lin <chen45464546@163.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: Remove unused function pointer typedef
- radeon_packet3_check_t
-Date: Mon, 15 Feb 2021 18:21:29 +0800
-Message-Id: <1613384489-3102-1-git-send-email-chen45464546@163.com>
-X-Mailer: git-send-email 1.7.9.5
-X-CM-TRANSID: C8CowACnI7Q8SypgiR08Nw--.5666S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKw1UZr4DuryxJw4DGw4rKrg_yoW3Wrc_Kr
- 10q34aqa4kArs2q3W5uFsrJFyjkrW09r48Gw1Fqr93tayqqr1rZFySkr1xZrs8Aa1SgFnx
- J3ykXF13Aws3tjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0_ucJUUUUU==
-X-Originating-IP: [125.70.196.55]
-X-CM-SenderInfo: hfkh0kqvuwkkiuw6il2tof0z/1tbiXAA6nlXlytycbQAAsv
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9371389B68;
+ Mon, 15 Feb 2021 14:22:01 +0000 (UTC)
+IronPort-SDR: tv2xg4hqvB51dCGWjoHtZgT4Y2fOXHOonjyjFWrAJRH3Fhw0cAVdhLAPJ+Qpj9z3KP3pSYv2TA
+ PAliv8X5/UTA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9895"; a="161830204"
+X-IronPort-AV: E=Sophos;i="5.81,180,1610438400"; d="scan'208";a="161830204"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2021 06:22:01 -0800
+IronPort-SDR: w7T/z1VFVWlR/LW4CR4XGWtZyzYnMaNnMFakq3Y8b67+CXAnBwGE18k/9e0e2m6Uqf7mh9l0tJ
+ pkdHwQWBtseg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,180,1610438400"; d="scan'208";a="425485083"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga002.fm.intel.com with ESMTP; 15 Feb 2021 06:21:55 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 176711F1; Mon, 15 Feb 2021 16:21:55 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ netdev@vger.kernel.org
+Subject: [PATCH v1 2/3] string: Move onoff() helper under string.h hood
+Date: Mon, 15 Feb 2021 16:21:36 +0200
+Message-Id: <20210215142137.64476-2-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210215142137.64476-1-andriy.shevchenko@linux.intel.com>
+References: <20210215142137.64476-1-andriy.shevchenko@linux.intel.com>
+MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 15 Feb 2021 14:54:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,40 +67,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Chen Lin <chen.lin5@zte.com.cn>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com
-MIME-Version: 1.0
+Cc: Raju Rangoju <rajur@chelsio.com>, Leo Li <sunpeng.li@amd.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chen Lin <chen.lin5@zte.com.cn>
+We have already an implementation and a lot of code that can benefit
+of the onoff() helper. Move it under string.h hood.
 
-Remove the 'radeon_packet3_check_t' typedef as it is not used.
-
-Signed-off-by: Chen Lin <chen.lin5@zte.com.cn>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/radeon/radeon.h |    3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/i915/i915_utils.h | 5 -----
+ include/linux/string.h            | 5 +++++
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index 5f3adba..a1c38b5 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -1111,9 +1111,6 @@ struct radeon_cs_packet {
- typedef int (*radeon_packet0_check_t)(struct radeon_cs_parser *p,
- 				      struct radeon_cs_packet *pkt,
- 				      unsigned idx, unsigned reg);
--typedef int (*radeon_packet3_check_t)(struct radeon_cs_parser *p,
--				      struct radeon_cs_packet *pkt);
--
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index e6da5a951132..d2ac357896d4 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -409,11 +409,6 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
+ #define MBps(x) KBps(1000 * (x))
+ #define GBps(x) ((u64)1000 * MBps((x)))
  
- /*
-  * AGP
+-static inline const char *onoff(bool v)
+-{
+-	return v ? "on" : "off";
+-}
+-
+ static inline const char *enableddisabled(bool v)
+ {
+ 	return v ? "enabled" : "disabled";
+diff --git a/include/linux/string.h b/include/linux/string.h
+index fd946a5e18c8..2a0589e945d9 100644
+--- a/include/linux/string.h
++++ b/include/linux/string.h
+@@ -313,4 +313,9 @@ static inline const char *yesno(bool yes)
+ 	return yes ? "yes" : "no";
+ }
+ 
++static inline const char *onoff(bool on)
++{
++	return on ? "on" : "off";
++}
++
+ #endif /* _LINUX_STRING_H_ */
 -- 
-1.7.9.5
+2.30.0
 
 _______________________________________________
 amd-gfx mailing list
