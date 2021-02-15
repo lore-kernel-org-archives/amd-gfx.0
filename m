@@ -8,63 +8,65 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D67DC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 18:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59BECC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 18:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C70F4601FF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 18:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C70F4601FF
+	by mail.kernel.org (Postfix) with ESMTPS id 22F7264E13
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 18:32:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22F7264E13
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 857FA89F89;
-	Mon, 15 Feb 2021 18:32:48 +0000 (UTC)
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D34789F89
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 18:32:47 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id 81so7246306qkf.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 10:32:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC06389FD3;
+	Mon, 15 Feb 2021 18:32:49 +0000 (UTC)
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4477F89F89
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 18:32:48 +0000 (UTC)
+Received: by mail-qt1-x82c.google.com with SMTP id x3so5463162qti.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 10:32:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=isuYxfNsk8oGtU+WDDf+1/u1gtADpqTiHiYwDUUnUYg=;
- b=JiPJJGq4iBZgW9AMNXZ9aQBb0cZp+XnW5ccT6oEr5uO7fLNibPjmkhYCLx6Kkabzcg
- jUKppMiDRWyrsCK4wT5vTsYD4F1KS/RRq5p4i16a67ermDkpm8o1GOuX4xo9QhcV33oF
- Y5U0Pq/B1SH1pNe5D05grJ8jYzgG5ALC9PxKdyrd/EKFveNi0wG8rCNrp07ozSlHCRO0
- RHSoY0fGPbbF9h1Jox8AjKpajwjsGQz2O3eEbwtgzTkrxM3ksqJvUEmf6hf0chAJPX/l
- uIJOEaZAJWqWX+oOXUKpUlBbzp7nmUSHL088ViH+KTMjMitiAVPxkpR+f5rzYMs8afzc
- ingg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=LRrOwpeO//GhEGlud54XrTr+C8eEcl3usUMtjyJMGTI=;
+ b=SJ/MxxZawltqijn0QTDwsalRifOK+irSO8hPbIYC7pNO9xZ795QrZb/7Ll9cZBdNKo
+ yq5fHVjC+GXTws4u3bMzIU6ajaISOPQyTs5x95mmc4O2HaoBgquwWpHHCT38N+8v5qO9
+ sqlbkq/+SWeiMeAQ7bm+q1buAUszHFl4o4eE9dQqsoG4J4PdqeZhXfs9Rlkppi1rVQPA
+ BnKWIJYJEvFYli8JxjJ6Zk4Y0VKR8qc7s89V6pdVY6r5iZHRTqjESz7GrbWDvO9UW/OZ
+ gGJPYkn66g95Q4OJ98DctEaxXPiE6aHZ8X/d8+/Y/u4i7PFsDzzwMIbS0dUo5xbIXXXp
+ B0cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=isuYxfNsk8oGtU+WDDf+1/u1gtADpqTiHiYwDUUnUYg=;
- b=AUDheJtBV7dqTsVw5bmIf+QGa1O5jDXqe1OueVdHGlygUJBJ7/C8GEmWeZaAFeUWLv
- 3We/KwnBWans96cu2kQj+kF8cWZoRqUnv2IJr/ZrCb2zQBAsZxpX2f00SpHkfFgUssQR
- 8+m2OueZWgotpdEMi9SpP672wG9iMkhh9p6kDquFeaApA26FGYcWLBYEe/ED4RacWmYH
- 2Lc/YWatKzV5JMe9lBWjysxZqKW+dossNrM/wgN4jmEogLu81jx6fgzx9P9DSj7Qu5Gw
- G1gpPyDKxf4AezokRyT6Dk6ZSk5opf7MPLcsBO9J6ujwrb5J4rgTruCpX1YB69VC/fbc
- qviA==
-X-Gm-Message-State: AOAM5338FXmYreCChZn538RnTY1M0cMB7XDu+RaDKJqtDKIfJYJWJMpP
- SMiZK4IKV8dUi8FkFgHON8yTowrI8Bo=
-X-Google-Smtp-Source: ABdhPJwv1/A7rMiVtRmdGgkxc7bm0RMvqvuGfDPn0ZNRg2nCvgvYhTf93snCEuP63h7S9V4T6ob/bw==
-X-Received: by 2002:a37:63c7:: with SMTP id
- x190mr16003810qkb.189.1613413966254; 
- Mon, 15 Feb 2021 10:32:46 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=LRrOwpeO//GhEGlud54XrTr+C8eEcl3usUMtjyJMGTI=;
+ b=FjJD5bSa++LbcahLl76O3vlEPPc4lkTP7xIgwEOXA6ZsDkHcIYMGGK7rzIV6pEKVQx
+ /klMMP9BFr0hWoB0+1mq1dx6Q2fyqQeg4of2PH46SrA6nCGrioxJnm7357wyKMWeuTTH
+ R5NhijCd8X/WBgXRZAEZkb84VC8nq1S+u8P380CmDJShrWtIwgArfO0Up8dFH86LQKRD
+ zdJ/H1qatvTPBsmAqe+x/DdkVVTJHo9N1zqW2xlnZ5WPBV383dzfwafHgbbrEAT7HHDv
+ 77ty/AWWRUbZk5hgpIBd9KoZmTqwtqg2qIofLHyDGGl1/LXPASg26U/GB0z9wsrh7WlJ
+ xDGg==
+X-Gm-Message-State: AOAM533SmXeUbsVYOYnArgPpzsEF1kZfiNCTVzROQLIeDqCFX68MVWSK
+ MpxpFBwLQBrVVjZ9vxvWhgZ+UAmdwZY=
+X-Google-Smtp-Source: ABdhPJw8wgsH9mHO+q3LJ/CoHjSFN8weFXGLcX/FJiwMer9L/iz1feGCVR6DhJeemPP8n2hCy7Zchg==
+X-Received: by 2002:ac8:745a:: with SMTP id h26mr14745437qtr.278.1613413967386; 
+ Mon, 15 Feb 2021 10:32:47 -0800 (PST)
 Received: from localhost.localdomain ([192.161.79.229])
- by smtp.gmail.com with ESMTPSA id 76sm12859275qke.95.2021.02.15.10.32.45
+ by smtp.gmail.com with ESMTPSA id 76sm12859275qke.95.2021.02.15.10.32.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Feb 2021 10:32:46 -0800 (PST)
+ Mon, 15 Feb 2021 10:32:47 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu/display: simplify backlight setting
-Date: Mon, 15 Feb 2021 13:32:28 -0500
-Message-Id: <20210215183230.911939-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/display: handle aux backlight in
+ backlight_get_brightness
+Date: Mon, 15 Feb 2021 13:32:30 -0500
+Message-Id: <20210215183230.911939-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210215183230.911939-1-alexander.deucher@amd.com>
+References: <20210215183230.911939-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,51 +85,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Avoid the extra wrapper function.
+Need to fetch it via aux.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 ++++---------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8a44b6ba8595..92d6577f8f20 100644
+index 92d6577f8f20..16020ff4b52f 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3128,19 +3128,6 @@ static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm)
- #endif
- }
- 
--static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
--{
--	bool rc;
--
--	if (!link)
--		return 1;
--
--	rc = dc_link_set_backlight_level_nits(link, true, brightness,
--					      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
--
--	return rc ? 0 : 1;
--}
--
- static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 				unsigned *min, unsigned *max)
+@@ -3201,11 +3201,27 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
  {
-@@ -3203,9 +3190,10 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- 	brightness = convert_brightness_from_user(&caps, bd->props.brightness);
- 	// Change brightness based on AUX property
- 	if (caps.aux_support)
--		return set_backlight_via_aux(link, brightness);
--
--	rc = dc_link_set_backlight_level(dm->backlight_link, brightness, 0);
-+		rc = dc_link_set_backlight_level_nits(link, true, brightness,
-+						      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
-+	else
-+		rc = dc_link_set_backlight_level(dm->backlight_link, brightness, 0);
+ 	struct amdgpu_display_manager *dm = bl_get_data(bd);
+-	int ret = dc_link_get_backlight_level(dm->backlight_link);
++	struct amdgpu_dm_backlight_caps caps;
++
++	amdgpu_dm_update_backlight_caps(dm);
++	caps = dm->backlight_caps;
  
- 	return rc ? 0 : 1;
+-	if (ret == DC_ERROR_UNEXPECTED)
+-		return bd->props.brightness;
+-	return convert_brightness_to_user(&dm->backlight_caps, ret);
++	if (caps.aux_support) {
++		struct dc_link *link = (struct dc_link *)dm->backlight_link;
++		u32 avg, peak;
++		bool rc;
++
++		rc = dc_link_get_backlight_level_nits(link, &avg, &peak);
++		if (!rc)
++			return bd->props.brightness;
++		return convert_brightness_to_user(&caps, avg);
++	} else {
++		int ret = dc_link_get_backlight_level(dm->backlight_link);
++
++		if (ret == DC_ERROR_UNEXPECTED)
++			return bd->props.brightness;
++		return convert_brightness_to_user(&caps, ret);
++	}
  }
+ 
+ static const struct backlight_ops amdgpu_dm_backlight_ops = {
 -- 
 2.29.2
 
