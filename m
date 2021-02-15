@@ -7,55 +7,56 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD304C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 12:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B6B8C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 12:34:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B85964DC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 12:34:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B85964DC3
+	by mail.kernel.org (Postfix) with ESMTPS id 3C522600CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 12:34:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C522600CF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 431E189D4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF5E89DFA;
 	Mon, 15 Feb 2021 12:34:53 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D995489D4D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F290589D5E
  for <amd-gfx@lists.freedesktop.org>; Mon, 15 Feb 2021 12:34:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fd1AuSOPQAUToYy5RhswziS2hbc1fK2lsx6oRDTXKzqWewywfT2BSO5P+4om74zpYTJP8HwGA2AS3ZcA2bEcnvB/r5HXOVKljSpx4D8U8nsPzs1H2XbWX7QoN/07PMoZxWtqq02y9e32XFWLx3iudGL5DYQ2HXyYfaxTv+Avn5o1zaSp4CMkeWBbgyHhAMSFU5Gji9niqV769a34n1BSqv86seyERXRKgTZ/6iYT28WFE3p3pVFjyNg70iQ3EP7/xQju6FmrDQqZAbPU3YmG0g0KKvJAHsdJ/mO7eSwLVCG64g3c84wqiRxgA54DCN7Kqg0sUW6dpzT50thMBySMuQ==
+ b=Mf5pxRwEzi4q4JArNCuxFemaHUfB8zxCP6T+gjQohRSml+QLTGLAcbrMDvMryxkKvkc8l7F3wAquOV6OSy/e3/3tnaTvHaiiYS35b2n9CHVZWKG/QvAOmrd1m3yE+YEBrfyLtieaunOPoRypcjafezUURvO1fQMc8uu0oYYODR0DpPYKleyMLJK/3wUzAMkuaaA2e0gvLpID/lw9nDumS6/R8o3sTYIPKlwnct239dM5/rwbUeIRS51mxJWE/mC+ftI5nKpCjtGvISUVURmVsmhNsaw5r9zy520fYqAlm2DW66HAuK5yjTGzK3Er5Z40M/oQyHNxdp6zdRqTcIAqsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bm2vqJi3fvXsDgDxjeXHRMgnGYG1kQpsegW3xeFSQTQ=;
- b=MrBLkBuuctFunaZaSANJoJbileVqeSjz5xHKmBEDzm9mPOLbO31GGqZJQBUYYSg9b9CRAFli2Q+togdmOoPYNiL5pgF1VBbsBo6piZHVGd1UmEZ+Smf4yA2EArjUZJMFPIR4PL+ViMxgwsMschvaMOpdv0dEIWq9XDo08FiumsBsIzZMxSLYTvUA8sWhZZlGS8DVuzJkEm/ZRnnEFC7zn2dIQvhkCMoPRsNUTkRd4CDTSfo9VFDuQC7bPO3E/KEtoZ2h7K9Om+6o12lRBwXXGI1bqmO/gEu2hvpnJsKXEXHf5xWfxMOlDwYHuiotIGB++oVoapSWF0bgEmpo/J478A==
+ bh=VjnqP9StvliDBSlVzmblyHtP+kLSt45AW6dj2JJIfg8=;
+ b=JgsOJz9+iH+hxdsW0KDfewZj8ZaaD24P8QgqVeM6vCr5xmgGT0qMEGPRCqqzBuGyk0qFWk9n24jx61y/I440iEgMIQIivizaJxAz99DAJ7xTqZCHjbJWTnlhEfc+3x1rgH4I8YyiQVWeJkfPyaznDXRTdkNeEMzBz90bfZrTs5WsLjFgVFVnPF+kB7BpzXLYcRp/F5sVoPRxioxgJ5rfSjSy26JiWhTW81jDiMY2AxY9RuqodutK4uIPrNC/tcYULMG+QMf+ESOOypcIf1QIqZsU1NuAojPc0E5WP6S/eDT8DX/kcljDUgEIQU+Gj56PUcgWWFzAlITWS7wGUJmc0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bm2vqJi3fvXsDgDxjeXHRMgnGYG1kQpsegW3xeFSQTQ=;
- b=daSbaT7njrsi/D8OY8rRkSQ2bpo0wtpTkYm2gOnvktb6gX253Uz28iJX+Wwf7E+LSnGd64ScdVqAuIEFPsW6/c70AjlAL90bkkM1e6QZX32c+2eIef2g8vzsXz77JC4l7FNHmmAicEGeNnciyXoxqGVUB7J83EkyrSd//l7lukg=
+ bh=VjnqP9StvliDBSlVzmblyHtP+kLSt45AW6dj2JJIfg8=;
+ b=c+0nwNt1bq1lZX3qJOcxFNW1P2vyZ62u0pc2QTc8q5txTFt3LoVlxZ/Kl/EnYEEq++yocv437t6AKHugcyHZMwUInJzgcEdOzZ57FPS3MfeHgoo6+7UeeTv/N8XOKOBhs64Fm1yF1fXpxd7POs+FpK0BXhksz0+j6HguL0kvxlE=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
  by DM6PR12MB4452.namprd12.prod.outlook.com (2603:10b6:5:2a4::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Mon, 15 Feb
- 2021 12:34:50 +0000
+ 2021 12:34:51 +0000
 Received: from DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::452c:77af:fea7:a633]) by DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::452c:77af:fea7:a633%6]) with mapi id 15.20.3846.039; Mon, 15 Feb 2021
- 12:34:50 +0000
+ 12:34:51 +0000
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: Christian.Koenig@amd.com
-Subject: [PATCH v2 1/3] drm/amd/display: do not use drm middle layer for
- debugfs
-Date: Mon, 15 Feb 2021 13:34:36 +0100
-Message-Id: <20210215123438.85436-1-nirmoy.das@amd.com>
+Subject: [PATCH v2 2/3] drm/amd/pm: do not use drm middle layer for debugfs
+Date: Mon, 15 Feb 2021 13:34:37 +0100
+Message-Id: <20210215123438.85436-2-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210215123438.85436-1-nirmoy.das@amd.com>
+References: <20210215123438.85436-1-nirmoy.das@amd.com>
 X-Originating-IP: [93.229.46.81]
 X-ClientProxiedBy: AM0PR03CA0015.eurprd03.prod.outlook.com
  (2603:10a6:208:14::28) To DM6PR12MB3916.namprd12.prod.outlook.com
@@ -65,53 +66,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from brihaspati.fritz.box (93.229.46.81) by
  AM0PR03CA0015.eurprd03.prod.outlook.com (2603:10a6:208:14::28) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3846.25 via Frontend Transport; Mon, 15 Feb 2021 12:34:49 +0000
+ 15.20.3846.25 via Frontend Transport; Mon, 15 Feb 2021 12:34:50 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d9d24b42-9212-4c1a-e897-08d8d1ae1633
+X-MS-Office365-Filtering-Correlation-Id: 357c3b7c-9840-4c7f-071e-08d8d1ae1723
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4452:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB44527EAF3D45E17DEFDA1D188B889@DM6PR12MB4452.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44527AC9CB3040B712CC69D68B889@DM6PR12MB4452.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4u1aaVFoAt5fLaoSkBIHKSj2W9eyNOsks5mHZi/0CIrTSvohJKDMiMuOM/dsp79aFMdQB588D15iiaJASVuq7b4W1o3bls2urQmiaS4iORKzh3L3nTpipj0Ph0RkfbQq61j1P+VE9/J6x6/2zEE65cMH7I7Im6W2xvnzEP21Isf1FCUnKGYDz3ISM79hHc2NbZvsjxDMfOJr20YyGgr638y7ZC32cu7kbf3Qd4avN8kNl5sKRW5K3OHw+zFl8Ar8Ph2covumoDM7Mcnx9MTWrJxnsqfumd74IoaUoHIuAZCgiPhQq5UXpHxE8irnPBNcmN2jPncxUPzFiOHm5Um8QR7UkHjXgvTMWLjH1Dls6KzkviCZ/5r/qfxxzXgS02XhHrDBzru8jY2ZYZUAKmDfLWX6dvuVe8YokXPfOYy+3tMIaOeSH3HHkB8ENUOXeDCBdaYMJO4WmTuxJMek5r525BHhyvIcXXEc4X45fKbkDIbmQJJFAEClBoAUkTHt7IG2gw9PlK2iRkd+5Tohw0mEMA==
+X-Microsoft-Antispam-Message-Info: kk6jIgZglf4TqLipRMSFXdtjY0fhKh7fW0/p9L4DBc6Rzy+Qg83Gt+jthlVqOZ0pPs/oyjxTZUYH2hscntICCW2FaReP9fXO3KWDfWoSRSErN2/qnVnW28a6weybHYcfxnGZaeJvVes0ad99U7JDYH4V3xHWGO0WmEwCmaFi/NO6D87DbMEN9KfjaL+jmE+mCPwlgvwCJq2HlebL9qro2tSaSrjoWjKr5rGEzE4aKu4R2Zihs5lAYkD1zvSUPJ2mk+4/bxIR79vkPnGQXZIguJbjcnhudQoOyCcHLUpUo9fWBFz1WY/3LUxGmoqnRCryayuhHpwn56ssAE+24dZUhxJ2f746NRHXDhBb0ZVDgxIRlnp+bkxzAztrCp3u34nsVunMai2LNuGETvZdHP4kGmmZiTTZ2cAIxA9estGW54do5JGTFyhzwwNHEry3E286aMKT5zpWQI+F5U0aAstGrWx2jMji93l/0YLxJTrLPjo5iPtnywnKZaVHqjQrLRGSeWaICk3AYbpu0JXGpVTVrw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(39860400002)(396003)(376002)(366004)(136003)(346002)(4326008)(34206002)(6486002)(6512007)(36756003)(478600001)(83380400001)(6636002)(8676002)(2616005)(956004)(37006003)(316002)(2906002)(52116002)(8936002)(16526019)(26005)(66946007)(5660300002)(66556008)(66476007)(6506007)(186003)(1076003)(44832011)(86362001)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ZNTm1j2JbBmMzOgwFo+ozYOlx7LlPdrg62YKAV3mxieoBshGYOVbWOyA8krw?=
- =?us-ascii?Q?ZPEVUFtw8APisfgdKn04fmRgPqHruQ0BnkVD4ZZAdcRYg1f4ASSO6izsrC8r?=
- =?us-ascii?Q?zm9QL0PZZ+/jxJ7f0y3Rou4crur0WXWUAyAmzoqwjne6jVBgQKHssbIqVCaA?=
- =?us-ascii?Q?VfSThBo9lyCvg9ibwHExGIjLeZyor7PI3Cmau/Z7uuDVinpq5Tz2tqx+kdtk?=
- =?us-ascii?Q?6grtfcZ8s5cAWsa1IF1K0ApWlYWN7YgaeLJxGlz6H+wLgGAARvtygpuLIYCK?=
- =?us-ascii?Q?aTxnGGQDoBzmJafArwIHvL2mc/p/RBZjUhjK9mjVETeXfqDWdCpv1KrlEhDT?=
- =?us-ascii?Q?6sC+SCQGlbIPNpxKyg/8sN+Wcz2mMXA9IKY1H3RS1pgeeBZVZPHA3A5YKP0Z?=
- =?us-ascii?Q?hX12j7HlJC2flU6P01KG8jDxdnCroU9+t43mN1OFauxdlqjVuwMAMpqb0wF7?=
- =?us-ascii?Q?1n95yHPfJgtoAKfJ7aKqc8T4KbsLIgNNOvx5NGHxOlilZWHsda2Lyk1NFfPc?=
- =?us-ascii?Q?LCJUsw3mZvx2iW+JbU/NxVEg236BLQALxU3lLRs0ISSIhVU6C3fsSQkYDOLA?=
- =?us-ascii?Q?uOF5ynq8I6YmUPOXwWi9EsgixlpOZ37K78I5+zUaQOxmNQEqUGIJ6Lcp3qzd?=
- =?us-ascii?Q?GBkZnrsexYepVcpiLPgYwU+rahjIriyv0H3r+jsB6KX01CxW1TIr8KzP8E4S?=
- =?us-ascii?Q?398PxTVQ4K/u5j9ADGEvBMbxO7faybHnBaP2DIyBHRyVvbFqPCAP4H/bvEbd?=
- =?us-ascii?Q?ybKF5ZhtAI1jQcEj/IWV9114vAcUG/w/KwbMqRLViskh+9+GUf6LOeBsa7Ah?=
- =?us-ascii?Q?pz1PAkLamDYaEcslXqQtjfpwCqGkWVu+VLT7ktT/gXecFwpvCgQM3A4HMQYE?=
- =?us-ascii?Q?GZGiU7t32ALTNbBPGelgso9a5WzeQgYUNEobdkfSF+DwnQV7Dip8ZCBKb/LJ?=
- =?us-ascii?Q?rIBlMhg9GNtmL6bZT+2Fv5AqTSUE8XqStvaQi+QoDI0666Fa84Uj4Nvc4+9w?=
- =?us-ascii?Q?L/MkLjnwSCtFex887dkakBDrW707GYTFmkcf6D8RbytkG4fn/LDEyGVP7OH5?=
- =?us-ascii?Q?GAS2zzJ4c9P/jWyehiw1VTmH/c8/6ZgY3dIfQOCqX/R5O1fY6sWV2Ydmk+XG?=
- =?us-ascii?Q?VOhWoCAHAXA/Pm572nyE2mFuGCjMutSrNwBi1YzjlNxzgYNPYZazRAWmoqJU?=
- =?us-ascii?Q?UsSo7/52rrxokTKmswFv9WCFvwe28O5RtV9i0j77OqljBk4/wiXDvyyogivb?=
- =?us-ascii?Q?lzGWxS6AfVucALZ8WCQH2O+esZ1j88HFpALTix/r0Cxk+2rZb27iIOKg/1rp?=
- =?us-ascii?Q?XUHZfYO3CjvFNzLqR49Rb/xd?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SOIlqZ71ZPYtRzdemUtKMspuk2RWPWa+DxuvZikISn1zQY2IASC8AUwa3ZoA?=
+ =?us-ascii?Q?jhdBdL2+W+JI3IH18CWhmiU5AGBlN6NVmvNUi9o05uBCz5ZBmunxUZybG9yC?=
+ =?us-ascii?Q?ZH7sjEkeSAATJHCfaQGwGNKasXSnAiJeCQ4x5+5WPDTxQQlxirIrYMf/FmCi?=
+ =?us-ascii?Q?B9aM/6+39zcctRLT86kNXZFiU6F/8WxpSK+nLxsvfak/flJVvIF/P+RAblw4?=
+ =?us-ascii?Q?f5i6Pqcz9l2zMlGvtcaM4sRiADUJAjsytsYu4YKnSWWeB+Z068kP9DSrt4AE?=
+ =?us-ascii?Q?z42sR3k3FdD2VnoIqet5jmctmjSQ5GFpVqfm1A53H9Ep8e1Zh41TWZB9ApER?=
+ =?us-ascii?Q?PwwiQkz1ITa8CJQhAEvZnRKnUF3fnLjpF8GgUc0gZBI1NO17oowJaLtuLR4c?=
+ =?us-ascii?Q?XZrRY9l6doe3PocpcV2rGDpoTQJF/KIdTtJ0F+XQvaEUWUrfHhbiP4OswXyN?=
+ =?us-ascii?Q?6I1xnW0IXRdFOgKZoJrItY5+tGkFrLryVG6oRxYKCfBKNe8uZZwS7zIDLMNw?=
+ =?us-ascii?Q?pQHRFff0LWXJOuMrWzD8nf7eJX6F+S3zAcWpDxHrDZY1H0nb548eDIiZ9CxB?=
+ =?us-ascii?Q?ARpATHl2WiJPVKBM78yLrX/xWshj30+p3Uq9dmv5CTPl+Yap/J8B/JB+EFtC?=
+ =?us-ascii?Q?z/zpsrfd6Vn3AYDyyyRk7jjBctLo6LGEUDfkllKq42IFJCX/8GI0GCBgqyhM?=
+ =?us-ascii?Q?mP83Os0WII3uLbXlDDx9t7KjbzqjCjDZIQdxBm6XDpNM6r8dMZLkza285KmO?=
+ =?us-ascii?Q?pBTlw7l3uoE6dE/0TOm4AeP3TzVsdbbRt/yczEZSmrHupy7l0loCLrm1eLjz?=
+ =?us-ascii?Q?Yl9ebMY1puWpo3RKYl/z5WzoVsZmILoL46FcF1gwsiQBr0VYycmfyyMkVd6+?=
+ =?us-ascii?Q?Aer7ZQi67IpvC8gLHxHYJe5KbjBMnOs9A+5GCEiIQdOSeFuXT8HFG54KjU8p?=
+ =?us-ascii?Q?eOhBWPaU1popqRpnpzL/Goao0iPyW6iEhOckO9L4b8D7H9uKGLB0ZIaG+jb0?=
+ =?us-ascii?Q?88JHChq77I2goPey7662HUb5vHP+66sNzPX/P6BpUOAheLNKGJM7pXl0kE7G?=
+ =?us-ascii?Q?bri8GdsCz89aUZKaqsJuUgLQWQUBI6kUxB15voQmeNllZ+/EhV99Ng08pGN1?=
+ =?us-ascii?Q?/vtA3LQNFeVqM1gY8I/V8bIjepcT86g0Q/vmcrtHAVsoNpaTLjasF1Rxhvlj?=
+ =?us-ascii?Q?mjo2B2cvHTDeHzaBErUouwi3loVqsG3jczpo1vNCd6L8CD9Rro9zplrDdSR8?=
+ =?us-ascii?Q?1ZTCA7LJPXoKeRfwEfejXTMGx3LZcASUbfR5/qlhSOjVfEc9jyxzlpDOIrQi?=
+ =?us-ascii?Q?eD/HxbxVaEjYtvh6P7QykE8b?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9d24b42-9212-4c1a-e897-08d8d1ae1633
+X-MS-Exchange-CrossTenant-Network-Message-Id: 357c3b7c-9840-4c7f-071e-08d8d1ae1723
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2021 12:34:50.3478 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2021 12:34:51.7440 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2gHlVyuiEJPo8b4HIoOtqVMWXQJZSiOeau4NuRqgDmEnzKb/KFmmsOSnvwKFdsOxZC1YKBDTFuotqiC/F4pMqg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wc7rd7Kou32qKJXApEC5KfBBH8kEhsQ85qe9SrEvJNDQYU54/L/sDPSp7nYzoNWKLZ1NfgCFlbi4t0YATdueGw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4452
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,148 +139,92 @@ v2: * checkpatch.pl: use '0444' instead of S_IRUGO.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  6 +--
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 45 +++++++------------
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.h |  2 +-
- 3 files changed, 20 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  6 +----
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c          | 25 ++++++++++-----------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h      |  2 +-
+ 3 files changed, 14 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 55db646d0ba4..60b2f2d4ca80 100644
+index 60b2f2d4ca80..719ae65ad633 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1642,10 +1642,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		DRM_ERROR("registering firmware debugfs failed (%d).\n", r);
+@@ -1616,11 +1616,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 		return r;
+ 	}
  
- #if defined(CONFIG_DRM_AMD_DC)
--	if (amdgpu_device_has_dc_support(adev)) {
--		if (dtn_debugfs_init(adev))
--			DRM_ERROR("amdgpu: failed initialize dtn debugfs support.\n");
+-	r = amdgpu_debugfs_pm_init(adev);
+-	if (r) {
+-		DRM_ERROR("Failed to register debugfs file for dpm!\n");
+-		return r;
 -	}
-+	if (amdgpu_device_has_dc_support(adev))
-+		dtn_debugfs_init(adev);
- #endif
++	amdgpu_debugfs_pm_init(adev);
  
- 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 360952129b6d..704aa8cb668e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -25,8 +25,6 @@
- 
- #include <linux/uaccess.h>
+ 	if (amdgpu_debugfs_sa_init(adev)) {
+ 		dev_err(adev->dev, "failed to register debugfs file for SA\n");
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 5fa65f191a37..b770dd634ab6 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -23,8 +23,6 @@
+  *          Alex Deucher <alexdeucher@gmail.com>
+  */
  
 -#include <drm/drm_debugfs.h>
 -
- #include "dc.h"
  #include "amdgpu.h"
- #include "amdgpu_dm.h"
-@@ -2450,11 +2448,9 @@ static ssize_t dtn_log_write(
-  * As written to display, taking ABM and backlight lut into account.
-  * Ranges from 0x0 to 0x10000 (= 100% PWM)
-  */
--static int current_backlight_read(struct seq_file *m, void *data)
-+static int current_backlight_show(struct seq_file *m, void *unused)
- {
--	struct drm_info_node *node = (struct drm_info_node *)m->private;
--	struct drm_device *dev = node->minor->dev;
--	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
- 	struct amdgpu_display_manager *dm = &adev->dm;
- 
- 	unsigned int backlight = dc_link_get_backlight_level(dm->backlight_link);
-@@ -2468,11 +2464,9 @@ static int current_backlight_read(struct seq_file *m, void *data)
-  * As written to display, taking ABM and backlight lut into account.
-  * Ranges from 0x0 to 0x10000 (= 100% PWM)
-  */
--static int target_backlight_read(struct seq_file *m, void *data)
-+static int target_backlight_show(struct seq_file *m, void *unused)
- {
--	struct drm_info_node *node = (struct drm_info_node *)m->private;
--	struct drm_device *dev = node->minor->dev;
--	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
- 	struct amdgpu_display_manager *dm = &adev->dm;
- 
- 	unsigned int backlight = dc_link_get_target_backlight_pwm(dm->backlight_link);
-@@ -2481,10 +2475,10 @@ static int target_backlight_read(struct seq_file *m, void *data)
- 	return 0;
+ #include "amdgpu_drv.h"
+ #include "amdgpu_pm.h"
+@@ -3784,11 +3782,10 @@ static void amdgpu_parse_cg_state(struct seq_file *m, u32 flags)
+ 			   (flags & clocks[i].flag) ? "On" : "Off");
  }
  
--static int mst_topo(struct seq_file *m, void *unused)
-+static int mst_topo_show(struct seq_file *m, void *unused)
+-static int amdgpu_debugfs_pm_info(struct seq_file *m, void *data)
++static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
  {
--	struct drm_info_node *node = (struct drm_info_node *)m->private;
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
 -	struct drm_device *dev = node->minor->dev;
+-	struct amdgpu_device *adev = drm_to_adev(dev);
 +	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
 +	struct drm_device *dev = adev_to_drm(adev);
- 	struct drm_connector *connector;
- 	struct drm_connector_list_iter conn_iter;
- 	struct amdgpu_dm_connector *aconnector;
-@@ -2504,12 +2498,6 @@ static int mst_topo(struct seq_file *m, void *unused)
- 	return 0;
+ 	u32 flags = 0;
+ 	int r;
+ 
+@@ -3836,16 +3833,18 @@ static int amdgpu_debugfs_pm_info(struct seq_file *m, void *data)
+ 	return r;
  }
  
--static const struct drm_info_list amdgpu_dm_debugfs_list[] = {
--	{"amdgpu_current_backlight_pwm", &current_backlight_read},
--	{"amdgpu_target_backlight_pwm", &target_backlight_read},
--	{"amdgpu_mst_topology", &mst_topo},
+-static const struct drm_info_list amdgpu_pm_info_list[] = {
+-	{"amdgpu_pm_info", amdgpu_debugfs_pm_info, 0, NULL},
 -};
--
- /*
-  * Sets the force_timing_sync debug optino from the given string.
-  * All connected displays will be force synchronized immediately.
-@@ -2568,10 +2556,13 @@ static int visual_confirm_get(void *data, u64 *val)
- 	return 0;
- }
++DEFINE_SHOW_ATTRIBUTE(amdgpu_debugfs_pm_info);
++
+ #endif
  
-+DEFINE_SHOW_ATTRIBUTE(current_backlight);
-+DEFINE_SHOW_ATTRIBUTE(target_backlight);
-+DEFINE_SHOW_ATTRIBUTE(mst_topo);
- DEFINE_DEBUGFS_ATTRIBUTE(visual_confirm_fops, visual_confirm_get,
- 			 visual_confirm_set, "%llu\n");
- 
--int dtn_debugfs_init(struct amdgpu_device *adev)
-+void dtn_debugfs_init(struct amdgpu_device *adev)
+-int amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
++void amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
  {
- 	static const struct file_operations dtn_log_fops = {
- 		.owner = THIS_MODULE,
-@@ -2582,13 +2573,13 @@ int dtn_debugfs_init(struct amdgpu_device *adev)
- 
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 	struct dentry *root = minor->debugfs_root;
--	int ret;
--
--	ret = amdgpu_debugfs_add_files(adev, amdgpu_dm_debugfs_list,
--				ARRAY_SIZE(amdgpu_dm_debugfs_list));
--	if (ret)
--		return ret;
- 
-+	debugfs_create_file("amdgpu_current_backlight_pwm", 0444,
-+			    root, adev, &current_backlight_fops);
-+	debugfs_create_file("amdgpu_target_backlight_pwm", 0444,
-+			    root, adev, &target_backlight_fops);
-+	debugfs_create_file("amdgpu_mst_topology", 0444, root,
-+			    adev, &mst_topo_fops);
- 	debugfs_create_file("amdgpu_dm_dtn_log", 0644, root, adev,
- 			    &dtn_log_fops);
- 
-@@ -2603,6 +2594,4 @@ int dtn_debugfs_init(struct amdgpu_device *adev)
- 
- 	debugfs_create_file_unsafe("amdgpu_dm_force_timing_sync", 0644, root,
- 				   adev, &force_timing_sync_ops);
--
+ #if defined(CONFIG_DEBUG_FS)
+-	return amdgpu_debugfs_add_files(adev, amdgpu_pm_info_list, ARRAY_SIZE(amdgpu_pm_info_list));
+-#else
 -	return 0;
++	struct drm_minor *minor = adev_to_drm(adev)->primary;
++	struct dentry *root = minor->debugfs_root;
++
++	debugfs_create_file("amdgpu_pm_info", 0444, root, adev,
++			    &amdgpu_debugfs_pm_info_fops);
++
+ #endif
  }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-index 5e5b2b2afa31..32f85c2b608f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-@@ -30,6 +30,6 @@
- #include "amdgpu_dm.h"
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+index 45a22e101d15..a920515e2274 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+@@ -84,6 +84,6 @@ int amdgpu_pm_virt_sysfs_init(struct amdgpu_device *adev);
+ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev);
+ void amdgpu_pm_virt_sysfs_fini(struct amdgpu_device *adev);
  
- void connector_debugfs_init(struct amdgpu_dm_connector *connector);
--int dtn_debugfs_init(struct amdgpu_device *adev);
-+void dtn_debugfs_init(struct amdgpu_device *adev);
+-int amdgpu_debugfs_pm_init(struct amdgpu_device *adev);
++void amdgpu_debugfs_pm_init(struct amdgpu_device *adev);
  
  #endif
 -- 
