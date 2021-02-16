@@ -2,80 +2,131 @@ Return-Path: <SRS0=MNBo=HS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DEC4C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 19:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4616C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 19:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C330764E79
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 19:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C330764E79
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 69A1564D7F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 19:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69A1564D7F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 389176E4A1;
-	Tue, 16 Feb 2021 19:35:54 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA886E4A1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Feb 2021 19:35:53 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11GJSsnM056695;
- Tue, 16 Feb 2021 19:35:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=PJsDiZfN2hh0MkNa+YxpTM9fU0UPucWVMyXUvhjmB/g=;
- b=uX64ataN02e3ngG1C0XqEKXCtowAxXC5G6l+h405nWzPFhp2qExSVnU4Qx/ynqTlU3Cz
- sld1Ui5LmL7/tRh7NjDzOSBEVs+WVnXo1ej5hqeoyCzNDKL0zcnB653qIudZKqAdoTok
- cK/WBZMUgQkn142OBDnS+oQdOyvhjKmXiweS6Dh7Dl2gI0mK1Gx8u16l66hn0LAfw8tN
- FfFabHhkDMWOC/wch+gfexYoFNZ+gBPksOo6aUlboLkr+6r7f9pE9iw1RU0w7iowIjj9
- RYgMAPr4rIxNIOONbPwEdV4Utugtmgkhhe8k/TyhSRQvQ6Zr4Z9QpDEUHgSBqaaxH087 Hg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2130.oracle.com with ESMTP id 36p66r031j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 16 Feb 2021 19:35:46 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 11GJUCN0066701;
- Tue, 16 Feb 2021 19:35:43 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 36prnybtjd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 16 Feb 2021 19:35:43 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 11GJZboO024611;
- Tue, 16 Feb 2021 19:35:37 GMT
-Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 16 Feb 2021 11:35:37 -0800
-Date: Tue, 16 Feb 2021 22:35:24 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: fix an error code in
- init_pmu_entry_by_type_and_add()
-Message-ID: <YCwefEWbsHeME7vQ@mwanda>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C602E6E97C;
+	Tue, 16 Feb 2021 19:50:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2059.outbound.protection.outlook.com [40.107.244.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E5A6E49D;
+ Tue, 16 Feb 2021 19:50:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BlOmhxavHNdw2ejnfCxaC/G0AfHeMl3XSFDKTzo45bx1AeZrj4sxhSV9RGQTkijc98Jf1SBeSxhV0RLSyLvsgLcEA+Vs1hrMnLiSCeYlyQ3zZCS0MH/wsF7Kn+PDcXD230qF7Vuy9x6s8oiSRsbvml1r/rSUQxzhib28ZTzDYZLPR3vfpieEEyWbIjVxjiIrccgDj/02lkKwtKiyYR3v71P3p5ITct546d6Mx9h65TU3aX2ePWf559rgLCfChhRbccW7p3SCDmM6KGcydfRzGw3kC1ldvgFaSZhafGTrsfQdH9lT/moipu4+MszHL775tNwt0LCOqJBpfieMN9TwPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rrdoCR+mydOQKlBIvOYX7UGrJOCG+THYAzShPYrYKtA=;
+ b=kWq6+etSIIQutcF63FHTMmGFGbXRSCxeOJChYsGyfRul19A0RUkQ1V8VLsFLYNorUlMWu7eEaHSbVRmQ8j39/DtFty+hIAPaJS5k6IMSWUbljQriVaPYQzAy2B7QUH2btF0SbRxqoRjzVVqEJhkZoyGTYstUAmA+R5Cg1oH6W7z26C+87T+eujBI1fD891TV5OLFgwyzNF/GFwu3x6WVdISdTQ2xlz1otXkVgAAsY8dbFgg/fe1fJdJtlNsGt2TepyJ0ZSh/L5Fn3iX4Jhkj9d5BDnHKKjPv21sJccXIGax2HTy8PCKq5XzQEidyIbnAQe1DIDQkRK/qsuCEyjjvkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rrdoCR+mydOQKlBIvOYX7UGrJOCG+THYAzShPYrYKtA=;
+ b=G23BNOoBDY9aWci3IGOHaRT7GbT+91G2mQzUOWQZIjkzyIA4Ta+HVH5gK0DnT5aP0ifsHdnkG94+Is0W1FLXDNjcOVJOULbO983Y/+Sa3Za9dSWiQjWwukuz1HARgeb8H77/wAqj8C8PxpE/nFmkSSTCNxemaIhK+HJKTxrhklc=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
+ DM6PR12MB3209.namprd12.prod.outlook.com (2603:10b6:5:184::33) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3846.34; Tue, 16 Feb 2021 19:50:14 +0000
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::9c57:59fa:b83c:2942]) by DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::9c57:59fa:b83c:2942%7]) with mapi id 15.20.3805.038; Tue, 16 Feb 2021
+ 19:50:13 +0000
+Subject: Re: [PATCH 2/2] drm/amdkfd: Cleanup kfd_process if init_cwsr_apu fails
+To: Felix Kuehling <Felix.Kuehling@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+References: <20210212064034.29912-1-Felix.Kuehling@amd.com>
+ <20210212064034.29912-2-Felix.Kuehling@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <01f8d87a-13b6-5b0b-cef8-0e5c713a9fe2@amd.com>
+Date: Tue, 16 Feb 2021 14:50:12 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210212064034.29912-2-Felix.Kuehling@amd.com>
+Content-Language: en-US
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::16)
+ To DM5PR12MB2583.namprd12.prod.outlook.com
+ (2603:10b6:4:b3::28)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9897
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- mlxlogscore=999
- bulkscore=0 suspectscore=0 spamscore=0 malwarescore=0 mlxscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102160162
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9897
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 suspectscore=0
- impostorscore=0 priorityscore=1501 clxscore=1011 spamscore=0 mlxscore=0
- phishscore=0 malwarescore=0 bulkscore=0 adultscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102160162
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.27.226.38] (165.204.55.251) by
+ YT1PR01CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3846.36 via Frontend Transport; Tue, 16 Feb 2021 19:50:13 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e82520b5-126c-4f4a-d06b-08d8d2b41378
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3209:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3209364A74E4385E7B1B551CE6879@DM6PR12MB3209.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:198;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YtLXS04GsY62SK1/Z6V6D84X9eKTXgSadvyoaSe73Wzgr0EDnhhJqd5F6tC5bHElSnC/NgQ5kzhdX1Roi0AZ6HXgybtvUHefIgR3EhZU0xR3us8E9o1xE+ndUaaDsvkntg2xXJw5mEzcCZqG2QbiFOIywVRclLp+UyCLInrKoJVGLs4buCRbCIpYfAhEk8BknblM8LhE7Vg5/Ayn0fSRKBoXKhsEK/0SqMb7IlhBp/VPSwRWBEDmBg2ymQWshxURoFr/yU+detn0/Ij02jMvWAGew7sriaQs5XwQtgJbs/oFF5Pc4SIiLBsCCD027z/FWcOiaMqxLvpVhrPX59nqDwbV6JrdEV7IP4YeZfbR+yLCRIFaWSxxw4/X6P74UqHHhRq4mRe9wdPDJdWMfeEXzg/R7ulJL3TDhBtBMx9Kn3RsP4OwnkfGw37gRml3Tsef7fdFKSclHM22TAMH8HI4MCEDegRXSub3zQJAj+GTL1vGef5SKJEY/nN/7kjoVFxYxq4DLYu7TyhyrrcPMFrryPIDPiu/8BxkmeaJsWLe62fwYWQS4OKFmc6H2p+3W3Ci7MFK0xHQAQJkwzR4BwucSeP7xBhM9LVTnPso1vWhsoM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(39850400004)(346002)(136003)(376002)(2616005)(66556008)(66476007)(5660300002)(31696002)(8936002)(2906002)(66946007)(36756003)(52116002)(956004)(8676002)(316002)(6486002)(16576012)(450100002)(16526019)(83380400001)(478600001)(31686004)(186003)(53546011)(26005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VVg1enBqNkVDQ1hNVHJ5TDZUdUhsRVd2a2prTnVDME5GdWwzREsrL3NvaGJn?=
+ =?utf-8?B?TWQzcER1Q1F3QzNJWDdNTzRXT1hVSXYxWUV4YzhJdHY2V09PSmJYQzl2S1d2?=
+ =?utf-8?B?N2crYTBjRmY2MWRZMVZuSFFtakJQRHFzeFBXVVV0dXV6RkdlRnVITTdLN1VT?=
+ =?utf-8?B?Z0xVbjFTQ0grcHNnQUNVQkFKWFY5MGVKZzMwTTB5YWp6WklSVVJIdSs5U210?=
+ =?utf-8?B?MlRQUWJxRGxOOWVxTVpwajMyVDZ0YnltemxQZnhHRTJFQm8zWkV1NXJJdzBl?=
+ =?utf-8?B?RGpVcEMzekxselEwVDBLTGZZQjJZcGl1OWlSM1VOZjJlZVBqeXI0bnFnN3lC?=
+ =?utf-8?B?Nm1XL1JJY2hpVWpsNjVnWHZDaUthNzAydGpUQ05YRmZ4YkJyVW1kM3lFRzhq?=
+ =?utf-8?B?OVFSeVRGL2lHMlBMTWNJdTNudG1RYUVWTjFKT0VoNFZnOUpwODgrSnprZmFs?=
+ =?utf-8?B?NFI4VkRqYW1NblpNbzZEelZuR25zMW41UytUdzlqMTVDV3dxTjBicERwL2ti?=
+ =?utf-8?B?a2ZObUVldDNMWkFuQ0FQTjFZQkNETWJxMUVqekhvU2kvSlZkWHhpa3RDbE5K?=
+ =?utf-8?B?bjQ5SjVZOE5nUDJKQUJrTXZ4T0pLYXYwL0FnNVkwZk9RWmVyUjFDWHlZQ2Zp?=
+ =?utf-8?B?bWcwSlllQXNIeDZlaUhNenFFT1IzUDd5bmlxNUFjVitFSWl4Z2tFMmljL1Z1?=
+ =?utf-8?B?UEpaWis3ZDU0YjRvZ3hYcGo2NHVCOE9FNkdXVHRGSlZrSjRqZGZ1cFZCMitD?=
+ =?utf-8?B?Si9oY3paSXE5bkQ1LytBR2dpUXdBbU4vb3JKSFV4QXdpbG5ZUzYzOW5wYTlJ?=
+ =?utf-8?B?TzU3SUozTmh3empsajlPYWxrQ1NnSUg2Y2ZPOXV2RWtXaGNvdWp4cWlZaUd3?=
+ =?utf-8?B?OGtsdUZGbGhJQUhwRnZlcU40TzgwQjNlT0F3ekJnb0NjNUMrMGRnQkFqL0Rq?=
+ =?utf-8?B?QVBycGwxWmlNOGNMOWYydnpqNksrSnQxN1RIYlJ0a3JsYTNBVnhDdSs5Nm83?=
+ =?utf-8?B?aVlRWEZmUWpubktiTlZHYmp4cFVDSlFJdnBQUHlXYXJiempEZkJ1VEYrbXJ1?=
+ =?utf-8?B?YTlBd0Zia0h2NmZiQWprclBkeTZ6Z3l4S2RuOXp5ejYzcG5ZM2xnVVhoYXk0?=
+ =?utf-8?B?QkhSZVU0Sk92bHpTWFZ1Z2ZYSzFJQjdsNEQxK2JOODZmWDVjMW9KeFJseDgx?=
+ =?utf-8?B?TXA4bzZ1MS9kenFDK0h1YUFCVzc3YUxlYkh4SHI3VjZ4NnFmRTRtNU9ycXhC?=
+ =?utf-8?B?Z2ZpNjhuYkU4NWlBamdwdVpHbGh3T0ZGMUNJSDFmWWVCRHM2aWc3N3hXYllL?=
+ =?utf-8?B?SzNIR25CVDRPK1lZS0orRTN2SU5BbDlhZkRIZFdZVmhYYnc4YjFWZFJpYWgv?=
+ =?utf-8?B?ejZvTDFPZTBMZEpGQXBHSCsrUkxlSTdoUUVPZndJSkd6Unp1Yy96dGhMMjNm?=
+ =?utf-8?B?SndiWVNmQ21CQ3BlZDFtUWxYNklTNGxjOUpoNldkQk10RjRBT0s5YjFNb0pj?=
+ =?utf-8?B?ck9EV1FUWElicHk2anREV2NkOHYxazgwQkJpTjBZUWwvWjA0OCtDb2V6ekxY?=
+ =?utf-8?B?enBCNHU4UTdXRFlqTUJ4eTk3bG1neGJMdWwyZmdBd09WL2tUOWsyNU15NU5B?=
+ =?utf-8?B?NFYyQXM2dk12dTdkdXlZSnl1clQ3QUNtdEFSSWtwdkNIcjhDSG1pWDJOWVdu?=
+ =?utf-8?B?TXNGWEIySlBUVldHQm9aTDdKaW5iQ3R0YVdQK3kwWEJkc1NsOVkySmt4UmU5?=
+ =?utf-8?Q?KGb9Mw5cJWD7EWBFvTPB91W4V2MiS6vB3EkZXgC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e82520b5-126c-4f4a-d06b-08d8d2b41378
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2021 19:50:13.8874 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /sIchc/TjGsK/FKAqYYqW0xS0/EcmxopJWCoUnbSAdrO2a88t4P0/TaxU0IlL8lt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,59 +138,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Kim <jonathan.kim@amd.com>, David Airlie <airlied@linux.ie>,
- kernel-janitors@vger.kernel.org,
- Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org, Luben Tuikov <luben.tuikov@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2067112372=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If the kmemdup() fails then this should return a negative error code
-but it currently returns success.
+--===============2067112372==
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Fixes: b4a7db71ea06 ("drm/amdgpu: add per device user friendly xgmi events for vega20")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre class="moz-quote-pre" wrap="">Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a> for the series.</pre>
+    <div class="moz-cite-prefix">On 2021-02-12 1:40 a.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20210212064034.29912-2-Felix.Kuehling@amd.com">
+      <pre class="moz-quote-pre" wrap="">If init_cwsr_apu fails, we currently leave the kfd_process structure in
+place anyway. The next kfd_open will then succeed, using the existing
+kfd_process structure. Fix that by cleaning up the kfd_process after a
+failure in init_cwsr_apu.
+
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c     | 4 +++-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-index 19c0a3655228..82e9ecf84352 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-@@ -519,8 +519,10 @@ static int init_pmu_entry_by_type_and_add(struct amdgpu_pmu_entry *pmu_entry,
- 	pmu_entry->pmu.attr_groups = kmemdup(attr_groups, sizeof(attr_groups),
- 								GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 145cd0a17d50..a4d7682289bb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -775,10 +775,8 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 			goto out;
  
--	if (!pmu_entry->pmu.attr_groups)
-+	if (!pmu_entry->pmu.attr_groups) {
-+		ret = -ENOMEM;
- 		goto err_attr_group;
-+	}
+ 		ret = kfd_process_init_cwsr_apu(process, filep);
+-		if (ret) {
+-			process = ERR_PTR(ret);
+-			goto out;
+-		}
++		if (ret)
++			goto out_destroy;
  
- 	snprintf(pmu_name, PMU_NAME_SIZE, "%s_%d", pmu_entry->pmu_file_prefix,
- 				adev_to_drm(pmu_entry->adev)->primary->index);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index 72f35a2babcb..3786b1c85182 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -274,6 +274,7 @@ nouveau_backlight_init(struct drm_connector *connector)
+ 		if (!procfs.kobj)
+ 			goto out;
+@@ -826,6 +824,14 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 	mutex_unlock(&amp;kfd_processes_mutex);
  
- 	if (!nouveau_get_backlight_name(backlight_name, bl)) {
- 		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
-+		ret = -ENOMEM;
- 		goto fail_alloc;
- 	}
+ 	return process;
++
++out_destroy:
++	hash_del_rcu(&amp;process-&gt;kfd_processes);
++	mutex_unlock(&amp;kfd_processes_mutex);
++	synchronize_srcu(&amp;kfd_processes_srcu);
++	/* kfd_process_free_notifier will trigger the cleanup */
++	mmu_notifier_put(&amp;process-&gt;mmu_notifier);
++	return ERR_PTR(ret);
+ }
  
--- 
-2.30.0
+ struct kfd_process *kfd_get_process(const struct task_struct *thread)
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--===============2067112372==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============2067112372==--
