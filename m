@@ -1,68 +1,132 @@
-Return-Path: <SRS0=jhpT=HR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=MNBo=HS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59196C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 21:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5A90C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 07:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BB7864DEB
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Feb 2021 21:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BB7864DEB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4F2F764DFF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Feb 2021 07:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F2F764DFF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB84889E0C;
-	Mon, 15 Feb 2021 21:32:14 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EDE89E0C;
- Mon, 15 Feb 2021 21:32:13 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id g5so10052666ejt.2;
- Mon, 15 Feb 2021 13:32:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4IZ+6tcJXefO0wP7XettVKiSAYw8xLoxhlV7k9i0lmc=;
- b=Zqi0URY23sSzLY8qr5zkiKJkbqC2D4RjLgMQ+dq7q9g+nI6Taxjd5dPFsJV3KKvZWS
- xr2qBphmoCOVbKcGg7nDY6gCtEHVn3X+DnnDl8WLtce6Myw9iB1aa6A5kgGwOm+eFp1N
- fFf/W5m7wnwJ+q8AS8NOgXRtTG5iNNgR7yj2rkssDlXxR5H1Egk7SAAg8cB+YTnxBg4r
- f67C2bElkuJj//OtbfPpRCHiqLdYMQV3Cfm/HE/iZsEZLRq27+4eI1zCpXfkJf8izs0g
- II6jaACTQ6V8mNjAnQNlBSTnahiZB1PH2uydf+mBrbe5iglj/Pao8QQD4KBedvFqt6uc
- /eIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4IZ+6tcJXefO0wP7XettVKiSAYw8xLoxhlV7k9i0lmc=;
- b=QIFYYyAn2EuTt4xzBXfaS0NbmOk46ySJloHwKdkIGQbXCOkqyHgj+vlWOmsZ1bPPNl
- L1/F9rRoazbxvl8K4E7QBzBf5ZsgNHcmlWJkTaN+D8MBi1UoVA0bUhw6O0JmAvzP2r8k
- QRq4Tw0u4Tb2G4b+zZYD3CDvKg649UAUmXu4Tr7gkqBXzDMEWCPmP/hUVMxOHL8l8rSN
- 2wPOu1BSLPOkVqbFFJYSCDmWZn5VTl5OsU4alnmCvX5wjW0X7E1/UwjL10MJ7RafU/Cx
- DkHV3oWRcnwaXavPBGyp5kHvwXgtQcWxUCsUs9SdcTedkOb3vUDmAveeO5EUSsphXX2U
- bf7g==
-X-Gm-Message-State: AOAM530SkEE0s/uqf8CvUMexK0AGrrK0XtMEVMZ8jhwSKitC4IG9PVEG
- /QRXjRGpu2ghySD8L8sK8eswlzsO0Llmb+xW/0o=
-X-Google-Smtp-Source: ABdhPJyEXF43GE/IZOKoA9Kh5IZumMCVKuI7qx9eUF5CsilXPuV2WP+RJPbVdtPtvj1tPXC1bYf4aA7yS39dMeE3CUQ=
-X-Received: by 2002:a17:906:4013:: with SMTP id
- v19mr17906648ejj.5.1613424732388; 
- Mon, 15 Feb 2021 13:32:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF686E171;
+	Tue, 16 Feb 2021 07:51:44 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 310B46E171
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Feb 2021 07:51:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eQeNg3M+wYFlDMRqfHBNQOKDCUncVcqZt37GW3tyJ2P2CgibE/cJgIWUa8H3Lxd7ZdA6IpmZLWhEFh+tH0fi+3qbtMW3HThD1lTEumH5V+1By25d3H085omiRdB93wVUmxVWTHBcIzUUwyHjjPdO9o6gDAZkam1VUszaisR5PQVp1k8wsiPfp0Ma0Tt4Y/FegFPdjPJIYXEe0mMzuzVNjTigUQ63FFefp7GvD6D2mySrZHuxqMJEX/RL0qIvmOjTGKTIdtOhg4GYZ2i8ZcMlVj8BUC5v8TpURjdI9zOjDltA9lHyd7cD1Fe8OIcJHw7GQMe2uofNO6R47iPqORrK4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=75EPV+3FVV92WcPYBxJbLi6wNfPrXjlR8wtumUo1mHo=;
+ b=QgZ3OklLSMC/WNJShhj7W/9yyU3GTXcDPyN3PFvdKMg5Hvg8rBBWav3p2LL+dZv0Kg7n74Cc/8vtQPMSTzuqpE+53R6Sj+3yEaFf8qfgRUtfnVLcKGvStrzQlhe1+jGHzaw7Vsvj/icLIbqVNMO9Ps61wJsXpU+cp9hGAqNHk3cOz8TfkigfG0piituvdhkVr4oK1iE2MtCG+LqQdBeez94um1CPgNwiYVOvscGQKn/RzuZmtLG6VQzYbaAqDubv6JUAXyo8TWVMSVk3wHC66KIU3BaEPd+iQwrso2GU4Cm5o8jb+kQ22l90taIo0GrDMAgxiy1hQWuFrB5ZnG8XFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=75EPV+3FVV92WcPYBxJbLi6wNfPrXjlR8wtumUo1mHo=;
+ b=hTPjt7zuawU8M0vu2uYHuRclmaukgD9ownJoM7hk6kJmO5jQsI7wKzEezEx0+HzxoEtH1zNBcI9tiEpqoaz7Ze1tv45/S3aavrUWsBWUXYhiKQHGp1kryxTbfnGSqbTxPjvm7QCVoWPpzmnjmI5+MuagBHqBFJsys5PHJbQtV9E=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB4900.namprd12.prod.outlook.com (2603:10b6:208:1c1::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.26; Tue, 16 Feb
+ 2021 07:51:40 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3846.038; Tue, 16 Feb 2021
+ 07:51:40 +0000
+Subject: Re: [PATCH 1/2] drm/radeon: add rdev in ring struct
+To: Nirmoy Das <nirmoy.das@amd.com>
+References: <20210215181619.69377-1-nirmoy.das@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <03e70ad9-94b1-3685-403c-3b327506b0c6@amd.com>
+Date: Tue, 16 Feb 2021 08:51:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210215181619.69377-1-nirmoy.das@amd.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:49a5:2647:58aa:5400]
+X-ClientProxiedBy: AM9P193CA0022.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21e::27) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-References: <20210212222954.6510-1-mario.kleiner.de@gmail.com>
- <CADnq5_OwuiAjDcP+xwspbN+H7+=aLdnGE51O0qiALnHhmjaZiQ@mail.gmail.com>
-In-Reply-To: <CADnq5_OwuiAjDcP+xwspbN+H7+=aLdnGE51O0qiALnHhmjaZiQ@mail.gmail.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Mon, 15 Feb 2021 22:32:00 +0100
-Message-ID: <CAEsyxyjDNHtLiCx+ELjak5ezh8JjNUOSuuP3664aYO4dn3YzvQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Allow spatial dither to 10 bpc on all !=
- DCE-11.0.
-To: Alex Deucher <alexdeucher@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:49a5:2647:58aa:5400]
+ (2a02:908:1252:fb60:49a5:2647:58aa:5400) by
+ AM9P193CA0022.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3846.25 via Frontend Transport; Tue, 16 Feb 2021 07:51:39 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 771d05f1-b639-4166-d6a8-08d8d24fb20d
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4900:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB49004952B9B9A33B064C1A7C83879@BL0PR12MB4900.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 45sSuVLZZ9mOdqGtk+/nShbRXS7Oordh7F1httEGJL0D1MLDUY5px4kQ8SP32hyvS1CsTBOeFdZnaELf33k7INBh1p11zbAacI4G/0xKu/yLvlsXMMqLraHkIz9o9VQ67NF3r8+L7cvJJE8skMTfgZtL9vB9FRdqb0Amf4WDJ3F/BwUMsC4pa5IVOfsQE+0D1PluBrg++/3T1aq0vbpeT4Tw6KEqR9c1cbRD/YbUG0HNR8woaGmRywpD47b/jJIhpRrBJ8VMreuq6APmjUShmZ07BN+sAGgSQRVj9S/Vi5meIl7aJqMCk+3BgCiR7jdHvje07VarrXfaXuhgQRZk2YZP02BQyS2/W9bZ7AuNho1/Dv2g0Qja2qBYt+TQ/E0VPVowyGNQDwVD8rXxA3fOz4iYQNqR6ESSS/TOmzyDjyOlq3hX+UIVbOX24MNR4OnLg57bPvDwo4dVTwHlGZ5egidP4woBv5M+pnEaNBaZeMsxyVGTqbs4ooPBTHKUfdbuToB2bGj7D9DlCNU4HlljXEIecZ5jrsz5FqILV4kbpmfzoJ0lPIWhuUU/AFqf6CuaCg9zxJy1j20zqhl0Uwr1zCBelkfjboTQ36pymRhnjz8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(396003)(346002)(366004)(376002)(316002)(5660300002)(66556008)(31696002)(86362001)(36756003)(4326008)(6486002)(6666004)(2906002)(6636002)(37006003)(8676002)(186003)(66946007)(16526019)(66476007)(478600001)(2616005)(8936002)(31686004)(6862004)(52116002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SmxMV2JEcEQzOGFNQ09WQng1REJKWmpscVRaR3REbDlxbEpQMWpRZ1V1cERn?=
+ =?utf-8?B?bEpTeDdnMGNQYVRuNlp2TFBxblJBbE1ydXpENzNwUGFRVklXQmY0Wk8raXFk?=
+ =?utf-8?B?SmxmRFRDSS9jRHNtUldrY2FmNUljNVZjamR4UkVrOVg0MkVFaWlFN2xWL2N0?=
+ =?utf-8?B?ZitzY3loeUJRbUR6L3JxeU5PMkI5QkRGTXdGbm1XUTRabDdNTS82cEQ1cXBO?=
+ =?utf-8?B?SjVLbXhzMTdFNXBiRHJLVUVPaHhsT1UyUk54U1FQTEFnN3FCVnArUW5YcmZD?=
+ =?utf-8?B?YjRiNkhLUys3TzhXZjJJZ0N1Mi9RNEVMWEl2cWl2WnU2MGpSWTdiVnVDQTdI?=
+ =?utf-8?B?dThDK08xVE0vNVJqRkZRekZpZTcyT2dCNnY2SlYvV1ZuNUFSQnFuaWUxSUh0?=
+ =?utf-8?B?eHVPb0xNMDFyMnFCWkhWTC9mNFZTcEVJZXVONDVlZDd1SlNWd2J4dTkyaDUr?=
+ =?utf-8?B?M1NDb3pCSVUwS3FrZWhQQkozTjgwWXovc0FPN1Jua3VQWWRrcWgvL2NGZW11?=
+ =?utf-8?B?RzVFMGIxR1d2c3IzOUNxeEx3WkJXWlZneVFrZlNGUlZKSXExNStoZkg1RmdZ?=
+ =?utf-8?B?elU2cCsrU1lBbWpvblBTV0FNczV6Zmh0OTNESTUzbHVJV29LZ0N5cUVvdDVM?=
+ =?utf-8?B?OVlvRUFManFmMWlZQS8zVGI1M3lDWGJaQVBTOG9wbkxjMnJESDdYcUtTRkN6?=
+ =?utf-8?B?cXFVVElFQzNSejVxN1hlVldMQmNyTUh1bzdJK1crTnR2S2wyTTZTRjVXcWdt?=
+ =?utf-8?B?eSs4OENETEdTVzB4dXZ4STZyRmtPcERIZWE0c0x2TEhyOFhJOTZwRU5OS044?=
+ =?utf-8?B?U2pXV0tkYU9UZHpobzlKa2VmUTRrNWVta0VoNXp6RFRoZXdRR0pENGVQWGpC?=
+ =?utf-8?B?RE40RTNFdDN5SWdBTENaZ0xGRWpOY091RFNCMzh0aUJsTk9HNTNXMEcrT0dD?=
+ =?utf-8?B?NnFaWWRlNy9EVlpMeTlyeHg4enF6aXI4QUVpUkhwRTd3KzMyL3RlQlIrdG9S?=
+ =?utf-8?B?Y2lLR0RjUXlJL0dDZDl3dExRaWt5dWtQUkF3N0ZxaEFpOXcwV2VaMncrN08w?=
+ =?utf-8?B?UExvc1AwM2JpWUJIZ3Bnb3JJNGg1ZjNYbXkwd2FSV0JHejVTcHRneVlqSHln?=
+ =?utf-8?B?N0UrSU41N0tCU3FNTVhhTERGOVNzdzU4QjAybWFySzE5WElMdTU0Sjd3QlFF?=
+ =?utf-8?B?MjhEUWE1L3BCQWUwZllXRWJ3M1dWczZWT0VYd0dMVDlJcUhObTJMdFg2TkRh?=
+ =?utf-8?B?WVBsNlRoVHMwT0R1OVRNREdCNlN6WW9Ob1hUenduKzJPenIwNmdYcFQ1bHlG?=
+ =?utf-8?B?MW9FY2J2TTBEc3VLMVNuZ2RpbXBQTWl3em02Z1A4UTQrQnRKdS8zNnhacVcr?=
+ =?utf-8?B?YmZlTWtFSGk2ak1ScHN1VlJPUU9WcHBabURKd0RRMWIzK2phTkc3QVFFN0dZ?=
+ =?utf-8?B?dVRqL2ovMUdrK0RSQ3JwbDFvSzNBK3AzajZiMHRLekZ5NDFoMVdlVXJTMlU1?=
+ =?utf-8?B?amxrS1o2SmFmaU1ybFo3N0tuUmErZWxPUmFHckhETkc0NjZjVVZidE9ibEky?=
+ =?utf-8?B?NnM4Ri9Nbyt1dkVWeVBNNExYT0FRNXMxVkk1Sk1SWWZnd1c2WXh2Qko4ekk4?=
+ =?utf-8?B?M3YxdE1HQnAvTnRmMWswalZGbXZJak04SmdyZzFzMjZiOWlrT2tONzN3QUFl?=
+ =?utf-8?B?VUFnMHBTQWxDSlRqcytYVUd0UndtVWxGS0hEM3V1OUgxeHNaU2dIbEd2YmpR?=
+ =?utf-8?B?QVVHZW84NWJqVngzRU10U2VjNWh6QVFZK3VPWVFIbDJTZG5XNWh5YUF6Mlpo?=
+ =?utf-8?B?Yzd3SnZxdEU3SVJKb3dyRmIwS2pBOS9LR0F6U2s3TkRPYi9sMWp4RkM4T1d4?=
+ =?utf-8?Q?spZuWI2GbcEN7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 771d05f1-b639-4166-d6a8-08d8d24fb20d
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2021 07:51:40.7354 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k10ue03O9c+uLVaqYR3ZqoALBOITocT4dAf9KgF+VAGuiX1P+vLhZNiAuOyETniU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4900
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,172 +138,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0035889074=="
+Cc: amd-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0035889074==
-Content-Type: multipart/alternative; boundary="0000000000000bbf2905bb66b87d"
-
---0000000000000bbf2905bb66b87d
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Feb 15, 2021 at 8:09 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-
-> On Fri, Feb 12, 2021 at 5:30 PM Mario Kleiner
-> <mario.kleiner.de@gmail.com> wrote:
-> >
-> > Spatial dithering to 10 bpc depth was disabled for all DCE's.
-> > Restrict this to DCE-11.0, but allow it on other DCE's.
-> >
-> > Testing on DCE-8.3 and DCE-11.2 did not show any obvious ill
-> > effects, but a measureable precision improvement (via colorimeter)
-> > when displaying a fp16 framebuffer to a 10 bpc DP or HDMI connected
-> > HDR-10 monitor.
-> >
-> > Alex suggests this may have been a workaround for some DCE-11.0
-> > Carrizo and Stoney Asics, so lets try to restrict this to DCE 11.0.
-> >
-> > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> > Cc: Alex Deucher <alexdeucher@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/dce/dce_opp.c | 9 ++++++---
-> >  1 file changed, 6 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> > index 4600231da6cb..4ed886cdb8d8 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> > @@ -216,9 +216,12 @@ static void set_spatial_dither(
-> >         REG_UPDATE(FMT_BIT_DEPTH_CONTROL,
-> >                 FMT_TEMPORAL_DITHER_EN, 0);
-> >
-> > -       /* no 10bpc on DCE11*/
-> > -       if (params->flags.SPATIAL_DITHER_ENABLED == 0 ||
-> > -               params->flags.SPATIAL_DITHER_DEPTH == 2)
-> > +       if (params->flags.SPATIAL_DITHER_ENABLED == 0)
-> > +               return;
-> > +
-> > +       /* No dithering to 10 bpc on DCE-11.0 */
-> > +       if (params->flags.SPATIAL_DITHER_DEPTH == 2 &&
-> > +               opp110->base.ctx->dce_version == DCE_VERSION_11_0)
-> >                 return;
->
-> I'm inclined to just remove this check altogether.  This is just the
-> dithering control.  I think the limitations are more around the
-> formats (e.g., FP formats) than the dithering.
->
-> Alex
->
->
-Certainly no objections from myself.
--mario
-
-
-
->
-> >
-> >         /* only use FRAME_COUNTER_MAX if frameRandom == 1*/
-> > --
-> > 2.25.1
-> >
->
-
---0000000000000bbf2905bb66b87d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Mon, Feb 15, 2021 at 8:09 PM Alex Deuc=
-her &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&=
-gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
-04);padding-left:1ex">On Fri, Feb 12, 2021 at 5:30 PM Mario Kleiner<br>
-&lt;<a href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mario.k=
-leiner.de@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Spatial dithering to 10 bpc depth was disabled for all DCE&#39;s.<br>
-&gt; Restrict this to DCE-11.0, but allow it on other DCE&#39;s.<br>
-&gt;<br>
-&gt; Testing on DCE-8.3 and DCE-11.2 did not show any obvious ill<br>
-&gt; effects, but a measureable precision improvement (via colorimeter)<br>
-&gt; when displaying a fp16 framebuffer to a 10 bpc DP or HDMI connected<br=
->
-&gt; HDR-10 monitor.<br>
-&gt;<br>
-&gt; Alex suggests this may have been a workaround for some DCE-11.0<br>
-&gt; Carrizo and Stoney Asics, so lets try to restrict this to DCE 11.0.<br=
->
-&gt;<br>
-&gt; Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gm=
-ail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
-&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com" target=
-=3D"_blank">alexdeucher@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/display/dc/dce/dce_opp.c | 9 ++++++---<br>
-&gt;=C2=A0 1 file changed, 6 insertions(+), 3 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c b/drivers/gp=
-u/drm/amd/display/dc/dce/dce_opp.c<br>
-&gt; index 4600231da6cb..4ed886cdb8d8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c<br>
-&gt; @@ -216,9 +216,12 @@ static void set_spatial_dither(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0REG_UPDATE(FMT_BIT_DEPTH_CONTROL,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0FMT_TEMPO=
-RAL_DITHER_EN, 0);<br>
-&gt;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0/* no 10bpc on DCE11*/<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (params-&gt;flags.SPATIAL_DITHER_ENABLE=
-D =3D=3D 0 ||<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params-&gt;fla=
-gs.SPATIAL_DITHER_DEPTH =3D=3D 2)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (params-&gt;flags.SPATIAL_DITHER_ENABLE=
-D =3D=3D 0)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* No dithering to 10 bpc on DCE-11.0 */<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (params-&gt;flags.SPATIAL_DITHER_DEPTH =
-=3D=3D 2 &amp;&amp;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0opp110-&gt;bas=
-e.ctx-&gt;dce_version =3D=3D DCE_VERSION_11_0)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<b=
-r>
-<br>
-I&#39;m inclined to just remove this check altogether.=C2=A0 This is just t=
-he<br>
-dithering control.=C2=A0 I think the limitations are more around the<br>
-formats (e.g., FP formats) than the dithering.<br>
-<br>
-Alex<br>
-<br></blockquote><div>=C2=A0</div><div>Certainly no objections from myself.=
-</div><div>-mario<br></div><div><br></div><div>=C2=A0</div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">
-<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* only use FRAME_COUNTER_MAX if fram=
-eRandom =3D=3D 1*/<br>
-&gt; --<br>
-&gt; 2.25.1<br>
-&gt;<br>
-</blockquote></div></div>
-
---0000000000000bbf2905bb66b87d--
-
---===============0035889074==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0035889074==--
+QW0gMTUuMDIuMjEgdW0gMTk6MTYgc2NocmllYiBOaXJtb3kgRGFzOgo+IFJldHJpZXZpbmcgcmFk
+ZW9uIGRldmljZSBzdHJ1Y3QgZnJvbSByaW5nIHN0cnVjdCB3aWxsIGJlCj4gdXNlZCBpbiBuZXh0
+IHBhdGNoIHdoZXJlIGRlYnVnZnMncyBzaG93IGZ1bmN0aW9uIGNhbiBvbmx5IHBhc3MKPiBvbmUg
+cHJpdmF0ZSBkYXRhIHBvaW50ZXIuCj4KPiBTaWduZWQtb2ZmLWJ5OiBOaXJtb3kgRGFzIDxuaXJt
+b3kuZGFzQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPiBmb3IgdGhpcyBvbmUuCgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
+ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBmb3IgdGhlIG90aGVyIG9uZS4KCj4gLS0tCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oICAgICAgfCAxICsKPiAgIGRyaXZlcnMv
+Z3B1L2RybS9yYWRlb24vcmFkZW9uX3JpbmcuYyB8IDEgKwo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
+ZGVvbi5oIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb24uaAo+IGluZGV4IDJjMGUzZTdj
+Mjk0ZC4uZWFhOTIyM2Q2ZjUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
+cmFkZW9uLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oCj4gQEAgLTgz
+MSw2ICs4MzEsNyBAQCBzdHJ1Y3QgcmFkZW9uX2liIHsKPiAgIH07Cj4gICAKPiAgIHN0cnVjdCBy
+YWRlb25fcmluZyB7Cj4gKwlzdHJ1Y3QgcmFkZW9uX2RldmljZQkqcmRldjsKPiAgIAlzdHJ1Y3Qg
+cmFkZW9uX2JvCSpyaW5nX29iajsKPiAgIAl2b2xhdGlsZSB1aW50MzJfdAkqcmluZzsKPiAgIAl1
+bnNpZ25lZAkJcnB0cl9vZmZzOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L3JhZGVvbl9yaW5nLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9yaW5nLmMKPiBp
+bmRleCBjMzMwNGM5NzdhMGEuLjQxZWQ4YWJhMTMxMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL3JhZGVvbl9yaW5nLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L3JhZGVvbl9yaW5nLmMKPiBAQCAtMzg3LDYgKzM4Nyw3IEBAIGludCByYWRlb25fcmluZ19pbml0
+KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LCBzdHJ1Y3QgcmFkZW9uX3JpbmcgKnJpbmcsIHVu
+c2lnCj4gICAJcmluZy0+cmluZ19zaXplID0gcmluZ19zaXplOwo+ICAgCXJpbmctPnJwdHJfb2Zm
+cyA9IHJwdHJfb2ZmczsKPiAgIAlyaW5nLT5ub3AgPSBub3A7Cj4gKwlyaW5nLT5yZGV2ID0gcmRl
+djsKPiAgIAkvKiBBbGxvY2F0ZSByaW5nIGJ1ZmZlciAqLwo+ICAgCWlmIChyaW5nLT5yaW5nX29i
+aiA9PSBOVUxMKSB7Cj4gICAJCXIgPSByYWRlb25fYm9fY3JlYXRlKHJkZXYsIHJpbmctPnJpbmdf
+c2l6ZSwgUEFHRV9TSVpFLCB0cnVlLAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
