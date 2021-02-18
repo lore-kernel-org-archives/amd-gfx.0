@@ -2,125 +2,127 @@ Return-Path: <SRS0=9dkd=HU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DF2EC433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 14:33:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ACB9C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 14:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 989AF64E76
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 14:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 989AF64E76
+	by mail.kernel.org (Postfix) with ESMTPS id 9A29D64E85
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 14:52:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A29D64E85
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 234B26E839;
-	Thu, 18 Feb 2021 14:33:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F5D6E839
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Feb 2021 14:33:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0E456E841;
+	Thu, 18 Feb 2021 14:52:25 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D31046E841
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Feb 2021 14:52:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ip7Vt0ycIfNniBkHjzOsTDMqNCUTS0ZcmQaBks7Z7GoDTWU321VqA7w3U/NaMCEnOR/P2Q43EYCNVX+uX4PxHzzL0gpMGLRNz5zrRfZWmlqeHGrI7RG99drgtIOy+FUKzIL1zjtUdLyptamtZi4YlVF32jWUiRVom2hJVslUYgcXsQyykPvtDUzZdZ4wngc2RQvoS/OSqi7mhIoTJlXvPIr8kfl3Udb360DX0XB0Zo50aIU/XWmG+JqFVNTnoiE2iLhtKBctMfZ7eEPKWU22x6Q4g+bZtYxKa0IbcpZBM5SiRLpP87JaSDTl8AKd0LqgyXabS7s7SOyqhLkgp6unSQ==
+ b=kCCjWEQk+L12p3hfL9T5KprXvDUuWLv5Ge/Gzmlw+GeZWGGrfT0k24n/hNHFJ2uoci4EJP/WB+tD5TjUtRX7r6NyE/znXEClczSNbLddJqoMjEKz1CXzhqTvLatB12RXhtdWABTJtWu0rq5BxKRrWi33V7SeCnxqz1vnXURg7cn5ClCMyFBBb04xXZy7IO4YVI8GR87vKD20iJPSJSMxKO50ITLxqQ5WnKacIkYcbBuxAW8WjGSBLnoRzCnL5VQ3mnmwfeQhv8b19jMwzUzt8XQ+QAeg7A7oleOVVxHx/W4nwMGzqhO0yA1ldS2yYpQ4qHQIUUwLBYkwVje3/gbFtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0e4nL6MAIUd7Ei/XIlGXZUfGPYSNRP8Fp7mS4XX1dlc=;
- b=NVFo1jXqb5iZMUXmQgbLad04JiuVJgaZ5glsxNUsAnfzD3k2Utd3A/EmOftHIMY6UdVXrSybcNiNbf6qmoUNe7TPnqrUR/pTKtb9oox6fPiWrIxlhEPewo+VCNkaLMOzwmn7QDXWdLyeBVm+7Tx36GelSdAyKBWLRodOMhW2uhjSwQyu38UGbUbUL/2RYGY5QBLiLyfTpyJ1ul4Co9q3thOP8436XkScJnlP+c/nhgIBPufsZrza6f9JFD/+lPab0+bqO5ksorv1ekiOPoQ5WBxFjAb+c/ruEbDOHM/eTRE2ytc4RHwI/b/058AJoKO46R9hRG1d4ePfCZNaqLltpA==
+ bh=soYqLdQYudhq9bO2bEuanWjon4Ihct0P3cOxyIMvt6M=;
+ b=PwG8ijydZeosXqICIPTdcQtnxSrNKkkDJQoG4Tz6rZ5WYJ2Vq5yCzT3CWucHhNqIR1qtgX5cOZfoIF0rTaikNG52du/HasdE3uWsuAB387dGE16g7Tn4BLT3xPJO5AzGeylSUzD2V0xuDQfpuJyHiZR+RPiesgpeJ/djN0P8x+JkH7o8vChNPvgEERkoxU2JIesOG/q5bSb7iRpay/zoquH1173Tp1RsPiedHNqRDvfRl1bqqPA4fJPVK0PmDIKsAx23UAlHLVqpOhFmWH2HiQveYDnxRYlr2EZQN5IML1E2s4+4KCEGC11KHa0IXDK2YiYzYO35msyMNhD2TgEmOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0e4nL6MAIUd7Ei/XIlGXZUfGPYSNRP8Fp7mS4XX1dlc=;
- b=p30rok52pwlWb4AD6jhYryAJO0x2nIVrMHZGDKgETlt6fkD9Le9xheQQAjNQTwUU3B4GIHobMTUP6ct/jzlYH+y7NLzI4dI5yz+MNOdbwA8RlDRt9hwD9uR/wkeUxm2T5pnWLG/gTNiJOxs7i4f/i9Tyfad3rWDnLC4BDFXT4IY=
-Received: from DM6PR12MB3433.namprd12.prod.outlook.com (2603:10b6:5:38::14) by
- DM5PR12MB1721.namprd12.prod.outlook.com (2603:10b6:3:10d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3846.26; Thu, 18 Feb 2021 14:33:50 +0000
-Received: from DM6PR12MB3433.namprd12.prod.outlook.com
- ([fe80::807c:1f17:9a40:51a3]) by DM6PR12MB3433.namprd12.prod.outlook.com
- ([fe80::807c:1f17:9a40:51a3%7]) with mapi id 15.20.3868.027; Thu, 18 Feb 2021
- 14:33:50 +0000
-From: "Jiang, Sonny" <Sonny.Jiang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for share
+ bh=soYqLdQYudhq9bO2bEuanWjon4Ihct0P3cOxyIMvt6M=;
+ b=1pKvDzPub8eQ1kiamvPoimMTG3zcnC2G7135ezer/nLgdk8oBFPuHsqpe5+PQk6dOttRfM3bDOpllEXN80xnZCYVO71vzzlza6s+mE+HQmhs5zmhI7y30Jn5a8YYam4DEx+rt+TQ6MiwaiZ6QxeTbwviZbMzCOM0WM0hB5C8CAE=
+Received: from DM5PR12MB1787.namprd12.prod.outlook.com (2603:10b6:3:113::12)
+ by DM6PR12MB2921.namprd12.prod.outlook.com (2603:10b6:5:182::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Thu, 18 Feb
+ 2021 14:52:23 +0000
+Received: from DM5PR12MB1787.namprd12.prod.outlook.com
+ ([fe80::d7f:f19c:7565:99b6]) by DM5PR12MB1787.namprd12.prod.outlook.com
+ ([fe80::d7f:f19c:7565:99b6%3]) with mapi id 15.20.3846.041; Thu, 18 Feb 2021
+ 14:52:22 +0000
+From: "Liu, Leo" <Leo.Liu@amd.com>
+To: "Jiang, Sonny" <Sonny.Jiang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for share
  memory
 Thread-Topic: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for share
  memory
-Thread-Index: AQHXABWvRnGvW9O6cESBIamBaOFvsapeBfKy
-Date: Thu, 18 Feb 2021 14:33:50 +0000
-Message-ID: <DM6PR12MB3433F0538D298A0069DE0D97FD859@DM6PR12MB3433.namprd12.prod.outlook.com>
+Thread-Index: AQHXABW08FOrBln7jEqzo5T4UBa5bKpeBfoAgAAE/mA=
+Date: Thu, 18 Feb 2021 14:52:22 +0000
+Message-ID: <DM5PR12MB178741FC0E282F3C55ED90F5E5859@DM5PR12MB1787.namprd12.prod.outlook.com>
 References: <20210211013109.16781-1-sonny.jiang@amd.com>
-In-Reply-To: <20210211013109.16781-1-sonny.jiang@amd.com>
-Accept-Language: en-US
+ <DM6PR12MB3433F0538D298A0069DE0D97FD859@DM6PR12MB3433.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB3433F0538D298A0069DE0D97FD859@DM6PR12MB3433.namprd12.prod.outlook.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-02-18T14:33:48.497Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Distribution
  Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [67.71.205.18]
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:9880:2088:19:7101:5c38:8381:4a8]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 27c2f6f4-c122-4351-5d17-08d8d41a3560
-x-ms-traffictypediagnostic: DM5PR12MB1721:
-x-microsoft-antispam-prvs: <DM5PR12MB17215A2C5F305C82565E2DA9FD859@DM5PR12MB1721.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-office365-filtering-correlation-id: 4260c5c0-e874-48d6-0b73-08d8d41ccc95
+x-ms-traffictypediagnostic: DM6PR12MB2921:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB2921211F54FB0655D4865F13E5859@DM6PR12MB2921.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vHcljeFlv+C4/aCLWLbo3YxHthec+4Tp/NDDo7NloMC6udJcObALrL+hhxFKDW0NiFptwA3cYWXmja7RbKBy6kgOy5CNyshxBbT37Ksax3pcSQb0V1rTdrFAVKJQq9mNgT6lvOo+lZC/KJcQ0zsWYjctPCAaTpXT0Usz8DWLR+whkudvaD18jDMlxDCXrF2qIyTz8h4vbOUIHhwYdINkoWQWAe8nQhRAoy7l4KJNsErFnW+2ZVXLoOF7MFZyitfIBGaksmqhoBH3r8CobFiLpsgZ9Y/qQOSLwzeDA+U/bOQbfFwEvjYT1JsSSPE6o3JTtJFVlNldkBFtXe5I03LsJ/f3xtcDZ877tXQXoOFOJALb4fnmlx29anMbLRmP9wuPTz7ciJR+UXEPguuxGMoUlRb5BvCwaWPhxIix3W0MwxEVVaaKoVthWezgUWpbQF4nTc0tEx6TiRkPkjnS1HrJvz0CX5j2s5A5jvuanDY1Vft3dFgNDTfkcMRbiI2GmQIsTiRReVQJucXSy4KghRisgg==
+x-microsoft-antispam-message-info: UPx4nOEQjb/fNDD1l4UCjRcOkE7dZAoxaDi81TNn7EY8EW8mDH903TxcitmBie5iea03K9ogsyYX25al6PLBi7Z6DduJULdRDQaOAQHO1JEHXx59QWfsIBbl0YKm90A8acIYmMhg0dKJbcXYE2KXXGhuvgZs2nhGmHxfhFxMDR24tpeJVKnbNpcNqMFDmEI8jlzCLbyf55Zm5vQEIAtMDK+NTSd90NGnjBWGPqC6jyNZQYghF9EmnsYCPG5xHonBLYKECwGAMzZehRqQvE4RgAotjv8rG8zZYVXlCJDonywpYpZRXtcr3cJinLuAAbgKbGMBeoaIKqcLi6SJGnBzQmj7hMznrnFDo/J8qXdNej33l2GbtrN+7RkuA7cTtlIV4Pa5/xa84Lcg+NCEI91M6AejtUfvSeqGGOOujFQXl+07V5/DVCzSyzQ0Oa4y8ZtJxXK3tGLmZcZrWYtqtvUpFNkFLg6AB4zN99IBlDbUKYigviFM1qZG+5rxXgQ4n7uG77Xfdoi7C7JCb8oaqa351A==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3433.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(136003)(396003)(376002)(39860400002)(66446008)(478600001)(71200400001)(19627405001)(8676002)(76116006)(9686003)(186003)(55016002)(6916009)(52536014)(66556008)(66946007)(15650500001)(7696005)(2906002)(66476007)(53546011)(5660300002)(33656002)(26005)(83380400001)(86362001)(6506007)(8936002)(316002)(64756008);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1787.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(376002)(39860400002)(366004)(346002)(33656002)(53546011)(15650500001)(8936002)(6506007)(71200400001)(86362001)(83380400001)(2906002)(8676002)(52536014)(76116006)(186003)(7696005)(110136005)(66446008)(478600001)(5660300002)(9686003)(316002)(55016002)(66946007)(64756008)(66556008)(66476007);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?86eqAK5NZOOMh6rM5nnvAaEY8pXLGquzZ7TV/Td7geTk0XIJtBqrCLK6ysB5?=
- =?us-ascii?Q?nhKwRqBZzUQdTvOugSe5UZnyAijCbDxPCLrRoJ16/Vo5keGS8G8yW3FXwP9z?=
- =?us-ascii?Q?BrjnIGtCkF54a26I3zvjoa64n6IvYtSmO5ncHJaTk4WO84GyaBR4TaY8J00E?=
- =?us-ascii?Q?PewxqzXImvKqK2Q7Pq3aD8GctGxf/SYdcSi7hONUOj5zOpwXUVXWYLBFZIMJ?=
- =?us-ascii?Q?pTh5gNeVHop0T7x8D8B5VdonyGTNfl/cRrIpZYbtugd4V9W8u3q9cW2AdRSQ?=
- =?us-ascii?Q?A2GzqJGo5Arbg8mm0fY0EFFdpFFuqMc+GNbAckg9yD0CKlbWDZPgt7cpf662?=
- =?us-ascii?Q?a/4ZehNz+6R5HPGvg2lJda/iq9wzvL2yOfaZFYZWwx/XNxFAtBdB1ILHlsKR?=
- =?us-ascii?Q?SG2Bz+/8/1h24DQn/AgEPTEv8vxNgsn4EAYyJdHn7hBUSQTJvj1xwG4xzW8d?=
- =?us-ascii?Q?n5vQADJT0a72ZTyRHko1wLe0YmeFTkgPj3yTaLr+cGJoCyDESriRMWuwOJeY?=
- =?us-ascii?Q?O/WBXMHV2CYsiCLByDDkA5BJQL4uyUgr9fBvHC0yvcUmkg+OM5dVcy4QSdnG?=
- =?us-ascii?Q?QlEgsNGlub3/WK5sjxHPetZkL6f4F7jWUIOY85gBtuxwcHGeEkIq8FD4LecQ?=
- =?us-ascii?Q?0UD5n+COuLyPAfdR99b8OkSy6GTQ0EM7iXcxTQs3UtN3ZzUYvrir0c9DMZgn?=
- =?us-ascii?Q?9++E7p1NcL/DeiA3phZKLRZzE/yK+bS15txLyb12A7xyGzquXZQMzgu2akjH?=
- =?us-ascii?Q?zQrYlw+Xws8ehoR9rElTbZK6XfK+FTcoXFy7PgRHVtp6EbdrEyjGzgeS6pXX?=
- =?us-ascii?Q?U/57nJG0WHAreJIuW95Q3iTz3U5iETNqz8kA+EZa5mDEr9Fx1qaD/v58TKWe?=
- =?us-ascii?Q?3Po2HENUdfDnTdRdXQdTK+HS5GUljPvamETP+YP5+DiClG3ZeY1uzFZufvaR?=
- =?us-ascii?Q?yU+ADAFaN62qU7pGKERn8cuNJVvHfigqFBvGGOmLnsJ+USbyklfTi35slZgy?=
- =?us-ascii?Q?hOFNerdOwWK0fvA6tCDg9YC0CGy3MrrXFrRxWgK0SnB3eeZm2ddvqpTfT1go?=
- =?us-ascii?Q?2/jdFT5HhDojVGzdqmGo3MTDIPE2GiRTO2SoNpPvzoVGse4C673SzPOIlcMh?=
- =?us-ascii?Q?qyd7Q1TpUDuopSFmMzk6DyHGkzAE8Iuc5DFDivVXLwy/iTVVMV9AXTJEvbs7?=
- =?us-ascii?Q?sVabmjUKsov5VqpYpvLHvpgiTWazww8dmKgAvnUThtQlLwtS4ELRtNsPeiVu?=
- =?us-ascii?Q?HCToDy1Binsi5Nk5y3q1ywzC3fD6Mah3IFI5quMOfD+PZK/MxIRdMM8HX/c5?=
- =?us-ascii?Q?2DU=3D?=
-x-ms-exchange-transport-forked: True
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?GUCHN/rE5FI1bNfQvMdiz5vNKrgCAtKqwC8NDD/SvwG7BhE1dWbZP3AV5pdV?=
+ =?us-ascii?Q?qNeE2ZjvYlFpHjCDyZN+6Uc21xG+HoDyopfZ1aAYZKmlJbocVpUnHGYSLMqw?=
+ =?us-ascii?Q?BrwiInAfQnZmrP7slqG7VMwNLfz2DUxln6rD5leQbs0Y6pdVWcAPMbwBG5Qe?=
+ =?us-ascii?Q?QcM5mvqSWyWO2fxczSBDrqRBYmRosedsXq3qrbt+PXPEBZYcQB4JhXiHbE89?=
+ =?us-ascii?Q?exYZvHZ5Ne3wXNMiXJhIk/44O0ITgKDd0QVlzC7Gx2PY0so0vvrrhJ/UKlWd?=
+ =?us-ascii?Q?rKnYdduGnVHfssUIIlbtMQsDH0kw7WIbhIEUfc3z0LHxcZgGxQY2zgZZ7abE?=
+ =?us-ascii?Q?1jF3eNMRmJUNI6P5vTVhgpCAkcsYvC5Zhl1CBQQiUZj6uLZOBT8ToYb7hwTB?=
+ =?us-ascii?Q?ebAUuMjMZfuDv61P0eo/0n1/Z8GXWs0qgyIHyjvT5Ey/+Sb+cpymSAqHyu/G?=
+ =?us-ascii?Q?oKITNov2mYAfh309X+0e+KMQWNO+RbIpTp1bMO0ld501ERvQynK75bF9Xl38?=
+ =?us-ascii?Q?6B8DmvSHZ4cdUmoskbDOB/0T4TWvoBzSJApIbd+Yc0Z00ZIQ4dB9mob/28Yb?=
+ =?us-ascii?Q?2XBMCqSU4MvhO3U8ROABweSUcsIeDqG+3xU+TWq/kpPjWWg+0vPG1pu7383x?=
+ =?us-ascii?Q?Badzrani6Q7Ta2LT37zw0mjAzcSwS27WgTiR6pyM4eXVVetW4NFeeKQvW7Lb?=
+ =?us-ascii?Q?RlSkPmHfhppU1j4fFCvX7qA++71hQuHOosQQM6SIVTl1ct0TvYiArIyjpDTx?=
+ =?us-ascii?Q?2ckXBcmdi0elr9icmF1bg68r/nOt5hPLQxDnbmOgP9ycM06i1d4ccwIa/d3s?=
+ =?us-ascii?Q?AQdXnl9ow/PyScWdbYdB9OLWY6eMg6qujdqH4xZRxIEVv26TYLJbC2pDAQY3?=
+ =?us-ascii?Q?kjba2vn5sBM9QRKVgMVFrCKkntm6cYGl50zgJ2/SAW586Bi38cIlYz7lDlpJ?=
+ =?us-ascii?Q?XjBef7OhQ6YJAiA5egQ7/J590XIZnJIWAp22AGrAraqB8AtHjgdCySCWy9yz?=
+ =?us-ascii?Q?Ze9HGeNkEvHY2uAdl+oN1H5rX8kw0GwH+deWCA+oMDBlz4fNP6lE5Z2/LRbB?=
+ =?us-ascii?Q?cVUSJyTEsXZTbSGAM765fmIjea+Bvymg9k8VC4dYwNhyJjE7tbIjfmj2eRQ/?=
+ =?us-ascii?Q?LGm5KQp+0hTMiXuXPfodTE+DyX5TWlCmvnbv2DkxlH9ddiG7F/GhsINC+Gpb?=
+ =?us-ascii?Q?zI7KsQCmsV07JRgNcXDBjPIzbG59WuDeQMblGKjrtwZJysrjjvRg+dQyBsGZ?=
+ =?us-ascii?Q?RXZLw5vgWI+d1SM48vK3aQkTeFFp+Iud1/aSvwJ+pv6QJzzLzbDDOQdloWyt?=
+ =?us-ascii?Q?6c6T7JefxF8lpfOanwFVrdcY8g2uLKKjFa+FD1LB4tXiXhp2nLLV0SZZDTON?=
+ =?us-ascii?Q?pHYC+z4=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3433.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27c2f6f4-c122-4351-5d17-08d8d41a3560
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2021 14:33:50.2191 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1787.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4260c5c0-e874-48d6-0b73-08d8d41ccc95
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2021 14:52:22.7848 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /hKOKAjsoWt9HhdDNwxAko8Fuk1NRMfHukxd7v4faavaDmAa8HbtpbwdTPVwLGzAm1ay6G82Tivl8+FA4vskfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1721
+X-MS-Exchange-CrossTenant-userprincipalname: TlaMCR4yp8SUdjVZdHk8dLtm1dq4huY5B/p8n2O2nCqKHUMnWOHfLHq1MnIL1xB3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2921
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,34 +134,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0466987826=="
+Content-Type: multipart/mixed; boundary="===============1786958064=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0466987826==
+--===============1786958064==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB3433F0538D298A0069DE0D97FD859DM6PR12MB3433namp_"
+	boundary="_000_DM5PR12MB178741FC0E282F3C55ED90F5E5859DM5PR12MB1787namp_"
 
---_000_DM6PR12MB3433F0538D298A0069DE0D97FD859DM6PR12MB3433namp_
+--_000_DM5PR12MB178741FC0E282F3C55ED90F5E5859DM5PR12MB1787namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - Internal Distribution Only]
 
+Reviewed-by: Leo Liu <leo.liu@amd.com>
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jiang, S=
+onny
+Sent: February 18, 2021 9:34 AM
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for shar=
+e memory
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
 Ping.
 ________________________________
-From: Jiang, Sonny <Sonny.Jiang@amd.com>
+From: Jiang, Sonny <Sonny.Jiang@amd.com<mailto:Sonny.Jiang@amd.com>>
 Sent: Wednesday, February 10, 2021 8:31 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Jiang, Sonny <Sonny.Jiang@amd.com>
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Jiang, Sonny <Sonny.Jiang@amd.com<mailto:Sonny.Jiang@amd.com>>
 Subject: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for share me=
 mory
 
 Because of dpg, the rptr/wptr need to be saved on fw shared memory,
 and restore them back in RBC_RB_RPTR/WPTR in kernel at power up.
 
-Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
+Signed-off-by: Sonny Jiang <sonny.jiang@amd.com<mailto:sonny.jiang@amd.com>=
+>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 12 +++++++++++-
  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 24 +++++++++++++++++++++++-
@@ -298,49 +317,122 @@ b.wptr and scratch2 */
 --
 2.25.1
 
-
---_000_DM6PR12MB3433F0538D298A0069DE0D97FD859DM6PR12MB3433namp_
+--_000_DM5PR12MB178741FC0E282F3C55ED90F5E5859DM5PR12MB1787namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
+<body lang=3D"EN-CA" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
 <p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
 gn=3D"Left">
 [AMD Official Use Only - Internal Distribution Only]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Ping. <br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Reviewed-=
+by: Leo Liu &lt;leo.liu@amd.com&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbs=
+p;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
+=3D"EN-US"> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt;
+<b>On Behalf Of </b>Jiang, Sonny<br>
+<b>Sent:</b> February 18, 2021 9:34 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update f=
+or share memory<o:p></o:p></span></p>
 </div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jiang, Sonny &lt;Sonn=
-y.Jiang@amd.com&gt;<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
+-serif;color:#0078D7">[AMD Official Use Only - Internal Distribution Only]<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p style=3D"margin:5.0pt"><span style=3D"font-family:&quot;Arial&quot;,sans=
+-serif;color:#0078D7">[AMD Official Use Only - Internal Distribution Only]<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Ping. <=
+o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Jiang, Sonny &lt;<a href=3D"mailto:Sonny.Jiang@amd.=
+com">Sonny.Jiang@amd.com</a>&gt;<br>
 <b>Sent:</b> Wednesday, February 10, 2021 8:31 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Jiang, Sonny &lt;<a href=3D"mailto:Sonny.Jiang@amd.com">Sonny.Ji=
+ang@amd.com</a>&gt;<br>
 <b>Subject:</b> [PATCH] drm/amdgpu/vcn3.0: add wptr/rptr reset/update for s=
-hare memory</font>
-<div>&nbsp;</div>
+hare memory</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Because of dpg, the rptr/wptr need to be saved on =
-fw shared memory,<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Because of dpg, the r=
+ptr/wptr need to be saved on fw shared memory,<br>
 and restore them back in RBC_RB_RPTR/WPTR in kernel at power up.<br>
 <br>
-Signed-off-by: Sonny Jiang &lt;sonny.jiang@amd.com&gt;<br>
+Signed-off-by: Sonny Jiang &lt;<a href=3D"mailto:sonny.jiang@amd.com">sonny=
+.jiang@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 12 +++++++++++-<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c&nbsp;&nbsp; | 24 ++++++++++++++=
@@ -553,17 +645,19 @@ ng-&gt;wptr));<br>
 sp;&nbsp;&nbsp;&nbsp; adev-&gt;wb.wb[ring-&gt;wptr_offs] =3D lower_32_bits(=
 ring-&gt;wptr);<br>
 -- <br>
-2.25.1<br>
-<br>
+2.25.1<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB3433F0538D298A0069DE0D97FD859DM6PR12MB3433namp_--
+--_000_DM5PR12MB178741FC0E282F3C55ED90F5E5859DM5PR12MB1787namp_--
 
---===============0466987826==
+--===============1786958064==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -574,4 +668,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0466987826==--
+--===============1786958064==--
