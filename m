@@ -2,71 +2,50 @@ Return-Path: <SRS0=9dkd=HU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CD5FC433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 22:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8B58C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 22:32:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C407B64D73
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 22:15:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C407B64D73
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8D43E64EB4
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Feb 2021 22:32:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D43E64EB4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 229906EA66;
-	Thu, 18 Feb 2021 22:15:55 +0000 (UTC)
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [IPv6:2607:f8b0:4864:20::82a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71BCA6EA66;
- Thu, 18 Feb 2021 22:15:54 +0000 (UTC)
-Received: by mail-qt1-x82a.google.com with SMTP id z6so2077320qts.0;
- Thu, 18 Feb 2021 14:15:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FeCuG0+nbpSNqv96HRmmOmF6NjMoI+ZnR27qrgGD6rs=;
- b=as7nVgg+3Bi598tS9hzrydn++9WqX26LNgzK7I0U8Ooa2LClzOLZfr/ZON3ruiatWd
- gL4Zqzvv4YrtQUKD0TygGQ90hPFXW+NA7PN+6PNdZxtXMi1b5OVbmXZVsb4qISYlzpUn
- ikHAMPClVhVxJza9/mQaYg+1xk9Rkt5SyFrkCNbXyENATFXe1yXuYaofe44Mk6xHd0Wl
- NuruEvIaAMHGLiaA70//MAHTAWCu2GxrZCN15Fpz0LNPVzEJccMAB+eWbC332HmC2L70
- 1Wf+aVLE4ebjqCBftPh0GlB2/qsbQYZ+fkE/zGnIBrtdOWuspkzGtQ0In69B56xBjDyi
- +ZAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FeCuG0+nbpSNqv96HRmmOmF6NjMoI+ZnR27qrgGD6rs=;
- b=aDzzkZ/jv66g935e1MdOCA5PO6dfWoAcIzXNPuywtrEsmGCEPSQQKNALOLghw46Fak
- x6eSGO2rJDWgWd1grivtFYApD0PjlRaKjBBNNoPwW0HJdkATUg7L5Ahhop1Jhz6pX7jy
- LqT6xnYSAOsXsefw0Mhss0uy6Pq/3b4Yi3RLkDidURRJPf3M+4R29x8zM28f0v87HZDA
- lIE7dr0Af8VVZbG0N4ClMRlJxHIRmbpX6+Z+FfNSXiWZ51ljDLLYGtyTX3MHwHQXY+hu
- yOFZ8chhGW3rCXwv2owc3PAyDvluP2xO8RBaagLcDaiGwrXpQbNDzP0vqNuWqxi0zBiC
- cTIg==
-X-Gm-Message-State: AOAM530HbVsAyxVS2YhwCmzVPpMd819WGzk7+zWy87mb62sorbGsHngW
- rI4CCAwTjf7471ZYlP8rpXNP6X5Pspo=
-X-Google-Smtp-Source: ABdhPJwye4IBM9hl3KzEKGHzn3Qe3S0ZJa4T5WcigXFXgk8xfqndEBDJtg5nALsD5VjsCFaBCHlNyg==
-X-Received: by 2002:ac8:5a0d:: with SMTP id n13mr6220168qta.172.1613686553308; 
- Thu, 18 Feb 2021 14:15:53 -0800 (PST)
-Received: from localhost.localdomain ([192.161.79.229])
- by smtp.gmail.com with ESMTPSA id j124sm4862706qkf.113.2021.02.18.14.15.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Feb 2021 14:15:52 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu, amdkfd, radeon drm-next-5.12
-Date: Thu, 18 Feb 2021 17:15:31 -0500
-Message-Id: <20210218221531.3870-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44C8D89DB4;
+	Thu, 18 Feb 2021 22:32:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6300B88E66
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Feb 2021 22:32:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C22E64D73;
+ Thu, 18 Feb 2021 22:31:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613687520;
+ bh=hFBycN0q8ae37lIznDyHqFHNPTIl94q9jms93GliOCk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ErsaiAPnfDApMQtDVsAIaSFxm73fATtriDfDrDiBMes9ohdV+xl5VkNPvZ8UgixqQ
+ 9lt+yMVe7f+EhUklnwjK9P8QOn3i4bpUnUquDDPsW9www7C3EO9PrVoG2EwaPGwj9o
+ gpblqVUkhpQx0AcP3VCABp7RNgoKLUMWRsm0kMYxpicMXSzP33t6P3Cqp79PAapjab
+ sbQDpBnK3Z2w+aFkbJUk4Hht/YuRIOvT8YAZFJFOWKLaNw77Jw0O5zh3eNmFpG7vAd
+ TFxedIr/bSW6cBCrc76p5A3blHr5ufDaHwqpiox1joQLfze/O10s1FLoLwMJ9iH7hv
+ BAcmtvbWrFbig==
+Date: Thu, 18 Feb 2021 15:31:58 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Subject: Re: [PATCH 09/14] drm/amd/display: Add Freesync HDMI support to DM
+Message-ID: <20210218223158.GA52356@24bbad8f3778>
+References: <20210211214444.8348-1-qingqing.zhuo@amd.com>
+ <20210211214444.8348-10-qingqing.zhuo@amd.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210211214444.8348-10-qingqing.zhuo@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,202 +57,312 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Harry.Wentland@amd.com, bindu.r@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRGF2ZSwgRGFuaWVsLAoKRml4ZXMgZm9yIDUuMTIuCgpUaGUgZm9sbG93aW5nIGNoYW5nZXMg
-c2luY2UgY29tbWl0IDRjM2EzMjkyNzMwYzU2NTkxNDcyNzE3ZDhjNWMwZmFmNzRmNmM2YmI6Cgog
-IGRybS9hbWQvZGlzcGxheTogZml4IHVudXNlZCB2YXJpYWJsZSB3YXJuaW5nICgyMDIxLTAyLTA1
-IDA5OjQ5OjQ0ICsxMDAwKQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgR2l0IHJlcG9zaXRvcnkgYXQ6
-CgogIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9hZ2Q1Zi9saW51eC5naXQgdGFncy9h
-bWQtZHJtLW5leHQtNS4xMi0yMDIxLTAyLTE4Cgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAg
-dG8gNmU4MGZiOGFiMDRmNmM0ZjM3N2UyZmQ0MjJiZGQxODU1YmViNzM3MToKCiAgZHJtL2FtZGdw
-dTogU2V0IHJlZmVyZW5jZSBjbG9jayB0byAxMDBNaHogb24gUmVub2lyICh2MikgKDIwMjEtMDIt
-MTggMTY6NDM6MDkgLTA1MDApCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmFtZC1kcm0tbmV4dC01LjEyLTIwMjEtMDItMTg6
-CgphbWRncHU6Ci0gUHJlZmVyIEJoYXdhbidzIHVudXNlZCB2YXJpYWJsZSBmaXgKLSBGaXhlcyBm
-b3IgaGlnaCBwcmlvcml0eSBxdWV1ZXMgb24gZ2Z4OCw5Ci0gc3dTTVUgZml4ZXMgZm9yIHNpZW5u
-YSBjaWNobGlkCi0gc3dTTVUgZml4ZXMgZm9yIHJlbm9pcgotIG1taHViIGNsaWVudCBpZCBmaXhl
-cyBmb3IgYXJjdHVydXMKLSBTTVVJTyBmaXhlcyBmb3IgbmF2aSBmYW1pbHkKLSBzd1NNVSBmaXhl
-cyBmb3IgdmFuZ29naAotIEdQVSByZXNldCBjbGVhbnVwCi0gRGlzcGxheSBmaXhlcwotIEdGWCBo
-YXJ2ZXN0aW5nIGZpeCBmb3Igc2llbm5hIGNpY2hsaWQKLSBGaXggcmVmZXJlbmNlIGNsb2NrIG9u
-IFJlbm9pcgotIE1pc2MgZml4ZXMgYW5kIGNsZWFudXBzCgphbWRrZmQ6Ci0gRml4IGZvciB1bmlx
-dWUgaWQgcXVlcnkKLSBGaXggcmVjdXJzaXZlIGxvY2sgd2FybmluZ3MKCnJhZGVvbjoKLSBSZW1v
-dmUgY29uZnVzaW5nIFZDRSBtZXNzYWdlcyBvbiBPbGFuZAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERldWNoZXIg
-KDE2KToKICAgICAgUmV2ZXJ0ICJkcm0vYW1kL2Rpc3BsYXk6IGZpeCB1bnVzZWQgdmFyaWFibGUg
-d2FybmluZyIKICAgICAgZHJtL2FtZGdwdS9zbXUxMjogZml4IHBvd2VyIHJlcG9ydGluZyBvbiBy
-ZW5vaXIKICAgICAgZHJtL2FtZGdwdS9nbWM5OiBmaXggbW1odWIgY2xpZW50IG1hcHBpbmcgZm9y
-IGFyY3R1cnVzCiAgICAgIGRybS9hbWRncHUvc2k6IG1pbm9yIGNsZWFuIHVwIG9mIHJlc2V0IGNv
-ZGUKICAgICAgZHJtL2FtZGdwdS9jaWs6IG1pbm9yIGNsZWFuIHVwIG9mIHJlc2V0IGNvZGUKICAg
-ICAgZHJtL2FtZGdwdS92aTogbWlub3IgY2xlYW4gdXAgb2YgcmVzZXQgY29kZQogICAgICBkcm0v
-YW1kZ3B1OiBhZGQgZ2VuZXJpYyBwY2kgcmVzZXQgYXMgYW4gb3B0aW9uCiAgICAgIGRybS9hbWRn
-cHUvc2k6IGFkZCBQQ0kgcmVzZXQgc3VwcG9ydAogICAgICBkcm0vYW1kZ3B1L3NvYzE1OiBhZGQg
-UENJIHJlc2V0IHN1cHBvcnQKICAgICAgZHJtL2FtZGdwdS9udjogYWRkIFBDSSByZXNldCBzdXBw
-b3J0CiAgICAgIGRybS9hbWRncHU6IGRyb3AgZXh0cmEgZHJtX2ttc19oZWxwZXJfcG9sbF9lbmFi
-bGUvZGlzYWJsZSBjYWxscwogICAgICBkcm0vYW1kZ3B1OiB1c2UgcnVucG0gZmxhZyByYXRoZXIg
-dGhhbiBmYmNvbiBmb3Iga2ZkIHJ1bnRpbWUgc3VzcGVuZCAodjIpCiAgICAgIGRybS9hbWRncHU6
-IHJlc2V0IHJ1bnBtIGZsYWcgaWYgZGV2aWNlIHN1c3BlbmQgZmFpbHMKICAgICAgUmV2ZXJ0ICJk
-cm0vYW1kL2Rpc3BsYXk6IFVwZGF0ZSBOVjF4IFNSIGxhdGVuY3kgdmFsdWVzIgogICAgICBkcm0v
-cmFkZW9uOiBPTEFORCBib2FyZHMgZG9uJ3QgaGF2ZSBWQ0UKICAgICAgZHJtL2FtZGdwdTogU2V0
-IHJlZmVyZW5jZSBjbG9jayB0byAxMDBNaHogb24gUmVub2lyICh2MikKCkFudGhvbnkgS29vICgx
-KToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBbRlcgUHJvbW90aW9uXSBSZWxlYXNlIDAuMC41MQoK
-QXJpYyBDeXIgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IDMuMi4xMjIKCkJoYXdhbnByZWV0
-IExha2hhICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBGaXggdW51c2VkIHZhcmlhYmxlIHdh
-cm5pbmcKCkRhbGUgWmhhbyAoMSk6CiAgICAgIGRybS9hbWQvZGlzcGxheTogZml4IHR5cGUgbWlz
-bWF0Y2ggZXJyb3IgZm9yIHJldHVybiB2YXJpYWJsZQoKRGVyZWsgTGFpICgxKToKICAgICAgZHJt
-L2FtZC9kaXNwbGF5OiBBZGQgRElHX0NMT0NLX1BBVFRFUk4gaW4gdGhlIHRyYW5zbWl0dGVyIGNv
-bnRyb2wKCkVyaWMgWWFuZyAoMSk6CiAgICAgIGRybS9hbWQvZGlzcGxheTogbW92ZSBlZHAgc2lu
-ayBwcmVzZW50IGRldGVjdGlvbiB0byBodyBpbml0CgpGYW5nemhpIFp1byAoMSk6CiAgICAgIGRy
-bS9hbWQvZGlzcGxheTogQWRkIHJldHVybiBjb2RlIGluc3RlYWQgb2YgYm9vbGVhbiBmb3IgZnV0
-dXJlIHVzZQoKRmVsaXggS3VlaGxpbmcgKDEpOgogICAgICBkcm0vYW1ka2ZkOiBGaXggcmVjdXJz
-aXZlIGxvY2sgd2FybmluZ3MKCkd1c3Rhdm8gQS4gUi4gU2lsdmEgKDEpOgogICAgICBkcm0vYW1k
-L2Rpc3BsYXk6IEZpeCBwb3RlbnRpYWwgaW50ZWdlciBvdmVyZmxvdwoKSmFuIEtva2Vtw7xsbGVy
-ICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBBZGQgRlBVIHdyYXBwZXJzIHRvIGRjbjIxX3Zh
-bGlkYXRlX2JhbmR3aWR0aCgpCgpKaWFwZW5nIENob25nICgyKToKICAgICAgZHJtL2FtZC9kaXNw
-bGF5OiBTaW1wbGlmeSBib29sIGNvbXBhcmlzb24KICAgICAgZHJtL3JhZGVvbjogU2ltcGxpZnkg
-Ym9vbCBjb21wYXJpc29uCgpKaWF3ZWkgR3UgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBleHRlbmQg
-TUFYX0tJUV9SRUdfVFJZIHRvIDEwMDAKCkp1biBMZWkgKDEpOgogICAgICBkcm0vYW1kL2Rpc3Bs
-YXk6IHJldmVydCBzdXBwb3J0IGZvciBESUQyLjAgZHNjIHBhc3N0aHJvdWdoCgpLZW5uZXRoIEZl
-bmcgKDMpOgogICAgICBkcm0vYW1kL3BtOiBlbmFibGUgQUNEQyBmZWF0dXJlCiAgICAgIGRybS9h
-bWQvcG06IGVuYWJsZSBEQ1MKICAgICAgZHJtL2FtZC9wbTogZW5hYmxlIExDTEsgRFMKCktlbnQg
-UnVzc2VsbCAoMSk6CiAgICAgIGRybS9hbWRrZmQ6IEdldCB1bmlxdWVfaWQgZHluYW1pY2FsbHkg
-djIKCktldmluIFdhbmcgKDIpOgogICAgICBkcm0vYW1kL3BtL3N3c211OiB1bmlmeSB0aGUgaW5p
-dCBzb2Z0IGdwdSBtZXRyaWNzIGZ1bmN0aW9uCiAgICAgIGRybS9hbWRncHU6IG9wdGltaXplIGxp
-c3Qgb3BlcmF0aW9uIGluIGFtZGdwdV94Z21pCgpMYW5nIFl1ICgxKToKICAgICAgZHJtL2FtZC9k
-aXNwbGF5OiBmaXggNjRiaXQgZGl2aXNpb24gaXNzdWUgb24gMzJiaXQgT1MKCkxpa3VuIEdhbyAo
-NSk6CiAgICAgIGRybS9hbWRncHU6IHN1cHBvcnQgQVNQTSBmb3Igc29tZSBzcGVjaWZpYyBBU0lD
-CiAgICAgIGRybS9hbWRncHU6IGFkZCBTTVVJTyAxMS4wLjYgcmVnaXN0ZXIgaGVhZGVycwogICAg
-ICBkcm0vYW1kZ3B1OiBpbXBsZW1lbnQgc211aW8gdjExXzBfNiBjYWxsYmFja3MKICAgICAgZHJt
-L2FtZGdwdTogc3dpdGNoIHRvIHVzZSBzbXVpbyBjYWxsYmFja3MgZm9yIE5WIGZhbWlseQogICAg
-ICBkcm0vYW1kZ3B1OiBzdXBwb3J0IHJvbSBjbG9ja2dhdGluZyByZWxhdGVkIGZ1bmN0aW9uIGZv
-ciBOViBmYW1pbHkKCk1hcmVrIE9sxaHDoWsgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBmaXggQ0dU
-U19UQ0NfRElTQUJMRSByZWdpc3RlciBvZmZzZXQgb24gZ2Z4MTAuMwoKTmlybW95IERhcyAoNik6
-CiAgICAgIGRybS9hbWRncHU6IGNsZWFudXAgc3RydWN0IGFtZGdwdV9yaW5nCiAgICAgIGRybS9h
-bWRncHU6IGVuYWJsZSBvbmx5IG9uZSBoaWdoIHByaW8gY29tcHV0ZSBxdWV1ZQogICAgICBkcm0v
-YW1kZ3B1OiBhZGQgd2F2ZSBsaW1pdCBmdW5jdGlvbmFsaXR5IGZvciBnZng4LDkKICAgICAgZHJt
-L2FtZGdwdTogZW5hYmxlIGdmeCB3YXZlIGxpbWl0aW5nIGZvciBoaWdoIHByaW9yaXR5IGNvbXB1
-dGUgam9icwogICAgICBkcm0vYW1kZ3B1OiBlbmFibGUgd2F2ZSBsaW1pdCBvbiBub24gaGlnaCBw
-cmlvIGNzIHBpcGVzCiAgICAgIGRybS9hbWRncHUvZGlzcGxheTogcmVtb3ZlIGhkY3Bfc3JtIHN5
-c2ZzIG9uIGRldmljZSByZW1vdmFsCgpRaW5ncWluZyBaaHVvICgxKToKICAgICAgZHJtL2FtZC9k
-aXNwbGF5OiBEUCBIRENQIENvbXBsaWFuY2UgMUEtMDgvMDkgdGVzdHMgZmFpbAoKVGFvIFpob3Ug
-KDEpOgogICAgICBkcm0vYW1kZ3B1OiBlbmFibGUgZ3B1IHJlY292ZXJ5IGZvciBkaW1ncmV5X2Nh
-dmVmaXNoCgpUaWFuIFRhbyAoMSk6CiAgICAgIGRybS9hbWRncHU6IGZpeCB1bm5lY2Vzc2FyeSBO
-VUxMIGNoZWNrIHdhcm5pbmdzCgpXYXluZSBMaW4gKDIpOgogICAgICBkcm0vYW1kZ3B1OiBBZGQg
-b3RnIHZlcnRpY2FsIElSUSBTb3VyY2UKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBBZGQgb3RnIHZl
-cnRpY2FsIGludGVycnVwdDAgc3VwcG9ydCBpbiBEQ04xLjAKCldlc2xleSBDaGFsbWVycyAoMSk6
-CiAgICAgIGRybS9hbWQvZGlzcGxheTogRElPIFN1cHBvcnRlZCBmb3IgdmlydHVhbCBkaXNwbGF5
-cwoKV3lhdHQgV29vZCAoMSk6CiAgICAgIGRybS9hbWQvZGlzcGxheTogSW5pdGlhbGl6ZSBkbXVi
-X3JiX2NtZCB1bmlvbnMgdG8gMAoKWGlhb2ppYW4gRHUgKDEpOgogICAgICBkcm0vYW1kL3BtOiBt
-YWtlIHRoZSBlcnJvciBsb2cgbW9yZSBjbGVhciBmb3IgZmluZSBncmFpbiB0dW5pbmcgZnVuY3Rp
-b24KClhpYW9tZW5nIEhvdSAoMyk6CiAgICAgIGRybS9hbWQvcG06IHVwZGF0ZSB0aGUgc211IHYx
-MS41IHNtYyBoZWFkZXIgZm9yIHZhbmdvZ2gKICAgICAgZHJtL2FtZC9wbTogbW9kaWZ5IHRoZSBw
-b3dlciBsaW1pdCBsZXZlbCBwYXJhbWV0ZXIgZnJvbSBib29sIHRvIGVudW0gdHlwZQogICAgICBk
-cm0vYW1kL3BtOiBhZGQgc3VwcG9ydCBmb3IgaHdtb24gY29udHJvbCBvZiBzbG93IGFuZCBmYXN0
-IFBQVCBsaW1pdCBvbiB2YW5nb2doCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZp
-bGUgICAgICAgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdS5oICAgICAgICAgICAgICAgIHwgICA3ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY3MuYyAgICAgICAgICAgICB8ICAgMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jICAgICAgICAgfCAgMTkgKysrLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgICAgICAgICAgfCAgMTggKystLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jICAgICAgICAgICAgfCAgMTUgKy0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggICAgICAgICAgICB8ICAgMiArLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMgICAgICAgICAgICAgfCAgIDkg
-KysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9uYmlvLmggICAgICAgICAgIHwg
-ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMgICAgICAgICAg
-IHwgICA4ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oICAgICAg
-ICAgICB8ICAgNyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYyAg
-ICAgICAgICAgfCAgMTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jICAgICAg
-ICAgICAgICAgICAgIHwgIDMzICsrLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3YxMF8wLmMgICAgICAgICAgICAgfCAgMjggKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgIDcyICsrKysrKysrKysrKy0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgICAgICAgICAgICAgIHwgIDcyICsrKysrKysr
-KysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgICAgICAgICAg
-IHwgIDY2ICsrKysrKy0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192Ml8z
-LmMgICAgICAgICAgICAgfCAxMTQgKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L252LmMgICAgICAgICAgICAgICAgICAgIHwgIDQ0ICsrKysrKy0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jICAgICAgICAgICAgICAgICAgICB8ICA0MiArKysr
-LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc211aW9fdjExXzBfNi5jICAgICAgICAg
-fCAgNzcgKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc211aW9fdjEx
-XzBfNi5oICAgICAgICAgfCAgMzAgKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9z
-b2MxNS5jICAgICAgICAgICAgICAgICB8ICAyNiArKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvdmkuYyAgICAgICAgICAgICAgICAgICAgfCAgMzYgKysrLS0tLQogLi4uL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuaCAgfCAgIDQgKy0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jICAgICAgICAgIHwgICA2ICstCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuaCAgICAgICAgICB8ICAgMSAtCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jICB8ICAgNiAr
-LQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmMgfCAg
-IDMgKy0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGRjcC5o
-IHwgICAyICstCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVy
-cy5jICB8ICAgOCArLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bV9pcnEuYyAgfCAgMjIgKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUv
-ZGMuYyAgICAgICAgICAgfCAgNDAgKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2NvcmUvZGNfbGluay5jICAgICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9kYy5oICAgICAgICAgICAgICAgIHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZGNfZHNjLmggICAgICAgICAgICB8ICAgNyArLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2RjX2h3X3R5cGVzLmggICAgICAgfCAgIDEgLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjX2xpbmsuaCAgICAgICAgICAgfCAgIDIgKwogLi4uL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja19zb3VyY2UuYyAgfCAgIDIgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZG11Yl9hYm0uYyAgICAgIHwgICAzICsKIC4u
-Li9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kbXViX2h3X2xvY2tfbWdyLmMgIHwgICAzICst
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RtdWJfcHNyLmMgICAgICB8ICAg
-NiArLQogLi4uL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyX2RlYnVnLmMgICAg
-fCAgIDIgKy0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfbGlua19lbmNvZGVy
-LmMgIHwgIDE1ICsrKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9saW5rX2Vu
-Y29kZXIuaCAgfCAgMTEgKysKIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvZGNuMjBfbGlu
-a19lbmNvZGVyLmMgIHwgICAyICstCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9k
-Y24yMF9yZXNvdXJjZS5jICB8ICAxMSArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjIxL2RjbjIxX2h3c2VxLmMgfCAgIDQgKy0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjIxL2RjbjIxX3Jlc291cmNlLmMgIHwgIDIwICsrKy0KIC4uLi9hbWQvZGlzcGxheS9kYy9k
-bWwvZGNuMjAvZGlzcGxheV9tb2RlX3ZiYV8yMC5jIHwgICA3ICstCiAuLi4vZGlzcGxheS9kYy9k
-bWwvZGNuMjAvZGlzcGxheV9tb2RlX3ZiYV8yMHYyLmMgICB8ICAgNyArLQogLi4uL2FtZC9kaXNw
-bGF5L2RjL2RtbC9kY24yMS9kaXNwbGF5X21vZGVfdmJhXzIxLmMgfCAgIDcgKy0KIC4uLi9hbWQv
-ZGlzcGxheS9kYy9kbWwvZGNuMzAvZGlzcGxheV9tb2RlX3ZiYV8zMC5jIHwgICAyICstCiAuLi4v
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5X21vZGVfc3RydWN0cy5oICB8ICAgMSArCiAu
-Li4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX3ZiYS5jICB8ICAgMiAr
-CiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX3ZiYS5oICB8ICAg
-MSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZHNjL2RjX2RzYy5jICAgICAgICB8
-ICAyOSArKy0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9pbmMvaHcvY2xrX21ncl9pbnRlcm5h
-bC5oICAgfCAgIDQgKy0KIC4uLi9hbWQvZGlzcGxheS9kYy9pcnEvZGNuMTAvaXJxX3NlcnZpY2Vf
-ZGNuMTAuYyAgIHwgIDMxICsrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2ly
-cV90eXBlcy5oICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rt
-dWIvaW5jL2RtdWJfY21kLmggICAgfCAgMjkgKysrKy0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5
-L21vZHVsZXMvaGRjcC9oZGNwX3BzcC5jICAgIHwgICAyICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-aW5jbHVkZS9hbWRfc2hhcmVkLmggICAgICAgICAgIHwgICAxICsKIC4uLi9pbmNsdWRlL2FzaWNf
-cmVnL3NtdWlvL3NtdWlvXzExXzBfNl9vZmZzZXQuaCAgIHwgIDM1ICsrKysrKwogLi4uL2luY2x1
-ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF82X3NoX21hc2suaCAgfCAgNDEgKysrKysrKwog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9hbWRncHVfcG0uYyAgICAgICAgICAgICAgICAgfCAgNDkg
-KysrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9hbWRncHVfc211LmggICAgICAg
-ICAgICB8ICAyMSArKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9zbXVfdHlwZXMuaCAg
-ICAgICAgICAgICB8ICAgNCArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9zbXVfdjExXzAu
-aCAgICAgICAgICAgICB8ICAxMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vaW5jL3NtdV92
-MTFfNV9wcHNtYy5oICAgICAgIHwgICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2luYy9z
-bXVfdjEyXzAuaCAgICAgICAgICAgICB8ICAgMiAtCiAuLi4vZ3B1L2RybS9hbWQvcG0vcG93ZXJw
-bGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMgICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9w
-bS9zd3NtdS9hbWRncHVfc211LmMgICAgICAgICAgfCAgMzAgKysrKystCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL3BtL3N3c211L3NtdTExL2FyY3R1cnVzX3BwdC5jICB8ICAgNCArLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9uYXZpMTBfcHB0LmMgICAgfCAgIDQgKy0KIC4uLi9k
-cm0vYW1kL3BtL3N3c211L3NtdTExL3NpZW5uYV9jaWNobGlkX3BwdC5jICAgIHwgIDE1ICsrLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9zbXVfdjExXzAuYyAgICAgfCAgMzIg
-Ky0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTExL3ZhbmdvZ2hfcHB0LmMg
-ICB8IDEyMCArKysrKysrKysrKysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
-bXUvc211MTIvcmVub2lyX3BwdC5jICAgIHwgICA5ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L3N3c211L3NtdTEyL3NtdV92MTJfMC5jICAgICB8ICAxMiAtLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvcG0vc3dzbXUvc211X2Ntbi5jICAgICAgICAgICAgIHwgIDI4ICsrKysrCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3BtL3N3c211L3NtdV9jbW4uaCAgICAgICAgICAgICB8ICAgMiArCiBkcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9hc2ljLmMgICAgICAgICAgICAgICB8ICAgMyArCiBkcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl92Y2UuYyAgICAgICAgICAgICAgICB8ICAgMSAtCiBk
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JzNjkwLmMgICAgICAgICAgICAgICAgICAgICB8ICAgMiAr
-LQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi92Y2VfdjFfMC5jICAgICAgICAgICAgICAgICAgfCAg
-IDEgLQogODYgZmlsZXMgY2hhbmdlZCwgMTE0NyBpbnNlcnRpb25zKCspLCAzNDIgZGVsZXRpb25z
-KC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc211aW9f
-djExXzBfNi5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c211aW9fdjExXzBfNi5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9p
-bmNsdWRlL2FzaWNfcmVnL3NtdWlvL3NtdWlvXzExXzBfNl9vZmZzZXQuaAogY3JlYXRlIG1vZGUg
-MTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXVpby9zbXVpb18x
-MV8wXzZfc2hfbWFzay5oCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Thu, Feb 11, 2021 at 04:44:39PM -0500, Qingqing Zhuo wrote:
+> From: Stylon Wang <stylon.wang@amd.com>
+> 
+> [Why]
+> Add necessary support for Freesync HDMI in Linux DM
+> 
+> [How]
+> - Support Freesync HDMI by calling DC interace
+> - Report Freesync capability to vrr_range debugfs from DRM
+> - Depends on coming DMCU/DMUB firmware to enable feature
+> 
+> Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+> Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+> Acked-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 175 ++++++++++++++----
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   8 +
+>  2 files changed, 144 insertions(+), 39 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 626a8cc92d65..c55ee0a24c26 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -34,6 +34,7 @@
+>  #include "dc/inc/hw/dmcu.h"
+>  #include "dc/inc/hw/abm.h"
+>  #include "dc/dc_dmub_srv.h"
+> +#include "dc/dc_edid_parser.h"
+>  #include "amdgpu_dm_trace.h"
+>  
+>  #include "vid.h"
+> @@ -6995,6 +6996,12 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+>  		 */
+>  		drm_mode_sort(&connector->probed_modes);
+>  		amdgpu_dm_get_native_mode(connector);
+> +
+> +		/* Freesync capabilities are reset by calling
+> +		 * drm_add_edid_modes() and need to be
+> +		 * restored here.
+> +		 */
+> +		amdgpu_dm_update_freesync_caps(connector, edid);
+>  	} else {
+>  		amdgpu_dm_connector->num_modes = 0;
+>  	}
+> @@ -9718,11 +9725,84 @@ static bool is_dp_capable_without_timing_msa(struct dc *dc,
+>  
+>  	return capable;
+>  }
+> +
+> +static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+> +		uint8_t *edid_ext, int len,
+> +		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+> +{
+> +	int i;
+> +	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+> +	struct dc *dc = adev->dm.dc;
+> +
+> +	/* send extension block to DMCU for parsing */
+> +	for (i = 0; i < len; i += 8) {
+> +		bool res;
+> +		int offset;
+> +
+> +		/* send 8 bytes a time */
+> +		if (!dc_edid_parser_send_cea(dc, i, len, &edid_ext[i], 8))
+> +			return false;
+> +
+> +		if (i+8 == len) {
+> +			/* EDID block sent completed, expect result */
+> +			int version, min_rate, max_rate;
+> +
+> +			res = dc_edid_parser_recv_amd_vsdb(dc, &version, &min_rate, &max_rate);
+> +			if (res) {
+> +				/* amd vsdb found */
+> +				vsdb_info->freesync_supported = 1;
+> +				vsdb_info->amd_vsdb_version = version;
+> +				vsdb_info->min_refresh_rate_hz = min_rate;
+> +				vsdb_info->max_refresh_rate_hz = max_rate;
+> +				return true;
+> +			}
+> +			/* not amd vsdb */
+> +			return false;
+> +		}
+> +
+> +		/* check for ack*/
+> +		res = dc_edid_parser_recv_cea_ack(dc, &offset);
+> +		if (!res)
+> +			return false;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +static bool parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> +		struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+> +{
+> +	uint8_t *edid_ext = NULL;
+> +	int i;
+> +	bool valid_vsdb_found = false;
+> +
+> +	/*----- drm_find_cea_extension() -----*/
+> +	/* No EDID or EDID extensions */
+> +	if (edid == NULL || edid->extensions == 0)
+> +		return false;
+> +
+> +	/* Find CEA extension */
+> +	for (i = 0; i < edid->extensions; i++) {
+> +		edid_ext = (uint8_t *)edid + EDID_LENGTH * (i + 1);
+> +		if (edid_ext[0] == CEA_EXT)
+> +			break;
+> +	}
+> +
+> +	if (i == edid->extensions)
+> +		return false;
+> +
+> +	/*----- cea_db_offsets() -----*/
+> +	if (edid_ext[0] != CEA_EXT)
+> +		return false;
+> +
+> +	valid_vsdb_found = parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, vsdb_info);
+> +	return valid_vsdb_found;
+> +}
+> +
+>  void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  					struct edid *edid)
+>  {
+>  	int i;
+> -	bool edid_check_required;
+>  	struct detailed_timing *timing;
+>  	struct detailed_non_pixel *data;
+>  	struct detailed_data_monitor_range *range;
+> @@ -9733,6 +9813,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  	struct drm_device *dev = connector->dev;
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+>  	bool freesync_capable = false;
+> +	struct amdgpu_hdmi_vsdb_info vsdb_info = {0};
+> +	bool hdmi_valid_vsdb_found = false;
+>  
+>  	if (!connector->state) {
+>  		DRM_ERROR("%s - Connector has no state", __func__);
+> @@ -9751,60 +9833,75 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  
+>  	dm_con_state = to_dm_connector_state(connector->state);
+>  
+> -	edid_check_required = false;
+>  	if (!amdgpu_dm_connector->dc_sink) {
+>  		DRM_ERROR("dc_sink NULL, could not add free_sync module.\n");
+>  		goto update;
+>  	}
+>  	if (!adev->dm.freesync_module)
+>  		goto update;
+> -	/*
+> -	 * if edid non zero restrict freesync only for dp and edp
+> -	 */
+> -	if (edid) {
+> -		if (amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT
+> -			|| amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_EDP) {
+> +
+> +
+> +	if (amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT
+> +		|| amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_EDP) {
+> +		bool edid_check_required = false;
+> +
+> +		if (edid) {
+>  			edid_check_required = is_dp_capable_without_timing_msa(
+>  						adev->dm.dc,
+>  						amdgpu_dm_connector);
+>  		}
+> -	}
+> -	if (edid_check_required == true && (edid->version > 1 ||
+> -	   (edid->version == 1 && edid->revision > 1))) {
+> -		for (i = 0; i < 4; i++) {
+>  
+> -			timing	= &edid->detailed_timings[i];
+> -			data	= &timing->data.other_data;
+> -			range	= &data->data.range;
+> -			/*
+> -			 * Check if monitor has continuous frequency mode
+> -			 */
+> -			if (data->type != EDID_DETAIL_MONITOR_RANGE)
+> -				continue;
+> -			/*
+> -			 * Check for flag range limits only. If flag == 1 then
+> -			 * no additional timing information provided.
+> -			 * Default GTF, GTF Secondary curve and CVT are not
+> -			 * supported
+> -			 */
+> -			if (range->flags != 1)
+> -				continue;
+> +		if (edid_check_required == true && (edid->version > 1 ||
+> +		   (edid->version == 1 && edid->revision > 1))) {
+> +			for (i = 0; i < 4; i++) {
+> +
+> +				timing	= &edid->detailed_timings[i];
+> +				data	= &timing->data.other_data;
+> +				range	= &data->data.range;
+> +				/*
+> +				 * Check if monitor has continuous frequency mode
+> +				 */
+> +				if (data->type != EDID_DETAIL_MONITOR_RANGE)
+> +					continue;
+> +				/*
+> +				 * Check for flag range limits only. If flag == 1 then
+> +				 * no additional timing information provided.
+> +				 * Default GTF, GTF Secondary curve and CVT are not
+> +				 * supported
+> +				 */
+> +				if (range->flags != 1)
+> +					continue;
+>  
+> -			amdgpu_dm_connector->min_vfreq = range->min_vfreq;
+> -			amdgpu_dm_connector->max_vfreq = range->max_vfreq;
+> -			amdgpu_dm_connector->pixel_clock_mhz =
+> -				range->pixel_clock_mhz * 10;
+> +				amdgpu_dm_connector->min_vfreq = range->min_vfreq;
+> +				amdgpu_dm_connector->max_vfreq = range->max_vfreq;
+> +				amdgpu_dm_connector->pixel_clock_mhz =
+> +					range->pixel_clock_mhz * 10;
+>  
+> -			connector->display_info.monitor_range.min_vfreq = range->min_vfreq;
+> -			connector->display_info.monitor_range.max_vfreq = range->max_vfreq;
+> +				connector->display_info.monitor_range.min_vfreq = range->min_vfreq;
+> +				connector->display_info.monitor_range.max_vfreq = range->max_vfreq;
+>  
+> -			break;
+> -		}
+> +				break;
+> +			}
+>  
+> -		if (amdgpu_dm_connector->max_vfreq -
+> -		    amdgpu_dm_connector->min_vfreq > 10) {
+> +			if (amdgpu_dm_connector->max_vfreq -
+> +			    amdgpu_dm_connector->min_vfreq > 10) {
+>  
+> -			freesync_capable = true;
+> +				freesync_capable = true;
+> +			}
+> +		}
+> +	} else if (edid && amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+> +		hdmi_valid_vsdb_found = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+> +		if (hdmi_valid_vsdb_found && vsdb_info.freesync_supported) {
+> +			timing  = &edid->detailed_timings[i];
+
+
+This variable is uninitialized, as reported by clang:
+
+$ make -skj"$(nproc)" CC=clang allyesconfig drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.o
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9811:38: warning: variable 'i' is uninitialized when used here [-Wuninitialized]
+                        timing  = &edid->detailed_timings[i];
+                                                          ^
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9721:7: note: initialize the variable 'i' to silence this warning
+        int i;
+             ^
+              = 0
+1 warning generated.
+
+Cheers,
+Nathan
+
+> +			data    = &timing->data.other_data;
+> +
+> +			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+> +			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+> +			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+> +				freesync_capable = true;
+> +
+> +			connector->display_info.monitor_range.min_vfreq = vsdb_info.min_refresh_rate_hz;
+> +			connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+>  		}
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 38bc0f88b29c..5f9950fd216c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -475,6 +475,14 @@ struct dm_connector_state {
+>  	uint64_t pbn;
+>  };
+>  
+> +struct amdgpu_hdmi_vsdb_info {
+> +	unsigned int amd_vsdb_version;		/* VSDB version, should be used to determine which VSIF to send */
+> +	bool freesync_supported;		/* FreeSync Supported */
+> +	unsigned int min_refresh_rate_hz;	/* FreeSync Minimum Refresh Rate in Hz */
+> +	unsigned int max_refresh_rate_hz;	/* FreeSync Maximum Refresh Rate in Hz */
+> +};
+> +
+> +
+>  #define to_dm_connector_state(x)\
+>  	container_of((x), struct dm_connector_state, base)
+>  
+> -- 
+> 2.17.1
+> 
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
