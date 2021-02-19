@@ -2,64 +2,65 @@ Return-Path: <SRS0=jKCf=HV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D408C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 02:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD0DAC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 03:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC75C64ED9
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 02:28:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC75C64ED9
+	by mail.kernel.org (Postfix) with ESMTPS id 6CDAF64ED9
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 03:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CDAF64ED9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733226EA7A;
-	Fri, 19 Feb 2021 02:28:18 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD4696EA7A
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 02:28:16 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id h10so6902521edl.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Feb 2021 18:28:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBC1D6EA91;
+	Fri, 19 Feb 2021 03:53:57 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1448E6EA27
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 03:53:57 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id s3so802475otg.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Feb 2021 19:53:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GG7CxeOjSsxNMcsShJqeoEt3lOP3ckNPy08TwZRtHAQ=;
- b=ZFZBlZw/+FSQlIwEtWkaUVqjUEA2i3c2qANS+V7Lh5dHtzCFO9ygAyJG9cw3CCjv9S
- eKGnfINT3VMWAtxIsUHPo4OfJapN80b+mRgQ2JfS3Sd/wq9RgmsSU8DCP1AHCVMx6hw4
- Twufeqv8WNL9cnU9ziyNwpr2SD3wb4z7c0NbBbIXxT2phyNsutqOK3+7cLvyuTAca/86
- KpGud/VcfofIxvCUzX0Tdu7pbg2aBdouLy84JmLaURvU+DaEBD8i9X7dBipv+zl6qMG+
- O8IFH5KUZcPdqmvCRtBBrTsFcsxO8r8NdNmv7pgd/hvnVnKgAkJPb4hxcVCYZfj447EC
- A6TA==
+ :cc; bh=2QX5X7QVheVvvurQ/O5R8WtknuCyPHg+pvYdLT9stTk=;
+ b=prPZf6WwY0D/cieUkkqekAP1W9hVOuyLokIe/B8YxT7qMBYj00zcMm+bdSlct34lYL
+ Wslck8r9G1vIfrL533FXwaT9Q4lclEazAw/5YLmC/o86JJddoDcCZHmN5dVRlOZMcNFe
+ QFuuR+mIDU0rMhZNq7LNuAH4FI58HpqNMcHWK1lAPK86//iTw2TjF9KbfVeRxOSuOEaM
+ buhDzRolgyNzPOTrdq1v9AUQoGVcSYZeD8b6LcjIoSCw5gw81d0olBvnX1B/mjhGzUAY
+ bERyCR2dF252OrubWPRJx6qRJHpV4iYGuiT+5Cjt8fcWlV/0Cwvpaq4S5/Wh/xForccT
+ N2wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=GG7CxeOjSsxNMcsShJqeoEt3lOP3ckNPy08TwZRtHAQ=;
- b=pbIbXUbsqHMaEWAdm4uV6XUOaWB80FNhkA0iTySUkUZtIItzYTd57SvKsuDLr9QdAF
- 4wHF/+B7Zo7chPuh8FzgHizE0+AWi1fuHFEO37vdVO4OYm63iLrt+nSnKfvVO5lE8fcd
- 6Xi2N7bUwFPx31D7ghbf6911SNv3sV6uGOoXdP/BQfmoOjWY6bhqijNyLqUK3h/RBZsR
- nnKkUn9ADsdSZs3embA3dRuIx0wPy5HOB4x9sji5pB+TaibQQfYX4JRTwr72uRXUtBT7
- mXONCMSCjzeIkgGJr5hN7uN2XCAogR5LdocSEvCf3ohgvapWlCpWLVIC42PjZiF0XiCh
- ONzA==
-X-Gm-Message-State: AOAM533Kz7P7ZQrPmajAdmY8XIPi3gDOI9cEhfkYOuG+hJYQpngSYiRx
- BIKNz2Ptk5pM5zDQEI3wuhIyqjoX70+1iBGoXsI=
-X-Google-Smtp-Source: ABdhPJwUZ/xIKRe/UwxORlzPMUqFjHOUb1xsSXGsvCoKMYaIDkHFrf13JC7IHAikoUrMx4PR2ZWvqvxWpRrjiveY4DA=
-X-Received: by 2002:a50:8ad3:: with SMTP id k19mr6935234edk.11.1613701695700; 
- Thu, 18 Feb 2021 18:28:15 -0800 (PST)
+ bh=2QX5X7QVheVvvurQ/O5R8WtknuCyPHg+pvYdLT9stTk=;
+ b=g9ajWT/QojxVIwc6pvxzIZ17LWGXLvaUoPj9+j/YGtTuDQW+I9sLHCmruc98XcVcTh
+ KYaFmf98XofGTgRIn89/9/swRmEv1v0IfFiu0FiQB2HXlPHxT5SgTFKH5765vDIzWsT6
+ kMUND6Ca/JSrOBdob9mvJXQWLrY+572WMfUqRLnPYTD+blh5PgmBoMkpLvfAtQxcH+vc
+ G3TPNqwaYOF+M0f8L02MvfJPJLvm8IKVJMpWn9+ifbt8Y7WoEoCCYF4M/xrQXe1nUbQO
+ Nd5OJOfb1zno8qAqX+icCtGdxZ0Nqes+yFIDXpkIrN+1GODzOYplweZI8cH92rZ0OaPF
+ ZwSw==
+X-Gm-Message-State: AOAM533WZ2XxH0aQvqQ0Bln9vKoEr8v5nb1ChGIbYD5lUbOBKwtzKVzo
+ pOllQA9nDWgoJ2qDdJkilvRzGZM9HJhlpHHZwKA=
+X-Google-Smtp-Source: ABdhPJxE2AoYVHhXVMkXVXyFRGLcaJ8djEHeX7MSiCVL0hMpMEYN1Cv+W/x/8aA5XYa/LNB3uAfbmny/l29wQQddhOg=
+X-Received: by 2002:a9d:12f2:: with SMTP id g105mr5807308otg.132.1613706836402; 
+ Thu, 18 Feb 2021 19:53:56 -0800 (PST)
 MIME-Version: 1.0
-References: <20210217225123.2305227-1-alexander.deucher@amd.com>
-In-Reply-To: <20210217225123.2305227-1-alexander.deucher@amd.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Fri, 19 Feb 2021 03:28:04 +0100
-Message-ID: <CAEsyxyg4oTe4cgUJUHiGt7NQrpv_kqwPzSuRNGsPMHn_HkzvKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Allow spatial dither to 10 bpc on all DCE
-To: Alex Deucher <alexdeucher@gmail.com>
+References: <20210218171054.3039369-1-alexander.deucher@amd.com>
+ <BYAPR12MB3238E2E495055E7D37EFD284FB849@BYAPR12MB3238.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB3238E2E495055E7D37EFD284FB849@BYAPR12MB3238.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 Feb 2021 22:53:45 -0500
+Message-ID: <CADnq5_MF2vZ3G_99REz71HmibfXGwTg5+fw8Tv-GqPrf0jY9pg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix shutdown with s0ix
+To: "Liang, Prike" <Prike.Liang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,136 +72,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0100863107=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0100863107==
-Content-Type: multipart/alternative; boundary="00000000000058829b05bba73468"
-
---00000000000058829b05bba73468
-Content-Type: text/plain; charset="UTF-8"
-
-Your v2 has my
-Reviewed-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-
-thanks,
--mario
-
-On Wed, Feb 17, 2021 at 11:51 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-
-> From: Mario Kleiner <mario.kleiner.de@gmail.com>
+On Thu, Feb 18, 2021 at 7:57 PM Liang, Prike <Prike.Liang@amd.com> wrote:
 >
-> Spatial dithering to 10 bpc depth was disabled for all DCE's.
+> [AMD Official Use Only - Internal Distribution Only]
 >
-> Testing on DCE-8.3 and DCE-11.2 did not show any obvious ill
-> effects, but a measureable precision improvement (via colorimeter)
-> when displaying a fp16 framebuffer to a 10 bpc DP or HDMI connected
-> HDR-10 monitor.
+> Thanks Alex fix, I also have drafted the fix locally for the poweroff and shutdown on the s0ix enablement.
+> Besides the shutdown opt fix for the reboot process and we also need a similarity for the poweroff opt.
 >
-> v2: enable it for all DCEs (Alex)
->
-> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> Cc: Alex Deucher <alexdeucher@gmail.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dce/dce_opp.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> index 4600231da6cb..895b015b02e8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c
-> @@ -216,9 +216,7 @@ static void set_spatial_dither(
->         REG_UPDATE(FMT_BIT_DEPTH_CONTROL,
->                 FMT_TEMPORAL_DITHER_EN, 0);
->
-> -       /* no 10bpc on DCE11*/
-> -       if (params->flags.SPATIAL_DITHER_ENABLED == 0 ||
-> -               params->flags.SPATIAL_DITHER_DEPTH == 2)
-> +       if (params->flags.SPATIAL_DITHER_ENABLED == 0)
->                 return;
->
->         /* only use FRAME_COUNTER_MAX if frameRandom == 1*/
-> --
-> 2.29.2
->
->
+> So how about create a new combination flag for legacy PM poweroff() and shutdown() opt?
 
---00000000000058829b05bba73468
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Sure.
 
-<div dir=3D"ltr"><div>Your v2 has my <br></div><div>Reviewed-by: Mario Klei=
-ner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mar=
-io.kleiner.de@gmail.com</a>&gt;</div><div><br></div><div>thanks,</div><div>=
--mario</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"=
-gmail_attr">On Wed, Feb 17, 2021 at 11:51 PM Alex Deucher &lt;<a href=3D"ma=
-ilto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">From: Mario Kleiner &lt;<a=
- href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mario.kleiner=
-.de@gmail.com</a>&gt;<br>
-<br>
-Spatial dithering to 10 bpc depth was disabled for all DCE&#39;s.<br>
-<br>
-Testing on DCE-8.3 and DCE-11.2 did not show any obvious ill<br>
-effects, but a measureable precision improvement (via colorimeter)<br>
-when displaying a fp16 framebuffer to a 10 bpc DP or HDMI connected<br>
-HDR-10 monitor.<br>
-<br>
-v2: enable it for all DCEs (Alex)<br>
-<br>
-Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.c=
-om" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
-Cc: Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com" target=3D"_bl=
-ank">alexdeucher@gmail.com</a>&gt;<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/display/dc/dce/dce_opp.c | 4 +---<br>
-=C2=A01 file changed, 1 insertion(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c b/drivers/gpu/drm=
-/amd/display/dc/dce/dce_opp.c<br>
-index 4600231da6cb..895b015b02e8 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_opp.c<br>
-@@ -216,9 +216,7 @@ static void set_spatial_dither(<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 REG_UPDATE(FMT_BIT_DEPTH_CONTROL,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 FMT_TEMPORAL_DITHER=
-_EN, 0);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0/* no 10bpc on DCE11*/<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (params-&gt;flags.SPATIAL_DITHER_ENABLED =3D=
-=3D 0 ||<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0params-&gt;flags.SP=
-ATIAL_DITHER_DEPTH =3D=3D 2)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (params-&gt;flags.SPATIAL_DITHER_ENABLED =3D=
-=3D 0)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* only use FRAME_COUNTER_MAX if frameRandom =
-=3D=3D 1*/<br>
--- <br>
-2.29.2<br>
-<br>
-</blockquote></div>
+Alex
 
---00000000000058829b05bba73468--
-
---===============0100863107==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+> Thanks,
+> Prike
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Friday, February 19, 2021 1:11 AM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
+> > <Prike.Liang@amd.com>
+> > Subject: [PATCH] drm/amdgpu: fix shutdown with s0ix
+> >
+> > For shutdown needs to be handled differently and s0ix.  Add a new flag to
+> > shutdown and use it to adjust behavior appropriately.
+> >
+> > Bug:
+> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitla
+> > b.freedesktop.org%2Fdrm%2Famd%2F-
+> > %2Fissues%2F1499&amp;data=04%7C01%7CPrike.Liang%40amd.com%7C247
+> > 59f57e2644f26deaf08d8d4302cc3%7C3dd8961fe4884e608e11a82d994e183d
+> > %7C0%7C0%7C637492650673813454%7CUnknown%7CTWFpbGZsb3d8eyJWI
+> > joiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1
+> > 000&amp;sdata=I0rH%2FFt2cs%2BdNwvNdqWKPE%2B3bOosUyBodViUsEwb
+> > 6tE%3D&amp;reserved=0
+> > Fixes: 628c36d7b238e2 ("drm/amdgpu: update amdgpu device
+> > suspend/resume sequence for s0i3 support")
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Prike Liang <Prike.Liang@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 2 ++
+> >  3 files changed, 7 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index da258331e86b..7f5500d8e8f4 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -1018,6 +1018,7 @@ struct amdgpu_device {
+> >  /* s3/s4 mask */
+> >  bool                            in_suspend;
+> >  boolin_hibernate;
+> > +boolin_shutdown;
+> >
+> >  atomic_t in_gpu_reset;
+> >  enum pp_mp1_state               mp1_state;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 7052dc35d278..ecd0201050ac 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2678,7 +2678,8 @@ static int
+> > amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)  {
+> >  int i, r;
+> >
+> > -if (!amdgpu_acpi_is_s0ix_supported(adev) ||
+> > amdgpu_in_reset(adev)) {
+> > +if (adev->in_shutdown ||
+> > +    !amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev))
+> > {
+> >  amdgpu_device_set_pg_state(adev,
+> > AMD_PG_STATE_UNGATE);
+> >  amdgpu_device_set_cg_state(adev,
+> > AMD_CG_STATE_UNGATE);
+> >  }
+> > @@ -3741,7 +3742,8 @@ int amdgpu_device_suspend(struct drm_device
+> > *dev, bool fbcon)
+> >
+> >  amdgpu_fence_driver_suspend(adev);
+> >
+> > -if (!amdgpu_acpi_is_s0ix_supported(adev) ||
+> > amdgpu_in_reset(adev))
+> > +if (adev->in_shutdown ||
+> > +    !amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev))
+> >  r = amdgpu_device_ip_suspend_phase2(adev);
+> >  else
+> >  amdgpu_gfx_state_change_set(adev,
+> > sGpuChangeState_D3Entry); diff --git
+> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 2ddaa72437e3..b44358e8dc5b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -1265,6 +1265,7 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+> >  if (amdgpu_ras_intr_triggered())
+> >  return;
+> >
+> > +adev->in_shutdown = true;
+> >  /* if we are running in a VM, make sure the device
+> >   * torn down properly on reboot/shutdown.
+> >   * unfortunately we can't detect certain @@ -1274,6 +1275,7 @@
+> > amdgpu_pci_shutdown(struct pci_dev *pdev)
+> >  adev->mp1_state = PP_MP1_STATE_UNLOAD;
+> >  amdgpu_device_ip_suspend(adev);
+> >  adev->mp1_state = PP_MP1_STATE_NONE;
+> > +adev->in_shutdown = false;
+> >  }
+> >
+> >  static int amdgpu_pmops_prepare(struct device *dev)
+> > --
+> > 2.29.2
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0100863107==--
