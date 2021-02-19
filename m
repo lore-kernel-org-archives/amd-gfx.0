@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DA2FC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EA3DC433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C82E564EAF
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C82E564EAF
+	by mail.kernel.org (Postfix) with ESMTPS id E826964E92
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E826964E92
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB3A6EC22;
-	Fri, 19 Feb 2021 21:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47916EC2B;
+	Fri, 19 Feb 2021 21:54:14 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016EF6EC25
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 21:54:09 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06B0B6EC2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 21:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613771649;
+ s=mimecast20190719; t=1613771652;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xF0OfrnlVmd/DfJPvqmHtCe3vZ4VRsC929jG9IY3Pkw=;
- b=ML9z1c9HUvw81EEswhGcBo74zEoBzZiQdDfOekM+mmXGSnS8LiqU3NsuA5gjqXOlyEPlFl
- qMgbWVaGaM5cbGbUZ6DZtwAolaxy86JfuD2D0GReqqUDEZJerKWlYQhKt+8M2IGDRwz4ZK
- 4fTkngif6ELia6aJTys6PQn2S42QMCs=
+ bh=mwr/7745edaINwZA4dlwwSAjIeKZ15zcC0nPCnpIvtU=;
+ b=d6OMlm+vrECs7W7m+A4aIgQGRwIavK615lmlmWMp+9lwxA1XF6HQJ0Bz0RhBdywaHSQEfL
+ Fx75z4/LE/v5DyzJlT38i1fzu8TGBB22zxGYuRpldshQKGugoNTPsRY7SdNMwdVgKOzOur
+ qZIHgcx0F+330I1mEmJKzD1bbgQRvoE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-459-mA2a1WUFNcaPO_UpkM-fRA-1; Fri, 19 Feb 2021 16:54:04 -0500
-X-MC-Unique: mA2a1WUFNcaPO_UpkM-fRA-1
+ us-mta-246-cJ3jjQMmOLyzdGSFUzrotA-1; Fri, 19 Feb 2021 16:53:58 -0500
+X-MC-Unique: cJ3jjQMmOLyzdGSFUzrotA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 58DF9107ACE3;
- Fri, 19 Feb 2021 21:54:01 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08E721934124;
+ Fri, 19 Feb 2021 21:53:50 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-118-5.rdu2.redhat.com [10.10.118.5])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A18266A03C;
- Fri, 19 Feb 2021 21:53:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CFBFD6EF55;
+ Fri, 19 Feb 2021 21:53:47 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
@@ -54,10 +54,10 @@ To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 05/30] drm/bridge/cdns-mhdp8546: Register DP aux channel with
- userspace
-Date: Fri, 19 Feb 2021 16:53:01 -0500
-Message-Id: <20210219215326.2227596-6-lyude@redhat.com>
+Subject: [PATCH 03/30] drm/tegra: Don't register DP AUX channels before
+ connectors
+Date: Fri, 19 Feb 2021 16:52:59 -0500
+Message-Id: <20210219215326.2227596-4-lyude@redhat.com>
 In-Reply-To: <20210219215326.2227596-1-lyude@redhat.com>
 References: <20210219215326.2227596-1-lyude@redhat.com>
 MIME-Version: 1.0
@@ -73,66 +73,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
- David Airlie <airlied@linux.ie>, Neil Armstrong <narmstrong@baylibre.com>,
- open list <linux-kernel@vger.kernel.org>, Jyri Sarha <jsarha@ti.com>,
- Julia Lawall <Julia.Lawall@inria.fr>, Andrzej Hajda <a.hajda@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Swapnil Jakhade <sjakhade@cadence.com>
+Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just adds some missing calls to
-drm_dp_aux_register()/drm_dp_aux_unregister() for when we attach/detach the
-bridge.
+As pointed out by the documentation for drm_dp_aux_register(),
+drm_dp_aux_init() should be used in situations where the AUX channel for a
+display driver can potentially be registered before it's respective DRM
+driver. This is the case with Tegra, since the DP aux channel exists as a
+platform device instead of being a grandchild of the DRM device.
+
+Since we're about to add a backpointer to a DP AUX channel's respective DRM
+device, let's fix this so that we don't potentially allow userspace to use
+the AUX channel before we've associated it with it's DRM connector.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tegra/dpaux.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-index 989a05bc8197..d966a33743b5 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-@@ -1674,10 +1674,14 @@ static int cdns_mhdp_attach(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/tegra/dpaux.c b/drivers/gpu/drm/tegra/dpaux.c
+index 105fb9cdbb3b..ea56c6ec25e4 100644
+--- a/drivers/gpu/drm/tegra/dpaux.c
++++ b/drivers/gpu/drm/tegra/dpaux.c
+@@ -534,9 +534,7 @@ static int tegra_dpaux_probe(struct platform_device *pdev)
+ 	dpaux->aux.transfer = tegra_dpaux_transfer;
+ 	dpaux->aux.dev = &pdev->dev;
  
- 	dev_dbg(mhdp->dev, "%s\n", __func__);
+-	err = drm_dp_aux_register(&dpaux->aux);
+-	if (err < 0)
+-		return err;
++	drm_dp_aux_init(&dpaux->aux);
  
-+	ret = drm_dp_aux_register(&mhdp->aux);
-+	if (ret < 0)
-+		return ret;
+ 	/*
+ 	 * Assume that by default the DPAUX/I2C pads will be used for HDMI,
+@@ -589,8 +587,6 @@ static int tegra_dpaux_remove(struct platform_device *pdev)
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 
+-	drm_dp_aux_unregister(&dpaux->aux);
+-
+ 	mutex_lock(&dpaux_lock);
+ 	list_del(&dpaux->list);
+ 	mutex_unlock(&dpaux_lock);
+@@ -723,6 +719,10 @@ int drm_dp_aux_attach(struct drm_dp_aux *aux, struct tegra_output *output)
+ 	unsigned long timeout;
+ 	int err;
+ 
++	err = drm_dp_aux_register(aux);
++	if (err < 0)
++		return err;
 +
- 	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
- 		ret = cdns_mhdp_connector_init(mhdp);
- 		if (ret)
--			return ret;
-+			goto aux_unregister;
- 	}
+ 	output->connector.polled = DRM_CONNECTOR_POLL_HPD;
+ 	dpaux->output = output;
  
- 	spin_lock(&mhdp->start_lock);
-@@ -1693,6 +1697,9 @@ static int cdns_mhdp_attach(struct drm_bridge *bridge,
- 		       mhdp->regs + CDNS_APB_INT_MASK);
+@@ -760,6 +760,7 @@ int drm_dp_aux_detach(struct drm_dp_aux *aux)
+ 	unsigned long timeout;
+ 	int err;
  
- 	return 0;
-+aux_unregister:
-+	drm_dp_aux_unregister(&mhdp->aux);
-+	return ret;
- }
++	drm_dp_aux_unregister(aux);
+ 	disable_irq(dpaux->irq);
  
- static void cdns_mhdp_configure_video(struct cdns_mhdp_device *mhdp,
-@@ -2025,6 +2032,8 @@ static void cdns_mhdp_detach(struct drm_bridge *bridge)
- 
- 	dev_dbg(mhdp->dev, "%s\n", __func__);
- 
-+	drm_dp_aux_unregister(&mhdp->aux);
-+
- 	spin_lock(&mhdp->start_lock);
- 
- 	mhdp->bridge_attached = false;
+ 	if (dpaux->output->panel) {
 -- 
 2.29.2
 
