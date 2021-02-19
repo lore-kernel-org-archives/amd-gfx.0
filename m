@@ -2,105 +2,108 @@ Return-Path: <SRS0=jKCf=HV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1267DC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E8CAC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B31E764D92
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B31E764D92
+	by mail.kernel.org (Postfix) with ESMTPS id C933B60C3E
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C933B60C3E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 691176E0C5;
-	Fri, 19 Feb 2021 22:16:32 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6C5A6E0C5
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 22:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5B86E0CE;
+	Fri, 19 Feb 2021 22:16:42 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DC46E0CE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 22:16:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TRFDe94mOnBQQZU9Cu7hIvhhiumluBcIW7T3zK26XxKwv9bMHpw3zV/li8fEZQfpSLXWhAxAPzgbyVKDBBPvgJqSJpuv87bXYmpqp7xTtu/i/QkNmtJfNauwMzxVhC2NODf39bpzI1gb9htHS1OjKQy58lk5BsUfaxKSvbnH+A/xbKDeKbybq63p32lb9ZXZP67xdsoIQKo/BFTzzMwniIPjLuj95fXlcaXJaKdixlPj4HjeKcIuRGrwpPRVLbKBQk55GZBwDUckLGtNLFWUokOc+tWzvWvynj8sFRLsqn2k7EGtMhmO/aOqd3w8yZP28osRQ1IZzQSSzlCCikNmyg==
+ b=hb5wYkmISBtem/ed6sE0SR/Byu9uJ1AdOcPxUfHiwCHxGvj2GE4AB8ynu18DwOOrLhOldodQJdtqhB5+77SIhS5Il41RNdoQUpyx4NoNomncmGDRYOsri8tctOqAivvE+cRXfEu/u7iz+f18UN1TwzDuxrtvIzT9cgBxkg8mxjk5WYkdol9ejFk2wgvoqIKO12PfBn7Nu/oBWog0Lln7D0Sma9Li6sTnD4SPEQnuOgTBcklkpCy8j4dU30TlnhKGUbDnFD67Epqc6Oecl9Mr+fb0N1iSEAM9NWLMcM8FULvjY2robikzOE5uN03Zx2fjQK5XnOV/VuMeQ3qRV5ke9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KFb+ObPXbehiEdnA/+4uExPd3uPwEHN4pzJLl4z4LA=;
- b=VNNgyJUwtKYy+dq/G8UnxDfXy/nfqOFoFu8lxkjYNcQqeWAEJibKJl48QTjbGuKgo4Rft+b9kThXtr14RPj2yf0PUmcGsKwDfLOHzHG/R3KUPHhyD0nfpJL34NDqFer4zzHbI5M8+OySboKp1pEQOgK/R7cB7MZ+1y/4vzedq6fiFmj006o2MYf7S50SExzctD01mx+5jnoEJc4OvrlIgkmeDaHnSM7j/EivqzIYi9lJEJtBV67StxRTjMPH7DuRI7cRVx53TkUZpfdU2ug/0hybuktgZo4Sx3vX76f8cxzRR2ziARUcdJAIaSSqfIjBFLU/3A5iTokKYbDr419RRw==
+ bh=48txlWeJMdnYuEEI22GqkNPyphdIBBz4mOm4zQIlcKU=;
+ b=OVO8+LnFdITDTsO7Y6I26h7zj9m5fwpKt/WZvjAfVYKYbriCGeRRbsr7/bPsMD5wT+6xraFr2ayFTtl3Km9bGyZJv1+cxFfcqIh499UufV4vexGMSuHviB193Xn4k/ZnK0F8/9BkDHR0UMh2QZqF9uqyW1Tc1agMTS3lHcEvWY+WmK53cYpL8J2UCLgkpijKyxaHNOnvTbRxwboxPlFrMQwDk8x4lVdtii6Ij6TnqhJAAiH/EpCzCNw7dJE+eHljOx+NxA1TCHZ/bUr2+i6u71KVSEmss4vqdMon3A2EchnpTvwawc1LVZ+5kuEKtMiw6gYuG2wIukW5Q8npmLkf8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KFb+ObPXbehiEdnA/+4uExPd3uPwEHN4pzJLl4z4LA=;
- b=LYGTnNu7O3d3rkTV9NR/+0Y5DnDV5oZhVieq94ptV8t2AARy99Vt0ImfEOFkH+9fTMDkxU64/OsI/k6YIoNJ3xKDomYNi+c4qgnm+ia/NliAYLnKWdw0tNvFsn258mRNmtC4vkZfzJwZ5D/VCBo1T95Q0+WfPqTGhlwvpFpmzL0=
-Received: from BN6PR17CA0043.namprd17.prod.outlook.com (2603:10b6:405:75::32)
- by BY5PR12MB4099.namprd12.prod.outlook.com (2603:10b6:a03:20f::21)
+ bh=48txlWeJMdnYuEEI22GqkNPyphdIBBz4mOm4zQIlcKU=;
+ b=5d85M81pcoP2+4mgoG7yWemBwQAhPCC/zIpqJ3yotJSNIa6eU7Wql8hl5HEHYcNl+ebsj5V5bt00nxUBI3pLrcIvgKMthPro7NXqQWtc6z3qrRK9iD53qIrhKjRzP74hDPVhdBFOVpCcwFSdOv2U6EunEXZf6DpHZY72WVhHCp0=
+Received: from BN9PR03CA0857.namprd03.prod.outlook.com (2603:10b6:408:13d::22)
+ by BN6PR12MB1874.namprd12.prod.outlook.com (2603:10b6:404:fd::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Fri, 19 Feb
- 2021 22:16:27 +0000
-Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:75:cafe::df) by BN6PR17CA0043.outlook.office365.com
- (2603:10b6:405:75::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27 via Frontend
- Transport; Fri, 19 Feb 2021 22:16:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Fri, 19 Feb
+ 2021 22:16:39 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13d:cafe::11) by BN9PR03CA0857.outlook.office365.com
+ (2603:10b6:408:13d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29 via Frontend
+ Transport; Fri, 19 Feb 2021 22:16:39 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3868.27 via Frontend Transport; Fri, 19 Feb 2021 22:16:26 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3868.27 via Frontend Transport; Fri, 19 Feb 2021 22:16:38 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 19 Feb
- 2021 16:16:26 -0600
+ 2021 16:16:37 -0600
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 19 Feb
- 2021 16:16:26 -0600
+ 2021 16:16:37 -0600
 Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 19 Feb 2021 16:16:25 -0600
+ via Frontend Transport; Fri, 19 Feb 2021 16:16:36 -0600
 From: Bindu Ramamurthy <bindu.r@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/13] DC Patches FEB 22, 2021
-Date: Fri, 19 Feb 2021 17:15:59 -0500
-Message-ID: <20210219221612.1713328-1-bindu.r@amd.com>
+Subject: [PATCH 01/13] drm/amd/display: Remove Assert from
+ dcn10_get_dig_frontend
+Date: Fri, 19 Feb 2021 17:16:00 -0500
+Message-ID: <20210219221612.1713328-2-bindu.r@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210219221612.1713328-1-bindu.r@amd.com>
+References: <20210219221612.1713328-1-bindu.r@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 82146160-4425-4db2-385f-08d8d523fff4
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4099:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4099C5074183B8EFB55C78B9F5849@BY5PR12MB4099.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Office365-Filtering-Correlation-Id: 7d0e3c35-ac9f-43ee-6721-08d8d52406c0
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1874:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB187436930E27E466EB76D875F5849@BN6PR12MB1874.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y4dkmDxNWLgxGOY6gqb/BSUPCPfifDByb1H5Mx5fIRPc38FGOWykmOtsn5VpbQOnS29+VLCW9AKSTJleoJ+DgZYPxLM457uUG9e5tQZknPOwuHlJYAQ+xZklCEF6UejfHcsp7kNvmc3nBtL+eCjyFfYKsRQnfk847HJI6JE21861ZtmSG+nlVNfEzA1VDRQNgmGSAIxrSZvU53yvTWoId2NlixXxOSdCvQdlIlh4yfwhS0rlYR5PTMPCQfaQQHg6qxn/gNe6QwUshVb/m/2oxhdmKjox1kxY4Ff+2JDQHGoNewwf/+Nx9wpkicAFVTAnyw2K9if5mF1FWafnjlaVfi5Ds2fGYVi9PZA/EgfG4m/5zM2tLn56wMv5UZl281XgyJvrR6YNyVxTHxWn/knteQ2fRwEL3PfkFs+B9hA/O4xLrceIofQBdWlkwrNcm5EEQ7hgvsNHPsW1iDDYAeiZLzIPuJ7HortX1OqIEU91oBRNhdWBErPUPP0FPMXH+WjUwPZ6U0HiAMepZzgdMeFR5UGAbA8vtFVeIL4+WNL2gMZP5WglrAthp/HFztIucxCP0WIGeXoM+/wOUT0ko10KdBFnTYCvn/vfYrAgByQKV6svg1l6XH4uXVGulnH5gRpPTpRF3rzJ+pBujxIZ/7sKEeWLBruVYFcc5iN0ezDVFzP/7/jvquCFkQBfx1rwTVI2
+X-Microsoft-Antispam-Message-Info: VL6Ugm0ULUNsIKV06Aub3V4TNcoEQCYOTp2P6agU5qlLhg6EHQWGePq2HzFAEEbL6+ykApdrMZZYwsC1A8J/Vqct1OExKaLHnJ+O2Bh8+jmWAI3LlrQdHiqS82Y1CP9AJvxgIwWY+2YYVBOWDz/59lk+6QBtAuTq1Hi2rafWKWNasn9yEsgr6gn+jEn6yQuUwMw25uaFi8lapHy6bEkIW+2TmmTGBG72jTOoWYIs8nq8iNijfdSpZ8Vn9+SRRxS2xmaNXBuYA7h5XB0KfxcNiz1B3NvMxFHoZ8/gS9wYkIKLj7GB187ZA8pakmLq6klbHc/iEz+KZAxxRZZgfMLxiylQ6oJQDS2oT3Wzir3zoFzNzVgW+eqqzo9t3SvkEK/kHm67Fkp3Xp8wz2ctWsWEX4+KtNszFBdHN4BJYQD5BIedl0Sqq3Wa3NQ3U3uCFT1App86Pd00cqUmjvp4E3ujkhl5ATVNwh06juLKyPQOp3knFBdkrI8g9VgH36nPOZR6sQYpv/uJsDfbChuXNCglj+FNwXUPSbv0MBUmIcehTG98+KLWDRGrljSl19huQxmfvqqzeoNyQUnleMDVz6ysNDM7osVflicjpksn4b5l5B8QDfXCyTMTmBRk6WS+4HpVkbSm8Dn8jD2NR/fasJsKfMuCS6MnixwRz+eM+PsvDZUoOi3lh32JFlNhxd7B2uRh
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(396003)(346002)(136003)(39860400002)(376002)(46966006)(36840700001)(6916009)(70206006)(47076005)(36860700001)(426003)(86362001)(70586007)(2906002)(81166007)(8676002)(82310400003)(82740400003)(26005)(5660300002)(356005)(186003)(36756003)(478600001)(316002)(83380400001)(1076003)(8936002)(6666004)(4326008)(7696005)(2616005)(54906003)(336012)(36900700001);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(36840700001)(46966006)(81166007)(8936002)(6666004)(356005)(186003)(8676002)(6916009)(83380400001)(86362001)(36756003)(2906002)(70206006)(70586007)(4326008)(7696005)(478600001)(5660300002)(82740400003)(426003)(2616005)(82310400003)(1076003)(54906003)(36860700001)(47076005)(26005)(336012)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2021 22:16:26.7262 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82146160-4425-4db2-385f-08d8d523fff4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2021 22:16:38.1296 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d0e3c35-ac9f-43ee-6721-08d8d52406c0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4099
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1874
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,94 +117,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+ Aurabindo.Pillai@amd.com, Eric Bernstein <eric.bernstein@amd.com>,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Eric Bernstein <eric.bernstein@amd.com>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
-* Firmware release 0.0.53.
-* Addition of interrupts for DCN2.1
-* Refractor debugfs entries for connectors.
-* Enable display audio when seamless booting with an external monitor over DP.
-* Fixes for System hang after multiple hotplug, timing synchronization for displays, disable seamless boot for DP.
+[Why]
+In some cases, this function is called when DIG BE is not
+connected to DIG FE, in which case a value of zero isn't
+invalid and assert should not be hit.
 
+[How]
+Remove assert and handle ENGINE_ID_UNKNOWN result in calling
+function.
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.53
+Signed-off-by: Eric Bernstein <eric.bernstein@amd.com>
+Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c | 1 -
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c        | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Anthony Wang (2):
-  drm/amd/display: disable seamless boot for DP MST
-  drm/amd/display: enable audio on DP seamless boot
-
-Aric Cyr (3):
-  drm/amd/display: Don't optimize bandwidth before disabling planes
-  drm/amd/display: reduce scope for local var
-
-  drm/amd/display: 3.2.124
-       This version brings along following fixes:
-       - Fix system hang after multiple hotplug.
-       - Don't optimize bandwidth before disabling planes.
-       - Report timing synchronizable when DP streams time frame difference is less than 0.05 percent.
-       - move trace buffer to uncached memory.
-       - enable audio on DP seamless boot. 
-       - Disable seamless boot for DP MST.
-
-
-Eric Bernstein (1):
-  drm/amd/display: Remove Assert from dcn10_get_dig_frontend
-
-Eryk Brol (1):
-  drm/amd/display: Check for DSC support instead of ASIC revision
-
-Qingqing Zhuo (1):
-  drm/amd/display: Fix system hang after multiple hotplugs
-
-Rodrigo Siqueira (1):
-  drm/amd/display: Add vupdate_no_lock interrupts for DCN2.1
-
-Stylon Wang (1):
-  drm/amd/display: Refactor debugfs entries for all connectors
-
-Vladimir Stempen (1):
-  drm/amd/display: Synchronize displays with different timings
-
-Yongqiang Sun (1):
-  drm/amd/display: move trace buffer to uncached memory.
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  82 +++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  27 +++
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  22 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  39 ++-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  10 +
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  43 ++++
- drivers/gpu/drm/amd/display/dc/dc.h           |   5 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   1 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   3 +
- .../drm/amd/display/dc/dce/dce_clock_source.c |  52 +++-
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 225 ++++++++++++++++++
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |   5 +
- .../amd/display/dc/dcn10/dcn10_link_encoder.c |   1 -
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |   2 +
- .../display/dc/dcn10/dcn10_stream_encoder.c   |   1 -
- .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |   1 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 123 ++++++++++
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |   8 +-
- .../dc/dcn30/dcn30_dio_stream_encoder.c       |   1 -
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   2 +
- .../gpu/drm/amd/display/dc/inc/clock_source.h |   5 +
- .../amd/display/dc/inc/hw/timing_generator.h  |  12 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   3 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 +
- .../display/dc/irq/dcn21/irq_service_dcn21.c  |  22 ++
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +-
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |   7 +
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.h |   7 +
- .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c |   7 +
- 29 files changed, 676 insertions(+), 48 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
+index 59024653430c..e4701825b5a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
+@@ -480,7 +480,6 @@ unsigned int dcn10_get_dig_frontend(struct link_encoder *enc)
+ 		break;
+ 	default:
+ 		// invalid source select DIG
+-		ASSERT(false);
+ 		result = ENGINE_ID_UNKNOWN;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index ab93da667d51..aaeefe7eca3e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -539,6 +539,8 @@ void dcn30_init_hw(struct dc *dc)
+ 
+ 					fe = dc->links[i]->link_enc->funcs->get_dig_frontend(
+ 										dc->links[i]->link_enc);
++					if (fe == ENGINE_ID_UNKNOWN)
++						continue;
+ 
+ 					for (j = 0; j < dc->res_pool->stream_enc_count; j++) {
+ 						if (fe == dc->res_pool->stream_enc[j]->id) {
 -- 
 2.25.1
 
