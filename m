@@ -2,83 +2,54 @@ Return-Path: <SRS0=jKCf=HV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12132C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 15:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 990EFC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 16:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5283601FA
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 15:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5283601FA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id 434D064D92
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 16:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 434D064D92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A90F6EB58;
-	Fri, 19 Feb 2021 15:15:54 +0000 (UTC)
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6695B6EB52;
- Fri, 19 Feb 2021 15:12:45 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id AD8085801DB;
- Fri, 19 Feb 2021 10:12:42 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Fri, 19 Feb 2021 10:12:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=Emd+iGXCpjhCIuGJ6kINzMtdOjP
- Vb1dtj8cLvd3w9uQ=; b=NGfSf1xCTv59Q/62lzFrQUe3OfzHicY7PdlXFseZ+fo
- CXaps5k96MCo/y6dXa/ePCUiVr/+yd+bY0z6zZBYrTTK2YzzxM1J8iqD3y6W62cZ
- rXBdZ7f2+aX04uHfX4St/hRD2mvVDoQ+/wu5mb+Q5x907WZ9caEJ8KHfdT1nr2yD
- JLP64gaaabo7m5fSkBVWV9SDIr/uh0mJgEZZlhBIJuPlE67fksWmT4qsGXSXnPqG
- CKVo2kTnbLrkMB9P1EmlLJdgH0orL2bJxv6jphPeJpe+zESq+2OJKnDQBxs0UL06
- x/1RFeKzSAsBixLgniCd+pZnvp+IstVDQldHmokucVA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Emd+iG
- XCpjhCIuGJ6kINzMtdOjPVb1dtj8cLvd3w9uQ=; b=XHY4s+8UfwXqR/mdORv9Po
- /1XBss0CQ+zb9weVPOMHgXllan4j3WpFbVV45/9KrKa8MoIeEvYETWxoJEslqrHX
- dgZiBw3LQr6qqQlGIBwp1fvzIM7wmsmSMRJPN7pcx26eaJLu1vWzJASxkht3qzL3
- 37VmmRlkN0y8eQqZLlN/zwcOCVJd/dAR7AO7Ow7IidsN98Kpbi2SAccAvvgtzrBA
- EiUnoHogcZxTVCcrP0XuoyWqE6afFOSiKBq5jnT866hfWHZ0ogtOVppzLv3xFa4D
- ZcfX/iJsRv2yUob032ohIQetrwvo9hbKn/V9+26kTFBw827c/q1tZPTIXDWIjtdw
- ==
-X-ME-Sender: <xms:ZtUvYBx0bbDfFxXAdIHbkwjyvuzqdT-sP0wW9H9sCZbunWFhSVeH5A>
- <xme:ZtUvYBS0sQ6QEVz6WG3a70zRD-4BgpSmOJyrrc2EtwoHD16lfAP7faThFVF-v5MpL
- QCvAHvC0jqlMXPKtqg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeigdejfecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
- udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:ZtUvYLX8QzsLvkGEKzfhD1XAcBYkntU7dfwxve0WGgWt7bV-3lf-DA>
- <xmx:ZtUvYDijvIJAeW3OBrs-WZlrOHqA6KeHcimnKMIktl8ihFDtqDEDKg>
- <xmx:ZtUvYDCT2WhDglx11hvthCAHwH62SLuW3JZFEW_w4IwkPoV0cR1NIA>
- <xmx:atUvYNrOPVJ5tO9BLZs9QptUd2msh0xMIaKSYRV9WMfTEsqgsuaOXQ>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id C72DF1080057;
- Fri, 19 Feb 2021 10:12:37 -0500 (EST)
-Date: Fri, 19 Feb 2021 16:12:35 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 02/11] drm: Rename plane atomic_check state names
-Message-ID: <20210219151235.dsv4mujqyrzndhsn@gilmour>
-References: <20210219120032.260676-1-maxime@cerno.tech>
- <20210219120032.260676-2-maxime@cerno.tech>
- <51bb5aaf-f771-020b-9a48-77d8679de6a2@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C82996EB6B;
+	Fri, 19 Feb 2021 16:19:16 +0000 (UTC)
+Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
+ [185.70.41.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D626B6EB6C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 16:19:15 +0000 (UTC)
+Received: from mail-02.mail-europe.com (mail-02.mail-europe.com
+ [51.89.119.103])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ by mail-41104.protonmail.ch (Postfix) with ESMTPS id 4Dhxbj5jY7z4xk84
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 16:19:13 +0000 (UTC)
+Authentication-Results: mail-41104.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="ZkC0aJ7n"
+Date: Fri, 19 Feb 2021 16:19:01 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1613751548;
+ bh=LCCh8m0Natx98HjwB7VBwIvHk++P57FhBPzorUfmhD8=;
+ h=Date:To:From:Cc:Reply-To:Subject:From;
+ b=ZkC0aJ7nzUQ9xmJgXXXbf6zY9HDW6nYFBtXk53I+3/0Xwa5QYnaGzooC9ttQKMsZU
+ 0BhalSbGMGROvNAXFglaorPIkVdSchhXMmPN+ItoF2DhpkYM3RLmAdFTmRbe1lNcD8
+ Ov0v9MBTBUiedJwPyr041+o/mFKDRg+xrJaqcABGaiggDpGW2Xm8gjmMG9IZwurjzZ
+ EQU6z+HEKyIF7PMfvEtT9noW56AVbgNZ9L3Ca3UwZJQNLGh/s+d63QUo7lPf4H5ACb
+ S8R9KAg4ulCypFYB/oMDIA2+FV6LjgFaJNFK1mHv9hBDu07qO7HgQiH4hD3t0xU/mP
+ qIAqleLjuZIYQ==
+To: amd-gfx@lists.freedesktop.org
+From: Simon Ser <contact@emersion.fr>
+Subject: [PATCH 1/2] amd/display: convert DRM_DEBUG_ATOMIC to drm_dbg_atomic
+Message-ID: <kUMBqZno6DNtdjav79rfmyirsuazkbWoXcEkcOfxIY@cp4-web-014.plabs.ch>
 MIME-Version: 1.0
-In-Reply-To: <51bb5aaf-f771-020b-9a48-77d8679de6a2@suse.de>
-X-Mailman-Approved-At: Fri, 19 Feb 2021 15:15:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,135 +61,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- Michal Simek <michal.simek@xilinx.com>, NXP Linux Team <linux-imx@nxp.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Roland Scheidegger <sroland@vmware.com>, Inki Dae <inki.dae@samsung.com>,
- Sean Paul <sean@poorly.run>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Zack Rusin <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Edmund Dea <edmund.j.dea@intel.com>, virtualization@lists.linux-foundation.org,
- Eric Anholt <eric@anholt.net>, Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>,
- Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, John Stultz <john.stultz@linaro.org>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Starkey <brian.starkey@arm.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Fabio Estevam <festevam@gmail.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, amd-gfx@lists.freedesktop.org,
- Chen-Yu Tsai <wens@csie.org>, Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- Alison Wang <alison.wang@nxp.com>, spice-devel@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Philippe Cornu <philippe.cornu@st.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Paul Cercueil <paul@crapouillou.net>,
- linux-renesas-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- Russell King <linux@armlinux.org.uk>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: multipart/mixed; boundary="===============0639869146=="
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This allows to tie the log message to a specific DRM device.
 
---===============0639869146==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="x6inkztb7pnxs2gu"
-Content-Disposition: inline
+Signed-off-by: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 519080e9a233..4548b779bbce 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9235,7 +9235,7 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
+ 
+ 	if (cursor_scale_w != primary_scale_w ||
+ 	    cursor_scale_h != primary_scale_h) {
+-		DRM_DEBUG_ATOMIC("Cursor plane scaling doesn't match primary plane\n");
++		drm_dbg_atomic(crtc->dev, "Cursor plane scaling doesn't match primary plane\n");
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.30.1
 
---x6inkztb7pnxs2gu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Thomas,
-
-Thanks for your review!
-
-On Fri, Feb 19, 2021 at 03:49:22PM +0100, Thomas Zimmermann wrote:
-> > diff --git a/drivers/gpu/drm/imx/ipuv3-plane.c b/drivers/gpu/drm/imx/ip=
-uv3-plane.c
-> > index 075508051b5f..1873a155bb26 100644
-> > --- a/drivers/gpu/drm/imx/ipuv3-plane.c
-> > +++ b/drivers/gpu/drm/imx/ipuv3-plane.c
-> > @@ -337,12 +337,12 @@ static const struct drm_plane_funcs ipu_plane_fun=
-cs =3D {
-> >   };
-> >   static int ipu_plane_atomic_check(struct drm_plane *plane,
-> > -				  struct drm_plane_state *state)
-> > +				  struct drm_plane_state *new_state)
->=20
-> This function uses a different naming convention then the others?
->=20
-> >   {
-> >   	struct drm_plane_state *old_state =3D plane->state;
-
-So, the function already had a variable named old_state, so I was
-actually trying to make the drivers consistent here: having one variable
-with old_state and new_plane_state felt weird.
-
-The heuristic is thus to use the convention of the driver if one exists
-already, and if there's none pick new_plane_state.
-
-It makes it indeed inconsistent across drivers, but it felt more natural
-to be consistent within a single driver.
-
-Maxime
-
---x6inkztb7pnxs2gu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYC/VYwAKCRDj7w1vZxhR
-xXb7AP9dLYZ0ol4FnTyS9ndvGPPXpijdNPtrfZDs40BKL//eEgEA8HMiYKjgufNK
-Zn4QIsaErGpt9UM9/IC6ZwJ7lvoIrQ0=
-=ygPX
------END PGP SIGNATURE-----
-
---x6inkztb7pnxs2gu--
-
---===============0639869146==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0639869146==--
