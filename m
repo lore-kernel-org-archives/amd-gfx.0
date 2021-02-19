@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8983EC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73221C433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EA0E64E04
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EA0E64E04
+	by mail.kernel.org (Postfix) with ESMTPS id 3C2EF64EAF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C2EF64EAF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C38A56EC3A;
-	Fri, 19 Feb 2021 21:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A66FB6EC4B;
+	Fri, 19 Feb 2021 21:54:28 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BABE46EC35
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 21:54:22 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4711C6EC3E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 21:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613771661;
+ s=mimecast20190719; t=1613771664;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oCCyEyE/y3zObvu+bRfJb2l/VIGWvI14fJQfmx2ackQ=;
- b=TRAfss++XWAiQu4+AqDIP773/IId5pMd16xi/H7l1bohQtb7kewUj3xhB5BL5dGfrvyrfT
- yoLfiY0ri2gznIZ4sVrTRcXip3SA2yE8F8+ZGx8GlW8g9Pf/a91+j8cYVfL6ZWr9shp9J8
- OPYOy6bw86t5gLg/8f7lC34ZhirHBIw=
+ bh=ZeO6dGDcVVQslU15WHLCN2NmXYQX/e4e0CmvCEgQ3cM=;
+ b=I/yTpklaSWFizV/BOyYoXTqRdPDUjQ0FW7x1pWaOeKo4muwqv6tF4farMp2SGtrUEG4zGq
+ UN7GOCwuxEn4EsnwN+UymVtZfcFzgHWHHgTwDYdhbjkUt7NS8+Qw4DVT+t5RGtI7xs2Hpd
+ 0QfpByVLp2zmWloTVbPX5rq7fr3tDYU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-373-TPQDW13xPke2YSCoktMa_g-1; Fri, 19 Feb 2021 16:54:06 -0500
-X-MC-Unique: TPQDW13xPke2YSCoktMa_g-1
+ us-mta-344-mn2AwyrSNJiQs8B3u0fSkg-1; Fri, 19 Feb 2021 16:54:20 -0500
+X-MC-Unique: mn2AwyrSNJiQs8B3u0fSkg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 75645100B3B3;
- Fri, 19 Feb 2021 21:54:03 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A57DDEC1A0;
+ Fri, 19 Feb 2021 21:54:17 +0000 (UTC)
 Received: from Whitewolf.redhat.com (ovpn-118-5.rdu2.redhat.com [10.10.118.5])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B80496A03C;
- Fri, 19 Feb 2021 21:54:01 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2A82D6A03C;
+ Fri, 19 Feb 2021 21:54:15 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
@@ -54,10 +54,10 @@ To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 06/30] drm/bridge/ti-sn65dsi86: (Un)register aux device on
- bridge attach/detach
-Date: Fri, 19 Feb 2021 16:53:02 -0500
-Message-Id: <20210219215326.2227596-7-lyude@redhat.com>
+Subject: [PATCH 10/30] drm/bridge/analogix/anx6345: Add missing
+ drm_dp_aux_unregister() call
+Date: Fri, 19 Feb 2021 16:53:06 -0500
+Message-Id: <20210219215326.2227596-11-lyude@redhat.com>
 In-Reply-To: <20210219215326.2227596-1-lyude@redhat.com>
 References: <20210219215326.2227596-1-lyude@redhat.com>
 MIME-Version: 1.0
@@ -75,83 +75,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
  David Airlie <airlied@linux.ie>, Neil Armstrong <narmstrong@baylibre.com>,
- open list <linux-kernel@vger.kernel.org>, Andrzej Hajda <a.hajda@samsung.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Torsten Duwe <duwe@lst.de>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>
+ Daniel Vetter <daniel@ffwll.ch>, Joe Perches <joe@perches.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Icenowy Zheng <icenowy@aosc.io>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since we're about to add a back-pointer to drm_dev in drm_dp_aux, let's
-move the AUX adapter registration to the first point where we know which
-DRM device we'll be working with - when the drm_bridge is attached.
-Likewise, we unregister the AUX adapter on bridge detachment by adding a
-ti_sn_bridge_detach() callback.
+Another driver I found that seems to forget to unregister it's DP AUX
+device. Let's fix this by adding anx6345_bridge_detach().
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi86.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index f27306c51e4d..88df4dd0f39d 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -362,12 +362,18 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
- 		return -EINVAL;
- 	}
- 
-+	ret = drm_dp_aux_register(&pdata->aux);
-+	if (ret < 0) {
-+		drm_err(bridge->dev, "Failed to register DP AUX channel: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = drm_connector_init(bridge->dev, &pdata->connector,
- 				 &ti_sn_bridge_connector_funcs,
- 				 DRM_MODE_CONNECTOR_eDP);
- 	if (ret) {
- 		DRM_ERROR("Failed to initialize connector with drm\n");
--		return ret;
-+		goto err_conn_init;
- 	}
- 
- 	drm_connector_helper_add(&pdata->connector,
-@@ -424,9 +430,16 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
- 	mipi_dsi_device_unregister(dsi);
- err_dsi_host:
- 	drm_connector_cleanup(&pdata->connector);
-+err_conn_init:
-+	drm_dp_aux_unregister(&pdata->aux);
- 	return ret;
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+index d9164fab044d..8e016ba7c54a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+@@ -574,6 +574,11 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
+ 	return 0;
  }
  
-+static void ti_sn_bridge_detach(struct drm_bridge *bridge)
++static void anx6345_bridge_detach(struct drm_bridge *bridge)
 +{
-+	drm_dp_aux_unregister(&bridge_to_ti_sn_bridge(bridge)->aux);
++	drm_dp_aux_unregister(&bridge_to_anx6345(bridge)->aux);
 +}
 +
- static void ti_sn_bridge_disable(struct drm_bridge *bridge)
- {
- 	struct ti_sn_bridge *pdata = bridge_to_ti_sn_bridge(bridge);
-@@ -863,6 +876,7 @@ static void ti_sn_bridge_post_disable(struct drm_bridge *bridge)
+ static enum drm_mode_status
+ anx6345_bridge_mode_valid(struct drm_bridge *bridge,
+ 			  const struct drm_display_info *info,
+@@ -624,6 +629,7 @@ static void anx6345_bridge_enable(struct drm_bridge *bridge)
  
- static const struct drm_bridge_funcs ti_sn_bridge_funcs = {
- 	.attach = ti_sn_bridge_attach,
-+	.detach = ti_sn_bridge_detach,
- 	.pre_enable = ti_sn_bridge_pre_enable,
- 	.enable = ti_sn_bridge_enable,
- 	.disable = ti_sn_bridge_disable,
-@@ -1287,7 +1301,7 @@ static int ti_sn_bridge_probe(struct i2c_client *client,
- 	pdata->aux.name = "ti-sn65dsi86-aux";
- 	pdata->aux.dev = pdata->dev;
- 	pdata->aux.transfer = ti_sn_aux_transfer;
--	drm_dp_aux_register(&pdata->aux);
-+	drm_dp_aux_init(&pdata->aux);
- 
- 	pdata->bridge.funcs = &ti_sn_bridge_funcs;
- 	pdata->bridge.of_node = client->dev.of_node;
+ static const struct drm_bridge_funcs anx6345_bridge_funcs = {
+ 	.attach = anx6345_bridge_attach,
++	.detach = anx6345_bridge_detach,
+ 	.mode_valid = anx6345_bridge_mode_valid,
+ 	.disable = anx6345_bridge_disable,
+ 	.enable = anx6345_bridge_enable,
 -- 
 2.29.2
 
