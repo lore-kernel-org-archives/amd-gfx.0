@@ -2,66 +2,105 @@ Return-Path: <SRS0=jKCf=HV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE1B7C4332B
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1267DC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB20864E57
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 21:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB20864E57
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id B31E764D92
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 22:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B31E764D92
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF1496ECA0;
-	Fri, 19 Feb 2021 21:56:06 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6936EC8A
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 21:55:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613771754;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HBW2YY4AmeWK5S3d4FtEmA6shlia8JITufTjJ7OmB+E=;
- b=PUEvaegglqCIIafet7x2C+jIfZ3juta9jFQBmkp61SKPVJUY8Ny8XopnWI/ZlBd6lNk44a
- 6g2aeiPfrNSsuIGRU6EhuwAwLuviUxFMJAPqATpJWHpty3WdcPak5P/Zdf19eXNO8M9p1d
- DYcrl2ohG/lpqHDOdishDBSSsMmxMhc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-535-DhqEXqbJNzmgJTocLIW7LQ-1; Fri, 19 Feb 2021 16:55:53 -0500
-X-MC-Unique: DhqEXqbJNzmgJTocLIW7LQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 07ED580196C;
- Fri, 19 Feb 2021 21:55:51 +0000 (UTC)
-Received: from Whitewolf.redhat.com (ovpn-118-5.rdu2.redhat.com [10.10.118.5])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 724CF6A03C;
- Fri, 19 Feb 2021 21:55:49 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 28/30] drm/dp: Convert drm_dp_helper.c to using
- drm_err/drm_dbg_*()
-Date: Fri, 19 Feb 2021 16:53:24 -0500
-Message-Id: <20210219215326.2227596-29-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-1-lyude@redhat.com>
-References: <20210219215326.2227596-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 691176E0C5;
+	Fri, 19 Feb 2021 22:16:32 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C5A6E0C5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Feb 2021 22:16:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TRFDe94mOnBQQZU9Cu7hIvhhiumluBcIW7T3zK26XxKwv9bMHpw3zV/li8fEZQfpSLXWhAxAPzgbyVKDBBPvgJqSJpuv87bXYmpqp7xTtu/i/QkNmtJfNauwMzxVhC2NODf39bpzI1gb9htHS1OjKQy58lk5BsUfaxKSvbnH+A/xbKDeKbybq63p32lb9ZXZP67xdsoIQKo/BFTzzMwniIPjLuj95fXlcaXJaKdixlPj4HjeKcIuRGrwpPRVLbKBQk55GZBwDUckLGtNLFWUokOc+tWzvWvynj8sFRLsqn2k7EGtMhmO/aOqd3w8yZP28osRQ1IZzQSSzlCCikNmyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1KFb+ObPXbehiEdnA/+4uExPd3uPwEHN4pzJLl4z4LA=;
+ b=VNNgyJUwtKYy+dq/G8UnxDfXy/nfqOFoFu8lxkjYNcQqeWAEJibKJl48QTjbGuKgo4Rft+b9kThXtr14RPj2yf0PUmcGsKwDfLOHzHG/R3KUPHhyD0nfpJL34NDqFer4zzHbI5M8+OySboKp1pEQOgK/R7cB7MZ+1y/4vzedq6fiFmj006o2MYf7S50SExzctD01mx+5jnoEJc4OvrlIgkmeDaHnSM7j/EivqzIYi9lJEJtBV67StxRTjMPH7DuRI7cRVx53TkUZpfdU2ug/0hybuktgZo4Sx3vX76f8cxzRR2ziARUcdJAIaSSqfIjBFLU/3A5iTokKYbDr419RRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1KFb+ObPXbehiEdnA/+4uExPd3uPwEHN4pzJLl4z4LA=;
+ b=LYGTnNu7O3d3rkTV9NR/+0Y5DnDV5oZhVieq94ptV8t2AARy99Vt0ImfEOFkH+9fTMDkxU64/OsI/k6YIoNJ3xKDomYNi+c4qgnm+ia/NliAYLnKWdw0tNvFsn258mRNmtC4vkZfzJwZ5D/VCBo1T95Q0+WfPqTGhlwvpFpmzL0=
+Received: from BN6PR17CA0043.namprd17.prod.outlook.com (2603:10b6:405:75::32)
+ by BY5PR12MB4099.namprd12.prod.outlook.com (2603:10b6:a03:20f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Fri, 19 Feb
+ 2021 22:16:27 +0000
+Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:75:cafe::df) by BN6PR17CA0043.outlook.office365.com
+ (2603:10b6:405:75::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27 via Frontend
+ Transport; Fri, 19 Feb 2021 22:16:27 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3868.27 via Frontend Transport; Fri, 19 Feb 2021 22:16:26 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 19 Feb
+ 2021 16:16:26 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 19 Feb
+ 2021 16:16:26 -0600
+Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
+ via Frontend Transport; Fri, 19 Feb 2021 16:16:25 -0600
+From: Bindu Ramamurthy <bindu.r@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/13] DC Patches FEB 22, 2021
+Date: Fri, 19 Feb 2021 17:15:59 -0500
+Message-ID: <20210219221612.1713328-1-bindu.r@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 82146160-4425-4db2-385f-08d8d523fff4
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4099:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4099C5074183B8EFB55C78B9F5849@BY5PR12MB4099.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: y4dkmDxNWLgxGOY6gqb/BSUPCPfifDByb1H5Mx5fIRPc38FGOWykmOtsn5VpbQOnS29+VLCW9AKSTJleoJ+DgZYPxLM457uUG9e5tQZknPOwuHlJYAQ+xZklCEF6UejfHcsp7kNvmc3nBtL+eCjyFfYKsRQnfk847HJI6JE21861ZtmSG+nlVNfEzA1VDRQNgmGSAIxrSZvU53yvTWoId2NlixXxOSdCvQdlIlh4yfwhS0rlYR5PTMPCQfaQQHg6qxn/gNe6QwUshVb/m/2oxhdmKjox1kxY4Ff+2JDQHGoNewwf/+Nx9wpkicAFVTAnyw2K9if5mF1FWafnjlaVfi5Ds2fGYVi9PZA/EgfG4m/5zM2tLn56wMv5UZl281XgyJvrR6YNyVxTHxWn/knteQ2fRwEL3PfkFs+B9hA/O4xLrceIofQBdWlkwrNcm5EEQ7hgvsNHPsW1iDDYAeiZLzIPuJ7HortX1OqIEU91oBRNhdWBErPUPP0FPMXH+WjUwPZ6U0HiAMepZzgdMeFR5UGAbA8vtFVeIL4+WNL2gMZP5WglrAthp/HFztIucxCP0WIGeXoM+/wOUT0ko10KdBFnTYCvn/vfYrAgByQKV6svg1l6XH4uXVGulnH5gRpPTpRF3rzJ+pBujxIZ/7sKEeWLBruVYFcc5iN0ezDVFzP/7/jvquCFkQBfx1rwTVI2
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(136003)(39860400002)(376002)(46966006)(36840700001)(6916009)(70206006)(47076005)(36860700001)(426003)(86362001)(70586007)(2906002)(81166007)(8676002)(82310400003)(82740400003)(26005)(5660300002)(356005)(186003)(36756003)(478600001)(316002)(83380400001)(1076003)(8936002)(6666004)(4326008)(7696005)(2616005)(54906003)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2021 22:16:26.7262 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82146160-4425-4db2-385f-08d8d523fff4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,352 +112,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that we've added a back-pointer to drm_device to drm_dp_aux, made
-drm_dp_aux available to any functions in drm_dp_helper.c which need to
-print to the kernel log, and ensured all of our logging uses a consistent
-format, let's do the final step of the conversion and actually move
-everything over to using drm_err() and drm_dbg_*().
 
-This was done by using the following cocci script:
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
+* Firmware release 0.0.53.
+* Addition of interrupts for DCN2.1
+* Refractor debugfs entries for connectors.
+* Enable display audio when seamless booting with an external monitor over DP.
+* Fixes for System hang after multiple hotplug, timing synchronization for displays, disable seamless boot for DP.
 
-  @@
-  expression list expr;
-  @@
 
-  (
-  - DRM_DEBUG_KMS(expr);
-  + drm_dbg_kms(aux->drm_dev, expr);
-  |
-  - DRM_DEBUG_DP(expr);
-  + drm_dbg_dp(aux->drm_dev, expr);
-  |
-  - DRM_DEBUG_ATOMIC(expr);
-  + drm_dbg_atomic(aux->drm_dev, expr);
-  |
-  - DRM_DEBUG_KMS_RATELIMITED(expr);
-  + drm_dbg_kms_ratelimited(aux->drm_dev, expr);
-  |
-  - DRM_ERROR(expr);
-  + drm_err(aux->drm_dev, expr);
-  )
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.53
 
-Followed by correcting the resulting line-wrapping in the results by hand.
+Anthony Wang (2):
+  drm/amd/display: disable seamless boot for DP MST
+  drm/amd/display: enable audio on DP seamless boot
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/drm_dp_helper.c | 122 ++++++++++++++++----------------
- 1 file changed, 60 insertions(+), 62 deletions(-)
+Aric Cyr (3):
+  drm/amd/display: Don't optimize bandwidth before disabling planes
+  drm/amd/display: reduce scope for local var
 
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index b5e2671baf22..0a787ddf39fd 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -139,8 +139,8 @@ void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
- 					 DP_TRAINING_AUX_RD_MASK;
- 
- 	if (rd_interval > 4)
--		DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
--			      aux->name, rd_interval);
-+		drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
-+			    aux->name, rd_interval);
- 
- 	if (rd_interval == 0 || dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14)
- 		rd_interval = 100;
-@@ -155,8 +155,8 @@ static void __drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
- 						 unsigned long rd_interval)
- {
- 	if (rd_interval > 4)
--		DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
--			      aux->name, rd_interval);
-+		drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
-+			    aux->name, rd_interval);
- 
- 	if (rd_interval == 0)
- 		rd_interval = 400;
-@@ -220,11 +220,12 @@ drm_dp_dump_access(const struct drm_dp_aux *aux,
- 	const char *arrow = request == DP_AUX_NATIVE_READ ? "->" : "<-";
- 
- 	if (ret > 0)
--		DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
--			     aux->name, offset, arrow, ret, min(ret, 20), buffer);
-+		drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
-+		           aux->name, offset, arrow, ret, min(ret, 20),
-+		           buffer);
- 	else
--		DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d)\n",
--			     aux->name, offset, arrow, ret);
-+		drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d)\n",
-+		           aux->name, offset, arrow, ret);
- }
- 
- /**
-@@ -287,8 +288,8 @@ static int drm_dp_dpcd_access(struct drm_dp_aux *aux, u8 request,
- 			err = ret;
- 	}
- 
--	DRM_DEBUG_KMS("%s: Too many retries, giving up. First error: %d\n",
--		      aux->name, err);
-+	drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up. First error: %d\n",
-+		    aux->name, err);
- 	ret = err;
- 
- unlock:
-@@ -524,44 +525,44 @@ bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
- 
- 	if (drm_dp_dpcd_read(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
- 			     &auto_test_req, 1) < 1) {
--		DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
--			  aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
-+		drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
-+			aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
- 		return false;
- 	}
- 	auto_test_req &= DP_AUTOMATED_TEST_REQUEST;
- 
- 	if (drm_dp_dpcd_read(aux, DP_TEST_REQUEST, &link_edid_read, 1) < 1) {
--		DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
--			  aux->name, DP_TEST_REQUEST);
-+		drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
-+			aux->name, DP_TEST_REQUEST);
- 		return false;
- 	}
- 	link_edid_read &= DP_TEST_LINK_EDID_READ;
- 
- 	if (!auto_test_req || !link_edid_read) {
--		DRM_DEBUG_KMS("%s: Source DUT does not support TEST_EDID_READ\n",
--			      aux->name);
-+		drm_dbg_kms(aux->drm_dev, "%s: Source DUT does not support TEST_EDID_READ\n",
-+			    aux->name);
- 		return false;
- 	}
- 
- 	if (drm_dp_dpcd_write(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
- 			      &auto_test_req, 1) < 1) {
--		DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
--			  aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
-+		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-+			aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
- 		return false;
- 	}
- 
- 	/* send back checksum for the last edid extension block data */
- 	if (drm_dp_dpcd_write(aux, DP_TEST_EDID_CHECKSUM,
- 			      &real_edid_checksum, 1) < 1) {
--		DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
--			  aux->name, DP_TEST_EDID_CHECKSUM);
-+		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-+			aux->name, DP_TEST_EDID_CHECKSUM);
- 		return false;
- 	}
- 
- 	test_resp |= DP_TEST_EDID_CHECKSUM_WRITE;
- 	if (drm_dp_dpcd_write(aux, DP_TEST_RESPONSE, &test_resp, 1) < 1) {
--		DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
--			  aux->name, DP_TEST_RESPONSE);
-+		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-+			aux->name, DP_TEST_RESPONSE);
- 		return false;
- 	}
- 
-@@ -604,17 +605,16 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
- 		return -EIO;
- 
- 	if (dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
--		DRM_DEBUG_KMS("%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
--			      aux->name, dpcd[DP_DPCD_REV],
--			      dpcd_ext[DP_DPCD_REV]);
-+		drm_dbg_kms(aux->drm_dev,
-+			    "%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
-+			    aux->name, dpcd[DP_DPCD_REV], dpcd_ext[DP_DPCD_REV]);
- 		return 0;
- 	}
- 
- 	if (!memcmp(dpcd, dpcd_ext, sizeof(dpcd_ext)))
- 		return 0;
- 
--	DRM_DEBUG_KMS("%s: Base DPCD: %*ph\n",
--		      aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-+	drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
- 
- 	memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
- 
-@@ -649,8 +649,7 @@ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
- 	if (ret < 0)
- 		return ret;
- 
--	DRM_DEBUG_KMS("%s: DPCD: %*ph\n",
--		      aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-+	drm_dbg_kms(aux->drm_dev, "%s: DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
- 
- 	return ret;
- }
-@@ -694,8 +693,7 @@ int drm_dp_read_downstream_info(struct drm_dp_aux *aux,
- 	if (ret != len)
- 		return -EIO;
- 
--	DRM_DEBUG_KMS("%s: DPCD DFP: %*ph\n",
--		      aux->name, len, downstream_ports);
-+	drm_dbg_kms(aux->drm_dev, "%s: DPCD DFP: %*ph\n", aux->name, len, downstream_ports);
- 
- 	return 0;
- }
-@@ -1412,11 +1410,11 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
- 			 * Avoid spamming the kernel log with timeout errors.
- 			 */
- 			if (ret == -ETIMEDOUT)
--				DRM_DEBUG_KMS_RATELIMITED("%s: transaction timed out\n",
--							  aux->name);
-+				drm_dbg_kms_ratelimited(aux->drm_dev, "%s: transaction timed out\n",
-+							aux->name);
- 			else
--				DRM_DEBUG_KMS("%s: transaction failed: %d\n",
--					      aux->name, ret);
-+				drm_dbg_kms(aux->drm_dev, "%s: transaction failed: %d\n",
-+					    aux->name, ret);
- 			return ret;
- 		}
- 
-@@ -1430,12 +1428,12 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
- 			break;
- 
- 		case DP_AUX_NATIVE_REPLY_NACK:
--			DRM_DEBUG_KMS("%s: native nack (result=%d, size=%zu)\n",
--				      aux->name, ret, msg->size);
-+			drm_dbg_kms(aux->drm_dev, "%s: native nack (result=%d, size=%zu)\n",
-+				    aux->name, ret, msg->size);
- 			return -EREMOTEIO;
- 
- 		case DP_AUX_NATIVE_REPLY_DEFER:
--			DRM_DEBUG_KMS("%s: native defer\n", aux->name);
-+			drm_dbg_kms(aux->drm_dev, "%s: native defer\n", aux->name);
- 			/*
- 			 * We could check for I2C bit rate capabilities and if
- 			 * available adjust this interval. We could also be
-@@ -1449,8 +1447,8 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
- 			continue;
- 
- 		default:
--			DRM_ERROR("%s: invalid native reply %#04x\n",
--				  aux->name, msg->reply);
-+			drm_err(aux->drm_dev, "%s: invalid native reply %#04x\n",
-+				aux->name, msg->reply);
- 			return -EREMOTEIO;
- 		}
- 
-@@ -1465,13 +1463,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
- 			return ret;
- 
- 		case DP_AUX_I2C_REPLY_NACK:
--			DRM_DEBUG_KMS("%s: I2C nack (result=%d, size=%zu)\n",
--				      aux->name, ret, msg->size);
-+			drm_dbg_kms(aux->drm_dev, "%s: I2C nack (result=%d, size=%zu)\n",
-+				    aux->name, ret, msg->size);
- 			aux->i2c_nack_count++;
- 			return -EREMOTEIO;
- 
- 		case DP_AUX_I2C_REPLY_DEFER:
--			DRM_DEBUG_KMS("%s: I2C defer\n", aux->name);
-+			drm_dbg_kms(aux->drm_dev, "%s: I2C defer\n", aux->name);
- 			/* DP Compliance Test 4.2.2.5 Requirement:
- 			 * Must have at least 7 retries for I2C defers on the
- 			 * transaction to pass this test
-@@ -1485,13 +1483,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
- 			continue;
- 
- 		default:
--			DRM_ERROR("%s: invalid I2C reply %#04x\n",
--				  aux->name, msg->reply);
-+			drm_err(aux->drm_dev, "%s: invalid I2C reply %#04x\n",
-+				aux->name, msg->reply);
- 			return -EREMOTEIO;
- 		}
- 	}
- 
--	DRM_DEBUG_KMS("%s: Too many retries, giving up\n", aux->name);
-+	drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up\n", aux->name);
- 	return -EREMOTEIO;
- }
- 
-@@ -1520,8 +1518,9 @@ static int drm_dp_i2c_drain_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *o
- 			return err == 0 ? -EPROTO : err;
- 
- 		if (err < msg.size && err < ret) {
--			DRM_DEBUG_KMS("%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
--				      aux->name, msg.size, err);
-+			drm_dbg_kms(aux->drm_dev,
-+				    "%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
-+				    aux->name, msg.size, err);
- 			ret = err;
- 		}
- 
-@@ -1700,12 +1699,11 @@ static void drm_dp_aux_crc_work(struct work_struct *work)
- 		}
- 
- 		if (ret == -EAGAIN) {
--			DRM_DEBUG_KMS("%s: Get CRC failed after retrying: %d\n",
--				      aux->name, ret);
-+			drm_dbg_kms(aux->drm_dev, "%s: Get CRC failed after retrying: %d\n",
-+				    aux->name, ret);
- 			continue;
- 		} else if (ret) {
--			DRM_DEBUG_KMS("%s: Failed to get a CRC: %d\n",
--				      aux->name, ret);
-+			drm_dbg_kms(aux->drm_dev, "%s: Failed to get a CRC: %d\n", aux->name, ret);
- 			continue;
- 		}
- 
-@@ -2001,13 +1999,12 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
- 
- 	dev_id_len = strnlen(ident->device_id, sizeof(ident->device_id));
- 
--	DRM_DEBUG_KMS("%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
--		      aux->name, is_branch ? "branch" : "sink",
--		      (int)sizeof(ident->oui), ident->oui,
--		      dev_id_len, ident->device_id,
--		      ident->hw_rev >> 4, ident->hw_rev & 0xf,
--		      ident->sw_major_rev, ident->sw_minor_rev,
--		      desc->quirks);
-+	drm_dbg_kms(aux->drm_dev,
-+		    "%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
-+		    aux->name, is_branch ? "branch" : "sink",
-+		    (int)sizeof(ident->oui), ident->oui, dev_id_len,
-+		    ident->device_id, ident->hw_rev >> 4, ident->hw_rev & 0xf,
-+		    ident->sw_major_rev, ident->sw_minor_rev, desc->quirks);
- 
- 	return 0;
- }
-@@ -2769,7 +2766,8 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux)
- 	if (ret < 0)
- 		return ret;
- 	if (!(buf & DP_PCON_ENABLE_SOURCE_CTL_MODE)) {
--		DRM_DEBUG_KMS("%s: PCON in Autonomous mode, can't enable FRL\n", aux->name);
-+		drm_dbg_kms(aux->drm_dev, "%s: PCON in Autonomous mode, can't enable FRL\n",
-+			    aux->name);
- 		return -EINVAL;
- 	}
- 	buf |= DP_PCON_ENABLE_HDMI_LINK;
-@@ -2864,8 +2862,8 @@ void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
- 			num_error = 0;
- 		}
- 
--		DRM_ERROR("%s: More than %d errors since the last read for lane %d",
--			  aux->name, num_error, i);
-+		drm_err(aux->drm_dev, "%s: More than %d errors since the last read for lane %d",
-+			aux->name, num_error, i);
- 	}
- }
- EXPORT_SYMBOL(drm_dp_pcon_hdmi_frl_link_error_count);
+  drm/amd/display: 3.2.124
+       This version brings along following fixes:
+       - Fix system hang after multiple hotplug.
+       - Don't optimize bandwidth before disabling planes.
+       - Report timing synchronizable when DP streams time frame difference is less than 0.05 percent.
+       - move trace buffer to uncached memory.
+       - enable audio on DP seamless boot. 
+       - Disable seamless boot for DP MST.
+
+
+Eric Bernstein (1):
+  drm/amd/display: Remove Assert from dcn10_get_dig_frontend
+
+Eryk Brol (1):
+  drm/amd/display: Check for DSC support instead of ASIC revision
+
+Qingqing Zhuo (1):
+  drm/amd/display: Fix system hang after multiple hotplugs
+
+Rodrigo Siqueira (1):
+  drm/amd/display: Add vupdate_no_lock interrupts for DCN2.1
+
+Stylon Wang (1):
+  drm/amd/display: Refactor debugfs entries for all connectors
+
+Vladimir Stempen (1):
+  drm/amd/display: Synchronize displays with different timings
+
+Yongqiang Sun (1):
+  drm/amd/display: move trace buffer to uncached memory.
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  82 +++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  27 +++
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  22 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  39 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  10 +
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  43 ++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   5 +-
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   3 +
+ .../drm/amd/display/dc/dce/dce_clock_source.c |  52 +++-
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 225 ++++++++++++++++++
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |   5 +
+ .../amd/display/dc/dcn10/dcn10_link_encoder.c |   1 -
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |   2 +
+ .../display/dc/dcn10/dcn10_stream_encoder.c   |   1 -
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |   1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 123 ++++++++++
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |   8 +-
+ .../dc/dcn30/dcn30_dio_stream_encoder.c       |   1 -
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   2 +
+ .../gpu/drm/amd/display/dc/inc/clock_source.h |   5 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |  12 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   3 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 +
+ .../display/dc/irq/dcn21/irq_service_dcn21.c  |  22 ++
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |   7 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.h |   7 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c |   7 +
+ 29 files changed, 676 insertions(+), 48 deletions(-)
+
 -- 
-2.29.2
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
