@@ -1,60 +1,82 @@
-Return-Path: <SRS0=jKCf=HV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=kAdL=HW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AF87C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 23:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5D5CC433E0
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 08:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 116C764EC0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Feb 2021 23:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 116C764EC0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 8CA3D64ED5
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Feb 2021 08:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CA3D64ED5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A03506EC95;
-	Fri, 19 Feb 2021 23:43:41 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5AB76EC78;
- Fri, 19 Feb 2021 23:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=Ujc49kt9eo68ReIbNwWQjhrzEZMk/8nIE0bWp20uh7I=; b=rqqinnM+XuYTrQ5+5XbuydvhVX
- 2PKbS5x9MPinq/CtNTG5iXunSKuiHI6mFGWmxRUBzwL/bpKdsQtlzyUOHI0XjJkwkQlzBgE50DOMw
- 2mhjKySue2iQPnmwy9YsNHXndzRkJDi1kQlPxAvQacFJgMfje+4pMB4jga6apNGeYQwnPgW9QxoOb
- 6VXBsbPiCWwfZJ1r7dlZqXZtvKtcP6q6CB9LaarSP8XVLpBbuFDPPaynSqmVTF8tQN9ZcmQK2QHBj
- F+M2zQqaMXdZAYxNCeLo+zu7csNF3PYexO/Grvh18B45zcFuIeZns8U1rKKk4NcdiU22xSStnhJBk
- 03In6QSQ==;
-Received: from [2601:1c0:6280:3f0::d05b]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1lDFQ0-0008AI-9u; Fri, 19 Feb 2021 23:42:40 +0000
-Subject: Re: [PATCH 01/30] drm/dp: Rewrap kdocs for struct drm_dp_aux
-To: Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-2-lyude@redhat.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <712dc0c3-8ef3-ae3a-8838-93276529dff7@infradead.org>
-Date: Fri, 19 Feb 2021 15:42:34 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269656E157;
+	Sat, 20 Feb 2021 08:39:02 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88DCE6E141;
+ Sat, 20 Feb 2021 08:39:00 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id bl23so19529478ejb.5;
+ Sat, 20 Feb 2021 00:39:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=U3W45LoPE/j4RNLZ0UXbRYjE/alUTYMz6kIHdZC7VSM=;
+ b=KkiYE16uySc5AEpExEkFiuJ8fGEaJzBBdcZGQlfLZyqse26ETbcXrN7FQDMXqlLNlq
+ 9be37bnpxy3PpGRpwloWaLSVW1hpPttrPMqe7w8+XBCIFHVisLNOMCQRkox274h8mHOY
+ rQn5v9Aoo7TVy8C5xBmAI6Nr1ZGsUZjOjRFx/gHuaCpeMkYUQkVy6X9iW1qhIVBqhbDj
+ ZXQRkAj+6cFvIug2KDhqLjqY2WmHSvnSROPO0Qk5rT09sa8QIpXnieoRwO+LRWeCWyyC
+ 2Ne7+la4Ai5kBhK9/BIA+F06Cl5ytsVoYkO9UQIo4LY+GFNxyVVBa/JVEI+qVpJy6TdK
+ tEVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=U3W45LoPE/j4RNLZ0UXbRYjE/alUTYMz6kIHdZC7VSM=;
+ b=TiNfF0TMz+5VvZrKOQ9qv2bLl0GKP/MNSxrgoUx6vYzeMIfHSI6kYMWVbb4PidykxW
+ o4z0nGhIZOhVZz3DYC6y9n+SwwojquNFp2iMAi9CXc+u4B3gwoqzdr7eSpj5eIB4R9X5
+ jOtAoS7s3t7wXqRnGqRPtr7RQHjFu950bdGt9QCTx1Mrg+OPvBSb2Ey0puAzyxsoRoLn
+ uHrLmEtUJKra6YSSAKW9UKeP4eLiwsGajlwYr9DREnqbQ81/9KosV9SrZd9Ca3WmUQtL
+ AWLDCIWq5pjkEwZns6AZvuky2QR9W6aKtZNr9EH4wFOIXz4oBaDngkZFFqOWS3NVf2wI
+ 8ggw==
+X-Gm-Message-State: AOAM531f/Ruo+z78F7ai3fgSC40uQmcAZQCrSN3ulMFzSGDxzz81AN/v
+ wULY88EFSwfXxVxJAzoVVmHkxgj2eMmScQ==
+X-Google-Smtp-Source: ABdhPJwWUiIuswEfQLoijqJhrmtjdLX0kW0WBS2kSgmwQ9hhZJbhTrM5qw9vkimbm6cL7ZXgDj+LKg==
+X-Received: by 2002:a17:907:20bb:: with SMTP id
+ pw27mr12387834ejb.71.1613810339239; 
+ Sat, 20 Feb 2021 00:38:59 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:c4ad:5e0e:c573:82e?
+ ([2a02:908:1252:fb60:c4ad:5e0e:c573:82e])
+ by smtp.gmail.com with ESMTPSA id c18sm6669526edu.20.2021.02.20.00.38.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 20 Feb 2021 00:38:58 -0800 (PST)
+Subject: Re: [PATCH v2] drm/scheduler: Fix hang when sched_entity released
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <1613599181-9492-1-git-send-email-andrey.grodzovsky@amd.com>
+ <bc2c5ce4-a641-8a5e-bd7b-11174c883e99@gmail.com>
+ <6f8dac3e-99eb-1b84-60f9-ee9b24210fbc@amd.com>
+ <abcb8ea9-fcb4-a781-bf87-d12f3910e484@gmail.com>
+ <74c4a9e1-f1e0-03e5-3c99-755f3cf1b60f@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <bf874237-033c-8eb2-336c-ec79ae9ef941@gmail.com>
+Date: Sat, 20 Feb 2021 09:38:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210219215326.2227596-2-lyude@redhat.com>
+In-Reply-To: <74c4a9e1-f1e0-03e5-3c99-755f3cf1b60f@amd.com>
 Content-Language: en-US
-X-Mailman-Approved-At: Fri, 19 Feb 2021 23:43:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +88,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/19/21 1:52 PM, Lyude Paul wrote:
-> Since we're about to be adding some more fields and update this
-> documentation, let's rewrap it to the new column limit of 100 beforehand.
-> No actual doc or functional changes are made here.
->
-
-The preferred column limit is still 80.
-For some (exceptional) cases, going up to 100 is OK,
-but I don't see any reason here to go beyond 80.
-
-
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  include/drm/drm_dp_helper.h | 42 ++++++++++++++++---------------------
->  1 file changed, 18 insertions(+), 24 deletions(-)
-> 
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index edffd1dcca3e..2891a98eebc8 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -1839,34 +1839,28 @@ struct drm_dp_aux_cec {
->   * @crc_count: counter of captured frame CRCs
->   * @transfer: transfers a message representing a single AUX transaction
->   *
-> - * The .dev field should be set to a pointer to the device that implements
-> - * the AUX channel.
-> + * The .dev field should be set to a pointer to the device that implements the AUX channel.
->   *
-> - * The .name field may be used to specify the name of the I2C adapter. If set to
-> - * NULL, dev_name() of .dev will be used.
-> + * The .name field may be used to specify the name of the I2C adapter. If set to NULL, dev_name() of
-> + * .dev will be used.
->   *
-> - * Drivers provide a hardware-specific implementation of how transactions
-> - * are executed via the .transfer() function. A pointer to a drm_dp_aux_msg
-> - * structure describing the transaction is passed into this function. Upon
-> - * success, the implementation should return the number of payload bytes
-> - * that were transferred, or a negative error-code on failure. Helpers
-> - * propagate errors from the .transfer() function, with the exception of
-> - * the -EBUSY error, which causes a transaction to be retried. On a short,
-> - * helpers will return -EPROTO to make it simpler to check for failure.
-> + * Drivers provide a hardware-specific implementation of how transactions are executed via the
-> + * .transfer() function. A pointer to a drm_dp_aux_msg structure describing the transaction is
-> + * passed into this function. Upon success, the implementation should return the number of payload
-> + * bytes that were transferred, or a negative error-code on failure. Helpers propagate errors from
-> + * the .transfer() function, with the exception of the -EBUSY error, which causes a transaction to
-> + * be retried. On a short, helpers will return -EPROTO to make it simpler to check for failure.
->   *
-> - * An AUX channel can also be used to transport I2C messages to a sink. A
-> - * typical application of that is to access an EDID that's present in the
-> - * sink device. The .transfer() function can also be used to execute such
-> - * transactions. The drm_dp_aux_register() function registers an I2C
-> - * adapter that can be passed to drm_probe_ddc(). Upon removal, drivers
-> - * should call drm_dp_aux_unregister() to remove the I2C adapter.
-> - * The I2C adapter uses long transfers by default; if a partial response is
-> - * received, the adapter will drop down to the size given by the partial
-> - * response for this transaction only.
-> + * An AUX channel can also be used to transport I2C messages to a sink. A typical application of
-> + * that is to access an EDID that's present in the sink device. The .transfer() function can also be
-> + * used to execute such transactions. The drm_dp_aux_register() function registers an I2C adapter
-> + * that can be passed to drm_probe_ddc(). Upon removal, drivers should call drm_dp_aux_unregister()
-> + * to remove the I2C adapter. The I2C adapter uses long transfers by default; if a partial response
-> + * is received, the adapter will drop down to the size given by the partial response for this
-> + * transaction only.
->   *
-> - * Note that the aux helper code assumes that the .transfer() function
-> - * only modifies the reply field of the drm_dp_aux_msg structure.  The
-> - * retry logic and i2c helpers assume this is the case.
-> + * Note that the aux helper code assumes that the .transfer() function only modifies the reply field
-> + * of the drm_dp_aux_msg structure. The retry logic and i2c helpers assume this is the case.
->   */
->  struct drm_dp_aux {
->  	const char *name;
-> 
-
-
--- 
-~Randy
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CgpBbSAxOC4wMi4yMSB1bSAxNzo0MSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Cj4gT24g
+Mi8xOC8yMSAxMDoxNSBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTguMDIuMjEg
+dW0gMTY6MDUgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4+Cj4+PiBPbiAyLzE4LzIxIDM6
+MDcgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4KPj4+Pgo+Pj4+IEFtIDE3LjAyLjIx
+IHVtIDIyOjU5IHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4+Pj4+IFByb2JsZW06IElmIHNj
+aGVkdWxlciBpcyBhbHJlYWR5IHN0b3BwZWQgYnkgdGhlIHRpbWUgc2NoZWRfZW50aXR5Cj4+Pj4+
+IGlzIHJlbGVhc2VkIGFuZCBlbnRpdHkncyBqb2JfcXVldWUgbm90IGVtcHR5IEkgZW5jb3VudHJl
+ZAo+Pj4+PiBhIGhhbmcgaW4gZHJtX3NjaGVkX2VudGl0eV9mbHVzaC4gVGhpcyBpcyBiZWNhdXNl
+IAo+Pj4+PiBkcm1fc2NoZWRfZW50aXR5X2lzX2lkbGUKPj4+Pj4gbmV2ZXIgYmVjb21lcyBmYWxz
+ZS4KPj4+Pj4KPj4+Pj4gRml4OiBJbiBkcm1fc2NoZWRfZmluaSBkZXRhY2ggYWxsIHNjaGVkX2Vu
+dGl0aWVzIGZyb20gdGhlCj4+Pj4+IHNjaGVkdWxlcidzIHJ1biBxdWV1ZXMuIFRoaXMgd2lsbCBz
+YXRpc2Z5IGRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZS4KPj4+Pj4gQWxzbyB3YWtldXAgYWxsIHRo
+b3NlIHByb2Nlc3NlcyBzdHVjayBpbiBzY2hlZF9lbnRpdHkgZmx1c2hpbmcKPj4+Pj4gYXMgdGhl
+IHNjaGVkdWxlciBtYWluIHRocmVhZCB3aGljaCB3YWtlcyB0aGVtIHVwIGlzIHN0b3BwZWQgYnkg
+bm93Lgo+Pj4+Pgo+Pj4+PiB2MjoKPj4+Pj4gUmV2ZXJzZSBvcmRlciBvZiBkcm1fc2NoZWRfcnFf
+cmVtb3ZlX2VudGl0eSBhbmQgbWFya2luZwo+Pj4+PiBzX2VudGl0eSBhcyBzdG9wcGVkIHRvIHBy
+ZXZlbnQgcmVpbnNlcmlvbiBiYWNrIHRvIHJxIGR1ZQo+Pj4+PiB0byByYWNlLgo+Pj4+Pgo+Pj4+
+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1k
+LmNvbT4KPj4+Pj4gLS0tCj4+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRf
+bWFpbi5jIHwgMzEgCj4+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+Pj4g
+wqAgMSBmaWxlIGNoYW5nZWQsIDMxIGluc2VydGlvbnMoKykKPj4+Pj4KPj4+Pj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jIAo+Pj4+PiBiL2RyaXZl
+cnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4+Pj4+IGluZGV4IDkwOGIwYjUuLmM2
+Yjc5NDcgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRf
+bWFpbi5jCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5j
+Cj4+Pj4+IEBAIC04OTcsOSArODk3LDQwIEBAIEVYUE9SVF9TWU1CT0woZHJtX3NjaGVkX2luaXQp
+Owo+Pj4+PiDCoMKgICovCj4+Pj4+IMKgIHZvaWQgZHJtX3NjaGVkX2Zpbmkoc3RydWN0IGRybV9n
+cHVfc2NoZWR1bGVyICpzY2hlZCkKPj4+Pj4gwqAgewo+Pj4+PiArwqDCoMKgIGludCBpOwo+Pj4+
+PiArwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICpzX2VudGl0eTsKPj4+Pgo+Pj4+IEJU
+VzogUGxlYXNlIG9yZGVyIHRoYXQgc28gdGhhdCBpIGlzIGRlY2xhcmVkIGxhc3QuCj4+Pj4KPj4+
+Pj4gwqDCoMKgwqDCoCBpZiAoc2NoZWQtPnRocmVhZCkKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+IGt0aHJlYWRfc3RvcChzY2hlZC0+dGhyZWFkKTsKPj4+Pj4gwqAgK8KgwqDCoCAvKiBEZXRhY2gg
+YWxsIHNjaGVkX2VudGl0ZXMgZnJvbSB0aGlzIHNjaGVkdWxlciBvbmNlIGl0J3MgCj4+Pj4+IHN0
+b3BwZWQgKi8KPj4+Pj4gK8KgwqDCoCBmb3IgKGkgPSBEUk1fU0NIRURfUFJJT1JJVFlfQ09VTlQg
+LSAxOyBpID49IAo+Pj4+PiBEUk1fU0NIRURfUFJJT1JJVFlfTUlOOyBpLS0pIHsKPj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfcnEgKnJxID0gJnNjaGVkLT5zY2hlZF9ycVtp
+XTsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCFycSkKPj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4+Pj4+ICsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIC8q
+IExvb3AgdGhpcyB3YXkgYmVjYXVzZSBycS0+bG9jayBpcyB0YWtlbiBpbiAKPj4+Pj4gZHJtX3Nj
+aGVkX3JxX3JlbW92ZV9lbnRpdHkgKi8KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHNwaW5fbG9jaygm
+cnEtPmxvY2spOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgd2hpbGUgKChzX2VudGl0eSA9IGxpc3Rf
+Zmlyc3RfZW50cnlfb3JfbnVsbCgmcnEtPmVudGl0aWVzLAo+Pj4+PiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRy
+bV9zY2hlZF9lbnRpdHksCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBsaXN0KSkpIHsKPj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgc3Bpbl91bmxvY2soJnJxLT5sb2NrKTsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAvKiBQcmV2ZW50IHJlaW5zZXJ0aW9uIGFuZCByZW1vdmUgKi8KPj4+
+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl9sb2NrKCZzX2VudGl0eS0+cnFfbG9jayk7
+Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNfZW50aXR5LT5zdG9wcGVkID0gdHJ1ZTsK
+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX3NjaGVkX3JxX3JlbW92ZV9lbnRpdHko
+cnEsIHNfZW50aXR5KTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl91bmxvY2so
+JnNfZW50aXR5LT5ycV9sb2NrKTsKPj4+Pgo+Pj4+IFdlbGwgdGhpcyBzcGluX3VubG9jay9sb2Nr
+IGRhbmNlIGhlcmUgZG9lc24ndCBsb29rIGNvcnJlY3QgYXQgYWxsIG5vdy4KPj4+Pgo+Pj4+IENo
+cmlzdGlhbi4KPj4+Cj4+Pgo+Pj4gSW4gd2hhdCB3YXkgPyBJdCdzIGluIHRoZSBzYW1lIHNhbWUg
+b3JkZXIgYXMgaW4gb3RoZXIgY2FsbCBzaXRlcyAKPj4+IChzZWUgZHJtX3NjaGVkX2VudGl0eV9w
+dXNoX2pvYiBhbmQgZHJtX3NjaGVkX2VudGl0eV9mbHVzaCkuCj4+PiBJZiBpIGp1c3QgbG9ja2Vk
+IHJxLT5sb2NrIGFuZCBkaWQgbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlIHdoaWxlIAo+Pj4gbWFu
+dWFsbHkgZGVsZXRpbmcgZW50aXR5LT5saXN0IGluc3RlYWQgb2YgY2FsbGluZwo+Pj4gZHJtX3Nj
+aGVkX3JxX3JlbW92ZV9lbnRpdHkgdGhpcyBzdGlsbCB3b3VsZCBub3QgYmUgcG9zc2libGUgYXMg
+dGhlIAo+Pj4gb3JkZXIgb2YgbG9jayBhY3F1aXNpdGlvbiBiZXR3ZWVuwqAgc19lbnRpdHktPnJx
+X2xvY2sKPj4+IGFuZCBycS0+bG9jayB3b3VsZCBiZSByZXZlcnNlIGNvbXBhcmVkIHRvIHRoZSBj
+YWxsIHNpdGVzIG1lbnRpb25lZCAKPj4+IGFib3ZlLgo+Pgo+PiBBaCwgbm93IEkgdW5kZXJzdGFu
+ZC4gWW91IG5lZWQgdGhpcyBiZWNhdXNlIAo+PiBkcm1fc2NoZWRfcnFfcmVtb3ZlX2VudGl0eSgp
+IHdpbGwgZ3JhYiB0aGUgcnEgbG9jayBhZ2FpbiEKPj4KPj4gUHJvYmxlbSBpcyBub3cgd2hhdCBw
+cmV2ZW50cyB0aGUgZW50aXR5IGZyb20gYmVpbmcgZGVzdHJveWVkIHdoaWxlIAo+PiB5b3UgcmVt
+b3ZlIGl0Pwo+Pgo+PiBDaHJpc3RpYW4uCj4KPiBSaWdodCwgd2VsbCwgc2luY2UgKHVuZm9ydHVu
+YXRlbHkpIHNjaGVkX2VudGl0eSBpcyBwYXJ0IG9mIAo+IGFtZGdwdV9jdHhfZW50aXR5IGFuZCBh
+bWRncHVfY3R4X2VudGl0eSBpcyByZWZjb3VudGVkCj4gdGhlcmUgaXMgYSBwcm9ibGVtIGhlcmUg
+dGhhdCB3ZSBkb24ndCBpbmNyZW1lbnQgYW1kZ3B1X2N0eC5yZWZjb3VudCAKPiB3aGVuIGFzc2ln
+bmluZ8KgIHNjaGVkX2VudGl0eQo+IHRvIG5ldyBycSAoZS5nLiBiZWZvcmUgZHJtX3NjaGVkX3Jx
+X2FkZF9lbnRpdHkpIGFuZCBub3QgZGVjcmVtZW50IAo+IGJlZm9yZSByZW1vdmluZy4gV2UgZG8g
+aXQgZm9yCj4gYW1kZ3B1X2NzX3BhcnNlci5lbnRpdHkgZm9yIGV4YW1wbGUgKGluIGFtZGdwdV9j
+c19wYXJzZXJfaW5pdCBhbmQgCj4gYW1kZ3B1X2NzX3BhcnNlcl9maW5pIGJ5Cj4gY2FsbGluZyBh
+bWRncHVfY3R4X2dldCBhbmQgYW1kZ3B1X2N0eF9wdXQpLiBCdXQgdGhpcyBzZWVtcyBhIGJpdCAK
+PiB0cmlja3kgZHVlIHRvIGFsbCB0aGUgZHJtX3NjaGVkX2VudGl0eV9zZWxlY3RfcnEKPiBsb2dp
+Yy4KPgo+IEFub3RoZXIsIGtpbmQgb2YgYSBiYW5kIGFpZCBmaXgsIHdvdWxkIHByb2JhYmx5IGJl
+IGp1c3QgbG9ja2luZyAKPiBhbWRncHVfY3R4X21nci5sb2NrIGFyb3VuZCBkcm1fc2NoZWRfZmlu
+aQo+IHdoZW4gZmluYWxpemluZyB0aGUgZmVuY2UgZHJpdmVyIGFuZCBhcm91bmQgaWRyIGl0ZXJh
+dGlvbiBpbiAKPiBhbWRncHVfY3R4X21ncl9maW5pICh3aGljaCBzaG91bGQgYmUgbG9jayBwcm90
+ZWN0ZWQKPiBhbnl3YXkgYXMgSSBzZWUgZnJvbSBvdGhlciBpZHIgdXNhZ2VzIGluIHRoZSBjb2Rl
+KSAuLi4gVGhpcyBzaG91bGQgCj4gcHJldmVudCB0aGlzIHVzZSBhZnRlciBmcmVlLgoKUHVoLCB0
+aGF0J3MgcmF0aGVyIGNvbXBsaWNhdGVkIGFzIHdlbGwuIE9rIGxldCdzIGxvb2sgYXQgaXQgZnJv
+bSB0aGUgCm90aGVyIHNpZGUgZm9yIGEgbW9tZW50LgoKV2h5IGRvIHdlIGhhdmUgdG8gcmVtb3Zl
+IHRoZSBlbnRpdGllcyBmcm9tIHRoZSBycSBpbiB0aGUgZmlyc3QgcGxhY2U/CgpXb3VsZG4ndCBp
+dCBiZSBzdWZmaWNpZW50IHRvIGp1c3Qgc2V0IGFsbCBvZiB0aGVtIHRvIHN0b3BwZWQ/CgpDaHJp
+c3RpYW4uCgo+Cj4gQW5kcmV5Cj4KPgo+Pgo+Pj4KPj4+IEFuZHJleQo+Pj4KPj4+Cj4+Pgo+Pj4+
+Cj4+Pj4+ICsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl9sb2NrKCZycS0+bG9j
+ayk7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBzcGluX3Vu
+bG9jaygmcnEtPmxvY2spOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgfQo+Pj4+PiArCj4+Pj4+ICvC
+oMKgwqAgLyogV2FrZXVwIGV2ZXJ5b25lIHN0dWNrIGluIGRybV9zY2hlZF9lbnRpdHlfZmx1c2gg
+Zm9yIHRoaXMgCj4+Pj4+IHNjaGVkdWxlciAqLwo+Pj4+PiArwqDCoMKgIHdha2VfdXBfYWxsKCZz
+Y2hlZC0+am9iX3NjaGVkdWxlZCk7Cj4+Pj4+ICsKPj4+Pj4gwqDCoMKgwqDCoCAvKiBDb25maXJt
+IG5vIHdvcmsgbGVmdCBiZWhpbmQgYWNjZXNzaW5nIGRldmljZSBzdHJ1Y3R1cmVzICovCj4+Pj4+
+IMKgwqDCoMKgwqAgY2FuY2VsX2RlbGF5ZWRfd29ya19zeW5jKCZzY2hlZC0+d29ya190ZHIpOwo+
+Pj4+Cj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
