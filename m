@@ -7,113 +7,112 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26F7CC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 03:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CC6AC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 04:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B685164E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 03:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B685164E64
+	by mail.kernel.org (Postfix) with ESMTPS id ABE6C60230
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 04:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABE6C60230
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FCD6E4AB;
-	Mon, 22 Feb 2021 03:56:54 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700053.outbound.protection.outlook.com [40.107.70.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09FC66E4AB
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 03:56:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E2D6E19C;
+	Mon, 22 Feb 2021 04:03:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23B0F6E19C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 04:03:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H+/THRI0zf37Jp/0pT6W/Fupu542a+JIFHAhNmRH6bpkNHPzKwShvRaztVnSZx8N+hLRGzK3E2RZ8HH97udgN2jKgxrwqW7qKvE+LB26/AC9yTu5ERY0i/gUd1NFI5I0ysFBCRK0U8FBHn+u2rXcy+pcGaFYWBiY9atCCS62fjcgHzW204IAxQQZl/cbaQICaEZnuSe+jB+OcdVKiHzuQnMHDIU9CpvdkiKqsrQGCCorMX8wHBCmSB1MSPwgVTAKE4inDp3yyJTsBv35jGRcEJDOWKp698nCNGx7DSTwA7T4ypAyFI5NBo2yNDCF/x8jFjIZ49apU1zN2w92BfSzWQ==
+ b=GnvId16qSzjb7C/hZX7mTL12Dqlgnk5NrTEYe0JlYQY/6sIrc/3WUey5nQVFHi/B8hsEiXeRK4PyHZs4U7cXqmZ/1Mvqr5YuciQlCXTYVpUYPUqu98YkSnkEhsKHx2SF3oemiqI3SDYjLFwaot4H7l+cN1ebzcD82PLBXrXqROYsmKT3I8Xg+FG2jB9KrKl4eN6NK+wFeaWZ/diP7GxkzJ/ctkvsWalb66bejDyhbO/qEnbwLMyjuBaEcOdrfTsEaeF8asDsXKGytsSuERG+IcYQ+XoskJD4tzpouqzpvSBkCepb7U77CVcxYPOsc0WFo2PN6QiGNZrk6ZckwxzEwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBFdZlNuvUrMSU3tLdofOesHVYjeFelszMVH6Lp0/LM=;
- b=kHL6oj9HvpAuemSDW31ddlLfqbrk5vdfFLWCzoxc0fprwKr/LyCYXWBrMISHjPh83jpSijr7JQcMQgdzhLKzaJ3UUZsRWgUpM6+OfnNH1GZou0OZIMzwWi5Tgl3TnVLwBOzaR2I+mXQ1TDV0QUWS4ESGWEYwefmmd1ET+zDeg3jYnWQR/R+RBn+bld+zMkvMaTwdRn4AXZ50Pi7h86CNmOlNAzAFcnIVQJWeXOdt1qkLNOj8vFe3L/UkbhPxmVznBJCR3lAt8OO15fKOUL+vE2wya+NtHqk2iGOW4AHNVxYH8dRyHPf3wm5VPGiWG4XpYyh2FzHz8PhwiW1CRF6fJA==
+ bh=tfq9wBZyxvj9IyJUBQ4JBCfJLCJwGoraycvhn3n7DXY=;
+ b=CsuplY99orP0JgUhatwTISQDaP7o32O40uuVitr9KPbxLbNVVetT119UCw+yLd0R7vyzG74wy8IWslrqm98p2rX/vkY6+CJj8VqM6gyOA8CMzEFN1xZgc723NUF3noQAL7hDPfGF6XsXPnL1CJn2c/sCRdigGIcl0q8IOChhIlhB71wWa2DJn91h0GKT04oElCoWp80hJR0wz0nBNizbDHkRl3ZWS+HMtXEcAvIb7ULnPUuwHZQGM40HZzHQf/LRAKWA7uHCX7giti+VRue0y8A5p2sgBkiW63f09XqQYDk4jPmK+PQ0D5yymlg3qblpfhXN6d+FGlvq7WKX+hyLzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBFdZlNuvUrMSU3tLdofOesHVYjeFelszMVH6Lp0/LM=;
- b=LGMNttTU1KxK6pjc96wl4ohC2iP7tVO4/RE9Lq8W+fhUBMXipHGiXotAciHvbjANxxashnHKOpBo2nQgen379Gxz/lmYKidedhM6NkDJZ4VyZHZccCC7ezF+s1H4yHPy9Dgx3sWUqjsXinXdZw/MMLdFvO+iK/v0PQN4oON7fYc=
+ bh=tfq9wBZyxvj9IyJUBQ4JBCfJLCJwGoraycvhn3n7DXY=;
+ b=pb6JIND+KPaw6LcHLYVy6pHD14KMloBUP5RK61Xn3qYlfsbU4N/8D+zUqdgNsgiAznI7oP5Bz793FF/YGWBucMIbGJsmp+X7m3LIKhF0AlgLEUWXzCcWDFPiYUBK47EBZUYW6cOpfSyyTXQ59LEfLMhDU8ISB+UGvGQoTf+Gl3k=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4748.namprd12.prod.outlook.com (2603:10b6:5:33::15) with
+ DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3868.33; Mon, 22 Feb 2021 03:56:51 +0000
+ 15.20.3868.27; Mon, 22 Feb 2021 04:03:50 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::11e6:53ff:8e98:31f0]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::11e6:53ff:8e98:31f0%3]) with mapi id 15.20.3868.032; Mon, 22 Feb 2021
- 03:56:50 +0000
+ 04:03:50 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/pm: bump Navi1x driver if version and related data
- structures
-Date: Mon, 22 Feb 2021 11:56:25 +0800
-Message-Id: <20210222035625.1280702-1-evan.quan@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: correct gpu metrics related data structures
+Date: Mon, 22 Feb 2021 12:03:28 +0800
+Message-Id: <20210222040329.1280956-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HK2PR03CA0062.apcprd03.prod.outlook.com
- (2603:1096:202:17::32) To DM6PR12MB2619.namprd12.prod.outlook.com
+X-ClientProxiedBy: HKAPR04CA0006.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::16) To DM6PR12MB2619.namprd12.prod.outlook.com
  (2603:10b6:5:45::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (180.167.199.189) by
- HK2PR03CA0062.apcprd03.prod.outlook.com (2603:1096:202:17::32) with Microsoft
+ HKAPR04CA0006.apcprd04.prod.outlook.com (2603:1096:203:d0::16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3890.10 via Frontend Transport; Mon, 22 Feb 2021 03:56:49 +0000
+ 15.20.3868.27 via Frontend Transport; Mon, 22 Feb 2021 04:03:49 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ca00c284-a198-4eb0-a846-08d8d6e5e236
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4748:
+X-MS-Office365-Filtering-Correlation-Id: a579414f-fa15-48a8-0e25-08d8d6e6dca8
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4124:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB47481B6632E766CCB37F14C6E4819@DM6PR12MB4748.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4124BD06E40AD4A794E0E2DAE4819@DM6PR12MB4124.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:117;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ybuu2AEB/jspjaXlTSuGzEfvHbQ201Ltv7SZZQsgkmk4fPG0+HFLilUK+BdVccwWklPdyGrv19k/kx5KkvAG2dp9+kVf8BLEGpjQoxz2wEblvgkem3xEXrU8lqpGsKE9yxj2C7T8l9Ufu/lIJjfEzsnk1zAY+n0TcjpNy1fHQJoQM8DsKyJ1So/CekIYmEIKCXgWwmnYiENvRbfRwwt4/W6xF5cn9tHHqqG8wCnA0DQU+9JD5YhJseR/4wYihQS3gTI1hjD9/MExExzXOcwrYbMBgWrLdGt5db99ndX476cNkN7gom1IFtpxFhoVx+VqP/mrv9C0/vtw7FzXS7mrHHtQyxYOzdL519sOHnyzGl3t9K7e4veZ0rEwp8YgknIj4G4KZWmuHxuI6K7v+VKYINmgtP8Q3a/A/Wya0rkDBcQayKAHb42N04d1WekWtKxHpNfBN1CosOwpI7og3vXAjUpDKbj+d1HNvIrsnshGgKAG8iYHw3V4Y+E9tZdjrKjALSUzhLQIWej05b7WjA/GfuqDBhxENoQdWoOaSiT3HJ4I5qaRYEw2Ezz5oPVaqEEk
+X-Microsoft-Antispam-Message-Info: Oj2/QI1vC5BccdIc558x1LI0AMzBFpbtTdXNs1L17LejfhJ34zQqxht/nAKvtiXhfbwo0HQv2QBs6ZTUrthMkfaPDdm8xBiL0lSlPRidmA3hKd9ZrDxEq2gkqMbXvZPEMZAR5rVrgLGfobs2jk1zUZi4BhWPGv3l8bM9tjpFqx4xrHTBfU0cJMqSdRVCGqZOTtZdimUZ1wiehF/VDMvQIGLX85WMfTyDeYx4uKVUyZG/lSgacWQ+Ig0gdnBAZ7btpiug/aPrG+cfyt3N2PTwPlyIwZbcEMMowQFEKDhcSMyGKXrVQVf8hcYMDyvHZeZ5PcGyLyC/NHr4leWysUHwe8V+s6jhWxw1cD/8tb2ohBPJFPS58A/i6Jig0jjOHthpzrOnlyK6ds9rreG5eTChbX5KJ8dvFmR2yuqBPqVD5bNR2OG4TXDLsq1mPqtWK4xVRGt/Y5/gRwHY86fpgVuXO6fWYta+8EYEL3SGz4o2o4DCAtO+x4htHuOn+iz2EFJKjXXJIoKDKbSyWRqc5SpLCQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(39860400002)(366004)(396003)(376002)(66946007)(478600001)(66556008)(86362001)(66476007)(8676002)(8936002)(2906002)(1076003)(6916009)(4326008)(316002)(36756003)(956004)(5660300002)(6486002)(83380400001)(52116002)(7696005)(2616005)(26005)(44832011)(186003)(6666004)(16526019)(32563001);
+ SFS:(4636009)(39860400002)(346002)(366004)(376002)(136003)(396003)(2906002)(8676002)(6666004)(8936002)(5660300002)(478600001)(1076003)(6916009)(66556008)(4326008)(66476007)(6486002)(36756003)(44832011)(316002)(86362001)(956004)(186003)(7696005)(66946007)(26005)(52116002)(16526019)(83380400001)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Ci4XalqApvKkkRlUJsEM6kZ0yvN8XgNYgeO2gDESwExokECzjTzPob2MSIq/?=
- =?us-ascii?Q?ST0roLUG5OIQZdB2l3eomAaa6qzH4OKVykjDcpqkOtkXzRfG8oLLWBn76sbj?=
- =?us-ascii?Q?PrRBfmgedVWBOP58O4uqbN+AtQ3AZmk4rq7eSDxpCu1a+YvAMSnke1RwNbou?=
- =?us-ascii?Q?h19iGbDqg/JqY4xdqFEP6AnQKHVBEdroCHDpZVxb1pfp/OGuLNNXJLnC7Tty?=
- =?us-ascii?Q?kdbxneKhkJsA8vbAQy4l7ZrpSD0vYVHgjWwfU2TO5h8T+RLpCHnOgUByhffR?=
- =?us-ascii?Q?zlxeYmOAril4vnAJZ+prtz7vLc4YoAw3TwZM/IJP5z+F23roCwPS4YpdoBfc?=
- =?us-ascii?Q?TnsxQs3Exruut8GLYxaJN14P/FAgBuLzfc2rwUEj7tBp9FVYnYaa+cTw9Gku?=
- =?us-ascii?Q?ZEJETJcdXVUBq/3ioPNynOJ5zmMpECadtSQQcYXcDuDxOFlNeQYYwF6ZiElm?=
- =?us-ascii?Q?3Akb5flnQNqfwbW2LZpqNYbajwnPNbGqxz/9DN6n5PSI+zo0w4bzos+kdHem?=
- =?us-ascii?Q?vk/ejm1EEpVtyY370QAziJdSzTrGorTaodIt+dnc5eZRvs6wYCQVS1vQaxZD?=
- =?us-ascii?Q?NrEDzp9zYn3NT9n+6lD56DodAaWVN9ONVWBAHrwKdcI0W93H/oABvduVmPwR?=
- =?us-ascii?Q?GJ8JW/wzTo8qNZSxAz/4ImunABs+cVrpRHn5/IOstnIm6KP45TKXZG1SjvkY?=
- =?us-ascii?Q?j5MgHlDbgwOmUCplvEF/Au1c8PSpDIXjWj43uxWPFMoX197hy6MdtHoftT0x?=
- =?us-ascii?Q?kNH5ILFM1KQiD0BjA4nLsZ9+ZBEX6pPZwmCKefI0eq0rXu3p+KklO1vrB6rA?=
- =?us-ascii?Q?HTWgjstTuAUbfeMiATb7FeD2kXRWfWqood4fvpdkQG18YhdHxhLhR9sQkeuH?=
- =?us-ascii?Q?WUmulJ0I/9KuwZqzxX+JAYTYiqQn/CgM5Z8wd0lcwGdVpDl4INx2cav/92d5?=
- =?us-ascii?Q?nWnUi2sWZFrP7meN33jNHj9SrC6Xv37QcsDh0q5whQ0sqA3/hXvJaa8Z27uS?=
- =?us-ascii?Q?dnpK7YJ6feA9xAORlbO0ZsxFI1CEkRmVEGmVomyO7DZwYZUPJywj3WTjswLM?=
- =?us-ascii?Q?Da7VpsnTARxx+1KX4hSVmSe2b9h/y/GSkfwA0RJrHWYZY8yG/mmB5JepMGGw?=
- =?us-ascii?Q?mQn91la69n5a21fTbgW/nsxnHIyctyjiCI/bd8ezz2zBJEIbQJp2vTzLE2pF?=
- =?us-ascii?Q?Q2L8QGKsNESjm2ZxcsuwpUGxekD7sRcipZdBGl1URsYyjBRy/KSclhYffoHo?=
- =?us-ascii?Q?+vEp1MYC30bsACG8xfT2Mi5a5ygSujBN49MA9Wu3q82pJr9Icwouu3psKRoV?=
- =?us-ascii?Q?TVfpzJgMVI4xblpMHD0wnAVK?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?dVytJSuRY3XU3sJsEB0Sy2Kt/42J8d5kxXqeBQUA4bque8hpdUAEAFacjISr?=
+ =?us-ascii?Q?14Hajok7WtMWg2GfFxRKyJBzCJlLvZlPkEzLD+pws+vpO0AGpHHurNjnrqBS?=
+ =?us-ascii?Q?T0EUWWUPRdYbUiJFuwJCttHUCGAIZnjCZTrsY6Kw+oC1SiilCitLIe1ItaAd?=
+ =?us-ascii?Q?A+GjwDl5vzJeeBQtP8u8FM3bESjrO9jQ//AzvLLmUZM+4fpPEpFwz7Ust22Y?=
+ =?us-ascii?Q?KeaS2udknIZ+j8ycMf0F5TajDCcBB82401bGceXt7Z5LOGbPLFwHLuPk9y/n?=
+ =?us-ascii?Q?lWONacuzMJfnf0zZVeBopzVkDMdACbhYKP9wqKeDrwv23etuFTaLz1iVeEVg?=
+ =?us-ascii?Q?2M+zqKfJvH4D7L1s+t1sX9cMKQD29kG/gaUGUiXZ0HtJ5AB4ZNEywNNgUVJ0?=
+ =?us-ascii?Q?dbGZedL3hcEdYNG2rm/9kuaMNAg5oAuP3w8QsThJ4oX6bSFZv1tXEYeCM206?=
+ =?us-ascii?Q?mcmTGJpHcK4+5HEqqMlIkkYPCwtSYovfKHllXTQJjCpGN+s28doANZrLzH43?=
+ =?us-ascii?Q?CdmTEWhO4KbM/5NeYfbYSzx+DptSsQF6RK6+QnfgD1xDBYZqUUI8tTGZT1IY?=
+ =?us-ascii?Q?mzbMqfMEX2GXAtD7Pw0RnFf+S5HeEYfD4I6MjNrIiqYqE2OnpWEIKHaqi1F2?=
+ =?us-ascii?Q?/vQ93Fob3NCmCr//iMX20Yd6b3Y5WA8GOPP60Kzw9J5jjWd6+Iw4qCmCvKVu?=
+ =?us-ascii?Q?KE/xXUiBaAEnP3TgxwleVSWJzcE1pAGpPEwOR1C21UoWhdGRWY5HnZ3sap+v?=
+ =?us-ascii?Q?7kzR3gOVHTPTzdunt11ukVZnGfT1KQVaAwniVF90QHuKfQcQoTK25zt08Uk7?=
+ =?us-ascii?Q?Cy5QJyu3RBmNpcjgwlg3YVxtr2af2aXk13rqVCv+xbO9YTF/l3XYUpc92Q6i?=
+ =?us-ascii?Q?fyqy5lBAZtFH6YkrqANXMBTgyaTxU+cWHnBhJd4QIWYmUOfsb2GrZfXswf+q?=
+ =?us-ascii?Q?JmZco6dpf66t8EEpZFaw8SVTpsjjpMWrFtJu7+raEQM4vHj1SiO6OamJr/UI?=
+ =?us-ascii?Q?SOogpFU1xLREC6LGqYZdEYddTP9nxIPu+KaO4AgfwYs+cAdy1GYKeE1VH6ES?=
+ =?us-ascii?Q?XhxEouDTywLLpjk3hMmClNt81+J8pwmPXiBO3Il9sVDT9x3FVVzuYsJWW8P1?=
+ =?us-ascii?Q?n+MS8zvml98y/qi3eP0nF4tX2nOANYP2HzpcuQi7il3ECi74LspYIwd0ocDo?=
+ =?us-ascii?Q?bwTRINGV0Tg8YENZJQedazTq8kVUwADtBEd89tbC1K72mCRQKZ3vuq2Bhm4x?=
+ =?us-ascii?Q?O/yhOMjGxdaxqFx/RXROljvfd6pPvqsqkH1bHIOJ4KW+bH/2HmAJhByjkNoY?=
+ =?us-ascii?Q?Pq8Fvcdx+S2lDQ/WRVZ0gLHp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca00c284-a198-4eb0-a846-08d8d6e5e236
+X-MS-Exchange-CrossTenant-Network-Message-Id: a579414f-fa15-48a8-0e25-08d8d6e6dca8
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2021 03:56:50.8910 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2021 04:03:50.8476 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jUxsqim8Q9/UCQNRyfncKagoiXrJ8YAXH1PcThixha1Y/Pov+fk3Ro3ejFwJmDw6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4748
+X-MS-Exchange-CrossTenant-UserPrincipalName: lZlNM2qbitC6iboyHckXPygXM25IqyKoX27vrzshBRpXSSC1qsE2U7LOxkeLim4L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,201 +130,164 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-New changes were involved for the SmuMetrics strucutre.
+To make sure they are naturally aligned.
 
-Change-Id: Ib45443db03977ccd18618bcfdfd3574ac13d50d1
+Change-Id: I496a5b79158bdbd2e17f179098939e050b2ad489
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../drm/amd/pm/inc/smu11_driver_if_navi10.h   | 31 ++++++++----
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  6 +--
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 48 +++++++++++++++++--
- 3 files changed, 70 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h        | 11 ++++++-----
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h                |  4 ++--
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c |  8 ++++----
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |  8 ++++----
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c        |  8 ++++----
+ 5 files changed, 20 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-index 246d3951a78a..84d12da19c90 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_navi10.h
-@@ -843,19 +843,23 @@ typedef struct {
-   uint16_t      FanMaximumRpm;
-   uint16_t      FanMinimumPwm;
-   uint16_t      FanTargetTemperature; // Degree Celcius 
-+  uint16_t      FanMode;
-+  uint16_t      FanMaxPwm;
-+  uint16_t      FanMinPwm;
-+  uint16_t      FanMaxTemp; // Degree Celcius
-+  uint16_t      FanMinTemp; // Degree Celcius
-   uint16_t      MaxOpTemp;            // Degree Celcius
-   uint16_t      FanZeroRpmEnable;
--  uint16_t      Padding;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 828513412e20..3a8f64e1a10c 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -332,9 +332,9 @@ struct amd_pm_funcs {
+ };
  
--  uint32_t     MmHubPadding[8]; // SMU internal use  
-+  uint32_t     MmHubPadding[6]; // SMU internal use
+ struct metrics_table_header {
+-	uint16_t			structure_size;
+-	uint8_t				format_revision;
+-	uint8_t				content_revision;
++	uint32_t			structure_size;
++	uint16_t			format_revision;
++	uint16_t			content_revision;
+ };
  
- } OverDriveTable_t; 
+ struct gpu_metrics_v1_0 {
+@@ -385,8 +385,9 @@ struct gpu_metrics_v1_0 {
+ 	uint16_t			current_fan_speed;
  
- typedef struct {
-   uint16_t CurrClock[PPCLK_COUNT];
--  uint16_t AverageGfxclkFrequency;
-+  uint16_t AverageGfxclkFrequencyPostDs;
-   uint16_t AverageSocclkFrequency;
--  uint16_t AverageUclkFrequency  ;
-+  uint16_t AverageUclkFrequencyPostDs;
-   uint16_t AverageGfxActivity    ;
-   uint16_t AverageUclkActivity   ;
-   uint8_t  CurrSocVoltageOffset  ;
-@@ -880,15 +884,21 @@ typedef struct {
-   uint8_t  Padding8_2;
-   uint16_t CurrFanSpeed;
+ 	/* Link width/speed */
+-	uint8_t				pcie_link_width;
+-	uint8_t				pcie_link_speed; // in 0.1 GT/s
++	uint16_t			pcie_link_width;
++	uint16_t			pcie_link_speed; // in 0.1 GT/s
++	uint8_t				padding[2];
+ };
  
-+  uint16_t AverageGfxclkFrequencyPreDs;
-+  uint16_t AverageUclkFrequencyPreDs;
-+  uint8_t  PcieRate;
-+  uint8_t  PcieWidth;
-+  uint8_t  Padding8_3[2];
-+
-   // Padding - ignore
-   uint32_t     MmHubPadding[8]; // SMU internal use
- } SmuMetrics_t;
- 
- typedef struct {
-   uint16_t CurrClock[PPCLK_COUNT];
--  uint16_t AverageGfxclkFrequency;
-+  uint16_t AverageGfxclkFrequencyPostDs;
-   uint16_t AverageSocclkFrequency;
--  uint16_t AverageUclkFrequency  ;
-+  uint16_t AverageUclkFrequencyPostDs;
-   uint16_t AverageGfxActivity    ;
-   uint16_t AverageUclkActivity   ;
-   uint8_t  CurrSocVoltageOffset  ;
-@@ -913,11 +923,16 @@ typedef struct {
-   uint8_t  Padding8_2;
-   uint16_t CurrFanSpeed;
- 
--  uint32_t EnergyAccumulator;
-   uint16_t AverageVclkFrequency  ;
-   uint16_t AverageDclkFrequency  ;
-   uint16_t VcnActivityPercentage ;
--  uint16_t padding16_2;
-+  uint16_t AverageGfxclkFrequencyPreDs;
-+  uint16_t AverageUclkFrequencyPreDs;
-+  uint8_t  PcieRate;
-+  uint8_t  PcieWidth;
-+
-+  uint32_t Padding32_1;
-+  uint64_t EnergyAccumulator;
- 
-   // Padding - ignore
-   uint32_t     MmHubPadding[8]; // SMU internal use
+ struct gpu_metrics_v2_0 {
 diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index 281835f23f6d..50dd1529b994 100644
+index 50dd1529b994..f4e7a330f67f 100644
 --- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
 +++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -27,9 +27,9 @@
+@@ -284,11 +284,11 @@ int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
  
- #define SMU11_DRIVER_IF_VERSION_INV 0xFFFFFFFF
- #define SMU11_DRIVER_IF_VERSION_ARCT 0x17
--#define SMU11_DRIVER_IF_VERSION_NV10 0x36
--#define SMU11_DRIVER_IF_VERSION_NV12 0x36
--#define SMU11_DRIVER_IF_VERSION_NV14 0x36
-+#define SMU11_DRIVER_IF_VERSION_NV10 0x37
-+#define SMU11_DRIVER_IF_VERSION_NV12 0x38
-+#define SMU11_DRIVER_IF_VERSION_NV14 0x38
- #define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x3D
- #define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0xE
- #define SMU11_DRIVER_IF_VERSION_VANGOGH 0x02
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 6ec842811cbc..29e04f33f276 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -70,6 +70,8 @@
- 	FEATURE_MASK(FEATURE_DPM_LINK_BIT)	 | \
- 	FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT))
+ int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu);
  
-+#define SMU_11_0_GFX_BUSY_THRESHOLD 15
-+
- static struct cmn2asic_msg_mapping navi10_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,			1),
- 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,		1),
-@@ -515,6 +517,8 @@ static int navi10_get_smu_metrics_data(struct smu_context *smu,
- 	 * same offsets for the heading parts(those members used here).
- 	 */
- 	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
-+	struct amdgpu_device *adev = smu->adev;
-+	uint32_t smu_version;
- 	int ret = 0;
+-int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu);
++uint16_t smu_v11_0_get_current_pcie_link_width(struct smu_context *smu);
  
- 	mutex_lock(&smu->metrics_lock);
-@@ -547,13 +551,30 @@ static int navi10_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->CurrClock[PPCLK_DCEFCLK];
- 		break;
- 	case METRICS_AVERAGE_GFXCLK:
--		*value = metrics->AverageGfxclkFrequency;
-+		ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
-+		if (ret) {
-+			dev_err(adev->dev, "Failed to get smu version!\n");
-+			return ret;
-+		}
-+		/*
-+		 * The PreDs is supported by:
-+		 *   - Navi10 PMFW 42.60 and onwards
-+		 *   - Navi12 PMFW 52.29 and onwards
-+		 *   - Navi14 PMFW 53.31 and onwards
-+		 */
-+		if ((metrics->AverageGfxActivity > SMU_11_0_GFX_BUSY_THRESHOLD) &&
-+		     (((adev->asic_type == CHIP_NAVI14) && smu_version > 0x00351F00) ||
-+		     ((adev->asic_type == CHIP_NAVI12) && smu_version > 0x00341C00) ||
-+		     ((adev->asic_type == CHIP_NAVI10) && smu_version > 0x002A3B00)))
-+			*value = metrics->AverageGfxclkFrequencyPreDs;
-+		else
-+			*value = metrics->AverageGfxclkFrequencyPostDs;
- 		break;
- 	case METRICS_AVERAGE_SOCCLK:
- 		*value = metrics->AverageSocclkFrequency;
- 		break;
- 	case METRICS_AVERAGE_UCLK:
--		*value = metrics->AverageUclkFrequency;
-+		*value = metrics->AverageUclkFrequencyPostDs;
- 		break;
- 	case METRICS_AVERAGE_GFXACTIVITY:
- 		*value = metrics->AverageGfxActivity;
-@@ -2298,6 +2319,7 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
- 	struct amdgpu_device *adev = smu->adev;
- 	SmuMetrics_NV12_t nv12_metrics = { 0 };
- 	SmuMetrics_t metrics;
-+	uint32_t smu_version;
- 	int ret = 0;
+ int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu);
  
- 	mutex_lock(&smu->metrics_lock);
-@@ -2330,9 +2352,27 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
+-int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
++uint16_t smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
  
- 	gpu_metrics->average_socket_power = metrics.AverageSocketPower;
+ int smu_v11_0_gfx_ulv_control(struct smu_context *smu,
+ 			      bool enablement);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index c0753029a8e2..95e905d8418d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -52,8 +52,8 @@
  
--	gpu_metrics->average_gfxclk_frequency = metrics.AverageGfxclkFrequency;
-+	ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to get smu version!\n");
-+		return ret;
-+	}
-+	/*
-+	 * The PreDs is supported by:
-+	 *   - Navi10 PMFW 42.60 and onwards
-+	 *   - Navi12 PMFW 52.29 and onwards
-+	 *   - Navi14 PMFW 53.31 and onwards
-+	 */
-+	if ((metrics.AverageGfxActivity > SMU_11_0_GFX_BUSY_THRESHOLD) &&
-+	     (((adev->asic_type == CHIP_NAVI14) && smu_version > 0x00351F00) ||
-+	     ((adev->asic_type == CHIP_NAVI12) && smu_version > 0x00341C00) ||
-+	     ((adev->asic_type == CHIP_NAVI10) && smu_version > 0x002A3B00)))
-+		gpu_metrics->average_gfxclk_frequency = metrics.AverageGfxclkFrequencyPreDs;
-+	else
-+		gpu_metrics->average_gfxclk_frequency = metrics.AverageGfxclkFrequencyPostDs;
-+
- 	gpu_metrics->average_socclk_frequency = metrics.AverageSocclkFrequency;
--	gpu_metrics->average_uclk_frequency = metrics.AverageUclkFrequency;
-+	gpu_metrics->average_uclk_frequency = metrics.AverageUclkFrequencyPostDs;
+ #define LINK_WIDTH_MAX				6
+ #define LINK_SPEED_MAX				3
+-static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
+-static int link_speed[] = {25, 50, 80, 160};
++static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
++static uint16_t link_speed[] = {25, 50, 80, 160};
  
- 	if (adev->asic_type == CHIP_NAVI12) {
- 		gpu_metrics->energy_accumulator = nv12_metrics.EnergyAccumulator;
+ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
+ 		enum pp_clock_type type, uint32_t mask);
+@@ -2117,7 +2117,7 @@ static int vega12_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
+ 		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
+ }
+ 
+-static int vega12_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
++static uint16_t vega12_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
+ {
+ 	uint32_t width_level;
+ 
+@@ -2137,7 +2137,7 @@ static int vega12_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
+ 		>> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+ }
+ 
+-static int vega12_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
++static uint16_t vega12_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
+ {
+ 	uint32_t speed_level;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index 87811b005b85..3d462405b572 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -57,8 +57,8 @@
+ 
+ #define LINK_WIDTH_MAX				6
+ #define LINK_SPEED_MAX				3
+-static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
+-static int link_speed[] = {25, 50, 80, 160};
++static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
++static uint16_t link_speed[] = {25, 50, 80, 160};
+ 
+ static void vega20_set_default_registry_data(struct pp_hwmgr *hwmgr)
+ {
+@@ -3279,7 +3279,7 @@ static int vega20_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
+ 		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
+ }
+ 
+-static int vega20_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
++static uint16_t vega20_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
+ {
+ 	uint32_t width_level;
+ 
+@@ -3299,7 +3299,7 @@ static int vega20_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
+ 		>> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+ }
+ 
+-static int vega20_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
++static uint16_t vega20_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
+ {
+ 	uint32_t speed_level;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 60ef63073ad4..86af9832ba9c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -99,8 +99,8 @@ MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_smc.bin");
+ #define mmCG_THERMAL_STATUS_ARCT		0x90
+ #define mmCG_THERMAL_STATUS_ARCT_BASE_IDX	0
+ 
+-static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
+-static int link_speed[] = {25, 50, 80, 160};
++static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
++static uint16_t link_speed[] = {25, 50, 80, 160};
+ 
+ int smu_v11_0_init_microcode(struct smu_context *smu)
+ {
+@@ -2134,7 +2134,7 @@ int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu)
+ 		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
+ }
+ 
+-int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu)
++uint16_t smu_v11_0_get_current_pcie_link_width(struct smu_context *smu)
+ {
+ 	uint32_t width_level;
+ 
+@@ -2154,7 +2154,7 @@ int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu)
+ 		>> PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+ }
+ 
+-int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu)
++uint16_t smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu)
+ {
+ 	uint32_t speed_level;
+ 
 -- 
 2.29.0
 
