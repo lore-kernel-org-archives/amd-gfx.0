@@ -8,59 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01EE6C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 21:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50EEBC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 21:48:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B38C764DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 21:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B38C764DD3
+	by mail.kernel.org (Postfix) with ESMTPS id 0BD4F64DFD
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 21:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BD4F64DFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D716E7E6;
-	Mon, 22 Feb 2021 21:46:01 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D256E7E6
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 21:46:01 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id q186so15547683oig.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 13:46:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFFAA6E7EF;
+	Mon, 22 Feb 2021 21:48:00 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C6CA6E7EF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 21:47:59 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id j1so3641251oiw.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 13:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=R9C4RLYNzziHklillKchCXH0Tppt5RsNCBZ/qzAfShY=;
- b=lPkininezHkP2ummzqAsjQx9RdYLCSX0u6WguwTMDpUExyD77GwY+2PtpW51F/nfMk
- m4tTqsZeIOc9deyVnrJlurOqzzq5iGVy1uB3pCmyFFKlBiss3Ao2LpDZpDNJ5zBs1yP9
- btzkTFucvsPbUnVwYMl9A9KCtyhMF5TfvGdN1v1MPG4jelBmjkGEv8nRBRotgqo1/Sj6
- pqB1rqBqGUudp9B0jaUhG9hsrBvvcuw1HjSuCusZ1oxuoDx0W05z9jmcjCwX26A8YrMR
- OQim+7Roc9euhh/CQtCMSLKdy4cxb+Ic7ZfOUNS0njN3w8D5Z0yN51CRd/f5xtamHdtj
- TS2w==
+ :cc; bh=9ZQbAYdH3+0OuJPkSKYjLlDNhlq/Q+Rx8FohyiIZWMk=;
+ b=aeeIjH6MfqhUXMMyPYpDzThFVj5kXxOOPSaiM2P/1h0kRuSINZFDEW+Cb7RFZc9Ak2
+ CstDSHJqCkNtvqDDcUkxCJSXzzZzQX45WWFiy8ZM4qhMecm01QA5mMfi1OYyJiti2gOq
+ 2kp/PjhlkR9yyzFkAg371GDHL4HzwxeRiZblhpXfVs2VjY112l2hKWoDTcZeHcYCnUhb
+ /Ry7PkUXyAp1OppVEfYVi7qmBgBLD8OCUoySMlpV5BObuDOX6dManRDITbvU+XsHz3Vl
+ Uy2ehKAAdKRwr3n8QI+P2+vhbdrO9NlCDUcH+/ZCWLbc5yvRgqL4xtJpWf53EZd04C/s
+ e94w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=R9C4RLYNzziHklillKchCXH0Tppt5RsNCBZ/qzAfShY=;
- b=ByxiAH9NklRqvkwPpdOtnC0St7Psxw7pC58tm/fEtsjPa0ECqE7cOTJNKxhtpdKshY
- ed8AtVS1NY06/IhxZ85hcx3SN/+sU2oUMO3NoXr93J4fxt1Ir7kW36lJPJHhDOqxDNHd
- SEo171McctHDW4uPWSBPpiHROagNXixkLJYzDUemJtVTDZDtrsrPLL4ia7XfNcZx1jlE
- vTcStTKmQwNHmjGWhAzyahKTCtBE99cUor6ir2Iqa9ona67dIcCqDcXDn5t7WDlYtQqE
- B7O2L/Ggm3GHqRWl/Yfqjj8ZuKtx4exly/qcrcBKwM9W/IlPhx7cxKI9O1ffSiMeXY+u
- IFHQ==
-X-Gm-Message-State: AOAM532+So7oUy5e8heUdb84EM0tRB0CABXIjDaYUtI1yHydLJBTBbuE
- Nrj2DAhl6imhRYNFrgvZcLnVFFLYvWWSNMeE+ng=
-X-Google-Smtp-Source: ABdhPJxX3bCr+j06SoadhavKJFTs+K5oq0y9CH73mDpRCmw2SMJDbC0CncZNKYYWLn6iT9TfyU5JphLU5ddC7z4qbro=
-X-Received: by 2002:a05:6808:f15:: with SMTP id
- m21mr12548629oiw.123.1614030360435; 
- Mon, 22 Feb 2021 13:46:00 -0800 (PST)
+ bh=9ZQbAYdH3+0OuJPkSKYjLlDNhlq/Q+Rx8FohyiIZWMk=;
+ b=f+xDsvlT3wQZ8/dvGi44keQUpDp7QBgOOQB3aeroj8maHbSezPWOskiE03insxYeVI
+ 1YfAFNeDdiE3ZbponkXtqmbKIZJoADtudd6WsVGC/x5LyMcHT9DKxUbIpaNdFm9sQYY3
+ jqDQj+k+CtA2UlcmOCjrPKmS05hCB+YZJsyWKXqtUbnRiVxIEwuJwZP6F3CPr4dkMtr6
+ FAk7tWDpKHsfAxhjBeyEqedrZhORLD21eM2kOBIpMMIdQQozTiiQZylpBxmxyCH2x2AE
+ OqZnlFv3FXztVnPk6/X1xrQm25mNxrxdPN+9/WettMkGnqFmIxhldkUGxZVnKLp8kX4c
+ 3yvg==
+X-Gm-Message-State: AOAM531+Yploq5tuAxjACRHN07bpn8oqx5pSuhi4Zilajmat+HC6zHSN
+ EkexlppEngPNqspSeXXn/YQoDdGuFcvLOjSNURo=
+X-Google-Smtp-Source: ABdhPJxVOqiWnD/9S7a1ObhxwJ+gduHKwfjb9QiI/qhi57gcpRkLkJZ76DlW3F77Gqflxaf+Cv6tQPGIHzudJoSOjk4=
+X-Received: by 2002:aca:fccb:: with SMTP id a194mr7846358oii.5.1614030478785; 
+ Mon, 22 Feb 2021 13:47:58 -0800 (PST)
 MIME-Version: 1.0
 References: <20210222040329.1280956-1-evan.quan@amd.com>
-In-Reply-To: <20210222040329.1280956-1-evan.quan@amd.com>
+ <20210222040329.1280956-2-evan.quan@amd.com>
+In-Reply-To: <20210222040329.1280956-2-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 22 Feb 2021 16:45:49 -0500
-Message-ID: <CADnq5_PzDTq-499hdRQ-VL4PCPaWafMS-a-eE-Xg-83gaXrCnw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/pm: correct gpu metrics related data
- structures
+Date: Mon, 22 Feb 2021 16:47:47 -0500
+Message-ID: <CADnq5_N0=a_5wd1aLhvMPeX2_SnyTvA3+7tyt14Bx8mRo3-6PA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: optimize the link width/speed retrieving
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,172 +79,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 21, 2021 at 11:03 PM Evan Quan <evan.quan@amd.com> wrote:
+On Sun, Feb 21, 2021 at 11:04 PM Evan Quan <evan.quan@amd.com> wrote:
 >
-> To make sure they are naturally aligned.
+> By using the information provided by PMFW when available.
 >
-> Change-Id: I496a5b79158bdbd2e17f179098939e050b2ad489
+> Change-Id: I1afec4cd07ac9608861ee07c449e320e3f36a932
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-Won't this break existing apps that query this info?  We need to make
-sure umr and rocm-smi can handle this.
-
-Alex
-
+What about arcturus?
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/include/kgd_pp_interface.h        | 11 ++++++-----
->  drivers/gpu/drm/amd/pm/inc/smu_v11_0.h                |  4 ++--
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c |  8 ++++----
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |  8 ++++----
->  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c        |  8 ++++----
->  5 files changed, 20 insertions(+), 19 deletions(-)
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 17 ++++++++++----
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 22 +++++++++++++++----
+>  2 files changed, 31 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> index 828513412e20..3a8f64e1a10c 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -332,9 +332,9 @@ struct amd_pm_funcs {
->  };
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 29e04f33f276..7fe2876c99fe 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -72,6 +72,8 @@
 >
->  struct metrics_table_header {
-> -       uint16_t                        structure_size;
-> -       uint8_t                         format_revision;
-> -       uint8_t                         content_revision;
-> +       uint32_t                        structure_size;
-> +       uint16_t                        format_revision;
-> +       uint16_t                        content_revision;
->  };
+>  #define SMU_11_0_GFX_BUSY_THRESHOLD 15
 >
->  struct gpu_metrics_v1_0 {
-> @@ -385,8 +385,9 @@ struct gpu_metrics_v1_0 {
->         uint16_t                        current_fan_speed;
->
->         /* Link width/speed */
-> -       uint8_t                         pcie_link_width;
-> -       uint8_t                         pcie_link_speed; // in 0.1 GT/s
-> +       uint16_t                        pcie_link_width;
-> +       uint16_t                        pcie_link_speed; // in 0.1 GT/s
-> +       uint8_t                         padding[2];
->  };
->
->  struct gpu_metrics_v2_0 {
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> index 50dd1529b994..f4e7a330f67f 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-> @@ -284,11 +284,11 @@ int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
->
->  int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu);
->
-> -int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu);
-> +uint16_t smu_v11_0_get_current_pcie_link_width(struct smu_context *smu);
->
->  int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu);
->
-> -int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
-> +uint16_t smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
->
->  int smu_v11_0_gfx_ulv_control(struct smu_context *smu,
->                               bool enablement);
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-> index c0753029a8e2..95e905d8418d 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-> @@ -52,8 +52,8 @@
->
->  #define LINK_WIDTH_MAX                         6
->  #define LINK_SPEED_MAX                         3
-> -static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
-> -static int link_speed[] = {25, 50, 80, 160};
-> +static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
 > +static uint16_t link_speed[] = {25, 50, 80, 160};
+> +
+>  static struct cmn2asic_msg_mapping navi10_message_map[SMU_MSG_MAX_COUNT] = {
+>         MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,                  1),
+>         MSG_MAP(GetSmuVersion,                  PPSMC_MSG_GetSmuVersion,                1),
+> @@ -2391,10 +2393,17 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
 >
->  static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
->                 enum pp_clock_type type, uint32_t mask);
-> @@ -2117,7 +2117,7 @@ static int vega12_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
->                 >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
->  }
+>         gpu_metrics->current_fan_speed = metrics.CurrFanSpeed;
 >
-> -static int vega12_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
-> +static uint16_t vega12_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
->  {
->         uint32_t width_level;
+> -       gpu_metrics->pcie_link_width =
+> -                       smu_v11_0_get_current_pcie_link_width(smu);
+> -       gpu_metrics->pcie_link_speed =
+> -                       smu_v11_0_get_current_pcie_link_speed(smu);
+> +       if (((adev->asic_type == CHIP_NAVI14) && smu_version > 0x00351F00) ||
+> +             ((adev->asic_type == CHIP_NAVI12) && smu_version > 0x00341C00) ||
+> +             ((adev->asic_type == CHIP_NAVI10) && smu_version > 0x002A3B00)) {
+> +               gpu_metrics->pcie_link_width = (uint16_t)metrics.PcieWidth;
+> +               gpu_metrics->pcie_link_speed = link_speed[metrics.PcieRate];
+> +       } else {
+> +               gpu_metrics->pcie_link_width =
+> +                               smu_v11_0_get_current_pcie_link_width(smu);
+> +               gpu_metrics->pcie_link_speed =
+> +                               smu_v11_0_get_current_pcie_link_speed(smu);
+> +       }
 >
-> @@ -2137,7 +2137,7 @@ static int vega12_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
->                 >> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
->  }
+>         gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
 >
-> -static int vega12_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
-> +static uint16_t vega12_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
->  {
->         uint32_t speed_level;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index e74299da1739..6fd95764c952 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -73,6 +73,8 @@
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-> index 87811b005b85..3d462405b572 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-> @@ -57,8 +57,8 @@
+>  #define SMU_11_0_7_GFX_BUSY_THRESHOLD 15
 >
->  #define LINK_WIDTH_MAX                         6
->  #define LINK_SPEED_MAX                         3
-> -static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
-> -static int link_speed[] = {25, 50, 80, 160};
-> +static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
 > +static uint16_t link_speed[] = {25, 50, 80, 160};
+> +
+>  static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT] = {
+>         MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,                 1),
+>         MSG_MAP(GetSmuVersion,                  PPSMC_MSG_GetSmuVersion,               1),
+> @@ -3124,6 +3126,8 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+>         SmuMetricsExternal_t metrics_external;
+>         SmuMetrics_t *metrics =
+>                 &(metrics_external.SmuMetrics);
+> +       struct amdgpu_device *adev = smu->adev;
+> +       uint32_t smu_version;
+>         int ret = 0;
 >
->  static void vega20_set_default_registry_data(struct pp_hwmgr *hwmgr)
->  {
-> @@ -3279,7 +3279,7 @@ static int vega20_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
->                 >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
->  }
+>         ret = smu_cmn_get_metrics_table(smu,
+> @@ -3170,10 +3174,20 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
 >
-> -static int vega20_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
-> +static uint16_t vega20_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
->  {
->         uint32_t width_level;
+>         gpu_metrics->current_fan_speed = metrics->CurrFanSpeed;
 >
-> @@ -3299,7 +3299,7 @@ static int vega20_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
->                 >> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
->  }
+> -       gpu_metrics->pcie_link_width =
+> -                       smu_v11_0_get_current_pcie_link_width(smu);
+> -       gpu_metrics->pcie_link_speed =
+> -                       smu_v11_0_get_current_pcie_link_speed(smu);
+> +       ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if (((adev->asic_type == CHIP_SIENNA_CICHLID) && smu_version > 0x003A1E00) ||
+> +             ((adev->asic_type == CHIP_NAVY_FLOUNDER) && smu_version > 0x00410400)) {
+> +               gpu_metrics->pcie_link_width = (uint16_t)metrics->PcieWidth;
+> +               gpu_metrics->pcie_link_speed = link_speed[metrics->PcieRate];
+> +       } else {
+> +               gpu_metrics->pcie_link_width =
+> +                               smu_v11_0_get_current_pcie_link_width(smu);
+> +               gpu_metrics->pcie_link_speed =
+> +                               smu_v11_0_get_current_pcie_link_speed(smu);
+> +       }
 >
-> -static int vega20_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
-> +static uint16_t vega20_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
->  {
->         uint32_t speed_level;
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 60ef63073ad4..86af9832ba9c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -99,8 +99,8 @@ MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_smc.bin");
->  #define mmCG_THERMAL_STATUS_ARCT               0x90
->  #define mmCG_THERMAL_STATUS_ARCT_BASE_IDX      0
->
-> -static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
-> -static int link_speed[] = {25, 50, 80, 160};
-> +static uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
-> +static uint16_t link_speed[] = {25, 50, 80, 160};
->
->  int smu_v11_0_init_microcode(struct smu_context *smu)
->  {
-> @@ -2134,7 +2134,7 @@ int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu)
->                 >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
->  }
->
-> -int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu)
-> +uint16_t smu_v11_0_get_current_pcie_link_width(struct smu_context *smu)
->  {
->         uint32_t width_level;
->
-> @@ -2154,7 +2154,7 @@ int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu)
->                 >> PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
->  }
->
-> -int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu)
-> +uint16_t smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu)
->  {
->         uint32_t speed_level;
+>         gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
 >
 > --
 > 2.29.0
