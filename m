@@ -1,4 +1,4 @@
-Return-Path: <SRS0=BX2n=HX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=DoF4=HY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -7,45 +7,123 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7487FC433DB
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Feb 2021 18:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E70D8C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 03:15:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03B4A64EE9
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Feb 2021 18:24:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03B4A64EE9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9557B64DA3
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 03:15:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9557B64DA3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85CD26E426;
-	Sun, 21 Feb 2021 18:24:06 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946C66E426;
- Sun, 21 Feb 2021 18:24:05 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id ECBD2BB2;
- Sun, 21 Feb 2021 19:24:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1613931844;
- bh=orousB+kOMLJsWZCvVHsBnccCXT5Cw7mZo7av0LIF8o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wB6H8dAsvUMP7HUZKu5ZvNAtM49Zsy6DTGALbPMQh/6+5lMdTGFsls0KeJEunQtTR
- FfcpXAHVstN1ruLTTrBcJ+H+8KIZybo2eBjmomtz0W0uGx0Ta+t0mWvC/dCtlr6ofs
- kAJ90Er6X6Qjeru1iqmShQf2cRm/lCsfN5Fikndw=
-Date: Sun, 21 Feb 2021 20:23:37 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH 20/30] drm/dp: Pass drm_dp_aux to
- drm_dp*_link_train_channel_eq_delay()
-Message-ID: <YDKlKXoDKI4P/aNb@pendragon.ideasonboard.com>
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-21-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C27B6E428;
+	Mon, 22 Feb 2021 03:15:25 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2058.outbound.protection.outlook.com [40.107.101.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9ED96E428;
+ Mon, 22 Feb 2021 03:15:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ry9bP0RQxeAtqsX84boEIuLLByn3jQS/DcwgrAiDaWRRM47m+tjGphDq01VqC6jT8k2I9vvumRHZPgTE0Vsm0z4KjYJN3krIt3LrV1ILSSvHSUFKR41tL2UA7fQiFos1MkBdzZFegOVyLLMwvZyCmZO7oJyqdGjAzWBiDqS2kmwutCKE+5HCTOTg9PPPxQ8i1bWeV7/1RtYHy9f+9Ts9sq1C2vqH/Znc3GMtxBESW9vjHnl/+y83LON9zWhjnbKS8IX5cFyzLB02Qph+xnGvjVvzPeSFAr/Qxry8YDwRnUYU6JxMTb1/F0Oh2tMEc3ik7vivmjFdycj01kdf/I9eZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4/Af4FdH9bpBO6j+iSrLgqC/6ar3NbDLPYHvL7WGVMs=;
+ b=gMTARD1PVLBjYKamUbPOWluzJRkrf7KNdNE+GSp1ychWLMczv13DfclvtX39R1+8hu1jFYz71J/ki9D1eotMH4+oBrRyOA2rxqMdgu6OIRyVgD63z5Z3FbFt8WILRGxLMmBRcfjrtaY2/WuzmA3eMDRLv/15V842Ietx+4F70FXa8bJGtIS1wzdE1EX+yzUCiwCb3z9btBlEPTGMJ1y2S18va6X0kEo9XnFoberIXMO/ACWZjtok3wDpvTIzJLseA97BVBcusXnhw1f0WDDSmht33XNRDCM5HV0owKbVzshZE5hhlXThBKKUgHp/bgGD1blkF3zPtkiy3KzR8YqZFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4/Af4FdH9bpBO6j+iSrLgqC/6ar3NbDLPYHvL7WGVMs=;
+ b=hJLB2dAQWETsq1eOclv8AMQmD1iq+fvXaWERbOavts3rGUv2BviMwBkObVY6vfmCUWQE/WF+AOKMQS4otIecwHvhPuDowMtp4IrBFOM4InU/UP5wu4WsTMsdwb9Dx+k7XbBZtx4aW/Iy7Mrd9cIvq7+XagYB2dcsoY+GK6DhSuY=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB2359.namprd12.prod.outlook.com (2603:10b6:4:b4::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3825.30; Mon, 22 Feb 2021 03:15:17 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::11e6:53ff:8e98:31f0]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::11e6:53ff:8e98:31f0%3]) with mapi id 15.20.3868.032; Mon, 22 Feb 2021
+ 03:15:17 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu/swsmu/navi1x: Remove unnecessary conversion
+ to bool
+Thread-Topic: [PATCH v2] drm/amdgpu/swsmu/navi1x: Remove unnecessary
+ conversion to bool
+Thread-Index: AQHXCEEAWyGwDw8ghEeNkTKiJTABAqpjgT7A
+Date: Mon, 22 Feb 2021 03:15:17 +0000
+Message-ID: <DM6PR12MB2619934BA14F887DF37BF2C2E4819@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <1613789706-100430-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1613789706-100430-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-02-22T03:14:53Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=68aa5021-becb-4278-9c46-8ea9e74387f8;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: linux.alibaba.com; dkim=none (message not signed)
+ header.d=none;linux.alibaba.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.182]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 3fe971b5-fc0a-478f-3973-08d8d6e0144d
+x-ms-traffictypediagnostic: DM5PR12MB2359:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB23593F9058713CAC21A18ED6E4819@DM5PR12MB2359.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:416;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RC7FQtkb1893ylrayO2OceG5GwdzHBt1Iag05j7w6goNUuk3hw6zBdw3S0RX44Uv/kvcrKNXgoAfftgZNv7OnFcAtR5IfqCG7pZ1DjwZiCb5e54PQrMPtEbWJLO7rAr5GbQYIfQndUcsiZ6GwmLm3kmy2iNhOEG73a7QaVRpe4FK5EpMQksV+0yH/DKP+gcCUNPAr1gKrjs4AD1mKfdMc83Pt6XuB1pcKCdXonlcptphvldG669L9Gv9+iLq8snYSmdNUxPUXj0flf7lY0s18Ze+OHANDJvkgxXZUJY5GHgHF8Bh0b80j0UfUie12VnzkkVSQRrzm9NJv8xY/9It4eCpI4/PHwxyX8kONjWmJH57q6tnYGBhPaiYx0k0dYtXf4akATMHref5DNd58G5Em+cvx+fZLKhvjxlrZdEupQ/qbtyAD1W4E2ysUE9FMs3KqzcKCB+/RYx5msn8q2k6zh8kzwxzl0fcwaWbsbg+KvnGGeaopcmTjBafgtR/OLLK/bX8CToWj1feQqWbLh2lprW0FQs1Jbkk5K6KDlFYPTIEdDCX2mLkCubmHVwS+CuVqBGzO8vALKJ39JkNXwLYA9dNG8bOe4SUnk6RrU1Y2LY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(376002)(346002)(136003)(39860400002)(5660300002)(55016002)(86362001)(2906002)(66556008)(66476007)(66946007)(66446008)(64756008)(76116006)(52536014)(9686003)(316002)(83380400001)(54906003)(478600001)(45080400002)(71200400001)(53546011)(966005)(8676002)(110136005)(6636002)(4326008)(6506007)(186003)(33656002)(7696005)(8936002)(26005)(357404004);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?pHYGvsWvcHDMLFKigJJ7lMBGUySuxp5Xiz8hnrNNQ9am1ISRKloMP3kyGxA2?=
+ =?us-ascii?Q?zGoJ4sZ2NHABQSXpfLOGtki7uaCiNsTNAbp65TFbqrYIQKRP55hPg4l83neR?=
+ =?us-ascii?Q?uAoq4gBHyAEuP0e+CrkWmjgG+vb1S5fhpB0irKHGMuTmmMJ20A+dG0D2Idpb?=
+ =?us-ascii?Q?BJeetTL77ikVtA2kEVVrt/bjQVGY7rhOPg0YG4Jkw74F3g6j/caqXKKtJKlV?=
+ =?us-ascii?Q?kAKmrG2AQSLUf+d1azWDPfaBJrNDkQiBlbsSgo2gbPrRsmye1wBQxOvAc7Ly?=
+ =?us-ascii?Q?5AbC0kb9apOZXNgJJuRl2rayRBMz4jz+YFzcEbktqe7WsXQJyduvmvf7Vyk6?=
+ =?us-ascii?Q?yOskQACo6s019X+rLfYaqYqC1RY6TwFu/3Et2MTe6IO2knYXTn3lwZ0VNN/n?=
+ =?us-ascii?Q?JUuQIDxSTb/KtlzEqfiOMqBDhPqaOIeZ4II8Q7KQEUg8MHs3qfOPEU84LNh9?=
+ =?us-ascii?Q?AI/BUF2G/Xcunp3sYGi/DGRy9WJlI3/OvzzSspQir9aIXkWK5bLy/Mm71iLd?=
+ =?us-ascii?Q?DWseyc5xI5mlLA0eaxOkZgqlrTgDFyNMGGqwlGtX6HDwZpzFZ22tX02gfsFu?=
+ =?us-ascii?Q?o5hpqEZhprkILpKojUEuuObbViRT9ZR4X+tjjPt0hLlHAJJLAUGkENo4xS6P?=
+ =?us-ascii?Q?eYcz3KePBppwB/jROh4DI0LvJteq/SoSbT+alMO1ZfUgwjmmN66orZV6digt?=
+ =?us-ascii?Q?ICQD+uEqtDhumqcEQHfa3vmYRNGfOoqQUZFnRT6eY+57zXuiaFm8ClkBfc7p?=
+ =?us-ascii?Q?aEzOBDd+1kWAuMvR1qKE444XpxvI6/ucTuqbGH9KhQC2aQVkPGUIhSJM2vL/?=
+ =?us-ascii?Q?FWaEuxSw8ZwkXf9ooUqMrBm9cok9V8tKMIXyjtF3usTIHTE/HZi9T9vfgjgl?=
+ =?us-ascii?Q?hSazn1+73e2sRk/fo+7n+IKjIw08w/+t6Mp9JJm0edN2Ft8GEJTueBwdZ0VL?=
+ =?us-ascii?Q?AsAmZX3s/8gl7H6fI6G8VwvtNr5lGjOYhywLSSLbZkx7fh0CH9tOZK05xC/C?=
+ =?us-ascii?Q?E4A9KNBEZ3dcL+Gs42juOrwDUJaQwqje0+KelOA5q47fUOCCLtYFUmS3ZNeg?=
+ =?us-ascii?Q?VNTpF3+R+neQPH77httPQ4NcU8ObXpgNd9yJW3zsupqIdGYtEUAY462Oz5zE?=
+ =?us-ascii?Q?q8BimbkTzOT0qoLorM+8ESt2r3jB9uzhIGXW2uzw3uVUgL+PPdv8znjJqguj?=
+ =?us-ascii?Q?MWp3QRHfAAFuqoj6z8KjuoG8XonLFYgrf3mXBtkhh2pOigvDrMI7QzKRZyL9?=
+ =?us-ascii?Q?ES60n/nVDUYQe47aU4aDpz+gRns5f/3C3XHepA491rWP1dB7hzdQ2rsz4HSS?=
+ =?us-ascii?Q?fUYk14dbu0GcjFHmcbNofkTG?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210219215326.2227596-21-lyude@redhat.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fe971b5-fc0a-478f-3973-08d8d6e0144d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2021 03:15:17.2769 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6FTvl/FJ8H+uIoVJyMdYoPihubNzlQFudDfSi27BZk+4ICrkuj6a8Sg1cPQrfG1Q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2359
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,231 +135,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Imre Deak <imre.deak@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Oleg Vasilev <oleg.vasilev@intel.com>, dri-devel@lists.freedesktop.org,
- Lee Jones <lee.jones@linaro.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Emil Velikov <emil.velikov@collabora.com>,
- Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
- Luben Tuikov <luben.tuikov@amd.com>,
- Chandan Uddaraju <chandanu@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jeevan B <jeevan.b@intel.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
- Sean Paul <sean@poorly.run>,
- "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Tanmay Shah <tanmay@codeaurora.org>, Hyun Kwon <hyun.kwon@xilinx.com>,
- open list <linux-kernel@vger.kernel.org>,
- Manasi Navare <manasi.d.navare@intel.com>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: "airlied@linux.ie" <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Lyude,
+[AMD Official Use Only - Internal Distribution Only]
 
-Thank you for the patch.
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-On Fri, Feb 19, 2021 at 04:53:16PM -0500, Lyude Paul wrote:
-> So that we can start using drm_dbg_*() for
-> drm_dp_link_train_channel_eq_delay() and
-> drm_dp_lttpr_link_train_channel_eq_delay().
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jiapeng Chong
+Sent: Saturday, February 20, 2021 10:55 AM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>; airlied@linux.ie; linux-kernel@vger.kernel.org; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; daniel@ffwll.ch; Koenig, Christian <Christian.Koenig@amd.com>
+Subject: [PATCH v2] drm/amdgpu/swsmu/navi1x: Remove unnecessary conversion to bool
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Fix the following coccicheck warnings:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |  2 +-
->  drivers/gpu/drm/drm_dp_helper.c                    | 14 +++++++++-----
->  .../gpu/drm/i915/display/intel_dp_link_training.c  |  4 ++--
->  drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  4 ++--
->  drivers/gpu/drm/msm/edp/edp_ctrl.c                 |  4 ++--
->  drivers/gpu/drm/radeon/atombios_dp.c               |  2 +-
->  drivers/gpu/drm/xlnx/zynqmp_dp.c                   |  2 +-
->  include/drm/drm_dp_helper.h                        |  6 ++++--
->  8 files changed, 22 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> index 4468f9d6b4dd..59ce6f620fdc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> @@ -676,7 +676,7 @@ amdgpu_atombios_dp_link_train_ce(struct amdgpu_atombios_dp_link_train_info *dp_i
->  	dp_info->tries = 0;
->  	channel_eq = false;
->  	while (1) {
-> -		drm_dp_link_train_channel_eq_delay(dp_info->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(dp_info->aux, dp_info->dpcd);
->  
->  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
->  						 dp_info->link_status) <= 0) {
-> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-> index ce08eb3bface..a9316c1ecb52 100644
-> --- a/drivers/gpu/drm/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/drm_dp_helper.c
-> @@ -151,7 +151,8 @@ void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
->  }
->  EXPORT_SYMBOL(drm_dp_link_train_clock_recovery_delay);
->  
-> -static void __drm_dp_link_train_channel_eq_delay(unsigned long rd_interval)
-> +static void __drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
-> +						 unsigned long rd_interval)
->  {
->  	if (rd_interval > 4)
->  		DRM_DEBUG_KMS("AUX interval %lu, out of range (max 4)\n",
-> @@ -165,9 +166,11 @@ static void __drm_dp_link_train_channel_eq_delay(unsigned long rd_interval)
->  	usleep_range(rd_interval, rd_interval * 2);
->  }
->  
-> -void drm_dp_link_train_channel_eq_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-> +void drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
-> +					const u8 dpcd[DP_RECEIVER_CAP_SIZE])
->  {
-> -	__drm_dp_link_train_channel_eq_delay(dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
-> +	__drm_dp_link_train_channel_eq_delay(aux,
-> +					     dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
->  					     DP_TRAINING_AUX_RD_MASK);
->  }
->  EXPORT_SYMBOL(drm_dp_link_train_channel_eq_delay);
-> @@ -183,13 +186,14 @@ static u8 dp_lttpr_phy_cap(const u8 phy_cap[DP_LTTPR_PHY_CAP_SIZE], int r)
->  	return phy_cap[r - DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1];
->  }
->  
-> -void drm_dp_lttpr_link_train_channel_eq_delay(const u8 phy_cap[DP_LTTPR_PHY_CAP_SIZE])
-> +void drm_dp_lttpr_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
-> +					      const u8 phy_cap[DP_LTTPR_PHY_CAP_SIZE])
->  {
->  	u8 interval = dp_lttpr_phy_cap(phy_cap,
->  				       DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1) &
->  		      DP_TRAINING_AUX_RD_MASK;
->  
-> -	__drm_dp_link_train_channel_eq_delay(interval);
-> +	__drm_dp_link_train_channel_eq_delay(aux, interval);
->  }
->  EXPORT_SYMBOL(drm_dp_lttpr_link_train_channel_eq_delay);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 222073d46bdb..fe8b5a5d9d1a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -593,11 +593,11 @@ intel_dp_link_training_channel_equalization_delay(struct intel_dp *intel_dp,
->  						  enum drm_dp_phy dp_phy)
->  {
->  	if (dp_phy == DP_PHY_DPRX) {
-> -		drm_dp_link_train_channel_eq_delay(intel_dp->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(&intel_dp->aux, intel_dp->dpcd);
->  	} else {
->  		const u8 *phy_caps = intel_dp_lttpr_phy_caps(intel_dp, dp_phy);
->  
-> -		drm_dp_lttpr_link_train_channel_eq_delay(phy_caps);
-> +		drm_dp_lttpr_link_train_channel_eq_delay(&intel_dp->aux, phy_caps);
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 2501a6b326a3..33df288dd4eb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1184,7 +1184,7 @@ static int dp_ctrl_link_lane_down_shift(struct dp_ctrl_private *ctrl)
->  static void dp_ctrl_clear_training_pattern(struct dp_ctrl_private *ctrl)
->  {
->  	dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_DISABLE);
-> -	drm_dp_link_train_channel_eq_delay(ctrl->panel->dpcd);
-> +	drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
->  }
->  
->  static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
-> @@ -1215,7 +1215,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
->  	dp_ctrl_train_pattern_set(ctrl, pattern | DP_RECOVERED_CLOCK_OUT_EN);
->  
->  	for (tries = 0; tries <= maximum_retries; tries++) {
-> -		drm_dp_link_train_channel_eq_delay(ctrl->panel->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
->  
->  		ret = dp_ctrl_read_link_status(ctrl, link_status);
->  		if (ret)
-> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> index 6501598448b4..4fb397ee7c84 100644
-> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> @@ -665,7 +665,7 @@ static int edp_start_link_train_2(struct edp_ctrl *ctrl)
->  		return ret;
->  
->  	while (1) {
-> -		drm_dp_link_train_channel_eq_delay(ctrl->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(ctrl->drm_aux, ctrl->dpcd);
->  
->  		rlen = drm_dp_dpcd_read_link_status(ctrl->drm_aux, link_status);
->  		if (rlen < DP_LINK_STATUS_SIZE) {
-> @@ -743,7 +743,7 @@ static int edp_clear_training_pattern(struct edp_ctrl *ctrl)
->  
->  	ret = edp_train_pattern_set_write(ctrl, 0);
->  
-> -	drm_dp_link_train_channel_eq_delay(ctrl->dpcd);
-> +	drm_dp_link_train_channel_eq_delay(ctrl->drm_aux, ctrl->dpcd);
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeon/atombios_dp.c
-> index 299b9d8da376..4c1e551d9714 100644
-> --- a/drivers/gpu/drm/radeon/atombios_dp.c
-> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
-> @@ -743,7 +743,7 @@ static int radeon_dp_link_train_ce(struct radeon_dp_link_train_info *dp_info)
->  	dp_info->tries = 0;
->  	channel_eq = false;
->  	while (1) {
-> -		drm_dp_link_train_channel_eq_delay(dp_info->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(dp_info->aux, dp_info->dpcd);
->  
->  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
->  						 dp_info->link_status) <= 0) {
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> index 5cc295d8ba9f..f6f2293db18d 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> @@ -778,7 +778,7 @@ static int zynqmp_dp_link_train_ce(struct zynqmp_dp *dp)
->  		if (ret)
->  			return ret;
->  
-> -		drm_dp_link_train_channel_eq_delay(dp->dpcd);
-> +		drm_dp_link_train_channel_eq_delay(&dp->aux, dp->dpcd);
->  		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
->  		if (ret < 0)
->  			return ret;
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index e4681665231e..2151aeb6c279 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -1479,8 +1479,10 @@ u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZ
->  void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
->  					    const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  void drm_dp_lttpr_link_train_clock_recovery_delay(void);
-> -void drm_dp_link_train_channel_eq_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-> -void drm_dp_lttpr_link_train_channel_eq_delay(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
-> +void drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
-> +					const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-> +void drm_dp_lttpr_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
-> +					      const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
->  
->  u8 drm_dp_link_rate_to_bw_code(int link_rate);
->  int drm_dp_bw_code_to_link_rate(u8 link_bw);
+./drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c:900:47-52: WARNING:
+conversion to bool not needed here.
 
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index cd7efa9..58028a7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -897,7 +897,7 @@ static bool navi10_is_support_fine_grained_dpm(struct smu_context *smu, enum smu
+ 	dpm_desc = &pptable->DpmDescriptor[clk_index];
+ 
+ 	/* 0 - Fine grained DPM, 1 - Discrete DPM */
+-	return dpm_desc->SnapToDiscrete == 0 ? true : false;
++	return dpm_desc->SnapToDiscrete == 0;
+ }
+ 
+ static inline bool navi10_od_feature_is_supported(struct smu_11_0_overdrive_table *od_table, enum SMU_11_0_ODFEATURE_CAP cap)
 -- 
-Regards,
+1.8.3.1
 
-Laurent Pinchart
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7C443a5df938954827326108d8d6582201%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637495021310885387%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=6ETadiVbRBgbXfEbkXbxTX%2F1Ozg1wp3Nr9lHGF3SKHk%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
