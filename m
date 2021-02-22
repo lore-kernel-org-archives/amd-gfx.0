@@ -2,66 +2,130 @@ Return-Path: <SRS0=DoF4=HY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36FE1C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 18:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0E75C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 19:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D41AC64DDA
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 18:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D41AC64DDA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 404FF64E12
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Feb 2021 19:25:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 404FF64E12
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6062D6E105;
-	Mon, 22 Feb 2021 18:25:33 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C0D6E105
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 18:25:32 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id x10so3207859oor.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Feb 2021 10:25:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YxdS9pnfbCYZOigVQADRlyAGeYw73h+ZvoIeXH+2X+c=;
- b=Gp/tc4pLy6IrouVql+4OIii6Uti99A4uVDViYN3DcVYGO6sRoxjeYy5yH+LiuZCsDX
- AWi+KZdBupdw7/JI/doYqUErVI8ybs3Wc7Eg1NK8fIAlluxRKB4dtS85+1S34xofLEJf
- cxvvV14vdgLKdGs7daqRnfxrjMo0Uxcnf5iddtiFEZPjzEoWDMRt0xrsz3UT47fPTvl4
- wdNKjWWjZU6kTM+xBbr087moKap+Oea20rbyXMV1kxqpeOIx5hJ10vzqLKoIXyvmqZbc
- ZS8AOlWzSVuLg3LeVTuO1jA9QTM7F/unv/OPwOtNPjUOa8bOSP30PX4clMlYpmQz+1QM
- TMlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YxdS9pnfbCYZOigVQADRlyAGeYw73h+ZvoIeXH+2X+c=;
- b=P3ZpVkAbSdXFlR/g6IvzLdE5CveCywir6/ZvHe5rO2mIQ0JF7RIP50mrwgL1PHpcYP
- 5AUkRbXOgnZcxvxeqSPEf1v7P6xFhGOCackkUpt4pWeK82NqJ1neCGXJ69LMc/qn+cxq
- LyOau1r73NHoYyrZu0VCZclsCGmMpS0xw5ie7O1e1qXOlC7oYjEMyacKGpTQAoLUOyHZ
- fu0odCsi8ABRdq12Mrh7HjrQ9ce4KpDJerxm9K5pR58Ed2mSUHgtcQeada8uYYY5Revx
- KxYsn4cRRpZNnoNUmrTLUNa5OvxzJPa/4wVBj2qPHfO/UTaGT9ikVkKexD2uL7gmof9c
- 8Y1g==
-X-Gm-Message-State: AOAM531JvQ1+cxGRQklRX/OmMhsHWAqGYexHeE6OGRiIRM5/KQ+hf5ep
- CdaYaM+zZbmTkfTc9qr9Y0TgvRV2l+AvIULEpUw=
-X-Google-Smtp-Source: ABdhPJxn9KQWql/UVlKieyrrPlNorXl9Dx1hirhwHSGZPBAHL0detWsz/bIOq2VGIO2Vs9qJ9DH0vxy363Vw0Q/rbMo=
-X-Received: by 2002:a4a:9801:: with SMTP id y1mr1235273ooi.90.1614018331607;
- Mon, 22 Feb 2021 10:25:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECE46E108;
+	Mon, 22 Feb 2021 19:25:05 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690064.outbound.protection.outlook.com [40.107.69.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE3F16E108;
+ Mon, 22 Feb 2021 19:25:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CdJx2w99RyZFuMomFy4bmsYgaVcnCBqI9lft2chc2KzUaEf211fOTDWm6a92lXa798R+cemrbHZAInLC1HWRrS+ErW3eKglQJtuWK9l3FUU1KYbyldK6cySBBzHOJUZI1Z7yazXRvGMofFhxlcVOj4gwSvrvY8RZQ0c9wZyNardTB0bbN8nWVo5a30oJgSZ5ukfoOpJJ+Ij3uvNCGMz/8yMyOAB4Ue06olvXLpIDJdFXUFtoO5esyK/J7LmQ/CRU5nxP5aPluE0HM6M+RTAn5Tj9/nM39rY8bIW/DOCcrb3HUtFrO5n1nHdIPZHXxkR/8llReiND7g/TmMPppsYE0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X3YBkWdxHVIDIvNfUhcYEl60aJBEsrRtbqZXMkR73Rk=;
+ b=PbU2aC+rWoS3y+w3/yQ8+Wc1vY2YkNJQMsIl6yaChLQ3vc0HPLh0/2Sgjq+0F1vkJwaP08aQwe2yVnJCUgF3nLg18PcrxmTeJoQuNO5mast5kBazZYRg1Z2SxxJtU5v4yUAotHD7P6p156gCCLTYEMHXnKwZIP8CWA9Ly356EhxB6w+M1NUUCFMq9HUSdG5q2r4iqF6swaAtXwbzYWRx8tNrTmZkbDUSL33WfUyfhketVXsnmc/xe/19zWCgr+WZopblkjCpNs+nPBnZzFnwIVn22B86ZjLwNdMX4Ujw66rsyo/vG/I/18sqFTg2Jf6R4Axf7LwZnmzZLGPdtcNBZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X3YBkWdxHVIDIvNfUhcYEl60aJBEsrRtbqZXMkR73Rk=;
+ b=XBVltpEm7Phl+xl+ZkzKjSrm7y2j37YK1Q/CV6icUJRqAqzbCQEryTvvEzaSA3ZyaoRi33aXwsVES/+RqsdQVmiCXo30GMEkm6bA/f8OLE792quy3NVWz5cmhvnENyyiuK/UMTZLsw7YkyLKfxi3enru8ndzDjB0uTBvICbYgCg=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BY5PR12MB4968.namprd12.prod.outlook.com (2603:10b6:a03:1d2::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.32; Mon, 22 Feb
+ 2021 19:25:03 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::f073:f3ea:6ce8:1956]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::f073:f3ea:6ce8:1956%4]) with mapi id 15.20.3825.040; Mon, 22 Feb 2021
+ 19:25:03 +0000
+Subject: Re: [PATCH] drm/amdgpu: stream's id should reduced after stream
+ destruct
+To: "ZhiJie.Zhang" <zhangzhijie@loongson.cn>, alexander.deucher@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, christian.koenig@amd.com
+References: <20210220063038.1790398-1-zhangzhijie@loongson.cn>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <cc528ba3-490d-dc19-16d4-43c27a6af203@amd.com>
+Date: Mon, 22 Feb 2021 14:24:59 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <20210220063038.1790398-1-zhangzhijie@loongson.cn>
+Content-Language: en-US
+X-Originating-IP: [165.204.55.211]
+X-ClientProxiedBy: YTOPR0101CA0010.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::23) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
-References: <1613982242-23437-1-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1613982242-23437-1-git-send-email-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 22 Feb 2021 13:25:20 -0500
-Message-ID: <CADnq5_O-KYkG49JnBCCrc5uYk7ha4RzDr=dKBQiVD+QPbJjy8w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix shutdown and poweroff process failed with
- s0ix
-To: Prike Liang <Prike.Liang@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTOPR0101CA0010.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.31 via Frontend
+ Transport; Mon, 22 Feb 2021 19:25:01 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c65e949c-5bf7-43e7-91e9-08d8d7678d63
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4968:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BY5PR12MB49685865BD9E7ADAD96CD43CEC819@BY5PR12MB4968.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:619;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wpJoo1PfL79myrU+O6bwx/20lt/LmEqPPA5TCUznbmebhsAJyejxNVVrTtJ/TuJZvIQ6NU4CtsqP3lo+191kHIIBs8gqNjqIxbWlKtLZY+fYFhXrMOvVQ9iNrzbAyVsXLGDFOPiSGVZ62Rj3Ej3VIh5XgQJ4eKebPsZvC7A/mTPC2RTI3kXkTVGr/ifw0ZiFIB0yTYj6xl6qh0mKCVEb0ypFeHvs98MAQMdH0SQnJGRErn+3qIzJUGWwU+pHab3zuW9/wD0dY1gDEOJEfEJdmmDCZ01x8lQjYtKF8cQgH9WB8FCEv/x9j3QB264d7946GsnrmGrPxruwA4cakEljQVCKI35Uk35X+f66ckfhwOrTawAiNUkj8rVRyAnEDI7T6B60pvsdaLAifCdviauww9JxOCtlWBzw79Vpb12brRMVKpeQHw3vb30PfhO0uOl7X+zneZoPF4URtBcUFHGZ480uBJKt/dhB1Y0fcYR1s4hqacYrRMX6Xny7tIT8funDpbwTmrWxzHn+ZjWLQnT7xsFPlwZ3Ev5Sq0grb4ipkJCk24zJAzc+wfeDXb1hzSU01gkN9RIna+jevr9tfQ97bkZEhiZYUxDxJJ/Og5GwsG8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(39860400002)(376002)(136003)(366004)(186003)(16526019)(8676002)(478600001)(4744005)(5660300002)(316002)(4326008)(8936002)(2616005)(16576012)(66556008)(66476007)(26005)(53546011)(66946007)(6486002)(956004)(86362001)(31696002)(36756003)(31686004)(6636002)(52116002)(2906002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RWYrcU5SYVRDRlpwUWtjTUJrMFlRb0hHdHNzN08vTGJXdUtkZ1hFaFM5UjVP?=
+ =?utf-8?B?d3RiL2YzYWVCVWYyeHJIdTZ6QXg3R1NrdjZYUCtHNTU1RCs5S294RHc2TkF5?=
+ =?utf-8?B?L2t2cktpcDJvbUdDTWllODhmenVld3R3eWEvaVpzanlLMHZCQWI2NXBJdjNZ?=
+ =?utf-8?B?bkU3U0haek52bkNGUUxrWkFzNlNOdmEremptSGFKQmQ3T1VEK1VlN24yTmtT?=
+ =?utf-8?B?bHVNSDdaOFF2MXNXQ0tlYmNMKy9hNnNIYW5xdVAweVlFaVlrS05Lb1BZUU5i?=
+ =?utf-8?B?ZFo0aEdZb2QwMktnNklaa2hnajJnQTZQckROTit0WHNxdkVtNDloMTJLZXUz?=
+ =?utf-8?B?VXNmbkZweWk3Q3VCNGlSdk1SOFdlNStCeGhUbWlrYjVoRzkxNDVERjBCU3dN?=
+ =?utf-8?B?L3BNUlRDU0VudmpndjU2SUZ1N3RETEFId05lN0NjOUtaeS9EUEw4WCtZWUND?=
+ =?utf-8?B?M3BMS0pVY3FSb2UwQU1abStuOUtuMCsvMnA2aUZWMzA4VXJoSGxYYkVRenFV?=
+ =?utf-8?B?eEdreEMwN3hCb1g1cnRvRVJqZzdDTHZSeDdVREdDdlo1a0NiVC85V0RHYkkz?=
+ =?utf-8?B?WXJGYXVlS3JYOHI3UFNIVFpoUzNVY2tLU01pZDNGTHI5ckFzNTV2Y0xmY3VO?=
+ =?utf-8?B?MTBOT2tFb2RHS09zYzdHbnM5UkFKdnpqMStjVkNPem9IMnZ3bklScUVyNURh?=
+ =?utf-8?B?a2tXc25wVE5mQXc3RUdVd2ZYOEQyc2VXV0tZVUJRTkw0WTIxVTdnTDc3UERw?=
+ =?utf-8?B?N0Rqc0laWTJCa054TngyaVBmejBqZytkMERtUVVCeXJSdjdIblZUb041bFhj?=
+ =?utf-8?B?ekI4WFcyRXhWMVFFQndPMFpHZjZmNU0zUFMrRXZZTlVpM3NLZUJQVjBsMFlO?=
+ =?utf-8?B?RTdvMC92TWhzK0sxbGcrdGhiOHlXa0lxZEpJTWttdCs2d0ZTSHBpSFF0OXRI?=
+ =?utf-8?B?ZVlpSC9LSkN1SHkyNksvTC9lOHRWa3B4ckE1dDlQbGFPY2JQNkYwdXlpN25x?=
+ =?utf-8?B?TktwMk81VUU4dzhqK2RyRndHZlFBeWd6ZExrUHo2dTJuVUFGeFBOQUtBaE5O?=
+ =?utf-8?B?bWF4SmR4ZkQzUkpqeHBwbUl5eVdheDhtYkdqTFVUcUxpdHpiNFhjb1YvTmMx?=
+ =?utf-8?B?SitaVWVpRE90V3RuNkkzSHZuUzE3eC9WRmtnZC9zYWVhYnZHT2I1R29NajNl?=
+ =?utf-8?B?Z2srbXp5bzcvQmZxMlJIenA4MVlaVGNXbDU3dGNEZWdzVFhiQjJUbzdJWHNW?=
+ =?utf-8?B?OG0xamw4MkxhSXVqYzZEcEFBWkZ6VzJDM0dlMG1LUlg5UFNRNW1zZUlwZ2ha?=
+ =?utf-8?B?ZFdPN1d0aXQ2K045ajhVQzNueEVWbUNvZ1Jlcmt3U2Nob1NSd3RZdnhEZkZV?=
+ =?utf-8?B?SXdlb1U2bUdZU3pKYWJaME0wZDZESU9tMy9nMTNxNUVqcjZyQTE2Mm9Na29q?=
+ =?utf-8?B?VDVGMlh2T084Q3ZONzI0WjVicnJMSVl2UG1Gb0FmY1FXNWZIeVJ6S1lFaWQw?=
+ =?utf-8?B?a2VXZHU5Z29UbzlCcnJqMWJUSnNLWW5ITkM3YWZuRnNEQ1dwczk5M1Y0QzFi?=
+ =?utf-8?B?Zkg3YnBUWVZvd0dQZDNxS2xjK0pVamxndzlpMHpHczBSRFdEK1pTV25na01H?=
+ =?utf-8?B?WVRqNm1iaEFCMWp2NTZaTStnckU1UE0vVlU4cFUxY1dTMDhUU0hrRXArb3U1?=
+ =?utf-8?B?dVRXM21vS1lMQ21Sd0NLQWRlRm1VN2R5Wk1QT0preHJCQ3JZcFVRck5paURV?=
+ =?utf-8?Q?qQf6LDpurC1cx7OX+3+ScBO7XdHW5E8+ZKSoWSm?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c65e949c-5bf7-43e7-91e9-08d8d7678d63
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2021 19:25:02.9639 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fy4DxL61Y/3S1Paq0GVvUzjV1+KVcGUjH2VWRMcxStEdZtkoGRdGOl/lSZbqkUJiqEorjXK7mliu0+XR4XD+0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4968
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,109 +137,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: mchehab+huawei@kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 22, 2021 at 3:25 AM Prike Liang <Prike.Liang@amd.com> wrote:
->
-> In the shutdown and poweroff opt on the s0i3 system we still need
-> un-gate the gfx clock gating and power gating before destory amdgpu device.
->
-> Bug: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1499&amp;data=04%7C01%7CPrike.Liang%40amd.com%7C24759f57e2644f26deaf08d8d4302cc3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637492650673813454%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=I0rH%2FFt2cs%2BdNwvNdqWKPE%2B3bOosUyBodViUsEwb6tE%3D&amp;reserved=0
-> Fixes: 628c36d7b238e2 ("drm/amdgpu: update amdgpu device suspend/resume sequence for s0i3 support")
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+On 2021-02-20 1:30 a.m., ZhiJie.Zhang wrote:
+> Signed-off-by: ZhiJie.Zhang <zhangzhijie@loongson.cn>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 6 ++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 9 ++++++++-
->  3 files changed, 18 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 9bf7f49..0035c91 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1007,6 +1007,12 @@ struct amdgpu_device {
->         bool                            in_suspend;
->         bool                            in_hibernate;
->
-> +       /*
-> +        * The combination flag in_poweroff_reboot_com used to identify the poweroff
-> +        * and reboot opt in the s0i3 system-wide suspend.
-> +        */
-> +       bool                            in_poweroff_reboot_com;
+>   drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index c103f858375d..dc7b7e57a86c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -137,6 +137,8 @@ static void dc_stream_destruct(struct dc_stream_state *stream)
+>   		dc_transfer_func_release(stream->out_transfer_func);
+>   		stream->out_transfer_func = NULL;
+>   	}
 > +
->         atomic_t                        in_gpu_reset;
->         enum pp_mp1_state               mp1_state;
->         struct rw_semaphore reset_sem;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 2f9ad7e..f0f7ed4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2676,7 +2676,8 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
->  {
->         int i, r;
->
-> -       if (!amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev)) {
-> +       if (adev->in_poweroff_reboot_com ||
-> +           !amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev)) {
->                 amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->                 amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->         }
-> @@ -3739,7 +3740,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
->
->         amdgpu_fence_driver_suspend(adev);
->
-> -       if (!amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev))
-> +       if (adev->in_poweroff_reboot_com ||
-> +           !amdgpu_acpi_is_s0ix_supported(adev) || amdgpu_in_reset(adev))
->                 r = amdgpu_device_ip_suspend_phase2(adev);
->         else
->                 amdgpu_gfx_state_change_set(adev, sGpuChangeState_D3Entry);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index b7ee587..b539628 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1278,7 +1278,9 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
->          */
->         if (!amdgpu_passthrough(adev))
->                 adev->mp1_state = PP_MP1_STATE_UNLOAD;
-> +       adev->in_poweroff_reboot_com = true;
->         amdgpu_device_ip_suspend(adev);
-> +       adev->in_poweroff_reboot_com = false;
->         adev->mp1_state = PP_MP1_STATE_NONE;
->  }
->
-> @@ -1320,8 +1322,13 @@ static int amdgpu_pmops_thaw(struct device *dev)
->  static int amdgpu_pmops_poweroff(struct device *dev)
->  {
->         struct drm_device *drm_dev = dev_get_drvdata(dev);
-> +       struct amdgpu_device *adev = drm_to_adev(drm_dev);
-> +       int r;
->
-> -       return amdgpu_device_suspend(drm_dev, true);
-> +       adev->in_poweroff_reboot_com = true;
-> +       r =  amdgpu_device_suspend(drm_dev, true);
-> +       adev->in_poweroff_reboot_com = false;
-> +       return r;
->  }
->
->  static int amdgpu_pmops_restore(struct device *dev)
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> +	stream->ctx->dc_stream_id_count--;
+
+This is supposed to be a unique identifier so we shouldn't be reusing 
+any old ID when creating a new stream.
+
+Regards,
+Nicholas Kazlauskas
+
+>   }
+>   
+>   void dc_stream_retain(struct dc_stream_state *stream)
+> 
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
