@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C5BAC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 04:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 470AFC43381
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 04:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 023D560C41
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 04:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 023D560C41
+	by mail.kernel.org (Postfix) with ESMTPS id DD59464DF3
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 04:21:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD59464DF3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88356E165;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E56216E223;
 	Tue, 23 Feb 2021 04:21:47 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE1689D67
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 04:21:42 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770053.outbound.protection.outlook.com [40.107.77.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBBA89DA8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 04:21:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kjVAYcqrstSmOXzambG/4gjlEzA0SnjMUSCWPMQ7PhmgNaumjJx1jw/lb1aKv7i0b9G+oSdjK2gke9yqI+J43th9YpmTc2CNSQFaKUfQAllStCMmSaBdsZ30kdsupO5rpZvM3KRhWm6+6sZ4QmTJh3W49psXcRm4vHS4TBI+SFXbJZCkR/0RDI8oluFSNuZKWvl3kyFDL0kyYWoFgwYD0yc24IPJ/O2gztWZdYqd7YGn7m8hLtgXoIpPPFHBUOLeAtJKy/6Zeo0htwmV1/of5zTz/LlQ67Bppz2QJPrFEzJXNBkQ6lWA4LT5Yjh1PHp85/gqJZ86bXjyzJtoEwQN0w==
+ b=K5e65Nz7ZnPrsCXs61fqAx1zqh+9JyiA2DIAr0LZs7IFZI64fAaOF8E1QSpeT7wANAJy3svIW7NPhjRthGekn0P+CESRM5da79v1R4Sbr7J/NuYnl0jUkWwntP7zYh57mA/c/da/50dvz2gaILEIp7HSLu3s6V0eLDnpDibh7Kd/1YvXJrdDI/g2pfrPPKXiUWEu/sdzIaIrMXvG1xJJM/37PA99Q1FZvJvg5NhEOyX8kVHBol5UKKjvw5NDX9Zl+zjjtIY7ilzWYI4wygxZ/2GVqf+lANu5J+veOirJ5m70mJgilZDEKzX0vgZxwGM7aqAfOmaM/3rL96nR+097iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9osJzaxK53H/W3B5FcdTfZ7ObghX8EBPiLaL7S4hoQw=;
- b=HSZnLYjQ4XhFwqaF3foCHtKwvH30bWGOsU8RH1En1OKTrcQI9kHk+pTmS0OopIkyL2cRb2pCBaKq/uc1LUqvAlZAHfwxgIXuzIK6ueEY3AVO9udDWCwswRI6CEGFe5A+5Pq4mhZ8PAOpy+wdicuWxxTXoJbGsX1/nwEBpdIwrusPtjkMoAhaV8gpk4E1p37ABaCNR5tewdW/p+9vySthYHL0xGI/6D9WFNZnzIXuAZsqR3MMvIHXf3YF8HPSH5TGN6zMh+5EYsrr0FQIax3n9+OboEHJHDbV1sq3yLDC+yxdRlYU+nQDKTSaQjqZgD04C1JIvWaxJuZS1mChH4lP0A==
+ bh=FKR9RkLX6qR4yy+skDLaUt+nLZUc4lvM46BDSGIoypo=;
+ b=Ufc9N92hA1gN5zqKvW4n6TZt+aVualGZEfKr/UAanJlXrYVqC2O1FvhKzhY5W0ammmXA2YxDghBOsHpRD75pV373PeTmWTjC0Led6L1GvbLs7qHoD+8wLxQ7SSHI0PuYlcCJGyzf/yTOijSB4Fym8CmP+g7YyJYjVJDya9i7U/aNL+KS3R+hm8Pu2iN0VKpJLXwBVKtSS2IQ7naj0r5OxKVHX1mboJlMsIG9+QELNSBdu7CmrxGOAHOjvhCGghgF0gVXWUHRnM0fSyutY/WMT8KXEyRYgnpY//9msGJ+oO8F5JtcaDpuqRWsuys9JfEM0HBC+IpSL9IXj/F+oa+yzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9osJzaxK53H/W3B5FcdTfZ7ObghX8EBPiLaL7S4hoQw=;
- b=Sgsps5/cI4DcgHWoo1XjT4babRzy1PTbRRFpq3BLvT88BWH2VhGmpjMs1OYKcFkkjTCXkKJ76aQFU8e+26hwFlupkqNNY8xnrnaJNMYg18LF0K4vsezQpby4mi2bIvVjpQEFYc0bgzAo8D8XyymA/8ZxkPz98viKY+EKYW0dYIo=
+ bh=FKR9RkLX6qR4yy+skDLaUt+nLZUc4lvM46BDSGIoypo=;
+ b=a9T/WV/7+czeggJeb0AfIAPjfTYtlh1Kj6tDQymG4cHgswC88ybvcg86cszWz+AEWJMdBU2HqWRTMolpOLBNuCQoALPyunc2btvrFGejd1Wcvwwq+ERqMcLIM65Jmxz483Kc7ETgfvnwB5desynbcI6ivKOqkkMsfFXz4cxMFvI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2954.namprd12.prod.outlook.com (2603:10b6:5:188::22)
- by DM6PR12MB4515.namprd12.prod.outlook.com (2603:10b6:5:2a1::22) with
+ by DM5PR12MB1850.namprd12.prod.outlook.com (2603:10b6:3:108::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Tue, 23 Feb
- 2021 04:21:41 +0000
+ 2021 04:21:43 +0000
 Received: from DM6PR12MB2954.namprd12.prod.outlook.com
  ([fe80::19b:66f9:83d9:7cb1]) by DM6PR12MB2954.namprd12.prod.outlook.com
  ([fe80::19b:66f9:83d9:7cb1%3]) with mapi id 15.20.3846.039; Tue, 23 Feb 2021
- 04:21:40 +0000
+ 04:21:43 +0000
 From: Darren Powell <darren.powell@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/8] amdgpu/pm: Powerplay API for smu ,
- changed 6 pm hwmon fan functions to use API
-Date: Mon, 22 Feb 2021 23:20:27 -0500
-Message-Id: <20210223042032.3078-4-darren.powell@amd.com>
+Subject: [PATCH 7/8] amdgpu/pm: Powerplay API for smu ,
+ changed 4 dpm functions to use API
+Date: Mon, 22 Feb 2021 23:20:31 -0500
+Message-Id: <20210223042032.3078-8-darren.powell@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210223042032.3078-1-darren.powell@amd.com>
 References: <20210223042032.3078-1-darren.powell@amd.com>
@@ -68,54 +68,54 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (142.126.154.129) by
  YTXPR0101CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3868.30 via Frontend Transport; Tue, 23 Feb 2021 04:21:40 +0000
+ 15.20.3868.30 via Frontend Transport; Tue, 23 Feb 2021 04:21:43 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 08e93891-a89c-47c7-85a1-08d8d7b284b0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4515:
+X-MS-Office365-Filtering-Correlation-Id: 9039bd83-2226-4d2c-c9f5-08d8d7b28668
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1850:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB451582492F174FAB218B11DBF0809@DM6PR12MB4515.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:302;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1850ECF827C5B91812F05BA3F0809@DM5PR12MB1850.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xwDd3ISC3tVkVeLC2HaGceEHU3xmmCpvcThjt580sGSiBM2IsW4eZnVWtyke3UcxbG/hOB8Wh5ahBR5lSAq7tFmxKN5gCaWXE8YTjgBAWnCINaKYTn2+uENgH07nkdfIMO4FcsH/Z1v3u5heybrr+GRfUJ4nvTACKiSAOtDynPdIVUD4zTgmD3SU/njaOOml2/DH9Als6Hl5oq+mBZRXenlwAR1XellEUbtTqLzh2p/N4KsRezIcUFcjhA+dBvqpCo3VauKjfGOJJtWVz2s67+OHdcNv0SEqlE7l98AuTLWyAQMMHjeYJRHwzBuFMnbPepwhmEpkYdQAonsbYFMv5K99g3Y7/svccvySMQ3zfaMy9UmvDEB+FxEJ0sGolRMKfYtS80Hs2K4L+m+dLuYGr3y6+Ib9ZYFzlhGZQ4+1PEp0B4R+KdspW9dFirypckf86l+7RwmXswUqqTNSeKwk1kD6MAkeQRwRSuzGtGefZUsJJfNlYp6QH1F/PURzN/vfqVkLRFwPGcLVZtXURMuBL0A3wzMCLdf5U4PrKOYiZd1mkNnDR4j6IYct4h1NNE/6AVAyk77x3aUiPYTtjlkBTg==
+X-Microsoft-Antispam-Message-Info: mq52pI16NTgSMV+N2la2pS5Lmqsv1Q9/O5UtN0T8+sxKdyPUdX74IB9ftMlBYM4gnWzUbO+sZ3rhQGIH0UB1I8XUmtiSDm5DPDmwFgHPvpiRfj2g3TztHteRdyzdL22jY/cEYZSNLZZ/3TpCeitca8oZGa99/hXE465ftGnbKex5qkvPDbxk5skyFUmFL3n2qciPPJZo4GFdOtfvf8HXwnv19QMhuGW0Ynh7BoBR9+2nxUbVWht2Pe7NV6z9AjZmh1adm/oN3ZWDmjFPNXOKvtcoaH8vnez454rt/sraIZIKsyOQPYgeSAE5jP08LdBZipnQNOfr6qaYd0sHz4dAhH6l9MxjmJgswa0XqdRq1gnPNN6LomvBAQkDGlDvluBfXRmDqL7qdkNnUhxiuwOW2r+udztmy1QKEgQCEI7a3vNB2RTa6JmKz6JXeYHblerCeS8qffzdPA8YDwMA6dP0lVEPg5coi02lkMnsr37dxuGjkEpRKdvZMsl0IaeV/cnthJ3FmPQ0ykS8dDA1/SLvyWJOhEoRFNYIea1XcqgCaE2i/WDq5UFdUQ5yiqbm1pwMAwTV/j0nqAcMPwi7yDNtxg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2954.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(136003)(376002)(39860400002)(346002)(83380400001)(26005)(86362001)(54906003)(52116002)(5660300002)(66476007)(6486002)(66946007)(30864003)(66556008)(69590400012)(478600001)(36756003)(1076003)(16526019)(186003)(6512007)(2906002)(6506007)(6666004)(8936002)(4326008)(316002)(8676002)(44832011)(956004)(6916009)(2616005);
+ SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(4326008)(956004)(6506007)(26005)(5660300002)(16526019)(316002)(186003)(8936002)(6512007)(2616005)(66476007)(66946007)(36756003)(2906002)(83380400001)(6916009)(69590400012)(30864003)(66556008)(1076003)(52116002)(86362001)(54906003)(6666004)(478600001)(8676002)(6486002)(44832011);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?B06ih0ri9WUS4d5P/fBH7je6FtcyyBrgDUDYmhNfZ+wwPu04sxDmSbrtb9mo?=
- =?us-ascii?Q?0BtKwT8w4y0jLceqZXqw8bxdi+4v/KYeFsxyiuvTw+GFn0Z9cnYZHMgJQ6ol?=
- =?us-ascii?Q?GRaB3ZKOT3a1gMnPOtLUIAi5lvtrStXOjoQGAZHLd96yLbVZSCOlDL2tPDEo?=
- =?us-ascii?Q?a9VaV5Ca5Mn09UjR0kg2+iguteHmJpnnmVo5TCnqkb2K0Kfopxw4skFtLTdG?=
- =?us-ascii?Q?c2aGqiRcP7oppv76y21GQWnght84Wcdj+KaUnhTkVUqp226JFhnmsELJl8e4?=
- =?us-ascii?Q?uktgwHaYcM32YtADAB56JQzXaWGIhN3JdOc82+D1sOYV0cmVSy9aoCiFd115?=
- =?us-ascii?Q?v2GpaKHeUha+FPJOmEtvK8kp3ivel/YrmykVGFTBPVmtGvKMkIoxASYtaKO+?=
- =?us-ascii?Q?G6W2QPP0jUGRyMIEdvRnuHP0E90cX3uRKinnaKnkDyTc4DsEWUVDMu1XDqLS?=
- =?us-ascii?Q?pnn+WStBsMfO8j4Ck0H+bumneX5Jwtmdk+gdijOt7mBediPGB+n7MuV+O3tY?=
- =?us-ascii?Q?CH5V4jKlV2/KuF4KI1hywpU25wM1B1CL5tmEKIJ+9p80W3M/mdjtcM6EkB0L?=
- =?us-ascii?Q?GECzKJiR6ms6eREsVpJ76FR1ZgVXhejmJl13UkVMC6OX8UOjWP7962GKeO+2?=
- =?us-ascii?Q?w4DPxhDZdWK54u61OtmO4SSTAn2i1fCe0xn2Mw/1gTniI3Z47hhK8tkhyQOj?=
- =?us-ascii?Q?CUAfo8xooQD9871eGplgsro75pKFubTf+m0kc6/h/q+uAFgWeGNVoZKmy1Q1?=
- =?us-ascii?Q?XXwUbesOn3MBBm8cDeFDe/z989DmuBKnrMfnCwYFjjgYnNOKvcTpm98bC782?=
- =?us-ascii?Q?Dr3kcp8oJtOnwTIOj5AZUNiuS65pwxf5WmbAbo/KpqO1V2wUDQzr7jkP+AeW?=
- =?us-ascii?Q?Fop0nBs35G0Uz+K0OJJU6OfWK9tj/hWeuKLLdV7LnZlhcndqP92+dE4xLfzW?=
- =?us-ascii?Q?RPM85MbGwL+igj9G/wi61j0o8RiUoOtnUjHVufANxcTI7K2veJoE2FjrMpfu?=
- =?us-ascii?Q?pPuL/HSxQe4tKbTLyJ3msQloa4VTyDH03pwgZKa5OAWLhmlqHbVtd0/WGrdZ?=
- =?us-ascii?Q?0Lt7NOCSP7CdEuIfp85MbYvXd/wT9zgnlppgedfBYz0/DFMr479l/7/oqlCB?=
- =?us-ascii?Q?wlqsROh1kY7Dssyci8aP73gpgfXoJk+RXCeSIhfofxABoHLSUFYneeZrgOqU?=
- =?us-ascii?Q?czBSNb8T1qWcH7MSJ+xhavpQVebPfS55JOKSKmanW5Q9dFrkrI/Yscd5Ln93?=
- =?us-ascii?Q?jBkiqjJldXNeEJI3QGFfK0ohRu1qyge7sdNcaw7H8Ed4+nwTFPtPh5W9YIwT?=
- =?us-ascii?Q?eFLZeUY67mKAhKzcl4uNX5yp?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Ym8ytN55aXEmZ4XhTlpH/OEN8CiDrgM6uW9hg0qciM9qgI+VD2UEy5/6DfxM?=
+ =?us-ascii?Q?5q6x85aLLJTQRE3OLewirFCIo7CHL7q7zyOgqYnEhu+Ck1jX+ZrXzjpUStRE?=
+ =?us-ascii?Q?f4WVst9ViStW22VYENjJVhqZL+QRg0WpWjFXf+kwCmTZz2iDOTqH3CoGKLSx?=
+ =?us-ascii?Q?QY7RJvEkr0xky3PbtHdfiLHUsT0vTFnC3PLvsoeii3yidEY5dL9N4orKKJ0h?=
+ =?us-ascii?Q?6Z26eSAVAht1sYIQFeicM1GgQreL/ZMDnvTw3ALaRjP9A8EJHAEQibxyNFEE?=
+ =?us-ascii?Q?tbRy7DE4SbMOtK4bQZcgGjSBNSEZCGneQMHpaZTNCrIq8+ZJGu9oRS0+NPUF?=
+ =?us-ascii?Q?zsY3wzVY5h4v+zhvG59p5fIivO0pS/zGE5JCLaLtZ7K6iiAMjKyKOEmUm7Iw?=
+ =?us-ascii?Q?To9muhotKQeUCpctwc7r53JYgnZjXDADNI912Z/91olgQuRn/Ju3g4VdVbOs?=
+ =?us-ascii?Q?hcjBKKyzPtPdH3EkxR2foRFdfhkygjutbNpEC348Zfp8Q7ZS0YdLoNRi2iil?=
+ =?us-ascii?Q?qcRWqp/tQYj7p9O7lyzb1Ho01RajbTWvBnqujnPz9yOvc23/9hpDs3tkQ2Ua?=
+ =?us-ascii?Q?jmTae0TxSNpTMJi8CfzPD2hSrh5A3lP2GouLDXNy++Q8NSnZaqAsDYMNHkuD?=
+ =?us-ascii?Q?3Z/xPw4lxSc3Wd+1suoRXluCqDLmTyMNFlLsEzDZMTFO+dITOnpGO6NjKg84?=
+ =?us-ascii?Q?WHXDMDgSfaUXHmt3+dVevfyepWev8NymIW+nGxYcarAVP3axv7pv9sdwRV6u?=
+ =?us-ascii?Q?CU6j2LHiBjDDL0cqjMPujLGYBxNYIbEvZHCCJCkrZnDs+0J8D7aqkmKLwamX?=
+ =?us-ascii?Q?GDWVHB5p4MhjUzDE+mxpKqvtzUMHZIrXcirMfCih8r1AwXGXYeWImJGpfSgO?=
+ =?us-ascii?Q?5yTM8U7ZupeB7YU3kiufnUY9tIsvAHvjNrw9FEb5t4O0YhG+iG4HdJcHGcIh?=
+ =?us-ascii?Q?ZHb3Sn4CuspkIWBn3fPlTaERi2sr06SYvk+TX4bAzlFnQlZ2zLngtOD5oC1Z?=
+ =?us-ascii?Q?L5HUbJiyi5CnjrSF7nOGX7ZZGxD+xucjXniHVPQl8XMv99rkP9iAFfE60nXE?=
+ =?us-ascii?Q?6wMLeUlC4msc+oH9lWJziHeX+rMdXQuklgQ8UHtLrR/TfEvW1nDmou+1FAFA?=
+ =?us-ascii?Q?KVInETRIQV4lEKUgzFmmIwPua0tkBqnVuvXpWlFnlHY7a8ply5kvXE93jQSp?=
+ =?us-ascii?Q?lbQZOmieDYti9SLSyRFyLFvCjfve28Q0vqKxdnWbASc0XqwnIU48G95O15CP?=
+ =?us-ascii?Q?XSzM/4Q8pUpz8QHZ+Y1geb06jtNiH5XJeXRZrKdE9whVKJTncHzGcdzUjhnh?=
+ =?us-ascii?Q?vTz4tdrEtUtFGePviQBVfKIw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08e93891-a89c-47c7-85a1-08d8d7b284b0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9039bd83-2226-4d2c-c9f5-08d8d7b28668
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2954.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 04:21:40.5275 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 04:21:43.3899 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Af4rBW3RseWveB2nbFQxaMnx8nnzsCEr0oBf1+o+INS3P+cHSOQcLfCSL2+seON5EXO6FvU3hUhOJqda1emxWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4515
+X-MS-Exchange-CrossTenant-UserPrincipalName: mNKLrhixhCYAsU6OmOck/F9QyCmlj+jRVPliOeEXhD4PEi2wmRiSgwniHvc8kNDUysB5glIHrIL+Ywp3D5Pkaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1850
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,341 +134,306 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-v2: changed error return value of smu_get_fan_control_mode to AMD_FAN_CTRL_NONE
-    fixed type in amdgpu_hwmon_get_pwm1_enable() print statement
-    fixed indent flagged by checkpatch.pl
+v2: fix errors and warnings flagged by checkpatch
+v3: Context mismatch with revision v3 to patch 0003
+
+New Functions
+  smu_get_mclk        - implementation of the Powerplay API function get_mclk
+  smu_get_sclk        - implementation of the Powerplay API function get_sclk
+  smu_handle_dpm_task - implementation of the Powerplay API function dispatch_tasks
 
 Modified Functions
-  smu_set_fan_speed_rpm()     - modifed arg0 to match Powerplay API set_fan_speed_rpm
-  smu_get_fan_control_mode()  - modifed signature to match Powerplay API get_fan_control_mode
-  smu_set_fan_control_mode()  - modifed signature to match Powerplay API set_fan_control_mode
-  smu_get_fan_speed_percent() - modifed signature to match Powerplay API get_fan_speed_percent
-  smu_set_fan_speed_percent() - modifed signature to match Powerplay API set_fan_speed_percent
-  smu_get_fan_speed_rpm()     - modifed arg0 to match Powerplay API get_fan_speed_rpm
+  smu_dpm_set_power_gate - - modifed arg0 to match Powerplay API set_powergating_by_smu
 
 Other Changes
-  added 6 above smu fan Powerplay functions to swsmu_dpm_funcs
-  removed special smu handling of above functions and called through Powerplay API
+  removed special smu handling in dpm functions and called through Powerplay API
+  call to smu_dpm_set_power_gate via Powerplay API now locks mutex for UVD and VCE
 
 Signed-off-by: Darren Powell <darren.powell@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c        | 95 ++++++++---------------
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   | 11 +--
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 34 ++++++--
- 3 files changed, 63 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c       | 96 ++++++++---------------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  7 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 49 +++++++++++-
+ 3 files changed, 86 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index ab26915add47..81ebeff599e2 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2511,22 +2511,18 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
- 		return ret;
- 	}
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 8ae2df82addc..0a6bb3311f0f 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -911,50 +911,28 @@ amdgpu_get_vce_clock_state(void *handle, u32 idx)
  
+ int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
+ {
+-	uint32_t clk_freq;
+-	int ret = 0;
 -	if (is_support_sw_smu(adev)) {
--		pwm_mode = smu_get_fan_control_mode(&adev->smu);
+-		ret = smu_get_dpm_freq_range(&adev->smu, SMU_GFXCLK,
+-					     low ? &clk_freq : NULL,
+-					     !low ? &clk_freq : NULL);
+-		if (ret)
+-			return 0;
+-		return clk_freq * 100;
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 
 -	} else {
--		if (!adev->powerplay.pp_funcs->get_fan_control_mode) {
--			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--			return -EINVAL;
--		}
--
--		pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
-+	if (!adev->powerplay.pp_funcs->get_fan_control_mode) {
-+		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+		return -EINVAL;
- 	}
- 
-+	pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
-+
- 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
--	return sprintf(buf, "%i\n", pwm_mode);
-+	return sprintf(buf, "%u\n", pwm_mode);
+-		return (adev)->powerplay.pp_funcs->get_sclk((adev)->powerplay.pp_handle, (low));
+-	}
++	return pp_funcs->get_sclk((adev)->powerplay.pp_handle, (low));
  }
  
- static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
-@@ -2551,18 +2547,14 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
- 		return ret;
+ int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low)
+ {
+-	uint32_t clk_freq;
+-	int ret = 0;
+-	if (is_support_sw_smu(adev)) {
+-		ret = smu_get_dpm_freq_range(&adev->smu, SMU_UCLK,
+-					     low ? &clk_freq : NULL,
+-					     !low ? &clk_freq : NULL);
+-		if (ret)
+-			return 0;
+-		return clk_freq * 100;
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 
+-	} else {
+-		return (adev)->powerplay.pp_funcs->get_mclk((adev)->powerplay.pp_handle, (low));
+-	}
++	return pp_funcs->get_mclk((adev)->powerplay.pp_handle, (low));
+ }
+ 
+ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block_type, bool gate)
+ {
+ 	int ret = 0;
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	bool swsmu = is_support_sw_smu(adev);
+ 
+ 	switch (block_type) {
+ 	case AMD_IP_BLOCK_TYPE_UVD:
+ 	case AMD_IP_BLOCK_TYPE_VCE:
+-		if (swsmu) {
+-			ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
+-		} else if (adev->powerplay.pp_funcs &&
+-			   adev->powerplay.pp_funcs->set_powergating_by_smu) {
++		if (pp_funcs && pp_funcs->set_powergating_by_smu) {
+ 			/*
+ 			 * TODO: need a better lock mechanism
+ 			 *
+@@ -982,7 +960,7 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
+ 			 *     amdgpu_set_dpm_forced_performance_level+0x129/0x330 [amdgpu]
+ 			 */
+ 			mutex_lock(&adev->pm.mutex);
+-			ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
++			ret = (pp_funcs->set_powergating_by_smu(
+ 				(adev)->powerplay.pp_handle, block_type, gate));
+ 			mutex_unlock(&adev->pm.mutex);
+ 		}
+@@ -990,12 +968,10 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
+ 	case AMD_IP_BLOCK_TYPE_GFX:
+ 	case AMD_IP_BLOCK_TYPE_VCN:
+ 	case AMD_IP_BLOCK_TYPE_SDMA:
+-		if (swsmu)
+-			ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
+-		else if (adev->powerplay.pp_funcs &&
+-			 adev->powerplay.pp_funcs->set_powergating_by_smu)
+-			ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
++		if (pp_funcs && pp_funcs->set_powergating_by_smu) {
++			ret = (pp_funcs->set_powergating_by_smu(
+ 				(adev)->powerplay.pp_handle, block_type, gate));
++		}
+ 		break;
+ 	case AMD_IP_BLOCK_TYPE_JPEG:
+ 		if (swsmu)
+@@ -1003,10 +979,10 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
+ 		break;
+ 	case AMD_IP_BLOCK_TYPE_GMC:
+ 	case AMD_IP_BLOCK_TYPE_ACP:
+-		if (adev->powerplay.pp_funcs &&
+-		    adev->powerplay.pp_funcs->set_powergating_by_smu)
+-			ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
++		if (pp_funcs && pp_funcs->set_powergating_by_smu) {
++			ret = (pp_funcs->set_powergating_by_smu(
+ 				(adev)->powerplay.pp_handle, block_type, gate));
++		}
+ 		break;
+ 	default:
+ 		break;
+@@ -1512,36 +1488,30 @@ void amdgpu_pm_compute_clocks(struct amdgpu_device *adev)
+ 			amdgpu_fence_wait_empty(ring);
  	}
  
 -	if (is_support_sw_smu(adev)) {
--		smu_set_fan_control_mode(&adev->smu, value);
+-		struct smu_dpm_context *smu_dpm = &adev->smu.smu_dpm;
+-		smu_handle_task(&adev->smu,
+-				smu_dpm->dpm_level,
+-				AMD_PP_TASK_DISPLAY_CONFIG_CHANGE,
+-				true);
 -	} else {
--		if (!adev->powerplay.pp_funcs->set_fan_control_mode) {
--			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--			return -EINVAL;
--		}
--
--		amdgpu_dpm_set_fan_control_mode(adev, value);
-+	if (!adev->powerplay.pp_funcs->set_fan_control_mode) {
-+		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+		return -EINVAL;
+-		if (adev->powerplay.pp_funcs->dispatch_tasks) {
+-			if (!amdgpu_device_has_dc_support(adev)) {
+-				mutex_lock(&adev->pm.mutex);
+-				amdgpu_dpm_get_active_displays(adev);
+-				adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
+-				adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
+-				adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
+-				/* we have issues with mclk switching with refresh rates over 120 hz on the non-DC code. */
+-				if (adev->pm.pm_display_cfg.vrefresh > 120)
+-					adev->pm.pm_display_cfg.min_vblank_time = 0;
+-				if (adev->powerplay.pp_funcs->display_configuration_change)
+-					adev->powerplay.pp_funcs->display_configuration_change(
+-									adev->powerplay.pp_handle,
+-									&adev->pm.pm_display_cfg);
+-				mutex_unlock(&adev->pm.mutex);
+-			}
+-			amdgpu_dpm_dispatch_task(adev, AMD_PP_TASK_DISPLAY_CONFIG_CHANGE, NULL);
+-		} else {
++	if (adev->powerplay.pp_funcs->dispatch_tasks) {
++		if (!amdgpu_device_has_dc_support(adev)) {
+ 			mutex_lock(&adev->pm.mutex);
+ 			amdgpu_dpm_get_active_displays(adev);
+-			amdgpu_dpm_change_power_state_locked(adev);
++			adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
++			adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
++			adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
++			/* we have issues with mclk switching with
++			 * refresh rates over 120 hz on the non-DC code.
++			 */
++			if (adev->pm.pm_display_cfg.vrefresh > 120)
++				adev->pm.pm_display_cfg.min_vblank_time = 0;
++			if (adev->powerplay.pp_funcs->display_configuration_change)
++				adev->powerplay.pp_funcs->display_configuration_change(
++							adev->powerplay.pp_handle,
++							&adev->pm.pm_display_cfg);
+ 			mutex_unlock(&adev->pm.mutex);
+ 		}
++		amdgpu_dpm_dispatch_task(adev, AMD_PP_TASK_DISPLAY_CONFIG_CHANGE, NULL);
++	} else {
++		mutex_lock(&adev->pm.mutex);
++		amdgpu_dpm_get_active_displays(adev);
++		amdgpu_dpm_change_power_state_locked(adev);
++		mutex_unlock(&adev->pm.mutex);
  	}
+ }
  
-+	amdgpu_dpm_set_fan_control_mode(adev, value);
-+
- 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
-@@ -2601,11 +2593,7 @@ static ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		pwm_mode = smu_get_fan_control_mode(&adev->smu);
--	else
--		pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
--
-+	pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
- 	if (pwm_mode != AMD_FAN_CTRL_MANUAL) {
- 		pr_info("manual fan speed control should be enabled first\n");
- 		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-@@ -2622,9 +2610,7 @@ static ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
- 
- 	value = (value * 100) / 255;
- 
--	if (is_support_sw_smu(adev))
--		err = smu_set_fan_speed_percent(&adev->smu, value);
--	else if (adev->powerplay.pp_funcs->set_fan_speed_percent)
-+	if (adev->powerplay.pp_funcs->set_fan_speed_percent)
- 		err = amdgpu_dpm_set_fan_speed_percent(adev, value);
- 	else
- 		err = -EINVAL;
-@@ -2655,9 +2641,7 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		err = smu_get_fan_speed_percent(&adev->smu, &speed);
--	else if (adev->powerplay.pp_funcs->get_fan_speed_percent)
-+	if (adev->powerplay.pp_funcs->get_fan_speed_percent)
- 		err = amdgpu_dpm_get_fan_speed_percent(adev, &speed);
- 	else
- 		err = -EINVAL;
-@@ -2690,9 +2674,7 @@ static ssize_t amdgpu_hwmon_get_fan1_input(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		err = smu_get_fan_speed_rpm(&adev->smu, &speed);
--	else if (adev->powerplay.pp_funcs->get_fan_speed_rpm)
-+	if (adev->powerplay.pp_funcs->get_fan_speed_rpm)
- 		err = amdgpu_dpm_get_fan_speed_rpm(adev, &speed);
- 	else
- 		err = -EINVAL;
-@@ -2783,9 +2765,7 @@ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		err = smu_get_fan_speed_rpm(&adev->smu, &rpm);
--	else if (adev->powerplay.pp_funcs->get_fan_speed_rpm)
-+	if (adev->powerplay.pp_funcs->get_fan_speed_rpm)
- 		err = amdgpu_dpm_get_fan_speed_rpm(adev, &rpm);
- 	else
- 		err = -EINVAL;
-@@ -2817,10 +2797,7 @@ static ssize_t amdgpu_hwmon_set_fan1_target(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		pwm_mode = smu_get_fan_control_mode(&adev->smu);
--	else
--		pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
-+	pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
- 
- 	if (pwm_mode != AMD_FAN_CTRL_MANUAL) {
- 		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-@@ -2835,9 +2812,7 @@ static ssize_t amdgpu_hwmon_set_fan1_target(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev))
--		err = smu_set_fan_speed_rpm(&adev->smu, value);
--	else if (adev->powerplay.pp_funcs->set_fan_speed_rpm)
-+	if (adev->powerplay.pp_funcs->set_fan_speed_rpm)
- 		err = amdgpu_dpm_set_fan_speed_rpm(adev, value);
- 	else
- 		err = -EINVAL;
-@@ -2868,18 +2843,14 @@ static ssize_t amdgpu_hwmon_get_fan1_enable(struct device *dev,
- 		return ret;
- 	}
- 
--	if (is_support_sw_smu(adev)) {
--		pwm_mode = smu_get_fan_control_mode(&adev->smu);
--	} else {
--		if (!adev->powerplay.pp_funcs->get_fan_control_mode) {
--			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--			return -EINVAL;
--		}
--
--		pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
-+	if (!adev->powerplay.pp_funcs->get_fan_control_mode) {
-+		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+		return -EINVAL;
- 	}
- 
-+	pwm_mode = amdgpu_dpm_get_fan_control_mode(adev);
-+
- 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
-@@ -2916,16 +2887,12 @@ static ssize_t amdgpu_hwmon_set_fan1_enable(struct device *dev,
- 		return err;
- 	}
- 
--	if (is_support_sw_smu(adev)) {
--		smu_set_fan_control_mode(&adev->smu, pwm_mode);
--	} else {
--		if (!adev->powerplay.pp_funcs->set_fan_control_mode) {
--			pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
--			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
--			return -EINVAL;
--		}
--		amdgpu_dpm_set_fan_control_mode(adev, pwm_mode);
-+	if (!adev->powerplay.pp_funcs->set_fan_control_mode) {
-+		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+		return -EINVAL;
- 	}
-+	amdgpu_dpm_set_fan_control_mode(adev, pwm_mode);
- 
- 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index d96692d9e794..81ee621df448 100644
+index 20af40b24f66..a2f4b8f1db4e 100644
 --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -1233,7 +1233,7 @@ int smu_check_fw_status(struct smu_context *smu);
- 
- int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
- 
--int smu_set_fan_speed_rpm(struct smu_context *smu, uint32_t speed);
-+int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
- 
- int smu_get_power_limit(struct smu_context *smu,
- 			uint32_t *limit,
-@@ -1255,11 +1255,12 @@ int smu_set_power_profile_mode(struct smu_context *smu,
- 			       long *param,
- 			       uint32_t param_size,
- 			       bool lock_needed);
--int smu_get_fan_control_mode(struct smu_context *smu);
-+u32 smu_get_fan_control_mode(void *handle);
- int smu_set_fan_control_mode(struct smu_context *smu, int value);
--int smu_get_fan_speed_percent(struct smu_context *smu, uint32_t *speed);
--int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed);
--int smu_get_fan_speed_rpm(struct smu_context *smu, uint32_t *speed);
-+void smu_pp_set_fan_control_mode(void *handle, u32 value);
-+int smu_get_fan_speed_percent(void *handle, u32 *speed);
-+int smu_set_fan_speed_percent(void *handle, u32 speed);
-+int smu_get_fan_speed_rpm(void *handle, uint32_t *speed);
- 
- int smu_set_deep_sleep_dcefclk(struct smu_context *smu, int clk);
- 
+@@ -1306,16 +1306,21 @@ int smu_set_watermarks_for_clock_ranges(
+ extern int smu_display_configuration_change(struct smu_context *smu, const
+ 					    struct amd_pp_display_configuration
+ 					    *display_config);
+-extern int smu_dpm_set_power_gate(struct smu_context *smu,uint32_t block_type, bool gate);
++extern int smu_dpm_set_power_gate(void *handle, uint32_t block_type, bool gate);
+ extern int smu_handle_task(struct smu_context *smu,
+ 			   enum amd_dpm_forced_level level,
+ 			   enum amd_pp_task task_id,
+ 			   bool lock_needed);
++extern int smu_handle_dpm_task(void *handle,
++			       enum amd_pp_task task_id,
++			       enum amd_pm_state_type *user_state);
+ int smu_switch_power_profile(void *handle,
+ 			     enum PP_SMC_POWER_PROFILE type,
+ 			     bool en);
+ int smu_get_dpm_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+ 			   uint32_t *min, uint32_t *max);
++u32 smu_get_mclk(void *handle, bool low);
++u32 smu_get_sclk(void *handle, bool low);
+ int smu_set_soft_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+ 			    uint32_t min, uint32_t max);
+ enum amd_dpm_forced_level smu_get_performance_level(void *handle);
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index ef1dfd1bb294..b7fe56b9e33e 100644
+index c760f75ccb54..72501d8a80b9 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2029,8 +2029,9 @@ int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled)
+@@ -141,6 +141,34 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
  	return ret;
  }
  
--int smu_set_fan_speed_rpm(struct smu_context *smu, uint32_t speed)
-+int smu_set_fan_speed_rpm(void *handle, uint32_t speed)
- {
++u32 smu_get_mclk(void *handle, bool low)
++{
 +	struct smu_context *smu = handle;
- 	u32 percent;
- 	int ret = 0;
- 
-@@ -2265,12 +2266,13 @@ int smu_set_power_profile_mode(struct smu_context *smu,
- }
- 
- 
--int smu_get_fan_control_mode(struct smu_context *smu)
-+u32 smu_get_fan_control_mode(void *handle)
- {
--	int ret = 0;
-+	struct smu_context *smu = handle;
-+	u32 ret = 0;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
--		return -EOPNOTSUPP;
-+		return AMD_FAN_CTRL_NONE;
- 
- 	mutex_lock(&smu->mutex);
- 
-@@ -2287,7 +2289,7 @@ int smu_set_fan_control_mode(struct smu_context *smu, int value)
- 	int ret = 0;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
--		return -EOPNOTSUPP;
-+		return  -EOPNOTSUPP;
- 
- 	mutex_lock(&smu->mutex);
- 
-@@ -2307,8 +2309,16 @@ int smu_set_fan_control_mode(struct smu_context *smu, int value)
- 	return ret;
- }
- 
--int smu_get_fan_speed_percent(struct smu_context *smu, uint32_t *speed)
-+void smu_pp_set_fan_control_mode(void *handle, u32 value) {
-+	struct smu_context *smu = handle;
++	uint32_t clk_freq;
++	int ret = 0;
 +
-+	smu_set_fan_control_mode(smu, value);
++	ret = smu_get_dpm_freq_range(smu, SMU_UCLK,
++				     low ? &clk_freq : NULL,
++				     !low ? &clk_freq : NULL);
++	if (ret)
++		return 0;
++	return clk_freq * 100;
++}
++
++u32 smu_get_sclk(void *handle, bool low)
++{
++	struct smu_context *smu = handle;
++	uint32_t clk_freq;
++	int ret = 0;
++
++	ret = smu_get_dpm_freq_range(smu, SMU_GFXCLK,
++				     low ? &clk_freq : NULL,
++				     !low ? &clk_freq : NULL);
++	if (ret)
++		return 0;
++	return clk_freq * 100;
++}
++
+ static int smu_dpm_set_vcn_enable_locked(struct smu_context *smu,
+ 					 bool enable)
+ {
+@@ -216,7 +244,7 @@ static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
+ /**
+  * smu_dpm_set_power_gate - power gate/ungate the specific IP block
+  *
+- * @smu:        smu_context pointer
++ * @handle:        smu_context pointer
+  * @block_type: the IP block to power gate/ungate
+  * @gate:       to power gate if true, ungate otherwise
+  *
+@@ -227,9 +255,10 @@ static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
+  *    Under this case, the smu->mutex lock protection is already enforced on
+  *    the parent API smu_force_performance_level of the call path.
+  */
+-int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
++int smu_dpm_set_power_gate(void *handle, uint32_t block_type,
+ 			   bool gate)
+ {
++	struct smu_context *smu = handle;
+ 	int ret = 0;
+ 
+ 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+@@ -1678,6 +1707,18 @@ int smu_handle_task(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++int smu_handle_dpm_task(void *handle,
++			enum amd_pp_task task_id,
++			enum amd_pm_state_type *user_state)
++{
++	struct smu_context *smu = handle;
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++
++	return smu_handle_task(smu, smu_dpm->dpm_level, task_id, true);
++
 +}
 +
 +
-+int smu_get_fan_speed_percent(void *handle, u32 *speed)
- {
-+	struct smu_context *smu = handle;
- 	int ret = 0;
- 	uint32_t percent;
- 
-@@ -2330,8 +2340,9 @@ int smu_get_fan_speed_percent(struct smu_context *smu, uint32_t *speed)
- 	return ret;
- }
- 
--int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
-+int smu_set_fan_speed_percent(void *handle, u32 speed)
- {
-+	struct smu_context *smu = handle;
- 	int ret = 0;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-@@ -2352,8 +2363,9 @@ int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
- 	return ret;
- }
- 
--int smu_get_fan_speed_rpm(struct smu_context *smu, uint32_t *speed)
-+int smu_get_fan_speed_rpm(void *handle, uint32_t *speed)
- {
-+	struct smu_context *smu = handle;
- 	int ret = 0;
- 	u32 percent;
- 
-@@ -2738,7 +2750,13 @@ int smu_gfx_state_change_set(struct smu_context *smu, uint32_t state)
- 
- static const struct amd_pm_funcs swsmu_pm_funcs = {
- 	/* export for sysfs */
-+	.set_fan_control_mode  = smu_pp_set_fan_control_mode,
-+	.get_fan_control_mode  = smu_get_fan_control_mode,
-+	.set_fan_speed_percent = smu_set_fan_speed_percent,
-+	.get_fan_speed_percent = smu_get_fan_speed_percent,
- 	.get_performance_level = smu_get_performance_level,
-+	.get_fan_speed_rpm     = smu_get_fan_speed_rpm,
-+	.set_fan_speed_rpm     = smu_set_fan_speed_rpm,
- 	.switch_power_profile  = smu_switch_power_profile,
+ int smu_switch_power_profile(void *handle,
+ 			     enum PP_SMC_POWER_PROFILE type,
+ 			     bool en)
+@@ -2918,9 +2959,13 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	.get_pp_table            = smu_sys_get_pp_table,
+ 	.switch_power_profile    = smu_switch_power_profile,
  	/* export to amdgpu */
- 	.set_mp1_state         = smu_set_mp1_state,
++	.dispatch_tasks          = smu_handle_dpm_task,
++	.set_powergating_by_smu  = smu_dpm_set_power_gate,
+ 	.set_power_limit         = smu_set_power_limit,
+ 	.set_mp1_state           = smu_set_mp1_state,
+ 	/* export to DC */
++	.get_sclk                = smu_get_sclk,
++	.get_mclk                = smu_get_mclk,
+ 	.enable_mgpu_fan_boost   = smu_enable_mgpu_fan_boost,
+ 	.get_asic_baco_capability = smu_get_baco_capability,
+ 	.set_asic_baco_state     = smu_baco_set_state,
 -- 
 2.25.1
 
