@@ -2,66 +2,117 @@ Return-Path: <SRS0=GAon=HZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5D81C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 18:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91944C433E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 21:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6101C64DF3
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 18:02:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6101C64DF3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 54D096146D
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 21:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54D096146D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 244BB89F73;
-	Tue, 23 Feb 2021 18:02:33 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2132B89F73
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 18:02:32 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id 105so10072876otd.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 10:02:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8mGzcLiUCbAcf84ZP3z+idxc69ixidT0xTKSIw5cfuU=;
- b=L0GjdwHY1EPJWPSEfF1uo3Ez9Kx6lktn45yHap9f0mQWUU0HcDWJkLRkqzcDAMKGEz
- ytbyBwYy9LpRdeE0Vw6qK2jJXa2G1v5oVvinnInx7CJvH6cGWtR5NRDaexwxPODEAb42
- ecdcEVNrwOe7krQRx1iHbCTdXYDvhHQO8N8GGH44qUpz6/9wbu6kcZA6jDRaAtUtX+nz
- cEMm0KccKei7dR8ROhQf+0vYlFEXx19q3C0LAxrIWtAu1lyB7AHUifcS8FRpjP9zybWO
- L31Ggt7Vq+N4w261P0V+IyBTMb/5rmItiWCBn3koAqbie7sUTS3pvBRjbaZXOYZHPrld
- 12Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8mGzcLiUCbAcf84ZP3z+idxc69ixidT0xTKSIw5cfuU=;
- b=Y6G85XXEVt3CPmZznhcON18+4UcO+bm2z9mhaNAJum3op4QvZJA1F/ek8U4Hz9ZefM
- lrI8SrArtl/IBn/nSJnT6NOTKcQQb1jCWZPb+iwRyQdykqFFZsSBhhTVWDFyhJiJWOnY
- 4SCpAB76DiZizNxJ2GYF4mhZ8aWIvlCE3dKsGnU0D535cvX5WI2IX19Q9wiKQxlpm9O3
- a/XEpvGoGvr++l96bAcfBCLs8qeQNruN7oLDEa97Ih3ujYzIfu9ktflC9cWUckOkHeL0
- K9UY0/tLESGtiRUxKqbJaIsbjhbu1Et/VAeMDXta70pTLALPJEjlM+ySTkIlQCt8v2zy
- mN6A==
-X-Gm-Message-State: AOAM530W7SSDKjDfko1GLPSxl7YOZI4Z5f2aVFDzedQbvZM7pO0STBLy
- QYkJZuKYDkUrrUhg40tEGQ+ayu81JfTWrLpRiVg=
-X-Google-Smtp-Source: ABdhPJwgadlV17aopClygMR3oriLYaTdYD4pb7vgk9E6T7KdwUN7CG/t8f2vmlRzREI9awjbiowRXjJJQNj2iDddgtg=
-X-Received: by 2002:a9d:5cc2:: with SMTP id r2mr10691061oti.132.1614103350892; 
- Tue, 23 Feb 2021 10:02:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3F006E1D3;
+	Tue, 23 Feb 2021 21:11:02 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2060.outbound.protection.outlook.com [40.107.100.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3876E1D3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 21:11:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lUsO6FAjWw0SUZaPh4zSP7eNEkakTBXwb8d9atx1Kox9rOVKX6UvucAzDIJhohSzb1T8fz78nM3FLHf4a2F9XLH1H8j5655vfbBr+htfqlY9Q8YrkK30g+GgGz5BCdNJR97VjoiJjSWXMfePSa32LvfbhqMb+N9N9lx+etqB3jdse7ctOwzfAcbi0IPEEOiPCOCharcKLneV9FDaXjm5fw+5CHOR+BIGzFLO43848ksckcLZxQ5oOHL5FRTx4N/BhhgRHGIy5/f+xeCTUvWWCcmPj3Ag/6aWVEcBo0gYNoyWGEpq4u6wC8ML9suRVlHOMDUV/PjvvRFbQWlEoEmV8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tz4ZsY6hH3dlh9xmZLb0eMY5p5sQ9dOrQJTw/HEJyHA=;
+ b=Rx3E3Mp0ybMkQf92qdo02Jj/o5MKCMN6WpbUuX3eAMBEtpWZQvOQDD+gz3MTCMmsBf61mkKOwNLcQ+A9ZIbthwAfT1eQAFhzVLQUAf1LsCwG3VUsU9Bn+VCda997iGkUL38mk8PF0dbiw+tsNROQTialIyDZG84x9Ryu83a49yi+XjxBZQeiCKV3rpYvtjB3YH3+mZSrPM2joI7j9Eo9I94iySLvUYfA1MgFYjvi8FxUnrMlGvDK1QMSmBbhtk4353sbyBqUiUCShBb6vtLmuaSWrJx7IGuZ9PnPzx3spgpfQctnoS0akgeQTum4GeWTBNhrPY/cR4neryVrLoS/rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tz4ZsY6hH3dlh9xmZLb0eMY5p5sQ9dOrQJTw/HEJyHA=;
+ b=hm03cx6SR7acy3/r6ScnGKK7x/VNjchDLU2aDQGJH6vuuCgeA8L8851uEuKuRPjM8UIGqww+lYVOQH0s4aNPuvbbDEK6Rvq9ITC4D3B+GQD6DeZArq5LD3N8c9BhEr69iLQsHXR2ywBr5u8UdPwiKHUN5SZ/JWQuPeiYuC8HRBc=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MW2PR12MB4682.namprd12.prod.outlook.com (2603:10b6:302:e::32)
+ by MW3PR12MB4554.namprd12.prod.outlook.com (2603:10b6:303:55::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.31; Tue, 23 Feb
+ 2021 21:10:57 +0000
+Received: from MW2PR12MB4682.namprd12.prod.outlook.com
+ ([fe80::195b:7e51:6992:7480]) by MW2PR12MB4682.namprd12.prod.outlook.com
+ ([fe80::195b:7e51:6992:7480%5]) with mapi id 15.20.3868.033; Tue, 23 Feb 2021
+ 21:10:57 +0000
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: add ih call to process until checkpoint
+Date: Tue, 23 Feb 2021 16:10:26 -0500
+Message-Id: <20210223211026.116403-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0116.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::25) To MW2PR12MB4682.namprd12.prod.outlook.com
+ (2603:10b6:302:e::32)
 MIME-Version: 1.0
-References: <20210219011913.28464-1-shaoyun.liu@amd.com>
- <CADnq5_PXYRnX25Y=k+5dMxHuQmviD83_dei7oQDLOQDirjX38w@mail.gmail.com>
- <DM6PR12MB383559EFE1D662B8479B13D3F4809@DM6PR12MB3835.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB383559EFE1D662B8479B13D3F4809@DM6PR12MB3835.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Feb 2021 13:02:20 -0500
-Message-ID: <CADnq5_PcvW-YnbikAnXBe5yOynzs_pLcJbDsZhS-jxuTo2hQvw@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/amdgpu: get xgmi info at eary_init
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jonathan-KFD.amd.com (165.204.55.251) by
+ YT1PR01CA0116.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3868.29 via Frontend Transport; Tue, 23 Feb 2021 21:10:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 67d9b6e7-1949-480f-35c7-08d8d83f82db
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4554:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4554876A233DE3FC6D15CD8785809@MW3PR12MB4554.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EOJ4qhJ747n+rPCX9jWQyblHH9BZvXJihaC/1S7V3JTsR9XsN8BHddhuqP+2FOU0gyQuF+VunjhlF8lc8GwhochC8KkE+lOREGPP1E//1oHCigW3J1Smi6ByBGf3VTbqVLDU58Gc3zh6UZffy2Y0XOdVGJAK0bSHKHpBwpSIDkpblaTVQnWCXFY7fn/o9coBl321CvmgJsiNAt6pQNu1fM9UdIx4XmV7rq2c6AfBmh5hwePlTsjCZIppnQubbv8ZF2F4pWQ0VbZ0zBlB4BYWeoX0nMkVUupd4Cao2v/hwZHujiZM+ifu/fxNojPjYsb8F2Mj5YZn8ySnh8c8EUeTannoIqRYC++eSQmD6y8xDYynIhvGP9NctFGq31RqRCVa4VL4VtghNAbTNZcSUfx8+dHkljACLJEfpKn+g9nN9dNWpi9boCJdptCSpRiISi3CDkA80mxwHTotwplCmYhtR0sKD+HNir7h4r0eL3l9gvWvzjf+batPsboOw5zjXCWKSXJJRsbh9A0mzbSOgahxkQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB4682.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(396003)(366004)(376002)(346002)(2906002)(26005)(956004)(5660300002)(6916009)(6486002)(8936002)(2616005)(8676002)(186003)(16526019)(52116002)(86362001)(36756003)(66556008)(6666004)(478600001)(7696005)(4326008)(44832011)(66476007)(1076003)(316002)(83380400001)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?l7jIfu3a5+DvQg3nJ+uyZa6+TGiL8mvdQVkDthKYXDNP5o5sCeYTwjzpCT8j?=
+ =?us-ascii?Q?3eZ/igQHevSJmUmkfJMK6fhrKhhtei8B0NGDluKYNyjuNnFr2rvj3bvj98az?=
+ =?us-ascii?Q?CeTSnDNndIIjd7s/Dwr/Backf/t/O+yTw+MxfQGRh1n3Chx9gkJ5tBvRyzCI?=
+ =?us-ascii?Q?kQz1NPHUnEHfhIDovADTvJ6YueQAucK9T4G8ki2MwvWOBBk+xUohgwYCVykW?=
+ =?us-ascii?Q?UXQyj1XS0xTDDXatttGNWkhfwRFuEmrpXS7QI2mq3EsG9nM6gEmpTwlDuQN+?=
+ =?us-ascii?Q?tQaOJpISc4zML9DqGSYMxechwifnM6GL4alUdInfl8z30ByAqvtqiK2duU6M?=
+ =?us-ascii?Q?3vUXlsrCgj9z7uk87ibPuUdh8kpkjUb/69hCyL2PxhuRFaQ5FkOXF19gimYS?=
+ =?us-ascii?Q?NfkvgxfiQ6WNJiAbjTJSegzlSwvHMNptdMRa7SzzL7N0wsTDCnZRzaDk2UqB?=
+ =?us-ascii?Q?pbDCiInb7c6FT0N+UFfnomg51AimzG+KyswYjNlbt7vlLmKovTqDUgjJADS0?=
+ =?us-ascii?Q?FteTaCN+wFfy34JoHylbCnGMUHvq6/vfXqH7lB6cyS+5NRHcpEa8UKrRryCK?=
+ =?us-ascii?Q?8fMvKUDLM832YVEQhysLREDvqSDUZxkllYo7v0Z9EDydK1m+NHXUf4cLWQTt?=
+ =?us-ascii?Q?CpJfZzkPaU6TWQdOlYtQbiRB31b1xdnadhqhlmO5DZm87BhQeXQwkDwqkF4R?=
+ =?us-ascii?Q?8hkW44Buwh1noBP0yAu3wDQkA2DNFls/vcP5Gx1wyDoaKMgf0VeXhFXGWbch?=
+ =?us-ascii?Q?7PgviSs5iq5VmZp4+Ka9jnPkIF8a9GK+yCW6H+mHtkwDyF2ymMoic3b9Fq1R?=
+ =?us-ascii?Q?cIJPkp0qBPj7AbKhnFRmLzzPsgn9AY2z8J9oDsQEg/c+O05gFTf1xl3N2Czt?=
+ =?us-ascii?Q?K0jQ5RkcHTCR3zCNhhYDlFjb6d+Cb4KmVIkhSobX68SnZFs50wnHOGnbRDmj?=
+ =?us-ascii?Q?dhokRlnE8AWwJT1Dn7QuzeouaK1QQHuamwEAj++zATLZuQyVh7FNLJAS28zz?=
+ =?us-ascii?Q?YjXJk/y5Ftb9l+MISgUnW3vyJzJxnZtth2IBboseHYAW0HYOyETgJvbijio1?=
+ =?us-ascii?Q?c0sLBOAiMrEKPrPrCCe0yCz9kADLZEeDjqzTAdz27+qQ+qx5xHoZ1jolJMRX?=
+ =?us-ascii?Q?t/Hj+XP8sMYKJtqS5Otaq21eL4xqKIzNdD9xHCjAD1rjW+dFRgKfgAqJykht?=
+ =?us-ascii?Q?Pqpts4RBf+7m7nAdp4anx/ILIS1zUeoH6oXxImgpFrBet88myCTf7dOC3P5P?=
+ =?us-ascii?Q?fNcuVoLheC3ou6Q7H37bT/R9TRL54E+RnQX+lYZdoDMQ1a76CDC1m31JRZ+z?=
+ =?us-ascii?Q?25mGh4yWnFsMQoBudCJRVarC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67d9b6e7-1949-480f-35c7-08d8d83f82db
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4682.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2021 21:10:57.2243 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1XfRkUxfPc+5iUNIVTaiJGHKMFxBq4RWHLO7SQJFGlzwLqxJwb/cfFpoIZeVF2F+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,94 +124,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Philip.Yang@amd.com, Felix.Kuehling@amd.com,
+ Jonathan Kim <jonathan.kim@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 23, 2021 at 1:00 PM Liu, Shaoyun <Shaoyun.Liu@amd.com> wrote:
->
-> [AMD Official Use Only - Internal Distribution Only]
->
-> Thanks , Alex.
-> Whole four patches are needed for the XGMI reset to work normally .  I try to describe what  these patches for in the first patch. But  If you don't mind this , I can adjust the order as suggested .
+Add IH function to allow caller to process ring entries until the
+checkpoint write pointer.
 
-Just update the commit messages to indicate that these changes are
-needed for big rework in the later patches.
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 46 +++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h |  2 ++
+ 2 files changed, 47 insertions(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+index dc852af4f3b7..cae50af9559d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+@@ -22,7 +22,7 @@
+  */
+ 
+ #include <linux/dma-mapping.h>
+-
++#include <linux/processor.h>
+ #include "amdgpu.h"
+ #include "amdgpu_ih.h"
+ 
+@@ -160,6 +160,50 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 	}
+ }
+ 
++/**
++ * amdgpu_ih_wait_on_checkpoint_process - wait to process IVs up to checkpoint
++ *
++ * @adev: amdgpu_device pointer
++ * @ih: ih ring to process
++ *
++ * Used to ensure ring has processed IVs up to the checkpoint write pointer.
++ */
++int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
++					struct amdgpu_ih_ring *ih)
++{
++	u32 prev_rptr, cur_rptr, checkpoint_wptr;
++
++	if (!ih->enabled || adev->shutdown)
++		return -ENODEV;
++
++	cur_rptr = READ_ONCE(ih->rptr);
++	/* Order read of current rptr with checktpoint wptr. */
++	mb();
++	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
++
++	/* allow rptr to wrap around  */
++	if (cur_rptr > checkpoint_wptr) {
++		spin_begin();
++		do {
++			spin_cpu_relax();
++			prev_rptr = cur_rptr;
++			cur_rptr = READ_ONCE(ih->rptr);
++		} while (cur_rptr >= prev_rptr);
++		spin_end();
++	}
++
++	/* wait for rptr to catch up to or pass checkpoint. */
++	spin_begin();
++	do {
++		spin_cpu_relax();
++		prev_rptr = cur_rptr;
++		cur_rptr = READ_ONCE(ih->rptr);
++	} while (cur_rptr >= prev_rptr && cur_rptr < checkpoint_wptr);
++	spin_end();
++
++	return 0;
++}
++
+ /**
+  * amdgpu_ih_process - interrupt handler
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index 6ed4a85fc7c3..6817f0a812d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -87,6 +87,8 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 			  unsigned int num_dw);
++int amdgpu_ih_wait_on_checkpoint_process(struct amdgpu_device *adev,
++					struct amdgpu_ih_ring *ih);
+ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
+ 				struct amdgpu_ih_ring *ih,
+-- 
+2.17.1
 
-
->
-> Thanks
-> Shaoyun.liu
->
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Tuesday, February 23, 2021 11:26 AM
-> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH 2/4] drm/amdgpu: get xgmi info at eary_init
->
-> On Thu, Feb 18, 2021 at 8:19 PM shaoyunl <shaoyun.liu@amd.com> wrote:
-> >
-> > Driver need to get XGMI info function earlier before ip_init since
-> > driver need to check the XGMI setting to determine how to perform
-> > reset during init
-> >
-> > Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-> > Change-Id: Ic37276bbb6640bb4e9360220fed99494cedd3ef5
->
-> I think this patch needs to come first or patch 1 won't work.  With that changed, this patch is:
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 10 ++++------
-> >  1 file changed, 4 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > index 3686e777c76c..3e6bfab5b855 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > @@ -1151,6 +1151,10 @@ static int gmc_v9_0_early_init(void *handle)
-> >         adev->gmc.private_aperture_end =
-> >                 adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> >
-> > +       /* Need to get xgmi info earlier to decide the reset behavior*/
-> > +       if (adev->gmc.xgmi.supported)
-> > +               adev->gfxhub.funcs->get_xgmi_info(adev);
-> > +
-> >         return 0;
-> >  }
-> >
-> > @@ -1416,12 +1420,6 @@ static int gmc_v9_0_sw_init(void *handle)
-> >         }
-> >         adev->need_swiotlb = drm_need_swiotlb(44);
-> >
-> > -       if (adev->gmc.xgmi.supported) {
-> > -               r = adev->gfxhub.funcs->get_xgmi_info(adev);
-> > -               if (r)
-> > -                       return r;
-> > -       }
-> > -
-> >         r = gmc_v9_0_mc_init(adev);
-> >         if (r)
-> >                 return r;
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Csh
-> > aoyun.liu%40amd.com%7Ceb081cfaf9c94e59521008d8d817ccee%7C3dd8961fe4884
-> > e608e11a82d994e183d%7C0%7C0%7C637496944032343059%7CUnknown%7CTWFpbGZsb
-> > 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%
-> > 7C1000&amp;sdata=CrS5Nv4uCh8sFRILLGM%2FRgxpVlEEs%2Bft%2FHTdoeQyyqo%3D&
-> > amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
