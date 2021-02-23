@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 844FAC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:02:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F730C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:26:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C1AB64DF3
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C1AB64DF3
+	by mail.kernel.org (Postfix) with ESMTPS id AD8B064DA8
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD8B064DA8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D81D56E9E5;
-	Tue, 23 Feb 2021 16:02:38 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 083816E9E3;
- Tue, 23 Feb 2021 16:02:38 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id o3so8365544oic.8;
- Tue, 23 Feb 2021 08:02:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 102646E9DF;
+	Tue, 23 Feb 2021 16:26:42 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75CB96E9DF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 16:26:40 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id d9so1986605ote.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 08:26:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0nFz5QhW8arftbgT3SWdBqbURvYJyjSvDbhJ1gX4x0g=;
- b=sz6ezuyCXhfV/E1P7Z3gnV1MOYt49cCtFkxa3maFn7AL5HNGvbjxsfadhRHEmk8JYm
- D0gw1Xrya+1uKg8Jy6aXEbl2j56hAuQRnZlDGYB2yIcSyIqdkcmut7iLapSn9Mq70/cn
- uuzyPXlRUW7St3AmQLFS8udta7spyQGw4Ddqu1Rgj8B9ZYZEhCvLmkGHEWwqvqrzD+AY
- R8L14GujAQKJRmWaYPxu6xShaRS79JONObXiPSrYi0VFUSx2wvSJhWUnCBgmlyRhbm3u
- ko74yCKzxSTkfjjDpQcZ1eiWH9C7gGJo+BAwWU7WYLIRY5b0klifDu9M5voefGhCGJbP
- ZzHg==
+ :cc; bh=2LAiQFjTFkoMib2qoob/BrHT7yz3dmSgX/Ep1P1zus0=;
+ b=QtASsi8QFnNpxIFJJ9IeNnMPkHIQf4nQPk7PK5JuZ+CzT/O6j8J7mb9e9Xq/p7XanL
+ K25cf68RCVDqaMQd62hi0jXtmXFe9VzNlLLPvBXpkS9AweBbIIyFoIvxM9wPG8d41tCO
+ AtO/Rg8FQ5FA22wnIzrRtDYt91J5BbDRjA1QkdrZqSKi2Iett5SXczb/HmkXp+XZhnMt
+ 04aPlwk7Vmt0iysGoB1N7UbLhASuxmI0HJkRWrufQ3YgCTwAcZMi52trf0cHq43Dz7Bu
+ 5pz35NmJ3kFIC8i8slcuk+/QW7j3m3I2FIjljMO8JESUg84MMXUsnGSi+Ij7+n6IIPmH
+ I7jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=0nFz5QhW8arftbgT3SWdBqbURvYJyjSvDbhJ1gX4x0g=;
- b=VrP+8eht0blq3iBWBtCSkXG5SsCGQdC7TCRNSqnU0W6qMS+erBC1fEdkazmEAQFXak
- jS5lrmreAzqnV9F+YSRBfTdxv2feo4quVcUzMidced7+wMvuMQXXeMlQY3NivWAJuHUZ
- 9k8v8bxelUoSl8mobH/7weS/JjKvYd9mI3m6XHGFbAOd2eTtFZL4UEmmdjZWkTatJ9JW
- lZkMO23M1fPgIByxfb2YcirMXBJfkS3OUKnoU6Ckvz/Z6YmfkRBoE+qxUjxtW8YYJTCb
- I4YyakyNB/YRcwg/pIjQnOdbt/OgkgvJcLsoZtGhBsbrS+cVH6881KRijN4rVwbp8Iei
- /eJw==
-X-Gm-Message-State: AOAM533B/MR6T5peqbb/+ggaa48k/rOJdg0HIYHh2whyKnodMSYR3jY/
- hl87g97kl3imsVgzxL1ebJGvm7c8UcedkICiK8o=
-X-Google-Smtp-Source: ABdhPJxmRs41X61fR0MbTZ0+qV+vk94HD/0G9VbbyJscORKHNJlkHtV/VBwBeaoaIb+Fll1VtcrRc/Ph2wjvDoJOj0g=
-X-Received: by 2002:aca:f485:: with SMTP id s127mr7051770oih.120.1614096157412; 
- Tue, 23 Feb 2021 08:02:37 -0800 (PST)
+ bh=2LAiQFjTFkoMib2qoob/BrHT7yz3dmSgX/Ep1P1zus0=;
+ b=QEf6kRWL4b9Mwyum2o1Y9EmX3HohmW27bAOcnAaRL+Sk1rAIOkWEffdHQxy5O2VlHi
+ 4P8+DNiKPg46bmzvPV312xPP1PCn4q5V35CatdDTqLCN7g3cJQTWDgjrxTsN0yyKsJ7E
+ mlQXkIyKeoidf5AO3bE1YvVSjDGv3mSOU2BmyOcvM8XPBC7w/C+W40onSsxmTg2jfS/U
+ PweDwLN/L07JbAtpzhBOanXjYiXgc3YbwzE+yMbxEXUYfSiRv1iMkLMq1WbPoBznA9P9
+ qxz6g8OTykamkISrsXATYRJM/H5OX9w/gYJS1Pm73y/LO595ZUqoSBSwokixi7mk0F71
+ vAag==
+X-Gm-Message-State: AOAM532f/TM56P4c2FhDvKiI8PXKygjPSH5yF13LxqRaVizln3/GfGxj
+ Zbj9N+O7bsxKNkNWd3OmgEZOdv9IIaTI5oQwkKw=
+X-Google-Smtp-Source: ABdhPJwjy4toPPxqVsdXXNoHAVXjsF9evHGvcLaENgrr/8BktJfpZZUiWwT0qxFnbT6pY025pf8Jhyl39cIK1xmpcwY=
+X-Received: by 2002:a9d:ec7:: with SMTP id 65mr20830942otj.311.1614097599856; 
+ Tue, 23 Feb 2021 08:26:39 -0800 (PST)
 MIME-Version: 1.0
-References: <1614060797-124965-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <1614060797-124965-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+References: <20210219011913.28464-1-shaoyun.liu@amd.com>
+In-Reply-To: <20210219011913.28464-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Feb 2021 11:02:26 -0500
-Message-ID: <CADnq5_O24kGLYBLN6Zzv-n_NNUhXkGs-vkWEnW2FYH3-GT9=Fw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove unnecessary conversion to bool
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Date: Tue, 23 Feb 2021 11:26:28 -0500
+Message-ID: <CADnq5_PXYRnX25Y=k+5dMxHuQmviD83_dei7oQDLOQDirjX38w@mail.gmail.com>
+Subject: Re: [PATCH 2/4] drm/amdgpu: get xgmi info at eary_init
+To: shaoyunl <shaoyun.liu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,56 +71,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This was already fixed by a patch from Yang Li <yang.lee@linux.alibaba.com>.
+On Thu, Feb 18, 2021 at 8:19 PM shaoyunl <shaoyun.liu@amd.com> wrote:
+>
+> Driver need to get XGMI info function earlier before ip_init since driver need to check
+> the XGMI setting to determine how to perform reset during init
+>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+> Change-Id: Ic37276bbb6640bb4e9360220fed99494cedd3ef5
 
-Alex
+I think this patch needs to come first or patch 1 won't work.  With
+that changed, this patch is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, Feb 23, 2021 at 1:13 AM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> Fix the following coccicheck warnings:
->
-> ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:8260:16-21: WARNING:
-> conversion to bool not needed here.
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 94cd5dd..323473d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8253,8 +8253,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->                         hdcp_update_display(
->                                 adev->dm.hdcp_workqueue, aconnector->dc_link->link_index, aconnector,
->                                 new_con_state->hdcp_content_type,
-> -                               new_con_state->content_protection == DRM_MODE_CONTENT_PROTECTION_DESIRED ? true
-> -                                                                                                        : false);
-> +                               new_con_state->content_protection == DRM_MODE_CONTENT_PROTECTION_DESIRED);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 3686e777c76c..3e6bfab5b855 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1151,6 +1151,10 @@ static int gmc_v9_0_early_init(void *handle)
+>         adev->gmc.private_aperture_end =
+>                 adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+>
+> +       /* Need to get xgmi info earlier to decide the reset behavior*/
+> +       if (adev->gmc.xgmi.supported)
+> +               adev->gfxhub.funcs->get_xgmi_info(adev);
+> +
+>         return 0;
+>  }
+>
+> @@ -1416,12 +1420,6 @@ static int gmc_v9_0_sw_init(void *handle)
 >         }
->  #endif
+>         adev->need_swiotlb = drm_need_swiotlb(44);
 >
+> -       if (adev->gmc.xgmi.supported) {
+> -               r = adev->gfxhub.funcs->get_xgmi_info(adev);
+> -               if (r)
+> -                       return r;
+> -       }
+> -
+>         r = gmc_v9_0_mc_init(adev);
+>         if (r)
+>                 return r;
 > --
-> 1.8.3.1
+> 2.17.1
 >
 > _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
