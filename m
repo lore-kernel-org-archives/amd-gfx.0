@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE461C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0FA6C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0D1061494
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0D1061494
+	by mail.kernel.org (Postfix) with ESMTPS id 77C7B64E61
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77C7B64E61
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 659A46E843;
-	Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E91956E843
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 16:35:11 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id c16so16218965otp.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 08:35:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA9888420;
+	Tue, 23 Feb 2021 16:47:13 +0000 (UTC)
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 041DD89688
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 16:47:12 +0000 (UTC)
+Received: by mail-oo1-xc31.google.com with SMTP id l5so4004019ooj.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 08:47:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dw5DeIBdVI3xZEvM45CGS+M97Sm1xEE16ipjH8riUhQ=;
- b=OQPuK94DeT7KLaSq6DvKNPeE+/VkXJGhGQJie5VEcDsMDIYuitFvKGgpCRMWc56//v
- b3748lChuK5zSEppvS+mJIN+duwUaFtKHpjxtlqMewqLH32V8XrR4dCa35VMSXgw2exS
- /mfrwUVMpmZjQLzu25zrmNxlUJGi8RQZ3Ef1Ek5corNrOiZMDn8KmZ01RSlAx8Fx/7oR
- ltUajz2AAC1DKO4L5McsGvI/LaxKxVLY10lbx7+gLoxRf6eZEquAOi6n2D2efb6sIDl3
- dj+x1oKERQbEpPoggZ702caeoqiunwj5FzYQ3VzAU6ups4EjLqFqFyGTRVJ/Yt6c5vi2
- A4/w==
+ :cc; bh=axwbOXUnAuPhXyEjRjZSPVqraDeM7Dho04A/0S+t9Ig=;
+ b=WUdr+TWvc12+YUHeaYxENtI62DPV+bJKkJ8mWHQGva7a1wGX5KP92dIt7PWb9noLFr
+ B3VzvYF6sWbb1ZNKZ1usSfHB6g0PJoE0M7vmkLUUP2CW6Xi5zdaEIltAIRv8mOuHHHEu
+ tTERDHnSYo+H6yTdNnbvI3LfO0lbtDXiSkXr5JgzQ6koxBigm1T5Qh7ES8eAWNofte1z
+ e1C+pI1ndxT3GFKjFpJnUFkA48Q00i7aC+JqqBXWyqOtrUL7TJ5Rk5vwqTvMBhzwnz8f
+ qHi2WGSMD+KF0o9QFJFL19HhAgnI5XmFOSpncn0w804mpke74lYDOiBOVLQGHY9z9ooO
+ Dm+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dw5DeIBdVI3xZEvM45CGS+M97Sm1xEE16ipjH8riUhQ=;
- b=bqmq6a+lSPHXdp9flGLx/zDv60kTB2A9cslQmUZLMHcEuk8EHDP/1arxblJ5o7dSvA
- SbiSzCU3MkwMmZOL+jt2V6uGNS8v9VV1K365L8hfeKTb1doPSEZy+aIbzGePSPDJfExR
- vx0oufAbEYg4r5GOpRIdHbHbBhy/JJHRQMUCeItx8smFOXRD3y/HF0rqkx6VtkhL3aQo
- uX9I9i3HzdrLPY+XTUF+YMYuX+094q1SN94LBe7T87bC/3+J0aVbxTmlMQCGVlXYyEuq
- 1ok+5hubVKyjij27FTTlWxKePG+RqfK123uoP/q4zXGPwhp2lakG5w49g0NHUuI8FZkL
- M5wg==
-X-Gm-Message-State: AOAM531p8ddbM6KLmCp3tf6+6sR9neVv6gB77zy0OauZXdUOzgbOB/8Z
- gaycIva17aRKxKZXkg/O556kdoHyukUdsu3iRzY=
-X-Google-Smtp-Source: ABdhPJyBs52o+3e/hlq1Q18oFqr4oCNZOeid5zCWKjbDyqTiAJjrw1k/trrvz03k/GN0nL7/4kDDJm9ZI2j3GvCXie8=
-X-Received: by 2002:a9d:5cc2:: with SMTP id r2mr10419444oti.132.1614098111301; 
- Tue, 23 Feb 2021 08:35:11 -0800 (PST)
+ bh=axwbOXUnAuPhXyEjRjZSPVqraDeM7Dho04A/0S+t9Ig=;
+ b=laF6VJAf6G1870k/vIg/agaVHo6TYNw1Cysj5sq7D3grtbkctyrqlTYG7Mt2IPos8U
+ OVOD7lS7yhXFHoFah6x66nRI2zc9jvDJbvORAhQYkSJYXPs1u1E2DjzDeQkgD5vZvf/n
+ MGHeYlA0TxpQ9Z28jTlbyjVwaVtpryB4t9KzigGzPK2qrvmPvf4YVlPTPZygiXuxv+JI
+ wMsFAJvrVZBJ1huYJUXBBN23jzEhnO+PFurYWRmT5eV4XqrL5ubdqDOtrl+/bxuirpDD
+ qw2vEeHv5BuAk9N5xJU7zaGhn/uZTcnClN4DOByaLiP3Y0f2oycqz50PDvZrMKQPxWNW
+ 1ksQ==
+X-Gm-Message-State: AOAM531zCpp6PA8kbtYOOj1otCxwNyfqjw6gI8Il0XX+vZivE1EVtMP+
+ YuUJ/kJTnPLyp4ULg8sZG+QEbt1QHbOdr6/y4dU=
+X-Google-Smtp-Source: ABdhPJz16KuKbiaVqHHhMo+m7N+ugBluQfuPpkm7oj8YaTGubneATxEnSvSYWtioyGFgJvQ15AOxYmbz2cmqhAEaBP4=
+X-Received: by 2002:a4a:d155:: with SMTP id o21mr20372889oor.72.1614098831224; 
+ Tue, 23 Feb 2021 08:47:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20210219011954.28566-1-shaoyun.liu@amd.com>
-In-Reply-To: <20210219011954.28566-1-shaoyun.liu@amd.com>
+References: <20210219011846.28413-1-shaoyun.liu@amd.com>
+In-Reply-To: <20210219011846.28413-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Feb 2021 11:35:00 -0500
-Message-ID: <CADnq5_PE5fW6ShzCrE6bUiRWHm=Urbs3GWfdXjtsNJ8FkEvGaQ@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: Init the cp MQD if it's not be
- initialized before
+Date: Tue, 23 Feb 2021 11:47:00 -0500
+Message-ID: <CADnq5_O=oTMZse8k9iWp+5PDO4R9KK8_uiFy2rY2dbnm-N4HOQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: Reset the devices in the XGMI hive duirng
+ probe
 To: shaoyunl <shaoyun.liu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,65 +78,275 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 18, 2021 at 8:20 PM shaoyunl <shaoyun.liu@amd.com> wrote:
+On Thu, Feb 18, 2021 at 8:19 PM shaoyunl <shaoyun.liu@amd.com> wrote:
 >
-> The MQD might not be initialized duirng first init period if the device need to be reset
-> druing probe. Driver need to proper init them in gpu recovery period
+> In passthrough configuration, hypervisior will trigger the SBR(Secondary bus reset) to the devices
+> without sync to each other. This could cause device hang since for XGMI configuration, all the devices
+> within the hive need to be reset at a limit time slot. This serial of patches try to solve this issue
+> by co-operate with new SMU which will only do minimum house keeping to response the SBR request but don't
+> do the real reset job and leave it to driver. Driver need to do the whole sw init and minimum HW init
+> to bring up the SMU and trigger the reset(possibly BACO) on all the ASICs at the same time with existing
+> gpu_recovery routine.
 >
 > Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-> Change-Id: Iad58a050939af2afa46d1c74a90866c47ba9efd2
+> Change-Id: I34e838e611b7623c7ad824704c7ce350808014fc
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 20 +++++++++++++++++---
->  1 file changed, 17 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 96 +++++++++++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h    |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  6 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |  6 +-
+>  4 files changed, 87 insertions(+), 22 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 65db88bb6cbc..8fc2fd518a1b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3696,11 +3696,18 @@ static int gfx_v9_0_kiq_init_queue(struct amdgpu_ring *ring)
->         struct amdgpu_device *adev = ring->adev;
->         struct v9_mqd *mqd = ring->mqd_ptr;
->         int mqd_idx = AMDGPU_MAX_COMPUTE_RINGS;
-> +       struct v9_mqd *tmp_mqd;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 2f9ad7ed82be..9f574fd151bc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1220,6 +1220,10 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
+>                 }
+>         }
 >
->         gfx_v9_0_kiq_setting(ring);
->
-> -       if (amdgpu_in_reset(adev)) { /* for GPU_RESET case */
-> -               /* reset MQD to a clean status */
-> +       /* GPU could be in bad state during probe, driver trigger the reset
-> +        * after load the SMU, in this case , the mqd is not be initialized.
-> +        * driver need to re-init the mqd in this case.
-> +        * check mqd->cp_hqd_pq_control since this value should not be 0
-> +        */
-> +       tmp_mqd = (struct v9_mqd *)adev->gfx.mec.mqd_backup[mqd_idx];
-> +       if (amdgpu_in_reset(adev) && tmp_mqd->cp_hqd_pq_control){
-> +               /* for GPU_RESET case , reset MQD to a clean status */
->                 if (adev->gfx.mec.mqd_backup[mqd_idx])
->                         memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(struct v9_mqd_allocation));
->
-> @@ -3736,8 +3743,15 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring *ring)
->         struct amdgpu_device *adev = ring->adev;
->         struct v9_mqd *mqd = ring->mqd_ptr;
->         int mqd_idx = ring - &adev->gfx.compute_ring[0];
-> +       struct v9_mqd *tmp_mqd;
->
-> -       if (!amdgpu_in_reset(adev) && !adev->in_suspend) {
-> +       /* Samw as above kiq init, driver need to re-init the mqd if mqd->cp_hqd_pq_control
-
-Samw -> Same
-
-I think this also needs to come before patch 1.  With these comments fixed:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> +        * is not be initialized before
-> +        */
-> +       tmp_mqd = (struct v9_mqd *)adev->gfx.mec.mqd_backup[mqd_idx];
+> +       /* Don't post if we need to reset whole hive on init */
+> +       if (adev->gmc.xgmi.pending_reset)
+> +               return false;
 > +
-> +       if (!tmp_mqd->cp_hqd_pq_control ||
-> +           (!amdgpu_in_reset(adev) && !adev->in_suspend)) {
->                 memset((void *)mqd, 0, sizeof(struct v9_mqd_allocation));
->                 ((struct v9_mqd_allocation *)mqd)->dynamic_cu_mask = 0xFFFFFFFF;
->                 ((struct v9_mqd_allocation *)mqd)->dynamic_rb_mask = 0xFFFFFFFF;
+>         if (adev->has_hw_reset) {
+>                 adev->has_hw_reset = false;
+>                 return true;
+> @@ -2147,6 +2151,9 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+>                         if (adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_PSP)
+>                                 continue;
+>
+> +                       if (!adev->ip_blocks[i].status.sw)
+> +                               continue;
+> +
+>                         /* no need to do the fw loading again if already done*/
+>                         if (adev->ip_blocks[i].status.hw == true)
+>                                 break;
+> @@ -2287,7 +2294,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>
+>         if (adev->gmc.xgmi.num_physical_nodes > 1)
+>                 amdgpu_xgmi_add_device(adev);
+> -       amdgpu_amdkfd_device_init(adev);
+> +
+> +       /* Don't init kfd if whole hive need to be reset during init */
+> +       if (!adev->gmc.xgmi.pending_reset)
+> +               amdgpu_amdkfd_device_init(adev);
+>
+>         amdgpu_fru_get_product_info(adev);
+>
+> @@ -2731,6 +2741,16 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+>                         adev->ip_blocks[i].status.hw = false;
+>                         continue;
+>                 }
+> +
+> +               /* skip unnecessary suspend if we do not initialize them yet */
+> +               if (adev->gmc.xgmi.pending_reset &&
+> +                   !(adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+> +                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC ||
+> +                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
+> +                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH)) {
+> +                       adev->ip_blocks[i].status.hw = false;
+> +                       continue;
+> +               }
+>                 /* XXX handle errors */
+>                 r = adev->ip_blocks[i].version->funcs->suspend(adev);
+>                 /* XXX handle errors */
+> @@ -3402,10 +3422,29 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>          *  E.g., driver was not cleanly unloaded previously, etc.
+>          */
+>         if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)) {
+> -               r = amdgpu_asic_reset(adev);
+> -               if (r) {
+> -                       dev_err(adev->dev, "asic reset on init failed\n");
+> -                       goto failed;
+> +               if (adev->gmc.xgmi.num_physical_nodes) {
+> +                       dev_info(adev->dev, "Pending hive reset.\n");
+> +                       adev->gmc.xgmi.pending_reset = true;
+> +                       /* Only need to init necessary block for SMU to handle the reset */
+> +                       for (i = 0; i < adev->num_ip_blocks; i++) {
+> +                               if (!adev->ip_blocks[i].status.valid)
+> +                                       continue;
+> +                               if (!(adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+> +                                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_PSP ||
+> +                                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
+> +                                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH ||
+> +                                     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC)) {
+> +                                       DRM_DEBUG("IP %s disabed for hw_init.\n",
+> +                                               adev->ip_blocks[i].version->funcs->name);
+> +                                       adev->ip_blocks[i].status.hw = true;
+> +                               }
+> +                       }
+> +               } else {
+> +                       r = amdgpu_asic_reset(adev);
+> +                       if (r) {
+> +                               dev_err(adev->dev, "asic reset on init failed\n");
+> +                               goto failed;
+> +                       }
+>                 }
+>         }
+>
+> @@ -3536,19 +3575,19 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>         /* enable clockgating, etc. after ib tests, etc. since some blocks require
+>          * explicit gating rather than handling it automatically.
+>          */
+> -       r = amdgpu_device_ip_late_init(adev);
+> -       if (r) {
+> -               dev_err(adev->dev, "amdgpu_device_ip_late_init failed\n");
+> -               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_LATE_INIT_FAIL, 0, r);
+> -               goto failed;
+> +       if (!adev->gmc.xgmi.pending_reset) {
+> +               r = amdgpu_device_ip_late_init(adev);
+> +               if (r) {
+> +                       dev_err(adev->dev, "amdgpu_device_ip_late_init failed\n");
+> +                       amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_LATE_INIT_FAIL, 0, r);
+> +                       goto failed;
+> +               }
+> +               /* must succeed. */
+> +               amdgpu_ras_resume(adev);
+> +               queue_delayed_work(system_wq, &adev->delayed_init_work,
+> +                                  msecs_to_jiffies(AMDGPU_RESUME_MS));
+>         }
+>
+> -       /* must succeed. */
+> -       amdgpu_ras_resume(adev);
+> -
+> -       queue_delayed_work(system_wq, &adev->delayed_init_work,
+> -                          msecs_to_jiffies(AMDGPU_RESUME_MS));
+> -
+>         if (amdgpu_sriov_vf(adev))
+>                 flush_delayed_work(&adev->delayed_init_work);
+>
+> @@ -3565,6 +3604,18 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>         if (amdgpu_device_cache_pci_state(adev->pdev))
+>                 pci_restore_state(pdev);
+>
+> +       if (adev->gmc.xgmi.pending_reset) {
+> +               struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
+> +
+> +               if (atomic_read(&hive->number_devices) ==
+> +                   adev->gmc.xgmi.num_physical_nodes) {
+> +                       /* Trigger hive reset when all gpus within the hive is ready */
+> +                       dev_info(adev->dev, "Trigger XGMI reset during init.\n");
+> +                       amdgpu_device_gpu_recover(adev, NULL);
+> +               }
+> +               amdgpu_put_xgmi_hive(hive);
+> +       }
+> +
+>         return 0;
+>
+>  failed:
+> @@ -4241,7 +4292,9 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+>         int i, r = 0;
+>         bool need_full_reset  = *need_full_reset_arg;
+>
+> -       amdgpu_debugfs_wait_dump(adev);
+> +       /* no need to dump if device is not in good state during probe period */
+> +       if (!adev->gmc.xgmi.pending_reset)
+> +               amdgpu_debugfs_wait_dump(adev);
+>
+>         if (amdgpu_sriov_vf(adev)) {
+>                 /* stop the data exchange thread */
+> @@ -4304,6 +4357,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+>                 list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+>                         /* For XGMI run all resets in parallel to speed up the process */
+>                         if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+> +                               tmp_adev->gmc.xgmi.pending_reset = false;
+>                                 if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
+>                                         r = -EALREADY;
+>                         } else
+> @@ -4343,10 +4397,10 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+>         list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+>                 if (need_full_reset) {
+>                         /* post card */
+> -                       if (amdgpu_device_asic_init(tmp_adev))
+> +                       r = amdgpu_device_asic_init(tmp_adev);
+> +                       if (r) {
+>                                 dev_warn(tmp_adev->dev, "asic atom init failed!");
+> -
+> -                       if (!r) {
+> +                       } else {
+>                                 dev_info(tmp_adev->dev, "GPU reset succeeded, trying to resume\n");
+>                                 r = amdgpu_device_ip_resume_phase1(tmp_adev);
+>                                 if (r)
+> @@ -4790,6 +4844,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>                 if (audio_suspended)
+>                         amdgpu_device_resume_display_audio(tmp_adev);
+>                 amdgpu_device_unlock_adev(tmp_adev);
+> +               /*enable buffer function after reset */
+
+Space between * and comment, e.g., /* Enable
+
+> +               amdgpu_ttm_set_buffer_funcs_status(tmp_adev, true);
+
+Will this cause issues with any of the other flows through this code?
+
+>         }
+>
+>  skip_recovery:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index aa0c83776ce0..8c71d84a2fbe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -149,6 +149,7 @@ struct amdgpu_xgmi {
+>         struct list_head head;
+>         bool supported;
+>         struct ras_common_if *ras_if;
+> +       bool pending_reset;
+>  };
+>
+>  struct amdgpu_gmc {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 839917eb7bc3..5e127a59b121 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2261,6 +2261,12 @@ static int psp_load_fw(struct amdgpu_device *adev)
+>                 goto failed;
+>         }
+>
+> +       /*Don't do the real PSP HW init if we are pending on XGMI reset.
+> +        *The above init probably should move to psp_sw_init
+> +        */
+
+Space between * and comment.  E.g., /* Don't
+
+This whole thing seems kind of fragile.  Is there some way we can
+restructure the init code to provide two code high level code paths?
+One for regular init and one for this case?  I feel like this will be
+prone to breakage if this code sees any changes.
+
+Alex
+
+
+> +       if (adev->gmc.xgmi.pending_reset)
+> +               return 0;
+> +
+>  skip_memalloc:
+>         ret = psp_hw_start(psp);
+>         if (ret)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 659b385b27b5..b1c8fd90c1b0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -492,7 +492,8 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+>         if (!adev->gmc.xgmi.supported)
+>                 return 0;
+>
+> -       if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
+> +       if (!adev->gmc.xgmi.pending_reset &&
+> +           amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
+>                 ret = psp_xgmi_initialize(&adev->psp);
+>                 if (ret) {
+>                         dev_err(adev->dev,
+> @@ -538,7 +539,8 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+>
+>         task_barrier_add_task(&hive->tb);
+>
+> -       if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
+> +       if (!adev->gmc.xgmi.pending_reset &&
+> +           amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
+>                 list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
+>                         /* update node list for other device in the hive */
+>                         if (tmp_adev != adev) {
 > --
 > 2.17.1
 >
