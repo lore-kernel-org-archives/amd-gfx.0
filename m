@@ -2,52 +2,43 @@ Return-Path: <SRS0=GAon=HZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3A8CC433E6
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 14:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A6C8C433E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 14:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E0F064E20
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 14:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E0F064E20
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id D852E64E20
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 14:58:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D852E64E20
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4735C6E83F;
-	Tue, 23 Feb 2021 14:49:37 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD63B6E83B;
- Tue, 23 Feb 2021 14:49:35 +0000 (UTC)
-IronPort-SDR: BoqfWG33OPFLA5i9yv/hlFwO2kFzpOCj2VEaj3lMOLaR2RB3phpaFCVouDwvokYMaMcPL3dig0
- pHunAGVLObWQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9903"; a="182339759"
-X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="182339759"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2021 06:49:35 -0800
-IronPort-SDR: ysBhO+VHCeZJheQHhE4IO3P+32Wfl9YrV97tKizhglxPl9r9CEeixC5hOWBGMS4LHFNyjgigSR
- 6uVLWCIPvmNQ==
-X-IronPort-AV: E=Sophos;i="5.81,200,1610438400"; d="scan'208";a="423650236"
-Received: from mmgoodso-mobl3.amr.corp.intel.com (HELO intel.com)
- ([10.212.211.76])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2021 06:49:30 -0800
-Date: Tue, 23 Feb 2021 09:49:29 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Subject: Re: [Intel-gfx] [PATCH 19/30] drm/dp: Pass drm_dp_aux to
- drm_dp_link_train_clock_recovery_delay()
-Message-ID: <YDUV+SU7bSyfFqvw@intel.com>
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-20-lyude@redhat.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210219215326.2227596-20-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4AA6E9C9;
+	Tue, 23 Feb 2021 14:58:31 +0000 (UTC)
+Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
+ [47.88.44.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ABC86E08E;
+ Tue, 23 Feb 2021 03:44:08 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
+ TI=SMTPD_---0UPKSV0A_1614051814; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0UPKSV0A_1614051814) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 23 Feb 2021 11:43:53 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: Remove unnecessary conversion to bool
+Date: Tue, 23 Feb 2021 11:43:33 +0800
+Message-Id: <1614051813-51451-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Tue, 23 Feb 2021 14:58:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,177 +50,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Oleg Vasilev <oleg.vasilev@intel.com>, Tanmay Shah <tanmay@codeaurora.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Lee Jones <lee.jones@linaro.org>, Chandan Uddaraju <chandanu@codeaurora.org>,
- Emil Velikov <emil.velikov@collabora.com>,
- Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
- Luben Tuikov <luben.tuikov@amd.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- dri-devel@lists.freedesktop.org,
- "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
- open list <linux-kernel@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 19, 2021 at 04:53:15PM -0500, Lyude Paul wrote:
-> So that we can start using drm_dbg_*() in
-> drm_dp_link_train_clock_recovery_delay().
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
+Fix the following coccicheck warnings:
 
-I wonder if we could have a drm_dp so we encapsulate both aux and dpcd
-related information...
+./drivers/gpu/drm/amd/amdgpu/athub_v2_1.c:79:40-45: WARNING: conversion
+to bool not needed here.
 
-But this one already solves the issue...
+./drivers/gpu/drm/amd/amdgpu/athub_v2_1.c:81:40-45: WARNING: conversion
+to bool not needed here.
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
+index 7b1b183..2ac4988 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
+@@ -74,10 +74,8 @@ int athub_v2_1_set_clockgating(struct amdgpu_device *adev,
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
+ 	case CHIP_DIMGREY_CAVEFISH:
+-		athub_v2_1_update_medium_grain_clock_gating(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
+-		athub_v2_1_update_medium_grain_light_sleep(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++		athub_v2_1_update_medium_grain_clock_gating(adev, state == AMD_CG_STATE_GATE);
++		athub_v2_1_update_medium_grain_light_sleep(adev, state == AMD_CG_STATE_GATE);
+ 		break;
+ 	default:
+ 		break;
+-- 
+1.8.3.1
 
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c              | 2 +-
->  drivers/gpu/drm/drm_dp_helper.c                       | 3 ++-
->  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c                      | 2 +-
->  drivers/gpu/drm/msm/edp/edp_ctrl.c                    | 2 +-
->  drivers/gpu/drm/radeon/atombios_dp.c                  | 2 +-
->  drivers/gpu/drm/xlnx/zynqmp_dp.c                      | 2 +-
->  include/drm/drm_dp_helper.h                           | 4 +++-
->  8 files changed, 11 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> index 6d35da65e09f..4468f9d6b4dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> @@ -611,7 +611,7 @@ amdgpu_atombios_dp_link_train_cr(struct amdgpu_atombios_dp_link_train_info *dp_i
->  	dp_info->tries = 0;
->  	voltage = 0xff;
->  	while (1) {
-> -		drm_dp_link_train_clock_recovery_delay(dp_info->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
->  
->  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
->  						 dp_info->link_status) <= 0) {
-> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-> index 194e0c273809..ce08eb3bface 100644
-> --- a/drivers/gpu/drm/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/drm_dp_helper.c
-> @@ -132,7 +132,8 @@ u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZ
->  }
->  EXPORT_SYMBOL(drm_dp_get_adjust_request_post_cursor);
->  
-> -void drm_dp_link_train_clock_recovery_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-> +void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
-> +					    const u8 dpcd[DP_RECEIVER_CAP_SIZE])
->  {
->  	unsigned long rd_interval = dpcd[DP_TRAINING_AUX_RD_INTERVAL] &
->  					 DP_TRAINING_AUX_RD_MASK;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index 892d7db7d94f..222073d46bdb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -441,7 +441,7 @@ static void intel_dp_link_training_clock_recovery_delay(struct intel_dp *intel_d
->  							enum drm_dp_phy dp_phy)
->  {
->  	if (dp_phy == DP_PHY_DPRX)
-> -		drm_dp_link_train_clock_recovery_delay(intel_dp->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(&intel_dp->aux, intel_dp->dpcd);
->  	else
->  		drm_dp_lttpr_link_train_clock_recovery_delay();
->  }
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 36b39c381b3f..2501a6b326a3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1103,7 +1103,7 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
->  	tries = 0;
->  	old_v_level = ctrl->link->phy_params.v_level;
->  	for (tries = 0; tries < maximum_retries; tries++) {
-> -		drm_dp_link_train_clock_recovery_delay(ctrl->panel->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(ctrl->aux, ctrl->panel->dpcd);
->  
->  		ret = dp_ctrl_read_link_status(ctrl, link_status);
->  		if (ret)
-> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> index 57af3d8b6699..6501598448b4 100644
-> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> @@ -608,7 +608,7 @@ static int edp_start_link_train_1(struct edp_ctrl *ctrl)
->  	tries = 0;
->  	old_v_level = ctrl->v_level;
->  	while (1) {
-> -		drm_dp_link_train_clock_recovery_delay(ctrl->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(ctrl->drm_aux, ctrl->dpcd);
->  
->  		rlen = drm_dp_dpcd_read_link_status(ctrl->drm_aux, link_status);
->  		if (rlen < DP_LINK_STATUS_SIZE) {
-> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeon/atombios_dp.c
-> index c50c504bad50..299b9d8da376 100644
-> --- a/drivers/gpu/drm/radeon/atombios_dp.c
-> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
-> @@ -680,7 +680,7 @@ static int radeon_dp_link_train_cr(struct radeon_dp_link_train_info *dp_info)
->  	dp_info->tries = 0;
->  	voltage = 0xff;
->  	while (1) {
-> -		drm_dp_link_train_clock_recovery_delay(dp_info->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
->  
->  		if (drm_dp_dpcd_read_link_status(dp_info->aux,
->  						 dp_info->link_status) <= 0) {
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> index 8272eee03adc..5cc295d8ba9f 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-> @@ -713,7 +713,7 @@ static int zynqmp_dp_link_train_cr(struct zynqmp_dp *dp)
->  		if (ret)
->  			return ret;
->  
-> -		drm_dp_link_train_clock_recovery_delay(dp->dpcd);
-> +		drm_dp_link_train_clock_recovery_delay(&dp->aux, dp->dpcd);
->  		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
->  		if (ret < 0)
->  			return ret;
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index 45ec74862212..e4681665231e 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -29,6 +29,7 @@
->  #include <drm/drm_connector.h>
->  
->  struct drm_device;
-> +struct drm_dp_aux;
->  
->  /*
->   * Unless otherwise noted, all values are from the DP 1.1a spec.  Note that
-> @@ -1475,7 +1476,8 @@ u8 drm_dp_get_adjust_request_post_cursor(const u8 link_status[DP_LINK_STATUS_SIZ
->  #define DP_LTTPR_COMMON_CAP_SIZE	8
->  #define DP_LTTPR_PHY_CAP_SIZE		3
->  
-> -void drm_dp_link_train_clock_recovery_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-> +void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
-> +					    const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  void drm_dp_lttpr_link_train_clock_recovery_delay(void);
->  void drm_dp_link_train_channel_eq_delay(const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  void drm_dp_lttpr_link_train_channel_eq_delay(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
-> -- 
-> 2.29.2
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
