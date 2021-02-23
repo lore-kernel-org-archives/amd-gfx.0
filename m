@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEF02C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE461C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59B3761494
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:30:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59B3761494
+	by mail.kernel.org (Postfix) with ESMTPS id B0D1061494
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0D1061494
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D038D6E9B6;
-	Tue, 23 Feb 2021 16:30:51 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A360D6E9B6
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 16:30:50 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id e45so6884563ote.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 08:30:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 659A46E843;
+	Tue, 23 Feb 2021 16:35:12 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E91956E843
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 16:35:11 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id c16so16218965otp.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Feb 2021 08:35:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PEM24RGJDX6dDCiBCvPqh0Zlc7sstkwHmA9PNML8mes=;
- b=SflCGUsUaw/oZ4YuRE1JAHbRkjHUnPWJDY8iTv3jFTWk5USPwgZcb4Ne6Kb3bYZ55y
- gvavrqnIEvtLNVvBE1tfGAnqjigPg8r1f3Cxz4AaTXImTQ3uXR8nHDaSmVkbgC7nf5Y8
- 3Xm9caYhNbtp+pYGDiEDwDz1Ykvfdk7uoxiG07Tzeys09SDsir15Nk3IJAOa9+crWVQc
- LN5tuxemdchxNfe0gPj/QWegS11uzT2uUjT3XIhWny6FMWKHxuJ5kprDV1wQof/ieAc4
- m0NmoqKePk9GKFD2HrqGMq6hu/qcceHq6W2taxFNmJvgcr2VCaSrUQEq1czLNujgPXGe
- nX3w==
+ :cc; bh=dw5DeIBdVI3xZEvM45CGS+M97Sm1xEE16ipjH8riUhQ=;
+ b=OQPuK94DeT7KLaSq6DvKNPeE+/VkXJGhGQJie5VEcDsMDIYuitFvKGgpCRMWc56//v
+ b3748lChuK5zSEppvS+mJIN+duwUaFtKHpjxtlqMewqLH32V8XrR4dCa35VMSXgw2exS
+ /mfrwUVMpmZjQLzu25zrmNxlUJGi8RQZ3Ef1Ek5corNrOiZMDn8KmZ01RSlAx8Fx/7oR
+ ltUajz2AAC1DKO4L5McsGvI/LaxKxVLY10lbx7+gLoxRf6eZEquAOi6n2D2efb6sIDl3
+ dj+x1oKERQbEpPoggZ702caeoqiunwj5FzYQ3VzAU6ups4EjLqFqFyGTRVJ/Yt6c5vi2
+ A4/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=PEM24RGJDX6dDCiBCvPqh0Zlc7sstkwHmA9PNML8mes=;
- b=NT6A+omVcscj0KqAQHQxET7/tNsaH+S9PhRf9ouVIN8/3u77pbXyW5NlUUQtqo5eNx
- 53EuDYrl1hdfQzjZPQaRfsLl7g6vdy829mmj0L4o9ROu/Jn8SoEjTvZ5+4Xs+pCU9oj0
- axQRybqPpA5BbP+Ql6tgsS54KCHWcHtG+t8qRyZBaeuflxAdcjwIq/i0pc0QwokCvMh+
- iQuX8f2If4lFZBNymp+g8f8t5IVsZfyey8AXYKGZ1NoZ8FG51SiVVhVTp2Kw5YLoKwGM
- KGyJDPzQMsSJ8E52Q1PjUsf9lMdHH2fZjqsRHRcRCZSKqabohz91Cnlv8KIOX0MY7nQu
- WiRg==
-X-Gm-Message-State: AOAM5322MDNuPC4C0Zdo35MyTZ663fydThUve7Ppw71nkO8iWDV4LTdP
- 2NYkeIrLUmY/FrR0DQlWs5BuSxAxJMTTAQvLb4KPkc6jwIA=
-X-Google-Smtp-Source: ABdhPJw+x7pkaw4nw7brRmkBAV475mA1XcqS+Dz06Ks0+vkLtSEcjTitV4PQgXsuzBdRRUNMy9K7ixwl2hT0tlSrjmw=
-X-Received: by 2002:a9d:760a:: with SMTP id k10mr21037437otl.23.1614097849980; 
- Tue, 23 Feb 2021 08:30:49 -0800 (PST)
+ bh=dw5DeIBdVI3xZEvM45CGS+M97Sm1xEE16ipjH8riUhQ=;
+ b=bqmq6a+lSPHXdp9flGLx/zDv60kTB2A9cslQmUZLMHcEuk8EHDP/1arxblJ5o7dSvA
+ SbiSzCU3MkwMmZOL+jt2V6uGNS8v9VV1K365L8hfeKTb1doPSEZy+aIbzGePSPDJfExR
+ vx0oufAbEYg4r5GOpRIdHbHbBhy/JJHRQMUCeItx8smFOXRD3y/HF0rqkx6VtkhL3aQo
+ uX9I9i3HzdrLPY+XTUF+YMYuX+094q1SN94LBe7T87bC/3+J0aVbxTmlMQCGVlXYyEuq
+ 1ok+5hubVKyjij27FTTlWxKePG+RqfK123uoP/q4zXGPwhp2lakG5w49g0NHUuI8FZkL
+ M5wg==
+X-Gm-Message-State: AOAM531p8ddbM6KLmCp3tf6+6sR9neVv6gB77zy0OauZXdUOzgbOB/8Z
+ gaycIva17aRKxKZXkg/O556kdoHyukUdsu3iRzY=
+X-Google-Smtp-Source: ABdhPJyBs52o+3e/hlq1Q18oFqr4oCNZOeid5zCWKjbDyqTiAJjrw1k/trrvz03k/GN0nL7/4kDDJm9ZI2j3GvCXie8=
+X-Received: by 2002:a9d:5cc2:: with SMTP id r2mr10419444oti.132.1614098111301; 
+ Tue, 23 Feb 2021 08:35:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20210219011934.28514-1-shaoyun.liu@amd.com>
-In-Reply-To: <20210219011934.28514-1-shaoyun.liu@amd.com>
+References: <20210219011954.28566-1-shaoyun.liu@amd.com>
+In-Reply-To: <20210219011954.28566-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Feb 2021 11:30:39 -0500
-Message-ID: <CADnq5_NHBViu4AGxkqa632LgU-c1RoPsb7tyaxKmQgTKa=2CNQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm/amdgpu: Add kfd init_complete flag to check from
- amdgpu side
+Date: Tue, 23 Feb 2021 11:35:00 -0500
+Message-ID: <CADnq5_PE5fW6ShzCrE6bUiRWHm=Urbs3GWfdXjtsNJ8FkEvGaQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu: Init the cp MQD if it's not be
+ initialized before
 To: shaoyunl <shaoyun.liu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,76 +78,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 18, 2021 at 8:19 PM shaoyunl <shaoyun.liu@amd.com> wrote:
+On Thu, Feb 18, 2021 at 8:20 PM shaoyunl <shaoyun.liu@amd.com> wrote:
 >
-> amdgpu driver may in reset state duirng init which will not initialize the kfd,
-
-grammer "may be in"
-typo duirng -> during
-
-> driver need to initialize the KFD after reset by check the flag
+> The MQD might not be initialized duirng first init period if the device need to be reset
+> druing probe. Driver need to proper init them in gpu recovery period
 >
 > Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-> Change-Id: Ic1684b55b27e0afd42bee8b9b431c4fb0afcec15
+> Change-Id: Iad58a050939af2afa46d1c74a90866c47ba9efd2
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
->  3 files changed, 10 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 20 +++++++++++++++++---
+>  1 file changed, 17 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index c5343a5eecbe..a876dc3af017 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -165,7 +165,8 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
->                                         adev->doorbell_index.last_non_cp;
->                 }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 65db88bb6cbc..8fc2fd518a1b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3696,11 +3696,18 @@ static int gfx_v9_0_kiq_init_queue(struct amdgpu_ring *ring)
+>         struct amdgpu_device *adev = ring->adev;
+>         struct v9_mqd *mqd = ring->mqd_ptr;
+>         int mqd_idx = AMDGPU_MAX_COMPUTE_RINGS;
+> +       struct v9_mqd *tmp_mqd;
 >
-> -               kgd2kfd_device_init(adev->kfd.dev, adev_to_drm(adev), &gpu_resources);
-> +               adev->kfd.init_complete = kgd2kfd_device_init(adev->kfd.dev,
-> +                                               adev_to_drm(adev), &gpu_resources);
->         }
->  }
+>         gfx_v9_0_kiq_setting(ring);
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 4687ff2961e1..3182dd97840e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -80,6 +80,7 @@ struct amdgpu_amdkfd_fence {
->  struct amdgpu_kfd_dev {
->         struct kfd_dev *dev;
->         uint64_t vram_used;
-> +       bool init_complete;
->  };
+> -       if (amdgpu_in_reset(adev)) { /* for GPU_RESET case */
+> -               /* reset MQD to a clean status */
+> +       /* GPU could be in bad state during probe, driver trigger the reset
+> +        * after load the SMU, in this case , the mqd is not be initialized.
+> +        * driver need to re-init the mqd in this case.
+> +        * check mqd->cp_hqd_pq_control since this value should not be 0
+> +        */
+> +       tmp_mqd = (struct v9_mqd *)adev->gfx.mec.mqd_backup[mqd_idx];
+> +       if (amdgpu_in_reset(adev) && tmp_mqd->cp_hqd_pq_control){
+> +               /* for GPU_RESET case , reset MQD to a clean status */
+>                 if (adev->gfx.mec.mqd_backup[mqd_idx])
+>                         memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(struct v9_mqd_allocation));
 >
->  enum kgd_engine_type {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 9f574fd151bc..e898fce96f75 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4841,6 +4841,13 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->                 /*unlock kfd: SRIOV would do it separately */
->                 if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
->                         amdgpu_amdkfd_post_reset(tmp_adev);
-> +
-> +               /*kfd_post_reset will do nothing if kfd device is not initialized,
-> +                *need to bring up kfd here if it's not be initialized before
-> +                */
+> @@ -3736,8 +3743,15 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring *ring)
+>         struct amdgpu_device *adev = ring->adev;
+>         struct v9_mqd *mqd = ring->mqd_ptr;
+>         int mqd_idx = ring - &adev->gfx.compute_ring[0];
+> +       struct v9_mqd *tmp_mqd;
+>
+> -       if (!amdgpu_in_reset(adev) && !adev->in_suspend) {
+> +       /* Samw as above kiq init, driver need to re-init the mqd if mqd->cp_hqd_pq_control
 
-Fix up the comment here.  Need a space between * and the comment.
-E.g., /* kfd_post_reset ...
+Samw -> Same
 
-Also, I think this patch also needs to come before patch 1.
-
-With those comments addressed:
+I think this also needs to come before patch 1.  With these comments fixed:
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> +               if (!adev->kfd.init_complete)
-> +                       amdgpu_amdkfd_device_init(adev);
+> +        * is not be initialized before
+> +        */
+> +       tmp_mqd = (struct v9_mqd *)adev->gfx.mec.mqd_backup[mqd_idx];
 > +
->                 if (audio_suspended)
->                         amdgpu_device_resume_display_audio(tmp_adev);
->                 amdgpu_device_unlock_adev(tmp_adev);
+> +       if (!tmp_mqd->cp_hqd_pq_control ||
+> +           (!amdgpu_in_reset(adev) && !adev->in_suspend)) {
+>                 memset((void *)mqd, 0, sizeof(struct v9_mqd_allocation));
+>                 ((struct v9_mqd_allocation *)mqd)->dynamic_cu_mask = 0xFFFFFFFF;
+>                 ((struct v9_mqd_allocation *)mqd)->dynamic_rb_mask = 0xFFFFFFFF;
 > --
 > 2.17.1
 >
