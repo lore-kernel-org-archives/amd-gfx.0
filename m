@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42FDFC43381
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F3D9C4332D
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD3E064E05
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD3E064E05
+	by mail.kernel.org (Postfix) with ESMTPS id B3CFF64EDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3CFF64EDB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91C936EBAC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E29616EBB5;
 	Wed, 24 Feb 2021 22:22:44 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187DC6EBAA
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D74086EBA3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lj5RstxTyIujAWlcvApsUGtcvRxczIToluWu4xHYYpOxhZJNXfmj42Z9mxfhKaKzHqiMrJlAmkMnMAfpIgiSbazUB/bkXXIlVrSNIKQADXJDnFwcmN69j4EKmJQch5+yBR5LIu4Ihd1CskwbXOdGcxvjbIyIOnviSaw2IKanHZYzJGbAqg62H0Us+Mw07+1S2ywMWqhFqGGmkDoobbv2eB05vR+kXm0w1TQmtRujoKFQZcc007xasT7BOP2iML79ezL+wigp22veRlu9swZf4CxSLzQmXV42wc24sDh27cEpSYuToBUptoWE5fXkqUmjTX8ZNb46K+GcUIwnZkQnXg==
+ b=UPwvKVyqeKBrzi3TfoSVgHo/8cY4fYIPK5vnceqlS3haS8WcPFeIs1TiudqqOsPqel5LpsP50LwVcHQMUvSpWsfnRJ2jNZ4y7A6Ar+W8uDVEu9XEYf8Zq59EjRzjlMTXMEygfO7IV/oX7xqCLncNH9REM3JQqb4dtvqNltS7FxeBHsAuwgA2UHGlxkzkBIATjg3p3THveHcdoCE/CNFV3vCP+uOoUsK3/MW+cNBGWwQoyQyO1TbnbQJqxp68ZYUdBZp8G9BGvecy+fazK/Vvt03pKjVZlIFo4RHhGLs0+kT4u2p0Of/HX9K1PSQGSr9/Z6os8bib0np6eI+hGQh3mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3hBH41SRBKhY5s+QjFQuPloFJyPWf0usKhZPS8B0e8E=;
- b=MHJMTwx2j8HsiVrkEv/efzoThj+dABamxLMRRZskCzkN/XYh+LqxYqSKodbjquE0dRVCXFEqkCFBzVA6D5ZJUQkFgp4keL1rEXybJFeHRkGag1qlD/IncYUfjQe2+U4BoU2Z1BH+jA1dLZWBshdBgP+a+cSQ9S9KD2ewGeGs0XbGRZfHYfewMxq3c36tE1eHI8XAoKzqrROP4agOBtd/che07hO/If/spge0eoiMTOZVFsp2f6W4Aw1pMw3Ahc2Xt76N+Zg33Yr2c2Ld/01MeE3RzzM5QHDtz1PY1gEqo9E0f7vjM0oXlKH1FDsU61gbB7FTkULccY2S8D12lUspiw==
+ bh=61wi2S64Nc5pqSw30cNEQnlpD4IHkXqto7aAFb10egk=;
+ b=lAx1BmoTiQbTWRI0lW38J7EzLMUaccecjikvHHqdXZKmH+MGiIdyV73NbTBkH25K/BJalNMmweRassGoXEidb11oBzL2QN2q0a8vuAEkLbUIDewP8Xs9mUt33jiLWn3PrkvtO7DE80nQ1cvauo58i6DszKlR4jdO8Lh4h+w0IpTfv+LBBsC7SFc8PvuE8jyn7fbmUR2k1GdLjDt93FmKjZEIgWsKTJJamVW5uHXYZPWMcyn+u2bEnxy1ThwM5670iKS8VTA+Tcms+vW4LYs1uBwuUKaLDtq00f2ILRmQFA4DQYcudiobUK9+dfcJDGAsaNGXEb3Q09F4O4ieKwxd/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3hBH41SRBKhY5s+QjFQuPloFJyPWf0usKhZPS8B0e8E=;
- b=g3ga7fArEypi76Et/NZXc/1vfyQibxQtm0WM7CMunHYmqODeKsR/OxWoYHGUPB/W2S0jmuGhQk7nEPn6zXcBKEpSlRRAKmj2ZTURACB1HgjOQg//c50l6FwNFabCALJCgMdbGwcM+3uHizBsu+MFxikw9lF2b8OdlBCML2PXGBw=
+ bh=61wi2S64Nc5pqSw30cNEQnlpD4IHkXqto7aAFb10egk=;
+ b=qhS5VKcWIjBYktUf0e4ZiGKdNs95q/URFlHKAd6udlGhe5fF4t8k5SwmHwbA8hD2d2jT6iPksqA6MNfZqr2QKVfdsGg0LbiYJ+6VtGCcxGLt2INEIIfPMxP9PUM74Jcbir6mhe3Wufg2oQwEEjhX0Ce0YCWmuGw6Eou7g5+HJPE=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +46,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by BL0PR12MB4722.namprd12.prod.outlook.com (2603:10b6:208:8c::30)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Wed, 24 Feb
- 2021 22:22:40 +0000
+ 2021 22:22:39 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
  22:22:39 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 154/159] drm/amdgpu: enable watchdog feature for SQ of
- aldebaran
-Date: Wed, 24 Feb 2021 17:18:54 -0500
-Message-Id: <20210224221859.3068810-147-alexander.deucher@amd.com>
+Subject: [PATCH 153/159] drm/amdgpu: refine ras codes for GC utc of aldebaran
+Date: Wed, 24 Feb 2021 17:18:53 -0500
+Message-Id: <20210224221859.3068810-146-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -72,50 +72,50 @@ Received: from localhost.localdomain (192.161.79.246) by
  Transport; Wed, 24 Feb 2021 22:21:05 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e7903b48-eef9-4cbc-0a8e-08d8d9127a68
+X-MS-Office365-Filtering-Correlation-Id: 999d1dc1-aab9-41ca-b637-08d8d9127a0e
 X-MS-TrafficTypeDiagnostic: BL0PR12MB4722:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB47221CA11B43FBDCCE97AC80F79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4722669C2E79178A953B104EF79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:211;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Q2Nd9DDQ4FzoLlH9zRiyw6OSm7qMx0vk6wvWFEHkya7jK9Bnx1olWY7dxEhCSDJ70WjFJ2SPXPiIUPF/tIvq0gU0+8mCEfrEm4D7rCqqUBZrkTBpUkzqtIjo0WJKsGKVAKyB9dLEITbCz2PKbcEWbu2T4k+bTMt122xDmzZqhJqpcC8fNgHxKLAWmUojPWcXur15PotAqwPjdwgKtEcqLT6bEnuhqsqJXsJMLIdKKBj0JEl7z+vib1UgwxreLtANgMrWd41lXb6mZ/GHqXwBxIkLbYfLnTvb7UDnU6qp1ukfWjxHjaLSNCqxY1P4OSwwcGHbMuVDG50d8c/jFMlatEMqTSOjmW9OptJGksNCRm0xOfsT9JxAMTvqLbp7Ql6AQUSrGZoe+GxzyNOu4lQ8Pfu+phXV2S3KL1cZQCzJtnESROV8xl0JbMRZSumzMK3wFEpZQ6MdAjHBqSONw5UJzEQ5ZZXtKdHhYejTVr+DqFrTJbTUMccXkWbPSa3C4MdseVG/bLMiGHGq5SAfcJAGOUlDbJOA40GjSefNB2UO4hEFFYC+eIVXVhNv56r9KtfuweTaSn9JaYPg3M4gCIS8Ow==
+X-Microsoft-Antispam-Message-Info: RxMrX07HqlQ2cMjCXgbRQuCjbELbOmVb96F+2wZTeF0O2QJptuzs1MyKBgk/63pEnTLItzWahUVdF4ruo/rxcgrS8zev+SuS7qs+PmjA4LwULu/4FLKWfGSXD1nVGrA9IR4vSoRlGfyixF++EZiL6LEqFpTgkZj+fysT7a0WNWhJ9gM4ZyXqFoEmihi3rz62hJJdP5mbgitrEZaTbIyrpzgo+Yhlzopu4U1Zo6j3EWOiunMCvz+B60C/E/cK5ueZN8VcSrh/a71v4F6dPOXeDl88PUcwv/uIw31faX7Fcpz8APegMysCtSuVvIqTpDYMcmo4Mpw+kFqOmT8VHcEx9PbHAgwE06aHwVLv+z22EkIZy0kvnUjUL05KnP5JRTqi1bseF0JW7S69zkFQtKLgWodsSRmQRNqIC/sl0S3k2fJoLEBbSD+rDazbYIhoxMofQnfU7m0aGYhYaPe49HiI1LAMwGrsO8oRv3ssx4JAbC8soBbBI2EcSpjGbAlwqDPCneBg7S4R119P77feMiAEK9BlZwqxXfgSigYn3vOyw0z/IjXlikYiVR5KQiVE8larQSF+qEmtb+JB7Jkjt4WbGQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(26005)(30864003)(6666004);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(66574015)(26005)(30864003)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?bOLiFBITzilhY8ByXyqqaEYWQoDMlywTrt6QihrUosrcYUN86Fy+uPioJRmB?=
- =?us-ascii?Q?XIyO3X4upqnIWAM2aAfzaATCW48jVvnES98FZ11aYhwQuAWBqYxgm2ZAybzP?=
- =?us-ascii?Q?v89S4i4M5aGLDprfjt3kf4xzhBYIJapTNiurb0S2nxuAVE8bbykjUwj11HCD?=
- =?us-ascii?Q?ImRnvlHQvKA1lwAkNw08YGgOWIJUumrrOjsmfzEE/pMOYGWe74ArPA89TxSj?=
- =?us-ascii?Q?jhSBDy0ZmkA8YXdWXRZPH8C5TxnqMOgikyyGbEmSltZs1NaPXoVYpnQ6YZ/e?=
- =?us-ascii?Q?d1toRf9cEyoe4TTfuQxh8wW8GXrA+2H7Fhmi22IuqGoeGXD9f20famCXA5R6?=
- =?us-ascii?Q?ZAVx4ObxGA9vC5tK7gb1YEwr+etxQ9qvXy6OZSsB295venlvTv2YrsRFcfK9?=
- =?us-ascii?Q?cGfbr0uJkB7+d8ZaEOCUpZP+qqm91Rr3bVGTYQYy1csiDxfDKfT9XDrJCx6W?=
- =?us-ascii?Q?bqwBeHh41AcE1YXOLy1cmNoTthraLRjrRjFXlmGZjVXGY5eZ0XOny+UA7Er5?=
- =?us-ascii?Q?Q9NH7e5hfBwbamK1QXFMCkIwMJDvuuFydgCTO1mPrhVUjos1BL+2LdVDRQn/?=
- =?us-ascii?Q?NbGmyZ/b17662OVPD/5xFWv7GG83pjiYArbkGQU1lQs/aLKOzDJc2DtDI+KF?=
- =?us-ascii?Q?l9ApZ2EQYkEzcW3oWIMViuiwzO3b+OxZy4tW1AV86hGlWaXwhf+lSM5F6992?=
- =?us-ascii?Q?6ar+YvwN0rYrtj7QEzQgspGCM6k2mC1VJSv5Ksw6OzDsYm3yp+FAqMq91u+U?=
- =?us-ascii?Q?YhZPGcBU9LpJN37LwQWPaC+uKS2QbFMc61gBpOMm8UHbIU0BsRQnr1FHIGlt?=
- =?us-ascii?Q?x6g3amH/sc0oYoaJJ8NVfsqydIs5StD8MeNflKKfNIEkRqvszm26tNdrOuKy?=
- =?us-ascii?Q?1X2rfvCWZf1CMgE4Lt6+7/azq6/ivUfeHiQFK8L1vdJoVX3rFvCoGtUmNHCV?=
- =?us-ascii?Q?1/YkF+ig5NyFGVgzYkna+lD6gHmYVhQNxyUdNyEMbwYeaVwVaJUPZDmdxDuY?=
- =?us-ascii?Q?Cloa/D1T61JTU2Oi+WW9YvlpR7MszyBSsVY8ytSRCh3gJ5/GPP4w+xFEaGiN?=
- =?us-ascii?Q?qUAZN23nxhe5l8+bTQCTzR/vtxm6HFZb+3QK6R06RiSpcTEeDr1Hd17aoCjG?=
- =?us-ascii?Q?iqYuygrNQZcT/eyVdul9fOMlbf2UlDRadKJ8CbUbM1u2UXJ8CsBQXMi39Ng5?=
- =?us-ascii?Q?jqdlQyBZc3vR5TNKK9yHSOVWNNuKwVqy9DySeGZNeZtBiA4GWNcBBwhd9ETh?=
- =?us-ascii?Q?d7qdKr0Wgh2EIvuu/Td/lmLpEi0xJbkTRtvG0jJ3HEZlhHIgqCx7P5ZEDEi5?=
- =?us-ascii?Q?PHEaB8xKsawXH/92d70/0YFU?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?7MBH3eZub3s+Xe/zK46cIRO2UWgSjyS9p3rn8wZ0IWcF0++0TxinYYhIxBe7?=
+ =?us-ascii?Q?WmTb68FtqKnIxtAVPMVucTuyq4Bo5XYwv6AoJv4RGqdMUySHDZfgcXZdxAnm?=
+ =?us-ascii?Q?6OHNl5cso81ANPcWrcEyISsa6GL8y3gt5ky7H5a/48PiwvrVxztm7yh2PwGf?=
+ =?us-ascii?Q?rTX5wEJcnrXcGZSzuRnT+GbokgcV7Y1ykABEPrDYMs9oQAXF+q1HPDvdJRc0?=
+ =?us-ascii?Q?/FkNa8btWhYSh0yWPrp6BHDNX/mlEGJ7855t/MWGBMUFu9zWlbhOhmVA4b48?=
+ =?us-ascii?Q?Jc6T7vNySjDgksbUKibByMS5BxqukMactJnlAjNnRfaGDaTid7z3ILob+coa?=
+ =?us-ascii?Q?pojHTcBkAQoNJHuO9TbKm4//VtPPLGz8mxYvotvTHO1mV/owQotilXkAv7zR?=
+ =?us-ascii?Q?3igLRpIpgpoZ7wM+kLbRAg6+sf/252/gdyl/cQD2zoC44NCqdIZQo1Zn46c0?=
+ =?us-ascii?Q?w2+S+zzpLr8w69E85hqCgVzAmgVCI0nHPpRGjhvjKgbqIvdiUPd0xWPkMHp+?=
+ =?us-ascii?Q?1fg4YXW39/MBqTfCMy/uqT+u+/7YyidvJEiQJ4Uf1qYth8e5Vxq223rl0Cij?=
+ =?us-ascii?Q?gFvRbSj8u/jfZJ9R1kSp1l/GFiO+00qz3gGs9M+A6FP6qyZNZTzaZlegyJqD?=
+ =?us-ascii?Q?pDrPXnYiNwUFY8GmOuk4okqaiKLBFJOwSoTCGzo+u3ZossTDp3RIEU1Q+2ww?=
+ =?us-ascii?Q?aRfH+bRPupksirrk/nHUMM03wglOU5wbqrdBoyDdq6Jdfx76/3viOztvy+9e?=
+ =?us-ascii?Q?BIYochtjiDp1TSFt7mH6w+MVgN0+MfriwhXYcZbWzSepCrkiLUckEv/Iibtv?=
+ =?us-ascii?Q?etItI7Mbq8kALPm2Dz/FO+0X2r4+7qiq/IShFiPsVsdroMlIn+DqRGPW48u0?=
+ =?us-ascii?Q?PV1MvX0jXKiRZfvSQ52J5RMI46aVm9pHKHQIu/me7TRWXilnfM8xBbwCg0Ux?=
+ =?us-ascii?Q?9ESv9PsNCB0qc3InL4UYQKKf7RFXOG9j+g1rtE5GfQjArDVsdq3bwGwzxqrv?=
+ =?us-ascii?Q?D6c7B50iU+o937jr5+J5/XpvDtGVPGcJeL8es4ppqgQ4OZdkKz8Bug66GkWE?=
+ =?us-ascii?Q?g3QO9lCow9KjEgoyu5SWH/5ELOpIUnsgjJpLzFgiLKXtSSSyLaVroCtS9dRY?=
+ =?us-ascii?Q?ogy81SR7ouKITru/beqUiuHqXB7fNN3B6j2M4foQdIM2v0nQPLDYsRwAuNuX?=
+ =?us-ascii?Q?9brxA81U2e836RcbfHT2g7KpTOTFwDVvu8krPwtPOvhRjmLFTtflv8OR1ef5?=
+ =?us-ascii?Q?8h2fN8cHIo+pBHFQ1SY15miVYBpFhehhX8+MH6zJPeZX7jWubm0QKXb04KSG?=
+ =?us-ascii?Q?hL8WhU5P2lpN4LN7zXK+QqL9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7903b48-eef9-4cbc-0a8e-08d8d9127a68
+X-MS-Exchange-CrossTenant-Network-Message-Id: 999d1dc1-aab9-41ca-b637-08d8d9127a0e
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:06.1413 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:05.5110 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 553cc4+bgK0WzEvUiEdhIfIKE7qEiXfTvz8/bLm/27o/FZD+b90IUMzzrGHHcPV2LbXbElMZyqbQm6Hmwb4sBg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4SkDOJcG0oAR40w7dROU/nIyDNrL9evRa/YbkVSqrQiYT8z1u8hITvAD/5PppmEGlZfDTBCPcff6mEpIkl+tTQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,319 +137,387 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dennis Li <Dennis.Li@amd.com>
 
-SQ's watchdog timer monitors forward progress, a mask of which waves
-caused the watchdog timeout is recorded into ras status registers and
-then trigger a system fatal error event.
-
-v2:
-1. change *query_timeout_status to *query_sq_timeout_status.
-2. move query_sq_timeout_status into amdgpu_ras_do_recovery.
-3. add module parameters to enable/disable fatal error event and modify
-the watchdog timer.
-
-v3:
-1. remove unused parameters of *enable_watchdog_timer
+The bank number of both VML2 and ATCL2 are changed to 8, so refine
+related codes to avoid defining long name arrays.
 
 Signed-off-by: Dennis Li <Dennis.Li@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   7 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  18 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h   |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c   |   3 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c     |   5 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c   | 106 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h   |   3 +
- drivers/gpu/drm/amd/amdgpu/soc15_common.h |  30 ++++++
- 8 files changed, 174 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 269 +++++++++---------------
+ drivers/gpu/drm/amd/amdgpu/soc15.h      |   2 +-
+ 2 files changed, 97 insertions(+), 174 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 361e84369b6c..f82ad1b8eed5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -127,6 +127,12 @@ struct amdgpu_mgpu_info
- 	uint32_t			num_apu;
- };
- 
-+struct amdgpu_watchdog_timer
-+{
-+	bool timeout_fatal_disable;
-+	uint32_t period; /* maxCycles = (1 << period), the number of cycles before a timeout */
-+};
-+
- #define AMDGPU_MAX_TIMEOUT_PARAM_LENGTH	256
- 
- /*
-@@ -186,6 +192,7 @@ extern struct amdgpu_mgpu_info mgpu_info;
- extern int amdgpu_ras_enable;
- extern uint amdgpu_ras_mask;
- extern int amdgpu_bad_page_threshold;
-+extern struct amdgpu_watchdog_timer amdgpu_watchdog_timer;
- extern int amdgpu_async_gfx_ring;
- extern int amdgpu_mcbp;
- extern int amdgpu_discovery;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index c4d822b46ea4..42654deb9c55 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -172,6 +172,10 @@ struct amdgpu_mgpu_info mgpu_info = {
- int amdgpu_ras_enable = -1;
- uint amdgpu_ras_mask = 0xffffffff;
- int amdgpu_bad_page_threshold = 100;
-+struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
-+	.timeout_fatal_disable = false,
-+	.period = 0x3f, /* about 8s */
-+};
- 
- /**
-  * DOC: vramlimit (int)
-@@ -527,6 +531,20 @@ module_param_named(ras_enable, amdgpu_ras_enable, int, 0444);
- MODULE_PARM_DESC(ras_mask, "Mask of RAS features to enable (default 0xffffffff), only valid when ras_enable == 1");
- module_param_named(ras_mask, amdgpu_ras_mask, uint, 0444);
- 
-+/**
-+ * DOC: timeout_fatal_disable (bool)
-+ * Disable Watchdog timeout fatal error event
-+ */
-+MODULE_PARM_DESC(timeout_fatal_disable, "disable watchdog timeout fatal error (false = default)");
-+module_param_named(timeout_fatal_disable, amdgpu_watchdog_timer.timeout_fatal_disable, bool, 0644);
-+
-+/**
-+ * DOC: timeout_period (uint)
-+ * Modify the watchdog timeout max_cycles as (1 << period)
-+ */
-+MODULE_PARM_DESC(timeout_period, "watchdog timeout period (0x1F = default), timeout maxCycles = (1 << period)");
-+module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
-+
- /**
-  * DOC: si_support (int)
-  * Set SI support driver. This parameter works after set config CONFIG_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 1ab9632282d4..d92f0f14cbeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -226,6 +226,8 @@ struct amdgpu_gfx_funcs {
- 	void (*init_spm_golden)(struct amdgpu_device *adev);
- 	void (*query_ras_error_status) (struct amdgpu_device *adev);
- 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
-+	void (*enable_watchdog_timer)(struct amdgpu_device *adev);
-+	void (*query_sq_timeout_status)(struct amdgpu_device *adev);
- };
- 
- struct sq_work {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 09546dec40ff..5805c78c356b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1467,6 +1467,9 @@ static void amdgpu_ras_error_status_query(struct amdgpu_device *adev,
- 	case AMDGPU_RAS_BLOCK__GFX:
- 		if (adev->gfx.funcs->query_ras_error_status)
- 			adev->gfx.funcs->query_ras_error_status(adev);
-+
-+		if (adev->gfx.funcs->query_sq_timeout_status)
-+			adev->gfx.funcs->query_sq_timeout_status(adev);
- 		break;
- 	case AMDGPU_RAS_BLOCK__MMHUB:
- 		if (adev->mmhub.funcs->query_ras_error_status)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 977eeec70e1b..c37139d2c487 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2121,6 +2121,8 @@ static const struct amdgpu_gfx_funcs gfx_v9_4_2_gfx_funcs = {
- 	.query_ras_error_count = &gfx_v9_4_2_query_ras_error_count,
- 	.reset_ras_error_count = &gfx_v9_4_2_reset_ras_error_count,
- 	.query_ras_error_status = &gfx_v9_4_2_query_ras_error_status,
-+	.enable_watchdog_timer = &gfx_v9_4_2_enable_watchdog_timer,
-+	.query_sq_timeout_status = &gfx_v9_4_2_query_sq_timeout_status,
- };
- 
- static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
-@@ -3965,6 +3967,9 @@ static int gfx_v9_0_hw_init(void *handle)
- 	if (adev->asic_type == CHIP_ALDEBARAN)
- 		gfx_v9_4_2_set_power_brake_sequence(adev);
- 
-+	if (adev->gfx.funcs->enable_watchdog_timer)
-+		adev->gfx.funcs->enable_watchdog_timer(adev);
-+
- 	return r;
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index b2e2026c3ec7..1faeae14ead9 100644
+index 1cf4f4999112..b2e2026c3ec7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -1129,3 +1129,109 @@ void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev)
- 	gfx_v9_4_2_query_ea_err_status(adev);
- 	gfx_v9_4_2_query_utc_err_status(adev);
+@@ -40,8 +40,11 @@ enum gfx_v9_4_2_utc_type {
+ 	ATC_L2_CACHE_4K
+ };
+ 
+-struct gfx_v9_4_2_utc_reg {
++struct gfx_v9_4_2_utc_block {
+ 	enum gfx_v9_4_2_utc_type type;
++	uint32_t num_banks;
++	uint32_t num_ways;
++	uint32_t num_mem_blocks;
+ 	struct soc15_reg idx_reg;
+ 	struct soc15_reg data_reg;
+ 	uint32_t sec_count_mask;
+@@ -51,12 +54,6 @@ struct gfx_v9_4_2_utc_reg {
+ 	uint32_t clear;
+ };
+ 
+-struct gfx_v9_4_2_utc_info_map {
+-	enum gfx_v9_4_2_utc_type type;
+-	const char *name;
+-	uint32_t index;
+-};
+-
+ static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde_die_0[] = {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CHAN_STEER_0, 0x3fffffff, 0x141dc920),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CHAN_STEER_1, 0x3fffffff, 0x3b458b93),
+@@ -756,38 +753,51 @@ static const struct soc15_ras_field_entry gfx_v9_4_2_ras_fields[] = {
+ 	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_AFMEM_DED_COUNT) },
+ };
+ 
+-static struct gfx_v9_4_2_utc_reg gfx_v9_4_2_utc_regs[] = {
+-	{ VML2_MEM,
++static const char * const vml2_walker_mems[] = {
++	"UTC_VML2_CACHE_PDE0_MEM0",
++	"UTC_VML2_CACHE_PDE0_MEM1",
++	"UTC_VML2_CACHE_PDE1_MEM0",
++	"UTC_VML2_CACHE_PDE1_MEM1",
++	"UTC_VML2_CACHE_PDE2_MEM0",
++	"UTC_VML2_CACHE_PDE2_MEM1",
++	"UTC_VML2_RDIF_ARADDRS",
++	"UTC_VML2_RDIF_LOG_FIFO",
++	"UTC_VML2_QUEUE_REQ",
++	"UTC_VML2_QUEUE_RET",
++};
++
++static struct gfx_v9_4_2_utc_block gfx_v9_4_2_utc_blocks[] = {
++	{ VML2_MEM, 8, 2, 2,
+ 	  { SOC15_REG_ENTRY(GC, 0, regVML2_MEM_ECC_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regVML2_MEM_ECC_CNTL) },
+ 	  SOC15_REG_FIELD(VML2_MEM_ECC_CNTL, SEC_COUNT),
+ 	  SOC15_REG_FIELD(VML2_MEM_ECC_CNTL, DED_COUNT),
+ 	  REG_SET_FIELD(0, VML2_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
+-	{ VML2_WALKER_MEM,
++	{ VML2_WALKER_MEM, ARRAY_SIZE(vml2_walker_mems), 1, 1,
+ 	  { SOC15_REG_ENTRY(GC, 0, regVML2_WALKER_MEM_ECC_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regVML2_WALKER_MEM_ECC_CNTL) },
+ 	  SOC15_REG_FIELD(VML2_WALKER_MEM_ECC_CNTL, SEC_COUNT),
+ 	  SOC15_REG_FIELD(VML2_WALKER_MEM_ECC_CNTL, DED_COUNT),
+ 	  REG_SET_FIELD(0, VML2_WALKER_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
+-	{ UTCL2_MEM,
++	{ UTCL2_MEM, 18, 1, 2,
+ 	  { SOC15_REG_ENTRY(GC, 0, regUTCL2_MEM_ECC_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regUTCL2_MEM_ECC_CNTL) },
+ 	  SOC15_REG_FIELD(UTCL2_MEM_ECC_CNTL, SEC_COUNT),
+ 	  SOC15_REG_FIELD(UTCL2_MEM_ECC_CNTL, DED_COUNT),
+ 	  REG_SET_FIELD(0, UTCL2_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
+-	{ ATC_L2_CACHE_2M,
++	{ ATC_L2_CACHE_2M, 8, 2, 1,
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_2M_DSM_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_2M_DSM_CNTL) },
+ 	  SOC15_REG_FIELD(ATC_L2_CACHE_2M_DSM_CNTL, SEC_COUNT),
+ 	  SOC15_REG_FIELD(ATC_L2_CACHE_2M_DSM_CNTL, DED_COUNT),
+ 	  REG_SET_FIELD(0, ATC_L2_CACHE_2M_DSM_CNTL, WRITE_COUNTERS, 1) },
+-	{ ATC_L2_CACHE_32K,
++	{ ATC_L2_CACHE_32K, 8, 2, 2,
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_32K_DSM_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_32K_DSM_CNTL) },
+ 	  SOC15_REG_FIELD(ATC_L2_CACHE_32K_DSM_CNTL, SEC_COUNT),
+ 	  SOC15_REG_FIELD(ATC_L2_CACHE_32K_DSM_CNTL, DED_COUNT),
+ 	  REG_SET_FIELD(0, ATC_L2_CACHE_32K_DSM_CNTL, WRITE_COUNTERS, 1) },
+-	{ ATC_L2_CACHE_4K,
++	{ ATC_L2_CACHE_4K, 8, 2, 8,
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_4K_DSM_INDEX) },
+ 	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_4K_DSM_CNTL) },
+ 	  SOC15_REG_FIELD(ATC_L2_CACHE_4K_DSM_CNTL, SEC_COUNT),
+@@ -795,132 +805,6 @@ static struct gfx_v9_4_2_utc_reg gfx_v9_4_2_utc_regs[] = {
+ 	  REG_SET_FIELD(0, ATC_L2_CACHE_4K_DSM_CNTL, WRITE_COUNTERS, 1) },
+ };
+ 
+-static const struct gfx_v9_4_2_utc_info_map gfx_v9_4_2_utc_map[] = {
+-	/* GPU VM */
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_BIGK_MEM0", 0 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_BIGK_MEM1", 1 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_4K_MEM0", 2 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_4K_MEM1", 3 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_BIGK_MEM0", 4 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_BIGK_MEM1", 5 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_4K_MEM0", 6 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_4K_MEM1", 7 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_BIGK_MEM0", 8 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_BIGK_MEM1", 9 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_4K_MEM0", 10 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_4K_MEM1", 11 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_BIGK_MEM0", 12 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_BIGK_MEM1", 13 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_4K_MEM0", 14 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_4K_MEM1", 15 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_BIGK_MEM0", 16 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_BIGK_MEM1", 17 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_4K_MEM0", 18 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_4K_MEM1", 19 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_BIGK_MEM0", 20 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_BIGK_MEM1", 21 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_4K_MEM0", 22 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_4K_MEM1", 23 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_BIGK_MEM0", 24 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_BIGK_MEM1", 25 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_4K_MEM0", 26 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_4K_MEM1", 27 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_BIGK_MEM0", 28 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_BIGK_MEM1", 29 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_4K_MEM0", 30 },
+-	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_4K_MEM1", 31 },
+-
+-	/* WALER */
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE0_MEM0", 0 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE0_MEM1", 1 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE1_MEM0", 2 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE1_MEM1", 3 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE2_MEM0", 4 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE2_MEM1", 5 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_RDIF_ARADDRS", 6 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_RDIF_LOG_FIFO", 7 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_QUEUE_REQ", 8 },
+-	{ VML2_WALKER_MEM, "UTC_VML2_QUEUE_RET", 9 },
+-
+-	/* SRAM_BLOCK_ROUTER */
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP0_VMC", 0 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP0_APT", 1 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP1_VMC", 2 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP1_APT", 3 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP2_VMC", 4 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP2_APT", 5 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP3_VMC", 6 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP3_APT", 7 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP4_VMC", 8 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP4_APT", 9 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP5_VMC", 10 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP5_APT", 11 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP6_VMC", 12 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP6_APT", 13 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP7_VMC", 14 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP7_APT", 15 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP8_VMC", 16 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP8_APT", 17 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP9_VMC", 18 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP9_APT", 19 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP10_VMC", 20 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP10_APT", 21 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP11_VMC", 22 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP11_APT", 23 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP12_VMC", 24 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP12_APT", 25 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP13_VMC", 26 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP13_APT", 27 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP14_VMC", 28 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP14_APT", 29 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP15_VMC", 30 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP15_APT", 31 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP16_VMC", 32 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP16_APT", 33 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP17_VMC", 34 },
+-	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP17_APT", 35 },
+-
+-	/* ATCL2-2m */
+-	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK0_WAY0_MEM", 0 },
+-	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK0_WAY1_MEM", 1 },
+-	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK1_WAY0_MEM", 2 },
+-	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK1_WAY1_MEM", 3 },
+-
+-	/* ATCL2-4k */
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM0", 0 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM1", 1 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM2", 2 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM3", 3 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM4", 4 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM5", 5 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM6", 6 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM7", 7 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM0", 8 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM1", 9 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM2", 10 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM3", 11 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM4", 12 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM5", 13 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM6", 14 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM7", 15 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM0", 16 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM1", 17 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM2", 18 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM3", 19 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM4", 20 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM5", 21 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM6", 22 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM7", 23 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM0", 24 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM1", 25 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM2", 26 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM3", 27 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM4", 28 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM5", 29 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM6", 30 },
+-	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM7", 31 },
+-};
+-
+ static const struct soc15_reg_entry gfx_v9_4_2_rdrsp_status_regs =
+ 	{ SOC15_REG_ENTRY(GC, 0, regGCEA_ERR_STATUS), 0, 1, 16 };
+ 
+@@ -1017,62 +901,101 @@ static int gfx_v9_4_2_query_sram_edc_count(struct amdgpu_device *adev,
+ 	return 0;
  }
-+
-+void gfx_v9_4_2_enable_watchdog_timer(struct amdgpu_device *adev)
+ 
++static void gfx_v9_4_2_log_utc_edc_count(struct amdgpu_device *adev,
++					 struct gfx_v9_4_2_utc_block *blk,
++					 uint32_t instance, uint32_t sec_cnt,
++					 uint32_t ded_cnt)
 +{
-+	uint32_t i;
-+	uint32_t data;
++	uint32_t bank, way, mem;
++	static const char *vml2_way_str[] = { "BIGK", "4K" };
++	static const char *utcl2_rounter_str[] = { "VMC", "APT" };
 +
-+	data = REG_SET_FIELD(0, SQ_TIMEOUT_CONFIG, TIMEOUT_FATAL_DISABLE,
-+			     amdgpu_watchdog_timer.timeout_fatal_disable ? 1 :
-+									   0);
-+	data = REG_SET_FIELD(data, SQ_TIMEOUT_CONFIG, PERIOD_SEL,
-+			     amdgpu_watchdog_timer.period);
++	mem = instance % blk->num_mem_blocks;
++	way = (instance / blk->num_mem_blocks) % blk->num_ways;
++	bank = instance / (blk->num_mem_blocks * blk->num_ways);
 +
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
-+		gfx_v9_4_2_select_se_sh(adev, i, 0xffffffff, 0xffffffff);
-+		WREG32_SOC15(GC, 0, regSQ_TIMEOUT_CONFIG, data);
-+	}
-+	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+}
-+
-+static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_t simd, uint32_t wave, uint32_t address)
-+{
-+	WREG32_SOC15_RLC_EX(reg, GC, 0, regSQ_IND_INDEX,
-+		(wave << SQ_IND_INDEX__WAVE_ID__SHIFT) |
-+		(simd << SQ_IND_INDEX__SIMD_ID__SHIFT) |
-+		(address << SQ_IND_INDEX__INDEX__SHIFT) |
-+		(SQ_IND_INDEX__FORCE_READ_MASK));
-+	return RREG32_SOC15(GC, 0, regSQ_IND_DATA);
-+}
-+
-+static void gfx_v9_4_2_log_cu_timeout_status(struct amdgpu_device *adev,
-+					uint32_t status)
-+{
-+	struct amdgpu_cu_info *cu_info = &adev->gfx.cu_info;
-+	uint32_t i, simd, wave;
-+	uint32_t wave_status;
-+	uint32_t wave_pc_lo, wave_pc_hi;
-+	uint32_t wave_exec_lo, wave_exec_hi;
-+	uint32_t wave_inst_dw0, wave_inst_dw1;
-+	uint32_t wave_ib_sts;
-+
-+	for (i = 0; i < 32; i++) {
-+		if (!((i << 1) & status))
-+			continue;
-+
-+		simd = i / cu_info->max_waves_per_simd;
-+		wave = i % cu_info->max_waves_per_simd;
-+
-+		wave_status = wave_read_ind(adev, simd, wave, ixSQ_WAVE_STATUS);
-+		wave_pc_lo = wave_read_ind(adev, simd, wave, ixSQ_WAVE_PC_LO);
-+		wave_pc_hi = wave_read_ind(adev, simd, wave, ixSQ_WAVE_PC_HI);
-+		wave_exec_lo =
-+			wave_read_ind(adev, simd, wave, ixSQ_WAVE_EXEC_LO);
-+		wave_exec_hi =
-+			wave_read_ind(adev, simd, wave, ixSQ_WAVE_EXEC_HI);
-+		wave_inst_dw0 =
-+			wave_read_ind(adev, simd, wave, ixSQ_WAVE_INST_DW0);
-+		wave_inst_dw1 =
-+			wave_read_ind(adev, simd, wave, ixSQ_WAVE_INST_DW1);
-+		wave_ib_sts = wave_read_ind(adev, simd, wave, ixSQ_WAVE_IB_STS);
-+
++	switch (blk->type) {
++	case VML2_MEM:
 +		dev_info(
 +			adev->dev,
-+			"\t SIMD %d, Wave %d: status 0x%x, pc 0x%llx, exec 0x%llx, inst 0x%llx, ib_sts 0x%x\n",
-+			simd, wave, wave_status,
-+			((uint64_t)wave_pc_hi << 32 | wave_pc_lo),
-+			((uint64_t)wave_exec_hi << 32 | wave_exec_lo),
-+			((uint64_t)wave_inst_dw1 << 32 | wave_inst_dw0),
-+			wave_ib_sts);
++			"GFX SubBlock UTC_VML2_BANK_CACHE_%d_%s_MEM%d, SED %d, DED %d\n",
++			bank, vml2_way_str[way], mem, sec_cnt, ded_cnt);
++		break;
++	case VML2_WALKER_MEM:
++		dev_info(adev->dev, "GFX SubBlock %s, SED %d, DED %d\n",
++			 vml2_walker_mems[bank], sec_cnt, ded_cnt);
++		break;
++	case UTCL2_MEM:
++		dev_info(
++			adev->dev,
++			"GFX SubBlock UTCL2_ROUTER_IFIF%d_GROUP0_%s, SED %d, DED %d\n",
++			bank, utcl2_rounter_str[mem], sec_cnt, ded_cnt);
++		break;
++	case ATC_L2_CACHE_2M:
++		dev_info(
++			adev->dev,
++			"GFX SubBlock UTC_ATCL2_CACHE_2M_BANK%d_WAY%d_MEM, SED %d, DED %d\n",
++			bank, way, sec_cnt, ded_cnt);
++		break;
++	case ATC_L2_CACHE_32K:
++		dev_info(
++			adev->dev,
++			"GFX SubBlock UTC_ATCL2_CACHE_32K_BANK%d_WAY%d_MEM%d, SED %d, DED %d\n",
++			bank, way, mem, sec_cnt, ded_cnt);
++		break;
++	case ATC_L2_CACHE_4K:
++		dev_info(
++			adev->dev,
++			"GFX SubBlock UTC_ATCL2_CACHE_4K_BANK%d_WAY%d_MEM%d, SED %d, DED %d\n",
++			bank, way, mem, sec_cnt, ded_cnt);
++		break;
 +	}
 +}
 +
-+void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev)
-+{
-+	uint32_t se_idx, sh_idx, cu_idx;
-+	uint32_t status;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	for (se_idx = 0; se_idx < adev->gfx.config.max_shader_engines;
-+	     se_idx++) {
-+		for (sh_idx = 0; sh_idx < adev->gfx.config.max_sh_per_se;
-+		     sh_idx++) {
-+			for (cu_idx = 0;
-+			     cu_idx < adev->gfx.config.max_cu_per_sh;
-+			     cu_idx++) {
-+				gfx_v9_4_2_select_se_sh(adev, se_idx, sh_idx,
-+							cu_idx);
-+				status = RREG32_SOC15(GC, 0,
-+						      regSQ_TIMEOUT_STATUS);
-+				if (status != 0) {
-+					dev_info(
-+						adev->dev,
-+						"GFX Watchdog Timeout: SE %d, SH %d, CU %d\n",
-+						se_idx, sh_idx, cu_idx);
-+					gfx_v9_4_2_log_cu_timeout_status(
-+						adev, status);
-+				}
-+				/* clear old status */
-+				WREG32_SOC15(GC, 0, regSQ_TIMEOUT_STATUS, 0);
-+			}
-+		}
-+	}
-+	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+}
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-index d7e3041947e8..e01fa6afa8e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-@@ -35,4 +35,7 @@ int gfx_v9_4_2_ras_error_inject(struct amdgpu_device *adev, void *inject_if);
- void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev);
- int gfx_v9_4_2_query_ras_error_count(struct amdgpu_device *adev,
- 				   void *ras_error_status);
-+
-+void gfx_v9_4_2_enable_watchdog_timer(struct amdgpu_device *adev);
-+void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev);
- #endif /* __GFX_V9_4_2_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-index 52ffbea63a4f..8cdf5d1685cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -100,6 +100,30 @@
- 		}	\
- 	} while (0)
+ static int gfx_v9_4_2_query_utc_edc_count(struct amdgpu_device *adev,
+ 					  uint32_t *sec_count,
+ 					  uint32_t *ded_count)
+ {
+ 	uint32_t i, j, data;
+ 	uint32_t sec_cnt, ded_cnt;
++	uint32_t num_instances;
++	struct gfx_v9_4_2_utc_block *blk;
  
-+#define WREG32_RLC_EX(prefix, reg, value) \
-+	do {							\
-+		if (amdgpu_sriov_fullaccess(adev)) {    \
-+			uint32_t i = 0;	\
-+			uint32_t retries = 50000;	\
-+			uint32_t r0 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG0_BASE_IDX] + prefix##SCRATCH_REG0;	\
-+			uint32_t r1 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG1;	\
-+			uint32_t spare_int = adev->reg_offset[GC_HWIP][0][prefix##RLC_SPARE_INT_BASE_IDX] + prefix##RLC_SPARE_INT;	\
-+			WREG32(r0, value);	\
-+			WREG32(r1, (reg | 0x80000000));	\
-+			WREG32(spare_int, 0x1);	\
-+			for (i = 0; i < retries; i++) {	\
-+				u32 tmp = RREG32(r1);	\
-+				if (!(tmp & 0x80000000))	\
-+					break;	\
-+				udelay(10);	\
-+			}	\
-+			if (i >= retries)	\
-+				pr_err("timeout: rlcg program reg:0x%05x failed !\n", reg);	\
-+		} else {	\
-+			WREG32(reg, value); \
-+		}	\
-+	} while (0)
-+
- #define WREG32_SOC15_RLC_SHADOW(ip, inst, reg, value) \
- 	do {							\
- 		uint32_t target_reg = adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg;\
-@@ -142,6 +166,12 @@
- 			WREG32_RLC(target_reg, value); \
- 	} while (0)
+ 	if (sec_count && ded_count) {
+ 		*sec_count = 0;
+ 		*ded_count = 0;
+ 	}
  
-+#define WREG32_SOC15_RLC_EX(prefix, ip, inst, reg, value) \
-+	do {							\
-+			uint32_t target_reg = adev->reg_offset[GC_HWIP][0][reg##_BASE_IDX] + reg;\
-+			WREG32_RLC_EX(prefix, target_reg, value); \
-+	} while (0)
+-	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_2_utc_regs); i++) {
+-		for (j = 0; j < ARRAY_SIZE(gfx_v9_4_2_utc_map); j++) {
+-			if (gfx_v9_4_2_utc_regs[i].type !=
+-			    gfx_v9_4_2_utc_map[j].type)
+-				continue;
+-
+-			WREG32(SOC15_REG_ENTRY_OFFSET(
+-				       gfx_v9_4_2_utc_regs[i].idx_reg),
+-			       gfx_v9_4_2_utc_map[j].index);
++	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_2_utc_blocks); i++) {
++		blk = &gfx_v9_4_2_utc_blocks[i];
++		num_instances =
++			blk->num_banks * blk->num_ways * blk->num_mem_blocks;
++		for (j = 0; j < num_instances; j++) {
++			WREG32(SOC15_REG_ENTRY_OFFSET(blk->idx_reg), j);
+ 
+ 			/* if sec/ded_count is NULL, just clear counter */
+ 			if (!sec_count || !ded_count) {
+-				WREG32(SOC15_REG_ENTRY_OFFSET(
+-					       gfx_v9_4_2_utc_regs[i].data_reg),
+-				       gfx_v9_4_2_utc_regs[i].clear);
++				WREG32(SOC15_REG_ENTRY_OFFSET(blk->data_reg),
++				       blk->clear);
+ 				continue;
+ 			}
+ 
+-			data = RREG32(SOC15_REG_ENTRY_OFFSET(
+-				gfx_v9_4_2_utc_regs[i].data_reg));
+-
++			data = RREG32(SOC15_REG_ENTRY_OFFSET(blk->data_reg));
+ 			if (!data)
+ 				continue;
+ 
+-			sec_cnt = SOC15_RAS_REG_FIELD_VAL(
+-				data, gfx_v9_4_2_utc_regs[i], sec);
+-			if (sec_cnt) {
+-				dev_info(adev->dev, "GFX SubBlock %s, SEC %d\n",
+-					 gfx_v9_4_2_utc_map[j].name, sec_cnt);
+-				*sec_count += sec_cnt;
+-			}
+-
+-			ded_cnt = SOC15_RAS_REG_FIELD_VAL(
+-				data, gfx_v9_4_2_utc_regs[i], ded);
+-			if (ded_cnt) {
+-				dev_info(adev->dev, "GFX SubBlock %s, DED %d\n",
+-					 gfx_v9_4_2_utc_map[j].name, ded_cnt);
+-				*ded_count += ded_cnt;
+-			}
++			sec_cnt = SOC15_RAS_REG_FIELD_VAL(data, *blk, sec);
++			*sec_count += sec_cnt;
++			ded_cnt = SOC15_RAS_REG_FIELD_VAL(data, *blk, ded);
++			*ded_count += ded_cnt;
+ 
+ 			/* clear counter after read */
+-			WREG32(SOC15_REG_ENTRY_OFFSET(
+-				       gfx_v9_4_2_utc_regs[i].data_reg),
+-			       gfx_v9_4_2_utc_regs[i].clear);
++			WREG32(SOC15_REG_ENTRY_OFFSET(blk->data_reg),
++			       blk->clear);
 +
- #define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
-     WREG32_RLC((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
-     (RREG32(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg) \
++			/* print the edc count */
++			gfx_v9_4_2_log_utc_edc_count(adev, blk, j, sec_cnt,
++						     ded_cnt);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
+index ea0469e45b9f..034cfdfc4dbe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+@@ -97,7 +97,7 @@ struct soc15_ras_field_entry {
+ 
+ #define SOC15_REG_FIELD_VAL(val, mask, shift)	(((val) & mask) >> shift)
+ 
+-#define SOC15_RAS_REG_FIELD_VAL(val, entry, field) SOC15_REG_FIELD_VAL(val, entry.field##_count_mask, entry.field##_count_shift)
++#define SOC15_RAS_REG_FIELD_VAL(val, entry, field) SOC15_REG_FIELD_VAL((val), (entry).field##_count_mask, (entry).field##_count_shift)
+ 
+ void soc15_grbm_select(struct amdgpu_device *adev,
+ 		    u32 me, u32 pipe, u32 queue, u32 vmid);
 -- 
 2.29.2
 
