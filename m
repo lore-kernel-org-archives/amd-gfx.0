@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE37AC433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA209C433E6
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F0BD64E05
+	by mail.kernel.org (Postfix) with ESMTPS id 771BD64EDB
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F0BD64E05
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 771BD64EDB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 388B16EB91;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2A46EB92;
 	Wed, 24 Feb 2021 22:22:31 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9296EB98
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93A756EB94
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D4pz2OWpxjHLjMhqS6Pmv8vTCW1DSq+siRZ3OhYSh8z/414w5lcU9Maocoqi1U9B7lwyhyALtKUoO6dZViB6c4CaxrGGMpytBQF0xha/C2r2W81KCDFvNQZrb6ZU1UQfhFw5O7VM46xhoDRNId+W64+Iu0ULFoVY+plFxxfyo674gLQIuzB68cN6c/uG0FUxAg4/b4kgHyWcjJNTxd3BIjmxPlDzZU+fDa9+Ik0ZjrcVAi7XUZJfxpNcqVbTdkcRv2c4gpPsCPzcHQQ7yfqn4bQiexiAVOBAAUbnlghT1d1rI1JYTPkl3reOkDx4pR+yoXB5BuX4bB7ggySNdUGcLQ==
+ b=k8hkGcCwMhp9jhE35B2QL8dnBs2HZ4gwNY66Pb8BoRuID6kIaLIirA1UMIhzwxYbYDdEfHJm9sf5BrfT7Fc4H/Fh4bzDJwJBaguRpDmp4sVFGhl5ooUuVTROQ8UwknLCsRFLZ4y96YsE69huqaWJoUf8frRGMbr80I8yFSd2Qf28OyuvtzdDI96Fb9bkWFyDHPeH8GmTuKKAPgFrgSMFxxDmI0Y/KC/HY2I6s+R+N9N5tu7wyu4Xyn8EpvD/zDkgS5eDmlpRgdzpLrcETXYOkgF6wYI16kWd3botPcYoBEmIEYu/f1RgVDd5PbHFVJzhmhTI3TxpG5xzKfJqqWxJdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xJJPJy8CQKhECiGCiNdzbR3RPjqP3V6wn0t+YU6+LB0=;
- b=NXiezEqSa/uJxwZ8Jalh5cMcPH2Qk1MTEj5RvL4ODYSt3tWVo0tDYIhbEcNld158puSxnHynKw8jGq1KbNDXiT81Y0LQrL3lGjdTMfHu84O7DjQ70CHEteJK/If9e4dKmxO5Ena4XTK3Fd9ORltvhH1jWsqJO43J1ofKJ5ncVryYAW5mu0Yj9l9WdxOJ8s6o1XqAVQHX81eX3NAznA5elHkb0Gt+iOjvP2KuDXVjqSl6tnnnYZZi1W3Wk+7Duz18qeKHSATIlXRQWevw512QU+JHMcJQd0DRF8ass9cgUosm+CjdLcqdI/xMyOXoigaudzSBE+IUI3Zg4I3k0FIZYw==
+ bh=Ja4QhjqrKSndAYxkir4qogWANryxyQLsO6sH757ybxo=;
+ b=YHSDQRrxiUkn0i2i4oQ3hNNniLXcvdyvwgE53qbjcTahXFyaCLhE+hysd/KuNTfGxUOx0vUE3bZEui0f1Wr49oPOknoHEySGPoytDRLK8svQsjEV55ZxM9Cy9bp05lKiRKzhVQVC4pmizfV3s4fCnMaXrZhpHFyV/VEYhGCvgncXa/pI2SFVcjudCueQ7L9mN2qCtPX1LA7c7xf6SMnlOL02M2tRjUqW1lh55k/ZJDaf73UjHyn89WQbptRcbaIoW1LuRH9ZjLUQ1c7xgZPypq2oNnq4i8mKjD/4GcNoblxfzofqaOZKBIOVxQZGqanASFrwnMUQrWnt/wP7yTbSMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xJJPJy8CQKhECiGCiNdzbR3RPjqP3V6wn0t+YU6+LB0=;
- b=L7+f0zMOMCXMqsnooKLM/BeigVvfAINml0aEra6NoYFNWArj5450W7t5gZohtHVg8aa+A32Vhs/vT8O7UwBVIKFvRguqjRENLQ3qcHBffOXrwdItfFhZVrXa0KQqHj8iJ7OKWUCAM0RxfDYY4od8Keoc+z2tssDBdkdaedAIamI=
+ bh=Ja4QhjqrKSndAYxkir4qogWANryxyQLsO6sH757ybxo=;
+ b=j/30gRov+z0kkVHLb4IYqQ470tEwmTsdbxAkixfxmGgQuIxYsMKGeUIVMbTFwmd0FaktnuRpxMNMx+MGB90YN/zif3z5QMCV42VrFt/gwy7pNV+D3CE+vOPF588jIR/ocIPjr3KkNyQox3zZK68DYtmQKbkB8rwxzRtwCBTQxtA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB4503.namprd12.prod.outlook.com (2603:10b6:208:264::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.30; Wed, 24 Feb
- 2021 22:22:27 +0000
+ 2021 22:22:25 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:22:26 +0000
+ 22:22:25 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 131/159] drm/amdgpu: Use different gart table parameters for
- 2-level gart table
-Date: Wed, 24 Feb 2021 17:18:31 -0500
-Message-Id: <20210224221859.3068810-124-alexander.deucher@amd.com>
+Subject: [PATCH 130/159] drm/amdgpu: Placement of gart and vram in sysvm
+ aperture
+Date: Wed, 24 Feb 2021 17:18:30 -0500
+Message-Id: <20210224221859.3068810-123-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -72,50 +72,50 @@ Received: from localhost.localdomain (192.161.79.246) by
  Transport; Wed, 24 Feb 2021 22:20:51 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2763c4b0-8ff7-4dac-228a-08d8d9127208
+X-MS-Office365-Filtering-Correlation-Id: fd5e0757-9df2-42e5-adb9-08d8d91271ac
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4503:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4503B1CCAD1B95C8B2106C9BF79F9@MN2PR12MB4503.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4503DDF6756E13146387C285F79F9@MN2PR12MB4503.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UxC7WtSvROU9c1PvpcM1JhqoSzpkPCduVcJzF/BdbhlbEz6d2bIf7YmWC1YVt8XrKybqrrWkL5jctZgJ3kHMi5ewBrnU+3aN2pp0gtmBOEtcooW7jiGDIVyU2SehPWZbK14DIy2o8Icr6kMpWGAygESBcHGqeoDotGWiJxfcrgiA+GFlY2XxPp4ZMXN+Sx1D8c3IReSxQSoHeKrzjoHvZRQPDsw1u+6fib9Py4ILnMfu0xpI47rTjR71jAUG3p859u8rNXpdfgBJAplKUXto9K1q4w2TPe1mXgtc1IrQlVyNfo/TYFkeTTbaH/jBrgM1PpAKnwVzhirU70Dq8X0loMGF/Gta1rpALj60QRX7bnELTLjyoonRpuGb+W1/YCEod2NWRPzkWvSqCXXgKGvwHEDXMSvdL2Q1/9QLe9LL8ErcSCUT/VabMnnzB2AY/QaAlK4utvSxtPDNTSqcwjjpmXt15zxaspftGGPhWyb4ydbm2zZjuCx9G4615QOdVRXT9uw3bx0P/HJIbIcrRdOInYsjziq9+/x8sowbe1SdlASKFIvKanmr+U5xyziSAD4t5JfhNiYqI1xch30tzuxniw==
+X-Microsoft-Antispam-Message-Info: hk+lPFPgNn+3DoDl2jpeBvs2d410HQusiqO/z3eBoR9mMbE/lDv37l2/Ler+2BjykQbIFloF91GcjZrkxZprMSE0W3HTxAD7wQXmHi53jf+dX9uwTxPvur8d3WyUJC74BxBZZuuaNLK4AelBlD7ev68mtflQymaTYA39yDK+6bnWOoxvkxOK4ACTcLWyKFKG3UQNhMYTgx4xXyy60KtmB7Yne2zdBTc2mfQ2MpsLhHJyXK//tj3SK5v8H7Kld52mLRYkll3oZGcmDUX0+4jsl2TE6pVCY5j8gp17xegZ9e4wEIgaSS59DXZ68tVUKk73MwEqyZr5zRHG9trVRXyXhxlpZvjQ0uY3FB/w3CZ/nxXLlZ3qNjCxxtTBmi+llo7O29q4/MWqzLXlP0m1Qow6Ucbp5uv9NH9SoywTyTfEoauxHS6v6eNV095Ttwb40hhrhUhI3o2stDk+pn6GRKalWWlnWB1qrsvfVBufdVOY+H6Giut8nz7JYWFrsQEO12fKXIyEubgOEPhqHSj/NNrfnAdTmhO0gmrItr4WBLuIAlkLUlD6q13+mlei4KYi6qTRgtigmKoqPuu+wIivj1S5Ow==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(136003)(376002)(39860400002)(396003)(346002)(6916009)(52116002)(478600001)(5660300002)(1076003)(4326008)(36756003)(54906003)(6506007)(6486002)(6512007)(66556008)(6666004)(83380400001)(186003)(26005)(66476007)(8676002)(8936002)(2616005)(316002)(956004)(2906002)(86362001)(66946007)(69590400012)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?RS/xet0nax7UbboKcbRhxEPUff6YhfSDJ0Os966Y8TVJrkNkSmPO0qwGLNH1?=
- =?us-ascii?Q?i0Hvg8PXTyH38edyUnjc+rVZbASz6mz9+phmxrZ4IbHbphKYpkMLe/zkikM0?=
- =?us-ascii?Q?lFouM8zyq4kr6JuIUFAoADFBW1IEkZVEdQ9el5qwoQ/H5An83jC3vxkE6Yll?=
- =?us-ascii?Q?kmxKDjzDWKyWRvSiSRjmQSkbBhkjRIiGG3TXLoMs7ayCXup3XNpjWRDUvOBg?=
- =?us-ascii?Q?NrW7vawDJH50RlWrnQfylSG0+vcg81uUUuz3Ku5n+wAFs+u0pPQjEuxkLM2q?=
- =?us-ascii?Q?y8Qjq6zyCN7Rz1ckdj/JnIxixMgmyzaolyTToj+LgO1wNfWalt0q8ACopTBX?=
- =?us-ascii?Q?9W/dZLsoDKRJs+Xv72rBZPsw2saFn87twGLH1iG750Qe+z9MHHHxAmLzCub8?=
- =?us-ascii?Q?NH2UMo6WKrM1pSLUB024H0pdV2eBOfp+uyFTVhF02CjAWEGU1zgsLWWQzPcK?=
- =?us-ascii?Q?RpLw9MsjmKGZLh0bxki0NOoehAnct3Ftswe2GELi1Bk9wvIrrtMvVOFAXqKL?=
- =?us-ascii?Q?L5VyLVp+6FFRWt7s2D+nw1Eng9j+Yi8Qyht5BsMAmqtNpIU7fARPC7EUm/1F?=
- =?us-ascii?Q?1z6uQC2u3RPg1D0JCb5RaZlgu11ReutI3owY7sxI8Ej1rIs5Sk82dhCwgC0N?=
- =?us-ascii?Q?jEbXWl54Be1orHxuUvjBVFks6YGdtRkU1h9Ae9SDKRx0Y0i6JNflknoHgMr+?=
- =?us-ascii?Q?yZqjNNPSEcCc0Zpv0nocu4AxtyK3W1gN4N60QKGulhBxzIAHm0nh0QQKfZQb?=
- =?us-ascii?Q?qc2z5eT6ngZ01WBLTGJUtfK/UtDfYnDhMl/UjEa8ciQGv+L0+a6oI7DaD24w?=
- =?us-ascii?Q?sbQIvkIQlBmlTpWpw2V6xTVJPfGaC6mxG1kTVWt/5roIt4nUH5tdjXsxUDHO?=
- =?us-ascii?Q?GrtqhA3ZJ1mC8O04plDe6y/wGL9FkcvVcfZ6pxSz3GlIjSAUMdwcSeKt9qPS?=
- =?us-ascii?Q?2IFBmJdIITcmyuQOONKnun/XuNfOf6ae6CHTmef+ACSnGSoP3UXZBfOFrxaG?=
- =?us-ascii?Q?BGVX/g7cVRIgPSJTUPbRC9kCVLmPyG37WM4275LWPp0CEsmkDqpwh5jJjrDK?=
- =?us-ascii?Q?p0SoQQODrsnNoCxBxTKQ8xSdjXwRMfpQy/FNrdd/qxblW/A9d07e0I+Tw4Yx?=
- =?us-ascii?Q?DhtkN8KT6hK+2HsoL/YX5R0SYYs5YMG60kx1tAK1wNQSXxDG/1xpplLbgFL/?=
- =?us-ascii?Q?7B+Y+i1QQkE2lsXSYAYByVqb7Pz6NhtvGYfWaZ9H08ANcyaKa/SWxa0+6PhI?=
- =?us-ascii?Q?dqgcr2LzfNG87k1xontUu4NG1/gpQXq9mPpfG7PO0jDIrwZFnhIRE69JI/LQ?=
- =?us-ascii?Q?YHvyhBzNWThLUBvUwXNUPgko?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?gVS6Ix2RJXlIq2uVtZ4jSM3Ozy43as1x6yzgKrePh4+wwe6Xr8asxXSmzY14?=
+ =?us-ascii?Q?wRJogtJO62CLNxFA4DIBkvBzZtW/lqQmLbbo9sTjgjYXKYfvLgCg2ihLRi8l?=
+ =?us-ascii?Q?ngjN74437jE95eP0H1CuDlTNn2Vy26TJ2sUFut6ezRtPLzE7C8jPJ7xgPNTx?=
+ =?us-ascii?Q?0dwRgM+PvNtfHJUicKp2PxHlLgxrksWM2MKK0W16h0c6+6eawwGP0v0RE5A5?=
+ =?us-ascii?Q?2nMI3THOTYXZvyYvCIiKgKAo1lemmeXebxOboYWJhhdN/eFs3vYTB+wKnk6k?=
+ =?us-ascii?Q?x1E33/9ezDhJvkppaX8eLJNnVdoIJS7bZLVhNbhlvwNmQsnymEUX0DmcgTLr?=
+ =?us-ascii?Q?HoH8J28mkDuIiEHo14UcgZMCmvOFhbpnL5jOABJCM4y/3zD+dCRMUAaPHjN7?=
+ =?us-ascii?Q?uAL1lLgXCC6nBw2cBdTPdGACaNa1ptY7dokkvu/72Wp9mvyoUerPUHfxqIrX?=
+ =?us-ascii?Q?npItCPcO3W9g5qEbAIeCJhMk/RsQ9uUmydzSBrVbIiR16zsxDjomIa2CY0oB?=
+ =?us-ascii?Q?7yw5ttuNDXs4gjgCrzQC9fYY6BffCxFqkgReixNYi2Xw4HDNqpBW0P+0x0Yh?=
+ =?us-ascii?Q?maHMZ9qaI1FdebutNeR0Fb/Ldgg8Z8Z3U79bysrdwSR4mGM2mWVMSOyyNWE9?=
+ =?us-ascii?Q?wRGlFDvAWEhl0Y39mI2zfRRzHlDl2gKo+3+7/JCF3DvgQTm5Y4FYhDVyBjHZ?=
+ =?us-ascii?Q?mDrzuBiscKyh0/5t58RHZlayBFoJPrGHmozvUXAIOEZJU/PedhjyKxdfHvbc?=
+ =?us-ascii?Q?1Q+iDlKFmB6IE+AUH5aSj7X6kAqoGxL0XM/3vw82t8dpR7oZK1FjC3mNjyzP?=
+ =?us-ascii?Q?6DaQg9sFYBY9O5lRjWw0M+DQChJihgbWBriH+UKktkkWE2diHDLze2pORGVH?=
+ =?us-ascii?Q?7gffa/JQD142q4Sc1j5AUtL9hzVS92Ew3TreJflu/xgZYyj9ZxiZG05+PuG/?=
+ =?us-ascii?Q?HVm82zJpjZITTTMNuXpwO9oJx2lvokCYYLSkSA0fIxb40TDuWsb7FGhwHfVB?=
+ =?us-ascii?Q?mLXu85x4KfMUlC1l/AVTIGulnGRQSVTFOFLUiB7Yd4Ht7OgRi17FLcjtT1Fh?=
+ =?us-ascii?Q?pzcOQaxjdgRNILSbl3kJUqfvPjXSF8mDdBraQ8r45hl0jjNUV1mztu5G8WBA?=
+ =?us-ascii?Q?BOguborDoipxuIGXno18dWVpcPYf1ZfOhsgfaOzrU6lL1cEkF0VNMRYyjVcz?=
+ =?us-ascii?Q?MOKEyjdZhSdfekHVRvStQn4zWhiRNhAf/9pHyuTGiizToeXSbBiziHrmtcMs?=
+ =?us-ascii?Q?9vGNdF6b69xP4XL1kLWYx4Mrc5a5a9MnzqhJmDPSGn3puPEup4Tkdu9dBUlA?=
+ =?us-ascii?Q?LumMSH9z5Ajwih3cIiAXmPJv?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2763c4b0-8ff7-4dac-228a-08d8d9127208
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd5e0757-9df2-42e5-adb9-08d8d91271ac
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:52.0501 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:51.4547 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a8DJLPjdxil2FSYXThCM3igbhE1B2ARZxcEJaSmTVuUFZ+gGL5ZfbmpwZaTFqQcsQNLD/mgySkzWEfGegyJPfg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Uc+kxjPnnbFkrBdz8lvph+FBRZfxkOhMine8mqRNHXUijNOhOwCaWw/wH56VdBM8y7jEdvQ/AyUOZvB1GzO86w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,89 +138,105 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Oak Zeng <Oak.Zeng@amd.com>
 
-If use gart for FB translation, we will squeeze vram into
-sysvm aperture. This requires 2 level gart table. Add
-page table depth and page table block size parameters
-to gmc. This is prepare work to 2-level gart table
-construction
+If use GART for FB translation, place both vram and gart to sysvm
+aperture. AGP aperture is not set up in this case because it
+is not used
 
 Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
 Reviewed-by: Christian Konig <christian.koenig@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  | 3 +++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 5 ++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 9 +++++++++
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 5 ++++-
- 4 files changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 34 ++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 10 +++++---
+ 3 files changed, 41 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index ab1c2b85695d..f492ff8facd3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -162,6 +162,39 @@ void amdgpu_gmc_vram_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+ 			mc->vram_end, mc->real_vram_size >> 20);
+ }
+ 
++/** amdgpu_gmc_sysvm_location - place vram and gart in sysvm aperture
++ *
++ * @adev: amdgpu device structure holding all necessary information
++ * @mc: memory controller structure holding memory information
++ *
++ * This function is only used if use GART for FB translation. In such
++ * case, we use sysvm aperture (vmid0 page tables) for both vram
++ * and gart (aka system memory) access.
++ *
++ * GPUVM (and our organization of vmid0 page tables) require sysvm
++ * aperture to be placed at a location aligned with 8 times of native
++ * page size. For example, if vm_context0_cntl.page_table_block_size
++ * is 12, then native page size is 8G (2M*2^12), sysvm should start
++ * with a 64G aligned address. For simplicity, we just put sysvm at
++ * address 0. So vram start at address 0 and gart is right after vram.
++ */
++void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
++{
++	u64 hive_vram_start = 0;
++	u64 hive_vram_end = mc->xgmi.node_segment_size * mc->xgmi.num_physical_nodes - 1;
++	mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
++	mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
++	mc->gart_start = hive_vram_end + 1;
++	mc->gart_end = mc->gart_start + mc->gart_size - 1;
++	mc->fb_start = hive_vram_start;
++	mc->fb_end = hive_vram_end;
++	dev_info(adev->dev, "VRAM: %lluM 0x%016llX - 0x%016llX (%lluM used)\n",
++			mc->mc_vram_size >> 20, mc->vram_start,
++			mc->vram_end, mc->real_vram_size >> 20);
++	dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
++			mc->gart_size >> 20, mc->gart_start, mc->gart_end);
++}
++
+ /**
+  * amdgpu_gmc_gart_location - try to find GART location
+  *
+@@ -169,7 +202,6 @@ void amdgpu_gmc_vram_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+  * @mc: memory controller structure holding memory information
+  *
+  * Function will place try to place GART before or after VRAM.
+- *
+  * If GART size is bigger than space left then we ajust GART size.
+  * Thus function will never fails.
+  */
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index a061a5632445..d5312b8e6abf 100644
+index f1a21e110610..a061a5632445 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -244,6 +244,9 @@ struct amdgpu_gmc {
- 	struct amdgpu_xgmi xgmi;
- 	struct amdgpu_irq_src	ecc_irq;
- 	int noretry;
-+
-+	uint32_t	vmid0_page_table_block_size;
-+	uint32_t	vmid0_page_table_depth;
- };
- 
- #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index c6687c6cf03d..5382c36c93d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -189,7 +189,10 @@ static void gfxhub_v1_0_enable_system_domain(struct amdgpu_device *adev)
- 
- 	tmp = RREG32_SOC15(GC, 0, mmVM_CONTEXT0_CNTL);
- 	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, ENABLE_CONTEXT, 1);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH, 0);
-+	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH,
-+			adev->gmc.vmid0_page_table_depth);
-+	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_BLOCK_SIZE,
-+			adev->gmc.vmid0_page_table_block_size);
- 	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL,
- 			    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
- 	WREG32_SOC15(GC, 0, mmVM_CONTEXT0_CNTL, tmp);
+@@ -292,6 +292,7 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+ 				uint64_t flags);
+ uint64_t amdgpu_gmc_pd_addr(struct amdgpu_bo *bo);
+ uint64_t amdgpu_gmc_agp_addr(struct ttm_buffer_object *bo);
++void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc);
+ void amdgpu_gmc_vram_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+ 			      u64 base);
+ void amdgpu_gmc_gart_location(struct amdgpu_device *adev,
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 0fce8506fc0d..96052dc114cd 100644
+index 563a8bc478c9..0fce8506fc0d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1363,6 +1363,15 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
- 		WARN(1, "VEGA10 PCIE GART already initialized\n");
- 		return 0;
- 	}
-+
-+	if (adev->gmc.xgmi.connected_to_cpu) {
-+		adev->gmc.vmid0_page_table_depth = 1;
-+		adev->gmc.vmid0_page_table_block_size = 12;
-+	} else {
-+		adev->gmc.vmid0_page_table_depth = 0;
-+		adev->gmc.vmid0_page_table_block_size = 0;
-+	}
-+
- 	/* Initialize common gart structure */
- 	r = amdgpu_gart_init(adev);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-index 08c50ce491e3..3a89bf76d22e 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-@@ -198,7 +198,10 @@ static void mmhub_v1_7_enable_system_domain(struct amdgpu_device *adev)
+@@ -1257,9 +1257,13 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
  
- 	tmp = RREG32_SOC15(MMHUB, 0, regVM_CONTEXT0_CNTL);
- 	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, ENABLE_CONTEXT, 1);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH, 0);
-+	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH,
-+			adev->gmc.vmid0_page_table_depth);
-+	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_BLOCK_SIZE,
-+			adev->gmc.vmid0_page_table_block_size);
- 	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL,
- 			    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
- 	WREG32_SOC15(MMHUB, 0, regVM_CONTEXT0_CNTL, tmp);
+ 	/* add the xgmi offset of the physical node */
+ 	base += adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+-	amdgpu_gmc_vram_location(adev, mc, base);
+-	amdgpu_gmc_gart_location(adev, mc);
+-	amdgpu_gmc_agp_location(adev, mc);
++	if (adev->gmc.xgmi.connected_to_cpu) {
++		amdgpu_gmc_sysvm_location(adev, mc);
++	} else {
++		amdgpu_gmc_vram_location(adev, mc, base);
++		amdgpu_gmc_gart_location(adev, mc);
++		amdgpu_gmc_agp_location(adev, mc);
++	}
+ 	/* base offset of vram pages */
+ 	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+ 
 -- 
 2.29.2
 
