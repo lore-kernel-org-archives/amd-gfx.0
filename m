@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 898A2C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FCABC433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E86264EDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E86264EDB
+	by mail.kernel.org (Postfix) with ESMTPS id 45E3464EDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45E3464EDB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0140E6EBD0;
-	Wed, 24 Feb 2021 22:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8084C6EBED;
+	Wed, 24 Feb 2021 22:22:51 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC696EBA3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:42 +0000 (UTC)
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D8F6EB9F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lHoXH+WOqzpvoWDthLxTmN7TGepAozcdCY8jYuxJnRNddB7waOrLIC8E9EvkuTBR6+saYnkAHa/oNVd4yvyaXJGD8wNx1WdfbG6WZaHh7AMQI/v5i36uzbXKuAuQjRgBAS8bJVcA61BwuzoToaSkZ9FUUelVo1ahncNfnz8NgG2Cvt3Hs8aZXucr9xMGR3ha9ee8Ey5C80hOBCrSE8wJ1qwwHMfA9DCxWeR+yD79+78CFiHq2FdBOAoP+h7iXCjoV6tkWL2j4izQywblOm5O54T9PC0ROOz34uZmrr8ld5fYz3kzJJ08GEIMlX+KZP+9QBZ4Vu/9qXtFyrfNFEwExw==
+ b=V9JB0IhegY6qfTU8hM5+OnTpjuKKF9ydO+IMjyGxkET7IuAEZI+fg/WZ7UT3VuirL3esPSGRdrWjT04doZifFYjSrk0hFVFIGSUL8nvXELSUdnJuIg+AJfBRj8r5clfKqmqTlhPlJfZU3leyFdEULF1lnB6muL2/w8xBDH487G9HNKI7J65yMRadIqb/vRV0h2LE7YmohFnaw0uO0qX7i3Dz+tzNqWHCj3wvb/SXuBzd2BTS4qV3jCZ9ohtMB3ItUw38/dw/RsPcvUneUkigMUjH6P0tFcW0G2l3PVKt1E7skaHGH1ZiXPOzXgsGdS37C6OrshI8nxS9vP73JrLgNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ybTYYvWWiEBhK9Js8xZhUxxKhXw/+hD5sG0zVT60rYw=;
- b=dv/8GcTkoGWrfNgzffTRO2kbZ+FAEIC/2XOS18h2H0PyQLE/9aAuk6oIQh0eLigVZN9+TqYzQQCgORoR7FskWvqKA/7zOM0icYWbh2les3flLaounVe+Jjd+d0/ebMdlG7txR44tgTD4dYodXTfcT5+ocdXXNxAkbjToHfFz2XtRfNH793Kvp5S0gPPPCB83nOTAkMvEcpPVq6vPjUROrnzfDZJOvlIwXu6unFaWq1okGAPpe4VDNJsP7IOLeCyoD9JwFH+FVCbgcEuNzIazjWez4CHjUaMTwkyia0We1XPQPvT5xhJrkl1XvZZrtur6fYD4BcypNFQyiEx3iOco9A==
+ bh=4I54zjZXWMeJ7ZblpGeS9O0RpBKRh+/4+LHzUWrQIyw=;
+ b=oW5PDWF9bZc2BhLuC/pVo2pGSQYcjbpiHtmSe6k3QKdUi4EyNJ3D0KVrUFx/MpmBKj4UECz1MgwR4BvDm4mRc5LNVq1Cum7hfopSgE6I1RAXUbEm3M+H1Roa5Z/g+qZ73ghRGKEozyaFVdG9+YjNpMRd0J7YigAIhotD/cL5XCWS0NFcl3iD5uVibOSBBld0Iqye+dH+PY3slmfUK81Bidmk//RJaZH35/Pu3RCpL3LjbfwcIzemF0nHMb4uh+n+hQ3Zl0R61q9i74FnQoMHqfUnpA7ErLhQ67zwT3/1X7L5GcQxPw4JZYqm1d4dIOjOcCHp3K/M5uqUy+v8Vg7cIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ybTYYvWWiEBhK9Js8xZhUxxKhXw/+hD5sG0zVT60rYw=;
- b=MEUXnuOFjwpcQjHzTEC5OSE9z1Iacr92vwuol+WtdGnil+Ac8Yo1zECglGiW54k1e4Dw+sZfVZxZVaeDiUugD8LBYVvVbs9+n/8zWUv9L5djXL6vmsI4aZcMywB5INjhtcMMpIeO7vqkiPRSOFhxqbdk4DLrwX7HB9fGIyz/9dw=
+ bh=4I54zjZXWMeJ7ZblpGeS9O0RpBKRh+/4+LHzUWrQIyw=;
+ b=08gFvtaa/cC5S9z+AFcU5Ki0Ekt5QWPpISjyDrIIe0forTl5d3mH/1ghSrjekVP2P+7aeUnRINm+7R6v+rBAzqKoQPlp54LovmUHI9LVa39wu5O5aZJtbqxFChzc/0uQTs0tWNdbrwkW3JOEGtvXaPLXX5TYd21aumcMTXY1Q8Y=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -46,16 +45,16 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by BL0PR12MB4722.namprd12.prod.outlook.com (2603:10b6:208:8c::30)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Wed, 24 Feb
- 2021 22:22:39 +0000
+ 2021 22:22:40 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:22:38 +0000
+ 22:22:40 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 152/159] drm/amdgpu: add ras support for gfx of aldebaran
-Date: Wed, 24 Feb 2021 17:18:52 -0500
-Message-Id: <20210224221859.3068810-145-alexander.deucher@amd.com>
+Subject: [PATCH 155/159] drm/amdgpu: Let KFD use more VMIDs on Aldebaran
+Date: Wed, 24 Feb 2021 17:18:55 -0500
+Message-Id: <20210224221859.3068810-148-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -69,53 +68,53 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:21:04 +0000
+ Transport; Wed, 24 Feb 2021 22:21:06 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e4331d0e-91af-41c6-ff91-08d8d9127996
+X-MS-Office365-Filtering-Correlation-Id: 14c7e186-1367-4192-8c35-08d8d9127abf
 X-MS-TrafficTypeDiagnostic: BL0PR12MB4722:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB4722EA0ADEA2BA120F3B72DFF79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:923;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB47225F12C5B540CF1A4CD607F79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Wm3vmiCnPgJBxjhd+bpgtJ1C3Z3wus/yE/QBGnHqsJCMbs/3s9Xqx6CkaXceArRrawm8Xm7x/+0Bg1oMCi2iaKL0L6BPHvwUVlsOYva0s4Kh2fyninwThJFHawHkPJG+BUtM77q08w2CYgr74NukguyulLtNv/s57KF1OXdpbHRHhjOKPW/oFLZ8luQDmhTkEQjgRrcheG5td9zWFZyOy3nuFAfb7b4BMlBNno9MTqsRfrtRdNEzU2R9rNAh0sk2/t9YN7Hu8rLj+6mgcZF3a1u8FtdEiiC00UItFDh8QYDli/6a2gVt76PtQ1p2l9L3pzygLHRYnT9JNicRaRpbtsiPjOX3YGg+lOLCvPM2OgHvbt8LlsJtBi6hpVYxCcTPpcnQd0o9PS6ikCgpfujjQ0cJpboo1UHE1u4dCAkUS6SoWfm2P+o+49UJlVRzjxpno1UOgCqhNIw1dxDSPtK+jdk8il6rVJfPrFGG9fh8BZooUDomAEUoJH44T/Zgto91JCE9oWY8FJKHRfliqcQ/E8CI1/0f4+AOCMVOy3rGXpVkF5bTx1q0vBU5LSCGBYESMnSagbi9nXwkns6WwAy/dw==
+X-Microsoft-Antispam-Message-Info: 1Cju079ZXdOs9yu3SBJngmHO+iGaya7ZKVIZ9iAZFHrCHDZkfsJV1PQQKtXnGKwYrNMgJ47r1HMMHy0JiStbuUnt5YHws/pol6fpGHRptwfGHhCA5wEJAwyvyC+bItmegpIPHOynzoJF77gAuCFuAa9MsmnsqDDYlwK0g4nnJt207ssZzBfogj7xiy6NU9xWrQ4mkXDXaEJ+mqAg94Wyvzgg1I7uLSYCKgECSp6pZBTMQwRYpB7HyTTbLHn7g7Ro7aBtwOdJKzHY35RDzpIR4iAno+NlMpUBPXe5VOENf2M8QTckWG5y4XiPBKYW27H+vKLJnVboXDWj/0uGu7U8c4dyRgKYl9S1GkjVTGdkzC4qOunSPxdIXLRVxGqaJHQfBvP3yAssTC+/c6KcwOr+Hap0eS9hgIKdc3WV30cq8eT3/ur0C1cJgUIZ8X7JOK5arzfe4eJ1xJJ93l22DIbvL5KEfHfBk/iTC1xuyybe8+6WC/vAS+iSzminLq0jfnIt+/P9dJTBwrvtSLQpWsuKUl/ddsBxwIuD8X/bduZSQvMr4brszFL76ODb9KghfyLRS5mxJ9q5JL5430YlJq39UA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(66574015)(26005)(30864003)(6666004)(559001)(579004);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(26005)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Vw7DPOi2MijL+QChA2WIvxtGqi5/45AqBUF+H/qR7NLvKLGQM3dM/qjosj5c?=
- =?us-ascii?Q?/EhN+5F8JqLZ7S+hOKccOQUoBzEDuozFUOOWKzlNj7ktBr3D6P0Ql/W6ruvF?=
- =?us-ascii?Q?puePYTbvyMDiz7uWNBdDF3+cZx8t4A3sXXfOpOX5QIAPqqoCP74Xyt4aDmB5?=
- =?us-ascii?Q?GDpBZC4ggOEDHtRSYGnj6upnhamn8ZwawdCOwEp9DiQANt3JiZVgxt6NhnvZ?=
- =?us-ascii?Q?zD6rAfR/lVGadpRBUpjgWrHSzZmpT49+OQyWJ0m6V23EW0hxezeSV6YKbX5C?=
- =?us-ascii?Q?FWP+NbWwXJKoGAvjU3Umr1ThHDrlzDPxpYFk9Mvk+Ux75qDRmzEZ//tEoPAu?=
- =?us-ascii?Q?f4VO8VatBe/JL/j+pBzBJ8PBJs/YLpxZZE6DxpW1fWDLJRiUsvtGFSh1aJwb?=
- =?us-ascii?Q?Cd4uXORribdhHV78szt41mpHt6qeGR+GUY3t/MG8A45j9nDfFyhylE/43wlm?=
- =?us-ascii?Q?B6E7josg0jp4gQMPuwfvPCPIvU6UlHbWr3t5zIykeIn/iYqTq3IdztdA3saJ?=
- =?us-ascii?Q?Q0hNUDboEMnoWIWhiOEnYH5PN7w1CxiTI6bEQIYtDmw2W8Vmu7Tpzyt7ILlz?=
- =?us-ascii?Q?zpApZFvsgFUCgvcpwFlw9s2SKYBjBK2abt616wm6GZfcqn7n2b6Tzc5sifLq?=
- =?us-ascii?Q?ghgv0gOEQDrl9MBPxYAl+ZQ7z8rrMMM1+mjrDHoouerlQ7NvkovP0mWl7KI3?=
- =?us-ascii?Q?MewOMO56vpM9h7rsny0+olCMphan90QBz8Xqh72KvFZtYQeRm7exRbLr3bh4?=
- =?us-ascii?Q?xDWgRSFQE82kT64p5EQuZOcQznD2zs71H5zCPRmOQ6p8VXxge7ZKIdkt+3aA?=
- =?us-ascii?Q?C/0heUBE2ZBKIHMhwCo4yp7knbafmTO1dCTcmmn3i3RL7vs0JYHqTvnY+AAJ?=
- =?us-ascii?Q?mfDvkE61P9vFPTQh8ETp/rQFiGXTurISuSg2Lt/XkJnGAgmvBIay/c9fegau?=
- =?us-ascii?Q?VlQ7vstJ4KWJ9Z03AqBVLWf8+gqTax7ewEEZ+4QrSXTtFWgzSE9WTQsVcsuC?=
- =?us-ascii?Q?M3NJ7mhSlc/d4C+bAj1InhPQRRR4OZqgObwX6bVzYk5ld5YsMR36oOwxRds4?=
- =?us-ascii?Q?+rJ60Bt71eZ8TqbhrrDWi0yu/T3bXuel1LuybU4CwOQRWXBt0eEXhxiecnly?=
- =?us-ascii?Q?JX8X8fonwbv2jBigfeae6fvZK/Ka67/9RIvHN3Adsn13V3if2RvDR9Ix4124?=
- =?us-ascii?Q?eWUsJQ8IPwdCt/c1j4Xa9I16iSRgXNw+ubkiGX305bfJbXV/ds9piyzGZDUU?=
- =?us-ascii?Q?WhEA0qLREUBjWA0Vh2f0QxOD7Xz5Vq/B7/QyRwcETUbqpPZ1/xpBtNhHE40Q?=
- =?us-ascii?Q?0nLw7IZAJbE7InNH5HXdEQQ7?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?kGNn8fmIPIg4+mZAAXlUtVMVyq6vlRDmpy1V6S32UXz/H/bkRFNpiDkvbKzE?=
+ =?us-ascii?Q?o1KnyHaPQsECUpckgVMftb483aSB6yZAuDEvo02LS+EtybpAOn5Z2Fd7A8uH?=
+ =?us-ascii?Q?tudSzYKKm/nTj+jyNDgaw8k7ytiJvRB1MM7lATN8iI/TY4sPLZan4gMZXw7v?=
+ =?us-ascii?Q?BJtSGtZD1xmP08JQDE8exeJYJ9neVDdo/GyexWnyewZaS+g1tBkkmU1F8o4/?=
+ =?us-ascii?Q?rlbth7lqMxTsmSpl3bOp4ARAejahBUsOw2jLCLUnHmFYjcU5xgCnsrv0dMDd?=
+ =?us-ascii?Q?JwbX23hJOmIeJejXFADYkUzZ9/eXX+X+qwSBCkEw9oPQQbIxEMmLHiB7+aDm?=
+ =?us-ascii?Q?DmAQnxDJNf8b0tY1Oku/+I7TiWOIbz9ivMEDK54yiznm/dlAR2Ic8sxwtq0x?=
+ =?us-ascii?Q?adNSWDlG46EKGEZYOHfiA/QTtbIN1nZZtAmNxI9Ns11/pXDW5bNjsHztSOCU?=
+ =?us-ascii?Q?t28TrqinmqeKXz9/UaajkVEPHdi23P6X6gUGzP6mAGB7/QZKiAWbqcVwwWGG?=
+ =?us-ascii?Q?W91dMv8PMoKIHm0cOtA+q2oadUPJEs5y03jcpipGQPrllbix3S7MM0VpfL9M?=
+ =?us-ascii?Q?wYDP8oYfRhfziFLb7uommjZRuWVrSLm+UhLR0PAqGFss6UIsCz9Ja6PUbS1m?=
+ =?us-ascii?Q?8dF3nIg8eHRXJEcSFWcBDz4rxZT2SHnIN5egMDF+MdBw29yGucf9MRHAqbGk?=
+ =?us-ascii?Q?bjxxEswdZA/iyKBccDGgmvv219vEInXiaVBDzqKhfTUISa+bQuy9Z/vZIoRc?=
+ =?us-ascii?Q?msxZ6yQAjj1m+WaDtzVaf5NPSvqw+qkjXAoplhC23F7TzL7PJSYWyntl2CP3?=
+ =?us-ascii?Q?lmv3koDk6aN8EpRH4VF4dVtxnsW6nGc8QTmEW/Upv4cDfbZEVMkG0lvsPcWQ?=
+ =?us-ascii?Q?vUjRvK3BJoW+KaTFAUZHj43RNTbywI+AR2565Gq/hahEscD+V6IUxPO4gVoW?=
+ =?us-ascii?Q?rsqjdokj4vwsnEAYWL5m5+ilrsIB0/xm+YT6eUCY6pvqoVbd7/8rlQuM8X/D?=
+ =?us-ascii?Q?0UAh6ZBA9cWIeOdYsOaBvMxZXs/sYsHpGPr8eT0URiOod6wSJ+dauG4jRASV?=
+ =?us-ascii?Q?nJr3Jpu+Zfs/Z4pUsgnogxoHBVl5bL9eFgRUi2iYEjZOGquMGDwEQ3l0cAsu?=
+ =?us-ascii?Q?gTsU4Vg9MZY/nb60RzkwyC70QzGQAoGyuIr4aZdxIJfo2wvU5U922O66DBpP?=
+ =?us-ascii?Q?hWV2rn+gcy3c6+OqwlvOIGw4o5fRRRqlea8xf+XhvEwEBsuU4OxRLVpxvodp?=
+ =?us-ascii?Q?MTCgZQPmRO1NzJrbL9QhRKxXd41uar5jQ+AcO6s1lPHvEMMtFgl4iDB4Hcw4?=
+ =?us-ascii?Q?njj8lLwEZxcsexvL5Tl7EFXa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4331d0e-91af-41c6-ff91-08d8d9127996
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14c7e186-1367-4192-8c35-08d8d9127abf
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:04.9336 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:06.6948 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T7kLr7lJX+d0I+sB1WyvXGxSdy9faqf3yr0s1WxBV15XtQEdM7fHHCxKgccD2s9k+4EuRCy47OSmKxrbp0TuKA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7mPn2zbSXMN35TrSTvEpV65FEY8hpNykGhJYyJ3ei5W6iSCAnnK7OzlzpzSvS1exrZMdaOc019b44osWY+hlCA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,1244 +127,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dennis Li <Dennis.Li@amd.com>
+From: Felix Kuehling <Felix.Kuehling@amd.com>
 
-add edc counter/status reset and query functions for gfx block of
-aldebaran.
+When there is no graphics support, KFD can use more of the VMIDs. Graphics
+VMIDs are only used for video decoding/encoding and post processing. With
+two VCE engines, there is no reason to reserve more than 2 VMIDs for that.
 
-v2: change to clear edc counter explicitly
-aldebaran hardware will not clear edc counter after driver reading them,
-so driver should clear them explicitly.
-
-Signed-off-by: Dennis Li <Dennis.Li@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h   |    1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c     |   14 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c   | 1078 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h   |    6 +
- drivers/gpu/drm/amd/amdgpu/soc15.h        |   11 +
- drivers/gpu/drm/amd/amdgpu/soc15_common.h |   18 +
- 6 files changed, 1128 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 72dbcd2bc6a6..1ab9632282d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -30,6 +30,7 @@
- #include "clearstate_defs.h"
- #include "amdgpu_ring.h"
- #include "amdgpu_rlc.h"
-+#include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 00c8ec80f19e..45ba3819bb8f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1559,7 +1559,8 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	 * for video processing.
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid =
+-		adev->asic_type == CHIP_ARCTURUS ? 3 : 8;
++		(adev->asic_type == CHIP_ARCTURUS ||
++		 adev->asic_type == CHIP_ALDEBARAN) ? 3 : 8;
  
- /* GFX current status */
- #define AMDGPU_GFX_NORMAL_MODE			0x00000000L
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 3097c9855a5f..977eeec70e1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2110,6 +2110,19 @@ static const struct amdgpu_gfx_funcs gfx_v9_4_gfx_funcs = {
- 	.query_ras_error_status = &gfx_v9_4_query_ras_error_status,
- };
+ 	amdgpu_vm_manager_init(adev);
  
-+static const struct amdgpu_gfx_funcs gfx_v9_4_2_gfx_funcs = {
-+	.get_gpu_clock_counter = &gfx_v9_0_get_gpu_clock_counter,
-+	.select_se_sh = &gfx_v9_0_select_se_sh,
-+	.read_wave_data = &gfx_v9_0_read_wave_data,
-+	.read_wave_sgprs = &gfx_v9_0_read_wave_sgprs,
-+	.read_wave_vgprs = &gfx_v9_0_read_wave_vgprs,
-+	.select_me_pipe_q = &gfx_v9_0_select_me_pipe_q,
-+	.ras_error_inject = &gfx_v9_4_2_ras_error_inject,
-+	.query_ras_error_count = &gfx_v9_4_2_query_ras_error_count,
-+	.reset_ras_error_count = &gfx_v9_4_2_reset_ras_error_count,
-+	.query_ras_error_status = &gfx_v9_4_2_query_ras_error_status,
-+};
-+
- static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
- {
- 	u32 gb_addr_config;
-@@ -2182,6 +2195,7 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
- 		gb_addr_config |= 0x22010042;
- 		break;
- 	case CHIP_ALDEBARAN:
-+		adev->gfx.funcs = &gfx_v9_4_2_gfx_funcs;
- 		adev->gfx.config.max_hw_contexts = 8;
- 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
- 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index e034ab11fdae..1cf4f4999112 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -27,6 +27,36 @@
- #include "gc/gc_9_4_2_sh_mask.h"
- #include "gfx_v9_0.h"
- 
-+#include "gfx_v9_4_2.h"
-+#include "amdgpu_ras.h"
-+#include "amdgpu_gfx.h"
-+
-+enum gfx_v9_4_2_utc_type {
-+	VML2_MEM,
-+	VML2_WALKER_MEM,
-+	UTCL2_MEM,
-+	ATC_L2_CACHE_2M,
-+	ATC_L2_CACHE_32K,
-+	ATC_L2_CACHE_4K
-+};
-+
-+struct gfx_v9_4_2_utc_reg {
-+	enum gfx_v9_4_2_utc_type type;
-+	struct soc15_reg idx_reg;
-+	struct soc15_reg data_reg;
-+	uint32_t sec_count_mask;
-+	uint32_t sec_count_shift;
-+	uint32_t ded_count_mask;
-+	uint32_t ded_count_shift;
-+	uint32_t clear;
-+};
-+
-+struct gfx_v9_4_2_utc_info_map {
-+	enum gfx_v9_4_2_utc_type type;
-+	const char *name;
-+	uint32_t index;
-+};
-+
- static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde_die_0[] = {
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CHAN_STEER_0, 0x3fffffff, 0x141dc920),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CHAN_STEER_1, 0x3fffffff, 0x3b458b93),
-@@ -128,3 +158,1051 @@ void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev)
- 	tmp = REG_SET_FIELD(tmp, PWRBRK_STALL_PATTERN_CTRL, PWRBRK_END_STEP, 0x12);
- 	WREG32_SOC15(GC, 0, regGC_CAC_IND_DATA, tmp);
- }
-+
-+static const struct soc15_reg_entry gfx_v9_4_2_edc_counter_regs[] = {
-+	/* CPF */
-+	{ SOC15_REG_ENTRY(GC, 0, regCPF_EDC_ROQ_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCPF_EDC_TAG_CNT), 0, 1, 1 },
-+	/* CPC */
-+	{ SOC15_REG_ENTRY(GC, 0, regCPC_EDC_SCRATCH_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCPC_EDC_UCODE_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regDC_EDC_STATE_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regDC_EDC_CSINVOC_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regDC_EDC_RESTORE_CNT), 0, 1, 1 },
-+	/* GDS */
-+	{ SOC15_REG_ENTRY(GC, 0, regGDS_EDC_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGDS_EDC_GRBM_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PHY_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PIPE_CNT), 0, 1, 1 },
-+	/* RLC */
-+	{ SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT), 0, 1, 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2), 0, 1, 1 },
-+	/* SPI */
-+	{ SOC15_REG_ENTRY(GC, 0, regSPI_EDC_CNT), 0, 8, 1 },
-+	/* SQC */
-+	{ SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT), 0, 8, 7 },
-+	{ SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2), 0, 8, 7 },
-+	{ SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3), 0, 8, 7 },
-+	{ SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3), 0, 8, 7 },
-+	/* SQ */
-+	{ SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT), 0, 8, 14 },
-+	/* TCP */
-+	{ SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW), 0, 8, 14 },
-+	/* TCI */
-+	{ SOC15_REG_ENTRY(GC, 0, regTCI_EDC_CNT), 0, 1, 69 },
-+	/* TCC */
-+	{ SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT), 0, 1, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2), 0, 1, 16 },
-+	/* TCA */
-+	{ SOC15_REG_ENTRY(GC, 0, regTCA_EDC_CNT), 0, 1, 2 },
-+	/* TCX */
-+	{ SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT), 0, 1, 2 },
-+	{ SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT2), 0, 1, 2 },
-+	/* TD */
-+	{ SOC15_REG_ENTRY(GC, 0, regTD_EDC_CNT), 0, 8, 14 },
-+	/* TA */
-+	{ SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT), 0, 8, 14 },
-+	/* GCEA */
-+	{ SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT), 0, 1, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2), 0, 1, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 1, 16 },
-+};
-+
-+static void gfx_v9_4_2_select_se_sh(struct amdgpu_device *adev, u32 se_num,
-+				  u32 sh_num, u32 instance)
-+{
-+	u32 data;
-+
-+	if (instance == 0xffffffff)
-+		data = REG_SET_FIELD(0, GRBM_GFX_INDEX,
-+				     INSTANCE_BROADCAST_WRITES, 1);
-+	else
-+		data = REG_SET_FIELD(0, GRBM_GFX_INDEX, INSTANCE_INDEX,
-+				     instance);
-+
-+	if (se_num == 0xffffffff)
-+		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SE_BROADCAST_WRITES,
-+				     1);
-+	else
-+		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SE_INDEX, se_num);
-+
-+	if (sh_num == 0xffffffff)
-+		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SH_BROADCAST_WRITES,
-+				     1);
-+	else
-+		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SH_INDEX, sh_num);
-+
-+	WREG32_SOC15_RLC_SHADOW_EX(reg, GC, 0, regGRBM_GFX_INDEX, data);
-+}
-+
-+static const struct soc15_ras_field_entry gfx_v9_4_2_ras_fields[] = {
-+	/* CPF */
-+	{ "CPF_ROQ_ME2", SOC15_REG_ENTRY(GC, 0, regCPF_EDC_ROQ_CNT),
-+	  SOC15_REG_FIELD(CPF_EDC_ROQ_CNT, SEC_COUNT_ME2),
-+	  SOC15_REG_FIELD(CPF_EDC_ROQ_CNT, DED_COUNT_ME2) },
-+	{ "CPF_ROQ_ME1", SOC15_REG_ENTRY(GC, 0, regCPF_EDC_ROQ_CNT),
-+	  SOC15_REG_FIELD(CPF_EDC_ROQ_CNT, SEC_COUNT_ME1),
-+	  SOC15_REG_FIELD(CPF_EDC_ROQ_CNT, DED_COUNT_ME1) },
-+	{ "CPF_TCIU_TAG", SOC15_REG_ENTRY(GC, 0, regCPF_EDC_TAG_CNT),
-+	  SOC15_REG_FIELD(CPF_EDC_TAG_CNT, SEC_COUNT),
-+	  SOC15_REG_FIELD(CPF_EDC_TAG_CNT, DED_COUNT) },
-+
-+	/* CPC */
-+	{ "CPC_SCRATCH", SOC15_REG_ENTRY(GC, 0, regCPC_EDC_SCRATCH_CNT),
-+	  SOC15_REG_FIELD(CPC_EDC_SCRATCH_CNT, SEC_COUNT),
-+	  SOC15_REG_FIELD(CPC_EDC_SCRATCH_CNT, DED_COUNT) },
-+	{ "CPC_UCODE", SOC15_REG_ENTRY(GC, 0, regCPC_EDC_UCODE_CNT),
-+	  SOC15_REG_FIELD(CPC_EDC_UCODE_CNT, SEC_COUNT),
-+	  SOC15_REG_FIELD(CPC_EDC_UCODE_CNT, DED_COUNT) },
-+	{ "CPC_DC_STATE_RAM_ME1", SOC15_REG_ENTRY(GC, 0, regDC_EDC_STATE_CNT),
-+	  SOC15_REG_FIELD(DC_EDC_STATE_CNT, SEC_COUNT_ME1),
-+	  SOC15_REG_FIELD(DC_EDC_STATE_CNT, DED_COUNT_ME1) },
-+	{ "CPC_DC_CSINVOC_RAM_ME1",
-+	  SOC15_REG_ENTRY(GC, 0, regDC_EDC_CSINVOC_CNT),
-+	  SOC15_REG_FIELD(DC_EDC_CSINVOC_CNT, SEC_COUNT_ME1),
-+	  SOC15_REG_FIELD(DC_EDC_CSINVOC_CNT, DED_COUNT_ME1) },
-+	{ "CPC_DC_RESTORE_RAM_ME1",
-+	  SOC15_REG_ENTRY(GC, 0, regDC_EDC_RESTORE_CNT),
-+	  SOC15_REG_FIELD(DC_EDC_RESTORE_CNT, SEC_COUNT_ME1),
-+	  SOC15_REG_FIELD(DC_EDC_RESTORE_CNT, DED_COUNT_ME1) },
-+	{ "CPC_DC_CSINVOC_RAM1_ME1",
-+	  SOC15_REG_ENTRY(GC, 0, regDC_EDC_CSINVOC_CNT),
-+	  SOC15_REG_FIELD(DC_EDC_CSINVOC_CNT, SEC_COUNT1_ME1),
-+	  SOC15_REG_FIELD(DC_EDC_CSINVOC_CNT, DED_COUNT1_ME1) },
-+	{ "CPC_DC_RESTORE_RAM1_ME1",
-+	  SOC15_REG_ENTRY(GC, 0, regDC_EDC_RESTORE_CNT),
-+	  SOC15_REG_FIELD(DC_EDC_RESTORE_CNT, SEC_COUNT1_ME1),
-+	  SOC15_REG_FIELD(DC_EDC_RESTORE_CNT, DED_COUNT1_ME1) },
-+
-+	/* GDS */
-+	{ "GDS_GRBM", SOC15_REG_ENTRY(GC, 0, regGDS_EDC_GRBM_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_GRBM_CNT, SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_GRBM_CNT, DED) },
-+	{ "GDS_MEM", SOC15_REG_ENTRY(GC, 0, regGDS_EDC_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_CNT, GDS_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_CNT, GDS_MEM_DED) },
-+	{ "GDS_PHY_CMD_RAM_MEM", SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PHY_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, PHY_CMD_RAM_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, PHY_CMD_RAM_MEM_DED) },
-+	{ "GDS_PHY_DATA_RAM_MEM", SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PHY_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, PHY_DATA_RAM_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, PHY_DATA_RAM_MEM_DED) },
-+	{ "GDS_ME0_CS_PIPE_MEM", SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PHY_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, ME0_CS_PIPE_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PHY_CNT, ME0_CS_PIPE_MEM_DED) },
-+	{ "GDS_ME1_PIPE0_PIPE_MEM",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PIPE_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE0_PIPE_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE0_PIPE_MEM_DED) },
-+	{ "GDS_ME1_PIPE1_PIPE_MEM",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PIPE_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE1_PIPE_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE1_PIPE_MEM_DED) },
-+	{ "GDS_ME1_PIPE2_PIPE_MEM",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PIPE_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE2_PIPE_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE2_PIPE_MEM_DED) },
-+	{ "GDS_ME1_PIPE3_PIPE_MEM",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_PIPE_CNT),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE3_PIPE_MEM_SEC),
-+	  SOC15_REG_FIELD(GDS_EDC_OA_PIPE_CNT, ME1_PIPE3_PIPE_MEM_DED) },
-+	{ "GDS_ME0_GFXHP3D_PIX_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME0_GFXHP3D_PIX_DED) },
-+	{ "GDS_ME0_GFXHP3D_VTX_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME0_GFXHP3D_VTX_DED) },
-+	{ "GDS_ME0_CS_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME0_CS_DED) },
-+	{ "GDS_ME0_GFXHP3D_GS_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME0_GFXHP3D_GS_DED) },
-+	{ "GDS_ME1_PIPE0_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME1_PIPE0_DED) },
-+	{ "GDS_ME1_PIPE1_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME1_PIPE1_DED) },
-+	{ "GDS_ME1_PIPE2_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME1_PIPE2_DED) },
-+	{ "GDS_ME1_PIPE3_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME1_PIPE3_DED) },
-+	{ "GDS_ME2_PIPE0_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME2_PIPE0_DED) },
-+	{ "GDS_ME2_PIPE1_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME2_PIPE1_DED) },
-+	{ "GDS_ME2_PIPE2_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME2_PIPE2_DED) },
-+	{ "GDS_ME2_PIPE3_DED",
-+	  SOC15_REG_ENTRY(GC, 0, regGDS_EDC_OA_DED), 0, 0,
-+	  SOC15_REG_FIELD(GDS_EDC_OA_DED, ME2_PIPE3_DED) },
-+
-+	/* RLC */
-+	{ "RLCG_INSTR_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCG_INSTR_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCG_INSTR_RAM_DED_COUNT) },
-+	{ "RLCG_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCG_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCG_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLCV_INSTR_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCV_INSTR_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCV_INSTR_RAM_DED_COUNT) },
-+	{ "RLCV_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCV_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLCV_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_TCTAG_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_TCTAG_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_TCTAG_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SPM_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SPM_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SRM_DATA_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SRM_DATA_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SRM_DATA_RAM_DED_COUNT) },
-+	{ "RLC_SRM_ADDR_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SRM_ADDR_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT, RLC_SRM_ADDR_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE0_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE0_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE0_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE1_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE1_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE1_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE2_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE2_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE2_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE3_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE3_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE3_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE4_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE4_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE4_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE5_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE5_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE5_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE6_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE6_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE6_SCRATCH_RAM_DED_COUNT) },
-+	{ "RLC_SPM_SE7_SCRATCH_RAM", SOC15_REG_ENTRY(GC, 0, regRLC_EDC_CNT2),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE7_SCRATCH_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(RLC_EDC_CNT2, RLC_SPM_SE7_SCRATCH_RAM_DED_COUNT) },
-+
-+	/* SPI */
-+	{ "SPI_SR_MEM", SOC15_REG_ENTRY(GC, 0, regSPI_EDC_CNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_SR_MEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_SR_MEM_DED_COUNT) },
-+	{ "SPI_GDS_EXPREQ", SOC15_REG_ENTRY(GC, 0, regSPI_EDC_CNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_GDS_EXPREQ_SEC_COUNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_GDS_EXPREQ_DED_COUNT) },
-+	{ "SPI_WB_GRANT_30", SOC15_REG_ENTRY(GC, 0, regSPI_EDC_CNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_WB_GRANT_30_SEC_COUNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_WB_GRANT_30_DED_COUNT) },
-+	{ "SPI_LIFE_CNT", SOC15_REG_ENTRY(GC, 0, regSPI_EDC_CNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_LIFE_CNT_SEC_COUNT),
-+	  SOC15_REG_FIELD(SPI_EDC_CNT, SPI_LIFE_CNT_DED_COUNT) },
-+
-+	/* SQC - regSQC_EDC_CNT */
-+	{ "SQC_DATA_CU0_WRITE_DATA_BUF", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU0_WRITE_DATA_BUF_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU0_WRITE_DATA_BUF_DED_COUNT) },
-+	{ "SQC_DATA_CU0_UTCL1_LFIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU0_UTCL1_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU0_UTCL1_LFIFO_DED_COUNT) },
-+	{ "SQC_DATA_CU1_WRITE_DATA_BUF", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU1_WRITE_DATA_BUF_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU1_WRITE_DATA_BUF_DED_COUNT) },
-+	{ "SQC_DATA_CU1_UTCL1_LFIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU1_UTCL1_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU1_UTCL1_LFIFO_DED_COUNT) },
-+	{ "SQC_DATA_CU2_WRITE_DATA_BUF", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU2_WRITE_DATA_BUF_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU2_WRITE_DATA_BUF_DED_COUNT) },
-+	{ "SQC_DATA_CU2_UTCL1_LFIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU2_UTCL1_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU2_UTCL1_LFIFO_DED_COUNT) },
-+	{ "SQC_DATA_CU3_WRITE_DATA_BUF", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU3_WRITE_DATA_BUF_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU3_WRITE_DATA_BUF_DED_COUNT) },
-+	{ "SQC_DATA_CU3_UTCL1_LFIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU3_UTCL1_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT, DATA_CU3_UTCL1_LFIFO_DED_COUNT) },
-+
-+	/* SQC - regSQC_EDC_CNT2 */
-+	{ "SQC_INST_BANKA_TAG_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_BANKA_TAG_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_BANKA_TAG_RAM_DED_COUNT) },
-+	{ "SQC_INST_BANKA_BANK_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_BANKA_BANK_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_BANKA_BANK_RAM_DED_COUNT) },
-+	{ "SQC_DATA_BANKA_TAG_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_TAG_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_TAG_RAM_DED_COUNT) },
-+	{ "SQC_DATA_BANKA_BANK_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_BANK_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_BANK_RAM_DED_COUNT) },
-+	{ "SQC_INST_UTCL1_LFIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_UTCL1_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, INST_UTCL1_LFIFO_DED_COUNT) },
-+	{ "SQC_DATA_BANKA_DIRTY_BIT_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT2),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_DIRTY_BIT_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT2, DATA_BANKA_DIRTY_BIT_RAM_DED_COUNT) },
-+
-+	/* SQC - regSQC_EDC_CNT3 */
-+	{ "SQC_INST_BANKB_TAG_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, INST_BANKB_TAG_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, INST_BANKB_TAG_RAM_DED_COUNT) },
-+	{ "SQC_INST_BANKB_BANK_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, INST_BANKB_BANK_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, INST_BANKB_BANK_RAM_DED_COUNT) },
-+	{ "SQC_DATA_BANKB_TAG_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_TAG_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_TAG_RAM_DED_COUNT) },
-+	{ "SQC_DATA_BANKB_BANK_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_BANK_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_BANK_RAM_DED_COUNT) },
-+	{ "SQC_DATA_BANKB_DIRTY_BIT_RAM", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_DIRTY_BIT_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_CNT3, DATA_BANKB_DIRTY_BIT_RAM_DED_COUNT) },
-+
-+	/* SQC - regSQC_EDC_PARITY_CNT3 */
-+	{ "SQC_INST_BANKA_UTCL1_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKA_UTCL1_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKA_UTCL1_MISS_FIFO_DED_COUNT) },
-+	{ "SQC_INST_BANKA_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKA_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKA_MISS_FIFO_DED_COUNT) },
-+	{ "SQC_DATA_BANKA_HIT_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKA_HIT_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKA_HIT_FIFO_DED_COUNT) },
-+	{ "SQC_DATA_BANKA_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKA_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKA_MISS_FIFO_DED_COUNT) },
-+	{ "SQC_INST_BANKB_UTCL1_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKB_UTCL1_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKB_UTCL1_MISS_FIFO_DED_COUNT) },
-+	{ "SQC_INST_BANKB_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKB_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, INST_BANKB_MISS_FIFO_DED_COUNT) },
-+	{ "SQC_DATA_BANKB_HIT_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKB_HIT_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKB_HIT_FIFO_DED_COUNT) },
-+	{ "SQC_DATA_BANKB_MISS_FIFO", SOC15_REG_ENTRY(GC, 0, regSQC_EDC_PARITY_CNT3),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKB_MISS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQC_EDC_PARITY_CNT3, DATA_BANKB_MISS_FIFO_DED_COUNT) },
-+
-+	/* SQ */
-+	{ "SQ_LDS_D", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, LDS_D_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, LDS_D_DED_COUNT) },
-+	{ "SQ_LDS_I", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, LDS_I_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, LDS_I_DED_COUNT) },
-+	{ "SQ_SGPR", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, SGPR_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, SGPR_DED_COUNT) },
-+	{ "SQ_VGPR0", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR0_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR0_DED_COUNT) },
-+	{ "SQ_VGPR1", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR1_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR1_DED_COUNT) },
-+	{ "SQ_VGPR2", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR2_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR2_DED_COUNT) },
-+	{ "SQ_VGPR3", SOC15_REG_ENTRY(GC, 0, regSQ_EDC_CNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR3_SEC_COUNT),
-+	  SOC15_REG_FIELD(SQ_EDC_CNT, VGPR3_DED_COUNT) },
-+
-+	/* TCP */
-+	{ "TCP_CACHE_RAM", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, CACHE_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, CACHE_RAM_DED_COUNT) },
-+	{ "TCP_LFIFO_RAM", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, LFIFO_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, LFIFO_RAM_DED_COUNT) },
-+	{ "TCP_CMD_FIFO", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, CMD_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, CMD_FIFO_DED_COUNT) },
-+	{ "TCP_VM_FIFO", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, VM_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, VM_FIFO_DED_COUNT) },
-+	{ "TCP_DB_RAM", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, DB_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, DB_RAM_DED_COUNT) },
-+	{ "TCP_UTCL1_LFIFO0", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, UTCL1_LFIFO0_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, UTCL1_LFIFO0_DED_COUNT) },
-+	{ "TCP_UTCL1_LFIFO1", SOC15_REG_ENTRY(GC, 0, regTCP_EDC_CNT_NEW),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, UTCL1_LFIFO1_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCP_EDC_CNT_NEW, UTCL1_LFIFO1_DED_COUNT) },
-+
-+	/* TCI */
-+	{ "TCI_WRITE_RAM", SOC15_REG_ENTRY(GC, 0, regTCI_EDC_CNT),
-+	  SOC15_REG_FIELD(TCI_EDC_CNT, WRITE_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCI_EDC_CNT, WRITE_RAM_DED_COUNT) },
-+
-+	/* TCC */
-+	{ "TCC_CACHE_DATA", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, CACHE_DATA_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, CACHE_DATA_DED_COUNT) },
-+	{ "TCC_CACHE_DIRTY", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, CACHE_DIRTY_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, CACHE_DIRTY_DED_COUNT) },
-+	{ "TCC_HIGH_RATE_TAG", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, HIGH_RATE_TAG_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, HIGH_RATE_TAG_DED_COUNT) },
-+	{ "TCC_LOW_RATE_TAG", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LOW_RATE_TAG_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LOW_RATE_TAG_DED_COUNT) },
-+	{ "TCC_SRC_FIFO", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, SRC_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, SRC_FIFO_DED_COUNT) },
-+	{ "TCC_LATENCY_FIFO", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LATENCY_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LATENCY_FIFO_DED_COUNT) },
-+	{ "TCC_LATENCY_FIFO_NEXT_RAM", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LATENCY_FIFO_NEXT_RAM_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT, LATENCY_FIFO_NEXT_RAM_DED_COUNT) },
-+	{ "TCC_CACHE_TAG_PROBE_FIFO", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, CACHE_TAG_PROBE_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, CACHE_TAG_PROBE_FIFO_DED_COUNT) },
-+	{ "TCC_UC_ATOMIC_FIFO", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, UC_ATOMIC_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, UC_ATOMIC_FIFO_DED_COUNT) },
-+	{ "TCC_WRITE_CACHE_READ", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, WRITE_CACHE_READ_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, WRITE_CACHE_READ_DED_COUNT) },
-+	{ "TCC_RETURN_CONTROL", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, RETURN_CONTROL_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, RETURN_CONTROL_DED_COUNT) },
-+	{ "TCC_IN_USE_TRANSFER", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, IN_USE_TRANSFER_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, IN_USE_TRANSFER_DED_COUNT) },
-+	{ "TCC_IN_USE_DEC", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, IN_USE_DEC_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, IN_USE_DEC_DED_COUNT) },
-+	{ "TCC_WRITE_RETURN", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, WRITE_RETURN_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, WRITE_RETURN_DED_COUNT) },
-+	{ "TCC_RETURN_DATA", SOC15_REG_ENTRY(GC, 0, regTCC_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, RETURN_DATA_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCC_EDC_CNT2, RETURN_DATA_DED_COUNT) },
-+
-+	/* TCA */
-+	{ "TCA_HOLE_FIFO", SOC15_REG_ENTRY(GC, 0, regTCA_EDC_CNT),
-+	  SOC15_REG_FIELD(TCA_EDC_CNT, HOLE_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCA_EDC_CNT, HOLE_FIFO_DED_COUNT) },
-+	{ "TCA_REQ_FIFO", SOC15_REG_ENTRY(GC, 0, regTCA_EDC_CNT),
-+	  SOC15_REG_FIELD(TCA_EDC_CNT, REQ_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCA_EDC_CNT, REQ_FIFO_DED_COUNT) },
-+
-+	/* TCX */
-+	{ "TCX_GROUP0", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP0_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP0_DED_COUNT) },
-+	{ "TCX_GROUP1", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP1_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP1_DED_COUNT) },
-+	{ "TCX_GROUP2", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP2_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP2_DED_COUNT) },
-+	{ "TCX_GROUP3", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP3_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP3_DED_COUNT) },
-+	{ "TCX_GROUP4", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP4_SEC_COUNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP4_DED_COUNT) },
-+	{ "TCX_GROUP5", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP5_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP6", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP6_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP7", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP7_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP8", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP8_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP9", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP9_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP10", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT, GROUP10_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP11", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT2, GROUP11_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP12", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT2, GROUP12_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP13", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT2, GROUP13_SED_COUNT), 0, 0 },
-+	{ "TCX_GROUP14", SOC15_REG_ENTRY(GC, 0, regTCX_EDC_CNT2),
-+	  SOC15_REG_FIELD(TCX_EDC_CNT2, GROUP14_SED_COUNT), 0, 0 },
-+
-+	/* TD */
-+	{ "TD_SS_FIFO_LO", SOC15_REG_ENTRY(GC, 0, regTD_EDC_CNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, SS_FIFO_LO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, SS_FIFO_LO_DED_COUNT) },
-+	{ "TD_SS_FIFO_HI", SOC15_REG_ENTRY(GC, 0, regTD_EDC_CNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, SS_FIFO_HI_SEC_COUNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, SS_FIFO_HI_DED_COUNT) },
-+	{ "TD_CS_FIFO", SOC15_REG_ENTRY(GC, 0, regTD_EDC_CNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, CS_FIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TD_EDC_CNT, CS_FIFO_DED_COUNT) },
-+
-+	/* TA */
-+	{ "TA_FS_DFIFO", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_DFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_DFIFO_DED_COUNT) },
-+	{ "TA_FS_AFIFO_LO", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_AFIFO_LO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_AFIFO_LO_DED_COUNT) },
-+	{ "TA_FL_LFIFO", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FL_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FL_LFIFO_DED_COUNT) },
-+	{ "TA_FX_LFIFO", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FX_LFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FX_LFIFO_DED_COUNT) },
-+	{ "TA_FS_CFIFO", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_CFIFO_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_CFIFO_DED_COUNT) },
-+	{ "TA_FS_AFIFO_HI", SOC15_REG_ENTRY(GC, 0, regTA_EDC_CNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_AFIFO_HI_SEC_COUNT),
-+	  SOC15_REG_FIELD(TA_EDC_CNT, TA_FS_AFIFO_HI_DED_COUNT) },
-+
-+	/* EA - regGCEA_EDC_CNT */
-+	{ "EA_DRAMRD_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMRD_CMDMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMRD_CMDMEM_DED_COUNT) },
-+	{ "EA_DRAMWR_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMWR_CMDMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMWR_CMDMEM_DED_COUNT) },
-+	{ "EA_DRAMWR_DATAMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMWR_DATAMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMWR_DATAMEM_DED_COUNT) },
-+	{ "EA_RRET_TAGMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, RRET_TAGMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, RRET_TAGMEM_DED_COUNT) },
-+	{ "EA_WRET_TAGMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, WRET_TAGMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, WRET_TAGMEM_DED_COUNT) },
-+	{ "EA_IOWR_DATAMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, IOWR_DATAMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, IOWR_DATAMEM_DED_COUNT) },
-+	{ "EA_DRAMRD_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMRD_PAGEMEM_SED_COUNT), 0, 0 },
-+	{ "EA_DRAMWR_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, DRAMWR_PAGEMEM_SED_COUNT), 0, 0 },
-+	{ "EA_IORD_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, IORD_CMDMEM_SED_COUNT), 0, 0 },
-+	{ "EA_IOWR_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT, IOWR_CMDMEM_SED_COUNT), 0, 0 },
-+
-+	/* EA - regGCEA_EDC_CNT2 */
-+	{ "EA_GMIRD_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIRD_CMDMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIRD_CMDMEM_DED_COUNT) },
-+	{ "EA_GMIWR_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIWR_CMDMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIWR_CMDMEM_DED_COUNT) },
-+	{ "EA_GMIWR_DATAMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIWR_DATAMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIWR_DATAMEM_DED_COUNT) },
-+	{ "EA_GMIRD_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIRD_PAGEMEM_SED_COUNT), 0, 0 },
-+	{ "EA_GMIWR_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, GMIWR_PAGEMEM_SED_COUNT), 0, 0 },
-+	{ "EA_MAM_D0MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D0MEM_SED_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D0MEM_DED_COUNT) },
-+	{ "EA_MAM_D1MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D1MEM_SED_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D1MEM_DED_COUNT) },
-+	{ "EA_MAM_D2MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D2MEM_SED_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D2MEM_DED_COUNT) },
-+	{ "EA_MAM_D3MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT2),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D3MEM_SED_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT2, MAM_D3MEM_DED_COUNT) },
-+
-+	/* EA - regGCEA_EDC_CNT3 */
-+	{ "EA_DRAMRD_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, DRAMRD_PAGEMEM_DED_COUNT) },
-+	{ "EA_DRAMWR_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, DRAMWR_PAGEMEM_DED_COUNT) },
-+	{ "EA_IORD_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, IORD_CMDMEM_DED_COUNT) },
-+	{ "EA_IOWR_CMDMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, IOWR_CMDMEM_DED_COUNT) },
-+	{ "EA_GMIRD_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, GMIRD_PAGEMEM_DED_COUNT) },
-+	{ "EA_GMIWR_PAGEMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3), 0, 0,
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, GMIWR_PAGEMEM_DED_COUNT) },
-+	{ "EA_MAM_A0MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A0MEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A0MEM_DED_COUNT) },
-+	{ "EA_MAM_A1MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A1MEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A1MEM_DED_COUNT) },
-+	{ "EA_MAM_A2MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A2MEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A2MEM_DED_COUNT) },
-+	{ "EA_MAM_A3MEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A3MEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_A3MEM_DED_COUNT) },
-+	{ "EA_MAM_AFMEM", SOC15_REG_ENTRY(GC, 0, regGCEA_EDC_CNT3),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_AFMEM_SEC_COUNT),
-+	  SOC15_REG_FIELD(GCEA_EDC_CNT3, MAM_AFMEM_DED_COUNT) },
-+};
-+
-+static struct gfx_v9_4_2_utc_reg gfx_v9_4_2_utc_regs[] = {
-+	{ VML2_MEM,
-+	  { SOC15_REG_ENTRY(GC, 0, regVML2_MEM_ECC_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regVML2_MEM_ECC_CNTL) },
-+	  SOC15_REG_FIELD(VML2_MEM_ECC_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(VML2_MEM_ECC_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, VML2_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
-+	{ VML2_WALKER_MEM,
-+	  { SOC15_REG_ENTRY(GC, 0, regVML2_WALKER_MEM_ECC_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regVML2_WALKER_MEM_ECC_CNTL) },
-+	  SOC15_REG_FIELD(VML2_WALKER_MEM_ECC_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(VML2_WALKER_MEM_ECC_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, VML2_WALKER_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
-+	{ UTCL2_MEM,
-+	  { SOC15_REG_ENTRY(GC, 0, regUTCL2_MEM_ECC_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regUTCL2_MEM_ECC_CNTL) },
-+	  SOC15_REG_FIELD(UTCL2_MEM_ECC_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(UTCL2_MEM_ECC_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, UTCL2_MEM_ECC_CNTL, WRITE_COUNTERS, 1) },
-+	{ ATC_L2_CACHE_2M,
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_2M_DSM_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_2M_DSM_CNTL) },
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_2M_DSM_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_2M_DSM_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, ATC_L2_CACHE_2M_DSM_CNTL, WRITE_COUNTERS, 1) },
-+	{ ATC_L2_CACHE_32K,
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_32K_DSM_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_32K_DSM_CNTL) },
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_32K_DSM_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_32K_DSM_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, ATC_L2_CACHE_32K_DSM_CNTL, WRITE_COUNTERS, 1) },
-+	{ ATC_L2_CACHE_4K,
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_4K_DSM_INDEX) },
-+	  { SOC15_REG_ENTRY(GC, 0, regATC_L2_CACHE_4K_DSM_CNTL) },
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_4K_DSM_CNTL, SEC_COUNT),
-+	  SOC15_REG_FIELD(ATC_L2_CACHE_4K_DSM_CNTL, DED_COUNT),
-+	  REG_SET_FIELD(0, ATC_L2_CACHE_4K_DSM_CNTL, WRITE_COUNTERS, 1) },
-+};
-+
-+static const struct gfx_v9_4_2_utc_info_map gfx_v9_4_2_utc_map[] = {
-+	/* GPU VM */
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_BIGK_MEM0", 0 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_BIGK_MEM1", 1 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_4K_MEM0", 2 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_0_4K_MEM1", 3 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_BIGK_MEM0", 4 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_BIGK_MEM1", 5 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_4K_MEM0", 6 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_1_4K_MEM1", 7 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_BIGK_MEM0", 8 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_BIGK_MEM1", 9 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_4K_MEM0", 10 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_2_4K_MEM1", 11 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_BIGK_MEM0", 12 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_BIGK_MEM1", 13 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_4K_MEM0", 14 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_3_4K_MEM1", 15 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_BIGK_MEM0", 16 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_BIGK_MEM1", 17 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_4K_MEM0", 18 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_4_4K_MEM1", 19 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_BIGK_MEM0", 20 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_BIGK_MEM1", 21 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_4K_MEM0", 22 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_5_4K_MEM1", 23 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_BIGK_MEM0", 24 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_BIGK_MEM1", 25 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_4K_MEM0", 26 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_6_4K_MEM1", 27 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_BIGK_MEM0", 28 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_BIGK_MEM1", 29 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_4K_MEM0", 30 },
-+	{ VML2_MEM, "UTC_VML2_BANK_CACHE_7_4K_MEM1", 31 },
-+
-+	/* WALER */
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE0_MEM0", 0 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE0_MEM1", 1 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE1_MEM0", 2 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE1_MEM1", 3 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE2_MEM0", 4 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_CACHE_PDE2_MEM1", 5 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_RDIF_ARADDRS", 6 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_RDIF_LOG_FIFO", 7 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_QUEUE_REQ", 8 },
-+	{ VML2_WALKER_MEM, "UTC_VML2_QUEUE_RET", 9 },
-+
-+	/* SRAM_BLOCK_ROUTER */
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP0_VMC", 0 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP0_APT", 1 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP1_VMC", 2 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP1_APT", 3 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP2_VMC", 4 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP2_APT", 5 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP3_VMC", 6 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP3_APT", 7 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP4_VMC", 8 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP4_APT", 9 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP5_VMC", 10 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP5_APT", 11 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP6_VMC", 12 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP6_APT", 13 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP7_VMC", 14 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP7_APT", 15 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP8_VMC", 16 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP8_APT", 17 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP9_VMC", 18 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP9_APT", 19 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP10_VMC", 20 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP10_APT", 21 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP11_VMC", 22 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP11_APT", 23 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP12_VMC", 24 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP12_APT", 25 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP13_VMC", 26 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP13_APT", 27 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP14_VMC", 28 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP14_APT", 29 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP15_VMC", 30 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP15_APT", 31 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP16_VMC", 32 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP16_APT", 33 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP17_VMC", 34 },
-+	{ UTCL2_MEM, "UTCL2_ROUTER_IFIFO_GROUP17_APT", 35 },
-+
-+	/* ATCL2-2m */
-+	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK0_WAY0_MEM", 0 },
-+	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK0_WAY1_MEM", 1 },
-+	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK1_WAY0_MEM", 2 },
-+	{ ATC_L2_CACHE_2M, "UTC_ATCL2_CACHE_2M_BANK1_WAY1_MEM", 3 },
-+
-+	/* ATCL2-4k */
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM0", 0 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM1", 1 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM2", 2 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM3", 3 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM4", 4 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM5", 5 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM6", 6 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY0_MEM7", 7 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM0", 8 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM1", 9 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM2", 10 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM3", 11 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM4", 12 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM5", 13 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM6", 14 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK0_WAY1_MEM7", 15 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM0", 16 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM1", 17 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM2", 18 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM3", 19 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM4", 20 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM5", 21 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM6", 22 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY0_MEM7", 23 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM0", 24 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM1", 25 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM2", 26 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM3", 27 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM4", 28 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM5", 29 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM6", 30 },
-+	{ ATC_L2_CACHE_4K, "UTC_ATCL2_CACHE_4K_BANK1_WAY1_MEM7", 31 },
-+};
-+
-+static const struct soc15_reg_entry gfx_v9_4_2_rdrsp_status_regs =
-+	{ SOC15_REG_ENTRY(GC, 0, regGCEA_ERR_STATUS), 0, 1, 16 };
-+
-+static int gfx_v9_4_2_get_reg_error_count(struct amdgpu_device *adev,
-+					  const struct soc15_reg_entry *reg,
-+					  uint32_t se_id, uint32_t inst_id,
-+					  uint32_t value, uint32_t *sec_count,
-+					  uint32_t *ded_count)
-+{
-+	uint32_t i;
-+	uint32_t sec_cnt, ded_cnt;
-+
-+	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_2_ras_fields); i++) {
-+		if (gfx_v9_4_2_ras_fields[i].reg_offset != reg->reg_offset ||
-+		    gfx_v9_4_2_ras_fields[i].seg != reg->seg ||
-+		    gfx_v9_4_2_ras_fields[i].inst != reg->inst)
-+			continue;
-+
-+		sec_cnt = SOC15_RAS_REG_FIELD_VAL(
-+			value, gfx_v9_4_2_ras_fields[i], sec);
-+		if (sec_cnt) {
-+			dev_info(adev->dev,
-+				 "GFX SubBlock %s, Instance[%d][%d], SEC %d\n",
-+				 gfx_v9_4_2_ras_fields[i].name, se_id, inst_id,
-+				 sec_cnt);
-+			*sec_count += sec_cnt;
-+		}
-+
-+		ded_cnt = SOC15_RAS_REG_FIELD_VAL(
-+			value, gfx_v9_4_2_ras_fields[i], ded);
-+		if (ded_cnt) {
-+			dev_info(adev->dev,
-+				 "GFX SubBlock %s, Instance[%d][%d], DED %d\n",
-+				 gfx_v9_4_2_ras_fields[i].name, se_id, inst_id,
-+				 ded_cnt);
-+			*ded_count += ded_cnt;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int gfx_v9_4_2_query_sram_edc_count(struct amdgpu_device *adev,
-+				uint32_t *sec_count, uint32_t *ded_count)
-+{
-+	uint32_t i, j, k, data;
-+	uint32_t sec_cnt = 0, ded_cnt = 0;
-+
-+	if (sec_count && ded_count) {
-+		*sec_count = 0;
-+		*ded_count = 0;
-+	}
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_2_edc_counter_regs); i++) {
-+		for (j = 0; j < gfx_v9_4_2_edc_counter_regs[i].se_num; j++) {
-+			for (k = 0; k < gfx_v9_4_2_edc_counter_regs[i].instance;
-+			     k++) {
-+				gfx_v9_4_2_select_se_sh(adev, j, 0, k);
-+
-+				/* if sec/ded_count is null, just clear counter */
-+				if (!sec_count || !ded_count) {
-+					WREG32(SOC15_REG_ENTRY_OFFSET(
-+						gfx_v9_4_2_edc_counter_regs[i]), 0);
-+					continue;
-+				}
-+
-+				data = RREG32(SOC15_REG_ENTRY_OFFSET(
-+					gfx_v9_4_2_edc_counter_regs[i]));
-+
-+				if (!data)
-+					continue;
-+
-+				gfx_v9_4_2_get_reg_error_count(adev,
-+					&gfx_v9_4_2_edc_counter_regs[i],
-+					j, k, data, &sec_cnt, &ded_cnt);
-+
-+				/* clear counter after read */
-+				WREG32(SOC15_REG_ENTRY_OFFSET(
-+					gfx_v9_4_2_edc_counter_regs[i]), 0);
-+			}
-+		}
-+	}
-+
-+	if (sec_count && ded_count) {
-+		*sec_count += sec_cnt;
-+		*ded_count += ded_cnt;
-+	}
-+
-+	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+static int gfx_v9_4_2_query_utc_edc_count(struct amdgpu_device *adev,
-+					  uint32_t *sec_count,
-+					  uint32_t *ded_count)
-+{
-+	uint32_t i, j, data;
-+	uint32_t sec_cnt, ded_cnt;
-+
-+	if (sec_count && ded_count) {
-+		*sec_count = 0;
-+		*ded_count = 0;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_2_utc_regs); i++) {
-+		for (j = 0; j < ARRAY_SIZE(gfx_v9_4_2_utc_map); j++) {
-+			if (gfx_v9_4_2_utc_regs[i].type !=
-+			    gfx_v9_4_2_utc_map[j].type)
-+				continue;
-+
-+			WREG32(SOC15_REG_ENTRY_OFFSET(
-+				       gfx_v9_4_2_utc_regs[i].idx_reg),
-+			       gfx_v9_4_2_utc_map[j].index);
-+
-+			/* if sec/ded_count is NULL, just clear counter */
-+			if (!sec_count || !ded_count) {
-+				WREG32(SOC15_REG_ENTRY_OFFSET(
-+					       gfx_v9_4_2_utc_regs[i].data_reg),
-+				       gfx_v9_4_2_utc_regs[i].clear);
-+				continue;
-+			}
-+
-+			data = RREG32(SOC15_REG_ENTRY_OFFSET(
-+				gfx_v9_4_2_utc_regs[i].data_reg));
-+
-+			if (!data)
-+				continue;
-+
-+			sec_cnt = SOC15_RAS_REG_FIELD_VAL(
-+				data, gfx_v9_4_2_utc_regs[i], sec);
-+			if (sec_cnt) {
-+				dev_info(adev->dev, "GFX SubBlock %s, SEC %d\n",
-+					 gfx_v9_4_2_utc_map[j].name, sec_cnt);
-+				*sec_count += sec_cnt;
-+			}
-+
-+			ded_cnt = SOC15_RAS_REG_FIELD_VAL(
-+				data, gfx_v9_4_2_utc_regs[i], ded);
-+			if (ded_cnt) {
-+				dev_info(adev->dev, "GFX SubBlock %s, DED %d\n",
-+					 gfx_v9_4_2_utc_map[j].name, ded_cnt);
-+				*ded_count += ded_cnt;
-+			}
-+
-+			/* clear counter after read */
-+			WREG32(SOC15_REG_ENTRY_OFFSET(
-+				       gfx_v9_4_2_utc_regs[i].data_reg),
-+			       gfx_v9_4_2_utc_regs[i].clear);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int gfx_v9_4_2_query_ras_error_count(struct amdgpu_device *adev,
-+				   void *ras_error_status)
-+{
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
-+	uint32_t sec_count = 0, ded_count = 0;
-+
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return -EINVAL;
-+
-+	err_data->ue_count = 0;
-+	err_data->ce_count = 0;
-+
-+	gfx_v9_4_2_query_sram_edc_count(adev, &sec_count, &ded_count);
-+	err_data->ce_count += sec_count;
-+	err_data->ue_count += ded_count;
-+
-+	gfx_v9_4_2_query_utc_edc_count(adev, &sec_count, &ded_count);
-+	err_data->ce_count += sec_count;
-+	err_data->ue_count += ded_count;
-+
-+	return 0;
-+}
-+
-+static void gfx_v9_4_2_reset_utc_err_status(struct amdgpu_device *adev)
-+{
-+	WREG32_SOC15(GC, 0, regUTCL2_MEM_ECC_STATUS, 0x3);
-+	WREG32_SOC15(GC, 0, regVML2_MEM_ECC_STATUS, 0x3);
-+	WREG32_SOC15(GC, 0, regVML2_WALKER_MEM_ECC_STATUS, 0x3);
-+}
-+
-+static void gfx_v9_4_2_reset_ea_err_status(struct amdgpu_device *adev)
-+{
-+	uint32_t i, j;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	for (i = 0; i < gfx_v9_4_2_rdrsp_status_regs.se_num; i++) {
-+		for (j = 0; j < gfx_v9_4_2_rdrsp_status_regs.instance;
-+		     j++) {
-+			gfx_v9_4_2_select_se_sh(adev, i, 0, j);
-+			WREG32(SOC15_REG_ENTRY_OFFSET(gfx_v9_4_2_rdrsp_status_regs), 0x10);
-+		}
-+	}
-+	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+}
-+
-+void gfx_v9_4_2_reset_ras_error_count(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
-+
-+	gfx_v9_4_2_query_sram_edc_count(adev, NULL, NULL);
-+	gfx_v9_4_2_query_utc_edc_count(adev, NULL, NULL);
-+	gfx_v9_4_2_reset_utc_err_status(adev);
-+	gfx_v9_4_2_reset_ea_err_status(adev);
-+}
-+
-+int gfx_v9_4_2_ras_error_inject(struct amdgpu_device *adev, void *inject_if)
-+{
-+	struct ras_inject_if *info = (struct ras_inject_if *)inject_if;
-+	int ret;
-+	struct ta_ras_trigger_error_input block_info = { 0 };
-+
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return -EINVAL;
-+
-+	block_info.block_id = amdgpu_ras_block_to_ta(info->head.block);
-+	block_info.sub_block_index = info->head.sub_block_index;
-+	block_info.inject_error_type = amdgpu_ras_error_to_ta(info->head.type);
-+	block_info.address = info->address;
-+	block_info.value = info->value;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	ret = psp_ras_trigger_error(&adev->psp, &block_info);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return ret;
-+}
-+
-+static void gfx_v9_4_2_query_ea_err_status(struct amdgpu_device *adev)
-+{
-+	uint32_t i, j;
-+	uint32_t reg_value;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	for (i = 0; i < gfx_v9_4_2_rdrsp_status_regs.se_num; i++) {
-+		for (j = 0; j < gfx_v9_4_2_rdrsp_status_regs.instance;
-+		     j++) {
-+			gfx_v9_4_2_select_se_sh(adev, i, 0, j);
-+			reg_value = RREG32(SOC15_REG_ENTRY_OFFSET(
-+				gfx_v9_4_2_rdrsp_status_regs));
-+			if (reg_value)
-+				dev_warn(adev->dev, "GCEA err detected at instance: %d, status: 0x%x!\n",
-+						j, reg_value);
-+		}
-+	}
-+
-+	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+}
-+
-+static void gfx_v9_4_2_query_utc_err_status(struct amdgpu_device *adev)
-+{
-+	uint32_t data;
-+
-+	data = RREG32_SOC15(GC, 0, regUTCL2_MEM_ECC_STATUS);
-+	if (!data)
-+		dev_warn(adev->dev, "GFX UTCL2 Mem Ecc Status: 0x%x!\n", data);
-+
-+	data = RREG32_SOC15(GC, 0, regVML2_MEM_ECC_STATUS);
-+	if (!data)
-+		dev_warn(adev->dev, "GFX VML2 Mem Ecc Status: 0x%x!\n", data);
-+
-+	data = RREG32_SOC15(GC, 0, regVML2_WALKER_MEM_ECC_STATUS);
-+	if (!data)
-+		dev_warn(adev->dev, "GFX VML2 Walker Mem Ecc Status: 0x%x!\n", data);
-+}
-+
-+void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
-+
-+	gfx_v9_4_2_query_ea_err_status(adev);
-+	gfx_v9_4_2_query_utc_err_status(adev);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-index c113f0db8fa3..d7e3041947e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-@@ -29,4 +29,10 @@ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
- void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
- 				      uint32_t die_id);
- void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev);
-+
-+void gfx_v9_4_2_reset_ras_error_count(struct amdgpu_device *adev);
-+int gfx_v9_4_2_ras_error_inject(struct amdgpu_device *adev, void *inject_if);
-+void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev);
-+int gfx_v9_4_2_query_ras_error_count(struct amdgpu_device *adev,
-+				   void *ras_error_status);
- #endif /* __GFX_V9_4_2_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
-index 0e37f4ce8364..ea0469e45b9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
-@@ -49,6 +49,13 @@ struct soc15_reg_rlcg {
- 	u32	reg;
- };
- 
-+struct soc15_reg {
-+	uint32_t hwip;
-+	uint32_t inst;
-+	uint32_t seg;
-+	uint32_t reg_offset;
-+};
-+
- struct soc15_reg_entry {
- 	uint32_t hwip;
- 	uint32_t inst;
-@@ -88,6 +95,10 @@ struct soc15_ras_field_entry {
- 
- #define SOC15_REG_FIELD(reg, field) reg##__##field##_MASK, reg##__##field##__SHIFT
- 
-+#define SOC15_REG_FIELD_VAL(val, mask, shift)	(((val) & mask) >> shift)
-+
-+#define SOC15_RAS_REG_FIELD_VAL(val, entry, field) SOC15_REG_FIELD_VAL(val, entry.field##_count_mask, entry.field##_count_shift)
-+
- void soc15_grbm_select(struct amdgpu_device *adev,
- 		    u32 me, u32 pipe, u32 queue, u32 vmid);
- void soc15_set_virt_ops(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-index a5c00ab8b021..52ffbea63a4f 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -118,6 +118,24 @@
- 		}	\
- 	} while (0)
- 
-+#define WREG32_SOC15_RLC_SHADOW_EX(prefix, ip, inst, reg, value) \
-+	do {							\
-+		uint32_t target_reg = adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg;\
-+		if (amdgpu_sriov_fullaccess(adev)) {    \
-+			uint32_t r2 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG2;	\
-+			uint32_t r3 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG3;	\
-+			uint32_t grbm_cntl = adev->reg_offset[GC_HWIP][0][prefix##GRBM_GFX_CNTL_BASE_IDX] + prefix##GRBM_GFX_CNTL;   \
-+			uint32_t grbm_idx = adev->reg_offset[GC_HWIP][0][prefix##GRBM_GFX_INDEX_BASE_IDX] + prefix##GRBM_GFX_INDEX;   \
-+			if (target_reg == grbm_cntl) \
-+				WREG32(r2, value);	\
-+			else if (target_reg == grbm_idx) \
-+				WREG32(r3, value);	\
-+			WREG32(target_reg, value);	\
-+		} else {	\
-+			WREG32(target_reg, value); \
-+		}	\
-+	} while (0)
-+
- #define WREG32_SOC15_RLC(ip, inst, reg, value) \
- 	do {							\
- 			uint32_t target_reg = adev->reg_offset[GC_HWIP][0][reg##_BASE_IDX] + reg;\
 -- 
 2.29.2
 
