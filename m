@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE734C4332B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42FDFC43381
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 736F264E05
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 736F264E05
+	by mail.kernel.org (Postfix) with ESMTPS id DD3E064E05
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD3E064E05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1CFC6EBC4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C936EBAC;
 	Wed, 24 Feb 2021 22:22:44 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36756EBB5
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:39 +0000 (UTC)
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 187DC6EBAA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f3UN7n8g5gTzTZuwYqpw3L1kUWruIlopZ8cAs3ol1qCXK719vvmwzIYsE4J9fs/KXYQZKcAv2Ah0IwsGeJNDP4mUceIL7e+02f8hifhbq2978D48tzjp244c95p+u/F2gasDdJKc8KSmXxx3kt6aH1ehDbrNamEc53T3JAND31UmQb17AtA2f2N5rTxE7CDUvVDuqMkezu5p3Dw3al0sPCS05GXPP/Zu/XxBv6nxh4qTu+AZRWQtZiUSU+B7++mJGAVrHyqgTT86Ee5Vn0LbNduS0+XW2Z8OGDs+La05pHVmZzfo49xZBr6pjU7ScvThO5QB23FqLj33Lzt8srhbvg==
+ b=lj5RstxTyIujAWlcvApsUGtcvRxczIToluWu4xHYYpOxhZJNXfmj42Z9mxfhKaKzHqiMrJlAmkMnMAfpIgiSbazUB/bkXXIlVrSNIKQADXJDnFwcmN69j4EKmJQch5+yBR5LIu4Ihd1CskwbXOdGcxvjbIyIOnviSaw2IKanHZYzJGbAqg62H0Us+Mw07+1S2ywMWqhFqGGmkDoobbv2eB05vR+kXm0w1TQmtRujoKFQZcc007xasT7BOP2iML79ezL+wigp22veRlu9swZf4CxSLzQmXV42wc24sDh27cEpSYuToBUptoWE5fXkqUmjTX8ZNb46K+GcUIwnZkQnXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7UdnRHZCD11PI9WKNN0YrUvbF7wsRbHSN27jFtbzeQ=;
- b=oEvi8/YBlTyjt19rWci7CAvDbD0/3QXvf+lBAJsLscj/TpvvHKeXz2nwTKAtPSkrpF9N+4x6Dv7cXPy4cEI6ef/qOequiUdNAVWNFhELFhET/zLdI9hDb5pp9ySMtrEQ8mzkhtMtzfnC1udnwa4Qn/LBax08NXSXAVeNWZkzn52tGzcTj3W6cbJL9mzgAj2yJqmtGkVzZIfIPoaBjLiMeiba9jP1WK4z1kBTzyTX3LoIhy/9aDwHIJGZjfGWCxip779g/O8kY1FsBtvcozPPOgvjybwzFIDW0hUnj57FnmyH/RSCza9xZhIY4dW3S49tcvhcgAwAvIl7WDqyYkWaSg==
+ bh=3hBH41SRBKhY5s+QjFQuPloFJyPWf0usKhZPS8B0e8E=;
+ b=MHJMTwx2j8HsiVrkEv/efzoThj+dABamxLMRRZskCzkN/XYh+LqxYqSKodbjquE0dRVCXFEqkCFBzVA6D5ZJUQkFgp4keL1rEXybJFeHRkGag1qlD/IncYUfjQe2+U4BoU2Z1BH+jA1dLZWBshdBgP+a+cSQ9S9KD2ewGeGs0XbGRZfHYfewMxq3c36tE1eHI8XAoKzqrROP4agOBtd/che07hO/If/spge0eoiMTOZVFsp2f6W4Aw1pMw3Ahc2Xt76N+Zg33Yr2c2Ld/01MeE3RzzM5QHDtz1PY1gEqo9E0f7vjM0oXlKH1FDsU61gbB7FTkULccY2S8D12lUspiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7UdnRHZCD11PI9WKNN0YrUvbF7wsRbHSN27jFtbzeQ=;
- b=TPTCEL5BXFx+ePx5z6DbAMId1jnME4JUbvPAyJR0DknIbAHkccidjvK2CB++LzOoYrXtMwFlgddoGX6YLm53HnnAAbzLKUR0V45o/Z5murOZ9LdQC42ykvQ732T1DOgWkyiOqqnIeKbkizXjg+oNb35GimV0QONohthWcDvMm30=
+ bh=3hBH41SRBKhY5s+QjFQuPloFJyPWf0usKhZPS8B0e8E=;
+ b=g3ga7fArEypi76Et/NZXc/1vfyQibxQtm0WM7CMunHYmqODeKsR/OxWoYHGUPB/W2S0jmuGhQk7nEPn6zXcBKEpSlRRAKmj2ZTURACB1HgjOQg//c50l6FwNFabCALJCgMdbGwcM+3uHizBsu+MFxikw9lF2b8OdlBCML2PXGBw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,17 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by BL0PR12MB4722.namprd12.prod.outlook.com (2603:10b6:208:8c::30)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.27; Wed, 24 Feb
- 2021 22:22:38 +0000
+ 2021 22:22:40 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:22:38 +0000
+ 22:22:39 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 151/159] drm/amdgpu: add gc powerbrake support (v2)
-Date: Wed, 24 Feb 2021 17:18:51 -0500
-Message-Id: <20210224221859.3068810-144-alexander.deucher@amd.com>
+Subject: [PATCH 154/159] drm/amdgpu: enable watchdog feature for SQ of
+ aldebaran
+Date: Wed, 24 Feb 2021 17:18:54 -0500
+Message-Id: <20210224221859.3068810-147-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -68,53 +69,53 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:21:03 +0000
+ Transport; Wed, 24 Feb 2021 22:21:05 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d9d9d8f0-650c-4787-6daa-08d8d912793e
+X-MS-Office365-Filtering-Correlation-Id: e7903b48-eef9-4cbc-0a8e-08d8d9127a68
 X-MS-TrafficTypeDiagnostic: BL0PR12MB4722:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB472269B5A722BDBBCB0326E9F79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB47221CA11B43FBDCCE97AC80F79F9@BL0PR12MB4722.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: n5R+bZsmrD2BKRwKKhXmPO+3qIhuCbRKDDWHan+2gqzYxlCEC5QVlxPrW3GwfvJFYIgVulI/k+0zgUN21ehopvqGr1wOrQNAh0kx4sj8l2+XKs/WLyNwp6T09vK/vYxot0wVcpC+Fg2OG7bie4gfZZH7vaBMxS1jeLxYWP2ofwKyL9G7TtbuOC+4ajIB3F8J7bBrZPM2GEPBnCcSb5KHK/SpRnecGatmbZueRPN1SX/vCNnSAfS/YvUYkid97qdPqEnyHsWWuqd34qvY5ZdZALORZzssfWHlWKDW7b+4nxLgA6FGQMmGiqmWIRBC49XVwWJO8Iyyd33SMC9EL1MHJQiKAAsK/TMeWAH8G7oBBzii6HiaE34GtlvW7mYD3EO1U0G25Urlke0h4PEavAse5pMoLMsahbAgqrh68EM4UldPDvJDm1glNzpFRC7qdxm8niybf9p6uSY0G5/bcE5Rm+4LEh6ojdqs+bOK+bV4HfnUxDhgOhZ6jIU9so3tYyrYKZegeiAPe/NKo9WSgDeD32+SW8uzs5n2mpDDvpebn1Q3AGJksPUYB/YQzQLMc7ZHt9JbyPckQDmlO3mrkTJPDg==
+X-Microsoft-Antispam-Message-Info: Q2Nd9DDQ4FzoLlH9zRiyw6OSm7qMx0vk6wvWFEHkya7jK9Bnx1olWY7dxEhCSDJ70WjFJ2SPXPiIUPF/tIvq0gU0+8mCEfrEm4D7rCqqUBZrkTBpUkzqtIjo0WJKsGKVAKyB9dLEITbCz2PKbcEWbu2T4k+bTMt122xDmzZqhJqpcC8fNgHxKLAWmUojPWcXur15PotAqwPjdwgKtEcqLT6bEnuhqsqJXsJMLIdKKBj0JEl7z+vib1UgwxreLtANgMrWd41lXb6mZ/GHqXwBxIkLbYfLnTvb7UDnU6qp1ukfWjxHjaLSNCqxY1P4OSwwcGHbMuVDG50d8c/jFMlatEMqTSOjmW9OptJGksNCRm0xOfsT9JxAMTvqLbp7Ql6AQUSrGZoe+GxzyNOu4lQ8Pfu+phXV2S3KL1cZQCzJtnESROV8xl0JbMRZSumzMK3wFEpZQ6MdAjHBqSONw5UJzEQ5ZZXtKdHhYejTVr+DqFrTJbTUMccXkWbPSa3C4MdseVG/bLMiGHGq5SAfcJAGOUlDbJOA40GjSefNB2UO4hEFFYC+eIVXVhNv56r9KtfuweTaSn9JaYPg3M4gCIS8Ow==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(26005)(6666004);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(8676002)(69590400012)(6916009)(4326008)(6506007)(8936002)(478600001)(66476007)(54906003)(6486002)(2906002)(6512007)(86362001)(52116002)(956004)(5660300002)(83380400001)(316002)(16526019)(1076003)(2616005)(36756003)(186003)(66946007)(66556008)(26005)(30864003)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Artc6OmtI0A28S0y5ZpNGXRabg7Rqt/6XZyVzUh6JQDl5d7+dRgLeoshhzwy?=
- =?us-ascii?Q?vDmAHjiU39Xm+xsQfdJYhYre1wrlCkl6KpQnY+4fNN8hR7tlCPK37gW9CQXL?=
- =?us-ascii?Q?OH3n1k6KR6zvhGrvI+OZv7IT/fbTdy4bv3pZ5UZDelbD03Edtc5Er0RX22EU?=
- =?us-ascii?Q?pbJDfmVPGmTcrH/rvqSM2qwDhbZOIS2CS0Lks3wlBy2jKUUCbmRpDkYQX5tR?=
- =?us-ascii?Q?rwMSr6tLf88RIWmsg5DtPWkH5W2YTkz3abvqjfgtk1D6quR/IztvDIKI1qCp?=
- =?us-ascii?Q?p4hqIYgDZhkz0jFr9jIdrkgRe6UTKL+Sx6dGCk08TWoW+8/kCA7FCF1Pv4fc?=
- =?us-ascii?Q?Ikh5CcSjDbpxQEnQaGEh/Sb5OvxoY/usufJl0suLMmHlywzW/Yj+MrPHAKar?=
- =?us-ascii?Q?i4+ceHE9xGIEV3DHV9vCTtfxQC0V5XIC4B/MsJ6ddeL5aoBM2MWmS3PIEq8u?=
- =?us-ascii?Q?0e9T5/mMBiux927UzESkBP0pqupaHrntNPqemyU4eFQi7rkmPxxkZeLWWxUz?=
- =?us-ascii?Q?/b9Ury4EO84NEN44GyNA4XyX6XnSZx7YulZpe7Kn+MCPKH8/eF/dJjB7iloz?=
- =?us-ascii?Q?SjbnDvWXdnFcl5w+MY4sMV6AVo5WawEt3IBVC2tScSYgZwMk/8m2c4prh32J?=
- =?us-ascii?Q?fZtyoiJUA61KUFEZILQJyRZ45UETcc1I+UOWRWc/mt1ULFoCz5vPGXdlGk3y?=
- =?us-ascii?Q?amTdbRbpfoLnilR6cDpfDkrsmopbTzbW6teHcmhGHK3sFs4RB9XGnJFGNHMu?=
- =?us-ascii?Q?o5bONyis5N8LnSzKzXKCjDqb8Vn1Gm2M3v7vkTipdWlhdKISiGzKELVo9f0i?=
- =?us-ascii?Q?nsNZcFvbNgIJDZQJA6qUPYh7F4/DxVpjrqE/cgqfWhHJpaPu0pWsnS7YV5Jb?=
- =?us-ascii?Q?33Ia4WJFn96K2KthmCGQf1g5IRyU137mMlN0tc8lL+Z4m4/osOdJOitQhtFf?=
- =?us-ascii?Q?FHsik11h5Mo3JTXpxwYpRNeGK/faS1zzGXMV7c1eNJdQUSMIHsAvB6zO3VcW?=
- =?us-ascii?Q?2WDZgUerntnpM7JxJtTjmtmn6YJEDs0Dw7nUF9IGucEyO5r+EMuYKdIr7hQN?=
- =?us-ascii?Q?sMRLt0ouq/3w4A2XtqLKTXLsL2yqt24IS+NP1pmz5w9dTH7YqMp5kF8g2bPj?=
- =?us-ascii?Q?8ezETMwPyjCtmu5Gh7F1L4LQ+fES4itouXdE/IQvnFT6sUMl1nTXqQeN58h+?=
- =?us-ascii?Q?NfTLOCtsBZM3uuCu7n41a//iyYHSbK9VbzdHAFj5DCBFmP0MAXJ4X125haZJ?=
- =?us-ascii?Q?1K4vnYRg0/vqHk2fX0Fgrjn0B+8bZ0u8st2lhrdCA8AetUH9l8K/SpWY0pPy?=
- =?us-ascii?Q?y454TBVnjdas8qF/CCNOKU5r?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?bOLiFBITzilhY8ByXyqqaEYWQoDMlywTrt6QihrUosrcYUN86Fy+uPioJRmB?=
+ =?us-ascii?Q?XIyO3X4upqnIWAM2aAfzaATCW48jVvnES98FZ11aYhwQuAWBqYxgm2ZAybzP?=
+ =?us-ascii?Q?v89S4i4M5aGLDprfjt3kf4xzhBYIJapTNiurb0S2nxuAVE8bbykjUwj11HCD?=
+ =?us-ascii?Q?ImRnvlHQvKA1lwAkNw08YGgOWIJUumrrOjsmfzEE/pMOYGWe74ArPA89TxSj?=
+ =?us-ascii?Q?jhSBDy0ZmkA8YXdWXRZPH8C5TxnqMOgikyyGbEmSltZs1NaPXoVYpnQ6YZ/e?=
+ =?us-ascii?Q?d1toRf9cEyoe4TTfuQxh8wW8GXrA+2H7Fhmi22IuqGoeGXD9f20famCXA5R6?=
+ =?us-ascii?Q?ZAVx4ObxGA9vC5tK7gb1YEwr+etxQ9qvXy6OZSsB295venlvTv2YrsRFcfK9?=
+ =?us-ascii?Q?cGfbr0uJkB7+d8ZaEOCUpZP+qqm91Rr3bVGTYQYy1csiDxfDKfT9XDrJCx6W?=
+ =?us-ascii?Q?bqwBeHh41AcE1YXOLy1cmNoTthraLRjrRjFXlmGZjVXGY5eZ0XOny+UA7Er5?=
+ =?us-ascii?Q?Q9NH7e5hfBwbamK1QXFMCkIwMJDvuuFydgCTO1mPrhVUjos1BL+2LdVDRQn/?=
+ =?us-ascii?Q?NbGmyZ/b17662OVPD/5xFWv7GG83pjiYArbkGQU1lQs/aLKOzDJc2DtDI+KF?=
+ =?us-ascii?Q?l9ApZ2EQYkEzcW3oWIMViuiwzO3b+OxZy4tW1AV86hGlWaXwhf+lSM5F6992?=
+ =?us-ascii?Q?6ar+YvwN0rYrtj7QEzQgspGCM6k2mC1VJSv5Ksw6OzDsYm3yp+FAqMq91u+U?=
+ =?us-ascii?Q?YhZPGcBU9LpJN37LwQWPaC+uKS2QbFMc61gBpOMm8UHbIU0BsRQnr1FHIGlt?=
+ =?us-ascii?Q?x6g3amH/sc0oYoaJJ8NVfsqydIs5StD8MeNflKKfNIEkRqvszm26tNdrOuKy?=
+ =?us-ascii?Q?1X2rfvCWZf1CMgE4Lt6+7/azq6/ivUfeHiQFK8L1vdJoVX3rFvCoGtUmNHCV?=
+ =?us-ascii?Q?1/YkF+ig5NyFGVgzYkna+lD6gHmYVhQNxyUdNyEMbwYeaVwVaJUPZDmdxDuY?=
+ =?us-ascii?Q?Cloa/D1T61JTU2Oi+WW9YvlpR7MszyBSsVY8ytSRCh3gJ5/GPP4w+xFEaGiN?=
+ =?us-ascii?Q?qUAZN23nxhe5l8+bTQCTzR/vtxm6HFZb+3QK6R06RiSpcTEeDr1Hd17aoCjG?=
+ =?us-ascii?Q?iqYuygrNQZcT/eyVdul9fOMlbf2UlDRadKJ8CbUbM1u2UXJ8CsBQXMi39Ng5?=
+ =?us-ascii?Q?jqdlQyBZc3vR5TNKK9yHSOVWNNuKwVqy9DySeGZNeZtBiA4GWNcBBwhd9ETh?=
+ =?us-ascii?Q?d7qdKr0Wgh2EIvuu/Td/lmLpEi0xJbkTRtvG0jJ3HEZlhHIgqCx7P5ZEDEi5?=
+ =?us-ascii?Q?PHEaB8xKsawXH/92d70/0YFU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9d9d8f0-650c-4787-6daa-08d8d912793e
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7903b48-eef9-4cbc-0a8e-08d8d9127a68
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:04.1500 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:06.1413 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hA+WC34kHlX7fuFuI77v59hNZv7xFJ986h7cAQ9Y62UFDoSMUJcjhSXXEks4iIouTNJovUeVLv8tWuUrywLkMQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 553cc4+bgK0WzEvUiEdhIfIKE7qEiXfTvz8/bLm/27o/FZD+b90IUMzzrGHHcPV2LbXbElMZyqbQm6Hmwb4sBg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,93 +128,328 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Dennis Li <Dennis.Li@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kevin Wang <kevin1.wang@amd.com>
+From: Dennis Li <Dennis.Li@amd.com>
 
-add GC power brake feature support for Aldebaran.
+SQ's watchdog timer monitors forward progress, a mask of which waves
+caused the watchdog timeout is recorded into ras status registers and
+then trigger a system fatal error event.
 
-v2: squash in fixes (Alex)
+v2:
+1. change *query_timeout_status to *query_sq_timeout_status.
+2. move query_sq_timeout_status into amdgpu_ras_do_recovery.
+3. add module parameters to enable/disable fatal error event and modify
+the watchdog timer.
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+v3:
+1. remove unused parameters of *enable_watchdog_timer
+
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  3 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 26 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h |  1 +
- 3 files changed, 30 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   7 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  18 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h   |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c   |   3 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c     |   5 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c   | 106 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h   |   3 +
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h |  30 ++++++
+ 8 files changed, 174 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 361e84369b6c..f82ad1b8eed5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -127,6 +127,12 @@ struct amdgpu_mgpu_info
+ 	uint32_t			num_apu;
+ };
+ 
++struct amdgpu_watchdog_timer
++{
++	bool timeout_fatal_disable;
++	uint32_t period; /* maxCycles = (1 << period), the number of cycles before a timeout */
++};
++
+ #define AMDGPU_MAX_TIMEOUT_PARAM_LENGTH	256
+ 
+ /*
+@@ -186,6 +192,7 @@ extern struct amdgpu_mgpu_info mgpu_info;
+ extern int amdgpu_ras_enable;
+ extern uint amdgpu_ras_mask;
+ extern int amdgpu_bad_page_threshold;
++extern struct amdgpu_watchdog_timer amdgpu_watchdog_timer;
+ extern int amdgpu_async_gfx_ring;
+ extern int amdgpu_mcbp;
+ extern int amdgpu_discovery;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index c4d822b46ea4..42654deb9c55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -172,6 +172,10 @@ struct amdgpu_mgpu_info mgpu_info = {
+ int amdgpu_ras_enable = -1;
+ uint amdgpu_ras_mask = 0xffffffff;
+ int amdgpu_bad_page_threshold = 100;
++struct amdgpu_watchdog_timer amdgpu_watchdog_timer = {
++	.timeout_fatal_disable = false,
++	.period = 0x3f, /* about 8s */
++};
+ 
+ /**
+  * DOC: vramlimit (int)
+@@ -527,6 +531,20 @@ module_param_named(ras_enable, amdgpu_ras_enable, int, 0444);
+ MODULE_PARM_DESC(ras_mask, "Mask of RAS features to enable (default 0xffffffff), only valid when ras_enable == 1");
+ module_param_named(ras_mask, amdgpu_ras_mask, uint, 0444);
+ 
++/**
++ * DOC: timeout_fatal_disable (bool)
++ * Disable Watchdog timeout fatal error event
++ */
++MODULE_PARM_DESC(timeout_fatal_disable, "disable watchdog timeout fatal error (false = default)");
++module_param_named(timeout_fatal_disable, amdgpu_watchdog_timer.timeout_fatal_disable, bool, 0644);
++
++/**
++ * DOC: timeout_period (uint)
++ * Modify the watchdog timeout max_cycles as (1 << period)
++ */
++MODULE_PARM_DESC(timeout_period, "watchdog timeout period (0x1F = default), timeout maxCycles = (1 << period)");
++module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
++
+ /**
+  * DOC: si_support (int)
+  * Set SI support driver. This parameter works after set config CONFIG_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 1ab9632282d4..d92f0f14cbeb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -226,6 +226,8 @@ struct amdgpu_gfx_funcs {
+ 	void (*init_spm_golden)(struct amdgpu_device *adev);
+ 	void (*query_ras_error_status) (struct amdgpu_device *adev);
+ 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
++	void (*enable_watchdog_timer)(struct amdgpu_device *adev);
++	void (*query_sq_timeout_status)(struct amdgpu_device *adev);
+ };
+ 
+ struct sq_work {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 09546dec40ff..5805c78c356b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1467,6 +1467,9 @@ static void amdgpu_ras_error_status_query(struct amdgpu_device *adev,
+ 	case AMDGPU_RAS_BLOCK__GFX:
+ 		if (adev->gfx.funcs->query_ras_error_status)
+ 			adev->gfx.funcs->query_ras_error_status(adev);
++
++		if (adev->gfx.funcs->query_sq_timeout_status)
++			adev->gfx.funcs->query_sq_timeout_status(adev);
+ 		break;
+ 	case AMDGPU_RAS_BLOCK__MMHUB:
+ 		if (adev->mmhub.funcs->query_ras_error_status)
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7fa1660fd751..3097c9855a5f 100644
+index 977eeec70e1b..c37139d2c487 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3948,6 +3948,9 @@ static int gfx_v9_0_hw_init(void *handle)
- 	if (r)
- 		return r;
+@@ -2121,6 +2121,8 @@ static const struct amdgpu_gfx_funcs gfx_v9_4_2_gfx_funcs = {
+ 	.query_ras_error_count = &gfx_v9_4_2_query_ras_error_count,
+ 	.reset_ras_error_count = &gfx_v9_4_2_reset_ras_error_count,
+ 	.query_ras_error_status = &gfx_v9_4_2_query_ras_error_status,
++	.enable_watchdog_timer = &gfx_v9_4_2_enable_watchdog_timer,
++	.query_sq_timeout_status = &gfx_v9_4_2_query_sq_timeout_status,
+ };
  
-+	if (adev->asic_type == CHIP_ALDEBARAN)
-+		gfx_v9_4_2_set_power_brake_sequence(adev);
+ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+@@ -3965,6 +3967,9 @@ static int gfx_v9_0_hw_init(void *handle)
+ 	if (adev->asic_type == CHIP_ALDEBARAN)
+ 		gfx_v9_4_2_set_power_brake_sequence(adev);
+ 
++	if (adev->gfx.funcs->enable_watchdog_timer)
++		adev->gfx.funcs->enable_watchdog_timer(adev);
 +
  	return r;
  }
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index c9b532373cad..e034ab11fdae 100644
+index b2e2026c3ec7..1faeae14ead9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -25,6 +25,7 @@
- 
- #include "gc/gc_9_4_2_offset.h"
- #include "gc/gc_9_4_2_sh_mask.h"
-+#include "gfx_v9_0.h"
- 
- static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde_die_0[] = {
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CHAN_STEER_0, 0x3fffffff, 0x141dc920),
-@@ -102,3 +103,28 @@ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
- 	soc15_grbm_select(adev, 0, 0, 0, 0);
- 	mutex_unlock(&adev->srbm_mutex);
+@@ -1129,3 +1129,109 @@ void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev)
+ 	gfx_v9_4_2_query_ea_err_status(adev);
+ 	gfx_v9_4_2_query_utc_err_status(adev);
  }
 +
-+void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev)
++void gfx_v9_4_2_enable_watchdog_timer(struct amdgpu_device *adev)
 +{
-+	u32 tmp;
++	uint32_t i;
++	uint32_t data;
 +
-+	gfx_v9_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
++	data = REG_SET_FIELD(0, SQ_TIMEOUT_CONFIG, TIMEOUT_FATAL_DISABLE,
++			     amdgpu_watchdog_timer.timeout_fatal_disable ? 1 :
++									   0);
++	data = REG_SET_FIELD(data, SQ_TIMEOUT_CONFIG, PERIOD_SEL,
++			     amdgpu_watchdog_timer.period);
 +
-+	tmp = 0;
-+	tmp = REG_SET_FIELD(tmp, GC_THROTTLE_CTRL, PATTERN_MODE, 1);
-+	WREG32_SOC15(GC, 0, regGC_THROTTLE_CTRL, tmp);
-+
-+	tmp = 0;
-+	tmp = REG_SET_FIELD(tmp, GC_THROTTLE_CTRL1, PWRBRK_STALL_EN, 1);
-+	WREG32_SOC15(GC, 0, regGC_THROTTLE_CTRL1, tmp);
-+
-+	WREG32_SOC15(GC, 0, regDIDT_IND_INDEX, ixDIDT_SQ_THROTTLE_CTRL);
-+	tmp = 0;
-+	tmp = REG_SET_FIELD(tmp, DIDT_SQ_THROTTLE_CTRL, PWRBRK_STALL_EN, 1);
-+	WREG32_SOC15(GC, 0, regDIDT_IND_DATA, tmp);
-+
-+	WREG32_SOC15(GC, 0, regGC_CAC_IND_INDEX, ixPWRBRK_STALL_PATTERN_CTRL);
-+	tmp = 0;
-+	tmp = REG_SET_FIELD(tmp, PWRBRK_STALL_PATTERN_CTRL, PWRBRK_END_STEP, 0x12);
-+	WREG32_SOC15(GC, 0, regGC_CAC_IND_DATA, tmp);
++	mutex_lock(&adev->grbm_idx_mutex);
++	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
++		gfx_v9_4_2_select_se_sh(adev, i, 0xffffffff, 0xffffffff);
++		WREG32_SOC15(GC, 0, regSQ_TIMEOUT_CONFIG, data);
++	}
++	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
++	mutex_unlock(&adev->grbm_idx_mutex);
 +}
++
++static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_t simd, uint32_t wave, uint32_t address)
++{
++	WREG32_SOC15_RLC_EX(reg, GC, 0, regSQ_IND_INDEX,
++		(wave << SQ_IND_INDEX__WAVE_ID__SHIFT) |
++		(simd << SQ_IND_INDEX__SIMD_ID__SHIFT) |
++		(address << SQ_IND_INDEX__INDEX__SHIFT) |
++		(SQ_IND_INDEX__FORCE_READ_MASK));
++	return RREG32_SOC15(GC, 0, regSQ_IND_DATA);
++}
++
++static void gfx_v9_4_2_log_cu_timeout_status(struct amdgpu_device *adev,
++					uint32_t status)
++{
++	struct amdgpu_cu_info *cu_info = &adev->gfx.cu_info;
++	uint32_t i, simd, wave;
++	uint32_t wave_status;
++	uint32_t wave_pc_lo, wave_pc_hi;
++	uint32_t wave_exec_lo, wave_exec_hi;
++	uint32_t wave_inst_dw0, wave_inst_dw1;
++	uint32_t wave_ib_sts;
++
++	for (i = 0; i < 32; i++) {
++		if (!((i << 1) & status))
++			continue;
++
++		simd = i / cu_info->max_waves_per_simd;
++		wave = i % cu_info->max_waves_per_simd;
++
++		wave_status = wave_read_ind(adev, simd, wave, ixSQ_WAVE_STATUS);
++		wave_pc_lo = wave_read_ind(adev, simd, wave, ixSQ_WAVE_PC_LO);
++		wave_pc_hi = wave_read_ind(adev, simd, wave, ixSQ_WAVE_PC_HI);
++		wave_exec_lo =
++			wave_read_ind(adev, simd, wave, ixSQ_WAVE_EXEC_LO);
++		wave_exec_hi =
++			wave_read_ind(adev, simd, wave, ixSQ_WAVE_EXEC_HI);
++		wave_inst_dw0 =
++			wave_read_ind(adev, simd, wave, ixSQ_WAVE_INST_DW0);
++		wave_inst_dw1 =
++			wave_read_ind(adev, simd, wave, ixSQ_WAVE_INST_DW1);
++		wave_ib_sts = wave_read_ind(adev, simd, wave, ixSQ_WAVE_IB_STS);
++
++		dev_info(
++			adev->dev,
++			"\t SIMD %d, Wave %d: status 0x%x, pc 0x%llx, exec 0x%llx, inst 0x%llx, ib_sts 0x%x\n",
++			simd, wave, wave_status,
++			((uint64_t)wave_pc_hi << 32 | wave_pc_lo),
++			((uint64_t)wave_exec_hi << 32 | wave_exec_lo),
++			((uint64_t)wave_inst_dw1 << 32 | wave_inst_dw0),
++			wave_ib_sts);
++	}
++}
++
++void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev)
++{
++	uint32_t se_idx, sh_idx, cu_idx;
++	uint32_t status;
++
++	mutex_lock(&adev->grbm_idx_mutex);
++	for (se_idx = 0; se_idx < adev->gfx.config.max_shader_engines;
++	     se_idx++) {
++		for (sh_idx = 0; sh_idx < adev->gfx.config.max_sh_per_se;
++		     sh_idx++) {
++			for (cu_idx = 0;
++			     cu_idx < adev->gfx.config.max_cu_per_sh;
++			     cu_idx++) {
++				gfx_v9_4_2_select_se_sh(adev, se_idx, sh_idx,
++							cu_idx);
++				status = RREG32_SOC15(GC, 0,
++						      regSQ_TIMEOUT_STATUS);
++				if (status != 0) {
++					dev_info(
++						adev->dev,
++						"GFX Watchdog Timeout: SE %d, SH %d, CU %d\n",
++						se_idx, sh_idx, cu_idx);
++					gfx_v9_4_2_log_cu_timeout_status(
++						adev, status);
++				}
++				/* clear old status */
++				WREG32_SOC15(GC, 0, regSQ_TIMEOUT_STATUS, 0);
++			}
++		}
++	}
++	gfx_v9_4_2_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
++	mutex_unlock(&adev->grbm_idx_mutex);
++}
+\ No newline at end of file
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-index 0fa4cd423384..c113f0db8fa3 100644
+index d7e3041947e8..e01fa6afa8e4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-@@ -28,4 +28,5 @@ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
- 				uint32_t first_vmid, uint32_t last_vmid);
- void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
- 				      uint32_t die_id);
-+void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev);
+@@ -35,4 +35,7 @@ int gfx_v9_4_2_ras_error_inject(struct amdgpu_device *adev, void *inject_if);
+ void gfx_v9_4_2_query_ras_error_status(struct amdgpu_device *adev);
+ int gfx_v9_4_2_query_ras_error_count(struct amdgpu_device *adev,
+ 				   void *ras_error_status);
++
++void gfx_v9_4_2_enable_watchdog_timer(struct amdgpu_device *adev);
++void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev);
  #endif /* __GFX_V9_4_2_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+index 52ffbea63a4f..8cdf5d1685cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -100,6 +100,30 @@
+ 		}	\
+ 	} while (0)
+ 
++#define WREG32_RLC_EX(prefix, reg, value) \
++	do {							\
++		if (amdgpu_sriov_fullaccess(adev)) {    \
++			uint32_t i = 0;	\
++			uint32_t retries = 50000;	\
++			uint32_t r0 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG0_BASE_IDX] + prefix##SCRATCH_REG0;	\
++			uint32_t r1 = adev->reg_offset[GC_HWIP][0][prefix##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG1;	\
++			uint32_t spare_int = adev->reg_offset[GC_HWIP][0][prefix##RLC_SPARE_INT_BASE_IDX] + prefix##RLC_SPARE_INT;	\
++			WREG32(r0, value);	\
++			WREG32(r1, (reg | 0x80000000));	\
++			WREG32(spare_int, 0x1);	\
++			for (i = 0; i < retries; i++) {	\
++				u32 tmp = RREG32(r1);	\
++				if (!(tmp & 0x80000000))	\
++					break;	\
++				udelay(10);	\
++			}	\
++			if (i >= retries)	\
++				pr_err("timeout: rlcg program reg:0x%05x failed !\n", reg);	\
++		} else {	\
++			WREG32(reg, value); \
++		}	\
++	} while (0)
++
+ #define WREG32_SOC15_RLC_SHADOW(ip, inst, reg, value) \
+ 	do {							\
+ 		uint32_t target_reg = adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg;\
+@@ -142,6 +166,12 @@
+ 			WREG32_RLC(target_reg, value); \
+ 	} while (0)
+ 
++#define WREG32_SOC15_RLC_EX(prefix, ip, inst, reg, value) \
++	do {							\
++			uint32_t target_reg = adev->reg_offset[GC_HWIP][0][reg##_BASE_IDX] + reg;\
++			WREG32_RLC_EX(prefix, target_reg, value); \
++	} while (0)
++
+ #define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
+     WREG32_RLC((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+     (RREG32(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg) \
 -- 
 2.29.2
 
