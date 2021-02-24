@@ -7,42 +7,42 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7DEFC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17460C4332B
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C81564ED6
+	by mail.kernel.org (Postfix) with ESMTPS id CC5D164ED1
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C81564ED6
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC5D164ED1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28756EB62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969AD6EB60;
 	Wed, 24 Feb 2021 22:21:07 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C255B6EB5D
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86B266EB5B
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:21:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tm5mcOU26GNWInwexF31YpGhmYBGYrMsci9aNdVfdzxn6Q65QJJ7g2d/iI/wT7o+ctDVyHmJEKd1Z0h8phJ0MK1GFGN//e6PRB5QhzOxW9PiirynOF3Xk5GF3e1mHPM7L7FQoIyo1JfjmlSGKWzVV++VFYO4I/Gg1L8mFx4anTF4GWtSob7eUWK+SXrnOaMW5bZZ1t/5EnpuozdzPMt+AXIBHpPyIf/ut4uadogbeCzbzqNwjuaoLISKqHMgsy9btumg80idgu59iIncloptweVNmyClVaOiALIFf9MQxVBl+Nr6Mo8D0B05KZdh3QWSvAdNycLG0aKV6rP0KZIV/g==
+ b=IG5RQgiJ+QQKU1N4JZRU4D7XetzqmLJ903ejjSxnDPrRFZgQBxWJj0Dmcr7yvzghgoLT+FgkEpsH+CXDxJndwZeVdO2YzqqmgPi+Bdo7mhecMcDsNnTZd+HtvlbjzsOuTxhYovgCv2SikTT2+IiBYUNNzeP4Dx8sC3sbM83Jc64O35wLp1pz7SKnaI4T1vcc4Ig2Phwr5qL1Bfa+cICqZonDBxUpsDU0vqdPukXMkEZmNsRJjg41EL92dyeuuJhz/zkq9bl0REhEqjaW2ZjkgzNT1Nrl9bDellCQJVYqBdpfLzCBq7QCX4NidFLAjBQfGLOjvSXHwzdDwTM/ekKJFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z6fYhpQmrwzoaWpR7omf1bXY+pfqLiOIgt4wZyiIDEQ=;
- b=OLhz1Htndf0cTHycwwytnCjlVA/DN0lCfS/vY30g2bfZ0erYz8cfpS1H+AvJal1GGxwBn74NYuA9usvYQM78SgqQblpT5I97Xa6v9Y0hyu5CusAL5fdgOJt8GaCPkEzveZAdNyKVvwQ/TKaUcxVOkG7kWQ4gXvFHSgNYDYlOcPG3tRkf6hd4fAmqoEEXLTqVgqRMYtSZvz/kQ4oSw5kyhFSt7//cng+/nshPK2ZdZ7HfJ6LLS26hWgOP5unsCbCPCN2D1MKC19fDz6eUgjgwqVLMpGwK4y56WJQmSuqWmxNdyB4z6vsMZOaBNXnX49LDBGjwbBFoGyjcqtYRvNiN9g==
+ bh=iu5BEtvbsNLvCzPMxx2ohsGvgHKlzM4GADSTgMiKT9s=;
+ b=TpaI+bwgybgtZbZrEQ+TR95bGnseogGhKbNChXYTEGY1JilR7yZd+NsniASJNcET4oshXpZEvcffeJAkEJyhcJVgEcq07aSQ9CQYHY4L2BE5jDuoXqLk3qGIoQdn/qUghccOIeY2SaKwvn6LAxis0eSk2xCvpEngnzkh4SuvfPvM7JkVh+L8DG+n1D4VRzkqrpqKYSqs4TXS8RaSxL7ZEoKVZR0SC7yn1WnMlO0k1bN1RWOTPvyLchTg1ssxHchaZm1HVr/+RMUAlUHEI0ypxSMdY5RDC8c73YrcOgRb+3b2olTuzNQnVij2qLJk+tMbvc8yIr2DZvAKl3IkmBAgww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z6fYhpQmrwzoaWpR7omf1bXY+pfqLiOIgt4wZyiIDEQ=;
- b=Rei4OajpV9Y6YrKuI7tYnFA3hVJgU098D7O1KxKfzcESd4vshk+Xk2lGle3GJ0OAyzvg745ms2l6dKZpoN6yobHz8VFEGEy7Td8vEqKuZPtBqhsb7nWs/WQp7I3EtL7rwNNmy1MXdynX+KsuP8vlqSlKuXfX4zTepbhIE3xPGHg=
+ bh=iu5BEtvbsNLvCzPMxx2ohsGvgHKlzM4GADSTgMiKT9s=;
+ b=iOiz0IDHEjsXFaBlsu0+BWWgjjkq8mFCF9zH0qq891ZtkfusefgZbhQOnI7oKYkv7TcGmxqS2q7LsM812VPiprevCw3zStomuYQ+TzbpjKpZu17mt5cZjeHJZq1ZNxZshO+UYbxFSNmcunsQl5OQFQv4/EH/IKQOkPOJL5ubE1c=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4046.namprd12.prod.outlook.com (2603:10b6:208:1da::23)
+ by BL0PR12MB2497.namprd12.prod.outlook.com (2603:10b6:207:4c::29)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Wed, 24 Feb
  2021 22:21:05 +0000
@@ -52,10 +52,10 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  22:21:05 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 078/159] drm/amdgpu: add sdma ras error reset callback for
+Subject: [PATCH 077/159] drm/amdgpu: add sdma ras error query callback for
  aldebaran
-Date: Wed, 24 Feb 2021 17:17:38 -0500
-Message-Id: <20210224221859.3068810-71-alexander.deucher@amd.com>
+Date: Wed, 24 Feb 2021 17:17:37 -0500
+Message-Id: <20210224221859.3068810-70-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -69,54 +69,54 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:20:13 +0000
+ Transport; Wed, 24 Feb 2021 22:20:12 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 82aaa9bb-527a-4312-703a-08d8d9125b3f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4046:
+X-MS-Office365-Filtering-Correlation-Id: 85a5b3a4-3884-4967-65c7-08d8d9125ad5
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2497:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB40469DF4B4DB6512FE611688F79F9@MN2PR12MB4046.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB24979AA0E72BFDE091C9CD81F79F9@BL0PR12MB2497.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vuA6PCteXOo+71WF1CTMMpY6kgIoFwzHc1hQAnGoznyPXeRXzf+dgV/c/2HziYsKpA4sE1he3Q3/UHbygKy3Fxi1yNByeQG71ikPkxjmmvat84okEYjybXUKjQ5V/58XyW4BYgb+xxqvMFKb3D83AWfRXyUHtL8dZySutKkm0+DAJkbi0lV1JH60qy4vvU6LmS6h8Lt0rMnGLFu5OrZpVdBy3StUA7IgCwYbzp55w0pqyxY7h0nHhWZz2msZsGjBkvvAgVdGLyrkhMaGvOkM5HcVGy/yoypseXCaJmRi/PltZ8yViWtPeRh0Y9W1MIYyrJThVSTLPhsCWmQouRU310m8NvDEY419C/GiXQ0wBnVT7gWyOpsr5Qo+uHUKUJx1ReyFoMj3yzsn1Shsbabzrzjs5gq00CrRAPVHuJDkeBVwvEepN8tQl6dC/h5jfpisn+aRT2ltQi5C4AWyZEx0D204FDuzFUDMuKsnHHY1Tzr7e87iXFzoI9p9MnNr/BVQG+de8d8HeMWoddb5P00AYNiK4SK83ZNs4QRwYpLSgA4YnFuOfD6mIVkjqTrU3qAtbHSoRSCk4g4cADumcpyFPw==
+X-Microsoft-Antispam-Message-Info: AV2A0+GBex/pwXxbor8oqu7OdoHkYJ/tAKnTe6+vA1Cp/yhEev/BuhvSJh5OndegBuYfbQEwDIgEUMOzm5p2a7J+v4Klk64+E3a4P3m+w0c/pjMye0IGr2q1pGQ2sw4nmEBLjcsNobTG/hgdzwrOFSQCbh5WthISVq3xxIs2OMWmf1U449xzOtBtujsnSf2ytx2tTwa3kRftt7N6/NDzdnm44a1AVevTi78ZXIhNTzJUq8FvEJS17ukm0a8NsCt9SeqRQeQBX/ma173/hYgU86uSI/wYVNW9mmWQcTuL0tQD6APAejOs9XgDzAFSWCmVW8v6+HSmb2LHT/+L0lG94os3vGa4lWX58nbd0QwRhbGkFCEETX/D6c87jcD+VYWiMRdxxRVZTEPdeeYPl4GWz+gr6pNQmh3W6L3Q1e4DS0oSs86/8eVX5fYNHuNwRv5MpiEYCkrc3XTyXePUi6impi5iTKXdf382jjk4dE+5Ar2UrLDOov8cp6K38Dd6a2ALzdhrKvnSOqBqebnH1XGBsBWrqhnURr5HX71ZOZBCaZdoX/w66tOQPULXeHM/BoaBgYI5eOjOFQ4ti2oXcboafQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(346002)(39860400002)(396003)(136003)(83380400001)(86362001)(4326008)(956004)(2906002)(6486002)(2616005)(478600001)(69590400012)(6916009)(8676002)(8936002)(1076003)(6512007)(66556008)(66946007)(5660300002)(66476007)(26005)(6666004)(186003)(52116002)(6506007)(54906003)(36756003)(316002)(16526019);
+ SFS:(4636009)(376002)(366004)(346002)(396003)(39860400002)(136003)(4326008)(69590400012)(8936002)(6512007)(54906003)(6916009)(26005)(956004)(6486002)(316002)(2616005)(52116002)(8676002)(6506007)(2906002)(86362001)(186003)(16526019)(36756003)(6666004)(478600001)(83380400001)(66946007)(66556008)(66476007)(1076003)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?EmCNk6n7W3OVprYxeDS2JLthSNynR92+p+5Sart0MG6EfKWLjgkC/koYQpz1?=
- =?us-ascii?Q?GtwLEWT8A60PDKv3o1tEyATVCUAwRQFLWuM2+iaaaFLOUHjc2Bp9IeMMbeDs?=
- =?us-ascii?Q?5gB42V+JLojjcJV8lceSuFQvgmi07kMSuV+eUEc5szuuWmVlBeZRbF3gCfqA?=
- =?us-ascii?Q?gtfsrpr2PRyrgK/isv/W5zHHieNiUd7jLMLxJ2rHsRlIgMRAn4rjNkBJoJvE?=
- =?us-ascii?Q?2LiCTK8av4AImrM1wi54vzhnnS123btLNRQoQ4Nik4I4Xlr+fY7/LUHN80Pe?=
- =?us-ascii?Q?TNhqOH3FeLzPHmVVGfy+NBn5BRRXRCnlMNTKvfYdMxbtIIJtmNzEh/+HN0oU?=
- =?us-ascii?Q?fZTqibd6AO2wEqOH5MNjFOB2SMZDVWj3XgSXCM38snejJ7GEl2szsfmtgry6?=
- =?us-ascii?Q?xjx0RfYDy93CtT0udC9F+dAGLQOz8PwalXTs5eN1YSEhVF3zw1ebPlGPpdyx?=
- =?us-ascii?Q?/GXJNzkLxGPKwZraFZdTrpqEgbPe8EmI6Bw2fCE282Q50loLhXzl4ubqGzsq?=
- =?us-ascii?Q?6ZZZ29RMBOyXd1VO8pVhwfUfXI+cTJR9UUuri2dR9Mk1GRsOtZjz2vkP5Jfs?=
- =?us-ascii?Q?UrfLqjW+/mfyaPpA+0A+tYvPZ28MtPByUGmn6EvVCJJan3DIz45/jZx05MbD?=
- =?us-ascii?Q?xWgl5S5loAUArpNuIvYcLSNOg4gHnxYJEFRsIXU3XZe3d/V7K425rgvj354i?=
- =?us-ascii?Q?iDTcTK1SfbIAzECDTmX7KWabyJJ4xvZHzhuzoDkiOKKz740N0B3L2lzDcEXa?=
- =?us-ascii?Q?N+uthVIl9m+TjMHHeE3jA4dEa3y0257TIb2TipmhC6vBCW5/fBVT8RIQLUcM?=
- =?us-ascii?Q?LfSZNJtrUl7UXjuP5ahlqSTrDw3P/zmYTbwHTEIk5abqBKknyJTPv4djMAV/?=
- =?us-ascii?Q?iU5h0GGUqugZmIzc+e6nidjCDQrOhXLjUwAFvqVFFWkdX+oJkWKU01Rny0JN?=
- =?us-ascii?Q?Q39sIYHwCD+hnanetwiyVMNoz4t4TzNq5rCQ14lPAY5q2vbsblU7dkMwFX+z?=
- =?us-ascii?Q?YR1/hX+QVfOtXAARXHEs/YmywfOMAworSA9snYUAy9wMSSbUCG7tWxi6YLCb?=
- =?us-ascii?Q?xZ8YXoWK9EKqudAN2ABGbMd/kRdMSqbbRXnR2Xzyfn2pt1NL88t9Y3pEf+Ci?=
- =?us-ascii?Q?sMPEGG8JdaBOcv3Kqq/7/giDv/kDZ9z1LJ1HGgztxgMInBLsrK6XQ2Qy3F3/?=
- =?us-ascii?Q?fNgxEWpBsf3mMC0LZocIK+dCy5GDjCyPhoqVWyPNfCUubVxWATQk2QvFqgi/?=
- =?us-ascii?Q?xBGZwgoORbajvsiI+OOuGw3lZREI+HHRDcK0z3rB3+dnpkcRV/+T1/Z3DnUE?=
- =?us-ascii?Q?SWVwu5TyDI0S4+T7RZTA0zaY?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?+n7lkKVj6wdQjfhNtjvGZA806nkaAN8aI4nZLHb5/uSXQH+KX4M5FGrlkQsj?=
+ =?us-ascii?Q?8P/ifxkI6jsIb44yqv6jdoH+nwCohfx+JokPNtee/qPrOWJl4JEzyAUiOAjs?=
+ =?us-ascii?Q?+Oc0a61PxxPQRzCmCSZ06RTaVOefcUY1vgd8ZGRmOlh9TDVn4CXucc0D2A3+?=
+ =?us-ascii?Q?g/TZnm1J0q+3gfpceJfHJalCgi4MeL8CbK4NpHplpbGIZEJGIMbp10ys4Ru1?=
+ =?us-ascii?Q?pHeBa//UhgNwJgygtO2V+6mHyZKcaEVTNTSG6yWwWK8PbpmW0Rlbtk5LSnUZ?=
+ =?us-ascii?Q?LR3rsl5y5B+Q/WD0M6eXiccv8zqkVJkwQej2zZvuciywtQQ2ll/pmkF6pWBf?=
+ =?us-ascii?Q?2xPwgRP8bbAIFu+YWFItibGmEq8KczsFvAAV1uo3/5gLLF0iE1odD8hi3VUm?=
+ =?us-ascii?Q?GSb/EZIuy2hCYHHpyXYsGK6Tuf5u9prfnG7oL1hTHyVc8J5yWQuGVvsMNq5L?=
+ =?us-ascii?Q?olBDanJiyBKxIskgK5dgUBlyviOl/FHntvy0tTpKiKmEQmRwl+4LTiwIBdea?=
+ =?us-ascii?Q?EGGWboLqkEvbK+Dtx+O+BOKqEICcNesTFIEnxGmy64YizLj5QlE1sm2zMmWn?=
+ =?us-ascii?Q?EfNexgTy9+UJfp9A+XDdexlCPDNWsw3E0/kSpM10UQOXjV6xTIDa/1fE+7TV?=
+ =?us-ascii?Q?E1TbNem0f0MfCD4UmfZGSdSOEAMxmFYizmdBa1++FLzUL4ncDKH6d46klU72?=
+ =?us-ascii?Q?yUlIB6HZHzR7h87O+lRAoflAp4gB6NCQKc1Y43aC+9rftMjp/10lqPbJT+m+?=
+ =?us-ascii?Q?nOC/xAwyWlEn1HYDp2i2WbLnwnLFZD3EvXazacB4HO46DqsYu7ZvyewHUt19?=
+ =?us-ascii?Q?mCRcwxgqvUVHWIxcuA4x2lbhjQ1bN7Psdu30ZHyTOkaJJHPasAjy4j6AmdO5?=
+ =?us-ascii?Q?mWwQ0pmY/2NCteaIrLeuyjhwYtc5fqlVAQxZV2k01a/tUm0iscqySrKgEx6R?=
+ =?us-ascii?Q?aHr7tz5iUZfB3fUP4awri3u9k3CSvQy6aS4XKwpVQychxHcv7/8XocDu7O0l?=
+ =?us-ascii?Q?4JTmHeHlHIsH/KKchC3Vk/lWbTgCRmhqEdwtq6qyVym1g5kRhlwJE/K/+fR7?=
+ =?us-ascii?Q?8KSkN6ZnGUpx/yDtDoSJfaMUuUFD8go1XyilDnR8kf5COeNCrMdETCnr9vd2?=
+ =?us-ascii?Q?G1FQTL+Xahok7Yu+dHJSqAEQSc0GPRBbLRUb9M1sLIQofKQe6UT/KA/bIM8T?=
+ =?us-ascii?Q?TGMfGUHBNbsRzrMLSe+2C0Z66xjsCkaUb7UPuRZRWKk5wNDrgKa9P8jbDh4J?=
+ =?us-ascii?Q?FRC2T4P60ejDhfZWKvyEDVlfnol2NA6SgSQzfie6jIeU3Px4dbidCglZOMna?=
+ =?us-ascii?Q?84Rc0BEKx6WkFaTEldmwSD9i?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82aaa9bb-527a-4312-703a-08d8d9125b3f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a5b3a4-3884-4967-65c7-08d8d9125ad5
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:13.8439 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:13.1390 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HhDGyCGhoz90G1I9fuNvx57z6RrEYpeMA9qgHcxcs755kFnKYKYeGhpONUY0yVx2AGgCCrAPxAlUlAT27kmqrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4046
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2LVZQzHQSiQm6UsgI57bF/O/w05sV4Vu4uh8aVCjK9sutB//7oVclT+2irLZaqO/gi+TrzfKhmp/1ANv9r70vQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2497
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,45 +137,215 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-The callback will be invoked to reset sdma ras error
-counters when needed.
+The callback will be invoked to harvest all kinds
+of sdma ras error
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Dennis Li<Dennis.Li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c | 187 +++++++++++++++++++++++++
+ 1 file changed, 187 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
-index 3a5d0a6bc578..6fcb95c89999 100644
+index 8f5bbc0d6630..3a5d0a6bc578 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
-@@ -208,8 +208,25 @@ static int sdma_v4_4_query_ras_error_count(struct amdgpu_device *adev,
- 	return 0;
- };
- 
-+static void sdma_v4_4_reset_ras_error_count(struct amdgpu_device *adev)
-+{
-+	int i;
-+	uint32_t reg_offset;
+@@ -21,8 +21,195 @@
+  *
+  */
+ #include "amdgpu.h"
++#include "sdma/sdma_4_4_0_offset.h"
++#include "sdma/sdma_4_4_0_sh_mask.h"
++#include "soc15.h"
++#include "amdgpu_ras.h"
 +
-+	/* write 0 to EDC_COUNTER reg to clear sdma edc counters */
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
-+		for (i = 0; i < adev->sdma.num_instances; i++) {
-+			reg_offset = sdma_v4_4_get_reg_offset(adev, i, regSDMA0_EDC_COUNTER);
-+			WREG32(reg_offset, 0);
-+			reg_offset = sdma_v4_4_get_reg_offset(adev, i, regSDMA0_EDC_COUNTER2);
-+			WREG32(reg_offset, 0);
++#define SDMA1_REG_OFFSET 0x600
++#define SDMA2_REG_OFFSET 0x1cda0
++#define SDMA3_REG_OFFSET 0x1d1a0
++#define SDMA4_REG_OFFSET 0x1d5a0
++
++/* helper function that allow only use sdma0 register offset
++ * to calculate register offset for all the sdma instances */
++static uint32_t sdma_v4_4_get_reg_offset(struct amdgpu_device *adev,
++					 uint32_t instance,
++					 uint32_t offset)
++{
++	uint32_t sdma_base = adev->reg_offset[SDMA0_HWIP][0][0];
++
++	switch (instance) {
++	case 0:
++		return (sdma_base + offset);
++	case 1:
++		return (sdma_base + SDMA1_REG_OFFSET + offset);
++	case 2:
++		return (sdma_base + SDMA2_REG_OFFSET + offset);
++	case 3:
++		return (sdma_base + SDMA3_REG_OFFSET + offset);
++	case 4:
++		return (sdma_base + SDMA4_REG_OFFSET + offset);
++	default:
++		break;
++	}
++	return 0;
++}
++
++static const struct soc15_ras_field_entry sdma_v4_4_ras_fields[] = {
++	{ "SDMA_MBANK_DATA_BUF0_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF0_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF1_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF1_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF2_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF2_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF3_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF3_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF4_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF4_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF5_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF5_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF6_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF6_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF7_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF7_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF8_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF8_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF9_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF9_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF10_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF10_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF11_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF11_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF12_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF12_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF13_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF13_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF14_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF14_SED),
++	0, 0,
++	},
++	{ "SDMA_MBANK_DATA_BUF15_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF15_SED),
++	0, 0,
++	},
++	{ "SDMA_UCODE_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UCODE_BUF_SED),
++	0, 0,
++	},
++	{ "SDMA_RB_CMD_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_RB_CMD_BUF_SED),
++	0, 0,
++	},
++	{ "SDMA_IB_CMD_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_IB_CMD_BUF_SED),
++	0, 0,
++	},
++	{ "SDMA_UTCL1_RD_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UTCL1_RD_FIFO_SED),
++	0, 0,
++	},
++	{ "SDMA_UTCL1_RDBST_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UTCL1_RDBST_FIFO_SED),
++	0, 0,
++	},
++	{ "SDMA_DATA_LUT_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_DATA_LUT_FIFO_SED),
++	0, 0,
++	},
++	{ "SDMA_SPLIT_DATA_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_SPLIT_DATA_BUF_SED),
++	0, 0,
++	},
++	{ "SDMA_MC_WR_ADDR_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_MC_WR_ADDR_FIFO_SED),
++	0, 0,
++	},
++	{ "SDMA_MC_RDRET_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
++	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_MC_WR_ADDR_FIFO_SED),
++	0, 0,
++	},
++};
++
++static void sdma_v4_4_get_ras_error_count(struct amdgpu_device *adev,
++					  uint32_t value,
++					  uint32_t instance,
++					  uint32_t *sec_count)
++{
++	uint32_t i;
++	uint32_t sec_cnt;
++
++	/* double bits error (multiple bits) error detection is not supported */
++	for (i = 0; i < ARRAY_SIZE(sdma_v4_4_ras_fields); i++) {
++		/* the SDMA_EDC_COUNTER register in each sdma instance
++		 * shares the same sed shift_mask
++		 * */
++		sec_cnt = (value &
++			sdma_v4_4_ras_fields[i].sec_count_mask) >>
++			sdma_v4_4_ras_fields[i].sec_count_shift;
++		if (sec_cnt) {
++			dev_info(adev->dev, "Detected %s in SDMA%d, SED %d\n",
++				 sdma_v4_4_ras_fields[i].name,
++				 instance, sec_cnt);
++			*sec_count += sec_cnt;
 +		}
 +	}
 +}
 +
++static int sdma_v4_4_query_ras_error_count(struct amdgpu_device *adev,
++					   uint32_t instance,
++					   void *ras_error_status)
++{
++	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
++	uint32_t sec_count = 0;
++	uint32_t reg_value = 0;
++	uint32_t reg_offset = 0;
++
++	reg_offset = sdma_v4_4_get_reg_offset(adev, instance, regSDMA0_EDC_COUNTER);
++	reg_value = RREG32(reg_offset);
++	/* double bit error is not supported */
++	if (reg_value)
++		sdma_v4_4_get_ras_error_count(adev, reg_value, instance, &sec_count);
++	/* err_data->ce_count should be initialized to 0
++	 * before calling into this function */
++	err_data->ce_count += sec_count;
++	/* double bit error is not supported
++	 * set ue count to 0 */
++	err_data->ue_count = 0;
++
++	return 0;
++};
+ 
  const struct amdgpu_sdma_ras_funcs sdma_v4_4_ras_funcs = {
  	.ras_late_init = amdgpu_sdma_ras_late_init,
  	.ras_fini = amdgpu_sdma_ras_fini,
- 	.query_ras_error_count = sdma_v4_4_query_ras_error_count,
-+	.reset_ras_error_count = sdma_v4_4_reset_ras_error_count,
++	.query_ras_error_count = sdma_v4_4_query_ras_error_count,
  };
 -- 
 2.29.2
