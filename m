@@ -7,54 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1688C433E6
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BA91C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C4EC60233
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C4EC60233
+	by mail.kernel.org (Postfix) with ESMTPS id 54A2064F03
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54A2064F03
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 990A189E9B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA7DD89FAD;
 	Wed, 24 Feb 2021 22:19:35 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADA8689DD2
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:19:34 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2045.outbound.protection.outlook.com [40.107.100.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D648F89C7F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:19:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gtElsNJhJU+V25P3yZODrPqHxR9qujr5ZgqHroHBWSDmLjtpxv1ogNeXwd/YTWd/MHA1oxSd62AqssXBX4TB/OAbg4cGglzpi652HGXyCj0DSmwgy9glTvDGiv4JOrYwopMSYAWN2/EVH0gMIjLGzBAINXf5CRdxhNA0ffdZ3j5fsPPhEKlxXhMOzss1NQXLuixV8FY5ZZdEMVmkeephThMV0SncxmCy0qD3jkI+C7xjgrxiw/agimV1NxrmQLZgBGt2clL1NU3eTTGx6CuV/EqTNvZaKmTl0HtpPeThz4yfwidkBSnoWo6oMZVYG+LlRX55LLraIBNQfYHX2qogaQ==
+ b=EZeD/5uTVY9YKpCykDjqtaiRapqaJOX+HUtHnyPqRD6r9EZk7sjdupcxzX27GqFd6eMT+HX/5xQ3a5oqu7pcm/zADn9GVIih5PQ8fBRPkhH7/onrcD8s9BUyYryIX3kFZyI9w1hDlop5esz8Cn0hFW3MRBKz2yp3IUbBN1ZJdJmge56UZDqaVoZdYMOx1i+Hm9gI0OhEAc/DBaBRUxa+a8LG6AYGg49vx0uRAaYgWTSQtvsmsFy6JGOHauGYT8QnHx9LUOHBbeAPdWRR6z5mu8T3Eh7OCkxvaLh/rk8y9TtsROsmQWzBFBVK2+9t+iIcMggu9bXhrPe9m2ewQOQCdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AaQccDEYkL3n1cro67rF/RzK2zniid88Z487s2d3lRc=;
- b=NvMdZ4FoOMK5/hHDelxmTq+kHwuGJCBuZ3qVgU4Ll2PJd8R+NmhYrnLAThZPxoCWhWp72rXjWcgN/deZMU8ibW3nNpBOL+gqtEw6bc5ExSyFqP++PkSIVN6mq/7KJ84/O2+SwDW9+Qvye5lKtv+EJg5x7+znaw9Jo6L/Gnuq6UrNuCu5Kz7JiVKxKddlFMdUBmmkzyX7+vXipSBgRCKDZyu4BEbO1nhSw08l09X5Egp7cQ8k8EnU/4jkhAAMQ9atOsFczhFidrqDdzezNyxf9w4bGLW0yZXhPy4z/LtGov6hfoKk4ddzKxNrOV4aaJvaKbt+bcplP8rAaRCy1sk00g==
+ bh=sVhWffSx1lvqXeQVY+4SxvrX8BIP6mV6Y4OaMOZZ9Oc=;
+ b=AlmI2g5mknH0mDMh5KnAlQcqoqgIz0j69bPVgnE6XCCJUYnsRZ0UKg+q0ARpLlRok0E1Qz8+tCIjGfraU+/FK/UJ+/WqgiplsaLH9RBuRbLmgtfDsxkFD01FBlAgm8OLJV3K777GlfDTbWqk0P3DeuuGbrgH/tykgnuO6wi6BqYT8sl8cXrLZU7/QH6jo5ac/Pq1a1Ikuq+jsGCw9Q9q7iTuXLK/kksIANdiOMJz9DNJlJydW65QhDRy2XThEHSqe2E8LqiuvZoNeOzl9gVa8nrwO+bMEzpCqi+Hz7i8h9ARmhGdxmCsvdLTTXPMEnqUQfnp4eGdAuCTIMPCN6l3PA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AaQccDEYkL3n1cro67rF/RzK2zniid88Z487s2d3lRc=;
- b=24kgRwfR2di8tciorgxZtS89hl/REzr4vJ4/KUtcOmeeoQcXML+iuRC9bN4M07L2+2bEB1XFBex6yJkFPXcevnFGZohfsLhcJjqB3OpaBhxdEx9P5OWRDe0CExyWbY95Q8K1uWdCXZ6za67UcxvnDZqbKyAWh7k8a6zc7biNya4=
+ bh=sVhWffSx1lvqXeQVY+4SxvrX8BIP6mV6Y4OaMOZZ9Oc=;
+ b=I0iu3c2FgmukDnRSaCP+7QAeYKhxXQMPQb9vUuKZ9pfNVUnWdssXwInWedJpZKOybbCJzlHYSocTZWxjBsbj4hsq+fVClGX/RhpcgMPSdbjz9B/N5esfSrF7s0jkFmlsVaSQKdflkmIWfV0fTegvfot7bwwu9g7SjN2F8vM5RS4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
+ by MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.27; Wed, 24 Feb
- 2021 22:19:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Wed, 24 Feb
+ 2021 22:19:26 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:19:33 +0000
+ 22:19:26 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 021/159] drm/amdkfd: Add Aldebaran KFD support
-Date: Wed, 24 Feb 2021 17:16:41 -0500
-Message-Id: <20210224221859.3068810-14-alexander.deucher@amd.com>
+Subject: [PATCH 012/159] drm/amdgpu: add gpu_info fw parse support for
+ aldebaran
+Date: Wed, 24 Feb 2021 17:16:32 -0500
+Message-Id: <20210224221859.3068810-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -68,54 +69,54 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:19:32 +0000
+ Transport; Wed, 24 Feb 2021 22:19:26 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: dfce75aa-346f-4e88-97cc-08d8d91242eb
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4174:
+X-MS-Office365-Filtering-Correlation-Id: f3f11c00-966c-4a9e-290b-08d8d9123f24
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4175:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4174BD5F1F384E97C86CDFE5F79F9@MN2PR12MB4174.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:65;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4175EFBD0C3ECAA42C934411F79F9@MN2PR12MB4175.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cezsEz+2w9gjJZJh+bSQ3puO8QJ6xXcF9yFZ4iWGfy5tWt16I1U/CoXRZABJKhBXK1GzOcpAwLpzbFPJin2O28NYQYOT98HqUQr20jwwqPczjxWX2uON/9AwS5ogroHikZWeTJ6KkcQmGNAOeHVeF/Eb9U4UK2iL+szegSR9UDOMCuVjcu9BZwA5XwMCJSuZxRtWdIhBw+V+a2Zv7u38m+eY4wB7bFyafqsJGQJX7/8TeedRR7dO9GUyYKU9YKMpWcdAAJMotq4qk6xXErAhW5rrc5DysBS9jQLvv9008hZVcclt7AH2UMUIu359V6OoDqUnng661rAJFtHe0VK+X6JBXLMxmI55J/jwG08mL7IKnzP1iyOXx0TLtjETHbkSUxSxSLmuw4asZwJGVMIdI3H9bj1tg0xKjuGamen6MzrpEqZ8nyi7+tplvAi+X06BuOBrkXPjKjDNZpLZ6Nm1g7CRs9EIq/Y7Iyi9lOOmIkIvnJv9+z6pudojaZffG/I3cqd+Co4dygYFecYBLdYnGPZklCsSPcX6xMBOwcBFCMfnJ6dDxk3WrgBCCoKKaKEY4Fn5Sk4tKKrpQ72HEYHRuQ==
+X-Microsoft-Antispam-Message-Info: 9B53gHsK4ZFlLihFpOQ9tEBxw9wXVzYvOxZKhm0bM7BF4Ro0YlqzILZWvUo1zdJsl+f9ShIca/Rab6r7hMEdw2TXMpsTvaMcVxMVHSC5oDr3GAsUVesp03Bn/VDC3DuDQNaBwIcPZiUB8b+9jFcu+MxkQmtqGSfhFXZGx13oeWYN9UHn+GtDHLf7XQnK7pXnJZvxFTZZ/sjJL8ono2koAXWbyndfRJnVLtR6OESiz/xc7Lw7EwZsGaOLr2JXk6n7vOrIJp5SSiu89AyFmQUWZYHGsObg4TEGMGP2U9DfavyuXhkO9+eQnOuaFTF67KbP63BqCqIC/+OrhRcOAq80ntumb3ufznTpgCessWRo1mrI56Qc0IG1Xdn8gU1WqllMCG5XPNA36bp3CmuvefLdkZT0XucETuQHhxirmPsfo1GeuN8ETrkcOqYhdx2TBScap2snJnCg7XXIAy9pmzr20WgRxoXil8cW7VQhzXi4en2D6o1qNynMt1IHwhBWGxwam24cQboarMgPiUTlM5f57hWPZLp/e4NJUbX5NYOF3wAMlMjcL4PpfevWHAyuy1DX
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(39860400002)(376002)(366004)(346002)(8936002)(52116002)(4326008)(186003)(2616005)(83380400001)(1076003)(956004)(6506007)(26005)(6486002)(6512007)(54906003)(66556008)(316002)(2906002)(86362001)(66476007)(66946007)(6916009)(16526019)(6666004)(69590400012)(36756003)(5660300002)(478600001)(8676002);
+ SFS:(4636009)(366004)(136003)(39860400002)(346002)(396003)(376002)(66946007)(5660300002)(4326008)(6512007)(66476007)(6916009)(26005)(36756003)(66556008)(2616005)(186003)(956004)(16526019)(478600001)(8936002)(6506007)(2906002)(69590400012)(86362001)(1076003)(54906003)(6666004)(52116002)(8676002)(6486002)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?9dgt6XHaSJ5oXKA99hxXjp/+4cdWssa9OsYiCEDjxD3S6TymIxTlwPHaxrs4?=
- =?us-ascii?Q?Gdao8mTaDglHHoRnCOuSK7mnNcnoZw5RLXKUoS/5xLpZgCglk1DDtSfvw9p8?=
- =?us-ascii?Q?/fkXGdk43wLui057WbX4KFhzS5nMbBCP1ZoEHUqKmQMb6Mt1LuwRvj7nCGMd?=
- =?us-ascii?Q?f5LTwR85dp3oAbPIjGL5bFDSGoyD/3N/wSVOLxrMVAdbI9nipj9Qv/QvfhVK?=
- =?us-ascii?Q?24tO9xJeQVDQYYA+FeDI5L/mJIy18bJGqAwlWmvlHBEz2IZspm2igvWLyd87?=
- =?us-ascii?Q?+/sc7uB2SHPKxZiocXPRu/dRQlhJgMyCyt+4UHcRkvlWe48SU25PYxkOXnGL?=
- =?us-ascii?Q?xnJX+tRc2jVdLDbZ7WVqaLUYRJhkLqdYKC/RPM79g3h7jcuUGUCI5hzsSBoA?=
- =?us-ascii?Q?yR0tLWvPy/ekHyE1NxnL2K2LsqrsX1E5lrTn3WMpCW5JrsLrmyxMl/JoARFq?=
- =?us-ascii?Q?oZOn3jHgLj1eI1rR2x172xyyt4LRRRKJnmj3tp7yt4A89y4enP2OYqvPzeXt?=
- =?us-ascii?Q?19AvvquLA2Crq8XltacELyj6CvjDPA8H3EGGNTxl81slU/GZn6MshQssM+a1?=
- =?us-ascii?Q?4cDnP9VhmN5fjBwoo98THk0jILbtjGQVUSb/DHljEXnMyn6kU6iejTiwdnGC?=
- =?us-ascii?Q?DSsJZjXmRqy3mf42SconQkmSbd0mq6SPJMjnSayQu0otaCjKfDv1XxzbeYif?=
- =?us-ascii?Q?9dFP4awxYy+A0CeyN11bntWELKJl3DXJ7dri9KfX7F/irGkzBLwT5wX800Ty?=
- =?us-ascii?Q?mekdHqzYlX5AmjmZHjXQ6TIQOcKB439+C5ORATSbivQSeLt6JlLDH3PQWzt5?=
- =?us-ascii?Q?JR6BVvAvvFJeWNi9Vi6yCB4GgcQWsr57mVeoYggTwvkC18hGMuDMgg8Pe3pP?=
- =?us-ascii?Q?vzglHNW79Zp97HmmDYzng/zim5tLKMKdlufZ/zxADjGQ3qC6+J/SEQ3ag5Vm?=
- =?us-ascii?Q?xurSTLzlwR0tTQdjxOF5rX69XgWS/YqhicXkkNArooE+StaXexzreBQyJaxe?=
- =?us-ascii?Q?gLSORlrqtm94jdO3yiHGga8ve225NkJ84CutB9WgVTVHgO46xQrIoZsw/fUV?=
- =?us-ascii?Q?pgcJpuGPsjHi1jv9MbQLmy39DxL6O3CaGlwqzlVwKwOA4AoZFYPZ9K8MBLdv?=
- =?us-ascii?Q?E7C5C8OPKpbD1bZad51gLYfK02lDR2/vvzFCTkkHpzXJecUOdC+YMZwnw3vi?=
- =?us-ascii?Q?QRXY/xHQ1bdqc4whs43LnhfZr+TpyiAlXcIlZyiZPQRzs0Jpr9vd2H//XPHh?=
- =?us-ascii?Q?kAxDq1ovebKnfT/0y9SXgrQm7tTZWxrNE/Y+0TmEAr6/qyY9t2xLZfzUwu5g?=
- =?us-ascii?Q?a2cb/FibTC0h5kZL6c8VptVp?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?kzooZVGckCYmPotJ9m+hEXIZqLAw+0Ve3LJJpc0I4JhZ9wpW4DJattvMBjpm?=
+ =?us-ascii?Q?j0jzNRW69X9bRbLdNvHZs60IAB60Ap/vwngES6vP514XAR5f8syzPxcLaxnZ?=
+ =?us-ascii?Q?ZN9UOiwaT/MXGbgcmpH8xhkzfiqjl1boyXy6yw750VWyu7gLj7mSS67H3ok0?=
+ =?us-ascii?Q?V5umj4wAQKh3IVCOiH3HnF+N0OS1+jtNVNgBNf0fPQ6IFOcg5pDcD7YcPSjS?=
+ =?us-ascii?Q?w0sESoj/XMwdx8neP+2X3njX+eK7mxZ3/xQh/Xc78SqpLapkaCL+5wqSHYBA?=
+ =?us-ascii?Q?Adnop0xUdiAAh0eoMlkHREL6x8HHoubfDFHoKx3D38OPtt4klsbC3dqaXYtR?=
+ =?us-ascii?Q?jQtabNnyALP5oWZtyVLIbpeEkj2ksW8etlsF1pB5CB7ddIPl+7e1bBhHm9UM?=
+ =?us-ascii?Q?sJJyoJs4NpBOxYpSmNQ+averpxcNpDzRbDWkDUHytYJ39qgGRO59q2sgSZql?=
+ =?us-ascii?Q?m3p3sqsrVUpPZnNwBNgD8NSgbbMvdnolrOJ4QEnAJ5UcQkH6j0/P4sx2xXHk?=
+ =?us-ascii?Q?JypJV+ws3XnzYaFJvaANeLgkyTa19wN9PGeB8ZyYo6ni3xagkenuGycLoye5?=
+ =?us-ascii?Q?xlkrcS7wQQlV0iPYvEZ00MH4tH+/cL+U60HgPKs7nDH1drYbKIfaQf3PMaCr?=
+ =?us-ascii?Q?8dviGo7N4ad6QABqAIWcllCu1p6i9lKxCbkDNA3TreOdoMB7vo8YljvaNx1u?=
+ =?us-ascii?Q?Ib9hKXl4CFt7LpJFmsx0t69wfAoFGvMu5HpZQoFDlkzbn45H045VZ9dMlW17?=
+ =?us-ascii?Q?QY4fZURSuTJiqv7MpRzbLRkMr5zv5838TzsCq5sMplZpV0gOr1zpPwBkiXeV?=
+ =?us-ascii?Q?5oNtW0cvU0Yr/ZXo0z1jC2EWWAzbPRGqTD93OaJQ2X41eAacr0EjYVQ0MmoT?=
+ =?us-ascii?Q?K8IwnnxXaGAJJWW0QEh/fZ/WA4uk1P/ytF4rxGuIGXFAoNVbslZ8fgmAf0Xj?=
+ =?us-ascii?Q?vhqEdlgVyxz2XgaSGWe8X8MtQPmTLo1I+l+I5qLMwoDHgfeXoRbYJMyplIez?=
+ =?us-ascii?Q?/jPzZ4YIQGgZTz52Sv1gmx+rm6swoSvyEdxyi6SNV+V2QWDwofdPBBIOvNGs?=
+ =?us-ascii?Q?lE8/3yKxTpJD0djRjn8+CeNeEw/wlfIvZzKP06n5IkCSDEk+BiGoMNhFMSUf?=
+ =?us-ascii?Q?0G5tV0bNh6VbvH3gku3RcjEyaa1oUHFZyeYFL/nJ/9fSlj4tvJl+pyYI24Xo?=
+ =?us-ascii?Q?BDhfWYd9VMSEQY5CgyM2RxSv9NxOGvds7kDEZwVWoITbyV3ZbtSbXLqxTTmH?=
+ =?us-ascii?Q?OkYLKnPu93C/pyFD1+AjDOLtuUKZFPLza68YM1vV6XF9XAZoQgxGobNqxS16?=
+ =?us-ascii?Q?xSwcCqVJVMkZY74sKJ4zuqTG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfce75aa-346f-4e88-97cc-08d8d91242eb
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3f11c00-966c-4a9e-290b-08d8d9123f24
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:19:33.0341 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:19:26.7317 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fj47CXZyM+V9Vg/v8trRrA965tt0RQi9LCgjJZe7JILAyfKLSWcNg/dKVxRIgepB/Din0jqNz8YLaRoGMKYjRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
+X-MS-Exchange-CrossTenant-UserPrincipalName: XDNGa/COFAcCZXwOWFMm3TfBbNLEKBFdilJfDKvnoz4eyec7YF3C9Pl0q/PzFTFOpWWc+wNwSKqH40OX6Z/3uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,168 +128,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Yong Zhao <Yong.Zhao@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yong Zhao <Yong.Zhao@amd.com>
+From: Le Ma <le.ma@amd.com>
 
-Add initial KFD support.
+Parses asic configurations stored in gpu_info firmware and make them available
+for driver to use.
 
-Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  1 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 23 ++++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  1 +
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  1 +
- 8 files changed, 29 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 604757a1e440..6f6dfd950e01 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -47,6 +47,7 @@
- #include "amdgpu_amdkfd_gfx_v9.h"
- #include "gfxhub_v1_0.h"
- #include "mmhub_v9_4.h"
-+#include "mmhub_v1_7.h"
- 
- #define HQD_N_REGS 56
- #define DUMP_REG(addr) do {				\
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 99ad4e1d0896..8781051afb69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -413,6 +413,7 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
- 
- 	switch (adev->asic_type) {
- 	case CHIP_ARCTURUS:
-+	case CHIP_ALDEBARAN:
- 		if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
- 			if (bo_adev == adev)
- 				mapping_flags |= coherent ?
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index a5640a6138cf..533df07964ec 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -665,6 +665,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
- 	case CHIP_VEGA12:
- 	case CHIP_VEGA20:
- 	case CHIP_ARCTURUS:
-+	case CHIP_ALDEBARAN:
- 		pcache_info = vega10_cache_info;
- 		num_of_cache_types = ARRAY_SIZE(vega10_cache_info);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 801bc1c31c43..7c7a6431f92e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -77,6 +77,7 @@ MODULE_FIRMWARE("amdgpu/picasso_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/raven2_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/arcturus_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/renoir_gpu_info.bin");
++MODULE_FIRMWARE("amdgpu/aldebaran_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi14_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
+@@ -1837,6 +1838,9 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 		else
+ 			chip_name = "green_sardine";
  		break;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 72c893fff61a..f0b5ac4eb849 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -71,6 +71,7 @@ static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
- 	[CHIP_VEGA20] = &gfx_v9_kfd2kgd,
- 	[CHIP_RENOIR] = &gfx_v9_kfd2kgd,
- 	[CHIP_ARCTURUS] = &arcturus_kfd2kgd,
-+	[CHIP_ALDEBARAN] = &arcturus_kfd2kgd,
- 	[CHIP_NAVI10] = &gfx_v10_kfd2kgd,
- 	[CHIP_NAVI12] = &gfx_v10_kfd2kgd,
- 	[CHIP_NAVI14] = &gfx_v10_kfd2kgd,
-@@ -392,6 +393,24 @@ static const struct kfd_device_info arcturus_device_info = {
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-+static const struct kfd_device_info aldebaran_device_info = {
-+	.asic_family = CHIP_ALDEBARAN,
-+	.asic_name = "aldebaran",
-+	.max_pasid_bits = 16,
-+	.max_no_of_hqd	= 24,
-+	.doorbell_size	= 8,
-+	.ih_ring_entry_size = 8 * sizeof(uint32_t),
-+	.event_interrupt_class = &event_interrupt_class_v9,
-+	.num_of_watch_points = 4,
-+	.mqd_size_aligned = MQD_SIZE_ALIGNED,
-+	.supports_cwsr = true,
-+	.needs_iommu_device = false,
-+	.needs_pci_atomics = false,
-+	.num_sdma_engines = 2,
-+	.num_xgmi_sdma_engines = 3,
-+	.num_sdma_queues_per_engine = 8,
-+};
-+
- static const struct kfd_device_info renoir_device_info = {
- 	.asic_family = CHIP_RENOIR,
- 	.asic_name = "renoir",
-@@ -556,6 +575,7 @@ static const struct kfd_device_info *kfd_supported_devices[][2] = {
- 	[CHIP_VEGA20] = {&vega20_device_info, NULL},
- 	[CHIP_RENOIR] = {&renoir_device_info, NULL},
- 	[CHIP_ARCTURUS] = {&arcturus_device_info, &arcturus_device_info},
-+	[CHIP_ALDEBARAN] = {&aldebaran_device_info, NULL},
- 	[CHIP_NAVI10] = {&navi10_device_info, NULL},
- 	[CHIP_NAVI12] = {&navi12_device_info, &navi12_device_info},
- 	[CHIP_NAVI14] = {&navi14_device_info, NULL},
-@@ -636,7 +656,8 @@ static void kfd_cwsr_init(struct kfd_dev *kfd)
- 			BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex) > PAGE_SIZE);
- 			kfd->cwsr_isa = cwsr_trap_gfx8_hex;
- 			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx8_hex);
--		} else if (kfd->device_info->asic_family == CHIP_ARCTURUS) {
-+		} else if (kfd->device_info->asic_family == CHIP_ARCTURUS
-+			|| kfd->device_info->asic_family == CHIP_ALDEBARAN) {
- 			BUILD_BUG_ON(sizeof(cwsr_trap_arcturus_hex) > PAGE_SIZE);
- 			kfd->cwsr_isa = cwsr_trap_arcturus_hex;
- 			kfd->cwsr_isa_size = sizeof(cwsr_trap_arcturus_hex);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c37e9c4b1fb4..a0daf0ebbe78 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1918,6 +1918,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
- 	case CHIP_RAVEN:
- 	case CHIP_RENOIR:
- 	case CHIP_ARCTURUS:
 +	case CHIP_ALDEBARAN:
- 		device_queue_manager_init_v9(&dqm->asic_ops);
++		chip_name = "aldebaran";
++		break;
+ 	case CHIP_NAVI10:
+ 		chip_name = "navi10";
  		break;
- 	case CHIP_NAVI10:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 98a5e1d719c8..a2c9063076cc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -412,6 +412,7 @@ int kfd_init_apertures(struct kfd_process *process)
- 			case CHIP_RAVEN:
- 			case CHIP_RENOIR:
- 			case CHIP_ARCTURUS:
-+			case CHIP_ALDEBARAN:
- 			case CHIP_NAVI10:
- 			case CHIP_NAVI12:
- 			case CHIP_NAVI14:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 5d541e0cc8ca..d903f694acba 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -242,6 +242,7 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
- 	case CHIP_RAVEN:
- 	case CHIP_RENOIR:
- 	case CHIP_ARCTURUS:
-+	case CHIP_ALDEBARAN:
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 0be72789ccbc..cdef608db4f4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1370,6 +1370,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
- 	case CHIP_RAVEN:
- 	case CHIP_RENOIR:
- 	case CHIP_ARCTURUS:
-+	case CHIP_ALDEBARAN:
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
 -- 
 2.29.2
 
