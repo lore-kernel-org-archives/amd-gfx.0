@@ -7,54 +7,54 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73308C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:20:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7323AC43381
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 416AF64E05
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 416AF64E05
+	by mail.kernel.org (Postfix) with ESMTPS id 3A2EA64E05
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A2EA64E05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA66F6EB38;
-	Wed, 24 Feb 2021 22:20:20 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8986EB38
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:20:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D416EB3D;
+	Wed, 24 Feb 2021 22:20:21 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7FB6EB36
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:20:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GSKwCYDnvTcVmEB9FbGhIFaRMgq+HBIKdglmRe0MpuyJMnyjKIBKX/icNytmyT8i6UbeZvmCzoFY5srjBB05KWW3sevnTCvWeLn/t7UNCZg0YBujDcg/1B34cAYzAMPY0y1tmjsrrIhz/31tYNfLC0iO2PrTbkm4CRdKPXOU3UaMwCd71QSgfsVa0fKyjtIS+hVL2rE21FWKT6EsIuC4FJTrlK+Fhtao+2Xfw5yMVro4RCs8MdV1dTZyBOHsdIlOHoYGoMlSKFQUb2LqAJF2P3yySLfjKctpNqz3yPlB2A8PpnU2BRvPX9Dxg+nA19N8Uoe+iSLKzMcuXFl1W3tVJg==
+ b=g5yM/QuP/2Y9Vh+E5N82prDs6x8M9RC6DEneCSqkiFyf9WCr6hl0Z3QWIrwO9Y63/TYgEjdBQAm/bqG6fpwdZ7Cu7rfTpQ73w6MLwDfXLGfOOIkyMVyyhX2mMbhDJkkWzWq4os+UJxrYc2ypPLfTWPyUqEu12/yZ4n16rIQW61kmsliJo/AK5pujRai+TdfMVU17DEVFQXF2xY1Rm81kWrl139MI73nh4JlzZfbn8mVwRLMgKXVquZdmPOmHtFe4rHk7Yo1NwYBZrOzr4iwdjrRaw8fX5BzIvhLSldiGhkDlWjPFhsWVVtYANyDZ6rP4r7iP9BaQ6f2G1NBSoPN4WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0FS9yxlFTmiRBGgpNxFKfiMqbrboXL1T72Ko7uVKbI8=;
- b=geKDmRE3dV/8eYwkodK/VOrnqcnVWJDrsqhVshvunEutNlygFPBIMf3ca9eY46ZDV7+YKohoGL5Cis0dxWVEXnVGye/nmwCSym9fwsJdRi8e1Vp94/6ZyeRiZW3XNMMAYGMQRDdhzoFUs/D0b6hrAEN4kBTb1amvCdo5BEO51BPXqg2PU4R83fPqiyRrcaFH5zLSUUi/eK+X6lcTnsDC5ZzF/2Dq2TTz8NXSL55oPwHgUFrlkhTlPhB4vs+rjsDzBuly+ONp5Q/+fMSBNXBg1yOmgjl1AFVTMsh6U3x28ADggGGOX2E+9n98CnvPrfUj/EM/jwF7CugPCMpSsQnkIA==
+ bh=byOcrMK92LEzBSVXZmST4gOCd1xf1qQx9e3SpZXX22U=;
+ b=Wqg9U4oh+Dxz3KKUaxfoerKmxb1DbmkmG9QHLE1yo4vJA2EP1C1j0zEJngBArTkde9/SI9RsC1QWdPv3LnKlOxay+dNXR8ZC2FmZ4HCVUHOzPaqJ32gs+8iCJwjeRRBRJRBse7W/ShMsi7ugpGIKmAlXET5V9bwoZEupbX2St/aieZXHl2v8mbwfoX0Q79pgY6s7zZGLHb6G7IM0BTTFYcNZAlRUubWxqm9C2mF9xMOmkkGMOLF33kRl45DPZ+Ws0aKb4fWzqo/eqyuFIM+eni4tjQKAoBBya5zRdO21qpuhiCQweh0pkfuxbTyUCmiqKmLm+3eIDlbhp63QdoZEmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0FS9yxlFTmiRBGgpNxFKfiMqbrboXL1T72Ko7uVKbI8=;
- b=fnC74N0bb71B+6Y57cA+6uwbtQePYDrTol0k5fC1AENkLJUriz6DPneFLAO9IVRcU8d3bLOq0ehyNirCXCulDPq3dwuK71bn31aFFR7xzAKX6d28MvS8NXklX1P+6RloZ41Xc5N+JJtDgb8DzL+QaXs6/baKX5UDGwPzcZ6oJXE=
+ bh=byOcrMK92LEzBSVXZmST4gOCd1xf1qQx9e3SpZXX22U=;
+ b=kYxitqeDc5N63+gHhUb4kc0/VEWPx4OlTy+G8OerWc7i/l4uksz6/K4w3Xh2i9WBx6zq5AnYpbESQKRxlso4qPsEKdbiDJgbxMN08BvjqV6z2IZ5roJdFm8xCzdOGEVFt5cX6X3od9BVOhjnWeAoN7s7yw9H6Tg9U5ng8g0ByJQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
+ by BL0PR12MB4865.namprd12.prod.outlook.com (2603:10b6:208:17c::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Wed, 24 Feb
- 2021 22:20:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.31; Wed, 24 Feb
+ 2021 22:20:17 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:20:18 +0000
+ 22:20:17 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 044/159] drm/amdgpu/vcn2.6: Add vcn2.6 support
-Date: Wed, 24 Feb 2021 17:17:04 -0500
-Message-Id: <20210224221859.3068810-37-alexander.deucher@amd.com>
+Subject: [PATCH 042/159] drm/amdkfd: expose host gpu link via sysfs (v2)
+Date: Wed, 24 Feb 2021 17:17:02 -0500
+Message-Id: <20210224221859.3068810-35-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -68,54 +68,54 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:19:50 +0000
+ Transport; Wed, 24 Feb 2021 22:19:48 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0ca5bd99-e924-4e8c-db60-08d8d9124d5d
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4175:
+X-MS-Office365-Filtering-Correlation-Id: 5f8183cf-ed18-4012-51cb-08d8d9124c89
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4865:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB41753DB88D44B035B3A55D6FF79F9@MN2PR12MB4175.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4865FBD7620CFFFF34586709F79F9@BL0PR12MB4865.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NSn8Vp8JrV2B+Dtbso19jLq3KYP34wHtM9q/QIIqRsKpQCAr0B/GC2m4J1fpz+8V+25YvCTTBzOnS5VcrGEADoe2BJWzfvpXdhv4yfNjLTdEjcWc7LprF0vJBBTVlvDiwyH5hPs8/9Nf8t8nNDb4EfmAQDtB7nXsxmAj3mdjmAG1Y5938iiXvmX5tQ1VF9ymglMeAhpsVUHlEwI4iLGNTSjikYWOaUQxSx1PAn+P7fwRtvvhMWt1L0eyzuS9+GU5Nj9wnh56sLkMS93FZW+iCnMZm2QzyAxCBmM4Dkoowyq4//jm+wXPxAH4oNzQVqkPl14xMhwE0LqTJOAYkh1uipj5EWU+/2vPk73xDeguszcv1zhgY6fRQAzhB1ECHi48KczOdVAo+ZgoGCuPeB0AAzCvdFt9R65hcewmlO07/3XWqX9AmCdg/tLMboOlJx/2ElEKfvg4c9yGn6gWgaAjPC8JQyGQeOCC9LZsNpzok4l1lbRfT6m4kxjegZQxmrrtZNKDiROwn+MA8QQ32eygQrsInO/TPaOZgj8dqGRS+qAvUomQEZ5LTmSHDWWvll3Rfpb2Gkj+wmz+bzRSUHrHyQ==
+X-Microsoft-Antispam-Message-Info: 2cefnD3Eb0VJbEgwRs2dsSs8Bxn1OuyVqZMIab/yS+97TDqoQSQJNCF+DuKdoItSxY/HabA5ooKiKJDT7CjQzfeyJD11kNQLq4KWLm3EcGVYLRmg5xHUNfe4y3QqGmQ6NwajN6iMhVVGo6qEVkN0f4GGvjqUY49pA7mYjzc8c1GHC+V6bPuJUow+K4jdyE1GNd0Pp/XZBuZaOScq1DPH6Yv+8PWZYddEz+6bTYJ/bfChryenzw9xGQhuZcOck0BWtndDjjveu3fQrthKBAl9XIefE8kNtFrxPuEZzoBwOEJTrE50G21IPVpB4DHjLDqtz0CdwqegWVwFxR26foHRe+NP0he5cwKwnsiPJPzuoMAorv+B7vOii7GKi/lsUXNNYRtsAD/0NjERRK6beQ6PB8z1rCMW7q7Y3w2j1+QVqnGDN2KycR7yDOzvaOHbmSwWDc7kS/33RTFX12zIhFweXHTgDQdoUwegEe+iMQydTnFvMthKp+JrGDoqjL4dt0d0IOMqrd3miWys3eUz7YVSO/JI1210xR2fERLXvtnX9N6c2/oBWSgc5SFNftj25PiurMOYUXTV4jgFB7gGNm7LNw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(39860400002)(346002)(396003)(376002)(66946007)(5660300002)(4326008)(6512007)(66476007)(6916009)(26005)(36756003)(66556008)(2616005)(186003)(956004)(16526019)(478600001)(8936002)(6506007)(2906002)(69590400012)(86362001)(1076003)(54906003)(6666004)(83380400001)(52116002)(8676002)(6486002)(316002);
+ SFS:(4636009)(136003)(346002)(396003)(366004)(376002)(39860400002)(6506007)(478600001)(316002)(66476007)(66556008)(86362001)(2616005)(5660300002)(6916009)(8676002)(956004)(36756003)(1076003)(2906002)(6486002)(6512007)(26005)(4326008)(52116002)(186003)(66946007)(69590400012)(54906003)(8936002)(16526019)(83380400001)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?wgfXUk/dBfJEACUe8QrzvLIM8R6ZpsMv6QOFWAt0mb3LmKL91iCpgBw46uGh?=
- =?us-ascii?Q?VfUO8JBI8ctNUxafB9R0x2Dm5NGKLyPK01DrupRJ3dkyhRpfcuTZOzfH9CAt?=
- =?us-ascii?Q?35bqjQjwCmQC/RszNDbSPudnjOgbG85x7RlLZ1DBnq+wOuEiPIV590ZC50gi?=
- =?us-ascii?Q?KN0pIsGAxMlNcTjrQWkrjb9Fp9pk5TU2G9GSFp/kauL0RnfpIuikSbCyypJ+?=
- =?us-ascii?Q?Gae8SmorA6EE9cd4b7HIHPwNUEgaNrNB9nGeItR3pxio0A1YtL8w+61Cmqfh?=
- =?us-ascii?Q?/wPG9A3kI2LfmwHARaylnQTd3ShJ2OA1uNLOmTgpVJWhSjxFrCY9nc6MmvaQ?=
- =?us-ascii?Q?7fXTsn7Yt8ViX+l5b2pqStP08lTQAWDgdcWLSZbLiE8EtEOFe4CCYrfA4nKM?=
- =?us-ascii?Q?z1Hni1mRN84I7uTh3xWiZcJ4f3eGqRHEImJRzlZWtDmJYWrAEVf32jkcknOQ?=
- =?us-ascii?Q?q93eZ7UiuAKnWvw4eYzs8zdoFwOesQrDrr8dQ4BQtbTG/uEU/ixrIb7KfV9B?=
- =?us-ascii?Q?bFQEGG/cqVa9rZ0e0dwykxmVa1eAMp65K9TZGDmbBEaE5fHxHU+1IxBzVXDG?=
- =?us-ascii?Q?8iM6HJIryRwbsGHqiVSn7Wd7OxlM7yV8rJirpu7f5mnIHAg9LQsqndUL28Nr?=
- =?us-ascii?Q?J5tK/9XYmhiq3sKeQrgRTfq68rxOIcggIIHlGV4tzw40GBqE3+CMEKkvSWCq?=
- =?us-ascii?Q?8CFNJSsMsMFTVpZpMgW8DMD+ob84TpM0JRnvbMswMwdyvJQ85gfy9AMlPIc7?=
- =?us-ascii?Q?vd8YZSQ98qw2+VuNAPdB+PFXA4tGiB+sKCBzPVVCa1Okltp3f+OwzrWXF3M4?=
- =?us-ascii?Q?qqXcp4GIg/ne/JXdC2Aqsf3Xr4nzfyREvuyoyoNdVAYlRf88/anMub4CZV9o?=
- =?us-ascii?Q?/r5FA9AQopZpWJXkics5VFhfD+cjCip6OcXhhwxGM2S1T86Pv8sLMqnVuJiE?=
- =?us-ascii?Q?wmngTJzbRPoTOV/83WGaINRs4nNSmEObpnVsu9Gpakl1/nTtQNnr/4JlKf8g?=
- =?us-ascii?Q?IWxgOh72mhVbe55nvhLlNAiXD4hF93kSy7mEx1Q0KVKSGLs21nh7wQ+wYhSp?=
- =?us-ascii?Q?i0pKJFbtAqk+K/s47ByAuWJz4kQ/8ZaE2Enzhjatuh2OwaawY3HF7VgrwHSz?=
- =?us-ascii?Q?B9Qgj4CLNi3kgvPdUFC6e6CeOAXyBqeH8Gn2NjAon0bwksoCVC+kGxwjDvUw?=
- =?us-ascii?Q?A5lObTjBgmHm4CZG1Jq9/M265rtw6kFKsaYejRdEYUEGBONOM2fR79jFz09B?=
- =?us-ascii?Q?rQqqiWAo2g9zIR7qEWVNskhiEq9Gy2AigTlF43E6Sswn3sj7JmZP5RJMyE3o?=
- =?us-ascii?Q?ZmGNmj7ClN+WoqwoiqviCafd?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SRqzbZTOTjvbmwb3lpjJA+QeDpLVhwxEBccPpWIMvvQzDQVmxZecDBd3+6F7?=
+ =?us-ascii?Q?ffeglVQN87d4OsyAP62w7ill5/BhvvAiJ7b/3ryghcX1gE4BT+JDrM4MTzU9?=
+ =?us-ascii?Q?UPtUnREOyanrdim1UgDvoPKbATu42MvisWMzIB+QRBkApk1d1Ta5UTOibc07?=
+ =?us-ascii?Q?V8gstockuv+2petDseQkZf6VBpNgvkXyJsxNP/HsGDpFgifavzPVExqtKhnO?=
+ =?us-ascii?Q?KZkV0Sw+5AXAjqG+CMcIOOG5obqtYIFUbMHMGqzCD3R8r74VpeHFGVknfX7B?=
+ =?us-ascii?Q?CawYnzYYbQgq5o2SlcH1UUhafKsERQbvVL1eRR18qKDpgDnfixqKCwwTmfqE?=
+ =?us-ascii?Q?sHOtsP4XuEypfI1dee5pGP2TG4KI8+ivedqrWtLTgPkS1VXPpVtOBd2evGvI?=
+ =?us-ascii?Q?UrTI0/SSYcXXVrWBN3G6F42AlshUstDWPoyA+sJit6Hh5hF9Gjb36zdg3gpr?=
+ =?us-ascii?Q?LB7XQHnMbU+w2huJFCWfAjGH5LLqA2hm5rsBrLaL3TQ/rl1epNf/z4YqTDwJ?=
+ =?us-ascii?Q?2bNZbVazcJzSGPMxUbsEWOp/GO6iCVskme+Slpi+YQAVpw3BFboshoTV31+G?=
+ =?us-ascii?Q?NXF8/iT9lJ4c13hLB9rGfUoARhIwoj1C1ZUpb3ZcoWmU0cqs7PjILCp/q5dK?=
+ =?us-ascii?Q?90Ndy+fIAjELjrZg+Kv9Zv/SCPU+NIA/mMCibNdEJaeCXd2ElOs4Ilg12M5/?=
+ =?us-ascii?Q?hRnA27He9Sh0d3GsAxUM4dZagjSVrfnh9v3OArVeUhnFo+BwBeTJeSrWeTM0?=
+ =?us-ascii?Q?Q1BqXAjAcys7SPmo1Awy5uwnkXUK60b+mLJRGJBKq0hcmfZXTVeHEJn3oiFl?=
+ =?us-ascii?Q?LSF+An9NfT5ajYPo+shg6w2QdCYpT6A+UYyUh0Ji/mmhnFyIXKfkUxBzwr36?=
+ =?us-ascii?Q?lHd/j9RoeY5kYTyQwCwflbKMDYBr8pxahD4ZcaADes+vB1knrB+xv/DHTnbF?=
+ =?us-ascii?Q?LEiZ4bRjTaknLGcrup5HoA1PJSxtemyIuRjy9BvmLqkzhIskpSDnbWh0enC6?=
+ =?us-ascii?Q?Ib7Za5i04HaFZwULvNTcfrRTywUVCCnzs6ILnh4MXTzyXjS4JtVLd6Bm9I/7?=
+ =?us-ascii?Q?qPLmpDABuivLo1QEZVgRnKVb18NEMqKOhUM2fsCMuaxQOE/hCnkbqbJ4k0B6?=
+ =?us-ascii?Q?+fZkGbrp1CNpfbRU2aMrjN+WUlh3xlhC/C6C3ZVRXf+TTGogJDRkEEDt0Fkj?=
+ =?us-ascii?Q?i/cJHj7UY60VQcYA1jbHSHreN7KPfnFqCmcs0lA0zg7jbC16xM3mXyuFhnie?=
+ =?us-ascii?Q?R67HN61AoU/c8xjpqs0iwAmkD56BMa1jprOL3q8Gs9tW2GztpJdHTMW1fPD+?=
+ =?us-ascii?Q?NgKsyisibtxmAyxeXOgwUlSr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca5bd99-e924-4e8c-db60-08d8d9124d5d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f8183cf-ed18-4012-51cb-08d8d9124c89
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:19:50.5681 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:19:49.1652 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kAynMFxyE985XPAgl5zRVGjzWOOaefXq4pjAMOJB+E1Yyo2KkS38uApjydRYNOGM9IxKJyS9Eq/0vw8gjOHhVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4175
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nm4gJCq2UxPlB2kqYgjeXim/mo4Tk2gwhWEtd2HiJ7W0ETz3wkZaYDB61f7QoYd1KQ0kzaj1hcYds0SyUG0jTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4865
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,179 +127,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
- Leo Liu <leo.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Oak Zeng <oak.zeng@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Zhu <James.Zhu@amd.com>
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-Aldebaran is using vcn2.6, and the main change is vcn2.6 using
-AMDGPU_MMHUB_0, and vcn2.5 using AMDGPU_MMHUB_1
+Currently host-gpu io link is always reported as PCIe however, on some
+A+A systems, there could be one xgmi link available. This change exposes
+xgmi link via sysfs when it is present.
 
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+v2: fix includes (Alex)
+
+Reviewed-by: Oak Zeng <oak.zeng@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 99 ++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.h |  1 +
- 2 files changed, 98 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index b6e0f4ba6272..87ec883f7e06 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -1545,6 +1545,36 @@ static const struct amdgpu_ring_funcs vcn_v2_5_dec_ring_vm_funcs = {
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
- };
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 533df07964ec..c60e82697385 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -26,6 +26,7 @@
+ #include "kfd_priv.h"
+ #include "kfd_topology.h"
+ #include "kfd_iommu.h"
++#include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
  
-+static const struct amdgpu_ring_funcs vcn_v2_6_dec_ring_vm_funcs = {
-+	.type = AMDGPU_RING_TYPE_VCN_DEC,
-+	.align_mask = 0xf,
-+	.vmhub = AMDGPU_MMHUB_0,
-+	.get_rptr = vcn_v2_5_dec_ring_get_rptr,
-+	.get_wptr = vcn_v2_5_dec_ring_get_wptr,
-+	.set_wptr = vcn_v2_5_dec_ring_set_wptr,
-+	.emit_frame_size =
-+		SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
-+		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 8 +
-+		8 + /* vcn_v2_0_dec_ring_emit_vm_flush */
-+		14 + 14 + /* vcn_v2_0_dec_ring_emit_fence x2 vm fence */
-+		6,
-+	.emit_ib_size = 8, /* vcn_v2_0_dec_ring_emit_ib */
-+	.emit_ib = vcn_v2_0_dec_ring_emit_ib,
-+	.emit_fence = vcn_v2_0_dec_ring_emit_fence,
-+	.emit_vm_flush = vcn_v2_0_dec_ring_emit_vm_flush,
-+	.test_ring = vcn_v2_0_dec_ring_test_ring,
-+	.test_ib = amdgpu_vcn_dec_ring_test_ib,
-+	.insert_nop = vcn_v2_0_dec_ring_insert_nop,
-+	.insert_start = vcn_v2_0_dec_ring_insert_start,
-+	.insert_end = vcn_v2_0_dec_ring_insert_end,
-+	.pad_ib = amdgpu_ring_generic_pad_ib,
-+	.begin_use = amdgpu_vcn_ring_begin_use,
-+	.end_use = amdgpu_vcn_ring_end_use,
-+	.emit_wreg = vcn_v2_0_dec_ring_emit_wreg,
-+	.emit_reg_wait = vcn_v2_0_dec_ring_emit_reg_wait,
-+	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
-+};
-+
- /**
-  * vcn_v2_5_enc_ring_get_rptr - get enc read pointer
-  *
-@@ -1644,6 +1674,36 @@ static const struct amdgpu_ring_funcs vcn_v2_5_enc_ring_vm_funcs = {
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
- };
- 
-+static const struct amdgpu_ring_funcs vcn_v2_6_enc_ring_vm_funcs = {
-+        .type = AMDGPU_RING_TYPE_VCN_ENC,
-+        .align_mask = 0x3f,
-+        .nop = VCN_ENC_CMD_NO_OP,
-+        .vmhub = AMDGPU_MMHUB_0,
-+        .get_rptr = vcn_v2_5_enc_ring_get_rptr,
-+        .get_wptr = vcn_v2_5_enc_ring_get_wptr,
-+        .set_wptr = vcn_v2_5_enc_ring_set_wptr,
-+        .emit_frame_size =
-+                SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
-+                SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 4 +
-+                4 + /* vcn_v2_0_enc_ring_emit_vm_flush */
-+                5 + 5 + /* vcn_v2_0_enc_ring_emit_fence x2 vm fence */
-+                1, /* vcn_v2_0_enc_ring_insert_end */
-+        .emit_ib_size = 5, /* vcn_v2_0_enc_ring_emit_ib */
-+        .emit_ib = vcn_v2_0_enc_ring_emit_ib,
-+        .emit_fence = vcn_v2_0_enc_ring_emit_fence,
-+        .emit_vm_flush = vcn_v2_0_enc_ring_emit_vm_flush,
-+        .test_ring = amdgpu_vcn_enc_ring_test_ring,
-+        .test_ib = amdgpu_vcn_enc_ring_test_ib,
-+        .insert_nop = amdgpu_ring_insert_nop,
-+        .insert_end = vcn_v2_0_enc_ring_insert_end,
-+        .pad_ib = amdgpu_ring_generic_pad_ib,
-+        .begin_use = amdgpu_vcn_ring_begin_use,
-+        .end_use = amdgpu_vcn_ring_end_use,
-+        .emit_wreg = vcn_v2_0_enc_ring_emit_wreg,
-+        .emit_reg_wait = vcn_v2_0_enc_ring_emit_reg_wait,
-+        .emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
-+};
-+
- static void vcn_v2_5_set_dec_ring_funcs(struct amdgpu_device *adev)
+ /* GPU Processor ID base for dGPUs for which VCRAT needs to be created.
+@@ -1113,6 +1114,8 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+ 			struct crat_subtype_iolink *sub_type_hdr,
+ 			uint32_t proximity_domain)
  {
- 	int i;
-@@ -1651,7 +1711,10 @@ static void vcn_v2_5_set_dec_ring_funcs(struct amdgpu_device *adev)
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
- 		if (adev->vcn.harvest_config & (1 << i))
- 			continue;
--		adev->vcn.inst[i].ring_dec.funcs = &vcn_v2_5_dec_ring_vm_funcs;
-+		if (adev->asic_type == CHIP_ARCTURUS)
-+			adev->vcn.inst[i].ring_dec.funcs = &vcn_v2_5_dec_ring_vm_funcs;
-+		else /* CHIP_ALDEBARAN */
-+			adev->vcn.inst[i].ring_dec.funcs = &vcn_v2_6_dec_ring_vm_funcs;
- 		adev->vcn.inst[i].ring_dec.me = i;
- 		DRM_INFO("VCN(%d) decode is enabled in VM mode\n", i);
- 	}
-@@ -1665,7 +1728,10 @@ static void vcn_v2_5_set_enc_ring_funcs(struct amdgpu_device *adev)
- 		if (adev->vcn.harvest_config & (1 << j))
- 			continue;
- 		for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
--			adev->vcn.inst[j].ring_enc[i].funcs = &vcn_v2_5_enc_ring_vm_funcs;
-+			if (adev->asic_type == CHIP_ARCTURUS)
-+				adev->vcn.inst[j].ring_enc[i].funcs = &vcn_v2_5_enc_ring_vm_funcs;
-+			else /* CHIP_ALDEBARAN */
-+				adev->vcn.inst[j].ring_enc[i].funcs = &vcn_v2_6_enc_ring_vm_funcs;
- 			adev->vcn.inst[j].ring_enc[i].me = j;
- 		}
- 		DRM_INFO("VCN(%d) encode is enabled in VM mode\n", j);
-@@ -1830,6 +1896,26 @@ static const struct amd_ip_funcs vcn_v2_5_ip_funcs = {
- 	.set_powergating_state = vcn_v2_5_set_powergating_state,
- };
- 
-+static const struct amd_ip_funcs vcn_v2_6_ip_funcs = {
-+        .name = "vcn_v2_6",
-+        .early_init = vcn_v2_5_early_init,
-+        .late_init = NULL,
-+        .sw_init = vcn_v2_5_sw_init,
-+        .sw_fini = vcn_v2_5_sw_fini,
-+        .hw_init = vcn_v2_5_hw_init,
-+        .hw_fini = vcn_v2_5_hw_fini,
-+        .suspend = vcn_v2_5_suspend,
-+        .resume = vcn_v2_5_resume,
-+        .is_idle = vcn_v2_5_is_idle,
-+        .wait_for_idle = vcn_v2_5_wait_for_idle,
-+        .check_soft_reset = NULL,
-+        .pre_soft_reset = NULL,
-+        .soft_reset = NULL,
-+        .post_soft_reset = NULL,
-+        .set_clockgating_state = vcn_v2_5_set_clockgating_state,
-+        .set_powergating_state = vcn_v2_5_set_powergating_state,
-+};
++	struct amdgpu_device *adev = (struct amdgpu_device *)kdev->kgd;
 +
- const struct amdgpu_ip_block_version vcn_v2_5_ip_block =
- {
- 		.type = AMD_IP_BLOCK_TYPE_VCN,
-@@ -1838,3 +1924,12 @@ const struct amdgpu_ip_block_version vcn_v2_5_ip_block =
- 		.rev = 0,
- 		.funcs = &vcn_v2_5_ip_funcs,
- };
+ 	*avail_size -= sizeof(struct crat_subtype_iolink);
+ 	if (*avail_size < 0)
+ 		return -ENOMEM;
+@@ -1129,7 +1132,18 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+ 	/* Fill in IOLINK subtype.
+ 	 * TODO: Fill-in other fields of iolink subtype
+ 	 */
+-	sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_PCIEXPRESS;
++	if (adev->gmc.xgmi.connected_to_cpu) {
++		/*
++		 * with host gpu xgmi link, host can access gpu memory whether
++		 * or not pcie bar type is large, so always create bidirectional
++		 * io link.
++		 */
++		sub_type_hdr->flags |= CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
++		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
++	} else {
++		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_PCIEXPRESS;
++	}
 +
-+const struct amdgpu_ip_block_version vcn_v2_6_ip_block =
-+{
-+		.type = AMD_IP_BLOCK_TYPE_VCN,
-+		.major = 2,
-+		.minor = 6,
-+		.rev = 0,
-+		.funcs = &vcn_v2_6_ip_funcs,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.h b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.h
-index 8d9c0800b8e0..e72f799ed0fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.h
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.h
-@@ -25,5 +25,6 @@
- #define __VCN_V2_5_H__
- 
- extern const struct amdgpu_ip_block_version vcn_v2_5_ip_block;
-+extern const struct amdgpu_ip_block_version vcn_v2_6_ip_block;
- 
- #endif /* __VCN_V2_5_H__ */
+ 	sub_type_hdr->proximity_domain_from = proximity_domain;
+ #ifdef CONFIG_NUMA
+ 	if (kdev->pdev->dev.numa_node == NUMA_NO_NODE)
 -- 
 2.29.2
 
