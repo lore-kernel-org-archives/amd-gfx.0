@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17460C4332B
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93883C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CC5D164ED1
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC5D164ED1
+	by mail.kernel.org (Postfix) with ESMTPS id 58B2C64ED1
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58B2C64ED1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969AD6EB60;
-	Wed, 24 Feb 2021 22:21:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B266EB5B
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F93F6EB58;
+	Wed, 24 Feb 2021 22:21:13 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A186EB5C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:21:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IG5RQgiJ+QQKU1N4JZRU4D7XetzqmLJ903ejjSxnDPrRFZgQBxWJj0Dmcr7yvzghgoLT+FgkEpsH+CXDxJndwZeVdO2YzqqmgPi+Bdo7mhecMcDsNnTZd+HtvlbjzsOuTxhYovgCv2SikTT2+IiBYUNNzeP4Dx8sC3sbM83Jc64O35wLp1pz7SKnaI4T1vcc4Ig2Phwr5qL1Bfa+cICqZonDBxUpsDU0vqdPukXMkEZmNsRJjg41EL92dyeuuJhz/zkq9bl0REhEqjaW2ZjkgzNT1Nrl9bDellCQJVYqBdpfLzCBq7QCX4NidFLAjBQfGLOjvSXHwzdDwTM/ekKJFQ==
+ b=MfsRuUqJVsPWQKEGBoqbBMT/ql9ukJyY4zwC85vpoYO4581HJ5cLOz9AtkmRoHtks6+thqwIVxup8OtdGP2JxmFyN8TwFT1N4H9nyvg5byFLEpTqXQGDiUKhd8EFKFo83StsmBahw0zheUgyUiddGnjOssbBH5fl03C7k2b04Iz4IArYgaQKTrwv+8I6joIRVS3TxsX0VSQgrMSFztRe9LlKiD2HeoOWhVRi6H5o0ZkWwyEYk+kA09Yrucs7qL1mefo7lQqYfkQfCsfJeK/u3VcboH6Xfy/5JBrjrsftBab19vKBYfH7oDHALW10q150y508LRg5BMIztEGixjzMfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iu5BEtvbsNLvCzPMxx2ohsGvgHKlzM4GADSTgMiKT9s=;
- b=TpaI+bwgybgtZbZrEQ+TR95bGnseogGhKbNChXYTEGY1JilR7yZd+NsniASJNcET4oshXpZEvcffeJAkEJyhcJVgEcq07aSQ9CQYHY4L2BE5jDuoXqLk3qGIoQdn/qUghccOIeY2SaKwvn6LAxis0eSk2xCvpEngnzkh4SuvfPvM7JkVh+L8DG+n1D4VRzkqrpqKYSqs4TXS8RaSxL7ZEoKVZR0SC7yn1WnMlO0k1bN1RWOTPvyLchTg1ssxHchaZm1HVr/+RMUAlUHEI0ypxSMdY5RDC8c73YrcOgRb+3b2olTuzNQnVij2qLJk+tMbvc8yIr2DZvAKl3IkmBAgww==
+ bh=LTLtw5GDdFMe8OChtAumi/AZEPpQPdRmhPvBDLwIqSw=;
+ b=H06DM0o5HOcDVZ8fY33SPU1x7bdkxD8ncpUR4iYUxLI4UqgG04Ynii7Geixi8HlQZzsQZ6LdM4QyRo3rFwK5UkyS7v4PE3XCBqUHm8g6iKam0qdFCh9OfFAzqYXOdHLUqD9ANfNkfCOw39lh7ykd2nAe11FzuezQDZsEOr2jCDw4VV0vympVSstCPUZj1Dv2Vt9oUTrM/MDfegb3vg6Efpq3QJxgrJsFmfn8HGgJJOduy43EvxYGBVx+xc5GpLPa0S0b0bBy7omwEU4DmaX8cN6JY0pViY5tn/Aoit/IqWkAaZLDPV6b9aoaHZIZKHA98lpwgoIzYWPbBXtKqpqqQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iu5BEtvbsNLvCzPMxx2ohsGvgHKlzM4GADSTgMiKT9s=;
- b=iOiz0IDHEjsXFaBlsu0+BWWgjjkq8mFCF9zH0qq891ZtkfusefgZbhQOnI7oKYkv7TcGmxqS2q7LsM812VPiprevCw3zStomuYQ+TzbpjKpZu17mt5cZjeHJZq1ZNxZshO+UYbxFSNmcunsQl5OQFQv4/EH/IKQOkPOJL5ubE1c=
+ bh=LTLtw5GDdFMe8OChtAumi/AZEPpQPdRmhPvBDLwIqSw=;
+ b=AIiHJBL+87VVsLNiRn+icVL59NlSiFuGg0Oe+HSzUJd58gKJbh/d3py6JdLbJ6hU55bArDovszgEaayaZzljjcI3WMwsN5lARef8HGaJ7Q8+Z5xP/Vefm2uexmFgbas27LD3LZ2U2EHTpSlw0YxsIwe2wYksFtbTwdoAW0lQ3GY=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB2497.namprd12.prod.outlook.com (2603:10b6:207:4c::29)
+ by MN2PR12MB4046.namprd12.prod.outlook.com (2603:10b6:208:1da::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Wed, 24 Feb
- 2021 22:21:05 +0000
+ 2021 22:21:10 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:21:05 +0000
+ 22:21:10 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 077/159] drm/amdgpu: add sdma ras error query callback for
+Subject: [PATCH 092/159] drm/amd/pm: Add support to override pptable id for
  aldebaran
-Date: Wed, 24 Feb 2021 17:17:37 -0500
-Message-Id: <20210224221859.3068810-70-alexander.deucher@amd.com>
+Date: Wed, 24 Feb 2021 17:17:52 -0500
+Message-Id: <20210224221859.3068810-85-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -69,54 +69,54 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:20:12 +0000
+ Transport; Wed, 24 Feb 2021 22:20:24 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 85a5b3a4-3884-4967-65c7-08d8d9125ad5
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2497:
+X-MS-Office365-Filtering-Correlation-Id: 702e6d8c-7eba-4925-c366-08d8d91261ed
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4046:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB24979AA0E72BFDE091C9CD81F79F9@BL0PR12MB2497.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB404663B16014BB57676DF3C5F79F9@MN2PR12MB4046.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AV2A0+GBex/pwXxbor8oqu7OdoHkYJ/tAKnTe6+vA1Cp/yhEev/BuhvSJh5OndegBuYfbQEwDIgEUMOzm5p2a7J+v4Klk64+E3a4P3m+w0c/pjMye0IGr2q1pGQ2sw4nmEBLjcsNobTG/hgdzwrOFSQCbh5WthISVq3xxIs2OMWmf1U449xzOtBtujsnSf2ytx2tTwa3kRftt7N6/NDzdnm44a1AVevTi78ZXIhNTzJUq8FvEJS17ukm0a8NsCt9SeqRQeQBX/ma173/hYgU86uSI/wYVNW9mmWQcTuL0tQD6APAejOs9XgDzAFSWCmVW8v6+HSmb2LHT/+L0lG94os3vGa4lWX58nbd0QwRhbGkFCEETX/D6c87jcD+VYWiMRdxxRVZTEPdeeYPl4GWz+gr6pNQmh3W6L3Q1e4DS0oSs86/8eVX5fYNHuNwRv5MpiEYCkrc3XTyXePUi6impi5iTKXdf382jjk4dE+5Ar2UrLDOov8cp6K38Dd6a2ALzdhrKvnSOqBqebnH1XGBsBWrqhnURr5HX71ZOZBCaZdoX/w66tOQPULXeHM/BoaBgYI5eOjOFQ4ti2oXcboafQ==
+X-Microsoft-Antispam-Message-Info: Y+TOrFv49gKNz6AwQ10931WHDm796AFHb3DMVl5LAy0ew4qjQQyBgPI4F34FfVzHbpXwIqIASxM5L42bG3G3ON/tF3IvqBuh1jgbNlTQPLNKqDljkIdX4YmgOCkiw5edsCTx+MWFFm8Hs1mBWUrih3QFrcbkSg4n6tvz9H+vAOJ7PrjRLv9jxopHwQMSWDBwkOwAEAUvzoL3uWBzwH1bDjK3Yl1XQNjCmpjnbsWs7ATAnGE4+uLBebcx/68LFWEWkFlSfvR7QJgH8hxpwrMftA+CjXYoKrDX0GqBJEtVoz50ozHyDJYZW4UowM5m3YN2a33i20zhQ+OJ5ytpBKZO8StH1iKHTyufMAz1BLJBELgqn7PUbTaTXkUE4k8PeBQrYVMj4yOwwEiTHD3M9G8FhU0ivap+xEcfSRhOudZ3Tj+JpfKzjgmgG5BDjyv0d8Bx/k2k5sEX2V5R0V/4lTiTjSYuWttCqmiGtlwnAFLBh7rYukxqgsVGBLP8Z6PzWUt7Pgxb/u5IpR6zDC281ywKJw1XUu0j5KzRJ/G0P03/ehTw2OU9eWIpnhzPQzrvVrFnhzIrK4zHSsxh8ndOMmPmug==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(346002)(396003)(39860400002)(136003)(4326008)(69590400012)(8936002)(6512007)(54906003)(6916009)(26005)(956004)(6486002)(316002)(2616005)(52116002)(8676002)(6506007)(2906002)(86362001)(186003)(16526019)(36756003)(6666004)(478600001)(83380400001)(66946007)(66556008)(66476007)(1076003)(5660300002);
+ SFS:(4636009)(376002)(366004)(346002)(39860400002)(396003)(136003)(83380400001)(86362001)(4326008)(956004)(2906002)(6486002)(2616005)(478600001)(69590400012)(6916009)(8676002)(8936002)(1076003)(6512007)(66556008)(66946007)(5660300002)(66476007)(26005)(6666004)(186003)(52116002)(6506007)(54906003)(36756003)(316002)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?+n7lkKVj6wdQjfhNtjvGZA806nkaAN8aI4nZLHb5/uSXQH+KX4M5FGrlkQsj?=
- =?us-ascii?Q?8P/ifxkI6jsIb44yqv6jdoH+nwCohfx+JokPNtee/qPrOWJl4JEzyAUiOAjs?=
- =?us-ascii?Q?+Oc0a61PxxPQRzCmCSZ06RTaVOefcUY1vgd8ZGRmOlh9TDVn4CXucc0D2A3+?=
- =?us-ascii?Q?g/TZnm1J0q+3gfpceJfHJalCgi4MeL8CbK4NpHplpbGIZEJGIMbp10ys4Ru1?=
- =?us-ascii?Q?pHeBa//UhgNwJgygtO2V+6mHyZKcaEVTNTSG6yWwWK8PbpmW0Rlbtk5LSnUZ?=
- =?us-ascii?Q?LR3rsl5y5B+Q/WD0M6eXiccv8zqkVJkwQej2zZvuciywtQQ2ll/pmkF6pWBf?=
- =?us-ascii?Q?2xPwgRP8bbAIFu+YWFItibGmEq8KczsFvAAV1uo3/5gLLF0iE1odD8hi3VUm?=
- =?us-ascii?Q?GSb/EZIuy2hCYHHpyXYsGK6Tuf5u9prfnG7oL1hTHyVc8J5yWQuGVvsMNq5L?=
- =?us-ascii?Q?olBDanJiyBKxIskgK5dgUBlyviOl/FHntvy0tTpKiKmEQmRwl+4LTiwIBdea?=
- =?us-ascii?Q?EGGWboLqkEvbK+Dtx+O+BOKqEICcNesTFIEnxGmy64YizLj5QlE1sm2zMmWn?=
- =?us-ascii?Q?EfNexgTy9+UJfp9A+XDdexlCPDNWsw3E0/kSpM10UQOXjV6xTIDa/1fE+7TV?=
- =?us-ascii?Q?E1TbNem0f0MfCD4UmfZGSdSOEAMxmFYizmdBa1++FLzUL4ncDKH6d46klU72?=
- =?us-ascii?Q?yUlIB6HZHzR7h87O+lRAoflAp4gB6NCQKc1Y43aC+9rftMjp/10lqPbJT+m+?=
- =?us-ascii?Q?nOC/xAwyWlEn1HYDp2i2WbLnwnLFZD3EvXazacB4HO46DqsYu7ZvyewHUt19?=
- =?us-ascii?Q?mCRcwxgqvUVHWIxcuA4x2lbhjQ1bN7Psdu30ZHyTOkaJJHPasAjy4j6AmdO5?=
- =?us-ascii?Q?mWwQ0pmY/2NCteaIrLeuyjhwYtc5fqlVAQxZV2k01a/tUm0iscqySrKgEx6R?=
- =?us-ascii?Q?aHr7tz5iUZfB3fUP4awri3u9k3CSvQy6aS4XKwpVQychxHcv7/8XocDu7O0l?=
- =?us-ascii?Q?4JTmHeHlHIsH/KKchC3Vk/lWbTgCRmhqEdwtq6qyVym1g5kRhlwJE/K/+fR7?=
- =?us-ascii?Q?8KSkN6ZnGUpx/yDtDoSJfaMUuUFD8go1XyilDnR8kf5COeNCrMdETCnr9vd2?=
- =?us-ascii?Q?G1FQTL+Xahok7Yu+dHJSqAEQSc0GPRBbLRUb9M1sLIQofKQe6UT/KA/bIM8T?=
- =?us-ascii?Q?TGMfGUHBNbsRzrMLSe+2C0Z66xjsCkaUb7UPuRZRWKk5wNDrgKa9P8jbDh4J?=
- =?us-ascii?Q?FRC2T4P60ejDhfZWKvyEDVlfnol2NA6SgSQzfie6jIeU3Px4dbidCglZOMna?=
- =?us-ascii?Q?84Rc0BEKx6WkFaTEldmwSD9i?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?8ZrXC+N6AOQSBkiihNMWhoKjRPseI6G5QTwKaLX/OC15hlj9uq9bESvI2mEy?=
+ =?us-ascii?Q?vPPAfWvmvavqp2ML8NUB+BkLL4ixE87Un9lZ5AOs7ZJhCxtF2T2qFxWhr0mI?=
+ =?us-ascii?Q?sv2WjbkdzPwdJ1oHsoqB2FPd5VLonx427kHZFwIp4RUWHxuswIvtW5OxIwQP?=
+ =?us-ascii?Q?J9ooxGNM1DoCzO67ZRJoZ/tO3xhObDxowcmTcvcFfC2fLTHsk3SWz3yx73d9?=
+ =?us-ascii?Q?NabisPBebHe92bps9e72+OIWZktCerOOKeeHW12ntriEhF01fgxYurifF9zD?=
+ =?us-ascii?Q?NAtYxS8q5MpOJJxCQrdWzun8X1/z06fbBCu66oGFviqPg5O62osMQPwPqjOp?=
+ =?us-ascii?Q?u9QDF+Aru4dYlOcl32TgIMTi2LqKkKC8WApziY0P1JPy3TyPc5GPmivbRQya?=
+ =?us-ascii?Q?bgHCAwLEya2yy43si+NKdO5THUDphbEmyK7I93/KlqiTmXdKFU914sqzen45?=
+ =?us-ascii?Q?qQOA+WG4LFDyaPSnOQevqjL43Zk34GhJU/FF2GR+4jAG23XaMvkIQJAFi5Op?=
+ =?us-ascii?Q?hiJ8+zqPAcaOtThmoZ1ALEU1hohP4ux0V90DfV8P/51kND8pkDpEwU1FqQa0?=
+ =?us-ascii?Q?JJhvPi9dvabr8ldbzOoFt5xkJw5xAWqkTMxPbSFRJXQffv1p8UvcEJ2SiKt0?=
+ =?us-ascii?Q?vqFxCzypIClijP6+jeK5g44zc0pAPQXglektZeKMgUiOwvdOomOKM8D8/pAK?=
+ =?us-ascii?Q?y5GnzWVLAVsddzCAMLTLskk/fjIY6+jo1WgNhQ4KROESfvpvJvbW6BjA2ZJN?=
+ =?us-ascii?Q?OeKCYnlnubrwnbz1LrB7FWvjPVU+x/m+6hVkOwSstvTNV8eKHeViJoJlC2KF?=
+ =?us-ascii?Q?IRXI0xxCr2VH+qNiJYjFHaNUGPktUW4x1Gwg+ugJ0lLADbRUNuDWYj4oGOJG?=
+ =?us-ascii?Q?8aeWO+vw058Bn1F3NuP3h17TcVz4FVjVP322EzDnwGFJJgSEM4s2johmPgfe?=
+ =?us-ascii?Q?vE3RDt0jQ5srpKbco2f8kWgZaHBBIfpNouvwtLRE78oLmK07n8qXAGZdLdGN?=
+ =?us-ascii?Q?RglNrBMFuM4mPPXJzAo5XRT4d1I4LPwso1gWhwhsW/zFu0tNVmfcvwUGa9Ys?=
+ =?us-ascii?Q?57yJhPKWGj+TlVnlJIsoUnK5BOjDxCfKAk9PwIM/FfepqxtqkfLGzCRoHwUp?=
+ =?us-ascii?Q?LbubvDyb9HCb33Bz7KoiiSCPxNr0ovxx+Izt2SADGiqo0x/3zufuKyhu5zKE?=
+ =?us-ascii?Q?vTPH33b6y9pswzph+UKwTh2/0D6APV01fRZ8TZhQ/tquod5jNPF3AEkwbytF?=
+ =?us-ascii?Q?Dfm3Vtx0AAZzclcyWU/GcUvDn2bhIKozOzKioUt6iXJfg32NhaHuo/afEldF?=
+ =?us-ascii?Q?y3tjcZmttDU8QVmEcSvlSdkn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85a5b3a4-3884-4967-65c7-08d8d9125ad5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 702e6d8c-7eba-4925-c366-08d8d91261ed
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:13.1390 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:25.1174 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2LVZQzHQSiQm6UsgI57bF/O/w05sV4Vu4uh8aVCjK9sutB//7oVclT+2irLZaqO/gi+TrzfKhmp/1ANv9r70vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2497
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4TzBrvBVbKUeA1+Y/QsRqOp4+niHn2CTgEZiJDk0iORIRZsNtcKnAf8OT81XH6GzwGQBLRK4cC8KFUMMp07AYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4046
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,225 +128,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <Lijo.Lazar@amd.com>,
+ Kenneth Feng <Kenneth.Feng@amd.com>, Kevin Wang <kevin1.wang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-The callback will be invoked to harvest all kinds
-of sdma ras error
+Temporarily force to use BU PPTable defined in VBIOS. Add support to
+override PPTable defined by module parameter.Add FW reported version to
+kernel log.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Dennis Li<Dennis.Li@amd.com>
+Signed-off-by: Lijo Lazar <Lijo.Lazar@amd.com>
+Reviewed-by: Kenneth Feng <Kenneth.Feng@amd.com>
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c | 187 +++++++++++++++++++++++++
- 1 file changed, 187 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
-index 8f5bbc0d6630..3a5d0a6bc578 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4.c
-@@ -21,8 +21,195 @@
-  *
-  */
- #include "amdgpu.h"
-+#include "sdma/sdma_4_4_0_offset.h"
-+#include "sdma/sdma_4_4_0_sh_mask.h"
-+#include "soc15.h"
-+#include "amdgpu_ras.h"
-+
-+#define SDMA1_REG_OFFSET 0x600
-+#define SDMA2_REG_OFFSET 0x1cda0
-+#define SDMA3_REG_OFFSET 0x1d1a0
-+#define SDMA4_REG_OFFSET 0x1d5a0
-+
-+/* helper function that allow only use sdma0 register offset
-+ * to calculate register offset for all the sdma instances */
-+static uint32_t sdma_v4_4_get_reg_offset(struct amdgpu_device *adev,
-+					 uint32_t instance,
-+					 uint32_t offset)
-+{
-+	uint32_t sdma_base = adev->reg_offset[SDMA0_HWIP][0][0];
-+
-+	switch (instance) {
-+	case 0:
-+		return (sdma_base + offset);
-+	case 1:
-+		return (sdma_base + SDMA1_REG_OFFSET + offset);
-+	case 2:
-+		return (sdma_base + SDMA2_REG_OFFSET + offset);
-+	case 3:
-+		return (sdma_base + SDMA3_REG_OFFSET + offset);
-+	case 4:
-+		return (sdma_base + SDMA4_REG_OFFSET + offset);
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static const struct soc15_ras_field_entry sdma_v4_4_ras_fields[] = {
-+	{ "SDMA_MBANK_DATA_BUF0_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF0_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF1_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF1_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF2_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF2_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF3_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF3_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF4_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF4_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF5_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF5_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF6_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF6_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF7_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF7_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF8_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF8_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF9_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF9_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF10_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF10_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF11_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF11_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF12_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF12_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF13_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF13_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF14_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF14_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MBANK_DATA_BUF15_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER, SDMA_MBANK_DATA_BUF15_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_UCODE_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UCODE_BUF_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_RB_CMD_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_RB_CMD_BUF_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_IB_CMD_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_IB_CMD_BUF_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_UTCL1_RD_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UTCL1_RD_FIFO_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_UTCL1_RDBST_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_UTCL1_RDBST_FIFO_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_DATA_LUT_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_DATA_LUT_FIFO_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_SPLIT_DATA_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_SPLIT_DATA_BUF_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MC_WR_ADDR_FIFO_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_MC_WR_ADDR_FIFO_SED),
-+	0, 0,
-+	},
-+	{ "SDMA_MC_RDRET_BUF_SED", SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_EDC_COUNTER2),
-+	SOC15_REG_FIELD(SDMA0_EDC_COUNTER2, SDMA_MC_WR_ADDR_FIFO_SED),
-+	0, 0,
-+	},
-+};
-+
-+static void sdma_v4_4_get_ras_error_count(struct amdgpu_device *adev,
-+					  uint32_t value,
-+					  uint32_t instance,
-+					  uint32_t *sec_count)
-+{
-+	uint32_t i;
-+	uint32_t sec_cnt;
-+
-+	/* double bits error (multiple bits) error detection is not supported */
-+	for (i = 0; i < ARRAY_SIZE(sdma_v4_4_ras_fields); i++) {
-+		/* the SDMA_EDC_COUNTER register in each sdma instance
-+		 * shares the same sed shift_mask
-+		 * */
-+		sec_cnt = (value &
-+			sdma_v4_4_ras_fields[i].sec_count_mask) >>
-+			sdma_v4_4_ras_fields[i].sec_count_shift;
-+		if (sec_cnt) {
-+			dev_info(adev->dev, "Detected %s in SDMA%d, SED %d\n",
-+				 sdma_v4_4_ras_fields[i].name,
-+				 instance, sec_cnt);
-+			*sec_count += sec_cnt;
-+		}
-+	}
-+}
-+
-+static int sdma_v4_4_query_ras_error_count(struct amdgpu_device *adev,
-+					   uint32_t instance,
-+					   void *ras_error_status)
-+{
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
-+	uint32_t sec_count = 0;
-+	uint32_t reg_value = 0;
-+	uint32_t reg_offset = 0;
-+
-+	reg_offset = sdma_v4_4_get_reg_offset(adev, instance, regSDMA0_EDC_COUNTER);
-+	reg_value = RREG32(reg_offset);
-+	/* double bit error is not supported */
-+	if (reg_value)
-+		sdma_v4_4_get_ras_error_count(adev, reg_value, instance, &sec_count);
-+	/* err_data->ce_count should be initialized to 0
-+	 * before calling into this function */
-+	err_data->ce_count += sec_count;
-+	/* double bit error is not supported
-+	 * set ue count to 0 */
-+	err_data->ue_count = 0;
-+
-+	return 0;
-+};
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 7589cfe86f54..e6c25a5814e8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -216,6 +216,9 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+ 		break;
+ 	}
  
- const struct amdgpu_sdma_ras_funcs sdma_v4_4_ras_funcs = {
- 	.ras_late_init = amdgpu_sdma_ras_late_init,
- 	.ras_fini = amdgpu_sdma_ras_fini,
-+	.query_ras_error_count = sdma_v4_4_query_ras_error_count,
- };
++	dev_info(smu->adev->dev, "smu fw reported version = 0x%08x (%d.%d.%d)\n",
++			 smu_version, smu_major, smu_minor, smu_debug);
++
+ 	/*
+ 	 * 1. if_version mismatch is not critical as our fw is designed
+ 	 * to be backward compatible.
+@@ -273,8 +276,13 @@ int smu_v13_0_setup_pptable(struct smu_context *smu)
+ 	void *table;
+ 	uint16_t version_major, version_minor;
+ 
+-	/* temporarily hardcode */
+-	smu->smu_table.boot_values.pp_table_id = 3000;
++	/* temporarily hardcode to use vbios pptable */
++	smu->smu_table.boot_values.pp_table_id = 0;
++
++	if (amdgpu_smu_pptable_id >= 0) {
++		smu->smu_table.boot_values.pp_table_id = amdgpu_smu_pptable_id;
++		dev_info(adev->dev, "override pptable id %d\n", amdgpu_smu_pptable_id);
++	}
+ 
+ 	hdr = (const struct smc_firmware_header_v1_0 *) adev->pm.fw->data;
+ 	version_major = le16_to_cpu(hdr->header.header_version_major);
+@@ -564,6 +572,7 @@ int smu_v13_0_get_vbios_bootup_values(struct smu_context *smu)
+ 	return 0;
+ }
+ 
++
+ int smu_v13_0_notify_memory_pool_location(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
 -- 
 2.29.2
 
