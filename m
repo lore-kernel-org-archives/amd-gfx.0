@@ -2,70 +2,67 @@ Return-Path: <SRS0=z84W=H2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE19C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 17:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3789C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 18:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1680264EDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 17:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1680264EDB
+	by mail.kernel.org (Postfix) with ESMTPS id 4C2FE64ED1
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 18:06:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C2FE64ED1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0EFE6EB0E;
-	Wed, 24 Feb 2021 17:29:09 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 565456EB0E
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 17:29:08 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id q85so2907778qke.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 09:29:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE45F6EB1D;
+	Wed, 24 Feb 2021 18:06:49 +0000 (UTC)
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [IPv6:2607:f8b0:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EAE68935C;
+ Wed, 24 Feb 2021 17:40:21 +0000 (UTC)
+Received: by mail-il1-x133.google.com with SMTP id e7so2443824ile.7;
+ Wed, 24 Feb 2021 09:40:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rJLg9gk4Ov2DNw9Xo8N0mIRi2VyyG5iJV2enlwINbBw=;
- b=ljiKRKzVbesd1xxKHLrGBbZu6gPE7ZL2uRXX0eoogLiRdwvnkiOVBuvuLYiGkdf2YX
- Ucog1osimlRW9Lc9NirgnxrheGbdzXXW5vicD+HCtMns5ipXOgxSqAc1UDiElV2by5iy
- onMpFhGKxXgN74WgLm980cNL40xQfKTWmDCI+yo1nlvKPWvWb3JapbwmbhDFm9QiA/1V
- x2MmOzK+meVKgJSP7j95Zm7w38PqB7N5si+QJsqzk2vzwpTeK4GGQ+Gu+Knfh0/RS0aZ
- 69TDeiYZA63bvab4e/hOBuDyPc3O/CmBgE6vs3AecwBDDoJ7ojkyF2Nvy3FWdmTSQ0le
- 4rvQ==
+ h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+ :subject:to:cc;
+ bh=KVEFF/e3cq8hSLAqkkWzb/tsBUvxw8HxL0663tRmoQo=;
+ b=rYBE3tx41p3vC7kUwVnZVOt8IudcouNv90aVHp5aRhAJWTwWstiIG9UaRmHFnBkT1J
+ U24fewXNjZGiaZFhZpq2ulihxcffmastRktVQy01PCBiB0hV5Cns2qWgzjvMr3b9EU7k
+ 7XcN6DV9zH3YcToGb6XW27xkxP6Y2joVmWEVJS0m83PlcBp/DY0IawGND8xawJA+4Fwq
+ lZhMZvy6HTWMHwcbp1cPGDjsnr591C0nHLhw1Q5L8I/hgf9LLjcSUFGDZBlNpJOleUki
+ HlKTFrumpxZPh7ICSMsxUmo5wRAeraFG4DAyIMeNb4NSZWcsNG/c01XghtRuzsus7PjG
+ OiEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rJLg9gk4Ov2DNw9Xo8N0mIRi2VyyG5iJV2enlwINbBw=;
- b=S2aj+gzNoDoeAmvPSfT/T6aY3uHOK2VJ5mL+xAxtskNxJ3S/cmHBHYkZCpzSkjlE1x
- 718KiyLlI7NBmcUIsZMRwHi7oOGl01hPDaE1HENyvDtRRz9IK6SJ5Du+joGcx5Yok0Tn
- cuK5eVpM1jXKEo74c1uArK5b1NurVU115XiaBmzy8rT/E4AQaPcA3/oJL7b2WhDD11ok
- nYFcqe8zychg0GTwSDhE6rCh5Az9hKmRS0++w/wjyKZ8lh2akEGRZD6igmhONiBbDwc7
- 4h2AN0DLxAbngXjLRey+eCkS9fHvh892bv0gYMGKro8hsIyzfa7oCuyTwE9Jl2EcXjLQ
- iX4w==
-X-Gm-Message-State: AOAM5323lGd5pEcO5P3ZJ0qTS+LPh7LSVhsypCR8lkE7mahPwrrsHfkW
- RhYSIwhYM0QlpJPm7HOCwLpnSjDGSVw=
-X-Google-Smtp-Source: ABdhPJxsc5g6mgN+U87/VfUbKX94aRshQ6llOnC5c+PSdMloYRIlAh8y5HBXaVlZiMK8ZiKirx9Y9w==
-X-Received: by 2002:a05:620a:7d5:: with SMTP id
- 21mr28463988qkb.152.1614187747177; 
- Wed, 24 Feb 2021 09:29:07 -0800 (PST)
-Received: from localhost.localdomain ([192.161.79.246])
- by smtp.gmail.com with ESMTPSA id 80sm1994698qkm.45.2021.02.24.09.29.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Feb 2021 09:29:06 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/pm: make unsupported power profile messages debug
-Date: Wed, 24 Feb 2021 12:28:58 -0500
-Message-Id: <20210224172858.2779680-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.29.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+ :from:date:message-id:subject:to:cc;
+ bh=KVEFF/e3cq8hSLAqkkWzb/tsBUvxw8HxL0663tRmoQo=;
+ b=Gpw1zMGKp03889D7t3uBy1JI1HkR+mv4O3vrK/9ZHpGRUDwyd//sm4vhfXkXNPKoFM
+ Y/3WBzvyVj5rjOVvTWbECv2q1WHS0f+Go806QzD5vbGxdMeR/9pz8zqtVcrUDY04Z8U4
+ BhTHJcOMaRkEoJ1Ozy5oHKUODEP2DoXOaartmNsfM/3mTJ4ehJBqTUeD4DOjHe/GJ1Kw
+ aAUjGIJyacktHWTvWQMnNUMNXHLeJ1vHyFGa90YWLsCBBEF6e4t+uBYycmgLY4MDqG67
+ wQu1gY4Qckt+GCad2A8V7Lp6uWIlTsY2tmsqzhsF70jgdWMWURwZsTNd++UWcsNY4XjH
+ 8s/A==
+X-Gm-Message-State: AOAM532MGj+MeVsIwo3nWx4it29NsubTd2oLYuFH+zCuUzpQ/9wiN4Ac
+ V7CgATs6R1ZLdLt4Erw/QoNZy9V2oM7Jr8ypdN0=
+X-Google-Smtp-Source: ABdhPJx86Fjs3j/bSxZdqqIGrInEz4YE62R4z11rDBzdrMiNUtL9AvS8Ry4ssztrLtAXwA9epgL09On9AhA7jn5fI64=
+X-Received: by 2002:a92:c145:: with SMTP id b5mr19179398ilh.186.1614188420558; 
+ Wed, 24 Feb 2021 09:40:20 -0800 (PST)
 MIME-Version: 1.0
+References: <20210218224849.5591-1-nathan@kernel.org>
+In-Reply-To: <20210218224849.5591-1-nathan@kernel.org>
+From: Sedat Dilek <sedat.dilek@gmail.com>
+Date: Wed, 24 Feb 2021 18:40:09 +0100
+Message-ID: <CA+icZUXGS_bbVRsMVJowVPTZpi8NYQ_18Ec9bXBTztWL6dA=hQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm/swsmu: Avoid using structure_size
+ uninitialized in smu_cmn_init_soft_gpu_metrics
+To: Nathan Chancellor <nathan@kernel.org>
+X-Mailman-Approved-At: Wed, 24 Feb 2021 18:06:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,65 +74,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Reply-To: sedat.dilek@gmail.com
+Cc: Kevin Wang <kevin1.wang@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Clang-Built-Linux ML <clang-built-linux@googlegroups.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Making them an error confuses users and the errors are harmless
-as not all asics support all profiles.
+On Thu, Feb 18, 2021 at 11:49 PM Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> Clang warns:
+>
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:764:2: warning:
+> variable 'structure_size' is used uninitialized whenever switch default
+> is taken [-Wsometimes-uninitialized]
+>         default:
+>         ^~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:770:23: note:
+> uninitialized use occurs here
+>         memset(header, 0xFF, structure_size);
+>                              ^~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:753:25: note:
+> initialize the variable 'structure_size' to silence this warning
+>         uint16_t structure_size;
+>                                ^
+>                                 = 0
+> 1 warning generated.
+>
+> Return in the default case, as the size of the header will not be known.
+>
+> Fixes: de4b7cd8cb87 ("drm/amd/pm/swsmu: unify the init soft gpu metrics function")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1304
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1488
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+I fell over this today with Linux v5.11-10201-gc03c21ba6f4e.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 45564a776e9b..9f0d03ae3109 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1322,7 +1322,7 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
- 						       CMN2ASIC_MAPPING_WORKLOAD,
- 						       profile_mode);
- 	if (workload_type < 0) {
--		dev_err(smu->adev->dev, "Unsupported power profile mode %d on arcturus\n", profile_mode);
-+		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on arcturus\n", profile_mode);
- 		return -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 7b7ae5532ddb..fd5539f8b53a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -810,7 +810,7 @@ static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input,
- 						       CMN2ASIC_MAPPING_WORKLOAD,
- 						       profile_mode);
- 	if (workload_type < 0) {
--		dev_err_once(smu->adev->dev, "Unsupported power profile mode %d on VANGOGH\n",
-+		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on VANGOGH\n",
- 					profile_mode);
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 9a8b1a1e148e..c9f766cbe227 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -826,7 +826,7 @@ static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, u
- 		 * TODO: If some case need switch to powersave/default power mode
- 		 * then can consider enter WORKLOAD_COMPUTE/WORKLOAD_CUSTOM for power saving.
- 		 */
--		dev_err_once(smu->adev->dev, "Unsupported power profile mode %d on RENOIR\n", profile_mode);
-+		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on RENOIR\n", profile_mode);
- 		return -EINVAL;
- 	}
- 
--- 
-2.29.2
+Tested-by: Sedat Dilek <sedat.dilek@gmail.com> # LLVM/Clang v13-git
 
+- Sedat -
+
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index bb620fdd4cd2..bcedd4d92e35 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -762,7 +762,7 @@ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+>                 structure_size = sizeof(struct gpu_metrics_v2_0);
+>                 break;
+>         default:
+> -               break;
+> +               return;
+>         }
+>
+>  #undef METRICS_VERSION
+> --
+> 2.30.1
+>
+> --
+> You received this message because you are subscribed to the Google Groups "Clang Built Linux" group.
+> To unsubscribe from this group and stop receiving emails from it, send an email to clang-built-linux+unsubscribe@googlegroups.com.
+> To view this discussion on the web visit https://groups.google.com/d/msgid/clang-built-linux/20210218224849.5591-1-nathan%40kernel.org.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
