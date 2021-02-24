@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70959C4332D
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D241FC433E9
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29E1764EDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29E1764EDB
+	by mail.kernel.org (Postfix) with ESMTPS id 9569564E05
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Feb 2021 22:22:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9569564E05
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3476EBB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 154626EBA6;
 	Wed, 24 Feb 2021 22:22:38 +0000 (UTC)
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com
  (mail-eopbgr770089.outbound.protection.outlook.com [40.107.77.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A60D6EB9A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 714626EB9A
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Feb 2021 22:22:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f9ixYckJieRz1B1aIBH4GOvv6UMGFSejyt2AxV+gGS6CLYOFzUUUr22nXHVKSR4CkC3m/IjuRfkOUg9QKgTH1xGXF88R40+eny8Dt8jTnwzrWsu8HbdG5iQrn/na/ovCS4GRYPfwHrxr587scAr57sTmTeMNpu9R3L4PhPojFyNsqoQjiyj5S7Hlkc/wW87LF0UFHQW/iW3xZ2JmRNPqI0Hx0jpY8ZmtkOxogvq9TId73LDwwGbysjJvCX9RZs+Q59hs4zijIIQN28xOL2+9IXcf0OkIzSaUdp7wwXo1TW5wkiEKVqlU+61AAt8K5fRKzU4WFOme0yldgruqt09vpw==
+ b=iMVh/ygAvmX2FlAYcYZFDJSRtPnAwDydnF6+VsKZb2++e8Jcct4bE1y8i48QPVPPg59JFCxhoT1050B4j7DvBN0TyEpSChCET6W+N/1xyHhMYXZf2rEVgqfkwQRYwqDIOgfylvf24SUHFKLOxTTODojbzr06o2pcecCfqiV8rS2un4pMUzjbEpYQ4AAJ4NZlOc5iBbvPEd7SuXUgRU7tVa+YQp1ETnR3RLmheIoCOHfoE8juj0H4La6S6E5/7tPGTpa4CBLp6U6eexrQj1kaBMQgQwaqh680SsuK1Ty06FVjBsTi4SsymcytdbOmzFzdBxTnHNCZ0z0WhCU+QSxFkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bHEax8t1hdczw+4VLZI003fcmdQBAFhW4OX8sawZFG8=;
- b=bxJGOsVPf+3QVmP2bnMUnwzAz6vDNrQT4M+KtPkYrTfsuvwhCuJXwFpRmQiKRtLjvILQHkvlP/EMFSJ4q96p5w2VT9NFvJdy22B2c+67hcw3Q0bCIeZ7n19EgTovOfb40uvB6DC/Kxd/ASvIBJm0995L+ZBfDTCeFWh3ZB7OZTFo6EiuAwKfV+PuLivuUfEdDl+uC+53X3eYWfArve4zqM/TvaLrgAPDd/fjKV1z5fepAuq3I+JXeOCtI8g16bT7fxcLCFHLbkiQ1FlQ7bu9rc9KWc6UBdEp+7LYyP2Ix7DG48dF0bi25S5I3hYY/Z8i2Qs+hUD+URWNRapRHXtFug==
+ bh=RhMgYtmllkc9ugMR6IKXCie0o/onl7L/g/Imj3L/G/0=;
+ b=b9Z2ZSb7ElGk5jZbq78BlKNcSXTBouy1m1On3zio0rcFPtnBxwka44YMz9EIglpi+/eqtqAzqq5afdEzv97csXxcSYBISY6fbyuLLQMrfEQ943LpETAurp2WD3Q0jG4xW9EEfa5WUFwwOGlaeZTp3dStgR4DR2igWaXQSJDfmCooJnNNf+kn+75sWVLbojd8YzwfYvSuT3uwvxNVXB31ybeiMBln/MBmui6n/lIYaQfhuTX22Wh/IOWkhLUN+JDd7KssqnuizRIVzkO/PvT2rQLTDNaxKkeiT9nn34zPjiHuEfBDA10U6qzDiRb+Tl6jPddL2kx8+PLq7xjPGmkRgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bHEax8t1hdczw+4VLZI003fcmdQBAFhW4OX8sawZFG8=;
- b=xSD4AGvXou6Qcx5WKGbdi8IBVQRfdeimAMkay5je1owUbLGjdk3NOfD9nC95VVJ4+Wgh8ZhlyMuKcXoPAtlv+JgxNTQnBvMvX/kLS60gYlOw9DK2V5s4V58ar6TPYX4o9XyMO4VG+zR2k/QliMMeus0MTUmp3oF+v0Rd920c91U=
+ bh=RhMgYtmllkc9ugMR6IKXCie0o/onl7L/g/Imj3L/G/0=;
+ b=Atfb7RNX6UTocWpX3ndnpVSI9cW1P4WQxCXuNK4PGrzFFQMApXEutQV6y4ayTTbXJnnmd16J7OQ9OQAcM0hORuEcWrcXSR6OEHxnjPx8dqJiRO8IyCSdC9MEG2Fh/PT8IQrQp8qxzOjAtR1kGPHXIoJ+8C6KwHjObN9WBaj4deA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,17 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
  by MN2PR12MB3807.namprd12.prod.outlook.com (2603:10b6:208:16c::30)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.32; Wed, 24 Feb
- 2021 22:22:34 +0000
+ 2021 22:22:35 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::b0c4:9a8b:4c4c:76af%7]) with mapi id 15.20.3868.033; Wed, 24 Feb 2021
- 22:22:34 +0000
+ 22:22:35 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 143/159] drm/amdgpu: allow use psp to load firmware (v2)
-Date: Wed, 24 Feb 2021 17:18:43 -0500
-Message-Id: <20210224221859.3068810-136-alexander.deucher@amd.com>
+Subject: [PATCH 145/159] drm/amdkfd: Check HIQ's MQD for queue preemption
+ status
+Date: Wed, 24 Feb 2021 17:18:45 -0500
+Message-Id: <20210224221859.3068810-138-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210224221859.3068810-1-alexander.deucher@amd.com>
 References: <20210224221859.3068810-1-alexander.deucher@amd.com>
@@ -68,53 +69,53 @@ Received: from localhost.localdomain (192.161.79.246) by
  BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend
- Transport; Wed, 24 Feb 2021 22:20:58 +0000
+ Transport; Wed, 24 Feb 2021 22:21:00 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 39baebcd-180d-4c25-a71b-08d8d912766c
+X-MS-Office365-Filtering-Correlation-Id: 993307d8-622c-419f-1235-08d8d9127720
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3807:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3807D6CD7B9E0A3DB2A8D310F79F9@MN2PR12MB3807.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:346;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3807C91D1421F1DA3F297FBEF79F9@MN2PR12MB3807.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JQ0RrCu9liYyEvecV85jyOSjIj4SkMAoKqGM+9B4a2h/djKqNv2W68+ujZv6vY/YkKEwXWTz3ikDNp8LcmYHOFTot4h0L/GYEvuHhB/MNe4p5lZXRxueReoc4Lm8sIe8oMxCVb5D6nMUVlsqMjXPbX+7s+Pw0OlTzMLsiob1JfQxTV8LDhTBRWP6fKrQHeroJ0CdML6wHz2+Eu0Se9jwcGt4hlLJ2V2Rzpt1ZDbKL5Z5GtqECEGW9y2KKFMQTdSATiLMRsOVn7WaJC3MBghQaEexKr7VVAN72jDZxT8pv4nFF3IVGr7TDlj4Rpn7FK/2f8bWBj4ycx/7adw0EJIoircIEIoSHRSNuuJtI8LMmnzMXb3tW9D22mJ3yzeUbMSOP/iHMHoIWEPsWO74/h/VmQTYJQdc6bveVHFb7rKeywPZ2FUasv3xztjBitKPpLfXyWYiHxRtTzdstOu1ewhRpSdPIbqF0QIl81gHH596LaGQgRzjI6iKyUBizyprEaKGe/Q6mciRgY4W3UEzQ85BymF/zJLTVX+jFYwQA71zCtJux4h76v97YWpOJzZ3wdDtieNCtmQYv9q/0osPSXHJ5A==
+X-Microsoft-Antispam-Message-Info: actQ9Yp2IXQ6TAEwLSG8AAHj34noJZn/WJKYXI0A84JsIL14e9SFMlFYC9/rykU1d5teNuRGp7PLBwQw2ZiJcStcZWYKDOHwDdnll5Z5NAt33gvxu31ffJlQHAfx0qJsnjttgJjSu22YLyEbATPkEBcLw+ev25GNc+PChH7adNZG5UjyqvQEYI8Gz1cc/VCuvjZV+voa8B4LerBzl0h5dB5ZNxVBY9ZJlmsPB6bsqsUxIxaz9wEEafVcLpakbHedK4J0ceaBNf/HgjWlxBSdZAFmIkOwZpqi6N4xgupMEedIr6QkPuXMJ34eOfXeRu7mB3KiMXCb7kS4GniyxMEqfpbawwbG3QsfpjMMVCT2YAa0oLXDjFeJwGWWLr2J7lh0DU4uF0HLhUYvR0KVbJpxEin3mLuyZUaS2Y0vFIoZQ7fPueemx6gPcetSLXDCxt3/FXtJIfCwkydcc4jl4HQX342H3IJSVrbQjTJ9LPU+oDU1oggieGySY/+ARvHji/POnXce42xXKjj3UeEB0I7R8p31TPk+TsCHyC/VaAqnK/BzMsBFDJiyW/ZiJ4CzlX3uML4AFSWGVxRyBAKGcIlpyA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(136003)(366004)(346002)(396003)(54906003)(478600001)(4326008)(86362001)(83380400001)(16526019)(2616005)(186003)(36756003)(66476007)(1076003)(6506007)(6666004)(66946007)(69590400012)(6916009)(8936002)(6486002)(6512007)(52116002)(5660300002)(956004)(316002)(2906002)(26005)(66556008)(4744005)(8676002);
+ SFS:(4636009)(376002)(39860400002)(136003)(366004)(346002)(396003)(54906003)(478600001)(4326008)(86362001)(83380400001)(16526019)(2616005)(186003)(36756003)(66476007)(1076003)(6506007)(6666004)(66946007)(69590400012)(6916009)(8936002)(6486002)(6512007)(52116002)(5660300002)(956004)(316002)(2906002)(26005)(66556008)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?CnJ+O50P5Lea0U/fEjwnCB6b6rXBKmpXa3HrpR8L+LjiasPVN52/v5dUusRY?=
- =?us-ascii?Q?RLj6YwlhQjp14HHpjnE9yLvyw/3gjYLCJnpQkxRwplegSQW6C/q2o5mXw8nw?=
- =?us-ascii?Q?esQtNAnVfos0GMJoJ8gEqfuktAvC3/BZiZMa9e2iNxVqltE0sZPDDYIzOEhw?=
- =?us-ascii?Q?eU0Hc+C5bmA1QTvf7bX1eu2rQDMtzGxdV+JuTxKl+Yc9JP4PfWvtwhvxYraZ?=
- =?us-ascii?Q?z/Ul5qLKGZJYGlEE3ZzvhRfglXOjBUwnKEhJwT1oYnzHy50LDj0vI9GJSBP8?=
- =?us-ascii?Q?bQYelZsNgAUdRnPGswAU1zsDe74NRSH7JtT4l4RwA9nkxl4wkqWSRcwgqPZM?=
- =?us-ascii?Q?l50d92hVp3Hsfad9ABH51RVN+Lmx+uW5+PG8PUmOvASpf6+Qhqow9GG9C+zG?=
- =?us-ascii?Q?W4nIklL9s3lu1HZZHZRhKD0MjDpzGLYk+KsjEb/BIL3XBShtYLW0vL63rwo7?=
- =?us-ascii?Q?f7stmpQ2bDmxDwS9jNmBCrRsgccIN/16czfvkC0PAackBI/+R5xGlJjUK9Pz?=
- =?us-ascii?Q?g9xspOBPNjN1MCunAuY67tr1LzvFEktr73uGpX8jJmGtikFh10qYXClWyaTs?=
- =?us-ascii?Q?iFKYAVKhRbcpiRZuSFy13o/zRQg72R3ydBMf62PdtmIRwNURVrOOhqHPhPY9?=
- =?us-ascii?Q?/uFsbpAje6DnAtB4IALxeqnnZ16Jh6JT3cNpLSY33VhmwkTR3w1ydDJ951XP?=
- =?us-ascii?Q?MwDbVpVVDITn9w+3mBHdfXduWXsjkjgoxEHbWS3F0AtR1JYbIuJLSfnorHQN?=
- =?us-ascii?Q?b5VG0FYYGAD7Io97se6Kp96G82m73XuR24q8vDDknfVD8YQZ709kGRebfIRl?=
- =?us-ascii?Q?HM0W2fk4Jkmta16DphI2R0TUp+5oF+lVhUoq5hQxlOi0N46zjb8QCV44DtP0?=
- =?us-ascii?Q?qhMiiJz2MxAFiWs6s+m4NiUqU37aWPfjvqyWgLh4zj92nOmel5DtvSoxMiJt?=
- =?us-ascii?Q?oWp5+nzdLsplhmnRyZg8fUi+3GIgrWAk9pMOwGJQyU2dPelOF2PwIzmnOVwA?=
- =?us-ascii?Q?bgguGHaEks6RRlxJk2kA3y3xAvVj0V3egu4xnrNC0Z5Pybt2E51dJdiVV3GC?=
- =?us-ascii?Q?YwUCJG3zBqNNtA0VL4K0w6gppGJIjBllRO7Te8Hs8VljwgH8WGjXsprF71DB?=
- =?us-ascii?Q?D+gGHUqI2t5I78Lgj+9XiyidIcgOLAIacqCtMxF4t5YxWbpvm6W6CZmOrnMF?=
- =?us-ascii?Q?V9uLoO4BHRLDWlzvOOwqY0UGzslpBG3TdTGzcVgv+iQ7Qhg3tdBOYKmZe72n?=
- =?us-ascii?Q?HIQh0gVDPpYmVp9q/5wZTOnh7/xU3gUwPCn5XCtp6lCGrrHyH0bCHa36HXrQ?=
- =?us-ascii?Q?nvughNedEZtwK/eFEJAfO+8J?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?G3FdqP6pLQFTwJk5xB34boX4Ja1Co+YFh8sEhYm9SusAXk7xgDlzThrHkfTd?=
+ =?us-ascii?Q?A/d2vGkaeTeFW60Xki94Rg7AxOgyX0ySFj0LUyCwx05j66z6LobICpGb5YfK?=
+ =?us-ascii?Q?0Hn4kG69Cu2bRVfTUTic9ZPUyX1+Advgs8P/ttLorBxo5AgihEh1p5GiqPe2?=
+ =?us-ascii?Q?1gW4CXn7rg3vpqzwugGIjXFX7LQvIcdqTfuCs59dUfaJMMIsOo7egrm6sSaM?=
+ =?us-ascii?Q?vyrVH7/bu5QVjGeQKn67/RtDeo1vmR4XqPgfDmRIkaof0mOQgdWtHp5M7C8i?=
+ =?us-ascii?Q?RqK2UnDPZRMoej9gT6VWOgLt5K4t+TfsEjD2SclEuGJ3pSt7ETdDBx/EYOpN?=
+ =?us-ascii?Q?xtXBeMN9mOPmpJpbvK4/g+oZdB2/j8BSqmFUm7pf2CGYCpXqI20jU7gdaU2B?=
+ =?us-ascii?Q?vLZOFOglw/xTcp/d0QhFiARdLnUGaKzLOND8NuX5+rqsIqscmA006dMtgTQO?=
+ =?us-ascii?Q?TO5/ZFFRbUxl6OeDYxLrrH+RtchuSb/ZdQnDEL2C5gZ6r7LRbZfuWE3rzDDP?=
+ =?us-ascii?Q?dJjWEsCSQoRCVHq12rVD2TjrvpLQ7rxr2WscL/lDzJmKjXUoAcovu577TzDX?=
+ =?us-ascii?Q?BNE4SOJC5qx34cpNyEYa+P2VFbX+9gjNFQPXMDUkJVJOaxGvf9k1HKS2fa/H?=
+ =?us-ascii?Q?qvvg682EL+717xDVjPfMJroTO2D2T9UF0ye26/3Z9kcjehsUyDC4k5cMj3CO?=
+ =?us-ascii?Q?K6FdTXDVPcvg6EzBpBtX+/l1iBmEsiPRqH2e5FCgX6qiB6ngo88cwSSMXguA?=
+ =?us-ascii?Q?UyY17QJ5cfkrqJWndrJxiidmu1KFFLQv2tiA4CR60Lli/32ZnpoKO3AmuxuK?=
+ =?us-ascii?Q?Z49g17GYPq2W8UOZQLN2/T+iYJdMQHLXda98CTGnd/scb7E95kQ7f8bNx7FS?=
+ =?us-ascii?Q?f0GLrBEfeIGgVZYmYt0hrPOKoJ4d3zIHDedLx4XJ+7chWub0osbc82dsS06f?=
+ =?us-ascii?Q?k5CjUStayvIZ8zPgO8jxv8LrvSgJaTQtnsCWK/JHzH4ZDRWWYOdaAdtlu1r1?=
+ =?us-ascii?Q?ocQumbn4OF4vyqkBUaqfdCwCcXYHByuybraeZpq9cy6R3nhaJEOr56Wi5UPb?=
+ =?us-ascii?Q?EUMKxzGIWvejxpjpC47YTD9SgXFjXdmtL1umBFHisL0qO82rIcoHTR++9+2W?=
+ =?us-ascii?Q?ASGnDq0JqHxZ4o3OqdPz1BiynB1pSiQsew2lbwcJaA/ZD2rx3MxJeijBErCY?=
+ =?us-ascii?Q?ezIYCSJSRy37oVyPokm0Qj/tilyLPvC7n7YzFR9tbZnWagBULN0eWBvYBAqd?=
+ =?us-ascii?Q?AIYjuz14i32JeMAjx7u5YpERtYpj1EegS3BcpGj6gpZvhUHnxYbc/fIxXRRB?=
+ =?us-ascii?Q?O9vRAYZQLcPBOKOX7c5UAFuZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39baebcd-180d-4c25-a71b-08d8d912766c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 993307d8-622c-419f-1235-08d8d9127720
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:20:59.4357 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2021 22:21:00.6304 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LY9smRwRni+y1gN/E4GVCikyljeCK9rxHZ+xX76JI1B2UzEIvv75WasvRwdVjoAmKr0wex/2istPeFP4TI5Brw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: n6KkBVAE9cr1cXljaIM0o3tmJPVv9SNo86UaclcnNpz2Ot48eduLWxhTwcb9Nrvgo/E8ZvX1EdPNTRaebpDQjA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3807
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,45 +128,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <Le.Ma@amd.com>,
- Kevin Wang <kevin1.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Jay Cornwall <Jay.Cornwall@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Oak Zeng <Oak.Zeng@amd.com>
 
-Match existing asics.
+MEC firmware can silently fail the queue preemption request
+without time out. In this case, HIQ's MQD's queue_doorbell_id
+will be set. Check this field to see whether last queue preemption
+was successful or not.
 
-v2: rebase (Alex)
-
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
-Reviewed-by: Le Ma <Le.Ma@amd.com>
+Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
+Suggested-by: Jay Cornwall <Jay.Cornwall@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 17 ++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  1 +
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  8 +++++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  8 +++++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  8 +++++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  8 +++++
+ drivers/gpu/drm/amd/include/vi_structs.h      | 32 +++++++++----------
+ 7 files changed, 66 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index 358134b29c18..9733224117e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -402,12 +402,11 @@ amdgpu_ucode_get_load_type(struct amdgpu_device *adev, int load_type)
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
- 	case CHIP_DIMGREY_CAVEFISH:
-+	case CHIP_ALDEBARAN:
- 		if (!load_type)
- 			return AMDGPU_FW_LOAD_DIRECT;
- 		else
- 			return AMDGPU_FW_LOAD_PSP;
--	case CHIP_ALDEBARAN:
--		return AMDGPU_FW_LOAD_DIRECT;
- 	default:
- 		DRM_ERROR("Unknown firmware load type\n");
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index a0daf0ebbe78..eade05080ad1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1393,6 +1393,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+ 				uint32_t filter_param)
+ {
+ 	int retval = 0;
++	struct mqd_manager *mqd_mgr;
+ 
+ 	if (!dqm->sched_running)
+ 		return 0;
+@@ -1424,6 +1425,22 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+ 		return retval;
  	}
+ 
++	/* In the current MEC firmware implementation, if compute queue
++	 * doesn't response to the preemption request in time, HIQ will
++	 * abandon the unmap request without returning any timeout error
++	 * to driver. Instead, MEC firmware will log the doorbell of the
++	 * unresponding compute queue to HIQ.MQD.queue_doorbell_id fields.
++	 * To make sure the queue unmap was successful, driver need to
++	 * check those fields
++	 */
++	mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
++	if (mqd_mgr->read_doorbell_id(dqm->packets.priv_queue->queue->mqd)) {
++		pr_err("HIQ MQD's queue_doorbell_id0 is not 0, Queue preemption time out\n");
++		while (halt_if_hws_hang)
++			schedule();
++		return -ETIME;
++	}
++
+ 	pm_release_ib(&dqm->packets);
+ 	dqm->active_runlist = false;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index fbdb16418847..b5e2ea7550d4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -101,6 +101,7 @@ struct mqd_manager {
+ #if defined(CONFIG_DEBUG_FS)
+ 	int	(*debugfs_show_mqd)(struct seq_file *m, void *data);
+ #endif
++	uint32_t (*read_doorbell_id)(void *mqd);
+ 
+ 	struct mutex	mqd_mutex;
+ 	struct kfd_dev	*dev;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index 19f0fe547c57..064914e1e8d6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -226,6 +226,13 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	__update_mqd(mm, mqd, q, 1);
+ }
+ 
++static uint32_t read_doorbell_id(void *mqd)
++{
++	struct cik_mqd *m = (struct cik_mqd *)mqd;
++
++	return m->queue_doorbell_id0;
++}
++
+ static void update_mqd_hawaii(struct mqd_manager *mm, void *mqd,
+ 			struct queue_properties *q)
+ {
+@@ -398,6 +405,7 @@ struct mqd_manager *mqd_manager_init_cik(enum KFD_MQD_TYPE type,
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
++		mqd->read_doorbell_id = read_doorbell_id;
+ 		break;
+ 	case KFD_MQD_TYPE_DIQ:
+ 		mqd->allocate_mqd = allocate_mqd;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 18e08d82d978..c7fb59ca597f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -224,6 +224,13 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
+ 
++static uint32_t read_doorbell_id(void *mqd)
++{
++	struct v10_compute_mqd *m = (struct v10_compute_mqd *)mqd;
++
++	return m->queue_doorbell_id0;
++}
++
+ static int destroy_mqd(struct mqd_manager *mm, void *mqd,
+ 		       enum kfd_preempt_type type,
+ 		       unsigned int timeout, uint32_t pipe_id,
+@@ -425,6 +432,7 @@ struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD_TYPE type,
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
++		mqd->read_doorbell_id = read_doorbell_id;
+ 		pr_debug("%s@%i\n", __func__, __LINE__);
+ 		break;
+ 	case KFD_MQD_TYPE_DIQ:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 3b6f5963180d..7f4e102ff4bd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -276,6 +276,13 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ 
++static uint32_t read_doorbell_id(void *mqd)
++{
++	struct v9_mqd *m = (struct v9_mqd *)mqd;
++
++	return m->queue_doorbell_id0;
++}
++
+ static int destroy_mqd(struct mqd_manager *mm, void *mqd,
+ 			enum kfd_preempt_type type,
+ 			unsigned int timeout, uint32_t pipe_id,
+@@ -477,6 +484,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
++		mqd->read_doorbell_id = read_doorbell_id;
+ 		break;
+ 	case KFD_MQD_TYPE_DIQ:
+ 		mqd->allocate_mqd = allocate_mqd;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 31799e5f3b3c..33dbd22d290f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -243,6 +243,13 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	__update_mqd(mm, mqd, q, MTYPE_CC, 1);
+ }
+ 
++static uint32_t read_doorbell_id(void *mqd)
++{
++	struct vi_mqd *m = (struct vi_mqd *)mqd;
++
++	return m->queue_doorbell_id0;
++}
++
+ static void update_mqd_tonga(struct mqd_manager *mm, void *mqd,
+ 			struct queue_properties *q)
+ {
+@@ -446,6 +453,7 @@ struct mqd_manager *mqd_manager_init_vi(enum KFD_MQD_TYPE type,
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
++		mqd->read_doorbell_id = read_doorbell_id;
+ 		break;
+ 	case KFD_MQD_TYPE_DIQ:
+ 		mqd->allocate_mqd = allocate_mqd;
+diff --git a/drivers/gpu/drm/amd/include/vi_structs.h b/drivers/gpu/drm/amd/include/vi_structs.h
+index c17613287cd0..50ebf885fa7c 100644
+--- a/drivers/gpu/drm/amd/include/vi_structs.h
++++ b/drivers/gpu/drm/amd/include/vi_structs.h
+@@ -397,22 +397,22 @@ struct vi_mqd {
+ 	uint32_t reserved60;
+ 	uint32_t reserved61;
+ 	uint32_t reserved62;
+-	uint32_t reserved63;
+-	uint32_t reserved64;
+-	uint32_t reserved65;
+-	uint32_t reserved66;
+-	uint32_t reserved67;
+-	uint32_t reserved68;
+-	uint32_t reserved69;
+-	uint32_t reserved70;
+-	uint32_t reserved71;
+-	uint32_t reserved72;
+-	uint32_t reserved73;
+-	uint32_t reserved74;
+-	uint32_t reserved75;
+-	uint32_t reserved76;
+-	uint32_t reserved77;
+-	uint32_t reserved78;
++	uint32_t queue_doorbell_id0;
++	uint32_t queue_doorbell_id1;
++	uint32_t queue_doorbell_id2;
++	uint32_t queue_doorbell_id3;
++	uint32_t queue_doorbell_id4;
++	uint32_t queue_doorbell_id5;
++	uint32_t queue_doorbell_id6;
++	uint32_t queue_doorbell_id7;
++	uint32_t queue_doorbell_id8;
++	uint32_t queue_doorbell_id9;
++	uint32_t queue_doorbell_id10;
++	uint32_t queue_doorbell_id11;
++	uint32_t queue_doorbell_id12;
++	uint32_t queue_doorbell_id13;
++	uint32_t queue_doorbell_id14;
++	uint32_t queue_doorbell_id15;
+ 	uint32_t reserved_t[256];
+ };
+ 
 -- 
 2.29.2
 
