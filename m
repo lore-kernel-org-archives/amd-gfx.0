@@ -2,43 +2,82 @@ Return-Path: <SRS0=Rd3N=H3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB5DDC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 09:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5210C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 09:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32E8664EC3
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 09:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32E8664EC3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
+	by mail.kernel.org (Postfix) with ESMTPS id 32FF864EC3
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Feb 2021 09:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32FF864EC3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1866EC69;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C616EC6A;
 	Thu, 25 Feb 2021 09:15:37 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5FF6E0D9;
- Thu, 25 Feb 2021 09:02:16 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R841e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=alimailimapcm10staff010182156082;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
- TI=SMTPD_---0UPXLGzZ_1614243730; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0UPXLGzZ_1614243730) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 25 Feb 2021 17:02:10 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: airlied@linux.ie
-Subject: [PATCH] drm/amdgpu: Replace DEFINE_SIMPLE_ATTRIBUTE with
- DEFINE_DEBUGFS_ATTRIBUTE
-Date: Thu, 25 Feb 2021 17:02:08 +0800
-Message-Id: <1614243728-52952-1-git-send-email-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 840486EC49;
+ Thu, 25 Feb 2021 07:08:10 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id EE2305803A4;
+ Thu, 25 Feb 2021 02:08:06 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 25 Feb 2021 02:08:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=AZu9RdHKS45RqbSECTd/B4xBxs/
+ yBPCajZ0CCWUQcYY=; b=F2haPlwESmhsHIgpowjFwxWOr0QbuH5RaENdmik2sON
+ QjMZqPrwtpfZdxRq7xw4lHg0nVy2vG3PSgw6C/3QSgIdlLwDskdmC37WqJ6P4WPe
+ bWY9NiSeayJ1nXNhQ+nDlAhMwGqvu8HDU9xA8/pnebmYc/kXM1bECEvyPSnzFdij
+ 5lA58RDVyIvHOgzTmDXHHnKKRjLzcge4tucz4CvpV2d0WQQ73aAR1NV6U/l6/cee
+ rLtGAKKsqOJHhEKLfqtJ47r8g86uTqunfrZQZYEvgIcOSIZsiICCrK8Drpp4tRK5
+ eBH7zwLZJu9jqhjQ6tOABzqctn5AGNQrnTBFmhxph8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=AZu9Rd
+ HKS45RqbSECTd/B4xBxs/yBPCajZ0CCWUQcYY=; b=UMrinhy+cK61AOhbMKwx9C
+ GFb30hWLQw5UdoOx8pxmhiRopiWfTVQ+W6MgORc2dNzTYYU1WI6IIXM7mjhCS2uT
+ NgpwsM3cB7R2z3cyoWtYYCxYKzNw9L2T3BhKmEjvRLe/lbocC/deWpG2M4ISoWpH
+ tZGqAkretzNg3UPJXEHoR5dNIAZ6/uh4z7OXZ+cM6O6lS9W4LQQwcdzUC1tZBY1d
+ CrWappn1PFJmhQFqdA39KdrjTEnKHP8z8ZBOQQeYVv5E7PK+MEe4clZ1VYV/AQD9
+ PsTPmXosctM4Z95uA6UTNd1C2MpYbX+Yh43o5S7IiPkDTmLb8G6mmqu0kdGLCqJg
+ ==
+X-ME-Sender: <xms:00w3YIBdueJnRZlKvFrknRG-Dx_X6lyia_1upL53zyaavNM0cqZDBw>
+ <xme:00w3YKjr44wHD-t0zfIEZJdfAb2GMAaj8mTGHDjWkfOtWLsHZnoa07VynCLZ1rhB6
+ Z19Bq-QmAMcSUWNg_g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrkeekgddutddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
+ gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:00w3YLmeBKkBcd4aey9uT_4Je4M8FkZmqtWudKoqvLdnTX9jZtDdLQ>
+ <xmx:00w3YOw2ASPGv603sBv6tV_PF3vN4zGlFqCO9rrEfpH9vkx7UMooOg>
+ <xmx:00w3YNQusIQZcMjJ8SBKhdmUzETfdLV6YaWWy6IHFb16kq7-9yTCUA>
+ <xmx:1kw3YOAg1gYFaF7YTyaRoxB9Ry69BXhMUhhYV-ZqyGtr56zAlbI1UQ>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 11857240064;
+ Thu, 25 Feb 2021 02:08:02 -0500 (EST)
+Date: Thu, 25 Feb 2021 08:08:00 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 01/11] drm/atomic: Pass the full state to planes async
+ atomic check and update
+Message-ID: <20210225070800.cylmzc4aw4lf64m3@gilmour>
+References: <20210219120032.260676-1-maxime@cerno.tech>
+ <cead3a20-08cf-78a4-88a9-c6b6697bd8b8@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <cead3a20-08cf-78a4-88a9-c6b6697bd8b8@suse.de>
 X-Mailman-Approved-At: Thu, 25 Feb 2021 09:15:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,50 +90,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, linaro-mm-sig@lists.linaro.org,
- Yang Li <yang.lee@linux.alibaba.com>, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, sumit.semwal@linaro.org,
- linux-media@vger.kernel.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, Daniel Vetter <daniel.vetter@intel.com>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1796449104=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following coccicheck warning:
-./drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:1589:0-23: WARNING:
-fops_ib_preempt should be defined with DEFINE_DEBUGFS_ATTRIBUTE
-./drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:1592:0-23: WARNING:
-fops_sclk_set should be defined with DEFINE_DEBUGFS_ATTRIBUTE
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--===============1796449104==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="rlwiyewnrnff76nn"
+Content-Disposition: inline
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 0a25fec..52ef488 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1586,10 +1586,10 @@ static int amdgpu_debugfs_sclk_set(void *data, u64 val)
- 	return 0;
- }
- 
--DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
-+DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
- 			amdgpu_debugfs_ib_preempt, "%llu\n");
- 
--DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
-+DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
- 			amdgpu_debugfs_sclk_set, "%llu\n");
- 
- int amdgpu_debugfs_init(struct amdgpu_device *adev)
--- 
-1.8.3.1
+
+--rlwiyewnrnff76nn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Wed, Feb 24, 2021 at 12:33:45PM +0100, Thomas Zimmermann wrote:
+> Hi Maxime,
+>=20
+> for the whole series:
+>=20
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Applied the whole series, thanks to everyone involved in the review,
+it's been a pretty daunting one :)
+
+Maxime
+
+--rlwiyewnrnff76nn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYDdM0AAKCRDj7w1vZxhR
+xXSQAP9UU9PXpkIhgKjNrqj/cEuwE6x8DBwzz7lZblBuahSxVgEAmjXn+ByN2oJW
+HFh1nkqeJIGSo3HrbEWp+YkGuQ0BuAw=
+=HL4n
+-----END PGP SIGNATURE-----
+
+--rlwiyewnrnff76nn--
+
+--===============1796449104==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1796449104==--
