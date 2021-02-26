@@ -4,41 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C6BFC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 09:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1925DC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 09:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BDE264ED5
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 09:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BDE264ED5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6412464ED5
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 09:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6412464ED5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6836E3E3;
-	Fri, 26 Feb 2021 09:48:21 +0000 (UTC)
-Received: from out30-43.freemail.mail.aliyun.com
- (out30-43.freemail.mail.aliyun.com [115.124.30.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09BA26E171;
- Fri, 26 Feb 2021 09:17:30 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
- TI=SMTPD_---0UPd7jEq_1614331038; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0UPd7jEq_1614331038) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 26 Feb 2021 17:17:27 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm/swsmu: Remove unnecessary conversion to bool
-Date: Fri, 26 Feb 2021 17:17:16 +0800
-Message-Id: <1614331036-110338-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
-X-Mailman-Approved-At: Fri, 26 Feb 2021 09:48:20 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF2C6E869;
+	Fri, 26 Feb 2021 09:48:24 +0000 (UTC)
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4C66E8ED;
+ Fri, 26 Feb 2021 06:05:37 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.16])
+ by lucky1.263xmail.com (Postfix) with ESMTP id 8C2E6D0590;
+ Fri, 26 Feb 2021 14:05:32 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED: 0
+X-ANTISPAM-LEVEL: 2
+X-ABS-CHECKED: 0
+Received: from localhost.localdomain (unknown [124.126.19.250])
+ by smtp.263.net (postfix) whith ESMTP id
+ P32473T140679506294528S1614319533098420_; 
+ Fri, 26 Feb 2021 14:05:33 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <a77edb68d092f3f6d269c21c0bccd56a>
+X-RL-SENDER: wangjingyu@uniontech.com
+X-SENDER: wangjingyu@uniontech.com
+X-LOGIN-NAME: wangjingyu@uniontech.com
+X-FST-TO: airlied@linux.ie
+X-SENDER-IP: 124.126.19.250
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+From: wangjingyu <wangjingyu@uniontech.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Subject: [PATCH] radeon: ERROR: space prohibited before that ','
+Date: Fri, 26 Feb 2021 14:05:28 +0800
+Message-Id: <20210226060528.12964-1-wangjingyu@uniontech.com>
+X-Mailer: git-send-email 2.11.0
+X-Mailman-Approved-At: Fri, 26 Feb 2021 09:48:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,41 +63,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ wangjingyu <wangjingyu@uniontech.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following coccicheck warnings:
+drm_property_create_range(rdev->ddev, 0 , "coherent", 0, 1);
 
-./drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c:924:47-52:
-WARNING: conversion to bool not needed here.
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: wangjingyu <wangjingyu@uniontech.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+ drivers/gpu/drm/radeon/radeon_display.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index af73e14..2382438 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -921,7 +921,7 @@ static bool sienna_cichlid_is_support_fine_grained_dpm(struct smu_context *smu,
- 	dpm_desc = &pptable->DpmDescriptor[clk_index];
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 3a6fedad002d..439d1b3e87d8 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1396,7 +1396,7 @@ static int radeon_modeset_create_props(struct radeon_device *rdev)
  
- 	/* 0 - Fine grained DPM, 1 - Discrete DPM */
--	return dpm_desc->SnapToDiscrete == 0 ? true : false;
-+	return dpm_desc->SnapToDiscrete == 0;
- }
- 
- static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
+ 	if (rdev->is_atom_bios) {
+ 		rdev->mode_info.coherent_mode_property =
+-			drm_property_create_range(rdev->ddev, 0 , "coherent", 0, 1);
++			drm_property_create_range(rdev->ddev, 0, "coherent", 0, 1);
+ 		if (!rdev->mode_info.coherent_mode_property)
+ 			return -ENOMEM;
+ 	}
 -- 
-1.8.3.1
+2.11.0
+
+
 
 _______________________________________________
 amd-gfx mailing list
