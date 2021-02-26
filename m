@@ -7,117 +7,111 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69650C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 22:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7238DC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 22:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29E3364ED5
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 22:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29E3364ED5
+	by mail.kernel.org (Postfix) with ESMTPS id 3D5E264EDC
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 22:46:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D5E264EDC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B836E459;
-	Fri, 26 Feb 2021 22:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A851D6E455;
+	Fri, 26 Feb 2021 22:46:13 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2048.outbound.protection.outlook.com [40.107.223.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FEB46E453
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 22:37:57 +0000 (UTC)
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5776E455
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 22:46:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R/TfKJifSZ/aBdPKf7Dj8jYEz8X5DkgtN6FiH/T7zCvXb8eunoBPB1sSQhM6azpIfwxI2DSdxWiSzL/JQhjBi+N4mIlDYrEPcaXZHsUD8618eTgGclO3Icb0jYrvgq/AfaVFUKkxHACC0retU0sqfBL+FBFkfDKSyFcCSk/iH0uLx+i/MM+e5HnfX9CPHk/KzKzpk4l2S8xdrSD9aFHel97OaSeT1rI8momnIakDdILZCZX3oSlfQPmI4sLGYgcojyhqQg18LGgBW9hoyr7fCiSC927+CTK2rLzpuN7leI8WB9E+yxxI0xpUHgvmpFu7AZ0Gusk2n9SsBA/aBsHJjA==
+ b=NpIMoxCGQGeuIDcWmqd2m5+zRUwcShNb/qDmlQw8TzdI2zVqzLUhCNZoMxxyC+wffnqjzugfptep2uJ76dR8UwWVT1tYvj8zb9r7tBxqpejWLd6m5g+37+33DdzeawCVq6TOHMEWFrabVH6hcw9hsMLF9Ejoy0A0tAK4BFk+3CYvlI1OBmILB3p5LxzKyq/7czQohEPiLdaZcOqJ3Gc8FogvWvlFiP0uYSOP0Ke9OKs00/ZIO1GeO0cwsu4CDLN2ZcqeiV2RGHuhU2PY5pU59mRacfth/sQm5+SjHgaqYAsMkU+7GX1PLwBP6dbay8mOIDpNpXvRIeit7vR3cB3sSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i/iVYMgRhuNuc0lZdf2p4YwHW3FbOMsFnf+bcIsg2rA=;
- b=fQM3TvYjxv5/c4ktyhG4J/4V+x7UdhRh2UvenWTD07zMJf3L8lfIKE1dpjiAYezft95SFRjULzQQcF76p0de35eidif/q9IvajXduYn5T0i9dA6NlU2SW2eBAp9ZZ6ukHSlnS6WOdrrbbq+B4Zz/XRuYfR90T2Nce5kRWQ+08VqJh0kV3UI8E+Nnx1Dv/epNufcj8QVntwZ8vJjN/L4nM9dP/bbwVKPwaO54ZI0akpblKfyk3EQSfE+kIqe2CpYxO1tG7jthIikFNm/4ZJkYLZZfsEF7bLdwVo+ApikboDNZ7eU4inKNMxmcup3b7Ebwn6doym0oewp5Zb7hkao9HA==
+ bh=PhSM8OV4NCqPZ8bV4klLMC3NXd+O9P2nQBM6Zrh9kR4=;
+ b=NQW42mfxvBc4E3i/+y7LnG3F66xlqTsBRt6glRI22M65OIZYQRgoTlBkJ9iUYCSu/or54lzHKB3jrQ+kpYxWnw2cpfzRNs/HBlgGlGpI9UPzaH5fwwfn08SUTriKRl67vngNvyIy2snN9JCFhbRQBmVPnBdTQc/RPrzrivJeJ47W26jd1REKTzJjolEU3xNMeNaMLGcMGJ7tp0WKx8zkDmnpOQyyxJzrcGE9DrEm6KU+0mtwh0FSgA6s8uGgWoyRKfHaJyMhu6J5LFi42xupPGW6fE/sfPxLYigS9NmLcA34oBurs1j7bvkRygJKQp6X4OCnMRZcwz1G9z3khkeQ7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i/iVYMgRhuNuc0lZdf2p4YwHW3FbOMsFnf+bcIsg2rA=;
- b=krfbr5LDLdPH/IK+Yb8S1JCATSb/aia+3K1IbbX1QC+Q8VMc2Ct6xMxOjMGKzz7rhYWA0NhGW4ZkX/jtNXwCI+FkAbkkSiL7Xsr1U7zCYA7/MJTJu8nB3J/RwGQcagMRAt+2tReKY/EezFnUxrw4yaP4IlUPSxDfMLV0P4mkY/0=
+ bh=PhSM8OV4NCqPZ8bV4klLMC3NXd+O9P2nQBM6Zrh9kR4=;
+ b=RERFfFWCPFeI8ZZwlzAZW7Q4naBuhkrQlJf3UV5uJF+2tHA6OHZ/pWfevqC8sFjaL9Y4g0IvcE5jjn0SPSW3Ek7iOIuNGhI/k/fYiAzMNRzv5uTgGTGVEy0hr/G32TLZeGMSjVpGuUzybtp5RJi1suO1tYY/Mp5Dm5ZIzRnf6jc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) by
- DM5PR12MB1883.namprd12.prod.outlook.com (2603:10b6:3:113::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3890.19; Fri, 26 Feb 2021 22:37:55 +0000
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::e887:3273:c806:d089]) by DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::e887:3273:c806:d089%7]) with mapi id 15.20.3868.033; Fri, 26 Feb 2021
- 22:37:55 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by BL0PR12MB4754.namprd12.prod.outlook.com (2603:10b6:208:8e::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Fri, 26 Feb
+ 2021 22:46:08 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab%8]) with mapi id 15.20.3784.030; Fri, 26 Feb 2021
+ 22:46:08 +0000
+From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/11] drm/amd/display: Fix HSplit causing increase in DSC
- Slice Count
-Date: Fri, 26 Feb 2021 17:37:04 -0500
-Message-Id: <20210226223704.400472-12-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210226223704.400472-1-Rodrigo.Siqueira@amd.com>
-References: <20210226223704.400472-1-Rodrigo.Siqueira@amd.com>
-X-Originating-IP: [2607:fea8:56e0:6d60:acb7:edb9:ffaa:d7cf]
-X-ClientProxiedBy: BN9PR03CA0067.namprd03.prod.outlook.com
- (2603:10b6:408:fc::12) To DM6PR12MB2601.namprd12.prod.outlook.com
- (2603:10b6:5:45::27)
+Subject: [PATCH 1/1] drm/amdkfd: Use a new capability bit for SRAM ECC
+Date: Fri, 26 Feb 2021 17:45:34 -0500
+Message-Id: <20210226224534.14377-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.30.0
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YTXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::19) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:acb7:edb9:ffaa:d7cf)
- by BN9PR03CA0067.namprd03.prod.outlook.com (2603:10b6:408:fc::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.20 via Frontend
- Transport; Fri, 26 Feb 2021 22:37:54 +0000
+Received: from Harpoon.amd.com (165.204.55.251) by
+ YTXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3868.30 via Frontend Transport; Fri, 26 Feb 2021 22:46:08 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7d3c4544-125b-46cd-4e03-08d8daa728f0
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1883:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1883F39E8DA571A77683A0D3989D9@DM5PR12MB1883.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: 630e11ab-f6e6-479b-2461-08d8daa84ee0
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4754:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4754C40BB660B5B069DA7853929D9@BL0PR12MB4754.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DMLFQFZtNfZsI4rqmgfeD04FlLcE0/Vrzw4Frq3F6wNyyIXBP28T0gWi28zTQaN4mdXTtMQx99E/lvKfHiBd7cxr4R963y4FdaPLkrIZXYYtY8ErGfo0RBg0rzi+OEreDMmqcf3cRKCzzmrURfN5bVW4bIrPGfhRvf4P/z8at/MP6Q+koAPashlaDs5mP9UhH4EocngMwfnhB2wGKmpGVVzHg9te9RL9PMpqUUBHk2Bl0XNghVP3yScClXtlzcbsbJcx0Cbi8P/6kACGC8fwe+JHFfDFL+x3Bs71g1lGha+F6U6FMKpmGFNp0WIXUhRsquct2yjJybskM5YjFKMF/FNELiYMT0Bndnx4TVW7Quwec9vuV37Sb3/6hmZv2zGTMv2XJSJ/UGLooBwBiNCinX53EIYB8bqjCIW6wqzPNHk7pBWYe+pAFKQXeMlSnM0JwpGyB7yhDY/6njQiIPNewumPKkYquXCWhv0i7wdsRf1IhPo7SfdA/rXIzEC9HGVzZVt9nAL0A/kBbgoL1k4vBLwe/lKXTW5y4IGJPDq0FL9/K+EG4RQGXqokiVD88yTp
+X-Microsoft-Antispam-Message-Info: CLN7Oa32tKkU+GP/doNzHIf8XEWMOZAnxM5RD2TTDMWRYnXcBkhOxo2iEzKyOPASZYSqlY0OVuDWPp7y6RkflXuSXcH1MLjp/U/4mTyebA1DQoYYc9PJu6KkRUOuGrWQS3GDhjNYrmsM/ak+66szCReryUpLa1N4sHTPjdfb+OeJkK6DNhUd57dvKvPCa0YkvCYuihBoYEvECqJX5hML1cBIApQWNW8XWQoLvKiAr4ziK9JvM7LEMZHudc5Dg65awkHT/Hilt+U1GonZVsPMSWaQsXDbHJ4h9iEncjQ8gNTjb57VG8vHJYLiqEKbfSlo7Yrz137o3uuVuTLYcB4pn5QD465fiUuw1DkEsnelJCNOl76UPfVF6PmTJgWsM1LS+g5oZOAIJYyjb6Myhy394+jdHWLcHf2S0iVyKYVUbXeCH44xgfXo+nt59iZu82K4ICmlPvUWvhA+wSe+46usosNLKt+5jp8iI/LckxkcYvJyogNg9ScW6AdTE5KfuLN57MFYlwyrhXDVDfC9UPQTiA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(366004)(136003)(346002)(39860400002)(2906002)(6916009)(2616005)(5660300002)(66946007)(316002)(16526019)(186003)(1076003)(54906003)(83380400001)(36756003)(6486002)(478600001)(66556008)(52116002)(4326008)(6506007)(66476007)(6512007)(8936002)(8676002)(6666004)(86362001)(44824005);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(366004)(396003)(376002)(346002)(83380400001)(2616005)(956004)(6486002)(316002)(2906002)(16526019)(8676002)(66556008)(66476007)(66946007)(186003)(86362001)(478600001)(26005)(8936002)(36756003)(6916009)(1076003)(7696005)(6666004)(52116002)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?cKv3WuzSmZXUcpCYQ0rwwqFqpUY7r36jdAxtPOizXSV+Pmz+STstwO73GVjm?=
- =?us-ascii?Q?/xXj3l61GnOrAR1jzsojbhcNlik/jR6dKaESauu3ylf5YHXphha5qYR0c/vG?=
- =?us-ascii?Q?JZsUp7cpVdkop9H9Yvp1tAG9SM+gNK3VrYMbyMsnYTZ68LyozmpIMX1cQooL?=
- =?us-ascii?Q?QRyPB89T8hTjNaomUs7i0nLBo3CMkykGqcxN/LsVp/57zqy/IWALrqgwsIsW?=
- =?us-ascii?Q?XiPWW3/u+AdDcZ9Hum30pJuoLj/NovbOO0YTr/jmJI9x6SH/or1xGNiqGG5m?=
- =?us-ascii?Q?dLVLUGaB8FTpHjCXHjs+8HxCZkLHOl0puoKNv3Tq4Jb6X7kKpMxzsKxeCUYj?=
- =?us-ascii?Q?ACGsB8rnRL6jG+wE0CZEMR760kUp2kOzmxFWsdnzUJ2LxDlRZ9mzAy8B0qlA?=
- =?us-ascii?Q?uARks33qBcrPA5oibvNnQSeWsqR0B24LxHcQ5ykt873nZV16T+9k+pI/qwVc?=
- =?us-ascii?Q?AONhq+DIg+kzQRrZO+EFLaz1+5FZxLO3x84Mh9nQCzn7CJmhL5OASsnTLVZV?=
- =?us-ascii?Q?Px2M5C4etPwdTGuGSJHxCc52xRMOTyO7nBVkW/2nNPs18SdSbHy1P8NPcI4H?=
- =?us-ascii?Q?Y3Wrm9XmV0jMj1c+3Qxx3qTvto4O0hkgjx+MQJhpCg4zPeiwmIrLBDlXzLPY?=
- =?us-ascii?Q?B2XQd/EE9yfR46V5CKcUjDDK82WH3QdGTES4mLvsk1xqRLJLgUOq3BBFLZ3G?=
- =?us-ascii?Q?t9Lf1sO5eTztYV1+t85bcyO1lxlFTv+5sxNB41329W/rK4Uaq52HXwHVVJS+?=
- =?us-ascii?Q?dqj7l6SkIpP4wBESbzKvo54pB42IlQsjuKwbeDoZrSuNgJj44DKtjUVHNb60?=
- =?us-ascii?Q?DsOGPjYpecZLTau/qCBtNEygCIdGQ9AnXicYftxYwFv9BzMnkkO9++MiiIQz?=
- =?us-ascii?Q?gaY1u6ARAT/o/nFNYad2AveSNOGphWOiX1KdI67hhulC8L/ggCigpQGDfdLz?=
- =?us-ascii?Q?+M9WfkJsrTE4TkANYU2+wicjV5obVlLAorR+7zmlUF7e01MzzeNnLA7uuq3p?=
- =?us-ascii?Q?LtY/hEtp2omlbpZ7W8t/cFBrHo/2zwug+0VZJpJqNzIQuwe5Ft5fylj3U0IV?=
- =?us-ascii?Q?Mu3jXep7NgrkNQqz2kx9W/bIeCFhlCHHciKYQuOanNfhfma3rk6X1SftFuKO?=
- =?us-ascii?Q?GImiXgk2OylDue/jLz3XIEwFSteQIGEkkvP7WjVlAX2nOGxkMV7LKCZHNCbt?=
- =?us-ascii?Q?OIt+k8SYBBjaFfpRH+843qcvY1hovYZg/ec75VZNsnf5i3xV6qZBQAXUqDhX?=
- =?us-ascii?Q?GkhgerP2Tpg9JTTOr0e6hc/tqrbxzInTAuhJs/E1JycT+eS+aqyEbi43H/Pj?=
- =?us-ascii?Q?8F7jfLWYXr2ogLQrniC8hTP5NykvhPFJ+iyE4lT7WqdBA8RFBLNegJp1HH22?=
- =?us-ascii?Q?ODL/5QMJdKPJtanpn3WXa3Pjv5wZTIaGZZRpoduKaWUuoJK//g=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?daZ3tDdNjpTB/bQnHFNzqFdgfjL1SnMxqpwZOiek19nrX+xEWuoxo/t4j2V7?=
+ =?us-ascii?Q?QIPjc7aH4yxIWzUHGmEEOxiPKScD4Z9w7SeOr+QchsfLiV0pS/VL1EU9WcUv?=
+ =?us-ascii?Q?kysqR9hlb4sgoSQKy5YiiCTaozbemNylCpnC8ZxR2YHkoEjRPkb5uLSROXKu?=
+ =?us-ascii?Q?vBoZZldX98+7hl0jPz59ubmkAIa+mMHdi13kdpbWrIeiHyzt3Qs5826F3Q7b?=
+ =?us-ascii?Q?mDxZkRjnHxojUFrYQRckH1bqn+Q+ST0yGYX1CJfjoVdNYZM0fEdWhR7/0o2A?=
+ =?us-ascii?Q?EacbbvdIN4TKFdfx6IHqYRAZvf9gQxSHJtV08MPgQoiVEB5AHPIhcg/nq4IK?=
+ =?us-ascii?Q?0ObcyJNNuapO1+Q2an1UL75HUNmBp6NiWRbb0YPZxUx67vHTLrklp0ZYpZ7t?=
+ =?us-ascii?Q?PYyJNScEa821Epyt5F1A4FQPU+DfZJlEtqRkEDvzffC3uVLm0GDbkipOBCje?=
+ =?us-ascii?Q?xHSMR9hU0nDouFf8SABugIU1mkLSDUYpaR6jTDOYu9bCGt72aHE8etAI6nzT?=
+ =?us-ascii?Q?Vn5JD5bVnuxPQobsReE5n4o5fXEYZ6IKGZmJTsnwCRlPJa0p9FUdnO6adixx?=
+ =?us-ascii?Q?+6zFALRx2BGgQectSRbX61EZsY1YSvEpbSbvb/w7JZzmlQg9MncEJW2XUUWz?=
+ =?us-ascii?Q?9T0t9Tj1EAnQpYykKMu0MKkcS4y6XuTXftesOicK0NPZWWN/MglT8Ob9LiiJ?=
+ =?us-ascii?Q?kn3RCXBtqA5CR5cSyiTuLRYu7lXyjvho5XHbOH3vCeSAKQ9xC6k3VqH3GHtx?=
+ =?us-ascii?Q?muT87z2AyBAU/y9f4yaaKU4wRwN9zy2pCnevefcdYmqd+EHhta+iIre5Vx8h?=
+ =?us-ascii?Q?SsBHvwS1932kOsfe98tb2MiCs0o9DUoBVDuxVvD/53weLhyc3jQWBan+gbIz?=
+ =?us-ascii?Q?r7rCjDCzoNaw4SHihE9fqMA9lALDxS8BblWvP3MXvzo82mckkdHNMbt9a4yb?=
+ =?us-ascii?Q?You1VTl1KlVCP2D1HVDDnrq2P9EUO8PmfHBu9449yDmSnzyKyvTborJgD9bU?=
+ =?us-ascii?Q?L7+DnlBwZz2suTxOSxOfENCAn+susItH9Hgpv+yCHg1bvn8gsNQLU9Sf3N7K?=
+ =?us-ascii?Q?dEKxW2ob+W6FtRqZBD6Cz5blZC0D1YANuia6vApoW/Ko6lLGGl/BvFVo6tHA?=
+ =?us-ascii?Q?f/tPcoe+T6lNOy8tJRkcwJvBVjfPCzsoCumeIH/vHoHE3RP3uJjJ4izUyM0a?=
+ =?us-ascii?Q?5z1sjL3Zb5pWPbh3tM/2F7vXfrcOnZwk7jUr3rATs/HSySEH5m/lWoqpgYIm?=
+ =?us-ascii?Q?KQnIOoPkDZiFmpolszATnbwmaGsIuK7lKGBolVcjpQ9X0LyKOfjgv0H0Cf5+?=
+ =?us-ascii?Q?qA5OzEx/TEjrBw7hXDoMsxhk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d3c4544-125b-46cd-4e03-08d8daa728f0
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 630e11ab-f6e6-479b-2461-08d8daa84ee0
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2021 22:37:55.6384 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2021 22:46:08.6494 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: odmGSKhbR3hUU310WMSFak6/oNnoQ1oj05vYaNhxuiFkLjvmPZlpAZm85w79issLjUkI/DymDPxwYreclHujVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1883
+X-MS-Exchange-CrossTenant-UserPrincipalName: IBvU4iKjm4XWpMYUX+QRJX7P0GS+eX8dceAH7u8SEwZiHshAXPIePKFe2yRZDyuKnQ4wh1AJDtOM9bogBpZPNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4754
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,69 +123,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dillon Varone <dillon.varone@amd.com>, Eryk.Brol@amd.com,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <dillon.varone@amd.com>
+Existing, buggy user mode breaks when SRAM ECC is correctly reported as
+"enabled". To avoid breaking existing user mode, deprecate that bit and
+leave it as 0. Define a new bit to report the actual SRAM ECC mode that
+new, correct user mode can use in the future.
 
-[Why?]
-HSplit should not affect DSC slice count. Can cause improper timings to
-be applied for certain modes.
-
-[How?]
-No longer change DSC Slice count based on HSplit.
-
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Fixes: 7ec177bdcfc1 ("drm/amdkfd: fix set kfd node ras properties value")
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c          | 3 ---
- 2 files changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index bc07082c1357..cb3f70a71b51 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -4050,7 +4050,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					v->RequiredDPPCLK[i][j][NumberOfNonSplitPlaneOfMaximumBandwidth] = v->MinDPPCLKUsingSingleDPP[NumberOfNonSplitPlaneOfMaximumBandwidth]
- 							* (1 + v->DISPCLKDPPCLKDSCCLKDownSpreading / 100) / 2;
- 					v->TotalNumberOfActiveDPP[i][j] = v->TotalNumberOfActiveDPP[i][j] + 1;
--					v->TotalNumberOfSingleDPPPlanes[i][j] = v->TotalNumberOfSingleDPPPlanes[i][j] + 1;
-+					v->TotalNumberOfSingleDPPPlanes[i][j] = v->TotalNumberOfSingleDPPPlanes[i][j] - 1;
- 				}
- 			}
- 			if (v->TotalNumberOfActiveDPP[i][j] > v->MaxNumDPP) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index bc0485a59018..94036a9612cf 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -599,7 +599,6 @@ static void fetch_pipe_params(struct display_mode_lib *mode_lib)
- 			for (k = j + 1; k < mode_lib->vba.cache_num_pipes; ++k) {
- 				display_pipe_source_params_st *src_k = &pipes[k].pipe.src;
- 				display_pipe_dest_params_st *dst_k = &pipes[k].pipe.dest;
--				display_output_params_st *dout_k = &pipes[j].dout;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 416fd910e12e..b8b68087bd7a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -47,13 +47,14 @@
+ #define HSA_CAP_DOORBELL_TYPE_2_0		0x2
+ #define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
  
- 				if (src_k->is_hsplit && !visited[k]
- 						&& src->hsplit_grp == src_k->hsplit_grp) {
-@@ -620,8 +619,6 @@ static void fetch_pipe_params(struct display_mode_lib *mode_lib)
- 						mode_lib->vba.ViewportHeightChroma[mode_lib->vba.NumberOfActivePlanes] +=
- 								src_k->viewport_height_c;
- 					}
--					mode_lib->vba.NumberOfDSCSlices[mode_lib->vba.NumberOfActivePlanes] +=
--							dout_k->dsc_slices;
+-#define HSA_CAP_SRAM_EDCSUPPORTED		0x00080000
++#define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000 /* Old buggy user mode depends on this being 0 */
+ #define HSA_CAP_MEM_EDCSUPPORTED		0x00100000
+ #define HSA_CAP_RASEVENTNOTIFY			0x00200000
+ #define HSA_CAP_ASIC_REVISION_MASK		0x03c00000
+ #define HSA_CAP_ASIC_REVISION_SHIFT		22
++#define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
  
- 					visited[k] = true;
- 				}
+-#define HSA_CAP_RESERVED			0xfc078000
++#define HSA_CAP_RESERVED			0xf80f8000
+ 
+ struct kfd_node_properties {
+ 	uint64_t hive_id;
 -- 
-2.25.1
+2.30.0
 
 _______________________________________________
 amd-gfx mailing list
