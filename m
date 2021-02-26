@@ -8,56 +8,56 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DFE2C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 20:44:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A375AC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 20:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDF5D64F03
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 20:44:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDF5D64F03
+	by mail.kernel.org (Postfix) with ESMTPS id 304D064F03
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 20:44:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 304D064F03
 Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EBF6EE2A;
-	Fri, 26 Feb 2021 20:44:06 +0000 (UTC)
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1349B6E2D1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 20:34:15 +0000 (UTC)
-Received: by mail-qt1-x84a.google.com with SMTP id n4so7349541qte.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 12:34:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E52966EE2B;
+	Fri, 26 Feb 2021 20:44:07 +0000 (UTC)
+Received: from mail-qv1-xf4a.google.com (mail-qv1-xf4a.google.com
+ [IPv6:2607:f8b0:4864:20::f4a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBA7D6E434
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 20:36:44 +0000 (UTC)
+Received: by mail-qv1-xf4a.google.com with SMTP id e9so7675121qvf.21
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 12:36:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=sender:date:message-id:mime-version:subject:from:to:cc;
- bh=cbkRU90b5SgpivSa1jA0/1Ze/TRby2Uo+UMPBFBsn+Q=;
- b=vO5YUurN5t/pIQPQwysm7PJlRJXnOZbrg8yNFLKTGN+EsuK3fQSkIJAqO2mzsxzXa3
- yVKOfLylFcUDhL8H7Pr+HTBwTGLJS1xcTvn5EgD3/MTN/nOXpbJoO8RTS1z9JatIluHa
- IT79VtUsV8sr77JOvyRiewpDICRi8rxFDDIttWL3e697D5W9nz0MYQfzSgh8s7VCgL+X
- KnDGRmrnvAVthnQ6yXurxBOVwwJmSBTqjIUHXV+aZRPkrBINbmAuTfAnDrqHwoRkjRpm
- OwGk1Z03VZkXOwG0j5M8MuFLFVh0on/EAL6ff76O2s9E6KDll5FWw+0UKKpf35HnOvjc
- 63tQ==
+ bh=0pEO+fF9soyTteAWVXFhli3RBhZZDM2irVHu5JgPPOg=;
+ b=hdQ+eW59qvqXdKkf0muOZSGJF16Ccy9fy8cLkTHPj+4ogVOC7WFNzPtkD2U4ll4UGU
+ tGTW3JbemVsgY+wCAfg9Qyv1g3sH8nOVv1YHqy1Epo92Xn+EKIUvjorIW+6vj1UiVDqT
+ GwXW5CRqeBiEhUqoG2pWcqodbj+gs6j5vwxvvb4ec8n9v5SaxUxUDoSP5UNigVLPBt+A
+ Bjb45PsKiIbA81haWHvkUGad1RtPByiIzrHhfm/+IDNEfn4Ol0LqJsJ6h6q2ZUOHtK4W
+ rv+49+17WOtzKkk2+A7gugxW16tVLJ+s6x0bJ8FY5ufhzkLf5uCFmUbirV1vYaWoKnfw
+ CFTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
  :to:cc;
- bh=cbkRU90b5SgpivSa1jA0/1Ze/TRby2Uo+UMPBFBsn+Q=;
- b=Cz+g7tSx75th1KjbmlP/0UXyPW0oGgY1lEUrzuJNThHNLAib+VxkfsGZFYBxb6qrnj
- /EnjYD2PSCki/19JWE16poJA9goDWNRW5eQz2qiS7bLBvG3F5Fr5Eees6to6g2T23Qv5
- P5JJl4voQ2O0BzB35iFMTJhec6jJCIBLB0ph/iYtq+i2VN8S4g/gFC1crFp7YQHvny6u
- zYbFXyqZkDMmZHhSYELIsmCkTF0TWRxvNeHbjZVy5X9t6F8+iOfJzTJ/JxMcPfjL3huA
- ZYKj4WsBadNH/34qqQuqLjP6I3PA9xuCBykewiJAm8iwKPVyORopgxaYungnuiOCU9j2
- Hh5g==
-X-Gm-Message-State: AOAM532QXNrM8i6vXyRzLcycDSbWXhEVSSA5smPrAaLyHTCUx4h9Y6/I
- AeBhOXJi1MSVQb2qiGgSThUzqE5Lt1mgJYR6pYW/FadWtiUcTTVywoaqOBVnPRqA7EnfCC+7j69
- 6AnfcbTM07vq4ranK199UMiqxq0iJlzgJRjorpsRDdxxm+Nn4yVahxYxR+TjqRAUOTJ4bZTbDRY
- F4NfIfZw==
-X-Google-Smtp-Source: ABdhPJynoO04pVb4k8WipKPiNtd9o43Go8Sw0kz7Tkzlhl6nN+4hgMo7yhAwZdLA0cMmCsBs1XmwcERzXSbYB/K9
+ bh=0pEO+fF9soyTteAWVXFhli3RBhZZDM2irVHu5JgPPOg=;
+ b=h11tK1be257a3TJAX/Wbax41nn9cC7YuJIjJCn6voTc2rrsyxXiUuEQtxYDADl+0Xb
+ QOhjrUURB+YkIEIP1QgRTs8c6DZz3xfaOxopZs95X0dOtUa85nbG4Iu0XYDmXapXhhyZ
+ EO2teRSTyRDhflLaaMZpfwQkXVpx1wt0pRfTxxRRwbWu1flGioRDxo3sxu4ijF4rvqjC
+ 3pmMXA10JsNhFRSG11gI367xFKcWYPZ59OemFvz90LYzG8V4P6zMN9i3E7GC7n38MMB6
+ +GLow39GdqV/uCHb4odD47V3nG3y5wzCJfO0S4BteK6zNS82IV3zSIl5tjLSZykWdrFh
+ Jvcw==
+X-Gm-Message-State: AOAM532zt/aT0imu+fOZQrloWIyIuQDlQshll3wbwZGXGgD4n9A8lai0
+ uWNOH4tCWpZtvydDA9t89jc1wAEdlC558/5qjtkiaPnYkQx8pkIrTwfzPhgY27XmKC4OBPkQsUx
+ WRYTPpe1r440E2CsSGtHYVn1HicgoqCl5Xv+seQV9BNKv+yuVxjWyIKuA+Lke7HpboSl5gbdbRp
+ GGLU5QdQ==
+X-Google-Smtp-Source: ABdhPJz7CW53c/Kk9zHUgwHcO+33LedMqKffhhP/vsE96/7gz/7VxtQDl25oxlwI5qFWJgAeU4YEZOVlLVcs7P76
 X-Received: from markyacoub.nyc.corp.google.com
  ([2620:0:1003:513:24ad:644f:832c:b762])
- (user=markyacoub job=sendgmr) by 2002:a0c:f946:: with SMTP id
- i6mr4248802qvo.40.1614371653926; Fri, 26 Feb 2021 12:34:13 -0800 (PST)
-Date: Fri, 26 Feb 2021 15:34:00 -0500
-Message-Id: <20210226203400.3424408-1-markyacoub@google.com>
+ (user=markyacoub job=sendgmr) by 2002:ad4:58d2:: with SMTP id
+ dh18mr4221967qvb.1.1614371803945; Fri, 26 Feb 2021 12:36:43 -0800 (PST)
+Date: Fri, 26 Feb 2021 15:36:40 -0500
+Message-Id: <20210226203640.3424790-1-markyacoub@google.com>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.30.1.766.gb4fecdf3b7-goog
 Subject: [PATCH] [PATCH] drm/amdgpu: Verify bo size can fit framebuffer size
@@ -95,8 +95,7 @@ Suggested-by: Sean Paul <seanpaul@chromium.org>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Mark Yacoub <markyacoub@google.com>
-Change-Id: I9de3e21657510781b97f06afdc5db06d79f6f0f4
+Signed-off-by: Mark Yacoub <markyacoub@google.com
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 8 +++++---
  drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      | 3 ++-
