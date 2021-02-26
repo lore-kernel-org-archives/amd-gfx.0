@@ -2,132 +2,87 @@ Return-Path: <SRS0=SLyk=H4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.4 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA746C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 07:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BF72C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 08:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6007D64EDB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 07:58:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6007D64EDB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 44F9064EE3
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Feb 2021 08:02:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44F9064EE3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E67D66EDA3;
-	Fri, 26 Feb 2021 07:58:06 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760082.outbound.protection.outlook.com [40.107.76.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA6C6EDA3
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Feb 2021 07:58:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nZ62UeD30JU0nf2GHjXg3axAmJnbrcK79xfTggH6D09XG8H1RFY8azXFz+jnDFNwdM78Id9yfzBP/R2dd2iNJEQn5AWmcQRO0HUiUxGiAk8tgyJBKTs0ywvQlEM5QkD1cMkNP84LcWIQKkcBa0n3qlJRKnfiid9SPWy8aGhjBw4dppBdcv4o8IMmSrdEfT/pCGXhYqUmhZsvSsaINa1Oe/B+KaAfOjFHH27meIXmT+SNnn4FVKVnn80qiXMJ9ACMB3EDCeDZExaxVcHhpH6BILgFUBtXucSjUg/NLpNWZPJB5ExWy5/BKUH6SiRBH91b31CaY2WFFIMozDw4bUc+eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NcXQuj7MbEbd89bxwFcSjUxu+tWrD+botGwDv85oGMs=;
- b=c3ZBz9mPBPCHSsvx0EFz8P0KBIa41qPysUxHm/fHbxRH/mC/6V3H+8TT1fzx4FAjLIB0TJgoq56uZ5zPR039rFQY3lXCcukTlFgOui2BYmIZIWReYNJ1AAFSbJGcZ/sbVuosuAgVTiC0l7lppYNCylmavJgGQIKASCN93YJVW/+ZPAD8WODlsyenjpaTHyyBBibMKEProoHHZluczshw0lOldEIHJofhKqMN8k2wjKigcnLxAFV4CLNyc4QY2b4WZhwOQ1sblnnxoC1qcfXrmXDMf+CImzYVxRDeuMz887AVLVjCZ2mbWuKt44/9uvCdYg7uJyxY9WM7Mk5ZgNOCrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NcXQuj7MbEbd89bxwFcSjUxu+tWrD+botGwDv85oGMs=;
- b=K7Vd3BAT8NBxZYzODHy9Ks1DqYwBnwzjSEsEgY1kQBOKtEX1WG/oNrzp2DHB4AAHM6s3rDyrq4UOpIUqxYCDTA3GKmg1uyUraDYV3Y4d33XTkMfX5ZHK/4xYczZO0T2U3Lyk7h30bxaK0r5TAMvtm53PiByp7oaoU1PZRxavb6Q=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2451.namprd12.prod.outlook.com (2603:10b6:207:4e::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Fri, 26 Feb
- 2021 07:57:57 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3868.033; Fri, 26 Feb 2021
- 07:57:57 +0000
-Subject: Re: [RFC] a new approach to detect which ring is the real black sheep
- upon TDR reported
-To: "Liu, Monk" <Monk.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <DM5PR12MB1708D28565B445EABA872A3B849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <f65d8f80-a283-933a-82bb-97b415689460@amd.com>
-Date: Fri, 26 Feb 2021 08:57:52 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC8C6EDAE;
+	Fri, 26 Feb 2021 08:02:03 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E346EDA9;
+ Fri, 26 Feb 2021 08:02:01 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id h19so9839024edb.9;
+ Fri, 26 Feb 2021 00:02:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=FcgGpHwkjwZclOHGIc/VdfNxbm0a2VpyB+fvz1qQlVQ=;
+ b=nid1VKeQeds/6v6IF5Xjly1IHekuCJp5XSOcGn5t+SJUoN9+ebS5YDfRKb9ewCMEiW
+ RKDTDwx6SCxxFHDGsunYlw1H37P0mnZSz1f91L+G2DA6MQAi+kpr+PIbpthazdkX1Wyy
+ jlvB4EqI8S5y2DyrurK5Rwer9wfgbJNYtdkmhNMdLDqu1G5PnJgsl11G5b6klDnBtUaM
+ 4I3NDRpHd/xC+96K/lfAhWibIw1ydJBXhx8+YLUk0oEOcdZxQb2KeZWKUgB4ChSmWJ9Z
+ TF6vwEjnnhybua7A8mv6t5ZtE+JUGy+QWpmcHLN2FCuAQLtFeu2MOQrI9DnCoJGrMnqM
+ 1ZeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=FcgGpHwkjwZclOHGIc/VdfNxbm0a2VpyB+fvz1qQlVQ=;
+ b=tvIHxpVGOhd56rY7/afl4Ave7FbPvFTJUc4C3e/zlvM1hcz2pybMTBbeIq+qIWPBEW
+ HexqJx57wLHg8aiWDqMeQ2OaZ6GSa9iWn1yXMaQ60F+nP01aJ+6kEcO78qiKG/wrfEme
+ QActMDfIMLYHTBGMymG2zFdxYALZdOPeV3FXHwIEMm/fEIEt4WaMZB3UavT2/Ot4V16l
+ Vh7crfzUjzzJUOjJfDKgMldhcUee8c6NfAmJ8HdbrdJjvpCLqQoj0w/NryYpvO+bmhnA
+ Qb00Vjalf/Cr1kfTEGa1Ywd7uzp0ml0nS/V8w57GfC1i9WXl4iFMpgDODBGD6iRLmSs4
+ T+7w==
+X-Gm-Message-State: AOAM531HQS5EK1RzT2Qz91r2Ple/suxwXR5Cb4V0VyUncc35Gp7D6vsx
+ rnrud9kimGGjMewohwr2VRkfdAdc7QkU6w==
+X-Google-Smtp-Source: ABdhPJyyQUxA1htU8Y7cBb1fFeyCv9ULtlRRXFTVT9HvfeHLKeYPuSAfiij2IP+g599dsFGuJBgtFw==
+X-Received: by 2002:a50:bec3:: with SMTP id e3mr1933126edk.290.1614326520650; 
+ Fri, 26 Feb 2021 00:02:00 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:bcf6:4057:c09:be71?
+ ([2a02:908:1252:fb60:bcf6:4057:c09:be71])
+ by smtp.gmail.com with ESMTPSA id d26sm5093584eds.71.2021.02.26.00.01.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Feb 2021 00:01:59 -0800 (PST)
+Subject: Re: [PATCH v2] drm/scheduler: Fix hang when sched_entity released
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <1613599181-9492-1-git-send-email-andrey.grodzovsky@amd.com>
+ <bc2c5ce4-a641-8a5e-bd7b-11174c883e99@gmail.com>
+ <6f8dac3e-99eb-1b84-60f9-ee9b24210fbc@amd.com>
+ <abcb8ea9-fcb4-a781-bf87-d12f3910e484@gmail.com>
+ <74c4a9e1-f1e0-03e5-3c99-755f3cf1b60f@amd.com>
+ <bf874237-033c-8eb2-336c-ec79ae9ef941@gmail.com>
+ <5e52bd1b-107c-ffea-8d29-aae474047859@amd.com>
+ <e0e05866-ac73-0534-f0b0-60c3fa211eee@amd.com>
+ <85d4cf33-b8b9-23f6-7ca4-abdb98f0cd5e@gmail.com>
+ <c6e9ed57-fb7f-8dec-ce2a-187d5bd7b1a9@amd.com>
+ <aea77d09-57f3-88ce-606a-933eacafca64@gmail.com>
+ <e4440f37-5b6a-a60f-7719-f505c9045ed7@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <7d230b96-76f1-7480-e0ff-7c62433585ef@gmail.com>
+Date: Fri, 26 Feb 2021 09:01:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <DM5PR12MB1708D28565B445EABA872A3B849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:bcf6:4057:c09:be71]
-X-ClientProxiedBy: AM0PR04CA0073.eurprd04.prod.outlook.com
- (2603:10a6:208:be::14) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:bcf6:4057:c09:be71]
- (2a02:908:1252:fb60:bcf6:4057:c09:be71) by
- AM0PR04CA0073.eurprd04.prod.outlook.com (2603:10a6:208:be::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3890.19 via Frontend Transport; Fri, 26 Feb 2021 07:57:56 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 345675c7-5b0f-4e70-363e-08d8da2c3aed
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2451:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2451E05EDBCCBEDBB07B9CA7839D9@BL0PR12MB2451.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iAakQVXVXTdca/2UvTFSNGujuheUE+6sDihrk5hWhZUAXIz91BbG/CujpULpWNciWeYIUTTrX/HdGZPOsdEjG/JZltEOUvPPc9pItsslIAs3LZoFvkIyNzJsqeDXPVUd+x3zcUk3j0crECJvyoMDjXvc2/cnRDir5Ed6DJT458WqMBhWA+odsALgyvUNqE08AZSn/txLIuSrDjdiihPKFbsH35VnUO3YUXu7bNlsRghjH7twJJhX6ChZ6QzWyS0ry01QNfbnR916HB8k/N0evPJVEJmpxnQE+y0tmJ4mXc7WImPcG5+hzdzGvHMCpsB+31X9M617ErGu+3XglMx+fioa8XS6+o01OIyWQM1oUshsH8nsKiB5WtkTb0/9Dp1VKMRNRUZ78V5g/AOvgHlHsipKfEuZKiuH1p1Cavet5Gid5ddARw1SW53ENtAZdKFx764wPidPfF/qBWl7gDcAbWZ6Cu4G1gpVTCXuArAMXalUOCld4EwblmYe99kEnJP7yM3YpfhUv4K85nkzpSCxQQzC9zNJAwNEfVUeU2rsLulnID3FU0otr81xYG0u6rR/SVr3RraH16LP714LmvRk6dSy+nSL6biLxFDEDCbYarU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(39860400002)(366004)(396003)(66556008)(8936002)(66476007)(66946007)(4326008)(52116002)(6486002)(5660300002)(33964004)(478600001)(2906002)(8676002)(31696002)(31686004)(2616005)(16526019)(186003)(83380400001)(36756003)(6666004)(86362001)(110136005)(54906003)(316002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Rjk2QXplRHlmQkZxUGJ1dzBjbUhLQmRtQUZ3dHM0dmQ0VEhlZGw5eWZRQTRw?=
- =?utf-8?B?UXlidGlaSWJXTFVqQ2loajFiTHZEc01UYVN3TzJiVm8xR0RUOFgrTVFtVnFE?=
- =?utf-8?B?VnhFc3FiVDYvbTU2cFdzei9iVkxJc2dtWjNrYm84bDczQlNsekRrVzFwSkZu?=
- =?utf-8?B?cWozYWVhMCtGQWdSZzhET2FJblRjazZpOHdvNTNKdHRaYy9GMFNYeTlOQ3Zj?=
- =?utf-8?B?NFhDb3BVYlVJMzdoUDZFMCsyN0tOQ3ZLcWQxUmUrTy9EQnViWjVkREEvNmVW?=
- =?utf-8?B?OWhNMmNqUVZ6bEZEVEhvSVEzem53TWFpMjV3Q1M3KzNUSmdwNjVMUExqd1dP?=
- =?utf-8?B?MzF0UEYyVXI2b1diZ0p2YjgvaEFHVmxCcDVGWEhnWDJvQUlGMzAwdWd3eExl?=
- =?utf-8?B?OUFQMHRBaDd4Z3FVanRTYWVEblQwN3hoTWRRcXFTN1YzNGcxbVJEaGJJZkNT?=
- =?utf-8?B?ZWRBb1Q3Q2RpMExXK2w0aTQ5YVViQzl2TGVQQTRBV2V1V1JBWWdBc2dhdTJn?=
- =?utf-8?B?dGp4RFZYaDhwSGxNVjBDMXdQcFczWitZdnVodCtlZll3VDc5T0llYy9sbnR4?=
- =?utf-8?B?S1JuNk0wYjE4andPZjlyaGhFdVRVc0FMUkMvcmZnbjk0Q3U1Mm9yYm9Zcncy?=
- =?utf-8?B?ZXR0WnMxbHVPSVFlREsxQ1ZkWDdvN2lOKzRJZXZkcUd0VWZHMy9ya1Y5SDdR?=
- =?utf-8?B?dVVXYU1sR3RUQWNqOVJrOGNoUnFCdC9JelNyNW9EQVpHUUduRjBLUmJMdGFs?=
- =?utf-8?B?V003NkZNYjhteHlFS0RKR0VQcWEwOFNiYWhIRjZKQzcwTTVQbXg4NXYwYTdh?=
- =?utf-8?B?OUtqemN6Q1B3ZVU5TitIL3NCSytxbkZZRmo0MVc0cmNSWGVVYnZ0VzI0NDcw?=
- =?utf-8?B?bEt4RTllQldoREFZWTFPbFROQ2h1MVo5a0RUTDhYbGRmeUMrblJlS2t6Vkhq?=
- =?utf-8?B?dG10NFk3UVlvMy9kUTZYNHUrL1RWbXRibTZmMEZWYnA4OGtFZmp1aGdJd2Zz?=
- =?utf-8?B?YzJzRldyRVZZd2JYZ1NkWlpCZXBLSTBhaE5tcUo0TForQVdTRkh3SENPNzZm?=
- =?utf-8?B?WUJNdXowampINHBJRzcxMm1yUWRCS0s5em01TEZsYXFSdmtkUVVlSFhTVktJ?=
- =?utf-8?B?WWwvaFUzVUptVmZtQTdSTDRPY1ZHL1p6ZTh4WGtjL2FxUnhoWWRNZTRJaTBG?=
- =?utf-8?B?TEJsL3FsMjdNM01pRXVZUTBwcWF4c0Q4MmhZbW1OL0hCcUVjbHFLSGVuMFlO?=
- =?utf-8?B?SlVQUHM1Tkkxa0tWRkFobWliWFowSnM5ajA2N2d0Z2o3eGRmL1hVaHllK21Y?=
- =?utf-8?B?S2owUzV2bjNsa090M2ZORWFNY1A4RWlPd0lGam1BMG51bDdVVGhZV0RZTUF1?=
- =?utf-8?B?VXVGNmxham5xdVU5bnNmdWovaUNIb21YdTFRZXBKTDNmSnRRQ3NQWDhRdHdM?=
- =?utf-8?B?NDVCZHgwT0JEOVdRR3pjR29HWi9xVk1TT0ZsaDVFdHIxKzZhdUJETzhBWkhy?=
- =?utf-8?B?OTF2QXZOanFsY2c5aVNsWmhaZzdHcDN5aU1COEFGZWw2MitoVFE5Q0o0anNl?=
- =?utf-8?B?MWlqWE91dXpvekpYQ3pUc1c5citkYXl5NHVLVlRUSXdRdk1MU0dvMlA1VlVD?=
- =?utf-8?B?cHhYazE1MlUrSTdQTVVMaU5oNjNqZkRzc1FJRTVwYmc2MG5XaFNGWXFmT3dH?=
- =?utf-8?B?M1NjNC9NcDZpRHEzYVRFaVJHajYxNVQ0UWxOZ0ZadlJEd1h6bS9ML0pWZExn?=
- =?utf-8?B?Nkl5ckZzU05NK082amYrazVvdHRRMnZWeTF2a0tWZVM1U01EUW14OGltY0o5?=
- =?utf-8?B?YmRSc2w4Y3ZnckdlTkJjbmlDVXM3UzZvRnBuaEZ4Wk4wemVoKy9xaDlXb1NO?=
- =?utf-8?Q?CzOUeEF7zqynW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 345675c7-5b0f-4e70-363e-08d8da2c3aed
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2021 07:57:57.7104 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Lc3jhdu3acAQmCikKPBwjKC8gvhRmMh3xJwDLSdrRJIUH0FdnkV5eEdFynC1uqU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2451
+In-Reply-To: <e4440f37-5b6a-a60f-7719-f505c9045ed7@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,461 +94,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Andy" <Andy.Zhang@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>,
- "Zhang, Jack \(Jian\)" <Jack.Zhang1@amd.com>
-Content-Type: multipart/mixed; boundary="===============0486876014=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0486876014==
-Content-Type: multipart/alternative;
- boundary="------------A4130A49B7ECCE1FCE9C8694"
-Content-Language: en-US
-
---------------A4130A49B7ECCE1FCE9C8694
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Monk,
-
-in general an interesting idea, but I see two major problems with that:
-
-1. It would make the reset take much longer.
-
-2. Things get often stuck because of timing issues, so a guilty job 
-might pass perfectly when run a second time.
-
-Apart from that the whole ring mirror list turned out to be a really bad 
-idea. E.g. we still struggle with object life time because the concept 
-doesn't fit into the object model of the GPU scheduler under Linux.
-
-We should probably work on this separately and straighten up the job 
-destruction once more and keep the recovery information in the fence 
-instead.
-
-Regards,
-Christian.
-
-Am 26.02.21 um 06:58 schrieb Liu, Monk:
->
-> [AMD Public Use]
->
->
-> Hi all
->
-> NAVI2X  project hit a really hard to solve issue now, and it is turned 
-> out to be a general headache of our TDR mechanism , check below scenario:
->
->  1. There is a job1 running on compute1 ring at timestamp
->  2. There is a job2 running on gfx ring at timestamp
->  3. Job1 is the guilty one, and job1/job2 were scheduled to their
->     rings at almost the same timestamp
->  4. After 2 seconds we receive two TDR reporting from both GFX ring
->     and compute ring
->  5. *Current scheme is that in drm scheduler all the head jobs of
->     those two rings are considered “bad job” and taken away from the
->     mirror list *
->  6. The result is both the real guilty job (job1) and the innocent job
->     (job2) were all deleted from mirror list, and their corresponding
->     contexts were also treated as guilty*(so the innocent process
->     remains running is not secured)*
->
-> **
->
-> But by our wish the ideal case is TDR mechanism can detect which ring 
-> is the guilty ring and the innocent ring can resubmits all its pending 
-> jobs:
->
->  1. Job1 to be deleted from compute1 ring’s mirror list
->  2. Job2 is kept and resubmitted later and its belonging
->     process/context are even not aware of this TDR at all
->
-> Here I have a proposal tend to achieve above goal and it rough 
-> procedure is :
->
->  1. Once any ring reports a TDR, the head job is **not** treated as
->     “bad job”, and it is **not** deleted from the mirror list in drm
->     sched functions
->  2. In vendor’s function (our amdgpu driver here):
->       * reset GPU
->       * repeat below actions on each RINGS * one by one *:
->
-> 1.take the head job and submit it on this ring
->
-> 2.see if it completes, if not then this job is the real “bad job”
->
-> 3. take it away from mirror list if this head job is “bad job”
->
->       * After above iteration on all RINGS, we already clears all the
->         bad job(s)
->  2. Resubmit all jobs from each mirror list to their corresponding
->     rings (this is the existed logic)
->
-> The idea of this is to use “serial” way to re-run and re-check each 
-> head job of each RING, in order to take out the real black sheep and 
-> its guilty context.
->
-> P.S.: we can use this approaches only on GFX/KCQ ring reports TDR , 
-> since those rings are intermutually affected to each other. For SDMA 
-> ring timeout it definitely proves the head job on SDMA ring is really 
-> guilty.
->
-> Thanks
->
-> ------------------------------------------
->
-> Monk Liu | Cloud-GPU Core team
->
-> ------------------------------------------
->
-
-
---------------A4130A49B7ECCE1FCE9C8694
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Hi Monk,<br>
-    <br>
-    in general an interesting idea, but I see two major problems with
-    that:<br>
-    <br>
-    1. It would make the reset take much longer.<br>
-    <br>
-    2. Things get often stuck because of timing issues, so a guilty job
-    might pass perfectly when run a second time.<br>
-    <br>
-    Apart from that the whole ring mirror list turned out to be a really
-    bad idea. E.g. we still struggle with object life time because the
-    concept doesn't fit into the object model of the GPU scheduler under
-    Linux.<br>
-    <br>
-    We should probably work on this separately and straighten up the job
-    destruction once more and keep the recovery information in the fence
-    instead.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 26.02.21 um 06:58 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote type="cite" cite="mid:DM5PR12MB1708D28565B445EABA872A3B849D9@DM5PR12MB1708.namprd12.prod.outlook.com">
-      
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:503861270;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1492292582 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1
-	{mso-list-id:1279491622;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1736673670 67698703 67698689 67698703 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l1:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l1:level3
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-9.0pt;}
-@list l1:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2
-	{mso-list-id:1655448059;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1584207202 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l2:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p class="msipheader251902e5" style="margin:0" align="Left"><span style="font-size:10.0pt;font-family:Arial;color:#317100">[AMD
-          Public Use]</span></p>
-      <br>
-      <div class="WordSection1">
-        <p class="MsoNormal">Hi all<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">NAVI2X &nbsp;project hit a really hard to solve
-          issue now, and it is turned out to be a general headache of
-          our TDR mechanism , check below scenario:<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <ol style="margin-top:0in" type="1" start="1">
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1">There is a
-            job1 running on compute1 ring at timestamp
-            <o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1">There is a
-            job2 running on gfx ring at timestamp<o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1">Job1 is the
-            guilty one, and job1/job2 were scheduled to their rings at
-            almost the same timestamp
-            <o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1">After 2
-            seconds we receive two TDR reporting from both GFX ring and
-            compute ring<o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1"><b>Current
-              scheme is that in drm scheduler all the head jobs of those
-              two rings are considered “bad job” and taken away from the
-              mirror list
-              <o:p></o:p></b></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l0 level1 lfo1">The result
-            is both the real guilty job (job1) and the innocent job
-            (job2) were all deleted from mirror list, and their
-            corresponding contexts were also treated as guilty<b> (so
-              the innocent process remains running is not secured)<o:p></o:p></b></li>
-        </ol>
-        <p class="MsoListParagraph"><b><o:p>&nbsp;</o:p></b></p>
-        <p class="MsoNormal">But by our wish the ideal case is TDR
-          mechanism can detect which ring is the guilty ring and the
-          innocent ring can resubmits all its pending jobs:<o:p></o:p></p>
-        <ol style="margin-top:0in" type="1" start="1">
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l2 level1 lfo2">Job1 to be
-            deleted from compute1 ring’s mirror list<o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l2 level1 lfo2">Job2 is kept
-            and resubmitted later and its belonging process/context are
-            even not aware of this TDR at all
-            <o:p></o:p></li>
-        </ol>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">Here I have a proposal tend to achieve
-          above goal and it rough procedure is :<o:p></o:p></p>
-        <ol style="margin-top:0in" type="1" start="1">
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level1 lfo3">Once any
-            ring reports a TDR, the head job is *<b>not</b>* treated as
-            “bad job”, and it is *<b>not</b>* deleted from the mirror
-            list in drm sched functions<o:p></o:p></li>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level1 lfo3">In vendor’s
-            function (our amdgpu driver here):<o:p></o:p></li>
-          <ul style="margin-top:0in" type="disc">
-            <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level2 lfo3">reset GPU<o:p></o:p></li>
-            <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level2 lfo3">repeat
-              below actions on each RINGS * one by one *:<o:p></o:p></li>
-          </ul>
-        </ol>
-        <p class="MsoListParagraph" style="margin-left:1.5in;text-indent:-9.0pt;mso-list:l1 level3
-          lfo3">
-          <!--[if !supportLists]--><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">
-            </span></span><!--[endif]-->take the head job and submit it
-          on this ring<o:p></o:p></p>
-        <p class="MsoListParagraph" style="margin-left:1.5in;text-indent:-9.0pt;mso-list:l1 level3
-          lfo3">
-          <!--[if !supportLists]--><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">
-            </span></span><!--[endif]-->see if it completes, if not then
-          this job is the real “bad job”<o:p></o:p></p>
-        <p class="MsoListParagraph" style="margin-left:1.5in;text-indent:-9.0pt;mso-list:l1 level3
-          lfo3">
-          <!--[if !supportLists]--><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">
-            </span></span><!--[endif]-->&nbsp;take it away from mirror list
-          if this head job is “bad job”<o:p></o:p></p>
-        <ol style="margin-top:0in" type="1" start="2">
-          <ul style="margin-top:0in" type="disc">
-            <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level2 lfo3">After
-              above iteration on all RINGS, we already clears all the
-              bad job(s)<o:p></o:p></li>
-          </ul>
-          <li class="MsoListParagraph" style="margin-left:0in;mso-list:l1 level1 lfo3">Resubmit all
-            jobs from each mirror list to their corresponding rings
-            (this is the existed logic)<o:p></o:p></li>
-        </ol>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">The idea of this is to use “serial” way to
-          re-run and re-check each head job of each RING, in order to
-          take out the real black sheep and its guilty context.<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">P.S.: we can use this approaches only on
-          GFX/KCQ ring reports TDR , since those rings are intermutually
-          affected to each other. For SDMA ring timeout it definitely
-          proves the head job on SDMA ring is really guilty.<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">Thanks <o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">------------------------------------------<o:p></o:p></p>
-        <p class="MsoNormal">Monk Liu | Cloud-GPU Core team<o:p></o:p></p>
-        <p class="MsoNormal">------------------------------------------<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------A4130A49B7ECCE1FCE9C8694--
-
---===============0486876014==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0486876014==--
+CgpBbSAyNS4wMi4yMSB1bSAyMjoyNyBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Cj4gT24g
+MjAyMS0wMi0yNSAxOjQyIHAubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Cj4+Cj4+IEFt
+IDI1LjAyLjIxIHVtIDE3OjAzIHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4+Pgo+Pj4gT24g
+MjAyMS0wMi0yNSAyOjUzIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMjQu
+MDIuMjEgdW0gMTY6MTMgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4+Pj4gUGluZwo+Pj4+
+Cj4+Pj4gU29ycnksIEkndmUgYmVlbiBvbiB2YWNhdGlvbiB0aGlzIHdlZWsuCj4+Pj4KPj4+Pj4K
+Pj4+Pj4gQW5kcmV5Cj4+Pj4+Cj4+Pj4+IE9uIDIwMjEtMDItMjAgNzoxMiBhLm0uLCBBbmRyZXkg
+R3JvZHpvdnNreSB3cm90ZToKPj4+Pj4+Cj4+Pj4+PiBPbiAyLzIwLzIxIDM6MzggQU0sIENocmlz
+dGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4+IEFtIDE4LjAyLjIxIHVt
+IDE3OjQxIHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IE9uIDIv
+MTgvMjEgMTA6MTUgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4+Pj4+PiBBbSAxOC4w
+Mi4yMSB1bSAxNjowNSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+Pj4+Pj4+Cj4+Pj4+
+Pj4+Pj4gT24gMi8xOC8yMSAzOjA3IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+PiBBbSAxNy4wMi4yMSB1bSAyMjo1OSBzY2hyaWVi
+IEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+Pj4+Pj4+Pj4gUHJvYmxlbTogSWYgc2NoZWR1bGVyIGlz
+IGFscmVhZHkgc3RvcHBlZCBieSB0aGUgdGltZSAKPj4+Pj4+Pj4+Pj4+IHNjaGVkX2VudGl0eQo+
+Pj4+Pj4+Pj4+Pj4gaXMgcmVsZWFzZWQgYW5kIGVudGl0eSdzIGpvYl9xdWV1ZSBub3QgZW1wdHkg
+SSBlbmNvdW50cmVkCj4+Pj4+Pj4+Pj4+PiBhIGhhbmcgaW4gZHJtX3NjaGVkX2VudGl0eV9mbHVz
+aC4gVGhpcyBpcyBiZWNhdXNlIAo+Pj4+Pj4+Pj4+Pj4gZHJtX3NjaGVkX2VudGl0eV9pc19pZGxl
+Cj4+Pj4+Pj4+Pj4+PiBuZXZlciBiZWNvbWVzIGZhbHNlLgo+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+
+Pj4+IEZpeDogSW4gZHJtX3NjaGVkX2ZpbmkgZGV0YWNoIGFsbCBzY2hlZF9lbnRpdGllcyBmcm9t
+IHRoZQo+Pj4+Pj4+Pj4+Pj4gc2NoZWR1bGVyJ3MgcnVuIHF1ZXVlcy4gVGhpcyB3aWxsIHNhdGlz
+ZnkgCj4+Pj4+Pj4+Pj4+PiBkcm1fc2NoZWRfZW50aXR5X2lzX2lkbGUuCj4+Pj4+Pj4+Pj4+PiBB
+bHNvIHdha2V1cCBhbGwgdGhvc2UgcHJvY2Vzc2VzIHN0dWNrIGluIHNjaGVkX2VudGl0eSBmbHVz
+aGluZwo+Pj4+Pj4+Pj4+Pj4gYXMgdGhlIHNjaGVkdWxlciBtYWluIHRocmVhZCB3aGljaCB3YWtl
+cyB0aGVtIHVwIGlzIHN0b3BwZWQgCj4+Pj4+Pj4+Pj4+PiBieSBub3cuCj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4gdjI6Cj4+Pj4+Pj4+Pj4+PiBSZXZlcnNlIG9yZGVyIG9mIGRybV9zY2hlZF9y
+cV9yZW1vdmVfZW50aXR5IGFuZCBtYXJraW5nCj4+Pj4+Pj4+Pj4+PiBzX2VudGl0eSBhcyBzdG9w
+cGVkIHRvIHByZXZlbnQgcmVpbnNlcmlvbiBiYWNrIHRvIHJxIGR1ZQo+Pj4+Pj4+Pj4+Pj4gdG8g
+cmFjZS4KPj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3Jv
+ZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPj4+Pj4+Pj4+Pj4+IC0tLQo+Pj4+
+Pj4+Pj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgfCAzMSAK
+Pj4+Pj4+Pj4+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+Pj4+Pj4+Pj4+
+IMKgIDEgZmlsZSBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspCj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5j
+IAo+Pj4+Pj4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYwo+
+Pj4+Pj4+Pj4+Pj4gaW5kZXggOTA4YjBiNS4uYzZiNzk0NyAxMDA2NDQKPj4+Pj4+Pj4+Pj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4+Pj4+Pj4+Pj4+PiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYwo+Pj4+Pj4+Pj4+Pj4g
+QEAgLTg5Nyw5ICs4OTcsNDAgQEAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfaW5pdCk7Cj4+Pj4+
+Pj4+Pj4+PiDCoMKgICovCj4+Pj4+Pj4+Pj4+PiDCoCB2b2lkIGRybV9zY2hlZF9maW5pKHN0cnVj
+dCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4+Pj4+Pj4+Pj4+PiDCoCB7Cj4+Pj4+Pj4+Pj4+
+PiArwqDCoMKgIGludCBpOwo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX3NjaGVkX2Vu
+dGl0eSAqc19lbnRpdHk7Cj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IEJUVzogUGxlYXNlIG9yZGVy
+IHRoYXQgc28gdGhhdCBpIGlzIGRlY2xhcmVkIGxhc3QuCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+
+PiDCoMKgwqDCoMKgIGlmIChzY2hlZC0+dGhyZWFkKQo+Pj4+Pj4+Pj4+Pj4gwqDCoMKgwqDCoMKg
+wqDCoMKgIGt0aHJlYWRfc3RvcChzY2hlZC0+dGhyZWFkKTsKPj4+Pj4+Pj4+Pj4+IMKgICvCoMKg
+wqAgLyogRGV0YWNoIGFsbCBzY2hlZF9lbnRpdGVzIGZyb20gdGhpcyBzY2hlZHVsZXIgb25jZSAK
+Pj4+Pj4+Pj4+Pj4+IGl0J3Mgc3RvcHBlZCAqLwo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoCBmb3IgKGkg
+PSBEUk1fU0NIRURfUFJJT1JJVFlfQ09VTlQgLSAxOyBpID49IAo+Pj4+Pj4+Pj4+Pj4gRFJNX1ND
+SEVEX1BSSU9SSVRZX01JTjsgaS0tKSB7Cj4+Pj4+Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgc3Ry
+dWN0IGRybV9zY2hlZF9ycSAqcnEgPSAmc2NoZWQtPnNjaGVkX3JxW2ldOwo+Pj4+Pj4+Pj4+Pj4g
+Kwo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICghcnEpCj4+Pj4+Pj4+Pj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4+Pj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4+Pj4+
+ICvCoMKgwqDCoMKgwqDCoCAvKiBMb29wIHRoaXMgd2F5IGJlY2F1c2UgcnEtPmxvY2sgaXMgdGFr
+ZW4gaW4gCj4+Pj4+Pj4+Pj4+PiBkcm1fc2NoZWRfcnFfcmVtb3ZlX2VudGl0eSAqLwo+Pj4+Pj4+
+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHNwaW5fbG9jaygmcnEtPmxvY2spOwo+Pj4+Pj4+Pj4+Pj4g
+K8KgwqDCoMKgwqDCoMKgIHdoaWxlICgoc19lbnRpdHkgPSAKPj4+Pj4+Pj4+Pj4+IGxpc3RfZmly
+c3RfZW50cnlfb3JfbnVsbCgmcnEtPmVudGl0aWVzLAo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVj
+dCBkcm1fc2NoZWRfZW50aXR5LAo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxpc3QpKSkgewo+Pj4+Pj4+
+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl91bmxvY2soJnJxLT5sb2NrKTsKPj4+
+Pj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIFByZXZl
+bnQgcmVpbnNlcnRpb24gYW5kIHJlbW92ZSAqLwo+Pj4+Pj4+Pj4+Pj4gKyBzcGluX2xvY2soJnNf
+ZW50aXR5LT5ycV9sb2NrKTsKPj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNf
+ZW50aXR5LT5zdG9wcGVkID0gdHJ1ZTsKPj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGRybV9zY2hlZF9ycV9yZW1vdmVfZW50aXR5KHJxLCBzX2VudGl0eSk7Cj4+Pj4+Pj4+Pj4+
+PiArIHNwaW5fdW5sb2NrKCZzX2VudGl0eS0+cnFfbG9jayk7Cj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+
+Pj4+IFdlbGwgdGhpcyBzcGluX3VubG9jay9sb2NrIGRhbmNlIGhlcmUgZG9lc24ndCBsb29rIGNv
+cnJlY3QgCj4+Pj4+Pj4+Pj4+IGF0IGFsbCBub3cuCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IENo
+cmlzdGlhbi4KPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4gSW4gd2hhdCB3YXkgPyBJ
+dCdzIGluIHRoZSBzYW1lIHNhbWUgb3JkZXIgYXMgaW4gb3RoZXIgY2FsbCAKPj4+Pj4+Pj4+PiBz
+aXRlcyAoc2VlIGRybV9zY2hlZF9lbnRpdHlfcHVzaF9qb2IgYW5kIAo+Pj4+Pj4+Pj4+IGRybV9z
+Y2hlZF9lbnRpdHlfZmx1c2gpLgo+Pj4+Pj4+Pj4+IElmIGkganVzdCBsb2NrZWQgcnEtPmxvY2sg
+YW5kIGRpZCBsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUgCj4+Pj4+Pj4+Pj4gd2hpbGUgbWFudWFs
+bHkgZGVsZXRpbmcgZW50aXR5LT5saXN0IGluc3RlYWQgb2YgY2FsbGluZwo+Pj4+Pj4+Pj4+IGRy
+bV9zY2hlZF9ycV9yZW1vdmVfZW50aXR5IHRoaXMgc3RpbGwgd291bGQgbm90IGJlIHBvc3NpYmxl
+IAo+Pj4+Pj4+Pj4+IGFzIHRoZSBvcmRlciBvZiBsb2NrIGFjcXVpc2l0aW9uIGJldHdlZW4gc19l
+bnRpdHktPnJxX2xvY2sKPj4+Pj4+Pj4+PiBhbmQgcnEtPmxvY2sgd291bGQgYmUgcmV2ZXJzZSBj
+b21wYXJlZCB0byB0aGUgY2FsbCBzaXRlcyAKPj4+Pj4+Pj4+PiBtZW50aW9uZWQgYWJvdmUuCj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gQWgsIG5vdyBJIHVuZGVyc3RhbmQuIFlvdSBuZWVkIHRoaXMgYmVj
+YXVzZSAKPj4+Pj4+Pj4+IGRybV9zY2hlZF9ycV9yZW1vdmVfZW50aXR5KCkgd2lsbCBncmFiIHRo
+ZSBycSBsb2NrIGFnYWluIQo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+IFByb2JsZW0gaXMgbm93IHdoYXQg
+cHJldmVudHMgdGhlIGVudGl0eSBmcm9tIGJlaW5nIGRlc3Ryb3llZCAKPj4+Pj4+Pj4+IHdoaWxl
+IHlvdSByZW1vdmUgaXQ/Cj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4+Pgo+
+Pj4+Pj4+PiBSaWdodCwgd2VsbCwgc2luY2UgKHVuZm9ydHVuYXRlbHkpIHNjaGVkX2VudGl0eSBp
+cyBwYXJ0IG9mIAo+Pj4+Pj4+PiBhbWRncHVfY3R4X2VudGl0eSBhbmQgYW1kZ3B1X2N0eF9lbnRp
+dHkgaXMgcmVmY291bnRlZAo+Pj4+Pj4+PiB0aGVyZSBpcyBhIHByb2JsZW0gaGVyZSB0aGF0IHdl
+IGRvbid0IGluY3JlbWVudCAKPj4+Pj4+Pj4gYW1kZ3B1X2N0eC5yZWZjb3VudCB3aGVuIGFzc2ln
+bmluZ8KgIHNjaGVkX2VudGl0eQo+Pj4+Pj4+PiB0byBuZXcgcnEgKGUuZy4gYmVmb3JlIGRybV9z
+Y2hlZF9ycV9hZGRfZW50aXR5KSBhbmQgbm90IAo+Pj4+Pj4+PiBkZWNyZW1lbnQgYmVmb3JlIHJl
+bW92aW5nLiBXZSBkbyBpdCBmb3IKPj4+Pj4+Pj4gYW1kZ3B1X2NzX3BhcnNlci5lbnRpdHkgZm9y
+IGV4YW1wbGUgKGluIGFtZGdwdV9jc19wYXJzZXJfaW5pdCAKPj4+Pj4+Pj4gYW5kIGFtZGdwdV9j
+c19wYXJzZXJfZmluaSBieQo+Pj4+Pj4+PiBjYWxsaW5nIGFtZGdwdV9jdHhfZ2V0IGFuZCBhbWRn
+cHVfY3R4X3B1dCkuIEJ1dCB0aGlzIHNlZW1zIGEgCj4+Pj4+Pj4+IGJpdCB0cmlja3kgZHVlIHRv
+IGFsbCB0aGUgZHJtX3NjaGVkX2VudGl0eV9zZWxlY3RfcnEKPj4+Pj4+Pj4gbG9naWMuCj4+Pj4+
+Pj4+Cj4+Pj4+Pj4+IEFub3RoZXIsIGtpbmQgb2YgYSBiYW5kIGFpZCBmaXgsIHdvdWxkIHByb2Jh
+Ymx5IGJlIGp1c3QgbG9ja2luZyAKPj4+Pj4+Pj4gYW1kZ3B1X2N0eF9tZ3IubG9jayBhcm91bmQg
+ZHJtX3NjaGVkX2ZpbmkKPj4+Pj4+Pj4gd2hlbiBmaW5hbGl6aW5nIHRoZSBmZW5jZSBkcml2ZXIg
+YW5kIGFyb3VuZCBpZHIgaXRlcmF0aW9uIGluIAo+Pj4+Pj4+PiBhbWRncHVfY3R4X21ncl9maW5p
+ICh3aGljaCBzaG91bGQgYmUgbG9jayBwcm90ZWN0ZWQKPj4+Pj4+Pj4gYW55d2F5IGFzIEkgc2Vl
+IGZyb20gb3RoZXIgaWRyIHVzYWdlcyBpbiB0aGUgY29kZSkgLi4uIFRoaXMgCj4+Pj4+Pj4+IHNo
+b3VsZCBwcmV2ZW50IHRoaXMgdXNlIGFmdGVyIGZyZWUuCj4+Pj4+Pj4KPj4+Pj4+PiBQdWgsIHRo
+YXQncyByYXRoZXIgY29tcGxpY2F0ZWQgYXMgd2VsbC4gT2sgbGV0J3MgbG9vayBhdCBpdCBmcm9t
+IAo+Pj4+Pj4+IHRoZSBvdGhlciBzaWRlIGZvciBhIG1vbWVudC4KPj4+Pj4+Pgo+Pj4+Pj4+IFdo
+eSBkbyB3ZSBoYXZlIHRvIHJlbW92ZSB0aGUgZW50aXRpZXMgZnJvbSB0aGUgcnEgaW4gdGhlIGZp
+cnN0IAo+Pj4+Pj4+IHBsYWNlPwo+Pj4+Pj4+Cj4+Pj4+Pj4gV291bGRuJ3QgaXQgYmUgc3VmZmlj
+aWVudCB0byBqdXN0IHNldCBhbGwgb2YgdGhlbSB0byBzdG9wcGVkPwo+Pj4+Pj4+Cj4+Pj4+Pj4g
+Q2hyaXN0aWFuLgo+Pj4+Pj4KPj4+Pj4+Cj4+Pj4+PiBBbmQgYWRkaW5nIGl0IGFzIGFub3RoZXLC
+oCBjb25kaXRpb24gaW4gZHJtX3NjaGVkX2VudGl0eV9pc19pZGxlID8KPj4+Pgo+Pj4+IFllcywg
+SSB0aGluayB0aGF0IHNob3VsZCB3b3JrLgo+Pj4KPj4+Cj4+PiBJbiB0aGlzIGNhc2UgcmV2ZXJz
+ZSBsb2NraW5nIG9yZGVyIGlzIGNyZWF0ZWQsIEluIAo+Pj4gZHJtX3NjaGVkX2VudGl0eV9wdXNo
+X2pvYiBhbmQgZHJtX3NjaGVkX2VudGl0eV9mbHVzaCBsb2NrIAo+Pj4gZW50aXR5LT5ycV9sb2Nr
+IGxvY2tlZCBmaXJzdCBhbmQgcnEtPmxvY2sgbG9ja2VkIHNlY29uZC4gSW4gCj4+PiBkcm1fc2No
+ZWRfZmluaSBvbiB0aGUgb3RoZXIgaGFuZCwgSSBuZWVkIHRvIGxvY2sgcnEtPmxvY2sgZmlyc3Qg
+dG8gCj4+PiBpdGVyYXRlIHJxLT5lbnRpdGllcyBhbmQgdGhlbiBsb2NrIHNfZW50aXR5LT5ycV9s
+b2NrIGZvciBlYWNoIGVudGl0eSAKPj4+IHRvIG1vZGlmeSBzX2VudGl0eS0+c3RvcHBlZC4gSSBn
+dWVzcyB3ZSBjb3VsZCBjaGFuZ2UgCj4+PiBzX2VudGl0eS0+c3RvcHBlZCB0byBhdG9taWMgPwo+
+Pgo+PiBHb29kIHBvaW50LiBCdXQgSSB0aGluayB0aGUgbWVtb3J5IGJhcnJpZXIgaW5zZXJ0ZWQg
+YnkgCj4+IHdha2VfdXBfYWxsKCZzY2hlZC0+am9iX3NjaGVkdWxlZCk7IHNob3VsZCBiZSBzdWZm
+aWNpZW50Lgo+Pgo+PiBJZiBJIHNlZSB0aGlzIGNvcnJlY3RseSB3ZSBoYXZlIHRoZSBlbnRpdHkt
+PnJxX2xvY2sgbWFpbmx5IHRvIHByb3RlY3QgCj4+IGNvbmN1cnJlbnQgY2hhbmdlcyBvZiBlbnRp
+dHktPnJxLgo+Pgo+PiBCdXQgd2hlbiB0d28gQ1BVcyBib3RoIHNldCBlbnRpdHktPnN0b3BwZWQg
+dG8gdHJ1ZSBhdCB0aGUgc2FtZSB0aW1lIAo+PiB3ZSBkb24ndCByZWFsbHkgY2FyZSBhYm91dCBp
+dCBhcyBsb25nIGRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZSgpIHNlZXMgCj4+IGl0Lgo+Pgo+PiBS
+ZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4KPgo+IEkgd2FzIG1vcmUgdGhpbmtpbmcgYWJvdXQgaW50
+ZWdyaXR5IG9mIHJlYWRpbmcvd3JpdGluZyBlbnRpdHktPnN0b3BwZWQgCj4gZnJvbSBkaWZmZXJl
+bnQgdGhyZWFkcy4gSSBndWVzcyBzaW5jZSBpdCdzIGJvb2wgaXQncyBndWFyYW50ZWVkIHRvIGJl
+IAo+IGF0b21pYyBmcm9tIEhXIHBlcnNwZWN0aXZlIGFueXdheSA/CgpNb3JlIG9yIGxlc3MgeWVz
+LiBUaGUga2V5IHBvaW50IGlzIHRoYXQgd2Ugb25seSBjaGFuZ2UgaXQgZnJvbSBmYWxzZSAtPiAK
+dHJ1ZSBhbmQgbmV2ZXIgdGhlIG90aGVyIHdheSBhcm91bmQuIEFsbCB0aGF0IHlvdSBuZWVkIHRo
+ZW4gZm9yIG90aGVyIApDUFVzIHRvIHNlZSB0aGUgdmFsdWUgaXMgYSBiYXJyaWVyLgoKQ2hyaXN0
+aWFuLgoKPiBXaWxsIHNlbmQgVjMgc29vbi4KPgo+IEFuZHJleQo+Cj4KPj4KPj4+Cj4+PiBBbmRy
+ZXkKPj4+Cj4+Pgo+Pj4+Cj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Cj4+Pj4KPj4+Pj4+Cj4+Pj4+PiBB
+bmRyZXkKPj4+Pj4+Cj4+Pj4+Pgo+Pj4+Pj4+Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IEFuZHJleQo+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IEFuZHJleQo+Pj4+
+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4gKwo+
+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl9sb2NrKCZycS0+bG9jayk7
+Cj4+Pj4+Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgfQo+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgIHNwaW5fdW5sb2NrKCZycS0+bG9jayk7Cj4+Pj4+Pj4+Pj4+PiArCj4+Pj4+Pj4+Pj4+PiAr
+wqDCoMKgIH0KPj4+Pj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4+Pj4+ICvCoMKgwqAgLyogV2FrZXVwIGV2
+ZXJ5b25lIHN0dWNrIGluIGRybV9zY2hlZF9lbnRpdHlfZmx1c2ggZm9yIAo+Pj4+Pj4+Pj4+Pj4g
+dGhpcyBzY2hlZHVsZXIgKi8KPj4+Pj4+Pj4+Pj4+ICsgd2FrZV91cF9hbGwoJnNjaGVkLT5qb2Jf
+c2NoZWR1bGVkKTsKPj4+Pj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4+Pj4+IMKgwqDCoMKgwqAgLyogQ29u
+ZmlybSBubyB3b3JrIGxlZnQgYmVoaW5kIGFjY2Vzc2luZyBkZXZpY2UgCj4+Pj4+Pj4+Pj4+PiBz
+dHJ1Y3R1cmVzICovCj4+Pj4+Pj4+Pj4+PiBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJnNjaGVk
+LT53b3JrX3Rkcik7Cj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pgo+Pj4+Pj4+Cj4+Pj4KPj4KCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
