@@ -7,46 +7,45 @@ X-Spam-Status: No, score=2.8 required=3.0 tests=BAYES_00,
 	HTML_MESSAGE,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D333C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 03:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F048C433E0
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 03:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C06A364D9A
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 03:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C06A364D9A
+	by mail.kernel.org (Postfix) with ESMTPS id B835664D9A
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 03:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B835664D9A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366986E49D;
-	Sat, 27 Feb 2021 03:56:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5722B6E499;
+	Sat, 27 Feb 2021 03:57:36 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E642E6E499
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Feb 2021 03:56:24 +0000 (UTC)
+ (mail-dm6nam12on2040.outbound.protection.outlook.com [40.107.243.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0DF46E499
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Feb 2021 03:57:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MS61e4SM0uDLv2fYv1CZVuGiKg7LPtvw08+0CN+g01oddSXXoClAwg1BAZ4yEcZcpKnBiKQ5IVF+xfWfuZMjhEwLWw+jMOm8kkMtAkgVSGXEizIzUZonEQ7sEtAtPjSkWhXmAUEPqtBAfrd9Av/4mjjMReu98r2QxKA7oby2+ZEMLgcKG0ktN69H10YZDPItHOCMIypsYPwtVRSxPI0Zd3S41evksjqeGZWvkNaOSOL33tg3iLrlB52W2P0apkxMAzz8/hMs4gHtuyWhSumWoi3lo40fJBvQW4HxRFhoGrK94uLLWXxYrOW2SPf8NJGoX9KI6q/e367YMTqR53yMkg==
+ b=fyaz3IVZZH1o3wNEjzdEp0tD+sHOqucLY+U52uY2z9Xwr3vFQinUSqw7yDBo2m6PI63ncUGRDLNeRQ+aznh0i6cVamdZD0EG47On+QQsQFFGuRmI3fp1yM67VDMdGOe7q0yh6RWQ/xzW7BnGGlbmerBIplMc+ItZuA/bdHYEzr1RRV2bCf8YWpz4x7GiUngTf2qoGMrit0RIiOr3q3Rn4cQ+PgzozHaH61gif5+TGqcxya6DMF9d3GL1Kshh/xzBSMRdOHlhEBybl0l8QRE0O2myo4VjRt2ApAF7RxKN3hfUWpglnMSlZ4aMmUfrPKhZpUyHHZYUl72hE3C5okP+CQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4EaOzEhhybuT9kYhiDez+sXvMW2MpnuvJan2/X++l1U=;
- b=RKYc8DovYcJy0q3A6H0Eq6c8+Brh4lHVg2NNvujFQB2ogN8kVqHz6jrTritP4K7iCm1Aoewz93NcbOLfYkaS+fXILKXALBler/OdvayStW2jbIOwc9vm35VijKHzLwAeseSwTdW/xiU1/KewkAGJgnEgdPt5Rvqn/glR1dbLgzgzQBVWuIJbcO2d2t4qNwhkUhbHuT4ocJNk+y7xO1bMZ4PdxCufeijtKHHKo6w3OWWEmZWxw6FKJpwZr1jvrm0khdqzd0OPfF/NP8OFSHcFxJoEuTAqo/rkiWkjpAoCKD5FZhTSFJ1yObVukM9/fqMJUWVnI4jCY/Pmj+czR9G/OQ==
+ bh=bALvnT6oW8cYVd2yhWDENc/tmKueUCT9II44UjhCV+o=;
+ b=KNknI7iSQbc2qz3o1iD4MtLvLf6aOo665njW0cQYrCWiIQMnG+s3JbsHgEdxCRmF57dtl7NUAkilwi1Tp1ReCgKFVpDuDB9FB8h6d0pHmeFsuT9vDh9gMhz7uzL9RTBbJM1JSvm15Ki5+5lOxYGFo7T6zaNiBcnswfv1mXXaO3DJn1BpehR8JsiBiFxP6xQSQ1zSeei6pqUSxKSCkaip1cJ965kcZqDbVEFoeWxkwhA4i1RA31/4ba3Q8XTtZUGUOWc++IpSy4zcYKtriml74UVwVJt8HBJxFiwzWSTNgDZmUfwCQp5LiDfX4NQEgw5AqgO4Dw52kLKiT29tG8ei4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4EaOzEhhybuT9kYhiDez+sXvMW2MpnuvJan2/X++l1U=;
- b=xHq3zFaseaBXcDl4HDT5LlBMkQo7sLGTv0LNubzv/wLeSjlyyWwPatWKEOD9MZR40dCn1EeFr4Ucl4NqdoisDk6WjXWVYLMJmVPvKjGNWJtwDRsC9Ffx4uABhF7BmX8WbdoiJSuigjv0U8iOy4sCwE2APJ7Xuk0VccBoNfqVaSU=
-Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
- by DM6PR12MB3865.namprd12.prod.outlook.com (2603:10b6:5:1c4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.20; Sat, 27 Feb
- 2021 03:56:22 +0000
+ bh=bALvnT6oW8cYVd2yhWDENc/tmKueUCT9II44UjhCV+o=;
+ b=HCMbepTa+/ThKJBUSBZu1QbYOb+sklcUkBopc0HObnBYPXsbuUizENvShUktuujaYGvwPnw9dJN+fiTbwqU2wJJO+CiUYvMVmf5v7Vp0UeUiMiXadZd/exjBOrZ1ZReHeaW48CL7U4RxesxL7a0xxMQyY4XbKRXl3bSZ7D00XDA=
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com (10.175.89.22) by
+ DM6PR12MB2891.namprd12.prod.outlook.com (20.179.106.13) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3846.31; Sat, 27 Feb 2021 03:57:32 +0000
 Received: from DM5PR12MB1708.namprd12.prod.outlook.com
  ([fe80::7907:4699:3faa:e290]) by DM5PR12MB1708.namprd12.prod.outlook.com
  ([fe80::7907:4699:3faa:e290%10]) with mapi id 15.20.3868.033; Sat, 27 Feb
- 2021 03:56:22 +0000
+ 2021 03:57:31 +0000
 From: "Liu, Monk" <Monk.Liu@amd.com>
 To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
@@ -55,14 +54,15 @@ Subject: =?gb2312?B?u9i4tDogW1JGQ10gYSBuZXcgYXBwcm9hY2ggdG8gZGV0ZWN0IHdoaWNoIHJp
  =?gb2312?Q?ng_is_the_real_black_sheep_upon_TDR_reported?=
 Thread-Topic: [RFC] a new approach to detect which ring is the real black
  sheep upon TDR reported
-Thread-Index: AdcMAadhaEND07KHR4C1q7rMxPXb/AAE23MAAAgNKLAACoR3gAAXIQ1w
-Date: Sat, 27 Feb 2021 03:56:22 +0000
-Message-ID: <DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
+Thread-Index: AdcMAadhaEND07KHR4C1q7rMxPXb/AAE23MAAAgNKLAACoR3gAAXIQ1wAAAuv5A=
+Date: Sat, 27 Feb 2021 03:57:31 +0000
+Message-ID: <DM5PR12MB1708D0C9CF669AF3A2C9327C849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
 References: <DM5PR12MB1708D28565B445EABA872A3B849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
  <f65d8f80-a283-933a-82bb-97b415689460@amd.com>
  <DM5PR12MB17086F07E3EAC0C9CA03B94D849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
  <eb07f03b-0ea4-f9a1-47bf-4e8b65ac7081@amd.com>
-In-Reply-To: <eb07f03b-0ea4-f9a1-47bf-4e8b65ac7081@amd.com>
+ <DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: zh-CN
 X-MS-Has-Attach: 
@@ -80,60 +80,59 @@ authentication-results: amd.com; dkim=none (message not signed)
 x-originating-ip: [180.167.199.182]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 528e0b1d-78b3-4a57-0616-08d8dad3a5d6
-x-ms-traffictypediagnostic: DM6PR12MB3865:
-x-ms-exchange-minimumurldomainage: lists.freedesktop.org#0
+x-ms-office365-filtering-correlation-id: 3f29d548-fd99-45c4-1c4f-08d8dad3cf0f
+x-ms-traffictypediagnostic: DM6PR12MB2891:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB38651CD3B96008A357485BF4849C9@DM6PR12MB3865.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM6PR12MB289156AF286325D34F581406849C9@DM6PR12MB2891.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: php00VpuuH7edhILvgShYm4cVslHwKYOvHb8pul92JKWZsw59e9qNvo1iXW9RIBA3lMLCRF0HmwHbP+Fk+uuUlY/md2tXWSrqA2HtvTvaUgS6U6pH9mqZ3RYi6spQnZiPBb3hJaymvBzN0+iywWHPjWBD2d8fG6HnnT58y/bIMggKfu55XGkmt8v1pNfuco+9VBk8kyqanGq4IsYmBfvCaehs9OXMQLQ6h4vcIljaYwoYVZZdHZ+X9fzDbf0anrp3VdyMzkHKE1QFbwKonywHgeBMEHibCTo/rHZGMc5/SFSrMuLQAo+lVPg8+eY2kEGJBTriobMjXG0J5it93nNpG1fvGqdSoirCi2Wrk/2TiuccywwnDBHHvbPDR9DDRtmh+WfAjXi4LnixK2LWX7m8CmcsiYyPnVvwPWCrpW6YjLiG9sQgX48bHcDfxQvQNux/vIwHG5X7uv/B2hJk/hVEaW4VJJ26UpIzsWs6w7MTxyx0fcrzwdKPUCwMPIpKpmsdou3gt4FaLapOotKYIyH100g7I5h0Cbp/FrWJjkqECvKLo/0DChY64uap8CQeRzg
+x-microsoft-antispam-message-info: +mCD/oWyMQtJnslgNybRXrf6JpyorHoy5gkTYf1b1fUzVidfs7w0qGPM1M8eEK+h3EsgQOiVCphV835LYoRftOcY2xAAsqhqpc7ngaJQUSbDcknXvAgkNFs8Fvd0IaqDB6CVeQW55r67ZrF8j11lUvHMeh//f0Y3PkszWzzuNoISBKRbuUnmusHkGXUfcafTL+dOjYEMH1hq0nfwnYb5IO5xAoUGx3BIprVLxquYB7iqTlb5sLS5wryTIe/GSeDN62x0MOOJ6lcZ5n0eoZKsCvlZZHgrcmFZKVYxdrcplZNliBXxntgF/9Oi5CqgOJN/od5paxDIrmhEQqcO0WEgVSM+wpTZ+aNU5iZ7fw+hGorLtBzZzlLTzJOXuU4C3jCBEw5UEFUAJ+HrmZG1BPupinMHfqZUVw4OeBZrIyanEvuaHuWSmpWjsGYgxnTEnYyNNpkwNDqAMtLpS7rHW46BkRp91k5vbs15c/YEAkuWLnFTZ/WPlTd8BS/g99ybIJdlA9CIzcfqjDE3W64P0+5wOSYwhsQpV2V82uONspn79jgiCIU0ARZyl0X+MWp9yCnw
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(39860400002)(376002)(136003)(53546011)(224303003)(71200400001)(6506007)(110136005)(33656002)(54906003)(64756008)(66946007)(66476007)(76116006)(4326008)(9686003)(2906002)(55016002)(86362001)(478600001)(7696005)(66446008)(316002)(5660300002)(52536014)(26005)(966005)(8936002)(66556008)(166002)(186003)(83380400001);
+ SFS:(4636009)(366004)(376002)(396003)(39860400002)(346002)(136003)(316002)(33656002)(224303003)(110136005)(53546011)(8936002)(83380400001)(66946007)(166002)(54906003)(6506007)(26005)(76116006)(2906002)(186003)(66446008)(5660300002)(66476007)(66556008)(52536014)(64756008)(9686003)(4326008)(86362001)(55016002)(71200400001)(478600001)(966005)(2940100002)(7696005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?gb2312?B?aFJxS3haOXlWV1JMdVYzbEluYURBbXI2TGVoUzJOdGhrMHllQVBjWnoyYU5V?=
- =?gb2312?B?S2VZUVR5MzA3SlF6dzZKN1Z3dWtHaGxlaERhT3c2ZzRETHBUK0FmS1lVOVoz?=
- =?gb2312?B?dXhBK1RSTDFhcUw1T1Zra3J1bGczRWVRNTY0bjUvYXIwN3VRdHBWUDZ0STR6?=
- =?gb2312?B?dUZqc1puSUlaTDlOZUt2MDFrOEQ0QnM3L2diSUlhVXpoQVFhdXRlYllGcDJk?=
- =?gb2312?B?Y1VJVFVwWkZISDBRaS8zYU15MndSckZDZ3V2bHpUaU5tMTVQakdjMEYrNjFy?=
- =?gb2312?B?Q3RxWUJKclpTa2lUN2RLY2JsdWJVRk1rRWM2SmNXK1NIWllJUXY2dnhOT3Aw?=
- =?gb2312?B?b1ZhYkYyUE5UeEJZcnY0M3Z4TVdTejllTlprSXRoZmJtV2FNN0NwQTJQNUx4?=
- =?gb2312?B?RUdIZEZPZ1NKRzNwSnBSQmNQRFU0aGNzVW80SGxLU2d2cHQvY3ZaTnRlY3NL?=
- =?gb2312?B?enhTRGYrUmEzYUE5T2t2MDJiZy9CUG84Y0dQS29SUlRGWFhoazQ0T29sVUl2?=
- =?gb2312?B?UnhmcE5wbXZOVU5NQkcwN3IxL1AyOU1NelJXYTFMa1lrN0tuVS9ZQlJTdDJ0?=
- =?gb2312?B?WjhMcGh3K2hsREtLcGtOZ3lSaE5ZN2doenhTZ1BHOVpSZ01nUjZFNFVMdlFa?=
- =?gb2312?B?TTA4cHdONE9CUEk2NnNxU1NKcFNBc055aUp3VUVOdmg1MVpubzBIUDlHM1dY?=
- =?gb2312?B?b1dJYVB1bHJWblBJS0c1cURPcWYxSWVHTEE4d09MS3lRWEJvUTROQUc0M1N0?=
- =?gb2312?B?Q2pmUy8rRFBoRG1kU282VW10SERYYWpvVjlnT1hINDhHdnJnL1FDZFpHWkxr?=
- =?gb2312?B?MVJkV1RaSVZLNTRoRERMdklqZXdLR0pFdGVwcWpYTTZTbzVhQzlGTWdSK256?=
- =?gb2312?B?QjBqVis3OUQ1SUpRUE5QcldLaXFIbWVzdGhSRVlqcWxmWXZzNnVXeFlqcHV4?=
- =?gb2312?B?bzJMc1BENVRQanJoOG8wMmx2ZTAzUXpkSTAxUnNEd3RDVWdqdGRXcjd6VkFu?=
- =?gb2312?B?eURPU1FoWTk4U0pFbXIraFd4ZUxzRzhhbUt6blhVZCtQbmoxRzdSVSsxMEhI?=
- =?gb2312?B?eFovUGFLWnNzanFUSDlRL2J0NDlJbnpOVkZxSmtITHFhVkR4YkZQNWs2M0tm?=
- =?gb2312?B?SVVFWUZHUjBrSFB2cDNTVnJCMENkVytxR3JRVGl5UGV3SzFrWkJtdFd3L2tY?=
- =?gb2312?B?YUNmdXZ4VEtIM0FabzRCVkNkT3FoTFJkVXc4aHBxaU02eE9iaHdqTE1kZXNR?=
- =?gb2312?B?eFFDajVrODdZMlN3aDdPRzRYS1pSR0xxYWdURVkrbkg5UW5YdmVVaXdsNGE5?=
- =?gb2312?B?b05hMXpjNFViRDNUL2M0ZHZEYTBEemp0aVlSVDZSTHBRQXpvUWxtczRmM041?=
- =?gb2312?B?Q1RiZktLVjgvSzNJaXJKaVl5Mk5Va2tPN0E0aGljWEJ1c2ZoM2Jld2NrUW82?=
- =?gb2312?B?NVpGbXQ1aERKR3NBN1V6U0JXSUlienRnaFlzcTBzbFE4ZWc3Yi80MDhUZzNr?=
- =?gb2312?B?K0NsakxhaWJ5aWxoMVpPb0FSdWF4YVY2WGY0a0VpcWlHTTNlcmpOZXc3N0dT?=
- =?gb2312?B?MWlFUjdFWkZSQ0dTc2hXTk1XM2UxelgyY29od1FGbG83eFAzeGlBWnRTYytE?=
- =?gb2312?B?ZnZhUi9oMXlrWGR4eEJ3WTJOeElOMzhVTG0xdFZFZlFsTzNBa2h1WlNUS2Yz?=
- =?gb2312?B?TWJPc0RqU3FBMWEwTmx2Z3BwUU9nL0p0d2dERHl1emYreTJDZ0RMREFMTzhS?=
- =?gb2312?Q?gHXulqwTIEhTjdamlsIAnWilJ9fVchXn4q3ilFH?=
+x-ms-exchange-antispam-messagedata: =?gb2312?B?UmtvYksySm5wZ2FjamFSQnBqK0FrLzdpaC80QjZBY1RsdVVqUjdQZDRjNXdU?=
+ =?gb2312?B?YlJHWFpzWExYRkhZNlhRK1c2c3JHeHE4RnNNTDZzYUR0K2pMUG5kZEhtZWtw?=
+ =?gb2312?B?cStEckR0MGNmMVlTS1gzMFNIQ1c3Q2hObHp0VXEyZTBWM3cwdDM0NTVoalc4?=
+ =?gb2312?B?ZWtzTzgzeXlkUUJEUmU4Qkl4ellpS0NtY2hlUnA1L2dIb3pvRm0xbzhQeVZY?=
+ =?gb2312?B?dS9GdnJCZnhucUg5RlVQUG5OaHVLZktYRW1IVzlZbnpqNDVJOTZwNzFySXlp?=
+ =?gb2312?B?SWM1WjZ5NzUyWUxHM0d2b2gwWVZ2M0NKY21ud3IwYkM4QVZpandUbC9rS0lw?=
+ =?gb2312?B?WTlxQzhBcWNUemhablN4ckhtTzhFQVBMTUdOd2FJTk43cGlBNXRSYzlOLzRj?=
+ =?gb2312?B?alNvQkhMZGZGY3dpRHpIYWhjOHBKYmpLVzJka25lbTFlWi9keWdRNFFtWE1L?=
+ =?gb2312?B?eTFGSHFCOFFCV1lnQWEzWS9FSVFBVE5hTW1wcTlqVjlmN1FUUktXSFpPRkVX?=
+ =?gb2312?B?SS8veGlMaDlWTGVYMDh3MXZsVnRLWnRvcHJpSWlxS2E3M2pGN0VMekhhMTJp?=
+ =?gb2312?B?bm1xTjFkV1M2Wm5uZWVtS2NGcDQydkxOUlVQdjJBNGFhZGxmUjNabk5KaEJC?=
+ =?gb2312?B?bmJWck02OTlWRm1ySzBKY3MvblI5TW1TWUt2TW1EMW5uSVNLUXRwRHJjNkRR?=
+ =?gb2312?B?T0ZEZHNNQllOdUZ1NHhsdUYvT0V2eXJGM09TMU14WE85MUlhanFzUHJYQkpJ?=
+ =?gb2312?B?OWkwRFRrSGxFVTFEZFV1RXJhUVpCVEZzdHphMlJmSXZaam03ajlHNWhZTDZX?=
+ =?gb2312?B?dE9CR1MrTS9MUGhSMmpubHovYnBZS2xtWjNoazR5TUxMRnE0bUY4ZkN4Rlpq?=
+ =?gb2312?B?NmxaNXM5Y1pNTlk2TmRSOGFtTGhzK1h1NHFxMGxNNFpvU0o5YVdrTDc3SDAx?=
+ =?gb2312?B?OUhLQ3A3VDFFanpwZzBmNWkrTnJUZW9yOUtyY0hlc0hoek5YMnFhWHA4RVVN?=
+ =?gb2312?B?cW55d3BpdGx1M1FUbTFrUVpkQksxY1Q0ZFhvSUxhaHZMaGZVaHZXc1hPdFRS?=
+ =?gb2312?B?bkNzWUZkY3RVY2dsUnZQYU4xbGd6RkVnZktsTjlLZU5CT1ZmYUVEUUErYkl5?=
+ =?gb2312?B?TUZ2eG4wOXJCMWx5V0xsT05XYjJVUnRUWXMvM3pEOGp1N2ZMWlROa2hlR2NW?=
+ =?gb2312?B?YzlLQVF2M2dlbmtMV3U4cy9FU1FYQzc5NHUvWC9JNFF6eUJVTUlaSi9iczFi?=
+ =?gb2312?B?b1ZQU2pocjBzR0dYQTV6R3hmUGNCdXdRRGlKVmovTUdpUERvMldqd2k3cDN4?=
+ =?gb2312?B?dDFVeWJ0ZkIwanJhdE1VVUVOb0M2cE5MdjNGcVhFVWJHOXhsZ3pZYmdjMW44?=
+ =?gb2312?B?MGNkQUtoRjdNWSt0ai9wdUdvRnpJR0tvUk9rRkdJWFNkMlFUWkVUNlF4bVZx?=
+ =?gb2312?B?MkxIVmFEWlRhNkhRRHUyc3dSbzFpODhJZW1iTTFYcW1OZnU0OWZNZ1ZFWlJN?=
+ =?gb2312?B?dnBnVWlUL3RWZmY4WnRFRWxFVDIzQnFMT0wxUDNVWXpMVTcxYnYvbW9jalNZ?=
+ =?gb2312?B?Tnl0anB0TE0rNEpFNGpBdkVySzQzN1BJbGhjTkpnZUlSNXd2SUxwcnNEMVNE?=
+ =?gb2312?B?VlRVbWJjN3FwRnFUUkJMdkFXcHYwdHd6SVNhWnFxdk00dHdHaHdWcjJ1aFNi?=
+ =?gb2312?B?UGxuWjM0dEFicHE1Wkc3Z1ZIK3ZCcGUwak5pYmpZVjVQZjl4UWxBbUF3RGNS?=
+ =?gb2312?Q?AiihT6OlH867ympw1nFMMnV1YBOehLccyILh7D9?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1708.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 528e0b1d-78b3-4a57-0616-08d8dad3a5d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2021 03:56:22.6527 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f29d548-fd99-45c4-1c4f-08d8dad3cf0f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2021 03:57:31.7844 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5AwDrFexQEW2ShCH/PO8hw+tQS8QvYpQM8ybHHic695xMUB7jsYRX6aOnL5w9het
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3865
+X-MS-Exchange-CrossTenant-userprincipalname: qGrYR5COPyCoizxewnqzGvFqTc00wEU61B0B0rZph6lJtvCUuT8KMan80Si69Eno
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,42 +146,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Zhang, Andy" <Andy.Zhang@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>,
  "Zhang, Jack \(Jian\)" <Jack.Zhang1@amd.com>
-Content-Type: multipart/mixed; boundary="===============1078174031=="
+Content-Type: multipart/mixed; boundary="===============0094292296=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1078174031==
+--===============0094292296==
 Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1708A26CFB637B10A7C7F6B7849C9DM5PR12MB1708namp_"
+	boundary="_000_DM5PR12MB1708D0C9CF669AF3A2C9327C849C9DM5PR12MB1708namp_"
 
---_000_DM5PR12MB1708A26CFB637B10A7C7F6B7849C9DM5PR12MB1708namp_
+--_000_DM5PR12MB1708D0C9CF669AF3A2C9327C849C9DM5PR12MB1708namp_
 Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpI
-IEFuZHJleQ0KDQpUaGUgc2NlbmFyaW8gSSBoaXQgaGVyZSBpcyBub3QgdGhlIG9uZSB5b3UgbWVu
-dGlvbmVkLCBsZXQgbWUgZXhwbGFpbiBpdCB3aXRoIG1vcmUgZGV0YWlscyBieSBhbm90aGVyIG11
-Y2ggZWFzaWVyIHVuZGVyc3Rvb2QgZXhhbXBsZToNCg0KQ29uc2lkZXIgcmluZyB5b3UgaGF2ZSBh
-IGpvYjEgb24gS0NRLCBidXQgdGhlIHRpbWVvdXQgb2YgS0NRIGlzIDYwIHNlY29uZHMgKGp1c3Qg
-Zm9yIGV4YW1wbGUpDQpZb3UgYWxzbyBoYXZlIGEgam9iMiBvbiBHRlggcmluZywgYW5kIHRoZSB0
-aW1lb3V0IG9mIEdGWCBpcyAyIHNlY29uZHMNCg0KV2Ugc3VibWl0IGpvYjEgZmlyc3QsIGFuZCBh
-c3N1bWUgam9iMSBoYXZlIGJ1ZyBhbmQgaXQgd2lsbCBjYXVzZSBzaGFkZXIgaGFuZyB2ZXJ5IHZl
-cnkgc29vbg0KQWZ0ZXIgMTAgc2Vjb25kcyB3ZSBzdWJtaXQgam9iMiwgc2luY2UgS0NRIGhhdmUg
-NjAgc2Vjb25kcyB0byByZXBvcnQgVERSIHRodXMgU1cga25vdyBub3RoaW5nIGFib3V0IHRoZSBl
-bmdpbmUgYWxyZWFkeSBoYW5nDQpBZnRlciAyIHNlY29uZHMgd2UgZ290IFREUiByZXBvcnQgZnJv
-bSBqb2IyIG9uIEdGWCByaW5nLCBzY2hlZF9qb2JfdGltZW91dCgpIHRoaW5rIHRoZSBsZWFkaW5n
-IGpvYiBvZiBHRlggcmluZyBpcyB0aGUgYmxhY2sgc2hlZXAgc28gaXQgaXMgZGVsZXRlZCBmcm9t
-IHRoZSBtaXJyb3IgbGlzdA0KQnV0IGluIGZhY3QgdGhpcyBqb2IxIGlzIGlubm9jZW50LCBhbmQg
-d2Ugc2hvdWxkIGluc2VydCBpdCBiYWNrIGFmdGVyIHJlY292ZXJ5ICwgYW5kIGR1ZSB0byBpdCB3
-YXMgYWxyZWFkeSBkZWxldGVkIHRoaXMgaW5ub2NlbnQgam9ioa9zIGNvbnRleHQvcHJvY2VzcyBp
-cyByZWFsbHkgaGFybWVkDQoNCkhvcGUgYWJvdmUgZXhhbXBsZSBoZWxwcw0KDQpUaGFua3MNCg0K
-t6K8/sjLOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+DQq3
-osvNyrG85DogMjAyMcTqMtTCMjfI1SAwOjUwDQrK1bz+yMs6IExpdSwgTW9uayA8TW9uay5MaXVA
-YW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0Ks63LzTogWmhhbmcsIEFuZHkgPEFuZHkuWmhh
-bmdAYW1kLmNvbT47IENoZW4sIEhvcmFjZSA8SG9yYWNlLkNoZW5AYW1kLmNvbT47IFpoYW5nLCBK
-YWNrIChKaWFuKSA8SmFjay5aaGFuZzFAYW1kLmNvbT4NCtb3zOI6IFJlOiBbUkZDXSBhIG5ldyBh
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpG
+aXggdHlwbzoNCg0KQnV0IGluIGZhY3QgdGhpcyBqb2IyIGlzIGlubm9jZW50LCBhbmQgd2Ugc2hv
+dWxkIGluc2VydCBpdCBiYWNrIGFmdGVyIHJlY292ZXJ5ICwgYW5kIGR1ZSB0byBpdCB3YXMgYWxy
+ZWFkeSBkZWxldGVkIHRoaXMgaW5ub2NlbnQgam9ioa9zIGNvbnRleHQvcHJvY2VzcyBpcyByZWFs
+bHkgaGFybWVkDQoNCreivP7IyzogTGl1LCBNb25rDQq3osvNyrG85DogMjAyMcTqMtTCMjfI1SAx
+MTo1Ng0KytW8/sjLOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5j
+b20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCrOty806IFpoYW5nLCBBbmR5IDxBbmR5LlpoYW5nQGFt
+ZC5jb20+OyBDaGVuLCBIb3JhY2UgPEhvcmFjZS5DaGVuQGFtZC5jb20+OyBaaGFuZywgSmFjayAo
+SmlhbikgPEphY2suWmhhbmcxQGFtZC5jb20+DQrW98ziOiC72Li0OiBbUkZDXSBhIG5ldyBhcHBy
+b2FjaCB0byBkZXRlY3Qgd2hpY2ggcmluZyBpcyB0aGUgcmVhbCBibGFjayBzaGVlcCB1cG9uIFRE
+UiByZXBvcnRlZA0KDQpIIEFuZHJleQ0KDQpUaGUgc2NlbmFyaW8gSSBoaXQgaGVyZSBpcyBub3Qg
+dGhlIG9uZSB5b3UgbWVudGlvbmVkLCBsZXQgbWUgZXhwbGFpbiBpdCB3aXRoIG1vcmUgZGV0YWls
+cyBieSBhbm90aGVyIG11Y2ggZWFzaWVyIHVuZGVyc3Rvb2QgZXhhbXBsZToNCg0KQ29uc2lkZXIg
+cmluZyB5b3UgaGF2ZSBhIGpvYjEgb24gS0NRLCBidXQgdGhlIHRpbWVvdXQgb2YgS0NRIGlzIDYw
+IHNlY29uZHMgKGp1c3QgZm9yIGV4YW1wbGUpDQpZb3UgYWxzbyBoYXZlIGEgam9iMiBvbiBHRlgg
+cmluZywgYW5kIHRoZSB0aW1lb3V0IG9mIEdGWCBpcyAyIHNlY29uZHMNCg0KV2Ugc3VibWl0IGpv
+YjEgZmlyc3QsIGFuZCBhc3N1bWUgam9iMSBoYXZlIGJ1ZyBhbmQgaXQgd2lsbCBjYXVzZSBzaGFk
+ZXIgaGFuZyB2ZXJ5IHZlcnkgc29vbg0KQWZ0ZXIgMTAgc2Vjb25kcyB3ZSBzdWJtaXQgam9iMiwg
+c2luY2UgS0NRIGhhdmUgNjAgc2Vjb25kcyB0byByZXBvcnQgVERSIHRodXMgU1cga25vdyBub3Ro
+aW5nIGFib3V0IHRoZSBlbmdpbmUgYWxyZWFkeSBoYW5nDQpBZnRlciAyIHNlY29uZHMgd2UgZ290
+IFREUiByZXBvcnQgZnJvbSBqb2IyIG9uIEdGWCByaW5nLCBzY2hlZF9qb2JfdGltZW91dCgpIHRo
+aW5rIHRoZSBsZWFkaW5nIGpvYiBvZiBHRlggcmluZyBpcyB0aGUgYmxhY2sgc2hlZXAgc28gaXQg
+aXMgZGVsZXRlZCBmcm9tIHRoZSBtaXJyb3IgbGlzdA0KQnV0IGluIGZhY3QgdGhpcyBqb2IxIGlz
+IGlubm9jZW50LCBhbmQgd2Ugc2hvdWxkIGluc2VydCBpdCBiYWNrIGFmdGVyIHJlY292ZXJ5ICwg
+YW5kIGR1ZSB0byBpdCB3YXMgYWxyZWFkeSBkZWxldGVkIHRoaXMgaW5ub2NlbnQgam9ioa9zIGNv
+bnRleHQvcHJvY2VzcyBpcyByZWFsbHkgaGFybWVkDQoNCkhvcGUgYWJvdmUgZXhhbXBsZSBoZWxw
+cw0KDQpUaGFua3MNCg0Kt6K8/sjLOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92
+c2t5QGFtZC5jb208bWFpbHRvOkFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+Pg0Kt6LLzcqxvOQ6
+IDIwMjHE6jLUwjI3yNUgMDo1MA0KytW8/sjLOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb208
+bWFpbHRvOk1vbmsuTGl1QGFtZC5jb20+PjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5L
+b2VuaWdAYW1kLmNvbTxtYWlsdG86Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPj47IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zz4NCrOty806IFpoYW5nLCBBbmR5IDxBbmR5LlpoYW5nQGFtZC5jb208bWFpbHRvOkFuZHkuWmhh
+bmdAYW1kLmNvbT4+OyBDaGVuLCBIb3JhY2UgPEhvcmFjZS5DaGVuQGFtZC5jb208bWFpbHRvOkhv
+cmFjZS5DaGVuQGFtZC5jb20+PjsgWmhhbmcsIEphY2sgKEppYW4pIDxKYWNrLlpoYW5nMUBhbWQu
+Y29tPG1haWx0bzpKYWNrLlpoYW5nMUBhbWQuY29tPj4NCtb3zOI6IFJlOiBbUkZDXSBhIG5ldyBh
 cHByb2FjaCB0byBkZXRlY3Qgd2hpY2ggcmluZyBpcyB0aGUgcmVhbCBibGFjayBzaGVlcCB1cG9u
 IFREUiByZXBvcnRlZA0KDQoNCg0KT24gMjAyMS0wMi0yNiA2OjU0IGEubS4sIExpdSwgTW9uayB3
 cm90ZToNCg0KW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBP
@@ -286,39 +299,42 @@ ZSB0aG9zZSByaW5ncyBhcmUgaW50ZXJtdXR1YWxseSBhZmZlY3RlZCB0byBlYWNoIG90aGVyLiBG
 b3IgU0RNQSByaW5nIHRpbWVvdXQgaXQgZGVmaW5pdGVseSBwcm92ZXMgdGhlIGhlYWQgam9iIG9u
 IFNETUEgcmluZyBpcyByZWFsbHkgZ3VpbHR5Lg0KDQpUaGFua3MNCg0KLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpNb25rIExpdSB8IENsb3VkLUdQVSBDb3JlIHRl
-YW0NCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQoNCg0KDQoN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNCmFtZC1n
-ZnggbWFpbGluZyBsaXN0DQoNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
+YW0NCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQoNCg0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQphbWQtZ2Z4
+IG1haWxpbmcgbGlzdA0KDQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQoNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
 
---_000_DM5PR12MB1708A26CFB637B10A7C7F6B7849C9DM5PR12MB1708namp_
+--_000_DM5PR12MB1708D0C9CF669AF3A2C9327C849C9DM5PR12MB1708namp_
 Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
 @font-face
-	{font-family:SimSun;
+	{font-family:=CB=CE=CC=E5;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:DengXian;
+	{font-family:=B5=C8=CF=DF;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:DengXian;
+	{font-family:"\@=B5=C8=CF=DF";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:SimSun;
+	{font-family:"\@=CB=CE=CC=E5";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
@@ -331,7 +347,7 @@ a:link, span.MsoHyperlink
 	text-decoration:underline;}
 pre
 	{mso-style-priority:99;
-	mso-style-link:"HTML \9884\8BBE\683C\5F0F \5B57\7B26";
+	mso-style-link:"HTML =D4=A4=C9=E8=B8=F1=CA=BD =D7=D6=B7=FB";
 	margin:0cm;
 	font-size:10.0pt;
 	font-family:"Courier New";}
@@ -343,6 +359,11 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	margin-left:36.0pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
+span.HTML
+	{mso-style-name:"HTML =D4=A4=C9=E8=B8=F1=CA=BD =D7=D6=B7=FB";
+	mso-style-priority:99;
+	mso-style-link:"HTML =D4=A4=C9=E8=B8=F1=CA=BD";
+	font-family:"Courier New";}
 p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
 	{mso-style-name:msipheader251902e5;
 	mso-margin-top-alt:auto;
@@ -359,14 +380,9 @@ p.msipheadera92f4c5c, li.msipheadera92f4c5c, div.msipheadera92f4c5c
 	margin-left:0cm;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.HTML
-	{mso-style-name:"HTML \9884\8BBE\683C\5F0F \5B57\7B26";
-	mso-style-priority:99;
-	mso-style-link:"HTML \9884\8BBE\683C\5F0F";
-	font-family:"Courier New";}
-span.EmailStyle25
+span.EmailStyle26
 	{mso-style-type:personal-reply;
-	font-family:DengXian;
+	font-family:=B5=C8=CF=DF;
 	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
@@ -540,71 +556,116 @@ gn=3D"Left">
 <div>
 <div class=3D"WordSection1">
 <p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">H Andrey<o:p></o:p></span></p>
+family:=B5=C8=CF=DF">Fix typo:<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
 <p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">The scenario I hit here is not the one you mentioned, let =
-me explain it with more details by another much easier understood example:<=
-o:p></o:p></span></p>
+family:=B5=C8=CF=DF">But in fact this
+<b><span style=3D"background:lime;mso-highlight:lime">job2</span></b> is in=
+nocent, and we should insert it back after recovery , and due to it was alr=
+eady deleted this innocent job</span><span style=3D"font-size:10.5pt;font-f=
+amily:=B5=C8=CF=DF">=A1=AF<span lang=3D"EN-US">s context/process
+ is really harmed</span></span><span lang=3D"EN-US" style=3D"font-size:10.5=
+pt;font-family:=B5=C8=CF=DF"><o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">Consider ring you have a job1 on KCQ, but the timeout of K=
-CQ is 60 seconds (just for example)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">You also have a job2 on GFX ring, and the timeout of GFX i=
-s 2 seconds<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">We submit job1 first, and assume job1 have bug and it will=
- cause shader hang very very soon
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">After 10 seconds we submit job2, since KCQ have 60 seconds=
- to report TDR thus SW know nothing about the engine already hang
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">After 2 seconds we got TDR report from job2 on GFX ring, s=
-ched_job_timeout() think the leading job of GFX ring is the black sheep so =
-it is deleted from the mirror list<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">But in fact this job1 is innocent, and we should insert it=
- back after recovery , and due to it was already deleted this innocent job=
-=A1=AFs context/process is really harmed
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">Hope above example helps<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian">Thanks
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:DengXian"><o:p>&nbsp;</o:p></span></p>
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
 0cm 0cm">
-<p class=3D"MsoNormal"><b><span style=3D"font-family:DengXian">=B7=A2=BC=FE=
-=C8=CB<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" style=3D=
-"font-family:DengXian"> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt=
-;
+<p class=3D"MsoNormal"><b><span style=3D"font-family:=B5=C8=CF=DF">=B7=A2=
+=BC=FE=C8=CB<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" st=
+yle=3D"font-family:=B5=C8=CF=DF"> Liu, Monk
 <br>
-</span><b><span style=3D"font-family:DengXian">=B7=A2=CB=CD=CA=B1=BC=E4<spa=
-n lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" style=3D"font-fami=
-ly:DengXian"> 2021</span><span style=3D"font-family:DengXian">=C4=EA<span l=
-ang=3D"EN-US">2</span>=D4=C2<span lang=3D"EN-US">27</span>=C8=D5<span lang=
-=3D"EN-US">
- 0:50<br>
+</span><b><span style=3D"font-family:=B5=C8=CF=DF">=B7=A2=CB=CD=CA=B1=BC=E4=
+<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" style=3D"font-=
+family:=B5=C8=CF=DF"> 2021</span><span style=3D"font-family:=B5=C8=CF=DF">=
+=C4=EA<span lang=3D"EN-US">2</span>=D4=C2<span lang=3D"EN-US">27</span>=C8=
+=D5<span lang=3D"EN-US"> 11:56<br>
 </span><b>=CA=D5=BC=FE=C8=CB<span lang=3D"EN-US">:</span></b><span lang=3D"=
-EN-US"> Liu, Monk &lt;Monk.Liu@amd.com&gt;; Koenig, Christian &lt;Christian=
-.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+EN-US"> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Koenig, Chris=
+tian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
 </span><b>=B3=AD=CB=CD<span lang=3D"EN-US">:</span></b><span lang=3D"EN-US"=
 > Zhang, Andy &lt;Andy.Zhang@amd.com&gt;; Chen, Horace &lt;Horace.Chen@amd.=
 com&gt;; Zhang, Jack (Jian) &lt;Jack.Zhang1@amd.com&gt;<br>
+</span><b>=D6=F7=CC=E2<span lang=3D"EN-US">:</span></b><span lang=3D"EN-US"=
+> </span>=BB=D8=B8=B4<span lang=3D"EN-US">: [RFC] a new approach to detect =
+which ring is the real black sheep upon TDR reported<o:p></o:p></span></spa=
+n></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">H Andrey<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">The scenario I hit here is not the one you mentioned, =
+let me explain it with more details by another much easier understood examp=
+le:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">Consider ring you have a job1 on KCQ, but the timeout =
+of KCQ is 60 seconds (just for example)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">You also have a job2 on GFX ring, and the timeout of G=
+FX is 2 seconds<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">We submit job1 first, and assume job1 have bug and it =
+will cause shader hang very very soon
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">After 10 seconds we submit job2, since KCQ have 60 sec=
+onds to report TDR thus SW know nothing about the engine already hang
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">After 2 seconds we got TDR report from job2 on GFX rin=
+g, sched_job_timeout() think the leading job of GFX ring is the black sheep=
+ so it is deleted from the mirror list<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">But in fact this
+<u><span style=3D"background:fuchsia;mso-highlight:fuchsia">job1</span></u>=
+ is innocent, and we should insert it back after recovery , and due to it w=
+as already deleted this innocent job</span><span style=3D"font-size:10.5pt;=
+font-family:=B5=C8=CF=DF">=A1=AF<span lang=3D"EN-US">s
+ context/process is really harmed <o:p></o:p></span></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">Hope above example helps<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF">Thanks
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:=B5=C8=CF=DF"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-family:=B5=C8=CF=DF">=B7=A2=
+=BC=FE=C8=CB<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" st=
+yle=3D"font-family:=B5=C8=CF=DF"> Grodzovsky, Andrey &lt;<a href=3D"mailto:=
+Andrey.Grodzovsky@amd.com">Andrey.Grodzovsky@amd.com</a>&gt;
+<br>
+</span><b><span style=3D"font-family:=B5=C8=CF=DF">=B7=A2=CB=CD=CA=B1=BC=E4=
+<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" style=3D"font-=
+family:=B5=C8=CF=DF"> 2021</span><span style=3D"font-family:=B5=C8=CF=DF">=
+=C4=EA<span lang=3D"EN-US">2</span>=D4=C2<span lang=3D"EN-US">27</span>=C8=
+=D5<span lang=3D"EN-US"> 0:50<br>
+</span><b>=CA=D5=BC=FE=C8=CB<span lang=3D"EN-US">:</span></b><span lang=3D"=
+EN-US"> Liu, Monk &lt;<a href=3D"mailto:Monk.Liu@amd.com">Monk.Liu@amd.com<=
+/a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com">=
+Christian.Koenig@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+</span><b>=B3=AD=CB=CD<span lang=3D"EN-US">:</span></b><span lang=3D"EN-US"=
+> Zhang, Andy &lt;<a href=3D"mailto:Andy.Zhang@amd.com">Andy.Zhang@amd.com<=
+/a>&gt;; Chen, Horace &lt;<a href=3D"mailto:Horace.Chen@amd.com">Horace.Che=
+n@amd.com</a>&gt;; Zhang, Jack (Jian) &lt;<a href=3D"mailto:Jack.Zhang1@amd=
+.com">Jack.Zhang1@amd.com</a>&gt;<br>
 </span><b>=D6=F7=CC=E2<span lang=3D"EN-US">:</span></b><span lang=3D"EN-US"=
 > Re: [RFC] a new approach to detect which ring is the real black sheep upo=
 n TDR reported<o:p></o:p></span></span></p>
@@ -843,9 +904,8 @@ o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
 </blockquote>
 <p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><br>
-<br>
-<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US">=
+<o:p>&nbsp;</o:p></span></p>
 <pre><span lang=3D"EN-US">_______________________________________________<o=
 :p></o:p></span></pre>
 <pre><span lang=3D"EN-US">amd-gfx mailing list<o:p></o:p></span></pre>
@@ -860,9 +920,9 @@ listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a=
 </body>
 </html>
 
---_000_DM5PR12MB1708A26CFB637B10A7C7F6B7849C9DM5PR12MB1708namp_--
+--_000_DM5PR12MB1708D0C9CF669AF3A2C9327C849C9DM5PR12MB1708namp_--
 
---===============1078174031==
+--===============0094292296==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -873,4 +933,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1078174031==--
+--===============0094292296==--
