@@ -2,59 +2,51 @@ Return-Path: <SRS0=JjkA=H6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 639CEC433E0
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 08:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74FD7C433DB
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 08:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1AA9864D9E
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 08:34:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1AA9864D9E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
+	by mail.kernel.org (Postfix) with ESMTPS id 072C764E4A
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 08:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 072C764E4A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B48E6E053;
-	Sun, 28 Feb 2021 08:34:56 +0000 (UTC)
-X-Greylist: delayed 911 seconds by postgrey-1.36 at gabe;
- Sun, 28 Feb 2021 08:34:53 UTC
-Received: from m12-17.163.com (m12-17.163.com [220.181.12.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAF7E6E053
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Feb 2021 08:34:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=8Nzzq
- u/vNrLmXZvdvJxrVWTuvj0/dttl/konC524AQc=; b=ID/VfFraipRFBrbGuc2Id
- Jj7fIEkgqrNTAS3q/V91RE0qFaO+7kopaE+uRxENUGFj59HPzpfWgrYNpTvGPYWI
- b4tqPp2k66SYlpGyOuRgZujDXMMTVO3r9yRORiLFSVBi18FMhjh+JYfe4RUBoUqB
- dq4JqqCvk5J56s22e9SpwY=
-Received: from [172.21.22.83] (unknown [118.242.3.34])
- by smtp13 (Coremail) with SMTP id EcCowAB3FHkKUjtgIrxCnQ--.60591S3;
- Sun, 28 Feb 2021 16:19:23 +0800 (CST)
-Subject: Re: [PATCH 048/159] drm/amdgpu: new cache coherence change for
- Aldebaran
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210224221859.3068810-1-alexander.deucher@amd.com>
- <20210224221859.3068810-41-alexander.deucher@amd.com>
-From: Jerry Zhang <zjunweihit@163.com>
-Message-ID: <798bdda1-75ef-35c9-32e6-44c41e23e879@163.com>
-Date: Sun, 28 Feb 2021 16:19:22 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B196E0A5;
+	Sun, 28 Feb 2021 08:51:46 +0000 (UTC)
+Received: from mail2.protonmail.ch (mail2.protonmail.ch [185.70.40.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181586E0A5
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Feb 2021 08:51:45 +0000 (UTC)
+Date: Sun, 28 Feb 2021 08:51:22 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1614502302;
+ bh=rqrU85mKAf1m/dpW4StJ7wZvMN9yMgwq6gamXG2nkMM=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=lemkLZgAtnUswuhY2+G4htjmz8bEN/IAm9ORfe/2FxMM0ov5gQjL2rV45V4/yQMfw
+ +ECZbE05e5BRW2PwD/9Qdc9RBQet7eq3D0YY4Ng6jcTL2a6vHA5Ab7UWuDzJ1i/De1
+ XZ8mU1wvCRwK7HwV1MhtPtWZpQ2NpcU2EEzhjaKfi7HPE6DK+JRWxpcX6XBXywD6uw
+ GuugOn19EMWn2jCUUXtzoour4rUNY8h1Z7LxVQEFW2tLPpkxwugooNEwYEn1hG7uUZ
+ 60rA36AGXo9axcaKvWgT8nQgPjbxJvT0/ytUa6eehemIDJxUC4Nycce2urt8X71osW
+ B/9GyFCBJQuhw==
+To: "Cornij, Nikola" <Nikola.Cornij@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: RE: Overlay issues
+Message-ID: <j-UGiIngTVGXVwcM2Ynd32pfOemhZI8rApiiaqt6O5ZZY5Vgot8eGskObaOe2A6GznJW42pr7xt8DB55dvIU4-x9DoE8yhA-NWZu2YB1kTo=@emersion.fr>
+In-Reply-To: <DM5PR12MB4679498E09A74977446CF66FEE9C9@DM5PR12MB4679.namprd12.prod.outlook.com>
+References: <DM5PR12MB4679C807DB8DB502AC4793DCEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
+ <05FNtjCma79AawCUxH3mqJ8sWHmoIXFXhQWW0N_b-mpl7QvuW3JN3AbtPUiR0y1LOf3tLhWFWv8YjuIEvJ3dci9y1EHk_D9a9L1BAyWyxRs=@emersion.fr>
+ <DM5PR12MB4679F2B26887B76BC025161AEEC60@DM5PR12MB4679.namprd12.prod.outlook.com>
+ <DM5PR12MB46792E5F8DF0F128FF01D79EEEDE0@DM5PR12MB4679.namprd12.prod.outlook.com>
+ <Zq5awE32--JJaePI-8O0Rd-2AYVUPYgIn1PspErRR_qpQeTlX_L0M_8iQMyN6rGZPJRuBmkf6OGmeQFLYkzB9cswAhdyWbAzEXqT-0ZjFC4=@emersion.fr>
+ <DM5PR12MB4679C406F33E9B04BA343295EE819@DM5PR12MB4679.namprd12.prod.outlook.com>
+ <Kdv-dXZJZAwHurjWGxke0BycsKRikMsY_omFpPVknQqoLWCweXWWMs9ET6_Ax0hIMvFKornwDJ2i5MXyspmEykuloW5IppjT-w6NT6vfIBU=@emersion.fr>
+ <DM5PR12MB4679498E09A74977446CF66FEE9C9@DM5PR12MB4679.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20210224221859.3068810-41-alexander.deucher@amd.com>
-Content-Language: en-US
-X-CM-TRANSID: EcCowAB3FHkKUjtgIrxCnQ--.60591S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGryUKw1kCF1rCFyDJFW8Zwb_yoWrWFyDpF
- 4rAF13KFyUZFnrX3yxX3W8uFyUKw1xW340krZrX34Y9FW3XF90qFn2kF15ArykGFWjkw43
- JFW2krW7C3ZIvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jMoGdUUUUU=
-X-Originating-IP: [118.242.3.34]
-X-CM-SenderInfo: x2mx04phlkx3i6rwjhhfrp/xtbBiAtHzFaD+GIUMAAAsj
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,84 +58,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Oak Zeng <Oak.Zeng@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS8yLzI1IOS4iuWNiDY6MTcsIEFsZXggRGV1Y2hlciB3cm90ZToKPiBGcm9tOiBFcmlj
-IEh1YW5nIDxqaW5odWllcmljLmh1YW5nQGFtZC5jb20+Cj4KPiBUbyBzdXBwb3J0IG5ldyBjYWNo
-ZSBjb2hlcmVuY2UgSFcgb24gQStBIHBsYXRmb3JtIG1haW5seSBpbiBLRkQuCj4KPiBTaWduZWQt
-b2ZmLWJ5OiBFcmljIEh1YW5nIDxqaW5odWllcmljLmh1YW5nQGFtZC5jb20+Cj4gUmV2aWV3ZWQt
-Ynk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiAtLS0KPiAgIC4uLi9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jICB8IDMwICsrKysrKysrKysrKysrKysrLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgICAgICB8ICAzICsr
-Cj4gICAyIGZpbGVzIGNoYW5nZWQsIDMxIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9n
-cHV2bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5j
-Cj4gaW5kZXggODc4MTA1MWFmYjY5Li4zMGU0MWQxYjMyNTYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gQEAgLTMwLDYgKzMw
-LDcgQEAKPiAgICNpbmNsdWRlICJhbWRncHVfYW1ka2ZkLmgiCj4gICAjaW5jbHVkZSAiYW1kZ3B1
-X2RtYV9idWYuaCIKPiAgICNpbmNsdWRlIDx1YXBpL2xpbnV4L2tmZF9pb2N0bC5oPgo+ICsjaW5j
-bHVkZSAiYW1kZ3B1X3hnbWkuaCIKPiAgIAo+ICAgLyogQk8gZmxhZyB0byBpbmRpY2F0ZSBhIEtG
-RCB1c2VycHRyIEJPICovCj4gICAjZGVmaW5lIEFNREdQVV9BTURLRkRfVVNFUlBUUl9CTyAoMVVM
-TCA8PCA2MykKPiBAQCAtNDA0LDYgKzQwNSw4IEBAIHN0YXRpYyB1aW50NjRfdCBnZXRfcHRlX2Zs
-YWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3Qga2dkX21lbSAqbWVtKQo+ICAg
-CXN0cnVjdCBhbWRncHVfZGV2aWNlICpib19hZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KG1lbS0+Ym8t
-PnRiby5iZGV2KTsKPiAgIAlib29sIGNvaGVyZW50ID0gbWVtLT5hbGxvY19mbGFncyAmIEtGRF9J
-T0NfQUxMT0NfTUVNX0ZMQUdTX0NPSEVSRU5UOwo+ICAgCXVpbnQzMl90IG1hcHBpbmdfZmxhZ3M7
-Cj4gKwl1aW50NjRfdCBwdGVfZmxhZ3M7Cj4gKwlib29sIHNub29wID0gZmFsc2U7Cj4gICAKPiAg
-IAltYXBwaW5nX2ZsYWdzID0gQU1ER1BVX1ZNX1BBR0VfUkVBREFCTEU7Cj4gICAJaWYgKG1lbS0+
-YWxsb2NfZmxhZ3MgJiBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19XUklUQUJMRSkKPiBAQCAtNDEz
-LDcgKzQxNiw2IEBAIHN0YXRpYyB1aW50NjRfdCBnZXRfcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCBzdHJ1Y3Qga2dkX21lbSAqbWVtKQo+ICAgCj4gICAJc3dpdGNoIChhZGV2
-LT5hc2ljX3R5cGUpIHsKPiAgIAljYXNlIENISVBfQVJDVFVSVVM6Cj4gLQljYXNlIENISVBfQUxE
-RUJBUkFOOgo+ICAgCQlpZiAobWVtLT5hbGxvY19mbGFncyAmIEtGRF9JT0NfQUxMT0NfTUVNX0ZM
-QUdTX1ZSQU0pIHsKPiAgIAkJCWlmIChib19hZGV2ID09IGFkZXYpCj4gICAJCQkJbWFwcGluZ19m
-bGFncyB8PSBjb2hlcmVudCA/Cj4gQEAgLTQyNSwxMiArNDI3LDM2IEBAIHN0YXRpYyB1aW50NjRf
-dCBnZXRfcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3Qga2dkX21l
-bSAqbWVtKQo+ICAgCQkJCUFNREdQVV9WTV9NVFlQRV9VQyA6IEFNREdQVV9WTV9NVFlQRV9OQzsK
-PiAgIAkJfQo+ICAgCQlicmVhazsKPiArCWNhc2UgQ0hJUF9BTERFQkFSQU46Cj4gKwkJaWYgKG1l
-bS0+YWxsb2NfZmxhZ3MgJiBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19WUkFNKSB7Cj4gKwkJCWlm
-IChib19hZGV2ID09IGFkZXYpIHsKPiArCQkJCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX01U
-WVBFX1JXOwpGb3IgbG9jYWwgVlJBTSwgaWYgaXQncyBzaGFyZWQgYnkgcGVlciBHUFUsIFJXIGNv
-dWxkIGtlZXAgY2FjaGUgY29oZXJlbmNlPwoKRG8gd2UgbmVlZCBVQyBtdHlwZSBpbiB0aGlzIGNh
-c2U/Cgo+ICsJCQkJaWYgKGFkZXYtPmdtYy54Z21pLmNvbm5lY3RlZF90b19jcHUpCj4gKwkJCQkJ
-c25vb3AgPSB0cnVlOwo+ICsJCQl9IGVsc2Ugewo+ICsJCQkJbWFwcGluZ19mbGFncyB8PSBBTURH
-UFVfVk1fTVRZUEVfTkM7Cj4gKwkJCQlpZiAoYW1kZ3B1X3hnbWlfc2FtZV9oaXZlKGFkZXYsIGJv
-X2FkZXYpKQo+ICsJCQkJCXNub29wID0gdHJ1ZTsKRG8gd2UgbmVlZCB0byBjaGVjayBzYW1lIGhp
-dmUgaWQgaGVyZT8KCmlmIHNvICwgQ0hJUF9BUkNUVVJVUyBtYXkgYWRkIHNpbWlsYXIgY2hlY2su
-CgpXaHkgbm90IHVzZSBVQyBtdHlwZSBoZXJlIGZvciBncHUtZ3B1IG1lbW9yeSBzaGFyZT8gTkMg
-Y291bGQga2VlcCBjYWNoZSAKY29oZXJlbmNlIGFtb25nIGdwdSBzaGFyaW5nPyBieSBQVEVfU05P
-T1BFRCB0eXBlPwoKPiArCQkJfQo+ICsJCX0gZWxzZSB7Cj4gKwkJCXNub29wID0gdHJ1ZTsKPiAr
-CQkJaWYgKGFkZXYtPmdtYy54Z21pLmNvbm5lY3RlZF90b19jcHUpCj4gKwkJCQkvKiBzeXN0ZW0g
-bWVtb3J5IHVzZXMgTkMgb24gQStBICovCj4gKwkJCQltYXBwaW5nX2ZsYWdzIHw9IEFNREdQVV9W
-TV9NVFlQRV9OQzsKPiArCQkJZWxzZQo+ICsJCQkJbWFwcGluZ19mbGFncyB8PSBjb2hlcmVudCA/
-Cj4gKwkJCQkJQU1ER1BVX1ZNX01UWVBFX1VDIDogQU1ER1BVX1ZNX01UWVBFX05DOwo+ICsJCX0K
-PiArCQlicmVhazsKPiAgIAlkZWZhdWx0Ogo+ICAgCQltYXBwaW5nX2ZsYWdzIHw9IGNvaGVyZW50
-ID8KPiAgIAkJCUFNREdQVV9WTV9NVFlQRV9VQyA6IEFNREdQVV9WTV9NVFlQRV9OQzsKPiAgIAl9
-Cj4gICAKPiAtCXJldHVybiBhbWRncHVfZ2VtX3ZhX21hcF9mbGFncyhhZGV2LCBtYXBwaW5nX2Zs
-YWdzKTsKPiArCXB0ZV9mbGFncyA9IGFtZGdwdV9nZW1fdmFfbWFwX2ZsYWdzKGFkZXYsIG1hcHBp
-bmdfZmxhZ3MpOwo+ICsJcHRlX2ZsYWdzIHw9IHNub29wID8gQU1ER1BVX1BURV9TTk9PUEVEIDog
-MDsKPiArCj4gKwlyZXR1cm4gcHRlX2ZsYWdzOwo+ICAgfQo+ICAgCj4gICAvKiBhZGRfYm9fdG9f
-dm0gLSBBZGQgYSBCTyB0byBhIFZNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
-Cj4gaW5kZXggOTQ1NTIwNDhhYWRhLi4zMmI1NTJlNTRlNzcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192OV8wLmMKPiBAQCAtMTA0MCw2ICsxMDQwLDkgQEAgc3RhdGljIHZvaWQg
-Z21jX3Y5XzBfZ2V0X3ZtX3B0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAkgICAg
-ISgqZmxhZ3MgJiBBTURHUFVfUFRFX1NZU1RFTSkgJiYKPiAgIAkgICAgbWFwcGluZy0+Ym9fdmEt
-PmlzX3hnbWkpCj4gICAJCSpmbGFncyB8PSBBTURHUFVfUFRFX1NOT09QRUQ7Cj4gKwo+ICsJaWYg
-KGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX0FMREVCQVJBTikKPiArCQkqZmxhZ3MgfD0gbWFwcGlu
-Zy0+ZmxhZ3MgJiBBTURHUFVfUFRFX1NOT09QRUQ7Ckl0IGJyZWFrcyB0aGUgY2hhbmdlIG9mICJk
-cm0vYW1kZ3B1OiBGaXggYW4gb21pc3Npb24gd2hlbiBhZGRpbmcgCkFsZGViYXJhbiBzdXBwb3J0
-Iiwgd2hpY2ggc2V0cyBQVEVfU05PT1BFRCBmb3IgeGdtaSBWUkFNIGJvIG9ubHkuCgpBbmQgaXQg
-c2VlbXMgbm8gbmVlZCB0byBzZXQgUFRFX1NOT09QRUQgaGVyZSwgc2luY2UgZ2V0X3B0ZV9mbGFn
-cygpIGhhcyAKaGFuZGxlZCB0aGF0LgoKPiAgIH0KPiAgIAo+ICAgc3RhdGljIHVuc2lnbmVkIGdt
-Y192OV8wX2dldF92Ymlvc19mYl9zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQoKCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+> Improved the patch, now in the process of getting it reviewed
+> internally. It'll be posted for upstream thereafter.
+
+Thanks, perfect!
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
