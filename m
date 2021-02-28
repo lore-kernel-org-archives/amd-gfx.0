@@ -1,63 +1,54 @@
-Return-Path: <SRS0=9a13=H5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=JjkA=H6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02603C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 16:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 673B8C433DB
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 00:55:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95C5964EC6
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Feb 2021 16:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95C5964EC6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id F301964D5D
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Feb 2021 00:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F301964D5D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08C0D6E09C;
-	Sat, 27 Feb 2021 16:07:49 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A90B6E09C
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Feb 2021 16:07:47 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id s8so14784082edd.5
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Feb 2021 08:07:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=c+nvz5E3S6cSqGZrLxD4Gs02fmJZV+gLXIKYerEy31Y=;
- b=FbpozByRWq7QcENzp+NjgL4cLOH1jixrw6I+fVmnewPFHvocjR/p5MJU6mAD8PNfjQ
- juyZRaG/lRTjZ9hHQHTN11MjrNRMYgYr0YYvYWUxbrnXrXr38CMgJjwRg4OrxcMk9Xq1
- k8OifIRLHz9jZHQcPu/afwjO8Lg4hG4JKdMKUKFvnxjbKursKnXbc795lkuvmOiIKfk3
- RsiFORgoWKspWTdabC3nd/loTjRJ63+8LRbcjSlOT8FJJRfmE4oduHnLm2NARuVXbfA3
- JO1R68FlbQit82FASyoUypu1g3WjOsyEQobLBG2eqlZYf2IEM0Xdgf+NGBSXD2qEO/6B
- Rwhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=c+nvz5E3S6cSqGZrLxD4Gs02fmJZV+gLXIKYerEy31Y=;
- b=Kurc3Z3xpS/b4oAhZLVXZDlsK9nzhxacZx2SpoHm173KmHCDhGLH5hEBACF8WwrGqh
- jqgsCUhiZjXOV0yMj6DGP+yI1xE571PzxpZrRnNyD85/RQ2wifiZX9f6TI7Yl8TFBLJL
- JCnRxG1hSA4ZXIBFTlvdi0MaBxmEDQ9nXCFoVmpfaljxuKfc8VYIflj1ST9y32uip7xa
- 77vUsEHvLrLIvf/+fGNweg2g5QOl4JlCAqX+VbYTDrJ7w4RAqq4ImosMnR3cmsPodH+A
- wPuKls3h/ZpHjbMuRI872NqhITavYekU4cVNMqmN3oDX2E3WNGxgIOTTXW9pbeaOLH1a
- 8eCQ==
-X-Gm-Message-State: AOAM531IXweuP3hwI498eX2lfCDLPd3MPcbLSmJSuwBydW6Ckc0kVHxj
- a1+08rihAhUMXY5LtLXE10s=
-X-Google-Smtp-Source: ABdhPJwjzG0AdYDAo0nhldAAoOXvAEp8nUKaTbh2k9xMCcwcC1Y2ckANP1INSgGgJ3aK+LQ0XTu+7w==
-X-Received: by 2002:aa7:c80d:: with SMTP id a13mr8795370edt.87.1614442066248; 
- Sat, 27 Feb 2021 08:07:46 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:2178:7ac5:73a0:2a4e?
- ([2a02:908:1252:fb60:2178:7ac5:73a0:2a4e])
- by smtp.gmail.com with ESMTPSA id l6sm5916842edw.90.2021.02.27.08.07.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 27 Feb 2021 08:07:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 364AB6E197;
+	Sun, 28 Feb 2021 00:55:28 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3914F6E195
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Feb 2021 00:55:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LiBIJWckBf/gaVxyWQAmxzZPd9dTYzVQokHs5xG9z4UH1mbsvOJda+kCS9HACl3obVZyFWVo7YuLy2/GpPvU2Z/yJUnypDrj9VaynE3+za0FyMSW+YE9yQNWvwCpMOZFBp+Lw1J5WQ4pko53VYbXG+nRE4cZ9A/u4x9YUNkEx+Uvz1+gXc1BuG2/OGvwEOtsLlq+ygPK/G+uqaDEqwhBVbRkYiGGKEQ6JhP0QvTh3+F6635ZPy4IJLu24FuAbea5QTWSwNVxDlwWdognqXqYuxhvBh9wExtWxaar0YdUDO4TFY4CPJaYoemxv98gKnA3Ta0NXPQ/9US2/DoUI0JJyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oi7bAsX+KQ5D2UL2upsUcs7Unslg41QavbSCgrPBWY0=;
+ b=C1xBeOrvm/VMKOMAcBCzKc6RLHwBPJP05HpQK36SAr0i99VMeaJnknJNFacQODXXiJSJoqbMmry/R4lvJHWWMqXGveQsv+lNELYPFxQQuMr70GrkMOs5HH4/8pcIZTf4pvSlHlmrooIOBrYlDcUgEB0+zWVEIaVW/ELkMrrc4AUzL+zwmBTSHjKeIRJizgfFc8yexzGnmoyp2u6qL7o1clUeEgyCYFHAzF3hyvp0jH6G6hMkt7T63EwXNQLyB07YqqcRjljlkdhPeR4VimoW+rvRM8TQ/f8KCYsCXFEyUEfGaP6g53BVVfEPAMTJ696idpOQCXdPlPQS2OYqLijtlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oi7bAsX+KQ5D2UL2upsUcs7Unslg41QavbSCgrPBWY0=;
+ b=dIYggGWeH6MX2v7b+aaA+MlZbT/1dwAruxjwJMvLo8m26Dz5rIpf33ietWYSKYLsOPv616xhP7TaxvUKReqm0JZNnVxoKI5k6wcv5q2e5yQMkH9x4CgdbKvIbQ5LE2ZWGQDvfhLJ/MF00cccg6hyNCqDw0dVg3bTbSGClMNaOOo=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SN6PR12MB2798.namprd12.prod.outlook.com (2603:10b6:805:69::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.23; Sun, 28 Feb
+ 2021 00:55:23 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3890.020; Sun, 28 Feb 2021
+ 00:55:22 +0000
 Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1JGQ10gYSBuZXcgYXBwcm9hY2ggdG8gZGV0ZWN0?=
  =?UTF-8?Q?_which_ring_is_the_real_black_sheep_upon_TDR_reported?=
 To: "Liu, Monk" <Monk.Liu@amd.com>,
@@ -66,17 +57,83 @@ To: "Liu, Monk" <Monk.Liu@amd.com>,
 References: <DM5PR12MB1708D28565B445EABA872A3B849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
  <f65d8f80-a283-933a-82bb-97b415689460@amd.com>
  <DM5PR12MB17086F07E3EAC0C9CA03B94D849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
- <DM5PR12MB17084EADC1B4C8603C864E84849D9@DM5PR12MB1708.namprd12.prod.outlook.com>
- <60210231-7153-784a-d4d9-759a5b8b2180@amd.com>
- <DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <99c3300b-45ad-5f38-0189-e94fac35299e@gmail.com>
-Date: Sat, 27 Feb 2021 17:07:43 +0100
+ <eb07f03b-0ea4-f9a1-47bf-4e8b65ac7081@amd.com>
+ <DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <d0fb9566-49c6-cfda-f38d-740bd032ca1d@amd.com>
+Date: Sat, 27 Feb 2021 19:55:18 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com>
 Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:1f10:eb39:4a6b:30f8]
+X-ClientProxiedBy: YT1PR01CA0096.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::35) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:1f10:eb39:4a6b:30f8]
+ (2607:fea8:3edf:49b0:1f10:eb39:4a6b:30f8) by
+ YT1PR01CA0096.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3890.23 via Frontend Transport; Sun, 28 Feb 2021 00:55:21 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e0f19066-8538-48b2-ab7e-08d8db8386ce
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2798:
+X-MS-Exchange-MinimumUrlDomainAge: lists.freedesktop.org#0
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2798B64E10BA464F5F4961E1EA9B9@SN6PR12MB2798.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: h8oemPse6SoTGGaNWM6PXnn35i4ppWZiDKaX+2ophHvOH3SbXoT42fSJbvos+S2JmSZNvf2A7OSjO1ATiTUMM8w6uSDB0p/mQzAMMHgjNSzrZe4g4C/ZYUo9unJuBZk3UuSe+Ge0efAPL8hAUve0tnM39AL/kzX57mpE3an0SlMzcwI49d/8NqyfQ8i5t3d+1mfs0SUmjpINn0lxgZEgRxLbxUiqjEGAL71a8/W4ANpfmbH9WzBdeLJUN4g1XkflHfe9IFJ70UHqe7au+7P4YczbboW09zw3iQ6nA6D4pBaR7VqRSTiYvg0A3rZshQ/6HH7i+mxgCobePquu1PBa6W+RQAUa0YgcJNLLh2vTKIlnOhsR3GkXwP3hmhZxxDBhCg/sUCVRKpku/4gUBmYT1L3fLW7JTYea2YJoVk9AdVUDYsCQ+emXGvex2q700gxWOuED0/XojzbG7TWnNwmmEyK1LDIbzCIP1ZYUjUN2Xy1c4DgOB7O2lzXvRfBE+1m92W5bH3mDzNxk+ChRumogZ+Yuuanor7ToL9vlo3VXivn70XNBzm/SZinAlQ5d0I0z8wNZjzxuCIB2rK/SCZJcx9n0oY37ommzx8HcA3nDLV/fbiCqu0zYDGHBFII+2yGeFLlu8jGZfynT4qMGyslxDH0msZU1QxvtbgKo7CGUvJYTAS1i2j/y6/Wrm7XESFuy
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(2906002)(44832011)(478600001)(110136005)(31696002)(4326008)(83380400001)(166002)(966005)(54906003)(6666004)(5660300002)(66946007)(66556008)(33964004)(53546011)(52116002)(66476007)(2616005)(186003)(8936002)(16526019)(316002)(6486002)(31686004)(86362001)(224303003)(30864003)(36756003)(43740500002)(45980500001)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?OXh6Z3BNL01HSkkwTnUyLzBqTnRzUzg2blJzUWhKb1JiUlBpZTRObU5FbmVY?=
+ =?utf-8?B?d1ozTUdwMmhMRW1JS3R6a2FNZU0zOFE1cDVNSS9FWTJKdTY5NU1tejM1ZWFy?=
+ =?utf-8?B?QlpXYUI3MGg3NFRDazJ1WDc3b3RGSHdWaFlxekU5Z2hMdGhXNlh0L0NGbkxw?=
+ =?utf-8?B?MGFJMkw1d0tSRi9WZHdNbmxxVE1obzlQMlA1Y2E2b25wWkR2dS9FR1JvWUJO?=
+ =?utf-8?B?K2JFbXMyd09EMURXRFNaZTd1RXJudW1vWHVIQzRkNXJhWml6b2E4R3FhSzFS?=
+ =?utf-8?B?eGVhSkRlS2FJdWNyMHhRN3kwRXVIV00rZ3hzbWttOUlJRmZnSURuR3JFSU1B?=
+ =?utf-8?B?UjA3aGRSRjM3K2xtbDNLUGl3c3JZQXMvcGxjN2ZkWGZCZHN3UStQWW5KUHRp?=
+ =?utf-8?B?NkRnbjFKTXRiVTVrWWZ4VWFMRjZYZE9JbmRlaVh3OVhWZWZoa1pRNjBVenU1?=
+ =?utf-8?B?VmNZZDBEZEczZ2tmVTliKzVrVFhHNDk1Y3o2aW9mNUdzMnV4aXEzSHU3NHRl?=
+ =?utf-8?B?WXRNN08zOTJuWmhUdE40TGhYT3JGejNNb21SRHkzWkg5NDRlbHUzK1JlNnF3?=
+ =?utf-8?B?V243dXlwcWFLdmZyYnlOV3dKQWVLRkR3aVBELzhmVFVvRmtObGdEdXFFbXk0?=
+ =?utf-8?B?VGtWaUVsaXYwRGdmM2hVdmExaDhvcVJUVjBpOGxUMXc3WmltelpFRTBlb3dk?=
+ =?utf-8?B?N2RwWExkdXY3Ti9LUGJpeVFrWVR2QVY4WitsK2NUdjcwSFA4UEhKT1NEb0lr?=
+ =?utf-8?B?ZXZKK2l2NWM1dUNNUWFveXhGNEszWmhubGtrTFgrOGdNU044UnIxRXVib0dn?=
+ =?utf-8?B?cm5sUERZUFZpdHhlTjlMYUwxZmxBa1dmSnRqQS9SeHFnQ0hmUXRWQ1E5ZzY1?=
+ =?utf-8?B?OTdvSGk1LzAyVkY2T2pURTBiT2ZRanhBcXFwRk1zd29VY0s0ZXlTT3ArbUJY?=
+ =?utf-8?B?Y1BLM2JmWTJYM1pvYno4ZWF0ZSthbGpZeXRDQUErRWZBRHlpN2Fwa3R3bTBZ?=
+ =?utf-8?B?U1QzeGc0VzV3Zi9JTjk4dHBwWXp2ejhlaTcxRC9leG9BK2Y2TVg3TWdrZDFK?=
+ =?utf-8?B?cFhTYUlvRFBvYS9FaXRDazBFV3JRczFJb3RwZ01iY3BKcjBMYUIzL2dRcXVa?=
+ =?utf-8?B?dXBMZFhTUmN1T1dGOEFQRitYem0zVnZ2SUwvOXRsV2NpYW9CejhLdXNPaC8v?=
+ =?utf-8?B?V0dQTHgyZUhPQjdZVnloZ21WUythei9sWG15cExFMG5MUlJwSlFqTGpnZGdX?=
+ =?utf-8?B?aDBhRkhlbmU2dm1zamw5VFQrWGI5akhEK1BVZDhRb3R1NEpqZHNhWUFPaTlI?=
+ =?utf-8?B?dFVTa1JSZThpSU5Zd0tVRGxXK3hvNldYTVlnVzB4b2h5Ujk4bm1aMW5Zb3Jo?=
+ =?utf-8?B?cUlVTGxLZXhaM09rVDRBU0tkcVJJTW1Ea1NGVkdkd05uYTlTRWNpYjRaRy9i?=
+ =?utf-8?B?U1hwNUI4ZFJROTAzcDFnVW84N3M2QmNlS3BMelY5L1UyS2NhWjdGdHBaS3l0?=
+ =?utf-8?B?cDZCc3Y2TGpQcUo5VTNtTks0by85bmxIRTYxYndXalBnMnBZa3NLUnE5bUJh?=
+ =?utf-8?B?VG9rSCtUb1h5d3JUSXBtOGMraUt2Rm1Ud2FXbUM4aEl5U0ZNNlZIeVBjMWkr?=
+ =?utf-8?B?K1ZrQzdJeks5STNUbEUvZWZ2NU1KQ0VpVnBDREVSMkVCQ3ZiNzB3MnhPejQ3?=
+ =?utf-8?B?UDUwbUw0aVJmN0ZYZ1FvMHlzNi93L3VwaW16TE5ZTVBDU2FsRzB3dTJFZDBO?=
+ =?utf-8?B?S2ZKT0F4WEdxVTN6YUEzWk5Hc1NtN1ZXODA3aGJoZXRlanBFVUVDaVN5TEVI?=
+ =?utf-8?B?em1BbnI1Q0FJRjdVU2ZCV1U3TTM0c2VsUkx5U1U2TjlnWFZwdDlMajhqa0ZO?=
+ =?utf-8?Q?pO8w1Nv7H8fUd?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0f19066-8538-48b2-ab7e-08d8db8386ce
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2021 00:55:22.6182 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JUNQJOBgeEv3Ug7s0L7BeVUcHRh6K7sCQ+qmiXfqWcvGUcmGKRjyOFuKi1IdYACVwAZcxxABbI8ZDprs00VX7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2798
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,177 +147,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Zhang, Andy" <Andy.Zhang@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>,
  "Zhang, Jack \(Jian\)" <Jack.Zhang1@amd.com>
-Content-Type: multipart/mixed; boundary="===============1488791926=="
+Content-Type: multipart/mixed; boundary="===============1331605844=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1488791926==
+--===============1331605844==
 Content-Type: multipart/alternative;
- boundary="------------44D5FD16904ACCE2A35D1140"
+ boundary="------------7DD5C085E67C287144C0BF2A"
 Content-Language: en-US
 
-This is a multi-part message in MIME format.
---------------44D5FD16904ACCE2A35D1140
-Content-Type: text/plain; charset=utf-8; format=flowed
+--------------7DD5C085E67C287144C0BF2A
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 27.02.21 um 04:50 schrieb Liu, Monk:
+
+On 2021-02-26 10:56 p.m., Liu, Monk wrote:
 >
 > [AMD Official Use Only - Internal Distribution Only]
 >
 >
-> the code I pasted is to illustrate why the innocent job is already 
-> taken out in the mirror list thus my suggested proposal won’t work 
-> unless we don’t delete the job in sched_job_timeout() routine, and the 
-> problem you stated is with my understanding also kind of related with 
-> my suggested solution – the job removing from list should be handled 
-> by driver instead of scheduler .
+> H Andrey
+>
+> The scenario I hit here is not the one you mentioned, let me explain 
+> it with more details by another much easier understood example:
+>
+> Consider ring you have a job1 on KCQ, but the timeout of KCQ is 60 
+> seconds (just for example)
+>
+> You also have a job2 on GFX ring, and the timeout of GFX is 2 seconds
+>
+> We submit job1 first, and assume job1 have bug and it will cause 
+> shader hang very very soon
+>
+> After 10 seconds we submit job2, since KCQ have 60 seconds to report 
+> TDR thus SW know nothing about the engine already hang
 >
 
-Yes, exactly that's my thinking as well.
+So gfx job hangs because it has a dependency on buggy compute job which 
+already is hanging ?
 
-> let make scheduler’s duty clear and simple : the sched_job_timeout() 
-> only get notification when a sched_job timedout but it doesn’t judge 
->  if the leading job in mirror list should be blamed , all those 
-> checking should be left to driver to take action.
+
+> After 2 seconds we got TDR report from job2 on GFX ring, 
+> sched_job_timeout() think the leading job of GFX ring is the black 
+> sheep so it is deleted from the mirror list
+>
+> But in fact this job1 is innocent, and we should insert it back after 
+> recovery , and due to it was already deleted this innocent job’s 
+> context/process is really harmed
 >
 
-Need to get a detailed look, but it sounds correct as well.
+I am still missing something - we don't ever delete bad jobs or any jobs 
+until they are signaled, we reinsert the bad  job back into mirror list 
+in drm_sched_stop
+(here - 
+https://elixir.bootlin.com/linux/v5.11.1/source/drivers/gpu/drm/scheduler/sched_main.c#L385) 
+after sched thread is stopped and continue with the reset procedure.
 
-> >>If we do this we should probably make it configurable as a module 
-> parameter.
->
-> That’s ok,  maybe we can reuse the existed parm “gpu_recovery”, extend 
-> it with:
->
-> l0 – no recovery initiated after job timeout
->
-> l1 – legacy TDR behave
->
-> l2 – enhanced TDR behave (the one suggested here)
->
+Andrey
 
-Yes, something like that should work. Key point is we had a couple of 
-people who already suggested to optimize the reset routine so that it 
-doesn't take so long.
 
-So far I pushed back on this because the reset routine isn't something I 
-would optimize for speed. But when it starts to take something like 10 
-seconds instead of halve a second because you had an extra long running 
-compute job we will certainly see complains.
-
-Regards,
-Christian.
-
-> *发件人:*Koenig, Christian <Christian.Koenig@amd.com>
-> *发送时间:*2021年2月26日20:05
-> *收件人:*Liu, Monk <Monk.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+> Hope above example helps
+>
+> Thanks
+>
+> *发件人:*Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> *发送时间:*2021年2月27日0:50
+> *收件人:*Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian 
+> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
 > *抄送:*Zhang, Andy <Andy.Zhang@amd.com>; Chen, Horace 
 > <Horace.Chen@amd.com>; Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
 > *主题:*Re: [RFC] a new approach to detect which ring is the real black 
 > sheep upon TDR reported
 >
-> Yeah that is exactly the stuff which doesn't works at all. We got 
-> feedback for multiple people that this whole approach of tying the job 
-> to the tdr was not a good idea at all.
->
-> What we should do instead is to have a pointer in the scheduler fence 
-> to which job it belongs. Freeing up the job when the scheduler fence 
-> is signaled is then job of the driver and not the scheduler any more.
->
-> The scheduler then gives the scheduler fence to the driver when a 
-> timeout is detected and the driver can do the rest of the handling all 
-> by itself.
->
-> But this problem is orthogonal to the suggested solution here.
->
->
->     do you have a better solution or idea we review it as another
->     candidate RFC ?
->
->
-> I don't see much other option either. We could do something like only 
-> allowing one application at a time to use the gfx/compute block, but 
-> that would be even worse.
->
-> If we do this we should probably make it configurable as a module 
-> parameter.
->
-> Regards,
-> Christian.
->
-> Am 26.02.21 um 12:57 schrieb Liu, Monk:
->
->     [AMD Official Use Only - Internal Distribution Only]
->
->     static void drm_sched_job_timedout(struct work_struct *work)
->
->     279 {
->
->     280     struct drm_gpu_scheduler *sched;
->
->     281     struct drm_sched_job *job;
->
->     282
->
->     283     sched = container_of(work, struct drm_gpu_scheduler,
->     work_tdr.work);
->
->     284
->
->     285     /* Protects against concurrent deletion in
->     drm_sched_get_cleanup_job */
->
->     *286 spin_lock(&sched->job_list_lock);*
->
->     *287     job = list_first_entry_or_null(&sched->ring_mirror_list,*
->
->     *288 struct drm_sched_job, node);*
->
->     *289*
->
->     *290     if (job) {*
->
->     *291         /**
->
->     *292          * Remove the bad job so it cannot be freed by
->     concurrent*
->
->     *293          * drm_sched_cleanup_jobs. It will be reinserted back
->     after sched->thread*
->
->     *294          * is parked at which point it's safe.*
->
->     *295          */*
->
->     *296 list_del_init(&job->node);*
->
->     *297 spin_unlock(&sched->job_list_lock);*
->
->     *298*
->
->     *299 job->sched->ops->timedout_job(job);*
->
->     Thanks
->
->     ------------------------------------------
->
->     Monk Liu | Cloud-GPU Core team
->
->     ------------------------------------------
->
->     *From:*Liu, Monk
->     *Sent:* Friday, February 26, 2021 7:54 PM
->     *To:* Koenig, Christian <Christian.Koenig@amd.com>
->     <mailto:Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
->     <mailto:amd-gfx@lists.freedesktop.org>
->     *Cc:* Zhang, Andy <Andy.Zhang@amd.com>
->     <mailto:Andy.Zhang@amd.com>; Chen, Horace <Horace.Chen@amd.com>
->     <mailto:Horace.Chen@amd.com>; Zhang, Jack (Jian)
->     <Jack.Zhang1@amd.com> <mailto:Jack.Zhang1@amd.com>
->     *Subject:* RE: [RFC] a new approach to detect which ring is the
->     real black sheep upon TDR reported
+> On 2021-02-26 6:54 a.m., Liu, Monk wrote:
 >
 >     [AMD Official Use Only - Internal Distribution Only]
 >
@@ -274,15 +233,15 @@ Christian.
 >
 >     ------------------------------------------
 >
->     *From:*Koenig, Christian <Christian.Koenig@amd.com
->     <mailto:Christian.Koenig@amd.com>>
+>     *From:*Koenig, Christian <Christian.Koenig@amd.com>
+>     <mailto:Christian.Koenig@amd.com>
 >     *Sent:* Friday, February 26, 2021 3:58 PM
->     *To:* Liu, Monk <Monk.Liu@amd.com <mailto:Monk.Liu@amd.com>>;
+>     *To:* Liu, Monk <Monk.Liu@amd.com> <mailto:Monk.Liu@amd.com>;
 >     amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->     *Cc:* Zhang, Andy <Andy.Zhang@amd.com
->     <mailto:Andy.Zhang@amd.com>>; Chen, Horace <Horace.Chen@amd.com
->     <mailto:Horace.Chen@amd.com>>; Zhang, Jack (Jian)
->     <Jack.Zhang1@amd.com <mailto:Jack.Zhang1@amd.com>>
+>     *Cc:* Zhang, Andy <Andy.Zhang@amd.com>
+>     <mailto:Andy.Zhang@amd.com>; Chen, Horace <Horace.Chen@amd.com>
+>     <mailto:Horace.Chen@amd.com>; Zhang, Jack (Jian)
+>     <Jack.Zhang1@amd.com> <mailto:Jack.Zhang1@amd.com>
 >     *Subject:* Re: [RFC] a new approach to detect which ring is the
 >     real black sheep upon TDR reported
 >
@@ -300,6 +259,26 @@ Christian.
 >     sched logic already deleted this “sched_job” in its mirror list,
 >     thus you don’t have chance to re-submit it again after reset,
 >     that’s the major problem here.
+>
+> Just to confirm I understand correctly, Monk reports a scenario where 
+> the second TDR that was reported by the innocent job is bailing out 
+> BEFORE having a chance to run  drm_sched_stop for that scheduler which 
+> should have reinserted the job back into mirror list (because the 
+> first TDR run is still in progress and hence amdgpu_device_lock_adev 
+> fails for the second TDR) and so the innocent job which was extracted 
+> from mirror list in drm_sched_job_timedout is now lost.
+> If so and as a possible quick fix until we overhaul the entire design 
+> as suggested in this thread - maybe we can modify 
+> drm_sched_backend_ops.timedout_job callback to report back premature 
+> termination BEFORE drm_sched_stop had a chance to run and then 
+> reinsert back the job into mirror list from within  
+> drm_sched_job_timedout? There is no problem of racing against 
+> concurrent drm_sched_get_cleanup_job once we reinsert there as we 
+> don't reference the job pointer anymore after this point and so if 
+> it's already signaled and freed right away - it's ok.
+>
+> Andrey
+>
 >
 >     Apart from that the whole ring mirror list turned out to be a
 >     really bad idea. E.g. we still struggle with object life time
@@ -403,49 +382,52 @@ Christian.
 >         ------------------------------------------
 >
 >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>     _______________________________________________
+>
+>     amd-gfx mailing list
+>
+>     amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 
-
---------------44D5FD16904ACCE2A35D1140
-Content-Type: text/html; charset=utf-8
+--------------7DD5C085E67C287144C0BF2A
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    Am 27.02.21 um 04:50 schrieb Liu, Monk:<br>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-02-26 10:56 p.m., Liu, Monk
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
+      
       <meta name="Generator" content="Microsoft Word 15 (filtered
         medium)">
       <style><!--
 /* Font Definitions */
 @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:宋体;
+	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:等线;
+	{font-family:DengXian;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"\@等线";
+	{font-family:DengXian;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"\@宋体";
+	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
@@ -454,8 +436,14 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	font-family:"Calibri",sans-serif;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
-	color:#0563C1;
+	color:blue;
 	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML \9884\8BBE\683C\5F0F \5B57\7B26";
+	margin:0cm;
+	font-size:10.0pt;
+	font-family:"Courier New";}
 p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	{mso-style-priority:34;
 	margin-top:0cm;
@@ -480,9 +468,14 @@ p.msipheadera92f4c5c, li.msipheadera92f4c5c, div.msipheadera92f4c5c
 	margin-left:0cm;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle22
+span.HTML
+	{mso-style-name:"HTML \9884\8BBE\683C\5F0F \5B57\7B26";
+	mso-style-priority:99;
+	mso-style-link:"HTML \9884\8BBE\683C\5F0F";
+	font-family:"Courier New";}
+span.EmailStyle25
 	{mso-style-type:personal-reply;
-	font-family:等线;
+	font-family:DengXian;
 	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
@@ -549,7 +542,7 @@ div.WordSection1
 	text-indent:-18.0pt;}
 @list l1:level2
 	{mso-level-number-format:bullet;
-	mso-level-text:;
+	mso-level-text:\F0B7;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;
@@ -587,123 +580,47 @@ div.WordSection1
 	mso-level-number-position:right;
 	text-indent:-9.0pt;}
 @list l2
-	{mso-list-id:1593588455;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-696075286 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l2:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:21.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:42.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:63.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:84.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:105.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:126.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:147.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:168.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l2:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:189.0pt;
-	text-indent:-21.0pt;
-	font-family:Wingdings;}
-@list l3
 	{mso-list-id:1655448059;
 	mso-list-type:hybrid;
 	mso-list-template-ids:-1584207202 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l3:level1
+@list l2:level1
 	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level2
+@list l2:level2
 	{mso-level-number-format:alpha-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level3
+@list l2:level3
 	{mso-level-number-format:roman-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:right;
 	text-indent:-9.0pt;}
-@list l3:level4
+@list l2:level4
 	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level5
+@list l2:level5
 	{mso-level-number-format:alpha-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level6
+@list l2:level6
 	{mso-level-number-format:roman-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:right;
 	text-indent:-9.0pt;}
-@list l3:level7
+@list l2:level7
 	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level8
+@list l2:level8
 	{mso-level-number-format:alpha-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-18.0pt;}
-@list l3:level9
+@list l2:level9
 	{mso-level-number-format:roman-lower;
 	mso-level-tab-stop:none;
 	mso-level-number-position:right;
@@ -718,328 +635,142 @@ ul
 <o:shapelayout v:ext="edit">
 <o:idmap v:ext="edit" data="1" />
 </o:shapelayout></xml><![endif]-->
-      <p
-        style="font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;"
-        align="Left">
+      <p style="font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" align="Left">
         [AMD Official Use Only - Internal Distribution Only]<br>
       </p>
       <br>
       <div>
         <div class="WordSection1">
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">the
-              code I pasted is to illustrate why the innocent job is
-              already taken out in the mirror list thus my suggested
-              proposal won’t work unless we don’t delete the job in
-              sched_job_timeout() routine, and the problem you stated is
-              with my understanding also kind of related with my
-              suggested solution – the job removing from list should be
-              handled by driver instead of scheduler .</span></p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Yes, exactly that's my thinking as well.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">let
-              make scheduler’s duty clear and simple : the
-              sched_job_timeout() only get notification when a sched_job
-              timedout but it doesn’t judge  if the leading job in
-              mirror list should be blamed , all those checking should
-              be left to driver to take action.</span></p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Need to get a detailed look, but it sounds correct as well.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">&gt;&gt;</span><span
-              lang="EN-US"> If we do this we should probably make it
-              configurable as a module parameter.<o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">That’s
-              ok,  maybe we can reuse the existed parm “gpu_recovery”,
-              extend it with:<o:p></o:p></span></p>
-          <p class="MsoListParagraph"
-            style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l2
-            level1 lfo6">
-            <!--[if !supportLists]--><span
-              style="font-size:10.5pt;font-family:Wingdings"
-              lang="EN-US"><span style="mso-list:Ignore">l<span
-                  style="font:7.0pt &quot;Times New Roman&quot;"> 
-                </span></span></span><!--[endif]--><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">0 –
-              no recovery initiated after job timeout<o:p></o:p></span></p>
-          <p class="MsoListParagraph"
-            style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l2
-            level1 lfo6">
-            <!--[if !supportLists]--><span
-              style="font-size:10.5pt;font-family:Wingdings"
-              lang="EN-US"><span style="mso-list:Ignore">l<span
-                  style="font:7.0pt &quot;Times New Roman&quot;"> 
-                </span></span></span><!--[endif]--><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">1 –
-              legacy TDR behave
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">H
+              Andrey<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">The
+              scenario I hit here is not the one you mentioned, let me
+              explain it with more details by another much easier
+              understood example:<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">Consider
+              ring you have a job1 on KCQ, but the timeout of KCQ is 60
+              seconds (just for example)<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">You
+              also have a job2 on GFX ring, and the timeout of GFX is 2
+              seconds<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">We
+              submit job1 first, and assume job1 have bug and it will
+              cause shader hang very very soon
               <o:p></o:p></span></p>
-          <p class="MsoListParagraph"
-            style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l2
-            level1 lfo6">
-            <!--[if !supportLists]--><span
-              style="font-size:10.5pt;font-family:Wingdings"
-              lang="EN-US"><span style="mso-list:Ignore">l<span
-                  style="font:7.0pt &quot;Times New Roman&quot;"> 
-                </span></span></span><!--[endif]--><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US">2 –
-              enhanced TDR behave (the one suggested here)</span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">After
+              10 seconds we submit job2, since KCQ have 60 seconds to
+              report TDR thus SW know nothing about the engine already
+              hang</span></p>
         </div>
       </div>
     </blockquote>
-    <br>
-    Yes, something like that should work. Key point is we had a couple
-    of people who already suggested to optimize the reset routine so
-    that it doesn't take so long.<br>
-    <br>
-    So far I pushed back on this because the reset routine isn't
-    something I would optimize for speed. But when it starts to take
-    something like 10 seconds instead of halve a second because you had
-    an extra long running compute job we will certainly see complains.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
+    <p><br>
+    </p>
+    <p>So gfx job hangs because it has a dependency on buggy compute job
+      which already is hanging ?</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
       <div>
         <div class="WordSection1">
-          <p class="MsoListParagraph"
-            style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l2
-            level1 lfo6"><span style="font-size:10.5pt;font-family:等线"
-              lang="EN-US"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">After
+              2 seconds we got TDR report from job2 on GFX ring,
+              sched_job_timeout() think the leading job of GFX ring is
+              the black sheep so it is deleted from the mirror list<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">But
+              in fact this job1 is innocent, and we should insert it
+              back after recovery , and due to it was already deleted
+              this innocent job’s context/process is really harmed</span></p>
+        </div>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+    <p>I am still missing something - we don't ever delete bad jobs or
+      any jobs until they are signaled, we reinsert the bad&nbsp; job back
+      into mirror list in drm_sched_stop <br>
+      (here -
+<a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/v5.11.1/source/drivers/gpu/drm/scheduler/sched_main.c#L385">https://elixir.bootlin.com/linux/v5.11.1/source/drivers/gpu/drm/scheduler/sched_main.c#L385</a>)
+      after sched thread is stopped and continue with the reset
+      procedure.</p>
+    <p>Andrey</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:DM5PR12MB1708A26CFB637B10A7C7F6B7849C9@DM5PR12MB1708.namprd12.prod.outlook.com">
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">Hope
+              above example helps<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US">Thanks
+              <o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:10.5pt;font-family:DengXian" lang="EN-US"><o:p>&nbsp;</o:p></span></p>
           <div>
             <div style="border:none;border-top:solid #E1E1E1
               1.0pt;padding:3.0pt 0cm 0cm 0cm">
-              <p class="MsoNormal"><b><span style="font-family:等线">发件人<span
-                      lang="EN-US">:</span></span></b><span
-                  style="font-family:等线" lang="EN-US"> Koenig, Christian
-                  <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+              <p class="MsoNormal"><b><span style="font-family:DengXian">发件人<span lang="EN-US">:</span></span></b><span style="font-family:DengXian" lang="EN-US"> Grodzovsky,
+                  Andrey <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>
                   <br>
-                </span><b><span style="font-family:等线">发送时间<span
-                      lang="EN-US">:</span></span></b><span
-                  style="font-family:等线" lang="EN-US"> 2021</span><span
-                  style="font-family:等线">年<span lang="EN-US">2</span>月<span
-                    lang="EN-US">26</span>日<span lang="EN-US"> 20:05<br>
-                  </span><b>收件人<span lang="EN-US">:</span></b><span
-                    lang="EN-US"> Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu@amd.com">&lt;Monk.Liu@amd.com&gt;</a>;
+                </span><b><span style="font-family:DengXian">发送时间<span lang="EN-US">:</span></span></b><span style="font-family:DengXian" lang="EN-US"> 2021</span><span style="font-family:DengXian">年<span lang="EN-US">2</span>月<span lang="EN-US">27</span>日<span lang="EN-US"> 0:50<br>
+                  </span><b>收件人<span lang="EN-US">:</span></b><span lang="EN-US"> Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu@amd.com">&lt;Monk.Liu@amd.com&gt;</a>;
+                    Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>;
                     <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                  </span><b>抄送<span lang="EN-US">:</span></b><span
-                    lang="EN-US"> Zhang, Andy
+                  </span><b>抄送<span lang="EN-US">:</span></b><span lang="EN-US"> Zhang, Andy
                     <a class="moz-txt-link-rfc2396E" href="mailto:Andy.Zhang@amd.com">&lt;Andy.Zhang@amd.com&gt;</a>; Chen, Horace
                     <a class="moz-txt-link-rfc2396E" href="mailto:Horace.Chen@amd.com">&lt;Horace.Chen@amd.com&gt;</a>; Zhang, Jack (Jian)
                     <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Zhang1@amd.com">&lt;Jack.Zhang1@amd.com&gt;</a><br>
-                  </span><b>主题<span lang="EN-US">:</span></b><span
-                    lang="EN-US"> Re: [RFC] a new approach to detect
+                  </span><b>主题<span lang="EN-US">:</span></b><span lang="EN-US"> Re: [RFC] a new approach to detect
                     which ring is the real black sheep upon TDR reported<o:p></o:p></span></span></p>
             </div>
           </div>
-          <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
-          <p class="MsoNormal"><span lang="EN-US">Yeah that is exactly
-              the stuff which doesn't works at all. We got feedback for
-              multiple people that this whole approach of tying the job
-              to the tdr was not a good idea at all.<br>
-              <br>
-              What we should do instead is to have a pointer in the
-              scheduler fence to which job it belongs. Freeing up the
-              job when the scheduler fence is signaled is then job of
-              the driver and not the scheduler any more.<br>
-              <br>
-              The scheduler then gives the scheduler fence to the driver
-              when a timeout is detected and the driver can do the rest
-              of the handling all by itself.<br>
-              <br>
-              But this problem is orthogonal to the suggested solution
-              here.<br>
-              <br>
-              <br>
-            </span><span style="font-size:12.0pt" lang="EN-US"><o:p></o:p></span></p>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <p class="MsoNormal"><span lang="EN-US">do you have a better
-                solution or idea we review it as another candidate RFC ?<o:p></o:p></span></p>
-          </blockquote>
-          <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-              lang="EN-US"><br>
-              I don't see much other option either. We could do
-              something like only allowing one application at a time to
-              use the gfx/compute block, but that would be even worse.<br>
-              <br>
-              If we do this we should probably make it configurable as a
-              module parameter.<br>
-              <br>
-              Regards,<br>
-              Christian.<o:p></o:p></span></p>
+          <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
           <div>
-            <p class="MsoNormal"><span lang="EN-US">Am 26.02.21 um 12:57
-                schrieb Liu, Monk:<o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US">On 2021-02-26 6:54
+                a.m., Liu, Monk wrote:<o:p></o:p></span></p>
           </div>
           <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <p class="msipheadera92f4c5c" style="margin:0cm"><span
-                style="font-family:&quot;Arial&quot;,sans-serif;color:#0078D7"
-                lang="EN-US">[AMD Official Use Only - Internal
+            <p class="msipheadera92f4c5c" style="margin:0cm"><span style="font-family:&quot;Arial&quot;,sans-serif;color:#0078D7" lang="EN-US">[AMD Official Use Only - Internal
                 Distribution Only]</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">static void
-                drm_sched_job_timedout(struct work_struct *work)<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">279 {<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">280     struct
-                drm_gpu_scheduler *sched;<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">281     struct
-                drm_sched_job *job;<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">282<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">283     sched =
-                container_of(work, struct drm_gpu_scheduler,
-                work_tdr.work);<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">284<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US">285     /* Protects
-                against concurrent deletion in drm_sched_get_cleanup_job
-                */<o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">286    
-                  spin_lock(&amp;sched-&gt;job_list_lock);</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">287     job =
-                  list_first_entry_or_null(&amp;sched-&gt;ring_mirror_list,</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">288                       
-                  struct drm_sched_job, node);</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">289</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">290     if (job)
-                  {</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">291         /*</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">292          *
-                  Remove the bad job so it cannot be freed by concurrent</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">293          *
-                  drm_sched_cleanup_jobs. It will be reinserted back
-                  after sched-&gt;thread</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">294          * is
-                  parked at which point it's safe.</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">295          */</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">296        
-                  list_del_init(&amp;job-&gt;node);</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">297        
-                  spin_unlock(&amp;sched-&gt;job_list_lock);</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">298</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><b><span lang="EN-US">299        
-                  job-&gt;sched-&gt;ops-&gt;timedout_job(job);</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <div>
-              <p class="MsoNormal"><span lang="EN-US">Thanks <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US">Monk Liu |
-                  Cloud-GPU Core team<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
-            </div>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <div>
-              <div style="border:none;border-top:solid #E1E1E1
-                1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                <p class="MsoNormal"><b><span lang="EN-US">From:</span></b><span
-                    lang="EN-US"> Liu, Monk
-                    <br>
-                    <b>Sent:</b> Friday, February 26, 2021 7:54 PM<br>
-                    <b>To:</b> Koenig, Christian <a
-                      href="mailto:Christian.Koenig@amd.com"
-                      moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>;
-                    <a href="mailto:amd-gfx@lists.freedesktop.org"
-                      moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a><br>
-                    <b>Cc:</b> Zhang, Andy <a
-                      href="mailto:Andy.Zhang@amd.com"
-                      moz-do-not-send="true">&lt;Andy.Zhang@amd.com&gt;</a>;
-                    Chen, Horace
-                    <a href="mailto:Horace.Chen@amd.com"
-                      moz-do-not-send="true">&lt;Horace.Chen@amd.com&gt;</a>;
-                    Zhang, Jack (Jian)
-                    <a href="mailto:Jack.Zhang1@amd.com"
-                      moz-do-not-send="true">&lt;Jack.Zhang1@amd.com&gt;</a><br>
-                    <b>Subject:</b> RE: [RFC] a new approach to detect
-                    which ring is the real black sheep upon TDR reported<o:p></o:p></span></p>
-              </div>
-            </div>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <p class="msipheadera92f4c5c" style="margin:0cm"><span
-                style="font-family:&quot;Arial&quot;,sans-serif;color:#0078D7"
-                lang="EN-US">[AMD Official Use Only - Internal
-                Distribution Only]</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
             <p class="MsoNormal"><span lang="EN-US">See in line<o:p></o:p></span></p>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
             <div>
               <p class="MsoNormal"><span lang="EN-US">Thanks <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">Monk Liu |
                   Cloud-GPU Core team<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
             </div>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
             <div>
               <div style="border:none;border-top:solid #E1E1E1
                 1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                <p class="MsoNormal"><b><span lang="EN-US">From:</span></b><span
-                    lang="EN-US"> Koenig, Christian &lt;<a
-                      href="mailto:Christian.Koenig@amd.com"
-                      moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;
+                <p class="MsoNormal"><b><span lang="EN-US">From:</span></b><span lang="EN-US"> Koenig, Christian
+                    <a href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>
                     <br>
                     <b>Sent:</b> Friday, February 26, 2021 3:58 PM<br>
-                    <b>To:</b> Liu, Monk &lt;<a
-                      href="mailto:Monk.Liu@amd.com"
-                      moz-do-not-send="true">Monk.Liu@amd.com</a>&gt;; <a
-                      href="mailto:amd-gfx@lists.freedesktop.org"
-                      moz-do-not-send="true">
+                    <b>To:</b> Liu, Monk <a href="mailto:Monk.Liu@amd.com" moz-do-not-send="true">&lt;Monk.Liu@amd.com&gt;</a>;
+                    <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
                       amd-gfx@lists.freedesktop.org</a><br>
-                    <b>Cc:</b> Zhang, Andy &lt;<a
-                      href="mailto:Andy.Zhang@amd.com"
-                      moz-do-not-send="true">Andy.Zhang@amd.com</a>&gt;;
-                    Chen, Horace &lt;<a
-                      href="mailto:Horace.Chen@amd.com"
-                      moz-do-not-send="true">Horace.Chen@amd.com</a>&gt;;
-                    Zhang, Jack (Jian) &lt;<a
-                      href="mailto:Jack.Zhang1@amd.com"
-                      moz-do-not-send="true">Jack.Zhang1@amd.com</a>&gt;<br>
+                    <b>Cc:</b> Zhang, Andy <a href="mailto:Andy.Zhang@amd.com" moz-do-not-send="true">&lt;Andy.Zhang@amd.com&gt;</a>;
+                    Chen, Horace
+                    <a href="mailto:Horace.Chen@amd.com" moz-do-not-send="true">&lt;Horace.Chen@amd.com&gt;</a>;
+                    Zhang, Jack (Jian)
+                    <a href="mailto:Jack.Zhang1@amd.com" moz-do-not-send="true">&lt;Jack.Zhang1@amd.com&gt;</a><br>
                     <b>Subject:</b> Re: [RFC] a new approach to detect
                     which ring is the real black sheep upon TDR reported<o:p></o:p></span></p>
               </div>
             </div>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-                lang="EN-US">Hi Monk,<br>
+            <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US">Hi Monk,<br>
                 <br>
                 in general an interesting idea, but I see two major
                 problems with that:<br>
@@ -1048,13 +779,37 @@ cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.out
                 <br>
                 2. Things get often stuck because of timing issues, so a
                 guilty job might pass perfectly when run a second time.<o:p></o:p></span></p>
-            <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-                lang="EN-US">[ML] but the innocent ring already reported
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US">[ML] but the innocent ring already reported
                 a TDR, and the drm sched logic already deleted this
                 “sched_job” in its mirror list, thus you don’t have
                 chance to re-submit it again after reset, that’s the
-                major problem here.<br>
-                <br>
+                major problem here.<o:p></o:p></span></p>
+          </blockquote>
+          <p><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <p><span lang="EN-US">Just to confirm I understand correctly,
+              Monk reports a scenario where the second TDR that was
+              reported by the innocent job is bailing out BEFORE having
+              a chance to run&nbsp; drm_sched_stop for that scheduler which
+              should have reinserted the job back into mirror list
+              (because the first TDR run is still in progress and hence
+              amdgpu_device_lock_adev fails for the second TDR) and so
+              the innocent job which was extracted from mirror list in
+              drm_sched_job_timedout is now lost.<br>
+              If so and as a possible quick fix until we overhaul the
+              entire design as suggested in this thread - maybe we can
+              modify drm_sched_backend_ops.timedout_job callback to
+              report back premature termination BEFORE drm_sched_stop
+              had a chance to run and then reinsert back the job into
+              mirror list from within&nbsp; drm_sched_job_timedout? There is
+              no problem of racing against concurrent
+              drm_sched_get_cleanup_job once we reinsert there as we
+              don't reference the job pointer anymore after this point
+              and so if it's already signaled and freed right away -
+              it's ok. <o:p></o:p></span></p>
+          <p><span lang="EN-US">Andrey<o:p></o:p></span></p>
+          <p><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US"><br>
                 Apart from that the whole ring mirror list turned out to
                 be a really bad idea. E.g. we still struggle with object
                 life time because the concept doesn't fit into the
@@ -1063,8 +818,7 @@ cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.out
                 We should probably work on this separately and
                 straighten up the job destruction once more and keep the
                 recovery information in the fence instead.<o:p></o:p></span></p>
-            <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-                lang="EN-US">[ML] we claim to our customer that no
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US">[ML] we claim to our customer that no
                 innocent process will be dropped or cancelled, and our
                 current logic works for the most time, but only when
                 there are different process running on gfx/computes
@@ -1076,11 +830,9 @@ cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.out
                 and we do need to resolve it …. So even a not perfect
                 solution is still better than just cancel the innocent
                 job (and their context/process)<o:p></o:p></span></p>
-            <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-                lang="EN-US">Thanks ! <o:p>
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US">Thanks ! <o:p>
                 </o:p></span></p>
-            <p class="MsoNormal" style="margin-bottom:12.0pt"><span
-                lang="EN-US"><br>
+            <p class="MsoNormal" style="margin-bottom:12.0pt"><span lang="EN-US"><br>
                 Regards,<br>
                 Christian.<o:p></o:p></span></p>
             <div>
@@ -1088,181 +840,138 @@ cite="mid:DM5PR12MB1708E521038AD046F45943AE849C9@DM5PR12MB1708.namprd12.prod.out
                   06:58 schrieb Liu, Monk:<o:p></o:p></span></p>
             </div>
             <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p class="msipheader251902e5" style="margin:0cm"><span
-style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100"
-                  lang="EN-US">[AMD Public Use]</span><span lang="EN-US"><o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="msipheader251902e5" style="margin:0cm"><span style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100" lang="EN-US">[AMD Public Use]</span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">Hi all<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US">NAVI2X  project
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">NAVI2X &nbsp;project
                   hit a really hard to solve issue now, and it is turned
                   out to be a general headache of our TDR mechanism ,
                   check below scenario:<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <ol style="margin-top:0cm" type="1" start="1">
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><span
-                    lang="EN-US">There is a job1 running on compute1
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><span lang="EN-US">There is a job1 running on compute1
                     ring at timestamp
                     <o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><span
-                    lang="EN-US">There is a job2 running on gfx ring at
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><span lang="EN-US">There is a job2 running on gfx ring at
                     timestamp<o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><span
-                    lang="EN-US">Job1 is the guilty one, and job1/job2
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><span lang="EN-US">Job1 is the guilty one, and job1/job2
                     were scheduled to their rings at almost the same
                     timestamp
                     <o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><span
-                    lang="EN-US">After 2 seconds we receive two TDR
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><span lang="EN-US">After 2 seconds we receive two TDR
                     reporting from both GFX ring and compute ring<o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><b><span
-                      lang="EN-US">Current scheme is that in drm
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><b><span lang="EN-US">Current scheme is that in drm
                       scheduler all the head jobs of those two rings are
                       considered “bad job” and taken away from the
                       mirror list
                     </span></b><span lang="EN-US"><o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l0 level1 lfo1"><span
-                    lang="EN-US">The result is both the real guilty job
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l0 level1 lfo1"><span lang="EN-US">The result is both the real guilty job
                     (job1) and the innocent job (job2) were all deleted
                     from mirror list, and their corresponding contexts
                     were also treated as guilty<b> (so the innocent
                       process remains running is not secured)</b><o:p></o:p></span></li>
               </ol>
-              <p class="MsoListParagraph"><b><span lang="EN-US"> </span></b><span
-                  lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoListParagraph"><b><span lang="EN-US">&nbsp;</span></b><span lang="EN-US"><o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">But by our wish
                   the ideal case is TDR mechanism can detect which ring
                   is the guilty ring and the innocent ring can resubmits
                   all its pending jobs:<o:p></o:p></span></p>
               <ol style="margin-top:0cm" type="1" start="1">
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l3 level1 lfo2"><span
-                    lang="EN-US">Job1 to be deleted from compute1 ring’s
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l2 level1 lfo2"><span lang="EN-US">Job1 to be deleted from compute1 ring’s
                     mirror list<o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l3 level1 lfo2"><span
-                    lang="EN-US">Job2 is kept and resubmitted later and
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l2 level1 lfo2"><span lang="EN-US">Job2 is kept and resubmitted later and
                     its belonging process/context are even not aware of
                     this TDR at all
                     <o:p></o:p></span></li>
               </ol>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">Here I have a
                   proposal tend to achieve above goal and it rough
                   procedure is :<o:p></o:p></span></p>
               <ol style="margin-top:0cm" type="1" start="1">
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l1 level1 lfo3"><span
-                    lang="EN-US">Once any ring reports a TDR, the head
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level1 lfo3"><span lang="EN-US">Once any ring reports a TDR, the head
                     job is *<b>not</b>* treated as “bad job”, and it is
                     *<b>not</b>* deleted from the mirror list in drm
                     sched functions<o:p></o:p></span></li>
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l1 level1 lfo3"><span
-                    lang="EN-US">In vendor’s function (our amdgpu driver
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level1 lfo3"><span lang="EN-US">In vendor’s function (our amdgpu driver
                     here):<o:p></o:p></span></li>
               </ol>
               <ol style="margin-top:0cm" type="1" start="2">
                 <ul style="margin-top:0cm" type="disc">
-                  <li class="MsoListParagraph"
-                    style="margin-left:0cm;mso-list:l1 level2 lfo3"><span
-                      lang="EN-US">reset GPU<o:p></o:p></span></li>
-                  <li class="MsoListParagraph"
-                    style="margin-left:0cm;mso-list:l1 level2 lfo3"><span
-                      lang="EN-US">repeat below actions on each RINGS *
+                  <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level2 lfo3"><span lang="EN-US">reset GPU<o:p></o:p></span></li>
+                  <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level2 lfo3"><span lang="EN-US">repeat below actions on each RINGS *
                       one by one *:<o:p></o:p></span></li>
                 </ul>
               </ol>
-              <p class="MsoListParagraph"
-                style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
+              <p class="MsoListParagraph" style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
                 level3 lfo3">
-                <!--[if !supportLists]--><span lang="EN-US"><span
-                    style="mso-list:Ignore">1.<span style="font:7.0pt
+                <!--[if !supportLists]--><span lang="EN-US"><span style="mso-list:Ignore">1.<span style="font:7.0pt
                       &quot;Times New Roman&quot;">
-                    </span></span></span><!--[endif]--><span
-                  lang="EN-US">take the head job and submit it on this
+                    </span></span></span><!--[endif]--><span lang="EN-US">take the head job and submit it on this
                   ring<o:p></o:p></span></p>
-              <p class="MsoListParagraph"
-                style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
+              <p class="MsoListParagraph" style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
                 level3 lfo3">
-                <!--[if !supportLists]--><span lang="EN-US"><span
-                    style="mso-list:Ignore">2.<span style="font:7.0pt
+                <!--[if !supportLists]--><span lang="EN-US"><span style="mso-list:Ignore">2.<span style="font:7.0pt
                       &quot;Times New Roman&quot;">
-                    </span></span></span><!--[endif]--><span
-                  lang="EN-US">see if it completes, if not then this job
+                    </span></span></span><!--[endif]--><span lang="EN-US">see if it completes, if not then this job
                   is the real “bad job”<o:p></o:p></span></p>
-              <p class="MsoListParagraph"
-                style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
+              <p class="MsoListParagraph" style="margin-left:108.0pt;text-indent:-9.0pt;mso-list:l1
                 level3 lfo3">
-                <!--[if !supportLists]--><span lang="EN-US"><span
-                    style="mso-list:Ignore">3.<span style="font:7.0pt
+                <!--[if !supportLists]--><span lang="EN-US"><span style="mso-list:Ignore">3.<span style="font:7.0pt
                       &quot;Times New Roman&quot;">
-                    </span></span></span><!--[endif]--><span
-                  lang="EN-US"> take it away from mirror list if this
+                    </span></span></span><!--[endif]--><span lang="EN-US">&nbsp;take it away from mirror list if this
                   head job is “bad job”<o:p></o:p></span></p>
               <ol style="margin-top:0cm" type="1" start="2">
                 <ul style="margin-top:0cm" type="disc">
-                  <li class="MsoListParagraph"
-                    style="margin-left:0cm;mso-list:l1 level2 lfo3"><span
-                      lang="EN-US">After above iteration on all RINGS,
+                  <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level2 lfo3"><span lang="EN-US">After above iteration on all RINGS,
                       we already clears all the bad job(s)<o:p></o:p></span></li>
                 </ul>
               </ol>
               <ol style="margin-top:0cm" type="1" start="3">
-                <li class="MsoListParagraph"
-                  style="margin-left:0cm;mso-list:l1 level1 lfo3"><span
-                    lang="EN-US">Resubmit all jobs from each mirror list
+                <li class="MsoListParagraph" style="margin-left:0cm;mso-list:l1 level1 lfo3"><span lang="EN-US">Resubmit all jobs from each mirror list
                     to their corresponding rings (this is the existed
                     logic)<o:p></o:p></span></li>
               </ol>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">The idea of this
                   is to use “serial” way to re-run and re-check each
                   head job of each RING, in order to take out the real
                   black sheep and its guilty context.<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">P.S.: we can use
                   this approaches only on GFX/KCQ ring reports TDR ,
                   since those rings are intermutually affected to each
                   other. For SDMA ring timeout it definitely proves the
                   head job on SDMA ring is really guilty.<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">Thanks <o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">Monk Liu |
                   Cloud-GPU Core team<o:p></o:p></span></p>
               <p class="MsoNormal"><span lang="EN-US">------------------------------------------<o:p></o:p></span></p>
-              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
             </blockquote>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US">&nbsp;<o:p></o:p></span></p>
+            <p class="MsoNormal"><span lang="EN-US"><br>
+                <br>
+                <o:p></o:p></span></p>
+            <pre><span lang="EN-US">_______________________________________________<o:p></o:p></span></pre>
+            <pre><span lang="EN-US">amd-gfx mailing list<o:p></o:p></span></pre>
+            <pre><span lang="EN-US"><a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a><o:p></o:p></span></pre>
+            <pre><span lang="EN-US"><a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></pre>
           </blockquote>
-          <p class="MsoNormal"><span
-              style="font-size:12.0pt;font-family:宋体" lang="EN-US"><o:p> </o:p></span></p>
         </div>
       </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
     </blockquote>
-    <br>
   </body>
 </html>
 
---------------44D5FD16904ACCE2A35D1140--
+--------------7DD5C085E67C287144C0BF2A--
 
---===============1488791926==
+--===============1331605844==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1273,4 +982,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1488791926==--
+--===============1331605844==--
