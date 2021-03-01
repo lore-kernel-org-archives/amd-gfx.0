@@ -2,63 +2,64 @@ Return-Path: <SRS0=hzAD=H7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 142E4C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 08:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59725C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 08:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C374564DDF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 08:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C374564DDF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 22A3761494
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 08:52:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22A3761494
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0286E500;
-	Mon,  1 Mar 2021 08:32:44 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B86E6E4FE
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 08:32:43 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id 105so15721370otd.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Mar 2021 00:32:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KZxkgusAEAszVfaWvGB//toXTmfPRkQPutMJ/Wn2lM4=;
- b=R+HvKpH/ktAqKYHPMkLvBolOuGIJde9DeaMYCGtA2c7czV4k3QRmZbxN/u0G4WZHUp
- 1DicmnpfstpRLxSVJLaMGjicBhJ+KCviwWWeQgHcSIzf8xcGQXaN3DkmQzfc9LkJb/fi
- sqjwHP6iPc9Pn0wmjZAQIbt4b94orrZbusfCM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KZxkgusAEAszVfaWvGB//toXTmfPRkQPutMJ/Wn2lM4=;
- b=K/tFQMDiqIn6keE7M7tR3eda2IRFhmMWwzDHMU7EZ2QnIH1LYXSFX6BGWSVHcqwRsQ
- 5vh6wG1jjQ2xh6owrLtsA68GuwGT2bMzeMR+CoF/Qxr02Kf/hXD+LTxDkAb9Wz4GP9ei
- UYR1RLG1ibWjEm/Rlv4/d5vJzo3S/Y0PPf1nNQro6v0JIgUbLCmm9hGgZz9Z5d+qNYmf
- upjfpphWMP7tr17nTxDY2CkhTY3UaqRLHfMGzILRJp1pSOA8Qv++s951xnUHeCAogulX
- IZcJZg2inYjlSzdz7r+KYO5bSks3P9mIk4OfJZzX99cw5cOWLaU2PAtnSRb2HlPFFHyN
- iFgg==
-X-Gm-Message-State: AOAM533BWkL8aWbmMg8VhAvew1gV1OKzaGc2pLbLEMsn0zA5W2ZbfYj2
- 4bdcvtEMSm9pcNQ0x6rTO+9mGaOhxbBgDKrQ3gGU4g==
-X-Google-Smtp-Source: ABdhPJzt2jbPRUu994o/idF9dZbBTtqKD0CoMP8Ul8/tfW+eVQu74GDiVRxGcNkrDvvfZDNdVzUCbvha7SPNFjO2ASU=
-X-Received: by 2002:a9d:648f:: with SMTP id g15mr1053870otl.188.1614587562889; 
- Mon, 01 Mar 2021 00:32:42 -0800 (PST)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C436E512;
+	Mon,  1 Mar 2021 08:52:06 +0000 (UTC)
+X-Greylist: delayed 313 seconds by postgrey-1.36 at gabe;
+ Mon, 01 Mar 2021 08:52:05 UTC
+Received: from pio-pvt-msa1.bahnhof.se (pio-pvt-msa1.bahnhof.se [79.136.2.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E60C6E512
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 08:52:05 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 1FF953F5CD;
+ Mon,  1 Mar 2021 09:46:50 +0100 (CET)
+Authentication-Results: pio-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="ehRdhFYs";
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from pio-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (pio-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id LnE42f3fwIXm; Mon,  1 Mar 2021 09:46:49 +0100 (CET)
+Received: by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 809AA3F57B;
+ Mon,  1 Mar 2021 09:46:47 +0100 (CET)
+Received: from [10.249.254.148] (unknown [192.198.151.43])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id EA2053600BA;
+ Mon,  1 Mar 2021 09:46:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1614588406; bh=Z6xFn7O2EELK204PM9aKLbatlVdp+N1U6O2xIgFWJOs=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=ehRdhFYs/y93AM9zHvkbYyvv7PfAX3VH/rm6CrWV19WK3I414x8Ur+Ruwwe2/7uNK
+ oAi8Ra9a57MzoeFuE5DjCYySyvXMCc0oNBIRKDEIOQ3Nt0g3vNt4x5c4C+7GmsOETC
+ YI5CMj5Usa+hKqLxs+rffQFbjjI9pq2DiKm8QijM=
+Subject: Re: [PATCH 17/35] drm/amdkfd: register HMM device private zone
+To: Daniel Vetter <daniel@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>, 
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 References: <20210107030127.20393-1-Felix.Kuehling@amd.com>
  <20210107030127.20393-18-Felix.Kuehling@amd.com>
-In-Reply-To: <20210107030127.20393-18-Felix.Kuehling@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 1 Mar 2021 09:32:32 +0100
-Message-ID: <CAKMK7uEd9KZAmeNd9Z9GF9p0yUButHc+8_PERRuNR79+uqAhbQ@mail.gmail.com>
-Subject: Re: [PATCH 17/35] drm/amdkfd: register HMM device private zone
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28VMware=29?= <thomas_os@shipmail.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ <CAKMK7uEd9KZAmeNd9Z9GF9p0yUButHc+8_PERRuNR79+uqAhbQ@mail.gmail.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <7f837938-3ad8-6ecf-d2b7-952b177cffb8@shipmail.org>
+Date: Mon, 1 Mar 2021 09:46:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAKMK7uEd9KZAmeNd9Z9GF9p0yUButHc+8_PERRuNR79+uqAhbQ@mail.gmail.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,273 +74,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 06, 2021 at 10:01:09PM -0500, Felix Kuehling wrote:
-> From: Philip Yang <Philip.Yang@amd.com>
->
-> Register vram memory as MEMORY_DEVICE_PRIVATE type resource, to
-> allocate vram backing pages for page migration.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-So maybe I'm getting this all wrong, but I think that the current ttm
-fault code relies on devmap pte entries (especially for hugepte entries)
-to stop get_user_pages. But this only works if the pte happens to not
-point at a range with devmap pages.
+On 3/1/21 9:32 AM, Daniel Vetter wrote:
+> On Wed, Jan 06, 2021 at 10:01:09PM -0500, Felix Kuehling wrote:
+>> From: Philip Yang <Philip.Yang@amd.com>
+>>
+>> Register vram memory as MEMORY_DEVICE_PRIVATE type resource, to
+>> allocate vram backing pages for page migration.
+>>
+>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> So maybe I'm getting this all wrong, but I think that the current ttm
+> fault code relies on devmap pte entries (especially for hugepte entries)
+> to stop get_user_pages. But this only works if the pte happens to not
+> point at a range with devmap pages.
 
-This patch here changes that, and so probably breaks this devmap pte hack
-ttm is using?
+I don't think that's in TTM yet, but the proposed fix, yes (see email I 
+just sent in another thread),
+but only for huge ptes.
 
-If I'm not wrong here then I think we need to first fix up the ttm code to
-not use the devmap hack anymore, before a ttm based driver can register a
-dev_pagemap. Also adding Thomas since that just came up in another
-discussion.
--Daniel
+>
+> This patch here changes that, and so probably breaks this devmap pte hack
+> ttm is using?
+>
+> If I'm not wrong here then I think we need to first fix up the ttm code to
+> not use the devmap hack anymore, before a ttm based driver can register a
+> dev_pagemap. Also adding Thomas since that just came up in another
+> discussion.
 
+It doesn't break the ttm devmap hack per se, but it indeed allows gup to 
+the range registered, but here's where my lack of understanding why we 
+can't allow gup-ing TTM ptes if there indeed is a backing struct-page? 
+Because registering MEMORY_DEVICE_PRIVATE implies that, right?
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |   3 +
->  drivers/gpu/drm/amd/amdkfd/Makefile        |   3 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c   | 101 +++++++++++++++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h   |  48 ++++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |   3 +
->  5 files changed, 157 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index db96d69eb45e..562bb5b69137 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -30,6 +30,7 @@
->  #include <linux/dma-buf.h>
->  #include "amdgpu_xgmi.h"
->  #include <uapi/linux/kfd_ioctl.h>
-> +#include "kfd_migrate.h"
->
->  /* Total memory size in system memory and all GPU VRAM. Used to
->   * estimate worst case amount of memory to reserve for page tables
-> @@ -170,12 +171,14 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
->               }
->
->               kgd2kfd_device_init(adev->kfd.dev, adev_to_drm(adev), &gpu_resources);
-> +             svm_migrate_init(adev);
->       }
->  }
->
->  void amdgpu_amdkfd_device_fini(struct amdgpu_device *adev)
->  {
->       if (adev->kfd.dev) {
-> +             svm_migrate_fini(adev);
->               kgd2kfd_device_exit(adev->kfd.dev);
->               adev->kfd.dev = NULL;
->       }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-> index 387ce0217d35..a93301dbc464 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
-> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-> @@ -55,7 +55,8 @@ AMDKFD_FILES        := $(AMDKFD_PATH)/kfd_module.o \
->               $(AMDKFD_PATH)/kfd_dbgmgr.o \
->               $(AMDKFD_PATH)/kfd_smi_events.o \
->               $(AMDKFD_PATH)/kfd_crat.o \
-> -             $(AMDKFD_PATH)/kfd_svm.o
-> +             $(AMDKFD_PATH)/kfd_svm.o \
-> +             $(AMDKFD_PATH)/kfd_migrate.o
->
->  ifneq ($(CONFIG_AMD_IOMMU_V2),)
->  AMDKFD_FILES += $(AMDKFD_PATH)/kfd_iommu.o
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> new file mode 100644
-> index 000000000000..1950b86f1562
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -0,0 +1,101 @@
-> +/*
-> + * Copyright 2020 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +#include <linux/types.h>
-> +#include <linux/hmm.h>
-> +#include <linux/dma-direction.h>
-> +#include <linux/dma-mapping.h>
-> +#include "amdgpu_sync.h"
-> +#include "amdgpu_object.h"
-> +#include "amdgpu_vm.h"
-> +#include "amdgpu_mn.h"
-> +#include "kfd_priv.h"
-> +#include "kfd_svm.h"
-> +#include "kfd_migrate.h"
-> +
-> +static void svm_migrate_page_free(struct page *page)
-> +{
-> +}
-> +
-> +/**
-> + * svm_migrate_to_ram - CPU page fault handler
-> + * @vmf: CPU vm fault vma, address
-> + *
-> + * Context: vm fault handler, mm->mmap_sem is taken
-> + *
-> + * Return:
-> + * 0 - OK
-> + * VM_FAULT_SIGBUS - notice application to have SIGBUS page fault
-> + */
-> +static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
-> +{
-> +     return VM_FAULT_SIGBUS;
-> +}
-> +
-> +static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
-> +     .page_free              = svm_migrate_page_free,
-> +     .migrate_to_ram         = svm_migrate_to_ram,
-> +};
-> +
-> +int svm_migrate_init(struct amdgpu_device *adev)
-> +{
-> +     struct kfd_dev *kfddev = adev->kfd.dev;
-> +     struct dev_pagemap *pgmap;
-> +     struct resource *res;
-> +     unsigned long size;
-> +     void *r;
-> +
-> +     /* Page migration works on Vega10 or newer */
-> +     if (kfddev->device_info->asic_family < CHIP_VEGA10)
-> +             return -EINVAL;
-> +
-> +     pgmap = &kfddev->pgmap;
-> +     memset(pgmap, 0, sizeof(*pgmap));
-> +
-> +     /* TODO: register all vram to HMM for now.
-> +      * should remove reserved size
-> +      */
-> +     size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
-> +     res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
-> +     if (IS_ERR(res))
-> +             return -ENOMEM;
-> +
-> +     pgmap->type = MEMORY_DEVICE_PRIVATE;
-> +     pgmap->res = *res;
-> +     pgmap->ops = &svm_migrate_pgmap_ops;
-> +     pgmap->owner = adev;
-> +     pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
-> +     r = devm_memremap_pages(adev->dev, pgmap);
-> +     if (IS_ERR(r)) {
-> +             pr_err("failed to register HMM device memory\n");
-> +             return PTR_ERR(r);
-> +     }
-> +
-> +     pr_info("HMM registered %ldMB device memory\n", size >> 20);
-> +
-> +     return 0;
-> +}
-> +
-> +void svm_migrate_fini(struct amdgpu_device *adev)
-> +{
-> +     memunmap_pages(&adev->kfd.dev->pgmap);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-> new file mode 100644
-> index 000000000000..98ab685d3e17
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-> @@ -0,0 +1,48 @@
-> +/*
-> + * Copyright 2020 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef KFD_MIGRATE_H_
-> +#define KFD_MIGRATE_H_
-> +
-> +#include <linux/rwsem.h>
-> +#include <linux/list.h>
-> +#include <linux/mutex.h>
-> +#include <linux/sched/mm.h>
-> +#include <linux/hmm.h>
-> +#include "kfd_priv.h"
-> +#include "kfd_svm.h"
-> +
-> +#if defined(CONFIG_DEVICE_PRIVATE)
-> +int svm_migrate_init(struct amdgpu_device *adev);
-> +void svm_migrate_fini(struct amdgpu_device *adev);
-> +
-> +#else
-> +static inline int svm_migrate_init(struct amdgpu_device *adev)
-> +{
-> +     DRM_WARN_ONCE("DEVICE_PRIVATE kernel config option is not enabled, "
-> +                   "add CONFIG_DEVICE_PRIVATE=y in config file to fix\n");
-> +     return -ENODEV;
-> +}
-> +static inline void svm_migrate_fini(struct amdgpu_device *adev) {}
-> +#endif
-> +#endif /* KFD_MIGRATE_H_ */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 7a4b4b6dcf32..d5367e770b39 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -317,6 +317,9 @@ struct kfd_dev {
->       unsigned int max_doorbell_slices;
->
->       int noretry;
-> +
-> +     /* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
-> +     struct dev_pagemap pgmap;
->  };
->
->  enum kfd_mempool {
-> --
-> 2.29.2
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+/Thomas
 
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> -Daniel
+>
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
