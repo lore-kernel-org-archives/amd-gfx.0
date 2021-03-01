@@ -2,44 +2,125 @@ Return-Path: <SRS0=hzAD=H7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5354AC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A463C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB35060C41
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:56:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB35060C41
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 40D6164E54
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 09:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40D6164E54
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23FC26E563;
-	Mon,  1 Mar 2021 09:56:27 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A75F6E550;
- Mon,  1 Mar 2021 09:56:25 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DB4BAAE03;
- Mon,  1 Mar 2021 09:56:23 +0000 (UTC)
-Subject: Re: [PATCH] drm/gem: add checks of drm_gem_object->funcs
-To: =?UTF-8?Q?Pavel_Turinsk=c3=bd?= <ledoian@kam.mff.cuni.cz>,
- airlied@linux.ie, daniel@ffwll.ch,
- Alexander Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20210228161022.53468-1-ledoian@kam.mff.cuni.cz>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <e7f0747c-cb10-692a-aa36-194efcab49ef@suse.de>
-Date: Mon, 1 Mar 2021 10:56:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C79486E566;
+	Mon,  1 Mar 2021 09:57:03 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760052.outbound.protection.outlook.com [40.107.76.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 099446E566
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 09:57:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PP4ACfX85TjH0DfHltf4rfaYGF+cr5Z9nS/lGY6q2Ol0JvC6jruxayDrXkVoJeQbqTjTEenVDJWs0vA/DPMyVtEfU6M/jH1ZEqK2wiXbhSNDHJjiqIKBsWNqWOZpnl0/B6Iv0pYPOmaPGQyPdzGL2aJ5BBeTZhdByoRqVf5UMd0ga3SBkL31yv5Jjo9jS1R2fwz8UP3n+Gtw5IUnYg1ZwY+75PlTN5MieivosK9dkb2udaBq/CQu2Dq/IWLA0Tdg/lZLf0kg21eKqJMNCMfrOQcRjMXQQiAC/yEspbE4cKCy1Eog6U0u6P/sg5zDHRojJUzlKjAJAZ1zCpPkLdTFxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mH3qVlUOzsU5tm7eXqavF2xCxLvZATf4UR7UFvrrppA=;
+ b=ON/R3sPg0qAmNF2DEwZK/1tMiInh4QwaVACUeM7YLwrvyrcFEKWxHlp1wqTZ33pcVbII7VHj3IhvusowB23mPRoiQwe8nAYp9dHSxLHGEcPxMI8PYDXAODeXUcKNgKMP5R+IxVbpisgdIzd1FA07/2GzLAVcMmKPM82GyouvVsCxRfSFmB1QnPYMwNm9spuFIWcO872dxyLK2e6uAVMRHFfluMZ1KDcXifZKbqkH/AziWrGUdoidnNeJDCYf7YNJeNPhyeOLS97JMzWvDfjq0abYVr3lUY4gpIasNgQL7fqH+LEZSrjZNm/WZunNQdgRfaDd5KpDEOX564RHCrKIKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mH3qVlUOzsU5tm7eXqavF2xCxLvZATf4UR7UFvrrppA=;
+ b=Nb8REFMjzp5nTNx3aiXjnyFWh2HCg7Ogvx1eDhqVlHcOhilILxMciHmBVt2cZDzYTkqqWzfbNjGKHdlTioNttFSFk1x6ot7DR8YDTiZyCFuHxRR5w0JgxT/HGh5J3dwvDINCHsl/LK6nODhsYmdpU1A4MclLyt+6IoY0BkGc1NI=
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
+ by MN2PR12MB3232.namprd12.prod.outlook.com (2603:10b6:208:ab::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Mon, 1 Mar
+ 2021 09:57:01 +0000
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::49f7:4979:3a0a:4554]) by MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::49f7:4979:3a0a:4554%6]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
+ 09:57:01 +0000
+From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info print in
+ debugfs
+Thread-Topic: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info print in
+ debugfs
+Thread-Index: AQHXDnqpANzJQErQMEaUr8Puv9Ti8apu3kIAgAAGuxU=
+Date: Mon, 1 Mar 2021 09:57:01 +0000
+Message-ID: <MN2PR12MB302244FD1F704692CE77660FA29A9@MN2PR12MB3022.namprd12.prod.outlook.com>
+References: <20210301090951.43956-1-kevin1.wang@amd.com>,
+ <DM6PR12MB407548F416DADBEAB2ABDCFAFC9A9@DM6PR12MB4075.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB407548F416DADBEAB2ABDCFAFC9A9@DM6PR12MB4075.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-01T09:57:00.610Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: cb565f98-4b4d-4684-1e88-08d8dc985c25
+x-ms-traffictypediagnostic: MN2PR12MB3232:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB323291C7FCD06E71D70A3AA3A29A9@MN2PR12MB3232.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: be3Xz1KpK3UOK0/nFOncA2CCE5NomuR6b5NTLGS1ewcvh+wgzD44vMbo3dEZA2G2fX2+W+jOatKwimD3vcvxQhy5+ecz7VW8vVf9LD5c48IXJiwhq39p0oqHU47aPIDYHJYd8j6ZbKXgCo70Vm5jmQb/MU8tRPQLH5AoOCRJlJWnrrxlDGMFEqB9V9YclHJoKkYw2PnLyUFChjD2gT5lQZnrg2tdDaQtrS+EZtXfahlogm9WfsZKd6go8PTcLM3TT6q4gTtYC+kp7e1n6WfWiqR39TPzi3UvfSpKqq8wRrCn+LwiIlekAXN8+CeRM3gtWDhEanzEkWgZ2bWrTlVW3xEjII0w0x0ZKzDckhmHK8DHnMuThdQLBLn/BWK+rUy3M0sdRZ9ut/yOJBaX/ooiuUS7OdlhsDSu2/+sEJxovqyCs1Hb0ukrraOO2Thm61xcm336ZiiUQysDax/MSlvoQUf2idBzjQKBskKS/I0MlzhBV+KwxXZX54d3c1jsCEHK9jTGi5F+wDszCUCfV/wwuw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(376002)(396003)(346002)(39860400002)(5660300002)(110136005)(64756008)(71200400001)(478600001)(2906002)(55016002)(86362001)(26005)(66946007)(91956017)(6506007)(186003)(52536014)(316002)(9686003)(8676002)(33656002)(76116006)(8936002)(83380400001)(66476007)(19627405001)(53546011)(66556008)(7696005)(66446008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?Wuxgk73D/IwvjmvDUnY2d0hMAlgOMr948U3H02LGIMZr9H/+AKBYOoyYRs?=
+ =?iso-8859-1?Q?tj4bOWkuLSnPE8kvbVOfy90zJCcrbpbu9lP0GN02VZJNEUmSplgPQZlyM8?=
+ =?iso-8859-1?Q?euizv/7DS7EIOreeIS+kSO6+YjOy6yDX67a1moCs2sxtZIZBLGPYGi7kWx?=
+ =?iso-8859-1?Q?XNEt3Mxbhu+4e2pzh6bYJe+xhon66K/78Kt+cLdzRniTYASzlL4UoWoxT1?=
+ =?iso-8859-1?Q?haKY8ixtyfy2YD2TJYRHhZFdvdHLKu39Of047dr+6c4FPWApNiaT++sNh8?=
+ =?iso-8859-1?Q?EQ2jA6iDXk2EmQjNXe5WDrPR6mGsZbhl+r6qvw9iSxTYc15wMq4pYRg69e?=
+ =?iso-8859-1?Q?JdVSFKhuNTFKjJOUgosb3XfeXRMoV33eCeu7sSi6KkbBOU/bU/2xE52k+d?=
+ =?iso-8859-1?Q?I7ZG4iBCn+MJffMu1c5hEf4krjxu6pz8OzLzfH4zpV8yDIHEr61XHezwXL?=
+ =?iso-8859-1?Q?ph7aXU+WVxzV8d+FdS3ao4BzaLLvJoX9Muyl5xsTKX/pn/4D6TU3GYSr7/?=
+ =?iso-8859-1?Q?yaFIibut8mPJV+Z2hPv4ralnKjxzgc8EiNmi7sRCwnC8qA7yfkT1CfwzUQ?=
+ =?iso-8859-1?Q?LB1DHlS0enZxfNqLEhrO5LXqOKoTSnadTKE876an0p3YxjJ+QO9XnyhPCH?=
+ =?iso-8859-1?Q?gCg/UBgwQvtsh4a2t0KP7eVDS6762LYKUtnuV8yoz+c+wqKMRzSlXFmqNt?=
+ =?iso-8859-1?Q?EcSSZTnPOp5c3zrKLPiZkVmrTMYp6/WVkUjAQwhbswrWoIUBRcBqkPyb8N?=
+ =?iso-8859-1?Q?ShzcL4VSDrIfRPIZl7+OwDiBO41hlIk3CwkwVZPR6lUjhKkIFFuPLPezNB?=
+ =?iso-8859-1?Q?QmsO434MQKi9LtXnk5aKD4Cn0KtFnTcIQsIy1jyv9O6ms1FR2NoJ4L3qER?=
+ =?iso-8859-1?Q?rmomN/Crq+ncAPZmBvf9KJ2111E0a9AmKasl2HmDxb/KJGe7hRkovFhyE9?=
+ =?iso-8859-1?Q?EMWDGdA17EHxfIWorFFrc+IJIBMCzZfUPQ2KcFVJOkdXEArCzzEs8Sh0Dd?=
+ =?iso-8859-1?Q?9Qm4CzNuP2/0gBCpjnRHF8B0pR9/3ZZpuvbFOTIGtoaC/HGtZ81/oEOCl9?=
+ =?iso-8859-1?Q?hcrH3PQf2pPywfHzXQwimLqDE6C8XlywPoI8gzJYmju1+PjNNyDls5BJzQ?=
+ =?iso-8859-1?Q?DGELClo71qHlRBAEocK+beDgG4QCwq0eZH2ytc30XeQhrfERQb+W5FYpjt?=
+ =?iso-8859-1?Q?CBYMu4Cetg7/zdIjeYgiffbMkzsxIyfi0ZKsW+SfJyoB35/lsZxCPLGiQo?=
+ =?iso-8859-1?Q?XCrf8u9E1RBCt896ujGG7GrbOwFOv9791eKKvMd1z5B9UBr4imm+B8nt0x?=
+ =?iso-8859-1?Q?AZLIKhrmfYmHk8FQNMrbHgVMdbppGx/5s1IYebPCKZ7hGYM=3D?=
 MIME-Version: 1.0
-In-Reply-To: <20210228161022.53468-1-ledoian@kam.mff.cuni.cz>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb565f98-4b4d-4684-1e88-08d8dc985c25
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 09:57:01.0812 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: O2mbkHmE5avA7gf1wiCIZs8t6gfaH5mLQ6pxKlYKb9MPY6YMEZtzNIWHw2GBS6+O
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3232
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,314 +132,500 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- stable@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1072905277=="
+Content-Type: multipart/mixed; boundary="===============0942418149=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1072905277==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="5rzwza5zwjgSSgTgCDrDCKBOl7FLnC4qh"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---5rzwza5zwjgSSgTgCDrDCKBOl7FLnC4qh
-Content-Type: multipart/mixed; boundary="776yVYzRqTk0UYi04kjKkAqXozinKJY0p";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Pavel_Turinsk=c3=bd?= <ledoian@kam.mff.cuni.cz>,
- airlied@linux.ie, daniel@ffwll.ch,
- Alexander Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Message-ID: <e7f0747c-cb10-692a-aa36-194efcab49ef@suse.de>
-Subject: Re: [PATCH] drm/gem: add checks of drm_gem_object->funcs
-References: <20210228161022.53468-1-ledoian@kam.mff.cuni.cz>
-In-Reply-To: <20210228161022.53468-1-ledoian@kam.mff.cuni.cz>
-
---776yVYzRqTk0UYi04kjKkAqXozinKJY0p
-Content-Type: text/plain; charset=utf-8; format=flowed
+--===============0942418149==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB302244FD1F704692CE77660FA29A9MN2PR12MB3022namp_"
+
+--_000_MN2PR12MB302244FD1F704692CE77660FA29A9MN2PR12MB3022namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-(cc'ing amd devs)
-
-Hi
-
-Am 28.02.21 um 17:10 schrieb Pavel Turinsk=C3=BD:
-> The checks were removed in commit d693def4fd1c ("drm: Remove obsolete G=
-EM
-> and PRIME callbacks from struct drm_driver") and can lead to following
-> kernel oops:
-
-Thanks for reporting. All drivers are supposed to set the funcs pointer=20
-in their GEM objects. This looks like a radeon bug. Adding the AMD devs.
-
-Best regards
-Thomas
-
->=20
-> [  139.449098] BUG: kernel NULL pointer dereference, address: 000000000=
-0000008
-> [  139.449110] #PF: supervisor read access in kernel mode
-> [  139.449113] #PF: error_code(0x0000) - not-present page
-> [  139.449116] PGD 0 P4D 0
-> [  139.449121] Oops: 0000 [#1] PREEMPT SMP PTI
-> [  139.449126] CPU: 4 PID: 1181 Comm: Xorg Not tainted 5.11.2LEdoian #2=
-
-> [  139.449130] Hardware name: Gigabyte Technology Co., Ltd. To be fille=
-d by O.E.M./Z77-DS3H, BIOS F4 04/25/2012
-> [  139.449133] RIP: 0010:drm_gem_handle_create_tail+0xcb/0x190 [drm]
-> [  139.449185] Code: 00 48 89 ef e8 06 b4 49 f7 45 85 e4 78 77 48 8d 6b=
- 18 4c 89 ee 48 89 ef e8 c2 f5 00 00 89 c2 85 c0 75 3e 48 8b 83 40 01 00 =
-00 <48> 8b 40 0
-> 8 48 85 c0 74 0f 4c 89 ee 48 89 df e8 71 5d 87 f7 85 c0
-> [  139.449190] RSP: 0018:ffffbe21c194bd28 EFLAGS: 00010246
-> [  139.449194] RAX: 0000000000000000 RBX: ffff9da9b3caf078 RCX: 0000000=
-000000000
-> [  139.449197] RDX: 0000000000000000 RSI: ffffffffc039b893 RDI: 0000000=
-000000000
-> [  139.449199] RBP: ffff9da9b3caf090 R08: 0000000000000040 R09: ffff9da=
-983b911c0
-> [  139.449202] R10: ffff9da984749e00 R11: ffff9da9859bfc38 R12: 0000000=
-000000007
-> [  139.449204] R13: ffff9da9859bfc00 R14: ffff9da9859bfc50 R15: ffff9da=
-9859bfc38
-> [  139.449207] FS:  00007f6332a56900(0000) GS:ffff9daea7b00000(0000) kn=
-lGS:0000000000000000
-> [  139.449211] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  139.449214] CR2: 0000000000000008 CR3: 00000001319b8005 CR4: 0000000=
-0001706e0
-> [  139.449217] Call Trace:
-> [  139.449224]  drm_gem_prime_fd_to_handle+0xff/0x1d0 [drm]
-> [  139.449274]  ? drm_prime_destroy_file_private+0x20/0x20 [drm]
-> [  139.449323]  drm_ioctl_kernel+0xac/0xf0 [drm]
-> [  139.449363]  drm_ioctl+0x20f/0x3b0 [drm]
-> [  139.449403]  ? drm_prime_destroy_file_private+0x20/0x20 [drm]
-> [  139.449454]  radeon_drm_ioctl+0x49/0x80 [radeon]
-> [  139.449500]  __x64_sys_ioctl+0x84/0xc0
-> [  139.449507]  do_syscall_64+0x33/0x40
-> [  139.449514]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> [  139.449522] RIP: 0033:0x7f63330fbe6b
-> [  139.449526] Code: ff ff ff 85 c0 79 8b 49 c7 c4 ff ff ff ff 5b 5d 4c=
- 89 e0 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa b8 10 00 00 00 0f =
-05 <48> 3d 01 f
-> 0 ff ff 73 01 c3 48 8b 0d d5 af 0c 00 f7 d8 64 89 01 48
-> [  139.449529] RSP: 002b:00007fff1e9c4438 EFLAGS: 00000246 ORIG_RAX: 00=
-00000000000010
-> [  139.449534] RAX: ffffffffffffffda RBX: 00007fff1e9c447c RCX: 00007f6=
-3330fbe6b
-> [  139.449537] RDX: 00007fff1e9c447c RSI: 00000000c00c642e RDI: 0000000=
-000000012
-> [  139.449539] RBP: 00000000c00c642e R08: 00007fff1e9c4520 R09: 00007f6=
-3331c7a60
-> [  139.449542] R10: 00007f6329fb9ab0 R11: 0000000000000246 R12: 000055f=
-69810ad40
-> [  139.449544] R13: 0000000000000012 R14: 0000000000100000 R15: 00007ff=
-f1e9c4c20
-> [  139.449549] Modules linked in: 8021q garp mrp bridge stp llc nls_iso=
-8859_1 vfat fat fuse btrfs blake2b_generic xor raid6_pq libcrc32c crypto_=
-user tun i2c_de
-> v it87 hwmon_vid snd_seq snd_hda_codec_realtek snd_hda_codec_generic le=
-dtrig_audio sg snd_hda_codec_hdmi virtio_balloon snd_hda_intel virtio_con=
-sole snd_intel_
-> dspcfg soundwire_intel virtio_pci soundwire_generic_allocation soundwir=
-e_cadence virtio_blk snd_hda_codec intel_rapl_msr btusb intel_rapl_common=
- virtio_net btr
-> tl net_failover uvcvideo snd_usb_audio snd_hda_core btbcm x86_pkg_temp_=
-thermal failover soundwire_bus btintel intel_powerclamp snd_soc_core core=
-temp snd_usbmid
-> i_lib iTCO_wdt videobuf2_vmalloc bluetooth intel_pmc_bxt snd_hwdep kvm_=
-intel videobuf2_memops snd_rawmidi snd_compress videobuf2_v4l2 ac97_bus s=
-nd_pcm_dmaengin
-> e iTCO_vendor_support crct10dif_pclmul at24 crc32_pclmul videobuf2_comm=
-on snd_seq_device mei_hdcp snd_pcm ghash_clmulni_intel kvm videodev aesni=
-_intel crypto_s
-> imd snd_timer snd cryptd mc ecdh_generic
-> [  139.449642]  glue_helper rfkill soundcore joydev mousedev rapl ecc i=
-ntel_cstate r8169 i2c_i801 intel_uncore atl1c realtek irqbypass mdio_devr=
-es mei_me libph
-> y i2c_smbus mei mac_hid lpc_ich ext4 crc32c_generic crc16 mbcache jbd2 =
-dm_mod ata_generic pata_acpi uas usb_storage sr_mod crc32c_intel serio_ra=
-w cdrom xhci_pc
-> i pata_jmicron xhci_pci_renesas radeon usbhid i915 intel_gtt nouveau mx=
-m_wmi wmi video i2c_algo_bit drm_ttm_helper ttm drm_kms_helper syscopyare=
-a sysfillrect s
-> ysimgblt fb_sys_fops cec drm agpgart
-> [  139.449707] CR2: 0000000000000008
-> [  139.449710] ---[ end trace f5ce5774498d18e1 ]---
->=20
-> Signed-off-by: Pavel Turinsk=C3=BD <ledoian@kam.mff.cuni.cz>
-> Fixes: d693def4fd1c ("drm: Remove obsolete GEM and PRIME callbacks from=
- struct drm_driver")
-> Cc: stable@vger.kernel.org
-> ---
->=20
-> This is a very symptomatic patch around issue I ran into. I do not know=
- if the
-> funcs property should ever be NULL. I basically restored all the checks=
- that
-> were removed in the mentioned commit. Unfortunately, I do not understan=
-d drm
-> nor will I have time to delve into it in forseeable future.
->=20
->   drivers/gpu/drm/drm_gem.c   | 20 ++++++++++----------
->   drivers/gpu/drm/drm_prime.c |  2 +-
->   2 files changed, 11 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 92f89cee213e..451f290c737c 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -249,7 +249,7 @@ drm_gem_object_release_handle(int id, void *ptr, vo=
-id *data)
->   	struct drm_file *file_priv =3D data;
->   	struct drm_gem_object *obj =3D ptr;
->  =20
-> -	if (obj->funcs->close)
-> +	if (obj->funcs && obj->funcs->close)
->   		obj->funcs->close(obj, file_priv);
->  =20
->   	drm_gem_remove_prime_handles(obj, file_priv);
-> @@ -401,7 +401,7 @@ drm_gem_handle_create_tail(struct drm_file *file_pr=
-iv,
->   	if (ret)
->   		goto err_remove;
->  =20
-> -	if (obj->funcs->open) {
-> +	if (obj->funcs && obj->funcs->open) {
->   		ret =3D obj->funcs->open(obj, file_priv);
->   		if (ret)
->   			goto err_revoke;
-> @@ -977,7 +977,7 @@ drm_gem_object_free(struct kref *kref)
->   	struct drm_gem_object *obj =3D
->   		container_of(kref, struct drm_gem_object, refcount);
->  =20
-> -	if (WARN_ON(!obj->funcs->free))
-> +	if (!obj->funcs || WARN_ON(!obj->funcs->free))
->   		return;
->  =20
->   	obj->funcs->free(obj);
-> @@ -1079,7 +1079,7 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, =
-unsigned long obj_size,
->  =20
->   	vma->vm_private_data =3D obj;
->  =20
-> -	if (obj->funcs->mmap) {
-> +	if (obj->funcs && obj->funcs->mmap) {
->   		ret =3D obj->funcs->mmap(obj, vma);
->   		if (ret) {
->   			drm_gem_object_put(obj);
-> @@ -1087,7 +1087,7 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, =
-unsigned long obj_size,
->   		}
->   		WARN_ON(!(vma->vm_flags & VM_DONTEXPAND));
->   	} else {
-> -		if (obj->funcs->vm_ops)
-> +		if (obj->funcs && obj->funcs->vm_ops)
->   			vma->vm_ops =3D obj->funcs->vm_ops;
->   		else {
->   			drm_gem_object_put(obj);
-> @@ -1188,13 +1188,13 @@ void drm_gem_print_info(struct drm_printer *p, =
-unsigned int indent,
->   	drm_printf_indent(p, indent, "imported=3D%s\n",
->   			  obj->import_attach ? "yes" : "no");
->  =20
-> -	if (obj->funcs->print_info)
-> +	if (obj->funcs && obj->funcs->print_info)
->   		obj->funcs->print_info(p, indent, obj);
->   }
->  =20
->   int drm_gem_pin(struct drm_gem_object *obj)
->   {
-> -	if (obj->funcs->pin)
-> +	if (obj->funcs && obj->funcs->pin)
->   		return obj->funcs->pin(obj);
->   	else
->   		return 0;
-> @@ -1202,7 +1202,7 @@ int drm_gem_pin(struct drm_gem_object *obj)
->  =20
->   void drm_gem_unpin(struct drm_gem_object *obj)
->   {
-> -	if (obj->funcs->unpin)
-> +	if (obj->funcs && obj->funcs->unpin)
->   		obj->funcs->unpin(obj);
->   }
->  =20
-> @@ -1210,7 +1210,7 @@ int drm_gem_vmap(struct drm_gem_object *obj, stru=
-ct dma_buf_map *map)
->   {
->   	int ret;
->  =20
-> -	if (!obj->funcs->vmap)
-> +	if (!obj->funcs || !obj->funcs->vmap)
->   		return -EOPNOTSUPP;
->  =20
->   	ret =3D obj->funcs->vmap(obj, map);
-> @@ -1227,7 +1227,7 @@ void drm_gem_vunmap(struct drm_gem_object *obj, s=
-truct dma_buf_map *map)
->   	if (dma_buf_map_is_null(map))
->   		return;
->  =20
-> -	if (obj->funcs->vunmap)
-> +	if (obj->funcs && obj->funcs->vunmap)
->   		obj->funcs->vunmap(obj, map);
->  =20
->   	/* Always set the mapping to NULL. Callers may rely on this. */
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 7db55fce35d8..1566dcf417e2 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -620,7 +620,7 @@ struct sg_table *drm_gem_map_dma_buf(struct dma_buf=
-_attachment *attach,
->   	if (WARN_ON(dir =3D=3D DMA_NONE))
->   		return ERR_PTR(-EINVAL);
->  =20
-> -	if (WARN_ON(!obj->funcs->get_sg_table))
-> +	if (!obj->funcs || WARN_ON(!obj->funcs->get_sg_table))
->   		return ERR_PTR(-ENOSYS);
->  =20
->   	sgt =3D obj->funcs->get_sg_table(obj);
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+[AMD Public Use]
 
 
---776yVYzRqTk0UYi04kjKkAqXozinKJY0p--
 
---5rzwza5zwjgSSgTgCDrDCKBOl7FLnC4qh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+________________________________
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Monday, March 1, 2021 5:31 PM
+To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; amd-gfx@lists.freedesktop.org =
+<amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info print in d=
+ebugfs
 
------BEGIN PGP SIGNATURE-----
+[AMD Public Use]
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmA8ukYFAwAAAAAACgkQlh/E3EQov+Ab
-txAA0e3VYz4K8bPfzDTff9LMvvGLgiv98+srqSycEmvZRcevXb7oNo0Gsn6txNR9mrV2WqlYKhuW
-tPeRRERrwumrBv0ASIJ1oiRqZFWC5iIrKLUDAzwtoQQs79D61+KsKe0rUk4QHazWXZoObGUgE8vN
-0i8GRrq1sVrG1RKn/B72f8OVmGsLnqvftDnd7V2BUovWol2ihRXm5rnXfU2chSiHHBuWY0QrzciC
-ZoGmUdF5I7AQ9eXZAq61+vyOlZUBuKy7zd0MtA+TJryxcFBMq24ZfB/CMyCCbrMhWyb88fAWBsGQ
-ep8Cfg/9px3gc816KjkavKGDX7KFep8FoeiQBjLbKS6BSlzlDyMbC/Kd31rVOp7NK3Z7GQ2TiDX1
-7tHqIeS4vKjfuySnIS8mJpG5qgKpwIDs/UhvCC/QfGklE2gf/40Rj8IjTfd3VSU3/L5P7Y+t+b+b
-/UBTwvKGFp1sH3aGCs9+rFhnv+t4yQN0U9JWvRWweWo2Y8d/KlztgHH4gMkFWyJJwwj1Rdru12q6
-REh3nAg6aziXFerbzCNBoz4qJlnsZzgedPJjBkmQVYc2Lo07AlGSWTK3CEK47uj5vslAD5DGlN8A
-43f/54mKWivLMu/eNiMK0bZVl5pZw0MpGQc2rAyxrI9hWre+eWqzDElkFHGIV4V1cspVeQW5kY/3
-f/s=
-=viSC
------END PGP SIGNATURE-----
++       for (i =3D TA_FW_TYPE_PSP_ASD; i < TA_FW_TYPE_PSP_COUNT; i++) {
 
---5rzwza5zwjgSSgTgCDrDCKBOl7FLnC4qh--
+I think we still rely on AMDGPU_INFO_FW_ASD to query ASD firmware version. =
+Therefore, we need to start from TA_FW_TYPE_PSP_XGMI.
 
---===============1072905277==
+[kevin]:
+thanks, yes,  the ASD is different with other TAs, I will correct it before=
+ submitting.
+
++       TA_FW_TYPE_PSP_COUNT,
++       static const char *ta_fw_name[TA_FW_TYPE_PSP_COUNT]
+
+The enum is a little bit confusing, might rename to TA_FW_TYPE_MAX_INDEX,
+
+Regards,
+Hawking
+
+-----Original Message-----
+From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Sent: Monday, March 1, 2021 17:10
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@=
+amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info print in debug=
+fs
+
+refine PSP TA firmware info print in amdgpu_firmware_info().
+
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   | 50 +++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  1 +
+ 2 files changed, 21 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 6c8ea9d26320..1a27673271b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -289,23 +289,23 @@ static int amdgpu_firmware_info(struct drm_amdgpu_inf=
+o_firmware *fw_info,
+                 break;
+         case AMDGPU_INFO_FW_TA:
+                 switch (query_fw->index) {
+-               case 0:
++               case TA_FW_TYPE_PSP_XGMI:
+                         fw_info->ver =3D adev->psp.ta_fw_version;
+                         fw_info->feature =3D adev->psp.ta_xgmi_ucode_versi=
+on;
+                         break;
+-               case 1:
++               case TA_FW_TYPE_PSP_RAS:
+                         fw_info->ver =3D adev->psp.ta_fw_version;
+                         fw_info->feature =3D adev->psp.ta_ras_ucode_versio=
+n;
+                         break;
+-               case 2:
++               case TA_FW_TYPE_PSP_HDCP:
+                         fw_info->ver =3D adev->psp.ta_fw_version;
+                         fw_info->feature =3D adev->psp.ta_hdcp_ucode_versi=
+on;
+                         break;
+-               case 3:
++               case TA_FW_TYPE_PSP_DTM:
+                         fw_info->ver =3D adev->psp.ta_fw_version;
+                         fw_info->feature =3D adev->psp.ta_dtm_ucode_versio=
+n;
+                         break;
+-               case 4:
++               case TA_FW_TYPE_PSP_RAP:
+                         fw_info->ver =3D adev->psp.ta_fw_version;
+                         fw_info->feature =3D adev->psp.ta_rap_ucode_versio=
+n;
+                         break;
+@@ -1355,6 +1355,17 @@ static int amdgpu_debugfs_firmware_info_show(struct =
+seq_file *m, void *unused)
+         struct atom_context *ctx =3D adev->mode_info.atom_context;
+         int ret, i;
+
++       static const char *ta_fw_name[TA_FW_TYPE_PSP_COUNT] =3D { #define
++TA_FW_NAME(type) [TA_FW_TYPE_PSP_##type] =3D #type
++               TA_FW_NAME(ASD),
++               TA_FW_NAME(XGMI),
++               TA_FW_NAME(RAS),
++               TA_FW_NAME(HDCP),
++               TA_FW_NAME(DTM),
++               TA_FW_NAME(RAP),
++#undef TA_FW_NAME
++       };
++
+         /* VCE */
+         query_fw.fw_type =3D AMDGPU_INFO_FW_VCE;
+         ret =3D amdgpu_firmware_info(&fw_info, &query_fw, adev); @@ -1472,=
+35 +1483,14 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file=
+ *m, void *unused)
+                    fw_info.feature, fw_info.ver);
+
+         query_fw.fw_type =3D AMDGPU_INFO_FW_TA;
+-       for (i =3D 0; i < 5; i++) {
++       for (i =3D TA_FW_TYPE_PSP_ASD; i < TA_FW_TYPE_PSP_COUNT; i++) {
+                 query_fw.index =3D i;
+                 ret =3D amdgpu_firmware_info(&fw_info, &query_fw, adev);
+                 if (ret)
+                         continue;
+-               switch (query_fw.index) {
+-               case 0:
+-                       seq_printf(m, "TA %s feature version: 0x%08x, firmw=
+are version: 0x%08x\n",
+-                                       "RAS", fw_info.feature, fw_info.ver=
+);
+-                       break;
+-               case 1:
+-                       seq_printf(m, "TA %s feature version: 0x%08x, firmw=
+are version: 0x%08x\n",
+-                                       "XGMI", fw_info.feature, fw_info.ve=
+r);
+-                       break;
+-               case 2:
+-                       seq_printf(m, "TA %s feature version: 0x%08x, firmw=
+are version: 0x%08x\n",
+-                                       "HDCP", fw_info.feature, fw_info.ve=
+r);
+-                       break;
+-               case 3:
+-                       seq_printf(m, "TA %s feature version: 0x%08x, firmw=
+are version: 0x%08x\n",
+-                                       "DTM", fw_info.feature, fw_info.ver=
+);
+-                       break;
+-               case 4:
+-                       seq_printf(m, "TA %s feature version: 0x%08x, firmw=
+are version: 0x%08x\n",
+-                                       "RAP", fw_info.feature, fw_info.ver=
+);
+-                       break;
+-               default:
+-                       return -EINVAL;
+-               }
++
++               seq_printf(m, "TA %s feature version: 0x%08x, firmware vers=
+ion: 0x%08x\n",
++                          ta_fw_name[i], fw_info.feature, fw_info.ver);
+         }
+
+         /* SMC */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.h
+index 46449e70348b..c03f32ec3ebc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -136,6 +136,7 @@ enum ta_fw_type {
+         TA_FW_TYPE_PSP_DTM,
+         TA_FW_TYPE_PSP_RAP,
+         TA_FW_TYPE_PSP_SECUREDISPLAY,
++       TA_FW_TYPE_PSP_COUNT,
+ };
+
+ struct ta_fw_bin_desc {
+--
+2.17.1
+
+--_000_MN2PR12MB302244FD1F704692CE77660FA29A9MN2PR12MB3022namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Zhang, Hawking &lt;Ha=
+wking.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Monday, March 1, 2021 5:31 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; amd-gfx@lists.fre=
+edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info pri=
+nt in debugfs</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">[AMD Public Use]<br>
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D TA_FW_TYPE_PSP_ASD; i &lt;=
+ TA_FW_TYPE_PSP_COUNT; i++) {<br>
+<br>
+I think we still rely on AMDGPU_INFO_FW_ASD to query ASD firmware version. =
+Therefore, we need to start from TA_FW_TYPE_PSP_XGMI.</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">[kevin]:</div>
+<div class=3D"PlainText">thanks, yes,&nbsp; the ASD is different with other=
+ TAs, I will correct it before submitting.</div>
+<div class=3D"PlainText"><br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_FW_TYPE_PSP_COUNT,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static const char *ta_fw_name[TA_FW_T=
+YPE_PSP_COUNT]</div>
+<div class=3D"PlainText"><br>
+The enum is a little bit confusing, might rename to TA_FW_TYPE_MAX_INDEX, <=
+br>
+<br>
+Regards,<br>
+Hawking<br>
+<br>
+-----Original Message-----<br>
+From: Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt; <br>
+Sent: Monday, March 1, 2021 17:10<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Wang, Kevin(Yang) &lt;Kev=
+in1.Wang@amd.com&gt;<br>
+Subject: [PATCH 1/2] drm/amdgpu: refine PSP TA firmware info print in debug=
+fs<br>
+<br>
+refine PSP TA firmware info print in amdgpu_firmware_info().<br>
+<br>
+Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp; | 50 +++++++++---=
+-----------<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |&nbsp; 1 +<br>
+&nbsp;2 files changed, 21 insertions(+), 30 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 6c8ea9d26320..1a27673271b0 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -289,23 +289,23 @@ static int amdgpu_firmware_info(struct drm_amdgpu_inf=
+o_firmware *fw_info,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_INFO_FW_TA:<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; switch (query_fw-&gt;index) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 0:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case TA_FW_TYPE_PSP_XGMI:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;ver =3D adev-&gt;psp.ta_fw_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;feature =3D adev-&gt;psp.ta_xgmi_ucode_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 1:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case TA_FW_TYPE_PSP_RAS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;ver =3D adev-&gt;psp.ta_fw_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;feature =3D adev-&gt;psp.ta_ras_ucode_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 2:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case TA_FW_TYPE_PSP_HDCP:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;ver =3D adev-&gt;psp.ta_fw_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;feature =3D adev-&gt;psp.ta_hdcp_ucode_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 3:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case TA_FW_TYPE_PSP_DTM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;ver =3D adev-&gt;psp.ta_fw_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;feature =3D adev-&gt;psp.ta_dtm_ucode_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 4:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case TA_FW_TYPE_PSP_RAP:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;ver =3D adev-&gt;psp.ta_fw_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_in=
+fo-&gt;feature =3D adev-&gt;psp.ta_rap_ucode_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+@@ -1355,6 +1355,17 @@ static int amdgpu_debugfs_firmware_info_show(struct =
+seq_file *m, void *unused)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct atom_context *ctx =
+=3D adev-&gt;mode_info.atom_context;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static const char *ta_fw_name[TA_FW_T=
+YPE_PSP_COUNT] =3D { #define <br>
++TA_FW_NAME(type) [TA_FW_TYPE_PSP_##type] =3D #type<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(ASD),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(XGMI),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(RAS),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(HDCP),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(DTM),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TA_FW_NAME(RAP),<br>
++#undef TA_FW_NAME<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VCE */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; query_fw.fw_type =3D AMDGP=
+U_INFO_FW_VCE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_firmware_in=
+fo(&amp;fw_info, &amp;query_fw, adev); @@ -1472,35 +1483,14 @@ static int a=
+mdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_info.feature, fw_info.ver);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; query_fw.fw_type =3D AMDGP=
+U_INFO_FW_TA;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; 5; i++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D TA_FW_TYPE_PSP_ASD; i &lt;=
+ TA_FW_TYPE_PSP_COUNT; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; query_fw.index =3D i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_firmware_info(&amp;fw_info, &amp;query=
+_fw, adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; switch (query_fw.index) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 0:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &q=
+uot;TA %s feature version: 0x%08x, firmware version: 0x%08x\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;RAS&quot;, fw_info.feature, fw_info.ver);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 1:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &q=
+uot;TA %s feature version: 0x%08x, firmware version: 0x%08x\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;XGMI&quot;, fw_info.feature, fw_info.ver);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 2:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &q=
+uot;TA %s feature version: 0x%08x, firmware version: 0x%08x\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;HDCP&quot;, fw_info.feature, fw_info.ver);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 3:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &q=
+uot;TA %s feature version: 0x%08x, firmware version: 0x%08x\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;DTM&quot;, fw_info.feature, fw_info.ver);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; case 4:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &q=
+uot;TA %s feature version: 0x%08x, firmware version: 0x%08x\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;RAP&quot;, fw_info.feature, fw_info.ver);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; seq_printf(m, &quot;TA %s feature version: 0x%08x, firmware vers=
+ion: 0x%08x\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; ta_fw_name[i], fw_info.feature, fw_info.ver);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* SMC */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.h<br>
+index 46449e70348b..c03f32ec3ebc 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h<br>
+@@ -136,6 +136,7 @@ enum ta_fw_type {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_FW_TYPE_PSP_DTM,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_FW_TYPE_PSP_RAP,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_FW_TYPE_PSP_SECUREDISPL=
+AY,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_FW_TYPE_PSP_COUNT,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;struct ta_fw_bin_desc {<br>
+--<br>
+2.17.1<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB302244FD1F704692CE77660FA29A9MN2PR12MB3022namp_--
+
+--===============0942418149==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -369,4 +636,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1072905277==--
+--===============0942418149==--
