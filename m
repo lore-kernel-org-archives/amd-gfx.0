@@ -7,122 +7,123 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85388C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 05:27:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74DBAC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 05:31:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26E9B64E04
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 05:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26E9B64E04
+	by mail.kernel.org (Postfix) with ESMTPS id 0456664E31
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Mar 2021 05:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0456664E31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A57CD89CF2;
-	Mon,  1 Mar 2021 05:27:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9AD89CE1
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 05:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B77D6E436;
+	Mon,  1 Mar 2021 05:31:34 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750054.outbound.protection.outlook.com [40.107.75.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 724046E436
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Mar 2021 05:31:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CHKz+IQYA/f+XMDQpTfEf9oRExBfEzv5BYbqUsoYdETX1TuziRiqTJFcqw8EUnP2sb0ocSTVYv4S7SGGIoarl5xoRUL4O4qlNQ/NZ2OSukEmqVELTxyHt2sC882sCt0b3lu5VXY5FHVn+Sxcnjiu1aZ3DC509PmK7eIjAC1L3IgxgFSyqI1zbVXeBDacQ+NnMIdCfHT9f+tonaX3CXb2Rl8WJVmqTtemaki7JafkgyTxeMJTo8cTB6Ucfx+g7MsXW13Kpc+lc/X4Cpv2eBp52uRJ/64XTzVkni/FuFmyp+ErWkitI+uiGPNVc4uq4nACfrPKIFJq9c7g1cb9PXKptw==
+ b=eSjqUadTflFaOrP1G3OMnyKSLFBW5iVfUPLmNgogGYq2xq8J8AMo+F4WHO2n28HhrzjwaSqspQhEZCOsvuplMNLO+ZN4UogR80oG7f8WUNfMMm27KDPB76AgqoF5mJqsZwvrDakWsJeZijag2BfiL7Khb3AEpg+doNeFm1ie7nJauhCsmzDxRfasNt15zn+DC9t/WJZIT/sw/EzsVwKf8uN8fSyO29J0LmUZjvtlozHKbLoSf/jcj6TOXZ+cl0CUpcRjTD7y5EtvgOeo8/FgO0cek3iotV6HCL6IVzWuVg0K7i4ujFRhzLENqGUIwi2Bz86S2dEJdgLo0lvugetNbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7D9GwZHnw9R0jXUy0+TyUcgITfKht9UthqcwT+ACobc=;
- b=NS6Hfr7vGXGzjGl/C0QDvHMsr8/Sy8RCxLLmUht3BB9nuSRfjXco6z9BpAhLy4OCYbtxFosSblRQKZlcRkB4uLnF86xbmVpQe/HjsygbDHAieRmsQx2lzQNIbxSy6HS00tamcglUUp5nGPFCpiZRCPanhBl1J2Gi0C+NQMU7zlD0qMWs9dEr/em3HtCuoe0TaFn68VDzi7OJHZ0nH3GUORHQEtEeVBa4dWqaBrz8NC0kne7jIRH1kYx3Im+0RHTazoJDSCFJkDeW6yhM4MbRF8CfJIxzsUPMkVicev2T2fJs5bXebxUR6/CtEkLMB+SdvOBkXQxPHNXiq50xI3EmaQ==
+ bh=rE0RFMj+1QgYKi0APP5AyV0pa1YcL1icNNJkXxMzFHE=;
+ b=BpLoJxlaODfQO/r6GlITvX3cqzdywfOecQLrnksN3TzkUMVws2C/NZK5+kEwn/Pg6E8/H8kIPNWpnubCUfx1f96ZuChsQnbossVVhqrYi9SLvlOIl8R2L5TdvHm8v7nldGUCc5qZY4OeYSEWXnca+khoaJaA/lMUb8nXBICWj/YBofEI4OPXmojUzYcaLRbksUBkztvcy2EGJFElTFRkpDJ7iO8AJ6gSPf5R6Ca1qNTQQc3Ryp+YKnDAPKzYKu4XKn6/BZI/iih34E+kAfMZj+/G38oRNw/ynHzQZbGMGyUvgC0AtIzB1FIqAnQI/FtbQ337vMfJRsHnXPbRiw+1rw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7D9GwZHnw9R0jXUy0+TyUcgITfKht9UthqcwT+ACobc=;
- b=VxEush7hx7yeWjq9I/waYJy0C24dMKf5srqLds+AYHxTz4FUxgwXnmpf/mQm3OnZAulWyLSr0EfQswkCjkdoZYrFUno927IqSdaCMxSejvLM/KCRDDj+Me+0hWz/kz7zwh/Y3TngOnFpONXsfho2aRG094Oc1C4UUMF3fGTRNNg=
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB3439.namprd12.prod.outlook.com (2603:10b6:208:cf::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.28; Mon, 1 Mar
- 2021 05:27:16 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::49f7:4979:3a0a:4554]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::49f7:4979:3a0a:4554%6]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
- 05:27:16 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=rE0RFMj+1QgYKi0APP5AyV0pa1YcL1icNNJkXxMzFHE=;
+ b=IiblLVVM3dRG181mAzQDqVRD2B9W0cwzbF6jea8KvDQP/LvtJhMfwM6FkSLuQpzBDRYqo0DPXWXDoJAi8iSzj8xsbo084oNcWJW1FYdxmMG4UfFhBhLYOQlZqdjbI4Ly970a7fuTt9ysq+RBh7+WkJARy7/PG6v9Wlsv7vklRz0=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3868.32; Mon, 1 Mar 2021 05:31:30 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::34e3:c46e:188c:ef53]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::34e3:c46e:188c:ef53%5]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
+ 05:31:30 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: correct TA RAP firmware information print
+Subject: RE: [PATCH] drm/amdgpu: correct TA RAP firmware information print
  error
 Thread-Topic: [PATCH] drm/amdgpu: correct TA RAP firmware information print
  error
-Thread-Index: AQHXDkXdB5Q8QwslA0eiOugzC9Yv0qpumZYAgAAAY1Q=
-Date: Mon, 1 Mar 2021 05:27:16 +0000
-Message-ID: <MN2PR12MB30224F72ABDEE13E89818213A29A9@MN2PR12MB3022.namprd12.prod.outlook.com>
+Thread-Index: AQHXDkXj0wgc182Hs0yzw+RPVpQQM6pumLUwgAAB1ACAAAEHYA==
+Date: Mon, 1 Mar 2021 05:31:30 +0000
+Message-ID: <DM6PR12MB4075D7EB6E313D23FAE2732AFC9A9@DM6PR12MB4075.namprd12.prod.outlook.com>
 References: <20210301025130.17402-1-kevin1.wang@amd.com>,
  <DM6PR12MB40750ED41BBCC62F237BAB66FC9A9@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB40750ED41BBCC62F237BAB66FC9A9@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ <MN2PR12MB30224F72ABDEE13E89818213A29A9@MN2PR12MB3022.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB30224F72ABDEE13E89818213A29A9@MN2PR12MB3022.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-01T05:31:27Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-01T05:27:15.365Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 284dcbc9-f32a-4cfc-e004-08d8dc72ad1b
-x-ms-traffictypediagnostic: MN2PR12MB3439:
+x-ms-office365-filtering-correlation-id: 7c424f3e-044a-49f1-0040-08d8dc73449b
+x-ms-traffictypediagnostic: DM5PR12MB1708:
 x-ms-exchange-minimumurldomainage: lists.freedesktop.org#0
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB34391F3B964D1D1272E5CDE0A29A9@MN2PR12MB3439.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-microsoft-antispam-prvs: <DM5PR12MB17085449D10C97CA703A3B14FC9A9@DM5PR12MB1708.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CcvJCwn/IClwE9acWwzXcxDujPbPkLqFnsnE+o7mPVJH++N6goLdruqF101y1+qhO8TAtYD4KSWqow1D3Ed4gnntD5o0Azv6H0zshhMmWkqB08d4N7ii+g8RrcN6X4JuHqiWcbLi90WGEIOf0Qoq7Mw02I7AkinvvHpfARUzIXVbfbVUMbRqzLNdjiWJXrXEJ/S/W7o8JDJyo/USn1s3iU/abyr/rWLSRHTsTQa5pTIWq/qjSbwRm3lp3SN2nH5bgFv+aZrhp9ridqT8cSFkO/mNE+OwXKWH/8N+YknCY3INynqHBkVrHXBqmePHR79Omb6ZwxOLyMV4EhBX0Yg0euliWbwP54YTQ/G/V+jcltmLHlxIWz8t9QzA3YB2cD0z7fAQ4a2UWBuSCZOP6hckUL3e3vIYJcbZBXPrnRiskws7M2AoZUqPOtxMQRniwgngCtqfAgXH8Tz/DTN1bAQtf+0zcnsKn2yKsagprzC31An3TU4fOhmaMlwmxCK7QP03+0YmEZKowCDYLbm7Ah7Jc5weL6obE0iNmFtq05+3Sji+xiLh5Ol8h986vGUwN5p7
+x-microsoft-antispam-message-info: bS89NpzAwCiu0XUF0dChbHOBQ4PVQrdWylsFUl/GLkP2JambtXjrK+0Zt8mVo2LmxV90JW0Nds9OA8g91S13XDq+KwcJ+NzRXuZ1lBQYb7QlWRDRBIyH7tvMWwFXIS+SPWDn0ZK+p0bokZoOsSn38VhXGIUT74yAp0vIXi3Hv3WrMjpzoXI7f+IFOy7e13e7O93jpq3SM+CdS/dIGYq0UBx04NOk+SWn67I1GR01Ajkb1MOl7ksAnd7YJRwz1/FimRutJLxafCNxKxsle8wHlDyQrE3bv4PSlMg1jUS87ZjIiZHWDC1DnGNpYcKb+6eea1O0qH9gsUvzik4agNwX4pHrtGpqGpElUkQ+/FK9aR4hHcg6fRH1hZ1kFGzO2qprf5YHhyHEQvJvKk023gPaSSNI4+Kk1CGDrneG6mE1s8R03/nUK9T4cgBLZCNcRqRSdpcdkQWs+BFtZnOEvhgNktrlfTgoF+eJ1H2TTItuGJQLLwN5BtgS5SROoAeokWSE0aQlyIaR0Up1ZjnwT0WLN1kL7ooTB575ADQXh43zwJtNIwDFVsiDiT0yMdQ71EDD
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(136003)(396003)(346002)(366004)(71200400001)(55016002)(9686003)(7696005)(86362001)(186003)(33656002)(26005)(53546011)(8676002)(19627405001)(83380400001)(8936002)(6506007)(5660300002)(66556008)(66476007)(64756008)(66446008)(110136005)(966005)(4326008)(76116006)(478600001)(316002)(166002)(66946007)(91956017)(45080400002)(2906002)(52536014);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(7696005)(110136005)(66476007)(66946007)(2906002)(64756008)(66556008)(76116006)(966005)(53546011)(66446008)(8676002)(6506007)(8936002)(45080400002)(71200400001)(26005)(316002)(478600001)(55016002)(186003)(4326008)(9686003)(33656002)(166002)(5660300002)(86362001)(52536014)(83380400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?NGPIj4g1+i3Gwf8Iv/8/Zsw9RxFW9sjVLmur0lr8DY3WjhWzHCkUPY4BMt?=
- =?iso-8859-1?Q?3RtSW7rKkBSIxnc5SKzRhqDCqfRwOxM3v1DEhE19MxeOmBaFSFYMUem3LX?=
- =?iso-8859-1?Q?O/pwH1d+TPQnNGa8W+Sy9QovuEmD7EAc4EUEfbsl/rBbwVCKai81GgUbbF?=
- =?iso-8859-1?Q?A2teFxd1F5+XdbT38XerFnEQyS2xCwb3c7eUh9Mu1ie8bAEEethX8oA8AN?=
- =?iso-8859-1?Q?RJ0pOf5MQmfarIdTx8MDHGpcsfiWkJKFddmAWkTTzbn0tf5o/xs72YLfzi?=
- =?iso-8859-1?Q?yfSFPLq+X+2e3RJsJUcqnnO/nVuVBgyVWSQgn35L8du3wnyX4RvaBLkJxi?=
- =?iso-8859-1?Q?6te+D//IpcsRkSMpc1X7ksuw7Lj9qCLn6it1ET43pDwGF4XscBTPn8sYjC?=
- =?iso-8859-1?Q?a2H897MXNbvMH0yYH1JmLypZweHTBXbmfpmTeEXJ1vKeSPEjGnOW0R7EfV?=
- =?iso-8859-1?Q?eklwbUaFNPvFPGl1yGz7uytC9FPxtizDB0tVnbjxZyo9qzO+y6l9vgp1WA?=
- =?iso-8859-1?Q?hr8eOyoYUeVZOZqkkrKSHhEMPiol6w8eimVqvvK7gLscSbUk0GdJbMNsz4?=
- =?iso-8859-1?Q?zpVj/KsqDb36DWvvbams80/Uh20NVVdXoKeoLNi4+oP69UQkkawLlnVDrK?=
- =?iso-8859-1?Q?wsDK5W0Sa19kV+v+horUevH7J6HbWuRThvxLShgybP4QVTlOJtbx/RkaWQ?=
- =?iso-8859-1?Q?E32/ZPful2AJAxUQkZCNjN9T5a8zi1RdsYlcSxs8qzSDFFTRGICr241/le?=
- =?iso-8859-1?Q?d2wLl2FgGL6xOpifD3aTQrWIJTOmwcxWToXnGkB/4JZFI+EH8jLM70rkO4?=
- =?iso-8859-1?Q?Xflycycvm1MuA+wi8O1ooWjh7XAeKl78qNbg240rO/2pD7GSE3Gyr+2Zfa?=
- =?iso-8859-1?Q?qM7lk9l0bpeXtR8cSL95ghFkmbK6tGjYcuD9ZN/wyWmLrH+ZX0guskmDwD?=
- =?iso-8859-1?Q?ibJjYSShaL8nXvOojY7YKVTUvcGKQj0alS6/+KJTncgzXm4I8JY25+eS71?=
- =?iso-8859-1?Q?iTBmMRNpB9pY5W6wdgMTC3aJyHQgojqSET54CGWjz5ZYgEbr6oIeRSj3rr?=
- =?iso-8859-1?Q?0ZrGdlsWdjepJco4gGNOS9/MFCRFjoNdCUXqAu5vcR7enS2GREHnGOPbrC?=
- =?iso-8859-1?Q?ik8oCM9meBUvATSe4xf3iVFfGz57Fz48yELoCaZAbH1l/lBooS6Ki2YhK3?=
- =?iso-8859-1?Q?GRhQMZERs1WorM5TBzkRs2f4WIhSC4CiauAeELKwOp5SVBNcb0RQMCq+dn?=
- =?iso-8859-1?Q?WOCL2MlOtOamhbtIx0wNENhYeJrw32kZ1wov9JM6JGi33VWHqiBYefzndl?=
- =?iso-8859-1?Q?qHoyLQcRHGioT4s4AxZyeImX4Bs/lHmdDt7aDpInIhWhkkva4aj0w3SZq/?=
- =?iso-8859-1?Q?XQ36Q1Hkei?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?/VFoueLbShyWdinu5mMGShcwykbUkpTK1ZrkLPdWUNjejXmYXyROdUxs5EbN?=
+ =?us-ascii?Q?paROrpFYNwsNBBHWgGBr/FEPEs+Oxp3tG9GJ+ORRaOnDlXZDLRGphAD1R7mh?=
+ =?us-ascii?Q?qSpijQLbyz5q8sb+op2rgvWiB9DBb8hJm/8syLmwn7y6s6qZhKty5qVYAe0f?=
+ =?us-ascii?Q?m1m9MGhzkoAhMxI3VpQ7UJiwnbrz0UFs+G7XW0gi4kXczJRglPljo0fVywjf?=
+ =?us-ascii?Q?9JurPIVn9sru/R38y0auiXApa60lXIpB9hFTFfNVuKbnWHocs/iqz89aiOBE?=
+ =?us-ascii?Q?5X8IedIU7LFxY3l0BTXoPUWXoJWPeNONT4aTmbBWTmK+ykITrIx0mv8kxqwR?=
+ =?us-ascii?Q?WobCa7JKqdigkMef4P251jx3yElG9fEAQOQY7oHJDccWrN3oLR8ASncFhTAd?=
+ =?us-ascii?Q?Ztgf6jGUqt+d4xz60+c0369gJ1al3Mrg7iSgH2FK5ZBITWJVr9vW5/FfIwXr?=
+ =?us-ascii?Q?9kzKbRDQ9I+1tTuVUPLMhSwWIrU8u+XbMyqZtZ5gLQuIbVz5qwlDsG/E+1r8?=
+ =?us-ascii?Q?Ut90EQ9i6vsddCYHyysleKzxWQ2dTv0WOkIZPhfksYV/21W1NVeTDw72ny2a?=
+ =?us-ascii?Q?GBiactYcfydWkplqufqWpcBwOjKhABuxjqAxoQfqX3b/3qlubDzQumJbrTSY?=
+ =?us-ascii?Q?EuFPzplAIq4kFZJcSA5LzCVzHfemvgTxR/opgcTkorbQgY0ngjVfQdYDYKBi?=
+ =?us-ascii?Q?e474KQoriD38LwohUQfJ0O8dbPHhNjRJGykCp1FPzB2yw0VhVN7Ux3Vzx3DY?=
+ =?us-ascii?Q?w/8pKRfafLbTbDcvdfW8/q9kfQ9oUjgx50i32PKoYPqJ+c8CO0TuiQKqkr59?=
+ =?us-ascii?Q?r0qAuE4yTvx1e7c0USFnqXxffgVam18vnjG93OSI/VSu23YXMMQQT84NsO2F?=
+ =?us-ascii?Q?qg9x5Ds3sm46SlGVAeVLkmBFI7P16hJ8vksZvNYaql7FBmdsSZB4n379018A?=
+ =?us-ascii?Q?8kG1s4Ce8efjq2S+3YwE8Z1hRS41mE/5BsnhM36tDGsamk87nl0SGu8J96Sp?=
+ =?us-ascii?Q?13RiyjYVzMSGpOJaI0we4LdNUdbZfwXOiNksDpT+gwU1FFh9EEqDxF6AKyLp?=
+ =?us-ascii?Q?ydTPH1+8DsCP76aEPa39jj/pKpamIzkkLmw+LCu/9TutwisvkTX7bZUmWlYz?=
+ =?us-ascii?Q?kddbf9lomuA9EQe6x01R1nA8GbTrzobUhRX7VKjykRBSDwpQZNCJ8GtC6KJB?=
+ =?us-ascii?Q?YTH/auZL5NFNX0uB8Mn0gy+MbSkla2CD4YUme8YGedvP9wAlCodDu20wBAj5?=
+ =?us-ascii?Q?eXVjnhc404H/ZOIzZg7mgKnZa13WHTfe/KVSsE3oSAvj3GaS5LzG5yBanz/e?=
+ =?us-ascii?Q?+44StxttISXi7hjjTFZohlwy?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 284dcbc9-f32a-4cfc-e004-08d8dc72ad1b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 05:27:16.0793 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c424f3e-044a-49f1-0040-08d8dc73449b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 05:31:30.1889 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nV4BM+YQyfvYrwljOQofmQd9ORzcmds4KdfzOrAU7yVRwZoK4YYzTycBuszMpmqT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3439
+X-MS-Exchange-CrossTenant-userprincipalname: fAz2jKDslJYELQ8g8Ie4q0z/u8dkIVkGGe/ZtnDDqMg50uXt410GfklaZCPk7r1EDWytBv3sv78oweZPHbhgug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1708
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,18 +136,33 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Li, Candice" <Candice.Li@amd.com>
-Content-Type: multipart/mixed; boundary="===============1242284769=="
+Content-Type: multipart/mixed; boundary="===============2029516767=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1242284769==
+--===============2029516767==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB30224F72ABDEE13E89818213A29A9MN2PR12MB3022namp_"
+	boundary="_000_DM6PR12MB4075D7EB6E313D23FAE2732AFC9A9DM6PR12MB4075namp_"
 
---_000_MN2PR12MB30224F72ABDEE13E89818213A29A9MN2PR12MB3022namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_DM6PR12MB4075D7EB6E313D23FAE2732AFC9A9DM6PR12MB4075namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+No problem. Another patch works for me. Thank you
+
+Regards,
+Hawking
+
+From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Sent: Monday, March 1, 2021 13:27
+To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Li, Candice <Candice.Li@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: correct TA RAP firmware information print =
+error
+
 
 [AMD Public Use]
 
@@ -157,12 +173,13 @@ but patch is merged, I will add a new patch to refine it.
 Best Regards,
 Kevin
 ________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
+From: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>
 Sent: Monday, March 1, 2021 1:23 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; amd-gfx@lists.freedesktop.org =
-<amd-gfx@lists.freedesktop.org>
-Cc: Li, Candice <Candice.Li@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.co=
-m>
+To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com<mailto:Kevin1.Wang@amd.com>>; am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@=
+lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Li, Candice <Candice.Li@amd.com<mailto:Candice.Li@amd.com>>; Wang, Kevi=
+n(Yang) <Kevin1.Wang@amd.com<mailto:Kevin1.Wang@amd.com>>
 Subject: RE: [PATCH] drm/amdgpu: correct TA RAP firmware information print =
 error
 
@@ -175,12 +192,12 @@ dgpu_firmware_info and amdgpu_debugfs_firmware_info_show.
 Regards,
 Hawking
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kevin Wa=
-ng
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Kevin Wang
 Sent: Monday, March 1, 2021 10:52
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.co=
-m>
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Li, Candice <Candice.Li@amd.com<mailto:Candice.Li@amd.com>>; Wang, Kevi=
+n(Yang) <Kevin1.Wang@amd.com<mailto:Kevin1.Wang@amd.com>>
 Subject: [PATCH] drm/amdgpu: correct TA RAP firmware information print erro=
 r
 
@@ -189,8 +206,8 @@ miss RAP TA in loop ( when i =3D=3D 4)
 Fix:
 drm/amdgpu: add RAP TA version print in amdgpu_firmware_info
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-Reported-by: Candice Li <candice.li@amd.com>
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com<mailto:kevin1.wang@amd.com>>
+Reported-by: Candice Li <candice.li@amd.com<mailto:candice.li@amd.com>>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -215,7 +232,7 @@ eq_file *m, void *unused)
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
 reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Chawking.=
 zhang%40amd.com%7C76e6934844e14fd942ec08d8dc5d042d%7C3dd8961fe4884e608e11a8=
@@ -223,58 +240,151 @@ zhang%40amd.com%7C76e6934844e14fd942ec08d8dc5d042d%7C3dd8961fe4884e608e11a8=
 wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D=
 ouIjHlz93nX%2Fj3gZ9tdhHxYX501bJmQm3UzqpDwSJGw%3D&amp;reserved=3D0
 
---_000_MN2PR12MB30224F72ABDEE13E89818213A29A9MN2PR12MB3022namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_DM6PR12MB4075D7EB6E313D23FAE2732AFC9A9DM6PR12MB4075namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-yes, I have the same idea and agree&nbsp;with you.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-but patch is merged, I will add a new patch to refine it.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,<br>
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Monday, March 1, 2021 1:23 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; amd-gfx@lists.fre=
-edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Li, Candice &lt;Candice.Li@amd.com&gt;; Wang, Kevin(Yang) &lt;Ke=
-vin1.Wang@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: correct TA RAP firmware information=
- print error</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<div class=3D"PlainText">[AMD Public Use]<br>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">No problem. Another patch works for me. Thank you<o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
+om&gt; <br>
+<b>Sent:</b> Monday, March 1, 2021 13:27<br>
+<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.free=
+desktop.org<br>
+<b>Cc:</b> Li, Candice &lt;Candice.Li@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: correct TA RAP firmware information=
+ print error<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#317100">[AMD Public Use]<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">yes, I =
+have the same idea and agree&nbsp;with you.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">but pat=
+ch is merged, I will add a new patch to refine it.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Best Re=
+gards,<br>
+Kevin<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@=
+amd.com">Hawking.Zhang@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, March 1, 2021 1:23 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang@amd.com">Kev=
+in1.Wang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Li, Candice &lt;<a href=3D"mailto:Candice.Li@amd.com">Candice.Li=
+@amd.com</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang@amd.c=
+om">Kevin1.Wang@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: correct TA RAP firmware information=
+ print error</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">[AMD Public Use]<br>
 <br>
 Instead of hard code the number of TA, it would be better to leverage enum =
 ta_fw_type definition, explicitly call out TA_TYPE for each case in both am=
@@ -284,12 +394,14 @@ dgpu_firmware_info and amdgpu_debugfs_firmware_info_show.
 Regards,<br>
 Hawking<br>
 -----Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Ke=
-vin Wang<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">=
+amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of Kevin Wang<br>
 Sent: Monday, March 1, 2021 10:52<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Li, Candice &lt;Candice.Li@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wa=
-ng@amd.com&gt;<br>
+To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesk=
+top.org</a><br>
+Cc: Li, Candice &lt;<a href=3D"mailto:Candice.Li@amd.com">Candice.Li@amd.co=
+m</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang@amd.com">Kev=
+in1.Wang@amd.com</a>&gt;<br>
 Subject: [PATCH] drm/amdgpu: correct TA RAP firmware information print erro=
 r<br>
 <br>
@@ -298,8 +410,10 @@ miss RAP TA in loop ( when i =3D=3D 4)<br>
 Fix:<br>
 drm/amdgpu: add RAP TA version print in amdgpu_firmware_info<br>
 <br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
-Reported-by: Candice Li &lt;candice.li@amd.com&gt;<br>
+Signed-off-by: Kevin Wang &lt;<a href=3D"mailto:kevin1.wang@amd.com">kevin1=
+.wang@amd.com</a>&gt;<br>
+Reported-by: Candice Li &lt;<a href=3D"mailto:candice.li@amd.com">candice.l=
+i@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-<br>
 &nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
@@ -330,7 +444,8 @@ sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
 F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
 7C01%7Chawking.zhang%40amd.com%7C76e6934844e14fd942ec08d8dc5d042d%7C3dd8961=
@@ -343,16 +458,17 @@ b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C10=
 dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637501639364874702%7CUnknown%7CTW=
 FpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3=
 D%7C1000&amp;amp;sdata=3DouIjHlz93nX%2Fj3gZ9tdhHxYX501bJmQm3UzqpDwSJGw%3D&a=
-mp;amp;reserved=3D0</a><br>
+mp;amp;reserved=3D0</a><o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB30224F72ABDEE13E89818213A29A9MN2PR12MB3022namp_--
+--_000_DM6PR12MB4075D7EB6E313D23FAE2732AFC9A9DM6PR12MB4075namp_--
 
---===============1242284769==
+--===============2029516767==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -363,4 +479,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1242284769==--
+--===============2029516767==--
