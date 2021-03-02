@@ -2,46 +2,66 @@ Return-Path: <SRS0=vakm=IA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7DCFC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 14:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88EBCC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 14:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5150A64F04
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 14:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5150A64F04
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id B3E7564EF0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 14:09:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3E7564EF0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF5556E162;
-	Tue,  2 Mar 2021 14:09:00 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A61A489C3B;
- Tue,  2 Mar 2021 14:05:13 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1lH5e9-0005J7-TI; Tue, 02 Mar 2021 14:05:09 +0000
-From: Colin King <colin.king@canonical.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Anson Jacob <Anson.Jacob@amd.com>, Mikita Lipski <Mikita.Lipski@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH][next] drm/amd/display: fix the return of the uninitialized
- value in ret
-Date: Tue,  2 Mar 2021 14:05:09 +0000
-Message-Id: <20210302140509.8466-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.30.0
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3316E17E;
+	Tue,  2 Mar 2021 14:09:01 +0000 (UTC)
+X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Mar 2021 06:50:09 UTC
+Received: from smtphy.263.net (sg-smtp01.263.net [54.255.195.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 947806E8BE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Mar 2021 06:50:09 +0000 (UTC)
+Received: from smtp.263.net (unknown [211.157.147.162])
+ by smtphy.263.net (Postfix) with ESMTPS id 9CB04149
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Mar 2021 14:42:46 +0800 (CST)
+Received: from regular1.263xmail.com (unknown [192.168.165.232])
+ by smtp.263.net (Postfix) with ESMTP id 0C3E025E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Mar 2021 14:42:39 +0800 (CST)
+Received: from localhost (unknown [192.168.167.69])
+ by regular1.263xmail.com (Postfix) with ESMTP id EE0AB1B3F;
+ Tue,  2 Mar 2021 14:42:34 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-ANTISPAM-LEVEL: 2
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+Received: from chenli.uniontech.com (unknown [58.246.122.242])
+ by smtp.263.net (postfix) whith ESMTP id
+ P17138T139833548986112S1614667331678795_; 
+ Tue, 02 Mar 2021 14:42:34 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <93bafa1daa56c20642d16d234fd61fd8>
+X-RL-SENDER: chenli@uniontech.com
+X-SENDER: chenli@uniontech.com
+X-LOGIN-NAME: chenli@uniontech.com
+X-FST-TO: amd-gfx@lists.freedesktop.org
+X-SENDER-IP: 58.246.122.242
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+Date: Tue, 02 Mar 2021 14:42:12 +0800
+Message-ID: <87wnuqt5tn.wl-chenli@uniontech.com>
+From: Chen Li <chenli@uniontech.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/radeon: Use kvmalloc for CS chunks
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/27.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 X-Mailman-Approved-At: Tue, 02 Mar 2021 14:08:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,41 +74,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?ISO-8859-1?Q?=22Christian_K=F6nig=22?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+The number of chunks/chunks_array may be passed in
+by userspace and can be large.
 
-Currently if stream->signal is neither SIGNAL_TYPE_DISPLAY_PORT_MST or
-SIGNAL_TYPE_DISPLAY_PORT then variable ret is uninitialized and this is
-checked for > 0 at the end of the function.  Ret should be initialized,
-I believe setting it to zero is a correct default.
+It has been observed to cause kcalloc failures from trinity fuzzy test:
 
-Addresses-Coverity: ("Uninitialized scalar variable")
-Fixes: bd0c064c161c ("drm/amd/display: Add return code instead of boolean for future use")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
+```
+ WARNING: CPU: 0 PID: 5487 at mm/page_alloc.c:4385
+ __alloc_pages_nodemask+0x2d8/0x14d0
+
+......
+
+Trace:
+__warn.part.4+0x11c/0x174
+__alloc_pages_nodemask+0x2d8/0x14d0
+warn_slowpath_null+0x84/0xb0
+__alloc_pages_nodemask+0x2d8/0x14d0
+__alloc_pages_nodemask+0x2d8/0x14d0
+alloc_pages_current+0xf0/0x1b0
+free_buffer_head+0x88/0xf0
+jbd2_journal_try_to_free_buffers+0x1e0/0x2a0
+ext4_releasepage+0x84/0x140
+release_pages+0x414/0x4c0
+release_pages+0x42c/0x4c0
+__find_get_block+0x1a4/0x5b0
+alloc_pages_current+0xcc/0x1b0
+kmalloc_order+0x30/0xb0
+__kmalloc+0x300/0x390
+kmalloc_order_trace+0x48/0x110
+__kmalloc+0x300/0x390
+radeon_cs_parser_init.part.1+0x74/0x670 [radeon]
+crypto_shash_update+0x5c/0x1c0
+radeon_cs_parser_init.part.1+0x74/0x670 [radeon]
+__wake_up_common_lock+0xb8/0x210
+radeon_cs_ioctl+0xc8/0xb80 [radeon]
+radeon_cs_ioctl+0x50/0xb80 [radeon]
+drm_ioctl_kernel+0xf4/0x160
+radeon_cs_ioctl+0x0/0xb80 [radeon]
+drm_ioctl_kernel+0xa0/0x160
+drm_ioctl+0x2dc/0x4f0
+radeon_drm_ioctl+0x80/0xf0 [radeon]
+new_sync_write+0x120/0x1c0
+timerqueue_add+0x88/0x140
+do_vfs_ioctl+0xe4/0x990
+ksys_ioctl+0xdc/0x110
+ksys_ioctl+0x78/0x110
+sys_ioctl+0x2c/0x50
+entSys+0xa0/0xc0
+```
+
+Obviously, the required order in this case is larger than MAX_ORDER.
+So, just use kvmalloc instead.
+
+Signed-off-by: Chen Li <chenli@uniontech.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_cs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 5159399f8239..5750818db8f6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -530,7 +530,7 @@ bool dm_helpers_dp_write_dsc_enable(
- {
- 	uint8_t enable_dsc = enable ? 1 : 0;
- 	struct amdgpu_dm_connector *aconnector;
--	uint8_t ret;
-+	uint8_t ret = 0;
- 
- 	if (!stream)
- 		return false;
--- 
+diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+index 35e937d39b51..fb736ef9f9aa 100644
+--- a/drivers/gpu/drm/radeon/radeon_cs.c
++++ b/drivers/gpu/drm/radeon/radeon_cs.c
+@@ -288,7 +288,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+ 	p->chunk_relocs = NULL;
+ 	p->chunk_flags = NULL;
+ 	p->chunk_const_ib = NULL;
+-	p->chunks_array = kcalloc(cs->num_chunks, sizeof(uint64_t), GFP_KERNEL);
++	p->chunks_array = kvmalloc_array(cs->num_chunks, sizeof(uint64_t), GFP_KERNEL);
+ 	if (p->chunks_array == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -299,7 +299,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+ 	}
+ 	p->cs_flags = 0;
+ 	p->nchunks = cs->num_chunks;
+-	p->chunks = kcalloc(p->nchunks, sizeof(struct radeon_cs_chunk), GFP_KERNEL);
++	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct radeon_cs_chunk), GFP_KERNEL);
+ 	if (p->chunks == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -452,8 +452,8 @@ static void radeon_cs_parser_fini(struct radeon_cs_parser *parser, int error, bo
+ 	kvfree(parser->vm_bos);
+ 	for (i = 0; i < parser->nchunks; i++)
+ 		kvfree(parser->chunks[i].kdata);
+-	kfree(parser->chunks);
+-	kfree(parser->chunks_array);
++	kvfree(parser->chunks);
++	kvfree(parser->chunks_array);
+ 	radeon_ib_free(parser->rdev, &parser->ib);
+ 	radeon_ib_free(parser->rdev, &parser->const_ib);
+ }
+--
 2.30.0
+
 
 _______________________________________________
 amd-gfx mailing list
