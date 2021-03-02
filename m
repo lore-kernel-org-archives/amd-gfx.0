@@ -8,59 +8,61 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E08AAC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 17:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2296EC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 17:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7840564F0B
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 17:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7840564F0B
+	by mail.kernel.org (Postfix) with ESMTPS id AD86564F1C
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 17:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD86564F1C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5886E06B;
-	Tue,  2 Mar 2021 17:54:34 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666B36E06B;
- Tue,  2 Mar 2021 17:54:33 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id w69so22888963oif.1;
- Tue, 02 Mar 2021 09:54:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C626E159;
+	Tue,  2 Mar 2021 17:56:31 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16B76E159
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Mar 2021 17:56:29 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id l133so22863431oib.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Mar 2021 09:56:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Et+xU+di4F1x3AQ1+A9WWet/mw3rwpq1euxtEeoI89c=;
- b=R8IMffRwg3aGHh1B5gMoq/i7WEbQ2fL4NUAIAo89ZzlhhjKsNsQWJaZvMijOUazeTZ
- OpMAB7iHFz8rvR0Z+p8U3Vo+0hART0VJlgY7MwY6olkvlLBe4qrhD/px9iljx0b+P+Ju
- bACHt60UzNx+/G4ZsCSc6jqcMFOyFO5HUBcu/v33O4vjiH42sdSgr6VTSQxfCJbj5TpO
- 2V0evh8DKHmLHVL2OrjgHShVTa2UUlxacOUHkfwPOg/plPEJ8+1eMBXQMAJEnRjEijg/
- pwYAFgAGiUcAIq4pS5x22sTBb9/ElHmKtRlmhI5e/Y4lpxKM/+rjkaJrw5wlaeh2YApf
- CCzA==
+ :cc:content-transfer-encoding;
+ bh=LJhobmleC2WDHVCAr/bKuaQ8007ndbO+4oTw0fIlodo=;
+ b=aU2OFgw/64sR+TGPki/XfKx494/QiGRYuxIXrmikpmaB3qmBnQwgCcOBmVthJp3kL3
+ IjWUZ/5BNSUj6jh+GzcAKTzJ1IpMsIqzxtbUbX3Jpn+2lp46UgGccZI/zxAtfSIZr0Pt
+ Ze8G4NQYdK7G9R/r2bp43nweavMFt/RY8oRErT8ltSPNs2z08xXx7+WjObh6nJ585ab9
+ uNxQbR9Ef+8C6xQfix1qhil202bSp9ASee1nsicbVXBqk7f8GV77pbqGfQ/JFJqC2mDP
+ 9gKsp4jluVbc7NKVTOsbGuvfocJz1pBiLpFTR4RdPrtAO5MjmIYa9BdQxtPeWf/C3rJd
+ ujNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Et+xU+di4F1x3AQ1+A9WWet/mw3rwpq1euxtEeoI89c=;
- b=Bhp0epRIuExrPbmGmgEU2byjKPgIr/5gthhioXHfBMXH7VrjF8qkz2+kaETpBB6lks
- SrEW/WGP+n+0umPSkfu4tNAd1c2+q9Zyjj3I3n7bQGPAf3NNLtcUiTzx7hsbCD6hZKPX
- Oh+v1vPSX+jd2nYgvlwhNHSj2hRyN6ip/QXzEK6EEovte9IutPQxD6wjkxagwvI8cEYz
- b+g7vNBE/XoADnNBDiqQ910PYdBGkyw9TMuC+RTRt4nIT6PF3vn7vPeX2YUWDNCX7EL6
- fudEGFVZXz8jgsMsN8TieF0AJUVRyBGaYQDyETlM6/eQ0PhOY6zniXM55ZyLvA8fis68
- vf5w==
-X-Gm-Message-State: AOAM533PY4hj64W7JwAzMRm84tqVwZzr4qg9Dgjh8o9G7M8V14yvjcWS
- 7Faiigb7/FNSMBoLo75t75EnKDkF84G2IgZW7j0=
-X-Google-Smtp-Source: ABdhPJxRW4p/vHzKb5c4JRQmf36SLWtagL0pbDRXWsUl6Q0LsZbThftkKX3kYDCpqSStbcgfjUlyvx+pUY4jiy9rzlA=
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=LJhobmleC2WDHVCAr/bKuaQ8007ndbO+4oTw0fIlodo=;
+ b=g1zeRirHklCk+Tulp/HOCe6cGIRmc6lpNyTjwt8zxxgN4VAAx7m6tfxH+Mp22jqqov
+ Nli4y8BfwICw+fY64YEIsbvpVukpgreskf4qYXr+Ao6HXHAnGVBAmK6O80sjFqnEwlEL
+ eYBv0/V3lSRrRV9zEbgZUW/Ugu3X8ham1MOmpYHNgUeIWVkkK6K1DHbWWN+V3lH2b4eN
+ kFxPu98SzIyvUZv/GPaHHgx7yGHhvDFhy23XAGJw+IkJSUk7+3HVLpW460OgFGQPvJ+I
+ FQico2rHKLVZPmWaSHEY8QPEMbIVXQW1gtuW7+swnP4as5wXoF9jP6QlVlZ0MZF1D7J+
+ prTA==
+X-Gm-Message-State: AOAM532essiztyQ7QZifbqqVR/lL9BtDTdRDOWc+CXsQQ2txNj40GTZN
+ 68TWrQ98spxm/MQ7kzZpoLb6sUKIiXlax1iZoBQ=
+X-Google-Smtp-Source: ABdhPJxzBUsjiSBxxNgCJARy781tuGGoG7z7aSO2sdGy5EMjpIqeG/QlJFUuuiv/OsXIwC/ota0Rm2P1jEBp2JYcASc=
 X-Received: by 2002:a05:6808:f15:: with SMTP id
- m21mr4022056oiw.123.1614707672757; 
- Tue, 02 Mar 2021 09:54:32 -0800 (PST)
+ m21mr4027748oiw.123.1614707788969; 
+ Tue, 02 Mar 2021 09:56:28 -0800 (PST)
 MIME-Version: 1.0
-References: <20210225150119.405469-1-arnd@kernel.org>
-In-Reply-To: <20210225150119.405469-1-arnd@kernel.org>
+References: <87wnuqt5tn.wl-chenli@uniontech.com>
+ <91acb410-2060-fee7-0791-f7585ab7a1d8@gmail.com>
+In-Reply-To: <91acb410-2060-fee7-0791-f7585ab7a1d8@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Mar 2021 12:54:21 -0500
-Message-ID: <CADnq5_NU3DOJShJm4jGLYgPoM2kWT83sL5GZTGp11Be+hsCcmQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix an uninitialized index variable
-To: Arnd Bergmann <arnd@kernel.org>
+Date: Tue, 2 Mar 2021 12:56:17 -0500
+Message-ID: <CADnq5_NpUL9kknskMjvNNX-jTRn+2_Xkx9oOzYJuZi4aXPLa7Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Use kvmalloc for CS chunks
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,122 +74,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Eryk Brol <eryk.brol@amd.com>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Leo Li <sunpeng.li@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Chen Li <chenli@uniontech.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nathan Chancellor <nathan@kernel.org>, David Airlie <airlied@linux.ie>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 25, 2021 at 10:01 AM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> clang points out that the new logic uses an always-uninitialized
-> array index:
->
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9810:38: warning: variable 'i' is uninitialized when used here [-Wuninitialized]
->                         timing  = &edid->detailed_timings[i];
->                                                           ^
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9720:7: note: initialize the variable 'i' to silence this warning
->
-> My best guess is that the index should have been returned by the
-> parse_hdmi_amd_vsdb() function that walks an array here, so do that.
->
-> Fixes: f9b4f20c4777 ("drm/amd/display: Add Freesync HDMI support to DM")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Applied.  Thanks!
-
-Alex
-
-
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b19b93c74bae..667c0d52dbfa 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9736,7 +9736,7 @@ static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
->         return false;
->  }
->
-> -static bool parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
-> +static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
->                 struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
->  {
->         uint8_t *edid_ext = NULL;
-> @@ -9746,7 +9746,7 @@ static bool parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
->         /*----- drm_find_cea_extension() -----*/
->         /* No EDID or EDID extensions */
->         if (edid == NULL || edid->extensions == 0)
-> -               return false;
-> +               return -ENODEV;
->
->         /* Find CEA extension */
->         for (i = 0; i < edid->extensions; i++) {
-> @@ -9756,14 +9756,15 @@ static bool parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
->         }
->
->         if (i == edid->extensions)
-> -               return false;
-> +               return -ENODEV;
->
->         /*----- cea_db_offsets() -----*/
->         if (edid_ext[0] != CEA_EXT)
-> -               return false;
-> +               return -ENODEV;
->
->         valid_vsdb_found = parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, vsdb_info);
-> -       return valid_vsdb_found;
-> +
-> +       return valid_vsdb_found ? i : -ENODEV;
->  }
->
->  void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
-> @@ -9781,7 +9782,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->         struct amdgpu_device *adev = drm_to_adev(dev);
->         bool freesync_capable = false;
->         struct amdgpu_hdmi_vsdb_info vsdb_info = {0};
-> -       bool hdmi_valid_vsdb_found = false;
->
->         if (!connector->state) {
->                 DRM_ERROR("%s - Connector has no state", __func__);
-> @@ -9857,8 +9857,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->                         }
->                 }
->         } else if (edid && amdgpu_dm_connector->dc_sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-> -               hdmi_valid_vsdb_found = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
-> -               if (hdmi_valid_vsdb_found && vsdb_info.freesync_supported) {
-> +               i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
-> +               if (i >= 0 && vsdb_info.freesync_supported) {
->                         timing  = &edid->detailed_timings[i];
->                         data    = &timing->data.other_data;
->
-> --
-> 2.29.2
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFR1ZSwgTWFyIDIsIDIwMjEgYXQgOToxMyBBTSBD
+aHJpc3RpYW4gS8O2bmlnCjxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6
+Cj4KPiBBbSAwMi4wMy4yMSB1bSAwNzo0MiBzY2hyaWViIENoZW4gTGk6Cj4gPiBUaGUgbnVtYmVy
+IG9mIGNodW5rcy9jaHVua3NfYXJyYXkgbWF5IGJlIHBhc3NlZCBpbgo+ID4gYnkgdXNlcnNwYWNl
+IGFuZCBjYW4gYmUgbGFyZ2UuCj4KPiBJJ20gd29uZGVyaW5nIGlmIHdlIHNob3VsZG4ndCByYXRo
+ZXIgcmVzdHJpY3QgdGhlIG51bWJlciBvZiBjaHVua3MuCj4KPiA+IEl0IGhhcyBiZWVuIG9ic2Vy
+dmVkIHRvIGNhdXNlIGtjYWxsb2MgZmFpbHVyZXMgZnJvbSB0cmluaXR5IGZ1enp5IHRlc3Q6Cj4g
+Pgo+ID4gYGBgCj4gPiAgIFdBUk5JTkc6IENQVTogMCBQSUQ6IDU0ODcgYXQgbW0vcGFnZV9hbGxv
+Yy5jOjQzODUKPiA+ICAgX19hbGxvY19wYWdlc19ub2RlbWFzaysweDJkOC8weDE0ZDAKPiA+Cj4g
+PiAuLi4uLi4KPiA+Cj4gPiBUcmFjZToKPiA+IF9fd2Fybi5wYXJ0LjQrMHgxMWMvMHgxNzQKPiA+
+IF9fYWxsb2NfcGFnZXNfbm9kZW1hc2srMHgyZDgvMHgxNGQwCj4gPiB3YXJuX3Nsb3dwYXRoX251
+bGwrMHg4NC8weGIwCj4gPiBfX2FsbG9jX3BhZ2VzX25vZGVtYXNrKzB4MmQ4LzB4MTRkMAo+ID4g
+X19hbGxvY19wYWdlc19ub2RlbWFzaysweDJkOC8weDE0ZDAKPiA+IGFsbG9jX3BhZ2VzX2N1cnJl
+bnQrMHhmMC8weDFiMAo+ID4gZnJlZV9idWZmZXJfaGVhZCsweDg4LzB4ZjAKPiA+IGpiZDJfam91
+cm5hbF90cnlfdG9fZnJlZV9idWZmZXJzKzB4MWUwLzB4MmEwCj4gPiBleHQ0X3JlbGVhc2VwYWdl
+KzB4ODQvMHgxNDAKPiA+IHJlbGVhc2VfcGFnZXMrMHg0MTQvMHg0YzAKPiA+IHJlbGVhc2VfcGFn
+ZXMrMHg0MmMvMHg0YzAKPiA+IF9fZmluZF9nZXRfYmxvY2srMHgxYTQvMHg1YjAKPiA+IGFsbG9j
+X3BhZ2VzX2N1cnJlbnQrMHhjYy8weDFiMAo+ID4ga21hbGxvY19vcmRlcisweDMwLzB4YjAKPiA+
+IF9fa21hbGxvYysweDMwMC8weDM5MAo+ID4ga21hbGxvY19vcmRlcl90cmFjZSsweDQ4LzB4MTEw
+Cj4gPiBfX2ttYWxsb2MrMHgzMDAvMHgzOTAKPiA+IHJhZGVvbl9jc19wYXJzZXJfaW5pdC5wYXJ0
+LjErMHg3NC8weDY3MCBbcmFkZW9uXQo+ID4gY3J5cHRvX3NoYXNoX3VwZGF0ZSsweDVjLzB4MWMw
+Cj4gPiByYWRlb25fY3NfcGFyc2VyX2luaXQucGFydC4xKzB4NzQvMHg2NzAgW3JhZGVvbl0KPiA+
+IF9fd2FrZV91cF9jb21tb25fbG9jaysweGI4LzB4MjEwCj4gPiByYWRlb25fY3NfaW9jdGwrMHhj
+OC8weGI4MCBbcmFkZW9uXQo+ID4gcmFkZW9uX2NzX2lvY3RsKzB4NTAvMHhiODAgW3JhZGVvbl0K
+PiA+IGRybV9pb2N0bF9rZXJuZWwrMHhmNC8weDE2MAo+ID4gcmFkZW9uX2NzX2lvY3RsKzB4MC8w
+eGI4MCBbcmFkZW9uXQo+ID4gZHJtX2lvY3RsX2tlcm5lbCsweGEwLzB4MTYwCj4gPiBkcm1faW9j
+dGwrMHgyZGMvMHg0ZjAKPiA+IHJhZGVvbl9kcm1faW9jdGwrMHg4MC8weGYwIFtyYWRlb25dCj4g
+PiBuZXdfc3luY193cml0ZSsweDEyMC8weDFjMAo+ID4gdGltZXJxdWV1ZV9hZGQrMHg4OC8weDE0
+MAo+ID4gZG9fdmZzX2lvY3RsKzB4ZTQvMHg5OTAKPiA+IGtzeXNfaW9jdGwrMHhkYy8weDExMAo+
+ID4ga3N5c19pb2N0bCsweDc4LzB4MTEwCj4gPiBzeXNfaW9jdGwrMHgyYy8weDUwCj4gPiBlbnRT
+eXMrMHhhMC8weGMwCj4KPiBQbGVhc2UgZHJvcCB0aGUgYmFja3RyYWNlLCBpdCBkb2Vzbid0IGFk
+ZCBhbnkgdmFsdWUgdG8gdGhlIGNvbW1pdCBsb2cuCj4KPiA+IGBgYAo+ID4KPiA+IE9idmlvdXNs
+eSwgdGhlIHJlcXVpcmVkIG9yZGVyIGluIHRoaXMgY2FzZSBpcyBsYXJnZXIgdGhhbiBNQVhfT1JE
+RVIuCj4gPiBTbywganVzdCB1c2Uga3ZtYWxsb2MgaW5zdGVhZC4KPiA+Cj4gPiBTaWduZWQtb2Zm
+LWJ5OiBDaGVuIExpIDxjaGVubGlAdW5pb250ZWNoLmNvbT4KPgo+IFJldmlld2VkLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBUaGUgc2FtZSBwYXRj
+aCBzaG91bGQgcHJvYmFibHkgYXBwbGllZCB0byBhbWRncHUgYXMgd2VsbCBpZiB3ZSBkb24ndAo+
+IGFscmVhZHkgdXNlIGt2bWFsbG9jIHRoZXJlIGFzIHdlbGwuCj4KPiBSZWdhcmRzLAo+IENocmlz
+dGlhbi4KPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMg
+fCA4ICsrKystLS0tCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVs
+ZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
+ZW9uX2NzLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jcy5jCj4gPiBpbmRleCAz
+NWU5MzdkMzliNTEuLmZiNzM2ZWY5ZjlhYSAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX2NzLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
+ZW9uX2NzLmMKPiA+IEBAIC0yODgsNyArMjg4LDcgQEAgaW50IHJhZGVvbl9jc19wYXJzZXJfaW5p
+dChzdHJ1Y3QgcmFkZW9uX2NzX3BhcnNlciAqcCwgdm9pZCAqZGF0YSkKPiA+ICAgICAgIHAtPmNo
+dW5rX3JlbG9jcyA9IE5VTEw7Cj4gPiAgICAgICBwLT5jaHVua19mbGFncyA9IE5VTEw7Cj4gPiAg
+ICAgICBwLT5jaHVua19jb25zdF9pYiA9IE5VTEw7Cj4gPiAtICAgICBwLT5jaHVua3NfYXJyYXkg
+PSBrY2FsbG9jKGNzLT5udW1fY2h1bmtzLCBzaXplb2YodWludDY0X3QpLCBHRlBfS0VSTkVMKTsK
+PiA+ICsgICAgIHAtPmNodW5rc19hcnJheSA9IGt2bWFsbG9jX2FycmF5KGNzLT5udW1fY2h1bmtz
+LCBzaXplb2YodWludDY0X3QpLCBHRlBfS0VSTkVMKTsKPiA+ICAgICAgIGlmIChwLT5jaHVua3Nf
+YXJyYXkgPT0gTlVMTCkgewo+ID4gICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPiA+ICAg
+ICAgIH0KPiA+IEBAIC0yOTksNyArMjk5LDcgQEAgaW50IHJhZGVvbl9jc19wYXJzZXJfaW5pdChz
+dHJ1Y3QgcmFkZW9uX2NzX3BhcnNlciAqcCwgdm9pZCAqZGF0YSkKPiA+ICAgICAgIH0KPiA+ICAg
+ICAgIHAtPmNzX2ZsYWdzID0gMDsKPiA+ICAgICAgIHAtPm5jaHVua3MgPSBjcy0+bnVtX2NodW5r
+czsKPiA+IC0gICAgIHAtPmNodW5rcyA9IGtjYWxsb2MocC0+bmNodW5rcywgc2l6ZW9mKHN0cnVj
+dCByYWRlb25fY3NfY2h1bmspLCBHRlBfS0VSTkVMKTsKPiA+ICsgICAgIHAtPmNodW5rcyA9IGt2
+bWFsbG9jX2FycmF5KHAtPm5jaHVua3MsIHNpemVvZihzdHJ1Y3QgcmFkZW9uX2NzX2NodW5rKSwg
+R0ZQX0tFUk5FTCk7Cj4gPiAgICAgICBpZiAocC0+Y2h1bmtzID09IE5VTEwpIHsKPiA+ICAgICAg
+ICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4gPiAgICAgICB9Cj4gPiBAQCAtNDUyLDggKzQ1Miw4
+IEBAIHN0YXRpYyB2b2lkIHJhZGVvbl9jc19wYXJzZXJfZmluaShzdHJ1Y3QgcmFkZW9uX2NzX3Bh
+cnNlciAqcGFyc2VyLCBpbnQgZXJyb3IsIGJvCj4gPiAgICAgICBrdmZyZWUocGFyc2VyLT52bV9i
+b3MpOwo+ID4gICAgICAgZm9yIChpID0gMDsgaSA8IHBhcnNlci0+bmNodW5rczsgaSsrKQo+ID4g
+ICAgICAgICAgICAgICBrdmZyZWUocGFyc2VyLT5jaHVua3NbaV0ua2RhdGEpOwo+ID4gLSAgICAg
+a2ZyZWUocGFyc2VyLT5jaHVua3MpOwo+ID4gLSAgICAga2ZyZWUocGFyc2VyLT5jaHVua3NfYXJy
+YXkpOwo+ID4gKyAgICAga3ZmcmVlKHBhcnNlci0+Y2h1bmtzKTsKPiA+ICsgICAgIGt2ZnJlZShw
+YXJzZXItPmNodW5rc19hcnJheSk7Cj4gPiAgICAgICByYWRlb25faWJfZnJlZShwYXJzZXItPnJk
+ZXYsICZwYXJzZXItPmliKTsKPiA+ICAgICAgIHJhZGVvbl9pYl9mcmVlKHBhcnNlci0+cmRldiwg
+JnBhcnNlci0+Y29uc3RfaWIpOwo+ID4gICB9Cj4gPiAtLQo+ID4gMi4zMC4wCj4gPgo+ID4KPiA+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdAo+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4
+IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
