@@ -7,55 +7,57 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15AA0C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C656C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DFE964EE7
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DFE964EE7
+	by mail.kernel.org (Postfix) with ESMTPS id CCEF564EDC
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCEF564EDC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1061689F1B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB52789FAC;
 	Wed,  3 Mar 2021 09:26:07 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2081.outbound.protection.outlook.com [40.107.223.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4627289F1B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C0589F6F
  for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 09:26:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FaZgOVjOXyOmw3PXXPGr2f0d2oCHu9rLWp6ue/fJVZi4+CxcGMCLUSzI2tYUGyPciIfSfqP1LhKVxfaFn4wgep8uCbDTJPqaVWUAwv87K8ZkHGila/ozQtzJJoDan2yc51dhMdyHJEo61vx2rVD/UspqbXJXpQJZhT2p0BslX650wHlVShhrKPiVA/zg2S69GtWPv73z8Z1mlucYnNqr2rD4grICQ4IzxH3GyUiVrxpbrHJXxA2BWH4xXB/wIIgdOsFFprO2kyAjGJuI7xGAv1URrCqtifMrVVN7OKcglyrmcsdtglQPtg8ofy1hqfwlimrMPYynBT18qLYaagxvDA==
+ b=Gk+EzgbPTZQoXOVWJa0/6gOVG3BbBwfZBovQO8l0yUxy2745HgU8uS2yBhvGX8eabx3csMcckfPDVp+MxlztkKF22QEG+bFXfnEoCc03KrWOtKGyz9uC62sq5ZPvgv8J9KZ5FdtJCSggsqaG90cc9pNPLOnjmNg0j6dp1NAjCVO8kYyxwJr5kvuABMW35k98LQPYIgptTNCvudGyG4eV5QX9mUk/viXVqQ/D+tCSsoxVgAdw+BUYXufTUPZ1Fvg+fYA3RjyIEUImhN0ddZijFjSLMfvOogNPMBthgAEs66WrhWjfKgLcj0cQoKs33O0evkvGkpy2f3BVueNgVKoGJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RR287VyeTYTgDNUMpxqowU2KfRRpDhFuQ81f6u6+AoM=;
- b=auxXzrdf0NBM67zqnpnU6/vUI1L4x02BqBgV8n3XCDIANQpDGoPMn9Qd3CSXJhEI9kr0NspgajB7RRLcyHGF44iPd1/mYm7+SS0nGO5xGyXEjDh6MdHqr+aglSx7E2Ome87VdbJD83zUDdbhgk1iAWhzIJx0+XxotV7vdoT/DfKnvJ8Sbzvs0ALQ1b+ABN7KjV04J/I3A6WVj/I/rkRuHQ8LYtUkc6u/kmKqNfP4fvMrJ1Wm7z5R7X4Up5ss/AD029F8YC0gUIgWM5/SYeaVPcL3+bFBxf48pvB4edxqTg8Oc7rflmlZqobe74lpxwWazjTdiOyxTdjGjNT02ePp8A==
+ bh=Xzl42L/ia/TrqnjaADJE/0fRm97rCaqaIXOWnvCxAQg=;
+ b=l2LK9rUFJN2CgimvvLPFpXlLIYDbLCXhgKZ+xqaj5bzNftOFlX8tH6+kAdyMwrW/jAYEITNLA+wgcKwNZyt1NRmRF8CwGsSF5sz7f7Nol5+5PruqiKCDqWClwvLXGXHY6vv/CZzln57T2ThbThg/6AI0Rtq2nH1VE4E08AQ05t4n+yFlBjigTk6H8mbQ66pjBfSQz3IGJ7ZYDIIIj5F758NTpUw8l8XkAkmt8MyklohRL7fI7ZqjRqhsxdB2ExzrjcdyqITpZUBJM1lU2UNOQry0dVBHu8YO49KUbyXBChYu/XSQgHymYNDogpv4NbPH8vUzxA4kQ3wEz4IJCncQGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RR287VyeTYTgDNUMpxqowU2KfRRpDhFuQ81f6u6+AoM=;
- b=Q4mS4Ohnw+L9Syx4r4ZQo8ys+QY13dZ3VOX9VkbQMKLqzxvE82vwkLMXV2E+cNVM8Iy1kgZPV7e5lD3LZfTTlwNbSheNm+T/BBpdD3WxOMZxWkpDak73GGwrEH6NL9sNHHN8fW9wUfzTBey5ZGZ7c516d/UWHQRN92RBlRLc4sQ=
+ bh=Xzl42L/ia/TrqnjaADJE/0fRm97rCaqaIXOWnvCxAQg=;
+ b=p6VEEotd+ddV5oJq4hD1SMdCVl1y/uwMG2ygWTVfj9BfJnpMZc0bH1QDZy1Th0Okt61kpDukRCCYTstvd0G4/7KXkw79WV7OWmXbHedAR77ieCyy9XZhPIDlyCE+Pe5WSSv2WwEERY93q/uSnvBd7T4WosjfzVP8H0DqdmRZRfs=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
  by CY4PR1201MB2468.namprd12.prod.outlook.com (2603:10b6:903:d7::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.23; Wed, 3 Mar
- 2021 09:26:03 +0000
+ 2021 09:26:05 +0000
 Received: from CY4PR12MB1463.namprd12.prod.outlook.com
  ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
  ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3890.030; Wed, 3 Mar 2021
- 09:26:03 +0000
+ 09:26:05 +0000
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: Christian.Koenig@amd.com,
 	Felix.Kuehling@amd.com
-Subject: [PATCH 1/3] drm/amdgpu: drm/amdkfd: split amdgpu_mn_register
-Date: Wed,  3 Mar 2021 10:25:48 +0100
-Message-Id: <20210303092550.110816-1-nirmoy.das@amd.com>
+Subject: [PATCH v2 2/3] drm/amdgpu: introduce kfd user flag for amdgpu_bo
+Date: Wed,  3 Mar 2021 10:25:49 +0100
+Message-Id: <20210303092550.110816-2-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.30.1
+In-Reply-To: <20210303092550.110816-1-nirmoy.das@amd.com>
+References: <20210303092550.110816-1-nirmoy.das@amd.com>
 X-Originating-IP: [93.229.59.224]
 X-ClientProxiedBy: AM0PR04CA0105.eurprd04.prod.outlook.com
  (2603:10a6:208:be::46) To CY4PR12MB1463.namprd12.prod.outlook.com
@@ -65,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from brihaspati.fritz.box (93.229.59.224) by
  AM0PR04CA0105.eurprd04.prod.outlook.com (2603:10a6:208:be::46) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.17 via Frontend Transport; Wed, 3 Mar 2021 09:26:02 +0000
+ 15.20.3912.17 via Frontend Transport; Wed, 3 Mar 2021 09:26:03 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 573e5f57-8118-4fcd-cd6d-08d8de265d87
+X-MS-Office365-Filtering-Correlation-Id: ae713272-ec7c-45ca-2982-08d8de265e7a
 X-MS-TrafficTypeDiagnostic: CY4PR1201MB2468:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB2468A84759B9F655519F64138B989@CY4PR1201MB2468.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB2468B3C5FDD9F1C6BAE192998B989@CY4PR1201MB2468.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U/9OER4+5Dlm12U/Hs/HmkUV0/4YQrlXB6MhevKmUyy9h/dIhlF4oPmKeJDPcNCA/iO25CpIARu0ZYulSDUuHFfsJhTqRsGPQxi68aoWjR+OUWM+NUHjMRmkrGbcASTGz9uW4PVm9P2Ljv84aCD8mxB00MmTwC0wWbj64SeyxNUUujSgmBmlmFsAN8nDh9sIGOuqZhXnEMjQOgqZBME3bDV6HE3Q7hBsKg5cR2EWN91MuxtjBYzfMcqMR0vjt25vHWyWk0x82HA7OyZrPVor8BAY+F4P1aNwYThMPBf5sEzEEKSqm7IMs9cvv4J4v3Sq8oQEIlOwyhqSLkPF1YxAIeHFObajGcFD/DX4pxXAIjULNISADpN/8MWfq0WLZ5BTZTColffoSsRXnGSxDjB2fsvlGprY2vtiPnRSfrqEWjkZmILIvGSoVHAzdkOQSUyi+w5SDSwo7uc+A6d/tVmlR9N3fAkh1XCW/z7KsXCbi55f36TNbtehNUH71p0YHYf6W7vN7TE2qfFKlxhQxWJwWQ==
+X-Microsoft-Antispam-Message-Info: dhjBfnQQHRImP+TVtSi8NW7rhJvigMKA4nz2WLzFXy1Fsp4EtwpaacgPV/h6glv0RVxRDXLzHvdySdQBUB2Uh8/AHSRXZRTl/f2H61kNXsPrgc0kxSI1n6UYt/NXuuv82JSSF7jAjI7VJ/SmNlWtwKBT6nOL65iF/9Udtr+h9fNdFWVHz/TsLvvxIf4sPL0ZHstwAKOlYIwIaxQQDxh7TNwW/7vCMGnUoe4bfzWLpiL6vHDiG/ocE6P8Lne8zHQNK5yx+1h2M4FRG+OfQB97QN9VRZPWwnYFWM3/nTnGHIqHofNQySuiNuVcPddltYVjba9/1mYM3g5idH3PNtumuiPrJlUQizpzexixNntOgDOzXviO6TTm17lmedqq6Lf7ZH4/k173MFBodeACQqKVeeAZh3msLB4goxiP4qASIfp9ch+gonMlg6oVjHC/wEHMoW8UxC3AShXbhgpvNs9sAzE/6LKkhPj67Bmog8j1jJZKeR2nLp4p+E9UgClHAWIl5uCR34/JxyYlS0H6nCP+tA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(346002)(39850400004)(396003)(376002)(136003)(52116002)(478600001)(5660300002)(66946007)(6666004)(36756003)(956004)(66476007)(316002)(8676002)(1076003)(6506007)(44832011)(66556008)(16526019)(86362001)(2906002)(26005)(186003)(6636002)(4326008)(6486002)(6512007)(83380400001)(8936002)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?JbOGxkf6ppp9r2inDtQZbn2lH6t/hFcs9gyGV9yd1fZTJcg8hfFNA0Gzok+K?=
- =?us-ascii?Q?rfRMsXlrSa9IA+Nn0sleK0uUKQkxQFsnEThp5xIAoX8llnayMAtiz7kx6zIb?=
- =?us-ascii?Q?7Z25usMepsAwP0UEoQPeSf+hMgUvyXVMbh8r5pVSiXD8jBuY00XOsf86+LRy?=
- =?us-ascii?Q?ChIlLA6TZIY340otMkjQX6CAYM78wvXgKYbVqjK9rGCrnzI3xC1TkqFxkKV5?=
- =?us-ascii?Q?Cc9A5fWbRBt0oYcRJJz9B7DLR+0MaOpGsFfyF5k95udiq4LoWlVs6p4OrJeE?=
- =?us-ascii?Q?/kcyJwgAtN7Rm0OmTN7YkDDRxNpGnzDdOYrw5WbuT0RQwd7coLsQ2VtbQe8L?=
- =?us-ascii?Q?WbZt2F7PwLb4idwpsUu2OiO376urBxOECoi9N76LOv70JNYzZF4of9nO2bYm?=
- =?us-ascii?Q?VMdE5Awb8UKdEVYWLDLd4PbCPDSp4T3mN3aaxH3AF8vjjZw6SzUlz2fuxm3v?=
- =?us-ascii?Q?pdaRK5M/oxddzS7cU1lh4Ykn7frGr0SjefoNQ3frrv2QugM9CKBA+CxeI+yT?=
- =?us-ascii?Q?9YAmjd1BW/hGVn8sEiHYmWqr9AHYIXPLLAivEjapmFrjuBpUgwiSPWZIfMD3?=
- =?us-ascii?Q?x2yT42ABj7cru1VnG10YCRfOLlW5hHT10/k55LewxKTWMv/pK46eSits7WNU?=
- =?us-ascii?Q?aUTTmFCT0LcmJYm4nWgNWzA4ditFVOa4CPuED+OLh7MFYxhjHvKiRJ0MwyLV?=
- =?us-ascii?Q?zz3V6FbQm27cjXvkba7Kylvwc49/TxoNy1HdXswqvhDKbSJIV9gSnx0JL4KK?=
- =?us-ascii?Q?NGsnxiVwUjqiXqCvC4ziz6DoHmjkPRrBApSBXkRd6Y429iLqfzga3KvqpRvW?=
- =?us-ascii?Q?bZpAG89agkztpNu6NoWJuuqwn8SUDeG3dpfOE6qkx1Q5Nfqw22YBa9mIlSkZ?=
- =?us-ascii?Q?SAQJkDj2bbUVGpYKqdf2ngh/4UwapihZVtTvWcz8uwWhX6dFp7bjwUK1tKz9?=
- =?us-ascii?Q?JtW8SZNgQ+XtYzq0dg35XF+rpwgy20GRTXPGhLuxQd8itgtDXjban0htQXD0?=
- =?us-ascii?Q?DhoVSOR/JEyxrBmTkjDixuUbO1ZOOTeiynSilmWTcW46zS/gM15dHkXy1AYh?=
- =?us-ascii?Q?IPOWcaRyUzhU+pX1Bwf98Pfmc4ft4H2OFVejHJ1yo7GQYOJNhtmrDrZlqz5q?=
- =?us-ascii?Q?W2AKRh3qWX5peOhQwNtFcp8stBu58q4Nfbi9a9WBRS3JmYh1tFGL6QGDqoQX?=
- =?us-ascii?Q?mt4wXe1/bMy/TEOo7AI9vkUZBtT8aP3SwplnIh7fGCQftfBSf0YmmxGo1wXN?=
- =?us-ascii?Q?lxGIC0JMTz0a0TIk0VRF0Jn2bBykWXnXOJepMzDNRNc1b6yMoT3INqKxRLk8?=
- =?us-ascii?Q?eP8fJi9dUNxsc09zPNtBdp+F?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?L7ASsuJco2IpO0yXYnK6XFX4BdItgc5/QOYf2W1N5uUSwIT8CxAPsaxvpec5?=
+ =?us-ascii?Q?VPL0+yVyP1OI7sIThL56+W3gPjm0WJF6j1jPPibg2V1BYVDsKOelpx3I5wsH?=
+ =?us-ascii?Q?OLApOwAExjwaA5QXEeQOB6sm5LePYehTRLvBswkBY3CcNyIE4LN0XVDO8CE6?=
+ =?us-ascii?Q?jXhSbfWeO/hjwMm++ZiOZ08Dtf0NQ7rtcv+fo4sGoLkbFqMKL4lgahW4GzdY?=
+ =?us-ascii?Q?svojNamy7BzIzx/uf3iRiAU/B/T1rUfTGdOt4FsTSXwXi4kEw3BgbEXn9li9?=
+ =?us-ascii?Q?P39YIsdl/OPE2+96pbh2sR8CxCkwvWRdGjNyB67Y4whrJiT1qXO79z9liSPH?=
+ =?us-ascii?Q?kgwhkAiqfio9h64gi8MNoPmPaKD0PO2gR8zCEseVy/X9khHL7M1ErdT7raDO?=
+ =?us-ascii?Q?hLwnWcuy/7up1mK13pYRTwKCr+lrMmoyK8snfkQhaQZ9monhOaXIkx17KVKZ?=
+ =?us-ascii?Q?WS+N1wVeVej3y1vsAd1GSvYNNAEloWgeLfXBU/IVbtwwuGf/zKG+RKS9bG5Y?=
+ =?us-ascii?Q?52l5x2977QybX1kLv2TEn6nxnrDEDg6za5OZLAcVo9G9pTMFyiCvXEtzMb2m?=
+ =?us-ascii?Q?zlxRDq3ZWEaTzzOkZ7RXbihv+iWnNfYrVWXLoTAjN1+LZI4CcaLcKuGKSRjS?=
+ =?us-ascii?Q?AxTdvzq1uMbS+SP8EYR4A3/ynaotAuYB9y7OLsqMq9n81t6XOgwGE96EXSGg?=
+ =?us-ascii?Q?rH2mbndZjq0+KgwDjwHy5uiCMQRjeS3pge57vecH3JJfud+xd+MTNfGoXL4A?=
+ =?us-ascii?Q?K7NzX6byaTF34ww4WuzcGT/WH5RQLByZ0AX2LustHyjsfN0Rr27B79bfHKsw?=
+ =?us-ascii?Q?I2EOosGPV9grwT9tVuI8UH197rujtFkuAmrHwNVqn6VX7dTc+G+BJFJZJzgh?=
+ =?us-ascii?Q?PmXTSaXnbJPqYdcvIm8Ka94T0TaNQRhYlyFuwJrPRTVPrYF4mvQEZoYvkNwj?=
+ =?us-ascii?Q?jKI14W84QDuewuiE8L6jRtdCiPjRz5islOZPfF71MviNH8zeSsURMVlIXQKY?=
+ =?us-ascii?Q?BssY0pcGtLcrobVeQwg7kLZ3IiA0IzyB77rUx0gC7P07VaBSVfeXjG6Nm3xr?=
+ =?us-ascii?Q?EwPblf2rbsSkwLB1U2ex4JHJfJB1oyGew3M2j46X/NnLGeQmo1sNHbUfFmZ9?=
+ =?us-ascii?Q?BlkzyLWNxAjWX17WGQpZL3T5pBvhKxDhxFHtJ5KVtiTGGLXkLodmZOx3NTK/?=
+ =?us-ascii?Q?YRaXsdGQ9wqYDfv1DHGQMPUJ+qHUzVtDkCkRxQYF6IUUXOPXLMojdD9PNDEz?=
+ =?us-ascii?Q?Wo0PYY9chZ896JRqmifHk8TSC8NOX9yc/V8Gne7ZggbuYhxhmJosr2w05rWW?=
+ =?us-ascii?Q?h2mCsZPKBI5uU1jkaUlIrUmD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 573e5f57-8118-4fcd-cd6d-08d8de265d87
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae713272-ec7c-45ca-2982-08d8de265e7a
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 09:26:03.4598 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 09:26:04.9992 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A1QOtJPvlUuGwOEViHjorm+16yKl7uE6JJYjF52jVTZyYE6gwYGZJCkAhPea80T8lYibmjfPAAMw8AT1T9R/jA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: gk3VEcQzIv/iifSyAiqSbZOkI8bMXYlOeZB1q35cZ3i935LG4rfeginjEVKxnT3F4kzJ502rum2lvkszkKlBlA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,93 +132,158 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Split amdgpu_mn_register() into two functions to avoid unnecessary
-bo->kfd_bo check.
+Introduce a new flag for amdgpu_bo->flags to identify if
+a BO is created by KFD.
+
+v2: rename AMDGPU_GEM_USER_KFD -> AMDGPU_GEM_CREATE_KFD
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        | 21 +++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |  8 +++++++
- 3 files changed, 26 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 48 ++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  2 +-
+ include/uapi/drm/amdgpu_drm.h                 |  5 ++
+ 6 files changed, 59 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 99ad4e1d0896..89d0e4f7c6a8 100644
+index 89d0e4f7c6a8..57798707cd5f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -571,7 +571,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr)
- 		goto out;
- 	}
- 
--	ret = amdgpu_mn_register(bo, user_addr);
-+	ret = amdgpu_mn_register_hsa(bo, user_addr);
+@@ -1227,7 +1227,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	bp.flags = alloc_flags;
+ 	bp.type = bo_type;
+ 	bp.resv = NULL;
+-	ret = amdgpu_bo_create(adev, &bp, &bo);
++	ret = amdgpu_kfd_bo_create(adev, &bp, &bo);
  	if (ret) {
- 		pr_err("%s: Failed to register MMU notifier: %d\n",
- 		       __func__, ret);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-index 828b5167ff12..1da67cf812b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-@@ -132,15 +132,28 @@ static const struct mmu_interval_notifier_ops amdgpu_mn_hsa_ops = {
-  */
- int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
- {
--	if (bo->kfd_bo)
--		return mmu_interval_notifier_insert(&bo->notifier, current->mm,
--						    addr, amdgpu_bo_size(bo),
--						    &amdgpu_mn_hsa_ops);
- 	return mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
- 					    amdgpu_bo_size(bo),
- 					    &amdgpu_mn_gfx_ops);
+ 		pr_debug("Failed to create BO on domain %s. ret %d\n",
+ 				domain_string(alloc_domain), ret);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 8e9b8a6e6ef0..e0ceeb32642c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -234,7 +234,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		      AMDGPU_GEM_CREATE_VRAM_CLEARED |
+ 		      AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
+ 		      AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
+-		      AMDGPU_GEM_CREATE_ENCRYPTED))
++		      AMDGPU_GEM_CREATE_ENCRYPTED |
++		      AMDGPU_GEM_CREATE_KFD))
+
+ 		return -EINVAL;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 0bd22ed1dacf..1b41b4870c99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -697,6 +697,52 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 	return r;
  }
- 
+
 +/**
-+ * amdgpu_mn_register_hsa - register a BO for notifier updates
++ * amdgpu_kfd_bo_create - create an &amdgpu_bo buffer object with kfd user flag
++ * @adev: amdgpu device object
++ * @bp: parameters to be used for the buffer object
++ * @bo_ptr: pointer to the buffer object pointer
 + *
-+ * @bo: amdgpu buffer object
-+ * @addr: userptr addr we should monitor
++ * Creates an &amdgpu_bo buffer object; and if requested, also creates a
++ * shadow object.
++ * Shadow object is used to backup the original buffer object, and is always
++ * in GTT.
 + *
-+ * Registers a mmu_notifier for the given kfd BO at the specified address.
-+ * Returns 0 on success, -ERRNO if anything goes wrong.
++ * Returns:
++ * 0 for success or a negative error code on failure.
 + */
 +
-+int amdgpu_mn_register_hsa(struct amdgpu_bo *bo, unsigned long addr)
++int amdgpu_kfd_bo_create(struct amdgpu_device *adev,
++			 struct amdgpu_bo_param *bp,
++			 struct amdgpu_bo **bo_ptr)
 +{
-+	return mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
-+					    amdgpu_bo_size(bo),
-+					    &amdgpu_mn_hsa_ops);
++	u64 flags = bp->flags;
++	int r;
++
++	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
++	bp->flags = bp->flags | AMDGPU_GEM_CREATE_KFD;
++	r = amdgpu_bo_do_create(adev, bp, bo_ptr);
++	if (r)
++		return r;
++
++	if ((flags & AMDGPU_GEM_CREATE_SHADOW) && !(adev->flags & AMD_IS_APU)) {
++		if (!bp->resv)
++			WARN_ON(dma_resv_lock((*bo_ptr)->tbo.base.resv,
++							NULL));
++
++		r = amdgpu_bo_create_shadow(adev, bp->size, *bo_ptr);
++
++		if (!bp->resv)
++			dma_resv_unlock((*bo_ptr)->tbo.base.resv);
++
++		if (r)
++			amdgpu_bo_unref(bo_ptr);
++	}
++
++	return r;
 +}
++
 +
  /**
-  * amdgpu_mn_unregister - unregister a BO for notifier updates
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
-index a292238f75eb..565ee5a0a3ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
-@@ -32,6 +32,7 @@
- 
- #if defined(CONFIG_HMM_MIRROR)
- int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr);
-+int amdgpu_mn_register_hsa(struct amdgpu_bo *bo, unsigned long addr);
- void amdgpu_mn_unregister(struct amdgpu_bo *bo);
- #else
- static inline int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
-@@ -40,6 +41,13 @@ static inline int amdgpu_mn_register(struct amdgpu_bo *bo, unsigned long addr)
- 		      "add CONFIG_ZONE_DEVICE=y in config file to fix this\n");
- 	return -ENODEV;
- }
+  * amdgpu_bo_validate - validate an &amdgpu_bo buffer object
+  * @bo: pointer to the buffer object
+@@ -1309,7 +1355,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+
+ 	abo = ttm_to_amdgpu_bo(bo);
+
+-	if (abo->kfd_bo)
++	if (abo->flags & AMDGPU_GEM_CREATE_KFD)
+ 		amdgpu_amdkfd_unreserve_memory_limit(abo);
+
+ 	/* We only remove the fence if the resv has individualized. */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 8cd96c9330dd..665ee0015f06 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -245,6 +245,9 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain);
+ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		     struct amdgpu_bo_param *bp,
+ 		     struct amdgpu_bo **bo_ptr);
++int amdgpu_kfd_bo_create(struct amdgpu_device *adev,
++			 struct amdgpu_bo_param *bp,
++			 struct amdgpu_bo **bo_ptr);
+ int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
+ 			      unsigned long size, int align,
+ 			      u32 domain, struct amdgpu_bo **bo_ptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7b2db779f313..030bec382f54 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -164,7 +164,7 @@ static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct file *filp)
+ 	 * Don't verify access for KFD BOs. They don't have a GEM
+ 	 * object associated with them.
+ 	 */
+-	if (abo->kfd_bo)
++	if (abo->flags & AMDGPU_GEM_CREATE_KFD)
+ 		return 0;
+
+ 	if (amdgpu_ttm_tt_get_usermm(bo->ttm))
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 8b832f7458f2..f510e8302228 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -142,6 +142,11 @@ extern "C" {
+  */
+ #define AMDGPU_GEM_CREATE_ENCRYPTED		(1 << 10)
+
++/* Flag that the allocating BO's user is KFD. It should never be used by
++ * user space applications
++ */
++#define AMDGPU_GEM_CREATE_KFD			(1 << 20)
 +
-+static inline int amdgpu_mn_register_hsa(struct amdgpu_bo *bo, unsigned long addr)
-+{
-+	DRM_WARN_ONCE("HMM_MIRROR kernel config option is not enabled, "
-+		      "add CONFIG_ZONE_DEVICE=y in config file to fix this\n");
-+	return -ENODEV;
-+}
- static inline void amdgpu_mn_unregister(struct amdgpu_bo *bo) {}
- #endif
- 
--- 
+ struct drm_amdgpu_gem_create_in  {
+ 	/** the requested memory size */
+ 	__u64 bo_size;
+--
 2.30.1
 
 _______________________________________________
