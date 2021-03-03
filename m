@@ -7,25 +7,25 @@ X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CFF5C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 03:56:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13CABC433E6
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 03:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7B5564E75
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 03:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7B5564E75
+	by mail.kernel.org (Postfix) with ESMTPS id 6D45964E12
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 03:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D45964E12
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F056E51D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B206E58A;
 	Wed,  3 Mar 2021 03:56:07 +0000 (UTC)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.203])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B87A66E49B
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 03:53:23 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.32])
- by regular1.263xmail.com (Postfix) with ESMTP id 54FC78DD;
- Wed,  3 Mar 2021 11:53:21 +0800 (CST)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.206])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6450F6E51D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 03:54:59 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.13])
+ by regular1.263xmail.com (Postfix) with ESMTP id BBEB91AE6;
+ Wed,  3 Mar 2021 11:54:57 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -34,10 +34,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from chenli.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P27940T140460353894144S1614743599874110_; 
- Wed, 03 Mar 2021 11:53:20 +0800 (CST)
+ P4300T140472945211136S1614743697349910_; 
+ Wed, 03 Mar 2021 11:54:58 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <550e1eab9f20d9a726f401e81581b64a>
+X-UNIQUE-TAG: <8c3d70c8e27ab0468539eb468e2e5dbd>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -45,11 +45,11 @@ X-FST-TO: amd-gfx@lists.freedesktop.org
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Wed, 03 Mar 2021 11:53:20 +0800
-Message-ID: <87sg5clwpb.wl-chenli@uniontech.com>
+Date: Wed, 03 Mar 2021 11:54:56 +0800
+Message-ID: <87r1kwlwmn.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 2/3] drm/amdgpu: Use kvmalloc for CS chunks
+Subject: [PATCH v3 3/3] drm/amdgpu: correct DRM_ERROR for kvmalloc_array
 In-Reply-To: <87v9a8lwvl.wl-chenli@uniontech.com>
 References: <87v9a8lwvl.wl-chenli@uniontech.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
@@ -76,68 +76,25 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-The number of chunks/chunks_array may be passed in
-by userspace and can be large.
-
+This may avoid debug confusion.
 Signed-off-by: Chen Li <chenli@uniontech.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 3e240b952e79..d9ae2cb86bc7 100644
+index d9ae2cb86bc7..b5c766998045 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -117,7 +117,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 	if (cs->in.num_chunks == 0)
- 		return 0;
+@@ -559,7 +559,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 					sizeof(struct page *),
+ 					GFP_KERNEL | __GFP_ZERO);
+ 		if (!e->user_pages) {
+-			DRM_ERROR("calloc failure\n");
++			DRM_ERROR("kvmalloc_array failure\n");
+ 			return -ENOMEM;
+ 		}
  
--	chunk_array = kmalloc_array(cs->in.num_chunks, sizeof(uint64_t), GFP_KERNEL);
-+	chunk_array = kvmalloc_array(cs->in.num_chunks, sizeof(uint64_t), GFP_KERNEL);
- 	if (!chunk_array)
- 		return -ENOMEM;
- 
-@@ -144,7 +144,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 	}
- 
- 	p->nchunks = cs->in.num_chunks;
--	p->chunks = kmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-+	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
- 			    GFP_KERNEL);
- 	if (!p->chunks) {
- 		ret = -ENOMEM;
-@@ -238,7 +238,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 
- 	if (p->uf_entry.tv.bo)
- 		p->job->uf_addr = uf_offset;
--	kfree(chunk_array);
-+	kvfree(chunk_array);
- 
- 	/* Use this opportunity to fill in task info for the vm */
- 	amdgpu_vm_set_task_info(vm);
-@@ -250,11 +250,11 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- free_partial_kdata:
- 	for (; i >= 0; i--)
- 		kvfree(p->chunks[i].kdata);
--	kfree(p->chunks);
-+	kvfree(p->chunks);
- 	p->chunks = NULL;
- 	p->nchunks = 0;
- free_chunk:
--	kfree(chunk_array);
-+	kvfree(chunk_array);
- 
- 	return ret;
- }
-@@ -706,7 +706,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
- 
- 	for (i = 0; i < parser->nchunks; i++)
- 		kvfree(parser->chunks[i].kdata);
--	kfree(parser->chunks);
-+	kvfree(parser->chunks);
- 	if (parser->job)
- 		amdgpu_job_free(parser->job);
- 	if (parser->uf_entry.tv.bo) {
 -- 
 2.30.0
 
