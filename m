@@ -2,31 +2,30 @@ Return-Path: <SRS0=hRd6=IB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8893C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 433D0C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 506B664E75
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 506B664E75
+	by mail.kernel.org (Postfix) with ESMTPS id 8AE046023B
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AE046023B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C7989FC0;
-	Wed,  3 Mar 2021 02:16:36 +0000 (UTC)
-X-Greylist: delayed 69766 seconds by postgrey-1.36 at gabe;
- Wed, 03 Mar 2021 02:05:25 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28DAD6E1F6;
+	Wed,  3 Mar 2021 02:16:37 +0000 (UTC)
 Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2196E328
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 02:05:25 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.32])
- by regular1.263xmail.com (Postfix) with ESMTP id BCF2271A;
- Wed,  3 Mar 2021 10:05:20 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0171E6E328
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 02:06:42 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.223])
+ by regular1.263xmail.com (Postfix) with ESMTP id 13997759;
+ Wed,  3 Mar 2021 10:06:41 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -35,10 +34,10 @@ X-SKE-CHECKED: 1
 X-ABS-CHECKED: 1
 Received: from chenli.uniontech.com (unknown [58.246.122.242])
  by smtp.263.net (postfix) whith ESMTP id
- P27940T140460556089088S1614737119617034_; 
- Wed, 03 Mar 2021 10:05:20 +0800 (CST)
+ P23503T140625999550208S1614737200080082_; 
+ Wed, 03 Mar 2021 10:06:40 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <9887e772dd8caf221d618ba11a37a75b>
+X-UNIQUE-TAG: <b8742f6f15755896caff1acb3b363b2b>
 X-RL-SENDER: chenli@uniontech.com
 X-SENDER: chenli@uniontech.com
 X-LOGIN-NAME: chenli@uniontech.com
@@ -46,11 +45,13 @@ X-FST-TO: amd-gfx@lists.freedesktop.org
 X-SENDER-IP: 58.246.122.242
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
-Date: Wed, 03 Mar 2021 10:05:19 +0800
-Message-ID: <87tuptt2jk.wl-chenli@uniontech.com>
+Date: Wed, 03 Mar 2021 10:06:40 +0800
+Message-ID: <87sg5dt2hb.wl-chenli@uniontech.com>
 From: Chen Li <chenli@uniontech.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 0/3] Use kvmalloc_array for radeon and amdgpu CS chunks
+Subject: [PATCH v2 1/3] drm/radeon: Use kvmalloc for CS chunks
+In-Reply-To: <87tuptt2jk.wl-chenli@uniontech.com>
+References: <87tuptt2jk.wl-chenli@uniontech.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/27.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -75,23 +76,47 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-When testing kernel with trinity, the kernel turned to tainted in that radeon CS require large memory and order is over MAX_ORDER.
+The number of chunks/chunks_array may be passed in
+by userspace and can be large.
 
-kvmalloc/kvmalloc_array should be used here in that it will fallback to vmalloc if necessary.
+Signed-off-by: Chen Li <chenli@uniontech.com>
+---
+ drivers/gpu/drm/radeon/radeon_cs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Chen Li (3):
-  drm/radeon: Use kvmalloc for CS chunks
-  drm/amdgpu: Use kvmalloc for CS chunks
-  drm/amdgpu: correct DRM_ERROR for kvmalloc_array
-
-Changelog:
-  v1->v2:
-    * also use kvmalloc in amdgpu
-    * fix a DRM_ERROR message for kvmalloc_array.
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 +++---
- drivers/gpu/drm/radeon/radeon_cs.c     | 8 ++++----
- 2 files changed, 7 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+index 35e937d39b51..fb736ef9f9aa 100644
+--- a/drivers/gpu/drm/radeon/radeon_cs.c
++++ b/drivers/gpu/drm/radeon/radeon_cs.c
+@@ -288,7 +288,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+ 	p->chunk_relocs = NULL;
+ 	p->chunk_flags = NULL;
+ 	p->chunk_const_ib = NULL;
+-	p->chunks_array = kcalloc(cs->num_chunks, sizeof(uint64_t), GFP_KERNEL);
++	p->chunks_array = kvmalloc_array(cs->num_chunks, sizeof(uint64_t), GFP_KERNEL);
+ 	if (p->chunks_array == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -299,7 +299,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+ 	}
+ 	p->cs_flags = 0;
+ 	p->nchunks = cs->num_chunks;
+-	p->chunks = kcalloc(p->nchunks, sizeof(struct radeon_cs_chunk), GFP_KERNEL);
++	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct radeon_cs_chunk), GFP_KERNEL);
+ 	if (p->chunks == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -452,8 +452,8 @@ static void radeon_cs_parser_fini(struct radeon_cs_parser *parser, int error, bo
+ 	kvfree(parser->vm_bos);
+ 	for (i = 0; i < parser->nchunks; i++)
+ 		kvfree(parser->chunks[i].kdata);
+-	kfree(parser->chunks);
+-	kfree(parser->chunks_array);
++	kvfree(parser->chunks);
++	kvfree(parser->chunks_array);
+ 	radeon_ib_free(parser->rdev, &parser->ib);
+ 	radeon_ib_free(parser->rdev, &parser->const_ib);
+ }
 -- 
 2.30.0
 
