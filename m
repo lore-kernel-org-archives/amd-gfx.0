@@ -2,119 +2,77 @@ Return-Path: <SRS0=hRd6=IB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9649EC433E6
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6551BC433DB
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 10:37:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A48A64EDC
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 09:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A48A64EDC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id F32E864E28
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 10:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F32E864E28
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24CC489FD4;
-	Wed,  3 Mar 2021 09:26:09 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEF5E89FAD
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 09:26:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IRU1cZMyTcEdu7i8SyKDhURLDKz5tKmAMcimT9r1TSddhfhnFscdvafWnHgnSxEWRKPJMWJIuyWoJyx/+2pKbf8eFeOM8Ky+6Plw4MrfxECy81HEogXvAfl1oecOsqD6cmVd3btJh415g960kjCtqPdnVYUOYuUHdSSVMoe+d93yIBy/e9FQyqA+m4GICdIZTffNi+iKsXDj1lBAsH5u4PkLBscYCjim+/tWJlbh7dKtXa2A1KR1TsEuEEcZoIgXH7O1ggpDpx7GnDr3Uv6Y3ia4mUyQhgc52ZBM38Og/7+zcq8tAtW4wJZqc5AXR4mMmR9MfPJq+WfL6IupWK0SKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ev0CrNbPJauTjXaOLKjuIRGzCmF/NeHxtcE49/rbKnA=;
- b=M0icMVs5GtxOMYNu6pcmd03eF4xzwjmvL3Gc4Esf2+Oa2d7S8TGFgqvN18Ej7kzZco1qQuB1X3NeKeMjLmXYFsn3wD7b5LrHIyKOT28E2IZSZmPkE8qQ6NOFZa/bVKHTwSH10fl1NtwMxUhNJxfWX6guSF7ytMZfUmwKgjQg3cH9thrfudaQyq4LuF3uW7s2WddDFTSlY9iiZBTPV6qFH7Drgomn+Z7g5/Zflq/41X718Qk1zYPSECEMlZu9R/dn0OelmVOghVqNgTVmf/jZ08olISajODcM0hEn3HhsdjlYhyRUfXPw+33LtR3duBRELjE6BB+adcFP29M7u9i4Vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ev0CrNbPJauTjXaOLKjuIRGzCmF/NeHxtcE49/rbKnA=;
- b=KPjFw7tduzBNrPxj+QKKSgOv6Y2iQ38e0U2Oz72xubYfhzNQL7fK2VFYureOfXIrJBbUmqHVPuP3yqLWdg1JKWJBiCF0No0rcf6ppbMmWeylxR9LVX5itrl9Ku8X1975zTukdNq/6W/VO/n/t1HeP8f+o7wD/P0l7TN/iH3m084=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
- by CY4PR1201MB2468.namprd12.prod.outlook.com (2603:10b6:903:d7::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.23; Wed, 3 Mar
- 2021 09:26:06 +0000
-Received: from CY4PR12MB1463.namprd12.prod.outlook.com
- ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
- ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3890.030; Wed, 3 Mar 2021
- 09:26:06 +0000
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: Christian.Koenig@amd.com,
-	Felix.Kuehling@amd.com
-Subject: [PATCH v2 3/3] drm/amdgpu: drm/amdkfd: add amdgpu_kfd_bo struct
-Date: Wed,  3 Mar 2021 10:25:50 +0100
-Message-Id: <20210303092550.110816-3-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210303092550.110816-1-nirmoy.das@amd.com>
-References: <20210303092550.110816-1-nirmoy.das@amd.com>
-X-Originating-IP: [93.229.59.224]
-X-ClientProxiedBy: AM0PR04CA0105.eurprd04.prod.outlook.com
- (2603:10a6:208:be::46) To CY4PR12MB1463.namprd12.prod.outlook.com
- (2603:10b6:910:e::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F9B089BBE;
+	Wed,  3 Mar 2021 10:37:27 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A735389B3C;
+ Wed,  3 Mar 2021 10:37:26 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id mj10so21117581ejb.5;
+ Wed, 03 Mar 2021 02:37:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language;
+ bh=FBTX+XnqunpZRURaos2Wq+e0yOnSvyBwRWIyAu4wSdc=;
+ b=PWnsSSQO0I+T0GEnwNT40y88GuZgNKSXM8v3TntHQO3awwVGV3ACtHRdsMJLSbL78G
+ 04lgzg8mi7Ug7wrBhftLZfJtukR/Rln4QB++EeNKS1anRzAQoydyKnW2mzeHxGL2yZyE
+ jUcV+YmP5pmlIdqrElE18Hdt6FYw/m4GBXecdI2RXCQTs3RXaRyVlziBmHcWaakpOMvQ
+ ZcrAYFpx3qsvfpbYzZ2PfO0jK7ummf0q0V8/u71LMzXbzo6eNd+wuxGFotK3qpGqC1ll
+ IJCvWVyI+Ls0xc12wc0UFb/Ux5Hxz7CyurCESyACHHX+wDJCddud4hGdi88EtcgCG/Vz
+ sZ8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=FBTX+XnqunpZRURaos2Wq+e0yOnSvyBwRWIyAu4wSdc=;
+ b=pYTIOiQvcseLQ03bk0aSMvGj64CAu2Lv0sH7J9wneupqw4PCLSp2cCi25ERjAQ3pyX
+ 1JwCko/aVDjkdFfOC6iL9Qbio2EcEx1V1lzEih6pcQhERenlljLNWqz0eK6lzq1s3+Gs
+ vWBNgQGUE74G8j9Oar4LbjW1e/G75KAUqSGTgKzJPYqq7AE5CyFasa3LzBsyqu2UTmbV
+ mgZu6gQ1fa0VRziyv9qLdy6V1Ijvixx6Z1uQCTyJYkRHP2DujySwXylRISi8OdJxotyz
+ EbjAa8ZvnNBRyJnAXmfwTlpkA+Png0Uz5J3ayyzuYwdGkutomIcxREIEzeNQuk/TWwwX
+ bqOA==
+X-Gm-Message-State: AOAM531hnZAD5PwleGM6hZ3q9u3TMx/LNRu0VHVlU1/BDw2Zn3B/jfcy
+ eQDXt18kgi2JhHZARAO1Kiw=
+X-Google-Smtp-Source: ABdhPJygHxPhY6fKGaxW7MhOy6oDLSgWU5ivsp7w4zuTTOxk5LgjZBZ1Lk6AfbzW8A05ekBjZGpvag==
+X-Received: by 2002:a17:906:26c9:: with SMTP id
+ u9mr26211212ejc.166.1614767845362; 
+ Wed, 03 Mar 2021 02:37:25 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:c1c9:255f:21eb:6396?
+ ([2a02:908:1252:fb60:c1c9:255f:21eb:6396])
+ by smtp.gmail.com with ESMTPSA id t11sm21226275edd.1.2021.03.03.02.37.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Mar 2021 02:37:24 -0800 (PST)
+Subject: Re: [PATCH] drm/ttm: ioremap buffer according to TTM mem caching
+ setting
+To: Thomas Zimmermann <tzimmermann@suse.de>, Oak Zeng <Oak.Zeng@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <1614638628-10508-1-git-send-email-Oak.Zeng@amd.com>
+ <cff35ce0-3ad1-cc4a-f6ec-d423a913d0bc@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e5e46c63-7dcf-44b0-6df9-4c88b9904fa1@gmail.com>
+Date: Wed, 3 Mar 2021 11:37:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from brihaspati.fritz.box (93.229.59.224) by
- AM0PR04CA0105.eurprd04.prod.outlook.com (2603:10a6:208:be::46) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.17 via Frontend Transport; Wed, 3 Mar 2021 09:26:05 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 68eb98b8-1713-400c-c32b-08d8de265f50
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB2468:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB246840DCCCF58B4CE1C4BDBC8B989@CY4PR1201MB2468.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1yhLhKIbPw3KL+K853mGUniJI0jW5K6ChFRJrnX+FwB2pLPiPGLvzZeJgMkh424BTMEE26eNBCZPBgSKHUi02QZWJKt1737TpSg35btcr84cAKLmGocy/pmTcIJ2JODQI4BrSDTnQtpCfufkWeMNIjzN/f5qJOJAnMtuNO9VIMlcD6FVjHzZSnSjXJOBrnX27pEec8nf1RpomaPxHIA1hqud6EgFqhdij4DyFnGvWnkqBEdIqGNnqG9/1Ir2TPKHkSFN+4ckc2ir70oZAKoa0rU43xvkzZ0IBdD4csmfPzV2YCf922MgjL6IYMmROpG22Ai1FkQU1KsCUnpJUqiGbAc7OH6O2CIPRRslrzqbuinloIlCf1AJO4rNs9ag3oJrahtkh7Yl5QYb1Tq8DAuryauRVvWD3pvskscpROJqBvfs8VrBBKL6erP5DYMHAkkA/8gjrLm5yL49Zy2EaRic19GnJJBZQZTX7h2sRSmS+RXu0sI//PRG8fWMLK5UWH0ews8WdzNWAO5mooSi10RchQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(39850400004)(396003)(376002)(136003)(52116002)(478600001)(5660300002)(66946007)(6666004)(36756003)(956004)(66476007)(316002)(8676002)(1076003)(6506007)(44832011)(66556008)(16526019)(86362001)(2906002)(26005)(186003)(6636002)(4326008)(6486002)(6512007)(83380400001)(8936002)(2616005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ReYkafAfwbrf0ORjJ9vH6nH9gYRzumfVqhXG97+CAYI0Mt4Wnqh55BKH9UWX?=
- =?us-ascii?Q?Ff2myPDSfviN17oEuYkupGTaBSv7Bos2vpXkTRUGEFzUgjRBx23E9gAqodUV?=
- =?us-ascii?Q?Eb9VfxdtLsmoHSZiMMox4Xv/b6qKz9RUuzirZUJYilWeglP3JMnKHaY6yWpu?=
- =?us-ascii?Q?4c/4g7a2u0T4L7XSPwHts1YUC5fCuNrm/l2PnwULrv2fHf93JyCMrXh9e5zG?=
- =?us-ascii?Q?muRaygjpjsh3wKAONgEiWP/CrplFaQZhuZVxJ99Ven97GPJhU/+zs0sTeksT?=
- =?us-ascii?Q?MhPmZWDRoC8wZM42d6hCjb9lMhKo7SEEwE29xAFutQIIZ70uf4U8YrgBStq+?=
- =?us-ascii?Q?PWvm+a/jrU8haaLeGP4s/TuqsoyWWrQJR/LQcv7GAq/OtVMsLQJpELgIXcIT?=
- =?us-ascii?Q?QR/Xd5o0gEActbE67s03caXM6XN1pygis62+wsN9JG1ZKjwXAMGWPsdWcmX8?=
- =?us-ascii?Q?raYzP9NpKjlCzMXWHtnQIac38vCaUO2U+TEcaUfCumOovZqAiHVKfwKstzZ6?=
- =?us-ascii?Q?xv8OYba4CfxI5l/vEcqCbgF1hqSwgxDG3JaFX1Vt6LCvvjwz1B+7J7RYslLT?=
- =?us-ascii?Q?7M1i57TWy49plQo+Af/hjFV7BAw347p9l6XAxzfUl00nAsIveIdlC0DKwwUB?=
- =?us-ascii?Q?gKd6lfwKWtrorwHArCdqTL6Emm18vFpM1dGIS6IrAoc02Eytx7NeImF65zNM?=
- =?us-ascii?Q?Src92yv+CcLqovM2vUrq4T2gmzJ35EUdM8ZhyNopVAZ9aSymp8M4rbUYUFDP?=
- =?us-ascii?Q?bdD97s6CIJsIWdHm80kbWagNkrDs347dzPVuSzKYWc0uG4icfJdhBqTcQMI6?=
- =?us-ascii?Q?7tOuayy73G/DVdLGIYrkxYkglzRA0umRSCvJDPgx7y94XF2o3kJvyPxnPIdc?=
- =?us-ascii?Q?3aA9avjVzgJsb50x8Z2nS0zGZdofdaOugWhngtCNsIKxY1d8UMT5fiEjEeEU?=
- =?us-ascii?Q?sHYIrupgVti1RGTc25n7iYjx08rqUBpl/H+ITfLGk+2f17c7uJWF4ucToYM7?=
- =?us-ascii?Q?gTb+Rzzlyhsg/6wZjn64dFKeJKsWYdJimcY2t2i5iZKL1oYZubRFUjsU6SZv?=
- =?us-ascii?Q?vb80neuKuj9Ic2Y0es/cRyo0uoKIdajaL8l14E3E+FQi5fkblkSZ4t4kV71s?=
- =?us-ascii?Q?576NT4qI57iSILAPTrOsqE1v9TvHskzRdd/FlOoj5N8jaeYRU5xHUOwMNAV7?=
- =?us-ascii?Q?Qg6ynTjHvsA2We335U8RAjA8uNxroJ4X8SiPlqEEjJ5hik87LOhNuoCYvOwq?=
- =?us-ascii?Q?Y20LDYiohwTgpuExSALyaFCiBxb8uJZTgWQ349l+FwnMKm43CXN5Nc9WBFcj?=
- =?us-ascii?Q?/7YmViO/y25rf3OT3tHncU0/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68eb98b8-1713-400c-c32b-08d8de265f50
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 09:26:06.4176 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6tDB9depPMUQP80dfPR/D6X4TVF7+rgfvXmqUjNy1ptKst5fH0LILzNCmh6/3KYqxE12gL/3mi6p/nQuhubUtQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2468
+In-Reply-To: <cff35ce0-3ad1-cc4a-f6ec-d423a913d0bc@suse.de>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,216 +84,268 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: jinhuieric.huang@amd.com, Alexander.Deucher@amd.com, Felix.Kuehling@amd.com,
+ harish.kasiviswanathan@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1864593391=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement a new struct based on amdgpu_bo base class
-for BOs created by kfd device so that kfd related memeber
-of amdgpu_bo can be moved there.
+This is a multi-part message in MIME format.
+--===============1864593391==
+Content-Type: multipart/alternative;
+ boundary="------------236F69DFE7C6FD9C41A5F923"
+Content-Language: en-US
 
-v2: rename AMDGPU_GEM_USER_KFD -> AMDGPU_GEM_CREATE_KFD
+This is a multi-part message in MIME format.
+--------------236F69DFE7C6FD9C41A5F923
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 10 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 32 ++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  8 ++++-
- 4 files changed, 40 insertions(+), 13 deletions(-)
+Hi Thomas,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 57798707cd5f..1f52ae4de609 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1152,6 +1152,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	struct sg_table *sg = NULL;
- 	uint64_t user_addr = 0;
- 	struct amdgpu_bo *bo;
-+	struct amdgpu_kfd_bo *kbo;
- 	struct amdgpu_bo_param bp;
- 	u32 domain, alloc_domain;
- 	u64 alloc_flags;
-@@ -1227,17 +1228,20 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	bp.flags = alloc_flags;
- 	bp.type = bo_type;
- 	bp.resv = NULL;
--	ret = amdgpu_kfd_bo_create(adev, &bp, &bo);
-+	ret = amdgpu_kfd_bo_create(adev, &bp, &kbo);
- 	if (ret) {
- 		pr_debug("Failed to create BO on domain %s. ret %d\n",
- 				domain_string(alloc_domain), ret);
- 		goto err_bo_create;
- 	}
-+
-+	bo = &kbo->bo;
- 	if (bo_type == ttm_bo_type_sg) {
- 		bo->tbo.sg = sg;
- 		bo->tbo.ttm->sg = sg;
- 	}
--	bo->kfd_bo = *mem;
-+
-+	kbo->kfd_bo = *mem;
- 	(*mem)->bo = bo;
- 	if (user_addr)
- 		bo->flags |= AMDGPU_AMDKFD_USERPTR_BO;
-@@ -1261,7 +1265,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+Am 03.03.21 um 09:49 schrieb Thomas Zimmermann:
+> Hi
+>
+> Am 01.03.21 um 23:43 schrieb Oak Zeng:
+>> If tbo.mem.bus.caching is cached, buffer is intended to be mapped
+>> as cached from CPU. Map it with ioremap_cache.
+>
+> Just a question for my understanding: This is on-device memory? 
+> Accessing device memory is usually slow. If that memory can be mapped 
+> with CPU caching enabled, access will roughly be as fast as for system 
+> memory?
 
- allocate_init_user_pages_failed:
- 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
--	amdgpu_bo_unref(&bo);
-+	amdgpu_kfd_bo_unref(&kbo);
- 	/* Don't unreserve system mem limit twice */
- 	goto err_reserve_limit;
- err_bo_create:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-index 1da67cf812b1..eaaf4940abcb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-@@ -102,6 +102,7 @@ static bool amdgpu_mn_invalidate_hsa(struct mmu_interval_notifier *mni,
- 				     unsigned long cur_seq)
- {
- 	struct amdgpu_bo *bo = container_of(mni, struct amdgpu_bo, notifier);
-+	struct amdgpu_kfd_bo *kbo = container_of(bo, struct amdgpu_kfd_bo, bo);
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+There is still a penalty associated with accessing it from the CPU, but 
+it is much faster (both lower latency as well as throughput) as 
+traditional device memory accessed over PCIe.
 
- 	if (!mmu_notifier_range_blockable(range))
-@@ -111,7 +112,7 @@ static bool amdgpu_mn_invalidate_hsa(struct mmu_interval_notifier *mni,
+Regards,
+Christian.
 
- 	mmu_interval_set_seq(mni, cur_seq);
+>
+> Best regards
+> Thomas
+>
+>>
+>> This wasn't necessary before as device memory was never mapped
+>> as cached from CPU side. It becomes necessary for aldebaran as
+>> device memory is mapped cached from CPU.
+>>
+>> Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
+>> Reviewed-by: Christian Konig <Christian.Koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/ttm/ttm_bo_util.c | 8 ++++++++
+>>   1 file changed, 8 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c 
+>> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> index 031e581..8c65a13 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> @@ -91,6 +91,8 @@ static int ttm_resource_ioremap(struct ttm_device 
+>> *bdev,
+>>             if (mem->bus.caching == ttm_write_combined)
+>>               addr = ioremap_wc(mem->bus.offset, bus_size);
+>> +        else if (mem->bus.caching == ttm_cached)
+>> +            addr = ioremap_cache(mem->bus.offset, bus_size);
+>>           else
+>>               addr = ioremap(mem->bus.offset, bus_size);
+>>           if (!addr) {
+>> @@ -372,6 +374,9 @@ static int ttm_bo_ioremap(struct 
+>> ttm_buffer_object *bo,
+>>           if (mem->bus.caching == ttm_write_combined)
+>>               map->virtual = ioremap_wc(bo->mem.bus.offset + offset,
+>>                             size);
+>> +        else if (mem->bus.caching == ttm_cached)
+>> +            map->virtual = ioremap_cache(bo->mem.bus.offset + offset,
+>> +                          size);
+>>           else
+>>               map->virtual = ioremap(bo->mem.bus.offset + offset,
+>>                              size);
+>> @@ -490,6 +495,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, 
+>> struct dma_buf_map *map)
+>>           else if (mem->bus.caching == ttm_write_combined)
+>>               vaddr_iomem = ioremap_wc(mem->bus.offset,
+>>                            bo->base.size);
+>> +        else if (mem->bus.caching == ttm_cached)
+>> +            vaddr_iomem = ioremap_cache(mem->bus.offset,
+>> +                          bo->base.size);
+>>           else
+>>               vaddr_iomem = ioremap(mem->bus.offset, bo->base.size);
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
--	amdgpu_amdkfd_evict_userptr(bo->kfd_bo, bo->notifier.mm);
-+	amdgpu_amdkfd_evict_userptr(kbo->kfd_bo, bo->notifier.mm);
- 	mutex_unlock(&adev->notifier_lock);
 
- 	return true;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 1b41b4870c99..787eb99119a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -551,8 +551,10 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+--------------236F69DFE7C6FD9C41A5F923
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
- 	acc_size = ttm_bo_dma_acc_size(&adev->mman.bdev, size,
- 				       sizeof(struct amdgpu_bo));
-+	if (bp->bo_ptr_size < sizeof(struct amdgpu_bo))
-+		bp->bo_ptr_size = sizeof(struct amdgpu_bo);
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Hi Thomas,<br>
+    <br>
+    <div class="moz-cite-prefix">Am 03.03.21 um 09:49 schrieb Thomas
+      Zimmermann:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:cff35ce0-3ad1-cc4a-f6ec-d423a913d0bc@suse.de">Hi
+      <br>
+      <br>
+      Am 01.03.21 um 23:43 schrieb Oak Zeng:
+      <br>
+      <blockquote type="cite">If tbo.mem.bus.caching is cached, buffer
+        is intended to be mapped
+        <br>
+        as cached from CPU. Map it with ioremap_cache.
+        <br>
+      </blockquote>
+      <br>
+      Just a question for my understanding: This is on-device memory?
+      Accessing device memory is usually slow. If that memory can be
+      mapped with CPU caching enabled, access will roughly be as fast as
+      for system memory?
+      <br>
+    </blockquote>
+    <br>
+    There is still a penalty associated with accessing it from the CPU,
+    but it is much faster (both lower latency as well as throughput) as
+    traditional device memory accessed over PCIe.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:cff35ce0-3ad1-cc4a-f6ec-d423a913d0bc@suse.de">
+      <br>
+      Best regards
+      <br>
+      Thomas
+      <br>
+      <br>
+      <blockquote type="cite">
+        <br>
+        This wasn't necessary before as device memory was never mapped
+        <br>
+        as cached from CPU side. It becomes necessary for aldebaran as
+        <br>
+        device memory is mapped cached from CPU.
+        <br>
+        <br>
+        Signed-off-by: Oak Zeng <a class="moz-txt-link-rfc2396E" href="mailto:Oak.Zeng@amd.com">&lt;Oak.Zeng@amd.com&gt;</a>
+        <br>
+        Reviewed-by: Christian Konig <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+          drivers/gpu/drm/ttm/ttm_bo_util.c | 8 ++++++++
+        <br>
+          1 file changed, 8 insertions(+)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+        b/drivers/gpu/drm/ttm/ttm_bo_util.c
+        <br>
+        index 031e581..8c65a13 100644
+        <br>
+        --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+        <br>
+        +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+        <br>
+        @@ -91,6 +91,8 @@ static int ttm_resource_ioremap(struct
+        ttm_device *bdev,
+        <br>
+                    if (mem-&gt;bus.caching == ttm_write_combined)
+        <br>
+                      addr = ioremap_wc(mem-&gt;bus.offset, bus_size);
+        <br>
+        +        else if (mem-&gt;bus.caching == ttm_cached)
+        <br>
+        +            addr = ioremap_cache(mem-&gt;bus.offset, bus_size);
+        <br>
+                  else
+        <br>
+                      addr = ioremap(mem-&gt;bus.offset, bus_size);
+        <br>
+                  if (!addr) {
+        <br>
+        @@ -372,6 +374,9 @@ static int ttm_bo_ioremap(struct
+        ttm_buffer_object *bo,
+        <br>
+                  if (mem-&gt;bus.caching == ttm_write_combined)
+        <br>
+                      map-&gt;virtual = ioremap_wc(bo-&gt;mem.bus.offset
+        + offset,
+        <br>
+                                    size);
+        <br>
+        +        else if (mem-&gt;bus.caching == ttm_cached)
+        <br>
+        +            map-&gt;virtual =
+        ioremap_cache(bo-&gt;mem.bus.offset + offset,
+        <br>
+        +                          size);
+        <br>
+                  else
+        <br>
+                      map-&gt;virtual = ioremap(bo-&gt;mem.bus.offset +
+        offset,
+        <br>
+                                     size);
+        <br>
+        @@ -490,6 +495,9 @@ int ttm_bo_vmap(struct ttm_buffer_object
+        *bo, struct dma_buf_map *map)
+        <br>
+                  else if (mem-&gt;bus.caching == ttm_write_combined)
+        <br>
+                      vaddr_iomem = ioremap_wc(mem-&gt;bus.offset,
+        <br>
+                                   bo-&gt;base.size);
+        <br>
+        +        else if (mem-&gt;bus.caching == ttm_cached)
+        <br>
+        +            vaddr_iomem = ioremap_cache(mem-&gt;bus.offset,
+        <br>
+        +                          bo-&gt;base.size);
+        <br>
+                  else
+        <br>
+                      vaddr_iomem = ioremap(mem-&gt;bus.offset,
+        bo-&gt;base.size);
+        <br>
+          <br>
+      </blockquote>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
--	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
-+	bo = kzalloc(bp->bo_ptr_size, GFP_KERNEL);
- 	if (bo == NULL)
- 		return -ENOMEM;
- 	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
-@@ -714,35 +716,37 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+--------------236F69DFE7C6FD9C41A5F923--
 
- int amdgpu_kfd_bo_create(struct amdgpu_device *adev,
- 			 struct amdgpu_bo_param *bp,
--			 struct amdgpu_bo **bo_ptr)
-+			 struct amdgpu_kfd_bo **kfd_bo_ptr)
- {
-+	struct amdgpu_bo *bo_ptr;
- 	u64 flags = bp->flags;
- 	int r;
-
- 	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
- 	bp->flags = bp->flags | AMDGPU_GEM_CREATE_KFD;
--	r = amdgpu_bo_do_create(adev, bp, bo_ptr);
-+	bp->bo_ptr_size = sizeof(struct amdgpu_kfd_bo);
-+	r = amdgpu_bo_do_create(adev, bp, &bo_ptr);
- 	if (r)
- 		return r;
-
-+	*kfd_bo_ptr = (struct amdgpu_kfd_bo *)bo_ptr;
- 	if ((flags & AMDGPU_GEM_CREATE_SHADOW) && !(adev->flags & AMD_IS_APU)) {
- 		if (!bp->resv)
--			WARN_ON(dma_resv_lock((*bo_ptr)->tbo.base.resv,
-+			WARN_ON(dma_resv_lock((*kfd_bo_ptr)->bo.tbo.base.resv,
- 							NULL));
-
--		r = amdgpu_bo_create_shadow(adev, bp->size, *bo_ptr);
-+		r = amdgpu_bo_create_shadow(adev, bp->size, &(*kfd_bo_ptr)->bo);
-
- 		if (!bp->resv)
--			dma_resv_unlock((*bo_ptr)->tbo.base.resv);
-+			dma_resv_unlock((*kfd_bo_ptr)->bo.tbo.base.resv);
-
- 		if (r)
--			amdgpu_bo_unref(bo_ptr);
-+			amdgpu_kfd_bo_unref(kfd_bo_ptr);
- 	}
-
- 	return r;
- }
-
--
- /**
-  * amdgpu_bo_validate - validate an &amdgpu_bo buffer object
-  * @bo: pointer to the buffer object
-@@ -910,6 +914,18 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
- 	*bo = NULL;
- }
-
-+void amdgpu_kfd_bo_unref(struct amdgpu_kfd_bo **kbo)
-+{
-+	struct ttm_buffer_object *tbo;
-+
-+	if ((*kbo) == NULL)
-+		return;
-+
-+	tbo = &((*kbo)->bo.tbo);
-+	ttm_bo_put(tbo);
-+	*kbo = NULL;
-+}
-+
- /**
-  * amdgpu_bo_pin_restricted - pin an &amdgpu_bo buffer object
-  * @bo: &amdgpu_bo buffer object to be pinned
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index 665ee0015f06..fa98a1fe2574 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -43,6 +43,8 @@ struct amdgpu_bo_param {
- 	u32				domain;
- 	u32				preferred_domain;
- 	u64				flags;
-+	/* size of a subclass using amdgpu_bo as base class */
-+	u32				bo_ptr_size;
- 	enum ttm_bo_type		type;
- 	bool				no_wait_gpu;
- 	struct dma_resv	*resv;
-@@ -109,7 +111,10 @@ struct amdgpu_bo {
- #endif
-
- 	struct list_head		shadow_list;
-+};
-
-+struct amdgpu_kfd_bo {
-+	struct amdgpu_bo		bo;
- 	struct kgd_mem                  *kfd_bo;
- };
-
-@@ -247,7 +252,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 		     struct amdgpu_bo **bo_ptr);
- int amdgpu_kfd_bo_create(struct amdgpu_device *adev,
- 			 struct amdgpu_bo_param *bp,
--			 struct amdgpu_bo **bo_ptr);
-+			 struct amdgpu_kfd_bo **bo_ptr);
- int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
- 			      unsigned long size, int align,
- 			      u32 domain, struct amdgpu_bo **bo_ptr,
-@@ -266,6 +271,7 @@ void *amdgpu_bo_kptr(struct amdgpu_bo *bo);
- void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
- struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);
- void amdgpu_bo_unref(struct amdgpu_bo **bo);
-+void amdgpu_kfd_bo_unref(struct amdgpu_kfd_bo **kbo);
- int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain);
- int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
- 			     u64 min_offset, u64 max_offset);
---
-2.30.1
+--===============1864593391==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1864593391==--
