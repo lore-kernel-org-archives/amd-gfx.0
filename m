@@ -2,42 +2,134 @@ Return-Path: <SRS0=hRd6=IB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6E0AC4332B
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 13:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4979EC433E6
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 13:46:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4597B64E38
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 13:34:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4597B64E38
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id D6DA264E62
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 13:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6DA264E62
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8EE6E3F4;
-	Wed,  3 Mar 2021 13:34:04 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8FE89F6D;
- Wed,  3 Mar 2021 10:25:46 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1lHOhN-0003wm-12; Wed, 03 Mar 2021 10:25:45 +0000
-To: Yongqiang Sun <yongqiang.sun@amd.com>
-From: Colin Ian King <colin.king@canonical.com>
-Subject: re: drm/amd/display: Implement dmub trace event
-Message-ID: <7e54081f-f226-851e-e4c4-23a299d3a711@canonical.com>
-Date: Wed, 3 Mar 2021 10:25:44 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB196E98D;
+	Wed,  3 Mar 2021 13:46:19 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2062.outbound.protection.outlook.com [40.107.102.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91A316E98F;
+ Wed,  3 Mar 2021 13:46:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B5SIu8iylbzKIKFAtjPeKmg4NAxarUjVm4zfRFRSO1sYGfZaWon5HYd1vsyHKucFu5Wx496HZfCbGmN0Rh++9zsKG048tfnL0R7lclgqXlW6NTEDeKP1XAXNplHBH9/nhwATgm6/Z9sLIfaZ4oBOz+jjSN15rQHVBuojNGFTWm10lmz1Nktgp1e1ITxg6RvD2IuWVH9pjX4g9wwFVeLuyIBHTadUCwBzHmvfkhlEARCOgLqYThtYoWrogh1lWbm1SAjQ7AArnw5kXhlr0Cwg1eFoj4GMOw7Mzv5XpngVJyGgAxjicToyYi6GDfxvmB6Ley0hH2KEld9N4pqJb6vvDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ppPJpBkaUqMzkywLpy5T7pZTZrGlwQEtSpUVZ7PiBKU=;
+ b=T6Dnh4wC9FCTUBgbO7lYJhk07JoaywdaNecTD1Uv1GJH7XBjEFsZppVJGO9A9lwmzAoEdth77TPphiWOBEBo3QVTF+no9X4ShH+zTG6MENFHZaWA7lTdmO6wX4BtWwjEiMqUJpiM84soHYxDDTQ+Q0k5Tz9PwCRPb9UQ63UULHgg0flEhTtaVEsu8P8SU0MB2mfWAZCBiuA1TV1Ztjr0YLzwmMdwZBmdGC8vh64mo/8P5q7o6TNG0oj4STEH8YA5P3ipE2Ap+tjetmGITCnWTmn7HO9l7396GfEwjLel+3TMwbUh48LGfMzAw3K8rI2Z86MY0DwudZ7iLxneW/rmPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ppPJpBkaUqMzkywLpy5T7pZTZrGlwQEtSpUVZ7PiBKU=;
+ b=Uci23cHpRjK0/XRPQRa+0cdfHMO1VC1drbIo6EnFead9e48TCGAKftHQ91LdHj/EEzz+pc60BJGxbr4LXllF5k3d53RvfzUsqDg4HzqYBZyPSc5Gg6IyxuZRMIbfzx2UlOie4euKQwR1UbftRls4g1tGoSCdxnCgXCh0MbtBCNk=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB2356.namprd12.prod.outlook.com (2603:10b6:207:4d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Wed, 3 Mar
+ 2021 13:46:16 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3912.017; Wed, 3 Mar 2021
+ 13:46:16 +0000
+Subject: Re: [PATCH 08/53] drm/amd/display/dc/calcs/dce_calcs: Move some large
+ variables from the stack to the heap
+To: Lee Jones <lee.jones@linaro.org>
+References: <20210303134319.3160762-1-lee.jones@linaro.org>
+ <20210303134319.3160762-9-lee.jones@linaro.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <09d1c92a-559f-a071-123d-bb9aa25240c0@amd.com>
+Date: Wed, 3 Mar 2021 14:46:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20210303134319.3160762-9-lee.jones@linaro.org>
 Content-Language: en-US
-X-Mailman-Approved-At: Wed, 03 Mar 2021 13:34:03 +0000
+X-Originating-IP: [2a02:908:1252:fb60:fea4:8409:66bb:aad2]
+X-ClientProxiedBy: AM0PR05CA0083.eurprd05.prod.outlook.com
+ (2603:10a6:208:136::23) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:fea4:8409:66bb:aad2]
+ (2a02:908:1252:fb60:fea4:8409:66bb:aad2) by
+ AM0PR05CA0083.eurprd05.prod.outlook.com (2603:10a6:208:136::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
+ Transport; Wed, 3 Mar 2021 13:46:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: f56512eb-f23e-430c-bcde-08d8de4ab797
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2356:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB23561627C7A51D899048D4C683989@BL0PR12MB2356.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qLmFpjXSLknfTXEkw+pKzTr5yeQm+H0jRUMwodw2Na8x97YU8ItOhSEoBZdPOelRaZcAqGM4veSU21yoFtY2WQVuFw0KAeDzAEHsw+1aNSQYp0pDQ3zaxpVgtLtV8zYkqRGM+lQqpXe4HL6V/TBjpP+pfd+VOWNAfg6WlC8NpktLCrnwEkMFnjdrMt8Z3vHQkOYqKBPFHtXLqZp68vpBO9BXPhfB6GyUCPVqMARtfL4ISdb9BUTEkk2KngNwAe6JETU84BM+f2hVRvuQMGBvhbtmt4u+5efre+tyTX0SoOdQzmvqGDke2jw4cxW4ij8TTuO//+KDqH/YTjrC8L0cTP83+la5Raha1r+2XsFTiU2dRxguTN62vuJcnzdx+XRKd/SLIP4mJkmsD8224u8m8iFqYwQ+A0Pbg4+ve+q2G58sgWh/qOqP55qQeQzwfJLpat8iaYV7s4/IhqAzemhj545YlwBcZGXDDTKKbBgTMg++Q+0L2ewwsznFYHTpA96VCDOLYqblf5MlJgXqbmxIWIVKkTkXV3ZEFRA6kPhXTTRueyXhIsVoDDLaNgNKPjIzwDs2Yv2P7Y1BdmJnbGAqtjZquvFDhY+a/4zS0ZRIveY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(39860400002)(136003)(366004)(376002)(66946007)(36756003)(31696002)(5660300002)(478600001)(66556008)(66476007)(54906003)(2906002)(31686004)(6916009)(16526019)(8676002)(52116002)(8936002)(4326008)(86362001)(83380400001)(6486002)(66574015)(6666004)(2616005)(316002)(186003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UmVQclNXZXdjS2RGYWhCOVJhMG5kdU9oYTkrMTJ3cVpKZU9vSVRXMmt4Um1E?=
+ =?utf-8?B?NkRtYTNic1VWT0Q0SXF1YkhxSzE4SndaNnZYVEtYU21WQTc5QzM3Vi93NzhR?=
+ =?utf-8?B?Qy94Njl2L1FySmo5SjUwOE5weWpUektNKy9ER2lQcEN1KzVYRUNXTzhDb3Jr?=
+ =?utf-8?B?N2dmaDRyM0J6dW9Sd0ZSRnV0UmRJUnRyRllpRTM5K01WTXVjZEJNazN5V2ZR?=
+ =?utf-8?B?SDZ4eGFydmVad2x6U3g2Rm5mU3RJQ0pyQkRoVzltWWkrYk8vQjZrVHRzT1lM?=
+ =?utf-8?B?WW5sZ1ptanp2OHcraW5FcHpRcDRsazYwdjhqczNYUnpnUENTRWVBczVpTEF1?=
+ =?utf-8?B?cWdVVTM1YWlOSU5sV1B0aUN0YjJ4NU1ZWXRzb1FoeHBKZ3hxNkMzbDlJLzBu?=
+ =?utf-8?B?bGZFM04wNUh6K1BrWVlDa2dRTXk3QjFHdHVTdXIwdHg3T0NBRzBkTURGM1RP?=
+ =?utf-8?B?eS9hRmlId3htbUdtWCt2SkFScUtTZEo2ZnZmTWt0bXMvczVXNWYra2hTOSs1?=
+ =?utf-8?B?ajhzL2dNSmRGS3ZnYit2UlZSNW5LRWxXZDhTV0JrS0toYnhQSW1Oem9PY09T?=
+ =?utf-8?B?Skl5UjlWUzVPOU9OVHlhOUpvWjN2b1JDeEkwWmFKMVpwbmlFSldqMUJqbkZh?=
+ =?utf-8?B?TWNMMk1heXFTNFBaZ3VRM1YrYjRvVUh3WUZXN200V2dYMUlZVFlFV2Fqby9q?=
+ =?utf-8?B?M1F0aDRCOGNJdWtvWmZ1ZjNoUkJ4WlluOERxeXh3SjY0ZGJEUHl5SEVzMmJl?=
+ =?utf-8?B?MSt0eDRJSXpsYXZBM1pnMWlNY0JRVVROdDF0ejhzeGgzVzRKTUxzdFZVVjlU?=
+ =?utf-8?B?a1dnd2R3akdxcEp6ZlZ5dXU2WU5mYVBZcks5YVJwcXlDT3pMSnlNK1RmaXlh?=
+ =?utf-8?B?UEQrVUZJMkhLYlhFdnVKMEwvVVd2VExYUG1qeGJ6MHZtcldHK2ZIZFFxaEk1?=
+ =?utf-8?B?b0sxSFBteVRvbHRzU3JGcTkyVjhCRFVmZnAxUG1Sei9OTGhnV1ZTMDZseDBR?=
+ =?utf-8?B?aHBkcTgwaTFJNzdVWFpZMWU0RlhRWG02ekFBdnM2VWtxeUpza1pzQjNkYVU2?=
+ =?utf-8?B?ZktVNVMwSDFIVFh0YjgxeVZwMmlXY25YcmFPMDR0ZFJNUU9SUG1VL3ZOR29P?=
+ =?utf-8?B?TWFteC94QmhFQWFCUTB5S2hEeUc5K1lmcm5KdThMNm1WNjNRTWlZbHZGK0pk?=
+ =?utf-8?B?VDBZazVCQzlUblpwU05Na0NvMGdBci95SEhTVDVpSjBBV2ZjQTF6Sy8xMFhj?=
+ =?utf-8?B?UWpkM2JQbndBMTVwL2FKQ1JvOTcyRGRHZmlpeTdHWmNNdU54N0JDVnRtSU50?=
+ =?utf-8?B?aVU5UjdGbXNsWmQ0MzErd2dWU3hmWUhXdEZOajFLL3NTSGdXZkdkZkNHVjc5?=
+ =?utf-8?B?Z1JZZVVmanRjeUZMZFBoSVpZbUtHSzgrNWdjeDc4MTZ4NTF0RlFuN0RtaWxU?=
+ =?utf-8?B?L1BWZ1NLcE9XbEttbExMQXBvWmM1SnRDakVKWFZNbGNWQXBKc3BpdG5NdkNF?=
+ =?utf-8?B?TytZdFh2ejRVU1UvdFVpZDFyZmJqanprYmFITENnSkw1cGk3OHZFdW9ud2pE?=
+ =?utf-8?B?THM3V05PdWhsSG1IR2JKcFNyRjdyL214UkFoTDlYT2tIcWE0aFVKY3oxdTZ2?=
+ =?utf-8?B?ZXhSRnRYek9oWDgvT29WamUzRlJKUE9ucTA0SnBnVWxtazQ5SUNMQVBSZFZQ?=
+ =?utf-8?B?SjM2d1BmdU5MRk1vM2lUM2w3Vm5PVTRxaGltWGRMRmllTnF6SnpXN0prYTlE?=
+ =?utf-8?B?MEVkN2gwUXhCQjdQaTZJQ3A4N25nWTNqMGpFTE1YMVowS1E5M3UyRFl1Vnhp?=
+ =?utf-8?B?OXdaTk5hRDdZRnJvYUZmR1ZBYnA0SGlUOVp1Wk9QUldBQXM1dTA3czMySUx6?=
+ =?utf-8?Q?emz3Mc4/qrPUR?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f56512eb-f23e-430c-bcde-08d8de4ab797
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2021 13:46:16.3975 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EtoLHauCksCiS5xzKZdtEsJZnvddfF93wbtdohLEcbQCVHBtFJWc6pBj05SNQE1X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,207 +141,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Tony Cheng <Tony.Cheng@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Leo Li <sunpeng.li@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Harry Wentland <harry.wentland@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-Static analysis on linux-next wit Coverity has found a potential null
-pointer dereference in commit:
-
-commit 70732504c53b2d3aae2cebc457515a304672d5bb
-Author: Yongqiang Sun <yongqiang.sun@amd.com>
-Date:   Fri Feb 19 14:50:23 2021 -0500
-
-    drm/amd/display: Implement dmub trace event
-
-The analysis is as follows:
-
-400 enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
-401                                  const struct dmub_srv_hw_params
-*params)
-402 {
-403        struct dmub_fb *inst_fb = params->fb[DMUB_WINDOW_0_INST_CONST];
-404        struct dmub_fb *stack_fb = params->fb[DMUB_WINDOW_1_STACK];
-405        struct dmub_fb *data_fb = params->fb[DMUB_WINDOW_2_BSS_DATA];
-406        struct dmub_fb *bios_fb = params->fb[DMUB_WINDOW_3_VBIOS];
-407        struct dmub_fb *mail_fb = params->fb[DMUB_WINDOW_4_MAILBOX];
-408        struct dmub_fb *tracebuff_fb =
-params->fb[DMUB_WINDOW_5_TRACEBUFF];
-409        struct dmub_fb *fw_state_fb = params->fb[DMUB_WINDOW_6_FW_STATE];
-410        struct dmub_fb *scratch_mem_fb =
-params->fb[DMUB_WINDOW_7_SCRATCH_MEM];
-411
-412        struct dmub_rb_init_params rb_params, outbox0_rb_params;
-413        struct dmub_window cw0, cw1, cw2, cw3, cw4, cw5, cw6;
-414        struct dmub_region inbox1, outbox1, outbox0;
-415
-
-   1. Condition !dmub->sw_init, taking false branch.
-
-416        if (!dmub->sw_init)
-417                return DMUB_STATUS_INVALID;
-418
-419        dmub->fb_base = params->fb_base;
-420        dmub->fb_offset = params->fb_offset;
-421        dmub->psp_version = params->psp_version;
-422
-
-   2. Condition dmub->hw_funcs.reset, taking true branch.
-
-423        if (dmub->hw_funcs.reset)
-424                dmub->hw_funcs.reset(dmub);
-425
-
-   3. Condition inst_fb, taking true branch.
-   4. Condition data_fb, taking true branch.
-
-426        if (inst_fb && data_fb) {
-427                cw0.offset.quad_part = inst_fb->gpu_addr;
-428                cw0.region.base = DMUB_CW0_BASE;
-429                cw0.region.top = cw0.region.base + inst_fb->size - 1;
-430
-431                cw1.offset.quad_part = stack_fb->gpu_addr;
-432                cw1.region.base = DMUB_CW1_BASE;
-433                cw1.region.top = cw1.region.base + stack_fb->size - 1;
-434
-
-   5. Condition params->load_inst_const, taking true branch.
-   6. Condition dmub->hw_funcs.backdoor_load, taking true branch.
-
-435                if (params->load_inst_const &&
-dmub->hw_funcs.backdoor_load) {
-436                    /**
-437                     * Read back all the instruction memory so we
-don't hang the
-438                     * DMCUB when backdoor loading if the write from
-x86 hasn't been
-439                     * flushed yet. This only occurs in backdoor loading.
-440                     */
-441                    dmub_flush_buffer_mem(inst_fb);
-442                    dmub->hw_funcs.backdoor_load(dmub, &cw0, &cw1);
-443                }
-444
-445        }
-446
-
-   7. Condition inst_fb, taking true branch.
-   8. Condition data_fb, taking true branch.
-   9. Condition bios_fb, taking true branch.
-   10. Condition mail_fb, taking true branch.
-   11. Condition tracebuff_fb, taking false branch.
-   12. var_compare_op: Comparing tracebuff_fb to null implies that
-tracebuff_fb might be null.
-
-447        if (inst_fb && data_fb && bios_fb && mail_fb && tracebuff_fb &&
-448            fw_state_fb && scratch_mem_fb) {
-449                cw2.offset.quad_part = data_fb->gpu_addr;
-450                cw2.region.base = DMUB_CW0_BASE + inst_fb->size;
-451                cw2.region.top = cw2.region.base + data_fb->size;
-452
-453                cw3.offset.quad_part = bios_fb->gpu_addr;
-454                cw3.region.base = DMUB_CW3_BASE;
-455                cw3.region.top = cw3.region.base + bios_fb->size;
-456
-457                cw4.offset.quad_part = mail_fb->gpu_addr;
-458                cw4.region.base = DMUB_CW4_BASE;
-459                cw4.region.top = cw4.region.base + mail_fb->size;
-460
-461                /**
-462                 * Doubled the mailbox region to accomodate inbox and
-outbox.
-463                 * Note: Currently, currently total mailbox size is
-16KB. It is split
-464                 * equally into 8KB between inbox and outbox. If this
-config is
-465                 * changed, then uncached base address configuration
-of outbox1
-466                 * has to be updated in funcs->setup_out_mailbox.
-467                 */
-468                inbox1.base = cw4.region.base;
-469                inbox1.top = cw4.region.base + DMUB_RB_SIZE;
-470                outbox1.base = inbox1.top;
-471                outbox1.top = cw4.region.top;
-472
-473                cw5.offset.quad_part = tracebuff_fb->gpu_addr;
-474                cw5.region.base = DMUB_CW5_BASE;
-475                cw5.region.top = cw5.region.base + tracebuff_fb->size;
-476
-477                outbox0.base = DMUB_REGION5_BASE +
-TRACE_BUFFER_ENTRY_OFFSET;
-478                outbox0.top = outbox0.base + sizeof(struct
-dmcub_trace_buf_entry) * PERF_TRACE_MAX_ENTRY;
-479
-480
-481                cw6.offset.quad_part = fw_state_fb->gpu_addr;
-482                cw6.region.base = DMUB_CW6_BASE;
-483                cw6.region.top = cw6.region.base + fw_state_fb->size;
-484
-485                dmub->fw_state = fw_state_fb->cpu_addr;
-486
-487                dmub->scratch_mem_fb = *scratch_mem_fb;
-488
-489                if (dmub->hw_funcs.setup_windows)
-490                        dmub->hw_funcs.setup_windows(dmub, &cw2,
-&cw3, &cw4,
-491                                                     &cw5, &cw6);
-492
-493                if (dmub->hw_funcs.setup_outbox0)
-494                        dmub->hw_funcs.setup_outbox0(dmub, &outbox0);
-495
-496                if (dmub->hw_funcs.setup_mailbox)
-497                        dmub->hw_funcs.setup_mailbox(dmub, &inbox1);
-498                if (dmub->hw_funcs.setup_out_mailbox)
-499                        dmub->hw_funcs.setup_out_mailbox(dmub, &outbox1);
-500        }
-501
-
-   13. Condition mail_fb, taking true branch.
-
-502        if (mail_fb) {
-503                dmub_memset(&rb_params, 0, sizeof(rb_params));
-504                rb_params.ctx = dmub;
-505                rb_params.base_address = mail_fb->cpu_addr;
-506                rb_params.capacity = DMUB_RB_SIZE;
-507
-508                dmub_rb_init(&dmub->inbox1_rb, &rb_params);
-509
-510                // Initialize outbox1 ring buffer
-511                rb_params.ctx = dmub;
-512                rb_params.base_address = (void *) ((uint64_t)
-(mail_fb->cpu_addr) + DMUB_RB_SIZE);
-513                rb_params.capacity = DMUB_RB_SIZE;
-514                dmub_rb_init(&dmub->outbox1_rb, &rb_params);
-515
-516        }
-517
-518        dmub_memset(&outbox0_rb_params, 0, sizeof(outbox0_rb_params));
-519        outbox0_rb_params.ctx = dmub;
-
-
-Dereference after null check (FORWARD_NULL)
-    14. var_deref_op: Dereferencing null pointer tracebuff_fb.
-
-520        outbox0_rb_params.base_address = (void
-*)((uint64_t)(tracebuff_fb->cpu_addr) + TRACE_BUFFER_ENTRY_OFFSET);
-521        outbox0_rb_params.capacity = sizeof(struct
-dmcub_trace_buf_entry) * PERF_TRACE_MAX_ENTRY;
-
-
-The check on line 447 implies that tracebuf_fb could possibly be null,
-however on line 520 tracebuf_fb is being dereferenced, so there is a
-possibly (perhaps unlikely) null pointer dereference issue here.
-
-Colin
-522        dmub_rb_init(&dmub->outbox0_rb, &outbox0_rb_params);
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgTGVlLAoKSSdtIG5vdCBhbiBleHBlcnQgZm9yIHRoZSBEQyBjb2RlIGJhc2UsIGJ1dCBJIHRo
+aW5rIHRoYXQgdGhpcyB3b24ndCB3b3JrLgoKVGhpcyBmdW5jdGlvbiBpcyBub3QgYWxsb3dlZCB0
+byBzbGVlcCBhbmQgdGhlIHN0cnVjdHVyZXMgYXJlIGEgYml0IGxhcmdlIAp0byBiZSBhbGxvY2F0
+ZWQgb24gdGhlIGhlYXAgaW4gYW4gYXRvbWljIGNvbnRleHQuCgpSZWdhcmRzLApDaHJpc3RpYW4u
+CgpBbSAwMy4wMy4yMSB1bSAxNDo0MiBzY2hyaWViIExlZSBKb25lczoKPiBGaXhlcyB0aGUgZm9s
+bG93aW5nIFc9MSBrZXJuZWwgYnVpbGQgd2FybmluZyhzKToKPgo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jYWxjcy9kY2VfY2FsY3MuYzogSW4gZnVuY3Rpb24g
+4oCYY2FsY3VsYXRlX2JhbmR3aWR0aOKAmToKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+Ly4uL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmM6MjAxNjoxOiB3YXJuaW5nOiB0aGUgZnJh
+bWUgc2l6ZSBvZiAxMjE2IGJ5dGVzIGlzIGxhcmdlciB0aGFuIDEwMjQgYnl0ZXMgWy1XZnJhbWUt
+bGFyZ2VyLXRoYW49XQo+Cj4gQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQu
+Y29tPgo+IENjOiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KPiBDYzogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4
+LmllPgo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IENvbGluIElh
+biBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+Cj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gQ2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTaWdu
+ZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPgo+IC0tLQo+ICAgLi4u
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMgIHwgMjkgKysrKysrKysr
+KysrKysrKy0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
+b25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nh
+bGNzL2RjZV9jYWxjcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL2Rj
+ZV9jYWxjcy5jCj4gaW5kZXggZTYzM2Y4YTUxZWRiNi4uNGYwNDc0YTNiYmNhZCAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMKPiBA
+QCAtOTgsMTYgKzk4LDE2IEBAIHN0YXRpYyB2b2lkIGNhbGN1bGF0ZV9iYW5kd2lkdGgoCj4gICAJ
+aW50MzJfdCBudW1fY3Vyc29yX2xpbmVzOwo+ICAgCj4gICAJaW50MzJfdCBpLCBqLCBrOwo+IC0J
+c3RydWN0IGJ3X2ZpeGVkIHljbGtbM107Cj4gLQlzdHJ1Y3QgYndfZml4ZWQgc2Nsa1s4XTsKPiAr
+CXN0cnVjdCBid19maXhlZCAqeWNsazsKPiArCXN0cnVjdCBid19maXhlZCAqc2NsazsKPiAgIAli
+b29sIGQwX3VuZGVybGF5X2VuYWJsZTsKPiAgIAlib29sIGQxX3VuZGVybGF5X2VuYWJsZTsKPiAg
+IAlib29sIGZiY19lbmFibGVkOwo+ICAgCWJvb2wgbHB0X2VuYWJsZWQ7Cj4gICAJZW51bSBid19k
+ZWZpbmVzIHNjbGtfbWVzc2FnZTsKPiAgIAllbnVtIGJ3X2RlZmluZXMgeWNsa19tZXNzYWdlOwo+
+IC0JZW51bSBid19kZWZpbmVzIHRpbGluZ19tb2RlW21heGltdW1fbnVtYmVyX29mX3N1cmZhY2Vz
+XTsKPiAtCWVudW0gYndfZGVmaW5lcyBzdXJmYWNlX3R5cGVbbWF4aW11bV9udW1iZXJfb2Zfc3Vy
+ZmFjZXNdOwo+ICsJZW51bSBid19kZWZpbmVzICp0aWxpbmdfbW9kZTsKPiArCWVudW0gYndfZGVm
+aW5lcyAqc3VyZmFjZV90eXBlOwo+ICAgCWVudW0gYndfZGVmaW5lcyB2b2x0YWdlOwo+ICAgCWVu
+dW0gYndfZGVmaW5lcyBwaXBlX2NoZWNrOwo+ICAgCWVudW0gYndfZGVmaW5lcyBoc3JfY2hlY2s7
+Cj4gQEAgLTEyMiw2ICsxMjIsMjIgQEAgc3RhdGljIHZvaWQgY2FsY3VsYXRlX2JhbmR3aWR0aCgK
+PiAgIAlpbnQzMl90IG51bWJlcl9vZl9kaXNwbGF5c19lbmFibGVkX3dpdGhfbWFyZ2luID0gMDsK
+PiAgIAlpbnQzMl90IG51bWJlcl9vZl9hbGlnbmVkX2Rpc3BsYXlzX3dpdGhfbm9fbWFyZ2luID0g
+MDsKPiAgIAo+ICsJeWNsayA9IGtjYWxsb2MoMywgc2l6ZW9mKCp5Y2xrKSwgR0ZQX0tFUk5FTCk7
+Cj4gKwlpZiAoIXljbGspCj4gKwkJcmV0dXJuOwo+ICsKPiArCXNjbGsgPSBrY2FsbG9jKDgsIHNp
+emVvZigqc2NsayksIEdGUF9LRVJORUwpOwo+ICsJaWYgKCFzY2xrKQo+ICsJCXJldHVybjsKPiAr
+Cj4gKwl0aWxpbmdfbW9kZSA9IGtjYWxsb2MobWF4aW11bV9udW1iZXJfb2Zfc3VyZmFjZXMsIHNp
+emVvZigqdGlsaW5nX21vZGUpLCBHRlBfS0VSTkVMKTsKPiArCWlmICghdGlsaW5nX21vZGUpCj4g
+KwkJcmV0dXJuOwo+ICsKPiArCXN1cmZhY2VfdHlwZSA9IGtjYWxsb2MobWF4aW11bV9udW1iZXJf
+b2Zfc3VyZmFjZXMsIHNpemVvZigqc3VyZmFjZV90eXBlKSwgR0ZQX0tFUk5FTCk7Cj4gKwlpZiAo
+IXN1cmZhY2VfdHlwZSkKPiArCQlyZXR1cm47Cj4gKwo+ICAgCXljbGtbbG93XSA9IHZiaW9zLT5s
+b3dfeWNsazsKPiAgIAl5Y2xrW21pZF0gPSB2Ymlvcy0+bWlkX3ljbGs7Cj4gICAJeWNsa1toaWdo
+XSA9IHZiaW9zLT5oaWdoX3ljbGs7Cj4gQEAgLTIwMTMsNiArMjAyOSwxMSBAQCBzdGF0aWMgdm9p
+ZCBjYWxjdWxhdGVfYmFuZHdpZHRoKAo+ICAgCQkJfQo+ICAgCQl9Cj4gICAJfQo+ICsKPiArCWtm
+cmVlKHRpbGluZ19tb2RlKTsKPiArCWtmcmVlKHN1cmZhY2VfdHlwZSk7Cj4gKwlrZnJlZSh5Y2xr
+KTsKPiArCWtmcmVlKHNjbGspOwo+ICAgfQo+ICAgCj4gICAvKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
