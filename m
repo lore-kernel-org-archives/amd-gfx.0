@@ -1,70 +1,61 @@
-Return-Path: <SRS0=vakm=IA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=hRd6=IB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9BA5C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 22:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8893C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E85764F2D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Mar 2021 22:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E85764F2D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 506B664E75
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Mar 2021 02:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 506B664E75
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=uniontech.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7BA06E28A;
-	Tue,  2 Mar 2021 22:53:26 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545846E28A;
- Tue,  2 Mar 2021 22:53:25 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id mm21so38158426ejb.12;
- Tue, 02 Mar 2021 14:53:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SBf1AJb9EdpD1tLxm/hr0d4X6asZC8lvXwuuUxwzI0k=;
- b=SFCvXSfDnXKmDiBntDQ3HhhjDv1BUT1f49sz3EtWcxdmAJWqUHza3f+nojyfSdReAE
- 1OWF13UIkReZvm6D2LggNEX0y1Adg2s7Jw0Soc88PKJTxM76hUxudjmWkDUw91WaEjrJ
- t1efgzZOmkFIAMybduHqTzRRdCT0DJy0GyKhPdACsoaXah3MBkXQhh+RRGYoHCkMlYbF
- Y5LJL9oX+gfTXrMgWih1Lx4DR9zu9f7UwsqqK1wh+0UVOaKohtO+nDfUXjRlUs5m/Pgs
- vB811RNQw1RtjzYBnIN0AbFdqGFC2g+l3K/lxzSwHWpXz6BubsSDC1lzniVH6829ohcR
- +cKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SBf1AJb9EdpD1tLxm/hr0d4X6asZC8lvXwuuUxwzI0k=;
- b=LCVQLDQJl0BsHThuLgLTIWLUpNSw6ZZpzC0bfNXh+VgtVjOLrYpW/ZGVXZ8Vb/NN3D
- 5Fo+AzRY7XRmjeGZCQ/grST+24F0RVzWSLJs3oByoMlaEUX8RIu8a8+DRZNDFzCQxF9N
- z0m/TT1o4QqipHXU3VOJNmRmqUlEGC6PQWz64vPv3j0/c8XM9S02MHJzeaOUQxzqkvPT
- Qk+ZzW85gnIgQeHx4C7Z9deav9IHuw3l3r80DyUziQ9VkyjuoQFCDDZLWb8shrqO25Y+
- Jr/9I3lueNCx2MK/1MsbqkUG+30+6VjHc3osOhaAPcHoeQ1kPP0pG4QmeXxeM0+B/nSI
- Hnjg==
-X-Gm-Message-State: AOAM533E72/qpk2Kb4/HQjRI6fP8JVk6HDsGb2UTIuA2dMMx0pFywIeA
- lFzGjNEPYpFrvp0wZMOBLIpLQghZwymJntCqmXE=
-X-Google-Smtp-Source: ABdhPJx+ooDsadMSwgD7IHVdZfg8CXVNw8i+etr8HqoS2H2q4MN9Mj5b5LLD8WE/oq+rVom/2mDkSYlaOlQS/VqLGKs=
-X-Received: by 2002:a17:906:ad96:: with SMTP id
- la22mr23902401ejb.237.1614725603988; 
- Tue, 02 Mar 2021 14:53:23 -0800 (PST)
-MIME-Version: 1.0
-References: <1614638628-10508-1-git-send-email-Oak.Zeng@amd.com>
- <202103021104.NudsKKei-lkp@intel.com>
- <34b706ca-d15f-223f-e1a3-2ec071d578a2@gmail.com>
- <DM6PR12MB4732C8CF2FE2642A44B32C9C80999@DM6PR12MB4732.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB4732C8CF2FE2642A44B32C9C80999@DM6PR12MB4732.namprd12.prod.outlook.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 3 Mar 2021 08:53:12 +1000
-Message-ID: <CAPM=9txN_i922jP1CB1tQepBoK7qNfLq-q-nRzV6yMYP9r6xSg@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: ioremap buffer according to TTM mem caching
- setting
-To: "Zeng, Oak" <Oak.Zeng@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C7989FC0;
+	Wed,  3 Mar 2021 02:16:36 +0000 (UTC)
+X-Greylist: delayed 69766 seconds by postgrey-1.36 at gabe;
+ Wed, 03 Mar 2021 02:05:25 UTC
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2196E328
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Mar 2021 02:05:25 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.32])
+ by regular1.263xmail.com (Postfix) with ESMTP id BCF2271A;
+ Wed,  3 Mar 2021 10:05:20 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-ANTISPAM-LEVEL: 2
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+Received: from chenli.uniontech.com (unknown [58.246.122.242])
+ by smtp.263.net (postfix) whith ESMTP id
+ P27940T140460556089088S1614737119617034_; 
+ Wed, 03 Mar 2021 10:05:20 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <9887e772dd8caf221d618ba11a37a75b>
+X-RL-SENDER: chenli@uniontech.com
+X-SENDER: chenli@uniontech.com
+X-LOGIN-NAME: chenli@uniontech.com
+X-FST-TO: amd-gfx@lists.freedesktop.org
+X-SENDER-IP: 58.246.122.242
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+Date: Wed, 03 Mar 2021 10:05:19 +0800
+Message-ID: <87tuptt2jk.wl-chenli@uniontech.com>
+From: Chen Li <chenli@uniontech.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2 0/3] Use kvmalloc_array for radeon and amdgpu CS chunks
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/27.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+X-Mailman-Approved-At: Wed, 03 Mar 2021 02:16:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +67,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "kbuild-all@lists.01.org" <kbuild-all@lists.01.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Huang,
- JinHuiEric" <JinHuiEric.Huang@amd.com>, Dave Airlie <airlied@redhat.com>,
- "dan.j.williams@intel.com" <dan.j.williams@intel.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?ISO-8859-1?Q?=22Christian_K=F6nig=22?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAzIE1hciAyMDIxIGF0IDA4OjQ1LCBaZW5nLCBPYWsgPE9hay5aZW5nQGFtZC5jb20+
-IHdyb3RlOgo+Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlv
-biBPbmx5XQo+Cj4KPiBIaSBEYW5pZWwsIFRob21hcywgRGFuLAo+Cj4KPgo+IERvZXMgYmVsb3cg
-bWVzc2FnZSBtZWFuIHRoZSBjYWxsaW5nIGlvcmVtYXBfY2FjaGUgZmFpbGVkIGludGVs4oCZcyBk
-cml2ZXIgYnVpbGQ/IEkgY2FuIHNlZSBib3RoIGlvcmVtYXBfY2FjaGUgYW5kIGlvcmVtYXBfd2Mg
-YXJlIGRlZmluZWQgaW4gYXJjaC94ODYvbW0vaW9yZW1hcC5jIOKAkyB3aHkgaW9yZW1hcF93YyBk
-b2VzbuKAmXQgYnJlYWsgaW50ZWwgZHJpdmVy4oCZcyBidWlsZD8KCkp1c3QgdG8gY2xlYXIgdXAg
-Y29uZnVzaW9uIGhlcmUsIHRoZSBsaW51eCBrZXJuZWwgcm9ib3QgaXMgaG9zdGVkIGJ5CkludGVs
-IGl0IGRvZXMgbm90IHRlc3QgaW50ZWwgZHJpdmVyIGJ1aWxkcyBleGNsdXNpdmVseSwgaXQgdGVz
-dHMgYSBsb3QKb2YgZGlmZmVyZW50IGJ1aWxkcyBhY3Jvc3MgbG90cyBvZiBkaWZmZXJlbnQgYXJj
-aGl0ZWN0dXJlcywuCgpJZiB0aGUgcm9ib3QgY29tcGxhaW5zIGl0J3MgYmVjYXVzZSB5b3VyIHBh
-dGNoIGJyZWFrcyBpbiB0aGUKY29uZmlndXJhdGlvbiBpdCBkZXNjcmliZXMsIHRha2UgdGhlIHRp
-bWUgdG8gcmVhZCB0aGF0IGNvbmZpZ3VyYXRpb24KaW5mbyBhbmQgcmVhbGlzZSBpdCdzIG5vdGhp
-bmcgdG8gZG8gd2l0aCBJbnRlbCBhdCBhbGwuCgpEYXZlLgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+
+When testing kernel with trinity, the kernel turned to tainted in that radeon CS require large memory and order is over MAX_ORDER.
+
+kvmalloc/kvmalloc_array should be used here in that it will fallback to vmalloc if necessary.
+
+Chen Li (3):
+  drm/radeon: Use kvmalloc for CS chunks
+  drm/amdgpu: Use kvmalloc for CS chunks
+  drm/amdgpu: correct DRM_ERROR for kvmalloc_array
+
+Changelog:
+  v1->v2:
+    * also use kvmalloc in amdgpu
+    * fix a DRM_ERROR message for kvmalloc_array.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 +++---
+ drivers/gpu/drm/radeon/radeon_cs.c     | 8 ++++----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+-- 
+2.30.0
+
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
