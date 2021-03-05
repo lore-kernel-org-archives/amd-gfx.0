@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05CC8C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A72D8C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEE1160200
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:03:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEE1160200
+	by mail.kernel.org (Postfix) with ESMTPS id 5661D60200
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5661D60200
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFD46E372;
-	Fri,  5 Mar 2021 20:03:55 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5DA16E372
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 20:03:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 025DB6EC39;
+	Fri,  5 Mar 2021 20:04:06 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2054.outbound.protection.outlook.com [40.107.101.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 216D96EC39
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 20:04:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RzOqnbRf5gvq9Wp0vosTZun5AF3ZPjdFdd7WNWB63rWZj41SnIgEWrMBWCUIMFXWzja9tvgT3fudF6+BzBlfd1BHzhemprgEEV/JrJC9ah+YKV2MZJfJZ/yQ8wHvYipNflzUImRfW5tp/oTe2Uzv0N83qVJ+VCsW/tp2jRKOPucp6PODTJl2OcABMVPuD9dSV7HrNav8XaTacq4M4/HbszZKE3V4XvMXxQZ9oV8AkczqCVtev1ujSuEoahb2tJY7G3WVP9P03RY6ZxvzX2iLAbuaaOlX2YzuN9DSVK0VURVnBU7Ez/Gb6eJu98mPTb5zPq2zfFUQUQyUb7HBze+fCg==
+ b=NZqwzkxB9NDpqG7gKq082joP//KWiByrwxcorLuVUAVGHKw+xP6Oc0WzmyNbDYEuaR4s5zGmKn47FQ2s815Mkekw3eQ/Jb/BeaRe1ZyAzJN4M5Axpotjsn5rQbA1Hm39hMdxIKREFTb6YmT4TtG2Swr6DHNtrG4u7aoseGLFNrZbyF4LISPkHa0F0a7mC/uqpCAjzaC5uNVFKp/IYsf7953u6t8uScIB/MQ+OIzkLFr3PAmO/b6sVBgyzpMUIb6I9lb4i2BBcGf+X/zHROWTNf3PLTXldOUGDFADWxqPFJLZQr48ie3nFurFFQnt2AmQTlQiynFpYt+Sc/XTog2F4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VYQBBxi2aFVMrxP/rn0tbDNr0ksB4+zxpxxLaXGJws8=;
- b=Qi1W2dWQvJVua8/S7T5MWO6hAPwRIY/GsHf1bUnF9cCaPltEKp+o9jN+5mbap/Dyj52RvTlPKK5MXUOGDbIYB+fL43TCcc/YFoBzOj6yZImANKBrURfiyzXr3iwdslLWHHn6qvI01ulhgzw34qk3Ien/BJjjRetOtLz3bsqpYjC8rSuPK0kzUH2lP9gTOGCh69282aAEbu7fqqTcsVUN3Mpcy49IlYaEryJljbcbUw3EZJJnZC5KwTNiLt3crOqUIVp1ZDLCSwE+Z5lfQrH9A3pFRnO02nGitg3Ulzo/fRZ6jlDxj0veoP43VE8s4AYnU6uFSvOXiu+SZ6DmZa2+TA==
+ bh=/OItNPSN2KWtOH+f6zKSFuJ/ElxgMuYYMk6cJdfa/gw=;
+ b=n0MIC5yl8vuYw28wkJ6cbZtQkNBUc0jt0z81yrC4dQ3WfDor3MHD96DMqgsJOGe1UckAh0IE+azk6maVTZw4TrCFRJmF43jB0eXH10vfuCXLUhAOwz/Rl0Si/gnr3ptuHmzN0flYNV+BWBJc3IRPM4ehOvcY1ZImp5tivWW5oBwZdrCdgOBt431E6kp7L2WkcFxEMy2ouLENIZb+hg/ZM7PHo0EYryhO84h/y2w9JFo6kHGO3AOs7LahfjPZwW2TRfwxQOYObSx2HFbLZ/kOfZCyATXSotNgFj6xOsmeOXA16Di7WoGyQheEbvm4JHcuWEc4LMa1HOlg+F2abJtgCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VYQBBxi2aFVMrxP/rn0tbDNr0ksB4+zxpxxLaXGJws8=;
- b=c/hliz2j1BYVosIBhsaZDgia8Rt9apAciF/9racenf+4kHHF7GGatEe1xBjQaDPERLR1xxzjlhT1U0vaIXbIU7pY3QyilRgLpK9wMIxSFoWMw20w2/dR9tysf/nRJml16Qwi567N/3uQDMlvxtLqRaDNAbl6Z63AdRML7zzn3vw=
-Received: from MWHPR20CA0027.namprd20.prod.outlook.com (2603:10b6:300:ed::13)
- by DM6PR12MB3260.namprd12.prod.outlook.com (2603:10b6:5:183::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.28; Fri, 5 Mar
- 2021 20:03:53 +0000
+ bh=/OItNPSN2KWtOH+f6zKSFuJ/ElxgMuYYMk6cJdfa/gw=;
+ b=oXFyqRHpnBrMGeNATRUGMrrs2wzH+epesoo2PAiP/fZHTwk7VlN6Hh7lox2blmkCvMArekC/QD0fDnO5k1tiv0oiyoD5jNUu1Z1p8ZppgiNT0AzVgFw+z2q/5DYtvA2gnuKvFc9XzIL93HRkmsz0HJNZQCSIj92BuuWZd5m1Vv0=
+Received: from MWHPR20CA0037.namprd20.prod.outlook.com (2603:10b6:300:ed::23)
+ by BN6PR1201MB0004.namprd12.prod.outlook.com (2603:10b6:404:ac::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Fri, 5 Mar
+ 2021 20:04:03 +0000
 Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ed:cafe::50) by MWHPR20CA0027.outlook.office365.com
- (2603:10b6:300:ed::13) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:300:ed:cafe::e0) by MWHPR20CA0037.outlook.office365.com
+ (2603:10b6:300:ed::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
- Transport; Fri, 5 Mar 2021 20:03:52 +0000
+ Transport; Fri, 5 Mar 2021 20:04:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,20 +59,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3912.17 via Frontend Transport; Fri, 5 Mar 2021 20:03:51 +0000
+ 15.20.3912.17 via Frontend Transport; Fri, 5 Mar 2021 20:04:01 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 5 Mar 2021
- 14:03:50 -0600
+ 14:03:56 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Fri, 5 Mar 2021 14:03:45 -0600
+ Transport; Fri, 5 Mar 2021 14:03:50 -0600
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/14] drm/amd/display: Skip powerstate DC hw access if
- virtual dal
-Date: Fri, 5 Mar 2021 15:02:49 -0500
-Message-ID: <20210305200301.17696-3-eryk.brol@amd.com>
+Subject: [PATCH 03/14] drm/amd/display: Fix typo when retrieving dppclk from
+ UEFI config
+Date: Fri, 5 Mar 2021 15:02:50 -0500
+Message-ID: <20210305200301.17696-4-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210305200301.17696-1-eryk.brol@amd.com>
 References: <20210305200301.17696-1-eryk.brol@amd.com>
@@ -80,27 +80,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e2e95d77-0986-4dc1-16e1-08d8e011cc37
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3260:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB32602E06581B4704DD7A0B6EE5969@DM6PR12MB3260.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:854;
+X-MS-Office365-Filtering-Correlation-Id: 1d0c9bd5-b7ca-4ed0-e740-08d8e011d20b
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0004:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB00040F93B7AEB0E519613D90E5969@BN6PR1201MB0004.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ikakmVaJwYoXxVriT90Y7Tp1GVSNMRDTE0WzrmVI1cVg8MEeTCedNe/VrEuplS8JJTMRLp4BK8S7T2FCGAisIFYfsEGoknBfANl43HWGKqJI0/9s1FssmXpWCc7PwUmbDs+HZKdtVzQw4OskMIweY1wP/Rh8wYKTstOk2XWZZrOQeKny9tphEDz+oAnu/YgHSZgPk7Mi0iB530N8BKHSqAxDlyvHZ/ffUUTZiibTDrSBLnngOQtmcB1D2PUUp7ctiMCqeuSbW1d7qxQ49LOaooW0kNlkE0mfExR3TArq/pgvUyZA/p3en3J541Uxiy0nwkR6c5pHrWEzpCKYaqMIZkRh180pUkMI6EwfhKoq7X64NLCrLwqRC9yhhJ0bMwTmosXte7jDF17Dwdivl6sr3JwBiGQuW/q3Y5iSLd4yKsp0XtijiHZDAKIGcLe3yjBThYD/kpiaAytdWunupFbYBJowUBFCRZnULWHOEIxZGB+N3FOAN5kU7R2aDAykH66f2Z1kZrQUtB3k3rmuaTN5vVEhOJqv+4X/pWWRUhKUCfLNSEqYNhVLmJDzzIpvL8uocQ2GaOEKUPvede8iSp216yHBL8bMnNb4EBcukFlmh+rWF7J70hSCcTsMsW5BHvYX61xsuBL9+5F5Xe+M0K9m6l/sIHLkA8mK9AQNrTFeOl3ZMTA2Rr54nQ0td0wPVJzd
+X-Microsoft-Antispam-Message-Info: NrpHcvaHAmlNx784xBP1I781gSzRxkaLiVdQU49J9Y+VLRKt+t6LLikpJkptcW6/bJHfAJjTylga3xUuXZpT0N75rk1DuIpK0FfUoistETHSb3rBD3mnsrv20LmvXL2Hy4zmzH5aIy+hV0JaBUkrEONXiTh2rhvmxOOvmuH+RGpcv8BMtRA2MDgxa2xTsRoCXdOehnn8cqDRCPazN/i/GniUWu07O3nTAlQs1qmvzWq+Mw3D0cqearip8PdglKHSQN7cuJJZRdPXPYNI1DDuC8EB6B7V8F6JdsdNdXRVUxNk7qN0GK80mOHOGzVfachDdhOf8wv2EyTZy7jBOuO9h6Cve5fICI8Qf+xp1DnH7FDvkX+GoCuzEMGaN3shj2FkN0OFpl+5SGGlL3xZOWkuoYW8TXwj3wx3fGFyjI6b3VBVFbwOd0/3Q3fvN9sRDIhzDmNIEKxzljw6aMI6fjDJU0e46yVYLbBNnQBrgL1kzU95VoWZCrioHxG4yavSb7bhEspLzlU75cP0nZyq4IqFzB/S+/To9FH1scPEIC/TrkZYDy5f7XioVC59eT5ZqwKQflilUec72F/WKKaQDmzb59hUyBb7mCYMPLGGvZMRI8zYcKkCUKiRTSrC/rQJX2LmJmUjDN4Jq+bcyNKeZ0kmt2vmLXF+Pwy70Dmn3/hlcPPLoTZ/1lgA/gma7UXObyPO
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(36840700001)(46966006)(82740400003)(478600001)(36860700001)(82310400003)(36756003)(26005)(70586007)(2906002)(186003)(8676002)(86362001)(5660300002)(44832011)(336012)(316002)(8936002)(54906003)(4326008)(47076005)(81166007)(4744005)(2616005)(426003)(1076003)(70206006)(356005)(6916009)(36900700001);
+ SFS:(4636009)(39860400002)(396003)(136003)(376002)(346002)(36840700001)(46966006)(6916009)(2906002)(81166007)(82310400003)(356005)(8936002)(47076005)(36860700001)(83380400001)(316002)(82740400003)(86362001)(70206006)(26005)(36756003)(478600001)(186003)(5660300002)(1076003)(2616005)(4326008)(336012)(44832011)(8676002)(426003)(54906003)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 20:03:51.6654 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2e95d77-0986-4dc1-16e1-08d8e011cc37
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 20:04:01.4487 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d0c9bd5-b7ca-4ed0-e740-08d8e011d20b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3260
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,7 +112,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+Cc: Sung Lee <Sung.Lee@amd.com>, Eryk Brol <eryk.brol@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
  Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
  Martin Leung <martin.leung@amd.com>, Bhawanpreet.Lakha@amd.com,
@@ -124,34 +124,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Martin Leung <martin.leung@amd.com>
 
-[Why]
-On baco-enabled systems running virtual dal, can get set power
-state when hw is not initialized
+[why]
+In some boot configurations we need to retrieve the currently
+UEFI-set dppclk, but there was a typo in the calculation
 
-[How]
-Skip DC hw part of setPowerState when hw not available
+[how]
+Fix typo to make dpp_clk calculate off dpp_clk divider instead of
+disp_clk
 
 Signed-off-by: Martin Leung <martin.leung@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Sung Lee <Sung.Lee@amd.com>
 Acked-by: Eryk Brol <eryk.brol@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 87b8315cfbb8..daf1b20028b8 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2887,6 +2887,9 @@ void dc_set_power_state(
- 	struct kref refcount;
- 	struct display_mode_lib *dml;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+index ec9dc265cde0..372d53b5a34d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+@@ -361,7 +361,7 @@ void dcn2_read_clocks_from_hw_dentist(struct clk_mgr *clk_mgr_base)
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DPPCLK_WDIVIDER, &dppclk_wdivider);
  
-+	if (!dc->current_state)
-+		return;
-+
- 	switch (power_state) {
- 	case DC_ACPI_CM_POWER_STATE_D0:
- 		dc_resource_state_construct(dc, dc->current_state);
+ 	disp_divider = dentist_get_divider_from_did(dispclk_wdivider);
+-	dpp_divider = dentist_get_divider_from_did(dispclk_wdivider);
++	dpp_divider = dentist_get_divider_from_did(dppclk_wdivider);
+ 
+ 	if (disp_divider && dpp_divider) {
+ 		/* Calculate the current DFS clock, in kHz.*/
 -- 
 2.25.1
 
