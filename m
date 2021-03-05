@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86C87C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 18:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 983B0C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 19:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21C9B6508B
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 18:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21C9B6508B
+	by mail.kernel.org (Postfix) with ESMTPS id 3FFB9650A0
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 19:10:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FFB9650A0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A3B6EB6D;
-	Fri,  5 Mar 2021 18:38:20 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6623C6EB6D;
- Fri,  5 Mar 2021 18:38:19 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id i21so3573978oii.2;
- Fri, 05 Mar 2021 10:38:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 407236EC18;
+	Fri,  5 Mar 2021 19:10:03 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6664B6E2DC;
+ Fri,  5 Mar 2021 19:10:02 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id a17so2844872oto.5;
+ Fri, 05 Mar 2021 11:10:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NuHbNZ1pCaMD75xKPyicfsteJCNdNgmFyqDm5jntMkg=;
- b=QTriOvFOgzxFv2eZ9ihENSK9Df09qTS/DruECsSFH5Sw4oG5qzZp8dI5XzMGXH15Dh
- y2qwHDqCvJ2QXqvo+txAz2tLQMaxC13wIN2f+9blsjLVvy5glhB7P9IAwwRXnTORChQv
- XU5mE1Veu52ojTGnk0TrGJ5JKXxg36ONwyTwJaZleJFMELIN/qmxyFzjrjtIJ0UVVDpn
- kg2r5yIl+gy/+KaZK0LzlvT+tWx06slMIerNge13J6h2waZLv3CeGi9XMdkYOmwWwvpt
- SUO3wS5V+puwfdol9aeeqsnJmVX4B5GkpmzFzuLxKWW2+8KmzK/wM5moqN4dc+gB7t1k
- S4Ww==
+ :cc; bh=iXzxwkzjLPM7KiJlrDFoXaEopVztroSTDc/T8EMHkyA=;
+ b=MHFhF1jy/arRNMe+nRyOQC57EQvTOsY6xXLgEOXZBFd9dqdRZIVlBWIC3S97NIQwtQ
+ iDuxd2SYi6D5XyPg6ecwKwFK4V7+/3FnqrNOtHmvpAkgcbm3Tmeap4lZh4OLtlEFugHi
+ Y8xiHkhEjmUq9D9igDgXhvovqcXUTS25i0s39z0sYCvqDJzfvHoiJlbs3Ag9RHvyh1s5
+ RvidPRO0ZNshH3OQQ9y+t6prDNk4K7SWqtf5+UpJa91klgQIrIx45TZqHL8+KGNc9Tnt
+ 6J2EYeav9hkbRjCUmC0MQuq5T5MqzH6ELwBol9e12fXYY1/x42Can0cE348oscPRuDGw
+ zdow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=NuHbNZ1pCaMD75xKPyicfsteJCNdNgmFyqDm5jntMkg=;
- b=Y9wNZDigN3TfVPRP3J2JKVcMnPRkWObGVXzHgR8kY8+3K0Tx8Hfkf0oMTouEog1tUe
- xKRTsjsfbzBhGZdCoFyjqBekq+ozuzS/DuYMvNAO1WtozbkR11ZEvhtJMhqXpqq2dS3A
- ziaZLXL0205Rqyn/VzKSsifabR8fnOY0EEoBC2cLmgXcahbe3NjWbth9FfDQUIpFsMVp
- r/EM9SNCSolWi2SYBtGdvhVyztRVvrW84Y7p3wu9NOycF2TTpYYWUlF+Z76CfuW04NB9
- UNna1Qb1MiE/poJdcqb89El/ryazU7btzfY3rdE5JaMy339ilDlH6Pbp2bqh1bWexAye
- C3QQ==
-X-Gm-Message-State: AOAM532PmP5yx8QocOI/+1APNEmB0TF+TWVXyWyL7yKYjQnCmCOjnIaw
- HtVGaTN2KT0vNzgL7/gJK0ilXBbwYrjv6gTAX98=
-X-Google-Smtp-Source: ABdhPJz0QWrubxnVvKfD+3rMD2OUVXyA1FXnY3QQjHZaZxL2kT/xA2ba7/jwCphvhlofJ9ONnGpq3uvRfWAWoyX3+04=
-X-Received: by 2002:aca:af10:: with SMTP id y16mr5168997oie.120.1614969498664; 
- Fri, 05 Mar 2021 10:38:18 -0800 (PST)
+ bh=iXzxwkzjLPM7KiJlrDFoXaEopVztroSTDc/T8EMHkyA=;
+ b=k8H6eKyk7OZTI2Y0qqvzKanthn2nYzkc/qVZb0BYSixrfYplzs55zihyrXV8UYCeYg
+ cHaN1eb9vQM6b9DoFO41kbaupoSsjf/pAs8/Hrx74X6BBkFOJh4cv6vcmSOLsICVCV1v
+ UXktfB/xnXdxT3TROfw56qIvtt/HRVYCU+BA6Fq7xLG9kcTNghoSPFIZUrN9Us+ZSUD3
+ 39hMh8cQuXuCHthNVOFMNu8iWJqza9U6ocV1su1QIo6HoLyP8NjCn0FuMNRJpqFM5qTU
+ hcwCy4Y+qv/5TqxcnonlwqPBQFaVt5dLDltqHIRb8hWUHIXXzXriDZWupaJpwOsB2HQ+
+ ZZTA==
+X-Gm-Message-State: AOAM530HSJNPmz3dZu/sOs2rvXNyJBRx9cWVj6RqmHpAwlQZMAWrpfmK
+ gQYtQHVZBRJE29orpWv+aB1FYGV/PIh40Od0Kb5PKEmf
+X-Google-Smtp-Source: ABdhPJx2hSgeK+Yqg7IMRFfwiaPsKVqALRblWQSXFF33Bri5Jv38Yca6XaIqX4fmYVUvCMVExpkjIb4XO50ayw6IDFg=
+X-Received: by 2002:a9d:20c3:: with SMTP id x61mr9318715ota.311.1614971401734; 
+ Fri, 05 Mar 2021 11:10:01 -0800 (PST)
 MIME-Version: 1.0
-References: <20210303140654.67950-1-colin.king@canonical.com>
-In-Reply-To: <20210303140654.67950-1-colin.king@canonical.com>
+References: <20210303132510.66904-1-colin.king@canonical.com>
+In-Reply-To: <20210303132510.66904-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Mar 2021 13:38:07 -0500
-Message-ID: <CADnq5_Nj0_X5E0gqtMEr8FL_UVn+WwjWSycBhWUvcg=zVRHEZA@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: remove redundant initialization of
- variable status
+Date: Fri, 5 Mar 2021 14:09:50 -0500
+Message-ID: <CADnq5_Pqd0J_VpSkK_hAd9mUg2YgBLcZCEo3u7pXADPAW0_Zkg@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amdgpu/display: remove redundant continue
+ statement
 To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,6 +75,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Leo Li <sunpeng.li@amd.com>, kernel-janitors@vger.kernel.org,
  LKML <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
@@ -84,37 +85,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied.  thanks.
 
 Alex
 
-On Wed, Mar 3, 2021 at 9:07 AM Colin King <colin.king@canonical.com> wrote:
+On Wed, Mar 3, 2021 at 8:25 AM Colin King <colin.king@canonical.com> wrote:
 >
 > From: Colin Ian King <colin.king@canonical.com>
 >
-> The variable status is being initialized with a value that is never read
-> and it is being updated later with a new value.  The initialization is
-> redundant and can be removed.
+> The continue statement in a for-loop is redudant and can be removed.
+> Clean up the code to address this.
 >
-> Addresses-Coverity: ("Unused value")
+> Addresses-Coverity: ("Continue as no effect")
+> Fixes: b6f91fc183f7 ("drm/amdgpu/display: buffer INTERRUPT_LOW_IRQ_CONTEXT interrupt work")
 > Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-> index 03741e170b61..15ed09b7a452 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-> @@ -81,7 +81,7 @@ static void dmub_psr_get_state(struct dmub_psr *dmub, enum dc_psr_state *state)
->  {
->         struct dmub_srv *srv = dmub->ctx->dmub_srv->dmub;
->         uint32_t raw_state;
-> -       enum dmub_status status = DMUB_STATUS_INVALID;
-> +       enum dmub_status status;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> index 8ce10d0973c5..d3c687d07ee6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> @@ -520,9 +520,7 @@ static void amdgpu_dm_irq_schedule_work(struct amdgpu_device *adev,
+>                 return;
 >
->         // Send gpint command and wait for ack
->         status = dmub_srv_send_gpint_command(srv, DMUB_GPINT__GET_PSR_STATE, 0, 30);
+>         list_for_each_entry (handler_data, handler_list, list) {
+> -               if (!queue_work(system_highpri_wq, &handler_data->work)) {
+> -                       continue;
+> -               } else {
+> +               if (queue_work(system_highpri_wq, &handler_data->work)) {
+>                         work_queued = true;
+>                         break;
+>                 }
 > --
 > 2.30.0
 >
