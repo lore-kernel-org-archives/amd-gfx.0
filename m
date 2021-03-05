@@ -2,53 +2,53 @@ Return-Path: <SRS0=BT7C=ID=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 458ECC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D367C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0829D6509A
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0829D6509A
+	by mail.kernel.org (Postfix) with ESMTPS id 37A976509A
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 20:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37A976509A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C05126EC3F;
-	Fri,  5 Mar 2021 20:04:31 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8118D6EC3F
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 20:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D156EC42;
+	Fri,  5 Mar 2021 20:04:41 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3F46EC48
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 20:04:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kk1Ql6ALsVRtuOXRGOP/lmUAtMlbitomimSsKwhMvg0HMXo98GO+kFG1cpvCD3uhnHA/8dPFoXG5CpvvYPQpoqJK+rEm7zt6jTi9NTo9sp/va5DE3++BW+vR0tf60HjSa3xYt2qLhKeLbHDzuR5p4IFjtPDYUKiSRyS8URwibaMqOwkMnQucRrdLoFM2Hb4MlSyXr5yWzFko+Zv2tnHV/4DfrEXj7yZQ4praow9wbYZk+Sc51laS1b3eM3edPv+wgXp5WfLPCKq+UHW94aCCNrNvALsWpjj1sixNHg/ROgBrzGztVnV3pwQAOKDjazB/rQDo0PMtGyjgzF+JOuaagg==
+ b=SaEePJUkGs0WaIMiYiP0v/6sLR91h2ssSKrUNiVG8nT7JVEetEE6tMlGiAHWY4VE7B6IbjoF5hjIBoQXU99QwS+ixizXbDDmZf4FTAEPXSLHHVkm7T1xAoRLeq8Y2uq1NeWu1Z92KrLzCh6AJFgwYS0F5WW4d3wOHmhIM04z/vnTLbTcL8Vf5QgS8Suee8sTRG/u4XcLOZPplZ1duaXSXZVNwx1a9xIHoPUQwJ3VpGhckRsWmFKzpy1k0OVNR1GtQUjSrmMTkpx3vG2cSpfAf4qc7oCocKfCeshv67uf3RahYOhZjEm3O5eypQoPU4odt93Wf9LkYAWBqvxnBJ/OIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5lgUD4R8rpQQMwTDchmH+gK0TqXr/H0v5PFhE8zDKAI=;
- b=LyTzyiw0uyPShVcLxtGkaDjZ7zS63RkabM6WhEVpyT+Gb1HB7141ix8ohWCOPo3H67TY4nsJH43Pm4fDZdwRYGkhBsf1uRVx44yZf/CbibcaZr3+BjaZP5pZBei9MyU7e1pDkA7elbzGlDvR3kVbTdvVg5BuXWNyv1LhJ/bTPNkYZYdH53x+ec6oyNkntX7wfgep5vujEBKyV1iRhMwRzrYsMRsyen3zO0G+uvoylCZUE27FMstOLAP2q2cd060nBLzuc/0Nlo5bT+yxtJvZ2ICx2BpdUi3jShCuvQso2jBypKpJGjmy5UOtv3+D+nI2O36Qre6EB6eV7W4vUtea+g==
+ bh=P63nuTWk010O/JaSdfBxgUORs3K5OjgHaCBOlutl+/s=;
+ b=dS9HeblRhMoVVhQoc587TWOq0R7HadCqZ5tBNXmdWBCZymt8RDW8ObndfeZ4hXLsIrgcVgbq59r6EQM5qkCTNGywKFUmH+zIEOjj9GPONtcK3zlO/T8DXF8MMEtzV0cM2q7AjVu4LY0VDhBNyYGogJcKgGs7LNPGBPcDWC8TUXHo2v0jCT2aZlP5fYr//hfEwdBzvUyCz21zngPQl1xC9zdebQQf2HIThjoWqDAjX/jYqtbxYWwBpGoUfIx2fBL6DYDrWYEzhABkE4e7fRVtqP7fQTLrny8ivX/6Fn0xhsaU3biJkxFhCi1fuQFZUn7dTXyOu2687wuIGnX+4YG/0Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5lgUD4R8rpQQMwTDchmH+gK0TqXr/H0v5PFhE8zDKAI=;
- b=jc2B7NiY/pN594eBLDdTWgENAfBn2XoeL5E5XfxYh1o7/0/g0WoiO9zPMvoMUOwGXUf0QhfogCPt2043SWVxjvOr5ENQNbsxh7TYs0XOIosR6cXMJ+IDGCBR3Fxx9QJT5RI3g1N1sK8K51iZoxpnacYoq6ozhg7D3F9fvXxULvk=
-Received: from DM5PR13CA0064.namprd13.prod.outlook.com (2603:10b6:3:117::26)
- by MWHPR12MB1279.namprd12.prod.outlook.com (2603:10b6:300:d::9) with
+ bh=P63nuTWk010O/JaSdfBxgUORs3K5OjgHaCBOlutl+/s=;
+ b=Fif5RkNZ2s2NoVe544WJn0DhsSt/F4MW1l9Y5DB1gQ3Fiwoo/X15HSiYSozdTIWBWMBlrRc0qqm9Qufb+jV8KqTbKc2DQ7goTI2df5Aa/tU5LobyYA0qjncJ/h+LKPXBt+MNgu4iRV/ivriBctl4MzDEa9p3aJAv25f46wTnFOs=
+Received: from DM6PR07CA0067.namprd07.prod.outlook.com (2603:10b6:5:74::44) by
+ CY4PR1201MB2487.namprd12.prod.outlook.com (2603:10b6:903:d0::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Fri, 5 Mar
- 2021 20:04:26 +0000
-Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:117:cafe::80) by DM5PR13CA0064.outlook.office365.com
- (2603:10b6:3:117::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.16 via Frontend
- Transport; Fri, 5 Mar 2021 20:04:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Fri, 5 Mar
+ 2021 20:04:38 +0000
+Received: from DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::ee) by DM6PR07CA0067.outlook.office365.com
+ (2603:10b6:5:74::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
+ Transport; Fri, 5 Mar 2021 20:04:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,26 +57,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB02.amd.com;
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
+ DM6NAM11FT022.mail.protection.outlook.com (10.13.172.210) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3912.17 via Frontend Transport; Fri, 5 Mar 2021 20:04:26 +0000
+ 15.20.3912.17 via Frontend Transport; Fri, 5 Mar 2021 20:04:37 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 5 Mar 2021
- 14:04:25 -0600
+ 14:04:36 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 5 Mar 2021
- 14:04:25 -0600
+ 14:04:36 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Fri, 5 Mar 2021 14:04:19 -0600
+ Transport; Fri, 5 Mar 2021 14:04:25 -0600
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/14] drm/amd/display: Read all the trace entry if it is not
- empty
-Date: Fri, 5 Mar 2021 15:02:54 -0500
-Message-ID: <20210305200301.17696-8-eryk.brol@amd.com>
+Subject: [PATCH 08/14] drm/amd/display: Fix warning
+Date: Fri, 5 Mar 2021 15:02:55 -0500
+Message-ID: <20210305200301.17696-9-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210305200301.17696-1-eryk.brol@amd.com>
 References: <20210305200301.17696-1-eryk.brol@amd.com>
@@ -84,27 +83,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ecc5f574-8cd0-411d-fc5c-08d8e011e0b2
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1279:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1279DF3D88F7787DAD315712E5969@MWHPR12MB1279.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Office365-Filtering-Correlation-Id: 5c4c8dc8-03b8-4cab-092b-08d8e011e75e
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB2487:
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB2487C7391F300CB379581009E5969@CY4PR1201MB2487.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NrHtgI8ppp9syu//XMFHrl0a45EFAw9dV/+pBTGs5LcsIE++ONfB3abLF/VDXFZfflXibHasyoWQcDF4o+gafNOLyjMnhTz/tFBzxVkoxESmtBwzfXFSIQBCaWJcQxhKCUGg5sENPmBlSrhq3GAFXQT0Ih55zxE2+YO6xMNHcsbWur5Rexmbijwi5rpvCJ6uwdmwsNKRMR7kxD/1yKJvIDhzHYy1edz20gExbU6UOX4GBQBu3k8x89oFoVql+HJaz4mVwY8/7btJz5gclbdBKK66C5bz6a1E/8PXFJrrreRMcIilzNjZWFgjF1aVkDnWNvV7fpApzppvosIfC1LH56qJ/643rBvDufblBPecOIaqYUj9WnyLV0fFvZh2wb4JZL9NlLvhiz0/py9BlkryEaLLCdAUGvCrtKL2z46YHn8aJNBKcP+Sdn0g1i0C+20f3EAw3aVevCTUa9tu9uAHcj2qmLbQHzCkVK1VO0irdLiB8K8LanfjH1oaHz+TIel1OdYGEagX8EU0YIHisAX03N7PZMYuWaGs0lqXIhcZ5gScVZ23Wf7xNVHfo+e6ZXSCE2csmq47sV87vjEq7lFmd6Ey6BguUrYlxkopphlHoNqGbB2f1dvT17YOjndWO326KamN8fDNdTB5cFJUTI0s8bbJQUu1vDTrkl9GzhSejr/t/hZQ49oDupKiGzc/Tn2d
+X-Microsoft-Antispam-Message-Info: I3RDUicbXPXX2lI69VfuFv917t9TQZvQTDOGEjldm83l+81kDvubG1lxu+isDXAFFrMZ2EwQhynP998tM17DHZquVcKSYIqqepf/zLXrU0kFJFB1fGZzm2rSqJmjv+O/HgK/A/5ZJp8aODBkQfsgWtW4OijJ2qJnN2RKpk/PGtpeDL3lLdfNfzj4FQTh073xmJsK3bksQ9HKaNykzELZbqsIVDxTv86fk5/O2RFuxNQqeVIzJFxGJTgDQv1XyoYFCYMn1EVn0uKUiad3qOanzjmEPjIXWvVz8skeGqCuAGJlUCUT2Ye/4zNsCLYLA+eeHjqXhKP6ekdsUhthE1JtYkvNNt1gcuy84l0JJfzo7tHkzSQPvXTfl6QzkMhnq5iBq5GQDN8H4iJBPLnOYD55QJ72gDEcaQOBCGORalyQCpsYzU6gPFAW8Mq70UOhztb0Oe1pz0ndfQ5DkgsANjnWJKnBkmXotiFFf1jtPD0KKxuZ7DxxrgYKoHmmAdmONqldntPiHSvsPV0CSJl2Vk3cpHCAbxUqb2jkxLzueztmXKkq/fX+1hbIa83zFlppxFoZYLkPIv2CawKIAKuwodDQjE+Ilgl2tEIKhc9pgGsrAuDCqluRdeqBj1gPfPhP6Uz78T34NQkOy06Z8uzg2iEyHiixTrbNyPk6pVq1qhg4lOoeqiAQlsYW7vuoLSgKOgsn
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(396003)(346002)(136003)(36840700001)(46966006)(47076005)(44832011)(5660300002)(83380400001)(336012)(6666004)(426003)(316002)(2906002)(86362001)(1076003)(81166007)(26005)(82740400003)(356005)(2616005)(70206006)(186003)(70586007)(82310400003)(4326008)(36860700001)(6916009)(36756003)(54906003)(8936002)(8676002)(478600001)(36900700001);
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(136003)(46966006)(36840700001)(83380400001)(186003)(26005)(356005)(316002)(54906003)(6916009)(86362001)(82310400003)(44832011)(6666004)(36860700001)(2906002)(81166007)(47076005)(82740400003)(478600001)(70586007)(1076003)(36756003)(8936002)(4326008)(426003)(2616005)(5660300002)(70206006)(336012)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 20:04:26.0857 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecc5f574-8cd0-411d-fc5c-08d8e011e0b2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 20:04:37.2631 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c4c8dc8-03b8-4cab-092b-08d8e011e75e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1279
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,83 +116,105 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Tony Cheng <Tony.Cheng@amd.com>,
- Yongqiang Sun <yongqiang.sun@amd.com>, Bhawanpreet.Lakha@amd.com,
- bindu.r@amd.com
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Rodrigo.Siqueira@amd.com,
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <yongqiang.sun@amd.com>
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 
 [Why]
-If interval of two interrupt from dmub outbox0 is too short,
-some event might be skipped
+- Wrong scope for ifdef
+- Missing struct description
 
 [How]
-Compare read pointer and write pointer until all the event
-entry is processed
+Move ifdef and add comment
 
-Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Eryk Brol <eryk.brol@amd.com>
 ---
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 11 +++++++++--
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 2522492dcd42..1f1375c49aa5 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -517,7 +517,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	dmub_memset(&outbox0_rb_params, 0, sizeof(outbox0_rb_params));
- 	outbox0_rb_params.ctx = dmub;
- 	outbox0_rb_params.base_address = (void *)((uint64_t)(tracebuff_fb->cpu_addr) + TRACE_BUFFER_ENTRY_OFFSET);
--	outbox0_rb_params.capacity = tracebuff_fb->size - TRACE_BUFFER_ENTRY_OFFSET;
-+	outbox0_rb_params.capacity = tracebuff_fb->size - dmub_align(TRACE_BUFFER_ENTRY_OFFSET, 64);
- 	dmub_rb_init(&dmub->outbox0_rb, &outbox0_rb_params);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7f2ece5b4db0..1bd9a235e406 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -966,11 +966,12 @@ static void event_mall_stutter(struct work_struct *work)
+ 	else
+ 		dm->active_vblank_irq_count--;
  
- 	if (dmub->hw_funcs.reset_release)
-@@ -719,10 +719,10 @@ enum dmub_status dmub_srv_cmd_with_reply_data(struct dmub_srv *dmub,
- 	return status;
- }
+-
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
+ 	dc_allow_idle_optimizations(
+ 		dm->dc, dm->active_vblank_irq_count == 0 ? true : false);
  
--static inline void dmub_rb_out_trace_buffer_front(struct dmub_rb *rb,
-+static inline bool dmub_rb_out_trace_buffer_front(struct dmub_rb *rb,
- 				 void *entry)
- {
--	const uint64_t *src = (const uint64_t *)(rb->base_address) + rb->wrpt / sizeof(uint64_t);
-+	const uint64_t *src = (const uint64_t *)(rb->base_address) + rb->rptr / sizeof(uint64_t);
- 	uint64_t *dst = (uint64_t *)entry;
- 	uint8_t i;
+ 	DRM_DEBUG_DRIVER("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
++#endif
  
-@@ -730,13 +730,22 @@ static inline void dmub_rb_out_trace_buffer_front(struct dmub_rb *rb,
- 	for (i = 0; i < sizeof(struct dmcub_trace_buf_entry) / sizeof(uint64_t); i++)
- 		*dst++ = *src++;
  
-+	rb->rptr += sizeof(struct dmcub_trace_buf_entry);
-+
-+	rb->rptr %= rb->capacity;
-+
-+	if (rb->rptr == rb->wrpt)
-+		return true;
-+
-+	return false;
- }
+ 	mutex_unlock(&dm->dc_lock);
+@@ -5615,8 +5616,8 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+ 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
+-	struct amdgpu_display_manager *dm = &adev->dm;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
++	struct amdgpu_display_manager *dm = &adev->dm;
+ 	unsigned long flags;
+ #endif
+ 	int rc = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 5cafa8078d5a..a7768ee07c92 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -245,12 +245,12 @@ struct amdgpu_display_manager {
+ 	 */
+ 	struct mutex audio_lock;
  
- enum dmub_status dmub_srv_get_outbox0_msg(struct dmub_srv *dmub, struct dmcub_trace_buf_entry *entry)
- {
- 	dmub->outbox0_rb.wrpt = dmub->hw_funcs.get_outbox0_wptr(dmub);
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	/**
+-	 * @vblank_work_lock:
++	 * @vblank_lock:
+ 	 *
+ 	 * Guards access to deferred vblank work state.
+ 	 */
+-#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	spinlock_t vblank_lock;
+ #endif
  
--	dmub_rb_out_trace_buffer_front(&dmub->outbox0_rb, (void *)entry);
-+	if (dmub_rb_out_trace_buffer_front(&dmub->outbox0_rb, (void *)entry))
-+		return DMUB_STATUS_OK;
+@@ -333,6 +333,11 @@ struct amdgpu_display_manager {
+ #endif
  
--	return DMUB_STATUS_OK;
-+	return DMUB_STATUS_QUEUE_FULL;
- }
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
++	/**
++	 * @vblank_workqueue:
++	 *
++	 * amdgpu workqueue during vblank
++	 */
+ 	struct vblank_workqueue *vblank_workqueue;
+ #endif
+ 
+@@ -351,12 +356,14 @@ struct amdgpu_display_manager {
+ 	 */
+ 	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	/**
+ 	 * @active_vblank_irq_count:
+ 	 *
+ 	 * number of currently active vblank irqs
+ 	 */
+ 	uint32_t active_vblank_irq_count;
++#endif
+ 
+ 	/**
+ 	 * @mst_encoders:
 -- 
 2.25.1
 
