@@ -8,68 +8,68 @@ X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56F9CC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AA32C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:13:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12CFD65013
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:11:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12CFD65013
+	by mail.kernel.org (Postfix) with ESMTPS id C9B7365085
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9B7365085
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0E926EBA1;
-	Fri,  5 Mar 2021 15:11:43 +0000 (UTC)
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB83F6EBA1
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 15:11:42 +0000 (UTC)
-Received: by mail-qt1-x833.google.com with SMTP id v64so1931821qtd.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Mar 2021 07:11:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906106EB3E;
+	Fri,  5 Mar 2021 15:13:22 +0000 (UTC)
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4896EB3E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 15:13:21 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id 2so1963128qtw.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Mar 2021 07:13:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=RHceeGHUErPdcQ7FwCJlgb3iXC7Vq4b2/48c/764FRk=;
- b=TVs1w4LfYJ2waufcvymDaBYCDgYJu82a8rw2xVYeQqNESm24k+eK75rH9cQtG3xX7o
- KoRgR80ud1fLrMVltim8ZWjLGfmYHn+Gf8njJDMA5c95a5VuDJy/Tc8Qkj/5sSm9bQ4D
- Y82im6SzkuyP40LJrJjQJjJIZtoxfNjbT5Y+umTK1OsSlXU//5oOgl3xkGGZMun7zewo
- rYacpAu/wypBiYbZ3o8zHaNlNA4WJLnAyGLOVAWJlqni2kMuE2/QC9opexNaHgagkJNk
- pSdl35VkkvJWj+kwVtqjOoxv50WGq+oPOqhvOiE8jQO7Me7qFzKH2MU9Jn7UIMHjA6ye
- AdSA==
+ bh=ahJxcpnu1MpaRoDD9vu6aSxQjWtxlJ5AgVzbREw5TVY=;
+ b=Jnx6TsBpfbt9/Kr983pmtd1y0z5+x4yRou+oFZqPdQVa9Tm33x1p783LUzPXmhAnyG
+ FD4pvGPpfz3qHWWKTqsnaTbrvD17Sj8IWGR3RdVIiY2+mDZnzkOgWMOxZTzmpHylW3mQ
+ p/gYJRxu4BHCHZSbfT/4oB93r0XV62o66OkDrA9oOgXSrsZntKpKFxWbon0I3KtU/w0e
+ fr3qyCHBbjDieCPZme8zurPrT31VNAumcq7cyttcke64ETz4J1l03xfHQKTpCrynGJAD
+ uWeRE9YQqSqq5zzy+zANwgCiweVX5WbO9StpVrsG8uU8CTTsDoGtTCQ7mgzdN98lIAWO
+ SI6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=RHceeGHUErPdcQ7FwCJlgb3iXC7Vq4b2/48c/764FRk=;
- b=gFxwjNHuUDDvDiPA5cC8dgyvq9iDhJUpurOplqbU58keQypf+5JJluwO3b1PEnQUti
- I6pGeEyzWiLf7LcPJm0Rl+t5F/ZkjL7di7JXKu4j05vNgzK9x3PsmbiZg6wqsGHDql+G
- 0K9HrSbayNiasqgkceMxk++ZUTJr1QJHSW/fItY7thxkGvCGTSdQKnq1X/1R/BXL7H2Z
- JidpKYogpNC3Is/G6G+4mvuw7kXIyzYOjslemUqHk0fj07KbV52sYiOKOvW2yzmM9++f
- z2Y5NfC8Ro7JI2U7AjLAG+6cMRGa+LgZvqtdO+vZ4vP3KxjtQLXfVbWy7GKFak7Br4v0
- 8YRQ==
-X-Gm-Message-State: AOAM5327nvTQsOtO1oDEBRkcCB9bKa/mnux/Ig18OB0dzyGCeVPtk82t
- PUR6PBSrmcAU9EyUotCQmwsyslEbdS4+Jg==
-X-Google-Smtp-Source: ABdhPJxLUxFpAd/sV2uUOI8kU+T87NXbYUG/QdWsJLi6cjT2MRaIJErBQtXb5gSNJHosRIcdgJtstg==
-X-Received: by 2002:ac8:4e8f:: with SMTP id 15mr9123309qtp.317.1614957102031; 
- Fri, 05 Mar 2021 07:11:42 -0800 (PST)
+ bh=ahJxcpnu1MpaRoDD9vu6aSxQjWtxlJ5AgVzbREw5TVY=;
+ b=fbpLzkbZCu/ParZLPMIWwPwEboIzENsCRutifdEZ6U0z6N9ymX48Z9zXMqfNXUXxkp
+ M0UCChMepgUMbjr1DEvHT2+CzOTUHcFoxguaq5Bk16JeJQ0BoQQsJUWGF1lFe7kSyuk6
+ To0O8YgjzzPo49FbgldSaLCQ5zAhsOX9EpFYp2a3icj3xVyJjGnKBgptdfs9DTMptKbt
+ on1/K5KY5axB5noQPyF8up/SxqA9PcJMjoDdJd7Y5NmMrpcvyvk1W6QxHR1IdEXsJ1Ut
+ irE0nPQCbUGVtImK2/Lb8fr3AUXcLcWTFHy8Lqt0UE7KtzCnsaDfembiuL3hnmXWGm+A
+ TkMA==
+X-Gm-Message-State: AOAM531CsNgqyHDIBBy23pKC3Q3NljIaAYH2UfjNRNUYmKWKScRGQPM0
+ NBRn4wAF7Tpdns/ze/zFOBkNHw8kyCswsQ==
+X-Google-Smtp-Source: ABdhPJyXxtiLYVSBf37KIxDxfaBP1x29/UtY/yBS2Gyv0rQWR5ApSnBl4hr2lJ8OCDPG63xZob5Pjw==
+X-Received: by 2002:ac8:5709:: with SMTP id 9mr9397441qtw.8.1614957201038;
+ Fri, 05 Mar 2021 07:13:21 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:ee4e:e545:33e0:7359?
  ([2a02:908:1252:fb60:ee4e:e545:33e0:7359])
- by smtp.gmail.com with ESMTPSA id w59sm2048295qtd.29.2021.03.05.07.11.40
+ by smtp.gmail.com with ESMTPSA id k4sm2040619qte.59.2021.03.05.07.13.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Mar 2021 07:11:41 -0800 (PST)
-Subject: Re: [PATCH 3/5] drm/amdgpu: use amdgpu_bo_create_user() for gem object
+ Fri, 05 Mar 2021 07:13:20 -0800 (PST)
+Subject: Re: [PATCH 4/5] drm/amdgpu: use tiling_flags of struct amdgpu_bo_user
 To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
 References: <20210305143532.5936-1-nirmoy.das@amd.com>
- <20210305143532.5936-3-nirmoy.das@amd.com>
+ <20210305143532.5936-4-nirmoy.das@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <0d083697-b194-99ac-71b5-866d2974a6a8@gmail.com>
-Date: Fri, 5 Mar 2021 16:11:39 +0100
+Message-ID: <42997172-c13f-4f75-ca24-20bd7bb13243@gmail.com>
+Date: Fri, 5 Mar 2021 16:13:18 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210305143532.5936-3-nirmoy.das@amd.com>
+In-Reply-To: <20210305143532.5936-4-nirmoy.das@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,49 +88,84 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We might need to use this for the KFD as well.
 
-Christian.
 
 Am 05.03.21 um 15:35 schrieb Nirmoy Das:
-> GEM objects encapsulate amdgpu_bo for userspace applications.
-> Now that we have a new amdgpu_bo_user subclass for that purpose,
-> let's use that instead.
+> This flag is only needed for BOs created by amdgpu_gem_object_create(),
+> so we can remove tiling_flags from the base class.
 >
 > Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 19 +++++++++++++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 -
+>   2 files changed, 17 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 8e9b8a6e6ef0..9d2b55eb31c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -54,6 +54,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->   			     struct drm_gem_object **obj)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 355d01ebce51..2e5cf46251af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1174,12 +1174,19 @@ int amdgpu_bo_fbdev_mmap(struct amdgpu_bo *bo,
+>   int amdgpu_bo_set_tiling_flags(struct amdgpu_bo *bo, u64 tiling_flags)
 >   {
->   	struct amdgpu_bo *bo;
+>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
 > +	struct amdgpu_bo_user *ubo;
->   	struct amdgpu_bo_param bp;
->   	int r;
+> +
+> +	if (bo->tbo.type != ttm_bo_type_device) {
+> +		DRM_ERROR("can not set tiling_flags for a non-amdgpu_bo_user type BO\n");
+> +		return -EINVAL;
+> +	}
+
+I would just replace this with a WARN_ON or even BUG_ON since we should 
+never ever make kernel BOs accessible to users space.
+
+But what could be is that this is used with an imported SG table BO, so 
+you need to make this check bo->tbo.type == ttm_bo_type_kernel.
+
+Christian.
+
 >   
-> @@ -68,7 +69,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->   retry:
->   	bp.flags = flags;
->   	bp.domain = initial_domain;
-> -	r = amdgpu_bo_create(adev, &bp, &bo);
-> +	r = amdgpu_bo_create_user(adev, &bp, &ubo);
->   	if (r) {
->   		if (r != -ERESTARTSYS) {
->   			if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> @@ -85,6 +86,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
->   		}
->   		return r;
->   	}
-> +	bo = &ubo->bo;
->   	*obj = &bo->tbo.base;
+>   	if (adev->family <= AMDGPU_FAMILY_CZ &&
+>   	    AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT) > 6)
+>   		return -EINVAL;
 >   
+> -	bo->tiling_flags = tiling_flags;
+> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
+> +	ubo->tiling_flags = tiling_flags;
 >   	return 0;
+>   }
+>   
+> @@ -1193,10 +1200,18 @@ int amdgpu_bo_set_tiling_flags(struct amdgpu_bo *bo, u64 tiling_flags)
+>    */
+>   void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
+>   {
+> +	struct amdgpu_bo_user *ubo;
+> +
+> +	if (bo->tbo.type != ttm_bo_type_device) {
+> +		DRM_ERROR("can not get tiling_flags for a non-amdgpu_bo_user type BO\n");
+> +		return;
+> +	}
+> +
+>   	dma_resv_assert_held(bo->tbo.base.resv);
+> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
+>   
+>   	if (tiling_flags)
+> -		*tiling_flags = bo->tiling_flags;
+> +		*tiling_flags = ubo->tiling_flags;
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index cbb881afe6da..6cc38b71f7ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -91,7 +91,6 @@ struct amdgpu_bo {
+>   	struct ttm_bo_kmap_obj		kmap;
+>   	u64				flags;
+>   	unsigned			pin_count;
+> -	u64				tiling_flags;
+>   	u64				metadata_flags;
+>   	void				*metadata;
+>   	u32				metadata_size;
 
 _______________________________________________
 amd-gfx mailing list
