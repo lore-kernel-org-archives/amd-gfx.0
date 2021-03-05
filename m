@@ -2,118 +2,132 @@ Return-Path: <SRS0=BT7C=ID=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36693C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 17:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A11C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 18:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D756164F67
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 17:53:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D756164F67
+	by mail.kernel.org (Postfix) with ESMTPS id 51695650A3
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 18:20:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51695650A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C0426EC0C;
-	Fri,  5 Mar 2021 17:53:11 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84EFE6EC0C
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 17:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDFD6E25B;
+	Fri,  5 Mar 2021 18:20:15 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 803676E239;
+ Fri,  5 Mar 2021 18:20:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TkVIWEX4Kc/nUDcdzeOTVIIVaOaRtGnioOO2NzZDCyZU8T2TPEvSZren/jFCLGtk6+WkGZ3D2S3AxQo366bdkRZKp0Kf9oJycC3/TKc0Hc8DM9m6Z9/ruhsbLiWlMJqwwVU5AcEACyZmXgqcd9OJZx5c1k1hSf5RqwY3UZH59NWsuIkZLOTRYhiznxhomlS9YtPbXcUZxfw1ctKp0ZdhM7PqGw50pVRqgyHJVy90g7EvYW4p+7XC9TChNwiYPx3sISDVfnqFrBfod3aLFsqVJL9DSns9SYsbpxfdEeCUQntEyVnezJPX/JRmKqZMDpMyAK8qhVcazlKU4Gmh9+rnDQ==
+ b=cVpALopA+4ZFcpz4fYdlFP8KTN5TlgSlGbL7OtS7htnSOGBjxIBlMBtoMRM2w1r3R7+D/cEJ+YmZbMMQ+6wWTiEnKGaMKFIZjXMqyBAdF/CkFGSinLZQhIx//j2gS0jdR9feZgNPRg6zZAoRt13RNsIy3MvHBt0iZXn1ReOwKIDF85P9ol79HQBuI59wNHsQnY76lIBra0aGiEZlFAhEieLQSVirv4FC03KLPPeY82gNq2GinR1JMc9DII6Bg1DnKpgFIHgZ+SJnfQ9ZtQwi0NxuKlYKPSD+rpJoMIJNuZ+m+uJwoWRwt+dDpER1K5R8zAjrGJVXzk3WEoVXRtI5ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fLoRUCBWpYEKb/vh3CtJug2Dt0srhStbbXSFxaxJzDg=;
- b=cOvupeGdShsFu1q5lOfTVFoB4N0IVXnv5E74FfR/Q5PD9z61x13bjOClLozn+7Yb9+GLJAxChi65AOvpHVba8KrIppdpVetseWqZG0vtb58ekU+6tYHilSUaj2bPFeDp75DF/pBZ8dlX039uwWP3iqdDkyvHkzNOfSuSH7TgapcurpGVQ7P8jLbpV1TiMcdFiVS0Mqt2fnX1yUi4ZkjnXLAHocZL+/QfRsUKbkHkkg59TeUH54NbiQHyUcuOnzqNqYYHVZA6nSTt7mM5A6wmDuyH9SJnbq3ZE7lKE+nUw+g4HkA4Pzj6ABNqgjsdqRaGUocwoXE6/4KgaoBlUrM3Jw==
+ bh=uJug7gmKGA1eIlhvKUmZom1hpZ8pyYLCwHy2dpn0Waw=;
+ b=jIbAwC2o3kbS/zwM5lx4UD/NSS4dwSeCF11E9h2dG4WzKqHmSlkyWeZIjmJYBBfFPvwddZV1N6o1G/uVsE3Azx+ecWNHrWhuE2iSzeAS87m6KKdjgVYIyzT32cHM79YxmKnq3qcf8JysLkGLt5Mv5xEIAW23nFOFlrjHECHwzEvRQsSSbYUPtgzVSiQzbOr/h8HbtTy8IbvfW4CqrwqvEJPyldNU862yhT7UU3ZCb8G30tBSvxKFUaAnxx4XdkWyBRah9m562M3FWbvZK4pFHAiizYakFi6JLfVHp3P3bRJrTVSYPKegZOJnMn00klFX9G6X/3cqpL9Eh7abznVy5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fLoRUCBWpYEKb/vh3CtJug2Dt0srhStbbXSFxaxJzDg=;
- b=gd6GeNg0oO0nLhC8NwEsFzynUTiK0JvKEO1QteyazBgox3jD8UoxK72jyt7VPkDgy03XbJDcytDjHa9R/B1SQJSRYLaTNytJuy4jN7erK6R0WZoGQHyhn5TpIAk/gJ2qbP2UsNX6RpzXuKTuVSNtL9NXbsoRfJEcmdIdy8sC/2Q=
+ bh=uJug7gmKGA1eIlhvKUmZom1hpZ8pyYLCwHy2dpn0Waw=;
+ b=pj3XAAxDV8LRzD6ytm/DV5tMPh4yyYSgTbRfr7GBeu2nbQTADNA4cX/QSdyrCdxsMRxD2Hye06ZzvAA+3eIwCrTjeNm1CLfXmz+75G8+cGhrIxycP0FpvuSxRqD7545dk2uhV679I6eYm7Mrd4jz4MLXUpSoecx3KYqomIM4lKA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3835.namprd12.prod.outlook.com (2603:10b6:5:1c7::12)
- by DM6PR12MB4009.namprd12.prod.outlook.com (2603:10b6:5:1cd::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.28; Fri, 5 Mar
- 2021 17:53:09 +0000
-Received: from DM6PR12MB3835.namprd12.prod.outlook.com
- ([fe80::102:2c9a:54ce:63e9]) by DM6PR12MB3835.namprd12.prod.outlook.com
- ([fe80::102:2c9a:54ce:63e9%6]) with mapi id 15.20.3912.025; Fri, 5 Mar 2021
- 17:53:09 +0000
-From: shaoyunl <shaoyun.liu@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive duirng
- probe
-Date: Fri,  5 Mar 2021 12:52:57 -0500
-Message-Id: <20210305175257.32219-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.250]
-X-ClientProxiedBy: YT1PR01CA0031.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::44)
- To DM6PR12MB3835.namprd12.prod.outlook.com
- (2603:10b6:5:1c7::12)
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by MN2PR12MB4550.namprd12.prod.outlook.com (2603:10b6:208:24e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.23; Fri, 5 Mar
+ 2021 18:20:10 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::ec8d:851e:525d:a6ab%9]) with mapi id 15.20.3784.030; Fri, 5 Mar 2021
+ 18:20:10 +0000
+Subject: Re: [PATCH 1/1] drm/ttm: Ignore signaled move fences
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20210227034524.21763-1-Felix.Kuehling@amd.com>
+ <c66e10a6-b5e1-b096-3c59-c107e1e12312@gmail.com>
+ <482d3b8f-27dc-6815-b6f6-4987fe5ed21c@amd.com>
+ <db49503a-236e-b4a1-e90d-da8ee21d11b4@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <6626fc4e-3f4b-74bf-c56a-e0bb9b2bafd9@amd.com>
+Date: Fri, 5 Mar 2021 13:20:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <db49503a-236e-b4a1-e90d-da8ee21d11b4@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [142.117.121.176]
+X-ClientProxiedBy: YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::39) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from shaoyunl-dev1.amd.com (165.204.55.250) by
- YT1PR01CA0031.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::44) with Microsoft
+Received: from [192.168.2.100] (142.117.121.176) by
+ YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3890.25 via Frontend Transport; Fri, 5 Mar 2021 17:53:08 +0000
+ 15.20.3890.25 via Frontend Transport; Fri, 5 Mar 2021 18:20:10 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 630544b6-0a9c-4922-0474-08d8dfff898a
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4009:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB40091419BB158EB63BEFF044F4969@DM6PR12MB4009.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
+X-MS-Office365-Filtering-Correlation-Id: 502ddf88-500b-43b0-05ba-08d8e0035007
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4550:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4550CA39E58D76909ABCF76F92969@MN2PR12MB4550.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jDOLosVXYVOnUS+TTpdiu03adbhAdVDCSTaQLmr+aJ2ZmQhF2f190flBl1JLbNOaGFqR8bDlKdXwFu8jw45UiY96HiY007jFaLP/zZv7Oi0dhkr5pXorhxVf5/ppVhOkpqYrw+rOCOtUEMF3e97pa8PJo4yZC/AOtxEk24Nh4bYD72uNBt/oG/IEME0lATVV1yG8gkRpi2fA8IbYwdvguMEQxujNemBVPA6ylDw1iyejzdJMDogOfNe3eFmCNc0F4CQpUyPBecmdGp6mwEtyIEMr1WDB+9sMdolqkIvqNty3ppJbdBf15l51V/187BOuuspOjOpgZP6TQphZMrtqhooKUANg0zaWvzch9LPpTGz19kR+VjLRI322Ut/rw1Sii+mQPRhyPAu3buzRq/G5vGZ7UDfwkWKvcsMaFgONiBBpQc/IChpzJBu0jA4xG5Yr5Ddic74osY0Fwo1BEF74dv3qeIY8+w3lg+UnqzEq8CLBhEQWskCydn7DNpqxg4luqTUtNJXLiEL5qsWTOjymVTmGP1x5UzYQxdA6oc6n52NJ7lR4Ee5zETZEB2PtBWgsHqYbib10VEF3k9XiRwdkcg==
+X-Microsoft-Antispam-Message-Info: /y5GheW77b9D1aK1hUsAhPXRJx2b0UI21PrM70qNeSl6eYNpM4PvA0iNUjB1ujxxGjKb0qgOY52puU7c8nwHnNSlSjGc2wVnGWhpPfcZe2doM/DUWI5m7L5eT/iflyJAc6z5PVTWJwjKnh1ztMW7RPKCMegYzHQysuEYNBR0MjnRNiANPT8T72Ib8vN4DTDfO/1ix4xQURGudbMH13XPuhEfPkI5fTKp813kQnhtcfYEFfLmHyli0HdS8Xmw2nvuCFaYhIhnUq9xf7WnzGDpUf8soFjKubmfW9IeJI2uIdebNZp1/6vRBTETJe2kEtCQHMW8zL4/0uNMgrfSMkdjll/fAEJl18Mln1QYqXON0jgtgKTkYqzCRr7YO7K35oYPIf4HcGA6H1c2pvUMuJrUifblQ19cqH4QEUDDMwcQ+teZJeBOTZ/hjVd4s83eUgNqgQaDGKlapwaUUdJmnPV/+wlDeubNcSmj4r7zZu26hvdXPt7FaQN4kfMNI2TWWgIbOPU7rYP7NrlrF+qXxgBcUTP5D3/FwfjvirINsARn+9mfqPEv+WShKaixkeqyt+BIEuFdjjumuZ2I9RmLkhKtKW31op0ajvErBbaS4nMqPCk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(396003)(136003)(366004)(66946007)(16526019)(316002)(66556008)(52116002)(66476007)(7696005)(186003)(26005)(5660300002)(6486002)(2906002)(956004)(2616005)(1076003)(36756003)(6916009)(86362001)(83380400001)(30864003)(8676002)(6666004)(8936002)(478600001)(4326008)(43062004)(21314003);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(366004)(44832011)(956004)(316002)(16576012)(16526019)(66556008)(186003)(66946007)(8676002)(26005)(2616005)(31686004)(8936002)(66574015)(52116002)(6486002)(36756003)(31696002)(66476007)(83380400001)(86362001)(2906002)(5660300002)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SACU5XvLmXxfMgc6EJjm4eQNrkYOnz2CW0VKWHVjtIeud3nkyN9F3+rv8QNG?=
- =?us-ascii?Q?9m+BF4WPyF2uWc0RqMsIILPwp27m2fj4CSDsn4jSV3RY+kwX8vcP8nc2sTzS?=
- =?us-ascii?Q?O8dTA6zsi5WDbtR9AVfVhzHWOkV0KwxI74ZGhv8aQedIYefNT2MUj9cXi4hw?=
- =?us-ascii?Q?eX5FwtUEtoAj8aAKW0Fv7/kn5LKBN4EulL8FOvj9Srm4jb25y5BZE7szZeM+?=
- =?us-ascii?Q?yx/8vZ/8EkuOD3re6ung+OEPm5guu1wWhERoKRUgfr/22HIDkdK8qLCtIkNl?=
- =?us-ascii?Q?e0yUitWQur3Qdgbk9KvlqeaqOV4El9BrVGkNVChQ36arvxpKaX/AQi07cTBA?=
- =?us-ascii?Q?AmR7f2LDjhEOtVdpvT0r7GWlW+MQSMUeoy0r4+e82vpTH1jdjC0VoYNwZ/KF?=
- =?us-ascii?Q?FVzWoBFakzaF3XL3SZkNMgyW6U07REpH/ZBJXGyanLpuxGXL91cWoC12MTN/?=
- =?us-ascii?Q?1AANSIzR9FKR7Y+jX1wD9e6JcXruUImgYOgS5j1rxz5jdh//SKbYspyYnk6i?=
- =?us-ascii?Q?cb26Wd15Y3ipDIBotEyphdiq6+T9N9s10IIx0ppMMk6ruNeioC7XWxGGkhpx?=
- =?us-ascii?Q?1zslA9SiV5zyNdVULI1m1mYbNMe0PWTtTf4x9ojJ+GKUGn1YmlA3K0ue4Hgt?=
- =?us-ascii?Q?TvZmXAVlF3GlgL6LjfcDJ1tMEx0caMr5jpSBpvfg38o9s3/kebADmzS6SebN?=
- =?us-ascii?Q?I3f8+tzpRV0/YaxTG/exSqHNXlrafCn3tcVsQokeOXSaozeRADXntxraFl9I?=
- =?us-ascii?Q?W/eBQZAoaUjpUmFbCYzW1NkVtpzw4R8M+31iQ8X/DMFFC7aMkoQ2RPOputdk?=
- =?us-ascii?Q?sxKT2Bfm5WBX71UlgT5L+K+BnLJ7UwXZ7BjJ573sgYTI7xfKBszu2lE0Flw0?=
- =?us-ascii?Q?gSjdnMzfoEwk3qaC5TLFWFxBbugaNDfPgq+1qJCPGXXm/CcBiq6qB0Uv9Fqj?=
- =?us-ascii?Q?sy0GeQa7TTgJpNPbqzeCoGtwupBfZ1BREh6jUhqYk3tx9IQuhLjs3gov3SYo?=
- =?us-ascii?Q?qQJQqAhaZ6Eb9L1FA+bnLSm79TgdJwERuyr6SYV3+af9j8NcaknTNcO1xf0i?=
- =?us-ascii?Q?vwe1y/2B3ItIc7mjzMvbvJAX+bVzQFUUAQm/NcUwW76j3X0RiarI2BuDnOyH?=
- =?us-ascii?Q?E/Zq/h3i8X8RGKLVtJRQ6SXktqgjGd5aMkgto6jTSmZTgJTYCqay04uNCmwr?=
- =?us-ascii?Q?lcLlTGtnQ6EPZtqX9voYgsIysUyaPesRqlMGYq23VacnIKkMo1zN+xlI5w+J?=
- =?us-ascii?Q?VI7n4YpRSGCBuCky1tTPvlZt7T9FZTiHjv24UUtjMgzR8lNbXn6Sl7/4pRET?=
- =?us-ascii?Q?Ff1OzhFwPK8sA4d4mIUCMC7b?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?M3dEQmlLeWk5UExqZU9iUmpoLzBQSlFJV3JZZktjT3FWbnFpVDdxVThDUFBM?=
+ =?utf-8?B?TG5iSUYybC8vMzRwSFdiTEx5RHJweUc0NGQ1MDVpZ01qYTZkQi8wYkN5TTVh?=
+ =?utf-8?B?bFpMemVLL3QwcjdMSHlZcnFaNWVHc29tSVpDcHp5ditFelNuZzBWaEpkekxx?=
+ =?utf-8?B?VW1INE5CQjJNejBPdHVhRXU2eXBUNTlXTkdTcTkwVklJNlZveFhqY1JKZGVt?=
+ =?utf-8?B?QVluYlRRdTRZZitZeVhzcExoVGJsM1FLVHFMTXZhSEM5VWJHNjNjUlVzZ20v?=
+ =?utf-8?B?c0l1SnVSd0hRVlBNbUtucnpFTnU5MVVxQ1c4SnRYVVBxVVFzZ056R2hjTHJ3?=
+ =?utf-8?B?c1NtTHVPNEx3dTRpSFl6WkxwOXRPQmNDb2o1eXUvY20yZ3lOSnhVeHduOStX?=
+ =?utf-8?B?bVRoQWpLWnlOWWVSei9zSWl1S0ZpNWdLdnRadWRPUnBIaTZKaVdaQTNtdnd4?=
+ =?utf-8?B?ZlQyZzBNYjdzaFYxcnV0Q0YzN2JBZFNvMEYxRUl6L1RNVkd4V2FBS3Z4T2Rr?=
+ =?utf-8?B?TVhYalZKV0xrVlBzcTM5UkloTUYwdW5ZNGNFcEdtZHRUaUdLSFpOOHN2bXds?=
+ =?utf-8?B?RC9GbEFUQTJuRUhhdUxFKzJzeTR1ZlU3RCtJOGxPb29SWng3SmhFcDNaczhk?=
+ =?utf-8?B?ODZ5T0xpUUZYaFI4bXpmQTJhVTRuUE9BRVp2VmZiOFVBTWZUWk1ueG9rcld4?=
+ =?utf-8?B?c0ZwenpkN3lhYlJGSFZiQ0dyN0J4aTZqS0xhTFZFVklCZzVncGx6eUgvWXly?=
+ =?utf-8?B?MkRVRGVFSFpTdVgxRjRpaTRLUjlMdmRlU2QxVGZOUjh1enRmbkZKNDM0VFJu?=
+ =?utf-8?B?NDJuMVFQUGxNSWRGT3dxbjBTT1dwb3pxWkdiTElocE1uVlhIcG9TSStqSk1Z?=
+ =?utf-8?B?aVVTWGoyeGRCSkFIdWRxMjk4d2d5eGVySU1hcWUyQ0huelFhN1YxV2ZUSkNp?=
+ =?utf-8?B?dUJXV3Z4NVd3VVJaMDBDN09iVUdIM2EzVWcyUTJ5R2xLSEYvUllBV0lGTkxN?=
+ =?utf-8?B?dk1DdHIzdGovelZVUkt2NHVmdGFUZGpuVVZuOUl0UlNHcnprTWIxeCs2a3h0?=
+ =?utf-8?B?bWErU0JpNXRLdTI0U0pEMDFreitxcUpybi9nS2gxdWl5SUZDRG82bm8vM1Fo?=
+ =?utf-8?B?RFZmUHZTb1FGazJLbGROajd1N3gwTDczbkVFeVU3RGNIQkREczhpdGtQT1Yw?=
+ =?utf-8?B?Q1J1VklGa3B3bkMwKzJ2Wmc4a1RNN0hVenMxUzRvWnhjQlhEWDhFVnE0ZFRl?=
+ =?utf-8?B?ZWpwZi9neHI5MFFqbTVXZzIrQlhDMVZsOVQ2a09SODExWElkSFdJbWNWR3pa?=
+ =?utf-8?B?WHNlcGd0d3RKVTU3YVZkQVBGdnNvdzVTQXJGQjRPUDB0N0RiV1dFUUE5N0dI?=
+ =?utf-8?B?SFhtVGhsNHRaczV5R2E4cCtnVnJlcmZMT05vU0RoNWVqNFhiN1YyZHVkcmxx?=
+ =?utf-8?B?cWhzbjlmdm5CNEdheUcxcXVHdGRkWmMyMnRhdVRIS1Zyc1FvcnFCeG1sMmRl?=
+ =?utf-8?B?bU9mN0Evdm9KQ2NWbVFvemFhV0w1eHIyZS90WnlEREpNZnU1YmYwRWo5SnVG?=
+ =?utf-8?B?TWZYc0VpL0JRMk9rN0lGVHppeTg0ZzNjcHJTMGtsdTNoR2tyN3JLTUxIVUtn?=
+ =?utf-8?B?QUFWSFB0WVJVZWZ3TjN0YUJsTC8zOGpTREVuOTZNU25uMFNxNnVpZjNzQ250?=
+ =?utf-8?B?LzhKOWN2bklQN3N1Q2lzS2pndzQ5N1FPS1BPMVU0Q3VpRFA2ZkRpenNza3Nw?=
+ =?utf-8?B?TmlQSnBjZk02Yi9ZZ2t3cHdxeWhlbXZWM1BuVWZ6QVgrVnhvVVEvbFZjM1Y2?=
+ =?utf-8?B?Tkt4Vk5JSW5KbUxTcnMrQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 630544b6-0a9c-4922-0474-08d8dfff898a
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3835.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 502ddf88-500b-43b0-05ba-08d8e0035007
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 17:53:09.1982 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2021 18:20:10.6380 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KREbfmq+RSKP37XB1K0+Sjsh0T2/gxVxRuGS+bb4P/ShW2ykfwlMzwHksgkuj72lY5sm4amwbqqskIuSy3zuGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4009
+X-MS-Exchange-CrossTenant-UserPrincipalName: J09up1gVJguAUi5AeK85N9YCbXVu5etvEChnIz9E5UrrwF/if5/cXlGa9fenOpdYJsNgiKFKWQ39U9nE/DTQnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,404 +139,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: shaoyunl <shaoyun.liu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In passthrough configuration, hypervisior will trigger the SBR(Secondary bus reset) to the devices
-without sync to each other. This could cause device hang since for XGMI configuration, all the devices
-within the hive need to be reset at a limit time slot. This serial of patches try to solve this issue
-by co-operate with new SMU which will only do minimum house keeping to response the SBR request but don't
-do the real reset job and leave it to driver. Driver need to do the whole sw init and minimum HW init
-to bring up the SMU and trigger the reset(possibly BACO) on all the ASICs at the same time
-
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-Change-Id: I34e838e611b7623c7ad824704c7ce350808014fc
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  13 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 102 +++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  71 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h    |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |   8 +-
- 5 files changed, 165 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index d46d3794699e..5602c6edee97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -125,6 +125,10 @@ struct amdgpu_mgpu_info
- 	uint32_t			num_gpu;
- 	uint32_t			num_dgpu;
- 	uint32_t			num_apu;
-+
-+	/* delayed reset_func for XGMI configuration if necessary */
-+	struct delayed_work		delayed_reset_work;
-+	bool				pending_reset;
- };
- 
- #define AMDGPU_MAX_TIMEOUT_PARAM_LENGTH	256
-@@ -1124,6 +1128,15 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
- bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type);
- bool amdgpu_device_has_dc_support(struct amdgpu_device *adev);
- 
-+int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
-+				  struct amdgpu_job *job,
-+				  bool *need_full_reset_arg);
-+
-+int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
-+			  struct list_head *device_list_handle,
-+			  bool *need_full_reset_arg,
-+			  bool skip_hw_reset);
-+
- int emu_soc_asic_init(struct amdgpu_device *adev);
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3c35b0c1e710..5b520f70e660 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1220,6 +1220,10 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
- 		}
- 	}
- 
-+	/* Don't post if we need to reset whole hive on init */
-+	if (adev->gmc.xgmi.pending_reset)
-+		return false;
-+
- 	if (adev->has_hw_reset) {
- 		adev->has_hw_reset = false;
- 		return true;
-@@ -2149,6 +2153,9 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
- 			if (adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_PSP)
- 				continue;
- 
-+			if (!adev->ip_blocks[i].status.sw)
-+				continue;
-+
- 			/* no need to do the fw loading again if already done*/
- 			if (adev->ip_blocks[i].status.hw == true)
- 				break;
-@@ -2289,7 +2296,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 
- 	if (adev->gmc.xgmi.num_physical_nodes > 1)
- 		amdgpu_xgmi_add_device(adev);
--	amdgpu_amdkfd_device_init(adev);
-+
-+	/* Don't init kfd if whole hive need to be reset during init */
-+	if (!adev->gmc.xgmi.pending_reset)
-+		amdgpu_amdkfd_device_init(adev);
- 
- 	amdgpu_fru_get_product_info(adev);
- 
-@@ -2734,6 +2744,16 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
- 			adev->ip_blocks[i].status.hw = false;
- 			continue;
- 		}
-+
-+		/* skip unnecessary suspend if we do not initialize them yet */
-+		if (adev->gmc.xgmi.pending_reset &&
-+		    !(adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
-+		      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC ||
-+		      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
-+		      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH)) {
-+			adev->ip_blocks[i].status.hw = false;
-+			continue;
-+		}
- 		/* XXX handle errors */
- 		r = adev->ip_blocks[i].version->funcs->suspend(adev);
- 		/* XXX handle errors */
-@@ -3407,10 +3427,28 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	 *  E.g., driver was not cleanly unloaded previously, etc.
- 	 */
- 	if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)) {
--		r = amdgpu_asic_reset(adev);
--		if (r) {
--			dev_err(adev->dev, "asic reset on init failed\n");
--			goto failed;
-+		if (adev->gmc.xgmi.num_physical_nodes) {
-+			dev_info(adev->dev, "Pending hive reset.\n");
-+			adev->gmc.xgmi.pending_reset = true;
-+			/* Only need to init necessary block for SMU to handle the reset */
-+			for (i = 0; i < adev->num_ip_blocks; i++) {
-+				if (!adev->ip_blocks[i].status.valid)
-+					continue;
-+				if (!(adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
-+				      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
-+				      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH ||
-+				      adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC)) {
-+					DRM_DEBUG("IP %s disabed for hw_init.\n",
-+						adev->ip_blocks[i].version->funcs->name);
-+					adev->ip_blocks[i].status.hw = true;
-+				}
-+			}
-+		} else {
-+			r = amdgpu_asic_reset(adev);
-+			if (r) {
-+				dev_err(adev->dev, "asic reset on init failed\n");
-+				goto failed;
-+			}
- 		}
- 	}
- 
-@@ -3541,19 +3579,19 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* enable clockgating, etc. after ib tests, etc. since some blocks require
- 	 * explicit gating rather than handling it automatically.
- 	 */
--	r = amdgpu_device_ip_late_init(adev);
--	if (r) {
--		dev_err(adev->dev, "amdgpu_device_ip_late_init failed\n");
--		amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_LATE_INIT_FAIL, 0, r);
--		goto failed;
-+	if (!adev->gmc.xgmi.pending_reset) {
-+		r = amdgpu_device_ip_late_init(adev);
-+		if (r) {
-+			dev_err(adev->dev, "amdgpu_device_ip_late_init failed\n");
-+			amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_LATE_INIT_FAIL, 0, r);
-+			goto failed;
-+		}
-+		/* must succeed. */
-+		amdgpu_ras_resume(adev);
-+		queue_delayed_work(system_wq, &adev->delayed_init_work,
-+				   msecs_to_jiffies(AMDGPU_RESUME_MS));
- 	}
- 
--	/* must succeed. */
--	amdgpu_ras_resume(adev);
--
--	queue_delayed_work(system_wq, &adev->delayed_init_work,
--			   msecs_to_jiffies(AMDGPU_RESUME_MS));
--
- 	if (amdgpu_sriov_vf(adev))
- 		flush_delayed_work(&adev->delayed_init_work);
- 
-@@ -3570,6 +3608,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (amdgpu_device_cache_pci_state(adev->pdev))
- 		pci_restore_state(pdev);
- 
-+	if (adev->gmc.xgmi.pending_reset)
-+		queue_delayed_work(system_wq, &mgpu_info.delayed_reset_work,
-+				   msecs_to_jiffies(AMDGPU_RESUME_MS));
-+
- 	return 0;
- 
- failed:
-@@ -4240,14 +4282,16 @@ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev)
- }
- 
- 
--static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
--					struct amdgpu_job *job,
--					bool *need_full_reset_arg)
-+int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
-+				  struct amdgpu_job *job,
-+				  bool *need_full_reset_arg)
- {
- 	int i, r = 0;
- 	bool need_full_reset  = *need_full_reset_arg;
- 
--	amdgpu_debugfs_wait_dump(adev);
-+	/* no need to dump if device is not in good state during probe period */
-+	if (!adev->gmc.xgmi.pending_reset)
-+		amdgpu_debugfs_wait_dump(adev);
- 
- 	if (amdgpu_sriov_vf(adev)) {
- 		/* stop the data exchange thread */
-@@ -4293,10 +4337,10 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 	return r;
- }
- 
--static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
--			       struct list_head *device_list_handle,
--			       bool *need_full_reset_arg,
--			       bool skip_hw_reset)
-+int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
-+			  struct list_head *device_list_handle,
-+			  bool *need_full_reset_arg,
-+			  bool skip_hw_reset)
- {
- 	struct amdgpu_device *tmp_adev = NULL;
- 	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
-@@ -4310,6 +4354,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
- 		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
- 			/* For XGMI run all resets in parallel to speed up the process */
- 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-+				tmp_adev->gmc.xgmi.pending_reset = false;
- 				if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
- 					r = -EALREADY;
- 			} else
-@@ -4348,10 +4393,10 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
- 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
- 		if (need_full_reset) {
- 			/* post card */
--			if (amdgpu_device_asic_init(tmp_adev))
-+			r = amdgpu_device_asic_init(tmp_adev);
-+			if (r) {
- 				dev_warn(tmp_adev->dev, "asic atom init failed!");
--
--			if (!r) {
-+			} else {
- 				dev_info(tmp_adev->dev, "GPU reset succeeded, trying to resume\n");
- 				r = amdgpu_device_ip_resume_phase1(tmp_adev);
- 				if (r)
-@@ -4384,6 +4429,9 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
- 				 */
- 				amdgpu_register_gpu_instance(tmp_adev);
- 
-+				if (!hive && tmp_adev->gmc.xgmi.num_physical_nodes > 1)
-+					amdgpu_xgmi_add_device(tmp_adev);
-+
- 				r = amdgpu_device_ip_late_init(tmp_adev);
- 				if (r)
- 					goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 253c59e0a100..aebe4bc561ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -44,6 +44,7 @@
- #include "amdgpu_amdkfd.h"
- 
- #include "amdgpu_ras.h"
-+#include "amdgpu_xgmi.h"
- 
- /*
-  * KMS wrapper.
-@@ -167,8 +168,13 @@ uint amdgpu_freesync_vid_mode;
- int amdgpu_reset_method = -1; /* auto */
- int amdgpu_num_kcq = -1;
- 
-+static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
-+
- struct amdgpu_mgpu_info mgpu_info = {
- 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
-+	.delayed_reset_work = __DELAYED_WORK_INITIALIZER(
-+			mgpu_info.delayed_reset_work,
-+			amdgpu_drv_delayed_reset_work_handler, 0),
- };
- int amdgpu_ras_enable = -1;
- uint amdgpu_ras_mask = 0xffffffff;
-@@ -1297,6 +1303,71 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
- 	adev->mp1_state = PP_MP1_STATE_NONE;
- }
- 
-+/**
-+ * amdgpu_drv_delayed_reset_work_handler - work handler for reset
-+ *
-+ * @work: work_struct.
-+ */
-+static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work)
-+{
-+	struct list_head device_list;
-+	struct amdgpu_device *adev;
-+	int i, r;
-+	bool need_full_reset = true;
-+
-+	mutex_lock(&mgpu_info.mutex);
-+	if (mgpu_info.pending_reset == true) {
-+		mutex_unlock(&mgpu_info.mutex);
-+		return;
-+	}
-+	mgpu_info.pending_reset = true;
-+	mutex_unlock(&mgpu_info.mutex);
-+
-+	for (i = 0; i < mgpu_info.num_dgpu; i++) {
-+		adev = mgpu_info.gpu_ins[i].adev;
-+		r = amdgpu_device_pre_asic_reset(adev, NULL, &need_full_reset);
-+		if (r) {
-+			dev_err(adev->dev, "GPU pre asic reset failed with err, %d for drm dev, %s ",
-+				r, adev_to_drm(adev)->unique);
-+		}
-+		if (!queue_work(system_unbound_wq, &adev->xgmi_reset_work))
-+			r = -EALREADY;
-+	}
-+	msleep(100);
-+	for (i = 0; i < mgpu_info.num_dgpu; i++) {
-+		adev = mgpu_info.gpu_ins[i].adev;
-+		adev->gmc.xgmi.pending_reset = false;
-+		flush_work(&adev->xgmi_reset_work);
-+	}
-+
-+	msleep(100);
-+	/* reset function will rebuild the xgmi hive info , clear it now */
-+	for (i = 0; i < mgpu_info.num_dgpu; i++)
-+		amdgpu_xgmi_remove_device(mgpu_info.gpu_ins[i].adev);
-+
-+	INIT_LIST_HEAD(&device_list);
-+
-+	for (i = 0; i < mgpu_info.num_dgpu; i++)
-+		list_add_tail(&mgpu_info.gpu_ins[i].adev->reset_list, &device_list);
-+
-+	/* unregister the GPU first, reset function will add them back */
-+	list_for_each_entry(adev, &device_list, reset_list)
-+		amdgpu_unregister_gpu_instance(adev);
-+
-+	r = amdgpu_do_asic_reset(NULL, &device_list, &need_full_reset, true);
-+	if (r) {
-+		DRM_ERROR("reinit gpus failure");
-+		return;
-+	}
-+	for (i = 0; i < mgpu_info.num_dgpu; i++) {
-+		adev = mgpu_info.gpu_ins[i].adev;
-+		if (!adev->kfd.init_complete)
-+			amdgpu_amdkfd_device_init(adev);
-+		amdgpu_ttm_set_buffer_funcs_status(adev, true);
-+	}
-+	return;
-+}
-+
- static int amdgpu_pmops_suspend(struct device *dev)
- {
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index aa0c83776ce0..8c71d84a2fbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -149,6 +149,7 @@ struct amdgpu_xgmi {
- 	struct list_head head;
- 	bool supported;
- 	struct ras_common_if *ras_if;
-+	bool pending_reset;
- };
- 
- struct amdgpu_gmc {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 659b385b27b5..b459ef755ea9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -492,7 +492,8 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
- 	if (!adev->gmc.xgmi.supported)
- 		return 0;
- 
--	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
-+	if (!adev->gmc.xgmi.pending_reset &&
-+	    amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
- 		ret = psp_xgmi_initialize(&adev->psp);
- 		if (ret) {
- 			dev_err(adev->dev,
-@@ -538,7 +539,8 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
- 
- 	task_barrier_add_task(&hive->tb);
- 
--	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
-+	if (!adev->gmc.xgmi.pending_reset &&
-+	    amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
- 		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
- 			/* update node list for other device in the hive */
- 			if (tmp_adev != adev) {
-@@ -567,7 +569,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
- 		}
- 	}
- 
--	if (!ret)
-+	if (!ret && !adev->gmc.xgmi.pending_reset)
- 		ret = amdgpu_xgmi_sysfs_add_dev_info(adev, hive);
- 
- exit_unlock:
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SXQgZml4ZWQgYW4gaW50ZXJtaXR0ZW50IGZhaWx1cmUgdG8gYWxsb2NhdGUgcGFnZSB0YWJsZXMg
+aW4gdGhlIHBhZ2UKZmF1bHQgaGFuZGxlciAodHVybmluZyByZXRyeSBmYXVsdHMgaW50byBuby1y
+ZXRyeSBmYXVsdHMpLiBJJ20gbm90IHN1cmUKaWYgdGhpcyBjYXVzZWQgcmVhbCBwcm9ibGVtcy4g
+SSB0aGluayBpdCBjb3VsZCBwb3RlbnRpYWxseSByZXN1bHQgaW4KZmF1bHQgc3Rvcm1zIGFuZCBh
+IGZhaWx1cmUgdG8gcmVwb3J0IHBhZ2UgZmF1bHRzIHByb3Blcmx5LiBJJ20gbm90IHN1cmUKaWYg
+aXQncyBhIHJlZ3Jlc3Npb24gb3Igd2FzIGFsd2F5cyBwcmVzZW50LiBTbyBJJ20gbm90IHN1cmUg
+aWYgaXQncyBhbgp1cmdlbnQgZml4LgoKUmVnYXJkcywKwqAgRmVsaXgKCkFtIDIwMjEtMDMtMDUg
+dW0gMjo1NiBhLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPgo+Cj4gQW0gMDUuMDMuMjEg
+dW0gMDI6MjEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4gQW0gMjAyMS0wMy0wMSB1bSAxMDow
+OSBhLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4+IEFtIDI3LjAyLjIxIHVtIDA0OjQ1
+IHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+Pj4gTW92ZSBmZW5jZXMgdGhhdCBoYXZlIGFscmVh
+ZHkgc2lnbmFsZWQgc2hvdWxkIG5vdCBwcmV2ZW50IG1lbW9yeQo+Pj4+IGFsbG9jYXRpb25zIHdp
+dGggbm9fd2FpdF9ncHUuCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8
+RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPj4+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+IEkgd29yayBvbiB0aGlzIG9uIEFsZXgncyBy
+ZWJhc2VkIGFtZC1zdGFnaW5nLWRybS1uZXh0LiBTaG91bGQgdGhpcyBnbwo+PiBpbnRvIGFueSBv
+dGhlciBicmFuY2hlcz8KPgo+IEkgaGF2ZSBhIGJyYW5jaCB3aXRoIHN0dWZmIGZvciA1LjEzIHdo
+aWNoIEkgd2FudCB0byBwdXNoIHRvCj4gZHJtLW1pc2MtbmV4dCBhcyBzb29uIGFzIDUuMTItcmMx
+IGlzIG91dC4KPgo+IEdvaW5nIHRvIGFkZCB0aGlzIG9uZSBoZXJlIHRvIHRoYXQgY29sbGVjdGlv
+biBhcyB3ZWxsIHVubGVzcyB5b3Ugc2F5Cj4gdGhhdCB0aGlzIGlzIHJlYWxseSBhIGJ1ZyBmaXgg
+YW5kIHdlIG5lZWQgaXQgZWFybGllci4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+Cj4+
+IFRoYW5rcywKPj4gwqDCoCBGZWxpeAo+Pgo+Pgo+Pj4+IC0tLQo+Pj4+IMKgwqAgZHJpdmVycy9n
+cHUvZHJtL3R0bS90dG1fYm8uYyB8IDMgKystCj4+Pj4gwqDCoCAxIGZpbGUgY2hhbmdlZCwgMiBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8u
+Ywo+Pj4+IGluZGV4IDNhMTBiZWJiNzVkNi4uZGUxZWM4MzhjZjhiIDEwMDY0NAo+Pj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+dHRtL3R0bV9iby5jCj4+Pj4gQEAgLTczMCw4ICs3MzAsOSBAQCBzdGF0aWMgaW50IHR0bV9ib19h
+ZGRfbW92ZV9mZW5jZShzdHJ1Y3QKPj4+PiB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+Pj4gwqDCoCDCoMKgwqDCoMKgIGlmIChub193
+YWl0X2dwdSkgewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXQgPSBkbWFfZmVuY2VfaXNfc2lnbmFs
+ZWQoZmVuY2UpID8gMCA6IC1FQlVTWTsKPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkbWFfZmVu
+Y2VfcHV0KGZlbmNlKTsKPj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FQlVTWTsKPj4+PiAr
+wqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+PiDCoMKgwqDCoMKgwqAgfQo+Pj4+IMKgwqAg
+wqDCoMKgwqDCoCBkbWFfcmVzdl9hZGRfc2hhcmVkX2ZlbmNlKGJvLT5iYXNlLnJlc3YsIGZlbmNl
+KTsKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
