@@ -8,70 +8,67 @@ X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00191C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECA7AC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B48E7601FC
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B48E7601FC
+	by mail.kernel.org (Postfix) with ESMTPS id 9DBEA6508F
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Mar 2021 15:15:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DBEA6508F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F0D6EB3D;
-	Fri,  5 Mar 2021 15:14:27 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 307536EB3D
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 15:14:26 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id t4so2295009qkp.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Mar 2021 07:14:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52ADE6EBFB;
+	Fri,  5 Mar 2021 15:15:29 +0000 (UTC)
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A446EBA5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Mar 2021 15:15:28 +0000 (UTC)
+Received: by mail-qt1-x82f.google.com with SMTP id v3so1954990qtw.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Mar 2021 07:15:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=rwIyzoKCZA01toTsDPftEaNuitwQWIJ9SkyyxbuwWV0=;
- b=DCDkiwbHF0leOTU2HcO6Cw5k7cFQawOg3zU/PrSjl/zwAhnTjQEkFhVATxzpoKWCAY
- PiJwlhGRsbeU1wuvLsRjs8pd8tZU3sgGTJeedD9lBUkwm+Sr93ob/0QTC22Ec1Wbz423
- iFEonQkjgZ7RdDFbrLRWtVrJgOFOBqp3B2X/DJx8k9ZeFQiq+bysWtQoYm0iOmqHNtV5
- UnloaJcvgH7KcW+KyrScLI7XvJfLkUpghDDsxdoBjwv5coEnQ8ywmbceiHdsj4E63wnF
- HxK8A3SwuVf74l0MMVkOhQn1D1/wDMd//KNwf27Oq1DNPDOOBrn8YyyRdep57ShGYcQg
- tlsA==
+ bh=ucGo17w438JESE8skT+tg//rMiOyQ0iSQ5Tg91sLa6M=;
+ b=VlfNJK5Xz5sXZgYloo3Aih4orgToEzX1vT0CCBatL8cGCYWwW9fRoXU0yoafxbhSE/
+ ffswGvjYRXXpj0xzPNHxfswFAb+dP1vvy1tRGTiC1Spb83B/u19zLxbzgYfGW/K3ThTk
+ 7c/9EjTBtJ0FbChln4ruPiWnvpM4wFzaCTcSNM5k16tvaVX95YlTPzdCt24Ks2N8E8lb
+ DA2NJTPgyGOw8DAO5hq8YnY/K07UmykFpZCo+QA0Ft2XdQXJhW334CtB21Um7JHLAdyP
+ b88a29FHGOX7uLt6QDbWrseD2qJhYyCEwvBjz+AzMSHKJOERcN2UVOwqMiBEtPUk0ZYr
+ neXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=rwIyzoKCZA01toTsDPftEaNuitwQWIJ9SkyyxbuwWV0=;
- b=QaYKx++PmYNuWfCoXdwnmgVDuaq9eRYOYDEO5eMlQew0dsS4OCSjnRkwEwV5HbZb9D
- /uvB4kchkYvE9uDsToysZEFEP3LvFAwZu5ITqXIQn2aUtRqqzV5zM3naXBB6mvyAuZ9m
- 7cO7GEKfR9MbucCBHW6Q58PzT9u8faoZQ9lavxtzGNhO2iT8HYNuq05YzDYPy5o8iTjD
- r3ZLIjw6qi6EA1UdRJMj7URzY/r2Hi0olN86rkPKUFkz+d5jT3hkAZx1gNUzxVtO4xmA
- QScB8sZUzVMdf1d7hQHsx3gHYTltzZH2RooQSuj9fW9iv9oUH5dqI2hB7DoQ2sVtxJT7
- sQWQ==
-X-Gm-Message-State: AOAM5306Syk1S/mSkfPLp9ykgUJtM8GXe600Zd57t+jYV25x8BJsGqGV
- tqofQPBHnI3TBv45WMGFaDUiwAjS3RRJ0A==
-X-Google-Smtp-Source: ABdhPJw/ahgRvTIRVmjEkA/ihUlcwfh2VRoBClNiTVqpoEW6t/DxBIGjm23od/TUOSYktSqmSTaGnw==
-X-Received: by 2002:a05:620a:1323:: with SMTP id
- p3mr9353472qkj.175.1614957265376; 
- Fri, 05 Mar 2021 07:14:25 -0800 (PST)
+ bh=ucGo17w438JESE8skT+tg//rMiOyQ0iSQ5Tg91sLa6M=;
+ b=SLO2H+qNiUOYi14PUeRzfSkXrl9PDdffrFskDg9h5z024ecw0Erh1jC8nRiobyHWd1
+ yB1LXVKEHb3gcfvii1uxHQmdd3HPTSOg9gaKqK8X/1UG9G4/KOxLFygh32AxllPMYaL8
+ 9E4ct5CllouTzXTTUArKSH8o6ksRb5phXAWhgOvWrq8TXmFIMe0UV+Rf27Qe4tUXRpp/
+ 0/jZx5m30GnjjwxwDfUTSlKo3qqBYMzp1OA/xD/VzBsvZppN+gkhuC2CuysnDx7QzKiZ
+ q0CNIJLFtVf6owH1FIaIY0AcweXy55djdNDenBDTYoEXRE4az/dXqmYKrJUHvdl8gKHu
+ 43Eg==
+X-Gm-Message-State: AOAM531JUCZIMTlB7QKrwnk+ALpb3erPq0gGNpuU9Vo8D1lO5annsNRn
+ kyIWNCRbV5lXtjQUxyw9nlX08ubLwi8cqw==
+X-Google-Smtp-Source: ABdhPJxQv57QlrbeeSCUpBerGtKfEnE3A2I6Sn7lM4L7y08bu5z5oZ9F8qLRUP87/zxBiMOitrQoIQ==
+X-Received: by 2002:ac8:68b:: with SMTP id f11mr8979303qth.373.1614957327817; 
+ Fri, 05 Mar 2021 07:15:27 -0800 (PST)
 Received: from ?IPv6:2a02:908:1252:fb60:ee4e:e545:33e0:7359?
  ([2a02:908:1252:fb60:ee4e:e545:33e0:7359])
- by smtp.gmail.com with ESMTPSA id s23sm2002562qtn.89.2021.03.05.07.14.24
+ by smtp.gmail.com with ESMTPSA id e132sm1975418qkb.15.2021.03.05.07.15.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Mar 2021 07:14:24 -0800 (PST)
-Subject: Re: [PATCH 5/5] drm/amdgpu: use metadata members of struct
- amdgpu_bo_user
+ Fri, 05 Mar 2021 07:15:27 -0800 (PST)
+Subject: Re: [PATCH 1/5] drm/amdgpu: allow variable BO struct creation
 To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
-References: <20210305143532.5936-1-nirmoy.das@amd.com>
- <20210305143532.5936-5-nirmoy.das@amd.com>
+References: <20210305150617.20144-1-nirmoy.das@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d49c8320-06b9-c8cd-2c80-d951ab2b3051@gmail.com>
-Date: Fri, 5 Mar 2021 16:14:22 +0100
+Message-ID: <fad3377e-3eb0-a4ad-8526-42a638f2ab20@gmail.com>
+Date: Fri, 5 Mar 2021 16:15:24 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210305143532.5936-5-nirmoy.das@amd.com>
+In-Reply-To: <20210305150617.20144-1-nirmoy.das@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,151 +87,72 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.03.21 um 15:35 schrieb Nirmoy Das:
-> These memebers are only needed for BOs created by amdgpu_gem_object_create(),
-> so we can remove these from the base class.
 
-This patch must be squashed together with the previous one or we would 
-have a broken driver in between.
+
+Am 05.03.21 um 16:06 schrieb Nirmoy Das:
+> Allow allocating BO structures with different structure size
+> than struct amdgpu_bo.
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 10 +++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 +
+>   2 files changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 0bd22ed1dacf..1ff8c3570c82 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -551,8 +551,12 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+>   
+>   	acc_size = ttm_bo_dma_acc_size(&adev->mman.bdev, size,
+>   				       sizeof(struct amdgpu_bo));
+> +	if (bp->bo_ptr_size < sizeof(struct amdgpu_bo)) {
+> +		DRM_ERROR("can't create BO with size < struct amdgpu_bo\n");
+> +		return -EINVAL;
+> +	}
+
+Please make this a BUG_ON instead. When this is wrong we corrupt kernel 
+memory.
 
 Christian.
 
->
-> CC:felix.kuehling@amd.com
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 48 +++++++++++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 --
->   3 files changed, 34 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index c5343a5eecbe..f8c8cbd8ab59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -494,8 +494,6 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
->   		*dma_buf_kgd = (struct kgd_dev *)adev;
->   	if (bo_size)
->   		*bo_size = amdgpu_bo_size(bo);
-> -	if (metadata_size)
-> -		*metadata_size = bo->metadata_size;
->   	if (metadata_buffer)
->   		r = amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_size,
->   					   metadata_size, &metadata_flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 2e5cf46251af..81b2cff42481 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -77,6 +77,7 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
->   {
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
->   	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
-> +	struct amdgpu_bo_user *ubo;
 >   
->   	if (bo->pin_count > 0)
->   		amdgpu_bo_subtract_pin_size(bo);
-> @@ -94,7 +95,11 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
->   	}
->   	amdgpu_bo_unref(&bo->parent);
->   
-> -	kfree(bo->metadata);
-> +	if (bo->tbo.type == ttm_bo_type_device) {
-> +		ubo = container_of((bo), struct amdgpu_bo_user, bo);
-> +		kfree(ubo->metadata);
-> +	}
-> +
->   	kfree(bo);
->   }
->   
-> @@ -1230,13 +1235,20 @@ void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
->   int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
->   			    uint32_t metadata_size, uint64_t flags)
->   {
-> +	struct amdgpu_bo_user *ubo;
->   	void *buffer;
->   
-> +	if (bo->tbo.type != ttm_bo_type_device) {
-> +		DRM_ERROR("can not set metadata for a non-amdgpu_bo_user type BO\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
->   	if (!metadata_size) {
-> -		if (bo->metadata_size) {
-> -			kfree(bo->metadata);
-> -			bo->metadata = NULL;
-> -			bo->metadata_size = 0;
-> +		if (ubo->metadata_size) {
-> +			kfree(ubo->metadata);
-> +			ubo->metadata = NULL;
-> +			ubo->metadata_size = 0;
->   		}
->   		return 0;
->   	}
-> @@ -1248,10 +1260,10 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
->   	if (buffer == NULL)
+> -	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
+> +	bo = kzalloc(bp->bo_ptr_size, GFP_KERNEL);
+>   	if (bo == NULL)
 >   		return -ENOMEM;
+>   	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
+> @@ -642,6 +646,7 @@ static int amdgpu_bo_create_shadow(struct amdgpu_device *adev,
+>   		AMDGPU_GEM_CREATE_SHADOW;
+>   	bp.type = ttm_bo_type_kernel;
+>   	bp.resv = bo->tbo.base.resv;
+> +	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
 >   
-> -	kfree(bo->metadata);
-> -	bo->metadata_flags = flags;
-> -	bo->metadata = buffer;
-> -	bo->metadata_size = metadata_size;
-> +	kfree(ubo->metadata);
-> +	ubo->metadata_flags = flags;
-> +	ubo->metadata = buffer;
-> +	ubo->metadata_size = metadata_size;
+>   	r = amdgpu_bo_do_create(adev, &bp, &bo->shadow);
+>   	if (!r) {
+> @@ -676,6 +681,9 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+>   	int r;
 >   
->   	return 0;
->   }
-> @@ -1275,21 +1287,29 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
->   			   size_t buffer_size, uint32_t *metadata_size,
->   			   uint64_t *flags)
->   {
-> +	struct amdgpu_bo_user *ubo;
+>   	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
+> +	if (bp->bo_ptr_size < sizeof(struct amdgpu_bo))
+> +		bp->bo_ptr_size = sizeof(struct amdgpu_bo);
 > +
->   	if (!buffer && !metadata_size)
->   		return -EINVAL;
->   
-> +	if (bo->tbo.type != ttm_bo_type_device) {
-> +		DRM_ERROR("can not get metadata for a non-amdgpu_bo_user type BO\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
->   	if (buffer) {
-> -		if (buffer_size < bo->metadata_size)
-> +		if (buffer_size < ubo->metadata_size)
->   			return -EINVAL;
->   
-> -		if (bo->metadata_size)
-> -			memcpy(buffer, bo->metadata, bo->metadata_size);
-> +		if (ubo->metadata_size)
-> +			memcpy(buffer, ubo->metadata, ubo->metadata_size);
->   	}
->   
->   	if (metadata_size)
-> -		*metadata_size = bo->metadata_size;
-> +		*metadata_size = ubo->metadata_size;
->   	if (flags)
-> -		*flags = bo->metadata_flags;
-> +		*flags = ubo->metadata_flags;
->   
->   	return 0;
->   }
+>   	r = amdgpu_bo_do_create(adev, bp, bo_ptr);
+>   	if (r)
+>   		return r;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index 6cc38b71f7ca..466081fa2083 100644
+> index 8cd96c9330dd..848dc0a017dd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -91,9 +91,6 @@ struct amdgpu_bo {
->   	struct ttm_bo_kmap_obj		kmap;
+> @@ -40,6 +40,7 @@
+>   struct amdgpu_bo_param {
+>   	unsigned long			size;
+>   	int				byte_align;
+> +	u32				bo_ptr_size;
+>   	u32				domain;
+>   	u32				preferred_domain;
 >   	u64				flags;
->   	unsigned			pin_count;
-> -	u64				metadata_flags;
-> -	void				*metadata;
-> -	u32				metadata_size;
->   	unsigned			prime_shared_count;
->   	/* per VM structure for page tables and with virtual addresses */
->   	struct amdgpu_vm_bo_base	*vm_bo;
 
 _______________________________________________
 amd-gfx mailing list
