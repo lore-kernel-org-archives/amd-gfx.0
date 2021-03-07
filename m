@@ -8,63 +8,62 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6047C433E6
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C380C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 552D664F1F
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 552D664F1F
+	by mail.kernel.org (Postfix) with ESMTPS id B7A6C64FD4
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7A6C64FD4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F6B6E827;
-	Mon,  8 Mar 2021 08:22:10 +0000 (UTC)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632BC6E4F9;
- Sat,  6 Mar 2021 10:47:29 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id 16so2445941pfn.5;
- Sat, 06 Mar 2021 02:47:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D7AB892C1;
+	Mon,  8 Mar 2021 08:22:15 +0000 (UTC)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A8926E57E;
+ Sun,  7 Mar 2021 09:20:33 +0000 (UTC)
+Received: by mail-pg1-x52d.google.com with SMTP id a4so4428712pgc.11;
+ Sun, 07 Mar 2021 01:20:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+OVArO45cIFAZDllkGVnvJRDcrMzTd8kZJ6zshsC9EY=;
- b=cS+ut13MTQYqZC81q17e6WqC26TgE19vcCvDknXlTxQN/o/aOdlCMKbh1WS7MF7LrO
- MGpVAK9HQhFi+tImfmnY69TGVP3cjERsOmtegbYTchJy3SQyrk7FO3CmQDEO0idwbAen
- r+zfjxTdYYI0qxny+Wkr0B41QRWHAYywnT6DXK/kgqFswlcD9z81EgyG0Bc2NDr6/gg6
- JCV7ttYE0yEPud/xNvmx1iG6aG+e5c43xw7432AfpOtR0fbuO9Ag91sxptBdWhetCc3W
- dntq/r93iMWPmTNvVLUedJRUxO0fZI3L3zQD640Xh7TBlwYJs9Zm8xFaWSF8K97kDY+z
- bXyQ==
+ h=from:to:cc:subject:date:message-id;
+ bh=c4bUo1XFYPqAeWFc5nQ4FKN414jxkX238K1R/ykzSZ0=;
+ b=D7UhJ7EnN9e5KT1lZ91iZj61RL26XDi8obkAgdhqzDnNcwkKNLsaf8VqM3RWRjtWt5
+ OdPE8Bc2svyUlL1HrlfidK5ckxDvUAqoVtXcGzvRKCiXXYMeG1K57dunTWAtcY9u5NGR
+ MczLfdo6LenbQugvzgRKNStdiXaObz5Du/XvUzxkic0qsOzctUgB4IfA0Ed3/psuU4VK
+ gJbl7EET9zA2itrQEFE+Vip00b8UNbLXLufTw3KOWrPXcE2YroffGvC6oqdJ/1HzFTYJ
+ gnmBpnURiqgSCjxKezNt8vtmq20VB8Sg7zxDRoTuUHUJzo2Ep0qMQGqrjPY/uzreQSCF
+ N24g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+OVArO45cIFAZDllkGVnvJRDcrMzTd8kZJ6zshsC9EY=;
- b=CWoQJz13d8iDk3CDZam+6uEPq5tafVUp5zQLe7XyaGx0k3rCGZRr+O5cXyWt6/5PlT
- kgAgfCMF6R9PHaNrlg1SE0Seak6vKbaOBgvQJcvlgrMQOQXv0xd3Woro/u/7sObe9IBi
- hBRGs4iTsyWa0qY4+8/UYSMmkreyNxVQyQXB8MD8UcZo1QKciVy2DBPl59/5yDX4hA6h
- e6CH5eoL2Z4LsprJsZHGWIyXK+vqeudIW6uzhXT4XAUKXsBrIH6X25j5e5gh2ZPL0S5B
- 07gM6ptwK8oHfoQDmexypJTAZTNjVkFYuQpRQYl6ykhjqSAE0rD2KOJFxAuv8j+GTbnb
- HLyg==
-X-Gm-Message-State: AOAM533fgR3QY8gEERYSa7hhOY1Ed38cP6ffWKoeM6tUo9yyKrop+2OL
- UnFi5OChzTniTfyUaNaUIK0=
-X-Google-Smtp-Source: ABdhPJyjym9wsWQn1eiIbQ3l+me663Tkn6GiPbKErmB1Gshj4oPC5Bw8MUW2B9eaGSZMPxxLNd8Ycw==
-X-Received: by 2002:a65:40c4:: with SMTP id u4mr12188962pgp.139.1615027648964; 
- Sat, 06 Mar 2021 02:47:28 -0800 (PST)
-Received: from localhost.localdomain ([178.236.46.205])
- by smtp.gmail.com with ESMTPSA id o62sm4677955pga.43.2021.03.06.02.47.25
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=c4bUo1XFYPqAeWFc5nQ4FKN414jxkX238K1R/ykzSZ0=;
+ b=dpzkDcwiZHFvA7C18O6tQySEN1wIqmoWYwVJxZew+F/uYEBzQaZbC5/6pvgNw5/sm1
+ A23Q4OGLH7NJjDnIf+VrUp5dTW2ZQ1AmWE5FsT0HvwkMpbyQG1ubXtO6abD/za7cDVVD
+ JB13rFvyKQVkeKLi+HZpS+SN3dwAYRLlkwLmDOVSLcdlw0DUcPsQYLuMELULvhAaE99q
+ yuvfpGma2ibDN2YSnWOaw5kCAdVNFFyBQ7RRkUmrjHfYs3uaZ+KZZv+BfTla3UGa8JcN
+ nUtVodwUe7ANyXUBnJvRDHGNmcxQzAfF6qmmZPrW8KumP2KyZOMem1v85wNefL7IVRe8
+ zyJA==
+X-Gm-Message-State: AOAM5332ug4C1GrBSmS7IxD+rCEJ2AdtcUZYIcWTrPKRmHZl6P5tUhYB
+ LblBCoM++T5gbPUShv9js/g=
+X-Google-Smtp-Source: ABdhPJz1uPwCUfKa/qYEPfhyrW47W1tOAJ6N5pgPD/1Mb7yG5oWsxd78yWCbc1nuD6bFQeJS1n/6/w==
+X-Received: by 2002:a63:e109:: with SMTP id z9mr15927732pgh.5.1615108833244;
+ Sun, 07 Mar 2021 01:20:33 -0800 (PST)
+Received: from localhost.localdomain ([45.135.186.66])
+ by smtp.gmail.com with ESMTPSA id o3sm6825678pgm.60.2021.03.07.01.20.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Mar 2021 02:47:28 -0800 (PST)
-From: menglong8.dong@gmail.com
-X-Google-Original-From: zhang.yunkai@zte.com.cn
-To: sunpeng.li@amd.com
-Subject: [PATCH] drm/amd/display: remove duplicate include in amdgpu_dm.c
-Date: Sat,  6 Mar 2021 02:47:20 -0800
-Message-Id: <20210306104720.215738-1-zhang.yunkai@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ Sun, 07 Mar 2021 01:20:32 -0800 (PST)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, yebin10@huawei.com, luben.tuikov@amd.com,
+ Likun.Gao@amd.com, Prike.Liang@amd.com, avg@FreeBSD.org
+Subject: [PATCH] gpu: drm: amd: amdgpu: fix error return code of
+ amdgpu_acpi_init()
+Date: Sun,  7 Mar 2021 01:20:10 -0800
+Message-Id: <20210307092010.23117-1-baijiaju1990@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Mon, 08 Mar 2021 08:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,42 +76,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Zhang Yunkai <zhang.yunkai@zte.com.cn>,
- airlied@linux.ie, contact@emersion.fr, Rodrigo.Siqueira@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- nicholas.kazlauskas@amd.com, Bhawanpreet.Lakha@amd.com,
- aurabindo.pillai@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- bas@basnieuwenhuizen.nl, alexander.deucher@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhang Yunkai <zhang.yunkai@zte.com.cn>
+Add error return code in error hanlding code of amdgpu_acpi_init().
 
-'drm/drm_hdcp.h' included in 'amdgpu_dm.c' is duplicated.
-It is also included in the 79th line.
-
-Signed-off-by: Zhang Yunkai <zhang.yunkai@zte.com.cn>
+Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
+Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3e1fd1e7d09f..fee46fbcb0b7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -44,7 +44,6 @@
- #include "amdgpu_dm.h"
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- #include "amdgpu_dm_hdcp.h"
--#include <drm/drm_hdcp.h>
- #endif
- #include "amdgpu_pm.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 8155c54392c8..156f30d5a2c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -788,12 +788,15 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
  
+ 	/* Probe for ATIF, and initialize it if found */
+ 	atif_handle = amdgpu_atif_probe_handle(handle);
+-	if (!atif_handle)
++	if (!atif_handle) {
++		ret = -EINVAL;
+ 		goto out;
++	}
+ 
+ 	atif = kzalloc(sizeof(*atif), GFP_KERNEL);
+ 	if (!atif) {
+ 		DRM_WARN("Not enough memory to initialize ATIF\n");
++		ret = -ENOMEM;
+ 		goto out;
+ 	}
+ 	atif->handle = atif_handle;
+@@ -803,6 +806,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+ 	if (ret) {
+ 		DRM_DEBUG_DRIVER("Call to ATIF verify_interface failed: %d\n", ret);
+ 		kfree(atif);
++		ret = -EINVAL;
+ 		goto out;
+ 	}
+ 	adev->atif = atif;
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
