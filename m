@@ -2,58 +2,61 @@ Return-Path: <SRS0=Wekg=IG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A8FC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 15:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6131CC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 16:10:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5253865224
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 15:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5253865224
+	by mail.kernel.org (Postfix) with ESMTPS id 1452665210
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 16:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1452665210
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F3E89FDE;
-	Mon,  8 Mar 2021 15:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEA46E0EB;
+	Mon,  8 Mar 2021 16:10:06 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64A7A89FDE
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Mar 2021 15:53:27 +0000 (UTC)
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96F9E6E0EB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Mar 2021 16:10:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T/WvYnEIAFLk02cpvY7eVi7OXR7xANnF6PTRPAMmYra6ODD+i9A6161mUX3IIkomhaT/VtYK3wxFGvxYL8/tuRP+K2mVfp2MVozT3HXbHxqWmGQNAkWr9uE1utPUSZSRUJw+9VOyDY1behnTa4YGtTS/grJ66JSHbxVCACqRj8ckmJDurBrm6Tprx1oqmEt5lX2C06P9U4extZWq4QxKQh6CW2RCG0QhUYavHDE461dszb+bVy+egayvFToWUiRqcAJamgmo4hykfV+8RI/mzs1m35I5rW2l2SzgmPNuWM160RmtHSRvd8r6vW2h4jVsyln6RV7tSvU61iFy40MT9w==
+ b=TgxW+7fklJ/RUZmMpSSzftqBnqWWAB4Oo5axOW41svPP/1bcTuGXIU8S7wdfYw8Ar864ealLl6cIakHEkPgBxM6QM7fi7gJ9qum1JFzd+0NlvEzQdpTgpR3r5QmIC97/mS77KIMAlr1JH6AoQT/l4KdQ6iy/xjpHjwk3U9Vzjwy0Fun2/aflXtrpubgsjis2/zrRIZs/fA/bT4j4cNnq9XHH5pbZxAa8styuxC0b+AE34CMcnE1sE6GtdlcK2lTn6gPHJP+9cGI7DgSd0eDkAxaTVzZ372PA94+NMA06vQbcZzqzr38n+CwCdYdR3jgXYgJI3L/h/CAMqwC22cuZhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dc0FpWciUYAAY25rCMOmW1Q6ijwHXd45Kna3751xing=;
- b=S7Cy9hEUIlLNAmg7e8AHyH8Ki3O+OLdJGCqt71ufUrYKQ31RTe5BlhfXfgAb0gDdmgzSbs0ecjLKK3ZVUz66zQD7NkHIFv9/298LB6oJXWm3uKUW2BFhGHMM9W9jkgC5sdYY/MV5YSMkqHjqzC3S5DlQUT9AR0HQohJfv7GJPeM+ZDGoWxXxeEghxRgx8BmRwpFCbJixWo8yUvw7tDkPzfJa/Szz+obUSwiv25CDt/3Gon6rXVanZp8OZd4j47+ignDT+gIsxz5+4zpz3glFiwbZ9FAYhvzxSxvcx5kXm9JRPAPMjXVcYyW+IRiLc7j8ESIqf1yviymCLoVg3Thz3g==
+ bh=bPpUYld+ARNTpoevsOKkPpYW0iAPuTiWl3QnG2Cr5Lg=;
+ b=Iw40UZ3UZ1FbuXNYC0dxleAn1gCakLJvrXdtbLCumzy60blMhkZBNzmgvNW6BPnVNyXF9sPdKSUWbQGNrNJTGp7iKFrBSUjy43DNYQ0aaLatWcqVw+dl2jfIKFg5etXpjPUxBH+Z2Xk8+Hk0zkv3pQWunoTSjF1kz8JOBMSStQtCIqTOncaNSfplCZF6IYlWIFfrmNZ8kvB5r/j7vh9fq0J7MFrydN/GVlH84Z4ym71nGX7sjaUGC07bFg3jIL88pd08vQTDMFNrntXzZOdgKzSiBYPp9G6VjxX6N3Vs/kReQ/n/FbhG8Gye8kpzOyCIbiqT5XAGudjRJ6hDZTD3qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dc0FpWciUYAAY25rCMOmW1Q6ijwHXd45Kna3751xing=;
- b=IfMkvnN4ji/XknukSMiUh5maeyNwUafLow67LBjWcF0JFXqBVxOAxCRujoU8N/MqERAD73sLCapnCZuBytPxCXDgPh/gBibEnDNkSoapgHQrwRyqIG98Awwa3EeU32tkm7FA1gLNVnQmcI6fQ6TaM3rUyPX0hkIjo49I57mG2VE=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Mon, 8 Mar
- 2021 15:53:25 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3912.027; Mon, 8 Mar 2021
- 15:53:25 +0000
-Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive duirng
- probe
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ bh=bPpUYld+ARNTpoevsOKkPpYW0iAPuTiWl3QnG2Cr5Lg=;
+ b=0gneW1daiOTAK+JPHJdkDUQzNReDbQqLPj7GYu28WHpxvHa3/PVN8EI2tcHce3K+EaLo1uIqgcYqRrwcmK/bJljfx5obXtLiSuY1P8c82S1R8REzqLeWN8fpEzqZv400GM1ND0+A00YQQxB1lWJ8ndiKFrsVcqTxH4CziAZIiZ0=
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com (2603:10b6:5:1c7::12)
+ by DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.18; Mon, 8 Mar
+ 2021 16:10:01 +0000
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::102:2c9a:54ce:63e9]) by DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::102:2c9a:54ce:63e9%6]) with mapi id 15.20.3912.027; Mon, 8 Mar 2021
+ 16:10:01 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive duirng
+ probe
+Thread-Topic: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive
+ duirng probe
+Thread-Index: AQHXEehnkJi0ZBdQLUmnTOEKi9nTFKp1xzgAgABa9PCAAFhyAIAA8H4ggAAJLuCAAjBVgIAAk2MggAAKgYCAAAQ9kA==
+Date: Mon, 8 Mar 2021 16:10:01 +0000
+Message-ID: <DM6PR12MB3835F620378BE1B8A8A35A6CF4939@DM6PR12MB3835.namprd12.prod.outlook.com>
 References: <20210305175257.32219-1-shaoyun.liu@amd.com>
  <34643514-c054-242a-336e-1ac9ab7ffcc7@amd.com>
  <DM6PR12MB3835CA23C6EA827DE36FC1A1F4959@DM6PR12MB3835.namprd12.prod.outlook.com>
@@ -62,80 +65,82 @@ References: <20210305175257.32219-1-shaoyun.liu@amd.com>
  <DM6PR12MB3835340976F1AB36BA768D4FF4959@DM6PR12MB3835.namprd12.prod.outlook.com>
  <4726b422-1ec8-b9a4-dbf2-578280a76b01@amd.com>
  <DM6PR12MB3835DDDB171EA71175FA16F2F4939@DM6PR12MB3835.namprd12.prod.outlook.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <e39944a2-1cbe-fb0f-557c-fe24222009b5@amd.com>
-Date: Mon, 8 Mar 2021 10:53:21 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <DM6PR12MB3835DDDB171EA71175FA16F2F4939@DM6PR12MB3835.namprd12.prod.outlook.com>
+ <e39944a2-1cbe-fb0f-557c-fe24222009b5@amd.com>
+In-Reply-To: <e39944a2-1cbe-fb0f-557c-fe24222009b5@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:c784:7e01:247d:b6c1]
-X-ClientProxiedBy: YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::14) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:c784:7e01:247d:b6c1]
- (2607:fea8:3edf:49b0:c784:7e01:247d:b6c1) by
- YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.17 via Frontend Transport; Mon, 8 Mar 2021 15:53:24 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6faf6abb-0d74-4f04-8be4-08d8e24a4eac
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4351:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4351F31E8EBCE988D2B85480EA939@SA0PR12MB4351.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Og8l3O1UojwBlcC1Rs0Eo3szBEKmsFj01pvtc1eVpMAlZzm65rrRN5QPl5IRf3+yp305cH3GsRqGWUIaYaIM3XrK1y4b6Vcj1oroNX3h/yJ6Er6a/P/HyZKGn2lVedAQkcz6+WJn3MMLPsiw2jgfvEabmoXld2bID/dZ2Zn8vJX2opI6xTWGDSiWLbsEPqHh/9PQiGQIvXbNSDHVMKvNBPFZApCtJaXwaP6FHo1bmXAh7pja0fg3Xvmkcm4pt7XEt+plrWpLSIi9DMiLcXUMtGQaYvMOmtBEJNojae01ZDCtJz5nK7YZbSxkpbvGT2f5Zfegv354MUbPtd8PHKZJFRU6UcaaCOmBqbefQk4lerU76trHKyVM9LNmGXqa7Ay4BqtuwFs7r00I0KXXHs8UrvraOb2NNo6w+F7ApwOO3gic4IpEJhZSlMjOrdLjXUyjplFMkjk9OwTl4gOwVYWrHxFgdyTnZ1mj+ewW5KDB6W7+gCzLqLV6Zz8+3Z/K/LQuCMffCNADLOerAOb1TaZU788oTCvHgZD6Y/70e2Sj7NHwJnNk3pctbaKYOZuGTT/1D61Qlt1QVE26wDRjxUjTNWspF6+FTThohCqYqu7FeAZqnQdp0qs6+gM31is9kt4PrUI/a50uBuQGZuvxqW8EngGEWplp//Oe6ZyVd8YRG4CVmH7UqRT+7yy+m6hQJ4gumx0E8lyPUybYLXN+Fe/jVQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(366004)(346002)(39860400002)(396003)(83380400001)(2616005)(31686004)(31696002)(966005)(186003)(478600001)(6486002)(6666004)(16526019)(53546011)(36756003)(45080400002)(86362001)(110136005)(66946007)(2906002)(52116002)(8936002)(30864003)(44832011)(5660300002)(66556008)(316002)(66476007)(8676002)(21314003)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-03-08T16:09:55Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=f39af39f-5607-4ef5-a92d-74ed28d4248a;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:fea8:3bc0:316:65ee:b0a0:8b9f:261]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 026449aa-5058-4437-df1f-08d8e24ca0f5
+x-ms-traffictypediagnostic: DM6PR12MB4340:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4340E2959C91D3999A27CDE9F4939@DM6PR12MB4340.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3513;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: HarrlLWD/DgexjaxVl4iMh/EiNRbqWSANdNgClZhzqcRPeHtScsXonqycKl1YKKdOzAqgFz7uYh3SlQLWFril8ZD/p/WobUgym1PhX+LqEtTQ3WO2EQW3DMdgmliBDIyry+HHhNkCR7uQsDMU9aZz25PxJsk+vIQofMCm2kt/gDR6S3wzsg5Qo/xRtppXLg9nnmlRcOgYZcsgmW94tW3pwXqbk/qxpt4Jws6K/CZQDd0lBqIfb4do/GdOAN5i5vT36tlXuDCu9GuiZWHIlnZhuScYmgyVQljwklPM32YG5B2iYXFVmj+3PeHUbb8MRl9QKH5woMTCLR1hGwKPO29jtcB5BvF918UOK29xxWN/HazsReRMys207/mol51OABlThwnnneqdXsJRQNKPAGIpw1jeMQ0RJsRla+DQZ/YxEYWrGVwbmbEN0SkNhNRYd9e0kD+5QWq56e9wIyHCJ7ViUX/RZYFJeiooVB+OHvRk22KORG+EYrbgVK7PIbISqW2VYKib5lR9QDR0qCjZzCNHXmyrrYEhle1K/ty1P8bD0xyEPCHNtF4GZ78RuouqqSDQkA9VA+dkdl3tMZ9t/LzCxcBb20ihuIsmu+NlL/rmj70HqHeo+XkesKH79XUIoUxvUpfiGz+q8HkXlfKWnUn5w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(136003)(346002)(376002)(366004)(66556008)(76116006)(83380400001)(5660300002)(6506007)(53546011)(66446008)(7696005)(2906002)(86362001)(33656002)(64756008)(30864003)(52536014)(84040400003)(55016002)(8936002)(45080400002)(8676002)(71200400001)(9686003)(66476007)(66946007)(966005)(478600001)(110136005)(186003)(316002)(21314003)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?T2lZdk5vVVR6Q0dpeUlnNFdxRTQxRVJzSllOcDA4OG8vd3NCZUpYVXJTZEFP?=
- =?utf-8?B?R2NQWFZNZFdHN2dReG1PVjBkUVhlMTZuYnpRanpLTVVCdnJtTGhQa2JDUWoz?=
- =?utf-8?B?VWN0OUdGOFJVNHVxeS85dTV5UkpEeGtCZWRXbVZqcGFqVnd0aHI0dVVyRllY?=
- =?utf-8?B?bFhDZngvcXhpWHYwMHFRMWI4eEJYV3I2V2l3UlBlWERmNzUrWGFldFZncDFx?=
- =?utf-8?B?dm9MMXJJYlkwbDZHd2gxdUVuKzhCelBrL05JQjR2M3lzM0hiRmZPakdLMmpq?=
- =?utf-8?B?RXEwWlFVK2FXdE1Fd1JPUmpIS0xDSWtwU2k0ODJkM2crQmNvWEtLQUg4MDR0?=
- =?utf-8?B?U1AxQ3NMSEEvZjYrTDJiWVRhK05Td3BCNXh2RzRXK0MwblFTNXhyVHZOQ1RS?=
- =?utf-8?B?QXVmRGxIMi80QXBoSE4rdE5RdC8za3U4SEhpeTdidDBId0RsYkRWYlZoaDhB?=
- =?utf-8?B?VkJydWVjYUZYNlJGa0pMZjhXK2dWbFdmYUppbTZldDhSTWU1Q1kwUjR6UjIx?=
- =?utf-8?B?KzZRNUJVMDJWWFhLUlJZd0RYVGhsdVFKZXd3UlYydHVYemtBcWFaczVob0pN?=
- =?utf-8?B?dFdUNGVQTHhrTnVndUVtMFIwZnY2TUhGWlBROU14ZW9HREtCL2dCZ1VJR2kw?=
- =?utf-8?B?MnM2dHdYbWxkTjVlUG94UmVrSHV5ZlZwUXVyKzNjdkg5YVIwVGlwaTRQZmRD?=
- =?utf-8?B?MFZ2L0s1WUMwb2o4NUVTTmI4L1JpelhRdXFnZ2tIZTBkYjlCUm1KdGhYdTZh?=
- =?utf-8?B?T0EvQ28xWFp3bUVZWFdhTHhUbDkxT3A1dWNKSnJMU1ppeTczUEIzWEdnTGk5?=
- =?utf-8?B?WUJLc3pyVG1ZbEQ5aDRzencvenFXWVU0em8xd2Y4TnUrYmphYzIzVUtyLzVX?=
- =?utf-8?B?Z2JEaHo3N2hsSldFMWJOMFBQbGNyMzRFdkpWY0ZIbTkrNUhlNW0zZ1UrYmFY?=
- =?utf-8?B?bDdocDdUWDVaTExuemZvek8vbTN2ejFraFRqa2ZKRG92dHo0Ylh6bFBUWER6?=
- =?utf-8?B?dE0wVE04dXg4ekMrRlZhMyt1MW9tOE1WT2JrdkcyS25qNXZOdUJ2UEVRZElX?=
- =?utf-8?B?eExHVCs4eEs5YlYxd2VSVWMrMk1xRWQreGgzUnV6bzRJR2VnNXQ4ZGRGRjdS?=
- =?utf-8?B?aXRCV2NwVjREQkpyeFgxVHBEdEF4d2NCMW9MYUpNa2kwa25JVmtZdGtubHNL?=
- =?utf-8?B?Nk1RMUZnQ2psTnNZTE1KVmx4STl2ckk0L3J4anRqc2ZCbXZDS055dVFiYUtl?=
- =?utf-8?B?ZzFhL3BEK3hyVTB3TzhHMDhsMjJMbGI4N0grVWdlVGx1dE1uSkFnUUFCck1z?=
- =?utf-8?B?R0ZQOS8wWm4yR2NSTW9BVkhNZExROGRmRjFnaU5KMzBENGFhSzUyb2NnTGc2?=
- =?utf-8?B?RXdPNXV3eEtSVmRCY0JTNHM5TjEycUxsbnRMOTAzcXlEN25lZ0ZEcjhGSFpj?=
- =?utf-8?B?TEljYWdITW9vczFYOHRydXlBZGE2N0VWUEM0OGNpdC80aGF3cEhRR2tFNCtQ?=
- =?utf-8?B?TDE1Zkk1ZUlaSzZFK09Gb2JqZTZMb25wMFI2ZWpqNmx0cnIxTlFxbHdxUEtp?=
- =?utf-8?B?cVBqRWRKWWdSczBucUNSMHVHc3pXR2ZCT3FwdWNzb09NRERIOU54b1hSenFy?=
- =?utf-8?B?RlRMeUFQTHg3eVRrbzIwem9ZRnFON3hnRThYU2E4RVF3bFMvRXlPL0Q2c1VE?=
- =?utf-8?B?RkNJMWtRTDVUWFF2VkxTN080b3VWVTV0UytyS0gvV0UzSFBVNzFQVUNhUm1a?=
- =?utf-8?B?R3pxSlVoUy82dVZUSGYvZzRVR2toMUJhMlZ1cndZa2dPekFOVlN0QWRFRVhs?=
- =?utf-8?B?ZlY4Z1gyUDBlakVPYkpseTBjbDRPUXV6elNDNkhWOU1HSUxZd2dZQTFjSzJq?=
- =?utf-8?Q?mlpcCbOdQ+se/?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?elNQRno1elp4QWY2aGZhS21xVy9XM3VQblN4Vmh2ZktEUmNMb2ttQXd4MEY5?=
+ =?utf-8?B?dDF3c1RkSHZRblUzMEVKdnFRUFVGRjRRZTZCQVM3TDROR0ZXd002Um9sUUk2?=
+ =?utf-8?B?N1o3eGF5ZklidjJkcUd4S25XLzdyQlI4OEtuZi85Z0dpKzRVSmdTS2YrcDVr?=
+ =?utf-8?B?V0dRUzd4ZG5hb2tUdXdOaENsaGtrblRhd3VXQjdJa08za0MyaUFWOEJvV0ZO?=
+ =?utf-8?B?cU5PelhTNC9ucldqZm1Ua0txYlJQMWVnNFI2YXlNN3piZmlNK3dZR1B4dnFv?=
+ =?utf-8?B?bzhFbE05bHpwUU9ZczN6OFZ6WVQ1Q1MxQ0N6VkZNejdCTHRkbEVMcUcwYk55?=
+ =?utf-8?B?RFpHZVVEaVNZVUd4SWxaNit4c3dsQUFoSU0vTUkwRmRSbytIaU5XNWpiK0NS?=
+ =?utf-8?B?ems5T0YxRHVnWkFXMmdpak85d2liZUJmVnRBejBVSXRzVnZKeVQvbDlHL1dn?=
+ =?utf-8?B?VTJrVFllYlBqUndDOUpNZ2U2cUgvRXdVbVprT3dyUTlaakNoYUNPNWZlMFZO?=
+ =?utf-8?B?Q2xBb0JleWJDUS95RjNJYXYzNDBWYmdzS09wa3IvZ2NvQzQ0VzE4VHFtYnBm?=
+ =?utf-8?B?Q216NThkOUZhSzd4Nkl2bHc4ZGNmN0dlTzh1NU5NYTVmeUdWeEwvZ2VSY2gx?=
+ =?utf-8?B?TnNETHphUGJqMVRXRlJ4dW01MVlsUUlLQjNPVUxrMWxzTTdXdGxBaHdkbmN3?=
+ =?utf-8?B?VG91dy82WjIzUm5VK0Y0OE4zKzVrenhkbC9JdEdndEVrWWlIaEFOSmNLVW9E?=
+ =?utf-8?B?UDV5VWVWTHZhSUlmT25zV2FRMVlhb21DZDUwNlROUUlmN1BKRTVhN3IvVFk2?=
+ =?utf-8?B?eC9HUHFPT09XNk03ZUdSUW5jK2kyVUJWZHZCUzFUWVVCaEtMVW1LWnZrMlA4?=
+ =?utf-8?B?M2pPL0dITnhYaHJtejFiS1pmQ29LR0R2ZW9lZDVRelRKcDlLaVVJYUV4Ym5F?=
+ =?utf-8?B?cFJXcHpYNWE4d2RuZ2JiUitmNE9ZUWFRL1NjYUV0aG9UMmJ3bURJNkwrb2cx?=
+ =?utf-8?B?dXZWT3hEV1VUZ3duS0ZYMVlMRlBIY2ZqbDA4VlFla0l3bVk1ZXFyUXA4NS8v?=
+ =?utf-8?B?a3FkQnNBVEowUEpFMldJWTRqSVNmK0d6MnhDVFlqRnNyUk1ZS0s1Sjl4VG1V?=
+ =?utf-8?B?M1lmOHVQcVFXMi9BNFY3bVJlbE0vQnZEOENlTzQ1MUY3aEtTNlVDekJpZzQw?=
+ =?utf-8?B?N0FWVzljKy9yZzM0b3d1V1JJcVBBeEdvQ1NnYk4xTFo2S3JCSFhodkwwcko5?=
+ =?utf-8?B?VUVCdzArcUJiaTJOV25pM2xNNkgxOGcyZldkN3Z0UUYyU0VUdmRjZ0wyMnBP?=
+ =?utf-8?B?bkVUdk5za2g1N2tqZ091OEZQVWpQNXo4dmt0S3JEajJTR3ZrQTdCdDVlQUF0?=
+ =?utf-8?B?aU9tYTBpaElyTGlwZHgwNVdlM3JSdkEwRUpLQ3J3VFJkY202SnJUVkhCTW1C?=
+ =?utf-8?B?V1c3SEorcngwUjE4NUJwMVlpc213SnVVd1dOczJhWnVpVVBLZDJOY3dZcFJ3?=
+ =?utf-8?B?d0pjNy8yNlRid1hrbTFTaEMwRDI2eDZQNmhvSFdrMFpnaDdLUXZWN0srbjdq?=
+ =?utf-8?B?NVIxYUxVU29PYWtOcEU2SzJhZk9xNFkrUHhtcmpvS0xoeEtsVno0Z0JVM1NZ?=
+ =?utf-8?B?ZkdzUlZOMTAvalFVeHBmQ21qVkNFNmpueitsZmY4Q05kM0l3dEszVXFURFpB?=
+ =?utf-8?B?ZUxWaThVSElnTHBhTmlZUVo5ZGhCcUpacDMvbDVjZmx0eCtGYlJoei9zT1Qv?=
+ =?utf-8?B?bmJtL3Q5THB5UkRkNUZMZ09ueGtvbUlHclpGZEFudDlrelkwSkdNemdzMEgx?=
+ =?utf-8?B?WFo4OEJTU2RLMUsrOVAwdGliamRaa1JURlVSTTR0T09ZNEFvbEdzQmVkWDF4?=
+ =?utf-8?Q?N9j6YlFM57tV4?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6faf6abb-0d74-4f04-8be4-08d8e24a4eac
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2021 15:53:25.1971 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sB/LzmLbnHDLnY+UKJzsxldg8/ChgGoUKKdlQA8h9DTZjnyEWohcLYQYHssjn/QQduGV8IGpRrkgj40c3CaD3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3835.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 026449aa-5058-4437-df1f-08d8e24ca0f5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Mar 2021 16:10:01.7815 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OKawfE9ytQlhKvvTMYJTGLDG0kMz8sGDpOSH+G7Ef1JlyD7fVZqfzsQIVihS8R8041LihfHg32dIJhCpH3ePAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4340
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,10 +152,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi, Andrey. 
+The first 3 patches in this serial already been acked by Alex. D, can you help review the rest two ? 
+
+Thanks
+Shaoyun.liu
+
+-----Original Message-----
+From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com> 
+Sent: Monday, March 8, 2021 10:53 AM
+To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive duirng probe
 
 I see, thanks for explaning.
 
@@ -169,7 +188,8 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 > From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
 > Sent: Monday, March 8, 2021 1:28 AM
 > To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI hive duirng probe
+> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI 
+> hive duirng probe
 > 
 > But the hive->tb object is used regardless, inside amdgpu_device_xgmi_reset_func currently, it means then even when you explcicitly schdule xgmi_reset_work as you do now they code will try to sync using a not well iniitlized tb object. Maybe you can define a global static tb object, fill it in the loop where you send xgmi_reset_work for all devices in system and use it from within amdgpu_device_xgmi_reset_func instead of the regular per hive tb object (obviosly under your special use case).
 > 
@@ -184,12 +204,12 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >> shaopyunliu
 >>
 >> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of 
 >> Liu, Shaoyun
 >> Sent: Saturday, March 6, 2021 3:41 PM
->> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>;
+>> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; 
 >> amd-gfx@lists.freedesktop.org
->> Subject: RE: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI
+>> Subject: RE: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI 
 >> hive duirng probe
 >>
 >> [AMD Official Use Only - Internal Distribution Only]
@@ -204,7 +224,7 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >> From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
 >> Sent: Saturday, March 6, 2021 1:09 AM
 >> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI
+>> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI 
 >> hive duirng probe
 >>
 >> Thanks for explaining this, one thing I still don't understand is why you schedule the reset work explicilty in the begining of amdgpu_drv_delayed_reset_work_handler and then also call amdgpu_do_asic_reset which will do the same thing too. It looks like the physical reset will execute twice for each device.
@@ -227,22 +247,24 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>> -----Original Message-----
 >>> From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
 >>> Sent: Friday, March 5, 2021 2:27 PM
->>> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI
+>>> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; 
+>>> amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [PATCH 5/5] drm/amdgpu: Reset the devices in the XGMI 
 >>> hive duirng probe
 >>>
 >>>
 >>>
 >>> On 2021-03-05 12:52 p.m., shaoyunl wrote:
->>>> In passthrough configuration, hypervisior will trigger the
+>>>> In passthrough configuration, hypervisior will trigger the 
 >>>> SBR(Secondary bus reset) to the devices without sync to each other.
->>>> This could cause device hang since for XGMI configuration, all the
->>>> devices within the hive need to be reset at a limit time slot. This
->>>> serial of patches try to solve this issue by co-operate with new SMU
->>>> which will only do minimum house keeping to response the SBR request
->>>> but don't do the real reset job and leave it to driver. Driver need
->>>> to do the whole sw init and minimum HW init to bring up the SMU and
->>>> trigger the reset(possibly BACO) on all the ASICs at the same time
+>>>> This could cause device hang since for XGMI configuration, all the 
+>>>> devices within the hive need to be reset at a limit time slot. This 
+>>>> serial of patches try to solve this issue by co-operate with new 
+>>>> SMU which will only do minimum house keeping to response the SBR 
+>>>> request but don't do the real reset job and leave it to driver. 
+>>>> Driver need to do the whole sw init and minimum HW init to bring up 
+>>>> the SMU and trigger the reset(possibly BACO) on all the ASICs at 
+>>>> the same time
 >>>>
 >>>> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
 >>>> Change-Id: I34e838e611b7623c7ad824704c7ce350808014fc
@@ -312,7 +334,7 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>>>      			/* no need to do the fw loading again if already done*/
 >>>>      			if (adev->ip_blocks[i].status.hw == true)
 >>>>      				break;
->>>> @@ -2289,7 +2296,10 @@ static int amdgpu_device_ip_init(struct
+>>>> @@ -2289,7 +2296,10 @@ static int amdgpu_device_ip_init(struct 
 >>>> amdgpu_device *adev)
 >>>>      
 >>>>      	if (adev->gmc.xgmi.num_physical_nodes > 1)
@@ -437,7 +459,7 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>>> +		amdgpu_debugfs_wait_dump(adev);
 >>>>      
 >>>>      	if (amdgpu_sriov_vf(adev)) {
->>>>      		/* stop the data exchange thread */ @@ -4293,10 +4337,10 @@
+>>>>      		/* stop the data exchange thread */ @@ -4293,10 +4337,10 @@ 
 >>>> static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
 >>>>      	return r;
 >>>>      }
@@ -452,8 +474,8 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>>> +			  bool skip_hw_reset)
 >>>>      {
 >>>>      	struct amdgpu_device *tmp_adev = NULL;
->>>>      	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
->>>> @@
+>>>>      	bool need_full_reset = *need_full_reset_arg, vram_lost = 
+>>>> false; @@
 >>>> -4310,6 +4354,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
 >>>>      		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
 >>>>      			/* For XGMI run all resets in parallel to speed up the process */
@@ -513,7 +535,7 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>>> +			amdgpu_drv_delayed_reset_work_handler, 0),
 >>>>      };
 >>>>      int amdgpu_ras_enable = -1;
->>>>      uint amdgpu_ras_mask = 0xffffffff; @@ -1297,6 +1303,71 @@
+>>>>      uint amdgpu_ras_mask = 0xffffffff; @@ -1297,6 +1303,71 @@ 
 >>>> amdgpu_pci_shutdown(struct pci_dev *pdev)
 >>>>      	adev->mp1_state = PP_MP1_STATE_NONE;
 >>>>      }
@@ -599,7 +621,7 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >>>> +
 >>>>      static int amdgpu_pmops_suspend(struct device *dev)
 >>>>      {
->>>>      	struct drm_device *drm_dev = dev_get_drvdata(dev); diff --git
+>>>>      	struct drm_device *drm_dev = dev_get_drvdata(dev); diff --git 
 >>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
 >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
 >>>> index aa0c83776ce0..8c71d84a2fbe 100644
@@ -652,12 +674,18 @@ On 2021-03-08 10:27 a.m., Liu, Shaoyun wrote:
 >> _______________________________________________
 >> amd-gfx mailing list
 >> amd-gfx@lists.freedesktop.org
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
->> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CSh
->> aoyun.Liu%40amd.com%7C73608bda6abd48a3047608d8e0e02e4f%7C3dd8961fe4884
->> e608e11a82d994e183d%7C0%7C0%7C637506600750277165%7CUnknown%7CTWFpbGZsb
->> 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%
->> 7C1000&amp;sdata=2qASlLYQ08twP0Ud5EcisCsVlJ9WG0QJv5idbuhDe4o%3D&amp;re
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flis
+>> t 
+>> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CS
+>> h
+>> aoyun.Liu%40amd.com%7C73608bda6abd48a3047608d8e0e02e4f%7C3dd8961fe488
+>> 4 
+>> e608e11a82d994e183d%7C0%7C0%7C637506600750277165%7CUnknown%7CTWFpbGZs
+>> b 
+>> 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D
+>> % 
+>> 7C1000&amp;sdata=2qASlLYQ08twP0Ud5EcisCsVlJ9WG0QJv5idbuhDe4o%3D&amp;r
+>> e
 >> served=0
 >>
 _______________________________________________
