@@ -8,58 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FCFFC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 21:56:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20B0EC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 21:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E63A56509D
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 21:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E63A56509D
+	by mail.kernel.org (Postfix) with ESMTPS id CFFCC6509D
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 21:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFFCC6509D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A198C6E88E;
-	Mon,  8 Mar 2021 21:56:27 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C21676E88D;
- Mon,  8 Mar 2021 21:56:26 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id x135so8161831oia.9;
- Mon, 08 Mar 2021 13:56:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7472589DBA;
+	Mon,  8 Mar 2021 21:57:17 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83A1189D9B;
+ Mon,  8 Mar 2021 21:57:16 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id v12so10769857ott.10;
+ Mon, 08 Mar 2021 13:57:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uyJ0PeO5KwJeqSfUyZWIUqn/iwMU0KWoLqv+BcNnnbs=;
- b=UQ10zTspdmlb5BBImKzv93z4b8rcgHoxxMXyDAGirJ6ZgQdlU3oCoy3/VlIySTVQ9G
- vKjr/FqjR7o+Yu8UECfsO2tAxBqkl1dd9NRaiC7d+XVJKftt981D7j+5kv4r9JGR6wb/
- djLRjS5HT8gaALDGwT9XPp9wVxCKhh+4Pfex+porGxTetWm7f8cRKHM3jCVTrKFKv6sN
- ii2+saA/94KALMXo3L3S2sp749DJ7nxT9UAcXTSxmDiXrORdg20/aDFnjDEmIvsO73m5
- kBEhlJw7H7aZ+W/xTqkG7te3ufg/mLpWyCpOTQ+BogUV6x80+Xosfo9US/SbB0xMwzHK
- BVQw==
+ :cc; bh=vBWk93dB6A/oALjtzEiM8cCSb4V0wTNQU+avL5sjbpk=;
+ b=jPEr12eJOevKFdEXIwQnNzZdbudcLEhlPf1DMoP45Rvwfl4BFXV0YotJ1gHKiUIdX7
+ 9xK/3dLI7ddnG97S64MUx2d6PPQ8pF9v3/Jd3GiOC4TP4VcjcvnXU2FcUuM2HZ0qIkId
+ BIkQphCez5RhIb7n98loEBPfAz/5YTKR5+m6FIUrAmTbFUV+JEap3K8RjOZQTYGekYZz
+ f5W0jvlQZUi2f24LdRkHtO9MpNxTwTsZqv89uCD0Vpv2dd3bdQDA7h2gsAeTv+TYASYH
+ gK+u/zdG2jqKUi8K9PmF/9jCGLqm9tN2KqDNcu0AODBNjdYbqthX9uWRFhK7ioT+EeSA
+ +eoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=uyJ0PeO5KwJeqSfUyZWIUqn/iwMU0KWoLqv+BcNnnbs=;
- b=elWXriS57u+OKyh5J4/hE8n233zc15KzQMuNFZdE43ukzm9iy676IR/hpk3E0SO3td
- 8b/zyGNCaVAHpuQHwnfVJYiTj9jJOD9G7c6Ht/sZd0XsH6OhveSSxs7TEznPuhOTF8S2
- xNU2l5g8WxT1p6jiqnwgTzTnaD7hA9dSRzae55wYvDo/hGGVGKAo83CxXMVYjuevZxzD
- P17zABEJMc7Vo5dtvWB+u7KDOAF1lgeLx4oTxTa+z/D1uu79ifEiYjrItp/qDmBIJBnm
- /PVcqhRSQJ5gwArsijUnV9nPkVbsmQUmpkn99uGR5tpy4/Byx+lOmGMThDgdA2/484Fe
- KEsQ==
-X-Gm-Message-State: AOAM532At8Vn+fIdZZEogwHCMTIE/A+VFw1CGkzIubao/sZ2rB/JSmGv
- Hqmgjk3TMscVKjbWfPIafwkiPpvGGfZaA1p5Cdbs8gGs
-X-Google-Smtp-Source: ABdhPJwvMOnqnL13dlmqm4xKkeu24C2hDW1SuZzKmy+7NNx45hQ5X4pEQJAaSTv0pujQzQGXry/q0jZd1nNyYv+sFf8=
-X-Received: by 2002:a05:6808:f15:: with SMTP id
- m21mr696521oiw.123.1615240586175; 
- Mon, 08 Mar 2021 13:56:26 -0800 (PST)
+ bh=vBWk93dB6A/oALjtzEiM8cCSb4V0wTNQU+avL5sjbpk=;
+ b=mg/TexWAzoQ6+aYIvD/3jMlgcwwdBcNvj5EiKHhd5SGbPKacWOrhGfpu8Vb6kfOOoZ
+ iKPZzWdmggkI+BQAUoWAskFlJww6aTWPyHFsPtIrFbzm68bMnxcIdbOqiBAxJRhjO9c2
+ Ki4F5RRyBMGDxjpslckwwIg5SCx05b8Sb6rWsDi0tDVgNBG1GlHn6dI+PQpCBl9E3Gtp
+ gzZ3V+mvZGT3nmFKarKfmM9o9neWM6hgJwaCcRq93uv4mD9QmYAseftyl3peBDJdiXA2
+ HT3r4Sd0U9psrqRiMZ/KzN9WXc8wWhGoLnWfYB84rebfeZ0QVknXLgzgZ4CU7VM/37HT
+ yypQ==
+X-Gm-Message-State: AOAM533duc8Hw0E6yC89PfmYKhAWMZyuAYkv2YGHvps/h9wCWbnVKA5V
+ UYi27N/RicoHe4DnjxjsagXouAohHExUJxEl6WE=
+X-Google-Smtp-Source: ABdhPJxrYC5b+Bfy28dEBHW3FjF2qWGh0W9dW/P/7CoZ3wnlKV8yAc+scjpfhvvVoKtqiq7I17x9HGjyMxBJB0BvS80=
+X-Received: by 2002:a05:6830:408f:: with SMTP id
+ x15mr22421343ott.132.1615240635925; 
+ Mon, 08 Mar 2021 13:57:15 -0800 (PST)
 MIME-Version: 1.0
-References: <1615172407-4847-1-git-send-email-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <1615172407-4847-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+References: <1615173254-22078-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <1615173254-22078-1-git-send-email-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Mar 2021 16:56:15 -0500
-Message-ID: <CADnq5_NEybY3puwnBs_OUHPWD_16OvbF-sCQ7Mj5gx9PtCd4+A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove unnecessary conversion to bool
+Date: Mon, 8 Mar 2021 16:57:05 -0500
+Message-ID: <CADnq5_NeAv5HeD=whn30Yu1hoMW2XfPxjeN53b995AzXOY1-dw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove unnecessary conversion to bool
 To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,24 +72,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ linux-media <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 7, 2021 at 10:00 PM Jiapeng Chong
+On Sun, Mar 7, 2021 at 10:14 PM Jiapeng Chong
 <jiapeng.chong@linux.alibaba.com> wrote:
 >
 > Fix the following coccicheck warnings:
 >
-> ./drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c:561:34-39: WARNING:
-> conversion to bool not needed here.
+> ./drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c:1600:40-45: WARNING: conversion
+> to bool not needed here.
+>
+> ./drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c:1598:40-45: WARNING: conversion
+> to bool not needed here.
 >
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 > Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
@@ -99,22 +103,25 @@ This patch was already applied.
 Alex
 
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-> index ae6484a..42a4177 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-> @@ -558,7 +558,7 @@ bool dal_ddc_service_query_ddc_data(
->                         /* should not set mot (middle of transaction) to 0
->                          * if there are pending read payloads
->                          */
-> -                       payload.mot = read_size == 0 ? false : true;
-> +                       payload.mot = !(read_size == 0);
->                         payload.length = write_size;
->                         payload.data = write_buf;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 690a509..b39e7db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -1595,9 +1595,9 @@ static int sdma_v5_2_set_clockgating_state(void *handle,
+>         case CHIP_VANGOGH:
+>         case CHIP_DIMGREY_CAVEFISH:
+>                 sdma_v5_2_update_medium_grain_clock_gating(adev,
+> -                               state == AMD_CG_STATE_GATE ? true : false);
+> +                               state == AMD_CG_STATE_GATE);
+>                 sdma_v5_2_update_medium_grain_light_sleep(adev,
+> -                               state == AMD_CG_STATE_GATE ? true : false);
+> +                               state == AMD_CG_STATE_GATE);
+>                 break;
+>         default:
+>                 break;
 > --
 > 1.8.3.1
 >
