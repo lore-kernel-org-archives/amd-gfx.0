@@ -2,131 +2,126 @@ Return-Path: <SRS0=Wekg=IG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AD1AC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 22:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA037C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 22:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 033396516F
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 22:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 033396516F
+	by mail.kernel.org (Postfix) with ESMTPS id 683BB65257
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 22:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 683BB65257
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93AA46E2D1;
-	Mon,  8 Mar 2021 22:03:15 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680060.outbound.protection.outlook.com [40.107.68.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1FFB6E2D1
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Mar 2021 22:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D18D6E893;
+	Mon,  8 Mar 2021 22:07:13 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770051.outbound.protection.outlook.com [40.107.77.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E366E893;
+ Mon,  8 Mar 2021 22:07:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aoJDwaxF9OpqOXvf366pnTyE8IMkEPFkERDA1qhDevd5bwfOOdF7BikwVxo60bbxbIDYDoND3KQc6Pd6zlHx504RAjFDF1b1q6UxHoTANfirPGgvTG9QbPZBgGX438VrX19ypqEo88COtA8EUCGWQ83OXshsvSWHfj1r784EAn8Jq553iVsqxGdCSoCHsqJiMEJFd+6MMs66FC3FTDNSVjg8lWreJTstmtNGP/X4zttpxm90Tp9eAE1D4BtaapghNe7yJLzyBYTCrbGZqfmGYBOdBqL4uKfToWFto5f552VThSQhtFoV3bcsnW5IDhmYU4hUMZ8hrbhKr5XVbqrfZQ==
+ b=RyI6IWSRcNcUE+hcgv+Uc/wbfoC12Anr+LakUuAUjl7Z5CIAGS3u5uS7aO7T5bA12muesVwHxQQ/ijwluhvkhXzT+6N8gwfBkZG+ny2q44dlyiuEAlkLULWkmYyzbqBToHh/E4edNcTr6uc7I4IG8JyHDQgU3soUhmd2VBEovK90Ms+oKjSzqB+df/5DqukKVWnrYH7JX2X3HIkfropWnbkHGZuaXHTc+EBkCI/9KdLaS29uUrdM+pkT6LGqMnGY7X8YEo/PvjAX20M8JjHvlUOQNj2hK7gAZT8tGk+SjMRKKJ3oOvtzioVPCi/o7nnb+KIsd9NnXzGUWxQwQmFamQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QclKyxkNsFRG/OuaE7o3jt4XubR+CMh8wvLcgbl5ZfA=;
- b=T6YLQU5K6Lbzt51ztIGmFi75cFlp2qPYLgKzT3+HNfv04kg6estjkEmHOr9KPNmQ3lob26508UkGHr/w47mXKej8BeOFexEttHmRD9porJAGph2/hCGN/6GDu4Zs5gmUVlSKGUut5+p3Cbh/5TBHKiawY21rZu03+8c0BlDgZLxBk/ySiIfBjTxq8Ki4X4veCQ7t6aSAP06zXrLo0bMi4DTuyloSRYNAsZxkOwrAM98C9y+yLeeXQBDplzoHccdZhK7mj588wXcog2PiapZ3SaEw0lFT2ngtu9lQsqPzxHLMOvKRVCtC4MSM4Xrwogdt3UGJw3phqAenllSYLqFm6w==
+ bh=9W6LUZcP7D6wWuMPOkB+gbx5ZOq0RmiI0VU6ZcyA6o0=;
+ b=X/cv8A3lKwKk1h8MD+yqAG1Hv5ALiHk6AzQ3W0STCyb0Nb3fGZyBsrX3KV5o5RJkDAGVaDLAMTi7+c71mpTAqQVjDfbGgr1Bf86Upi1wsdOll4Mb0NGmMhAGh7lpsIwrXe0hO/qpManlILEZ8N2RYOXsI4VmWTNIZp7Yn+DWrz+TnjhF2dLrkTsLjRnQ4mbmDlCzrlWanKSpsOUPI0b3204e/+hY5yTuPUB25Q4WHSgtDzugLdff+X96vSkSK5Mwjk5SK/AEW7yybFIpwOKWc4zfyGFVirgjhEEO+zdwEjOXHl+c8bBjaav1pzXzGWqPCma9sDvNZE+boTnapSZC0Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QclKyxkNsFRG/OuaE7o3jt4XubR+CMh8wvLcgbl5ZfA=;
- b=hRrVPfZ6Y4BgLBchzHcwTmXans+/SmRCpxrnxCUB3NslFNceGrcvlWjUTWScvniBS3POvH9JIKrKUzrZyEnsFCX54w3anZMjO7II780Z1KjiH6ORfuG3OVc5ZM/CLoFMRhvihtBmb9IWn3IxGhmoK2dqfRSvmR90sSSxhtz0XLI=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SN1PR12MB2480.namprd12.prod.outlook.com (2603:10b6:802:22::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.26; Mon, 8 Mar
- 2021 22:03:10 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3912.027; Mon, 8 Mar 2021
- 22:03:10 +0000
-Subject: Re: [PATCH v3] drm/amd/amdgpu implement tdr advanced mode
-To: Jack Zhang <Jack.Zhang1@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian.Koenig@amd.com, Monk.Liu@amd.com, Emily.Deng@amd.com
-References: <20210308123356.243375-1-Jack.Zhang1@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <a64ddb0f-f55c-27a8-1d66-c96f8dbefd29@amd.com>
-Date: Mon, 8 Mar 2021 17:03:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20210308123356.243375-1-Jack.Zhang1@amd.com>
+ bh=9W6LUZcP7D6wWuMPOkB+gbx5ZOq0RmiI0VU6ZcyA6o0=;
+ b=wFSu5W0PmSEEaMYv3ushkkxNnZG954o8/1x+TpSQNU4dT9/mufycwGNJTh6IHRUAl4M6337nAuTjgKHv6Rl41CoBfGL4leunYK3hXOarcQXPVTH2447m8QoZp7JoyFzwmyhFYtHY8PGyIJy9ia/EXsZTGUQYiYjhx9UvY04BjkU=
+Authentication-Results: rosenzweig.io; dkim=none (message not signed)
+ header.d=none;rosenzweig.io; dmarc=none action=none header.from=amd.com;
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
+ by MW2PR12MB2348.namprd12.prod.outlook.com (2603:10b6:907:e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.25; Mon, 8 Mar
+ 2021 22:06:57 +0000
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::8c0c:5b9b:fec6:e12b]) by MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::8c0c:5b9b:fec6:e12b%3]) with mapi id 15.20.3912.027; Mon, 8 Mar 2021
+ 22:06:57 +0000
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: 2021 X.Org Foundation Membership renewal ENDS on THURSDAY Mar 11
+To: Xorg Members List <members@x.org>
+Message-ID: <191dfbd8-b58f-46ee-0159-4c8250812a2a@amd.com>
+Date: Mon, 8 Mar 2021 17:06:33 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:6981:46b4:b72f:daab]
-X-ClientProxiedBy: YT2PR01CA0009.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::14) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
+X-Originating-IP: [198.200.67.155]
+X-ClientProxiedBy: YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::25) To MW3PR12MB4379.namprd12.prod.outlook.com
+ (2603:10b6:303:5e::11)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:6981:46b4:b72f:daab]
- (2607:fea8:3edf:49b0:6981:46b4:b72f:daab) by
- YT2PR01CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.26 via Frontend Transport; Mon, 8 Mar 2021 22:03:09 +0000
+Received: from [192.168.1.193] (198.200.67.155) by
+ YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.26 via Frontend
+ Transport; Mon, 8 Mar 2021 22:06:36 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ef860919-44ac-4db5-1a50-08d8e27df637
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2480:
+X-MS-Office365-Filtering-Correlation-Id: c41c5239-803a-44d9-b739-08d8e27e7cad
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2348:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB24804AF0D89A159535774A9AEA939@SN1PR12MB2480.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2348DAE6BFEC36513574C99F8C939@MW2PR12MB2348.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: olJ5Nh5TVcS7YbtI8jKf3Z5wccpUxOwgcrN8NA+SALbL0giyjrx6TZTHBfP8sernBizp4iAT3mabvjgcmDRxkJfg35sj16euxDrLn+AlTXdijkbkW70pXyiJDRVqzZT5lncQPn0QJKZMQa/7R9ooNRV9CxejIKhIMyC0FJNxOoGOrU3+Tc2dpGPD/xafQCzaTTpPBXF94lxkUxi209OVfEf/HF79Pa2As2JQ2AoU3ZiUdIERnMhnenYI93j+6x3RD6LCG+3J4HgPQ0pYTH89l3eSCwvngzdngoEwLDjcRYl+3h3KxhWN1jzsWHWFNnFQ1Pg9xDLLTFk+vWVdpXxMh1OKmc0wfqRanyc9HbNqZsADQIS8FDz9KAztP2DtAnF9LlcrwBKXV4oy7lxWskBiZhkMKiKLxd0qwnNJavuoOH/gWmYa39/D4FLFNJyVwL8tMV5lrngZ5zOoYsUKsm1OlZFkqJrcValusfjW1E9uQl8y62Y/hv245Axdr94rHFOPxP1U12cO3F2mQeNysmpGIN93HXDpXZhJcji49Iu5lRmiOf1adBkGHKuT2oK0lwbO0E48+wjY5Ml1bR11XYz0lmhWMyglwxkcKAzpGh8Y6gM=
+X-Microsoft-Antispam-Message-Info: shNaz+7euXHyLAaFiYLmfo7Q+JLhbWlY1i5wRMWbwrWte2ygP6V7ulhEkKVyjBI55paW7UDvUrJAGRZfeR2O79k8jDujvOgs2XVTXgXqNejKIJeC3ELviinK0+wgqeFQdarYTHA4t+1MRo85NZt0E0tyXRMiA6VrSU+g9eGTFfSqTeTyjoArRGn1W57K5jep/9/QInMsnZnfLUgDkz4CccTkHNY5sjjZUaUpO8wxnYdcMvcpf+m78DdbQIUBD+N5jcHQxF1I0HNuA95JuX9UPWadKzS5b/0fuKG1gXAf4XvMBaHyfoD3k7hXeB/A1gvtw/1BzvEcfVsXT8K4AHsJxB9AXNgrLGxRgwpGBc5RAbjHBzsFudxicFP+o7FJxG1kTqyfIcfL2ghS+0M0fQrjdV784v4phXdiAPpIHLD/SIVifyhec1V9sHafk89WjwHhDQqQFxnA/BT+n+47Kldl6cxLTO41erWSGwTfnCqbTm63wkkBnPMKQdPsLFdXugiM+TzeB0ApfcysnR2yYLOHEvEbOAchwk5a+031u+OK1r1fWaoeKV+bHgYZslwZDFtleRIZAuuB1chlFseRUaHcEK/QeneypS0jfzkTSHTYT8UmU/SuhBVVnfg+gicGBg55hzJN0ZaqbLicN8UL76EF1ANDQ/d6m3gEIQNKfMkSd9vXigJjZ4Jk/xmhoFhodqyT
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(366004)(376002)(136003)(39860400002)(44832011)(6486002)(86362001)(478600001)(36756003)(316002)(186003)(5660300002)(31686004)(53546011)(8936002)(31696002)(2616005)(8676002)(66946007)(52116002)(66556008)(66476007)(6636002)(6666004)(2906002)(83380400001)(16526019)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(366004)(376002)(136003)(316002)(36756003)(44832011)(6486002)(956004)(52116002)(16576012)(31696002)(86362001)(54906003)(2616005)(6666004)(31686004)(7336002)(66946007)(66476007)(26005)(7406005)(7276002)(5660300002)(186003)(966005)(6916009)(478600001)(8676002)(4326008)(8936002)(2906002)(83380400001)(66556008)(7416002)(7366002)(16526019)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WHp5eVdBYlVaZVdUaHM3MVZwTWE5TjZydVdQZWwwd2psY3podVVXbVZUeWdK?=
- =?utf-8?B?QmZDSlYzRWUwbjR6VEZhcU9OQVJheFd1TmJuaFIrQ0NuczJ0K3FFaTY4VlVh?=
- =?utf-8?B?Q2hBL0xJZnd5YS9xREpQY0tmSTFsayszYmtjWVBqTC9Zc3QzNWd3Vk9ScXk1?=
- =?utf-8?B?TWsvQWF2STJVU2t5ZElsQjhiaFUyK2puSXBwdGYxYTU5V04zMW8vTFdUOENO?=
- =?utf-8?B?ZTZ2bWVhaUNjL0d0dUpYdWVicTN3ZFBVV01ReWJpK25GdVpSN0pEcnFhZndG?=
- =?utf-8?B?bXFnL0dXSDlqckttcTBVSHcvUC9zMlV0ckh4TU50Q1Fudlg0ZFdId0E3a3F5?=
- =?utf-8?B?L0pqSjgyT3R3MEpJQm1vajMvYmhEeFdTYjIvc2EySFdkMzhWZ1RWcmhGQmp2?=
- =?utf-8?B?TmFlVE5qaXIxbHhSTkd0bzhCTHBiWkV2YTBDMGsrQ0t3NngzYWlFS0RzelpU?=
- =?utf-8?B?VWVXQUdlSStadDZKYW4xRU5Udng4U3doT2ZnaHZlTHlEcU44eE1zcHNQa0Va?=
- =?utf-8?B?RWh5amRhMFhJSFFtYkVxa3hCMUtUdkJDQWxpejVJVDg0TDdOZksrUHRUTGhm?=
- =?utf-8?B?STJlMHBxWHlGcjZ6WjZveDh6aVdjNTRuTFlwci85U04ybWZQQmZQWDEwQ3RY?=
- =?utf-8?B?R05zV0RpOEN5NkZMcUk4bnhoODZmdDJlKzhiS0tqTHRCdTBaNEhRT3l4bVVJ?=
- =?utf-8?B?dHIrZWJ6NE11YkZTMEN5ZmkwTkZWY2dPWjVRME9ob2sxWmdtUGUvOXViOFhy?=
- =?utf-8?B?THJvYWx1K3pacTdCSlN2MTlseUp3MVRIR2ZweGkwQll0NkRXbVY3YTNialB3?=
- =?utf-8?B?Ty9WQ1lyVEk4QjZweHJZb1hsNnJzWnhVbTZKSEc0S2RQTGRkSWMxVEdQako5?=
- =?utf-8?B?VzVFdUtRbHVaMGFlTXNVR1JiV3NZRmc0QmxNa2o0SXdtbWN6Q3h2dS90YVBJ?=
- =?utf-8?B?NmY0dUh3aDI3YWc0MEE3eHVnb1FSQkJlWk5xSzhpNElSQVJZODVFWDRTa1dD?=
- =?utf-8?B?V2krOGlrL2oxdWdQbjdQdFMyU1NCNEt5dHp2V2l0UFpyWmZmV3NrbFZ5NVFU?=
- =?utf-8?B?S1BZbDBjQ2hIeFgwNm01cDMzUUV4ZDRON3N3ajVqQmt5RUVqWXUxYzdJbXQ2?=
- =?utf-8?B?TWIramJ5am15U1U4SVZxQmFtVzlDT2ZMY1ZGZjdNajMzczRBZlRjWFo4NEZs?=
- =?utf-8?B?ZFJsQnZlNVg0ZGhxUzNHNGdyMEhQTVZySTlFZ09hdFpXeVhnTzR2NllNR3No?=
- =?utf-8?B?bXE5cjNZVUR6L3RCQUtvRFVLUE1Ed0NrQjcrbGN1Vm01bm5kaW1LWCtKNjNQ?=
- =?utf-8?B?VTBDd0JyVFB6eW9lVjd5aWxvamFEYnFwOE5LZmxDWkNjNWFKb1FGZUxrR0tD?=
- =?utf-8?B?dEJKc0kxOWlETDJlaUVXVHNTTmFMZUNOQnZ1L2NidFJnN3FlSm5KMzk1blZO?=
- =?utf-8?B?ckJmeXgzUWFnRHF1QldRb1FhWXlTeTJEektKQU5vVWN5aWZlT09zME5NLzQ1?=
- =?utf-8?B?UHQ3aTlSTGpuT3RCUE1CVzRGRDdCYnVIUnEwQkpJd0hIY3M3WC91Mys2QnM0?=
- =?utf-8?B?N1pjUHd2WmhEMHg5YnAxMGpPMmlhNUlITzBkM3hFQWtqY0I3aGxER0JOTERn?=
- =?utf-8?B?bFVMc3pWVTArZFczdnZIUlk4QnJ0TlVhdXdwMlF0S0x5OER2SjVwQVkzMnRz?=
- =?utf-8?B?ZGdCNEx3bnNqMGdreUg2NldLNU9CaklUUTFNVkhhZHlqNGpnaWFtUzRpVE9U?=
- =?utf-8?B?ZXJCczQvQzg5YjV4UDJJUjZaV2xuV3JMQldSOCt0dVQxLzh0YVViY1hqVFIw?=
- =?utf-8?B?UGZZcnVhS1BsbFZ1LzVMYitWYTlvTHBYNE5Xcmovakw1QzF6QnZnTDV6aXZw?=
- =?utf-8?Q?eAAPkOAbFyHKP?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?d3pwZEF6Yk5BbGs3aHhZaXhrR3VxTVJGNHYxblF0YzNiZU92ejUwR2JwZ3Z5?=
+ =?utf-8?B?Zk5CTnYxS2JlZHRkbzh5MCtlcGhoNG1lc3laZlp5bHFrM21JQ0E4MExDTFh6?=
+ =?utf-8?B?STl4Uk1UbWlrWlQ1bHh1VWVPRmtRNTFCcXpUMmlFRVhXUVZuUHZoRVFkcm5O?=
+ =?utf-8?B?SXZBQXhBSlZsOFZTRFh4SVF2a1F2dkpqc05kMWlmOVdscnhDcXc1U1VFYzRw?=
+ =?utf-8?B?WWhHVmN2SGQwb2lnVWJFMUxmNWxsNC9ONWo2TjNxTGlNM2NGMDJFNzZ0UFJD?=
+ =?utf-8?B?c1RsL0p2TUxXUVI3THF6RU1xa0Y0OVFnaXFzMkhaditFQXVMZ3RVYzRLVVpr?=
+ =?utf-8?B?NFpsclRNbDIwdnVZSlpTNzA2Z1R3STlya05DWGUrVEs1Ni9YTS83NzNaY2lk?=
+ =?utf-8?B?d21lWXpja1FzS0VUNWlhakdBZTNyb2t6ODdPeE1iNUdOTk1GMkNGUCtnYjQz?=
+ =?utf-8?B?aURmSXRaTy9IYWZPZDlCR0J2NFBrcWpMSUU3ZTY2dG9rWXQrSmpUOTJSMUJa?=
+ =?utf-8?B?TGRFaXJ0SU00S3ZHZTBiSnhpZElMem44V0ZERXg0NzZUejNhbGJWWEt0YUdx?=
+ =?utf-8?B?TjRtREd3dm5ZOU03eXRheENPM01xazh5Tk55ZnVLcWZHUWd2VjJDNUgxbEJX?=
+ =?utf-8?B?Z2pTcG81N0pxOVRndW0zK2lZMENENFVqZjVKaXdCSm9RaTB0RG9UYjNVelZD?=
+ =?utf-8?B?Wml6SW5uRlZwM2pZNXNIYTdEVzJQOTVpQnViR1REc1ZlVUxOUWJ1N1h6WFVC?=
+ =?utf-8?B?M3E5VFlyT0xob0NPRHNILzl1WlBBRFFGb1Q2VmJkbEZWQnhjM1lGc2EyVUhN?=
+ =?utf-8?B?QmNYS0VvdjRwU25mSnJaa1Jrc01hRFBvbkVpQkNjZTVXQmoySjJldTZ4TnhV?=
+ =?utf-8?B?bFNseXFOUmtSUkpjWStCYXZwa1g2RVYyR1NSVjNXKysxR011MFgzNnRpOTly?=
+ =?utf-8?B?L3FHRFZGR0hqUkVnL1Y1WWxPQ1ZSTUU3cjB5akl0b3VoNzBta3Q2ZlBlRjJL?=
+ =?utf-8?B?OVdZS1FHR3JYd1doUGJKOHZUMmJZUWV5UTRTQmJwemhwMG04ZkZsTE1IVkN4?=
+ =?utf-8?B?T1c1UWN0OTN6VmhVOERkUUI4TzdNcGpyS0lmWmhneXlpak02aEMwN3p1MHlG?=
+ =?utf-8?B?K29MdHB4OHY0TXp1UFQ0NUxVZUlEbExDSnIxNEFRdm1BODhYd3MzRWdpUkVs?=
+ =?utf-8?B?ZXF4VWE4di9TU2RXbVFKc1lkRy84bzlFQ1BjMFl3ZUJIdzlXQ1VxL0RiMnlO?=
+ =?utf-8?B?OS9qdm9rZURVVmtybmJ6cDVUcmRpbjdZd2pNY1htYUI0SnA5OVpuZGo4RTZo?=
+ =?utf-8?B?NTdhRzQ2aGZkUHlFSWtyaFprUlpDS3NPQkZYOVpKVWlxSnl6WXFld3Z2SUpw?=
+ =?utf-8?B?L2hqYnh1VkZidUdELzFpbHJDcVlORTNhUFFvRlQ5WVp5cTFpeTNQK0hWUTF2?=
+ =?utf-8?B?dTJsMUY3d2xnRkp0dlFFWTU3c3pKNGRDZHFZNVp5S0phTVBuV0tnUGpYeGxk?=
+ =?utf-8?B?cG1XbjErVTB0VW90L0VLK3ozMEhubGJoZFFWY0FTTkdjV2dQMFFsM2E0WlY4?=
+ =?utf-8?B?aWprZW9BZ2E3QWhzVXkwelgrZE84RjV3Z0RkN3hMelJqakVPQ1IvMElZa0dL?=
+ =?utf-8?B?VDdGWWxWbFRSb1hNdUtSOHE5aDRJRjJnR2srTFpNZUYvSXdFdlo5cmZ3L2tL?=
+ =?utf-8?B?QTRrZk1PT2o4ZzJKazRNcG9EVURLKzJoTExYbmlnLy9Ec3pEalU1a2NUcENQ?=
+ =?utf-8?Q?rYR2DKRSISq5xAjxU3NYLy11GBIvJ8h3jTKLg05?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef860919-44ac-4db5-1a50-08d8e27df637
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c41c5239-803a-44d9-b739-08d8e27e7cad
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2021 22:03:10.5229 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2021 22:06:56.1776 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8Bx1nGL/aDM08Axkl907OUyee8QMUpAASVs1guAlnsbtLtdRrFBL7M1AndrFfp0swzlINIbgqpE1fgdtb2sU0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2480
+X-MS-Exchange-CrossTenant-UserPrincipalName: zjZLckJncA4XK98JH8m+o4YAaaHhRIL8KE0d1WHi7BTsWrDaJ4+6uzrMep+WABwRWazIcPUDLhUWxSEjC2Asug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2348
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,197 +133,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org,
+ "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
+ elections <elections@x.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The nomination period for the 2021 X.Org Foundation Board of Directors 
+Election closed yesterday and the election is rapidly approaching. We 
+currently only see membership renewals for 59 people.
 
+If you have not renewed your membership please do so by Thursday, Mar 11 
+at https://members.x.org.
 
-On 2021-03-08 7:33 a.m., Jack Zhang wrote:
-> [Why]
-> Previous tdr design treats the first job in job_timeout as the bad job.
-> But sometimes a later bad compute job can block a good gfx job and
-> cause an unexpected gfx job timeout because gfx and compute ring share
-> internal GC HW mutually.
-> 
-> [How]
-> This patch implements an advanced tdr mode.
-> 1.It synchronized resubmit wait step to find the real bad job. If the
-> job's hw fence get timeout, we decrease the old job's karma, treat
-> the new found one as a guilty one,do hw reset to recover hw. After
-> that, we conitue the resubmit step to resubmit the left jobs.
-> 
-> 2. For whole gpu reset(vram lost), do resubmit as the old style.
-> 
-> Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 57 ++++++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 33 +++++++++++++
->   3 files changed, 88 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e247c3a2ec08..fa53c6c00ee9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4639,7 +4639,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	int i, r = 0;
->   	bool need_emergency_restart = false;
->   	bool audio_suspended = false;
-> -
-> +	int	tmp_vram_lost_counter;
->   	/*
->   	 * Special case: RAS triggered and full reset isn't supported
->   	 */
-> @@ -4788,6 +4788,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   		}
->   	}
->   
-> +	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
->   	/* Actual ASIC resets if needed.*/
->   	/* TODO Implement XGMI hive reset logic for SRIOV */
->   	if (amdgpu_sriov_vf(adev)) {
-> @@ -4807,17 +4808,67 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   
->   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->   			struct amdgpu_ring *ring = tmp_adev->rings[i];
-> +			int ret = 0;
-> +			struct drm_sched_job *s_job = NULL;
->   
->   			if (!ring || !ring->sched.thread)
->   				continue;
->   
->   			/* No point to resubmit jobs if we didn't HW reset*/
-> -			if (!tmp_adev->asic_reset_res && !job_signaled)
-> +			if (!tmp_adev->asic_reset_res && !job_signaled) {
->   				drm_sched_resubmit_jobs(&ring->sched);
->   
-> -			drm_sched_start(&ring->sched, !tmp_adev->asic_reset_res);
-> +				if (amdgpu_gpu_recovery == 2 &&
-> +					!list_empty(&ring->sched->ring_mirror_list)
-> +					&& !(tmp_vram_lost_counter < atomic_read(&adev->vram_lost_counter)
-> +					 ) {
-> +
-> +					s_job = list_first_entry_or_null(&ring->sched->ring_mirror_list, struct drm_sched_job, node);
+The nominated candidates will be announced a week from yesterday.
 
-Seems better to check for NULL here and skip checking for list_empty
-above
+There were some hickups with our earlier emails and we realize some of 
+you may have not received them. To ensure you receive this email we're 
+BCCing any member that has been registered as a member in the last 2 years.
 
+** Election Schedule **
 
-> +					ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched->timeout);
-> +					if (ret == 0) { /* timeout */
-> +						/*reset karma to the right job*/
-> +						if (job && job != s_job)
-> +							amdgpu_sched_decrease_karma(&job->base);
-> +						drm_sched_increase_karma(s_job);
-> +
-> +						/* do hw reset */
-> +						if (amdgpu_sriov_vf(adev)) {
-> +							amdgpu_virt_fini_data_exchange(adev);
-> +							r = amdgpu_device_reset_sriov(adev, false);
-> +							if (r)
-> +								adev->asic_reset_res = r;
-> +						} else {
-> +							r  = amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset, false);
-> +							if (r && r == -EAGAIN)
-> +								goto retry;
-> +
-> +						/* add reset counter so that the following resubmitted job could flush vmid */
-> +						atomic_inc(&tmp_adev->gpu_reset_counter);
-> +
-> +						//resubmit again the left jobs
-> +						drm_sched_resubmit_jobs(&ring->sched);
-> +						}
-> +					}
-> +				}
-> +			}
-> +			if (amdgpu_gpu_recovery != 2)
-> +				drm_sched_start(&ring->sched, !tmp_adev->asic_reset_res);
-> +		}
-> +
-> +		if (amdgpu_gpu_recovery == 2) {
-> +			/* delay sched start until all jobs are submitted for advanced tdr mode */
-> +			for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-> +				struct amdgpu_ring *ring = tmp_adev->rings[i];
-> +				int ret = 0;
-> +
-> +				if (!ring || !ring->sched.thread)
-> +					continue;
-> +
-> +				drm_sched_start(&ring->sched, !tmp_adev->asic_reset_res);
-> +			}
->   		}
->   
-> +
->   		if (!amdgpu_device_has_dc_support(tmp_adev) && !job_signaled) {
->   			drm_helper_resume_force_mode(adev_to_drm(tmp_adev));
->   		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 865f924772b0..9c3f4edb7532 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -509,7 +509,7 @@ module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
->    * DOC: gpu_recovery (int)
->    * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
->    */
-> -MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
-> +MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (2 = advanced tdr mode, 1 = enable, 0 = disable, -1 = auto)");
->   module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 759b34799221..3457792b5d20 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -281,6 +281,39 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
->   	}
->   }
->   
-> +void amdgpu_sched_decrease_karma(struct drm_sched_job *bad)
-> +{
-> +	int i;
-> +	struct drm_sched_entity *tmp;
-> +	struct drm_sched_entity *entity;
-> +	struct drm_gpu_scheduler *sched = bad->sched;
-> +
-> +	/* don't decrease @bad's karma if it's from KERNEL RQ,
-> +	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
-> +	 * corrupt but keep in mind that kernel jobs always considered good.
-> +	 */
-> +	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
-> +		atomic_dec(&bad->karma);
-> +		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
-> +		     i++) {
-> +			struct drm_sched_rq *rq = &sched->sched_rq[i];
-> +
-> +			spin_lock(&rq->lock);
-> +			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-> +				if (bad->s_fence->scheduled.context ==
-> +				    entity->fence_context) {
-> +						if (entity->guilty)
-> +							atomic_set(entity->guilty, 0);
-> +					break;
-> +				}
-> +			}
-> +			spin_unlock(&rq->lock);
-> +			if (&entity->list != &rq->entities)
-> +				break;
-> +		}
-> +	}
-> +}
-> +
+Nomination period Start: Mon 22nd February
+Nomination period End: Sun 7th March
+Deadline of X.Org membership application or renewal: Thu 11th March
+Publication of Candidates & start of Candidate QA: Mon 15th March
+Election Planned Start: Mon 22nd March anywhere on earth
+Election Planned End: Sun 4th April anywhere on earth
 
-This function is practically identical to amdgpu_sched_increase_karma,
-probably better to make one function with some flag for the increase/
-decrease cases.
+** Election Committee **
 
-Andrey
+  * Eric Anholt
+  * Mark Filion
+  * Keith Packard
+  * Harry Wentland
 
->   const struct drm_sched_backend_ops amdgpu_sched_ops = {
->   	.dependency = amdgpu_job_dependency,
->   	.run_job = amdgpu_job_run,
-> 
+Thanks,
+Harry Wentland,
+on behalf of the X.Org elections committee
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
