@@ -2,71 +2,42 @@ Return-Path: <SRS0=Wekg=IG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5ACFBC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E22A6C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E9DF164F1F
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9DF164F1F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5536B64FE3
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5536B64FE3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCD46E825;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5E56E826;
 	Mon,  8 Mar 2021 08:22:10 +0000 (UTC)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D5B6E4FE;
- Sat,  6 Mar 2021 11:05:33 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id
- j6-20020a17090adc86b02900cbfe6f2c96so560753pjv.1; 
- Sat, 06 Mar 2021 03:05:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9AfHAOMbxC7MTHsWF8p12oIJD2meb9c1IkmlruG2cLk=;
- b=oQa2f93ojNFEENAzbWjskJgLPWUPepttHtbGGmAwtO+Mmd9qiVp29+g71zchN3IzoT
- JgFje6XxxcNzBJsGddkMpFcn5qrF3b2z2pbWQtdWHkvPxVvOlclTniWBtp2qbnB+caSD
- u22+jTSAjVpBEVSF6Pot9qtJ+TUhFXsrY7cfQ16d/DoH8Bk1t+qfd6KvH8NmLUJD02lm
- du6tldtT/NLHyDuYYwItnYjY9XSX2ob/DXvb4ZsaRdFmD3kuWqv5jDQpk0bRmJUFsIDi
- StN3Ms570K/eyPgfxJTsZ2qacM4bzt6bNv3IP9sQhRcg+xl7InD2U8ubYPGf4F1i4dMz
- X/hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9AfHAOMbxC7MTHsWF8p12oIJD2meb9c1IkmlruG2cLk=;
- b=AhuxikgiJR8xHwIFq3BYtxr+m07enNzqEFPEJ64P13xySOKLYICY9NuFSNaPOsgl0n
- x1kf6itQvBu5c2OTG+V55ByoZsk7gxIF1jtPhKkyw3I+7uc4tGW0WmZZJHp30Hx+jp2d
- kSwtouJYcfyXXt+32UxmwEXW2Qohq6tz1wjDYYPrbQtD2No6c1MXEVVweJW2nQu+l+3m
- b9VaOynsaPqje9aS6eBtTqf1FUQ1wwWunQXIj+ZbscYLCw6OLvxViQINWydQWOsJT7iC
- nJ5MXJu1Fpq52+FlPzmsqN5mCcj5fagbOJy0MXA7xDtyjWjHoNdEjlUV76hGvdhDYgIc
- Zd5A==
-X-Gm-Message-State: AOAM532hT8mCd8zzpPiFK8YRllEHZKM6wwv2NbYe8WqlzmEmeT97T/aZ
- 8+BqNxjahn+ZQcMz03wAlEs=
-X-Google-Smtp-Source: ABdhPJzlIglq+eDAuFl63+agzj8j0YbnG/skFpE8O2PcgFt5z7j4HeTRpvNWTvfpl+R7RJoBUKc8yA==
-X-Received: by 2002:a17:90a:400f:: with SMTP id
- u15mr14728424pjc.80.1615028733480; 
- Sat, 06 Mar 2021 03:05:33 -0800 (PST)
-Received: from localhost.localdomain ([178.236.46.205])
- by smtp.gmail.com with ESMTPSA id d16sm4903743pjd.25.2021.03.06.03.05.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Mar 2021 03:05:33 -0800 (PST)
-From: menglong8.dong@gmail.com
-X-Google-Original-From: zhang.yunkai@zte.com.cn
-To: sunpeng.li@amd.com
-Subject: [PATCH] drm/amd/display: remove duplicate include in dcn21 and gpio
-Date: Sat,  6 Mar 2021 03:05:25 -0800
-Message-Id: <20210306110525.216316-1-zhang.yunkai@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+Received: from out30-43.freemail.mail.aliyun.com
+ (out30-43.freemail.mail.aliyun.com [115.124.30.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAAF6E28A;
+ Mon,  8 Mar 2021 03:00:30 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0UQoFBD6_1615172408; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0UQoFBD6_1615172408) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 08 Mar 2021 11:00:24 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Subject: [PATCH] drm/amd/display: Remove unnecessary conversion to bool
+Date: Mon,  8 Mar 2021 11:00:07 +0800
+Message-Id: <1615172407-4847-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Mon, 08 Mar 2021 08:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,58 +50,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: isabel.zhang@amd.com, sung.lee@amd.com, Dmytro.Laktyushkin@amd.com,
- airlied@linux.ie, Tony.Cheng@amd.com, Rodrigo.Siqueira@amd.com,
- aric.cyr@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- zhang.yunkai@zte.com.cn, aurabindo.pillai@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, wyatt.wood@amd.com,
- alexander.deucher@amd.com, Krunoslav.Kovac@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com, Anthony.Koo@amd.com
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sunpeng.li@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhang Yunkai <zhang.yunkai@zte.com.cn>
+Fix the following coccicheck warnings:
 
-'dce110_resource.h' included in 'dcn21_resource.c' is duplicated.
-'hw_gpio.h' included in 'hw_factory_dce110.c' is duplicated.
+./drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c:561:34-39: WARNING:
+conversion to bool not needed here.
 
-Signed-off-by: Zhang Yunkai <zhang.yunkai@zte.com.cn>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c         | 1 -
- .../gpu/drm/amd/display/dc/gpio/dce110/hw_factory_dce110.c    | 4 ----
- 2 files changed, 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 072f8c880924..8a6a965751e8 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -61,7 +61,6 @@
- #include "dcn21/dcn21_dccg.h"
- #include "dcn21_hubbub.h"
- #include "dcn10/dcn10_resource.h"
--#include "dce110/dce110_resource.h"
- #include "dce/dce_panel_cntl.h"
- 
- #include "dcn20/dcn20_dwb.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dce110/hw_factory_dce110.c b/drivers/gpu/drm/amd/display/dc/gpio/dce110/hw_factory_dce110.c
-index 66e4841f41e4..ca335ea60412 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dce110/hw_factory_dce110.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dce110/hw_factory_dce110.c
-@@ -48,10 +48,6 @@
- #define REGI(reg_name, block, id)\
- 	mm ## block ## id ## _ ## reg_name
- 
--#include "../hw_gpio.h"
--#include "../hw_ddc.h"
--#include "../hw_hpd.h"
--
- #include "reg_helper.h"
- #include "../hpd_regs.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index ae6484a..42a4177 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -558,7 +558,7 @@ bool dal_ddc_service_query_ddc_data(
+ 			/* should not set mot (middle of transaction) to 0
+ 			 * if there are pending read payloads
+ 			 */
+-			payload.mot = read_size == 0 ? false : true;
++			payload.mot = !(read_size == 0);
+ 			payload.length = write_size;
+ 			payload.data = write_buf;
  
 -- 
-2.25.1
+1.8.3.1
 
 _______________________________________________
 amd-gfx mailing list
