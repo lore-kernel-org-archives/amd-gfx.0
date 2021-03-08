@@ -2,66 +2,56 @@ Return-Path: <SRS0=Wekg=IG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A5CBC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 18:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD462C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 19:05:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6D046526C
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 18:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6D046526C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 907AE65295
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 19:05:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 907AE65295
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 891646E418;
-	Mon,  8 Mar 2021 18:46:02 +0000 (UTC)
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 257A66E418
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Mar 2021 18:46:02 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id z22so2433033oop.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Mar 2021 10:46:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/X0agx0ndxNm3eZMm/qmSb0hVvGKfodjh08BHaEj0Jg=;
- b=FVB03KMrbEfM/RuaYwL7LzFkLaVuj8M6TyHdhDZ+IiJBPFH4jt3gCYqlsz84SoH1rM
- BCO8jMz3ACmdETrIatuGo4LrudmbxU5KY4xPtj/DEh+riaf9YkGyXrSOSZYQEaug4PVH
- lZYnRj4TpICYvNEWJ9dDVEqw82FmYloE2ju84/1HEmbjbKJv/pxj7VTWlCqUS6ADZuHc
- v8UuFlkB7t+AmfpB+FL8C+HXJBO5kroETa74YZI02IS2cCLt93gTTC6aSoSZZU6L1/K7
- eR5PjPWSe5hHc6rHd/G1iwS7gdAsS6IC23aXPwCDaQJffY45hukxbY70/wDC+pCmEAMB
- t84Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/X0agx0ndxNm3eZMm/qmSb0hVvGKfodjh08BHaEj0Jg=;
- b=uHmcY4ZYifUAG3WYL9MS2rwtdcQwUe2fthJFRdccDqY7UPjzRTaGh/vmOQs9BtCl90
- THl+K3nPbzSH8aVxW2cK7xitbePKzKDwhXYMVo3JKSR14YfHMcyhHC82BZ9xRjmvvZtH
- qRXk1jXwd63MDjKoSUhaERxnjN0QONaONwylfLXWZalXzypBkWak+m/fXVyabY+mxhER
- DMyvs6S45GxiNmSlwzA683EoOOTTfNrLfu93cVgfS5wqPX59SS4+xnCe4kVDIBgdCuDQ
- l4GW4nZ2mvrBDlvpnk9PCO1lo2rpt8qss/4kXo2dFmQUm43h6GsWedbly7D4PGBBK6To
- BEYQ==
-X-Gm-Message-State: AOAM5335l5p6cUPxJMmgIaUdU6ZG5F5jZaMjWZm8E9mXIy2T+zlEUHiz
- FxyYBpt1MxuMJoVC+j7Sa+nNORG41hXQA6FzXW4=
-X-Google-Smtp-Source: ABdhPJyw0fU3PCpTuhFp2+9cVzMnkBaTHhbdJteDgJ8aX1wXsQattTksBhaehYWJoGXfuH+D6GQomMnQwLXHAYbDxfw=
-X-Received: by 2002:a4a:9801:: with SMTP id y1mr19392747ooi.90.1615229161488; 
- Mon, 08 Mar 2021 10:46:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F79D6E86D;
+	Mon,  8 Mar 2021 19:05:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4056E86B;
+ Mon,  8 Mar 2021 19:05:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 67C856529C;
+ Mon,  8 Mar 2021 19:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615230343;
+ bh=R1rZmVaVvjoZHSq0MeocIwyK7X5t9Cgt5fsNcUmcg0w=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=vQ85r2gJhzWZyS3Z1Gzr29JNh8EbH0qMgxZ9jya/fCUyWXfvtdt48O6UpSHSB/gvN
+ ZKcdaAoD1wuApWyzJIuj96JOgDmAmpTa2w8C2L7Wc5nDGrp8K7eji0pTuaudKDcsXG
+ +MZm3M6fj3nrvq4WNDwIoCN0TQQ57axE2xZIGWyiGI9N01VKp+6MvDLRJXelfE0Whr
+ shrFaVnIogkBWlyBKnku4IUfqAweDPsMVpPi1s2gbIsI2VLJb/haLqZ/sopiQgane4
+ PoLYZIEGR/Zfv4xaca1Woh9/lODGkAb9oBFTcZFsU7EL1Q7qahG5vn2nUYF98DXy8e
+ 7heL5AhQV7SOw==
+Received: by mail-ot1-f52.google.com with SMTP id t16so10286613ott.3;
+ Mon, 08 Mar 2021 11:05:43 -0800 (PST)
+X-Gm-Message-State: AOAM533fG6ohcZWeyImIeWwT58NCTV89fgxI4Kmu+kFNxXdl3QU1ct5U
+ 86qCS+JgU73RiwJResqghBcPQToA3QlGMb3QRJY=
+X-Google-Smtp-Source: ABdhPJxO5GgsPMAdySatZEpnLT5ES1NNv5sH2i/FK9scIBoJLHmJYX1m+WNKtYZ9Jv1tGw1FZ/zrD77JQAREU7zsxeA=
+X-Received: by 2002:a05:6830:148c:: with SMTP id
+ s12mr3345826otq.251.1615230342591; 
+ Mon, 08 Mar 2021 11:05:42 -0800 (PST)
 MIME-Version: 1.0
-References: <20210308183643.36710-1-christian.koenig@amd.com>
- <20210308183643.36710-3-christian.koenig@amd.com>
-In-Reply-To: <20210308183643.36710-3-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Mar 2021 13:45:50 -0500
-Message-ID: <CADnq5_Mvpo2R2rohLAmv2D2uTgyjJHf58dO7=q5M0=JMScZ8nA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/radeon: keep __user during cast
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20210308153359.2513446-1-arnd@kernel.org>
+ <176cae4d-33bc-1d51-a7d7-58eeeea5180e@amd.com>
+In-Reply-To: <176cae4d-33bc-1d51-a7d7-58eeeea5180e@amd.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 8 Mar 2021 20:05:25 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a0nUKSJ2+knM6+REp8HXRFbz5-DmNRAusezkT+XzZQa7Q@mail.gmail.com>
+Message-ID: <CAK8P3a0nUKSJ2+knM6+REp8HXRFbz5-DmNRAusezkT+XzZQa7Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: fix build error with missing AMD_IOMMU_V2
+To: Felix Kuehling <felix.kuehling@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,32 +63,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, Philip Yang <philip.yang@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-U2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgoKT24gTW9uLCBNYXIgOCwgMjAyMSBhdCAxOjM2IFBNIENocmlzdGlhbiBLw7ZuaWcK
-PGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPgo+IFNpbGVuY2Ugc3Rh
-dGljIGNoZWNrZXIgd2FybmluZy4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb25fdHRtLmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwg
-MSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
-ZW9uX3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiBpbmRleCA1
-ZWE2NDdmNDU0ZDMuLjgwODk0MWUzMWQzNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3JhZGVvbl90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
-X3R0bS5jCj4gQEAgLTkyMSw3ICs5MjEsNyBAQCBzdGF0aWMgc3NpemVfdCByYWRlb25fdHRtX3Zy
-YW1fcmVhZChzdHJ1Y3QgZmlsZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKPiAgICAgICAgICAgICAg
-ICAgdmFsdWUgPSBSUkVHMzIoUkFERU9OX01NX0RBVEEpOwo+ICAgICAgICAgICAgICAgICBzcGlu
-X3VubG9ja19pcnFyZXN0b3JlKCZyZGV2LT5tbWlvX2lkeF9sb2NrLCBmbGFncyk7Cj4KPiAtICAg
-ICAgICAgICAgICAgciA9IHB1dF91c2VyKHZhbHVlLCAodWludDMyX3QgKilidWYpOwo+ICsgICAg
-ICAgICAgICAgICByID0gcHV0X3VzZXIodmFsdWUsICh1aW50MzJfdCBfX3VzZXIgKilidWYpOwo+
-ICAgICAgICAgICAgICAgICBpZiAocikKPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-cjsKPgo+IC0tCj4gMi4yNS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, Mar 8, 2021 at 5:24 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> The driver build should work without IOMMUv2. In amdkfd/Makefile, we
+> have this condition:
+>
+> ifneq ($(CONFIG_AMD_IOMMU_V2),)
+> AMDKFD_FILES += $(AMDKFD_PATH)/kfd_iommu.o
+> endif
+>
+> In amdkfd/kfd_iommu.h we define inline stubs of the functions that are
+> causing your link-failures if IOMMU_V2 is not enabled:
+>
+> #if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+> ... function declarations ...
+> #else
+> ... stubs ...
+> #endif
+
+Right, that is the problem I tried to explain in my patch description.
+
+Should we just drop the 'imply' then and add a proper dependency like this?
+
+      depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64)
+      depends on AMD_IOMMU_V2=y || DRM_AMDGPU=m
+
+I can send a v2 after some testing if you prefer this version.
+
+        Arnd
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
