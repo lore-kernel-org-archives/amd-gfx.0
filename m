@@ -2,68 +2,42 @@ Return-Path: <SRS0=Wekg=IG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C380C433DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9A7EC433E0
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7A6C64FD4
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7A6C64FD4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4A60464FD4
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Mar 2021 08:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A60464FD4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D7AB892C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A89EB89DB5;
 	Mon,  8 Mar 2021 08:22:15 +0000 (UTC)
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A8926E57E;
- Sun,  7 Mar 2021 09:20:33 +0000 (UTC)
-Received: by mail-pg1-x52d.google.com with SMTP id a4so4428712pgc.11;
- Sun, 07 Mar 2021 01:20:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=c4bUo1XFYPqAeWFc5nQ4FKN414jxkX238K1R/ykzSZ0=;
- b=D7UhJ7EnN9e5KT1lZ91iZj61RL26XDi8obkAgdhqzDnNcwkKNLsaf8VqM3RWRjtWt5
- OdPE8Bc2svyUlL1HrlfidK5ckxDvUAqoVtXcGzvRKCiXXYMeG1K57dunTWAtcY9u5NGR
- MczLfdo6LenbQugvzgRKNStdiXaObz5Du/XvUzxkic0qsOzctUgB4IfA0Ed3/psuU4VK
- gJbl7EET9zA2itrQEFE+Vip00b8UNbLXLufTw3KOWrPXcE2YroffGvC6oqdJ/1HzFTYJ
- gnmBpnURiqgSCjxKezNt8vtmq20VB8Sg7zxDRoTuUHUJzo2Ep0qMQGqrjPY/uzreQSCF
- N24g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=c4bUo1XFYPqAeWFc5nQ4FKN414jxkX238K1R/ykzSZ0=;
- b=dpzkDcwiZHFvA7C18O6tQySEN1wIqmoWYwVJxZew+F/uYEBzQaZbC5/6pvgNw5/sm1
- A23Q4OGLH7NJjDnIf+VrUp5dTW2ZQ1AmWE5FsT0HvwkMpbyQG1ubXtO6abD/za7cDVVD
- JB13rFvyKQVkeKLi+HZpS+SN3dwAYRLlkwLmDOVSLcdlw0DUcPsQYLuMELULvhAaE99q
- yuvfpGma2ibDN2YSnWOaw5kCAdVNFFyBQ7RRkUmrjHfYs3uaZ+KZZv+BfTla3UGa8JcN
- nUtVodwUe7ANyXUBnJvRDHGNmcxQzAfF6qmmZPrW8KumP2KyZOMem1v85wNefL7IVRe8
- zyJA==
-X-Gm-Message-State: AOAM5332ug4C1GrBSmS7IxD+rCEJ2AdtcUZYIcWTrPKRmHZl6P5tUhYB
- LblBCoM++T5gbPUShv9js/g=
-X-Google-Smtp-Source: ABdhPJz1uPwCUfKa/qYEPfhyrW47W1tOAJ6N5pgPD/1Mb7yG5oWsxd78yWCbc1nuD6bFQeJS1n/6/w==
-X-Received: by 2002:a63:e109:: with SMTP id z9mr15927732pgh.5.1615108833244;
- Sun, 07 Mar 2021 01:20:33 -0800 (PST)
-Received: from localhost.localdomain ([45.135.186.66])
- by smtp.gmail.com with ESMTPSA id o3sm6825678pgm.60.2021.03.07.01.20.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Mar 2021 01:20:32 -0800 (PST)
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, yebin10@huawei.com, luben.tuikov@amd.com,
- Likun.Gao@amd.com, Prike.Liang@amd.com, avg@FreeBSD.org
-Subject: [PATCH] gpu: drm: amd: amdgpu: fix error return code of
- amdgpu_acpi_init()
-Date: Sun,  7 Mar 2021 01:20:10 -0800
-Message-Id: <20210307092010.23117-1-baijiaju1990@gmail.com>
-X-Mailer: git-send-email 2.17.1
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3BE89E14;
+ Mon,  8 Mar 2021 03:14:28 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R231e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
+ TI=SMTPD_---0UQp.mbY_1615173259; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0UQp.mbY_1615173259) by smtp.aliyun-inc.com(127.0.0.1);
+ Mon, 08 Mar 2021 11:14:25 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: Remove unnecessary conversion to bool
+Date: Mon,  8 Mar 2021 11:14:14 +0800
+Message-Id: <1615173254-22078-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 X-Mailman-Approved-At: Mon, 08 Mar 2021 08:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,53 +50,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ sumit.semwal@linaro.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com,
+ linux-media@vger.kernel.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add error return code in error hanlding code of amdgpu_acpi_init().
+Fix the following coccicheck warnings:
 
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
+./drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c:1600:40-45: WARNING: conversion
+to bool not needed here.
+
+./drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c:1598:40-45: WARNING: conversion
+to bool not needed here.
+
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 8155c54392c8..156f30d5a2c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -788,12 +788,15 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 
- 	/* Probe for ATIF, and initialize it if found */
- 	atif_handle = amdgpu_atif_probe_handle(handle);
--	if (!atif_handle)
-+	if (!atif_handle) {
-+		ret = -EINVAL;
- 		goto out;
-+	}
- 
- 	atif = kzalloc(sizeof(*atif), GFP_KERNEL);
- 	if (!atif) {
- 		DRM_WARN("Not enough memory to initialize ATIF\n");
-+		ret = -ENOMEM;
- 		goto out;
- 	}
- 	atif->handle = atif_handle;
-@@ -803,6 +806,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	if (ret) {
- 		DRM_DEBUG_DRIVER("Call to ATIF verify_interface failed: %d\n", ret);
- 		kfree(atif);
-+		ret = -EINVAL;
- 		goto out;
- 	}
- 	adev->atif = atif;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 690a509..b39e7db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1595,9 +1595,9 @@ static int sdma_v5_2_set_clockgating_state(void *handle,
+ 	case CHIP_VANGOGH:
+ 	case CHIP_DIMGREY_CAVEFISH:
+ 		sdma_v5_2_update_medium_grain_clock_gating(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 		sdma_v5_2_update_medium_grain_light_sleep(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 		break;
+ 	default:
+ 		break;
 -- 
-2.17.1
+1.8.3.1
 
 _______________________________________________
 amd-gfx mailing list
