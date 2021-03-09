@@ -7,54 +7,56 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F340C43332
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 08:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4220DC432C3
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 08:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 381576525D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 08:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 381576525D
+	by mail.kernel.org (Postfix) with ESMTPS id EECB765266
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 08:47:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EECB765266
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1732088810;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3424088071;
 	Tue,  9 Mar 2021 08:47:15 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBDDF6E8B4
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 08:47:13 +0000 (UTC)
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5684E6E8B4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 08:47:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y/qK8Y0uGVKX+4v85czD7KDsGCiiASueNUT/23upZcLIlLGEk+tW3fdidfr/P8iBhI6ll4IlqNwBjfcSj8kck5aRLgsqoK3IREpFyTiOBtQAHRgXLLZGWKA3gHLt/g/U1xyVN9s9D4kDpB21FISgxAtkpyaOGqKhY5EV2gO8GSfpJ31LZ66tT34kYVQxi79/FN1j2sdp9byEttiqbzLJOWg5o0KgHzYonEcOVd/g9zzerKlUCvX2WyKErFZQgNE82czcHgqjhQ3hXw+Az+E44Rj6bzdLmXakUPEmH/fU/TqCCiS9KCzzOIQxTdn/K3nAsICFpUxwurqAbHnPOjIewg==
+ b=T0elT/hqQ4j1yh/MlyAFciO2ZMJqC/oF4rE7fSdbcXRN8KifGs3rUFPkIphryTo1Jz3rrEeJVcdexsz5kVo5Hflb8/42PEdXct2Jxz669L8DEIwfW38SCVxC2cZIiPOjvD4iRCa2JrSJF2QK0vGnPaRIEjlp1B1A4T7IoSxjLp3FplD92EYTpEEsACY13Qx2UNKW9M0Et19U5+dF6mHPApWFVrWdwZVGcInXuQ9Tdac5x8jqU0p6otwwdo26rttG0wElmO4N0zzU8OlmFs1591inM7Sijkkeg+JqqXdH9WG2esSobO+FihPcqfROjNTfKQxDKTFqdN5kclyMQzuMIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KRQFAbsHvN0G/ZfdppYIE3oOKVnVJWzMH1N++NWlBsI=;
- b=lAm2NCt/pxxG2gjS0qoFwN5u1pdiQCSv5zJkmRzVE4GB3BLkY2Xk4hN17PnVU3xJ8FCMiWg/40XQ7SPHpsvWEgd0t8hdRdEKlTU6LSzY463UIZoj6ULF2VBgUiNhNlLe/6+K3tS+Ay+EpiJCGDwE06oYX5g3KxzaYuEH++swpkjJKG4+Qdul32EHU1Q4MRYvKuJNyELoqT10fiAB3yEVvUb60xbAodrctlEy5lM14JviZOcf3PnsnBrD40U10e07jUT7j6OioBQmHMSOUU1Pk1IN5/Wgju4Wzye2nI5eKqRnOE7wU8KiOer41mCzGw1SNKAojhThM9GCcfWr6LeKZg==
+ bh=t11/oh4lF+QZnZlhVMVlNQnlNpVmKuc8yQw9+04WfWE=;
+ b=KKVw4v8eQrMr0qyesNKToYRKPmvYUFaJKzYeXRZ9oaGDEm8CbSFaauiHBhek57PP9xRYvRmbooL2WdUi99K59ViPrRVmfxJMrvMHeziDZfKuzzOM6xMXOrW3bFyAq/g4lfsZw65uYJ19luZ5bYzIwYupg/T12gVchb9zKPlX5LeLPGq2AXX55lBUdYoLMhwo4juzrkbrxwrvhj/iHSm5u1zodjmSatx7u7XtVoet2eDz03zOZqoROBI4GFJILtVa+ZaFsNazcJdM9LOtGmalqyPewIZggaLUFCN7k28yKypMjzdogFBjV7LdL4As559bRr9IbDDr32OO2NFVYNbvGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KRQFAbsHvN0G/ZfdppYIE3oOKVnVJWzMH1N++NWlBsI=;
- b=UBaKMIQfk2OpyhqkKH2n1EhfIkxAq9s+jruu8YnRvaS2J/XLbOSr4Gwd3qjRXcGkHTqOJZ2kLbixer/l/iBvmEfIG4JfuYlOI/L+ADWX49xsMvA7Cc++hhaEKwDJGtncxlEreLy+t4m/LDV36lXldr5duMC5LX7qSRAqF7Mf8Cw=
+ bh=t11/oh4lF+QZnZlhVMVlNQnlNpVmKuc8yQw9+04WfWE=;
+ b=WKaKEZGbQPfX6y19FGCAZf6pcqa9QLu3RBUbHiArmbs2H+q7lhG6FY+ZN81KMIMPdbPeX8MO7t6CLvtlsM7JGEkHm4VBOYId4lG1itAqMuxNZ7p63TIkFzUmCXU5h8Bf18wPojL7A+zquQn2eg5Nhb7q9mPAJqPJP0WfmoYh7Mo=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from BN6PR12MB1459.namprd12.prod.outlook.com (2603:10b6:405:e::8) by
- BN6PR1201MB0017.namprd12.prod.outlook.com (2603:10b6:405:53::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Tue, 9 Mar
- 2021 08:47:11 +0000
+ BN6PR12MB1377.namprd12.prod.outlook.com (2603:10b6:404:1c::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3912.17; Tue, 9 Mar 2021 08:47:12 +0000
 Received: from BN6PR12MB1459.namprd12.prod.outlook.com
  ([fe80::21cc:170a:9889:4460]) by BN6PR12MB1459.namprd12.prod.outlook.com
  ([fe80::21cc:170a:9889:4460%3]) with mapi id 15.20.3912.027; Tue, 9 Mar 2021
- 08:47:11 +0000
+ 08:47:12 +0000
 From: Nirmoy Das <nirmoy.das@amd.com>
 To: Christian.Koenig@amd.com
-Subject: [PATCH v2 1/5] drm/amdgpu: allow variable BO struct creation
-Date: Tue,  9 Mar 2021 09:46:55 +0100
-Message-Id: <20210309084659.37649-1-nirmoy.das@amd.com>
+Subject: [PATCH v2 2/5] drm/amdgpu: introduce struct amdgpu_bo_user
+Date: Tue,  9 Mar 2021 09:46:56 +0100
+Message-Id: <20210309084659.37649-2-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.30.1
+In-Reply-To: <20210309084659.37649-1-nirmoy.das@amd.com>
+References: <20210309084659.37649-1-nirmoy.das@amd.com>
 X-Originating-IP: [217.86.127.127]
 X-ClientProxiedBy: AM9P193CA0028.EURP193.PROD.OUTLOOK.COM
  (2603:10a6:20b:21e::33) To BN6PR12MB1459.namprd12.prod.outlook.com
@@ -64,54 +66,54 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from brihaspati.fritz.box (217.86.127.127) by
  AM9P193CA0028.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::33) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.17 via Frontend Transport; Tue, 9 Mar 2021 08:47:09 +0000
+ 15.20.3912.17 via Frontend Transport; Tue, 9 Mar 2021 08:47:11 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: bea1c024-1c33-4b9a-f220-08d8e2d7eda5
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0017:
+X-MS-Office365-Filtering-Correlation-Id: c569ddd2-c97b-43a7-7e21-08d8e2d7ee79
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1377:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB00179FF508BDD081B5BFBB9F8B929@BN6PR1201MB0017.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:335;
+X-Microsoft-Antispam-PRVS: <BN6PR12MB13778CA5772EE8B15F6FB81C8B929@BN6PR12MB1377.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4JXVm4JZCrXPIHJ7xV4RQ2d3IPGQ1sqyCoU5wgAO4aZ8yW1ZFEFuEl3fAVZQklMsbQuluiqlpweDFuB2hKdWRm58d9tkcVk3Ct7AInJrg1wlV56kVasg5mSlv6HUN44rl7OKzNO4O0oPoQzffURlW+tq5hqXhrqdcaN6P1AVKcpc8yP8UBdffpNeQKZ/Faskweyl5OVfj9mW/PJHI85V2j9IoFSEr90lGIbxYYmbfPk4PQQaQlh1IzDmCd9LgLIGHQFalW4xadHL2WJzpMbRwUn1/4X0pvFOilAWWnTKDMLltWeUPeb5HTleS+tGoyew52LA5vaWZhGC4nYRw3715U8od4ZcTYmb3z/MhTX41ajepC1UcCbP9xviVZ5t9FsJmTSLzP+VIjLwNEL3wffpvTO5YQT6g2rByuT6wBGUiKGFtMABDaWU/gWHHB+fN0Klj0sz0K+Rq9SQOi1pG6fXNodWBF7M8t/O4Hrifl7QRJkDJvg3CX9SUq2lKl/VrEzaXneohCi27QUEv5MSBichQg==
+X-Microsoft-Antispam-Message-Info: PZCpsgSjjM+1cEbWsECAWbNA+hNtK84gAZA8OVMB9WZRuPbYFgD5Tujs5g2UxD8YohRSAZLBU8wb35An1FjKT0Ygm1xYdHKys/jJKeUpzjGuxgNTWvYvsehJfYo5ZuJtekNRUIpw3wGYtMAHMfw8WhVda7S0mg+PIWNdAAy1jmUsvBm2fPUQ5+1ZXNqAP6VAiEXlf07/F1+4NZixy6eOA4aR0JNVC88nve+8aXZ/jpO6p60WkA2acanh8Lve4vWkl5Shv8eDLReuZf25PBnAW2G4x6oLiq12MiWzyqhnBrPztNFaJmRjvmHO8nN1tMJ4fhmy8ch6CCEu+ECLL13rbdObuH7uogaZKSwO9ywAHF6VjXyA/VczqM1vGxL0Gx8YYBa+A777ZbwM1/3sBPySSRsZafz2zPRKAljgnz7kT1TDi/scxE1oYFYyPPh+GeCDLIss3qXyhiU60NUmucMPerNPiQTTULVO7au7Y59ghqQYEpaamGGnhKs0XwqU6VWr4OupQFZJEZ3GU/od52Dw6A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR12MB1459.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(36756003)(83380400001)(956004)(66556008)(6666004)(6486002)(1076003)(26005)(16526019)(2616005)(478600001)(2906002)(66476007)(66946007)(5660300002)(4326008)(186003)(6512007)(8676002)(44832011)(6636002)(6506007)(316002)(8936002)(37006003)(34206002)(86362001)(52116002);
+ SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(66946007)(6666004)(2906002)(83380400001)(316002)(4326008)(6506007)(36756003)(956004)(478600001)(8936002)(5660300002)(44832011)(37006003)(1076003)(52116002)(8676002)(6636002)(34206002)(66476007)(6486002)(66556008)(26005)(6512007)(186003)(86362001)(2616005)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?x22IwiQ9rjcUeX2F6rZHDH/Hu6CXnqX8j92W+IjiP3A9WMVG3dezz3sKeDQn?=
- =?us-ascii?Q?A46RswiGxPEsdj37Fxo2yX3U/Az31ooZxTERiBfoZEMQY3YIsA7cGK2UevbY?=
- =?us-ascii?Q?+CDk4W3NgYw12eqfYGcOE6IvwHcebaVKjVdJe8KgBeNOOHxdFTzVaKOxNshx?=
- =?us-ascii?Q?iO9Z+F+HcHgLoSnmD2oA9cfSB9UJq2uM1pOQt773hU8Zk4HJVJpGGizwepFK?=
- =?us-ascii?Q?wDSqZSIEASzAUMPQLuvQKkmvEPxoNlM+nnHNp+nludFV06fHln+kuqbhbJCy?=
- =?us-ascii?Q?cbc6SPNr3/AYZUTULMhXJERf9kneJFuFpPE6qcSkH+b56gkR18+0lTtCrop5?=
- =?us-ascii?Q?Vl9QYlE8E153uT/kosVPs1dQ5+qvChQCemUIs8dN6OCszXiEOHmg5u43LsHM?=
- =?us-ascii?Q?7QVhM755OtC8M80n30VRpgrfCFKfZhq9vYyfCQNNZG1GisZPk5P4trtizAbo?=
- =?us-ascii?Q?J5h8qLzIY88rKCae8t4lnu0WXs2+SRsWhUd7GZX/M+UE+UG2bF37mUO6Ge6Z?=
- =?us-ascii?Q?nqTbEgOMbC8xdBjt+AjJf6qC1tlIpzHp0FrxTkZBG8jf3phWzEJd92I4dJgL?=
- =?us-ascii?Q?FIHZF7om7mFiNxuvKRShfeIedVeBq/dlEj7Kx33VyCWcOQKyha4FYjRhUBsc?=
- =?us-ascii?Q?5hE0wH2ds4+UIMsAqM9M33nz1ngmlNKiLw9s3N5sArFLfg0OJAZ/NWk3k1te?=
- =?us-ascii?Q?zeGcRtgn8Aicfz4RwXQfnpt/HoFoVGa5Hgod15BEd3f4vLvlOMyqVjsQAG04?=
- =?us-ascii?Q?iwCCaq4/gdODREI+dOl+IBqmQKZ25PuKXuPdty5RDgXXXAnH4KxgxBQixgNq?=
- =?us-ascii?Q?Y0/Je5TSw7m530Jd0raltPcEAFEnONGhD0O38z7AjT66/MAlVVuB1aCkuDT9?=
- =?us-ascii?Q?itFGlI3WSkJ5zUIfs2rPcVnhrIxEFJWWQqmKasDo+cFxWfTbt36QpUR3uupS?=
- =?us-ascii?Q?jAFDUE7hebEDXm878Jaub7iTS9Lw3hs5/bCxMpdRaclbWtGgWjtWXY2G/eAB?=
- =?us-ascii?Q?MtbY/Zpb1HWCC6n0uiiAVNZ/8vfvSn7YpBCFIIBVrFaDI7+k88EQeYReu1ez?=
- =?us-ascii?Q?yZpzeqRQLkoIUKQGG0BL6pMIxM3oQqJciqm7vLnkIVvQA7ufzkhcwsVBJ1eb?=
- =?us-ascii?Q?IHxP1Vrwt6Vdt77EISkFlhu6BTt7LDC4sAORrzfFwL0x50gTlH7LU1o9udm4?=
- =?us-ascii?Q?bs8HX6QlnY6ZWv1DEH5X4b4NwQAtQskaIeNWqJXtT1q2DkGRajthwV0z5ulm?=
- =?us-ascii?Q?eX9v2CahpVPGvGMawM9JOS6Pk2lrc93GRyc1KywJGdevQkAF7VhQRF/eEk2F?=
- =?us-ascii?Q?QdCVip7rHzbyeu88xOibahlb?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?l7VoRRPTseyN1DW3UWiJiZXfDY4Q7YYNfm6HmkKvRbt9CoBbIsL5Nebpka5/?=
+ =?us-ascii?Q?ff7lyB0A7QqfZSgQqVMr1hzqiqxDPwWppXA60YyXG7tCLVAr0f7P5lB4Lonr?=
+ =?us-ascii?Q?Zs/x/qAiT+BgNLvSgYlXHme5z43lKXdT+rXmhtlcqG1BPfJ2cuQ4D9Ra4lWt?=
+ =?us-ascii?Q?83vx/4wUS9TF7A+iPz4lShi9V7ttk3KxVw8AT/4oBdh+GnmAGVhzjI8KC+xj?=
+ =?us-ascii?Q?bqqtZfLgKTw9Z4VuBra3eqvjzejPKoXAFVLXLP6OfcYY4za8SBQ+4lkmZd2X?=
+ =?us-ascii?Q?QsWHLLhSYRU6rBNtl4b7d2wfbnxq46tQeyeJC6LSbBL9bKRycVI+7kfNju2p?=
+ =?us-ascii?Q?1Fwi9JyudKI00gdlzu7cVuLqvJPXa6s4oznfQSeayanY1j7RgumKHtKYCWed?=
+ =?us-ascii?Q?1DUR1Ap8oq14BS16orFevEEMz8lyq6Wi3GsC1fq3ZjZRuuurXa94IkeP9iAm?=
+ =?us-ascii?Q?J61lD+0b4/UQRDHNo53aU3vfdnHnRDAHqROskdtxgtvWUJp2T4Mvn52nfwhV?=
+ =?us-ascii?Q?g7F1OS48z2DMqzI65Fm3NUNPfId62Le2mmnReXAWwD2pZVbZvSc2tpQ0ZDcS?=
+ =?us-ascii?Q?qgRB80pFliMBWqo9EakCdOCFdvWk04DNML3V8GacemvD1s6meBwbIGR0akYB?=
+ =?us-ascii?Q?gQ4pzFsOf794mNxOMA2vYKaruM9+ozPDe0JQuVQb487mrzrPKOhPs2SJFIsL?=
+ =?us-ascii?Q?PpXPxLF5I8XnoncW7hLHn7XmNv9s2R1NyBdZad4uXak9JrjB1SNqNAl0Fp4F?=
+ =?us-ascii?Q?ApcBWErqIjRYf9uNfD6iimWmL5RJg0Btf3/MouWnluKNtBeYREoFlAldVOrg?=
+ =?us-ascii?Q?6zFsbqa6jd1oQPYDlQS5UtCio12gjcVsmikJQ/Y9P81BgkMzS7mGNokFkHXB?=
+ =?us-ascii?Q?esXF0qCYpDwcrf/ESDS90Kh8JjJFifSvm3rkRepF+0FpKpXAhtRD/0jo/dNr?=
+ =?us-ascii?Q?fPKfPLfH4vMjwjsXfg1olbPHim7aCooXk0YRwNnebG8ER5372N/Q2GvO3kj1?=
+ =?us-ascii?Q?SicX8y53SqcNM9lgH4fDpJJKWIQs6Wu7l5txZ81LuETvGztcpxWcHJoIZB6Z?=
+ =?us-ascii?Q?Dm0yY3in3HqKjiFfkaUj7CzlsiBLbciF8j5Sgpe+O6yIAVIsiKCrDpzaHfcd?=
+ =?us-ascii?Q?m4eYvmGxnJrgyZvfzmSXoTEAFRTz2DpRDh8XFBKpxqN5RSz9WZp3+eeatOdp?=
+ =?us-ascii?Q?Y0C0r7xmZf9d3vL6RrlkOqkvRPUlKI7CEbvB3QyaYgpqdXJ3QSxBFY4fxiJl?=
+ =?us-ascii?Q?qrcHq5p+4VggGyZko6e6/ZoMPuEjJrEZv6kVSA4xg43YmnKGZe1NJo5VqsnH?=
+ =?us-ascii?Q?0UoIL6bLZAnBd1mL0zAjDdy9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bea1c024-1c33-4b9a-f220-08d8e2d7eda5
+X-MS-Exchange-CrossTenant-Network-Message-Id: c569ddd2-c97b-43a7-7e21-08d8e2d7ee79
 X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1459.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 08:47:10.8495 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 08:47:12.1649 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FksMS88bYOPEliMDd7Hah+1ssH0pGKq54Iuh3FF65CAGTWLTTMn9fyB5OZWPIvF40k2epGhxScavxpdhwCuRgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0017
+X-MS-Exchange-CrossTenant-UserPrincipalName: gU779xxXlk+CqBlqsVnND1mRrZHIZip/BNfMRJwefYFMjQ6OvWB9AQpCSGedUBjbMg6HADAJyY8TxGxJCL/SWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1377
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,181 +125,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, Nirmoy Das <nirmoy.das@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow allocating BO structures with different structure size
-than struct amdgpu_bo.
+Implement a new struct amdgpu_bo_user as subclass of
+struct amdgpu_bo and a function to created amdgpu_bo_user
+bo with a flag to identify the owner.
 
-v2: Check bo_ptr_size in all amdgpu_bo_create() caller.
+v2: amdgpu_bo_to_amdgpu_bo_user -> to_amdgpu_bo_user()
 
-CC: felix.kuehling@amd.com
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 8 ++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_test.c      | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 1 +
- 9 files changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 28 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 14 +++++++++++
+ 2 files changed, 42 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index f44185f512de..2151fcb1e19d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -245,6 +245,7 @@ int amdgpu_amdkfd_alloc_gtt_mem(struct kgd_dev *kgd, size_t size,
- 	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-
- 	if (cp_mqd_gfx9)
- 		bp.flags |= AMDGPU_GEM_CREATE_CP_MQD_GFX9;
-@@ -326,6 +327,7 @@ int amdgpu_amdkfd_alloc_gws(struct kgd_dev *kgd, size_t size,
- 	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
- 	bp.type = ttm_bo_type_device;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-
- 	r = amdgpu_bo_create(adev, &bp, &bo);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-index d9b35df33806..313517f7cf10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-@@ -85,6 +85,8 @@ static void amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
- 	bp.flags = 0;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-+
- 	n = AMDGPU_BENCHMARK_ITERATIONS;
- 	r = amdgpu_bo_create(adev, &bp, &sobj);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 5807cad833d3..c5a9a4fb10d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -126,6 +126,8 @@ int amdgpu_gart_table_vram_alloc(struct amdgpu_device *adev)
- 			AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		bp.type = ttm_bo_type_kernel;
- 		bp.resv = NULL;
-+		bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-+
- 		r = amdgpu_bo_create(adev, &bp, &adev->gart.bo);
- 		if (r) {
- 			return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index fb7171e5507c..bca260d56f76 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -71,6 +71,8 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
- 	bp.preferred_domain = initial_domain;
- 	bp.flags = flags;
- 	bp.domain = initial_domain;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-+
- 	r = amdgpu_bo_create(adev, &bp, &bo);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 6f7995293a1e..1e07c66676c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -55,6 +55,8 @@ int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev)
- 		AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-+
- 	r = amdgpu_bo_create(adev, &bp, &adev->gmc.pdb0_bo);
- 	if (r)
- 		return r;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index ac1bb5089260..c30f10f931fc 100644
+index c30f10f931fc..bd89d44a1f2f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -248,6 +248,7 @@ int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
- 	bp.flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+@@ -694,6 +694,34 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 	return r;
+ }
 
- 	if (!*bo_ptr) {
- 		r = amdgpu_bo_create(adev, &bp, bo_ptr);
-@@ -543,9 +544,10 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 	if (!amdgpu_bo_validate_size(adev, size, bp->domain))
- 		return -ENOMEM;
-
--	*bo_ptr = NULL;
-+	BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo));
-
--	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
-+	*bo_ptr = NULL;
-+	bo = kzalloc(bp->bo_ptr_size, GFP_KERNEL);
- 	if (bo == NULL)
- 		return -ENOMEM;
- 	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
-@@ -635,6 +637,7 @@ static int amdgpu_bo_create_shadow(struct amdgpu_device *adev,
- 		AMDGPU_GEM_CREATE_SHADOW;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = bo->tbo.base.resv;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-
- 	r = amdgpu_bo_do_create(adev, &bp, &bo->shadow);
- 	if (!r) {
-@@ -669,6 +672,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	int r;
-
- 	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
++/**
++ * amdgpu_bo_create_user - create an &amdgpu_bo_user buffer object
++ * @adev: amdgpu device object
++ * @bp: parameters to be used for the buffer object
++ * @ubo_ptr: pointer to the buffer object pointer
++ *
++ * Create a BO to be used by user application;
++ *
++ * Returns:
++ * 0 for success or a negative error code on failure.
++ */
 +
- 	r = amdgpu_bo_do_create(adev, bp, bo_ptr);
- 	if (r)
- 		return r;
++int amdgpu_bo_create_user(struct amdgpu_device *adev,
++			  struct amdgpu_bo_param *bp,
++			  struct amdgpu_bo_user **ubo_ptr)
++{
++	struct amdgpu_bo *bo_ptr;
++	int r;
++
++	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
++	bp->bo_ptr_size = sizeof(struct amdgpu_bo_user);
++	r = amdgpu_bo_do_create(adev, bp, &bo_ptr);
++	if (r)
++		return r;
++
++	*ubo_ptr = to_amdgpu_bo_user(bo_ptr);
++	return r;
++}
+ /**
+  * amdgpu_bo_validate - validate an &amdgpu_bo buffer object
+  * @bo: pointer to the buffer object
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index 54ceb065e546..8e2b556f0b7b 100644
+index 8e2b556f0b7b..06b6fa35db99 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -40,6 +40,7 @@
+@@ -37,6 +37,8 @@
+ #define AMDGPU_BO_INVALID_OFFSET	LONG_MAX
+ #define AMDGPU_BO_MAX_PLACEMENTS	3
+
++#define to_amdgpu_bo_user(abo) container_of((abo), struct amdgpu_bo_user, bo)
++
  struct amdgpu_bo_param {
  	unsigned long			size;
  	int				byte_align;
-+	u32				bo_ptr_size;
- 	u32				domain;
- 	u32				preferred_domain;
- 	u64				flags;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
-index 7b230bcbf2c6..909d830b513e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
-@@ -62,6 +62,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
- 	bp.flags = 0;
- 	bp.type = ttm_bo_type_kernel;
- 	bp.resv = NULL;
-+	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+@@ -112,6 +114,15 @@ struct amdgpu_bo {
+ 	struct kgd_mem                  *kfd_bo;
+ };
 
- 	r = amdgpu_bo_create(adev, &bp, &vram_obj);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 9d19078246c8..a8f8b9a06899 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -869,6 +869,7 @@ static void amdgpu_vm_bo_param(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	bp->domain = amdgpu_bo_get_preferred_pin_domain(adev, bp->domain);
- 	bp->flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
- 		AMDGPU_GEM_CREATE_CPU_GTT_USWC;
-+	bp->bo_ptr_size = sizeof(struct amdgpu_bo);
- 	if (vm->use_cpu_for_update)
- 		bp->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
- 	else if (!vm->root.base.bo || vm->root.base.bo->shadow)
++struct amdgpu_bo_user {
++	struct amdgpu_bo		bo;
++	u64				tiling_flags;
++	u64				metadata_flags;
++	void				*metadata;
++	u32				metadata_size;
++
++};
++
+ static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
+ {
+ 	return container_of(tbo, struct amdgpu_bo, tbo);
+@@ -255,6 +266,9 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+ 			       uint64_t offset, uint64_t size, uint32_t domain,
+ 			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
++int amdgpu_bo_create_user(struct amdgpu_device *adev,
++			  struct amdgpu_bo_param *bp,
++			  struct amdgpu_bo_user **ubo_ptr);
+ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
+ 			   void **cpu_addr);
+ int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr);
 --
 2.30.1
 
