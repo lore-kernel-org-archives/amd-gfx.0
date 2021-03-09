@@ -2,120 +2,131 @@ Return-Path: <SRS0=7mEa=IH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F427C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 03:26:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1916FC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 03:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF84B65275
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 03:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF84B65275
+	by mail.kernel.org (Postfix) with ESMTPS id BBAD065165
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 03:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBAD065165
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 122806E44C;
-	Tue,  9 Mar 2021 03:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C30CC89885;
+	Tue,  9 Mar 2021 03:32:15 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43E856E44A;
- Tue,  9 Mar 2021 03:25:59 +0000 (UTC)
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2006D6E44B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 03:32:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YQBnxEQlX55WpXi/Pb/ckxfszqRqjdxajwTk5+zeigb2DxOaZ3AgCPF49je4JMNTr/ogWDNsMqnjzSnsL6tvKTD3sWk8R/yxtszrfRSklGlZqbciHQQPaHVWNdCZov1gtL+GbB8q9zgZEQKoOEl2NpbN1cSFaodaQee446QDdeMKYDY11Nh5NEWlyu89tC/8UQp97QUgQdAkWRRBCODshboZD1RHYs2w+oqiw7EsoklyGX56kigX4E2gujjjUCGFd1rIQiuaG74Mm/zQ0bKQcWd9EXy7OtMLaNuDs2n5VCoGBpM9Z0mbNj2EVKrjmfRN4VGwNKE53ZUk9s6M8vy9Hw==
+ b=SNAsE2cKgqxOZS8i1r8fX1SnJVNX0lEN5Cwg5hwvEmooC7XV8JRginio8smwLSvD4U4EdOpX1UG9gtfZcad+J9RfNrUXRdEkhfcmuw0rRYakGV9Vp3Q35D1261imhNLX731x2LqZMQy1s9OejTfV+c74yUpm/KRHDkju+xJ6z7sVanSi+dRZd4TXVgud6Cm6QEzH2mfdbaQ14WWs3O8B4OaXbQn9YL/Vof/Qr8gcubtZ/wvIHp+lTc7HHpfksgRqpEUC069ugAycrkDv2NyoeDexa/O5424OHEZUnor2kf5Yz9J3kXQXOcHvpDcJhfCuv77+w1KA82kehvu/pAFtvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGC7/CZYMPjhPXs6kQFuVmUy2RcOUM78tq4/cms5l50=;
- b=ZZdzvIHYXYpYDtkJJljf4Ph/n7RYnUi5FqkiioLSZXgKGZO9RxOgQE8h/DTYZ/qzNJajZpU6WoEfqpEcEVORyFmAXaovvRCo0jCal0bjEkyLlBjGGtYcxwSAKIM5ssq0nCCYZeMcTjqVOgNHYJsGWrrsnC7e8O9Y9OSVpS1SiTiQR0U3Aj+tnZVZ54UYqTXv1aI10SnHDt368qvWjHOMygzsLdcpbMW1C1pR6ObBjlAvz13/sTwnrZADWWFVZDP8OsmYNzSBksi7Jvd1PMs9yEf4+GORKwJzvbf9DJtbS3QQCkkSVYfa5m0HZPbAyvbo4GbmHwdYmVkz3aa13kKpqg==
+ bh=JFGq29805X5tbN3xL17UwzR1wtXe0VAGvdefZOxxR/8=;
+ b=kWWts08xmEOrqhbnbZDmsUaEMlc2K1tI/ZijHFjFjhHA6qaDRXClm8rsJrRB/QvPo5uyuWpTnaWqJTG3c1pG/TrVbeeW4i9XEdwMZ97uoV43BZJIfZq6LOTb/0jDg0ukT5oN2D3/9NBVz8E8F/JkP8JjqwIZh2MZKHeNxQPN1qUixtdUl6OS4CkyKR6ryXotDkw7mn0W3FRIwLgEygac5QlqzP/92Zuvu/Vx0s9emWiC3B2gh5u/ViGAFwgJPcxGpi/nbGXjWbt+JFMkgFnR3f6JPHVabxpywA/PctWIDNs9c9C40oxyovwwNNTU6kkTpBWs3N6s4aEbDfK/i2pl8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGC7/CZYMPjhPXs6kQFuVmUy2RcOUM78tq4/cms5l50=;
- b=1+qt6VFOtWvEvqp68HBKPDS9ulpKKqNXfcOuqA3geWtctJbysP+v3V/FrPmO1HXrFEBCGFr9ZYFU0GZCKY129GYN3PG0X9v0ijZ+zgUo9fqIvdOXZUvUGgAuzYd6AUHHai9OQbOqsR5VxGUHOdJNtxkYsFzqSF2DvytET0hjGnw=
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
+ bh=JFGq29805X5tbN3xL17UwzR1wtXe0VAGvdefZOxxR/8=;
+ b=zdLpNXdVIHG7wDc8Cq3WA3QyBRNz3luY+DuE3RNp6I+szflftf8uy0z0znJzccq71h4ECBy5VVlHDJvT3jij7EPAyKjWmZD2ZCiup45Gc+qKG1bcyCDqIC5mRp8K13x+YgC7I4F+A+7ywA9mMdzit054LG2cClCa8d9VIG06R8c=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB3935.namprd12.prod.outlook.com (2603:10b6:208:168::31)
+ by MN2PR12MB4360.namprd12.prod.outlook.com (2603:10b6:208:266::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.20; Tue, 9 Mar
- 2021 03:25:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Tue, 9 Mar
+ 2021 03:32:12 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::ec8d:851e:525d:a6ab]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::ec8d:851e:525d:a6ab%9]) with mapi id 15.20.3784.031; Tue, 9 Mar 2021
- 03:25:57 +0000
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: arnd@kernel.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Subject: [PATCH 1/1] drm/amdkfd: fix build error with AMD_IOMMU_V2=m
-Date: Mon,  8 Mar 2021 22:23:56 -0500
-Message-Id: <20210309032356.20800-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <4c692eff-9d57-278e-8da4-36bc2c293506@amd.com>
-References: <4c692eff-9d57-278e-8da4-36bc2c293506@amd.com>
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT2PR01CA0010.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::15) To BL0PR12MB4948.namprd12.prod.outlook.com
+ 03:32:12 +0000
+Subject: Re: [PATCH 5/5] drm/amdgpu: use metadata members of struct
+ amdgpu_bo_user
+To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
+References: <20210305150617.20144-1-nirmoy.das@amd.com>
+ <20210305150617.20144-5-nirmoy.das@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <e6976fe1-849f-a6e4-e858-d9e4a700cfee@amd.com>
+Date: Mon, 8 Mar 2021 22:32:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <20210305150617.20144-5-nirmoy.das@amd.com>
+Content-Language: en-US
+X-Originating-IP: [142.117.121.176]
+X-ClientProxiedBy: YT1PR01CA0042.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::11) To BL0PR12MB4948.namprd12.prod.outlook.com
  (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Harpoon.amd.com (165.204.55.251) by
- YT2PR01CA0010.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::15) with Microsoft
+Received: from [192.168.2.100] (142.117.121.176) by
+ YT1PR01CA0042.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.26 via Frontend Transport; Tue, 9 Mar 2021 03:25:56 +0000
+ 15.20.3912.26 via Frontend Transport; Tue, 9 Mar 2021 03:32:11 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 52b148f2-6c16-4146-d178-08d8e2ab0da5
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3935:
+X-MS-Office365-Filtering-Correlation-Id: 4f2bac2e-5d75-45db-1460-08d8e2abed43
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4360:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB39359725D1CF5E10C24CFB4892929@MN2PR12MB3935.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4360CF108058D449BAFEE2E692929@MN2PR12MB4360.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rJGT5rS0uaznne0Oaabtm732n8RGvSewUVvcoLYD3220pLHnDmbHW4pyD84LpyrSpylcJ9/sBsHBF0lqfrcc2z5QwAzNKtYeB3EjVI9H2jixNn2Ow18CZOljzFeSc2b7z3m+RlSJi+SYOO9Q5ApiDkEYpz965Ah/XHTCwZcNmB2G8aoMoDn5Z//kyeXXCTOHe9DgF9R/gDq+tYdas42QcuYH2g8KKNUl0xYxr/T/hWgiFMdyERqzwCHiYYCZBqHyYp54k/vaBvTDBSzncZNf45yXRGOvVQYajg9AgMvxuPHGSxJ9ubStUjW5SR+gI3fA/DN2emQy2uhgjrEMtc+/jM1HRVdX9a9Vcu4ex8g+7QnCx1LEcCgiykl+oL9ZDT1bFtubr6MqeYjEDyD2YLHV4nrmg1ZE/ixAcTYHLDEG/rumAgpEd2hOgXCJnZOhnmmq7rk6jYVvBsg9kHWbidPE+EE9FG23HJPZ0sAqwzhdBqknoY1+MMegxj5bDpHiw5XtMJ28jdbgZQXHsUPIloRPTA==
+X-Microsoft-Antispam-Message-Info: 3lhFgvFOwolx8Q50ftnt65dy7F2rlNVIR/MnVuo20DDd6zf0R75rUmsRn+31pii/Id6kF4HLxD9tAkN5dSuvOO3O17yBF8bnsfQRM2mnN3BuSUl3EdnS2bVFoCVLi3q9QKiELlUj5Q+NM2BeS1OKq70iZEREI1+hCC6FK4XlhPTqyUfrBnO0ONqdMQAPtpqH23lqdGOE3hPOrNDEBFpk57ZupyoVsdCi+6sinma5wO2o7EnsdrmWwap4kc263ff6lNkGLjrFV4pyYiW2jqCjha4tALd9Bzn39HIrMA+RcNtfwdrKxtCBFA8w6FCRs5DGA245G78fuMWugmDG+24abDeUXdaSkTWCCT7/WBadQAMJLNbxf4UN7UKVkDnFYzL5RXSy5Awey+6bg2LOFUYt50ETNGfZobRVl6hComtBI8mcBEgv1Gb/HcV5SiMNQPoJDdo58rEWl8Ba2/dJj3DCXSSPWDLv6S7OErDTZzRG1wNHUZJLIq6mEiFNzHKZsMvry7y6aOerKt8q6mz1faPupklyelpo3KStquvPQO0IIGQR+lj08ZKCjVWR9RDEtvJqxnx/sONB5AR034fpopdAVxAVGhPZgBLqjNh/fFnCROY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(366004)(346002)(66556008)(66476007)(66946007)(6636002)(86362001)(478600001)(6486002)(186003)(26005)(316002)(7696005)(5660300002)(52116002)(4326008)(1076003)(36756003)(8676002)(956004)(2616005)(8936002)(16526019)(83380400001)(2906002);
+ SFS:(4636009)(366004)(346002)(396003)(376002)(136003)(39860400002)(36756003)(83380400001)(26005)(31686004)(16526019)(186003)(44832011)(31696002)(316002)(6486002)(8676002)(2616005)(478600001)(956004)(66946007)(4326008)(66556008)(5660300002)(86362001)(66476007)(2906002)(52116002)(8936002)(16576012)(6636002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?LEO2+C9n4ukR1EHOIpPwBI66yQvLWTzBZTW0xVHqQD72Ck1kLow1TiVO2hd9?=
- =?us-ascii?Q?2HADWzmxQwxD31kESQKUdqDUMP0a6rpmwy9KZrK9u9CWu1jEynVfNDUyTWMJ?=
- =?us-ascii?Q?cGsN/v0ubKbTnDPZ2fQT1r9/MqzmpW78deAarjsRX6GSGpltnPiXZdymVlOY?=
- =?us-ascii?Q?apBIkRLtIKtrolRp74kyWgU4MJzCtS07ifu+sfG4hi4mXuCt3lMX4LQbOZGt?=
- =?us-ascii?Q?9iKXHqLTpd9SOesQKUXVwzan8FmfP1/t4Zr/hdMhN0D2YO6ybwJsPy/t8Fsk?=
- =?us-ascii?Q?eFmj3u2Div5f0Q7HQxmB5TQQ/NVgoDpwQY8ncEkzDZrwdSHRZA0GD1iN3daC?=
- =?us-ascii?Q?T6ur2S9TZcY+leIJb1CYc6cM5cgmi+Bggm3SOcLra0YSnYoFiRaJpW290XEg?=
- =?us-ascii?Q?W663gkzFX2LFRzmxTx3kaxX9vPH3PQwHQJjJZ2mxKEjVT2kEtseGE20nXfee?=
- =?us-ascii?Q?d6LEmXcdEubBBmquLWD6w6nkWAONGxbjVvc/ROJaYQYp8dSsE/FpzwuGlguW?=
- =?us-ascii?Q?lxp23apVTF50QTFcPFdvurLnw/ISknIzFr9u3eT88aFB7zsy6AXCBKVv9w4S?=
- =?us-ascii?Q?6YGV3FZODwdbVG3udoRABELFO2a6rb90QDaZEIHhadup6818Gcipku7fb5+7?=
- =?us-ascii?Q?hMtFYeS9lJsF3XxFvCt9CN04IPvpRglh9NtGpQ32eYAYL9IHjh8eigouHyQb?=
- =?us-ascii?Q?5xEBcvvjrcHcRV80vA2cwQlaTlFYPux/fas+vXyHA6MA+BqSg/sU89eeNGf+?=
- =?us-ascii?Q?wprs/C9iJI9vm9G8oEUk9yRxVRDFygyhWws1kGm1X9uQPyPLyDXgR2ktpGzi?=
- =?us-ascii?Q?ZoBBNpyr+2eliMDbUAIN+stjvUoD7G+jJignIncRBn/6Sz+LAaR8zhFdJlrh?=
- =?us-ascii?Q?YlBfjQX50b76d18arhNhjEqXy6+6CXZtQUPaN06DzuMXEMPp1ACDDyuC/i4Z?=
- =?us-ascii?Q?ujGJSP54TFKFvgqvZaTFqvAqpBZrIx1fpEVJWLQTGMZUYQryZuxetvryy+2J?=
- =?us-ascii?Q?NDXcyIzI7SUAWUeFa61U9Et6DOR8s0HV5F20iQ/0raBisfLXYVQ9ymkuur2l?=
- =?us-ascii?Q?oaqVtPXG/AWmqygrwJuwAyAj/MRoIhCwPZ2Wb+LWR54aE3ryHtYFzy8iaAvr?=
- =?us-ascii?Q?zuk4yAKGqDPQBtAJM4Vrf7xJfxJF8bpSdMIH1GMnR0awtFLgC1/fBlgypCt4?=
- =?us-ascii?Q?s65gc01x8f/789C3BpjsenomHdaamh+C5PJnDNR7218dYcvjLbcr0btz8a1W?=
- =?us-ascii?Q?uBb6FfcZ8MVlggK6HyxcfqK6baV66GTsR6vd4F+0kQzG8DrzKLi6BvaE07o+?=
- =?us-ascii?Q?u+NpKBJ6YDbK2mfkOe7ouU57?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NnBHb1hmREtJdXE4dzQ5VHpkYnFEMnZLTlk0S0Jlc2RhN0JoUS9IUnZTZFFh?=
+ =?utf-8?B?a29PNStSNVc0NkZuRjdWa0RvMVdNK3VZb0dmZVorb3RFdWRqVkFUbERQQTFW?=
+ =?utf-8?B?L0NGTCtrMDh5Z09RQkxxMDJuUDBKbmVxYVhsNkhGSFZoOVBQazlGQUt1UXhY?=
+ =?utf-8?B?bXRTRUduOE9wMU5NcEJNZVVxYnZlU2luTWV6YldKS2pIaU1ET0QxcE81Qnhy?=
+ =?utf-8?B?cXlOYkVBc29TQ1FJZEtxdm5JL3FDV2x1OGhxVXlvVUJTZlpoRnRYaENzMjVT?=
+ =?utf-8?B?bkhSUExVTDFsUmt5NmFhMS9ON3ZFWTVmUUwyQmJxYkh2N0VIeS9tOXl5bG5T?=
+ =?utf-8?B?YVhRZWZ4Z1F0RGhmcnp3MmE4SXNSb3ZBMXhQTEl4d0R3Tmt4WWx3Q0RZNFlX?=
+ =?utf-8?B?SEZJbUw1VTJZNkdQTk1VWDJ3clBRNjF3c1BreEZEY0RFTk1FRjUxRE91cUQ1?=
+ =?utf-8?B?cHNWR2ZFekpxSVQ5eEI5SGxwNXJwSkw2WWRHWWkxZnk2aDl3a1BOR3dVc29a?=
+ =?utf-8?B?M2VCY0V3QU9BNVBJeEE1OEVSS1p5cjR2YXduQnJCY05BOTZrUUdvTW93d1ph?=
+ =?utf-8?B?YStPV3hSajVNaklSMU52bDJFWERXdFcvSG12UnA1d0lCTEVnMWZvaWkyblBC?=
+ =?utf-8?B?Z2FRc0pDWS8xb2VQYllIT3E5OGNIdzcxMGFQbHdjZ2hiUW00dGdpT3NtTWFR?=
+ =?utf-8?B?OThYZUtGbUVPdStEbVpHT0RnQ29zenhEbTJTOVVOWEZSV2p3UVd1Rmt1MmJK?=
+ =?utf-8?B?YmVEcWZoVmxvTHpwUEdRQitzSGd1RWFnQ2ZRL1J5dnl0MkpOdjlQMjVSbTYw?=
+ =?utf-8?B?YzZwNzFDbURYMW9BTWt6ZHlFU3huK1NLb1JmbXNkVFdCYlJnMWpMOVM0UENR?=
+ =?utf-8?B?SUJSZDVTOTNZVklQUVJaQjlYejZzTzBRZXFuZE4rN1NjUXAxWVRZNGd6TExk?=
+ =?utf-8?B?K2p1Q1hPTGgvSTI0Zk1vdmlqMlVzNlFpekNVWCt4eVI1VHZwYVBZVDJVbmE4?=
+ =?utf-8?B?NlhDMGZSMDV2SWkySDJBNjBIYW4xc0UyTk9JQ3h3VU1VQUFOc1EveUZqMnB0?=
+ =?utf-8?B?VEc5QkcrUU5CQXlDZlVYOXkzSURvQlkvUkRHWkZENlpMYk9uS3pSbDMwcEg5?=
+ =?utf-8?B?Snhwc1FwY1pMZmkzT0dJZVZsM3BiVmVMWDJ0TmpTZlVhZHZmeThPSEx6SllQ?=
+ =?utf-8?B?RWo1Qkg3bUVvRUFxUVk1QVZxZkd5MHlkRWxFYklHSndJQzVmVEhpRlUzd254?=
+ =?utf-8?B?WC8zNDNhVXorNHo5ZWZNb3grZEtCOGl0UzJpdlJib2Q2ai95VWkyMmZvZHNB?=
+ =?utf-8?B?eEthNnZENWpiWEFJMXpGY1pOMFYwazlXc3AzTE9WTThhT0N5Q3dPR1ZKZDlu?=
+ =?utf-8?B?NDNxOU5TVVozZnpqQzhKMVVMVzZxMVp0dlN6NnR1M01qbHZ2Y20wUFBwMjky?=
+ =?utf-8?B?MEtMTVAwRExub2w1T2daYjN6c2VmbmZ5aUxRMVJTRG1DRlFVb1pOWWh2cVJP?=
+ =?utf-8?B?Z3NEMjhaK1hQUnNxS1AwWGs2RVk1U05PaXNMbXphR3NxZU1WT29IL01WdTAv?=
+ =?utf-8?B?bHFrbVgyOHdFcDg1SElYNHJjMVJtTCsvdi9yakxnQzVOMzVNWXB2YzNFdWVJ?=
+ =?utf-8?B?c1NCNi9oR1BZTEN0Z2oweUo4S0hMV0paSlJaMmNCN1U5SXFMc0d1anJFWjI2?=
+ =?utf-8?B?REZlSDNlaUV1a2dGV09MekZVazNWWVpmTldFOEZVQUpyWXN4NXRzOUVWcUta?=
+ =?utf-8?B?T3hqZEtNakFveVo0SHF0UVJOWFRKc1dMUDR4NEo4UjVxTkkzNWF2N3M1TFRz?=
+ =?utf-8?B?ZEFmMnhYNW9vU3k2STVRUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52b148f2-6c16-4146-d178-08d8e2ab0da5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f2bac2e-5d75-45db-1460-08d8e2abed43
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 03:25:57.0813 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 03:32:12.1802 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rbqdjy0fN8jsjC2snjomcPvqoPdoUSwbNsvrTCj5ATSsqzTq9ruEvEBteCZdVVps983VwOftuxCIldzanxmR1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3935
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0IrhmZshQlTX+hjzLVAy3uByeqzH62KZv/OvnznZM8LjluQFCbBRDF/3JhaLvCwYkMwx0FSeDQW1EEZKi37eqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,98 +138,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, arnd@arndb.de
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using 'imply AMD_IOMMU_V2' does not guarantee that the driver can link
-against the exported functions. If the GPU driver is built-in but the
-IOMMU driver is a loadable module, the kfd_iommu.c file is indeed
-built but does not work:
+Am 2021-03-05 um 10:06 a.m. schrieb Nirmoy Das:
+> These members are only needed for BOs created by
+> amdgpu_gem_object_create(), so we can remove these from the
+> base class.
+>
+> CC: felix.kuehling@amd.com
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_bind_process_to_device':
-kfd_iommu.c:(.text+0x516): undefined reference to `amd_iommu_bind_pasid'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_unbind_process':
-kfd_iommu.c:(.text+0x691): undefined reference to `amd_iommu_unbind_pasid'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_suspend':
-kfd_iommu.c:(.text+0x966): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0x97f): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0x9a4): undefined reference to `amd_iommu_free_device'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_resume':
-kfd_iommu.c:(.text+0xa9a): undefined reference to `amd_iommu_init_device'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xadc): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xaff): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xc72): undefined reference to `amd_iommu_bind_pasid'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe08): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe26): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe42): undefined reference to `amd_iommu_free_device'
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-Use IS_REACHABLE to only build IOMMU-V2 support if the amd_iommu symbols
-are reachable by the amdkfd driver. Output a warning if they are not,
-because that may not be what the user was expecting.
 
-Fixes: 64d1c3a43a6f ("drm/amdkfd: Centralize IOMMUv2 code and make it conditional")
-Reported-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c | 10 ++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.h |  6 ++++--
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-index 66bbca61e3ef..7199eb833f66 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-@@ -20,6 +20,10 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
-+#include <linux/kconfig.h>
-+
-+#if IS_REACHABLE(CONFIG_AMD_IOMMU_V2)
-+
- #include <linux/printk.h>
- #include <linux/device.h>
- #include <linux/slab.h>
-@@ -355,3 +359,9 @@ int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
- 
- 	return 0;
- }
-+
-+#else
-+
-+#warning "Moldular IOMMU-V2 is not usable by built-in KFD"
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-index dd23d9fdf6a8..b25365fc2c4e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-@@ -23,7 +23,9 @@
- #ifndef __KFD_IOMMU_H__
- #define __KFD_IOMMU_H__
- 
--#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
-+#include <linux/kconfig.h>
-+
-+#if IS_REACHABLE(CONFIG_AMD_IOMMU_V2)
- 
- #define KFD_SUPPORT_IOMMU_V2
- 
-@@ -73,6 +75,6 @@ static inline int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
- 	return 0;
- }
- 
--#endif /* defined(CONFIG_AMD_IOMMU_V2) */
-+#endif /* IS_REACHABLE(CONFIG_AMD_IOMMU_V2) */
- 
- #endif /* __KFD_IOMMU_H__ */
--- 
-2.30.0
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 48 +++++++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 --
+>  3 files changed, 34 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index c5343a5eecbe..f8c8cbd8ab59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -494,8 +494,6 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *kgd, int dma_buf_fd,
+>  		*dma_buf_kgd = (struct kgd_dev *)adev;
+>  	if (bo_size)
+>  		*bo_size = amdgpu_bo_size(bo);
+> -	if (metadata_size)
+> -		*metadata_size = bo->metadata_size;
+>  	if (metadata_buffer)
+>  		r = amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_size,
+>  					   metadata_size, &metadata_flags);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index ca60943312dc..7c744d90ed34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -77,6 +77,7 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+>  {
+>  	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+>  	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+> +	struct amdgpu_bo_user *ubo;
+>  
+>  	if (bo->pin_count > 0)
+>  		amdgpu_bo_subtract_pin_size(bo);
+> @@ -94,7 +95,11 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+>  	}
+>  	amdgpu_bo_unref(&bo->parent);
+>  
+> -	kfree(bo->metadata);
+> +	if (bo->tbo.type == ttm_bo_type_device) {
+> +		ubo = container_of((bo), struct amdgpu_bo_user, bo);
+> +		kfree(ubo->metadata);
+> +	}
+> +
+>  	kfree(bo);
+>  }
+>  
+> @@ -1236,13 +1241,20 @@ void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
+>  int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+>  			    uint32_t metadata_size, uint64_t flags)
+>  {
+> +	struct amdgpu_bo_user *ubo;
+>  	void *buffer;
+>  
+> +	if (bo->tbo.type != ttm_bo_type_device) {
+> +		DRM_ERROR("can not set metadata for a non-amdgpu_bo_user type BO\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
+>  	if (!metadata_size) {
+> -		if (bo->metadata_size) {
+> -			kfree(bo->metadata);
+> -			bo->metadata = NULL;
+> -			bo->metadata_size = 0;
+> +		if (ubo->metadata_size) {
+> +			kfree(ubo->metadata);
+> +			ubo->metadata = NULL;
+> +			ubo->metadata_size = 0;
+>  		}
+>  		return 0;
+>  	}
+> @@ -1254,10 +1266,10 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+>  	if (buffer == NULL)
+>  		return -ENOMEM;
+>  
+> -	kfree(bo->metadata);
+> -	bo->metadata_flags = flags;
+> -	bo->metadata = buffer;
+> -	bo->metadata_size = metadata_size;
+> +	kfree(ubo->metadata);
+> +	ubo->metadata_flags = flags;
+> +	ubo->metadata = buffer;
+> +	ubo->metadata_size = metadata_size;
+>  
+>  	return 0;
+>  }
+> @@ -1281,21 +1293,29 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+>  			   size_t buffer_size, uint32_t *metadata_size,
+>  			   uint64_t *flags)
+>  {
+> +	struct amdgpu_bo_user *ubo;
+> +
+>  	if (!buffer && !metadata_size)
+>  		return -EINVAL;
+>  
+> +	if (bo->tbo.type != ttm_bo_type_device) {
+> +		DRM_ERROR("can not get metadata for a non-amdgpu_bo_user type BO\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	ubo = container_of((bo), struct amdgpu_bo_user, bo);
+>  	if (buffer) {
+> -		if (buffer_size < bo->metadata_size)
+> +		if (buffer_size < ubo->metadata_size)
+>  			return -EINVAL;
+>  
+> -		if (bo->metadata_size)
+> -			memcpy(buffer, bo->metadata, bo->metadata_size);
+> +		if (ubo->metadata_size)
+> +			memcpy(buffer, ubo->metadata, ubo->metadata_size);
+>  	}
+>  
+>  	if (metadata_size)
+> -		*metadata_size = bo->metadata_size;
+> +		*metadata_size = ubo->metadata_size;
+>  	if (flags)
+> -		*flags = bo->metadata_flags;
+> +		*flags = ubo->metadata_flags;
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index 67c1634fa8bd..5005bb4480e9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -91,9 +91,6 @@ struct amdgpu_bo {
+>  	struct ttm_bo_kmap_obj		kmap;
+>  	u64				flags;
+>  	unsigned			pin_count;
+> -	u64				metadata_flags;
+> -	void				*metadata;
+> -	u32				metadata_size;
+>  	unsigned			prime_shared_count;
+>  	/* per VM structure for page tables and with virtual addresses */
+>  	struct amdgpu_vm_bo_base	*vm_bo;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
