@@ -2,76 +2,106 @@ Return-Path: <SRS0=7mEa=IH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60CCDC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 12:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 55209C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 13:17:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0882650D1
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 12:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0882650D1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E7A6F614A7
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 13:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7A6F614A7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB2E6E4A7;
-	Tue,  9 Mar 2021 12:57:03 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0916E4A7
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 12:57:02 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id t1so19857778eds.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Mar 2021 04:57:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=LJmdVEKm07UvfRqE699eKLOuTYw4wFjvhWgKdImW2Rg=;
- b=q2iXEeM56S19wP6FLp21TGccgGgd7Tpcu3MPDvPsPfOeP585d6/k0Qg7FVlZXFmvsW
- 7UWaXhLqbbkm5wYmLN2PqOBbOXqge+34TEdawvv7himwr0FhkTs5muqMVMcxqKHL5/KJ
- MISX1j7RIQlbQqx/OjnLM9zvtubfeJ6fHUwUh0uIkIheUVLHI+8t5zPMwOe7IqeVwXIU
- lYE9vmxHrH6v6OhVSQXkRXsMEqeESFtSfxc0q2ozICvRBxFfNi+Oc4QH+xvilV8cEsBE
- NWuoMsUwq8kt4OCmaku0RGmQB6WjxwlC3Hafbcu6oUUXlckCHz3ZF9KTRAktN04tRpcl
- s6iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=LJmdVEKm07UvfRqE699eKLOuTYw4wFjvhWgKdImW2Rg=;
- b=E5aVEH3IiWHTgSm8c/6tLLditWYz8NpolEsN4ebvOOZLORVJ00uA6mb7+isD+vkjkV
- 5iEbU0NKwimQWavss/TT9JY9n4FCR4PRzu7DCrGSwQm4c+mrAoFdjgFw5k/l0b22h70D
- pc/CWhsARVxR/0uw2gE8E3XFDv1xMENKDNu3p5eifNTYiOrLRj8ILCfG5VABqObvEuh5
- XWXWqksy/Rnc/a0N5TDMKX65OjmRbeRNzYG2pzyiNjHXt/qYpMUm6afEnNihoo1QmT5A
- HqvW5ljrutZ5JcufqEtANylXU1V0tpBYEWdi9NdmRzfzNd0V+lGs45bQovUGsUIeqqb9
- eSFw==
-X-Gm-Message-State: AOAM532oS3j3kf/E5Hkxk6suoN66NWsfG6h/6LGDhRw1Csxvig0KvHyJ
- hNXtXQq+0r+Md6y5ymeXEsdb0jbKXjMnCg==
-X-Google-Smtp-Source: ABdhPJwTcOVlbuNunYM2Ta0t+kxn1wJaHg6s5IyuTQTadvBGK8yuLTBqp6jNJB8aXs1JhoHjE9aZSg==
-X-Received: by 2002:a50:ec0e:: with SMTP id g14mr4001810edr.264.1615294620988; 
- Tue, 09 Mar 2021 04:57:00 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:7f9b:4f7c:c70d:c3fe?
- ([2a02:908:1252:fb60:7f9b:4f7c:c70d:c3fe])
- by smtp.gmail.com with ESMTPSA id r4sm8200725ejd.125.2021.03.09.04.57.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Mar 2021 04:57:00 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: capture invalid hardware access v2
-To: "Li, Dennis" <Dennis.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210308180649.2117-1-christian.koenig@amd.com>
- <SN1PR12MB2544244642707C3EA1E27026ED929@SN1PR12MB2544.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <91af0abc-ddde-9799-dab1-71d6eae7b765@gmail.com>
-Date: Tue, 9 Mar 2021 13:56:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833B56E4AE;
+	Tue,  9 Mar 2021 13:17:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2849C6E4AE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 13:17:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IXE6f9tfNs3mdvNEX587NVMih/Ddu5l8KA/hroWcWbw75qA4ni2Ns0TB5bLsaFmyQRRhEcxe0dWqG0sOGXIf3AWWaPW3UJM9Y4uBVkl4O/4ew45g/SChva9CUn4zYA/T/wVuOpxVSHJNToDsMAF+x5iN98WRkp6NuEDAsgMQfeO18Qf8iHuT5khq/d0rmwwsIDKSmRwyO1cAlMunkI7bUgL5v74hePqvLQINfpSKmCme7Lhw2qQQXhnnsOvxic+u8e6THZkdwPb/psQvKxvxNaFeufW+7VeEnh8Re32/FjOiEaztOegGcy4/sc/DKUGswzAebbbK/fXvTB5XMd2D7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tjTSdMpuBqgjB5Cr1i4iR2WGdJFTZ1noKcFRx3t+aBA=;
+ b=Z6mxNbQ93E1pgsLfIvzjxU+vKE6cOrZ/O4ZT75rKjabToxTvP3WAzv9JVi/Wa5OxrvVw+F9g+Kv2ZCig0DEdSISTDxF8W+fE54CEwl4TYrQ+snUGy3sFBRbPo8umDSZO7tAVPJ/CBXJgMhKVnnXpneDutV+iAQJMf75f57qrMmTgWdhwTWTJ8dD2BC1DXaMxXpWBoF9TZnIARmvG5RoILJNgsKwy36P6tnGjGzDAGeCpKclXx33WWrYL+V/DQkUwF0puFVjwKkV8q8vF8EcBGNrOBCWuUA2DWm4Y/clLI9U3Ovwt9EeEJbyNop0Eul6BDXFZH3aw+TcRL4IC9cAwzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tjTSdMpuBqgjB5Cr1i4iR2WGdJFTZ1noKcFRx3t+aBA=;
+ b=ca+eMdG7r/yQKv9whtX3q8KhjCjJeUwrXdFN05Iv2sY9Cd8Sr6lmPgITKLJqIc5A86I/hwwIk9C7lDe5p88U3nVDFkAHImNWWjJjZX8A6F/pkWOfKRoH38AeRzTyh/fQD4CZ4z1TG5xzz2yCQl3YKD11BvZgbRro8VbXKVIo4w8=
+Received: from BN8PR03CA0023.namprd03.prod.outlook.com (2603:10b6:408:94::36)
+ by BN8PR12MB4980.namprd12.prod.outlook.com (2603:10b6:408:a8::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Tue, 9 Mar
+ 2021 13:17:32 +0000
+Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:94:cafe::5) by BN8PR03CA0023.outlook.office365.com
+ (2603:10b6:408:94::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
+ Transport; Tue, 9 Mar 2021 13:17:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB01.amd.com;
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3912.17 via Frontend Transport; Tue, 9 Mar 2021 13:17:31 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 9 Mar 2021
+ 07:17:29 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 9 Mar 2021
+ 07:17:29 -0600
+Received: from kenneth-u1804-kvm.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.2106.2
+ via Frontend Transport; Tue, 9 Mar 2021 07:17:28 -0600
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: bug fix for pcie dpm
+Date: Tue, 9 Mar 2021 21:17:45 +0800
+Message-ID: <20210309131745.3866-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <SN1PR12MB2544244642707C3EA1E27026ED929@SN1PR12MB2544.namprd12.prod.outlook.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6dfab0a2-2420-4859-7084-08d8e2fdb1d1
+X-MS-TrafficTypeDiagnostic: BN8PR12MB4980:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB49809AC58D3881B17FDC306B8E929@BN8PR12MB4980.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:849;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: K5Qh2ctIMG0pFpMDqAMf4VqZKBJhre2HVA8Vsa+r6ItJtnBvEF7UHTKpUSRuaGSROuozh2jXH/X8MP8wN8oBnrWU5b4ARpwHOWR9B/bpx46JWH4wX8TccAEosufbinVk5s/kacVxIEWg6XahDSEqF5oshaMiidazVj2ShWrt032QBIfixT60KvxBF9NnX9rl/d10323L+Sc6e2OknA398mZr+7tvoEadmbWL3+DIBoCNAbQAREc/7h/O6JYif2ojl8zN24dCREcMmM670+drciBMcdlIfJCdA2cPVAYwa0f9tr8e8iv4PHydNV0C2Uz4roh+Dz+xleDKVPPGN4ozX6AKsVannm3qAz/TKICvr3rymm+Z7HHnuxl0KsWHhbrins/tk41d7qNxsiyBUMxpxwDcJ54p57CJUIfzLHDABu1NDrCsEZK90dxM96N5JRSmGhuKOhjLP72b3Co5lg3QwiLxAcVI/6EC8RQIep8p6OmqaKeGJsQNyUvqrXpZs0t3y+hXlsfRShcFEqOzhORabH5ffYZBL19i9JPmoe/4ng54qTO/su+qxhZXFuvswuqnhyJnK2sfuaatB0rxa0Q775nYkX1JBZn7l9DJD/NzO0IpUEsonYT5XecRgL/KUiyI79U/jouCQ1ybvPQecGCG5GiGD168+wO4PV2WLZAkdU9iVGbn9gNlbjvl1558sjEU
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(136003)(376002)(36840700001)(46966006)(82310400003)(2616005)(336012)(426003)(70206006)(83380400001)(70586007)(7696005)(1076003)(8936002)(8676002)(186003)(86362001)(2906002)(478600001)(26005)(36756003)(356005)(6916009)(81166007)(6666004)(36860700001)(82740400003)(44832011)(316002)(4326008)(5660300002)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 13:17:31.0381 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dfab0a2-2420-4859-7084-08d8e2fdb1d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB4980
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,149 +113,267 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Kenneth Feng <kenneth.feng@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRGVubmlzLAoKd2h5IGRvIHlvdSB0aGluayB0aGF0IHRoaXMgd2lsbCBhbHdheXMgYXNzZXJ0
-IGluIHJlc2V0IHRocmVhZD8KCkluIHRoZSByZXNldCB0aHJlYWQgd2hpbGUgd2UgYXJlIGhvbGRp
-bmcgdGhlIHJlc2V0IGxvY2sgd3JpdGUgc2lkZSAKbG9ja2RlcF9hc3NlcnRfaGVsZCgpIHNob3Vs
-ZCBiZSBzYXRpc2ZpZWQgYW5kIG5vdCBjYXVzZSBhbnkgc3BsYXQgaW4gdGhlIApzeXN0ZW0gbG9n
-LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMDkuMDMuMjEgdW0gMDM6MDMgc2NocmllYiBMaSwg
-RGVubmlzOgo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24g
-T25seV0KPgo+IEhpLCBDaHJpc3RpYW4sCj4gICAgICAgICBhbWRncHVfZGV2aWNlX3NraXBfaHdf
-YWNjZXNzIHdpbGwgYWx3YXlzIGFzc2VydCBpbiByZXNldCB0aHJlYWQsIHdoaWNoIHNlZW1zIG5v
-dCBhIGdvb2QgaWRlYS4KPgo+IEJlc3QgUmVnYXJkcwo+IERlbm5pcyBMaQo+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6
-dW1lcmtlbkBnbWFpbC5jb20+Cj4gU2VudDogVHVlc2RheSwgTWFyY2ggOSwgMjAyMSAyOjA3IEFN
-Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IEdyb2R6b3Zza3ksIEFu
-ZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBh
-bWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogY2FwdHVyZSBpbnZhbGlkIGhh
-cmR3YXJlIGFjY2VzcyB2Mgo+Cj4gRnJvbTogRGVubmlzIExpIDxEZW5uaXMuTGlAYW1kLmNvbT4K
-Pgo+IFdoZW4gcmVjb3ZlcnkgdGhyZWFkIGhhcyBiZWd1biBHUFUgcmVzZXQsIHRoZXJlIHNob3Vs
-ZCBiZSBub3Qgb3RoZXIgdGhyZWFkcyB0byBhY2Nlc3MgaGFyZHdhcmUsIG90aGVyd2lzZSBzeXN0
-ZW0gcmFuZG9tbHkgaGFuZy4KPgo+IHYyIChjaGspOiByZXdyaXR0ZW4gZnJvbSBzY3JhdGNoLCB1
-c2UgdHJ5bG9jayBhbmQgbG9ja2RlcCBpbnN0ZWFkIG9mCj4gICAgaGFuZCB3aXJpbmcgdGhlIGxv
-Z2ljLgo+Cj4gU2lnbmVkLW9mZi1ieTogRGVubmlzIExpIDxEZW5uaXMuTGlAYW1kLmNvbT4KPiBT
-aWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA3
-NCArKysrKysrKysrKysrKysrKy0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNTcgaW5zZXJ0aW9u
-cygrKSwgMTcgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RldmljZS5jCj4gaW5kZXggZTI0N2MzYTJlYzA4Li5jOTkwYWY2YTQzY2EgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTMyNiw2ICsz
-MjYsMzQgQEAgdm9pZCBhbWRncHVfZGV2aWNlX3ZyYW1fYWNjZXNzKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBsb2ZmX3QgcG9zLAo+ICAgLyoKPiAgICAqIHJlZ2lzdGVyIGFjY2VzcyBoZWxw
-ZXIgZnVuY3Rpb25zLgo+ICAgICovCj4gKwo+ICsvKiBDaGVjayBpZiBodyBhY2Nlc3Mgc2hvdWxk
-IGJlIHNraXBwZWQgYmVjYXVzZSBvZiBob3RwbHVnIG9yIGRldmljZQo+ICtlcnJvciAqLyBzdGF0
-aWMgYm9vbCBhbWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKHN0cnVjdCBhbWRncHVfZGV2aWNl
-Cj4gKyphZGV2KSB7Cj4gK2lmIChhZGV2LT5pbl9wY2lfZXJyX3JlY292ZXJ5KQo+ICtyZXR1cm4g
-dHJ1ZTsKPiArCj4gKyNpZmRlZiBDT05GSUdfTE9DS0RFUAo+ICsvKgo+ICsgKiBUaGlzIGlzIGEg
-Yml0IGNvbXBsaWNhdGVkIHRvIHVuZGVyc3RhbmQsIHNvIHdvcnRoIGEgY29tbWVudC4gV2hhdCB3
-ZSBhc3NlcnQKPiArICogaGVyZSBpcyB0aGF0IHRoZSBHUFUgcmVzZXQgaXMgbm90IHJ1bm5pbmcg
-b24gYW5vdGhlciB0aHJlYWQgaW4gcGFyYWxsZWwuCj4gKyAqCj4gKyAqIEZvciB0aGlzIHdlIHRy
-eWxvY2sgdGhlIHJlYWQgc2lkZSBvZiB0aGUgcmVzZXQgc2VtYXBob3JlLCBpZiB0aGF0IHN1Y2Nl
-ZWRzCj4gKyAqIHdlIGtub3cgdGhhdCB0aGUgcmVzZXQgaXMgbm90IHJ1bm5pbmcgaW4gcGFyYWxl
-bGwuCj4gKyAqCj4gKyAqIElmIHRoZSB0cnlsb2NrIGZhaWxzIHdlIGFzc2VydCB0aGF0IHdlIGFy
-ZSBlaXRoZXIgYWxyZWFkeSBob2xkaW5nIHRoZSByZWFkCj4gKyAqIHNpZGUgb2YgdGhlIGxvY2sg
-b3IgYXJlIHRoZSByZXNldCB0aHJlYWQgaXRzZWxmIGFuZCBob2xkIHRoZSB3cml0ZSBzaWRlIG9m
-Cj4gKyAqIHRoZSBsb2NrLgo+ICsgKi8KPiAraWYgKGRvd25fcmVhZF90cnlsb2NrKCZhZGV2LT5y
-ZXNldF9zZW0pKQo+ICt1cF9yZWFkKCZhZGV2LT5yZXNldF9zZW0pOwo+ICtlbHNlCj4gK2xvY2tk
-ZXBfYXNzZXJ0X2hlbGQoJmFkZXYtPnJlc2V0X3NlbSk7Cj4gKyNlbmRpZgo+ICsKPiArcmV0dXJu
-IGZhbHNlOwo+ICt9Cj4gKwo+ICAgLyoqCj4gICAgKiBhbWRncHVfZGV2aWNlX3JyZWcgLSByZWFk
-IGEgbWVtb3J5IG1hcHBlZCBJTyBvciBpbmRpcmVjdCByZWdpc3Rlcgo+ICAgICoKPiBAQCAtMzQw
-LDcgKzM2OCw3IEBAIHVpbnQzMl90IGFtZGdwdV9kZXZpY2VfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgIHsKPiAgIHVpbnQzMl90IHJldDsKPgo+IC1pZiAoYWRldi0+aW5fcGNpX2Vy
-cl9yZWNvdmVyeSkKPiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4g
-ICByZXR1cm4gMDsKPgo+ICAgaWYgKChyZWcgKiA0KSA8IGFkZXYtPnJtbWlvX3NpemUpIHsKPiBA
-QCAtMzc3LDcgKzQwNSw3IEBAIHVpbnQzMl90IGFtZGdwdV9kZXZpY2VfcnJlZyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwKPiAgICAqLwo+ICAgdWludDhfdCBhbWRncHVfbW1fcnJlZzgoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCkgIHsKPiAtaWYgKGFkZXYt
-PmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4gK2lmIChhbWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNz
-KGFkZXYpKQo+ICAgcmV0dXJuIDA7Cj4KPiAgIGlmIChvZmZzZXQgPCBhZGV2LT5ybW1pb19zaXpl
-KQo+IEBAIC00MDIsNyArNDMwLDcgQEAgdWludDhfdCBhbWRncHVfbW1fcnJlZzgoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCkKPiAgICAqLwo+ICAgdm9pZCBhbWRn
-cHVfbW1fd3JlZzgoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCwg
-dWludDhfdCB2YWx1ZSkgIHsKPiAtaWYgKGFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4gK2lm
-IChhbWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+ICAgcmV0dXJuOwo+Cj4gICBp
-ZiAob2Zmc2V0IDwgYWRldi0+cm1taW9fc2l6ZSkKPiBAQCAtNDI1LDcgKzQ1Myw3IEBAIHZvaWQg
-YW1kZ3B1X2RldmljZV93cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgdWludDMy
-X3QgcmVnLCB1aW50MzJfdCB2LAo+ICAgdWludDMyX3QgYWNjX2ZsYWdzKQo+ICAgewo+IC1pZiAo
-YWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSkKPiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19h
-Y2Nlc3MoYWRldikpCj4gICByZXR1cm47Cj4KPiAgIGlmICgocmVnICogNCkgPCBhZGV2LT5ybW1p
-b19zaXplKSB7Cj4gQEAgLTQ1Miw3ICs0ODAsNyBAQCB2b2lkIGFtZGdwdV9kZXZpY2Vfd3JlZyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgIHZvaWQgYW1kZ3B1X21tX3dyZWdfbW1pb19ybGMo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAgICAgIHVpbnQzMl90IHJlZywgdWludDMy
-X3QgdikKPiAgIHsKPiAtaWYgKGFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4gK2lmIChhbWRn
-cHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+ICAgcmV0dXJuOwo+Cj4gICBpZiAoYW1k
-Z3B1X3NyaW92X2Z1bGxhY2Nlc3MoYWRldikgJiYKPiBAQCAtNDc1LDcgKzUwMyw3IEBAIHZvaWQg
-YW1kZ3B1X21tX3dyZWdfbW1pb19ybGMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAg
-Ki8KPiAgIHUzMiBhbWRncHVfaW9fcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMy
-IHJlZykgIHsKPiAtaWYgKGFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4gK2lmIChhbWRncHVf
-ZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+ICAgcmV0dXJuIDA7Cj4KPiAgIGlmICgocmVn
-ICogNCkgPCBhZGV2LT5yaW9fbWVtX3NpemUpCj4gQEAgLTQ5Nyw3ICs1MjUsNyBAQCB1MzIgYW1k
-Z3B1X2lvX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiByZWcpCj4gICAgKi8K
-PiAgIHZvaWQgYW1kZ3B1X2lvX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBy
-ZWcsIHUzMiB2KSAgewo+IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSkKPiAraWYgKGFt
-ZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4gICByZXR1cm47Cj4KPiAgIGlmICgo
-cmVnICogNCkgPCBhZGV2LT5yaW9fbWVtX3NpemUpCj4gQEAgLTUxOSw3ICs1NDcsNyBAQCB2b2lk
-IGFtZGdwdV9pb193cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgcmVnLCB1MzIg
-dikKPiAgICAqLwo+ICAgdTMyIGFtZGdwdV9tbV9yZG9vcmJlbGwoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIHUzMiBpbmRleCkgIHsKPiAtaWYgKGFkZXYtPmluX3BjaV9lcnJfcmVjb3Zlcnkp
-Cj4gK2lmIChhbWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+ICAgcmV0dXJuIDA7
-Cj4KPiAgIGlmIChpbmRleCA8IGFkZXYtPmRvb3JiZWxsLm51bV9kb29yYmVsbHMpIHsgQEAgLTU0
-Miw3ICs1NzAsNyBAQCB1MzIgYW1kZ3B1X21tX3Jkb29yYmVsbChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwgdTMyIGluZGV4KQo+ICAgICovCj4gICB2b2lkIGFtZGdwdV9tbV93ZG9vcmJlbGwo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBpbmRleCwgdTMyIHYpICB7Cj4gLWlmIChh
-ZGV2LT5pbl9wY2lfZXJyX3JlY292ZXJ5KQo+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2Fj
-Y2VzcyhhZGV2KSkKPiAgIHJldHVybjsKPgo+ICAgaWYgKGluZGV4IDwgYWRldi0+ZG9vcmJlbGwu
-bnVtX2Rvb3JiZWxscykgeyBAQCAtNTYzLDcgKzU5MSw3IEBAIHZvaWQgYW1kZ3B1X21tX3dkb29y
-YmVsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIGluZGV4LCB1MzIgdikKPiAgICAq
-Lwo+ICAgdTY0IGFtZGdwdV9tbV9yZG9vcmJlbGw2NChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdTMyIGluZGV4KSAgewo+IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSkKPiAraWYg
-KGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4gICByZXR1cm4gMDsKPgo+ICAg
-aWYgKGluZGV4IDwgYWRldi0+ZG9vcmJlbGwubnVtX2Rvb3JiZWxscykgeyBAQCAtNTg2LDcgKzYx
-NCw3IEBAIHU2NCBhbWRncHVfbW1fcmRvb3JiZWxsNjQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsIHUzMiBpbmRleCkKPiAgICAqLwo+ICAgdm9pZCBhbWRncHVfbW1fd2Rvb3JiZWxsNjQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBpbmRleCwgdTY0IHYpICB7Cj4gLWlmIChhZGV2
-LT5pbl9wY2lfZXJyX3JlY292ZXJ5KQo+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2FjY2Vz
-cyhhZGV2KSkKPiAgIHJldHVybjsKPgo+ICAgaWYgKGluZGV4IDwgYWRldi0+ZG9vcmJlbGwubnVt
-X2Rvb3JiZWxscykgeyBAQCAtNjEwLDEwICs2MzgsMTMgQEAgdTMyIGFtZGdwdV9kZXZpY2VfaW5k
-aXJlY3RfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIHUzMiBwY2llX2luZGV4
-LCB1MzIgcGNpZV9kYXRhLAo+ICAgdTMyIHJlZ19hZGRyKQo+ICAgewo+IC11bnNpZ25lZCBsb25n
-IGZsYWdzOwo+IC11MzIgcjsKPiAgIHZvaWQgX19pb21lbSAqcGNpZV9pbmRleF9vZmZzZXQ7Cj4g
-ICB2b2lkIF9faW9tZW0gKnBjaWVfZGF0YV9vZmZzZXQ7Cj4gK3Vuc2lnbmVkIGxvbmcgZmxhZ3M7
-Cj4gK3UzMiByOwo+ICsKPiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikp
-Cj4gK3JldHVybiAwOwo+Cj4gICBzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+cGNpZV9pZHhfbG9j
-aywgZmxhZ3MpOwo+ICAgcGNpZV9pbmRleF9vZmZzZXQgPSAodm9pZCBfX2lvbWVtICopYWRldi0+
-cm1taW8gKyBwY2llX2luZGV4ICogNDsgQEAgLTY0MSwxMCArNjcyLDEzIEBAIHU2NCBhbWRncHVf
-ZGV2aWNlX2luZGlyZWN0X3JyZWc2NChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAg
-dTMyIHBjaWVfaW5kZXgsIHUzMiBwY2llX2RhdGEsCj4gICAgIHUzMiByZWdfYWRkcikKPiAgIHsK
-PiAtdW5zaWduZWQgbG9uZyBmbGFnczsKPiAtdTY0IHI7Cj4gICB2b2lkIF9faW9tZW0gKnBjaWVf
-aW5kZXhfb2Zmc2V0Owo+ICAgdm9pZCBfX2lvbWVtICpwY2llX2RhdGFfb2Zmc2V0Owo+ICt1bnNp
-Z25lZCBsb25nIGZsYWdzOwo+ICt1NjQgcjsKPiArCj4gK2lmIChhbWRncHVfZGV2aWNlX3NraXBf
-aHdfYWNjZXNzKGFkZXYpKQo+ICtyZXR1cm4gMDsKPgo+ICAgc3Bpbl9sb2NrX2lycXNhdmUoJmFk
-ZXYtPnBjaWVfaWR4X2xvY2ssIGZsYWdzKTsKPiAgIHBjaWVfaW5kZXhfb2Zmc2V0ID0gKHZvaWQg
-X19pb21lbSAqKWFkZXYtPnJtbWlvICsgcGNpZV9pbmRleCAqIDQ7IEBAIC02NzcsOSArNzExLDEy
-IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9pbmRpcmVjdF93cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+ICAgIHUzMiBwY2llX2luZGV4LCB1MzIgcGNpZV9kYXRhLAo+ICAgIHUzMiByZWdf
-YWRkciwgdTMyIHJlZ19kYXRhKQo+ICAgewo+IC11bnNpZ25lZCBsb25nIGZsYWdzOwo+ICAgdm9p
-ZCBfX2lvbWVtICpwY2llX2luZGV4X29mZnNldDsKPiAgIHZvaWQgX19pb21lbSAqcGNpZV9kYXRh
-X29mZnNldDsKPiArdW5zaWduZWQgbG9uZyBmbGFnczsKPiArCj4gK2lmIChhbWRncHVfZGV2aWNl
-X3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+ICtyZXR1cm47Cj4KPiAgIHNwaW5fbG9ja19pcnFzYXZl
-KCZhZGV2LT5wY2llX2lkeF9sb2NrLCBmbGFncyk7Cj4gICBwY2llX2luZGV4X29mZnNldCA9ICh2
-b2lkIF9faW9tZW0gKilhZGV2LT5ybW1pbyArIHBjaWVfaW5kZXggKiA0OyBAQCAtNzA2LDkgKzc0
-MywxMiBAQCB2b2lkIGFtZGdwdV9kZXZpY2VfaW5kaXJlY3Rfd3JlZzY0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LAo+ICAgICAgdTMyIHBjaWVfaW5kZXgsIHUzMiBwY2llX2RhdGEsCj4gICAg
-ICB1MzIgcmVnX2FkZHIsIHU2NCByZWdfZGF0YSkKPiAgIHsKPiAtdW5zaWduZWQgbG9uZyBmbGFn
-czsKPiAgIHZvaWQgX19pb21lbSAqcGNpZV9pbmRleF9vZmZzZXQ7Cj4gICB2b2lkIF9faW9tZW0g
-KnBjaWVfZGF0YV9vZmZzZXQ7Cj4gK3Vuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4gKwo+ICtpZiAoYW1k
-Z3B1X2RldmljZV9za2lwX2h3X2FjY2VzcyhhZGV2KSkKPiArcmV0dXJuOwo+Cj4gICBzcGluX2xv
-Y2tfaXJxc2F2ZSgmYWRldi0+cGNpZV9pZHhfbG9jaywgZmxhZ3MpOwo+ICAgcGNpZV9pbmRleF9v
-ZmZzZXQgPSAodm9pZCBfX2lvbWVtICopYWRldi0+cm1taW8gKyBwY2llX2luZGV4ICogNDsKPiAt
-LQo+IDIuMjUuMQo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Currently the pcie dpm has two problems.
+1. Only the high dpm level speed/width can be overrided
+if the requested values are out of the pcie capability.
+2. The high dpm level is always overrided though sometimes
+it's not necesarry.
+
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 48 ++++++++++++++
+ .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c | 66 +++++++++++++++++++
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 48 ++++++++------
+ 3 files changed, 141 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 5e875ad8d633..408b35866704 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -1505,6 +1505,48 @@ static int vega10_populate_single_lclk_level(struct pp_hwmgr *hwmgr,
+ 	return 0;
+ }
+ 
++static int vega10_override_pcie_parameters(struct pp_hwmgr *hwmgr)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
++	struct vega10_hwmgr *data =
++			(struct vega10_hwmgr *)(hwmgr->backend);
++	uint32_t pcie_gen = 0, pcie_width = 0;
++	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
++	int i;
++
++	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
++		pcie_gen = 3;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
++		pcie_gen = 2;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
++		pcie_gen = 1;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1)
++		pcie_gen = 0;
++
++	if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X16)
++		pcie_width = 6;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X12)
++		pcie_width = 5;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X8)
++		pcie_width = 4;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X4)
++		pcie_width = 3;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X2)
++		pcie_width = 2;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1)
++		pcie_width = 1;
++
++	for (i = 0; i < NUM_LINK_LEVELS; i++) {
++		if (pp_table->PcieGenSpeed[i] > pcie_gen)
++			pp_table->PcieGenSpeed[i] = pcie_gen;
++
++		if (pp_table->PcieLaneCount[i] > pcie_width)
++			pp_table->PcieLaneCount[i] = pcie_width;
++	}
++
++	return 0;
++}
++
+ static int vega10_populate_smc_link_levels(struct pp_hwmgr *hwmgr)
+ {
+ 	int result = -1;
+@@ -2556,6 +2598,11 @@ static int vega10_init_smc_table(struct pp_hwmgr *hwmgr)
+ 			"Failed to initialize Link Level!",
+ 			return result);
+ 
++	result = vega10_override_pcie_parameters(hwmgr);
++	PP_ASSERT_WITH_CODE(!result,
++			"Failed to override pcie parameters!",
++			return result);
++
+ 	result = vega10_populate_all_graphic_levels(hwmgr);
+ 	PP_ASSERT_WITH_CODE(!result,
+ 			"Failed to initialize Graphics Level!",
+@@ -2922,6 +2969,7 @@ static int vega10_start_dpm(struct pp_hwmgr *hwmgr, uint32_t bitmap)
+ 	return 0;
+ }
+ 
++
+ static int vega10_enable_disable_PCC_limit_feature(struct pp_hwmgr *hwmgr, bool enable)
+ {
+ 	struct vega10_hwmgr *data = hwmgr->backend;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index a827f2bc7904..196ac2a4d145 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -481,6 +481,67 @@ static void vega12_init_dpm_state(struct vega12_dpm_state *dpm_state)
+ 	dpm_state->hard_max_level = 0xffff;
+ }
+ 
++static int vega12_override_pcie_parameters(struct pp_hwmgr *hwmgr)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
++	struct vega12_hwmgr *data =
++			(struct vega12_hwmgr *)(hwmgr->backend);
++	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg, pcie_gen_arg, pcie_width_arg;
++	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
++	int i;
++	int ret;
++
++	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
++		pcie_gen = 3;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
++		pcie_gen = 2;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
++		pcie_gen = 1;
++	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1)
++		pcie_gen = 0;
++
++	if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X16)
++		pcie_width = 6;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X12)
++		pcie_width = 5;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X8)
++		pcie_width = 4;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X4)
++		pcie_width = 3;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X2)
++		pcie_width = 2;
++	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1)
++		pcie_width = 1;
++
++	/* Bit 31:16: LCLK DPM level. 0 is DPM0, and 1 is DPM1
++	 * Bit 15:8:  PCIE GEN, 0 to 3 corresponds to GEN1 to GEN4
++	 * Bit 7:0:   PCIE lane width, 1 to 7 corresponds is x1 to x32
++	 */
++	for (i = 0; i < NUM_LINK_LEVELS; i++) {
++		pcie_gen_arg = (pp_table->PcieGenSpeed[i] > pcie_gen) ? pcie_gen :
++			pp_table->PcieGenSpeed[i];
++		pcie_width_arg = (pp_table->PcieLaneCount[i] > pcie_width) ? pcie_width :
++			pp_table->PcieLaneCount[i];
++
++		if (pcie_gen_arg != pp_table->PcieGenSpeed[i] || pcie_width_arg !=
++		    pp_table->PcieLaneCount[i]) {
++			smu_pcie_arg = (i << 16) | (pcie_gen_arg << 8) | pcie_width_arg;
++			ret = smum_send_msg_to_smc_with_parameter(hwmgr,
++				PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
++				NULL);
++			PP_ASSERT_WITH_CODE(!ret,
++				"[OverridePcieParameters] Attempt to override pcie params failed!",
++				return ret);
++		}
++
++		/* update the pptable */
++		pp_table->PcieGenSpeed[i] = pcie_gen_arg;
++		pp_table->PcieLaneCount[i] = pcie_width_arg;
++	}
++
++	return 0;
++}
++
+ static int vega12_get_number_of_dpm_level(struct pp_hwmgr *hwmgr,
+ 		PPCLK_e clk_id, uint32_t *num_of_levels)
+ {
+@@ -968,6 +1029,11 @@ static int vega12_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
+ 			"Failed to enable all smu features!",
+ 			return result);
+ 
++	result = vega12_override_pcie_parameters(hwmgr);
++	PP_ASSERT_WITH_CODE(!result,
++			"[EnableDPMTasks] Failed to override pcie parameters!",
++			return result);
++
+ 	tmp_result = vega12_power_control_set_level(hwmgr);
+ 	PP_ASSERT_WITH_CODE(!tmp_result,
+ 			"Failed to power control set level!",
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index e8eec2539c17..78bbd4d666f2 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -831,7 +831,9 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
+ 	struct vega20_hwmgr *data =
+ 			(struct vega20_hwmgr *)(hwmgr->backend);
+-	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg;
++	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg, pcie_gen_arg, pcie_width_arg;
++	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
++	int i;
+ 	int ret;
+ 
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
+@@ -860,17 +862,27 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
+ 	 * Bit 15:8:  PCIE GEN, 0 to 3 corresponds to GEN1 to GEN4
+ 	 * Bit 7:0:   PCIE lane width, 1 to 7 corresponds is x1 to x32
+ 	 */
+-	smu_pcie_arg = (1 << 16) | (pcie_gen << 8) | pcie_width;
+-	ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+-			PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
+-			NULL);
+-	PP_ASSERT_WITH_CODE(!ret,
+-		"[OverridePcieParameters] Attempt to override pcie params failed!",
+-		return ret);
++	for (i = 0; i < NUM_LINK_LEVELS; i++) {
++		pcie_gen_arg = (pp_table->PcieGenSpeed[i] > pcie_gen) ? pcie_gen :
++			pp_table->PcieGenSpeed[i];
++		pcie_width_arg = (pp_table->PcieLaneCount[i] > pcie_width) ? pcie_width :
++			pp_table->PcieLaneCount[i];
++
++		if (pcie_gen_arg != pp_table->PcieGenSpeed[i] || pcie_width_arg !=
++		    pp_table->PcieLaneCount[i]) {
++			smu_pcie_arg = (i << 16) | (pcie_gen_arg << 8) | pcie_width_arg;
++			ret = smum_send_msg_to_smc_with_parameter(hwmgr,
++				PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
++				NULL);
++			PP_ASSERT_WITH_CODE(!ret,
++				"[OverridePcieParameters] Attempt to override pcie params failed!",
++				return ret);
++		}
+ 
+-	data->pcie_parameters_override = true;
+-	data->pcie_gen_level1 = pcie_gen;
+-	data->pcie_width_level1 = pcie_width;
++		/* update the pptable */
++		pp_table->PcieGenSpeed[i] = pcie_gen_arg;
++		pp_table->PcieLaneCount[i] = pcie_width_arg;
++	}
+ 
+ 	return 0;
+ }
+@@ -3319,9 +3331,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 			data->od8_settings.od8_settings_array;
+ 	OverDriveTable_t *od_table =
+ 			&(data->smc_state_table.overdrive_table);
+-	struct phm_ppt_v3_information *pptable_information =
+-		(struct phm_ppt_v3_information *)hwmgr->pptable;
+-	PPTable_t *pptable = (PPTable_t *)pptable_information->smc_pptable;
++	PPTable_t *pptable = &(data->smc_state_table.pp_table);
+ 	struct pp_clock_levels_with_latency clocks;
+ 	struct vega20_single_dpm_table *fclk_dpm_table =
+ 			&(data->dpm_table.fclk_table);
+@@ -3420,13 +3430,9 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		current_lane_width =
+ 			vega20_get_current_pcie_link_width_level(hwmgr);
+ 		for (i = 0; i < NUM_LINK_LEVELS; i++) {
+-			if (i == 1 && data->pcie_parameters_override) {
+-				gen_speed = data->pcie_gen_level1;
+-				lane_width = data->pcie_width_level1;
+-			} else {
+-				gen_speed = pptable->PcieGenSpeed[i];
+-				lane_width = pptable->PcieLaneCount[i];
+-			}
++			gen_speed = pptable->PcieGenSpeed[i];
++			lane_width = pptable->PcieLaneCount[i];
++
+ 			size += sprintf(buf + size, "%d: %s %s %dMhz %s\n", i,
+ 					(gen_speed == 0) ? "2.5GT/s," :
+ 					(gen_speed == 1) ? "5.0GT/s," :
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
