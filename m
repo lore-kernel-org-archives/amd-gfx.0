@@ -7,115 +7,112 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1828EC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 16:50:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A245FC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 16:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC9B965237
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 16:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC9B965237
+	by mail.kernel.org (Postfix) with ESMTPS id 556E565230
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Mar 2021 16:55:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 556E565230
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C1A16E8AF;
-	Tue,  9 Mar 2021 16:50:50 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D8F26E8AF;
- Tue,  9 Mar 2021 16:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D827F6E194;
+	Tue,  9 Mar 2021 16:55:34 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2068.outbound.protection.outlook.com [40.107.102.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E88C6E194
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Mar 2021 16:55:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lBOIINa8eMiiClS/xo1wvms3qPGRJXvbaQszvcwN+5tvfZlgWpLueK+ZII1Yw9DwIUkDrqha1WlDQIPc9I2ryusHUfsOPyDdil7ZRvXD9SZjTEaDR3XAZtAKF4q6N1L+70ynx6VvRoAr6/MIh6qLcglhEbby5DjcxMuaTm4VC7U/L8O+WRifPrSOnO2rH1c1kkpNe5Vm90s6rTAEe+Qedd0b0+Az9GLV2bAo0e06QZTmaRepJSG3GBBiTMKZs89ox0tvzbfeB29x9Ub1xuFTJ5cQzrHZV1g4v2U8dyQPXBTA34bGLocuOz0vlmDzmCpbywjlxNuWtzyFyLp17Oi5uA==
+ b=FzYDKPLg+wGy9XqCbxujspIvmGF218ivnAkhqlhz2mbK2nQGkY1bZubdpNjNCJe7zUf1ZtifEdcCeKTKmLFDOg465I1RaJGFW3q7zvghynDhk8b6un7UY5TRf3yZXmpIr6VPmYAB9RNfFH+yBVFNQ6enuYA7J1WFDaGDKsdWdEOPvsfDBUw6GPdpuTjZv51r3zhtzYc7qodtpd/f9ycPWHHNfzmIqQfH+/IhrVxaRF2ioUX4wnPmz4RtPxqhXx0QtBPKmuQjIjIfR7gPqK1HdBkbv3zsu2UjwIXOmVkleIQhe9v2EWhPbgkCk+B/R3bw5pI7UlconNkzohX66OMrtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7SH1hprtVAekCCiy+NG2XyJ9KGAuMoXJVOV6KDuIRVk=;
- b=CpiAFF1ZaFXWRxwfau4LllWz41gHk1BV2ZedyunVMKfoXzJ3BJlOdIDRRngnVN7RkTJa331H8EE8DYFC7C/uGn5SMs1iOhc93gsMimxJWmhKS81rK9Vg9l9Y40Dlmkszlde5LMVRrXfU7nwvX21EdALe18FE7KPFBbHQJEoFl5X4SWI2H/Jen/P3IsQyiwSYuF77GzehWPIcXug9FWZfo8ut+fYlm0qobbbvjvyMqwPa9WaLUN51UOicHgpuSRrDAUn/7t4RqDxEw97DqYmpnCE8WIs2G77KAdnIhzBH0tQzrsUStcuf0cDuVPDQ+SW/A4XKaSg+oxIjgitVasqIzA==
+ bh=SmwJmOXTs0Ba8Ywgb1KW8UAzUm9UclcolSCoV2d4B38=;
+ b=XYPgOOy7C/uoXEG/AU/QOHqTnNa1gtBIRCkmr3bDxY42Ijqnhbo7wxpc/nHbQ6w1WbQc+JQ8F/hhn+VS+mB4hH9fl2yb+4XqqMMx5pYJEZYWwjsFGNbuo2MDiF+lf311T0pIvB0DiHicwv9AGXFqBhIMEY62K6/zLcoGrW5idz7nuc5YLKxPmH/X8FdjZDjyj48o0ghxVZx6+a2yZswpWBhbdwr/oDEuL1C+60HefQo424GZOWLZqI/KnjhAH+9A4No2Wsxia5YExChAc59zqSKMdMJnSFjEg/spO9gbkLRqq9Hgw5vx/fS/8dZoOttMu8Erb1UQNe8SVL2HiaisGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7SH1hprtVAekCCiy+NG2XyJ9KGAuMoXJVOV6KDuIRVk=;
- b=1ahvGXuvDAmvaYRisil59TYcxleuOxtHprGqlBWOiueZ7Mg/0CbF98DJSu4cHtvMYeTdbhXXhT6TjdpFH/LSJ6N0aLDabS0XOMZ50nxqdpOCXE83kJ+nfpNEpOqQv7bkxHPvKhhpTD6Kxn8yNTVheBlnPI1AJPQOXUsUyIGmoXg=
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=SmwJmOXTs0Ba8Ywgb1KW8UAzUm9UclcolSCoV2d4B38=;
+ b=xgOrTfu19RN+xjcGJyo7RpLc6apGHlkvahvO2JzOJHOTRBMdHCwZFedwZc715Qq4YJIo5zcYJZPCXfRfwt8TWDQR/FGxqdaaTeGALRd4WxF+w1HBs5DgbyQp/Xrjb2VE2kOytcos8wdlgli8YKcd4P0E3WojZebrvmafyoy3DHk=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
+ by CY4PR1201MB0056.namprd12.prod.outlook.com (2603:10b6:910:1c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.27; Tue, 9 Mar
- 2021 16:50:42 +0000
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::ec8d:851e:525d:a6ab]) by BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::ec8d:851e:525d:a6ab%9]) with mapi id 15.20.3784.031; Tue, 9 Mar 2021
- 16:50:42 +0000
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: arnd@kernel.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Subject: [PATCH v2 1/1] drm/amdkfd: fix build error with AMD_IOMMU_V2=m
-Date: Tue,  9 Mar 2021 11:50:18 -0500
-Message-Id: <20210309165018.26213-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <4c692eff-9d57-278e-8da4-36bc2c293506@amd.com>
-References: <4c692eff-9d57-278e-8da4-36bc2c293506@amd.com>
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::23) To BL0PR12MB4948.namprd12.prod.outlook.com
- (2603:10b6:208:1cc::20)
+ 2021 16:55:32 +0000
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3912.029; Tue, 9 Mar 2021
+ 16:55:32 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: Christian.Koenig@amd.com
+Subject: [PATCH 1/1] drm/amdgpu: add amdgpu_bo_destroy_user helper function
+Date: Tue,  9 Mar 2021 17:55:18 +0100
+Message-Id: <20210309165518.7721-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.30.1
+X-Originating-IP: [217.86.127.127]
+X-ClientProxiedBy: AM0PR02CA0124.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28c::21) To CY4PR12MB1463.namprd12.prod.outlook.com
+ (2603:10b6:910:e::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Harpoon.amd.com (165.204.55.251) by
- YT1PR01CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.26 via Frontend Transport; Tue, 9 Mar 2021 16:50:41 +0000
+Received: from brihaspati.fritz.box (217.86.127.127) by
+ AM0PR02CA0124.eurprd02.prod.outlook.com (2603:10a6:20b:28c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
+ Transport; Tue, 9 Mar 2021 16:55:31 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9a219696-5ac1-4927-ac2b-08d8e31b79b7
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4224:
+X-MS-Office365-Filtering-Correlation-Id: 2f94d71d-3297-41d2-7138-08d8e31c2692
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0056:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4224A8E2AD6A5225AAA6A81892929@MN2PR12MB4224.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0056B50843532AA1E2A76C628B929@CY4PR1201MB0056.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:213;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J2ZDMm8sdSXirKFjH8uPxn1fWRKgFwkbJYj0bDJgkE0g5wFUhhxCFjt34nh19XACNKAIHO6FohXlBRcn1mwaLuDUtDDQU1lm4QH5wzjByY/aP0t0XR1EAHglC74wYX3dmMnP9+XJsuLFck9DQ3n7JEcfKagqPk7By13dMgr0uAaS56Jc0c4Ie5QNoC7k9gqrTg0Qg4dQrtPE7W91kh6wB66JnsaFcQSWWh/SeujJv14Jtnv/ltGK91X869AwAMoXLjxMn1WYmAVilWCdLzVxoVyqa1LumM5HtK9DuHxkGWRxdGIoZJEwoQRiU9y5uPHSw0Z2mtsLi5IXuMa+KIS2RqpXaLgHpKG1iV4/Kj6m8m5taE+08Di7iVNGZSmrj1TJwDIlwc4vCnVL+X4cYppFBj8v0cPJLnuT8t4xIKgaN3wk9cHYcXUpyNwH0SIu9GWH7/qtflhNREFxFthPCpVJNVw4kgTj627s1uWH/aSD+uRSQAr0kripIHcc8omi6kFgkYOeOKivpScoslD267KpKw==
+X-Microsoft-Antispam-Message-Info: VEPH01DjGAijfa2wU3CgcxKjK7TDlzw5LQNDh7jImPz5kyzrtKFq79LYzKtsJ/AO3lqKlpiOZokiz1pZofRGff2NjrbfFvCb+TY2XuVwA4SJMNfP6n+cTqdyvCA6vtAAqidtNFCesctRQtmsqsG/nOvwPK75q/y55VSNmqVJOAGQ5FnTKIM5K6IQjv5PgSiP3p9n83alxfriv1eMPqGzs0WzKsKnAJXxIK2k+8nklSnHzJQ7lSlHx8x6pItSjdQgl0ZurKsa3rugJWLBD5lRenH1FPTmzFjgyQopw59fl6hVEmW+a9KFFDGptOrh/+wTGebzc6Nvma/WreMmvFUbytOkIPo2siNzGTe8bxLXZXLAkAYfzVBXtk2OHUEgpaSGxZTP6fPz3nuw03wfN3DUSOFkdAxjvgHnIJjb7eTlRvqGLakOXrNNfX2E8Jqs1ESdY/ZMTBTBinVBcIj4nT1J1C8aqC5/xX+pXmwNSujBYn714yVbJ4ys/8N3HEHqYpMsP1GBZJkWEuEsTEuAjxd0UA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(83380400001)(26005)(4326008)(7696005)(5660300002)(16526019)(66946007)(66556008)(186003)(8676002)(52116002)(6666004)(956004)(1076003)(478600001)(2616005)(36756003)(2906002)(6636002)(86362001)(8936002)(6486002)(316002)(66476007);
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(83380400001)(86362001)(2616005)(6666004)(37006003)(5660300002)(186003)(316002)(956004)(16526019)(44832011)(8676002)(8936002)(26005)(6506007)(34206002)(6512007)(36756003)(6486002)(52116002)(66476007)(478600001)(6636002)(66556008)(66946007)(2906002)(4326008)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?U6nO768hT+BG1RFerGi72AAQhaxpGu9DCvGH+CApMY7rympNz8CgRvxqqVOV?=
- =?us-ascii?Q?m0ZPqUaI0XprOP6nAl/BV6blVauc1s0+NWWvq9MAtvQsDSLquBQhmvyqNRGG?=
- =?us-ascii?Q?ZbBtb+7jWtFL2bTHZPHUkvJvORnMPWim4qeKplBYTwRkF60aRPO41uuWS5Zg?=
- =?us-ascii?Q?/m+gQkCgS20LSrCgCNxC/8w2fw/FVpLTfcgHKItBkpePgQWO544DAwyHRhA0?=
- =?us-ascii?Q?JAWuzeJHiV/+a8vUZLvBHsF+yygVtbMXRGXnNUaVKzZoCnOlfCyY5v223UTM?=
- =?us-ascii?Q?0pbjnVLAUItou8EqGczRG+FzPnkCng5onnJEwkHq65xPRdmzA5WyGim1fFfM?=
- =?us-ascii?Q?3zQyCWYRJes0vOU/fwu+CxAWdMmrYMb5nDWwM8MY2v6qIJ3m1exfSsb9mMqZ?=
- =?us-ascii?Q?STzSWq9a/KoUEx+a9TV8tGAR/VgbobMfQLRwo0pJLfaxD/eg0u5Eqx1wBe+z?=
- =?us-ascii?Q?fxHMmfelRf+8KnkA6w22k81hpM1N8pqw6kCShLkTAJjLYb3JraRUIdE+x2by?=
- =?us-ascii?Q?/Ccq8E3KKIxEgZw0fInVgN4H0LUNFzkkqbyTNCIteZXKe6CP4qCEc7P38EhJ?=
- =?us-ascii?Q?lmclNgNYgIscB7PlThisESWsQpiLw4j2BHtrEum1ZGvXdWThsiFBuVAs36uf?=
- =?us-ascii?Q?qOkIPf0TajruFG+pqh3N4t6lDEaJ1eAK5eahjvyUXgHXMikFDSpMuhMr+EfF?=
- =?us-ascii?Q?d5KY9oeLjNx/dVJBU4rToDsR3K36LAt5c8ugbHc4EtE1lKstFEuO5954BzS0?=
- =?us-ascii?Q?pzUwAT8e1VIEWz2PBhzgv7LBQJ1d3Pox+G/yi1zlCj1Xrlg68z3gqHAdwMrq?=
- =?us-ascii?Q?PaJ5AuH1YYDYbrAsbPPyuCvdXlMclG482If7a9QwpnKkMuGgVeUBsVmcpMI4?=
- =?us-ascii?Q?cJPGqcSsx3sYveMIsXCjJXEntlK+/4toZBnPsPJm3EnIa/xJdJu3nzP5XV5F?=
- =?us-ascii?Q?Fx4jbLX/abyULV59v/C6CvdoXXHIsTpI4PM95Bez/QqzuvCZAAFNE8++4MwV?=
- =?us-ascii?Q?Zugk0cwvwUa53q1sFBtcfcwEH0enyW4RO7i3KP+kFkdMCpLyGS9dFpvyr8O0?=
- =?us-ascii?Q?XPQDfFfdi/uFpYU3Pio7lGIZgpjxXVJtFHYTKaonICzglLZiZYnADX7zi2Kq?=
- =?us-ascii?Q?tGolVMWKwv57sYRBdWbnA5ojbddQEDUY1D48TQRby1rIisvWioly1PkGybEp?=
- =?us-ascii?Q?rXPvc/JYV2jTwqvmjUhimzxExe9QCAgf+QXDE0vk/8QuqNoy4Uqarzi/6Du6?=
- =?us-ascii?Q?5THpxm5QYs7MaIaVKfMRs9BX4rZEmOgf2f1psJJp0AWT276id4mdvUEmOlPH?=
- =?us-ascii?Q?8AFo3PP76p74WxjOO/mrGR2U?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Zdf8NJoProGp7qiTeK6DR9TbusVMFW8Xd95XrvReyd+SKZ/XAHNdR/YJUv1K?=
+ =?us-ascii?Q?oHkN33f6lA9EHlInrlq+F0u5fl9DYjelNogHgSzKCf7rK4gvqtjDtEgO3G9H?=
+ =?us-ascii?Q?dBA+ijJvYFDIloCUqBUj6EbelI5yuBVeRFRTfVL8KBr/iXkRWHz9gJmorscR?=
+ =?us-ascii?Q?QRG4ZMK8/jgCLkIT2Dn/+ZAPQtRskXOR2UkI6eaqNqrXipfpUYvGxG/K7RjZ?=
+ =?us-ascii?Q?xQquBYq1VAL4mJotstGl+/ibwPKHYpG/EHY72rvIsuS8JnI4U2tuW95mqVq2?=
+ =?us-ascii?Q?WgPVfOAUb9Ltd7c+La1TDIkB3S9biBna4wqgjgLC8Vbk3M0eCh6KXEjVRkTh?=
+ =?us-ascii?Q?O47oolNc/ObWlnOjkmFXuVZ2lKPkiVtTalkVBfYqwGjOz4qNSPGboMLvgr0P?=
+ =?us-ascii?Q?IhNrYdSyEqjSiwpszilRPq4HrugI5gAAt0/T69slxEhgLrHlAh3krygNWghj?=
+ =?us-ascii?Q?PInX2GoCdN6X4QvBFI6dT9CQNZqoBKlLtP0KKfFjRPAex3p+PMZDhTWW33Ow?=
+ =?us-ascii?Q?Y290JCcKMJQAkhoJ5ocdxCVZSKJbBlcK46fWbyI1uhhgjUcmYvngDKWGA6RI?=
+ =?us-ascii?Q?gzlTweuJGXgIAZ2O62NLfDNySdNyFLuLhSt9lqVAUOy4ZYqxJPm9vPseDsRt?=
+ =?us-ascii?Q?sfkr4ws4wj29SnVQIkW4J4koUtJXU86mDbqNZEqk4Zrn9v8siPjsAvzF8NbS?=
+ =?us-ascii?Q?GcRsF3aSvRIinSch/I/rpu2uxGMzRi6GPxyje3Jt5rg/no2BpJXOp+3/ZR4m?=
+ =?us-ascii?Q?EbixHAQrbEO1yn54XZaayJVuo/b3BYkttne05RsSIX8wFyh8sn7E1scOsg6g?=
+ =?us-ascii?Q?1hpWuImCd4kqsB1Te5Atd49m7lCRZKjMm2k4ie/lHR6jvhbuv1OUOW/5hNWz?=
+ =?us-ascii?Q?N0jZvFSCW22Q1fxFB3l0JevJeE2P0dXEhl7qP1CUkZM+J6WU6Y0UwH0SF41W?=
+ =?us-ascii?Q?dIS3XxmJM62JLW7weeqmYpvCtSaYPtgWzUIfyh0LVMAydNhB6cZAbFRbU5jE?=
+ =?us-ascii?Q?qym+eEhHSEbral8yHExEaSFSz49EZ5T7SE3rZ+Sui7Xudw1I/XHJmSw7Kf4U?=
+ =?us-ascii?Q?kHVkA2Xys0xSRz2lDGEhvPxcrv50A6FG4LHDHylccAKVcOOh9Jlo5lyoqmzC?=
+ =?us-ascii?Q?06U6hhMSOYUFBmcvHidXDzV91psEq+yG7uTZW1eJFYS3yjLHo21hgjGsOt3r?=
+ =?us-ascii?Q?EH+vjAFa6X/+X+heHkyW3N6KrQhI9mcy2uuVQ13Ow1RMv4RWYKMSQk7PLpeV?=
+ =?us-ascii?Q?TzLq/3hNRPVcTc3FjTvVK4RfV/QgwrXWs5NFv1K1Qe37gtEgINYRX1Fex2nC?=
+ =?us-ascii?Q?gC/4AD20MqKFVzKiMeJtiJQ/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a219696-5ac1-4927-ac2b-08d8e31b79b7
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f94d71d-3297-41d2-7138-08d8e31c2692
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 16:50:42.0698 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2021 16:55:32.0265 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wxS0bkn31NhLx87z4O68g/sfuF4EXyMWDmL8mpCpQ9CPxXe+F/Fr6yPLqSe1HY0S9zvtI54lw0IJgpzESqgNsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
+X-MS-Exchange-CrossTenant-UserPrincipalName: CUS2bfgOrW5NJtdp135O6TTXLDdMRooekLh2B0OHmjt7FJi+jJDJvunSh+d+mSbwV7eMWU2WUwen8J8zvXbRzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,103 +124,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, arnd@arndb.de
+Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using 'imply AMD_IOMMU_V2' does not guarantee that the driver can link
-against the exported functions. If the GPU driver is built-in but the
-IOMMU driver is a loadable module, the kfd_iommu.c file is indeed
-built but does not work:
+Implement amdgpu_bo_destroy_user() helper function to simplify
+amdgpu_bo_user cleanup.
 
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_bind_process_to_device':
-kfd_iommu.c:(.text+0x516): undefined reference to `amd_iommu_bind_pasid'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_unbind_process':
-kfd_iommu.c:(.text+0x691): undefined reference to `amd_iommu_unbind_pasid'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_suspend':
-kfd_iommu.c:(.text+0x966): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0x97f): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0x9a4): undefined reference to `amd_iommu_free_device'
-x86_64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_iommu.o: in function `kfd_iommu_resume':
-kfd_iommu.c:(.text+0xa9a): undefined reference to `amd_iommu_init_device'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xadc): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xaff): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xc72): undefined reference to `amd_iommu_bind_pasid'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe08): undefined reference to `amd_iommu_set_invalidate_ctx_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe26): undefined reference to `amd_iommu_set_invalid_ppr_cb'
-x86_64-linux-ld: kfd_iommu.c:(.text+0xe42): undefined reference to `amd_iommu_free_device'
-
-Use IS_REACHABLE to only build IOMMU-V2 support if the amd_iommu symbols
-are reachable by the amdkfd driver. Output a warning if they are not,
-because that may not be what the user was expecting.
-
-Fixes: 64d1c3a43a6f ("drm/amdkfd: Centralize IOMMUv2 code and make it conditional")
-Reported-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c | 6 ++++++
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.h | 9 +++++++--
- 2 files changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-index 66bbca61e3ef..9318936aa805 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-@@ -20,6 +20,10 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
-+#include <linux/kconfig.h>
-+
-+#if IS_REACHABLE(CONFIG_AMD_IOMMU_V2)
-+
- #include <linux/printk.h>
- #include <linux/device.h>
- #include <linux/slab.h>
-@@ -355,3 +359,5 @@ int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
- 
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index ac0e1cd83858..cdd5d02e7b26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -73,11 +73,22 @@ static void amdgpu_bo_subtract_pin_size(struct amdgpu_bo *bo)
+ 	}
  }
+ 
++static void amdgpu_bo_destroy_user(struct amdgpu_bo *bo)
++{
++	struct amdgpu_bo_user *ubo;
 +
-+#endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-index dd23d9fdf6a8..afd420b01a0c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-@@ -23,7 +23,9 @@
- #ifndef __KFD_IOMMU_H__
- #define __KFD_IOMMU_H__
- 
--#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
-+#include <linux/kconfig.h>
++	if (bo->tbo.type != ttm_bo_type_device)
++		return;
 +
-+#if IS_REACHABLE(CONFIG_AMD_IOMMU_V2)
- 
- #define KFD_SUPPORT_IOMMU_V2
- 
-@@ -46,6 +48,9 @@ static inline int kfd_iommu_check_device(struct kfd_dev *kfd)
- }
- static inline int kfd_iommu_device_init(struct kfd_dev *kfd)
++	ubo = to_amdgpu_bo_user(bo);
++	kfree(ubo->metadata);
++
++}
++
+ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
  {
-+#if IS_MODULE(CONFIG_AMD_IOMMU_V2)
-+	WARN_ONCE(1, "iommu_v2 module is not usable by built-in KFD");
-+#endif
- 	return 0;
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+ 	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+-	struct amdgpu_bo_user *ubo;
+ 
+ 	if (bo->tbo.pin_count > 0)
+ 		amdgpu_bo_subtract_pin_size(bo);
+@@ -94,11 +105,7 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+ 		mutex_unlock(&adev->shadow_list_lock);
+ 	}
+ 	amdgpu_bo_unref(&bo->parent);
+-
+-	if (bo->tbo.type == ttm_bo_type_device) {
+-		ubo = to_amdgpu_bo_user(bo);
+-		kfree(ubo->metadata);
+-	}
++	amdgpu_bo_destroy_user(bo);
+ 
+ 	kfree(bo);
  }
- 
-@@ -73,6 +78,6 @@ static inline int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
- 	return 0;
- }
- 
--#endif /* defined(CONFIG_AMD_IOMMU_V2) */
-+#endif /* IS_REACHABLE(CONFIG_AMD_IOMMU_V2) */
- 
- #endif /* __KFD_IOMMU_H__ */
 -- 
-2.30.0
+2.30.1
 
 _______________________________________________
 amd-gfx mailing list
