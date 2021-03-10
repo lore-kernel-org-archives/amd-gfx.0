@@ -7,36 +7,35 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3D87C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 15:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C300C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 15:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B6B464F4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 15:12:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B6B464F4C
+	by mail.kernel.org (Postfix) with ESMTPS id 5374E64F4B
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 15:12:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5374E64F4B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 141486EA37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F416EA3B;
 	Wed, 10 Mar 2021 15:12:11 +0000 (UTC)
 Received: from mslow2.mail.gandi.net (mslow2.mail.gandi.net [217.70.178.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C34166EA37
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 15:12:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0976EA37
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 15:12:09 +0000 (UTC)
 Received: from relay7-d.mail.gandi.net (unknown [217.70.183.200])
- by mslow2.mail.gandi.net (Postfix) with ESMTP id F06ED3A764D
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 14:50:50 +0000 (UTC)
+ by mslow2.mail.gandi.net (Postfix) with ESMTP id 703DA3C277A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 14:50:52 +0000 (UTC)
 X-Originating-IP: 82.65.230.196
 Received: from localhost.localdomain (82-65-230-196.subs.proxad.net
  [82.65.230.196]) (Authenticated sender: schroder@emersion.fr)
- by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id E96EF20004;
- Wed, 10 Mar 2021 14:50:27 +0000 (UTC)
+ by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id 694622000A;
+ Wed, 10 Mar 2021 14:50:29 +0000 (UTC)
 From: Simon Ser <contact@emersion.fr>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/5] amd/display: check cursor plane matches underlying
- plane
-Date: Wed, 10 Mar 2021 15:50:16 +0100
-Message-Id: <20210310145019.2877-3-contact@emersion.fr>
+Subject: [PATCH v2 3/5] amd/display: add cursor check for YUV underlying pipe
+Date: Wed, 10 Mar 2021 15:50:17 +0100
+Message-Id: <20210310145019.2877-4-contact@emersion.fr>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210310145019.2877-1-contact@emersion.fr>
 References: <20210310145019.2877-1-contact@emersion.fr>
@@ -61,78 +60,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The current logic checks whether the cursor plane blending
-properties match the primary plane's. However that's wrong,
-because the cursor uses the topmost pipe.
+The cursor plane can't be displayed if the underlying pipe isn't
+using an RGB format. Reject such atomic commits so that user-space
+can have a fallback instead of an invisible cursor.
 
-Instead, grab the topmost enabled plane, and check that the
-cursor plane blending properties matches it.
+In theory we could support YUV if the cursor is also YUV, but at the
+moment only ARGB8888 cursors are supported.
 
-Fixes: 12f4849a1cfd ("drm/amd/display: check cursor scaling")
 Signed-off-by: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++++--------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f736c1fa1fb4..b54ed708e114 100644
+index b54ed708e114..98df550c3979 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9458,33 +9458,39 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
- 				struct drm_crtc *crtc,
- 				struct drm_crtc_state *new_crtc_state)
- {
--	struct drm_plane_state *new_cursor_state, *new_primary_state;
--	int cursor_scale_w, cursor_scale_h, primary_scale_w, primary_scale_h;
-+	int i;
-+	struct drm_plane *plane;
-+	struct drm_plane_state *new_cursor_state, *new_underlying_state, *new_plane_state;
-+	int cursor_scale_w, cursor_scale_h, underlying_scale_w, underlying_scale_h;
- 
- 	/* On DCE and DCN there is no dedicated hardware cursor plane. We get a
- 	 * cursor per pipe but it's going to inherit the scaling and
- 	 * positioning from the underlying pipe. Check the cursor plane's
--	 * blending properties match the primary plane's. */
-+	 * blending properties match the underlying plane's. */
-+
-+	new_underlying_state = NULL;
-+	for_each_new_plane_in_state(state, plane, new_plane_state, i) {
-+		if (new_plane_state->crtc == crtc && plane != crtc->cursor)
-+			new_underlying_state = new_plane_state;
-+	}
- 
- 	new_cursor_state = drm_atomic_get_new_plane_state(state, crtc->cursor);
--	new_primary_state = drm_atomic_get_new_plane_state(state, crtc->primary);
--	if (!new_cursor_state || !new_primary_state || !new_cursor_state->fb) {
-+	if (!new_cursor_state || !new_underlying_state || !new_cursor_state->fb)
- 		return 0;
--	}
- 
- 	cursor_scale_w = new_cursor_state->crtc_w * 1000 /
- 			 (new_cursor_state->src_w >> 16);
- 	cursor_scale_h = new_cursor_state->crtc_h * 1000 /
- 			 (new_cursor_state->src_h >> 16);
- 
--	primary_scale_w = new_primary_state->crtc_w * 1000 /
--			 (new_primary_state->src_w >> 16);
--	primary_scale_h = new_primary_state->crtc_h * 1000 /
--			 (new_primary_state->src_h >> 16);
-+	underlying_scale_w = new_underlying_state->crtc_w * 1000 /
-+			 (new_underlying_state->src_w >> 16);
-+	underlying_scale_h = new_underlying_state->crtc_h * 1000 /
-+			 (new_underlying_state->src_h >> 16);
- 
--	if (cursor_scale_w != primary_scale_w ||
--	    cursor_scale_h != primary_scale_h) {
--		drm_dbg_atomic(crtc->dev, "Cursor plane scaling doesn't match primary plane\n");
-+	if (cursor_scale_w != underlying_scale_w ||
-+	    cursor_scale_h != underlying_scale_h) {
-+		drm_dbg_atomic(crtc->dev, "Cursor plane scaling doesn't match underlying plane\n");
+@@ -9494,6 +9494,13 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
  		return -EINVAL;
  	}
+ 
++	/* In theory we could probably support YUV cursors when the underlying
++	 * plane uses a YUV format, but there's no use-case for it yet. */
++	if (new_underlying_state->fb->format->is_yuv) {
++		drm_dbg_atomic(crtc->dev, "Cursor plane can't be used with YUV underlying plane\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
  
 -- 
 2.30.2
