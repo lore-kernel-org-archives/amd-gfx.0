@@ -2,87 +2,137 @@ Return-Path: <SRS0=9uSV=II=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 864E5C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 13:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60261C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 13:50:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 190DE64FD9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 13:41:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 190DE64FD9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1DE9B64FD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 13:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DE9B64FD9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8496EA11;
-	Wed, 10 Mar 2021 13:41:09 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89AC36EA11
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 13:41:07 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id c10so38707541ejx.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 05:41:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=cXoWHHRYLIrODfpMvtTi6ZPGMWWAdrJP+SJiU6+D9io=;
- b=nex8Pe05AAh8JdnTgMQ/JtnlT9wOcOWMMBHZi8zmLJp3hfFEyfi2z/GyIYvErHyC5B
- kYGBW5rt6X1f6WhBNVvgYTdJmsfiUKEJoWSSWW6j8NUM8dKXLBHCbn1/hfhvgopm42Fr
- B6AHg5AhCiWKKTXw2+nuZN4IS2YE6SYKPmlJI8UN/W9mXO85JUOUXo8oaviJwGjn4k6a
- dfqzsB7IsMXwf98qubdRfZU5jQw1tP+BMUyrPcOO0ySzdHCNC3iFDo3gn+0NH17jvL67
- 2zgfFOjmqGDQwW0WZkEJqhqQFpoTsHW8A8eDYmoiNUT8tWP06/Y7e79Y9cPYdeQjZvMY
- WVow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=cXoWHHRYLIrODfpMvtTi6ZPGMWWAdrJP+SJiU6+D9io=;
- b=eTvKfZrwcdhB5LlwwTUCaXy5HECuKleoiKCwLhEr7Q5nihyMPUq4giokCA2BA9H3VF
- R9BLLH6RTGKOvQRhlpKgA6Mn3Zv5GvQqiRMYV3z8Vby8OqbY3nHDUM7yoENzsOoXNcEJ
- QJLEzHxnxvD8plemteal+tTmu+YYn4POkClOHf44x6HibZ0+mhImkc+Qvm8kCysq+k0t
- 5Sv5K+iRfgoMci158TZrzeeT2bJC6e1KwumWwjoG3nOkPCu1vwAMFm//1xxIvHBINdN0
- ekb5pPvYSeDiKoizG/+qRRETQLa2U6b4jCEUcksWxgEpoSGhq0mYHOXob4Kke5jIiC1N
- 2Qsg==
-X-Gm-Message-State: AOAM533XzYyc9rR3mJsUmKfpVVm+9W6T9t3hSViPWBzLcleKXFYnye08
- py6fsbOeF/MZOLLZTLmfSEdxaC19nIHwSA==
-X-Google-Smtp-Source: ABdhPJxuKjBLACWN6DtkzjLN/2wFEL+304wNAZ+JjRn/vZGr0/94AT5C01c/eznRjoJEpfecfY5mdw==
-X-Received: by 2002:a17:906:938f:: with SMTP id
- l15mr3663010ejx.15.1615383666173; 
- Wed, 10 Mar 2021 05:41:06 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:ab69:e3f0:8e97:e79b?
- ([2a02:908:1252:fb60:ab69:e3f0:8e97:e79b])
- by smtp.gmail.com with ESMTPSA id t15sm10939349edw.84.2021.03.10.05.41.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Mar 2021 05:41:05 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: capture invalid hardware access v2
-To: "Li, Dennis" <Dennis.Li@amd.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 920478967A;
+	Wed, 10 Mar 2021 13:50:01 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2076.outbound.protection.outlook.com [40.107.236.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0E878967A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 13:49:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VEXY2C0RyYdjs/0ON47lNrEKSzitWPk1UdsShHEACBaHrApIxK0KB3uFdmoYtthQgf5Cw2LMZSz0hnxl7COCaPpmsbt6jTkNrVyQ1DcZyMh02Yyb9F2Radh/JDzaSbwabvmUI6shH1ZSag1fXbe//rd/LpzTRHogGbeu/wTgRDMvHXWm+V+VG+ODV9t8+h8OWPMQeeQDlJgEWZ7zhAOS6b0B51OFkgTsIfel9VZfYmiDi2FbFKmimXk30RAhVLRp0D1vvOsmoW0LRkjruEhlcaTbaaMP5IfacKzoQu7XENqup3WPgkhsA4T4nE80eFqn2h0218dUACN/IVjQigVoiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cDRgnet2Fx2Zu4JBv3aujtjjin2QYqVDiY6X1yhYOQI=;
+ b=ntMAdoIZgbIrVGZRaMk709pC+6Y3gSt+ECfAMWqa3texr/VP0vLqKI4qKGdfsws2XQnMXbAJuYiplvKpdQdHaNs4Awfzuj4mynnh7G6ZyalhbYTsbOb1MbejA+ABbDNtDGTRfufUvaRQ6xxDQRb3tsLwUyvMYU93mEENnGfwO4SX2N4QjvUF/xiaAPYqqoZq3PB+0g/fQM+aOOOj8fdx8DBXhU5XmHbal3sks2oW+aPooSPc2f4Y/ccsRA6tg5am4O+evCyvKJjSWprcEXS9Z1gQi54aRtk9X011lRLmy6sYyPlzl4ePgpbghbliwBBiWZ4X+p3tWNwyaCPBWxkakQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cDRgnet2Fx2Zu4JBv3aujtjjin2QYqVDiY6X1yhYOQI=;
+ b=ijoIIyl7QrtJRdYEUm2HaHJFsBp6Ae4brkvk93c9cCZG1ERRuWhpO2EnjRz/ZzlxsZs0N6IIjLj8UrDRISW3d/W+nGLQ71vkxXZJo5TuLn7HEFNK/Wy7FM4qcu0aaYQXg6Aqm/9FI4a6e2oHG47LvbOV5FRTXKFVeC/51MNhRY4=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB4946.namprd12.prod.outlook.com (2603:10b6:208:1c5::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.27; Wed, 10 Mar
+ 2021 13:49:58 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3912.027; Wed, 10 Mar 2021
+ 13:49:57 +0000
+Subject: Re: [PATCH v4] drm/amd/amdgpu implement tdr advanced mode
+To: "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210308180649.2117-1-christian.koenig@amd.com>
- <SN1PR12MB2544244642707C3EA1E27026ED929@SN1PR12MB2544.namprd12.prod.outlook.com>
- <91af0abc-ddde-9799-dab1-71d6eae7b765@gmail.com>
- <a69407d2-7961-f46b-9b4f-2378711b941d@amd.com>
- <632c9fbf-a7b4-7899-f708-edca00c73991@gmail.com>
- <b82c46da-50d4-3c86-f131-d70d6cee2445@amd.com>
- <DM5PR12MB2533F9EF35F1241731ECAA87ED919@DM5PR12MB2533.namprd12.prod.outlook.com>
- <223c988a-c22b-3f72-e2c5-8ba3567fc100@amd.com>
- <DM5PR12MB2533A585044AF7C86CDA7D29ED919@DM5PR12MB2533.namprd12.prod.outlook.com>
- <e27526b3-73a6-0dec-6027-e825f21f3f42@gmail.com>
- <DM5PR12MB2533E946E25C0FC7B86D8268ED919@DM5PR12MB2533.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <59638d1c-1e02-4269-4f14-8762b4fb8ff1@gmail.com>
-Date: Wed, 10 Mar 2021 14:41:04 +0100
+ "Liu, Monk" <Monk.Liu@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
+References: <20210310111921.928619-1-Jack.Zhang1@amd.com>
+ <70e3aabc-6bb0-b88c-0e97-de42e1e8b8e6@amd.com>
+ <DM5PR1201MB02044274BD6BB85B3828074FBB919@DM5PR1201MB0204.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <59f47063-0d33-ff9c-b91e-fdd85baf5eac@amd.com>
+Date: Wed, 10 Mar 2021 14:49:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB2533E946E25C0FC7B86D8268ED919@DM5PR12MB2533.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR1201MB02044274BD6BB85B3828074FBB919@DM5PR1201MB0204.namprd12.prod.outlook.com>
 Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:ab69:e3f0:8e97:e79b]
+X-ClientProxiedBy: AM0PR02CA0144.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28d::11) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:ab69:e3f0:8e97:e79b]
+ (2a02:908:1252:fb60:ab69:e3f0:8e97:e79b) by
+ AM0PR02CA0144.eurprd02.prod.outlook.com (2603:10a6:20b:28d::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
+ Transport; Wed, 10 Mar 2021 13:49:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2db23e74-0c90-4508-df47-08d8e3cb6403
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4946:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB49468D11385F20D5EC4C3F0783919@BL0PR12MB4946.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7VwQrW1BBSCC07Qu2PELHQEiCIE9vM5aSoXcuUEuDu0eAMTJwDCQJiJ8gW5NocdjQ8pH4Lf4kxqX7euHCcn7pBAtZj7cnPphV7E12w6goHmwDgSpK9XOWPjnGMDvq9LZqvP+DjJerB7o0oO9DrXjDka29Z5s63P0Od10LoIE9d7d2M79p6s/L/tnnf5rU7oPfqQBYrZ5/g8o1EQlRZf1Gg6Pus9+gkMJhy/6R5CDAB4uDuNONBI5rRsyEZNjxctJf8IskWShy5mGjG+VaY2vo+SNs4H8Bt+2fzEYyNPkoihFZpV+g1PUdvZ+71BBQdQPnJm8B0lu8OYEQk2cwhcuJ9rxSx1y/AD2P0KIpt0jY2L9J9L6VY3qB540ytCgPypOIebC/dXMuOf2yYSWh+UFdYMCHrm7EPzvBNH3db3t3tJvaaG7FJBWw5HKJqtnhEWh0eY62H7uYwzgxbBt2g9zYvRtwbK24rtQt20y6vUQiYXzoouox33RlDQQI7sqj6K2OBBS4iWoQuAtFK0JYvTK0QvbTbpQZUFon9+fL8Ry9vaexPrALsbmLu1nkdMf61b4ZmjgHJ5DE3nwElAL6LQr6UFUc4fBZ8KILer0O6+RxFs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(366004)(136003)(376002)(39860400002)(6636002)(30864003)(2616005)(8936002)(316002)(478600001)(86362001)(36756003)(16526019)(66946007)(52116002)(53546011)(66556008)(5660300002)(186003)(66476007)(2906002)(83380400001)(6486002)(6666004)(33964004)(8676002)(110136005)(31696002)(31686004)(43740500002)(45980500001)(559001)(579004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?QytadHZhanVFeUZ4bG4yOW9tNk9IalpLWm5mbGdBRkxHSGVjellDUWFydWZ5?=
+ =?utf-8?B?V2xFdGZEODNtcDcxdEo5VTlETHVoRitTejVlazhhTG9WdGNUckdidVJJTHBz?=
+ =?utf-8?B?cGtuYUlnUzlEZTZySE5XUG44bFVhaFFMVVZVaFZ0dVgydWNBOG43SVhIOFk1?=
+ =?utf-8?B?Y1dzcjluZXh5US9QM3F6Q3BvYTBpL2ZSMERlNHRObG5lZGJ5TGMrTzNOZlc2?=
+ =?utf-8?B?WEhoVzBlSlRyMzN3Wk8zVGsxMjN3MHIycWJVdWg1eXdhUEp0YXN3OVZabSt3?=
+ =?utf-8?B?NzZQbWNsQTR4Wkw3SjRsN1VGeU85T3FuZFRoNWtXMGZKaVdYUTEySG9IT1VW?=
+ =?utf-8?B?OURaT1d1VEw3QnhYN3d1S1pFZWppaWE3d1JwUXdxcVFuZktTck5iZkpVSHdG?=
+ =?utf-8?B?MlBJZWtGNTd6eWkvQW1xT00xMzlaR2ZUOE9HL1VWckpnNXhHYWw3V2t4Q0tl?=
+ =?utf-8?B?VzB2R1pZbks4NG1lWjZ6MWkrZGpUQ1J5eU5SWnpBNVJvRWlMK1phRDF2U2tN?=
+ =?utf-8?B?L2IyMDZCTEFZSVJOY3JTUy9JWmlIUDBPS1JMNVZ4aVg2UUQ3N0dZOTJlS2Jw?=
+ =?utf-8?B?YW1qa0wvNy8vQXQ4T3E4U2p3RG9mQVF6UEZNd0dtNTBld2tMY05lRkEyY0JK?=
+ =?utf-8?B?U0pyYk10YW1nRXEwd3E4elZFcVUxc3dTRVQ0WEpoL1hPdVBjMnMvYzZXNkF6?=
+ =?utf-8?B?MzJxYi9acEdYbnBEWmFQdFZKR21zV2VXUkQ2NFVGNGxNQTNQZGFVUDRRZFVn?=
+ =?utf-8?B?Z28rQkJlLzdaeDJaSFVjc3lTektUK0dYeFB2SmJRUklVU3g1R2lxLzdSN2ZM?=
+ =?utf-8?B?ekpJY01NTnNCZG4xRGoxdzREeDAxVG84dXFuMm9GQzdtSUw0NTN2ak1kOGgw?=
+ =?utf-8?B?Y0tVTnhWTUc2NGlmb0E1RUtaOW1XTDNsYmxSNmcrNUMrLy9EYXVFaWVFL1lj?=
+ =?utf-8?B?ZDhYYzM5VmNVWEFTZ1NaU3Rva3FCcHNNL1l0TWNBYmduamxWY2VGMXBXQTh1?=
+ =?utf-8?B?c0luUE4zZXhna2ZkWWY3TUQ0RWFCVld1dkpYenBkbDBKYUJxVm1aemlVTlZk?=
+ =?utf-8?B?MWRWbzRTUHR1ayt2bnYxajFQa0wxaC9qdmNtK1lUaWRkSkZ2YVNhMW0yazMv?=
+ =?utf-8?B?K0puaTVXcFUzNURnM0xPQUVWdWYvaU45bzJyWmFOOFNMVnA1QTYrdEl2bnZF?=
+ =?utf-8?B?eGNuMGNDb0RkL21saEJTc3c0K1dCQWk1ZUwxMnBSTTlhdTh0M1hqL0h6OWNn?=
+ =?utf-8?B?aCtoMllzeC9zWGtQcDZ0UzZpeDQ2NVdlcklZUDBzcENWdmlOSnJBRFE3bFR5?=
+ =?utf-8?B?Tm9UdEJ0ZTkwNDJlT0ZpMUdYRmV2dkdqSHN6bmU4cFJRc3c1Qk0zQ2hZVUw5?=
+ =?utf-8?B?MXJucFRHbG4rNXRnMEgrTmZJclA3ZWdsRVJsdkhRZE9LbDFydVc0U0daejBB?=
+ =?utf-8?B?KzAzN2UvSzFEdW1wZ1BOcE9BbmRmSFMvbU9Sb1doQ0IwS3ZEQmZBZE12eUZG?=
+ =?utf-8?B?dTJnZURKNnpzN0pBdWUxL0tGSXpJMnR1ZnppaGRYeXFGRjdBd1luQ3JsNW05?=
+ =?utf-8?B?Tm5RY2pRUlczeVFFek5xd2g3M01hWU5uNkJlUmlyMlYwZGo4bVJSV1YzYWQy?=
+ =?utf-8?B?TWRYU3IzSnJMcXg5VEcxTWNrQjBnOUkrd2Jpd01JeVQxTVN3SzBGd25Qcmc1?=
+ =?utf-8?B?S1VrWnhWRk82eFMyS0ZOYXVVdnFROXRFZHVQQzg1dGVGN0NtYnp0Y2tlYStF?=
+ =?utf-8?B?WGZQZFVJQVB1Z1pjWmZ6cXBDcG9IZmVPRHRNR3Q3VGgzd0FMdUVaRlNUMWwx?=
+ =?utf-8?B?eUJwNG55WGhpOTRCZjRxUzR6MC9QZitQbFZoQWFzRHVpWEFpcTA4YWNyYVU3?=
+ =?utf-8?Q?UKZXYooX/fYnP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2db23e74-0c90-4508-df47-08d8e3cb6403
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2021 13:49:57.2584 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rl7oXs3bS/P9ln+CjT5huo68/kZsanSHNcnzxen/GLv54D4WUwrhNHyLp0UBtyt5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4946
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,289 +144,841 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0750325047=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PiBBcmUgdGhlcmUgY2hhbmNlcyB0byBsZXQgZHJpdmVyIGNvbXBsZXRlIHNjaGVkdWxlciBmZW5j
-ZXM/CgpOb3BlLCBzZWUgdGhlIGRvY3VtZW50YXRpb24gRGFuaWVsIGxpbmtlZCBpbiB0aGlzIHRo
-cmVhZC4KCklmIHdlIHdvdWxkIHdhbnQgdG8gY29tcGxldGUgdGhlIHNjaGVkdWxlciBmZW5jZXMg
-YW5kIHJlbGVhc2UgdGhlIG1lbW9yeSAKcHJvdGVjdGVkIGJ5IHRoZW0gd2Ugd291bGQgbmVlZCB0
-byBjb21wbGV0ZWx5IGRpc2FibGUgdGhlIGRldmljZS4KCkUuZy4gc2ltaWxhciB0byBhIGhvdHBs
-dWcgZXZlbnQgd2hlbiB5b3UgcmlwIG91dCB0aGUgaGFyZHdhcmUgYW5kIHB1dCBpdCAKYmFjayBp
-biBhZ2Fpbi4KClRoYXQgd291bGQgbWVhbiB0aGF0IGFwcGxpY2F0aW9ucyBub3Qgb25seSBuZWVk
-IHRvIHJlaW5pdGlhbGl6ZSB0aGVpciAKY29udGV4dHMsIGJ1dCBhbHNvIGNvbXBsZXRlbHkgcmVz
-dGFydCBhbmQgcmVhbGxvY2F0ZSB0aGVpciBtZW1vcnkuCgpUaGlua2luZyBtb3JlIGFib3V0IGl0
-IHdoZW4gd2UgZ28gZG93biB0aGF0IHJvdXRlIHdlIHdvdWxkbid0IGV2ZW4gbmVlZCAKdGhlIHJl
-c2V0IGxvY2sgYW55IG1vcmUgaW4gdGhlIGZpcnN0IHBsYWNlIDopCgpTb21ldGhpbmcgZWxzZSB5
-b3Ugc2hvdWxkIGtlZXAgaW4gbWluZCBpcyB0aGF0IHdlIGFscmVhZHkgaGF2ZSB0cmllZCAKdGhp
-cyBhcHByb2FjaCB0d28gdGltZXMgbm93IGFuZCBib3RoIHRpbWVzIGNhbWUgdG8gdGhlIHNhbWUg
-Y29uY2x1c2lvbiAKYWZ0ZXIgc3BlbmRpbmcgYSBsb3Qgb2Ygd29yayB0cnlpbmcgdG8gZml4IHRo
-aXMgdXAuCgpDaHJpc3RpYW4uCgpBbSAxMC4wMy4yMSB1bSAxNDoxOSBzY2hyaWViIExpLCBEZW5u
-aXM6Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5
-XQo+Cj4gSGksIENocmlzdGlhbiwKPgo+Pj4gV2UgY2FuIG9ubHkgY29tcGxldGUgdGhlIGxvdyBs
-ZXZlbCBoYXJkd2FyZSBmZW5jZXMsIGJ1dCBub3QgdGhlIHNjaGVkdWxlciBmZW5jZXMgc2luY2Ug
-dGhvc2UgbmVlZCB0byB3YWl0IGZvciB0aGUgcmVzdWJtaXNzaW9uIG9mIHRoZSBqb2JzIGFuZCB3
-aXRoIGl0IGZpbmlzaGluZyB0aGUgR1BVIHJlc2V0Lgo+IENvcnJlY3QuIEkgcnVuIGEgZGVhZGxv
-Y2sgdGVzdCBhbmQgY2FwdHVyZWQgdGhpcyBjYXNlIHRvZGF5LiAgQXJlIHRoZXJlIGNoYW5jZXMg
-dG8gbGV0IGRyaXZlciBjb21wbGV0ZSBzY2hlZHVsZXIgZmVuY2VzPyBJZiBkZWNpZGUgdG8gZG8g
-R1BVIHJlc2V0LCB0aGUgcGVuZGluZyByZW5kZXJpbmcgam9iIGluIGZhY3Qgc2hvdWxkIGJlIHJl
-Y3JlYXRlZCBiZWNhdXNlIG9mIHZyYW0gbG9zdC4gQ3VycmVudGx5LCB1c2VyIGFwcGxpY2F0aW9u
-IHdpbGwgcmVjcmVhdGUgY29udGV4dCB3aGVuIGlmIGRyaXZlciByZXBvcnQgVlJBTSBsb3N0Lgo+
-Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxj
-a29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPiBTZW50OiBXZWRuZXNkYXksIE1hcmNo
-IDEwLCAyMDIxIDk6MDMgUE0KPiBUbzogTGksIERlbm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBH
-cm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+OyBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGNh
-cHR1cmUgaW52YWxpZCBoYXJkd2FyZSBhY2Nlc3MgdjIKPgo+PiBJIGFzc3VtZWQgdGhhdCBwcmUt
-cmVzZXQgZnVuY3Rpb25zIGNvdWxkIGNvbXBsZXRlIGFsbCBmZW5jZXMKPiBBbmQgZXhhY3RseSB0
-aGF0J3MgaW5jb3JyZWN0Lgo+Cj4gV2UgY2FuIG9ubHkgY29tcGxldGUgdGhlIGxvdyBsZXZlbCBo
-YXJkd2FyZSBmZW5jZXMsIGJ1dCBub3QgdGhlIHNjaGVkdWxlciBmZW5jZXMgc2luY2UgdGhvc2Ug
-bmVlZCB0byB3YWl0IGZvciB0aGUgcmVzdWJtaXNzaW9uIG9mIHRoZSBqb2JzIGFuZCB3aXRoIGl0
-IGZpbmlzaGluZyB0aGUgR1BVIHJlc2V0Lgo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPiBB
-bSAxMC4wMy4yMSB1bSAwNzo0MCBzY2hyaWViIExpLCBEZW5uaXM6Cj4+IFtBTUQgT2ZmaWNpYWwg
-VXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0KPj4KPj4+Pj4gQnV0IGhvdyB0
-aGlzIHdpbGwgaGVscCBpZiBURFIgdGhyZWFkIHdpbGwgc3RhcnQgYWZ0ZXIgeW91IGJvdGggdG9v
-ayByZWFkIGxvY2sgYW5kIGNoZWNrZWQgdGhhdCBhZGV2LT5pbl9ncHVfcmVzZXQgaXMgZmFsc2Ug
-PyBTaW5jZSBURFIgIG5vdyB0YWtlcyB3cml0ZSBsb2NrIG9ubHkgYWZ0ZXIgc3VzcGVuZGluZyBI
-VyBhbmQgd2FpdGluZyBmb3IgYWxsIGZlbmNlcyB0aGVyZSBpcyBub3RoaW5nIHRoYXQgcHJldmVu
-dHMgYm90aCB0aHJlYWRzIChlLmcgSU9DVEwgYW5kIFREUikgdG8gYWNjZXNzIHJlZ2lzdGVycyBj
-b25jdXJyZW50bHkuCj4+IFdoZW4gcmVhZCB0aHJlYWQgYm90aCB0b29rIHJlYWQgbG9jayBhbmQg
-Y2hlY2tlZCB0aGF0IGFkZXYtPmluX2dwdV9yZXNldCBpcyBmYWxzZSwgaXQgbWVhbnMgdGhhdCBy
-ZWNvdmVyeSB0aHJlYWQgc3RpbGwgbm90IHN0YXJ0LCBhbmQgcmVhZCB0aHJlYWQgd2lsbCBjb250
-aW51ZSwgaXQgd2lsbCBleGl0IG5vcm1hbGx5LCBvciBleGl0IGJlY2F1c2Ugb2YgZmVuY2UgY29t
-cGxldGVkIGJ5IHByZS1yZXNldCBmdW5jdGlvbnMuIEkgYXNzdW1lZCB0aGF0IHByZS1yZXNldCBm
-dW5jdGlvbnMgY291bGQgY29tcGxldGUgYWxsIGZlbmNlcywgd2hpY2ggY291bGQgbWFrZSByZWxh
-dGVkIHRocmVhZHMgZXhpdCBhbmQgcmVsZWFzZSByZWFkIGxvY2tzLiBBYm91dCB0aGlzLCBDaHJp
-c3RpYW4gaGFzIGRpZmZlcmVudCB0aGlua2luZywgSSBhbSB0cnlpbmcgdG8gdW5kZXJzdGFuZCBo
-aXMgY29uY2Vybi4gIFREUiB3aWxsIGJlIGJsb2NrZWQgdW50aWwgYWxsIHJlYWQgbG9ja3MgYXJl
-IHJlbGVhc2VkLgo+Pgo+PiBCZXN0IFJlZ2FyZHMKPj4gRGVubmlzIExpCj4+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6
-b3Zza3lAYW1kLmNvbT4KPj4gU2VudDogV2VkbmVzZGF5LCBNYXJjaCAxMCwgMjAyMSAxOjQyIFBN
-Cj4+IFRvOiBMaSwgRGVubmlzIDxEZW5uaXMuTGlAYW1kLmNvbT47IENocmlzdGlhbiBLw7ZuaWcK
-Pj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogY2FwdHVyZSBp
-bnZhbGlkIGhhcmR3YXJlIGFjY2VzcyB2Mgo+Pgo+PiBCdXQgaG93IHRoaXMgd2lsbCBoZWxwIGlm
-IFREUiB0aHJlYWQgd2lsbCBzdGFydCBhZnRlciB5b3UgYm90aCB0b29rIHJlYWQgbG9jayBhbmQg
-Y2hlY2tlZCB0aGF0IGFkZXYtPmluX2dwdV9yZXNldCBpcyBmYWxzZSA/IFNpbmNlIFREUiAgbm93
-IHRha2VzIHdyaXRlIGxvY2sgb25seSBhZnRlciBzdXNwZW5kaW5nIEhXIGFuZCB3YWl0aW5nIGZv
-ciBhbGwgZmVuY2VzIHRoZXJlIGlzIG5vdGhpbmcgdGhhdCBwcmV2ZW50cyBib3RoIHRocmVhZHMg
-KGUuZyBJT0NUTCBhbmQgVERSKSB0byBhY2Nlc3MgcmVnaXN0ZXJzIGNvbmN1cnJlbnRseS4KPj4K
-Pj4gQW5kcmV5Cj4+Cj4+IE9uIDIwMjEtMDMtMDkgOTo1OSBwLm0uLCBMaSwgRGVubmlzIHdyb3Rl
-Ogo+Pj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5
-XQo+Pj4KPj4+IEhpLCBBbmRyZXksCj4+Pj4+PiBJcyB0aGUgcHJvYmxlbSBoZXJlIHRoYXQgSFcg
-aXMgc3VzcGVuZGVkIHdoaWxlIHNvbWUgb3RoZXIgdGhyZWFkcyB0aGF0IHJlbHkgb24gdGhlIHJl
-YWQgc2lkZSBsb2NrIHN0aWxsIGFjY2VzcyBIVyA/IE1vc3RseSB3aGF0IEkgYW0gdGhpbmtpbmcg
-YWJvdXQgYXJlIElPQ1RscyAtIHdlIGNhbid0ICd3YWl0IGZvciB0aGVtIHRvIGNvbXBsZXRlJyBi
-dXQgdGhleSBtaWdodCBiZSBhY2Nlc3NpbmcgSFcgd2hlbiB3ZSBzdGFydCBzdXNwZW5kLgo+Pj4g
-SW4gcmVhZCBzaWRlLCB3aGVuIHRoZSByZWFkZXIgaGVsZCB0aGUgcmVhZCBsb2NrLCBpdCB3aWxs
-IGFsc28gY2hlY2sgd2hldGhlciBhZGV2LT5pbl9ncHVfcmVzZXQgaXMgMSwgaWYgc28sIGl0IHdp
-bGwgcmVsZWFzZSByZWFkIGNsb2NrIGFuZCBpcyB3YWl0aW5nIGZvciByZWNvdmVyeSBmaW5pc2gg
-ZXZlbnQuCj4+PiBCZXN0IFJlZ2FyZHMKPj4+IERlbm5pcyBMaQo+Pj4KPj4+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tCj4+PiBGcm9tOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9k
-em92c2t5QGFtZC5jb20+Cj4+PiBTZW50OiBXZWRuZXNkYXksIE1hcmNoIDEwLCAyMDIxIDI6MjYg
-QU0KPj4+IFRvOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWls
-LmNvbT47IExpLCBEZW5uaXMKPj4+IDxEZW5uaXMuTGlAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjYXB0
-dXJlIGludmFsaWQgaGFyZHdhcmUgYWNjZXNzIHYyCj4+Pgo+Pj4gT24gMjAyMS0wMy0wOSAxMjo0
-NyBwLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+IE5vIGl0IHdvbid0LiBBY2Nlc3Np
-bmcgdGhlIGhhcmR3YXJlIHdpdGhvdXQgdGhlIGxvY2sgaXMgb2sgYXMgbG9uZwo+Pj4+IGFzIHRo
-ZSB3cml0ZSBzaWRlIGlzbid0IHRha2VuLgo+Pj4gT2gsIGZvcmdvdCBhYm91dCB0aGUgdHJ5bG9j
-ayBwYXJ0LCBzb3JyeS4uLgo+Pj4KPj4+PiBCdXQgdGhhdCBhcHByb2FjaCBpcyBpbGxlZ2FsIGFu
-eXdheSBiZWNhdXNlIHdlIHN1c3BlbmQgdGhlIGhhcmR3YXJlCj4+Pj4gd2l0aG91dCBwcm9wZXIg
-cHJvdGVjdGlvbiBmcm9tIGNvbmN1cnJlbnQgYWNjZXNzLgo+Pj4gRm9yIG15IHVuZGVyc3RhbmRp
-bmcgYW5kIGZyb20gbG9va2luZyBhZ2FpbiBhdCBoaXMgc3RlcHMgcmVsYXRlZCB0bwo+Pj4gdGhp
-cwo+Pj4KPj4+IFN0ZXAgMDogYXRvbWljX2NtcHhjaGcoJmFkZXYtPmluX2dwdV9yZXNldCwgMCwg
-MSkgLSBbQUddIHByb3RlY3RzCj4+PiBmcm9tIG90aGVyIFREUiB0aHJlYWRzCj4+Pgo+Pj4gU3Rl
-cCAxOiBjYW5jZWwgYWxsIGRlbGF5IHdvcmtzLCBzdG9wIGRybSBzY2hlZHVsZSwgY29tcGxldGUg
-YWxsCj4+PiB1bnJlY2VpdmVkIGZlbmNlcyBhbmQgc28gb24uIENhbGwgYW1kZ3B1X2RldmljZV9w
-cmVfYXNpY19yZXNldC4uLgo+Pj4gZS50LmMKPj4+IC0gW0FHXSB0aGlzIGlzIHRoZSBIVyBzdXNw
-ZW5kIHBhcnQKPj4+Cj4+PiBTdGVwIDI6IGNhbGwgZG93bl93cml0ZSgmYWRldi0+cmVzZXRfc2Vt
-KSB0byBob2xkIHdyaXRlIGxvY2ssIHdoaWNoIHdpbGwgYmxvY2sgcmVjb3ZlcnkgdGhyZWFkIHVu
-dGlsIG90aGVyIHRocmVhZHMgcmVsZWFzZSByZWFkIGxvY2tzLgo+Pj4KPj4+IElzIHRoZSBwcm9i
-bGVtIGhlcmUgdGhhdCBIVyBpcyBzdXNwZW5kZWQgd2hpbGUgc29tZSBvdGhlciB0aHJlYWRzIHRo
-YXQgcmVseSBvbiB0aGUgcmVhZCBzaWRlIGxvY2sgc3RpbGwgYWNjZXNzIEhXID8gTW9zdGx5IHdo
-YXQgSSBhbSB0aGlua2luZyBhYm91dCBhcmUgSU9DVGxzIC0gd2UgY2FuJ3QgJ3dhaXQgZm9yIHRo
-ZW0gdG8gY29tcGxldGUnIGJ1dCB0aGV5IG1pZ2h0IGJlIGFjY2Vzc2luZyBIVyB3aGVuIHdlIHN0
-YXJ0IHN1c3BlbmQuCj4+Pgo+Pj4gQW5kcmV5Cj4+Pgo+Pj4KPj4+PiBDaHJpc3RpYW4uCj4+Pj4K
-Pj4+PiBBbSAwOS4wMy4yMSB1bSAxNzo0MCBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+
-PiBCZWNhdXNlIGhlIHRha2VzIHRoZSB3cml0ZSBzaWRlIGxvY2sgcG9zdCBhbWRncHVfcHJlX2Fz
-aWNfcmVzZXQgLQo+Pj4+PiB3aGVyZSBIVyBzdXNwZW5kIHNlcXVlbmNlIGhhcHBlbnMgKHRvdWNo
-aW5nIHJlZ2lzdGVycykgLSBzbyBpIHRoaW5rCj4+Pj4+IGl0IHdpbGwgYXNzZXJ0Lgo+Pj4+Pgo+
-Pj4+PiBBbmRyZXkKPj4+Pj4KPj4+Pj4gT24gMjAyMS0wMy0wOSA3OjU2IGEubS4sIENocmlzdGlh
-biBLw7ZuaWcgd3JvdGU6Cj4+Pj4+PiBIaSBEZW5uaXMsCj4+Pj4+Pgo+Pj4+Pj4gd2h5IGRvIHlv
-dSB0aGluayB0aGF0IHRoaXMgd2lsbCBhbHdheXMgYXNzZXJ0IGluIHJlc2V0IHRocmVhZD8KPj4+
-Pj4+Cj4+Pj4+PiBJbiB0aGUgcmVzZXQgdGhyZWFkIHdoaWxlIHdlIGFyZSBob2xkaW5nIHRoZSBy
-ZXNldCBsb2NrIHdyaXRlIHNpZGUKPj4+Pj4+IGxvY2tkZXBfYXNzZXJ0X2hlbGQoKSBzaG91bGQg
-YmUgc2F0aXNmaWVkIGFuZCBub3QgY2F1c2UgYW55IHNwbGF0Cj4+Pj4+PiBpbiB0aGUgc3lzdGVt
-IGxvZy4KPj4+Pj4+Cj4+Pj4+PiBSZWdhcmRzLAo+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4KPj4+
-Pj4+IEFtIDA5LjAzLjIxIHVtIDAzOjAzIHNjaHJpZWIgTGksIERlbm5pczoKPj4+Pj4+PiBbQU1E
-IE9mZmljaWFsIFVzZSBPbmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldCj4+Pj4+Pj4K
-Pj4+Pj4+PiBIaSwgQ2hyaXN0aWFuLAo+Pj4+Pj4+ICAgICAgICAgICAgYW1kZ3B1X2RldmljZV9z
-a2lwX2h3X2FjY2VzcyB3aWxsIGFsd2F5cyBhc3NlcnQgaW4KPj4+Pj4+PiByZXNldCB0aHJlYWQs
-IHdoaWNoIHNlZW1zIG5vdCBhIGdvb2QgaWRlYS4KPj4+Pj4+Pgo+Pj4+Pj4+IEJlc3QgUmVnYXJk
-cwo+Pj4+Pj4+IERlbm5pcyBMaQo+Pj4+Pj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+
-Pj4+Pj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFp
-bC5jb20+Cj4+Pj4+Pj4gU2VudDogVHVlc2RheSwgTWFyY2ggOSwgMjAyMSAyOjA3IEFNCj4+Pj4+
-Pj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+Pj4gQ2M6IEdyb2R6b3Zz
-a3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47IExpLCBEZW5uaXMKPj4+Pj4+
-PiA8RGVubmlzLkxpQGFtZC5jb20+Cj4+Pj4+Pj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1
-OiBjYXB0dXJlIGludmFsaWQgaGFyZHdhcmUgYWNjZXNzIHYyCj4+Pj4+Pj4KPj4+Pj4+PiBGcm9t
-OiBEZW5uaXMgTGkgPERlbm5pcy5MaUBhbWQuY29tPgo+Pj4+Pj4+Cj4+Pj4+Pj4gV2hlbiByZWNv
-dmVyeSB0aHJlYWQgaGFzIGJlZ3VuIEdQVSByZXNldCwgdGhlcmUgc2hvdWxkIGJlIG5vdAo+Pj4+
-Pj4+IG90aGVyIHRocmVhZHMgdG8gYWNjZXNzIGhhcmR3YXJlLCBvdGhlcndpc2Ugc3lzdGVtIHJh
-bmRvbWx5IGhhbmcuCj4+Pj4+Pj4KPj4+Pj4+PiB2MiAoY2hrKTogcmV3cml0dGVuIGZyb20gc2Ny
-YXRjaCwgdXNlIHRyeWxvY2sgYW5kIGxvY2tkZXAgaW5zdGVhZAo+Pj4+Pj4+IG9mCj4+Pj4+Pj4g
-ICAgICAgaGFuZCB3aXJpbmcgdGhlIGxvZ2ljLgo+Pj4+Pj4+Cj4+Pj4+Pj4gU2lnbmVkLW9mZi1i
-eTogRGVubmlzIExpIDxEZW5uaXMuTGlAYW1kLmNvbT4KPj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBD
-aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Pj4+Pj4gLS0tCj4+
-Pj4+Pj4gICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA3
-NAo+Pj4+Pj4+ICsrKysrKysrKysrKysrKysrLS0tLS0KPj4+Pj4+PiAgICAgIDEgZmlsZSBjaGFu
-Z2VkLCA1NyBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkKPj4+Pj4+Pgo+Pj4+Pj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPj4+
-Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+Pj4+Pj4+
-IGluZGV4IGUyNDdjM2EyZWMwOC4uYzk5MGFmNmE0M2NhIDEwMDY0NAo+Pj4+Pj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+Pj4+Pj4+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+Pj4+Pj4+IEBAIC0zMjYs
-NiArMzI2LDM0IEBAIHZvaWQgYW1kZ3B1X2RldmljZV92cmFtX2FjY2VzcyhzdHJ1Y3QKPj4+Pj4+
-PiBhbWRncHVfZGV2aWNlICphZGV2LCBsb2ZmX3QgcG9zLAo+Pj4+Pj4+ICAgICAgLyoKPj4+Pj4+
-PiAgICAgICAqIHJlZ2lzdGVyIGFjY2VzcyBoZWxwZXIgZnVuY3Rpb25zLgo+Pj4+Pj4+ICAgICAg
-ICovCj4+Pj4+Pj4gKwo+Pj4+Pj4+ICsvKiBDaGVjayBpZiBodyBhY2Nlc3Mgc2hvdWxkIGJlIHNr
-aXBwZWQgYmVjYXVzZSBvZiBob3RwbHVnIG9yCj4+Pj4+Pj4gK2RldmljZSBlcnJvciAqLyBzdGF0
-aWMgYm9vbCBhbWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKHN0cnVjdAo+Pj4+Pj4+ICthbWRn
-cHVfZGV2aWNlCj4+Pj4+Pj4gKyphZGV2KSB7Cj4+Pj4+Pj4gK2lmIChhZGV2LT5pbl9wY2lfZXJy
-X3JlY292ZXJ5KQo+Pj4+Pj4+ICtyZXR1cm4gdHJ1ZTsKPj4+Pj4+PiArCj4+Pj4+Pj4gKyNpZmRl
-ZiBDT05GSUdfTE9DS0RFUAo+Pj4+Pj4+ICsvKgo+Pj4+Pj4+ICsgKiBUaGlzIGlzIGEgYml0IGNv
-bXBsaWNhdGVkIHRvIHVuZGVyc3RhbmQsIHNvIHdvcnRoIGEgY29tbWVudC4KPj4+Pj4+PiBXaGF0
-IHdlIGFzc2VydAo+Pj4+Pj4+ICsgKiBoZXJlIGlzIHRoYXQgdGhlIEdQVSByZXNldCBpcyBub3Qg
-cnVubmluZyBvbiBhbm90aGVyIHRocmVhZAo+Pj4+Pj4+ICsgaW4KPj4+Pj4+PiBwYXJhbGxlbC4K
-Pj4+Pj4+PiArICoKPj4+Pj4+PiArICogRm9yIHRoaXMgd2UgdHJ5bG9jayB0aGUgcmVhZCBzaWRl
-IG9mIHRoZSByZXNldCBzZW1hcGhvcmUsIGlmCj4+Pj4+Pj4gdGhhdCBzdWNjZWVkcwo+Pj4+Pj4+
-ICsgKiB3ZSBrbm93IHRoYXQgdGhlIHJlc2V0IGlzIG5vdCBydW5uaW5nIGluIHBhcmFsZWxsLgo+
-Pj4+Pj4+ICsgKgo+Pj4+Pj4+ICsgKiBJZiB0aGUgdHJ5bG9jayBmYWlscyB3ZSBhc3NlcnQgdGhh
-dCB3ZSBhcmUgZWl0aGVyIGFscmVhZHkKPj4+Pj4+PiBob2xkaW5nIHRoZSByZWFkCj4+Pj4+Pj4g
-KyAqIHNpZGUgb2YgdGhlIGxvY2sgb3IgYXJlIHRoZSByZXNldCB0aHJlYWQgaXRzZWxmIGFuZCBo
-b2xkIHRoZQo+Pj4+Pj4+IHdyaXRlIHNpZGUgb2YKPj4+Pj4+PiArICogdGhlIGxvY2suCj4+Pj4+
-Pj4gKyAqLwo+Pj4+Pj4+ICtpZiAoZG93bl9yZWFkX3RyeWxvY2soJmFkZXYtPnJlc2V0X3NlbSkp
-Cj4+Pj4+Pj4gK3VwX3JlYWQoJmFkZXYtPnJlc2V0X3NlbSk7Cj4+Pj4+Pj4gK2Vsc2UKPj4+Pj4+
-PiArbG9ja2RlcF9hc3NlcnRfaGVsZCgmYWRldi0+cmVzZXRfc2VtKTsKPj4+Pj4+PiArI2VuZGlm
-Cj4+Pj4+Pj4gKwo+Pj4+Pj4+ICtyZXR1cm4gZmFsc2U7Cj4+Pj4+Pj4gK30KPj4+Pj4+PiArCj4+
-Pj4+Pj4gICAgICAvKioKPj4+Pj4+PiAgICAgICAqIGFtZGdwdV9kZXZpY2VfcnJlZyAtIHJlYWQg
-YSBtZW1vcnkgbWFwcGVkIElPIG9yIGluZGlyZWN0Cj4+Pj4+Pj4gcmVnaXN0ZXIKPj4+Pj4+PiAg
-ICAgICAqCj4+Pj4+Pj4gQEAgLTM0MCw3ICszNjgsNyBAQCB1aW50MzJfdCBhbWRncHVfZGV2aWNl
-X3JyZWcoc3RydWN0Cj4+Pj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwgIHsKPj4+Pj4+PiAgICAg
-IHVpbnQzMl90IHJldDsKPj4+Pj4+Pgo+Pj4+Pj4+IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNv
-dmVyeSkKPj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+
-Pj4+Pj4gICAgICByZXR1cm4gMDsKPj4+Pj4+Pgo+Pj4+Pj4+ICAgICAgaWYgKChyZWcgKiA0KSA8
-IGFkZXYtPnJtbWlvX3NpemUpIHsgQEAgLTM3Nyw3ICs0MDUsNyBAQAo+Pj4+Pj4+IHVpbnQzMl90
-IGFtZGdwdV9kZXZpY2VfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+Pj4+PiAg
-ICAgICAqLwo+Pj4+Pj4+ICAgICAgdWludDhfdCBhbWRncHVfbW1fcnJlZzgoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90Cj4+Pj4+Pj4gb2Zmc2V0KSAgewo+Pj4+Pj4+IC1pZiAo
-YWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSkKPj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tp
-cF9od19hY2Nlc3MoYWRldikpCj4+Pj4+Pj4gICAgICByZXR1cm4gMDsKPj4+Pj4+Pgo+Pj4+Pj4+
-ICAgICAgaWYgKG9mZnNldCA8IGFkZXYtPnJtbWlvX3NpemUpIEBAIC00MDIsNyArNDMwLDcgQEAg
-dWludDhfdAo+Pj4+Pj4+IGFtZGdwdV9tbV9ycmVnOChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdWludDMyX3Qgb2Zmc2V0KQo+Pj4+Pj4+ICAgICAgICovCj4+Pj4+Pj4gICAgICB2b2lkIGFt
-ZGdwdV9tbV93cmVnOChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QKPj4+Pj4+
-PiBvZmZzZXQsIHVpbnQ4X3QgdmFsdWUpICB7IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNvdmVy
-eSkKPj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+Pj4+
-Pj4gICAgICByZXR1cm47Cj4+Pj4+Pj4KPj4+Pj4+PiAgICAgIGlmIChvZmZzZXQgPCBhZGV2LT5y
-bW1pb19zaXplKSBAQCAtNDI1LDcgKzQ1Myw3IEBAIHZvaWQKPj4+Pj4+PiBhbWRncHVfZGV2aWNl
-X3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+Pj4+Pj4gICAgICB1aW50MzJfdCBy
-ZWcsIHVpbnQzMl90IHYsCj4+Pj4+Pj4gICAgICB1aW50MzJfdCBhY2NfZmxhZ3MpCj4+Pj4+Pj4g
-ICAgICB7Cj4+Pj4+Pj4gLWlmIChhZGV2LT5pbl9wY2lfZXJyX3JlY292ZXJ5KQo+Pj4+Pj4+ICtp
-ZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2FjY2VzcyhhZGV2KSkKPj4+Pj4+PiAgICAgIHJldHVy
-bjsKPj4+Pj4+Pgo+Pj4+Pj4+ICAgICAgaWYgKChyZWcgKiA0KSA8IGFkZXYtPnJtbWlvX3NpemUp
-IHsgQEAgLTQ1Miw3ICs0ODAsNyBAQCB2b2lkCj4+Pj4+Pj4gYW1kZ3B1X2RldmljZV93cmVnKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCAgdm9pZAo+Pj4+Pj4+IGFtZGdwdV9tbV93cmVnX21t
-aW9fcmxjKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+Pj4+ICAgICAgICAgICB1aW50
-MzJfdCByZWcsIHVpbnQzMl90IHYpCj4+Pj4+Pj4gICAgICB7Cj4+Pj4+Pj4gLWlmIChhZGV2LT5p
-bl9wY2lfZXJyX3JlY292ZXJ5KQo+Pj4+Pj4+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2Fj
-Y2VzcyhhZGV2KSkKPj4+Pj4+PiAgICAgIHJldHVybjsKPj4+Pj4+Pgo+Pj4+Pj4+ICAgICAgaWYg
-KGFtZGdwdV9zcmlvdl9mdWxsYWNjZXNzKGFkZXYpICYmIEBAIC00NzUsNyArNTAzLDcgQEAgdm9p
-ZAo+Pj4+Pj4+IGFtZGdwdV9tbV93cmVnX21taW9fcmxjKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAo+Pj4+Pj4+ICAgICAgICovCj4+Pj4+Pj4gICAgICB1MzIgYW1kZ3B1X2lvX3JyZWcoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiByZWcpICB7Cj4+Pj4+Pj4gLWlmCj4+Pj4+Pj4g
-KGFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4+Pj4+Pj4gK2lmIChhbWRncHVfZGV2aWNlX3Nr
-aXBfaHdfYWNjZXNzKGFkZXYpKQo+Pj4+Pj4+ICAgICAgcmV0dXJuIDA7Cj4+Pj4+Pj4KPj4+Pj4+
-PiAgICAgIGlmICgocmVnICogNCkgPCBhZGV2LT5yaW9fbWVtX3NpemUpIEBAIC00OTcsNyArNTI1
-LDcgQEAgdTMyCj4+Pj4+Pj4gYW1kZ3B1X2lvX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsCj4+Pj4+Pj4gdTMyIHJlZykKPj4+Pj4+PiAgICAgICAqLwo+Pj4+Pj4+ICAgICAgdm9pZCBh
-bWRncHVfaW9fd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJlZywgdTMyCj4+
-Pj4+Pj4gdikgeyAtaWYgKGFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkpCj4+Pj4+Pj4gK2lmIChh
-bWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+Pj4+Pj4+ICAgICAgcmV0dXJuOwo+
-Pj4+Pj4+Cj4+Pj4+Pj4gICAgICBpZiAoKHJlZyAqIDQpIDwgYWRldi0+cmlvX21lbV9zaXplKSBA
-QCAtNTE5LDcgKzU0Nyw3IEBAIHZvaWQKPj4+Pj4+PiBhbWRncHVfaW9fd3JlZyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwKPj4+Pj4+PiB1MzIgcmVnLCB1MzIgdikKPj4+Pj4+PiAgICAgICAq
-Lwo+Pj4+Pj4+ICAgICAgdTMyIGFtZGdwdV9tbV9yZG9vcmJlbGwoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIHUzMgo+Pj4+Pj4+IGluZGV4KSB7IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNv
-dmVyeSkKPj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+
-Pj4+Pj4gICAgICByZXR1cm4gMDsKPj4+Pj4+Pgo+Pj4+Pj4+ICAgICAgaWYgKGluZGV4IDwgYWRl
-di0+ZG9vcmJlbGwubnVtX2Rvb3JiZWxscykgeyBAQCAtNTQyLDcgKzU3MCw3Cj4+Pj4+Pj4gQEAK
-Pj4+Pj4+PiB1MzIgYW1kZ3B1X21tX3Jkb29yYmVsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdTMyIGluZGV4KQo+Pj4+Pj4+ICAgICAgICovCj4+Pj4+Pj4gICAgICB2b2lkIGFtZGdwdV9t
-bV93ZG9vcmJlbGwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMgo+Pj4+Pj4+IGluZGV4
-LAo+Pj4+Pj4+IHUzMiB2KSAgewo+Pj4+Pj4+IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNvdmVy
-eSkKPj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+Pj4+
-Pj4gICAgICByZXR1cm47Cj4+Pj4+Pj4KPj4+Pj4+PiAgICAgIGlmIChpbmRleCA8IGFkZXYtPmRv
-b3JiZWxsLm51bV9kb29yYmVsbHMpIHsgQEAgLTU2Myw3ICs1OTEsNwo+Pj4+Pj4+IEBAIHZvaWQg
-YW1kZ3B1X21tX3dkb29yYmVsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyCj4+Pj4+
-Pj4gaW5kZXgsCj4+Pj4+Pj4gdTMyCj4+Pj4+Pj4gdikKPj4+Pj4+PiAgICAgICAqLwo+Pj4+Pj4+
-ICAgICAgdTY0IGFtZGdwdV9tbV9yZG9vcmJlbGw2NChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdTMyCj4+Pj4+Pj4gaW5kZXgpIHsgLWlmIChhZGV2LT5pbl9wY2lfZXJyX3JlY292ZXJ5KQo+
-Pj4+Pj4+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2FjY2VzcyhhZGV2KSkKPj4+Pj4+PiAg
-ICAgIHJldHVybiAwOwo+Pj4+Pj4+Cj4+Pj4+Pj4gICAgICBpZiAoaW5kZXggPCBhZGV2LT5kb29y
-YmVsbC5udW1fZG9vcmJlbGxzKSB7IEBAIC01ODYsNyArNjE0LDcKPj4+Pj4+PiBAQAo+Pj4+Pj4+
-IHU2NCBhbWRncHVfbW1fcmRvb3JiZWxsNjQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUz
-MiBpbmRleCkKPj4+Pj4+PiAgICAgICAqLwo+Pj4+Pj4+ICAgICAgdm9pZCBhbWRncHVfbW1fd2Rv
-b3JiZWxsNjQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMgo+Pj4+Pj4+IGluZGV4LAo+
-Pj4+Pj4+IHU2NCB2KSAgewo+Pj4+Pj4+IC1pZiAoYWRldi0+aW5fcGNpX2Vycl9yZWNvdmVyeSkK
-Pj4+Pj4+PiAraWYgKGFtZGdwdV9kZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+Pj4+Pj4g
-ICAgICByZXR1cm47Cj4+Pj4+Pj4KPj4+Pj4+PiAgICAgIGlmIChpbmRleCA8IGFkZXYtPmRvb3Ji
-ZWxsLm51bV9kb29yYmVsbHMpIHsgQEAgLTYxMCwxMAo+Pj4+Pj4+ICs2MzgsMTMgQEAKPj4+Pj4+
-PiB1MzIgYW1kZ3B1X2RldmljZV9pbmRpcmVjdF9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAo+Pj4+Pj4+ICAgICAgdTMyIHBjaWVfaW5kZXgsIHUzMiBwY2llX2RhdGEsCj4+Pj4+Pj4g
-ICAgICB1MzIgcmVnX2FkZHIpCj4+Pj4+Pj4gICAgICB7Cj4+Pj4+Pj4gLXVuc2lnbmVkIGxvbmcg
-ZmxhZ3M7Cj4+Pj4+Pj4gLXUzMiByOwo+Pj4+Pj4+ICAgICAgdm9pZCBfX2lvbWVtICpwY2llX2lu
-ZGV4X29mZnNldDsKPj4+Pj4+PiAgICAgIHZvaWQgX19pb21lbSAqcGNpZV9kYXRhX29mZnNldDsK
-Pj4+Pj4+PiArdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Pj4+PiArdTMyIHI7Cj4+Pj4+Pj4gKwo+
-Pj4+Pj4+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2FjY2VzcyhhZGV2KSkKPj4+Pj4+PiAr
-cmV0dXJuIDA7Cj4+Pj4+Pj4KPj4+Pj4+PiAgICAgIHNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5w
-Y2llX2lkeF9sb2NrLCBmbGFncyk7Cj4+Pj4+Pj4gICAgICBwY2llX2luZGV4X29mZnNldCA9ICh2
-b2lkIF9faW9tZW0gKilhZGV2LT5ybW1pbyArIHBjaWVfaW5kZXgKPj4+Pj4+PiAqIDQ7IEBAIC02
-NDEsMTAgKzY3MiwxMyBAQCB1NjQKPj4+Pj4+PiBhbWRncHVfZGV2aWNlX2luZGlyZWN0X3JyZWc2
-NChzdHJ1Y3QKPj4+Pj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+Pj4+ICAgICAgICB1MzIg
-cGNpZV9pbmRleCwgdTMyIHBjaWVfZGF0YSwKPj4+Pj4+PiAgICAgICAgdTMyIHJlZ19hZGRyKQo+
-Pj4+Pj4+ICAgICAgewo+Pj4+Pj4+IC11bnNpZ25lZCBsb25nIGZsYWdzOwo+Pj4+Pj4+IC11NjQg
-cjsKPj4+Pj4+PiAgICAgIHZvaWQgX19pb21lbSAqcGNpZV9pbmRleF9vZmZzZXQ7Cj4+Pj4+Pj4g
-ICAgICB2b2lkIF9faW9tZW0gKnBjaWVfZGF0YV9vZmZzZXQ7Cj4+Pj4+Pj4gK3Vuc2lnbmVkIGxv
-bmcgZmxhZ3M7Cj4+Pj4+Pj4gK3U2NCByOwo+Pj4+Pj4+ICsKPj4+Pj4+PiAraWYgKGFtZGdwdV9k
-ZXZpY2Vfc2tpcF9od19hY2Nlc3MoYWRldikpCj4+Pj4+Pj4gK3JldHVybiAwOwo+Pj4+Pj4+Cj4+
-Pj4+Pj4gICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+cGNpZV9pZHhfbG9jaywgZmxhZ3Mp
-Owo+Pj4+Pj4+ICAgICAgcGNpZV9pbmRleF9vZmZzZXQgPSAodm9pZCBfX2lvbWVtICopYWRldi0+
-cm1taW8gKyBwY2llX2luZGV4Cj4+Pj4+Pj4gKiA0OyBAQCAtNjc3LDkgKzcxMSwxMiBAQCB2b2lk
-IGFtZGdwdV9kZXZpY2VfaW5kaXJlY3Rfd3JlZyhzdHJ1Y3QKPj4+Pj4+PiBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+Pj4+Pj4+ICAgICAgIHUzMiBwY2llX2luZGV4LCB1MzIgcGNpZV9kYXRhLAo+Pj4+
-Pj4+ICAgICAgIHUzMiByZWdfYWRkciwgdTMyIHJlZ19kYXRhKQo+Pj4+Pj4+ICAgICAgewo+Pj4+
-Pj4+IC11bnNpZ25lZCBsb25nIGZsYWdzOwo+Pj4+Pj4+ICAgICAgdm9pZCBfX2lvbWVtICpwY2ll
-X2luZGV4X29mZnNldDsKPj4+Pj4+PiAgICAgIHZvaWQgX19pb21lbSAqcGNpZV9kYXRhX29mZnNl
-dDsKPj4+Pj4+PiArdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Pj4+PiArCj4+Pj4+Pj4gK2lmIChh
-bWRncHVfZGV2aWNlX3NraXBfaHdfYWNjZXNzKGFkZXYpKQo+Pj4+Pj4+ICtyZXR1cm47Cj4+Pj4+
-Pj4KPj4+Pj4+PiAgICAgIHNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5wY2llX2lkeF9sb2NrLCBm
-bGFncyk7Cj4+Pj4+Pj4gICAgICBwY2llX2luZGV4X29mZnNldCA9ICh2b2lkIF9faW9tZW0gKilh
-ZGV2LT5ybW1pbyArIHBjaWVfaW5kZXgKPj4+Pj4+PiAqIDQ7IEBAIC03MDYsOSArNzQzLDEyIEBA
-IHZvaWQKPj4+Pj4+PiBhbWRncHVfZGV2aWNlX2luZGlyZWN0X3dyZWc2NChzdHJ1Y3QKPj4+Pj4+
-PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+Pj4+ICAgICAgICAgdTMyIHBjaWVfaW5kZXgsIHUz
-MiBwY2llX2RhdGEsCj4+Pj4+Pj4gICAgICAgICB1MzIgcmVnX2FkZHIsIHU2NCByZWdfZGF0YSkK
-Pj4+Pj4+PiAgICAgIHsKPj4+Pj4+PiAtdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Pj4+PiAgICAg
-IHZvaWQgX19pb21lbSAqcGNpZV9pbmRleF9vZmZzZXQ7Cj4+Pj4+Pj4gICAgICB2b2lkIF9faW9t
-ZW0gKnBjaWVfZGF0YV9vZmZzZXQ7Cj4+Pj4+Pj4gK3Vuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+Pj4+
-Pj4gKwo+Pj4+Pj4+ICtpZiAoYW1kZ3B1X2RldmljZV9za2lwX2h3X2FjY2VzcyhhZGV2KSkKPj4+
-Pj4+PiArcmV0dXJuOwo+Pj4+Pj4+Cj4+Pj4+Pj4gICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmYWRl
-di0+cGNpZV9pZHhfbG9jaywgZmxhZ3MpOwo+Pj4+Pj4+ICAgICAgcGNpZV9pbmRleF9vZmZzZXQg
-PSAodm9pZCBfX2lvbWVtICopYWRldi0+cm1taW8gKyBwY2llX2luZGV4Cj4+Pj4+Pj4gKiA0Owo+
-Pj4+Pj4+IC0tCj4+Pj4+Pj4gMi4yNS4xCj4+Pj4+Pj4KCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+--===============0750325047==
+Content-Type: multipart/alternative;
+ boundary="------------D838C6484AE7DB35E605C3D8"
+Content-Language: en-US
+
+--------------D838C6484AE7DB35E605C3D8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Andrey needs to review the reste, but essentially I don't see the reason 
+why you need this drm_sched_resubmit_jobs2().
+
+Christian.
+
+Am 10.03.21 um 14:36 schrieb Zhang, Jack (Jian):
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> Thanks Christian， just did the checkpatch scan.  Please see the V6 patch
+>
+> /Jack
+>
+>
+> ------------------------------------------------------------------------
+> *From:* Koenig, Christian <Christian.Koenig@amd.com>
+> *Sent:* Wednesday, March 10, 2021 8:54:53 PM
+> *To:* Zhang, Jack (Jian) <Jack.Zhang1@amd.com>; 
+> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; 
+> Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk 
+> <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>
+> *Subject:* Re: [PATCH v4] drm/amd/amdgpu implement tdr advanced mode
+> Am 10.03.21 um 12:19 schrieb Jack Zhang:
+> > [Why]
+> > Previous tdr design treats the first job in job_timeout as the bad job.
+> > But sometimes a later bad compute job can block a good gfx job and
+> > cause an unexpected gfx job timeout because gfx and compute ring share
+> > internal GC HW mutually.
+> >
+> > [How]
+> > This patch implements an advanced tdr mode.It involves an additinal
+> > synchronous pre-resubmit step(Step0 Resubmit) before normal resubmit
+> > step in order to find the real bad job.
+> >
+> > 1. At Step0 Resubmit stage, it synchronously submits and pends for the
+> > first job being signaled. If it gets timeout, we identify it as guilty
+> > and do hw reset. After that, we would do the normal resubmit step to
+> > resubmit left jobs.
+> >
+> > 2. Re-insert Bailing job to mirror_list, and leave it to be handled by
+> > the main reset thread.
+> >
+> > 3. For whole gpu reset(vram lost), do resubmit as the old way.
+> >
+> > Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+> > Change-Id: I408357f10b9034caaa1b83610e19e514c5fbaaf2
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 73 ++++++++++++++++++++-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
+> >   drivers/gpu/drm/scheduler/sched_main.c     | 75 ++++++++++++++++++++++
+> >   include/drm/gpu_scheduler.h                |  2 +
+> >   4 files changed, 148 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index e247c3a2ec08..02056355a055 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4639,7 +4639,7 @@ int amdgpu_device_gpu_recover(struct 
+> amdgpu_device *adev,
+> >        int i, r = 0;
+> >        bool need_emergency_restart = false;
+> >        bool audio_suspended = false;
+> > -
+> > +     int     tmp_vram_lost_counter;
+>
+> Please keep the empoty line between declaration and code.
+>
+> In general give that patch a pass with checkpath.pl since there are a
+> couple of other place which needs fixing at first glance.
+>
+> Christian.
+>
+>
+> >        /*
+> >         * Special case: RAS triggered and full reset isn't supported
+> >         */
+> > @@ -4689,9 +4689,14 @@ int amdgpu_device_gpu_recover(struct 
+> amdgpu_device *adev,
+> >                dev_info(adev->dev, "Bailing on TDR for s_job:%llx, 
+> as another already in progress",
+> >                                        job ? job->base.id : -1);
+> >
+> > -             /* even we skipped this reset, still need to set the 
+> job to guilty */
+> > -             if (job)
+> > +             if (job) {
+> > +                     /* re-insert node to avoid memory leak */
+> > + spin_lock(&job->base.sched->job_list_lock);
+> > + list_add(&job->base.node, &job->base.sched->pending_list);
+> > + spin_unlock(&job->base.sched->job_list_lock);
+> > +                     /* even we skipped this reset, still need to 
+> set the job to guilty */
+> > drm_sched_increase_karma(&job->base);
+> > +             }
+> >                goto skip_recovery;
+> >        }
+> >
+> > @@ -4788,6 +4793,7 @@ int amdgpu_device_gpu_recover(struct 
+> amdgpu_device *adev,
+> >                }
+> >        }
+> >
+> > +     tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
+> >        /* Actual ASIC resets if needed.*/
+> >        /* TODO Implement XGMI hive reset logic for SRIOV */
+> >        if (amdgpu_sriov_vf(adev)) {
+> > @@ -4805,6 +4811,67 @@ int amdgpu_device_gpu_recover(struct 
+> amdgpu_device *adev,
+> >        /* Post ASIC reset for all devs .*/
+> >        list_for_each_entry(tmp_adev, device_list_handle, 
+> gmc.xgmi.head) {
+> >
+> > +             if (amdgpu_gpu_recovery == 2 &&
+> > +                     !(tmp_vram_lost_counter < 
+> atomic_read(&adev->vram_lost_counter))) {
+> > +
+> > +                     for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> > +                             struct amdgpu_ring *ring = 
+> tmp_adev->rings[i];
+> > +                             int ret = 0;
+> > +                             struct drm_sched_job *s_job;
+> > +
+> > +                             if (!ring || !ring->sched.thread)
+> > +                                     continue;
+> > +
+> > +                             /* No point to resubmit jobs if we 
+> didn't HW reset*/
+> > +                             if (!tmp_adev->asic_reset_res && 
+> !job_signaled) {
+> > +
+> > +                                     s_job = 
+> list_first_entry_or_null(&ring->sched.pending_list, struct 
+> drm_sched_job, list);
+> > +                                     if (s_job == NULL)
+> > + continue;
+> > +
+> > +                                     /* clear job's guilty and 
+> depend the folowing step to decide the real one */
+> > + drm_sched_reset_karma(s_job);
+> > + drm_sched_resubmit_jobs2(&ring->sched, 1);
+> > +                                     ret = 
+> dma_fence_wait_timeout(s_job->s_fence->parent, false, 
+> ring->sched.timeout);
+> > +
+> > +                                     if (ret == 0) { /* timeout */
+> > + DRM_ERROR("Found the real bad job! ring:%s, job_id:%llx\n", 
+> ring->sched.name, s_job->id);
+> > +                                             /* set guilty */
+> > + drm_sched_increase_karma(s_job);
+> > +
+> > +                                             /* do hw reset */
+> > +                                             if 
+> (amdgpu_sriov_vf(adev)) {
+> > + amdgpu_virt_fini_data_exchange(adev);
+> > +                                                     r = 
+> amdgpu_device_reset_sriov(adev, false);
+> > +                                                     if (r)
+> > + adev->asic_reset_res = r;
+> > +                                             } else {
+> > +                                                     r = 
+> amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset, false);
+> > +                                                     if (r && r == 
+> -EAGAIN)
+> > + goto retry;
+> > +                                             }
+> > +
+> > +                                             /* add reset counter 
+> so that the following resubmitted job could flush vmid */
+> > + atomic_inc(&tmp_adev->gpu_reset_counter);
+> > + continue;
+> > +                                     }
+> > +
+> > +                                     /* got the hw fence, signal 
+> finished fence */
+> > + atomic_dec(&ring->sched.num_jobs);
+> > + dma_fence_get(&s_job->s_fence->finished);
+> > + dma_fence_signal(&s_job->s_fence->finished);
+> > + dma_fence_put(&s_job->s_fence->finished);
+> > +
+> > +
+> > +                                     /* remove node from list and 
+> free the job */
+> > + spin_lock(&ring->sched.job_list_lock);
+> > + list_del_init(&s_job->node);
+> > + spin_unlock(&ring->sched.job_list_lock);
+> > + ring->sched.ops->free_job(s_job);
+> > +                             }
+> > +                     }
+> > +             }
+> > +
+> >                for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> >                        struct amdgpu_ring *ring = tmp_adev->rings[i];
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 865f924772b0..9c3f4edb7532 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -509,7 +509,7 @@ module_param_named(compute_multipipe, 
+> amdgpu_compute_multipipe, int, 0444);
+> >    * DOC: gpu_recovery (int)
+> >    * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). 
+> The default is -1 (auto, disabled except SRIOV).
+> >    */
+> > -MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = 
+> enable, 0 = disable, -1 = auto)");
+> > +MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (2 = 
+> advanced tdr mode, 1 = enable, 0 = disable, -1 = auto)");
+> >   module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
+> >
+> >   /**
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
+> b/drivers/gpu/drm/scheduler/sched_main.c
+> > index d82a7ebf6099..99a6a8bddd6f 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -395,6 +395,81 @@ void drm_sched_increase_karma(struct 
+> drm_sched_job *bad)
+> >   }
+> >   EXPORT_SYMBOL(drm_sched_increase_karma);
+> >
+> > +
+> > +void drm_sched_resubmit_jobs2(struct drm_gpu_scheduler *sched, int max)
+> > +{
+> > +     struct drm_sched_job *s_job, *tmp;
+> > +     uint64_t guilty_context;
+> > +     bool found_guilty = false;
+> > +     struct dma_fence *fence;
+> > +     int i = 0;
+> > +
+> > +     list_for_each_entry_safe(s_job, tmp, &sched->pending_list, list) {
+> > +             struct drm_sched_fence *s_fence = s_job->s_fence;
+> > +
+> > +             if (i>=max)
+> > +                     break;
+> > +
+> > +             if (!found_guilty && atomic_read(&s_job->karma) > 
+> sched->hang_limit) {
+> > +                     found_guilty = true;
+> > +                     guilty_context = 
+> s_job->s_fence->scheduled.context;
+> > +             }
+> > +
+> > +             if (found_guilty && s_job->s_fence->scheduled.context 
+> == guilty_context)
+> > + dma_fence_set_error(&s_fence->finished, -ECANCELED);
+> > +
+> > + dma_fence_put(s_job->s_fence->parent);
+> > +             fence = sched->ops->run_job(s_job);
+> > +             i++;
+> > +
+> > +             if (IS_ERR_OR_NULL(fence)) {
+> > +                     if (IS_ERR(fence))
+> > + dma_fence_set_error(&s_fence->finished, PTR_ERR(fence));
+> > +
+> > +                     s_job->s_fence->parent = NULL;
+> > +             } else {
+> > +                     s_job->s_fence->parent = fence;
+> > +             }
+> > +     }
+> > +}
+> > +EXPORT_SYMBOL(drm_sched_resubmit_jobs2);
+> > +
+> > +
+> > +
+> > +void drm_sched_reset_karma(struct drm_sched_job *bad)
+> > +{
+> > +     int i;
+> > +     struct drm_sched_entity *tmp;
+> > +     struct drm_sched_entity *entity;
+> > +     struct drm_gpu_scheduler *sched = bad->sched;
+> > +
+> > +     /* don't reset @bad's karma if it's from KERNEL RQ,
+> > +      * because sometimes GPU hang would cause kernel jobs (like VM 
+> updating jobs)
+> > +      * corrupt but keep in mind that kernel jobs always considered 
+> good.
+> > +      */
+> > +     if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+> > +             atomic_set(&bad->karma, 0);
+> > +             for (i = DRM_SCHED_PRIORITY_MIN; i < 
+> DRM_SCHED_PRIORITY_KERNEL;
+> > +                  i++) {
+> > +                     struct drm_sched_rq *rq = &sched->sched_rq[i];
+> > +
+> > +                     spin_lock(&rq->lock);
+> > + list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
+> > +                             if (bad->s_fence->scheduled.context ==
+> > + entity->fence_context) {
+> > +                                             if (entity->guilty)
+> > + atomic_set(entity->guilty, 0);
+> > +                                     break;
+> > +                             }
+> > +                     }
+> > + spin_unlock(&rq->lock);
+> > +                     if (&entity->list != &rq->entities)
+> > +                             break;
+> > +             }
+> > +     }
+> > +}
+> > +EXPORT_SYMBOL(drm_sched_reset_karma);
+> > +
+> >   /**
+> >    * drm_sched_stop - stop the scheduler
+> >    *
+> > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> > index 1c815e0a14ed..01c609149731 100644
+> > --- a/include/drm/gpu_scheduler.h
+> > +++ b/include/drm/gpu_scheduler.h
+> > @@ -321,7 +321,9 @@ void drm_sched_wakeup(struct drm_gpu_scheduler 
+> *sched);
+> >   void drm_sched_stop(struct drm_gpu_scheduler *sched, struct 
+> drm_sched_job *bad);
+> >   void drm_sched_start(struct drm_gpu_scheduler *sched, bool 
+> full_recovery);
+> >   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+> > +void drm_sched_resubmit_jobs2(struct drm_gpu_scheduler *sched, int 
+> max);
+> >   void drm_sched_increase_karma(struct drm_sched_job *bad);
+> > +void drm_sched_reset_karma(struct drm_sched_job *bad);
+> >   bool drm_sched_dependency_optimized(struct dma_fence* fence,
+> >                                    struct drm_sched_entity *entity);
+> >   void drm_sched_fault(struct drm_gpu_scheduler *sched);
+>
+
+
+--------------D838C6484AE7DB35E605C3D8
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Andrey needs to review the reste, but essentially I don't see the
+    reason why you need this drm_sched_resubmit_jobs2().<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 10.03.21 um 14:36 schrieb Zhang,
+      Jack (Jian):<br>
+    </div>
+    <blockquote type="cite" cite="mid:DM5PR1201MB02044274BD6BB85B3828074FBB919@DM5PR1201MB0204.namprd12.prod.outlook.com">
+      
+      <p style="font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" align="Left">
+        [AMD Official Use Only - Internal Distribution Only]<br>
+      </p>
+      <br>
+      <div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+          Thanks Christian， just did the checkpatch scan.&nbsp; Please see
+          the V6 patch<br>
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+          <br>
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+          /Jack<br>
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0px; padding:
+          0px; font-family: sans-serif; font-size: 11pt; color: black;
+          text-align: left;">
+          <br>
+        </div>
+        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
+          font-family: sans-serif; font-size: 11pt; color: black; ">
+          <br>
+        </div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
+            Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
+            <b>Sent:</b> Wednesday, March 10, 2021 8:54:53 PM<br>
+            <b>To:</b> Zhang, Jack (Jian) <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Zhang1@amd.com">&lt;Jack.Zhang1@amd.com&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Grodzovsky, Andrey
+            <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>; Liu, Monk
+            <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu@amd.com">&lt;Monk.Liu@amd.com&gt;</a>; Deng, Emily
+            <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a><br>
+            <b>Subject:</b> Re: [PATCH v4] drm/amd/amdgpu implement tdr
+            advanced mode</font>
+          <div>&nbsp;</div>
+        </div>
+        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
+              <div class="PlainText">Am 10.03.21 um 12:19 schrieb Jack
+                Zhang:<br>
+                &gt; [Why]<br>
+                &gt; Previous tdr design treats the first job in
+                job_timeout as the bad job.<br>
+                &gt; But sometimes a later bad compute job can block a
+                good gfx job and<br>
+                &gt; cause an unexpected gfx job timeout because gfx and
+                compute ring share<br>
+                &gt; internal GC HW mutually.<br>
+                &gt;<br>
+                &gt; [How]<br>
+                &gt; This patch implements an advanced tdr mode.It
+                involves an additinal<br>
+                &gt; synchronous pre-resubmit step(Step0 Resubmit)
+                before normal resubmit<br>
+                &gt; step in order to find the real bad job.<br>
+                &gt;<br>
+                &gt; 1. At Step0 Resubmit stage, it synchronously
+                submits and pends for the<br>
+                &gt; first job being signaled. If it gets timeout, we
+                identify it as guilty<br>
+                &gt; and do hw reset. After that, we would do the normal
+                resubmit step to<br>
+                &gt; resubmit left jobs.<br>
+                &gt;<br>
+                &gt; 2. Re-insert Bailing job to mirror_list, and leave
+                it to be handled by<br>
+                &gt; the main reset thread.<br>
+                &gt;<br>
+                &gt; 3. For whole gpu reset(vram lost), do resubmit as
+                the old way.<br>
+                &gt;<br>
+                &gt; Signed-off-by: Jack Zhang
+                <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Zhang1@amd.com">&lt;Jack.Zhang1@amd.com&gt;</a><br>
+                &gt; Change-Id:
+                I408357f10b9034caaa1b83610e19e514c5fbaaf2<br>
+                &gt; ---<br>
+                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 73
+                ++++++++++++++++++++-<br>
+                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; |&nbsp; 2
+                +-<br>
+                &gt;&nbsp;&nbsp; drivers/gpu/drm/scheduler/sched_main.c&nbsp;&nbsp;&nbsp;&nbsp; | 75
+                ++++++++++++++++++++++<br>
+                &gt;&nbsp;&nbsp; include/drm/gpu_scheduler.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 +<br>
+                &gt;&nbsp;&nbsp; 4 files changed, 148 insertions(+), 4
+                deletions(-)<br>
+                &gt;<br>
+                &gt; diff --git
+                a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                &gt; index e247c3a2ec08..02056355a055 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                &gt; @@ -4639,7 +4639,7 @@ int
+                amdgpu_device_gpu_recover(struct amdgpu_device *adev,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r = 0;<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool need_emergency_restart = false;<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool audio_suspended = false;<br>
+                &gt; -<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; tmp_vram_lost_counter;<br>
+                <br>
+                Please keep the empoty line between declaration and
+                code.<br>
+                <br>
+                In general give that patch a pass with checkpath.pl
+                since there are a <br>
+                couple of other place which needs fixing at first
+                glance.<br>
+                <br>
+                Christian.<br>
+                <br>
+                <br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Special case: RAS triggered and full
+                reset isn't supported<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+                &gt; @@ -4689,9 +4689,14 @@ int
+                amdgpu_device_gpu_recover(struct amdgpu_device *adev,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;Bailing on
+                TDR for s_job:%llx, as another already in progress&quot;,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; job ?
+                job-&gt;base.id : -1);<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* even we skipped this reset, still
+                need to set the job to guilty */<br>
+                &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* re-insert node to avoid
+                memory leak */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                spin_lock(&amp;job-&gt;base.sched-&gt;job_list_lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                list_add(&amp;job-&gt;base.node,
+                &amp;job-&gt;base.sched-&gt;pending_list);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                spin_unlock(&amp;job-&gt;base.sched-&gt;job_list_lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* even we skipped this
+                reset, still need to set the job to guilty */<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                drm_sched_increase_karma(&amp;job-&gt;base);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto skip_recovery;<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; @@ -4788,6 +4793,7 @@ int
+                amdgpu_device_gpu_recover(struct amdgpu_device *adev,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; tmp_vram_lost_counter =
+                atomic_read(&amp;((adev)-&gt;vram_lost_counter));<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Actual ASIC resets if needed.*/<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO Implement XGMI hive reset logic for
+                SRIOV */<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+                &gt; @@ -4805,6 +4811,67 @@ int
+                amdgpu_device_gpu_recover(struct amdgpu_device *adev,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Post ASIC reset for all devs .*/<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(tmp_adev,
+                device_list_handle, gmc.xgmi.head) {<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_gpu_recovery == 2
+                &amp;&amp;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !(tmp_vram_lost_counter &lt;
+                atomic_read(&amp;adev-&gt;vram_lost_counter))) {<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt;
+                AMDGPU_MAX_RINGS; ++i) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring
+                *ring = tmp_adev-&gt;rings[i];<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret = 0;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job
+                *s_job;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ring ||
+                !ring-&gt;sched.thread)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No point to
+                resubmit jobs if we didn't HW reset*/<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (!tmp_adev-&gt;asic_reset_res &amp;&amp; !job_signaled)
+                {<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_job =
+                list_first_entry_or_null(&amp;ring-&gt;sched.pending_list,
+                struct drm_sched_job, list);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (s_job ==
+                NULL)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                continue;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear
+                job's guilty and depend the folowing step to decide the
+                real one */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                drm_sched_reset_karma(s_job);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                drm_sched_resubmit_jobs2(&amp;ring-&gt;sched, 1);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
+                dma_fence_wait_timeout(s_job-&gt;s_fence-&gt;parent,
+                false, ring-&gt;sched.timeout);<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret == 0)
+                { /* timeout */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                DRM_ERROR(&quot;Found the real bad job! ring:%s,
+                job_id:%llx\n&quot;, ring-&gt;sched.name, s_job-&gt;id);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*
+                set guilty */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                drm_sched_increase_karma(s_job);<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* do
+                hw reset */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (amdgpu_sriov_vf(adev)) {<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                amdgpu_virt_fini_data_exchange(adev);<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r
+                = amdgpu_device_reset_sriov(adev, false);<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (r)<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                adev-&gt;asic_reset_res = r;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+                else {<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r&nbsp;
+                = amdgpu_do_asic_reset(hive, device_list_handle,
+                &amp;need_full_reset, false);<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (r &amp;&amp; r == -EAGAIN)<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                goto retry;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*
+                add reset counter so that the following resubmitted job
+                could flush vmid */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                atomic_inc(&amp;tmp_adev-&gt;gpu_reset_counter);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                continue;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* got the hw
+                fence, signal finished fence */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                atomic_dec(&amp;ring-&gt;sched.num_jobs);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_get(&amp;s_job-&gt;s_fence-&gt;finished);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_signal(&amp;s_job-&gt;s_fence-&gt;finished);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_put(&amp;s_job-&gt;s_fence-&gt;finished);<br>
+                &gt; +<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* remove
+                node from list and free the job */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                spin_lock(&amp;ring-&gt;sched.job_list_lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                list_del_init(&amp;s_job-&gt;node);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                spin_unlock(&amp;ring-&gt;sched.job_list_lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                ring-&gt;sched.ops-&gt;free_job(s_job);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; AMDGPU_MAX_RINGS;
+                ++i) {<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
+                tmp_adev-&gt;rings[i];<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; diff --git
+                a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                &gt; index 865f924772b0..9c3f4edb7532 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                &gt; @@ -509,7 +509,7 @@
+                module_param_named(compute_multipipe,
+                amdgpu_compute_multipipe, int, 0444);<br>
+                &gt;&nbsp;&nbsp;&nbsp; * DOC: gpu_recovery (int)<br>
+                &gt;&nbsp;&nbsp;&nbsp; * Set to enable GPU recovery mechanism (1 =
+                enable, 0 = disable). The default is -1 (auto, disabled
+                except SRIOV).<br>
+                &gt;&nbsp;&nbsp;&nbsp; */<br>
+                &gt; -MODULE_PARM_DESC(gpu_recovery, &quot;Enable GPU
+                recovery mechanism, (1 = enable, 0 = disable, -1 =
+                auto)&quot;);<br>
+                &gt; +MODULE_PARM_DESC(gpu_recovery, &quot;Enable GPU
+                recovery mechanism, (2 = advanced tdr mode, 1 = enable,
+                0 = disable, -1 = auto)&quot;);<br>
+                &gt;&nbsp;&nbsp; module_param_named(gpu_recovery,
+                amdgpu_gpu_recovery, int, 0444);<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt;&nbsp;&nbsp; /**<br>
+                &gt; diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+                b/drivers/gpu/drm/scheduler/sched_main.c<br>
+                &gt; index d82a7ebf6099..99a6a8bddd6f 100644<br>
+                &gt; --- a/drivers/gpu/drm/scheduler/sched_main.c<br>
+                &gt; +++ b/drivers/gpu/drm/scheduler/sched_main.c<br>
+                &gt; @@ -395,6 +395,81 @@ void
+                drm_sched_increase_karma(struct drm_sched_job *bad)<br>
+                &gt;&nbsp;&nbsp; }<br>
+                &gt;&nbsp;&nbsp; EXPORT_SYMBOL(drm_sched_increase_karma);<br>
+                &gt;&nbsp;&nbsp; <br>
+                &gt; +<br>
+                &gt; +void drm_sched_resubmit_jobs2(struct
+                drm_gpu_scheduler *sched, int max)<br>
+                &gt; +{<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job *s_job, *tmp;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t guilty_context;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; bool found_guilty = false;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *fence;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; int i = 0;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry_safe(s_job, tmp,
+                &amp;sched-&gt;pending_list, list) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_fence *s_fence =
+                s_job-&gt;s_fence;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i&gt;=max)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!found_guilty &amp;&amp;
+                atomic_read(&amp;s_job-&gt;karma) &gt;
+                sched-&gt;hang_limit) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; found_guilty = true;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; guilty_context =
+                s_job-&gt;s_fence-&gt;scheduled.context;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (found_guilty &amp;&amp;
+                s_job-&gt;s_fence-&gt;scheduled.context ==
+                guilty_context)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_set_error(&amp;s_fence-&gt;finished,
+                -ECANCELED);<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_put(s_job-&gt;s_fence-&gt;parent);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fence =
+                sched-&gt;ops-&gt;run_job(s_job);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i++;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IS_ERR_OR_NULL(fence)) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IS_ERR(fence))<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                dma_fence_set_error(&amp;s_fence-&gt;finished,
+                PTR_ERR(fence));<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_job-&gt;s_fence-&gt;parent
+                = NULL;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_job-&gt;s_fence-&gt;parent
+                = fence;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +}<br>
+                &gt; +EXPORT_SYMBOL(drm_sched_resubmit_jobs2);<br>
+                &gt; +<br>
+                &gt; +<br>
+                &gt; +<br>
+                &gt; +void drm_sched_reset_karma(struct drm_sched_job
+                *bad)<br>
+                &gt; +{<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_entity *tmp;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_entity *entity;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gpu_scheduler *sched =
+                bad-&gt;sched;<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* don't reset @bad's karma if it's from
+                KERNEL RQ,<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * because sometimes GPU hang would cause
+                kernel jobs (like VM updating jobs)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * corrupt but keep in mind that kernel jobs
+                always considered good.<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (bad-&gt;s_priority !=
+                DRM_SCHED_PRIORITY_KERNEL) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;bad-&gt;karma, 0);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = DRM_SCHED_PRIORITY_MIN; i
+                &lt; DRM_SCHED_PRIORITY_KERNEL;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i++) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_rq *rq =
+                &amp;sched-&gt;sched_rq[i];<br>
+                &gt; +<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;rq-&gt;lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                list_for_each_entry_safe(entity, tmp,
+                &amp;rq-&gt;entities, list) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (bad-&gt;s_fence-&gt;scheduled.context ==<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                entity-&gt;fence_context) {<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+                (entity-&gt;guilty)<br>
+                &gt;
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                atomic_set(entity-&gt;guilty, 0);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                spin_unlock(&amp;rq-&gt;lock);<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (&amp;entity-&gt;list !=
+                &amp;rq-&gt;entities)<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &gt; +}<br>
+                &gt; +EXPORT_SYMBOL(drm_sched_reset_karma);<br>
+                &gt; +<br>
+                &gt;&nbsp;&nbsp; /**<br>
+                &gt;&nbsp;&nbsp;&nbsp; * drm_sched_stop - stop the scheduler<br>
+                &gt;&nbsp;&nbsp;&nbsp; *<br>
+                &gt; diff --git a/include/drm/gpu_scheduler.h
+                b/include/drm/gpu_scheduler.h<br>
+                &gt; index 1c815e0a14ed..01c609149731 100644<br>
+                &gt; --- a/include/drm/gpu_scheduler.h<br>
+                &gt; +++ b/include/drm/gpu_scheduler.h<br>
+                &gt; @@ -321,7 +321,9 @@ void drm_sched_wakeup(struct
+                drm_gpu_scheduler *sched);<br>
+                &gt;&nbsp;&nbsp; void drm_sched_stop(struct drm_gpu_scheduler
+                *sched, struct drm_sched_job *bad);<br>
+                &gt;&nbsp;&nbsp; void drm_sched_start(struct drm_gpu_scheduler
+                *sched, bool full_recovery);<br>
+                &gt;&nbsp;&nbsp; void drm_sched_resubmit_jobs(struct
+                drm_gpu_scheduler *sched);<br>
+                &gt; +void drm_sched_resubmit_jobs2(struct
+                drm_gpu_scheduler *sched, int max);<br>
+                &gt;&nbsp;&nbsp; void drm_sched_increase_karma(struct
+                drm_sched_job *bad);<br>
+                &gt; +void drm_sched_reset_karma(struct drm_sched_job
+                *bad);<br>
+                &gt;&nbsp;&nbsp; bool drm_sched_dependency_optimized(struct
+                dma_fence* fence,<br>
+                &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct
+                drm_sched_entity *entity);<br>
+                &gt;&nbsp;&nbsp; void drm_sched_fault(struct drm_gpu_scheduler
+                *sched);<br>
+                <br>
+              </div>
+            </span></font></div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------D838C6484AE7DB35E605C3D8--
+
+--===============0750325047==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0750325047==--
