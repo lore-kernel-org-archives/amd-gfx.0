@@ -7,118 +7,121 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC1DFC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 09:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75CF0C433E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 09:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6279E64F2D
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 09:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6279E64F2D
+	by mail.kernel.org (Postfix) with ESMTPS id 1E27F64ECC
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Mar 2021 09:51:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E27F64ECC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A256E9DE;
-	Wed, 10 Mar 2021 09:07:52 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4336E9DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 09:07:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA2B06E9E7;
+	Wed, 10 Mar 2021 09:51:14 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700043.outbound.protection.outlook.com [40.107.70.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD026E9E7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Mar 2021 09:51:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EQsbEBjU8p07JWQkFdO9OCcYuFmJcsdD72QaRsOPsMf1ogpTMsih9viF+hUe4Gbc7AB1rLtjV1sLCiAoJoR7rX1Sv04aFATYd7AHqVw7TlivES2AOxtlTs6pV7ynRyUOvNHYlhZBR4GF2u/6FMhgSyQJfyhthvvQm0OApL37AyF9L+D7E6UU015ED1PAb+hQAfEXuAs0jDju3Cj2mq0w15IGWGbb7iAO73b6poF+qiDAfALQh39jC2mhH69NOsX2AjFll8/1Enh8YgIo05egUnqIIRyjD/DM6wdGXQkGJiyAskf5ZGv3e6GmbqaK4sno6qwnXEtg/A9CNUaZ5J0Z7A==
+ b=k87wObkgkr7aMLL2bXW4eSwpC8W3xD+A48HxvuzWTObrzUZhPqDKpL0SxaBWnuXCO4ov3d0CYPnZ5fxw/uoLUaL/Tc6fscXPvb7ro6mjcNDU2iOWbVLA+Rdp8u0DBJvOA2F3H1tte4afRKvBSD95ETs2jp/DDaOpc7FZYzHZFzBPnJIxe8XdA/l+VhTu9Otadzo7WlOpu2fH6TjDctaZAWqay2fhTyFwndIsw5F2kdJ64kDfvX1GXJSjIBZjfycwRaJKXkylgdSywEvz+qN1vb0ZR9yxvDojTXGvYzw2kw+UszdDP9eRoHajlpZA/ChHRD/dXafgs6WzQ8bnTsWUvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QBEBmUvoA1x0Gac0EfwMvf3mXYSK+ktFFllJBlKWXSg=;
- b=GHPWzU1rpQGkr7F8oZs+OlweAF8vUSY3JxvDtBC46ju65KS6i/V+F93HHhuxW3xSR6RNb6sr3QqPPBTXdjS2iU8GtliD8n0lVc9S1jIDhSFd+bfwngP6GjBmVHb5d5h4FI8CYrWJoRmTbjQGYU08E8AmOR3f7+R+q0mt7JWihSUGWDoq5CDhXNRwe4uWtqWi6o3EbxkEI6uBb2KSdSqIBAS3Rlwf2AYS5ZrcH0PLJJ7JwqPkenZF83RR8F06faIC0HJ34hagHXeFRr8WiOh5tVYWXJEOJrf58FkmbmDsXMzeya5ZCkDquQ5VbIgARSNwgQ288nO0n83TYYopmA+msw==
+ bh=CwxY5bqGK/0uWhq6Z3pRpWwRuhzJRgtMtJtmUJFimEI=;
+ b=gYvDAdv5oeUPjqCIcLFkvAB7rBtM2H+Fu43gJevxtIUbxpYwwjEsGX3jj50gMwGqiPks0NFGLpoMxqeNPCVkkdVP0HjMEUD7liCiAn4WEVODyiY6WKJcpalq35TMnupBk8TLt4QzXmbTBnsGxq0yyT/PhXVOyqRcMG+aSFg3yzB+11ke8fCWGb1+WhDJNT8Cn1i/aUCrcUizd3RdlOdqyhxnEKv2BYdQBxXr+S9x/1gcLMafHOtaeZhdw3mZE7vLMVB1Jze9cdL6TxFt7l8jBZuTm+SH+8XuqzFRSRfhmiAJxVwmyRXdJLZETvLmTZ7inPaToZRR1Vb+RU0P1Fk+Xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QBEBmUvoA1x0Gac0EfwMvf3mXYSK+ktFFllJBlKWXSg=;
- b=i7gYWKeaQdV4MOBvava8LYHfcwk3nqBMSsHl769sD6uiAe90GVqCyqcHKMf2aRibufGaaLQ7VxhQ5cM3f3veTnnj0n3w4rUBnlmp1vDJUBJ5lvdOk9l/Ql9/kzu47a2wtWe4VQVheHQyBm2caXLon9To0KNw7CA4MVfNDkXefvA=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3179.namprd12.prod.outlook.com (2603:10b6:5:183::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.17; Wed, 10 Mar 2021 09:07:48 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8%7]) with mapi id 15.20.3912.029; Wed, 10 Mar 2021
- 09:07:47 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=CwxY5bqGK/0uWhq6Z3pRpWwRuhzJRgtMtJtmUJFimEI=;
+ b=cijJZzRHeQw9chRW0iH9IvrXloAz8hs++v/DEF4MTTln+oLoIXOp90P5Cznj0yLp6S7NJj498dYw4RToGvI2l+2pgZkvrf5rUWXIBz7Mw4w1jts6E7c20QB+NFGhFvIuPytXuBe0/yAQAPQoZ3fmg80vmk82DMmsBOQ6/R8Dpjw=
+Received: from CH2PR12MB4890.namprd12.prod.outlook.com (2603:10b6:610:63::20)
+ by CH2PR12MB3992.namprd12.prod.outlook.com (2603:10b6:610:29::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.23; Wed, 10 Mar
+ 2021 09:51:11 +0000
+Received: from CH2PR12MB4890.namprd12.prod.outlook.com
+ ([fe80::1dc7:1e93:5f14:be8a]) by CH2PR12MB4890.namprd12.prod.outlook.com
+ ([fe80::1dc7:1e93:5f14:be8a%4]) with mapi id 15.20.3912.029; Wed, 10 Mar 2021
+ 09:51:11 +0000
+From: "S, Shirish" <Shirish.S@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: bug fix for pcie dpm
-Thread-Topic: [PATCH] drm/amd/pm: bug fix for pcie dpm
-Thread-Index: AQHXFOaUuC8mO1fcc0KRTR9ZCEcBlap878gQ
-Date: Wed, 10 Mar 2021 09:07:47 +0000
-Message-ID: <DM6PR12MB26198FFA56B8BDC0395A9D4FE4919@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210309131745.3866-1-kenneth.feng@amd.com>
-In-Reply-To: <20210309131745.3866-1-kenneth.feng@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH] drm/amdgpu/powerplay/smu10: add support for gpu busy query
+Thread-Topic: [PATCH] drm/amdgpu/powerplay/smu10: add support for gpu busy
+ query
+Thread-Index: AQHXFWON7MZ+ZfFjC0aS17fI415xdqp81peAgAAkQvA=
+Date: Wed, 10 Mar 2021 09:51:11 +0000
+Message-ID: <CH2PR12MB4890F54BD9FAB8798410CB0BF2919@CH2PR12MB4890.namprd12.prod.outlook.com>
+References: <20210310041150.289806-1-alexander.deucher@amd.com>
+ <DM6PR12MB261978DDDF04B6F2536315FCE4919@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB261978DDDF04B6F2536315FCE4919@DM6PR12MB2619.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-10T09:07:44Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-10T07:40:45Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=f216accd-2b53-4a46-b0f4-fa5458ff7e1e;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=dd5e8ac0-3d79-4407-8578-232b5b10f203;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
+x-originating-ip: [165.204.158.249]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1bfe729c-1468-42be-a738-08d8e3a3f99c
-x-ms-traffictypediagnostic: DM6PR12MB3179:
+x-ms-office365-filtering-correlation-id: 97a1a9ed-367e-461e-5d04-08d8e3aa09a5
+x-ms-traffictypediagnostic: CH2PR12MB3992:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB31795C398FC38259FE892063E4919@DM6PR12MB3179.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:849;
+x-microsoft-antispam-prvs: <CH2PR12MB3992215B1B64EB5906FA8E79F2919@CH2PR12MB3992.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3631;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3tDaoCBQrr+9yOYvKVMhTKy8S/03IQnvCGlDOB/GSFnKTe7xICq999NTRKdwj1J9fMCPQCDlb1fsFOjYDksW+wHQ7KzbbO+WOizL0ybI/Qcd7yEkzjcIp63BkTOQ1XR779RjuC/YJJJ2q4iJiLgQulnCd9yQRA9G6RCWbuhyCQJrCZnJjMmnN0pEZSjlGA3kXUjzUqj3GlOCLKP3zyKMOUwaZlTvmoZKXlwJlLxVOl6+tBIpw50B/aPCWOEdA7pp3JCmLirg5iAXT1hSBLTejBmagdjHp9KP5UNe76WUwECOOdCJuFvbT3sZz+RRxhHDUVDjbrxwhgT69byveVNaeouq2p3bpcgP5Em8eSadYt2CMJPkUtHN3nYSOuzzgvPuJmfsJYe9ilWUqZEkBmAOd3hxgV2WsLFnHNSEkYkqtdUUwAedg96O1L8KOorUIz39qJUO0jxlqcRY/Y0p8gfRfrK12ckg9tKdff6uvdSyAePWN/2GZYBRAKSrui5K/L9R0y9vroOVUN1x08RtAHcIl3jpifGk5jrExIGCNjnfmLDkxuMkNc9DzlQEUbEBMjMk
+x-microsoft-antispam-message-info: t85WiJHhmDMZqWu8lLog28JoD0lVNBUlDVCSxkRUvv+fP8lC2cfwLaXqktL1ku+q9APf6VLOQ7h47YfPXn69EH/hNP5wnrUjc/WGJvYG/nuuJO7SBzY8q+PJc5sSSY5twKbExe/afjrFwqiOv/GLnqUaRT7J41mH91g4mNkRBZwXF0oRQXeQ4cMlyCCTUFOuy/OD+rYgWiQhE7v0ZtJZklQfS6SPN57WMKpufAIQUxh7OXJxoJfxm7h6dJvUIXCvSy/BWjaPzMTDwUZS2BcX+69kX3y9Q3r3ccV2m9ANKUR5D6R2++YgbBkaWMbj8ZZISRCC1XJGY53+s38uPJjO3gfcQ+PoL0eCbGszYRM9Ov760p2q7//KkLTezeFRyjV8/vlPRQdPFilyTkBhNSnQqw7wjeaPdWX4xqIvVUPAafxnowb8LewrFhBKM2zMw5Xu3ZdeIj/D4WntWmsgT/2vszoWxTBua7CeL7LpLxCJbqascpnvSZ3fj84kZ4RvXCoYASRybaiq2bzCNPigGkjzZWAwGoseYRqpNSEx30Uc+XWEIGc5dDlfvP2e5TI9Tmje
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(366004)(346002)(396003)(136003)(110136005)(71200400001)(478600001)(966005)(186003)(8936002)(66946007)(76116006)(52536014)(33656002)(53546011)(5660300002)(6506007)(2906002)(7696005)(66446008)(4326008)(66476007)(86362001)(66556008)(64756008)(316002)(26005)(9686003)(45080400002)(83380400001)(8676002)(55016002)(30864003);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4890.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(346002)(376002)(396003)(39860400002)(76116006)(8936002)(6506007)(53546011)(26005)(86362001)(66556008)(66946007)(186003)(8676002)(316002)(71200400001)(83380400001)(110136005)(33656002)(66476007)(66446008)(64756008)(478600001)(4326008)(52536014)(7696005)(5660300002)(45080400002)(966005)(55016002)(2906002)(9686003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?RlcrJm262n8rwEFemSp87oRm252IzXHS2hcr55waL8JKOzmOqNY0OA+mDmXw?=
- =?us-ascii?Q?2yo8qhEmoRwn1K0PJptetml64AIzTZxcKI/xVZ6CJXyoXTmqnqLpZGXVXr+g?=
- =?us-ascii?Q?pHdp3W+3jZOcMOuXEqBWmRyaLuzSxCp04Cvt/NtoV5pAli8BacsInamqmy5c?=
- =?us-ascii?Q?8BgABEssvoCiaN3Q8sMjgqV1SbDHVopQ9RSHBmWiMSrq59cZM8kWPSbrFAbU?=
- =?us-ascii?Q?/h/ic7qQhmCaaPDjxFoJaXnd39VQYw1hSFmCgSypjZj1EVwXAt3TmzwWBedb?=
- =?us-ascii?Q?+LkUw84GRENlsZ0c7Zixe1xJRKGUkT854IClSH5xwcmrnDQCZ5jQ4STUtnI1?=
- =?us-ascii?Q?Js/nEwF//HJVi0nBP+830YYUuGxSbmhMDu4NERNt9Vxd1Zq4Acy/F7NwiMin?=
- =?us-ascii?Q?PIOcCCg463C1KhEg8jgT0R0rhri9YOK44y6VOxRqEE89p8HvaHCZNQ+BvpzZ?=
- =?us-ascii?Q?zdQwZxHSazNBwjfODpmkx4Bg7eSEQycafVkekFM0ubwG2L3yVsIUza9BtsTo?=
- =?us-ascii?Q?REahmZBoUOPSupBKeKGQcYbJLnfgqwHnsBfCGpHvdYgWrx/b7kK4LjDjGFJI?=
- =?us-ascii?Q?XGjU5Q0N3o9hOpc7bfBLIbKVFH53s+xc1hfd2cI3mWS9c7VF6DNeHE1QUaL/?=
- =?us-ascii?Q?rPLgvfIWWUjraw+UEfL6ZHERQL+5TINAgu6FCxQG8J9jd8eJbMQce8glvfwj?=
- =?us-ascii?Q?IkVxLvXW2QtxU75ezu4lZ+nLlFGUvjPtjkGzAw+gHzuRP4GKTV44OFd812Ah?=
- =?us-ascii?Q?mJALyVkcPmZsY+ekXjl4fyTCrXnq2N3Off4QUw1iz1Ck+qXWZdvKvPa1GgBX?=
- =?us-ascii?Q?twzXqQ6/XFoOZvcSm7opgTy+swSnAYsv9rsGkPtml0z0Ke5zyLmkHSGQ+pXu?=
- =?us-ascii?Q?x2v2NGu23N7v8d+5/RTrzuNpx1OxA265zyVUFjQJ4S6afoGSS2UBuhkj922C?=
- =?us-ascii?Q?VeY8akqIIYrHmum46lIABH8oFfz3mDYaGj48zkno3iXGerysQhnA2fegmKNz?=
- =?us-ascii?Q?bKNSuiTBR8qhK6hn86DtOHpHy4S6IJNNDtk0wmP2K3P0BrqKbZs44BJQOyel?=
- =?us-ascii?Q?kAY6GZjl4NBmjjKI+dk97vV2f6c5WlRZBodT5Alc3MzN4WSnNBBZJR5OUmeo?=
- =?us-ascii?Q?D0XIt6CzKL0ffJsszxSdCZf0sVVVzLZ6tcCC8dqvlsYeC8MJlORxyTqJx6xS?=
- =?us-ascii?Q?3VaQ76CLQrGTNN8pxevttNzwTKEOi4fnnEXbj+g59WdNCpV0axvwmp42c2is?=
- =?us-ascii?Q?A897YZBRk6v5HYErQmxI8/KWdMQN+mDB91Ize2FDJHgT/3cYw6HPLsQgk3DJ?=
- =?us-ascii?Q?MT+HNLwg1oRHGbw5AX/CCspa?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?r0r13czlVmoXl5+qVnQeYT1tZ3ycuhD5s2zq9n+tNX0TdWqMQzBjpJ6Tlzn3?=
+ =?us-ascii?Q?VvXFe0RwiDLCGCiz2/mCawCy9v3xVs1lQfuvsNcX3JWRp5LJXvQ3/LbHBz4a?=
+ =?us-ascii?Q?gtq3t4xJV/Jyh+ySl6AmgsHd0I/AbmB/2XuMAXTxkFTJhVcMS3OA6koPmVtF?=
+ =?us-ascii?Q?8Y+SN06zwyZINnCjbMsOpWXgjRXth/V7k7vPh43qM1Cz/Kiw/V1fhEFF0MHg?=
+ =?us-ascii?Q?rKeS8TwzMbckeGqR20NCf+OCp3m4KHQ3l2zR2Ldvg1VaZOsjNEpWL2GsUGIV?=
+ =?us-ascii?Q?LMekm46zfc9K0yPagdvsJVTDXBniS4ZXeqGzXcrYalxqf3v2ezcj5bfBqTo8?=
+ =?us-ascii?Q?+itfbpRLuvbQ6vNr3o4Vrr6JKyHHCQ1EY98LJeZgGxYEb/seuFeJT482ZYrY?=
+ =?us-ascii?Q?LVX0TCw/Xjfu5FZ1+CxW2nl+7XhggS915DihoFjxGvDNH3ukSzfGfyIHqUL8?=
+ =?us-ascii?Q?5BZHcXVqi/R4fKRbMDuNwbHmukQKBaXtwKR2b8l70B1GP+6qNoMFN5LhCzHw?=
+ =?us-ascii?Q?b4Rir3Lh+SE7LcltSPBXp3CYPzzp6kCvu85S/DApcwdgm7KVZcDRP+BgFjbu?=
+ =?us-ascii?Q?xkTUjqjQ36ZVNUX7G4dkmZc41VcdqcD+2wKjYtmjNPZ50R45+0eDo1qqdZzj?=
+ =?us-ascii?Q?UJ7LEy49GpyPz3xzWsOhSc4ROMkYweCiPzAtzAx+rLPV3+fmU5utQOiZvr3L?=
+ =?us-ascii?Q?krDGWWkNt+dmqdTmo/nF++kbcFIn6rsscCPF3/OjxaYG8+habmbkIq246K/O?=
+ =?us-ascii?Q?B2u9ycW+m4MsP93zAE/mbxcpUngMWWkhgtuUzK0Eo61tnOBQIP5NMRiEmZid?=
+ =?us-ascii?Q?GRpbyl+mtjn6Cjk1d/gqtuoKHnYu+aUnPwKcm/z6qXaqD5A192lc/50mjUB+?=
+ =?us-ascii?Q?/gfKYn1FFtD9daA6HKEw1rR89+v7A6oh41uSIoxtzfumDn6AQUH+A4DowkcL?=
+ =?us-ascii?Q?fRXRMUd3+7KXcC2I0LVw09BZjr10NEr9ih/jBteSBWW7w9WM4jcOWrGAi5al?=
+ =?us-ascii?Q?bpXllwFJqofHFGokAQGMnl03iAZ4v1wJgrsk+41gUGEZZ63V2gzfoCVHqDzx?=
+ =?us-ascii?Q?I9E/hfZiv6hMJoG1CeQCRAhOIxfkK3k/ggOC1UtBtN4i0AIpcyc3t13agpRc?=
+ =?us-ascii?Q?SPP60aRZkQ0JagYAPr97G89iSr4bE4OUXVbwIt8nd+5WupcXI/oyRjEIJlXl?=
+ =?us-ascii?Q?sZ56KgBH4vlwVsEFHIckRyMExQEwdHbwwo0PdS++K6NOwJrUfGOXnf9In14w?=
+ =?us-ascii?Q?2IRw0FV0KLqulGk3bVPijCWyrd5tEUd8D9G/LC0tpDGQ3gOVv7vYsR/XZhUV?=
+ =?us-ascii?Q?Ypf+1Nx/4aFyk5Ww6oSy37BM?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bfe729c-1468-42be-a738-08d8e3a3f99c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2021 09:07:47.8763 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4890.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97a1a9ed-367e-461e-5d04-08d8e3aa09a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2021 09:51:11.7737 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4nLnIFmEUBiUMKbTy/Jmv/9zmfwXypQEtMqM2gCZM8HNpmfdNi1ldgDNGYi97qbe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3179
+X-MS-Exchange-CrossTenant-userprincipalname: Y3NWgmRrAoESDJ32HRZNPecI3I4MD9rh/zsrp6a9tHpPA4yj+us06ix/vXzUXZO2epVwUv3baLYjm2FrIAy/UA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3992
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,281 +133,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+Tested-by: Shirish S <shirish.s@amd.com>
+
+
+
+Regards,
+Shirish S
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Quan, Evan
+Sent: Wednesday, March 10, 2021 1:11 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/powerplay/smu10: add support for gpu busy query
 
 [AMD Public Use]
 
 Reviewed-by: Evan Quan <evan.quan@amd.com>
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kenneth Feng
-Sent: Tuesday, March 9, 2021 9:18 PM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Wednesday, March 10, 2021 12:12 PM
 To: amd-gfx@lists.freedesktop.org
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: bug fix for pcie dpm
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/powerplay/smu10: add support for gpu busy query
 
-Currently the pcie dpm has two problems.
-1. Only the high dpm level speed/width can be overrided
-if the requested values are out of the pcie capability.
-2. The high dpm level is always overrided though sometimes
-it's not necesarry.
+Was added in newer versions of the firmware.  Add support for it.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 48 ++++++++++++++
- .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c | 66 +++++++++++++++++++
- .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 48 ++++++++------
- 3 files changed, 141 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h         |  1 +
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 30 ++++++++++++++++++-
+ 2 files changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 5e875ad8d633..408b35866704 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -1505,6 +1505,48 @@ static int vega10_populate_single_lclk_level(struct pp_hwmgr *hwmgr,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+index 4c7e08ba5fa4..171f12b82716 100644
+--- a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+@@ -84,6 +84,7 @@
+ #define PPSMC_MSG_PowerGateMmHub                0x35
+ #define PPSMC_MSG_SetRccPfcPmeRestoreRegister   0x36
+ #define PPSMC_MSG_GpuChangeState                0x37
++#define PPSMC_MSG_GetGfxBusy                    0x3D
+ #define PPSMC_Message_Count                     0x42
  
-+static int vega10_override_pcie_parameters(struct pp_hwmgr *hwmgr)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
-+	struct vega10_hwmgr *data =
-+			(struct vega10_hwmgr *)(hwmgr->backend);
-+	uint32_t pcie_gen = 0, pcie_width = 0;
-+	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
-+	int i;
-+
-+	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
-+		pcie_gen = 3;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
-+		pcie_gen = 2;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
-+		pcie_gen = 1;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1)
-+		pcie_gen = 0;
-+
-+	if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X16)
-+		pcie_width = 6;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X12)
-+		pcie_width = 5;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X8)
-+		pcie_width = 4;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X4)
-+		pcie_width = 3;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X2)
-+		pcie_width = 2;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1)
-+		pcie_width = 1;
-+
-+	for (i = 0; i < NUM_LINK_LEVELS; i++) {
-+		if (pp_table->PcieGenSpeed[i] > pcie_gen)
-+			pp_table->PcieGenSpeed[i] = pcie_gen;
-+
-+		if (pp_table->PcieLaneCount[i] > pcie_width)
-+			pp_table->PcieLaneCount[i] = pcie_width;
-+	}
-+
-+	return 0;
-+}
-+
- static int vega10_populate_smc_link_levels(struct pp_hwmgr *hwmgr)
+ typedef uint16_t PPSMC_Result;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index c932b632ddd4..52fcdec738e9 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1261,9 +1261,21 @@ static int smu10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 			  void *value, int *size)
  {
- 	int result = -1;
-@@ -2556,6 +2598,11 @@ static int vega10_init_smc_table(struct pp_hwmgr *hwmgr)
- 			"Failed to initialize Link Level!",
- 			return result);
+ 	struct smu10_hwmgr *smu10_data = (struct smu10_hwmgr *)(hwmgr->backend);
+-	uint32_t sclk, mclk;
++	struct amdgpu_device *adev = hwmgr->adev;
++	uint32_t sclk, mclk, activity_percent;
++	bool has_gfx_busy;
+ 	int ret = 0;
  
-+	result = vega10_override_pcie_parameters(hwmgr);
-+	PP_ASSERT_WITH_CODE(!result,
-+			"Failed to override pcie parameters!",
-+			return result);
++	/* GetGfxBusy support was added on RV SMU FW 30.85.00 and PCO 4.30.59 */
++	if ((adev->apu_flags & AMD_APU_IS_PICASSO) &&
++	    (hwmgr->smu_version >= 0x41e3b))
++		has_gfx_busy = true;
++	else if ((adev->apu_flags & AMD_APU_IS_RAVEN) &&
++		 (hwmgr->smu_version >= 0x1e5500))
++		has_gfx_busy = true;
++	else
++		has_gfx_busy = false;
 +
- 	result = vega10_populate_all_graphic_levels(hwmgr);
- 	PP_ASSERT_WITH_CODE(!result,
- 			"Failed to initialize Graphics Level!",
-@@ -2922,6 +2969,7 @@ static int vega10_start_dpm(struct pp_hwmgr *hwmgr, uint32_t bitmap)
- 	return 0;
- }
- 
-+
- static int vega10_enable_disable_PCC_limit_feature(struct pp_hwmgr *hwmgr, bool enable)
- {
- 	struct vega10_hwmgr *data = hwmgr->backend;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-index a827f2bc7904..196ac2a4d145 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-@@ -481,6 +481,67 @@ static void vega12_init_dpm_state(struct vega12_dpm_state *dpm_state)
- 	dpm_state->hard_max_level = 0xffff;
- }
- 
-+static int vega12_override_pcie_parameters(struct pp_hwmgr *hwmgr)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
-+	struct vega12_hwmgr *data =
-+			(struct vega12_hwmgr *)(hwmgr->backend);
-+	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg, pcie_gen_arg, pcie_width_arg;
-+	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
-+	int i;
-+	int ret;
-+
-+	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
-+		pcie_gen = 3;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
-+		pcie_gen = 2;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
-+		pcie_gen = 1;
-+	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1)
-+		pcie_gen = 0;
-+
-+	if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X16)
-+		pcie_width = 6;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X12)
-+		pcie_width = 5;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X8)
-+		pcie_width = 4;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X4)
-+		pcie_width = 3;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X2)
-+		pcie_width = 2;
-+	else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1)
-+		pcie_width = 1;
-+
-+	/* Bit 31:16: LCLK DPM level. 0 is DPM0, and 1 is DPM1
-+	 * Bit 15:8:  PCIE GEN, 0 to 3 corresponds to GEN1 to GEN4
-+	 * Bit 7:0:   PCIE lane width, 1 to 7 corresponds is x1 to x32
-+	 */
-+	for (i = 0; i < NUM_LINK_LEVELS; i++) {
-+		pcie_gen_arg = (pp_table->PcieGenSpeed[i] > pcie_gen) ? pcie_gen :
-+			pp_table->PcieGenSpeed[i];
-+		pcie_width_arg = (pp_table->PcieLaneCount[i] > pcie_width) ? pcie_width :
-+			pp_table->PcieLaneCount[i];
-+
-+		if (pcie_gen_arg != pp_table->PcieGenSpeed[i] || pcie_width_arg !=
-+		    pp_table->PcieLaneCount[i]) {
-+			smu_pcie_arg = (i << 16) | (pcie_gen_arg << 8) | pcie_width_arg;
-+			ret = smum_send_msg_to_smc_with_parameter(hwmgr,
-+				PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
-+				NULL);
-+			PP_ASSERT_WITH_CODE(!ret,
-+				"[OverridePcieParameters] Attempt to override pcie params failed!",
-+				return ret);
+ 	switch (idx) {
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+ 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetGfxclkFrequency, &sclk); @@ -1284,6 +1296,22 @@ static int smu10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*(uint32_t *)value =  smu10_data->vcn_power_gated ? 0 : 1;
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_LOAD:
++		if (has_gfx_busy) {
++			ret = smum_send_msg_to_smc(hwmgr,
++						   PPSMC_MSG_GetGfxBusy,
++						   &activity_percent);
++			if (!ret) {
++				activity_percent = activity_percent > 100 ? 100 : activity_percent;
++			} else {
++				activity_percent = 50;
++			}
++			*((uint32_t *)value) = activity_percent;
++			return 0;
++		} else {
++			return -EOPNOTSUPP;
 +		}
-+
-+		/* update the pptable */
-+		pp_table->PcieGenSpeed[i] = pcie_gen_arg;
-+		pp_table->PcieLaneCount[i] = pcie_width_arg;
-+	}
-+
-+	return 0;
-+}
-+
- static int vega12_get_number_of_dpm_level(struct pp_hwmgr *hwmgr,
- 		PPCLK_e clk_id, uint32_t *num_of_levels)
- {
-@@ -968,6 +1029,11 @@ static int vega12_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
- 			"Failed to enable all smu features!",
- 			return result);
- 
-+	result = vega12_override_pcie_parameters(hwmgr);
-+	PP_ASSERT_WITH_CODE(!result,
-+			"[EnableDPMTasks] Failed to override pcie parameters!",
-+			return result);
-+
- 	tmp_result = vega12_power_control_set_level(hwmgr);
- 	PP_ASSERT_WITH_CODE(!tmp_result,
- 			"Failed to power control set level!",
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index e8eec2539c17..78bbd4d666f2 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -831,7 +831,9 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
- 	struct vega20_hwmgr *data =
- 			(struct vega20_hwmgr *)(hwmgr->backend);
--	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg;
-+	uint32_t pcie_gen = 0, pcie_width = 0, smu_pcie_arg, pcie_gen_arg, pcie_width_arg;
-+	PPTable_t *pp_table = &(data->smc_state_table.pp_table);
-+	int i;
- 	int ret;
- 
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
-@@ -860,17 +862,27 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
- 	 * Bit 15:8:  PCIE GEN, 0 to 3 corresponds to GEN1 to GEN4
- 	 * Bit 7:0:   PCIE lane width, 1 to 7 corresponds is x1 to x32
- 	 */
--	smu_pcie_arg = (1 << 16) | (pcie_gen << 8) | pcie_width;
--	ret = smum_send_msg_to_smc_with_parameter(hwmgr,
--			PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
--			NULL);
--	PP_ASSERT_WITH_CODE(!ret,
--		"[OverridePcieParameters] Attempt to override pcie params failed!",
--		return ret);
-+	for (i = 0; i < NUM_LINK_LEVELS; i++) {
-+		pcie_gen_arg = (pp_table->PcieGenSpeed[i] > pcie_gen) ? pcie_gen :
-+			pp_table->PcieGenSpeed[i];
-+		pcie_width_arg = (pp_table->PcieLaneCount[i] > pcie_width) ? pcie_width :
-+			pp_table->PcieLaneCount[i];
-+
-+		if (pcie_gen_arg != pp_table->PcieGenSpeed[i] || pcie_width_arg !=
-+		    pp_table->PcieLaneCount[i]) {
-+			smu_pcie_arg = (i << 16) | (pcie_gen_arg << 8) | pcie_width_arg;
-+			ret = smum_send_msg_to_smc_with_parameter(hwmgr,
-+				PPSMC_MSG_OverridePcieParameters, smu_pcie_arg,
-+				NULL);
-+			PP_ASSERT_WITH_CODE(!ret,
-+				"[OverridePcieParameters] Attempt to override pcie params failed!",
-+				return ret);
-+		}
- 
--	data->pcie_parameters_override = true;
--	data->pcie_gen_level1 = pcie_gen;
--	data->pcie_width_level1 = pcie_width;
-+		/* update the pptable */
-+		pp_table->PcieGenSpeed[i] = pcie_gen_arg;
-+		pp_table->PcieLaneCount[i] = pcie_width_arg;
-+	}
- 
- 	return 0;
- }
-@@ -3319,9 +3331,7 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
- 			data->od8_settings.od8_settings_array;
- 	OverDriveTable_t *od_table =
- 			&(data->smc_state_table.overdrive_table);
--	struct phm_ppt_v3_information *pptable_information =
--		(struct phm_ppt_v3_information *)hwmgr->pptable;
--	PPTable_t *pptable = (PPTable_t *)pptable_information->smc_pptable;
-+	PPTable_t *pptable = &(data->smc_state_table.pp_table);
- 	struct pp_clock_levels_with_latency clocks;
- 	struct vega20_single_dpm_table *fclk_dpm_table =
- 			&(data->dpm_table.fclk_table);
-@@ -3420,13 +3430,9 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
- 		current_lane_width =
- 			vega20_get_current_pcie_link_width_level(hwmgr);
- 		for (i = 0; i < NUM_LINK_LEVELS; i++) {
--			if (i == 1 && data->pcie_parameters_override) {
--				gen_speed = data->pcie_gen_level1;
--				lane_width = data->pcie_width_level1;
--			} else {
--				gen_speed = pptable->PcieGenSpeed[i];
--				lane_width = pptable->PcieLaneCount[i];
--			}
-+			gen_speed = pptable->PcieGenSpeed[i];
-+			lane_width = pptable->PcieLaneCount[i];
-+
- 			size += sprintf(buf + size, "%d: %s %s %dMhz %s\n", i,
- 					(gen_speed == 0) ? "2.5GT/s," :
- 					(gen_speed == 1) ? "5.0GT/s," :
--- 
-2.17.1
++		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+--
+2.29.2
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7C472abf29b65a439753a608d8e2fdb608%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637508926602518249%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=04tGHvGnaeO8gpzB%2FUzJ0hi2dvLWl%2FjZ3Gs2wtOuSrY%3D&amp;reserved=0
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CShirish.S%40amd.com%7C91ec8f556727479d060408d8e397d498%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637509588548327792%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=rQknLutpWSubH5e1T29n2hIpYT048FFfd8gf8bAQgEQ%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CShirish.S%40amd.com%7C91ec8f556727479d060408d8e397d498%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637509588548327792%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=rQknLutpWSubH5e1T29n2hIpYT048FFfd8gf8bAQgEQ%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
