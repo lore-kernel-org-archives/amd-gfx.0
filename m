@@ -2,126 +2,68 @@ Return-Path: <SRS0=bDL0=IJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98156C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C028DC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14BE264F98
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:02:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14BE264F98
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A6A964FAB
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 15:05:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A6A964FAB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qtec.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33FCA6EDAA;
-	Thu, 11 Mar 2021 15:02:16 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048CD6EDA7;
- Thu, 11 Mar 2021 15:02:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MjaMG37FQpfHDgJ+emoiFJ8soXJUTAia8Mt5u9imOb++UcQXcszSXzjhZAqFNqXy37Ap9U4zCzoQCMgfaHYkROym3nuAFJpP/lDosSRiPXiCOeCpASC2FqD8z9GqCA968dsiw19yRUVv0MKpcnNfwT+ok5fZ03OX6tqRU0I3QcyNpxqRlfM1ozLtwVJI5I2FJ6BQTpG/JITRPOj6TYNM/WJ7sVckrJCZM+mRfvATbCg+TAqDrPb1ZBVp69kNoUo2gmfwX/yES2jA31xWVYsYWNGC4qBKE38/mVQRcU4zYK5MleUquEvnkI7ej2xQgTKS4P/bvYYmZNWdCttflwmJpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yFLFQtQBMZn+zKqyb751wv0S+ElCyAN3WCbxWJ0aqDE=;
- b=nlR48SbM/pCXawTZtq565TTvNas+Yj9EUXh8uIo2zPGzL4Z/vfeu4/jQCUgMoVl69hhaKiQjhRTvZjbwqLfbJuB6whZ+KwyaEUwitEYzDnfjxc4UsYnpP9RVNPrXYrpZKOfGfLhDk3DzkRb08c7XvgGyU+2Z1VjfcNOQaLEmy4mVcVgScTHlLWa+q7m9w9L8tOAXK2WqOrY7d3vfJBN3nQpcUq8Jooug122Wt0gINAxP+Y97vWUll/7HieBeQ+Gift9R9lnyn5HkHCwnVOko6UbjtrHsul25A0/Rj09UMXQOSV3wj9oGBJDGMvtCLrZKMIU2Srt2R+dQh805UdLQMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yFLFQtQBMZn+zKqyb751wv0S+ElCyAN3WCbxWJ0aqDE=;
- b=hHZPBwdbOAAQGxqFCPQ/L/+D6tVZTkUVFqTblUyKQOakRlxZFAdNd7AnphgY+AhR1SYjmVgigQbij+FZjVkFOEwoFFrLmLG3Usq6AEubkWCbnAYfm79RvHDpliBrdmowz4U9harR/+t6k8mTu/LAaV9VBb2THEK51fRWo0tjKV4=
-Authentication-Results: aspeedtech.com; dkim=none (message not signed)
- header.d=none;aspeedtech.com; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MWHPR1201MB0206.namprd12.prod.outlook.com (2603:10b6:301:55::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Thu, 11 Mar
- 2021 15:02:08 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::8c0c:5b9b:fec6:e12b]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::8c0c:5b9b:fec6:e12b%4]) with mapi id 15.20.3933.031; Thu, 11 Mar 2021
- 15:02:08 +0000
-To: Xorg Members List <members@x.org>
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: 2021 X.Org Foundation Membership renewal period extended to Mar 18
-Message-ID: <a4dece83-a284-dd37-16e9-5ca6193df391@amd.com>
-Date: Thu, 11 Mar 2021 10:01:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::31) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2A76EDBD;
+	Thu, 11 Mar 2021 15:05:13 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D898967F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 15:02:26 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id bm21so46809787ejb.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 07:02:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gXAGBeqlgyf6WoQP72pNeSpQgoAtPfYQxn1Zx/OxGXA=;
+ b=TdgUqRQjhkpcX3i4KO9xpGkYINXAYYI2sRjQNydqKCpSMJhHJcaaZDxlZ2hhp45NxJ
+ ToHf4STUfuUP/xKJFawD44ZpTyXr/KesyFBxWPF0A6MPK3zvYlONOiNykf/yjHbZq2mg
+ 4XO3cdmAPnXL45axUNe8sysY090rzGmZcR+6kQ2ZU8TfERMFpolPeAGtKMXr2m1hLhOw
+ EyoXganQqwqm2eJ/jUS6WWsNQcIR2IxRvkH00Q6lyAj6nttmWVNtTGPr5TcD6mFqBG2+
+ ShKDKQ9no6BJFD805g2FSDqjn9wG4YBXvdK9WmfUDqf8oDT5EH/G+0cAudu4z2e2T4GZ
+ N97A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gXAGBeqlgyf6WoQP72pNeSpQgoAtPfYQxn1Zx/OxGXA=;
+ b=X+uuXDbvpQqbXsrgnxTy+gPeUCZ4kktfjvwPS/uHzdIPFEARJwh6Ur+RJqL8Rc7bu8
+ ukcD63HuzVnFtzDDYOBFiXaZ/Kq7Ho6Igvs+z3VddlhfLMe+rmcoOeNcB8k9PQOyJl4M
+ QU/ISInhbcyaFqy0pio2vH5cEYpot5ZuMzkW2Cr4xgi+YuSyhncGDNWWJBpyCM/IW6em
+ umVQot+naxTCAeM9YqlnNSjRN6nxYyTdgRzqLMp5KWLGvrBT8qQdwPBJQtFr8vHd1VNC
+ /b8uILYUTsfi1oVn1PX51/aGpx8Ta1y+d2CPAupA1oxqq44iSM10buJFD9BiyKvxWBC1
+ 9PeA==
+X-Gm-Message-State: AOAM530kjy2hHZcjyCPVfwgq8WdeHIjaj4Mo5AIscmwkz1xcIETD5NC0
+ 3RxdhWtK63LSmfBOCr32IcFbztagjRZGI4CBsbSqsA==
+X-Google-Smtp-Source: ABdhPJwjyQf5OR9+VAVvMfJiKfK4k/G7OeOAbjpSlgfI0GLPpoln68C8Yq6/HN91ESxzpvtx+LpQAlJ+oX6vvvcOPa8=
+X-Received: by 2002:a17:906:7b8d:: with SMTP id
+ s13mr3505288ejo.247.1615474944849; 
+ Thu, 11 Mar 2021 07:02:24 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.26 via Frontend
- Transport; Thu, 11 Mar 2021 15:01:55 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 639f0d3e-e53e-4576-bb8b-08d8e49ea3bb
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0206:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB02068726C1743C13F37A7B3D8C909@MWHPR1201MB0206.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o+b1X26CYuluWl7wsSN53zICrqCnSfcH8oo5hnmLbWT3M4EaPFtK0yqeo6bSPsfrTB7zh2rY65i2J8HoV5fx3DfPou8QACzfAulbFVAvror/vkfNlcKY8vDb7YZfyF2dLfGnP3pe88/bQLH2bHRjAS5bHVpigEdp19MAv4ibO6bb6r4gfUTbjLiHfyA5KB7cY/m+nDEXs91/kR67m9lpjIP7KRPKgECNYjMQExrZlYpfrJVj1prZa0icfBaXemvF3DTI8BW2QUoWuTY2VujTkBM7OakmgGNBkcQi17EMX6pFMlJyS2nYlYExy0OWyQI/hncsLUFLkGdSxqA6/KB6NH0ja5e/CSei7b9C9bDvvZsgoPsKwPifCLYsDRMqUp+dpO1JKzE9kXWVBPlEJGJvbAVgOqa80ak8q73sd8aiHz3XHhkCyB5BPJyj7teCDy6tFizxd5JsfC3tjlPi9y9lqkowFSeE84Gh2lrJrhzBH6UUni7+pzxeyfNL8SO67hI+9Kg7a02ktC+a++WRH+r8huCj/59V7vSM2w6lx1wE9BrJKeaaqp1cOhGTEkGS3SSGkJMimZZ/9g8ORLiLLC93PtUo8jOMWB78/TZDH+6FD/NoiG9A9DDgEn9vSDF6YOStJpZcIraFqFyAZom9kqV5ZOfvFQSdFKvWwVzeiAxrUFwJlM4TKE5M8NV3ip8epQUH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(36756003)(83380400001)(7336002)(54906003)(478600001)(186003)(44832011)(6916009)(66946007)(2906002)(7366002)(956004)(5660300002)(8676002)(316002)(86362001)(7276002)(26005)(6486002)(8936002)(2616005)(7416002)(7406005)(52116002)(4326008)(966005)(4744005)(16576012)(66556008)(31696002)(66476007)(16526019)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bmNWQ01YVHc0YnR3QXNxSFhHT1d5NkhCQUVpa3RNS1oxMkw3SkRWbHFTNTJS?=
- =?utf-8?B?QklWZWxOcEdFeUxsRzBBV3YzeWUxRGtwWnRaVjh4NytZWTBQRDV3NGNBWlA5?=
- =?utf-8?B?ay9IWXA3VGg5NEVLVTVFT280eGdCYTFKZnFEN2dXVFR6TG8wa3BRYUhCMmRz?=
- =?utf-8?B?dWhXeUY0ZTkzVWlxQVYvdUViUzFOQnJyTjVHajBLSnhGSnYrYnNUclVDK3Bw?=
- =?utf-8?B?RUZuYXNuRnlETWloQWQ2bWxVRnNCRlFva0I4TEVrSEJoOE1vVk5PcCtWQkFC?=
- =?utf-8?B?VC85b0ZZQVpEcmVCTXpRd1AzOVdncEJiU3I5WFlPVjc5ZlV1QUxKR2NNSkU0?=
- =?utf-8?B?MHNiNGFmT0JMNktEZDZXaElHekwzeTBHOFFLSnVuQUhGU3BnT0tUWXdWWFJZ?=
- =?utf-8?B?NFdlOExoSFpjZlZLWW1jYjEvNitxK05TY1BiR0xobHpsaG5xUjIzTXA3U2NH?=
- =?utf-8?B?L2dlL2JaN0tseDhtS212ZDZpMzVsTDdCWmMyMkFoN1hQUEVZMXhvRjBpN0N3?=
- =?utf-8?B?ODlya0tpMWhNQ1BCLzF4Rm1yRDZVMU9qM3duY1BiWUhySjhqczlDaXFsREFa?=
- =?utf-8?B?VjlZY1hrVzI1QXBNYm5HSHhyUitaTDUzM2ZsaG1FdGxmaGp6WkNQR2NTK2Nl?=
- =?utf-8?B?d0taOUJXN1kyWGt1K1F0dVMwY1k0dThZZXhwSWJ0V21FUHRack9iL3RvMUxO?=
- =?utf-8?B?OFEwUCtWMUV2cnRXb01jaGVVT2dPUlh1MENhbml4MU5Ic2tFNGJPWGdZaHN2?=
- =?utf-8?B?eWZVbjdUQVdSVmdZN1FoUDJUTWJRZzl4UDlGRHd0REpDK0lQZ01rMVZ5bk5Y?=
- =?utf-8?B?NC94TE9GOUQyWVh1U2VhSUJUdi8xVERjaGw2Y0hZOVFjeEx0WndKSVBMeGlh?=
- =?utf-8?B?Q3hybmtaTDBBUXVRSjFLQitYTFZVSjZoOC9ITENzb1F1MWpJVHNjWjgrdGg0?=
- =?utf-8?B?L0dZdUkwdXE3RE1mZlNUQ3VFRmJiNTFCWEh5V09MS0RYdkJnTk1FYVFuL09w?=
- =?utf-8?B?MUowRzZZaDh1aU1RS3pvd1pIWDJocEIwd01DQ3MyZmZ6UmNRNUd2NFJyWFow?=
- =?utf-8?B?bWRlaEpzL1dlZklTdUpweDJTd3cyKzBGbVpTaE1wWWZpZHR4WEpMVXppWHZN?=
- =?utf-8?B?Ris1K3N4Vm1ncFJ0MkR5SU5NS3ZLZVhKd3h4MTltWHJrZ0Ewcm0vekd1QXpX?=
- =?utf-8?B?a21SWnYzcnExRzZ2amF3cWJ1TWhPdENNM295RS9JbnBYaE9LRjFyWndRSTZM?=
- =?utf-8?B?UkQzNDBGdGJHb0dYck1Ra2NxdmpmcFcybU9aNFdsOXFRaVRzKzRTRE0xUWZH?=
- =?utf-8?B?czFqeHpNajRkcnZaamY0ZEJmRnpmcEZTZXowL0RUOWtPNHVOY2o2OThoUDVW?=
- =?utf-8?B?ekxvaWpjNER0UHFZTW9PaXU4UFo3MFZ0aktiR2p0K2hJbEY4VVlKQTMyTFQ3?=
- =?utf-8?B?dHVzNGQ1ZDBCRWxiL1lhRVFWbXFKR0VQb0hKcTBjUUNmS0twUVZLTW5TUDF2?=
- =?utf-8?B?QjdkbTBsbWFYVmtCNVJ5TStDaFdDd1pUVHRyVXdCZERRU2RSeWhDckJ4L0h0?=
- =?utf-8?B?bnZ0cHRPclgySkFSWnRNalJYdGNYQTEyRlNOVFRsSkFYUVVTa1FjTWpyYXpV?=
- =?utf-8?B?cnVUK2hGMmp1cnVvaURvckdGaU5YTm9FcE9RcXdLTWFaVmlLRjNuOUFrZTg1?=
- =?utf-8?B?cUlRUGV5ZzRFblVQbTBhdnQ3cDgydXpKWk0yWE5GUEpyYXZWRUdqYVpEdlRY?=
- =?utf-8?Q?J39bkb2VVmEYhBAw6DKHyAK9A/teyRtRcyVqAuR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 639f0d3e-e53e-4576-bb8b-08d8e49ea3bb
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2021 15:02:08.2252 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +p2zX89ruuk2UITUyWD+N5ESuOO4+FUv0/qYFOF+dlf1+JUhzgSjGtkoRJMd/l6Bt6uI4CyToyXznX61FDW1yQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0206
+References: <20210310163655.2591893-1-daniel@qtec.com>
+ <CADnq5_PmbXBaziCEqRODb_DvtKaw9ucXXjkdmdj9N_R8P-9Jcw@mail.gmail.com>
+ <CAH1Ww+T4WwLzg_nnF=1sjm9LW9wCjFb0X9c=qmuubvMqJdW4PA@mail.gmail.com>
+ <CAH1Ww+QiAyfQL_bf1u=zLiT=ayKFWA0Fr2n5sBHUxfpzxcPbrg@mail.gmail.com>
+In-Reply-To: <CAH1Ww+QiAyfQL_bf1u=zLiT=ayKFWA0Fr2n5sBHUxfpzxcPbrg@mail.gmail.com>
+From: Alexandre Desnoyers <alex@qtec.com>
+Date: Thu, 11 Mar 2021 16:02:23 +0100
+Message-ID: <CAN22YZcnMzefgHu9FVPGEf73SKjar2tLJO-jvpYAqNJSH4F_qA@mail.gmail.com>
+Subject: Re: [PATCH]] drm/amdgpu/gfx9: add gfxoff quirk
+To: Daniel Gomez <daniel@qtec.com>
+X-Mailman-Approved-At: Thu, 11 Mar 2021 15:05:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,51 +75,203 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "X.Org Foundation Board" <board@foundation.x.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
- elections <elections@x.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: Evan Quan <evan.quan@amd.com>, linux-media <linux-media@vger.kernel.org>,
+ Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Nirmoy Das <nirmoy.das@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>, Yintian Tao <yttao@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Due to some hickups with some of the early election emails and the large 
-spike in membership registrations the elections committee decided to 
-extend the membership deadline by one week to Mar 18, 2021.
+On Thu, Mar 11, 2021 at 2:49 PM Daniel Gomez <daniel@qtec.com> wrote:
+>
+> On Thu, 11 Mar 2021 at 10:09, Daniel Gomez <daniel@qtec.com> wrote:
+> >
+> > On Wed, 10 Mar 2021 at 18:06, Alex Deucher <alexdeucher@gmail.com> wrote:
+> > >
+> > > On Wed, Mar 10, 2021 at 11:37 AM Daniel Gomez <daniel@qtec.com> wrote:
+> > > >
+> > > > Disabling GFXOFF via the quirk list fixes a hardware lockup in
+> > > > Ryzen V1605B, RAVEN 0x1002:0x15DD rev 0x83.
+> > > >
+> > > > Signed-off-by: Daniel Gomez <daniel@qtec.com>
+> > > > ---
+> > > >
+> > > > This patch is a continuation of the work here:
+> > > > https://lkml.org/lkml/2021/2/3/122 where a hardware lockup was discussed and
+> > > > a dma_fence deadlock was provoke as a side effect. To reproduce the issue
+> > > > please refer to the above link.
+> > > >
+> > > > The hardware lockup was introduced in 5.6-rc1 for our particular revision as it
+> > > > wasn't part of the new blacklist. Before that, in kernel v5.5, this hardware was
+> > > > working fine without any hardware lock because the GFXOFF was actually disabled
+> > > > by the if condition for the CHIP_RAVEN case. So this patch, adds the 'Radeon
+> > > > Vega Mobile Series [1002:15dd] (rev 83)' to the blacklist to disable the GFXOFF.
+> > > >
+> > > > But besides the fix, I'd like to ask from where this revision comes from. Is it
+> > > > an ASIC revision or is it hardcoded in the VBIOS from our vendor? From what I
+> > > > can see, it comes from the ASIC and I wonder if somehow we can get an APU in the
+> > > > future, 'not blacklisted', with the same problem. Then, should this table only
+> > > > filter for the vendor and device and not the revision? Do you know if there are
+> > > > any revisions for the 1002:15dd validated, tested and functional?
+> > >
+> > > The pci revision id (RID) is used to specify the specific SKU within a
+> > > family.  GFXOFF is supposed to be working on all raven variants.  It
+> > > was tested and functional on all reference platforms and any OEM
+> > > platforms that launched with Linux support.  There are a lot of
+> > > dependencies on sbios in the early raven variants (0x15dd), so it's
+> > > likely more of a specific platform issue, but there is not a good way
+> > > to detect this so we use the DID/SSID/RID as a proxy.  The newer raven
+> > > variants (0x15d8) have much better GFXOFF support since they all
+> > > shipped with newer firmware and sbios.
+> >
+> > We took one of the first reference platform boards to design our
+> > custom board based on the V1605B and I assume it has one of the early 'unstable'
+> > raven variants with RID 0x83. Also, as OEM we are in control of the bios
+> > (provided by insyde) but I wasn't sure about the RID so, thanks for the
+> > clarification. Is there anything we can do with the bios to have the GFXOFF
+> > enabled and 'stable' for this particular revision? Otherwise we'd need to add
+> > the 0x83 RID to the table. Also, there is an extra ']' in the patch
+> > subject. Sorry
+> > for that. Would you need a new patch in case you accept it with the ']' removed?
+> >
+> > Good to hear that the newer raven versions have better GFXOFF support.
+>
+> Adding Alex Desnoyer to the loop as he is the electronic/hardware and
+> bios responsible so, he can
+> provide more information about this.
 
-If you have not renewed your membership please do so by Thursday, Mar 18 
-at https://members.x.org.
+Hello everyone,
 
-The nominated candidates will be announced on Sunday, allowing for a 
-week of Candidate QA before the start of election on Mon Mar 22.
+We, Qtechnology, are the OEM of the hardware platform where we
+originally discovered the bug.  Our platform is based on the AMD
+Dibbler V-1000 reference design, with the latest Insyde BIOS release
+available for the (now unsupported) Dibbler platform.  We have the
+Insyde BIOS source code internally, so we can make some modifications
+as needed.
 
-** Election Schedule **
+The last test that Daniel and myself performed was on a standard
+Dibbler PCB rev.B1 motherboard (NOT our platform), and using the
+corresponding latest AMD released BIOS "RDB1109GA".  As Daniel wrote,
+the hardware lockup can be reproduced on the Dibbler, even if it has a
+different RID that our V1605B APU.
 
-Nomination period Start: Mon 22nd February
-Nomination period End: Sun 7th March
-Publication of Candidates & start of Candidate QA: Mon 15th March
-Deadline of X.Org membership application or renewal: Thu 18th March
-Election Planned Start: Mon 22nd March anywhere on earth
-Election Planned End: Sun 4th April anywhere on earth
+We also have a Neousys Technology POC-515 embedded computer (V-1000,
+V1605B) in our office.  The Neousys PC also uses Insyde BIOS.  This
+computer is also locking-up in the test.
+https://www.neousys-tech.com/en/product/application/rugged-embedded/poc-500-amd-ryzen-ultra-compact-embedded-computer
 
-** Election Committee **
 
-  * Eric Anholt
-  * Mark Filion
-  * Keith Packard
-  * Harry Wentland
+Digging into the BIOS source code, the only reference to GFXOFF is in
+the SMU and PSP firmware release notes, where some bug fixes have been
+mentioned for previous SMU/PSP releases.  After a quick "git grep -i
+gfx | grep -i off", there seems to be no mention of GFXOFF in the
+Insyde UEFI (inluding AMD PI) code base.  I would appreciate any
+information regarding BIOS modification needed to make the GFXOFF
+feature stable.  As you (Alex Deucher) mentionned, it should be
+functional on all AMD Raven reference platforms.
 
-Thanks,
-Harry Wentland,
-on behalf of the X.Org elections committee
+
+Regards,
+
+Alexandre Desnoyers
+
+
+>
+> I've now done a test on the reference platform (dibbler) with the
+> latest bios available
+> and the hw lockup can be also reproduced with the same steps.
+>
+> For reference, I'm using mainline kernel 5.12-rc2.
+>
+> [    5.938544] [drm] initializing kernel modesetting (RAVEN
+> 0x1002:0x15DD 0x1002:0x15DD 0xC1).
+> [    5.939942] amdgpu: ATOM BIOS: 113-RAVEN-11
+>
+> As in the previous cases, the clocks go to 100% of usage when the hang occurs.
+>
+> However, when the gpu hangs, dmesg output displays the following:
+>
+> [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+> timeout, signaled seq=188, emitted seq=191
+> [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process
+> information: process Xorg pid 311 thread Xorg:cs0 pid 312
+> [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+> timeout, signaled seq=188, emitted seq=191
+> [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process
+> information: process Xorg pid 311 thread Xorg:cs0 pid 312
+> [ 1568.507000] amdgpu 0000:01:00.0: amdgpu: GPU reset begin!
+> [ 1628.491882] rcu: INFO: rcu_sched self-detected stall on CPU
+> [ 1628.491882] rcu:     3-...!: (665 ticks this GP)
+> idle=f9a/1/0x4000000000000000 softirq=188533/188533 fqs=15
+> [ 1628.491882] rcu: rcu_sched kthread timer wakeup didn't happen for
+> 58497 jiffies! g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=0x402
+> [ 1628.491882] rcu:     Possible timer handling issue on cpu=2
+> timer-softirq=55225
+> [ 1628.491882] rcu: rcu_sched kthread starved for 58500 jiffies!
+> g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=0x402 ->cpu=2
+> [ 1628.491882] rcu:     Unless rcu_sched kthread gets sufficient CPU
+> time, OOM is now expected behavior.
+> [ 1628.491882] rcu: RCU grace-period kthread stack dump:
+> [ 1628.491882] rcu: Stack dump where RCU GP kthread last ran:
+> [ 1808.518445] rcu: INFO: rcu_sched self-detected stall on CPU
+> [ 1808.518445] rcu:     3-...!: (2643 ticks this GP)
+> idle=f9a/1/0x4000000000000000 softirq=188533/188533 fqs=15
+> [ 1808.518445] rcu: rcu_sched kthread starved for 238526 jiffies!
+> g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=2
+> [ 1808.518445] rcu:     Unless rcu_sched kthread gets sufficient CPU
+> time, OOM is now expected behavior.
+> [ 1808.518445] rcu: RCU grace-period kthread stack dump:
+> [ 1808.518445] rcu: Stack dump where RCU GP kthread last ran:
+>
+> >
+> > Daniel
+> >
+> > >
+> > > Alex
+> > >
+> > >
+> > > >
+> > > > Logs:
+> > > > [   27.708348] [drm] initializing kernel modesetting (RAVEN
+> > > > 0x1002:0x15DD 0x1002:0x15DD 0x83).
+> > > > [   27.789156] amdgpu: ATOM BIOS: 113-RAVEN-115
+> > > >
+> > > > Thanks in advance,
+> > > > Daniel
+> > > >
+> > > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > index 65db88bb6cbc..319d4b99aec8 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > @@ -1243,6 +1243,8 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+> > > >         { 0x1002, 0x15dd, 0x103c, 0x83e7, 0xd3 },
+> > > >         /* GFXOFF is unstable on C6 parts with a VBIOS 113-RAVEN-114 */
+> > > >         { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+> > > > +       /* GFXOFF provokes a hw lockup on 83 parts with a VBIOS 113-RAVEN-115 */
+> > > > +       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0x83 },
+> > > >         { 0, 0, 0, 0, 0 },
+> > > >  };
+> > > >
+> > > > --
+> > > > 2.30.1
+> > > >
+> > > > _______________________________________________
+> > > > dri-devel mailing list
+> > > > dri-devel@lists.freedesktop.org
+> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
