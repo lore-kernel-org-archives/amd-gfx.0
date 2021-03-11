@@ -2,66 +2,46 @@ Return-Path: <SRS0=bDL0=IJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91786C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 16:13:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DB79C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 16:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36C7B64FA3
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 16:13:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36C7B64FA3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4D77064F9C
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Mar 2021 16:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D77064F9C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C63D06EE40;
-	Thu, 11 Mar 2021 16:13:18 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C59DF6EE40
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 16:13:16 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id n23so1982940otq.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Mar 2021 08:13:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=U33Jk6pqovMVEgFCyocOKubRYThoJL3POuXh//1YS2g=;
- b=twmXsPsWXiJJ7XowubXwW4OJkltJMzTSp18s6hBTEKO0uSWc+swir3+pG77U9GOpZj
- 3awlcxiCE6B/Q825wGyT00HtzBrfsihrjiFE6K4DEgFSMGmVUk0Pjm2zL1UXox2MW+Um
- nUEUdhrd0ZI9jysyGVjc7QhEy7U79Ge3iQvdAWUS6UK/GNdan/CfyL5GjJbAKR3efXtl
- 4g3TJEV3liOtCUNQv8GMElXSGqjTIl+0H25eXm1JHL+jz9oad/ceisADLlQu7AN+br3B
- hqSGeVxQkFL9zIdztZkz3423uDITQeusQclGAG+Uh9Ldmg2KhKUVWiFrf6i93k+HLtAZ
- +M3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=U33Jk6pqovMVEgFCyocOKubRYThoJL3POuXh//1YS2g=;
- b=EPZ45l6yLXxTYULW80WQfRsOX323dvFGiFJBP9gI0Uiz4RgqCDttmioPZjq9Rvce/Y
- 7omlaf55AAqwbAkcjCSB0Vp1G1Jags9AQQbAwOcJqQBo2CwUiPhGnkqDPBZga7/l5X7z
- ZhJoChaWhZat74bPGl5MFwa1Mjz2/LeBzIwi4TapV2ADiE/SdWha5hqWZSQAuhUdsOTC
- 8qeIOiGXuFWVFqpMkUhGnPNXmqD47vkldF2cIfAmPce8IbxQuXR6mx5fdPINVMnSmU+0
- B0UYjuwYf1XXg80FUqoGrCblHIsV8bSiOO1MgeXPnsMv8Zq2fI7Bk3sCqQZmtKg0ZUPe
- ixSg==
-X-Gm-Message-State: AOAM530oV0p8cQGAUmvOTb9IezzjsZ9uuY48hQrNYcNhkrp1M+Akj8fu
- mQFNW1paP+Ut09v8j9rp82mx4GZw2DzhBMY0JUWTZDAh
-X-Google-Smtp-Source: ABdhPJweEuga3hgpx+q6LOHWkWGi2NJUG49dfKxEGhO/iAMtp+T6mRUgSbgv0gyjqB6qVXkrxhlGd0p3Ng872wTxmNM=
-X-Received: by 2002:a05:6830:408f:: with SMTP id
- x15mr7863317ott.132.1615479196175; 
- Thu, 11 Mar 2021 08:13:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E163A6E506;
+	Thu, 11 Mar 2021 16:34:59 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637186E215;
+ Thu, 11 Mar 2021 16:34:20 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1lKOGP-0002rH-Sv; Thu, 11 Mar 2021 16:34:18 +0000
+From: Colin King <colin.king@canonical.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: remove redundant initialization of variable
+ result
+Date: Thu, 11 Mar 2021 16:34:17 +0000
+Message-Id: <20210311163417.59967-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210309164635.290413-1-Harish.Kasiviswanathan@amd.com>
-In-Reply-To: <20210309164635.290413-1-Harish.Kasiviswanathan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Mar 2021 11:13:05 -0500
-Message-ID: <CADnq5_PF53iaEf6cTozWH6f0GU8Qxd-eCDkATmmpx5fSCpEYUg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: During compute disable GFXOFF for
- Sienna_Cichlid"
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+X-Mailman-Approved-At: Thu, 11 Mar 2021 16:34:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,52 +53,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 9, 2021 at 11:46 AM Harish Kasiviswanathan
-<Harish.Kasiviswanathan@amd.com> wrote:
->
-> This reverts commit 73bf5cad2696fe3a21f70101821405db839ea18e.
->
-> Fixed in newer firmware
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+From: Colin Ian King <colin.king@canonical.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+The variable result is being initialized with a value that is
+never read and it is being updated later with a new value.  The
+initialization is redundant and can be removed.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index fa27262b5c2a..1c6be53313a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -639,13 +639,6 @@ void amdgpu_amdkfd_set_compute_idle(struct kgd_dev *kgd, bool idle)
->  {
->         struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
->
-> -       /* Temp workaround to fix the soft hang observed in certain compute
-> -        * applications if GFXOFF is enabled.
-> -        */
-> -       if (adev->asic_type == CHIP_SIENNA_CICHLID) {
-> -               pr_debug("GFXOFF is %s\n", idle ? "enabled" : "disabled");
-> -               amdgpu_gfx_off_ctrl(adev, idle);
-> -       }
->         amdgpu_dpm_switch_power_profile(adev,
->                                         PP_SMC_POWER_PROFILE_COMPUTE,
->                                         !idle);
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 099f43709060..47e6c33f73cb 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -4281,7 +4281,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+ 
+ 		if (edp_config_set.bits.PANEL_MODE_EDP
+ 			!= panel_mode_edp) {
+-			enum dc_status result = DC_ERROR_UNEXPECTED;
++			enum dc_status result;
+ 
+ 			edp_config_set.bits.PANEL_MODE_EDP =
+ 			panel_mode_edp;
+-- 
+2.30.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
