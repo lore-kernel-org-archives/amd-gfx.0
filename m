@@ -2,76 +2,116 @@ Return-Path: <SRS0=mwd6=IK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFA8CC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26404C433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEC3064FF5
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEC3064FF5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCE9564FD6
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCE9564FD6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62B8B6F512;
-	Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A2E46F512
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 09:21:36 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id h10so6928871edt.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 01:21:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=fQH1DeHWLKxaBPKf+3WHZ8CP4QGx9xUv/XibynvUsJ0=;
- b=YWiyrREMoDFgj2+5pSkwZ6NiIlv8NNk7oICPV/Ak4LR0b3Ghsw3OAIs1KkceHiy8yL
- EnOFa76y9+icaw2oZN2zu7fYnLIghAR5H2uHHvYrXzZoWR7QBXdQZzMfGYtUHNep27SK
- kVMk0HzbprZYQJi4TXZoEPeinQlVongq5HwnwpRgfIA0XAERsT08BpKxzDIuRQJZzj6q
- wRZZk4WtsF8QbsaN/w7mv+PasA1V4irekeTTu+aQnL/gNErF1ugFM+NGRElNS5IqVY7l
- FLi/cwEejiymiCEX4dgWX9DLo2JGLdNDSOnKQjiQhaXeh9cg70fQORFBYQ/PYHC50Uu9
- +h7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=fQH1DeHWLKxaBPKf+3WHZ8CP4QGx9xUv/XibynvUsJ0=;
- b=stm2BncwyXkvLBZk37KfuLB6g7xLsrJFoFIzTW9DOBjLa7p66Fy9s5dcVtl4eYsEwE
- qu/P5wEmO+VVgz4RpGd8PhtOu9sqpCPKyChmBQaZ822rxV3lC54u2rZ2kb0dKnXT3A4I
- Qo8dO/adPoeOV4ma+O4sS/nhgg5UWMlvZassKueR9mIn/OVh0rtwKufXGsZRCXV5HK2b
- VkPxwF/txRV34drx92kdKuygksOMhFhcmUn7MTytsLT6RVmXAFsb9CE2tJlFxyjtlqKM
- LWKWXeV9gKPmdprIe8cs+DphlVCBkb9CpXX3GnV7f3l7U3NLHgmlj+gO8cj8OX91TERu
- hxkA==
-X-Gm-Message-State: AOAM533fWunjYI+ClPDbKquRLe0ZyIgsmtbJ8T33+XcgF/b0nI4+A62O
- lauYDTH1gD6BRXxs97uupl/pXuDtEeA=
-X-Google-Smtp-Source: ABdhPJxs20s59h77fmEpM7fIbdK7NpT9Ht38WMb9lfYt/5ATlyXrIhAitlRVp7D3RVgbds8gjccOyw==
-X-Received: by 2002:a50:e80c:: with SMTP id e12mr13172776edn.229.1615540894913; 
- Fri, 12 Mar 2021 01:21:34 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:2108:8a72:3f15:1a1f?
- ([2a02:908:1252:fb60:2108:8a72:3f15:1a1f])
- by smtp.gmail.com with ESMTPSA id y17sm2484487ejf.116.2021.03.12.01.21.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Mar 2021 01:21:34 -0800 (PST)
-Subject: Re: [PATCH v8] drm/amd/amdgpu implement tdr advanced mode
-To: Jack Zhang <Jack.Zhang1@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian.Koenig@amd.com, Andrey.Grodzovsky@amd.com, Monk.Liu@amd.com,
- Emily.Deng@amd.com
-References: <20210311153751.1065528-1-Jack.Zhang1@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <9e79c9f3-71f5-436d-ce46-9180586615aa@gmail.com>
-Date: Fri, 12 Mar 2021 10:21:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F1B6F51D;
+	Fri, 12 Mar 2021 09:49:18 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF616F51D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 09:49:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ub6/Hnu2yE0zPZt1VteEjBg4DXWK0J4h8iFrKI8CIBr4REg0CjkwKFauH6KnJLr9yXMg9TiKlx0jgmH+x07x1HzGAB+ORLFTqRZwnjmSNs2KUBL5Q+zDAWLn9bFgTj1Ag5LIG7uIXIUHjImoYKSdNmKi1bTIwswcWinfjaAEO7L/OszuaPAaI08OkKDlsKCkvuZvcLtpdiVyK98Ka7PDnLbMIE1B+Zjdc27fpq8kCBJXneNLpj1bbnjWYJEIKNY5QI7AOYQZmGqHM4xWqTm9dtIcq8EVAxaBgv9ZQ3enhHc4aH2jbX5E1afXRxrWDyUadI67LCxAiUpo44krTWqapQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=46kGNZZxB3eVacnAHlulhhC2mHNke0vcyGMPmnfEhpQ=;
+ b=fXnnHZzrpbDZAy4ShfLtWa/TXdiQG4HbI5oRtZo4aDXb459pBv5q6q8iFImJ8EwbqxFppDGcXAx4EwHS5Pqx+ehp5TVQUS7HVtklnKRJejiwpsXYEOeEZOQcNiZlAzZqPEGLStptZTjjrqAyOH2F5ta6fK1aqckGJPMbfiklqXBqJxn+nz50/Rc0KaBPM69uKneFy2A+nHwzhWndAFOcGCLB2nl6TRg9b3WwuDGF0LlUCYRPnUdX+gGm4mfdxWLqByEJ1hkWtUb+OQ/nU0cB933lHakBo4DKDJv/0ZCS/79oCRit6js9H1xeqR3UQ5rQhfyP8BXXZQCD7l2PDgz9pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=46kGNZZxB3eVacnAHlulhhC2mHNke0vcyGMPmnfEhpQ=;
+ b=ezMgBoJOEn1wLHcGRzukZCXWxIDWcNEvLkEiOzJFjMKkdYEjFmn4BcbdznLXdbI79RG3QCAlBpaOfEH+Kbq/Ge4jX8MCUQRClXQKVaP/EJw5M2RSNb2uEZnjenliNzUgT7JRQAGvDJxeIyKd5pEpqUoiIRB5dswkJco2jbSTtUU=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
+ by CY4PR1201MB0165.namprd12.prod.outlook.com (2603:10b6:910:1c::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.28; Fri, 12 Mar
+ 2021 09:49:13 +0000
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3912.031; Fri, 12 Mar 2021
+ 09:49:12 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: Christian.Koenig@amd.com
+Subject: [PATCH 1/1] drm/amdgpu: wrap kiq ring ops with kiq spinlock
+Date: Fri, 12 Mar 2021 10:49:01 +0100
+Message-Id: <20210312094901.20245-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.30.1
+X-Originating-IP: [217.86.104.81]
+X-ClientProxiedBy: AM0PR03CA0032.eurprd03.prod.outlook.com
+ (2603:10a6:208:14::45) To CY4PR12MB1463.namprd12.prod.outlook.com
+ (2603:10b6:910:e::19)
 MIME-Version: 1.0
-In-Reply-To: <20210311153751.1065528-1-Jack.Zhang1@amd.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from brihaspati.fritz.box (217.86.104.81) by
+ AM0PR03CA0032.eurprd03.prod.outlook.com (2603:10a6:208:14::45) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3912.17 via Frontend Transport; Fri, 12 Mar 2021 09:49:11 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ce214f48-36c5-4acd-f177-08d8e53c175e
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0165:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0165FD8B05CF6F697BD9BB648B6F9@CY4PR1201MB0165.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7uzwn7yZRJVubV9e1W3CbJ0xJGmnlQDJLet+abhFHydDYmIvPLNUC7KxJbPOYaPH3wHbDCAL4NqlIB56qk9s/ARXXE0QqAT7MH6eJfU+KkWopVaU9q9wbmdih8j6dd4bn/Su8SPn2wvxqASmEDPaR5AnQ9u04ond83efb+EAbd3PGHRRk2Vbv8+u+ReT7SyHn7M7fNhSDGT/eWBaAvyzC9fyfeZ5LxQnj1IqlS4wWZEo+Xca+BwVw9rrWl9IOkkmKMZfMjuk8OowWlEHEHj7VjfMfXSntkIdI12uiS1HQ15ri39w2+08bo+kMmomiTKiiARFeWpI9B3KGfThUCnB54QAWPjCJ+cheYoIMXgbHrOl+MxdRLmgdDKnW15X6o7mBTz6b8bdfMfviGvQ84ZPCc76pkwbY/XT1Lf7rC0tznCC3kCypgA1VWquP0YhtxTZqxpHwFSzmheds5lQfyilkVq/a0fZGFB5ASBgkxxy8o6+VFLwhaHplVxTSZxCPjx7Kd82eoLCiRZmJUOuKL6wQA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(366004)(39860400002)(396003)(83380400001)(2906002)(6486002)(6512007)(8936002)(37006003)(66946007)(316002)(5660300002)(8676002)(4326008)(34206002)(86362001)(66476007)(66556008)(186003)(36756003)(6666004)(6506007)(478600001)(52116002)(1076003)(956004)(6636002)(26005)(2616005)(44832011)(16526019);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?32biO/Sju5OleXpDgC62wDutuEtWInJUkqwXPHdshsTum7DTxVP1BTzCIUZi?=
+ =?us-ascii?Q?/7BeyHBN5heez8Y3uZY4p+C/imXmAV3pd11TjA9puvaUUOrBwQEjEaCNsgjU?=
+ =?us-ascii?Q?EpzO0dL84fv7j19UQxSiPiaN6g1wRLy9GgO7rbi+5VnsjIdb3UdDmChBk3Sg?=
+ =?us-ascii?Q?oqDtOQR19HArLD1/BkgpWQwdSnSDgZoYUqzxoHXDKBNX83YGJltfNgcYGlgQ?=
+ =?us-ascii?Q?nud0bRdoiXc9lIn+tOqowkJxOJ3n6D/tjpn/3s/HSdoL2pnvP5IXBfityLZs?=
+ =?us-ascii?Q?KL59/WqejMn3L44a8inMh0Z9SZQXvze+KOdUQnYOJftdClcMfcjxzo4XOuA6?=
+ =?us-ascii?Q?yppQUdj5ayaTSLeXrI6XSQ+xgLyS+KeLFRsrKwC4DfuJwcvS1Hn+EK2CSfuT?=
+ =?us-ascii?Q?plWh5KnlIlv66UUYPLqV3o5AS7t1qQlPGBU+f8JemFE5Gb1F2r+sfa7i+R+y?=
+ =?us-ascii?Q?p2I1Pp2Dcz/Hfn0MANknFc2oZoB2o6VcY4VfYLgusPKR1fZQS193MrBUJcdK?=
+ =?us-ascii?Q?Hy+JQozjJZsHc9kGZKd1juagST2ptnhm2wf3VhAApcO3XS4hRyiqPtDVJVMx?=
+ =?us-ascii?Q?9OAd5pA33fmSJat8HNMRFNWINbyEbHsTLMpVbtGSwnS/DNZAkdQxEzZB6fTp?=
+ =?us-ascii?Q?6MV14ziWH7WzEC6NCKJf6Ja+Gw6wnvLhWVZh8PSYpp2EdRr0RYPlxTM02ACt?=
+ =?us-ascii?Q?NbP23fCXiqrelNvQ2Q/M2AsgokQaDq2omrP8fwd8ycIgGInz8tZ/mfJPvUQY?=
+ =?us-ascii?Q?9WsYx78ZqtsHRPK/DffVE9ljwD2InwKZqfs/ny2CmCYl5Nq7OxpIMxfD2VIC?=
+ =?us-ascii?Q?+Crjj91u5H5Y670R0aFm3Jq9J5ta6qTrWsL1qGmB9e7UsRKII5jsS8qL1bhW?=
+ =?us-ascii?Q?AzD+w3Hn0tlxv2tR348mG9He66CulBJTHQBOsTKqZi3UAIYDHhyIz1H3UvXl?=
+ =?us-ascii?Q?RPb0ghBpISTvRbqs5CneQKj7q7JGysQthl6kVB0mvt3VcAal8UET5HlXWLJt?=
+ =?us-ascii?Q?wmr//C0hEZQlXieZ1tBaSRPvY0twVjEGOvkJTZguzq+lFu31Hi54r4/pV+JM?=
+ =?us-ascii?Q?uN34MdMPLj1tYF2tZTY/XagdqluiJ2lMz8HgbC6YATia/C5vyisUz0qd43I0?=
+ =?us-ascii?Q?v+Y3HdIm0dQmb9V85UienVnlzOWMOZTRaqPcNC6f7QwEMc5ipRpkl5aHKAJN?=
+ =?us-ascii?Q?j+lw9I/Qd5vFHnvRwK/B6vEWyHkb3F2cXtgo/RgDldDGISjftS61N0aHfXCW?=
+ =?us-ascii?Q?CD4w0lh18g8I0SE/24+0Gbv2L8GW48V733xYBWBg7vvryR7SJaMV/3UOjWFI?=
+ =?us-ascii?Q?0zf76C5B9/CvIRZLVY95P2Wt?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce214f48-36c5-4acd-f177-08d8e53c175e
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2021 09:49:12.8540 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dsf65Tn3cN4K6oqzSI4UWG/YYnkwHUZGHqFmsUJOcQ5AAViUD2V8evL6+rgfhSBaLmr8bCFmy6bINDQuXzUCbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,332 +123,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jack,
+KIQ ring is being operated by kfd as well as amdgpu.
+KFD is using kiq lock, we should the same from amdgpu side
+as well.
 
-the scheduler changes become to invasive.
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-You should split that patch up into two. The first one to make the 
-scheduler changes and the second one using them in amdgpu.
-
-Christian.
-
-Am 11.03.21 um 16:37 schrieb Jack Zhang:
-> [Why]
-> Previous tdr design treats the first job in job_timeout as the bad job.
-> But sometimes a later bad compute job can block a good gfx job and
-> cause an unexpected gfx job timeout because gfx and compute ring share
-> internal GC HW mutually.
->
-> [How]
-> This patch implements an advanced tdr mode.It involves an additinal
-> synchronous pre-resubmit step(Step0 Resubmit) before normal resubmit
-> step in order to find the real bad job.
->
-> 1. At Step0 Resubmit stage, it synchronously submits and pends for the
-> first job being signaled. If it gets timeout, we identify it as guilty
-> and do hw reset. After that, we would do the normal resubmit step to
-> resubmit left jobs.
->
-> 2. For whole gpu reset(vram lost), do resubmit as the old way.
->
-> Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  74 +++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
->   drivers/gpu/drm/scheduler/sched_main.c     | 103 ++++++++++++++-------
->   include/drm/gpu_scheduler.h                |   3 +
->   4 files changed, 149 insertions(+), 33 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e247c3a2ec08..01352ed725d5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4617,6 +4617,73 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
->   	return 0;
->   }
->   
-> +void amdgpu_device_correct_karma(struct amdgpu_device *adev,
-> +			       struct amdgpu_hive_info *hive,
-> +			       struct list_head *device_list_handle,
-> +			       bool *need_full_reset)
-> +{
-> +	int i, r = 0;
-> +
-> +	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-> +		struct amdgpu_ring *ring = adev->rings[i];
-> +		int ret = 0;
-> +		struct drm_sched_job *s_job;
-> +
-> +		if (!ring || !ring->sched.thread)
-> +			continue;
-> +
-> +		s_job = list_first_entry_or_null(&ring->sched.pending_list,
-> +				struct drm_sched_job, list);
-> +		if (s_job == NULL)
-> +			continue;
-> +
-> +		/* clear job's guilty and depend the folowing step to decide the real one */
-> +		drm_sched_reset_karma(s_job);
-> +		drm_sched_resubmit_jobs_ext(&ring->sched, 1);
-> +
-> +		ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched.timeout);
-> +		if (ret == 0) { /* timeout */
-> +			DRM_ERROR("Found the real bad job! ring:%s, job_id:%llx\n",
-> +						ring->sched.name, s_job->id);
-> +
-> +			/* set guilty */
-> +			drm_sched_increase_karma(s_job);
-> +retry:
-> +			/* do hw reset */
-> +			if (amdgpu_sriov_vf(adev)) {
-> +				amdgpu_virt_fini_data_exchange(adev);
-> +				r = amdgpu_device_reset_sriov(adev, false);
-> +				if (r)
-> +					adev->asic_reset_res = r;
-> +			} else {
-> +				r  = amdgpu_do_asic_reset(hive, device_list_handle,
-> +						need_full_reset, false);
-> +				if (r && r == -EAGAIN)
-> +					goto retry;
-> +			}
-> +
-> +			/*
-> +			 * add reset counter so that the following
-> +			 * resubmitted job could flush vmid
-> +			 */
-> +			atomic_inc(&adev->gpu_reset_counter);
-> +			continue;
-> +		}
-> +
-> +		/* got the hw fence, signal finished fence */
-> +		atomic_dec(&ring->sched.num_jobs);
-> +		dma_fence_get(&s_job->s_fence->finished);
-> +		dma_fence_signal(&s_job->s_fence->finished);
-> +		dma_fence_put(&s_job->s_fence->finished);
-> +
-> +		/* remove node from list and free the job */
-> +		spin_lock(&ring->sched.job_list_lock);
-> +		list_del_init(&s_job->node);
-> +		spin_unlock(&ring->sched.job_list_lock);
-> +		ring->sched.ops->free_job(s_job);
-> +	}
-> +}
-> +
->   /**
->    * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->    *
-> @@ -4639,6 +4706,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	int i, r = 0;
->   	bool need_emergency_restart = false;
->   	bool audio_suspended = false;
-> +	int tmp_vram_lost_counter;
->   
->   	/*
->   	 * Special case: RAS triggered and full reset isn't supported
-> @@ -4788,6 +4856,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   		}
->   	}
->   
-> +	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
->   	/* Actual ASIC resets if needed.*/
->   	/* TODO Implement XGMI hive reset logic for SRIOV */
->   	if (amdgpu_sriov_vf(adev)) {
-> @@ -4805,6 +4874,11 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	/* Post ASIC reset for all devs .*/
->   	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
->   
-> +		if (amdgpu_gpu_recovery == 2 &&
-> +			!(tmp_vram_lost_counter < atomic_read(&adev->vram_lost_counter)))
-> +			amdgpu_device_correct_karma(tmp_adev, hive,
-> +					device_list_handle, &need_full_reset);
-> +
->   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->   			struct amdgpu_ring *ring = tmp_adev->rings[i];
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 865f924772b0..9c3f4edb7532 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -509,7 +509,7 @@ module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
->    * DOC: gpu_recovery (int)
->    * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
->    */
-> -MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
-> +MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (2 = advanced tdr mode, 1 = enable, 0 = disable, -1 = auto)");
->   module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
->   
->   /**
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index d82a7ebf6099..92d8de24d0a1 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -361,40 +361,16 @@ static void drm_sched_job_timedout(struct work_struct *work)
->     */
->   void drm_sched_increase_karma(struct drm_sched_job *bad)
->   {
-> -	int i;
-> -	struct drm_sched_entity *tmp;
-> -	struct drm_sched_entity *entity;
-> -	struct drm_gpu_scheduler *sched = bad->sched;
-> -
-> -	/* don't increase @bad's karma if it's from KERNEL RQ,
-> -	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
-> -	 * corrupt but keep in mind that kernel jobs always considered good.
-> -	 */
-> -	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
-> -		atomic_inc(&bad->karma);
-> -		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
-> -		     i++) {
-> -			struct drm_sched_rq *rq = &sched->sched_rq[i];
-> -
-> -			spin_lock(&rq->lock);
-> -			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-> -				if (bad->s_fence->scheduled.context ==
-> -				    entity->fence_context) {
-> -					if (atomic_read(&bad->karma) >
-> -					    bad->sched->hang_limit)
-> -						if (entity->guilty)
-> -							atomic_set(entity->guilty, 1);
-> -					break;
-> -				}
-> -			}
-> -			spin_unlock(&rq->lock);
-> -			if (&entity->list != &rq->entities)
-> -				break;
-> -		}
-> -	}
-> +	drm_sched_increase_karma_ext(bad, 1);
->   }
->   EXPORT_SYMBOL(drm_sched_increase_karma);
->   
-> +void drm_sched_reset_karma(struct drm_sched_job *bad)
-> +{
-> +	drm_sched_increase_karma_ext(bad, 0);
-> +}
-> +EXPORT_SYMBOL(drm_sched_reset_karma);
-> +
->   /**
->    * drm_sched_stop - stop the scheduler
->    *
-> @@ -533,15 +509,32 @@ EXPORT_SYMBOL(drm_sched_start);
->    *
->    */
->   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
-> +{
-> +	drm_sched_resubmit_jobs_ext(sched, INT_MAX);
-> +}
-> +EXPORT_SYMBOL(drm_sched_resubmit_jobs);
-> +
-> +/**
-> + * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from mirror ring list
-> + *
-> + * @sched: scheduler instance
-> + * @max: job numbers to relaunch
-> + *
-> + */
-> +void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max)
->   {
->   	struct drm_sched_job *s_job, *tmp;
->   	uint64_t guilty_context;
->   	bool found_guilty = false;
->   	struct dma_fence *fence;
-> +	int i = 0;
->   
->   	list_for_each_entry_safe(s_job, tmp, &sched->pending_list, list) {
->   		struct drm_sched_fence *s_fence = s_job->s_fence;
->   
-> +		if (i >= max)
-> +			break;
-> +
->   		if (!found_guilty && atomic_read(&s_job->karma) > sched->hang_limit) {
->   			found_guilty = true;
->   			guilty_context = s_job->s_fence->scheduled.context;
-> @@ -552,6 +545,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
->   
->   		dma_fence_put(s_job->s_fence->parent);
->   		fence = sched->ops->run_job(s_job);
-> +		i++;
->   
->   		if (IS_ERR_OR_NULL(fence)) {
->   			if (IS_ERR(fence))
-> @@ -563,7 +557,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
->   		}
->   	}
->   }
-> -EXPORT_SYMBOL(drm_sched_resubmit_jobs);
-> +EXPORT_SYMBOL(drm_sched_resubmit_jobs_ext);
->   
->   /**
->    * drm_sched_job_init - init a scheduler job
-> @@ -903,3 +897,48 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
->   	sched->ready = false;
->   }
->   EXPORT_SYMBOL(drm_sched_fini);
-> +
-> +/**
-> + * drm_sched_increase_karma_ext - Update sched_entity guilty flag
-> + *
-> + * @bad: The job guilty of time out
-> + * @type: type for increase/reset karma
-> + *
-> + */
-> +void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
-> +{
-> +	int i;
-> +	struct drm_sched_entity *tmp;
-> +	struct drm_sched_entity *entity;
-> +	struct drm_gpu_scheduler *sched = bad->sched;
-> +
-> +	/* don't change @bad's karma if it's from KERNEL RQ,
-> +	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
-> +	 * corrupt but keep in mind that kernel jobs always considered good.
-> +	 */
-> +	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
-> +		if (type == 0)
-> +			atomic_set(&bad->karma, 0);
-> +		else if (type == 1)
-> +			atomic_inc(&bad->karma);
-> +
-> +		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
-> +		     i++) {
-> +			struct drm_sched_rq *rq = &sched->sched_rq[i];
-> +
-> +			spin_lock(&rq->lock);
-> +			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
-> +				if (bad->s_fence->scheduled.context ==
-> +				    entity->fence_context) {
-> +					if (entity->guilty)
-> +						atomic_set(entity->guilty, type);
-> +					break;
-> +				}
-> +			}
-> +			spin_unlock(&rq->lock);
-> +			if (&entity->list != &rq->entities)
-> +				break;
-> +		}
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_sched_increase_karma_ext);
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 1c815e0a14ed..4ea8606d91fe 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -321,7 +321,10 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
->   void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
->   void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
->   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
-> +void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max);
->   void drm_sched_increase_karma(struct drm_sched_job *bad);
-> +void drm_sched_reset_karma(struct drm_sched_job *bad);
-> +void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type);
->   bool drm_sched_dependency_optimized(struct dma_fence* fence,
->   				    struct drm_sched_entity *entity);
->   void drm_sched_fault(struct drm_gpu_scheduler *sched);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 1915b9b95106..8fe370e5358d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -467,13 +467,17 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev)
+ 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+ 		return -EINVAL;
+ 
++	spin_lock(&adev->gfx.kiq.ring_lock);
+ 	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
+-					adev->gfx.num_compute_rings))
++					adev->gfx.num_compute_rings)) {
++		spin_unlock(&adev->gfx.kiq.ring_lock);
+ 		return -ENOMEM;
++	}
+ 
+ 	for (i = 0; i < adev->gfx.num_compute_rings; i++)
+ 		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.compute_ring[i],
+ 					   RESET_QUEUES, 0, 0);
++	spin_unlock(&adev->gfx.kiq.ring_lock);
+ 
+ 	return amdgpu_ring_test_helper(kiq_ring);
+ }
+@@ -518,18 +522,20 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev)
+ 
+ 	DRM_INFO("kiq ring mec %d pipe %d q %d\n", kiq_ring->me, kiq_ring->pipe,
+ 							kiq_ring->queue);
+-
++	spin_lock(&adev->gfx.kiq.ring_lock);
+ 	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
+ 					adev->gfx.num_compute_rings +
+ 					kiq->pmf->set_resources_size);
+ 	if (r) {
+ 		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
++		spin_unlock(&adev->gfx.kiq.ring_lock);
+ 		return r;
+ 	}
+ 
+ 	kiq->pmf->kiq_set_resources(kiq_ring, queue_mask);
+ 	for (i = 0; i < adev->gfx.num_compute_rings; i++)
+ 		kiq->pmf->kiq_map_queues(kiq_ring, &adev->gfx.compute_ring[i]);
++	spin_unlock(&adev->gfx.kiq.ring_lock);
+ 
+ 	r = amdgpu_ring_test_helper(kiq_ring);
+ 	if (r)
+-- 
+2.30.1
 
 _______________________________________________
 amd-gfx mailing list
