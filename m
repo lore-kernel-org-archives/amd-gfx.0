@@ -7,115 +7,113 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0AFDC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 21:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CB38C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 21:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6315E64F2A
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 21:03:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6315E64F2A
+	by mail.kernel.org (Postfix) with ESMTPS id D642D64F70
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 21:24:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D642D64F70
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 250586E03E;
-	Fri, 12 Mar 2021 21:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D80CB6E03D;
+	Fri, 12 Mar 2021 21:24:47 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04B46E027
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 21:03:51 +0000 (UTC)
+ (mail-bn7nam10on2061.outbound.protection.outlook.com [40.107.92.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFDA6E03D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 21:24:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=msk0UOVkm8Jp31F2H6USpw/bDUZHgKxsRFkIUxnGP5Gu/7S6V8jpItr0upLr910NFLG5BQpyTTDMPcee7X/mhNNEnFnQap13SCp0trmEvXFgNh7L3+OEdKLu1oH9w1a//dw4QothgjuGOjKvfr9B4GN5nQSPsI5+SPKLyqPDjSBFJ6nQmKbwT4Jyf1/hk17xHwNnZcAWyMO/1Uqa+IJtGQy2hoTA7mUXI3qLoFxJc8iwmth65TxRMV5KPkmjtGK3CqFproF+gYLKXLixIk/+l8637CAOwlmyL6QzwCLBG3Oh6sMyFL9fWhUgBYX/gdZYQdFJr93YGdlqzkfkuRV8LQ==
+ b=OZiJlAuhAtRgcPxWx1+tZgCRgr/NS0KdrWC3MzXHVUxBKKorWUZNisbGVp7fGlztNBFsP9Zdy5m/YJGac1lHzMLmKsrN8zOinDoLEEdUDu9WPz9SE+GyPo36zjJegI0/ZMKOFQGikDadydEH14mJXraSsMy9knYNPLXS1WvuzIbwkGjPY9yHE/N1z9V6sghaOCfpvUqbNWAshj+cW40jYjlJOJn+V3q3Pk7VF2kebSRWdTAW06s/fCUuqQTMHVJN95Ir/u7y8cSdALEQD/7yjSmB+zpTm4z3OmCiUWi2oX+tqCZtf/Y3hFP4G3G1hLULEmGg4H8eoVCnn/iPjgJUzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RKYW4AZag99IDLhjdiSjWv/gFrWhiEQ+yFl21/wTP+w=;
- b=AhZZxTmrTe3R1XCal+BWQI0A8eX2TmKBrO3zV8QDg8xY4aOyqOd5Z0+ao2GYJSh7Lwrvmrv7REZP+3AHhIwzo5/Bwr0HYzxpI2DRq3Ts06A9qr4XkZqPo3Zq32ZK5XRiaV2LN1ta95klYNhWLFsJz3rTHJWVymXNzyTBjoVP71lPdFJqTY11P39kkc7lNy5lg8OtUtJ8Zifeyhl9Fvay7lLFXEpYAK5jk8ywFF4ajcj1Mmbek/C1Yz18lQ1UzFOKEHeXzjTDCqi9aZO2E9QXLZs43py5DZEty3JZD3bweOU2cz0ZPPKAKnE49rah88HPoQEcb0s3UnaYabdHTY8Y1g==
+ bh=5q5D5yY9wxGUwe3tHAtG3dUwcCkvMvn8/jNO7yZZXIU=;
+ b=cDEoJVgPZ+erW0hy0h7DvJ06zsi3YAc6drr3TOxlqfVd8i8HFx51Ec9VPTmNEfu7cd2kD5Oia4/AbkNRvYsfosYV6KeQ2GOBkVjWyEBiMZ4QY/qTSWrOcZ5TjRkkmRMJJZaTAuF2nPK2SilHoZ20WGFq1s8yYuUuf9w59xJyNVtbrSzCMHqsNcfMUZdPQGKpakX0kGYf7xcw5zAqCRoHkaTWfIZOxQy4OzjocYBmT6tqgB8QZ6q5O/imQ0q5/czgrLM12vgu+HOBPZuP3cevzycqaOoutqGbgQKKZ9FYQCjiTI1sR5Tp8qKLum3Hlk19W2pzMZ0e8WjjO7Cda35/Cw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RKYW4AZag99IDLhjdiSjWv/gFrWhiEQ+yFl21/wTP+w=;
- b=SXeFppkke7tuW4bF9SA3HfzSXQfvgibTDfOYXTpw5N+N+FR7AnUzNyOB+rHioZvNQOkfpwEQdKWI5Cye+yK06WtT9E7mqso3KmPmvGCAvQgIqGPycPaxFLsLxiMC8104b327glrt1pHOOyWX90Z+uVqgg2MX6EHCpjGS7q208Mg=
+ bh=5q5D5yY9wxGUwe3tHAtG3dUwcCkvMvn8/jNO7yZZXIU=;
+ b=ISb6Myc5tvI2vbGQEEuWXjfyyXfBr8vs6w39J7tmYgNVpcURkDMzcBhV1q0A2A8JO+xug3tIQPNUMqqchpxROoTkQOMLvkCCZ+IDxNW07CaRIWIPXxkyluY5NASUJe9Et7FBLcSgxQ5EfGMtFB76hhmnot8tl1vhuurvDwuh/Oc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM5PR1201MB0234.namprd12.prod.outlook.com (2603:10b6:4:56::22)
- by DM6PR12MB4713.namprd12.prod.outlook.com (2603:10b6:5:7d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Fri, 12 Mar
- 2021 21:03:48 +0000
-Received: from DM5PR1201MB0234.namprd12.prod.outlook.com
- ([fe80::70d3:105f:f05e:66b8]) by DM5PR1201MB0234.namprd12.prod.outlook.com
- ([fe80::70d3:105f:f05e:66b8%9]) with mapi id 15.20.3912.030; Fri, 12 Mar 2021
- 21:03:48 +0000
-From: Eric Huang <jinhuieric.huang@amd.com>
+Received: from DM6PR12MB4732.namprd12.prod.outlook.com (2603:10b6:5:32::25) by
+ DM5PR1201MB0089.namprd12.prod.outlook.com (2603:10b6:4:50::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3933.31; Fri, 12 Mar 2021 21:24:44 +0000
+Received: from DM6PR12MB4732.namprd12.prod.outlook.com
+ ([fe80::45a1:94ba:f88c:92e2]) by DM6PR12MB4732.namprd12.prod.outlook.com
+ ([fe80::45a1:94ba:f88c:92e2%5]) with mapi id 15.20.3890.041; Fri, 12 Mar 2021
+ 21:24:44 +0000
+From: Oak Zeng <Oak.Zeng@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/pm: add a new sysfs entries for default power
- limit
-Date: Fri, 12 Mar 2021 16:03:03 -0500
-Message-Id: <20210312210304.23049-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [2607:9880:2048:122:94cc:f8dc:e7db:eaee]
-X-ClientProxiedBy: YT1PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::21)
- To DM5PR1201MB0234.namprd12.prod.outlook.com
- (2603:10b6:4:56::22)
+Subject: [PATCH 1/2] Revert "drm/amdgpu: workaround the TMR MC address issue
+ (v2)"
+Date: Fri, 12 Mar 2021 15:24:34 -0600
+Message-Id: <1615584275-16432-1-git-send-email-Oak.Zeng@amd.com>
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: YT1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::42)
+ To DM6PR12MB4732.namprd12.prod.outlook.com
+ (2603:10b6:5:32::25)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from eric-HP-EliteBook-745-G4.amd.com
- (2607:9880:2048:122:94cc:f8dc:e7db:eaee) by
- YT1PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.26 via Frontend Transport; Fri, 12 Mar 2021 21:03:47 +0000
+Received: from ozeng-develop.amd.com (165.204.55.250) by
+ YT1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3912.26 via Frontend Transport; Fri, 12 Mar 2021 21:24:43 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5077ec6d-9534-4097-b1e9-08d8e59a547a
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4713:
+X-MS-Office365-Filtering-Correlation-Id: a53bc2a6-074d-49f3-fdd9-08d8e59d4146
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0089:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4713C36D86228DFCCB225E8C826F9@DM6PR12MB4713.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:321;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0089329853EAC3F7FAED22F1806F9@DM5PR1201MB0089.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bvdO3rYFR1AVrkCKqDFypw2nsnvbRH1LFWOfO9u9jxdMq2bmVv7p0yE2ADU101py+jcADXSZtGxlPl7hnL35yWvV4MMq4WWlzEgRcCM3wHYG+eOVrehGxHJXK0bhS+VkDYCWqVO39E/ryKQeMfjAeDA4eNo1+TziHMvZAatZUr3cbhKG7C/STc9wE1bJFxBfFFJtfmOin+3sh49BkLibyhtkhvmtOFEPT3gUavvIxiojrgA7EJiCY6HAQrFjKmUMXiFLM4nb+dDM7PKyRXCG4iLMLMTTUCpOJRfC/Sljiv4g0yGdQNxz7MpCvbSOTt5DNTlrKA2SiKlusqd3jDK9ULJgDq+MnKgpUzlbsdTLbqoPMSSuoTAQwoL033jmuYuARMnrW2Uantak907UD81wR45VasdpI5AHFDY8C65vVm53DAW2L0sbd1JKBwkDPIhscf+uomuw1ll028v87Bh0jYsl/DaKmRBWRWUdP+9hPuZ81vo/ta/WMuXWLibbYNLeh5Gb19tw3v7XdAqbKjikkg==
+X-Microsoft-Antispam-Message-Info: lkcprLWrHOAWunKT8e0E5V8JNH23oSX+RuNn6sRSCe3cRml1xm9tgPSi7yRAO5bSNhau7Wn06fBnU66WpQolEehuXFNgSJOJWmvk+SK2lhtrnDmrhqsz0uAyLivNqnvaYT2hFzi6dd1WMtQQeouGk9Sx92pmMYyeJMUGbjkeaRRAQY3y71Hes50AUxDB+rEEZI7zgpYjFnhGfCSH7qJ14EQVNH4CSUscpslk5SccnDDorq1HLzz6S3VGq+T/bAAb78qoAjsUtxDj61sFeEnNZzlyfUHfdg2F+asfuY6tYg6QqAKEWjwitDWg6q4Gxfm/E7TBzxwGGqumjBl+xyNmRVVFXJ46/aMRNe0f0Nqon9kI48Zu7Jihc6RaewuwZ8d6//SNV3ofxrFuJre58len8f8l2grHxaHo6EF3uApRWFx/eF0FcIWYH5VzQWdys6ZB/TJn+NTjj3ClyUpwO0c3llrqeL3lBPDkPblRshZLzf41dYIYgZowSqXZcRcliqLCEXg8ubKwVVc4Q0ORv3Am7ebXyboC3Ox9Tc7bVfu5udpeglonmVAnxnsDLObDFF3O
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR1201MB0234.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(39860400002)(136003)(376002)(478600001)(83380400001)(2906002)(66946007)(52116002)(16526019)(4326008)(316002)(8936002)(66476007)(30864003)(186003)(5660300002)(6486002)(6916009)(7696005)(66556008)(8676002)(6666004)(86362001)(1076003)(36756003)(2616005);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4732.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(7696005)(36756003)(2906002)(956004)(86362001)(2616005)(52116002)(83380400001)(6486002)(6666004)(478600001)(6916009)(8676002)(66476007)(4326008)(5660300002)(316002)(16526019)(66556008)(186003)(26005)(8936002)(66946007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?l3kD/EVz7FpgnBU+JApckzgHkd8vTJZoKJnxTSCHK+lemr5lcdriWbcV3/J8?=
- =?us-ascii?Q?CgYYXKybWIRQXct7G0EWs2GuIcFWbKxPrUyTJKA4AAxNpMdOWNVJde7wK1tM?=
- =?us-ascii?Q?CBf5jCP6RfLj/T41qLNMYuhIzEFqF0fjCq5kihnv/CdkFI4PrBlKZePRgEyr?=
- =?us-ascii?Q?mj4sTT6i60lEpKWdaDuOhO65LdfCDkb8oQejLsi39WKC/OgyA2iFeRq0S1vP?=
- =?us-ascii?Q?qjzmnWmY0Eyd/9QiTBU0yBe8vShqTLYqVGCpBRgu8jQQN7XD/prjAMIk1n4Z?=
- =?us-ascii?Q?xMp34yr2cCNvca56YZGXWSCSH4hV03CcasmagV3IAPEr69LJnMur5bSYb+9i?=
- =?us-ascii?Q?5YVqHRhej9Jmx7dhyjeu+HP1hv0S+0I6UnK78LXKJW+F/Kjb1JXbKUjLGnns?=
- =?us-ascii?Q?yqbyWhN9ZQV4FABoK6PhEjHmzs933Dp2CUmhUNOwhGNt5l12x0eRGTeEcqLH?=
- =?us-ascii?Q?AyTlD5tHbNqhss2lySLq3wsxzJW9wAM4rN2Z1uMm0C8q720ltdTBAXLGheW+?=
- =?us-ascii?Q?SKiKwt5k8R9RrUa5hnO2cEC8Px+wHo3ufHRbT5HvL5TVQVaHtuAmpK1PW43h?=
- =?us-ascii?Q?bUEPPikl80nGYw0SzDLyTqU0zX1nZsxLBGmE/jnOwpi/ekGpJxx9147S5tfG?=
- =?us-ascii?Q?C5/K3mXH8Y+PrD/rKmBkrMnmsERSx5EpFPmm0bOCT+vU/ylc7wRf1niVujET?=
- =?us-ascii?Q?JC2Lhe17S6AdE/UomNgxzAtXAM8vV6IHmK4UTgqjB/17RRTShQnWTuHUnbvp?=
- =?us-ascii?Q?9YC2BMJytBzjhlP125kyegqGEci06MMgY4kc6zztHIzK+ONo206hJsk1feMU?=
- =?us-ascii?Q?YuEuio/Seo2dgSghW2QJqrfxvy5S8qN/w8ZZ479ws3gRrlTnVyMy/PTOUcBI?=
- =?us-ascii?Q?MO9c0k+k7VQ4ZD4Xz+aL+BCRHXpsb5x9ZvgSi7cY9fA6vWHRnFmxQxRlQtQG?=
- =?us-ascii?Q?yiL8zp01PKcRshf7QWtBhDzR/vp8BUnCoWeQnBzorlBsaeC7V8uabz3kY5h9?=
- =?us-ascii?Q?HSmWbR9/ckBmVUFOYFbkoN8oTgVEGxO6adiInrWJL3yvJQ/i4Jo3DEwhTI/2?=
- =?us-ascii?Q?zXVb373rat9LijLZiUjD9Oqw3AzNkfieV9XohObb+LeG6iSooRrel4OTwntB?=
- =?us-ascii?Q?i+MuJdOURAU3ErqIUUipaLtYFUpyJBmKTyRr5sOpbkOe8l3GK77Yvki6qlyD?=
- =?us-ascii?Q?/AwUXA57rbS4uf6Rvft5+N3I6HDQVKUrMOZC6qnIXngnaBGuCx01jNdQUlTm?=
- =?us-ascii?Q?W/7b0qydzVEOImy99ECbnigIUV+vjdLDmXTxVxRXN8BsOs57hrskyvaRsrEO?=
- =?us-ascii?Q?B1/zye6QbrrHGOuReJbbMJLHivD9oBKTZhpF+RQlMyq0UHNWh7ZgYBN/yr/H?=
- =?us-ascii?Q?EwI8nUqpRD0PwoiWFHYib1rW01I9?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?/VFublLKCiCNOLcpZiTxFT5MBtijomwLMuN217ejHNpROvu3/oJyeGTONfLg?=
+ =?us-ascii?Q?SZhWPUn+2/zAzfPY9jK/BWy/+a3ut14B7smBRLxnwXimL55jdLFsiYuaSbBU?=
+ =?us-ascii?Q?B8b3vRvPk7ZzAGeaXQGOT6D0+QGT7C53Svb9dVpKMTQG03L6ghsUPxEb9KSE?=
+ =?us-ascii?Q?v5LrAaFoFxiUUSEsBupSHmXDhSdRVClyQ3EgfGQo95GBu2m3rrN2ZhoIyTLx?=
+ =?us-ascii?Q?kiW0M9sFf/N5SgvRKB+7TbpZMSsOv0DsIpO728AfXMIQL+57Sy1+PpTAFR3k?=
+ =?us-ascii?Q?vt/WPWbdVhdrKNtCE0wxSzLr+/ZSJu0pwNE3A3oZTl5hfmQ5gYONM6qTkZkV?=
+ =?us-ascii?Q?ysnTNq90MXfUQq0BYQ41Cxo54le6qbNOrrfBRFU33zcdC7ow1XDTAJjyONcZ?=
+ =?us-ascii?Q?gM2mDCL50boTkQEI13aXlAZFicUlofgPrSPiH5sW19X8RyUpXvu2Vc+HGXhi?=
+ =?us-ascii?Q?qEn3IUN+QC7u9bz4k/OTM2BKP7dG20HByQS7M49PfArewcWyY2jSdsHStczi?=
+ =?us-ascii?Q?vR1026xFC0jjyedp4LMR5i1JYxR4Jj8k9BrEvS8BevGuwAQqq/dFbkRGLkYj?=
+ =?us-ascii?Q?qMiHC9Y5d2jnsyTuMUMBjxnJMMvztuktS2D63kradaPsBQvkeXghWhA8liMH?=
+ =?us-ascii?Q?GdYk/hf75DwBAZAln5/CWAx43E16Eix/CSLOb/s1rHPSj7aAhhezYV+OJGp1?=
+ =?us-ascii?Q?nr/xb/4W81UiLaiUTF3rr+YbjUBHlU4EG206lksFMcGWlY3zPXn3+ri8R08f?=
+ =?us-ascii?Q?z6Ep1on4g3zhSXYcuNLyXPJspuxaOcmDCB54IhN/0pv65O3S79TecWcXM52c?=
+ =?us-ascii?Q?HMd3D7o+0XtWinaEhTwrCVVvbA4AuFkn5mFmd8yYIdcJNZe1Ze5WUveoh4Fr?=
+ =?us-ascii?Q?F3JYheHuCVVhBiCyzLd5yoJjc7miWdLIjoRuT85dJ1mCILMespOoX590n05N?=
+ =?us-ascii?Q?iqYsd2yZH7c9Ov+D5d0pmqhrjkUgknTnaXL/8YbBkDTt8+hjuHNdHbv0XBAU?=
+ =?us-ascii?Q?trNCR99BElZZ6ZkUyilN/GlkqtFkoj1KlULLHrDDDOes8d8PWkuttb0Ixovl?=
+ =?us-ascii?Q?UTnKCisqbGqs7ry6e6VtjGqoJh57ZthxeYryRPa0gZcvhw7LAGHJyHFCZQgQ?=
+ =?us-ascii?Q?oS9hOpONYimB40nHxTnWMD/Oe6E1os21MfOg7o02nZdQW6nH3VH+75zLatLy?=
+ =?us-ascii?Q?6v61+a3A1Yha/GTLQ+bHPHrAD2yhI3Pe5Nk7XtsqulTjJJVj6xmUklMOpkng?=
+ =?us-ascii?Q?5oiOw9YDtT77AHZBg4EFa4ifdaWlJlUwB/UDNzQpORCkCBS8YhGOxAudq/eg?=
+ =?us-ascii?Q?FWIF5tpkI83NL7Ha0OvHzTQ+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5077ec6d-9534-4097-b1e9-08d8e59a547a
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0234.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a53bc2a6-074d-49f3-fdd9-08d8e59d4146
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4732.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2021 21:03:48.0695 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2021 21:24:44.2721 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nFjzc6dX+t2YjFFLlNHxAkJ7ugT3vseXAf4QCZdXFztCR2TFlY6p5Mbb5ON2GaKkBy4qNaO3k4rtwvxj+eG4ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4713
+X-MS-Exchange-CrossTenant-UserPrincipalName: qZTAiGfZTsTKW/Tnkkj6C7WxIa+fjhYNifYP4doB9M8suLx1qzmruc4CcKBzBsLM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,254 +125,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Evan.Quan@amd.com,
- Joseph.Greathouse@amd.com
+Cc: felix.kuehling@amd.com, Oak Zeng <Oak.Zeng@amd.com>, hawking.zhang@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Driver doesn't keep the default bootup power limit and expose it
-to user. As requested, we add it in driver.
+This reverts commit 34a33d4683cba7ba63c894132efb1998c0217631.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 43 ++++++++++++++++++-
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  2 +
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  1 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  3 ++
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  2 +-
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  2 +-
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 +-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  8 +++-
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  2 +-
- 9 files changed, 58 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  9 ---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 10 ----------
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 21 ++++++---------------
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 10 ++++------
+ 4 files changed, 10 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 2733af2d201b..8ab6e7eaf6a1 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2677,6 +2677,41 @@ static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
- 	return size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 7e248a4..3ed8387 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -209,15 +209,6 @@ struct amdgpu_gmc {
+ 	 */
+ 	u64			fb_start;
+ 	u64			fb_end;
+-	/* In the case of use GART table for vmid0 FB access, [fb_start, fb_end]
+-	 * will be squeezed to GART aperture. But we have a PSP FW issue to fix
+-	 * for now. To temporarily workaround the PSP FW issue, added below two
+-	 * variables to remember the original fb_start/end to re-enable FB
+-	 * aperture to workaround the PSP FW issue. Will delete it after we
+-	 * get a proper PSP FW fix.
+-	 */
+-	u64			fb_start_original;
+-	u64			fb_end_original;
+ 	unsigned		vram_width;
+ 	u64			real_vram_size;
+ 	int			vram_mtrr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index bae304b..cd3eda9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -407,16 +407,6 @@ static int psp_tmr_init(struct psp_context *psp)
+ 				      AMDGPU_GEM_DOMAIN_VRAM,
+ 				      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
+ 
+-	/* workaround the tmr_mc_addr:
+-	 * PSP requires an address in FB aperture. Right now driver produce
+-	 * tmr_mc_addr in the GART aperture. Convert it back to FB aperture
+-	 * for PSP. Will revert it after we get a fix from PSP FW.
+-	 */
+-	if (psp->adev->asic_type == CHIP_ALDEBARAN) {
+-		psp->tmr_mc_addr -= psp->adev->gmc.fb_start;
+-		psp->tmr_mc_addr += psp->adev->gmc.fb_start_original;
+-	}
+-
+ 	return ret;
  }
  
-+static ssize_t amdgpu_hwmon_show_power_cap_default(struct device *dev,
-+					 struct device_attribute *attr,
-+					 char *buf)
-+{
-+	struct amdgpu_device *adev = dev_get_drvdata(dev);
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	int limit_type = to_sensor_dev_attr(attr)->index;
-+	uint32_t limit = limit_type << 24;
-+	ssize_t size;
-+	int r;
-+
-+	if (amdgpu_in_reset(adev))
-+		return -EPERM;
-+
-+	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
-+	if (r < 0) {
-+		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+		return r;
-+	}
-+
-+	if (is_support_sw_smu(adev)) {
-+		smu_get_power_limit(&adev->smu, &limit, SMU_PPT_LIMIT_DEFAULT);
-+		size = snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
-+	} else if (pp_funcs && pp_funcs->get_power_limit) {
-+		pp_funcs->get_power_limit(adev->powerplay.pp_handle, &limit, true);
-+		size = snprintf(buf, PAGE_SIZE, "%u\n", limit * 1000000);
-+	} else {
-+		size = snprintf(buf, PAGE_SIZE, "\n");
-+	}
-+
-+	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-+	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-+
-+	return size;
-+}
- static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
- 					 struct device_attribute *attr,
- 					 char *buf)
-@@ -2919,11 +2954,13 @@ static SENSOR_DEVICE_ATTR(power1_average, S_IRUGO, amdgpu_hwmon_show_power_avg,
- static SENSOR_DEVICE_ATTR(power1_cap_max, S_IRUGO, amdgpu_hwmon_show_power_cap_max, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_cap_min, S_IRUGO, amdgpu_hwmon_show_power_cap_min, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_cap, S_IRUGO | S_IWUSR, amdgpu_hwmon_show_power_cap, amdgpu_hwmon_set_power_cap, 0);
-+static SENSOR_DEVICE_ATTR(power1_cap_default, S_IRUGO, amdgpu_hwmon_show_power_cap_default, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_label, S_IRUGO, amdgpu_hwmon_show_power_label, NULL, 0);
- static SENSOR_DEVICE_ATTR(power2_average, S_IRUGO, amdgpu_hwmon_show_power_avg, NULL, 1);
- static SENSOR_DEVICE_ATTR(power2_cap_max, S_IRUGO, amdgpu_hwmon_show_power_cap_max, NULL, 1);
- static SENSOR_DEVICE_ATTR(power2_cap_min, S_IRUGO, amdgpu_hwmon_show_power_cap_min, NULL, 1);
- static SENSOR_DEVICE_ATTR(power2_cap, S_IRUGO | S_IWUSR, amdgpu_hwmon_show_power_cap, amdgpu_hwmon_set_power_cap, 1);
-+static SENSOR_DEVICE_ATTR(power2_cap_default, S_IRUGO, amdgpu_hwmon_show_power_cap_default, NULL, 1);
- static SENSOR_DEVICE_ATTR(power2_label, S_IRUGO, amdgpu_hwmon_show_power_label, NULL, 1);
- static SENSOR_DEVICE_ATTR(freq1_input, S_IRUGO, amdgpu_hwmon_show_sclk, NULL, 0);
- static SENSOR_DEVICE_ATTR(freq1_label, S_IRUGO, amdgpu_hwmon_show_sclk_label, NULL, 0);
-@@ -2963,11 +3000,13 @@ static struct attribute *hwmon_attributes[] = {
- 	&sensor_dev_attr_power1_cap_max.dev_attr.attr,
- 	&sensor_dev_attr_power1_cap_min.dev_attr.attr,
- 	&sensor_dev_attr_power1_cap.dev_attr.attr,
-+	&sensor_dev_attr_power1_cap_default.dev_attr.attr,
- 	&sensor_dev_attr_power1_label.dev_attr.attr,
- 	&sensor_dev_attr_power2_average.dev_attr.attr,
- 	&sensor_dev_attr_power2_cap_max.dev_attr.attr,
- 	&sensor_dev_attr_power2_cap_min.dev_attr.attr,
- 	&sensor_dev_attr_power2_cap.dev_attr.attr,
-+	&sensor_dev_attr_power2_cap_default.dev_attr.attr,
- 	&sensor_dev_attr_power2_label.dev_attr.attr,
- 	&sensor_dev_attr_freq1_input.dev_attr.attr,
- 	&sensor_dev_attr_freq1_label.dev_attr.attr,
-@@ -3066,7 +3105,8 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	      (adev->asic_type != CHIP_VANGOGH))) &&	/* not implemented yet */
- 	    (attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
- 	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr||
--	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr))
-+	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_power1_cap_default.dev_attr.attr))
- 		return 0;
- 
- 	if (((adev->family == AMDGPU_FAMILY_SI) ||
-@@ -3132,6 +3172,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 		 attr == &sensor_dev_attr_power2_cap_max.dev_attr.attr ||
- 	     attr == &sensor_dev_attr_power2_cap_min.dev_attr.attr ||
- 		 attr == &sensor_dev_attr_power2_cap.dev_attr.attr ||
-+		 attr == &sensor_dev_attr_power2_cap_default.dev_attr.attr ||
- 		 attr == &sensor_dev_attr_power2_label.dev_attr.attr ||
- 		 attr == &sensor_dev_attr_power1_label.dev_attr.attr))
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 5ac683fd0749..25d5f03aaa67 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -171,6 +171,7 @@ enum smu_ppt_limit_level
- {
- 	SMU_PPT_LIMIT_MIN = -1,
- 	SMU_PPT_LIMIT_CURRENT,
-+	SMU_PPT_LIMIT_DEFAULT,
- 	SMU_PPT_LIMIT_MAX,
- };
- 
-@@ -446,6 +447,7 @@ struct smu_context
- 
- 	bool od_enabled;
- 	uint32_t current_power_limit;
-+	uint32_t default_power_limit;
- 	uint32_t max_power_limit;
- 
- 	/* soft pptable */
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index 907e0967a9e8..ad4db2edf1fb 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -141,6 +141,7 @@ struct smu_11_5_power_context {
- 	enum smu_11_0_power_state power_state;
- 
- 	uint32_t	current_fast_ppt_limit;
-+	uint32_t	default_fast_ppt_limit;
- 	uint32_t	max_fast_ppt_limit;
- };
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 1202b9e7d0f9..e722adcf2f53 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2183,6 +2183,9 @@ int smu_get_power_limit(struct smu_context *smu,
- 		case SMU_PPT_LIMIT_CURRENT:
- 			*limit = smu->current_power_limit;
- 			break;
-+		case SMU_PPT_LIMIT_DEFAULT:
-+			*limit = smu->default_power_limit;
-+			break;
- 		case SMU_PPT_LIMIT_MAX:
- 			*limit = smu->max_power_limit;
- 			break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index f82dd8a5c773..bbc03092b0a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1129,7 +1129,7 @@ static int arcturus_get_power_limit(struct smu_context *smu)
- 		power_limit =
- 			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index 5bb9856..91c43a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -141,21 +141,12 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	 * FB aperture and AGP aperture. Disable them.
+ 	 */
+ 	if (adev->gmc.pdb0_bo) {
+-		if (adev->asic_type == CHIP_ALDEBARAN) {
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, adev->gmc.fb_end_original >> 24);
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, adev->gmc.fb_start_original >> 24);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, adev->gmc.fb_start_original >> 18);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, adev->gmc.fb_end_original >> 18);
+-		} else {
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
+-		}
++		WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, 0);
++		WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
++		WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
  	}
--	smu->current_power_limit = power_limit;
-+	smu->current_power_limit = smu->default_power_limit = power_limit;
+ }
  
- 	if (smu->od_enabled) {
- 		od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 24195b5853fb..3d0de2c958fa 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2111,7 +2111,7 @@ static int navi10_get_power_limit(struct smu_context *smu)
- 		power_limit =
- 			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+index 29d7f50..0b056bc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+@@ -47,8 +47,6 @@ static u64 mmhub_v1_7_get_fb_location(struct amdgpu_device *adev)
+ 
+ 	adev->gmc.fb_start = base;
+ 	adev->gmc.fb_end = top;
+-	adev->gmc.fb_start_original = base;
+-	adev->gmc.fb_end_original = top;
+ 
+ 	return base;
+ }
+@@ -126,10 +124,10 @@ static void mmhub_v1_7_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	if (adev->gmc.pdb0_bo) {
+ 		WREG32_SOC15(MMHUB, 0, regMC_VM_AGP_BOT, 0xFFFFFF);
+ 		WREG32_SOC15(MMHUB, 0, regMC_VM_AGP_TOP, 0);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_TOP, adev->gmc.fb_end_original >> 24);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_BASE, adev->gmc.fb_start_original >> 24);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, adev->gmc.fb_start_original >> 18);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, adev->gmc.fb_end_original >> 18);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_TOP, 0);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
  	}
--	smu->current_power_limit = power_limit;
-+	smu->current_power_limit = smu->default_power_limit = power_limit;
- 
- 	if (smu->od_enabled &&
- 	    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT)) {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 94a4ea38e5f9..3621884c3293 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1736,7 +1736,7 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu)
- 		power_limit =
- 			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
- 	}
--	smu->current_power_limit = power_limit;
-+	smu->current_power_limit = smu->default_power_limit = power_limit;
- 
- 	if (smu->od_enabled) {
- 		od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index d9f60dc714bc..c5b387360f01 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1756,7 +1756,7 @@ static int vangogh_get_power_limit(struct smu_context *smu)
- 		return ret;
- 	}
- 	/* convert from milliwatt to watt */
--	smu->current_power_limit = ppt_limit / 1000;
-+	smu->current_power_limit = smu->default_power_limit = ppt_limit / 1000;
- 	smu->max_power_limit = 29;
- 
- 	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetFastPPTLimit, &ppt_limit);
-@@ -1765,7 +1765,8 @@ static int vangogh_get_power_limit(struct smu_context *smu)
- 		return ret;
- 	}
- 	/* convert from milliwatt to watt */
--	power_context->current_fast_ppt_limit = ppt_limit / 1000;
-+	power_context->current_fast_ppt_limit =
-+			power_context->default_fast_ppt_limit = ppt_limit / 1000;
- 	power_context->max_fast_ppt_limit = 30;
- 
- 	return ret;
-@@ -1790,6 +1791,9 @@ static int vangogh_get_ppt_limit(struct smu_context *smu,
- 		case SMU_PPT_LIMIT_CURRENT:
- 			*ppt_limit = power_context->current_fast_ppt_limit;
- 			break;
-+		case SMU_PPT_LIMIT_DEFAULT:
-+			*ppt_limit = power_context->default_fast_ppt_limit;
-+			break;
- 		default:
- 			break;
- 		}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 740025ee7f78..3c0d6231b891 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -1088,7 +1088,7 @@ static int aldebaran_get_power_limit(struct smu_context *smu)
- 		power_limit = pptable->PptLimit;
- 	}
- 
--	smu->current_power_limit = power_limit;
-+	smu->current_power_limit = smu->default_power_limit = power_limit;
- 	if (pptable)
- 		smu->max_power_limit = pptable->PptLimit;
- 
+ 	if (amdgpu_sriov_vf(adev))
+ 		return;
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
