@@ -2,107 +2,76 @@ Return-Path: <SRS0=mwd6=IK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90664C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 08:56:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFA8CC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B9AD64FC3
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 08:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B9AD64FC3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id AEC3064FF5
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEC3064FF5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027C26F4DD;
-	Fri, 12 Mar 2021 08:56:19 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B8E6F4DD
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 08:56:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ISAI9d35FPr+TDCiYBWEl2DyWZtmf/ruHoiQbhW1N81v8Fk7wsziug/zGMxGayz3HUB0RCW6WmpsybW7nerp1B/R4Gd3o2t5X1QNClxDGzH1WuuLwKcBsxIQkz/jL1ytAEsZwnwjCMjCYMRFIJ+Q/aCocj2Ls2s/LLRic9dUiKRQwILBdUzT3w72LgusKtNzAES8r15Leh6rkrylkAVpJR9JeZLrzKP5Vc9M2xmx3M2JjSgXq/CueuJUA2UHaiHkuqJPkPCFlog9+vQ/4rusDUxpdYv4KaG7roijhj7LGknm/IZeO/9ajDU7/a9Fz/jRP9uYd5J88HVBDqSP9h3fwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+XPZUVndZi37ID+04GOvC9xhf1c6UBHd7d/iqjNVJg=;
- b=E6PdjyuTFHoWmxXU1XIIkid8nslokAKgmfscUkjqtoHU/lG5fymFJWQATKlSnHmSNlyxzbWzK3Bo/KDYX+rzkId3ooCHKqTODVpwL1NOaTt879SCeweH0jXK7tKc5Tz/zpIhRlGbxh09adKp7CWUjHqrp2Rc0Ppc0EoiQhFTEi1ydwQfeS+hbHdR2mzVmVRyUHNmZPlj/6kX3gJapMbhbTrCEhPXCKMEsibttzX/tudymHg0tvL9gsPsXg6ebQM8mszpPt2zi7XyjCdMAvCWLXitkmx8HIXBgmLAyZhSDYWi9KlGzyUNpCfihQUtg3psfEZeJxiwxxSAp1J3jckGlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+XPZUVndZi37ID+04GOvC9xhf1c6UBHd7d/iqjNVJg=;
- b=YfyNXGH7wcPj9aZK2G9heaKtz4+a52FMoQ5iDGffkPbOYvp3WqH3LhHYr00TEfjfusBP04SYxQm3W2//4fJRlSYhBKlvz4ZkGkXhv5T1Y++0Bnz0FtsKuBFWtV5gvELzGs65gIFKlRdWloT5q/yHZEEts3u6Q2E8NG4FvLhGW/g=
-Received: from BN9PR03CA0806.namprd03.prod.outlook.com (2603:10b6:408:13f::31)
- by BYAPR12MB2696.namprd12.prod.outlook.com (2603:10b6:a03:68::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.28; Fri, 12 Mar
- 2021 08:56:15 +0000
-Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13f:cafe::e6) by BN9PR03CA0806.outlook.office365.com
- (2603:10b6:408:13f::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend
- Transport; Fri, 12 Mar 2021 08:56:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB02.amd.com;
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3933.31 via Frontend Transport; Fri, 12 Mar 2021 08:56:15 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 12 Mar
- 2021 02:56:14 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 12 Mar
- 2021 02:56:14 -0600
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Fri, 12 Mar 2021 02:56:13 -0600
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH Review 1/1] drm/amdgpu: fix send ras disable cmd when asic not
- support ras
-Date: Fri, 12 Mar 2021 16:56:11 +0800
-Message-ID: <20210312085611.7743-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B8B6F512;
+	Fri, 12 Mar 2021 09:21:38 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A2E46F512
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 09:21:36 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id h10so6928871edt.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 01:21:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=fQH1DeHWLKxaBPKf+3WHZ8CP4QGx9xUv/XibynvUsJ0=;
+ b=YWiyrREMoDFgj2+5pSkwZ6NiIlv8NNk7oICPV/Ak4LR0b3Ghsw3OAIs1KkceHiy8yL
+ EnOFa76y9+icaw2oZN2zu7fYnLIghAR5H2uHHvYrXzZoWR7QBXdQZzMfGYtUHNep27SK
+ kVMk0HzbprZYQJi4TXZoEPeinQlVongq5HwnwpRgfIA0XAERsT08BpKxzDIuRQJZzj6q
+ wRZZk4WtsF8QbsaN/w7mv+PasA1V4irekeTTu+aQnL/gNErF1ugFM+NGRElNS5IqVY7l
+ FLi/cwEejiymiCEX4dgWX9DLo2JGLdNDSOnKQjiQhaXeh9cg70fQORFBYQ/PYHC50Uu9
+ +h7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=fQH1DeHWLKxaBPKf+3WHZ8CP4QGx9xUv/XibynvUsJ0=;
+ b=stm2BncwyXkvLBZk37KfuLB6g7xLsrJFoFIzTW9DOBjLa7p66Fy9s5dcVtl4eYsEwE
+ qu/P5wEmO+VVgz4RpGd8PhtOu9sqpCPKyChmBQaZ822rxV3lC54u2rZ2kb0dKnXT3A4I
+ Qo8dO/adPoeOV4ma+O4sS/nhgg5UWMlvZassKueR9mIn/OVh0rtwKufXGsZRCXV5HK2b
+ VkPxwF/txRV34drx92kdKuygksOMhFhcmUn7MTytsLT6RVmXAFsb9CE2tJlFxyjtlqKM
+ LWKWXeV9gKPmdprIe8cs+DphlVCBkb9CpXX3GnV7f3l7U3NLHgmlj+gO8cj8OX91TERu
+ hxkA==
+X-Gm-Message-State: AOAM533fWunjYI+ClPDbKquRLe0ZyIgsmtbJ8T33+XcgF/b0nI4+A62O
+ lauYDTH1gD6BRXxs97uupl/pXuDtEeA=
+X-Google-Smtp-Source: ABdhPJxs20s59h77fmEpM7fIbdK7NpT9Ht38WMb9lfYt/5ATlyXrIhAitlRVp7D3RVgbds8gjccOyw==
+X-Received: by 2002:a50:e80c:: with SMTP id e12mr13172776edn.229.1615540894913; 
+ Fri, 12 Mar 2021 01:21:34 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:2108:8a72:3f15:1a1f?
+ ([2a02:908:1252:fb60:2108:8a72:3f15:1a1f])
+ by smtp.gmail.com with ESMTPSA id y17sm2484487ejf.116.2021.03.12.01.21.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Mar 2021 01:21:34 -0800 (PST)
+Subject: Re: [PATCH v8] drm/amd/amdgpu implement tdr advanced mode
+To: Jack Zhang <Jack.Zhang1@amd.com>, amd-gfx@lists.freedesktop.org,
+ Christian.Koenig@amd.com, Andrey.Grodzovsky@amd.com, Monk.Liu@amd.com,
+ Emily.Deng@amd.com
+References: <20210311153751.1065528-1-Jack.Zhang1@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <9e79c9f3-71f5-436d-ce46-9180586615aa@gmail.com>
+Date: Fri, 12 Mar 2021 10:21:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 75362430-414a-4460-a6b3-08d8e534b1a0
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2696:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB26967C9385E6EFA0D2C2326B9A6F9@BYAPR12MB2696.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zymEFkfdWyDryd0GsvLG1BQ+aZY4AEMCBlfBRDHixsa22KpEcqFPNZU/30SnYwNrUi73/aLXZQTCJ0lSkZhwpGVabmO5gDHsWquG53D0mtmownLjrmoIrxmWmea2wbaJ2Q+sKF1PG71bmoZlSXJIbxuCvKopZ/SUMMDu6kkurOCN4nPqBsp9JaR7r/tmDrV40aJDqRg06J7e31imB8KHdPuE42DbqzNcZKS8iC/8Ymz9+IR+nltwi8W6va65E96gB2ovPp4kRPvRwaHejrIYufaCvDW2JO588dKskZeoiNAMa2JPbQO6ptKZbzotOkb692EOfZn+1DJO5pc1EsRUiblzeMesnPrvZQQLdUTmNNPqp3PjD7vHlX9ulz6BsfkqWACSzrq80MP6BW6ViGFQjj3wTuy7y10l72OC4FGnSQrmVWPPcOVJWRIr3fwusLm+83F7AuMF3qdSq6LSaRKrbmaaC7BfOCaREppH/55E59oRXfoJ7NYUcmINgobZwUSl4QH3zVIfMfqk2blWIevE3xOPT5ur4Wahd2nWmsALQuu6KmEd22CNQQi6APOBpw2dZ5zpOg9VuDk1cDzU/gdm1Y4BuX5ApEYOrki5NxN1Iq8IeRxr8RrSMycbBhlUhIPHoQVx0Hj0x7jPB/L6jr7oc21IcSmFLTYekQ3CVnZBFyaF99jGb6F45QPzet2O40fz
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(46966006)(36840700001)(2616005)(426003)(4326008)(5660300002)(36860700001)(8676002)(336012)(47076005)(1076003)(86362001)(70206006)(36756003)(70586007)(81166007)(478600001)(356005)(82310400003)(6916009)(26005)(316002)(7696005)(186003)(54906003)(8936002)(82740400003)(2906002)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2021 08:56:15.3651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75362430-414a-4460-a6b3-08d8e534b1a0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2696
+In-Reply-To: <20210311153751.1065528-1-Jack.Zhang1@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,255 +83,332 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>, Hawking.Zhang@amd.com
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-    cause:
-	It is necessary to send ras disable command to ras-ta to program
-	GB_EDC_MODE to "BYPASS" mode during gfx block ras later init,
-	because the ras capability is disable read from vbios for vega20
-	gaming, but the ras context is released during ras init process,
-	this will cause	send ras disable command to ras-to failed.
-    how:
-	Delay releasing ras context, the ras context
-	will be released after gfx block later init done.
+Hi Jack,
 
-Changed from V1:
-    move release_ras_context into ras_resume
+the scheduler changes become to invasive.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  9 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 57 +++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  2 +
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |  4 ++
- 4 files changed, 58 insertions(+), 14 deletions(-)
+You should split that patch up into two. The first one to make the 
+scheduler changes and the second one using them in amdgpu.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7f7238283d26..88e3f8cdd7cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3499,11 +3499,11 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 			adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
- 			adev->virt.ops = NULL;
- 			r = -EAGAIN;
--			goto failed;
-+			goto release_ras_con;
- 		}
- 		dev_err(adev->dev, "amdgpu_device_ip_init failed\n");
- 		amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_INIT_FAIL, 0, 0);
--		goto failed;
-+		goto release_ras_con;
- 	}
- 
- 	dev_info(adev->dev,
-@@ -3568,7 +3568,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (r) {
- 		dev_err(adev->dev, "amdgpu_device_ip_late_init failed\n");
- 		amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_LATE_INIT_FAIL, 0, r);
--		goto failed;
-+		goto release_ras_con;
- 	}
- 
- 	/* must succeed. */
-@@ -3595,6 +3595,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	return 0;
- 
-+release_ras_con:
-+	amdgpu_release_ras_context(adev);
-+
- failed:
- 	amdgpu_vf_error_trans_all(adev);
- 	if (atpx)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index d9d46ee75a2a..169725c9831d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -463,7 +463,7 @@ static struct ras_manager *amdgpu_ras_create_obj(struct amdgpu_device *adev,
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_manager *obj;
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return NULL;
- 
- 	if (head->block >= AMDGPU_RAS_BLOCK_COUNT)
-@@ -490,7 +490,7 @@ struct ras_manager *amdgpu_ras_find_obj(struct amdgpu_device *adev,
- 	struct ras_manager *obj;
- 	int i;
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return NULL;
- 
- 	if (head) {
-@@ -590,7 +590,11 @@ static int __amdgpu_ras_feature_enable(struct amdgpu_device *adev,
- 		con->features |= BIT(head->block);
- 	} else {
- 		if (obj && amdgpu_ras_is_feature_enabled(adev, head)) {
--			con->features &= ~BIT(head->block);
-+			/* skip clean gfx ras context feature for VEGA20 Gaming.
-+			 * will clean later
-+			 */
-+			if (!(!adev->ras_features && con->features & BIT(AMDGPU_RAS_BLOCK__GFX)))
-+				con->features &= ~BIT(head->block);
- 			put_obj(obj);
- 		}
- 	}
-@@ -693,6 +697,10 @@ int amdgpu_ras_feature_enable_on_boot(struct amdgpu_device *adev,
- 			if (ret)
- 				return ret;
- 
-+			/* gfx block ras dsiable cmd must send to ras-ta */
-+			if (head->block == AMDGPU_RAS_BLOCK__GFX)
-+				con->features |= BIT(head->block);
-+
- 			ret = amdgpu_ras_feature_enable(adev, head, 0);
- 		}
- 	} else
-@@ -948,7 +956,7 @@ unsigned long amdgpu_ras_query_error_count(struct amdgpu_device *adev,
- 	struct ras_manager *obj;
- 	struct ras_err_data data = {0, 0};
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return 0;
- 
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1469,7 +1477,7 @@ static void amdgpu_ras_log_on_err_counter(struct amdgpu_device *adev)
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_manager *obj;
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return;
- 
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1517,7 +1525,7 @@ static void amdgpu_ras_query_err_status(struct amdgpu_device *adev)
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_manager *obj;
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return;
- 
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1830,7 +1838,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 	bool exc_err_limit = false;
- 	int ret;
- 
--	if (con)
-+	if (adev->ras_features && con)
- 		data = &con->eh_data;
- 	else
- 		return 0;
-@@ -1999,6 +2007,15 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 	amdgpu_ras_check_supported(adev, &con->hw_supported,
- 			&con->supported);
- 	if (!con->hw_supported || (adev->asic_type == CHIP_VEGA10)) {
-+		/* set gfx block ras context feature for VEGA20 Gaming
-+		 * send ras disable cmd to ras ta during ras late init.
-+		 */
-+		if (!adev->ras_features && adev->asic_type == CHIP_VEGA20) {
-+			con->features |= BIT(AMDGPU_RAS_BLOCK__GFX);
-+
-+			return 0;
-+		}
-+
- 		r = 0;
- 		goto release_con;
- 	}
-@@ -2112,8 +2129,12 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_manager *obj, *tmp;
- 
--	if (!con)
-+	if (!adev->ras_features || !con) {
-+		/* clean ras context for VEGA20 Gaming after send ras disable cmd */
-+		amdgpu_release_ras_context(adev);
-+
- 		return;
-+	}
- 
- 	if (con->flags & AMDGPU_RAS_FLAG_INIT_BY_VBIOS) {
- 		/* Set up all other IPs which are not implemented. There is a
-@@ -2154,7 +2175,7 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return;
- 
- 	amdgpu_ras_disable_all_features(adev, 0);
-@@ -2168,7 +2189,7 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return 0;
- 
- 	/* Need disable ras on all IPs here before ip [hw/sw]fini */
-@@ -2181,7 +2202,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 
--	if (!con)
-+	if (!adev->ras_features || !con)
- 		return 0;
- 
- 	amdgpu_ras_fs_fini(adev);
-@@ -2224,3 +2245,17 @@ bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev)
- 
- 	return false;
- }
-+
-+void amdgpu_release_ras_context(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+
-+	if (!con)
-+		return;
-+
-+	if (!adev->ras_features && con->features & BIT(AMDGPU_RAS_BLOCK__GFX)) {
-+		con->features &= ~BIT(AMDGPU_RAS_BLOCK__GFX);
-+		amdgpu_ras_set_context(adev, NULL);
-+		kfree(con);
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index a64bbb6dcfa4..60df268a0c66 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -626,4 +626,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);
- void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready);
- 
- bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev);
-+
-+void amdgpu_release_ras_context(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 7f527f8bbdb1..6008152f1363 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -441,6 +441,10 @@ bool amdgpu_ras_eeprom_check_err_threshold(struct amdgpu_device *adev)
- 	if (!__is_ras_eeprom_supported(adev))
- 		return false;
- 
-+	/* skip check VEGA20 Gaming */
-+	if (!adev->ras_features)
-+		return false;
-+
- 	if (con->eeprom_control.tbl_hdr.header == EEPROM_TABLE_HDR_BAD) {
- 		dev_warn(adev->dev, "This GPU is in BAD status.");
- 		dev_warn(adev->dev, "Please retire it or setting one bigger "
--- 
-2.17.1
+Christian.
+
+Am 11.03.21 um 16:37 schrieb Jack Zhang:
+> [Why]
+> Previous tdr design treats the first job in job_timeout as the bad job.
+> But sometimes a later bad compute job can block a good gfx job and
+> cause an unexpected gfx job timeout because gfx and compute ring share
+> internal GC HW mutually.
+>
+> [How]
+> This patch implements an advanced tdr mode.It involves an additinal
+> synchronous pre-resubmit step(Step0 Resubmit) before normal resubmit
+> step in order to find the real bad job.
+>
+> 1. At Step0 Resubmit stage, it synchronously submits and pends for the
+> first job being signaled. If it gets timeout, we identify it as guilty
+> and do hw reset. After that, we would do the normal resubmit step to
+> resubmit left jobs.
+>
+> 2. For whole gpu reset(vram lost), do resubmit as the old way.
+>
+> Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  74 +++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
+>   drivers/gpu/drm/scheduler/sched_main.c     | 103 ++++++++++++++-------
+>   include/drm/gpu_scheduler.h                |   3 +
+>   4 files changed, 149 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index e247c3a2ec08..01352ed725d5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4617,6 +4617,73 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +void amdgpu_device_correct_karma(struct amdgpu_device *adev,
+> +			       struct amdgpu_hive_info *hive,
+> +			       struct list_head *device_list_handle,
+> +			       bool *need_full_reset)
+> +{
+> +	int i, r = 0;
+> +
+> +	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> +		struct amdgpu_ring *ring = adev->rings[i];
+> +		int ret = 0;
+> +		struct drm_sched_job *s_job;
+> +
+> +		if (!ring || !ring->sched.thread)
+> +			continue;
+> +
+> +		s_job = list_first_entry_or_null(&ring->sched.pending_list,
+> +				struct drm_sched_job, list);
+> +		if (s_job == NULL)
+> +			continue;
+> +
+> +		/* clear job's guilty and depend the folowing step to decide the real one */
+> +		drm_sched_reset_karma(s_job);
+> +		drm_sched_resubmit_jobs_ext(&ring->sched, 1);
+> +
+> +		ret = dma_fence_wait_timeout(s_job->s_fence->parent, false, ring->sched.timeout);
+> +		if (ret == 0) { /* timeout */
+> +			DRM_ERROR("Found the real bad job! ring:%s, job_id:%llx\n",
+> +						ring->sched.name, s_job->id);
+> +
+> +			/* set guilty */
+> +			drm_sched_increase_karma(s_job);
+> +retry:
+> +			/* do hw reset */
+> +			if (amdgpu_sriov_vf(adev)) {
+> +				amdgpu_virt_fini_data_exchange(adev);
+> +				r = amdgpu_device_reset_sriov(adev, false);
+> +				if (r)
+> +					adev->asic_reset_res = r;
+> +			} else {
+> +				r  = amdgpu_do_asic_reset(hive, device_list_handle,
+> +						need_full_reset, false);
+> +				if (r && r == -EAGAIN)
+> +					goto retry;
+> +			}
+> +
+> +			/*
+> +			 * add reset counter so that the following
+> +			 * resubmitted job could flush vmid
+> +			 */
+> +			atomic_inc(&adev->gpu_reset_counter);
+> +			continue;
+> +		}
+> +
+> +		/* got the hw fence, signal finished fence */
+> +		atomic_dec(&ring->sched.num_jobs);
+> +		dma_fence_get(&s_job->s_fence->finished);
+> +		dma_fence_signal(&s_job->s_fence->finished);
+> +		dma_fence_put(&s_job->s_fence->finished);
+> +
+> +		/* remove node from list and free the job */
+> +		spin_lock(&ring->sched.job_list_lock);
+> +		list_del_init(&s_job->node);
+> +		spin_unlock(&ring->sched.job_list_lock);
+> +		ring->sched.ops->free_job(s_job);
+> +	}
+> +}
+> +
+>   /**
+>    * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+>    *
+> @@ -4639,6 +4706,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   	int i, r = 0;
+>   	bool need_emergency_restart = false;
+>   	bool audio_suspended = false;
+> +	int tmp_vram_lost_counter;
+>   
+>   	/*
+>   	 * Special case: RAS triggered and full reset isn't supported
+> @@ -4788,6 +4856,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   		}
+>   	}
+>   
+> +	tmp_vram_lost_counter = atomic_read(&((adev)->vram_lost_counter));
+>   	/* Actual ASIC resets if needed.*/
+>   	/* TODO Implement XGMI hive reset logic for SRIOV */
+>   	if (amdgpu_sriov_vf(adev)) {
+> @@ -4805,6 +4874,11 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   	/* Post ASIC reset for all devs .*/
+>   	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+>   
+> +		if (amdgpu_gpu_recovery == 2 &&
+> +			!(tmp_vram_lost_counter < atomic_read(&adev->vram_lost_counter)))
+> +			amdgpu_device_correct_karma(tmp_adev, hive,
+> +					device_list_handle, &need_full_reset);
+> +
+>   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   			struct amdgpu_ring *ring = tmp_adev->rings[i];
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 865f924772b0..9c3f4edb7532 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -509,7 +509,7 @@ module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
+>    * DOC: gpu_recovery (int)
+>    * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
+>    */
+> -MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
+> +MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (2 = advanced tdr mode, 1 = enable, 0 = disable, -1 = auto)");
+>   module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index d82a7ebf6099..92d8de24d0a1 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -361,40 +361,16 @@ static void drm_sched_job_timedout(struct work_struct *work)
+>     */
+>   void drm_sched_increase_karma(struct drm_sched_job *bad)
+>   {
+> -	int i;
+> -	struct drm_sched_entity *tmp;
+> -	struct drm_sched_entity *entity;
+> -	struct drm_gpu_scheduler *sched = bad->sched;
+> -
+> -	/* don't increase @bad's karma if it's from KERNEL RQ,
+> -	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
+> -	 * corrupt but keep in mind that kernel jobs always considered good.
+> -	 */
+> -	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+> -		atomic_inc(&bad->karma);
+> -		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
+> -		     i++) {
+> -			struct drm_sched_rq *rq = &sched->sched_rq[i];
+> -
+> -			spin_lock(&rq->lock);
+> -			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
+> -				if (bad->s_fence->scheduled.context ==
+> -				    entity->fence_context) {
+> -					if (atomic_read(&bad->karma) >
+> -					    bad->sched->hang_limit)
+> -						if (entity->guilty)
+> -							atomic_set(entity->guilty, 1);
+> -					break;
+> -				}
+> -			}
+> -			spin_unlock(&rq->lock);
+> -			if (&entity->list != &rq->entities)
+> -				break;
+> -		}
+> -	}
+> +	drm_sched_increase_karma_ext(bad, 1);
+>   }
+>   EXPORT_SYMBOL(drm_sched_increase_karma);
+>   
+> +void drm_sched_reset_karma(struct drm_sched_job *bad)
+> +{
+> +	drm_sched_increase_karma_ext(bad, 0);
+> +}
+> +EXPORT_SYMBOL(drm_sched_reset_karma);
+> +
+>   /**
+>    * drm_sched_stop - stop the scheduler
+>    *
+> @@ -533,15 +509,32 @@ EXPORT_SYMBOL(drm_sched_start);
+>    *
+>    */
+>   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+> +{
+> +	drm_sched_resubmit_jobs_ext(sched, INT_MAX);
+> +}
+> +EXPORT_SYMBOL(drm_sched_resubmit_jobs);
+> +
+> +/**
+> + * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from mirror ring list
+> + *
+> + * @sched: scheduler instance
+> + * @max: job numbers to relaunch
+> + *
+> + */
+> +void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max)
+>   {
+>   	struct drm_sched_job *s_job, *tmp;
+>   	uint64_t guilty_context;
+>   	bool found_guilty = false;
+>   	struct dma_fence *fence;
+> +	int i = 0;
+>   
+>   	list_for_each_entry_safe(s_job, tmp, &sched->pending_list, list) {
+>   		struct drm_sched_fence *s_fence = s_job->s_fence;
+>   
+> +		if (i >= max)
+> +			break;
+> +
+>   		if (!found_guilty && atomic_read(&s_job->karma) > sched->hang_limit) {
+>   			found_guilty = true;
+>   			guilty_context = s_job->s_fence->scheduled.context;
+> @@ -552,6 +545,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+>   
+>   		dma_fence_put(s_job->s_fence->parent);
+>   		fence = sched->ops->run_job(s_job);
+> +		i++;
+>   
+>   		if (IS_ERR_OR_NULL(fence)) {
+>   			if (IS_ERR(fence))
+> @@ -563,7 +557,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+>   		}
+>   	}
+>   }
+> -EXPORT_SYMBOL(drm_sched_resubmit_jobs);
+> +EXPORT_SYMBOL(drm_sched_resubmit_jobs_ext);
+>   
+>   /**
+>    * drm_sched_job_init - init a scheduler job
+> @@ -903,3 +897,48 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+>   	sched->ready = false;
+>   }
+>   EXPORT_SYMBOL(drm_sched_fini);
+> +
+> +/**
+> + * drm_sched_increase_karma_ext - Update sched_entity guilty flag
+> + *
+> + * @bad: The job guilty of time out
+> + * @type: type for increase/reset karma
+> + *
+> + */
+> +void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type)
+> +{
+> +	int i;
+> +	struct drm_sched_entity *tmp;
+> +	struct drm_sched_entity *entity;
+> +	struct drm_gpu_scheduler *sched = bad->sched;
+> +
+> +	/* don't change @bad's karma if it's from KERNEL RQ,
+> +	 * because sometimes GPU hang would cause kernel jobs (like VM updating jobs)
+> +	 * corrupt but keep in mind that kernel jobs always considered good.
+> +	 */
+> +	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+> +		if (type == 0)
+> +			atomic_set(&bad->karma, 0);
+> +		else if (type == 1)
+> +			atomic_inc(&bad->karma);
+> +
+> +		for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_KERNEL;
+> +		     i++) {
+> +			struct drm_sched_rq *rq = &sched->sched_rq[i];
+> +
+> +			spin_lock(&rq->lock);
+> +			list_for_each_entry_safe(entity, tmp, &rq->entities, list) {
+> +				if (bad->s_fence->scheduled.context ==
+> +				    entity->fence_context) {
+> +					if (entity->guilty)
+> +						atomic_set(entity->guilty, type);
+> +					break;
+> +				}
+> +			}
+> +			spin_unlock(&rq->lock);
+> +			if (&entity->list != &rq->entities)
+> +				break;
+> +		}
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_sched_increase_karma_ext);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 1c815e0a14ed..4ea8606d91fe 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -321,7 +321,10 @@ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>   void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+>   void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
+>   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+> +void drm_sched_resubmit_jobs_ext(struct drm_gpu_scheduler *sched, int max);
+>   void drm_sched_increase_karma(struct drm_sched_job *bad);
+> +void drm_sched_reset_karma(struct drm_sched_job *bad);
+> +void drm_sched_increase_karma_ext(struct drm_sched_job *bad, int type);
+>   bool drm_sched_dependency_optimized(struct dma_fence* fence,
+>   				    struct drm_sched_entity *entity);
+>   void drm_sched_fault(struct drm_gpu_scheduler *sched);
 
 _______________________________________________
 amd-gfx mailing list
