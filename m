@@ -2,138 +2,69 @@ Return-Path: <SRS0=mwd6=IK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1BE3C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 16:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B625AC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 16:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B16864FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 16:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B16864FFE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 522CF64FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 16:17:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 522CF64FFE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qtec.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1767689F0B;
-	Fri, 12 Mar 2021 16:15:28 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B11D89F0B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 16:15:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RINdz9qaZAhHn6WZeB1A0JtgcDf2+shr/ir2XSixqqTxbpQLeJ10OeX/SDLT9fAzTUIfEgsHYIZU4VjbwpWQjlnnGo5iU+Vdrt6vbVRDB0d+I14TzJVzgb3MXqcDEv8Twk5dD8cslQC5QWvYL+EefVi/8GYhp1+iVpe2N9P5zhwL3Qpx5qGBd63IEKbuQROz3EbCaHCCZXerC/QMV5YQaAyZnscDitaQmlqrCY7S5xPvZVrHv61qGIWj2pasQTJiN580eqBJB/zEnZ7VV/3IGrGAYfrlmTMp945csGBfHjTdlt0hmNW2BQmHyCsnsB11t/jwHCPabWyIwwX1ikZGdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DxuNZWt9B/Ay/6WZJ3lFq/pGmlamDaXCIZul24icwZk=;
- b=XrFfRrMr+GjTBBLGW9M3J43v4mXeCZKEYpyoTvBUf6MwG8GKeKbB5KMnHmLz9Car2VvRDrjsZ9bR904qvPVY474sLBipS/TeAqNqZRuCuXNm/VkfOaEcHAnh9FZXYyPz9O7RX4XL3bAeeVarbpbF2sbSX16ImGwG95xccmVLBuCfEpEqe3Y0JQQLt5yHM45AGADhhHI9y46i+rAxvb9pDLNdM6YzYn6+Eqh2JPC3D1E1gHIOXg/G9U1Nax+n5bJfIvl5to9iQeKusgghwJgamJMMT8lR3ClyDXeQ+BTPxZ4VNDOPke+G68vu6S/X8Ej+lXOi0A8SktRhaFszVo8Iag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DxuNZWt9B/Ay/6WZJ3lFq/pGmlamDaXCIZul24icwZk=;
- b=Hc6jroiXxI44WPrOFScHazkhppuN5BWEI0u39BUSYG0uf7RJ1SL39YQp23WRi1OPo8oEkHaibLtoXzyQ+4wIrYzrOREeaClXfxw73ma/IWZ5tE/3q9BAs2wQelHOcnCxqzUM9URF1PiDJ/jCWqF+5QDCPuGZMo97ZW1jR4mKO8c=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4487.namprd12.prod.outlook.com (2603:10b6:208:264::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Fri, 12 Mar
- 2021 16:15:25 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5deb:dba7:1bd4:f39c]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5deb:dba7:1bd4:f39c%5]) with mapi id 15.20.3933.032; Fri, 12 Mar 2021
- 16:15:25 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: David Hildenbrand <david@redhat.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Andrew Morton <akpm@linux-foundation.org>, "Liang, Liang (Leo)"
- <Liang.Liang@amd.com>
-Subject: RE: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
- in __free_pages_core()")
-Thread-Topic: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
- in __free_pages_core()")
-Thread-Index: AdcWgujrowoM8ON/Tmy0Tmhi9senVQABLLQAADBH9CAAADxQgAACUAfQAAEOAgAAANA2IA==
-Date: Fri, 12 Mar 2021 16:15:25 +0000
-Message-ID: <MN2PR12MB4488C3956E0B99CD360B0A27F76F9@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <MN2PR12MB448872F0BE8F49C78AF908F3F7909@MN2PR12MB4488.namprd12.prod.outlook.com>
- <2f7c20ea-888f-65b6-6607-c86aab65acce@redhat.com>
- <MN2PR12MB44886034D18F900F4FE45D8DF76F9@MN2PR12MB4488.namprd12.prod.outlook.com>
- <15faeb97-d031-f70a-adab-f2966e0b1221@redhat.com>
- <MN2PR12MB44884289499B6B16A0E9017DF76F9@MN2PR12MB4488.namprd12.prod.outlook.com>
- <b5faa9b9-6f40-f8e4-cf7c-795b429e02a8@redhat.com>
-In-Reply-To: <b5faa9b9-6f40-f8e4-cf7c-795b429e02a8@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-12T16:15:22Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e7c7ada3-0af5-4a9f-81aa-122fe58df066;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.247]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 993ed946-eaf4-4ab9-f4c6-08d8e5720b64
-x-ms-traffictypediagnostic: MN2PR12MB4487:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB448746BDAF519620F3CA4493F76F9@MN2PR12MB4487.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dZoPlXUURRTXSx36rokiLWQbx19KYgVeW7D2cUA9N86bV6+cV0/Er1YL+aBgdDW4U/4k64gD5xgJONlSQDFyQVbs1koUUeEYAGZQwSml0kmnoo+JPNdrjcb9jEAdPLLsxzDsHDJBOjxK68JVa6+0geRmKsUFQv5/xcJxk9nquQg4pX+I3PLbMlWcVfRB04pSHSSkNwq87N/WNssbO5LqqPs4PWVy+Y3n4oU0Q6Pn29tdLjTTTYINkdFNKkjhemwiPjF84D5+LSlrhiM37kWNkJOcqGIooYMKF9l9KpSI5DrI+jodGn1QsD9nFgKumP9rHg2Zso9RaNjs/zJkhIbXMuT4gIwA4q4I7BfMgsfNN1rqsSklsRIJQcB2JgIGeL31Ume5FzxaRfIYxPKo0UuYuSwxPJusyqM2Lir+hgMZgwRJ5mNHkt+v6errWarqLs6ptkcXRLYNGhGSo6+kZUl/dWBgPrNi/+Rz3mWP30p3V5QoLU8c9Ze9tw/U79qrRafPb66yz5KSRT9q5VCEfRkArZ4WYQnt0rxA5BZp/0padPTQmMKX5uuMV2tNIKbuQHZH
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(376002)(39850400004)(396003)(366004)(110136005)(316002)(71200400001)(54906003)(33656002)(8676002)(478600001)(8936002)(86362001)(186003)(26005)(6506007)(5660300002)(2906002)(76116006)(6636002)(9686003)(83380400001)(66476007)(55016002)(7696005)(66946007)(66446008)(4326008)(64756008)(66556008)(52536014)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?YmpDWG13ZjUxRno5bjNmVGlkTVc5bDYwWmN1VEx5TzRwSjVydVNkUHRyaEph?=
- =?utf-8?B?TEdCd0pOMW1DTlJCbkF3TVVCMytnRzdsRVlNOUQxZUY3aVdnSFBDYldjNUR3?=
- =?utf-8?B?V0EwRVJ0RnNiZ3pUbm1ZYytsTVpNdGJZaHJ0RzlsY0xjVVQ1UjV5VXZyRVVz?=
- =?utf-8?B?aXJReVhVbkQ4ODNydWhSeENyODRyTjVhMDc3VzFhSVlqRXV0Qy80MkhoM3FG?=
- =?utf-8?B?RkYrSkJqWmNCWC95M3RLMFNiTW8wUmMyK3pLd1R5K2RMYjU2SVNaM2U1ZHFi?=
- =?utf-8?B?ZjV1bmRxd2J3M3ZLTSswdHh4bXU2OTNHR0swZlgrbHV3RXhtVWwzbnMzRUZ3?=
- =?utf-8?B?OHlDZC93MTJBM2sxSFo2UVZ2eTg3eThkc1dPd3NwOTB4TFV5THg1dDFJa0N3?=
- =?utf-8?B?bnM4Vk1pclJXN0NmODFJd2ErMXRaVjkvbVA3M1VUUHJyWElhZXhsN1JxQVhq?=
- =?utf-8?B?ZW0remlwR3lmbS9oclkxWGNPVFY0ME5kVHZORXlBeG9wZ1VaMFZwN1FFU2xZ?=
- =?utf-8?B?NjhvdFJmY2ZDL01sV0ttNnR5c01nVXVNaENicTVxbGpXeXh4WFhoOGU5ZzNp?=
- =?utf-8?B?VHZkSEs3TEhGY0dpbTRDNEczNWdEZUwxY0ZKNmJRZTZBNTVZMXZycXhmQ256?=
- =?utf-8?B?NzFMMS8yMXVLcW04elR6VFZ1Z3RVUHVmMGxJaXR5OEFYRjFXdFRvZ1ppYUZv?=
- =?utf-8?B?d0I1N1Fod2R6blpBcVdKNkU1QTBSRU03UHFHS1hsRmNpTzd5RDZOSGlrRjNK?=
- =?utf-8?B?RWQ5M21yTlY0ZkswV3pKazQ2WFFDZ0Z0emdlYWR6QnZFaElkUVl1Nlpnenlj?=
- =?utf-8?B?WUU2UEcwZm1HOTFST1ZpL0lQbzYxdlBHQkhndnlrWWJiUXpXT0Z1QkdjSVMy?=
- =?utf-8?B?S2pYZ29DWHpyOG9zY0JIK1VJOERYYlcyYXdyM1ZIWERRTjZoUHRiUlppWmY3?=
- =?utf-8?B?cHN6RTQyV2RKcmVUQ2RXOXRnVkhNQU9wYXlkZS9FeEx6UG5CU3JzSE82dkdt?=
- =?utf-8?B?U1ZvVDJOaGtNYlo2aCtpWGN6TVlLdVB4MnhCVDZvR1FvRUFBSmRjcVdvamZV?=
- =?utf-8?B?YzVtQ1dmMkYwVXZJaWp5WmpENHYxRXUzZEY0MUNtK0JXQ2lZRlBSWnFLaE05?=
- =?utf-8?B?KzBYQ2g5OHlndFNSb2RQQWhIanErbjhDdWp4bmY0OEZjYVkyWkwwT0xETkZQ?=
- =?utf-8?B?YnNaZVZoaEFvK0RjbUtuSzRSb0tlZ0lZZHg1bDdFMkdRTUc5R04yRDBIRCsy?=
- =?utf-8?B?SkVWYmd4SDZXRjlUbUhZSVlQcFFobkFST25pVElSc3VGa05uTlpzb2tHV0Jt?=
- =?utf-8?B?VHZjN3pSYUdJREJDZGtQTmFrZjUzVGxnYTdZVDZVcHFleG51NFFMWWpqS0VU?=
- =?utf-8?B?YUZCVDVveVNVN2pDMmUrQVkrUXRrWFRIUFJNZTkyM2xvV0YrcUJicDZMRWp2?=
- =?utf-8?B?OVZiU21md0lrdjc4VjJBTmRXSTRJaDVJTjVDL1orVXEzcFRheTVya2JXQW43?=
- =?utf-8?B?Y0ozbFU2UTBjbnFBay9aZVE3bWo3aGZhdi90SjNVZU4vbWpJZGxDM01FUDZQ?=
- =?utf-8?B?OHNBZ0E0TnNBZzZhcjI5K2VGNVMrYUVFS0hjY0ZRSithVGhNd0ZLS2EzRDI1?=
- =?utf-8?B?VXk4VVdJaHZYLy8wcEhTR3RTUi9JRGx2SGZDNlgvUWw4MEtYT1Z6UUNpVVZi?=
- =?utf-8?B?a2dCNTZ4NmJaRjk0VEltemJXcUZ1N01mL0o2eEFERnQvcDNKMkJ1MFhTOWJn?=
- =?utf-8?Q?BAQ6Gy/CO5G+OBCdNQIcGJBWJ/3io8kZQA4CEGt?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 092666E030;
+	Fri, 12 Mar 2021 16:17:37 +0000 (UTC)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D79CA6E037
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 16:17:35 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id 16so7452868ljc.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 08:17:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=prrycCAyjpXO1sz+gbPPPtM0kLBCWyWmwvPCqn+xjf4=;
+ b=dLnJriwcLiY4SKvzWCOd2x3Frl1VKoPcE+bq1BnMUjDmqAUVvSUhPDs3N4SJWtL4Vg
+ S2GmH3hRNXQoZ7SssiLXommaDxBpb/NKqXk1RzX630ez+CQU6I8esUNCBFgH1dvmPH+k
+ 2n+deBc//FgnCjeB/91JBrjO4kEPeA4/7LoEkeia098COIePNq7ZldYkcQADe8V/VKZX
+ Qsx183AphSXxdcuQe1uDgE0SwXWALHp13q9E+5uAG5YIGpTZNMGO0e9lP6IT83LY81ya
+ JvV9wr7IIMhvQlBnoTF0MkiDi0BGD88qenrMsj4VSBg5PaHBFCPW2NXRW9+wVdfIZTfM
+ j9xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=prrycCAyjpXO1sz+gbPPPtM0kLBCWyWmwvPCqn+xjf4=;
+ b=akmcLl1JipyNY94au+tJBY+n7Fu49+xvvWLyKkfBE5jSh/DC/p03dkIRAlz0cQGA+B
+ 1j9emKE/aA9fciGXMSrHqjjSilkXJbXqFJQ18RyQFNRWxrJJRDP/smN16qIdMbqagKgD
+ FJKcHH80sdAnO8XdqnDB59Qkx9107ZuBP+++ItSb3ggiz5vmRz3gY1RvJ4fI2pS9Ud2b
+ vTAK5t/yF3ZmN7xbQ6FJeJyeIA1p/aqhWS44/ri5I1ZLxEcVf3V/NhfiEkYf/a88cuux
+ 2+l7tsZtFEnBL8nkzR2zTXi+7UU+z4o8vxPP1S+RMvb6s8l5mA6m33KeXrMguuhJbiXo
+ 1/iQ==
+X-Gm-Message-State: AOAM533wdEuNRwIlVSlNy0Dv/wrgl2rNppJBq5jQbksChX3dodAFGkHQ
+ w9q6qJGpjiiI55vkjiWnEiUqtwKhiKFy/PAgSepGgg==
+X-Google-Smtp-Source: ABdhPJwBwRWQ/0jxnO+8F7YWYkVKOvJjY2uQWr5retxBEJyyuyHjKuF306o5JZ3+ZsL72bC93wyoJ8GCyuzzHps4jCc=
+X-Received: by 2002:a2e:557:: with SMTP id 84mr2850385ljf.480.1615565853991;
+ Fri, 12 Mar 2021 08:17:33 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 993ed946-eaf4-4ab9-f4c6-08d8e5720b64
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2021 16:15:25.1908 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wqxOh4wu+1cMbZXjjWsmHPys5lC2u0MNc+Arv8uNIrc2XUDOaqoiuaXjourez7WjpQv4DNHphWYtoKMGlGxbOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4487
+References: <20210310163655.2591893-1-daniel@qtec.com>
+ <CADnq5_PmbXBaziCEqRODb_DvtKaw9ucXXjkdmdj9N_R8P-9Jcw@mail.gmail.com>
+ <CAH1Ww+T4WwLzg_nnF=1sjm9LW9wCjFb0X9c=qmuubvMqJdW4PA@mail.gmail.com>
+ <CAH1Ww+QiAyfQL_bf1u=zLiT=ayKFWA0Fr2n5sBHUxfpzxcPbrg@mail.gmail.com>
+ <CAN22YZcnMzefgHu9FVPGEf73SKjar2tLJO-jvpYAqNJSH4F_qA@mail.gmail.com>
+ <CADnq5_N0vvZZU9sNrfKSocXNzdMn8+PpVGNiPcE2XC6OkmJmwA@mail.gmail.com>
+ <CAH1Ww+SLckpBjiH=6FOMoougjAfqWzO45qYoD1bb6s_fy=dr3A@mail.gmail.com>
+In-Reply-To: <CAH1Ww+SLckpBjiH=6FOMoougjAfqWzO45qYoD1bb6s_fy=dr3A@mail.gmail.com>
+From: Daniel Gomez <daniel@qtec.com>
+Date: Fri, 12 Mar 2021 17:17:22 +0100
+Message-ID: <CAH1Ww+R3xmZa2fE5mB4HBkn+XnHNX+jxZVcc_bLm00jY=ZdtAQ@mail.gmail.com>
+Subject: Re: [PATCH]] drm/amdgpu/gfx9: add gfxoff quirk
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,88 +76,691 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J.
- Wysocki" <rafael@kernel.org>, George Kennedy <george.kennedy@oracle.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, Mike Rapoport <rppt@linux.ibm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Evan Quan <evan.quan@amd.com>, linux-media <linux-media@vger.kernel.org>,
+ Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Nirmoy Das <nirmoy.das@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Huang Rui <ray.huang@amd.com>, Monk Liu <Monk.Liu@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alexandre Desnoyers <alex@qtec.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Yintian Tao <yttao@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Dennis Li <Dennis.Li@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============1806759776=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+--===============1806759776==
+Content-Type: multipart/alternative; boundary="000000000000d6b6a905bd593c04"
 
-> -----Original Message-----
-> From: David Hildenbrand <david@redhat.com>
-> Sent: Friday, March 12, 2021 10:48 AM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; linux-
-> kernel@vger.kernel.org; amd-gfx list <amd-gfx@lists.freedesktop.org>;
-> Andrew Morton <akpm@linux-foundation.org>; Liang, Liang (Leo)
-> <Liang.Liang@amd.com>
-> Cc: Huang, Ray <Ray.Huang@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Mike Rapoport <rppt@linux.ibm.com>;
-> Rafael J. Wysocki <rafael@kernel.org>; George Kennedy
-> <george.kennedy@oracle.com>
-> Subject: Re: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to
-> tail in __free_pages_core()")
-> 
-> > 8G (with some carve out for the integrated GPU).
-> > [    0.044181] Memory: 6858688K/7200304K available (14345K kernel code,
-> 9659K rwdata, 4980K rodata, 2484K init, 12292K bss, 341360K reserved, 0K
-> cma-reserved)
-> >
-> > Nothing particularly special about these systems that I am aware of.  I'll see
-> if we can repro this issue on any other platforms, but so far, not one has
-> noticed any problems.
-> >
-> >>
-> >> Increasing the boot time from a few seconds to 2-3 minutes does not
-> >> smell like some corner case cache effects we might be hitting in this
-> >> particular instance - there have been minor reports that it either
-> >> slightly increased or slightly decreases initial system performance, but that
-> was about it.
-> >>
-> >> Either, yet another latent BUG (but why? why should memory access
-> >> suddenly be that slow? I could only guess that we are now making
-> >> sooner use of very slow memory), or there is really something else weird
-> going on.
-> >
-> > Looks like pretty much everything is slower based on the timestamps in the
-> dmesg output.  There is a big jump here:
-> 
-> If we're really dealing with some specific slow memory regions and that
-> memory gets allocated for something that gets used regularly, then we might
-> get a general slowdown. Hard to identify, though :)
-> 
-> >
-> >> [    3.758596] ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
-> >> [    3.759372] ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
-> >> [   16.177983] ACPI: 13 ACPI AML tables successfully acquired and loaded
-> >> [   17.099316] ACPI: [Firmware Bug]: BIOS _OSI(Linux) query ignored
-> >> [   18.969959] ACPI: EC: EC started
-> >
-> > And here:
-> >
-> >> [   36.566608] PCI: CLS 64 bytes, default 64
-> >> [   36.575383] Trying to unpack rootfs image as initramfs...
-> >> [   44.594348] Initramfs unpacking failed: Decoding failed
-> >> [   44.765141] Freeing initrd memory: 46348K
-> >
-> > Also seeing soft lockups:
-> >> [  124.588634] watchdog: BUG: soft lockup - CPU#1 stuck for 23s!
-> >> [swapper/1:0]
-> 
-> Yes, I noticed that -- there is a heavy slowdown somewhere.
-> 
-> As that patch is v5.10 already (and we're close to v5.12) I assume something
-> is particularly weird about the platform you are running on - because this is
-> the first time I see a report like that.
+--000000000000d6b6a905bd593c04
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Well, this platform is not yet widely available outside of AMD so it's not likely to have been seen by anyone else, but there is nothing special about it compared to any other AMD platforms beyond that that I am aware of.
+On Thu, 11 Mar 2021 at 21:00, Daniel Gomez <daniel@qtec.com> wrote:
 
-Alex
+> On Thu, 11 Mar 2021 at 17:10, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Thu, Mar 11, 2021 at 10:02 AM Alexandre Desnoyers <alex@qtec.com>
+> wrote:
+> > >
+> > > On Thu, Mar 11, 2021 at 2:49 PM Daniel Gomez <daniel@qtec.com> wrote:
+> > > >
+> > > > On Thu, 11 Mar 2021 at 10:09, Daniel Gomez <daniel@qtec.com> wrote:
+> > > > >
+> > > > > On Wed, 10 Mar 2021 at 18:06, Alex Deucher <alexdeucher@gmail.com=
+>
+> wrote:
+> > > > > >
+> > > > > > On Wed, Mar 10, 2021 at 11:37 AM Daniel Gomez <daniel@qtec.com>
+> wrote:
+> > > > > > >
+> > > > > > > Disabling GFXOFF via the quirk list fixes a hardware lockup i=
+n
+> > > > > > > Ryzen V1605B, RAVEN 0x1002:0x15DD rev 0x83.
+> > > > > > >
+> > > > > > > Signed-off-by: Daniel Gomez <daniel@qtec.com>
+> > > > > > > ---
+> > > > > > >
+> > > > > > > This patch is a continuation of the work here:
+> > > > > > > https://lkml.org/lkml/2021/2/3/122 where a hardware lockup
+> was discussed and
+> > > > > > > a dma_fence deadlock was provoke as a side effect. To
+> reproduce the issue
+> > > > > > > please refer to the above link.
+> > > > > > >
+> > > > > > > The hardware lockup was introduced in 5.6-rc1 for our
+> particular revision as it
+> > > > > > > wasn't part of the new blacklist. Before that, in kernel v5.5=
+,
+> this hardware was
+> > > > > > > working fine without any hardware lock because the GFXOFF was
+> actually disabled
+> > > > > > > by the if condition for the CHIP_RAVEN case. So this patch,
+> adds the 'Radeon
+> > > > > > > Vega Mobile Series [1002:15dd] (rev 83)' to the blacklist to
+> disable the GFXOFF.
+> > > > > > >
+> > > > > > > But besides the fix, I'd like to ask from where this revision
+> comes from. Is it
+> > > > > > > an ASIC revision or is it hardcoded in the VBIOS from our
+> vendor? From what I
+> > > > > > > can see, it comes from the ASIC and I wonder if somehow we ca=
+n
+> get an APU in the
+> > > > > > > future, 'not blacklisted', with the same problem. Then, shoul=
+d
+> this table only
+> > > > > > > filter for the vendor and device and not the revision? Do you
+> know if there are
+> > > > > > > any revisions for the 1002:15dd validated, tested and
+> functional?
+> > > > > >
+> > > > > > The pci revision id (RID) is used to specify the specific SKU
+> within a
+> > > > > > family.  GFXOFF is supposed to be working on all raven
+> variants.  It
+> > > > > > was tested and functional on all reference platforms and any OE=
+M
+> > > > > > platforms that launched with Linux support.  There are a lot of
+> > > > > > dependencies on sbios in the early raven variants (0x15dd), so
+> it's
+> > > > > > likely more of a specific platform issue, but there is not a
+> good way
+> > > > > > to detect this so we use the DID/SSID/RID as a proxy.  The newe=
+r
+> raven
+> > > > > > variants (0x15d8) have much better GFXOFF support since they al=
+l
+> > > > > > shipped with newer firmware and sbios.
+> > > > >
+> > > > > We took one of the first reference platform boards to design our
+> > > > > custom board based on the V1605B and I assume it has one of the
+> early 'unstable'
+> > > > > raven variants with RID 0x83. Also, as OEM we are in control of
+> the bios
+> > > > > (provided by insyde) but I wasn't sure about the RID so, thanks
+> for the
+> > > > > clarification. Is there anything we can do with the bios to have
+> the GFXOFF
+> > > > > enabled and 'stable' for this particular revision? Otherwise we'd
+> need to add
+> > > > > the 0x83 RID to the table. Also, there is an extra ']' in the pat=
+ch
+> > > > > subject. Sorry
+> > > > > for that. Would you need a new patch in case you accept it with
+> the ']' removed?
+> > > > >
+> > > > > Good to hear that the newer raven versions have better GFXOFF
+> support.
+> > > >
+> > > > Adding Alex Desnoyer to the loop as he is the electronic/hardware a=
+nd
+> > > > bios responsible so, he can
+> > > > provide more information about this.
+> > >
+> > > Hello everyone,
+> > >
+> > > We, Qtechnology, are the OEM of the hardware platform where we
+> > > originally discovered the bug.  Our platform is based on the AMD
+> > > Dibbler V-1000 reference design, with the latest Insyde BIOS release
+> > > available for the (now unsupported) Dibbler platform.  We have the
+> > > Insyde BIOS source code internally, so we can make some modifications
+> > > as needed.
+> > >
+> > > The last test that Daniel and myself performed was on a standard
+> > > Dibbler PCB rev.B1 motherboard (NOT our platform), and using the
+> > > corresponding latest AMD released BIOS "RDB1109GA".  As Daniel wrote,
+> > > the hardware lockup can be reproduced on the Dibbler, even if it has =
+a
+> > > different RID that our V1605B APU.
+> > >
+> > > We also have a Neousys Technology POC-515 embedded computer (V-1000,
+> > > V1605B) in our office.  The Neousys PC also uses Insyde BIOS.  This
+> > > computer is also locking-up in the test.
+> > >
+> https://www.neousys-tech.com/en/product/application/rugged-embedded/poc-5=
+00-amd-ryzen-ultra-compact-embedded-computer
+> > >
+> > >
+> > > Digging into the BIOS source code, the only reference to GFXOFF is in
+> > > the SMU and PSP firmware release notes, where some bug fixes have bee=
+n
+> > > mentioned for previous SMU/PSP releases.  After a quick "git grep -i
+> > > gfx | grep -i off", there seems to be no mention of GFXOFF in the
+> > > Insyde UEFI (inluding AMD PI) code base.  I would appreciate any
+> > > information regarding BIOS modification needed to make the GFXOFF
+> > > feature stable.  As you (Alex Deucher) mentionned, it should be
+> > > functional on all AMD Raven reference platforms.
+> > >
+> >
+> > It's handled by the firmwares carried by the sbios.  I'm not sure what
+> > versions off hand.  Probably want to make sure you have the latest
+> > ones.  Do you have an AMD partner contact?  It might be best to bring
+> > this up with them.
+> I'm sure we were using the latest but let us double-check with our
+> AMD partner and insyde just in case.
+> >
+> > Regarding the issues you are seeing is this a general issue with all
+> > workloads that use the GFX shader cores?  Or just specific workloads?
+> > If it's just compute workloads, you might try this patch.  It may fix
+> > the issue for you.
+> Thanks Alex for the patch. I think it's kind of a general issue with all
+> the
+> workloads but the way we've been able to reproduce it was with the
+> MatrixMultiplication test (from AMD) and clinfo. With the patch, I'm
+> still able to reproduce the problem in our custom board. I'll check it
+> tomorrow on the dribbler.
+>
+Quick update on this:
+I've tested the patch on the dribbler and the hang also occurs. What
+we are now trying to figure out if we actually have the latest bios
+available for the V1605B (we think we do) but this might take a while
+(already reported
+to the AMD partner).
+To add more info about our current bios:
+Dibbler:
+-  Version: RDB1109GA
+-  AGESA version: RavenPi-FP5-AM4 1.1.0.9
+-  VBIOS 0113
+QT5222 (V1605B with Radeon Vega Gfx 8):
+-  Version: 0.0.29
+-  AGESA version: RavenPi-FP5-AM4 1.1.0.A
+-  VBIOS 0115
+
+Also, in the release notes for the latest amdgpu release available in the
+amd support page
+says: "Disable the GFXOFF for OpenCL(ROCm 3.8) usage as below in the grub.
+Workaround: add =E2=80=9Camdgpu.ppfeaturemask=3D0xffff3fff=E2=80=9Din the g=
+rub." which
+confirms the issue.
+https://drivers.amd.com/relnotes/linux_driver_2020.40_release_notes.pdf
+
+My final question would be if we can/should add the patch as there are
+other raven
+devices already added with different revision 0x1002:0x15dd {0xc8,0xc6} or
+we
+should wait forAMD-partner confirmation to know if the bios/raven is buggy
+or not.
+
+>
+> > Alex
+> >
+> >
+> > >
+> > > Regards,
+> > >
+> > > Alexandre Desnoyers
+> > >
+> > >
+> > > >
+> > > > I've now done a test on the reference platform (dibbler) with the
+> > > > latest bios available
+> > > > and the hw lockup can be also reproduced with the same steps.
+> > > >
+> > > > For reference, I'm using mainline kernel 5.12-rc2.
+> > > >
+> > > > [    5.938544] [drm] initializing kernel modesetting (RAVEN
+> > > > 0x1002:0x15DD 0x1002:0x15DD 0xC1).
+> > > > [    5.939942] amdgpu: ATOM BIOS: 113-RAVEN-11
+> > > >
+> > > > As in the previous cases, the clocks go to 100% of usage when the
+> hang occurs.
+> > > >
+> > > > However, when the gpu hangs, dmesg output displays the following:
+> > > >
+> > > > [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+> > > > timeout, signaled seq=3D188, emitted seq=3D191
+> > > > [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process
+> > > > information: process Xorg pid 311 thread Xorg:cs0 pid 312
+> > > > [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+> > > > timeout, signaled seq=3D188, emitted seq=3D191
+> > > > [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process
+> > > > information: process Xorg pid 311 thread Xorg:cs0 pid 312
+> > > > [ 1568.507000] amdgpu 0000:01:00.0: amdgpu: GPU reset begin!
+> > > > [ 1628.491882] rcu: INFO: rcu_sched self-detected stall on CPU
+> > > > [ 1628.491882] rcu:     3-...!: (665 ticks this GP)
+> > > > idle=3Df9a/1/0x4000000000000000 softirq=3D188533/188533 fqs=3D15
+> > > > [ 1628.491882] rcu: rcu_sched kthread timer wakeup didn't happen fo=
+r
+> > > > 58497 jiffies! g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=3D0x402
+> > > > [ 1628.491882] rcu:     Possible timer handling issue on cpu=3D2
+> > > > timer-softirq=3D55225
+> > > > [ 1628.491882] rcu: rcu_sched kthread starved for 58500 jiffies!
+> > > > g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=3D0x402 ->cpu=3D2
+> > > > [ 1628.491882] rcu:     Unless rcu_sched kthread gets sufficient CP=
+U
+> > > > time, OOM is now expected behavior.
+> > > > [ 1628.491882] rcu: RCU grace-period kthread stack dump:
+> > > > [ 1628.491882] rcu: Stack dump where RCU GP kthread last ran:
+> > > > [ 1808.518445] rcu: INFO: rcu_sched self-detected stall on CPU
+> > > > [ 1808.518445] rcu:     3-...!: (2643 ticks this GP)
+> > > > idle=3Df9a/1/0x4000000000000000 softirq=3D188533/188533 fqs=3D15
+> > > > [ 1808.518445] rcu: rcu_sched kthread starved for 238526 jiffies!
+> > > > g726761 f0x0 RCU_GP_WAIT_FQS(5) ->state=3D0x0 ->cpu=3D2
+> > > > [ 1808.518445] rcu:     Unless rcu_sched kthread gets sufficient CP=
+U
+> > > > time, OOM is now expected behavior.
+> > > > [ 1808.518445] rcu: RCU grace-period kthread stack dump:
+> > > > [ 1808.518445] rcu: Stack dump where RCU GP kthread last ran:
+> > > >
+> > > > >
+> > > > > Daniel
+> > > > >
+> > > > > >
+> > > > > > Alex
+> > > > > >
+> > > > > >
+> > > > > > >
+> > > > > > > Logs:
+> > > > > > > [   27.708348] [drm] initializing kernel modesetting (RAVEN
+> > > > > > > 0x1002:0x15DD 0x1002:0x15DD 0x83).
+> > > > > > > [   27.789156] amdgpu: ATOM BIOS: 113-RAVEN-115
+> > > > > > >
+> > > > > > > Thanks in advance,
+> > > > > > > Daniel
+> > > > > > >
+> > > > > > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+> > > > > > >  1 file changed, 2 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > > index 65db88bb6cbc..319d4b99aec8 100644
+> > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > > @@ -1243,6 +1243,8 @@ static const struct amdgpu_gfxoff_quirk
+> amdgpu_gfxoff_quirk_list[] =3D {
+> > > > > > >         { 0x1002, 0x15dd, 0x103c, 0x83e7, 0xd3 },
+> > > > > > >         /* GFXOFF is unstable on C6 parts with a VBIOS
+> 113-RAVEN-114 */
+> > > > > > >         { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+> > > > > > > +       /* GFXOFF provokes a hw lockup on 83 parts with a
+> VBIOS 113-RAVEN-115 */
+> > > > > > > +       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0x83 },
+> > > > > > >         { 0, 0, 0, 0, 0 },
+> > > > > > >  };
+> > > > > > >
+> > > > > > > --
+> > > > > > > 2.30.1
+> > > > > > >
+> > > > > > > _______________________________________________
+> > > > > > > dri-devel mailing list
+> > > > > > > dri-devel@lists.freedesktop.org
+> > > > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+
+--000000000000d6b6a905bd593c04
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, 11 Mar 2021 at 21:00, Daniel =
+Gomez &lt;<a href=3D"mailto:daniel@qtec.com" target=3D"_blank">daniel@qtec.=
+com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">On Thu, 11 Mar 2021 at 17:10, Alex Deucher &lt;<a href=3D"mailto:alexdeu=
+cher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Thu, Mar 11, 2021 at 10:02 AM Alexandre Desnoyers &lt;<a href=3D"ma=
+ilto:alex@qtec.com" target=3D"_blank">alex@qtec.com</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; On Thu, Mar 11, 2021 at 2:49 PM Daniel Gomez &lt;<a href=3D"mailt=
+o:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt; wrote:<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; On Thu, 11 Mar 2021 at 10:09, Daniel Gomez &lt;<a href=3D"ma=
+ilto:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt; wrote:<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; On Wed, 10 Mar 2021 at 18:06, Alex Deucher &lt;<a href=
+=3D"mailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</=
+a>&gt; wrote:<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; On Wed, Mar 10, 2021 at 11:37 AM Daniel Gomez &lt;=
+<a href=3D"mailto:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt=
+; wrote:<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Disabling GFXOFF via the quirk list fixes a h=
+ardware lockup in<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Ryzen V1605B, RAVEN 0x1002:0x15DD rev 0x83.<b=
+r>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Signed-off-by: Daniel Gomez &lt;<a href=3D"ma=
+ilto:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; ---<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; This patch is a continuation of the work here=
+:<br>
+&gt; &gt; &gt; &gt; &gt; &gt; <a href=3D"https://lkml.org/lkml/2021/2/3/122=
+" rel=3D"noreferrer" target=3D"_blank">https://lkml.org/lkml/2021/2/3/122</=
+a> where a hardware lockup was discussed and<br>
+&gt; &gt; &gt; &gt; &gt; &gt; a dma_fence deadlock was provoke as a side ef=
+fect. To reproduce the issue<br>
+&gt; &gt; &gt; &gt; &gt; &gt; please refer to the above link.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; The hardware lockup was introduced in 5.6-rc1=
+ for our particular revision as it<br>
+&gt; &gt; &gt; &gt; &gt; &gt; wasn&#39;t part of the new blacklist. Before =
+that, in kernel v5.5, this hardware was<br>
+&gt; &gt; &gt; &gt; &gt; &gt; working fine without any hardware lock becaus=
+e the GFXOFF was actually disabled<br>
+&gt; &gt; &gt; &gt; &gt; &gt; by the if condition for the CHIP_RAVEN case. =
+So this patch, adds the &#39;Radeon<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Vega Mobile Series [1002:15dd] (rev 83)&#39; =
+to the blacklist to disable the GFXOFF.<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; But besides the fix, I&#39;d like to ask from=
+ where this revision comes from. Is it<br>
+&gt; &gt; &gt; &gt; &gt; &gt; an ASIC revision or is it hardcoded in the VB=
+IOS from our vendor? From what I<br>
+&gt; &gt; &gt; &gt; &gt; &gt; can see, it comes from the ASIC and I wonder =
+if somehow we can get an APU in the<br>
+&gt; &gt; &gt; &gt; &gt; &gt; future, &#39;not blacklisted&#39;, with the s=
+ame problem. Then, should this table only<br>
+&gt; &gt; &gt; &gt; &gt; &gt; filter for the vendor and device and not the =
+revision? Do you know if there are<br>
+&gt; &gt; &gt; &gt; &gt; &gt; any revisions for the 1002:15dd validated, te=
+sted and functional?<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; The pci revision id (RID) is used to specify the s=
+pecific SKU within a<br>
+&gt; &gt; &gt; &gt; &gt; family.=C2=A0 GFXOFF is supposed to be working on =
+all raven variants.=C2=A0 It<br>
+&gt; &gt; &gt; &gt; &gt; was tested and functional on all reference platfor=
+ms and any OEM<br>
+&gt; &gt; &gt; &gt; &gt; platforms that launched with Linux support.=C2=A0 =
+There are a lot of<br>
+&gt; &gt; &gt; &gt; &gt; dependencies on sbios in the early raven variants =
+(0x15dd), so it&#39;s<br>
+&gt; &gt; &gt; &gt; &gt; likely more of a specific platform issue, but ther=
+e is not a good way<br>
+&gt; &gt; &gt; &gt; &gt; to detect this so we use the DID/SSID/RID as a pro=
+xy.=C2=A0 The newer raven<br>
+&gt; &gt; &gt; &gt; &gt; variants (0x15d8) have much better GFXOFF support =
+since they all<br>
+&gt; &gt; &gt; &gt; &gt; shipped with newer firmware and sbios.<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; We took one of the first reference platform boards to d=
+esign our<br>
+&gt; &gt; &gt; &gt; custom board based on the V1605B and I assume it has on=
+e of the early &#39;unstable&#39;<br>
+&gt; &gt; &gt; &gt; raven variants with RID 0x83. Also, as OEM we are in co=
+ntrol of the bios<br>
+&gt; &gt; &gt; &gt; (provided by insyde) but I wasn&#39;t sure about the RI=
+D so, thanks for the<br>
+&gt; &gt; &gt; &gt; clarification. Is there anything we can do with the bio=
+s to have the GFXOFF<br>
+&gt; &gt; &gt; &gt; enabled and &#39;stable&#39; for this particular revisi=
+on? Otherwise we&#39;d need to add<br>
+&gt; &gt; &gt; &gt; the 0x83 RID to the table. Also, there is an extra &#39=
+;]&#39; in the patch<br>
+&gt; &gt; &gt; &gt; subject. Sorry<br>
+&gt; &gt; &gt; &gt; for that. Would you need a new patch in case you accept=
+ it with the &#39;]&#39; removed?<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; Good to hear that the newer raven versions have better =
+GFXOFF support.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Adding Alex Desnoyer to the loop as he is the electronic/har=
+dware and<br>
+&gt; &gt; &gt; bios responsible so, he can<br>
+&gt; &gt; &gt; provide more information about this.<br>
+&gt; &gt;<br>
+&gt; &gt; Hello everyone,<br>
+&gt; &gt;<br>
+&gt; &gt; We, Qtechnology, are the OEM of the hardware platform where we<br=
+>
+&gt; &gt; originally discovered the bug.=C2=A0 Our platform is based on the=
+ AMD<br>
+&gt; &gt; Dibbler V-1000 reference design, with the latest Insyde BIOS rele=
+ase<br>
+&gt; &gt; available for the (now unsupported) Dibbler platform.=C2=A0 We ha=
+ve the<br>
+&gt; &gt; Insyde BIOS source code internally, so we can make some modificat=
+ions<br>
+&gt; &gt; as needed.<br>
+&gt; &gt;<br>
+&gt; &gt; The last test that Daniel and myself performed was on a standard<=
+br>
+&gt; &gt; Dibbler PCB rev.B1 motherboard (NOT our platform), and using the<=
+br>
+&gt; &gt; corresponding latest AMD released BIOS &quot;RDB1109GA&quot;.=C2=
+=A0 As Daniel wrote,<br>
+&gt; &gt; the hardware lockup can be reproduced on the Dibbler, even if it =
+has a<br>
+&gt; &gt; different RID that our V1605B APU.<br>
+&gt; &gt;<br>
+&gt; &gt; We also have a Neousys Technology POC-515 embedded computer (V-10=
+00,<br>
+&gt; &gt; V1605B) in our office.=C2=A0 The Neousys PC also uses Insyde BIOS=
+.=C2=A0 This<br>
+&gt; &gt; computer is also locking-up in the test.<br>
+&gt; &gt; <a href=3D"https://www.neousys-tech.com/en/product/application/ru=
+gged-embedded/poc-500-amd-ryzen-ultra-compact-embedded-computer" rel=3D"nor=
+eferrer" target=3D"_blank">https://www.neousys-tech.com/en/product/applicat=
+ion/rugged-embedded/poc-500-amd-ryzen-ultra-compact-embedded-computer</a><b=
+r>
+&gt; &gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Digging into the BIOS source code, the only reference to GFXOFF i=
+s in<br>
+&gt; &gt; the SMU and PSP firmware release notes, where some bug fixes have=
+ been<br>
+&gt; &gt; mentioned for previous SMU/PSP releases.=C2=A0 After a quick &quo=
+t;git grep -i<br>
+&gt; &gt; gfx | grep -i off&quot;, there seems to be no mention of GFXOFF i=
+n the<br>
+&gt; &gt; Insyde UEFI (inluding AMD PI) code base.=C2=A0 I would appreciate=
+ any<br>
+&gt; &gt; information regarding BIOS modification needed to make the GFXOFF=
+<br>
+&gt; &gt; feature stable.=C2=A0 As you (Alex Deucher) mentionned, it should=
+ be<br>
+&gt; &gt; functional on all AMD Raven reference platforms.<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; It&#39;s handled by the firmwares carried by the sbios.=C2=A0 I&#39;m =
+not sure what<br>
+&gt; versions off hand.=C2=A0 Probably want to make sure you have the lates=
+t<br>
+&gt; ones.=C2=A0 Do you have an AMD partner contact?=C2=A0 It might be best=
+ to bring<br>
+&gt; this up with them.<br>
+I&#39;m sure we were using the latest but let us double-check with our<br>
+AMD partner and insyde just in case.<br>
+&gt;<br>
+&gt; Regarding the issues you are seeing is this a general issue with all<b=
+r>
+&gt; workloads that use the GFX shader cores?=C2=A0 Or just specific worklo=
+ads?<br>
+&gt; If it&#39;s just compute workloads, you might try this patch.=C2=A0 It=
+ may fix<br>
+&gt; the issue for you.<br>
+Thanks Alex for the patch. I think it&#39;s kind of a general issue with al=
+l the<br>
+workloads but the way we&#39;ve been able to reproduce it was with the<br>
+MatrixMultiplication test (from AMD) and clinfo. With the patch, I&#39;m<br=
+>
+still able to reproduce the problem in our custom board. I&#39;ll check it<=
+br>
+tomorrow on the dribbler.<br></blockquote><div>Quick update on this:</div><=
+div>I&#39;ve tested the patch on the dribbler and the hang also occurs. Wha=
+t</div><div>we are now trying to figure out if we actually have the latest =
+bios</div><div>available for the V1605B (we think we do) but this might tak=
+e a while (already reported</div><div>to the AMD partner).<br></div><div>To=
+ add more info about our current bios:</div><div>Dibbler: <br></div><div>-=
+=C2=A0 Version: RDB1109GA</div><div>-=C2=A0 AGESA version: RavenPi-FP5-AM4 =
+1.1.0.9</div><div>-=C2=A0 VBIOS 0113</div><div>QT5222 (V1605B with Radeon V=
+ega Gfx 8):</div><div>-=C2=A0 Version: 0.0.29<div>-=C2=A0 AGESA version: Ra=
+venPi-FP5-AM4 1.1.0.A</div><div>-=C2=A0 VBIOS 0115</div><div><br></div><div=
+>Also, in the release notes for the latest amdgpu release available in the =
+amd support page</div><div>says: &quot;Disable the GFXOFF for OpenCL(ROCm 3=
+.8) usage as below in the grub.</div><div>Workaround: add =E2=80=9Camdgpu.p=
+pfeaturemask=3D0xffff3fff=E2=80=9Din the grub.&quot; which confirms the iss=
+ue.<br></div><div><a href=3D"https://drivers.amd.com/relnotes/linux_driver_=
+2020.40_release_notes.pdf">https://drivers.amd.com/relnotes/linux_driver_20=
+20.40_release_notes.pdf</a></div><div><br></div>My final question would be =
+if we can/should add the patch as there are other raven</div><div>devices a=
+lready added with different revision 0x1002:0x15dd {0xc8,0xc6} or we <br></=
+div><div>should wait forAMD-partner confirmation to know if the bios/raven =
+is buggy or not.</div><div><div><br></div></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+&gt;<br>
+&gt; Alex<br>
+&gt;<br>
+&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Regards,<br>
+&gt; &gt;<br>
+&gt; &gt; Alexandre Desnoyers<br>
+&gt; &gt;<br>
+&gt; &gt;<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; I&#39;ve now done a test on the reference platform (dibbler)=
+ with the<br>
+&gt; &gt; &gt; latest bios available<br>
+&gt; &gt; &gt; and the hw lockup can be also reproduced with the same steps=
+.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; For reference, I&#39;m using mainline kernel 5.12-rc2.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; [=C2=A0 =C2=A0 5.938544] [drm] initializing kernel modesetti=
+ng (RAVEN<br>
+&gt; &gt; &gt; 0x1002:0x15DD 0x1002:0x15DD 0xC1).<br>
+&gt; &gt; &gt; [=C2=A0 =C2=A0 5.939942] amdgpu: ATOM BIOS: 113-RAVEN-11<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; As in the previous cases, the clocks go to 100% of usage whe=
+n the hang occurs.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; However, when the gpu hangs, dmesg output displays the follo=
+wing:<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ri=
+ng gfx<br>
+&gt; &gt; &gt; timeout, signaled seq=3D188, emitted seq=3D191<br>
+&gt; &gt; &gt; [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Pr=
+ocess<br>
+&gt; &gt; &gt; information: process Xorg pid 311 thread Xorg:cs0 pid 312<br=
+>
+&gt; &gt; &gt; [ 1568.279847] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ri=
+ng gfx<br>
+&gt; &gt; &gt; timeout, signaled seq=3D188, emitted seq=3D191<br>
+&gt; &gt; &gt; [ 1568.434084] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Pr=
+ocess<br>
+&gt; &gt; &gt; information: process Xorg pid 311 thread Xorg:cs0 pid 312<br=
+>
+&gt; &gt; &gt; [ 1568.507000] amdgpu 0000:01:00.0: amdgpu: GPU reset begin!=
+<br>
+&gt; &gt; &gt; [ 1628.491882] rcu: INFO: rcu_sched self-detected stall on C=
+PU<br>
+&gt; &gt; &gt; [ 1628.491882] rcu:=C2=A0 =C2=A0 =C2=A03-...!: (665 ticks th=
+is GP)<br>
+&gt; &gt; &gt; idle=3Df9a/1/0x4000000000000000 softirq=3D188533/188533 fqs=
+=3D15<br>
+&gt; &gt; &gt; [ 1628.491882] rcu: rcu_sched kthread timer wakeup didn&#39;=
+t happen for<br>
+&gt; &gt; &gt; 58497 jiffies! g726761 f0x0 RCU_GP_WAIT_FQS(5) -&gt;state=3D=
+0x402<br>
+&gt; &gt; &gt; [ 1628.491882] rcu:=C2=A0 =C2=A0 =C2=A0Possible timer handli=
+ng issue on cpu=3D2<br>
+&gt; &gt; &gt; timer-softirq=3D55225<br>
+&gt; &gt; &gt; [ 1628.491882] rcu: rcu_sched kthread starved for 58500 jiff=
+ies!<br>
+&gt; &gt; &gt; g726761 f0x0 RCU_GP_WAIT_FQS(5) -&gt;state=3D0x402 -&gt;cpu=
+=3D2<br>
+&gt; &gt; &gt; [ 1628.491882] rcu:=C2=A0 =C2=A0 =C2=A0Unless rcu_sched kthr=
+ead gets sufficient CPU<br>
+&gt; &gt; &gt; time, OOM is now expected behavior.<br>
+&gt; &gt; &gt; [ 1628.491882] rcu: RCU grace-period kthread stack dump:<br>
+&gt; &gt; &gt; [ 1628.491882] rcu: Stack dump where RCU GP kthread last ran=
+:<br>
+&gt; &gt; &gt; [ 1808.518445] rcu: INFO: rcu_sched self-detected stall on C=
+PU<br>
+&gt; &gt; &gt; [ 1808.518445] rcu:=C2=A0 =C2=A0 =C2=A03-...!: (2643 ticks t=
+his GP)<br>
+&gt; &gt; &gt; idle=3Df9a/1/0x4000000000000000 softirq=3D188533/188533 fqs=
+=3D15<br>
+&gt; &gt; &gt; [ 1808.518445] rcu: rcu_sched kthread starved for 238526 jif=
+fies!<br>
+&gt; &gt; &gt; g726761 f0x0 RCU_GP_WAIT_FQS(5) -&gt;state=3D0x0 -&gt;cpu=3D=
+2<br>
+&gt; &gt; &gt; [ 1808.518445] rcu:=C2=A0 =C2=A0 =C2=A0Unless rcu_sched kthr=
+ead gets sufficient CPU<br>
+&gt; &gt; &gt; time, OOM is now expected behavior.<br>
+&gt; &gt; &gt; [ 1808.518445] rcu: RCU grace-period kthread stack dump:<br>
+&gt; &gt; &gt; [ 1808.518445] rcu: Stack dump where RCU GP kthread last ran=
+:<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; Daniel<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; Alex<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Logs:<br>
+&gt; &gt; &gt; &gt; &gt; &gt; [=C2=A0 =C2=A027.708348] [drm] initializing k=
+ernel modesetting (RAVEN<br>
+&gt; &gt; &gt; &gt; &gt; &gt; 0x1002:0x15DD 0x1002:0x15DD 0x83).<br>
+&gt; &gt; &gt; &gt; &gt; &gt; [=C2=A0 =C2=A027.789156] amdgpu: ATOM BIOS: 1=
+13-RAVEN-115<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Thanks in advance,<br>
+&gt; &gt; &gt; &gt; &gt; &gt; Daniel<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c |=
+ 2 ++<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 1 file changed, 2 insertions(+)<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v=
+9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; &gt; &gt; &gt; &gt; &gt; index 65db88bb6cbc..319d4b99aec8 100644<br>
+&gt; &gt; &gt; &gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<b=
+r>
+&gt; &gt; &gt; &gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<b=
+r>
+&gt; &gt; &gt; &gt; &gt; &gt; @@ -1243,6 +1243,8 @@ static const struct amd=
+gpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] =3D {<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{ 0x1002, 0x=
+15dd, 0x103c, 0x83e7, 0xd3 },<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* GFXOFF is=
+ unstable on C6 parts with a VBIOS 113-RAVEN-114 */<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{ 0x1002, 0x=
+15dd, 0x1002, 0x15dd, 0xc6 },<br>
+&gt; &gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* GFXOFF provoke=
+s a hw lockup on 83 parts with a VBIOS 113-RAVEN-115 */<br>
+&gt; &gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0{ 0x1002, 0x15dd,=
+ 0x1002, 0x15dd, 0x83 },<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{ 0, 0, 0, 0=
+, 0 },<br>
+&gt; &gt; &gt; &gt; &gt; &gt;=C2=A0 };<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; --<br>
+&gt; &gt; &gt; &gt; &gt; &gt; 2.30.1<br>
+&gt; &gt; &gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt; &gt; &gt; &gt; _____________________________________________=
+__<br>
+&gt; &gt; &gt; &gt; &gt; &gt; dri-devel mailing list<br>
+&gt; &gt; &gt; &gt; &gt; &gt; <a href=3D"mailto:dri-devel@lists.freedesktop=
+.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a><br>
+&gt; &gt; &gt; &gt; &gt; &gt; <a href=3D"https://lists.freedesktop.org/mail=
+man/listinfo/dri-devel" rel=3D"noreferrer" target=3D"_blank">https://lists.=
+freedesktop.org/mailman/listinfo/dri-devel</a><br>
+</blockquote></div></div>
+
+--000000000000d6b6a905bd593c04--
+
+--===============1806759776==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1806759776==--
