@@ -2,132 +2,129 @@ Return-Path: <SRS0=mwd6=IK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58EE3C433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 15:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB412C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 15:27:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCA6564FF3
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 15:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCA6564FF3
+	by mail.kernel.org (Postfix) with ESMTPS id 3AD7A64FFB
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Mar 2021 15:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AD7A64FFB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44EAC6F891;
-	Fri, 12 Mar 2021 15:22:06 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700084.outbound.protection.outlook.com [40.107.70.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E098D6F891;
- Fri, 12 Mar 2021 15:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C33F16F893;
+	Fri, 12 Mar 2021 15:27:08 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690060.outbound.protection.outlook.com [40.107.69.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F9AB6F893
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Mar 2021 15:27:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S4DoNmLMvx8h6NJzU54yo9jHySkTQeIjeB3Sx0D6WThFy5iWfhqpjgN5szEJLhAqZuLaN7NvrrLlnrufHmFduSWWPZ36m+xk5rZP4HvPo2dMCkVP2M/XN4+neoedWo8x++/EVNBZuNlXumLyD2IjJ1HJJY6Zy1BWbfnAUfAzAHNivvBTt37EvVTk/bB5FSVgJ2bE1QpiqplIa4gRTDCth2ffRrN5GZXebkWIRgOC0FsoU9OVlBaLOhVWFRtSLqSbCC8UL7tn/UnLwNBOhxSCpgocF0fF9bBJcGwbcJSQ8bjCRC9Lwwx5/PllJ2Iy7mbpMWQTrsY29/D1+X56dLD2Hg==
+ b=a1jENth++VS+CYRkS3SEfmJSqBbLw/168JxvJz6wzj8qT1baY9cSptOS0PWziOeGIvn3km8xlIDcbsljvVUTLf/PZXlnELELVUs0GWiQH1a7Sq6oyIkQ3cObaNECP8wmwdc495dVNe8CNTkqQCHJghmR4UOkHEv2GoCLKJSawA0FI/XRmPcOnqpArYYSjRGD+ARaMnffeiVLgPvs+wIY9SA2cJTK6aYqGa23hNisFSSci87Kg58t2ZlIDgHDcQEE2woOqBVAvVASUKXL6MYi2S6ciiyuEeWaKz6ZUM69FkCi/2Zvon1clF2opmICuwJ9ybWcuttxONXnartIW/j9iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQhL2py7RJJUwN9CI+vkCUQjijpKu7ZEk5upLHpUHeU=;
- b=KWNruQPuZbshj2jz5mw0p50wBnrjrH5cQ9l9lP9tfLYvfXu6Y1TE4U6utwXZLsiWRBrV7tLk6VDVyOTvDEvVXXpF/QF2InRx0bmdVIwVPcOqTGBcbHOB0k1d7jKCJ9PGuunzAujUCgfHfDrYSSZFPEPscQRsCrSNMT88pgZGQ6zmq+2hzdl1DUjYNrK0NdMpkNZedIDaCC59l8KnklrtOUivxtSvw7wsuvgFqembXV46KU3pbjL5jlTJwyYc+RtKkucw+YKM6a9jzo9gG0Bj1yt+/cvfOyOy2KTS8eKqJIZQH/oRsYC7bPfnTn2JX+XLCv2HGT3XBhKD8dnWk7sgZw==
+ bh=WqEJuJvRQZCf5aWbf1V31UXwZnbzL/MfrRyiNIWSB9A=;
+ b=E12Ld/fKWcS0Ud5bivAxJFZdwZaIAHnxMoEcfs9Pcxjv/vxMkI/NQrfmjfFxTg33g8cux4aDn4kKBlWbFxxk6qGGaaJrJPUOEGQ/xrskq1GTt+myJDoYzacapLR8MDvEn1Bpb/gdr1ut+/PbqQYJc2Uq2C+ED8os2QKKtBzFPo41Dkkw5d/xshKsGgtVMkTtB4LTwijPn2AB5CCRZvSH/vZpzrqjNwPUNs9q8AGDVw2ZR7TCy9+fPmHeNpwCkcmFVpdADtbPv6YS9IrIV/L6jaAckVumZqKe/N99d4EMMjvSVbV3wKBMYoVl1VSsFY66asYGfq/cFQhGlWRRwVVuyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQhL2py7RJJUwN9CI+vkCUQjijpKu7ZEk5upLHpUHeU=;
- b=Lenyi9eUIuUhFYFOcDQJRwcjrX/1Ye3/CKhblI6ZITwsuJZSz0SwQTozzwLY9cjRnUkQD9QAFCP9IYbaIqSsuUxrn3cNFCRwPA+Inw6qj9quTLOB/94+R0Kkv4PuHgnxHFeorIhEnWfe/+dOzWGMcyjuqXZQqmXRGSr/IqKnniU=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SA0PR12MB4398.namprd12.prod.outlook.com (2603:10b6:806:9f::8) with
+ bh=WqEJuJvRQZCf5aWbf1V31UXwZnbzL/MfrRyiNIWSB9A=;
+ b=WiwMZHRRhwg4sQofTgy9e6R6tN3bcHybT08KAuvORMQ1itHevlfHSqIRepxwWpQMTcQexR6BtayC7JvTQs5x9J2Qwkmlj5h3OOYL2Qt9PYbQ71QC0Qlfhi28gbKfyK1p34q59Oh24xgwRP6sqduf0B5OKKVoHmsZqK+vDO6I2bY=
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com (2603:10b6:5:1c7::12)
+ by DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Fri, 12 Mar
- 2021 15:22:04 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3912.031; Fri, 12 Mar 2021
- 15:22:04 +0000
-Subject: Re: [PATCH v2] drm/scheduler re-insert Bailing job to avoid memleak
-To: Jack Zhang <Jack.Zhang1@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, Monk.Liu@amd.com,
- Emily.Deng@amd.com
-References: <20210312065025.1094934-1-Jack.Zhang1@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <01a690d2-6b09-8324-863f-babf2782c550@amd.com>
-Date: Fri, 12 Mar 2021 10:22:01 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <20210312065025.1094934-1-Jack.Zhang1@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Fri, 12 Mar
+ 2021 15:27:05 +0000
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::102:2c9a:54ce:63e9]) by DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::102:2c9a:54ce:63e9%6]) with mapi id 15.20.3912.031; Fri, 12 Mar 2021
+ 15:27:05 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Quan, Evan" <Evan.Quan@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough
+ configuration
+Thread-Topic: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough
+ configuration
+Thread-Index: AQHXFpo1/qViy9Iqmk2vLKn/BFJ85qp/tiyAgACmLouAAATrAIAAFoTQ
+Date: Fri, 12 Mar 2021 15:27:05 +0000
+Message-ID: <DM6PR12MB383506A71D683EFED22BE0ABF46F9@DM6PR12MB3835.namprd12.prod.outlook.com>
+References: <20210311171548.10671-1-shaoyun.liu@amd.com>,
+ <MN2PR12MB45495AB3BB248A637F218F38976F9@MN2PR12MB4549.namprd12.prod.outlook.com>
+ <DM6PR12MB3835F2F751F9A0F52009CC5EF46F9@DM6PR12MB3835.namprd12.prod.outlook.com>
+ <MN2PR12MB45495A8F65EBB79F58CCA142976F9@MN2PR12MB4549.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB45495A8F65EBB79F58CCA142976F9@MN2PR12MB4549.namprd12.prod.outlook.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:8dc6:261f:a3f0:6b7e]
-X-ClientProxiedBy: YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::37) To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:8dc6:261f:a3f0:6b7e]
- (2607:fea8:3edf:49b0:8dc6:261f:a3f0:6b7e) by
- YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3912.26 via Frontend Transport; Fri, 12 Mar 2021 15:22:03 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5a9d15e6-561a-4cbf-6c95-08d8e56a972a
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4398:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4398950C96FB89143E13CD36EA6F9@SA0PR12MB4398.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ML+KTCxKXgN3h92l9rbWRFW6bT5Uk4+oLNzQo28BvvfYCeiJDtnpbs8rHiDXJNJvib4GCkGagS+G2ySf0aYEIf0x3g0cPqHpEPeBE3YZPSAvUkVwOymQuKqcvoGAurNYUSuKJ1gyDgX8nQOF7hraPOKkMViSi19CiGX9GYVBS3LNYihnBNoIC4Fk6Yh+203qXecYvP8+s1q/OgVGOJPv36m7kibOk5TLrdWzpEhP8CVLfxAbAshVt/0v59Cq+5TANm6F+/iUCJGHyfUM6R2hWJ3gY5fnvvK7OyuYM9ARncN7zYQsgINszXTKCv4cP6XVhauRc1CW2plGQ8QxDLcXZnNIX6mKtUYcbbBChazYIsy7oi7ee2vK3P52VPZi6EW20b64YPf68LrEwpj+gpQ32hxDo4haEu35ykDjGlkK2E2G79BD1IiYDY81TyBIK7nXQY0EvKnUrB1SUi7G6H7kln34Un2DcyP/XkrduXGHjeWzvjxjTOK4SIu0feHu+tBj0BK1vmK3yVmDg/4zCN35lEr/eZZe2UsD/CWo+xCdqJTosCHNWHCYGt3ns4kH9Z8qed2P05SW74BqIv/wtIVRlDj2C1VO9NyXTACtru0wqLCusbzCgY1tRRLSENWmb5ELd5P1D0op+YLt0Wffb3YVGj7X3/SAM97JWuZxU9aHTzzoJnfKYWMoLm+o8s0d/3J6k9+rWZme+D3tUR9RHzNVjuJ5xpu7Ql7CQXw3hOI/h2E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(346002)(366004)(39860400002)(36756003)(450100002)(6636002)(5660300002)(53546011)(66946007)(6486002)(16526019)(966005)(478600001)(66476007)(316002)(186003)(66556008)(86362001)(31696002)(2906002)(8676002)(52116002)(31686004)(83380400001)(2616005)(8936002)(44832011)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-12T15:27:03Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=ff272384-ee4d-41d9-8a3c-8f064fc901a2;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.11.250]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 9d841da9-c261-49cc-b9f6-08d8e56b4b0b
+x-ms-traffictypediagnostic: DM6PR12MB2602:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB2602BF10EDBF67B61AEA2E57F46F9@DM6PR12MB2602.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dwjWxzoS2GJVeBDqRlrZA752Q890KyFZJlXcRJNtWW+4sLhWIZVtquQzYAWtDTIqqv3X/Ip1XpJ2vvNBFFMEKhNMciLJEpIlFAs67zfVOzeU6oEx+QwbA+cgiojgsbGbTTSFXJ+mesbwCfmv82QwOUst69KAkFjJ84C3BGnJSbFYqFNNJqvjZtDfhb4ARy2t4yYuOAAu0aIH0pXrs9mSyLPp/PQbSznlrgRPpPYkGGz1+dCQRaKMgw0op/STCQqwoc2EwEsPxb6x9FfoAZi1qPMzdernwoMqK1k0lZ1uwsP0YLhFe3Owwx8GllYvxdI1G/HGgj4VSe/A62Bcxttv8h6OJPNudgtdKROJXlhPE/VeZ7cwY/4CBm6xp2PtLA0+PkClKuze1lA0DdRKW5uQ+AJTvhrUT9P7Fb9ScxxE7a6QT6JFmHCDWiqp2E76gaRPphfMbhz4vz//1Wun853Dr5fO9wz2dPEgS0Na/51CXKt1NRnfXnK4PkfahxeXTqXIpuINCow9hrIsu/M0sQOfO3QcuNWYb0F+B9sOmO3mr+1G7+yPywniEiX9T+FmscfOq0dDHIRo1GUOMltuZLx9QQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(33656002)(83380400001)(166002)(76116006)(66476007)(66556008)(66946007)(66446008)(64756008)(316002)(52536014)(7696005)(966005)(2906002)(5660300002)(6506007)(53546011)(45080400002)(26005)(86362001)(8676002)(9686003)(6636002)(478600001)(110136005)(55016002)(8936002)(71200400001)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dWJrazlvSG5oN3NhVnNLdWZKRVFBaEVVV05EWCtxcXIwQjJ0aUU3bU9Jemt1?=
- =?utf-8?B?dUVhMktDK1c3ZktEeHFuRE44MU1BRVpERy9HSnNMV0xLeGVyV3RNTW9jNHA5?=
- =?utf-8?B?NFJhb1pPc2xBSGhTZVVSTUZrRGx0TFNGTFNHeDdpbFVrVG5UK2x5elVhRThj?=
- =?utf-8?B?VVVZM2lBVXA0SUV4NWxySmxCVURoWXJLS04ycy9WQVpISFV6bEFVa0h0V3JX?=
- =?utf-8?B?dllvR0pUcHRBczUwMWxkWXg5RTZHcTNUTkFsVVIzQUVKRzl0ZldZMnJ0RDVq?=
- =?utf-8?B?K0JQR1BzNjZ0aHc1VWN0eVYrQkRUN0tWLzVLV0c0VWtBb0RMa29oT0g5Rjhr?=
- =?utf-8?B?UDdZdkI4WUNLaVBxSEJtN2VURHg3MGR0SWdCQkdEVmYrWXROS1ZxQXl4V2pj?=
- =?utf-8?B?WjFGRE9QRVZsa1loNVhhd3RFNXM1aUdaNnpiQTNTZFU4RXFWSDdwM0hBUVEy?=
- =?utf-8?B?QktkaUx3QW03OGl5TWVWVGlhRTFrTlF6U3JPTXJHTlJHY201WHQ4MEZFUVhM?=
- =?utf-8?B?UWVpYUpaMzFzVGYvMDVTNTlrTW03dFVRWHcveW11WkNqV0I4clpuOURWcnJ2?=
- =?utf-8?B?NmM2NzJFeFE4VWpzNWlLdFE4R3NhNjhHdEFoTEg2MzFjR3hhSFVXTlA5UnlY?=
- =?utf-8?B?UWc2bzlCQkl2bFFWd1ZzaWdRMk1uODZKSXdyaFNhR1YzRVZVaXYyYjl3ZnAx?=
- =?utf-8?B?dXJmL3ZuU1N0SkVMNSsweVhJUmkwUEkwQUU2ekc5TExxTElMcno3ZHV3VjQx?=
- =?utf-8?B?Z2I3UGpyMHcwdEhiemxHemJQMHhGWmlON05FSlE1YURiajdWSHVRcVZVdUlE?=
- =?utf-8?B?WFVuejN2Q0J5bjZpSTdIN09mS1oydkRUSUsySzhxRzY5UFhVZXd6WXBabmZ1?=
- =?utf-8?B?UkNycVI5U0ZMbHpDbHl0M3lnbHc3SkkxMkpWTStNVCtVRHhCd0dJNnl1ZlFJ?=
- =?utf-8?B?bW5tTVZGWTVLdkwzZFZtc3B1ME82WkcwSGZUTmtrVXdTUzJCQzV1cGNWUitl?=
- =?utf-8?B?Z3NtTmVEMVg5YlE3NnJyZlJnQmVHV2VpVEF6c1F0M3gvRFN2SkRwbGZaREF2?=
- =?utf-8?B?S1djKzd4WXFkQ1NBQkxyd1NyUmFjMkVvUlk3VkloZkhVR3ltbkVIWGZMd0dY?=
- =?utf-8?B?MjFMNW0zR0YwZ1ltcERZa1VsR0MxdWdIVWJkaDdUNHRhM0VoODZPc1ROQlFt?=
- =?utf-8?B?bHpHd1MwWGZMdG9PbkQ3NEZzZy83eXNONXhUU0ZEbXE4dU9NaVV6d1lrN2xR?=
- =?utf-8?B?ZitrdGFDeHVYUnNPV0k3UmMyY3BKMDJBUmpuK1FNRjBQbUxpbVZkMUpyMHZo?=
- =?utf-8?B?QkM5T1o0TGhrRjg4TVBDMlRtcTU1ODJrVHN5TFBRUy9uODJHUWlHK0hLalBh?=
- =?utf-8?B?QmpkZXBRWVhTbjRJTTQ3ajI3WFJYSWRiZXlnOGl1elUxTkZwZUNWSDZuUnJE?=
- =?utf-8?B?T3U3TmxjRkR3bDNUUzIrdExlcVY3dURBY1k0Y05yeFVSWGRjeG1XUW1BcW0x?=
- =?utf-8?B?dXlQMnc0Y0tRa2RuRjVtSytnQXptVGtLKzlJVlFhZnF0SDRsbVdkRGhqRmRP?=
- =?utf-8?B?cU9BdkZTc3JJeWg1ZUdETGR3U2RjMUQ2QlZ4Ny9wREI3eTBGUkRhSlVHL1J6?=
- =?utf-8?B?MHFmZUVEY2hWZEhXbnFuaFpyOGpZbFB6bDFFSDdxeHdzN0ZjQktpb01LQ2Vn?=
- =?utf-8?B?d0doNE9lOWRpMFpyL20vbS9LYkxXM04xSWliMFJ4Y1dpdlg1L3htVTV0dmJH?=
- =?utf-8?B?L0NxbkcvQ25IMHBLOWZRRTlOd1RydjRBL0ltMUpQeXI2UVBDZXdlOGd0RExL?=
- =?utf-8?B?SkxWbXZwbzdjT3Z1Z2tSaERvL0VMK1Fja1pkdkRFZVdFWkFBV0pTdGVZeDg5?=
- =?utf-8?Q?GB5IrTupQOTfu?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?rwBnaw4p2q8tEKir6wqZoY3ta3JZj7NWjke+zzx1zLoRwI+4JkE2D9Lv1M9b?=
+ =?us-ascii?Q?3l8eUr7ODhdHClc3YO1aDAHzSHhr7lU86LiTwhNkkJkVSxJCrmHwjNX4AWRd?=
+ =?us-ascii?Q?pYQKmzLCLCJVLp3tiIoGAhlJPDUNxZI7VbD+MyPzO6P7LvIJE+Y5CzawwI1L?=
+ =?us-ascii?Q?jTtpZY2Df3PQ33ooFhjzELGzplk1Cm725A5zZ7YT0pnFEf9TJZPBcHRSluKk?=
+ =?us-ascii?Q?XBdDxzJF9WLW/KGM1n5wD/pxeE0I2QyUHZoi35GGh3s5ilYAHLr8ivkN8/PN?=
+ =?us-ascii?Q?NNGjTgt8uaNKCPcX5Hlly7Qt8ZDBaofZ01+TrUp2TiObs+izEtPpY2YizsN3?=
+ =?us-ascii?Q?MxUZeDa30a+pM6s9dDuRTFx8mOoZoEHZlX4ww3onjA5j2JNV7HZ1MwksJIJE?=
+ =?us-ascii?Q?fVM0r2l3aDRx3Z383lyz4+9/PbTb0g/0y94VCaqnnoF5jmVI8ZNIq8pNp6cT?=
+ =?us-ascii?Q?yADvjuvDRcivvdHvTIdp66S7c9C+iqCBZSljVnV0sMjjWIPP7ZjvsUvfE5QS?=
+ =?us-ascii?Q?/1Zx0F72nWGSRcWPF59if2tprWfy6pmZNLu2/fCL3uku4V7p3Ss1vFdA7c1f?=
+ =?us-ascii?Q?rkz4UIrzIECEH64U5VJ1+wcQmdFn6jGtM5OqG8AYntjMCEXhrhy43lOek41C?=
+ =?us-ascii?Q?s7ZVPQHHH6HJAvX286ETa4wt9rdXjTDHNxWhIAUhV2wZipkuoAG9LSYvXnMY?=
+ =?us-ascii?Q?i1B92HPuThjqATcYgNjaRC+2wEAhAHfGeeHvrC0+5csYMrYR9DhgpWwoay6j?=
+ =?us-ascii?Q?dmn/ywZuu07gPvwUtBprfIGSZIvoTGtvdaNIIlpeVbK8e2mWJ27QOPOqHoD7?=
+ =?us-ascii?Q?6ltxD2Su+ZxtJhjz2w0+KVEuYBHYl/Hu/YqV/Azzp2uwGHR9SgYyN4bHJ3cB?=
+ =?us-ascii?Q?RB5RKBjiikyaf7HPJGdpoiPPFTKeIG17u1E3fIgPZnU4y0zVi32kuWbTWHDe?=
+ =?us-ascii?Q?agksYmBRRWBajZfn630VWLAX9yYJ4wwbV2Z80Lw+1gWwW8BIG64zR1g0yQRh?=
+ =?us-ascii?Q?AtHlYQ5qH/KDNx2cZf1SFFY/Q9kRYV7xJMuWOxvaQzWPhlzVbCTr7bASqTF1?=
+ =?us-ascii?Q?DdcDp+cMosP0RtA7umWXcD7EGLvl2SOzfccJ4AUhwz81xTfjvij2m7+K5LlM?=
+ =?us-ascii?Q?VCRP6IyInOw+v1nzJ6sXWIMiQGObLSvkK/Uwm+UO7/JxpQMIXTv2QJ9BDP9N?=
+ =?us-ascii?Q?1rs3YkXLxyJQVRQ3anqB6DAhPSxtmFbXidy09emhTGuEkAUoHzr7okJjxGkP?=
+ =?us-ascii?Q?e03B3X2DPzHrL9g+4csTsQfBqLkoa65S03EE0/0h/CLeXW2zuqd2nadJLo9o?=
+ =?us-ascii?Q?JwKIRkoWV9xkdI5uf7UNuq10?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a9d15e6-561a-4cbf-6c95-08d8e56a972a
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2021 15:22:04.0837 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AmOzrZVzTala0CaFy+WFhDdAUcdveXvHA3FprpQfFop0ReWAaCrjFHCT/bmUIdMaoAuw/zOh0lrqkrAYZJSsAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4398
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3835.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d841da9-c261-49cc-b9f6-08d8e56b4b0b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2021 15:27:05.5296 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1CSN8hKpASEgBvbK9lo7yEYvyqKpxqkIy9LxuqUMBNqKAQlsbU1XLV7twT1QFjJri7x8BQAfxVP9nE/jnMF3zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2602
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,147 +136,446 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0349898501=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--===============0349898501==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB383506A71D683EFED22BE0ABF46F9DM6PR12MB3835namp_"
+
+--_000_DM6PR12MB383506A71D683EFED22BE0ABF46F9DM6PR12MB3835namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+I don't like to add this set_light_sbr into ppt_funcs  either , but please =
+check current swsmu  code structure ,  there is no asic specific swsmu late=
+ init function  and  there is no direct routine form  amdgpu_smu.c to smu_v=
+11_0.c either . It requires  smu common code ->ppt_func -> smu_v11_0 for Ar=
+cturus  specific function .  So unless SMU and  PPT have a major re-structu=
+re , set_light_sbr need to go through ppt_func for now,  I think I  better =
+ leave this  re-structure task to SMU and  PPT owner in the future .
+
+Add  SMU and  PPT code owner  Hawking  and Quan for comments .
+
+Regards
+Shaoyun.liu
 
 
-On 2021-03-12 1:50 a.m., Jack Zhang wrote:
-> re-insert Bailing jobs to avoid memory leak.
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, March 12, 2021 8:55 AM
+To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: RE: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough confi=
+guration
 
-Usually we put a v2:"Blha blha blha" here to explain
-what was modified in v2
 
-Also - since you make changes to another driver you should
-add their maintainer and mailing list probably
-(use ./scripts/get_maintainer.pl) for this
+[AMD Public Use]
 
-> 
-> Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 8 ++++++--
->   drivers/gpu/drm/panfrost/panfrost_job.c    | 2 +-
->   drivers/gpu/drm/scheduler/sched_main.c     | 8 +++++++-
->   include/drm/gpu_scheduler.h                | 1 +
->   5 files changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 79b9cc73763f..86463b0f936e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4815,8 +4815,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   					job ? job->base.id : -1);
->   
->   		/* even we skipped this reset, still need to set the job to guilty */
-> -		if (job)
-> +		if (job) {
->   			drm_sched_increase_karma(&job->base);
-> +			r = DRM_GPU_SCHED_STAT_BAILING;
-> +		}
->   		goto skip_recovery;
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 759b34799221..41390bdacd9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -34,6 +34,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   	struct amdgpu_job *job = to_amdgpu_job(s_job);
->   	struct amdgpu_task_info ti;
->   	struct amdgpu_device *adev = ring->adev;
-> +	int ret;
->   
->   	memset(&ti, 0, sizeof(struct amdgpu_task_info));
->   
-> @@ -52,8 +53,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
->   
->   	if (amdgpu_device_should_recover_gpu(ring->adev)) {
-> -		amdgpu_device_gpu_recover(ring->adev, job);
-> -		return DRM_GPU_SCHED_STAT_NOMINAL;
-> +		ret = amdgpu_device_gpu_recover(ring->adev, job);
-> +		if (ret == DRM_GPU_SCHED_STAT_BAILING)
-> +			return DRM_GPU_SCHED_STAT_BAILING;
-> +		else
-> +			return DRM_GPU_SCHED_STAT_NOMINAL;
->   	} else {
->   		drm_sched_suspend_timeout(&ring->sched);
->   		if (amdgpu_sriov_vf(adev))
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index 6003cfeb1322..c372f4a38736 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -456,7 +456,7 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
->   
->   	/* Scheduler is already stopped, nothing to do. */
->   	if (!panfrost_scheduler_stop(&pfdev->js->queue[js], sched_job))
-> -		return DRM_GPU_SCHED_STAT_NOMINAL;
-> +		return DRM_GPU_SCHED_STAT_BAILING;
+We want to keep ppt_funcs minimal. Adding everything to ppt_funcs and keepi=
+ng as NULL is not the right way. Please keep the code to arcturus.
 
-Note that there is another early termination in panfrost
-at 
-https://elixir.bootlin.com/linux/v5.11.1/source/drivers/gpu/drm/panfrost/panfrost_job.c#L445
-So probably should also add there.
+Thanks,
+Lijo
 
->   
->   	/* Schedule a reset if there's no reset in progress. */
->   	if (!atomic_xchg(&pfdev->reset.pending, 1))
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index 92d8de24d0a1..a44f621fb5c4 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
->   {
->   	struct drm_gpu_scheduler *sched;
->   	struct drm_sched_job *job;
-> +	int ret;
->   
->   	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
->   
-> @@ -331,8 +332,13 @@ static void drm_sched_job_timedout(struct work_struct *work)
->   		list_del_init(&job->list);
->   		spin_unlock(&sched->job_list_lock);
->   
-> -		job->sched->ops->timedout_job(job);
-> +		ret = job->sched->ops->timedout_job(job);
->   
-> +		if (ret == DRM_GPU_SCHED_STAT_BAILING) {
-> +			spin_lock(&sched->job_list_lock);
-> +			list_add(&job->node, &sched->ring_mirror_list);
-> +			spin_unlock(&sched->job_list_lock);
-> +		}
+From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
+Sent: Friday, March 12, 2021 7:21 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough confi=
+guration
 
-Just reiterating my comment from v1 here since u missed it -
-Problem here that since you already dropped the reset locks you are
-racing here now against other recovery threads as they process the same
-mirror list, and yet,I think this solution makes things better then
-they are now with the leak but still, it's only temporary band-aid until
-the full solution to be implemented as described earlier by Christian.
-Probably then worth mentioning here with a comment this it's a temporary
-fix and that races are possible.
+Thanks for the comments. This light sbr solution could be applied to other =
+asic as well. In swsmu code, It will check whether the function pointer set=
+_light_sbr is valid before real call the function. So for other asics if th=
+e smu apply the same change, just add the ppt function pointer and we will =
+have this support without further code change.
 
-Andrey
+Thanks
+Shaoyun.liu
 
->   		/*
->   		 * Guilty job did complete and hence needs to be manually removed
->   		 * See drm_sched_stop doc.
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 4ea8606d91fe..8093ac2427ef 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -210,6 +210,7 @@ enum drm_gpu_sched_stat {
->   	DRM_GPU_SCHED_STAT_NONE, /* Reserve 0 */
->   	DRM_GPU_SCHED_STAT_NOMINAL,
->   	DRM_GPU_SCHED_STAT_ENODEV,
-> +	DRM_GPU_SCHED_STAT_BAILING,
->   };
->   
->   /**
-> 
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
+Sent: March 11, 2021 10:42 PM
+To: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists=
+.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
+Subject: RE: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough confi=
+guration
+
+[AMD Public Use]
+
+We don't need this as a generic ppt_func. Reset functionalities are changin=
+g over programs and this could be valid only for Arcturus. Please move it t=
+o Arcturus swsmu late init.
+
+Thanks,
+Lijo
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of shaoyunl
+Sent: Thursday, March 11, 2021 10:46 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
+Subject: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough configura=
+tion
+
+This is to fix the commit dda9bbb26c7 where it only enable the light SMU on=
+ normal device init. This feature actually need to be enabled after ASIC be=
+en reset as well.
+
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com<mailto:shaoyun.liu@amd.com>>
+Change-Id: Ie7ee02cd3ccdab3522aad9a02f681963e211ed44
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index cada3e77c7d5..fb775a9c0db1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2513,6 +2513,9 @@ static int amdgpu_device_ip_late_init(struct amdgpu_d=
+evice *adev)
+         if (r)
+                 DRM_ERROR("enable mgpu fan boost failed (%d).\n", r);
+
++       /* For XGMI + passthrough configuration , enable light SBR */
++       if (amdgpu_passthrough(adev) && adev->gmc.xgmi.num_physical_nodes >=
+ 1)
++               smu_set_light_sbr(&adev->smu, true);
+
+         if (adev->gmc.xgmi.num_physical_nodes > 1) {
+                 mutex_lock(&mgpu_info.mutex);
+@@ -3615,10 +3618,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+         if (amdgpu_device_cache_pci_state(adev->pdev))
+                 pci_restore_state(pdev);
+
+-       /* Enable lightSBR on SMU in passthrough + xgmi configuration */
+-       if (amdgpu_passthrough(adev) && adev->gmc.xgmi.num_physical_nodes >=
+ 1)
+-               smu_set_light_sbr(&adev->smu, true);
+-
+         if (adev->gmc.xgmi.pending_reset)
+                 queue_delayed_work(system_wq, &mgpu_info.delayed_reset_wor=
+k,
+                                    msecs_to_jiffies(AMDGPU_RESUME_MS));
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Clijo.laz=
+ar%40amd.com%7Cc5aedb6c2d9d49d2fee408d8e4b15b5c%7C3dd8961fe4884e608e11a82d9=
+94e183d%7C0%7C0%7C637510797685776785%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLj=
+AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D7nd=
+htOVmyZcRMe3UQiGvF%2BprCdBVgo7f6IATXSbQNg4%3D&amp;reserved=3D0
+
+--_000_DM6PR12MB383506A71D683EFED22BE0ABF46F9DM6PR12MB3835namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
+	{mso-style-name:msipheader87abd423;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader87abd423" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I don&#8217;t like to add this set_light_sbr into pp=
+t_funcs &nbsp;either , but please check current swsmu &nbsp;code structure =
+, &nbsp;there is no asic specific swsmu late init function&nbsp; and &nbsp;=
+there is no direct routine form&nbsp; amdgpu_smu.c to smu_v11_0.c either
+ . It requires &nbsp;smu common code -&gt;ppt_func -&gt; smu_v11_0 for Arct=
+urus &nbsp;specific function .&nbsp; So unless SMU and&nbsp; PPT have a maj=
+or re-structure , set_light_sbr need to go through ppt_func for now,&nbsp; =
+I think I &nbsp;better &nbsp;leave this &nbsp;re-structure task to SMU and&=
+nbsp; PPT
+ owner in the future . <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Add &nbsp;SMU and&nbsp; PPT code owner &nbsp;Hawking=
+ &nbsp;and Quan for comments .
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Shaoyun.liu<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Friday, March 12, 2021 8:55 AM<br>
+<b>To:</b> Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthroug=
+h configuration<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We want to keep ppt_funcs minimal. Adding everything=
+ to ppt_funcs and keeping as NULL is not the right way. Please keep the cod=
+e to arcturus.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Liu, Shaoyun &lt;<a href=3D"mailto:Shao=
+yun.Liu@amd.com">Shaoyun.Liu@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Friday, March 12, 2021 7:21 PM<br>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthroug=
+h configuration<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Thanks for the comments. This light sbr solution cou=
+ld be applied to other asic as well. In swsmu code, It will check whether t=
+he function pointer set_light_sbr is valid before real call the function. S=
+o for other asics if the smu apply
+ the same change, just add the ppt function pointer and we will have this s=
+upport without further code change.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thanks<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Shaoyun.liu<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.co=
+m">Lijo.Lazar@amd.com</a>&gt;<br>
+<b>Sent:</b> March 11, 2021 10:42 PM<br>
+<b>To:</b> Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.=
+Liu@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.=
+Liu@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthroug=
+h configuration</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">[AMD Public Use]<br>
+<br>
+We don't need this as a generic ppt_func. Reset functionalities are changin=
+g over programs and this could be valid only for Arcturus. Please move it t=
+o Arcturus swsmu late init.
+<br>
+<br>
+Thanks,<br>
+Lijo<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">=
+amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of shaoyunl<br>
+Sent: Thursday, March 11, 2021 10:46 PM<br>
+To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesk=
+top.org</a><br>
+Cc: Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd=
+.com</a>&gt;<br>
+Subject: [PATCH] drm/amdgpu: Enable light SBR in XGMI+passthrough configura=
+tion<br>
+<br>
+This is to fix the commit dda9bbb26c7 where it only enable the light SMU on=
+ normal device init. This feature actually need to be enabled after ASIC be=
+en reset as well.<br>
+<br>
+Signed-off-by: shaoyunl &lt;<a href=3D"mailto:shaoyun.liu@amd.com">shaoyun.=
+liu@amd.com</a>&gt;<br>
+Change-Id: Ie7ee02cd3ccdab3522aad9a02f681963e211ed44<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----<br>
+&nbsp;1 file changed, 3 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index cada3e77c7d5..fb775a9c0db1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2513,6 +2513,9 @@ static int amdgpu_device_ip_late_init(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;enable mgpu fan boost failed (%d).\n&=
+quot;, r);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* For XGMI + passthrough configurati=
+on , enable light SBR */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_passthrough(adev) &amp;&am=
+p; adev-&gt;gmc.xgmi.num_physical_nodes &gt; 1)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; smu_set_light_sbr(&amp;adev-&gt;smu, true);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.num_=
+physical_nodes &gt; 1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;mgpu_info.mutex);<br>
+@@ -3615,10 +3618,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_cache_pc=
+i_state(adev-&gt;pdev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pci_restore_state(pdev);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Enable lightSBR on SMU in passthro=
+ugh + xgmi configuration */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_passthrough(adev) &amp;&am=
+p; adev-&gt;gmc.xgmi.num_physical_nodes &gt; 1)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; smu_set_light_sbr(&amp;adev-&gt;smu, true);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.pend=
+ing_reset)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; queue_delayed_work(system_wq, &amp;mgpu_info.delayed_=
+reset_work,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msecs_to_jiffi=
+es(AMDGPU_RESUME_MS));<br>
+--<br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Clijo.lazar%40amd.com%7Cc5aedb6c2d9d49d2fee408d8e4b15b5c%7C3dd8961fe4=
+884e608e11a82d994e183d%7C0%7C0%7C637510797685776785%7CUnknown%7CTWFpbGZsb3d=
+8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&=
+amp;amp;sdata=3D7ndhtOVmyZcRMe3UQiGvF%2BprCdBVgo7f6IATXSbQNg4%3D&amp;amp;re=
+served=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04=
+%7C01%7Clijo.lazar%40amd.com%7Cc5aedb6c2d9d49d2fee408d8e4b15b5c%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637510797685776785%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
+&amp;amp;sdata=3D7ndhtOVmyZcRMe3UQiGvF%2BprCdBVgo7f6IATXSbQNg4%3D&amp;amp;r=
+eserved=3D0</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB383506A71D683EFED22BE0ABF46F9DM6PR12MB3835namp_--
+
+--===============0349898501==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0349898501==--
