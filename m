@@ -7,54 +7,55 @@ X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02623C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AECAC433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AAD3F64E61
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAD3F64E61
+	by mail.kernel.org (Postfix) with ESMTPS id B119164DDF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B119164DDF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFDC89949;
-	Mon, 15 Mar 2021 11:22:31 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A30B89933
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 11:22:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE7989933;
+	Mon, 15 Mar 2021 11:22:37 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2052.outbound.protection.outlook.com [40.107.100.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79B9689933
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 11:22:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QEPESUDt05p6uqBVjMIie0p6bXl4FlnGKDXAl6s6oJzrqSZP94AfDzSAKJfr4ij8oujIx82hHXYMsHSxQh+2KfUUTNfFbc1cs5mo0lyDlgzZzjYpjGAE6jIM1OuefmgochbweI9dERqzGIiOkvbmBl11orEgBgRBqVfuIPri9ZKDDzz2hKyhHnV4OzXZOm0EasuDFJ2Y9V/EWh6kQsHWR3ZEMEjE2BAfZHyE2tPbFid9T17rMFrrP2bpwxWtAo222IYSWm5Gan4rFp4aM1XPmgQ6VLkLXGDm28EpTD4ICIVNMD4/1JX+PLsSK60Kr52LnPFNpdFMo/v2NjXM09uncQ==
+ b=X/qzfSne3XyC/jObafFLaiwAIF6f+qZ/i+nfug0ytzVxJsPFhRr33vvr6wuI1AZfHfGtLeyvGwrXwR79ABPRqYXT+esOJPY2BsTKUS5MObEvgGLArk59A/y9sGrO6qwGOFB4xbKw+y/+EXPsMsdCpJdicPL02Pz1HxGc0WIvoCEmmZD5qWm4FMIZKuju+7sI6GHpgiud57WYddSfyzvv3gsKM52wi6QDUxWFwkw66aKB+fNmx8p8Bxx8yt2syZs3UQkUXg84ZtwfOsq6XQMlT1yXGjp2bq1xENU3c3wbFaUw+ZaIAqPcH9+i/Vt18j9KZEdvFffHueyLly1L/da9kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F3LdxYvkanCstpadNf4RzQC9s7T1cKtgq7jTndC+JVs=;
- b=NsUORN1ouFfokm/N5hG7uoFP75fABEYr0cruznLJAK7AzK7T1NEJ+Lctb/LScg+CmGsNQqDtImRnIl8At32LfVtGZ+WsQevupiw0zfUJTVVWrF9bjk6Ojsy8+ldajkZXHEdgrdb4dfnkLl3SjvFm5vyyN341E2IVqJ+qY4t5T5i6qAJYj+BY9A5N5lbffcR8IT2cRsdN7KaxW88dtZS/4CdDyeQSLxw2/to8sR89NIGrRdIoLRffvLe46VKTtBH9IYNz/wEh0jxYKLaYGB3zC9UoJ9h0zGPSDho+VVA3wkRCH+X93BgAyvljs2pSYdQ9O4SyrW7Jv5PDt/eVDZKIPQ==
+ bh=BKhYeg1+wTtbyerBv7alb8LLUZTVpKp5SDr4Di9idp8=;
+ b=kMQCJ524eFZTVhUb98UDA2I8KdUBFBtDVnxxRL7BZBstDvmX/kR/ZFnvUCOELCZ4zlXJJaoWpEZniCB2cnQ/ALOKoUgJye4SrUnYvcaDovOfof8iaU3BKSpl9WlwzZO8jwZHIoIN0MTa4zsdKSKuPl2NBKKzenQjuzoneo/dNnw+lGQuKDY7GDu9FwtU7tCck9RRrIVtFZlgGN+U7IKYhml52pTvgrnvekIpyqZwDy8UaHAZnMP0Vri6qMbXLy1Qv1vgsYzvDfQ867hMJxOrAJvIGGtN89chT1/2niCixWKCRV7NKwMQeml7oWyvDBeireUg6L1/qsf9xzPy/HJtMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F3LdxYvkanCstpadNf4RzQC9s7T1cKtgq7jTndC+JVs=;
- b=qLIiYEwTDWG4NjX4HNGSAMdscVLfPGUjNs1gY2FO+Zjnsxl4bo8gs//gDQXUsskOdtUFndvdbI4xg+roq2GiKsg/7Kk1nDxy+MSBxxlBP+N2c8XL6XG78ddlm5dL7iIKgGkSaQMcSp+hR61Z646s9YAxMrVp+waLZEL5/aTujLc=
+ bh=BKhYeg1+wTtbyerBv7alb8LLUZTVpKp5SDr4Di9idp8=;
+ b=D3OqUo81k4/oT3+P1o7iJqpDul3w68nNBo3mipyLkAClCcWp3n+IxCbtEGfgEEJ6N+7TZl/tvWwr+dzQZIrFMOFQ7NeoHTPleoyUIYXDcN9WElUST5pYj5ydbuiOAcxkbcAhesfES4Pzxuw0YnzVsQ7SOirFr9lwz6YAglrPD+A=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2604.namprd12.prod.outlook.com (2603:10b6:5:4d::15) by
- DM6PR12MB4617.namprd12.prod.outlook.com (2603:10b6:5:35::24) with
+ DM6PR12MB3740.namprd12.prod.outlook.com (2603:10b6:5:1c3::13) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3933.32; Mon, 15 Mar 2021 11:22:28 +0000
+ 15.20.3933.32; Mon, 15 Mar 2021 11:22:32 +0000
 Received: from DM6PR12MB2604.namprd12.prod.outlook.com
  ([fe80::1c30:5644:fcfa:a1a7]) by DM6PR12MB2604.namprd12.prod.outlook.com
  ([fe80::1c30:5644:fcfa:a1a7%7]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
- 11:22:28 +0000
+ 11:22:32 +0000
 From: Solomon Chiu <solomon.chiu@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/23] drm/amd/display: use max lb for latency hiding
-Date: Mon, 15 Mar 2021 09:39:50 +0800
-Message-Id: <20210315014010.16238-4-solomon.chiu@amd.com>
+Subject: [PATCH 04/23] drm/amd/display: System black screen hangs on driver
+ load
+Date: Mon, 15 Mar 2021 09:39:51 +0800
+Message-Id: <20210315014010.16238-5-solomon.chiu@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210315014010.16238-1-solomon.chiu@amd.com>
 References: <20210315014010.16238-1-solomon.chiu@amd.com>
@@ -67,54 +68,54 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from LAPTOP-K5LN3AJ2.localdomain (165.204.134.249) by
  HK2P15301CA0002.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3977.2 via Frontend Transport; Mon, 15 Mar 2021 11:22:24 +0000
+ 15.20.3977.2 via Frontend Transport; Mon, 15 Mar 2021 11:22:28 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 19d6030e-9aa6-4b34-f770-08d8e7a49dd0
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4617:
+X-MS-Office365-Filtering-Correlation-Id: 3b784161-e2ba-4e87-1b66-08d8e7a4a060
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3740:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB46179551982D7C56D415DCD2976C9@DM6PR12MB4617.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:122;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB374000917EC3AA2514AE59CF976C9@DM6PR12MB3740.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:221;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EIgziDtah2Flvi7zsbroCvdssPuHfDc3wzmcpinMcD3fJMUiVyGo+49E/V8iktdvRIjnjUR3s91FgoKPOJq/FtWwX0iCbLTQcRvV8bUhLQceR+FAsX/VKMNYJRz3niIonxOs9h/2ooQwtJC6TuhAhNNAE4fL+2G/saYXxxHPmz7qpzd0SY+cVMZvyjFCtTrZvtKSRcGQjeeLsJ3VUyFk3ubYzYP1Ezec+Y3zuhUlVWlKE3kRUVodEmEHjRyke/jKVAbadVAJ+mETFPhUWEpdWbI4vtb1+l+ebfVacGQ3LFAQ0/SeQojK1ue0oMJ8cvwn9JRAspXcqTwExaIOMiBDwUom1KYO/J2ktlzsxpcedwaXFo/nUG+Ty4zOLzWvpCaPQmDLApfjf5tQRQHed3Mf/J4zpvSPP8EHgpQQ31O8wwoWJ1+8Auet08tbJZemIjxNg33GhRPfncQ0TTeEoDTfPcI6cbGEjZZXipbnEGCx846jBDbdtvwhCB8O8wHUCEgqFHBfNuDGsx3BbHW+GdMdPwIhxuPq+4NqEjme1LR4/S+zqvrtbEY93cm5Ha9z9hWq
+X-Microsoft-Antispam-Message-Info: vIlsermf6I+tDOpMXhtHfJD5QZDwkT/oVSTTIWwGuHd4OqCGU46ZtOE7aRxwg9ekzat1hKC4cnDzg2FX7Ci9LKdTZht3JqQVrlUfEg8/tTCZt3e5k7F56Q0eu7h/ULXYzugEno5W0BkN7z2D1mIAm+qrClWXvKnuWtKD/S76fH1xfia6SQuN3cEJcoSb4HsDcMRloqBGI+US5sgJKmYRVS9BjY4nxHOt8Iam7sFy+3mmRgvWpTSIGJBMIBBTc+Vzzw1fMHZMEBK7JB5DUP7blqbs9Nldbn3s6YzbMaOzkHdOagLyNRMOA64yrHECJnCD/7Q2U6/FYKOhaNEgZ+ROSUMHXJ8QAf13TgREh9rjpf6tAiwbAmLoFgMqh9U+dIovZH269LFHIUFi95pZZtob7PvqADHyWhoyPzFFs6HCALaiCzjhst0ugz6S5gLWDW1vDS9QFKD0v0Fzl2p6apM5futZ0+JARU4zpgBNxVhbpMvXuLKavFgj8YMVLiAqlQlMqqV01uUupFsGPs+oDo8jyREcy+Ho2TGEjg5SwZHIkAmeCfA11v8bzs0FwL5aBGd8
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2604.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(8676002)(6666004)(54906003)(8936002)(52116002)(4326008)(86362001)(5660300002)(316002)(186003)(16526019)(26005)(83380400001)(2616005)(2906002)(6486002)(6512007)(66946007)(66556008)(36756003)(6916009)(956004)(44832011)(66476007)(6506007)(478600001)(1076003);
+ SFS:(4636009)(136003)(39860400002)(366004)(396003)(346002)(376002)(186003)(6486002)(6512007)(36756003)(6506007)(86362001)(4326008)(66946007)(16526019)(6666004)(66476007)(66556008)(6916009)(26005)(8676002)(478600001)(956004)(5660300002)(54906003)(2906002)(316002)(83380400001)(44832011)(52116002)(1076003)(2616005)(8936002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?hAVQ5TTBIpF/i0nKhodk85BOqUoQ3I/IP/UfJoD/4CIvImZn8Ir/fxg3bT3Q?=
- =?us-ascii?Q?Uo+WZSd3hc4jhWvk8sDm3Xy+bfWw7kWDYWn2iToLyaGcObYoZoux46XXKGH1?=
- =?us-ascii?Q?k143sBoTBH+cj/GNf33Yc382/pDSNN3muopFiP425GuE5dIZtIfAGhTii9UP?=
- =?us-ascii?Q?Q1vqrnJ0HOS4nolRdLgVkX8yR5A3hh7xOTl+yk2rdHAZ5C3raBCjHBUve9Hn?=
- =?us-ascii?Q?1ODUNoD3uTk0gJJlHts2n+GcGWXNIx3e80xinMV9xZF15j0GQ5Txa+r3OYR5?=
- =?us-ascii?Q?atxjnO7DfwdpTdOt58o52jk1fNS7QG81voGZKjCnbf7Ktw+FN/5BEbup9/Ct?=
- =?us-ascii?Q?430psv4Y3nCiKh1ust58hMOWTe18f2Vkt/JBZdgY+Ca/J4C2FeiMCXR9sxXG?=
- =?us-ascii?Q?gslZDb6yv6eEvkfq6NbgdBL8d9PGPt1MIQDzZbgjVNAQxosBtz4ReG8jmt6p?=
- =?us-ascii?Q?jksw739n5nfOKMkzB9D+zLS4Vne9eaLqFXbUl8c5Qqu26tMdCBoDbp4JmjeI?=
- =?us-ascii?Q?Xn20TvYTWuHweT+vwGV9a07WvSg3QrYEqh+pLfKW+PD+S94Fld2QxHySq6y8?=
- =?us-ascii?Q?nJ0D9N/W9+gyj0RL7NQFde0sZi7vlDjQNmgOkEL9TBhpFsZZaImKL3FxhZC0?=
- =?us-ascii?Q?iM2PG6/8xTfq6F4CmX2622LzWAbqaL8zY0waoDdhtd8u8kfiwbw9zUZ+oJJK?=
- =?us-ascii?Q?JVmPKZD9keYSneppY2wIsnMDjHlfjVbV3RDx76SRqmzhJ7GwGmBvTebkrEu+?=
- =?us-ascii?Q?/+SU76bqAB6h9aQseHfudx84Nv/p0UuRIwfmI+CW+zhbcb/uou/e5Ny2xr1H?=
- =?us-ascii?Q?YUwg5Up0XlMMtHc9Woc1n3/S7iYXVqOvLtrRInfAE+o1oQKN61KYoC3pSULC?=
- =?us-ascii?Q?XKnTY4OwURhAUbCBGbkjjQG44bzEjkkoEhWSE3eZwhmsBWmQZbv93TgwZjAw?=
- =?us-ascii?Q?UQw34SDURB3AmDTmVU36SY6pqxNKW6WPkfcv54MzbImA2GJBr9+iLQDImTpL?=
- =?us-ascii?Q?mdNMUSat/TWwK6hE9mFRaAXe8YmTvQyKLe5+592yF5kSP4+SBfHbeAwnxUrQ?=
- =?us-ascii?Q?sweg3vhj9e3JOOoqoEpCsGeCypG3yhqeegJ2gv+ZZai2S/TDry6N2yKeRxFv?=
- =?us-ascii?Q?PIaL2f1NBSczAWFujdCaiqv6USyucalZqiE+/BLW9Z1EaEV6BWjvqFzElXTA?=
- =?us-ascii?Q?OP6E+0pwIA0/Tc/7JpBuyPQ68PUiMPdqQzbetiapUHXp4wTVDRpx9h3fQGSc?=
- =?us-ascii?Q?Oi//LwD81uJPW8G/KsjTy6TY61jBj+fpgPAnFoFNImJ7D+5TU9GyGdcSyo57?=
- =?us-ascii?Q?j8tC5A84ZZYCSacCJovrR6k8?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?xFk26LZHTS3D4XEan6qbA3l/FCDEpLbeHWwU9a7AiYTV9ylDOmHwIgEHcr8Q?=
+ =?us-ascii?Q?qLwhO6ssrNZ9gAnDEr+QN3VZhOcD967UJI8ymj1QlVjheYGTEzW3+eEDr/d9?=
+ =?us-ascii?Q?ZNcV3NKz2lfFbrNhU2NgPGvtvctc4zBHTvEOABh2AgClsE7HdMaxC99YmT3+?=
+ =?us-ascii?Q?j09OCyJcesMuNmJYNiNKWTPyKXPWbnTXaL075iccAczxdfHRIvFFwawxVrGA?=
+ =?us-ascii?Q?Zk/Q4iztWJz8bzIsDq6KrpViqosirqjfI9OVgpWSRQUAN9XLo3+VZy6rjKq9?=
+ =?us-ascii?Q?IZFoSRILCsF3pLSGMQ0Tip2I7+jbfZotFYIRY1tg96N4H/rhZXHrj991dAe+?=
+ =?us-ascii?Q?psdhb844emMv+9BcSwu+RZBV/oy9kZGLs+0x8WjaKtLZzQ4YH7G9HMbuUBqw?=
+ =?us-ascii?Q?DbvlfiuD6RBHNL7eM/jtqi/3fhImNDCoUtzBqh+fUc3ejBomO3caPqlwNhbt?=
+ =?us-ascii?Q?aKK8emw9wTC546bzKQnHEDHHIkClH6ftIOG8ln8Td5xGVNvje+SgDZz5Zodl?=
+ =?us-ascii?Q?Nk2vt7Knj852pUGgyeYkL/XGEeJovdoQERY2mOy3OeAPLwRi6Bg0JiGyrw83?=
+ =?us-ascii?Q?ArlZLU3BNomOdH1YgCYokx11xxRyv4SnENdhqy2EPtgYmlurAZRu+Rz66RhF?=
+ =?us-ascii?Q?po17XzWTueYvPh8oqji9KqtJ0hFzC6eiGc/OGUSBsPD2x233m2YzcCvbLAFL?=
+ =?us-ascii?Q?7KHj7GaVezQSTYx8/NSzZktDyopTIs5PE+uyWRXDo2MuST3aOaFpxAd0fefa?=
+ =?us-ascii?Q?1IDyWt4Lr+d+LDTXT1TvoMaNPE+Hz8yeSTdTAiUwT0dIJCwI3xph5gXuJ73m?=
+ =?us-ascii?Q?sOq3IqIMP/FRUhEOM2n6QCCtS+pesZvgAoljjgg09cFj3rcbYPH+XcikETAl?=
+ =?us-ascii?Q?wQ76k8Z/olp78IK6qVo7sgDTh41yUvo27NWxHhZIRdYiSzcXKgx1mqL8UXeC?=
+ =?us-ascii?Q?9sMhudPWkoDGSgfhQ8MfSVngjVcaYqXgOC+wXHo2N2O/gtO5eKQ9qFpMcTrD?=
+ =?us-ascii?Q?wMIuz7lp/i5n9GfdfZRBc/qY6s/f6k1m5aqtmnU9dHKaQuSm8YXMnLS2S8hq?=
+ =?us-ascii?Q?RUjDBrY4zZ993ZeAXRGioO8Zq4LSsvpWyBumOo5ZrxfdElLFjgjVOiby11Ox?=
+ =?us-ascii?Q?LSKIQmtuMavUHxt7G8TKROkey/+qS0voQKEWh/EMpxqF4Wa2wYrGhtk9/Evi?=
+ =?us-ascii?Q?IAmoEfAkj7B4LAJhueXKYg0ned5E666eWDwd2EaQdwvFeVsXQ/7NYtPtXhCS?=
+ =?us-ascii?Q?1mr6XeWYBWpJIaUktfKtHUNmxI8ia/WOT1KNImaUHWkicJnJIRpwaNqR9Nwi?=
+ =?us-ascii?Q?b607OT1+wL1sL/DNb6IXEGAj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19d6030e-9aa6-4b34-f770-08d8e7a49dd0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b784161-e2ba-4e87-1b66-08d8e7a4a060
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2604.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 11:22:28.4293 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 11:22:32.6709 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /UlBdI60R4ABrqTQT4PfNX/x2AYHQo6M/Aoz8HsjrS00HPN5QxDqud+d7BfgaphcB7SKDmFATTj3fdG96DUo6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4617
+X-MS-Exchange-CrossTenant-UserPrincipalName: pdD28RKCo0N6eVw+o390urBWXUIexb3UjqBBNygiIHQzGwihfDox+nwweRhT3hRErvVlL9spJ+SuWcZ7KdO5sA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3740
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,224 +127,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Eryk.Brol@amd.com,
+Cc: Aric Cyr <aric.cyr@amd.com>, Eryk.Brol@amd.com,
  Solomon Chiu <solomon.chiu@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
- Eric Bernstein <Eric.Bernstein@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Martin Leung <Martin.Leung@amd.com>, Bhawanpreet.Lakha@amd.com,
  bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
-Enable max memory lb config to improve stutter efficiency and
-latency hiding. Also increase max number of lb lines to be
-used by dml since experiments have shown that there isnt a hard max
-beyond what fits in lb.
+This reverts commit bea6beb76a9f19a9a86d24d304f27b3cff5f1791
+as it causes crash on driver load in some scenarios.
 
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Eric Bernstein <Eric.Bernstein@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Solomon Chiu <solomon.chiu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 4 +++-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 6 ++++--
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 9 ++++++---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 4 +++-
- drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 4 +++-
- drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 4 +++-
- 6 files changed, 22 insertions(+), 9 deletions(-)
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 48 +------------------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 -
+ 2 files changed, 2 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index 90e912fef2b3..33811953585b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -82,7 +82,7 @@ const struct _vcs_dpi_ip_params_st dcn1_0_ip = {
- 	.meta_chunk_size_kbytes = 2,
- 	.writeback_chunk_size_kbytes = 2,
- 	.line_buffer_size_bits = 589824,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.IsLineBufferBppFixed = 0,
- 	.LineBufferFixedBpp = -1,
- 	.writeback_luma_buffer_size_kbytes = 12,
-@@ -619,6 +619,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.recovery_enabled = false, /*enable this by default after testing.*/
- 		.max_downscale_src_width = 3840,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
-+		.use_max_lb = true
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index 3946d12e9fb1..01b1853b7750 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -761,43 +761,6 @@ static struct wm_table ddr4_wm_table_rn = {
+ 	}
  };
  
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -630,6 +631,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.disable_pplib_clock_request = true,
- 		.disable_pplib_wm_range = true,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
-+		.use_max_lb = true
+-static struct wm_table ddr4_1R_wm_table_rn = {
+-	.entries = {
+-		{
+-			.wm_inst = WM_A,
+-			.wm_type = WM_TYPE_PSTATE_CHG,
+-			.pstate_latency_us = 11.72,
+-			.sr_exit_time_us = 13.90,
+-			.sr_enter_plus_exit_time_us = 14.80,
+-			.valid = true,
+-		},
+-		{
+-			.wm_inst = WM_B,
+-			.wm_type = WM_TYPE_PSTATE_CHG,
+-			.pstate_latency_us = 11.72,
+-			.sr_exit_time_us = 13.90,
+-			.sr_enter_plus_exit_time_us = 14.80,
+-			.valid = true,
+-		},
+-		{
+-			.wm_inst = WM_C,
+-			.wm_type = WM_TYPE_PSTATE_CHG,
+-			.pstate_latency_us = 11.72,
+-			.sr_exit_time_us = 13.90,
+-			.sr_enter_plus_exit_time_us = 14.80,
+-			.valid = true,
+-		},
+-		{
+-			.wm_inst = WM_D,
+-			.wm_type = WM_TYPE_PSTATE_CHG,
+-			.pstate_latency_us = 11.72,
+-			.sr_exit_time_us = 13.90,
+-			.sr_enter_plus_exit_time_us = 14.80,
+-			.valid = true,
+-		},
+-	}
+-};
+-
+ static struct wm_table lpddr4_wm_table_rn = {
+ 	.entries = {
+ 		{
+@@ -969,12 +932,8 @@ void rn_clk_mgr_construct(
+ 		} else {
+ 			if (is_green_sardine)
+ 				rn_bw_params.wm_table = ddr4_wm_table_gs;
+-			else {
+-				if (ctx->dc->config.is_single_rank_dimm)
+-					rn_bw_params.wm_table = ddr4_1R_wm_table_rn;
+-				else
+-					rn_bw_params.wm_table = ddr4_wm_table_rn;
+-			}
++			else
++				rn_bw_params.wm_table = ddr4_wm_table_rn;
+ 		}
+ 		/* Saved clocks configured at boot for debug purposes */
+ 		rn_dump_clk_registers(&clk_mgr->base.boot_snapshot, &clk_mgr->base, &log_info);
+@@ -992,9 +951,6 @@ void rn_clk_mgr_construct(
+ 		if (status == PP_SMU_RESULT_OK &&
+ 		    ctx->dc_bios && ctx->dc_bios->integrated_info) {
+ 			rn_clk_mgr_helper_populate_bw_params (clk_mgr->base.bw_params, &clock_table, ctx->dc_bios->integrated_info);
+-			/* treat memory config as single channel if memory is asymmetrics. */
+-			if (ctx->dc->config.is_asymmetric_memory)
+-				clk_mgr->base.bw_params->num_channels = 1;
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 153093abafbd..2088508dac1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -307,8 +307,6 @@ struct dc_config {
+ #endif
+ 	uint64_t vblank_alignment_dto_params;
+ 	uint8_t  vblank_alignment_max_frame_time_diff;
+-	bool is_asymmetric_memory;
+-	bool is_single_rank_dimm;
  };
  
- static void dcn10_dpp_destroy(struct dpp **dpp)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index a65efed63fbf..9ae12a87d685 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -112,7 +112,7 @@ struct _vcs_dpi_ip_params_st dcn2_0_ip = {
- 	.is_line_buffer_bpp_fixed = 0,
- 	.line_buffer_fixed_bpp = 0,
- 	.dcc_supported = true,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.writeback_luma_buffer_size_kbytes = 12,
- 	.writeback_chroma_buffer_size_kbytes = 8,
- 	.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -180,7 +180,7 @@ static struct _vcs_dpi_ip_params_st dcn2_0_nv14_ip = {
- 	.is_line_buffer_bpp_fixed = 0,
- 	.line_buffer_fixed_bpp = 0,
- 	.dcc_supported = true,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.writeback_luma_buffer_size_kbytes = 12,
- 	.writeback_chroma_buffer_size_kbytes = 8,
- 	.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -1075,6 +1075,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.scl_reset_length10 = true,
- 		.sanity_checks = false,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
-+		.use_max_lb = true
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -1091,6 +1092,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.scl_reset_length10 = true,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
- 		.enable_tri_buf = true,
-+		.use_max_lb = true
- };
- 
- void dcn20_dpp_destroy(struct dpp **dpp)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 2c4e309d1836..bd8e4c0f92db 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -115,7 +115,7 @@ struct _vcs_dpi_ip_params_st dcn2_1_ip = {
- 	.is_line_buffer_bpp_fixed = 0,
- 	.line_buffer_fixed_bpp = 0,
- 	.dcc_supported = true,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.writeback_luma_buffer_size_kbytes = 12,
- 	.writeback_chroma_buffer_size_kbytes = 8,
- 	.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -882,7 +882,9 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.scl_reset_length10 = true,
- 		.sanity_checks = true,
- 		.disable_48mhz_pwrdwn = false,
--		.usbc_combo_phy_reset_wa = true
-+		.usbc_combo_phy_reset_wa = true,
-+		.dmub_command_table = true,
-+		.use_max_lb = true
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -898,7 +900,8 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.disable_stutter = true,
- 		.disable_48mhz_pwrdwn = true,
- 		.disable_psr = true,
--		.enable_tri_buf = true
-+		.enable_tri_buf = true,
-+		.use_max_lb = true
- };
- 
- enum dcn20_clk_src_array_id {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index 71e2d5e02571..a3ac7e275f3d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -120,7 +120,7 @@ struct _vcs_dpi_ip_params_st dcn3_0_ip = {
- 	.dcc_supported = true,
- 	.writeback_interface_buffer_size_kbytes = 90,
- 	.writeback_line_buffer_buffer_size = 0,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
- 	.writeback_chroma_buffer_size_kbytes = 8,
- 	.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -852,6 +852,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.dwb_fi_phase = -1, // -1 = disable,
- 	.dmub_command_table = true,
- 	.disable_psr = false,
-+	.use_max_lb = true
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -870,6 +871,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 	.dmub_command_table = true,
- 	.disable_psr = true,
- 	.enable_tri_buf = true,
-+	.use_max_lb = true
- };
- 
- void dcn30_dpp_destroy(struct dpp **dpp)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index c494235016e0..6358b2b266cf 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -116,7 +116,7 @@ struct _vcs_dpi_ip_params_st dcn3_01_ip = {
- 	.dcc_supported = true,
- 	.writeback_interface_buffer_size_kbytes = 90,
- 	.writeback_line_buffer_buffer_size = 656640,
--	.max_line_buffer_lines = 12,
-+	.max_line_buffer_lines = 32,
- 	.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
- 	.writeback_chroma_buffer_size_kbytes = 8,
- 	.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -873,6 +873,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.underflow_assert_delay_us = 0xFFFFFFFF,
- 	.dwb_fi_phase = -1, // -1 = disable
- 	.dmub_command_table = true,
-+	.use_max_lb = true
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -889,6 +890,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 	.scl_reset_length10 = true,
- 	.dwb_fi_phase = -1, // -1 = disable
- 	.dmub_command_table = true,
-+	.use_max_lb = true
- };
- 
- void dcn301_dpp_destroy(struct dpp **dpp)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-index 4b659b63f75b..98b464e8b25e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-@@ -101,7 +101,7 @@ struct _vcs_dpi_ip_params_st dcn3_02_ip = {
- 		.dcc_supported = true,
- 		.writeback_interface_buffer_size_kbytes = 90,
- 		.writeback_line_buffer_buffer_size = 0,
--		.max_line_buffer_lines = 12,
-+		.max_line_buffer_lines = 32,
- 		.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
- 		.writeback_chroma_buffer_size_kbytes = 8,
- 		.writeback_chroma_line_buffer_width_pixels = 4,
-@@ -223,6 +223,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
- 		.dwb_fi_phase = -1, // -1 = disable,
- 		.dmub_command_table = true,
-+		.use_max_lb = true
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
-@@ -241,6 +242,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.dmub_command_table = true,
- 		.enable_tri_buf = true,
- 		.disable_psr = true,
-+		.use_max_lb = true
- };
- 
- enum dcn302_clk_src_array_id {
+ enum visual_confirm {
 -- 
 2.29.0
 
