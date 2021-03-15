@@ -8,59 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8739BC433E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 18:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE0BC433E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 18:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42C9E64F3F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 18:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42C9E64F3F
+	by mail.kernel.org (Postfix) with ESMTPS id 88CF164F4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 18:20:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88CF164F4A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A0A6E0E9;
-	Mon, 15 Mar 2021 18:19:38 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F03B6E0E9;
- Mon, 15 Mar 2021 18:19:38 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 31-20020a9d00220000b02901b64b9b50b1so5602855ota.9; 
- Mon, 15 Mar 2021 11:19:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012CB6E0FF;
+	Mon, 15 Mar 2021 18:20:30 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F7A46E0F7;
+ Mon, 15 Mar 2021 18:20:28 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id e45so7426839ote.9;
+ Mon, 15 Mar 2021 11:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JeDHtCDxywj9r6bA/2S0wPWpH9Q9pfJGq85V9QGOnw8=;
- b=TF7MqunSHLZhiqjjd5eKS6a1ZWsfyx6blhMKMqPybtS5JPw4NzQcK2xItEXkpphYPJ
- 8QWlhHoSOyzKbsUYUrrJ8yHht6KEqZrPPGtbwD5vToVHROi8GIgPXOsTOd91WY4e1f1w
- 4dj7qN2iBYJ/+ATjMLTpc+Cd0PZSe4yCx+UkRyBpQrdLKcZBlvac67lr3gUbQksGfNZe
- obIT8L8nKImSEVfNCG/qXXqb5HIOC1JKKJyaqEEExdW3l/qu1sO96+BI0qs5nrTte4rF
- MraIQVxq0DmDE4LXZFC+Qfacc+wu3XVpX6PVV5O/9IEdRCE5UULjnCCNRpKeAvJ0PE76
- 3c1Q==
+ :cc; bh=qgTmUjpAgS3oY88pdR8n43/ojqKRMNQdI1zf/7d2y7M=;
+ b=lsQmoe0RiNR+jpApt3STJZDJUtuFImFAiD9QoNiIYO6y20pPJBBar89/PeF1lajqvL
+ PE7PckeqNmolEc+09hLVnPOND3Za2nv2LkTxqd6t3zH06khxIPHswaeCyIczUsgedHsz
+ tPVgkgaXNewd5XxYvAXYPUSLy76NwaYlMKXLtiZz9Q+npnXLheUux0fBJ0LojMSSrf+x
+ RB1UFaGgSlaKkf2hbUz6Ij6zYbm6cdvJMN6gfbG29PGUAJ0zjJ+XWLG2o6k6jWTg9/x8
+ sy1+PSc1bdle27kJf40dpjWGmx3A0CBvObWwJeUS7mER2VPdWKy1M9X+JVISVC39gL9U
+ ZZlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=JeDHtCDxywj9r6bA/2S0wPWpH9Q9pfJGq85V9QGOnw8=;
- b=FM8fox0vlAmn1b+zad3dfAWxjiYfN8SlBzmaMQWp7lF7b205oAU7xKBD9KU5HUJBIa
- 5FJD+nMkEhVtGH08mkyh+AVacMfUodNWhWOX7/lXPp2MbqhFJfTbJBiLTwthhrQNXy8A
- iJirkCNQ9ys66VV6lErMvs9Va60xBWzAbGJ0UjD+LKcYLqRFYcc/dLBhus4sFztoAC9/
- +S6pj6+oXSz6gyVwQt71W55dz/DLN4okUii2ayg8NpWI4Ag7epQnxwlu94PyjxGUGUAi
- lGu0UOqDI0JZn2ydSC9pZ2hzR+ITUaklEbg0uBzwTlNhkBHcKv/3lD2uic4tofra5D3R
- t2Ng==
-X-Gm-Message-State: AOAM532IigtCZIQ6GdVBecnvalq4EVmWqzNpLvzOfckcio2FThrsYDwA
- iZny03bJgL1Rc2mynXC0frYlWvswdDcTjFyYZEQ=
-X-Google-Smtp-Source: ABdhPJyAxg+bB/x4V9sYZuqgUOEM6BOJkUKpErYFa5jBJaxeSIB/YQj4BCsKJcWuMzSE93UQTMd/eX9jCImPxzpIB5k=
-X-Received: by 2002:a9d:760a:: with SMTP id k10mr333800otl.23.1615832377776;
- Mon, 15 Mar 2021 11:19:37 -0700 (PDT)
+ bh=qgTmUjpAgS3oY88pdR8n43/ojqKRMNQdI1zf/7d2y7M=;
+ b=TdB62awRrh0+Gyk3+aau8NeHdzd/C864Z4EldAL/7nT0dluwnYsSCnMUhubH6A2/hH
+ VUGJrsn2/0YVivBRk/f9ywzM0x/tNK91TcA6hZ5HKyzWsljWdFGXaK8w3RgAf6m0VtsQ
+ RvAS9wb88OkfLzYk2+/uGRwXPM7auwyfPV4Nd57no/uM6KcJ8+aIxdbclUy70SIY7Syd
+ usYYP5j3HxAqGCfi4pojgJCnrKTqOV/YGZr5KNyNzdXAqY0HU8pyfbIY1HkaAsLD1TXt
+ 1xWkFZ3hhyJPjn5oWCy6VxbtdT+PBmpzuw9DruOnFJBIN31ooSHCrh9ZVzCriiHoQ6h0
+ O+YQ==
+X-Gm-Message-State: AOAM532NevV7GfnruYJbiaU0fQeh9R168Axj4g9jiTzsEaNJmmg3d6HA
+ rFl8dVUBO1ydg+oxTDEeVSZTw2KeJqwtUK/1vjI=
+X-Google-Smtp-Source: ABdhPJx5cwRZYD3x24+Y5vxu1axyhaBEq/xyonkkb7s5PsBur0DZqElaGFhhHFoWwp6u9qxGfa8lqI29fRn0xWQV1J0=
+X-Received: by 2002:a9d:20c3:: with SMTP id x61mr309400ota.311.1615832427497; 
+ Mon, 15 Mar 2021 11:20:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210312100842.127242-1-colin.king@canonical.com>
-In-Reply-To: <20210312100842.127242-1-colin.king@canonical.com>
+References: <20210311163417.59967-1-colin.king@canonical.com>
+In-Reply-To: <20210311163417.59967-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Mar 2021 14:19:26 -0400
-Message-ID: <CADnq5_PUo9cLui_B81Kn2LB8jmyZG2HsgWLQ=WqOWP+_wqcfsw@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/pm: Fix spelling mistake "disble" ->
- "disable"
+Date: Mon, 15 Mar 2021 14:20:16 -0400
+Message-ID: <CADnq5_PH0q+mAAjSyL5_067aT0gqVMO1XZHBP_zsG41WY89Reg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove redundant initialization of
+ variable result
 To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,7 +77,7 @@ Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -89,30 +88,33 @@ Applied.  Thanks!
 
 Alex
 
-On Fri, Mar 12, 2021 at 5:08 AM Colin King <colin.king@canonical.com> wrote:
+On Thu, Mar 11, 2021 at 11:34 AM Colin King <colin.king@canonical.com> wrote:
 >
 > From: Colin Ian King <colin.king@canonical.com>
 >
-> There is a spelling mistake in an assert message. Fix it.
+> The variable result is being initialized with a value that is
+> never read and it is being updated later with a new value.  The
+> initialization is redundant and can be removed.
 >
+> Addresses-Coverity: ("Unused value")
 > Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index 0d725b66fb78..7edafef095a3 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -1300,7 +1300,7 @@ static int smu7_start_dpm(struct pp_hwmgr *hwmgr)
->                                 (0 == smum_send_msg_to_smc(hwmgr,
->                                                 PPSMC_MSG_PCIeDPM_Disable,
->                                                 NULL)),
-> -                               "Failed to disble pcie DPM during DPM Start Function!",
-> +                               "Failed to disable pcie DPM during DPM Start Function!",
->                                 return -EINVAL);
->         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> index 099f43709060..47e6c33f73cb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> @@ -4281,7 +4281,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
 >
+>                 if (edp_config_set.bits.PANEL_MODE_EDP
+>                         != panel_mode_edp) {
+> -                       enum dc_status result = DC_ERROR_UNEXPECTED;
+> +                       enum dc_status result;
+>
+>                         edp_config_set.bits.PANEL_MODE_EDP =
+>                         panel_mode_edp;
 > --
 > 2.30.2
 >
