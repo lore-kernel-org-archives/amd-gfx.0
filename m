@@ -2,133 +2,124 @@ Return-Path: <SRS0=AQd/=IN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,DATE_IN_PAST_06_12,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73AA9C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 10:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 088F6C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05F2664E76
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 10:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05F2664E76
+	by mail.kernel.org (Postfix) with ESMTPS id 9A3B864DDF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 11:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A3B864DDF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC48C8959D;
-	Mon, 15 Mar 2021 10:52:28 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD478959D
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 10:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDDD89D79;
+	Mon, 15 Mar 2021 11:22:18 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F55989D79
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 11:22:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DYD+gEI0PELivDcwpZV8ldR6+EK3Gxg7OSs4JMX73wkW9PxGs3ov/6C12kKXo3U/0mHXfPBFKB9lEFusEzwQna/rPIYliqHCUbCHb0ntzO0GE61vowsaG8B1OwKbr5d0rFKTMtisVMRDRIn26t2Wf0jXDFznslIJC3zsI0sVzBYtHeGZZBwj9aV3sdhWrz1eaJ/VbsCYMXvlXph3rF6cUdg6iM2/FDyqGbBIQw0ANXdnU/fNI3Xn0KxG/+qya5kggxRnK/Cx1U5RdSj97d13YkKTSuH19ig6/iioqsTeg4baT99ggPvvkfbDMXcCCi8UqJ8td0RoUvMUrn6TatGhyw==
+ b=BBitiFF0+LJEbFJ0XsnLm2olWur5hofKMp693E8RYUF8H2hKobXz3FjwiA3sp4hZCtX0jmjsgME2c9wcvIG5YjNSs7pqrajVtytNWohOpRUrXTZIp6HSoAGtmMFDfiQOim6O0Y+ASNW83NF12E77H1UzP20mwamsZaQSEKZYUSOfNGrXd1ner4kXldf0IxCcLstA7Uy2nXPiPXDz4deaaRXhnF3mbFRvIGfcRlMh1Y4uVgURq6a+8IzHDc9b6muL9zxqtnx4VY/Qypi+Wv6m13InPe5GRRZHBpBqqAJVXI5+5reQo4qBaF3+YTMbl/wGgREIavQX3Nu3nyVQUOpSjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yTRTZO0+MV0DzTh6dbcbklMCrtP8VRMv3fJqGyYadRM=;
- b=XoUtJidlm0sai70S0MNngQScWvLtpnTuPcyoIWC16HvICA/WtSPqEbfhsgHDDaJN7kZr2/ZHW7RNHd7y3aAmr8ryTOLZkHdq2Lu+UQJbO+b4uBba5i3SnsGkfb2L7RJJE6hmX9eTBFY1SAjNZqnO5OMjnTh2MqeCHJtvACv2qZaO3fd8wMsdKGuuo1b94pdfHtgMBSnXcibmo+zhUYpJMhNzgbWbM25zCixa2zgVc6KOc4WfqVsynpLJnl39LArOfhyR98a4BuAWNnnI6d5hQr2a4RCM2udn4UROln4x0IctXtyKfA5gFEZrwzKT8FVGm+aUTJJ92NefLq1YauwqtA==
+ bh=+yxX1Tk1ZsrivElMxE+Th5GxeTQ6PFhmXc1NZMYv4zo=;
+ b=P2e10QB6ntTJHrA776DLRlQjG0fSiQkxJ1/94m4JC1YYrTdqUHNSXT1cxKlmYCx6p7YxJrLCN0sdEV2r+9KuiHyBH3VPr+zsPe6uVF4oLwgpWwdrSUvaTB/DY5hdHg5INr+ufKQzBbCe0w0AwE4yiOskjyqVNmT5qywL3CNISGytDmiQcBtdC3SlZmfVubVvDVh77PRR9nvOkQOHqCLgRWqNn6dvY5UZtTXL1s+ohOvW94NCKVKjdQghxA3uj22+OoZV3lA1lJ6fbc6vd8tqHyK2NPo10xD8QM6xJHwF7dpgGhB49IXRNWcLPbs473Rg7Ok8ljV0X9gi8yLBn0dWSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yTRTZO0+MV0DzTh6dbcbklMCrtP8VRMv3fJqGyYadRM=;
- b=0cRLxSZp2w9BvqDCKVKsiWFEl/oXXNb8l7kADAuL+8jG7sXDKrK90gMDh08eX12UIsyZGx3AlQnMNtb8XGfP/0OjhKpTVSICRB0iYoHe2GqhhKxGKUmj14qkVAMd8MChj4Kwxf6Vp5XfVrCc+s3lrTplXgBBIYAY6atkXXMskUw=
+ bh=+yxX1Tk1ZsrivElMxE+Th5GxeTQ6PFhmXc1NZMYv4zo=;
+ b=MExznIu4iKYtNA08pSV/RzRW+GLCdEa3LjUnqsVPDl66AIo+DC0VI6xLzZe4zQdgiYBV0emeYoA3p8Q8OtXtgiRWfin7RbZtWosfMzr7DIYNGnDSd4qIDRZyUvjvIHxhRfezs3CzNnxf5Xak4rln9axxT7Sq4vaZcAOIqFL4Xaw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
- by CY4PR12MB1240.namprd12.prod.outlook.com (2603:10b6:903:3f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Mon, 15 Mar
- 2021 10:52:24 +0000
-Received: from CY4PR12MB1463.namprd12.prod.outlook.com
- ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
- ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
- 10:52:24 +0000
-Subject: Re: [PATCH 1/1] drm/amdgpu: wrap kiq ring ops with kiq spinlock
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>,
- "Das, Nirmoy" <Nirmoy.Das@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20210312170810.10934-1-nirmoy.das@amd.com>
- <DM6PR12MB3018F5411F3181EA5616B106A26C9@DM6PR12MB3018.namprd12.prod.outlook.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <318efeb6-eb1e-474d-0fb6-8752698b3230@amd.com>
-Date: Mon, 15 Mar 2021 11:52:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
-In-Reply-To: <DM6PR12MB3018F5411F3181EA5616B106A26C9@DM6PR12MB3018.namprd12.prod.outlook.com>
-Content-Language: en-US
-X-Originating-IP: [217.86.103.190]
-X-ClientProxiedBy: AM0PR01CA0180.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:aa::49) To CY4PR12MB1463.namprd12.prod.outlook.com
- (2603:10b6:910:e::19)
+Received: from DM6PR12MB2604.namprd12.prod.outlook.com (2603:10b6:5:4d::15) by
+ DM6PR12MB4617.namprd12.prod.outlook.com (2603:10b6:5:35::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3933.32; Mon, 15 Mar 2021 11:22:15 +0000
+Received: from DM6PR12MB2604.namprd12.prod.outlook.com
+ ([fe80::1c30:5644:fcfa:a1a7]) by DM6PR12MB2604.namprd12.prod.outlook.com
+ ([fe80::1c30:5644:fcfa:a1a7%7]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
+ 11:22:15 +0000
+From: Solomon Chiu <solomon.chiu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 00/23] DC Patches March 15, 2021
+Date: Mon, 15 Mar 2021 09:39:47 +0800
+Message-Id: <20210315014010.16238-1-solomon.chiu@amd.com>
+X-Mailer: git-send-email 2.29.0
+X-Originating-IP: [165.204.134.249]
+X-ClientProxiedBy: HK2P15301CA0002.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:202:1::12) To DM6PR12MB2604.namprd12.prod.outlook.com
+ (2603:10b6:5:4d::15)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.178.87] (217.86.103.190) by
- AM0PR01CA0180.eurprd01.prod.exchangelabs.com (2603:10a6:208:aa::49) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32 via Frontend
- Transport; Mon, 15 Mar 2021 10:52:22 +0000
+Received: from LAPTOP-K5LN3AJ2.localdomain (165.204.134.249) by
+ HK2P15301CA0002.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3977.2 via Frontend Transport; Mon, 15 Mar 2021 11:22:11 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 227e77cc-3677-4e57-4e6d-08d8e7a06a4c
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1240:
+X-MS-Office365-Filtering-Correlation-Id: 6478deae-c4c1-497e-ae9c-08d8e7a495df
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4617:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1240E75AD63B58980CFF20958B6C9@CY4PR12MB1240.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB46179D2CE16F32CA23F30285976C9@DM6PR12MB4617.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:158;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lszKyJMdElfGZt4A162v3Av/IwPFVv5dTUbVY++USVHf96cbhgBQuiicZfMapREawxJ6lbPet29b39u6TEXJEwxzyU06jfHLXlNXAJMGygxOsXqHYGZotd0W1OTDUOS86LYwPn7j6vTH/BQBYaqFcXo5t78xnhmrWscvUYbFtyMx2j7hwatWr8kQcJgEGKKdVIee+TGEfTHBQn4DNaL55h/1Vnm/cBQhjznsl7fEb7fze05wY5dFOu53NN2rnIkCZv7LWW9V8ANrfj3Bp4tYbV8HPi0C9abDcDUontL9c+K2ZHabpC1XA4t+pElOPU740u09G/PiDlRbA/cPFJrk4auYA4mO1yKFFOAAk5P5fND3dyEtNTORTAmWuJzbinqIs9QRrLQ+4Z/fg0FUAz+9RHyRBNdG09z1WeMdBccQotr1jdQ9TCyL/iZG7/OPXxQM/rzfN56N4N1ZuBo3iQD5VcJ0NW6tFZQQEPbc5y5BUXdQhsLlUsf72L3hTYMWc8Xu8pUZ8eUyN/X5gCAPtjyhssm3QWogT0F+Go0f+r6kuV+9YDR9A3cuY8kOs534qFqaVMTuclBQg3XxXSOiKM1eMtVG+xRPFKKnZkE38DtEIpb73Dj64L0vZT2jDEN/YvBZ1Hk1YfKXZtbBNhTpHdjzEQ==
+X-Microsoft-Antispam-Message-Info: Hg1LLMg5oiuWqHa9CL/eG3KRVVTFjoyjR3jqoGtb+HFMl2BXzBTki5YT6RuEVRw7thU4UgWFsQr0kzwRSoCqTyEyaXCnTWA5RZa0nQ2oxcEx6u32YkfVcNDezUo14Yi/6TEZLlCyPVUNmQnx3NVakirvnjqgkv754bPCYpa2znHORi/pYlm4CR52OXcdGs5YXeLU8jLl6K28UXMmKnlllc5Mgxn0BIX6jV1MVGEuoLkcD8lOgGxIxDTAwmKoFhD8jGiToPfMd2i10ZCBTfV45UgYLw9rbGjDATRczfJBxm0UMLeHJXTQ7/7IK8ukCWRR8c+ENgm+QGy7jK7kQPd9ZemnoRiZk6lFUjD60bLutJXFuI/4zOxT3mzSpTt65iunhqpnpu6NK0LY006d9SvmkCttCDYmQt5ZLWSZ9rWrQyxszSeLZuPqfaEF5PY8D7O33N0rDMlfPjLB/ueSyW3YkhdSHV2IUYP3W9/WXUS0yIZpSw5SYdpCXU7RmdKQYWMcd8sBqQPX+yV1qwkfIzgZ3ucn9WU6jJkql/Ftl0dmnviXuPe1dv1CrUiy2emX8UI6
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(31696002)(45080400002)(16576012)(186003)(26005)(478600001)(8676002)(966005)(2906002)(66946007)(956004)(16526019)(66476007)(2616005)(31686004)(4326008)(19627405001)(83380400001)(8936002)(316002)(36756003)(6636002)(6486002)(53546011)(33964004)(66556008)(52116002)(110136005)(6666004)(5660300002)(166002)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2604.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(8676002)(6666004)(8936002)(52116002)(4326008)(86362001)(5660300002)(316002)(186003)(16526019)(26005)(83380400001)(2616005)(2906002)(6486002)(6512007)(66946007)(66556008)(36756003)(6916009)(956004)(44832011)(66476007)(6506007)(478600001)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eXBpU0lDbWFlT280L3JiYnpHQU1uWkVjck80aTE0WU9ldUpFdDZJYXI2SHFv?=
- =?utf-8?B?aERDL05OWEJTVmdram5LWktEMGJrQndkSy9HNlR3Y0JvWGR4a0ZiZXp0c3hO?=
- =?utf-8?B?SXk2NWkxb2w4UFdWemVzZXVqM1djd05wWmtTY1hsb2N2OUx5aU9OSTQ0SEQ0?=
- =?utf-8?B?MmN0cHpmOEtNcnc4VWlJQzFtVXhBSmtERlRjM1lIMTg0dW9hS3dITVNNa2p2?=
- =?utf-8?B?cUtGb0pKS0s2TkJ0Sm9WbFlwLy8xUHBpbFR6Z3ZQMm9UR3k2QVhkT3N6M0sr?=
- =?utf-8?B?SEdBQW5rUVdET0RWRk1Sb0VsWkxyQ3lnVFd5eEdWS1UxYloyNzRZZkdUNzdQ?=
- =?utf-8?B?Sm5sQ0MyNHhnRGYwd2taWkphM2VDV2dUczNibmo2cU40aXd0REs1UGJoMld0?=
- =?utf-8?B?S0JheUZXcDF6WEhsMVdKR2NiekpxRmRQaXBycGJER1hxVDk3Ykk5NUFDcHcw?=
- =?utf-8?B?YzF5UmJtU2dhaG1DaDVKWExzVHc5cVczWStnNkw1bEV5bWhJQzFBV0grc2Ey?=
- =?utf-8?B?YlJ6SnBVdkc5UWVzMXAwTkgxWmFRcG05aUVjdDQ4UHJYcjFqRHpCT2VSWUFU?=
- =?utf-8?B?QXIrTTdITmYrZGJORTJldWkrS0R0d0t6SVNRZ1dFV2tvNEFYS0IvWWZORmgx?=
- =?utf-8?B?a2tvaGt2cGxvV0tHdllpdFNrcy9md241eTR6WVlGT3pSdjV3SnI3dFdKcjZk?=
- =?utf-8?B?U0ZpMnhwZm05QWNzRVp6b1pXaEdYTE1hVTdNOHl0LzJLQ3VWSlVvVk5VTkFk?=
- =?utf-8?B?NGNoaDAzR3N4bGtqcytUcHhrc3NVVEkzUk0yeVQ5bWswTnI2eVNYNW5VWlZs?=
- =?utf-8?B?eFE5MGJ1QVlmL3dVclFIM2pTT1JVd0tlSVhXc1JXRGJmM1pPR1BpbGJzOWpm?=
- =?utf-8?B?dlZ5SmdVdGluMlpjSXpkK0ptMmo2L01TR1A0VlVaVTUxU0tpTFcvRzJNVXB4?=
- =?utf-8?B?SWVYbm13YmxZK250dyttck9uK1hoVEh2Y2YzVTY3aDRGWWR5SEkxNnY4Q0V4?=
- =?utf-8?B?SE0rTjh3ZHhCNnJlYTE4VitNMml5M1dERERlNHNvcnZTeU9jaUJjUlRVQmZq?=
- =?utf-8?B?Tkt3WWtHV1liVzdHZUl3QXJFaktLekRxRUtTcnAzZGFhcDdldTFUWkMvemNj?=
- =?utf-8?B?cXNBWjcrZW1ycElycGpzcUM5bytPOVQ4Q0doK2VnU3VCM2twMFRMclREQ2Ru?=
- =?utf-8?B?Tm1FdURTU2dCU090WTc3bk9ERitoKytJcjJPS252amNDalp1TWp0UmxybTRV?=
- =?utf-8?B?SUFLUk45N0trNmVhZkJuVzBPdWtZbHVtKzA2QWtJbVR3a1RCL2hHZWRDUisv?=
- =?utf-8?B?cWprUWwzeFNuanRkTzRINHBwWXJsYnJZNHRad3daWlExcTNVUmtzNWRhUkpq?=
- =?utf-8?B?NldBTllZaUF0MUhjS3M3TDhsaUREOHZrdVdtQmQyT29wWHNjYXppZXU4Qjlo?=
- =?utf-8?B?UTFqMXpIUVp6ckNmU3dydm1MREwrc0I4WW5xc1lxQWFiVndBZTVseFNXZ0VQ?=
- =?utf-8?B?ZGRtR1JWZFVINXZjVk5vZFRXUzhQVERncFF6M2dkVkM4bHJrUWMzazhLeUpn?=
- =?utf-8?B?TDJnQnh2TCtFUFJQUWxlcUh0OUEvOTlaTFpxeU1vS2VhYUIzRGZyMCtESjNk?=
- =?utf-8?B?aSs1SDgyOVQxUkhBeHppNE1vUW5yaHZtOG45L0VtY1Z0WmZuMFgwRS8zcVcw?=
- =?utf-8?B?OWROalpFNTQyeW4xV2ZHamZ1eGdsUDZ0T2MxU1pOU3pDUk44MEdKY2F4Wmtu?=
- =?utf-8?Q?V6aB8amXUlth40fcDlvc7++X6MH1EgMu2gMvbDU?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?R3NZY1VZTGRvMGRJbldvVUlUTVZ0R3JZbk9meEI4Y0c2UzVQVXZHbWRkVzlo?=
+ =?utf-8?B?TTZodTFkNGdmR0dIWTJFZzQxdjFEdW92VnRmQkJSTFRhR0c0Q1c4TU4xZ2V2?=
+ =?utf-8?B?MnRmMjRsbld4TEdhV2tId3lvaWszdW12OSs5bkZaMzJmQldidW5iVHZPbkd1?=
+ =?utf-8?B?WXVDak1LNG4wbmhmcDFGMjRmSTVQVFkzUHNhcVhWbFRUOWJ6ZE14ZW5mOG1i?=
+ =?utf-8?B?WDVNbnNGaExVTWtqa2lBc1BnMW4yM1ZVbXlBNXlyaEMyYnoxWXlpRW8rTjRm?=
+ =?utf-8?B?dHlrVXFIdU5SRDQ1RWpEdnpHMHV2L1VUczBNSS9TbFFoTzdsTU5yd2pxRlhu?=
+ =?utf-8?B?TzN4MExRcy9uK3BETzlFSkcxbmFIVUI4blE1bXFGRi91VHYyaSt6R1BWTGkv?=
+ =?utf-8?B?ajhlZHgrVFE3R0pQUXdYdU0wckY5UzBWWUVBM0dDajV4YjdmQzc2aEZDT1dj?=
+ =?utf-8?B?SjI4ZmMzUENwWHk3eUd5REJFL1Bvb0NWRFgvb1hJYnRuaU1raXo5SHQ4Zkh4?=
+ =?utf-8?B?VGZ4U1FrMUV4cmRVd3FGdEkyTHNRZkJTOWhWWkhrZlBOSnBnZ2QxUWd1Y1NX?=
+ =?utf-8?B?dEkzbHNISWh2REd5dlRCTW9xbTM3MjgyTzFXMzJVMXBUQ3NMMHZmbXl3eGFt?=
+ =?utf-8?B?bzlUbStEWndWWHNaNCtmMU9KSUU4Z1JDRm5lMFNQaW81dURzbUp3MHBUYXM0?=
+ =?utf-8?B?bDgvQ1ZGWUM1NHlCd1dXdlFLejcvTjFySXJYYWpHbFovZXBoY3JLdUcxaFV5?=
+ =?utf-8?B?WGdCUERnNEl6eDI0REV1eFF1c1U2TDdka21YVkxrQ1NHT3o5TTM0S2djTjdU?=
+ =?utf-8?B?d1VQUmJLdHZsM3dQTUtZVDZISEF3SmxyZGg2SkFNV2JacU5XSmxuUlk3OStr?=
+ =?utf-8?B?NlpSeE5YcE95UTY2eG1nUXA1RWZmaGZMYWlmckxacGRYbGFhZ0lPUHJWbU0w?=
+ =?utf-8?B?bHlKa0w2R2o0TVgzOTk3QmlvRFY2a2JUTGJyMGd2b3ZyMFNzZzYybDQrYXJk?=
+ =?utf-8?B?THhEVzFpaW9VckgvT2dWSFZhN2ZpM1RJVlc0Nmh2K2ZzOXd6WEdSbldUWW9z?=
+ =?utf-8?B?N3NLcE52Qk5BS3FFRTRWZWdxWTRRQ3lHTlhYcHIxTWhkY251SWhZeUNNRW1S?=
+ =?utf-8?B?VTJqWERqSE1rYnkvdEtjQmFTQ29raEhUMFR3c2JYa29HTVFUZ3prSWFTbW5O?=
+ =?utf-8?B?TUtkb1JmZHZHdTJBYXg0aFp6eEx0dkQxVHBra2NOeVdZRFhWUFdnL2lRc0c2?=
+ =?utf-8?B?eW9tbHErSjVUOWE0SUNXbDJsdGhGanNiTGZlcDNqVmtPVTdlMWlleWJiR1J1?=
+ =?utf-8?B?SXRkSEsvaVNwQnZlSGUyR0svOVB3cENmbnEzTWs1UnJ0M2kyWndVa2l6SkZT?=
+ =?utf-8?B?UlVuTzRsb29EK21rZEs1Rjl2OUNRVWlJV1lWMWVPcUx6VnRxOFE0TDUwcWZh?=
+ =?utf-8?B?aU9kS1poTk1sSWJ6b002V2IycWhnMzNRTVA5bjc1RlhOd0g4VURsOEV5d0RM?=
+ =?utf-8?B?Q0E3OU1uekhkUXJ5Y0pmVnpSWGd6OFBwYW9zdnlLRjhLT0lUQXdvOHpMekk5?=
+ =?utf-8?B?VEt5RkZ6TlZCRk9KSWhXTklMOXJmRXZwYWlFS1NOSGk3bmc1U1IxWjBxQWdr?=
+ =?utf-8?B?SUhCdG5DbXM4Wm5NNk80M0dwN1FtUEhFQnJGY0xESkRCdlVXZFNSVWE3ZjZM?=
+ =?utf-8?B?czluTGJkVjJRS2xtNUwwWVJqTDlGUy9iZnJIUW5Xb1NpUDZJb3pQM1AreS9j?=
+ =?utf-8?Q?RMy5Mawlr+dteAN+fiAObCNXohbQzVK4FMuVqen?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 227e77cc-3677-4e57-4e6d-08d8e7a06a4c
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6478deae-c4c1-497e-ae9c-08d8e7a495df
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2604.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 10:52:24.1802 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 11:22:15.0840 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H7JSbmxgdE0wqzysHd57/BHOTjyLUMiIU0tAIXFK3NBXIjQxIqEdmOQVe1d7b62cmLYO13eElYJgllyD5JhMZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1240
+X-MS-Exchange-CrossTenant-UserPrincipalName: QivbF1i2ngxtfzjpO4UdnWUe/6yfqyja4THTbCMWySw4sY6xMmewwHoH9Zz3WeEAk2ouxsgqVXe7Gu73Q2YPeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4617
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,379 +131,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0338556719=="
+Cc: Eryk.Brol@amd.com, Solomon Chiu <solomon.chiu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ bindu.r@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0338556719==
-Content-Type: multipart/alternative;
- boundary="------------88A56DC84ADC679D2EF0988D"
-Content-Language: en-US
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
---------------88A56DC84ADC679D2EF0988D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 3/15/21 11:32 AM, Wang, Kevin(Yang) wrote:
->
-> [AMD Official Use Only - Internal Distribution Only]
->
->
-> Hi Das,
->
-> It seems more reasonable to put spin lock in ring structure, so that 
-> KIQ ring can be treated like other normal ring.
-
-
-
-We don't use locks for other rings though.
-
-
-> and do we have other paths to call kiq ring except for kernel 
-> initialization? it seems the kfd and kgd will use kiq in one thread..
+* Add debug out when viewport too small
+* use max lb for latency hiding
+* System black screen hangs on driver load
+* Fix UBSAN warning for not a valid value for type '_Bool'
+* Fix for outbox1 ring buffer typecasting issue
+* Bypass sink detect when there are no eDPs connected
+* Increase precision for bpp in DSC calculations
+* Add changes for dsc bpp in 16ths and unify bw calculations
+* Correct algorithm for reversed gamma
+* Remove MPC gamut remap logic for DCN30
+* Fix typo for helpers function name
+* Fix secure display lock problems
+* Fix no previous prototype warning
+* Separate caps for maximum RGB and YUV plane counts
+* Add debugfs to control DMUB trace buffer events
+* [FW Promotion] Release 0.0.56
+* DCHUB underflow counter increasing in some scenarios
+* fix dml prefetch validation
+* fix dcn3+ bw validation soc param update sequence
+* add a func to disable accelerated mode
+* Fix potential memory leak
 
 
+Anson Jacob (1):
+  drm/amd/display: Fix UBSAN warning for not a valid value for type
+    '_Bool'
 
-This patch is for consistency. It is not fixing any issue/bug.
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.56
 
+Aric Cyr (4):
+  drm/amd/display: 3.2.126.1
+  drm/amd/display: System black screen hangs on driver load
+  drm/amd/display: DCHUB underflow counter increasing in some scenarios
+  drm/amd/display: 3.2.127
 
+Atufa Khan (1):
+  drm/amd/display: Separate caps for maximum RGB and YUV plane counts
 
-Nirmoy
+Calvin Hou (1):
+  drm/amd/display: Correct algorithm for reversed gamma
 
->
-> thanks.
->
-> Best Regards,
-> Kevin
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Nirmoy Das <nirmoy.das@amd.com>
-> *Sent:* Saturday, March 13, 2021 1:08 AM
-> *To:* Koenig, Christian <Christian.Koenig@amd.com>
-> *Cc:* Das, Nirmoy <Nirmoy.Das@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Subject:* [PATCH 1/1] drm/amdgpu: wrap kiq ring ops with kiq spinlock
-> KIQ ring is being operated by kfd as well as amdgpu.
-> KFD is using kiq lock, we should the same from amdgpu side
-> as well.
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 1915b9b95106..892dc6b269fb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -462,20 +462,25 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device 
-> *adev)
->  {
->          struct amdgpu_kiq *kiq = &adev->gfx.kiq;
->          struct amdgpu_ring *kiq_ring = &kiq->ring;
-> -       int i;
-> +       int i, r;
->
->          if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
->                  return -EINVAL;
->
-> +       spin_lock(&adev->gfx.kiq.ring_lock);
->          if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
-> - adev->gfx.num_compute_rings))
-> + adev->gfx.num_compute_rings)) {
-> + spin_unlock(&adev->gfx.kiq.ring_lock);
->                  return -ENOMEM;
-> +       }
->
->          for (i = 0; i < adev->gfx.num_compute_rings; i++)
-> kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.compute_ring[i],
-> RESET_QUEUES, 0, 0);
-> +       r = amdgpu_ring_test_helper(kiq_ring);
-> +       spin_unlock(&adev->gfx.kiq.ring_lock);
->
-> -       return amdgpu_ring_test_helper(kiq_ring);
-> +       return r;
->  }
->
->  int amdgpu_queue_mask_bit_to_set_resource_bit(struct amdgpu_device *adev,
-> @@ -518,12 +523,13 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device 
-> *adev)
->
->          DRM_INFO("kiq ring mec %d pipe %d q %d\n", kiq_ring->me, 
-> kiq_ring->pipe,
-> kiq_ring->queue);
-> -
-> +       spin_lock(&adev->gfx.kiq.ring_lock);
->          r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
-> adev->gfx.num_compute_rings +
-> kiq->pmf->set_resources_size);
->          if (r) {
->                  DRM_ERROR("Failed to lock KIQ (%d).\n", r);
-> + spin_unlock(&adev->gfx.kiq.ring_lock);
->                  return r;
->          }
->
-> @@ -532,6 +538,7 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev)
-> kiq->pmf->kiq_map_queues(kiq_ring, &adev->gfx.compute_ring[i]);
->
->          r = amdgpu_ring_test_helper(kiq_ring);
-> +       spin_unlock(&adev->gfx.kiq.ring_lock);
->          if (r)
->                  DRM_ERROR("KCQ enable failed\n");
->
-> -- 
-> 2.30.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0a90c6383d634a5226a108d8e5797c08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637511657234189238%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=sfa27Sz8wcIyHJqaE9f8aXQMeUxbyynpAONZHUYoogY%3D&amp;reserved=0 
-> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0a90c6383d634a5226a108d8e5797c08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637511657234189238%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=sfa27Sz8wcIyHJqaE9f8aXQMeUxbyynpAONZHUYoogY%3D&amp;reserved=0>
+Dillon Varone (2):
+  drm/amd/display: Add changes for dsc bpp in 16ths and unify bw
+    calculations
+  drm/amd/display: Remove MPC gamut remap logic for DCN30
 
---------------88A56DC84ADC679D2EF0988D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Dmytro Laktyushkin (3):
+  drm/amd/display: use max lb for latency hiding
+  drm/amd/display: fix dml prefetch validation
+  drm/amd/display: fix dcn3+ bw validation soc param update sequence
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/15/21 11:32 AM, Wang, Kevin(Yang)
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:DM6PR12MB3018F5411F3181EA5616B106A26C9@DM6PR12MB3018.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p style="font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" align="Left">
-        [AMD Official Use Only - Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-family: &quot;segoe ui&quot;, &quot;segoe ui
-            web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">Hi Das,</span></div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-family: &quot;segoe ui&quot;, &quot;segoe ui
-            web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);"><br>
-          </span></div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-family: &quot;segoe ui&quot;, &quot;segoe ui
-            web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">It seems more
-            reasonable to put spin lock in ring structure, so that KIQ
-            ring can be treated like other normal ring.</span></div>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>We don't use locks for other rings though.<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:DM6PR12MB3018F5411F3181EA5616B106A26C9@DM6PR12MB3018.namprd12.prod.outlook.com">
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-        </div>
-        <div><span style="font-family: &quot;segoe ui&quot;, &quot;segoe
-            ui web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">and do we have
-            other paths to call kiq ring except for kernel
-            initialization? it seems the kfd and kgd will use kiq in one
-            thread..</span></div>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>This patch is for consistency. It is not fixing any issue/bug.<br>
-    </p>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>Nirmoy<br>
-    </p>
-    <blockquote type="cite" cite="mid:DM6PR12MB3018F5411F3181EA5616B106A26C9@DM6PR12MB3018.namprd12.prod.outlook.com">
-      <div>
-        <div><br>
-        </div>
-        <div><span style="font-family: &quot;segoe ui&quot;, &quot;segoe
-            ui web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">thanks.</span></div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-family: &quot;segoe ui&quot;, &quot;segoe ui
-            web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">Best Regards,</span></div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-family: &quot;segoe ui&quot;, &quot;segoe ui
-            web (west european)&quot;, &quot;segoe ui&quot;,
-            -apple-system, blinkmacsystemfont, roboto, &quot;helvetica
-            neue&quot;, sans-serif; font-size: 12pt; color: rgb(50, 49,
-            48); background-color: rgba(0, 0, 0, 0);">Kevin</span></div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
-            behalf of Nirmoy Das <a class="moz-txt-link-rfc2396E" href="mailto:nirmoy.das@amd.com">&lt;nirmoy.das@amd.com&gt;</a><br>
-            <b>Sent:</b> Saturday, March 13, 2021 1:08 AM<br>
-            <b>To:</b> Koenig, Christian
-            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-            <b>Cc:</b> Das, Nirmoy <a class="moz-txt-link-rfc2396E" href="mailto:Nirmoy.Das@amd.com">&lt;Nirmoy.Das@amd.com&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Subject:</b> [PATCH 1/1] drm/amdgpu: wrap kiq ring ops
-            with kiq spinlock</font>
-          <div>&nbsp;</div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span style="font-size:11pt">
-              <div class="PlainText">KIQ ring is being operated by kfd
-                as well as amdgpu.<br>
-                KFD is using kiq lock, we should the same from amdgpu
-                side<br>
-                as well.<br>
-                <br>
-                Signed-off-by: Nirmoy Das <a class="moz-txt-link-rfc2396E" href="mailto:nirmoy.das@amd.com">&lt;nirmoy.das@amd.com&gt;</a><br>
-                ---<br>
-                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 15
-                +++++++++++----<br>
-                &nbsp;1 file changed, 11 insertions(+), 4 deletions(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-                index 1915b9b95106..892dc6b269fb 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-                +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-                @@ -462,20 +462,25 @@ int amdgpu_gfx_disable_kcq(struct
-                amdgpu_device *adev)<br>
-                &nbsp;{<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq = &amp;adev-&gt;gfx.kiq;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *kiq_ring =
-                &amp;kiq-&gt;ring;<br>
-                -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
-                &nbsp;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!kiq-&gt;pmf ||
-                !kiq-&gt;pmf-&gt;kiq_unmap_queues)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-                &nbsp;<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ring_alloc(kiq_ring,
-                kiq-&gt;pmf-&gt;unmap_queues_size *<br>
-                -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                adev-&gt;gfx.num_compute_rings))<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                adev-&gt;gfx.num_compute_rings)) {<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-                &nbsp;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt;
-                adev-&gt;gfx.num_compute_rings; i++)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                kiq-&gt;pmf-&gt;kiq_unmap_queues(kiq_ring,
-                &amp;adev-&gt;gfx.compute_ring[i],<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                RESET_QUEUES, 0, 0);<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_ring_test_helper(kiq_ring);<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;<br>
-                -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_ring_test_helper(kiq_ring);<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-                &nbsp;}<br>
-                &nbsp;<br>
-                &nbsp;int amdgpu_queue_mask_bit_to_set_resource_bit(struct
-                amdgpu_device *adev,<br>
-                @@ -518,12 +523,13 @@ int amdgpu_gfx_enable_kcq(struct
-                amdgpu_device *adev)<br>
-                &nbsp;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;kiq ring mec %d pipe %d q %d\n&quot;,
-                kiq_ring-&gt;me, kiq_ring-&gt;pipe,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                kiq_ring-&gt;queue);<br>
-                -<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_ring_alloc(kiq_ring,
-                kiq-&gt;pmf-&gt;map_queues_size *<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                adev-&gt;gfx.num_compute_rings +<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                kiq-&gt;pmf-&gt;set_resources_size);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to lock KIQ (%d).\n&quot;,
-                r);<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-                &nbsp;<br>
-                @@ -532,6 +538,7 @@ int amdgpu_gfx_enable_kcq(struct
-                amdgpu_device *adev)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                kiq-&gt;pmf-&gt;kiq_map_queues(kiq_ring,
-                &amp;adev-&gt;gfx.compute_ring[i]);<br>
-                &nbsp;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_ring_test_helper(kiq_ring);<br>
-                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;adev-&gt;gfx.kiq.ring_lock);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;KCQ enable failed\n&quot;);<br>
-                &nbsp;<br>
-                -- <br>
-                2.30.1<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                <a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0a90c6383d634a5226a108d8e5797c08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637511657234189238%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=sfa27Sz8wcIyHJqaE9f8aXQMeUxbyynpAONZHUYoogY%3D&amp;amp;reserved=0" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0a90c6383d634a5226a108d8e5797c08%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637511657234189238%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=sfa27Sz8wcIyHJqaE9f8aXQMeUxbyynpAONZHUYoogY%3D&amp;amp;reserved=0</a><br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-  </body>
-</html>
+Jake Wang (1):
+  drm/amd/display: Bypass sink detect when there are no eDPs connected
 
---------------88A56DC84ADC679D2EF0988D--
+Jun Lei (1):
+  drm/amd/display: Increase precision for bpp in DSC calculations
 
---===============0338556719==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Leo (Hanghong) Ma (2):
+  drm/amd/display: Fix typo for helpers function name
+  drm/amd/display: Add debugfs to control DMUB trace buffer events
+
+Meenakshikumar Somasundaram (1):
+  drm/amd/display: Fix for outbox1 ring buffer typecasting issue
+
+Nikola Cornij (1):
+  drm/amd/display: Add debug out when viewport too small
+
+Qingqing Zhuo (1):
+  drm/amd/display: Fix potential memory leak
+
+Wayne Lin (2):
+  drm/amd/display: Fix secure display lock problems
+  drm/amd/display: Fix no previous prototype warning
+
+Yao Wang1 (1):
+  drm/amd/display: add a func to disable accelerated mode
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  10 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  43 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   2 +-
+ .../amd/display/dc/bios/bios_parser_helper.c  |   5 +-
+ .../amd/display/dc/bios/bios_parser_helper.h  |   2 +-
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  48 +-
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  31 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   9 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  12 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       |   9 +-
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   1 +
+ .../display/dc/dce110/dce110_hw_sequencer.c   |   2 +-
+ .../amd/display/dc/dce110/dce110_resource.c   |   2 +
+ .../drm/amd/display/dc/dcn10/dcn10_resource.c |   6 +-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  34 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |   8 +-
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |  11 +-
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    |  26 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |  23 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.h |   1 +
+ .../amd/display/dc/dcn301/dcn301_resource.c   |   7 +-
+ .../amd/display/dc/dcn302/dcn302_resource.c   |   7 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   2 +-
+ .../dc/dml/dcn20/display_mode_vba_20.c        |   1 +
+ .../dc/dml/dcn20/display_mode_vba_20v2.c      |   1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 105 +--
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 668 ++++++++++++++----
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   2 +-
+ 33 files changed, 758 insertions(+), 362 deletions(-)
+
+-- 
+2.29.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0338556719==--
