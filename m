@@ -2,107 +2,125 @@ Return-Path: <SRS0=AQd/=IN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B026C433E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 03:49:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15C6FC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 03:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 472D764E45
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 03:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 472D764E45
+	by mail.kernel.org (Postfix) with ESMTPS id B5D4164E3F
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 03:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5D4164E3F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09ECF89CDB;
-	Mon, 15 Mar 2021 03:49:33 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700043.outbound.protection.outlook.com [40.107.70.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C9FC89CE1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 03:49:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586B589CE2;
+	Mon, 15 Mar 2021 03:58:03 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B63E89CE2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Mar 2021 03:58:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CCC2vJVdYxZiX68UHQFdHfJMDNKEsio90dQCks1hc4aWY6S51wfVFs5hTDrsjPrEIXCYJ1tEjnxVJa3fGrXhS0B4/uDoUPxClsBXA8LWT1BLWf6XQkcNn996yySaxWanVtSDeuF0H0hJ+RH13p6N62B9jCw+BxWckp8370I+Rx0ka0kp3vPqWEctQj3Ea9xpAGjc5yhjtu4LaqlzpQQgsV3dtVJLDpnRdCqHBAyz0RgSfDFwnum7Yp0KlYOLCEhhBplW/fVSNzhUyVsb/RBUupL28brIACNXbfuTO9hAY+8BjVBdhJ4lj33xaGXk2igxhnCuy5xAhiaS04UkF4oaLA==
+ b=ervOI6Jdj4aPSPrjk3sr85cBLzPPD/jjO8Q3gBvry+QL2hzST3zkyUVVDYPnfPhQPqxn0RheBR4ONO/c5oRNi8u2bIHCbx0KfXn9oaCmW+yu/OdsaT7MRk9JSf7GqYgYjXXVRJAe5LffEwWQPXGWehSiCtbupqGhZ7f6IkXti858kRPhDKVz2d5oXzb0pmItNcAxzbLiJsiFT7PUsNjZVNKitNgBpN/FKsBc4PgMF0jqHtKJiNQqGkrafHENreT3typ1rX1YcrQk9wLuoub7XyotVACzcXjACO5QI7biGjw7TrBUjClA6OFrghClaAZWe5DePeO9lmRnw4lOIqi96w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dh7lxcEN8LJTK9dPfI7Y2PQGskoFYTde9RWoVOjeaa8=;
- b=hNTpVU6pzm0JOi0ANuSKAMhOkYynI/ju1KEnvLJW7kbL1+agAeIuSn2kLcK0WBIctlY9PRq6fMvuoRzME7nJ0JNX3AXApFX0pGVCRZ7n4qBB08F2noIK6m6TaAz4zAaMYS5ZFI3U8ReDPUWVrb4sezQ1MtlEBbog9FRWYwJKSAl74wb9VM9syeD4wc+IjPUBb193n3p7T33YNbUzbSjp6BhpysXbjpSi0Rue8fIlunNgq37gq1vdAnEZjKXO6lW6FPA1xhd/hkh+0/3hkdpff/qqndcpEvVRvayDyZjZtjaRm6TP97fQbSuTJQRLJOGa8sqXshUSV4fSmF7Bb7Z90A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=2H+1G664aNb6NIdEG9cZOrBJT6DiGiVwE6edjon3mH8=;
+ b=L0/lPwIVaXgpSwxGQdOAJX0pXZj7UnFjF1SBCji9nRveIOX2QMr+4mPdsEi9AVp71tdJgLpVxr3vkYqjU6tEMEUm8PXyPCN9nIY3yIA6oFqkc2C4lxiBhPb3Z7nx4Uf9VoSz3QpzAM/HaCfMv7iLG/vRO5yBiYALa+wz0Mx1Q603qGp/wrS7YJ59PVXwijJkANkIF9MwcC8OvgnVX/9GZcwFiL+x3xZ4IEJH+QBnBXCNbgozSw3liiE8AOw0aQCk+fYV62zKl0Z0CVrc2gFkktonb0NZORkl4uirgu4bfbM/BYyr5KoBCA5FDfT3nf6KyWXZFou3GSK9Ov57rCl7bA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dh7lxcEN8LJTK9dPfI7Y2PQGskoFYTde9RWoVOjeaa8=;
- b=nQkUzyhzytAoBFlQewz1pvdnto5OCTPKHyCN9pPX5b8507S/zMZcbCTtkEXYclA93ugjYIdtAAucWoesuRzF4wCLax5mr3J/C+sg9fY4z4y31t2+9XKaKzRmWMbXlkMDbrZqD2yRunT6KjQ4tEEyW/pYZGdL4bxjqUA5J4ELENs=
-Received: from DM5PR2001CA0005.namprd20.prod.outlook.com (2603:10b6:4:16::15)
- by CY4PR12MB1813.namprd12.prod.outlook.com (2603:10b6:903:124::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Mon, 15 Mar
- 2021 03:49:29 +0000
-Received: from DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:16:cafe::cb) by DM5PR2001CA0005.outlook.office365.com
- (2603:10b6:4:16::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32 via Frontend
- Transport; Mon, 15 Mar 2021 03:49:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB02.amd.com;
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT038.mail.protection.outlook.com (10.13.173.137) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3933.31 via Frontend Transport; Mon, 15 Mar 2021 03:49:28 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sun, 14 Mar
- 2021 22:49:27 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sun, 14 Mar
- 2021 22:49:27 -0500
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Sun, 14 Mar 2021 22:49:26 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH Review v3 1/1] drm/amdgpu: fix send ras disable cmd when asic
- not support ras
-Date: Mon, 15 Mar 2021 11:49:24 +0800
-Message-ID: <20210315034924.25083-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 90ef933b-1aea-4966-f9b8-08d8e76555ca
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1813:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB181370B0E21FD5B0C3E6B89E9A6C9@CY4PR12MB1813.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dr01IUqA0n3iWGhHK6/v0/6vmzhL5aS11q9RgVbOgc16QltdDOayC/awzebu9/jcU9E2T4nLSVzoB+zD85AR+w2mC3PVWmeF0dwTpESNyRQzEOzvmQuhzapRx2eM+kE3BIYNUSzY3FPzIso1Dw4b67XgWEawqHM2gYtDj5Z72trDS1DOKDIigCtx5+JU6N7+zy0Zhwqfe/NOUsFG/Qxx7E2SSE1uWbBELVaOk24hxTrlt2t2eSaYeB235hOzGUksKpa3V2dTbisg1e1mh59CEXZj0t6P0WEQTeTL4o9cHN0VBT0r7BgLt8jBYgdxAuvV2KJPXd4hcdi66w/tGlUuMQPTeC96Y0w5c5bdmLTFuUBh8MS4P6Pht2QKC+UmA2fcpR1KUw2or7y7R9B0ODnHvT9X+/OZoyV/WCu53rU0QUIQ3Fy3onSpqdCJ9OKnF2bLfaOkfsiMYu9IzISeBDBPmtIJdrxq3Sw+ofPI/UZGVfWOH6MhD96moTw2o/aG+oMsNXH73HTNnE7HpJ3/YgypfW30VN0r2GfCA2Y5xUzj5n8yg7QMkxAE22RKuvOuZOP02mif/15J+V2sJola3k/oRiLZ04FlJSgFMBfoly1u8RXH78toighRMWn5vrXXNtllQWz7ubcpf41rf1ZN/5U1pqJi9GB6IplHgWMD9Kmluq/Fpaj49BkzewmRz0V/z2qO
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(136003)(346002)(36840700001)(46966006)(5660300002)(6916009)(8936002)(36860700001)(2616005)(336012)(26005)(7696005)(86362001)(70206006)(2906002)(83380400001)(356005)(36756003)(316002)(54906003)(478600001)(81166007)(1076003)(47076005)(4326008)(186003)(82740400003)(426003)(70586007)(82310400003)(8676002)(36900700001);
+ bh=2H+1G664aNb6NIdEG9cZOrBJT6DiGiVwE6edjon3mH8=;
+ b=13ymtDerTBpXNMOh6gXPRCQo1HcvmIhqoesaCggoIPRkEtZYjSOObnhmtbyng8uIOEHHCco5FH3V/ESQDsuAQzfP7U82NlDcc9/qI0timILye5V8KsMI6BN3hjr8hd6ZVHSCIDsjNMMAp1IAWi5Ve3Gcp/2bcPEuKk4hEeMqBQE=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB3865.namprd12.prod.outlook.com (2603:10b6:5:1c4::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3933.32; Mon, 15 Mar 2021 03:58:00 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::34e3:c46e:188c:ef53]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::34e3:c46e:188c:ef53%5]) with mapi id 15.20.3933.032; Mon, 15 Mar 2021
+ 03:58:00 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH Review v3 1/1] drm/amdgpu: fix send ras disable cmd when
+ asic not support ras
+Thread-Topic: [PATCH Review v3 1/1] drm/amdgpu: fix send ras disable cmd when
+ asic not support ras
+Thread-Index: AQHXGU4031z7Xcc4s0CBQWci0QHr1KqEbBCA
+Date: Mon, 15 Mar 2021 03:57:59 +0000
+Message-ID: <DM6PR12MB407556C98F8B849E4839698BFC6C9@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <20210315034924.25083-1-Stanley.Yang@amd.com>
+In-Reply-To: <20210315034924.25083-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-15T03:57:58Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=240385ac-1681-4e41-98c2-ddafaa3dc875;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 7290256b-8844-464e-2af9-08d8e766866a
+x-ms-traffictypediagnostic: DM6PR12MB3865:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3865102472F43D2051115D2FFC6C9@DM6PR12MB3865.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: KApUJ2+XIQ8kyAbAzuWGAtKVV2PJjsRWrQUhJK3ZYvrlnphaSxVrgugSUcbrmCXHJWjS0GX8GSFjJY9FznMwONp3//oWNIET5Qj55hkSJgVEtz3l3OVcLrEoYD+hHqrMXi+ZKaUgUuvevouMjtzgi0QK2AbTxEWc0kkVUMpujiPaosXk+XNUd3SnKupnSLW3L69t9VL75meNVgkfwXOexZCJk3f38RbP6MelftvuVIiCZa498oczbA+Nx9zJuVhdVWhWBmj5Lnkb1a7vKRBugd7MQHwCOOusv7pAeMcA0tj8XYembFsMIyMMqbY+yL+z7B6tKOFRn1XUMgaFT3U6PVT7mQIVQiUM3UlXSxnW2CQO78Zkmm5RIxo+r7sx6e6bHNCymDKvuzOB9kpmolH/aJzsk6StJSqsiz0x/msWEO/IpTH2QNRqgfZYFJIpRE9AoW5WF/z4mAVYCBVRM0HsE/wqQzobWVrd5FH/RYwM1LjqsoXHe1Zg7NltpctRyzg33nLb+SRtszKJzOmoU5+V8ySyJPFdukgaj69X4sayLY1Cz24yRzFnWau+SGmeXlc1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(376002)(366004)(396003)(346002)(8936002)(9686003)(33656002)(55016002)(53546011)(6506007)(71200400001)(86362001)(83380400001)(2906002)(110136005)(478600001)(66946007)(66556008)(4326008)(66446008)(66476007)(52536014)(5660300002)(64756008)(8676002)(26005)(316002)(76116006)(7696005)(186003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?S1mtpw1h4dRwHo5R9Hss5tFE8N8FPS2L/M/CO7fZ6NDym9s5Xen3ww25rTaa?=
+ =?us-ascii?Q?TxtCTJF1fdz3QyuxeRvQ6h0jxW3VZBC+V8qvrTlFC77lfR2k0/dhOtpycGhT?=
+ =?us-ascii?Q?QTjfmVSet6ujTk9Cfsxcw6xAJ/m8cf5lDU9HkjxvfqO+vNTBy6m7F1SMBvqW?=
+ =?us-ascii?Q?JQQbM/XMd5JMVLGo1lQUMCM8i6j0CmSjWvZom1o6CXrl+zc9xmFk4SZq+IkF?=
+ =?us-ascii?Q?/4m03M9vpmR/QdqBFKchIUmy8kph+Gdc8+wRIgQyRhc3Ppzx4qUorroOb1z+?=
+ =?us-ascii?Q?GZiW5nVq1oNuTmQ+4tAtY5ysI6QHxehLkwnGzGnxlQGzvjAijntnGtomgyJm?=
+ =?us-ascii?Q?expQS1cMyMaXCX7tGD24QEzYqWcS+VL43Wd75+DUHm7MJRB1c+Q9OBvTshTj?=
+ =?us-ascii?Q?n0gMqc1DDoDTmH93vetJdnqSZ1K2mj6RMQEw8LyZZ366QCYSF9oVrxc1RX/6?=
+ =?us-ascii?Q?vsriSLiBqpACfY0hKxIXaaQSu6QKJGhks2pnV0HVXH7zAB3hCgX/QM1rLDlJ?=
+ =?us-ascii?Q?ouUOmifgq7c88Upy+KUXov7Qz9QrBdkkgNa+FlIL8ySULPQpw0ZuETCgLIjQ?=
+ =?us-ascii?Q?dexsIUdckgZSPA0DjzVfNvnx93dtpPybz3qCJD0CxYaCsNYT6pFemu+rnY6/?=
+ =?us-ascii?Q?g3r+gzx4bVjXJvN8SW7zMBcTd0guNXZ7QRy9HV234Ew+nHCfecEse85fjjjf?=
+ =?us-ascii?Q?Oz/Gs9hYB3McfKs1EFGtZDy575IbVnB412XgZL9muzNQKQWaEKOS3ELXW7WU?=
+ =?us-ascii?Q?EuwedcHWb7KK+G/xcSa4EO1zq0PmS9MyWZ7+ZEKxz/Z0N2nlNHsgVCF/EXdO?=
+ =?us-ascii?Q?6gNeW3SnG8SzZ/759NA6D19DUSGUd/MGYq5/WM7+royJJE20YOOGduTzu40C?=
+ =?us-ascii?Q?lHwM7CICpCmq5T8DX/zIFI7tTlrXYcmLO+HZqN41D0k91RIaL4qHzxQW3pMd?=
+ =?us-ascii?Q?zHQTcswNIgxec2zsWbN9yqdiZW3WPWrqabFZAUsn/1fEDOinUriEc6sSuUD1?=
+ =?us-ascii?Q?UwNIU+M4Htnv2qrZAFnQUsMeZEkH7dOUuA/AugLAXfio/cS5rbj8BGnB9orJ?=
+ =?us-ascii?Q?2WhOpy4UcIHDZM5bsvIqB3sMTuq9EfxxGrI/LTFnwk/NlrdUB0Ijo49MuHTt?=
+ =?us-ascii?Q?u75vvD40WPSuRlUh3xnR5CDNb4zL5+S1I/2phX5qILgNYTWnnsNdT94PU5LP?=
+ =?us-ascii?Q?XLrniYzOqJd3UNZNkmdx6rZXEuzEc2EFFBIgU232FC+8vLNmsKAhPKUr/o2H?=
+ =?us-ascii?Q?haxn7TrO1EwAHTy11GaYt/EdoPx+PUKFRaXlE+hJfJ/5FuwneD9ztr8OKBIn?=
+ =?us-ascii?Q?4NDEXe/nziRQ+YfGIo6JdSRQ?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2021 03:49:28.8944 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90ef933b-1aea-4966-f9b8-08d8e76555ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1813
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7290256b-8844-464e-2af9-08d8e766866a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2021 03:57:59.8948 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0+BuYpZSfZBHdm4Nq8LEzNoMajhQPMJ4lZh5a6mhrSeE+Qo44ynNg890xq8T7oans/WWANxhr4DV42Kv4+0Xow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3865
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,11 +132,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>, Hawking.Zhang@amd.com
+Cc: "Yang, Stanley" <Stanley.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+[AMD Public Use]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: Stanley.Yang <Stanley.Yang@amd.com> 
+Sent: Monday, March 15, 2021 11:49
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH Review v3 1/1] drm/amdgpu: fix send ras disable cmd when asic not support ras
 
     cause:
 	It is necessary to send ras disable command to ras-ta during gfx
@@ -193,8 +224,7 @@ index ed83a32f6f30..3a416eccf96c 100644
 +	if (!adev->ras_features || !con)
  		return NULL;
  
- 	if (head->block >= AMDGPU_RAS_BLOCK_COUNT)
-@@ -490,7 +490,7 @@ struct ras_manager *amdgpu_ras_find_obj(struct amdgpu_device *adev,
+ 	if (head->block >= AMDGPU_RAS_BLOCK_COUNT) @@ -490,7 +490,7 @@ struct ras_manager *amdgpu_ras_find_obj(struct amdgpu_device *adev,
  	struct ras_manager *obj;
  	int i;
  
@@ -235,8 +265,7 @@ index ed83a32f6f30..3a416eccf96c 100644
 +	if (!adev->ras_features || !con)
  		return 0;
  
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1469,7 +1477,7 @@ static void amdgpu_ras_log_on_err_counter(struct amdgpu_device *adev)
+ 	list_for_each_entry(obj, &con->head, node) { @@ -1469,7 +1477,7 @@ static void amdgpu_ras_log_on_err_counter(struct amdgpu_device *adev)
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  	struct ras_manager *obj;
  
@@ -244,8 +273,7 @@ index ed83a32f6f30..3a416eccf96c 100644
 +	if (!adev->ras_features || !con)
  		return;
  
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1517,7 +1525,7 @@ static void amdgpu_ras_query_err_status(struct amdgpu_device *adev)
+ 	list_for_each_entry(obj, &con->head, node) { @@ -1517,7 +1525,7 @@ static void amdgpu_ras_query_err_status(struct amdgpu_device *adev)
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  	struct ras_manager *obj;
  
@@ -253,8 +281,7 @@ index ed83a32f6f30..3a416eccf96c 100644
 +	if (!adev->ras_features || !con)
  		return;
  
- 	list_for_each_entry(obj, &con->head, node) {
-@@ -1830,7 +1838,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
+ 	list_for_each_entry(obj, &con->head, node) { @@ -1830,7 +1838,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
  	bool exc_err_limit = false;
  	int ret;
  
@@ -292,27 +319,21 @@ index ed83a32f6f30..3a416eccf96c 100644
 +	}
  
  	if (con->flags & AMDGPU_RAS_FLAG_INIT_BY_VBIOS) {
- 		/* Set up all other IPs which are not implemented. There is a
-@@ -2154,7 +2175,7 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev)
- {
+ 		/* Set up all other IPs which are not implemented. There is a @@ -2154,7 +2175,7 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev)  {
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  
 -	if (!con)
 +	if (!adev->ras_features || !con)
  		return;
  
- 	amdgpu_ras_disable_all_features(adev, 0);
-@@ -2168,7 +2189,7 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
- {
+ 	amdgpu_ras_disable_all_features(adev, 0); @@ -2168,7 +2189,7 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)  {
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  
 -	if (!con)
 +	if (!adev->ras_features || !con)
  		return 0;
  
- 	/* Need disable ras on all IPs here before ip [hw/sw]fini */
-@@ -2181,7 +2202,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- {
+ 	/* Need disable ras on all IPs here before ip [hw/sw]fini */ @@ -2181,7 +2202,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)  {
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  
 -	if (!con)
@@ -325,8 +346,7 @@ index ed83a32f6f30..3a416eccf96c 100644
  	return false;
  }
 +
-+void amdgpu_release_ras_context(struct amdgpu_device *adev)
-+{
++void amdgpu_release_ras_context(struct amdgpu_device *adev) {
 +	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
 +
 +	if (!con)
@@ -342,8 +362,7 @@ diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgp
 index a64bbb6dcfa4..60df268a0c66 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -626,4 +626,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);
- void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready);
+@@ -626,4 +626,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);  void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready);
  
  bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev);
 +
@@ -367,9 +386,8 @@ index 7f527f8bbdb1..a05dbbbd9803 100644
  	if (con->eeprom_control.tbl_hdr.header == EEPROM_TABLE_HDR_BAD) {
  		dev_warn(adev->dev, "This GPU is in BAD status.");
  		dev_warn(adev->dev, "Please retire it or setting one bigger "
--- 
+--
 2.17.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
