@@ -2,39 +2,72 @@ Return-Path: <SRS0=AQd/=IN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75E4DC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 08:04:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72999C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 08:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE7D164E13
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 08:04:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE7D164E13
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ellerman.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 3656D64E12
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Mar 2021 08:04:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3656D64E12
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 988A489D66;
-	Mon, 15 Mar 2021 08:04:23 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE4B89F63
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Mar 2021 10:01:27 +0000 (UTC)
-Received: by ozlabs.org (Postfix, from userid 1034)
- id 4Dyw7264Z4z9sWH; Sun, 14 Mar 2021 21:01:18 +1100 (AEDT)
-From: Michael Ellerman <patch-notifications@ellerman.id.au>
-To: Michael Ellerman <mpe@ellerman.id.au>, geert@linux-m68k.org,
- Paul Mackerras <paulus@samba.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>
-In-Reply-To: <8d7d285a027e9d21f5ff7f850fa71a2655b0c4af.1615279170.git.christophe.leroy@csgroup.eu>
-References: <8d7d285a027e9d21f5ff7f850fa71a2655b0c4af.1615279170.git.christophe.leroy@csgroup.eu>
-Subject: Re: [PATCH] powerpc: Fix missing declaration of
- [en/dis]able_kernel_vsx()
-Message-Id: <161571587339.138988.8288160163932312489.b4-ty@ellerman.id.au>
-Date: Sun, 14 Mar 2021 21:01:18 +1100 (AEDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1384C89D83;
+	Mon, 15 Mar 2021 08:04:24 +0000 (UTC)
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D96B989BF5;
+ Mon, 15 Mar 2021 03:22:03 +0000 (UTC)
+Received: by mail-qv1-xf33.google.com with SMTP id cx5so7126295qvb.10;
+ Sun, 14 Mar 2021 20:22:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eQcMG5LLxTg6nVFwEd1izOqUkx+QGUyBmxbcMRP29T4=;
+ b=lK3AtlER+6LnsHJB5aMPze3Ua1gnhBGD44EnvsvH9T4gnS9qP9a7gPthBvg4Obzkgv
+ 2Wffxwga3H2+qhbIqKMizVdeWMPZ1OSugoaZP/nT4iJfX+0TDChHhX0H0+LUI0zZFYk6
+ O1PPwcGEJgk4f5R+sgS9SxkzUZG7tlsTUasCEFF+nw7mGNklsNolsVq4iBYFP6MJX7MM
+ pk21sMrglcsqqqto6J4uU94WzAUuR3O2yx+HTkwOz9OB8VzG/oOvW+HBti+EFTGVMVF/
+ KhHbjwKi6jm45cRByW1XRnYSvJPWGzW88FK4/391k0Zk3lU2XMoA37DpGOSKSXxJSga2
+ Zpyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eQcMG5LLxTg6nVFwEd1izOqUkx+QGUyBmxbcMRP29T4=;
+ b=lef8O24eWezSi6asJgUN0qfTiCKxGww0QZ1re1vWOb05D7ahYjIRyUC2gZHLtkfadN
+ 9H9xvv/7W7zQ5341ls+Skfpol8qcUz83lKlS71ej/VPx7dYUeFm90s0Mk7pzDqGeWGd9
+ FVk3xRRE+ZnV2JMFVD8YaUWvsd/2oL+xSAwHd/rWT4AZzSOMq3PvMZXcBm5NqI4HH6Kh
+ vVcmz4sdJYFv2pC3eY3dNWQrJ4NJZlwfG/rMJETZ4ylXStg4weo80OU3BzcxbAQmsaMv
+ ClWBU4HmoBFM2PnYybaLzdp5H4xsOz0vVvqHyCFOrzLpi4z186Jzh5CtWy1Eow1bXhc2
+ cDRw==
+X-Gm-Message-State: AOAM532m/bLZEQ980YWYgcwcyzfdVoMmmsrL6kjVXxytVmnwgSn0jyfa
+ jJUgD5S7NCYbPMBdZ8gWC8I=
+X-Google-Smtp-Source: ABdhPJyFJI/FWkYaSq+EV0B1lGJ/91vBmhZsHYT1zGgcWinemhjAv4EbeXzw9sNtw+NTbcnBf9J53A==
+X-Received: by 2002:ad4:4d92:: with SMTP id cv18mr8704294qvb.5.1615778522920; 
+ Sun, 14 Mar 2021 20:22:02 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.55.217])
+ by smtp.gmail.com with ESMTPSA id t2sm10098763qtd.13.2021.03.14.20.21.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Mar 2021 20:22:02 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, evan.quan@amd.com, nirmoy.das@amd.com,
+ kevin1.wang@amd.com, ray.huang@amd.com, Xiaojian.Du@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH V2] drm: amd: pm: Mundane typo fixes in the file amdgpu_pm.c
+Date: Mon, 15 Mar 2021 08:51:36 +0530
+Message-Id: <20210315032136.3669883-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 15 Mar 2021 08:04:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,45 +80,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com, linuxppc-dev@lists.ozlabs.org,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 9 Mar 2021 08:39:39 +0000 (UTC), Christophe Leroy wrote:
-> Add stub instances of enable_kernel_vsx() and disable_kernel_vsx()
-> when CONFIG_VSX is not set, to avoid following build failure.
-> 
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.o
-> In file included from ./drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:29,
->                  from ./drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services.h:37,
->                  from drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c:27:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c: In function 'dcn_bw_apply_registry_override':
-> ./drivers/gpu/drm/amd/amdgpu/../display/dc/os_types.h:64:3: error: implicit declaration of function 'enable_kernel_vsx'; did you mean 'enable_kernel_fp'? [-Werror=implicit-function-declaration]
->    64 |   enable_kernel_vsx(); \
->       |   ^~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c:640:2: note: in expansion of macro 'DC_FP_START'
->   640 |  DC_FP_START();
->       |  ^~~~~~~~~~~
-> ./drivers/gpu/drm/amd/amdgpu/../display/dc/os_types.h:75:3: error: implicit declaration of function 'disable_kernel_vsx'; did you mean 'disable_kernel_fp'? [-Werror=implicit-function-declaration]
->    75 |   disable_kernel_vsx(); \
->       |   ^~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c:676:2: note: in expansion of macro 'DC_FP_END'
->   676 |  DC_FP_END();
->       |  ^~~~~~~~~
-> cc1: some warnings being treated as errors
-> make[5]: *** [drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.o] Error 1
 
-Applied to powerpc/fixes.
+s/"an minimum"/"a minimum"/
+s/"an maxmum"/"a maximum"/
 
-[1/1] powerpc: Fix missing declaration of [en/dis]able_kernel_vsx()
-      https://git.kernel.org/powerpc/c/bd73758803c2eedc037c2268b65a19542a832594
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ Changes from V1:
+  Randy's suggestion to adjust the subject line text
+  And missed out a spell too,which now included
 
-cheers
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 5fa65f191a37..308249ae1a22 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3315,9 +3315,9 @@ static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,
+  *
+  * - pwm1_max: pulse width modulation fan control maximum level (255)
+  *
+- * - fan1_min: an minimum value Unit: revolution/min (RPM)
++ * - fan1_min: a minimum value Unit: revolution/min (RPM)
+  *
+- * - fan1_max: an maxmum value Unit: revolution/max (RPM)
++ * - fan1_max: a maximum value Unit: revolution/max (RPM)
+  *
+  * - fan1_input: fan speed in RPM
+  *
+--
+2.30.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
