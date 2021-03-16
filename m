@@ -7,48 +7,46 @@ X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F761C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 13:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86EB6C433E6
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 13:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BCA536502B
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 13:53:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCA536502B
+	by mail.kernel.org (Postfix) with ESMTPS id 3C9906502B
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 13:53:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C9906502B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B2789F8B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB78A6E194;
 	Tue, 16 Mar 2021 13:53:11 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F23016E239
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 08:37:58 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A315D6E23B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 09:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615883878;
+ s=mimecast20190719; t=1615885700;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZwYMPkghKSi78ypCL3Mf4zRzURyEmjf0Bxk8gD4fMyM=;
- b=MtHquEMpqAuAJfFG4Jo4q8PLCK1keAWIfwcUA8Ihku6pqEAJmyDMWZ2bzp209YrLnksfO9
- CY0aZSxOVWFLE14fEJPKr35h20ddX5SNIcDh13UZtFEajYwLIsWdrZAo30K/ZZMgafxiav
- tgnH6HIzK9elUlf4/4bdjobuCrX9zQs=
+ bh=idVxam08guerYh+UThY49AnOxjbt8HD2ng1AgsclHwY=;
+ b=YkvnOKdF/A39PnQbvvaPNbeXv7mPu0iaWUvguk7OVjSDU1O+wFllVTQeAc7NnHSvoAnoop
+ +Qc2xKNYq9MzbluayAzhwtncV/5wmKLQgx4N8cBTWXDPbDwO2kBGHpzuu4rxYjWTix63b/
+ STr8447vbV2rG4PoImR4judBG6U2rXw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-496-dlWIF-f9MoiE1W-ClZevFw-1; Tue, 16 Mar 2021 04:37:52 -0400
-X-MC-Unique: dlWIF-f9MoiE1W-ClZevFw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+ us-mta-495-GmrAuuLsOJOt73oh5waFgw-1; Tue, 16 Mar 2021 05:08:16 -0400
+X-MC-Unique: GmrAuuLsOJOt73oh5waFgw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3E845192D78C;
- Tue, 16 Mar 2021 08:37:51 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30D2A1084D68;
+ Tue, 16 Mar 2021 09:08:14 +0000 (UTC)
 Received: from [10.36.114.203] (ovpn-114-203.ams2.redhat.com [10.36.114.203])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0E63460C13;
- Tue, 16 Mar 2021 08:37:48 +0000 (UTC)
-Subject: Re: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
- in __free_pages_core()")
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E34D21F453;
+ Tue, 16 Mar 2021 09:08:11 +0000 (UTC)
 To: "Liang, Liang (Leo)" <Liang.Liang@amd.com>,
  Mike Rapoport <rppt@linux.ibm.com>
 References: <MW3PR12MB4537B49678884A1EB1F75AB5F36E9@MW3PR12MB4537.namprd12.prod.outlook.com>
@@ -58,16 +56,22 @@ References: <MW3PR12MB4537B49678884A1EB1F75AB5F36E9@MW3PR12MB4537.namprd12.prod.
  <MW3PR12MB45371072D7C3FDA6986C6318F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
  <YFBVNEC7jMZxwleL@linux.ibm.com>
  <MW3PR12MB453781F0AD49AF3787DE4230F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
+ <0cc972a1-5b40-3017-33f8-b2610489ee18@redhat.com>
+ <MW3PR12MB453771424C9B2866BBBAE036F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
+ <b9b324e4-4c98-b81d-ddae-52e4feb33064@redhat.com>
+ <MW3PR12MB4537B6D5911092E456220818F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
 From: David Hildenbrand <david@redhat.com>
 Organization: Red Hat GmbH
-Message-ID: <0cc972a1-5b40-3017-33f8-b2610489ee18@redhat.com>
-Date: Tue, 16 Mar 2021 09:37:48 +0100
+Subject: Re: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
+ in __free_pages_core()")
+Message-ID: <9e869214-7a3b-e86d-4832-7117f7c6090f@redhat.com>
+Date: Tue, 16 Mar 2021 10:08:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <MW3PR12MB453781F0AD49AF3787DE4230F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
+In-Reply-To: <MW3PR12MB4537B6D5911092E456220818F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mailman-Approved-At: Tue, 16 Mar 2021 13:53:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,30 +96,42 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 16.03.21 09:00, Liang, Liang (Leo) wrote:
+On 16.03.21 09:58, Liang, Liang (Leo) wrote:
 > [AMD Public Use]
 > 
-> Hi Mike,
+> Hi David,
 > 
-> Thanks for help. The patch works for me and boot time back to normal. So it's a fix, or just WA?
+> root@scbu-Chachani:~# cat /proc/mtrr
+> reg00: base=0x000000000 (    0MB), size= 2048MB, count=1: write-back
+> reg01: base=0x0ffe00000 ( 4094MB), size=    2MB, count=1: write-protect
+> reg02: base=0x100000000 ( 4096MB), size=   16MB, count=1: write-protect
 
-Hi Leo,
+^ there it is
 
-excluding up to 16 MiB of memory on every system just because that 
-single platform is weird is not acceptable.
+https://wiki.osdev.org/MTRR
 
-I think we have to figure out
+"Reads allocate cache lines on a cache miss. All writes update main memory.
 
-a) why that memory is so special. This is weird.
-b) why the platform doesn't indicate it in a special way. Why is it 
-ordinary system RAM but still *that* slow?
-c) how we can reliably identify such memory and exclude it.
+Cache lines are not allocated on a write miss. Write hits invalidate the 
+cache line and update main memory. "
 
-I'll have a peek at the memory layout of that machine from boot logs 
-next to figure out if we can answer any of these questions.
+AFAIU, writes completely bypass caches and store directly to main 
+mamory. If there are cache lines from a previous read, they are 
+invalidated. So I think especially slow will be read(addr), write(addr), 
+read(addr), ... which is what we have in the kstream benchmark.
 
-Just to verify: this does happen on multiple machines, not just a single 
-one? (i.e., we're not dealing with faulty RAM)
+
+The question is:
+
+who sets this up without owning the memory?
+Is the memory actually special/slow or is that setting wrong?
+Buggy firmware/BIOS?
+Buggy device driver?
+
+
+> reg03: base=0x0ffde0000 ( 4093MB), size=  128KB, count=1: write-protect
+> reg04: base=0x0ff000000 ( 4080MB), size=  512KB, count=1: write-protect
+
 
 -- 
 Thanks,
