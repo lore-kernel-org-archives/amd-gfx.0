@@ -2,126 +2,135 @@ Return-Path: <SRS0=fEJB=IO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8494BC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3536CC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C74065068
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:02:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C74065068
+	by mail.kernel.org (Postfix) with ESMTPS id E52106507B
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 14:36:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E52106507B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8116E3EE;
-	Tue, 16 Mar 2021 14:02:00 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0136E3EE
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 14:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A22936E408;
+	Tue, 16 Mar 2021 14:36:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69E896E400
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 14:36:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K1DRz6ywUks7282i4TE4inr1OShYBpSxhRxQ1YcCF1zjphOQDAeQmpPJL/0fr+tVhlJR+nl8Uh9oCre0nSnKAnR1LWeGM3tsmNzjQdSaVOKGAJ8uCygXm6yxi+ck8+d1Mr96vtjxQ5xkAuXWJ0MXP+QFYasJVnPlsJMnYeED1cEqV1mTJgFGCSdOuYWReV+FlmL5XhoNl2MGEGSVcUxQC0Fqh9kXeAdQizca1RXWGupL9tcQffv1o390aIQma+uYbCp0ngk20Y8jq5LDuqIFlncGO0vLcJ6ZaH8g+ZYVskfBPl756RaMkd73DdT9m9GpXq7GCIk1/dW1cCEgZE9gbw==
+ b=B6rsyCKSONT2P0U8Gfn65nHbTs5pDrdt4Stek7jENUbHq7C4S1r8lCvoQZiuDDwB5y5KcVLmIa9pSvheGO4oPq5WxVEeOexdjIWxKUKcZySbMU+HBNNgmVNIYnsUKuyDcHOe5dJwQDIXoOES1OV5w7jU75YDSZEdj2umi1UvKewZ6E6JEmaZtScSa9c4EIbZG60zhXlv92EXH0LCoGfTF8AefdfOTP+IONSYKjh8uhOlARebdF/Vrs43uwnv+vjTIkT25YtAPDqoFk7xUBzXfB59UB9JdweeRinYksxseCt1JFAwLuBa9svYuH1oGiEBi4BHG6sWX2QvdippNnR1tQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBpkck54D2Mo06/6qc7zOiaxSD9Md0IjDkpwRlisvSo=;
- b=ghDo39kZZCOd6ciOJWmndionLDaEkEly/NwT6phIyoC20YKLafiSsqNUVkdjOT8p64cKigydnaW36VlxDJ9OC5gcgfERKrMUqjyYJgMTn2S6zxpZWecBF+Sri/aYRvKN+St2f2NrsOs9UADRQLn5a6fFYYP1l6ux/6I5vN/BT8kHAzMNHxGp3UTK5Ek1i5sldnXdvpMqM0PKQDyYquAn/WiKcpUSm7gHqJz0TWiAneGep80F24WeuM72zpx2ycCJVgC+XlI/xUpUKWHVaGM+LsAJOsxFNi2LW92KS/vSm2emeARw+wDNhdDE9xKuLFvycmY2wqV1BaTi4JEW+CqMng==
+ bh=QHlr4KsNUB0d+V5qJBjL/ZFPx9et/SH96q4l2hUKqMA=;
+ b=mqNhavFAobihp2eHncxLvLXAZB8qF3L6+YCk3aSGpq7gnp51b3v0BtCuS7A/FKOVFPKMH5of5gE4vLVsSIjEFoRsBi2H+zaFMwhQZOLGW1UP6bR90yCXdvfQshswbB7NWg5sGRTFOW+BySx4JvOlg96oNj/YSmeRBQVYo+ylxl8hCBE9i152YMirol1oxfEAWuQDcWJNyulmZVGLXa4EddPaA0UcnVpi7d7pmVs88SCH7PFgY5s2YmDwX+b2Yz4PPEOKDs5QQtE5dmFimnhHYRFfzbisYvUeJQV9CGsDKaawvcL4+LGXdT1O6Id5cl4Kfh5wJr7zOhyfPvNXV9botg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBpkck54D2Mo06/6qc7zOiaxSD9Md0IjDkpwRlisvSo=;
- b=QxnR2xL25iF1aaiuf9ysAgx4xClqvYEoIOfEAUmuxw7ZsLNVDEftg0Igo5PwyIbhwquiZ67kHuv9gLtNqdN0VYLLYK4tdu5Puei99KM69yKO8Bho2/JsWXg7960gLAutF49kd6fpTXnjTJWZJDYYzLDSR0c6GdN6CqIqrWovHWM=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4517.namprd12.prod.outlook.com (2603:10b6:208:267::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Tue, 16 Mar
- 2021 14:01:55 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5deb:dba7:1bd4:f39c]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5deb:dba7:1bd4:f39c%5]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
- 14:01:55 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Liang, Prike"
- <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Skip GFX CG/PG state change during S0i3
- resume
-Thread-Topic: [PATCH] drm/amd/amdgpu: Skip GFX CG/PG state change during S0i3
- resume
-Thread-Index: AQHXGkBfSACcbhV6FUG0KShwzh6tR6qGpQsH
-Date: Tue, 16 Mar 2021 14:01:55 +0000
-Message-ID: <MN2PR12MB4488D67705AFD36E77647E82F76B9@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210316084228.471863-1-Pratik.Vishwakarma@amd.com>
-In-Reply-To: <20210316084228.471863-1-Pratik.Vishwakarma@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-03-16T14:01:55.087Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=QHlr4KsNUB0d+V5qJBjL/ZFPx9et/SH96q4l2hUKqMA=;
+ b=hcRk+sDCmf3YgMxG/gv77/8Vseztx2AwGxvP5UbZxTaMTMKfRRtygNy94ingqLfckYQzqa99p0Xeb7s4s8IktX7VXh13eV7lrbEstI3UwyBQ2fUJbj9yT6cCKIWq1qz9jaNOY1ZjgQXpTBhifUcvRk4HOus3+pyGwt/cc7Yip8s=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.247]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e575c3e9-5481-4b0c-b469-08d8e8840f07
-x-ms-traffictypediagnostic: MN2PR12MB4517:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4517CC3F90112899A1A114ACF76B9@MN2PR12MB4517.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2512;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TBB2iCF4PG2eEq4nA5Hj8RLRI+3bTSEj5h9Ni9lMiUwweeck54hwtsoL/LScwaWchSfpOztIjZCJ8lenT6aPGQCE0JoDpoeVKCh6zO/c1XMNjFp2xXw0mGmNxNP5Mz4s2tN6jcHovMo7JoAko1P9/OPdFqwmv3Sc3hieQP5TiATjBvDZiMWnpnLdGZF6iapFMsNY3CUwVCTersQ+j/WfZ2uzSP0tAwOj35rbo8I4L0efAkYZ1FVz79Hg2HMehz//l+I6McaC/cPNPaozxQ1fSxvGXAdL2OpAliPkxuNFFhTCUaxPKMyJxq+Tw9XjVNizdld6JbZ067G1ouPEUWrdWMTHcjEpkIYP4Dndnzu5koXoYJdPDVyJSqZj6xtyHLHtS2ASs8YU+GY7Uu1XHajxW3T9+SZAzKDVrLaHBPnWUPr4Ebv2wF2WHNapSlYSKQEwCbHO8DP1EQiSZ4Q671FpUUFaBxXYZvjtGz3xUHB7+tgbED/XSyg1S5KrjH1Aijxni8wje/FnespIc3/mJ826S4lABXs58rzR9AiYQrnDpTsSqkVCrFI1U4FXt0FubBfXL+Livm7Kby5Of1lgr4yQNAy4ry2qZTf1ASTqd18X6sE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(366004)(39860400002)(136003)(9686003)(5660300002)(66946007)(66556008)(316002)(66476007)(71200400001)(76116006)(166002)(66446008)(55016002)(186003)(110136005)(7696005)(64756008)(53546011)(52536014)(966005)(6506007)(8676002)(19627405001)(478600001)(8936002)(33656002)(2906002)(86362001)(26005)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?Tg5KtKvLOoL7PMWvT/JwkysSPgvArk+i0agivokAjjpFpXVi/3v2chUjwyN3?=
- =?us-ascii?Q?aAoZqUZIIY5eZh+T1P+xYfYoqm9S+X2om2n7V6Ev9VE1ccFr7mlg0qEw46RU?=
- =?us-ascii?Q?2oygrM97lkluYPFE73taF2w2H22HMN1Yp2hGz4yZkTdB5HnkhEv6NGJuMWCf?=
- =?us-ascii?Q?c4ycxXtqXc5qPfbzYv44mGe+OS9tnlvfKehA3LvyuwD6TZ0X3+o2xgzoEJjd?=
- =?us-ascii?Q?d/t3EFTKNIuX7YwarnQ4QQcmxbR8ZWMkAcvtNtmKjLO+lr0cJKVt6hzb+Rsv?=
- =?us-ascii?Q?Bd42M7s5iATRf85cOnGCAtingwJcJTsrVeuIIMdVsXytL6Y/z7XZCxCoMvEW?=
- =?us-ascii?Q?HZO4WWx9ku8JHSxr6tR3vke42msC2DgjIywrQlQkx1Fd7k/I16earjFoIe+7?=
- =?us-ascii?Q?3fbZhFelv2EHUw+C7UbHRaFqBAjGhTUB6Id+j8MtpDF0w+bfcGPZwkLcbqbq?=
- =?us-ascii?Q?07IyQ6ylcZ2FatotTLpVAWHFOE+LlTT8e0vrMSbKdyUx1qaQucfIAeKTkeAR?=
- =?us-ascii?Q?puIORAOVMubvi2iDp9zeEKrbfDd8bh/sMa68wTD8V4bDOrk1vC1mIg+Zlfkn?=
- =?us-ascii?Q?hQkYZAeTtQ57b0axrWTBFIeIFlTk73US39P42mZJSSOEkS67Dyp9HP5adrvT?=
- =?us-ascii?Q?OK9LktGru0jyg/g7rsebTejw6TQF0SiOdFQm76V6u6otrQTOK2QZyHeW/s9P?=
- =?us-ascii?Q?r0iwIrsynCEvsYGysS3mPgNgq7LokVukIgx6I+Dl02Zj996UVhiF643lu7Xc?=
- =?us-ascii?Q?phDRT0PBBn4HAuNH0aeDNxbXxZpzFoVOl7zM7zlgLRnrbYpjG6+cwxAGbJjH?=
- =?us-ascii?Q?Lb04qXIasmcbzOu6NopfhW1DdmsnXACtmP1hRfTPPpPnZnqujnGyvGhhHiMF?=
- =?us-ascii?Q?G7qpJ+uytiAfdLgU8kGhozuyHh+69Fo8ogUPXBX+EAyfCa+HJ3KigyedDdpZ?=
- =?us-ascii?Q?KEmR4ffxEl4PXYohqGlhU7HuJz0qx47T6XYq9zPw2IyDm7Wjur1JkxjkNn/e?=
- =?us-ascii?Q?sR8m5dqB3WeO6FEEY3n3k/WqG46q0yVisBKL5wp+QNyho0zHDC6ervX9oCXZ?=
- =?us-ascii?Q?A3oZHKEfi0PI82ypjyN9msATNXc96tz3dcBhOZiTUec+efFAsZLS6v1uFxCA?=
- =?us-ascii?Q?u4NXTGGWbJhihAeMdqZJaQ8s0pXl3KxWODKvP+gNybdKoXE+2253+Zn+nIRV?=
- =?us-ascii?Q?7KapidZKz0R/Bl5rhL5/wBPTviWgX8p7qDSiOUq3M1rynqM61QB8I/bhFzfW?=
- =?us-ascii?Q?qBkpdhqcHxIs0+v/cMOxTk6iSh3l0hRBFa3UVoz7Z1DDgInmgX6XNFUbd0Sv?=
- =?us-ascii?Q?HjAKkdfjPdyHhNKol2Kflyyy?=
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4448.namprd12.prod.outlook.com (2603:10b6:806:94::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Tue, 16 Mar
+ 2021 14:36:35 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
+ 14:36:35 +0000
+Subject: Re: [PATCH 1/1] amdgpu: use MMIO to init atombios if device is
+ Thunderbolt / USB4 attached
+To: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <PSXP216MB0438E23D0F4C2DFF2D9B8686806D9@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_Mqc3H07BtJbaGpt8XGnpXgaZvxDsS_e0cnZ++kWdQR-g@mail.gmail.com>
+ <PSXP216MB043819E5E33ECCDBBAB490BC806B9@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <0c968142-1fd2-be34-4345-c5e796dc5d13@amd.com>
+Date: Tue, 16 Mar 2021 10:36:32 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <PSXP216MB043819E5E33ECCDBBAB490BC806B9@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:5590:b510:518f:11dc]
+X-ClientProxiedBy: YT1PR01CA0086.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::25) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:5590:b510:518f:11dc]
+ (2607:fea8:3edf:49b0:5590:b510:518f:11dc) by
+ YT1PR01CA0086.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3933.31 via Frontend Transport; Tue, 16 Mar 2021 14:36:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e2f224c7-287a-4af1-5675-08d8e888e689
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4448:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB44489873F92049A29F59E7FEEA6B9@SA0PR12MB4448.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +irnjjZqrDeIANXmA8B4t77Mv5ihMTyA6dJhza5jzjneYrzp6GJUEsRXhD/33xNXYSTbMHsryazSKLhGr763kQPOX9inygm5/1R7TllxbfOcl0O3cihJtjJ3I4/SqCc7/+tqWBeDent9S/LUj2QcrAIjPxGmMrZvLgqQkHqL8Ah1skgqkyht3g1Sc1l5aFaIyibF/jdZk8R7BjC8us8p3uWkkk2yH0nKjABi7fjwrdeWg/uaF8QVtHPxHbO4qn8u0GkgOnzQEaXbsgPVwdHs3fMXYkc+hX+BqWhDe7Cg2ACU5yJZNgz1LIMZdhUttKmgbChSmA/BvOLUmMFJhGppjTByCmcM2Hw0T64JGLjNVVMvAwcpXwVfAV5esb/jbLXmMDWTE3QBtT7Rlb06OABjxCzc+QbXYLKdI2AXyubDLwlJzgtHjts2Ec4uXSuIJbe4oIQ0t71dV9mte8xCQKNw3uXKniNF1YlGAz0i68sfwZWo9K+/dUq1Uy5Kb6w++lC5uRCD7E+W+1wMr87QSsNkBNm9iJ6XVenIrNkAQa98CyEd07raKfOF0EMOJcTiTdZDpSsHbkvSbI5TAzugqRuTeKNH5uC1OQ8f8F1hjajr0IZwQIeqIPagsYXUXfNCvHCgi8QQuf3HGy0ct6984A2BfZPCYttwqPlgj3izHd7/3xLbZe5SM6RapM2dlXjbCFAGmSeLMqOA+Wt4Vn64lJC3bg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(136003)(396003)(346002)(376002)(66476007)(53546011)(66946007)(110136005)(186003)(16526019)(5660300002)(66556008)(31686004)(2616005)(34580700001)(316002)(83380400001)(478600001)(6486002)(4326008)(52116002)(45080400002)(8676002)(966005)(36756003)(31696002)(44832011)(8936002)(2906002)(54906003)(86362001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?S0w5clBvMW5IRnNNQVd4clhLWFY1NHRJSmdrOTVZSWV6YzNiSklPa2d1dUd4?=
+ =?utf-8?B?bzhkZURoMUtKNVc4N2xiT2ZYMmdhVGV2RnlWWWplbW4yYll1dUpNK0dTZGJl?=
+ =?utf-8?B?T0R1SFFjQWhVZkViSkJIaU8vSHU1TDh0NHplcDdlbFoydHMrTFFWQUxOeGN1?=
+ =?utf-8?B?S09VS1pUTDUvQ0VpeGczZDJGTVJDcEFtL1RyQjBmTmpkem1VMHlSSHdaMTk0?=
+ =?utf-8?B?MmR3SGU1S05zbmhjZGFlcTZTRnozSExmd1BTRFVaalNlZzBSNytKYlE0RHd0?=
+ =?utf-8?B?NXRBRUtZTDZQNUZuS2JGMHFKaXJVcjc4UUI0amVnZUdDU2xzRDFVSk41UzlH?=
+ =?utf-8?B?akpjWXN0alVFcTQrb1BCemtWbjEreDI4YTNwaERMeTRWNCs3U0hxTnBMRlJV?=
+ =?utf-8?B?YjJOTU9aeDJOdC94YmdGVGh5ekNIemJnTnoySHg3Y2tRMmtwYzFOQVlLM2Jj?=
+ =?utf-8?B?VzJCeWlWeWtKakN2QkhYaVN1dzlBemxHOEV3eHU3ZDB1c3I3REFIUkJSbnlw?=
+ =?utf-8?B?TVNldThER0cwUlRnZDJ2Y0c0ZWJENFhOV2Vpd1lPYi9pS1VxOEdkc2lnSzBh?=
+ =?utf-8?B?dFg2U3pSWVZXVnplTGJiaGlhdWhLWHdST2hZV0FMWTd3TDVWeE5HUDdaOHBB?=
+ =?utf-8?B?d3lUYkY1c0wzcGdMK21ESzZZWitXbWZLVERvZ0l5RXBTTGRrV3RicktYdjlS?=
+ =?utf-8?B?ajNMZ0VHV3dZVlFQS3ROb3NheGlmYXFjeUtzN3F0S0pEdHRPSGY2cHF3ZkFu?=
+ =?utf-8?B?SUhIUjZ2cEtxRndoV3VUeHc3Rk02NGJ6RDNtbzBVL0w0Vi9MNE5UNUlCakh0?=
+ =?utf-8?B?Wjh4b01NSUFEamxXSGxIRDQ3UkIxOGFSNVdCbFNsc2pVSzV2VThSQkVvSkxT?=
+ =?utf-8?B?L2Q5T0JVTXl4dDZDWmNkaXBYeDFQRW9renF1MFVtSTEzL2NSMzFpN21RNWd6?=
+ =?utf-8?B?bDN5NkNIZUxkNnhrUTllNXNGNURJNlM4dzNuY3N0THV1QXFwb0pUK1RmWEgw?=
+ =?utf-8?B?ZExBQ0NSandoN0ttN3psK0diM2NlS21SNmhGcks0eU84RlRCc3UyS1BuaHkv?=
+ =?utf-8?B?U1pLdnV6M0VrSzlaVWsxMjdQUTg2OEFWM0c3Q1FJYUpsK0ttUG5uSGIydjNR?=
+ =?utf-8?B?K1R3STZJZ1JJTi9WdFVwVFRsVEsveWtndWptMjRBVnJjeGx3Ynp6aTlmTjFI?=
+ =?utf-8?B?VkRIZnRhRlpPWk9RMmxqdWJyNzRnUC9XbVh5bkZSR0xjd3ZXS3R1OG5kOW54?=
+ =?utf-8?B?dXJXRlBlUHFNNEs5WUsrMlJYMlV1ZmFqVFFsajVTQlozVHJnRXZRSHBIaHNu?=
+ =?utf-8?B?RFF2MUZhNndJakY5UyswNWdLbU9YTDViaGg2cWsrNWtrNi9OeHBoWDIyelFR?=
+ =?utf-8?B?ZUl4U2JralUwczQ3VTVmVDBGVXdFY2dNL3Y5b1FBeXB5NlFiQUw5aEQvYXdM?=
+ =?utf-8?B?TjlYa1FZaTNsQ293d3RqalNYV01FMVp4dXFaTXZyS3lZOHBjOWhtQy84T01N?=
+ =?utf-8?B?TDF4SHgxcTBrYUxack91UVBhYUYvQ1VFbkduTG0rK00rOGlrMXRkUTd5bXM3?=
+ =?utf-8?B?MExLaVFOa0JFRXl3QjdCczZOS1l1VW9lUjlCdG9sL1FQWVJaMDhtM1ZhdEpq?=
+ =?utf-8?B?Q04waEw4N2thQnREQzBrQlBWNU5yWlVrbjVVTTQ3Tm5oNXE5a05IdE5uOWw3?=
+ =?utf-8?B?OFpYRFFMU2lzMEppK1VvRzk1Vk4rc25aL3QrRGJhdkxtTUxuOW9ZT3Y4bU9p?=
+ =?utf-8?B?bXRFSVU4NTM3dTFuZVZQbVduL0VnQlBISjFwdSs0cGJQSk0xK3dlK3lTS1lE?=
+ =?utf-8?B?bjVmdEwrSTJQUUdKTFIrMmlmeE1YV0thK2tPWGl6a0daY2VxaEZwNFBMak5W?=
+ =?utf-8?Q?XPk58pdjBq+EA?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2f224c7-287a-4af1-5675-08d8e888e689
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e575c3e9-5481-4b0c-b469-08d8e8840f07
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2021 14:01:55.6583 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9SUj9JddvRG2QKHmsbBfs6roUzLAENnAJVP6r6Nn9DvOhmJPeuUlxG0z1HYY2HL1pzYLTtC44I26rTYG/VNhyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4517
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2021 14:36:35.6610 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oEFqnKzHQVEZZNj0jnfXh8uyghsMgF7i5suxUyo1CSn9aKTaGYfuF3kkFTQL5i8jqfKxAupfLQ6ZJ3j3GonHlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4448
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,367 +142,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0492440465=="
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0492440465==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488D67705AFD36E77647E82F76B9MN2PR12MB4488namp_"
+We actually do, while currently it's on hold since I switched to working 
+on surprise insertion
+for some time it still would be helpful if you could give it a try.
 
---_000_MN2PR12MB4488D67705AFD36E77647E82F76B9MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+https://cgit.freedesktop.org/~agrodzov/linux/log/?h=drm-misc-next
 
-[AMD Official Use Only - Internal Distribution Only]
+Andrey
 
-The problem is we are not properly suspending some of these blocks in the f=
-irst place.  Please take a look at my WIP patches here:
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/s0ix-4
-
-Alex
-
-________________________________
-From: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>
-Sent: Tuesday, March 16, 2021 4:42 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike <Prike.Lia=
-ng@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Skip GFX CG/PG state change during S0i3 re=
-sume
-
-[Why]
-amdgpu resume time is over 1 sec.
-
-[How]
-GFX CG/PG state change is skipped for S0ix suspend.
-Skip CG/PG state chage for GFX during S0ix resume too.
-This reduces resume time to under 150msec.
-
-Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  7 ++++++-
- 3 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 5da112b3feb0..036ca9f0c739 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1040,6 +1040,9 @@ struct amdgpu_device {
-          */
-         bool                             in_poweroff_reboot_com;
-
-+       /* Flag used to identify system is in resume sequence */
-+       bool                            in_resume;
-+
-         atomic_t                         in_gpu_reset;
-         enum pp_mp1_state               mp1_state;
-         struct rw_semaphore reset_sem;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 3dbee9671d59..4089135b6493 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2349,6 +2349,11 @@ static int amdgpu_device_set_cg_state(struct amdgpu_=
-device *adev,
-                     adev->ip_blocks[i].version->type !=3D AMD_IP_BLOCK_TYP=
-E_VCN &&
-                     adev->ip_blocks[i].version->type !=3D AMD_IP_BLOCK_TYP=
-E_JPEG &&
-                     adev->ip_blocks[i].version->funcs->set_clockgating_sta=
-te) {
-+                       /* Skip GFX gating for S0ix during resume */
-+                       if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_=
-BLOCK_TYPE_GFX) {
-+                               if (amdgpu_acpi_is_s0ix_supported(adev) && =
-adev->in_resume)
-+                                       continue;
-+                       }
-                         /* enable clockgating to save power */
-                         r =3D adev->ip_blocks[i].version->funcs->set_clock=
-gating_state((void *)adev,
-                                                                           =
-           state);
-@@ -2380,6 +2385,12 @@ static int amdgpu_device_set_pg_state(struct amdgpu_=
-device *adev, enum amd_power
-                     adev->ip_blocks[i].version->type !=3D AMD_IP_BLOCK_TYP=
-E_VCN &&
-                     adev->ip_blocks[i].version->type !=3D AMD_IP_BLOCK_TYP=
-E_JPEG &&
-                     adev->ip_blocks[i].version->funcs->set_powergating_sta=
-te) {
-+                       /* Skip GFX gating for S0ix during resume */
-+                       if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_=
-BLOCK_TYPE_GFX) {
-+                               if (amdgpu_acpi_is_s0ix_supported(adev) && =
-adev->in_resume)
-+                                       continue;
-+                       }
-+
-                         /* enable powergating to save power */
-                         r =3D adev->ip_blocks[i].version->funcs->set_power=
-gating_state((void *)adev,
-                                                                           =
-              state);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index f98843eeb084..693ad3b3e6a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1400,8 +1400,13 @@ static int amdgpu_pmops_suspend(struct device *dev)
- static int amdgpu_pmops_resume(struct device *dev)
- {
-         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
-+       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-+       int r;
-
--       return amdgpu_device_resume(drm_dev, true);
-+       adev->in_resume =3D true;
-+       r =3D amdgpu_device_resume(drm_dev, true);
-+       adev->in_resume =3D false;
-+       return r;
- }
-
- static int amdgpu_pmops_freeze(struct device *dev)
---
-2.25.1
-
-
---_000_MN2PR12MB4488D67705AFD36E77647E82F76B9MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 2021-03-15 11:01 p.m., Nicholas Johnson wrote:
+> On Mon, Mar 15, 2021 at 11:05:21AM -0400, Alex Deucher wrote:
+>> On Mon, Mar 15, 2021 at 4:04 AM Nicholas Johnson
+>> <nicholas.johnson-opensource@outlook.com.au> wrote:
+>>> When using some Thunderbolt hosts using BIOS-assisted PCI enumeration
+>>> with IO BAR assigned, we get an atombios timeout, such as:
+>>>
+>>> [drm:atom_op_jump [amdgpu]] *ERROR* atombios stuck in loop for more than 20secs aborting
+>>> [drm:amdgpu_atom_execute_table_locked [amdgpu]] *ERROR* atombios stuck executing B456 (len 304, WS 4, PS 0) @ 0xB51B
+>>> [drm:amdgpu_atom_execute_table_locked [amdgpu]] *ERROR* atombios stuck executing B104 (len 183, WS 0, PS 8) @ 0xB17E
+>>> amdgpu 0000:08:00.0: amdgpu: gpu post error!
+>>> amdgpu 0000:08:00.0: amdgpu: Fatal error during GPU init
+>>> amdgpu: probe of 0000:08:00.0 failed with error -22
+>>>
+>>> A workaround is to use MMIO to access ATOMBIOS when device is
+>>> Thunderbolt / USB4 attached.
+>> Missing your signed-off-by.  Also, we can just remove the legacy IO
+>> callbacks altogether.  They are leftover from radeon and not required
+>> at all on amdgpu.
+> Sorry, it's been a while; I forgot "-s". And I like your patch much
+> better. I look forward to the day when all new PCIe devices only have
+> 64-bit MMIO_PREF BARs.
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The problem is we are not properly suspending some of these blocks in the f=
-irst place.&nbsp; Please take a look at my WIP patches here:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<a href=3D"https://gitlab.freedesktop.org/agd5f/linux/-/commits/s0ix-4" id=
-=3D"LPlnk">https://gitlab.freedesktop.org/agd5f/linux/-/commits/s0ix-4</a><=
-br>
-</div>
-<div class=3D"_Entity _EType_OWALinkPreview _EId_OWALinkPreview _EReadonly_=
-1"></div>
-<br>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Vishwakarma, Pratik &=
-lt;Pratik.Vishwakarma@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, March 16, 2021 4:42 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liang, Pri=
-ke &lt;Prike.Liang@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@l=
-ists.freedesktop.org&gt;<br>
-<b>Cc:</b> Vishwakarma, Pratik &lt;Pratik.Vishwakarma@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/amdgpu: Skip GFX CG/PG state change during =
-S0i3 resume</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-amdgpu resume time is over 1 sec.<br>
-<br>
-[How]<br>
-GFX CG/PG state change is skipped for S0ix suspend.<br>
-Skip CG/PG state chage for GFX during S0ix resume too.<br>
-This reduces resume time to under 150msec.<br>
-<br>
-Signed-off-by: Pratik Vishwakarma &lt;Pratik.Vishwakarma@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; |&nbsp; 3 +++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; |&nbsp; 7 +=
-+++++-<br>
-&nbsp;3 files changed, 20 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 5da112b3feb0..036ca9f0c739 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -1040,6 +1040,9 @@ struct amdgpu_device {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in_=
-poweroff_reboot_com;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Flag used to identify system is in=
- resume sequence */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in_resume;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in_gpu_reset;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_mp1_state&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- mp1_state;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct rw_semaphore reset_=
-sem;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 3dbee9671d59..4089135b6493 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2349,6 +2349,11 @@ static int amdgpu_device_set_cg_state(struct amdgpu_=
-device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;type !=3D AMD_IP_BLOCK_TYPE_VCN &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;type !=3D AMD_IP_BLOCK_TYPE_JPEG &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;funcs-&gt;set_clockgating_state) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip GFX gati=
-ng for S0ix during resume */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_=
-blocks[i].version-&gt;type =3D=3D AMD_IP_BLOCK_TYPE_GFX) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_s0ix_supported(adev) &am=
-p;&amp; adev-&gt;in_resume)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; continue;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* en=
-able clockgating to save power */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
- adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;set_clockgating_state((void *)=
-adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state);<br>
-@@ -2380,6 +2385,12 @@ static int amdgpu_device_set_pg_state(struct amdgpu_=
-device *adev, enum amd_power<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;type !=3D AMD_IP_BLOCK_TYPE_VCN &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;type !=3D AMD_IP_BLOCK_TYPE_JPEG &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version=
--&gt;funcs-&gt;set_powergating_state) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip GFX gati=
-ng for S0ix during resume */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_=
-blocks[i].version-&gt;type =3D=3D AMD_IP_BLOCK_TYPE_GFX) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_s0ix_supported(adev) &am=
-p;&amp; adev-&gt;in_resume)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; continue;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* en=
-able powergating to save power */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
- adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;set_powergating_state((void *)=
-adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; state);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index f98843eeb084..693ad3b3e6a0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -1400,8 +1400,13 @@ static int amdgpu_pmops_suspend(struct device *dev)<=
-br>
-&nbsp;static int amdgpu_pmops_resume(struct device *dev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *drm_dev=
- =3D dev_get_drvdata(dev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D drm_to=
-_adev(drm_dev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_device_resume(drm_dev, =
-true);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_resume =3D true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_device_resume(drm_dev, t=
-rue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_resume =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int amdgpu_pmops_freeze(struct device *dev)<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488D67705AFD36E77647E82F76B9MN2PR12MB4488namp_--
-
---===============0492440465==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Thanks for looking at this! If you are still doing work on surprise
+> removal / driver unloading for Thunderbolt, then I am happy to do
+> testing for you. Removal of DRM devices in Linux is the main sore point
+> for me, and I would love to see it through.
+>
+> Regards,
+> Nicholas Johnson
+>> Alex
+>>
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 8 ++++++--
+>>>   1 file changed, 6 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> index 86add0f4e..5d16ec10d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>>> @@ -1999,11 +1999,15 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
+>>>          atom_card_info->reg_read = cail_reg_read;
+>>>          atom_card_info->reg_write = cail_reg_write;
+>>>          /* needed for iio ops */
+>>> -       if (adev->rio_mem) {
+>>> +       if (adev->rio_mem && !pci_is_thunderbolt_attached(adev->pdev)) {
+>>>                  atom_card_info->ioreg_read = cail_ioreg_read;
+>>>                  atom_card_info->ioreg_write = cail_ioreg_write;
+>>>          } else {
+>>> -               DRM_DEBUG("PCI I/O BAR is not found. Using MMIO to access ATOM BIOS\n");
+>>> +               if (pci_is_thunderbolt_attached(adev->pdev))
+>>> +                       DRM_DEBUG("Device is attached via Thunderbolt / USB4. Using MMIO to access ATOM BIOS\n");
+>>> +               else
+>>> +                       DRM_DEBUG("PCI I/O BAR is not found. Using MMIO to access ATOM BIOS\n");
+>>> +
+>>>                  atom_card_info->ioreg_read = cail_reg_read;
+>>>                  atom_card_info->ioreg_write = cail_reg_write;
+>>>          }
+>>> --
+>>> 2.30.2
+>>>
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx@lists.freedesktop.org
+>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cbbb3dd71d833433cc92b08d8e8537709%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637514792478220135%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=LBx9fok9E7hD8AKWm9kqFVjhsxsvnLKifDX18MR3eC4%3D&amp;reserved=0
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cbbb3dd71d833433cc92b08d8e8537709%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637514792478230124%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3uh0ATLmWUeuYF6b0GZ64b5sKvzyWk2p0v8LjXJf9Ww%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0492440465==--
