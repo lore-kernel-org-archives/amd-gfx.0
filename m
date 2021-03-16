@@ -4,122 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 016FBC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89B93C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 07:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B235C64F37
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 05:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B235C64F37
+	by mail.kernel.org (Postfix) with ESMTPS id 3BCAD61585
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 07:19:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BCAD61585
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A12589D30;
-	Tue, 16 Mar 2021 05:03:46 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2088.outbound.protection.outlook.com [40.107.93.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 412DE89D30
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 05:03:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5059889C83;
+	Tue, 16 Mar 2021 07:19:43 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2FB89B3C;
+ Tue, 16 Mar 2021 07:19:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i3gONimmcl2A4nTVLvWZf+9BiDrkkjpzhD1Dz8s/03AW1thjPw1Wwape20AGcGgxXZuT0/AdA5q+YZg3DkHtaI1OdnKxDeX48GRXwuZhLJ+9Vk6naBmdduz55Q/mDYDtyjSO4ih45Zh/tGRtLzgCrqGGDcfyegXs8gxRPLao7Ya+bCTuTzI6i87od9TUpG2Py4xBv0EoFMx7g1N7pfmlP+Dn7fMYf1bPP9YeOqQt+AnWcRmWuvcnOi6nvVfqt7Ewdkq+xLXg+v7S1iMro3eJUGMqby/6b2oV9JUTJjp1BTwEgCRYTsdmQnBrhiL8cAX0IROo7Jy99HZzuCRIZQW7fw==
+ b=UINw1cj56w1c193WjcjRhON3NVU6wz83TDW6dgEu4wRnEVT1lMz3SYM9+pamo0aA8/baOXMXOcAJFPGPuXGzCgn0IGq9/xhdel74Pf9vphXfaWe9pLz2/H9ffo16ngIBSvFn3pkODlWz1oXE1PpD09dC3xAA4i6bTcmy2QZH5FWeguelMQmgMcAOL8P2en270X8w7BMDaSOgmwBxxAcnN7dLI9FlBDNbwRIScI6pL9ZKgakOErEKW87F24d6prQo3eU0FCWO1c3DzKtOG0GSVMRW07+mxcqII0t3P5J698jZOn5Ex4xcYvaI1iKtsM9x4jvuaqFg6/GrB2S7+aLjFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6H3oBcLmfTAH0ozSkrOKuYTpd7S0tafL1Eik7yOyoOs=;
- b=Zu7j4Pnypt3CoRtuvqt6HVSDEN6T7zKfP4xy3F9AjJBsDCwRzeWZv/UXF960hxGDqt+6EOeRa6lJhWTw8yrMTAuvd+vmW4quDxKYgjryLXW8ZHBOU/PEC4DoisubLr4eELqUs1K97JPduhuJ4j8alrEMV4+YQKCxCTvd5yjokw0TJYiMBPEv8LwZu9e6eAY5ZC5Q8WgRLd5l6nthp6g3XSjmJMI/Kbg4+okIFXlEIvYP165uYkXDiT4knqetZo8NE2yCvJbsXD1NihK3a1HAsPpfRRfiJclVIG6tui/oKbmJxySBVMwarmef2KkjtRoJOxcSpBSrd/HPZo0mQyGGmw==
+ bh=BWHVI57p3BnjEZ+bnzq+84B5r6mQZZSssWXshgwAS24=;
+ b=jrLLdPRzytTWPpZ4GPPKqIzo2jDHtx3b0BNX0rrCLRXzBVWSjHKyMaAElwdabjQspzY2puOfj7+NTz8SvojVKTB38vFREArMa7lasNBjrs87iGWXbAZHwcwPbN1SS0Z0lGSkCzwxeW8dFpNcyMEYM91TaXyNj0Fa+0dGT8yRo18z7pCr1kuLCVkVd2h+We0reUrOfmJTFNaaTFnN9crVlrOpB3bEaV2MwrYQ2w3M/jtC+9z42in18TugL0Y3FBAHDbWdzRXGA12TyXx9uYYP8hUHOhJn1dA7306g9W1WJx4bbU8ADO2+p+NPsWw8NzfqQwvKTukpLFgmtDNWcvUqqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6H3oBcLmfTAH0ozSkrOKuYTpd7S0tafL1Eik7yOyoOs=;
- b=iy/bDuN3SfSVjiWVfGbfcgEb+4Py/G7DQ4XouapXy2//z9of9q+q/ywS7dAiOICMsVTKvENzLNkAUR2As2NJPB4ZAJGcVR3HucYBUFn6xbGtJgTRliLtLbRjToR6QbwBUfdNkjlxee4IuCQFvbyWmsDYAEvPgUoSpk5PZuWdWTo=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM5PR1201MB2505.namprd12.prod.outlook.com (2603:10b6:3:ea::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3933.32; Tue, 16 Mar 2021 05:03:42 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::34e3:c46e:188c:ef53]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::34e3:c46e:188c:ef53%5]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
- 05:03:42 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amd/pm: Use BACO reset arg 0 on XGMI configuration
-Thread-Topic: [PATCH 2/2] drm/amd/pm: Use BACO reset arg 0 on XGMI
- configuration
-Thread-Index: AQHXGbRx/1LlRbacSESqfgww/ILfdaqGD+oA
-Date: Tue, 16 Mar 2021 05:03:42 +0000
-Message-ID: <DM6PR12MB40757F991FC80845664CAAAAFC6B9@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <20210315160059.27937-1-shaoyun.liu@amd.com>
-In-Reply-To: <20210315160059.27937-1-shaoyun.liu@amd.com>
-Accept-Language: en-US
+ bh=BWHVI57p3BnjEZ+bnzq+84B5r6mQZZSssWXshgwAS24=;
+ b=wukzqCg+q44S9Jght7MJbxlHEIslYRBEla4Fsen1BWdGlwgj+YK75pVGecMH7qgsxIgOzsdwX7dnW2CDqaWxAxIaXnFDgG2YnbPyVZh2dElc1jSXl8rFPUElld4sR354Aajt6TaDZ+I1c/YYG4Lp1vZ7ZSuYhx6/coopE+4kBPc=
+Received: from DM5PR1201MB0204.namprd12.prod.outlook.com (2603:10b6:4:51::10)
+ by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Tue, 16 Mar
+ 2021 07:19:39 +0000
+Received: from DM5PR1201MB0204.namprd12.prod.outlook.com
+ ([fe80::28e0:5877:b4e6:6bdc]) by DM5PR1201MB0204.namprd12.prod.outlook.com
+ ([fe80::28e0:5877:b4e6:6bdc%9]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
+ 07:19:38 +0000
+From: "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Grodzovsky, Andrey"
+ <Andrey.Grodzovsky@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>, Rob Herring <robh@kernel.org>, Tomeu Vizoso
+ <tomeu.vizoso@collabora.com>, Steven Price <steven.price@arm.com>
+Subject: RE: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+Thread-Topic: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+Thread-Index: AQHXGVr0ttnalfpTIkyzQ3GFwzEsHaqEg4SggAGzJoA=
+Date: Tue, 16 Mar 2021 07:19:38 +0000
+Message-ID: <DM5PR1201MB020461EEDC275748389BB631BB6B9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+References: <20210315052036.1113638-1-Jack.Zhang1@amd.com>
+ <DM5PR1201MB020453AA9A2A5C5173AF4D84BB6C9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR1201MB020453AA9A2A5C5173AF4D84BB6C9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-16T05:03:40Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-16T07:19:35Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=6a6e5add-d86d-4fa6-b1c3-b034ecf25824;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=66e9be39-03d2-41fe-adf2-e4270c782a85;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8b965444-97a1-4626-756c-08d8e838deac
-x-ms-traffictypediagnostic: DM5PR1201MB2505:
+x-ms-office365-filtering-correlation-id: 22861739-257d-43a0-43fc-08d8e84bdc40
+x-ms-traffictypediagnostic: DM6PR12MB4266:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB2505B5C305A9094B030548CCFC6B9@DM5PR1201MB2505.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4502;
+x-microsoft-antispam-prvs: <DM6PR12MB42665AA4398F7BE53AC20FA0BB6B9@DM6PR12MB4266.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:949;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2rp5QvC6/v8eJtQI8w4QPT9qEntAaFWnOGjWmjPTV1peq5j07BHUTWy5cIYI92z/WxYxjUxOPIlbOiPnZEZ7pFYUjmlUpcY8muboLRmuTtksYd3xXk8jBm5dAu+eBz/Fp2rpPADC0U/+YamvbYpyYoxdL8oHxF/Wswl63Ywo+CjYH+Z0bHSVQ1UGrYPlwkr56vbwFqhtseP4MqPQb9jSCDcLRAbxpAF44vD5E2Ag9mIhJtwuMH9Ag4cjp0yGzJx6qyn4JVVncdoM863tB9sWYV5gPP8gubh88Q6MMHRI9luM4NXofIsntACK7iTEWyVoAX3UQnApqvpChg/9aXKm7sGuEI6QMcrY7N4EFp/9evQC0sYPbf8bz08A2FkXjz320cGHR7nCJ7LzIM4H8fWF6g3q1aC2Wu+jaHlZFtypLLIlaxcBObnfv77pK5XXsxZoVhC7gLPum+f8emCGK+okEaCDdi/CKwUf1YwMidPL1Did99Hi/Tnv/tQy1uku0AzxUIGOKFJRuMeFkPxpAfWn8fkvJ88jd8GDfEoq8SQjH4wTa0PUKGZCKgKL39MChch83/jl8i9SVTiddLNhTtAT2FjEL932KF68/akVv35EwTA=
+x-microsoft-antispam-message-info: VCFAFrQ7jK2f/HBML3rv0cDxzFgpEEDeRmoT051djmuW3ZgvZo7pP65EeA2yXYkMhailqOsE+bJwZEPvCRoPzXaQcuMrfmGBL3qT8fFqRl1mfk69+kWNmtohkdgmw7UIWCzjdsYerRS/Hvjh5sZ4qz3uixwVkmAcerEtpV7fDtg2ywzIQT7vQ87ftQPO4VEfbmERBtbCRniGL7WzKCWRPr11SjMFB3qO5HaKGIpv1hrghivvABatRcznNQ0wToEqPr3SQPWCx2izZHGa33Rxoy5K/3vkYyzF4MrPytw6kF4Q8L7453pTDfOcdCdtJ8LjtgRHlyPdueWqXEK3UG0Trhsle6oKqg6EYCiEAoYS3z7JCiaQdgO5Lo4cegER4/YsMoF5LfVybCmsBUTg82JXF7CBNBaB7UOKU6KNSxaqxdMClKMOWLqqgH57p2LyPP1TRmE//6vg3mDcZULSCMmR8Wnu+INrgr9GBWnmbu9bVwKuP5o6ev2UBooiIjc/AYrzmlR20TbwHgKmxU7I+JDhp5EON074hR/tTIYhNpXFVWwtVtNq4Qs7KnwcLb4kZu1Keu8IAB9C9AQD5iGP7Oj7fxsj6ytHizPQXJDQ+CpbB5M=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(366004)(346002)(39860400002)(66946007)(110136005)(83380400001)(64756008)(33656002)(4326008)(66556008)(66446008)(478600001)(316002)(26005)(66476007)(76116006)(5660300002)(9686003)(55016002)(8936002)(966005)(8676002)(45080400002)(186003)(6506007)(86362001)(7696005)(2906002)(71200400001)(52536014)(53546011);
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB0204.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(136003)(346002)(396003)(376002)(8936002)(2906002)(26005)(6506007)(55016002)(86362001)(186003)(478600001)(53546011)(9686003)(52536014)(7696005)(316002)(66446008)(71200400001)(66946007)(66556008)(76116006)(64756008)(66476007)(110136005)(5660300002)(921005)(8676002)(83380400001)(33656002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?TphlLfahgBC2JfEdD3AagNNfFy6J2ZOUNqmE5gNgHsujl03QYiNLw0hTlv1b?=
- =?us-ascii?Q?OeH6YRlVeEBkjMUisAZn7r6LjlnvNwpegV/QmMtCALTosY44rcq79vXfuHRz?=
- =?us-ascii?Q?4S2yw2+zpuxjIY3ZbaPR23iOn3l/U4PdvhmlTr8LtqMJpi3yEAXIimONafOp?=
- =?us-ascii?Q?w3XNPIjKvnQ7gpV9vkEoj8eCnGtS+6weJOlWNWi4i1aEQ+PjfISjpE4biEdG?=
- =?us-ascii?Q?pAe/QdIM/QIxc7tKPZPSXYtlNPVbDTPfLB2EGx7nOZAZRTm8PilmdO4rwus8?=
- =?us-ascii?Q?GnOVRcdYCsTZ7D2FscOQKXqECQqtUpAqp/mRAhijMU4UJbvPr7g3ZuIeXU3B?=
- =?us-ascii?Q?zk9/DHl3p6XgYWh9e3HX5BOxiQDG6IYBBL5bivjJRBZiirjE7oNXI/r1mcSL?=
- =?us-ascii?Q?3IMlyDQW7HU2bmMtTtEGhCdY9UMC0+qdoZ0YSeJic28qa0raoixAQurK20gI?=
- =?us-ascii?Q?aC7MhtiLSY4yMa+dWWgr6ITvVvpZ9UvAynhrPt+hbU/lW97DpBlCOmEzqMvT?=
- =?us-ascii?Q?M9Q7dS9dE7MlGiMj5E7kQApZait7rOrfeRpEGwCyuqXNm7rh+RewzZlaLdmV?=
- =?us-ascii?Q?gA+DdkgPVCYsHpLTcwLF+8lX1IcKgsBp3zJcwjSmle0LDcdILS+9mhE8rbST?=
- =?us-ascii?Q?OCz1LDW3JJd4q3UnbRNQq6pdF7qq5epL5THDFAdad38ceaFPmlMVRJhZ3cU2?=
- =?us-ascii?Q?5xUuN5LHJEMK1oKfcZibic373rAn6WVKMM6kpAezxwCtAJnyhbmEMNumBTig?=
- =?us-ascii?Q?IDFSbtSYjFrjVFIXt4jL1oUGjO4NpuRA8ocaUre83pfGZlfDILOfzDB8DEe7?=
- =?us-ascii?Q?GkMlyFxAIc8EUc8yiXXatw436HNm7WzUZ63BU7gSvXuSql/uztrJyXOtMc81?=
- =?us-ascii?Q?DtWqQ8UFR8O1PNxQIen3t3DzwJwOyCijBVpJzXrtE/0dpqHrVce1jaK7xgsU?=
- =?us-ascii?Q?KDZUW3RmRjfuIYdUpZob/ULR94DjOSl6xCqgBHuSnsgKmRFYKoQKzNGJ0fy2?=
- =?us-ascii?Q?aX37QLgOIQlEzNoxRDlsYVHAz7tG56YZAt+xZlhprwtyylONzpRORnRdXJA6?=
- =?us-ascii?Q?aqarQyUG0kLlyr5GzxARkIHG7ysIZx3xekOuMlO0o0cJp/EpsxZ8Yz5LpT/d?=
- =?us-ascii?Q?3nC4n2CRzIKxWt+/R5hsDCrU+zBn0yBzmzMXHJnzisOjwclcVx3dZOlYiUix?=
- =?us-ascii?Q?+awt4WmbsUq55y6E68Yl2ONNDuRqdabjJsLAUceCdpiE26ADO8ha9EnSq2Ma?=
- =?us-ascii?Q?EZcm5uRT/M0rPrW6O/pOD9y1wnE5yz/XYu+985pZao4o0UiPK6zQ8wc5cFXj?=
- =?us-ascii?Q?GPMsOfq6DVxcvVoaCMWupx9v?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?YmxG2JvuT6cel3lHSpN6LZkghL+39TVpv5UTG24A54Ka676MCJSdq2tYEZuc?=
+ =?us-ascii?Q?1x3hvxyQbSqm+21vDLjSf4drWotrNK655e6zNT4oIy+jebQ6q8zGaRx3bOzM?=
+ =?us-ascii?Q?/Y1dqvr5WnfcYA9wtw9du+pYWZSPFXGGlb51Q+81szMfVrEhRdmciqPrXrHf?=
+ =?us-ascii?Q?HjNVKECLxCwNjvDiQ3aRhrCTzJAu0UECs29bjNsrGY3BFFj3EBi1nQLJC7GF?=
+ =?us-ascii?Q?icJ6j2O9R3Oy77qKJD/TJ2+uR6XWD9fRCqLrlZNUSfmP8hMrZjJ1KpK53M6b?=
+ =?us-ascii?Q?tHzfPNodDcSPOWOyhgt7eoQxO/t8P7fLbrIqn+aRKmbrflxYVSwjjDiV58qq?=
+ =?us-ascii?Q?7S2futL+Bf8aPACda+a42L1tnP3MmgoGF9aUAGWPf3T51jF7WIWBwCmx/HF4?=
+ =?us-ascii?Q?anmeoEgyD3NKJEXoPhbzxtdFrCbjrIsN6EPG2WQM0ZK2zahnCgPpGqyh/zlV?=
+ =?us-ascii?Q?dXstnVs8/f8pDZOcHrIYjMPxXohkfvFaQjSAsSTx1xf8cPEHtmu4dtnLMeJ6?=
+ =?us-ascii?Q?3gzPpzEmO8E5NZCk2qxv5Ivt6OdKO6Vln6wcltutmK9b4tSN6gltS0JpUz1w?=
+ =?us-ascii?Q?GvQLcSSWVaVcb0unR9mpHj0b7m0QjpWPYaR3Mz/ndFSxl7PgjUB7Yhn8YKTV?=
+ =?us-ascii?Q?vQ4Dpz/toZhXfWQXjrKLwxZByPocyAbth4k7pHpLRyWIs/9Xf2PthPMoQHNU?=
+ =?us-ascii?Q?P1KYT6f6MUIxA5+vqfVTBqNVqM/qPoR/12AKwTe6xdHFLgMprfE4V87wVC3N?=
+ =?us-ascii?Q?/WGVi+wGGf5ckVR8LTBkjasfOS1gisiJXwffbOVsrMAYPQFvJu0XdMFrEXFM?=
+ =?us-ascii?Q?uXoywS/P/bj9mplp0gPsPBqY1xKm246d7McYdTJIFFLBOX2dP8mFnLxrXvKp?=
+ =?us-ascii?Q?YF7flWJ/UwMUiSBf/9h/l7ZVsgzfgHKK6AGxbwqamMkhSqTADAG3OmNgvkVx?=
+ =?us-ascii?Q?C7NACtMfAdUTZ87UcfDgXESTlclGsy5plKre+Y/ZKxs06cSXiAZSBUZ2WTWd?=
+ =?us-ascii?Q?EPSBjscsC5Uy8a6pd5lGNbyhvMapDpU/4SalItoD/no/XuUj8wU/LUlxru33?=
+ =?us-ascii?Q?6IpmXAI++v1fckYCvVAUDEXL02qjbkiPtqRSVeTu59Hf+DChMq2osnsJaAtd?=
+ =?us-ascii?Q?EYg/lj1MaNQVLTG0CqcdNqL4YJz8x0FHrImTz6eBzkEjVdaqQCfjkWFYX7Az?=
+ =?us-ascii?Q?+GZDo50Ak/1ti1vUzNH63LI2mrhz7ZEPQ8svbFkJG1Iljj74DhCnVE1pEA6j?=
+ =?us-ascii?Q?GzpXiu7D9wgg/1R/SQTwQGVxW3K22RAsct2qzLYNbxxa22BpWIOLZxq8NW3I?=
+ =?us-ascii?Q?SCvxgAfTgHttMNYUcKL0b53h?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b965444-97a1-4626-756c-08d8e838deac
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2021 05:03:42.2929 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0204.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22861739-257d-43a0-43fc-08d8e84bdc40
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2021 07:19:38.6126 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yhAbUl14TdC07YjH7m4ujXAB2wudMdq8CKmGH6jBWDP9bI38U5VeGa82FqqvGavk8x6cgBCDKcRcuUek3HKp3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2505
+X-MS-Exchange-CrossTenant-userprincipalname: YFqdBaarQ8MgcHf4gIVGB12/jJC1Z2htAQt3ow1JkrthvxOsMy62G0Z48SzRlovv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,7 +136,6 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -139,49 +143,146 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Public Use]
 
-Series is
+Ping
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of shaoyunl
-Sent: Tuesday, March 16, 2021 00:01
-To: amd-gfx@lists.freedesktop.org
-Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: Use BACO reset arg 0 on XGMI configuration
+From: Zhang, Jack (Jian) 
+Sent: Monday, March 15, 2021 1:24 PM
+To: Jack Zhang <Jack.Zhang1@amd.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Rob Herring <robh@kernel.org>; Tomeu Vizoso <tomeu.vizoso@collabora.com>; Steven Price <steven.price@arm.com>
+Subject: RE: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
 
-With arg 1 BACO reset, it will try to reload the SMU FW after reset.
-This might failed if driver already in a pending reset status during probe period.
-Arg 0 reset will bring  asic back to a clean state and driver will re-init everythign including SMU FW
+[AMD Public Use]
 
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
-Change-Id: I6df90d963e259dcf1df8fe3716cdf52681202162
+Hi, Rob/Tomeu/Steven,
+
+Would you please help to review this patch for panfrost driver?
+
+Thanks,
+Jack Zhang
+
+-----Original Message-----
+From: Jack Zhang <Jack.Zhang1@amd.com>
+Sent: Monday, March 15, 2021 1:21 PM
+To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>
+Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
+Subject: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+
+re-insert Bailing jobs to avoid memory leak.
+
+V2: move re-insert step to drm/scheduler logic
+V3: add panfrost's return value for bailing jobs in case it hits the memleak issue.
+
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 8 ++++++--
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 4 ++--
+ drivers/gpu/drm/scheduler/sched_main.c     | 8 +++++++-
+ include/drm/gpu_scheduler.h                | 1 +
+ 5 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 635bd5da2133..0d137af1a78a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1530,7 +1530,7 @@ int smu_v11_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
- 								      NULL);
- 			break;
- 		default:
--			if (!ras || !ras->supported) {
-+			if (!ras || !ras->supported || adev->gmc.xgmi.pending_reset) {
- 				if (adev->asic_type == CHIP_ARCTURUS) {
- 					data = RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL_ARCT);
- 					data |= 0x80000000;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 79b9cc73763f..86463b0f936e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4815,8 +4815,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 					job ? job->base.id : -1);
+ 
+ 		/* even we skipped this reset, still need to set the job to guilty */
+-		if (job)
++		if (job) {
+ 			drm_sched_increase_karma(&job->base);
++			r = DRM_GPU_SCHED_STAT_BAILING;
++		}
+ 		goto skip_recovery;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 759b34799221..41390bdacd9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -34,6 +34,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 	struct amdgpu_job *job = to_amdgpu_job(s_job);
+ 	struct amdgpu_task_info ti;
+ 	struct amdgpu_device *adev = ring->adev;
++	int ret;
+ 
+ 	memset(&ti, 0, sizeof(struct amdgpu_task_info));
+ 
+@@ -52,8 +53,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
+ 
+ 	if (amdgpu_device_should_recover_gpu(ring->adev)) {
+-		amdgpu_device_gpu_recover(ring->adev, job);
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		ret = amdgpu_device_gpu_recover(ring->adev, job);
++		if (ret == DRM_GPU_SCHED_STAT_BAILING)
++			return DRM_GPU_SCHED_STAT_BAILING;
++		else
++			return DRM_GPU_SCHED_STAT_NOMINAL;
+ 	} else {
+ 		drm_sched_suspend_timeout(&ring->sched);
+ 		if (amdgpu_sriov_vf(adev))
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 6003cfeb1322..e2cb4f32dae1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -444,7 +444,7 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 	 * spurious. Bail out.
+ 	 */
+ 	if (dma_fence_is_signaled(job->done_fence))
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		return DRM_GPU_SCHED_STAT_BAILING;
+ 
+ 	dev_err(pfdev->dev, "gpu sched timeout, js=%d, config=0x%x, status=0x%x, head=0x%x, tail=0x%x, sched_job=%p",
+ 		js,
+@@ -456,7 +456,7 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 
+ 	/* Scheduler is already stopped, nothing to do. */
+ 	if (!panfrost_scheduler_stop(&pfdev->js->queue[js], sched_job))
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		return DRM_GPU_SCHED_STAT_BAILING;
+ 
+ 	/* Schedule a reset if there's no reset in progress. */
+ 	if (!atomic_xchg(&pfdev->reset.pending, 1)) diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 92d8de24d0a1..a44f621fb5c4 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)  {
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_job *job;
++	int ret;
+ 
+ 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+ 
+@@ -331,8 +332,13 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 		list_del_init(&job->list);
+ 		spin_unlock(&sched->job_list_lock);
+ 
+-		job->sched->ops->timedout_job(job);
++		ret = job->sched->ops->timedout_job(job);
+ 
++		if (ret == DRM_GPU_SCHED_STAT_BAILING) {
++			spin_lock(&sched->job_list_lock);
++			list_add(&job->node, &sched->ring_mirror_list);
++			spin_unlock(&sched->job_list_lock);
++		}
+ 		/*
+ 		 * Guilty job did complete and hence needs to be manually removed
+ 		 * See drm_sched_stop doc.
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h index 4ea8606d91fe..8093ac2427ef 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -210,6 +210,7 @@ enum drm_gpu_sched_stat {
+ 	DRM_GPU_SCHED_STAT_NONE, /* Reserve 0 */
+ 	DRM_GPU_SCHED_STAT_NOMINAL,
+ 	DRM_GPU_SCHED_STAT_ENODEV,
++	DRM_GPU_SCHED_STAT_BAILING,
+ };
+ 
+ /**
 --
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Chawking.zhang%40amd.com%7C7fc1a8b6a8ad4558d66608d8e7cb9004%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637514208814705008%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=lUx4TxuP7UonfSP%2FafxYIr%2BT1zEiqohMOpM2HlPIENE%3D&amp;reserved=0
+2.25.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
