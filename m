@@ -2,75 +2,129 @@ Return-Path: <SRS0=fEJB=IO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D144C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 07:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0708AC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 08:00:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA30964F90
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 07:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA30964F90
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A9C7460240
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Mar 2021 08:00:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9C7460240
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE886E210;
-	Tue, 16 Mar 2021 07:34:16 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC4736E210
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 07:34:15 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id o19so20296205edc.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 00:34:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=QAk6a/8qAZobFJReqVWNXE0SspO6Q/JL80IEKfkWobo=;
- b=CxcL7g6ZC6GJu/VBPTBpIbt/H9UC9EKH0Db79hJIe6FOAi2nfPiFAp+6GKzMMXLxjG
- INsTcUqy/fH+PdwApa6kb93blwbz9LSXJjc4xwwtWMyo1rHkyH2qdNetCmc1FNs+TdJg
- B4OgcIy3oUPq+536foOlctCvovrWvzCscYE6yi3xEV9XOU+Mk9JK6UzNkrwpCHJkwtBp
- kNYOgz5N+uOMpsq1mzuvDRgpZS9ranr9suKgVaPhlglX0w0D+LiKPpkCJscqW+yTOiPw
- RwKPXaO6WxMmYr4BAVEW/fTw+sOag04EXadQeEWvKA1Kk2UUWA0UDt5P3mAJmDyVuz3D
- C1PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=QAk6a/8qAZobFJReqVWNXE0SspO6Q/JL80IEKfkWobo=;
- b=XQI30mlOaG5jyRE24RZOV1NlRQMMYTXEdovM9KLe1uNnij8iFtS3UpkeDRaeGJxYEQ
- Q+5yLXW0Ms7DIOdDJLPxLGT3eYXSEQcCD/xI9JfIGOtzxJ/E306eW1t1mOHjhR7yStsB
- IzXS2E17C3v+z3JNl1PxfozSXoHijIs5/N/yRnZAkatfEyjS/u/fxHstswUssT+EIlFV
- VXfeYZsyZbOOS4MmqBpEpHqckoNBfyHhXxHMSQW01AGGaKJZ5PRNQHODAJ1HrfWT9Oph
- PFcGJdkTnzTRQ8FcCP2of/10r7Fw2M7L59WkjqweO7o6CqHYLAgNCMQFdHyCHjbLz2TA
- L7DQ==
-X-Gm-Message-State: AOAM53362E+/ThPQDsoU+g//1vl3s0VP+KJiICACahfks1AWeLOGgVxa
- 1xIoLALWLIuGv/t0Hh//Q6l/j6PZujo=
-X-Google-Smtp-Source: ABdhPJwxMW8CF07eIjko1tdo5Ec62ld9WqkLlbarKUDggwNleYKWZzy7BWXMGDGZGCR3sW0oHD5iRw==
-X-Received: by 2002:a05:6402:c96:: with SMTP id
- cm22mr34746550edb.128.1615880054668; 
- Tue, 16 Mar 2021 00:34:14 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:6b5d:d42e:c935:ffd2?
- ([2a02:908:1252:fb60:6b5d:d42e:c935:ffd2])
- by smtp.gmail.com with ESMTPSA id lx6sm8790805ejb.64.2021.03.16.00.34.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Mar 2021 00:34:14 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu/ttm: fix ifdefs for non-x86
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210315193841.1539753-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e9bb6480-0f50-c030-41d2-feea40ab5c03@gmail.com>
-Date: Tue, 16 Mar 2021 08:34:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210315193841.1539753-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 393C66E213;
+	Tue, 16 Mar 2021 08:00:54 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770071.outbound.protection.outlook.com [40.107.77.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC7D96E213
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Mar 2021 08:00:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oWIX0PI2tMXs+76C4RgvPIQKK1tRUevP9tuzu67zyNoFfeLXmF8qlAqEoG/8YUBeXrt2PN1nSf+qIqaclENo9a18mSqLEp0FG/B2w3V05oYCPfOQHP4xNicYZKaLjy5tx65sSkmiHq8FLwnvdOE/OQ0zBl7/7dVQQs60QXxu77yTGfnGxj3kPK9ORU9pvgKzBMZ+MRyAs0AkGC6AldgA4wLFsAcMPtIGwBqgAKht55MPYm2w57ZaTOQBV5XDSjfpiNFkFbKOjMimq96/3t9oQdcRwwBaOZ0eg1uxAZMROU2JZCIxW3A9ziH32vpaGY60eHjozwYp1VyirOZA2BSYWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p673QYQMOUAKRurUQLQ1I1csTZBXJMuf8Di91xe67NE=;
+ b=IUdf3K4vOY8eDk/oGKdiUUjmW/N0mjP/FS18169Xf/DHsVjK1K7xB+pIpEUCbzrapved+7J4HKlP5ZO/4mx7gDtZs+d7Xd7tVAFabjFzWWSJdrEgWPcm5xAruEbsdI7BSiNSm0imqL2F3HyIU4N86esd7ENWUxkz8LR31UMQe6OyyPs5+qUG60hgz0POtWiA13MNVkrs/n8+Ye62PN9wFHhVm4h05jN8O77cGn47OGDz4et4ZfOnrx204Y3DIrxSHESBuw0J9MFYDpU2dH8ayDvOB7KZO/qYn4KeW6VJCi2CSn7yGmV0Txmxc93+hvW4tYXkAx5KX8BeGbT5Ln+bWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p673QYQMOUAKRurUQLQ1I1csTZBXJMuf8Di91xe67NE=;
+ b=Qun23Aof61Hlad4K4/UU0vpKL/Yp5Kud4zIV7Cx59OxKTJYpGoClCnCXBEqaDX0KgCjcss+jI+KJf5jFxCEqbBgz/X8QR2/OWLzMbnx+hD1VDgYa4RHGVhfyrLtkV3azKhO/mMYP4QecS95asGSArGNgU9W2+KRvifIzomkl13U=
+Received: from MW3PR12MB4537.namprd12.prod.outlook.com (2603:10b6:303:5b::22)
+ by MWHPR12MB1885.namprd12.prod.outlook.com (2603:10b6:300:114::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Tue, 16 Mar
+ 2021 08:00:48 +0000
+Received: from MW3PR12MB4537.namprd12.prod.outlook.com
+ ([fe80::89a6:6618:7616:30d3]) by MW3PR12MB4537.namprd12.prod.outlook.com
+ ([fe80::89a6:6618:7616:30d3%4]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
+ 08:00:48 +0000
+From: "Liang, Liang (Leo)" <Liang.Liang@amd.com>
+To: Mike Rapoport <rppt@linux.ibm.com>
+Subject: RE: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
+ in __free_pages_core()")
+Thread-Topic: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail
+ in __free_pages_core()")
+Thread-Index: AdcWgujrowoM8ON/Tmy0Tmhi9senVQABLLQAADBH9CAAADxQgAACUAfQAAIipgAAAPKqgAAXm64wAAqTxoAACeBtgABjC4WAABfyzTAADUrQAAACW6Iw
+Date: Tue, 16 Mar 2021 08:00:48 +0000
+Message-ID: <MW3PR12MB453781F0AD49AF3787DE4230F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
+References: <MW3PR12MB4537B49678884A1EB1F75AB5F36E9@MW3PR12MB4537.namprd12.prod.outlook.com>
+ <0AE49D98-171A-42B9-9CFC-9193A9BD3346@redhat.com>
+ <YEzCm/Uwvw7kKpd7@linux.ibm.com>
+ <22437770-956e-f7b4-a8f6-3f1cc28c3ec2@redhat.com>
+ <MW3PR12MB45371072D7C3FDA6986C6318F36B9@MW3PR12MB4537.namprd12.prod.outlook.com>
+ <YFBVNEC7jMZxwleL@linux.ibm.com>
+In-Reply-To: <YFBVNEC7jMZxwleL@linux.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-16T08:00:45Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=76faeda7-2a9f-422e-b183-43150b7b4171;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: linux.ibm.com; dkim=none (message not signed)
+ header.d=none;linux.ibm.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c63c4bdf-61be-4eba-751b-08d8e8519c69
+x-ms-traffictypediagnostic: MWHPR12MB1885:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MWHPR12MB1885296135016693584BF592F36B9@MWHPR12MB1885.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RxNCNO82JnXhZRhwb9WRyKXvSpSynQVSTREWU9a7/QxeL+X/l4dVNX3/OY53iPj3qxBVZQfUprxMVPjI2TFAJesapjxlOIaO2M2sHRf5/VvkSVQWLB7JUIWqCpRaO3zBAzgC9hveMOAGc4l+wNsCCEg3TOObYJrJGRbLr5Gctmtt0ru2POwCJM38zAnswN5dfIPhc0KdeWaPAYRkQfz/EoAwDCz12T5/mtK25hJxGEGq9Q287P93XfpjRo3gdhSmP6Kp4z8H502i8nopqaEOYVaoGC0ZITQsBppbmCSBsoFaS92SyeRqg0QTzEpXAAUvWlLCxft9V9WtDpyNfo+lx961FpXnahTUcEsWl6LK1wIsGEbFvlasK22RPJyCtzKYB+RD46uBZkgXmf9xZ8EVEUmWw3VLWGxwEdVk1NOgxpe7sNjT9mzwM2S4NGjDUz/lqv/87vfS2Yva+1gXyYG6vfAh7gGgRICPXVn0VNkrJOIQ2i8HrqRh+bvBl8ZCBHmMEZuMPx9afkEP3CoDZ86Uaa3JGL6DfPQxC7uCZSpybl6dco7WU+fmft9rE7pZbjHoHgPHED+5LHIS9qkPbXoyFRW3RMZrfT/AOmjyUwkgQPEGgWNj7GBzHZuLudZfTR72JWZ+bclhUNguT0z9Wf33oQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR12MB4537.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(376002)(346002)(136003)(39860400002)(8676002)(52536014)(7696005)(5660300002)(66476007)(66946007)(66556008)(54906003)(86362001)(76116006)(66446008)(478600001)(4326008)(53546011)(64756008)(45080400002)(316002)(26005)(6916009)(186003)(71200400001)(33656002)(55016002)(9686003)(8936002)(83380400001)(6506007)(2906002)(966005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?wE6DvVGzhOXfqzexi8YQ3z35d+JGdMP0tlc3JHZlirq6lD9wDYw8rr61SB4I?=
+ =?us-ascii?Q?DAFka3e0BgcG2DiCGPfQHRD2iDnO/xDc5kaNyzjmFl5MOBY6jTCHT3uXHuYt?=
+ =?us-ascii?Q?4OZcPmYdLe3YGv928DVArYn5D39prLg/91sWyVj2vI7j4wCdIM3O9WUrsjxJ?=
+ =?us-ascii?Q?oQEEvzIadBCi6ihryu40Mq24Cgs8wUvrAyrAL0pka2EKlj8V6J0wgLWsbrEr?=
+ =?us-ascii?Q?JLP3Es9Z229KPL51CC0lgVuvo1pZV+GEjM0oJGRXCot/3O7LfpE6l55SHDy6?=
+ =?us-ascii?Q?fvfn0Wj4+srKFHaK9dPJ6o2BYvoqCf5x2RxTHOSm8G/CGVVhrRKCpkF/Hh5D?=
+ =?us-ascii?Q?kYVl4ld0L3ynLbUG49TRQXDbJKEQ/B3sW2t0ybDq2kdb+fMmbhpybducqrBb?=
+ =?us-ascii?Q?mZ6S2dKJt4Bog9bc4+dkMgPevvRw3UKe8Twu2ixc98PpILv7jmUk5KFRLXZ+?=
+ =?us-ascii?Q?LQayivT2u9f24NTX5pnK48eTIPVRn30XhF4lCKSMg8EYRLe+7E6kc5euVX70?=
+ =?us-ascii?Q?5NxvEpArJJ3WQvN7Doy7VgGx3F+t26Xg7V1yjFyx852rGrIVK/YNFZz2osnB?=
+ =?us-ascii?Q?uMiyIXYiNVkN5/KNqI+cMDhxNM6KKFTXTmYUHlONCQ1MOW+DqcXxNwgleGKj?=
+ =?us-ascii?Q?26u5zoel4MG9gWxSJ4BOu2u/ahjUjcBqLTHk0+OiJwR4if/j4ObPXnAXwfDh?=
+ =?us-ascii?Q?CPZguZ+DVC0tV/p5+6fUL53RxnDg8RRs8i3sXDKiQM3uWQEQQrB+9Z+abYPg?=
+ =?us-ascii?Q?aqrZkgA2zfpDyxHWAzS5+reHOSssdAPxpbRk1iCaLmr4AzJu+8vX1wX4oiBQ?=
+ =?us-ascii?Q?nTT2mqBmH0zyPj8VW79EE+uvB1y1ACd/9959uEjQN4c8HJ9p/lJaHtegL1U9?=
+ =?us-ascii?Q?33553yuB1J33ShDa4y/cWl8UYoxSHp7j+F9WMDnbk8T9m75ajptMauQdVobY?=
+ =?us-ascii?Q?eWZ00+X2hO35/WqR8Xj8RvlBXLYF1QUeB2gdE1dUicHIKh46PI9Wd4J/lVR7?=
+ =?us-ascii?Q?x8QBrnoFvHlPBMhyUGrJnDFqLtO95hsejxWWlNVWa5CXFT0a42a2o41fNvXk?=
+ =?us-ascii?Q?o/hpP0QSgEIh1fHJp107AcfecYQAUQcrl9EGktb7LXLgW+O8BY1NLTIQA4km?=
+ =?us-ascii?Q?KS93gqgoFWca3c9xWxjcx9ahtXha0FMjD1JayCAmFnDfyZky9c44CyeZFDZ3?=
+ =?us-ascii?Q?csVxm4evIf3/X7VaJojIynZ6M5amE2w1ECwartJlnsePHDx/88ths4rkk0Ve?=
+ =?us-ascii?Q?maNZgQ1ubGBeywgYTHIY+C9vwocjnRbRDNI4oa48xCS/1YPKocS3Yz013yxT?=
+ =?us-ascii?Q?eajptrMVGza4BK8DutkMcSJy?=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4537.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c63c4bdf-61be-4eba-751b-08d8e8519c69
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2021 08:00:48.5663 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gerXc8lZzX2h/o88cv/kXXBTH1pKGyEdAVPKc9KyygOoADtkRsYLHFbZvO4p0Pu71m4QclYNCgSdLFBzT6yi6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1885
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,32 +136,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: David Hildenbrand <david@redhat.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ George Kennedy <george.kennedy@oracle.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-CkFtIDE1LjAzLjIxIHVtIDIwOjM4IHNjaHJpZWIgQWxleCBEZXVjaGVyOgo+IFRoZSBlbHNlIGNs
-YXVzZSBuZWVkcyB0byBiZSBDT05GSUdfNjRCSVQgbm90IENPTkZJR19YODYuCj4KPiBGaXhlczog
-ZTk4ZjI1MGJkZGI1ICgiZHJtL2FtZGdwdTogZml4IGNvbXBpbGUgZXJyb3Igb24gYXJjaGl0ZWN0
-dXJlIHMzOTAiKQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
-ZXJAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
-dG0uYyB8IDIgKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPgo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCAxNThjOTg3Njk2ZmYuLjZk
-NWNmMDUyNTMyNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdHRtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMK
-PiBAQCAtMTczMSwxMiArMTczMSwxNCBAQCBpbnQgYW1kZ3B1X3R0bV9pbml0KHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQo+ICAgCj4gICAJLyogQ2hhbmdlIHRoZSBzaXplIGhlcmUgaW5zdGVh
-ZCBvZiB0aGUgaW5pdCBhYm92ZSBzbyBvbmx5IGxwZm4gaXMgYWZmZWN0ZWQgKi8KPiAgIAlhbWRn
-cHVfdHRtX3NldF9idWZmZXJfZnVuY3Nfc3RhdHVzKGFkZXYsIGZhbHNlKTsKPiArI2lmZGVmIENP
-TkZJR182NEJJVAo+ICAgI2lmZGVmIENPTkZJR19YODYKPiAgIAlpZiAoYWRldi0+Z21jLnhnbWku
-Y29ubmVjdGVkX3RvX2NwdSkKPiAgIAkJYWRldi0+bW1hbi5hcGVyX2Jhc2Vfa2FkZHIgPSBpb3Jl
-bWFwX2NhY2hlKGFkZXYtPmdtYy5hcGVyX2Jhc2UsCj4gICAJCQkJYWRldi0+Z21jLnZpc2libGVf
-dnJhbV9zaXplKTsKPiAgIAo+ICAgCWVsc2UKPiArI2VuZGlmCj4gICAJCWFkZXYtPm1tYW4uYXBl
-cl9iYXNlX2thZGRyID0gaW9yZW1hcF93YyhhZGV2LT5nbWMuYXBlcl9iYXNlLAo+ICAgCQkJCWFk
-ZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSk7Cj4gICAjZW5kaWYKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+[AMD Public Use]
+
+Hi Mike,
+
+Thanks for help. The patch works for me and boot time back to normal. So it's a fix, or just WA?
+
+BRs,
+Leo
+-----Original Message-----
+From: Mike Rapoport <rppt@linux.ibm.com> 
+Sent: Tuesday, March 16, 2021 2:50 PM
+To: Liang, Liang (Leo) <Liang.Liang@amd.com>
+Cc: David Hildenbrand <david@redhat.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; linux-kernel@vger.kernel.org; amd-gfx list <amd-gfx@lists.freedesktop.org>; Andrew Morton <akpm@linux-foundation.org>; Huang, Ray <Ray.Huang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Rafael J. Wysocki <rafael@kernel.org>; George Kennedy <george.kennedy@oracle.com>
+Subject: Re: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages to tail in __free_pages_core()")
+
+Hi Leo,
+
+On Tue, Mar 16, 2021 at 12:36:29AM +0000, Liang, Liang (Leo) wrote:
+> 
+> Hi David,
+> 
+> Sorry for late. If revert 7fef431be9c9 (without 7fef431be9c9), the dmesg attached. And looks the exception as below:
+> [  +0.027833] [0x0000000078000000 - 0x00000000783fffff] 20925 MB/s / 
+> 25405 MB/s [  +1.363596] [0x0000000100000000 - 0x00000001003fffff] 222 
+> MB/s / 222 MB/s [  +1.562192] [0x0000000100400000 - 
+> 0x00000001007fffff] 222 MB/s / 222 MB/s [  +1.881332] 
+> [0x0000000100800000 - 0x0000000100bfffff] 195 MB/s / 159 MB/s [  
+> +1.383388] [0x0000000100c00000 - 0x0000000100ffffff] 219 MB/s / 221 
+> MB/s [  +0.029342] [0x0000000101000000 - 0x00000001013fffff] 19807 
+> MB/s / 24125 MB/s
+> 
+> What is the problem here? Do you want to check the acpi tables?
+
+As it seems the first 16M at 0x0000000100000000 are two orders of magnitude slower than the rest of the memory as if there is a different memory device there.
+
+This would explain why with 7fef431be9c9 everything gets slower as we allocate the first (and probably quite critical) data from those 16M.
+
+No idea how this could be related to ACPI and why ACPI initialization causes the huge slowdown on its own.
+
+Can you please try booting with 7fef431be9c9 still applied and with this patch (not even compile tested):
+
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c index d883176ef2ce..780f11ca14c9 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -778,6 +778,7 @@ void __init setup_arch(char **cmdline_p)
+ 	 * L1TF its contents can be leaked to user processes.
+ 	 */
+ 	memblock_reserve(0, PAGE_SIZE);
++	memblock_reserve(0x0000000100000000, SZ_16M);
+ 
+ 	early_reserve_initrd();
+ 
+ 
+> BRs,
+> Leo
+> -----Original Message-----
+> From: David Hildenbrand <david@redhat.com>
+> Sent: Monday, March 15, 2021 9:04 PM
+> To: Mike Rapoport <rppt@linux.ibm.com>
+> Cc: Liang, Liang (Leo) <Liang.Liang@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; linux-kernel@vger.kernel.org; amd-gfx 
+> list <amd-gfx@lists.freedesktop.org>; Andrew Morton 
+> <akpm@linux-foundation.org>; Huang, Ray <Ray.Huang@amd.com>; Koenig, 
+> Christian <Christian.Koenig@amd.com>; Rafael J. Wysocki 
+> <rafael@kernel.org>; George Kennedy <george.kennedy@oracle.com>
+> Subject: Re: slow boot with 7fef431be9c9 ("mm/page_alloc: place pages 
+> to tail in __free_pages_core()")
+> 
+> On 13.03.21 14:48, Mike Rapoport wrote:
+> > Hi,
+> > 
+> > On Sat, Mar 13, 2021 at 10:05:23AM +0100, David Hildenbrand wrote:
+> >>> Am 13.03.2021 um 05:04 schrieb Liang, Liang (Leo) <Liang.Liang@amd.com>:
+> >>>
+> >>> Hi David,
+> >>>
+> >>> Which benchmark tool you prefer? Memtest86+ or else?
+> >>
+> >> Hi Leo,
+> >>
+> >> I think you want something that runs under Linux natively.
+> >>
+> >> I'm planning on coding up a kernel module to walk all 4MB pages in 
+> >> the freelists and perform a stream benchmark individually. Then we 
+> >> might be able to identify the problematic range - if there is a 
+> >> problematic range :)
+> > 
+> > My wild guess would be that the pages that are now at the head of 
+> > free lists have wrong caching enabled. Might be worth checking in 
+> > your test module.
+> 
+> I hacked something up real quick:
+> 
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgith
+> ub.com%2Fdavidhildenbrand%2Fkstream&amp;data=04%7C01%7CLiang.Liang%40a
+> md.com%7Cb569c2890cd14a555dcd08d8e847cea6%7C3dd8961fe4884e608e11a82d99
+> 4e183d%7C0%7C0%7C637514742399803857%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC
+> 4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sd
+> ata=7Mj%2BBlp%2BDZNg3grEYMnDyx%2FLGkZYu0YPfstiByD6UCk%3D&amp;reserved=
+> 0
+> 
+> Only briefly tested inside a VM. The output looks something like
+> 
+> [...]
+> [ 8396.432225] [0x0000000045800000 - 0x0000000045bfffff] 25322 MB/s /
+> 38948 MB/s
+> [ 8396.448749] [0x0000000045c00000 - 0x0000000045ffffff] 24481 MB/s /
+> 38946 MB/s
+> [ 8396.465197] [0x0000000046000000 - 0x00000000463fffff] 24892 MB/s /
+> 39170 MB/s
+> [ 8396.481552] [0x0000000046400000 - 0x00000000467fffff] 25222 MB/s /
+> 39156 MB/s
+> [ 8396.498012] [0x0000000046800000 - 0x0000000046bfffff] 24416 MB/s /
+> 39159 MB/s
+> [ 8396.514397] [0x0000000046c00000 - 0x0000000046ffffff] 25469 MB/s /
+> 38940 MB/s
+> [ 8396.530849] [0x0000000047000000 - 0x00000000473fffff] 24885 MB/s /
+> 38734 MB/s
+> [ 8396.547195] [0x0000000047400000 - 0x00000000477fffff] 25458 MB/s /
+> 38941 MB/s
+> [...]
+> 
+> The benchmark allocates one 4 MiB chunk at a time and runs a simplified STREAM benchmark a) without flushing caches b) flushing caches before every memory access.
+> 
+> It would be great if you could run that with the *old behavior* kernel (IOW, without 7fef431be9c9), so we might still be lucky to catch the problematic area in the freelist.
+> 
+> Let's see if that will indicate anything.
+> 
+> --
+> Thanks,
+> 
+> David / dhildenb
+
+
+
+--
+Sincerely yours,
+Mike.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
