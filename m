@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A47BC43381
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BEE9C43333
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C064A64F97
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C064A64F97
+	by mail.kernel.org (Postfix) with ESMTPS id 5221464FAE
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5221464FAE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025626E45E;
-	Wed, 17 Mar 2021 00:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A017C6E484;
+	Wed, 17 Mar 2021 00:56:38 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 531EF6E45D;
- Wed, 17 Mar 2021 00:56:30 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 66FA464F9E;
- Wed, 17 Mar 2021 00:56:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845476E46B;
+ Wed, 17 Mar 2021 00:56:34 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9CE5E64FA7;
+ Wed, 17 Mar 2021 00:56:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615942588;
- bh=2Kv0YtLN6AkklpnndNHV2hbj7iUjXYdYwf4LQGrdoy0=;
+ s=k20201202; t=1615942594;
+ bh=M3KYt+TlfZnvsm8VNCnDn0ffL3wX6K17cGMUOCTW83g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=POy9G/kUIan4fyn3/qYDgfSQvMQYWBERJTHEeAT1ufuS1Ffo1HJ8kMlwYy2Twxy+P
- mJjyulqa55xbmksZ8n2TjtoCgsV6U0n/KmxthTVz4ZeDgY1ge+uLelPIHqTEijvREH
- lXz3unbNM0s2cSxHxCrs+hF3y5MXxOekVTu3nqjsd4nxA15XpEG1Rk+l3Rp5x43abT
- nGOTPF5mCsbJpN0kU6oLATh4+T+KBKHr92OLdNMKf0Ztrzgu6jd54sYn5nrjly3z+n
- FccF8ioPjdxYbzGjHdHNv12bbxLZLFuyRyPzLp0RORYIb3ceXD3ul0f6WkDpxRA2Wr
- WaJ5RoaL2HhCg==
+ b=uEv5JllwrbL/PJKLPq0SlOo8SCsCkCh3c7qgRFd0N5830VCe+JTVypH9vrwd1pZ5I
+ AFN+wShdlMTFjB6k5v1lBCD4MwlgJZ/aAA/+JB3uxPOfezxFh5kIY/1qvp/pH0dRUF
+ txczbJSgX5uHozTyoZHJ6TLX6U+7EtCwpsqj5Nkndo5nRxEgYQo0X47oAugAU0UytO
+ H61yOf7i4gq4+7X+RUAhdR9a8dQzpJ0Epv5xLn1YLZeEl5KS/N1msXGIUn2TQud7PP
+ Llwsv+4GlHxB/3P4FRWp7/R7F5pjA8MlIJp4YRqOJr8HjmeAurglG/Dn96wIFSzfQt
+ iY5+fED2q1Cvg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 43/61] drm/amd/display: Enable pflip interrupt
- upon pipe enable
-Date: Tue, 16 Mar 2021 20:55:17 -0400
-Message-Id: <20210317005536.724046-43-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 47/61] drm/amdgpu: fb BO should be
+ ttm_bo_type_device
+Date: Tue, 16 Mar 2021 20:55:21 -0400
+Message-Id: <20210317005536.724046-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210317005536.724046-1-sashal@kernel.org>
 References: <20210317005536.724046-1-sashal@kernel.org>
@@ -59,231 +59,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Eryk Brol <eryk.brol@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
-
-[ Upstream commit 7afa0033d6f7fb8a84798ef99d1117661c4e696c ]
-
-[Why]
-pflip interrupt would not be enabled promptly if a pipe is disabled
-and re-enabled, causing flip_done timeout error during DP
-compliance tests
-
-[How]
-Enable pflip interrupt upon pipe enablement
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Eryk Brol <eryk.brol@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     |  1 +
- drivers/gpu/drm/amd/display/dc/dc.h                   |  1 +
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c     | 11 +++++++++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h     |  6 ++++++
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c |  7 +++++++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c     |  1 +
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  6 ++++++
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c     |  1 +
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c     |  1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h          |  2 ++
- 10 files changed, 37 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 947cd923fb4c..71d3040afaca 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4607,6 +4607,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	dc_plane_state->global_alpha_value = plane_info.global_alpha_value;
- 	dc_plane_state->dcc = plane_info.dcc;
- 	dc_plane_state->layer_index = plane_info.layer_index; // Always returns 0
-+	dc_plane_state->flip_int_enabled = true;
- 
- 	/*
- 	 * Always set input transfer function, since plane state is refreshed
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 3aedadb34548..414b44b4ced4 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -889,6 +889,7 @@ struct dc_plane_state {
- 	int layer_index;
- 
- 	union surface_update_flags update_flags;
-+	bool flip_int_enabled;
- 	/* private to DC core */
- 	struct dc_plane_status status;
- 	struct dc_context *ctx;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
-index 9e796dfeac20..714c71a5fbde 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
-@@ -1257,6 +1257,16 @@ void hubp1_soft_reset(struct hubp *hubp, bool reset)
- 	REG_UPDATE(DCHUBP_CNTL, HUBP_DISABLE, reset ? 1 : 0);
- }
- 
-+void hubp1_set_flip_int(struct hubp *hubp)
-+{
-+	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
-+
-+	REG_UPDATE(DCSURF_SURFACE_FLIP_INTERRUPT,
-+		SURFACE_FLIP_INT_MASK, 1);
-+
-+	return;
-+}
-+
- void hubp1_init(struct hubp *hubp)
- {
- 	//do nothing
-@@ -1290,6 +1300,7 @@ static const struct hubp_funcs dcn10_hubp_funcs = {
- 	.dmdata_load = NULL,
- 	.hubp_soft_reset = hubp1_soft_reset,
- 	.hubp_in_blank = hubp1_in_blank,
-+	.hubp_set_flip_int = hubp1_set_flip_int,
- };
- 
- /*****************************************/
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-index a9a6ed7f4f99..e2f2f6995935 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
-@@ -74,6 +74,7 @@
- 	SRI(DCSURF_SURFACE_EARLIEST_INUSE_C, HUBPREQ, id),\
- 	SRI(DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C, HUBPREQ, id),\
- 	SRI(DCSURF_SURFACE_CONTROL, HUBPREQ, id),\
-+	SRI(DCSURF_SURFACE_FLIP_INTERRUPT, HUBPREQ, id),\
- 	SRI(HUBPRET_CONTROL, HUBPRET, id),\
- 	SRI(DCN_EXPANSION_MODE, HUBPREQ, id),\
- 	SRI(DCHUBP_REQ_SIZE_CONFIG, HUBP, id),\
-@@ -183,6 +184,7 @@
- 	uint32_t DCSURF_SURFACE_EARLIEST_INUSE_C; \
- 	uint32_t DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C; \
- 	uint32_t DCSURF_SURFACE_CONTROL; \
-+	uint32_t DCSURF_SURFACE_FLIP_INTERRUPT; \
- 	uint32_t HUBPRET_CONTROL; \
- 	uint32_t DCN_EXPANSION_MODE; \
- 	uint32_t DCHUBP_REQ_SIZE_CONFIG; \
-@@ -332,6 +334,7 @@
- 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ_C, mask_sh),\
- 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_EN, mask_sh),\
- 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_64B_BLK, mask_sh),\
-+	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_FLIP_INTERRUPT, SURFACE_FLIP_INT_MASK, mask_sh),\
- 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, DET_BUF_PLANE1_BASE_ADDRESS, mask_sh),\
- 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CB_B, mask_sh),\
- 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CR_R, mask_sh),\
-@@ -531,6 +534,7 @@
- 	type PRIMARY_SURFACE_DCC_IND_64B_BLK;\
- 	type SECONDARY_SURFACE_DCC_EN;\
- 	type SECONDARY_SURFACE_DCC_IND_64B_BLK;\
-+	type SURFACE_FLIP_INT_MASK;\
- 	type DET_BUF_PLANE1_BASE_ADDRESS;\
- 	type CROSSBAR_SRC_CB_B;\
- 	type CROSSBAR_SRC_CR_R;\
-@@ -777,4 +781,6 @@ void hubp1_read_state_common(struct hubp *hubp);
- bool hubp1_in_blank(struct hubp *hubp);
- void hubp1_soft_reset(struct hubp *hubp, bool reset);
- 
-+void hubp1_set_flip_int(struct hubp *hubp);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 017b67b830e6..3e86e042de0d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2195,6 +2195,13 @@ static void dcn10_enable_plane(
- 	if (dc->debug.sanity_checks) {
- 		hws->funcs.verify_allow_pstate_change_high(dc);
- 	}
-+
-+	if (!pipe_ctx->top_pipe
-+		&& pipe_ctx->plane_state
-+		&& pipe_ctx->plane_state->flip_int_enabled
-+		&& pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int)
-+			pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int(pipe_ctx->plane_res.hubp);
-+
- }
- 
- void dcn10_program_gamut_remap(struct pipe_ctx *pipe_ctx)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
-index 0df0da2e6a4d..bec7059f6d5d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
-@@ -1597,6 +1597,7 @@ static struct hubp_funcs dcn20_hubp_funcs = {
- 	.validate_dml_output = hubp2_validate_dml_output,
- 	.hubp_in_blank = hubp1_in_blank,
- 	.hubp_soft_reset = hubp1_soft_reset,
-+	.hubp_set_flip_int = hubp1_set_flip_int,
- };
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 480d928cb1ca..824f10530be2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1146,6 +1146,12 @@ void dcn20_enable_plane(
- 		pipe_ctx->plane_res.hubp->funcs->hubp_set_vm_system_aperture_settings(pipe_ctx->plane_res.hubp, &apt);
- 	}
- 
-+	if (!pipe_ctx->top_pipe
-+		&& pipe_ctx->plane_state
-+		&& pipe_ctx->plane_state->flip_int_enabled
-+		&& pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int)
-+			pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int(pipe_ctx->plane_res.hubp);
-+
- //	if (dc->debug.sanity_checks) {
- //		dcn10_verify_allow_pstate_change_high(dc);
- //	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-index f9045852728f..b0c9180b808f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-@@ -838,6 +838,7 @@ static struct hubp_funcs dcn21_hubp_funcs = {
- 	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
- 	.hubp_init = hubp21_init,
- 	.validate_dml_output = hubp21_validate_dml_output,
-+	.hubp_set_flip_int = hubp1_set_flip_int,
- };
- 
- bool hubp21_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-index 88ffa9ff1ed1..f24612523248 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-@@ -511,6 +511,7 @@ static struct hubp_funcs dcn30_hubp_funcs = {
- 	.hubp_init = hubp3_init,
- 	.hubp_in_blank = hubp1_in_blank,
- 	.hubp_soft_reset = hubp1_soft_reset,
-+	.hubp_set_flip_int = hubp1_set_flip_int,
- };
- 
- bool hubp3_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-index 22f3f643ed1b..346dcd87dc10 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-@@ -191,6 +191,8 @@ struct hubp_funcs {
- 	bool (*hubp_in_blank)(struct hubp *hubp);
- 	void (*hubp_soft_reset)(struct hubp *hubp, bool reset);
- 
-+	void (*hubp_set_flip_int)(struct hubp *hubp);
-+
- };
- 
- #endif
--- 
-2.30.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogTmlybW95IERhcyA8bmlybW95LmRhc0BhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQg
+NTIxZjA0ZjllM2ZmYzczZWY5NmM3NzYwMzVmOGEwYTMxYjRjZGQ4MSBdCgpGQiBCTyBzaG91bGQg
+bm90IGJlIHR0bV9ib190eXBlX2tlcm5lbCB0eXBlIGFuZAphbWRncHVmYl9jcmVhdGVfcGlubmVk
+X29iamVjdCgpIHBpbnMgdGhlIEZCIEJPIGFueXdheS4KClNpZ25lZC1vZmYtYnk6IE5pcm1veSBE
+YXMgPG5pcm1veS5kYXNAYW1kLmNvbT4KQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtl
+cm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgfCAy
+ICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCmluZGV4IDBiZjdkMzZjNjY4Ni4uNWI3MTY0
+MDRlZWUxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwpAQCAtMTQ2LDcg
+KzE0Niw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1ZmJfY3JlYXRlX3Bpbm5lZF9vYmplY3Qoc3RydWN0
+IGFtZGdwdV9mYmRldiAqcmZiZGV2LAogCXNpemUgPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAqIGhl
+aWdodDsKIAlhbGlnbmVkX3NpemUgPSBBTElHTihzaXplLCBQQUdFX1NJWkUpOwogCXJldCA9IGFt
+ZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBhbGlnbmVkX3NpemUsIDAsIGRvbWFpbiwgZmxh
+Z3MsCi0JCQkJICAgICAgIHR0bV9ib190eXBlX2tlcm5lbCwgTlVMTCwgJmdvYmopOworCQkJCSAg
+ICAgICB0dG1fYm9fdHlwZV9kZXZpY2UsIE5VTEwsICZnb2JqKTsKIAlpZiAocmV0KSB7CiAJCXBy
+X2VycigiZmFpbGVkIHRvIGFsbG9jYXRlIGZyYW1lYnVmZmVyICglZClcbiIsIGFsaWduZWRfc2l6
+ZSk7CiAJCXJldHVybiAtRU5PTUVNOwotLSAKMi4zMC4xCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
