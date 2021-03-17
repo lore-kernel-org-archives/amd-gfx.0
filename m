@@ -7,119 +7,132 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8379CC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 03:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54FCFC433E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 06:46:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3445B64F8F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 03:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3445B64F8F
+	by mail.kernel.org (Postfix) with ESMTPS id 118C964FB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 06:46:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 118C964FB2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB6FE6E0BA;
-	Wed, 17 Mar 2021 03:32:06 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5EE6E0AF
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Mar 2021 03:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB51E89ACC;
+	Wed, 17 Mar 2021 06:46:03 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E59589ACC;
+ Wed, 17 Mar 2021 06:46:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KUqVJa8be0zwov7Ueb1tnOuq/ttQgsLcnl/YnFk+6EqTS2zrbU7rl3nU1Zz3noMsCPDYFqfC2n56yhl3wYkDvYv347csTM21/pWBjreiYGXfQFlx+s4I28fYmlEu9DNjTsAg8iXN4GFXUDPQsYjzIFcnUaqGhEfChkysf3M3tUPeyUawfqc7yGGVh9z5U9qKNYkwP4tenbhlRJBEJFvJIRkQIXB4OWqNutG3lLlwa3oz4N2oB6WHesZjv11Dl41e9gTO+I7Nwc/zBQPdO5HlnruIgd7tZn6Q7k82NfZ3SagQo9hbVOHdQiDDv93Sj5lo78hRKRuasHkMpIm6jm2IHQ==
+ b=TNeHllHHDn6+sKIgRjNte1wfpFne3W0ZpQPSAcwiYHrE25GP0J1G0qRY5cmeTSInrRlYLXhP/UUEJBM0g66EjSfI4l77CzoGEBSR4hSiWrEaoZ+VSv1USDN1mW6RxpAXMgIHKj0VgZ5eQy27tGknSh4dPtNW9JnsejkWwv8oyY8oHv6ARHbFmlQntqGT2nL3akfTc7ARZEHAwLKWFDRk2pcEbXzwwdEsciN9lXK8qq/4/1+JqnYvMMOzUBT1RTL+R1Np4OuKSoSmtKFEp0HdMrHHQN3qtvcdtZye3DNSPpbsOv4+3iuObFz/qwO2irUuhfcMqcwvn7Ga7VImI3lb6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zl7ie/nzy/OFI1rTHzNX6RmVWWG7jXJcYN8456iRCJw=;
- b=IJ6QU5sr9nUdBIKwb+7GI2xt+LQK6XG7pPtxlOIXQXYfQf3jEKMQNSXtRc9bTJe5k55ZbjWy/2pSivxtfQG1qGqTkm0MAI5gXYBZhZhmfO7y0OwuCqlTb5vpfFsy6V9Mo/fcicUuMH+LVLdU421H7NjcmoR+C2WoyeU0J+MyBtPum41M7Cdl+HwqqlnwkAzRBs8Vru8CXc/N/PwuaBQV7zhfuOjMECJtqR01XPyT6eQDKdktEwpUgVtSTd6SEtSVLcWZA3UWR8qB2ibAvqMVd3Xh4I1KPwuxVtYjvVRq5b0yEZItB3psW03QawT/B6VOqr2qJnxYebVJMFsFyKtaBQ==
+ bh=cZZU+jLEVCUKezLqsAdaX66YbSJ60gFEP088PmAVKn8=;
+ b=Y4bveEe72i1CPI794IuxJPPPhIFbmjWa/0D1w7aTkoBbZf9CE3jJxOMsycDaEn27l7vIOLLDZ/df4a6snV+oxoOSlD0ksnMTm2QVy0Sy+M/r8Q5DH6QinsWxf58jSiTqFKuXp1JD2guF/h2WRl0JKsrxIg3yrWJ10ZGb/2o9nV+toTuRuctNQt9jpB6oErz01miwoI8PkgRS6sou2fO93N/YiPSilAflbeXkvED+B/HbD5HiMRN3ZOt8FA91FuoiywSIGsKmn3XL/JFI6CT1Qj1mHrV/E/jqO04/H0n0r9A/wV5CyLbT95zbWmJjkDHCTsMhX5lP1NvLS07Yh7dFBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zl7ie/nzy/OFI1rTHzNX6RmVWWG7jXJcYN8456iRCJw=;
- b=XWs1PtrlSYHkpKUPnhGtd/b6xNhfTo80zFGF8JcowxgRwrChjvnVjyRCwdSC5oCAKfwQR1S78Q+Qj/trHGJio5DJ7Iktl5O9hDFSYhNlV01QwSK1SP4dATwqaihcv+f2JTiF62apbqqjyjPs6sHGl3Sg7bFEOlqSWHx1nxGzq9A=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1656.namprd12.prod.outlook.com (2603:10b6:910:d::10) with
+ bh=cZZU+jLEVCUKezLqsAdaX66YbSJ60gFEP088PmAVKn8=;
+ b=s+a7u5NQTZEy5BcQx5BiFV/M4fM/nvjrtY0owBC7UQo30zeM2aL4z2OWdDeAn57KnpyMSWkkavdfJIUtg4e8rKXJ1/d8msoUUxFZyn3ht5v3WznC5mXp2jbfBMKc9ZVqbxb0Jz0RIT8CART7tbhtNCRkUZ9sWIDjlWFH91myIvo=
+Received: from DM5PR1201MB0204.namprd12.prod.outlook.com (2603:10b6:4:51::10)
+ by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32; Wed, 17 Mar
- 2021 03:32:01 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::8908:d7:5544:6007]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::8908:d7:5544:6007%8]) with mapi id 15.20.3933.032; Wed, 17 Mar 2021
- 03:32:01 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "R, Bindu" <Bindu.R@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: Allow idle optimization based on vblank.
-Thread-Topic: [PATCH] drm/amd/display: Allow idle optimization based on vblank.
-Thread-Index: AQHXGr8fwgitnFi1FUaWsLypJpIgxKqHaL+AgAAde4A=
-Date: Wed, 17 Mar 2021 03:32:01 +0000
-Message-ID: <CY4PR12MB1287C50A1F73DBEE391DA64DF16A9@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20210316234952.254296-1-bindu.r@amd.com>
- <BN8PR12MB363370FEDCB6A5BE867005638E6A9@BN8PR12MB3633.namprd12.prod.outlook.com>
-In-Reply-To: <BN8PR12MB363370FEDCB6A5BE867005638E6A9@BN8PR12MB3633.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Wed, 17 Mar
+ 2021 06:46:00 +0000
+Received: from DM5PR1201MB0204.namprd12.prod.outlook.com
+ ([fe80::28e0:5877:b4e6:6bdc]) by DM5PR1201MB0204.namprd12.prod.outlook.com
+ ([fe80::28e0:5877:b4e6:6bdc%9]) with mapi id 15.20.3933.032; Wed, 17 Mar 2021
+ 06:46:00 +0000
+From: "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Grodzovsky, Andrey"
+ <Andrey.Grodzovsky@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>, Rob Herring <robh@kernel.org>, Tomeu Vizoso
+ <tomeu.vizoso@collabora.com>, Steven Price <steven.price@arm.com>
+Subject: RE: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+Thread-Topic: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+Thread-Index: AQHXGVr0ttnalfpTIkyzQ3GFwzEsHaqEg4SggAGzJoCAAYfnkA==
+Date: Wed, 17 Mar 2021 06:46:00 +0000
+Message-ID: <DM5PR1201MB020459FE1FFA08DD3A32F7B5BB6A9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+References: <20210315052036.1113638-1-Jack.Zhang1@amd.com>
+ <DM5PR1201MB020453AA9A2A5C5173AF4D84BB6C9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+ <DM5PR1201MB020461EEDC275748389BB631BB6B9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR1201MB020461EEDC275748389BB631BB6B9@DM5PR1201MB0204.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-17T03:31:58Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-16T07:19:35Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=4e4bebfb-5eeb-4e42-9480-1945e5983439;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=66e9be39-03d2-41fe-adf2-e4270c782a85;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2fa3fb26-eb51-4e83-23ba-08d8e8f53a36
-x-ms-traffictypediagnostic: CY4PR12MB1656:
+x-ms-office365-filtering-correlation-id: e7ca5c1d-22b7-4507-d10d-08d8e91053e0
+x-ms-traffictypediagnostic: DM6PR12MB4266:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB1656ED7601BB7553E27A9D1DF16A9@CY4PR12MB1656.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:127;
+x-microsoft-antispam-prvs: <DM6PR12MB42665F7542EAD14A0152846ABB6A9@DM6PR12MB4266.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1360;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JGg03ZecEdouamwpivWT1hJH3RpQ1eKD/4/fe5YdbJZ/PA/QCApQ+N1L0wDGeGBPPj1qNzfXsJLyao43mIshzgyYZ0LL2xJAJw5Alf4r5PtocxYy8KhZaNY000/qEGoazvCollrRECPtzW6DJyiBzHSCbeTnGOyVwwThJ9mLrPPAcFhaUFoUR86t4ywdgaTIYrh18/rEQq41a0Cx9De6rvsppR4i7R8p9YLfkuu7o8kYje7wbQ0sc0uuCfAzLbvNEzRBeNKTunxyfDdX1Oh/xWxL891qawNOGz2rG2FMe58wRQQL1nqVGIDKFrAhI370CT57iPZRmYGFmreruFCO5hkLdUPHC/K0VQw5ho7co5UhHRuhEs6VCvLtYn21MeI/vJpYVFslrBxhi+BloX37XUmIfBOsXE3UAozgnhRth87g+vn06gVEEIXWTD0w40HF6joNym1l5xo7wNHH4DTUxaz/MSOt2qVtT3SX6tP6cilglb6PEwif6Vy9gQ6vxtasWaSdl9D4SyqoXHft698YoGeCxWspe+4Lz+H3cppjHy90kfnStEmv+DruIzwSQH6YZ5iMV5AI11bxNmATT6OmpbeO2ViNo3K6XnFhr6lI0cQ=
+x-microsoft-antispam-message-info: Iv14i+qotco+vTVOaijp9kD0OpuMV/aIwAwiSkqzvoLbgsmou8YQ2QppNTFOXe5U4xuFa6ISU4kNOAwdd39HXiVKIwYG8JS8LNNu6CPaFbSOOjldpfEpor/emMTAxX1CN2nLhQzq/kylJEg/6rxOHicqbF7Go0vvrqu4hRo9vvWcPEfNkpIP9YcsjKgYNNNllPOkJLdD+UhVdzWyjAwEzURR1Vh4VVhgJdkExpNRuu/ccnufTGMahlqm4/LW8zBw6XiaqLXDYUsdrvMo+wVTsIDiDWJ7YmhO95h+HJ4wk70dNxpWU9enWWZGa8cmO2tFy6IIiqWi724qPRN+S2I9Wpji9HnVYrZ75s/Oknkpc1ZbJBUjbx54hBDQPZFEmDMZkRc9eidMkgLTyec8VM9eeRqjNfbBvU25Zsa44aJn26GqtWzogTjdOuz2kp7qkRyEWwGGf/6NOVMVGMmlNuinhFPZ81bqYkfhQC6OPrspIa1d94f7BLxnk8kzPhRwfz8Xb5lBnXZh3ATiUouCNRf0VDQW7VKyOtIUkfLFrQI7BKCfi8Dcb+m8/AWaTsflhqup3BVym7tRqMfBTI2vAI3am9gIO6FVnE1YBEnqW31neu0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(396003)(366004)(376002)(54906003)(316002)(966005)(7696005)(45080400002)(110136005)(186003)(52536014)(66946007)(76116006)(64756008)(86362001)(66556008)(66476007)(66446008)(5660300002)(6506007)(2906002)(33656002)(83380400001)(4326008)(478600001)(8936002)(8676002)(26005)(55016002)(9686003)(71200400001)(53546011);
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB0204.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(8936002)(7696005)(9686003)(66446008)(186003)(2906002)(6506007)(53546011)(478600001)(86362001)(52536014)(55016002)(76116006)(66556008)(66476007)(66946007)(921005)(316002)(64756008)(26005)(5660300002)(8676002)(110136005)(83380400001)(33656002)(71200400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?7vpXZB1f/9CoXIF3m4DT7CuuH3dqLKwf12QoXQ7+PG/pAQZ9C9qZArb2coyJ?=
- =?us-ascii?Q?gkkrY5FvhCJpbLFDOKhnHHYjiHB8TMx5e7QvwEn2y2jpRqZj18O51Km0p8fe?=
- =?us-ascii?Q?G34jjnQWHdRu8OLQjrwxPTct1n54ezn75iHyrAwB99Lvb35tCVv+bmjYpWC0?=
- =?us-ascii?Q?WwyhSgyTMOr/rthOFzqYEYD5PSLzYARrOzmSrrLw5pzz1NF/MiOTqPeriLvv?=
- =?us-ascii?Q?kefkwMcOQqaTDvJ51RC5vZFOiQAQb/1HMXrGD2lU82p1R8Xo8AjNzLwlxADR?=
- =?us-ascii?Q?dlZrlMZ4l1a6zshggOKOmxbsCuw6li+49T0DVo+vZ1Krxh5OxYGYc4UgB6sT?=
- =?us-ascii?Q?x1BlXahqtVbYN+6/ETPx5U/kIaFtFw3WMRSrx+rFVLHGI1a459CaVxC9BCtu?=
- =?us-ascii?Q?dxLkP302Zy5fplA38zInylaPsYSmyMeP7hrw1A7pyg2XjmOY6E9JqvNLcUjy?=
- =?us-ascii?Q?/ZcJlXHQ9U2Ge/BNBpX+sT0dPC5cNXTtihmnFGg/myYKCqdxMD0iorNdbdq3?=
- =?us-ascii?Q?FJ3pAcbUwLYVPTozYG+kRVHGTq5qcG+8QNbM8FH0nm8ko6OsjV1CV9yCcbbe?=
- =?us-ascii?Q?xaUzC/NyLa8r5INFAUdVYntzXXgsrMulNyNKf4gIxIur6lHZaERFfZdQ0rhG?=
- =?us-ascii?Q?uMDlg+7QoLDBq+ynO3m8Yy6FrHEM4VEXhCIfAp1RPVnqWwHJcXV9hV1NiP77?=
- =?us-ascii?Q?CoytxSwqOiNZdLRM/8ay3/+gQBvN4BPwugZuDNxDGk+XrulnDMdWtPvvbBwj?=
- =?us-ascii?Q?0LY5Qar3pHKC0hAXq7K+2igexsR3X6zU67esQl9t2F8eNE4FOGH802ZSq0eY?=
- =?us-ascii?Q?qCvpjnMpBAU/aq7WbgJKQ4otMASrLzZE6utNRpReji17ZBXgLa19xOvTjjLq?=
- =?us-ascii?Q?JHt8bcKKsC4QUvnEYr8Pb+k9XbV1pNngST0tyYiCr7HaxatiKzXMCGhCmVrX?=
- =?us-ascii?Q?Y7CArVdVv8RW0pVExtvJYWL5oFFv+ObdsJD5muBQQCjke2sPqSoedUwYQWvX?=
- =?us-ascii?Q?qben6iraJxUiwyvJN5y3oX85wmI2KSPhaYDdEoLDZb7hR6Fxs1ETcnnTztN/?=
- =?us-ascii?Q?CogJKDVj92xyb3uJf7/yp5VTVEllxmk7w8zL3Q4XJ8UEWgIXXpWkVYv9eNZp?=
- =?us-ascii?Q?Fjct3EI6hqop1HK4Jtzj4KCKJCoMSyZ2G1ZJ6PDoxQqAj8LmQTkFv88bvUGj?=
- =?us-ascii?Q?rnF64qwEmB3d895+XxWEwuhpHf2aHurxDT/hl7XoIePSJx0CDfnrIIK8QAh0?=
- =?us-ascii?Q?YI91JXnopMF6N0gHorQuz+WJTFGaGIZnB6dskQVTsUaJLEz6/RcMhbSX93+p?=
- =?us-ascii?Q?WRS5WsMCGRG0oyMy1UotlPf0?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?Mk5tajd4VFVYNVEwWlhLOGZjdDY5ZFNaajhHS1ZFd092aXh0ZGNWT3E4UGNF?=
+ =?utf-8?B?VnZaUGNId1doUDlHSDJDeHIwQVY3cEVtNWJNZDRIaDZLdzgzM0FBLzVVVEs1?=
+ =?utf-8?B?Y3RQaVFnVHNpRlZkMmZ5ZzlwQ3Jha0JxTUYrVmpIaEtQaC9HUkpmUFBMc1ZX?=
+ =?utf-8?B?VXYzUUZHb1JOaS9iaE1sLzhoVi9Hc0wrVjBZVWorUUpWSWJUU3A4UkJGcW9D?=
+ =?utf-8?B?S1hkT3NRK2k5QnVLRHJvbXd6VkZsL3VRUmprUmNVdTdYamloVk1CUXo4dXJz?=
+ =?utf-8?B?VUxaRjR3NlAwNnBhUEUxcWF3ckVBcEFwUU4yaDRzZFJoNXFpUWZ6cnY4c0VF?=
+ =?utf-8?B?Ukt6cERKUlNDMCtjNE5zY2dpWitpa0RSWGVHZDQxL2Q0TlJtUmFyY1d5RG1W?=
+ =?utf-8?B?NHM4YzBSTGtTUVMrZjM1YTNTT2RnOFU0RjFnNHNGbHUzNlU2d1phUG1QdFYr?=
+ =?utf-8?B?bjRxaUx6RjJ2WWREdG84Z2tqb01aaDV2b2ViTE1vWlhKQ2pFUmdOanJBTHZp?=
+ =?utf-8?B?Z05aMVNBMTFIZHZCMFE0T0NnZDRxbm5DUC9ObGhZVjNpY1hSYjljY0Zuc2VS?=
+ =?utf-8?B?bFd3N0RCNTJjWjNwQ3k3QWNobkZ3V1lKc0tsc3VNYVlQc0swMTJqbkRvdTk3?=
+ =?utf-8?B?bnZHaVUxSGN6ZTk1TlkydEhLNmVXOThDM0ltU1JXVjRlZkQzSWZ5VEp1Rncy?=
+ =?utf-8?B?N1crRFpxWWs5R2FNOFI1eXk0alJEQU1RRkhUazIxdnByR2s0Qzc2eUdSRnUv?=
+ =?utf-8?B?czl5bkdtYm1haGFVWVNuSGt0Ky95TnAwcU93RSt2RlZXMURFZDR1SnB4aDBG?=
+ =?utf-8?B?TDJoZmpwV1BwYnc4Uy9GY2FHbC9EelFsUEVOSEpRR3hIMWkycVZKWERoS2hZ?=
+ =?utf-8?B?NW9nRjBEVXpDcmJsTThoQ2JIMWxEdW5iTmNZUzk0alB1T3JiTVgxNERTWFh0?=
+ =?utf-8?B?L0FrYWpxNmF5THNGRFY0SlZLSUxhdVUzZVNaRUVSKzgwMWpsUFBWU0Y2VnhR?=
+ =?utf-8?B?a1hpK1hFdjFpdEM2aktSWlE1eUdON2IvVSt2OW1vQy9MN1VuWkNHRUJqVGVx?=
+ =?utf-8?B?QXQ2OXhJd2dOVHRUcCs2NTdiOGZncngyZDJhNTU3Q2pRUkQ3NlZHeGlYenhP?=
+ =?utf-8?B?OW40bGpEODYweWF0QmNMU1Q5RmdaaGhvdFROb1NvUFdsVzdSdnh0VDZXbm43?=
+ =?utf-8?B?eW9nSmRWSi94MmZLdGRkYzlLM01NYlBrTTg0b2ZlbFdQRDRaV25OWXVibE9o?=
+ =?utf-8?B?Q3o4dVVHSXVmNDdXOUh1WjFzS1J6YWRiaTY5TjFsYlpOeWYyVis0eFJOYnIy?=
+ =?utf-8?B?ZWRkQ3BVNE1kWllLZXpRSnJLZ05lVjhPZEZORmpncnYyT25xQi9JZFFGUnRD?=
+ =?utf-8?B?a1MzZDV6M2wwcnV6ZStkWGpyUXFmQUQxOEJuZ01DKzR4ZUFyZHpob25QN1JB?=
+ =?utf-8?B?VzVKeVRnVDRyN2RKYWY2OWVSVndZVXFIbzNtYy9uTitqeGpPc2VSaDlPU283?=
+ =?utf-8?B?Q0NxTVhybVJkQlY0Zk9BNC9odDhNYkl2VTVId1YzNEx2VXcycU9zaHptNzdM?=
+ =?utf-8?B?b1I4OW5vdnMxaERJeEMreldJeWNDcjZ6R0k2aHlJZTVQaWMvWmYzQW9SWlh6?=
+ =?utf-8?B?T3pucDVHZFJoZFVvS2s4WUN1WlJtZWJENlVYcDVrRWUyRVpyRTg2dFp0WWZw?=
+ =?utf-8?B?V1ZFTFJ5YTFzYjRVOTZKekJPZVI1ajhPNjltL1dPcnEwTFdmYXh0TmVCaEE5?=
+ =?utf-8?Q?5Fe1DDFJjuf2mRszElCGHB8qQvGgASgRabPBeOm?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fa3fb26-eb51-4e83-23ba-08d8e8f53a36
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2021 03:32:01.1814 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0204.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7ca5c1d-22b7-4507-d10d-08d8e91053e0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2021 06:46:00.6997 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N69N8yeWBjkzJQ9wcj6/APYHF6f8ExAPQTIVCEXuow4hOQVvo0OVSEFUpKmF1MQeS67/6nMKbp8p7UqVGD/Ydw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1656
+X-MS-Exchange-CrossTenant-userprincipalname: 2J66i3srzX31Z9JboHuj/1wLIy9Wj2eYusSi/bowP3NeL6WWUlf8PN/GLB4mX+RF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,94 +144,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou1,
- Tao" <Tao.Zhou1@amd.com>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "R,
- Bindu" <Bindu.R@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi, Andrey/Crhistian and Team,
+
+I didn't receive the reviewer's message from maintainers on panfrost driver for several days.
+Due to this patch is urgent for my current working project.
+Would you please help to give some review ideas?
+
+Many Thanks,
+Jack
+-----Original Message-----
+From: Zhang, Jack (Jian) 
+Sent: Tuesday, March 16, 2021 3:20 PM
+To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Rob Herring <robh@kernel.org>; Tomeu Vizoso <tomeu.vizoso@collabora.com>; Steven Price <steven.price@arm.com>
+Subject: RE: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
+
 [AMD Public Use]
 
-+    /* Allow idle optimization when vblank count is 0 for display off */
-+    if (dm->active_vblank_irq_count == 0)
-+               dc_allow_idle_optimizations(dm->dc,true);
-+
-
-Above part needs to be guarded by CONFIG_DRM_AMD_DC_DCN?
-
-Regards,
-Guchun
+Ping
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Feng, Kenneth
-Sent: Wednesday, March 17, 2021 9:45 AM
-To: R, Bindu <Bindu.R@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; R, Bindu <Bindu.R@amd.com>
-Subject: RE: [PATCH] drm/amd/display: Allow idle optimization based on vblank.
+From: Zhang, Jack (Jian) 
+Sent: Monday, March 15, 2021 1:24 PM
+To: Jack Zhang <Jack.Zhang1@amd.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Rob Herring <robh@kernel.org>; Tomeu Vizoso <tomeu.vizoso@collabora.com>; Steven Price <steven.price@arm.com>
+Subject: RE: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Hi, Rob/Tomeu/Steven,
 
+Would you please help to review this patch for panfrost driver?
+
+Thanks,
+Jack Zhang
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Bindu Ramamurthy
-Sent: Wednesday, March 17, 2021 7:50 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; R, Bindu <Bindu.R@amd.com>
-Subject: [PATCH] drm/amd/display: Allow idle optimization based on vblank.
+From: Jack Zhang <Jack.Zhang1@amd.com>
+Sent: Monday, March 15, 2021 1:21 PM
+To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>
+Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
+Subject: [PATCH v3] drm/scheduler re-insert Bailing job to avoid memleak
 
-[CAUTION: External Email]
+re-insert Bailing jobs to avoid memory leak.
 
-[Why]
-idle optimization was being disabled after commit.
+V2: move re-insert step to drm/scheduler logic
+V3: add panfrost's return value for bailing jobs in case it hits the memleak issue.
 
-[How]
-check vblank count for display off and enable idle optimization based on this count.
-
-Signed-off-by: Bindu Ramamurthy <bindu.r@amd.com>
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 8 ++++++--
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 4 ++--
+ drivers/gpu/drm/scheduler/sched_main.c     | 8 +++++++-
+ include/drm/gpu_scheduler.h                | 1 +
+ 5 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 553e39f9538c..56a55143ad2d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -987,7 +987,7 @@ static void event_mall_stutter(struct work_struct *work)
-
-        if (vblank_work->enable)
-                dm->active_vblank_irq_count++;
--       else
-+       else if(dm->active_vblank_irq_count)
-                dm->active_vblank_irq_count--;
-
-        dc_allow_idle_optimizations(
-@@ -8694,7 +8694,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
-                WARN_ON(!dc_commit_state(dm->dc, dc_state));
-                mutex_unlock(&dm->dc_lock);
-        }
--
-+    /* Allow idle optimization when vblank count is 0 for display off */
-+    if (dm->active_vblank_irq_count == 0)
-+               dc_allow_idle_optimizations(dm->dc,true);
-+
-        for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-                struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 79b9cc73763f..86463b0f936e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4815,8 +4815,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 					job ? job->base.id : -1);
+ 
+ 		/* even we skipped this reset, still need to set the job to guilty */
+-		if (job)
++		if (job) {
+ 			drm_sched_increase_karma(&job->base);
++			r = DRM_GPU_SCHED_STAT_BAILING;
++		}
+ 		goto skip_recovery;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 759b34799221..41390bdacd9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -34,6 +34,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 	struct amdgpu_job *job = to_amdgpu_job(s_job);
+ 	struct amdgpu_task_info ti;
+ 	struct amdgpu_device *adev = ring->adev;
++	int ret;
+ 
+ 	memset(&ti, 0, sizeof(struct amdgpu_task_info));
+ 
+@@ -52,8 +53,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
+ 
+ 	if (amdgpu_device_should_recover_gpu(ring->adev)) {
+-		amdgpu_device_gpu_recover(ring->adev, job);
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		ret = amdgpu_device_gpu_recover(ring->adev, job);
++		if (ret == DRM_GPU_SCHED_STAT_BAILING)
++			return DRM_GPU_SCHED_STAT_BAILING;
++		else
++			return DRM_GPU_SCHED_STAT_NOMINAL;
+ 	} else {
+ 		drm_sched_suspend_timeout(&ring->sched);
+ 		if (amdgpu_sriov_vf(adev))
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 6003cfeb1322..e2cb4f32dae1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -444,7 +444,7 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 	 * spurious. Bail out.
+ 	 */
+ 	if (dma_fence_is_signaled(job->done_fence))
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		return DRM_GPU_SCHED_STAT_BAILING;
+ 
+ 	dev_err(pfdev->dev, "gpu sched timeout, js=%d, config=0x%x, status=0x%x, head=0x%x, tail=0x%x, sched_job=%p",
+ 		js,
+@@ -456,7 +456,7 @@ static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
+ 
+ 	/* Scheduler is already stopped, nothing to do. */
+ 	if (!panfrost_scheduler_stop(&pfdev->js->queue[js], sched_job))
+-		return DRM_GPU_SCHED_STAT_NOMINAL;
++		return DRM_GPU_SCHED_STAT_BAILING;
+ 
+ 	/* Schedule a reset if there's no reset in progress. */
+ 	if (!atomic_xchg(&pfdev->reset.pending, 1)) diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 92d8de24d0a1..a44f621fb5c4 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -314,6 +314,7 @@ static void drm_sched_job_timedout(struct work_struct *work)  {
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_job *job;
++	int ret;
+ 
+ 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+ 
+@@ -331,8 +332,13 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 		list_del_init(&job->list);
+ 		spin_unlock(&sched->job_list_lock);
+ 
+-		job->sched->ops->timedout_job(job);
++		ret = job->sched->ops->timedout_job(job);
+ 
++		if (ret == DRM_GPU_SCHED_STAT_BAILING) {
++			spin_lock(&sched->job_list_lock);
++			list_add(&job->node, &sched->ring_mirror_list);
++			spin_unlock(&sched->job_list_lock);
++		}
+ 		/*
+ 		 * Guilty job did complete and hence needs to be manually removed
+ 		 * See drm_sched_stop doc.
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h index 4ea8606d91fe..8093ac2427ef 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -210,6 +210,7 @@ enum drm_gpu_sched_stat {
+ 	DRM_GPU_SCHED_STAT_NONE, /* Reserve 0 */
+ 	DRM_GPU_SCHED_STAT_NOMINAL,
+ 	DRM_GPU_SCHED_STAT_ENODEV,
++	DRM_GPU_SCHED_STAT_BAILING,
+ };
+ 
+ /**
 --
 2.25.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7Cb53f164f787e4da3725a08d8e8e6472c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637515423028336026%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=xZouQssY4uo%2FohKAZBCdej9gKFsggBExTfQ3Ddz8D%2BQ%3D&amp;reserved=0
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7Cb53f164f787e4da3725a08d8e8e6472c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637515423028336026%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=xZouQssY4uo%2FohKAZBCdej9gKFsggBExTfQ3Ddz8D%2BQ%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
