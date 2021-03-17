@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2103BC433E9
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A47BC43381
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C64F564FB3
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C64F564FB3
+	by mail.kernel.org (Postfix) with ESMTPS id C064A64F97
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Mar 2021 00:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C064A64F97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D256E471;
-	Wed, 17 Mar 2021 00:56:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 025626E45E;
+	Wed, 17 Mar 2021 00:56:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5486F6E46B;
- Wed, 17 Mar 2021 00:56:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 280E964F9C;
- Wed, 17 Mar 2021 00:56:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 531EF6E45D;
+ Wed, 17 Mar 2021 00:56:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66FA464F9E;
+ Wed, 17 Mar 2021 00:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615942593;
- bh=5rIhYsyhLKT6aAO0BKtbxp2bcFQuLbnBCgGvZd217ow=;
+ s=k20201202; t=1615942588;
+ bh=2Kv0YtLN6AkklpnndNHV2hbj7iUjXYdYwf4LQGrdoy0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Nc8nOI4Vpsnh2R/oamEd7onMSZH504Jgfxfv69QRJPnPjDXihrLqwx/aW2TSn+AXO
- Jik5WnPB1IUi++/T6jVN7n9uW0TPLN25t7TspFZHgDgajRbexOXzjfVSQUCXQ/tV3a
- d0krwJCS6shffbQMoHevFa/2wXgR3DBKtKLdL7u4tNOTLg+svO7/FQ1ADkxT+mT5rF
- 8SwuwuFUvRNRdxAxhZNETCvgTsC6sQgITISsy5oiXV97/AY1N/RWS8IKP5wBlJP6WI
- 0j8BcyMvrAYyah4dKnimpgMyvDiclyo/XB3Og9Gx5H09bYOWcEZTlum79Y5Oj51RbJ
- FucLaspOyE1/w==
+ b=POy9G/kUIan4fyn3/qYDgfSQvMQYWBERJTHEeAT1ufuS1Ffo1HJ8kMlwYy2Twxy+P
+ mJjyulqa55xbmksZ8n2TjtoCgsV6U0n/KmxthTVz4ZeDgY1ge+uLelPIHqTEijvREH
+ lXz3unbNM0s2cSxHxCrs+hF3y5MXxOekVTu3nqjsd4nxA15XpEG1Rk+l3Rp5x43abT
+ nGOTPF5mCsbJpN0kU6oLATh4+T+KBKHr92OLdNMKf0Ztrzgu6jd54sYn5nrjly3z+n
+ FccF8ioPjdxYbzGjHdHNv12bbxLZLFuyRyPzLp0RORYIb3ceXD3ul0f6WkDpxRA2Wr
+ WaJ5RoaL2HhCg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 46/61] drm/amdgpu/display: Use wm_table.entries
- for dcn301 calculate_wm
-Date: Tue, 16 Mar 2021 20:55:20 -0400
-Message-Id: <20210317005536.724046-46-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 43/61] drm/amd/display: Enable pflip interrupt
+ upon pipe enable
+Date: Tue, 16 Mar 2021 20:55:17 -0400
+Message-Id: <20210317005536.724046-43-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210317005536.724046-1-sashal@kernel.org>
 References: <20210317005536.724046-1-sashal@kernel.org>
@@ -59,148 +59,227 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Zhan Liu <zhan.liu@amd.com>, amd-gfx@lists.freedesktop.org,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Eryk Brol <eryk.brol@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhan Liu <zhan.liu@amd.com>
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 
-[ Upstream commit eda29602f1a8b2b32d8c8c354232d9d1ee1c064d ]
+[ Upstream commit 7afa0033d6f7fb8a84798ef99d1117661c4e696c ]
 
 [Why]
-For DGPU Navi, the wm_table.nv_entries are used. These entires are not
-populated for DCN301 Vangogh APU, but instead wm_table.entries are.
+pflip interrupt would not be enabled promptly if a pipe is disabled
+and re-enabled, causing flip_done timeout error during DP
+compliance tests
 
 [How]
-Use DCN21 Renoir style wm calculations.
+Enable pflip interrupt upon pipe enablement
 
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Zhan Liu <zhan.liu@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Acked-by: Zhan Liu <zhan.liu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Acked-by: Eryk Brol <eryk.brol@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dcn301/dcn301_resource.c   | 96 ++++++++++++++++++-
- 1 file changed, 95 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     |  1 +
+ drivers/gpu/drm/amd/display/dc/dc.h                   |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c     | 11 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h     |  6 ++++++
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c |  7 +++++++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c     |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  6 ++++++
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c     |  1 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c     |  1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h          |  2 ++
+ 10 files changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index 35f5bf08ae96..23bc208cbfa4 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -1722,12 +1722,106 @@ static void dcn301_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
- 	dml_init_instance(&dc->dml, &dcn3_01_soc, &dcn3_01_ip, DML_PROJECT_DCN30);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 947cd923fb4c..71d3040afaca 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4607,6 +4607,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+ 	dc_plane_state->global_alpha_value = plane_info.global_alpha_value;
+ 	dc_plane_state->dcc = plane_info.dcc;
+ 	dc_plane_state->layer_index = plane_info.layer_index; // Always returns 0
++	dc_plane_state->flip_int_enabled = true;
+ 
+ 	/*
+ 	 * Always set input transfer function, since plane state is refreshed
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 3aedadb34548..414b44b4ced4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -889,6 +889,7 @@ struct dc_plane_state {
+ 	int layer_index;
+ 
+ 	union surface_update_flags update_flags;
++	bool flip_int_enabled;
+ 	/* private to DC core */
+ 	struct dc_plane_status status;
+ 	struct dc_context *ctx;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+index 9e796dfeac20..714c71a5fbde 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+@@ -1257,6 +1257,16 @@ void hubp1_soft_reset(struct hubp *hubp, bool reset)
+ 	REG_UPDATE(DCHUBP_CNTL, HUBP_DISABLE, reset ? 1 : 0);
  }
  
-+static void calculate_wm_set_for_vlevel(
-+		int vlevel,
-+		struct wm_range_table_entry *table_entry,
-+		struct dcn_watermarks *wm_set,
-+		struct display_mode_lib *dml,
-+		display_e2e_pipe_params_st *pipes,
-+		int pipe_cnt)
++void hubp1_set_flip_int(struct hubp *hubp)
 +{
-+	double dram_clock_change_latency_cached = dml->soc.dram_clock_change_latency_us;
++	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
 +
-+	ASSERT(vlevel < dml->soc.num_states);
-+	/* only pipe 0 is read for voltage and dcf/soc clocks */
-+	pipes[0].clks_cfg.voltage = vlevel;
-+	pipes[0].clks_cfg.dcfclk_mhz = dml->soc.clock_limits[vlevel].dcfclk_mhz;
-+	pipes[0].clks_cfg.socclk_mhz = dml->soc.clock_limits[vlevel].socclk_mhz;
++	REG_UPDATE(DCSURF_SURFACE_FLIP_INTERRUPT,
++		SURFACE_FLIP_INT_MASK, 1);
 +
-+	dml->soc.dram_clock_change_latency_us = table_entry->pstate_latency_us;
-+	dml->soc.sr_exit_time_us = table_entry->sr_exit_time_us;
-+	dml->soc.sr_enter_plus_exit_time_us = table_entry->sr_enter_plus_exit_time_us;
-+
-+	wm_set->urgent_ns = get_wm_urgent(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->cstate_pstate.cstate_enter_plus_exit_ns = get_wm_stutter_enter_exit(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->cstate_pstate.cstate_exit_ns = get_wm_stutter_exit(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->cstate_pstate.pstate_change_ns = get_wm_dram_clock_change(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->pte_meta_urgent_ns = get_wm_memory_trip(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->frac_urg_bw_nom = get_fraction_of_urgent_bandwidth(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->frac_urg_bw_flip = get_fraction_of_urgent_bandwidth_imm_flip(dml, pipes, pipe_cnt) * 1000;
-+	wm_set->urgent_latency_ns = get_urgent_latency(dml, pipes, pipe_cnt) * 1000;
-+	dml->soc.dram_clock_change_latency_us = dram_clock_change_latency_cached;
-+
++	return;
 +}
 +
-+static void dcn301_calculate_wm_and_dlg(
-+		struct dc *dc, struct dc_state *context,
-+		display_e2e_pipe_params_st *pipes,
-+		int pipe_cnt,
-+		int vlevel_req)
-+{
-+	int i, pipe_idx;
-+	int vlevel, vlevel_max;
-+	struct wm_range_table_entry *table_entry;
-+	struct clk_bw_params *bw_params = dc->clk_mgr->bw_params;
+ void hubp1_init(struct hubp *hubp)
+ {
+ 	//do nothing
+@@ -1290,6 +1300,7 @@ static const struct hubp_funcs dcn10_hubp_funcs = {
+ 	.dmdata_load = NULL,
+ 	.hubp_soft_reset = hubp1_soft_reset,
+ 	.hubp_in_blank = hubp1_in_blank,
++	.hubp_set_flip_int = hubp1_set_flip_int,
+ };
+ 
+ /*****************************************/
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
+index a9a6ed7f4f99..e2f2f6995935 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.h
+@@ -74,6 +74,7 @@
+ 	SRI(DCSURF_SURFACE_EARLIEST_INUSE_C, HUBPREQ, id),\
+ 	SRI(DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C, HUBPREQ, id),\
+ 	SRI(DCSURF_SURFACE_CONTROL, HUBPREQ, id),\
++	SRI(DCSURF_SURFACE_FLIP_INTERRUPT, HUBPREQ, id),\
+ 	SRI(HUBPRET_CONTROL, HUBPRET, id),\
+ 	SRI(DCN_EXPANSION_MODE, HUBPREQ, id),\
+ 	SRI(DCHUBP_REQ_SIZE_CONFIG, HUBP, id),\
+@@ -183,6 +184,7 @@
+ 	uint32_t DCSURF_SURFACE_EARLIEST_INUSE_C; \
+ 	uint32_t DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C; \
+ 	uint32_t DCSURF_SURFACE_CONTROL; \
++	uint32_t DCSURF_SURFACE_FLIP_INTERRUPT; \
+ 	uint32_t HUBPRET_CONTROL; \
+ 	uint32_t DCN_EXPANSION_MODE; \
+ 	uint32_t DCHUBP_REQ_SIZE_CONFIG; \
+@@ -332,6 +334,7 @@
+ 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ_C, mask_sh),\
+ 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_EN, mask_sh),\
+ 	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_64B_BLK, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_FLIP_INTERRUPT, SURFACE_FLIP_INT_MASK, mask_sh),\
+ 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, DET_BUF_PLANE1_BASE_ADDRESS, mask_sh),\
+ 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CB_B, mask_sh),\
+ 	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CR_R, mask_sh),\
+@@ -531,6 +534,7 @@
+ 	type PRIMARY_SURFACE_DCC_IND_64B_BLK;\
+ 	type SECONDARY_SURFACE_DCC_EN;\
+ 	type SECONDARY_SURFACE_DCC_IND_64B_BLK;\
++	type SURFACE_FLIP_INT_MASK;\
+ 	type DET_BUF_PLANE1_BASE_ADDRESS;\
+ 	type CROSSBAR_SRC_CB_B;\
+ 	type CROSSBAR_SRC_CR_R;\
+@@ -777,4 +781,6 @@ void hubp1_read_state_common(struct hubp *hubp);
+ bool hubp1_in_blank(struct hubp *hubp);
+ void hubp1_soft_reset(struct hubp *hubp, bool reset);
+ 
++void hubp1_set_flip_int(struct hubp *hubp);
 +
-+	ASSERT(bw_params);
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 017b67b830e6..3e86e042de0d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2195,6 +2195,13 @@ static void dcn10_enable_plane(
+ 	if (dc->debug.sanity_checks) {
+ 		hws->funcs.verify_allow_pstate_change_high(dc);
+ 	}
 +
-+	vlevel_max = bw_params->clk_table.num_entries - 1;
++	if (!pipe_ctx->top_pipe
++		&& pipe_ctx->plane_state
++		&& pipe_ctx->plane_state->flip_int_enabled
++		&& pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int)
++			pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int(pipe_ctx->plane_res.hubp);
 +
-+	/* WM Set D */
-+	table_entry = &bw_params->wm_table.entries[WM_D];
-+	if (table_entry->wm_type == WM_TYPE_RETRAINING)
-+		vlevel = 0;
-+	else
-+		vlevel = vlevel_max;
-+	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.d,
-+						&context->bw_ctx.dml, pipes, pipe_cnt);
-+	/* WM Set C */
-+	table_entry = &bw_params->wm_table.entries[WM_C];
-+	vlevel = min(max(vlevel_req, 2), vlevel_max);
-+	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.c,
-+						&context->bw_ctx.dml, pipes, pipe_cnt);
-+	/* WM Set B */
-+	table_entry = &bw_params->wm_table.entries[WM_B];
-+	vlevel = min(max(vlevel_req, 1), vlevel_max);
-+	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.b,
-+						&context->bw_ctx.dml, pipes, pipe_cnt);
+ }
+ 
+ void dcn10_program_gamut_remap(struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+index 0df0da2e6a4d..bec7059f6d5d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+@@ -1597,6 +1597,7 @@ static struct hubp_funcs dcn20_hubp_funcs = {
+ 	.validate_dml_output = hubp2_validate_dml_output,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.hubp_soft_reset = hubp1_soft_reset,
++	.hubp_set_flip_int = hubp1_set_flip_int,
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 480d928cb1ca..824f10530be2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1146,6 +1146,12 @@ void dcn20_enable_plane(
+ 		pipe_ctx->plane_res.hubp->funcs->hubp_set_vm_system_aperture_settings(pipe_ctx->plane_res.hubp, &apt);
+ 	}
+ 
++	if (!pipe_ctx->top_pipe
++		&& pipe_ctx->plane_state
++		&& pipe_ctx->plane_state->flip_int_enabled
++		&& pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int)
++			pipe_ctx->plane_res.hubp->funcs->hubp_set_flip_int(pipe_ctx->plane_res.hubp);
 +
-+	/* WM Set A */
-+	table_entry = &bw_params->wm_table.entries[WM_A];
-+	vlevel = min(vlevel_req, vlevel_max);
-+	calculate_wm_set_for_vlevel(vlevel, table_entry, &context->bw_ctx.bw.dcn.watermarks.a,
-+						&context->bw_ctx.dml, pipes, pipe_cnt);
+ //	if (dc->debug.sanity_checks) {
+ //		dcn10_verify_allow_pstate_change_high(dc);
+ //	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
+index f9045852728f..b0c9180b808f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
+@@ -838,6 +838,7 @@ static struct hubp_funcs dcn21_hubp_funcs = {
+ 	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
+ 	.hubp_init = hubp21_init,
+ 	.validate_dml_output = hubp21_validate_dml_output,
++	.hubp_set_flip_int = hubp1_set_flip_int,
+ };
+ 
+ bool hubp21_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+index 88ffa9ff1ed1..f24612523248 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -511,6 +511,7 @@ static struct hubp_funcs dcn30_hubp_funcs = {
+ 	.hubp_init = hubp3_init,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.hubp_soft_reset = hubp1_soft_reset,
++	.hubp_set_flip_int = hubp1_set_flip_int,
+ };
+ 
+ bool hubp3_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index 22f3f643ed1b..346dcd87dc10 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -191,6 +191,8 @@ struct hubp_funcs {
+ 	bool (*hubp_in_blank)(struct hubp *hubp);
+ 	void (*hubp_soft_reset)(struct hubp *hubp, bool reset);
+ 
++	void (*hubp_set_flip_int)(struct hubp *hubp);
 +
-+	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
-+		if (!context->res_ctx.pipe_ctx[i].stream)
-+			continue;
-+
-+		pipes[pipe_idx].clks_cfg.dispclk_mhz = get_dispclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt);
-+		pipes[pipe_idx].clks_cfg.dppclk_mhz = get_dppclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt, pipe_idx);
-+
-+		if (dc->config.forced_clocks) {
-+			pipes[pipe_idx].clks_cfg.dispclk_mhz = context->bw_ctx.dml.soc.clock_limits[0].dispclk_mhz;
-+			pipes[pipe_idx].clks_cfg.dppclk_mhz = context->bw_ctx.dml.soc.clock_limits[0].dppclk_mhz;
-+		}
-+		if (dc->debug.min_disp_clk_khz > pipes[pipe_idx].clks_cfg.dispclk_mhz * 1000)
-+			pipes[pipe_idx].clks_cfg.dispclk_mhz = dc->debug.min_disp_clk_khz / 1000.0;
-+		if (dc->debug.min_dpp_clk_khz > pipes[pipe_idx].clks_cfg.dppclk_mhz * 1000)
-+			pipes[pipe_idx].clks_cfg.dppclk_mhz = dc->debug.min_dpp_clk_khz / 1000.0;
-+
-+		pipe_idx++;
-+	}
-+
-+	dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
-+}
-+
- static struct resource_funcs dcn301_res_pool_funcs = {
- 	.destroy = dcn301_destroy_resource_pool,
- 	.link_enc_create = dcn301_link_encoder_create,
- 	.panel_cntl_create = dcn301_panel_cntl_create,
- 	.validate_bandwidth = dcn30_validate_bandwidth,
--	.calculate_wm_and_dlg = dcn30_calculate_wm_and_dlg,
-+	.calculate_wm_and_dlg = dcn301_calculate_wm_and_dlg,
- 	.populate_dml_pipes = dcn30_populate_dml_pipes_from_context,
- 	.acquire_idle_pipe_for_layer = dcn20_acquire_idle_pipe_for_layer,
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+ };
+ 
+ #endif
 -- 
 2.30.1
 
