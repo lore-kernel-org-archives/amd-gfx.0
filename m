@@ -2,53 +2,53 @@ Return-Path: <SRS0=NRDG=IQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93211C433DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 07:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54F05C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 07:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37B4A64E38
+	by mail.kernel.org (Postfix) with ESMTPS id 022A764E27
 	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 07:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37B4A64E38
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 022A764E27
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D11F36E895;
-	Thu, 18 Mar 2021 07:23:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1896E88D;
+	Thu, 18 Mar 2021 07:23:54 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760054.outbound.protection.outlook.com [40.107.76.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 088C96E88D
+ (mail-eopbgr760042.outbound.protection.outlook.com [40.107.76.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC356E88D
  for <amd-gfx@lists.freedesktop.org>; Thu, 18 Mar 2021 07:23:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I4tIhax1F7CkdtAIv1+c/u3pTsVlsL5Kd/dOx2m4/3DG+nRGaxOw35n/nH3JHje9TZ9vmKR6YVn3jlj7k9RVO+VEDDE/pg2ng0shBXFD+WzeTEGtptcxFhWcHktC4ePdMTTctbam4MB0Hwi+mPE2B9O1tTjaqWIYxuBV9pFcObLcCvsCWd6RgPpFtVDVv3l3wh5d4cG2tscA4Ov1WQYdV8ok7wJ8vOpmiypRKQVpWE4rNICNdT2N8kZK2G2PGXlDQOKTjfrcY4OrA/PjGBOauh44OF4KeMhbbJ3l8p1GLllXreFaVOfzMIZwMA9+4aH42YbhDh8WXtv7jKWeN2GDcQ==
+ b=Xa5pByzqhzZBVymQbtafDh6eVT1gs7+dHl1Q7m0cdfi/1RvxZ66p5Y/JoXNeNO9ixweeVxt7L8ZL40RJ4i8Son+NFKZQdqlk/3EuF/15QxjOZFFrTHjCjBRl7nFCJliRzLH7xyGTyMvnVObYBppFWfrBTF14WwL4roHYgDYM6S7I5EJ3vDLpVBnuA8gM/zXUNxskgP+o7VOzdD9Wbw0Yj6/BU7nZEGjf1lGceLz7ekDW7Cl3jlP2Q0BfRJLK256nIR32oJsAIM3eaYwAs6UrcN3q4ODDqkJyg3Vba8TClhRIb9fR8dSsjeZS+y4l2ksuYnEcoN+6snblWkEhfhjKCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=71mQjHGs8DPr0nHvU59Y7kDGqnLNGa6QQSwNgWs4jHI=;
- b=V7WofFW9Zh5ntHSoGx0N4p2IO/GM8ohmkc1UjzZTnqxYQ+rNTUnsbz5uEC1lQJ5hNIjtSU1Gb1oz4mtoKkcvvB9rPJsNqPiQ4S66FIUiiSZVQqu/Y49DtFgwjnprPy8YMJVLjlUDSbrGItQgqghrr5cK80SrmMwXurQkgGfXWVmnR1v+po1ZG92rlF34SUJQK8IQ5MFKzUJlXoHGQR0Xy8ljQBScEpSj2dp5CU0hXw9kRmBIxj/y4Smu6UZ5KsB0ROehaUgTdrTMrpBBZdUeRSIDNK1f2VX3iAfp0FkKBrLxWwD/WAH5RpbiwZ0Ag7us5ZyqwWifd9AXunJPpXbnQg==
+ bh=74lr3uKNDxXX5qZdW3H3ZcXyjoI5+qCTgrRC0rUvkWI=;
+ b=SENrQlrqUAV69OCardA2N4K9MlvpaJCBbS8xOmVBSCYLJRYpQl5uo02YL/Yt5ZOCS7P7OO99zXIKFGpZS1Y71rNjVPvTTmLZSZN9kgPghnCLOzBLY2NRvEbAT30M8+UKcRdKBc2CyijfVnXGK3eU9XCCNm1nIDJT1gF3TKXtVWYCwK3XXUzycWmikWogWjwzxdTce+YQQjFCSg22vuDYNmijIQj+kodGc1rsHO0vGAFtdNoeadda5IbB2QoKDndXDcjc4o7N4wptOVUClFHdzNoA71f3f4jX6GJhvfZUbNgEZTDNEItip3FUPOppzs5rf9EAcSivE1O2WEsq6kpGLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=71mQjHGs8DPr0nHvU59Y7kDGqnLNGa6QQSwNgWs4jHI=;
- b=RZWmc1yBRcvXZAqu8L5IOybAYu/OT66WXVESdC8r66dBcnxTMTzx+G46pg7T+NRHBUGa9Oz2DM83zHpG9yfJFou7nxkobLjwcztoC2zkJ9ZB/kLxM/439EHAflXRyVC/N/tESdDwlLHSaJIKAJ/RXhgN6dBoLg91tViHkjpJL60=
+ bh=74lr3uKNDxXX5qZdW3H3ZcXyjoI5+qCTgrRC0rUvkWI=;
+ b=EvLWlIN15pXJ0c2rYDSwljojZBXGSGreLmffwmVA0F6zP+Frpz4Ry3Y1CH9wG/aKiXvmoETy20MG2RjquUWEVwJBYM/lV3TVPmkrZKZ5feVcnAKYCapubVGQQCrse9ZBeT+skUSlFAgbQ195hyY3+rlpA2MtfbNRVdImWQPukmc=
 Received: from BN9PR03CA0023.namprd03.prod.outlook.com (2603:10b6:408:fa::28)
  by BN6PR12MB1921.namprd12.prod.outlook.com (2603:10b6:404:fe::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Thu, 18 Mar
- 2021 07:23:50 +0000
+ 2021 07:23:52 +0000
 Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
  (2603:10b6:408:fa:cafe::cc) by BN9PR03CA0023.outlook.office365.com
  (2603:10b6:408:fa::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend
- Transport; Thu, 18 Mar 2021 07:23:50 +0000
+ Transport; Thu, 18 Mar 2021 07:23:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -59,44 +59,46 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3955.18 via Frontend Transport; Thu, 18 Mar 2021 07:23:50 +0000
+ 15.20.3955.18 via Frontend Transport; Thu, 18 Mar 2021 07:23:51 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Thu, 18 Mar
- 2021 02:23:49 -0500
+ 2021 02:23:51 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Thu, 18 Mar
- 2021 02:23:49 -0500
+ 2021 02:23:51 -0500
 Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2 via Frontend
- Transport; Thu, 18 Mar 2021 02:23:47 -0500
+ Transport; Thu, 18 Mar 2021 02:23:49 -0500
 From: Dennis Li <Dennis.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
  <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
-Subject: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
-Date: Thu, 18 Mar 2021 15:23:35 +0800
-Message-ID: <20210318072339.28736-1-Dennis.Li@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: remove reset lock from low level functions
+Date: Thu, 18 Mar 2021 15:23:36 +0800
+Message-ID: <20210318072339.28736-2-Dennis.Li@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210318072339.28736-1-Dennis.Li@amd.com>
+References: <20210318072339.28736-1-Dennis.Li@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 63a5500c-5a48-4932-630c-08d8e9dec6ff
+X-MS-Office365-Filtering-Correlation-Id: 05e94375-861b-4b7d-f0d4-08d8e9dec802
 X-MS-TrafficTypeDiagnostic: BN6PR12MB1921:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB192113864A43ED40756233F4ED699@BN6PR12MB1921.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <BN6PR12MB19215DD5C8A2B91040455D3CED699@BN6PR12MB1921.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ryMV6akws0phUDJj2UJv5UjrHxPnBsEqe1gYFtm/ijca2cubwilpy0Is7v1Eo/IeMrodp9R3BEScdwdJotFxWXKfIirvS4lKRnf3c356eCVhVKKzgmrFVnD6vQTMSYcwDLlNRfYd9qwNLsdnu0Ip9bH2RU+FVbl6JWDHpxz0wmU1ZbeszRU8ny0IGDsAUz5d6SJULLswJQuJv7U+PUELDaFaO19eQKJ4VNW6MyPxNJxw4RdBnI56l3M1ieEi9U9NXrCFgiprWtwjxSvR8S+1L/Rf+U5w3O0L4AjevE+KCTnOya59/jPinXkT8/8dZb0/0uKqqGRCj20TqL9qdyO9rj9RhrD/xyofySJOuYHYmPtbzYqHI677Nu/qyxKuu7zJIH6OU0QEcBVuo3vfR+GdKVNr/9fRLW1wseEv0yQEo6Zqc0hWO2k9ttiqT63Pz8cNASUEXqgZrjmEtQF9JaR7FtxfeZfoXdy4JjgdTKoxA+ob0ueT6zW2WAGlGQU4/9xZKPIi5JS48JOb91NsfkxdjunSEzRiOm+c68SnpkOph/z8n7s9MHWEuGdkhVkf/WK3g5l2ulvFB5DxOU5C8BMElmIJCUWHPuV6VJwfOj9TWDcrXayG2I8xKtbDeAKgMNUN7inZCCWmhLn/kG5htTzif5W3Q4giL1PVSZuzfuETWFeavtngVawuCFQNOuYEfm6YkkPzsDr17LpLgkXbkNYa8g==
+X-Microsoft-Antispam-Message-Info: zuVPdnCSwddzDZGIHL9CeziThPFQ3+NG5PaIq2RyMlrl8FstWajbWcUldh4/8oPzBJ80oh3R0foOQmvtLbD8uCzelk609+5E1GMVG4qajf/2/eL3LJ1VBi6IXZxw09sa+yeRItC3YsoxF4ke+Gi2gLWm5R0G9GZ5Owdo98iHB+tiKaEtbbSGOX7gxPtmhdW7+0LJgb/tCk1bHobHiGP7Iw5cduEgWBaLFQT6/2v6AyBrTlcn3hQW9kHOrRnJ1krFZ2FPkPIYgG7x639MEGDd1UYa6DOLap92dDhnkcWCd0yS5DGaL2ZJwMpWSzMKoVG92qPle33LR90n4Qeh07wKNCn3Zg4TSSpGP1rfC2gcoB9o2trpy64xSw9prrMev7qxIVKAQd1eAe19laFcMlyk+MYi7SD6c7EfJhFoq259lDDNVvwF+O86EkqU6z+gsuqKb5A67byRsLovrmeS8ILt2RNM91/JZLaOJr6++F4vJWrAOIBQRZD7kmZUvk52INSzvpBhZXDs6olrWepI+lEFdmSI78Shmqa5XGa4w2AejxgeQeFvuWzjJVhyRC8GEAxZbJiMO5UDLLoQeCQqrTHwFgiMQSgkm1R3Jva/AdnHT5OuJ+4OOECbophdEQFJ3/+m1xQt5zbpmJU/+rcoFj4b2GmNOj0MHKa+liJXrphiA8iTky24FRXEwVaEl/a4KUJTUIU1NpDGQX3hsA4cIOHaXg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(4636009)(396003)(136003)(346002)(39860400002)(376002)(36840700001)(46966006)(83380400001)(7696005)(82740400003)(81166007)(70206006)(2616005)(70586007)(2906002)(47076005)(4326008)(356005)(6666004)(36756003)(1076003)(5660300002)(336012)(8676002)(8936002)(426003)(6636002)(478600001)(316002)(26005)(186003)(36860700001)(82310400003)(110136005)(86362001)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2021 07:23:50.2673 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63a5500c-5a48-4932-630c-08d8e9dec6ff
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2021 07:23:51.9393 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05e94375-861b-4b7d-f0d4-08d8e9dec802
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
@@ -121,54 +123,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We have defined two variables in_gpu_reset and reset_sem in adev object. The atomic type variable in_gpu_reset is used to avoid recovery thread reenter and make lower functions return more earlier when recovery start, but couldn't block recovery thread when it access hardware. The r/w semaphore reset_sem is used to solve these synchronization issues between recovery thread and other threads.
+It is easy to cause performance drop issue when using lock in low level
+functions.
 
-The original solution locked registers' access in lower functions, which will introduce following issues:
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
 
-1) many lower functions are used in both recovery thread and others. Firstly we must harvest these functions, it is easy to miss someones. Secondly these functions need select which lock (read lock or write lock) will be used, according to the thread it is running in. If the thread context isn't considered, the added lock will easily introduce deadlock. Besides that, in most time, developer easily forget to add locks for new functions.
-
-2) performance drop. More lower functions are more frequently called.
-
-3) easily introduce false positive lockdep complaint, because write lock has big range in recovery thread, but low level functions will hold read lock may be protected by other locks in other threads.
-
-Therefore the new solution will try to add lock protection for ioctls of kfd. Its goal is that there are no threads except for recovery thread or its children (for xgmi) to access hardware when doing GPU reset and resume. So refine recovery thread as the following:
-
-Step 0: atomic_cmpxchg(&adev->in_gpu_reset, 0, 1)
-   1). if failed, it means system had a recovery thread running, current thread exit directly;
-   2). if success, enter recovery thread;
-
-Step 1: cancel all delay works, stop drm schedule, complete all unreceived fences and so on. It try to stop or pause other threads.
-
-Step 2: call down_write(&adev->reset_sem) to hold write lock, which will block recovery thread until other threads release read locks.
-
-Step 3: normally, there is only recovery threads running to access hardware, it is safe to do gpu reset now.
-
-Step 4: do post gpu reset, such as call all ips' resume functions;
-
-Step 5: atomic set adev->in_gpu_reset as 0, wake up other threads and release write lock. Recovery thread exit normally.
-
-Other threads call the amdgpu_read_lock to synchronize with recovery thread. If it finds that in_gpu_reset is 1, it should release read lock if it has holden one, and then blocks itself to wait for recovery finished event. If thread successfully hold read lock and in_gpu_reset is 0, it continues. It will exit normally or be stopped by recovery thread in step 1.
-
-Dennis Li (4):
-  drm/amdgpu: remove reset lock from low level functions
-  drm/amdgpu: refine the GPU recovery sequence
-  drm/amdgpu: instead of using down/up_read directly
-  drm/amdkfd: add reset lock protection for kfd entry functions
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  14 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 173 +++++++++++++-----
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |   8 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   4 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |   9 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c         |   5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 172 ++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   4 +
- .../amd/amdkfd/kfd_process_queue_manager.c    |  17 ++
- 12 files changed, 345 insertions(+), 75 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0b1e0127056f..24ff5992cb02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -374,13 +374,10 @@ uint32_t amdgpu_device_rreg(struct amdgpu_device *adev,
+ 
+ 	if ((reg * 4) < adev->rmmio_size) {
+ 		if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+-		    amdgpu_sriov_runtime(adev) &&
+-		    down_read_trylock(&adev->reset_sem)) {
++		    amdgpu_sriov_runtime(adev))
+ 			ret = amdgpu_kiq_rreg(adev, reg);
+-			up_read(&adev->reset_sem);
+-		} else {
++		else
+ 			ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
+-		}
+ 	} else {
+ 		ret = adev->pcie_rreg(adev, reg * 4);
+ 	}
+@@ -459,13 +456,10 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
+ 
+ 	if ((reg * 4) < adev->rmmio_size) {
+ 		if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
+-		    amdgpu_sriov_runtime(adev) &&
+-		    down_read_trylock(&adev->reset_sem)) {
++		    amdgpu_sriov_runtime(adev))
+ 			amdgpu_kiq_wreg(adev, reg, v);
+-			up_read(&adev->reset_sem);
+-		} else {
++		else
+ 			writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
+-		}
+ 	} else {
+ 		adev->pcie_wreg(adev, reg * 4, v);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index a05dbbbd9803..9f6eaca107ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -155,11 +155,7 @@ static int __update_table_header(struct amdgpu_ras_eeprom_control *control,
+ 
+ 	msg.addr = control->i2c_address;
+ 
+-	/* i2c may be unstable in gpu reset */
+-	down_read(&adev->reset_sem);
+ 	ret = i2c_transfer(&adev->pm.smu_i2c, &msg, 1);
+-	up_read(&adev->reset_sem);
+-
+ 	if (ret < 1)
+ 		DRM_ERROR("Failed to write EEPROM table header, ret:%d", ret);
+ 
+@@ -546,11 +542,7 @@ int amdgpu_ras_eeprom_process_recods(struct amdgpu_ras_eeprom_control *control,
+ 		control->next_addr += EEPROM_TABLE_RECORD_SIZE;
+ 	}
+ 
+-	/* i2c may be unstable in gpu reset */
+-	down_read(&adev->reset_sem);
+ 	ret = i2c_transfer(&adev->pm.smu_i2c, msgs, num);
+-	up_read(&adev->reset_sem);
+-
+ 	if (ret < 1) {
+ 		DRM_ERROR("Failed to process EEPROM table records, ret:%d", ret);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 33e54eed2eec..690f368ce378 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -317,8 +317,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	 * Directly use kiq to do the vm invalidation instead
+ 	 */
+ 	if (adev->gfx.kiq.ring.sched.ready &&
+-	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
+-	    down_read_trylock(&adev->reset_sem)) {
++	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+ 		struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
+ 		const unsigned eng = 17;
+ 		u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
+@@ -328,7 +327,6 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+ 				1 << vmid);
+ 
+-		up_read(&adev->reset_sem);
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 1567dd227f51..ec3c05360776 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -757,14 +757,12 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	 * as GFXOFF under bare metal
+ 	 */
+ 	if (adev->gfx.kiq.ring.sched.ready &&
+-	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
+-	    down_read_trylock(&adev->reset_sem)) {
++	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+ 		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+ 		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+ 
+ 		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
+ 						   1 << vmid);
+-		up_read(&adev->reset_sem);
+ 		return;
+ 	}
+ 
+@@ -859,7 +857,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	if (amdgpu_in_reset(adev))
+ 		return -EIO;
+ 
+-	if (ring->sched.ready && down_read_trylock(&adev->reset_sem)) {
++	if (ring->sched.ready) {
+ 		/* Vega20+XGMI caches PTEs in TC and TLB. Add a
+ 		 * heavy-weight TLB flush (type 2), which flushes
+ 		 * both. Due to a race condition with concurrent
+@@ -886,7 +884,6 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+ 			spin_unlock(&adev->gfx.kiq.ring_lock);
+-			up_read(&adev->reset_sem);
+ 			return -ETIME;
+ 		}
+ 
+@@ -895,10 +892,8 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+ 		if (r < 1) {
+ 			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+-			up_read(&adev->reset_sem);
+ 			return -ETIME;
+ 		}
+-		up_read(&adev->reset_sem);
+ 		return 0;
+ 	}
+ 
 -- 
 2.17.1
 
