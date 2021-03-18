@@ -2,66 +2,47 @@ Return-Path: <SRS0=NRDG=IQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF4E2C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 18:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17048C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 18:36:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5761364F1D
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 18:12:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5761364F1D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9257964F1B
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 18:36:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9257964F1B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 024D16E159;
-	Thu, 18 Mar 2021 18:12:23 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E16966E159;
- Thu, 18 Mar 2021 18:12:21 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- f73-20020a9d03cf0000b02901b4d889bce0so6026993otf.12; 
- Thu, 18 Mar 2021 11:12:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9Mp/bqm2YFp4NyDCzBjnGP7gif34FWuZnhrIj0q+jJI=;
- b=G1ah34xvIoECWz9i/TlzYs207EAkTumLJMTcgRZAZqEsFRP8j8vtS+i93OZj3Fwyh5
- xansT8QAg1v+0aj/4MNUhVTpxws8NOoOpiiflSJr5w4vTLn8pq1WMdIlo364jwNPSqui
- 4xSvIr4Hc1qkThPAZ4IvN+DnKMv8YhW0MEIfn4pk+rhDViDvJ77t0P/LfM2E+nsWVGw/
- mfXolrgKVVJCeiUWRNPg2QqEDXRujI/F3HxEKKQAROAg/HwGXvLTkYW+gUb254UrZn+L
- 4VmOyG2ITSZwEEUVjKFvDCArHXHADotUOZQNX+OdML050e5t+eWU9hL3jFyayQ32L4fH
- UwJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9Mp/bqm2YFp4NyDCzBjnGP7gif34FWuZnhrIj0q+jJI=;
- b=j4EcRWA9vOmJhdg4Y4I2PeveOTwyQjL22r7WQaeO74826In1Wu/dK2MxOBgRbaFRpX
- YIFpnoVINsw3pB9zmkzJE4saAyf9e/LQau5cnqS6j/a7gq8VKCzduXWsCn1KS2vi4W7K
- DnHIbJcq7eIFpAG/B8Ylo09sLBP6Exgz8P2tTAnsWT5SyvxHdadTQsX4WRQbzWHdfS8V
- 6QkZ0iY7/TWIR83ICW/NETGyVqLkPsHqbb7wzKR8NBbJ6AXgHSurSSsCR7iBM7VJ2vjJ
- VUsbQPyVgA8IjUOkUKv1O6Dwt8QSj35MC1mdf2W6QC0bizLksddQ8GVV1uTKYL7Mq2rH
- Gteg==
-X-Gm-Message-State: AOAM530DxGCwxAaqYs0FCnAwDD/Lip8/J366H5M09pL/zIItjgw3BvV0
- vDdzMBN2E5YDWcxXCmsaNGdi0sAJuHD0Y+iG5aI=
-X-Google-Smtp-Source: ABdhPJwis+EdQ8GEL/sfDI7LNFt1XiDBiVCBHLPvZtHLfXfeeppuS/V3TIi6KXXkkyMkCPVpuaS2m8dXyFQ0/kRgwmo=
-X-Received: by 2002:a9d:d89:: with SMTP id 9mr6216093ots.23.1616091141211;
- Thu, 18 Mar 2021 11:12:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAE86E171;
+	Thu, 18 Mar 2021 18:36:43 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC0F6E171
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Mar 2021 18:36:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B78ED6023B;
+ Thu, 18 Mar 2021 18:36:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616092601;
+ bh=12KhgTzjW4N7bDGAzwkMoRKeIVcx9FGipQWCCmfehZ0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=qCSsMflkjZ3rm7Wq7ogNwItA6pbQGvYXdLQNh6siKBClBj2GMCw15Hq4YQQ9NzQcj
+ 6RoyAAtpKpqpESDo4muARn7guKGBRSe6U9+HPTTeCSa/PtGlSPPWMM84z1cgDhS9Zv
+ 2WDXaJym4YoX+BKN+toYAS3O3Il2KJOFN8vfVyPaKQrjnlBjeecEAmpKBbNJJv8RKJ
+ 53PH1QNZ7D3skGHh4tP8AEb9ojjZw0m8L4O6m2dyo3MJvJcNWlJQKCTq4TlOo1fqfV
+ KY5fWap4K2gEnteRIr49JsZcyZYpvP78O73Ks6n8aPztjbYVcMfdu3+CYAyhyU24VX
+ bI5DbwO+1DnGw==
+Date: Thu, 18 Mar 2021 13:36:39 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH] PCI: quirks: Quirk PCI d3hot delay for AMD xhci
+Message-ID: <20210318183639.GA158657@bjorn-Precision-5520>
 MIME-Version: 1.0
-References: <20210318113308.1345-1-unixbhaskar@gmail.com>
- <b09b524c-1f3d-6231-29b9-f0eac3e77293@infradead.org>
-In-Reply-To: <b09b524c-1f3d-6231-29b9-f0eac3e77293@infradead.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Mar 2021 14:12:10 -0400
-Message-ID: <CADnq5_OsrHGxmXeuEiV06qas7jJ0pvExqdrw-PmqpKvWi=0jOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix a typo
-To: Randy Dunlap <rdunlap@infradead.org>
+Content-Disposition: inline
+In-Reply-To: <20210316192851.286563-1-alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +54,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bhaskar Chowdhury <unixbhaskar@gmail.com>, "Chen,
- Guchun" <guchun.chen@amd.com>, Dave Airlie <airlied@linux.ie>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Jiansong Chen <Jiansong.Chen@amd.com>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, John Clements <John.Clements@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Shyam-sundar.S-k@amd.com, linux-pci@vger.kernel.org, Prike.Liang@amd.com,
+ amd-gfx@lists.freedesktop.org, hegel666@gmail.com, bhelgaas@google.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 18, 2021 at 2:08 PM Randy Dunlap <rdunlap@infradead.org> wrote:
->
-> On 3/18/21 4:33 AM, Bhaskar Chowdhury wrote:
-> >
-> > s/traing/training/
-> >
-> > Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > index c325d6f53a71..db18e4f6cf5f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > @@ -661,7 +661,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
-> >
-> >       if (ops & PSP_MEM_TRAIN_SEND_LONG_MSG) {
-> >               /*
-> > -              * Long traing will encroach certain mount of bottom VRAM,
-> > +              * Long training will encroach certain mount of bottom VRAM,
->
->                                                        amount
-> I think.
+On Tue, Mar 16, 2021 at 03:28:51PM -0400, Alex Deucher wrote:
+> From: Marcin Bachry <hegel666@gmail.com>
+> 
+> Renoir needs a similar delay.
 
-Yeah, I think it should read something like:
+See https://lore.kernel.org/linux-pci/20210311125322.GA2122226@bjorn-Precision-5520/
 
-Long training will encroach a certain amount on the bottom of VRAM;
-save the content from the bottom VRAM to system memory
-before training, and restore it after training to avoid
-VRAM corruption.
+This is becoming a problem.  We shouldn't have to merge a quirk for
+every new device.  Either the devices are defective, and AMD should
+publish errata and have a plan for fixing them, or Linux is broken and
+we should fix that.
 
-Alex
+There are quite a few mechanisms for controlling delays like this
+(Config Request Retry Status (PCIe r5.0, sec 2.3.1), Readiness
+Notifications (sec 6.23), ACPI _DSM for power-on delays (PCI Firmware
+Spec r3.3)), but most are for *reducing* delay, not for extending it.
 
->
-> >                * saving the content of this bottom VRAM to system memory
-> >                * before training, and restoring it after training to avoid
-> >                * VRAM corruption.
-> > --
-> > 2.26.2
-> >
->
->
-> --
-> ~Randy
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+Linux supports CRS, but not all the others.  Maybe we're missing
+something we should support?
+
+How do you deal with these issues for Windows?  If it works on Windows
+without quirks, we should be able to make it work on Linux as well.
+
+> Signed-off-by: Marcin Bachry <hegel666@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/pci/quirks.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index 653660e3ba9e..36e5ec670fae 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -1904,6 +1904,9 @@ static void quirk_ryzen_xhci_d3hot(struct pci_dev *dev)
+>  }
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e0, quirk_ryzen_xhci_d3hot);
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e1, quirk_ryzen_xhci_d3hot);
+> +/* Renoir XHCI requires longer delay when transitioning from D0 to
+> + * D3hot */
+
+No need for "me too" comments that add no additional information.
+
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1639, quirk_ryzen_xhci_d3hot);
+>  
+>  #ifdef CONFIG_X86_IO_APIC
+>  static int dmi_disable_ioapicreroute(const struct dmi_system_id *d)
+> -- 
+> 2.30.2
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
