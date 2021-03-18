@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF957C433E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 04:33:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00128C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 04:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E55664EC4
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 04:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E55664EC4
+	by mail.kernel.org (Postfix) with ESMTPS id AE2A764EB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Mar 2021 04:33:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE2A764EB9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF206E882;
-	Thu, 18 Mar 2021 04:33:50 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF136E090
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0143E6E883;
+	Thu, 18 Mar 2021 04:33:54 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2045.outbound.protection.outlook.com [40.107.95.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E346E881
  for <amd-gfx@lists.freedesktop.org>; Thu, 18 Mar 2021 04:33:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WSnFNQ94T4/JaPKzEk5t0X2TmtXi9PoVYdlcryC8N9AEOGquB1Eh0pUtMQc+1Bgf2BDEGtbP13afb9MYKSImo13q5A6I917LBIIbM/7oagAYkwq5/6rtJdju/Mg3TaTN0swN+Qe1mcOVm47kYC2x2edVwlIRwWE2DEouT3GnJ2IqeY4KH5qlIOSAcUhzWQ3Vh2YDhJBl+EkIYDpjgK9bfRQ5GoP4SJjgzSvAazevkVAilg+1XkOp+HJxACQNTVyLDsD/+mizNJ/xIV8RvqJPuk3O3l+Y4YPqtwlOQAEJSV+yjX0HXL6w75iH+qL2m4VqrRJExXqS35b10HTrWoehsg==
+ b=chG4JMgFQUi/YFx2swb2PSZvF+zBi5GH+tIgZMHplfHwkalT/fRgYzTO2nQPqXSu2+3ETCAoP4katkSBufOc6A/6AA8d567FN49ZS1TZPSE5iOC+Y8halGOwWFCJ268R3z4I4w6dulKHeBM57TZTiTGTLPaGvrUNYIBNQqYbviL02ywuDCBk9RGuQqw/mTff1p9LKMv3Xhpg5x7mQguHGf/7XW0WPrL5BKT4wcfRPPwgvdiiNbZVCPhfaf0WOMHAMJGLipmNmEmuWoxQvthKM6UGJnTG67RnkcnAnv7B1ngWzHZCWVdA7BcGZaMf4vZvLK6b5DFGGXVia2woMgt2Iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=misqi7dVxhfcQejiqVOE5eh7p6xJYQc3DaGXPjxBzNA=;
- b=Z8m6gXvd5oe721EskwFALWZnomntjQEL6x68rBCDTPd+jVp1SaoT72DOAunTCxfa/4Wiaj09AmZ78sgUl0auLp9cAJ58LNML/bNssJx71nZS5w+DbtjwauOe2y87y/OxIVJSaE5rveKie4mgEnsxYTKllVzShSYR5fbKkmyzX6ZMgpWqA5T2BwSVncyPPvM75pbp9xBwq7kOgMFXM+sJcJGQzgwA7U+85YEBw6dgAQFPj4mdJbQfeUIZmvaAspZ7Jff1ooIEWSeJf4bcOfQ2sMJGiOV6JczokH9PaUlGXd8H/JLaU9rERvUxRBz6FD5aifibNH4zGvG9WImpgDusoQ==
+ bh=TW3SxekRbPYC04cSLiuyLGTkm0vglOf/R+UiM0gNij0=;
+ b=MhMRWZqBF4UXsLYv2uDjzQsDyeeCMu3HjdFSp31a8qsU16leJHdDe/EcClTEDy76Qtp/XcWAc8STSqojdqalJEkVmrgbPX+ldDcSHVlStk5BuX1B3gEEGF/6OrK0N3r9AxGra9/JaA7er4MMRy/KAQIXqeGZdqsWqkHfU+iNXpPm+76nROZFvowmcpUjTrS5EDykMQWdltVdGdBi+z34x1ZTqwmr1g5yMiqgo2GXC5ccfMM1Adti/xqb12FkKoFOF1rf0rJzCpBJDMuUttm2nObsuRHfuOXnLFSVGmURUH0dGZi0BaMJRPLR7YE4ENWH3PJHQAOZgcXlmhH+RrOnzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=misqi7dVxhfcQejiqVOE5eh7p6xJYQc3DaGXPjxBzNA=;
- b=l+SlBq/QR3LWzUvWhGGiH6W5q26pZoWZ7/Z962o/GwQxJSO9cZmLKwHNHqDqywuLnQa3ZCqNUyd7cRrSTn8n+3bfE8Jpwz97E+gFAPjkr4hcL490nlPmpGAapHNLHp0U4VZcvpDCj18dZDO1BpYTzJf0Cmokah5Jyjovrc01C3Y=
+ bh=TW3SxekRbPYC04cSLiuyLGTkm0vglOf/R+UiM0gNij0=;
+ b=VOroYSTstzJZLPlIMY/JwojMNaTqJ3G/ET2OTKGp2O9PtH4XGULjTmsjGjxpdIvzVSnntMyjzFGOvqylwkI/k2TudJXS3ujMvfS0suwWE5hLDvqYL0ayzyBnoIdTNd92CXBkzrGsQ+IzRBIzOSxNi+XR9gnYzfSSZGED580C4ok=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -52,9 +52,10 @@ Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  04:33:45 +0000
 From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/13] drm/amdgpu: clean up non-DC suspend/resume handling
-Date: Thu, 18 Mar 2021 00:33:16 -0400
-Message-Id: <20210318043323.3989-6-alexander.deucher@amd.com>
+Subject: [PATCH 07/13] drm/amdgpu: move s0ix check into
+ amdgpu_device_ip_suspend_phase2 (v3)
+Date: Thu, 18 Mar 2021 00:33:17 -0400
+Message-Id: <20210318043323.3989-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210318043323.3989-1-alexander.deucher@amd.com>
 References: <20210318043323.3989-1-alexander.deucher@amd.com>
@@ -68,53 +69,53 @@ Received: from localhost.localdomain (192.161.79.247) by
  MN2PR03CA0024.namprd03.prod.outlook.com (2603:10b6:208:23a::29) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend
- Transport; Thu, 18 Mar 2021 04:33:44 +0000
+ Transport; Thu, 18 Mar 2021 04:33:45 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4b6dfb8b-8f39-46f9-d4fd-08d8e9c70419
+X-MS-Office365-Filtering-Correlation-Id: 7492e2e1-772e-4f0b-161f-08d8e9c70479
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4016:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4016DA85A88B850FFB3AAA6FF7699@MN2PR12MB4016.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1443;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB401653D094FFF266C605D3DAF7699@MN2PR12MB4016.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FwoTOvlTjYt73vOiWlOT1fDwyFACNVPI2gUee6GEXY5xs6c//sSQb4CnOtSCLxUncq15sGM59ImoYPNgshrHDHYyJSzGr62wBLoaQW7Ho7OEh2GRSFEGItMDS5LPqGnN9ZuHun0RzgCX0axhMWUjS5xRVYBb/yzXngeTet0TdbdxTjPVnHX5Jhog0EPMwtt7AxrJrpN7svkMWor3gSayuZIM0BtQttbWeboKtArxAWcGIMe2HJnPk7IgMUB3bs3yhLed7+PG4bP3EgQvU4YVgEY6dKJDgY2i5CrFWUvNE9mKueOoTmcpInRttOXyMgrLND0vngxLEhPiSYBPcWK6LwiC92l3dXOI/QPyaMByjPpeHlyO44t6El2BHOBmVuJklTBsWafsoNF3aYIm1GG7OQPzWgAKN7RcvvbGlahEOpErNsFlzGveR7SZv3Bb3G8azLeiWZABotlJ7jfPWraawxNcZ3+ow1IT12bReLtr5em0Pokp5tYniINv+moSvRfqOYOQbNuS90UmjS9UtsSPIoY6pTdD3SQz7C3DeXUaxQ3AM2GMhGm4qPwQIggL5VJgG79VHAQwziWGvMpZr8zhLP0+wOpWfgU//yBaIecNq0zQaDMz192KkrpdXLGA9p2K21z65E04Y1eHcbkf3ASaVg==
+X-Microsoft-Antispam-Message-Info: jNp7ybj93tAJ4fyolc37OwOgZjdUvg8SvLnzNE05J1OHXbNt7irlFHseDnpZcLvGvTkDnSYsCRe9xPP8CGfWMjnyox2azfMgR0L/525sz7B0I1xTMVEH4gzXMDqVrnrxTcL6AHpYObBi6BY0nZ2dZE3Pm2DSLyvG4SwNH9OqTGJBw1G1XG4aShmHfBdP2UBu164ID1Gap0qG7ZqOlpNm6VewVzjkxv69BiHQBYIw7x2LWKeOS1c4nSIv1PL4wUmwRFkYsRXLhV4tDXQGnoSwqdfd4pQPooAVRM4ln41KL/Lk8m5FqJSZG3XK09WeYPQN3gE81bliL67yGm6DwsLeQXXHhaznrfAgNPY24Vc+gOoaqM3CA76bMuvtwGyl/nHy1S2J9n5JTeM5il4jo9lyYn8FSbKGEubl2yz6T/nUmwoWGdvNOtm6Y0cu/iVnsW+qPD025QR5NwkpNNm7xExvXZgn47pF7FW8B+Kh+OAUCd+g5RrAtsdWKPI7xGPdM0V+2P2+qc07SDnLVJxAH6a4AENGOfNJJrtnHC1l7ncZS3d1HYDLNfoOCxdzeLcyR4tTExk7JKMg3GUvQRUfNVvlh1b3LQoz5fMyrnBdGBWbiPQvdvgdx3VOcPRtDlAQb8CgcN0I0LyoaOixohMgtM3mdlsfs6qmqLXJOAZW+lOWwEXIquBo3nyePUglJQhk4NXC
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(396003)(376002)(366004)(136003)(316002)(5660300002)(52116002)(1076003)(83380400001)(8676002)(66946007)(478600001)(38100700001)(86362001)(8936002)(16526019)(69590400012)(4326008)(6506007)(6666004)(15650500001)(186003)(36756003)(66556008)(30864003)(66476007)(2906002)(6486002)(956004)(26005)(2616005)(6916009)(6512007);
+ SFS:(4636009)(39860400002)(346002)(396003)(376002)(366004)(136003)(316002)(5660300002)(52116002)(1076003)(83380400001)(8676002)(66946007)(478600001)(38100700001)(86362001)(8936002)(16526019)(69590400012)(4326008)(6506007)(6666004)(186003)(36756003)(66556008)(66476007)(2906002)(6486002)(956004)(26005)(2616005)(6916009)(6512007)(32563001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?8ln/tnDelCO5cO5h0x2xycMhpDRT9t1nDiZINatxQfPB60tSr8NpsF3m/HeE?=
- =?us-ascii?Q?gvXcp8epMUBrihV/FSGqFFPCI6mp7GsWkXstmnaF0+MYNRik8Gk75LBF4048?=
- =?us-ascii?Q?D7tzbrNqrzXXPhC4DLroNbQmm2828CeclL9XJ2chLMkRT2mnKBl7VWgeV8/I?=
- =?us-ascii?Q?Lfn6+WtfruMbojMmMq3HcaX9WU+jVyhbm/80UDpXQjQeXjBJR9f0Si4NeSwp?=
- =?us-ascii?Q?GKDbtRi1d40y3peo3UCGxkrU0CwhXx6hXUKY90ToRlRVj/48bn9/OA3pAuJw?=
- =?us-ascii?Q?3buuct10NRJKVAM7Cp6fPeUnK6UWZa8H5RJPp+L9c89b/jctxIb9Yy6gO5CO?=
- =?us-ascii?Q?jRS2DGQn+sgGfiKgs2U+tvEsjtoV/pQYJW7uqCYGpyXRjV5fMpX93XhuxaAN?=
- =?us-ascii?Q?fepZ2bfHMyM9WMAU2N843ZW8UBJoGOemnKw5z/oYHCeTPBoRi++iiNxuOEP2?=
- =?us-ascii?Q?Yu+ZykxjGShFUyXB8/R8psISj8pRh8/IjdYjirKTdhJVAaLwUXI/SvAogaiz?=
- =?us-ascii?Q?TxlxUpFj/MhN37fBBreZCmvt79e1tmuTcPMNo1KmMiYjEe6HKMjPt1UXqDer?=
- =?us-ascii?Q?/8PYT2zNLMNNp3wg3VQWrHbmGtcU7YccN5U2wm4yKSaPM+Cci1rSgiNPQ2uD?=
- =?us-ascii?Q?yUw6Yi2bl+v/nOhLezE5I3zGBtNlCzB5hx9LhHmky0xadKqDLCa5soVYvoUb?=
- =?us-ascii?Q?ZTP5wfmY2FboSEqSj/JljQIvVddfF5D8AWGsUTbejhcoBC2NiwqAm58IU8cd?=
- =?us-ascii?Q?DKzrdSUv1jvt2W+dgifs/RWz0Pn1Fm4iZdqWygvWZA28JJL71kuhlh/8SuWB?=
- =?us-ascii?Q?C5q9kKnNOhJwAgWicyvksukbkZWW1iQXvSiZDgDA2StQoXd+faRyd2Ds1Lhl?=
- =?us-ascii?Q?RrLZWS6pB7Nisv+hZgllhbbIZA5Leon3xIkIOq0cI9+g72WGvcM3KpkLWrsE?=
- =?us-ascii?Q?vK3cmpZo6yf8szja2eAa1w08irxNlbloYNtYYlehGIFCCARc9e8Rf5Uspcz1?=
- =?us-ascii?Q?hrx0C5+oM8n+EefwRX9dJUfr/xHLAw5caLlBtdPtRTHU87LKTXyUHkwdkTqA?=
- =?us-ascii?Q?ElXtvV783TWofTeYgcoSddUYsJPBf4Pr9LNMvv0fg44X9TLDNSe95st+0fgH?=
- =?us-ascii?Q?/YuLrFbOnoUF3oL28V/U/gi8sujmeg6dn08ROwub5VXzjT9V/xvXWazFnz/l?=
- =?us-ascii?Q?7UaS5RTX3OH8IO3PFd0VxDpX0uTqbwfPoQJ9LFyYFLnMQ7H5GAXzNEEmE0wx?=
- =?us-ascii?Q?it68nC4yMCHSPy4pxsTJ2BJKHQfY0yrGQzN2mckZOw3vP3rs/r7X+NRDO3/6?=
- =?us-ascii?Q?0C/vrp8un7ghoEcsUKfDxxmj?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?FboECaJuM64Dqjq7IfPf55/iN5lsega1EnjZ5boXCmUITklDz7Ug15Fpx9As?=
+ =?us-ascii?Q?msQ5Bb9XjFDlpPtImaNk/gi/HA+337khb1oUT8Jg6RAWio2QYFTuzT3/5O8/?=
+ =?us-ascii?Q?jvDbdq0/H6RgG8DRd4xu4si9z71/1YiXxvA8e5ygbTffuJnFq47fxLqVZnOy?=
+ =?us-ascii?Q?YnhIa/skvJtriB88nTvgGXF2AACAhzYOmyFcCPSVAuXTByC3M9avmPe/8Hes?=
+ =?us-ascii?Q?q/A0RZ88VigEZyHssJwAvnq5Fv4GgkOhHnRO3EGDDw+m3hi/8JpQTlGRCdVi?=
+ =?us-ascii?Q?EZLYGVFrtG093gNESNFpWZUwlby0mYubeEZ9MYPvKMP4IBeU2KNhK3h25a1u?=
+ =?us-ascii?Q?z8vSLQVE+PxRPu7Nfr+wwkRV4PxnmBQ/dlIeC/IjB0sNrOw5M+WlLQXMMytc?=
+ =?us-ascii?Q?R7bTiW5nsP5H3EBjItE+4XypghCEGDjM1AdOXtbgVdie0kCranCTwMR2c/7U?=
+ =?us-ascii?Q?xityhyl0/9II9TciC6x/G7ucBPkZz9tKOagOZwmnSi8PnAazX92+JoeDiPfb?=
+ =?us-ascii?Q?Vnn6x687eXdRZfDCGT5NJDLbSVFssb38rSQromIueK/uHfhhwx2xs9oKdxM5?=
+ =?us-ascii?Q?aVJeGWHE2kkaMlZv2B0Mep7y1+W1LVCHzSoPgfgIMzF2Cjd7x2FB6P7J8FOC?=
+ =?us-ascii?Q?DJL3X0DSHd9MFTryqRn3a6XHp+EIYKmWSG+0Fo6zCizVJq+IKK0/4SY0f7AB?=
+ =?us-ascii?Q?MkPA5p1zSzFTXJc7njZPH6eKoyH0O+rZ7HyxJKz3PSdGOnjxT+0ahMO/n/6a?=
+ =?us-ascii?Q?hi5E1/3S9cYVBBfqH0NDRS00YfwkZ+LvzJyqXCD9tlwa0JSpAsI4TOV9Xisy?=
+ =?us-ascii?Q?N5wuUOF5RJXCVZgopj9xbF2nZHCAdI6fPFV/0AipVRdStM7sBvM2BPqstgh6?=
+ =?us-ascii?Q?eIuOvY2RJAd4ENR16E7EQgr/SON7byaq99ojArskWQpGhsJxsa0jWpf6bu66?=
+ =?us-ascii?Q?HWhaZcK51WyWOwAaQF9VY5vkkM1PAaOBbFnK3Zc/zvpHVs8RTIQll2CYRWfo?=
+ =?us-ascii?Q?PXcAirifboy17iR1755+eX/1vzFU2zCGIuM6Gx75qdg+SBCORe7s4rdik06d?=
+ =?us-ascii?Q?lHAZz/BNwBhriBn1JGp66OL/Iti4MZn8S8PQ1A28+EaXgDFGOpSu/vc/7CxN?=
+ =?us-ascii?Q?p2hMNWvmo/Y3NGMrIwd5hIMoeT2Ody6auaktwq99Knm+lysjYmt7AWzrL4C/?=
+ =?us-ascii?Q?aPsOWBujr06J7Sz/g9GankFgaQoDAqhvUKD8JBbNTijPbWoCGW1nZHi23tXy?=
+ =?us-ascii?Q?RvBlZqAdRhhn6gKGi/SrAZ7FqahvvltzTVm1Zh8M1cn1LVantT5txEZrVaEQ?=
+ =?us-ascii?Q?hGbvEkHyOAcIJl3O/I64mB34?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6dfb8b-8f39-46f9-d4fd-08d8e9c70419
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7492e2e1-772e-4f0b-161f-08d8e9c70479
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2021 04:33:45.1442 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2021 04:33:45.7634 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eSrf1uAb0/fn26+5pyQT+RoKeIV7v7vkdFiUnkN+Pjl17MEcW2Pned+n6/iKzrwQ5Kzefblin8tZ4yvDog4D1A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: KMP4B7x7HvMoQkbVYB3B/NAr3jiGFezYtIBD3BqRFsJwt6AayBxG1tC0ZCOlkvkq3YX0PhWUQzksFBY3TtevKg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,409 +134,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the non-DC specific code into the DCE IP blocks similar
-to how we handle DC.  This cleans up the common suspend
-and resume pathes.
+No functional change.
+
+v2: use correct dev
+v3: rework
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 86 +-------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 88 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  3 +
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  9 ++-
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  9 ++-
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  8 +-
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  9 ++-
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c    | 15 +++-
- 8 files changed, 138 insertions(+), 89 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1859bc06ed70..80263bb8a631 100644
+index 80263bb8a631..2f34628e15bd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3667,14 +3667,9 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
-  */
- int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+@@ -2699,6 +2699,11 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
  {
--	struct amdgpu_device *adev;
--	struct drm_crtc *crtc;
--	struct drm_connector *connector;
--	struct drm_connector_list_iter iter;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int r;
+ 	int i, r;
  
--	adev = drm_to_adev(dev);
--
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
- 		return 0;
- 
-@@ -3686,45 +3681,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 
- 	cancel_delayed_work_sync(&adev->delayed_init_work);
- 
--	if (!amdgpu_device_has_dc_support(adev)) {
--		/* turn off display hw */
--		drm_modeset_lock_all(dev);
--		drm_connector_list_iter_begin(dev, &iter);
--		drm_for_each_connector_iter(connector, &iter)
--			drm_helper_connector_dpms(connector,
--						  DRM_MODE_DPMS_OFF);
--		drm_connector_list_iter_end(&iter);
--		drm_modeset_unlock_all(dev);
--			/* unpin the front buffers and cursors */
--		list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
--			struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--			struct drm_framebuffer *fb = crtc->primary->fb;
--			struct amdgpu_bo *robj;
--
--			if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_display) {
--				struct amdgpu_bo *aobj = gem_to_amdgpu_bo(amdgpu_crtc->cursor_bo);
--				r = amdgpu_bo_reserve(aobj, true);
--				if (r == 0) {
--					amdgpu_bo_unpin(aobj);
--					amdgpu_bo_unreserve(aobj);
--				}
--			}
--
--			if (fb == NULL || fb->obj[0] == NULL) {
--				continue;
--			}
--			robj = gem_to_amdgpu_bo(fb->obj[0]);
--			/* don't unpin kernel fb objects */
--			if (!amdgpu_fbdev_robj_is_fb(adev, robj)) {
--				r = amdgpu_bo_reserve(robj, true);
--				if (r == 0) {
--					amdgpu_bo_unpin(robj);
--					amdgpu_bo_unreserve(robj);
--				}
--			}
--		}
--	}
--
- 	amdgpu_ras_suspend(adev);
- 
- 	r = amdgpu_device_ip_suspend_phase1(adev);
-@@ -3761,10 +3717,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
-  */
- int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- {
--	struct drm_connector *connector;
--	struct drm_connector_list_iter iter;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct drm_crtc *crtc;
- 	int r = 0;
- 
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-@@ -3795,24 +3748,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 	queue_delayed_work(system_wq, &adev->delayed_init_work,
- 			   msecs_to_jiffies(AMDGPU_RESUME_MS));
- 
--	if (!amdgpu_device_has_dc_support(adev)) {
--		/* pin cursors */
--		list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
--			struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--			if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_display) {
--				struct amdgpu_bo *aobj = gem_to_amdgpu_bo(amdgpu_crtc->cursor_bo);
--				r = amdgpu_bo_reserve(aobj, true);
--				if (r == 0) {
--					r = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
--					if (r != 0)
--						dev_err(adev->dev, "Failed to pin cursor BO (%d)\n", r);
--					amdgpu_crtc->cursor_addr = amdgpu_bo_gpu_offset(aobj);
--					amdgpu_bo_unreserve(aobj);
--				}
--			}
--		}
--	}
- 	r = amdgpu_amdkfd_resume(adev, adev->in_runpm);
- 	if (r)
- 		return r;
-@@ -3820,25 +3755,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 	/* Make sure IB tests flushed */
- 	flush_delayed_work(&adev->delayed_init_work);
- 
--	/* blat the mode back in */
--	if (fbcon) {
--		if (!amdgpu_device_has_dc_support(adev)) {
--			/* pre DCE11 */
--			drm_helper_resume_force_mode(dev);
--
--			/* turn on display hw */
--			drm_modeset_lock_all(dev);
--
--			drm_connector_list_iter_begin(dev, &iter);
--			drm_for_each_connector_iter(connector, &iter)
--				drm_helper_connector_dpms(connector,
--							  DRM_MODE_DPMS_ON);
--			drm_connector_list_iter_end(&iter);
--
--			drm_modeset_unlock_all(dev);
--		}
-+	if (fbcon)
- 		amdgpu_fbdev_set_suspend(adev, 0);
--	}
- 
- 	drm_kms_helper_poll_enable(dev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index b05301e1815c..ce8140c0dd88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1354,3 +1354,91 @@ bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
- 	return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
- 						  stime, etime, mode);
- }
-+
-+int amdgpu_display_suspend_helper(struct amdgpu_device *adev)
-+{
-+	struct drm_device *dev = adev_to_drm(adev);
-+	struct drm_crtc *crtc;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter iter;
-+	int r;
-+
-+	/* turn off display hw */
-+	drm_modeset_lock_all(dev);
-+	drm_connector_list_iter_begin(dev, &iter);
-+	drm_for_each_connector_iter(connector, &iter)
-+		drm_helper_connector_dpms(connector,
-+					  DRM_MODE_DPMS_OFF);
-+	drm_connector_list_iter_end(&iter);
-+	drm_modeset_unlock_all(dev);
-+	/* unpin the front buffers and cursors */
-+	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
-+		struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
-+		struct drm_framebuffer *fb = crtc->primary->fb;
-+		struct amdgpu_bo *robj;
-+
-+		if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_display) {
-+			struct amdgpu_bo *aobj = gem_to_amdgpu_bo(amdgpu_crtc->cursor_bo);
-+			r = amdgpu_bo_reserve(aobj, true);
-+			if (r == 0) {
-+				amdgpu_bo_unpin(aobj);
-+				amdgpu_bo_unreserve(aobj);
-+			}
-+		}
-+
-+		if (fb == NULL || fb->obj[0] == NULL) {
-+			continue;
-+		}
-+		robj = gem_to_amdgpu_bo(fb->obj[0]);
-+		/* don't unpin kernel fb objects */
-+		if (!amdgpu_fbdev_robj_is_fb(adev, robj)) {
-+			r = amdgpu_bo_reserve(robj, true);
-+			if (r == 0) {
-+				amdgpu_bo_unpin(robj);
-+				amdgpu_bo_unreserve(robj);
-+			}
-+		}
-+	}
-+	return r;
-+}
-+
-+int amdgpu_display_resume_helper(struct amdgpu_device *adev)
-+{
-+	struct drm_device *dev = adev_to_drm(adev);
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter iter;
-+	struct drm_crtc *crtc;
-+	int r;
-+
-+	/* pin cursors */
-+	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
-+		struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
-+
-+		if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_display) {
-+			struct amdgpu_bo *aobj = gem_to_amdgpu_bo(amdgpu_crtc->cursor_bo);
-+			r = amdgpu_bo_reserve(aobj, true);
-+			if (r == 0) {
-+				r = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
-+				if (r != 0)
-+					dev_err(adev->dev, "Failed to pin cursor BO (%d)\n", r);
-+				amdgpu_crtc->cursor_addr = amdgpu_bo_gpu_offset(aobj);
-+				amdgpu_bo_unreserve(aobj);
-+			}
-+		}
++	if (adev->in_s0ix) {
++		amdgpu_gfx_state_change_set(adev, sGpuChangeState_D3Entry);
++		return 0;
 +	}
 +
-+	drm_helper_resume_force_mode(dev);
-+
-+	/* turn on display hw */
-+	drm_modeset_lock_all(dev);
-+
-+	drm_connector_list_iter_begin(dev, &iter);
-+	drm_for_each_connector_iter(connector, &iter)
-+		drm_helper_connector_dpms(connector,
-+					  DRM_MODE_DPMS_ON);
-+	drm_connector_list_iter_end(&iter);
-+
-+	drm_modeset_unlock_all(dev);
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index dc7b7d116549..7b6d83e2b13c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -47,4 +47,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- const struct drm_format_info *
- amdgpu_lookup_format_info(u32 format, uint64_t modifier);
+ 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+ 		if (!adev->ip_blocks[i].status.valid)
+ 			continue;
+@@ -3692,10 +3697,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
  
-+int amdgpu_display_suspend_helper(struct amdgpu_device *adev);
-+int amdgpu_display_resume_helper(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 7944781e1086..19abb740a169 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2897,6 +2897,11 @@ static int dce_v10_0_hw_fini(void *handle)
- static int dce_v10_0_suspend(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
-+
-+	r = amdgpu_display_suspend_helper(adev);
-+	if (r)
-+		return r;
+ 	amdgpu_fence_driver_suspend(adev);
  
- 	adev->mode_info.bl_level =
- 		amdgpu_atombios_encoder_get_backlight_level_from_reg(adev);
-@@ -2921,8 +2926,10 @@ static int dce_v10_0_resume(void *handle)
- 		amdgpu_display_backlight_set_level(adev, adev->mode_info.bl_encoder,
- 						    bl_level);
- 	}
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	return amdgpu_display_resume_helper(adev);
- }
- 
- static bool dce_v10_0_is_idle(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 1b6ff0470011..320ec35bfd37 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -3027,6 +3027,11 @@ static int dce_v11_0_hw_fini(void *handle)
- static int dce_v11_0_suspend(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
-+
-+	r = amdgpu_display_suspend_helper(adev);
-+	if (r)
-+		return r;
- 
- 	adev->mode_info.bl_level =
- 		amdgpu_atombios_encoder_get_backlight_level_from_reg(adev);
-@@ -3051,8 +3056,10 @@ static int dce_v11_0_resume(void *handle)
- 		amdgpu_display_backlight_set_level(adev, adev->mode_info.bl_encoder,
- 						    bl_level);
- 	}
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	return amdgpu_display_resume_helper(adev);
- }
- 
- static bool dce_v11_0_is_idle(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 83a88385b762..13322000ebd6 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2770,7 +2770,11 @@ static int dce_v6_0_hw_fini(void *handle)
- static int dce_v6_0_suspend(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
- 
-+	r = amdgpu_display_suspend_helper(adev);
-+	if (r)
-+		return r;
- 	adev->mode_info.bl_level =
- 		amdgpu_atombios_encoder_get_backlight_level_from_reg(adev);
- 
-@@ -2794,8 +2798,10 @@ static int dce_v6_0_resume(void *handle)
- 		amdgpu_display_backlight_set_level(adev, adev->mode_info.bl_encoder,
- 						    bl_level);
- 	}
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	return amdgpu_display_resume_helper(adev);
- }
- 
- static bool dce_v6_0_is_idle(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 224b30214427..04ebf02e5b8c 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2796,6 +2796,11 @@ static int dce_v8_0_hw_fini(void *handle)
- static int dce_v8_0_suspend(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
-+
-+	r = amdgpu_display_suspend_helper(adev);
-+	if (r)
-+		return r;
- 
- 	adev->mode_info.bl_level =
- 		amdgpu_atombios_encoder_get_backlight_level_from_reg(adev);
-@@ -2820,8 +2825,10 @@ static int dce_v8_0_resume(void *handle)
- 		amdgpu_display_backlight_set_level(adev, adev->mode_info.bl_encoder,
- 						    bl_level);
- 	}
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	return amdgpu_display_resume_helper(adev);
- }
- 
- static bool dce_v8_0_is_idle(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-index 9810af712cc0..5c11144da051 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-@@ -39,6 +39,7 @@
- #include "dce_v11_0.h"
- #include "dce_virtual.h"
- #include "ivsrcid/ivsrcid_vislands30.h"
-+#include "amdgpu_display.h"
- 
- #define DCE_VIRTUAL_VBLANK_PERIOD 16666666
- 
-@@ -491,12 +492,24 @@ static int dce_virtual_hw_fini(void *handle)
- 
- static int dce_virtual_suspend(void *handle)
- {
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
-+
-+	r = amdgpu_display_suspend_helper(adev);
-+	if (r)
-+		return r;
- 	return dce_virtual_hw_fini(handle);
- }
- 
- static int dce_virtual_resume(void *handle)
- {
--	return dce_virtual_hw_init(handle);
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int r;
-+
-+	r = dce_virtual_hw_init(handle);
-+	if (r)
-+		return r;
-+	return amdgpu_display_resume_helper(adev);
- }
- 
- static bool dce_virtual_is_idle(void *handle)
+-	if (!adev->in_s0ix || amdgpu_in_reset(adev))
+-		r = amdgpu_device_ip_suspend_phase2(adev);
+-	else
+-		amdgpu_gfx_state_change_set(adev, sGpuChangeState_D3Entry);
++	r = amdgpu_device_ip_suspend_phase2(adev);
+ 	/* evict remaining vram memory
+ 	 * This second call to evict vram is to evict the gart page table
+ 	 * using the CPU.
 -- 
 2.30.2
 
