@@ -6,67 +6,65 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8521C433E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20E77C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6B77B6192D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B77B6192D
+	by mail.kernel.org (Postfix) with ESMTPS id C360A6192D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C360A6192D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3AF989E8C;
-	Mon, 22 Mar 2021 08:20:08 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936CE89D46;
- Sun, 21 Mar 2021 15:19:28 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id c6so10565451qtc.1;
- Sun, 21 Mar 2021 08:19:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 582386E3F4;
+	Mon, 22 Mar 2021 08:20:09 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB0A6EB0F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 23:24:23 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id k10so12234727ejg.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 16:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=au6yAq/994byN5B0Bwhkok5fWOyRbkNX7zhhajSq4Aw=;
- b=ns/uAHPvUjy2iZEKZoWbTS1sMcHu1FX5sa2+Z8yxjXxcwinwoh1oyHO4mBzFoz+fpP
- t9AdkaaVSj7Eu1xya6LHJaVIUcqswAx5v08y5I3BTb63tMUuXPyS3K84hMb0T+/eeKmc
- KaILdnSQt58/asDO3bjCrWZKNH5Mzbq3fDfqxwI+NkV3hn8wE3dPl0S/DJMWPcbTe4Tu
- uD5keox3ZMAS2sxZHl/Up9oKtEb10DorYYXPFnzVIjrNqccO+E1qLWfQKSBbfZdjt6Ap
- Ub4nMpKgmMjAYI1tXWC60AfBnDUUfg36l+ZcbzeesjUYFx4iHaOJjHSQ7KrEw/wRAW0h
- 7RGA==
+ bh=lZjC5MYRszFKToyjw0wtcbVmRCl1gRLkwMvW9D8FFsM=;
+ b=vKozyBbKjc0ZyVzaCQcntN1YrghkSwertT5myBgovjgJsEl3QjHrnw1/+HnbSF40dC
+ 3zlaPKEJ0j699jJpYIMxqeGvzPbUV+BZq/Gj4wt6nICDvoLIUsU0YnkW2BY/KvC5aaHg
+ DYoZuGoUz2LB6yF6/dh0SoaPz4eCeNVrvSBkjZgSBa5y6EZyTUG1eBHuUojvJ7eTna5H
+ fUmDV+bKgfU3PgQ+18WfqZPWnQMSHtoFdLVtXrkSS60nZWfwk8Jae+k1nWCFYyf1yBJ/
+ vX6mimkHHsefk3oe1mGmJdjR8nMJOaAsmeis3HCPrjPP+luZaw6NrE1PYNtiQa3wt+ux
+ 324w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=au6yAq/994byN5B0Bwhkok5fWOyRbkNX7zhhajSq4Aw=;
- b=X7Xnmnr5oWl7E822qGwbNvYRV2+qLZzGRIov2dl8EOMDFQYO596uLeIvC4zxtib2KA
- iirEAUAYTr0hlHtU574VIlbeU6y6daLCH9E0h6cLHFBrt2iuQ06yJKuphLOPjLfD3xab
- lllRC8ppsPHihjQxXyANUA5Qu+Mm/D71PYRR0a8AAdiYwut+E2aZ0CJgZM4n8hzdsr9i
- lplMiPvFC3NivKolJ4fX+fmjxxYIpR5c+/puMVz6lHWfne6fZsPUHB0RUlxFhr/d9qk4
- QefahM9zyV88qSiUFEY2nMELS397pfCXarOIrD1VIJKKB9fm7IaFJa6b4kqduw8UsLMR
- jqMw==
-X-Gm-Message-State: AOAM532SzVu5aERtnx+F4UihP9ClRmf5qdWolE80F1IElIoskKRaKMQ4
- VtQn04DT072C4B7n9Ry1jswQaix+YdoasQ==
-X-Google-Smtp-Source: ABdhPJwXT1ZITQY67+/yUvJVHD5s+98+2llrDVCVzJ7MdJbYm/lFiBOlr2ncZVUhSRoWxxr7oUHCsA==
-X-Received: by 2002:ac8:1094:: with SMTP id a20mr6296117qtj.248.1616339967589; 
- Sun, 21 Mar 2021 08:19:27 -0700 (PDT)
-Received: from tong-desktop.local ([2601:5c0:c200:27c6:f925:bb4b:54d2:533])
- by smtp.googlemail.com with ESMTPSA id 84sm9302704qkg.8.2021.03.21.08.19.26
+ bh=lZjC5MYRszFKToyjw0wtcbVmRCl1gRLkwMvW9D8FFsM=;
+ b=qwlZ8N8snrbKnCHL6MrLp4sBgeDwmalhoc7+ZntW44ysNwO4TnSOHDndR59hKRp8SN
+ I7BS2D3hRGhcqtgPr6n/BJHqUFDLdQLsisAHo+rzLvuAE9fLV7dWLT12TsvdkpE/cAPS
+ jmoJFgkFNuzv/pHB9DoM1xmctxRiUvavZGsR9+FXinuyoEgKgaSFosBaVEHxzyeypPE6
+ 9X0sFD14ctM4Qz/kb+PjsEc/+ArlQ1Jd+j1S+VGsigJeKozPrD/wtRb9RAbuyIsMZ4NM
+ K1YObvwzPm/JWbtatc9YehqfUrA6q0leDmJPxPlvaIzI8YZoOsXmAq4ciE6FbqpAKMlU
+ SD8g==
+X-Gm-Message-State: AOAM533V0yCfGGcwiXR29i3DGJMihCd2KPSm7gyJolugyoP8zPobFgzR
+ exNouITQZd32STRaDWKC7aQVD1Lwezs=
+X-Google-Smtp-Source: ABdhPJzVv2ocBpWzi6Yz1/pKDkHm6dWoDjiVDzCwnuHuCEWGgWVKKmnAIMPmbUPAOXdxh9iSV46s3w==
+X-Received: by 2002:a17:906:d797:: with SMTP id
+ pj23mr7126089ejb.367.1616196262220; 
+ Fri, 19 Mar 2021 16:24:22 -0700 (PDT)
+Received: from localhost ([2001:470:5139::819])
+ by smtp.gmail.com with ESMTPSA id lu26sm4329102ejb.33.2021.03.19.16.24.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Mar 2021 08:19:26 -0700 (PDT)
-From: Tong Zhang <ztong0001@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/radeon: don't evict if not initialized
-Date: Sun, 21 Mar 2021 11:19:07 -0400
-Message-Id: <20210321151907.367586-1-ztong0001@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Fri, 19 Mar 2021 16:24:21 -0700 (PDT)
+From: Tobias Jakobi <cubic2k@gmail.com>
+X-Google-Original-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/swsmu: fix typo (memlk -> memclk)
+Date: Sat, 20 Mar 2021 00:24:19 +0100
+Message-Id: <20210319232419.174234-1-tjakobi@math.uni-bielefeld.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 22 Mar 2021 08:19:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,37 +78,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tong Zhang <ztong0001@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VFRNX1BMX1ZSQU0gbWF5IG5vdCBpbml0aWFsaXplZCBhdCBhbGwgd2hlbiBjYWxsaW5nCnJhZGVv
-bl9ib19ldmljdF92cmFtKCkuIFdlIG5lZWQgdG8gY2hlY2sgYmVmb3JlIGRvaW5nIGV2aWN0aW9u
-LgoKWyAgICAyLjE2MDgzN10gQlVHOiBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCBh
-ZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDIwClsgICAgMi4xNjEyMTJdICNQRjogc3VwZXJ2aXNvciBy
-ZWFkIGFjY2VzcyBpbiBrZXJuZWwgbW9kZQpbICAgIDIuMTYxNDkwXSAjUEY6IGVycm9yX2NvZGUo
-MHgwMDAwKSAtIG5vdC1wcmVzZW50IHBhZ2UKWyAgICAyLjE2MTc2N10gUEdEIDAgUDREIDAKWyAg
-ICAyLjE2MzA4OF0gUklQOiAwMDEwOnR0bV9yZXNvdXJjZV9tYW5hZ2VyX2V2aWN0X2FsbCsweDcw
-LzB4MWMwIFt0dG1dClsgICAgMi4xNjg1MDZdIENhbGwgVHJhY2U6ClsgICAgMi4xNjg2NDFdICBy
-YWRlb25fYm9fZXZpY3RfdnJhbSsweDFjLzB4MjAgW3JhZGVvbl0KWyAgICAyLjE2ODkzNl0gIHJh
-ZGVvbl9kZXZpY2VfZmluaSsweDI4LzB4ZjkgW3JhZGVvbl0KWyAgICAyLjE2OTIyNF0gIHJhZGVv
-bl9kcml2ZXJfdW5sb2FkX2ttcysweDQ0LzB4YTAgW3JhZGVvbl0KWyAgICAyLjE2OTUzNF0gIHJh
-ZGVvbl9kcml2ZXJfbG9hZF9rbXMrMHgxNzQvMHgyMTAgW3JhZGVvbl0KWyAgICAyLjE2OTg0M10g
-IGRybV9kZXZfcmVnaXN0ZXIrMHhkOS8weDFjMCBbZHJtXQpbICAgIDIuMTcwMTA0XSAgcmFkZW9u
-X3BjaV9wcm9iZSsweDExNy8weDFhMCBbcmFkZW9uXQoKU3VnZ2VzdGVkLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFRvbmcgWmhh
-bmcgPHp0b25nMDAwMUBnbWFpbC5jb20+Ci0tLQp2MjogY29kaW5nIHN0eWxlIGZpeAoKIGRyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQs
-IDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
-ZW9uX29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMKaW5k
-ZXggOWI4MTc4Njc4MmRlLi40OTljZTU1ZTM0Y2MgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
-ZW9uX29iamVjdC5jCkBAIC0zODQsNiArMzg0LDggQEAgaW50IHJhZGVvbl9ib19ldmljdF92cmFt
-KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCX0KICNlbmRpZgogCW1hbiA9IHR0bV9tYW5h
-Z2VyX3R5cGUoYmRldiwgVFRNX1BMX1ZSQU0pOworCWlmICghbWFuKQorCQlyZXR1cm4gMDsKIAly
-ZXR1cm4gdHRtX3Jlc291cmNlX21hbmFnZXJfZXZpY3RfYWxsKGJkZXYsIG1hbik7CiB9CiAKLS0g
-CjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+- no functional changes
+
+Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 6e641f1513d8..66d69c13f915 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1433,7 +1433,7 @@ static int navi10_get_power_profile_mode(struct smu_context *smu, char *buf)
+ 		size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
+ 			" ",
+ 			2,
+-			"MEMLK",
++			"MEMCLK",
+ 			activity_monitor.Mem_FPS,
+ 			activity_monitor.Mem_MinFreqStep,
+ 			activity_monitor.Mem_MinActiveFreqType,
+@@ -1493,7 +1493,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
+ 			activity_monitor.Soc_PD_Data_error_coeff = input[8];
+ 			activity_monitor.Soc_PD_Data_error_rate_coeff = input[9];
+ 			break;
+-		case 2: /* Memlk */
++		case 2: /* Memclk */
+ 			activity_monitor.Mem_FPS = input[1];
+ 			activity_monitor.Mem_MinFreqStep = input[2];
+ 			activity_monitor.Mem_MinActiveFreqType = input[3];
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index af73e1430af5..f21679acd9af 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1366,7 +1366,7 @@ static int sienna_cichlid_get_power_profile_mode(struct smu_context *smu, char *
+ 		size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
+ 			" ",
+ 			2,
+-			"MEMLK",
++			"MEMCLK",
+ 			activity_monitor->Mem_FPS,
+ 			activity_monitor->Mem_MinFreqStep,
+ 			activity_monitor->Mem_MinActiveFreqType,
+@@ -1429,7 +1429,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
+ 			activity_monitor->Fclk_PD_Data_error_coeff = input[8];
+ 			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[9];
+ 			break;
+-		case 2: /* Memlk */
++		case 2: /* Memclk */
+ 			activity_monitor->Mem_FPS = input[1];
+ 			activity_monitor->Mem_MinFreqStep = input[2];
+ 			activity_monitor->Mem_MinActiveFreqType = input[3];
+-- 
+2.26.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
