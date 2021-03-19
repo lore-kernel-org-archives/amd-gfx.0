@@ -2,70 +2,116 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D24AC433C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 19:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 588E7C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 19:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B573961979
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 19:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B573961979
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id E5B7661941
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 19:08:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5B7661941
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2D56EA8F;
-	Fri, 19 Mar 2021 19:06:26 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E826EA8F
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 19:06:25 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id o16so10173562wrn.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 12:06:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=hA+rVKZCs7Za5H9fQ1BcSyG1KmVXAv6lS2Chdg3O6t0=;
- b=WOo4ehtM9HDAAlqBCSaWwwPMjyiLdZFMY86+WReaJ/lAYsrimi05zHFQKxV/VN1QQ9
- AK7ehT8qnS1IiXO+ceCRhUU8RUNgTc+RrRJR8L+/IuKCoTUz6IIBFWetXkhqWdWaK/ye
- hVY/XWswNB1uNZfpc/+vePP/hx4jo6O53tbvQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=hA+rVKZCs7Za5H9fQ1BcSyG1KmVXAv6lS2Chdg3O6t0=;
- b=ACp8PeqyZIqktXnJYlB3MwMq7qmzAwDNB6vni9TlQJzw6xbKi4GE0s5zegj7oiZRzW
- g6FqVAc8IXcr8up9polEdTwsNGe7n/wwEyu6QrH7sfQR2VuruS8VxAl6sc14Cncu2sEy
- GpsMhcHBEIE4WTYKw8QEyn/p+vVxY6vY9teyEcJGs7EE06hw1ORtM40xXIX+lWty2Wym
- xauDhNK3kwNP0stXvbhu+EywCQDEJ8FNDTlpaWHuFswIP/itbsXJzT0H+5n9sGhf5XrO
- 1YM1dVmHcl6jT54bLUS+dT2eiX+4l/qZQ4hrde/kSNiLuGA8v8na/L1lhy14hYSReBvp
- YQQg==
-X-Gm-Message-State: AOAM533H02JNXutEj21iDE0BeaTwG3pkyjvv9reyc6upMOkGLaUMWJtu
- 5RdDZMn3t7K3aWtL+3vd/gUuKw==
-X-Google-Smtp-Source: ABdhPJyMCOhZhnNKohwpb3XeW/df5Yoco6nEGoXJTGZEoiXt+YV3Wtr60O5AphQPDPLx6p4uJYbodA==
-X-Received: by 2002:a5d:53c8:: with SMTP id a8mr5884007wrw.323.1616180783356; 
- Fri, 19 Mar 2021 12:06:23 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id v14sm8925127wrd.48.2021.03.19.12.06.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 12:06:22 -0700 (PDT)
-Date: Fri, 19 Mar 2021 20:06:21 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFT2LSR97rkkPyEP@phenom.ffwll.local>
-References: <20210319140857.2262-1-christian.koenig@amd.com>
- <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
- <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74E056EA92;
+	Fri, 19 Mar 2021 19:08:40 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D94686EA92
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 19:08:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bCetnKDtuD9VxBPQ8WmPNjoDjcCWUrzmQ1eVvdG2rIeqDSXhHfrAx43WuujL8xv0JU95E2Y2klDuZcr9CAjMfUFxKiU95uKDtkb7pt1cIY2EvQ0tnWkml7BhE+lnd4Qt2WIuGN9+WVfuLfEaTlGP+5WyAqhh5hbxBXijvF2ryC7x3Jl6eEa4LVC9WkkxKqq4C5Yf2aHXh6I1z9CDYbMSIN05UDCET85IswDhzeZaGdt3iF6IjFogfDm/mwZFEIHIB2QNb5QqB1L/wBlKGSmVWZSfhRMaCdksh2jUDAtYZbntlh415cxctFn0yhWdQvDPT8q+xT6sBhhI4tZjbTrVgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EGLStCQW8UXZoOHWdlhNXMh66JjJpjVcnyVSKsN4oco=;
+ b=IZsXqZmhb+TMLUfpGP9Ec5jHMDjkO4114clHK07mJ6WoF/4Upvden2gj8JOpUn8M6mtC0Mrv/VFhE/vqNgW0HaY51qLBVdPakmzwZm4CiIVRu03jX1bcx6bcwHuvmVLx/0nJDrx4PpxSe4eyfwWJg2mPfSNmlxCmEprsv+S2PLb1+SK/2NkCMBaG4I6vrYH1CJEYmVCrczfkd1VP43MZTLmlK4LxQGSyT3sZsZvmEtRgvDKTKtfR6ER5SgY/hIEjYznL3VG0ObIULoYc3EHoXA93cVeHKxoF390kufGmS1SeMo7nTcbZvxrvwfVogvRmZklaKDK2zz91uZC7mVwfmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EGLStCQW8UXZoOHWdlhNXMh66JjJpjVcnyVSKsN4oco=;
+ b=XVy5VvXGeb8BaBxddLCOcJFje40FGry1cpr7KuPNDKJf3ySoZatb8D2RvQpHXnX5bvXYPHKms19qeRnpALFHHN13dcviTEtNPgl7bvGOFWq3nvhIZQTjpEcao2OX44mm3u5lPCN8HtG/i+3Na8oSj3u6+9PnaM8qSE/4PKjGv7A=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
+ by CY4PR12MB1237.namprd12.prod.outlook.com (2603:10b6:903:3e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Fri, 19 Mar
+ 2021 19:08:36 +0000
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3955.023; Fri, 19 Mar 2021
+ 19:08:36 +0000
+From: Nirmoy Das <nirmoy.das@amd.com>
+To: Christian.Koenig@amd.com
+Subject: [PATCH 1/1] drm/amdgpu: fix amdgpu_res_first()
+Date: Fri, 19 Mar 2021 20:08:23 +0100
+Message-Id: <20210319190823.42905-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.30.1
+X-Originating-IP: [93.229.58.99]
+X-ClientProxiedBy: FR2P281CA0026.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::13) To CY4PR12MB1463.namprd12.prod.outlook.com
+ (2603:10b6:910:e::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from brihaspati.fritz.box (93.229.58.99) by
+ FR2P281CA0026.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3977.15 via Frontend Transport; Fri, 19 Mar 2021 19:08:35 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e73b9601-7165-46b4-b0d5-08d8eb0a6589
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1237:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1237E22143B6DE6A9D7847C18B689@CY4PR12MB1237.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XHlPRjFGp+jS0DFUU+xmqBOt1W0eKnrFTjAVbW1xJm364Zr6hHNp09Z6yvLv/01AtQbYnxaVfGacpH2bYReFJe53OW9efJ3+oCzei2TBO8HLXKh8FggomQJPHPPcDeg582+ZQTx+ZYVL4neY8ahM5GN7W/7ARFpH0r9C82oDKdBwE7PMcRi4HiaZX5NWdl39pnmJvjjgEJjGxHzl6rIRplTcjN2b+9BfvKvIbYsH4CZ7TCH7EZf/8gwdzdMuXlBHKoV2l4jgCuWi2gir5sLjNJFjKfweJqNo9spgGl7FqPYecc+frRvtg7do6VugtH/n+NV91qlydU9nsDzZFqtqxZY5FJUWaUIds5Huzaxhrhx3qvT6TiVOf1yWcPv8Bpl3ev+oGiTS+rnQ/vLVWOK1WwyU2ybezx7DTwfz3N116BkzWYAjFNs2A3jAi2fZBJfo6JFQdrkeJ09LRYlJMyl5dqB1tE4LE7FPMoAEOXLCyciPLkGAilNex/ko4FIjzDgkXlPGRhOHZMBxrKl0QFP8765tbu1pKKO8Fevfnmn/kGllNRyrpKYkF7A/9gNKPwedG9EToi7MP2/ybsEVp49PW/jUrlPh+VjXAQYmE0ImLyuR0O8RBkLmjz7EM8EdQ+H9/pj2FTIALY+cQCph631IGt68MXvEO0vwzHBMMW0Wx6Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(346002)(376002)(136003)(39860400002)(6512007)(8936002)(8676002)(4744005)(52116002)(186003)(36756003)(6506007)(6636002)(5660300002)(66556008)(478600001)(2906002)(1076003)(86362001)(38100700001)(66476007)(66946007)(316002)(83380400001)(26005)(16526019)(6666004)(4326008)(44832011)(2616005)(956004)(6486002)(37006003)(34206002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?TDK18193UW1VNB/WmuUpmpG2Zlei04rIcRxtmWrjgGSSWnJn7Vdkv7033t5C?=
+ =?us-ascii?Q?xJdK6BJgZqCUuMX6nxGktmjOBpmCOS796ByUiwKunKMNwS731/ROZ/Ctgawb?=
+ =?us-ascii?Q?C8MB8XYTAK+KTTGE1rGlwtGcun6QBV+RMdrHa+Pd6saC82NDpcawpbi25YrQ?=
+ =?us-ascii?Q?vxYuhSM5ax7VPlh4YUY7vtzbTb39LG7kRYv10cosGCAoGIFwg7sICJ0/CkxA?=
+ =?us-ascii?Q?NcinqvOOp8kgaXFf+GqsXUHByrqv9J1Mm17jFfnBrD0fUoai5Aw4FMAn2mf5?=
+ =?us-ascii?Q?i1GnXQXv7MDfpdtlyfofBgG2a+WdqDxl0zMnWE80IV3rLZLJz0u01Z35l0ml?=
+ =?us-ascii?Q?1D0fdQfecM07Yh37/WPcqqwRtos9WW+7PzSi6pvawqOn5tqweteZ8hOFA9m4?=
+ =?us-ascii?Q?r5D43tAF+3+zUtKA96rzAU+d7aj3JQwt5+sM3Ouu4hJjpKxzCnFRK7QqLTra?=
+ =?us-ascii?Q?OTXiNOUEKLk8p5EFZx3VvJQdkS8OrjQQDWwosL6xawHuf1hqhoafrxWKl75+?=
+ =?us-ascii?Q?SDrulMlBM89TNt1KURDgtLvVBlVbYZM422M/EPfeoPkbYLEtOkmM5f6cR38+?=
+ =?us-ascii?Q?agX2nqXM3ASy8gRkADaoNdu4nDDI58Fnlj/SX6AJhSEFxZAMed0uyhZ1QtLn?=
+ =?us-ascii?Q?TKLL2XOx0zZXmT/ruI1VHh8dW6a2s7IyDpMkaUIulrBdUQTHY2e54DDpmeeT?=
+ =?us-ascii?Q?zwGBWY2LJ8+aadAxfAxYAPIzG47umpHCCgvfdgZAxKNLVs9isYWWAxrDgmaT?=
+ =?us-ascii?Q?hz3r6VyDlfTUJvTYPjX+ga9O6XXcdhKWXUaRWSgTM7pEmBFAiuy4WDDlAEnD?=
+ =?us-ascii?Q?pGq+fvO7Tc/MLe76Od+fOY2pxEoZXLSoIw2eQdT9ZIPnlVtlkwV2l4Ms7Oft?=
+ =?us-ascii?Q?e7wGiHi5364iMaoAJu3EytitRm2qn0H8TQq7eHK8jy5gMFBRcNGKJIan2mRr?=
+ =?us-ascii?Q?hoTfSui9tPk2Op6CITcno6tOL1rZFmQsU5emxwtq07n5U1WV7VtlhzWKWaZR?=
+ =?us-ascii?Q?v2e9MV4AOjMvpiBxHYXw7FiVJHfIUfjMGpbkUMY0Xgi9Vag/ynNxxLQ4CCOK?=
+ =?us-ascii?Q?6V0wzsS2jbT8t+fyBcS99qS1QQ5wUNcX3H1n6ScozpwlvYFdH/V2AOsdoceN?=
+ =?us-ascii?Q?+ayhXEo1DB2MB04TY3k0DWBhQ/c8Zkac5DiHeF5yvGPK5f1f80ev+4AdoPnA?=
+ =?us-ascii?Q?H0YoXOI9DZk2M9T0xWTF+6lxua1CGELSBzRFux3Kv5OVUoZCnD2Ci4BzhFkl?=
+ =?us-ascii?Q?/biq14vBMxk5nxe+ZwAU7hn4CSHHnP1m5mDzfNDerBu2Kwf6dTfaDyR/xTlL?=
+ =?us-ascii?Q?9FVOJfwG6hJP7KH4XBbu+OHO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e73b9601-7165-46b4-b0d5-08d8eb0a6589
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2021 19:08:36.1856 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /BN9MzV4GHwipCw9nucgc8CweL1ofR04O/Cwsy2WP7R60Sd9V+3sCWslEGYTA4gOQEGkEqluTiPQXlf2OFD1Dg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1237
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,122 +123,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Leo.Liu@amd.com,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wrote:
-> Am 19.03.21 um 18:52 schrieb Daniel Vetter:
-> > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig wrote:
-> > > Don't print a warning when we fail to allocate a page for swapping th=
-ings out.
-> > > =
+Fix size comparison in the resource cursor.
 
-> > > Also rely on memalloc_nofs_save/memalloc_nofs_restore instead of GFP_=
-NOFS.
-> > Uh this part doesn't make sense. Especially since you only do it for the
-> > debugfs file, not in general. Which means you've just completely broken
-> > the shrinker.
-> =
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Are you sure? My impression is that GFP_NOFS should now work much more out
-> of the box with the memalloc_nofs_save()/memalloc_nofs_restore().
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
+index b49a61d07d60..40f2adf305bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
+@@ -64,7 +64,7 @@ static inline void amdgpu_res_first(struct ttm_resource *res,
+ 	BUG_ON(start + size > res->num_pages << PAGE_SHIFT);
+ 
+ 	node = res->mm_node;
+-	while (start > node->size << PAGE_SHIFT)
++	while (start >= node->size << PAGE_SHIFT)
+ 		start -= node++->size << PAGE_SHIFT;
+ 
+ 	cur->start = (node->start << PAGE_SHIFT) + start;
+-- 
+2.30.1
 
-Yeah, if you'd put it in the right place :-)
-
-But also -mm folks are very clear that memalloc_no*() family is for dire
-situation where there's really no other way out. For anything where you
-know what you're doing, you really should use explicit gfp flags.
-
-> > If this is just to paper over the seq_printf doing the wrong allocation=
-s,
-> > then just move that out from under the fs_reclaim_acquire/release part.
-> =
-
-> No, that wasn't the problem.
-> =
-
-> We have just seen to many failures to allocate pages for swapout and I th=
-ink
-> that would improve this because in a lot of cases we can then immediately
-> swap things out instead of having to rely on upper layers.
-
-Yeah, you broke it. Now the real shrinker is running with GFP_KERNEL,
-because your memalloc_no is only around the debugfs function. And ofc it's
-much easier to allocate with GFP_KERNEL, right until you deadlock :-)
-
-Shrinking is hard, there's no easy way out here.
-
-Cheers, Daniel
-
-> =
-
-> Regards,
-> Christian.
-> =
-
-> =
-
-> > =
-
-> > __GFP_NOWARN should be there indeed I think.
-> > -Daniel
-> > =
-
-> > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/ttm/ttm_tt.c | 5 ++++-
-> > >   1 file changed, 4 insertions(+), 1 deletion(-)
-> > > =
-
-> > > diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_t=
-t.c
-> > > index 2f0833c98d2c..86fa3e82dacc 100644
-> > > --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> > > +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> > > @@ -369,7 +369,7 @@ static unsigned long ttm_tt_shrinker_scan(struct =
-shrinker *shrink,
-> > >   	};
-> > >   	int ret;
-> > > -	ret =3D ttm_bo_swapout(&ctx, GFP_NOFS);
-> > > +	ret =3D ttm_bo_swapout(&ctx, GFP_KERNEL | __GFP_NOWARN);
-> > >   	return ret < 0 ? SHRINK_EMPTY : ret;
-> > >   }
-> > > @@ -389,10 +389,13 @@ static unsigned long ttm_tt_shrinker_count(stru=
-ct shrinker *shrink,
-> > >   static int ttm_tt_debugfs_shrink_show(struct seq_file *m, void *dat=
-a)
-> > >   {
-> > >   	struct shrink_control sc =3D { .gfp_mask =3D GFP_KERNEL };
-> > > +	unsigned int flags;
-> > >   	fs_reclaim_acquire(GFP_KERNEL);
-> > > +	flags =3D memalloc_nofs_save();
-> > >   	seq_printf(m, "%lu/%lu\n", ttm_tt_shrinker_count(&mm_shrinker, &sc=
-),
-> > >   		   ttm_tt_shrinker_scan(&mm_shrinker, &sc));
-> > > +	memalloc_nofs_restore(flags);
-> > >   	fs_reclaim_release(GFP_KERNEL);
-> > >   	return 0;
-> > > -- =
-
-> > > 2.25.1
-> > > =
-
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
