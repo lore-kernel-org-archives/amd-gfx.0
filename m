@@ -2,65 +2,82 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5190BC433E6
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 772B5C43381
 	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 188B164F65
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 188B164F65
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id DE7DE64F4D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE7DE64F4D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07CC6EA22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAEA6EA21;
 	Fri, 19 Mar 2021 14:23:30 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A356E9EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:30:30 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id y200so5676397pfb.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 04:30:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mBRi75+4ZXFYImT5TGU9kGKxGRhGqVxM6M+tAV+mb/E=;
- b=UazQNSNh6OqCQMM7wl92C43GmrPxGV3RZTO1y89v5bBE501r/9WKGlixY+7tAGZMeL
- v1rihy7KJQrRr70kCLg1utX4ZLw15BnWYkmDtcze4PGsl5h7zGOhqRfvfnX7iZri2IeK
- m/E/gTkDMa8E8Jsmtqf12BlJY9luyi+9POcFQErCOwISZg9gXbdzRWg7CGnS6s0afTFs
- WUKpqnWVcxnm86q8NVsJV6ijswLLKfpq6/o5BLRXQ00OZJLwvJ3rYSR5fYBo/vmkhNxx
- ns5vkqPFqwJyGnanDCUOVTbGsq9M6ylYB7FQINiZPwOtBnWlRFqlE2Adv0FI5b9jdTDc
- ejeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mBRi75+4ZXFYImT5TGU9kGKxGRhGqVxM6M+tAV+mb/E=;
- b=phXpPZl6npQCz3j135Ds7hVxTZVc3MMyzOUseoMd2hya/Yb5gTlALzLIN3gNFlD2J3
- aw0YE2GDGZciZ+v3xlDZFwogR3SFium2+n4y5eI//IcwCTzxJVqA8d4cXdbBdsmi9HjJ
- 359C9XESmIz0DKSK2J1QjDBXtyc6QHY/fU+nnVoLB/Gior2ErVeH9dbvozOYZujxBGDV
- WeOuQRHVSk6HlIjorv/4KAw4OSKl0+xnk2EpNCfE8YCtEQmGI1cTPISkmhWaOB0aIxTq
- gDYOAaFxnew5s1bjuNHAOl+yCbWqSyZqYVokxIzj2outA+fcn4XnImBgoz6Qb7ylx3YA
- ISWQ==
-X-Gm-Message-State: AOAM531+CvlJxldwlGboaNl4gFWpjk3B1zYbTt/uaIIwc0gNHcSgoqIP
- 2M3dGyIx1tO6+zzBvTmbKowr5verY2acY02uG+Ayfw==
-X-Google-Smtp-Source: ABdhPJyueJqbCvxvjsAE48+4+uzNTfZK3apwOOTQ5ZGtvQfah7LFUXUY4ry2appxkZ5SC84t3BxNou620Ggqog2+hro=
-X-Received: by 2002:a05:6a00:b54:b029:207:2a04:7b05 with SMTP id
- p20-20020a056a000b54b02902072a047b05mr8786871pfo.12.1616153430352; Fri, 19
- Mar 2021 04:30:30 -0700 (PDT)
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4696E9C9;
+ Fri, 19 Mar 2021 12:49:31 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id BD388580975;
+ Fri, 19 Mar 2021 08:49:28 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Fri, 19 Mar 2021 08:49:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=Ri9dccbfUpY1St2b6r2No3XwoI
+ OIFcIlzR1DkG8WYwA=; b=PJhCPVJknm7YB3N0vhUgJhdTexNmPn9v2AbI+vbqq7
+ UNsDC1piMcDrvNYDzHX4LBfD5mKJ2+aqOrR7EeFPGzBpQoODgPB24kekD5J4e+p1
+ vEm/v1u/rl4rzsoMbOjysD2dqsivrrmPc8Yf/Kd/muLZDK8nSwRovLOp4BZr4HvY
+ PDaqtrnkYY+D2YPRYHzt3EqVlQKeYvQsokw+pCp30gh565n7Rkeul036hStHDgZ+
+ 9HKqlv9QbpaQANTWLi7gpu5tt01gRnNvt7CpbTPneTvuyFE2Xxx8ieSRIApx+P7y
+ iahnjEgb5tSYydVX/MxxCPNZsnd/2loEXhVKPldfoK1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Ri9dccbfUpY1St2b6
+ r2No3XwoIOIFcIlzR1DkG8WYwA=; b=YYM3n2AFxGK6Jey95SPGXSLzv6J22G4LC
+ w3wTr++FkF40tyVPkrl4EXYebFv5zb+4/aw8C+G3Yoa4HtD7lID5kmk7a4ohf7Ej
+ nO5T64bIqBvqM3mIa8dB6ySfVZZ+jLO+KC9FIM0E3OsfQqEgYjlOa6IxpMjgf1n+
+ 69kGeKvGguPWStboP2EyY+qPrpErtX7j9vCS8n4i8nlSkhNXRVZsn7DJxrteieSK
+ CfzjTvlMGxxirpTqK9xct2v2tBthLa4ZDCsCF2ik+yuAn5iJgBOwXsJ8KL7Ec8rN
+ lFZDvq/rB4TiS2GNwSWJJqqQPyiyBwrvH+/fs1OowEaTugKS1Nv5A==
+X-ME-Sender: <xms:1Z1UYL_IfSLUtsbJQD-Ju1UqhiddiSEtjXfnRpa2Z0uc2BZcGJTlBw>
+ <xme:1Z1UYBJJPxGz07deGpd8t08M4z7sM2aL0cnG5J9T9k3tZyKgLmMOAIB3dpjRf0V4Q
+ P5ZtM7jPUCjlfJILRc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefkedggeeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhmvgcu
+ tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
+ hrnhepjeffheduvddvvdelhfegleelfffgieejvdehgfeijedtieeuteejteefueekjeeg
+ necukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+ hrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:1p1UYImWxnpqbilYwpefWBeFUWOS5luku2MO1iqqIMg1OI7xCvOeFw>
+ <xmx:1p1UYNNBBM74Ire9u3bVpwEnt7RPQDM4iriTHPSOcg0V7QraFp02Gw>
+ <xmx:1p1UYG1_pE6A5hSODITOcJvwXxCPjrTcmTSn2Vm_2ZDZxKWKW-Zqdg>
+ <xmx:2J1UYPBGHoRSKBYWP9NO5eOXOk5Rji0mBpRMIM56N4H3dasgmYZ1_A>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 98296240068;
+ Fri, 19 Mar 2021 08:49:25 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
+Subject: [PATCH 1/3] drm/connector: Create a helper to attach the
+ hdr_output_metadata property
+Date: Fri, 19 Mar 2021 13:49:20 +0100
+Message-Id: <20210319124922.144726-1-maxime@cerno.tech>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-19-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-19-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 19 Mar 2021 12:30:19 +0100
-Message-ID: <CAG3jFyv2F7ri4wQcwipoLT6nr-K_SWpLcAFi_B0Lo_O+KaWo2w@mail.gmail.com>
-Subject: Re: [PATCH 18/30] drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
-To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Fri, 19 Mar 2021 14:23:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,99 +90,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Tim Gover <tim.gover@raspberrypi.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Eric Anholt <eric@anholt.net>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Phil Elwell <phil@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Dom Cobley <dom@raspberrypi.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
+All the drivers that implement HDR output call pretty much the same
+function to initialise the hdr_output_metadata property, and while the
+creation of that property is in a helper, every driver uses the same
+code to attach it.
 
-Thanks for the patch,
+Provide a helper for it as well
 
-On Fri, 19 Feb 2021 at 22:59, Lyude Paul <lyude@redhat.com> wrote:
->
-> Since we're about to move drm_dp_helper.c over to drm_dbg_*(), we'll want
-> to make sure that we can also add ratelimited versions of these macros in
-> order to retain some of the previous debugging output behavior we had.
->
-> However, as I was preparing to do this I noticed that the current
-> rate limited macros we have are kind of bogus. It looks like when I wrote
-> these, I didn't notice that we'd always be calling __ratelimit() even if
-> the debugging message we'd be printing would normally be filtered out due
-> to the relevant DRM debugging category being disabled.
->
-> So, let's fix this by making sure to check drm_debug_enabled() in our
-> ratelimited macros before calling __ratelimit(), and start using
-> drm_dev_printk() in order to print debugging messages since that will save
-> us from doing a redundant drm_debug_enabled() check. And while we're at it,
-> let's move the code for this into another macro that we can reuse for
-> defining new ratelimited DRM debug macros more easily.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  include/drm/drm_print.h | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index f32d179e139d..3a0c3fe4d292 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -524,16 +524,20 @@ void __drm_err(const char *format, ...);
->  #define DRM_DEBUG_DP(fmt, ...)                                         \
->         __drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
->
-> -
-> -#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...)                            \
-> -({                                                                     \
-> -       static DEFINE_RATELIMIT_STATE(_rs,                              \
-> -                                     DEFAULT_RATELIMIT_INTERVAL,       \
-> -                                     DEFAULT_RATELIMIT_BURST);         \
-> -       if (__ratelimit(&_rs))                                          \
-> -               drm_dev_dbg(NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__);      \
-> +#define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)                                    \
-> +({                                                                                               \
-> +       static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DEFAULT_RATELIMIT_BURST); \
-> +       const struct drm_device *drm_ = (drm);                                                   \
-> +                                                                                                 \
-> +       if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))                         \
-> +               drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);        \
->  })
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  3 +--
+ drivers/gpu/drm/drm_connector.c               | 21 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  3 +--
+ include/drm/drm_connector.h                   |  1 +
+ 5 files changed, 25 insertions(+), 7 deletions(-)
 
-checkpatch --strict is unhappy about the tabs/spaces in this patch
-
-
-ERROR: code indent should use tabs where possible
-#48: FILE: include/drm/drm_print.h:531:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 22124f76d0b5..06908a3cee0f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7017,9 +7017,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
+ 	    connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+ 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
+-		drm_object_attach_property(
+-			&aconnector->base.base,
+-			dm->ddev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
+ 
+ 		if (!aconnector->mst_port)
+ 			drm_connector_attach_vrr_capable_property(&aconnector->base);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index dda4fa9a1a08..f24bbb840dbf 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2492,8 +2492,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 	drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
+ 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
+-		drm_object_attach_property(&connector->base,
+-			connector->dev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(connector);
+ 
+ 	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
+ 
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 98b6ec45ef96..e25248e23e18 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2149,6 +2149,27 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ }
+ EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+ 
++/**
++ * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
++ * @connector: connector to attach the property on.
++ *
++ * This is used to allow the userspace to send HDR Metadata to the
++ * driver.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_property *prop = dev->mode_config.hdr_output_metadata_property;
 +
-                           \$
-
-WARNING: please, no spaces at the start of a line
-#48: FILE: include/drm/drm_print.h:531:
++	drm_object_attach_property(&connector->base, prop, 0);
 +
-                           \$
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_attach_hdr_output_metadata_property);
++
+ /**
+  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
+  * capable property for a connector
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index c5959590562b..52c051efb7b7 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2958,8 +2958,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
+ 	drm_connector_attach_content_type_property(connector);
+ 
+ 	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
+-		drm_object_attach_property(&connector->base,
+-			connector->dev->mode_config.hdr_output_metadata_property, 0);
++		drm_connector_attach_hdr_output_metadata_property(connector);
+ 
+ 	if (!HAS_GMCH(dev_priv))
+ 		drm_connector_attach_max_bpc_property(connector, 8, 12);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 1922b278ffad..32172dab8427 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1671,6 +1671,7 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
+ 					       u32 scaling_mode_mask);
+ int drm_connector_attach_vrr_capable_property(
+ 		struct drm_connector *connector);
++int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
+ int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
+ int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector);
+ int drm_mode_create_dp_colorspace_property(struct drm_connector *connector);
+-- 
+2.30.2
 
-
->
-> +#define drm_dbg_kms_ratelimited(drm, fmt, ...) \
-> +       __DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
-> +
-> +#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
-> +
->  /*
->   * struct drm_device based WARNs
->   *
-> --
-> 2.29.2
->
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
