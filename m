@@ -2,102 +2,65 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D151C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 922AEC433C1
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 18:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CABE16197E
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 17:55:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CABE16197E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 40C2361953
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 18:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40C2361953
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 572FB6EA6C;
-	Fri, 19 Mar 2021 17:55:24 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDCA6EA61
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 17:55:22 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- y124-20020a1c32820000b029010c93864955so7759733wmy.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 10:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=H4E5zo6M+sGFb9jJfPuBMekAUt72xfRBAZEVdNXvosI=;
- b=HkWCKtqano6hr83mTvHPNb1mTJD7j++xG4i3V1pZc+fMnH//eWACXOeqWIMYDAyiqD
- CWBkqUiJ1zmtZ3OlxFIY9DcUS/euNcLz8nxn4AxgvZ1rE5qJAgMaRKnutzlS1iCHVLZf
- S1ATj65HkMPVN9VP3K+xuo111cO9NYWhg1scM=
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B6F6EA66;
+	Fri, 19 Mar 2021 18:11:50 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55C16EA66
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 18:11:49 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id l79so5705473oib.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3z4Ip00lYdJc5oGJqkZi/FZJHg9JJdinGpv4fGHlXnw=;
+ b=UixOYv8kqZcjzaQfODhZIaIjkiRC8MjI3+jqaUXIxPOE4992q28tK6qKadLqopGvZd
+ N27kPwRT+DSqVr+tgh7KWbJZ7Wh7f6ytHrgwoeukn8wD+diDdgLSM1I7vMq+vJKPxUNB
+ xgxSOAHpiop/KQQgOBSuYnCodc9jLkXzZThrafS50p3+OMwWGQjkZva2TtN+ECQod3Wc
+ p7rP0KlEmiszGtBarclnpYPR6BPz0DpW8ZYJ5iI2OtYNdsNBAEJjMD6t/tiEAoXScL2O
+ ybdW5UezcZUeW7b6u8qZwxKIaPEUmoXXTYXJV3/FZeemwV6r0RBp/3unV+RuHuPaT/3Y
+ ynBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=H4E5zo6M+sGFb9jJfPuBMekAUt72xfRBAZEVdNXvosI=;
- b=kRnSrv0Wmc3Rm3H5oKSkjJJwTI79xS6DxS+Q/7OWrpMM4UEoHZoYI9kvRupLck+xji
- 9byV3rkvKi3xPFxkbY6fWOo7SbC325jlLCTQyve+qlySXRo1RpHm761/Ll0J6UNXIOnT
- +QcnuyHtQ0nWBklZWTLwR7GL6e1yca/Ilqvbo2PuWa3bhQ8z+8LdZ3zFTrUBQOhlC9sd
- EQh9sI9hMsx60VZon/+jDC9J/hTseGMn6pEr4JmNwI3bp12WcnIh2K1a53RSZMqFvQL4
- zSDEwSnNhQDBVn7YvFKBYznscK8wc5rtqAVBRUqi0T7w7fFmUY9Dg3IOFmTH3BU2CLSL
- PJpQ==
-X-Gm-Message-State: AOAM530ZCRBHnt/ktRMEafTcPFI9KCJrsN+5YNNDFQnINsCWo4a4mftr
- hDmjX9/A1QKM5nOfkt1qdFBG8A==
-X-Google-Smtp-Source: ABdhPJznH8/2o31By7revAgfT3dpRwhrdpC+rY/yFumwMUBtQGtz1iOu7IVxYDezg1HGlBR9UX23fg==
-X-Received: by 2002:a7b:c0c3:: with SMTP id s3mr4743813wmh.11.1616176521069;
- Fri, 19 Mar 2021 10:55:21 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s3sm7109143wmd.21.2021.03.19.10.55.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 10:55:20 -0700 (PDT)
-Date: Fri, 19 Mar 2021 18:55:18 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [RESEND 00/53] Rid GPU from W=1 warnings
-Message-ID: <YFTlhh1ZSFffO+Nr@phenom.ffwll.local>
-Mail-Followup-To: Lee Jones <lee.jones@linaro.org>,
- Roland Scheidegger <sroland@vmware.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Anthony Koo <Anthony.Koo@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- Dave Airlie <airlied@redhat.com>, David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Jeremy Kolb <jkolb@brandeis.edu>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Leo Li <sunpeng.li@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
- Qinglang Miao <miaoqinglang@huawei.com>,
- Rob Clark <rob.clark@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Zack Rusin <zackr@vmware.com>
-References: <20210303134319.3160762-1-lee.jones@linaro.org>
- <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
- <20210308091932.GB4931@dell> <YEobySvG0zPs9xhc@phenom.ffwll.local>
- <20210311135152.GT701493@dell> <20210317081729.GH701493@dell>
- <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
- <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
- <20210319082407.GG2916463@dell>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3z4Ip00lYdJc5oGJqkZi/FZJHg9JJdinGpv4fGHlXnw=;
+ b=UXlZIw/TXOgt8QynmYeMiMObTuPLpgx7kN2rytipw1uCGpc/EervMTOB5pM1n4ui93
+ EF/nu0w7KkhkwdTgbZvuYLzBsNv5lwq5TJEKkDyfDRS2yzA6G/Q1XgtVFZvda82Zlm0n
+ /xKCJElWBIx5TUAd8/9++rwafTkZ3fYqeiCP9mbUkgH5fkGVF9UJsf6wDrQYKoTmSebu
+ eDoNfJ3/BZSlIFSkoTYoyFxCvtdJC5rtyocP2sFj36PZxVs2b/K8xlX9pBQMlmQmxPwB
+ eNPHFPaOIZlu+xjEFsD8pCtmOJ3Pfy4SyunjT8w44oTmhuv4Pf4QGJlRXOadZ+It5JON
+ iL3g==
+X-Gm-Message-State: AOAM532tf0QZca+ysRSADL0oNj1czDE4yzCs1pdG+SOOTJZAbRwJNmpW
+ b3Pb8F+5BMAHFRJyMDk6uQ2IR7n3hwpqcdVl//E=
+X-Google-Smtp-Source: ABdhPJzR86QWoDCxkQPmd3OBmR0ZOm9XTHhyFOBjEE8EgTr803+bjwp5hjJCpgZmhh+gnkoJRo2w5rKGA94slJ2PAVA=
+X-Received: by 2002:aca:af10:: with SMTP id y16mr1910455oie.120.1616177509039; 
+ Fri, 19 Mar 2021 11:11:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210319082407.GG2916463@dell>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+References: <20210316192851.286563-1-alexander.deucher@amd.com>
+ <20210318183639.GA158657@bjorn-Precision-5520>
+In-Reply-To: <20210318183639.GA158657@bjorn-Precision-5520>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Mar 2021 14:11:38 -0400
+Message-ID: <CADnq5_NN=Of+b4N6gUFsLiOuTkEznp8f5aVW4fuJX3sOZpHy5w@mail.gmail.com>
+Subject: Re: [PATCH] PCI: quirks: Quirk PCI d3hot delay for AMD xhci
+To: Bjorn Helgaas <helgaas@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,98 +72,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Qinglang Miao <miaoqinglang@huawei.com>, Anthony Koo <Anthony.Koo@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jeremy Kolb <jkolb@brandeis.edu>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
- Roland Scheidegger <sroland@vmware.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Cc: Shyam-sundar.S-k@amd.com, Linux PCI <linux-pci@vger.kernel.org>,
+ Marcin Bachry <hegel666@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Prike Liang <Prike.Liang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 19, 2021 at 08:24:07AM +0000, Lee Jones wrote:
-> On Thu, 18 Mar 2021, Daniel Vetter wrote:
-> 
-> > On Wed, Mar 17, 2021 at 9:32 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Wed, Mar 17, 2021 at 9:17 AM Lee Jones <lee.jones@linaro.org> wrote:
-> > > >
-> > > > On Thu, 11 Mar 2021, Lee Jones wrote:
-> > > >
-> > > > > On Thu, 11 Mar 2021, Daniel Vetter wrote:
-> > > > >
-> > > > > > On Mon, Mar 08, 2021 at 09:19:32AM +0000, Lee Jones wrote:
-> > > > > > > On Fri, 05 Mar 2021, Roland Scheidegger wrote:
-> > > > > > >
-> > > > > > > > The vmwgfx ones look all good to me, so for
-> > > > > > > > 23-53: Reviewed-by: Roland Scheidegger <sroland@vmware.com>
-> > > > > > > > That said, they were already signed off by Zack, so not sure what
-> > > > > > > > happened here.
-> > > > > > >
-> > > > > > > Yes, they were accepted at one point, then dropped without a reason.
-> > > > > > >
-> > > > > > > Since I rebased onto the latest -next, I had to pluck them back out of
-> > > > > > > a previous one.
-> > > > > >
-> > > > > > They should show up in linux-next again. We merge patches for next merge
-> > > > > > window even during the current merge window, but need to make sure they
-> > > > > > don't pollute linux-next. Occasionally the cut off is wrong so patches
-> > > > > > show up, and then get pulled again.
-> > > > > >
-> > > > > > Unfortunately especially the 5.12 merge cycle was very wobbly due to some
-> > > > > > confusion here. But your patches should all be in linux-next again (they
-> > > > > > are queued up for 5.13 in drm-misc-next, I checked that).
-> > > > > >
-> > > > > > Sorry for the confusion here.
-> > > > >
-> > > > > Oh, I see.  Well so long as they don't get dropped, I'll be happy.
-> > > > >
-> > > > > Thanks for the explanation Daniel
-> > > >
-> > > > After rebasing today, all of my GPU patches have remained.  Would
-> > > > someone be kind enough to check that everything is still in order
-> > > > please?
-> > >
-> > > It's still broken somehow. I've kiced Maxime and Maarten again,
-> > > they're also on this thread.
-> > 
-> > You're patches have made it into drm-next meanwhile, so they should
-> > show up in linux-next through that tree at least. Except if that one
-> > also has some trouble.
-> 
-> Thanks for letting me know.
-> 
-> I see some patches made it back in, others didn't.
-> 
-> I'll resend the stragglers - bear with.
+On Thu, Mar 18, 2021 at 2:36 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+>
+> On Tue, Mar 16, 2021 at 03:28:51PM -0400, Alex Deucher wrote:
+> > From: Marcin Bachry <hegel666@gmail.com>
+> >
+> > Renoir needs a similar delay.
+>
+> See https://lore.kernel.org/linux-pci/20210311125322.GA2122226@bjorn-Precision-5520/
+>
+> This is becoming a problem.  We shouldn't have to merge a quirk for
+> every new device.  Either the devices are defective, and AMD should
+> publish errata and have a plan for fixing them, or Linux is broken and
+> we should fix that.
+>
+> There are quite a few mechanisms for controlling delays like this
+> (Config Request Retry Status (PCIe r5.0, sec 2.3.1), Readiness
+> Notifications (sec 6.23), ACPI _DSM for power-on delays (PCI Firmware
+> Spec r3.3)), but most are for *reducing* delay, not for extending it.
+>
+> Linux supports CRS, but not all the others.  Maybe we're missing
+> something we should support?
+>
+> How do you deal with these issues for Windows?  If it works on Windows
+> without quirks, we should be able to make it work on Linux as well.
 
-The vmwgfx ones should all be back, the others I guess just werent ever
-applied. I'll vacuum them all up if you resend. Apologies for the wobbly
-ride.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+It works fine in windows.  Unfortunately, it's hard to tell what
+windows does exactly since MS supplies the USB driver in that case.
+Also, the extended delays are not necessary on our reference
+platforms, these seem to only be an issue on some OEM platforms.  I
+did confirm with the windows team that we use d3hot for USB on our
+current platforms due to bios bugs, but this is fixed on upcoming
+platforms.  Still digging for any more details.
+
+>
+> > Signed-off-by: Marcin Bachry <hegel666@gmail.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/pci/quirks.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index 653660e3ba9e..36e5ec670fae 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -1904,6 +1904,9 @@ static void quirk_ryzen_xhci_d3hot(struct pci_dev *dev)
+> >  }
+> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e0, quirk_ryzen_xhci_d3hot);
+> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e1, quirk_ryzen_xhci_d3hot);
+> > +/* Renoir XHCI requires longer delay when transitioning from D0 to
+> > + * D3hot */
+>
+> No need for "me too" comments that add no additional information.
+
+Will drop that.
+
+Alex
+
+>
+> > +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1639, quirk_ryzen_xhci_d3hot);
+> >
+> >  #ifdef CONFIG_X86_IO_APIC
+> >  static int dmi_disable_ioapicreroute(const struct dmi_system_id *d)
+> > --
+> > 2.30.2
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
