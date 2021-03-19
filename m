@@ -2,66 +2,71 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BB78C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83546C4332B
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3327064F59
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3327064F59
+	by mail.kernel.org (Postfix) with ESMTPS id 4C7AA64F4D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C7AA64F4D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9DD6EA14;
-	Fri, 19 Mar 2021 14:23:23 +0000 (UTC)
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C7E6E9F2
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 11:39:50 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id l3so5702489pfc.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 04:39:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DEE6EA1B;
+	Fri, 19 Mar 2021 14:23:25 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C49D56E9A4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 08:24:41 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id l4so8268246ejc.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 01:24:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6touTvWtKFiW8FAA9I+lUxn/libxVWo4D2ycjd25CNU=;
- b=JysePC4oS+r9hVAnL5SOOkUpYnTLbOFQQ89XBI4a3okMNXDpjjRNgKnhI8n1mFVCuY
- CYHmq0/MmYe7MH5etoA4lUm1pNAWWBtsSd/Jo+y85dzqOp37tRYZtng7n3cXDkovId2l
- s4S7yzUEuR2VMrcRvMJJNp1r1vjvfcSmAY7lpSVvoN2q2U13aGtE2z2jMjRV3FUQKH8C
- oItkVR7wpMOYsTSyMqtYOcYgug9B674bCr+97emKzvLeYYPIKKMhmRIPi+JndlIjIBPe
- 1SLFuybx6CVuNrHGMw5iE39jH3jq24GE5Ivy2rZh6GpmGtLx9cUzEdJmhfFtwZG2S7zn
- DUPA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=aMrUqo0YqYh2lLrOaeq1NIAU7nPi5AK4ygCC5+IgXJs=;
+ b=xMzgbPZVOLQWV/WNZ8/zEFm7gXF06+16gnuNa/aVAK/QKIuo7EHaH+rwqwNGLQjtif
+ jLAgrbn2DMVYgyKAh4q8fTdNeE5eSDIaWn8r5CtBX12ewcz2WSn+XnR08LDXXGAmBnXL
+ 8HFIyQCuQlni67VIHl/TZ5hLVGq8KJKlGpFg8e+J40gcX9yqYxdq0sFefFdYBYqlq1p7
+ u40JNKLG2Z4Ca3mThnxGSZs+dR7H1Xw+Z825hmVNUjE4gHbvDv95ue3pc2RgzbvR4dLw
+ luQ8c4ljbt4ONQQCVTSFcI+2k4OdBa6RY+a9GuFjhhIccV1z4OngdsUVSx/Ymxkp1YXZ
+ brrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6touTvWtKFiW8FAA9I+lUxn/libxVWo4D2ycjd25CNU=;
- b=KRPPgLb+VzxnyiqH+g2icwNbyvEMOqGrhCzA+MJYg56pfSimIyyPHyqO+0sugJ1mBD
- p9lI3M+YlBRin0hE8bLMESlzHUVIywczfdIdU5bUTM3e73/x5YfEn4dZJxcH1SJdwlpd
- GFfZo67/SNW52Hva6W2EgV1edmKmMxvSad757xwuo9LcNPnlAH68SnQl2IRUvviNlvG7
- Wvy5haMSu9ssG6J7bYK4B1DRXPrHYRIQmxER9ffCByLdgMI340I2BNlmI74RYOHtpI8r
- Joa8tLJzGL99pkj5bRH1DXHEkY7I1O6sjmfKf9rU3Amn9u2AvB0kLrw5hLkxAhjJSaLx
- PA4w==
-X-Gm-Message-State: AOAM533p0qz0MpgAbd85yvMSM6g9cV5rL552khQMhZ8XKIZeT6HcG3Tf
- a8nCVeXYBDGYPAQ9ELbb6zfFNVnKbKANHJWjIg9mAg==
-X-Google-Smtp-Source: ABdhPJyeCqjCUphOyfVJedr3z+m21c12HGU9r+h+y+1wFK9EpIFLFL0pv6Yl7m8YnEM3dvGLTDyQu9pkjTUfd9ZHA8k=
-X-Received: by 2002:aa7:980a:0:b029:20c:5402:5de9 with SMTP id
- e10-20020aa7980a0000b029020c54025de9mr8791358pfl.18.1616153990103; Fri, 19
- Mar 2021 04:39:50 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=aMrUqo0YqYh2lLrOaeq1NIAU7nPi5AK4ygCC5+IgXJs=;
+ b=sVWdAHAhcTpGaYJ1bA7sw30xAC+iDkqHteGmot3SZrppGSoV9nMWDNUCSD21P2maTA
+ s88UuNhxauduPrbzm5ynp+CgRBD/4s5IvTzL/5lI0YxQCY+04Rt024bWArCNTwRx1+Ck
+ UQJF4CbYP0fpvawlaaw4Nh7zRHx06dKqjExUkVrUVLz4ojgLDGSBlDXv8bSEPbcYOTac
+ sFANPmL+b9JAPcGKxmvUILw2XvTkCIEbFZr5rQagCDgq2IxYXscUpfROO2KZKFZulMtZ
+ FaQuyQicqIL07g5WRhERBy40+zKAbW2ZjoI3lomwc+tsFYwHPE0HLrE6rcPGhu9EqXRC
+ uX5w==
+X-Gm-Message-State: AOAM5329zCEhXWvzmpPw3ZGc12JRRdWcuT3ymEl6zN/fm3wI0+N71Cw+
+ YaPGzW9v/wK2hq0AvWtdwLNMxw==
+X-Google-Smtp-Source: ABdhPJzCaJaYhWu/7aVLIj1OQefDJ0Zu0iphS7NUCv/3Jcao8PWD08wakjGaaz0dRN3665HiRtM6Bg==
+X-Received: by 2002:a17:906:86c1:: with SMTP id
+ j1mr3063849ejy.373.1616142280425; 
+ Fri, 19 Mar 2021 01:24:40 -0700 (PDT)
+Received: from dell.default ([91.110.221.194])
+ by smtp.gmail.com with ESMTPSA id b18sm3273727ejb.77.2021.03.19.01.24.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Mar 2021 01:24:40 -0700 (PDT)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 08/19] drm/amd/display/dc/dce80/dce80_resource: Make local
+ functions static
+Date: Fri, 19 Mar 2021 08:24:17 +0000
+Message-Id: <20210319082428.3294591-9-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210319082428.3294591-1-lee.jones@linaro.org>
+References: <20210319082428.3294591-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-References: <20210219215326.2227596-1-lyude@redhat.com>
- <20210219215326.2227596-29-lyude@redhat.com>
-In-Reply-To: <20210219215326.2227596-29-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 19 Mar 2021 12:39:38 +0100
-Message-ID: <CAG3jFyveBSyS7k9D44m5e=8+HSvVsVhkXOokxyFOcRYDvHmWSw@mail.gmail.com>
-Subject: Re: [PATCH 28/30] drm/dp: Convert drm_dp_helper.c to using
- drm_err/drm_dbg_*()
-To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Fri, 19 Mar 2021 14:23:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,384 +79,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Leo Li <sunpeng.li@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
-
-Thanks for the patch.
-
-On Fri, 19 Feb 2021 at 23:03, Lyude Paul <lyude@redhat.com> wrote:
->
-> Now that we've added a back-pointer to drm_device to drm_dp_aux, made
-> drm_dp_aux available to any functions in drm_dp_helper.c which need to
-> print to the kernel log, and ensured all of our logging uses a consistent
-> format, let's do the final step of the conversion and actually move
-> everything over to using drm_err() and drm_dbg_*().
->
-> This was done by using the following cocci script:
->
->   @@
->   expression list expr;
->   @@
->
->   (
->   - DRM_DEBUG_KMS(expr);
->   + drm_dbg_kms(aux->drm_dev, expr);
->   |
->   - DRM_DEBUG_DP(expr);
->   + drm_dbg_dp(aux->drm_dev, expr);
->   |
->   - DRM_DEBUG_ATOMIC(expr);
->   + drm_dbg_atomic(aux->drm_dev, expr);
->   |
->   - DRM_DEBUG_KMS_RATELIMITED(expr);
->   + drm_dbg_kms_ratelimited(aux->drm_dev, expr);
->   |
->   - DRM_ERROR(expr);
->   + drm_err(aux->drm_dev, expr);
->   )
->
-> Followed by correcting the resulting line-wrapping in the results by hand.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/drm_dp_helper.c | 122 ++++++++++++++++----------------
->  1 file changed, 60 insertions(+), 62 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-> index b5e2671baf22..0a787ddf39fd 100644
-> --- a/drivers/gpu/drm/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/drm_dp_helper.c
-> @@ -139,8 +139,8 @@ void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux *aux,
->                                          DP_TRAINING_AUX_RD_MASK;
->
->         if (rd_interval > 4)
-> -               DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
-> -                             aux->name, rd_interval);
-> +               drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
-> +                           aux->name, rd_interval);
->
->         if (rd_interval == 0 || dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14)
->                 rd_interval = 100;
-> @@ -155,8 +155,8 @@ static void __drm_dp_link_train_channel_eq_delay(const struct drm_dp_aux *aux,
->                                                  unsigned long rd_interval)
->  {
->         if (rd_interval > 4)
-> -               DRM_DEBUG_KMS("%s: AUX interval %lu, out of range (max 4)\n",
-> -                             aux->name, rd_interval);
-> +               drm_dbg_kms(aux->drm_dev, "%s: AUX interval %lu, out of range (max 4)\n",
-> +                           aux->name, rd_interval);
->
->         if (rd_interval == 0)
->                 rd_interval = 400;
-> @@ -220,11 +220,12 @@ drm_dp_dump_access(const struct drm_dp_aux *aux,
->         const char *arrow = request == DP_AUX_NATIVE_READ ? "->" : "<-";
->
->         if (ret > 0)
-> -               DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
-> -                            aux->name, offset, arrow, ret, min(ret, 20), buffer);
-> +               drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d) %*ph\n",
-> +                          aux->name, offset, arrow, ret, min(ret, 20),
-> +                          buffer);
-
-checkpatch --strict is unhappy with this chunk
-
-ERROR: code indent should use tabs where possible
-#75: FILE: drivers/gpu/drm/drm_dp_helper.c:224:
-+^I^I           aux->name, offset, arrow, ret, min(ret, 20),$
-
-ERROR: code indent should use tabs where possible
-#76: FILE: drivers/gpu/drm/drm_dp_helper.c:225:
-
-
->         else
-> -               DRM_DEBUG_DP("%s: 0x%05x AUX %s (ret=%3d)\n",
-> -                            aux->name, offset, arrow, ret);
-> +               drm_dbg_dp(aux->drm_dev, "%s: 0x%05x AUX %s (ret=%3d)\n",
-> +                          aux->name, offset, arrow, ret);
-
-checkpatch --strict is unhappy with this chunk
-
-ERROR: code indent should use tabs where possible
-#81: FILE: drivers/gpu/drm/drm_dp_helper.c:228:
-+^I^I           aux->name, offset, arrow, ret);$
-
-
->  }
->
->  /**
-> @@ -287,8 +288,8 @@ static int drm_dp_dpcd_access(struct drm_dp_aux *aux, u8 request,
->                         err = ret;
->         }
->
-> -       DRM_DEBUG_KMS("%s: Too many retries, giving up. First error: %d\n",
-> -                     aux->name, err);
-> +       drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up. First error: %d\n",
-> +                   aux->name, err);
->         ret = err;
->
->  unlock:
-> @@ -524,44 +525,44 @@ bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
->
->         if (drm_dp_dpcd_read(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
->                              &auto_test_req, 1) < 1) {
-> -               DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
-> -                         aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
-> +               drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
-> +                       aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
->                 return false;
->         }
->         auto_test_req &= DP_AUTOMATED_TEST_REQUEST;
->
->         if (drm_dp_dpcd_read(aux, DP_TEST_REQUEST, &link_edid_read, 1) < 1) {
-> -               DRM_ERROR("%s: DPCD failed read at register 0x%x\n",
-> -                         aux->name, DP_TEST_REQUEST);
-> +               drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
-> +                       aux->name, DP_TEST_REQUEST);
->                 return false;
->         }
->         link_edid_read &= DP_TEST_LINK_EDID_READ;
->
->         if (!auto_test_req || !link_edid_read) {
-> -               DRM_DEBUG_KMS("%s: Source DUT does not support TEST_EDID_READ\n",
-> -                             aux->name);
-> +               drm_dbg_kms(aux->drm_dev, "%s: Source DUT does not support TEST_EDID_READ\n",
-> +                           aux->name);
->                 return false;
->         }
->
->         if (drm_dp_dpcd_write(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
->                               &auto_test_req, 1) < 1) {
-> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
-> -                         aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
-> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-> +                       aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
->                 return false;
->         }
->
->         /* send back checksum for the last edid extension block data */
->         if (drm_dp_dpcd_write(aux, DP_TEST_EDID_CHECKSUM,
->                               &real_edid_checksum, 1) < 1) {
-> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
-> -                         aux->name, DP_TEST_EDID_CHECKSUM);
-> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-> +                       aux->name, DP_TEST_EDID_CHECKSUM);
->                 return false;
->         }
->
->         test_resp |= DP_TEST_EDID_CHECKSUM_WRITE;
->         if (drm_dp_dpcd_write(aux, DP_TEST_RESPONSE, &test_resp, 1) < 1) {
-> -               DRM_ERROR("%s: DPCD failed write at register 0x%x\n",
-> -                         aux->name, DP_TEST_RESPONSE);
-> +               drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
-> +                       aux->name, DP_TEST_RESPONSE);
->                 return false;
->         }
->
-> @@ -604,17 +605,16 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
->                 return -EIO;
->
->         if (dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
-> -               DRM_DEBUG_KMS("%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
-> -                             aux->name, dpcd[DP_DPCD_REV],
-> -                             dpcd_ext[DP_DPCD_REV]);
-> +               drm_dbg_kms(aux->drm_dev,
-> +                           "%s: Extended DPCD rev less than base DPCD rev (%d > %d)\n",
-> +                           aux->name, dpcd[DP_DPCD_REV], dpcd_ext[DP_DPCD_REV]);
->                 return 0;
->         }
->
->         if (!memcmp(dpcd, dpcd_ext, sizeof(dpcd_ext)))
->                 return 0;
->
-> -       DRM_DEBUG_KMS("%s: Base DPCD: %*ph\n",
-> -                     aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-> +       drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
->
->         memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
->
-> @@ -649,8 +649,7 @@ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
->         if (ret < 0)
->                 return ret;
->
-> -       DRM_DEBUG_KMS("%s: DPCD: %*ph\n",
-> -                     aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
-> +       drm_dbg_kms(aux->drm_dev, "%s: DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
->
->         return ret;
->  }
-> @@ -694,8 +693,7 @@ int drm_dp_read_downstream_info(struct drm_dp_aux *aux,
->         if (ret != len)
->                 return -EIO;
->
-> -       DRM_DEBUG_KMS("%s: DPCD DFP: %*ph\n",
-> -                     aux->name, len, downstream_ports);
-> +       drm_dbg_kms(aux->drm_dev, "%s: DPCD DFP: %*ph\n", aux->name, len, downstream_ports);
->
->         return 0;
->  }
-> @@ -1412,11 +1410,11 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->                          * Avoid spamming the kernel log with timeout errors.
->                          */
->                         if (ret == -ETIMEDOUT)
-> -                               DRM_DEBUG_KMS_RATELIMITED("%s: transaction timed out\n",
-> -                                                         aux->name);
-> +                               drm_dbg_kms_ratelimited(aux->drm_dev, "%s: transaction timed out\n",
-> +                                                       aux->name);
->                         else
-> -                               DRM_DEBUG_KMS("%s: transaction failed: %d\n",
-> -                                             aux->name, ret);
-> +                               drm_dbg_kms(aux->drm_dev, "%s: transaction failed: %d\n",
-> +                                           aux->name, ret);
->                         return ret;
->                 }
->
-> @@ -1430,12 +1428,12 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->                         break;
->
->                 case DP_AUX_NATIVE_REPLY_NACK:
-> -                       DRM_DEBUG_KMS("%s: native nack (result=%d, size=%zu)\n",
-> -                                     aux->name, ret, msg->size);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: native nack (result=%d, size=%zu)\n",
-> +                                   aux->name, ret, msg->size);
->                         return -EREMOTEIO;
->
->                 case DP_AUX_NATIVE_REPLY_DEFER:
-> -                       DRM_DEBUG_KMS("%s: native defer\n", aux->name);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: native defer\n", aux->name);
->                         /*
->                          * We could check for I2C bit rate capabilities and if
->                          * available adjust this interval. We could also be
-> @@ -1449,8 +1447,8 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->                         continue;
->
->                 default:
-> -                       DRM_ERROR("%s: invalid native reply %#04x\n",
-> -                                 aux->name, msg->reply);
-> +                       drm_err(aux->drm_dev, "%s: invalid native reply %#04x\n",
-> +                               aux->name, msg->reply);
->                         return -EREMOTEIO;
->                 }
->
-> @@ -1465,13 +1463,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->                         return ret;
->
->                 case DP_AUX_I2C_REPLY_NACK:
-> -                       DRM_DEBUG_KMS("%s: I2C nack (result=%d, size=%zu)\n",
-> -                                     aux->name, ret, msg->size);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: I2C nack (result=%d, size=%zu)\n",
-> +                                   aux->name, ret, msg->size);
->                         aux->i2c_nack_count++;
->                         return -EREMOTEIO;
->
->                 case DP_AUX_I2C_REPLY_DEFER:
-> -                       DRM_DEBUG_KMS("%s: I2C defer\n", aux->name);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: I2C defer\n", aux->name);
->                         /* DP Compliance Test 4.2.2.5 Requirement:
->                          * Must have at least 7 retries for I2C defers on the
->                          * transaction to pass this test
-> @@ -1485,13 +1483,13 @@ static int drm_dp_i2c_do_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->                         continue;
->
->                 default:
-> -                       DRM_ERROR("%s: invalid I2C reply %#04x\n",
-> -                                 aux->name, msg->reply);
-> +                       drm_err(aux->drm_dev, "%s: invalid I2C reply %#04x\n",
-> +                               aux->name, msg->reply);
->                         return -EREMOTEIO;
->                 }
->         }
->
-> -       DRM_DEBUG_KMS("%s: Too many retries, giving up\n", aux->name);
-> +       drm_dbg_kms(aux->drm_dev, "%s: Too many retries, giving up\n", aux->name);
->         return -EREMOTEIO;
->  }
->
-> @@ -1520,8 +1518,9 @@ static int drm_dp_i2c_drain_msg(struct drm_dp_aux *aux, struct drm_dp_aux_msg *o
->                         return err == 0 ? -EPROTO : err;
->
->                 if (err < msg.size && err < ret) {
-> -                       DRM_DEBUG_KMS("%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
-> -                                     aux->name, msg.size, err);
-> +                       drm_dbg_kms(aux->drm_dev,
-> +                                   "%s: Partial I2C reply: requested %zu bytes got %d bytes\n",
-> +                                   aux->name, msg.size, err);
->                         ret = err;
->                 }
->
-> @@ -1700,12 +1699,11 @@ static void drm_dp_aux_crc_work(struct work_struct *work)
->                 }
->
->                 if (ret == -EAGAIN) {
-> -                       DRM_DEBUG_KMS("%s: Get CRC failed after retrying: %d\n",
-> -                                     aux->name, ret);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: Get CRC failed after retrying: %d\n",
-> +                                   aux->name, ret);
->                         continue;
->                 } else if (ret) {
-> -                       DRM_DEBUG_KMS("%s: Failed to get a CRC: %d\n",
-> -                                     aux->name, ret);
-> +                       drm_dbg_kms(aux->drm_dev, "%s: Failed to get a CRC: %d\n", aux->name, ret);
->                         continue;
->                 }
->
-> @@ -2001,13 +1999,12 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
->
->         dev_id_len = strnlen(ident->device_id, sizeof(ident->device_id));
->
-> -       DRM_DEBUG_KMS("%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
-> -                     aux->name, is_branch ? "branch" : "sink",
-> -                     (int)sizeof(ident->oui), ident->oui,
-> -                     dev_id_len, ident->device_id,
-> -                     ident->hw_rev >> 4, ident->hw_rev & 0xf,
-> -                     ident->sw_major_rev, ident->sw_minor_rev,
-> -                     desc->quirks);
-> +       drm_dbg_kms(aux->drm_dev,
-> +                   "%s: DP %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
-> +                   aux->name, is_branch ? "branch" : "sink",
-> +                   (int)sizeof(ident->oui), ident->oui, dev_id_len,
-> +                   ident->device_id, ident->hw_rev >> 4, ident->hw_rev & 0xf,
-> +                   ident->sw_major_rev, ident->sw_minor_rev, desc->quirks);
->
->         return 0;
->  }
-> @@ -2769,7 +2766,8 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux)
->         if (ret < 0)
->                 return ret;
->         if (!(buf & DP_PCON_ENABLE_SOURCE_CTL_MODE)) {
-> -               DRM_DEBUG_KMS("%s: PCON in Autonomous mode, can't enable FRL\n", aux->name);
-> +               drm_dbg_kms(aux->drm_dev, "%s: PCON in Autonomous mode, can't enable FRL\n",
-> +                           aux->name);
->                 return -EINVAL;
->         }
->         buf |= DP_PCON_ENABLE_HDMI_LINK;
-> @@ -2864,8 +2862,8 @@ void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
->                         num_error = 0;
->                 }
->
-> -               DRM_ERROR("%s: More than %d errors since the last read for lane %d",
-> -                         aux->name, num_error, i);
-> +               drm_err(aux->drm_dev, "%s: More than %d errors since the last read for lane %d",
-> +                       aux->name, num_error, i);
->         }
->  }
->  EXPORT_SYMBOL(drm_dp_pcon_hdmi_frl_link_error_count);
-> --
-> 2.29.2
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5j
+OjUyNzoxNzogd2FybmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciDigJhkY2U4MF9hdXhf
+ZW5naW5lX2NyZWF0ZeKAmSBbLVdtaXNzaW5nLXByb3RvdHlwZXNdCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmM6NTY1OjIwOiB3
+YXJuaW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUgZm9yIOKAmGRjZTgwX2kyY19od19jcmVhdGXi
+gJkgWy1XbWlzc2luZy1wcm90b3R5cGVzXQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4v
+ZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jOjU4MToyMDogd2FybmluZzogbm8gcHJl
+dmlvdXMgcHJvdG90eXBlIGZvciDigJhkY2U4MF9pMmNfc3dfY3JlYXRl4oCZIFstV21pc3Npbmct
+cHJvdG90eXBlc10KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNl
+ODAvZGNlODBfcmVzb3VyY2UuYzo3MTU6MjI6IHdhcm5pbmc6IG5vIHByZXZpb3VzIHByb3RvdHlw
+ZSBmb3Ig4oCYZGNlODBfbGlua19lbmNvZGVyX2NyZWF0ZeKAmSBbLVdtaXNzaW5nLXByb3RvdHlw
+ZXNdCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RjZTgwL2RjZTgw
+X3Jlc291cmNlLmM6NzU0OjIyOiB3YXJuaW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUgZm9yIOKA
+mGRjZTgwX2Nsb2NrX3NvdXJjZV9jcmVhdGXigJkgWy1XbWlzc2luZy1wcm90b3R5cGVzXQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJj
+ZS5jOjc3ODo2OiB3YXJuaW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUgZm9yIOKAmGRjZTgwX2Ns
+b2NrX3NvdXJjZV9kZXN0cm954oCZIFstV21pc3NpbmctcHJvdG90eXBlc10KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNlODAvZGNlODBfcmVzb3VyY2UuYzo4Njg6
+Njogd2FybmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciDigJhkY2U4MF92YWxpZGF0ZV9i
+YW5kd2lkdGjigJkgWy1XbWlzc2luZy1wcm90b3R5cGVzXQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvLi4vZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jOjkxMzoxNjogd2Fybmlu
+Zzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciDigJhkY2U4MF92YWxpZGF0ZV9nbG9iYWzigJkg
+Wy1XbWlzc2luZy1wcm90b3R5cGVzXQoKQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFu
+ZEBhbWQuY29tPgpDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CkNjOiBBbGV4IERldWNo
+ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5p
+ZT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6IEFudGhvbnkgS29vIDxB
+bnRob255Lktvb0BhbWQuY29tPgpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6
+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVz
+IDxsZWUuam9uZXNAbGluYXJvLm9yZz4KLS0tCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgw
+L2RjZTgwX3Jlc291cmNlLmMgICAgfCAxNiArKysrKysrKy0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
+ZCwgOCBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMKaW5kZXggNjEyNDUw
+Zjk5Mjc4Mi4uNzI1ZDkyZTQwY2QzMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMKQEAgLTUyNiw3ICs1MjYsNyBAQCBz
+dGF0aWMgc3RydWN0IG91dHB1dF9waXhlbF9wcm9jZXNzb3IgKmRjZTgwX29wcF9jcmVhdGUoCiAJ
+cmV0dXJuICZvcHAtPmJhc2U7CiB9CiAKLXN0cnVjdCBkY2VfYXV4ICpkY2U4MF9hdXhfZW5naW5l
+X2NyZWF0ZSgKK3N0YXRpYyBzdHJ1Y3QgZGNlX2F1eCAqZGNlODBfYXV4X2VuZ2luZV9jcmVhdGUo
+CiAJc3RydWN0IGRjX2NvbnRleHQgKmN0eCwKIAl1aW50MzJfdCBpbnN0KQogewpAQCAtNTY0LDcg
+KzU2NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGNlX2kyY19tYXNrIGkyY19tYXNrcyA9IHsK
+IAkJSTJDX0NPTU1PTl9NQVNLX1NIX0xJU1RfRENFX0NPTU1PTl9CQVNFKF9NQVNLKQogfTsKIAot
+c3RydWN0IGRjZV9pMmNfaHcgKmRjZTgwX2kyY19od19jcmVhdGUoCitzdGF0aWMgc3RydWN0IGRj
+ZV9pMmNfaHcgKmRjZTgwX2kyY19od19jcmVhdGUoCiAJc3RydWN0IGRjX2NvbnRleHQgKmN0eCwK
+IAl1aW50MzJfdCBpbnN0KQogewpAQCAtNTgwLDcgKzU4MCw3IEBAIHN0cnVjdCBkY2VfaTJjX2h3
+ICpkY2U4MF9pMmNfaHdfY3JlYXRlKAogCXJldHVybiBkY2VfaTJjX2h3OwogfQogCi1zdHJ1Y3Qg
+ZGNlX2kyY19zdyAqZGNlODBfaTJjX3N3X2NyZWF0ZSgKK3N0YXRpYyBzdHJ1Y3QgZGNlX2kyY19z
+dyAqZGNlODBfaTJjX3N3X2NyZWF0ZSgKIAlzdHJ1Y3QgZGNfY29udGV4dCAqY3R4KQogewogCXN0
+cnVjdCBkY2VfaTJjX3N3ICpkY2VfaTJjX3N3ID0KQEAgLTcxNCw3ICs3MTQsNyBAQCBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGVuY29kZXJfZmVhdHVyZV9zdXBwb3J0IGxpbmtfZW5jX2ZlYXR1cmUgPSB7
+CiAJCS5mbGFncy5iaXRzLklTX1RQUzNfQ0FQQUJMRSA9IHRydWUKIH07CiAKLXN0cnVjdCBsaW5r
+X2VuY29kZXIgKmRjZTgwX2xpbmtfZW5jb2Rlcl9jcmVhdGUoCitzdGF0aWMgc3RydWN0IGxpbmtf
+ZW5jb2RlciAqZGNlODBfbGlua19lbmNvZGVyX2NyZWF0ZSgKIAljb25zdCBzdHJ1Y3QgZW5jb2Rl
+cl9pbml0X2RhdGEgKmVuY19pbml0X2RhdGEpCiB7CiAJc3RydWN0IGRjZTExMF9saW5rX2VuY29k
+ZXIgKmVuYzExMCA9CkBAIC03NTMsNyArNzUzLDcgQEAgc3RhdGljIHN0cnVjdCBwYW5lbF9jbnRs
+ICpkY2U4MF9wYW5lbF9jbnRsX2NyZWF0ZShjb25zdCBzdHJ1Y3QgcGFuZWxfY250bF9pbml0X2QK
+IAlyZXR1cm4gJnBhbmVsX2NudGwtPmJhc2U7CiB9CiAKLXN0cnVjdCBjbG9ja19zb3VyY2UgKmRj
+ZTgwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoCitzdGF0aWMgc3RydWN0IGNsb2NrX3NvdXJjZSAqZGNl
+ODBfY2xvY2tfc291cmNlX2NyZWF0ZSgKIAlzdHJ1Y3QgZGNfY29udGV4dCAqY3R4LAogCXN0cnVj
+dCBkY19iaW9zICpiaW9zLAogCWVudW0gY2xvY2tfc291cmNlX2lkIGlkLApAQCAtNzc3LDcgKzc3
+Nyw3IEBAIHN0cnVjdCBjbG9ja19zb3VyY2UgKmRjZTgwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoCiAJ
+cmV0dXJuIE5VTEw7CiB9CiAKLXZvaWQgZGNlODBfY2xvY2tfc291cmNlX2Rlc3Ryb3koc3RydWN0
+IGNsb2NrX3NvdXJjZSAqKmNsa19zcmMpCitzdGF0aWMgdm9pZCBkY2U4MF9jbG9ja19zb3VyY2Vf
+ZGVzdHJveShzdHJ1Y3QgY2xvY2tfc291cmNlICoqY2xrX3NyYykKIHsKIAlrZnJlZShUT19EQ0Ux
+MTBfQ0xLX1NSQygqY2xrX3NyYykpOwogCSpjbGtfc3JjID0gTlVMTDsKQEAgLTg2Nyw3ICs4Njcs
+NyBAQCBzdGF0aWMgdm9pZCBkY2U4MF9yZXNvdXJjZV9kZXN0cnVjdChzdHJ1Y3QgZGNlMTEwX3Jl
+c291cmNlX3Bvb2wgKnBvb2wpCiAJfQogfQogCi1ib29sIGRjZTgwX3ZhbGlkYXRlX2JhbmR3aWR0
+aCgKK3N0YXRpYyBib29sIGRjZTgwX3ZhbGlkYXRlX2JhbmR3aWR0aCgKIAlzdHJ1Y3QgZGMgKmRj
+LAogCXN0cnVjdCBkY19zdGF0ZSAqY29udGV4dCwKIAlib29sIGZhc3RfdmFsaWRhdGUpCkBAIC05
+MTIsNyArOTEyLDcgQEAgc3RhdGljIGJvb2wgZGNlODBfdmFsaWRhdGVfc3VyZmFjZV9zZXRzKAog
+CXJldHVybiB0cnVlOwogfQogCi1lbnVtIGRjX3N0YXR1cyBkY2U4MF92YWxpZGF0ZV9nbG9iYWwo
+CitzdGF0aWMgZW51bSBkY19zdGF0dXMgZGNlODBfdmFsaWRhdGVfZ2xvYmFsKAogCQlzdHJ1Y3Qg
+ZGMgKmRjLAogCQlzdHJ1Y3QgZGNfc3RhdGUgKmNvbnRleHQpCiB7Ci0tIAoyLjI3LjAKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
