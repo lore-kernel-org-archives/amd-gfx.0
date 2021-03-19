@@ -2,72 +2,66 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE219C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E6D2C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8CC5764EF6
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CC5764EF6
+	by mail.kernel.org (Postfix) with ESMTPS id 2AC9864F4D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AC9864F4D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E605E6EA08;
-	Fri, 19 Mar 2021 14:09:01 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C470A6E056;
- Fri, 19 Mar 2021 14:09:00 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id w3so9928408ejc.4;
- Fri, 19 Mar 2021 07:09:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 678256EA13;
+	Fri, 19 Mar 2021 14:22:25 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E18DA6EA0F;
+ Fri, 19 Mar 2021 14:22:23 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ h6-20020a0568300346b02901b71a850ab4so8678317ote.6; 
+ Fri, 19 Mar 2021 07:22:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FH8/yKesFGyyRWjF6/nAIOhxZFQ+dMwT4llcZbOYxeE=;
- b=XRFQnMrCfCGvpKMIK3D9Djl0PLFe2e00//anag9FB8Fi0McXX+zphVoJkk+hH6T1j0
- nif+hsRGEN9C0u0nCZW36tQ6vD79MeFdU7QbS4V36G8stsdi46pHjc/ejIguyJ3CW3P8
- aP3vmsAi2EpwZOkVkSNRloa90UoT+1BtIPeNIVUKSDJMtl9i6A8kUlFI1hwL3hWKnijc
- oUBAYZf1oTd27YJY2n1k87ZB9Qoxy4tWmFyxHGldIridl52qk3wQQ+n6Pbp8mc+NBUzj
- hXvLiXNdJFkiJj5tX9kIXXd3Uk9WTHdsvGYnRNBxJpK8iYiq+sQ3HOBR18A8XPQU0LjA
- oXrA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=H+QTRu6EnHIJRSAxr0xqfxOd0QJj6B0MWLRcdPTUx6E=;
+ b=QG1GJGF09eRn2BJfugyVxbdtWB3kouSc28Ve52z65D2tx7ZZUD23R8f8ty6P8w4Jdu
+ bmIWlZYjsZg1VFL2IRknwtEbZIJNJIXG7bn+1d1EgM8d0yA9JML5LxOaH6bFGIAzbeum
+ HPKyoPLxbF2Rn69l5wDiL0GSFof3fOcjPNCCT9inw0JuJU9dDBybwr2r2F8KvbB0uVPB
+ TruKdtbUgTGS8ItSjHQlj/jwaGap03lCPx4S7uk6Qo4qdtQh8wuhORDslhcRytR46Gbv
+ fEO0BSJQFB41G0D1lwL21P9TIm8UWdR4tHnfvnEp9ITLXPCD6VwAf0hq1me2dwns5iHy
+ kejg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FH8/yKesFGyyRWjF6/nAIOhxZFQ+dMwT4llcZbOYxeE=;
- b=Nkn24jj3uU3/Pd9amhzk6iKPdz3SPuF9t12JE3UqLjz1ciUmpcVM3qaoYdjLagK+On
- /gO/II3Y9h+p8gfneMHQpTfn7Gx2zfuifAPmfwU2znbjWQNGSu4cA23r57KNaAFYymxc
- BYETe6A8X6MBmCXKxcOfaIBmgXMSgs3crld7SUExgZTG+z8AYmUZlbuSsxFjyDygmGt7
- ADPwDJUEEvU+Z/PvQwsM/wMctNfD6ezRQ3sybZhCSHFKIiCGAzmKswuUDp3bXR6JVX9S
- zK9ePAeA3voXV0UM0+ggTXfoGK2negXUwlfN5KBTzXNo2X53HyR6fxt2O3iO8EX+00nj
- 4bXA==
-X-Gm-Message-State: AOAM532D1IxS4gX1+1QjBwdJpR+etRxqjTAqLXLCg1xHbO3dbnup5vlo
- QAnNkLIQhnVuwWA7UGNkvvQ=
-X-Google-Smtp-Source: ABdhPJyoad26ECtNCvcuhKXJt+Q8AKFg1C1fsPZgpud2lfpiR+JYku5B6NZ4VpeDBxbPGdIXHMZb8A==
-X-Received: by 2002:a17:906:2314:: with SMTP id
- l20mr4671790eja.178.1616162939562; 
- Fri, 19 Mar 2021 07:08:59 -0700 (PDT)
-Received: from abel.fritz.box ([2a02:908:1252:fb60:77d0:99b3:2f05:2304])
- by smtp.gmail.com with ESMTPSA id y12sm3797214ejb.104.2021.03.19.07.08.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 07:08:58 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Leo.Liu@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Date: Fri, 19 Mar 2021 15:08:57 +0100
-Message-Id: <20210319140857.2262-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=H+QTRu6EnHIJRSAxr0xqfxOd0QJj6B0MWLRcdPTUx6E=;
+ b=agSatfIGhrSeAGd+ySR06pIp2+AbixOyN0zaWk7ZI2caxSmcDZTnmVVl0FDUjSz/0e
+ sD+f73GmXHxIoaWY5Qsja+C4nR6fZkxVRfuUTh2ijz1Y3350i3r/i6ASquCgLddyRUyH
+ TjW8s4krBYUnjjVCWGl7dY8su47rKnxugbzU+6MiUH2EPA906Dh6e1aDeVaWEnK6FdHn
+ mV3hzIoLUetEZlVtdGUb4J9SIcrOh4fiH+GOaUSn++Dj3PQ53q3cXBmpEJD9yKmWn3Nw
+ Gy6hj6WgFYpCyBo0wqeARZcJ9bIX4mSxr1Gp//PmQUwBWizd44uBZsq6o0ZXT6HG7Jgt
+ fCDg==
+X-Gm-Message-State: AOAM530xXGFuW10Ozly8QsWG5K+QnzLDPmBebDJc4ii8yXiX4jgdWJUi
+ kMjCjqpDD9wBh0ewAXsASbJjeFEuUcgJ7kD6/9Y=
+X-Google-Smtp-Source: ABdhPJxEwCWLzjFqAl2UnlrCHKPEGOjU2eg3HPVKAh9/P4eC++ZobzBV++X87wSuhhZv/hfDB3hKOLAzVdyEkhvo7Wk=
+X-Received: by 2002:a05:6830:408f:: with SMTP id
+ x15mr1432261ott.132.1616163743185; 
+ Fri, 19 Mar 2021 07:22:23 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210319164418.1.I5d51cc12776ee8993a1a54089b548952f75ada41@changeid>
+In-Reply-To: <20210319164418.1.I5d51cc12776ee8993a1a54089b548952f75ada41@changeid>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Mar 2021 10:22:12 -0400
+Message-ID: <CADnq5_OguuMsqT7MVC=ieNZm9mqyVUsGpQDHr59BWtBJJUvFoA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Set AMDGPU_DM_DEFAULT_MIN_BACKLIGHT to 0
+To: Evan Benn <evanbenn@chromium.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,33 +73,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stylon Wang <stylon.wang@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ David Airlie <airlied@linux.ie>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Anand <amistry@chromium.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RG9uJ3QgcHJpbnQgYSB3YXJuaW5nIHdoZW4gd2UgZmFpbCB0byBhbGxvY2F0ZSBhIHBhZ2UgZm9y
-IHN3YXBwaW5nIHRoaW5ncyBvdXQuCgpBbHNvIHJlbHkgb24gbWVtYWxsb2Nfbm9mc19zYXZlL21l
-bWFsbG9jX25vZnNfcmVzdG9yZSBpbnN0ZWFkIG9mIEdGUF9OT0ZTLgoKU2lnbmVkLW9mZi1ieTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS90dG0vdHRtX3R0LmMgfCA1ICsrKystCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
-b25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90
-dG1fdHQuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKaW5kZXggMmYwODMzYzk4ZDJj
-Li44NmZhM2U4MmRhY2MgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwpAQCAtMzY5LDcgKzM2OSw3IEBAIHN0
-YXRpYyB1bnNpZ25lZCBsb25nIHR0bV90dF9zaHJpbmtlcl9zY2FuKHN0cnVjdCBzaHJpbmtlciAq
-c2hyaW5rLAogCX07CiAJaW50IHJldDsKIAotCXJldCA9IHR0bV9ib19zd2Fwb3V0KCZjdHgsIEdG
-UF9OT0ZTKTsKKwlyZXQgPSB0dG1fYm9fc3dhcG91dCgmY3R4LCBHRlBfS0VSTkVMIHwgX19HRlBf
-Tk9XQVJOKTsKIAlyZXR1cm4gcmV0IDwgMCA/IFNIUklOS19FTVBUWSA6IHJldDsKIH0KIApAQCAt
-Mzg5LDEwICszODksMTMgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgdHRtX3R0X3Nocmlua2VyX2Nv
-dW50KHN0cnVjdCBzaHJpbmtlciAqc2hyaW5rLAogc3RhdGljIGludCB0dG1fdHRfZGVidWdmc19z
-aHJpbmtfc2hvdyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCiB7CiAJc3RydWN0IHNo
-cmlua19jb250cm9sIHNjID0geyAuZ2ZwX21hc2sgPSBHRlBfS0VSTkVMIH07CisJdW5zaWduZWQg
-aW50IGZsYWdzOwogCiAJZnNfcmVjbGFpbV9hY3F1aXJlKEdGUF9LRVJORUwpOworCWZsYWdzID0g
-bWVtYWxsb2Nfbm9mc19zYXZlKCk7CiAJc2VxX3ByaW50ZihtLCAiJWx1LyVsdVxuIiwgdHRtX3R0
-X3Nocmlua2VyX2NvdW50KCZtbV9zaHJpbmtlciwgJnNjKSwKIAkJICAgdHRtX3R0X3Nocmlua2Vy
-X3NjYW4oJm1tX3Nocmlua2VyLCAmc2MpKTsKKwltZW1hbGxvY19ub2ZzX3Jlc3RvcmUoZmxhZ3Mp
-OwogCWZzX3JlY2xhaW1fcmVsZWFzZShHRlBfS0VSTkVMKTsKIAogCXJldHVybiAwOwotLSAKMi4y
-NS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Fri, Mar 19, 2021 at 3:23 AM Evan Benn <evanbenn@chromium.org> wrote:
+>
+> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT was set to the value of 12
+> to ensure no display backlight will flicker at low user brightness
+> settings. However this value is quite bright, so for devices that do not
+> implement the ACPI ATIF
+> ATIF_FUNCTION_QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS
+> functionality the user cannot set the brightness to a low level even if
+> the display would support such a low PWM.
+>
+> This ATIF feature is not implemented on for example AMD grunt chromebooks.
+>
+> Signed-off-by: Evan Benn <evanbenn@chromium.org>
+>
+> ---
+> I could not find a justification for the reason for the value. It has
+> caused some noticable regression for users: https://bugzilla.kernel.org/show_bug.cgi?id=203439
+>
+> Maybe this can be either user controlled or userspace configured, but
+> preventing users from turning their backlight dim seems wrong.
+
+My understanding is that some panels flicker if you set the min to a
+value too low.  This was a safe minimum if the platform didn't specify
+it's own safe minimum.  I think we'd just be trading one bug for
+another (flickering vs not dim enough).  Maybe a whitelist or
+blacklist would be a better solution?
+
+Alex
+
+
+>
+> Also reviewed here: https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/+/2748377
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 573cf17262da..0129bd69b94e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3151,7 +3151,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> -#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+> +#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 0
+>  #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
+>  #define AUX_BL_DEFAULT_TRANSITION_TIME_MS 50
+>
+> --
+> 2.31.0.291.g576ba9dcdaf-goog
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
