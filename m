@@ -2,82 +2,76 @@ Return-Path: <SRS0=mZ+C=IR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 772B5C43381
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95E21C433E9
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE7DE64F4D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE7DE64F4D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id 5D3A864F4D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Mar 2021 14:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D3A864F4D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAEA6EA21;
-	Fri, 19 Mar 2021 14:23:30 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4696E9C9;
- Fri, 19 Mar 2021 12:49:31 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id BD388580975;
- Fri, 19 Mar 2021 08:49:28 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 19 Mar 2021 08:49:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=Ri9dccbfUpY1St2b6r2No3XwoI
- OIFcIlzR1DkG8WYwA=; b=PJhCPVJknm7YB3N0vhUgJhdTexNmPn9v2AbI+vbqq7
- UNsDC1piMcDrvNYDzHX4LBfD5mKJ2+aqOrR7EeFPGzBpQoODgPB24kekD5J4e+p1
- vEm/v1u/rl4rzsoMbOjysD2dqsivrrmPc8Yf/Kd/muLZDK8nSwRovLOp4BZr4HvY
- PDaqtrnkYY+D2YPRYHzt3EqVlQKeYvQsokw+pCp30gh565n7Rkeul036hStHDgZ+
- 9HKqlv9QbpaQANTWLi7gpu5tt01gRnNvt7CpbTPneTvuyFE2Xxx8ieSRIApx+P7y
- iahnjEgb5tSYydVX/MxxCPNZsnd/2loEXhVKPldfoK1g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Ri9dccbfUpY1St2b6
- r2No3XwoIOIFcIlzR1DkG8WYwA=; b=YYM3n2AFxGK6Jey95SPGXSLzv6J22G4LC
- w3wTr++FkF40tyVPkrl4EXYebFv5zb+4/aw8C+G3Yoa4HtD7lID5kmk7a4ohf7Ej
- nO5T64bIqBvqM3mIa8dB6ySfVZZ+jLO+KC9FIM0E3OsfQqEgYjlOa6IxpMjgf1n+
- 69kGeKvGguPWStboP2EyY+qPrpErtX7j9vCS8n4i8nlSkhNXRVZsn7DJxrteieSK
- CfzjTvlMGxxirpTqK9xct2v2tBthLa4ZDCsCF2ik+yuAn5iJgBOwXsJ8KL7Ec8rN
- lFZDvq/rB4TiS2GNwSWJJqqQPyiyBwrvH+/fs1OowEaTugKS1Nv5A==
-X-ME-Sender: <xms:1Z1UYL_IfSLUtsbJQD-Ju1UqhiddiSEtjXfnRpa2Z0uc2BZcGJTlBw>
- <xme:1Z1UYBJJPxGz07deGpd8t08M4z7sM2aL0cnG5J9T9k3tZyKgLmMOAIB3dpjRf0V4Q
- P5ZtM7jPUCjlfJILRc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefkedggeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhmvgcu
- tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
- hrnhepjeffheduvddvvdelhfegleelfffgieejvdehgfeijedtieeuteejteefueekjeeg
- necukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrg
- hrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:1p1UYImWxnpqbilYwpefWBeFUWOS5luku2MO1iqqIMg1OI7xCvOeFw>
- <xmx:1p1UYNNBBM74Ire9u3bVpwEnt7RPQDM4iriTHPSOcg0V7QraFp02Gw>
- <xmx:1p1UYG1_pE6A5hSODITOcJvwXxCPjrTcmTSn2Vm_2ZDZxKWKW-Zqdg>
- <xmx:2J1UYPBGHoRSKBYWP9NO5eOXOk5Rji0mBpRMIM56N4H3dasgmYZ1_A>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 98296240068;
- Fri, 19 Mar 2021 08:49:25 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
-Subject: [PATCH 1/3] drm/connector: Create a helper to attach the
- hdr_output_metadata property
-Date: Fri, 19 Mar 2021 13:49:20 +0100
-Message-Id: <20210319124922.144726-1-maxime@cerno.tech>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA3856EA26;
+	Fri, 19 Mar 2021 14:23:31 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD2ED6E3F0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 08:24:11 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id w18so9793982edc.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 01:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=i3ME3RZycqfcfKl/INYO3mj0pc2g5bpS8vxgj1H2Zho=;
+ b=P+5LihIKwLgCsx10OfJIAw04qzyiTgtZ+9mVR3WckS2IOAidGoGZL3ddGFqeTyiWrx
+ HFNLGJkkIgVaAyVKZXa3FE1/nuP6JHJbyOdedNBMMzQp/iT+6gDLy1aJtYevlvk92o+g
+ FOiw14Uq3K23+15kZQxvtt3z0iFriNPPHzkntAqWaThhUj0y5bOV/LkWWvM5vboi3NL6
+ nruXC6lGYs+ze7MJBrOuFwiI1j/aNoW14FE/UHwTmaxsYLtiY6iwiT8Nknb+edBW42sw
+ /gW2YDfE/zZkyFLp5hFpuBA/KGScPE/fy3K2x45r7r5KCQ161p+ccfRVEUZjHFsRSn6F
+ rnRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=i3ME3RZycqfcfKl/INYO3mj0pc2g5bpS8vxgj1H2Zho=;
+ b=UeSlvd6U+vPvco0JJd5KybZXxMIRlKdxLSeTcnXDWVRp0B7L1UZ+RtHfE+xgKiyLAz
+ KsnSvAyRLOWxnSaMTitn3tyU98Gz1JjS6HpGucvMolRnPzXwM7NXedLgrUN3Zhv7Y1UT
+ 8ZtYBz5fgw+cC2lzaevID+34uUNlQPZmAqgWGGK28jj4FnZj6YCINWQIO05FGZW3fTVj
+ ylQnXb0MabwwaDvUbQuVMkFMEc+8f1L+DR/ld52R0qzCjEjW8yRXi+UiRCI5ZYdl9lnc
+ cLyNcHs5lN0OwkwF7MM9zXKffrlDFdp5GDYDgpDK6hvmEYZ/p1aTycB/HJS27I6Pnjoy
+ M7Ag==
+X-Gm-Message-State: AOAM532RsOfAkhs9JxfO/ZwrIfVvj3SxxZcCxK4s+Gyh6y9rZE8qSYr5
+ znAZeYbeOcXvQpi7/pr1zY/dug==
+X-Google-Smtp-Source: ABdhPJwvsynmGTO200msXpOq0tH3ulqN/PugQIqOCYp1LVOxM4bgeagMgSBC0AYVkGV7Fb9kcROngA==
+X-Received: by 2002:a05:6402:17af:: with SMTP id
+ j15mr8214688edy.50.1616142250503; 
+ Fri, 19 Mar 2021 01:24:10 -0700 (PDT)
+Received: from dell ([91.110.221.194])
+ by smtp.gmail.com with ESMTPSA id gb4sm3185084ejc.122.2021.03.19.01.24.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Mar 2021 01:24:10 -0700 (PDT)
+Date: Fri, 19 Mar 2021 08:24:07 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [RESEND 00/53] Rid GPU from W=1 warnings
+Message-ID: <20210319082407.GG2916463@dell>
+References: <20210303134319.3160762-1-lee.jones@linaro.org>
+ <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
+ <20210308091932.GB4931@dell> <YEobySvG0zPs9xhc@phenom.ffwll.local>
+ <20210311135152.GT701493@dell> <20210317081729.GH701493@dell>
+ <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
+ <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 19 Mar 2021 14:23:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,133 +84,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Gover <tim.gover@raspberrypi.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Eric Anholt <eric@anholt.net>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Phil Elwell <phil@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Dom Cobley <dom@raspberrypi.com>,
- Andrzej Hajda <a.hajda@samsung.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>,
+ Nouveau Dev <nouveau@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Qinglang Miao <miaoqinglang@huawei.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jeremy Kolb <jkolb@brandeis.edu>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, Roland Scheidegger <sroland@vmware.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-All the drivers that implement HDR output call pretty much the same
-function to initialise the hdr_output_metadata property, and while the
-creation of that property is in a helper, every driver uses the same
-code to attach it.
-
-Provide a helper for it as well
-
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  3 +--
- drivers/gpu/drm/drm_connector.c               | 21 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  3 +--
- include/drm/drm_connector.h                   |  1 +
- 5 files changed, 25 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 22124f76d0b5..06908a3cee0f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7017,9 +7017,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
- 	    connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
- 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
--		drm_object_attach_property(
--			&aconnector->base.base,
--			dm->ddev->mode_config.hdr_output_metadata_property, 0);
-+		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
- 
- 		if (!aconnector->mst_port)
- 			drm_connector_attach_vrr_capable_property(&aconnector->base);
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index dda4fa9a1a08..f24bbb840dbf 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2492,8 +2492,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 	drm_connector_attach_max_bpc_property(connector, 8, 16);
- 
- 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
--		drm_object_attach_property(&connector->base,
--			connector->dev->mode_config.hdr_output_metadata_property, 0);
-+		drm_connector_attach_hdr_output_metadata_property(connector);
- 
- 	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
- 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 98b6ec45ef96..e25248e23e18 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2149,6 +2149,27 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
- 
-+/**
-+ * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
-+ * @connector: connector to attach the property on.
-+ *
-+ * This is used to allow the userspace to send HDR Metadata to the
-+ * driver.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop = dev->mode_config.hdr_output_metadata_property;
-+
-+	drm_object_attach_property(&connector->base, prop, 0);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_attach_hdr_output_metadata_property);
-+
- /**
-  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
-  * capable property for a connector
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index c5959590562b..52c051efb7b7 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2958,8 +2958,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *c
- 	drm_connector_attach_content_type_property(connector);
- 
- 	if (INTEL_GEN(dev_priv) >= 10 || IS_GEMINILAKE(dev_priv))
--		drm_object_attach_property(&connector->base,
--			connector->dev->mode_config.hdr_output_metadata_property, 0);
-+		drm_connector_attach_hdr_output_metadata_property(connector);
- 
- 	if (!HAS_GMCH(dev_priv))
- 		drm_connector_attach_max_bpc_property(connector, 8, 12);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 1922b278ffad..32172dab8427 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1671,6 +1671,7 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
- 					       u32 scaling_mode_mask);
- int drm_connector_attach_vrr_capable_property(
- 		struct drm_connector *connector);
-+int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
- int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
- int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector);
- int drm_mode_create_dp_colorspace_property(struct drm_connector *connector);
--- 
-2.30.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCAxOCBNYXIgMjAyMSwgRGFuaWVsIFZldHRlciB3cm90ZToKCj4gT24gV2VkLCBNYXIg
+MTcsIDIwMjEgYXQgOTozMiBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3Rl
+Ogo+ID4KPiA+IE9uIFdlZCwgTWFyIDE3LCAyMDIxIGF0IDk6MTcgQU0gTGVlIEpvbmVzIDxsZWUu
+am9uZXNAbGluYXJvLm9yZz4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIFRodSwgMTEgTWFyIDIwMjEs
+IExlZSBKb25lcyB3cm90ZToKPiA+ID4KPiA+ID4gPiBPbiBUaHUsIDExIE1hciAyMDIxLCBEYW5p
+ZWwgVmV0dGVyIHdyb3RlOgo+ID4gPiA+Cj4gPiA+ID4gPiBPbiBNb24sIE1hciAwOCwgMjAyMSBh
+dCAwOToxOTozMkFNICswMDAwLCBMZWUgSm9uZXMgd3JvdGU6Cj4gPiA+ID4gPiA+IE9uIEZyaSwg
+MDUgTWFyIDIwMjEsIFJvbGFuZCBTY2hlaWRlZ2dlciB3cm90ZToKPiA+ID4gPiA+ID4KPiA+ID4g
+PiA+ID4gPiBUaGUgdm13Z2Z4IG9uZXMgbG9vayBhbGwgZ29vZCB0byBtZSwgc28gZm9yCj4gPiA+
+ID4gPiA+ID4gMjMtNTM6IFJldmlld2VkLWJ5OiBSb2xhbmQgU2NoZWlkZWdnZXIgPHNyb2xhbmRA
+dm13YXJlLmNvbT4KPiA+ID4gPiA+ID4gPiBUaGF0IHNhaWQsIHRoZXkgd2VyZSBhbHJlYWR5IHNp
+Z25lZCBvZmYgYnkgWmFjaywgc28gbm90IHN1cmUgd2hhdAo+ID4gPiA+ID4gPiA+IGhhcHBlbmVk
+IGhlcmUuCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IFllcywgdGhleSB3ZXJlIGFjY2VwdGVkIGF0
+IG9uZSBwb2ludCwgdGhlbiBkcm9wcGVkIHdpdGhvdXQgYSByZWFzb24uCj4gPiA+ID4gPiA+Cj4g
+PiA+ID4gPiA+IFNpbmNlIEkgcmViYXNlZCBvbnRvIHRoZSBsYXRlc3QgLW5leHQsIEkgaGFkIHRv
+IHBsdWNrIHRoZW0gYmFjayBvdXQgb2YKPiA+ID4gPiA+ID4gYSBwcmV2aW91cyBvbmUuCj4gPiA+
+ID4gPgo+ID4gPiA+ID4gVGhleSBzaG91bGQgc2hvdyB1cCBpbiBsaW51eC1uZXh0IGFnYWluLiBX
+ZSBtZXJnZSBwYXRjaGVzIGZvciBuZXh0IG1lcmdlCj4gPiA+ID4gPiB3aW5kb3cgZXZlbiBkdXJp
+bmcgdGhlIGN1cnJlbnQgbWVyZ2Ugd2luZG93LCBidXQgbmVlZCB0byBtYWtlIHN1cmUgdGhleQo+
+ID4gPiA+ID4gZG9uJ3QgcG9sbHV0ZSBsaW51eC1uZXh0LiBPY2Nhc2lvbmFsbHkgdGhlIGN1dCBv
+ZmYgaXMgd3Jvbmcgc28gcGF0Y2hlcwo+ID4gPiA+ID4gc2hvdyB1cCwgYW5kIHRoZW4gZ2V0IHB1
+bGxlZCBhZ2Fpbi4KPiA+ID4gPiA+Cj4gPiA+ID4gPiBVbmZvcnR1bmF0ZWx5IGVzcGVjaWFsbHkg
+dGhlIDUuMTIgbWVyZ2UgY3ljbGUgd2FzIHZlcnkgd29iYmx5IGR1ZSB0byBzb21lCj4gPiA+ID4g
+PiBjb25mdXNpb24gaGVyZS4gQnV0IHlvdXIgcGF0Y2hlcyBzaG91bGQgYWxsIGJlIGluIGxpbnV4
+LW5leHQgYWdhaW4gKHRoZXkKPiA+ID4gPiA+IGFyZSBxdWV1ZWQgdXAgZm9yIDUuMTMgaW4gZHJt
+LW1pc2MtbmV4dCwgSSBjaGVja2VkIHRoYXQpLgo+ID4gPiA+ID4KPiA+ID4gPiA+IFNvcnJ5IGZv
+ciB0aGUgY29uZnVzaW9uIGhlcmUuCj4gPiA+ID4KPiA+ID4gPiBPaCwgSSBzZWUuICBXZWxsIHNv
+IGxvbmcgYXMgdGhleSBkb24ndCBnZXQgZHJvcHBlZCwgSSdsbCBiZSBoYXBweS4KPiA+ID4gPgo+
+ID4gPiA+IFRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9uIERhbmllbAo+ID4gPgo+ID4gPiBBZnRl
+ciByZWJhc2luZyB0b2RheSwgYWxsIG9mIG15IEdQVSBwYXRjaGVzIGhhdmUgcmVtYWluZWQuICBX
+b3VsZAo+ID4gPiBzb21lb25lIGJlIGtpbmQgZW5vdWdoIHRvIGNoZWNrIHRoYXQgZXZlcnl0aGlu
+ZyBpcyBzdGlsbCBpbiBvcmRlcgo+ID4gPiBwbGVhc2U/Cj4gPgo+ID4gSXQncyBzdGlsbCBicm9r
+ZW4gc29tZWhvdy4gSSd2ZSBraWNlZCBNYXhpbWUgYW5kIE1hYXJ0ZW4gYWdhaW4sCj4gPiB0aGV5
+J3JlIGFsc28gb24gdGhpcyB0aHJlYWQuCj4gCj4gWW91J3JlIHBhdGNoZXMgaGF2ZSBtYWRlIGl0
+IGludG8gZHJtLW5leHQgbWVhbndoaWxlLCBzbyB0aGV5IHNob3VsZAo+IHNob3cgdXAgaW4gbGlu
+dXgtbmV4dCB0aHJvdWdoIHRoYXQgdHJlZSBhdCBsZWFzdC4gRXhjZXB0IGlmIHRoYXQgb25lCj4g
+YWxzbyBoYXMgc29tZSB0cm91YmxlLgoKVGhhbmtzIGZvciBsZXR0aW5nIG1lIGtub3cuCgpJIHNl
+ZSBzb21lIHBhdGNoZXMgbWFkZSBpdCBiYWNrIGluLCBvdGhlcnMgZGlkbid0LgoKSSdsbCByZXNl
+bmQgdGhlIHN0cmFnZ2xlcnMgLSBiZWFyIHdpdGguCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9d
+ClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3JnIOKU
+giBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJv
+b2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
