@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B6BAC433C1
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 Mar 2021 04:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21907C433DB
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Mar 2021 04:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF2076196F
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 Mar 2021 04:18:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF2076196F
+	by mail.kernel.org (Postfix) with ESMTPS id D7B786196F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Mar 2021 04:19:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7B786196F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6196EB1A;
-	Sat, 20 Mar 2021 04:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929006EB1B;
+	Sat, 20 Mar 2021 04:19:01 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD4836EB1A
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Mar 2021 04:18:55 +0000 (UTC)
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DAA66EB1B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Mar 2021 04:19:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KIrBuuErYkpl1L49cmA6h3a22uLSjH3saxvfgZkC6yqn+WnZvPJqAKnxyAA5Kz7SrlK2rLnR1rk4x6J9jH0QQnJgUeuOHL86hYZOfle3Yt7BNPpoa11aYhj2EmcAyHoz9IY1YR2qyZEX57hP4AXFETHUC6zee6ZAUnDMHHixip9QCx5hWkaEQ77X2VeRflNaOS0LhNWyEnsQ2GBme5+aMsXmSYYgVmWBLnn9kcjBsOzFniMsGXP+xcFRwfXbdLliDgt0QBPYdzKwY29l1I0qZ5QSno9yvRx5qZaCVbHEPWZmgflH4SY+ITE/EcDDd9C6Yt9eYsU7RccVRwDNSQX2zg==
+ b=TpF5nEj7bcSJ7Z4+7eGiKLuw1mZT1K5/pYIWGejKlcCw7RLPszvCURujGnPw1vrpaYzhueVQtOzLxilIel1pi6Wdbjgsh/H9onOL77NRUvttpfdYIXVNotx8cN1uirvCDQ0EnyQZnwpDXk7IAfuZ1S6g0KrDGh/GfsTKMlp9Yd0gfOb0D5baq8y39Lh8VQAE+7Uif6+QgESMu/5xb/y7PB70hTdNcvykCYJIKbxAseIFz/SOmD2PXu94n2z2e72U9v+4d6V6wFjl9nJAYjoNmYy1O+bvoS2CK9K+GagK8gEhA6tdKKIzmyNU5996dL+6PYwuhhnq+Qvg50GWGOBbuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvKQfW6XYzajn7CPw3L7W0lCKZBCat1NWoxvgAeAAZE=;
- b=OSUl2yEZMoeLq3wHzh94iP86YLhV0VieVR9Ju4uadxLcIvWX0ZxPVdiY54qsTB0hu8Wx7O2IAeLZbB5efh98jqkTuYaeNxKlFrt3jbRUJnYXk/oj91KOjNmp8T5oQJEdHY5syzK/FWjedfn+PaXcx0vrBsYdSGPlH6sKmiNn8IeDYpK5dW1PVCH2BEJXhfYIGHt0CWKSu1NOvYMCjaljsOd3Jeh/nTWeYg0IbxUl5AyLcVB++u/XV4LpcfqatYJs+QbzKVALD1VpCHtJgLkQ9iPFcjXw2dC+GxgH4Vq20vFxqUXRNwMmLe51mdMpwKyOsj4hRnMocXk27XA1fT3vMA==
+ bh=59hPhAiWdtwMkY+4HkIfRANfRF+Z+uS/w9cytSDwfeU=;
+ b=F8SJjdRGJFXzESr5COmlGOjJlgtLWvUOvgNidfVR+CmHc3eKI9y3WL1gdAkMO4X2XMLUbjPKyBiouRP6A/wrLkL8/Wng+kjNSqhJK8/LxOYtg8ZyfVVdMn+v5z97KSWTrVd8LDjDaMCkJDa2tMK6aLhIydkz4oBpR9P+VAtC0D4sYreJJEXxigEDGnNwJnGh+xTOgTJBhGYlT8spDwNPxN4KDvCtbKVYc19x+R/oJhGfVlpd31kLxAq9Wam5ybmRaVB81KvQEPL6EPyLqBWLvXMrhcj5ItZ2odNwUwloravWjvyq+M9t7YTHwKZ3oI2Gyda/r53RCfTZ5nfacOpd/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvKQfW6XYzajn7CPw3L7W0lCKZBCat1NWoxvgAeAAZE=;
- b=mM5pResVtka0zgh2B+qdng/XiWztroT2YpTSN/dVzhEcpd459+s2b/IG8c/TUcGzqcgmimuU18uqQNcc0sxd4HzhAhXJbrhOQ7xPIW+gntI448+rrq6NyMPAPTGa/Z1qAy8ShsrFKkzL8q7UZsYcmsmHQAspYaStcQIvDQlMjPU=
+ bh=59hPhAiWdtwMkY+4HkIfRANfRF+Z+uS/w9cytSDwfeU=;
+ b=hzbpaeIYPd4K8XkZW2uxzqiqaiUqoPf5nF6nfyYykTf5IMqp2g6jALANlsCe5vv82YG7Jsy+9Ov4vu7VCquiJI1g0yaEjnXwzWPaKsI0IzBoOrUa/pdbquxAjnhJ0JOVvUufZE+zqmk6sl4P45+mGtdAV6va7lxVPsxqUSvlegw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,16 @@ Received: from SN6PR12MB2605.namprd12.prod.outlook.com (2603:10b6:805:6a::11)
  by SN6PR12MB4704.namprd12.prod.outlook.com (2603:10b6:805:e8::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Sat, 20 Mar
- 2021 04:18:54 +0000
+ 2021 04:18:58 +0000
 Received: from SN6PR12MB2605.namprd12.prod.outlook.com
  ([fe80::5c4e:1bdd:5eed:b2d1]) by SN6PR12MB2605.namprd12.prod.outlook.com
  ([fe80::5c4e:1bdd:5eed:b2d1%6]) with mapi id 15.20.3955.018; Sat, 20 Mar 2021
- 04:18:54 +0000
+ 04:18:58 +0000
 From: Solomon Chiu <solomon.chiu@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/14] drm/amd/display: Add kernel doc to crc_rd_wrk field
-Date: Sat, 20 Mar 2021 09:46:45 +0800
-Message-Id: <20210320014656.23350-4-solomon.chiu@amd.com>
+Subject: [PATCH 04/14] drm/amd/display: revert max lb lines change
+Date: Sat, 20 Mar 2021 09:46:46 +0800
+Message-Id: <20210320014656.23350-5-solomon.chiu@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20210320014656.23350-1-solomon.chiu@amd.com>
 References: <20210320014656.23350-1-solomon.chiu@amd.com>
@@ -67,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from LAPTOP-K5LN3AJ2.localdomain (165.204.134.249) by
  HKAPR03CA0030.apcprd03.prod.outlook.com (2603:1096:203:c9::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3977.9 via Frontend Transport; Sat, 20 Mar 2021 04:18:48 +0000
+ 15.20.3977.9 via Frontend Transport; Sat, 20 Mar 2021 04:18:54 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6e6d7f13-6f2f-4938-8516-08d8eb5744ef
+X-MS-Office365-Filtering-Correlation-Id: 8d413ddf-e9c2-401d-88fd-08d8eb57484c
 X-MS-TrafficTypeDiagnostic: SN6PR12MB4704:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB4704768716760C70F49E2DA797679@SN6PR12MB4704.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB4704D602FB940F0E4FFF03A497679@SN6PR12MB4704.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:107;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wFru4gO1kcaml5kOCba24dWAMhxgS00XeiXdOjSGFfILmCcd2tsj0YitO18nE8x10Cc/qjZ8425/ZWPEOgt1MULH1a523H4kXoyAHwCWOYWZCIuXdQ1xp3QGqCPpVxo/U3octBnQjFjQuJhW3pkb1ypZuW8fKlM2AM6/wxMK06uxhnOo6gvzRp4CGTE04PvOXlMwJ+UEHzVz83ty17D/RubQVu5XIDCroz31P8nPKesmgyhmj6LWkPukg0++X3O3XjJlbRn0r3OWG/smtwWuVRLQlaXprm13izVwS5OResc4zCh6ACQKbVqIB+qZX6brpiXChcbrPPKZrNuP2plo3X2a0TIgS5WKtrDz3os/Uvsnxt3Mn0uVHz1D7o9K/PgFoh9Ys/TwPlioRM0wQeBZA7bJTlPCSdyD3Z++OVRlJuJTSQV4haLCMDm3eNO7sYcJaBrTGsQXOjyYld74s2CWAdCYEYq3kj0jdO/CNxUdDugndbEWqn/OCAJKhvtB4TO/7E1gwUU95UY4Kn/GNMkA5z6EpFkyAHtNb6k4eqfX4/eHYJTjnmNAEpGHzvU3Qanjr+B/WFv2L3hsDy5BWCs6opWYhFkOoVWqHIQYllGT2HpWg+7RWjgZ2KneaYrsLWp6lIJCLKlP33ERA2IsizAJbGuPkJ/LAaSioTNKA14Qu+s=
+X-Microsoft-Antispam-Message-Info: amaG+QApqjq6NruwC/p/jB/D14F/UduFB3TCEIt8GcDCSUKY0dsemgSNTHKFZ6zMP4IBxPjUG/5umXeXS69KJcKx06tlCS8Rz3g/goM6nZuQoqgshWiH9oYnOjGBWY+BBUSZijaClCdMKwDpyI92fya9ulChZDTa5jyhcMg9OTA1YKg3KdRU0eC5fklQGy6VX3962RW4b+XKMtTy0vWzzpQCksErKywvs8EWHWLoz2nhreGTczBByPuhSNsH0D5DmWPowegqg7NDNbabbNhG+p9z3+53M/4WXhvmBN4hubljggR0vDt/3BJFX6WNqeM3ZQuR+aV/N1bQAVrBZM2w5PGDKZVkpPiZJ8fvP5HyKOqQN8TBCAILv9vBRBVbHbiPK+QncnW0wOV/dvn/iGklvrMX85LMBrBF+B2AECbBD71WFlKiKKOO0mjwGdqD0OO8MDDLIhEhOIZbp9as8PLxuPyBC27S7wIt9MdRHpkg5BHxBnJyoOsqXpsDa3U0LyuRSK0dqRooxAIMB4v4Cek9M4iAtqmMrSwOgkEnfvabgvmMlR6a01UJT+rS7ludA4j3d49I58PdYJcBCgBJcF612xkwhj2fPYPbajJleTMavKoMp+1sjRXk0S+K9XSCKipotWzQUA0gRZPAucdpM43m+EbXlqd0+LlNCRbeXUmp99M=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR12MB2605.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(8936002)(6512007)(44832011)(6666004)(26005)(478600001)(4326008)(8676002)(52116002)(38100700001)(36756003)(316002)(86362001)(6916009)(6486002)(1076003)(2616005)(54906003)(83380400001)(5660300002)(66556008)(66946007)(186003)(956004)(16526019)(66476007)(2906002)(6506007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?tjc1At/a0ukKzkBpkkZ7f5PLBZbWh6udDALB+Yb9f84LFKA6hY1pXrKt0QfW?=
- =?us-ascii?Q?CS1n82VDsoDiksX4QULrXYuBTM/J51jLoVeZsSwaUANmKUCjiaIDgv+fRyxC?=
- =?us-ascii?Q?6KpJ/SEZ11hJ8OOVnRQYofhZUp+1h4PWE4pF0khpgdXQ0PU5ByCHceHDwE8+?=
- =?us-ascii?Q?Q2DifjHMHorg2ghrRK9uxOUUgrfCWnIfcfq4t9vvEeODvk1GuIoJXOQjcdCR?=
- =?us-ascii?Q?dPRISbEp/Q4qM3Wsrtr3E2/iZrBG3UpC8Hoo5QugyalviGbiwaMHyhL944rw?=
- =?us-ascii?Q?qttsXmWuA5I93dt8LayYO4hxxkzuHi00gxmjQQUY7VifI2i5nhprIOyk5rwC?=
- =?us-ascii?Q?lym+SyPFArwK0fMYaG1DU6K9g4SK0iUkXcodTu74HKeJY+ht0HYGIn1qrSjI?=
- =?us-ascii?Q?sZmmFJnOgVhXO53cXb7CrRGLfmcAnuEmlhaO37GSUzfVTE1as3ymLJZ2iFPD?=
- =?us-ascii?Q?wbPQgayz0SM4sLVPrQkxkXOJeVQJuSBz6FeYY8jEJVGnlFlzjOmVs3R0ud5O?=
- =?us-ascii?Q?5EA/ubkU5d6WNjGBgf439+JDriZ5cclUg75UeBPlbDDXu2KE/bwQY/dwr7np?=
- =?us-ascii?Q?Wts8iD0PngHLGdd4T5VrTE9OSRh98YalcE6FiWiQVt4T2vQ1WUwQc8kTYudg?=
- =?us-ascii?Q?+PM3c1wVVwDFN8KvntMOM3nCaEtV6jmdpq+qJaKksglPKRTavRLf03h/6BN0?=
- =?us-ascii?Q?6df5snuc2pVRcF3E9qkEZDr2qVaIbqzVtJv9btMXH26+72gCPRIRR5RD02Qf?=
- =?us-ascii?Q?G2hq7sKbNcRUq/vOYU/hfSyN2dHNeipGRnGS1Xc85gfqcl9gUg9AvB08FFPI?=
- =?us-ascii?Q?oUHxXb5V5AzqAnXe+bHiRprA8fCW0oaDoG+CycjCQNmvJYBiLbi1yRx0g2vo?=
- =?us-ascii?Q?XxBxkDeKI+4pqeDZZsabMiz8NT5KKaVopokeerk4KKL95af72cldanb8DCbK?=
- =?us-ascii?Q?XNMjFcrnNOhU5PqG9H6dCK7IMHFH2o6V82Q3cIVdrmJq2kYrUs/GZcDQq+fO?=
- =?us-ascii?Q?OGOnbfkNjpBbh+4nIrYmWmmn8E9DGe0VXoCU63z2WNql6yoHuL9lJL/Aa573?=
- =?us-ascii?Q?IEuZf76qi0fzTensHYWnXb7bwvT92rtlfvmTunk5cgoRjsm5xJjflMqKBVRw?=
- =?us-ascii?Q?za7kEuBKgxm0yZp7HpUaBTPGRcV0MuaBhGD9HwafMYZqyfg/U/z8D/SpVxzA?=
- =?us-ascii?Q?rp6C8FzNltP+YhCxmrLfHXlyD5WHOw7TyXjtnwuMKKl8pzC+05IQANkpsaBy?=
- =?us-ascii?Q?XnaG6Xkhmogh7jfXIURkyfQIuQbcLiHPWgPYgSa5cFB8rWZN95DGkJ94+qHU?=
- =?us-ascii?Q?u1FavWrsgts0RF2O1zf32B64?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?w6TjNBxMPCvfFkvKZb70+ZddD5PaBzxVn+27J/WaFOw3rbsBTxjuYJP3OyG5?=
+ =?us-ascii?Q?hinpqanoWJ2BlumP0XEBaFqiPolSrDNYwQSdZWP0FazMBhKALTNgNGwuUE8Y?=
+ =?us-ascii?Q?BOrCdCo/dW+D857pkoeQtl1+iEYdqT41mcuCsCI/2UGVBKnX8AovRUxp6ApI?=
+ =?us-ascii?Q?+fvl3YOid/zegILeDfcvWpObTtjk1GViNje+5uhUJ8s3hkVjp/YLwiA0H0s3?=
+ =?us-ascii?Q?vpLASNkS7xRYTEVwAdSqqxA8OhfrhN7A/MuUJUmd4K2vuCqIdbPdrOwNxZSo?=
+ =?us-ascii?Q?o4UydVo2rC9GcIjXWW0OTkAOdycCMIRGkizFI2PqMAsIsIVL5vqy3+pF41/w?=
+ =?us-ascii?Q?T6yunO3te0Mob1j4a9xMoV0qrJBl/GCH7/kwHGPStfsGVux4oZZapulUmd03?=
+ =?us-ascii?Q?WNXld4F/j9VNIvhmrVW2DUbOWXCeRK9pswIEcAqcKb/HNx/Mh4ujRB6P32p9?=
+ =?us-ascii?Q?R29k74cfQkAnKxzoGy8xny7WvbyDCde+4nTUetykTP7BOX83CCDy8A3pkIz1?=
+ =?us-ascii?Q?BlndOirjZ+IdJZQcQZ0wjO0ZZrquYu67SZbCd1lmr6cvpp3FSBU22+Rlvq+7?=
+ =?us-ascii?Q?WNaxw4QK8z/dlloUuwqtUFcOSVhwcH1xR0HR/ho72WIyyQBbgRcz/O1kIxjI?=
+ =?us-ascii?Q?6LlD7j3lOEDgfGujiE2lkzhF77CpNZvqHMO1Qe0YO9on3/Hs6xdrqRVL6CWC?=
+ =?us-ascii?Q?85+OC5/HFnD76EBqJ+QRy5Je8RKSY3U65BGOg7bAjsJ6tht8+hQtcaiNxPcm?=
+ =?us-ascii?Q?GXXb/D5lZLkWo5T6JEWeSkzDSzzT4cfri7cBG9Y3XcOKFUNMJPjI7fwIQqFb?=
+ =?us-ascii?Q?Jw6ESypOm1GHinDVKqqOXARIhebn61Tvf7Xke/5vYS/rNE2f7hqodVbkDLaa?=
+ =?us-ascii?Q?KWVFFcvxmqRNUa6ymanr8L7oLYg6LzL3zecYqNIsEXscyIQaXoN3W2NtblYA?=
+ =?us-ascii?Q?/aUnbub4vaZsC8ofwX2ZAZK31vsS153eVgbBSNBLhRTFQ3XIOnKMgGZjFGqw?=
+ =?us-ascii?Q?v164/bU9Wj56ddT1xreclhT5KwVBE9cJqgmaq0EsjHYGDWtIDBRuVlE35NAK?=
+ =?us-ascii?Q?bChrCfU4DpwvLLG//swdOIXJ650yZITUlY0TSszFxtBp7Ki5a5TKOAdqw0Tb?=
+ =?us-ascii?Q?koIvkuV81xz+wiymEyM1pR9whLakuPtjpnWwjDn+hsDsvxrwyluZRZubWNYj?=
+ =?us-ascii?Q?KrkIUwtMK4DSA2SlZmFNpv8JYk9ng6kMKKaYTNiyAo+469N4sKH1yCmrGRSg?=
+ =?us-ascii?Q?RTClEKL9DSL0U3XKkfPMtq/j/tjixsJiZ8E15qCQm6bQttDGX+FxVdsdlYVJ?=
+ =?us-ascii?Q?bvPOt+jHGG0F24BLWrDtq4PG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e6d7f13-6f2f-4938-8516-08d8eb5744ef
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d413ddf-e9c2-401d-88fd-08d8eb57484c
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2605.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2021 04:18:52.8562 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2021 04:18:58.3151 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /vKitPvbYruNnN7CelU+4OaWYT9fg/WmF4ABENd3S4Wov2+owsv1LSDZjEPc43zS1MiQ5tlK0OnyIxksFa4DSw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xmjs0cgHoIMLiM6a53Y9DMknjD0BC872xBhqxiRbmuMNtXq0c3KI8afCZEmzQy+yJxKADf3Xbhpq07jEwAyFPA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4704
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,51 +126,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Eryk.Brol@amd.com,
+Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Eryk.Brol@amd.com,
  Solomon Chiu <solomon.chiu@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Eric Bernstein <Eric.Bernstein@amd.com>, Bhawanpreet.Lakha@amd.com,
+ bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 
-[Why]
-Receive warning message below:
+Some hardware revisions do have a max number of lines limitation
+not honouring which can cause pstate switch underflow.
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:380: warning: Function
-parameter or member 'crc_rd_wrk' not described in 'amdgpu_display_manager'
-
-[How]
-Add documentation for crc_rd_wrk.
-
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Eric Bernstein <Eric.Bernstein@amd.com>
 Acked-by: Solomon Chiu <solomon.chiu@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 4 ++--
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 +-
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 2c9eed78f6df..f7f0680c1fa1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -385,6 +385,11 @@ struct amdgpu_display_manager {
- #endif
- 
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
-+	/**
-+	 * @crc_rd_wrk
-+	 *
-+	 * Work to be executed in a separate thread to communicate with PSP.
-+	 */
- 	struct crc_rd_work *crc_rd_wrk;
- #endif
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index d079f4e491e5..0b1000d782a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -82,7 +82,7 @@ const struct _vcs_dpi_ip_params_st dcn1_0_ip = {
+ 	.meta_chunk_size_kbytes = 2,
+ 	.writeback_chunk_size_kbytes = 2,
+ 	.line_buffer_size_bits = 589824,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.IsLineBufferBppFixed = 0,
+ 	.LineBufferFixedBpp = -1,
+ 	.writeback_luma_buffer_size_kbytes = 12,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 2307b3517821..b8acad7acd94 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -112,7 +112,7 @@ struct _vcs_dpi_ip_params_st dcn2_0_ip = {
+ 	.is_line_buffer_bpp_fixed = 0,
+ 	.line_buffer_fixed_bpp = 0,
+ 	.dcc_supported = true,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.writeback_luma_buffer_size_kbytes = 12,
+ 	.writeback_chroma_buffer_size_kbytes = 8,
+ 	.writeback_chroma_line_buffer_width_pixels = 4,
+@@ -180,7 +180,7 @@ static struct _vcs_dpi_ip_params_st dcn2_0_nv14_ip = {
+ 	.is_line_buffer_bpp_fixed = 0,
+ 	.line_buffer_fixed_bpp = 0,
+ 	.dcc_supported = true,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.writeback_luma_buffer_size_kbytes = 12,
+ 	.writeback_chroma_buffer_size_kbytes = 8,
+ 	.writeback_chroma_line_buffer_width_pixels = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 7123151ed60f..8e3f1d0b4cc3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -114,7 +114,7 @@ struct _vcs_dpi_ip_params_st dcn2_1_ip = {
+ 	.is_line_buffer_bpp_fixed = 0,
+ 	.line_buffer_fixed_bpp = 0,
+ 	.dcc_supported = true,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.writeback_luma_buffer_size_kbytes = 12,
+ 	.writeback_chroma_buffer_size_kbytes = 8,
+ 	.writeback_chroma_line_buffer_width_pixels = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 263c2986682d..4a5fa23d8e7b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -120,7 +120,7 @@ struct _vcs_dpi_ip_params_st dcn3_0_ip = {
+ 	.dcc_supported = true,
+ 	.writeback_interface_buffer_size_kbytes = 90,
+ 	.writeback_line_buffer_buffer_size = 0,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
+ 	.writeback_chroma_buffer_size_kbytes = 8,
+ 	.writeback_chroma_line_buffer_width_pixels = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index 0fbdfff87835..10c1884e3d30 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -116,7 +116,7 @@ struct _vcs_dpi_ip_params_st dcn3_01_ip = {
+ 	.dcc_supported = true,
+ 	.writeback_interface_buffer_size_kbytes = 90,
+ 	.writeback_line_buffer_buffer_size = 656640,
+-	.max_line_buffer_lines = 32,
++	.max_line_buffer_lines = 12,
+ 	.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
+ 	.writeback_chroma_buffer_size_kbytes = 8,
+ 	.writeback_chroma_line_buffer_width_pixels = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+index 0723e29fd42e..a928c1d9a557 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+@@ -101,7 +101,7 @@ struct _vcs_dpi_ip_params_st dcn3_02_ip = {
+ 		.dcc_supported = true,
+ 		.writeback_interface_buffer_size_kbytes = 90,
+ 		.writeback_line_buffer_buffer_size = 0,
+-		.max_line_buffer_lines = 32,
++		.max_line_buffer_lines = 12,
+ 		.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
+ 		.writeback_chroma_buffer_size_kbytes = 8,
+ 		.writeback_chroma_line_buffer_width_pixels = 4,
 -- 
 2.29.0
 
