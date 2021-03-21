@@ -2,70 +2,66 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 20E77C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42557C433E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C360A6192D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C360A6192D
+	by mail.kernel.org (Postfix) with ESMTPS id C78CF619A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C78CF619A7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 582386E3F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5E389EB8;
 	Mon, 22 Mar 2021 08:20:09 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB0A6EB0F
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 23:24:23 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id k10so12234727ejg.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Mar 2021 16:24:23 -0700 (PDT)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE1526E214;
+ Sun, 21 Mar 2021 15:20:49 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id t14so2713852ilu.3;
+ Sun, 21 Mar 2021 08:20:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lZjC5MYRszFKToyjw0wtcbVmRCl1gRLkwMvW9D8FFsM=;
- b=vKozyBbKjc0ZyVzaCQcntN1YrghkSwertT5myBgovjgJsEl3QjHrnw1/+HnbSF40dC
- 3zlaPKEJ0j699jJpYIMxqeGvzPbUV+BZq/Gj4wt6nICDvoLIUsU0YnkW2BY/KvC5aaHg
- DYoZuGoUz2LB6yF6/dh0SoaPz4eCeNVrvSBkjZgSBa5y6EZyTUG1eBHuUojvJ7eTna5H
- fUmDV+bKgfU3PgQ+18WfqZPWnQMSHtoFdLVtXrkSS60nZWfwk8Jae+k1nWCFYyf1yBJ/
- vX6mimkHHsefk3oe1mGmJdjR8nMJOaAsmeis3HCPrjPP+luZaw6NrE1PYNtiQa3wt+ux
- 324w==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=4iveq/InwG0NxRodieZpwalqg0AiIbR/FGTza27sje0=;
+ b=U5pUfTYFylM3ZfFzbk0ZGABNL3nP+UgnVGq/byUUlCFZo7j7h0yPanbrEAq6quQGiG
+ 7OaOgxoXU8zhuqKqZjyeWlbBD6TCS8f9iXd+VHGktbLb9n5S6hWXGMHTEHyNykfaBSre
+ w0p1YtHFefHX+EY1vxfWR3uQTMiE5NEEp2QAhoCVsuNBq88VLJ8Vb57+cmwkJwAviSG2
+ yk/wRhQpbrO+8pM5exPiolJW9dHyY31uz5uk4jLcWWg8xdy0bCJ+PlYEqdRyskVmjC7r
+ PclTC2AD7nlVCINnHDspHGSXkJ3Iaq1Z4NRGXJJ9FZzJevC1hEgI6+IzE0X1HZNdMqGo
+ L/og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=lZjC5MYRszFKToyjw0wtcbVmRCl1gRLkwMvW9D8FFsM=;
- b=qwlZ8N8snrbKnCHL6MrLp4sBgeDwmalhoc7+ZntW44ysNwO4TnSOHDndR59hKRp8SN
- I7BS2D3hRGhcqtgPr6n/BJHqUFDLdQLsisAHo+rzLvuAE9fLV7dWLT12TsvdkpE/cAPS
- jmoJFgkFNuzv/pHB9DoM1xmctxRiUvavZGsR9+FXinuyoEgKgaSFosBaVEHxzyeypPE6
- 9X0sFD14ctM4Qz/kb+PjsEc/+ArlQ1Jd+j1S+VGsigJeKozPrD/wtRb9RAbuyIsMZ4NM
- K1YObvwzPm/JWbtatc9YehqfUrA6q0leDmJPxPlvaIzI8YZoOsXmAq4ciE6FbqpAKMlU
- SD8g==
-X-Gm-Message-State: AOAM533V0yCfGGcwiXR29i3DGJMihCd2KPSm7gyJolugyoP8zPobFgzR
- exNouITQZd32STRaDWKC7aQVD1Lwezs=
-X-Google-Smtp-Source: ABdhPJzVv2ocBpWzi6Yz1/pKDkHm6dWoDjiVDzCwnuHuCEWGgWVKKmnAIMPmbUPAOXdxh9iSV46s3w==
-X-Received: by 2002:a17:906:d797:: with SMTP id
- pj23mr7126089ejb.367.1616196262220; 
- Fri, 19 Mar 2021 16:24:22 -0700 (PDT)
-Received: from localhost ([2001:470:5139::819])
- by smtp.gmail.com with ESMTPSA id lu26sm4329102ejb.33.2021.03.19.16.24.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 16:24:21 -0700 (PDT)
-From: Tobias Jakobi <cubic2k@gmail.com>
-X-Google-Original-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/swsmu: fix typo (memlk -> memclk)
-Date: Sat, 20 Mar 2021 00:24:19 +0100
-Message-Id: <20210319232419.174234-1-tjakobi@math.uni-bielefeld.de>
-X-Mailer: git-send-email 2.26.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=4iveq/InwG0NxRodieZpwalqg0AiIbR/FGTza27sje0=;
+ b=gFahHgcFSJUt63wH9kNP9yiwdbTJamK3Teygk4WAE3y+SwWuApjrqxJj6esvRGry8O
+ SRWT9j9dtBEDD5cZfPCAh8rCXpisXRt9pKrzN7uznT8KhU2PjQXD4SQfVbzX7SprW1zx
+ 52xGSmFCSIudR1jTX1bpApqQ/TOiUumr9pKe+h3211eTjNaOAJIBSFPEncvnRCKWPiWT
+ jfe+PjsqW/SDjdH6Zkv7IZ3kqlYKW0xkKBIu4Zn7ovMHtOFs6S9x0ftWQb//rQG0sUyq
+ q3OkKkwIJGVMFGF5Ee1rlGaiJbf0zOB3VOZsgRvsQbyMilhgDQjt3iDEp6gTdKWLc743
+ Kjmg==
+X-Gm-Message-State: AOAM532YBroogg+g4/x7zcuacaO7sPytudvsgNqyHymYtNmu2GL6J+OQ
+ Cp6QSI5mNJYJms4bszwIYo5ikl0LbkXCcSkRjBk=
+X-Google-Smtp-Source: ABdhPJzNj2lIIaszPhO1R9rGn2EO3uB5F5zPoFTWKCNBbA73YHQJnZTdQQDlsiNAFSl0Vf5IHu+KM0O8tz7YuKKudHk=
+X-Received: by 2002:a05:6e02:2:: with SMTP id h2mr8729495ilr.81.1616340049181; 
+ Sun, 21 Mar 2021 08:20:49 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210320201052.114775-1-ztong0001@gmail.com>
+ <d50c08e5-51d7-148c-464f-7699e6f6a115@amd.com>
+In-Reply-To: <d50c08e5-51d7-148c-464f-7699e6f6a115@amd.com>
+From: Tong Zhang <ztong0001@gmail.com>
+Date: Sun, 21 Mar 2021 11:20:38 -0400
+Message-ID: <CAA5qM4DCN1PQqyWxH3o27ixAkbWHf3so12Ba7=9gxUpdk2wkGA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: don't evict if not initialized
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 08:19:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,68 +74,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- no functional changes
-
-Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 4 ++--
- drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 6e641f1513d8..66d69c13f915 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1433,7 +1433,7 @@ static int navi10_get_power_profile_mode(struct smu_context *smu, char *buf)
- 		size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
- 			" ",
- 			2,
--			"MEMLK",
-+			"MEMCLK",
- 			activity_monitor.Mem_FPS,
- 			activity_monitor.Mem_MinFreqStep,
- 			activity_monitor.Mem_MinActiveFreqType,
-@@ -1493,7 +1493,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
- 			activity_monitor.Soc_PD_Data_error_coeff = input[8];
- 			activity_monitor.Soc_PD_Data_error_rate_coeff = input[9];
- 			break;
--		case 2: /* Memlk */
-+		case 2: /* Memclk */
- 			activity_monitor.Mem_FPS = input[1];
- 			activity_monitor.Mem_MinFreqStep = input[2];
- 			activity_monitor.Mem_MinActiveFreqType = input[3];
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index af73e1430af5..f21679acd9af 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1366,7 +1366,7 @@ static int sienna_cichlid_get_power_profile_mode(struct smu_context *smu, char *
- 		size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
- 			" ",
- 			2,
--			"MEMLK",
-+			"MEMCLK",
- 			activity_monitor->Mem_FPS,
- 			activity_monitor->Mem_MinFreqStep,
- 			activity_monitor->Mem_MinActiveFreqType,
-@@ -1429,7 +1429,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
- 			activity_monitor->Fclk_PD_Data_error_coeff = input[8];
- 			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[9];
- 			break;
--		case 2: /* Memlk */
-+		case 2: /* Memclk */
- 			activity_monitor->Mem_FPS = input[1];
- 			activity_monitor->Mem_MinFreqStep = input[2];
- 			activity_monitor->Mem_MinActiveFreqType = input[3];
--- 
-2.26.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhhbmtzLApGaXhlZCBhcyBzdWdnZXN0ZWQgYW5kIHNlbnQgYXMgdjIuCi0gVG9uZwoKT24gU3Vu
+LCBNYXIgMjEsIDIwMjEgYXQgOToyNiBBTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3RpYW4ua29l
+bmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4KPgo+IEFtIDIwLjAzLjIxIHVtIDIxOjEwIHNjaHJpZWIg
+VG9uZyBaaGFuZzoKPiA+IFRUTV9QTF9WUkFNIG1heSBub3QgaW5pdGlhbGl6ZWQgYXQgYWxsIHdo
+ZW4gY2FsbGluZwo+ID4gcmFkZW9uX2JvX2V2aWN0X3ZyYW0oKS4gV2UgbmVlZCB0byBjaGVjayBi
+ZWZvcmUgZG9pbmcgZXZpY3Rpb24uCj4gPgo+ID4gWyAgICAyLjE2MDgzN10gQlVHOiBrZXJuZWwg
+TlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDIwCj4gPiBb
+ICAgIDIuMTYxMjEyXSAjUEY6IHN1cGVydmlzb3IgcmVhZCBhY2Nlc3MgaW4ga2VybmVsIG1vZGUK
+PiA+IFsgICAgMi4xNjE0OTBdICNQRjogZXJyb3JfY29kZSgweDAwMDApIC0gbm90LXByZXNlbnQg
+cGFnZQo+ID4gWyAgICAyLjE2MTc2N10gUEdEIDAgUDREIDAKPiA+IFsgICAgMi4xNjMwODhdIFJJ
+UDogMDAxMDp0dG1fcmVzb3VyY2VfbWFuYWdlcl9ldmljdF9hbGwrMHg3MC8weDFjMCBbdHRtXQo+
+ID4gWyAgICAyLjE2ODUwNl0gQ2FsbCBUcmFjZToKPiA+IFsgICAgMi4xNjg2NDFdICByYWRlb25f
+Ym9fZXZpY3RfdnJhbSsweDFjLzB4MjAgW3JhZGVvbl0KPiA+IFsgICAgMi4xNjg5MzZdICByYWRl
+b25fZGV2aWNlX2ZpbmkrMHgyOC8weGY5IFtyYWRlb25dCj4gPiBbICAgIDIuMTY5MjI0XSAgcmFk
+ZW9uX2RyaXZlcl91bmxvYWRfa21zKzB4NDQvMHhhMCBbcmFkZW9uXQo+ID4gWyAgICAyLjE2OTUz
+NF0gIHJhZGVvbl9kcml2ZXJfbG9hZF9rbXMrMHgxNzQvMHgyMTAgW3JhZGVvbl0KPiA+IFsgICAg
+Mi4xNjk4NDNdICBkcm1fZGV2X3JlZ2lzdGVyKzB4ZDkvMHgxYzAgW2RybV0KPiA+IFsgICAgMi4x
+NzAxMDRdICByYWRlb25fcGNpX3Byb2JlKzB4MTE3LzB4MWEwIFtyYWRlb25dCj4gPgo+ID4gU2ln
+bmVkLW9mZi1ieTogVG9uZyBaaGFuZyA8enRvbmcwMDAxQGdtYWlsLmNvbT4KPiA+IC0tLQo+ID4g
+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyB8IDQgKysrLQo+ID4gICAx
+IGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4gPgo+ID4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMKPiA+IGluZGV4IDliODE3ODY3ODJkZS4u
+MDRlOWE4MTE4YjBlIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fb2JqZWN0LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVj
+dC5jCj4gPiBAQCAtMzg0LDcgKzM4NCw5IEBAIGludCByYWRlb25fYm9fZXZpY3RfdnJhbShzdHJ1
+Y3QgcmFkZW9uX2RldmljZSAqcmRldikKPiA+ICAgICAgIH0KPiA+ICAgI2VuZGlmCj4gPiAgICAg
+ICBtYW4gPSB0dG1fbWFuYWdlcl90eXBlKGJkZXYsIFRUTV9QTF9WUkFNKTsKPiA+IC0gICAgIHJl
+dHVybiB0dG1fcmVzb3VyY2VfbWFuYWdlcl9ldmljdF9hbGwoYmRldiwgbWFuKTsKPiA+ICsgICAg
+IGlmIChtYW4pCj4gPiArICAgICAgICAgICAgIHJldHVybiB0dG1fcmVzb3VyY2VfbWFuYWdlcl9l
+dmljdF9hbGwoYmRldiwgbWFuKTsKPiA+ICsgICAgIHJldHVybiAwOwo+Cj4gWW91IHNob3VsZCBw
+cm9iYWJseSBjb2RlIHRoaXMgdGhlIG90aGVyIHdheSBhcm91bmQsIGUuZy4KPgo+IElmICghbWFu
+KQo+ICAgICAgcmV0dXJuIDA7Cj4gLi4uCj4KPiBBcGFydCBmcm9tIHRoYXQgbG9va3MgZ29vZCB0
+byBtZS4KPgo+IENocmlzdGlhbi4KPgo+ID4gICB9Cj4gPgo+ID4gICB2b2lkIHJhZGVvbl9ib19m
+b3JjZV9kZWxldGUoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCj4KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
