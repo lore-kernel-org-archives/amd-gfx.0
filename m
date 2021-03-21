@@ -2,54 +2,54 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BCC5C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 630FBC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2D3A61967
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2D3A61967
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=bombadil.infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id DC3776192D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 08:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC3776192D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=126.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62F9F6E3DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4236E3EF;
 	Mon, 22 Mar 2021 08:20:04 +0000 (UTC)
-X-Greylist: delayed 2254 seconds by postgrey-1.36 at gabe;
- Sat, 20 Mar 2021 03:05:37 UTC
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94C456EB2B;
- Sat, 20 Mar 2021 03:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:Content-Type:MIME-Version:
- References:Message-ID:In-Reply-To:Subject:cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=+sIlNzRjvkor36vVjZVUZsfBi2atAGv+9aK56Y329n8=; b=Ls2jzXgBP4KXoqGUgnIwSsxHvE
- GieDQ0S8TGF6WrEVSGpcnxQmx3jZo63BZwxvGa7sOShad+0vd+swUeXsfh5vBxL5MrekGvnPQ05da
- VxnWpHCON6doBupk9CHbd8uTxpn76usxAKaT5D35XqLtUjVn7WD4pcxnnLhB14mufvUbkuHxpyKDx
- lTfixTHy6Y9iZG1hSxcXFt/bKytP0h8g4LoL28HIdvyCVJFTPC/u/isPUmmyU+WGChNUXEOwAukAd
- eXc5wBAy/untSvcFIUPjhru4IWwpXBTgtVzuwM5ah5zuGvo8KI0d9f7aZw6bWgKy8exozcRHA/fGH
- wIvG3wxQ==;
-Received: from rdunlap (helo=localhost)
- by bombadil.infradead.org with local-esmtp (Exim 4.94 #2 (Red Hat Linux))
- id 1lNRLL-001etm-0F; Sat, 20 Mar 2021 02:28:00 +0000
-Date: Fri, 19 Mar 2021 19:27:58 -0700 (PDT)
-From: Randy Dunlap <rdunlap@bombadil.infradead.org>
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Subject: Re: [PATCH V2] drm/amdgpu: Fix a typo
-In-Reply-To: <20210318202414.10547-1-unixbhaskar@gmail.com>
-Message-ID: <3cc678f2-36d1-1af1-5759-37aea82f41ea@bombadil.infradead.org>
-References: <20210318202414.10547-1-unixbhaskar@gmail.com>
-MIME-Version: 1.0
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
-X-CRM114-CacheID: sfid-20210319_192759_071088_BBA1C01B 
-X-CRM114-Status: GOOD (  12.85  )
+X-Greylist: delayed 1850 seconds by postgrey-1.36 at gabe;
+ Sun, 21 Mar 2021 08:59:42 UTC
+Received: from m15113.mail.126.com (m15113.mail.126.com [220.181.15.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEED6E18E;
+ Sun, 21 Mar 2021 08:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=K1gDIG4hnr2XFeqCAC
+ HAQWV6JzEkVMdv0O0bEPt20sY=; b=JqL4fsEHNFQZYl21uI3iNqI7y5pdPgzelu
+ vYtwxB+kxNKzAJ/g8zgFtbG6KgHAwbDaJ9I7OWSufhX2VLtKwhAZsGbCA3cG0ypC
+ sPUjNDGtOKcz+OEOClRqo4GhD5X00UQy36OtL16iR17fhgYUBEW7QGXdzsTzb+Vj
+ 5NEAGg3Qk=
+Received: from localhost.localdomain.localdomain (unknown [182.150.46.145])
+ by smtp3 (Coremail) with SMTP id DcmowAAHDemnA1dgNdOYPg--.35025S2;
+ Sun, 21 Mar 2021 16:28:24 +0800 (CST)
+From: Qu Huang <jinsdb@126.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH] drm/amdkfd: Fix cat debugfs hang_hws file causes system crash
+ bug
+Date: Sun, 21 Mar 2021 16:28:18 +0800
+Message-Id: <1616315298-109091-1-git-send-email-jinsdb@126.com>
+X-Mailer: git-send-email 1.8.3.1
+X-CM-TRANSID: DcmowAAHDemnA1dgNdOYPg--.35025S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF43Gw4xAr17KF43tw4fXwb_yoW5WFWrpw
+ 4UAr15Krs5Ary7Jry5A3WfJwn3Kws7Zay8ZrW8urySyF1kG3sxJrykJFWUArykuryUGFW7
+ XFZ8X3yfKr17taUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U02NNUUUUU=
+X-Originating-IP: [182.150.46.145]
+X-CM-SenderInfo: pmlq2vbe6rjloofrz/1tbiEAhcDlpECjTS-AAAsE
 X-Mailman-Approved-At: Mon, 22 Mar 2021 08:19:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,60 +62,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: guchun.chen@amd.com, airlied@linux.ie, Bhawanpreet.Lakha@amd.com,
- tao.zhou1@amd.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- ray.huang@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Jiansong.Chen@amd.com, alexander.deucher@amd.com, Likun.Gao@amd.com,
- John.Clements@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: jinsdb@126.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Here is the system crash log:
+[ 1272.884438] BUG: unable to handle kernel NULL pointer dereference at
+(null)
+[ 1272.884444] IP: [<          (null)>]           (null)
+[ 1272.884447] PGD 825b09067 PUD 8267c8067 PMD 0
+[ 1272.884452] Oops: 0010 [#1] SMP
+[ 1272.884509] CPU: 13 PID: 3485 Comm: cat Kdump: loaded Tainted: G
+[ 1272.884515] task: ffff9a38dbd4d140 ti: ffff9a37cd3b8000 task.ti:
+ffff9a37cd3b8000
+[ 1272.884517] RIP: 0010:[<0000000000000000>]  [<          (null)>]
+(null)
+[ 1272.884520] RSP: 0018:ffff9a37cd3bbe68  EFLAGS: 00010203
+[ 1272.884522] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
+0000000000014d5f
+[ 1272.884524] RDX: fffffffffffffff4 RSI: 0000000000000001 RDI:
+ffff9a38aca4d200
+[ 1272.884526] RBP: ffff9a37cd3bbed0 R08: ffff9a38dcd5f1a0 R09:
+ffff9a31ffc07300
+[ 1272.884527] R10: ffff9a31ffc07300 R11: ffffffffaddd5e9d R12:
+ffff9a38b4e0fb00
+[ 1272.884529] R13: 0000000000000001 R14: ffff9a37cd3bbf18 R15:
+ffff9a38aca4d200
+[ 1272.884532] FS:  00007feccaa67740(0000) GS:ffff9a38dcd40000(0000)
+knlGS:0000000000000000
+[ 1272.884534] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 1272.884536] CR2: 0000000000000000 CR3: 00000008267c0000 CR4:
+00000000003407e0
+[ 1272.884537] Call Trace:
+[ 1272.884544]  [<ffffffffade68940>] ? seq_read+0x130/0x440
+[ 1272.884548]  [<ffffffffade40f8f>] vfs_read+0x9f/0x170
+[ 1272.884552]  [<ffffffffade41e4f>] SyS_read+0x7f/0xf0
+[ 1272.884557]  [<ffffffffae374ddb>] system_call_fastpath+0x22/0x27
+[ 1272.884558] Code:  Bad RIP value.
+[ 1272.884562] RIP  [<          (null)>]           (null)
+[ 1272.884564]  RSP <ffff9a37cd3bbe68>
+[ 1272.884566] CR2: 0000000000000000
 
+Signed-off-by: Qu Huang <jinsdb@126.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-On Fri, 19 Mar 2021, Bhaskar Chowdhury wrote:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 511712c..673d5e3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -33,6 +33,11 @@ static int kfd_debugfs_open(struct inode *inode, struct file *file)
 
-> s/traing/training/
->
-> ...Plus the entire sentence construction for better readability.
->
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-> ---
-> Changes from V1:
->  Alex and Randy's suggestions incorporated.
->
-> drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 8 ++++----
-> 1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index c325d6f53a71..bf3857867f51 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -661,10 +661,10 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
->
-> 	if (ops & PSP_MEM_TRAIN_SEND_LONG_MSG) {
-> 		/*
-> -		 * Long traing will encroach certain mount of bottom VRAM,
-> -		 * saving the content of this bottom VRAM to system memory
-> -		 * before training, and restoring it after training to avoid
-> -		 * VRAM corruption.
-> +		 * Long training will encroach a certain amount on the bottom of VRAM;
-> +                 * save the content from the bottom VRAM to system memory
-> +                 * before training, and restore it after training to avoid
-> +                 * VRAM corruption.
+ 	return single_open(file, show, NULL);
+ }
++static int kfd_debugfs_hang_hws_read(struct seq_file *m, void *data)
++{
++	seq_printf(m, "echo gpu_id > hang_hws\n");
++	return 0;
++}
 
-These 3 new lines are indented with spaces instead of tabs. Oops.  :(
+ static ssize_t kfd_debugfs_hang_hws_write(struct file *file,
+ 	const char __user *user_buf, size_t size, loff_t *ppos)
+@@ -94,7 +99,7 @@ void kfd_debugfs_init(void)
+ 	debugfs_create_file("rls", S_IFREG | 0444, debugfs_root,
+ 			    kfd_debugfs_rls_by_device, &kfd_debugfs_fops);
+ 	debugfs_create_file("hang_hws", S_IFREG | 0200, debugfs_root,
+-			    NULL, &kfd_debugfs_hang_hws_fops);
++			    kfd_debugfs_hang_hws_read, &kfd_debugfs_hang_hws_fops);
+ }
 
-(I may be too late with this comment -- sorry about that.)
+ void kfd_debugfs_fini(void)
+--
+1.8.3.1
 
-> 		 */
-> 		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
->
-> --
-> 2.26.2
->
->
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
