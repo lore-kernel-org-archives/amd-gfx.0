@@ -3,61 +3,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C897CC433E2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C59B7C433E1
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 795A461879
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 795A461879
+	by mail.kernel.org (Postfix) with ESMTPS id 55F2161972
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55F2161972
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8976989F03;
-	Mon, 22 Mar 2021 11:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8B089F2E;
+	Mon, 22 Mar 2021 11:07:47 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE7B89870;
- Mon, 22 Mar 2021 11:07:33 +0000 (UTC)
+ (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1FC89BAE;
+ Mon, 22 Mar 2021 11:07:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HbNkbjDRCTQFIzE4sc4hCXqdRI3lfN2MfZIek2G1avSKM/TSjyvSG8Y1WCn2o2t+OLtDH/XzpuN/KURe/Do6dMqieLqFVCf7hAwu8LB3qK08YbeCuqtFwHLvL8TSgpd3CXRyCO8ZEsFNBjHMEcCixQPL+m/NlCHn80zz3fnqAmwGC4FCyyKRk2LEDVWGKb+EoOU3KmvKrU0xCUyYs3qP6SC8jReSdXHLoooOsYSvG/w7ZE4qUwbK+G1ToMn8z/Hs0trM/NOfgdrIQOLHfHsY+VsPOdl+LUsu7u0ITc6590W6pwJLqbsnBJfm0SGm7F368WnnCe3U7G9jMCoafzYE5A==
+ b=ead8+lu943YuTMTngJfmgCVKFSBwrUGYI7NlSV4F6np4H6prF0jQYb5RE4cI5u6lPPJ630RBeuRMgTpM8nvrLINLqHyE3xmb6L6O8IlvJrN++9FrR3TnxkHMBftqSJJtmkrFEpepgNIhxuZ9LJf/dKR6B6mpuBK30bt7BIW0E+rIzWVVZJtAZWN/7yLN1/ahs+mQoDJxlNH1cBOWiAMpionJMaN58sKg0qZjRGAvUfljSS3IBem07lvy+V/hdaqk5Pq4yrWKl9u3tKo4thmpUf2ek6OPoiWE7hfPvUDMYi7wtEX6NnDbkMma/3NU2VwmNtMrBbw8e19fT/fHT/PRsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vm1GA0FNpFU1GC81c8sb1sFeboU+10w+ZPEJ/lowcRs=;
- b=CZA+wgOU5iElB6okJx/cr/XyzFjhLRsDtccYgrqyEu955PekJ2l4czqc0pne+pZHX2BAAS78s67tccSXqngDMhU4l1mtX+SLzsmF4DlCBZBkvnbi8F9fZYDlc/QK1gZSv2+Wahe0HizOueqZ6Dz4Z8rgGeIaC9KCnzWHn1f6dfWSJo0oWh3/aTmkXANGnQHGmKnMm3/j/V5qxgOmIkd8Y9S5LB6fwPGGSPxOodtnr9+YAfJ4O3p+wrE25PGHJpHeKAO4R89C/YelCt/+5pjLjO/ZUvWACgvUch7BIw2BFit5U5G2zbe29vVnH3SUij+hRX8MeQomIoGwmoiiil1+ag==
+ bh=epi4MJAZ/bhbWerSJ8ZE/JFgIX+o9R2KTuuUA0TdN9U=;
+ b=bNLKTmlELbkO/RjuNc2Qn1v5Y8VuVNJQTLdUVQwK9Uwq/GU104IRuzPVdbWNba61ip0ky0yK6wIt4R5gUelMb0530JkOtidZmteyR28XTOni2rprpNToEOFqMP5bN8E0IWG59eQsxJ3dLlS3MeqVUnASdc33lpzpFP/6aTR8AOblBVTvbkB6y2eJAbvgpZBryhapl8cgTxy/xbHH9FhKCKgXn+xTCDASpq8v86BYUOFh3iEQGTtgg9hHk92nnOf5xzkk/Vy8WrbcpVQ90wA5afedPz1/vzVZYSlD+dtnguw1MVIky3XWMRkv0DpWKLVOEklNqKuRjOLjfavDGgol7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vm1GA0FNpFU1GC81c8sb1sFeboU+10w+ZPEJ/lowcRs=;
- b=Y5JxPTkl8eTRB5za9ke8vk4nh6luOCdHZHc1Bt/5Ybq2Y6xewI/Kw+uWTPupZG0vs483vB49Qs5qKJqCf7u+xtrBtBrkkRvwAS54zKwCiSE9FVzgWMEoTfVfH9SOfg9ErQoC5DTTpE3lWV/42qG35IurtP0NRTbS4na+mYcsz3Y=
+ bh=epi4MJAZ/bhbWerSJ8ZE/JFgIX+o9R2KTuuUA0TdN9U=;
+ b=zS2i/02EWUrLXPc6rcaj5OmM99wRxxYY7rs3svYFcCeq8hh4LQ+wBwlKEYOsUWXCb/WMBz808n8RX66O0yWCV5EwLeHV4V0+m18THK3qnELUiDpmsSB0nUXiEPLcV8Pcd8S7LLfmH16AFJWMNXn3673NsVv8m1Vi3eYgzlkMhkQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB3935.namprd12.prod.outlook.com (2603:10b6:208:168::31)
+ by MN2PR12MB3678.namprd12.prod.outlook.com (2603:10b6:208:158::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
- 2021 11:07:29 +0000
+ 2021 11:07:34 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%5]) with mapi id 15.20.3933.036; Mon, 22 Mar 2021
- 11:07:29 +0000
+ 11:07:34 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 00/44] Add HMM-based SVM memory manager to KFD v2
-Date: Mon, 22 Mar 2021 06:58:16 -0400
-Message-Id: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+Subject: [PATCH 08/44] drm/amdkfd: deregister svm range
+Date: Mon, 22 Mar 2021 06:58:24 -0400
+Message-Id: <20210322105900.14068-9-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+References: <20210322105900.14068-1-Felix.Kuehling@amd.com>
 X-Originating-IP: [165.204.55.251]
 X-ClientProxiedBy: YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b00:15::21) To BL0PR12MB4948.namprd12.prod.outlook.com
@@ -68,53 +69,54 @@ Received: from Harpoon.amd.com (165.204.55.251) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24 via Frontend
- Transport; Mon, 22 Mar 2021 11:07:29 +0000
+ Transport; Mon, 22 Mar 2021 11:07:33 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e98f68a7-f6bd-480c-74b5-08d8ed22aee1
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3935:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3935499A0735F3877711DF1192659@MN2PR12MB3935.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Office365-Filtering-Correlation-Id: 68c72243-fd66-4327-e2bd-08d8ed22b197
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3678:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3678304C4FE0025F9361A7FC92659@MN2PR12MB3678.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: giypqP/4aog+eW8TRYj7U+5r8AaU9kDpBp5juzCRVEYk4zmzwpJYm+gZClJB092YYZMSMAWl8xFPDum00H2iB3JbmnjBEBJzhU2VG9YOAwnwcF1oU5359DcL334qVmjNoBv81plf183NsG2MBMcWpexUXFZP20ktyqIRuNq5WC4hqjT0R7w+zdT6TggJaiXe7QBmBvu1n1wtO8ABXKcgGuCtMHN8GMV9N2Z//6OWMsaJLw+2xgxqqm9upRxIG7O3/S9omsUDtWiXX3626ioioNS7hE10+xCbkvtUBHd7tjKNJzBIGX6dRwSVn6aSa1z0/tRilRCjZJOi4SV78rBoe2InyaM7PtX9OeJWIZ2JgcROGg38cFNPeNcHAnOOL2xZGR6QyKoYj4F1x+Uyl1kIdY9TKU6vSdKn4yF53W0oRWv3kXW3Pa3xkJT0jAeUt5txGur7BU00gcL7drevkD0Lnsn/kjLaIcxfoVhCBZHtHnfkF8GoXcoesgdkV1LrpgAIAylig1B0Kbcnu4Powt2lOx5Q1GeDqGR5EnIhBdKnTo5Y4A9zM4M9ud+1eYPdmCmvj7K8Mq8P6fHO/vqS6FSPoAUW9WvkTGolSh9XDOjdEI16LMi5qMgyaFufhzCmzh94sN3M+/mJZv6ubPKGsjJKVNzdCLUQ8Ht3VwDs/0FocSulZlhardAYQztROO5A45cGx0nXAJHKYCU8wSMvILNVCsZxyLNLDnTuGTBe5jFAq4c=
+X-Microsoft-Antispam-Message-Info: tAhmJ8yfuD2nUlWpo8bvdqnVDQW0vk9a8rM5JxG3PiyO6rHFy79Onz7cowzhQNFj21yGc5CXQGfYrSjYwnzMJQu3Sd9DRcMVpO04KrtifQ71veM0o1G29GZyUXeRjq+ZSUxfFu7IAiYT0B7d7QRJe7HGU+5l0Iamfoe7B/6DmpCGGhiYb8ECQkjoH3i7k1TnaZg0SqSDcTJ2Hylzvx+eZwUhxdocDCNqWidv0y4YcgRphWHGmoKUHcrxgo2UzLrOFT4KIoxRpQJUwm81JVPJsAh6q6Fdcp/nqQDVIIDFOJrxekILE06FDKodsHScUPOd+50cbZQoAiGNu0zfXmbU2w0vRjayitGeGFWHTnh1ANdeFtWuH1tBDkY3OJwUPpksKoumEZuQXXj1UYiomRDMoHPkxGEhlMQMScfNK6R3thuMTokLMj2LXG2BNy+91MyBEy9eR1blA8yx8V+Rki41jpo1W0NroYQB5Tq4FZ3inUj0yMCVsXA4iKg/esv/qt2nzfH2I0wZg91VXjH2MAIT5Dljhlq7zAxIzmvl3FtYea4LyarRWqFXyG/hgRt5HQ/zepvTgy1KY+d4Y6o6jnbTN4a7ILyI9GnISK5+HlQq84CfC9F4H8KpTvgMBWJf4ZtnbY5QmxFzsiZ7t0p7TCNiv0xocYEzPPdc5ir0RjAbX3k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(5660300002)(966005)(8936002)(450100002)(6486002)(478600001)(83380400001)(1076003)(86362001)(8676002)(956004)(2906002)(36756003)(7696005)(26005)(16526019)(52116002)(186003)(316002)(66946007)(66556008)(6666004)(66476007)(2616005)(38100700001);
+ SFS:(4636009)(396003)(376002)(136003)(366004)(39860400002)(346002)(52116002)(7696005)(54906003)(6486002)(1076003)(36756003)(30864003)(38100700001)(6666004)(83380400001)(478600001)(2616005)(956004)(4326008)(450100002)(16526019)(2906002)(186003)(26005)(5660300002)(66556008)(66476007)(8936002)(66946007)(316002)(86362001)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?B1NI1Ls9/w30qehkEQgGGFrGWi5NBs0VTha12NVZY8zuZ71wyhwUr+q13Kvr?=
- =?us-ascii?Q?ApbdzRAlDI7IT/RVw049e2j9TDBTROD4eMC7ie6tWeql0WW5q0apKuFQiT2J?=
- =?us-ascii?Q?4om5rT0u+EATK8/6PmCBkPWLa+xY/tRreHkITsXJs1lGL/buCrQrK35dLBpz?=
- =?us-ascii?Q?0cBouMF3KbYp7Qohv7wUgxJ2x8v7KYUt2Ln7DnQNEbSTfQ8n1FKb5h7+UtiS?=
- =?us-ascii?Q?ClkxwNuAcztoJfNael/V6jh/WEUAav4B+VqSJy+BiyM6VTuupRpNUOosH0u4?=
- =?us-ascii?Q?uqY533BgEb82WvOBzElWpt1lomHfWOzYX+fbMzKJa5lXg4diW/N72x3WZVNs?=
- =?us-ascii?Q?YOTNBe6I2kC/9LYQzmrGL5Rs3glblo4K3PZqWMc5y5l8W7PZm7Yi6eZXrEkZ?=
- =?us-ascii?Q?tcHejVwpPkuYAdPtUt8D3IcNbTd95YZO2rU/ZCiTY5gg19fsvFhoScWXJgAR?=
- =?us-ascii?Q?93D3JHJJj1cC0gIEm9YjZ+LbWqLfhpN9UUQPT3eXwkrdmPQRREHHT/zbX2lq?=
- =?us-ascii?Q?p2JA0yE6BpMepUfqCXpZKOBn6PHHNz/Cj8nWxusfI1+RIUACZVvIyRpPkL3b?=
- =?us-ascii?Q?xW7j+X4Phh7i6SUX6K3i6Leh7H3AlCcDZOcpgeaj1qeAUVZi6UCTIFl9PU7N?=
- =?us-ascii?Q?yx4wwDaElWBe6XD4605ChITMhY2W1TiCN56QR93Mk8niYO6x0WYZC6KvcEmo?=
- =?us-ascii?Q?pp3noaaJIexvuFf2Tkm/QYkRs+AqgrAEM6CObT6HJjcRjkwDgI/Iwqtytfo4?=
- =?us-ascii?Q?qGo6MGpOeMeGJbW0q+ZPG0v8c0u0d7VHHPW6dS70/nMIaPbZxO6VAMiH0Hrm?=
- =?us-ascii?Q?iXKlh2NK0XDjUHsQZMUn6ikfBZQBBdKrHI2zdNXN6RWRuJBZ9LpAPcTjrxaR?=
- =?us-ascii?Q?tyYgwR5oGT0eAsgZe9QN5lRf6xFCdB0B2dMmzsSW1yMKBmhh1XqfI+kIbaxd?=
- =?us-ascii?Q?e9DlhnkGRQ4f+2Uroag6gz5vFc8dzQ9Rxa+alZxDCpGDp1hv0vrHu10issfn?=
- =?us-ascii?Q?NZtOmBhba+7EuMj0ZhhfToNQ7bg0KVayzqsEvXTV+lv7pt7a5X1YXnEBY9Ot?=
- =?us-ascii?Q?1Q+nAQ5I/cNNB79AxeDwKDaSiC93WwN/IKTYbLzd4d8/e5wqfxf5/97pBOsU?=
- =?us-ascii?Q?Mr7xJNlo+L3KmHXt1SlWUK6LNzPbt71rccD2QDqllqH2ss9hssc/egJo5Z+T?=
- =?us-ascii?Q?RN12Rea7kaBk3ZjnnEi5X7m3wMiNCj+Qa54PHyntNuw7dPRgoyvwdFXSBH6g?=
- =?us-ascii?Q?se+gCw00lS0/RGT7wj7jFe6PVaArtYGgwKasR50padn1Xrj7ECJ9wQdO8JGz?=
- =?us-ascii?Q?zVirlDjyM6sNOThir+hKB+a+?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?VFHPDizAZ8f8wntBPazoHZ+NeGYlGkf3c8QQ6lJT/RaYKr3mvDG8ziibc2/v?=
+ =?us-ascii?Q?xsb+8zGcBJKKYxxNlbNEVfGYiSZ1iPY6vA1FvF5BSxioP/awIo1waoZuvEp2?=
+ =?us-ascii?Q?vFnRMwUQPhwPFJwTlk6abncTCWL8ekd6BID2nhIWqYAquhg6KKoZLFwcuC1A?=
+ =?us-ascii?Q?TEy9ih6Gv8Nw5j9qQvK4zknE52XzLr2Ufnz/uW3Y+7Ijtpk4XgskBVshXYGI?=
+ =?us-ascii?Q?n0JwNoYHsTvxV+7SiNDIpcK6OS7gq0cK+j1bcfByhmt76ZQsRLAjcYyDXl4U?=
+ =?us-ascii?Q?sl69rOEqarfp/VEsY2IQqZmwqzLmwbOIVh1kYiLSMAtRf2BY+vkQopwc+dH5?=
+ =?us-ascii?Q?iTA9YhsywsORWr1ceKL1vkQATJzoIxXRH+Zb+Z3HpcddlxkkkDSfkyifd2FL?=
+ =?us-ascii?Q?lxEmrW/J0X0ZeXj3s7B8BqU1/pFZy49n3bHjKkt8KiF7l5gAolXjqhzORPcC?=
+ =?us-ascii?Q?+jBV3ry46KISm//9ILlK//IDY9XD2BtHpS0p1mY4Qu1tyDd0wLgul4OUdLVI?=
+ =?us-ascii?Q?PcIe1QiBZTcTC5EmNpyQbDo2bqNCKMpu2mWk/ACA6TcOC4XvKl2ozza4oA8L?=
+ =?us-ascii?Q?SumYKI2Ss8axztq4TSLOoocxtjGA+g1MH9z/TKchoKffRVasTXleE/qauLDg?=
+ =?us-ascii?Q?ig4LDnVzrC1AjWBj8jwHn/smtEEEnmD5/vfG//Eg+bqtEF2ST/+wlGr8bpB6?=
+ =?us-ascii?Q?83K5didW35m4fsPdxtHni+iak8ub0GbpfBzqc2+TqTda4/XijcfOHsBlZB4i?=
+ =?us-ascii?Q?cZwqaCavOpUA4MpOe8kk0+0917kYKDVjTLSyroK0JJDCdnOcqkb0nLU/1vGe?=
+ =?us-ascii?Q?CWSa07hPiK28Bg8EexWmcm8S7CEoLF16nL14egzLys+w23KH/OE18d17Y0GT?=
+ =?us-ascii?Q?qi8wJ1kNSCrb6HF+vmFrpK4pyDcrGEhsCcPddgRoO7B0xmrQlHuU7KpfQY6v?=
+ =?us-ascii?Q?cDSzbjjI/JDKxMRN/9u5OHHQJK06RoPRWkj7SGDKf+lSfbRaQza1GsGO+64G?=
+ =?us-ascii?Q?sH5+ZzzhNU7H2X+TzgLeh1sJwYBHZPanOGHHoDBSkj+0JeyyKc701Jh/OoIz?=
+ =?us-ascii?Q?gMnrK99PPP2wuX1kjF3K9gpfsUS8fH6+8+/fKrwG61ohAzAgAhUae1OaTHtM?=
+ =?us-ascii?Q?HZK0/f80Eugi2NdkZaV3yFGuJKt8A+HE7sl9vccectNrb4YJljGRejyegjlN?=
+ =?us-ascii?Q?sR101gxFIRrhrdYE5U6F9bFgiKS5JhyAPViW6jM+jYArptcrwp0tqMI5RFkY?=
+ =?us-ascii?Q?HHroeMJu20vv3ylSjAuiXopm5amt4bSGmIHSc8/EvX9PEb2z3GEob2DhQ7gx?=
+ =?us-ascii?Q?5mg1P6BKqf3ywMjEzb4BkJA6?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e98f68a7-f6bd-480c-74b5-08d8ed22aee1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68c72243-fd66-4327-e2bd-08d8ed22b197
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 11:07:29.3867 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 11:07:33.8999 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JM0Q+vEz9GZEbeQoRyLsVgesNkwr6NR0QjgnTVH9YcK5bT0ynIEUFRiv7e9WMJ3sW/gS7jWVa414XxxBC3LpDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3935
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4/QV96p+95aqSoPcseUP2GNtfr5EoFav7Cxp0PJ+7ohts04M76T+tvInZzZKkUmOGyeKieWRDMYtf6hF/W4IOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3678
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,117 +128,431 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since the last patch series I sent on Jan 6 a lot has changed. Patches 1-33
-are the cleaned up, rebased on amd-staging-drm-next 5.11 version from about
-a week ago. The remaining 11 patches are current work-in-progress with
-further cleanup and fixes.
+From: Philip Yang <Philip.Yang@amd.com>
 
-MMU notifiers and CPU page faults now can split ranges and update our range
-data structures without taking heavy locks by doing some of the critical
-work in a deferred work handler. This includes updating MMU notifiers and
-the SVM range interval tree. In the mean time, new ranges can live as
-children of their parent ranges until the deferred work handler consolidates
-them in the main interval tree.
+When application explicitly call unmap or unmap from mmput when
+application exit, driver will receive MMU_NOTIFY_UNMAP event to remove
+svm range from process svms object tree and list first, unmap from GPUs
+(in the following patch).
 
-We also added proper DMA mapping of system memory pages.
+Split the svm ranges to handle partial unmapping of svm ranges. To
+avoid deadlocks, updating MMU notifiers, range lists and interval trees
+is done in a deferred worker. New child ranges are attached to their
+parent range's child_list until the worker can update the
+svm_range_list. svm_range_set_attr flushes deferred work and takes the
+mmap_write_lock to guarantee that it has an up-to-date svm_range_list.
 
-Current work in progress is cleaning up all the locking, simplifying our
-code and data structures and resolving a few known bugs.
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h |   3 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 285 +++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h  |  18 ++
+ 3 files changed, 305 insertions(+), 1 deletion(-)
 
-This series and the corresponding ROCm Thunk and KFDTest changes are also
-available on gitub:
-  https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/tree/fxkamd/hmm-wip
-  https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/tree/fxkamd/hmm-wip
-
-An updated Thunk
-
-Alex Sierra (10):
-  drm/amdgpu: replace per_device_list by array
-  drm/amdkfd: helper to convert gpu id and idx
-  drm/amdkfd: add xnack enabled flag to kfd_process
-  drm/amdkfd: add ioctl to configure and query xnack retries
-  drm/amdgpu: enable 48-bit IH timestamp counter
-  drm/amdkfd: SVM API call to restore page tables
-  drm/amdkfd: add svm_bo reference for eviction fence
-  drm/amdgpu: add param bit flag to create SVM BOs
-  drm/amdgpu: svm bo enable_signal call condition
-  drm/amdgpu: add svm_bo eviction to enable_signal cb
-
-Felix Kuehling (22):
-  drm/amdkfd: map svm range to GPUs
-  drm/amdkfd: svm range eviction and restore
-  drm/amdkfd: validate vram svm range from TTM
-  drm/amdkfd: HMM migrate ram to vram
-  drm/amdkfd: HMM migrate vram to ram
-  drm/amdkfd: invalidate tables on page retry fault
-  drm/amdkfd: page table restore through svm API
-  drm/amdkfd: add svm_bo eviction mechanism support
-  drm/amdkfd: refine migration policy with xnack on
-  drm/amdkfd: add svm range validate timestamp
-  drm/amdkfd: multiple gpu migrate vram to vram
-  drm/amdkfd: Fix dma unmapping
-  drm/amdkfd: Call mutex_destroy
-  drm/amdkfd: Fix spurious restore failures
-  drm/amdkfd: Fix svm_bo_list locking in eviction worker
-  drm/amdkfd: Simplify split_by_granularity
-  drm/amdkfd: Point out several race conditions
-  drm/amdkfd: Return pdd from kfd_process_device_from_gduid
-  drm/amdkfd: Remove broken deferred mapping
-  drm/amdkfd: Allow invalid pages in migration.src
-  drm/amdkfd: Correct locking during migration and mapping
-  drm/amdkfd: Nested locking and invalidation of child ranges
-
-Philip Yang (12):
-  drm/amdkfd: add svm ioctl API
-  drm/amdkfd: register svm range
-  drm/amdkfd: add svm ioctl GET_ATTR op
-  drm/amdgpu: add common HMM get pages function
-  drm/amdkfd: validate svm range system memory
-  drm/amdkfd: deregister svm range
-  drm/amdgpu: export vm update mapping interface
-  drm/amdkfd: register HMM device private zone
-  drm/amdkfd: support xgmi same hive mapping
-  drm/amdkfd: copy memory through gart table
-  drm/amdgpu: reserve fence slot to update page table
-  drm/amdkfd: Add SVM API support capability bits
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |    4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |    4 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |   16 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   13 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |   83 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |    7 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   90 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   48 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   11 +
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |    1 +
- drivers/gpu/drm/amd/amdkfd/Kconfig            |    1 +
- drivers/gpu/drm/amd/amdkfd/Makefile           |    4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  173 +-
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |    4 +
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |    8 +-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  922 ++++++
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |   59 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   54 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  191 +-
- .../amd/amdkfd/kfd_process_queue_manager.c    |    6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 2865 +++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  175 +
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |    6 +
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |   10 +-
- include/uapi/linux/kfd_ioctl.h                |  171 +-
- 26 files changed, 4681 insertions(+), 249 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.c
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index f547e1282d69..4101f5341ec9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -735,6 +735,9 @@ struct svm_range_list {
+ 	struct mutex			lock;
+ 	struct rb_root_cached		objects;
+ 	struct list_head		list;
++	struct work_struct		deferred_list_work;
++	struct list_head		deferred_range_list;
++	spinlock_t			deferred_list_lock;
+ };
+ 
+ /* Process data */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 6024caf7373f..e23171ac866a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -136,6 +136,8 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	INIT_LIST_HEAD(&prange->update_list);
+ 	INIT_LIST_HEAD(&prange->remove_list);
+ 	INIT_LIST_HEAD(&prange->insert_list);
++	INIT_LIST_HEAD(&prange->deferred_list);
++	INIT_LIST_HEAD(&prange->child_list);
+ 	svm_range_set_default_attributes(&prange->preferred_loc,
+ 					 &prange->prefetch_loc,
+ 					 &prange->granularity, &prange->flags);
+@@ -512,6 +514,41 @@ svm_range_split_head(struct svm_range *prange, struct svm_range *new,
+ 	return r;
+ }
+ 
++void svm_range_add_child(struct svm_range *prange, struct mm_struct *mm,
++			 struct svm_range *pchild, enum svm_work_list_ops op)
++{
++	pr_debug("add child 0x%p [0x%lx 0x%lx] to prange 0x%p child list %d\n",
++		 pchild, pchild->start, pchild->last, prange, op);
++
++	pchild->work_item.mm = mm;
++	pchild->work_item.op = op;
++	list_add_tail(&pchild->child_list, &prange->child_list);
++}
++
++/**
++ * svm_range_list_lock_and_flush_work - flush pending deferred work
++ *
++ * @svms: the svm range list
++ * @mm: the mm structure
++ *
++ * Context: Returns with mmap write lock held, pending deferred work flushed
++ *
++ */
++static void
++svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
++				   struct mm_struct *mm)
++{
++retry_flush_work:
++	flush_work(&svms->deferred_list_work);
++	mmap_write_lock(mm);
++
++	if (list_empty(&svms->deferred_range_list))
++		return;
++	mmap_write_unlock(mm);
++	pr_debug("retry flush\n");
++	goto retry_flush_work;
++}
++
+ struct svm_range *svm_range_clone(struct svm_range *old)
+ {
+ 	struct svm_range *new;
+@@ -664,21 +701,264 @@ svm_range_handle_overlap(struct svm_range_list *svms, struct svm_range *new,
+ 	return r;
+ }
+ 
++static void
++svm_range_update_notifier_and_interval_tree(struct mm_struct *mm,
++					    struct svm_range *prange)
++{
++	unsigned long start;
++	unsigned long last;
++
++	start = prange->notifier.interval_tree.start >> PAGE_SHIFT;
++	last = prange->notifier.interval_tree.last >> PAGE_SHIFT;
++
++	if (prange->start == start && prange->last == last)
++		return;
++
++	pr_debug("up notifier 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n",
++		  prange->svms, prange, start, last, prange->start,
++		  prange->last);
++
++	if (start != 0 && last != 0) {
++		interval_tree_remove(&prange->it_node, &prange->svms->objects);
++		svm_range_remove_notifier(prange);
++	}
++	prange->it_node.start = prange->start;
++	prange->it_node.last = prange->last;
++
++	interval_tree_insert(&prange->it_node, &prange->svms->objects);
++	svm_range_add_notifier_locked(mm, prange);
++}
++
++static void
++svm_range_handle_list_op(struct svm_range_list *svms, struct svm_range *prange)
++{
++	struct mm_struct *mm = prange->work_item.mm;
++
++	switch (prange->work_item.op) {
++	case SVM_OP_NULL:
++		pr_debug("NULL OP 0x%p prange 0x%p [0x%lx 0x%lx]\n",
++			 svms, prange, prange->start, prange->last);
++		break;
++	case SVM_OP_UNMAP_RANGE:
++		pr_debug("remove 0x%p prange 0x%p [0x%lx 0x%lx]\n",
++			 svms, prange, prange->start, prange->last);
++		svm_range_unlink(prange);
++		svm_range_remove_notifier(prange);
++		svm_range_free(prange);
++		break;
++	case SVM_OP_UPDATE_RANGE_NOTIFIER:
++		pr_debug("update notifier 0x%p prange 0x%p [0x%lx 0x%lx]\n",
++			 svms, prange, prange->start, prange->last);
++		svm_range_update_notifier_and_interval_tree(mm, prange);
++		break;
++	case SVM_OP_ADD_RANGE:
++		pr_debug("add 0x%p prange 0x%p [0x%lx 0x%lx]\n", svms, prange,
++			 prange->start, prange->last);
++		svm_range_add_to_svms(prange);
++		svm_range_add_notifier_locked(mm, prange);
++		break;
++	default:
++		WARN_ONCE(1, "Unknown prange 0x%p work op %d\n", prange,
++			 prange->work_item.op);
++	}
++}
++
++static void svm_range_deferred_list_work(struct work_struct *work)
++{
++	struct svm_range_list *svms;
++	struct svm_range *prange;
++	struct mm_struct *mm;
++
++	svms = container_of(work, struct svm_range_list, deferred_list_work);
++	pr_debug("enter svms 0x%p\n", svms);
++
++	spin_lock(&svms->deferred_list_lock);
++	while (!list_empty(&svms->deferred_range_list)) {
++		prange = list_first_entry(&svms->deferred_range_list,
++					  struct svm_range, deferred_list);
++		spin_unlock(&svms->deferred_list_lock);
++		pr_debug("prange 0x%p [0x%lx 0x%lx] op %d\n", prange,
++			 prange->start, prange->last, prange->work_item.op);
++
++		mm = prange->work_item.mm;
++		mmap_write_lock(mm);
++		mutex_lock(&svms->lock);
++
++		/* Remove from deferred_list must be inside mmap write lock,
++		 * otherwise, svm_range_list_lock_and_flush_work may hold mmap
++		 * write lock, and continue because deferred_list is empty, then
++		 * deferred_list handle is blocked by mmap write lock.
++		 */
++		spin_lock(&svms->deferred_list_lock);
++		list_del_init(&prange->deferred_list);
++		spin_unlock(&svms->deferred_list_lock);
++
++		while (!list_empty(&prange->child_list)) {
++			struct svm_range *pchild;
++
++			pchild = list_first_entry(&prange->child_list,
++						struct svm_range, child_list);
++			pr_debug("child prange 0x%p op %d\n", pchild,
++				 pchild->work_item.op);
++			list_del_init(&pchild->child_list);
++			svm_range_handle_list_op(svms, pchild);
++		}
++
++		svm_range_handle_list_op(svms, prange);
++		mutex_unlock(&svms->lock);
++		mmap_write_unlock(mm);
++
++		spin_lock(&svms->deferred_list_lock);
++	}
++	spin_unlock(&svms->deferred_list_lock);
++
++	pr_debug("exit svms 0x%p\n", svms);
++}
++
++void
++svm_range_add_list_work(struct svm_range_list *svms, struct svm_range *prange,
++			struct mm_struct *mm, enum svm_work_list_ops op)
++{
++	spin_lock(&svms->deferred_list_lock);
++	/* if prange is on the deferred list */
++	if (!list_empty(&prange->deferred_list)) {
++		pr_debug("update exist prange 0x%p work op %d\n", prange, op);
++		WARN_ONCE(prange->work_item.mm != mm, "unmatch mm\n");
++		if (op != SVM_OP_NULL &&
++		    prange->work_item.op != SVM_OP_UNMAP_RANGE)
++			prange->work_item.op = op;
++	} else {
++		prange->work_item.op = op;
++		prange->work_item.mm = mm;
++		list_add_tail(&prange->deferred_list,
++			      &prange->svms->deferred_range_list);
++		pr_debug("add prange 0x%p [0x%lx 0x%lx] to work list op %d\n",
++			 prange, prange->start, prange->last, op);
++	}
++	spin_unlock(&svms->deferred_list_lock);
++}
++
++void schedule_deferred_list_work(struct svm_range_list *svms)
++{
++	spin_lock(&svms->deferred_list_lock);
++	if (!list_empty(&svms->deferred_range_list))
++		schedule_work(&svms->deferred_list_work);
++	spin_unlock(&svms->deferred_list_lock);
++}
++
++static void
++svm_range_unmap_split(struct mm_struct *mm, struct svm_range *parent,
++		      struct svm_range *prange, unsigned long start,
++		      unsigned long last)
++{
++	struct svm_range *head;
++	struct svm_range *tail;
++
++	if (prange->work_item.op == SVM_OP_UNMAP_RANGE) {
++		pr_debug("prange 0x%p [0x%lx 0x%lx] is already freed\n", prange,
++			 prange->start, prange->last);
++		return;
++	}
++	if (start > prange->last || last < prange->start)
++		return;
++
++	head = tail = prange;
++	if (start > prange->start)
++		svm_range_split(prange, prange->start, start - 1, &tail);
++	if (last < tail->last)
++		svm_range_split(tail, last + 1, tail->last, &head);
++
++	if (head != prange && tail != prange) {
++		svm_range_add_child(parent, mm, head, SVM_OP_UNMAP_RANGE);
++		svm_range_add_child(parent, mm, tail, SVM_OP_ADD_RANGE);
++	} else if (tail != prange) {
++		svm_range_add_child(parent, mm, tail, SVM_OP_UNMAP_RANGE);
++	} else if (head != prange) {
++		svm_range_add_child(parent, mm, head, SVM_OP_UNMAP_RANGE);
++	} else if (parent != prange) {
++		prange->work_item.op = SVM_OP_UNMAP_RANGE;
++	}
++}
++
++static void
++svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
++			 unsigned long start, unsigned long last)
++{
++	struct svm_range_list *svms;
++	struct svm_range *pchild;
++	struct kfd_process *p;
++	bool unmap_parent;
++
++	p = kfd_lookup_process_by_mm(mm);
++	if (!p)
++		return;
++	svms = &p->svms;
++
++	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n", svms,
++		 prange, prange->start, prange->last, start, last);
++
++	unmap_parent = start <= prange->start && last >= prange->last;
++
++	list_for_each_entry(pchild, &prange->child_list, child_list)
++		svm_range_unmap_split(mm, prange, pchild, start, last);
++	svm_range_unmap_split(mm, prange, prange, start, last);
++
++	if (unmap_parent)
++		svm_range_add_list_work(svms, prange, mm, SVM_OP_UNMAP_RANGE);
++	else
++		svm_range_add_list_work(svms, prange, mm,
++					SVM_OP_UPDATE_RANGE_NOTIFIER);
++	schedule_deferred_list_work(svms);
++
++	kfd_unref_process(p);
++}
++
+ /**
+  * svm_range_cpu_invalidate_pagetables - interval notifier callback
+  *
++ * MMU range unmap notifier to remove svm ranges
+  */
+ static bool
+ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 				    const struct mmu_notifier_range *range,
+ 				    unsigned long cur_seq)
+ {
++	struct svm_range *prange;
++	unsigned long start;
++	unsigned long last;
++
++	if (range->event == MMU_NOTIFY_RELEASE)
++		return true;
++
++	start = mni->interval_tree.start;
++	last = mni->interval_tree.last;
++	start = (start > range->start ? start : range->start) >> PAGE_SHIFT;
++	last = (last < (range->end - 1) ? last : range->end - 1) >> PAGE_SHIFT;
++	pr_debug("[0x%lx 0x%lx] range[0x%lx 0x%lx] notifier[0x%lx 0x%lx] %d\n",
++		 start, last, range->start >> PAGE_SHIFT,
++		 (range->end - 1) >> PAGE_SHIFT,
++		 mni->interval_tree.start >> PAGE_SHIFT,
++		 mni->interval_tree.last >> PAGE_SHIFT, range->event);
++
++	prange = container_of(mni, struct svm_range, notifier);
++
++	switch (range->event) {
++	case MMU_NOTIFY_UNMAP:
++		svm_range_unmap_from_cpu(mni->mm, prange, start, last);
++		break;
++	default:
++		break;
++	}
++
+ 	return true;
+ }
+ 
+ void svm_range_list_fini(struct kfd_process *p)
+ {
+ 	pr_debug("pasid 0x%x svms 0x%p\n", p->pasid, &p->svms);
++
++	/* Ensure list work is finished before process is destroyed */
++	flush_work(&p->svms.deferred_list_work);
+ }
+ 
+ int svm_range_list_init(struct kfd_process *p)
+@@ -688,6 +968,9 @@ int svm_range_list_init(struct kfd_process *p)
+ 	svms->objects = RB_ROOT_CACHED;
+ 	mutex_init(&svms->lock);
+ 	INIT_LIST_HEAD(&svms->list);
++	INIT_WORK(&svms->deferred_list_work, svm_range_deferred_list_work);
++	INIT_LIST_HEAD(&svms->deferred_range_list);
++	spin_lock_init(&svms->deferred_list_lock);
+ 
+ 	return 0;
+ }
+@@ -805,7 +1088,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 
+ 	mutex_lock(&process_info->lock);
+ 
+-	mmap_write_lock(mm);
++	svm_range_list_lock_and_flush_work(svms, mm);
+ 
+ 	if (!svm_range_is_valid(mm, start, size)) {
+ 		pr_debug("invalid range\n");
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index f35a178c607f..f9b81245b94a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -32,6 +32,18 @@
+ #include "amdgpu.h"
+ #include "kfd_priv.h"
+ 
++enum svm_work_list_ops {
++	SVM_OP_NULL,
++	SVM_OP_UNMAP_RANGE,
++	SVM_OP_UPDATE_RANGE_NOTIFIER,
++	SVM_OP_ADD_RANGE
++};
++
++struct svm_work_list_item {
++	enum svm_work_list_ops op;
++	struct mm_struct *mm;
++};
++
+ /**
+  * struct svm_range - shared virtual memory range
+  *
+@@ -53,6 +65,9 @@
+  * @actual_loc: the actual location, 0 for CPU, or GPU id
+  * @granularity:migration granularity, log2 num pages
+  * @notifier:   register mmu interval notifier
++ * @work_item:  deferred work item information
++ * @deferred_list: list header used to add range to deferred list
++ * @child_list: list header for split ranges which are not added to svms yet
+  * @bitmap_access: index bitmap of GPUs which can access the range
+  * @bitmap_aip: index bitmap of GPUs which can access the range in place
+  *
+@@ -78,6 +93,9 @@ struct svm_range {
+ 	uint32_t			actual_loc;
+ 	uint8_t				granularity;
+ 	struct mmu_interval_notifier	notifier;
++	struct svm_work_list_item	work_item;
++	struct list_head		deferred_list;
++	struct list_head		child_list;
+ 	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
+ 	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
+ };
 -- 
 2.31.0
 
