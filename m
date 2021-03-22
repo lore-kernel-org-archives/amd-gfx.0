@@ -2,55 +2,102 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A8B6C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:23:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5A6EC433E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24F3A6191C
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:23:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24F3A6191C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 799D36191C
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:23:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 799D36191C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6118D6E45D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF6FD6E46B;
 	Mon, 22 Mar 2021 13:23:35 +0000 (UTC)
-X-Greylist: delayed 478 seconds by postgrey-1.36 at gabe;
- Mon, 22 Mar 2021 12:11:08 UTC
-Received: from mail-m17637.qiye.163.com (mail-m17637.qiye.163.com
- [59.111.176.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E7A6E457;
- Mon, 22 Mar 2021 12:11:08 +0000 (UTC)
-Received: from wanjb-virtual-machine.localdomain (unknown [36.152.145.182])
- by mail-m17637.qiye.163.com (Hmail) with ESMTPA id E0C4C98079B;
- Mon, 22 Mar 2021 20:03:06 +0800 (CST)
-From: Wan Jiabing <wanjiabing@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Evan Quan <evan.quan@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drivers: gpu: Remove duplicate include of amdgpu_hdp.h
-Date: Mon, 22 Mar 2021 20:02:25 +0800
-Message-Id: <20210322120227.60953-1-wanjiabing@vivo.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F8589C82
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 08:39:51 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id h10so18209606edt.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 01:39:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=WosURJkM/PKSCOw9xPERzj9fjDA03BThhpk0x/4VEXg=;
+ b=Xmw1I0kVglEkkyuysEP1PPTcEa0qNfUT+YiRUf21xzme6vAcGVqGQFhILRd5KF6HQT
+ oAFfhdwqyw/7k+Z2aHghIGttZFXr1qMivDnMOZCpx8s5pSWybC9p5wS1T/12dE6axlRE
+ XAlEAguYbFxtFpFCih0t7ANGSfFkAXJPAyhS+Jg6Q8zR7vgp8MQJsJZwV5QH4Lv271/e
+ lMaD1/D08eqYnnkHs2fb3tKFeeRsUuQqLNmnsRV+6ktK6/aHy3TmEZc2QmGgIgILxbUb
+ 0fyOqeOpSaLYJh4YvLz/ximI7JeQMp89Wpc2roOfrbULHCS6TVt3Xn9qBMNloAPNH+ra
+ IZWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=WosURJkM/PKSCOw9xPERzj9fjDA03BThhpk0x/4VEXg=;
+ b=maHVNkaXrLY931q5l5PSWylbB8y8vw7G+vIAmODjMNiudKaYJX4AvShgK5FpgIv3+X
+ x6d9Nd7hs+Hmf8d0lC2RKz2uc7I1c64uwoBH18kQTaztQYFyNdEcas4UkI8oBDihgYTr
+ qBJL9HPpZVfkYZ81prdTjjKltFjVt+algK+pPbnIhqFcXSY3ZroHG6fMstJmq0Q3RWnW
+ 5iyR93usWRR5kBi/7EoNY06V/2QzOhf2iM9+YV0RgcW6aYY8wPkC0xIyDNb17sY82LVH
+ E8jXqTLctnM/bNmMrE2Kctpv7zOhx8bT6dEVA7qzITEo+BKuvftmQZfA6ljUtnMwrsIk
+ mLtg==
+X-Gm-Message-State: AOAM531cCvU7O8aoOOQX5Nx0Q0jogHTclSKWKKBNk9IO3NHm2wX9HN6w
+ wZsQdDrpYUny65ENvpJ14oUZtA==
+X-Google-Smtp-Source: ABdhPJw6q+bFZcIwo/y4uN0oE8skM7XUnmmeJDRr9QTv/JOzMN54LLFvW9KELWO6DcVO4jr2DhMgiA==
+X-Received: by 2002:a05:6402:1713:: with SMTP id
+ y19mr23148734edu.52.1616402390537; 
+ Mon, 22 Mar 2021 01:39:50 -0700 (PDT)
+Received: from dell ([91.110.221.180])
+ by smtp.gmail.com with ESMTPSA id ga28sm4809735ejc.82.2021.03.22.01.39.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 01:39:50 -0700 (PDT)
+Date: Mon, 22 Mar 2021 08:39:47 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Roland Scheidegger <sroland@vmware.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Anthony Koo <Anthony.Koo@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@linux.ie>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Harry Wentland <harry.wentland@amd.com>, Jeremy Kolb <jkolb@brandeis.edu>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Leo Li <sunpeng.li@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Nouveau Dev <nouveau@lists.freedesktop.org>,
+ Qinglang Miao <miaoqinglang@huawei.com>,
+ Rob Clark <rob.clark@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Zack Rusin <zackr@vmware.com>
+Subject: Re: [RESEND 00/53] Rid GPU from W=1 warnings
+Message-ID: <20210322083947.GM2916463@dell>
+References: <20210303134319.3160762-1-lee.jones@linaro.org>
+ <16d4300e-bf29-1e85-317b-53d257890cb9@vmware.com>
+ <20210308091932.GB4931@dell> <YEobySvG0zPs9xhc@phenom.ffwll.local>
+ <20210311135152.GT701493@dell> <20210317081729.GH701493@dell>
+ <CAKMK7uEibsgXXTEM1d2CGSswp-koouPSouseP_rwLHTdpxfRpw@mail.gmail.com>
+ <CAKMK7uHkJGDL8k3FfAqAM78honZR0euMcacW8UpdPZfS1J-7cA@mail.gmail.com>
+ <20210319082407.GG2916463@dell>
+ <YFTlhh1ZSFffO+Nr@phenom.ffwll.local>
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQ0hMQktKSR5IQkwZVkpNSk1PSk9OQ0xJQkhVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Ngw6Pjo6Iz8NPUI9MA9LSjwR
- I0kKCy1VSlVKTUpNT0pPTkNMTU5NVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
- TVVKTklVSk9OVUpDSVlXWQgBWUFJSUJMNwY+
-X-HM-Tid: 0a7859d13945d992kuwse0c4c98079b
+Content-Disposition: inline
+In-Reply-To: <YFTlhh1ZSFffO+Nr@phenom.ffwll.local>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 13:23:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,36 +110,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kael_w@yeah.net, Wan Jiabing <wanjiabing@vivo.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_hdp.h has been included at line 91, so remove
-the duplicate include.
-
-Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 49267eb64302..68836c22ef25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -107,7 +107,6 @@
- #include "amdgpu_gfxhub.h"
- #include "amdgpu_df.h"
- #include "amdgpu_smuio.h"
--#include "amdgpu_hdp.h"
- 
- #define MAX_GPU_INSTANCE		16
- 
--- 
-2.25.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCAxOSBNYXIgMjAyMSwgRGFuaWVsIFZldHRlciB3cm90ZToKCj4gT24gRnJpLCBNYXIg
+MTksIDIwMjEgYXQgMDg6MjQ6MDdBTSArMDAwMCwgTGVlIEpvbmVzIHdyb3RlOgo+ID4gT24gVGh1
+LCAxOCBNYXIgMjAyMSwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+IAo+ID4gPiBPbiBXZWQsIE1h
+ciAxNywgMjAyMSBhdCA5OjMyIFBNIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4gd3Jv
+dGU6Cj4gPiA+ID4KPiA+ID4gPiBPbiBXZWQsIE1hciAxNywgMjAyMSBhdCA5OjE3IEFNIExlZSBK
+b25lcyA8bGVlLmpvbmVzQGxpbmFyby5vcmc+IHdyb3RlOgo+ID4gPiA+ID4KPiA+ID4gPiA+IE9u
+IFRodSwgMTEgTWFyIDIwMjEsIExlZSBKb25lcyB3cm90ZToKPiA+ID4gPiA+Cj4gPiA+ID4gPiA+
+IE9uIFRodSwgMTEgTWFyIDIwMjEsIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gPiA+ID4gPiA+Cj4g
+PiA+ID4gPiA+ID4gT24gTW9uLCBNYXIgMDgsIDIwMjEgYXQgMDk6MTk6MzJBTSArMDAwMCwgTGVl
+IEpvbmVzIHdyb3RlOgo+ID4gPiA+ID4gPiA+ID4gT24gRnJpLCAwNSBNYXIgMjAyMSwgUm9sYW5k
+IFNjaGVpZGVnZ2VyIHdyb3RlOgo+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+ID4gVGhl
+IHZtd2dmeCBvbmVzIGxvb2sgYWxsIGdvb2QgdG8gbWUsIHNvIGZvcgo+ID4gPiA+ID4gPiA+ID4g
+PiAyMy01MzogUmV2aWV3ZWQtYnk6IFJvbGFuZCBTY2hlaWRlZ2dlciA8c3JvbGFuZEB2bXdhcmUu
+Y29tPgo+ID4gPiA+ID4gPiA+ID4gPiBUaGF0IHNhaWQsIHRoZXkgd2VyZSBhbHJlYWR5IHNpZ25l
+ZCBvZmYgYnkgWmFjaywgc28gbm90IHN1cmUgd2hhdAo+ID4gPiA+ID4gPiA+ID4gPiBoYXBwZW5l
+ZCBoZXJlLgo+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+IFllcywgdGhleSB3ZXJlIGFj
+Y2VwdGVkIGF0IG9uZSBwb2ludCwgdGhlbiBkcm9wcGVkIHdpdGhvdXQgYSByZWFzb24uCj4gPiA+
+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+ID4gU2luY2UgSSByZWJhc2VkIG9udG8gdGhlIGxhdGVz
+dCAtbmV4dCwgSSBoYWQgdG8gcGx1Y2sgdGhlbSBiYWNrIG91dCBvZgo+ID4gPiA+ID4gPiA+ID4g
+YSBwcmV2aW91cyBvbmUuCj4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiBUaGV5IHNob3VsZCBz
+aG93IHVwIGluIGxpbnV4LW5leHQgYWdhaW4uIFdlIG1lcmdlIHBhdGNoZXMgZm9yIG5leHQgbWVy
+Z2UKPiA+ID4gPiA+ID4gPiB3aW5kb3cgZXZlbiBkdXJpbmcgdGhlIGN1cnJlbnQgbWVyZ2Ugd2lu
+ZG93LCBidXQgbmVlZCB0byBtYWtlIHN1cmUgdGhleQo+ID4gPiA+ID4gPiA+IGRvbid0IHBvbGx1
+dGUgbGludXgtbmV4dC4gT2NjYXNpb25hbGx5IHRoZSBjdXQgb2ZmIGlzIHdyb25nIHNvIHBhdGNo
+ZXMKPiA+ID4gPiA+ID4gPiBzaG93IHVwLCBhbmQgdGhlbiBnZXQgcHVsbGVkIGFnYWluLgo+ID4g
+PiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gVW5mb3J0dW5hdGVseSBlc3BlY2lhbGx5IHRoZSA1LjEy
+IG1lcmdlIGN5Y2xlIHdhcyB2ZXJ5IHdvYmJseSBkdWUgdG8gc29tZQo+ID4gPiA+ID4gPiA+IGNv
+bmZ1c2lvbiBoZXJlLiBCdXQgeW91ciBwYXRjaGVzIHNob3VsZCBhbGwgYmUgaW4gbGludXgtbmV4
+dCBhZ2FpbiAodGhleQo+ID4gPiA+ID4gPiA+IGFyZSBxdWV1ZWQgdXAgZm9yIDUuMTMgaW4gZHJt
+LW1pc2MtbmV4dCwgSSBjaGVja2VkIHRoYXQpLgo+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4g
+U29ycnkgZm9yIHRoZSBjb25mdXNpb24gaGVyZS4KPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gT2gs
+IEkgc2VlLiAgV2VsbCBzbyBsb25nIGFzIHRoZXkgZG9uJ3QgZ2V0IGRyb3BwZWQsIEknbGwgYmUg
+aGFwcHkuCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IFRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9u
+IERhbmllbAo+ID4gPiA+ID4KPiA+ID4gPiA+IEFmdGVyIHJlYmFzaW5nIHRvZGF5LCBhbGwgb2Yg
+bXkgR1BVIHBhdGNoZXMgaGF2ZSByZW1haW5lZC4gIFdvdWxkCj4gPiA+ID4gPiBzb21lb25lIGJl
+IGtpbmQgZW5vdWdoIHRvIGNoZWNrIHRoYXQgZXZlcnl0aGluZyBpcyBzdGlsbCBpbiBvcmRlcgo+
+ID4gPiA+ID4gcGxlYXNlPwo+ID4gPiA+Cj4gPiA+ID4gSXQncyBzdGlsbCBicm9rZW4gc29tZWhv
+dy4gSSd2ZSBraWNlZCBNYXhpbWUgYW5kIE1hYXJ0ZW4gYWdhaW4sCj4gPiA+ID4gdGhleSdyZSBh
+bHNvIG9uIHRoaXMgdGhyZWFkLgo+ID4gPiAKPiA+ID4gWW91J3JlIHBhdGNoZXMgaGF2ZSBtYWRl
+IGl0IGludG8gZHJtLW5leHQgbWVhbndoaWxlLCBzbyB0aGV5IHNob3VsZAo+ID4gPiBzaG93IHVw
+IGluIGxpbnV4LW5leHQgdGhyb3VnaCB0aGF0IHRyZWUgYXQgbGVhc3QuIEV4Y2VwdCBpZiB0aGF0
+IG9uZQo+ID4gPiBhbHNvIGhhcyBzb21lIHRyb3VibGUuCj4gPiAKPiA+IFRoYW5rcyBmb3IgbGV0
+dGluZyBtZSBrbm93Lgo+ID4gCj4gPiBJIHNlZSBzb21lIHBhdGNoZXMgbWFkZSBpdCBiYWNrIGlu
+LCBvdGhlcnMgZGlkbid0Lgo+ID4gCj4gPiBJJ2xsIHJlc2VuZCB0aGUgc3RyYWdnbGVycyAtIGJl
+YXIgd2l0aC4KPiAKPiBUaGUgdm13Z2Z4IG9uZXMgc2hvdWxkIGFsbCBiZSBiYWNrLCB0aGUgb3Ro
+ZXJzIEkgZ3Vlc3MganVzdCB3ZXJlbnQgZXZlcgo+IGFwcGxpZWQuIEknbGwgdmFjdXVtIHRoZW0g
+YWxsIHVwIGlmIHlvdSByZXNlbmQuIEFwb2xvZ2llcyBmb3IgdGhlIHdvYmJseQo+IHJpZGUuCgpO
+UCwgaXQgaGFwcGVucy4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNh
+bCBMZWFkIC0gRGV2ZWxvcGVyIFNlcnZpY2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNv
+ZnR3YXJlIGZvciBBcm0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBC
+bG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
