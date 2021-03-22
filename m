@@ -3,127 +3,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8F27C433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29436C433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8918B61972
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8918B61972
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7015C6197F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7015C6197F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 291036E4A2;
-	Mon, 22 Mar 2021 14:04:36 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4CA6E4AD;
- Mon, 22 Mar 2021 14:04:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R9g4h/EKWuCW3WqSKIj6mIRADUHYjGbkQnlGxiEvOousMzPvAhpG7uJGJ5WuTtJgyrGS9o+2+pDF+rH4k7Rk5UbUl6Cw4bNLBVdm+ynDcrX3KQX241jPr69M8uGtpCdgc0Y4wahrIMsQU1QPZYkZgjyAzdgnMEDgGv9TjhRSwaoddMa3bhwlLqfWnmgnjqlZiTrGc1tIbPtZH7BBhlQrA2UQ53Eb/Ib4wbjdfSxJOMFRl6XaFLR53SF7YmY7Gq488JaupL5Ibd/pjM08L0P7jMHA59oQDOYujwSApnXBpZsO2UGU4KzMBXGsAwSEdgE4b9v+30Z03qJPupBhyDzg+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NWMsYDPUh88Ei1PsXF4R1XjAiJIXJTcTeAUTzs5MRb0=;
- b=FcsqRF25csvWYwjJDd9JisydXzK0ICyHrAeRAZBLZkCkTAohooToWkVlcydXYxPoSYyga2yR8fTLZnHr3h08q/lMRm2dzQt38Z9fUD4Vm/eS7a/MgykSAl2UjGFnzQFtx0ICMvuu82mDpBTATpkbqew1CTLhSAz3gonqQHUeT2fCc77SciVZII3kb0lm/vPdfzXWozxWUAhD1N0ws/yY5vWo0GyEpwHSRsIYaLjMxtezSMsAwAdDDazYihT3Ys1EUwsEL64NKjrjWodN3zq6+FySBh9FIa24m6DoadjwPrh05Q9uPJMrWHjYbKbj528dILFwjo1BQevpcVuImMzPMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NWMsYDPUh88Ei1PsXF4R1XjAiJIXJTcTeAUTzs5MRb0=;
- b=OAXAq3JZjPK1E8IuCLxgEeluhysjrISFFeb5TjruwDrnjF1xDd0TJ86PKxZo6iZnX6HWtnMO1ut0FND9EUgktflrhvfnqmMVKi0j4Mp4ucspX+sr2HAh1nG+/DNEgijH9t4fKHSAIuvesN2ZMZJRqyUMe2EzCQX837/qdIn5iII=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR1201MB0038.namprd12.prod.outlook.com (2603:10b6:910:19::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
- 2021 14:04:31 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::8908:d7:5544:6007]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::8908:d7:5544:6007%8]) with mapi id 15.20.3955.027; Mon, 22 Mar 2021
- 14:04:31 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>, Lee Jones
- <lee.jones@linaro.org>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun
- peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: RE: [PATCH][next] drm/amd/display: Fix sizeof arguments in
- bw_calcs_init()
-Thread-Topic: [PATCH][next] drm/amd/display: Fix sizeof arguments in
- bw_calcs_init()
-Thread-Index: AQHXHyJm7qN3FM0MYES4Fe946lUdpaqQCaog
-Date: Mon, 22 Mar 2021 14:04:31 +0000
-Message-ID: <CY4PR12MB128770E0A2502A3CA0A26650F1659@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20210322125050.GA236782@embeddedor>
-In-Reply-To: <20210322125050.GA236782@embeddedor>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-22T14:04:28Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=dfc5db4f-343e-4242-8f75-06b58d81060f;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.164.215.185]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4acb583f-aff0-465b-0196-08d8ed3b6a80
-x-ms-traffictypediagnostic: CY4PR1201MB0038:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR1201MB00385B45C2BD8C00422B1031F1659@CY4PR1201MB0038.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: eCq7Ozn2P2ILTocHEZYCwLVAmA6NGt/Gp6oS76Z01+P60cKpqRUv0wrTfiQGT3tbQ/lKbhYHIEmapFCq51uYWV/Up7DsOLTV096vfA8z2rkyQFbT0TrZ0TyO14LN80jjZoSOTlGixcgcm0uXWS/iGRDWPPEJ5JHL5dwub5gjgIjtUIiJ+6bt1S9ohVJHh34GI4Ug3RLX80x4U550ArXIrQrQB4F+DeYJsYwIL9tW7iljezGlPQoNZqeqEcLIhR5xgvGodq4ScqF7dTeDEjHmIv01yTFpHE1WPY+bZqI/lnmcDzxVLPkWAuTWw358T1wKY2tWfBhiTzQVa12Rjx4lowXC2NfuJJ16OZXfZ4Xc0Ug6QVXH5fBCfgu+wY/FlcOoDYBbBLRABz2B5jcCXfk5Lw6tVMqStg+v35LkEVvOY3zUnU34noXuA44W1Zu9qGlAeMAbr1TlqTw5gM60mGx7kklPz4iZy8V+3RzilTGSZh4KqaG1pP6P2FIqeR9gINfi2r7+3ibZJL25jWE31rNzsaA4KogAOEwkBlvtpo+r9gwT5hryVkEq/1WEjZASOT2Xgv6q7Lk3QyVoR+VRVhEBoCPrcGBsr99G7BBHl2IuLKINXDy5mHRfCCt/O08L5GTmQBvbiUUu9EmZwAo+I89XcAseg7yaltwe8kof+ptZrtAgavEn9W1l1FDJEX4w74IPx20SNLyyX/IurJ/GIRmASg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(8676002)(8936002)(71200400001)(76116006)(52536014)(966005)(66476007)(66446008)(83380400001)(45080400002)(4326008)(478600001)(64756008)(2906002)(86362001)(66556008)(66946007)(186003)(5660300002)(38100700001)(54906003)(7696005)(6506007)(26005)(53546011)(55016002)(921005)(316002)(33656002)(9686003)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?z7hpPvFqiLbEV0WoJwIeb/jluTOBatn3YPRo8kjuzGyOtjJCZ4NTX1nQHERR?=
- =?us-ascii?Q?3CWtX8YMY+LdWt93t3K2cCVLDXWms50RrfW7BD5IHHXMDH5a9kNijVD4v/6q?=
- =?us-ascii?Q?XAQlEiW+xf9Eliv8DcWY1oUf9+/4OwUcZ37AKf4sb6wPcRTt2B7YWTr/MhBY?=
- =?us-ascii?Q?IozwZIS6lMwkHWW97lNwW4gQKWxV1u5jf5LX0mhtAdkIz0+/f2us7DfSk1E4?=
- =?us-ascii?Q?7vRmqBTz8FmRjmxY6q8pej5K7nWr+T8vKv/ssCC+WPpC0PDK0IEWjOUt2fsl?=
- =?us-ascii?Q?bJ9h8Q541H/RCbhz8m+EdSoJu4IlqwVR8o1rljR0rAwyUleo7mUVKz7YOn3/?=
- =?us-ascii?Q?yEuZwSYDVyKLkXsf+3WSnGXlPETOcKl0i4d1wSTWhWyPbOEe9Xb8L8U1wluY?=
- =?us-ascii?Q?UQWAl83fqdR2VFQhnXSIAzDILLtlMikPpi20TCSZY1qpmAchMlXmaP7D5Rsb?=
- =?us-ascii?Q?Zc8Z7yHZco6U9QCLlhLxm5rJmx+3ujS8rDGZT+ofwPLgv11de4Tnmq+fhZAl?=
- =?us-ascii?Q?Nc8FvH/ZCX8Yt0MNOUlB49OuX72jbwpFuMBWg9BkUtz8iS+uXTOxWU1vCfzZ?=
- =?us-ascii?Q?QLpAqfPwsnvGN4HOzTApAhcUfmKqEcNemM9ex7N8ju24NpvMC5s90gRZ6k8G?=
- =?us-ascii?Q?pgRmlSN3sKqcYqmPyQyJDiogF9Vte5RsEqepb+bcaNfVs2S2MUhuYd+644D3?=
- =?us-ascii?Q?7fnPyRXvSOAAN8/wNz6+aeLGyXDHxXsGuOGsGHfJLZFKFtO1SMDpYovFcpdK?=
- =?us-ascii?Q?OhaSNjmYrEfEu9WQEpy98FzwYDPbEM2JgVZ2AS7GwmfyqheIyPjDnqpSK5jo?=
- =?us-ascii?Q?CLpD6erDbnzL4wYUSf7hlOAqIgD9ARs+wudeY9DkQAMNbzC9ASQ3czHcQrRc?=
- =?us-ascii?Q?cHpBIJo7GILBgER9imSQi275Iu5Wr95iXa4k1rW1H51ThqCSe6umeZjIY16w?=
- =?us-ascii?Q?yVAc6jlbBjAt0njUh/IVtQ0gC7M1yyLDtxzNM475pvlFx+GEixQHFzqM5BSD?=
- =?us-ascii?Q?F6242qx7muidcHNe3zatpBvAPEUjZbukaD7PVQOWMc8k0BESr84aApOuw+JV?=
- =?us-ascii?Q?/SHirFKyLvarF0IujMtsaGJPFppPkQwCeZ1rMqLMCZv8XfKlA9dtckwNtA6N?=
- =?us-ascii?Q?UE+jOgeDzdtMBlJtf/6RieYd69ep6Sk9OdUkl+UPpCh0L5HEidtFQyKxCsiB?=
- =?us-ascii?Q?G/K764OnW08zfXMGjxBi5PcvLZx4fGvPOVJHZh7tVVqcMgixckq9/NAcb1Jq?=
- =?us-ascii?Q?AQdwqmX/PHoPfnvK0GK9hT0IrHLL1giUjwnJrJad7UhR/9F83h5QMRAqWk1l?=
- =?us-ascii?Q?gk0dlOh8fYPEX55qq9wvBOb3?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id E888E6E4AD;
+	Mon, 22 Mar 2021 14:15:31 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06A696E49C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 14:15:31 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id c8so4180766wrq.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 07:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=mlbaWNl6myQL4ImK9SxnSclyhhjtiwHsTJaXNS1CGMs=;
+ b=SPFiljPxo/9jrNXxZR8GuL5pSIdB1h8rcNUIYO1aAsawIhnVXfFYG4sOI/i5d1aPUr
+ pSKtIBGMhN28y+oKw7vDmRaz8gSj7aaL4SVNnSoT6EJlecbym4PyaT0SqnYYeT4BAJZX
+ z37evZPzBPQMYWqR2Yy3Ee2HNtt93nxKmrEtQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=mlbaWNl6myQL4ImK9SxnSclyhhjtiwHsTJaXNS1CGMs=;
+ b=axew6yUfgI6YFkvYd2ZTFKjnbqFymktCCw53Lb9BM265WEzWum0RoaWmh+T5WtqWS3
+ p8mHa182yuDQZvj/Idbqpe7er0maBeYPCYiu4Fi34Ig1m/jewlNIzn4gdJG0IQkKS+HZ
+ ns2ljtjMQnyCYOBvGP/vw1FHZ+kpiY2TnDZl1fwnQdwzabet5Nac4dgG1VYRAoC02Nhd
+ /EAVQ86W2twe9Le0U0+oPMdf9CluthFerKsz2MQeewi41a/sqlktlUaJ9ROib7Vprt97
+ hz2e4H85ljyzlf5uEsfo7MDI6klr8MeEwZUw08mY7a+y8hLXPpMgkvV/zLNn+ZC+1amt
+ gq8Q==
+X-Gm-Message-State: AOAM533xAecNZ9qiHN3yd02zK5zLqLjXpU6NaFrPNHf/530LDug8d3z3
+ O603IQCUizroHnuHIdy10S2k9Q==
+X-Google-Smtp-Source: ABdhPJyP9QwYoJm4k6BZ4GLEkLn9av6cueNy2rsbQ8RmMCBBGcIRjpNOsMpV1mGaAGL/Dh2GcvO1Qg==
+X-Received: by 2002:adf:f54c:: with SMTP id j12mr5558196wrp.264.1616422529533; 
+ Mon, 22 Mar 2021 07:15:29 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l15sm16961426wme.43.2021.03.22.07.15.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 07:15:28 -0700 (PDT)
+Date: Mon, 22 Mar 2021 15:15:27 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH 00/44] Add HMM-based SVM memory manager to KFD v2
+Message-ID: <YFimfx6CFAWIou2t@phenom.ffwll.local>
+References: <20210322105900.14068-1-Felix.Kuehling@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4acb583f-aff0-465b-0196-08d8ed3b6a80
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2021 14:04:31.6373 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oLCNICk8CbsJnWwW5gkx482MFxLi54Io4B8ocndwHEl0R6JE3T/4Yb+kYCjVDi5JXGkfeMrJBZ58ugBnr4O80g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0038
+Content-Disposition: inline
+In-Reply-To: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,64 +74,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+On Mon, Mar 22, 2021 at 06:58:16AM -0400, Felix Kuehling wrote:
+> Since the last patch series I sent on Jan 6 a lot has changed. Patches 1-33
+> are the cleaned up, rebased on amd-staging-drm-next 5.11 version from about
+> a week ago. The remaining 11 patches are current work-in-progress with
+> further cleanup and fixes.
+> 
+> MMU notifiers and CPU page faults now can split ranges and update our range
+> data structures without taking heavy locks by doing some of the critical
+> work in a deferred work handler. This includes updating MMU notifiers and
+> the SVM range interval tree. In the mean time, new ranges can live as
+> children of their parent ranges until the deferred work handler consolidates
+> them in the main interval tree.
 
-Thanks for your patch, Silva. The issue has been fixed by " a5c6007e20e1 drm/amd/display: fix modprobe failure on vega series".
+I'm totally swammped with intel stuff unfortunately, so not really time to
+dig in. Can you give me the spoiler on how the (gfx10+ iirc) page fault
+inversion is planned to be handled now? Or that still tbd?
 
-Regards,
-Guchun
+Other thing I noticed is that amdkfd still uses the mmu_notifier directly,
+and not the mmu_interval_notifier. But you're talking a lot about managing
+intervals here, and so I'm wondering whether we shouldn't do this in core
+code? Everyone will have the same painful locking problems here (well atm
+everyone = you&nouveau only I think), sharing this imo would make a ton of
+sense.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Gustavo A. R. Silva
-Sent: Monday, March 22, 2021 8:51 PM
-To: Lee Jones <lee.jones@linaro.org>; Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>
-Cc: Gustavo A. R. Silva <gustavoars@kernel.org>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amd/display: Fix sizeof arguments in bw_calcs_init()
+I think the other one is moving over more generic pasid code, but I think
+that's going to be less useful here and maybe more a long term project.
 
-The wrong sizeof values are currently being used as arguments to kzalloc().
+Cheers, Daniel
 
-Fix this by using the right arguments *dceip and *vbios, correspondingly.
+> 
+> We also added proper DMA mapping of system memory pages.
+> 
+> Current work in progress is cleaning up all the locking, simplifying our
+> code and data structures and resolving a few known bugs.
+> 
+> This series and the corresponding ROCm Thunk and KFDTest changes are also
+> available on gitub:
+>   https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/tree/fxkamd/hmm-wip
+>   https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/tree/fxkamd/hmm-wip
+> 
+> An updated Thunk
+> 
+> Alex Sierra (10):
+>   drm/amdgpu: replace per_device_list by array
+>   drm/amdkfd: helper to convert gpu id and idx
+>   drm/amdkfd: add xnack enabled flag to kfd_process
+>   drm/amdkfd: add ioctl to configure and query xnack retries
+>   drm/amdgpu: enable 48-bit IH timestamp counter
+>   drm/amdkfd: SVM API call to restore page tables
+>   drm/amdkfd: add svm_bo reference for eviction fence
+>   drm/amdgpu: add param bit flag to create SVM BOs
+>   drm/amdgpu: svm bo enable_signal call condition
+>   drm/amdgpu: add svm_bo eviction to enable_signal cb
+> 
+> Felix Kuehling (22):
+>   drm/amdkfd: map svm range to GPUs
+>   drm/amdkfd: svm range eviction and restore
+>   drm/amdkfd: validate vram svm range from TTM
+>   drm/amdkfd: HMM migrate ram to vram
+>   drm/amdkfd: HMM migrate vram to ram
+>   drm/amdkfd: invalidate tables on page retry fault
+>   drm/amdkfd: page table restore through svm API
+>   drm/amdkfd: add svm_bo eviction mechanism support
+>   drm/amdkfd: refine migration policy with xnack on
+>   drm/amdkfd: add svm range validate timestamp
+>   drm/amdkfd: multiple gpu migrate vram to vram
+>   drm/amdkfd: Fix dma unmapping
+>   drm/amdkfd: Call mutex_destroy
+>   drm/amdkfd: Fix spurious restore failures
+>   drm/amdkfd: Fix svm_bo_list locking in eviction worker
+>   drm/amdkfd: Simplify split_by_granularity
+>   drm/amdkfd: Point out several race conditions
+>   drm/amdkfd: Return pdd from kfd_process_device_from_gduid
+>   drm/amdkfd: Remove broken deferred mapping
+>   drm/amdkfd: Allow invalid pages in migration.src
+>   drm/amdkfd: Correct locking during migration and mapping
+>   drm/amdkfd: Nested locking and invalidation of child ranges
+> 
+> Philip Yang (12):
+>   drm/amdkfd: add svm ioctl API
+>   drm/amdkfd: register svm range
+>   drm/amdkfd: add svm ioctl GET_ATTR op
+>   drm/amdgpu: add common HMM get pages function
+>   drm/amdkfd: validate svm range system memory
+>   drm/amdkfd: deregister svm range
+>   drm/amdgpu: export vm update mapping interface
+>   drm/amdkfd: register HMM device private zone
+>   drm/amdkfd: support xgmi same hive mapping
+>   drm/amdkfd: copy memory through gart table
+>   drm/amdgpu: reserve fence slot to update page table
+>   drm/amdkfd: Add SVM API support capability bits
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |    4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |    4 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |   16 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   13 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |   83 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |    7 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   90 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   48 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   11 +
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |    1 +
+>  drivers/gpu/drm/amd/amdkfd/Kconfig            |    1 +
+>  drivers/gpu/drm/amd/amdkfd/Makefile           |    4 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  173 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |    4 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |    8 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  922 ++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |   59 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   54 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  191 +-
+>  .../amd/amdkfd/kfd_process_queue_manager.c    |    6 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 2865 +++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  175 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |    6 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |   10 +-
+>  include/uapi/linux/kfd_ioctl.h                |  171 +-
+>  26 files changed, 4681 insertions(+), 249 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+> 
+> -- 
+> 2.31.0
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-Addresses-Coverity-ID: 1502901 ("Wrong sizeof argument")
-Fixes: fca1e079055e ("drm/amd/display/dc/calcs/dce_calcs: Remove some large variables from the stack")
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-index 556ecfabc8d2..1244fcb0f446 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-@@ -2051,11 +2051,11 @@ void bw_calcs_init(struct bw_calcs_dceip *bw_dceip,
- 
- 	enum bw_calcs_version version = bw_calcs_version_from_asic_id(asic_id);
- 
--	dceip = kzalloc(sizeof(dceip), GFP_KERNEL);
-+	dceip = kzalloc(sizeof(*dceip), GFP_KERNEL);
- 	if (!dceip)
- 		return;
- 
--	vbios = kzalloc(sizeof(vbios), GFP_KERNEL);
-+	vbios = kzalloc(sizeof(*vbios), GFP_KERNEL);
- 	if (!vbios) {
- 		kfree(dceip);
- 		return;
---
-2.27.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7C4ec6ae20f70a488fd2dd08d8ed3987cd%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637520178643844637%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=YKVR3n%2FnX50dwuP91T1xPxW%2FvgisWDY0dvF8PxO4P4A%3D&amp;reserved=0
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
