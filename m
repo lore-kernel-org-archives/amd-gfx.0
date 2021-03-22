@@ -2,108 +2,121 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43CBCC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 03:05:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79703C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 05:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B89761930
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 03:05:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B89761930
+	by mail.kernel.org (Postfix) with ESMTPS id 160426187E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 05:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 160426187E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07C26E2DE;
-	Mon, 22 Mar 2021 03:05:25 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 647C76E2E3
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 03:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A837E89FC5;
+	Mon, 22 Mar 2021 05:57:08 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2088.outbound.protection.outlook.com [40.107.100.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D62889FC0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 05:57:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aphOQWSyxF9gtAOhFy566oSgesnNXYvyrdoRO059t3IWU2Kbxtq3MTVlRcsSQ7qmAa86HfMbdvDE2lK5fFrXPcJLttPbkpj2D5Q++efPEnxm3nTH652IGoBqOUJE5/5h8NnMT35wa4/EiQIYdn0kUdP7xlm7t/XEbIGMuCRJZZlxEbdr0wGsZ/1rNm26noKTlOMJ1WqPqsiYAhorAqlWPAS/wizHveluMoHP9KZ8MdmKzoxjwarWOATbY6JVKnPTWEO5p8xsdpIh81ssGVjFr5X5K9EStlFRjsAd0a1L3ohvAyN2R/4G/cpwKQinkPo/t4IlYhfATPwSha5sdCjOHA==
+ b=MCZPjcG4zTZDctfr1uRw71LT/vsY7hOt2IE5mloQbZdVtWmaPbf6JNK0N+42WlzcgupIpuHHSPYg3poBGsnClEv1qTKGkHlg79d0o8Iy6AG128lV9JDjGyQ4MZqpMdBkme+znOq+819sfvrSNLVkzcx9DZb48j4QPzXlF0FWtjHTL/VLUilXV+g+A8cfItyL2CVkKiK3PgXx/1fReCSyevP0dtTVRdlx8ZLdfLzkpFlkW5na9Y9Mv87PWOpdZ2WqGCYApMCqx+s54Ok0VKk+/WXvIRLViIH70pDZ+dS7ki1zIjGTt2m5rROdg5XR665n89AFeorlhqPkEiUMhH9CaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lSc+3RP9oaK9LxjnuxTTCJAPOSVsmkGr3CXtuxxLvjc=;
- b=mBP8MMwoblUtL2Eg0AU/vLo97XPXlpB/AvInvbpPPQ1ahnM1zBmqTGHhDZKTmLnX7vVc6FNwBHhNrN0NXhkwB5uflbOMwD6OOHmkX6AgUz/HmHikVrCvIKZsWaz1z2AQsg3+QETLyVwY6lpDLbQMfPr1ltyRHv2tnm1e2JIZxABduu8LQzMBx+w+DFceK2NUo30d3/z0tmom+Hz8OrguULTORh/ihVjmdMSq6Mn6hJHhbJ4qQrVxGz41fu3YwFxLXYjd3pfNmX7ZIrQ6op+TIec/rLQtAne3Gh/pAJ0tFLr7AlWJmGAqvtQBrj0eUJJUEAkxeyNe85t1zhMa7kUUlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=2GPmeHPkXSAoxi2tqn1EUDvbJuLfv83BNDPX3/qyx34=;
+ b=Pz5N0ImexC/fQ5EvDkXRrnwHLAFTHm7EuL+0g+avdoSSvUBNSxDSRD+h+SEnWMv5NyWN4rAk/n9b+sTskMIE5Xm3mLnaRDMlB5yW1ZPZokfYCPL+qbJOF7gziFcyRcxk/1PuEmS8wO3oEzKNWmvS+K2LDq7ZDpVj/Jo+3HrkiP3vyEPNBl23IWtvtZ1CU67937unqQ3wgSww/wHGF6kgoTUQz144fezEI2DI3e5JKAP96ciWOPuPIywKcYgJre7thN6hrd4UHproqWf6B/EvlJ7BhqZP94Ljz8cOmdaY5Mtpz2HKlNtnDqKs+dtZWx1pfiv6b7YjP/i6X45MAuFDgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lSc+3RP9oaK9LxjnuxTTCJAPOSVsmkGr3CXtuxxLvjc=;
- b=cK+C2MdI/KcgaGosNkwzNlXr8FWvLjUQ+gON57UpBoLl6XcVxYQ2DsfCnVGJZadDRKuoNhRiao1q2B3w0P5yYUv3DqRMDWOMTMRjLyBa5/xB5U2d4Gd1Mmc2YEGcwx5vjg76MIwWN+L5vsQ3uDvN9yh4NeXrHCQPSA3yaaBONjY=
-Received: from BN9PR03CA0533.namprd03.prod.outlook.com (2603:10b6:408:131::28)
- by BL0PR12MB4962.namprd12.prod.outlook.com (2603:10b6:208:17e::23)
+ bh=2GPmeHPkXSAoxi2tqn1EUDvbJuLfv83BNDPX3/qyx34=;
+ b=NVwImm/snfaDIKFDVAIBEunOrAr5/x+j5LLVq7bTV3TeNtPramJgPHfUqyblnul7j8+ErDVKamXAbWd4xwM4q5uxmzG6v/FhGQZr/ANa0blXLnVKIcKqd1STjinEVlvjhSFLpiMdNoYia6nkUpF7kVqRZY2Uu1XBSM1/6n4rPLE=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by MN2PR12MB4302.namprd12.prod.outlook.com (2603:10b6:208:1de::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24; Mon, 22 Mar
- 2021 03:05:22 +0000
-Received: from BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::f3) by BN9PR03CA0533.outlook.office365.com
- (2603:10b6:408:131::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend
- Transport; Mon, 22 Mar 2021 03:05:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB01.amd.com;
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT040.mail.protection.outlook.com (10.13.177.166) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3955.18 via Frontend Transport; Mon, 22 Mar 2021 03:05:22 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sun, 21 Mar
- 2021 22:05:21 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Sun, 21 Mar
- 2021 22:05:21 -0500
-Received: from Roy7.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Sun, 21 Mar 2021 22:05:20 -0500
-From: Roy Sun <Roy.Sun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 6/7] drm/amdkfd: Add fence tracking
-Date: Mon, 22 Mar 2021 11:05:10 +0800
-Message-ID: <20210322030510.31607-6-Roy.Sun@amd.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20210322030510.31607-1-Roy.Sun@amd.com>
-References: <20210322030510.31607-1-Roy.Sun@amd.com>
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 160a582f-dac7-40ce-e5e6-08d8ecdf5521
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4962:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB496278E3E8988BED48EC798EFF659@BL0PR12MB4962.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:167;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /8KB5FNaBmIskpD9PWYag1MSG1ChV/qMrT8EYEaNOyN7+cOszJv1IuvOB75usR3sUZCwwKZYzrcHbwMNT58JQHXmbBY8LMqX8DmsyU4cBDNohOp17LnDu0GerCtW8sGH8DIvcj3FNZ0DAmDEgmqLQk9/5wMVcP8mAogUkwTMUUTEo+UbhnKZVG34D/7sTojl0AOnVdjeV6IqJHcq9dXj179hAhEsNUUNE+5ILfgh95GdvtFOOMvWGGi0q+MFQpw4wdiYsgOa7om6TcRkUr7jyF+UKIm+IrXRsuZxR9km37FqCaaF0NvSulwW+ZFGsCwA1bAkViE/r36kF2it5AFyXqWzDQad4sP1OofL5qrgx+o/L7ih3+H1rT1GnU4TwGauLjUiKHvGMb7I2HP1GitWHCCOtvKl8VQGSkaoIJThhsZSY/fQcK3Obh6l7gRn6uGzNviX7NCY+ICBz9FFi9Uf0TELbtxOm3ErK/sSq5OgkUyO4RZSE97yQYXlhiMaxWvCJin90ELCccV3s5vNGTjHo1h9IhsD0d6pX7Rsj6PzYW76zr10fBv/7WETJ0d5ipnWZxfULK2aMdCfARq+YVExYXkEMENbqvdyACDryUuaqN7cLA6czrQiws54aBPRtTUeKv26seVSvwJ6BrmcYy4/aDVSWdbx2EMMakdJl1ueoyeIhMEmfDZAduyImyFKbU4t
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(136003)(396003)(346002)(46966006)(36840700001)(186003)(82310400003)(6916009)(36756003)(26005)(5660300002)(54906003)(4326008)(6666004)(336012)(1076003)(86362001)(70206006)(2906002)(70586007)(478600001)(426003)(2616005)(7696005)(8936002)(81166007)(356005)(82740400003)(47076005)(36860700001)(8676002)(83380400001)(316002)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
+ 2021 05:57:04 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::58d5:c2:7a3c:4408]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::58d5:c2:7a3c:4408%5]) with mapi id 15.20.3955.025; Mon, 22 Mar 2021
+ 05:57:04 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 0/8] Add mode2 reset support for aldebaran
+Thread-Topic: [PATCH v2 0/8] Add mode2 reset support for aldebaran
+Thread-Index: Adce31/4KuLMVGQgR/K1fu1T4rIRdg==
+Date: Mon, 22 Mar 2021 05:57:04 +0000
+Message-ID: <MN2PR12MB45490FA91C151ACEAA0D88C797659@MN2PR12MB4549.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-22T05:57:02Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e349814e-87ec-4ade-9d22-3e96bab52ea7;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [49.207.224.11]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: e19a8b9b-2788-400a-cb28-08d8ecf75197
+x-ms-traffictypediagnostic: MN2PR12MB4302:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB43026FB804AD79C616B36B0597659@MN2PR12MB4302.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eM53FxJs6xUG24g1MgO7aUVn9SqtUaQSuYqukT6vOepBr92zNnnUEDjACNr/LozKJ1h/B6lt43zUvH1VdG7VMVPWJxq+pLxVh3m6ydRDKj5HqGaF3iOPMU5yIVe5+KGKTC6rAQXgHhg/U1bNk0F4tDKvKR/55wAq8G9kgdP297V4Kcrpo3j1BELDvDWRgFvXW9OiW75remxj2D+abhq5daX1mbZEvtD7+0qPRtvnQvLLls3vHoAvo46xel8ZgKjK6LSG3L5+BXsBOu1zsS593AUYGPcsXCRpTz7k4nMcvBcS5loZdDObvjQ8t0Sv+m5SJ1VmaqwUHicygPsYQ6A20VEaHl9mFMTgYkpgXz81WR40u0MXsdBqZFPWLATjPd3Dprbdet2ewHUgOm3f+2AO7RosbpHUNLwzqNsEbV1QBKFLkHj0TeZI/zYY3nyk7Cde+wmvcqUm2fW7WC1d59I2tfODdY083hIk7vlcyqfdE39Th81yf5mafmN7kqee2ReK5zWe5xZpzSmqme0VVhZiyCI4J+2jYefnk9WkpbRaR65uMDsc9GWUG27oajoE8B2j6bODMaugib0+H3KBFh8H1y9MQ7JLL4lk50/Q0SDBksGZpIls3v7nNktCiLQIeNY2vUOHjMFsFJkazu9uvBl1QD+I9u9MNE9Qp7Uzcr8pjbQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(64756008)(66476007)(55236004)(33656002)(66946007)(38100700001)(6506007)(8936002)(5660300002)(4326008)(54906003)(186003)(76116006)(83380400001)(7696005)(66446008)(66556008)(8676002)(71200400001)(2906002)(52536014)(55016002)(26005)(478600001)(316002)(6916009)(86362001)(9686003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?GegttNdWA/W3Vaaf7mVBtq9IFom7imTgWWZaZ3eAUaVM4w6JgllUGGu8fYSj?=
+ =?us-ascii?Q?cI2qp6rd15h5/txeGqLGdJGO6szd+dIyi1amEMGUpWGcx4SxQvUW69oUNNin?=
+ =?us-ascii?Q?n+34U979puZmoyEXeda9eAgsr/0PNR2XBRRWPZOPyDoW8kahdvnPLhK3UY5P?=
+ =?us-ascii?Q?RMwz2XUQRDOdUgoxJeBCOB406C2W1HEMkxyQtTbsZFxbb1IC9GCoht5QF4vK?=
+ =?us-ascii?Q?6nTJ/bR+Xy9lkeq5WvEv5aQ6fApO+FKvnh/PB5XpXccrrZx2OZ5VuPsGM33J?=
+ =?us-ascii?Q?lG1e0FzOqyXL50U2pHaY0nb3ZQkzahCOf4wgMW+ebUPETFEyDPUkcUbIs35t?=
+ =?us-ascii?Q?OGpKJl13toAjDlHdxMUrKTd6Byw80zlPpusZPRYMbU4XWvkoEDPPrfINmpuG?=
+ =?us-ascii?Q?LSLpy0o0aAWYawsi3pgVcPFZBlgHoI1h38xA9mak9JRw6muyK3AdNtSUKpeD?=
+ =?us-ascii?Q?Xu1iUeFB37DmUXndHs8nF5fYSHwCoHV1kpB+M/qwltNH3kery8ABskfv7zo5?=
+ =?us-ascii?Q?4KB53DkvE4B5A8JCrMGaCrvGafUCNDQCEwNzhpwhM4sV+DfxPFcpHP/GZhwc?=
+ =?us-ascii?Q?u6GYCLSurIfexHaYsVWLyaNoHrdS55zrEmq+CkWslrN5DkGZGJGmaQxHwGCl?=
+ =?us-ascii?Q?fe1ssaVhyhENus5OCVttJbtjYWPlDBifxOIxAiFDYV+EibcvHpnbM9lZBCh0?=
+ =?us-ascii?Q?voogx/XCid3n2jwz6920nhP4n7glB27VG7Ekjpg44Xx/eo6K8pp3lTBvQf4u?=
+ =?us-ascii?Q?v3KvySzdmVT6nKzChbSGtezYdZPj4dxpvyC0MtPREiZ23/vQhxgdUEc6//MY?=
+ =?us-ascii?Q?P/cHQASRGnEI128mEHY6tjCmTVI7XysibMHeW7m6oN6KqW80fbLlDm958pnv?=
+ =?us-ascii?Q?F0TzrK3oZ1FkJAYJbzp9YuTT0aaxI7Ad2XE0jS6oiVj/NvFhIGx6sMSDPTbJ?=
+ =?us-ascii?Q?BS8UUaF3LQed6Cj733HHrMRDrQZcrN11xXfJFEqw0mq7slDeJhGoOIOXgZI4?=
+ =?us-ascii?Q?QeptRmyNWyvwQ3B7gzCwfXdxF/qt9qSb0nJrqLgs4DpCgurUAn595tS2G8sv?=
+ =?us-ascii?Q?SdAeuRF7MPk3/fZs9U0uFBBmHvyYqe5iUMIPC/ua/Jiy60ZoHkGVRdAWmwy7?=
+ =?us-ascii?Q?UmjAH/P5ljRZ6H+g40d8FQt8n70LzQThLp7nYy0r7MJOVHi5q2ErZ0i4Z3Yu?=
+ =?us-ascii?Q?wyTSM7MG4oRKhEkVIWDKs4ID/sHmxQt54x3IyEP992dx6yiHpT5pUVYgiRpu?=
+ =?us-ascii?Q?AcelaMuX6L5AZVjH7jKtbg043yyzmDrYObobeCGlSoOl7XTf7quoxAMTQPHx?=
+ =?us-ascii?Q?RA1AMPixDHIOaLuV0kJcau9r?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 03:05:22.2632 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 160a582f-dac7-40ce-e5e6-08d8ecdf5521
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4962
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e19a8b9b-2788-400a-cb28-08d8ecf75197
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2021 05:57:04.1003 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6rhyr1k2MgvHyCtQJafxO34OQHx3KCyuOtKbpxR/0iETvvpCE8EkN15PMbgOdCcu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4302
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,85 +128,271 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yehonsun@amd.com, David M Nieto <david.nieto@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0535021177=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David M Nieto <david.nieto@amd.com>
+--===============0535021177==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB45490FA91C151ACEAA0D88C797659MN2PR12MB4549namp_"
 
-Add fence tracking for amdgpu resources on gpuvm creation
+--_000_MN2PR12MB45490FA91C151ACEAA0D88C797659MN2PR12MB4549namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: David M Nieto <david.nieto@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+[AMD Public Use]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index e93850f2f3b1..26e84c2d6316 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1042,13 +1042,16 @@ int amdgpu_amdkfd_gpuvm_create_process_vm(struct kgd_dev *kgd, u32 pasid,
- 					  struct dma_fence **ef)
- {
- 	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct amdgpu_fpriv *fpriv;
- 	struct amdgpu_vm *new_vm;
- 	int ret;
- 
--	new_vm = kzalloc(sizeof(*new_vm), GFP_KERNEL);
--	if (!new_vm)
-+	fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
-+	if (!fpriv)
- 		return -ENOMEM;
- 
-+	new_vm = &fpriv->vm;
-+
- 	/* Initialize AMDGPU part of the VM */
- 	ret = amdgpu_vm_init(adev, new_vm, AMDGPU_VM_CONTEXT_COMPUTE, pasid);
- 	if (ret) {
-@@ -1063,12 +1066,14 @@ int amdgpu_amdkfd_gpuvm_create_process_vm(struct kgd_dev *kgd, u32 pasid,
- 
- 	*vm = (void *) new_vm;
- 
-+	amdgpu_smi_create_proc_node(adev, fpriv, pasid);
-+
- 	return 0;
- 
- init_kfd_vm_fail:
- 	amdgpu_vm_fini(adev, new_vm);
- amdgpu_vm_init_fail:
--	kfree(new_vm);
-+	kfree(fpriv);
- 	return ret;
- }
- 
-@@ -1142,6 +1147,8 @@ void amdgpu_amdkfd_gpuvm_destroy_process_vm(struct kgd_dev *kgd, void *vm)
- {
- 	struct amdgpu_device *adev = get_amdgpu_device(kgd);
- 	struct amdgpu_vm *avm = (struct amdgpu_vm *)vm;
-+	struct amdgpu_fpriv *fpriv =
-+		container_of(avm, struct amdgpu_fpriv, vm);
- 
- 	if (WARN_ON(!kgd || !vm))
- 		return;
-@@ -1149,8 +1156,10 @@ void amdgpu_amdkfd_gpuvm_destroy_process_vm(struct kgd_dev *kgd, void *vm)
- 	pr_debug("Destroying process vm %p\n", vm);
- 
- 	/* Release the VM context */
-+	amdgpu_smi_remove_proc_node(adev, fpriv);
-+
- 	amdgpu_vm_fini(adev, avm);
--	kfree(vm);
-+	kfree(fpriv);
- }
- 
- void amdgpu_amdkfd_gpuvm_release_process_vm(struct kgd_dev *kgd, void *vm)
--- 
-2.29.0
+This patch series adds support for mode2 reset for aldebaran. Since the
+reset sequence is completely different from existing ones, it adds
+supports using a new reset control method. The reset control and
+handlers can be installed and handle specific types of resets.
+
+v1:
+1. Changes to the mode2 sequence as PCI space gets lost during the
+sequence.
+2. Add support to wait for specific events from PMFW. Reset complete is
+considered as one such event.
+3. Add support to wait for reset completion on aldebaran
+4. Add a new reset control and reset handler method. Reset control can
+be installed at device, hive or ip level. For now, it's done only at
+device level
+5. Add reset control mechanism to the current recover sequence.
+6. Expose PSP function to load a list of firmwares
+7. Expose CG/PG set functions for use outside of device
+8. Add mode2 reset and restore sequences for aldebaran.
+
+v2:
+- Coding style fixes
+- Mutex protection for new smu api (#2)
+- Clear bus mastering before reset (#8)
+
+Lijo Lazar (8):
+  drm/amd/pm: Modify mode2 msg sequence on aldebaran
+  drm/amd/pm: Add function to wait for smu events
+  drm/amd/pm: Add support for reset completion on aldebaran
+  drm/amdgpu: Add reset control to amdgpu_device
+  drm/amdgpu: Add reset control handling to reset workflow
+  drm/amdgpu: Add PSP public function to load a list of FWs
+  drm/amdgpu: Make set PG/CG state functions public
+  drm/amdgpu: Add mode2 reset support for aldebaran
+
+drivers/gpu/drm/amd/amdgpu/Makefile           |   7 +-
+drivers/gpu/drm/amd/amdgpu/aldebaran.c        | 380 ++++++++++++++++++
+drivers/gpu/drm/amd/amdgpu/aldebaran.h        |  34 ++
+drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  20 +-
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  96 +++--
+drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 +-
+drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  17 +
+drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   4 +
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  98 +++++
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald |  98 +++++
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h     |  87 ++++
+drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   8 +-
+drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h  |   3 +-
+drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  16 +-
+drivers/gpu/drm/amd/pm/inc/smu_types.h        |   1 +
+drivers/gpu/drm/amd/pm/inc/smu_v13_0.h        |   5 +
+drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  14 +
+.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  57 ++-
+.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  42 +-
+drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   2 +-
+drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   2 +
+21 files changed, 956 insertions(+), 52 deletions(-)
+create mode 100644 drivers/gpu/drm/amd/amdgpu/aldebaran.c
+create mode 100644 drivers/gpu/drm/amd/amdgpu/aldebaran.h
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+
+--
+2.17.1
+
+
+--_000_MN2PR12MB45490FA91C151ACEAA0D88C797659MN2PR12MB4549namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
+pan></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">This patch series adds support for mode2 reset for a=
+ldebaran. Since the<o:p></o:p></p>
+<p class=3D"MsoNormal">reset sequence is completely different from existing=
+ ones, it adds<o:p></o:p></p>
+<p class=3D"MsoNormal">supports using a new reset control method. The reset=
+ control and<o:p></o:p></p>
+<p class=3D"MsoNormal">handlers can be installed and handle specific types =
+of resets.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">v1:<o:p></o:p></p>
+<p class=3D"MsoNormal">1. Changes to the mode2 sequence as PCI space gets l=
+ost during the<o:p></o:p></p>
+<p class=3D"MsoNormal">sequence.<o:p></o:p></p>
+<p class=3D"MsoNormal">2. Add support to wait for specific events from PMFW=
+. Reset complete is<o:p></o:p></p>
+<p class=3D"MsoNormal">considered as one such event.<o:p></o:p></p>
+<p class=3D"MsoNormal">3. Add support to wait for reset completion on aldeb=
+aran<o:p></o:p></p>
+<p class=3D"MsoNormal">4. Add a new reset control and reset handler method.=
+ Reset control can<o:p></o:p></p>
+<p class=3D"MsoNormal">be installed at device, hive or ip level. For now, i=
+t's done only at<o:p></o:p></p>
+<p class=3D"MsoNormal">device level<o:p></o:p></p>
+<p class=3D"MsoNormal">5. Add reset control mechanism to the current recove=
+r sequence.<o:p></o:p></p>
+<p class=3D"MsoNormal">6. Expose PSP function to load a list of firmwares<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">7. Expose CG/PG set functions for use outside of dev=
+ice<o:p></o:p></p>
+<p class=3D"MsoNormal">8. Add mode2 reset and restore sequences for aldebar=
+an.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">v2:<o:p></o:p></p>
+<p class=3D"MsoNormal">- Coding style fixes<o:p></o:p></p>
+<p class=3D"MsoNormal">- Mutex protection for new smu api (#2)<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">- Clear bus mastering before reset (#8)<o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Lijo Lazar (8):<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Modify mode2 msg sequence on alde=
+baran<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Add function to wait for smu even=
+ts<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Add support for reset completion =
+on aldebaran<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add reset control to amdgpu_devic=
+e<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add reset control handling to res=
+et workflow<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add PSP public function to load a=
+ list of FWs<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Make set PG/CG state functions pu=
+blic<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add mode2 reset support for aldeb=
+aran<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 7 +-<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/aldebaran.c&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 380 ++++++++++++++++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/aldebaran.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 34 ++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 20 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 96 +++--<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 17 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 17 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 98 +++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald |&nbsp=
+; 98 +++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 87 ++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 8 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h&nbsp; |=
+&nbsp;&nbsp; 3 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 16 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_types.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 5 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 14 +<o:p></o:p></p>
+<p class=3D"MsoNormal">.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 57 ++-<o:p></o:p></p>
+<p class=3D"MsoNormal">.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 42 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +<o:p></o:p></p>
+<p class=3D"MsoNormal">21 files changed, 956 insertions(+), 52 deletions(-)=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/aldeba=
+ran.c<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/aldeba=
+ran.h<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.c<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.c.ald<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.h<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB45490FA91C151ACEAA0D88C797659MN2PR12MB4549namp_--
+
+--===============0535021177==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0535021177==--
