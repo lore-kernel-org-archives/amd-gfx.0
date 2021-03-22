@@ -2,56 +2,61 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BBB2C433E1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 220AFC433E2
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CD5A1619A2
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD5A1619A2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
+	by mail.kernel.org (Postfix) with ESMTPS id C61956199E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C61956199E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3971E88C90;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 748D489F3B;
 	Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E3E6E4CF;
- Mon, 22 Mar 2021 15:57:13 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1616428630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=943PxvuOVOvD4aIfz0aSIuAtEWSyDAhWQvjOcjR1pNk=;
- b=f4jLbnwVuMbmtzmw+emafC69VpgVedDhr7rg/0AcvaGfGvZxlJ5TVBfmDTPoRzGusXur9I
- gKwxgrQWmVdOwmX5J6jTC+zFtPRSmvMlUNAAYZPbdl5TygS/pi9TDn6CSi9HZMAqcs2crF
- Y5UBe3gudtxixSh7p+0W/adWm1rfAO8=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A97A5ACA8;
- Mon, 22 Mar 2021 15:57:10 +0000 (UTC)
-Date: Mon, 22 Mar 2021 16:57:05 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Matthew Wilcox <willy@infradead.org>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFi+UROYbQERYEEr@dhcp22.suse.cz>
-References: <20210319140857.2262-1-christian.koenig@amd.com>
- <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
- <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
- <YFT2LSR97rkkPyEP@phenom.ffwll.local>
- <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
- <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
- <YFigZ5+H95c/GI/S@phenom.ffwll.local>
- <20210322140548.GN1719932@casper.infradead.org>
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2F596E4D2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 15:17:59 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id u4so21518085ljo.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 08:17:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+rYAcKx72DB4u4HHTvyKRT13cKBhJi7wvnu+SHIdYIM=;
+ b=XN9JxCsWKzEuPNiX3mIeRQeWwmfS4G8rYKs2Tmkvx8S5ZtjGzgzLMwhiE+qFJ7HTMo
+ 0g4ODvjmrbfCufDTgkjd7BCl8PTDIjEJQ/gkoS1DnWjX5R7Pe8hhdIqatob6WYVpFrL4
+ deVvmUWvaPcLTeeMoMemBhD28rNNCBtzaauck=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+rYAcKx72DB4u4HHTvyKRT13cKBhJi7wvnu+SHIdYIM=;
+ b=TKxhhEIAbnvMWXHzfH8tjyeJnlbdHESU3qOSXZfTcDz7g7vPOjYCcVcBHgzXUz0dSP
+ 0G1RgaFo94O9DcZn7UaaJNVRqI3vSYljfaIMjif6hCvHTMrAYdmpNOM0fcmn2/EKmx8O
+ o6xuksN4KwTIJXRgYXcZERc72IOR0P92Z4MLGwqvGa7Lxxd7lqkMu9nMVaeTQKgtfsRf
+ Z9gZx2/hxAx2ifyTJ/jyQ4rCNm3GtE5gjMr31ahuUGJWqX7HKxO/T9cyWDzYwpihLq4I
+ 3NBstkDkpmeMndCNGLHawJK9Cqr5KCvMnP/wVbBo20tZ+0taeCBC2LP8IwVKxtc2lBHr
+ O1XA==
+X-Gm-Message-State: AOAM5339hY9SlqFS1PMQAKM94flUxKf743Eo67y8jHwtHkPDCa3BoHg5
+ pYupJa3mE1ebtf5CeWblagZBZW+1a2RmpojXSU3N4W4Qx/k=
+X-Google-Smtp-Source: ABdhPJxgamQxsWB+aWumLPBy6L5oJgS7paw9ltPkoLkJu/AhFAE1HRFbLQbqX3Zp85Dq70WwAVIMZr9AK36ZCV1vdd0=
+X-Received: by 2002:a2e:8709:: with SMTP id m9mr50224lji.483.1616426277777;
+ Mon, 22 Mar 2021 08:17:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210322140548.GN1719932@casper.infradead.org>
+References: <20210310161444.1015500-1-markyacoub@chromium.org>
+In-Reply-To: <20210310161444.1015500-1-markyacoub@chromium.org>
+From: Mark Yacoub <markyacoub@chromium.org>
+Date: Mon, 22 Mar 2021 11:17:46 -0400
+Message-ID: <CAJUqKUqGB4pO=NvJip03_xTKe9XcXHOcf8eYpYgngHpsUgxKHA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Ensure that the modifier requested is
+ supported by plane.
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 X-Mailman-Approved-At: Mon, 22 Mar 2021 16:03:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,103 +69,239 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: alexander.deucher@amd.com, Mark Yacoub <markyacoub@google.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Content-Type: multipart/mixed; boundary="===============0698263826=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon 22-03-21 14:05:48, Matthew Wilcox wrote:
-> On Mon, Mar 22, 2021 at 02:49:27PM +0100, Daniel Vetter wrote:
-> > On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
-> > > Am 20.03.21 um 14:17 schrieb Daniel Vetter:
-> > > > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
-> > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
-> > > > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wro=
-te:
-> > > > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
-> > > > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig=
- wrote:
-> > > > > > > > > Don't print a warning when we fail to allocate a page for=
- swapping things out.
-> > > > > > > > > =
+--===============0698263826==
+Content-Type: multipart/alternative; boundary="00000000000017c27105be2192bb"
 
-> > > > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_restore ins=
-tead of GFP_NOFS.
-> > > > > > > > Uh this part doesn't make sense. Especially since you only =
-do it for the
-> > > > > > > > debugfs file, not in general. Which means you've just compl=
-etely broken
-> > > > > > > > the shrinker.
-> > > > > > > Are you sure? My impression is that GFP_NOFS should now work =
-much more out
-> > > > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_restor=
-e().
-> > > > > > Yeah, if you'd put it in the right place :-)
-> > > > > > =
+--00000000000017c27105be2192bb
+Content-Type: text/plain; charset="UTF-8"
 
-> > > > > > But also -mm folks are very clear that memalloc_no*() family is=
- for dire
-> > > > > > situation where there's really no other way out. For anything w=
-here you
-> > > > > > know what you're doing, you really should use explicit gfp flag=
-s.
-> > > > > My impression is just the other way around. You should try to avo=
-id the
-> > > > > NOFS/NOIO flags and use the memalloc_no* approach instead.
-> > > > Where did you get that idea?
-> > > =
+"friendly ping"
 
-> > > Well from the kernel comment on GFP_NOFS:
-> > > =
+On Wed, Mar 10, 2021 at 11:14 AM Mark Yacoub <markyacoub@chromium.org>
+wrote:
 
-> > > =A0* %GFP_NOFS will use direct reclaim but will not use any filesystem
-> > > interfaces.
-> > > =A0* Please try to avoid using this flag directly and instead use
-> > > =A0* memalloc_nofs_{save,restore} to mark the whole scope which
-> > > cannot/shouldn't
-> > > =A0* recurse into the FS layer with a short explanation why. All allo=
-cation
-> > > =A0* requests will inherit GFP_NOFS implicitly.
-> > =
+> From: Mark Yacoub <markyacoub@google.com>
+>
+> On initializing the framebuffer, call drm_any_plane_has_format to do a
+> check if the modifier is supported. drm_any_plane_has_format calls
+> dm_plane_format_mod_supported which is extended to validate that the
+> modifier is on the list of the plane's supported modifiers.
+>
+> The bug was caught using igt-gpu-tools test:
+> kms_addfb_basic.addfb25-bad-modifier
+>
+> Tested on ChromeOS Zork by turning on the display, running an overlay
+> test, and running a YT video.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> Signed-off-by: default avatarMark Yacoub <markyacoub@chromium.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 13 +++++++++++++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 +++++++++
+>  2 files changed, 22 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index afa5f8ad0f563..a947b5aa420d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -908,6 +908,19 @@ int amdgpu_display_gem_fb_verify_and_init(
+>                                          &amdgpu_fb_funcs);
+>         if (ret)
+>                 goto err;
+> +       /* Verify that the modifier is supported. */
+> +       if (!drm_any_plane_has_format(dev, mode_cmd->pixel_format,
+> +                                     mode_cmd->modifier[0])) {
+> +               struct drm_format_name_buf format_name;
+> +               drm_dbg_kms(dev,
+> +                           "unsupported pixel format %s / modifier
+> 0x%llx\n",
+> +                           drm_get_format_name(mode_cmd->pixel_format,
+> +                                               &format_name),
+> +                           mode_cmd->modifier[0]);
+> +
+> +               ret = -EINVAL;
+> +               goto err;
+> +       }
+>
+>         ret = amdgpu_display_framebuffer_init(dev, rfb, mode_cmd, obj);
+>         if (ret)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 961abf1cf040c..21314024a83ce 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3939,6 +3939,7 @@ static bool dm_plane_format_mod_supported(struct
+> drm_plane *plane,
+>  {
+>         struct amdgpu_device *adev = drm_to_adev(plane->dev);
+>         const struct drm_format_info *info = drm_format_info(format);
+> +       int i;
+>
+>         enum dm_micro_swizzle microtile =
+> modifier_gfx9_swizzle_mode(modifier) & 3;
+>
+> @@ -3952,6 +3953,14 @@ static bool dm_plane_format_mod_supported(struct
+> drm_plane *plane,
+>         if (modifier == DRM_FORMAT_MOD_LINEAR)
+>                 return true;
+>
+> +       /* Check that the modifier is on the list of the plane's supported
+> modifiers. */
+> +       for (i = 0; i < plane->modifier_count; i++) {
+> +               if (modifier == plane->modifiers[i])
+> +                       break;
+> +       }
+> +       if (i == plane->modifier_count)
+> +               return false;
+> +
+>         /*
+>          * The arbitrary tiling support for multiplane formats has not
+> been hooked
+>          * up.
+> --
+> 2.30.1.766.gb4fecdf3b7-goog
+>
+>
 
-> > Huh that's interesting, since iirc Willy or Dave told me the opposite, =
-and
-> > the memalloc_no* stuff is for e.g. nfs calling into network layer (needs
-> > GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I think).
-> > =
+--00000000000017c27105be2192bb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > Adding them, maybe I got confused.
-> =
+<div dir=3D"ltr">&quot;friendly ping&quot;</div><br><div class=3D"gmail_quo=
+te"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 10, 2021 at 11:14 AM =
+Mark Yacoub &lt;<a href=3D"mailto:markyacoub@chromium.org">markyacoub@chrom=
+ium.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
+t:1ex">From: Mark Yacoub &lt;<a href=3D"mailto:markyacoub@google.com" targe=
+t=3D"_blank">markyacoub@google.com</a>&gt;<br>
+<br>
+On initializing the framebuffer, call drm_any_plane_has_format to do a<br>
+check if the modifier is supported. drm_any_plane_has_format calls<br>
+dm_plane_format_mod_supported which is extended to validate that the<br>
+modifier is on the list of the plane&#39;s supported modifiers.<br>
+<br>
+The bug was caught using igt-gpu-tools test: kms_addfb_basic.addfb25-bad-mo=
+difier<br>
+<br>
+Tested on ChromeOS Zork by turning on the display, running an overlay<br>
+test, and running a YT video.<br>
+<br>
+Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" target=3D=
+"_blank">alexander.deucher@amd.com</a>&gt;<br>
+Cc: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl" target=
+=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
+Signed-off-by: default avatarMark Yacoub &lt;<a href=3D"mailto:markyacoub@c=
+hromium.org" target=3D"_blank">markyacoub@chromium.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0| 13 +++++++++++++<br>
+=C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |=C2=A0 9 +++++++++=
+<br>
+=C2=A02 files changed, 22 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_display.c<br>
+index afa5f8ad0f563..a947b5aa420d2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
+@@ -908,6 +908,19 @@ int amdgpu_display_gem_fb_verify_and_init(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
+mp;amdgpu_fb_funcs);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Verify that the modifier is supported. */<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!drm_any_plane_has_format(dev, mode_cmd-&gt=
+;pixel_format,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mode_cmd-&gt;mod=
+ifier[0])) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_format_n=
+ame_buf format_name;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dbg_kms(dev,<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0&quot;unsupported pixel format %s / modifier 0x%llx=
+\n&quot;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0drm_get_format_name(mode_cmd-&gt;pixel_format,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0&amp;format_name),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0mode_cmd-&gt;modifier[0]);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D -EINVAL;<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto err;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D amdgpu_display_framebuffer_init(dev, rf=
+b, mode_cmd, obj);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret)<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 961abf1cf040c..21314024a83ce 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -3939,6 +3939,7 @@ static bool dm_plane_format_mod_supported(struct drm_=
+plane *plane,<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_device *adev =3D drm_to_adev(plan=
+e-&gt;dev);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct drm_format_info *info =3D drm_form=
+at_info(format);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 enum dm_micro_swizzle microtile =3D modifier_gf=
+x9_swizzle_mode(modifier) &amp; 3;<br>
+<br>
+@@ -3952,6 +3953,14 @@ static bool dm_plane_format_mod_supported(struct drm=
+_plane *plane,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (modifier =3D=3D DRM_FORMAT_MOD_LINEAR)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return true;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Check that the modifier is on the list of th=
+e plane&#39;s supported modifiers. */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; plane-&gt;modifier_count; =
+i++) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (modifier =3D=3D=
+ plane-&gt;modifiers[i])<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D plane-&gt;modifier_count)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* The arbitrary tiling support for multip=
+lane formats has not been hooked<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* up.<br>
+-- <br>
+2.30.1.766.gb4fecdf3b7-goog<br>
+<br>
+</blockquote></div>
 
-> My impression is that the scoped API is preferred these days.
-> =
+--00000000000017c27105be2192bb--
 
-> https://www.kernel.org/doc/html/latest/core-api/gfp_mask-from-fs-io.html
-> =
+--===============0698263826==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> I'd probably need to spend a few months learning the DRM subsystem to
-> have a more detailed opinion on whether passing GFP flags around explicit=
-ly
-> or using the scope API is the better approach for your situation.
-
-yes, in an ideal world we would have a clearly defined scope of the
-reclaim recursion wrt FS/IO associated with it. I've got back to
-https://lore.kernel.org/amd-gfx/20210319140857.2262-1-christian.koenig@amd.=
-com/
-and there are two things standing out. Why does ttm_tt_debugfs_shrink_show
-really require NOFS semantic? And why does it play with
-fs_reclaim_acquire?
-
--- =
-
-Michal Hocko
-SUSE Labs
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0698263826==--
