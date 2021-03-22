@@ -2,87 +2,56 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9774EC433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BBB2C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5584D6187E
+	by mail.kernel.org (Postfix) with ESMTPS id CD5A1619A2
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5584D6187E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD5A1619A2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E97B889D43;
-	Mon, 22 Mar 2021 16:03:19 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1EB36E4C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 14:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1616422107;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3971E88C90;
+	Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E3E6E4CF;
+ Mon, 22 Mar 2021 15:57:13 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1616428630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FVgT8cREJNNCZgsvwdo4IVCZkhVlPEV4H/HRfF+vQHs=;
- b=CHZliN66hPXgCQNWamKXsT2D0mInGwS8uG4hgCmsTfQi5FLDKkc6QSeA1HeoyfwVbZsGef
- lty5iL/GSY3FJOovgyCFuyKJi3E9xoKDQ+Pchl8Z0C0wm3gw3MyXZ9g6umWnZ1RG9mNorM
- 7MhIcuURK9RTjjX61xkl+oWWx/zWMik=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-541-OD3rBaAWOH2YdQmYfqDW3A-1; Mon, 22 Mar 2021 10:08:26 -0400
-X-MC-Unique: OD3rBaAWOH2YdQmYfqDW3A-1
-Received: by mail-qt1-f200.google.com with SMTP id m8so29740990qtp.14
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 07:08:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=FVgT8cREJNNCZgsvwdo4IVCZkhVlPEV4H/HRfF+vQHs=;
- b=d5GVSFt4f2Tv3yCqI8aR1l4C2VdL2SADb2JP6M4CPCEZ7caRKt6HHHEW/5cQFRV1TD
- JgR2v4KK6B/BRCFvNfDYrhfwJyI7ic4ftTtGRnpQQByYED0U0yGu8CU9SdLEBrJLjPw7
- iGqNFtpg6nXkjWeQC3jryUkO+eBby+qHtFBu4yUo1Ow6+van4J+8TwxXbwe9NeR0j/+c
- 9McyNh/Lrtd2L7ee+NGZd4px6bU7M26QhfBe2Yk4CZH3n59RN86c2c94fWTSFQt2By0o
- BgBZNGybeEMeL3mSeaVXWHMH70RQie5c2Y4evjJu6VcszhMXybHhqUSpdt9pjNTMXgsd
- lHjQ==
-X-Gm-Message-State: AOAM5303EbEceulBYqbmOL4Xd+O+0g/9cNqOVqfuky8/v5HssQio6gZs
- /k9wsw4LSa1NJL/M1vgU1NSNpP3/735X67TlVEVz3SF1U+rjCFo+hskENbPD4REQIl1t87Pbm7A
- 12mnINY6k4WECNWGhjcZpPbOMYg==
-X-Received: by 2002:a37:a74e:: with SMTP id q75mr170974qke.165.1616422105593; 
- Mon, 22 Mar 2021 07:08:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzrUVuJJE09nrcOBM4NdtiV05nyirk+Tg8pFgeTN9VypOp5y986vzL315hHiWdFn7UBNMA7CQ==
-X-Received: by 2002:a37:a74e:: with SMTP id q75mr170943qke.165.1616422105378; 
- Mon, 22 Mar 2021 07:08:25 -0700 (PDT)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id z8sm9014413qtn.12.2021.03.22.07.08.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Mar 2021 07:08:25 -0700 (PDT)
-Subject: Re: [PATCH] amdgpu: avoid incorrect %hu format string
-To: Arnd Bergmann <arnd@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20210322115458.3961825-1-arnd@kernel.org>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <eefe9a55-4212-4d51-6add-9eb9ead0b5ed@redhat.com>
-Date: Mon, 22 Mar 2021 07:08:22 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ bh=943PxvuOVOvD4aIfz0aSIuAtEWSyDAhWQvjOcjR1pNk=;
+ b=f4jLbnwVuMbmtzmw+emafC69VpgVedDhr7rg/0AcvaGfGvZxlJ5TVBfmDTPoRzGusXur9I
+ gKwxgrQWmVdOwmX5J6jTC+zFtPRSmvMlUNAAYZPbdl5TygS/pi9TDn6CSi9HZMAqcs2crF
+ Y5UBe3gudtxixSh7p+0W/adWm1rfAO8=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A97A5ACA8;
+ Mon, 22 Mar 2021 15:57:10 +0000 (UTC)
+Date: Mon, 22 Mar 2021 16:57:05 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Matthew Wilcox <willy@infradead.org>
+Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
+Message-ID: <YFi+UROYbQERYEEr@dhcp22.suse.cz>
+References: <20210319140857.2262-1-christian.koenig@amd.com>
+ <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
+ <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
+ <YFT2LSR97rkkPyEP@phenom.ffwll.local>
+ <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
+ <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
+ <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+ <YFigZ5+H95c/GI/S@phenom.ffwll.local>
+ <20210322140548.GN1719932@casper.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20210322115458.3961825-1-arnd@kernel.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20210322140548.GN1719932@casper.infradead.org>
 X-Mailman-Approved-At: Mon, 22 Mar 2021 16:03:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,72 +64,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sonny Jiang <sonny.jiang@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- dri-devel@lists.freedesktop.org, xinhui pan <xinhui.pan@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- clang-built-linux@googlegroups.com, Chen Li <chenli@uniontech.com>,
- Lee Jones <lee.jones@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon 22-03-21 14:05:48, Matthew Wilcox wrote:
+> On Mon, Mar 22, 2021 at 02:49:27PM +0100, Daniel Vetter wrote:
+> > On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
+> > > Am 20.03.21 um 14:17 schrieb Daniel Vetter:
+> > > > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
+> > > > <ckoenig.leichtzumerken@gmail.com> wrote:
+> > > > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
+> > > > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wro=
+te:
+> > > > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
+> > > > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig=
+ wrote:
+> > > > > > > > > Don't print a warning when we fail to allocate a page for=
+ swapping things out.
+> > > > > > > > > =
 
-On 3/22/21 4:54 AM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> clang points out that the %hu format string does not match the type
-> of the variables here:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:263:7: warning: format specifies type 'unsigned short' but the argument has type 'unsigned int' [-Wformat]
->                                   version_major, version_minor);
->                                   ^~~~~~~~~~~~~
-> include/drm/drm_print.h:498:19: note: expanded from macro 'DRM_ERROR'
->         __drm_err(fmt, ##__VA_ARGS__)
->                   ~~~    ^~~~~~~~~~~
->
-> Change it to a regular %u, the same way a previous patch did for
-> another instance of the same warning.
+> > > > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_restore ins=
+tead of GFP_NOFS.
+> > > > > > > > Uh this part doesn't make sense. Especially since you only =
+do it for the
+> > > > > > > > debugfs file, not in general. Which means you've just compl=
+etely broken
+> > > > > > > > the shrinker.
+> > > > > > > Are you sure? My impression is that GFP_NOFS should now work =
+much more out
+> > > > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_restor=
+e().
+> > > > > > Yeah, if you'd put it in the right place :-)
+> > > > > > =
 
-It would be good to explicitly call out the change.
+> > > > > > But also -mm folks are very clear that memalloc_no*() family is=
+ for dire
+> > > > > > situation where there's really no other way out. For anything w=
+here you
+> > > > > > know what you're doing, you really should use explicit gfp flag=
+s.
+> > > > > My impression is just the other way around. You should try to avo=
+id the
+> > > > > NOFS/NOIO flags and use the memalloc_no* approach instead.
+> > > > Where did you get that idea?
+> > > =
 
-ex/ do you mean mine ?
+> > > Well from the kernel comment on GFP_NOFS:
+> > > =
 
-0b437e64e0af ("drm/amdgpu: remove h from printk format specifier")
+> > > =A0* %GFP_NOFS will use direct reclaim but will not use any filesystem
+> > > interfaces.
+> > > =A0* Please try to avoid using this flag directly and instead use
+> > > =A0* memalloc_nofs_{save,restore} to mark the whole scope which
+> > > cannot/shouldn't
+> > > =A0* recurse into the FS layer with a short explanation why. All allo=
+cation
+> > > =A0* requests will inherit GFP_NOFS implicitly.
+> > =
 
-This was for a different reason.
+> > Huh that's interesting, since iirc Willy or Dave told me the opposite, =
+and
+> > the memalloc_no* stuff is for e.g. nfs calling into network layer (needs
+> > GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I think).
+> > =
 
-imo, you do not need to include what another patch did.
+> > Adding them, maybe I got confused.
+> =
 
-so you could also just remove this bit from the commit log.
+> My impression is that the scoped API is preferred these days.
+> =
 
+> https://www.kernel.org/doc/html/latest/core-api/gfp_mask-from-fs-io.html
+> =
 
-The change itself looks good.
+> I'd probably need to spend a few months learning the DRM subsystem to
+> have a more detailed opinion on whether passing GFP flags around explicit=
+ly
+> or using the scope API is the better approach for your situation.
 
-Reviewed-by: Tom Rix <trix@redhat.com>
+yes, in an ideal world we would have a clearly defined scope of the
+reclaim recursion wrt FS/IO associated with it. I've got back to
+https://lore.kernel.org/amd-gfx/20210319140857.2262-1-christian.koenig@amd.=
+com/
+and there are two things standing out. Why does ttm_tt_debugfs_shrink_show
+really require NOFS semantic? And why does it play with
+fs_reclaim_acquire?
 
->
-> Fixes: 0b437e64e0af ("drm/amdgpu: remove h from printk format specifier")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index e2ed4689118a..c6dbc0801604 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -259,7 +259,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->  		if ((adev->asic_type == CHIP_POLARIS10 ||
->  		     adev->asic_type == CHIP_POLARIS11) &&
->  		    (adev->uvd.fw_version < FW_1_66_16))
-> -			DRM_ERROR("POLARIS10/11 UVD firmware version %hu.%hu is too old.\n",
-> +			DRM_ERROR("POLARIS10/11 UVD firmware version %u.%u is too old.\n",
->  				  version_major, version_minor);
->  	} else {
->  		unsigned int enc_major, enc_minor, dec_minor;
+-- =
 
+Michal Hocko
+SUSE Labs
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
