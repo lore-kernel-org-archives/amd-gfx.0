@@ -4,59 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53412C433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E48AC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3036361930
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3036361930
+	by mail.kernel.org (Postfix) with ESMTPS id 2C7CB61974
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 13:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C7CB61974
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D7B6E471;
-	Mon, 22 Mar 2021 13:36:54 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D40C56E471
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 13:36:53 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id w70so13044835oie.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 06:36:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61F396E48F;
+	Mon, 22 Mar 2021 13:49:33 +0000 (UTC)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5AA6E48B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 13:49:31 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id e18so16921303wrt.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 06:49:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=IKX91CVLsysBuqgW2IV9FPxIuN4MJbVJi9aSymCIVIQ=;
- b=H99tmx948javoOPGemI0niAxhCXvwULc1m0MNoOM/sV2Uo6iIIS4gcGod74jWC3Ds2
- wcfdwbs2M7CP4pKtgtxZd/D44H9MxoO4ZByJbYgp2X4q38AWNqH7p5F/EO/aZLvPwfXW
- jP+gh0Mpa0DmCd+9zO/qcwpT0sAmBOaLx5/a8=
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=xT7psetKthcee1tu4yiJzLBGQNyspfMj6+CKGIBZ3Xs=;
+ b=MJqqM7S9ygKt8dpiLYhhGSglSFmHE0PXVJ+jyUWEbyVrzPJsBUo9LZ+tPkTGnxnR2s
+ YRBJ0tJzg+FXcjkj9AuqVXwY+Kupk0+DBQVWWtUVmcBbDgZPK4XGUeXOXAhJ2EsMakws
+ wV5cswsLIax+9ftylfd/1zm1OsC8WMj1qmwRY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=IKX91CVLsysBuqgW2IV9FPxIuN4MJbVJi9aSymCIVIQ=;
- b=BJBi3L3JANCmRBZjmr550QJL5lLmq8XeDSKYlHayBtYUX3fsYnfjaUXtKPoiHxR5o2
- 6o6bSshljy/CXNMT7Rc30/kVHU+YwcwOz5f0pNPaUGG/igZt/4IOGwXaYop+Ld7/qPmI
- nQeBw9NXSaVAqFbipoR5fZIqTUZ7e0czq9Uox/ciqXEq4HogBMZFcfeJMdJ3ulgcEFwv
- VojBoTMlQd9xKvffMUXkd+UENkQ4IGT0j6Pvx9iL4gkf0ECc61bPfmEfEgd40DItPYkS
- jYxJMByI5JQVxmelBcdX3UZNBEmoSZ6st3EaHZcZmf7yv3LKKbl7LHygSjRcsoHNJVCE
- ru3g==
-X-Gm-Message-State: AOAM532i8Qq5vMFNjNkCzAKHShMbg0lLa6bDcUpMcpnqmXfsd9BG7+zJ
- k7PAfD0xMS3/d39j9Fe4qhcyexbrnsIeolV+lhBmTw==
-X-Google-Smtp-Source: ABdhPJz1OoCXWxHQ6O1CtSMOOkxlolkptb9qETkrT32wtHPg1v5F+sC2LqHgUKcgQ1JkOXWJlLU6ZeO7uvAkGar8d+Y=
-X-Received: by 2002:aca:4188:: with SMTP id o130mr9706845oia.101.1616420213155; 
- Mon, 22 Mar 2021 06:36:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210322112206.4574-1-christian.koenig@amd.com>
-In-Reply-To: <20210322112206.4574-1-christian.koenig@amd.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=xT7psetKthcee1tu4yiJzLBGQNyspfMj6+CKGIBZ3Xs=;
+ b=oHJ1qEbxkyqqiBr6fJl65yXMd4B01YvPUhAeLUEXwarJJbNX7If0cqWeW06nA9m3R2
+ KX7lPsNVcHTsFgwSeFGRbaAeYe6S7tNdrvLFkqP7M3vaao+Esr/GYdzyz5YsesCOR/I8
+ 0ZOLnQmnVrY7ZBZW9mXY4ik4WN17aTb4TT6r24oEKAcs+cabUnVgJCDVzQ7BArQ/okJE
+ 2HOIzx8r+Gx/JNYUA8LoBUGKVN8//5U0+PFlFKB8PIurmSuPDohPpoKrJ8UvjfrYA1FV
+ hg/pfZNdyOSeDlUj89ne5dE1Ca+j6bA2wj3u57w9UU3N0dmaUXZKUonC9ZQqws+kuFt/
+ q4lg==
+X-Gm-Message-State: AOAM531674C5IC/jUoWkHO5QQal8t/T3BR2d3eznxmHn+ARAYX9z+qLu
+ +CZ2oZYGWckYSt65S6lanJbvDA==
+X-Google-Smtp-Source: ABdhPJxVt9tqhHcq33JACoqofNnvppHmkEg7LB5PGyXyk4Ayy3iCyUutFdSUdYICTPUGyaq2cFDB2w==
+X-Received: by 2002:a5d:6242:: with SMTP id m2mr6622679wrv.384.1616420969901; 
+ Mon, 22 Mar 2021 06:49:29 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v13sm22687086wrt.45.2021.03.22.06.49.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 06:49:29 -0700 (PDT)
+Date: Mon, 22 Mar 2021 14:49:27 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 22 Mar 2021 14:36:41 +0100
-Message-ID: <CAKMK7uEesyYzDy+MfhN5YeS=XaChBaGxrhDjo1bu7EP8-fwrFw@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Matthew Wilcox <willy@infradead.org>, Dave Chinner <dchinner@redhat.com>
+Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
+Message-ID: <YFigZ5+H95c/GI/S@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, 
+ Matthew Wilcox <willy@infradead.org>,
+ Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux MM <linux-mm@kvack.org>
+References: <20210319140857.2262-1-christian.koenig@amd.com>
+ <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
+ <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
+ <YFT2LSR97rkkPyEP@phenom.ffwll.local>
+ <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
+ <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
+ <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +89,223 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Liang.Liang@amd.com, dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Linux MM <linux-mm@kvack.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Leo Liu <Leo.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBNYXIgMjIsIDIwMjEgYXQgMTI6MjIgUE0gQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5p
-Zy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gRG9uJ3QgcHJpbnQgYSB3YXJu
-aW5nIHdoZW4gd2UgZmFpbCB0byBhbGxvY2F0ZSBhIHBhZ2UgZm9yIHN3YXBwaW5nIHRoaW5ncyBv
-dXQuCj4KPiB2Mjogb25seSBzdG9wIHRoZSB3YXJuaW5nCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogRGFu
-aWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KCkl0IGlzIGtpbmRhIHN1cnByaXNp
-bmcgdGhhdCBwYWdlIGFsbG9jYXRvciB3YXJucyBoZXJlIGV2ZW4gdGhvdWdoIHdlCmV4cGxpY2l0
-bHkgYXNrZWQgZm9yIG5vbi1HRlBfS0VSTkVMICh3aGljaCBpcyB0aGUgb25seSBvbmUgd2hlcmUg
-eW91CnByZXR0eSBtdWNoIGNhbiBhc3N1bWUgeW91IHdpbGwgZ2V0IG1lbW9yeSBubyBtYXR0ZXIg
-d2hhdCwgc2luY2Ugd29yc3QKY2FzZSB0aGUgT09NIGtpbGxlciBtYWtlcyBzcGFjZSBmb3IgeW91
-KS4KCkJ1dCB0aGVuIHdpdGggbWVtYWxsb2Nfbm8qIGFuZCBmcmllbmRzIHRoZXNlIGZhaWx1cmVz
-IGNvdWxkIGhhcHBlbiBpbgp1bmV4cGVjdGVkIHBsYWNlcywgYW5kIEkgdGhpbmsgdGhlIGNvZGUg
-dGhhdCB3YXJucyBpc24ndCBhd2FyZSBvZiB0aGUKb3JpZ2luYWwgZ2ZwIGZsYWdzLCBzbyBtYWtl
-cyBzb21lIHNlbnNlIGZyb20gYW4gaW1wbGVtZW50YXRpb24gcG92LgotRGFuaWVsCgoKPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYyB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3R0bS90dG1fdHQuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKPiBpbmRl
-eCAyZjA4MzNjOThkMmMuLjQ4YjlhNjUwNjMwYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vdHRtL3R0bV90dC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+IEBA
-IC0zNjksNyArMzY5LDcgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgdHRtX3R0X3Nocmlua2VyX3Nj
-YW4oc3RydWN0IHNocmlua2VyICpzaHJpbmssCj4gICAgICAgICB9Owo+ICAgICAgICAgaW50IHJl
-dDsKPgo+IC0gICAgICAgcmV0ID0gdHRtX2JvX3N3YXBvdXQoJmN0eCwgR0ZQX05PRlMpOwo+ICsg
-ICAgICAgcmV0ID0gdHRtX2JvX3N3YXBvdXQoJmN0eCwgR0ZQX05PRlMgfCBfX0dGUF9OT1dBUk4p
-Owo+ICAgICAgICAgcmV0dXJuIHJldCA8IDAgPyBTSFJJTktfRU1QVFkgOiByZXQ7Cj4gIH0KPgo+
-IC0tCj4gMi4yNS4xCj4KCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50
-ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
+> Am 20.03.21 um 14:17 schrieb Daniel Vetter:
+> > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
+> > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wrote:
+> > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
+> > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig wro=
+te:
+> > > > > > > Don't print a warning when we fail to allocate a page for swa=
+pping things out.
+> > > > > > > =
+
+> > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_restore instead=
+ of GFP_NOFS.
+> > > > > > Uh this part doesn't make sense. Especially since you only do i=
+t for the
+> > > > > > debugfs file, not in general. Which means you've just completel=
+y broken
+> > > > > > the shrinker.
+> > > > > Are you sure? My impression is that GFP_NOFS should now work much=
+ more out
+> > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_restore().
+> > > > Yeah, if you'd put it in the right place :-)
+> > > > =
+
+> > > > But also -mm folks are very clear that memalloc_no*() family is for=
+ dire
+> > > > situation where there's really no other way out. For anything where=
+ you
+> > > > know what you're doing, you really should use explicit gfp flags.
+> > > My impression is just the other way around. You should try to avoid t=
+he
+> > > NOFS/NOIO flags and use the memalloc_no* approach instead.
+> > Where did you get that idea?
+> =
+
+> Well from the kernel comment on GFP_NOFS:
+> =
+
+> =A0* %GFP_NOFS will use direct reclaim but will not use any filesystem
+> interfaces.
+> =A0* Please try to avoid using this flag directly and instead use
+> =A0* memalloc_nofs_{save,restore} to mark the whole scope which
+> cannot/shouldn't
+> =A0* recurse into the FS layer with a short explanation why. All allocati=
+on
+> =A0* requests will inherit GFP_NOFS implicitly.
+
+Huh that's interesting, since iirc Willy or Dave told me the opposite, and
+the memalloc_no* stuff is for e.g. nfs calling into network layer (needs
+GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I think).
+
+Adding them, maybe I got confused.
+
+> > The kernel is full of explicit gfp_t flag
+> > passing to make this as explicit as possible. The memalloc_no* stuff
+> > is just for when you go through entire subsystems and really can't
+> > wire it through. I can't find the discussion anymore, but that was the
+> > advice I got from mm/fs people.
+> > =
+
+> > One reason is that generally a small GFP_KERNEL allocation never
+> > fails. But it absolutely can fail if it's in a memalloc_no* section,
+> > and these kind of non-obvious non-local effects are a real pain in
+> > testing and review. Hence explicit gfp_flag passing as much as
+> > possible.
+> > =
+
+> > > > > > If this is just to paper over the seq_printf doing the wrong al=
+locations,
+> > > > > > then just move that out from under the fs_reclaim_acquire/relea=
+se part.
+> > > > > No, that wasn't the problem.
+> > > > > =
+
+> > > > > We have just seen to many failures to allocate pages for swapout =
+and I think
+> > > > > that would improve this because in a lot of cases we can then imm=
+ediately
+> > > > > swap things out instead of having to rely on upper layers.
+> > > > Yeah, you broke it. Now the real shrinker is running with GFP_KERNE=
+L,
+> > > > because your memalloc_no is only around the debugfs function. And o=
+fc it's
+> > > > much easier to allocate with GFP_KERNEL, right until you deadlock :=
+-)
+> > > The problem here is that for example kswapd calls the shrinker without
+> > > holding a FS lock as far as I can see.
+> > > =
+
+> > > And it is rather sad that we can't optimize this case directly.
+> > I'm still not clear what you want to optimize? You can check for "is
+> > this kswapd" in pf flags, but that sounds very hairy and fragile.
+> =
+
+> Well we only need the NOFS flag when the shrinker callback really comes f=
+rom
+> a memory shortage in the FS subsystem, and that is rather unlikely.
+> =
+
+> When we would allow all other cases to be able to directly IO the freed up
+> pages to swap it would certainly help.
+
+tbh I'm not sure. i915-gem code has played tricks with special casing the
+kswapd path, and they do kinda scare me at least. I'm not sure whether
+there's not some hidden dependencies there that would make this a bad
+idea. Like afaik direct reclaim can sometimes stall for kswapd to catch up
+a bit, or at least did in the past (I think, really not much clue about
+this)
+
+The other thing is that the fs_reclaim_acquire/release annotation really
+only works well if you use it outside of the direct reclaim path too.
+Otherwise it's not much better than just lots of testing. That pretty much
+means you have to annotate the kswapd path.
+-Daniel
+
+
+
+> =
+
+> Christian.
+> =
+
+> > -Daniel
+> > =
+
+> > > Anyway you are right if some caller doesn't use the memalloc_no*()
+> > > approach we are busted.
+> > > =
+
+> > > Going to change the patch to only not warn for the moment.
+> > > =
+
+> > > Regards,
+> > > Christian.
+> > > =
+
+> > > > Shrinking is hard, there's no easy way out here.
+> > > > =
+
+> > > > Cheers, Daniel
+> > > > =
+
+> > > > > Regards,
+> > > > > Christian.
+> > > > > =
+
+> > > > > =
+
+> > > > > > __GFP_NOWARN should be there indeed I think.
+> > > > > > -Daniel
+> > > > > > =
+
+> > > > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
+> > > > > > > ---
+> > > > > > >     drivers/gpu/drm/ttm/ttm_tt.c | 5 ++++-
+> > > > > > >     1 file changed, 4 insertions(+), 1 deletion(-)
+> > > > > > > =
+
+> > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/t=
+tm/ttm_tt.c
+> > > > > > > index 2f0833c98d2c..86fa3e82dacc 100644
+> > > > > > > --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+> > > > > > > @@ -369,7 +369,7 @@ static unsigned long ttm_tt_shrinker_scan=
+(struct shrinker *shrink,
+> > > > > > >             };
+> > > > > > >             int ret;
+> > > > > > > -  ret =3D ttm_bo_swapout(&ctx, GFP_NOFS);
+> > > > > > > +  ret =3D ttm_bo_swapout(&ctx, GFP_KERNEL | __GFP_NOWARN);
+> > > > > > >             return ret < 0 ? SHRINK_EMPTY : ret;
+> > > > > > >     }
+> > > > > > > @@ -389,10 +389,13 @@ static unsigned long ttm_tt_shrinker_co=
+unt(struct shrinker *shrink,
+> > > > > > >     static int ttm_tt_debugfs_shrink_show(struct seq_file *m,=
+ void *data)
+> > > > > > >     {
+> > > > > > >             struct shrink_control sc =3D { .gfp_mask =3D GFP_=
+KERNEL };
+> > > > > > > +  unsigned int flags;
+> > > > > > >             fs_reclaim_acquire(GFP_KERNEL);
+> > > > > > > +  flags =3D memalloc_nofs_save();
+> > > > > > >             seq_printf(m, "%lu/%lu\n", ttm_tt_shrinker_count(=
+&mm_shrinker, &sc),
+> > > > > > >                        ttm_tt_shrinker_scan(&mm_shrinker, &sc=
+));
+> > > > > > > +  memalloc_nofs_restore(flags);
+> > > > > > >             fs_reclaim_release(GFP_KERNEL);
+> > > > > > >             return 0;
+> > > > > > > --
+> > > > > > > 2.25.1
+> > > > > > > =
+
+> > > > > > > _______________________________________________
+> > > > > > > dri-devel mailing list
+> > > > > > > dri-devel@lists.freedesktop.org
+> > > > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > =
+
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
