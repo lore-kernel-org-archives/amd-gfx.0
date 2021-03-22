@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 168DDC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E8AFC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C251261931
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C251261931
+	by mail.kernel.org (Postfix) with ESMTPS id D776A61879
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D776A61879
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50CC89F24;
-	Mon, 22 Mar 2021 11:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCAA489F55;
+	Mon, 22 Mar 2021 11:07:41 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5050889ACD;
- Mon, 22 Mar 2021 11:07:35 +0000 (UTC)
+ (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80B3A89C52;
+ Mon, 22 Mar 2021 11:07:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nKFOtZHw1tr+3e4yYKvSbZCziz0nrKdOub2g1YFCfDRcnsP/AlcHizi/ffMIsy0i3RhDKTXKCBxrDruJZLcZR2dbYq0kqKPXcr1OEY6VkFm6lQ7bIRSyWfRcLg+bBQy/ix0tgXx3XfyuPul4q1XC+w6l5yzK4ghc3Q4EQmhhBfshqdTcLuU+jDq8uzb8LKnuxVLinHmcuglfqB2ddX4KnMvrlX4giDCNUMkGKzFHKstVuj+d4xy8f4F/xgep5WXE2rB+pf9N7wJBnfD9bbqeTt763w5evmbRHDm6exTnWvtVaAH7HpTtp/icIJesbl0EJ1ahNwqbemACuPz0fNMOJQ==
+ b=B9kd4JdA81Z0/etsNrJI35WIvCI4wfe/7t4apbSn3hCtvG97XPf8jyD7CzWkR769ku5/boEn84qhUY/I0lUL9ttdzRhpSsG2WDesg9ZXLoBV/1btpVRszyYjB7GlLICaghnir537xZSIC6Ofk7sOl0aVerw5Ow6yqYDbqx1XfL8FCjrehjYgIcajKdJ6mQ+/M6Xc3QTlvPWG+PJrDM5PX0oSrH+Xk5zHqyspvTKQFavgeIiRWCzge8PPW41usybVvpwnzJo+G+rNsquIQtC6vJHzuGpo2IAsraKLEiN4IFuVi+2w2eIJLE3SqSLoNFVmMZz+Q2J1hyQqWTD6P0H52w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AKYW9UxUahbksmhRthUo0cfZQGRrkvNkqdTw7fkHdIg=;
- b=ElY044hBkkz6Ax08YHfLqpdRkMKK7ak4Z4iX8SnkExYy/6uOHz/u0TK3Hoo1DYywCpbHvTD+nj6V5lIa++ujWztbhCMZ6ehs6BWyuuZHNyTv/CpRz5uub97y1AljI29pS4HPuF+u/+eRE6YjIVfl+CUOpz2q1QZTRGwOnhBUyA2MWDF+U2TTj5G5IOoTHjBrG6OkejmE7B1NytAV5azLYOiZoOHFIKBa8ylzQwdXI3AcC+bZzqPWAbGU8yU22JqqrXTs5r/g9hYOW/Eo9sdZeg+F6jxdZptUmX9pVnE2GnUhsISUpAE8DW6bNor+1Exm8rlZyo9IKwUdEH9HgD9mHA==
+ bh=LzrRUwlZRwRXoYlwkSZ919/grqACVrnSHCZhFyCSFRU=;
+ b=mCMX1TcP9N+fJx8hwqiJa5QrZGvcA8TrVjRf7bAYCd44d+PhtVSgG5KtKmxJ/zRnSzP1GOvPTe6vQkHZvUtUuYJxUrbL/EeKS13m84j/QUseFSNAf664IM15FTs02PGT8qXImQ0rfLyoPvKssTotmjnHLML7G3xkKdMUN3h1mPqZd1mLF5bPMU4AFBuPnacIChQH/w22L0sUZqt9zYxJkRcCLRFSws2zvGb1gjQAiFSKtLuhulECpNzXso1/59p6YMEO90xocBEojeERMV06cVlegbmzUmxSlRzRIUDZfZbe4IYlBRFjuTi0ko9kI4R3b17hMQ1gzgy3rZfiNqPyYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AKYW9UxUahbksmhRthUo0cfZQGRrkvNkqdTw7fkHdIg=;
- b=oPbORVEYLbWE/5MTE88aL4Mfp5kjZ60zk6b/cWmPW9IQbpQLfH2l7LbJtPaCraKYbLtQo1EPyfIbXPpJvZcDi1MIcBkMM3ar6/7eRps8YVhfQ9JKaVoLV+TpVVC1vdaGALRZRNTIn5K3MLqIPxzqkOKO7b5ktNT35SMwlz3Dlq0=
+ bh=LzrRUwlZRwRXoYlwkSZ919/grqACVrnSHCZhFyCSFRU=;
+ b=ptxwkF97ayFhvs3kAWmUM5Uz2iU4PE4liZwR+fd2AnIEqNN+Qr8ujq7yzSVhobIo4OahVjWzgHyoLsK0Sagv3ogmiHGrOnrxYh9cdwPK61/oVuSyegPALlF+WFdcy6j+efT/c5LAWbCr9a/ksGLiQoGXh/ls8Ik4mJ/7sZo8xjs=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB3678.namprd12.prod.outlook.com (2603:10b6:208:158::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
- 2021 11:07:33 +0000
+ 2021 11:07:35 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%5]) with mapi id 15.20.3933.036; Mon, 22 Mar 2021
- 11:07:33 +0000
+ 11:07:35 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/44] drm/amdkfd: validate svm range system memory
-Date: Mon, 22 Mar 2021 06:58:23 -0400
-Message-Id: <20210322105900.14068-8-Felix.Kuehling@amd.com>
+Subject: [PATCH 11/44] drm/amdkfd: svm range eviction and restore
+Date: Mon, 22 Mar 2021 06:58:27 -0400
+Message-Id: <20210322105900.14068-12-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210322105900.14068-1-Felix.Kuehling@amd.com>
 References: <20210322105900.14068-1-Felix.Kuehling@amd.com>
@@ -69,53 +69,53 @@ Received: from Harpoon.amd.com (165.204.55.251) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24 via Frontend
- Transport; Mon, 22 Mar 2021 11:07:33 +0000
+ Transport; Mon, 22 Mar 2021 11:07:35 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5019bc38-b5b3-48cc-7b2f-08d8ed22b144
+X-MS-Office365-Filtering-Correlation-Id: 91164246-2608-4576-64a2-08d8ed22b2a5
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3678:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB367873C9C389D95F0DDBB3A992659@MN2PR12MB3678.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <MN2PR12MB36784A34B46822563DE8F94892659@MN2PR12MB3678.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +X1DZqh2WfHNFAxC0fcLfh56zypq1IJ4XQhC2mdxuKXXWXodlXCLESi37Pn/GH2bSvyEQu6POZIf+T8pyG+1BFmImUPvD5YjyzzHRbywhAHRhoVhDu9JHy1wTdCOsmSR9DUOA65ybM0jO4loQq0n+W9LdZo4GAnfpo1IBRmO/DvAJeGXKjnklQHdXJ2lC0z+5c3X35SoHfS7J0gmYWgFtsf+rQE2LjDGNA1XKP10MEyFOXv3mpgTTbdMNmcEjwgFiNKNOVo6zshTsGdy4+TtrPT1YM1VlUrkZQRv896/0ypWt7m7ujfai3gk/LcVC8MqfMNvAmVCBYe0DHbvFcXkMRimQm82hUVkjVF/Tp798X3uzxCOJqr7KS6EdDgsmE67bbyWCJpVr4VoOEcE3FNCrnYlLN02goueLSmdzb8F80Kw8RdSd1hyhKSG/0UeV6YLI4Dr/UDGidrugPnZwl3I7wTGBCPRFGNu1H/FfOGdLFtRBoVDR2B+Lgi4ihbZ3u7zU1Cpgs/4TXoneLGPyHbrD1LKB76ZXv3nF++dRKMglLX0525pKuWgektX29U02jBYgnJ8SZfRTcNBi56/zld+qiJ9iX4zLXe8tp7UIVWLdX02bCM9nzRO9iPHC+C2wQTxrsxU0N1GP2dD6/jA5q7pmREcEsUU0H1+h9/Yc6RwkTQ=
+X-Microsoft-Antispam-Message-Info: OoEdR5jnHdXNEdyX2QJeBW5nNVHehFq4+CAKU9Ut2tSs/jtQ6IA+4MexYkHSwX1ga8CeA38EVHuI3OJSlQBYtQEKRnc80XTvfB3s/9Rr1hixFASVX48KKR4FKixx65dWjpBeBy37T5V0N95S+fALiipcUFeGG3+U5lHc399uC0LSvhMdArdaUMStqsn52lX7StlS8j7psVlEDGFvoCAFyD43SOMxt+/FmLAz4iYHgP2rQGKRfCfonqxqDQ/8q2qNgaDojaw1dIBiLQd37dPleEk1Hx/u9+CrVeijIXzbPihsvK9Op1mbhQ5YWh5Zn333cc4ydAZdmOZu0+POlbKehgo7a9XflBU8Kj8vZ6HgCA1UvESFe/GBNHOeF9BCtLBuQU48jYf4UH8GNfwv7RtsxEOZlkhC/rreukbCJBiaSuFb1xjScaLXgNT1alDlFLTrVvtreo4zDTwELAbF3kDuXnGSfQidkwO+5IIZfSNr/ci+oAzWgnbDl9032uYipIziH53kea9aQsxRNpX/lV0p9sAV8E8arS3QpLTCwnSknTxGyD7BzXZxZVJivuZyTHolrJ0sLvsU+cQIAJTKxXXpI3GdyQW91iCbB6dk41kWesxj14hSx69zJAQsmKlchGlbxKi7uoSi1U+CrhPRZAVVWA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(366004)(39860400002)(346002)(52116002)(7696005)(15650500001)(6486002)(1076003)(36756003)(38100700001)(6666004)(83380400001)(478600001)(2616005)(956004)(4326008)(450100002)(16526019)(2906002)(186003)(26005)(5660300002)(66556008)(66476007)(8936002)(66946007)(316002)(86362001)(8676002);
+ SFS:(4636009)(396003)(376002)(136003)(366004)(39860400002)(346002)(52116002)(7696005)(6486002)(1076003)(36756003)(38100700001)(6666004)(83380400001)(478600001)(2616005)(956004)(4326008)(450100002)(16526019)(2906002)(186003)(26005)(5660300002)(66556008)(66476007)(8936002)(66946007)(316002)(86362001)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?LUmf/b3whSwgswuamESQX+ihSddp2ZVCCilItpmdCqf9sVBVE61t7CEVqIhN?=
- =?us-ascii?Q?OeiM8ZE+muAD0IXKSRAmiKlsOwbnmFwEX9tD2jmROXTGK1PR4p2Ux3oo+avC?=
- =?us-ascii?Q?/MBikcRpqCsWY2Alt1pmggxXxHgAliwzF1xrPqO+r1LLKfFTk1MIYQkTP/pv?=
- =?us-ascii?Q?engbsSr9QEFMBeza8/+OF/ozpNctUQ9fg1V59AHth500QfucsrqnrTK0cNC3?=
- =?us-ascii?Q?5QUz9RWwxrbB3/UYJqVDP1GX+3U+B+7iyVkQDMUP1pskbUaZe7rNLXQxE5Vm?=
- =?us-ascii?Q?eFA+St7Y+umPntrrWw6xTuvGSLL6gpLxbbvpZxGaFkMdLSYikYBRhF+WVtAX?=
- =?us-ascii?Q?MWGOzRcEgcvn61G8vnickpF+/+0s3BU7ZmtEUPEc0IEphbFaQITmo9epagK4?=
- =?us-ascii?Q?cDs0OcqwYGzCoZYgo8GbEi88+zEUYwTObsw5ZBu7gelVqsdQp9zc+OIjY8uw?=
- =?us-ascii?Q?fvb+l+UamaM1xxiA5lHONS+zwTld9lHx7BgXBcSi68iguQwyDWSnX2h4PCq9?=
- =?us-ascii?Q?CXF9rshOqyD6Dtku4JuZot54mPTEOsKKY/axgPIbvQLhZ8Jnal8boHo2JgyS?=
- =?us-ascii?Q?86RfndmQoBXdKSb+fDnJa70wWJzTDzk80c6bGFO6E5YpzhbyCiMuL4mMtrDo?=
- =?us-ascii?Q?feJ8TAjf5Tiu+Ux4ziaF6FGZTyYqEjhFTcl8FpDX1Iy60kb+/kKEFeW70B4Q?=
- =?us-ascii?Q?LEZ1e22n0wcKbbVqy6+Ti3j7nAKuJvpayB+jnD46gg6LTiD4uBzVyOXYG/vg?=
- =?us-ascii?Q?RCy0pYsBPBTX3GFlFsj7bkyLRt3PCKo5YjFp2RK0g4Ua8OEx9bcg1DuuFi+y?=
- =?us-ascii?Q?XCB8HbIdNqilMlbVQoRSNUwjppaMXUcviqMZ4Ql8Lc8KRB3Md8bVPlgUrKoZ?=
- =?us-ascii?Q?h8mXUhy5GxR+rRmy+OUzhu/MhQuIol7yUAia0yOmX4AKsoYiNLjEw6Mdq5Ix?=
- =?us-ascii?Q?gB5WQyI3uWGjOGS7uF1UqraX4dq0zlYnSEHN4rWmHxH7tqjBQWnUMwyVccrG?=
- =?us-ascii?Q?8e0KmUZcwhfai8wKmN3KlV/KOGW53p9oeC83XhmvW/qEPocij0SMC2qcoG0M?=
- =?us-ascii?Q?6UbK//G/r288b7jxh37YWU7sPrnrFn45LQlp+A8syIE4u2DLA/yIxVrGfO5e?=
- =?us-ascii?Q?Pwzzh73yAk44UAJ3cAKUhcdhrj33xJHxpiHL27cP2+Eu818DJ8ryl+6l/+iL?=
- =?us-ascii?Q?ciHE6wBlpdty9OHge4627LO+EkVzas7+TBVdB9WGpYhVPmv7Qq/sEOsW1Ndp?=
- =?us-ascii?Q?OJtVJMSQ4kVckqn0porDB1xXZQ5NitWIKkrVBYnL+knyNlwT5vr3VkyGhOwz?=
- =?us-ascii?Q?BK21IPsoGVj1yJuPuZeBGPND?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?VBDCokWRhdc9PoNx0of/u3ncP4+yP+liSrYtQWny+BLuz9IKaHdGKB4XvFwS?=
+ =?us-ascii?Q?jyl4MfHJLaT2/ir4olqO/63R8RRutNBgXDZO3e/18FuLLydJm5JyV9iq481k?=
+ =?us-ascii?Q?ghiaiYMDRSRzRSMiIKtiQBsLKlRu8KfbDoO8m8PZUDtgEc5UekhWhxCnAChq?=
+ =?us-ascii?Q?aa1+Hqb5edJO9akR6XC6BWnFhIrujqUo38tlBkzB1/4yn7EugCmhz+kYuMSI?=
+ =?us-ascii?Q?s5l7Xla6cy5lcmO28MlYY9wlNZ7xD6O10cRhZH7lTj9z6Oj6dsE/WFdieikm?=
+ =?us-ascii?Q?Tg2fPRIaWt236vICnicY0xBgZSURhWWLAgeg2Kwiz6+kvHlpm5KuIei/1DLD?=
+ =?us-ascii?Q?2/sB7rsWC8fqifCkfw/j+zbPHnzbsJmNEUaq4N13z5GXIaKoTqvHLuFTP0vV?=
+ =?us-ascii?Q?gmJpwHqKeSx+9oXHJomoEmctkgFN9K0ZwG3iL3/3y7zL1lYcb/URiqzD7jqc?=
+ =?us-ascii?Q?CuIuAARTem0udtX48yTkbLNCE/mEIZgREL1H/SuIcGLY9sHUUvgf6SRp9mBc?=
+ =?us-ascii?Q?YZIRwC6E6A/Ci+HPs1P/VFzw4BKA0BcgWxyVvGnNzGZQhqT2boJbiHFbEtI3?=
+ =?us-ascii?Q?Z3DhDL8RkcDIpidnjG6ZOI6VhoxzUyz7Kkd+y+Nu0+ODueIvnW+55uA33Ocw?=
+ =?us-ascii?Q?K8yT4GJZnKtDT2xwUAQMsNG0yI0La41ljC8mFO8mJXlI8FeHsvVt43fshVdd?=
+ =?us-ascii?Q?QbaaP+Bf1vpaghUbVrMxheTO+MKzdXcnukSdl9RdHlAj623HzZocWJ5zimzA?=
+ =?us-ascii?Q?MM5nNPOlLuDJgt50E7EXaNVkbeQOaF7Az6717obG/zyqYulXuyIggbvrrkTr?=
+ =?us-ascii?Q?eYDQ8eByxAVKJSPFzJg5NXqt2YxrwpWp+vhqin9/BM0YJNck0xDnRnyQ6FA4?=
+ =?us-ascii?Q?xhSxc8yLj53TMjdUDq6ubG9o9LGsMFdEIGevsVq2Ua3yFDVTyWVVD6rVgZ/u?=
+ =?us-ascii?Q?5SQf8A4ZoyGmzfXfvHGMzoEey2ziFwhQhrHZ3HtyAWsA/GG50b5PlltME6G5?=
+ =?us-ascii?Q?u7bHJQNA/rYh88XiSn6F+NpI8OwcbTNv6QqRw0QCrI/2NC8mVLni5B/G/5Ad?=
+ =?us-ascii?Q?q0/XZgERye/9woVfIbykkXOPHRlUxZQkJBVQnA5tLAT/RnmjzA0QWMXOO53S?=
+ =?us-ascii?Q?u37mAlGtlynG1q6Jg/zuCH+xjDDEK0dsALEWJ3T2/1D3eF7B1G3xsagaTCQG?=
+ =?us-ascii?Q?NyUuyQr6fjcas/epvkA6273aZ/puRgjdFDxjN4vib3ME92ARSnbXPWpHtWOD?=
+ =?us-ascii?Q?ohyCITsxMoodMmXhI/Rkk1rHrtBj6CFDhX0MSQ7H3I1TSO4YI67frla0Idsh?=
+ =?us-ascii?Q?ejQ2xuYB+F57qA8QYCjjCtEW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5019bc38-b5b3-48cc-7b2f-08d8ed22b144
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91164246-2608-4576-64a2-08d8ed22b2a5
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 11:07:33.3901 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 11:07:35.7010 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OI/ndT2W8PP9UWjGgbcGhIpPbnUYOqgF2aTQ44FE3+LGNR8jNymS8+W7zdHi1DZjs1KNDgvWEUr/FbeT/oOCxQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: rN7HGT/wst0qv2jkOiiO0RRP3YG2yp36jWkb1JiooFkwdz/jQ2tWm5us09g06TJy+BVXsO7DNlImD83cB8+mPg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3678
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,217 +134,275 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+HMM interval notifier callback notify CPU page table will be updated,
+stop process queues if the updated address belongs to svm range
+registered in process svms objects tree. Scheduled restore work to
+update GPU page table using new pages address in the updated svm range.
 
-Use HMM to get system memory pages address, which will be used to
-map to GPUs or migrate to vram.
+The restore worker flushes any deferred work to make sure it restores
+an up-to-date svm_range_list.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 103 ++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |   4 ++
- 2 files changed, 106 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 145 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   2 +
+ 4 files changed, 149 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 4101f5341ec9..7d70af26b5c7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -738,6 +738,8 @@ struct svm_range_list {
+ 	struct work_struct		deferred_list_work;
+ 	struct list_head		deferred_range_list;
+ 	spinlock_t			deferred_list_lock;
++	atomic_t			evicted_ranges;
++	struct delayed_work		restore_work;
+ };
+ 
+ /* Process data */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 4d7a67141190..321895d7555a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1064,6 +1064,7 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+ 
+ 	cancel_delayed_work_sync(&p->eviction_work);
+ 	cancel_delayed_work_sync(&p->restore_work);
++	cancel_delayed_work_sync(&p->svms.restore_work);
+ 
+ 	mutex_lock(&p->mutex);
+ 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index e57103a9025e..6024caf7373f 100644
+index 1244ba380292..55828d6fbea9 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -28,6 +28,15 @@
+@@ -21,6 +21,7 @@
+  */
+ 
+ #include <linux/types.h>
++#include <linux/sched/task.h>
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+@@ -28,6 +29,8 @@
  #include "kfd_priv.h"
  #include "kfd_svm.h"
  
-+static bool
-+svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
-+				    const struct mmu_notifier_range *range,
-+				    unsigned long cur_seq);
++#define AMDGPU_SVM_RANGE_RESTORE_DELAY_MS 1
 +
-+static const struct mmu_interval_notifier_ops svm_range_mn_ops = {
-+	.invalidate = svm_range_cpu_invalidate_pagetables,
-+};
+ static bool
+ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 				    const struct mmu_notifier_range *range,
+@@ -226,6 +229,7 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	INIT_LIST_HEAD(&prange->insert_list);
+ 	INIT_LIST_HEAD(&prange->deferred_list);
+ 	INIT_LIST_HEAD(&prange->child_list);
++	atomic_set(&prange->invalid, 0);
+ 	svm_range_set_default_attributes(&prange->preferred_loc,
+ 					 &prange->prefetch_loc,
+ 					 &prange->granularity, &prange->flags);
+@@ -282,6 +286,9 @@ svm_range_validate(struct mm_struct *mm, struct svm_range *prange)
+ 
+ 	r = svm_range_validate_ram(mm, prange);
+ 
++	pr_debug("svms 0x%p [0x%lx 0x%lx] ret %d invalid %d\n", prange->svms,
++		 prange->start, prange->last, r, atomic_read(&prange->invalid));
 +
- /**
-  * svm_range_unlink - unlink svm_range from lists and interval tree
-  * @prange: svm range structure to be removed
-@@ -46,6 +55,18 @@ static void svm_range_unlink(struct svm_range *prange)
- 		interval_tree_remove(&prange->it_node, &prange->svms->objects);
+ 	return r;
  }
  
-+static void
-+svm_range_add_notifier_locked(struct mm_struct *mm, struct svm_range *prange)
-+{
-+	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
-+		 prange, prange->start, prange->last);
-+
-+	mmu_interval_notifier_insert_locked(&prange->notifier, mm,
-+				     prange->start << PAGE_SHIFT,
-+				     prange->npages << PAGE_SHIFT,
-+				     &svm_range_mn_ops);
-+}
-+
- /**
-  * svm_range_add_to_svms - add svm range to svms
-  * @prange: svm range structure to be added
-@@ -65,6 +86,18 @@ static void svm_range_add_to_svms(struct svm_range *prange)
- 	interval_tree_insert(&prange->it_node, &prange->svms->objects);
+@@ -886,6 +893,134 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
+ 	goto retry_flush_work;
  }
  
-+static void svm_range_remove_notifier(struct svm_range *prange)
++static void svm_range_restore_work(struct work_struct *work)
 +{
-+	pr_debug("remove notifier svms 0x%p prange 0x%p [0x%lx 0x%lx]\n",
-+		 prange->svms, prange,
-+		 prange->notifier.interval_tree.start >> PAGE_SHIFT,
-+		 prange->notifier.interval_tree.last >> PAGE_SHIFT);
-+
-+	if (prange->notifier.interval_tree.start != 0 &&
-+	    prange->notifier.interval_tree.last != 0)
-+		mmu_interval_notifier_remove(&prange->notifier);
-+}
-+
- static void svm_range_free(struct svm_range *prange)
- {
- 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms, prange,
-@@ -112,6 +145,56 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
- 	return prange;
- }
- 
-+/**
-+ * svm_range_validate_ram - get system memory pages of svm range
-+ *
-+ * @mm: the mm_struct of process
-+ * @prange: the range struct
-+ *
-+ * After mapping system memory to GPU, system memory maybe invalidated anytime
-+ * during application running, we use HMM callback to sync GPU with CPU page
-+ * table update, so we don't need use lock to prevent CPU invalidation and check
-+ * hmm_range_get_pages_done return value.
-+ *
-+ * Return:
-+ * 0 - OK, otherwise error code
-+ */
-+static int
-+svm_range_validate_ram(struct mm_struct *mm, struct svm_range *prange)
-+{
++	struct delayed_work *dwork = to_delayed_work(work);
++	struct amdkfd_process_info *process_info;
++	struct svm_range_list *svms;
++	struct svm_range *prange;
++	struct kfd_process *p;
++	struct mm_struct *mm;
++	int evicted_ranges;
++	int invalid;
 +	int r;
 +
-+	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
-+				       prange->start << PAGE_SHIFT,
-+				       prange->npages, &prange->hmm_range,
-+				       false, true);
-+	if (r) {
-+		pr_debug("failed %d to get svm range pages\n", r);
-+		return r;
++	svms = container_of(dwork, struct svm_range_list, restore_work);
++	evicted_ranges = atomic_read(&svms->evicted_ranges);
++	if (!evicted_ranges)
++		return;
++
++	pr_debug("restore svm ranges\n");
++
++	/* kfd_process_notifier_release destroys this worker thread. So during
++	 * the lifetime of this thread, kfd_process and mm will be valid.
++	 */
++	p = container_of(svms, struct kfd_process, svms);
++	process_info = p->kgd_process_info;
++	mm = p->mm;
++	if (!mm)
++		return;
++
++	mutex_lock(&process_info->lock);
++	svm_range_list_lock_and_flush_work(svms, mm);
++	mutex_lock(&svms->lock);
++
++	list_for_each_entry(prange, &svms->list, list) {
++		invalid = atomic_read(&prange->invalid);
++		if (!invalid)
++			continue;
++
++		pr_debug("restoring svms 0x%p prange 0x%p [0x%lx %lx] inv %d\n",
++			 prange->svms, prange, prange->start, prange->last,
++			 invalid);
++
++		r = svm_range_validate(mm, prange);
++		if (r) {
++			pr_debug("failed %d to validate [0x%lx 0x%lx]\n", r,
++				 prange->start, prange->last);
++
++			goto unlock_out;
++		}
++
++		r = svm_range_map_to_gpus(prange, true);
++		if (r) {
++			pr_debug("failed %d to map 0x%lx to gpu\n", r,
++				 prange->start);
++			goto unlock_out;
++		}
++
++		if (atomic_cmpxchg(&prange->invalid, invalid, 0) != invalid)
++			goto unlock_out;
 +	}
 +
-+	kvfree(prange->pages_addr);
-+	prange->pages_addr = prange->hmm_range->hmm_pfns;
-+	prange->hmm_range->hmm_pfns = NULL;
++	if (atomic_cmpxchg(&svms->evicted_ranges, evicted_ranges, 0) !=
++	    evicted_ranges)
++		goto unlock_out;
 +
-+	amdgpu_hmm_range_get_pages_done(prange->hmm_range);
-+	prange->hmm_range = NULL;
++	evicted_ranges = 0;
 +
-+	return 0;
++	r = kgd2kfd_resume_mm(mm);
++	if (r) {
++		/* No recovery from this failure. Probably the CP is
++		 * hanging. No point trying again.
++		 */
++		pr_debug("failed %d to resume KFD\n", r);
++	}
++
++	pr_debug("restore svm ranges successfully\n");
++
++unlock_out:
++	mutex_unlock(&svms->lock);
++	mmap_write_unlock(mm);
++	mutex_unlock(&process_info->lock);
++
++	/* If validation failed, reschedule another attempt */
++	if (evicted_ranges) {
++		pr_debug("reschedule to restore svm range\n");
++		schedule_delayed_work(&svms->restore_work,
++			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
++	}
 +}
 +
++/**
++ * svm_range_evict - evict svm range
++ *
++ * Stop all queues of the process to ensure GPU doesn't access the memory, then
++ * return to let CPU evict the buffer and proceed CPU pagetable update.
++ *
++ * Don't need use lock to sync cpu pagetable invalidation with GPU execution.
++ * If invalidation happens while restore work is running, restore work will
++ * restart to ensure to get the latest CPU pages mapping to GPU, then start
++ * the queues.
++ */
 +static int
-+svm_range_validate(struct mm_struct *mm, struct svm_range *prange)
++svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
++		unsigned long start, unsigned long last)
 +{
++	struct svm_range_list *svms = prange->svms;
++	int invalid, evicted_ranges;
 +	int r = 0;
 +
-+	pr_debug("actual loc 0x%x\n", prange->actual_loc);
++	invalid = atomic_inc_return(&prange->invalid);
++	evicted_ranges = atomic_inc_return(&svms->evicted_ranges);
++	if (evicted_ranges != 1)
++		return r;
 +
-+	r = svm_range_validate_ram(mm, prange);
++	pr_debug("evicting svms 0x%p range [0x%lx 0x%lx]\n",
++		 prange->svms, prange->start, prange->last);
++
++	/* First eviction, stop the queues */
++	r = kgd2kfd_quiesce_mm(mm);
++	if (r)
++		pr_debug("failed to quiesce KFD\n");
++
++	pr_debug("schedule to restore svm %p ranges\n", svms);
++	schedule_delayed_work(&svms->restore_work,
++		msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
 +
 +	return r;
 +}
 +
- static int
- svm_range_check_attr(struct kfd_process *p,
- 		     uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
-@@ -581,6 +664,18 @@ svm_range_handle_overlap(struct svm_range_list *svms, struct svm_range *new,
- 	return r;
+ struct svm_range *svm_range_clone(struct svm_range *old)
+ {
+ 	struct svm_range *new;
+@@ -1256,6 +1391,11 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+  * svm_range_cpu_invalidate_pagetables - interval notifier callback
+  *
+  * MMU range unmap notifier to remove svm ranges
++ *
++ * If GPU vm fault retry is not enabled, evict the svm range, then restore
++ * work will update GPU mapping.
++ * If GPU vm fault retry is enabled, unmap the svm range from GPU, vm fault
++ * will update GPU mapping.
+  */
+ static bool
+ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+@@ -1286,9 +1426,10 @@ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 		svm_range_unmap_from_cpu(mni->mm, prange, start, last);
+ 		break;
+ 	default:
++		mmu_interval_set_seq(mni, cur_seq);
++		svm_range_evict(prange, mni->mm, start, last);
+ 		break;
+ 	}
+-
+ 	return true;
  }
  
-+/**
-+ * svm_range_cpu_invalidate_pagetables - interval notifier callback
-+ *
-+ */
-+static bool
-+svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
-+				    const struct mmu_notifier_range *range,
-+				    unsigned long cur_seq)
-+{
-+	return true;
-+}
-+
- void svm_range_list_fini(struct kfd_process *p)
- {
- 	pr_debug("pasid 0x%x svms 0x%p\n", p->pasid, &p->svms);
-@@ -732,6 +827,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 	/* Apply changes as a transaction */
- 	list_for_each_entry_safe(prange, next, &insert_list, insert_list) {
- 		svm_range_add_to_svms(prange);
-+		svm_range_add_notifier_locked(mm, prange);
- 	}
- 	list_for_each_entry(prange, &update_list, update_list) {
- 		svm_range_apply_attrs(p, prange, nattr, attrs);
-@@ -743,6 +839,7 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 			 prange->svms, prange, prange->start,
- 			 prange->last);
- 		svm_range_unlink(prange);
-+		svm_range_remove_notifier(prange);
- 		svm_range_free(prange);
- 	}
- 
-@@ -753,7 +850,11 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 	 * case because the rollback wouldn't be guaranteed to work either.
- 	 */
- 	list_for_each_entry(prange, &update_list, update_list) {
--		/* TODO */
-+		r = svm_range_validate(mm, prange);
-+		if (r) {
-+			pr_debug("failed %d to validate svm range\n", r);
-+			break;
-+		}
- 	}
- 
- 	svm_range_debug_dump(svms);
+@@ -1307,6 +1448,8 @@ int svm_range_list_init(struct kfd_process *p)
+ 	svms->objects = RB_ROOT_CACHED;
+ 	mutex_init(&svms->lock);
+ 	INIT_LIST_HEAD(&svms->list);
++	atomic_set(&svms->evicted_ranges, 0);
++	INIT_DELAYED_WORK(&svms->restore_work, svm_range_restore_work);
+ 	INIT_WORK(&svms->deferred_list_work, svm_range_deferred_list_work);
+ 	INIT_LIST_HEAD(&svms->deferred_range_list);
+ 	spin_lock_init(&svms->deferred_list_lock);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index c46cdad9d1a3..f35a178c607f 100644
+index 596c881f7674..2a76e89dec04 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -44,6 +44,7 @@
-  * @update_list:link list node used to add to update_list
-  * @remove_list:link list node used to add to remove list
-  * @insert_list:link list node used to add to insert list
-+ * @hmm_range:  hmm range structure used by hmm_range_fault to get system pages
-  * @npages:     number of pages
-  * @pages_addr: list of system memory physical page address
-  * @flags:      flags defined as KFD_IOCTL_SVM_FLAG_*
-@@ -51,6 +52,7 @@
+@@ -66,6 +66,7 @@ struct svm_work_list_item {
   * @perfetch_loc: last prefetch location, 0 for CPU, or GPU id
   * @actual_loc: the actual location, 0 for CPU, or GPU id
   * @granularity:migration granularity, log2 num pages
-+ * @notifier:   register mmu interval notifier
-  * @bitmap_access: index bitmap of GPUs which can access the range
-  * @bitmap_aip: index bitmap of GPUs which can access the range in place
-  *
-@@ -67,6 +69,7 @@ struct svm_range {
- 	struct list_head		update_list;
- 	struct list_head		remove_list;
- 	struct list_head		insert_list;
-+	struct hmm_range		*hmm_range;
- 	uint64_t			npages;
- 	unsigned long			*pages_addr;
- 	uint32_t			flags;
-@@ -74,6 +77,7 @@ struct svm_range {
++ * @invalid:    not 0 means cpu page table is invalidated
+  * @notifier:   register mmu interval notifier
+  * @work_item:  deferred work item information
+  * @deferred_list: list header used to add range to deferred list
+@@ -96,6 +97,7 @@ struct svm_range {
  	uint32_t			prefetch_loc;
  	uint32_t			actual_loc;
  	uint8_t				granularity;
-+	struct mmu_interval_notifier	notifier;
- 	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
- 	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
- };
++	atomic_t			invalid;
+ 	struct mmu_interval_notifier	notifier;
+ 	struct svm_work_list_item	work_item;
+ 	struct list_head		deferred_list;
 -- 
 2.31.0
 
