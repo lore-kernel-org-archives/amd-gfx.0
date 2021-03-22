@@ -2,82 +2,70 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69BACC433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:22:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDE62C433E4
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E778E61990
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:22:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E778E61990
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 176836192E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 14:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 176836192E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8725E6E489;
-	Mon, 22 Mar 2021 14:22:07 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0B86E489
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 14:22:07 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id x13so17129367wrs.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 07:22:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=P7kM0ec17kAxJ7OeBgoamSTjvACVf0yQ0nbW97EJ9+w=;
- b=Ark5NE1ZMAG2EM3A8upZSyFaUgGhOogaj80j93mQsKDyA0T4O5gv3pwCRzfY8MWJYq
- hUWcr1zL27mqm5omXJeGZQvV/Z7U14LOKA7YpJAewrhl3LhRRqF6hUDbvvVYtAkCNjll
- Eb4fn/xWs2hYgCJEwfnXI3vWkykjd4wlY9VS8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id A348E6E03A;
+	Mon, 22 Mar 2021 14:55:10 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C471D6E03A;
+ Mon, 22 Mar 2021 14:55:09 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ l23-20020a05683004b7b02901b529d1a2fdso16189763otd.8; 
+ Mon, 22 Mar 2021 07:55:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=0qBjLygVAvz9+XKIT1YGfokASw756A87roBJgGUybMM=;
+ b=K8O25M4uTGxZtlZLrQZNlL/571NxJ72JgK1LEAuBTksMszrHRz2PRcAspRJcz3FyAK
+ OvjpalC1siQhgK9TczF8STTyOS2MG20Ni2rXwDHqo0/pufx8cy7infpEc7lXAkxlJLJL
+ qQkGS3NpsLYPaOaHTg0HRqGj+27VW8JqFRisQ8M8D1tdjKB/zz9KCxaLIaeqOqv7tXYr
+ xvg75GIFeyItShoMNCkR3EjUdOlZHw/z7FPrumGQ37rsgGtfOJuphcqWTA119lCZnDEy
+ AuEbtUuKvdPbUed+Jnu2lJIzbS7EFJoPxszFiUzWZ3N0Q/MUVsBkQP434S7aWGKPk0fi
+ mSvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=P7kM0ec17kAxJ7OeBgoamSTjvACVf0yQ0nbW97EJ9+w=;
- b=L3jtfnoV7KUPekBSK3BTtgyaQxmwZzLKgb8Xbqy4hts5++TctKCteGOKZxmJlBO8P6
- 8vC1GZjxz26J0cyK69QW3t0rM+RFb5AHCakKoClgUlg3JUewNWMOjObUUPNpPyhwqBF5
- oGUv8Y7D7dQGDY7IPFWZvxAlvHCCkgKyYmESHLPqImOjmU5ugseFyr5pFTE6qpxWfzig
- /n7Sxnk4vxlyjqPXz6U6m93bwic7hHV5QjdcsSWwZCZcFuW2hFNxXHCu6HZLxmMbRiUi
- jUiRFSCERz7X27cUi8d/B4n8I5wRnL6re34bsXOLRTe81iO2zgbjcYykltl0PE7EBD5k
- J/3w==
-X-Gm-Message-State: AOAM533K6ZHER9fsBk42e5mmfzPlsw0clM9os2aCuuZ2/3PKV+W90gmQ
- leUO/ADf5kJ7jYsSo8N8jWmiN6Z4lY3fmlbQ
-X-Google-Smtp-Source: ABdhPJzGaDnzwHoePMLQPQyGI6MVZ+JS6XIpmJfbcwANUFMYpQEVnC7/ci8tI2vAgrEgXYf/LNSMAw==
-X-Received: by 2002:adf:ba87:: with SMTP id p7mr18868962wrg.298.1616422925721; 
- Mon, 22 Mar 2021 07:22:05 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id m15sm18866008wrp.96.2021.03.22.07.22.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Mar 2021 07:22:04 -0700 (PDT)
-Date: Mon, 22 Mar 2021 15:22:02 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Matthew Wilcox <willy@infradead.org>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFioChrLPkjMBTP3@phenom.ffwll.local>
-Mail-Followup-To: Matthew Wilcox <willy@infradead.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux MM <linux-mm@kvack.org>, mhocko@kernel.org
-References: <20210319140857.2262-1-christian.koenig@amd.com>
- <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
- <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
- <YFT2LSR97rkkPyEP@phenom.ffwll.local>
- <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
- <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
- <YFigZ5+H95c/GI/S@phenom.ffwll.local>
- <20210322140548.GN1719932@casper.infradead.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0qBjLygVAvz9+XKIT1YGfokASw756A87roBJgGUybMM=;
+ b=Do5XPrzIA4MCK1gRv8/dW41RdKjY6+gZAwjNpPizznTklUMlkZehVIzES03Ei3oddm
+ 94lemiSJfF86TEULvBCPfYcXxrQ86d8i+Te6ylP+wmX9PQMaG24pj68yIjGA42byBzje
+ Vg+t5DxZoGdd1VdIXdtW6zp+/Unxrb38OCKUbKoFuX5G01wM/8W8aa6mppCRxJKBjM+1
+ +SDz4VrhpFdc5Rspws1JPSTHI5y6ysKxVbbKhZfJZA1I0ul04171AM7RITthhL6a/V27
+ cLowjT5ogQJlRWx9k7Rfs3E86M3NFBP2EbzT6OaZsS2qEFknnGY4uk9/mV3xcB8FsrOF
+ 1vnw==
+X-Gm-Message-State: AOAM5313J9H5egBGw93thZ/mwFrwPrxSLBzVeJK3U5S+mfF0TAnEW+YB
+ GfUVZi68q+AJnEdG25ihKl6jGRbJw4smvMOES6A=
+X-Google-Smtp-Source: ABdhPJwN/gDeUFxciOwounpLBH2xj+Is9zb5fflIlc0ouOQlzGqPpNNyIU+u+gz187m7LwtwdO9ZUsrjRWfnZUvuNPc=
+X-Received: by 2002:a9d:d89:: with SMTP id 9mr281612ots.23.1616424909027; Mon,
+ 22 Mar 2021 07:55:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210322140548.GN1719932@casper.infradead.org>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+References: <20210319164418.1.I5d51cc12776ee8993a1a54089b548952f75ada41@changeid>
+ <CADnq5_OguuMsqT7MVC=ieNZm9mqyVUsGpQDHr59BWtBJJUvFoA@mail.gmail.com>
+ <54fc883a-c149-3f43-fb79-3cbff13e7b6a@amd.com>
+ <CAP8nV8rL6eYSDyQ1jyv267ER8_E+rMBQkza2ZYZvwvdE+=sd3Q@mail.gmail.com>
+ <CADnq5_O5AOK7B-3AM-qpPXcWD1LgdpnfLMd8NBds0Jfd_tZCBQ@mail.gmail.com>
+ <CAKz_xw0vKSojPqh7QsJPY5eQBLcnteFmL1AJimJTXJmzmQd9kA@mail.gmail.com>
+In-Reply-To: <CAKz_xw0vKSojPqh7QsJPY5eQBLcnteFmL1AJimJTXJmzmQd9kA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 22 Mar 2021 10:54:57 -0400
+Message-ID: <CADnq5_OarNHRwWe2FZyXA-5fxVpOEW2JxJUUD=n9LAXG7TgQGA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Set AMDGPU_DM_DEFAULT_MIN_BACKLIGHT to 0
+To: Evan Benn <evanbenn@chromium.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,300 +77,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, mhocko@kernel.org,
- Linux MM <linux-mm@kvack.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Stylon Wang <stylon.wang@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ David Airlie <airlied@linux.ie>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Evan Benn <evanbenn@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Anand <amistry@chromium.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 22, 2021 at 02:05:48PM +0000, Matthew Wilcox wrote:
-> On Mon, Mar 22, 2021 at 02:49:27PM +0100, Daniel Vetter wrote:
-> > On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
-> > > Am 20.03.21 um 14:17 schrieb Daniel Vetter:
-> > > > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
-> > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
-> > > > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wro=
-te:
-> > > > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
-> > > > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig=
- wrote:
-> > > > > > > > > Don't print a warning when we fail to allocate a page for=
- swapping things out.
-> > > > > > > > > =
+On Sun, Mar 21, 2021 at 8:12 PM Evan Benn <evanbenn@chromium.org> wrote:
+>
+> On Sat, Mar 20, 2021 at 8:36 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Fri, Mar 19, 2021 at 5:31 PM Evan Benn <evanbenn@gmail.com> wrote:
+> > >
+> > > On Sat, 20 Mar 2021 at 02:10, Harry Wentland <harry.wentland@amd.com> wrote:
+> > > > On 2021-03-19 10:22 a.m., Alex Deucher wrote:
+> > > > > On Fri, Mar 19, 2021 at 3:23 AM Evan Benn <evanbenn@chromium.org> wrote:
+> > > > >>
+> > > > >> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT was set to the value of 12
+> > > > >> to ensure no display backlight will flicker at low user brightness
+> > > > >> settings. However this value is quite bright, so for devices that do not
+> > > > >> implement the ACPI ATIF
+> > > > >> ATIF_FUNCTION_QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS
+> > > > >> functionality the user cannot set the brightness to a low level even if
+> > > > >> the display would support such a low PWM.
+> > > > >>
+> > > > >> This ATIF feature is not implemented on for example AMD grunt chromebooks.
+> > > > >>
+> > > > >> Signed-off-by: Evan Benn <evanbenn@chromium.org>
+> > > > >>
+> > > > >> ---
+> > > > >> I could not find a justification for the reason for the value. It has
+> > > > >> caused some noticable regression for users: https://bugzilla.kernel.org/show_bug.cgi?id=203439>>>
+> > > > >> Maybe this can be either user controlled or userspace configured, but
+> > > > >> preventing users from turning their backlight dim seems wrong.
+> > > > >
+> > > > > My understanding is that some panels flicker if you set the min to a
+> > > > > value too low.  This was a safe minimum if the platform didn't specify
+> > > > > it's own safe minimum.  I think we'd just be trading one bug for
+> > > > > another (flickering vs not dim enough).  Maybe a whitelist or
+> > > > > blacklist would be a better solution?
+> > > > >
+> > > >
+> > > > Yeah, this is a NACK from me as-is for the reasons Alex described.
+> > >
+> > > Thanks Harry + Alex,
+> > >
+> > > I agree this solution is not the best.
+> > >
+> > > >
+> > > > I agree a whitelist approach might be best.
+> > >
+> > > Do you have any idea what an allowlist could be keyed on?
+> > > Is the flickering you observed here a function of the panel or the gpu
+> > > or some other component?
+> > > Maybe we could move the minimum level into the logic for that hardware.
+> > >
+> >
+> > Maybe the panel string from the EDID?  Either that or something from
+> > dmi data?  Harry would probably have a better idea.
+>
+> One problem with keying from panel EDID is that for example the grunt chromebook
+> platform has more than 100 different panels already shipped. Add to that that
+> repair centers or people repairing their own device will use 'compatible'
+> panels. I'm sure the AMD windows laptops have even more variety!
+>
 
-> > > > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_restore ins=
-tead of GFP_NOFS.
-> > > > > > > > Uh this part doesn't make sense. Especially since you only =
-do it for the
-> > > > > > > > debugfs file, not in general. Which means you've just compl=
-etely broken
-> > > > > > > > the shrinker.
-> > > > > > > Are you sure? My impression is that GFP_NOFS should now work =
-much more out
-> > > > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_restor=
-e().
-> > > > > > Yeah, if you'd put it in the right place :-)
-> > > > > > =
+Do all of those "compatible" panels work with the min backlight level
+of 0?  If so, maybe something platform specific like a DMI string
+would make more sense.
 
-> > > > > > But also -mm folks are very clear that memalloc_no*() family is=
- for dire
-> > > > > > situation where there's really no other way out. For anything w=
-here you
-> > > > > > know what you're doing, you really should use explicit gfp flag=
-s.
-> > > > > My impression is just the other way around. You should try to avo=
-id the
-> > > > > NOFS/NOIO flags and use the memalloc_no* approach instead.
-> > > > Where did you get that idea?
-> > > =
+Alex
 
-> > > Well from the kernel comment on GFP_NOFS:
-> > > =
 
-> > > =A0* %GFP_NOFS will use direct reclaim but will not use any filesystem
-> > > interfaces.
-> > > =A0* Please try to avoid using this flag directly and instead use
-> > > =A0* memalloc_nofs_{save,restore} to mark the whole scope which
-> > > cannot/shouldn't
-> > > =A0* recurse into the FS layer with a short explanation why. All allo=
-cation
-> > > =A0* requests will inherit GFP_NOFS implicitly.
-> > =
-
-> > Huh that's interesting, since iirc Willy or Dave told me the opposite, =
-and
-> > the memalloc_no* stuff is for e.g. nfs calling into network layer (needs
-> > GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I think).
-> > =
-
-> > Adding them, maybe I got confused.
-> =
-
-> My impression is that the scoped API is preferred these days.
-> =
-
-> https://www.kernel.org/doc/html/latest/core-api/gfp_mask-from-fs-io.html
-> =
-
-> I'd probably need to spend a few months learning the DRM subsystem to
-> have a more detailed opinion on whether passing GFP flags around explicit=
-ly
-> or using the scope API is the better approach for your situation.
-
-Atm it's a single allocation in the ttm shrinker that's already explicitly
-using GFP_NOFS that we're talking about here.
-
-The scoped api might make sense for gpu scheduler, where we really operate
-under GFP_NOWAIT for somewhat awkward reasons. But also I thought at least
-for GFP_NOIO you generally need a mempool and think about how you
-guarantee forward progress anyway. Is that also a bit outdated thinking,
-and nowadays we could operate under the assumption that this Just Works?
-Given that GFP_NOFS seems to fall over already for us I'm not super sure
-about that ...
-
-> I usually defer to Michal on these kinds of questions.
-> =
-
-> > > > The kernel is full of explicit gfp_t flag
-> > > > passing to make this as explicit as possible. The memalloc_no* stuff
-> > > > is just for when you go through entire subsystems and really can't
-> > > > wire it through. I can't find the discussion anymore, but that was =
-the
-> > > > advice I got from mm/fs people.
-> > > > =
-
-> > > > One reason is that generally a small GFP_KERNEL allocation never
-> > > > fails. But it absolutely can fail if it's in a memalloc_no* section,
-> > > > and these kind of non-obvious non-local effects are a real pain in
-> > > > testing and review. Hence explicit gfp_flag passing as much as
-> > > > possible.
-> =
-
-> I agree with this; it's definitely a problem with the scope API.  I wanted
-> to extend it to include GFP_NOWAIT, but if you do that, your chances of
-> memory allocation failure go way up, so you really want to set __GFP_NOWA=
-RN
-> too, but now you need to audit all the places that you're calling to be
-> sure they really handle errors correctly.
-> =
-
-> So I think I'm giving up on that patch set.
-
-Yeah the auditing is what scares me, and why at least personally I prefer
-explicit gfp flags. It's much easier to debug a lockdep splat involving
-fs_reclaim than memory allocation failures leading to very strange bugs
-because we're not handling the allocation failure properly (or maybe not
-even at all).
--Daniel
-
-> =
-
-> > > > > > > > If this is just to paper over the seq_printf doing the wron=
-g allocations,
-> > > > > > > > then just move that out from under the fs_reclaim_acquire/r=
-elease part.
-> > > > > > > No, that wasn't the problem.
-> > > > > > > =
-
-> > > > > > > We have just seen to many failures to allocate pages for swap=
-out and I think
-> > > > > > > that would improve this because in a lot of cases we can then=
- immediately
-> > > > > > > swap things out instead of having to rely on upper layers.
-> > > > > > Yeah, you broke it. Now the real shrinker is running with GFP_K=
-ERNEL,
-> > > > > > because your memalloc_no is only around the debugfs function. A=
-nd ofc it's
-> > > > > > much easier to allocate with GFP_KERNEL, right until you deadlo=
-ck :-)
-> > > > > The problem here is that for example kswapd calls the shrinker wi=
-thout
-> > > > > holding a FS lock as far as I can see.
-> > > > > =
-
-> > > > > And it is rather sad that we can't optimize this case directly.
-> > > > I'm still not clear what you want to optimize? You can check for "is
-> > > > this kswapd" in pf flags, but that sounds very hairy and fragile.
-> > > =
-
-> > > Well we only need the NOFS flag when the shrinker callback really com=
-es from
-> > > a memory shortage in the FS subsystem, and that is rather unlikely.
-> > > =
-
-> > > When we would allow all other cases to be able to directly IO the fre=
-ed up
-> > > pages to swap it would certainly help.
-> > =
-
-> > tbh I'm not sure. i915-gem code has played tricks with special casing t=
-he
-> > kswapd path, and they do kinda scare me at least. I'm not sure whether
-> > there's not some hidden dependencies there that would make this a bad
-> > idea. Like afaik direct reclaim can sometimes stall for kswapd to catch=
- up
-> > a bit, or at least did in the past (I think, really not much clue about
-> > this)
-> > =
-
-> > The other thing is that the fs_reclaim_acquire/release annotation really
-> > only works well if you use it outside of the direct reclaim path too.
-> > Otherwise it's not much better than just lots of testing. That pretty m=
-uch
-> > means you have to annotate the kswapd path.
-> > -Daniel
-> > =
-
-> > =
-
-> > =
-
-> > > =
-
-> > > Christian.
-> > > =
-
-> > > > -Daniel
-> > > > =
-
-> > > > > Anyway you are right if some caller doesn't use the memalloc_no*()
-> > > > > approach we are busted.
-> > > > > =
-
-> > > > > Going to change the patch to only not warn for the moment.
-> > > > > =
-
-> > > > > Regards,
-> > > > > Christian.
-> > > > > =
-
-> > > > > > Shrinking is hard, there's no easy way out here.
-> > > > > > =
-
-> > > > > > Cheers, Daniel
-> > > > > > =
-
-> > > > > > > Regards,
-> > > > > > > Christian.
-> > > > > > > =
-
-> > > > > > > =
-
-> > > > > > > > __GFP_NOWARN should be there indeed I think.
-> > > > > > > > -Daniel
-> > > > > > > > =
-
-> > > > > > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.co=
-m>
-> > > > > > > > > ---
-> > > > > > > > >     drivers/gpu/drm/ttm/ttm_tt.c | 5 ++++-
-> > > > > > > > >     1 file changed, 4 insertions(+), 1 deletion(-)
-> > > > > > > > > =
-
-> > > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/d=
-rm/ttm/ttm_tt.c
-> > > > > > > > > index 2f0833c98d2c..86fa3e82dacc 100644
-> > > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> > > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> > > > > > > > > @@ -369,7 +369,7 @@ static unsigned long ttm_tt_shrinker_=
-scan(struct shrinker *shrink,
-> > > > > > > > >             };
-> > > > > > > > >             int ret;
-> > > > > > > > > -  ret =3D ttm_bo_swapout(&ctx, GFP_NOFS);
-> > > > > > > > > +  ret =3D ttm_bo_swapout(&ctx, GFP_KERNEL | __GFP_NOWARN=
-);
-> > > > > > > > >             return ret < 0 ? SHRINK_EMPTY : ret;
-> > > > > > > > >     }
-> > > > > > > > > @@ -389,10 +389,13 @@ static unsigned long ttm_tt_shrinke=
-r_count(struct shrinker *shrink,
-> > > > > > > > >     static int ttm_tt_debugfs_shrink_show(struct seq_file=
- *m, void *data)
-> > > > > > > > >     {
-> > > > > > > > >             struct shrink_control sc =3D { .gfp_mask =3D =
-GFP_KERNEL };
-> > > > > > > > > +  unsigned int flags;
-> > > > > > > > >             fs_reclaim_acquire(GFP_KERNEL);
-> > > > > > > > > +  flags =3D memalloc_nofs_save();
-> > > > > > > > >             seq_printf(m, "%lu/%lu\n", ttm_tt_shrinker_co=
-unt(&mm_shrinker, &sc),
-> > > > > > > > >                        ttm_tt_shrinker_scan(&mm_shrinker,=
- &sc));
-> > > > > > > > > +  memalloc_nofs_restore(flags);
-> > > > > > > > >             fs_reclaim_release(GFP_KERNEL);
-> > > > > > > > >             return 0;
-> > > > > > > > > --
-> > > > > > > > > 2.25.1
-> > > > > > > > > =
-
-> > > > > > > > > _______________________________________________
-> > > > > > > > > dri-devel mailing list
-> > > > > > > > > dri-devel@lists.freedesktop.org
-> > > > > > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > > > =
-
-> > > =
-
-> > =
-
-> > -- =
-
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> >
+> > Alex
+> >
+> > > >
+> > > > Is this fix perhaps for OLED panels? If so we could use a different
+> > > > min-value for OLED panels that don't do PWM, but use 12 for everything else.
+> > >
+> > > All the chromebooks I have worked with LCD + LED backlight have been
+> > > fine with a backlight set to 0.
+> > > We do have OLED panels too, but I'm not aware of what they do.
+> > >
+> > > > Harry
+> > > >
+> > > > > Alex
+> > > > >
+> > > > >
+> > > > >>
+> > > > >> Also reviewed here: https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/+/2748377>>>
+> > > > >>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+> > > > >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >>
+> > > > >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > >> index 573cf17262da..0129bd69b94e 100644
+> > > > >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > >> @@ -3151,7 +3151,7 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+> > > > >>          return 0;
+> > > > >>   }
+> > > > >>
+> > > > >> -#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+> > > > >> +#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 0
+> > > > >>   #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
+> > > > >>   #define AUX_BL_DEFAULT_TRANSITION_TIME_MS 50
+> > > > >>
+> > > > >> --
+> > > > >> 2.31.0.291.g576ba9dcdaf-goog
+> > > > >>
+> > > > >> _______________________________________________
+> > > > >> dri-devel mailing list
+> > > > >> dri-devel@lists.freedesktop.org
+> > > > >> https://lists.freedesktop.org/mailman/listinfo/dri-devel>> _______________________________________________
+> > > > > dri-devel mailing list
+> > > > > dri-devel@lists.freedesktop.org
+> > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel>>
+> > > >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
