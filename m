@@ -2,57 +2,55 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84479C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 08:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02DA2C433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 08:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31A5F619B6
+	by mail.kernel.org (Postfix) with ESMTPS id 9044A619BB
 	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 08:18:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31A5F619B6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9044A619BB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D48356E856;
-	Tue, 23 Mar 2021 08:18:27 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C306E092;
- Tue, 23 Mar 2021 07:38:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1616485125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ofPdbLGiOv4t4glajDJiQOBAXsq/hbLdis6yZwHlhBg=;
- b=mDTbOZXOo1pjW69S7Rhqr3O0HUnTFZK692Xd6c6Kkw2rAh+eVm2wN8ttIXEQPjhnY8C3Z+
- Jwhq2L5om4GpvS1ahdVWBo+B3gbxmA60cqA9za2A8zGl6y4RP2mz6VdXqVXoz5TELQhGCu
- lL8TRKSvQRXtlkiC4Ak6ssTSc5DeF4g=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 13332ACBF;
- Tue, 23 Mar 2021 07:38:45 +0000 (UTC)
-Date: Tue, 23 Mar 2021 08:38:33 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFma+ZxncvfBd++o@dhcp22.suse.cz>
-References: <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
- <YFT2LSR97rkkPyEP@phenom.ffwll.local>
- <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
- <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
- <YFigZ5+H95c/GI/S@phenom.ffwll.local>
- <20210322140548.GN1719932@casper.infradead.org>
- <YFi+UROYbQERYEEr@dhcp22.suse.cz>
- <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
- <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 278EC6E860;
+	Tue, 23 Mar 2021 08:18:28 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2F506E03D;
+ Mon, 22 Mar 2021 22:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
+ Reply-To:Cc:Content-ID:Content-Description;
+ bh=JsR7VWSm0T9gUi7PShJLjaTO/6YuAo/dscGaXeBiyKw=; b=wYjxPQZC1U9KOj9wXWjZupKzaL
+ ybPrsoKILXI/tFnt3yMV0oWY4DgJZJlJPvguenZv+EIqhD+r3DlPKypAsCXF2sMd59nNg9/Ncz7Fm
+ kvbKxQ3UbAvSt/KeeM/4luZUebyCg6Y837WIfw8ym5ygP9Hs8Kmt/b3/5BkVlqGkisi3mgQPSpzjA
+ sFOiYOdvWqyMbXbXfRARc/I/tF3yFrmFmv+Oj5i/6hr5JundoAbfAIgsTal0KUb1cz7rNizqgtaqC
+ i3GfMwSpo9DM7SwkBRY7zStw+MIMnc3nrDr8Gf9OJpLHNR6KfW4F2w2jAt2E7ZqAt0JhNODtAJvjw
+ Ihhb2v9Q==;
+Received: from [2601:1c0:6280:3f0::3ba4]
+ by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lOTI7-009BWk-4p; Mon, 22 Mar 2021 22:45:01 +0000
+Subject: Re: [PATCH] drm/amd: Fix a typo in two different sentences
+To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ evan.quan@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20210322210612.1786322-1-unixbhaskar@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <9696cd2a-bac2-15ba-c8e4-434df7b5cee0@infradead.org>
+Date: Mon, 22 Mar 2021 15:44:52 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
+In-Reply-To: <20210322210612.1786322-1-unixbhaskar@gmail.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 23 Mar 2021 08:18:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,133 +63,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon 22-03-21 20:34:25, Christian K=F6nig wrote:
-> Am 22.03.21 um 18:02 schrieb Daniel Vetter:
-> > On Mon, Mar 22, 2021 at 5:06 PM Michal Hocko <mhocko@suse.com> wrote:
-> > > On Mon 22-03-21 14:05:48, Matthew Wilcox wrote:
-> > > > On Mon, Mar 22, 2021 at 02:49:27PM +0100, Daniel Vetter wrote:
-> > > > > On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
-> > > > > > Am 20.03.21 um 14:17 schrieb Daniel Vetter:
-> > > > > > > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
-> > > > > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > > > > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
-> > > > > > > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6n=
-ig wrote:
-> > > > > > > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
-> > > > > > > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=
-=F6nig wrote:
-> > > > > > > > > > > > Don't print a warning when we fail to allocate a pa=
-ge for swapping things out.
-> > > > > > > > > > > > =
+On 3/22/21 2:06 PM, Bhaskar Chowdhury wrote:
+> 
+> s/defintion/definition/ .....two different places.
+> 
+> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 
-> > > > > > > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_resto=
-re instead of GFP_NOFS.
-> > > > > > > > > > > Uh this part doesn't make sense. Especially since you=
- only do it for the
-> > > > > > > > > > > debugfs file, not in general. Which means you've just=
- completely broken
-> > > > > > > > > > > the shrinker.
-> > > > > > > > > > Are you sure? My impression is that GFP_NOFS should now=
- work much more out
-> > > > > > > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_=
-restore().
-> > > > > > > > > Yeah, if you'd put it in the right place :-)
-> > > > > > > > > =
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-> > > > > > > > > But also -mm folks are very clear that memalloc_no*() fam=
-ily is for dire
-> > > > > > > > > situation where there's really no other way out. For anyt=
-hing where you
-> > > > > > > > > know what you're doing, you really should use explicit gf=
-p flags.
-> > > > > > > > My impression is just the other way around. You should try =
-to avoid the
-> > > > > > > > NOFS/NOIO flags and use the memalloc_no* approach instead.
-> > > > > > > Where did you get that idea?
-> > > > > > Well from the kernel comment on GFP_NOFS:
-> > > > > > =
+> ---
+>  drivers/gpu/drm/amd/include/atombios.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
+> index c1d7b1d0b952..47eb84598b96 100644
+> --- a/drivers/gpu/drm/amd/include/atombios.h
+> +++ b/drivers/gpu/drm/amd/include/atombios.h
+> @@ -1987,9 +1987,9 @@ typedef struct _PIXEL_CLOCK_PARAMETERS_V6
+>  #define PIXEL_CLOCK_V6_MISC_HDMI_BPP_MASK           0x0c
+>  #define PIXEL_CLOCK_V6_MISC_HDMI_24BPP              0x00
+>  #define PIXEL_CLOCK_V6_MISC_HDMI_36BPP              0x04
+> -#define PIXEL_CLOCK_V6_MISC_HDMI_36BPP_V6           0x08    //for V6, the correct defintion for 36bpp should be 2 for 36bpp(2:1)
+> +#define PIXEL_CLOCK_V6_MISC_HDMI_36BPP_V6           0x08    //for V6, the correct definition for 36bpp should be 2 for 36bpp(2:1)
+>  #define PIXEL_CLOCK_V6_MISC_HDMI_30BPP              0x08
+> -#define PIXEL_CLOCK_V6_MISC_HDMI_30BPP_V6           0x04    //for V6, the correct defintion for 30bpp should be 1 for 36bpp(5:4)
+> +#define PIXEL_CLOCK_V6_MISC_HDMI_30BPP_V6           0x04    //for V6, the correct definition for 30bpp should be 1 for 36bpp(5:4)
+>  #define PIXEL_CLOCK_V6_MISC_HDMI_48BPP              0x0c
+>  #define PIXEL_CLOCK_V6_MISC_REF_DIV_SRC             0x10
+>  #define PIXEL_CLOCK_V6_MISC_GEN_DPREFCLK            0x40
+> --
 
-> > > > > >   * %GFP_NOFS will use direct reclaim but will not use any file=
-system
-> > > > > > interfaces.
-> > > > > >   * Please try to avoid using this flag directly and instead use
-> > > > > >   * memalloc_nofs_{save,restore} to mark the whole scope which
-> > > > > > cannot/shouldn't
-> > > > > >   * recurse into the FS layer with a short explanation why. All=
- allocation
-> > > > > >   * requests will inherit GFP_NOFS implicitly.
-> > > > > Huh that's interesting, since iirc Willy or Dave told me the oppo=
-site, and
-> > > > > the memalloc_no* stuff is for e.g. nfs calling into network layer=
- (needs
-> > > > > GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I =
-think).
-> > > > > =
 
-> > > > > Adding them, maybe I got confused.
-> > > > My impression is that the scoped API is preferred these days.
-> > > > =
+-- 
+~Randy
 
-> > > > https://www.kernel.org/doc/html/latest/core-api/gfp_mask-from-fs-io=
-.html
-> > > > =
-
-> > > > I'd probably need to spend a few months learning the DRM subsystem =
-to
-> > > > have a more detailed opinion on whether passing GFP flags around ex=
-plicitly
-> > > > or using the scope API is the better approach for your situation.
-> > > yes, in an ideal world we would have a clearly defined scope of the
-> > > reclaim recursion wrt FS/IO associated with it. I've got back to
-> > > https://lore.kernel.org/amd-gfx/20210319140857.2262-1-christian.koeni=
-g@amd.com/
-> > > and there are two things standing out. Why does ttm_tt_debugfs_shrink=
-_show
-> > > really require NOFS semantic? And why does it play with
-> > > fs_reclaim_acquire?
-> > It's our shrinker. shrink_show simply triggers that specific shrinker
-> > asking it to shrink everything it can, which helps a lot with testing
-> > without having to drive the entire system against the OOM wall.
-
-Yes I figured that much. But...
-
-> > fs_reclaim_acquire is there to make sure lockdep understands that this
-> > is a shrinker and that it checks all the dependencies for us like if
-> > we'd be in real reclaim. There is some drop caches interfaces in proc
-> > iirc, but those drop everything, and they don't have the fs_reclaim
-> > annotations to teach lockdep about what we're doing.
-
-... I really do not follow this. You shouldn't really care whether this
-is a reclaim interface or not. Or maybe I just do not understand this...
- =
-
-> To summarize the debugfs code is basically to test if that stuff really
-> works with GFP_NOFS.
-
-What do you mean by testing GFP_NOFS. Do you mean to test that GFP_NOFS
-context is sufficiently powerful to reclaim enough objects due to some
-internal constrains?
-
-> My only concern is that if I could rely on memalloc_no* being used we cou=
-ld
-> optimize this quite a bit further.
-
-Yes you can use the scope API and you will be guaranteed that _any_
-allocation from the enclosed context will inherit GFP_NO* semantic.
-
--- =
-
-Michal Hocko
-SUSE Labs
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
