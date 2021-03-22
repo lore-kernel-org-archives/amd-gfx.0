@@ -2,69 +2,121 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E3B3C433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A635BC433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:07:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 589FF61585
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 10:49:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 589FF61585
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qtec.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5B3476196F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 11:07:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B3476196F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9337E89E69;
-	Mon, 22 Mar 2021 10:49:27 +0000 (UTC)
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E97C689DFE
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 10:49:25 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id s17so20424217ljc.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 03:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=tDvGae1O9k+QG16jT8RelqAZALYZBMiW6IEhCN5ZF0s=;
- b=JmQg1smRIfU+7M3JaU1Pu7Av/YPhIdRGqU0jKWFHI61oqoWlXH0ri/BXrZf7ftGRWj
- EcX57k0HE8SJDEHZ5cb/P3ltBhB3giAOVrgLGI9m8gZgiz2+D3SlSYAbKsdfVXKOiN/J
- P8j2XPI/hOMwCE9T2jcOMmLOv1CKXaFtdP4Th3ADYbXtxi40OcpPLqmoLNz+qKa2hr0H
- 78Ci4YhYlVQDKxTIqbVrwyHYgYsXcuWFtrND9wtfQd7Posa0tchkkiOuZHa8inm6Q8nm
- S12EQ6oveeX9LyuxZxJCThbILW62e519MwCt7iy/WtPPuc7rBpgLssxPnJvwcyRy7jFG
- 93AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=tDvGae1O9k+QG16jT8RelqAZALYZBMiW6IEhCN5ZF0s=;
- b=aECzWU49sPWff2dpu1CHzIqvhioNSopdbsgpbkevm6fDyCOO6TV1paN/CXMysTP5KC
- lwztHspsnw9y1BO8spkGwuKngQVd29U+v1+dp0dkC5WKWgs1QOACzl3Yq2wIOfqgWdn3
- YiswFvSY+Os4MUJTosB0MY6SXNfOlF9SLI7uGqoegiM21qYV0IXIi5sE+Q1wCg+hwsfe
- nxhqiToXz9yjHxr66n2l+0kThozgW2blh3v6+cApFmRpzwiyG6mQlTfu9Yjw/x5PaZnC
- wMDbcuqfG62ZouORT+GwmPOtkdS4nOg+75E2NPbfDe2GVmw0LwMgIeVCffVNQOUfS9nt
- zv2w==
-X-Gm-Message-State: AOAM530dWfbSDhXpyChrxmD4x4ok/fO0hUBr0kGdOQZfKUmqAt1vTFho
- FsMKqOSS/hq3aEQXaUXFxEy6jWY8QsOcY1aHNo4Uhg==
-X-Google-Smtp-Source: ABdhPJzXKjDqDC1ark0rIzQbJQQAksn2g++weO5RmVS0G2Lcmt0c+VEtsERye7Y0ambi/4cpFWJadLmyZ2/KN15A62g=
-X-Received: by 2002:a2e:8047:: with SMTP id p7mr9636833ljg.8.1616410164408;
- Mon, 22 Mar 2021 03:49:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5C27899B3;
+	Mon, 22 Mar 2021 11:07:34 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADCD89913;
+ Mon, 22 Mar 2021 11:07:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gsRu0+h+wXnjJdDUTdCp2A5hfE6IpHL6NxIo7BRr+dxRQuOALIe1kO9+R9/IAqmnZzzUGGg6B25oJ6Mvx13o2FkaaYc5BI6nkQqiQoFd09lHKHXcUmstVAfYDqeR6koIZZBE9DJQ/2aaj+NKui13oFkdZFKSCr4q2E5l18v6YdrTTT4kgZPrWbfSKJZrUGRZG/GFRrbrck/ZXNZ7BTl9gi+RPTvH6Xbqj+jiDq5kwh/FyRCRHgNjwHZYsgXbAYusPdJT6MGHM4qHyAVEFohI90U45Z4Bbou15xZFczhuCx6QPfqm50E2PW+NpfIyXk5Opu+lDseiT3lhhYD0BNYBNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cEkGnQ/dUrzy0vrtXpEDUBVM61SU5hsYR5KSzxWkbKY=;
+ b=OJFK3ch27+0VJsyId9tnsGslE0FzkAD/Dwxg5qxReoLOfQflWp+hvp+Q0o3lJieuTvHj5HOo3KRGBFxiBRzDYm55w/bumUD42vsY9+Gy/L4hv+d9OqmvITgAjtz8/tQth2p65KGdedWdgTSMzao8S4pR1pJBF7U28H+Sb21vwevqHEjFC03nogvPcv2Lm5zLWeaVgF12SURrqFXshXg/mvmPWPI2EqNCabh1RzBhdloRizEdqSjjbENdhTyNRjE7SYNNzcZRkB/RExEbC4f3DuaKKJ1AEpHXfQxviajZsjtGc56rJeHLnUvp9J8xpWKZDj1JTteCDFGgwLlmueC3GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cEkGnQ/dUrzy0vrtXpEDUBVM61SU5hsYR5KSzxWkbKY=;
+ b=XUbHDExY91XHM2QnZ3+0n3eh3VrSPmgRCK71LEV/YDC2W1QMnh37GezSK+45V/p+RLvZLIyJdq0lEM6a+0PJmDWEA+Vw0clFwhfjUZUiu3U5fi9IY7vdBzlcq3jZej3y/Ku2gJ1A2PnJ5cm/Vwdw61/AOlpJZtGrrdBfpqAutIE=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by MN2PR12MB3935.namprd12.prod.outlook.com (2603:10b6:208:168::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
+ 2021 11:07:30 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033%5]) with mapi id 15.20.3933.036; Mon, 22 Mar 2021
+ 11:07:30 +0000
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 01/44] drm/amdgpu: replace per_device_list by array
+Date: Mon, 22 Mar 2021 06:58:17 -0400
+Message-Id: <20210322105900.14068-2-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+References: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::21) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
-References: <20210318083236.43578-1-daniel@qtec.com>
- <MN2PR12MB37755DAAB03FC0065E98EF1183699@MN2PR12MB3775.namprd12.prod.outlook.com>
- <CADnq5_MMTBXt50sqJvYmXWn0uBALz2fNvpSrCfjSuMa99VLa=w@mail.gmail.com>
- <375f0915-83b3-c729-b95f-939d828d24d0@amd.com>
- <CAH1Ww+TNMpk-LYYaM=SG9XGK4wcGY3+w8rJzihUw=4EpzVV9EQ@mail.gmail.com>
- <aae87a0a-d643-8ee9-d0f8-e983f8613a88@gmail.com>
-In-Reply-To: <aae87a0a-d643-8ee9-d0f8-e983f8613a88@gmail.com>
-From: Daniel Gomez <daniel@qtec.com>
-Date: Mon, 22 Mar 2021 11:49:13 +0100
-Message-ID: <CAH1Ww+SqUceCV6e2yu8d0K4Xmi1goOqnU+TyXPCLYsGOTPTctA@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/ttm: Fix memory leak userptr pages
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from Harpoon.amd.com (165.204.55.251) by
+ YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24 via Frontend
+ Transport; Mon, 22 Mar 2021 11:07:29 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 95de28c3-4a07-4714-d26d-08d8ed22af31
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3935:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB39351A16D6FBB202CF56069F92659@MN2PR12MB3935.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:546;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: H43X1hMiwhmk87vY0tUR933LZFJcKDZXxeyhp+CefHFsFfPj90NFkd+eBOn6DZJ10Wi1Wz9TrlKjF/S/mZU6nwVubyswZ0+D50kksmiZ52u2jLF4bKOfBGmbChKicFuNyLE/hSXme/3+I+LcXO8l/nTWfNXu91BcKhM+kCq/f0BfucaYk9Zvmv2Kp+4+Ii+WQ3GSRllFY4zdAZF+g7gEU2jfSZiVV9BJwmX8l2jQHGS4yuxrL+IfwHD2MRKo4ANf4jufoP/S08nnVI7UIBRZCHTc371D9BGO6aZNVEd9uTlaV7KdCckNK00QO9L5pD8B9swqyaL2wj4TMp/4sCO+RKGw+HL9gZOyqrPlwFgaskw5zujpipp4b47kCxjpYdX8GmlmHv4r1BfqZYWdbXP98zACl6vMIBe0qZDVfhH5UNEpjjypUfX92JsKeorVsVfXAypdFeKraxkxRPR3px7C3UEdimbwcGrJv9iUCz1nM6WVkKsfVpZnR+iOq5BVmtFEZyPoxOKaKAWHyZtyLOwLPa7Lsi+qXC0+AIoZkAEw7GakWZpnlG80KztwrbND/wv96Ied82/gB0CACr0k+oRjbxW8nwT2PLyf7pzon3IsllQEENo/bvZMvfjkQrxuqAgEFti8NkbvpNEid9RWYy+tx/disImgvj7ra61kHQ6lFrk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(5660300002)(30864003)(8936002)(450100002)(6486002)(478600001)(4326008)(83380400001)(1076003)(86362001)(8676002)(956004)(2906002)(36756003)(7696005)(26005)(16526019)(52116002)(186003)(316002)(66946007)(66556008)(6666004)(66476007)(2616005)(38100700001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?O9EDsRKtRNloU2lEcyo18QbpdJJLp1yyL8Qm6ufJuz3Cf89xyXwYniMt6BFP?=
+ =?us-ascii?Q?EhrxgCpQYxd1Lwi4q2SzjHg6LftRxfOtbDrPrAdsBQ2Qok/aSnDz55BD25dp?=
+ =?us-ascii?Q?fwF02FYut5HrlRiXpvMk8LZ0jZNaZlMTGcgbRrwASh3QHsRxoz9ij3HushFz?=
+ =?us-ascii?Q?poPmDD8eHEdwZwSBnZLG1tyWmDdjFafewVyD7ugXU/30Vcyi0NO6gblxFGqN?=
+ =?us-ascii?Q?6ZSMPLi73C3/JNcyR67vCmptryP6MNtPHZwiC/sXkDEF2B0Zfr8x8lzTxpQq?=
+ =?us-ascii?Q?3U7ntjm8qk/i3nkLBd9FeZtE8lQR78/6iYYND3aQAXkvH6AwYEVD4926rnVC?=
+ =?us-ascii?Q?U92BeZd1ewKx223V4yOPVOiXLehU2jyia2M3Cn2qUGd0VKx6Q+2+QJ3EbJ/U?=
+ =?us-ascii?Q?W+AZ3g2X7h9ccL7Ifm2BAS+0UM1oMYid4UB7ObRctXhloGioTmcdihkvUat9?=
+ =?us-ascii?Q?UTgA7AbB3d44jA6CfsuKsqkvhBuI+AoKKa1yaPmjFVPJNBgBxPONKUJOEUwS?=
+ =?us-ascii?Q?HIr0Lmd+P7H43lqfnwepoNeks6W711Pj8BXAimZvSSFnZWXMnPMjvXaaDx7Z?=
+ =?us-ascii?Q?N554vAM5Q9JFGn3KPxjiMheQfPToS5/EQ6z2MzOEvBpX2hS+xHCxnYuyNcgQ?=
+ =?us-ascii?Q?d+3Gnr5c8ND8ikTEunL2W5vrYToFfgBIeJc5+CJiD4VUyPT+OAhIuaNxfIfH?=
+ =?us-ascii?Q?DYt9Qt3e2MOdip2QgukrH2X2+hanQwVnmyozleN4HG5lY2oaLQ81p+SAUoWx?=
+ =?us-ascii?Q?CsNSEa/BsCj3Vc05pwUaewzta9bUvvtOoSbmI4zkyI5vF3MA3ySuoxpK7TLA?=
+ =?us-ascii?Q?/9Hio+ShtePoOnWLs8c9nmI9N7o82SSLaNUSTLy/D/Kyx0FJt8xit68qHctE?=
+ =?us-ascii?Q?WVOqkkouzQL53frtPbhPLK8aP2RfjJIP7SE2eM0iB25NN/Y8x7DJFGheTLwe?=
+ =?us-ascii?Q?glBXX2NfJCwEQ5tP2RmvJDPf2QRT6mgk/el98fi4vH1s8/NkQ9h2r8kYTO/h?=
+ =?us-ascii?Q?BJBaQTH1aeKBU6KZqUW1mIHSmqmAOCOWMv4H7qB0DMYA2y2sA5u0sGi8S//S?=
+ =?us-ascii?Q?w3pKXshyWPGikmY08uElM6EigK35d+QiqLTe0VEp4H+aV4OxWi11AS9SZ+/5?=
+ =?us-ascii?Q?oaQIzmRnoOcUE28KdTsOHYqmOuNxHlAYMjjUFG/Nf0KYXxy4xDru9GfZzEPO?=
+ =?us-ascii?Q?LEXwkW4yIbNk4n7yestNpUFu/ciJZaXtXyEijRikjstxs7V55lLJ0hl/D4Cw?=
+ =?us-ascii?Q?j0TQrn3QGIKFkGskemL/uu4NdSo3CfMv3y4GgiaAREX1eKq0nLLmrI6njKmK?=
+ =?us-ascii?Q?rk6haHU+JHdGwII1iWRmcsO9?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95de28c3-4a07-4714-d26d-08d8ed22af31
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 11:07:29.9383 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vPz58wn6B4wLuq7VNePcZrsh04H+4jNrKleb1ed3ZZEljK5AHz1M4Xya/kMA40ttqrsVgPiqIkdcTgeyQfcI8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3935
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,183 +128,587 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <felix.kuehling@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "dagmcr@gmail.com" <dagmcr@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Sierra <alex.sierra@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCAyMiBNYXIgMjAyMSBhdCAxMTozNCwgQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5s
-ZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSGkgRGFuaWVsLAo+Cj4gQW0gMjIu
-MDMuMjEgdW0gMTA6Mzggc2NocmllYiBEYW5pZWwgR29tZXo6Cj4gPiBPbiBGcmksIDE5IE1hciAy
-MDIxIGF0IDIxOjI5LCBGZWxpeCBLdWVobGluZyA8ZmVsaXgua3VlaGxpbmdAYW1kLmNvbT4gd3Jv
-dGU6Cj4gPj4gVGhpcyBjYXVzZWQgYSByZWdyZXNzaW9uIGluIGtmZHRlc3QgaW4gYSBsYXJnZS1i
-dWZmZXIgc3RyZXNzIHRlc3QgYWZ0ZXIKPiA+PiBtZW1vcnkgYWxsb2NhdGlvbiBmb3IgdXNlciBw
-YWdlcyBmYWlsczoKPiA+IEknbSBzb3JyeSB0byBoZWFyIHRoYXQuIEJUVywgSSBndWVzcyB5b3Ug
-bWVhbnQgYW1kZ3B1IGxlYWsgcGF0Y2ggYW5kCj4gPiBub3QgdGhpcyBvbmUuCj4gPiBKdXN0IHNv
-bWUgYmFja2dyb3VuZCBmb3IgdGhlIG1lbSBsZWFrIHBhdGNoIGlmIGhlbHBzIHRvIHVuZGVyc3Rh
-bmQgdGhpczoKPiA+IFRoZSBsZWFrIHdhcyBpbnRyb2R1Y2UgaGVyZToKPiA+IGh0dHBzOi8vZ2l0
-Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9j
-b21taXQvP2lkPTBiOTg4Y2ExYzdjNGM3Mzk4M2I0ZWE5NmVmN2MyYWYyMjYzYzg3ZWIKPiA+IHdo
-ZXJlIHRoZSBib3VuZCBzdGF0dXMgd2FzIGludHJvZHVjZWQgZm9yIGFsbCBkcm0gZHJpdmVycyBp
-bmNsdWRpbmcKPiA+IHJhZGVvbiBhbmQgYW1kZ3B1LiBTbyB0aGlzIHBhdGNoIGp1c3QgcmV2ZXJ0
-cyB0aGUgbG9naWMgdG8gdGhlCj4gPiBvcmlnaW5hbCBjb2RlIGJ1dCBrZWVwaW5nIHRoZSBib3Vu
-ZCBzdGF0dXMuIEluIG15IGNhc2UsIHRoZSBiaW5kaW5nCj4gPiBjb2RlIGFsbG9jYXRlcyB0aGUg
-dXNlciBwYWdlcyBtZW1vcnkgYW5kIHJldHVybnMgd2l0aG91dCBib3VuZGluZyAoYXQKPiA+IGFt
-ZGdwdV9ndHRfbWdyX2hhc19nYXJ0X2FkZHIpLiBTbywKPiA+IHdoZW4gdGhlIHVuYmluZGluZyBo
-YXBwZW5zLCB0aGUgbWVtb3J5IG5lZWRzIHRvIGJlIGNsZWFyZWQgdG8gcHJldmVudCB0aGUgbGVh
-ay4KPgo+IEFoLCBub3cgSSB1bmRlcnN0YW5kIHdoYXQncyBoYXBwZW5pbmcgaGVyZS4gRGFuaWVs
-IHlvdXIgcGF0Y2ggaXMgbm90Cj4gcmVhbGx5IGNvcnJlY3QuCj4KPiBUaGUgcHJvYmxlbSBpcyBy
-YXRoZXIgdGhhdCB3ZSBkb24ndCBzZXQgdGhlIHR0IG9iamVjdCB0byBib3VuZCBpZiBpdAo+IGRv
-ZXNuJ3QgaGF2ZSBhIEdUVCBhZGRyZXNzLgpPa2F5LCBJIHVuZGVyc3RhbmQuCj4KPiBHb2luZyB0
-byBwcm92aWRlIGEgcGF0Y2ggZm9yIHRoaXMuCkxvb2tpbmcgZm9yd2FyZCB0byB5b3VyIHBhdGNo
-LiBUaGFua3MgQ2hyaXN0aWFuIQo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPiA+Cj4gPj4g
-WzE3MzU5LjUzNjMwM10gYW1kZ3B1OiBpbml0X3VzZXJfcGFnZXM6IEZhaWxlZCB0byBnZXQgdXNl
-ciBwYWdlczogLTE2Cj4gPj4gWzE3MzU5LjU0Mzc0Nl0gQlVHOiBrZXJuZWwgTlVMTCBwb2ludGVy
-IGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDAwCj4gPj4gWzE3MzU5LjU1MTQ5
-NF0gI1BGOiBzdXBlcnZpc29yIHJlYWQgYWNjZXNzIGluIGtlcm5lbCBtb2RlCj4gPj4gWzE3MzU5
-LjU1NzM3NV0gI1BGOiBlcnJvcl9jb2RlKDB4MDAwMCkgLSBub3QtcHJlc2VudCBwYWdlCj4gPj4g
-WzE3MzU5LjU2MzI0N10gUEdEIDAgUDREIDAKPiA+PiBbMTczNTkuNTY2NTE0XSBPb3BzOiAwMDAw
-IFsjMV0gU01QIFBUSQo+ID4+IFsxNzM1OS41NzA3MjhdIENQVTogOCBQSUQ6IDU5NDQgQ29tbTog
-a2ZkdGVzdCBOb3QgdGFpbnRlZCA1LjExLjAta2ZkLWZrdWVobGluICMxOTMKPiA+PiBbMTczNTku
-NTc4NzYwXSBIYXJkd2FyZSBuYW1lOiBBU1VTIEFsbCBTZXJpZXMvWDk5LUUgV1MvVVNCIDMuMSwg
-QklPUyAzMjAxIDA2LzE3LzIwMTYKPiA+PiBbMTczNTkuNTg2OTcxXSBSSVA6IDAwMTA6YW1kZ3B1
-X3R0bV9iYWNrZW5kX3VuYmluZCsweDUyLzB4MTEwIFthbWRncHVdCj4gPj4gWzE3MzU5LjU5NDA3
-NV0gQ29kZTogNDggMzkgYzYgNzQgMWIgOGIgNTMgMGMgNDggOGQgYmQgODAgYTEgZmYgZmYgZTgg
-MjQgNjIgMDAgMDAgODUgYzAgMGYgODUgYWIgMDAgMDAgMDAgYzYgNDMgNTQgMDAgNWIgNWQgYzMg
-NDggOGIgNDYgMTAgOGIgNGUgNTAgPDQ4PiA4YiAzMCA0OCA4NSBmNiA3NCBiYSA4YiA1MCAwYyA0
-OCA4YiBiZiA4MCBhMSBmZiBmZiA4MyBlMSAwMSA0NQo+ID4+IFsxNzM1OS42MTQzNDBdIFJTUDog
-MDAxODpmZmZmYTQ3NjQ5NzFmYzk4IEVGTEFHUzogMDAwMTAyMDYKPiA+PiBbMTczNTkuNjIwMzE1
-XSBSQVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmOTUwZThkNGVkZjAwIFJDWDogMDAwMDAw
-MDAwMDAwMDAwMAo+ID4+IFsxNzM1OS42MjgyMDRdIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6
-IGZmZmY5NTBlOGQ0ZWRmMDAgUkRJOiBmZmZmOTUwZWFkZWM1ZTgwCj4gPj4gWzE3MzU5LjYzNjA4
-NF0gUkJQOiBmZmZmOTUwZWFkZWM1ZTgwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IDAwMDAw
-MDAwMDAwMDAwMDAKPiA+PiBbMTczNTkuNjQzOTU4XSBSMTA6IDAwMDAwMDAwMDAwMDAyNDYgUjEx
-OiAwMDAwMDAwMDAwMDAwMDAxIFIxMjogZmZmZjk1MGMwMzM3NzgwMAo+ID4+IFsxNzM1OS42NTE4
-MzNdIFIxMzogZmZmZjk1MGVhZGVjNWU4MCBSMTQ6IGZmZmY5NTBjMDMzNzc4NTggUjE1OiAwMDAw
-MDAwMDAwMDAwMDAwCj4gPj4gWzE3MzU5LjY1OTcwMV0gRlM6ICAwMDAwN2ZlYmIyMGNiNzQwKDAw
-MDApIEdTOmZmZmY5NTBlYmZjMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMAo+ID4+
-IFsxNzM1OS42Njg1MjhdIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAw
-ODAwNTAwMzMKPiA+PiBbMTczNTkuNjc1MDEyXSBDUjI6IDAwMDAwMDAwMDAwMDAwMDAgQ1IzOiAw
-MDAwMDAwNmQ3MDBlMDA1IENSNDogMDAwMDAwMDAwMDE3MDZlMAo+ID4+IFsxNzM1OS42ODI4ODNd
-IENhbGwgVHJhY2U6Cj4gPj4gWzE3MzU5LjY4NjA2M10gIGFtZGdwdV90dG1fYmFja2VuZF9kZXN0
-cm95KzB4MTIvMHg3MCBbYW1kZ3B1XQo+ID4+IFsxNzM1OS42OTIzNDldICB0dG1fYm9fY2xlYW51
-cF9tZW10eXBlX3VzZSsweDM3LzB4NjAgW3R0bV0KPiA+PiBbMTczNTkuNjk4MzA3XSAgdHRtX2Jv
-X3JlbGVhc2UrMHgyNzgvMHg1ZTAgW3R0bV0KPiA+PiBbMTczNTkuNzAzMzg1XSAgYW1kZ3B1X2Jv
-X3VucmVmKzB4MWEvMHgzMCBbYW1kZ3B1XQo+ID4+IFsxNzM1OS43MDg3MDFdICBhbWRncHVfYW1k
-a2ZkX2dwdXZtX2FsbG9jX21lbW9yeV9vZl9ncHUrMHg3ZTUvMHg5MTAgW2FtZGdwdV0KPiA+PiBb
-MTczNTkuNzE2MzA3XSAga2ZkX2lvY3RsX2FsbG9jX21lbW9yeV9vZl9ncHUrMHgxMWEvMHgyMjAg
-W2FtZGdwdV0KPiA+PiBbMTczNTkuNzIzMDM2XSAga2ZkX2lvY3RsKzB4MjIzLzB4NDAwIFthbWRn
-cHVdCj4gPj4gWzE3MzU5LjcyODAxN10gID8ga2ZkX2Rldl9pc19sYXJnZV9iYXIrMHg5MC8weDkw
-IFthbWRncHVdCj4gPj4gWzE3MzU5LjczNDE1Ml0gIF9feDY0X3N5c19pb2N0bCsweDhiLzB4ZDAK
-PiA+PiBbMTczNTkuNzM4Nzk2XSAgZG9fc3lzY2FsbF82NCsweDJkLzB4NDAKPiA+PiBbMTczNTku
-NzQzMjU5XSAgZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4NDQvMHhhOQo+ID4+IFsx
-NzM1OS43NDkyMDVdIFJJUDogMDAzMzoweDdmZWJiMDgzYjZkNwo+ID4+IFsxNzM1OS43NTM2ODFd
-IENvZGU6IGIzIDY2IDkwIDQ4IDhiIDA1IGIxIDQ3IDJkIDAwIDY0IGM3IDAwIDI2IDAwIDAwIDAw
-IDQ4IGM3IGMwIGZmIGZmIGZmIGZmIGMzIDY2IDJlIDBmIDFmIDg0IDAwIDAwIDAwIDAwIDAwIGI4
-IDEwIDAwIDAwIDAwIDBmIDA1IDw0OD4gM2QgMDEgZjAgZmYgZmYgNzMgMDEgYzMgNDggOGIgMGQg
-ODEgNDcgMmQgMDAgZjcgZDggNjQgODkgMDEgNDgKPiA+PiBbMTczNTkuNzc0MzQwXSBSU1A6IDAw
-MmI6MDAwMDdmZmRiNTUyMmNkOCBFRkxBR1M6IDAwMDAwMjAyIE9SSUdfUkFYOiAwMDAwMDAwMDAw
-MDAwMDEwCj4gPj4gWzE3MzU5Ljc4MjY2OF0gUkFYOiBmZmZmZmZmZmZmZmZmZmRhIFJCWDogMDAw
-MDAwMDAwMDAwMDAwMSBSQ1g6IDAwMDA3ZmViYjA4M2I2ZDcKPiA+PiBbMTczNTkuNzkwNTY2XSBS
-RFg6IDAwMDA3ZmZkYjU1MjJkNjAgUlNJOiAwMDAwMDAwMGMwMjg0YjE2IFJESTogMDAwMDAwMDAw
-MDAwMDAwMwo+ID4+IFsxNzM1OS43OTg0NTldIFJCUDogMDAwMDdmZmRiNTUyMmQxMCBSMDg6IDAw
-MDA3ZmZkYjU1MjJkZDAgUjA5OiAwMDAwMDAwMGM0MDAwMDA0Cj4gPj4gWzE3MzU5LjgwNjM1Ml0g
-UjEwOiAwMDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDIwMiBSMTI6IDAwMDA1NTk0
-MTZlNGUyYWEKPiA+PiBbMTczNTkuODE0MjUxXSBSMTM6IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiAw
-MDAwMDAwMDAwMDAwMDIxIFIxNTogMDAwMDAwMDAwMDAwMDAwMAo+ID4+IFsxNzM1OS44MjIxNDBd
-IE1vZHVsZXMgbGlua2VkIGluOiBpcDZ0YWJsZV9maWx0ZXIgaXA2X3RhYmxlcyBpcHRhYmxlX2Zp
-bHRlciBhbWRncHUgeDg2X3BrZ190ZW1wX3RoZXJtYWwgZHJtX3R0bV9oZWxwZXIgdHRtIGlvbW11
-X3YyIGdwdV9zY2hlZCBpcF90YWJsZXMgeF90YWJsZXMKPiA+PiBbMTczNTkuODM3Nzc2XSBDUjI6
-IDAwMDAwMDAwMDAwMDAwMDAKPiA+PiBbMTczNTkuODQxODg4XSAtLS1bIGVuZCB0cmFjZSBhNmYy
-N2Q2NDQ3NWIyOGM4IF0tLS0KPiA+PiBbMTczNTkuODQ3MzE4XSBSSVA6IDAwMTA6YW1kZ3B1X3R0
-bV9iYWNrZW5kX3VuYmluZCsweDUyLzB4MTEwIFthbWRncHVdCj4gPj4gWzE3MzU5Ljg1NDQ3OV0g
-Q29kZTogNDggMzkgYzYgNzQgMWIgOGIgNTMgMGMgNDggOGQgYmQgODAgYTEgZmYgZmYgZTggMjQg
-NjIgMDAgMDAgODUgYzAgMGYgODUgYWIgMDAgMDAgMDAgYzYgNDMgNTQgMDAgNWIgNWQgYzMgNDgg
-OGIgNDYgMTAgOGIgNGUgNTAgPDQ4PiA4YiAzMCA0OCA4NSBmNiA3NCBiYSA4YiA1MCAwYyA0OCA4
-YiBiZiA4MCBhMSBmZiBmZiA4MyBlMSAwMSA0NQo+ID4+IFsxNzM1OS44NzQ5MjldIFJTUDogMDAx
-ODpmZmZmYTQ3NjQ5NzFmYzk4IEVGTEFHUzogMDAwMTAyMDYKPiA+PiBbMTczNTkuODgxMDE0XSBS
-QVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmOTUwZThkNGVkZjAwIFJDWDogMDAwMDAwMDAw
-MDAwMDAwMAo+ID4+IFsxNzM1OS44ODkwMDddIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IGZm
-ZmY5NTBlOGQ0ZWRmMDAgUkRJOiBmZmZmOTUwZWFkZWM1ZTgwCj4gPj4gWzE3MzU5Ljg5NzAwOF0g
-UkJQOiBmZmZmOTUwZWFkZWM1ZTgwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IDAwMDAwMDAw
-MDAwMDAwMDAKPiA+PiBbMTczNTkuOTA1MDIwXSBSMTA6IDAwMDAwMDAwMDAwMDAyNDYgUjExOiAw
-MDAwMDAwMDAwMDAwMDAxIFIxMjogZmZmZjk1MGMwMzM3NzgwMAo+ID4+IFsxNzM1OS45MTMwMzRd
-IFIxMzogZmZmZjk1MGVhZGVjNWU4MCBSMTQ6IGZmZmY5NTBjMDMzNzc4NTggUjE1OiAwMDAwMDAw
-MDAwMDAwMDAwCj4gPj4gWzE3MzU5LjkyMTA1MF0gRlM6ICAwMDAwN2ZlYmIyMGNiNzQwKDAwMDAp
-IEdTOmZmZmY5NTBlYmZjMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMAo+ID4+IFsx
-NzM1OS45MzAwNDddIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAw
-NTAwMzMKPiA+PiBbMTczNTkuOTM2Njc0XSBDUjI6IDAwMDAwMDAwMDAwMDAwMDAgQ1IzOiAwMDAw
-MDAwNmQ3MDBlMDA1IENSNDogMDAwMDAwMDAwMDE3MDZlMAo+ID4gIEZyb20gd2hhdCBJIHVuZGVy
-c3RhbmQsIHRoZSBpbml0X3VzZXJfcGFnZXMgZmFpbHMgKHJldHVybnMgRUJVU1kpIGFuZAo+ID4g
-dGhlIGNvZGUgZ29lcyB0byBhbGxvY2F0ZV9pbml0X3VzZXJfcGFnZXNfZmFpbGVkIHdoZXJlIHRo
-ZSB1bmJpbmQgYW5kCj4gPiB0aGUgdXNlcnB0ciBjbGVhciBvY2N1cnMuCj4gPiBDYW4gd2UgcHJl
-dmVudCB0aGlzIGlmIHdlIHNhdmUgdGhlIGJvdW5kaW5nIHN0YXR1cyArIHVzZXJwdHIgYWxsb2M/
-IHNvCj4gPiB0aGUgZnVuY3Rpb24gYW1kZ3B1X3R0bV9iYWNrZW5kX3VuYmluZCByZXR1cm5zIHdp
-dGhvdXQgdHJ5aW5nIHRvIGNsZWFyCj4gPiB0aGUgdXNlcnB0ciBtZW1vcnk/Cj4gPgo+ID4gU29t
-ZXRoaW5nIGxpa2U6Cj4gPgo+ID4gYW1kZ3B1X3R0bV9iYWNrZW5kX2JpbmQ6Cj4gPiAgICAgIGlm
-IChndHQtPnVzZXJwdHIpIHsKPiA+ICAgICAgICAgIHIgPSBhbWRncHVfdHRtX3R0X3Bpbl91c2Vy
-cHRyKGJkZXYsIHR0bSk7Cj4gPiAgICAgICAgICBpZiAocikgLi4uCj4gPiAgICAgICAgIGd0dC0+
-c2dfdGFibGUgPSB0cnVlOwo+ID4gICAgIH0KPiA+Cj4gPiBhbWRncHVfdHRtX2JhY2tlbmRfdW5i
-aW5kOgo+ID4gaWYgKGd0dC0+c2dfdGFibGUpIHsKPiA+ICAgICAgICAgIGlmIChndHQtPnVzZXJf
-cHRyKSAuLi4KPiA+IH0KPiA+Cj4gPiBJZiB5b3UgYWdyZWUsIEknbGwgc2VuZCBhIHYyIHBhdGNo
-LiBPdGhlcndpc2UsIG1heWJlIHdlIGNvdWxkIHJldHVybgo+ID4gd2l0aGluIGFtZGdwdV90dG1f
-dHRfdW5waW5fdXNlcnB0ciBpZiBtZW1vcnkgaGFzbid0IGJlZW4gYWxsb2NhdGVkLgo+ID4KPiA+
-IEFueSBvdGhlciBpZGVhcz8KPiA+Cj4gPiBSZWdhcmRzLAo+ID4gRGFuaWVsCj4gPgo+ID4+IFJl
-dmVydGluZyB0aGlzIHBhdGNoIGZpeGVzIHRoZSBwcm9ibGVtIGZvciBtZS4KPiA+Pgo+ID4+IFJl
-Z2FyZHMsCj4gPj4gICAgIEZlbGl4Cj4gPj4KPiA+PiBPbiAyMDIxLTAzLTE4IDEwOjU3IHAubS4s
-IEFsZXggRGV1Y2hlciB3cm90ZToKPiA+Pj4gQXBwbGllZC4gIFRoYW5rcyEKPiA+Pj4KPiA+Pj4g
-QWxleAo+ID4+Pgo+ID4+PiBPbiBUaHUsIE1hciAxOCwgMjAyMSBhdCA1OjAwIEFNIEtvZW5pZywg
-Q2hyaXN0aWFuCj4gPj4+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IHdyb3RlOgo+ID4+Pj4g
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-PiA+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPj4+PiBWb246IERhbmll
-bCBHb21leiA8ZGFuaWVsQHF0ZWMuY29tPgo+ID4+Pj4gR2VzZW5kZXQ6IERvbm5lcnN0YWcsIDE4
-LiBNw6RyeiAyMDIxIDA5OjMyCj4gPj4+PiBDYzogZGFnbWNyQGdtYWlsLmNvbSA8ZGFnbWNyQGdt
-YWlsLmNvbT47IERhbmllbCBHb21leiA8ZGFuaWVsQHF0ZWMuY29tPjsgRGV1Y2hlciwgQWxleGFu
-ZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlz
-dGlhbi5Lb2VuaWdAYW1kLmNvbT47IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT47IERh
-bmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnIDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IGRyaS1kZXZlbEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcgPGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBsaW51eC1rZXJu
-ZWxAdmdlci5rZXJuZWwub3JnIDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPgo+ID4+Pj4g
-QmV0cmVmZjogW1BBVENIXSBkcm0vcmFkZW9uL3R0bTogRml4IG1lbW9yeSBsZWFrIHVzZXJwdHIg
-cGFnZXMKPiA+Pj4+Cj4gPj4+PiBJZiB1c2VycHRyIHBhZ2VzIGhhdmUgYmVlbiBwaW5uZWQgYnV0
-IG5vdCBib3VuZGVkLAo+ID4+Pj4gdGhleSByZW1haW4gdW5jbGVhcmVkLgo+ID4+Pj4KPiA+Pj4+
-IFNpZ25lZC1vZmYtYnk6IERhbmllbCBHb21leiA8ZGFuaWVsQHF0ZWMuY29tPgo+ID4+Pj4gLS0t
-Cj4gPj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyB8IDUgKysrLS0K
-PiA+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0p
-Cj4gPj4+Pgo+ID4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
-X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiA+Pj4+IGluZGV4
-IGU4YzY2ZDEwNDc4Zi4uYmJjYzYyNjRkNDhmIDEwMDY0NAo+ID4+Pj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiA+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX3R0bS5jCj4gPj4+PiBAQCAtNDg1LDEzICs0ODUsMTQgQEAgc3RhdGljIHZv
-aWQgcmFkZW9uX3R0bV9iYWNrZW5kX3VuYmluZChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwg
-c3RydWN0IHR0bV90dAo+ID4+Pj4gICAgICAgICAgICBzdHJ1Y3QgcmFkZW9uX3R0bV90dCAqZ3R0
-ID0gKHZvaWQgKil0dG07Cj4gPj4+PiAgICAgICAgICAgIHN0cnVjdCByYWRlb25fZGV2aWNlICpy
-ZGV2ID0gcmFkZW9uX2dldF9yZGV2KGJkZXYpOwo+ID4+Pj4KPiA+Pj4+ICsgICAgICAgaWYgKGd0
-dC0+dXNlcnB0cikKPiA+Pj4+ICsgICAgICAgICAgICAgICByYWRlb25fdHRtX3R0X3VucGluX3Vz
-ZXJwdHIoYmRldiwgdHRtKTsKPiA+Pj4+ICsKPiA+Pj4+ICAgICAgICAgICAgaWYgKCFndHQtPmJv
-dW5kKQo+ID4+Pj4gICAgICAgICAgICAgICAgICAgIHJldHVybjsKPiA+Pj4+Cj4gPj4+PiAgICAg
-ICAgICAgIHJhZGVvbl9nYXJ0X3VuYmluZChyZGV2LCBndHQtPm9mZnNldCwgdHRtLT5udW1fcGFn
-ZXMpOwo+ID4+Pj4KPiA+Pj4+IC0gICAgICAgaWYgKGd0dC0+dXNlcnB0cikKPiA+Pj4+IC0gICAg
-ICAgICAgICAgICByYWRlb25fdHRtX3R0X3VucGluX3VzZXJwdHIoYmRldiwgdHRtKTsKPiA+Pj4+
-ICAgICAgICAgICAgZ3R0LT5ib3VuZCA9IGZhbHNlOwo+ID4+Pj4gICAgfQo+ID4+Pj4KPiA+Pj4+
-IC0tCj4gPj4+PiAyLjMwLjIKPiA+Pj4+Cj4gPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+ID4+Pj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+ID4+
-Pj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4+Pj4gaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKPiA+Pj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+Pj4gZHJpLWRldmVsIG1h
-aWxpbmcgbGlzdAo+ID4+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPj4+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4g
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Alex Sierra <alex.sierra@amd.com>
+
+Remove per_device_list from kfd_process and replace it with a
+kfd_process_device pointers array of MAX_GPU_INSTANCES size. This helps
+to manage the kfd_process_devices binded to a specific kfd_process.
+Also, functions used by kfd_chardev to iterate over the list were
+removed, since they are not valid anymore. Instead, it was replaced by a
+local loop iterating the array.
+
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 116 ++++++++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  20 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 108 ++++++++--------
+ .../amd/amdkfd/kfd_process_queue_manager.c    |   6 +-
+ 5 files changed, 111 insertions(+), 147 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6802c616e10e..43de260b2230 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -870,52 +870,47 @@ static int kfd_ioctl_get_process_apertures(struct file *filp,
+ {
+ 	struct kfd_ioctl_get_process_apertures_args *args = data;
+ 	struct kfd_process_device_apertures *pAperture;
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+ 	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
+ 
+ 	args->num_of_nodes = 0;
+ 
+ 	mutex_lock(&p->mutex);
++	/* Run over all pdd of the process */
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
++		pAperture =
++			&args->process_apertures[args->num_of_nodes];
++		pAperture->gpu_id = pdd->dev->id;
++		pAperture->lds_base = pdd->lds_base;
++		pAperture->lds_limit = pdd->lds_limit;
++		pAperture->gpuvm_base = pdd->gpuvm_base;
++		pAperture->gpuvm_limit = pdd->gpuvm_limit;
++		pAperture->scratch_base = pdd->scratch_base;
++		pAperture->scratch_limit = pdd->scratch_limit;
+ 
+-	/*if the process-device list isn't empty*/
+-	if (kfd_has_process_device_data(p)) {
+-		/* Run over all pdd of the process */
+-		pdd = kfd_get_first_process_device_data(p);
+-		do {
+-			pAperture =
+-				&args->process_apertures[args->num_of_nodes];
+-			pAperture->gpu_id = pdd->dev->id;
+-			pAperture->lds_base = pdd->lds_base;
+-			pAperture->lds_limit = pdd->lds_limit;
+-			pAperture->gpuvm_base = pdd->gpuvm_base;
+-			pAperture->gpuvm_limit = pdd->gpuvm_limit;
+-			pAperture->scratch_base = pdd->scratch_base;
+-			pAperture->scratch_limit = pdd->scratch_limit;
+-
+-			dev_dbg(kfd_device,
+-				"node id %u\n", args->num_of_nodes);
+-			dev_dbg(kfd_device,
+-				"gpu id %u\n", pdd->dev->id);
+-			dev_dbg(kfd_device,
+-				"lds_base %llX\n", pdd->lds_base);
+-			dev_dbg(kfd_device,
+-				"lds_limit %llX\n", pdd->lds_limit);
+-			dev_dbg(kfd_device,
+-				"gpuvm_base %llX\n", pdd->gpuvm_base);
+-			dev_dbg(kfd_device,
+-				"gpuvm_limit %llX\n", pdd->gpuvm_limit);
+-			dev_dbg(kfd_device,
+-				"scratch_base %llX\n", pdd->scratch_base);
+-			dev_dbg(kfd_device,
+-				"scratch_limit %llX\n", pdd->scratch_limit);
+-
+-			args->num_of_nodes++;
+-
+-			pdd = kfd_get_next_process_device_data(p, pdd);
+-		} while (pdd && (args->num_of_nodes < NUM_OF_SUPPORTED_GPUS));
+-	}
++		dev_dbg(kfd_device,
++			"node id %u\n", args->num_of_nodes);
++		dev_dbg(kfd_device,
++			"gpu id %u\n", pdd->dev->id);
++		dev_dbg(kfd_device,
++			"lds_base %llX\n", pdd->lds_base);
++		dev_dbg(kfd_device,
++			"lds_limit %llX\n", pdd->lds_limit);
++		dev_dbg(kfd_device,
++			"gpuvm_base %llX\n", pdd->gpuvm_base);
++		dev_dbg(kfd_device,
++			"gpuvm_limit %llX\n", pdd->gpuvm_limit);
++		dev_dbg(kfd_device,
++			"scratch_base %llX\n", pdd->scratch_base);
++		dev_dbg(kfd_device,
++			"scratch_limit %llX\n", pdd->scratch_limit);
+ 
++		if (++args->num_of_nodes >= NUM_OF_SUPPORTED_GPUS)
++			break;
++	}
+ 	mutex_unlock(&p->mutex);
+ 
+ 	return 0;
+@@ -926,9 +921,8 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
+ {
+ 	struct kfd_ioctl_get_process_apertures_new_args *args = data;
+ 	struct kfd_process_device_apertures *pa;
+-	struct kfd_process_device *pdd;
+-	uint32_t nodes = 0;
+ 	int ret;
++	int i;
+ 
+ 	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
+ 
+@@ -937,17 +931,7 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
+ 		 * sufficient memory
+ 		 */
+ 		mutex_lock(&p->mutex);
+-
+-		if (!kfd_has_process_device_data(p))
+-			goto out_unlock;
+-
+-		/* Run over all pdd of the process */
+-		pdd = kfd_get_first_process_device_data(p);
+-		do {
+-			args->num_of_nodes++;
+-			pdd = kfd_get_next_process_device_data(p, pdd);
+-		} while (pdd);
+-
++		args->num_of_nodes = p->n_pdds;
+ 		goto out_unlock;
+ 	}
+ 
+@@ -962,22 +946,23 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
+ 
+ 	mutex_lock(&p->mutex);
+ 
+-	if (!kfd_has_process_device_data(p)) {
++	if (!p->n_pdds) {
+ 		args->num_of_nodes = 0;
+ 		kfree(pa);
+ 		goto out_unlock;
+ 	}
+ 
+ 	/* Run over all pdd of the process */
+-	pdd = kfd_get_first_process_device_data(p);
+-	do {
+-		pa[nodes].gpu_id = pdd->dev->id;
+-		pa[nodes].lds_base = pdd->lds_base;
+-		pa[nodes].lds_limit = pdd->lds_limit;
+-		pa[nodes].gpuvm_base = pdd->gpuvm_base;
+-		pa[nodes].gpuvm_limit = pdd->gpuvm_limit;
+-		pa[nodes].scratch_base = pdd->scratch_base;
+-		pa[nodes].scratch_limit = pdd->scratch_limit;
++	for (i = 0; i < min(p->n_pdds, args->num_of_nodes); i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
++		pa[i].gpu_id = pdd->dev->id;
++		pa[i].lds_base = pdd->lds_base;
++		pa[i].lds_limit = pdd->lds_limit;
++		pa[i].gpuvm_base = pdd->gpuvm_base;
++		pa[i].gpuvm_limit = pdd->gpuvm_limit;
++		pa[i].scratch_base = pdd->scratch_base;
++		pa[i].scratch_limit = pdd->scratch_limit;
+ 
+ 		dev_dbg(kfd_device,
+ 			"gpu id %u\n", pdd->dev->id);
+@@ -993,17 +978,14 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
+ 			"scratch_base %llX\n", pdd->scratch_base);
+ 		dev_dbg(kfd_device,
+ 			"scratch_limit %llX\n", pdd->scratch_limit);
+-		nodes++;
+-
+-		pdd = kfd_get_next_process_device_data(p, pdd);
+-	} while (pdd && (nodes < args->num_of_nodes));
++	}
+ 	mutex_unlock(&p->mutex);
+ 
+-	args->num_of_nodes = nodes;
++	args->num_of_nodes = i;
+ 	ret = copy_to_user(
+ 			(void __user *)args->kfd_process_device_apertures_ptr,
+ 			pa,
+-			(nodes * sizeof(struct kfd_process_device_apertures)));
++			(i * sizeof(struct kfd_process_device_apertures)));
+ 	kfree(pa);
+ 	return ret ? -EFAULT : 0;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+index 9318936aa805..5a1f2433632b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+@@ -135,11 +135,11 @@ int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd)
+  */
+ void kfd_iommu_unbind_process(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list)
+-		if (pdd->bound == PDD_BOUND)
+-			amd_iommu_unbind_pasid(pdd->dev->pdev, p->pasid);
++	for (i = 0; i < p->n_pdds; i++)
++		if (p->pdds[i]->bound == PDD_BOUND)
++			amd_iommu_unbind_pasid(p->pdds[i]->dev->pdev, p->pasid);
+ }
+ 
+ /* Callback for process shutdown invoked by the IOMMU driver */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d8c8b5ff449a..33e56db14327 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -45,6 +45,7 @@
+ #include <linux/swap.h>
+ 
+ #include "amd_shared.h"
++#include "amdgpu.h"
+ 
+ #define KFD_MAX_RING_ENTRY_SIZE	8
+ 
+@@ -649,12 +650,6 @@ enum kfd_pdd_bound {
+ 
+ /* Data that is per-process-per device. */
+ struct kfd_process_device {
+-	/*
+-	 * List of all per-device data for a process.
+-	 * Starts from kfd_process.per_device_data.
+-	 */
+-	struct list_head per_device_list;
+-
+ 	/* The device that owns this data. */
+ 	struct kfd_dev *dev;
+ 
+@@ -771,10 +766,11 @@ struct kfd_process {
+ 	u32 pasid;
+ 
+ 	/*
+-	 * List of kfd_process_device structures,
++	 * Array of kfd_process_device pointers,
+ 	 * one for each device the process is using.
+ 	 */
+-	struct list_head per_device_data;
++	struct kfd_process_device *pdds[MAX_GPU_INSTANCE];
++	uint32_t n_pdds;
+ 
+ 	struct process_queue_manager pqm;
+ 
+@@ -872,14 +868,6 @@ void *kfd_process_device_translate_handle(struct kfd_process_device *p,
+ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
+ 					int handle);
+ 
+-/* Process device data iterator */
+-struct kfd_process_device *kfd_get_first_process_device_data(
+-							struct kfd_process *p);
+-struct kfd_process_device *kfd_get_next_process_device_data(
+-						struct kfd_process *p,
+-						struct kfd_process_device *pdd);
+-bool kfd_has_process_device_data(struct kfd_process *p);
+-
+ /* PASIDs */
+ int kfd_pasid_init(void);
+ void kfd_pasid_exit(void);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index f5237997fa18..d4241d29ea94 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -505,7 +505,7 @@ static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
+ static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
+ {
+ 	int ret = 0;
+-	struct kfd_process_device *pdd;
++	int i;
+ 	char stats_dir_filename[MAX_SYSFS_FILENAME_LEN];
+ 
+ 	if (!p)
+@@ -520,7 +520,8 @@ static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
+ 	 * - proc/<pid>/stats_<gpuid>/evicted_ms
+ 	 * - proc/<pid>/stats_<gpuid>/cu_occupancy
+ 	 */
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
+ 		struct kobject *kobj_stats;
+ 
+ 		snprintf(stats_dir_filename, MAX_SYSFS_FILENAME_LEN,
+@@ -571,7 +572,7 @@ static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
+ static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ {
+ 	int ret = 0;
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+ 	if (!p)
+ 		return -EINVAL;
+@@ -584,7 +585,9 @@ static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 	 * - proc/<pid>/vram_<gpuid>
+ 	 * - proc/<pid>/sdma_<gpuid>
+ 	 */
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
+ 		snprintf(pdd->vram_filename, MAX_SYSFS_FILENAME_LEN, "vram_%u",
+ 			 pdd->dev->id);
+ 		ret = kfd_sysfs_create_file(p, &pdd->attr_vram, pdd->vram_filename);
+@@ -881,21 +884,23 @@ void kfd_unref_process(struct kfd_process *p)
+ 	kref_put(&p->ref, kfd_process_ref_release);
+ }
+ 
++
+ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
+ {
+ 	struct kfd_process *p = pdd->process;
+ 	void *mem;
+ 	int id;
++	int i;
+ 
+ 	/*
+ 	 * Remove all handles from idr and release appropriate
+ 	 * local memory object
+ 	 */
+ 	idr_for_each_entry(&pdd->alloc_idr, mem, id) {
+-		struct kfd_process_device *peer_pdd;
+ 
+-		list_for_each_entry(peer_pdd, &p->per_device_data,
+-				    per_device_list) {
++		for (i = 0; i < p->n_pdds; i++) {
++			struct kfd_process_device *peer_pdd = p->pdds[i];
++
+ 			if (!peer_pdd->vm)
+ 				continue;
+ 			amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+@@ -909,18 +914,19 @@ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
+ 
+ static void kfd_process_free_outstanding_kfd_bos(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list)
+-		kfd_process_device_free_bos(pdd);
++	for (i = 0; i < p->n_pdds; i++)
++		kfd_process_device_free_bos(p->pdds[i]);
+ }
+ 
+ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd, *temp;
++	int i;
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
+ 
+-	list_for_each_entry_safe(pdd, temp, &p->per_device_data,
+-				 per_device_list) {
+ 		pr_debug("Releasing pdd (topology id %d) for process (pasid 0x%x)\n",
+ 				pdd->dev->id, p->pasid);
+ 
+@@ -933,8 +939,6 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			amdgpu_amdkfd_gpuvm_destroy_process_vm(
+ 				pdd->dev->kgd, pdd->vm);
+ 
+-		list_del(&pdd->per_device_list);
+-
+ 		if (pdd->qpd.cwsr_kaddr && !pdd->qpd.cwsr_base)
+ 			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
+ 				get_order(KFD_CWSR_TBA_TMA_SIZE));
+@@ -955,7 +959,9 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 		}
+ 
+ 		kfree(pdd);
++		p->pdds[i] = NULL;
+ 	}
++	p->n_pdds = 0;
+ }
+ 
+ /* No process locking is needed in this function, because the process
+@@ -967,7 +973,7 @@ static void kfd_process_wq_release(struct work_struct *work)
+ {
+ 	struct kfd_process *p = container_of(work, struct kfd_process,
+ 					     release_work);
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+ 	/* Remove the procfs files */
+ 	if (p->kobj) {
+@@ -976,7 +982,9 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 		kobject_put(p->kobj_queues);
+ 		p->kobj_queues = NULL;
+ 
+-		list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
++		for (i = 0; i < p->n_pdds; i++) {
++			struct kfd_process_device *pdd = p->pdds[i];
++
+ 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
+ 			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
+ 			sysfs_remove_file(p->kobj, &pdd->attr_evict);
+@@ -1036,7 +1044,7 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+ 					struct mm_struct *mm)
+ {
+ 	struct kfd_process *p;
+-	struct kfd_process_device *pdd = NULL;
++	int i;
+ 
+ 	/*
+ 	 * The kfd_process structure can not be free because the
+@@ -1060,8 +1068,8 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+ 	 * pdd is in debug mode, we should first force unregistration,
+ 	 * then we will be able to destroy the queues
+ 	 */
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+-		struct kfd_dev *dev = pdd->dev;
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_dev *dev = p->pdds[i]->dev;
+ 
+ 		mutex_lock(kfd_get_dbgmgr_mutex());
+ 		if (dev && dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
+@@ -1098,11 +1106,11 @@ static const struct mmu_notifier_ops kfd_process_mmu_notifier_ops = {
+ static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
+ {
+ 	unsigned long  offset;
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+-		struct kfd_dev *dev = pdd->dev;
+-		struct qcm_process_device *qpd = &pdd->qpd;
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_dev *dev = p->pdds[i]->dev;
++		struct qcm_process_device *qpd = &p->pdds[i]->qpd;
+ 
+ 		if (!dev->cwsr_enabled || qpd->cwsr_kaddr || qpd->cwsr_base)
+ 			continue;
+@@ -1199,7 +1207,7 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	mutex_init(&process->mutex);
+ 	process->mm = thread->mm;
+ 	process->lead_thread = thread->group_leader;
+-	INIT_LIST_HEAD(&process->per_device_data);
++	process->n_pdds = 0;
+ 	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
+ 	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
+ 	process->last_restore_timestamp = get_jiffies_64();
+@@ -1290,11 +1298,11 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
+ struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
+ 							struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd = NULL;
++	int i;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list)
+-		if (pdd->dev == dev)
+-			return pdd;
++	for (i = 0; i < p->n_pdds; i++)
++		if (p->pdds[i]->dev == dev)
++			return p->pdds[i];
+ 
+ 	return NULL;
+ }
+@@ -1304,6 +1312,8 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ {
+ 	struct kfd_process_device *pdd = NULL;
+ 
++	if (WARN_ON_ONCE(p->n_pdds >= MAX_GPU_INSTANCE))
++		return NULL;
+ 	pdd = kzalloc(sizeof(*pdd), GFP_KERNEL);
+ 	if (!pdd)
+ 		return NULL;
+@@ -1332,7 +1342,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 	pdd->vram_usage = 0;
+ 	pdd->sdma_past_activity_counter = 0;
+ 	atomic64_set(&pdd->evict_duration_counter, 0);
+-	list_add(&pdd->per_device_list, &p->per_device_data);
++	p->pdds[p->n_pdds++] = pdd;
+ 
+ 	/* Init idr used for memory handle translation */
+ 	idr_init(&pdd->alloc_idr);
+@@ -1464,28 +1474,6 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+ 	return ERR_PTR(err);
+ }
+ 
+-struct kfd_process_device *kfd_get_first_process_device_data(
+-						struct kfd_process *p)
+-{
+-	return list_first_entry(&p->per_device_data,
+-				struct kfd_process_device,
+-				per_device_list);
+-}
+-
+-struct kfd_process_device *kfd_get_next_process_device_data(
+-						struct kfd_process *p,
+-						struct kfd_process_device *pdd)
+-{
+-	if (list_is_last(&pdd->per_device_list, &p->per_device_data))
+-		return NULL;
+-	return list_next_entry(pdd, per_device_list);
+-}
+-
+-bool kfd_has_process_device_data(struct kfd_process *p)
+-{
+-	return !(list_empty(&p->per_device_data));
+-}
+-
+ /* Create specific handle mapped to mem from process local memory idr
+  * Assumes that the process lock is held.
+  */
+@@ -1561,11 +1549,13 @@ struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm)
+  */
+ int kfd_process_evict_queues(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd;
+ 	int r = 0;
++	int i;
+ 	unsigned int n_evicted = 0;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
+ 		r = pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dqm,
+ 							    &pdd->qpd);
+ 		if (r) {
+@@ -1581,7 +1571,9 @@ int kfd_process_evict_queues(struct kfd_process *p)
+ 	/* To keep state consistent, roll back partial eviction by
+ 	 * restoring queues
+ 	 */
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
+ 		if (n_evicted == 0)
+ 			break;
+ 		if (pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
+@@ -1597,10 +1589,12 @@ int kfd_process_evict_queues(struct kfd_process *p)
+ /* kfd_process_restore_queues - Restore all user queues of a process */
+ int kfd_process_restore_queues(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd;
+ 	int r, ret = 0;
++	int i;
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+ 		r = pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
+ 							      &pdd->qpd);
+ 		if (r) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index eb1635ac8988..95a6c36cea4c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -126,10 +126,10 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+ 
+ void kfd_process_dequeue_from_all_devices(struct kfd_process *p)
+ {
+-	struct kfd_process_device *pdd;
++	int i;
+ 
+-	list_for_each_entry(pdd, &p->per_device_data, per_device_list)
+-		kfd_process_dequeue_from_device(pdd);
++	for (i = 0; i < p->n_pdds; i++)
++		kfd_process_dequeue_from_device(p->pdds[i]);
+ }
+ 
+ int pqm_init(struct process_queue_manager *pqm, struct kfd_process *p)
+-- 
+2.31.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
