@@ -2,131 +2,123 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 063A5C433DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32712C433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACC086192E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:12:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACC086192E
+	by mail.kernel.org (Postfix) with ESMTPS id D75766191F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 06:13:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D75766191F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4E06E0AC;
-	Mon, 22 Mar 2021 06:12:17 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6F6D6E0AC
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 06:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCCC6E0AF;
+	Mon, 22 Mar 2021 06:13:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A43C6E0AF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Mar 2021 06:13:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jo5YgD2X8E+Vni3DmFWL165QpSLNlDfAxloMQ20I9659DACIC/TWvfzpFQoAG/9kuBX2QEHnvo3IqXCz2+wUsprBDqblqp8G/uCls2Up54ESYenz/oLVFuqKgeBm13HSspp2SjTr07wqwDsytwFM1KLdLyeZvC7nnVk8K8acA5OM9pX1iSESpqpQOvvdNlMY1f25m9Im2GlVomzjlBUA3v5ejWjxH0V8ruBJ+xG/BKcuZE81sh1xTj0wu/SP2Cff67xB/o0rbv8CKXFYSUuAssdrwZ3wFnKPHz+I19kw1BX7goAxO59WEuzz9huNXtMOjf4ZSi7wMBtZDp1LIW4JQw==
+ b=OBQ1Y9PVMphaF5apAMz7IZHc2M6hVgYub4TAuC5+uFTiU+9zMmnuwDcN/R5pmg8piONvv/GQR9TuomeOvFKEs+OKwiXNsd4R8YU7oOrkPjiljCazsNC7Mkw1W3UROCmzygmjGY9h0pJMIBJc+02aOqg8kp2aaJ42bV8b6mJHV8HYHCI08+asNUFXRaA0G6e/+WcJiucXjJ9rs4yFo9G6PCA5zhiDlN+UYDVlo2ZrJV6ULwZ7o5f8vvo0LVONgu4sssXFc4HsHyueFXfpxeOb/KhemUVBqE6NpDPs6wVjyQU+9dSAPLf01QKW50eVVrVWfptaRxNeaSmz49oKCY/h/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRPFFaCvJNps1CfmyoimQvNQrwAEAtOHptroDMj0Vik=;
- b=BRtu1mkDm8X0mgwC+z1d5lyygXP2P/+EMM675q1sxxLC7hsWuXJKPTFaP/h2tn2+A7D2ByXM7wyD+WECnRFQm90RalsefkHkhitniX/wlGo3FcEwYqHnRxVY1fMqzRJTEC23x7k9h0R+YRKgfzJyv7xsxity3rDH87frKm0xk2HNsRjLOZAfAMxUkVKltJOmxJKWyXYYtuymv8xAe4xg/l/4nZV5DDeMfooKQkJThUC9Ry8unF6pus+i0jqac+EKIHXseVbMbxwmQpYLba/LjB2ApKV41f1TxtrLHBhFk4rrQK2I4sdWf75S4Xbr9qA4+9yDJqqeGWBHT1rlnlg6zg==
+ bh=U2N+FWAOL7fRPHYZeFYROoLVJZAJKX8boX3iaV9BQ+Q=;
+ b=XKokNx80IZkf2gqqS77bDhX7aI8Zc+ItY/Tf1yu5cWzg+cl2+xbTQpQVFf1H1SjqzVS2bHb1o1/bsxtpM6fzNhqnBHdIJ/lfVVKZ0z8H6qGjhVfiVYpUv5nVXFhb7aiYZpplbcyXmHIlU0A1rKzOD65psQZOyRRIsFTRj0/BmJXprSOcE4MteaakZaTv7t4jIVd/Rc6LMKtQJPdRfsrbxtJHKumWadbdbYCCCmw8/XrrU/hFrQGNcW5vtcX9aJTLzxRN/cobBCtU9JFBTfDUg5JOlZxfSH3p2Bg6Al45ptTU29Q9puvqYLhz1DfUHqAWLKgaADcY/Jujhlb5rg8scQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRPFFaCvJNps1CfmyoimQvNQrwAEAtOHptroDMj0Vik=;
- b=n/NwDLL/VCN07lDn2yMpLRJs/F36yXoXeErVVvI/VbqsMQn/3jLopMtZ76QDpVvxCOManGts3QcGA+WiptfONp1Gu5tNy9xe+q8FjJ6osFi3N/8DJ0PbkzjHrsS4soc8VwS6GWipJQL5MEIo7YSd0+9HN072U0LPKXSF1/5D+EE=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3081.namprd12.prod.outlook.com (2603:10b6:5:38::27) with
+ bh=U2N+FWAOL7fRPHYZeFYROoLVJZAJKX8boX3iaV9BQ+Q=;
+ b=j3qK4OqTAAu+GFigoo6KHh6fEqDgAWiDZfN3yy9C7ZCNKoEaJtZF7xzFs5RCWPHdKOmKFyXAtTdDwJdxZwm0wEhduPH1yxQr5vGFDjObndDEVXFxeJziieMBOTvLS0q5RBBkUwrCWYAS6ivjgkLWSg1gexvakJdTSs8t/o5XSBw=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB4433.namprd12.prod.outlook.com (2603:10b6:5:2a1::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3955.24; Mon, 22 Mar 2021 06:12:13 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8%7]) with mapi id 15.20.3955.027; Mon, 22 Mar 2021
- 06:12:13 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Li, Dennis" <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.3955.18; Mon, 22 Mar 2021 06:13:14 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::c950:d447:1fd0:2686]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::c950:d447:1fd0:2686%5]) with mapi id 15.20.3955.027; Mon, 22 Mar 2021
+ 06:13:13 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amd/pm: drop redundant and unneeded BACO APIs
-Thread-Topic: [PATCH 1/2] drm/amd/pm: drop redundant and unneeded BACO APIs
-Thread-Index: AQHXHJ/7tV1D7BwaP0GVX8ZfbZ2zsqqLK3GAgARfvWA=
-Date: Mon, 22 Mar 2021 06:12:13 +0000
-Message-ID: <DM6PR12MB261924F40CD6FB751D9253C1E4659@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210319091155.537787-1-evan.quan@amd.com>
- <DM5PR12MB2533143196D7A67C08F847BCED689@DM5PR12MB2533.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB2533143196D7A67C08F847BCED689@DM5PR12MB2533.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH v2 0/8] Add mode2 reset support for aldebaran
+Thread-Topic: [PATCH v2 0/8] Add mode2 reset support for aldebaran
+Thread-Index: Adce31/4KuLMVGQgR/K1fu1T4rIRdgAAeBSQ
+Date: Mon, 22 Mar 2021 06:13:13 +0000
+Message-ID: <DM6PR12MB4075B499DC827EA912971582FC659@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <MN2PR12MB45490FA91C151ACEAA0D88C797659@MN2PR12MB4549.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB45490FA91C151ACEAA0D88C797659@MN2PR12MB4549.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-22T06:12:11Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-22T06:13:09Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=fb0750a1-5dd9-458d-a47f-bd44d22dd2e1;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e349814e-87ec-4ade-9d22-3e96bab52ea7;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 39a4080b-5fc0-4b1d-a63c-08d8ecf96fc7
-x-ms-traffictypediagnostic: DM6PR12MB3081:
+x-ms-office365-filtering-correlation-id: 9bc24377-4b8f-45e7-3b36-08d8ecf99392
+x-ms-traffictypediagnostic: DM6PR12MB4433:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3081B677EBE9454759D3F37DE4659@DM6PR12MB3081.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-microsoft-antispam-prvs: <DM6PR12MB4433D248321AA4044FFD1909FC659@DM6PR12MB4433.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VdF2pIV90azZ899ZanHhYJnXQ8wS+Br3Plf49IF1zlwwUJXS7BZ5vYWrvz3+rEDr+gje6EmMH8cZvnmHlcjNWCiFhA0KgnKw85S+bQ0dNomFL7jxVG4PMR8Q494xtOb9u9CP95VZiVFuJpIwRRqE++/eMaGOXViBET36Xt9PkpLsJnPe3TDrOP26SKRW1J9i7a+tiH3ZYPVQmAr96RGiXIeEfV4hf3+LCnlNkVF5WfQuAyHanXPrcEMSdGtFT4G3r1AxHF7xsWuSmGzevo8/uTkXAg1uIwBpayLWGkX9nPkyQIsTbLKO9yFrb3wmDTpMPravG/KH54jg0g3cEdU8njNUCC49bgjvpFRw+ZdS9E/okLEo/nD0NH68H4109+EuQBIe8icrRRuLA5/FFaXK+O9NuIwDGH/Iy4+KzYYo3Odyur0OvouvfRNQVmwiP4hwAnVBtkBXA+lU1RST4j7Pz6asEAEllACp1uwpIiMDisgTxvrxkQ2gqj3K+gr4aZGnLnwp3N1qcq4v9dMe52b9lQUWnG1c865oDA058CCR8RhmyNpq/PqZ7egCFHaDyoQLFbjnbDrCoOZiTpWbnWtRgFBx9REu1URHDS9vKgI6QSK9caqLd0c65XHU1+Egwq6+T4rJFzIRmI8vBw7KT6n6hRH7R+gXeGfQ7PU1FO19dozxYpuKhceYleCSHsQOm2LADgA9s+mfQPYQhl07a4Cpog==
+x-microsoft-antispam-message-info: yJhSuWsBHojopKSd8+nkcUu6Bm9cfcLZWsEjz/5kF+s0UBe22Hijg6MjbXh6nmODLomm40xlCynw+DLepKjCUQ2V3D1wq21rOiFXRHVRJpNXa2m4Ov3xsrxJAPyCeVIZDCGscFNnTsIK1dhY34ifI+Z2DxqCihv1Manek1LlJVZN2DXPrF1+ATCwqL/V0kQPnZBKQHF51BU4PM/1eZucC8RVUx0XrC/DQfhqkPakMpNfrJEWFpVPxH2rZPxd+7u2vUxPpwAqc3DfJuQ5N2u5y1xTZ+ShEM7zNrO9TuJ0MCY9MhK0TrA3EeEMVJO16bcp2MbOtGNzc4o3HyVfo+A1v7/8DKYmeFaxIILy/qJAR3z5tJOex9fcqtmyAsL+zbNYjxHp7+HoMxymlk1oZK2HMmcVAM45BBum2P4US+CzxBL+ra82SJCqkqC/GJG0zP3zTt07kNKVyzFnA9spiv5dv+hRyzl8CoU1/Ul4KaSgS95EsmRA1LChtjKRrJzgCuSHHCOWPFKaCmnZE9rXP4NafU8qC4GMgWJniiSMGRG+eWMlTbGnbFmK1ivy18qo8aPl17/aR4VFMuEQem4RHS323VTPL1uaqAbDqUM67EndMxQUuNghvyoiWjopDak1/Vqx2tAHoXhS5Y0RlvcBWFKLDcFZMWsHY9RtYzdodVFH+vM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(396003)(39860400002)(366004)(346002)(38100700001)(83380400001)(45080400002)(478600001)(71200400001)(7696005)(2906002)(6506007)(53546011)(86362001)(76116006)(186003)(110136005)(316002)(26005)(966005)(66556008)(8676002)(66476007)(66946007)(64756008)(66446008)(55016002)(52536014)(8936002)(33656002)(9686003)(5660300002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(376002)(136003)(396003)(346002)(76116006)(38100700001)(66946007)(66446008)(66556008)(64756008)(110136005)(52536014)(316002)(86362001)(2906002)(5660300002)(478600001)(4326008)(8936002)(71200400001)(83380400001)(55016002)(26005)(9686003)(33656002)(186003)(8676002)(6506007)(53546011)(66476007)(7696005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?Mk4rTFBsN2xhSUErSWhsSnYyNzM5MTRnMHZ0NGJ4K0RwT2VkZEtSMWlvZXhS?=
- =?utf-8?B?UzJEYmJJVnBqU0hIZHMvVW85ZWRvUTVsbG9HN2hDNjFUcXdIcS92Y1VPejMz?=
- =?utf-8?B?ZWhGcXdNcmZDYks1NVFWTmkzY1RWQXhyZHlVOEFyQk9uYzYrWUtBQkxZQWN1?=
- =?utf-8?B?cFEycXlmc1B6ZXNGT1NMLyt6a3VyVjJ4aHBtcjdzTENUUGhkZGhWSWs1Vkhp?=
- =?utf-8?B?U1kzQXBiUCsyQUJNU05ZOEZqSXY4TTdkL082QUhWN0ZJalE1K3NDZHFkQnhI?=
- =?utf-8?B?bFMvMHFRUmZCYVNKTkE1T3kvSzJ0czUyMWlnSDliSmJsUnU1SmtXcXBya1dH?=
- =?utf-8?B?SmtNcWgzWlR0OFpZYlpTZEUxZlJtNitEYzl1QU13bHppYU9mSFQ0U1dBRmNG?=
- =?utf-8?B?UHZRdlVpZFZCMFR4RDlzZEZHYWVDMUZ6aVVueGcwaHYrOWZ2cjZVeUJnQy9w?=
- =?utf-8?B?QjZxejNJaW9iZ2VicDhGcnh1bUtld3dhTE0rWGJmYWdGYzMyRFpGcGdZeGtz?=
- =?utf-8?B?dGFuZkRzQjdZcElWWk9CdG5ON2pIdklPM092MExtVkFhQ0MrTjR3b0QwN3Vu?=
- =?utf-8?B?MnlmdW1VMnZucm1CUGt0Y0JkWnFCRVdpQlR3dVhIazVOaERTS2drWWFkR0Jl?=
- =?utf-8?B?N0J0MUg2UFdCNkFub1RWQnRJUno5NENtSHJWNU5jc21SNGxHcEovUldkVTJR?=
- =?utf-8?B?akcvQWJ5TzVJa25IbFZxQjZFYVROd0U3bGx2bFJlVXdsUE1tcFhMNmhBNS80?=
- =?utf-8?B?SmFzV1pxL3NGcmZKVVdORDIyZ2NDZ0V1TStSYTNUaFdaR0hTMVN0V0ZUMzNW?=
- =?utf-8?B?Z3FEcU10WnVQcmltZDhzNTM2Tll6WUIrR2x6NXBWT3RtNkRMU1BoVTg3QkM1?=
- =?utf-8?B?TmtMM1hJZ21XSlN3dnU3eVkwT1FEUEpOd2VEc0F4RGlWL1pmUVRLaHpFYTB1?=
- =?utf-8?B?UEY1R1dCNHBjdDY5UjZKVVhETzFkZjlmaUtJZDNRTVN2WFVhNzlSaHMrRXVG?=
- =?utf-8?B?R3lyZGUya01odERrMS9lcHdvTXRPN0VjY0ttMDB1NXlqSWR0ZUFtR3k2U2ZJ?=
- =?utf-8?B?eTdXNWk3UnQ5T1BJcVJJQWcxSVFKbGlsbkJEblhrakwxc3J4ZlRuT2ZqaUZN?=
- =?utf-8?B?dGpxNUpjV1VDcnVqY2pJYlZjV0l6RlpGQW8rMHhrWkdTSUpUaGdyY0x3NXN6?=
- =?utf-8?B?bXFrOFI4NWp5QW5OdkRiTlpROW1oMFhyb0tRbWhDSUw1WnRKRkMzZnZWTW8z?=
- =?utf-8?B?U0lQY2xqZ0xSWHRzK0JIOENNVUNLdzdyU2k1OEVaQ1lPR3g4ZHZDbmw1bk9O?=
- =?utf-8?B?V2hKNTBFdU55ekIvWVZhWXBNelhETktGcnAxejdxMGNkT3FqRSs4cFNSbWlq?=
- =?utf-8?B?YTJPNlZDdHByWTluUExGN21UUEJlQ01uRjhlVWcxUW9ReStiUUdZdStxcVM0?=
- =?utf-8?B?MUhpNVNERjhWalNnQXV0QU9ldU04NERJUXlrSyt0SGliVW5YNXFlTmQveDFY?=
- =?utf-8?B?dGk5d2pVc2t1Q0tza09hNGJRc0cwbVVZekFmeSswMU4vUmxLM0Zib1J3UFRN?=
- =?utf-8?B?V29wWndGeWlMc09zT1R6M3dFcDF0UlFHMkJnVTFHN0Q0Y294cWtrbmt5Z256?=
- =?utf-8?B?OURKam1zOW5aTHZ3WDBEenBDdGo0Zk5tTjlTWXVlK3lsemgvTWFBKytQTkFM?=
- =?utf-8?B?RXNRbGwwVlMvT1RRampRdTBJcW1tbkl6ck1oOHhmQlNPUEF5ck5GUGVmNTg3?=
- =?utf-8?Q?leLG3IaaY/dHVg4vyVG5uMEFT2OgmLu9QciRGHE?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?X1UYlz1eVAyWG/mVodw7WP6Ncla83CeEcTSChnwgsabP8102+pZ44a0aR2Dk?=
+ =?us-ascii?Q?53zsPge5wIM1djB+8aYfpKmDO1qEjGXEjgkObl85g0h8gB5Fx5At3rR9olAC?=
+ =?us-ascii?Q?h1pI/1teEoXeWElrCWOnVJRA5HPt6pC+djCJOWUio5xMsm6gpG7rYjyOZvbn?=
+ =?us-ascii?Q?54LfRTLc5p0JhKxFiLy3rh4lF/9wue1VvTa5kxLBh98RarYqgMvfT+Z23X8S?=
+ =?us-ascii?Q?C73GbRCsvHQCvGJINS0mt4KUCnVG1clXBDKyF+1c1P6DjXefpyVyoKP0Gav1?=
+ =?us-ascii?Q?BQKR/YUwKcx9YI79bGub3yuFipn9VpzhaHsqtfbgBp1y3q4Prw0c5Hf11hZi?=
+ =?us-ascii?Q?hiUJmwuMjsWAjfB8/UOInQk/b7Lm10suMi8v6l9i/wvxw7J4uQNfIYTCz47y?=
+ =?us-ascii?Q?Ll9SaOYVKK3zF1RZQ8GhAm+jJ1fXakgcEVeEacbedIpE2eDJZSHboDtA0twM?=
+ =?us-ascii?Q?VwWPXkTkbHS/fku3nipVI+84xcCq1vpISqtIimJqHcSfyBvrmMK79qZpLsrX?=
+ =?us-ascii?Q?twGGhLBKaCH/Es4Mwijkwr0VqRcauX6L13TP83IcPantWPdHOlaopHklzp3t?=
+ =?us-ascii?Q?/UUMQP2ZLEfB6znIUTuJi3qmU/mmyBg56ECi4psd0hYSad0QK+G5/EDWYOhR?=
+ =?us-ascii?Q?Dt94urZBlvz8eqgxUycP2qxJTFpHU6ftoi5ZPB3x9oKz1o5UBW5V46XPA21e?=
+ =?us-ascii?Q?UCoIUhuMRkIDPOewBSMv+6/WxqlF3fn7D9LnFmoPnXo3UdCa0xRJByDtjiCW?=
+ =?us-ascii?Q?Ce3qbrAuY03GFnwqa1JBCocUri334LKxosM6fUBq5/t3YMfR4UyUkmOCjqWg?=
+ =?us-ascii?Q?IMXTdQcbxMYXWz6KkvnuQiFkMpYWYEOttHl7y8aHbHeHNi4IqsnG8TawU6UD?=
+ =?us-ascii?Q?+OQ5wcHEBHWmTqDpWZsa2Tt85JEPBj4UVH6sIZg/Pnm3gA3D5UU90jdMQvnz?=
+ =?us-ascii?Q?jocrPhhbYajLDIrYbfzj0h1YBi5VoqR8iVpiyNmf+6bTcC1lPG3ZQh31oRIi?=
+ =?us-ascii?Q?tN1aO+u56uRTAsM5KzyYKNg8+K/XSmYH7e4WhttnUR+nJFSFZ925LIO1GnCB?=
+ =?us-ascii?Q?A2A9bJtVRGHD1FYzJfc1wSSH5N8g5dvC7xsWMDtiSRBe1v5pmbGA9iu1AeVS?=
+ =?us-ascii?Q?72ZAZxKLvpDzaZj9wuC/OaEIzxuGWykEIsMGwrg4nUfWMcSKzx2tU/fd45sX?=
+ =?us-ascii?Q?+VKTlvXNi4sU5xeE7lUO8VnDEesHjUF2fosYavCKpDxR7n1O1+/Nk1UURgsi?=
+ =?us-ascii?Q?WgJpxLBIFaHYKrjTFgF0tRARq15qqc0ikaEEMbJQh7jPH0yP3FwaQGFa21K1?=
+ =?us-ascii?Q?5FcxDBMibocYJwG8l9JQaCjD?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39a4080b-5fc0-4b1d-a63c-08d8ecf96fc7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2021 06:12:13.8452 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bc24377-4b8f-45e7-3b36-08d8ecf99392
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2021 06:13:13.8516 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DhYdbWAp9s0dMmZUWGy6TpAPm5yiAl7voixTzd0EyAuymSJrJkc0TyyWbDnr0+bS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3081
+X-MS-Exchange-CrossTenant-userprincipalname: wRWwCYZGcVp7Q36dErL2kD1PJ992+EbfNdymvEnM5t1fJQvPIluEz4wVarSH/fYKNgyFfMS6wIAGQZddXwPt5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,238 +130,325 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: multipart/mixed; boundary="===============0584923555=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--===============0584923555==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB4075B499DC827EA912971582FC659DM6PR12MB4075namp_"
+
+--_000_DM6PR12MB4075B499DC827EA912971582FC659DM6PR12MB4075namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 [AMD Public Use]
 
-Thanks Dennis. Please check V2 with that updated.
+Series is
 
-BR
-Evan
------Original Message-----
-From: Li, Dennis <Dennis.Li@amd.com> 
-Sent: Friday, March 19, 2021 7:24 PM
-To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Quan, Evan <Evan.Quan@amd.com>
-Subject: RE: [PATCH 1/2] drm/amd/pm: drop redundant and unneeded BACO APIs
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-[AMD Official Use Only - Internal Distribution Only]
-
-Hi, Evan,
-      It is better to replace all nv_asic_supports_baco callings with amdgpu_dpm_is_baco_supported, and remove nv_asic_supports_baco function. 
-
->>> static bool nv_asic_supports_baco(struct amdgpu_device *adev)  {
->>> -	struct smu_context *smu = &adev->smu;
->>>-
->>>-	if (smu_baco_is_support(smu))
->>>-		return true;
->>>-	else
->>>-		return false;
->>>+	return amdgpu_dpm_is_baco_supported(adev);
->>>}
-
-Best Regards
-Dennis Li
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Evan Quan
-Sent: Friday, March 19, 2021 5:12 PM
+Regards,
+Hawking
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Monday, March 22, 2021 13:57
 To: amd-gfx@lists.freedesktop.org
-Cc: Quan, Evan <Evan.Quan@amd.com>
-Subject: [PATCH 1/2] drm/amd/pm: drop redundant and unneeded BACO APIs
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: [PATCH v2 0/8] Add mode2 reset support for aldebaran
 
-Use other APIs which are with the same functionality but much more clean.
 
-Change-Id: I5e9e0ab5d39b49b02434f18e12392b13931396be
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c           | 20 +----
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  9 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 95 -----------------------
- 3 files changed, 3 insertions(+), 121 deletions(-)
+[AMD Public Use]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index e9cc3201054f..2670ae00c2e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -517,19 +517,12 @@ static int nv_asic_mode2_reset(struct amdgpu_device *adev)
- 
- static bool nv_asic_supports_baco(struct amdgpu_device *adev)  {
--	struct smu_context *smu = &adev->smu;
--
--	if (smu_baco_is_support(smu))
--		return true;
--	else
--		return false;
-+	return amdgpu_dpm_is_baco_supported(adev);
- }
- 
- static enum amd_reset_method
- nv_asic_reset_method(struct amdgpu_device *adev)  {
--	struct smu_context *smu = &adev->smu;
--
- 	if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
- 	    amdgpu_reset_method == AMD_RESET_METHOD_MODE2 ||
- 	    amdgpu_reset_method == AMD_RESET_METHOD_BACO || @@ -548,7 +541,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
- 	case CHIP_DIMGREY_CAVEFISH:
- 		return AMD_RESET_METHOD_MODE1;
- 	default:
--		if (smu_baco_is_support(smu))
-+		if (amdgpu_dpm_is_baco_supported(adev))
- 			return AMD_RESET_METHOD_BACO;
- 		else
- 			return AMD_RESET_METHOD_MODE1;
-@@ -558,7 +551,6 @@ nv_asic_reset_method(struct amdgpu_device *adev)  static int nv_asic_reset(struct amdgpu_device *adev)  {
- 	int ret = 0;
--	struct smu_context *smu = &adev->smu;
- 
- 	switch (nv_asic_reset_method(adev)) {
- 	case AMD_RESET_METHOD_PCI:
-@@ -567,13 +559,7 @@ static int nv_asic_reset(struct amdgpu_device *adev)
- 		break;
- 	case AMD_RESET_METHOD_BACO:
- 		dev_info(adev->dev, "BACO reset\n");
--
--		ret = smu_baco_enter(smu);
--		if (ret)
--			return ret;
--		ret = smu_baco_exit(smu);
--		if (ret)
--			return ret;
-+		ret = amdgpu_dpm_baco_reset(adev);
- 		break;
- 	case AMD_RESET_METHOD_MODE2:
- 		dev_info(adev->dev, "MODE2 reset\n"); diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 517f333fbc4b..02675155028d 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -1285,15 +1285,6 @@ int smu_get_power_limit(struct smu_context *smu,
- 			uint32_t *limit,
- 			enum smu_ppt_limit_level limit_level);
- 
--int smu_set_azalia_d3_pme(struct smu_context *smu);
--
--bool smu_baco_is_support(struct smu_context *smu);
--
--int smu_baco_get_state(struct smu_context *smu, enum smu_baco_state *state);
--
--int smu_baco_enter(struct smu_context *smu); -int smu_baco_exit(struct smu_context *smu);
--
- bool smu_mode1_reset_is_support(struct smu_context *smu);  bool smu_mode2_reset_is_support(struct smu_context *smu);  int smu_mode1_reset(struct smu_context *smu); diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 4120d28f782b..1bb0c0966e3d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2682,48 +2682,6 @@ static int smu_set_xgmi_pstate(void *handle,
- 	return ret;
- }
- 
--int smu_set_azalia_d3_pme(struct smu_context *smu) -{
--	int ret = 0;
--
--	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
--		return -EOPNOTSUPP;
--
--	mutex_lock(&smu->mutex);
--
--	if (smu->ppt_funcs->set_azalia_d3_pme)
--		ret = smu->ppt_funcs->set_azalia_d3_pme(smu);
--
--	mutex_unlock(&smu->mutex);
--
--	return ret;
--}
--
--/*
-- * On system suspending or resetting, the dpm_enabled
-- * flag will be cleared. So that those SMU services which
-- * are not supported will be gated.
-- *
-- * However, the baco/mode1 reset should still be granted
-- * as they are still supported and necessary.
-- */
--bool smu_baco_is_support(struct smu_context *smu) -{
--	bool ret = false;
--
--	if (!smu->pm_enabled)
--		return false;
--
--	mutex_lock(&smu->mutex);
--
--	if (smu->ppt_funcs && smu->ppt_funcs->baco_is_support)
--		ret = smu->ppt_funcs->baco_is_support(smu);
--
--	mutex_unlock(&smu->mutex);
--
--	return ret;
--}
--
- static int smu_get_baco_capability(void *handle, bool *cap)  {
- 	struct smu_context *smu = handle;
-@@ -2744,59 +2702,6 @@ static int smu_get_baco_capability(void *handle, bool *cap)
- 	return ret;
- }
- 
--
--int smu_baco_get_state(struct smu_context *smu, enum smu_baco_state *state) -{
--	if (smu->ppt_funcs->baco_get_state)
--		return -EINVAL;
--
--	mutex_lock(&smu->mutex);
--	*state = smu->ppt_funcs->baco_get_state(smu);
--	mutex_unlock(&smu->mutex);
--
--	return 0;
--}
--
--int smu_baco_enter(struct smu_context *smu) -{
--	int ret = 0;
--
--	if (!smu->pm_enabled)
--		return -EOPNOTSUPP;
--
--	mutex_lock(&smu->mutex);
--
--	if (smu->ppt_funcs->baco_enter)
--		ret = smu->ppt_funcs->baco_enter(smu);
--
--	mutex_unlock(&smu->mutex);
--
--	if (ret)
--		dev_err(smu->adev->dev, "Failed to enter BACO state!\n");
--
--	return ret;
--}
--
--int smu_baco_exit(struct smu_context *smu) -{
--	int ret = 0;
--
--	if (!smu->pm_enabled)
--		return -EOPNOTSUPP;
--
--	mutex_lock(&smu->mutex);
--
--	if (smu->ppt_funcs->baco_exit)
--		ret = smu->ppt_funcs->baco_exit(smu);
--
--	mutex_unlock(&smu->mutex);
--
--	if (ret)
--		dev_err(smu->adev->dev, "Failed to exit BACO state!\n");
--
--	return ret;
--}
--
- static int smu_baco_set_state(void *handle, int state)  {
- 	struct smu_context *smu = handle;
+This patch series adds support for mode2 reset for aldebaran. Since the
+reset sequence is completely different from existing ones, it adds
+supports using a new reset control method. The reset control and
+handlers can be installed and handle specific types of resets.
+
+v1:
+1. Changes to the mode2 sequence as PCI space gets lost during the
+sequence.
+2. Add support to wait for specific events from PMFW. Reset complete is
+considered as one such event.
+3. Add support to wait for reset completion on aldebaran
+4. Add a new reset control and reset handler method. Reset control can
+be installed at device, hive or ip level. For now, it's done only at
+device level
+5. Add reset control mechanism to the current recover sequence.
+6. Expose PSP function to load a list of firmwares
+7. Expose CG/PG set functions for use outside of device
+8. Add mode2 reset and restore sequences for aldebaran.
+
+v2:
+- Coding style fixes
+- Mutex protection for new smu api (#2)
+- Clear bus mastering before reset (#8)
+
+Lijo Lazar (8):
+  drm/amd/pm: Modify mode2 msg sequence on aldebaran
+  drm/amd/pm: Add function to wait for smu events
+  drm/amd/pm: Add support for reset completion on aldebaran
+  drm/amdgpu: Add reset control to amdgpu_device
+  drm/amdgpu: Add reset control handling to reset workflow
+  drm/amdgpu: Add PSP public function to load a list of FWs
+  drm/amdgpu: Make set PG/CG state functions public
+  drm/amdgpu: Add mode2 reset support for aldebaran
+
+drivers/gpu/drm/amd/amdgpu/Makefile           |   7 +-
+drivers/gpu/drm/amd/amdgpu/aldebaran.c        | 380 ++++++++++++++++++
+drivers/gpu/drm/amd/amdgpu/aldebaran.h        |  34 ++
+drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  20 +-
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  96 +++--
+drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 +-
+drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  17 +
+drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   4 +
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  98 +++++
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald |  98 +++++
+drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h     |  87 ++++
+drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   8 +-
+drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h  |   3 +-
+drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  16 +-
+drivers/gpu/drm/amd/pm/inc/smu_types.h        |   1 +
+drivers/gpu/drm/amd/pm/inc/smu_v13_0.h        |   5 +
+drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  14 +
+.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  57 ++-
+.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  42 +-
+drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   2 +-
+drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   2 +
+21 files changed, 956 insertions(+), 52 deletions(-)
+create mode 100644 drivers/gpu/drm/amd/amdgpu/aldebaran.c
+create mode 100644 drivers/gpu/drm/amd/amdgpu/aldebaran.h
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald
+create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+
 --
-2.29.0
+2.17.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CDennis.Li%40amd.com%7Cb00f935cbf75466856f508d8eab71ff8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637517419531562871%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=J%2FeyHZ%2FPq2ASS5faBddw7PhJh%2FA2Jep4gKnbZ1J122I%3D&amp;reserved=0
+
+--_000_DM6PR12MB4075B499DC827EA912971582FC659DM6PR12MB4075namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Series is<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
+&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Monday, March 22, 2021 13:57<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v2 0/8] Add mode2 reset support for aldebaran<o:p></=
+o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">This patch series adds support for mode2 reset for a=
+ldebaran. Since the<o:p></o:p></p>
+<p class=3D"MsoNormal">reset sequence is completely different from existing=
+ ones, it adds<o:p></o:p></p>
+<p class=3D"MsoNormal">supports using a new reset control method. The reset=
+ control and<o:p></o:p></p>
+<p class=3D"MsoNormal">handlers can be installed and handle specific types =
+of resets.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">v1:<o:p></o:p></p>
+<p class=3D"MsoNormal">1. Changes to the mode2 sequence as PCI space gets l=
+ost during the<o:p></o:p></p>
+<p class=3D"MsoNormal">sequence.<o:p></o:p></p>
+<p class=3D"MsoNormal">2. Add support to wait for specific events from PMFW=
+. Reset complete is<o:p></o:p></p>
+<p class=3D"MsoNormal">considered as one such event.<o:p></o:p></p>
+<p class=3D"MsoNormal">3. Add support to wait for reset completion on aldeb=
+aran<o:p></o:p></p>
+<p class=3D"MsoNormal">4. Add a new reset control and reset handler method.=
+ Reset control can<o:p></o:p></p>
+<p class=3D"MsoNormal">be installed at device, hive or ip level. For now, i=
+t's done only at<o:p></o:p></p>
+<p class=3D"MsoNormal">device level<o:p></o:p></p>
+<p class=3D"MsoNormal">5. Add reset control mechanism to the current recove=
+r sequence.<o:p></o:p></p>
+<p class=3D"MsoNormal">6. Expose PSP function to load a list of firmwares<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">7. Expose CG/PG set functions for use outside of dev=
+ice<o:p></o:p></p>
+<p class=3D"MsoNormal">8. Add mode2 reset and restore sequences for aldebar=
+an.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">v2:<o:p></o:p></p>
+<p class=3D"MsoNormal">- Coding style fixes<o:p></o:p></p>
+<p class=3D"MsoNormal">- Mutex protection for new smu api (#2)<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">- Clear bus mastering before reset (#8)<o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Lijo Lazar (8):<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Modify mode2 msg sequence on alde=
+baran<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Add function to wait for smu even=
+ts<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amd/pm: Add support for reset completion =
+on aldebaran<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add reset control to amdgpu_devic=
+e<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add reset control handling to res=
+et workflow<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add PSP public function to load a=
+ list of FWs<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Make set PG/CG state functions pu=
+blic<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; drm/amdgpu: Add mode2 reset support for aldeb=
+aran<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 7 +-<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/aldebaran.c&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 380 ++++++++++++++++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/aldebaran.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 34 ++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 20 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 96 +++--<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 17 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 17 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 98 +++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c.ald |&nbsp=
+; 98 +++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 87 ++++<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 8 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/aldebaran_ppsmc.h&nbsp; |=
+&nbsp;&nbsp; 3 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 16 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_types.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 5 +<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 14 +<o:p></o:p></p>
+<p class=3D"MsoNormal">.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 57 ++-<o:p></o:p></p>
+<p class=3D"MsoNormal">.../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c&nbsp;&nbs=
+p;&nbsp; |&nbsp; 42 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +<o:p></o:p></p>
+<p class=3D"MsoNormal">21 files changed, 956 insertions(+), 52 deletions(-)=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/aldeba=
+ran.c<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/aldeba=
+ran.h<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.c<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.c.ald<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu=
+_reset.h<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB4075B499DC827EA912971582FC659DM6PR12MB4075namp_--
+
+--===============0584923555==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0584923555==--
