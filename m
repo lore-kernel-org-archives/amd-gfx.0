@@ -2,60 +2,129 @@ Return-Path: <SRS0=Az3f=IU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B4AC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27370C433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:07:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F34A1619A3
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F34A1619A3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id B8978619B5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Mar 2021 16:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8978619B5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130516E50B;
-	Mon, 22 Mar 2021 16:03:20 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A28D6E4AE;
- Mon, 22 Mar 2021 14:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=N3XxQ2BvoH2USDw7/7l5KlhyWNYrIOJ2SRRjJXkBfDU=; b=jwON3c1pPcPA9bNRM4iK0JyckF
- BzGo+8UXS+seZ4SDF4XwP8u1Pprwa0VoBcXl8uLphI361ysCm9Ztk0JHLcFFt8bKzybjmD9antpz0
- eKPScsv74paX2UYCLVi8iIePDHq6NupMzQkvXuEG9rne5wmO8hcye73bCvHd+sSKOv7QJbcj5FMLq
- lX8p+TE8VzzasRoKnxQnby14LaqqC4NNix072GPxdRIwdo9elVpq59HDb0d+KKhP16VOFZvpTUxEd
- l5t1Ugghd5yoNyqVPO6njpnmVN6+7NzsUMrScBD34FbJVdALxPs7IPZzKssZSG9GtGb/SSDp8CEc/
- Yiiz5zVw==;
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
- Linux)) id 1lOLBk-008c2u-1m; Mon, 22 Mar 2021 14:05:55 +0000
-Date: Mon, 22 Mar 2021 14:05:48 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <20210322140548.GN1719932@casper.infradead.org>
-References: <20210319140857.2262-1-christian.koenig@amd.com>
- <YFTk1GSaUDI3wcWt@phenom.ffwll.local>
- <2831bfcc-140e-dade-1f50-a6431e495e9d@gmail.com>
- <YFT2LSR97rkkPyEP@phenom.ffwll.local>
- <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
- <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
- <YFigZ5+H95c/GI/S@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6833A6E50D;
+	Mon, 22 Mar 2021 16:07:06 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680079.outbound.protection.outlook.com [40.107.68.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 564186E50D;
+ Mon, 22 Mar 2021 16:07:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZDQUJAWeqw9rEkVTB4iNhlujlhUjhHAet8MNALIgnTn2S4O/aGhay9dKF/z3U3hWIA07QeZaaaJKEYEsqSrmuwyQjRCMh1e+9KxD3anW7hgvhgtzMF9P//PGjq4E0Wawej5esbSIFRUcToB6tj2IvBcI7r6tz2dUB0xdGcwaljNRpNSwF4QSt5znaAoa2slCK9WyIuIx9iFyNoKjSiyMADW+aTP4gK0Jvqm6DOy2tIK1QNx/Tg1ge36EkycOJxc6IFX137gYaeQqIjDfxxhRG1k2QrO6e2Eewuy5jcGoD5zG3DhIkuZ729tx8r+HB5/cfy7+ibMQ9pN1u6zqyZhYsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z3M+kbfM304ytgxwlMQs23Ih3GbQwJjKaLb6fL9B/pM=;
+ b=fbjoVaDgt81VwsDRe4dy54R9MPwKGlxE4j2IkXSi9pqqru9T+4KEmV0geSsMkL7rWNrII3P6xmMS+m5+Zvn+yMG8wuPI3nMy5V9t2sTbCOE+sHbTZwhwnAjPMMBa55vTxvWHBKQf+pNNAxiPloShjmIkKsH7P60UN6KK8ldSLdXLy8In3jjd0CZ4WYllhnFS954oo8ecI3+A/WqKwaCHnBf1QEl+pkC8nDpHRfm8bIM5VJIYaAs5SJmxmzyMhwb8aBxW2Chyh95db8dmbUSodAuLAR05L9DanbUzTzYS56GcCsSbb5RE8+/eKRrVn+v1cXL3gMc4Y6oLZ2wlCYwtAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z3M+kbfM304ytgxwlMQs23Ih3GbQwJjKaLb6fL9B/pM=;
+ b=wyFitTbJ68GZ6l+AuV60cPGZqRx0efyxriaqAu6zQ87SDfVUVQ+X8iAKEuTPyZd2qFtg3Vo77t6Ok7WMqT0bMgQA8VhX+P2wH8BUQAE9HNtGj2oRmJhVUnm+yMuKndPln5cXaKJzmLXGjxoBW7xvrjEdhzvROUqc1azvrrcV4dw=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by BL0PR12MB4690.namprd12.prod.outlook.com (2603:10b6:208:8e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Mon, 22 Mar
+ 2021 16:07:03 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033%5]) with mapi id 15.20.3933.036; Mon, 22 Mar 2021
+ 16:07:03 +0000
+Subject: Re: [PATCH 00/44] Add HMM-based SVM memory manager to KFD v2
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20210322105900.14068-1-Felix.Kuehling@amd.com>
+ <YFimfx6CFAWIou2t@phenom.ffwll.local>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <aead1e5f-987f-3d53-a457-5f78618e49ac@amd.com>
+Date: Mon, 22 Mar 2021 12:06:51 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <YFimfx6CFAWIou2t@phenom.ffwll.local>
+Content-Language: en-US
+X-Originating-IP: [142.116.84.209]
+X-ClientProxiedBy: YTXPR0101CA0022.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::35) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YFigZ5+H95c/GI/S@phenom.ffwll.local>
-X-Mailman-Approved-At: Mon, 22 Mar 2021 16:03:17 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.116.84.209) by
+ YTXPR0101CA0022.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3955.24 via Frontend Transport; Mon, 22 Mar 2021 16:07:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e105d631-09ad-4147-0ea6-08d8ed4c8838
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4690:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB46909C1969FABEE9D6BD817992659@BL0PR12MB4690.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LgCHbd2kiEaPZcagR7qQcgGzz40RQ+RgoFeoWRcxp6LEWeuUAHEsMDfruQLcIm8oNT+N9y0I/yBKjHu626K1R3mxoOwUPKLL4qQHQofaLwJ43KLGjGn3t5J+p3fi7j3ZSgaWYEWsM43ZoHYX533Qo1JWHx5LEdEaKIvUCt7C+lmWF02udHzZroPBBU6IVIMGFfSI9wBzVkjsMvQw5ZWl0B/SizTIdsJCukwRiL1PVdvYZgRnLjSCCiMNX6NaJrvVprdeWgSJs/he2DgT3mjuZG1Kz4j7hWOyQGNiEJ9yzaCBZLRDcdZdy0YYbKO5YHY1WW5b9naXlW9PDH85R0Y23in9cKWFx20FLxzm50WkrBPAqHizwr0/cli0ESuveYBLQ1EoXuNfKvgJx3lvvws1v9iAiMjuwJR4Ep84U9oSAFugWtKJTfnde0N1/9Aq5eHpfD2EMwegyxJ8+hPX5OrcAMIh/THvkBHdJ8RN0AMDC8GoTneouzu8oRuFPFIx+UtMpyv8oVyJEut76srqyj6r32pJY4rA+7v+TiA1fn4WnG4GEx6RePwtdLxRzAay05xsMAo8cIXRdWyudUsBbmhP7Gwea8do03kMb8QQXb8X8q4YTD8YOZOVupk/o3zBhRPxZmZ7/tHAOj27zsrgfwFvzuAZjhEfNLh55I5HecQ+nAM5IZHnOPvlK0HDnK6ehk6XjJU38LwgVrdNdXaHhml7NKLq8r64/3T727jSb4anwnlNSWpIKGBIXomHeecoLDlAViLutTlFRmJYI+0riSw1FCVIQcrCjeddlL5ESd+e7EY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(956004)(31696002)(2616005)(31686004)(966005)(44832011)(4326008)(6486002)(86362001)(8936002)(5660300002)(16576012)(478600001)(316002)(8676002)(83380400001)(36756003)(2906002)(16526019)(186003)(66476007)(26005)(66556008)(66946007)(6666004)(38100700001)(6916009)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WUUzSEVmQ25FRjZLQnJxamdsOEZjTC8ya1V1bmJhTy9YcFI4bHBaejh5VUtm?=
+ =?utf-8?B?TStaWmpQQXRaS05sdklYZCtDbFlNR0lrOGhSWkc0bHpOODlES1hiaGhteDFn?=
+ =?utf-8?B?SFh2Y3N2dklnV2lJTURSZWRSYkFhTkl3OW92OXhaM1VVUjdqVlpTQVQ0djJq?=
+ =?utf-8?B?RXdzbUw0MytqRXIwMVdjS3ppNGQxNC8rK0RzZGFGWUtXNEtMRTBQUC9iTWJh?=
+ =?utf-8?B?RGw2eDNhUEIvdkFDcmR2MzdDMGY1S3krYW9FcGhsYTFYcTlKYkxzOHJucHRI?=
+ =?utf-8?B?UVQzL2lPTyt6Y0JtWkM0Y25WTEVwaEdxU2pxZk9DR21TUVVFekVEODdISGV2?=
+ =?utf-8?B?V3EzSys1MXplNDhMRVhLZWk5WFFGVS8yWXI5VlpUNW16UnMwckhXd1BQUWN6?=
+ =?utf-8?B?YWJCNGozQzhIYWJaQUZ3eXhBWWI0SmVyMFVmd3FTaFdaamM3dklFMWhCQkZk?=
+ =?utf-8?B?aVN3V284WHlTK2IybVNNVEJOK3ZZTDFyR2t3ZFdlQmZrNEViM2l5eXU5NTVn?=
+ =?utf-8?B?OHUvNDdmVThsbkdyZlFyUnA5MXdQeU5UZ2pFMEpUditVY211ajBiU3FIcFBT?=
+ =?utf-8?B?aDFOSWtteHhzNHVsZTJGM1g2QmNsYnVtdmZYSWQwQ3djY2xOaE5KSFNXSFFh?=
+ =?utf-8?B?OGdBeElOekk4Yi9JelhQZjRYTHBkK1B3czJHdHk0UGZSd3E4U0xGdHFOeFhJ?=
+ =?utf-8?B?NDFQblkzQ0VuMDVwWXB4enkyMmxLNHRkQXpsL09xbEkvbWFtMk1nenZ5WUhC?=
+ =?utf-8?B?M1VRM3I5NGUvMHZrVmpTZExsZlFPT1c4NzFmdWdteUN3d0VHeUVjOVdJbGo1?=
+ =?utf-8?B?cGlNZDdPY09UTGRTcDUzYzNlSUJLUEZYMnBlVHYxZnY1RjRreWdsOThFOFZP?=
+ =?utf-8?B?eitST1NzKzNpNmlRc1ZCNm5QTHpDV1lKbmxBV0x3QmljZ2ZNV01sNHlsM0t6?=
+ =?utf-8?B?cGRobmoyeG9rOEIvU0NHYk5yN1ZaeENaV1FlRlRZL2JnSkJKdHRCcXVFTTZP?=
+ =?utf-8?B?di8vYWc1c21pRGhRZTE5MVZkRXJJUjlmTS9iZWRxaU90d1pRWThkUDQydHlW?=
+ =?utf-8?B?UEZIUUY4VU1aWC9TVjJGRkVhcnlVR2lQZzJQLzRUNS9LSW1PaDM3cXBNbkRL?=
+ =?utf-8?B?aUdoV2tDZXR1ZFFQUEt2OHdVN2JDY2hLalNQcVAvYjJXRDBCTXduQ21lZzVS?=
+ =?utf-8?B?Z0dlVnlzK21NTWZDVGRPZTdOdjdEWlhpZGFsOWJacW1ZdXR0WWVPVllDNkx4?=
+ =?utf-8?B?bmQ2dm1oTjJoN0tzTDAwQ3ZTa2tNSVpPOTVxUEZXYlZXWk15cFl0NVNDTjJS?=
+ =?utf-8?B?MzRoN2VNRk5NSndPRUVJa09uaDRjZmFneUhsU0lVYmZOeDBkMmVDQ3I2NUpi?=
+ =?utf-8?B?TUliYlByRmVCUzlsMmpxVUthV1FsWkVYMWgzQ0kydXZkZFdHRXdBWnhicFVB?=
+ =?utf-8?B?eC9JaXU1bU9mRXJ4ckF5bEljVW1FZ2g2TE9vdDJOOFdLRFRKUm5TSEFTckZs?=
+ =?utf-8?B?a0t3R1BxVXdLN3VmWmtIN3Ztam51N1N2SlRwN2RLbTBtcXg3R0RIMGcxZFNM?=
+ =?utf-8?B?K3U3eGpKYU90Yk1yR2lyZWxybE1uRlljcVF5bXNlMGthMk11ZUpmQzI4UHR4?=
+ =?utf-8?B?eDZSeGRoWEI2aXpvYUE0Yktvd0pSUHVYZENaTm11M1AyWE9taDVKSnZ2SVJp?=
+ =?utf-8?B?MzJBSkhMTzJvUTNOMlROZW5rWWRDeE9jU0xzTk5XSnVxcytEaCtUdlNzMklG?=
+ =?utf-8?Q?nrW87WzAj0pzMQmUvcT5GcVmX0XqV1QnYa5eVMF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e105d631-09ad-4147-0ea6-08d8ed4c8838
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2021 16:07:03.3190 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6VgkUV5ATTwMOqum1UP2tvBDlXaaDq/LF2Ty6NYPDe504trNyKosSvHxtvLE/SaeJwfSZm4xn+NKKXfk/Y/IOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,250 +136,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mhocko@kernel.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 22, 2021 at 02:49:27PM +0100, Daniel Vetter wrote:
-> On Sun, Mar 21, 2021 at 03:18:28PM +0100, Christian K=F6nig wrote:
-> > Am 20.03.21 um 14:17 schrieb Daniel Vetter:
-> > > On Sat, Mar 20, 2021 at 10:04 AM Christian K=F6nig
-> > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > Am 19.03.21 um 20:06 schrieb Daniel Vetter:
-> > > > > On Fri, Mar 19, 2021 at 07:53:48PM +0100, Christian K=F6nig wrote:
-> > > > > > Am 19.03.21 um 18:52 schrieb Daniel Vetter:
-> > > > > > > On Fri, Mar 19, 2021 at 03:08:57PM +0100, Christian K=F6nig w=
-rote:
-> > > > > > > > Don't print a warning when we fail to allocate a page for s=
-wapping things out.
-> > > > > > > > =
-
-> > > > > > > > Also rely on memalloc_nofs_save/memalloc_nofs_restore inste=
-ad of GFP_NOFS.
-> > > > > > > Uh this part doesn't make sense. Especially since you only do=
- it for the
-> > > > > > > debugfs file, not in general. Which means you've just complet=
-ely broken
-> > > > > > > the shrinker.
-> > > > > > Are you sure? My impression is that GFP_NOFS should now work mu=
-ch more out
-> > > > > > of the box with the memalloc_nofs_save()/memalloc_nofs_restore(=
-).
-> > > > > Yeah, if you'd put it in the right place :-)
-> > > > > =
-
-> > > > > But also -mm folks are very clear that memalloc_no*() family is f=
-or dire
-> > > > > situation where there's really no other way out. For anything whe=
-re you
-> > > > > know what you're doing, you really should use explicit gfp flags.
-> > > > My impression is just the other way around. You should try to avoid=
- the
-> > > > NOFS/NOIO flags and use the memalloc_no* approach instead.
-> > > Where did you get that idea?
-> > =
-
-> > Well from the kernel comment on GFP_NOFS:
-> > =
-
-> > =A0* %GFP_NOFS will use direct reclaim but will not use any filesystem
-> > interfaces.
-> > =A0* Please try to avoid using this flag directly and instead use
-> > =A0* memalloc_nofs_{save,restore} to mark the whole scope which
-> > cannot/shouldn't
-> > =A0* recurse into the FS layer with a short explanation why. All alloca=
-tion
-> > =A0* requests will inherit GFP_NOFS implicitly.
-> =
-
-> Huh that's interesting, since iirc Willy or Dave told me the opposite, and
-> the memalloc_no* stuff is for e.g. nfs calling into network layer (needs
-> GFP_NOFS) or swap on top of a filesystems (even needs GFP_NOIO I think).
-> =
-
-> Adding them, maybe I got confused.
-
-My impression is that the scoped API is preferred these days.
-
-https://www.kernel.org/doc/html/latest/core-api/gfp_mask-from-fs-io.html
-
-I'd probably need to spend a few months learning the DRM subsystem to
-have a more detailed opinion on whether passing GFP flags around explicitly
-or using the scope API is the better approach for your situation.
-
-I usually defer to Michal on these kinds of questions.
-
-> > > The kernel is full of explicit gfp_t flag
-> > > passing to make this as explicit as possible. The memalloc_no* stuff
-> > > is just for when you go through entire subsystems and really can't
-> > > wire it through. I can't find the discussion anymore, but that was the
-> > > advice I got from mm/fs people.
-> > > =
-
-> > > One reason is that generally a small GFP_KERNEL allocation never
-> > > fails. But it absolutely can fail if it's in a memalloc_no* section,
-> > > and these kind of non-obvious non-local effects are a real pain in
-> > > testing and review. Hence explicit gfp_flag passing as much as
-> > > possible.
-
-I agree with this; it's definitely a problem with the scope API.  I wanted
-to extend it to include GFP_NOWAIT, but if you do that, your chances of
-memory allocation failure go way up, so you really want to set __GFP_NOWARN
-too, but now you need to audit all the places that you're calling to be
-sure they really handle errors correctly.
-
-So I think I'm giving up on that patch set.
-
-> > > > > > > If this is just to paper over the seq_printf doing the wrong =
-allocations,
-> > > > > > > then just move that out from under the fs_reclaim_acquire/rel=
-ease part.
-> > > > > > No, that wasn't the problem.
-> > > > > > =
-
-> > > > > > We have just seen to many failures to allocate pages for swapou=
-t and I think
-> > > > > > that would improve this because in a lot of cases we can then i=
-mmediately
-> > > > > > swap things out instead of having to rely on upper layers.
-> > > > > Yeah, you broke it. Now the real shrinker is running with GFP_KER=
-NEL,
-> > > > > because your memalloc_no is only around the debugfs function. And=
- ofc it's
-> > > > > much easier to allocate with GFP_KERNEL, right until you deadlock=
- :-)
-> > > > The problem here is that for example kswapd calls the shrinker with=
-out
-> > > > holding a FS lock as far as I can see.
-> > > > =
-
-> > > > And it is rather sad that we can't optimize this case directly.
-> > > I'm still not clear what you want to optimize? You can check for "is
-> > > this kswapd" in pf flags, but that sounds very hairy and fragile.
-> > =
-
-> > Well we only need the NOFS flag when the shrinker callback really comes=
- from
-> > a memory shortage in the FS subsystem, and that is rather unlikely.
-> > =
-
-> > When we would allow all other cases to be able to directly IO the freed=
- up
-> > pages to swap it would certainly help.
-> =
-
-> tbh I'm not sure. i915-gem code has played tricks with special casing the
-> kswapd path, and they do kinda scare me at least. I'm not sure whether
-> there's not some hidden dependencies there that would make this a bad
-> idea. Like afaik direct reclaim can sometimes stall for kswapd to catch up
-> a bit, or at least did in the past (I think, really not much clue about
-> this)
-> =
-
-> The other thing is that the fs_reclaim_acquire/release annotation really
-> only works well if you use it outside of the direct reclaim path too.
-> Otherwise it's not much better than just lots of testing. That pretty much
-> means you have to annotate the kswapd path.
-> -Daniel
-> =
-
-> =
-
-> =
-
-> > =
-
-> > Christian.
-> > =
-
-> > > -Daniel
-> > > =
-
-> > > > Anyway you are right if some caller doesn't use the memalloc_no*()
-> > > > approach we are busted.
-> > > > =
-
-> > > > Going to change the patch to only not warn for the moment.
-> > > > =
-
-> > > > Regards,
-> > > > Christian.
-> > > > =
-
-> > > > > Shrinking is hard, there's no easy way out here.
-> > > > > =
-
-> > > > > Cheers, Daniel
-> > > > > =
-
-> > > > > > Regards,
-> > > > > > Christian.
-> > > > > > =
-
-> > > > > > =
-
-> > > > > > > __GFP_NOWARN should be there indeed I think.
-> > > > > > > -Daniel
-> > > > > > > =
-
-> > > > > > > > Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-> > > > > > > > ---
-> > > > > > > >     drivers/gpu/drm/ttm/ttm_tt.c | 5 ++++-
-> > > > > > > >     1 file changed, 4 insertions(+), 1 deletion(-)
-> > > > > > > > =
-
-> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm=
-/ttm/ttm_tt.c
-> > > > > > > > index 2f0833c98d2c..86fa3e82dacc 100644
-> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> > > > > > > > @@ -369,7 +369,7 @@ static unsigned long ttm_tt_shrinker_sc=
-an(struct shrinker *shrink,
-> > > > > > > >             };
-> > > > > > > >             int ret;
-> > > > > > > > -  ret =3D ttm_bo_swapout(&ctx, GFP_NOFS);
-> > > > > > > > +  ret =3D ttm_bo_swapout(&ctx, GFP_KERNEL | __GFP_NOWARN);
-> > > > > > > >             return ret < 0 ? SHRINK_EMPTY : ret;
-> > > > > > > >     }
-> > > > > > > > @@ -389,10 +389,13 @@ static unsigned long ttm_tt_shrinker_=
-count(struct shrinker *shrink,
-> > > > > > > >     static int ttm_tt_debugfs_shrink_show(struct seq_file *=
-m, void *data)
-> > > > > > > >     {
-> > > > > > > >             struct shrink_control sc =3D { .gfp_mask =3D GF=
-P_KERNEL };
-> > > > > > > > +  unsigned int flags;
-> > > > > > > >             fs_reclaim_acquire(GFP_KERNEL);
-> > > > > > > > +  flags =3D memalloc_nofs_save();
-> > > > > > > >             seq_printf(m, "%lu/%lu\n", ttm_tt_shrinker_coun=
-t(&mm_shrinker, &sc),
-> > > > > > > >                        ttm_tt_shrinker_scan(&mm_shrinker, &=
-sc));
-> > > > > > > > +  memalloc_nofs_restore(flags);
-> > > > > > > >             fs_reclaim_release(GFP_KERNEL);
-> > > > > > > >             return 0;
-> > > > > > > > --
-> > > > > > > > 2.25.1
-> > > > > > > > =
-
-> > > > > > > > _______________________________________________
-> > > > > > > > dri-devel mailing list
-> > > > > > > > dri-devel@lists.freedesktop.org
-> > > > > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > > =
-
-> > =
-
-> =
-
-> -- =
-
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAyMS0wMy0yMiB1bSAxMDoxNSBhLm0uIHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPiBPbiBN
+b24sIE1hciAyMiwgMjAyMSBhdCAwNjo1ODoxNkFNIC0wNDAwLCBGZWxpeCBLdWVobGluZyB3cm90
+ZToKPj4gU2luY2UgdGhlIGxhc3QgcGF0Y2ggc2VyaWVzIEkgc2VudCBvbiBKYW4gNiBhIGxvdCBo
+YXMgY2hhbmdlZC4gUGF0Y2hlcyAxLTMzCj4+IGFyZSB0aGUgY2xlYW5lZCB1cCwgcmViYXNlZCBv
+biBhbWQtc3RhZ2luZy1kcm0tbmV4dCA1LjExIHZlcnNpb24gZnJvbSBhYm91dAo+PiBhIHdlZWsg
+YWdvLiBUaGUgcmVtYWluaW5nIDExIHBhdGNoZXMgYXJlIGN1cnJlbnQgd29yay1pbi1wcm9ncmVz
+cyB3aXRoCj4+IGZ1cnRoZXIgY2xlYW51cCBhbmQgZml4ZXMuCj4+Cj4+IE1NVSBub3RpZmllcnMg
+YW5kIENQVSBwYWdlIGZhdWx0cyBub3cgY2FuIHNwbGl0IHJhbmdlcyBhbmQgdXBkYXRlIG91ciBy
+YW5nZQo+PiBkYXRhIHN0cnVjdHVyZXMgd2l0aG91dCB0YWtpbmcgaGVhdnkgbG9ja3MgYnkgZG9p
+bmcgc29tZSBvZiB0aGUgY3JpdGljYWwKPj4gd29yayBpbiBhIGRlZmVycmVkIHdvcmsgaGFuZGxl
+ci4gVGhpcyBpbmNsdWRlcyB1cGRhdGluZyBNTVUgbm90aWZpZXJzIGFuZAo+PiB0aGUgU1ZNIHJh
+bmdlIGludGVydmFsIHRyZWUuIEluIHRoZSBtZWFuIHRpbWUsIG5ldyByYW5nZXMgY2FuIGxpdmUg
+YXMKPj4gY2hpbGRyZW4gb2YgdGhlaXIgcGFyZW50IHJhbmdlcyB1bnRpbCB0aGUgZGVmZXJyZWQg
+d29yayBoYW5kbGVyIGNvbnNvbGlkYXRlcwo+PiB0aGVtIGluIHRoZSBtYWluIGludGVydmFsIHRy
+ZWUuCj4gSSdtIHRvdGFsbHkgc3dhbW1wZWQgd2l0aCBpbnRlbCBzdHVmZiB1bmZvcnR1bmF0ZWx5
+LCBzbyBub3QgcmVhbGx5IHRpbWUgdG8KPiBkaWcgaW4uIENhbiB5b3UgZ2l2ZSBtZSB0aGUgc3Bv
+aWxlciBvbiBob3cgdGhlIChnZngxMCsgaWlyYykgcGFnZSBmYXVsdAo+IGludmVyc2lvbiBpcyBw
+bGFubmVkIHRvIGJlIGhhbmRsZWQgbm93PyBPciB0aGF0IHN0aWxsIHRiZD8KCk5hdmkgaXMgc3Rp
+bGwgVEJELiBUaGlzIHBhdGNoIHNlcmllcyBmb2N1c2VzIG9uIEdGWHY5IGJlY2F1c2UgdGhhdCdz
+IHRoZQpJUCBvdXIgZGF0YSBjZW50ZXIgR1BVcyBhcmUgb24uIFRoZSBjb2RlIGhlcmUgaGFzIHR3
+byBtb2RlcyBvZgpvcGVyYXRpb25zLCBvbmUgdGhhdCByZWxpZXMgb24gcGFnZSBmYXVsdHMgYW5k
+IG9uZSB0aGF0IHJlbGllcyBvbgpwcmVlbXB0aW9ucy4gVGhlIGxhdHRlciBzaG91bGQgd29yayBv
+biBOYXZpIGp1c3QgZmluZS4gU28gdGhhdCdzIG91cgptaW5pbWFsIGZhbGxiYWNrIG9wdGlvbi4K
+Cgo+Cj4gT3RoZXIgdGhpbmcgSSBub3RpY2VkIGlzIHRoYXQgYW1ka2ZkIHN0aWxsIHVzZXMgdGhl
+IG1tdV9ub3RpZmllciBkaXJlY3RseSwKPiBhbmQgbm90IHRoZSBtbXVfaW50ZXJ2YWxfbm90aWZp
+ZXIuIEJ1dCB5b3UncmUgdGFsa2luZyBhIGxvdCBhYm91dCBtYW5hZ2luZwo+IGludGVydmFscyBo
+ZXJlLCBhbmQgc28gSSdtIHdvbmRlcmluZyB3aGV0aGVyIHdlIHNob3VsZG4ndCBkbyB0aGlzIGlu
+IGNvcmUKPiBjb2RlPyBFdmVyeW9uZSB3aWxsIGhhdmUgdGhlIHNhbWUgcGFpbmZ1bCBsb2NraW5n
+IHByb2JsZW1zIGhlcmUgKHdlbGwgYXRtCj4gZXZlcnlvbmUgPSB5b3Umbm91dmVhdSBvbmx5IEkg
+dGhpbmspLCBzaGFyaW5nIHRoaXMgaW1vIHdvdWxkIG1ha2UgYSB0b24gb2YKPiBzZW5zZS4KCldl
+IHVzZSBtbXVfaW50ZXJ2YWxfbm90aWZpZXJzIGluIGFsbCB0aGUgcmFuZ2UtYmFzZWQgY29kZSwg
+aW5jbHVkaW5nCmV2ZW4gb3VyIGxlZ2FjeSB1c2VycHRyIGNvZGUuIFRoZSBvbmx5IG5vbi1pbnRl
+cnZhbCBub3RpZmllciB0aGF0J3MKc3RpbGwgaW4gdXNlIGluIEtGRCBpcyB0aGUgb25lIHdlIHVz
+ZSBmb3IgY2xlYW51cCBvbiBwcm9jZXNzIHRlcm1pbmF0aW9uLgoKCj4KPiBJIHRoaW5rIHRoZSBv
+dGhlciBvbmUgaXMgbW92aW5nIG92ZXIgbW9yZSBnZW5lcmljIHBhc2lkIGNvZGUsIGJ1dCBJIHRo
+aW5rCj4gdGhhdCdzIGdvaW5nIHRvIGJlIGxlc3MgdXNlZnVsIGhlcmUgYW5kIG1heWJlIG1vcmUg
+YSBsb25nIHRlcm0gcHJvamVjdC4KClllcywgaXQncyB1bnJlbGF0ZWQgdG8gdGhpcyB3b3JrLgoK
+UmVnYXJkcywKwqAgRmVsaXgKCgo+Cj4gQ2hlZXJzLCBEYW5pZWwKPgo+PiBXZSBhbHNvIGFkZGVk
+IHByb3BlciBETUEgbWFwcGluZyBvZiBzeXN0ZW0gbWVtb3J5IHBhZ2VzLgo+Pgo+PiBDdXJyZW50
+IHdvcmsgaW4gcHJvZ3Jlc3MgaXMgY2xlYW5pbmcgdXAgYWxsIHRoZSBsb2NraW5nLCBzaW1wbGlm
+eWluZyBvdXIKPj4gY29kZSBhbmQgZGF0YSBzdHJ1Y3R1cmVzIGFuZCByZXNvbHZpbmcgYSBmZXcg
+a25vd24gYnVncy4KPj4KPj4gVGhpcyBzZXJpZXMgYW5kIHRoZSBjb3JyZXNwb25kaW5nIFJPQ20g
+VGh1bmsgYW5kIEtGRFRlc3QgY2hhbmdlcyBhcmUgYWxzbwo+PiBhdmFpbGFibGUgb24gZ2l0dWI6
+Cj4+ICAgaHR0cHM6Ly9naXRodWIuY29tL1JhZGVvbk9wZW5Db21wdXRlL1JPQ0stS2VybmVsLURy
+aXZlci90cmVlL2Z4a2FtZC9obW0td2lwCj4+ICAgaHR0cHM6Ly9naXRodWIuY29tL1JhZGVvbk9w
+ZW5Db21wdXRlL1JPQ1QtVGh1bmstSW50ZXJmYWNlL3RyZWUvZnhrYW1kL2htbS13aXAKPj4KPj4g
+QW4gdXBkYXRlZCBUaHVuawo+Pgo+PiBBbGV4IFNpZXJyYSAoMTApOgo+PiAgIGRybS9hbWRncHU6
+IHJlcGxhY2UgcGVyX2RldmljZV9saXN0IGJ5IGFycmF5Cj4+ICAgZHJtL2FtZGtmZDogaGVscGVy
+IHRvIGNvbnZlcnQgZ3B1IGlkIGFuZCBpZHgKPj4gICBkcm0vYW1ka2ZkOiBhZGQgeG5hY2sgZW5h
+YmxlZCBmbGFnIHRvIGtmZF9wcm9jZXNzCj4+ICAgZHJtL2FtZGtmZDogYWRkIGlvY3RsIHRvIGNv
+bmZpZ3VyZSBhbmQgcXVlcnkgeG5hY2sgcmV0cmllcwo+PiAgIGRybS9hbWRncHU6IGVuYWJsZSA0
+OC1iaXQgSUggdGltZXN0YW1wIGNvdW50ZXIKPj4gICBkcm0vYW1ka2ZkOiBTVk0gQVBJIGNhbGwg
+dG8gcmVzdG9yZSBwYWdlIHRhYmxlcwo+PiAgIGRybS9hbWRrZmQ6IGFkZCBzdm1fYm8gcmVmZXJl
+bmNlIGZvciBldmljdGlvbiBmZW5jZQo+PiAgIGRybS9hbWRncHU6IGFkZCBwYXJhbSBiaXQgZmxh
+ZyB0byBjcmVhdGUgU1ZNIEJPcwo+PiAgIGRybS9hbWRncHU6IHN2bSBibyBlbmFibGVfc2lnbmFs
+IGNhbGwgY29uZGl0aW9uCj4+ICAgZHJtL2FtZGdwdTogYWRkIHN2bV9ibyBldmljdGlvbiB0byBl
+bmFibGVfc2lnbmFsIGNiCj4+Cj4+IEZlbGl4IEt1ZWhsaW5nICgyMik6Cj4+ICAgZHJtL2FtZGtm
+ZDogbWFwIHN2bSByYW5nZSB0byBHUFVzCj4+ICAgZHJtL2FtZGtmZDogc3ZtIHJhbmdlIGV2aWN0
+aW9uIGFuZCByZXN0b3JlCj4+ICAgZHJtL2FtZGtmZDogdmFsaWRhdGUgdnJhbSBzdm0gcmFuZ2Ug
+ZnJvbSBUVE0KPj4gICBkcm0vYW1ka2ZkOiBITU0gbWlncmF0ZSByYW0gdG8gdnJhbQo+PiAgIGRy
+bS9hbWRrZmQ6IEhNTSBtaWdyYXRlIHZyYW0gdG8gcmFtCj4+ICAgZHJtL2FtZGtmZDogaW52YWxp
+ZGF0ZSB0YWJsZXMgb24gcGFnZSByZXRyeSBmYXVsdAo+PiAgIGRybS9hbWRrZmQ6IHBhZ2UgdGFi
+bGUgcmVzdG9yZSB0aHJvdWdoIHN2bSBBUEkKPj4gICBkcm0vYW1ka2ZkOiBhZGQgc3ZtX2JvIGV2
+aWN0aW9uIG1lY2hhbmlzbSBzdXBwb3J0Cj4+ICAgZHJtL2FtZGtmZDogcmVmaW5lIG1pZ3JhdGlv
+biBwb2xpY3kgd2l0aCB4bmFjayBvbgo+PiAgIGRybS9hbWRrZmQ6IGFkZCBzdm0gcmFuZ2UgdmFs
+aWRhdGUgdGltZXN0YW1wCj4+ICAgZHJtL2FtZGtmZDogbXVsdGlwbGUgZ3B1IG1pZ3JhdGUgdnJh
+bSB0byB2cmFtCj4+ICAgZHJtL2FtZGtmZDogRml4IGRtYSB1bm1hcHBpbmcKPj4gICBkcm0vYW1k
+a2ZkOiBDYWxsIG11dGV4X2Rlc3Ryb3kKPj4gICBkcm0vYW1ka2ZkOiBGaXggc3B1cmlvdXMgcmVz
+dG9yZSBmYWlsdXJlcwo+PiAgIGRybS9hbWRrZmQ6IEZpeCBzdm1fYm9fbGlzdCBsb2NraW5nIGlu
+IGV2aWN0aW9uIHdvcmtlcgo+PiAgIGRybS9hbWRrZmQ6IFNpbXBsaWZ5IHNwbGl0X2J5X2dyYW51
+bGFyaXR5Cj4+ICAgZHJtL2FtZGtmZDogUG9pbnQgb3V0IHNldmVyYWwgcmFjZSBjb25kaXRpb25z
+Cj4+ICAgZHJtL2FtZGtmZDogUmV0dXJuIHBkZCBmcm9tIGtmZF9wcm9jZXNzX2RldmljZV9mcm9t
+X2dkdWlkCj4+ICAgZHJtL2FtZGtmZDogUmVtb3ZlIGJyb2tlbiBkZWZlcnJlZCBtYXBwaW5nCj4+
+ICAgZHJtL2FtZGtmZDogQWxsb3cgaW52YWxpZCBwYWdlcyBpbiBtaWdyYXRpb24uc3JjCj4+ICAg
+ZHJtL2FtZGtmZDogQ29ycmVjdCBsb2NraW5nIGR1cmluZyBtaWdyYXRpb24gYW5kIG1hcHBpbmcK
+Pj4gICBkcm0vYW1ka2ZkOiBOZXN0ZWQgbG9ja2luZyBhbmQgaW52YWxpZGF0aW9uIG9mIGNoaWxk
+IHJhbmdlcwo+Pgo+PiBQaGlsaXAgWWFuZyAoMTIpOgo+PiAgIGRybS9hbWRrZmQ6IGFkZCBzdm0g
+aW9jdGwgQVBJCj4+ICAgZHJtL2FtZGtmZDogcmVnaXN0ZXIgc3ZtIHJhbmdlCj4+ICAgZHJtL2Ft
+ZGtmZDogYWRkIHN2bSBpb2N0bCBHRVRfQVRUUiBvcAo+PiAgIGRybS9hbWRncHU6IGFkZCBjb21t
+b24gSE1NIGdldCBwYWdlcyBmdW5jdGlvbgo+PiAgIGRybS9hbWRrZmQ6IHZhbGlkYXRlIHN2bSBy
+YW5nZSBzeXN0ZW0gbWVtb3J5Cj4+ICAgZHJtL2FtZGtmZDogZGVyZWdpc3RlciBzdm0gcmFuZ2UK
+Pj4gICBkcm0vYW1kZ3B1OiBleHBvcnQgdm0gdXBkYXRlIG1hcHBpbmcgaW50ZXJmYWNlCj4+ICAg
+ZHJtL2FtZGtmZDogcmVnaXN0ZXIgSE1NIGRldmljZSBwcml2YXRlIHpvbmUKPj4gICBkcm0vYW1k
+a2ZkOiBzdXBwb3J0IHhnbWkgc2FtZSBoaXZlIG1hcHBpbmcKPj4gICBkcm0vYW1ka2ZkOiBjb3B5
+IG1lbW9yeSB0aHJvdWdoIGdhcnQgdGFibGUKPj4gICBkcm0vYW1kZ3B1OiByZXNlcnZlIGZlbmNl
+IHNsb3QgdG8gdXBkYXRlIHBhZ2UgdGFibGUKPj4gICBkcm0vYW1ka2ZkOiBBZGQgU1ZNIEFQSSBz
+dXBwb3J0IGNhcGFiaWxpdHkgYml0cwo+Pgo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2FtZGtmZC5jICAgIHwgICAgNCArCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfYW1ka2ZkLmggICAgfCAgICA0ICstCj4+ICAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hbWRrZmRfZmVuY2UuYyAgfCAgIDE2ICstCj4+ICAuLi4vZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAgIDEzICstCj4+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfbW4uYyAgICAgICAgfCAgIDgzICsKPj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5oICAgICAgICB8ICAgIDcgKwo+PiAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oICAgIHwgICAgNCArCj4+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgfCAgIDkwICstCj4+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICAgfCAgIDQ4ICstCj4+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCAgICAgICAgfCAgIDExICsKPj4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jICAgICAgICB8ICAgIDEgKwo+PiAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQvS2NvbmZpZyAgICAgICAgICAgIHwgICAgMSArCj4+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9NYWtlZmlsZSAgICAgICAgICAgfCAgICA0ICst
+Cj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jICAgICAgfCAgMTcz
+ICstCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZmxhdF9tZW1vcnkuYyAgfCAg
+ICA0ICsKPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9pb21tdS5jICAgICAgICB8
+ICAgIDggKy0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMgICAg
+ICB8ICA5MjIgKysrKysrCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0
+ZS5oICAgICAgfCAgIDU5ICsKPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2
+LmggICAgICAgICB8ICAgNTQgKy0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
+cm9jZXNzLmMgICAgICB8ICAxOTEgKy0KPj4gIC4uLi9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1
+ZXVlX21hbmFnZXIuYyAgICB8ICAgIDYgKy0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9zdm0uYyAgICAgICAgICB8IDI4NjUgKysrKysrKysrKysrKysrKysKPj4gIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaCAgICAgICAgICB8ICAxNzUgKwo+PiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgICAgIHwgICAgNiArCj4+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuaCAgICAgfCAgIDEwICstCj4+ICBp
+bmNsdWRlL3VhcGkvbGludXgva2ZkX2lvY3RsLmggICAgICAgICAgICAgICAgfCAgMTcxICstCj4+
+ICAyNiBmaWxlcyBjaGFuZ2VkLCA0NjgxIGluc2VydGlvbnMoKyksIDI0OSBkZWxldGlvbnMoLSkK
+Pj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWln
+cmF0ZS5jCj4+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX21pZ3JhdGUuaAo+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9zdm0uYwo+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9zdm0uaAo+Pgo+PiAtLSAKPj4gMi4zMS4wCj4+Cj4+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGRyaS1kZXZlbCBtYWlsaW5n
+IGxpc3QKPj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
