@@ -2,83 +2,85 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD17FC433C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 11:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE6D9C433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:00:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 692AA601FF
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 11:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 692AA601FF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6A250619AE
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:00:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A250619AE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEED76E8CC;
-	Tue, 23 Mar 2021 11:51:17 +0000 (UTC)
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D2D66E8CB;
- Tue, 23 Mar 2021 11:51:16 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id hq27so26588510ejc.9;
- Tue, 23 Mar 2021 04:51:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=JWCHWFwsG8yAzV03OTUOhh2O9iC7eym1dVNKWhgZZjs=;
- b=BRTtEir0vV8VjibQFJUw7vOLkJMfeYABsba+9SJWPRyNEW8i1OEMB5kkNp534VlNs+
- 7sl2dGOV4/5Wd92Djj1tf3r57WKsxQF3RNzMnx6lpXTrMS5/D8YCLEA9/tzlqWd/L+QC
- GSWYzvDMhEr1uwmhiocBqVoBQ66mtCbTs30QgSHO99PXKTwejiIhzk/jgXVeJj6v0CFu
- pRMZ79du/2Riy1OY4rr0KU6ocz4I8qtzsXKt7hw8QUZ9cwVFUo7QBNSCfLnTf0c19nZd
- 6qYdLvj6mfPUKEnNseIZUsG5GwL9ovOIi6JGlSC2KZvK9eiYTrT4RZVtmUnSOo/Tw5XH
- OXYQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42EFB6E8D4;
+	Tue, 23 Mar 2021 12:00:35 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46B26E8D3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 12:00:33 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ j20-20020a05600c1914b029010f31e15a7fso4828987wmq.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 05:00:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=FVtKo5jWx+3SADF4ukoqEH4dm/CLnkXyOS/C8B/YN74=;
+ b=FERWySWSOM/W7EFVRKsXbUsUBktYQ2g0wNeTUma34kmuD7xrWuD5y5ZBNOLeX6s/uQ
+ YmE7WR3db7FJTJJkLhvV1yap0Ehurf1atRYcqIgno5djdYvn69PUGwB1ZSNfdiKgFTV3
+ 2KWGpisExOBGA2hZ68BtWc06f7AQYDbgCclhs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=JWCHWFwsG8yAzV03OTUOhh2O9iC7eym1dVNKWhgZZjs=;
- b=jHZu8yJpc9p3FQiqzm50XeRiaz7gx3aAe58AcQDOIVlQmjYGHKIyBhBwyynY81xBdH
- NOfLGPP+vRfcyq2J6tLjNcf/2IcRPfGxk8rjunSoicPO7wjJ1lsx1onfqS5PZtUX7EBb
- AQWGY7wAd5o6PTzpU0fjJhlQ62wvIo4vwpwBM5YXhAUfKJvvZuEYNC14H4C3exIpgpze
- pWXdHjW7kJjX40ypUAsTseLgEoRMytGOxQibaYAII1ey78fy8VtI5xghUEmZD7OadEwC
- B5llipvyTFD/CcBqSfJADXxEAAF3IvKHTGaVv2t6dyvFKbHZ09gxHG2qznD/Ur3UKO8a
- qNsg==
-X-Gm-Message-State: AOAM531ZWwvR0j98M4lUQV8t5phTQhayvS2wpBdtNhnFkx1IFWFHdBRh
- JPvwa6SL+zY6TDnefUBON8kbKWZmT9U=
-X-Google-Smtp-Source: ABdhPJxsrabBoa7M9oiVWkVeAIwKM+ydfyCpTsx+1w70kNyHxgoKtcDAjaVQyNDPYn6G6RLmhgt3yQ==
-X-Received: by 2002:a17:906:311a:: with SMTP id
- 26mr4430193ejx.395.1616500274813; 
- Tue, 23 Mar 2021 04:51:14 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec?
- ([2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec])
- by smtp.gmail.com with ESMTPSA id p9sm12666884eds.66.2021.03.23.04.51.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Mar 2021 04:51:14 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=FVtKo5jWx+3SADF4ukoqEH4dm/CLnkXyOS/C8B/YN74=;
+ b=FIPkKkoHurVuUahm+0bkt7D2KRpJl4deUQmY+s1+UzIbr2K6w195p0UM4IB9O+Nmh9
+ kccqe79ci57eG1JTIHZYXCalpRLmqOrHTJnnyhTQudDwaA4mECJeBWVyuSmbTzcLStpz
+ HO3dghvek/Ik1BPKMEDDaKwAbdB7Wxef91ImoQEDaVioFfbhn7AKcPCzqb+uS8RKz7cW
+ QJq+34kigISw+grcThI6FEV2GTcwGZtHqxFxaqo7NSRMKPT2vzpyM0Sa0Z+Wd53cFLhn
+ JkL47ia6dD1v0Y81iQuoF7NAY+VlGfeNgCqd1zjNNpargP7xB7TOg6+f1Fc0BN2ZGklc
+ 2m6Q==
+X-Gm-Message-State: AOAM533G8Q8k93lpVMxbYZUFWMee1hg1j24hO3RWSi3BrPRcVcYHB6K4
+ 3jSqvbpI58Rtu9MDQye0MifKHQ==
+X-Google-Smtp-Source: ABdhPJxARHVEyqF19UyUbqTXsQiNOuv2yKBtCTkGaA8qrztykEOb1q+KlOZakO4Qh5lWRW5aoJHbyg==
+X-Received: by 2002:a1c:6243:: with SMTP id w64mr454513wmb.0.1616500832352;
+ Tue, 23 Mar 2021 05:00:32 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id k24sm2213978wmr.48.2021.03.23.05.00.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Mar 2021 05:00:31 -0700 (PDT)
+Date: Tue, 23 Mar 2021 13:00:29 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-To: Michal Hocko <mhocko@suse.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <1ae415c4-8e49-5183-b44d-bc92088657d5@gmail.com>
- <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+Message-ID: <YFnYXdQlRnq1Vn8g@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, 
+ Michal Hocko <mhocko@suse.com>,
+ Matthew Wilcox <willy@infradead.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux MM <linux-mm@kvack.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
+References: <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
  <YFigZ5+H95c/GI/S@phenom.ffwll.local>
  <20210322140548.GN1719932@casper.infradead.org>
  <YFi+UROYbQERYEEr@dhcp22.suse.cz>
  <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
  <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
- <YFma+ZxncvfBd++o@dhcp22.suse.cz> <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
+ <YFma+ZxncvfBd++o@dhcp22.suse.cz>
+ <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
  <YFnVMRNmWG+qv+4i@dhcp22.suse.cz>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d1d7170b-7566-32c3-9883-49e5573e7339@gmail.com>
-Date: Tue, 23 Mar 2021 12:51:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ <d1d7170b-7566-32c3-9883-49e5573e7339@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <YFnVMRNmWG+qv+4i@dhcp22.suse.cz>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <d1d7170b-7566-32c3-9883-49e5573e7339@gmail.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,44 +92,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
+Cc: Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Mar 23, 2021 at 12:51:13PM +0100, Christian K=F6nig wrote:
+> =
 
+> =
 
-Am 23.03.21 um 12:46 schrieb Michal Hocko:
-> On Tue 23-03-21 12:28:20, Daniel Vetter wrote:
->> On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
-> [...]
->>>>> fs_reclaim_acquire is there to make sure lockdep understands that this
->>>>> is a shrinker and that it checks all the dependencies for us like if
->>>>> we'd be in real reclaim. There is some drop caches interfaces in proc
->>>>> iirc, but those drop everything, and they don't have the fs_reclaim
->>>>> annotations to teach lockdep about what we're doing.
->>> ... I really do not follow this. You shouldn't really care whether this
->>> is a reclaim interface or not. Or maybe I just do not understand this...
->> We're heavily relying on lockdep and fs_reclaim to make sure we get it all
->> right. So any drop caches interface that isn't wrapped in fs_reclaim
->> context is kinda useless for testing. Plus ideally we want to only hit our
->> own paths, and not trash every other cache in the system. Speed matters in
->> CI.
-> But what is special about this path to hack around and make it pretend
-> it is part of the fs reclaim path?
+> Am 23.03.21 um 12:46 schrieb Michal Hocko:
+> > On Tue 23-03-21 12:28:20, Daniel Vetter wrote:
+> > > On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
+> > [...]
+> > > > > > fs_reclaim_acquire is there to make sure lockdep understands th=
+at this
+> > > > > > is a shrinker and that it checks all the dependencies for us li=
+ke if
+> > > > > > we'd be in real reclaim. There is some drop caches interfaces i=
+n proc
+> > > > > > iirc, but those drop everything, and they don't have the fs_rec=
+laim
+> > > > > > annotations to teach lockdep about what we're doing.
+> > > > ... I really do not follow this. You shouldn't really care whether =
+this
+> > > > is a reclaim interface or not. Or maybe I just do not understand th=
+is...
+> > > We're heavily relying on lockdep and fs_reclaim to make sure we get i=
+t all
+> > > right. So any drop caches interface that isn't wrapped in fs_reclaim
+> > > context is kinda useless for testing. Plus ideally we want to only hi=
+t our
+> > > own paths, and not trash every other cache in the system. Speed matte=
+rs in
+> > > CI.
+> > But what is special about this path to hack around and make it pretend
+> > it is part of the fs reclaim path?
+> =
 
-That's just to teach lockdep that there is a dependency.
+> That's just to teach lockdep that there is a dependency.
+> =
 
-In other words we pretend in the debugfs file that it is part of the fs 
-reclaim path to check for the case when it really becomes part of the fs 
-reclaim path.
+> In other words we pretend in the debugfs file that it is part of the fs
+> reclaim path to check for the case when it really becomes part of the fs
+> reclaim path.
 
-Regards,
-Christian.
+Yeah this is only for testing. There's two ways to test your shrinker:
+
+- drive system agains the OOM wall, deal with lots of unrelated hangs and
+  issues. Aside from this takes postively forever, which is not good if
+  you want CI turn-around time measured in "coffee breaks" as time unit.
+
+- have a debugfs file which reconstructs the calling context of direct
+  reclaim sufficiently for lockdep to do its thing, and then test just
+  your shrinker in isolation, without crashing your CI machines or even
+  hurting it much.
+
+Only one of these options is actually practical.
+-Daniel
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
