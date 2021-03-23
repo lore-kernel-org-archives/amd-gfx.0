@@ -2,83 +2,121 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C846EC433C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EADEC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:07:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E070619BD
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E070619BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 192D3619B8
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 192D3619B8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E47846E8E7;
-	Tue, 23 Mar 2021 13:06:29 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 764296E8E7;
- Tue, 23 Mar 2021 13:06:29 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id kt15so17486293ejb.12;
- Tue, 23 Mar 2021 06:06:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=e6FkST9t2ZwpU9tBoGwmlJ/8krgDpq4Z1yoPeMffQAs=;
- b=JL9OLr5bDQalWKZUrxo9qn1wSQaO/JngJ0lPvSKQHewn1QW4fy5DOUla5h3IcYwDVB
- qph2EnAwiQnfto2zfX1xXNV+8htZV+Nf5iEZiQAc9H5e787bJj8BcMAywKm5x6/WpOYr
- rzjO9c3pYKFPf5ce07ZO8VsPO3nPq/+OPI2GsahzrhQSS8qZcO5gE8gFusY0WSBCIjR1
- 5SwDFATrNAQKYal93ya+zzErrHASFcjuomGLDpfWKyR2R07HY7jWxad9QFd5MhwXgVV4
- clp0y4WdpkJaEh9RxQNgEO6mUqLzNNdmokJI5obKVacGAGJTcEXGor9spBfr+nUooAY/
- 6d3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=e6FkST9t2ZwpU9tBoGwmlJ/8krgDpq4Z1yoPeMffQAs=;
- b=TdO/lrAqFp7uBd3in+6e2XNRJMoGMHJj27p9RKKAMKhEk4N0O6mzm/6gHOMpXAzW/U
- cqk6XFfaxIK1VdZJHi64zlZ0yRMP/h+vKD1gAv9Hvbxmiw35Ay3+XR5ioTWBNJMnQ1Kf
- SfPUlKtcQBQVPk1FbYi9+f7pk5DISgWAzDIQEClX1jMNodurt2R0+FJTMrL2VYFCRiLg
- ycFamU7gpeDKMP9RL9xtJZ+s8Aic6ii/LA0xdKsvJAdjAnLNeXqiEi7f8bWbqMk+u4sp
- Beblkm+DHkmGy27aqKIDNjGN45naRPNW0hZF2WCH0w2KEjN2wkO3xpr4ueiULJTBJ3MU
- cJWg==
-X-Gm-Message-State: AOAM530UB4tTXsTQ8l9nhiOo6bm59bhX70leFlVKv5WBFaZJZMM2/C+x
- F/Yvi8OiP6Ksekbp5qzYcrM=
-X-Google-Smtp-Source: ABdhPJyd4BvrBuru1/OFtDtS9Lx0wcR+CT3lNk6Rtk/k81vnYY04OLJgnIZ0sLUdHJ+Noiq4GteXbw==
-X-Received: by 2002:a17:906:1d4e:: with SMTP id
- o14mr4731609ejh.549.1616504788155; 
- Tue, 23 Mar 2021 06:06:28 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec?
- ([2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec])
- by smtp.gmail.com with ESMTPSA id i2sm12687682edy.72.2021.03.23.06.06.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Mar 2021 06:06:27 -0700 (PDT)
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-To: Michal Hocko <mhocko@suse.com>
-References: <YFigZ5+H95c/GI/S@phenom.ffwll.local>
- <20210322140548.GN1719932@casper.infradead.org>
- <YFi+UROYbQERYEEr@dhcp22.suse.cz>
- <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
- <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
- <YFma+ZxncvfBd++o@dhcp22.suse.cz> <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
- <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
- <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
- <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
- <YFng9qXM3NdrGHTx@dhcp22.suse.cz>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <20808d08-b66c-13c3-f672-ebce216b2fa2@gmail.com>
-Date: Tue, 23 Mar 2021 14:06:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <YFng9qXM3NdrGHTx@dhcp22.suse.cz>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6BA86E8EA;
+	Tue, 23 Mar 2021 13:07:09 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 021E26E8EA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 13:07:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Lvh+Dz/t9HiGBWbFPv/bWX4lfjppSaVXzw+con0dHJbLgxYmuvbjOp4VhK0VEzjNdgbx9h5PxrQfUodLWFLmCrGXwMf397H4j/spyCBzDFDSNI64oZ8GzV6TG5sbesQwv3gagtN+HmjVktKzSm3ojLCUNv7tk2ZYrZCVwVw3/6RzbcevNABOgo+2igB7FskmKE4U/astLzbpmBrlECTtVpFdqXdiA+VNr8L2JJSEh4qpGG+lsR3OURC+oH8lOWWL146lDjMSMF3YfmOYIEPRDio6cepE7R9BOF8PtWjDI+RvuiJH8vp75yvmRA4TZKtGh5dovp0AH+fuwsNZBTArPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rnsr+3PGOkgHuuZKnBOAkewAx1BvdN0ovpV2LLy9yOk=;
+ b=VH8HphPMmQdnQ1LsG8U1Hn7VvLH8Denmudo1qIabIWn+ZPkUiUJIGNelQMSasnvqYm9JMUhTni1VD7WfneUdG0Dmb3rHdE2qGU6KV2tB5+pWGVxrLX752RWd9bJb+rEkM+ghnNsf2BzE+mtJ9EnZ679BvVnCXDAvv89x1ryrdBmt3NqNaAM3bCasCpvk1mC7s1fNxFhh7d3QCEzPmHO8JOW0H4c7IwtKtWKKFO9JbVib2bYyjAEM/HCW1GTML4fIzoNESzxYd1cg6LQbRNUfzPdlTIvglEvymystQV9ZkEjxSAk/NAFBMX/q+QZOQz1db/PgdoR8uXpFpASfkju9BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rnsr+3PGOkgHuuZKnBOAkewAx1BvdN0ovpV2LLy9yOk=;
+ b=1cZE5O3ilT8GqfarQCF+YUx73gtnqPvFNUrp7djtA0/NS9v4o27FqZuJFQtfU5ztrOy07pFwe3BoJUauuQ0c89OZfQiIav4HpDhwre2W4lkHbeX7nZIAg+VhS67QJrsXV7aitQN4rRqcIZAbX+odyga6EzW6GhfEf8QlHycxPW4=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by MN2PR12MB3999.namprd12.prod.outlook.com (2603:10b6:208:158::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.24; Tue, 23 Mar
+ 2021 13:07:06 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::58d5:c2:7a3c:4408]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::58d5:c2:7a3c:4408%5]) with mapi id 15.20.3955.027; Tue, 23 Mar 2021
+ 13:07:06 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
+Thread-Topic: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
+Thread-Index: Adcf5Uxzzx+eUVs0TECp524n5TX5VQ==
+Date: Tue, 23 Mar 2021 13:07:06 +0000
+Message-ID: <MN2PR12MB4549C3C4388974DA56E79AB197649@MN2PR12MB4549.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-23T13:07:03Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=45389dfd-499c-467b-bdbe-cf8162388cd3;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.159.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 4c7c03a1-216f-4cd7-feb3-08d8edfc8f78
+x-ms-traffictypediagnostic: MN2PR12MB3999:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB399978B5C0C5A1185F1006F197649@MN2PR12MB3999.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: L0vcHFJPCiA495SG0T4Tyo0Xy8NfNyFLYxTi0lDqRv1iLmaXqPsiDwqLPZ4MmvGVRjbyX383dnEPUuFvuY1WKPa17yHGeuGkuLqhEkrLIbUXc3vpyAEDdbnYrIBUJI6JJF+NBNCslEZhre18vIzMuUfD8ox0XKOevoTA1sy/sU8F1WZmI1b97Z40/IxHY61nU91cFx3YlexPYqwqPBKKHEyM9bLOH2Xbbe9Kk7Jbq63+q7zcTsqQt+1Qp/V472QeWFig8fL1aZ6fveHhmRtmTNT+9E+hvg0wrTq8QzP8omq6RMNC+Xlhq29Iz58revP7k748at6DreEKeOqpw+dfXd1VIvAEpM9kAR9vrS1TqA4I4eZgjw0i+U8JgNIXyLk8At+BpDngEXJg0jVGgJiAPfNrOmtBwZoqC2cWAShZ1h1p2bJUuQZ6tRQ5E8Ul0gAhtXxudZu0FjuKiA35IWlAQPyHTYKb4JkNrbBJH0EoCXlZHYuWk2zfZguHQ7EEJRDMeI3yAMmc11fHHeF+zlhDJJFFWr5pO/oH73Rzxu8LP6vGwbtDJu0xFIPy/G2fOzDJU9BIbtD94BI7NTwnAov4N9kPgn03c+2hPkKoQKJu+fbD8aDM7awk6GmIW4HXKG9xDt0ZC6kufLusv/7kun4NI08kD8PkmqYV3AJgzl552NA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(366004)(396003)(376002)(33656002)(8936002)(9686003)(66946007)(6916009)(15650500001)(478600001)(64756008)(66476007)(66556008)(76116006)(7696005)(6506007)(66446008)(71200400001)(4326008)(26005)(86362001)(5660300002)(38100700001)(83380400001)(52536014)(186003)(2906002)(54906003)(316002)(8676002)(55016002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?MdpYcEnzcDuW1fqg+fwM+FGbyIIusw49OzRSEpov0DuUyiaAUUfnM8CyV6iW?=
+ =?us-ascii?Q?tzHb3pKfYHkC64TEHzYDYPsaOjyqwAEda5T2AtgS5bZYyhn968m6ulBTxHX1?=
+ =?us-ascii?Q?T4FlCRFE9YXP2wvsIF3qt125cdDXuxx/BAe4mudiMgispwsm7pxnn/z+/CQm?=
+ =?us-ascii?Q?n13wQjIUn0htUzcYuS8wO0My3VXm4e+toN08D2OX35FELv/2YdiC9dL5qnnD?=
+ =?us-ascii?Q?901YsC+eGy89VSC9OiBtqwv5LnFgqbZdFl5zvqF52jBHBcq7TcAFQhV1olX5?=
+ =?us-ascii?Q?bbWY7jjvFi8wSstw+Hu1yQ0Zra6o850a6RDXABZnUTCRZgfcokxhB7ge+8qh?=
+ =?us-ascii?Q?p6+EIIZyp+1c/X9qNJ5DpSdjPZ5FCMinFgGtm4iKGxlzGhwPlLNnHN7tU8ue?=
+ =?us-ascii?Q?1RJQx6CutIco7h5V/ViDWq3GIzrFVII82h6Vl53FqolWd+winntiQfv2EBzr?=
+ =?us-ascii?Q?h1ydJxxqRRrBDD/bEwjCNwEvjK4MgMbau0n1fxB4Q0itqsZOXROS3wLd4Sht?=
+ =?us-ascii?Q?8DFvbRGkwNMyTGJrnwsvLRQv7VnjjxvMRRD+W+fQiOr8W/JMl/ETLzxE2C3c?=
+ =?us-ascii?Q?MKJciR8XLRyO4wZOWMqJowmjXECd0vA7HhylUzr/WdyCp1ytgntlVoUH3yiV?=
+ =?us-ascii?Q?oviXY8yb3EG5al4aIdO09mrNhrWf6CO2n2hPnjES5NvpRTCAv0o1qjLtXpHM?=
+ =?us-ascii?Q?FkQ88zrDkZau3Gobljb0EJyLlCLwxjqSXt+8bQTzJWC764QQhR/zPDpIFkz4?=
+ =?us-ascii?Q?fJNdEUGOVgMrVE/esJRtpJHdnkhBYbVGeMqWwr9xGR6LGLD6sZTq1rA6sRVi?=
+ =?us-ascii?Q?KPK3Jo57nybcxBW1aqB0G887LuhU0fMq99xrov25WFJiCUCXseXmF8tVsrxu?=
+ =?us-ascii?Q?hGNXlr8eBHjMt4waQlsJN3ZyK84r0G3Wc4HCT3DIwHfuf0VpR+VV1dgWbNjA?=
+ =?us-ascii?Q?ibOGBp0g34SLelSQOKlKkA6GsorlvJOHsPUl8F020hyOaxYzfB8CKlKx6Fvm?=
+ =?us-ascii?Q?ZxoJiKqTA9bF3fNe1w761TmbjSeICllS7otNDczW5SMgNUWLUeG+qvXK07Vb?=
+ =?us-ascii?Q?2bf3jsyP7S1LPsFqNLlnAIMFpt55jCjnVoHQ9aUrTCkLYYwcb6KTWU57pYUa?=
+ =?us-ascii?Q?u7Yj3vHHPnnNkKH6NIsVB35EJw11AhUuA5NFMAfOfFsvGd/OMx1d7Zv/Vxy4?=
+ =?us-ascii?Q?pi4zs5k5J3opR7P8gJTVrURmVJRTS4LEeRUMYON2dV8k9Ga/KZkKxbEHwRcI?=
+ =?us-ascii?Q?gKyXJtyteyn0WeeENHXBqqDPb8usH91bzkcX9zQ3WrvNCLXY1Dk1k6kFRS/i?=
+ =?us-ascii?Q?494u9Cn3kuXi+O2bmlmuYPLA?=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c7c03a1-216f-4cd7-feb3-08d8edfc8f78
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 13:07:06.4591 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Zv3mNK5zRe3hrNlBWMjDm6qhb8PtyBflOvRN9zCTb9ayb/nmycZxRu7cfkhLaVxt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3999
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,77 +128,233 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============1387890844=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjMuMDMuMjEgdW0gMTM6Mzcgc2NocmllYiBNaWNoYWwgSG9ja286Cj4gT24gVHVlIDIzLTAz
-LTIxIDEzOjIxOjMyLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyMy4wMy4yMSB1bSAx
-MzowNCBzY2hyaWViIE1pY2hhbCBIb2NrbzoKPj4+IE9uIFR1ZSAyMy0wMy0yMSAxMjo0ODo1OCwg
-Q2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+PiBBbSAyMy4wMy4yMSB1bSAxMjoyOCBzY2hyaWVi
-IERhbmllbCBWZXR0ZXI6Cj4+Pj4+IE9uIFR1ZSwgTWFyIDIzLCAyMDIxIGF0IDA4OjM4OjMzQU0g
-KzAxMDAsIE1pY2hhbCBIb2NrbyB3cm90ZToKPj4+Pj4+IE9uIE1vbiAyMi0wMy0yMSAyMDozNDoy
-NSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IFsuLi5dCj4+Pj4+Pj4gTXkgb25seSBjb25j
-ZXJuIGlzIHRoYXQgaWYgSSBjb3VsZCByZWx5IG9uIG1lbWFsbG9jX25vKiBiZWluZyB1c2VkIHdl
-IGNvdWxkCj4+Pj4+Pj4gb3B0aW1pemUgdGhpcyBxdWl0ZSBhIGJpdCBmdXJ0aGVyLgo+Pj4+Pj4g
-WWVzIHlvdSBjYW4gdXNlIHRoZSBzY29wZSBBUEkgYW5kIHlvdSB3aWxsIGJlIGd1YXJhbnRlZWQg
-dGhhdCBfYW55Xwo+Pj4+Pj4gYWxsb2NhdGlvbiBmcm9tIHRoZSBlbmNsb3NlZCBjb250ZXh0IHdp
-bGwgaW5oZXJpdCBHRlBfTk8qIHNlbWFudGljLgo+Pj4+IFRoZSBxdWVzdGlvbiBpcyBpZiB0aGlz
-IGlzIGFsc28gZ3VhcmFudGVlZCB0aGUgb3RoZXIgd2F5IGFyb3VuZD8KPj4+Pgo+Pj4+IEluIG90
-aGVyIHdvcmRzIGlmIHNvbWVib2R5IGNhbGxzIGdldF9mcmVlX3BhZ2UoR0ZQX05PRlMpIGFyZSB0
-aGUgY29udGV4dAo+Pj4+IGZsYWdzIHNldCBhcyB3ZWxsPwo+Pj4gZ2ZwIG1hc2sgaXMgYWx3YXlz
-IHJlc3RyaWN0ZWQgaW4gdGhlIHBhZ2UgYWxsb2NhdG9yLiBTbyBzYXkgeW91IGhhdmUKPj4+IG5v
-aW8gc2NvcGUgY29udGV4dCBhbmQgY2FsbCBnZXRfZnJlZV9wYWdlL2ttYWxsb2MoR0ZQX05PRlMp
-IHRoZW4gdGhlCj4+PiBzY29wZSB3b3VsZCByZXN0cmljdCB0aGUgYWxsb2NhdGlvbiBmbGFncyB0
-byBHRlBfTk9JTyAoYWthIGRyb3AKPj4+IF9fR0ZQX0lPKS4gRm9yIGZ1cnRoZXIgZGV0YWlscywg
-aGF2ZSBhIGxvb2sgYXQgY3VycmVudF9nZnBfY29udGV4dAo+Pj4gYW5kIGl0cyBjYWxsZXJzLgo+
-Pj4KPj4+IERvZXMgdGhpcyBhbnN3ZXIgeW91ciBxdWVzdGlvbj8KPj4gQnV0IHdoYXQgaGFwcGVu
-cyBpZiB5b3UgZG9uJ3QgaGF2ZSBub2lvIHNjb3BlIGFuZCBzb21lYm9keSBjYWxscwo+PiBnZXRf
-ZnJlZV9wYWdlKEdGUF9OT0ZTKT8KPiBUaGVuIHRoaXMgd2lsbCBiZSBhIHJlZ3VsYXIgTk9GUyBy
-ZXF1ZXN0LiBMZXQgbWUgcmVwZWF0IHNjb3BlIEFQSSB3aWxsCj4gZnVydGhlciByZXN0cmljdCBh
-bnkgcmVxdWVzdGVkIGFsbG9jYXRpb24gbW9kZS4KCk9rLCBnb3QgaXQuCgo+Cj4+IElzIHRoZW4g
-dGhlIG5vaW8gc2NvcGUgYWRkZWQgYXV0b21hdGljYWxseT8gQW5kIGlzIGl0IHBvc3NpYmxlIHRo
-YXQgdGhlCj4+IHNocmlua2VyIGdldHMgY2FsbGVkIHdpdGhvdXQgbm9pbyBzY29wZSBldmVuIHdl
-IHdvdWxkIG5lZWQgaXQ/Cj4gSGVyZSB5b3UgaGF2ZSBsb3N0IG1lIGFnYWluLgo+Cj4+Pj4+PiBJ
-IHRoaW5rIHRoaXMgaXMgd2hlcmUgSSBkb24ndCBnZXQgeWV0IHdoYXQgQ2hyaXN0aWFuIHRyaWVz
-IHRvIGRvOiBXZQo+Pj4+Pj4gcmVhbGx5IHNob3VsZG4ndCBkbyBkaWZmZXJlbnQgdHJpY2tzIGFu
-ZCBjYWxsaW5nIGNvbnRleHRzIGJldHdlZW4gZGlyZWN0Cj4+Pj4+PiByZWNsYWltIGFuZCBrc3dh
-cGQgcmVjbGFpbS4gT3RoZXJ3aXNlIHZlcnkgaGFyZCB0byB0cmFjayBkb3duIGJ1Z3MgYXJlCj4+
-Pj4+PiBwcmV0dHkgbXVjaCBndWFyYW50ZWVkLiBTbyB3aGV0aGVyIHdlIHVzZSBleHBsaWNpdCBn
-ZnAgZmxhZ3Mgb3IgdGhlCj4+Pj4+PiBjb250ZXh0IGFwaXMsIHJlc3VsdCBpcyBleGFjdGx5IHRo
-ZSBzYW1lLgo+Pj4+IE9rIGxldCB1cyByZWNhcCB3aGF0IFRUTXMgVFQgc2hyaW5rZXIgZG9lcyBo
-ZXJlOgo+Pj4+Cj4+Pj4gMS4gV2UgZ290IG1lbW9yeSB3aGljaCBpcyBub3Qgc3dhcGFibGUgYmVj
-YXVzZSBpdCBtaWdodCBiZSBhY2Nlc3NlZCBieSB0aGUKPj4+PiBHUFUgYXQgYW55IHRpbWUuCj4+
-Pj4gMi4gTWFrZSBzdXJlIHRoZSBtZW1vcnkgaXMgbm90IGFjY2Vzc2VkIGJ5IHRoZSBHUFUgYW5k
-IGRyaXZlciBuZWVkIHRvIGdyYWIgYQo+Pj4+IGxvY2sgYmVmb3JlIHRoZXkgY2FuIG1ha2UgaXQg
-YWNjZXNzaWJsZSBhZ2Fpbi4KPj4+PiAzLiBBbGxvY2F0ZSBhIHNobWVtIGZpbGUgYW5kIGNvcHkg
-b3ZlciB0aGUgbm90IHN3YXBhYmxlIHBhZ2VzLgo+Pj4gVGhpcyBpcyBxdWl0ZSB0cmlja3kgYmVj
-YXVzZSB0aGUgc2hyaW5rZXIgb3BlcmF0ZXMgaW4gdGhlIFBGX01FTUFMTE9DCj4+PiBjb250ZXh0
-IHNvIHN1Y2ggYW4gYWxsb2NhdGlvbiB3b3VsZCBiZSBhbGxvd2VkIHRvIGNvbXBsZXRlbHkgZGVw
-bGV0ZQo+Pj4gbWVtb3J5IHVubGVzcyB5b3UgZXhwbGljaXRseSBtYXJrIHRoYXQgY29udGV4dCBh
-cyBfX0dGUF9OT01FTUFMTE9DLgo+PiBUaGFua3MsIGV4YWN0bHkgdGhhdCB3YXMgb25lIHRoaW5n
-IEkgd2FzIGFic29sdXRlbHkgbm90IHN1cmUgYWJvdXQuIEFuZCB5ZXMKPj4gSSBhZ3JlZSB0aGF0
-IHRoaXMgaXMgcmVhbGx5IHRyaWNreS4KPj4KPj4gSWRlYWxseSBJIHdvdWxkIGxpa2UgdG8gYmUg
-YWJsZSB0byB0cmlnZ2VyIHN3YXBwaW5nIG91dCB0aGUgc2htZW0gcGFnZSBJCj4+IGFsbG9jYXRl
-ZCBpbW1lZGlhdGVseSBhZnRlciBkb2luZyB0aGUgY29weS4KPiBTbyBsZXQgbWUgdHJ5IHRvIHJl
-cGhyYXNlIHRvIG1ha2Ugc3VyZSBJIHVuZGVyc3RhbmQuIFlvdSB3b3VsZCBsaWtlIHRvCj4gc3dh
-cCBvdXQgdGhlIGV4aXN0aW5nIGNvbnRlbnQgZnJvbSB0aGUgc2hyaW5rZXIgYW5kIHlvdSB1c2Ug
-c2htZW0gYXMgYQo+IHdheSB0byBhY2hpZXZlIHRoYXQuIFRoZSBzd2Fwb3V0IHNob3VsZCBoYXBw
-ZW4gYXQgdGhlIHRpbWUgb2YgY29weWluZwo+IChzaHJpbmtlciBjb250ZXh0KSBvciBzaG9ydGx5
-IGFmdGVyd2FyZHM/Cj4KPiBTbyBlZmZlY3RpdmVseSB0byBjYWxsIHBhZ2VvdXQoKSBvbiB0aGUg
-c2htZW0gcGFnZSBhZnRlciB0aGUgY29weT8KClllcywgZXhhY3RseSB0aGF0LgoKPj4gVGhpcyB3
-YXkgSSB3b3VsZCBvbmx5IG5lZWQgYSBzaW5nbGUgcGFnZSBmb3IgdGhlIHdob2xlIHNocmluayBv
-cGVyYXRpb24gYXQKPj4gYW55IGdpdmVuIHRpbWUuCj4gV2hhdCBkbyB5b3UgbWVhbiBieSB0aGF0
-PyBZb3Ugd2FudCB0aGUgc2hhcmUgdGhlIHNhbWUgc2htZW0gcGFnZSBmb3IKPiBvdGhlciBjb3B5
-K3N3YXBvdXQ/CgpDb3JyZWN0LCB5ZXMuCgpUaGUgaWRlYSBpcyB0aGF0IHdlIGNhbiBzd2FwIG91
-dCB0aGUgY29udGVudCBvZiBhIGZ1bGwgR1BVIGJ1ZmZlciBvYmplY3QgCnRoaXMgd2F5IHRvIGdp
-dmUgdGhlIGJhY2tpbmcgc3RvcmUgb2YgdGhlIG9iamVjdCBiYWNrIHRvIHRoZSBjb3JlIG1lbW9y
-eSAKbWFuYWdtZW50LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+--===============1387890844==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB4549C3C4388974DA56E79AB197649MN2PR12MB4549namp_"
+
+--_000_MN2PR12MB4549C3C4388974DA56E79AB197649MN2PR12MB4549namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Update aldebaran PMFW interfaces to version 0x6
+
+Signed-off-by: Lijo Lazar lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>
+---
+.../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h    | 11 +++++++++--
+drivers/gpu/drm/amd/pm/inc/smu_v13_0.h                |  2 +-
+2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drive=
+rs/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+index df2ead254f37..d23533bda002 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
+@@ -435,8 +435,12 @@ typedef struct {
+   uint8_t  GpioI2cSda; // Serial Data
+   uint16_t spare5;
++  uint16_t XgmiMaxCurrent; // in Amps
++  int8_t   XgmiOffset;     // in Amps
++  uint8_t  Padding_TelemetryXgmi;
++
+   //reserved
+-  uint32_t reserved[16];
++  uint32_t reserved[15];
+ } PPTable_t;
+@@ -481,7 +485,10 @@ typedef struct {
+   uint16_t TemperatureAllHBM[4]  ;
+   uint32_t GfxBusyAcc            ;
+   uint32_t DramBusyAcc           ;
+-  uint32_t Spare[4];
++  uint32_t EnergyAcc64bitLow     ; //15.259uJ resolution
++  uint32_t EnergyAcc64bitHigh    ;
++  uint32_t TimeStampLow          ; //10ns resolution
++  uint32_t TimeStampHigh         ;
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/p=
+m/inc/smu_v13_0.h
+index 6db3464c09d6..8145e1cbf181 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
+@@ -26,7 +26,7 @@
+#include "amdgpu_smu.h"
+ #define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+-#define SMU13_DRIVER_IF_VERSION_ALDE 0x5
++#define SMU13_DRIVER_IF_VERSION_ALDE 0x6
+ /* MP Apertures */
+#define MP0_Public                                      0x03800000
+--
+2.17.1
+
+
+--_000_MN2PR12MB4549C3C4388974DA56E79AB197649MN2PR12MB4549namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
+pan></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Update aldebaran PMFW interfaces to version 0x6<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: Lijo Lazar <a href=3D"mailto:lijo.laz=
+ar@amd.com">
+lijo.lazar@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">.../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h&n=
+bsp;&nbsp;&nbsp; | 11 +++++++++--<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; |&nbsp; 2 +-<o:p></o:p></p>
+<p class=3D"MsoNormal">2 files changed, 10 insertions(+), 3 deletions(-)<o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver=
+_if_aldebaran.h b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">index df2ead254f37..d23533bda002 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_ald=
+ebaran.h<o:p></o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_ald=
+ebaran.h<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -435,8 +435,12 @@ typedef struct {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint8_t&nbsp; GpioI2cSda; // Serial Dat=
+a<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint16_t spare5;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint16_t XgmiMaxCurrent; // in Amps<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">+&nbsp; int8_t&nbsp;&nbsp; XgmiOffset;&nbsp;&nbsp;&n=
+bsp;&nbsp; // in Amps<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint8_t&nbsp; Padding_TelemetryXgmi;<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; //reserved<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp; uint32_t reserved[16];<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint32_t reserved[15];<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;} PPTable_t;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -481,7 +485,10 @@ typedef struct {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint16_t TemperatureAllHBM[4]&nbsp; ;<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t GfxBusyAcc&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t DramBusyAcc&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp; uint32_t Spare[4];<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint32_t EnergyAcc64bitLow&nbsp;&nbsp;&nbsp;=
+&nbsp; ; //15.259uJ resolution<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint32_t EnergyAcc64bitHigh&nbsp;&nbsp;&nbsp=
+; ;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint32_t TimeStampLow&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; //10ns resolution<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp; uint32_t TimeStampHigh&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; &nbsp;&nbsp;;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;// Padding - ignore<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp; MmHubP=
+adding[8]; // SMU internal use<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h =
+b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o:p></p>
+<p class=3D"MsoNormal">index 6db3464c09d6..8145e1cbf181 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">@@ -26,7 +26,7 @@<o:p></o:p></p>
+<p class=3D"MsoNormal">#include &quot;amdgpu_smu.h&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;#define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">-#define SMU13_DRIVER_IF_VERSION_ALDE 0x5<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">+#define SMU13_DRIVER_IF_VERSION_ALDE 0x6<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;/* MP Apertures */<o:p></o:p></p>
+<p class=3D"MsoNormal">#define MP0_Public&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x03800000<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB4549C3C4388974DA56E79AB197649MN2PR12MB4549namp_--
+
+--===============1387890844==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1387890844==--
