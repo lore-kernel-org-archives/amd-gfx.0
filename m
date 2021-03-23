@@ -2,85 +2,82 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE6D9C433C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2678FC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6A250619AE
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A250619AE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id C69AB619B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C69AB619B4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42EFB6E8D4;
-	Tue, 23 Mar 2021 12:00:35 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B46B26E8D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 12:00:33 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- j20-20020a05600c1914b029010f31e15a7fso4828987wmq.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 05:00:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=FVtKo5jWx+3SADF4ukoqEH4dm/CLnkXyOS/C8B/YN74=;
- b=FERWySWSOM/W7EFVRKsXbUsUBktYQ2g0wNeTUma34kmuD7xrWuD5y5ZBNOLeX6s/uQ
- YmE7WR3db7FJTJJkLhvV1yap0Ehurf1atRYcqIgno5djdYvn69PUGwB1ZSNfdiKgFTV3
- 2KWGpisExOBGA2hZ68BtWc06f7AQYDbgCclhs=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5519B6E059;
+	Tue, 23 Mar 2021 12:21:36 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845FE6E059;
+ Tue, 23 Mar 2021 12:21:35 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id b16so23220424eds.7;
+ Tue, 23 Mar 2021 05:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=+l1FkHneCCxWHd7Lw55HE5rWouIsqHp49qYTvqtcL2k=;
+ b=c8HZ4UuxI4tMpK3bfOLxR2mpo2MYKjvUiQ3fDpVE+daGCpuplamrRZQkT+MrcWUDbE
+ 5fyesazaC9swWYpVAsVh4bjZCtwWMyo/tYRDg8l+MScxBoss1amGb4MNmqBlxAzSsGPY
+ gOG1OA3nzcmgdlOYVNV3GxkgtZojqXbIgReIqXgqpyfywJ5+hzVa7c24OFzgdgVYRkTY
+ X8zseP4vAQZp4vxpZJollDELEll+ZMamuzK23/jJ7yRb7Ifi+XvjIer9ZwRemGYQ315T
+ /DXnwlr8mzNHEe9AYR+J/Jv2FPEsCyxQ60Uf8yJ6Uv1DjSraOu2v18Vtd+YfcHVagmnn
+ UdKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=FVtKo5jWx+3SADF4ukoqEH4dm/CLnkXyOS/C8B/YN74=;
- b=FIPkKkoHurVuUahm+0bkt7D2KRpJl4deUQmY+s1+UzIbr2K6w195p0UM4IB9O+Nmh9
- kccqe79ci57eG1JTIHZYXCalpRLmqOrHTJnnyhTQudDwaA4mECJeBWVyuSmbTzcLStpz
- HO3dghvek/Ik1BPKMEDDaKwAbdB7Wxef91ImoQEDaVioFfbhn7AKcPCzqb+uS8RKz7cW
- QJq+34kigISw+grcThI6FEV2GTcwGZtHqxFxaqo7NSRMKPT2vzpyM0Sa0Z+Wd53cFLhn
- JkL47ia6dD1v0Y81iQuoF7NAY+VlGfeNgCqd1zjNNpargP7xB7TOg6+f1Fc0BN2ZGklc
- 2m6Q==
-X-Gm-Message-State: AOAM533G8Q8k93lpVMxbYZUFWMee1hg1j24hO3RWSi3BrPRcVcYHB6K4
- 3jSqvbpI58Rtu9MDQye0MifKHQ==
-X-Google-Smtp-Source: ABdhPJxARHVEyqF19UyUbqTXsQiNOuv2yKBtCTkGaA8qrztykEOb1q+KlOZakO4Qh5lWRW5aoJHbyg==
-X-Received: by 2002:a1c:6243:: with SMTP id w64mr454513wmb.0.1616500832352;
- Tue, 23 Mar 2021 05:00:32 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k24sm2213978wmr.48.2021.03.23.05.00.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 05:00:31 -0700 (PDT)
-Date: Tue, 23 Mar 2021 13:00:29 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=+l1FkHneCCxWHd7Lw55HE5rWouIsqHp49qYTvqtcL2k=;
+ b=Bn2y193fiD5ieUrv2o9vd5/qFcFlJkQjp4vDDrTa0PB9GUHwF9grJY5YdoYOUTsaJW
+ Y+YiX+IBujcDQTHStRNneIUcT44VbxdIDofNTz/tEUqDnrecEisYyIk8eqkEHCpfPfb9
+ eUtlPphBS6BrhS7vHmmu2brEbzeyRii5ws+A7T0raiBx/SCO7JaFXbJDXAh51/ur0hG0
+ 6xEnP4ddBNb7U0PkcczDPCAp4vEvcwO5vrAFuChrXltWJyot1mi3CJoSj/GWrm04eLjI
+ U2rbUyGIXqmngk4+HXyJCdHwMbnKPIQl9tJk1x5OPHGh8tY1OlpkyzuWh2o52BZc809q
+ JU2A==
+X-Gm-Message-State: AOAM530LZjvFFYI3uMRTMn+kGHRrASmK3/55hYzNrwY40fP0h5zq0wvU
+ R3clqD+86+5sA5k4qKmCUuE=
+X-Google-Smtp-Source: ABdhPJzVRLqp4Hqmn/EMxIcWHlx0cmTl0G2L+0FrDyPfaGc6f7BT8Nm5ZnhhEkfP/NS62yrvo8DYwg==
+X-Received: by 2002:aa7:c850:: with SMTP id g16mr4274306edt.324.1616502094239; 
+ Tue, 23 Mar 2021 05:21:34 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec?
+ ([2a02:908:1252:fb60:fdcd:4dd1:a1af:a7ec])
+ by smtp.gmail.com with ESMTPSA id p24sm12790444edt.5.2021.03.23.05.21.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Mar 2021 05:21:33 -0700 (PDT)
 Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFnYXdQlRnq1Vn8g@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <ckoenig.leichtzumerken@gmail.com>, 
- Michal Hocko <mhocko@suse.com>,
- Matthew Wilcox <willy@infradead.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux MM <linux-mm@kvack.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-References: <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+To: Michal Hocko <mhocko@suse.com>
+References: <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
+ <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
  <YFigZ5+H95c/GI/S@phenom.ffwll.local>
  <20210322140548.GN1719932@casper.infradead.org>
  <YFi+UROYbQERYEEr@dhcp22.suse.cz>
  <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
  <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
- <YFma+ZxncvfBd++o@dhcp22.suse.cz>
- <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
- <YFnVMRNmWG+qv+4i@dhcp22.suse.cz>
- <d1d7170b-7566-32c3-9883-49e5573e7339@gmail.com>
+ <YFma+ZxncvfBd++o@dhcp22.suse.cz> <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
+ <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
+ <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
+Date: Tue, 23 Mar 2021 13:21:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d1d7170b-7566-32c3-9883-49e5573e7339@gmail.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,75 +89,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>,
+Cc: Matthew Wilcox <willy@infradead.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 23, 2021 at 12:51:13PM +0100, Christian K=F6nig wrote:
-> =
-
-> =
-
-> Am 23.03.21 um 12:46 schrieb Michal Hocko:
-> > On Tue 23-03-21 12:28:20, Daniel Vetter wrote:
-> > > On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
-> > [...]
-> > > > > > fs_reclaim_acquire is there to make sure lockdep understands th=
-at this
-> > > > > > is a shrinker and that it checks all the dependencies for us li=
-ke if
-> > > > > > we'd be in real reclaim. There is some drop caches interfaces i=
-n proc
-> > > > > > iirc, but those drop everything, and they don't have the fs_rec=
-laim
-> > > > > > annotations to teach lockdep about what we're doing.
-> > > > ... I really do not follow this. You shouldn't really care whether =
-this
-> > > > is a reclaim interface or not. Or maybe I just do not understand th=
-is...
-> > > We're heavily relying on lockdep and fs_reclaim to make sure we get i=
-t all
-> > > right. So any drop caches interface that isn't wrapped in fs_reclaim
-> > > context is kinda useless for testing. Plus ideally we want to only hi=
-t our
-> > > own paths, and not trash every other cache in the system. Speed matte=
-rs in
-> > > CI.
-> > But what is special about this path to hack around and make it pretend
-> > it is part of the fs reclaim path?
-> =
-
-> That's just to teach lockdep that there is a dependency.
-> =
-
-> In other words we pretend in the debugfs file that it is part of the fs
-> reclaim path to check for the case when it really becomes part of the fs
-> reclaim path.
-
-Yeah this is only for testing. There's two ways to test your shrinker:
-
-- drive system agains the OOM wall, deal with lots of unrelated hangs and
-  issues. Aside from this takes postively forever, which is not good if
-  you want CI turn-around time measured in "coffee breaks" as time unit.
-
-- have a debugfs file which reconstructs the calling context of direct
-  reclaim sufficiently for lockdep to do its thing, and then test just
-  your shrinker in isolation, without crashing your CI machines or even
-  hurting it much.
-
-Only one of these options is actually practical.
--Daniel
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjMuMDMuMjEgdW0gMTM6MDQgc2NocmllYiBNaWNoYWwgSG9ja286Cj4gT24gVHVlIDIzLTAz
+LTIxIDEyOjQ4OjU4LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyMy4wMy4yMSB1bSAx
+MjoyOCBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4+PiBPbiBUdWUsIE1hciAyMywgMjAyMSBhdCAw
+ODozODozM0FNICswMTAwLCBNaWNoYWwgSG9ja28gd3JvdGU6Cj4+Pj4gT24gTW9uIDIyLTAzLTIx
+IDIwOjM0OjI1LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFsuLi5dCj4+Pj4+IE15IG9ubHkg
+Y29uY2VybiBpcyB0aGF0IGlmIEkgY291bGQgcmVseSBvbiBtZW1hbGxvY19ubyogYmVpbmcgdXNl
+ZCB3ZSBjb3VsZAo+Pj4+PiBvcHRpbWl6ZSB0aGlzIHF1aXRlIGEgYml0IGZ1cnRoZXIuCj4+Pj4g
+WWVzIHlvdSBjYW4gdXNlIHRoZSBzY29wZSBBUEkgYW5kIHlvdSB3aWxsIGJlIGd1YXJhbnRlZWQg
+dGhhdCBfYW55Xwo+Pj4+IGFsbG9jYXRpb24gZnJvbSB0aGUgZW5jbG9zZWQgY29udGV4dCB3aWxs
+IGluaGVyaXQgR0ZQX05PKiBzZW1hbnRpYy4KPj4gVGhlIHF1ZXN0aW9uIGlzIGlmIHRoaXMgaXMg
+YWxzbyBndWFyYW50ZWVkIHRoZSBvdGhlciB3YXkgYXJvdW5kPwo+Pgo+PiBJbiBvdGhlciB3b3Jk
+cyBpZiBzb21lYm9keSBjYWxscyBnZXRfZnJlZV9wYWdlKEdGUF9OT0ZTKSBhcmUgdGhlIGNvbnRl
+eHQKPj4gZmxhZ3Mgc2V0IGFzIHdlbGw/Cj4gZ2ZwIG1hc2sgaXMgYWx3YXlzIHJlc3RyaWN0ZWQg
+aW4gdGhlIHBhZ2UgYWxsb2NhdG9yLiBTbyBzYXkgeW91IGhhdmUKPiBub2lvIHNjb3BlIGNvbnRl
+eHQgYW5kIGNhbGwgZ2V0X2ZyZWVfcGFnZS9rbWFsbG9jKEdGUF9OT0ZTKSB0aGVuIHRoZQo+IHNj
+b3BlIHdvdWxkIHJlc3RyaWN0IHRoZSBhbGxvY2F0aW9uIGZsYWdzIHRvIEdGUF9OT0lPIChha2Eg
+ZHJvcAo+IF9fR0ZQX0lPKS4gRm9yIGZ1cnRoZXIgZGV0YWlscywgaGF2ZSBhIGxvb2sgYXQgY3Vy
+cmVudF9nZnBfY29udGV4dAo+IGFuZCBpdHMgY2FsbGVycy4KPgo+IERvZXMgdGhpcyBhbnN3ZXIg
+eW91ciBxdWVzdGlvbj8KCkJ1dCB3aGF0IGhhcHBlbnMgaWYgeW91IGRvbid0IGhhdmUgbm9pbyBz
+Y29wZSBhbmQgc29tZWJvZHkgY2FsbHMgCmdldF9mcmVlX3BhZ2UoR0ZQX05PRlMpPwoKSXMgdGhl
+biB0aGUgbm9pbyBzY29wZSBhZGRlZCBhdXRvbWF0aWNhbGx5PyBBbmQgaXMgaXQgcG9zc2libGUg
+dGhhdCB0aGUgCnNocmlua2VyIGdldHMgY2FsbGVkIHdpdGhvdXQgbm9pbyBzY29wZSBldmVuIHdl
+IHdvdWxkIG5lZWQgaXQ/Cgo+Pj4+IEkgdGhpbmsgdGhpcyBpcyB3aGVyZSBJIGRvbid0IGdldCB5
+ZXQgd2hhdCBDaHJpc3RpYW4gdHJpZXMgdG8gZG86IFdlCj4+Pj4gcmVhbGx5IHNob3VsZG4ndCBk
+byBkaWZmZXJlbnQgdHJpY2tzIGFuZCBjYWxsaW5nIGNvbnRleHRzIGJldHdlZW4gZGlyZWN0Cj4+
+Pj4gcmVjbGFpbSBhbmQga3N3YXBkIHJlY2xhaW0uIE90aGVyd2lzZSB2ZXJ5IGhhcmQgdG8gdHJh
+Y2sgZG93biBidWdzIGFyZQo+Pj4+IHByZXR0eSBtdWNoIGd1YXJhbnRlZWQuIFNvIHdoZXRoZXIg
+d2UgdXNlIGV4cGxpY2l0IGdmcCBmbGFncyBvciB0aGUKPj4+PiBjb250ZXh0IGFwaXMsIHJlc3Vs
+dCBpcyBleGFjdGx5IHRoZSBzYW1lLgo+PiBPayBsZXQgdXMgcmVjYXAgd2hhdCBUVE1zIFRUIHNo
+cmlua2VyIGRvZXMgaGVyZToKPj4KPj4gMS4gV2UgZ290IG1lbW9yeSB3aGljaCBpcyBub3Qgc3dh
+cGFibGUgYmVjYXVzZSBpdCBtaWdodCBiZSBhY2Nlc3NlZCBieSB0aGUKPj4gR1BVIGF0IGFueSB0
+aW1lLgo+PiAyLiBNYWtlIHN1cmUgdGhlIG1lbW9yeSBpcyBub3QgYWNjZXNzZWQgYnkgdGhlIEdQ
+VSBhbmQgZHJpdmVyIG5lZWQgdG8gZ3JhYiBhCj4+IGxvY2sgYmVmb3JlIHRoZXkgY2FuIG1ha2Ug
+aXQgYWNjZXNzaWJsZSBhZ2Fpbi4KPj4gMy4gQWxsb2NhdGUgYSBzaG1lbSBmaWxlIGFuZCBjb3B5
+IG92ZXIgdGhlIG5vdCBzd2FwYWJsZSBwYWdlcy4KPiBUaGlzIGlzIHF1aXRlIHRyaWNreSBiZWNh
+dXNlIHRoZSBzaHJpbmtlciBvcGVyYXRlcyBpbiB0aGUgUEZfTUVNQUxMT0MKPiBjb250ZXh0IHNv
+IHN1Y2ggYW4gYWxsb2NhdGlvbiB3b3VsZCBiZSBhbGxvd2VkIHRvIGNvbXBsZXRlbHkgZGVwbGV0
+ZQo+IG1lbW9yeSB1bmxlc3MgeW91IGV4cGxpY2l0bHkgbWFyayB0aGF0IGNvbnRleHQgYXMgX19H
+RlBfTk9NRU1BTExPQy4KClRoYW5rcywgZXhhY3RseSB0aGF0IHdhcyBvbmUgdGhpbmcgSSB3YXMg
+YWJzb2x1dGVseSBub3Qgc3VyZSBhYm91dC4gQW5kIAp5ZXMgSSBhZ3JlZSB0aGF0IHRoaXMgaXMg
+cmVhbGx5IHRyaWNreS4KCklkZWFsbHkgSSB3b3VsZCBsaWtlIHRvIGJlIGFibGUgdG8gdHJpZ2dl
+ciBzd2FwcGluZyBvdXQgdGhlIHNobWVtIHBhZ2UgSSAKYWxsb2NhdGVkIGltbWVkaWF0ZWx5IGFm
+dGVyIGRvaW5nIHRoZSBjb3B5LgoKVGhpcyB3YXkgSSB3b3VsZCBvbmx5IG5lZWQgYSBzaW5nbGUg
+cGFnZSBmb3IgdGhlIHdob2xlIHNocmluayBvcGVyYXRpb24gCmF0IGFueSBnaXZlbiB0aW1lLgoK
+PiBBbHNvIG5vdGUgdGhhdCBpZiB0aGUgYWxsb2NhdGlvbiBjYW5ub3Qgc3VjY2VlZCBpdCB3aWxs
+IG5vdCB0cmlnZ2VyIHJlY2xhaW0KPiBhZ2FpbiBiZWNhdXNlIHlvdSBhcmUgYWxyZWFkeSBjYWxs
+ZWQgZnJvbSB0aGUgcmVjbGFpbSBjb250ZXh0Lgo+Cj4+IDQuIEZyZWUgdGhlIG5vdCBzd2FwYWJs
+ZS9yZWNsYWltYWJsZSBwYWdlcy4KPj4KPj4gVGhlIHBhZ2VzIHdlIGdvdCBmcm9tIHRoZSBzaG1l
+bSBmaWxlIGFyZSBlYXNpbHkgc3dhcGFibGUgdG8gZGlzayBhZnRlciB0aGUKPj4gY29weSBpcyBj
+b21wbGV0ZWQuIEJ1dCBvbmx5IGlmIElPIGlzIG5vdCBhbHJlYWR5IGJsb2NrZWQgYmVjYXVzZSB0
+aGUKPj4gc2hyaW5rZXIgd2FzIGNhbGxlZCBmcm9tIGFuIGFsbG9jYXRpb24gcmVzdHJpY3RlZCBi
+eSBHRlBfTk9GUyBvciBHRlBfTk9JTy4KPiBTb3JyeSBmb3IgYmVpbmcgZGVuc2UgaGVyZSBidXQg
+SSBzdGlsbCBkbyBub3QgZm9sbG93IHRoZSBhY3R1YWwgcHJvYmxlbQo+ICh3ZWxsLCBleGNlcHQg
+Zm9yIHRoZSBhYm92ZSBtZW50aW9uZWQgb25lKS4gSXMgdGhlIHNvbGUgcG9pbnQgb2YgdGhpcyB0
+bwo+IGVtdWxhdGUgYSBHRlBfTk8qIGFsbG9jYXRpb24gY29udGV4dCBhbmQgc2VlIGhvdyBzaHJp
+bmtlciBiZWhhdmVzPwoKUGxlYXNlIGJlIGFzIGRlbnNlIGFzIHlvdSBuZWVkIHRvIGJlIDopCgpJ
+IHRoaW5rIERhbmllbCBhbmQgSSBvbmx5IGhhdmUgYSB2ZXJ5IHJvdWdoIHVuZGVyc3RhbmRpbmcg
+b2YgdGhlIG1lbW9yeSAKbWFuYWdlbWVudCBkZXRhaWxzIGhlcmUsIGJ1dCB3ZSBuZWVkIGV4YWN0
+bHkgdGhhdCBrbm93bGVkZ2UgdG8gZ2V0IHRoZSAKR1BVIG1lbW9yeSBtYW5hZ2VtZW50IGludG8g
+dGhlIHNoYXBlIHdlIHdhbnQgaXQgdG8gYmUuCgpUaGFua3MsCkNocmlzdGlhbi4KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
