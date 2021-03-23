@@ -2,58 +2,48 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6266FC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56B6BC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF5B8619B7
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF5B8619B7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
+	by mail.kernel.org (Postfix) with ESMTPS id E99BF619B7
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 13:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E99BF619B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560D56E8E6;
-	Tue, 23 Mar 2021 12:47:49 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530C56E8CE;
- Tue, 23 Mar 2021 12:04:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1616501049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hlDvHobKzx0p3BSIH1iU7GaUAE5bHJz9NOdKDiruEDw=;
- b=JJdQSwDPmNu+V+SFxAJz0cPaoRDt9+YJVooaeTdADIzQtvY2KJCZpaE2tXGKWGNSnSEAWd
- zvILv2OrSuG9HDHAaaYqWPzTo6gVgGKgUPDHYccFUkocI7EgIcKKwG+x7B9sVu0LOHcAGt
- zASxfaswP7AZmwCpPzsp3jmdlxBiQJk=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E06ACAD38;
- Tue, 23 Mar 2021 12:04:08 +0000 (UTC)
-Date: Tue, 23 Mar 2021 13:04:03 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
-References: <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
- <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
- <YFigZ5+H95c/GI/S@phenom.ffwll.local>
- <20210322140548.GN1719932@casper.infradead.org>
- <YFi+UROYbQERYEEr@dhcp22.suse.cz>
- <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
- <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
- <YFma+ZxncvfBd++o@dhcp22.suse.cz>
- <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
- <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEFD6E8E5;
+	Tue, 23 Mar 2021 13:04:37 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EBB16E858;
+ Tue, 23 Mar 2021 13:04:36 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D79BB619B6;
+ Tue, 23 Mar 2021 13:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616504674;
+ bh=q6NHsIW3BnA5mhThORhjcdH3DG7oZJ3fYXk3ohPq4IE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=NSVZHMS2Sa44doHHUf+7S7yQgC3c7fmn8mqentdeLVYtyu9W1ptJa2pLE79Fdw4T1
+ x25sJWLjI8q72sGiXXjws1uxQ+Stxy21a1AGhFnFNQ71UmNVqiq17cLSooefF8iLZh
+ DpQ8dPBai9dvRSoVgcW/hM+fEuLE6l21P9PUtsIJ+zZb08BftvHsYvXj1DXNCLCGxD
+ DdFhaiPPrSeskOliAZMdENIJIVbTLGsDMajQLPthjqfTbvw0LACdqTKMhCKer76HYR
+ Mjcz7piID8kj8USw42m8caU00xxjmYn/DiRMbafuxX6EVK/6pitlIivY+HIxUUY0qm
+ mLIpyBIPjsJ3Q==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] amdgpu: fix gcc -Wrestrict warning
+Date: Tue, 23 Mar 2021 14:04:20 +0100
+Message-Id: <20210323130430.2250052-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
-X-Mailman-Approved-At: Tue, 23 Mar 2021 12:47:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,80 +55,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Jinzhou Su <Jinzhou.Su@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue 23-03-21 12:48:58, Christian K=F6nig wrote:
-> Am 23.03.21 um 12:28 schrieb Daniel Vetter:
-> > On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
-> > > On Mon 22-03-21 20:34:25, Christian K=F6nig wrote:
-[...]
-> > > > My only concern is that if I could rely on memalloc_no* being used =
-we could
-> > > > optimize this quite a bit further.
-> > > Yes you can use the scope API and you will be guaranteed that _any_
-> > > allocation from the enclosed context will inherit GFP_NO* semantic.
-> =
+From: Arnd Bergmann <arnd@arndb.de>
 
-> The question is if this is also guaranteed the other way around?
-> =
+gcc warns about an sprintf() that uses the same buffer as source
+and destination, which is undefined behavior in C99:
 
-> In other words if somebody calls get_free_page(GFP_NOFS) are the context
-> flags set as well?
+drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c: In function 'amdgpu_securedisplay_debugfs_write':
+drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c:141:6: error: 'sprintf' argument 3 overlaps destination object 'i2c_output' [-Werror=restrict]
+  141 |      sprintf(i2c_output, "%s 0x%X", i2c_output,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  142 |       securedisplay_cmd->securedisplay_out_message.send_roi_crc.i2c_buf[i]);
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c:97:7: note: destination object referenced by 'restrict'-qualified argument 1 was declared here
+   97 |  char i2c_output[256];
+      |       ^~~~~~~~~~
 
-gfp mask is always restricted in the page allocator. So say you have
-noio scope context and call get_free_page/kmalloc(GFP_NOFS) then the
-scope would restrict the allocation flags to GFP_NOIO (aka drop
-__GFP_IO). For further details, have a look at current_gfp_context
-and its callers.
+Rewrite it to remember the current offset into the buffer instead.
 
-Does this answer your question?
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> > > I think this is where I don't get yet what Christian tries to do: We
-> > > really shouldn't do different tricks and calling contexts between dir=
-ect
-> > > reclaim and kswapd reclaim. Otherwise very hard to track down bugs are
-> > > pretty much guaranteed. So whether we use explicit gfp flags or the
-> > > context apis, result is exactly the same.
-> =
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+index 834440ab9ff7..69d7f6bff5d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+@@ -136,9 +136,10 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
+ 		ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
+ 		if (!ret) {
+ 			if (securedisplay_cmd->status == TA_SECUREDISPLAY_STATUS__SUCCESS) {
++				int pos = 0;
+ 				memset(i2c_output,  0, sizeof(i2c_output));
+ 				for (i = 0; i < TA_SECUREDISPLAY_I2C_BUFFER_SIZE; i++)
+-					sprintf(i2c_output, "%s 0x%X", i2c_output,
++					pos += sprintf(i2c_output + pos, " 0x%X",
+ 						securedisplay_cmd->securedisplay_out_message.send_roi_crc.i2c_buf[i]);
+ 				dev_info(adev->dev, "SECUREDISPLAY: I2C buffer out put is :%s\n", i2c_output);
+ 			} else {
+-- 
+2.29.2
 
-> Ok let us recap what TTMs TT shrinker does here:
-> =
-
-> 1. We got memory which is not swapable because it might be accessed by the
-> GPU at any time.
-> 2. Make sure the memory is not accessed by the GPU and driver need to gra=
-b a
-> lock before they can make it accessible again.
-> 3. Allocate a shmem file and copy over the not swapable pages.
-
-This is quite tricky because the shrinker operates in the PF_MEMALLOC
-context so such an allocation would be allowed to completely deplete
-memory unless you explicitly mark that context as __GFP_NOMEMALLOC. Also
-note that if the allocation cannot succeed it will not trigger reclaim
-again because you are already called from the reclaim context.
-
-> 4. Free the not swapable/reclaimable pages.
-> =
-
-> The pages we got from the shmem file are easily swapable to disk after the
-> copy is completed. But only if IO is not already blocked because the
-> shrinker was called from an allocation restricted by GFP_NOFS or GFP_NOIO.
-
-Sorry for being dense here but I still do not follow the actual problem
-(well, except for the above mentioned one). Is the sole point of this to
-emulate a GFP_NO* allocation context and see how shrinker behaves? =
-
--- =
-
-Michal Hocko
-SUSE Labs
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
