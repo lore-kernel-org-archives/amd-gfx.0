@@ -6,41 +6,43 @@ X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41A5AC433C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6266FC433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC426619B1
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC426619B1
+	by mail.kernel.org (Postfix) with ESMTPS id EF5B8619B7
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 12:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF5B8619B7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C6A6E8D2;
-	Tue, 23 Mar 2021 12:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 560D56E8E6;
+	Tue, 23 Mar 2021 12:47:49 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D67076E8E2;
- Tue, 23 Mar 2021 12:37:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 530C56E8CE;
+ Tue, 23 Mar 2021 12:04:10 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1616503031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1616501049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AkQCdkqsRL6FjVNRqhzir7MU97cl0F21rnjotT8pc7o=;
- b=KwkHFRMetl98EBn2+6hZdQMbLx3wGCW+ZeZTXYE6tZ9EWQDepTMVHHnXIg/k3bqU0cCDMX
- ORhlt0uu4/H6PIzCcWdRTwWn0RqVtQFCiL2CroNtQNHwcFgJj87e7ZbaFf+k1oipnKCAV4
- L00HWoonVx+sHh/m0UpP3MDTrpVYy5c=
+ bh=hlDvHobKzx0p3BSIH1iU7GaUAE5bHJz9NOdKDiruEDw=;
+ b=JJdQSwDPmNu+V+SFxAJz0cPaoRDt9+YJVooaeTdADIzQtvY2KJCZpaE2tXGKWGNSnSEAWd
+ zvILv2OrSuG9HDHAaaYqWPzTo6gVgGKgUPDHYccFUkocI7EgIcKKwG+x7B9sVu0LOHcAGt
+ zASxfaswP7AZmwCpPzsp3jmdlxBiQJk=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 673DEAD38;
- Tue, 23 Mar 2021 12:37:11 +0000 (UTC)
-Date: Tue, 23 Mar 2021 13:37:10 +0100
+ by mx2.suse.de (Postfix) with ESMTP id E06ACAD38;
+ Tue, 23 Mar 2021 12:04:08 +0000 (UTC)
+Date: Tue, 23 Mar 2021 13:04:03 +0100
 From: Michal Hocko <mhocko@suse.com>
 To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-Message-ID: <YFng9qXM3NdrGHTx@dhcp22.suse.cz>
-References: <YFigZ5+H95c/GI/S@phenom.ffwll.local>
+Message-ID: <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
+References: <CAKMK7uEDhuvSwJj5CX8vHgLb+5zm=rdJPmXwb-VQWdrW6GwQZw@mail.gmail.com>
+ <e6e9df3e-cd2b-d80f-205d-6ca1865819b2@gmail.com>
+ <YFigZ5+H95c/GI/S@phenom.ffwll.local>
  <20210322140548.GN1719932@casper.infradead.org>
  <YFi+UROYbQERYEEr@dhcp22.suse.cz>
  <CAKMK7uGM6EJvzktrANyeeemRPoW7O0ka-ZyKi==wL1zt3yM=5w@mail.gmail.com>
@@ -48,11 +50,9 @@ References: <YFigZ5+H95c/GI/S@phenom.ffwll.local>
  <YFma+ZxncvfBd++o@dhcp22.suse.cz>
  <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
  <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
- <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
- <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
+In-Reply-To: <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
 X-Mailman-Approved-At: Tue, 23 Mar 2021 12:47:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,92 +74,67 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue 23-03-21 13:21:32, Christian K=F6nig wrote:
-> Am 23.03.21 um 13:04 schrieb Michal Hocko:
-> > On Tue 23-03-21 12:48:58, Christian K=F6nig wrote:
-> > > Am 23.03.21 um 12:28 schrieb Daniel Vetter:
-> > > > On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
-> > > > > On Mon 22-03-21 20:34:25, Christian K=F6nig wrote:
-> > [...]
-> > > > > > My only concern is that if I could rely on memalloc_no* being u=
-sed we could
-> > > > > > optimize this quite a bit further.
-> > > > > Yes you can use the scope API and you will be guaranteed that _an=
-y_
-> > > > > allocation from the enclosed context will inherit GFP_NO* semanti=
-c.
-> > > The question is if this is also guaranteed the other way around?
-> > > =
-
-> > > In other words if somebody calls get_free_page(GFP_NOFS) are the cont=
-ext
-> > > flags set as well?
-> > gfp mask is always restricted in the page allocator. So say you have
-> > noio scope context and call get_free_page/kmalloc(GFP_NOFS) then the
-> > scope would restrict the allocation flags to GFP_NOIO (aka drop
-> > __GFP_IO). For further details, have a look at current_gfp_context
-> > and its callers.
-> > =
-
-> > Does this answer your question?
+On Tue 23-03-21 12:48:58, Christian K=F6nig wrote:
+> Am 23.03.21 um 12:28 schrieb Daniel Vetter:
+> > On Tue, Mar 23, 2021 at 08:38:33AM +0100, Michal Hocko wrote:
+> > > On Mon 22-03-21 20:34:25, Christian K=F6nig wrote:
+[...]
+> > > > My only concern is that if I could rely on memalloc_no* being used =
+we could
+> > > > optimize this quite a bit further.
+> > > Yes you can use the scope API and you will be guaranteed that _any_
+> > > allocation from the enclosed context will inherit GFP_NO* semantic.
 > =
 
-> But what happens if you don't have noio scope and somebody calls
-> get_free_page(GFP_NOFS)?
-
-Then this will be a regular NOFS request. Let me repeat scope API will
-further restrict any requested allocation mode.
-
-> Is then the noio scope added automatically? And is it possible that the
-> shrinker gets called without noio scope even we would need it?
-
-Here you have lost me again.
-
-> > > > > I think this is where I don't get yet what Christian tries to do:=
- We
-> > > > > really shouldn't do different tricks and calling contexts between=
- direct
-> > > > > reclaim and kswapd reclaim. Otherwise very hard to track down bug=
-s are
-> > > > > pretty much guaranteed. So whether we use explicit gfp flags or t=
-he
-> > > > > context apis, result is exactly the same.
-> > > Ok let us recap what TTMs TT shrinker does here:
-> > > =
-
-> > > 1. We got memory which is not swapable because it might be accessed b=
-y the
-> > > GPU at any time.
-> > > 2. Make sure the memory is not accessed by the GPU and driver need to=
- grab a
-> > > lock before they can make it accessible again.
-> > > 3. Allocate a shmem file and copy over the not swapable pages.
-> > This is quite tricky because the shrinker operates in the PF_MEMALLOC
-> > context so such an allocation would be allowed to completely deplete
-> > memory unless you explicitly mark that context as __GFP_NOMEMALLOC.
+> The question is if this is also guaranteed the other way around?
 > =
 
-> Thanks, exactly that was one thing I was absolutely not sure about. And y=
-es
-> I agree that this is really tricky.
+> In other words if somebody calls get_free_page(GFP_NOFS) are the context
+> flags set as well?
+
+gfp mask is always restricted in the page allocator. So say you have
+noio scope context and call get_free_page/kmalloc(GFP_NOFS) then the
+scope would restrict the allocation flags to GFP_NOIO (aka drop
+__GFP_IO). For further details, have a look at current_gfp_context
+and its callers.
+
+Does this answer your question?
+
+> > > I think this is where I don't get yet what Christian tries to do: We
+> > > really shouldn't do different tricks and calling contexts between dir=
+ect
+> > > reclaim and kswapd reclaim. Otherwise very hard to track down bugs are
+> > > pretty much guaranteed. So whether we use explicit gfp flags or the
+> > > context apis, result is exactly the same.
 > =
 
-> Ideally I would like to be able to trigger swapping out the shmem page I
-> allocated immediately after doing the copy.
+> Ok let us recap what TTMs TT shrinker does here:
+> =
 
-So let me try to rephrase to make sure I understand. You would like to
-swap out the existing content from the shrinker and you use shmem as a
-way to achieve that. The swapout should happen at the time of copying
-(shrinker context) or shortly afterwards?
+> 1. We got memory which is not swapable because it might be accessed by the
+> GPU at any time.
+> 2. Make sure the memory is not accessed by the GPU and driver need to gra=
+b a
+> lock before they can make it accessible again.
+> 3. Allocate a shmem file and copy over the not swapable pages.
 
-So effectively to call pageout() on the shmem page after the copy?
- =
+This is quite tricky because the shrinker operates in the PF_MEMALLOC
+context so such an allocation would be allowed to completely deplete
+memory unless you explicitly mark that context as __GFP_NOMEMALLOC. Also
+note that if the allocation cannot succeed it will not trigger reclaim
+again because you are already called from the reclaim context.
 
-> This way I would only need a single page for the whole shrink operation at
-> any given time.
+> 4. Free the not swapable/reclaimable pages.
+> =
 
-What do you mean by that? You want the share the same shmem page for
-other copy+swapout?
+> The pages we got from the shmem file are easily swapable to disk after the
+> copy is completed. But only if IO is not already blocked because the
+> shrinker was called from an allocation restricted by GFP_NOFS or GFP_NOIO.
+
+Sorry for being dense here but I still do not follow the actual problem
+(well, except for the above mentioned one). Is the sole point of this to
+emulate a GFP_NO* allocation context and see how shrinker behaves? =
+
 -- =
 
 Michal Hocko
