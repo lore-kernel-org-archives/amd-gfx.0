@@ -2,73 +2,66 @@ Return-Path: <SRS0=chDG=IV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70040C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48AD4C433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22A066197F
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22A066197F
+	by mail.kernel.org (Postfix) with ESMTPS id 0F67460232
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Mar 2021 14:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F67460232
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B706E900;
-	Tue, 23 Mar 2021 14:55:01 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5882B6E900
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 14:55:01 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id jy13so27561858ejc.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Mar 2021 07:55:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C30886E909;
+	Tue, 23 Mar 2021 14:56:33 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5816E909;
+ Tue, 23 Mar 2021 14:56:33 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ c12-20020a4ae24c0000b02901bad05f40e4so4998133oot.4; 
+ Tue, 23 Mar 2021 07:56:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=WN/tRYfBHS4jErp/hm+9dWTbMZl9AxJvBZADTRTNeW8=;
- b=CP6CH3Xggak8Bz3RhknDbXK7W5ivFKEdlCi9cI8+iw7EaUfNq8lSDivtOeS/ZgYBUm
- nyB7Pnlwmd51AgcegmDrRr6cJTKEeygegtGfCN603Lt1gD610f0PpgLl3HxEZnxMWqzR
- /qbH/An6SyVHyMcB4p/p++4uWq7VnYFvTMBSXZoJlh+uY0+17FYsJpA1UzFMYkKR18QH
- 3PdI+aiYQYo5NZTqme1wQNIyKKf1a30CnMLdkoeOMOGGYVtBeQ05WFm3/UkWL/p+WbCy
- H/P6x5f7lFBhZdXRQtt48tTLW6xRvm7HM/ar2e+qI+5SSNx2skNorjrDj2JPwbm1IseI
- ji2Q==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=crpOCZ60DCBuwt1S72UL7ppFvHjUGvqZ5yR3kG9lxbs=;
+ b=cJmfOsPzE0P+Wx3J0VF/8JzInsyP2vvvZHUaXxyOFUTwyQhErBHfFdqxeVhtfRxLtp
+ KMFCT3xSwNLSEYPBwkqsQMNVTRMsmhPsEYNwVVjSMGquedqLS0XoORy+Hy+LgNA7rrl5
+ YB/ESJgMuvnXmnHBZRHeKvWWNQezitrBqm3jv3pm9xvOVDi/7RXun3+C8VZzf3Vh6vXG
+ G9KCi34XuLlYmtY4Xp175rYgMgvRfWVJqfKsENAwjqlWjQcw/dmDZblJTTS4JPp0DbRT
+ 8MZHJVwjOvJqqzoCfiaLQOwZKF0pD8zpZ6rMwTKUIGskmx48uaTGQ335Uw2JQCMI0Dub
+ YC6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=WN/tRYfBHS4jErp/hm+9dWTbMZl9AxJvBZADTRTNeW8=;
- b=BIwBZ88WSDI+9H+8w4K2uEj2ilX9ORkSxYJCwrnoHSpBtJNBaIzjRa+GhBefB/DA+e
- VsZ3lLPJANbxPcvkm5G5kejIXHBnCE/SYBvH01mut0v89ULNsrDcUJCGfrNAk/stiWxx
- TOH+mMd6gtYQNC3rgNAQ69fFQdBmhhr6lZgHy9a0Fn8D7hgxbz+aQIGsZgvtJYXzpMrv
- 5u1gSi6XFAz0dDUnTNNRkzdqfEFNQrSLHRnlY/DrzBAvdppyeQaaXrSOhKRx3Hb7Gfb2
- GP8BIKzGKoXIOscsWOTKY7iyRnZNy06dsRR35G1BMgCXaBDE4mQTYj33Jf6vyoU80Lh3
- U34g==
-X-Gm-Message-State: AOAM532k41aYZ7tWWzsqkVHTIqlzlOV4VNOK5jHd54AMyxcp1gslptrf
- pekdSDUZrZdF5I5JpU7Q6qRRT7atNKs=
-X-Google-Smtp-Source: ABdhPJx9vqsyh12oewiRNDmSh5dEm0ln04J2/ojqLblPokMTmLIMzFKvzBWcQliiV+vESflcOjna9g==
-X-Received: by 2002:a17:906:2710:: with SMTP id
- z16mr5364017ejc.176.1616511300085; 
- Tue, 23 Mar 2021 07:55:00 -0700 (PDT)
-Received: from abel.fritz.box ([2a02:908:1252:fb60:8d10:1bcf:598:9db5])
- by smtp.gmail.com with ESMTPSA id n26sm12955152eds.22.2021.03.23.07.54.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 07:54:59 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: re-apply "use the new cursor in the VM code""
-Date: Tue, 23 Mar 2021 15:54:58 +0100
-Message-Id: <20210323145458.38910-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210323145458.38910-1-christian.koenig@amd.com>
-References: <20210323145458.38910-1-christian.koenig@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=crpOCZ60DCBuwt1S72UL7ppFvHjUGvqZ5yR3kG9lxbs=;
+ b=ABKfF38tF8gU78uyvmtUMmetrO2W5EGrnnKNR3hTqOA4VOkxk67jxqrmBdAm24+zO1
+ UBsGf9UixFk8LQmaJxN+N+zrl3PCW09cVgJsxGRzuGlQgAHb/FBLCPLFpCqvyxEh7b5R
+ JP92YE227QFrhQFarInRfNcA9hGCcpUTwc8zoKl4uZI1TghZaqEnh/1GLRpZW71n56Kp
+ KKt7N8AwTwCO0lkRsSkq/PGI7EhzwoioxspfpaTB4/8Fk/9Lj5YMUxQqqUeTMi+9zXiK
+ dVSxdkj6guII+Z2FmDFrVJXJsgYaJ1Km9jGFQY9IXEycVYiw8pv1S87wMtOEx4fIOJ9J
+ VI9Q==
+X-Gm-Message-State: AOAM533pM2OB4X6Kr7RjcksQuU0td6Dpn4JtjCm/gEB/B9s9kgF6LScD
+ JZHXjQTBWW7X02xPKJeosR2rsYmmaJNwSzTnlOU=
+X-Google-Smtp-Source: ABdhPJwsS0Ns78tBQ4XT+o+/pWDRy5/lp8mEUAqGjAojHIJrRlkFOZFCff7Z1ABu8VsKGnlP3jut/sphye0ris9Ei80=
+X-Received: by 2002:a4a:7615:: with SMTP id t21mr4120473ooc.72.1616511392713; 
+ Tue, 23 Mar 2021 07:56:32 -0700 (PDT)
 MIME-Version: 1.0
+References: <1616315298-109091-1-git-send-email-jinsdb@126.com>
+In-Reply-To: <1616315298-109091-1-git-send-email-jinsdb@126.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 23 Mar 2021 10:56:21 -0400
+Message-ID: <CADnq5_OLBjUbwxUptPk17XMHarThXj7GDYkgYZOPcd_GOJH1XQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix cat debugfs hang_hws file causes system
+ crash bug
+To: Qu Huang <jinsdb@126.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,100 +73,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nirmodas@amd.com, Guchun.Chen@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Dave Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Tm93IHRoYXQgd2UgZm91bmQgdGhlIHVuZGVybHlpbmcgcHJvYmxlbSB3ZSBjYW4gcmUtYXBwbHkg
-dGhpcyBwYXRjaC4KClRoaXMgcmV2ZXJ0cyBjb21taXQgODY3ZmVlN2Y4ODIxZmY0MmU3MzA4MDg4
-Y2YwYzM0NTBhYzQ5YzE3Yy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYyB8IDU1ICsrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwg
-MTggaW5zZXJ0aW9ucygrKSwgMzcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYwppbmRleCA5MjY4ZGIxMTcyYmQuLmJjMzk1MWI3MTA3OSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTM3LDYgKzM3LDcgQEAKICNpbmNsdWRl
-ICJhbWRncHVfZ21jLmgiCiAjaW5jbHVkZSAiYW1kZ3B1X3hnbWkuaCIKICNpbmNsdWRlICJhbWRn
-cHVfZG1hX2J1Zi5oIgorI2luY2x1ZGUgImFtZGdwdV9yZXNfY3Vyc29yLmgiCiAKIC8qKgogICog
-RE9DOiBHUFVWTQpAQCAtMTU4Myw3ICsxNTg0LDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fdXBk
-YXRlX3B0ZXMoc3RydWN0IGFtZGdwdV92bV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCiAgKiBAbGFz
-dDogbGFzdCBtYXBwZWQgZW50cnkKICAqIEBmbGFnczogZmxhZ3MgZm9yIHRoZSBlbnRyaWVzCiAg
-KiBAb2Zmc2V0OiBvZmZzZXQgaW50byBub2RlcyBhbmQgcGFnZXNfYWRkcgotICogQG5vZGVzOiBh
-cnJheSBvZiBkcm1fbW1fbm9kZXMgd2l0aCB0aGUgTUMgYWRkcmVzc2VzCisgKiBAcmVzOiB0dG1f
-cmVzb3VyY2UgdG8gbWFwCiAgKiBAcGFnZXNfYWRkcjogRE1BIGFkZHJlc3NlcyB0byB1c2UgZm9y
-IG1hcHBpbmcKICAqIEBmZW5jZTogb3B0aW9uYWwgcmVzdWx0aW5nIGZlbmNlCiAgKgpAQCAtMTU5
-OCwxMyArMTU5OSwxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkgICAgICAgYm9vbCB1bmxvY2tlZCwgc3Ry
-dWN0IGRtYV9yZXN2ICpyZXN2LAogCQkJCSAgICAgICB1aW50NjRfdCBzdGFydCwgdWludDY0X3Qg
-bGFzdCwKIAkJCQkgICAgICAgdWludDY0X3QgZmxhZ3MsIHVpbnQ2NF90IG9mZnNldCwKLQkJCQkg
-ICAgICAgc3RydWN0IGRybV9tbV9ub2RlICpub2RlcywKKwkJCQkgICAgICAgc3RydWN0IHR0bV9y
-ZXNvdXJjZSAqcmVzLAogCQkJCSAgICAgICBkbWFfYWRkcl90ICpwYWdlc19hZGRyLAogCQkJCSAg
-ICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCiB7CiAJc3RydWN0IGFtZGdwdV92bV91cGRh
-dGVfcGFyYW1zIHBhcmFtczsKKwlzdHJ1Y3QgYW1kZ3B1X3Jlc19jdXJzb3IgY3Vyc29yOwogCWVu
-dW0gYW1kZ3B1X3N5bmNfbW9kZSBzeW5jX21vZGU7Ci0JdWludDY0X3QgcGZuOwogCWludCByOwog
-CiAJbWVtc2V0KCZwYXJhbXMsIDAsIHNpemVvZihwYXJhbXMpKTsKQEAgLTE2MjIsMTQgKzE2MjMs
-NiBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwKIAllbHNlCiAJCXN5bmNfbW9kZSA9IEFNREdQVV9TWU5DX0VYUExJQ0lU
-OwogCi0JcGZuID0gb2Zmc2V0ID4+IFBBR0VfU0hJRlQ7Ci0JaWYgKG5vZGVzKSB7Ci0JCXdoaWxl
-IChwZm4gPj0gbm9kZXMtPnNpemUpIHsKLQkJCXBmbiAtPSBub2Rlcy0+c2l6ZTsKLQkJCSsrbm9k
-ZXM7Ci0JCX0KLQl9Ci0KIAlhbWRncHVfdm1fZXZpY3Rpb25fbG9jayh2bSk7CiAJaWYgKHZtLT5l
-dmljdGluZykgewogCQlyID0gLUVCVVNZOwpAQCAtMTY0OCwyMyArMTY0MSwxNyBAQCBzdGF0aWMg
-aW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwKIAlpZiAocikKIAkJZ290byBlcnJvcl91bmxvY2s7CiAKLQlkbyB7CisJYW1kZ3B1X3Jlc19m
-aXJzdChyZXMsIG9mZnNldCwgKGxhc3QgLSBzdGFydCArIDEpICogQU1ER1BVX0dQVV9QQUdFX1NJ
-WkUsCisJCQkgJmN1cnNvcik7CisJd2hpbGUgKGN1cnNvci5yZW1haW5pbmcpIHsKIAkJdWludDY0
-X3QgdG1wLCBudW1fZW50cmllcywgYWRkcjsKIAotCi0JCW51bV9lbnRyaWVzID0gbGFzdCAtIHN0
-YXJ0ICsgMTsKLQkJaWYgKG5vZGVzKSB7Ci0JCQlhZGRyID0gbm9kZXMtPnN0YXJ0IDw8IFBBR0Vf
-U0hJRlQ7Ci0JCQludW1fZW50cmllcyA9IG1pbigobm9kZXMtPnNpemUgLSBwZm4pICoKLQkJCQlB
-TURHUFVfR1BVX1BBR0VTX0lOX0NQVV9QQUdFLCBudW1fZW50cmllcyk7Ci0JCX0gZWxzZSB7Ci0J
-CQlhZGRyID0gMDsKLQkJfQotCisJCW51bV9lbnRyaWVzID0gY3Vyc29yLnNpemUgPj4gQU1ER1BV
-X0dQVV9QQUdFX1NISUZUOwogCQlpZiAocGFnZXNfYWRkcikgewogCQkJYm9vbCBjb250aWd1b3Vz
-ID0gdHJ1ZTsKIAogCQkJaWYgKG51bV9lbnRyaWVzID4gQU1ER1BVX0dQVV9QQUdFU19JTl9DUFVf
-UEFHRSkgeworCQkJCXVpbnQ2NF90IHBmbiA9IGN1cnNvci5zdGFydCA+PiBQQUdFX1NISUZUOwog
-CQkJCXVpbnQ2NF90IGNvdW50OwogCiAJCQkJY29udGlndW91cyA9IHBhZ2VzX2FkZHJbcGZuICsg
-MV0gPT0KQEAgLTE2ODQsMTYgKzE2NzEsMTggQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBk
-YXRlX21hcHBpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQl9CiAKIAkJCWlmICgh
-Y29udGlndW91cykgewotCQkJCWFkZHIgPSBwZm4gPDwgUEFHRV9TSElGVDsKKwkJCQlhZGRyID0g
-Y3Vyc29yLnN0YXJ0OwogCQkJCXBhcmFtcy5wYWdlc19hZGRyID0gcGFnZXNfYWRkcjsKIAkJCX0g
-ZWxzZSB7Ci0JCQkJYWRkciA9IHBhZ2VzX2FkZHJbcGZuXTsKKwkJCQlhZGRyID0gcGFnZXNfYWRk
-cltjdXJzb3Iuc3RhcnQgPj4gUEFHRV9TSElGVF07CiAJCQkJcGFyYW1zLnBhZ2VzX2FkZHIgPSBO
-VUxMOwogCQkJfQogCiAJCX0gZWxzZSBpZiAoZmxhZ3MgJiAoQU1ER1BVX1BURV9WQUxJRCB8IEFN
-REdQVV9QVEVfUFJUKSkgewotCQkJYWRkciArPSBib19hZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFz
-ZV9vZmZzZXQ7Ci0JCQlhZGRyICs9IHBmbiA8PCBQQUdFX1NISUZUOworCQkJYWRkciA9IGJvX2Fk
-ZXYtPnZtX21hbmFnZXIudnJhbV9iYXNlX29mZnNldCArCisJCQkJY3Vyc29yLnN0YXJ0OworCQl9
-IGVsc2UgeworCQkJYWRkciA9IDA7CiAJCX0KIAogCQl0bXAgPSBzdGFydCArIG51bV9lbnRyaWVz
-OwpAQCAtMTcwMSwxNCArMTY5MCw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZV9t
-YXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQlpZiAocikKIAkJCWdvdG8gZXJy
-b3JfdW5sb2NrOwogCi0JCXBmbiArPSBudW1fZW50cmllcyAvIEFNREdQVV9HUFVfUEFHRVNfSU5f
-Q1BVX1BBR0U7Ci0JCWlmIChub2RlcyAmJiBub2Rlcy0+c2l6ZSA9PSBwZm4pIHsKLQkJCXBmbiA9
-IDA7Ci0JCQkrK25vZGVzOwotCQl9CisJCWFtZGdwdV9yZXNfbmV4dCgmY3Vyc29yLCBudW1fZW50
-cmllcyAqIEFNREdQVV9HUFVfUEFHRV9TSVpFKTsKIAkJc3RhcnQgPSB0bXA7Ci0KLQl9IHdoaWxl
-ICh1bmxpa2VseShzdGFydCAhPSBsYXN0ICsgMSkpOworCX07CiAKIAlyID0gdm0tPnVwZGF0ZV9m
-dW5jcy0+Y29tbWl0KCZwYXJhbXMsIGZlbmNlKTsKIApAQCAtMTczNyw3ICsxNzIxLDYgQEAgaW50
-IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBh
-bWRncHVfYm9fdmEgKmJvX3ZhLAogCXN0cnVjdCBhbWRncHVfYm9fdmFfbWFwcGluZyAqbWFwcGlu
-ZzsKIAlkbWFfYWRkcl90ICpwYWdlc19hZGRyID0gTlVMTDsKIAlzdHJ1Y3QgdHRtX3Jlc291cmNl
-ICptZW07Ci0Jc3RydWN0IGRybV9tbV9ub2RlICpub2RlczsKIAlzdHJ1Y3QgZG1hX2ZlbmNlICoq
-bGFzdF91cGRhdGU7CiAJc3RydWN0IGRtYV9yZXN2ICpyZXN2OwogCXVpbnQ2NF90IGZsYWdzOwpA
-QCAtMTc0Niw3ICsxNzI5LDYgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhLAogCiAJaWYgKGNsZWFy
-IHx8ICFibykgewogCQltZW0gPSBOVUxMOwotCQlub2RlcyA9IE5VTEw7CiAJCXJlc3YgPSB2bS0+
-cm9vdC5iYXNlLmJvLT50Ym8uYmFzZS5yZXN2OwogCX0gZWxzZSB7CiAJCXN0cnVjdCBkcm1fZ2Vt
-X29iamVjdCAqb2JqID0gJmJvLT50Ym8uYmFzZTsKQEAgLTE3NjEsNyArMTc0Myw2IEBAIGludCBh
-bWRncHVfdm1fYm9fdXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1k
-Z3B1X2JvX3ZhICpib192YSwKIAkJCQlibyA9IGdlbV90b19hbWRncHVfYm8oZ29iaik7CiAJCX0K
-IAkJbWVtID0gJmJvLT50Ym8ubWVtOwotCQlub2RlcyA9IG1lbS0+bW1fbm9kZTsKIAkJaWYgKG1l
-bS0+bWVtX3R5cGUgPT0gVFRNX1BMX1RUKQogCQkJcGFnZXNfYWRkciA9IGJvLT50Ym8udHRtLT5k
-bWFfYWRkcmVzczsKIAl9CkBAIC0xODEwLDcgKzE3OTEsNyBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3Vw
-ZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV9ib192YSAqYm9f
-dmEsCiAJCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcoYWRldiwgYm9fYWRldiwgdm0s
-IGZhbHNlLCBmYWxzZSwKIAkJCQkJCXJlc3YsIG1hcHBpbmctPnN0YXJ0LAogCQkJCQkJbWFwcGlu
-Zy0+bGFzdCwgdXBkYXRlX2ZsYWdzLAotCQkJCQkJbWFwcGluZy0+b2Zmc2V0LCBub2RlcywKKwkJ
-CQkJCW1hcHBpbmctPm9mZnNldCwgbWVtLAogCQkJCQkJcGFnZXNfYWRkciwgbGFzdF91cGRhdGUp
-OwogCQlpZiAocikKIAkJCXJldHVybiByOwotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+Applied.  Thanks!
+
+Alex
+
+On Sun, Mar 21, 2021 at 5:33 AM Qu Huang <jinsdb@126.com> wrote:
+>
+> Here is the system crash log:
+> [ 1272.884438] BUG: unable to handle kernel NULL pointer dereference at
+> (null)
+> [ 1272.884444] IP: [<          (null)>]           (null)
+> [ 1272.884447] PGD 825b09067 PUD 8267c8067 PMD 0
+> [ 1272.884452] Oops: 0010 [#1] SMP
+> [ 1272.884509] CPU: 13 PID: 3485 Comm: cat Kdump: loaded Tainted: G
+> [ 1272.884515] task: ffff9a38dbd4d140 ti: ffff9a37cd3b8000 task.ti:
+> ffff9a37cd3b8000
+> [ 1272.884517] RIP: 0010:[<0000000000000000>]  [<          (null)>]
+> (null)
+> [ 1272.884520] RSP: 0018:ffff9a37cd3bbe68  EFLAGS: 00010203
+> [ 1272.884522] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
+> 0000000000014d5f
+> [ 1272.884524] RDX: fffffffffffffff4 RSI: 0000000000000001 RDI:
+> ffff9a38aca4d200
+> [ 1272.884526] RBP: ffff9a37cd3bbed0 R08: ffff9a38dcd5f1a0 R09:
+> ffff9a31ffc07300
+> [ 1272.884527] R10: ffff9a31ffc07300 R11: ffffffffaddd5e9d R12:
+> ffff9a38b4e0fb00
+> [ 1272.884529] R13: 0000000000000001 R14: ffff9a37cd3bbf18 R15:
+> ffff9a38aca4d200
+> [ 1272.884532] FS:  00007feccaa67740(0000) GS:ffff9a38dcd40000(0000)
+> knlGS:0000000000000000
+> [ 1272.884534] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [ 1272.884536] CR2: 0000000000000000 CR3: 00000008267c0000 CR4:
+> 00000000003407e0
+> [ 1272.884537] Call Trace:
+> [ 1272.884544]  [<ffffffffade68940>] ? seq_read+0x130/0x440
+> [ 1272.884548]  [<ffffffffade40f8f>] vfs_read+0x9f/0x170
+> [ 1272.884552]  [<ffffffffade41e4f>] SyS_read+0x7f/0xf0
+> [ 1272.884557]  [<ffffffffae374ddb>] system_call_fastpath+0x22/0x27
+> [ 1272.884558] Code:  Bad RIP value.
+> [ 1272.884562] RIP  [<          (null)>]           (null)
+> [ 1272.884564]  RSP <ffff9a37cd3bbe68>
+> [ 1272.884566] CR2: 0000000000000000
+>
+> Signed-off-by: Qu Huang <jinsdb@126.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> index 511712c..673d5e3 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> @@ -33,6 +33,11 @@ static int kfd_debugfs_open(struct inode *inode, struct file *file)
+>
+>         return single_open(file, show, NULL);
+>  }
+> +static int kfd_debugfs_hang_hws_read(struct seq_file *m, void *data)
+> +{
+> +       seq_printf(m, "echo gpu_id > hang_hws\n");
+> +       return 0;
+> +}
+>
+>  static ssize_t kfd_debugfs_hang_hws_write(struct file *file,
+>         const char __user *user_buf, size_t size, loff_t *ppos)
+> @@ -94,7 +99,7 @@ void kfd_debugfs_init(void)
+>         debugfs_create_file("rls", S_IFREG | 0444, debugfs_root,
+>                             kfd_debugfs_rls_by_device, &kfd_debugfs_fops);
+>         debugfs_create_file("hang_hws", S_IFREG | 0200, debugfs_root,
+> -                           NULL, &kfd_debugfs_hang_hws_fops);
+> +                           kfd_debugfs_hang_hws_read, &kfd_debugfs_hang_hws_fops);
+>  }
+>
+>  void kfd_debugfs_fini(void)
+> --
+> 1.8.3.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
