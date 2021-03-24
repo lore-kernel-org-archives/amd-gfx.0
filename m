@@ -2,68 +2,86 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12815C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0440AC433C1
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3700C61993
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:53:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3700C61993
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	by mail.kernel.org (Postfix) with ESMTPS id 5E2E161A02
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 11:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E2E161A02
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D90576E200;
-	Wed, 24 Mar 2021 10:53:39 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 555AC6E200
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 10:53:39 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id x16so20977136iob.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 03:53:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2whUJhCraBEtP2pdulfjOoK298h0/6QvmdXnzhHH7vY=;
- b=UP3R8Qy1B74mWtYoMs4KmmyNNnZDjyx4cg8jfeHBmLeQ9C5V4EAumFvnYR7WHCZXHO
- PXYWaK7U/XzZuYYZA7jETSkgdU9BCLgNo1/vHkAO3yPNed1SEdr/ntr7IQXtaycQqf74
- OjBKsFciZiTrlzFqXabAiyD4dNd9y5mZlLwYIYI6QlOBOGjS+0ippiBt5HpXJugI/K45
- TnvrAje6IMqRPZ5r3Av3Rv3SCj7gXSmNCWgB9wa4aOH9pZ78Cg9/Ced3776pqy8jHKBh
- mOD4KRipeNhYDZ3Spq64+DzYsIwtlwkNbFHdUY7pXZwj2B9avdqdwjCqLxF2Ww6eTdJQ
- Vrhw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0308D6E1E0;
+	Wed, 24 Mar 2021 11:55:39 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE1766E9D5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 11:55:37 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id d191so12728750wmd.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 04:55:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=gO58uuS+0G4MQjeMAkSvwrYzYSPAbUNJctRACLjk0bg=;
+ b=OUEbMbeV2XMtinhZQiQFhGWWPrSed8DGkee/j1abaY7+gjIBFDFq7gm3fIROxw/tv7
+ Dl58YUKUlMglRAjIt3sVLQgrLCQcs/hHJrmpFuJ7HEnVuIQPDA+NJf1RmX88aFAJKAcK
+ 99SwnPEbjAWAiGXs+X73ja2KaaeiSNX+XXnag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2whUJhCraBEtP2pdulfjOoK298h0/6QvmdXnzhHH7vY=;
- b=mKfd4ev5iRSGepCBmEOaSUaPu+iCo3goExtTaSvsMiD/o/RzLUEPgpgZkyM9Ly8dl/
- CcxjF9VbXbtLPtJlhO3xZhFCG9AXKttUY3EO1akTDzVMqNKLAgDl5yGVse2mMerYwsvd
- K5gmVOTiqxQ38r8kTglLZNtf2evbrPrm2sAdbXgkd8zWmuojSaXVJIJzlbCU1jK0JCgX
- hGRAGd79HTUs1tZA25rp10DpQnk+QovE6VTZ81I3Ng9bH3jOqasFVpW6tbk3yiF01gs0
- lCezS7KtBEdVbhLmmvQN903v7QM1XlIXZcQ4MpluAyR5nbSw27TRECQoR1mAM+CUtdfk
- tXuQ==
-X-Gm-Message-State: AOAM530JGt9wIh+GilPFPkNIuAhzX+52QKllQtjEWUySkd6V7TfqoyHH
- Z1gy4QP3w74I9UugD/gxDOeynRQp4TaRkiFEFvIv2g==
-X-Google-Smtp-Source: ABdhPJyBSscQzBDgOrKAdPjSqblTlrU+heucKcUqaR0Wk2vuyrVYPA2N0/ZmH371HFYRWns+vzwNLrJbs//eNoIs9bQ=
-X-Received: by 2002:a5e:c908:: with SMTP id z8mr1959110iol.136.1616583218825; 
- Wed, 24 Mar 2021 03:53:38 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=gO58uuS+0G4MQjeMAkSvwrYzYSPAbUNJctRACLjk0bg=;
+ b=SzJInv5Q/pDkiNG/lO4CVodYZNezn/jKv6Igmw3MYIQe0nwwE7yLZVmruEFkTZPbe2
+ HvRa10BXFKZYHxjdXtXt7XHTwlOePV6BWkQSYASKjX+IIo/ZizkzFbbm1TIqfnaVrfGA
+ HdHQy8kOW8JvuG/rxIpgPxQX8EDUpXeeaYnNk/Km13Dh1SnCSGP8e7hC1jZ4h8QPvWJ+
+ 0detbiyttkVFUyexavnoHKE2YXCbm3G3o5m7FBQr2zSstOD4irnbH9kOVMygNm5q17Py
+ Xl2TAHAsYT/hZHxamBe/7R1HjblpndUx/jOVtDTRcoSu9I2R7+sPFKw9Xc/VI5Neqw+t
+ Pn9w==
+X-Gm-Message-State: AOAM532u65a7yQpfUCoVWrg97zCQngYdisZVrgdko4DwjAAPiBbNBFX5
+ aIYI9BeNcjCw2N2soVATs7K9dQ==
+X-Google-Smtp-Source: ABdhPJwhiD7SOUBfRgkNdfO4JdgqIMVd2CqvBvssLjFmgEs3XWs421vPNE2H+yLnhmkR35AAzLxCiw==
+X-Received: by 2002:a05:600c:19d1:: with SMTP id
+ u17mr2527627wmq.141.1616586936320; 
+ Wed, 24 Mar 2021 04:55:36 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q207sm2106956wme.36.2021.03.24.04.55.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Mar 2021 04:55:35 -0700 (PDT)
+Date: Wed, 24 Mar 2021 12:55:33 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>
+Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
+Message-ID: <YFsotY3HXmLNGF7p@phenom.ffwll.local>
+Mail-Followup-To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?=
+ <thomas_os@shipmail.org>, 
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Matthew Wilcox <willy@infradead.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux MM <linux-mm@kvack.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
+References: <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
+ <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
+ <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
+ <YFng9qXM3NdrGHTx@dhcp22.suse.cz>
+ <20808d08-b66c-13c3-f672-ebce216b2fa2@gmail.com>
+ <YFnwBTF0YntCXFeG@dhcp22.suse.cz>
+ <e5659cd0-61b2-82bd-64c3-76bd631b4522@amd.com>
+ <YFoFdOtYDAezpSLv@dhcp22.suse.cz>
+ <03889c00-bb5d-ef20-12c6-7e77df073dd9@amd.com>
+ <762c4597-e9bd-6d8d-51b5-16b04f913eb8@shipmail.org>
 MIME-Version: 1.0
-References: <20210310161444.1015500-1-markyacoub@chromium.org>
- <CADnq5_P9aYcedOP2qduSz7VN1fCSnmQEtPa+FdjYu9Co7TwPog@mail.gmail.com>
- <CAC0gqY7Y2WxtAZ3GnWmASPYq7ahYTfmPhOHAAX5UjMNS9k098w@mail.gmail.com>
- <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
-In-Reply-To: <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Wed, 24 Mar 2021 11:53:30 +0100
-Message-ID: <CAP+8YyExtmmZbFfAO_YR=XWHE+HbH6m7JqyJV4LB_hbGwsihBA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Ensure that the modifier requested is
- supported by plane.
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Content-Disposition: inline
+In-Reply-To: <762c4597-e9bd-6d8d-51b5-16b04f913eb8@shipmail.org>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,173 +93,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, Mark Yacoub <markyacoub@google.com>
-Content-Type: multipart/mixed; boundary="===============0111436028=="
+Cc: Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0111436028==
-Content-Type: multipart/alternative; boundary="000000000000822d1105be461c77"
+On Wed, Mar 24, 2021 at 11:19:13AM +0100, Thomas Hellstr=F6m (Intel) wrote:
+> =
 
---000000000000822d1105be461c77
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> On 3/23/21 4:45 PM, Christian K=F6nig wrote:
+> > Am 23.03.21 um 16:13 schrieb Michal Hocko:
+> > > On Tue 23-03-21 14:56:54, Christian K=F6nig wrote:
+> > > > Am 23.03.21 um 14:41 schrieb Michal Hocko:
+> > > [...]
+> > > > > Anyway, I am wondering whether the overall approach is
+> > > > > sound. Why don't
+> > > > > you simply use shmem as your backing storage from the
+> > > > > beginning and pin
+> > > > > those pages if they are used by the device?
+> > > > Yeah, that is exactly what the Intel guys are doing for their
+> > > > integrated
+> > > > GPUs :)
+> > > > =
 
-On Wed, Mar 24, 2021 at 11:13 AM Michel D=C3=A4nzer <michel@daenzer.net> wr=
-ote:
+> > > > Problem is for TTM I need to be able to handle dGPUs and those have=
+ all
+> > > > kinds of funny allocation restrictions. In other words I need to
+> > > > guarantee
+> > > > that the allocated memory is coherent accessible to the GPU
+> > > > without using
+> > > > SWIOTLB.
+> > > > =
 
-> On 2021-03-23 4:32 p.m., Mark Yacoub wrote:
-> > On Tue, Mar 23, 2021 at 11:02 AM Alex Deucher <alexdeucher@gmail.com>
-> wrote:
-> >>
-> >> On Wed, Mar 10, 2021 at 11:15 AM Mark Yacoub <markyacoub@chromium.org>
-> wrote:
-> >>>
-> >>> From: Mark Yacoub <markyacoub@google.com>
-> >>>
-> >>> On initializing the framebuffer, call drm_any_plane_has_format to do =
-a
-> >>> check if the modifier is supported. drm_any_plane_has_format calls
-> >>> dm_plane_format_mod_supported which is extended to validate that the
-> >>> modifier is on the list of the plane's supported modifiers.
-> >>>
-> >>> The bug was caught using igt-gpu-tools test:
-> kms_addfb_basic.addfb25-bad-modifier
-> >>>
-> >>> Tested on ChromeOS Zork by turning on the display, running an overlay
-> >>> test, and running a YT video.
-> >>>
-> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> >>> Signed-off-by: default avatarMark Yacoub <markyacoub@chromium.org>
-> >>
-> >> I'm not an expert with modifiers yet.  Will this break chips which
-> >> don't currently support modifiers?
-> > No it shouldn't. When you don't support modifiers yet, your will
-> > default to Linear Modifier (DRM_FORMAT_MOD_LINEAR),
-> > [...]
-> No modifier support does not imply linear. It's generally signalled via
-> DRM_FORMAT_MOD_INVALID, which roughly means "tiling is determined by driv=
-er
-> specific mechanisms".
->
+> > > > The simple case is that the device can only do DMA32, but you also =
+got
+> > > > device which can only do 40bits or 48bits.
+> > > > =
 
-Doesn't quite work that way in the kernel sadly. If you don't set
-DRM_MODE_FB_MODIFIERS then the modifier fields have to be 0 (which happens
-to alias DRM_FORMAT_MOD_LINEAR and then now deprecated
-DRM_FORMAT_MOD_NONE). This is verified in shared drm code.
+> > > > On top of that you also got AGP, CMA and stuff like CPU cache behav=
+ior
+> > > > changes (write back vs. write through, vs. uncached).
+> > > OK, so the underlying problem seems to be that gfp mask (thus
+> > > mapping_gfp_mask) cannot really reflect your requirements, right?=A0 =
+Would
+> > > it help if shmem would allow to provide an allocation callback to
+> > > override alloc_page_vma which is used currently? I am pretty sure the=
+re
+> > > will be more to handle but going through shmem for the whole life time
+> > > is just so much easier to reason about than some tricks to abuse shmem
+> > > just for the swapout path.
+> > =
 
-(and all userspace code I've seen simply doesn't set DRM_MODE_FB_MODIFIERS
-if the incoming modifier is DRM_FORMAT_MOD_INVALID)
+> > Well it's a start, but the pages can have special CPU cache settings. So
+> > direct IO from/to them usually doesn't work as expected.
+> > =
 
->
->
-> --
-> Earthling Michel D=C3=A4nzer               |               https://redhat=
-.com
-> Libre software enthusiast             |             Mesa and X developer
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+> > Additional to that for AGP and CMA I need to make sure that I give those
+> > pages back to the relevant subsystems instead of just dropping the page
+> > reference.
+> > =
 
---000000000000822d1105be461c77
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> > So I would need to block for the swapio to be completed.
+> > =
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 24, 2021 at 11:13 AM Mich=
-el D=C3=A4nzer &lt;<a href=3D"mailto:michel@daenzer.net">michel@daenzer.net=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-On 2021-03-23 4:32 p.m., Mark Yacoub wrote:<br>
-&gt; On Tue, Mar 23, 2021 at 11:02 AM Alex Deucher &lt;<a href=3D"mailto:al=
-exdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:=
-<br>
-&gt;&gt;<br>
-&gt;&gt; On Wed, Mar 10, 2021 at 11:15 AM Mark Yacoub &lt;<a href=3D"mailto=
-:markyacoub@chromium.org" target=3D"_blank">markyacoub@chromium.org</a>&gt;=
- wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; From: Mark Yacoub &lt;<a href=3D"mailto:markyacoub@google.com"=
- target=3D"_blank">markyacoub@google.com</a>&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; On initializing the framebuffer, call drm_any_plane_has_format=
- to do a<br>
-&gt;&gt;&gt; check if the modifier is supported. drm_any_plane_has_format c=
-alls<br>
-&gt;&gt;&gt; dm_plane_format_mod_supported which is extended to validate th=
-at the<br>
-&gt;&gt;&gt; modifier is on the list of the plane&#39;s supported modifiers=
-.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; The bug was caught using igt-gpu-tools test: kms_addfb_basic.a=
-ddfb25-bad-modifier<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Tested on ChromeOS Zork by turning on the display, running an =
-overlay<br>
-&gt;&gt;&gt; test, and running a YT video.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.c=
-om" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-&gt;&gt;&gt; Cc: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuiz=
-en.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
-&gt;&gt;&gt; Signed-off-by: default avatarMark Yacoub &lt;<a href=3D"mailto=
-:markyacoub@chromium.org" target=3D"_blank">markyacoub@chromium.org</a>&gt;=
-<br>
-&gt;&gt;<br>
-&gt;&gt; I&#39;m not an expert with modifiers yet.=C2=A0 Will this break ch=
-ips which<br>
-&gt;&gt; don&#39;t currently support modifiers?<br>
-&gt; No it shouldn&#39;t. When you don&#39;t support modifiers yet, your wi=
-ll<br>
-&gt; default to Linear Modifier (DRM_FORMAT_MOD_LINEAR),<br>
-&gt; [...]<br>
-No modifier support does not imply linear. It&#39;s generally signalled via=
- DRM_FORMAT_MOD_INVALID, which roughly means &quot;tiling is determined by =
-driver specific mechanisms&quot;.<br></blockquote><div><br></div><div>Doesn=
-&#39;t quite work that way in the kernel sadly. If you don&#39;t set DRM_MO=
-DE_FB_MODIFIERS then the modifier fields have to be 0 (which happens to ali=
-as DRM_FORMAT_MOD_LINEAR and then now deprecated DRM_FORMAT_MOD_NONE). This=
- is verified in shared drm code.</div><div><br></div><div>(and all userspac=
-e code I&#39;ve seen simply doesn&#39;t set DRM_MODE_FB_MODIFIERS if the in=
-coming modifier is DRM_FORMAT_MOD_INVALID)<br></div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">
-<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div></div>
+> > Anyway I probably need to revert those patches for now since this isn't
+> > working as we hoped it would.
+> > =
 
---000000000000822d1105be461c77--
+> > Thanks for the explanation how stuff works here.
+> =
 
---===============0111436028==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> Another alternative here that I've tried before without being successful
+> would perhaps be to drop shmem completely and, if it's a normal page (no =
+dma
+> or funny caching attributes) just use add_to_swap_cache()? If it's someth=
+ing
+> else, try alloc a page with relevant gfp attributes, copy and
+> add_to_swap_cache()? Or perhaps that doesn't work well from a shrinker
+> either?
 
+So before we toss everything and go an a great rewrite-the-world tour,
+what if we just try to split up big objects. So for objects which are
+bigger than e.g. 10mb
+
+- move them to a special "under eviction" list
+- keep a note how far we evicted thus far
+- interleave allocating shmem pages, copying data and releasing the ttm
+  backing store on a chunk basis (maybe 10mb or whatever, tuning tbh)
+
+If that's not enough, occasionally break out of the shrinker entirely so
+other parts of reclaim can reclaim the shmem stuff. But just releasing our
+own pages as we go should help a lot I think.
+-Daniel
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0111436028==--
