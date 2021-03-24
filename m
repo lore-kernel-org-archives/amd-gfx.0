@@ -2,70 +2,68 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9165AC433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12815C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4235361A04
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4235361A04
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
+	by mail.kernel.org (Postfix) with ESMTPS id 3700C61993
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 10:53:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3700C61993
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E62E28928B;
-	Wed, 24 Mar 2021 10:19:21 +0000 (UTC)
-Received: from pio-pvt-msa1.bahnhof.se (pio-pvt-msa1.bahnhof.se [79.136.2.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD78928B;
- Wed, 24 Mar 2021 10:19:20 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 35AF340786;
- Wed, 24 Mar 2021 11:19:19 +0100 (CET)
-Authentication-Results: pio-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="p/ga4rbK";
- dkim-atps=neutral
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Received: from pio-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (pio-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Nkyg8rexJ_mO; Wed, 24 Mar 2021 11:19:17 +0100 (CET)
-Received: by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id DD0D03F59B;
- Wed, 24 Mar 2021 11:19:15 +0100 (CET)
-Received: from [192.168.0.209] (unknown [192.198.151.43])
- by mail1.shipmail.org (Postfix) with ESMTPSA id 954323605CC;
- Wed, 24 Mar 2021 11:19:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1616581155; bh=ReL4kU6p0A3xJmm5e9+5DjGbG6+nH8ClqOXvHRKPGkg=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=p/ga4rbKAZToQyMybhElmaK3KaJG2OfJ8rJTiUUZ60fnYIQVNXq+hUGO9ItWCrRn/
- kkjfPaPXKWL43jWPF028fu94NPagzTH2vO4+6TmU5FGGRqyShfeSdSQUVUg4EoC4Ly
- 9eKH7HTw77F9aha3mOYK6x/u4msl+c8Na6jhF2pM=
-Subject: Re: [PATCH] drm/ttm: stop warning on TT shrinker failure
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Michal Hocko <mhocko@suse.com>
-References: <c78457bb-d93a-ff84-1cce-0fb3fa9f0cec@gmail.com>
- <YFma+ZxncvfBd++o@dhcp22.suse.cz> <YFnQ1Lk6BTo8L7pr@phenom.ffwll.local>
- <cd17d2ca-140e-1e69-37ac-c2726cc1ef9f@gmail.com>
- <YFnZMzs2wYGWqowi@dhcp22.suse.cz>
- <75ff80c5-a054-d13d-85c1-0040addb45d2@gmail.com>
- <YFng9qXM3NdrGHTx@dhcp22.suse.cz>
- <20808d08-b66c-13c3-f672-ebce216b2fa2@gmail.com>
- <YFnwBTF0YntCXFeG@dhcp22.suse.cz>
- <e5659cd0-61b2-82bd-64c3-76bd631b4522@amd.com>
- <YFoFdOtYDAezpSLv@dhcp22.suse.cz>
- <03889c00-bb5d-ef20-12c6-7e77df073dd9@amd.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <762c4597-e9bd-6d8d-51b5-16b04f913eb8@shipmail.org>
-Date: Wed, 24 Mar 2021 11:19:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D90576E200;
+	Wed, 24 Mar 2021 10:53:39 +0000 (UTC)
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555AC6E200
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 10:53:39 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id x16so20977136iob.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 03:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2whUJhCraBEtP2pdulfjOoK298h0/6QvmdXnzhHH7vY=;
+ b=UP3R8Qy1B74mWtYoMs4KmmyNNnZDjyx4cg8jfeHBmLeQ9C5V4EAumFvnYR7WHCZXHO
+ PXYWaK7U/XzZuYYZA7jETSkgdU9BCLgNo1/vHkAO3yPNed1SEdr/ntr7IQXtaycQqf74
+ OjBKsFciZiTrlzFqXabAiyD4dNd9y5mZlLwYIYI6QlOBOGjS+0ippiBt5HpXJugI/K45
+ TnvrAje6IMqRPZ5r3Av3Rv3SCj7gXSmNCWgB9wa4aOH9pZ78Cg9/Ced3776pqy8jHKBh
+ mOD4KRipeNhYDZ3Spq64+DzYsIwtlwkNbFHdUY7pXZwj2B9avdqdwjCqLxF2Ww6eTdJQ
+ Vrhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2whUJhCraBEtP2pdulfjOoK298h0/6QvmdXnzhHH7vY=;
+ b=mKfd4ev5iRSGepCBmEOaSUaPu+iCo3goExtTaSvsMiD/o/RzLUEPgpgZkyM9Ly8dl/
+ CcxjF9VbXbtLPtJlhO3xZhFCG9AXKttUY3EO1akTDzVMqNKLAgDl5yGVse2mMerYwsvd
+ K5gmVOTiqxQ38r8kTglLZNtf2evbrPrm2sAdbXgkd8zWmuojSaXVJIJzlbCU1jK0JCgX
+ hGRAGd79HTUs1tZA25rp10DpQnk+QovE6VTZ81I3Ng9bH3jOqasFVpW6tbk3yiF01gs0
+ lCezS7KtBEdVbhLmmvQN903v7QM1XlIXZcQ4MpluAyR5nbSw27TRECQoR1mAM+CUtdfk
+ tXuQ==
+X-Gm-Message-State: AOAM530JGt9wIh+GilPFPkNIuAhzX+52QKllQtjEWUySkd6V7TfqoyHH
+ Z1gy4QP3w74I9UugD/gxDOeynRQp4TaRkiFEFvIv2g==
+X-Google-Smtp-Source: ABdhPJyBSscQzBDgOrKAdPjSqblTlrU+heucKcUqaR0Wk2vuyrVYPA2N0/ZmH371HFYRWns+vzwNLrJbs//eNoIs9bQ=
+X-Received: by 2002:a5e:c908:: with SMTP id z8mr1959110iol.136.1616583218825; 
+ Wed, 24 Mar 2021 03:53:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <03889c00-bb5d-ef20-12c6-7e77df073dd9@amd.com>
-Content-Language: en-US
+References: <20210310161444.1015500-1-markyacoub@chromium.org>
+ <CADnq5_P9aYcedOP2qduSz7VN1fCSnmQEtPa+FdjYu9Co7TwPog@mail.gmail.com>
+ <CAC0gqY7Y2WxtAZ3GnWmASPYq7ahYTfmPhOHAAX5UjMNS9k098w@mail.gmail.com>
+ <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
+In-Reply-To: <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Wed, 24 Mar 2021 11:53:30 +0100
+Message-ID: <CAP+8YyExtmmZbFfAO_YR=XWHE+HbH6m7JqyJV4LB_hbGwsihBA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Ensure that the modifier requested is
+ supported by plane.
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,61 +75,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Linux MM <linux-mm@kvack.org>,
+Cc: Mark Yacoub <markyacoub@chromium.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Dave Chinner <dchinner@redhat.com>, Leo Liu <Leo.Liu@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+ Alex Deucher <alexdeucher@gmail.com>, Mark Yacoub <markyacoub@google.com>
+Content-Type: multipart/mixed; boundary="===============0111436028=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDMvMjMvMjEgNDo0NSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAyMy4wMy4y
-MSB1bSAxNjoxMyBzY2hyaWViIE1pY2hhbCBIb2NrbzoKPj4gT24gVHVlIDIzLTAzLTIxIDE0OjU2
-OjU0LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0gMjMuMDMuMjEgdW0gMTQ6NDEgc2No
-cmllYiBNaWNoYWwgSG9ja286Cj4+IFsuLi5dCj4+Pj4gQW55d2F5LCBJIGFtIHdvbmRlcmluZyB3
-aGV0aGVyIHRoZSBvdmVyYWxsIGFwcHJvYWNoIGlzIHNvdW5kLiBXaHkgCj4+Pj4gZG9uJ3QKPj4+
-PiB5b3Ugc2ltcGx5IHVzZSBzaG1lbSBhcyB5b3VyIGJhY2tpbmcgc3RvcmFnZSBmcm9tIHRoZSBi
-ZWdpbm5pbmcgYW5kIAo+Pj4+IHBpbgo+Pj4+IHRob3NlIHBhZ2VzIGlmIHRoZXkgYXJlIHVzZWQg
-YnkgdGhlIGRldmljZT8KPj4+IFllYWgsIHRoYXQgaXMgZXhhY3RseSB3aGF0IHRoZSBJbnRlbCBn
-dXlzIGFyZSBkb2luZyBmb3IgdGhlaXIgCj4+PiBpbnRlZ3JhdGVkCj4+PiBHUFVzIDopCj4+Pgo+
-Pj4gUHJvYmxlbSBpcyBmb3IgVFRNIEkgbmVlZCB0byBiZSBhYmxlIHRvIGhhbmRsZSBkR1BVcyBh
-bmQgdGhvc2UgaGF2ZSBhbGwKPj4+IGtpbmRzIG9mIGZ1bm55IGFsbG9jYXRpb24gcmVzdHJpY3Rp
-b25zLiBJbiBvdGhlciB3b3JkcyBJIG5lZWQgdG8gCj4+PiBndWFyYW50ZWUKPj4+IHRoYXQgdGhl
-IGFsbG9jYXRlZCBtZW1vcnkgaXMgY29oZXJlbnQgYWNjZXNzaWJsZSB0byB0aGUgR1BVIHdpdGhv
-dXQgCj4+PiB1c2luZwo+Pj4gU1dJT1RMQi4KPj4+Cj4+PiBUaGUgc2ltcGxlIGNhc2UgaXMgdGhh
-dCB0aGUgZGV2aWNlIGNhbiBvbmx5IGRvIERNQTMyLCBidXQgeW91IGFsc28gZ290Cj4+PiBkZXZp
-Y2Ugd2hpY2ggY2FuIG9ubHkgZG8gNDBiaXRzIG9yIDQ4Yml0cy4KPj4+Cj4+PiBPbiB0b3Agb2Yg
-dGhhdCB5b3UgYWxzbyBnb3QgQUdQLCBDTUEgYW5kIHN0dWZmIGxpa2UgQ1BVIGNhY2hlIGJlaGF2
-aW9yCj4+PiBjaGFuZ2VzICh3cml0ZSBiYWNrIHZzLiB3cml0ZSB0aHJvdWdoLCB2cy4gdW5jYWNo
-ZWQpLgo+PiBPSywgc28gdGhlIHVuZGVybHlpbmcgcHJvYmxlbSBzZWVtcyB0byBiZSB0aGF0IGdm
-cCBtYXNrICh0aHVzCj4+IG1hcHBpbmdfZ2ZwX21hc2spIGNhbm5vdCByZWFsbHkgcmVmbGVjdCB5
-b3VyIHJlcXVpcmVtZW50cywgcmlnaHQ/wqAgV291bGQKPj4gaXQgaGVscCBpZiBzaG1lbSB3b3Vs
-ZCBhbGxvdyB0byBwcm92aWRlIGFuIGFsbG9jYXRpb24gY2FsbGJhY2sgdG8KPj4gb3ZlcnJpZGUg
-YWxsb2NfcGFnZV92bWEgd2hpY2ggaXMgdXNlZCBjdXJyZW50bHk/IEkgYW0gcHJldHR5IHN1cmUg
-dGhlcmUKPj4gd2lsbCBiZSBtb3JlIHRvIGhhbmRsZSBidXQgZ29pbmcgdGhyb3VnaCBzaG1lbSBm
-b3IgdGhlIHdob2xlIGxpZmUgdGltZQo+PiBpcyBqdXN0IHNvIG11Y2ggZWFzaWVyIHRvIHJlYXNv
-biBhYm91dCB0aGFuIHNvbWUgdHJpY2tzIHRvIGFidXNlIHNobWVtCj4+IGp1c3QgZm9yIHRoZSBz
-d2Fwb3V0IHBhdGguCj4KPiBXZWxsIGl0J3MgYSBzdGFydCwgYnV0IHRoZSBwYWdlcyBjYW4gaGF2
-ZSBzcGVjaWFsIENQVSBjYWNoZSBzZXR0aW5ncy4gCj4gU28gZGlyZWN0IElPIGZyb20vdG8gdGhl
-bSB1c3VhbGx5IGRvZXNuJ3Qgd29yayBhcyBleHBlY3RlZC4KPgo+IEFkZGl0aW9uYWwgdG8gdGhh
-dCBmb3IgQUdQIGFuZCBDTUEgSSBuZWVkIHRvIG1ha2Ugc3VyZSB0aGF0IEkgZ2l2ZSAKPiB0aG9z
-ZSBwYWdlcyBiYWNrIHRvIHRoZSByZWxldmFudCBzdWJzeXN0ZW1zIGluc3RlYWQgb2YganVzdCBk
-cm9wcGluZyAKPiB0aGUgcGFnZSByZWZlcmVuY2UuCj4KPiBTbyBJIHdvdWxkIG5lZWQgdG8gYmxv
-Y2sgZm9yIHRoZSBzd2FwaW8gdG8gYmUgY29tcGxldGVkLgo+Cj4gQW55d2F5IEkgcHJvYmFibHkg
-bmVlZCB0byByZXZlcnQgdGhvc2UgcGF0Y2hlcyBmb3Igbm93IHNpbmNlIHRoaXMgCj4gaXNuJ3Qg
-d29ya2luZyBhcyB3ZSBob3BlZCBpdCB3b3VsZC4KPgo+IFRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0
-aW9uIGhvdyBzdHVmZiB3b3JrcyBoZXJlLgoKQW5vdGhlciBhbHRlcm5hdGl2ZSBoZXJlIHRoYXQg
-SSd2ZSB0cmllZCBiZWZvcmUgd2l0aG91dCBiZWluZyBzdWNjZXNzZnVsIAp3b3VsZCBwZXJoYXBz
-IGJlIHRvIGRyb3Agc2htZW0gY29tcGxldGVseSBhbmQsIGlmIGl0J3MgYSBub3JtYWwgcGFnZSAo
-bm8gCmRtYSBvciBmdW5ueSBjYWNoaW5nIGF0dHJpYnV0ZXMpIGp1c3QgdXNlIGFkZF90b19zd2Fw
-X2NhY2hlKCk/IElmIGl0J3MgCnNvbWV0aGluZyBlbHNlLCB0cnkgYWxsb2MgYSBwYWdlIHdpdGgg
-cmVsZXZhbnQgZ2ZwIGF0dHJpYnV0ZXMsIGNvcHkgYW5kIAphZGRfdG9fc3dhcF9jYWNoZSgpPyBP
-ciBwZXJoYXBzIHRoYXQgZG9lc24ndCB3b3JrIHdlbGwgZnJvbSBhIHNocmlua2VyIAplaXRoZXI/
-CgovVGhvbWFzCgoKCj4KPiBDaHJpc3RpYW4uCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+--===============0111436028==
+Content-Type: multipart/alternative; boundary="000000000000822d1105be461c77"
+
+--000000000000822d1105be461c77
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Mar 24, 2021 at 11:13 AM Michel D=C3=A4nzer <michel@daenzer.net> wr=
+ote:
+
+> On 2021-03-23 4:32 p.m., Mark Yacoub wrote:
+> > On Tue, Mar 23, 2021 at 11:02 AM Alex Deucher <alexdeucher@gmail.com>
+> wrote:
+> >>
+> >> On Wed, Mar 10, 2021 at 11:15 AM Mark Yacoub <markyacoub@chromium.org>
+> wrote:
+> >>>
+> >>> From: Mark Yacoub <markyacoub@google.com>
+> >>>
+> >>> On initializing the framebuffer, call drm_any_plane_has_format to do =
+a
+> >>> check if the modifier is supported. drm_any_plane_has_format calls
+> >>> dm_plane_format_mod_supported which is extended to validate that the
+> >>> modifier is on the list of the plane's supported modifiers.
+> >>>
+> >>> The bug was caught using igt-gpu-tools test:
+> kms_addfb_basic.addfb25-bad-modifier
+> >>>
+> >>> Tested on ChromeOS Zork by turning on the display, running an overlay
+> >>> test, and running a YT video.
+> >>>
+> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> >>> Signed-off-by: default avatarMark Yacoub <markyacoub@chromium.org>
+> >>
+> >> I'm not an expert with modifiers yet.  Will this break chips which
+> >> don't currently support modifiers?
+> > No it shouldn't. When you don't support modifiers yet, your will
+> > default to Linear Modifier (DRM_FORMAT_MOD_LINEAR),
+> > [...]
+> No modifier support does not imply linear. It's generally signalled via
+> DRM_FORMAT_MOD_INVALID, which roughly means "tiling is determined by driv=
+er
+> specific mechanisms".
+>
+
+Doesn't quite work that way in the kernel sadly. If you don't set
+DRM_MODE_FB_MODIFIERS then the modifier fields have to be 0 (which happens
+to alias DRM_FORMAT_MOD_LINEAR and then now deprecated
+DRM_FORMAT_MOD_NONE). This is verified in shared drm code.
+
+(and all userspace code I've seen simply doesn't set DRM_MODE_FB_MODIFIERS
+if the incoming modifier is DRM_FORMAT_MOD_INVALID)
+
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               https://redhat=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--000000000000822d1105be461c77
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 24, 2021 at 11:13 AM Mich=
+el D=C3=A4nzer &lt;<a href=3D"mailto:michel@daenzer.net">michel@daenzer.net=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+On 2021-03-23 4:32 p.m., Mark Yacoub wrote:<br>
+&gt; On Tue, Mar 23, 2021 at 11:02 AM Alex Deucher &lt;<a href=3D"mailto:al=
+exdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:=
+<br>
+&gt;&gt;<br>
+&gt;&gt; On Wed, Mar 10, 2021 at 11:15 AM Mark Yacoub &lt;<a href=3D"mailto=
+:markyacoub@chromium.org" target=3D"_blank">markyacoub@chromium.org</a>&gt;=
+ wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; From: Mark Yacoub &lt;<a href=3D"mailto:markyacoub@google.com"=
+ target=3D"_blank">markyacoub@google.com</a>&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; On initializing the framebuffer, call drm_any_plane_has_format=
+ to do a<br>
+&gt;&gt;&gt; check if the modifier is supported. drm_any_plane_has_format c=
+alls<br>
+&gt;&gt;&gt; dm_plane_format_mod_supported which is extended to validate th=
+at the<br>
+&gt;&gt;&gt; modifier is on the list of the plane&#39;s supported modifiers=
+.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The bug was caught using igt-gpu-tools test: kms_addfb_basic.a=
+ddfb25-bad-modifier<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Tested on ChromeOS Zork by turning on the display, running an =
+overlay<br>
+&gt;&gt;&gt; test, and running a YT video.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.c=
+om" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+&gt;&gt;&gt; Cc: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuiz=
+en.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
+&gt;&gt;&gt; Signed-off-by: default avatarMark Yacoub &lt;<a href=3D"mailto=
+:markyacoub@chromium.org" target=3D"_blank">markyacoub@chromium.org</a>&gt;=
+<br>
+&gt;&gt;<br>
+&gt;&gt; I&#39;m not an expert with modifiers yet.=C2=A0 Will this break ch=
+ips which<br>
+&gt;&gt; don&#39;t currently support modifiers?<br>
+&gt; No it shouldn&#39;t. When you don&#39;t support modifiers yet, your wi=
+ll<br>
+&gt; default to Linear Modifier (DRM_FORMAT_MOD_LINEAR),<br>
+&gt; [...]<br>
+No modifier support does not imply linear. It&#39;s generally signalled via=
+ DRM_FORMAT_MOD_INVALID, which roughly means &quot;tiling is determined by =
+driver specific mechanisms&quot;.<br></blockquote><div><br></div><div>Doesn=
+&#39;t quite work that way in the kernel sadly. If you don&#39;t set DRM_MO=
+DE_FB_MODIFIERS then the modifier fields have to be 0 (which happens to ali=
+as DRM_FORMAT_MOD_LINEAR and then now deprecated DRM_FORMAT_MOD_NONE). This=
+ is verified in shared drm code.</div><div><br></div><div>(and all userspac=
+e code I&#39;ve seen simply doesn&#39;t set DRM_MODE_FB_MODIFIERS if the in=
+coming modifier is DRM_FORMAT_MOD_INVALID)<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">
+<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div></div>
+
+--000000000000822d1105be461c77--
+
+--===============0111436028==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0111436028==--
