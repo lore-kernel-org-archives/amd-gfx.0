@@ -2,55 +2,76 @@ Return-Path: <SRS0=ZMUS=IX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59CAAC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 00:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 958C4C433DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 00:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BD0161A02
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 00:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BD0161A02
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 569B061A19
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Mar 2021 00:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 569B061A19
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C02B16EADA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7D066EAD8;
 	Thu, 25 Mar 2021 00:06:56 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 781DC6EAC6;
- Wed, 24 Mar 2021 23:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
- Reply-To:Cc:Content-ID:Content-Description;
- bh=OLes48mZ21CKCZJw1nz5+uOTwUMgGmj2EE9+8ie2aE0=; b=AGvlnZySlEGAxSGMBvxLG4yX1G
- KoRbkGou3AQsWwrArRwj0vFPqHTGU5fgvPKp4I6whUgqwcZ580vDYGVlq9dFEOfWpgJd17TJOfyvm
- trNhqUkz5olqbK1D4T0HFHO/civsO+fHQ1yxAe29ul8F8Lk8VtdZOF5IWwsy5aiRrDCgmUo1KrDuL
- 7/GrHz5ZyDbc3NIsHuczhH677HALuqVflR5JAp1Bn2Mlh+FWCygiQ2Pvs+/vV5/QiSROTKe6sna2+
- zIPWM4ZA3KpW2Q3gdnVYbI430PqA16WkTjZCe84v1DZLdLQqQanSqCpJYM5dkUiIFGxopOy/I3FCP
- bdsfzoFw==;
-Received: from [2601:1c0:6280:3f0::3ba4]
- by desiato.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
- id 1lPDCU-000MVD-FO; Wed, 24 Mar 2021 23:46:18 +0000
-Subject: Re: [PATCH V2] drm/radeon/r600_cs: Few typo fixes
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, alexander.deucher@amd.com,
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [IPv6:2607:f8b0:4864:20::f2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C936EAC4;
+ Wed, 24 Mar 2021 23:31:22 +0000 (UTC)
+Received: by mail-qv1-xf2d.google.com with SMTP id x27so295745qvd.2;
+ Wed, 24 Mar 2021 16:31:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YSCdZnAnf0ga32BuYYnsOy/pD1p+dNeLd3FA9IA50S8=;
+ b=s21EGvmoC9jB2QEZbmz7XuA4MS3b53OLBfvUIfnvnVbm06x6yp7oPUmw8mCHvR8PGM
+ n5pAtQgQCe9Cb9KO4+tFLeUa2BrXNqVoAdML5aqpXMkno6GLzzo1AAPgQQd1l2R4YFwq
+ iCcqbeUOk3Wt8adngRu44s1X9HNLswz9R/35DNKg3Z/dAp0JBouiPwPIAcJRF8dTIHG9
+ wAqLokddi94263eXM1EHxbR4Qrs0ahzqjKYuFEIQeszBz+pbq7HmNu9hqFJZvwyX7dUK
+ 47He/EPX5Q7ICZaXovrzfY1Z1m2lHkH4PNsI9M1PewU5Mh20G1HJtbZle6ypow3oReHZ
+ i2oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=YSCdZnAnf0ga32BuYYnsOy/pD1p+dNeLd3FA9IA50S8=;
+ b=a9wAPaZ2G32ybAuhzuVT8wmFvq9bY/ahJlQt2sU5/yU+D7L7zvLbYHZlI3NNz+2lhb
+ sVJnXN38m0cQ4ty7kTlidJGjXFyKLjKhHcfVbtFnOaUPbLu2A9syHzLTU1ts/NIz1sso
+ zNQdktEyZQUPsL+o0wpwn76EhJYitSvsfvn96wGHQ4UR2sxu5neinTm7DQrueIg5rzAN
+ kwbZMfRI6V6gb0eXRzyJGTNKVRLR0310Rs/cMjNFXtSp4YgjYZpJ21Gxl11YChpdyXEK
+ tNSA+PB0OWfhEE48FO/s2fsDLLyXY6fo79bG/o7bGWA54tTRR7zysSL2zsuwRdfY/D5E
+ KP2g==
+X-Gm-Message-State: AOAM533+QNVgrGtd10DNvTlv11yEa4QWeRjPHLiu6YiPxkgepXoR3z0w
+ GumTbhbLYi3KjDoqtQ/aeeU4zNFyoeaJX/ED
+X-Google-Smtp-Source: ABdhPJxxNWYsBQWHoQoJbW0BfWK5AgOTPsyBBpekOMIYVvAC9SkadGXlMFyzyH07BwdVGHXRxq7qzA==
+X-Received: by 2002:ad4:538a:: with SMTP id i10mr5616702qvv.9.1616628681226;
+ Wed, 24 Mar 2021 16:31:21 -0700 (PDT)
+Received: from Slackware ([156.146.55.193])
+ by smtp.gmail.com with ESMTPSA id j3sm3029485qki.84.2021.03.24.16.31.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Mar 2021 16:31:20 -0700 (PDT)
+Date: Thu, 25 Mar 2021 05:00:39 +0530
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH] drm/radeon/r600_cs: Couple of typo fixes
+Message-ID: <YFvLn0E+9AaqLY0e@Slackware>
+Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-References: <20210324232941.21439-1-unixbhaskar@gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <65cf3c2d-483f-432e-1d51-ca811e13f12f@infradead.org>
-Date: Wed, 24 Mar 2021 16:46:07 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+References: <20210324135026.3540-1-unixbhaskar@gmail.com>
+ <e3c60b65-7df2-18d8-4275-3588f6777810@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20210324232941.21439-1-unixbhaskar@gmail.com>
-Content-Language: en-US
+In-Reply-To: <e3c60b65-7df2-18d8-4275-3588f6777810@infradead.org>
 X-Mailman-Approved-At: Thu, 25 Mar 2021 00:06:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,68 +84,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============2144049397=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/24/21 4:29 PM, Bhaskar Chowdhury wrote:
-> s/miror/mirror/
-> s/needind/needing/
-> s/informations/information/
-> 
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-Thanks.
-
-> ---
->  Changes from V1:
->  Randy's finding incorporated ,i.e in one place,informations->information
->   Adjusted the subject line accordingly
-> 
->  drivers/gpu/drm/radeon/r600_cs.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
-> index 34b7c6f16479..8be4799a98ef 100644
-> --- a/drivers/gpu/drm/radeon/r600_cs.c
-> +++ b/drivers/gpu/drm/radeon/r600_cs.c
-> @@ -38,7 +38,7 @@ extern void r600_cs_legacy_get_tiling_conf(struct drm_device *dev, u32 *npipes,
-> 
-> 
->  struct r600_cs_track {
-> -	/* configuration we miror so that we use same code btw kms/ums */
-> +	/* configuration we mirror so that we use same code btw kms/ums */
->  	u32			group_size;
->  	u32			nbanks;
->  	u32			npipes;
-> @@ -963,7 +963,7 @@ static int r600_cs_parse_packet0(struct radeon_cs_parser *p,
->   *
->   * This function will test against r600_reg_safe_bm and return 0
->   * if register is safe. If register is not flag as safe this function
-> - * will test it against a list of register needind special handling.
-> + * will test it against a list of register needing special handling.
->   */
->  static int r600_cs_check_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
->  {
-> @@ -2336,7 +2336,7 @@ int r600_cs_parse(struct radeon_cs_parser *p)
->  /**
->   * r600_dma_cs_next_reloc() - parse next reloc
->   * @p:		parser structure holding parsing context.
-> - * @cs_reloc:		reloc informations
-> + * @cs_reloc:		reloc information
->   *
->   * Return the next reloc, do bo validation and compute
->   * GPU offset using the provided start.
-> --
+--===============2144049397==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="J1WGx4DKWNUgtW3S"
+Content-Disposition: inline
 
 
--- 
-~Randy
+--J1WGx4DKWNUgtW3S
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+
+On 14:48 Wed 24 Mar 2021, Randy Dunlap wrote:
+>On 3/24/21 6:50 AM, Bhaskar Chowdhury wrote:
+>>
+>> s/miror/mirror/
+>> s/needind/needing/
+>>
+>> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+>> ---
+>>  drivers/gpu/drm/radeon/r600_cs.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+>> index 34b7c6f16479..aded1f2264e0 100644
+>> --- a/drivers/gpu/drm/radeon/r600_cs.c
+>> +++ b/drivers/gpu/drm/radeon/r600_cs.c
+>> @@ -38,7 +38,7 @@ extern void r600_cs_legacy_get_tiling_conf(struct drm_device *dev, u32 *npipes,
+>>
+>>
+>>  struct r600_cs_track {
+>> -	/* configuration we miror so that we use same code btw kms/ums */
+>> +	/* configuration we mirror so that we use same code btw kms/ums */
+>>  	u32			group_size;
+>>  	u32			nbanks;
+>>  	u32			npipes;
+>> @@ -963,7 +963,7 @@ static int r600_cs_parse_packet0(struct radeon_cs_parser *p,
+>>   *
+>>   * This function will test against r600_reg_safe_bm and return 0
+>>   * if register is safe. If register is not flag as safe this function
+>> - * will test it against a list of register needind special handling.
+>> + * will test it against a list of register needing special handling.
+>>   */
+>>  static int r600_cs_check_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+>>  {
+>> --
+>
+>Those 2 LGTM, but please fix this while you are touching this file:
+>
+>drivers/gpu/drm/radeon/r600_cs.c:2339: informations  ==> information
+>
+Thanks, I have sent a V2 with the change...
+>
+>thanks.
+>--
+>~Randy
+>
+
+--J1WGx4DKWNUgtW3S
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAmBby58ACgkQsjqdtxFL
+KRWHugf7Btc2yHBbdx+D93X99eYg3LEnK8BjD+AmODMCnOCo7INrTWk+9gnuQbq4
+CFxbsI49SUHXNQqyYOIhGT5c/m7f5vRyAiWSqXKKxSSMn5KvJtJq0jPnbH6H/whf
+Ld+QEMOOON8vJkTBPgv0zZC3d2Hz0iEaNjvNu1x/WoFJgdvzIpR8bp5pEKS2tGMb
+bbuRWfFmF0LA5um9umXbYmaqJ9iZPMHyBK7yjuGxmd/DMQzwZJ8zn+IibkWqFrmM
+M4qb5kUnn9NJs/ZEMcegj4aXQCF0Bou++2oXBrwa9yQ4skk9956v0sRoC/1bwLej
+uth0YgoW21hM6Qm3BIZRBFegXI2GLg==
+=lalJ
+-----END PGP SIGNATURE-----
+
+--J1WGx4DKWNUgtW3S--
+
+--===============2144049397==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============2144049397==--
