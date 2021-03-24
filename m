@@ -2,69 +2,46 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8CA1C433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 12:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7A60C433C1
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52CEB61A05
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 12:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52CEB61A05
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+	by mail.kernel.org (Postfix) with ESMTPS id 20F6761992
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:05:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20F6761992
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hisilicon.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78AA56E9E1;
-	Wed, 24 Mar 2021 12:10:44 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55F626E9E1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 12:10:42 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id v4so24192802wrp.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 05:10:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=E1r72OauA/gIlBZG4tpWGGoc73ZgVn8gVGRpZUotXuw=;
- b=rCK5pLhwzKoFjQw8S59dsGIMkFF95NbFNom0to3arSujGa6IUXzB493PEmjkS1aLDI
- J3U38UqhsOX4pjHxdVE8T8OjLZde3Mgplmt2zX+g7DXeKd23qcaXyBkYEDYVIhIamMAS
- nmcEjhWGrtqB8Gy7SRkhqpN/EKBPWtQbsjMZ+GxxGV3qUAipcMoz5C/0PVltHhx4pa3d
- TJQmWb0AN9xigzsrReG5aXCNWxvm7ncreuZYQXtCsb4C2M1xAlE9vJ0qI3VIA2HYSmwn
- 3hE+dyCvIQY49+aaBJylMbeSSEYlmgR34FEicMrzSLWxTz2khsO3/9E4AHQf0cftYQc6
- fKuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=E1r72OauA/gIlBZG4tpWGGoc73ZgVn8gVGRpZUotXuw=;
- b=rf2zBeYoITJU3IwERhrnJF/LNcMKTXKFikyKw2CK5KX4b3X1yIO77CWjrGNpoR1YS/
- Bvi2UMidBkBOnu6p50HqtHj9q6bWDE4s3iMxG6aS2RLuBEEsvbQiXIDeuAqi6hue1yi9
- kp5Qo8tjpj0H3lTeT/+P2pSgdbpE3vP1TG5xdOPqJOXd9U8/dli0kPqcLbCfSqVY+sW1
- g8SuAgbS4Xqb9wTP5jRYBPp9d2kbgrV8QCmAe0CtHARcrsItO6I+xj4JAe7FwHjZV46Y
- wuoJxLBvGAA4odn32S5t2yYUK6d89q9yjonhA9u+4fniQ+d0qC+1N5/Zg1HTW5VGAn1s
- 9rFA==
-X-Gm-Message-State: AOAM532PUAK5Gla/+z88geHPWFSmbbTiQfnbyxpzXGCLjHtZAOrrAUJV
- /CcTleCVm8FGfzj4EmWtooPUKPTsvkzWxCWFmqOd/w==
-X-Google-Smtp-Source: ABdhPJzBQsDAv6Xrhm0OaPaUIM0Wxc4Y6jBcCrV3NcGzD2Y5CwNPU7cPSK8lPuAC3mBM5g1xg5XezhvVhnxc64DiIIg=
-X-Received: by 2002:a5d:6c67:: with SMTP id r7mr3129138wrz.373.1616587840870; 
- Wed, 24 Mar 2021 05:10:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B877B6E1A5;
+	Wed, 24 Mar 2021 13:05:10 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02C9F6E992;
+ Wed, 24 Mar 2021 09:17:14 +0000 (UTC)
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F52cb6QQZzPljX;
+ Wed, 24 Mar 2021 17:14:39 +0800 (CST)
+Received: from localhost.localdomain (10.69.192.56) by
+ DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 24 Mar 2021 17:17:08 +0800
+From: Tian Tao <tiantao6@hisilicon.com>
+To: <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCH drm/amdgpu 2/2] drm/amd/pm: Convert sysfs sprintf/snprintf
+ family to sysfs_emit
+Date: Wed, 24 Mar 2021 17:17:41 +0800
+Message-ID: <1616577461-18556-3-git-send-email-tiantao6@hisilicon.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1616577461-18556-1-git-send-email-tiantao6@hisilicon.com>
+References: <1616577461-18556-1-git-send-email-tiantao6@hisilicon.com>
 MIME-Version: 1.0
-References: <20210310161444.1015500-1-markyacoub@chromium.org>
- <CADnq5_P9aYcedOP2qduSz7VN1fCSnmQEtPa+FdjYu9Co7TwPog@mail.gmail.com>
- <CAC0gqY7Y2WxtAZ3GnWmASPYq7ahYTfmPhOHAAX5UjMNS9k098w@mail.gmail.com>
- <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
- <CAP+8YyExtmmZbFfAO_YR=XWHE+HbH6m7JqyJV4LB_hbGwsihBA@mail.gmail.com>
-In-Reply-To: <CAP+8YyExtmmZbFfAO_YR=XWHE+HbH6m7JqyJV4LB_hbGwsihBA@mail.gmail.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 24 Mar 2021 12:10:15 +0000
-Message-ID: <CAPj87rP+WkUPbS3yyGGfy0SRm_hsnCCUav99Dg2Q+tXCiJ5D+A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Ensure that the modifier requested is
- supported by plane.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+X-Originating-IP: [10.69.192.56]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Wed, 24 Mar 2021 13:05:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,95 +53,372 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Mark Yacoub <markyacoub@google.com>
-Content-Type: multipart/mixed; boundary="===============0250128701=="
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0250128701==
-Content-Type: multipart/alternative; boundary="00000000000000f5aa05be473062"
+Fix the following coccicheck warning:
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:1940:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:1978:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2022:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:294:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:154:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:496:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:512:9-17: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:1740:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:1667:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2074:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2047:9-17: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2768:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2738:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2442:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3246:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3253:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2458:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3047:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3133:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3209:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3216:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2410:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2496:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2470:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2426:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2965:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:2972:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3006:8-16: WARNING:
+use scnprintf or sprintf
+drivers/gpu/drm/amd/pm/amdgpu_pm.c:3013:8-16: WARNING:
+use scnprintf or sprintf
 
---00000000000000f5aa05be473062
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 88 +++++++++++++++++++-------------------
+ 1 file changed, 44 insertions(+), 44 deletions(-)
 
-On Wed, 24 Mar 2021 at 10:53, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-wrote:
-
-> On Wed, Mar 24, 2021 at 11:13 AM Michel D=C3=A4nzer <michel@daenzer.net> =
-wrote:
->
->> No modifier support does not imply linear. It's generally signalled via
->> DRM_FORMAT_MOD_INVALID, which roughly means "tiling is determined by dri=
-ver
->> specific mechanisms".
->>
->
-> Doesn't quite work that way in the kernel sadly. If you don't set
-> DRM_MODE_FB_MODIFIERS then the modifier fields have to be 0 (which happen=
-s
-> to alias DRM_FORMAT_MOD_LINEAR and then now deprecated
-> DRM_FORMAT_MOD_NONE). This is verified in shared drm code.
->
-> (and all userspace code I've seen simply doesn't set DRM_MODE_FB_MODIFIER=
-S
-> if the incoming modifier is DRM_FORMAT_MOD_INVALID)
->
-
-Yes, but even though the field is zero, the lack of the flag means it must
-be treated as INVALID. If the kernel is not doing this, the kernel is
-objectively wrong. (And I know it doesn't do this in most cases, because
-otherwise I wouldn't be able to use this GNOME session on an Intel laptop,
-where modifiers are blacklisted.)
-
-Cheers,
-Daniel
-
---00000000000000f5aa05be473062
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><span style=3D"">On Wed, 24 Mar 2021 at 1=
-0:53, Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl">bas@=
-basnieuwenhuizen.nl</a>&gt; wrote:</span><br></div><div class=3D"gmail_quot=
-e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div =
-dir=3D"ltr"><span style=3D"">On Wed, Mar 24, 2021 at 11:13 AM Michel D=C3=
-=A4nzer &lt;</span><a href=3D"mailto:michel@daenzer.net" target=3D"_blank" =
-style=3D"">michel@daenzer.net</a><span style=3D"">&gt; wrote:</span><br></d=
-iv><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">No modifier support does not imply linear. It&#39;s generally signalle=
-d via DRM_FORMAT_MOD_INVALID, which roughly means &quot;tiling is determine=
-d by driver specific mechanisms&quot;.<br></blockquote><div><br></div><div>=
-Doesn&#39;t quite work that way in the kernel sadly. If you don&#39;t set D=
-RM_MODE_FB_MODIFIERS then the modifier fields have to be 0 (which happens t=
-o alias DRM_FORMAT_MOD_LINEAR and then now deprecated DRM_FORMAT_MOD_NONE).=
- This is verified in shared drm code.</div><div><br></div><div>(and all use=
-rspace code I&#39;ve seen simply doesn&#39;t set DRM_MODE_FB_MODIFIERS if t=
-he incoming modifier is DRM_FORMAT_MOD_INVALID)</div></div></div></blockquo=
-te><div><br></div><div>Yes, but even though the field is zero, the lack of =
-the flag means it must be treated as INVALID. If the kernel is not doing th=
-is, the kernel is objectively wrong. (And I know it doesn&#39;t do this in =
-most cases, because otherwise I wouldn&#39;t be able to use this GNOME sess=
-ion on an Intel laptop, where modifiers are blacklisted.)</div><div><br></d=
-iv><div>Cheers,</div><div>Daniel=C2=A0</div></div></div>
-
---00000000000000f5aa05be473062--
-
---===============0250128701==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 5fa65f1..0ee3e55 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -151,9 +151,9 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%s\n",
+-			(pm == POWER_STATE_TYPE_BATTERY) ? "battery" :
+-			(pm == POWER_STATE_TYPE_BALANCED) ? "balanced" : "performance");
++	return sysfs_emit(buf, "%s\n",
++			  (pm == POWER_STATE_TYPE_BATTERY) ? "battery" :
++			  (pm == POWER_STATE_TYPE_BALANCED) ? "balanced" : "performance");
+ }
+ 
+ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+@@ -291,16 +291,16 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%s\n",
+-			(level == AMD_DPM_FORCED_LEVEL_AUTO) ? "auto" :
+-			(level == AMD_DPM_FORCED_LEVEL_LOW) ? "low" :
+-			(level == AMD_DPM_FORCED_LEVEL_HIGH) ? "high" :
+-			(level == AMD_DPM_FORCED_LEVEL_MANUAL) ? "manual" :
+-			(level == AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD) ? "profile_standard" :
+-			(level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK) ? "profile_min_sclk" :
+-			(level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) ? "profile_min_mclk" :
+-			(level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) ? "profile_peak" :
+-			"unknown");
++	return sysfs_emit(buf, "%s\n",
++			  (level == AMD_DPM_FORCED_LEVEL_AUTO) ? "auto" :
++			  (level == AMD_DPM_FORCED_LEVEL_LOW) ? "low" :
++			  (level == AMD_DPM_FORCED_LEVEL_HIGH) ? "high" :
++			  (level == AMD_DPM_FORCED_LEVEL_MANUAL) ? "manual" :
++			  (level == AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD) ? "profile_standard" :
++			  (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK) ? "profile_min_sclk" :
++			  (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) ? "profile_min_mclk" :
++			  (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) ? "profile_peak" :
++			  "unknown");
+ }
+ 
+ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+@@ -493,7 +493,7 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
+ 	if (i == data.nums)
+ 		i = -EINVAL;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", i);
++	return sysfs_emit(buf, "%d\n", i);
+ }
+ 
+ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+@@ -509,7 +509,7 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+ 	if (adev->pp_force_state_enabled)
+ 		return amdgpu_get_pp_cur_state(dev, attr, buf);
+ 	else
+-		return snprintf(buf, PAGE_SIZE, "\n");
++		return sysfs_emit(buf, "\n");
+ }
+ 
+ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+@@ -1664,7 +1664,7 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", value);
++	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
+@@ -1737,7 +1737,7 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", value);
++	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
+@@ -1937,7 +1937,7 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", value);
++	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+ /**
+@@ -1975,7 +1975,7 @@ static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", value);
++	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+ /**
+@@ -2019,8 +2019,8 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+ 	pm_runtime_mark_last_busy(ddev->dev);
+ 	pm_runtime_put_autosuspend(ddev->dev);
+ 
+-	return snprintf(buf, PAGE_SIZE,	"%llu %llu %i\n",
+-			count0, count1, pcie_get_mps(adev->pdev));
++	return sysfs_emit(buf, "%llu %llu %i\n",
++			  count0, count1, pcie_get_mps(adev->pdev));
+ }
+ 
+ /**
+@@ -2044,7 +2044,7 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+ 		return -EPERM;
+ 
+ 	if (adev->unique_id)
+-		return snprintf(buf, PAGE_SIZE, "%016llx\n", adev->unique_id);
++		return sysfs_emit(buf, "%016llx\n", adev->unique_id);
+ 
+ 	return 0;
+ }
+@@ -2071,10 +2071,10 @@ static ssize_t amdgpu_get_thermal_throttling_logging(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%s: thermal throttling logging %s, with interval %d seconds\n",
+-			adev_to_drm(adev)->unique,
+-			atomic_read(&adev->throttling_logging_enabled) ? "enabled" : "disabled",
+-			adev->throttling_logging_rs.interval / HZ + 1);
++	return sysfs_emit(buf, "%s: thermal throttling logging %s, with interval %d seconds\n",
++			  adev_to_drm(adev)->unique,
++			  atomic_read(&adev->throttling_logging_enabled) ? "enabled" : "disabled",
++			  adev->throttling_logging_rs.interval / HZ + 1);
+ }
+ 
+ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
+@@ -2407,7 +2407,7 @@ static ssize_t amdgpu_hwmon_show_temp(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", temp);
++	return sysfs_emit(buf, "%d\n", temp);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_temp_thresh(struct device *dev,
+@@ -2423,7 +2423,7 @@ static ssize_t amdgpu_hwmon_show_temp_thresh(struct device *dev,
+ 	else
+ 		temp = adev->pm.dpm.thermal.max_temp;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", temp);
++	return sysfs_emit(buf, "%d\n", temp);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_hotspot_temp_thresh(struct device *dev,
+@@ -2439,7 +2439,7 @@ static ssize_t amdgpu_hwmon_show_hotspot_temp_thresh(struct device *dev,
+ 	else
+ 		temp = adev->pm.dpm.thermal.max_hotspot_crit_temp;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", temp);
++	return sysfs_emit(buf, "%d\n", temp);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_mem_temp_thresh(struct device *dev,
+@@ -2455,7 +2455,7 @@ static ssize_t amdgpu_hwmon_show_mem_temp_thresh(struct device *dev,
+ 	else
+ 		temp = adev->pm.dpm.thermal.max_mem_crit_temp;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", temp);
++	return sysfs_emit(buf, "%d\n", temp);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_temp_label(struct device *dev,
+@@ -2467,7 +2467,7 @@ static ssize_t amdgpu_hwmon_show_temp_label(struct device *dev,
+ 	if (channel >= PP_TEMP_MAX)
+ 		return -EINVAL;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%s\n", temp_label[channel].label);
++	return sysfs_emit(buf, "%s\n", temp_label[channel].label);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,
+@@ -2493,7 +2493,7 @@ static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,
+ 		break;
+ 	}
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", temp);
++	return sysfs_emit(buf, "%d\n", temp);
+ }
+ 
+ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
+@@ -2735,7 +2735,7 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", min_rpm);
++	return sysfs_emit(buf, "%d\n", min_rpm);
+ }
+ 
+ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+@@ -2765,7 +2765,7 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", max_rpm);
++	return sysfs_emit(buf, "%d\n", max_rpm);
+ }
+ 
+ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
+@@ -2962,14 +2962,14 @@ static ssize_t amdgpu_hwmon_show_vddgfx(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", vddgfx);
++	return sysfs_emit(buf, "%d\n", vddgfx);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_vddgfx_label(struct device *dev,
+ 					      struct device_attribute *attr,
+ 					      char *buf)
+ {
+-	return snprintf(buf, PAGE_SIZE, "vddgfx\n");
++	return sysfs_emit(buf, "vddgfx\n");
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
+@@ -3003,14 +3003,14 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", vddnb);
++	return sysfs_emit(buf, "%d\n", vddnb);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_vddnb_label(struct device *dev,
+ 					      struct device_attribute *attr,
+ 					      char *buf)
+ {
+-	return snprintf(buf, PAGE_SIZE, "vddnb\n");
++	return sysfs_emit(buf, "vddnb\n");
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
+@@ -3044,7 +3044,7 @@ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
+ 	/* convert to microwatts */
+ 	uw = (query >> 8) * 1000000 + (query & 0xff) * 1000;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%u\n", uw);
++	return sysfs_emit(buf, "%u\n", uw);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_power_cap_min(struct device *dev,
+@@ -3130,7 +3130,7 @@ static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
+ {
+ 	int limit_type = to_sensor_dev_attr(attr)->index;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%s\n",
++	return sysfs_emit(buf, "%s\n",
+ 		limit_type == SMU_FAST_PPT_LIMIT ? "fastPPT" : "slowPPT");
+ }
+ 
+@@ -3206,14 +3206,14 @@ static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%u\n", sclk * 10 * 1000);
++	return sysfs_emit(buf, "%u\n", sclk * 10 * 1000);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_sclk_label(struct device *dev,
+ 					    struct device_attribute *attr,
+ 					    char *buf)
+ {
+-	return snprintf(buf, PAGE_SIZE, "sclk\n");
++	return sysfs_emit(buf, "sclk\n");
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
+@@ -3243,14 +3243,14 @@ static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
+ 	if (r)
+ 		return r;
+ 
+-	return snprintf(buf, PAGE_SIZE, "%u\n", mclk * 10 * 1000);
++	return sysfs_emit(buf, "%u\n", mclk * 10 * 1000);
+ }
+ 
+ static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,
+ 					    struct device_attribute *attr,
+ 					    char *buf)
+ {
+-	return snprintf(buf, PAGE_SIZE, "mclk\n");
++	return sysfs_emit(buf, "mclk\n");
+ }
+ 
+ /**
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0250128701==--
