@@ -2,48 +2,71 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CD3FC433C1
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2120C433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A774F61A07
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A774F61A07
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 9B51061A05
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 13:52:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B51061A05
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BD66EAF0;
-	Wed, 24 Mar 2021 13:37:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB1276EAF0;
- Wed, 24 Mar 2021 13:37:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4C94061A01;
- Wed, 24 Mar 2021 13:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616593029;
- bh=PslWGV1zAHiCp3MqLppdgDKQmZVZu+7LJijobMo672I=;
- h=From:To:Cc:Subject:Date:From;
- b=YjucVhlv4T4O6vQl3V2slzxT7hy6Co+DyTCphMDBxW5NMFNt8DjqAQgZqd9UF9b5W
- OXFRcGTiWArcvxPvg83co4bR3fHa8DEiq2E6H4xez//ePlhqww/9AU2sauVUBOCA00
- d1F+oi/qwjxBdhkZVtGnU85ewEhX2a4xjJQxSPmTW5bVGsFUTHvrouVIun8RwEPjIg
- VO5dYbrHGWt+O6cE+C+pb9DS0BLkko1UT62XusklGh7hoQzCGFEY4xlEeuzIyWWb9d
- yuJxJbeGWlTdtWreyotXLRL3rkNZpIvarkU8u0JD5emchlX8KUC1mllSw9jdz4I1wV
- eOarLf2DivS1g==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] amdgpu: securedisplay: simplify i2c hexdump output
-Date: Wed, 24 Mar 2021 14:36:52 +0100
-Message-Id: <20210324133705.2664873-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 473FA6EA01;
+	Wed, 24 Mar 2021 13:52:52 +0000 (UTC)
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C339E6E9FC;
+ Wed, 24 Mar 2021 13:48:47 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id y18so17993290qky.11;
+ Wed, 24 Mar 2021 06:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/iyE9OqAjQZg/OzYxknxNdb9tDwATqAe8JxpLJvUVtw=;
+ b=BcgI9394uPGMaOnLshwgOzLKCyg1UQgyona4sTBOljxtro6giwVYeoYVfucB6WeGrE
+ ueEO2nr4BT7j73Mf8Oj1hbnQbYWdy/5hw3fN4segKfZ9i1ilN7PzqIVFR0cqWmZ9d3CS
+ lleqAu5YZKOHe5ahkvSgyaBk+fz3YGCaXtgAj8tLjShzcgvC4awHI8wXQ4XvUHHby02C
+ gmGaxzNR4Qslga8xBfsfU6S5ARnty5VItgr56mtG725GX+kjEpXfJY9Glkm9NO3Bn/+d
+ KdhqhuDeKyxaCimhBB8qdT0zva/MVqUGQK3gCnJY/dRUjXH240GCM2Acmmw95wSstc6h
+ aZAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/iyE9OqAjQZg/OzYxknxNdb9tDwATqAe8JxpLJvUVtw=;
+ b=d2aera0k4/rVYi+EpN8AGeBJ4FNqzLs4J67BMhwU4l6i6JgeU1LRiRqlVvfdUASK6Q
+ PUdb9hrNrAFKhmPIZLIgvbk4XdYQc8hDVhmjTZAePwFYCLaPiJ5vuVqe38uqLNjdbF2s
+ QTIh56E0I4ffhz4e8y6odBKTeklqYW63UV566YdI5be3TPnpHjHbU4H00DI+JL8lVZgh
+ gF9kxsIr6j8Q/geCWS5uuZ3HTtQhkj4VRjUOYO+lkXOR6JfPeAI6nVQ1Ju7bxknz3+0+
+ QG8DK4nGgVVojeTTq76Mhd+AKxb3Wv13ZOUgMUtst3RU6Tg/hx6BWK5V+IBTOet+IeV1
+ 9kOg==
+X-Gm-Message-State: AOAM531xPkBjozQfPKrOxM24RapaMn1kfjtI0ilvPFGNk4H9NfypbSR2
+ iBVe21fcoM2ksAlSOno6PSg=
+X-Google-Smtp-Source: ABdhPJwmWigcrxAN4YFNnDUNCapP3mlwg7uTwWBcNkPMJT3NLKnoQoRpFLP1JTLi4vJ/bIvre85Vag==
+X-Received: by 2002:a37:46c5:: with SMTP id t188mr3219408qka.47.1616593726965; 
+ Wed, 24 Mar 2021 06:48:46 -0700 (PDT)
+Received: from Slackware.localdomain ([156.146.36.138])
+ by smtp.gmail.com with ESMTPSA id a14sm1746068qkc.47.2021.03.24.06.48.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Mar 2021 06:48:46 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon/r600_cs: Couple of typo fixes
+Date: Wed, 24 Mar 2021 19:20:26 +0530
+Message-Id: <20210324135026.3540-1-unixbhaskar@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 24 Mar 2021 13:52:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,62 +78,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jinzhou Su <Jinzhou.Su@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-A previous fix I did left a rather complicated loop in
-amdgpu_securedisplay_debugfs_write() for what could be expressed in a
-simple sprintf, as Rasmus pointed out.
+s/miror/mirror/
+s/needind/needing/
 
-This drops the leading 0x for each byte, but is otherwise
-much nicer.
-
-Suggested-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/radeon/r600_cs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-index 69d7f6bff5d4..fc3ddd7aa6f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-@@ -92,9 +92,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
- 	struct drm_device *dev = adev_to_drm(adev);
- 	uint32_t phy_id;
- 	uint32_t op;
--	int i;
- 	char str[64];
--	char i2c_output[256];
- 	int ret;
- 
- 	if (*pos || size > sizeof(str) - 1)
-@@ -136,12 +134,9 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struct file *f, const char __u
- 		ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
- 		if (!ret) {
- 			if (securedisplay_cmd->status == TA_SECUREDISPLAY_STATUS__SUCCESS) {
--				int pos = 0;
--				memset(i2c_output,  0, sizeof(i2c_output));
--				for (i = 0; i < TA_SECUREDISPLAY_I2C_BUFFER_SIZE; i++)
--					pos += sprintf(i2c_output + pos, " 0x%X",
--						securedisplay_cmd->securedisplay_out_message.send_roi_crc.i2c_buf[i]);
--				dev_info(adev->dev, "SECUREDISPLAY: I2C buffer out put is :%s\n", i2c_output);
-+				dev_info(adev->dev, "SECUREDISPLAY: I2C buffer out put is: %*ph\n",
-+					 TA_SECUREDISPLAY_I2C_BUFFER_SIZE,
-+					 securedisplay_cmd->securedisplay_out_message.send_roi_crc.i2c_buf);
- 			} else {
- 				psp_securedisplay_parse_resp_status(psp, securedisplay_cmd->status);
- 			}
--- 
-2.29.2
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index 34b7c6f16479..aded1f2264e0 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -38,7 +38,7 @@ extern void r600_cs_legacy_get_tiling_conf(struct drm_device *dev, u32 *npipes,
+
+
+ struct r600_cs_track {
+-	/* configuration we miror so that we use same code btw kms/ums */
++	/* configuration we mirror so that we use same code btw kms/ums */
+ 	u32			group_size;
+ 	u32			nbanks;
+ 	u32			npipes;
+@@ -963,7 +963,7 @@ static int r600_cs_parse_packet0(struct radeon_cs_parser *p,
+  *
+  * This function will test against r600_reg_safe_bm and return 0
+  * if register is safe. If register is not flag as safe this function
+- * will test it against a list of register needind special handling.
++ * will test it against a list of register needing special handling.
+  */
+ static int r600_cs_check_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+ {
+--
+2.30.1
 
 _______________________________________________
 amd-gfx mailing list
