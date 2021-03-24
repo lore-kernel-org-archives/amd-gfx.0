@@ -2,123 +2,125 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA874C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 01:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 782DDC433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 02:34:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68A47619E3
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 01:32:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68A47619E3
+	by mail.kernel.org (Postfix) with ESMTPS id 3337561580
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 02:34:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3337561580
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88ED6EAE2;
-	Wed, 24 Mar 2021 01:32:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA8A6EAE2
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 01:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E02DF6E296;
+	Wed, 24 Mar 2021 02:34:17 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760048.outbound.protection.outlook.com [40.107.76.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AA66E296
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 02:34:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=faqb87Btu0ebyCZkpsSjb13JBcn6QhfR5xoQdRrJXaJkqf6+TuPyoYWMVxenvDnxxa63wcxxXAhSjSxAR5foeocDxa1Mnuzfi1+kVl6ZbUKw1VSvf2pQziBUHDXap8/GsljnXA5LiLZRYoecTSsbc2TSu2/rce86qA+MwK2sUOj6i3XnvFjWANje2kwGyHOmCRRbeld6Az4b0q4gQGeAgDBebSuzxVFTIRic27/qSvkyJEKCZJPJkVsO5RpDepL06ZXLVlUaVwj7kYBWH8bVIc9j0xbdZuvL3YBWEfU2LCfmSq9Pu9V5IP0RtIyDS5hQL4KgfN4sqqLyKfRzOeVIEQ==
+ b=PsAxact3cTcRDSe77uW9DqRlAkj3zwhFMqNcx88LE4wC5IhBt2KI2gHDZNC/AlZs6x2x8r5kSeoStBI1nxeJT+DF8JHTufhFzek28IY3FsgFql0oIJqf5jJP5SMQjVXJHsRLCX6LuPpkJfEal0sC3A8On8nCJCKKmLPwn5l4ueQRSb1vgtSyQU4k/ubTjB80kTG6G73+a80jECqZImyYkJjohF5R3A38tiKf6XpUpmPc1I8PO3slDXtZ7+fltY39ftJDG9hQTvQ08PcB60C4+EBCDhI+K1jTAaquJildN7UcKKECc0mWBqZKWev3o5p6qNEfXMZinQmVPQF0hozVAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VnWKzntG4LVniNYsliMR7Q+LexJksemhJ31kVjOw1d4=;
- b=AzTAPJFHV5NBw/2zIHkCWyp4WzeIKAABbgIv4jsOG10n48/ojv5iMMEOuQuz3oa0clomwiLffHYEgIt6yeW6LBQyWp9vt4mNPYzdBIUmhrslZiztPN1UjKlQXtn6pX6lB7vTmQxQX6XbH/LSzOpRbAO0BOmfuoC7JDosv9ELPhxtQG30Q2UZgKaz3TLMNZ8EvtLX3p5dtB8RhRocaFVGl6XrmyA0KJXFVdAlE1NFWyVwkBT6jdUvK2nf7rlBAPp6L+Guqf71hDiuR4Hm/2n6nvZfdSTyZeWkc8yJ1HUgLSObOYyOS9D3XvZp8mg6vqHUJ9hs3VntVid7KZ7lroZqmg==
+ bh=Dc5eIuLnugwDdwTN3DcACBFyqUgtw5KWXElGeRartcc=;
+ b=ANwZ9/Fli/84MyTrIq8CbPn3uGuI2WI8bV54RiwSO5LLV6l0PQkvnR7rV2TBeeXN3qDMvh28LWN/KAqV8BalOGPce3EnXTqlkWAH9ovv1MojGgW36GxZ31OBK7Fs10dEPNsYs6sz38JfvEAl5dBFOYd6FEJLwNnlx1gMphp2jXL+HqMkspai6IZYGkZuPgx+fKnxG9wJ51xECliod9rsH2OjSePaxCnY1QnUztimJlaE+VYYD1z3T8wVxnrHPWgwOeQyrqSsEjGGG1FXZMXb5BAVBC68o7hLvV+7DIvFZ7Qugc9RVB2PgFrLBZBM6cftuEguOPqkgjOgfRUrOptPbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VnWKzntG4LVniNYsliMR7Q+LexJksemhJ31kVjOw1d4=;
- b=Js4yVldpfTzSvpb8vWGp7D9p9RwijLkgvGkxNH0aGJRibv1hDyZf81FQ/KFWew1SCpM9YuzbCrmEnCS9NDbwYj28E4V4A4NjM8ZTvLrz35U6ZS3VdLCA7yNwfir4CQ7Ok6U30whqvjRJp5pud28+5EfI7llGcS/rc50BTc1lFug=
-Received: from DM6PR12MB4603.namprd12.prod.outlook.com (2603:10b6:5:166::11)
- by DM6PR12MB3579.namprd12.prod.outlook.com (2603:10b6:5:11f::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.24; Wed, 24 Mar
- 2021 01:32:05 +0000
-Received: from DM6PR12MB4603.namprd12.prod.outlook.com
- ([fe80::69b7:e163:347a:ba70]) by DM6PR12MB4603.namprd12.prod.outlook.com
- ([fe80::69b7:e163:347a:ba70%6]) with mapi id 15.20.3955.027; Wed, 24 Mar 2021
- 01:32:05 +0000
-From: "Xu, Feifei" <Feifei.Xu@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=Dc5eIuLnugwDdwTN3DcACBFyqUgtw5KWXElGeRartcc=;
+ b=apriHIUUYLXn5giPKOhZg+k1z2U9lNBZIIvbZ6TK2eTNtgtSOGpcJxsnnXdzSOqEDn8ujYES1J/wMs9HxFGJ/1VnJAkThTJilfEo0G3fa3xFIPsqmIByGVet+s2Cp7Y4cX0eMt46+dH7KbuINRHDmMcmJvr02wbJIyOUUciTCHI=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB4865.namprd12.prod.outlook.com (2603:10b6:208:17c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Wed, 24 Mar
+ 2021 02:34:14 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%6]) with mapi id 15.20.3955.025; Wed, 24 Mar 2021
+ 02:34:14 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
-Thread-Topic: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
-Thread-Index: Adcf5Uxzzx+eUVs0TECp524n5TX5VQAaCivA
-Date: Wed, 24 Mar 2021 01:32:04 +0000
-Message-ID: <DM6PR12MB4603AC32C3DD2C5A358D29DBFE639@DM6PR12MB4603.namprd12.prod.outlook.com>
-References: <MN2PR12MB4549C3C4388974DA56E79AB197649@MN2PR12MB4549.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB4549C3C4388974DA56E79AB197649@MN2PR12MB4549.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amd/display: Use DRM_DEBUG_DP
+Thread-Topic: [PATCH] drm/amd/display: Use DRM_DEBUG_DP
+Thread-Index: AQHXH3vr9l1Gy4Pl7EW7EYXyuosSQ6qRofCAgAAavACAAEnmAIAAZr8A
+Date: Wed, 24 Mar 2021 02:34:13 +0000
+Message-ID: <MN2PR12MB44887387D0FE8FF1AE6C41D1F7639@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <9042072e-107a-eec8-2357-962698d91d0e@amd.com>,
+ <20210323202614.20061-1-luben.tuikov@amd.com>
+In-Reply-To: <20210323202614.20061-1-luben.tuikov@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-23T13:07:03Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=45389dfd-499c-467b-bdbe-cf8162388cd3;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-03-24T02:34:13.377Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
+x-originating-ip: [192.161.79.247]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ee1e968c-8390-4a25-e0d6-08d8ee64a1b9
-x-ms-traffictypediagnostic: DM6PR12MB3579:
+x-ms-office365-filtering-correlation-id: 748e3c8e-dbdf-4c89-544e-08d8ee6d506c
+x-ms-traffictypediagnostic: BL0PR12MB4865:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB35796E15BA0A9CD972FF055FFE639@DM6PR12MB3579.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-microsoft-antispam-prvs: <BL0PR12MB4865F7F098C9F0016E96497DF7639@BL0PR12MB4865.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:142;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Hge1BvBBNRndo8u3PGMKMDXsDDbPjn09icvlxZRDhizNfNEvpusu4U0AhSRexsM6hrhTCXMxnSPMCa8aEXkBvDJLlzGN/Mq4ivD31f/kodp8cyg7VupYKooQp3iAusLMrI6zJOvFtsPbQpsUh2zzqcXVys7UuyB0wJhh1B8tzHCn6b/mErGLfvIMYI9wGdRj0bdsEX7xyawSyCac61Mak/BfsYNExE2+N1EiJ7VAydaqMRZOctX7bGPjvtsOvfixUJqZE8zOKNaceHVp2cO4YL1rp7YZUmIUzy1pYsRgOiW5OQwvPZQrP5Txrv4QHwXBBsyxSdtbWKx7o8YTukvumhDhSQWjoT2kAe7lJZOHNN+z8zK9sKg/PNgup7cIwP1zrgVjf/HB7edlB78TiB5LGnpwIXyC2ur+zrFaGmpjI7GelAdqXVGpYil4Q1jD9c9CF0zxNVU24z34p4RY27JccP9aRxkHw2IQYkIF5weuWbvF+eRYwZex48FvU521edK/ACqtFqZtVEEqFn5PHstsSsxGWyqWXkqzHH8NePJ+v1R/jH96Pdx866si9c5rmVFHDccGS5vdPBPvCWgjk7IE0PC9xuSd1vHHraYxfOiLK+dNk+Gm0mzaf1Vq3MywIQ7oZ0jrKAPNNTlkVEfrVW1FTPDuhYZP41htPKJYdYmxGTs=
+x-microsoft-antispam-message-info: GS/VsRYUltyZZ7mBHMFVV4wCVyrBn6q/Bk4XS/LENBnhVbuTKohd/fCxR+1Q4QLhTtfhphQU988+Sd3KUb+GbfyYughI1mSxB4cqmVqGLAn5WW2HOy/4XlJMTV7EdXKwi2Mo8zHb7O8ZxjkvlF4Xg8kGoeSyejVEIANdd69lKU9aDl2+RK7TRWtxIPvRJ0vWX5H2KlgBaMpWR24DmvcxX7lEoBd1LhWyABM4jZmMGYrNaX+SrXogkN+ghak+yhYw6G75CD3CMWDfmjDXSr6aK4TCdSv0aGSz/ATRr6TB21MSbgLoU1H+xMlJWG4vLYQOl5FYYnBrHR4OuinSCCj+C7KF7CXxqmOIUvytJQoQbWga/K/rryuG4KL/AhBBtiAuZwjHiQxj8pBcaF9NYt22Exlfbmhab2FwtgVkfp14WnszVKIx3TFbP+VEqiPEub3pGYPbTihswgsG9oyVtXzoY2Al8qI91/oxtjBe6UP9upbrKnkXV1vd+2QIRBE0kAxjbyAR9lWhoOrzaQRCokSSiICfAYphaX2rZo/ENaJIAXXrSa5jm21M7kBLtK9YzEf3ixuX9XRqNjxnoQxdTyJvW1jQzYpN8q82bqM8YN6LyBToTPioWdAcWgbcjkv4h6TLGOyd7mNLxq43bjmjC8UVewUWXNHSu7r9xXoWhhSV2gQ=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4603.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(71200400001)(66556008)(66946007)(64756008)(76116006)(4326008)(66446008)(66476007)(5660300002)(52536014)(83380400001)(38100700001)(9686003)(186003)(55016002)(7696005)(15650500001)(8936002)(478600001)(8676002)(2906002)(316002)(54906003)(53546011)(6506007)(110136005)(26005)(33656002)(86362001);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(396003)(366004)(39860400002)(346002)(5660300002)(66476007)(66946007)(64756008)(110136005)(76116006)(66556008)(71200400001)(478600001)(19627405001)(4326008)(8936002)(26005)(8676002)(33656002)(66446008)(2906002)(55016002)(9686003)(38100700001)(6506007)(86362001)(52536014)(7696005)(83380400001)(316002)(186003)(53546011);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?As/+UT+rSGdRpyBOe0z3X5RwGZYqjnL4JomC3dzF7tvISbVKdoog4ramt7Pu?=
- =?us-ascii?Q?p1206dJhj3vSbWGCvVBeTm2CMSUHlw0mm2x3Kxq1hdeoFMfKiZvpOf4YcBFe?=
- =?us-ascii?Q?omFLNMQsF2mxRCWEk2a5F98s7OzjnjcU1FjEYY3cFFc8cPmFxVuN5IuR36YV?=
- =?us-ascii?Q?RPh60jN6RL2Rz4JsjFXuJsJop9/n4e6sYBd60hGH9GVaT5k0Su0Zfufi6RU+?=
- =?us-ascii?Q?eUEZtmaopTVKxU9drQUPAqFYfBQvdCnupvq7LrJ0Lr1frCANw3ocKhE//irl?=
- =?us-ascii?Q?wAEh/vl4vpEOvovn6KjXGctHp4PtX+P/xPqGL5w6w76bX198fUHW4DRKkhNs?=
- =?us-ascii?Q?mM0BhGMG/G8oSvt2AFUodmf2vAJmIx7JqVJMakPklugSXvMX+3k9KRufXFbr?=
- =?us-ascii?Q?x3WFSqLx1yCbVu0KkmVBUEfWFfBnVonLZojFyf5NJ7ylkVBoaMb3xkMxtf4a?=
- =?us-ascii?Q?SiXKfIKDYLYHS+Nho4s58oxjDzwJI2tl+8WEMffxCLExddslhGb1HqKcCkMs?=
- =?us-ascii?Q?lIC7dQfA4lPiUmI5htAL+SQzYQHuB90GKJSHXA1RBLORGYiB2el6mDZJCdIp?=
- =?us-ascii?Q?s94OKF/zWj+doO4zTRHHJRcyeNkdEfG47+5Ur5QncooAI/tOZ9UsUhARqTmS?=
- =?us-ascii?Q?OJb5m6LqBMWM5a/xdK5vvCf+TLN73kwZah06iK3I7g0w/CvwCZXhS6281/6E?=
- =?us-ascii?Q?G7JCmKtplCDYbMxR7TLpcxYKYVlemYKEIv1iqSSU1WtXq2VXcf7zpM5yNiXa?=
- =?us-ascii?Q?4CuXFMI798pRpGcJygFz37pzunMHQPKGfuX4BbKiwSpE0gmiqz/1T0EeSlOf?=
- =?us-ascii?Q?gLognxmJ3sVfpWXSd4PfxQPu1TmmXHMgL4ZJJhw15AneMw+tBwwoP3fCJckA?=
- =?us-ascii?Q?YncdZK5lo5W7LE+lfP/gzYdKCHvRMJies5xeYnQpB+3vfc4YPF705Ov96ENM?=
- =?us-ascii?Q?PpWFJj7aZJZKkDSyEE2SDkTs952B+ZnYBnLGrqj6+mQ6DvWo3tuskyDc28Fx?=
- =?us-ascii?Q?72go1pDdo2igoqO3RbB62VfjkHZnf2VeAFKPHnzoQNK+11saV+rp1lLBZiqT?=
- =?us-ascii?Q?ihF4CnP4S42hkkAug31w4hCxPzJ8QuEO4kDf3nIPWv1I3O3G0VD0czfdTpms?=
- =?us-ascii?Q?L6zeaiTo5B4gguRtVGRFuy3kOLeVEZQl0S12SQjkbV1Gd727QUzBii/8dJuY?=
- =?us-ascii?Q?qNEkXas/0XiRBFgHAEQ8vsNH944/xyFEJlf6jl2RkxMTWKubjL9C6TZuDnhG?=
- =?us-ascii?Q?wlDkvGhiDiQm1BQNJjthGUKfxpwN/2Mtsf74oKlwJtfjITAJj6TnFbYLeZyo?=
- =?us-ascii?Q?h1wdSPXoUmxW5xF3aj9Nxv9Y?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?5maCS8N8OCrVHpzYHZhNw+KU3eHI0d04tdzu9lx1JcNr5WpkznXkGRciHR4E?=
+ =?us-ascii?Q?7BJd0xibC6XcEzJi/BiRw3AKINNlgtW82BXm86HG8uiF6EWLehc1JWLvw7jE?=
+ =?us-ascii?Q?o7U5Vy798j+RR/rxvAFZQwP/Vy5SZSI+zktYOJqHQ1jH6YAALhFf9YPUMqGw?=
+ =?us-ascii?Q?Qlrj+axBkD7H0Nz2PuuzwX2vHc9uXBEJfx6g0bW3n+bpYw/04NDfxiuww6im?=
+ =?us-ascii?Q?MpxB90O5HTmhl5+44jXHWoU/WSK7kq+jPge1ciq/6cSEFqfaNyey5PE+ODv4?=
+ =?us-ascii?Q?wXa3+8SfZuis42a8q9xC9OS0U9eTn+zwxYchCApLj4Yzl9coLWRZ7yFKYcdN?=
+ =?us-ascii?Q?p//RtcTNQXDdoMQ79Ajhg1NjnmXdbaKUDR6Gw++s/JHg/ynf8bAM3XsScHko?=
+ =?us-ascii?Q?IG3toOVBA8cq8Cqa9HDyWsmUUKR53NJluPNyWEQcf6KRfeSGoeU0QQiL9MCT?=
+ =?us-ascii?Q?nbrX6pwFnHw1wQOXSgl9kgL8AbA4yAKrP7qSeN1YN7+Wpq8y9oHXPXZr30Ro?=
+ =?us-ascii?Q?EIMsXO3s4Bal47YQ0C+PS2vDMjW5I05OGcBoY7Pr3Em6WBxR55QeP7Z/YWRZ?=
+ =?us-ascii?Q?KbkuIONgnYe02O8TqNNA31JYkGaw/Gv5H+tUvAE4JxZUtAQeSCXddT3an/Md?=
+ =?us-ascii?Q?X51wmpwSAaaZCBjWffd0VVBRz0seyfSIk9RO2fQiSx1Vjl/3kRiueImNV80F?=
+ =?us-ascii?Q?M7aQrijhh10QmCAZor1+EwTKxZkQ/b35wtFHN/8vua6w2NJeb7YSqwotDdnW?=
+ =?us-ascii?Q?MZJ6sZKOntNJYKFhoCIuxGmjgz5pGLrdm+21czEAGCWnttLywM1nIZyUhu/0?=
+ =?us-ascii?Q?LpCZirfY3PqLxyZSCFTFjYi6fZmFaGpKVBej1Vc42HRJKB++hHJ457mc5Q9D?=
+ =?us-ascii?Q?GeQN9WliazSEzIKoy878wb1ISPAak3ITUg2JLO4iKRiwVGJoNtUXZ2OLkCnM?=
+ =?us-ascii?Q?LBMae40IWw93SegUZNeTBP78zSzUnobxEYV39hceSThzLYI8Ng+S+r/R2GXa?=
+ =?us-ascii?Q?ij3JNTJOhzh/2RqOC5JtwGe+E7N4BF4mR1g72DW/4vY7U3HaTOjczl9k4jS5?=
+ =?us-ascii?Q?hpHxyATNt4hyAa7k5AAv8Tacwb2ltZmz8Boe0BR6iTlQF6unw6OWxGsPQibj?=
+ =?us-ascii?Q?Uhan0mrJfzgR8WmYyhLST5ys3s26VmOq3whJfAYC8H9T27WvYDGmaMHZB3Ug?=
+ =?us-ascii?Q?SqMF1q2gsSh+hizHaPfYxQNI0H9f7KD0suAOKM5lIVHES/yorBN1IST5sreg?=
+ =?us-ascii?Q?6MMJIvc8JGFMGP9UxvwQGRMTWR0bprGBBBn27uW8X7jDYpO63ItJFwvq8UOG?=
+ =?us-ascii?Q?ZURjjFh9tc7HR0W/zG1C3cGk?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4603.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee1e968c-8390-4a25-e0d6-08d8ee64a1b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2021 01:32:04.9099 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 748e3c8e-dbdf-4c89-544e-08d8ee6d506c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2021 02:34:13.9644 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eo9Ak/vZTDhVS6ZoDmKUvH24ZLR7mqODpBtQZ5HLkUHRoBJqW9cOOfK78FXca2f4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3579
+X-MS-Exchange-CrossTenant-userprincipalname: OleZGQuwZ0esewd+V3537eDdGihP4ZasssUfbqWw/bpJ4hRGUUNyKHO13XDsWqd4ZuGW5yMug/HZQoZzndNBZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4865
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,279 +132,717 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============2040171961=="
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>
+Content-Type: multipart/mixed; boundary="===============1902193913=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2040171961==
+--===============1902193913==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB4603AC32C3DD2C5A358D29DBFE639DM6PR12MB4603namp_"
+	boundary="_000_MN2PR12MB44887387D0FE8FF1AE6C41D1F7639MN2PR12MB4488namp_"
 
---_000_DM6PR12MB4603AC32C3DD2C5A358D29DBFE639DM6PR12MB4603namp_
+--_000_MN2PR12MB44887387D0FE8FF1AE6C41D1F7639MN2PR12MB4488namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
+[AMD Official Use Only - Internal Distribution Only]
 
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Tuikov, Luben <Luben.Tuikov@amd.com>
+Sent: Tuesday, March 23, 2021 4:26 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Wentland, Harry <Harry.Wentland@a=
+md.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Use DRM_DEBUG_DP
 
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
+Convert IRQ-based prints from DRM_DEBUG_DRIVER to
+DRM_DEBUG_DP, as the latter is not used in drm/amd
+prior to this patch and since IRQ-based prints
+drown out the rest of the driver's
+DRM_DEBUG_DRIVER messages.
 
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, March 23, 2021 9:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>;=
- Feng, Kenneth <Kenneth.Feng@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.c=
-om>
-Subject: [PATCH] drm/amd/pm: Update aldebaran pmfw interface
-
-
-[AMD Public Use]
-
-Update aldebaran PMFW interfaces to version 0x6
-
-Signed-off-by: Lijo Lazar lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>
+Cc: Harry Wentland <Harry.Wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
-.../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h    | 11 +++++++++--
-drivers/gpu/drm/amd/pm/inc/smu_v13_0.h                |  2 +-
-2 files changed, 10 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 57 +++++++++----------
+ 1 file changed, 28 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h b/drive=
-rs/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-index df2ead254f37..d23533bda002 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h
-@@ -435,8 +435,12 @@ typedef struct {
-   uint8_t  GpioI2cSda; // Serial Data
-   uint16_t spare5;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f455fc3aa561..9376d44ce3b4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -449,9 +449,9 @@ static void dm_pflip_high_irq(void *interrupt_params)
+         amdgpu_crtc->pflip_status =3D AMDGPU_FLIP_NONE;
+         spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
 
-+  uint16_t XgmiMaxCurrent; // in Amps
-+  int8_t   XgmiOffset;     // in Amps
-+  uint8_t  Padding_TelemetryXgmi;
-+
-   //reserved
--  uint32_t reserved[16];
-+  uint32_t reserved[15];
+-       DRM_DEBUG_DRIVER("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, vrr[%d]=
+-fp %d\n",
+-                        amdgpu_crtc->crtc_id, amdgpu_crtc,
+-                        vrr_active, (int) !e);
++       DRM_DEBUG_KMS("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp=
+ %d\n",
++                     amdgpu_crtc->crtc_id, amdgpu_crtc,
++                     vrr_active, (int) !e);
+ }
 
- } PPTable_t;
+ static void dm_vupdate_high_irq(void *interrupt_params)
+@@ -993,8 +993,7 @@ static void event_mall_stutter(struct work_struct *work=
+)
+         dc_allow_idle_optimizations(
+                 dm->dc, dm->active_vblank_irq_count =3D=3D 0);
 
-@@ -481,7 +485,10 @@ typedef struct {
-   uint16_t TemperatureAllHBM[4]  ;
-   uint32_t GfxBusyAcc            ;
-   uint32_t DramBusyAcc           ;
--  uint32_t Spare[4];
-+  uint32_t EnergyAcc64bitLow     ; //15.259uJ resolution
-+  uint32_t EnergyAcc64bitHigh    ;
-+  uint32_t TimeStampLow          ; //10ns resolution
-+  uint32_t TimeStampHigh         ;
+-       DRM_DEBUG_DRIVER("Allow idle optimizations (MALL): %d\n", dm->activ=
+e_vblank_irq_count =3D=3D 0);
+-
++       DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_v=
+blank_irq_count =3D=3D 0);
 
-   // Padding - ignore
-   uint32_t     MmHubPadding[8]; // SMU internal use
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h b/drivers/gpu/drm/amd/p=
-m/inc/smu_v13_0.h
-index 6db3464c09d6..8145e1cbf181 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h
-@@ -26,7 +26,7 @@
-#include "amdgpu_smu.h"
+         mutex_unlock(&dm->dc_lock);
+ }
+@@ -1810,8 +1809,8 @@ static void dm_gpureset_toggle_interrupts(struct amdg=
+pu_device *adev,
+                 if (acrtc && state->stream_status[i].plane_count !=3D 0) {
+                         irq_source =3D IRQ_TYPE_PFLIP + acrtc->otg_inst;
+                         rc =3D dc_interrupt_set(adev->dm.dc, irq_source, e=
+nable) ? 0 : -EBUSY;
+-                       DRM_DEBUG("crtc %d - vupdate irq %sabling: r=3D%d\n=
+",
+-                                 acrtc->crtc_id, enable ? "en" : "dis", rc=
+);
++                       DRM_DEBUG_VBL("crtc %d - vupdate irq %sabling: r=3D=
+%d\n",
++                                     acrtc->crtc_id, enable ? "en" : "dis"=
+, rc);
+                         if (rc)
+                                 DRM_WARN("Failed to %s pflip interrupts\n"=
+,
+                                          enable ? "enable" : "disable");
+@@ -4966,8 +4965,8 @@ static void update_stream_scaling_settings(const stru=
+ct drm_display_mode *mode,
+         stream->src =3D src;
+         stream->dst =3D dst;
 
- #define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF
--#define SMU13_DRIVER_IF_VERSION_ALDE 0x5
-+#define SMU13_DRIVER_IF_VERSION_ALDE 0x6
+-       DRM_DEBUG_DRIVER("Destination Rectangle x:%d  y:%d  width:%d  heigh=
+t:%d\n",
+-                       dst.x, dst.y, dst.width, dst.height);
++       DRM_DEBUG_KMS("Destination Rectangle x:%d  y:%d  width:%d  height:%=
+d\n",
++                     dst.x, dst.y, dst.width, dst.height);
 
- /* MP Apertures */
-#define MP0_Public                                      0x03800000
+ }
+
+@@ -5710,8 +5709,8 @@ static inline int dm_set_vupdate_irq(struct drm_crtc =
+*crtc, bool enable)
+
+         rc =3D dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EB=
+USY;
+
+-       DRM_DEBUG_DRIVER("crtc %d - vupdate irq %sabling: r=3D%d\n",
+-                        acrtc->crtc_id, enable ? "en" : "dis", rc);
++       DRM_DEBUG_VBL("crtc %d - vupdate irq %sabling: r=3D%d\n",
++                     acrtc->crtc_id, enable ? "en" : "dis", rc);
+         return rc;
+ }
+
+@@ -6664,7 +6663,7 @@ static int dm_plane_helper_prepare_fb(struct drm_plan=
+e *plane,
+         int r;
+
+         if (!new_state->fb) {
+-               DRM_DEBUG_DRIVER("No FB bound\n");
++               DRM_DEBUG_KMS("No FB bound\n");
+                 return 0;
+         }
+
+@@ -7896,11 +7895,11 @@ static void handle_cursor_update(struct drm_plane *=
+plane,
+         if (!plane->state->fb && !old_plane_state->fb)
+                 return;
+
+-       DRM_DEBUG_DRIVER("%s: crtc_id=3D%d with size %d to %d\n",
+-                        __func__,
+-                        amdgpu_crtc->crtc_id,
+-                        plane->state->crtc_w,
+-                        plane->state->crtc_h);
++       DRM_DEBUG_KMS("%s: crtc_id=3D%d with size %d to %d\n",
++                     __func__,
++                     amdgpu_crtc->crtc_id,
++                     plane->state->crtc_w,
++                     plane->state->crtc_h);
+
+         ret =3D get_cursor_position(plane, crtc, &position);
+         if (ret)
+@@ -7958,8 +7957,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrt=
+c)
+         /* Mark this event as consumed */
+         acrtc->base.state->event =3D NULL;
+
+-       DRM_DEBUG_DRIVER("crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+-                                                acrtc->crtc_id);
++       DRM_DEBUG_KMS("crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
++                     acrtc->crtc_id);
+ }
+
+ static void update_freesync_state_on_stream(
+@@ -8265,7 +8264,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic=
+_state *state,
+                         &bundle->flip_addrs[planes_count].address,
+                         afb->tmz_surface, false);
+
+-               DRM_DEBUG_DRIVER("plane: id=3D%d dcc_en=3D%d\n",
++               DRM_DEBUG_ATOMIC("plane: id=3D%d dcc_en=3D%d\n",
+                                  new_plane_state->plane->index,
+                                  bundle->plane_infos[planes_count].dcc.ena=
+ble);
+
+@@ -8299,7 +8298,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic=
+_state *state,
+                                 dc_plane,
+                                 bundle->flip_addrs[planes_count].flip_time=
+stamp_in_us);
+
+-               DRM_DEBUG_DRIVER("%s Flipping to hi: 0x%x, low: 0x%x\n",
++               DRM_DEBUG_ATOMIC("%s Flipping to hi: 0x%x, low: 0x%x\n",
+                                  __func__,
+                                  bundle->flip_addrs[planes_count].address.=
+grph.addr.high_part,
+                                  bundle->flip_addrs[planes_count].address.=
+grph.addr.low_part);
+@@ -8621,7 +8620,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)
+                 dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
+                 dm_old_crtc_state =3D to_dm_crtc_state(old_crtc_state);
+
+-               DRM_DEBUG_DRIVER(
++               DRM_DEBUG_ATOMIC(
+                         "amdgpu_crtc id:%d crtc_state_flags: enable:%d, ac=
+tive:%d, "
+                         "planes_changed:%d, mode_changed:%d,active_changed=
+:%d,"
+                         "connectors_changed:%d\n",
+@@ -8655,7 +8654,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)
+
+                 if (modeset_required(new_crtc_state, dm_new_crtc_state->st=
+ream, dm_old_crtc_state->stream)) {
+
+-                       DRM_DEBUG_DRIVER("Atomic commit: SET crtc id %d: [%=
+p]\n", acrtc->crtc_id, acrtc);
++                       DRM_DEBUG_ATOMIC("Atomic commit: SET crtc id %d: [%=
+p]\n", acrtc->crtc_id, acrtc);
+
+                         if (!dm_new_crtc_state->stream) {
+                                 /*
+@@ -8688,7 +8687,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)
+                         crtc->hwmode =3D new_crtc_state->mode;
+                         mode_set_reset_required =3D true;
+                 } else if (modereset_required(new_crtc_state)) {
+-                       DRM_DEBUG_DRIVER("Atomic commit: RESET. crtc id %d:=
+[%p]\n", acrtc->crtc_id, acrtc);
++                       DRM_DEBUG_ATOMIC("Atomic commit: RESET. crtc id %d:=
+[%p]\n", acrtc->crtc_id, acrtc);
+                         /* i.e. reset mode */
+                         if (dm_old_crtc_state->stream)
+                                 remove_stream(adev, acrtc, dm_old_crtc_sta=
+te->stream);
+@@ -9298,7 +9297,7 @@ static int dm_update_crtc_state(struct amdgpu_display=
+_manager *dm,
+         if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+                 goto skip_modeset;
+
+-       DRM_DEBUG_DRIVER(
++       DRM_DEBUG_ATOMIC(
+                 "amdgpu_crtc id:%d crtc_state_flags: enable:%d, active:%d,=
+ "
+                 "planes_changed:%d, mode_changed:%d,active_changed:%d,"
+                 "connectors_changed:%d\n",
+@@ -9382,8 +9381,8 @@ static int dm_update_crtc_state(struct amdgpu_display=
+_manager *dm,
+
+                         dc_stream_retain(new_stream);
+
+-                       DRM_DEBUG_DRIVER("Enabling DRM crtc: %d\n",
+-                                               crtc->base.id);
++                       DRM_DEBUG_ATOMIC("Enabling DRM crtc: %d\n",
++                                        crtc->base.id);
+
+                         if (dc_add_stream_to_ctx(
+                                         dm->dc,
+@@ -9728,8 +9727,8 @@ static int dm_update_plane_state(struct dc *dc,
+                 if (!dc_new_plane_state)
+                         return -ENOMEM;
+
+-               DRM_DEBUG_DRIVER("Enabling DRM plane: %d on DRM crtc %d\n",
+-                               plane->base.id, new_plane_crtc->base.id);
++               DRM_DEBUG_ATOMIC("Enabling DRM plane: %d on DRM crtc %d\n",
++                                plane->base.id, new_plane_crtc->base.id);
+
+                 ret =3D fill_dc_plane_attributes(
+                         drm_to_adev(new_plane_crtc->dev),
 --
-2.17.1
+2.31.0.rc2
 
 
---_000_DM6PR12MB4603AC32C3DD2C5A358D29DBFE639DM6PR12MB4603namp_
+--_000_MN2PR12MB44887387D0FE8FF1AE6C41D1F7639MN2PR12MB4488namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
-	{mso-style-name:msipheader251902e5;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">Reviewed-by: Feifei Xu &lt;Feifei.Xu@amd.com&gt;<o:p=
-></o:p></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
 <br>
-<b>Sent:</b> Tuesday, March 23, 2021 9:07 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Fei=
-fei.Xu@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Wang, Kevin=
-(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: Update aldebaran pmfw interface<o:p></o=
-:p></p>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Tuikov, Luben &lt;Lub=
+en.Tuikov@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, March 23, 2021 4:26 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Wentland, Harry &lt;=
+Harry.Wentland@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.co=
+m&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Use DRM_DEBUG_DP</font>
+<div>&nbsp;</div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
-ic Use]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Update aldebaran PMFW interfaces to version 0x6<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Signed-off-by: Lijo Lazar <a href=3D"mailto:lijo.laz=
-ar@amd.com">
-lijo.lazar@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal">---<o:p></o:p></p>
-<p class=3D"MsoNormal">.../gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h&n=
-bsp;&nbsp;&nbsp; | 11 +++++++++--<o:p></o:p></p>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/pm/inc/smu_v13_0.h&nbsp;&nbsp;&n=
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Convert IRQ-based prints from DRM_DEBUG_DRIVER to<=
+br>
+DRM_DEBUG_DP, as the latter is not used in drm/amd<br>
+prior to this patch and since IRQ-based prints<br>
+drown out the rest of the driver's<br>
+DRM_DEBUG_DRIVER messages.<br>
+<br>
+Cc: Harry Wentland &lt;Harry.Wentland@amd.com&gt;<br>
+Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Signed-off-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt;<br>
+---<br>
+&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 57 +++++++++---------=
+-<br>
+&nbsp;1 file changed, 28 insertions(+), 29 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index f455fc3aa561..9376d44ce3b4 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -449,9 +449,9 @@ static void dm_pflip_high_irq(void *interrupt_params)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;pflip_stat=
+us =3D AMDGPU_FLIP_NONE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock_irqrestore(&am=
+p;adev_to_drm(adev)-&gt;event_lock, flags);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;crtc:%d[%p], p=
+flip_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp %d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crt=
+c-&gt;crtc_id, amdgpu_crtc,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vrr_active=
+, (int) !e);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(&quot;crtc:%d[%p], pfli=
+p_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp %d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;crtc_id, amd=
+gpu_crtc,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vrr_active, (int) !e);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static void dm_vupdate_high_irq(void *interrupt_params)<br>
+@@ -993,8 +993,7 @@ static void event_mall_stutter(struct work_struct *work=
+)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_allow_idle_optimization=
+s(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dm-&gt;dc, dm-&gt;active_vblank_irq_count =3D=3D 0);<=
+br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;Allow idle opt=
+imizations (MALL): %d\n&quot;, dm-&gt;active_vblank_irq_count =3D=3D 0);<br=
+>
+-<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(&quot;Allow idle optimi=
+zations (MALL): %d\n&quot;, dm-&gt;active_vblank_irq_count =3D=3D 0);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;dm-&gt;d=
+c_lock);<br>
+&nbsp;}<br>
+@@ -1810,8 +1809,8 @@ static void dm_gpureset_toggle_interrupts(struct amdg=
+pu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (acrtc &amp;&amp; state-&gt;stream_status[i].plane=
+_count !=3D 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; irq_s=
+ource =3D IRQ_TYPE_PFLIP + acrtc-&gt;otg_inst;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rc =
+=3D dc_interrupt_set(adev-&gt;dm.dc, irq_source, enable) ? 0 : -EBUSY;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;=
+crtc %d - vupdate irq %sabling: r=3D%d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; |&nbsp; 2 +-<o:p></o:p></p>
-<p class=3D"MsoNormal">2 files changed, 10 insertions(+), 3 deletions(-)<o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/inc/smu13_driver=
-_if_aldebaran.h b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_aldebaran.h<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">index df2ead254f37..d23533bda002 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_ald=
-ebaran.h<o:p></o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/inc/smu13_driver_if_ald=
-ebaran.h<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -435,8 +435,12 @@ typedef struct {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint8_t&nbsp; GpioI2cSda; // Serial Dat=
-a<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint16_t spare5;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint16_t XgmiMaxCurrent; // in Amps<o:p></o:=
-p></p>
-<p class=3D"MsoNormal">+&nbsp; int8_t&nbsp;&nbsp; XgmiOffset;&nbsp;&nbsp;&n=
-bsp;&nbsp; // in Amps<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint8_t&nbsp; Padding_TelemetryXgmi;<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; //reserved<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp; uint32_t reserved[16];<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint32_t reserved[15];<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;} PPTable_t;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">@@ -481,7 +485,10 @@ typedef struct {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint16_t TemperatureAllHBM[4]&nbsp; ;<o=
-:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t GfxBusyAcc&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t DramBusyAcc&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp; uint32_t Spare[4];<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint32_t EnergyAcc64bitLow&nbsp;&nbsp;&nbsp;=
-&nbsp; ; //15.259uJ resolution<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint32_t EnergyAcc64bitHigh&nbsp;&nbsp;&nbsp=
-; ;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint32_t TimeStampLow&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; //10ns resolution<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; uint32_t TimeStampHigh&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; &nbsp;&nbsp;;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;// Padding - ignore<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp; MmHubP=
-adding[8]; // SMU internal use<o:p></o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h =
-b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o:p></p>
-<p class=3D"MsoNormal">index 6db3464c09d6..8145e1cbf181 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0.h<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">@@ -26,7 +26,7 @@<o:p></o:p></p>
-<p class=3D"MsoNormal">#include &quot;amdgpu_smu.h&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;#define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">-#define SMU13_DRIVER_IF_VERSION_ALDE 0x5<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">+#define SMU13_DRIVER_IF_VERSION_ALDE 0x6<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;/* MP Apertures */<o:p></o:p></p>
-<p class=3D"MsoNormal">#define MP0_Public&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x03800000<o:p></o:p></p>
-<p class=3D"MsoNormal">-- <o:p></o:p></p>
-<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;crtc_id, enable ? &qu=
+ot;en&quot; : &quot;dis&quot;, rc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_VBL(&q=
+uot;crtc %d - vupdate irq %sabling: r=3D%d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&=
+gt;crtc_id, enable ? &quot;en&quot; : &quot;dis&quot;, rc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
+c)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;Failed to %s pfli=
+p interrupts\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; enable ? &quot;enable&quot; : &quot;disable&quot;);<b=
+r>
+@@ -4966,8 +4965,8 @@ static void update_stream_scaling_settings(const stru=
+ct drm_display_mode *mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stream-&gt;src =3D src;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stream-&gt;dst =3D dst;<br=
+>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;Destination Re=
+ctangle x:%d&nbsp; y:%d&nbsp; width:%d&nbsp; height:%d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst.x, dst.y, ds=
+t.width, dst.height);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(&quot;Destination Recta=
+ngle x:%d&nbsp; y:%d&nbsp; width:%d&nbsp; height:%d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst.x, dst.y, dst.width, dst=
+.height);<br>
+&nbsp;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -5710,8 +5709,8 @@ static inline int dm_set_vupdate_irq(struct drm_crtc =
+*crtc, bool enable)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rc =3D dc_interrupt_set(ad=
+ev-&gt;dm.dc, irq_source, enable) ? 0 : -EBUSY;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;crtc %d - vupd=
+ate irq %sabling: r=3D%d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;=
+crtc_id, enable ? &quot;en&quot; : &quot;dis&quot;, rc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_VBL(&quot;crtc %d - vupdate=
+ irq %sabling: r=3D%d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;crtc_id, enable ? =
+&quot;en&quot; : &quot;dis&quot;, rc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return rc;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -6664,7 +6663,7 @@ static int dm_plane_helper_prepare_fb(struct drm_plan=
+e *plane,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!new_state-&gt;fb) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_DRIVER(&quot;No FB bound\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_KMS(&quot;No FB bound\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -7896,11 +7895,11 @@ static void handle_cursor_update(struct drm_plane *=
+plane,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!plane-&gt;state-&gt;f=
+b &amp;&amp; !old_plane_state-&gt;fb)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;%s: crtc_id=3D=
+%d with size %d to %d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __func__,<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crt=
+c-&gt;crtc_id,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;=
+state-&gt;crtc_w,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;=
+state-&gt;crtc_h);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(&quot;%s: crtc_id=3D%d =
+with size %d to %d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __func__,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_crtc-&gt;crtc_id,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;state-&gt;crtc_w,<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;state-&gt;crtc_h);=
+<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D get_cursor_positio=
+n(plane, crtc, &amp;position);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+@@ -7958,8 +7957,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrt=
+c)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Mark this event as cons=
+umed */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;base.state-&gt;e=
+vent =3D NULL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;crtc:%d, pflip=
+_stat:AMDGPU_FLIP_SUBMITTED\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;crtc_i=
+d);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_KMS(&quot;crtc:%d, pflip_st=
+at:AMDGPU_FLIP_SUBMITTED\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc-&gt;crtc_id);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static void update_freesync_state_on_stream(<br>
+@@ -8265,7 +8264,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic=
+_state *state,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
+bundle-&gt;flip_addrs[planes_count].address,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; afb-&=
+gt;tmz_surface, false);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_DRIVER(&quot;plane: id=3D%d dcc_en=3D%d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_ATOMIC(&quot;plane: id=3D%d dcc_en=3D%d\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_plane_state-&gt;plane-=
+&gt;index,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bundle-&gt;plane_infos[pla=
+nes_count].dcc.enable);<br>
+&nbsp;<br>
+@@ -8299,7 +8298,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic=
+_state *state,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_plane,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bundle-&gt;flip_addrs[planes_cou=
+nt].flip_timestamp_in_us);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_DRIVER(&quot;%s Flipping to hi: 0x%x, low: 0x%x\n&quot=
+;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_ATOMIC(&quot;%s Flipping to hi: 0x%x, low: 0x%x\n&quot=
+;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __func__,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bundle-&gt;flip_addrs[plan=
+es_count].address.grph.addr.high_part,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bundle-&gt;flip_addrs[plan=
+es_count].address.grph.addr.low_part);<br>
+@@ -8621,7 +8620,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state=
+);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dm_old_crtc_state =3D to_dm_crtc_state(old_crtc_state=
+);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_DRIVER(<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_ATOMIC(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;amdgpu_crtc id:%d crtc_state_flags: enable:%d, active:%d, &quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;planes_changed:%d, mode_changed:%d,active_changed:%d,&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;connectors_changed:%d\n&quot;,<br>
+@@ -8655,7 +8654,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (modeset_required(new_crtc_state, dm_new_crtc_stat=
+e-&gt;stream, dm_old_crtc_state-&gt;stream)) {<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER=
+(&quot;Atomic commit: SET crtc id %d: [%p]\n&quot;, acrtc-&gt;crtc_id, acrt=
+c);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_ATOMIC=
+(&quot;Atomic commit: SET crtc id %d: [%p]\n&quot;, acrtc-&gt;crtc_id, acrt=
+c);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!=
+dm_new_crtc_state-&gt;stream) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+@@ -8688,7 +8687,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
+tomic_state *state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; crtc-=
+&gt;hwmode =3D new_crtc_state-&gt;mode;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode_=
+set_reset_required =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; } else if (modereset_required(new_crtc_state)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER=
+(&quot;Atomic commit: RESET. crtc id %d:[%p]\n&quot;, acrtc-&gt;crtc_id, ac=
+rtc);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_ATOMIC=
+(&quot;Atomic commit: RESET. crtc id %d:[%p]\n&quot;, acrtc-&gt;crtc_id, ac=
+rtc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* i.=
+e. reset mode */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (d=
+m_old_crtc_state-&gt;stream)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; remove_stream(adev, acrtc, dm_ol=
+d_crtc_state-&gt;stream);<br>
+@@ -9298,7 +9297,7 @@ static int dm_update_crtc_state(struct amdgpu_display=
+_manager *dm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!drm_atomic_crtc_needs=
+_modeset(new_crtc_state))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto skip_modeset;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_ATOMIC(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; &quot;amdgpu_crtc id:%d crtc_state_flags: enable:%d, =
+active:%d, &quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; &quot;planes_changed:%d, mode_changed:%d,active_chang=
+ed:%d,&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; &quot;connectors_changed:%d\n&quot;,<br>
+@@ -9382,8 +9381,8 @@ static int dm_update_crtc_state(struct amdgpu_display=
+_manager *dm,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_st=
+ream_retain(new_stream);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER=
+(&quot;Enabling DRM crtc: %d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; crtc-&gt;base.id);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_ATOMIC=
+(&quot;Enabling DRM crtc: %d\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; crtc-&gt;base.id);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (d=
+c_add_stream_to_ctx(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dm-&gt;dc,<br>
+@@ -9728,8 +9727,8 @@ static int dm_update_plane_state(struct dc *dc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!dc_new_plane_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -ENOMEM;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_DRIVER(&quot;Enabling DRM plane: %d on DRM crtc %d\n&q=
+uot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;base.id, new_plane_crtc-&gt;base.=
+id);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_DEBUG_ATOMIC(&quot;Enabling DRM plane: %d on DRM crtc %d\n&q=
+uot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; plane-&gt;base.id, new_plane_crtc-&gt=
+;base.id);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D fill_dc_plane_attributes(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_t=
+o_adev(new_plane_crtc-&gt;dev),<br>
+-- <br>
+2.31.0.rc2<br>
+<br>
+</div>
+</span></font></div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB4603AC32C3DD2C5A358D29DBFE639DM6PR12MB4603namp_--
+--_000_MN2PR12MB44887387D0FE8FF1AE6C41D1F7639MN2PR12MB4488namp_--
 
---===============2040171961==
+--===============1902193913==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -413,4 +853,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2040171961==--
+--===============1902193913==--
