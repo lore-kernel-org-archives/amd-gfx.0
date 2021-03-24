@@ -2,65 +2,119 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-21.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B01D5C433DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B8DAC433DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 21:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AD5861A0D
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:40:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AD5861A0D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BF0CB61A1F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 21:06:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF0CB61A1F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA816EA02;
-	Wed, 24 Mar 2021 20:40:12 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D0F6EA02
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 20:40:10 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- 91-20020a9d08640000b0290237d9c40382so3020981oty.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 13:40:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ThWB51AEOBRVrnkph6KhCW2jWuirrstIjNw993I0nds=;
- b=sNalP1+kuKsO0n9Ss1mzySp3qStbiTrOurqM+l8ivK4LI0bAU0faUpsxyW0CP+pC7O
- Mvqy/nsAvAygPYtlf/Blxyo4D4b+REDrju+flzbemjrLlGGBvSrC8faoWvq6G4XH0vFl
- 5zZ8W7Al3lcd6ud1t49TmxVJGs3Eh/LqySpOgqIrXiJd4xoNl2B63y69xpKWP+/PrfuY
- K25dw+POApcug0chsPIgJQpaPeUV07kojEhRvRJp0ESaaiW5PNpcXJ85ssfoWHEmIfit
- tlIeo2A99wjd7zrhMYMHm5pRRHDwOJhlwIObROq7hPSd8auV4KtBpIGcm0eySQNHiWSg
- M9Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ThWB51AEOBRVrnkph6KhCW2jWuirrstIjNw993I0nds=;
- b=FWNT02TXvRIiRVryVEQrNEMLF0+59yQyciw8qYKqj2AVqwVvs8T/qtJIe/0rrC4XpR
- lN1B5FQDtTMMlXnZ9hae1MsFW3E7KpO/39FLCGlpL5uWNtBEHX2gYLVMPu/6OuiO8W+f
- 5a0r5CZkI/GXAEMUymkoo+67PyiRcG9e/0ZhEe3L5McndcJ7TzcZUu+sJbn792+jb0e3
- xDyiAJ0mhGZqoQSPTUFGjcb4yxklG0dbVkLw7P/c2/YZT2Li7z3TRaonzIerHoAiNLjX
- RHZbsWOTJ3FG0Nse8yfjbx0sUCkTNhPFePbGYzY+Gw3jvD4i4Vv8a/xX0ffpYIX8DxuE
- ihXA==
-X-Gm-Message-State: AOAM532b2zpgsbKjSK9NsFRP+8mFZduxbWq/QCgB+fOTfJ8XyfZjfMg5
- K04uvmUo3B+1FtcdByxCI6vcHI6AsFA1inXbILI=
-X-Google-Smtp-Source: ABdhPJwlWdEx4sRRTw/60BeYw1iAwcxww/qlKaGjts6OVHJhDdo64loyiQly+R+WTXMZ4XL62X7jPVG3ht6Fj1bTO0Q=
-X-Received: by 2002:a9d:d89:: with SMTP id 9mr4685378ots.23.1616618409543;
- Wed, 24 Mar 2021 13:40:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCC36EA2C;
+	Wed, 24 Mar 2021 21:06:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC2E96EA44;
+ Wed, 24 Mar 2021 21:06:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SSR2FQW/h3Co+NNCOQLNfWqhqPZo3FGZwdDiIrvyQbTYCP4WXxqbcEpNj2zS6y7l2n3F0F7SouDELAzw6IkWSteu9It9e/TP5Y0HZ0adgHMcqJKXM4c4fheFxohH7hdoc1Dxe0vWhvE+s9iHJxq0bsMDxEXXwsNtVmduZRLpzwptQoUdi2JLEa0NcksKREvrQ1ZxAjurWp1IiyiY+9fQTUfpfQak1LfvqSUoc+ylRTtOp5N1rC88F7NIIF7YJdfI3J9Td6AyXzzdLmTaFkfVMjdBmvMwmJiUlm3np8/wFVyDRrabmp7KxAyQ8Es9wjzjID8s/o+QAYisG+PugaFX6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aWH5t+Hm+LGsGq2rkkgDmUuoDlrpMrs3JC41itCAvPI=;
+ b=Xu6C1sdCT3Cc6174di4JXnldJnBHnzc7pOtNovHsq0Ek1M1kuu0bHY70V1xagJPDpctxzq92QGhxuN6UJPNUkLwjbV3OYsTIsJxT/K3t3qQm5zM4G0rK+OIhcwrY/cq2SV9e8RXPlkQQEkwhmDsJzNmzFuCjR0s65gv170sFo7vNRhkzAL8pHYR4N7zXUyf1nPW7ZGKd4gQvYWcfGJelsjJncN8ExXT+r/jy1eYbUmkMe/5i54D3tVzyS0NXg2CYKpzt2sxaxdc6Fy0VZrMlHHP38V36/DIeQb78+j0cyuhn9tdsS8VVZoPeOcpFYyKLAFb0SrGlY+CTF457vG1cag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aWH5t+Hm+LGsGq2rkkgDmUuoDlrpMrs3JC41itCAvPI=;
+ b=VCSA/W1CwjKIkTZx2Vpnp6NE80i/l8Uk61R2n3z2RrW35j0Q2cQJNjYunoeuLQkiln//z/2pi5cntDpTOKyQAQkE4ZwZ8dwGMsbMDp0bUA/WgzpbZH56eivcByyGfyJ7Ci/2Qm62+BomrfLDXjLih9XBExxbtCvMQpIxqTbD3a0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4421.namprd12.prod.outlook.com (2603:10b6:208:26c::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.24; Wed, 24 Mar
+ 2021 21:06:55 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%6]) with mapi id 15.20.3955.025; Wed, 24 Mar 2021
+ 21:06:55 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.12
+Date: Wed, 24 Mar 2021 17:06:30 -0400
+Message-Id: <20210324210630.3949-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.30.2
+X-Originating-IP: [192.161.79.247]
+X-ClientProxiedBy: BL1PR13CA0184.namprd13.prod.outlook.com
+ (2603:10b6:208:2be::9) To MN2PR12MB4488.namprd12.prod.outlook.com
+ (2603:10b6:208:24e::19)
 MIME-Version: 1.0
-References: <3eb98a62-12f4-d191-97b8-15e2f8ca06e3@thomaslambertz.de>
-In-Reply-To: <3eb98a62-12f4-d191-97b8-15e2f8ca06e3@thomaslambertz.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Mar 2021 16:39:58 -0400
-Message-ID: <CADnq5_Oq8nBVuLomgPJm0o054ZTDoeuZSCJNkGe+ZhODDp93eQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: fix dmub invalid register read
-To: mail@thomaslambertz.de
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (192.161.79.247) by
+ BL1PR13CA0184.namprd13.prod.outlook.com (2603:10b6:208:2be::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3999.14 via Frontend Transport; Wed, 24 Mar 2021 21:06:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ebe9031b-1b7d-4cfa-460a-08d8ef08c12f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4421:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4421EE22DEDBF991D6794C1FF7639@MN2PR12MB4421.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:820;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: r4M3Y77uBDWDU70PKX+pFwLxWYk0ldST8jyuXYNSO55ONWmF0M3Jxm65VnfwvHr7oEf5TDH74awJh/+Y2M94Li9Zh+XDfxI8arB7Z+FTnFQqTeKCvb/ZFmK2VNoHIG+M1kHDBH3L1V36Z/XEmtjcaW7/COBaZEPfeuBtW233fLh2FB2uaeOYjpDx2UUrBTsFnYkrTKmDE/jIRzKMpL5Hch5ktt6lybRbubSo1TJsu6JAz06juyiXkO0LwRsrf6DqB4Tm0p4s3/s/qQwKfsX6c8kVoYIaUbDstcR9836qiRenjDas3qOdoq2FAzicERTBmuCT9xNogqxhmFuK20hcjOJUtokbQUM7fI/2YmtG7smkC8wBMGog7WrnTyEI0ztkOg2mRPL1+f442kIgi9oaoWFrYMRTxzRh4oKxQYlZGU/qa2ElRfs8kOshBaXP6y/NOYs7p2rvzvolW35HSh2j/lepBWiWdgY8Ti62s38KhBg2GTS8H6hpMcKFkvuHGGO5pb4OPZOkkBKvlXTxM7yFA8AvvrATNJ5PjtXQR/rousHzIZFjZLeXxBcZALDeAmO5lz5HjrPysHcSKKMhKyxeENzg3t7mGSaHcNiZchokhwLTm7UEdr75ImMT1WShN5lS9P7mxcF9tiimxRplByuMSAVBl2RkeQAsQzs42f6W4407CIwW+gp4z4Ic/nJE68/XHKQmcJthQi9j5VEFAkT5aRztRX3JGAHtzHdTLAQKctY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(956004)(6486002)(8936002)(2616005)(6512007)(66946007)(478600001)(966005)(66476007)(66556008)(6506007)(52116002)(6666004)(5660300002)(16526019)(83380400001)(38100700001)(26005)(2906002)(69590400012)(4326008)(316002)(186003)(86362001)(36756003)(1076003)(8676002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?GI+Fu6UYFE0Z9bAaf5/Ip4xw/LhiRLaTtEEV1McU12t0YnmvRgyL+t/q9Coa?=
+ =?us-ascii?Q?RqtJQMBHfqPLf5fKNN0iFps2PumPIEwP0tlC9JxwROwJplIU5XGGQA6CU6gI?=
+ =?us-ascii?Q?1PwVhI7wgVxbksN2/NXMUu8xGKo5jS+EXIqOonQESfbu+jtn2aavdFjaxIMt?=
+ =?us-ascii?Q?McyKhU95ImfP0+2BG5gDuEc4/JLAkeDzeor++q7Z3CL0EoLcaYUI7unL2T60?=
+ =?us-ascii?Q?0AW5jC63qIY072LzH3aVAG+DKjxOtYGcaziJEen7uu8h51gSDGSsSuiyHsPX?=
+ =?us-ascii?Q?joo4IIQkCZ02z+7Vet/PWUl8QtZHhMWZLklr3efJUaZSIZ6Pcfa42mLYmTJI?=
+ =?us-ascii?Q?3yz2hjLNSI5k6KDXCQL4eZs0YiuN9oUOwl1zwdnhrnI0/rapz3ETyU7qQAci?=
+ =?us-ascii?Q?WxpXBYxNwvE8IWYDHNcXR7gw0SYMRKzlowMb4D2cfWPr107avkajtNQh6TKl?=
+ =?us-ascii?Q?QUcfBsBDgfyU1wE5Nsyn8MP3hKAz0uDzWv3wGQ2flF9KRdilfNxDDH/BUKU5?=
+ =?us-ascii?Q?6zjumISOzrmLoyVs47XdU14xSJc9OiZIMoHNYsDNGW2C+KD0w25j3jVE6zNu?=
+ =?us-ascii?Q?SHrAnX5gaegFZ50OMeMVSJ8ty5GjmR6di4njHmmvpFxNMh67lSoXqO28nbhF?=
+ =?us-ascii?Q?HdfMFKA22C6BYzSHONScVNTSSnWIZcJbrhmo1DN2vXuVzDDHy3+2jKfhGJbW?=
+ =?us-ascii?Q?huEF3TbfkovwhvlI4A3Q5mKXKSqxyar9de48aNrttpqam17rZcSyqKw96Ajq?=
+ =?us-ascii?Q?Ziq4sZUAingwze/CktkNiBcXu5Y+VzD2vVeGsJkC8F+wofHtV12KxQJkn2xe?=
+ =?us-ascii?Q?M/pgmsJDakY6qoMr79HpkxysL8LYS9RMciE01+a6TTTqVN9Ek6GbEPvta9Mq?=
+ =?us-ascii?Q?mw+tDvWk3B+hu4gajyyfH89IXvsy0bYol4gTEmuh8GzSKg5r5NXPWXJL4eBs?=
+ =?us-ascii?Q?0Y7qvUsK8XTlSTf349HPEjIW9w13XXiXT0XM4eeZEYzhmnZGQYK/AKX9Fq7j?=
+ =?us-ascii?Q?LJSC5/CzdX2mJQTO5kdfNRBc2taK4zK/M2qQkpfJwehsfe/LUJbn8HIcwy7R?=
+ =?us-ascii?Q?d0mFYDfV+S9/vewv1Le2aOIcfwWYWvLmPaFequBSFyrTJYWbg0bNWfVRBfaD?=
+ =?us-ascii?Q?/b33V4P/QD5b6+m/6ibNUjAW2taeFO5HKj9kbtJg3XrkdgYGOYBHmzFXQaBQ?=
+ =?us-ascii?Q?N2ui/LgV3klA/lny05oihXjcuUHNs01d1Lsjw9f6NpP0CprsTS7SUT2EvgJR?=
+ =?us-ascii?Q?3A++KEG6kjoCof5kYVwInHNAayOOiQfzv+X0cKwgHb8+344KkV9zfmSsTRe2?=
+ =?us-ascii?Q?TM3s7GCmJyEQnHdrGF/BH84J?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebe9031b-1b7d-4cfa-460a-08d8ef08c12f
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 21:06:55.4664 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7alW7M1gYTgyaZc8AAwkcy3e7N2hW6geDW92EHcBs8K65Ato6Y63CSg/fGujz9KTdNjua1lMqRPhSlfPx4kD0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4421
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,84 +126,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 23, 2021 at 4:18 AM Thomas Lambertz <mail@thomaslambertz.de> wrote:
->
-> DMCUB_SCRATCH_0 sometimes contains 0xdeadbeef during initialization.
-> If this is detected, return 0 instead. This prevents wrong bit-flags
-> from being read.
->
-> The main impact of this bug is in the status check loop in
-> dmub_srv_wait_for_auto_load. As it is waiting for the device to become
-> ready, returning too early leads to a race condition. It is usually won
-> on first boot, but lost when laptop resumes from sleep, breaking screen
-> brightness control.
->
-> This issue was always present, but previously mitigated by the fact that
-> the full register was compared to the wanted value. Currently, only the
-> bottom two bits are tested, which are also set in 0xdeadbeef, thus
-> returning readiness to early.
->
-> Fixes: 5fe6b98ae00d ("drm/amd/display: Update dmub code")
+Hi Dave, Daniel,
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1518
+Fixes for 5.12.
 
-Harry, Leo, Rodrigo, any ideas?
+The following changes since commit d27ce83fa4baa5cb908a42e9878564cad6ea0eb3:
 
-Alex
+  Merge tag 'du-fixes-20210316' of git://linuxtv.org/pinchartl/media into drm-fixes (2021-03-22 13:49:55 +1000)
 
-> Signed-off-by: Thomas Lambertz <mail@thomaslambertz.de>
-> ---
->  drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c | 8 +++++++-
->  drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h | 2 ++
->  2 files changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> index 8e8e65fa83c0..d6fcae182f68 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> @@ -323,8 +323,14 @@ uint32_t dmub_dcn20_get_gpint_response(struct dmub_srv *dmub)
->  union dmub_fw_boot_status dmub_dcn20_get_fw_boot_status(struct dmub_srv *dmub)
->  {
->         union dmub_fw_boot_status status;
-> +       uint32_t value;
-> +
-> +       value = REG_READ(DMCUB_SCRATCH0);
-> +       if (value == DMCUB_SCRATCH0_INVALID)
-> +               status.all = 0;
-> +       else
-> +               status.all = value;
->
-> -       status.all = REG_READ(DMCUB_SCRATCH0);
->         return status;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> index a62be9c0652e..9557e76cf5d4 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> @@ -154,6 +154,8 @@ struct dmub_srv_common_regs {
->
->  extern const struct dmub_srv_common_regs dmub_srv_dcn20_regs;
->
-> +#define DMCUB_SCRATCH0_INVALID 0xdeadbeef
-> +
->  /* Hardware functions. */
->
->  void dmub_dcn20_init(struct dmub_srv *dmub);
-> --
-> 2.31.0
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.12-2021-03-24
+
+for you to fetch changes up to 5c458585c0141754cdcbf25feebb547dd671b559:
+
+  drm/amdgpu/display: restore AUX_DPHY_TX_CONTROL for DCN2.x (2021-03-24 00:30:57 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.12-2021-03-24:
+
+amdgpu:
+- S0ix fixes
+- Add PCI ID
+- Polaris PCIe DPM fix
+- Display fix for high refresh rate monitors
+
+----------------------------------------------------------------
+Alex Deucher (11):
+      drm/amdgpu: rework S3/S4/S0ix state handling
+      drm/amdgpu: don't evict vram on APUs for suspend to ram (v4)
+      drm/amdgpu: clean up non-DC suspend/resume handling
+      drm/amdgpu: move s0ix check into amdgpu_device_ip_suspend_phase2 (v3)
+      drm/amdgpu: re-enable suspend phase 2 for S0ix
+      drm/amdgpu/swsmu: skip gfx cgpg on s0ix suspend
+      drm/amdgpu: update comments about s0ix suspend/resume
+      drm/amdgpu: drop S0ix checks around CG/PG in suspend
+      drm/amdgpu: skip kfd suspend/resume for S0ix
+      drm/amdgpu: Add additional Sienna Cichlid PCI ID
+      drm/amdgpu/display: restore AUX_DPHY_TX_CONTROL for DCN2.x
+
+Kenneth Feng (1):
+      drm/amd/pm: workaround for audio noise issue
+
+Pratik Vishwakarma (1):
+      drm/amdgpu: skip CG/PG for gfx during S0ix
+
+Prike Liang (1):
+      drm/amdgpu: fix the hibernation suspend with s0ix
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 132 ++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |  89 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.h        |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  31 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   7 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             |   9 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             |   9 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              |   8 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              |   9 +-
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c           |  15 ++-
+ .../drm/amd/display/dc/dcn20/dcn20_link_encoder.c  |   3 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  54 +++++++++
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  74 ++++++++++--
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |  24 ++++
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |  25 ++++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   5 +-
+ 17 files changed, 365 insertions(+), 142 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
