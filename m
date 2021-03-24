@@ -2,68 +2,66 @@ Return-Path: <SRS0=J6fF=IW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B2B9C433C1
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0867EC433C1
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0779361A12
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0779361A12
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id BABC161A10
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Mar 2021 20:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BABC161A10
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9F66EA40;
-	Wed, 24 Mar 2021 20:18:28 +0000 (UTC)
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA5A6EA1B
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 15:32:54 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id u9so3092679ljd.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Mar 2021 08:32:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79FA56EA51;
+	Wed, 24 Mar 2021 20:23:32 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75C2C6EA51;
+ Wed, 24 Mar 2021 20:23:31 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 91-20020a9d08640000b0290237d9c40382so2975970oty.12; 
+ Wed, 24 Mar 2021 13:23:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=izPOmieh1WevNujIwbAbL3OCIGkPjE9MVyJVOgBEtC0=;
- b=GXPU6UVxcNBB1W5pdqZxUcCvkqUaXc1PQ1SD7DVlwqDi1RCCzHdvPP+enpOlhWdyaG
- BiBzy+GFpja1pfdj9b5Fq4/6Ecf+dH5X7+osSKghK3uaFt29fJlL7ixqJUSh07K9dcOb
- 3y8x5qPfLq5K+fnrdAWTqA3VtH7Apqrxu7OKc=
+ :cc; bh=RaZcdCZN7zqROxLNVq3rIO4aLNeOhcX7PBDOpMGUlmE=;
+ b=BLsFl3OGLlqkaruz8cUyse209AF9YbDNLtc55K3B+sxHKeTcwbOFutQmJqro4VvRVO
+ uYhQDOO1pe7kBibHLnBX9h79tklWvJjBPuoHLPzCvH8Lb1Fl/tfKYI8L5cHtjcrF38wL
+ Zs2Ij4K5nbUnLAjQ4iAuyoUuoq1iGRvPbwmTdoie3Y0a1ohlGXc8UcuHJtGIYuJvPLSC
+ juQ9Vku+d3YDXU46S7hCUus3baWTYZbbHztqmiCKAH3WB032mG0GIVqCV1ounqIRX6KN
+ TzKexoujbodaP6TTwfk+0KBqzipZbVV4rlueCxOFRCatqIQ54ohgC9uUW5AFDxosDNeE
+ nvXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=izPOmieh1WevNujIwbAbL3OCIGkPjE9MVyJVOgBEtC0=;
- b=kHystKJfctnLtyALRZb/0ViHuwfEoDRb4NOlDcVn70Fm8J/P8qpZTbpHLESnHszQxP
- fbbqmSZfbiFlP/nk7DsIZTWxw/L4DbHuxlK39yiY1dS6tykJg486td/Oa5vIibkwiqzc
- mZcXnmvxu5J9r80xoPLo0fI0kS3fxqcHN019P2kgh0GLkK0Xjp1OiFlzW39mtLIVGifQ
- po0DcrVjgvY00SJPURzmVH/tlu8ZFLSHu8nvrhRgOL81yel6YoFPO06l+G7gp86BrKXL
- x/Zr/1/hJVI0/tvYPyEXqnB443Msw5hkYj3TL8UmkhWOowssDmhzhLTIwzmcY8/rS71v
- rsMw==
-X-Gm-Message-State: AOAM530Os+D9RtnWyHi9FRAgxUlGzodXZVrZBfMUusL99BA4LYWhFDnJ
- VQAfU3HY0ACN1HfxgeN9cPrNFDgqWMCNJKgDgEKO+g==
-X-Google-Smtp-Source: ABdhPJzZGpJaY54yuPyrvOaJAifQDTulUlejaz+CQ+C1jq4wkC7RDiMZzbxvKHmkxqci78nRS1gxWK0y89++eh7Vv8Y=
-X-Received: by 2002:a2e:810c:: with SMTP id d12mr2545673ljg.49.1616599973170; 
- Wed, 24 Mar 2021 08:32:53 -0700 (PDT)
+ bh=RaZcdCZN7zqROxLNVq3rIO4aLNeOhcX7PBDOpMGUlmE=;
+ b=ZeBJGUWci5mfM4x+g+ScDEiIc1ZRKdnf4ybgOpKk/YPx0MfO6wCGTEumNlZhu31uw3
+ IEK5jSSl1Uc4X2yulGQpWNGNFLnn5qVhJpw/f+bBHlvpC00fgPCLK5SDXXYWLasn8Y06
+ DlEyOn+JS5KlfhiYeMBNgSX2a3EA/WwFkF3oCg1fWbGbaCxx71Rqn0UBkPZEct754keZ
+ QN5nS2P+D4zJ0rBYt1VaIT/ozg/nJpitSzPRYRe//b3l316ejIzXnrhaRl3kiYIrNR4x
+ vbtxK3rGXL/G7nsdLsNcEdVC9BbSZOlWyrIiGEpe6zpOF2g52WdRGl5Ke8AP86R3Wxr7
+ vHEQ==
+X-Gm-Message-State: AOAM533oVC6U+4fYTLwLDK/jApz7B+ls6OU/BZNlyRMF+imuW8GaYvr1
+ kbPO8cYkWR43JerK3Xl6hAWR7aPNgsd8ukCeAvs=
+X-Google-Smtp-Source: ABdhPJzUUgR8Spu+CHOcOHs6UfaP8AfSy/e+bFFUzRutJXGFbySDVYUK6VJWWeGUFsfIWGvyxai0yy7WHzDYfd5XC0g=
+X-Received: by 2002:a05:6830:408f:: with SMTP id
+ x15mr4767542ott.132.1616617410803; 
+ Wed, 24 Mar 2021 13:23:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210310161444.1015500-1-markyacoub@chromium.org>
- <CADnq5_P9aYcedOP2qduSz7VN1fCSnmQEtPa+FdjYu9Co7TwPog@mail.gmail.com>
- <CAC0gqY7Y2WxtAZ3GnWmASPYq7ahYTfmPhOHAAX5UjMNS9k098w@mail.gmail.com>
- <b4070483-5aa5-c712-6435-dcb4a206ca76@daenzer.net>
- <CAP+8YyExtmmZbFfAO_YR=XWHE+HbH6m7JqyJV4LB_hbGwsihBA@mail.gmail.com>
- <CAPj87rP+WkUPbS3yyGGfy0SRm_hsnCCUav99Dg2Q+tXCiJ5D+A@mail.gmail.com>
- <CAJUqKUqQ0yrxpr+QVRXYXMk1hBRNByD0TP6mM0oLY54jDZimbw@mail.gmail.com>
- <CAPj87rMGcha9jGe3rRH8OvMxYSo42z1d0ZCxhRUxz+aAXMow2A@mail.gmail.com>
-In-Reply-To: <CAPj87rMGcha9jGe3rRH8OvMxYSo42z1d0ZCxhRUxz+aAXMow2A@mail.gmail.com>
-From: Mark Yacoub <markyacoub@chromium.org>
-Date: Wed, 24 Mar 2021 11:32:42 -0400
-Message-ID: <CAJUqKUrWsXdipa2FRMBFEWR0MfoWZ2O6BCXGnZs6CgKP559sBw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Ensure that the modifier requested is
- supported by plane.
-To: Daniel Stone <daniel@fooishbar.org>
-X-Mailman-Approved-At: Wed, 24 Mar 2021 20:18:27 +0000
+References: <20210317151348.11331-1-wse@tuxedocomputers.com>
+In-Reply-To: <20210317151348.11331-1-wse@tuxedocomputers.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 24 Mar 2021 16:23:19 -0400
+Message-ID: <CADnq5_OpJ-2jR4D8xwH93PZKoMWXx8C2yGTkqt7KRrVgph-KvA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Try YCbCr420 color when YCbCr444 fails
+To: Werner Sembach <wse@tuxedocomputers.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +73,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Dave Airlie <airlied@linux.ie>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Mark Yacoub <markyacoub@google.com>
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>,
+ "Wentland, Harry" <harry.wentland@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 24, 2021 at 11:25 AM Daniel Stone <daniel@fooishbar.org> wrote:
+On Wed, Mar 17, 2021 at 11:25 AM Werner Sembach <wse@tuxedocomputers.com> wrote:
 >
-> Hi Mark,
+> When encoder validation of a display mode fails, retry with less bandwidth
+> heavy YCbCr420 color mode, if available. This enables some HDMI 1.4 setups
+> to support 4k60Hz output, which previously failed silently.
 >
-> On Wed, 24 Mar 2021 at 14:58, Mark Yacoub <markyacoub@chromium.org> wrote:
->>
->> So you mean it would make more sense to be more explicit in handling
->> DRM_FORMAT_MOD_INVALID as an incoming modifier (which will, just like
->> DRM_FORMAT_MOD_LINEAR, will return true in
->> dm_plane_format_mod_supported)?
+> On some setups, while the monitor and the gpu support display modes with
+> pixel clocks of up to 600MHz, the link encoder might not. This prevents
+> YCbCr444 and RGB encoding for 4k60Hz, but YCbCr420 encoding might still be
+> possible. However, which color mode is used is decided before the link
+> encoder capabilities are checked. This patch fixes the problem by retrying
+> to find a display mode with YCbCr420 enforced and using it, if it is
+> valid.
 >
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: <stable@vger.kernel.org>
+
+
+This seems reasonable to me.  Harry, Leo, Any objections?
+
+Alex
+
+> ---
 >
-> That's correct. Not passing any modifiers is the same as explicitly passing INVALID, both of which mean 'the driver will figure it out somehow'; that driver-specific determination is not the same as explicit LINEAR.
+> From c9398160caf4ff20e63b8ba3a4366d6ef95c4ac3 Mon Sep 17 00:00:00 2001
+> From: Werner Sembach <wse@tuxedocomputers.com>
+> Date: Wed, 17 Mar 2021 12:52:22 +0100
+> Subject: [PATCH] Retry forcing YCbCr420 color on failed encoder validation
 >
-> (I cannot regret enough that INVALID is not 0.)
-I feel you. When I tested it on a board that doesn't support
-modifiers, the modifier value was Zero. when I checked it, it was
-basically LINEAR.
-I'll amend my changes to explicitly handle INVALID.
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 >
-> Cheers,
-> Daniel
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 961abf1cf040..2d16389b5f1e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5727,6 +5727,15 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>
+>         } while (stream == NULL && requested_bpc >= 6);
+>
+> +       if (dc_result == DC_FAIL_ENC_VALIDATE && !aconnector->force_yuv420_output) {
+> +               DRM_DEBUG_KMS("Retry forcing YCbCr420 encoding\n");
+> +
+> +               aconnector->force_yuv420_output = true;
+> +               stream = create_validate_stream_for_sink(aconnector, drm_mode,
+> +                                               dm_state, old_stream);
+> +               aconnector->force_yuv420_output = false;
+> +       }
+> +
+>         return stream;
+>  }
+>
+> --
+> 2.25.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
