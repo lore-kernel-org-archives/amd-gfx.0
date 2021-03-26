@@ -7,54 +7,54 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D7B4C433C1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CAEA4C433E2
 	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5358661A0D
+	by mail.kernel.org (Postfix) with ESMTPS id BABEA61945
 	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5358661A0D
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BABEA61945
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2550D6F490;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5436F495;
 	Fri, 26 Mar 2021 20:38:42 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76EB66F48C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E91A76F490
  for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 20:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1616791119;
+ s=mimecast20190719; t=1616791120;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pi8dEReAhv8V0FRjGzUph3m08c/YiXcqlOnhQ1CAKwY=;
- b=GQCSxXDSQKiNiat9MN5wKC0SoWKSVfQFZ/XQRf5quN8LTY3+5w6hR5FY0UXzceY/n+rQuw
- kIXeP7S68EanPIlj0kwc8uxO8a8nCmmevk6w3NCL20X3GIOa+oyeQWDJRhZ6eDNyKnHqyr
- KT8a4RxfOmt8O2db1iMUIXtAtJ5sI9o=
+ bh=kmJWUQTnyNyF1uUV1/UTgNBKp8byMNl0QTWnDQNcXzM=;
+ b=JQ2wuZ3rABcbgmuoYPkS6AyhZ5P5Bm8htVx9DnTQpqgVmUT9T6OQi/pcRJ5/9gUGaag5IO
+ bd0MeZdNQ5dw1rBZwP6pe0T+GFRFW5TVx1RVP3JWcOindnvaPOsLPqGWwL3WNUd9nQnvuy
+ hd88V6Ztl7DbsGERp8jcIZ2MKsl/244=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-163-4vZ7dRrIP5yMFGKzlgDF1Q-1; Fri, 26 Mar 2021 16:38:37 -0400
-X-MC-Unique: 4vZ7dRrIP5yMFGKzlgDF1Q-1
+ us-mta-205-YxUCerzBOUCJkjvHCXR8Tg-1; Fri, 26 Mar 2021 16:38:25 -0400
+X-MC-Unique: YxUCerzBOUCJkjvHCXR8Tg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DFA54501E0;
- Fri, 26 Mar 2021 20:38:35 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36385501EC;
+ Fri, 26 Mar 2021 20:38:23 +0000 (UTC)
 Received: from Whitewolf.lyude.net (ovpn-114-133.rdu2.redhat.com
  [10.10.114.133])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CF7DF5DDAD;
- Fri, 26 Mar 2021 20:38:31 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 058795DDAD;
+ Fri, 26 Mar 2021 20:38:21 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 04/20] drm/nouveau/kms/nv50-: Move AUX adapter reg to
- connector late register/early unregister
-Date: Fri, 26 Mar 2021 16:37:51 -0400
-Message-Id: <20210326203807.105754-5-lyude@redhat.com>
+Subject: [PATCH v2 02/20] drm/tegra: Don't register DP AUX channels before
+ connectors
+Date: Fri, 26 Mar 2021 16:37:49 -0400
+Message-Id: <20210326203807.105754-3-lyude@redhat.com>
 In-Reply-To: <20210326203807.105754-1-lyude@redhat.com>
 References: <20210326203807.105754-1-lyude@redhat.com>
 MIME-Version: 1.0
@@ -70,72 +70,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since AUX adapters on nouveau have their respective DRM connectors as
-parents, we need to make sure that we register then after their connectors.
+As pointed out by the documentation for drm_dp_aux_register(),
+drm_dp_aux_init() should be used in situations where the AUX channel for a
+display driver can potentially be registered before it's respective DRM
+driver. This is the case with Tegra, since the DP aux channel exists as a
+platform device instead of being a grandchild of the DRM device.
+
+Since we're about to add a backpointer to a DP AUX channel's respective DRM
+device, let's fix this so that we don't potentially allow userspace to use
+the AUX channel before we've associated it with it's DRM connector.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_connector.c | 26 ++++++++++++++-------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/tegra/dpaux.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 61e6d7412505..bfce762adcf0 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -905,13 +905,29 @@ nouveau_connector_late_register(struct drm_connector *connector)
- 	int ret;
+diff --git a/drivers/gpu/drm/tegra/dpaux.c b/drivers/gpu/drm/tegra/dpaux.c
+index 105fb9cdbb3b..ea56c6ec25e4 100644
+--- a/drivers/gpu/drm/tegra/dpaux.c
++++ b/drivers/gpu/drm/tegra/dpaux.c
+@@ -534,9 +534,7 @@ static int tegra_dpaux_probe(struct platform_device *pdev)
+ 	dpaux->aux.transfer = tegra_dpaux_transfer;
+ 	dpaux->aux.dev = &pdev->dev;
  
- 	ret = nouveau_backlight_init(connector);
-+	if (ret)
-+		return ret;
+-	err = drm_dp_aux_register(&dpaux->aux);
+-	if (err < 0)
+-		return err;
++	drm_dp_aux_init(&dpaux->aux);
+ 
+ 	/*
+ 	 * Assume that by default the DPAUX/I2C pads will be used for HDMI,
+@@ -589,8 +587,6 @@ static int tegra_dpaux_remove(struct platform_device *pdev)
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 
+-	drm_dp_aux_unregister(&dpaux->aux);
+-
+ 	mutex_lock(&dpaux_lock);
+ 	list_del(&dpaux->list);
+ 	mutex_unlock(&dpaux_lock);
+@@ -723,6 +719,10 @@ int drm_dp_aux_attach(struct drm_dp_aux *aux, struct tegra_output *output)
+ 	unsigned long timeout;
+ 	int err;
+ 
++	err = drm_dp_aux_register(aux);
++	if (err < 0)
++		return err;
 +
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
-+	    connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-+		ret = drm_dp_aux_register(&nouveau_connector(connector)->aux);
-+		if (ret)
-+			goto backlight_fini;
-+	}
+ 	output->connector.polled = DRM_CONNECTOR_POLL_HPD;
+ 	dpaux->output = output;
  
-+	return 0;
-+backlight_fini:
-+	nouveau_backlight_fini(connector);
- 	return ret;
- }
+@@ -760,6 +760,7 @@ int drm_dp_aux_detach(struct drm_dp_aux *aux)
+ 	unsigned long timeout;
+ 	int err;
  
- static void
- nouveau_connector_early_unregister(struct drm_connector *connector)
- {
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
-+	    connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
-+		drm_dp_aux_unregister(&nouveau_connector(connector)->aux);
-+
- 	nouveau_backlight_fini(connector);
- }
++	drm_dp_aux_unregister(aux);
+ 	disable_irq(dpaux->irq);
  
-@@ -1343,14 +1359,8 @@ nouveau_connector_create(struct drm_device *dev,
- 		snprintf(aux_name, sizeof(aux_name), "sor-%04x-%04x",
- 			 dcbe->hasht, dcbe->hashm);
- 		nv_connector->aux.name = kstrdup(aux_name, GFP_KERNEL);
--		ret = drm_dp_aux_register(&nv_connector->aux);
--		if (ret) {
--			NV_ERROR(drm, "failed to register aux channel\n");
--			kfree(nv_connector);
--			return ERR_PTR(ret);
--		}
--		funcs = &nouveau_connector_funcs;
--		break;
-+		drm_dp_aux_init(&nv_connector->aux);
-+		fallthrough;
- 	default:
- 		funcs = &nouveau_connector_funcs;
- 		break;
+ 	if (dpaux->output->panel) {
 -- 
 2.30.2
 
