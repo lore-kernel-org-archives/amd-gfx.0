@@ -2,63 +2,97 @@ Return-Path: <SRS0=Uu1B=IY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E593EC433C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1183C433C1
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D6FA661945
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6FA661945
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8B05561992
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:58:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B05561992
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECA06F4D1;
-	Fri, 26 Mar 2021 20:40:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7F56F4CA
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 20:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1616791218;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Ih62U20EsSe/Q7zukJQx9qRYc0iNt5j34XW5oWxA3zM=;
- b=gKKd5tZdAvBcodOxmRWJ7xzWM96pzwhJ2Vgtvs73neEUMPcV4c/vRDdTLlsJLVG6jpxvC8
- xtD46gRE+dDR3gFmqmZWQWwvcqG6V6P/1mDAbPJEXqV9xOpd53yNaY522/loJviNRWzquZ
- /oamh9Eov+WoYKGOGaUuuGgSWaNinn4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-571-WN--IFV_OBqb5szy4QrvwA-1; Fri, 26 Mar 2021 16:40:14 -0400
-X-MC-Unique: WN--IFV_OBqb5szy4QrvwA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F3551084C83;
- Fri, 26 Mar 2021 20:40:12 +0000 (UTC)
-Received: from Whitewolf.lyude.net (ovpn-114-133.rdu2.redhat.com
- [10.10.114.133])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1DD0E5DDAD;
- Fri, 26 Mar 2021 20:40:11 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 20/20] drm/dp_mst: Convert drm_dp_mst_topology.c to
- drm_err()/drm_dbg*()
-Date: Fri, 26 Mar 2021 16:38:07 -0400
-Message-Id: <20210326203807.105754-21-lyude@redhat.com>
-In-Reply-To: <20210326203807.105754-1-lyude@redhat.com>
-References: <20210326203807.105754-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEA36F48A;
+	Fri, 26 Mar 2021 20:58:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 419B16F475
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 20:58:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SEAgBIv9sI5hQfhOzUVfIyalD8X84edRCSkzBiPSUp8fmEgVvg+jY51Z9IsM7MaBHqlGefL3EE55EEPAzs5QyCiQbwokEM5N/diNVzKCnmVZ/cAlnqjIgTAqmBeaWg9nEyHgkLP2yCaI6LGd3hkaR/EPsXgXoJOj5vOJmcvL9rRqr8SFc8JPZBagiPD25xiCzYk/UJwUzc//IKel9DfIxl8vAsLOBcdGlOM/F6qKwoeOmgx6VfydeSeatI2IHq0g6ak60HrSa4Pr+kA/WelneICnhHcUbXYTd2uyp49zjiQM+5aHf7awLvl1BB9XCWAO9tousGNTGC4EY/2KDdPLfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aZ2tSPFEaq8sYtzKtLhI2OGBf+jMPDbXNmRYF/OyZBM=;
+ b=OcY6rucE8rFZVFojHVJmLaYPnyoOm3xjlBUR/bgYHuafmLpjGZ3uSoH7EAYZIzB2Xlzlc6YWNXa6kelrpRFIFRjLAHHYvGI+woEjT4gA8xWKEpJJMbXiDpJEWvTE2yzR/BoRtA1hB3DIGZK+yu0FzXIqJBVvJVYhd6Lx1qaEj4V6i9YLCvh5lsJSywObJVmi3bB6RbX/xLynkMHCq5wzitcB84xDULrTy4SOa3ZAw94kcjqjMIGuSPVcjynmHWaCRapWaXZZkAu9imkLsWmGoN0tTNmbHaRGhEu0eSc6kxMAMOph6sV9KkrTg2Ug/AIAXNNscaUaIefdL33BP0aEQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aZ2tSPFEaq8sYtzKtLhI2OGBf+jMPDbXNmRYF/OyZBM=;
+ b=tRMqcZmr6MCcMPg1y+3+VY/8UUn759IOZ68/fgEQRs5/FZvO/OKkcqM14HWYYGjARD9l+6lWTSMPa+1fbUbh9FqPdXdWBsIohMsdxJQnK2Kx4YZXo0gcDaOaS+2CluDZBwUb8H90kv33MQ7j4NvLKoQ45bnUUf3sZKrxjTdvxtI=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Fri, 26 Mar
+ 2021 20:58:54 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%7]) with mapi id 15.20.3977.026; Fri, 26 Mar 2021
+ 20:58:54 +0000
+From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/vangogh: don't check for dpm in is_dpm_running
+ when in suspend
+Date: Fri, 26 Mar 2021 16:57:35 -0400
+Message-Id: <20210326205735.1324461-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.30.2
+X-Originating-IP: [192.161.79.247]
+X-ClientProxiedBy: MN2PR19CA0051.namprd19.prod.outlook.com
+ (2603:10b6:208:19b::28) To MN2PR12MB4488.namprd12.prod.outlook.com
+ (2603:10b6:208:24e::19)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (192.161.79.247) by
+ MN2PR19CA0051.namprd19.prod.outlook.com (2603:10b6:208:19b::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25 via Frontend
+ Transport; Fri, 26 Mar 2021 20:58:54 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 76f6abb7-e3a2-4fb3-25f8-08d8f099f751
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4407:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB44079CD56CD0753E928B34F1F7619@MN2PR12MB4407.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tMFBpDeJCvGRaAF4IMVRoLpQRQMlgNnVGB4S47afyRxdFJ2xx22sj0+MqIqClaBfzL7XK9QyOQ3qPRoZs4Q6TdCGJYSo+Z61jXvcs2vuSNsXP9C7+pcQPCZEVmWeayQ8+vToV/Ot4ZTE1LgFETz7wk9gyjz415Kfe+2AiTWSeLx9hMUXT1SwyA78AqJZ1tFHrvFrMMaA+18G5khWiWXjbPZ+ab22l0VPEW1tSnpUd99vmFizIlvtZ4Ba6iqlP9hrZU6hTgAY0QLbrcXDlLM8RTS/mA4DLgZZH+fliSD7hb62tE4udhfS+m5qlpLea3cMhTlVmTWyA9Hiqc0a7Jg+7OP9AnlBlUXrka2kVVTz69OHw0EDvQ/B1hyhdP9k/oFEA4uVY3En0eA2VLUb+FXObw+ySEkV5fIRrCUwQoDnCamVBprZ8eb3S9NK/SXzcMf0UluZFYtgAfnihPkgW0H+plhyLSIx1IAAAwJqBdadKCvjTttIaEgS+tT0falIyHIAsCs0sxR29cIVeaiWa4KKStLA8cCS8OxOWvchwnYOGKBPq11Tacsoacx2LEjPRdVmkLKjKTh4xnSh92alJODNA/lMYyOzi0BHnFoJVVnAjV2Po8l+qC7asl7m9gipMVjpVQt0J37oVGmR3YJX+nCbhs6Ye3r73xndT6kAmtdRCA6eWNtZOUFlB6P1xdQGyDNN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(376002)(396003)(136003)(366004)(83380400001)(6666004)(15650500001)(4326008)(8676002)(6512007)(8936002)(6916009)(86362001)(186003)(66556008)(66946007)(36756003)(26005)(16526019)(66476007)(5660300002)(6486002)(956004)(69590400012)(38100700001)(2906002)(316002)(478600001)(2616005)(1076003)(52116002)(6506007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: w2rTiS4dCC1hOV1CeUb+VitCgi2lFWZJV4t07/rIrpvBEvp5CZAReoA3XWx3FficTxUz0hj5iyd//me5Q94B2vVC9Cl0URdFONUjkfcLZUMZJlGJ+kw3EIJs3qD/mGCPwLf3PuF22HwZMb98FRa8r0rMx60Nc7YrWNGqvtIYoBUsSh3uaMZOhN+G6pniWQ4Rw820Al1lgJ1laPDmJmSPrcp0bgOmaLveoNcsxANsv/FdJqzK472qRCvSpNcoXAw2Nz+OHGkfl5Ll7DX0+v493IHUyBUf9q+eArB4cHdC+PoVOG/dxqLcrKksF7ppiNLOeBeZfe+JzqG8RpQVwgQiR7XSwohXSpznqtP2YgRA5mO/vkglnXyc+e1hyq1clwBGtrMasH+hs6An/wC53iE9vy9Cj/jOZ00YQhNz3KFSPEJvzV9wuUOyc1x6A+52Wijs6WEC0AX6ke9suO3OsPUT1B+8Q63wXFNr8cKmN/OL7i9WZ1sWNBwSjNJzfFAOaMoMdtj9W78LXYs1pj7zdajcZqnhzidJm6YlT+BxYSM10+rudgPBT8rZaKMo4iR74RecE5TlbkqxS5MvWY5qOMVF09INRm2YdE+YbUO23Zj1kJQfPcxrWaOzslKCJQKf56pq+wYRLzhDsnR8aImEN6P3ZOI9zLr6KCQV1unwq5e1CeB6qhFEXQndWnuGfoO5cTo+RJApQ/S5FLq6QAuS7U/eXG07oEJKWOpk7AVrUoSGWP8Cj1yTHvelg3kvaZoPnyvl
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76f6abb7-e3a2-4fb3-25f8-08d8f099f751
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2021 20:58:54.4461 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fKIlJSvhroCwgRotUavde0HhQVYSyw1qAks+Q8MvwSvAHXTWGCyJkzMJ7paD6UMx7RlkGXZDdsDG1t1nSyUi8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,1001 +104,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-And finally, convert all of the code in drm_dp_mst_topology.c over to using
-drm_err() and drm_dbg*(). Note that this refactor would have been a lot
-more complicated to have tried writing a coccinelle script for, so this
-whole thing was done by hand.
+Do the same thing we do for Renoir.  We can check, but since
+the sbios has started DPM, it will always return true which
+causes the driver to skip some of the SMU init when it shouldn't.
 
-v2:
-* Fix line-wrapping in drm_dp_mst_atomic_check_mstb_bw_limit()
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Robert Foss <robert.foss@linaro.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 368 +++++++++++++-------------
- 1 file changed, 187 insertions(+), 181 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 74c420f5f204..b8c3a99a4119 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -286,7 +286,8 @@ static void drm_dp_encode_sideband_msg_hdr(struct drm_dp_sideband_msg_hdr *hdr,
- 	*len = idx;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 2f502fec67d5..ed11e0ab8299 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -384,10 +384,15 @@ static int vangogh_dpm_set_jpeg_enable(struct smu_context *smu, bool enable)
  
--static bool drm_dp_decode_sideband_msg_hdr(struct drm_dp_sideband_msg_hdr *hdr,
-+static bool drm_dp_decode_sideband_msg_hdr(const struct drm_dp_mst_topology_mgr *mgr,
-+					   struct drm_dp_sideband_msg_hdr *hdr,
- 					   u8 *buf, int buflen, u8 *hdrlen)
+ static bool vangogh_is_dpm_running(struct smu_context *smu)
  {
- 	u8 crc4;
-@@ -303,7 +304,7 @@ static bool drm_dp_decode_sideband_msg_hdr(struct drm_dp_sideband_msg_hdr *hdr,
- 	crc4 = drm_dp_msg_header_crc4(buf, (len * 2) - 1);
- 
- 	if ((crc4 & 0xf) != (buf[len - 1] & 0xf)) {
--		DRM_DEBUG_KMS("crc4 mismatch 0x%x 0x%x\n", crc4, buf[len - 1]);
-+		drm_dbg_kms(mgr->dev, "crc4 mismatch 0x%x 0x%x\n", crc4, buf[len - 1]);
- 		return false;
- 	}
- 
-@@ -789,7 +790,8 @@ static bool drm_dp_sideband_append_payload(struct drm_dp_sideband_msg_rx *msg,
- 	return true;
- }
- 
--static bool drm_dp_sideband_parse_link_address(struct drm_dp_sideband_msg_rx *raw,
-+static bool drm_dp_sideband_parse_link_address(const struct drm_dp_mst_topology_mgr *mgr,
-+					       struct drm_dp_sideband_msg_rx *raw,
- 					       struct drm_dp_sideband_msg_reply_body *repmsg)
- {
- 	int idx = 1;
-@@ -1014,7 +1016,8 @@ drm_dp_sideband_parse_query_stream_enc_status(
- 	return true;
- }
- 
--static bool drm_dp_sideband_parse_reply(struct drm_dp_sideband_msg_rx *raw,
-+static bool drm_dp_sideband_parse_reply(const struct drm_dp_mst_topology_mgr *mgr,
-+					struct drm_dp_sideband_msg_rx *raw,
- 					struct drm_dp_sideband_msg_reply_body *msg)
- {
- 	memset(msg, 0, sizeof(*msg));
-@@ -1030,7 +1033,7 @@ static bool drm_dp_sideband_parse_reply(struct drm_dp_sideband_msg_rx *raw,
- 
- 	switch (msg->req_type) {
- 	case DP_LINK_ADDRESS:
--		return drm_dp_sideband_parse_link_address(raw, msg);
-+		return drm_dp_sideband_parse_link_address(mgr, raw, msg);
- 	case DP_QUERY_PAYLOAD:
- 		return drm_dp_sideband_parse_query_payload_ack(raw, msg);
- 	case DP_REMOTE_DPCD_READ:
-@@ -1053,14 +1056,16 @@ static bool drm_dp_sideband_parse_reply(struct drm_dp_sideband_msg_rx *raw,
- 	case DP_QUERY_STREAM_ENC_STATUS:
- 		return drm_dp_sideband_parse_query_stream_enc_status(raw, msg);
- 	default:
--		DRM_ERROR("Got unknown reply 0x%02x (%s)\n", msg->req_type,
--			  drm_dp_mst_req_type_str(msg->req_type));
-+		drm_err(mgr->dev, "Got unknown reply 0x%02x (%s)\n",
-+			msg->req_type, drm_dp_mst_req_type_str(msg->req_type));
- 		return false;
- 	}
- }
- 
--static bool drm_dp_sideband_parse_connection_status_notify(struct drm_dp_sideband_msg_rx *raw,
--							   struct drm_dp_sideband_msg_req_body *msg)
-+static bool
-+drm_dp_sideband_parse_connection_status_notify(const struct drm_dp_mst_topology_mgr *mgr,
-+					       struct drm_dp_sideband_msg_rx *raw,
-+					       struct drm_dp_sideband_msg_req_body *msg)
- {
- 	int idx = 1;
- 
-@@ -1082,12 +1087,14 @@ static bool drm_dp_sideband_parse_connection_status_notify(struct drm_dp_sideban
- 	idx++;
- 	return true;
- fail_len:
--	DRM_DEBUG_KMS("connection status reply parse length fail %d %d\n", idx, raw->curlen);
-+	drm_dbg_kms(mgr->dev, "connection status reply parse length fail %d %d\n",
-+		    idx, raw->curlen);
- 	return false;
- }
- 
--static bool drm_dp_sideband_parse_resource_status_notify(struct drm_dp_sideband_msg_rx *raw,
--							   struct drm_dp_sideband_msg_req_body *msg)
-+static bool drm_dp_sideband_parse_resource_status_notify(const struct drm_dp_mst_topology_mgr *mgr,
-+							 struct drm_dp_sideband_msg_rx *raw,
-+							 struct drm_dp_sideband_msg_req_body *msg)
- {
- 	int idx = 1;
- 
-@@ -1105,11 +1112,12 @@ static bool drm_dp_sideband_parse_resource_status_notify(struct drm_dp_sideband_
- 	idx++;
- 	return true;
- fail_len:
--	DRM_DEBUG_KMS("resource status reply parse length fail %d %d\n", idx, raw->curlen);
-+	drm_dbg_kms(mgr->dev, "resource status reply parse length fail %d %d\n", idx, raw->curlen);
- 	return false;
- }
- 
--static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
-+static bool drm_dp_sideband_parse_req(const struct drm_dp_mst_topology_mgr *mgr,
-+				      struct drm_dp_sideband_msg_rx *raw,
- 				      struct drm_dp_sideband_msg_req_body *msg)
- {
- 	memset(msg, 0, sizeof(*msg));
-@@ -1117,12 +1125,12 @@ static bool drm_dp_sideband_parse_req(struct drm_dp_sideband_msg_rx *raw,
- 
- 	switch (msg->req_type) {
- 	case DP_CONNECTION_STATUS_NOTIFY:
--		return drm_dp_sideband_parse_connection_status_notify(raw, msg);
-+		return drm_dp_sideband_parse_connection_status_notify(mgr, raw, msg);
- 	case DP_RESOURCE_STATUS_NOTIFY:
--		return drm_dp_sideband_parse_resource_status_notify(raw, msg);
-+		return drm_dp_sideband_parse_resource_status_notify(mgr, raw, msg);
- 	default:
--		DRM_ERROR("Got unknown request 0x%02x (%s)\n", msg->req_type,
--			  drm_dp_mst_req_type_str(msg->req_type));
-+		drm_err(mgr->dev, "Got unknown request 0x%02x (%s)\n",
-+			msg->req_type, drm_dp_mst_req_type_str(msg->req_type));
- 		return false;
- 	}
- }
-@@ -1232,14 +1240,14 @@ static int drm_dp_mst_assign_payload_id(struct drm_dp_mst_topology_mgr *mgr,
- 	ret = find_first_zero_bit(&mgr->payload_mask, mgr->max_payloads + 1);
- 	if (ret > mgr->max_payloads) {
- 		ret = -EINVAL;
--		DRM_DEBUG_KMS("out of payload ids %d\n", ret);
-+		drm_dbg_kms(mgr->dev, "out of payload ids %d\n", ret);
- 		goto out_unlock;
- 	}
- 
- 	vcpi_ret = find_first_zero_bit(&mgr->vcpi_mask, mgr->max_payloads + 1);
- 	if (vcpi_ret > mgr->max_payloads) {
- 		ret = -EINVAL;
--		DRM_DEBUG_KMS("out of vcpi ids %d\n", ret);
-+		drm_dbg_kms(mgr->dev, "out of vcpi ids %d\n", ret);
- 		goto out_unlock;
- 	}
- 
-@@ -1261,7 +1269,7 @@ static void drm_dp_mst_put_payload_id(struct drm_dp_mst_topology_mgr *mgr,
- 		return;
- 
- 	mutex_lock(&mgr->payload_lock);
--	DRM_DEBUG_KMS("putting payload %d\n", vcpi);
-+	drm_dbg_kms(mgr->dev, "putting payload %d\n", vcpi);
- 	clear_bit(vcpi - 1, &mgr->vcpi_mask);
- 
- 	for (i = 0; i < mgr->max_payloads; i++) {
-@@ -1331,7 +1339,8 @@ static int drm_dp_mst_wait_tx_reply(struct drm_dp_mst_branch *mstb,
- 			goto out;
- 		}
- 	} else {
--		DRM_DEBUG_KMS("timedout msg send %p %d %d\n", txmsg, txmsg->state, txmsg->seqno);
-+		drm_dbg_kms(mgr->dev, "timedout msg send %p %d %d\n",
-+			    txmsg, txmsg->state, txmsg->seqno);
- 
- 		/* dump some state */
- 		ret = -EIO;
-@@ -1485,7 +1494,7 @@ static void
- drm_dp_mst_get_mstb_malloc(struct drm_dp_mst_branch *mstb)
- {
- 	kref_get(&mstb->malloc_kref);
--	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref));
-+	drm_dbg(mstb->mgr->dev, "mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref));
- }
- 
- /**
-@@ -1502,7 +1511,7 @@ drm_dp_mst_get_mstb_malloc(struct drm_dp_mst_branch *mstb)
- static void
- drm_dp_mst_put_mstb_malloc(struct drm_dp_mst_branch *mstb)
- {
--	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref) - 1);
-+	drm_dbg(mstb->mgr->dev, "mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref) - 1);
- 	kref_put(&mstb->malloc_kref, drm_dp_free_mst_branch_device);
- }
- 
-@@ -1536,7 +1545,7 @@ void
- drm_dp_mst_get_port_malloc(struct drm_dp_mst_port *port)
- {
- 	kref_get(&port->malloc_kref);
--	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->malloc_kref));
-+	drm_dbg(port->mgr->dev, "port %p (%d)\n", port, kref_read(&port->malloc_kref));
- }
- EXPORT_SYMBOL(drm_dp_mst_get_port_malloc);
- 
-@@ -1553,7 +1562,7 @@ EXPORT_SYMBOL(drm_dp_mst_get_port_malloc);
- void
- drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port)
- {
--	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->malloc_kref) - 1);
-+	drm_dbg(port->mgr->dev, "port %p (%d)\n", port, kref_read(&port->malloc_kref) - 1);
- 	kref_put(&port->malloc_kref, drm_dp_free_mst_port);
- }
- EXPORT_SYMBOL(drm_dp_mst_put_port_malloc);
-@@ -1778,8 +1787,7 @@ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
- 	topology_ref_history_lock(mstb->mgr);
- 	ret = kref_get_unless_zero(&mstb->topology_kref);
- 	if (ret) {
--		DRM_DEBUG("mstb %p (%d)\n",
--			  mstb, kref_read(&mstb->topology_kref));
-+		drm_dbg(mstb->mgr->dev, "mstb %p (%d)\n", mstb, kref_read(&mstb->topology_kref));
- 		save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
- 	}
- 
-@@ -1809,7 +1817,7 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
- 	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
- 	WARN_ON(kref_read(&mstb->topology_kref) == 0);
- 	kref_get(&mstb->topology_kref);
--	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->topology_kref));
-+	drm_dbg(mstb->mgr->dev, "mstb %p (%d)\n", mstb, kref_read(&mstb->topology_kref));
- 
- 	topology_ref_history_unlock(mstb->mgr);
- }
-@@ -1831,8 +1839,7 @@ drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branch *mstb)
- {
- 	topology_ref_history_lock(mstb->mgr);
- 
--	DRM_DEBUG("mstb %p (%d)\n",
--		  mstb, kref_read(&mstb->topology_kref) - 1);
-+	drm_dbg(mstb->mgr->dev, "mstb %p (%d)\n", mstb, kref_read(&mstb->topology_kref) - 1);
- 	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_PUT);
- 
- 	topology_ref_history_unlock(mstb->mgr);
-@@ -1895,8 +1902,7 @@ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
- 	topology_ref_history_lock(port->mgr);
- 	ret = kref_get_unless_zero(&port->topology_kref);
- 	if (ret) {
--		DRM_DEBUG("port %p (%d)\n",
--			  port, kref_read(&port->topology_kref));
-+		drm_dbg(port->mgr->dev, "port %p (%d)\n", port, kref_read(&port->topology_kref));
- 		save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
- 	}
- 
-@@ -1923,7 +1929,7 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
- 
- 	WARN_ON(kref_read(&port->topology_kref) == 0);
- 	kref_get(&port->topology_kref);
--	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->topology_kref));
-+	drm_dbg(port->mgr->dev, "port %p (%d)\n", port, kref_read(&port->topology_kref));
- 	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
- 
- 	topology_ref_history_unlock(port->mgr);
-@@ -1944,8 +1950,7 @@ static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port)
- {
- 	topology_ref_history_lock(port->mgr);
- 
--	DRM_DEBUG("port %p (%d)\n",
--		  port, kref_read(&port->topology_kref) - 1);
-+	drm_dbg(port->mgr->dev, "port %p (%d)\n", port, kref_read(&port->topology_kref) - 1);
- 	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_PUT);
- 
- 	topology_ref_history_unlock(port->mgr);
-@@ -2130,8 +2135,7 @@ drm_dp_port_set_pdt(struct drm_dp_mst_port *port, u8 new_pdt,
- 			mstb = drm_dp_add_mst_branch_device(lct, rad);
- 			if (!mstb) {
- 				ret = -ENOMEM;
--				DRM_ERROR("Failed to create MSTB for port %p",
--					  port);
-+				drm_err(mgr->dev, "Failed to create MSTB for port %p", port);
- 				goto out;
- 			}
- 
-@@ -2261,8 +2265,8 @@ static void build_mst_prop_path(const struct drm_dp_mst_branch *mstb,
- int drm_dp_mst_connector_late_register(struct drm_connector *connector,
- 				       struct drm_dp_mst_port *port)
- {
--	DRM_DEBUG_KMS("registering %s remote bus for %s\n",
--		      port->aux.name, connector->kdev->kobj.name);
-+	drm_dbg_kms(port->mgr->dev, "registering %s remote bus for %s\n",
-+		    port->aux.name, connector->kdev->kobj.name);
- 
- 	port->aux.dev = connector->kdev;
- 	return drm_dp_aux_register_devnode(&port->aux);
-@@ -2281,8 +2285,8 @@ EXPORT_SYMBOL(drm_dp_mst_connector_late_register);
- void drm_dp_mst_connector_early_unregister(struct drm_connector *connector,
- 					   struct drm_dp_mst_port *port)
- {
--	DRM_DEBUG_KMS("unregistering %s remote bus for %s\n",
--		      port->aux.name, connector->kdev->kobj.name);
-+	drm_dbg_kms(port->mgr->dev, "unregistering %s remote bus for %s\n",
-+		    port->aux.name, connector->kdev->kobj.name);
- 	drm_dp_aux_unregister_devnode(&port->aux);
- }
- EXPORT_SYMBOL(drm_dp_mst_connector_early_unregister);
-@@ -2312,7 +2316,7 @@ drm_dp_mst_port_add_connector(struct drm_dp_mst_branch *mstb,
- 	return;
- 
- error:
--	DRM_ERROR("Failed to create connector for port %p: %d\n", port, ret);
-+	drm_err(mgr->dev, "Failed to create connector for port %p: %d\n", port, ret);
- }
- 
- /*
-@@ -2452,8 +2456,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
- 	if (ret == 1) {
- 		send_link_addr = true;
- 	} else if (ret < 0) {
--		DRM_ERROR("Failed to change PDT on port %p: %d\n",
--			  port, ret);
-+		drm_err(dev, "Failed to change PDT on port %p: %d\n", port, ret);
- 		goto fail;
- 	}
- 
-@@ -2548,8 +2551,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
- 	if (ret == 1) {
- 		dowork = true;
- 	} else if (ret < 0) {
--		DRM_ERROR("Failed to change PDT for port %p: %d\n",
--			  port, ret);
-+		drm_err(mgr->dev, "Failed to change PDT for port %p: %d\n", port, ret);
- 		dowork = false;
- 	}
- 
-@@ -2608,7 +2610,9 @@ static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_
- 			if (port->port_num == port_num) {
- 				mstb = port->mstb;
- 				if (!mstb) {
--					DRM_ERROR("failed to lookup MSTB with lct %d, rad %02x\n", lct, rad[0]);
-+					drm_err(mgr->dev,
-+						"failed to lookup MSTB with lct %d, rad %02x\n",
-+						lct, rad[0]);
- 					goto out;
- 				}
- 
-@@ -2744,7 +2748,7 @@ static void drm_dp_mst_link_probe_work(struct work_struct *work)
- 	 * things work again.
- 	 */
- 	if (clear_payload_id_table) {
--		DRM_DEBUG_KMS("Clearing payload ID table\n");
-+		drm_dbg_kms(dev, "Clearing payload ID table\n");
- 		drm_dp_send_clear_payload_id_table(mgr, mstb);
- 	}
- 
-@@ -2806,7 +2810,7 @@ static int drm_dp_send_sideband_msg(struct drm_dp_mst_topology_mgr *mgr,
- 				retries++;
- 				goto retry;
- 			}
--			DRM_DEBUG_KMS("failed to dpcd write %d %d\n", tosend, ret);
-+			drm_dbg_kms(mgr->dev, "failed to dpcd write %d %d\n", tosend, ret);
- 
- 			return -EIO;
- 		}
-@@ -2919,7 +2923,7 @@ static void process_single_down_tx_qlock(struct drm_dp_mst_topology_mgr *mgr)
- 				 struct drm_dp_sideband_msg_tx, next);
- 	ret = process_single_tx_qlock(mgr, txmsg, false);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("failed to send msg in q %d\n", ret);
-+		drm_dbg_kms(mgr->dev, "failed to send msg in q %d\n", ret);
- 		list_del(&txmsg->next);
- 		txmsg->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
- 		wake_up_all(&mgr->tx_waitq);
-@@ -2944,24 +2948,26 @@ static void drm_dp_queue_down_tx(struct drm_dp_mst_topology_mgr *mgr,
- }
- 
- static void
--drm_dp_dump_link_address(struct drm_dp_link_address_ack_reply *reply)
-+drm_dp_dump_link_address(const struct drm_dp_mst_topology_mgr *mgr,
-+			 struct drm_dp_link_address_ack_reply *reply)
- {
- 	struct drm_dp_link_addr_reply_port *port_reply;
- 	int i;
- 
- 	for (i = 0; i < reply->nports; i++) {
- 		port_reply = &reply->ports[i];
--		DRM_DEBUG_KMS("port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n",
--			      i,
--			      port_reply->input_port,
--			      port_reply->peer_device_type,
--			      port_reply->port_number,
--			      port_reply->dpcd_revision,
--			      port_reply->mcs,
--			      port_reply->ddps,
--			      port_reply->legacy_device_plug_status,
--			      port_reply->num_sdp_streams,
--			      port_reply->num_sdp_stream_sinks);
-+		drm_dbg_kms(mgr->dev,
-+			    "port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n",
-+			    i,
-+			    port_reply->input_port,
-+			    port_reply->peer_device_type,
-+			    port_reply->port_number,
-+			    port_reply->dpcd_revision,
-+			    port_reply->mcs,
-+			    port_reply->ddps,
-+			    port_reply->legacy_device_plug_status,
-+			    port_reply->num_sdp_streams,
-+			    port_reply->num_sdp_stream_sinks);
- 	}
- }
- 
-@@ -2987,26 +2993,25 @@ static int drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
- 	/* FIXME: Actually do some real error handling here */
- 	ret = drm_dp_mst_wait_tx_reply(mstb, txmsg);
- 	if (ret <= 0) {
--		DRM_ERROR("Sending link address failed with %d\n", ret);
-+		drm_err(mgr->dev, "Sending link address failed with %d\n", ret);
- 		goto out;
- 	}
- 	if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
--		DRM_ERROR("link address NAK received\n");
-+		drm_err(mgr->dev, "link address NAK received\n");
- 		ret = -EIO;
- 		goto out;
- 	}
- 
- 	reply = &txmsg->reply.u.link_addr;
--	DRM_DEBUG_KMS("link address reply: %d\n", reply->nports);
--	drm_dp_dump_link_address(reply);
-+	drm_dbg_kms(mgr->dev, "link address reply: %d\n", reply->nports);
-+	drm_dp_dump_link_address(mgr, reply);
- 
- 	ret = drm_dp_check_mstb_guid(mstb, reply->guid);
- 	if (ret) {
- 		char buf[64];
- 
- 		drm_dp_mst_rad_to_str(mstb->rad, mstb->lct, buf, sizeof(buf));
--		DRM_ERROR("GUID check on %s failed: %d\n",
--			  buf, ret);
-+		drm_err(mgr->dev, "GUID check on %s failed: %d\n", buf, ret);
- 		goto out;
- 	}
- 
-@@ -3030,8 +3035,8 @@ static int drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
- 		if (port_mask & BIT(port->port_num))
- 			continue;
- 
--		DRM_DEBUG_KMS("port %d was not in link address, removing\n",
--			      port->port_num);
-+		drm_dbg_kms(mgr->dev, "port %d was not in link address, removing\n",
-+			    port->port_num);
- 		list_del(&port->next);
- 		drm_dp_mst_topology_put_port(port);
- 		changed = true;
-@@ -3063,7 +3068,7 @@ drm_dp_send_clear_payload_id_table(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	ret = drm_dp_mst_wait_tx_reply(mstb, txmsg);
- 	if (ret > 0 && txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
--		DRM_DEBUG_KMS("clear payload table id nak received\n");
-+		drm_dbg_kms(mgr->dev, "clear payload table id nak received\n");
- 
- 	kfree(txmsg);
- }
-@@ -3092,15 +3097,15 @@ drm_dp_send_enum_path_resources(struct drm_dp_mst_topology_mgr *mgr,
- 		path_res = &txmsg->reply.u.path_resources;
- 
- 		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
--			DRM_DEBUG_KMS("enum path resources nak received\n");
-+			drm_dbg_kms(mgr->dev, "enum path resources nak received\n");
- 		} else {
- 			if (port->port_num != path_res->port_number)
- 				DRM_ERROR("got incorrect port in response\n");
- 
--			DRM_DEBUG_KMS("enum path resources %d: %d %d\n",
--				      path_res->port_number,
--				      path_res->full_payload_bw_number,
--				      path_res->avail_payload_bw_number);
-+			drm_dbg_kms(mgr->dev, "enum path resources %d: %d %d\n",
-+				    path_res->port_number,
-+				    path_res->full_payload_bw_number,
-+				    path_res->avail_payload_bw_number);
- 
- 			/*
- 			 * If something changed, make sure we send a
-@@ -3346,7 +3351,7 @@ static int drm_dp_destroy_payload_step1(struct drm_dp_mst_topology_mgr *mgr,
- 					int id,
- 					struct drm_dp_payload *payload)
- {
--	DRM_DEBUG_KMS("\n");
-+	drm_dbg_kms(mgr->dev, "\n");
- 	/* it's okay for these to fail */
- 	if (port) {
- 		drm_dp_payload_send_msg(mgr, port, id, 0);
-@@ -3452,7 +3457,7 @@ int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr)
- 			continue;
- 		}
- 
--		DRM_DEBUG_KMS("removing payload %d\n", i);
-+		drm_dbg_kms(mgr->dev, "removing payload %d\n", i);
- 		for (j = i; j < mgr->max_payloads - 1; j++) {
- 			mgr->payloads[j] = mgr->payloads[j + 1];
- 			mgr->proposed_vcpis[j] = mgr->proposed_vcpis[j + 1];
-@@ -3499,7 +3504,7 @@ int drm_dp_update_payload_part2(struct drm_dp_mst_topology_mgr *mgr)
- 
- 		port = container_of(mgr->proposed_vcpis[i], struct drm_dp_mst_port, vcpi);
- 
--		DRM_DEBUG_KMS("payload %d %d\n", i, mgr->payloads[i].payload_state);
-+		drm_dbg_kms(mgr->dev, "payload %d %d\n", i, mgr->payloads[i].payload_state);
- 		if (mgr->payloads[i].payload_state == DP_PAYLOAD_LOCAL) {
- 			ret = drm_dp_create_payload_step2(mgr, port, mgr->proposed_vcpis[i]->vcpi, &mgr->payloads[i]);
- 		} else if (mgr->payloads[i].payload_state == DP_PAYLOAD_DELETE_LOCAL) {
-@@ -3544,8 +3549,8 @@ static int drm_dp_send_dpcd_read(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	/* DPCD read should never be NACKed */
- 	if (txmsg->reply.reply_type == 1) {
--		DRM_ERROR("mstb %p port %d: DPCD read on addr 0x%x for %d bytes NAKed\n",
--			  mstb, port->port_num, offset, size);
-+		drm_err(mgr->dev, "mstb %p port %d: DPCD read on addr 0x%x for %d bytes NAKed\n",
-+			mstb, port->port_num, offset, size);
- 		ret = -EIO;
- 		goto fail_free;
- 	}
-@@ -3651,8 +3656,8 @@ int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
- 			     int link_rate, int link_lane_count)
- {
- 	if (link_rate == 0 || link_lane_count == 0)
--		DRM_DEBUG_KMS("invalid link rate/lane count: (%d / %d)\n",
--			      link_rate, link_lane_count);
-+		drm_dbg_kms(mgr->dev, "invalid link rate/lane count: (%d / %d)\n",
-+			    link_rate, link_lane_count);
- 
- 	/* See DP v2.0 2.6.4.2, VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
- 	return link_rate * link_lane_count / 54000;
-@@ -3709,7 +3714,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		/* get dpcd info */
- 		ret = drm_dp_dpcd_read(mgr->aux, DP_DPCD_REV, mgr->dpcd, DP_RECEIVER_CAP_SIZE);
- 		if (ret != DP_RECEIVER_CAP_SIZE) {
--			DRM_DEBUG_KMS("failed to read DPCD\n");
-+			drm_dbg_kms(mgr->dev, "failed to read DPCD\n");
- 			goto out_unlock;
- 		}
- 
-@@ -3844,7 +3849,7 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
- 	ret = drm_dp_dpcd_read(mgr->aux, DP_DPCD_REV, mgr->dpcd,
- 			       DP_RECEIVER_CAP_SIZE);
- 	if (ret != DP_RECEIVER_CAP_SIZE) {
--		DRM_DEBUG_KMS("dpcd read failed - undocked during suspend?\n");
-+		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
-@@ -3853,20 +3858,20 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
- 				 DP_UP_REQ_EN |
- 				 DP_UPSTREAM_IS_SRC);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("mst write failed - undocked during suspend?\n");
-+		drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
- 	/* Some hubs forget their guids after they resume */
- 	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
- 	if (ret != 16) {
--		DRM_DEBUG_KMS("dpcd read failed - undocked during suspend?\n");
-+		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
- 	ret = drm_dp_check_mstb_guid(mgr->mst_primary, guid);
- 	if (ret) {
--		DRM_DEBUG_KMS("check mstb failed - undocked during suspend?\n");
-+		drm_dbg_kms(mgr->dev, "check mstb failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
-@@ -3879,7 +3884,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
- 	mutex_unlock(&mgr->lock);
- 
- 	if (sync) {
--		DRM_DEBUG_KMS("Waiting for link probe work to finish re-syncing topology...\n");
-+		drm_dbg_kms(mgr->dev,
-+			    "Waiting for link probe work to finish re-syncing topology...\n");
- 		flush_work(&mgr->work);
- 	}
- 
-@@ -3912,15 +3918,15 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
- 	len = min(mgr->max_dpcd_transaction_bytes, 16);
- 	ret = drm_dp_dpcd_read(mgr->aux, basereg, replyblock, len);
- 	if (ret != len) {
--		DRM_DEBUG_KMS("failed to read DPCD down rep %d %d\n", len, ret);
-+		drm_dbg_kms(mgr->dev, "failed to read DPCD down rep %d %d\n", len, ret);
- 		return false;
- 	}
- 
--	ret = drm_dp_decode_sideband_msg_hdr(&hdr, replyblock, len, &hdrlen);
-+	ret = drm_dp_decode_sideband_msg_hdr(mgr, &hdr, replyblock, len, &hdrlen);
- 	if (ret == false) {
- 		print_hex_dump(KERN_DEBUG, "failed hdr", DUMP_PREFIX_NONE, 16,
- 			       1, replyblock, len, false);
--		DRM_DEBUG_KMS("ERROR: failed header\n");
-+		drm_dbg_kms(mgr->dev, "ERROR: failed header\n");
- 		return false;
- 	}
- 
-@@ -3928,22 +3934,20 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
- 		/* Caller is responsible for giving back this reference */
- 		*mstb = drm_dp_get_mst_branch_device(mgr, hdr.lct, hdr.rad);
- 		if (!*mstb) {
--			DRM_DEBUG_KMS("Got MST reply from unknown device %d\n",
--				      hdr.lct);
-+			drm_dbg_kms(mgr->dev, "Got MST reply from unknown device %d\n", hdr.lct);
- 			return false;
- 		}
- 	}
- 
- 	if (!drm_dp_sideband_msg_set_header(msg, &hdr, hdrlen)) {
--		DRM_DEBUG_KMS("sideband msg set header failed %d\n",
--			      replyblock[0]);
-+		drm_dbg_kms(mgr->dev, "sideband msg set header failed %d\n", replyblock[0]);
- 		return false;
- 	}
- 
- 	replylen = min(msg->curchunk_len, (u8)(len - hdrlen));
- 	ret = drm_dp_sideband_append_payload(msg, replyblock + hdrlen, replylen);
- 	if (!ret) {
--		DRM_DEBUG_KMS("sideband msg build failed %d\n", replyblock[0]);
-+		drm_dbg_kms(mgr->dev, "sideband msg build failed %d\n", replyblock[0]);
- 		return false;
- 	}
- 
-@@ -3954,14 +3958,14 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
- 		ret = drm_dp_dpcd_read(mgr->aux, basereg + curreply,
- 				    replyblock, len);
- 		if (ret != len) {
--			DRM_DEBUG_KMS("failed to read a chunk (len %d, ret %d)\n",
--				      len, ret);
-+			drm_dbg_kms(mgr->dev, "failed to read a chunk (len %d, ret %d)\n",
-+				    len, ret);
- 			return false;
- 		}
- 
- 		ret = drm_dp_sideband_append_payload(msg, replyblock, len);
- 		if (!ret) {
--			DRM_DEBUG_KMS("failed to build sideband msg\n");
-+			drm_dbg_kms(mgr->dev, "failed to build sideband msg\n");
- 			return false;
- 		}
- 
-@@ -3995,21 +3999,21 @@ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
- 		struct drm_dp_sideband_msg_hdr *hdr;
- 
- 		hdr = &msg->initial_hdr;
--		DRM_DEBUG_KMS("Got MST reply with no msg %p %d %d %02x %02x\n",
--			      mstb, hdr->seqno, hdr->lct, hdr->rad[0],
--			      msg->msg[0]);
-+		drm_dbg_kms(mgr->dev, "Got MST reply with no msg %p %d %d %02x %02x\n",
-+			    mstb, hdr->seqno, hdr->lct, hdr->rad[0], msg->msg[0]);
- 		goto out_clear_reply;
- 	}
- 
--	drm_dp_sideband_parse_reply(msg, &txmsg->reply);
-+	drm_dp_sideband_parse_reply(mgr, msg, &txmsg->reply);
- 
- 	if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
--		DRM_DEBUG_KMS("Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
--			      txmsg->reply.req_type,
--			      drm_dp_mst_req_type_str(txmsg->reply.req_type),
--			      txmsg->reply.u.nak.reason,
--			      drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
--			      txmsg->reply.u.nak.nak_data);
-+		drm_dbg_kms(mgr->dev,
-+			    "Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
-+			    txmsg->reply.req_type,
-+			    drm_dp_mst_req_type_str(txmsg->reply.req_type),
-+			    txmsg->reply.u.nak.reason,
-+			    drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
-+			    txmsg->reply.u.nak.nak_data);
- 	}
- 
- 	memset(msg, 0, sizeof(struct drm_dp_sideband_msg_rx));
-@@ -4057,8 +4061,7 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
- 	}
- 
- 	if (!mstb) {
--		DRM_DEBUG_KMS("Got MST reply from unknown device %d\n",
--			      hdr->lct);
-+		drm_dbg_kms(mgr->dev, "Got MST reply from unknown device %d\n", hdr->lct);
- 		return false;
- 	}
- 
-@@ -4118,12 +4121,12 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- 
- 	INIT_LIST_HEAD(&up_req->next);
- 
--	drm_dp_sideband_parse_req(&mgr->up_req_recv, &up_req->msg);
-+	drm_dp_sideband_parse_req(mgr, &mgr->up_req_recv, &up_req->msg);
- 
- 	if (up_req->msg.req_type != DP_CONNECTION_STATUS_NOTIFY &&
- 	    up_req->msg.req_type != DP_RESOURCE_STATUS_NOTIFY) {
--		DRM_DEBUG_KMS("Received unknown up req type, ignoring: %x\n",
--			      up_req->msg.req_type);
-+		drm_dbg_kms(mgr->dev, "Received unknown up req type, ignoring: %x\n",
-+			    up_req->msg.req_type);
- 		kfree(up_req);
- 		goto out;
- 	}
-@@ -4135,20 +4138,20 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- 		const struct drm_dp_connection_status_notify *conn_stat =
- 			&up_req->msg.u.conn_stat;
- 
--		DRM_DEBUG_KMS("Got CSN: pn: %d ldps:%d ddps: %d mcs: %d ip: %d pdt: %d\n",
--			      conn_stat->port_number,
--			      conn_stat->legacy_device_plug_status,
--			      conn_stat->displayport_device_plug_status,
--			      conn_stat->message_capability_status,
--			      conn_stat->input_port,
--			      conn_stat->peer_device_type);
-+		drm_dbg_kms(mgr->dev, "Got CSN: pn: %d ldps:%d ddps: %d mcs: %d ip: %d pdt: %d\n",
-+			    conn_stat->port_number,
-+			    conn_stat->legacy_device_plug_status,
-+			    conn_stat->displayport_device_plug_status,
-+			    conn_stat->message_capability_status,
-+			    conn_stat->input_port,
-+			    conn_stat->peer_device_type);
- 	} else if (up_req->msg.req_type == DP_RESOURCE_STATUS_NOTIFY) {
- 		const struct drm_dp_resource_status_notify *res_stat =
- 			&up_req->msg.u.resource_stat;
- 
--		DRM_DEBUG_KMS("Got RSN: pn: %d avail_pbn %d\n",
--			      res_stat->port_number,
--			      res_stat->available_pbn);
-+		drm_dbg_kms(mgr->dev, "Got RSN: pn: %d avail_pbn %d\n",
-+			    res_stat->port_number,
-+			    res_stat->available_pbn);
- 	}
- 
- 	up_req->hdr = mgr->up_req_recv.initial_hdr;
-@@ -4388,8 +4391,9 @@ int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
- 			 * which is an error
- 			 */
- 			if (WARN_ON(!prev_slots)) {
--				DRM_ERROR("cannot allocate and release VCPI on [MST PORT:%p] in the same state\n",
--					  port);
-+				drm_err(mgr->dev,
-+					"cannot allocate and release VCPI on [MST PORT:%p] in the same state\n",
-+					port);
- 				return -EINVAL;
- 			}
- 
-@@ -4406,12 +4410,12 @@ int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
- 
- 	req_slots = DIV_ROUND_UP(pbn, pbn_div);
- 
--	DRM_DEBUG_ATOMIC("[CONNECTOR:%d:%s] [MST PORT:%p] VCPI %d -> %d\n",
--			 port->connector->base.id, port->connector->name,
--			 port, prev_slots, req_slots);
--	DRM_DEBUG_ATOMIC("[CONNECTOR:%d:%s] [MST PORT:%p] PBN %d -> %d\n",
--			 port->connector->base.id, port->connector->name,
--			 port, prev_bw, pbn);
-+	drm_dbg_atomic(mgr->dev, "[CONNECTOR:%d:%s] [MST PORT:%p] VCPI %d -> %d\n",
-+		       port->connector->base.id, port->connector->name,
-+		       port, prev_slots, req_slots);
-+	drm_dbg_atomic(mgr->dev, "[CONNECTOR:%d:%s] [MST PORT:%p] PBN %d -> %d\n",
-+		       port->connector->base.id, port->connector->name,
-+		       port, prev_bw, pbn);
- 
- 	/* Add the new allocation to the state */
- 	if (!vcpi) {
-@@ -4475,12 +4479,12 @@ int drm_dp_atomic_release_vcpi_slots(struct drm_atomic_state *state,
- 		}
- 	}
- 	if (WARN_ON(!found)) {
--		DRM_ERROR("no VCPI for [MST PORT:%p] found in mst state %p\n",
--			  port, &topology_state->base);
-+		drm_err(mgr->dev, "no VCPI for [MST PORT:%p] found in mst state %p\n",
-+			port, &topology_state->base);
- 		return -EINVAL;
- 	}
- 
--	DRM_DEBUG_ATOMIC("[MST PORT:%p] VCPI %d -> 0\n", port, pos->vcpi);
-+	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] VCPI %d -> 0\n", port, pos->vcpi);
- 	if (pos->vcpi) {
- 		drm_dp_mst_put_port_malloc(port);
- 		pos->vcpi = 0;
-@@ -4511,8 +4515,9 @@ bool drm_dp_mst_allocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
- 		return false;
- 
- 	if (port->vcpi.vcpi > 0) {
--		DRM_DEBUG_KMS("payload: vcpi %d already allocated for pbn %d - requested pbn %d\n",
--			      port->vcpi.vcpi, port->vcpi.pbn, pbn);
-+		drm_dbg_kms(mgr->dev,
-+			    "payload: vcpi %d already allocated for pbn %d - requested pbn %d\n",
-+			    port->vcpi.vcpi, port->vcpi.pbn, pbn);
- 		if (pbn == port->vcpi.pbn) {
- 			drm_dp_mst_topology_put_port(port);
- 			return true;
-@@ -4521,13 +4526,12 @@ bool drm_dp_mst_allocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	ret = drm_dp_init_vcpi(mgr, &port->vcpi, pbn, slots);
- 	if (ret) {
--		DRM_DEBUG_KMS("failed to init vcpi slots=%d max=63 ret=%d\n",
--			      DIV_ROUND_UP(pbn, mgr->pbn_div), ret);
-+		drm_dbg_kms(mgr->dev, "failed to init vcpi slots=%d max=63 ret=%d\n",
-+			    DIV_ROUND_UP(pbn, mgr->pbn_div), ret);
- 		drm_dp_mst_topology_put_port(port);
- 		goto out;
- 	}
--	DRM_DEBUG_KMS("initing vcpi for pbn=%d slots=%d\n",
--		      pbn, port->vcpi.num_slots);
-+	drm_dbg_kms(mgr->dev, "initing vcpi for pbn=%d slots=%d\n", pbn, port->vcpi.num_slots);
- 
- 	/* Keep port allocated until its payload has been removed */
- 	drm_dp_mst_get_port_malloc(port);
-@@ -4609,14 +4613,14 @@ static int drm_dp_dpcd_write_payload(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	ret = drm_dp_dpcd_write(mgr->aux, DP_PAYLOAD_ALLOCATE_SET, payload_alloc, 3);
- 	if (ret != 3) {
--		DRM_DEBUG_KMS("failed to write payload allocation %d\n", ret);
-+		drm_dbg_kms(mgr->dev, "failed to write payload allocation %d\n", ret);
- 		goto fail;
- 	}
- 
- retry:
- 	ret = drm_dp_dpcd_readb(mgr->aux, DP_PAYLOAD_TABLE_UPDATE_STATUS, &status);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("failed to read payload table status %d\n", ret);
-+		drm_dbg_kms(mgr->dev, "failed to read payload table status %d\n", ret);
- 		goto fail;
- 	}
- 
-@@ -4626,7 +4630,8 @@ static int drm_dp_dpcd_write_payload(struct drm_dp_mst_topology_mgr *mgr,
- 			usleep_range(10000, 20000);
- 			goto retry;
- 		}
--		DRM_DEBUG_KMS("status not set after read payload table status %d\n", status);
-+		drm_dbg_kms(mgr->dev, "status not set after read payload table status %d\n",
-+			    status);
- 		ret = -EINVAL;
- 		goto fail;
- 	}
-@@ -4673,16 +4678,15 @@ int drm_dp_check_act_status(struct drm_dp_mst_topology_mgr *mgr)
- 				 status & DP_PAYLOAD_ACT_HANDLED || status < 0,
- 				 200, timeout_ms * USEC_PER_MSEC);
- 	if (ret < 0 && status >= 0) {
--		DRM_ERROR("Failed to get ACT after %dms, last status: %02x\n",
--			  timeout_ms, status);
-+		drm_err(mgr->dev, "Failed to get ACT after %dms, last status: %02x\n",
-+			timeout_ms, status);
- 		return -EINVAL;
- 	} else if (status < 0) {
- 		/*
- 		 * Failure here isn't unexpected - the hub may have
- 		 * just been unplugged
- 		 */
--		DRM_DEBUG_KMS("Failed to read payload table status: %d\n",
--			      status);
-+		drm_dbg_kms(mgr->dev, "Failed to read payload table status: %d\n", status);
- 		return status;
- 	}
- 
-@@ -5085,12 +5089,11 @@ drm_dp_mst_atomic_check_mstb_bw_limit(struct drm_dp_mst_branch *mstb,
- 		return 0;
- 
- 	if (mstb->port_parent)
--		DRM_DEBUG_ATOMIC("[MSTB:%p] [MST PORT:%p] Checking bandwidth limits on [MSTB:%p]\n",
--				 mstb->port_parent->parent, mstb->port_parent,
--				 mstb);
-+		drm_dbg_atomic(mstb->mgr->dev,
-+			       "[MSTB:%p] [MST PORT:%p] Checking bandwidth limits on [MSTB:%p]\n",
-+			       mstb->port_parent->parent, mstb->port_parent, mstb);
- 	else
--		DRM_DEBUG_ATOMIC("[MSTB:%p] Checking bandwidth limits\n",
--				 mstb);
-+		drm_dbg_atomic(mstb->mgr->dev, "[MSTB:%p] Checking bandwidth limits\n", mstb);
- 
- 	list_for_each_entry(port, &mstb->ports, next) {
- 		ret = drm_dp_mst_atomic_check_port_bw_limit(port, state);
-@@ -5148,14 +5151,14 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 	}
- 
- 	if (pbn_used > port->full_pbn) {
--		DRM_DEBUG_ATOMIC("[MSTB:%p] [MST PORT:%p] required PBN of %d exceeds port limit of %d\n",
--				 port->parent, port, pbn_used,
--				 port->full_pbn);
-+		drm_dbg_atomic(port->mgr->dev,
-+			       "[MSTB:%p] [MST PORT:%p] required PBN of %d exceeds port limit of %d\n",
-+			       port->parent, port, pbn_used, port->full_pbn);
- 		return -ENOSPC;
- 	}
- 
--	DRM_DEBUG_ATOMIC("[MSTB:%p] [MST PORT:%p] uses %d out of %d PBN\n",
--			 port->parent, port, pbn_used, port->full_pbn);
-+	drm_dbg_atomic(port->mgr->dev, "[MSTB:%p] [MST PORT:%p] uses %d out of %d PBN\n",
-+		       port->parent, port, pbn_used, port->full_pbn);
- 
- 	return pbn_used;
- }
-@@ -5170,31 +5173,31 @@ drm_dp_mst_atomic_check_vcpi_alloc_limit(struct drm_dp_mst_topology_mgr *mgr,
- 	list_for_each_entry(vcpi, &mst_state->vcpis, next) {
- 		/* Releasing VCPI is always OK-even if the port is gone */
- 		if (!vcpi->vcpi) {
--			DRM_DEBUG_ATOMIC("[MST PORT:%p] releases all VCPI slots\n",
--					 vcpi->port);
-+			drm_dbg_atomic(mgr->dev, "[MST PORT:%p] releases all VCPI slots\n",
-+				       vcpi->port);
- 			continue;
- 		}
- 
--		DRM_DEBUG_ATOMIC("[MST PORT:%p] requires %d vcpi slots\n",
--				 vcpi->port, vcpi->vcpi);
-+		drm_dbg_atomic(mgr->dev, "[MST PORT:%p] requires %d vcpi slots\n",
-+			       vcpi->port, vcpi->vcpi);
- 
- 		avail_slots -= vcpi->vcpi;
- 		if (avail_slots < 0) {
--			DRM_DEBUG_ATOMIC("[MST PORT:%p] not enough VCPI slots in mst state %p (avail=%d)\n",
--					 vcpi->port, mst_state,
--					 avail_slots + vcpi->vcpi);
-+			drm_dbg_atomic(mgr->dev,
-+				       "[MST PORT:%p] not enough VCPI slots in mst state %p (avail=%d)\n",
-+				       vcpi->port, mst_state, avail_slots + vcpi->vcpi);
- 			return -ENOSPC;
- 		}
- 
- 		if (++payload_count > mgr->max_payloads) {
--			DRM_DEBUG_ATOMIC("[MST MGR:%p] state %p has too many payloads (max=%d)\n",
--					 mgr, mst_state, mgr->max_payloads);
-+			drm_dbg_atomic(mgr->dev,
-+				       "[MST MGR:%p] state %p has too many payloads (max=%d)\n",
-+				       mgr, mst_state, mgr->max_payloads);
- 			return -EINVAL;
- 		}
- 	}
--	DRM_DEBUG_ATOMIC("[MST MGR:%p] mst state %p VCPI avail=%d used=%d\n",
--			 mgr, mst_state, avail_slots,
--			 63 - avail_slots);
-+	drm_dbg_atomic(mgr->dev, "[MST MGR:%p] mst state %p VCPI avail=%d used=%d\n",
-+		       mgr, mst_state, avail_slots, 63 - avail_slots);
- 
- 	return 0;
- }
-@@ -5251,8 +5254,8 @@ int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm
- 		if (IS_ERR(crtc_state))
- 			return PTR_ERR(crtc_state);
- 
--		DRM_DEBUG_ATOMIC("[MST MGR:%p] Setting mode_changed flag on CRTC %p\n",
--				 mgr, crtc);
-+		drm_dbg_atomic(mgr->dev, "[MST MGR:%p] Setting mode_changed flag on CRTC %p\n",
-+			       mgr, crtc);
- 
- 		crtc_state->mode_changed = true;
- 	}
-@@ -5297,21 +5300,24 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
- 	}
- 
- 	if (!found) {
--		DRM_DEBUG_ATOMIC("[MST PORT:%p] Couldn't find VCPI allocation in mst state %p\n",
--				 port, mst_state);
-+		drm_dbg_atomic(state->dev,
-+			       "[MST PORT:%p] Couldn't find VCPI allocation in mst state %p\n",
-+			       port, mst_state);
- 		return -EINVAL;
- 	}
- 
- 	if (pos->dsc_enabled == enable) {
--		DRM_DEBUG_ATOMIC("[MST PORT:%p] DSC flag is already set to %d, returning %d VCPI slots\n",
--				 port, enable, pos->vcpi);
-+		drm_dbg_atomic(state->dev,
-+			       "[MST PORT:%p] DSC flag is already set to %d, returning %d VCPI slots\n",
-+			       port, enable, pos->vcpi);
- 		vcpi = pos->vcpi;
- 	}
- 
- 	if (enable) {
- 		vcpi = drm_dp_atomic_find_vcpi_slots(state, port->mgr, port, pbn, pbn_div);
--		DRM_DEBUG_ATOMIC("[MST PORT:%p] Enabling DSC flag, reallocating %d VCPI slots on the port\n",
--				 port, vcpi);
-+		drm_dbg_atomic(state->dev,
-+			       "[MST PORT:%p] Enabling DSC flag, reallocating %d VCPI slots on the port\n",
-+			       port, vcpi);
- 		if (vcpi < 0)
- 			return -EINVAL;
- 	}
-@@ -5658,7 +5664,7 @@ static int drm_dp_mst_i2c_xfer(struct i2c_adapter *adapter,
- 	} else if (remote_i2c_write_ok(msgs, num)) {
- 		ret = drm_dp_mst_i2c_write(mstb, port, msgs, num);
- 	} else {
--		DRM_DEBUG_KMS("Unsupported I2C transaction for MST device\n");
-+		drm_dbg_kms(mgr->dev, "Unsupported I2C transaction for MST device\n");
- 		ret = -EIO;
- 	}
- 
++	struct amdgpu_device *adev = smu->adev;
+ 	int ret = 0;
+ 	uint32_t feature_mask[2];
+ 	uint64_t feature_enabled;
+ 
++	/* we need to re-init after suspend so return false */
++	if (adev->in_suspend)
++		return false;
++
+ 	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
+ 
+ 	if (ret)
 -- 
 2.30.2
 
