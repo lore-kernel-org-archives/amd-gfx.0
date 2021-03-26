@@ -2,65 +2,64 @@ Return-Path: <SRS0=Uu1B=IY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 035DCC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9108CC433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B68CA61A24
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:12:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B68CA61A24
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 74FB361945
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 20:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74FB361945
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5872B6E2B6;
-	Fri, 26 Mar 2021 20:12:56 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF1D6F484;
- Fri, 26 Mar 2021 20:12:55 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- 125-20020a4a1a830000b02901b6a144a417so1564493oof.13; 
- Fri, 26 Mar 2021 13:12:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sfvOzhMJ4JuuqkveDL13k3GrFGonS/KFxaEnz/Ocjxo=;
- b=hNjquuds1T0vvBWeFAVXX2r2B5S3fDS7t/uByhsWEaV7DH/26KJ8TdZv3CWLZJ64ah
- 8tTS0GQXnvpHrOAA4Y8Yoy/miF7C4g7TZahIYUao3W/6i/4T+dgTOq98a0t4VnpgzEwA
- BVjAB96Dhi+b44Leeoxr+6ngpkJ6tCH1eMn9CR3KxwluJonxo7HMoEThPWVWhNse1MyW
- QtiMPFVYLVb+eLPO09fOA11wGirC0gm7rdMMTSe49206tswrkqqwY3hma6jHWmpOwBA/
- UQf9BmqILZJ6asd66Rth1wfKBeJqISvXhdb0fihUTxchglQMuc3PUwc+6Eda3NBkC7QH
- TwKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sfvOzhMJ4JuuqkveDL13k3GrFGonS/KFxaEnz/Ocjxo=;
- b=TAMrInkBBo1QlzauKVt+GUHJ4o88UX6ZhTVmDp46nLWLIu3vwoayn3+31S5W8AB6LD
- usnuuO9yWcsIWgKnrDyHAGpsusfGUUlj9BPcuzO0400vdHdlaRIf3ElRSmOYCXXOg7U/
- 7ORYgyd6uJGZC39Ehj4uyKVK6IjVSNITckJJtQPB3qiJnybLDhrR1Ha0oGX3NjAESA9z
- h9bRsylJ1cC31tnKJ2XUwYjT1YmjY/W3HDFS0hRNbyYOhmDTp8CQFPH1wmUQxenTkJTn
- aZEcWyccFN871NccSpi3faWRANEryNW2CtCx6rKuamr6WwF3Lc9tnfticTpVkgl/ZF3T
- B0QA==
-X-Gm-Message-State: AOAM5330v/xkntYuJtlhAtnHcS06OYOLSoOXqF3pNf9FC0C59i8IkibI
- 9o9ndLeqZQaHnekvpVr8yezlrAv4vpCKF+XVhgdx03Su
-X-Google-Smtp-Source: ABdhPJydurmrqdLJbvEL0gLAxwzS9yGgy84jbtc8g1CEIHuYYcqAjT/Y/X8rYgp2WZcnYVB0amfNm40OEDsrDf1rAS4=
-X-Received: by 2002:a4a:7615:: with SMTP id t21mr12449102ooc.72.1616789574828; 
- Fri, 26 Mar 2021 13:12:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F258B6F485;
+	Fri, 26 Mar 2021 20:38:25 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A7D6F485
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 20:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1616791104;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xb68m6KYGsgV6NvCjxxiHT+qQgrhy2yzkYL+vgeSMLM=;
+ b=K8RwoznmjuBXOpVxj/UPHAnHH4oLalSvlR3isoBgkHRVWoXnXBYWBgq/kkNgM76a9eUwrO
+ bBoD7PlNhm1fv2Vwx9fSLHhcVzkANKojpWP+fr3oKBiysOuPd5Msg7oYXLW1eItJq/afFX
+ Rcm7HjrOMFM3eikPvuW0fIucCQndN+A=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-278-T2YmfEyaOdSX-aCh9p485A-1; Fri, 26 Mar 2021 16:38:20 -0400
+X-MC-Unique: T2YmfEyaOdSX-aCh9p485A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2230A501EF;
+ Fri, 26 Mar 2021 20:38:19 +0000 (UTC)
+Received: from Whitewolf.lyude.net (ovpn-114-133.rdu2.redhat.com
+ [10.10.114.133])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 728165DDAD;
+ Fri, 26 Mar 2021 20:38:18 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: [PATCH v2 00/20] drm: Use new DRM printk funcs (like drm_dbg_*()) in
+ DP helpers
+Date: Fri, 26 Mar 2021 16:37:47 -0400
+Message-Id: <20210326203807.105754-1-lyude@redhat.com>
 MIME-Version: 1.0
-References: <20210326200719.1256182-1-alexander.deucher@amd.com>
-In-Reply-To: <20210326200719.1256182-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 26 Mar 2021 16:12:43 -0400
-Message-ID: <CADnq5_Odp08yJVvHGvwYG4+9p72SUKpWMtyLpq2=eeEn=ZAp6Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: fix merge breakage
-To: Alex Deucher <alexander.deucher@amd.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,51 +71,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Nevermind, I think I screwed this up locally.
+Since it's been asked quite a few times on some of the various DP
+related patch series I've submitted to use the new DRM printk helpers,
+and it technically wasn't really trivial to do this before due to the
+lack of a consistent way to find a drm_device for an AUX channel, this
+patch series aims to address this. In this series we:
 
-Alex
+* Clean-up potentially erroneous usages of drm_dp_aux_init() and
+  drm_dp_aux_register() so that actual AUX registration doesn't happen
+  until we have an associated DRM device
+* Clean-up any obvious errors in drivers we find along the way
+* Add a backpointer to the respective drm_device for an AUX channel in
+  drm_dp_aux.drm_dev, and hook it up in every driver with an AUX channel
+  across the tree
+* Add a new ratelimited print helper we'll need for converting the DP
+  helpers over to using the new DRM printk helpers
+* Fix any inconsistencies with logging in drm_dp_helper.c so we always
+  have the aux channel name printed
+* Prepare the various DP helpers so they can find the correct drm_device
+  to use for logging
+* And finally, convert all of the DP helpers over to using drm_dbg_*()
+  and drm_err().
 
-On Fri, Mar 26, 2021 at 4:07 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Looks like this got accidently dropped.
->
-> Fixes: 2cbcb78c9ee5 ("Merge tag 'amd-drm-next-5.13-2021-03-23' of https://gitlab.freedesktop.org/agd5f/linux into drm-next")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: daniel.vetter@ffwll.ch
-> ---
->  drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> index c44bb68fe2e6..1a5be2792055 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
-> @@ -187,6 +187,10 @@ static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
->         .ack = NULL
->  };
->
-> +static const struct irq_source_info_funcs dmub_trace_irq_info_funcs = {
-> +       .set = NULL,
-> +       .ack = NULL
-> +};
->
->  static const struct irq_source_info_funcs vline0_irq_info_funcs = {
->         .set = NULL,
-> --
-> 2.30.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Series-wide changes in v2:
+* Address most checkpatch issues ('most' as in all except for one line
+  going two chars over 100 in "drm/dp_mst: Pass drm_dp_mst_topology_mgr
+  to drm_dp_get_vc_payload_bw()" as this was the style in use
+  previously, and 2 chars over the limit looks nicer then trying to
+  line-wrap this
+* Don't rewrap comments
+
+Lyude Paul (20):
+  drm/dp: Fixup kernel docs for struct drm_dp_aux
+  drm/tegra: Don't register DP AUX channels before connectors
+  drm/bridge/cdns-mhdp8546: Register DP aux channel with userspace
+  drm/nouveau/kms/nv50-: Move AUX adapter reg to connector late
+    register/early unregister
+  drm/dp: Add backpointer to drm_device in drm_dp_aux
+  drm/dp: Clarify DP AUX registration time
+  drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
+  drm/dp: Pass drm_dp_aux to drm_dp_link_train_clock_recovery_delay()
+  drm/dp: Pass drm_dp_aux to drm_dp*_link_train_channel_eq_delay()
+  drm/dp: Always print aux channel name in logs
+  drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_detect()
+  drm/dp_dual_mode: Pass drm_device to
+    drm_dp_dual_mode_set_tmds_output()
+  drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_max_tmds_clock()
+  drm/dp_dual_mode: Pass drm_device to
+    drm_dp_dual_mode_get_tmds_output()
+  drm/dp_dual_mode: Pass drm_device to drm_lspcon_(get|set)_mode()
+  drm/dp_mst: Pass drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
+  drm/dp: Convert drm_dp_helper.c to using drm_err/drm_dbg_*()
+  drm/dp_dual_mode: Convert drm_dp_dual_mode_helper.c to using
+    drm_err/drm_dbg_kms()
+  drm/dp_mst: Drop DRM_ERROR() on kzalloc() fail in
+    drm_dp_mst_handle_up_req()
+  drm/dp_mst: Convert drm_dp_mst_topology.c to drm_err()/drm_dbg*()
+
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c      |   5 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   1 +
+ .../drm/bridge/analogix/analogix-anx6345.c    |   1 +
+ .../drm/bridge/analogix/analogix-anx78xx.c    |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  12 +-
+ drivers/gpu/drm/bridge/tc358767.c             |   1 +
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c         |   1 +
+ drivers/gpu/drm/drm_dp_aux_dev.c              |   6 +
+ drivers/gpu/drm/drm_dp_dual_mode_helper.c     |  68 ++--
+ drivers/gpu/drm/drm_dp_helper.c               | 181 +++++----
+ drivers/gpu/drm/drm_dp_mst_topology.c         | 381 +++++++++---------
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   |   1 +
+ .../drm/i915/display/intel_dp_link_training.c |   6 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
+ drivers/gpu/drm/i915/display/intel_lspcon.c   |  17 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |   6 +-
+ drivers/gpu/drm/msm/edp/edp.h                 |   3 +-
+ drivers/gpu/drm/msm/edp/edp_aux.c             |   5 +-
+ drivers/gpu/drm/msm/edp/edp_ctrl.c            |   8 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c   |  27 +-
+ drivers/gpu/drm/radeon/atombios_dp.c          |   5 +-
+ drivers/gpu/drm/tegra/dpaux.c                 |  12 +-
+ drivers/gpu/drm/xlnx/zynqmp_dp.c              |   5 +-
+ include/drm/drm_dp_dual_mode_helper.h         |  14 +-
+ include/drm/drm_dp_helper.h                   |  61 +--
+ include/drm/drm_dp_mst_helper.h               |   3 +-
+ include/drm/drm_print.h                       |  20 +-
+ 29 files changed, 478 insertions(+), 384 deletions(-)
+
+-- 
+2.30.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
