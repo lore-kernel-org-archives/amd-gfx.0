@@ -7,53 +7,56 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FB2FC433DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 06:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE94CC433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 06:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F1CF619A3
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 06:03:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F1CF619A3
+	by mail.kernel.org (Postfix) with ESMTPS id 6E43F61A18
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 06:51:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E43F61A18
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45EF86E195;
-	Fri, 26 Mar 2021 06:03:42 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8BBE6E195
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 06:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14206EEB3;
+	Fri, 26 Mar 2021 06:51:26 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C96F6EEB3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 06:51:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DxjHrIv3CwCAgOn1E9abPNJjOR8iveHR/BAMQHIkQ+JUrH85ruzselX5VQJRF6MPgA3DOGYvUBuGATMib3KrF3ZV8leXZdfvTD3gHt9/0sF0AgAxfknQZY6fte90acIC2WT0NJgWK79GIa1gg7LQXLoPA51Pn2zaC7s7OsMT/04PkdmYr41JayRi9KddSarNlGQUbiy6scTYur0eCLf7sIaZB9DqQKSpN7i8ni189HW0ywbwbtcSEOjLamfAt3fbwkTHY2duZEMdzKlnZFQwgmDszFt7SwKaYtgxedJx5/SJZO0mKXzwJnZhQ/Hpc+q2ufuhX1ulOzUTPsdnCr6IQw==
+ b=NvwGA2Y8L+lIOFMfsj+S/eEBEqhaTFKFuVcOOLzkgGK4rn2WQjJyZncUR1phwe1npUQVuCNRsOrqFSI8BnEXcLtH1LzrOaBpIwrTfWF6sADb7Nk+HEPGlRdwYeAfniDXkm5SeAVihxSnzH8tbVTbA7BnB/gzGbknhQ+FpTXP+LSi6RuI6Mu97rYIAFbTM2IT0u+2ZhDHa4XZzjwXa704w/qRiTjevTJI5uEJeICwLSCgoayKWAEAbOGW7sLF6M1MHYVBFVm6XuKD/Bvc2SMZNS6ZhETNGzxcNhF8blgVLMgDTKOPCfbc19J9h7IBcYUzD+gmbXreGak3R7EnEBHUlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SGQ/fiDIToSqdiBXVY1VgwH6rKpHAck0A9ag72+xJZU=;
- b=PEh2nTGKBErQXr8BWGk4vpqIfpZidwi+2MoyOED7GwP/yXZFMGrGvC74TgbJDuHI4I6aUKLIucG9ebNJGDJiM4BAkziiSi/UVEMEDO/KrvIySwC4vsnHOYQ3jcO+H8zv8L2IBqq4dkl+FrIPlDz6n9YUXqKOwB/LM07TNE75WrKOg22aGSXOv6d3Rpp6QXZ5bQniztfw2mKXWFisXbyy0mh2KE7rU1qEefyKUvNWRZqtFIyKt4I2xyac2eosms0aimKeC2E+puzmZ2LKWA8WsxWO9LVS+5j3kqHO81mQ8dxEAsSbH5qHVBsGGMUWFJkSldXn3P0ZoxC8nCNTCW7A5Q==
+ bh=jXHBm0DxwvA7bhAXyTYhV4GhBQGPUmRKRA0ZUZsUALs=;
+ b=NTrhnjZTeSELINF4i7Lr04oVoaDz4JDG3QkwEAIi5NhbX+CDKYfENVb3Udj5MxsIyGovdWcMRbf0sWuMJwJAzcZ2A1zlFkVKj9T7uyb24HCWT0Iczf9WyGP5a14joGN4NrDYP0BJnaEpKIITiaeVtmx2Hs5c4ZEghWWYAp0zXjMB4wHym88hn6Y27+onbThTb/hXNWBeJ098qLTr48zUOaDytrtDdKDcdg1kDzijGyyrgcR4ujljuGZzVt0ubOrwWFWS6UiG0Xi1CLRo3lNc1HnSAy/rLVuHvyxRLtAxOfo0UYCslkuimLJXVLbyBQRLv4P/8fRmDbGPmw2WDyxtug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SGQ/fiDIToSqdiBXVY1VgwH6rKpHAck0A9ag72+xJZU=;
- b=bX6ngrAqm4walU2b6N4raIDMvM5jJfOo8kzt6d/9b5Db5tRmnHtdWQwYpee3peGQ2uKkr84BarXfPr9KS0L1HHeNreLHxieeNGDs2PgmaHI6wLGAgDVOpGBY5lbY8yi+KRvR020oAdmElMANGHpe7EMKvUSAOmd9RtQziyhHuC4=
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
- by BL0PR12MB2546.namprd12.prod.outlook.com (2603:10b6:207:3f::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Fri, 26 Mar
- 2021 06:03:38 +0000
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::58d5:c2:7a3c:4408]) by MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::58d5:c2:7a3c:4408%5]) with mapi id 15.20.3977.030; Fri, 26 Mar 2021
- 06:03:38 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Fix DPM level count on aldebaran
+ bh=jXHBm0DxwvA7bhAXyTYhV4GhBQGPUmRKRA0ZUZsUALs=;
+ b=w1eb76gXUc0sH/3/UEiD59suVitQhsb1bLiywWUkLBKFtHHqZySXGfCPlVIzA/ECAmRUIzlW9qTLKgFU1AbHwthjDyLtl6E1BXi7tVlNkLzseq38fxovMQb8HX7HrJH9VnQsB5tuxEc3cimF+A9m9lxhQiBkH7ViYRqdHKw524c=
+Received: from DM6PR12MB4603.namprd12.prod.outlook.com (2603:10b6:5:166::11)
+ by DM6PR12MB4297.namprd12.prod.outlook.com (2603:10b6:5:211::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.26; Fri, 26 Mar
+ 2021 06:51:21 +0000
+Received: from DM6PR12MB4603.namprd12.prod.outlook.com
+ ([fe80::69b7:e163:347a:ba70]) by DM6PR12MB4603.namprd12.prod.outlook.com
+ ([fe80::69b7:e163:347a:ba70%6]) with mapi id 15.20.3977.029; Fri, 26 Mar 2021
+ 06:51:20 +0000
+From: "Xu, Feifei" <Feifei.Xu@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: Fix DPM level count on aldebaran
 Thread-Topic: [PATCH] drm/amd/pm: Fix DPM level count on aldebaran
-Thread-Index: AdciBab3KsDuQMVmSd2h29lLgLBNeA==
-Date: Fri, 26 Mar 2021 06:03:38 +0000
-Message-ID: <MN2PR12MB45496022CDFAACE2E5E2FF8197619@MN2PR12MB4549.namprd12.prod.outlook.com>
+Thread-Index: AdciBab3KsDuQMVmSd2h29lLgLBNeAABsDtw
+Date: Fri, 26 Mar 2021 06:51:20 +0000
+Message-ID: <DM6PR12MB4603CD531249422165C70F34FE619@DM6PR12MB4603.namprd12.prod.outlook.com>
+References: <MN2PR12MB45496022CDFAACE2E5E2FF8197619@MN2PR12MB4549.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB45496022CDFAACE2E5E2FF8197619@MN2PR12MB4549.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -65,58 +68,57 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=13a01e9a-70db-4443-b6c4-dc01273b3ff2;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [49.207.206.193]
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ed96f026-ff8c-4dc2-eca6-08d8f01ce639
-x-ms-traffictypediagnostic: BL0PR12MB2546:
+x-ms-office365-filtering-correlation-id: e8dca0f7-2adc-47f9-0742-08d8f0239065
+x-ms-traffictypediagnostic: DM6PR12MB4297:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB25460613FC9E9B9974C03BDF97619@BL0PR12MB2546.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2512;
+x-microsoft-antispam-prvs: <DM6PR12MB429781471F721C8EEA934DCAFE619@DM6PR12MB4297.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2803;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qUrgKbw2zwRtuSg+PZTDcDeNFdqCFTxAzNs3aqNC/NYXgAJobWdmY9TGT3djBn3qJHOjUjNXejnxzaw3xXuhsX7uNzzNhua4fMIkVlNY8I/xvP0bmhS57H6nTak7jSjZ/c2VuZJZd3/OZPbveLOBAkxynPq4MescZNCo1DNCs0yflk4QeUr2SV0QCJ3LSESJng+JbSzsJHaNhqu7JDRilZTPZM5ats+hIX3+RTKWXRnBzcJyPmiFqCeVR9xH1SgOJ/fxGX2LnyNEOk0iRLy8ZMlPMqTp7SqyLSbsSBS/jlUxqMdiFrtIF8AeOHDhDmnrTzcY4s3UYtv1yIDv80qAEyOMTdT4s77GPfcCdNxqSfnU6LmULBy7CkDtFLARYfsJvgaXQ6gwq1G/Z9EIdZcBi8omHobBF2O2HyWEWFEWbvOyi+1cQI51gYEsIwyCVvs5e5qYQEpWBjSjW8pfUV3UBxEtYwHJCA+HKwUL41qU/G8r3J4eJAnNvznjdU0ByYrpRKuKhsddjAgnhBISBQmh2r+QgSXvgYYGbheAcEQ9ri1gsZ2ahBHk5yzwssM7jDGMWN2i4R5QpW4WITZfGCK0RQ88RYB9ArpJeEqmgADWjGZXPZofUw00Dw8X3qRK0+Z2npEpjC1r6YJ0VX1xqt7CrkqiT5grz+UfqVpZqZz8M0c=
+x-microsoft-antispam-message-info: CtOhXog8y4U74Ai3jhBWM8oUfUHBtPeY4KEj0Wap86tLXxiUn+O27OaNOiP25qfi3R3/V9jhReypjUDaup9xgt2IgIYWkAtmUY5pot7aNgS4cvkM4ig+abfnVosVLBlWzib9kKO8FdFy1phiP0EVA3EKMZVcI8o1ZjplPohu/fpmIhZjPd+vg0bHq4NHFU6KSgM8gtCHJY/G3blS72IJWBGh2Hfgh75cFn6r7XQ/OkOCwwNW1rxImcUKI7N7O28BcPCe9vkkOGLJzp169p9n7x7gho/wvq3OIUxCSAf6ICKx9wlQI6qEE9W9BHzLt94WLtN+rvmG2HnMyFvLBySsa3QbjHCnDedTWnXgkfOBO2eNnJ8JoN+ryhAfB51eXeVpNvOXMXDxdai/H0oOaHE6U+MxIE/7LWcYUFKeKOtuiPQKV0pUTM5b+ojwR1rE2gml24D4vrUAsOKfyoV9iVrIIu7CCDWZ8AKys1ql5PJ9i/vqUntb18c8EfWoHQp2uXeuU5ED2TR5FnCCMrkWxOZMijR/YWAx/d/jrq4yODzRIfjHGLZhk7cZQbbb0KhtzIbjaPGzsTlM+9L3upfjs3vI2EB10bYDBGD6TxlZfD7L5sSLMmBk+OLYAawbbT/dm2vGEhsJGsAeQ9uLO9FJ1nMJfs3amk4WigzKMLiTLkuU4PE=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(136003)(376002)(346002)(66446008)(64756008)(26005)(8936002)(83380400001)(66476007)(76116006)(54906003)(66946007)(6916009)(4326008)(478600001)(66556008)(7696005)(9686003)(33656002)(52536014)(86362001)(5660300002)(316002)(186003)(38100700001)(55016002)(71200400001)(55236004)(8676002)(2906002)(6506007);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4603.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(76116006)(64756008)(66446008)(66556008)(66476007)(66946007)(5660300002)(8936002)(52536014)(8676002)(2906002)(26005)(9686003)(86362001)(4326008)(186003)(71200400001)(55016002)(33656002)(6506007)(53546011)(83380400001)(478600001)(54906003)(110136005)(316002)(7696005)(38100700001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?SyHguvGut79Kt2LFBEtVhQoG7X5FutQ3S2AEkynZAE2ysQQkbkPNSccKRs88?=
- =?us-ascii?Q?wmHBtgj6WSjCvvXLm62Hml2as5AKR+aLBXiNHoy2TgiBC+56rYg/GNe1hwKi?=
- =?us-ascii?Q?ldwVXnMyINWeMvvUVtcKqCy85PIa9Rz9HRCvB71tuuxEGMy//zwmecsb1n5m?=
- =?us-ascii?Q?9VQLHgRVLuaDEdMCRfxHrGoP0YeAN8cf4R/ZvxRFPZ8gPcjx+NguPl7O+UsY?=
- =?us-ascii?Q?dEEfDQYk1fQ0Djd1TxTLs14ALgvAddtyZTnzNbw2KgwuJPQIOyXPf9KqjHYS?=
- =?us-ascii?Q?A1lseuscFk4vy1XLXexrexI/UuIZAOODBxonQEbYzOVY/lLySDI3SJ99Ctj/?=
- =?us-ascii?Q?ae7rMl+6ulU7yDzf1wY+LgD75pGlp85jMxGKlU/sYnKP1C0gvSrWZj+5jz1u?=
- =?us-ascii?Q?JkdLIMqjZAZUFGX0RUyaBQuoZ98uxkLVsIcvP8YFzKIFvWDHdjG6g6aTjnss?=
- =?us-ascii?Q?hjQuSLKpzaPUPztPtrAnFLA4cpeAwTWBfDufu9lGuK1YuDXEClwTUUSXjy4L?=
- =?us-ascii?Q?q39/s0D6EByZIYKvQxGrY1geAD3XVGALG7I6KqCl4eQJs0UuZt1hXr6M9S6X?=
- =?us-ascii?Q?5tojwJZBpKuVDytV3X7u5kNoWgv2Go5LbXoKDg4nkSik6kRKEe7pLkGSuegB?=
- =?us-ascii?Q?m2ttcGNDFmBgb7DE5Hi7yirp9f5+QuVP74LzI47vmsnSbZ+FWvxPDkH+VtZ9?=
- =?us-ascii?Q?UC7ri8SYZnSMjlLxqg9pe6uIKmy/5p05BY3eqcmLVIRaR0lbakv5IaCrSNsc?=
- =?us-ascii?Q?se3H56H6tFk4Ld2B8cOVv4+l45ytiad8uelNefae43HWpHpNwvmP5VTu9oot?=
- =?us-ascii?Q?TwvEHqTasnscxOD4ArnjaNvp5PE1DhohVzYNBXMtB34bU6zzzMaPl2OV0mAf?=
- =?us-ascii?Q?L+AY10k757jMZhuYIFJjTGi8BJUmYQWt+7wj+HiVcPmgRxm6LY98jAimK6Uw?=
- =?us-ascii?Q?b5xM+drHwp1blOq2t7wA+2cijg+WPFnbDPlzud96LBefzwQuHSAVZJaA6tKJ?=
- =?us-ascii?Q?Oz0UUYK/dEIJRlpDTlXFMgRpbxOAmkuajfGYI6nmSFBEThIf/Cd4D8nEk5jb?=
- =?us-ascii?Q?2IZ1emmUpdP6D2GbAZjxyPu/4MWAn4007duwZva5vx77lbajY/Z7bYGvxc1j?=
- =?us-ascii?Q?i9/WOMbpebl3imq3F19jQSmQ4x0BBhFBDtNnVvvc7+Umcsk3E+8X5VUPj8a4?=
- =?us-ascii?Q?crHoDOEjJCYVI3Q1nJsdKlRSDuNpcbGUF8yzvKmpPhh/bHMO0PiQ499aXJuY?=
- =?us-ascii?Q?eKXBAQZXCY/E42vAiogbl0/f6V8uZb9TMhLEGCq1gf69G69HLk0QiDKz0NLm?=
- =?us-ascii?Q?AauNSvx1/IJcIXtCxinNl/Fn?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?8veZug0sjgfJ4Piil6esuT+lTFYBWcyAZSYYIzZZ9LsE9FyH02a7fq+fxuTP?=
+ =?us-ascii?Q?gP1tGyw8tqhxu1Z79J4rykgOO+keuekJjbKx/P0/JrwEU6Lo9tBNw3va4t6e?=
+ =?us-ascii?Q?nD9ggUW3cmXf91P7bPmGXcLSbu1IoStgoeYTLTgE62LXo7a/P9eoJ8VL50df?=
+ =?us-ascii?Q?6XPNn/o9IFBWiRZoeQ4A08JP1Y1Ff1Rkp5BFAkxgXp8tQgph0nUVRqPiAEkY?=
+ =?us-ascii?Q?irPsGOsshFpTWhvuf9GmHx/bxD50EPOYy9h3I36BeOIIkdEnTNLbsfwi7Zhx?=
+ =?us-ascii?Q?WAioR2MKCERaSzJWuD6HegWKI2KULXFo6n8xd2KfDb9p4wga/Dx8ZPXnN2rF?=
+ =?us-ascii?Q?XPZ24lC59u66LU1/2QmOmBFvqlqxwj1icPDSzfYjYJx8Hmzr7IwOyJfI1qIx?=
+ =?us-ascii?Q?ImMMbwhZbZYWlYMRPZhjqmhXaKSanUSdTCruMKPWtkCy/Pxx0J5CH+OceCC0?=
+ =?us-ascii?Q?ge3PHxBoM91UBFYfidEnguYGaTyYmglj+Yex3T8Q/PiE2pA12hGajzOSCHbP?=
+ =?us-ascii?Q?g4e3M0WiBozySiMPDZ80fc5e8vLNujz9XeModAs7hpn8G74ZzBsHlh72u79n?=
+ =?us-ascii?Q?cnMXiOgRa+JyQd47klhyyXg/vn6gzZbOnLR+do63gAptz4P5SgtclFGHo87k?=
+ =?us-ascii?Q?Gq3F27sBjTFRfhX2VNypiz9RBwm4krO2KzlM19PTyuP1EDQQnA+Serw+wGgI?=
+ =?us-ascii?Q?kUTkdGx1socc5qFR0kE7lO5y95L3J+/BkIq9PqKYIRzXaQiXUPz3jUKe7Bca?=
+ =?us-ascii?Q?/Zp45m90fQPcNW2Vk0S/pL1f0iDT7OWE7QJ7HdGODvPeT2dkpE/B//XwB8Q6?=
+ =?us-ascii?Q?BMvXzJPRgpqa67JzAIBa2kUMjDE3ysDq4Rc9XYvDY7W6LG2ZfeJy1exfOEC1?=
+ =?us-ascii?Q?6JqG5lbdIs+DyUbaZizKVbsyafGYCCGvFAupzZlORzvbZ9GeB27osqGgYBxN?=
+ =?us-ascii?Q?ecKxUgkHWLPKyjugZqrnTBhpIvUOpob8NQ39hkgmZ0dbzMsK/42iD3xQBU6i?=
+ =?us-ascii?Q?lnVjJVzklQtKBTC2mlE35DwNIhQ9Nl+rKT8c3vzlZlE4cSX8pOko0+1ezbXL?=
+ =?us-ascii?Q?YjQhy9nTbdBjyL/9Xqn90RAKM7ieWNiNAQIgEaxMb41JWHZlMXf3y83bYIIF?=
+ =?us-ascii?Q?ixo2QUNd7BPOcDmpSF3w1ZY7KrRaTOCLMrMBILFBniKby+YA5n2VxljT/Nhn?=
+ =?us-ascii?Q?chNKLF7AhSvqvIeiLDTDNYBNXIPLTb8l7K8FO92sLKnt3HlPmuI3C0wB5ogV?=
+ =?us-ascii?Q?LJ84KY05z7XFNkGMZw+Z6gjoiNafr5UJaZ9z8JbosgdafGlCtN0e0mJbeQBk?=
+ =?us-ascii?Q?bAgeWpinvzTkymdOD+h+h5iz?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed96f026-ff8c-4dc2-eca6-08d8f01ce639
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2021 06:03:38.2842 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4603.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8dca0f7-2adc-47f9-0742-08d8f0239065
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2021 06:51:20.8377 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Phtg01jQtji4URw575tx9ONsSXOI8e6dPd3augrJrEV4geWnMDXvMcK9QOQsyob0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2546
+X-MS-Exchange-CrossTenant-userprincipalname: LU1HHhZCmzNYD93euOm+iZS5GJP1vL+ZNDnKZpY3XY2BnHkfaX277cJfWmgOVWlt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4297
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,21 +130,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============1183479182=="
+Cc: "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng,
+ Kenneth" <Kenneth.Feng@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0716396924=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1183479182==
+--===============0716396924==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB45496022CDFAACE2E5E2FF8197619MN2PR12MB4549namp_"
+	boundary="_000_DM6PR12MB4603CD531249422165C70F34FE619DM6PR12MB4603namp_"
 
---_000_MN2PR12MB45496022CDFAACE2E5E2FF8197619MN2PR12MB4549namp_
+--_000_DM6PR12MB4603CD531249422165C70F34FE619DM6PR12MB4603namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+
+
+Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, March 26, 2021 2:04 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>;=
+ Feng, Kenneth <Kenneth.Feng@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.c=
+om>
+Subject: [PATCH] drm/amd/pm: Fix DPM level count on aldebaran
+
 
 [AMD Public Use]
 
@@ -184,12 +198,13 @@ value);
 +
 +             return ret;
 }
+
  int smu_v13_0_set_single_dpm_table(struct smu_context *smu,
 --
 2.17.1
 
 
---_000_MN2PR12MB45496022CDFAACE2E5E2FF8197619MN2PR12MB4549namp_
+--_000_DM6PR12MB4603CD531249422165C70F34FE619DM6PR12MB4603namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -207,8 +222,14 @@ xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
@@ -218,13 +239,21 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
 	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
+	font-size:10.0pt;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
@@ -239,11 +268,33 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
 break-word">
-<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
-le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
-pan></p>
-<br>
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Reviewed-by: Feifei Xu &lt;Feifei.Xu@amd.com&gt;<o:p=
+></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Friday, March 26, 2021 2:04 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Fei=
+fei.Xu@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Wang, Kevin=
+(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/pm: Fix DPM level count on aldebaran<o:p></=
+o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Firmware returns zero-based max level, increment by =
 one to get<o:p></o:p></p>
 <p class=3D"MsoNormal">total levels. This fixes the issue of not showing al=
@@ -328,7 +379,7 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 <p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp; return ret;<o:p></o:p></p>
 <p class=3D"MsoNormal">}<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">&nbsp;int smu_v13_0_set_single_dpm_table(struct smu_=
 context *smu,<o:p></o:p></p>
 <p class=3D"MsoNormal">-- <o:p></o:p></p>
@@ -338,9 +389,9 @@ context *smu,<o:p></o:p></p>
 </body>
 </html>
 
---_000_MN2PR12MB45496022CDFAACE2E5E2FF8197619MN2PR12MB4549namp_--
+--_000_DM6PR12MB4603CD531249422165C70F34FE619DM6PR12MB4603namp_--
 
---===============1183479182==
+--===============0716396924==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -351,4 +402,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1183479182==--
+--===============0716396924==--
