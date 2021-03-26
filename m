@@ -2,128 +2,126 @@ Return-Path: <SRS0=Uu1B=IY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,PDS_BAD_THREAD_QP_64,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB9A0C433C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 18:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75BA5C433DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 19:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D61C619F2
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 18:12:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D61C619F2
+	by mail.kernel.org (Postfix) with ESMTPS id 2C37761A0A
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 19:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C37761A0A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C26A46F46A;
-	Fri, 26 Mar 2021 18:12:37 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760081.outbound.protection.outlook.com [40.107.76.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 449226F466;
- Fri, 26 Mar 2021 18:12:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 750E86E222;
+	Fri, 26 Mar 2021 19:16:45 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4D976E222;
+ Fri, 26 Mar 2021 19:16:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KnkkTCnGqISofmUuLPHWjT1HuJunarrGXqMNPjvC07PbcMd/28STbBbEpPpre9erADLNcJo6/TeOnHgcwM283CLOioKjnowanjOOoN6TGjyg3hPQItgC5H42ZB7dpXhItYHn6xyu+ZkQLBo1o0B7VDn3k+9Cy7PWylgEMJP6Dw43PjdDz41/oqltKRyRMjVjhm1jIMYXPB8gyaOTo4SBVSbwuZnTOisyffjXc47UkCvIqi4AVY6rwRYOqyB3t2cSnWcP2QWkFMAUKBZFKN3vb72CDzk/rFWx9wDXzoT6xt6Zfr97gkPdApyZIMoXG6dW37FKCA6bteqXVJGpfCXySQ==
+ b=oYsNs3KTuYA/I2IS3J10TCwja9n3CGEIrtg/IPD17hmi59RjCFpACv7yzDT7o9JQSnOcn8PpECwczM404GanmEY6nZ9kplH1GaURTAQxblhz/A2wXIzbHNtBE8pcWCAdWuZftqXU7x5C7OjZJAXBs5EWpKK2kduZTCj1YXcrV2/4Z8aqHdPAHQSVoXM1E3cedRLYSXv4NUZoCP9yMlgKmN9GDUJIRLyxBxfgltmabFOcBSxOolOdNR4pzqt4EU2PiuokyV5CIn4jxp6atUFa4TWPgmjIgT/6gq9GkZ8UEIf/kv47HDhSeYQIw9istcZREWc5Iq7dLPebvwfMEqILbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ht/BKdSLjiveRXBybAgpGUodqxIpmLslt0z/GcgtGi4=;
- b=OkPYg9pO9ma1Wx2KxIWfsz9ItmnOaFWz4lI/3cv/cfvROhS3ipcv5+oK47QAhF3pgcZGrdSPNEbgrKIDMc0OMizCtSFhUsd6zB+mz6zZDfScez8lFSwQIiX7xSg+lWuszE+8xgrVHMPRG37fo2/ikN0ZAqaLTZcHHHeiqYYvVvPvQ+UN119EKyVQnGMGGyIyBXv8RzgvWEorxO0wJSX0uzSO/IolG1y4VkjkqzrzKqLeWwmQo8PtdkfXF9uOlmBHE3o9HnDo580iIJH3gkK+jfOC0MIBpYGOQpwBwMr/dN/72b13kGn/l1joh0tcKgxzX1cGBR3vG311QqlWcdFTQg==
+ bh=9Ds3HFd+PVkB0aGmEjVivKcDtZQB3DpZsOyD0FGZkjg=;
+ b=lscOB7wzq/U7rOBKZREhkcmZHzveH3jeszZQNCWEpOdLBsG+p8JSeuMUvIuYst+KIL19u0X03q0a5R/cCk17qEUyIqX6rBlL0fuFV9iP7z23iGWcJ5J7GMsPecKk/KhQuSOKnqOabitDZeUkb4Hzxgc04H7sYlgTllshLizgxVvjj2CkRg1r8QcKSFLwnz7jgHSqup5kQE/V2Bv2RzabI1t+V6gRwFhXXouhYEMLI/QyCQuwv4KF/z1uyf+67ur2QI2dIGltqhnFPLrH+ucmK9PoJLhPM4dWNEO3awwRNEj9avtiYHwPWRp2BvTVUx5O5apMIv5ycLPeoSe2CwtAZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ht/BKdSLjiveRXBybAgpGUodqxIpmLslt0z/GcgtGi4=;
- b=zFsQPEuJudxoytZpAetsuw1wJeQNwszXlgPPlzvfDoiUZ+DtAgRzwhKoVoaT8WeKQXuRITnbddT3H2+WBeFxSU0w5/5NGTS9ZSSngbbQgTppKGJ2gW0AH6YKHK1e21tjAphSgASk+X1oKA1IfGLF5+lJMeufBtPCQPlojpUSD9o=
-Received: from BN8PR12MB3092.namprd12.prod.outlook.com (2603:10b6:408:48::12)
- by BN8PR12MB3092.namprd12.prod.outlook.com (2603:10b6:408:48::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Fri, 26 Mar
- 2021 18:12:31 +0000
-Received: from BN8PR12MB3092.namprd12.prod.outlook.com
- ([fe80::5168:9411:6f38:b2ea]) by BN8PR12MB3092.namprd12.prod.outlook.com
- ([fe80::5168:9411:6f38:b2ea%6]) with mapi id 15.20.3955.031; Fri, 26 Mar 2021
- 18:12:31 +0000
-From: "Brol, Eryk" <Eryk.Brol@amd.com>
-To: "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, "daniel@ffwll.ch"
- <daniel@ffwll.ch>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Siqueira, 
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Lin, Wayne"
- <Wayne.Lin@amd.com>, "lyude@redhat.com" <lyude@redhat.com>
-Subject: Re: [PATCH v2] drm/mst: Enhance MST topology logging
-Thread-Topic: [PATCH v2] drm/mst: Enhance MST topology logging
-Thread-Index: AQHXIaGZqkFFWQPVfEu/HhwY+pgTEKqVSaCAgAFJn2s=
-Date: Fri, 26 Mar 2021 18:12:31 +0000
-Message-ID: <BN8PR12MB3092499AAC8E26763D5175C3E5619@BN8PR12MB3092.namprd12.prod.outlook.com>
-References: <20210325180614.37060-1-eryk.brol@amd.com>,
- <c9148c206727761644c31844f929d52ca19d00ee.camel@redhat.com>
-In-Reply-To: <c9148c206727761644c31844f929d52ca19d00ee.camel@redhat.com>
+ bh=9Ds3HFd+PVkB0aGmEjVivKcDtZQB3DpZsOyD0FGZkjg=;
+ b=xzE/Fmt1gHCpCO9dNTw8qJTE2erJqy6Vjwl8i9yA5buUdJMUkszQ0F7LZIqIyunXRA+TmMeac/VBnUWo73p/5HOmnmt83+BFxMhJzxu/ocoYNIQakBRz9Fi7GO46jjsms0S3J/Oc6WaJCEUHXpLv5vGPiP0xJgNGi308kqhtSwY=
+Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
+ by DM6PR12MB4513.namprd12.prod.outlook.com (2603:10b6:5:2ad::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Fri, 26 Mar
+ 2021 19:16:41 +0000
+Received: from DM6PR12MB2939.namprd12.prod.outlook.com
+ ([fe80::1887:4978:1b79:7cc1]) by DM6PR12MB2939.namprd12.prod.outlook.com
+ ([fe80::1887:4978:1b79:7cc1%5]) with mapi id 15.20.3977.025; Fri, 26 Mar 2021
+ 19:16:41 +0000
+From: "Zhuo, Qingqing" <Qingqing.Zhuo@amd.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Alex Deucher
+ <alexdeucher@gmail.com>, Lyude <lyude@redhat.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: RE: [pull] amdgpu, amdkfd, radeon drm-next-5.12
+Thread-Topic: [pull] amdgpu, amdkfd, radeon drm-next-5.12
+Thread-Index: AQHXImsQ+NcSeYEKrkax4CRZdApZdKqWoPmA
+Date: Fri, 26 Mar 2021 19:16:41 +0000
+Message-ID: <DM6PR12MB29399D347B6D933345E313BCFB619@DM6PR12MB2939.namprd12.prod.outlook.com>
+References: <20210218221531.3870-1-alexander.deucher@amd.com>
+ <CAKMK7uEWiGqt4=KpX2ov8OZ4SMD1mJMAQo7D6QezHwT0Nhdpgg@mail.gmail.com>
+In-Reply-To: <CAKMK7uEWiGqt4=KpX2ov8OZ4SMD1mJMAQo7D6QezHwT0Nhdpgg@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-03-26T18:12:30.613Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.84.11]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-26T19:16:38Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=77bc6890-6154-448a-99f7-e12ee2ac4245;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: ffwll.ch; dkim=none (message not signed)
+ header.d=none;ffwll.ch; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.250]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ae09e3d1-12ba-4015-a6c2-08d8f082b8fa
-x-ms-traffictypediagnostic: BN8PR12MB3092:
+x-ms-office365-filtering-correlation-id: 24f214a5-c0b2-48e2-cc28-08d8f08bafd9
+x-ms-traffictypediagnostic: DM6PR12MB4513:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB309205A56E600AD083F64C3CE5619@BN8PR12MB3092.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3631;
+x-microsoft-antispam-prvs: <DM6PR12MB451392BA335F034DC61624F5FB619@DM6PR12MB4513.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:404;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: os4xcfx3vDb9P1AXZiCXeGdRRubqXVxVMoY9FlnfwsHJre84jfhIIBTEQ1H6FlLfKtG9lg+lgKYTcptX22wF/sgKEXogbEbhXXurXdscYJaY1oZtmVQWI0ho5QvA5WbvenaAMlN6iE25C2kxo4c37meq/Wc/4HlTPtGu3GZguLKb6wcxW6VwPq1xG3py7Ijj22yiPKJN83xxrhKTyaLbWt7GB+6ANl+WoJwd+c9QVudKHoEKRltXDR7t4tRF4eK8mhLLRR5fjtBkHBUba7rUKzn46P2ZfexTVboec11YYssCg0qcN1A3fwCPiz1dOqY3Y9ApMgtu0MeWAcWHK/LbsUxFj9cZCKuGRSYekTOf+P5ocU1NyqxJ4xsnfLYxpLQaHois3XVtB+wBZWdtdn5raIu4k9Cpu4QcmC25zhf790dFv+GDUgvQ/DiJggwJVUfe2Qp428HDy+b0YWbYIcV/Lp11+zbHJjBgJhz+p4/x8J3eWMzVW+VKKOJ4MxiCr5PQ/4DhuS6CnuOwNHxQLUQoMX7q3Sm1E1frnr9N2k76BVfjvBTNccV1KLoDgCgOKj9ZinPirqsJwEtoSTxsGR3pxvsGltmYahtn/QqBC+Gl2ncrLe/vfkHjaAwwXUr8kzjYlIKG1dJxr9E9x8I7bkGIp/SZHu1f6uP688F2oolE2bOz9uItORa2IFFg3aDW/U1C
+x-microsoft-antispam-message-info: uTt01l3gBQCmYML07NX2KExZopGSCJGw3xJ74V8YogDdJ46aI3EkGMxpBhYWWSJiUyGnennszswMTjzyKa5/EKcP0fzMn0o3DCA932oby7oCpl41gkxxPWWly89qaeeYK1Rxm0nPmwBzFJRmbIPT1IiqvE7Y/z/eR94hCULe3G11K7AtnqCY7+3XIaboI8MLX5qJ5I9BTTu8ki+uruYtKam/4/q6SvzuXh8YCdlv9UOI2Zz84TNaI3s88S+p0Sy4dOWsS9skaNOxJTLvwhuMuudLryEZVJRIfvTrSyFtZ8vP/bWRQWzSP2jBX5KBqMsFfK/OpT0L/aiNp+rmNaPelhLJ0dCfLeDWKzQo3rn3oju94j6p83GtpL7V5UECMSuqhcbu6HqEtOoR1d3bUtbSoeO1gEmQvOajCK8mBfCPauLlJrbanPaAt4KajB3v2nitxxRMDWmUC17PLjdPja8CR1Fx6rZLLA6KwmQkl3Bv3cj/RoMAVSgbeujBuzx8I089l5qaXr7lij0GoLcCnGrmBXmPzub1fJhMMwzy1dCh2z5Wh/R8UrHcRb/IghIPpL7p121cfqDPG54utpLJimyJHQT/9oa2MDIONckCzlEWeCqiRmEa8qF0uyscQvZ6sNfkVgFXNdpOfVOKZFwJpzlcMJCt8xYzr0zzOltFuNsCu9dbER1QjhEYMagrywZvikmncyGSlYGvO7WQkRnJLZ2Gnb+REvr0NA2kEKFBjn3SI+w=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3092.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(366004)(346002)(396003)(376002)(66946007)(64756008)(66556008)(66476007)(4326008)(76116006)(66446008)(33656002)(2906002)(7696005)(316002)(8676002)(26005)(921005)(110136005)(38100700001)(478600001)(54906003)(83380400001)(186003)(8936002)(55016002)(9686003)(71200400001)(86362001)(19627405001)(5660300002)(53546011)(52536014)(6506007);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(366004)(376002)(396003)(136003)(54906003)(38100700001)(9686003)(55016002)(110136005)(316002)(2906002)(30864003)(71200400001)(33656002)(26005)(6636002)(478600001)(186003)(8936002)(66574015)(53546011)(5660300002)(6506007)(83380400001)(52536014)(66946007)(66446008)(64756008)(66556008)(966005)(76116006)(86362001)(7696005)(45080400002)(66476007)(4326008)(8676002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?JtgMsen4VXEaCHr3+q3Bh/lPUhBFuS6c1fixaD5CRVXWMHFd+WxCne5z0We/?=
- =?us-ascii?Q?z+XroKAIrZa6bn2QEuGTeGIDAYFOlSBJoul1FEjpHTuhIlDIoX5nTMjnXAbQ?=
- =?us-ascii?Q?ave+BbZlLJw23++DjXW204W+13Ej4ixEyTujLY0Y1dJ5c7W1JA17WyfQbVGZ?=
- =?us-ascii?Q?hqHsVG9YZGQGsfMy/QU1NV3dq/6T8mvUTswmYYBYiRzaQfU1qBpKPN2VxItt?=
- =?us-ascii?Q?b0UQy1Dy8pJMAXi7SXUpECZ4zTfaC+/TwQUfLKLLhyUD8WS5jURA1uWfzCql?=
- =?us-ascii?Q?1Gjtho2p5iHxd+zD6Yxsw2TQbyxgV/lISNFps8j2V5Rg7JdNotcSWcDK//G6?=
- =?us-ascii?Q?w/znOe+lrdVPY9QLsskk85ODdsak43zN2IyB59wWJe8rkFRqSw/NzLI34JlK?=
- =?us-ascii?Q?k2BXM4hk1Y7DwL4PZmQdke9TmB/T/kmK+JfTVxC1uFlSZm4KAc1EdLXg6fDa?=
- =?us-ascii?Q?K6Z035jGZp5kzRjVpNtmS9BeArppllgFCUYDdqYmqA2QSg7oxpkMLs7thXPz?=
- =?us-ascii?Q?PJYon8WdbbZ6bIcfJ7A1trtqgP1BFB8UBmK4NT9/D3K2NmIFw1+DHRmLxoNd?=
- =?us-ascii?Q?IwTkNDkKG7Uvh6Ttp8Up8v8nBv7KFmlCLP8NbqotTvmtOb2XkhzplE3riusJ?=
- =?us-ascii?Q?gxkIutbjODEWF2BHmIRvOHo4BAIXihilK/B0tbo4z3PUlMkoCqb/0dGDE/K4?=
- =?us-ascii?Q?gF4hJ+TdPMncVIpJVYI/tJYPczpT1rzx0pfGdUkptHIPPhdFCwHZq+uvA7xI?=
- =?us-ascii?Q?90XocvnfaxA3ItLbaQjPZqUE5OayE9lGknpT73jZDv2kCw9IVs5uVdoKx+1J?=
- =?us-ascii?Q?2sspBc9VXa8jfgMyJZ/WLoTggaz/BM/9+0ZRKo7HjUxb1hNKVvKqXkPoRBA/?=
- =?us-ascii?Q?JS95SikkMLJ3HvpUfkUyfIKhHlNnJkgQlcCDy7WdGau5u+HTqZy8YFNIf2tJ?=
- =?us-ascii?Q?xM2fjPHlHl4oE9qCY1It0+U4sRn+iGSQVVgFkHujK0Vs0mjimo4jXxxZHlLg?=
- =?us-ascii?Q?0yxWDufPLlTKQJyVSbUDOOKe6bXIBMeB0SE5nvM783CVKebuQAKFv0i48BlQ?=
- =?us-ascii?Q?D3P1OzjSpvrcYwMSIamyWfOQj8itx/LhJ3sjNHuVGLXbScdNyflDw3vCFRGJ?=
- =?us-ascii?Q?tfID1fuhtMxxXETqmBIyi1W17RL9nAtSM9r2tYVzzZEDCYC9NUTVbBWDw0wj?=
- =?us-ascii?Q?c8ZppG9HvG1Zj9NnXLKTeCdBfo6enaMNjSCd7HoYLbULbiYhpKsYJwxB1oJP?=
- =?us-ascii?Q?a5SYfo8AWk5BaI5oLI2LCiPf743OmvdXWEpQj+VDM+S8MBwqBapVDrbgHZLr?=
- =?us-ascii?Q?e4o=3D?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-2?Q?YHbVG5vLF4fySrE/E+BzwGmTa1sfCjwRXHQdZgeHxDIG7Vd8fyOWARFiKX?=
+ =?iso-8859-2?Q?v8FxJ29/mY92Tq6m2fUHn8JHzd5yt8ckf+XZJe1sBhpjowjnOGigE/vaED?=
+ =?iso-8859-2?Q?BWuLIRS7lLiGRCT9rS+8vwuizP6Z229i9ItGm/9jOmuAQAH3z6gkxhiKAx?=
+ =?iso-8859-2?Q?6ldyr8RM+iEvbMc6c775ebKk53iRLm/tOkdJPCML/AYGXMLyOEkx+dgRPi?=
+ =?iso-8859-2?Q?QiNzNsDLdCUEC2QlW/XU1tq1l2/eP1fzb6Y+S8SDUth+ctNQiTXUZWfng1?=
+ =?iso-8859-2?Q?G2KBwxklA6PspQJ31zQFz7MptkLRBL+vBdYdw7cluD5mA7ubza/wqMFXBa?=
+ =?iso-8859-2?Q?84KWnTIa41Ngqe2C9ppXQ/4Q7RK70CzpGCPMQeCID4KMn2lUcxwf5zJ7ZK?=
+ =?iso-8859-2?Q?38G2YtIJtR22uizUCc1itGvdKg+i+HkJhXE7F81yTJ4i/y9h28RM2JyWv2?=
+ =?iso-8859-2?Q?7gzCLhc/xFoxhxMRbm6X9Nsz9Ji0LfuqlE+a3/Pu1+N+suQszv26u+AdRo?=
+ =?iso-8859-2?Q?9Nq4NGFQ8y+0KXZgLog4YPQUIOY+ccp0c+qNw+xkd4UF+9qSCT3rcW+3KH?=
+ =?iso-8859-2?Q?d02xQ8rdIbaJ/4QRshLCM+PWiTBtany76FuND0L5kRP3cLMgUFF1IX8nGT?=
+ =?iso-8859-2?Q?idW2U54+dmHwjHYwJQADlBR5fYcdaqLnxGF9Q1IGkGhNfbzK98+bDdPkuW?=
+ =?iso-8859-2?Q?oTL24+e8iPt6YLtSRrakEiLx/LWUjNBQMfJuLkV5+opM1REiaNvvGhG4qL?=
+ =?iso-8859-2?Q?h3NLHJJfBx7RfJ7ZRp7eb0LQS5mtM8kRFXHmIXnGt2bIgfAvYagrOOhcA6?=
+ =?iso-8859-2?Q?ytnBfnq2QXCirNbcy7LcUGszHgvWUeehgLyIhT4rADOSr8rA19nfzvWC9d?=
+ =?iso-8859-2?Q?ocP0OBJ3rUSVJMOYHCJeJZo6jbfd0aG4ibOGs5Wr/jHP1RbYTEJaurK77F?=
+ =?iso-8859-2?Q?kALSCzWY+scAE4Rmue4r3lu6OdPX5TysKnMQwzjQksOT3XS4eAKlQW8PFA?=
+ =?iso-8859-2?Q?BtOvSe0cnp3GKEWitE4jBk6qr4YSYgkUbmdixA5s7wmDEXSK/syk7QxmmH?=
+ =?iso-8859-2?Q?aSAm/+zCkWevzVdoiIOQhgDIEZe7FP8ofmaQyp/z1ydEITIuV64uBEYfN+?=
+ =?iso-8859-2?Q?MhC+GCuWfdf0z4uX7eleFcMLJyU078+036tWAV5QLRJ59V9wcs1+n0O0yU?=
+ =?iso-8859-2?Q?+PMcPxXIZSy/9b+I3LBYkpKaFeQH+ekb+Co1s1uRL5WrWJDpVDBmAemysB?=
+ =?iso-8859-2?Q?uZJC0HbCLNGYRcRg2rp2CpkaXK2ffxOsfWc0aGn6ObhABXvFSH8ChICRFN?=
+ =?iso-8859-2?Q?7p+0vzCaJyqO9yIsFXvHHVu9tQek47q/VB2qLFAJPPCK6RoUJTnUayIjWC?=
+ =?iso-8859-2?Q?Gpv8KUwSKf?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3092.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae09e3d1-12ba-4015-a6c2-08d8f082b8fa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2021 18:12:31.0545 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24f214a5-c0b2-48e2-cc28-08d8f08bafd9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2021 19:16:41.2223 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: glMnehRrhhJJG/ifp+Qu4CZXCYsyu1jF1Jb8Smf9iP7ZPVUEQnK2JZH7E4uMnTmQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3092
+X-MS-Exchange-CrossTenant-userprincipalname: zGeDeuEKaIIKIePssdABSrSx/h/FqwMcR0TWhvtac2p+IhBfCSs7xsuNtfZlrhTJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4513
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,566 +133,339 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1120807936=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1120807936==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN8PR12MB3092499AAC8E26763D5175C3E5619BN8PR12MB3092namp_"
+[AMD Public Use]
 
---_000_BN8PR12MB3092499AAC8E26763D5175C3E5619BN8PR12MB3092namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Feb 18, 2021 at 11:15 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> Hi Dave, Daniel,
+>>
+>> Fixes for 5.12.
+>>
+>> The following changes since commit 4c3a3292730c56591472717d8c5c0faf74f6c=
+6bb:
+>>
+>>   drm/amd/display: fix unused variable warning (2021-02-05 09:49:44 =
 
-[AMD Official Use Only - Internal Distribution Only]
+>> +1000)
+>>
+>> are available in the Git repository at:
+>>
+>>   =
 
-Hi Lyude,
+>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitl
+>> ab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D04%7C01%7Cqingqing.zhu
+>> o%40amd.com%7Cce0d1ee6a18b4a95366008d8f082048e%7C3dd8961fe4884e608e11a
+>> 82d994e183d%7C0%7C0%7C637523789263486288%7CUnknown%7CTWFpbGZsb3d8eyJWI
+>> joiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&a
+>> mp;sdata=3DIg3OkPN0X8OtCOHDJqV%2FZSEOsL7gPs8OMh9sXDniR2w%3D&amp;reserved
+>> =3D0 tags/amd-drm-next-5.12-2021-02-18
+>>
+>> for you to fetch changes up to 6e80fb8ab04f6c4f377e2fd422bdd1855beb7371:
+>>
+>>   drm/amdgpu: Set reference clock to 100Mhz on Renoir (v2) (2021-02-18 =
 
-Yes, I would appreciate it if you could push this to drm-misc-next for me.
-Thank you for your comments and review!
+>> 16:43:09 -0500)
 
-Best,
-Eryk
-________________________________
-From: Lyude Paul <lyude@redhat.com>
-Sent: Thursday, March 25, 2021 6:30 PM
-To: Brol, Eryk <Eryk.Brol@amd.com>; manasi.d.navare@intel.com <manasi.d.nav=
-are@intel.com>; daniel@ffwll.ch <daniel@ffwll.ch>; Wentland, Harry <Harry.W=
-entland@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Kazlauskas,=
- Nicholas <Nicholas.Kazlauskas@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Li=
-n, Wayne <Wayne.Lin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-deve=
-l@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/mst: Enhance MST topology logging
+> Pulled into drm-next, with some conflicts, please double-check.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+> I also spotted
 
-Let me know if you need me to push this to drm-misc-next for you
+> commit ea3b4242bc9ca197762119382b37e125815bd67f
+> Author: Qingqing Zhuo <qingqing.zhuo@amd.com>
+> Date:   Tue Feb 9 16:36:41 2021 -0500
 
-On Thu, 2021-03-25 at 14:06 -0400, Eryk Brol wrote:
-> [why]
-> MST topology print was missing fec logging and pdt printed
-> as an int wasn't clear. vcpi and payload info was printed as an
-> arbitrary series of ints which requires user to know the ordering
-> of the prints, making the logs difficult to use.
->
-> [how]
-> -add fec logging
-> -add pdt parsing into strings
-> -format vcpi and payload info into tables with headings
-> -clean up topology prints
->
-> ---
->
-> v2: Addressed Lyude's comments
-> -made helper function return const
-> -fixed indentation and spacing issues
->
-> Signed-off-by: Eryk Brol <eryk.brol@amd.com>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 59 ++++++++++++++++++++++-----
->  1 file changed, 48 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 932c4641ec3e..de5124ce42cb 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -4720,6 +4720,28 @@ static void drm_dp_mst_kick_tx(struct
-> drm_dp_mst_topology_mgr *mgr)
->         queue_work(system_long_wq, &mgr->tx_work);
->  }
->
-> +/*
-> + * Helper function for parsing DP device types into convenient strings
-> + * for use with dp_mst_topology
-> + */
-> +static const char *pdt_to_string(u8 pdt)
-> +{
-> +       switch (pdt) {
-> +       case DP_PEER_DEVICE_NONE:
-> +               return "NONE";
-> +       case DP_PEER_DEVICE_SOURCE_OR_SST:
-> +               return "SOURCE OR SST";
-> +       case DP_PEER_DEVICE_MST_BRANCHING:
-> +               return "MST BRANCHING";
-> +       case DP_PEER_DEVICE_SST_SINK:
-> +               return "SST SINK";
-> +       case DP_PEER_DEVICE_DP_LEGACY_CONV:
-> +               return "DP LEGACY CONV";
-> +       default:
-> +               return "ERR";
-> +       }
-> +}
-> +
->  static void drm_dp_mst_dump_mstb(struct seq_file *m,
->                                  struct drm_dp_mst_branch *mstb)
->  {
-> @@ -4732,9 +4754,20 @@ static void drm_dp_mst_dump_mstb(struct seq_file *=
-m,
->                 prefix[i] =3D '\t';
->         prefix[i] =3D '\0';
->
-> -       seq_printf(m, "%smst: %p, %d\n", prefix, mstb, mstb->num_ports);
-> +       seq_printf(m, "%smstb - [%p]: num_ports: %d\n", prefix, mstb, mst=
-b-
-> >num_ports);
->         list_for_each_entry(port, &mstb->ports, next) {
-> -               seq_printf(m, "%sport: %d: input: %d: pdt: %d, ddps: %d l=
-dps:
-> %d, sdp: %d/%d, %p, conn: %p\n", prefix, port->port_num, port->input, por=
-t-
-> >pdt, port->ddps, port->ldps, port->num_sdp_streams, port-
-> >num_sdp_stream_sinks, port, port->connector);
-> +               seq_printf(m, "%sport %d - [%p] (%s - %s): ddps: %d, ldps=
-: %d,
-> sdp: %d/%d, fec: %s, conn: %p\n",
-> +                          prefix,
-> +                          port->port_num,
-> +                          port,
-> +                          port->input ? "input" : "output",
-> +                          pdt_to_string(port->pdt),
-> +                          port->ddps,
-> +                          port->ldps,
-> +                          port->num_sdp_streams,
-> +                          port->num_sdp_stream_sinks,
-> +                          port->fec_capable ? "true" : "false",
-> +                          port->connector);
->                 if (port->mstb)
->                         drm_dp_mst_dump_mstb(m, port->mstb);
->         }
-> @@ -4787,33 +4820,37 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
->         mutex_unlock(&mgr->lock);
->
->         mutex_lock(&mgr->payload_lock);
-> -       seq_printf(m, "vcpi: %lx %lx %d\n", mgr->payload_mask, mgr->vcpi_=
-mask,
-> -               mgr->max_payloads);
-> +       seq_printf(m, "\n*** VCPI Info ***\n");
-> +       seq_printf(m, "payload_mask: %lx, vcpi_mask: %lx, max_payloads: %=
-d\n",
-> mgr->payload_mask, mgr->vcpi_mask, mgr->max_payloads);
->
-> +       seq_printf(m, "\n|   idx   |  port # |  vcp_id | # slots |     si=
-nk
-> name     |\n");
->         for (i =3D 0; i < mgr->max_payloads; i++) {
->                 if (mgr->proposed_vcpis[i]) {
->                         char name[14];
->
->                         port =3D container_of(mgr->proposed_vcpis[i], str=
-uct
-> drm_dp_mst_port, vcpi);
->                         fetch_monitor_name(mgr, port, name, sizeof(name))=
-;
-> -                       seq_printf(m, "vcpi %d: %d %d %d sink name: %s\n"=
-, i,
-> -                                  port->port_num, port->vcpi.vcpi,
-> +                       seq_printf(m, "%10d%10d%10d%10d%20s\n",
-> +                                  i,
-> +                                  port->port_num,
-> +                                  port->vcpi.vcpi,
->                                    port->vcpi.num_slots,
-> -                                  (*name !=3D 0) ? name :  "Unknown");
-> +                                  (*name !=3D 0) ? name : "Unknown");
->                 } else
-> -                       seq_printf(m, "vcpi %d:unused\n", i);
-> +                       seq_printf(m, "%6d - Unused\n", i);
->         }
-> +       seq_printf(m, "\n*** Payload Info ***\n");
-> +       seq_printf(m, "|   idx   |  state  |  start slot  | # slots |\n")=
-;
->         for (i =3D 0; i < mgr->max_payloads; i++) {
-> -               seq_printf(m, "payload %d: %d, %d, %d\n",
-> +               seq_printf(m, "%10d%10d%15d%10d\n",
->                            i,
->                            mgr->payloads[i].payload_state,
->                            mgr->payloads[i].start_slot,
->                            mgr->payloads[i].num_slots);
-> -
-> -
->         }
->         mutex_unlock(&mgr->payload_lock);
->
-> +       seq_printf(m, "\n*** DPCD Info ***\n");
->         mutex_lock(&mgr->lock);
->         if (mgr->mst_primary) {
->                 u8 buf[DP_PAYLOAD_TABLE_SIZE];
+>   drm/amd/display: Fix system hang after multiple hotplugs (v3)
+
+> I think it would be good if that could use the drm_vblank_work stuff from=
+ Lyude instead of hand-rolling your own.
+> -Daniel
+
+Hi Daniel,
+
+Thank you for the suggestion! I need to look into further and will do so as=
+ soon as I have bandwidth. =
+
+
+Thanks,
+Lillian
+
+>>
+>> ----------------------------------------------------------------
+>> amd-drm-next-5.12-2021-02-18:
+>>
+>> amdgpu:
+>> - Prefer Bhawan's unused variable fix
+>> - Fixes for high priority queues on gfx8,9
+>> - swSMU fixes for sienna cichlid
+>> - swSMU fixes for renoir
+>> - mmhub client id fixes for arcturus
+>> - SMUIO fixes for navi family
+>> - swSMU fixes for vangogh
+>> - GPU reset cleanup
+>> - Display fixes
+>> - GFX harvesting fix for sienna cichlid
+>> - Fix reference clock on Renoir
+>> - Misc fixes and cleanups
+>>
+>> amdkfd:
+>> - Fix for unique id query
+>> - Fix recursive lock warnings
+>>
+>> radeon:
+>> - Remove confusing VCE messages on Oland
+>>
+>> ----------------------------------------------------------------
+>> Alex Deucher (16):
+>>       Revert "drm/amd/display: fix unused variable warning"
+>>       drm/amdgpu/smu12: fix power reporting on renoir
+>>       drm/amdgpu/gmc9: fix mmhub client mapping for arcturus
+>>       drm/amdgpu/si: minor clean up of reset code
+>>       drm/amdgpu/cik: minor clean up of reset code
+>>       drm/amdgpu/vi: minor clean up of reset code
+>>       drm/amdgpu: add generic pci reset as an option
+>>       drm/amdgpu/si: add PCI reset support
+>>       drm/amdgpu/soc15: add PCI reset support
+>>       drm/amdgpu/nv: add PCI reset support
+>>       drm/amdgpu: drop extra drm_kms_helper_poll_enable/disable calls
+>>       drm/amdgpu: use runpm flag rather than fbcon for kfd runtime suspe=
+nd (v2)
+>>       drm/amdgpu: reset runpm flag if device suspend fails
+>>       Revert "drm/amd/display: Update NV1x SR latency values"
+>>       drm/radeon: OLAND boards don't have VCE
+>>       drm/amdgpu: Set reference clock to 100Mhz on Renoir (v2)
+>>
+>> Anthony Koo (1):
+>>       drm/amd/display: [FW Promotion] Release 0.0.51
+>>
+>> Aric Cyr (1):
+>>       drm/amd/display: 3.2.122
+>>
+>> Bhawanpreet Lakha (1):
+>>       drm/amd/display: Fix unused variable warning
+>>
+>> Dale Zhao (1):
+>>       drm/amd/display: fix type mismatch error for return variable
+>>
+>> Derek Lai (1):
+>>       drm/amd/display: Add DIG_CLOCK_PATTERN in the transmitter =
+
+>> control
+>>
+>> Eric Yang (1):
+>>       drm/amd/display: move edp sink present detection to hw init
+>>
+>> Fangzhi Zuo (1):
+>>       drm/amd/display: Add return code instead of boolean for future =
+
+>> use
+>>
+>> Felix Kuehling (1):
+>>       drm/amdkfd: Fix recursive lock warnings
+>>
+>> Gustavo A. R. Silva (1):
+>>       drm/amd/display: Fix potential integer overflow
+>>
+>> Jan Kokem=FCller (1):
+>>       drm/amd/display: Add FPU wrappers to dcn21_validate_bandwidth()
+>>
+>> Jiapeng Chong (2):
+>>       drm/amd/display: Simplify bool comparison
+>>       drm/radeon: Simplify bool comparison
+>>
+>> Jiawei Gu (1):
+>>       drm/amdgpu: extend MAX_KIQ_REG_TRY to 1000
+>>
+>> Jun Lei (1):
+>>       drm/amd/display: revert support for DID2.0 dsc passthrough
+>>
+>> Kenneth Feng (3):
+>>       drm/amd/pm: enable ACDC feature
+>>       drm/amd/pm: enable DCS
+>>       drm/amd/pm: enable LCLK DS
+>>
+>> Kent Russell (1):
+>>       drm/amdkfd: Get unique_id dynamically v2
+>>
+>> Kevin Wang (2):
+>>       drm/amd/pm/swsmu: unify the init soft gpu metrics function
+>>       drm/amdgpu: optimize list operation in amdgpu_xgmi
+>>
+>> Lang Yu (1):
+>>       drm/amd/display: fix 64bit division issue on 32bit OS
+>>
+>> Likun Gao (5):
+>>       drm/amdgpu: support ASPM for some specific ASIC
+>>       drm/amdgpu: add SMUIO 11.0.6 register headers
+>>       drm/amdgpu: implement smuio v11_0_6 callbacks
+>>       drm/amdgpu: switch to use smuio callbacks for NV family
+>>       drm/amdgpu: support rom clockgating related function for NV =
+
+>> family
+>>
+>> Marek Ol=B9=E1k (1):
+>>       drm/amdgpu: fix CGTS_TCC_DISABLE register offset on gfx10.3
+>>
+>> Nirmoy Das (6):
+>>       drm/amdgpu: cleanup struct amdgpu_ring
+>>       drm/amdgpu: enable only one high prio compute queue
+>>       drm/amdgpu: add wave limit functionality for gfx8,9
+>>       drm/amdgpu: enable gfx wave limiting for high priority compute jobs
+>>       drm/amdgpu: enable wave limit on non high prio cs pipes
+>>       drm/amdgpu/display: remove hdcp_srm sysfs on device removal
+>>
+>> Qingqing Zhuo (1):
+>>       drm/amd/display: DP HDCP Compliance 1A-08/09 tests fail
+>>
+>> Tao Zhou (1):
+>>       drm/amdgpu: enable gpu recovery for dimgrey_cavefish
+>>
+>> Tian Tao (1):
+>>       drm/amdgpu: fix unnecessary NULL check warnings
+>>
+>> Wayne Lin (2):
+>>       drm/amdgpu: Add otg vertical IRQ Source
+>>       drm/amd/display: Add otg vertical interrupt0 support in DCN1.0
+>>
+>> Wesley Chalmers (1):
+>>       drm/amd/display: DIO Supported for virtual displays
+>>
+>> Wyatt Wood (1):
+>>       drm/amd/display: Initialize dmub_rb_cmd unions to 0
+>>
+>> Xiaojian Du (1):
+>>       drm/amd/pm: make the error log more clear for fine grain tuning =
+
+>> function
+>>
+>> Xiaomeng Hou (3):
+>>       drm/amd/pm: update the smu v11.5 smc header for vangogh
+>>       drm/amd/pm: modify the power limit level parameter from bool to en=
+um type
+>>       drm/amd/pm: add support for hwmon control of slow and fast PPT =
+
+>> limit on vangogh
+>>
+>>  drivers/gpu/drm/amd/amdgpu/Makefile                |   3 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   7 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   3 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  19 +++-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  18 ++--
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  15 +--
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   2 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   9 ++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   1 +
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |   8 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   7 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  10 +-
+>>  drivers/gpu/drm/amd/amdgpu/cik.c                   |  33 ++----
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  28 +++--
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |  72 ++++++++++++-
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  72 +++++++++++--
+>>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  66 ++++++------
+>>  drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c             | 114 ++++++++++++++=
+++++++
+>>  drivers/gpu/drm/amd/amdgpu/nv.c                    |  44 ++++++--
+>>  drivers/gpu/drm/amd/amdgpu/si.c                    |  42 ++++----
+>>  drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c         |  77 +++++++++++++
+>>  drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.h         |  30 ++++++
+>>  drivers/gpu/drm/amd/amdgpu/soc15.c                 |  26 +++--
+>>  drivers/gpu/drm/amd/amdgpu/vi.c                    |  36 +++----
+>>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |   4 +-
+>>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |   6 +-
+>>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h          |   1 -
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   6 +-
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |   3 +-
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |   2 +-
+>>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   8 +-
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  22 ++++
+>>  drivers/gpu/drm/amd/display/dc/core/dc.c           |  40 +++----
+>>  drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   4 +-
+>>  drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
+>>  drivers/gpu/drm/amd/display/dc/dc_dsc.h            |   7 +-
+>>  drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |   1 -
+>>  drivers/gpu/drm/amd/display/dc/dc_link.h           |   2 +
+>>  .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   2 +-
+>>  drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c      |   3 +
+>>  .../gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c  |   3 +-
+>>  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   6 +-
+>>  .../display/dc/dcn10/dcn10_hw_sequencer_debug.c    |   2 +-
+>>  .../drm/amd/display/dc/dcn10/dcn10_link_encoder.c  |  15 +++  =
+
+>> .../drm/amd/display/dc/dcn10/dcn10_link_encoder.h  |  11 ++
+>>  .../drm/amd/display/dc/dcn20/dcn20_link_encoder.c  |   2 +-
+>>  .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  11 +-
+>>  drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c |   4 +-
+>>  .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |  20 +++-
+>>  .../amd/display/dc/dml/dcn20/display_mode_vba_20.c |   7 +-
+>>  .../display/dc/dml/dcn20/display_mode_vba_20v2.c   |   7 +-
+>>  .../amd/display/dc/dml/dcn21/display_mode_vba_21.c |   7 +-
+>>  .../amd/display/dc/dml/dcn30/display_mode_vba_30.c |   2 +-
+>>  .../drm/amd/display/dc/dml/display_mode_structs.h  |   1 +
+>>  .../gpu/drm/amd/display/dc/dml/display_mode_vba.c  |   2 +
+>>  .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |   1 +
+>>  drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c        |  29 ++---
+>>  .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h   |   4 +-
+>>  .../amd/display/dc/irq/dcn10/irq_service_dcn10.c   |  31 ++++++
+>>  drivers/gpu/drm/amd/display/dc/irq_types.h         |   1 +
+>>  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  29 ++++-
+>>  .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |   2 +
+>>  drivers/gpu/drm/amd/include/amd_shared.h           |   1 +
+>>  .../include/asic_reg/smuio/smuio_11_0_6_offset.h   |  35 ++++++
+>>  .../include/asic_reg/smuio/smuio_11_0_6_sh_mask.h  |  41 +++++++
+>>  drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  49 +++++++--
+>>  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h            |  21 +++-
+>>  drivers/gpu/drm/amd/pm/inc/smu_types.h             |   4 +
+>>  drivers/gpu/drm/amd/pm/inc/smu_v11_0.h             |  13 ++-
+>>  drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h       |   6 +-
+>>  drivers/gpu/drm/amd/pm/inc/smu_v12_0.h             |   2 -
+>>  .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |   2 +-
+>>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  30 +++++-
+>>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |   4 +-
+>>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |   4 +-
+>>  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  15 ++-
+>>  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  32 +-----
+>>  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   | 120 ++++++++++++++=
+++++++-
+>>  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |   9 +-
+>>  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |  12 ---
+>>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  28 +++++
+>>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   2 +
+>>  drivers/gpu/drm/radeon/radeon_asic.c               |   3 +
+>>  drivers/gpu/drm/radeon/radeon_vce.c                |   1 -
+>>  drivers/gpu/drm/radeon/rs690.c                     |   2 +-
+>>  drivers/gpu/drm/radeon/vce_v1_0.c                  |   1 -
+>>  86 files changed, 1147 insertions(+), 342 deletions(-)  create mode =
+
+>> 100644 drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c
+>>  create mode 100644 drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.h
+>>  create mode 100644 =
+
+>> drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_11_0_6_offset.h
+>>  create mode 100644 =
+
+>> drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_11_0_6_sh_mask.h
+
+
 
 --
-Sincerely,
-   Lyude Paul (she/her)
-   Software Engineer at Red Hat
-
-Note: I deal with a lot of emails and have a lot of bugs on my plate. If yo=
-u've
-asked me a question, are waiting for a review/merge on a patch, etc. and I
-haven't responded in a while, please feel free to send me another email to =
-check
-on my status. I don't bite!
-
-
---_000_BN8PR12MB3092499AAC8E26763D5175C3E5619BN8PR12MB3092namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Lyude,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yes, I would appreciate it if you could push this to drm-misc-next for me.<=
-/div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thank you for your comments and review!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Eryk<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lyude Paul &lt;lyude@=
-redhat.com&gt;<br>
-<b>Sent:</b> Thursday, March 25, 2021 6:30 PM<br>
-<b>To:</b> Brol, Eryk &lt;Eryk.Brol@amd.com&gt;; manasi.d.navare@intel.com =
-&lt;manasi.d.navare@intel.com&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;;=
- Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Siqueira, Rodrigo &lt;Rodr=
-igo.Siqueira@amd.com&gt;; Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.=
-com&gt;;
- Zuo, Jerry &lt;Jerry.Zuo@amd.com&gt;; Lin, Wayne &lt;Wayne.Lin@amd.com&gt;=
-<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt=
-;<br>
-<b>Subject:</b> Re: [PATCH v2] drm/mst: Enhance MST topology logging</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Reviewed-by: Lyude Paul &lt;lyude@redhat.com&gt;<b=
-r>
-<br>
-Let me know if you need me to push this to drm-misc-next for you<br>
-<br>
-On Thu, 2021-03-25 at 14:06 -0400, Eryk Brol wrote:<br>
-&gt; [why]<br>
-&gt; MST topology print was missing fec logging and pdt printed<br>
-&gt; as an int wasn't clear. vcpi and payload info was printed as an<br>
-&gt; arbitrary series of ints which requires user to know the ordering<br>
-&gt; of the prints, making the logs difficult to use.<br>
-&gt; <br>
-&gt; [how]<br>
-&gt; -add fec logging<br>
-&gt; -add pdt parsing into strings<br>
-&gt; -format vcpi and payload info into tables with headings<br>
-&gt; -clean up topology prints<br>
-&gt; <br>
-&gt; ---<br>
-&gt; <br>
-&gt; v2: Addressed Lyude's comments<br>
-&gt; -made helper function return const<br>
-&gt; -fixed indentation and spacing issues<br>
-&gt; <br>
-&gt; Signed-off-by: Eryk Brol &lt;eryk.brol@amd.com&gt;<br>
-&gt; ---<br>
-&gt; &nbsp;drivers/gpu/drm/drm_dp_mst_topology.c | 59 +++++++++++++++++++++=
-+-----<br>
-&gt; &nbsp;1 file changed, 48 insertions(+), 11 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c<br>
-&gt; b/drivers/gpu/drm/drm_dp_mst_topology.c<br>
-&gt; index 932c4641ec3e..de5124ce42cb 100644<br>
-&gt; --- a/drivers/gpu/drm/drm_dp_mst_topology.c<br>
-&gt; +++ b/drivers/gpu/drm/drm_dp_mst_topology.c<br>
-&gt; @@ -4720,6 +4720,28 @@ static void drm_dp_mst_kick_tx(struct<br>
-&gt; drm_dp_mst_topology_mgr *mgr)<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue_work(system_long=
-_wq, &amp;mgr-&gt;tx_work);<br>
-&gt; &nbsp;}<br>
-&gt; &nbsp;<br>
-&gt; +/*<br>
-&gt; + * Helper function for parsing DP device types into convenient string=
-s<br>
-&gt; + * for use with dp_mst_topology<br>
-&gt; + */<br>
-&gt; +static const char *pdt_to_string(u8 pdt)<br>
-&gt; +{<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch (pdt) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case DP_PEER_DEVICE_NONE:<b=
-r>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;NONE&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case DP_PEER_DEVICE_SOURCE_=
-OR_SST:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;SOURCE OR SST&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case DP_PEER_DEVICE_MST_BRA=
-NCHING:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;MST BRANCHING&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case DP_PEER_DEVICE_SST_SIN=
-K:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;SST SINK&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case DP_PEER_DEVICE_DP_LEGA=
-CY_CONV:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;DP LEGACY CONV&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;return &quot;ERR&quot;;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; &nbsp;static void drm_dp_mst_dump_mstb(struct seq_file *m,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_dp_mst_branch *m=
-stb)<br>
-&gt; &nbsp;{<br>
-&gt; @@ -4732,9 +4754,20 @@ static void drm_dp_mst_dump_mstb(struct seq_fil=
-e *m,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;prefix[i] =3D '\t';<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prefix[i] =3D '\0';<br=
->
-&gt; &nbsp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;%smst: =
-%p, %d\n&quot;, prefix, mstb, mstb-&gt;num_ports);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;%smstb =
-- [%p]: num_ports: %d\n&quot;, prefix, mstb, mstb-<br>
-&gt; &gt;num_ports);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list_for_each_entry(po=
-rt, &amp;mstb-&gt;ports, next) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;%sport: %d: input: %d: pdt: %d, dd=
-ps: %d ldps:<br>
-&gt; %d, sdp: %d/%d, %p, conn: %p\n&quot;, prefix, port-&gt;port_num, port-=
-&gt;input, port-<br>
-&gt; &gt;pdt, port-&gt;ddps, port-&gt;ldps, port-&gt;num_sdp_streams, port-=
-<br>
-&gt; &gt;num_sdp_stream_sinks, port, port-&gt;connector);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;%sport %d - [%p] (%s - %s): ddps: =
-%d, ldps: %d,<br>
-&gt; sdp: %d/%d, fec: %s, conn: %p\n&quot;, <br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; prefix,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;port_num,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;input ? &quot;input&quot; : &quot;output&quot;,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; pdt_to_string(port-&gt;pdt),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;ddps,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;ldps,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;num_sdp_streams,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;num_sdp_stream_sinks,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;fec_capable ? &quot;true&quot; : &quot;false&quot;,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; port-&gt;connector);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;if (port-&gt;mstb)<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d=
-rm_dp_mst_dump_mstb(m, port-&gt;mstb);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&gt; @@ -4787,33 +4820,37 @@ void drm_dp_mst_dump_topology(struct seq_file =
-*m,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_unlock(&amp;mgr-=
-&gt;lock);<br>
-&gt; &nbsp;<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_lock(&amp;mgr-&g=
-t;payload_lock);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;vcpi: %=
-lx %lx %d\n&quot;, mgr-&gt;payload_mask, mgr-&gt;vcpi_mask,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;mgr-&gt;max_payloads);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;\n*** V=
-CPI Info ***\n&quot;);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;payload=
-_mask: %lx, vcpi_mask: %lx, max_payloads: %d\n&quot;,<br>
-&gt; mgr-&gt;payload_mask, mgr-&gt;vcpi_mask, mgr-&gt;max_payloads);<br>
-&gt; &nbsp;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;\n|&nbs=
-p;&nbsp; idx&nbsp;&nbsp; |&nbsp; port # |&nbsp; vcp_id | # slots |&nbsp;&nb=
-sp;&nbsp;&nbsp; sink<br>
-&gt; name&nbsp;&nbsp;&nbsp;&nbsp; |\n&quot;);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (i =3D 0; i &lt; m=
-gr-&gt;max_payloads; i++) {<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;if (mgr-&gt;proposed_vcpis[i]) {<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c=
-har name[14];<br>
-&gt; &nbsp;<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p=
-ort =3D container_of(mgr-&gt;proposed_vcpis[i], struct<br>
-&gt; drm_dp_mst_port, vcpi);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f=
-etch_monitor_name(mgr, port, name, sizeof(name));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_pr=
-intf(m, &quot;vcpi %d: %d %d %d sink name: %s\n&quot;, i,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port-&gt;port_num, p=
-ort-&gt;vcpi.vcpi,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_pr=
-intf(m, &quot;%10d%10d%10d%10d%20s\n&quot;,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port-&gt;port_num,<b=
-r>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port-&gt;vcpi.vcpi,<=
-br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port-&gt;vcpi.n=
-um_slots,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*name !=3D 0) ? nam=
-e :&nbsp; &quot;Unknown&quot;);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*name !=3D 0) ? nam=
-e : &quot;Unknown&quot;);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;} else<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_pr=
-intf(m, &quot;vcpi %d:unused\n&quot;, i);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_pr=
-intf(m, &quot;%6d - Unused\n&quot;, i);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;\n*** P=
-ayload Info ***\n&quot;);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;|&nbsp;=
-&nbsp; idx&nbsp;&nbsp; |&nbsp; state&nbsp; |&nbsp; start slot&nbsp; | # slo=
-ts |\n&quot;);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (i =3D 0; i &lt; m=
-gr-&gt;max_payloads; i++) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;payload %d: %d, %d, %d\n&quot;,<br=
->
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;%10d%10d%15d%10d\n&quot;,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; mgr-&gt;payloads[i].payload_state,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; mgr-&gt;payloads[i].start_slot,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; mgr-&gt;payloads[i].num_slots);<br>
-&gt; -<br>
-&gt; -<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_unlock(&amp;mgr-=
-&gt;payload_lock);<br>
-&gt; &nbsp;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq_printf(m, &quot;\n*** D=
-PCD Info ***\n&quot;);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_lock(&amp;mgr-&g=
-t;lock);<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (mgr-&gt;mst_primar=
-y) {<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;u8 buf[DP_PAYLOAD_TABLE_SIZE];<br>
-<br>
--- <br>
-Sincerely,<br>
-&nbsp;&nbsp; Lyude Paul (she/her)<br>
-&nbsp;&nbsp; Software Engineer at Red Hat<br>
-&nbsp;&nbsp; <br>
-Note: I deal with a lot of emails and have a lot of bugs on my plate. If yo=
-u've<br>
-asked me a question, are waiting for a review/merge on a patch, etc. and I<=
-br>
-haven't responded in a while, please feel free to send me another email to =
-check<br>
-on my status. I don't bite!<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BN8PR12MB3092499AAC8E26763D5175C3E5619BN8PR12MB3092namp_--
-
---===============1120807936==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.ffw=
+ll.ch%2F&amp;data=3D04%7C01%7Cqingqing.zhuo%40amd.com%7Cce0d1ee6a18b4a95366=
+008d8f082048e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6375237892634862=
+88%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
+aWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3D0U7l7fCO57FF7kUPI4tzQFTyLvMhSE%2FELR3=
+D1xf6hcY%3D&amp;reserved=3D0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1120807936==--
