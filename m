@@ -7,75 +7,75 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18CACC433C1
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 22:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B607BC433C1
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 22:05:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E925261A28
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 22:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E925261A28
+	by mail.kernel.org (Postfix) with ESMTPS id 9B39A61953
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Mar 2021 22:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B39A61953
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE2E6F4AA;
-	Fri, 26 Mar 2021 22:05:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138AB6F4A9;
+	Fri, 26 Mar 2021 22:05:49 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4EE36F4A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 22:05:45 +0000 (UTC)
+ (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE21D6F4A8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Mar 2021 22:05:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iATr/iATHn1mRNHN3t/cI1URnP55QoH9yofVAhWHSs4FnTV12JfMtzSWdFmw4Nu0iEZ0wCFw5tdPRiilTuqi2JkPZJtzVc3O1z33TUDx6P93YX8BGKw34ILZqLxUHLk9Hl0+Y1R2iiMizr03D398zlmtdWGjvTuYeXeTX3GnwdBivoarGdwhnKbG6rbN0Ve9Pzm/+MJIxV9uw232MkZA/xQtTxK+KOjzFJs9t/Ts9kikJEBR0vswd21qYnUBPJQKTGQEhiQI395dxszy+aSZQwZyQvBEWZIdIRPpTgFndRe4vYkqJvpaC8gq5HxBXu6AB30+j+wowZ74dl5sGoJl3A==
+ b=dMmZHDiXpwG3M6F612/zSntrleTsrnzaTe2kv5AjvHiLkSmFTW52JUM8qQI08LLwUhG+BJ+KCV/S0QrmGwSlGxb+2FXqLrE5yuPbvP3UQmXQFelzzhkp20qmP6J9NK0vxZWIggte9ZqdzHs+H4d/clHDviWg81817p87LjXx9Skc8O7vJGnwkB/YI3TU0tYLDqfv756RgP++ufbz6XpbSuYuUIIxPkLmz73JfOch687vn5kGJdqx7hHBBzfORWpYR4NNLc269RLZR2KdqMw0Ee9qvuaWfzmAOVI9PPAt5JWGcEHBh022t5kvOFzLI+KVfaisCRd6n+aFgRhp/twLTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j8ulkN9S4oupc6ubrR5ysf7hqD3u67j9N7XU94QEgKo=;
- b=T8aHfn0zQhZt+3qR4ldHe3zChhnsGSBRLxJ7eDYV3s6YlrVFt1ZEmeE1QX5XQyzZlNTowq2a95PyuZ6t1KFUJoSCjGTSxt0VxpJVE1RlFLu/nOCVNrA6Nj9uRKAvKfMP9O38BIAAWbxFJMp59Sxh5Yes7RAxQp1uJfJivWXFwyq9EwSLi7E/jczaXamC1qcD7XpcuF14hFMcTxh6YrFlZF8DCZff1u+8EFiFWCgFtTMT0VB1dFV9xN5BEs5NaDwCs2CmM5j0u5lELqV9s3l55FK1jWvMcu9nOjpdgEVx+mytAS6yT9pcTtdL52ZosHF0Y+Ll+EyYfR6iEcwMNbHUxA==
+ bh=3raDSY5Iln6AXemSrpYDtv0tbWkrLOaUdUU7E/c6+0Q=;
+ b=aksCWiRaLMrNQQM52qRC2oYA1PAsTW6Llq2PgOrlqJ5UAqp2H8DjwQVUwD3z9cUNTBJOwDaMVrWtQr0hEAvNPlBQ8ZMHUl/QjcIU2jiz8vob5HClnlLu42pAjuPGh5OB04cjf6eaa/PQIaUmHZ4ohOT4iatSXCA3bTksfCbGfBhx0RXruhkBMLm6YouQLAZ6mjvWcxN/AMfRzV3pT9wsu0r/hxba5a++hWgWCNqfcCQi2eux11XOza4670WorFHQMGRay9pMt4uvT+RHyqJnjIUhuZdy0aXcCLmq95vkx3eCkqa7qXQ4cIUkO9WIIIAyfvi6++buqCfH5EDgpO8Qrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j8ulkN9S4oupc6ubrR5ysf7hqD3u67j9N7XU94QEgKo=;
- b=ysT9GMti2XL2CMru7uWClF/VI9c88dqq3IgQi1fW6/7p81ancoRH6Fq+qBAAmx9cyq1fW4wem68KdWLbIUyLzvsDvF4IHXdwVICdT3hKEVMq5Sebo4UC55EBnl+6ZqcgZIJtmRLoXh/hqx5IJsoj/OxKPnkyx2xREA2rM+7cbWk=
-Received: from DM6PR03CA0090.namprd03.prod.outlook.com (2603:10b6:5:333::23)
- by BYAPR12MB3463.namprd12.prod.outlook.com (2603:10b6:a03:ac::16) with
+ bh=3raDSY5Iln6AXemSrpYDtv0tbWkrLOaUdUU7E/c6+0Q=;
+ b=0U5QimvXc/uSo0uIyNYWXSMZ10ADmZybZcOt4flBZxgi24VHnUBiX/196YkrRf4U4EWvuaC5ZFpZkpSzL0CtNJhCYJ1TxpSnm42A2v3WarrbpixNp1d9Vlc2TzH+83BuGDg16kAAUu/o6fNYhni0dUOmRDMa0k9EPCZ4ofw640k=
+Received: from DS7PR03CA0262.namprd03.prod.outlook.com (2603:10b6:5:3b3::27)
+ by PH0PR12MB5484.namprd12.prod.outlook.com (2603:10b6:510:eb::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Fri, 26 Mar
- 2021 22:05:43 +0000
-Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:333:cafe::21) by DM6PR03CA0090.outlook.office365.com
- (2603:10b6:5:333::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Fri, 26 Mar
+ 2021 22:05:42 +0000
+Received: from DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::b1) by DS7PR03CA0262.outlook.office365.com
+ (2603:10b6:5:3b3::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25 via Frontend
- Transport; Fri, 26 Mar 2021 22:05:43 +0000
+ Transport; Fri, 26 Mar 2021 22:05:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT064.mail.protection.outlook.com (10.13.172.234) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.3955.18 via Frontend Transport; Fri, 26 Mar 2021 22:05:42 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 26 Mar
- 2021 17:05:42 -0500
+ 2021 17:05:41 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 26 Mar
- 2021 17:05:42 -0500
+ 2021 17:05:41 -0500
 Received: from Bumblebee.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Fri, 26 Mar 2021 17:05:41 -0500
+ Transport; Fri, 26 Mar 2021 17:05:40 -0500
 From: Anson Jacob <Anson.Jacob@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/21] drm/amd/display: Add refresh rate trace
-Date: Fri, 26 Mar 2021 18:05:15 -0400
-Message-ID: <20210326220534.918023-3-Anson.Jacob@amd.com>
+Subject: [PATCH 01/21] drm/amd/display: BIOS LTTPR Caps Interface
+Date: Fri, 26 Mar 2021 18:05:14 -0400
+Message-ID: <20210326220534.918023-2-Anson.Jacob@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210326220534.918023-1-Anson.Jacob@amd.com>
 References: <20210326220534.918023-1-Anson.Jacob@amd.com>
@@ -83,27 +83,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3a19f4bc-84ee-40fa-4b00-08d8f0a34cb8
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3463:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3463E409D60EF20AAC8553A3EB619@BYAPR12MB3463.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:849;
+X-MS-Office365-Filtering-Correlation-Id: a7c14a55-a9d1-4c8c-ed87-08d8f0a34c38
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5484:
+X-Microsoft-Antispam-PRVS: <PH0PR12MB54846FD53BC52903A1687ACFEB619@PH0PR12MB5484.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ns7uHUI6DX2+g3vYrbZRbZhMG3AFw1iNsyO0XiXvfkKie9sLd3zxn2HYLzS5iWvcBqkLJ8tuXg02/AvXYt2pLf6Czn719vXmDhjtG0VmNn0QzIoU/w5ZBmtaeYMZQVJgsCnOVIp4xKm6K0WM1nDGEk9aA/AVpGQPu41nvkfeAG+1EBOsMloEdDD/t/iGDNmP4js1mnQZkRM7AhyNxuAMKMtKG+0YtYwldQQN0FSjTsa5VdPUeDZccE9dlCUHzJTDhG6ppFFoSFgLz5wxZvOkGNcrvkV0m07hVNV1zxpFWN+6RPIyE7wSkKgI4lg553L2RAUtR3QP3mrLzbao5G6TkXxGqyehQR8MS1i7JA0pkD2JL4Xl7pLUXb9Cm8Ias6eo1zRYgsaUKwphIyD8ZLu2SDiACEUAW8ia6Tooq08QFEG4jb5lIIQJoSNzBMNXKofHLSNaGoDVUHzZGGh7fBibflDxZrr1GWFefguVtCfLvCRgjF2Qn1woCKvvbJ9g5q9Ez26Gk3JWiACDl4NKv2uNAYgqaEHAey14LD0U3WP/lH3RI30CnSOkOIM0Y+PFjQSZOtMP3oNuUsh3Psc/Lkfm93tChig8pIP7+sqdUwwj8L/ZVRolMyBK6j5MAcKMm126Sm8Zhbic1X9z3RZl5lTOYbRciFe75nN3Fhv9FD8APjlwvocxYNYAa8p5OLyP94hR
+X-Microsoft-Antispam-Message-Info: hQDRJxA89plql1gYB1MmfKweDrgOL1uv2FIay1Bh6jYhLNbbe2Gr1TNOPkcuwloZmyMg1MKMUFcAHI8pxH3Z25SxDHGZE7yGR6PIjlfc3TeMGgKwSD14eRC/kR7XYSkweNJ1w0qtFia1z/hCvG19JYJsvKuQbFnar2I7FdlvBt2vS6cQ2CKuxidRYT+Axkx2/pVONYvKWJ3/Uk+xtsxVq4FFGhq18J1kdK4trWpuqbooYDwnqxuKNCOnGjkJ9M4avK827diGKRH49IWvS2SEAlIz/HkVKNWRWNBN7BCOhNPT6FwuL2phUxC/wKmDX3LTaA+SSuHpoQmarrtdxWB28Fp3GInFdeslDFbgIQVDXPizIlPY6y8nJlSX+tBi9wOK7waAgZnko7mHyyDeem2KQZjfgy11cnNHpNKq0ASV1vo02B1KKveDwavwmP9qtd8LTATZF1aowugzg5kWdl+czm7nL54HqUMEgsDVW0Rz4L0uX38Lxalj2gzvbK3+ZDpcXrYujuYFP8TziXPPO1Kt3yTOb8z6BzuNAYuSmB8qFiZqUKBVzqOMXZtRoA/NoAcRgtUFD+LzVSsvmnndFPVTc3XQOsoMqWuelaSNUO4b05AdXnf8SGVMEldXzwhoDeRB9+4jaRuSmiR2kJqvg392BD2LMG5oKWCe/Vd2YqKfhVrPsGeuQh6vEDHPk+6KeJCT
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(46966006)(36840700001)(4326008)(47076005)(316002)(6666004)(82740400003)(1076003)(83380400001)(81166007)(478600001)(54906003)(2906002)(82310400003)(36860700001)(36756003)(356005)(70206006)(5660300002)(336012)(70586007)(26005)(426003)(2616005)(186003)(86362001)(8936002)(6916009)(7696005)(8676002)(36900700001);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(36840700001)(46966006)(6666004)(82310400003)(70586007)(316002)(83380400001)(478600001)(336012)(8936002)(36756003)(6916009)(47076005)(36860700001)(2906002)(5660300002)(54906003)(86362001)(8676002)(2616005)(7696005)(356005)(82740400003)(1076003)(426003)(4326008)(26005)(70206006)(186003)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2021 22:05:42.9387 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a19f4bc-84ee-40fa-4b00-08d8f0a34cb8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2021 22:05:42.1030 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7c14a55-a9d1-4c8c-ed87-08d8f0a34c38
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3463
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,104 +115,256 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-When we have to debug VRR issues, we usually want to know the current
-refresh rate; for this reason, it is handy to have a way to check in
-real-time the refresh rate value. This commit introduces a kernel trace
-that can provide such information.
+[WHY]
+Some platforms will have LTTPR capabilities forced on by VBIOS flags;
+the functions added here will access those flags.
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Anson Jacob <Anson.Jacob@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 19 +++++++++++++++++++
- 3 files changed, 34 insertions(+)
+ .../drm/amd/display/dc/bios/bios_parser2.c    | 139 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dc_bios_types.h    |   3 +
+ drivers/gpu/drm/amd/include/atomfirmware.h    |  37 ++++-
+ 3 files changed, 178 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4c02373a707a..29313d71155e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -459,6 +459,9 @@ static void dm_vupdate_high_irq(void *interrupt_params)
- 	struct common_irq_params *irq_params = interrupt_params;
- 	struct amdgpu_device *adev = irq_params->adev;
- 	struct amdgpu_crtc *acrtc;
-+	struct drm_device *drm_dev;
-+	struct drm_vblank_crtc *vblank;
-+	ktime_t frame_duration_ns, previous_timestamp;
- 	unsigned long flags;
- 	int vrr_active;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index b208f06ed514..2ee0c6fc069a 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -916,6 +916,143 @@ static enum bp_result bios_parser_get_soc_bb_info(
+ 	return result;
+ }
  
-@@ -466,6 +469,17 @@ static void dm_vupdate_high_irq(void *interrupt_params)
- 
- 	if (acrtc) {
- 		vrr_active = amdgpu_dm_vrr_active_irq(acrtc);
-+		drm_dev = acrtc->base.dev;
-+		vblank = &drm_dev->vblank[acrtc->base.index];
-+		previous_timestamp = atomic64_read(&irq_params->previous_timestamp);
-+		frame_duration_ns = vblank->time - previous_timestamp;
++static enum bp_result get_lttpr_caps_v4_1(
++	struct bios_parser *bp,
++	uint8_t *dce_caps)
++{
++	enum bp_result result = BP_RESULT_OK;
++	struct atom_display_controller_info_v4_1 *disp_cntl_tbl = NULL;
 +
-+		if (frame_duration_ns > 0) {
-+			trace_amdgpu_refresh_rate_track(acrtc->base.index,
-+						frame_duration_ns,
-+						ktime_divns(NSEC_PER_SEC, frame_duration_ns));
-+			atomic64_set(&irq_params->previous_timestamp, vblank->time);
++	if (!dce_caps)
++		return BP_RESULT_BADINPUT;
++
++	if (!DATA_TABLES(dce_info))
++		return BP_RESULT_BADBIOSTABLE;
++
++	disp_cntl_tbl = GET_IMAGE(struct atom_display_controller_info_v4_1,
++							DATA_TABLES(dce_info));
++
++	if (!disp_cntl_tbl)
++		return BP_RESULT_BADBIOSTABLE;
++
++	*dce_caps = !!(disp_cntl_tbl->display_caps & DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE);
++
++	return result;
++}
++
++static enum bp_result get_lttpr_caps_v4_2(
++	struct bios_parser *bp,
++	uint8_t *dce_caps)
++{
++	enum bp_result result = BP_RESULT_OK;
++	struct atom_display_controller_info_v4_2 *disp_cntl_tbl = NULL;
++
++	if (!dce_caps)
++		return BP_RESULT_BADINPUT;
++
++	if (!DATA_TABLES(dce_info))
++		return BP_RESULT_BADBIOSTABLE;
++
++	disp_cntl_tbl = GET_IMAGE(struct atom_display_controller_info_v4_2,
++							DATA_TABLES(dce_info));
++
++	if (!disp_cntl_tbl)
++		return BP_RESULT_BADBIOSTABLE;
++
++	*dce_caps = !!(disp_cntl_tbl->display_caps & DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE);
++
++	return result;
++}
++
++static enum bp_result get_lttpr_caps_v4_3(
++	struct bios_parser *bp,
++	uint8_t *dce_caps)
++{
++	enum bp_result result = BP_RESULT_OK;
++	struct atom_display_controller_info_v4_3 *disp_cntl_tbl = NULL;
++
++	if (!dce_caps)
++		return BP_RESULT_BADINPUT;
++
++	if (!DATA_TABLES(dce_info))
++		return BP_RESULT_BADBIOSTABLE;
++
++	disp_cntl_tbl = GET_IMAGE(struct atom_display_controller_info_v4_3,
++							DATA_TABLES(dce_info));
++
++	if (!disp_cntl_tbl)
++		return BP_RESULT_BADBIOSTABLE;
++
++	*dce_caps = !!(disp_cntl_tbl->display_caps & DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE);
++
++	return result;
++}
++
++static enum bp_result get_lttpr_caps_v4_4(
++	struct bios_parser *bp,
++	uint8_t *dce_caps)
++{
++	enum bp_result result = BP_RESULT_OK;
++	struct atom_display_controller_info_v4_4 *disp_cntl_tbl = NULL;
++
++	if (!dce_caps)
++		return BP_RESULT_BADINPUT;
++
++	if (!DATA_TABLES(dce_info))
++		return BP_RESULT_BADBIOSTABLE;
++
++	disp_cntl_tbl = GET_IMAGE(struct atom_display_controller_info_v4_4,
++							DATA_TABLES(dce_info));
++
++	if (!disp_cntl_tbl)
++		return BP_RESULT_BADBIOSTABLE;
++
++	*dce_caps = !!(disp_cntl_tbl->display_caps & DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE);
++
++	return result;
++}
++
++static enum bp_result bios_parser_get_lttpr_caps(
++	struct dc_bios *dcb,
++	uint8_t *dce_caps)
++{
++	struct bios_parser *bp = BP_FROM_DCB(dcb);
++	enum bp_result result = BP_RESULT_UNSUPPORTED;
++	struct atom_common_table_header *header;
++	struct atom_data_revision tbl_revision;
++
++	if (!DATA_TABLES(dce_info))
++		return BP_RESULT_UNSUPPORTED;
++
++	header = GET_IMAGE(struct atom_common_table_header,
++						DATA_TABLES(dce_info));
++	get_atom_data_table_revision(header, &tbl_revision);
++	switch (tbl_revision.major) {
++	case 4:
++		switch (tbl_revision.minor) {
++		case 1:
++			result = get_lttpr_caps_v4_1(bp, dce_caps);
++			break;
++		case 2:
++			result = get_lttpr_caps_v4_2(bp, dce_caps);
++			break;
++		case 3:
++			result = get_lttpr_caps_v4_3(bp, dce_caps);
++			break;
++		case 4:
++			result = get_lttpr_caps_v4_4(bp, dce_caps);
++			break;
++		default:
++			break;
 +		}
++		break;
++	default:
++		break;
++	}
++
++	return result;
++}
++
+ static enum bp_result get_embedded_panel_info_v2_1(
+ 		struct bios_parser *bp,
+ 		struct embedded_panel_info *info)
+@@ -2531,6 +2668,8 @@ static const struct dc_vbios_funcs vbios_funcs = {
+ 	.get_soc_bb_info = bios_parser_get_soc_bb_info,
  
- 		DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n",
- 			      acrtc->crtc_id,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 1b8988dc0daf..c5f5f62cf591 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -66,6 +66,7 @@ struct dc_plane_state;
- struct common_irq_params {
- 	struct amdgpu_device *adev;
- 	enum dc_irq_source irq_src;
-+	atomic64_t previous_timestamp;
+ 	.get_disp_connector_caps_info = bios_parser_get_disp_connector_caps_info,
++
++	.get_lttpr_caps = bios_parser_get_lttpr_caps,
  };
  
- /**
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index ac8bcd171b57..46a33f64cf8e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -618,6 +618,25 @@ TRACE_EVENT(amdgpu_dmub_trace_high_irq,
- 		  __entry->param0, __entry->param1)
- );
+ static bool bios_parser2_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+index 86ab8f16f621..1b957c60156b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+@@ -150,6 +150,9 @@ struct dc_vbios_funcs {
+ 			struct dc_bios *dcb,
+ 			struct graphics_object_id object_id,
+ 			struct bp_disp_connector_caps_info *info);
++	enum bp_result (*get_lttpr_caps)(
++			struct dc_bios *dcb,
++			uint8_t *dce_caps);
+ };
  
-+TRACE_EVENT(amdgpu_refresh_rate_track,
-+	TP_PROTO(int crtc_index, ktime_t refresh_rate_ns, uint32_t refresh_rate_hz),
-+	TP_ARGS(crtc_index, refresh_rate_ns, refresh_rate_hz),
-+	TP_STRUCT__entry(
-+		__field(int, crtc_index)
-+		__field(ktime_t, refresh_rate_ns)
-+		__field(uint32_t, refresh_rate_hz)
-+		),
-+	TP_fast_assign(
-+		__entry->crtc_index = crtc_index;
-+		__entry->refresh_rate_ns = refresh_rate_ns;
-+		__entry->refresh_rate_hz = refresh_rate_hz;
-+	),
-+	TP_printk("crtc_index=%d refresh_rate=%dHz (%lld)",
-+		  __entry->crtc_index,
-+		  __entry->refresh_rate_hz,
-+		  __entry->refresh_rate_ns)
-+);
+ struct bios_registers {
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index 58364a8eb1f3..82b3cd89b383 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -981,6 +981,40 @@ struct atom_display_controller_info_v4_2
+   uint8_t  reserved3[8];
+ };
+ 
++struct atom_display_controller_info_v4_3
++{
++  struct  atom_common_table_header  table_header;
++  uint32_t display_caps;
++  uint32_t bootup_dispclk_10khz;
++  uint16_t dce_refclk_10khz;
++  uint16_t i2c_engine_refclk_10khz;
++  uint16_t dvi_ss_percentage;       // in unit of 0.001%
++  uint16_t dvi_ss_rate_10hz;
++  uint16_t hdmi_ss_percentage;      // in unit of 0.001%
++  uint16_t hdmi_ss_rate_10hz;
++  uint16_t dp_ss_percentage;        // in unit of 0.001%
++  uint16_t dp_ss_rate_10hz;
++  uint8_t  dvi_ss_mode;             // enum of atom_spread_spectrum_mode
++  uint8_t  hdmi_ss_mode;            // enum of atom_spread_spectrum_mode
++  uint8_t  dp_ss_mode;              // enum of atom_spread_spectrum_mode
++  uint8_t  ss_reserved;
++  uint8_t  dfp_hardcode_mode_num;   // DFP hardcode mode number defined in StandardVESA_TimingTable when EDID is not available
++  uint8_t  dfp_hardcode_refreshrate;// DFP hardcode mode refreshrate defined in StandardVESA_TimingTable when EDID is not available
++  uint8_t  vga_hardcode_mode_num;   // VGA hardcode mode number defined in StandardVESA_TimingTable when EDID is not avablable
++  uint8_t  vga_hardcode_refreshrate;// VGA hardcode mode number defined in StandardVESA_TimingTable when EDID is not avablable
++  uint16_t dpphy_refclk_10khz;
++  uint16_t reserved2;
++  uint8_t  dcnip_min_ver;
++  uint8_t  dcnip_max_ver;
++  uint8_t  max_disp_pipe_num;
++  uint8_t  max_vbios_active_disp_pipe_num;
++  uint8_t  max_ppll_num;
++  uint8_t  max_disp_phy_num;
++  uint8_t  max_aux_pairs;
++  uint8_t  remotedisplayconfig;
++  uint8_t  reserved3[8];
++};
 +
- #endif /* _AMDGPU_DM_TRACE_H_ */
+ struct atom_display_controller_info_v4_4 {
+ 	struct atom_common_table_header table_header;
+ 	uint32_t display_caps;
+@@ -1043,7 +1077,8 @@ enum dce_info_caps_def
+   DCE_INFO_CAPS_DISABLE_DFP_DP_HBR2      =0x04,
+   // only for VBIOS
+   DCE_INFO_CAPS_ENABLE_INTERLAC_TIMING   =0x08,
+-
++  // only for VBIOS
++  DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE	 =0x20,
+ };
  
- #undef TRACE_INCLUDE_PATH
+ /* 
 -- 
 2.25.1
 
