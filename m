@@ -7,116 +7,118 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88BE3C433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 04:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD4CFC433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 04:06:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3B9DC6191D
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 04:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3B9DC6191D
+	by mail.kernel.org (Postfix) with ESMTPS id 838BD6191D
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 04:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 838BD6191D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DECAD6E1E8;
-	Mon, 29 Mar 2021 04:03:50 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 259A76E1E8
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Mar 2021 04:03:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 396676E1F3;
+	Mon, 29 Mar 2021 04:06:04 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8EA6E1F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Mar 2021 04:06:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QFvcujesC48lmHYcKFUE2OCwtayaU0W01zr4z1cJ/ZRlzodY53LzQM39LQr5NaoRp1jZj6/4/PqaahxcqCY+hq0ZPaUDcOYmnBGjsdFFK1PbmORtLV9F6bn2dhCGXNxuD5LmeylB1M34C9Xk97HczgOB0PQNi2gAlBOdlbQ3mEW+Rar5nRYXYdQJfZ/c2VklXa40oISIrDjehEi3gofi4qhDrvrocNQtJUrm46IUYRkp51LeB7pWSIvDRbqeIVd8SiVUKKRG8kjLR43XFBHBpD23eUai/FkeRDb5HHM3IPFtXEnhAp5oxnjHma/36v/4lEoWi7xeP29XF3zfIEx/Cw==
+ b=oKFfSdSSy3X9d4owRWtVWoO3yoaFmpsx8a5o0Wmo0KyzW/jsWJgOl+CmAFsi/nan75vIeUBQIDa/64NSkt4SJzxCTY7dL3Vqw47stW13qsN3u3tEjEa6vdWKMS8l/UMpnkyumgWssWVUQfnFtjxcoicUXF8MoDpRw0KSGD/1OEPqH/ANZmhncOivNsTnXM3jMJR9k2QMkBb4bSAGisq/4AGNONCDED58d4m4aG6ZnlZv5AzE0jiP34nw+2y/ezS60Ioo/gK+sP+1td9up+gy53KJU2pY3zVW5iI0dgPp2YTjsB8HtsRn+wCDM7Q7umHZEuBRjnBJsLuSyLrGWqph7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UD01C7Tnz1UeQSg/31T0pl57U3ZEGIU8hFQgy5d17hU=;
- b=med/30KqXXkDF8DuVcQ7PsUv8J59ZbnevPhQe8zpXitMpux/Urp0BFYCJ0+cqI1w5euV48ZCF1VUD4Vvvij9FJhBvDKA+RxXjLmWA4rsG1f66JrNNGVL45E3yz1eU9o8mQrVKclXxcXt0mdUMePMCQMLt2xDiFsTqz/qibszOuLdaDv41QxLW7v4BxpM1SsjgbGV52BSHdfl/2Xa0vSgdrjWUNSO5FinDBdA6GNy8jXKLKH7rxXYyK9JgAvgd0mHjNK2EnY38HSKODIY7jTd7/5Mjz0hE7uozgqpM652fkj/meeFy3xbjFAeZlYH1AQ4rWRXw4IZsRtgoqzFy2VuQg==
+ bh=x0i7S/O9IwQzqKn6x0lsHE1X7Szio/FJuHr4NenxyN8=;
+ b=f/BWoJuS3CWLUR/ZnyHz+NJ9Dy9kKcXWVNcOmEM13GPtNTGbKE7TGtAnlNq9VAWh9R9phWNQvglMg5nGhzLmqhpQXcbh0X1wD0dfXZg8legEowWpYvEvyh01X0NoikQ9yRl6eCglznfXCmOFjtjGwUkBfC+PCae5TcLBkTanJ9RXvbtsUJSEuP5dnoMiTdxM7KK/ft30h1e9YQtag6CsEKUy83yQLhhvbyOo4y4dpu3bntV+bpzmNktVAJC1KEIy+akR90D4SyZCmYmEDe6FeKTc4hyLkLv2iI2uG3Q3ar4yliu2HjZl1RiTzH6T0d75RQh2nJ7bhZAGaF5AhVa8/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UD01C7Tnz1UeQSg/31T0pl57U3ZEGIU8hFQgy5d17hU=;
- b=GmBXUzBNjjdWT7mAR3vXt/lv9BFaKkJqWkcP5XYR1qPoNm+avWVuhi96jgkMPcoOKbfg8CWXiLpXLdm9ZNIpWeujII8B/3+3zR02S4CpOlV4DDJ1v3srJINStTXEqEgWmkxr3UBGL4hndKjuUrH5+YarmdGQTxxqnlIn2pB9tew=
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
- by BL0PR12MB4755.namprd12.prod.outlook.com (2603:10b6:208:82::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.30; Mon, 29 Mar
- 2021 04:03:46 +0000
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::bc9f:d045:c79b:cc20]) by MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::bc9f:d045:c79b:cc20%4]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
- 04:03:46 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Reset error code for 'no handler' case
+ bh=x0i7S/O9IwQzqKn6x0lsHE1X7Szio/FJuHr4NenxyN8=;
+ b=q5SbRRdFSMBnv9uAKEqPb1dpR/MEZOZVcfeZcGvbqG2ZtZ2IWIdSygYEkab7P9b+pqY/8euuiar/sc/GbjiqGdnv9FIzP+2BuBnla/Pf9ICp4OHS1mhVP5k9fZSYGoCr7DkO68ak/rVFIgNExQs4L6A6Wix/fFYdst5Ut+uYjQE=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR12MB1288.namprd12.prod.outlook.com (2603:10b6:903:3d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Mon, 29 Mar
+ 2021 04:05:59 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::8908:d7:5544:6007]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::8908:d7:5544:6007%8]) with mapi id 15.20.3977.032; Mon, 29 Mar 2021
+ 04:05:59 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Reset error code for 'no handler' case
 Thread-Topic: [PATCH] drm/amdgpu: Reset error code for 'no handler' case
-Thread-Index: AdciLGCHGYcjSM60TJ+lHEEa2Kmumg==
-Date: Mon, 29 Mar 2021 04:03:46 +0000
-Message-ID: <MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9@MN2PR12MB4549.namprd12.prod.outlook.com>
+Thread-Index: AdciLGCHGYcjSM60TJ+lHEEa2KmumgCJGDVA
+Date: Mon, 29 Mar 2021 04:05:59 +0000
+Message-ID: <CY4PR12MB1287455DD7DEB4454043765FF17E9@CY4PR12MB1287.namprd12.prod.outlook.com>
+References: <MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9@MN2PR12MB4549.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9@MN2PR12MB4549.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-29T04:03:43Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-03-29T04:05:57Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e8d0f4d9-db1d-4001-b4cd-efa40f81f9f8;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [49.207.197.80]
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2391933f-1731-423b-8b8c-08d8f267a6d9
-x-ms-traffictypediagnostic: BL0PR12MB4755:
+x-ms-office365-filtering-correlation-id: b085837d-e228-4062-95ce-08d8f267f609
+x-ms-traffictypediagnostic: CY4PR12MB1288:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB4755C361740B566E57C44338977E9@BL0PR12MB4755.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <CY4PR12MB1288274C8BE64E5A19820AA0F17E9@CY4PR12MB1288.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vp4rSNQtFHA3N7FDQbb8S+Em77DnyEAz4zacIHZPc8PBI7zRV1cwarLF0zhc99puZI/EoDS2xuHmM5+iVRGqWo0oCHcciO8kWaCR6/jxnXXubVrkCb58NTDA0wVdiehW7WQqP8HBndEYc6ywZ9uWcR+7jQICgb0RflGIqWFdyc5QivxJOAL/805WMU1xbaD+kFFzTZ4z9zYqO2BqTE29IMtG04dIF6B/LPnFDy/1ZeMmDxBA98ursg2zaoWAo4lmxKj8W7az6unkDgoivC2jg0LVb2zHeNUFYoUL5FHvM8roXaEukgUVSfCHTtTjVSISIVORZBzogpT7Dc03my7YY3+8BTdRdD+ve2u4jVMjLaHXFaDQnLVkd6AN4CrKmxzxkEi4AKM8/ShdFNlFm4ZZCUge0wpqpXEBttyZMtYyggzciHtU9aVTa2U1Ktv3u39BCqYMRtNQHyiLcWqLG2sjF2mb91V8ZGNkbf1M17/gOqOerwJYAhAHD9tniwDhVqxQYa0QOiS1VxnGixUFsq1anat8GAa1n2FLz7fd9c4HVOC2U1cXVPuJ2wQbPtEG5uqsLoPQBse48e5zeBwSp8oKM70elkXSSCls3+P9FLdtsjiSvoj+LYJKTmTMf0KHTxsq8hJByXNqeai3X/LSzuAt/y3na7FiOGSSVHr5clnSq4E=
+x-microsoft-antispam-message-info: NXtcNEG4ymwFR4Q8OcAu/P45f0aG5zpKRYJUjxXXnrdH0K2g+gD5ou7y1H5oHLtT07qstwh8d1XzkXwRgVcyWocEpeRGm9NHLxzWLIR4BqJ6RviqDzLTtIKKgYnX8r7aAvamAicncP5Zc4wx4dEKoucDnsVOlk8/Adsh4OZYHfnxSbd0Jgw35mV7sw8DQMJ2RCAin/509tOaqT78xDGpNS7YZw9E6YO8iAnx9Wca1fiutk3023dFaRMJRh5QCYgEW3vzjgCDkE9M/hY/G6jKjT6Hp9U5J+UaONmG44oUxYh8oihOLHvzBINQOwgh1+YOITUY9SrGwnbdxjN3dsDkZqmWkAkZkf+epVFLsTPeA5/zXdUVcXy+CDC573bpafcZBwVXrPWinA05UQXEErtM7cL1Puol/PVo+wpsArwM3eTgeWttoK0R38KKszvlsglMo4SLI+xs9V1zCkzx0oYMVB+puvP5G/guCypUK2oslqfELD31g7uLeR+FbNEhI3bwaSiAIVtfQ4gpbN75SCYZCYGVppApH1qNPnBan/miUxpUPqd4eQQiLRS/20EfIpyBbOy1zjFPi5JYrczTePqktGoQrthmbY6swnOe91UAKNp7NEhid/FSIzY3ecVR0VymIJcO2MKNBdBqv5X4L6a6P8x7OFX8Awu3h49f/Tpea14=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(2906002)(316002)(478600001)(86362001)(38100700001)(4326008)(26005)(54906003)(8676002)(55016002)(33656002)(71200400001)(66446008)(83380400001)(66946007)(76116006)(64756008)(66476007)(5660300002)(66556008)(7696005)(6916009)(6506007)(9686003)(8936002)(52536014)(186003)(55236004);
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(376002)(136003)(396003)(4326008)(26005)(55016002)(2906002)(186003)(66946007)(9686003)(316002)(33656002)(478600001)(83380400001)(52536014)(5660300002)(53546011)(6506007)(8936002)(110136005)(76116006)(54906003)(86362001)(66446008)(71200400001)(66556008)(64756008)(8676002)(66476007)(7696005)(38100700001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?HfWw/ehR1m8LzkI768tISidoiSkvGRI1odXpY6SotjCdYzCpxVBcpI3wzuT0?=
- =?us-ascii?Q?+dsN/kY3lfeAk6q8WCbun7grjeN1xf7ewQ2jqmOqIkUmBj+wJd5ElhSGJF28?=
- =?us-ascii?Q?JHZmX73WWlVauc+OHzH8C70f0QxWFXyCeqpY6c1bBtqpWUyilw8qAcNQJsQS?=
- =?us-ascii?Q?zzs6H5zoYCtEesmkObyvuklI+j0bt6DV0+S1x+AD8rE4pBnimh954KR/WVfd?=
- =?us-ascii?Q?mFwUoaWnTiFmWtZp49i9knYuYCqoLvGAaw8GN1ZALQ1wsUONs9hC8jjHGmeI?=
- =?us-ascii?Q?ukOqP4H3GBmea3/g/TrJgb6zmD52drshOaSdNSzMNQ9ncNkFknIhG9Zxf+q3?=
- =?us-ascii?Q?SgPZBjWbdq/p/5KjJTYemti2V17t2olA5wam29l0eWGnr4wO+Brm9Gyaj1yb?=
- =?us-ascii?Q?SVjUkt08PsKL6i4tkKVDwReAZ3BYaNAkQyrq4ib1mDf7YQP7rdwmZpX5rqQQ?=
- =?us-ascii?Q?hl9pcKwu94O7t99E2WawC6ITYqDYtZkVb0O8A8YuOMFt9frZGXdKOGC4BWG/?=
- =?us-ascii?Q?bQqHZpsczSp7WZj36dLGKRsQUguW+nuznei7Lx96N/RwW05x83/rduHbvyEN?=
- =?us-ascii?Q?nS/vxOUDoNAAM3E4eFpa3wvtRk3YnZDOgIBgGO4CUGVIw6HaitKayPsOihLB?=
- =?us-ascii?Q?o1Oh8jS6kL+70FTSuxRiC2OMuTvNNeLvnQUjNH33MUPLZ/hS+jaSWuXlzjRc?=
- =?us-ascii?Q?7nhwhFRFgkSKAL2z12o9I3QX4dfr7ZbnZKnbsYnYvLHxoPMlImdHfXEoeuj1?=
- =?us-ascii?Q?dBx6mDcLNle5t98z03Nr0iw3aEV75r9cEPsoTrEawo03cpZYKBCGWW70KqQb?=
- =?us-ascii?Q?IdRtlAUnsC0qF7RRyrm2BARl1cVKaBBHqneFv6Qs2WmzUJ01yv4YBJ0bTYrS?=
- =?us-ascii?Q?luA0olxXWX8AYf0oIABN73KbTnpGwJt+AsO/4wj3MrpvUNARGQ7mpxJblNQw?=
- =?us-ascii?Q?5I1YFJHcDLf72pOsRjZXx0WOk4c0y05p/JrqDWRtWa8bpTdyG8VpH5EBBZqS?=
- =?us-ascii?Q?n13/JpsgKfLfRuhy1oRx5CdGcls1UbghbWdOrNoWgl5cxuHrddq6SIwJuMij?=
- =?us-ascii?Q?lDvG1fFVzaY9Ae/fFdemvDTPyqp8hSfWHfRbEjcoV6wv6CUusHArLJrsmt5d?=
- =?us-ascii?Q?DGN2eDcfhFKRCiMflkTRR7m1U2k8BOsEKN15KhbdLg1D/3EpDiUjVYYRiNiP?=
- =?us-ascii?Q?RHGtyvuCdAAdX3T/ORy/MQrQ4PS/i/TNwk5gLQP2n4HF/ZbXBPPZ3b0m0196?=
- =?us-ascii?Q?tBv+B5cLT05SxX0d1qCKYhZ4j2lAmGv1ZggF6M2+HLS5GX3Xs9egPkMGLJV4?=
- =?us-ascii?Q?FZOmmvkUYe7Y5JEiVmriE+u8?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?GrV3LpRcVZlKn4+Q1U5RI3+0ZITjWigJi9vVXb7C6ojwrMVvcPutHj7C+1il?=
+ =?us-ascii?Q?qgIH4mW0vJ6o9K+atjOwnJ4Rz7hD1ozgxkrlrlGypLAPP5gSfVRA1aQ1U8Ez?=
+ =?us-ascii?Q?s/IDBMlvNeo6lZAGXNMVJq9vwjTWAaIlQl+VutxdAleBEWmLZNJ9bTvo1Xmt?=
+ =?us-ascii?Q?qpsMVCrjXzXCnt4nPKugpkZLu5hhrgt6vyESVQOROXjrHjX1ZNs3S+xiJemc?=
+ =?us-ascii?Q?5VfALvYphVscNgL+0rKDILEfk/QzLqpRo0lFqknh/NJTAdKW5qD8qTyDOy21?=
+ =?us-ascii?Q?t6f8kQMvrx3FBGBD2XnOveOFlyLZzhaFBsVDMh18r7w8c6NCtEEW+h7fTKYe?=
+ =?us-ascii?Q?+iVSOBMlniQvVOtmNS2eJJmddnXV0g0gm/27ex4kfJoUpM8KY6r6AI4YNe5z?=
+ =?us-ascii?Q?rDDlLsr6knbz5BcdTw/tivmOCWqFDkSbd+izIA8/OORVo1fbPeh7JF13kGZV?=
+ =?us-ascii?Q?s9SraQ8jeUkIlBHhUNdp2hQBXk/FEba+eC/etmQXw/yasteJ7RVzmOmOcBH6?=
+ =?us-ascii?Q?scoVwa4ejQ/H6mIlymH0h1R8NjOSfpk74GQ8wSBpH7iIDhGlJSLrkqPsLTWO?=
+ =?us-ascii?Q?VIJsJrbNI+btR+tcOfuMGMvqFC2TVJQaSA2M5C0Zoz+xRbxn7LGtQrmxfipM?=
+ =?us-ascii?Q?FemY3OG1w3uEDrCeO1Z7cjvJiMBXW8OFa8p/OCa+ZgueEguq+LwrUjveFmaM?=
+ =?us-ascii?Q?gawImXh05pXtQ7KgG+BePG5Zol/eX1gQousEX+JLbt5faWTggJmWM5rWe67t?=
+ =?us-ascii?Q?L4+nRww5e+Avg/RWG+YOKPQJcOXhn1oqQqNHq6ehWmL2Q8LwiJEoDmdlb0UZ?=
+ =?us-ascii?Q?NmD8BooWQk2MqcvoiKwIqG3RGTkOM4zHO5dRZpVbhnqJIJjqsdH7Id1dDhxz?=
+ =?us-ascii?Q?8l1PxlL2t7ENqrMN3WipmGQBqeKs1g4Nc9JAHb48wWsAjVqyohpXIz5KPUWp?=
+ =?us-ascii?Q?Ujrqbt8bF1s+6WzljMdknMyQa49UgtVWyUmTbvGl97soBj/IJx6JaTWZVIOP?=
+ =?us-ascii?Q?dxMezcCZvcT/tCYmVLDES+rFdqX/1DLqjlyAbtMXJ+pGhKHXmvJfKZiv2jM/?=
+ =?us-ascii?Q?F9N7t8V2zhjqdSKbmRoAmuK15gUBkMnAxaxrH3AOxhbdYi/D99qCREOBIUn4?=
+ =?us-ascii?Q?vaCuHgNegweTn31n/2HLzmpjQQ8ik/W6x+hI5CeX8fy3mAj0aP9cfGxWSohE?=
+ =?us-ascii?Q?JfPwoywrQI4G1fWtNSUfMYJP7cTwASn/LFGE7JpKOHvo0L4WNAUaWLKh2BCz?=
+ =?us-ascii?Q?WE7YBNZXtHOGO5ij1+4pe/XCjFT6jRE1UXrnCs4/HcdVK3EPoGxsRhj//1eg?=
+ =?us-ascii?Q?WVFI6e5b3QwOvg1i+z7W+wY0?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2391933f-1731-423b-8b8c-08d8f267a6d9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 04:03:46.6279 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b085837d-e228-4062-95ce-08d8f267f609
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 04:05:59.4572 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1bGIYWiKVMvpdkPq83DjkvBbZouA88jua7uJBWiFXqb/3L6W2CxW3QZ7qjghBMr8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4755
+X-MS-Exchange-CrossTenant-userprincipalname: tqIbVbm879L0F+mj/gVqtar1mRTkfDwjXpmI3/2UJovSwdcsc5LOQccf+WhdRF1700beEse6bpCYlBjF0F3PsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,20 +130,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============2138600048=="
+Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0697131272=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2138600048==
+--===============0697131272==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9MN2PR12MB4549namp_"
+	boundary="_000_CY4PR12MB1287455DD7DEB4454043765FF17E9CY4PR12MB1287namp_"
 
---_000_MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9MN2PR12MB4549namp_
+--_000_CY4PR12MB1287455DD7DEB4454043765FF17E9CY4PR12MB1287namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Reviewed-and-tested-by: Guchun Chen guchun.chen@amd.com<mailto:guchun.chen@=
+amd.com>
+
+Regards,
+Guchun
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Monday, March 29, 2021 12:04 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>;=
+ Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amdgpu: Reset error code for 'no handler' case
+
 
 [AMD Public Use]
 
@@ -170,6 +187,7 @@ index 319d69646a13..a501d1a4d000 100644
 @@ -4281,7 +4281,10 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_devic=
 e *adev,
                                drm_sched_increase_karma(&job->base);
+
                 r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
 -              if (r !=3D -ENOSYS)
 +             /* If reset handler not implemented, continue; otherwise retu=
@@ -178,6 +196,7 @@ rn */
 +                             r =3D 0;
 +             else
                                return r;
+
                 /* Don't suspend on bare metal if we are not going to HW re=
 set the ASIC */
 @@ -4323,8 +4326,10 @@ int amdgpu_do_asic_reset(struct list_head *device_li=
@@ -195,19 +214,21 @@ rn */
 +                             r =3D 0;
 +             else
                                return r;
+
                 /* Reset handler not implemented, use the default method */
 --
 2.17.1
 
 
---_000_MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9MN2PR12MB4549namp_
+--_000_CY4PR12MB1287455DD7DEB4454043765FF17E9CY4PR12MB1287namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
 osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
+hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
+html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
@@ -218,8 +239,14 @@ xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
@@ -229,13 +256,29 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
 	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
+p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
+	{mso-style-name:msipheader87abd423;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 .MsoChpDefault
 	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
+	font-size:10.0pt;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
@@ -250,11 +293,38 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
 break-word">
-<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
-le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
-pan></p>
-<br>
 <div class=3D"WordSection1">
+<p class=3D"msipheader87abd423" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-and-tested-by: Guchun Chen <a href=3D"mailt=
+o:guchun.chen@amd.com">
+guchun.chen@amd.com</a><o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Guchun<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Monday, March 29, 2021 12:04 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Fei=
+fei.Xu@amd.com&gt;; Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Reset error code for 'no handler' case<=
+o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">If reset handler is not implemented, reset error bef=
 ore proceeding.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -296,7 +366,7 @@ set(struct amdgpu_device *adev,<o:p></o:p></p>
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_sched_increase_ka=
 rma(&amp;job-&gt;base);<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_reset_prepare_hwcontext=
 (adev, reset_context);<o:p></o:p></p>
@@ -316,7 +386,7 @@ sp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<o:p></o:p><=
 /p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Don't suspend on bare metal if we=
  are not going to HW reset the ASIC */<o:p></o:p></p>
@@ -351,7 +421,7 @@ sp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<o:p></o:p><=
 /p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Reset handler not implemented, us=
 e the default method */<o:p></o:p></p>
@@ -362,9 +432,9 @@ e the default method */<o:p></o:p></p>
 </body>
 </html>
 
---_000_MN2PR12MB4549FFFC9ACA184CD96B1DA8977E9MN2PR12MB4549namp_--
+--_000_CY4PR12MB1287455DD7DEB4454043765FF17E9CY4PR12MB1287namp_--
 
---===============2138600048==
+--===============0697131272==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -375,4 +445,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2138600048==--
+--===============0697131272==--
