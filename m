@@ -2,101 +2,69 @@ Return-Path: <SRS0=y/UM=I3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C6E67C433EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 08:06:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57E83C433DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 08:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 879E7619D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 08:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 879E7619D0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 051AF6196E
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 08:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 051AF6196E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD0476E301;
-	Mon, 29 Mar 2021 08:06:36 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9B06E209;
- Mon, 29 Mar 2021 08:06:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oIIaLE4Wu6oRZ350ZFy5TMuNksTljCHBikPSZb9V1lpQebGGY79H/3K02PqWydHz7QMANTespx3hvnP05RuxZOoamuDu21qyzrpFTlvwNnCY69LUymDDrZc6I6GHX79a07egqS0DylBzgOFp/wzyPRr6xVEnL6/YO0zH5ejkUNRpyXh1Ulxns2XaLDs1iGZsw8KSXWj771Kbakgj1hf8l1Ed1rvDVSxwYVAZnzPjmr+9grHYq6/4uES7TQNolbYVQctqsp4bcDTBAvqHJBKEnS2+becezah1cwx7XEWxEQXdaci662OXGX2S+/plfVlDuSdtxtbDA1JjAoOt6vXiOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mC94VzzSggFllqcwT5KsRJ6BKNCloh6wYrVoo8AuEME=;
- b=jpm4BEVjrrNHCqHjy2VvnwYZzsgCFHi3jqp0J8vbRgKuIoQtQXYZnWYFmaGlW5hoKeWFmCYaRu3/lVSWlEown0f2kh8BceX8bEKobkIaQB9SVcyL3c03ogqbejfB+mGKaGE6oPLfyrgcMzTYAFZY5EGrmpu9ubTN/7AakRl5kFAGxpn37lATNk7BnW8Q9N0gBieXG/ptsJnlx2v6MO5WQGrtBVHTimiCY0Ke0HvACA6K4+VbjkXMI9IGU/icrRqJZmFpL0ixH8hUnink9HKJF1wAK+G8ze7INoJi92Y83y9BWX0GttGwg3IjNOg3TnkM5IlKU3lmKAEqpuzy3e+TFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=amd.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mC94VzzSggFllqcwT5KsRJ6BKNCloh6wYrVoo8AuEME=;
- b=4oQEvWoW0NkXnxtH34TCHBqD1pRe1sQ1JkWcIlk0/1OPHCQF607x7SQs0yPaKYrHyrWTGPDJQvFm6re4YdIi9wflwVZ5UJlHgGA8HVawZo5zVN4JOvTeznPr6G6wjnBTo6s3ACTrxledslU7t44/eL3o2ii2fgp9/12zjXequic=
-Received: from MWHPR22CA0024.namprd22.prod.outlook.com (2603:10b6:300:ef::34)
- by BN6PR12MB1217.namprd12.prod.outlook.com (2603:10b6:404:20::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.30; Mon, 29 Mar
- 2021 08:06:32 +0000
-Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ef:cafe::30) by MWHPR22CA0024.outlook.office365.com
- (2603:10b6:300:ef::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25 via Frontend
- Transport; Mon, 29 Mar 2021 08:06:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3955.18 via Frontend Transport; Mon, 29 Mar 2021 08:06:31 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Mon, 29 Mar
- 2021 03:06:30 -0500
-Received: from HPG8.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
- Transport; Mon, 29 Mar 2021 03:06:26 -0500
-From: Louis Li <Ching-shih.Li@amd.com>
-To: 
-Subject: [PATCH] drm/amd/display: dual cursors are seen if scaling is enabled
-Date: Mon, 29 Mar 2021 15:54:10 +0800
-Message-ID: <20210329075411.501760-1-Ching-shih.Li@amd.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6D66E321;
+	Mon, 29 Mar 2021 08:09:33 +0000 (UTC)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A476E311;
+ Mon, 29 Mar 2021 08:09:31 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id 184so14850980ljf.9;
+ Mon, 29 Mar 2021 01:09:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=xtbZYsv+BDEeYSBBrB3T0nHYv9KG1H/KKGnrekUwMOw=;
+ b=hVJ9hn/HWZHVabUIMyFjW2efbUrx6bffdXZOkVKAbR8Nmpcf49Gy2Wsrh2Ft56oyT9
+ 2vEWoUq0DxVR7rUC+W95nh1snL1CJAtG8NOw6ehELWvSnAabGqUO9o+vLVOQWmVv5BFA
+ AsdUP+RcN2lKXcVJ1uoy0o0Wcb+mgo/qHDR+MkKNPAfC2fHNL01i5DSzILGiOuHv94Un
+ dJBWeSBlBbn3VvHRasEwCUInUGRpZrIVw1AFCnCKDf2cbPu3stOjvyWSoEKDdwuXVEaR
+ TiV1m9ZDjCZ0MMc8/sXr0MiXiFzDQj+Ki7IaLP/cWtI2hzuP5SroJF8eAXsZx38tC4uJ
+ yhTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=xtbZYsv+BDEeYSBBrB3T0nHYv9KG1H/KKGnrekUwMOw=;
+ b=mTjsMlqEmXLU19H3qlWwX51T1AfRZYUdxQEVy8CYGWixgWhiCEkQ7ipdVdhJO1o4rq
+ K8IAsawXr1KAjb1KAvtzWCx/It/YyWnx0rpVvzsWdZcYznk/7Y3WKg1rnU2N8hgbrmVh
+ NXdkKHGK7pl51fk+vrVqx6006tQV/J9q9N/x0ln7nVGvZKt5Yi6xwJ0yny9CutAbq651
+ JBJfL/JYuQGPdHD6qKZOqVjRoNBiCU7MX17jCn7nQoJ63TAaRfxifgl/V5uh9IGUKA2A
+ xHz+TV5OL9ibdYMSzCn6bnD4i9cql30ROx6dQN6zmRFmBl3OEkmQdB0I0ATBs4tcd7zd
+ o+4A==
+X-Gm-Message-State: AOAM5325hyCehwh4Xa/7xfQHs82s7YLi9eY+0zm9PthrA2sVKUgNfoOh
+ Ll1zIL4djE1VeA87EAOZNAY=
+X-Google-Smtp-Source: ABdhPJx5F//zq5rPNfbcRxlQbV7ciYSXSiHJ1sWWpmSLQYcqCZkb9OMocrnN/oXZYtvh03gqE0Bx0A==
+X-Received: by 2002:a2e:701:: with SMTP id 1mr16670130ljh.264.1617005370018;
+ Mon, 29 Mar 2021 01:09:30 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id f8sm1751408lfs.143.2021.03.29.01.09.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Mar 2021 01:09:29 -0700 (PDT)
+Date: Mon, 29 Mar 2021 11:09:26 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: Color mode exposed to user space?
+Message-ID: <20210329110926.2a479842@eldfell>
+In-Reply-To: <CADnq5_N9AqX=Lx=yVKCFQahREFT6SCER17KMbZyw-iQ2wnTVqA@mail.gmail.com>
+References: <e557c681-4218-dbe3-4e92-f6eaf352b614@tuxedocomputers.com>
+ <CADnq5_N9AqX=Lx=yVKCFQahREFT6SCER17KMbZyw-iQ2wnTVqA@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b0cc45b1-32fe-41c4-ded3-08d8f2899033
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1217:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB121733D7DD076B8FF780B825AA7E9@BN6PR12MB1217.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gKBNU6q0QusGufjVCCblV6vqxBUjaMcT0bRurDgbFbMouiqF6b0drsF1c6VEw7crn31WWOS6fmqI55wk5KrafYZ58TYRUWJG7oZAMVBZiDn256kwpd+EXvSeT/DLSpO9/ba2DvXXxOkJS+EKPPjetNXxNIA9yKjL7yUS/NKrDkgr8WMxqz1LBAXKySJ05R/3dx0q4sqRmq4PcLJfhOY/02Wv88kDU7xIVtndc38DfJI1JI+mZGpkSmaUFWjLuRtZlPNlJmrGIYueYEl6HrQrr6SC3GzzLoKm4YL77+Qd2btg7VEEpFV7nufTmbb2SApzJToOwDyxZBLV+mQLo7zIUUXfUtaeefV/ctAlgmNGRz5UXV2tDnAjrshOnc8PCj1A58ckJ1GR1+kyBtQP26muM7Rp1YImamgnT5pBYYxKRJ0S+O3HdhB2AdP1iysZBQCQX+xTS3Jaxj/25qabazb5SsMFA24v0/95uugjzzZJ2n7NrfJA8Ems3JuGEwD/HAeCBRUnVEGmPE0MkP+ElCCEacVF89NpjLB6Z45LcVcmfb5H5LRPnFMDe1E50gmhDT5sep3n8O4u3LREMGYe6xjPxt7HhAprkhMAdQrpeMK6KBwoLtesK3EOSua2rHsXiSXFKKIEAMpRsc6AnHcoGZ4u2D+Xyebs0HeEHoYicKRbrs75eBu/0uQPjmOpT2aggAf+LAXt7Q9026U/zAkXO0qGow==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(36840700001)(46966006)(70206006)(70586007)(478600001)(82310400003)(2906002)(82740400003)(81166007)(356005)(5660300002)(2616005)(83380400001)(186003)(109986005)(26005)(8936002)(4326008)(336012)(8676002)(6666004)(316002)(7696005)(426003)(47076005)(36860700001)(54906003)(36756003)(86362001)(1076003)(266003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2021 08:06:31.4995 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0cc45b1-32fe-41c4-ded3-08d8f2899033
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,110 +76,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Leo Li <sunpeng.li@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ching-li@amd.com, Nicholas
- Kazlauskas <Nicholas.Kazlauskas@amd.com>, David Airlie <airlied@linux.ie>,
- Ikshwaku Chauhan <ikshwaku.chauhan@amd.corp-partner.google.com>,
- hersen wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@chromium.org>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Louis Li <Ching-shih.Li@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Werner Sembach <wse@tuxedocomputers.com>
+Content-Type: multipart/mixed; boundary="===============0271895657=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-This issue is found when scaling is not equal to one from src to dest.
-When issue happens, there are offsets in both axis x and y between
-two cursors. Users cannot control APP under such a condition.
+--===============0271895657==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/=0L2r6027DOn/=jTydH60HK"; protocol="application/pgp-signature"
 
-[How]
-For dual cursors, cursor should be disabled if there is a visible pipe
-on top of the current pipe at the current cursor position.
-For offsets between two cursors, need translate cursor position from
-stream space to plane space with scaling into consideration.
+--Sig_/=0L2r6027DOn/=jTydH60HK
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Louis Li <Ching-shih.Li@amd.com>
-Signed-off-by: Louis Li <Ching-shih.Li@amd.com>
-Change-Id: Ic19e4f3b9225736f037f5ade10b68e8afe5f9ab7
----
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 40 ++++++++++++++-----
- 1 file changed, 30 insertions(+), 10 deletions(-)
+On Thu, 25 Mar 2021 12:12:09 -0400
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 83212ea40077..1ce5e58e3a9e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2999,6 +2999,10 @@ static bool dcn10_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
- 	const struct rect *r1 = &pipe_ctx->plane_res.scl_data.recout, *r2;
- 	int r1_r = r1->x + r1->width, r1_b = r1->y + r1->height, r2_r, r2_b;
- 
-+	struct dc_cursor_position pos_cpy = pipe_ctx->stream->cursor_position;
-+	int cp_x = pos_cpy.x;
-+	int cp_y = pos_cpy.y;
-+
- 	/**
- 	 * Disable the cursor if there's another pipe above this with a
- 	 * plane that contains this pipe's viewport to prevent double cursor
-@@ -3013,7 +3017,8 @@ static bool dcn10_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
- 		r2_r = r2->x + r2->width;
- 		r2_b = r2->y + r2->height;
- 
--		if (r1->x >= r2->x && r1->y >= r2->y && r1_r <= r2_r && r1_b <= r2_b)
-+		if ((cp_x >= r1->x && cp_y >= r1->y && cp_x <= r1_r && cp_y <= r1_b)
-+		   && (cp_x >= r2->x && cp_y >= r2->y && cp_x <= r2_r && cp_y <= r2_b))
- 			return true;
- 	}
- 
-@@ -3034,15 +3039,30 @@ static void dcn10_set_cursor_position(struct pipe_ctx *pipe_ctx)
- 		.rotation = pipe_ctx->plane_state->rotation,
- 		.mirror = pipe_ctx->plane_state->horizontal_mirror
- 	};
--	uint32_t x_plane = pipe_ctx->plane_state->dst_rect.x;
--	uint32_t y_plane = pipe_ctx->plane_state->dst_rect.y;
--	uint32_t x_offset = min(x_plane, pos_cpy.x);
--	uint32_t y_offset = min(y_plane, pos_cpy.y);
--
--	pos_cpy.x -= x_offset;
--	pos_cpy.y -= y_offset;
--	pos_cpy.x_hotspot += (x_plane - x_offset);
--	pos_cpy.y_hotspot += (y_plane - y_offset);
-+
-+	int x_plane = pipe_ctx->plane_state->dst_rect.x;
-+	int y_plane = pipe_ctx->plane_state->dst_rect.y;
-+	int x_pos = pos_cpy.x;
-+	int y_pos = pos_cpy.y;
-+
-+	// translate cursor from stream space to plane space
-+	x_pos = (x_pos - x_plane) * pipe_ctx->plane_state->src_rect.width /
-+			pipe_ctx->plane_state->dst_rect.width;
-+	y_pos = (y_pos - y_plane) * pipe_ctx->plane_state->src_rect.height /
-+			pipe_ctx->plane_state->dst_rect.height;
-+
-+	if (x_pos < 0) {
-+		pos_cpy.x_hotspot -= x_pos;
-+		x_pos = 0;
-+	}
-+
-+	if (y_pos < 0) {
-+		pos_cpy.y_hotspot -= y_pos;
-+		y_pos = 0;
-+	}
-+
-+	pos_cpy.x = (uint32_t)x_pos;
-+	pos_cpy.y = (uint32_t)y_pos;
- 
- 	if (pipe_ctx->plane_state->address.type
- 			== PLN_ADDR_TYPE_VIDEO_PROGRESSIVE)
--- 
-2.27.0
+> + dri-devel
+>=20
+> I don't think it's currently exposed anywhere.
+>=20
+> Alex
+>=20
+> On Wed, Mar 24, 2021 at 5:11 AM Werner Sembach <wse@tuxedocomputers.com> =
+wrote:
+> >
+> > Hello,
+> >
+> > is the information which color mode is currently in used for a display =
+(RGB, YCbCr444, or YCbCr420) exposed to user space somewhere?
+> >
+> > If no: Where would be the best place to put code to expose it to sysfs?
+
+Hi,
+
+a very good question. Wayland compositors implementing color management
+will be interested to know this, and even better, to explicitly control
+this.
+
+See e.g. Color Calibration Auditing System notes in
+https://gitlab.freedesktop.org/wayland/weston/-/issues/467 .
+
+
+Thanks,
+pq
+
+--Sig_/=0L2r6027DOn/=jTydH60HK
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmBhizYACgkQI1/ltBGq
+qqeW9Q/9GKNUGaHBd6pWYLY/fdPZm4RjkFPjB9uHlu69J1TmRsK1MsJwVAYErPbN
+JZpocng8rCvCkgkE5m/d66E5rkrvO1Kmz1A/AljoxF3zCSnG/AejIT0m5w2uEPxd
+0271lGAKzSaoNev1hMRo/6i424X7qcXQmDjsRt/KmXmHEwH3NUwRLvSi/g6kgP+c
+R/HoTC2QX0LacCrRyvPNeR0i3o2oKZG3byrgVRc9oaoPSp3/zdHDIEXj3b1FWCPR
+/p+L9tuLea+hNFHyLJJ/pmrB/duhitiG4Igsfi+lrvAWkHFhjEMfIVpzB1ygRgqE
+obRMg34Aj54IN2ZfzGW9U4kuELP6fCyjUOC7J4scpNI+X7LVLLckmM0jMHVx9CuB
+L6rZQV0J336JQ38Um/qMRaQODyxyBC6XJcsCvK7TEGZh/YNWeB5uVeGoxm243uap
+bOMLVDB2dh1c2kIR2k5FnKbaiY2Ysgx9bdvTsq8z9nVTDe/RtuTGeGAgxd1rxSZT
+h9GYzuSFw1jFut8N1TY3Q/WvOPvzLoP/WgBOeXQ/VtKi9N1FdsbTaehtqfWcJ4bM
+9FDN0TW/xBnZfcHxsD3rbievDdO2AB5dMPXeypVZe6obl5xtS0UE0CRPwAeQVqLD
++yUE1D3nbh605486ZpBsp5gJ9denBR0gbHP0bgRifjdABI5l5dY=
+=Xo6f
+-----END PGP SIGNATURE-----
+
+--Sig_/=0L2r6027DOn/=jTydH60HK--
+
+--===============0271895657==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0271895657==--
