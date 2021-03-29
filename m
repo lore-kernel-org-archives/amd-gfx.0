@@ -2,54 +2,80 @@ Return-Path: <SRS0=y/UM=I3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6F66C433C1
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 09:09:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 763E2C433C1
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 13:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 06B666187E
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 09:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06B666187E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
+	by mail.kernel.org (Postfix) with ESMTPS id 11A7E61960
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Mar 2021 13:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11A7E61960
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE6D6E314;
-	Mon, 29 Mar 2021 09:09:57 +0000 (UTC)
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2046E247;
- Mon, 29 Mar 2021 09:09:55 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id CD847C800A0;
- Mon, 29 Mar 2021 11:09:53 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id ki6XT0AJc8FW; Mon, 29 Mar 2021 11:09:53 +0200 (CEST)
-Received: from [IPv6:2003:e3:7f0c:2000:5d6d:82a3:925f:9a84]
- (p200300E37f0C20005D6D82a3925F9A84.dip0.t-ipconnect.de
- [IPv6:2003:e3:7f0c:2000:5d6d:82a3:925f:9a84])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 8F59FC8009C;
- Mon, 29 Mar 2021 11:09:53 +0200 (CEST)
-Subject: Re: Color mode exposed to user space?
-To: Pekka Paalanen <ppaalanen@gmail.com>, Alex Deucher <alexdeucher@gmail.com>
-References: <e557c681-4218-dbe3-4e92-f6eaf352b614@tuxedocomputers.com>
- <CADnq5_N9AqX=Lx=yVKCFQahREFT6SCER17KMbZyw-iQ2wnTVqA@mail.gmail.com>
- <20210329110926.2a479842@eldfell>
-From: Werner Sembach <wse@tuxedocomputers.com>
-Message-ID: <91a4f611-d6d3-3eda-7d65-b70fe8f0c575@tuxedocomputers.com>
-Date: Mon, 29 Mar 2021 11:09:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2ED489FF6;
+	Mon, 29 Mar 2021 13:36:29 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81D9D89F41;
+ Mon, 29 Mar 2021 13:36:27 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12TDYJUd017514;
+ Mon, 29 Mar 2021 13:36:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=+ax3LWAcPJv8HXwL+D6MVfobyCv05ioKkMwMhXABFFM=;
+ b=Vtrjq9KBQW5gHwdzlZ092SpkbkzI/H7jnTZDjmma2dECkikNqkgqd9ZI0TsRVW63iNXv
+ IP917HcCOHnkVxgIsV2Y7w/Pg3kjzFQvnHF/HVUfEH3/Ecsm3AZyHQuONRBLWCOr3Aw1
+ s7pOaqVIhAuxy7/rebSbsxBtrhXGoWSgb8j0vdWN28dAf+VQcrUqiV32kCS+Ztnl4Ax4
+ yhp6eneECNe46JVMvJw7CZDXLxhrxhgcStZppSWi1nI64dq+q12rDULs4uHwrom1j4+N
+ 7VZp9u+CKSDxe4eY0lmGAQt9UehmVjMTqehacQfEKjYEuJusz5mPO5kcUEWQ5GTGteI3 Iw== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 37hwbnbgt8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 29 Mar 2021 13:36:24 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12TDVQbQ142519;
+ Mon, 29 Mar 2021 13:36:22 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 37jemvqmep-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 29 Mar 2021 13:36:21 +0000
+Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 12TDaGmC023235;
+ Mon, 29 Mar 2021 13:36:16 GMT
+Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 29 Mar 2021 06:36:16 -0700
+Date: Mon, 29 Mar 2021 16:36:09 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: mikita.lipski@amd.com
+Subject: [bug report] drm/amd/display: Reuse parsing code of debugfs write
+ buffer
+Message-ID: <YGHXyY1QvoaZf4L9@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <20210329110926.2a479842@eldfell>
-Content-Language: en-US
+Content-Disposition: inline
+X-Proofpoint-IMR: 1
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9938
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ mlxscore=0 spamscore=0
+ suspectscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2103250000
+ definitions=main-2103290103
+X-Proofpoint-GUID: _solBIM-ZaQDdLCwrTkeMJFlUiWRyBQw
+X-Proofpoint-ORIG-GUID: _solBIM-ZaQDdLCwrTkeMJFlUiWRyBQw
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9938
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ clxscore=1011
+ phishscore=0 mlxscore=0 malwarescore=0 mlxlogscore=999 suspectscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2103250000
+ definitions=main-2103290103
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +87,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hello Mikita Lipski,
 
-> On Thu, 25 Mar 2021 12:12:09 -0400
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
->> + dri-devel
->>
->> I don't think it's currently exposed anywhere.
->>
->> Alex
->>
->> On Wed, Mar 24, 2021 at 5:11 AM Werner Sembach <wse@tuxedocomputers.com> wrote:
->>> Hello,
->>>
->>> is the information which color mode is currently in used for a display (RGB, YCbCr444, or YCbCr420) exposed to user space somewhere?
->>>
->>> If no: Where would be the best place to put code to expose it to sysfs?
-> Hi,
->
-> a very good question. Wayland compositors implementing color management
-> will be interested to know this, and even better, to explicitly control
-> this.
->
-> See e.g. Color Calibration Auditing System notes in
-> https://gitlab.freedesktop.org/wayland/weston/-/issues/467 .
->
->
-> Thanks,
-> pq
+The patch 04111850cf56: "drm/amd/display: Reuse parsing code of
+debugfs write buffer" from Mar 26, 2020, leads to the following
+static checker warning:
 
-@Alex Deucher thanks for the info.
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:80 parse_write_buffer_into_params()
+	error: 'copy_from_user()' 'wr_buf_ptr' too small (100 vs 1000000000)
 
-@pq Related bugtracker tickets for reference:
-https://gitlab.freedesktop.org/drm/amd/-/issues/476
-https://gitlab.freedesktop.org/drm/amd/-/issues/1541
-https://gitlab.freedesktop.org/drm/amd/-/issues/1548
-I'm coding something up for the last one atm.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c
+    64  static int parse_write_buffer_into_params(char *wr_buf, uint32_t wr_buf_size,
+    65                                            long *param, const char __user *buf,
+    66                                            int max_param_num,
+    67                                            uint8_t *param_nums)
+    68  {
+    69          char *wr_buf_ptr = NULL;
+    70          uint32_t wr_buf_count = 0;
+    71          int r;
+    72          char *sub_str = NULL;
+    73          const char delimiter[3] = {' ', '\n', '\0'};
+    74          uint8_t param_index = 0;
+    75  
+    76          *param_nums = 0;
+    77  
+    78          wr_buf_ptr = wr_buf;
+    79  
+    80          r = copy_from_user(wr_buf_ptr, buf, wr_buf_size);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The "wr_buf_ptr" is a fixed size buffer and the "wr_buf_size" comes from
+the user so this would be a privalege escalation bug if it weren't
+debugfs.
 
+It's better to move the allocation into this function.  Remember to
+free before returning.
+
+		wr_buf = memdup_user(buf, wr_buf_size + 1);
+		if (IS_ERR(wr_buf))
+			return PTR_ERR(wr_buf);
+
+(Written in email client.  Not compile tested.)
+
+    81  
+    82                  /* r is bytes not be copied */
+    83          if (r >= wr_buf_size) {
+
+This test is wrong.  It should have been zero instead of wr_buf_size
+but that doesn't matter now that we've switched to memdup_user().
+
+
+    84                  DRM_DEBUG_DRIVER("user data not be read\n");
+    85                  return -EINVAL;
+
+Don't print an error if copy_from_user() fails.  Return -EFAULT instead
+of -EINVAL.
+
+    86          }
+    87  
+    88          /* check number of parameters. isspace could not differ space and \n */
+    89          while ((*wr_buf_ptr != 0xa) && (wr_buf_count < wr_buf_size)) {
+    90                  /* skip space*/
+    91                  while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
+    92                          wr_buf_ptr++;
+    93                          wr_buf_count++;
+    94                          }
+    95  
+    96                  if (wr_buf_count == wr_buf_size)
+    97                          break;
+    98  
+    99                  /* skip non-space*/
+   100                  while ((!isspace(*wr_buf_ptr)) && (wr_buf_count < wr_buf_size)) {
+   101                          wr_buf_ptr++;
+   102                          wr_buf_count++;
+   103                  }
+   104  
+   105                  (*param_nums)++;
+   106  
+   107                  if (wr_buf_count == wr_buf_size)
+   108                          break;
+   109          }
+   110  
+   111          if (*param_nums > max_param_num)
+   112                  *param_nums = max_param_num;
+   113  
+   114          wr_buf_ptr = wr_buf; /* reset buf pointer */
+   115          wr_buf_count = 0; /* number of char already checked */
+   116  
+   117          while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
+   118                  wr_buf_ptr++;
+   119                  wr_buf_count++;
+   120          }
+   121  
+   122          while (param_index < *param_nums) {
+   123                  /* after strsep, wr_buf_ptr will be moved to after space */
+   124                  sub_str = strsep(&wr_buf_ptr, delimiter);
+
+This code is not checking wr_buf_count.  I guess the thinking was that
+the first look would find the number of words and the next loop would
+use that pre-validated count.  There is not a one to one relationship
+between your delimeters and ispace() (tabs) but I guess your delimeter
+is a subset of isspace() so that works...
+
+This code also assumes that "wr_buf_ptr" is NUL terminated but that's
+not necessarily the case so it could lead to a buffer overflow.  For
+example, imagine the whole buffer is full of tabs.  That's counted as
+one word.  We're already off the end of the buffer before we call
+strsep().  Or if the whole buffer is spaces except for the last
+character.  That's again one word and the strsep will read beyond the
+end and corrupt memory.
+
+   125  
+   126                  r = kstrtol(sub_str, 16, &(param[param_index]));
+
+
+   127  
+   128                  if (r)
+   129                          DRM_DEBUG_DRIVER("string to int convert error code: %d\n", r);
+   130  
+   131                  param_index++;
+   132          }
+   133  
+   134          return 0;
+   135  }
+
+This whole function could probably be written like (not compiled):
+
+	wr_buf = memdup_user(buf, wr_buf_size + 1);
+	if (IS_ERR(wr_buf))
+		return PTR_ERR(wr_buf);
+	wr_buf[wr_buf_size] = '\0';
+
+	p = wr_buf;
+	while (p && *p) {
+		if (*param_nums >= max_param_num)
+			goto done;
+		while (*p && isspace(*p))
+			p++;
+		sub_str = strsep(&p, delimiter);
+		ret = kstrtol(sub_str, 16, &(param[param_index]));
+		if (ret)
+			goto done;
+		(*param_nums)++;
+	}
+done:
+	kfree(wr_buf);
+	return 0;
+
+regards,
+dan carpenter
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
