@@ -1,70 +1,67 @@
 Return-Path: <SRS0=Oizy=I4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7663AC433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83EE5C433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:06:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA7CB619D3
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA7CB619D3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mengyan1223.wang
+	by mail.kernel.org (Postfix) with ESMTPS id 1CA74619C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CA74619C2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A1F6E930;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B72806E931;
 	Tue, 30 Mar 2021 16:06:40 +0000 (UTC)
-Received: from mengyan1223.wang (mengyan1223.wang [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A0996E922;
- Tue, 30 Mar 2021 15:47:30 +0000 (UTC)
-Received: from [IPv6:240e:35a:1037:8a00:70b2:e35d:833c:af3e] (unknown
- [IPv6:240e:35a:1037:8a00:70b2:e35d:833c:af3e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest
- SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@mengyan1223.wang)
- by mengyan1223.wang (Postfix) with ESMTPSA id 1C2D56594D;
- Tue, 30 Mar 2021 11:47:04 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mengyan1223.wang;
- s=mail; t=1617119249;
- bh=eigbB8qDAI5a8bYAXwC0uvl+3igPnE99OdGkCocv9GA=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=1EWOwcM9/Ngu2Q35IvMTF6ORq00zTvR8ODmvXryNd1NO40Una9iMzBXJpLZB6pIuu
- 0nE/T24ASHFs5LYmG+Qy5eYqmx/mbYPQuGK4yWSbQvj2iXqpAek6FTl0I4Ln1a8OFd
- JBTCvwO77mb0Grnu0lK0gmEUeS7aQJY+KQP6TMz/fyJxsLubm+ib1rshZBJCiaoi2Y
- +CZ2RED5MXg1F2INPK0cWYlYGXCtgI3aYWoUr3lBHq2+vRV2Y2s6Ypbfsy8B6SqVQq
- ZTKxk3s8yVHLSfanPUHytOYezaBpaKChpVW7iFvHjtQCaWi/dTt0YoRhivNOaTfkfX
- y3vRPT3huSCAQ==
-Message-ID: <91dec1a3b6fe9165d1adab9cc69a788799e64fec.camel@mengyan1223.wang>
-Subject: Re: [PATCH] drm/amdgpu: fix an underflow on non-4KB-page systems
-From: Xi Ruoyao <xry111@mengyan1223.wang>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Dan
- =?ISO-8859-1?Q?Hor=E1k?= <dan@danny.cz>
-Date: Tue, 30 Mar 2021 23:46:58 +0800
-In-Reply-To: <92dc0767-0c4e-34bc-d1ee-66105d0f2013@amd.com>
-References: <20210329175348.26859-1-xry111@mengyan1223.wang>
- <d192e2a8-8baf-0a8c-93a9-9abbad992c7d@gmail.com>
- <be9042b9294bda450659d3cd418c5e8759d57319.camel@mengyan1223.wang>
- <9a11c873-a362-b5d1-6d9c-e937034e267d@gmail.com>
- <bf9e05d4a6ece3e8bf1f732b011d3e54bbf8000e.camel@mengyan1223.wang>
- <84b3911173ad6beb246ba0a77f93d888ee6b393e.camel@mengyan1223.wang>
- <97c520ce107aa4d5fd96e2c380c8acdb63d45c37.camel@mengyan1223.wang>
- <7701fb71-9243-2d90-e1e1-d347a53b7d77@gmail.com>
- <368b9b1b7343e35b446bb1028ccf0ae75dc2adc4.camel@mengyan1223.wang>
- <71e3905a5b72c5b97df837041b19175540ebb023.camel@mengyan1223.wang>
- <c3caf16b-584a-3e4c-0104-15bb41613136@amd.com>
- <f3fb57055f0bd3f19bb6ac397dc92113e1555764.camel@mengyan1223.wang>
- <63f5f6b39d22d9833a4c1503a34840eb08050f75.camel@mengyan1223.wang>
- <20210330152300.b790099debcd7659e30d9bfd@danny.cz>
- <92dc0767-0c4e-34bc-d1ee-66105d0f2013@amd.com>
-User-Agent: Evolution 3.40.0 
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2239C6E925
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 15:37:31 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id o16so6346826ljp.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 08:37:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=IKyTitQqgO7kZVcOkmTEADx60gINZjY0v50Zw0MS/mc=;
+ b=u4rCNAtgE+GOLpZje5KfSIM/3kR1xo++uYnXKVBTwVyRddf4Iu9Pm4upKEuehNcZNU
+ A4nBdpn5ehRGFzOT4+TfqeS8NxZdj/oAK5YDcUKhG7qleWLxGW2OWvbl4y+x9N9Nh3hU
+ jiF8m/vo0Iws98jNlJ8mkhI3MlYdi8JyRECrk3Kf2YxNVQMOF3h+zX5EuASvQTHrPRgx
+ HxQuw6NcisburhQcJwUwOGnyET1kt9uQLvShXs8nJ0ytZp1HoRFmzWeo5lgHlfERhP89
+ vEkmAJFxjFROwqdHM5dgeGPdCli3/hhD9CzTHrmKc3xEorN3ZECDMqs+7O54wxvspwY/
+ choA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IKyTitQqgO7kZVcOkmTEADx60gINZjY0v50Zw0MS/mc=;
+ b=WPpr08kIpbOHrYAC5i9x0rbhdIC0CZ7uDhwvNCjsHCXyRJ45zNNGxDNV/bdYl+W6WN
+ yPius4XgpWvwY/l5hWq5upqZocZ8T4W6O4vBzjtY5Mj7AkTQYaetA1tUjOksAKz5wNm7
+ rSTK2R3xCDmWZUjHn+7PK5l7cESH2ei6Fke1yVuEIa2+sVV/ZSHEXqzaHIPAfc/KSOAY
+ MH42Cg6GI/zWvSukmGsyTfanOUa1WMZ2GL0TFfCHfL7LHZMIeMl3DHMBN3HH75cD0IMt
+ qLwg6JFSu1nFBI5XdgDzh1O9UyMV9ex4WwnpcqqFOfsUFQKofyVnOPLcWqY9bIBhx8Iw
+ eEwg==
+X-Gm-Message-State: AOAM533lN0gBSGgWQodle3bxfFOPykH3sTL7QR2n0icbCfxIgP06iT1l
+ 6278QybakAEu+xp53zyayGbtt79mFpDEZ37rUB0=
+X-Google-Smtp-Source: ABdhPJySuWi8mmDoJLwQs1JCICeRXhFTkVxotN/qMN4LK6/6uaVaM91tA/Wrb/O7UzC7CDjDw0T3K7zCNMz56+niwtY=
+X-Received: by 2002:a2e:6e1a:: with SMTP id j26mr21478492ljc.171.1617118649520; 
+ Tue, 30 Mar 2021 08:37:29 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAHJvkbsexf7kM-11ZdrM+pHUUyvttB8fyJMfcsQAC1233jp8LA@mail.gmail.com>
+ <388b2a9d-0e63-b70f-28ed-6297a524fb76@amd.com>
+ <CAHJvkbuu5WB=QTu0EUgSGcoK6KMbP2j8NA0o+XTdtkwadNpsxg@mail.gmail.com>
+ <909002f5-691c-1cbb-1e44-a99217be8791@gmail.com>
+In-Reply-To: <909002f5-691c-1cbb-1e44-a99217be8791@gmail.com>
+From: Alberto Salvia Novella <es20490446e@gmail.com>
+Date: Tue, 30 Mar 2021 17:37:18 +0200
+Message-ID: <CAHJvkbsMY689cK3uq_O+i6jiqgLmSAUcrD43oHxpSsVwyhJ1Mg@mail.gmail.com>
+Subject: Re: Interlaced resolutions hang the desktop
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-Mailman-Approved-At: Tue, 30 Mar 2021 16:06:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,71 +74,236 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: alexander.deucher@amd.com, benh@kernel.crashing.org,
+ linux-fbdev@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1448688380=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wMy0zMCAxNToyNCArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAz
-MC4wMy4yMSB1bSAxNToyMyBzY2hyaWViIERhbiBIb3LDoWs6Cj4gPiBPbiBUdWUsIDMwIE1hciAy
-MDIxIDIxOjA5OjEyICswODAwCj4gPiBYaSBSdW95YW8gPHhyeTExMUBtZW5neWFuMTIyMy53YW5n
-PiB3cm90ZToKPiA+IAo+ID4gPiBPbiAyMDIxLTAzLTMwIDIxOjAyICswODAwLCBYaSBSdW95YW8g
-d3JvdGU6Cj4gPiA+ID4gT24gMjAyMS0wMy0zMCAxNDo1NSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiA+ID4gPiA+IEkgcmF0aGVyIHNlZSB0aGlzIGFzIGEga2VybmVsIGJ1Zy4gQ2Fu
-IHlvdSB0ZXN0IGlmIHRoaXMgY29kZSBmcmFnbWVudAo+ID4gPiA+ID4gZml4ZXMgeW91ciBpc3N1
-ZToKPiA+ID4gPiA+IAo+ID4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9rbXMuYwo+ID4gPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfa21zLmMKPiA+ID4gPiA+IGluZGV4IDY0YmViMzM5OTYwNC4uZTEyNjBiNTE3ZTFi
-IDEwMDY0NAo+ID4gPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2ttcy5jCj4gPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-a21zLmMKPiA+ID4gPiA+IEBAIC03ODAsNyArNzgwLDcgQEAgaW50IGFtZGdwdV9pbmZvX2lvY3Rs
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQKPiA+ID4gPiA+ICpkYXRhLCBzdHJ1Y3QgZHJt
-X2ZpbGUgKmZpbHApCj4gPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IH0KPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8t
-PnZpcnR1YWxfYWRkcmVzc19hbGlnbm1lbnQgPQo+ID4gPiA+ID4gbWF4KChpbnQpUEFHRV9TSVpF
-LCBBTURHUFVfR1BVX1BBR0VfU0laRSk7Cj4gPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGRldl9pbmZvLT5wdGVfZnJhZ21lbnRfc2l6ZSA9ICgxIDw8Cj4gPiA+ID4g
-PiBhZGV2LT52bV9tYW5hZ2VyLmZyYWdtZW50X3NpemUpICogQU1ER1BVX0dQVV9QQUdFX1NJWkU7
-Cj4gPiA+ID4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+Z2FydF9w
-YWdlX3NpemUgPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKPiA+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGRldl9pbmZvLT5nYXJ0X3BhZ2Vfc2l6ZSA9Cj4gPiA+ID4gPiBkZXZf
-aW5mby0+dmlydHVhbF9hZGRyZXNzX2FsaWdubWVudDsKPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8tPmN1X2FjdGl2ZV9udW1iZXIgPSBhZGV2LQo+
-ID4gPiA+ID4gPmdmeC5jdV9pbmZvLm51bWJlcjsKPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8tPmN1X2FvX21hc2sgPSBhZGV2LT5nZnguY3VfaW5m
-by5hb19jdV9tYXNrOwo+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBkZXZfaW5mby0+Y2VfcmFtX3NpemUgPSBhZGV2LT5nZnguY2VfcmFtX3NpemU7Cj4gPiA+ID4g
-SXQgd29ya3MuwqAgSSd2ZSBzZWVuIGl0IGF0Cj4gPiA+ID4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlu
-a3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGZ2l0aHViLmNvbSUy
-RnhlbjBuJTJGbGludXglMkZjb21taXQlMkY4NGFkYTcyOTgzODM4YmQ3Y2U1NGJjMzJmNWQzNGFj
-NWI1YWFlMTkxJmFtcDtkYXRhPTA0JTdDMDElN0NjaHJpc3RpYW4ua29lbmlnJTQwYW1kLmNvbSU3
-Q2YzN2ZkZGYyMGE4ODQ3ZWRmNjc4MDhkOGYzN2VmMjNjJTdDM2RkODk2MWZlNDg4NGU2MDhlMTFh
-ODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzUyNzA3NDExODc5MTMyMSU3Q1Vua25vd24lN0NUV0Zw
-Ykdac2IzZDhleUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhh
-V3dpTENKWFZDSTZNbjAlM0QlN0MxMDAwJmFtcDtzZGF0YT1EWm5tZWUzOE5HcGlXUk1YNUxtbHhP
-aHhBekJNaEF1c25BV05uQ3hYVEowJTNEJmFtcDtyZXNlcnZlZD0wCj4gPiA+ID4gYmVmb3JlICh3
-aXRoIGEgY29tbW9uIHN1Yi1leHByZXNzaW9uLCB0aG91Z2ggOikuCj4gPiA+IFNvbWUgY29tbWVu
-dDogb24gYW4gb2xkIHZlcnNpb24gb2YgRmVkb3JhIHBvcnRlZCBieSBMb29uZ3NvbiwgWG9yZyBq
-dXN0Cj4gPiA+IGhhbmdzCj4gPiA+IHdpdGhvdXQgdGhpcyBjb21taXQuwqAgQnV0IG9uIHRoZSBz
-eXN0ZW0gSSBidWlsdCBmcm9tIHNvdXJjZSwgSSBkaWRuJ3Qgc2VlCj4gPiA+IGFueQo+ID4gPiBp
-c3N1ZSBiZWZvcmUgTGludXggNS4xMS7CoCBTbyBJIG1pc2JlbGlldmVkIHRoYXQgaXQgd2FzIHNv
-bWV0aGluZyBhbHJlYWR5Cj4gPiA+IGZpeGVkLgo+ID4gPiAKPiA+ID4gRGFuOiB5b3UgY2FuIHRy
-eSBpdCBvbiB5b3VyIFBQQyA2NCB3aXRoIG5vbi00SyBwYWdlIGFzIHdlbGwuCj4gPiB5dXAsIGxv
-b2tzIGdvb2QgaGVyZSBhcyB3ZWxsLCBwcGM2NGxlIChQb3dlcjkpIHN5c3RlbSB3aXRoIDY0S0Ig
-cGFnZXMKPiAKPiBNaG0sIGFzIGZhciBhcyBJIGNhbiBzYXkgdGhpcyBwYXRjaCBuZXZlciBtYWRl
-IGl0IHRvIHVzLgoKSSB0aGluayBtYXliZSBpdHMgYXV0aG9yIGNvbnNpZGVycyBpdCBhICJ3b3Jr
-YXJvdW5kIiBsaWtlIG1lLCBhcyB0aGVyZSBpcwphbHJlYWR5IGEgInZpcnR1YWxfYWRkcmVzc19h
-bGlnbm1lbnQiIHdoaWNoIHNlZW1zIGNvcnJlY3QuCgo+IENhbiB5b3UgcGxlYXNlIHNlbmQgaXQg
-dG8gdGhlIG1haWxpbmcgbGlzdCB3aXRoIG1lIG9uIENDPwoKSSd2ZSBzZW50IGl0LCB0b2dldGhl
-ciB3aXRoIG15IHBhdGNoIGZvciB1c2luZyB+UEFHRV9NQVNLIGluIHBhcmFtZXRlcgp2YWxpZGF0
-aW9uLgoKLS0gClhpIFJ1b3lhbyA8eHJ5MTExQG1lbmd5YW4xMjIzLndhbmc+ClNjaG9vbCBvZiBB
-ZXJvc3BhY2UgU2NpZW5jZSBhbmQgVGVjaG5vbG9neSwgWGlkaWFuIFVuaXZlcnNpdHkKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1448688380==
+Content-Type: multipart/alternative; boundary="000000000000aa132005bec2c624"
+
+--000000000000aa132005bec2c624
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is why I'm using interlaced:
+
+$ *xrandr*
+Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192 x 8192
+DisplayPort-0 disconnected (normal left inverted right x axis y axis)
+HDMI-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y
+axis) 16mm x 9mm
+   1920x*1080i*    60.00*+  50.00    59.94
+   1920x1080     *24.00*    23.98
+   1280x*720*      60.00    50.00    59.94
+   1024x768      75.03    70.07    60.00
+   832x624       74.55
+   800x600       72.19    75.00    60.32    56.25
+   720x576       50.00
+   720x576i      50.00
+   720x480       60.00    59.94
+   720x480i      60.00    59.94
+   640x480       75.00    72.81    66.67    60.00    59.94
+   720x400       70.08
+DVI-0 disconnected (normal left inverted right x axis y axis)
+
+I think the driver should only support resolutions that are *progressive*,
+but also at least of *50Hz*.
+
+On Tue, 30 Mar 2021 at 15:41, Christian K=C3=B6nig <
+ckoenig.leichtzumerken@gmail.com> wrote:
+
+> Mhm, no idea why an interlaced resolution would cause a crash. Maybe some
+> miscalculation in the display code.
+>
+> But apart from that if you just connected your PC to a TV I also wouldn't
+> recommend using an interlaced resolution in the first place.
+>
+> See those resolutions only exists for backward compatibility with analog
+> hardware.
+>
+> I think we would just disable those modes instead of searching for the bu=
+g.
+>
+> Regards,
+> Christian.
+>
+> Am 30.03.21 um 11:07 schrieb Alberto Salvia Novella:
+>
+> I guessed so.
+>
+> The GPU is a Radeon HD5870, and the screen is an old Telefunken TV
+> (TLFK22LEDPVR1).
+>
+> Since my real display got into repair I used this TV meanwhile, and to my
+> surprise it froze the system.
+>
+> On Tue, 30 Mar 2021 at 10:15, Christian K=C3=B6nig <christian.koenig@amd.=
+com>
+> wrote:
+>
+>> Hi Alberto,
+>>
+>> well what hardware do you have?
+>>
+>> Interlaced resolutions are not used any more on modern hardware, so they
+>> are not well tested.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:
+>> > The entire desktop hangs after some minutes when using the module
+>> > "radeon" with an interlaced resolution.
+>> >
+>> > Easier to trigger by playing a video on Firefox, at least on kwin_x11.
+>> > Wayland didn't exhibit the problem.
+>> >
+>> > Other display drivers, from different computers I have tried, didn't
+>> > allow those interlaced resolutions all together. It seems they know
+>> > there will be problems.
+>>
+>>
+> _______________________________________________
+> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedeskto=
+p.org/mailman/listinfo/amd-gfx
+>
+>
+>
+
+--000000000000aa132005bec2c624
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>This is why I&#39;m using interlaced:<br></div><div><=
+br></div><div>$ <b>xrandr</b><br>Screen 0: minimum 320 x 200, current 1920 =
+x 1080, maximum 8192 x 8192<br>DisplayPort-0 disconnected (normal left inve=
+rted right x axis y axis)<br>HDMI-0 connected primary 1920x1080+0+0 (normal=
+ left inverted right x axis y axis) 16mm x 9mm<br>=C2=A0 =C2=A01920x<b>1080=
+i</b> =C2=A0 =C2=A060.00*+ =C2=A050.00 =C2=A0 =C2=A059.94 =C2=A0<br>=C2=A0 =
+=C2=A01920x1080 =C2=A0 =C2=A0 <b>24.00</b> =C2=A0 =C2=A023.98 =C2=A0<br>=C2=
+=A0 =C2=A01280x<b>720</b> =C2=A0 =C2=A0 =C2=A060.00 =C2=A0 =C2=A050.00 =C2=
+=A0 =C2=A059.94 =C2=A0<br>=C2=A0 =C2=A01024x768 =C2=A0 =C2=A0 =C2=A075.03 =
+=C2=A0 =C2=A070.07 =C2=A0 =C2=A060.00 =C2=A0<br>=C2=A0 =C2=A0832x624 =C2=A0=
+ =C2=A0 =C2=A0 74.55 =C2=A0<br>=C2=A0 =C2=A0800x600 =C2=A0 =C2=A0 =C2=A0 72=
+.19 =C2=A0 =C2=A075.00 =C2=A0 =C2=A060.32 =C2=A0 =C2=A056.25 =C2=A0<br>=C2=
+=A0 =C2=A0720x576 =C2=A0 =C2=A0 =C2=A0 50.00 =C2=A0<br>=C2=A0 =C2=A0720x576=
+i =C2=A0 =C2=A0 =C2=A050.00 =C2=A0<br>=C2=A0 =C2=A0720x480 =C2=A0 =C2=A0 =
+=C2=A0 60.00 =C2=A0 =C2=A059.94 =C2=A0<br>=C2=A0 =C2=A0720x480i =C2=A0 =C2=
+=A0 =C2=A060.00 =C2=A0 =C2=A059.94 =C2=A0<br>=C2=A0 =C2=A0640x480 =C2=A0 =
+=C2=A0 =C2=A0 75.00 =C2=A0 =C2=A072.81 =C2=A0 =C2=A066.67 =C2=A0 =C2=A060.0=
+0 =C2=A0 =C2=A059.94 =C2=A0<br>=C2=A0 =C2=A0720x400 =C2=A0 =C2=A0 =C2=A0 70=
+.08 =C2=A0<br>DVI-0 disconnected (normal left inverted right x axis y axis)=
+</div><div><br></div><div>I think the driver should only support resolution=
+s that are <b>progressive</b>, but also at least of <b>50Hz</b>.<br></div><=
+/div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">O=
+n Tue, 30 Mar 2021 at 15:41, Christian K=C3=B6nig &lt;<a href=3D"mailto:cko=
+enig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+ =20
+   =20
+ =20
+  <div>
+    Mhm, no idea why an interlaced resolution would cause a crash. Maybe
+    some miscalculation in the display code.<br>
+    <br>
+    But apart from that if you just connected your PC to a TV I also
+    wouldn&#39;t recommend using an interlaced resolution in the first
+    place.<br>
+    <br>
+    See those resolutions only exists for backward compatibility with
+    analog hardware.<br>
+    <br>
+    I think we would just disable those modes instead of searching for
+    the bug.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div>Am 30.03.21 um 11:07 schrieb Alberto
+      Salvia Novella:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div>I guessed so.</div>
+        <div><br>
+        </div>
+        <div>The GPU is a Radeon HD5870, and the screen is an old
+          Telefunken TV (TLFK22LEDPVR1).</div>
+        <div><br>
+        </div>
+        <div>Since my real display got into repair I used this TV
+          meanwhile, and to my surprise it froze the system.<br>
+        </div>
+      </div>
+      <br>
+      <div class=3D"gmail_quote">
+        <div dir=3D"ltr" class=3D"gmail_attr">On Tue, 30 Mar 2021 at 10:15,
+          Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.c=
+om" target=3D"_blank">christian.koenig@amd.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi
+          Alberto,<br>
+          <br>
+          well what hardware do you have?<br>
+          <br>
+          Interlaced resolutions are not used any more on modern
+          hardware, so they <br>
+          are not well tested.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+          <br>
+          Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:<br>
+          &gt; The entire desktop hangs after some minutes when using
+          the module <br>
+          &gt; &quot;radeon&quot; with an interlaced resolution.<br>
+          &gt;<br>
+          &gt; Easier to trigger by playing a video on Firefox, at least
+          on kwin_x11. <br>
+          &gt; Wayland didn&#39;t exhibit the problem.<br>
+          &gt;<br>
+          &gt; Other display drivers, from different computers I have
+          tried, didn&#39;t <br>
+          &gt; allow those interlaced resolutions all together. It seems
+          they know <br>
+          &gt; there will be problems.<br>
+          <br>
+        </blockquote>
+      </div>
+      <br>
+      <fieldset></fieldset>
+      <pre>_______________________________________________
+amd-gfx mailing list
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
+=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </div>
+
+</blockquote></div>
+
+--000000000000aa132005bec2c624--
+
+--===============1448688380==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1448688380==--
