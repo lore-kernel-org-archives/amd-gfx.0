@@ -2,132 +2,136 @@ Return-Path: <SRS0=Oizy=I4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-1.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B571AC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CEE5C433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4327461953
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4327461953
+	by mail.kernel.org (Postfix) with ESMTPS id BF83861994
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 16:26:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF83861994
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B53746E93A;
-	Tue, 30 Mar 2021 16:21:20 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 967176E93A;
- Tue, 30 Mar 2021 16:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2086E93F;
+	Tue, 30 Mar 2021 16:26:32 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED576E93D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 16:26:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Suzc7gSHvl5+iG0TCuvKsb/6IenMj1PQmbmBc/8QxaP9y6qPieSeFM0+EX+4N5XhfIrqVR1ygczn1JmL+4qO2rNthU5oYzxk9G03SHCNwcuhsuxNmpUUBiQzMl2cJEkFb51nB22eC9njVt/0Le5a++89tw+GMVxFNAJUAV/059j/QQpT6TLSdRNdowSABFuC2saS3BjgvOiNoX0L8RbWdyTEYa3QMnGjjQL4zTf83IGJuLOwSvXoXoVselyCikZpJhrrzLkPl8AjBxRzAuWF0Qkx0TiDoTUzRuoV3H9KiCZhfkm2ULzfcGfMVOM/nr7C+JAOERJiWT9lxZhhl2ikGg==
+ b=IgfOrqMiZtJ4LerVsnEPLkN+8BjRfqyX8r945qo0xwOXUisjEFek7GAwbho45+ZSJTjYA+1/rs+/NqvTYu6R9ooDOVsJ5MNu6cP9EnKkXk0IfDi5f1yUpeX9PmHxRWRB8s/otwDmUDQPoF36U5Cz3CULzP2eEUZQcGF9aTvb41vuZXaB2j7+T0kYEN65lt3pVBn1IkWG5pfXvb42F3aeIoqI8F2h13ezF9NTxhQQ4xzbOkKVdFrfWsGK1bUQYJEtL+CHOp9MHvy550lVGnwM/uY3xWt+TzRBkB3xY+MF2E1ViQgQhe3RRcV66U/57VxZ1Plerbl+odxBH3WjqIFF+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5eU1gY1YsSTw5eDxKOX/1Qf6m/LIY0K6DhRhE7sZG1U=;
- b=ZhSPB+5uBloGTdAnfiUOocz6EPW+ILAjGJV0AV90t7qjrYC3ff8yxTbKVDvbzd5NVZz0l0zC91fpCFm1w0heszV4/LQF2vLy2c5oJpJG0yd28lItbLFtfsw/2mGpqLe0EiWBQFnFr7ldeGti59r9rE7VUU1+8dAk124kyfkWk9KY8yCH8RCAY3ngIFFoLlz1SfsMYAlkqKXq7Rg8bRR4/CZWsDKLAY5gt/0Mk47qQ22LVad8i7XV4uC911WnNtQ7Tp0/+R6nNOOQc4McPzPHESfiGgxWNsDJLrf9oTgZQC7WE1ckTwVQKMqmwbH9KVjKRbPhJZXdtQYz+8dcBbJcrQ==
+ bh=M9UDw21jXD51CQfOadSSTik5a7vSGqMEy0m3XAFy+Sc=;
+ b=C387X60gESP1pHJCrApTAY+LkaAiO2XswFB4/1a5ne44ebmmxmCl4dCgZ/9J++Cn1VxOF5PkONMSg7uR80p5yCVr6JaUNhEro/xdJ8VOGEaTmxvIKu6kqF7xcEfKOrJL0Xeo9O/tYJG12dygz5P7QiodBxc2NthVfnC/XO4GtP1PQgmMxY1+bPslLgW69F4XOHdB3H7+VWgsLzjDxe/4Zismcnje/sl0in8jABfiCs93h46cPZCrsIlLuveyKsRNvzaV7WgQ4s+8JCeqw+1aN6i2Pbe3r1O90rdjZmeuV5C1HlCR4OVsP2IegCs/IGg+UvZdqyaXCOSc/H6y1Gsj5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5eU1gY1YsSTw5eDxKOX/1Qf6m/LIY0K6DhRhE7sZG1U=;
- b=Wkh5w3hOfMlajvC3JjQ1JrpsKqae0R28M6KMNoWTnrlBfi80XK5aXUJTObbLFNyYXCWeyHTgArCKFXRI7/BCNRik0ELaXP3ZooCJa1e1JHDV+HqE3ou1XdoC9LmW7DHomJImOTl2JxeEIg4LaxWoocoFxaZEYCeiUj+/4DGdano=
-Authentication-Results: linux.ie; dkim=none (message not signed)
- header.d=none;linux.ie; dmarc=none action=none header.from=amd.com;
+ bh=M9UDw21jXD51CQfOadSSTik5a7vSGqMEy0m3XAFy+Sc=;
+ b=p4svA/pmXJbmE8AsOt8QRTXaLqEq4KSZOrBg7l2/CD19VFHyBfd5Sf29Ipv3aZv3pgbJD4B6RzAkPHFkD3yqu59UCoUx6jOVZoVhyFMPP8MlvhTGz9O1+lXquROMofZa6oRrSE2Hing1Y6vuMYKolxBIgI9xX1yaRTw+msVRW/k=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4405.namprd12.prod.outlook.com (2603:10b6:208:26d::17)
+ by BL0PR12MB4897.namprd12.prod.outlook.com (2603:10b6:208:17e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Tue, 30 Mar
- 2021 16:21:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.26; Tue, 30 Mar
+ 2021 16:26:28 +0000
 Received: from MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
  ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3977.033; Tue, 30 Mar 2021
- 16:21:17 +0000
-Subject: Re: [PATCH 0/2] ensure alignment on CPU page for bo mapping
-To: =?UTF-8?B?WOKEuSBSdW95YW8=?= <xry111@mengyan1223.wang>,
- amd-gfx@lists.freedesktop.org
-References: <20210330153334.44570-1-xry111@mengyan1223.wang>
+ 16:26:27 +0000
+Subject: Re: Interlaced resolutions hang the desktop
+To: Alberto Salvia Novella <es20490446e@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <CAHJvkbsexf7kM-11ZdrM+pHUUyvttB8fyJMfcsQAC1233jp8LA@mail.gmail.com>
+ <388b2a9d-0e63-b70f-28ed-6297a524fb76@amd.com>
+ <CAHJvkbuu5WB=QTu0EUgSGcoK6KMbP2j8NA0o+XTdtkwadNpsxg@mail.gmail.com>
+ <909002f5-691c-1cbb-1e44-a99217be8791@gmail.com>
+ <CAHJvkbsMY689cK3uq_O+i6jiqgLmSAUcrD43oHxpSsVwyhJ1Mg@mail.gmail.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <7c5e3a40-9889-1cc2-583d-51f8c3294908@amd.com>
-Date: Tue, 30 Mar 2021 18:21:11 +0200
+Message-ID: <b1137716-d6dd-6572-3d45-d0063caef26e@amd.com>
+Date: Tue, 30 Mar 2021 18:26:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
-In-Reply-To: <20210330153334.44570-1-xry111@mengyan1223.wang>
+In-Reply-To: <CAHJvkbsMY689cK3uq_O+i6jiqgLmSAUcrD43oHxpSsVwyhJ1Mg@mail.gmail.com>
 Content-Language: en-US
 X-Originating-IP: [2a02:908:1252:fb60:8ca4:a46e:6aa7:208c]
-X-ClientProxiedBy: AM4PR0701CA0012.eurprd07.prod.outlook.com
- (2603:10a6:200:42::22) To MN2PR12MB3775.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM3PR07CA0098.eurprd07.prod.outlook.com
+ (2603:10a6:207:6::32) To MN2PR12MB3775.namprd12.prod.outlook.com
  (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [IPv6:2a02:908:1252:fb60:8ca4:a46e:6aa7:208c]
  (2a02:908:1252:fb60:8ca4:a46e:6aa7:208c) by
- AM4PR0701CA0012.eurprd07.prod.outlook.com (2603:10a6:200:42::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.15 via Frontend
- Transport; Tue, 30 Mar 2021 16:21:15 +0000
+ AM3PR07CA0098.eurprd07.prod.outlook.com (2603:10a6:207:6::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3999.17 via Frontend Transport; Tue, 30 Mar 2021 16:26:26 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fe22bca2-8df6-4393-d7cd-08d8f397d832
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4405:
+X-MS-Office365-Filtering-Correlation-Id: f61a08da-0373-4484-fa6e-08d8f398917d
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4897:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB44051FCFC319B2B7135AE209837D9@MN2PR12MB4405.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4897A56EA0D3F58030C61E56837D9@BL0PR12MB4897.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nJmShdqnrqRP6K3XjjTsC85krIRC3bKUHkNuJDu11h23wqkiL0rfLOiLSFd8IqMet4EMZwpA+4a+vjj3F/MBixUrCYJ52jcXLO7JFfwzjusqdKhKD2NPWthInTSLjYBQ6hhdEOdq6GmRx2Kjz+7WVU2ef+zSlT/VCQq/jmStFy4u6EeRRhF/oHypIX3/lWJlmD71yv4OMPw5pCgwpb2VQJo+0TDn6nztWV9MxNXSq3zlJPW2rCVEQPH947qMjk47u+vDrTylwm1nBUChvv4UD+mOV9f8tyTKG3V41/8MjlNZM75s1KPoTD2kcQZFiOSejQeONe/cPfVuLfhQBFbfG6qN8Ml583lbLBOtlbanxhuaNgekCqYhfbZdboGz3SjkIUf549ttgj9QjOyUp97D9BVubOM1w5/ZqfhAp+3qvwIRJC8DAlDPJkmb5Lu7Pc372pVILJC7dgbzgBc1e87bGJ4QOSKIL8l8RLpuO4PqRl3zX282ElJAhEN++EBEUZQaH5ctOr70nTUjjlCmMWsm5Kr2sQYLhAbo0d3ZQA+UDn5U4LdzIJO/lKRCW+zOIiFdyvNtZKDq7oBi5buYOIIM/iq6UMhkIbimuf0rfq9KE05xd8g6mFu8Cp04KO/LR2kodzOS9OUpLQYyko8LwZyLfNPRC9l3K4/rsDi2Tb5Q2bBPFWv/dNEKn5tv8Czck2gpmwGiQpUjQOvvzzMkTWdbKw==
+X-Microsoft-Antispam-Message-Info: Z55w4Wi7S4t1I8i6Ww3mb6aXnjmctK7TZwUKgGHq149PA0SRjE/VIpT2ut+BJxA8YrKXSRHe7RxCvVwzjL8B3T1tEnsdu7h/olpoto6Bm6O5Ci5Em5khGzZ60LHTJcv/aUHIwDEzwS+fi7o5SBFlvS9q7+71qNyGbkhP6VeZPQj+VNc3CL5yvvKzpxU+ZLbqM+Si5HO9/GFMvWpb6/hSpE9FIahj1Rq2sE/DAc/pNkhVtnPItTSNJcDlYh+IXlCjKvQLKeAZpZdT1bD7Ljb41kxUogeuiju5O4squlabBGJVSvHjyLWDk81xsStviitd4hM00cyhkmx03feNAlc9Q0T9hnF8alcgA6NR7hrWoqCDuzR/Ja9CjLnnhtwgulRRv4wVjfsvzvEWWSK+H9YXw635CIiutRNvebUv/vKssBvEG8o7Pup7xCZm2/nOq0U810GAc1yjvsNjyHJiUNrnklSyzrsSUf0TU492LmRFlw33sjYvsswOR9LQDlnYJwta7OJJk/NSo9HcN5afbZvoGqb30l0GkCUVFLMpuckzM70UWJ7IiRivVXPWSm96GwQENaA4jgORwsdrTHaHgXURYRGJ8q7rNjYQx2b/2NPxx406Dbu9wrjtKo1QWjOsqJ1StmYOLhahkql3nfAAbr61o6mdtkt8WlHmESqmT38rZ3mrEQGTtS5ELhJbGjhgefhfRPokRfz9KU8tGtXSU2SCCr+pZEev10Ph0MMrWSJaGWsUQgjIR/XaH4Qgv8ELZ8+FCeO/USZWoVAVaR2qzN7/0Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(366004)(136003)(39860400002)(396003)(86362001)(6666004)(38100700001)(16526019)(66574015)(52116002)(4326008)(186003)(31696002)(478600001)(5660300002)(6486002)(31686004)(66476007)(66946007)(66556008)(83380400001)(2616005)(8676002)(54906003)(8936002)(36756003)(2906002)(316002)(45980500001)(43740500002);
+ SFS:(4636009)(39850400004)(346002)(376002)(396003)(366004)(136003)(5660300002)(52116002)(38100700001)(31686004)(33964004)(6486002)(166002)(66574015)(36756003)(83380400001)(31696002)(16526019)(8676002)(2906002)(8936002)(66476007)(66556008)(86362001)(66946007)(2616005)(6666004)(110136005)(45080400002)(478600001)(186003)(4326008)(316002)(966005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZjYrb2hWa01BOGxXYTh0MnVJY0luM2luZDBIeDQ0UjNWVlJTL2Jlc055anpQ?=
- =?utf-8?B?VUVaK212cytpN29XVkVJclFIK2g0L1lISHBUbExMSjRsV0ZHSUpkOGpsS0Fs?=
- =?utf-8?B?YmVuSGY3MjVuRHRoWlI2YURmM3F1Z2JXbXhRbnEveEt5TDVjMytvd09iQVR5?=
- =?utf-8?B?ODNSNjdmdEJheU5sUWd5Y0xuSnJPUlV6T2ZmV1ZZMkhHWlljOTdZMkRjeWpz?=
- =?utf-8?B?VzhjZGVxMkZyQmQ1WFM4Y1o3di8waGlCTTZuUEJ6TlBoVUZJZ1RibDI5SjBS?=
- =?utf-8?B?Rkd4WFhXdGdKSnRIV0lTd2NOek5TbDcxeENiR20rSnhRbW9VeWtwOVhxRmcv?=
- =?utf-8?B?N1dSVWpVeW41NmxOQm52S2NoLzlzS0Fvd0xFRkQzakpmQ3JYeEx3N2lsLzN4?=
- =?utf-8?B?NlN6bk9ycERtNkc5emJTMUVaM2JITE9vZ054Zm9vR05pempFRGZQaTU4Z2pp?=
- =?utf-8?B?Y2lvbmluaGdZOGd3VnE4UnJWRlJPTWM1V2xoNW5ZWjhDQU5zN2VHVWJMVjI3?=
- =?utf-8?B?b3RwaEpTTHZieXVlazFQZGtLOGJLQ2tqUFRkdkd4azZOcENCN2d2SEE1MG94?=
- =?utf-8?B?WmdNb3pBQVZmaDZiRlp0UVJtODNVWGlZVjk3YTVOcTVsQ2FxS2ZHNzZlQmt5?=
- =?utf-8?B?SUdUVHI4VjlWWlk1aEtrcEtnQVJpRDk5SXlqSFBaK0lYSjhYcGcxUTc1QlRS?=
- =?utf-8?B?Z2ZZZnovOXhwcUt0UWIrWjBBOE0xNW9DWGlQODZmQWFoMFl5VThPa040OXRu?=
- =?utf-8?B?TGYveWZ2SzlsbmJxYlRLM2JKMi93czFtdnFWdHVMcWNOakNCY3A3ZWdZQlBP?=
- =?utf-8?B?QjJjemRJUmdGK3VJa1FiYVFpdC9iUWtVYWkwMkk3ejRYVWozSXJEZTA1elFC?=
- =?utf-8?B?a1NOS3ZZVmpJRER5SHJva2cza0Rqb2d6RnEwWWRZbnMwZFI1bGtSWUFoTGJ0?=
- =?utf-8?B?b0E3SGZkdkU4eWtwTEswdldMdDgwRC90VzRoU1RVeE82WDF4VWREUDk4bXRm?=
- =?utf-8?B?NkpMNDRJcDMyY1pUWXlVSTBQc1JabE8yclJDcnVlR0srN2VaRDd1YWJzMlp5?=
- =?utf-8?B?UnorbGF2VlRYekR6cVpsRTF2SDhTSVZ1V29XK2RKaStKUXVSeGw1a0ZEUk9V?=
- =?utf-8?B?cHJaK3hSUmRUak9NK2V6ZkdGdDZxRTZVOHIrdlU4UmhHMy9SamJEcW5DOXJL?=
- =?utf-8?B?c1kvOGFKUmhjSzhtMCswWlNidUZ5UDdNNTkzY3l3ZmhLMExpS1p0aFllNmpr?=
- =?utf-8?B?N1BadlRtN09yMVJVRExpVTFkRGM0M3AzZi9IdkJoYkllZjZ6cGtZcUJKL0Jm?=
- =?utf-8?B?Ym84ejNHMWE5d3pwWUFRRm1LZlhTSHZSa3lha24wRks3NFRpS3VWMnpTZWs0?=
- =?utf-8?B?d2ZjeGkxRXlCNnZIaEZyQ1dWNUhEY2pXNGkyYk41eUhTL3l5UzJWS0JZVHZq?=
- =?utf-8?B?VFJJNWlPSXF3akZYV3pxK2V3NEJNenBDL05vd3BxZFFabnpxSlhuRUZiSWZ1?=
- =?utf-8?B?QWhsZXZacDliUUtxd3I4L1hKMVVqK1E5MlFOOE9kbHZmYmZCOU1XNkhXOTlP?=
- =?utf-8?B?Z0R5dFByTHhmZ3NPWHNmalZNZS9jSkVSSUJJVHdZZ3lWR3ZHa1hHNjdTSEww?=
- =?utf-8?B?RzQrVTlDYnNCOCtXc2N3LzN6bzY2VlJOcWl4cDhGcmRZWElzQUZXTUpOb2Vt?=
- =?utf-8?B?ZlpadTZKenBGOW9hb3ZXMkpocnpMQnBGK3pBUDJIUUlmQXhESS9KYVlHMWhV?=
- =?utf-8?B?OUxpOGZGc0hORnZBQ2J3U2NVSHA3WGk0VWNRUUVKcFh5WEsyb3ZrK01RN2wx?=
- =?utf-8?B?Z0JkcU1PM1BOV3IwT2Z5Z2VqUm5mUmNVSVpyb0Z2VUdmVWNMOTFZMHV4MC82?=
- =?utf-8?Q?M2O+6y1AweMkT?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V3dnUHdkL1Y4eS9sSFBBd1Z4eXhZbFV2VEExNWRtaDg5cFJVcHZieXA2UUhX?=
+ =?utf-8?B?VGhoOTJQME9iQVVqRnFMeFdGSWRJU0RvR3BjUTZ0WGtWdk5FcHhGc1N2Q3RJ?=
+ =?utf-8?B?cmhEVEEvVFlEY3ZUZUpMa3JSRCtvM25vN3RTS1lTbklOZjhKa2x1UHpsQ0ZQ?=
+ =?utf-8?B?aE1hblJVSis2TDV2RnJnME9WV3g2ZkZLY01RWTZJV1d4OWNYWmJ6VEJudGxx?=
+ =?utf-8?B?MG1sSlRjSGJEQjhIMC9PcFlnaGd5bUtURzBhQ3NFYVlhVDRUUDVQM1doUXNq?=
+ =?utf-8?B?RTZ4dExxWUs2RkkzdHZSbm9XOEs2UlEzamtJZ21uMlhSQW9kNzNZOU9hU21p?=
+ =?utf-8?B?TThpbGtCV3FsZVZacTVod1luRG9JdjdubGJGZ3VwMkQvN2xDa24zL2xGUkhx?=
+ =?utf-8?B?ZkFmSElPUE1vZDdwMU5LWkZiMUFqUkFVUlkzMWNMVzJwR21oeU9JYkI1L283?=
+ =?utf-8?B?N3gwWmF1cEI4RUNQakdJRXJzWittTWJLb3o1Z2N0R1Q3MkxlTkdwcmNJMVA0?=
+ =?utf-8?B?Y0k0UnlkV1JxdCt1RGRMaWZHSEI2ZGgvd2grVDZhMUpaV1J6UEd2RnNIME1J?=
+ =?utf-8?B?OGw1Mml0WkhKeDIwK0VBK1BZbXY5MmZ4RUZyTW1Edkw3U25rbEwvdkxFTEJj?=
+ =?utf-8?B?L1RtZlExY1Z6eVdqcjZoQmtRVm5vWit2Q2I2Z1gwclZkY3pPMjVEQVJVRDd2?=
+ =?utf-8?B?UmhUYzA1OHhpV2hpNEpGYjlVZ3JWVXYwZDgyUU5FUGVERERIcFJ5SzVTSEtj?=
+ =?utf-8?B?NFVBQVZ4c2MvOUxaV2Rydk5wb1BCU0g3U3JsOGw2OGNWNjJjc2d4UVhyTGxk?=
+ =?utf-8?B?L2RNREZzVmdoYmZKa285bXRzR2dVTXo2SDUraG0wMDRDUDFuT3RnbktZL1Ix?=
+ =?utf-8?B?N1djclVuZ3hPcWorVUY1NDRvV2VUTFhsT1R1cExUZ0g2NWdJKzRRV2dMWG41?=
+ =?utf-8?B?T1lxWGNlT1BlWWVpR1o5djJYWFVPZnpjb0xDVHhlanJmWURMdmE2eDl0Zmdh?=
+ =?utf-8?B?bkNJTDAvUERPUjRnTHBkV1k3dGNjZHM2c2NqaUtqNEt4WXpPV0pMVWlMZjFr?=
+ =?utf-8?B?SG5uZ3JaMjc5UXNpTHhQZHUrSG9RY1QydkhzMklOYkhhbWVYeWk1VWlISFpY?=
+ =?utf-8?B?N1lNMlZPdVhPaEFCbWU5ZnRlb3BkT1N1bE51U2pwRDJQVGdUSTM0TFFBWGho?=
+ =?utf-8?B?MXJQbGR2V3QrMGF3L3oxT0ZLOW1ib2E5RlRVUFFaMUM1MHhtdlMxaGxockdO?=
+ =?utf-8?B?NUwvSW50WEVYMlBKNSt5OHRCTE84NTdnRTZuUlVxdDFnSU1LVytqRlVTZU8w?=
+ =?utf-8?B?SXhPZjErQjBGYk9vaTA0Q3p6QmdkWHJwR2tTTy9CNEw0U0pNWWphWmZYb3R6?=
+ =?utf-8?B?SDNrcDZhNm1vRzVtRWtEUHFuaDYwcmE1eHdIakFDdW5aU3BiUlMwdk9qaUtm?=
+ =?utf-8?B?V042TExRSSsvTFpVdHM4QXplZjdqaklTWkorT05RcG42djdHQ1oxVVdQajFE?=
+ =?utf-8?B?SHV4aHM2Y3ltU0orcFJOTklaZ2dGVnlrWldteWNCb1h1Q2MyODNpTkxqZFFZ?=
+ =?utf-8?B?SDR5aTBoanZtMk5lWElmNXZkUXliWnMwcWR6dFZKbVJscG5FUStJTC8yMHFw?=
+ =?utf-8?B?N1BIYjV1c004UUVhZ002ZDVGcUlQQkxEak9HQ2FjS09HNkFwTDVEY2RiWGRL?=
+ =?utf-8?B?U2ovY2ZxMnllUWlQbTVSNWpxbG9GQnRPRUU1ZHlJMHRNMjQ2VHVlQkNob2ta?=
+ =?utf-8?B?bFk0Vzh2RXljZVFXUDFIVE4yR0pRMWVybHh0TVRzSHBiNGhMbzhheFRrU0ND?=
+ =?utf-8?B?MUJOZTZjVVB4RlovMUdvUXpNZGQ5d0tCaXJXZkl4em02em1xMjQxeW4zc2g3?=
+ =?utf-8?Q?+d7yDaTCGfzOU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe22bca2-8df6-4393-d7cd-08d8f397d832
+X-MS-Exchange-CrossTenant-Network-Message-Id: f61a08da-0373-4484-fa6e-08d8f398917d
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2021 16:21:17.2853 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2021 16:26:27.8443 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +8xZcO5ipbOFqTt3vd5OyaCx2MdQo5BlBE7BhuzSndm10rYDc9dDRiuCv0ZUJJQB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4405
+X-MS-Exchange-CrossTenant-UserPrincipalName: t/jmPWL09EdF8S7TkXGCHXXsMerDCZT2rIz4XjRrVs66ALHK7qM9zWEC7l4UtpGs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,33 +143,280 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Dan_Hor=c3=a1k?= <dan@danny.cz>,
- Huacai Chen <chenhuacai@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: alexander.deucher@amd.com, benh@kernel.crashing.org,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1492468947=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4g
-Zm9yIHRoZSBlbnRpcmUgCnNlcmllcy4KCkFsZXggd2lsbCBwcm9iYWJseSBwaWNrIHRoZW0gdXAg
-Zm9yIHRoZSBuZXh0IGZlYXR1cmUgcHVsbCByZXF1ZXN0LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoK
-QW0gMzAuMDMuMjEgdW0gMTc6MzMgc2NocmllYiBY4oS5IFJ1b3lhbzoKPiBJbiBBTURHUFUgZHJp
-dmVyLCB0aGUgYm8gbWFwcGluZyBzaG91bGQgYWx3YXlzIGFsaWduIHRvIENQVSBwYWdlIG9yCj4g
-dGhlIHBhZ2UgdGFibGUgaXMgY29ycnVwdGVkLgo+Cj4gVGhlIGZpcnN0IHBhdGNoIGlzIGNoZXJy
-eS1waWNrZWQgZnJvbSBMb29uZ3NvbiBjb21tdW5pdHksIHdoaWNoIHNldHMgYQo+IHN1aXRhYmxl
-IGRldl9pbmZvLmdhcnRfcGFnZV9zaXplIHNvIE1lc2Egd2lsbCBoYW5kbGUgdGhlIGFsaWdubWVu
-dAo+IGNvcnJlY3RseS4KPgo+IFRoZSBzZWNvbmQgcGF0Y2ggaXMgYWRkZWQgdG8gZW5zdXJlIGFu
-IGlvY3RsIHdpdGggdW5hbGlnbmVkIHBhcmFtZXRlciB0bwo+IGJlIHJlamVjdGVkIC1FSU5WQUws
-IGluc3RlYWQgb2YgY2F1c2luZyBwYWdlIHRhYmxlIGNvcnJ1cHRpb24uCj4KPiBUaGUgcGF0Y2hl
-cyBzaG91bGQgYmUgYXBwbGllZCBmb3IgZHJtLW5leHQuCj4KPiBIdWFjYWkgQ2hlbiAoMSk6Cj4g
-ICAgZHJtL2FtZGdwdTogU2V0IGEgc3VpdGFibGUgZGV2X2luZm8uZ2FydF9wYWdlX3NpemUKPgo+
-IFjihLkgUnVveWFvICgxKToKPiAgICBkcm0vYW1kZ3B1OiBjaGVjayBhbGlnbm1lbnQgb24gQ1BV
-IHBhZ2UgZm9yIGJvIG1hcAo+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-a21zLmMgfCA0ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-ICB8IDggKysrKy0tLS0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA2IGRl
-bGV0aW9ucygtKQo+Cj4KPiBiYXNlLWNvbW1pdDogYTBjOGIxOTNiZmU4MWNjOGU5YzdjMTYyYmI4
-ZDc3N2JhMTI1OTZmMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1492468947==
+Content-Type: multipart/alternative;
+ boundary="------------0FC637F9C797FDE7BAD5F7B0"
+Content-Language: en-US
+
+--------------0FC637F9C797FDE7BAD5F7B0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Alberto,
+
+> I think the driver should only support resolutions that are 
+> *progressive*, but also at least of *50Hz*.
+
+Why do you think so?, the 24Hz resolution seems to be the native one of 
+the display.
+
+Regards,
+Christian.
+
+Am 30.03.21 um 17:37 schrieb Alberto Salvia Novella:
+> This is why I'm using interlaced:
+>
+> $ *xrandr*
+> Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192 x 8192
+> DisplayPort-0 disconnected (normal left inverted right x axis y axis)
+> HDMI-0 connected primary 1920x1080+0+0 (normal left inverted right x 
+> axis y axis) 16mm x 9mm
+>    1920x*1080i*    60.00*+  50.00    59.94
+>    1920x1080 *24.00*    23.98
+>    1280x*720*      60.00    50.00    59.94
+>    1024x768      75.03    70.07    60.00
+>    832x624       74.55
+>    800x600       72.19    75.00    60.32    56.25
+>    720x576       50.00
+>    720x576i      50.00
+>    720x480       60.00    59.94
+>    720x480i      60.00    59.94
+>    640x480       75.00    72.81    66.67    60.00    59.94
+>    720x400       70.08
+> DVI-0 disconnected (normal left inverted right x axis y axis)
+>
+> I think the driver should only support resolutions that are 
+> *progressive*, but also at least of *50Hz*.
+>
+> On Tue, 30 Mar 2021 at 15:41, Christian König 
+> <ckoenig.leichtzumerken@gmail.com 
+> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
+>
+>     Mhm, no idea why an interlaced resolution would cause a crash.
+>     Maybe some miscalculation in the display code.
+>
+>     But apart from that if you just connected your PC to a TV I also
+>     wouldn't recommend using an interlaced resolution in the first place.
+>
+>     See those resolutions only exists for backward compatibility with
+>     analog hardware.
+>
+>     I think we would just disable those modes instead of searching for
+>     the bug.
+>
+>     Regards,
+>     Christian.
+>
+>     Am 30.03.21 um 11:07 schrieb Alberto Salvia Novella:
+>>     I guessed so.
+>>
+>>     The GPU is a Radeon HD5870, and the screen is an old Telefunken
+>>     TV (TLFK22LEDPVR1).
+>>
+>>     Since my real display got into repair I used this TV meanwhile,
+>>     and to my surprise it froze the system.
+>>
+>>     On Tue, 30 Mar 2021 at 10:15, Christian König
+>>     <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
+>>
+>>         Hi Alberto,
+>>
+>>         well what hardware do you have?
+>>
+>>         Interlaced resolutions are not used any more on modern
+>>         hardware, so they
+>>         are not well tested.
+>>
+>>         Regards,
+>>         Christian.
+>>
+>>         Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:
+>>         > The entire desktop hangs after some minutes when using the
+>>         module
+>>         > "radeon" with an interlaced resolution.
+>>         >
+>>         > Easier to trigger by playing a video on Firefox, at least
+>>         on kwin_x11.
+>>         > Wayland didn't exhibit the problem.
+>>         >
+>>         > Other display drivers, from different computers I have
+>>         tried, didn't
+>>         > allow those interlaced resolutions all together. It seems
+>>         they know
+>>         > there will be problems.
+>>
+>>
+>>     _______________________________________________
+>>     amd-gfx mailing list
+>>     amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
+>>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx  <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=04%7C01%7Cchristian.koenig%40amd.com%7C71c42210b976438bfbb908d8f391bb3f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637527154536688236%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=jfWL5eoMUhK5phoM1Xs6Nv7SLsKCst7wWwq5URYNazk%3D&reserved=0>
+>
+
+
+--------------0FC637F9C797FDE7BAD5F7B0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Hi Alberto,<br>
+    <br>
+    <blockquote type="cite">I think the driver should only support
+      resolutions that are <b>progressive</b>, but also at least of <b>50Hz</b>.</blockquote>
+    <br>
+    Why do you think so?, the 24Hz resolution seems to be the native one
+    of the display.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 30.03.21 um 17:37 schrieb Alberto
+      Salvia Novella:<br>
+    </div>
+    <blockquote type="cite" cite="mid:CAHJvkbsMY689cK3uq_O+i6jiqgLmSAUcrD43oHxpSsVwyhJ1Mg@mail.gmail.com">
+      
+      <div dir="ltr">
+        <div>This is why I'm using interlaced:<br>
+        </div>
+        <div><br>
+        </div>
+        <div>$ <b>xrandr</b><br>
+          Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192
+          x 8192<br>
+          DisplayPort-0 disconnected (normal left inverted right x axis
+          y axis)<br>
+          HDMI-0 connected primary 1920x1080+0+0 (normal left inverted
+          right x axis y axis) 16mm x 9mm<br>
+          &nbsp; &nbsp;1920x<b>1080i</b> &nbsp; &nbsp;60.00*+ &nbsp;50.00 &nbsp; &nbsp;59.94 &nbsp;<br>
+          &nbsp; &nbsp;1920x1080 &nbsp; &nbsp; <b>24.00</b> &nbsp; &nbsp;23.98 &nbsp;<br>
+          &nbsp; &nbsp;1280x<b>720</b> &nbsp; &nbsp; &nbsp;60.00 &nbsp; &nbsp;50.00 &nbsp; &nbsp;59.94 &nbsp;<br>
+          &nbsp; &nbsp;1024x768 &nbsp; &nbsp; &nbsp;75.03 &nbsp; &nbsp;70.07 &nbsp; &nbsp;60.00 &nbsp;<br>
+          &nbsp; &nbsp;832x624 &nbsp; &nbsp; &nbsp; 74.55 &nbsp;<br>
+          &nbsp; &nbsp;800x600 &nbsp; &nbsp; &nbsp; 72.19 &nbsp; &nbsp;75.00 &nbsp; &nbsp;60.32 &nbsp; &nbsp;56.25 &nbsp;<br>
+          &nbsp; &nbsp;720x576 &nbsp; &nbsp; &nbsp; 50.00 &nbsp;<br>
+          &nbsp; &nbsp;720x576i &nbsp; &nbsp; &nbsp;50.00 &nbsp;<br>
+          &nbsp; &nbsp;720x480 &nbsp; &nbsp; &nbsp; 60.00 &nbsp; &nbsp;59.94 &nbsp;<br>
+          &nbsp; &nbsp;720x480i &nbsp; &nbsp; &nbsp;60.00 &nbsp; &nbsp;59.94 &nbsp;<br>
+          &nbsp; &nbsp;640x480 &nbsp; &nbsp; &nbsp; 75.00 &nbsp; &nbsp;72.81 &nbsp; &nbsp;66.67 &nbsp; &nbsp;60.00 &nbsp; &nbsp;59.94 &nbsp;<br>
+          &nbsp; &nbsp;720x400 &nbsp; &nbsp; &nbsp; 70.08 &nbsp;<br>
+          DVI-0 disconnected (normal left inverted right x axis y axis)</div>
+        <div><br>
+        </div>
+        <div>I think the driver should only support resolutions that are
+          <b>progressive</b>, but also at least of <b>50Hz</b>.<br>
+        </div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Tue, 30 Mar 2021 at 15:41,
+          Christian König &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com" moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+          <div> Mhm, no idea why an interlaced resolution would cause a
+            crash. Maybe some miscalculation in the display code.<br>
+            <br>
+            But apart from that if you just connected your PC to a TV I
+            also wouldn't recommend using an interlaced resolution in
+            the first place.<br>
+            <br>
+            See those resolutions only exists for backward compatibility
+            with analog hardware.<br>
+            <br>
+            I think we would just disable those modes instead of
+            searching for the bug.<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            <div>Am 30.03.21 um 11:07 schrieb Alberto Salvia Novella:<br>
+            </div>
+            <blockquote type="cite">
+              <div dir="ltr">
+                <div>I guessed so.</div>
+                <div><br>
+                </div>
+                <div>The GPU is a Radeon HD5870, and the screen is an
+                  old Telefunken TV (TLFK22LEDPVR1).</div>
+                <div><br>
+                </div>
+                <div>Since my real display got into repair I used this
+                  TV meanwhile, and to my surprise it froze the system.<br>
+                </div>
+              </div>
+              <br>
+              <div class="gmail_quote">
+                <div dir="ltr" class="gmail_attr">On Tue, 30 Mar 2021 at
+                  10:15, Christian König &lt;<a href="mailto:christian.koenig@amd.com" target="_blank" moz-do-not-send="true">christian.koenig@amd.com</a>&gt;
+                  wrote:<br>
+                </div>
+                <blockquote class="gmail_quote" style="margin:0px 0px
+                  0px 0.8ex;border-left:1px solid
+                  rgb(204,204,204);padding-left:1ex">Hi Alberto,<br>
+                  <br>
+                  well what hardware do you have?<br>
+                  <br>
+                  Interlaced resolutions are not used any more on modern
+                  hardware, so they <br>
+                  are not well tested.<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:<br>
+                  &gt; The entire desktop hangs after some minutes when
+                  using the module <br>
+                  &gt; &quot;radeon&quot; with an interlaced resolution.<br>
+                  &gt;<br>
+                  &gt; Easier to trigger by playing a video on Firefox,
+                  at least on kwin_x11. <br>
+                  &gt; Wayland didn't exhibit the problem.<br>
+                  &gt;<br>
+                  &gt; Other display drivers, from different computers I
+                  have tried, didn't <br>
+                  &gt; allow those interlaced resolutions all together.
+                  It seems they know <br>
+                  &gt; there will be problems.<br>
+                  <br>
+                </blockquote>
+              </div>
+              <br>
+              <fieldset></fieldset>
+              <pre>_______________________________________________
+amd-gfx mailing list
+<a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
+<a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C71c42210b976438bfbb908d8f391bb3f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637527154536688236%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=jfWL5eoMUhK5phoM1Xs6Nv7SLsKCst7wWwq5URYNazk%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="gvB1D14vInNTBTFhWQboU8jPfXvuStmwbvwMkaKHSiT+zP3LSG4kwka3qMy349t+CZvELjc8AqO0JT/jfuPX4kNZGYVDmcC2Bw0FjDaj/e/j3ZkpSnZXCw5R0FPi48VWFEuLj7iyp4lbgPA45rnwQ1IpRnY5o2fI3+W0k33V/dU=" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+            </blockquote>
+            <br>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------0FC637F9C797FDE7BAD5F7B0--
+
+--===============1492468947==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1492468947==--
