@@ -1,130 +1,71 @@
 Return-Path: <SRS0=Oizy=I4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37981C433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 20:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1344EC433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 21:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C1459619C5
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 20:17:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1459619C5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id C5B886199A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 21:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5B886199A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56AC66E0A5;
-	Tue, 30 Mar 2021 20:17:55 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E086E0A5
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 20:17:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nPQOcccNQC5+j385HlaCnN5NXRLou0r9txksh7P8OeU6lcmL55a1Q4+RPDVrarmFCs41KOeYBsQwaybE9p9dmrNAqF0xXJhf73ewTC3aTTM5JgHn4zv/cMMARdXymRl/M7UdIDN3HW37DqHuYC/nYQlG9P57W/1QZEI2mNXJkDAHYNasnHrzeehamt9TPKibA4XaPR7sHSonS8UfRRQbIgT2da4mmBHbz21nWW21pKbIQ61OaXukqJN3LNSU4jx1c5DEOY0/r7f5gAUgxtUgGESi3tviQqC9SWDKBZRAAev1HtsEzl/pUi/p1XpeEY7gVZLRb79FkHgf15fkjsjwhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q3jqWVnBTn0nBDUYsD4ADIL6FLUhRx2F2mP7fBpsAw0=;
- b=LXsRdON3jDmAMToFAIKVOGYd69ptYpj3n7kdjr5Puk+DrONY38U2gF4boWogHhyV8PLl0qzSa184gD3YqtcMvmgkPsG3o7MaHOOFMvv8eKWxnYZUpXRUXipKCTiKW0ZIyjnLdJsSQZWOhaLMPo1h0kAgMDh7aJbdxERiblEpBsmPxxgevfM7pReMqDS35dFo5/VStadRYEcf7cyEcvZr/lt1gl6b+sUDGDIVl6l1ZUatppk46OE2uAyqCHOAVW0eo76eKAd65ss9yArfQshZaIhRwtoUY3F4KsfNix/oAQSsyJ/HCP2/f9qEHLVJSFOUEoB7lT74glrDWLtzYe0YYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q3jqWVnBTn0nBDUYsD4ADIL6FLUhRx2F2mP7fBpsAw0=;
- b=ifHUjrrYzRCOxWBhz6cppQgu1AAiEIG+4dx59JrF/BZ6z7qV6Hj1ZQYkMLEiqQyRhilmUIVgv01L9ksiBJTUfwm9rwYukM2doM39eHA2H5SoCBKyipBIh6uvMgq4QjEiBybb5Y04m4zUfk5FXyjaW25HohT9me2MJ5DDwKKLn4E=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MWHPR1201MB0143.namprd12.prod.outlook.com (2603:10b6:301:54::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Tue, 30 Mar
- 2021 20:17:50 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::4987:8b2f:78ca:deb8]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::4987:8b2f:78ca:deb8%7]) with mapi id 15.20.3977.033; Tue, 30 Mar 2021
- 20:17:49 +0000
-Subject: Re: [PATCH] drm/amd/display: Use pr_debug in DM to prevent dmesg
- flooding
-To: Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210330172232.986998-1-victorchengchi.lu@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <240a634a-760c-7336-e6ba-d08f7d156639@amd.com>
-Date: Tue, 30 Mar 2021 16:17:47 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
-In-Reply-To: <20210330172232.986998-1-victorchengchi.lu@amd.com>
-Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YT1PR01CA0142.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::21) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F456E97D;
+	Tue, 30 Mar 2021 21:00:39 +0000 (UTC)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30AFC6E97D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 20:59:35 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id b4so25824739lfi.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 13:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BiwUrX3sWAEN6DFI8USaGCyWSc9iwGCLu50LWDaaVS0=;
+ b=evlKS4gp5I5yTnyAnygac3GqKtsk2iCg1Q6RL/r349hTobMT3HtEl6SlrI11LW0IFT
+ qhy6KCZOkET1WcJQCv3jQcgthLM22ly18nMtjtTaLPBH8dgDXfsRXfQe84VZeIgWzaY2
+ ifAfcXQtav2krKneBN2OV5cNxKyA5vW8S4o4AkqdFAWc/gM70f0Cde1cTXM8LYlQdFW9
+ BarUdQLJWW5Jz4J0+snve5vv03Qnzcx2Rw0Pj6iotpEQMCiMEvK1qTV1SyCRdChGXShd
+ lNcGCaJuuuEYFeI6JYwVudfrrrzFRWUKpDdbAim3H2aKq29LqPaUe4JOrPQUNoNRcoAO
+ R/Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BiwUrX3sWAEN6DFI8USaGCyWSc9iwGCLu50LWDaaVS0=;
+ b=KajINPYygVbPvnUD8+fvPTc4rcTFZ2xXSmTiVHRr73nOdUXrls7zJ1Ero+EzMU6Eh3
+ jg5l3tzZi87WBxRsbL3LaMPjwrSAzMzO5IQ3vyuVCVg3rFGd6yMzwr6vDWODYFGJXHsi
+ +iOndhGkW2fZY61kEUIB+8b49Kr/C/izFRwLa/g1m0z79MbxABEKd4rU62aBIM20Ou7G
+ 9oEvFJvLP2oksnQy9F7922xXvw3NaZGGuQmx1ZDKy/1Y/lIE6Gdj1E6Ed/ZSQtQYRp21
+ FKpT5dRzF6DhE3aCosoPg6s1S1yNSNTSlFtRD+bYucz2GqZyDm7sKYliMNXq1MtW6VjL
+ 0CZg==
+X-Gm-Message-State: AOAM530bIi3eI3ibQMxwMnzZEn72lcQaKFitCjum31hfTcCO4tMRCVyZ
+ /LpnZzZ1Rk9GwFVqfAuUj31rYYKtBpMmtSiLo0o=
+X-Google-Smtp-Source: ABdhPJwhoNMq42xjvs6GcnlqrlLGsFqj94Olz1b3Y06dRPPNyU5wwJUVepv4XVwZxRgnX067va/drrK093AR6EGQjJc=
+X-Received: by 2002:a19:8c19:: with SMTP id o25mr21312427lfd.547.1617137973586; 
+ Tue, 30 Mar 2021 13:59:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YT1PR01CA0142.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3977.32 via Frontend Transport; Tue, 30 Mar 2021 20:17:49 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7aeafe71-c9ff-4d7b-a96b-08d8f3b8e3dc
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0143:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB014343E43C51A6627BB7F8E38C7D9@MWHPR1201MB0143.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d7KASj903/N1/l0nns20x0uQMMoipPRM721kbk+u+jtEBsDy6USmacUabIn9u7CGj6neeEMBWtRBYO4MVrBgR4+nNIdx8pQd3DkQ4JLkMl7IYXHT2GE2SbrTncxRDHR7fu6Um0iawWJQZ6BZslpUTSG0vLG4bZdEwU8w0Li/LwQtWn/NDQLT4QJM/SUuGMGqT3oaYJCwldadjQHShIxtENLvEOWmnSh0pBkAj9bgl55wV6gXfDn4k//5YW4SKGXCmeeWbcAbghaa6iGVRvVD4AT270LMBCqVkWDoifuakCS4dzx8jB33iDD3M/iD3mRWiZ3tb11Vsi4MPs4MUXZ29fxzXiz6p1xjPEDbGhA35DO1D1EF4YSNEk69w1FL5xqDFfyCpCb3bOkoRSECglxcEMqNEHej4VcyWFGg28/cGciNbTmnK4e5KbKxMQ0+hTqEJJbTb8Aed1QVKkciDWuqgAl+xt6xzBIAlKuoUg9bPa8jNiQ2mCHFHLUToETQ4ozM15s017K8VxIks3OzZs/WY/p9EtSXi8vTE4jHHbrckHYCsnM3ogxJAS5eBJWJujGbZyA+G590uMFL0NZoax7V2jfjuLBywAtmwtxINNqXsxUcg1FF7XSSlUuYAlTFP0HaCXf0hIfcL4rhH664AZ1HhRWdfKg8OItMnPpOBHZ3NC14KGbF65mB+WtTZutHjLLPnHrwKEBxyHruGuxim2jcZqX/ksxlyt4eIr1GPjBob/0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(6486002)(26005)(53546011)(16526019)(2616005)(956004)(8676002)(44832011)(83380400001)(86362001)(8936002)(478600001)(66556008)(66476007)(31686004)(5660300002)(38100700001)(16576012)(2906002)(316002)(36756003)(31696002)(66946007)(186003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TFVUajlrV0hZK2FDZkNzV3F1bmltbFF0dnlydTVwQ3JaR3NCYkhpNkdscjBG?=
- =?utf-8?B?SWpMM0FqcE56NHNCZ0t3THN3c0U3dFdvdW5BQ2MyZzc1UElYbjdDOWhhSC8r?=
- =?utf-8?B?bFBXYSsvZFBsbjdHZXNFVktxNzl2VDh4VzQ2QnFIYXdTSE1CK0dsSWQ1Si9I?=
- =?utf-8?B?UytxS3pROVVObk5HZmJEdFdmell6WFV4dVMzamVEUkpjZkE0UDh0a0FQUi85?=
- =?utf-8?B?QmlCWk02ckFzT2QzVkRPUVNoZDY5OXg3QUdaRWkwUEx4UFc4akkwK0gvTjRu?=
- =?utf-8?B?WEVEeDZqMm92VTJKLy9XdXE1eEM4MmEvaVBFTlZpdGRWTUdIcjR2c2ZkU3Ja?=
- =?utf-8?B?TTBzM2tacFVmbEdOajFuMlRsZ0xZenpBd1ZPTjNZeFF1Zk01aHNCNTkyRktl?=
- =?utf-8?B?Yk9TL1RLRnFsRmZ5aXF6WHEvNmtwWWQyUFN3R1VlWTJXZTdsbEN6dVI5U1dy?=
- =?utf-8?B?SXZCM1FuWVRsSlJMQUNvSXZwMTJDaGxacitwZzVnem96N2p4bmNnRFpLKzZN?=
- =?utf-8?B?ZGw2NXFIMVM0ZHVVRm4rSzdDbXJ4STVXaTcyTXJyRjQ4bHF3THc2Z1U4SzBU?=
- =?utf-8?B?ZCsvZEVicW1EbFIrc3B2WW1qTG5XWURCb3p6dldVaFU5Ry8wcE5QQVk0TWda?=
- =?utf-8?B?VUUwNlBmR3ZiUk5yeW5BSUFOUjdLWkkxQ3ZUQUdocE1PRmpiU0ZpVlF4dW9a?=
- =?utf-8?B?bEZHeUNtT0hlTEYxVUJWb1ZNbUtHeFQzN2hOb2RHZWpJM2QzTFRTQUlobnlo?=
- =?utf-8?B?OElqY3g4R0hTQjVLZE02UXo2UXNiNk5UbXd2eXdoSUFyaFJ5L20reGVzcjA4?=
- =?utf-8?B?Y2xkWWlYQVZNUVlKUnh1OWpmN0dvQU9hUWZ1Wk5QcWl3cVgxb2M2N09HNWxw?=
- =?utf-8?B?djdxZGxOelJ2V2wzNHZmdDU4SDNGaGhVMk16R2lSUTIrTDBBeG4zdVgzS05n?=
- =?utf-8?B?YzEzKytkQm82aTFJQ2ZMRUU1NmJjUnZzazBwMk9URVo0eXlyT3lvcmxheXVh?=
- =?utf-8?B?bTVWazgvMGRMbEdMa0hOWHpMaUd6S29IajdtUjBCTXp0Yk5rR0U4akIvdkdT?=
- =?utf-8?B?TUtCZHR0aFNINkFaY3dRUEpNM2xzSlRqTXN5UGExYUtQMmhKb0FhT2RGd0dQ?=
- =?utf-8?B?S2R0ZjlaT1dMWms1cEhSbFhUVmxPN0xuamMvbkM3aXJaRFg5bzdwd3lhUTlG?=
- =?utf-8?B?eXVwZlc1Ykl6allqc2RZakFNdVpBVWxWN2lOMXlqNU14amgzNmxGYmdYeU5u?=
- =?utf-8?B?VnQ1SXJ5Sys1OVVaNllJdEE2Yko5aVJKc25jMlltbU53WFdUS29taGYyVzBI?=
- =?utf-8?B?L2VFZHU1cjM1S3hiRzNuMlpVYi8wUjlXd1Y5VW9jWlZaNzkwQ1RjQ0s5VTJ4?=
- =?utf-8?B?Y3IxMzZEWG1WVUI2enZZM0NpUkd3QVVjY1N6eVdFVXRKR0ZSVitZeGNvb3dU?=
- =?utf-8?B?VUxZdmtZcTJTS1NWL0xZRWtQWG9DdGtCMjhtOTRqbzEwTDZGaUwwbks0RnpE?=
- =?utf-8?B?MlQyazNvbzYwbmxDZEZvYjdxZi9lU1VLNWdkcCtYMmw4S0xHcDNlZTNHMlAv?=
- =?utf-8?B?R0JnNTVvcVZ0QzdMWVhOUzhkVTFFak81Q2FKQkJLa1NRc3k0STNvUjdRdjhZ?=
- =?utf-8?B?OCtMWFAyeTRKTlpFTUZpMVA5YzYvZDFNSFlMZkNPU1lReS9GazFvYVVmMTFS?=
- =?utf-8?B?a3QvekZzMm1SUjhYSEZQRXVwdmRXeEUyRHBRNDE2TThiODNqVm1odzRUclNl?=
- =?utf-8?Q?u+SZXWb7wmTDBPcupYTBmYXg5hiwkoL6UrWCx3n?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aeafe71-c9ff-4d7b-a96b-08d8f3b8e3dc
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2021 20:17:49.7785 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MK2aOChm7hCZrGuiG0/5biJjD4w8J1H9c3NyQTS/5FsdVRE5E+rX8U5ytLCw1wUMMXEMEElO+BsjexkPPx4vRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0143
+References: <CAHJvkbsexf7kM-11ZdrM+pHUUyvttB8fyJMfcsQAC1233jp8LA@mail.gmail.com>
+ <388b2a9d-0e63-b70f-28ed-6297a524fb76@amd.com>
+ <CAHJvkbuu5WB=QTu0EUgSGcoK6KMbP2j8NA0o+XTdtkwadNpsxg@mail.gmail.com>
+ <909002f5-691c-1cbb-1e44-a99217be8791@gmail.com>
+ <CAHJvkbsMY689cK3uq_O+i6jiqgLmSAUcrD43oHxpSsVwyhJ1Mg@mail.gmail.com>
+ <b1137716-d6dd-6572-3d45-d0063caef26e@amd.com>
+In-Reply-To: <b1137716-d6dd-6572-3d45-d0063caef26e@amd.com>
+From: Alberto Salvia Novella <es20490446e@gmail.com>
+Date: Tue, 30 Mar 2021 22:59:22 +0200
+Message-ID: <CAHJvkbvkwAw2-pRo=rvnB98XxgtNCE-QAzv4HZ-KceH-vZkKoA@mail.gmail.com>
+Subject: Re: Interlaced resolutions hang the desktop
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-Mailman-Approved-At: Tue, 30 Mar 2021 21:00:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,126 +77,334 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ benh@kernel.crashing.org
+Content-Type: multipart/mixed; boundary="===============1964602205=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--===============1964602205==
+Content-Type: multipart/alternative; boundary="00000000000077ec9d05bec7462e"
 
+--00000000000077ec9d05bec7462e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2021-03-30 1:22 p.m., Victor Lu wrote:
-> [why]
-> Enabling drm.debug=0x4 can flood the dmesg due to prints on every cursor
-> update or page flip.
-> 
+The frame-rate at 24Hz is extremely poor for normal desktop usage.
 
-Maybe mention something like this: "Our CI enables drm.debug=0x4 logs 
-and is now getting spammed with cursor updates. We probably want to 
-avoid spamming the log when DRM_DEBUG_KMS."
+If the highest resolution, aka 1080p, uses that refresh rate then the
+desktop will default to that frame-rate.
 
-The change is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Other progressive modes don't exhibit any issue.
 
-Harry
+On Tue, 30 Mar 2021 at 18:26, Christian K=C3=B6nig <christian.koenig@amd.co=
+m>
+wrote:
 
-> [how]
-> Define and use pr_debug macros instead of a few spammy DRM_DEBUG_*'s.
-> 
-> Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++----------
->   .../drm/amd/display/include/logger_types.h    |  3 +++
->   2 files changed, 13 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 92cee957b424..04dbcbc7578d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -372,14 +372,14 @@ static void dm_pflip_high_irq(void *interrupt_params)
->   	/* IRQ could occur when in initial stage */
->   	/* TODO work and BO cleanup */
->   	if (amdgpu_crtc == NULL) {
-> -		DRM_DEBUG_DRIVER("CRTC is null, returning.\n");
-> +		DC_LOG_PFLIP("CRTC is null, returning.\n");
->   		return;
->   	}
->   
->   	spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
->   
->   	if (amdgpu_crtc->pflip_status != AMDGPU_FLIP_SUBMITTED){
-> -		DRM_DEBUG_DRIVER("amdgpu_crtc->pflip_status = %d !=AMDGPU_FLIP_SUBMITTED(%d) on crtc:%d[%p] \n",
-> +		DC_LOG_PFLIP("amdgpu_crtc->pflip_status = %d !=AMDGPU_FLIP_SUBMITTED(%d) on crtc:%d[%p] \n",
->   						 amdgpu_crtc->pflip_status,
->   						 AMDGPU_FLIP_SUBMITTED,
->   						 amdgpu_crtc->crtc_id,
-> @@ -450,9 +450,9 @@ static void dm_pflip_high_irq(void *interrupt_params)
->   	amdgpu_crtc->pflip_status = AMDGPU_FLIP_NONE;
->   	spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
->   
-> -	DRM_DEBUG_KMS("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp %d\n",
-> -		      amdgpu_crtc->crtc_id, amdgpu_crtc,
-> -		      vrr_active, (int) !e);
-> +	DC_LOG_PFLIP("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_NONE, vrr[%d]-fp %d\n",
-> +		     amdgpu_crtc->crtc_id, amdgpu_crtc,
-> +		     vrr_active, (int) !e);
->   }
->   
->   static void dm_vupdate_high_irq(void *interrupt_params)
-> @@ -482,7 +482,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
->   			atomic64_set(&irq_params->previous_timestamp, vblank->time);
->   		}
->   
-> -		DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n",
-> +		DC_LOG_VBLANK("crtc:%d, vupdate-vrr:%d\n",
->   			      acrtc->crtc_id,
->   			      vrr_active);
->   
-> @@ -535,7 +535,7 @@ static void dm_crtc_high_irq(void *interrupt_params)
->   
->   	vrr_active = amdgpu_dm_vrr_active_irq(acrtc);
->   
-> -	DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d, planes:%d\n", acrtc->crtc_id,
-> +	DC_LOG_VBLANK("crtc:%d, vupdate-vrr:%d, planes:%d\n", acrtc->crtc_id,
->   		      vrr_active, acrtc->dm_irq_params.active_planes);
->   
->   	/**
-> @@ -7991,7 +7991,7 @@ static void handle_cursor_update(struct drm_plane *plane,
->   	if (!plane->state->fb && !old_plane_state->fb)
->   		return;
->   
-> -	DRM_DEBUG_KMS("%s: crtc_id=%d with size %d to %d\n",
-> +	DC_LOG_CURSOR("%s: crtc_id=%d with size %d to %d\n",
->   		      __func__,
->   		      amdgpu_crtc->crtc_id,
->   		      plane->state->crtc_w,
-> @@ -8053,8 +8053,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
->   	/* Mark this event as consumed */
->   	acrtc->base.state->event = NULL;
->   
-> -	DRM_DEBUG_KMS("crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
-> -		      acrtc->crtc_id);
-> +	DC_LOG_PFLIP("crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
-> +		     acrtc->crtc_id);
->   }
->   
->   static void update_freesync_state_on_stream(
-> diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h b/drivers/gpu/drm/amd/display/include/logger_types.h
-> index 21bbee17c527..571fcf23cea9 100644
-> --- a/drivers/gpu/drm/amd/display/include/logger_types.h
-> +++ b/drivers/gpu/drm/amd/display/include/logger_types.h
-> @@ -36,6 +36,9 @@
->   #define DC_LOG_DC(...) DRM_DEBUG_KMS(__VA_ARGS__)
->   #define DC_LOG_DTN(...) DRM_DEBUG_KMS(__VA_ARGS__)
->   #define DC_LOG_SURFACE(...) pr_debug("[SURFACE]:"__VA_ARGS__)
-> +#define DC_LOG_CURSOR(...) pr_debug("[CURSOR]:"__VA_ARGS__)
-> +#define DC_LOG_PFLIP(...) pr_debug("[PFLIP]:"__VA_ARGS__)
-> +#define DC_LOG_VBLANK(...) pr_debug("[VBLANK]:"__VA_ARGS__)
->   #define DC_LOG_HW_HOTPLUG(...) DRM_DEBUG_KMS(__VA_ARGS__)
->   #define DC_LOG_HW_LINK_TRAINING(...) pr_debug("[HW_LINK_TRAINING]:"__VA_ARGS__)
->   #define DC_LOG_HW_SET_MODE(...) DRM_DEBUG_KMS(__VA_ARGS__)
-> 
+> Hi Alberto,
+>
+> I think the driver should only support resolutions that are *progressive*=
+,
+> but also at least of *50Hz*.
+>
+>
+> Why do you think so?, the 24Hz resolution seems to be the native one of
+> the display.
+>
+> Regards,
+> Christian.
+>
+> Am 30.03.21 um 17:37 schrieb Alberto Salvia Novella:
+>
+> This is why I'm using interlaced:
+>
+> $ *xrandr*
+> Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192 x 8192
+> DisplayPort-0 disconnected (normal left inverted right x axis y axis)
+> HDMI-0 connected primary 1920x1080+0+0 (normal left inverted right x axis
+> y axis) 16mm x 9mm
+>    1920x*1080i*    60.00*+  50.00    59.94
+>    1920x1080     *24.00*    23.98
+>    1280x*720*      60.00    50.00    59.94
+>    1024x768      75.03    70.07    60.00
+>    832x624       74.55
+>    800x600       72.19    75.00    60.32    56.25
+>    720x576       50.00
+>    720x576i      50.00
+>    720x480       60.00    59.94
+>    720x480i      60.00    59.94
+>    640x480       75.00    72.81    66.67    60.00    59.94
+>    720x400       70.08
+> DVI-0 disconnected (normal left inverted right x axis y axis)
+>
+> I think the driver should only support resolutions that are *progressive*=
+,
+> but also at least of *50Hz*.
+>
+> On Tue, 30 Mar 2021 at 15:41, Christian K=C3=B6nig <
+> ckoenig.leichtzumerken@gmail.com> wrote:
+>
+>> Mhm, no idea why an interlaced resolution would cause a crash. Maybe som=
+e
+>> miscalculation in the display code.
+>>
+>> But apart from that if you just connected your PC to a TV I also wouldn'=
+t
+>> recommend using an interlaced resolution in the first place.
+>>
+>> See those resolutions only exists for backward compatibility with analog
+>> hardware.
+>>
+>> I think we would just disable those modes instead of searching for the
+>> bug.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 30.03.21 um 11:07 schrieb Alberto Salvia Novella:
+>>
+>> I guessed so.
+>>
+>> The GPU is a Radeon HD5870, and the screen is an old Telefunken TV
+>> (TLFK22LEDPVR1).
+>>
+>> Since my real display got into repair I used this TV meanwhile, and to m=
+y
+>> surprise it froze the system.
+>>
+>> On Tue, 30 Mar 2021 at 10:15, Christian K=C3=B6nig <christian.koenig@amd=
+.com>
+>> wrote:
+>>
+>>> Hi Alberto,
+>>>
+>>> well what hardware do you have?
+>>>
+>>> Interlaced resolutions are not used any more on modern hardware, so the=
+y
+>>> are not well tested.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>> Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:
+>>> > The entire desktop hangs after some minutes when using the module
+>>> > "radeon" with an interlaced resolution.
+>>> >
+>>> > Easier to trigger by playing a video on Firefox, at least on kwin_x11=
+.
+>>> > Wayland didn't exhibit the problem.
+>>> >
+>>> > Other display drivers, from different computers I have tried, didn't
+>>> > allow those interlaced resolutions all together. It seems they know
+>>> > there will be problems.
+>>>
+>>>
+>> _______________________________________________
+>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedeskt=
+op.org/mailman/listinfo/amd-gfx <https://nam11.safelinks.protection.outlook=
+.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-=
+gfx&data=3D04%7C01%7Cchristian.koenig%40amd.com%7C71c42210b976438bfbb908d8f=
+391bb3f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637527154536688236%7CU=
+nknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLC=
+JXVCI6Mn0%3D%7C1000&sdata=3DjfWL5eoMUhK5phoM1Xs6Nv7SLsKCst7wWwq5URYNazk%3D&=
+reserved=3D0>
+>>
+>>
+>>
+>
+
+--00000000000077ec9d05bec7462e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>The frame-rate at 24Hz is extremely poor for normal d=
+esktop usage.<br></div><div><br></div><div>If the highest resolution, aka 1=
+080p, uses that refresh rate then the desktop will default to that frame-ra=
+te.</div><div><br></div><div>Other progressive modes don&#39;t exhibit any =
+issue.<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Tue, 30 Mar 2021 at 18:26, Christian K=C3=B6nig &lt;<a h=
+ref=3D"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+ =20
+  <div>
+    Hi Alberto,<br>
+    <br>
+    <blockquote type=3D"cite">I think the driver should only support
+      resolutions that are <b>progressive</b>, but also at least of <b>50Hz=
+</b>.</blockquote>
+    <br>
+    Why do you think so?, the 24Hz resolution seems to be the native one
+    of the display.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div>Am 30.03.21 um 17:37 schrieb Alberto
+      Salvia Novella:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div>This is why I&#39;m using interlaced:<br>
+        </div>
+        <div><br>
+        </div>
+        <div>$ <b>xrandr</b><br>
+          Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 8192
+          x 8192<br>
+          DisplayPort-0 disconnected (normal left inverted right x axis
+          y axis)<br>
+          HDMI-0 connected primary 1920x1080+0+0 (normal left inverted
+          right x axis y axis) 16mm x 9mm<br>
+          =C2=A0 =C2=A01920x<b>1080i</b> =C2=A0 =C2=A060.00*+ =C2=A050.00 =
+=C2=A0 =C2=A059.94 =C2=A0<br>
+          =C2=A0 =C2=A01920x1080 =C2=A0 =C2=A0 <b>24.00</b> =C2=A0 =C2=A023=
+.98 =C2=A0<br>
+          =C2=A0 =C2=A01280x<b>720</b> =C2=A0 =C2=A0 =C2=A060.00 =C2=A0 =C2=
+=A050.00 =C2=A0 =C2=A059.94 =C2=A0<br>
+          =C2=A0 =C2=A01024x768 =C2=A0 =C2=A0 =C2=A075.03 =C2=A0 =C2=A070.0=
+7 =C2=A0 =C2=A060.00 =C2=A0<br>
+          =C2=A0 =C2=A0832x624 =C2=A0 =C2=A0 =C2=A0 74.55 =C2=A0<br>
+          =C2=A0 =C2=A0800x600 =C2=A0 =C2=A0 =C2=A0 72.19 =C2=A0 =C2=A075.0=
+0 =C2=A0 =C2=A060.32 =C2=A0 =C2=A056.25 =C2=A0<br>
+          =C2=A0 =C2=A0720x576 =C2=A0 =C2=A0 =C2=A0 50.00 =C2=A0<br>
+          =C2=A0 =C2=A0720x576i =C2=A0 =C2=A0 =C2=A050.00 =C2=A0<br>
+          =C2=A0 =C2=A0720x480 =C2=A0 =C2=A0 =C2=A0 60.00 =C2=A0 =C2=A059.9=
+4 =C2=A0<br>
+          =C2=A0 =C2=A0720x480i =C2=A0 =C2=A0 =C2=A060.00 =C2=A0 =C2=A059.9=
+4 =C2=A0<br>
+          =C2=A0 =C2=A0640x480 =C2=A0 =C2=A0 =C2=A0 75.00 =C2=A0 =C2=A072.8=
+1 =C2=A0 =C2=A066.67 =C2=A0 =C2=A060.00 =C2=A0 =C2=A059.94 =C2=A0<br>
+          =C2=A0 =C2=A0720x400 =C2=A0 =C2=A0 =C2=A0 70.08 =C2=A0<br>
+          DVI-0 disconnected (normal left inverted right x axis y axis)</di=
+v>
+        <div><br>
+        </div>
+        <div>I think the driver should only support resolutions that are
+          <b>progressive</b>, but also at least of <b>50Hz</b>.<br>
+        </div>
+      </div>
+      <br>
+      <div class=3D"gmail_quote">
+        <div dir=3D"ltr" class=3D"gmail_attr">On Tue, 30 Mar 2021 at 15:41,
+          Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken=
+@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+          <div> Mhm, no idea why an interlaced resolution would cause a
+            crash. Maybe some miscalculation in the display code.<br>
+            <br>
+            But apart from that if you just connected your PC to a TV I
+            also wouldn&#39;t recommend using an interlaced resolution in
+            the first place.<br>
+            <br>
+            See those resolutions only exists for backward compatibility
+            with analog hardware.<br>
+            <br>
+            I think we would just disable those modes instead of
+            searching for the bug.<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            <div>Am 30.03.21 um 11:07 schrieb Alberto Salvia Novella:<br>
+            </div>
+            <blockquote type=3D"cite">
+              <div dir=3D"ltr">
+                <div>I guessed so.</div>
+                <div><br>
+                </div>
+                <div>The GPU is a Radeon HD5870, and the screen is an
+                  old Telefunken TV (TLFK22LEDPVR1).</div>
+                <div><br>
+                </div>
+                <div>Since my real display got into repair I used this
+                  TV meanwhile, and to my surprise it froze the system.<br>
+                </div>
+              </div>
+              <br>
+              <div class=3D"gmail_quote">
+                <div dir=3D"ltr" class=3D"gmail_attr">On Tue, 30 Mar 2021 a=
+t
+                  10:15, Christian K=C3=B6nig &lt;<a href=3D"mailto:christi=
+an.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;
+                  wrote:<br>
+                </div>
+                <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Albert=
+o,<br>
+                  <br>
+                  well what hardware do you have?<br>
+                  <br>
+                  Interlaced resolutions are not used any more on modern
+                  hardware, so they <br>
+                  are not well tested.<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  Am 30.03.21 um 10:04 schrieb Alberto Salvia Novella:<br>
+                  &gt; The entire desktop hangs after some minutes when
+                  using the module <br>
+                  &gt; &quot;radeon&quot; with an interlaced resolution.<br=
+>
+                  &gt;<br>
+                  &gt; Easier to trigger by playing a video on Firefox,
+                  at least on kwin_x11. <br>
+                  &gt; Wayland didn&#39;t exhibit the problem.<br>
+                  &gt;<br>
+                  &gt; Other display drivers, from different computers I
+                  have tried, didn&#39;t <br>
+                  &gt; allow those interlaced resolutions all together.
+                  It seems they know <br>
+                  &gt; there will be problems.<br>
+                  <br>
+                </blockquote>
+              </div>
+              <br>
+              <fieldset></fieldset>
+              <pre>_______________________________________________
+amd-gfx mailing list
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01=
+%7Cchristian.koenig%40amd.com%7C71c42210b976438bfbb908d8f391bb3f%7C3dd8961f=
+e4884e608e11a82d994e183d%7C0%7C0%7C637527154536688236%7CUnknown%7CTWFpbGZsb=
+3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C100=
+0&amp;sdata=3DjfWL5eoMUhK5phoM1Xs6Nv7SLsKCst7wWwq5URYNazk%3D&amp;reserved=
+=3D0" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-=
+gfx</a>
+</pre>
+            </blockquote>
+            <br>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </div>
+
+</blockquote></div>
+
+--00000000000077ec9d05bec7462e--
+
+--===============1964602205==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1964602205==--
