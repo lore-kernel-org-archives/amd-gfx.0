@@ -3,65 +3,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 287B9C433E3
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E597DC433E2
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6264619BD
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6264619BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mengyan1223.wang
+	by mail.kernel.org (Postfix) with ESMTPS id 91B5B619BD
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B5B619BD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCF66E8F5;
-	Tue, 30 Mar 2021 13:24:48 +0000 (UTC)
-Received: from mengyan1223.wang (mengyan1223.wang [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0353B89EB7;
- Tue, 30 Mar 2021 13:03:13 +0000 (UTC)
-Received: from [IPv6:240e:35a:1037:8a00:70b2:e35d:833c:af3e] (unknown
- [IPv6:240e:35a:1037:8a00:70b2:e35d:833c:af3e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest
- SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@mengyan1223.wang)
- by mengyan1223.wang (Postfix) with ESMTPSA id D93746594D;
- Tue, 30 Mar 2021 09:02:21 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mengyan1223.wang;
- s=mail; t=1617109392;
- bh=X2EGDZ9BOxE5WHmYu74k0fWpD97KnsQjPUvAY9jam48=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=X9+iU8o1vAmsAaz3z1YxHtzBYrzVoeUMfn9h4Rp4s308CHVoVU+a6Gm9GdlKHJIMU
- 8AsSOQYR5ryPtMKkHfCfZfbP5mZ4PMDu2fV1zZ3RkV9HTpo4YMJDD9fxB9ZNrThDVp
- 2uc59oXova4FbxZPKF/a7sHqurDtU9fbphbsLv0MumyvPPZOz22iYYeREiLRFMAex6
- DqUuuwGBvBS3eb3NGt5UN99Duq2/c+qsmT08bdCP+ynIaneJcJbIwSPp0uyXDPerAE
- CXRmp4Mh4tSVfoIWsyMTPG9F2FbyLDEFWt3fZGWep5oq/X1+bqoa4hUDB7QIxGTEKv
- 5iyqqUE0IyIVw==
-Message-ID: <f3fb57055f0bd3f19bb6ac397dc92113e1555764.camel@mengyan1223.wang>
-Subject: Re: [PATCH] drm/amdgpu: fix an underflow on non-4KB-page systems
-From: Xi Ruoyao <xry111@mengyan1223.wang>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, Alex
- Deucher <alexander.deucher@amd.com>
-Date: Tue, 30 Mar 2021 21:02:08 +0800
-In-Reply-To: <c3caf16b-584a-3e4c-0104-15bb41613136@amd.com>
-References: <20210329175348.26859-1-xry111@mengyan1223.wang>
- <d192e2a8-8baf-0a8c-93a9-9abbad992c7d@gmail.com>
- <be9042b9294bda450659d3cd418c5e8759d57319.camel@mengyan1223.wang>
- <9a11c873-a362-b5d1-6d9c-e937034e267d@gmail.com>
- <bf9e05d4a6ece3e8bf1f732b011d3e54bbf8000e.camel@mengyan1223.wang>
- <84b3911173ad6beb246ba0a77f93d888ee6b393e.camel@mengyan1223.wang>
- <97c520ce107aa4d5fd96e2c380c8acdb63d45c37.camel@mengyan1223.wang>
- <7701fb71-9243-2d90-e1e1-d347a53b7d77@gmail.com>
- <368b9b1b7343e35b446bb1028ccf0ae75dc2adc4.camel@mengyan1223.wang>
- <71e3905a5b72c5b97df837041b19175540ebb023.camel@mengyan1223.wang>
- <c3caf16b-584a-3e4c-0104-15bb41613136@amd.com>
-User-Agent: Evolution 3.40.0 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D516E8FB;
+	Tue, 30 Mar 2021 13:24:49 +0000 (UTC)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94E276E8A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 10:43:26 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id ay2so5941914plb.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 03:43:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
+ b=C9+RPFkWx1dnLku0VJzXhT4WCqoHsMPAfkkwl/4KohDQakhhONCUx+woSyEwYjrpXR
+ t1d16MDlzS32+twkwF9bbNrzqgVVnTIfoI0AZogYL4G1S7OgpeJg0emu3T5/HWp5kcJG
+ ++epmYQmqILHMzY2hL2QmPVz7uTVYnSW6ybUpM4NE/4ka6AX9/8CrsJwa6V5+njYVIo+
+ XgbVwDjQ2vtltDtglB4fNijvaQUZc0s53NH8e1EYls6/XbWYbhbOWqh0zjfmI0VBaOGj
+ vhK9ArLDxUL+ZjLu/rXXyDanwAeMXX50oJ08dRer+OEiWgpVZHK0JFYQd9TBlKlb28DY
+ jk6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
+ b=qCDRQQuyZizEXUb3/LQTv32WUZQuq1lzywIWYujmIxfjYMIOlRoI/GIlrrB8ezDQ4o
+ RFR+95oa8uKyR2f09dOAjboShicjr7xf2Yo3++31eJACaQdN/LJLazQiz8Qa49nI6tJ9
+ zLMaieC7hbiDthPPuATcheonRpQeJhMic3UCGamgZ4EKlQ9sAxhIO1C6pa4Rq8d67IY6
+ 5NxVh310hkvVKBSXnssVFlwYrEPDKuQSi/1x4BthIaVx9nwu7vQyHKaUs7hPPripf562
+ tXPUtndJhr5KHtQHqm4Df0YrKE9qBB+2dulBFBkq4qXNRpbn4WRtrB/d6lGfDB/SnElD
+ BSaA==
+X-Gm-Message-State: AOAM533kuFLtozFsNLxw2kKVh5pY+KZVwVWRFf1kY4Uv6cecPhFFCVCj
+ nQQA5X/WdosRArCk/qVXF0MSoyishGa727IOiHSxgw==
+X-Google-Smtp-Source: ABdhPJxPMfsifg57CMk+e08YOVt3TzMww6aMvw5ulnMzAx23GI1ES2FVCsm8qjLz2RBA6UgJxREJNfH8cDlZ1xM4T2Y=
+X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
+ p18-20020a170902e752b02900e6822c355cmr32807495plf.69.1617101006157; Tue, 30
+ Mar 2021 03:43:26 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210326203807.105754-1-lyude@redhat.com>
+ <20210326203807.105754-8-lyude@redhat.com>
+In-Reply-To: <20210326203807.105754-8-lyude@redhat.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Tue, 30 Mar 2021 12:43:15 +0200
+Message-ID: <CAG3jFyvK6bk5mF_Jp6w9HpN2rDAPKkdHKbQMRKiW6gGKdR9-Yw@mail.gmail.com>
+Subject: Re: [PATCH v2 07/20] drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
+To: Lyude Paul <lyude@redhat.com>
 X-Mailman-Approved-At: Tue, 30 Mar 2021 13:24:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,90 +73,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Dan =?ISO-8859-1?Q?Hor=E1k?= <dan@danny.cz>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMS0wMy0zMCAxNDo1NSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAz
-MC4wMy4yMSB1bSAxNDowNCBzY2hyaWViIFhpIFJ1b3lhbzoKPiA+IE9uIDIwMjEtMDMtMzAgMDM6
-NDAgKzA4MDAsIFhpIFJ1b3lhbyB3cm90ZToKPiA+ID4gT24gMjAyMS0wMy0yOSAyMTozNiArMDIw
-MCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+ID4gPiBBbSAyOS4wMy4yMSB1bSAyMToyNyBz
-Y2hyaWViIFhpIFJ1b3lhbzoKPiA+ID4gPiA+IEhpIENocmlzdGlhbiwKPiA+ID4gPiA+IAo+ID4g
-PiA+ID4gSSBkb24ndCB0aGluayB0aGVyZSBpcyBhbnkgY29uc3RyYWludCBpbXBsZW1lbnRlZCB0
-byBlbnN1cmUgYG51bV9lbnRyaWVzCj4gPiA+ID4gPiAlCj4gPiA+ID4gPiBBTURHUFVfR1BVX1BB
-R0VTX0lOX0NQVV9QQUdFID09IDBgLsKgIEZvciBleGFtcGxlLCBpbgo+ID4gPiA+ID4gYGFtZGdw
-dV92bV9ib19tYXAoKWA6Cj4gPiA+ID4gPiAKPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoCAv
-KiB2YWxpZGF0ZSB0aGUgcGFyYW1ldGVycyAqLwo+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKg
-IGlmIChzYWRkciAmIEFNREdQVV9HUFVfUEFHRV9NQVNLIHx8IG9mZnNldCAmCj4gPiA+ID4gPiBB
-TURHUFVfR1BVX1BBR0VfTUFTSwo+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-c2l6ZSA9PSAwIHx8IHNpemUgJiBBTURHUFVfR1BVX1BBR0VfTUFTSykKPiA+ID4gPiA+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gPiA+ID4gPiAK
-PiA+ID4gPiA+IC8qIHNuaXAgKi8KPiA+ID4gPiA+IAo+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDC
-oMKgIHNhZGRyIC89IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ID4gPiA+ID4gwqDCoMKgwqDCoMKg
-wqDCoMKgIGVhZGRyIC89IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ID4gPiA+ID4gCj4gPiA+ID4g
-PiAvKiBzbmlwICovCj4gPiA+ID4gPiAKPiA+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoCBtYXBw
-aW5nLT5zdGFydCA9IHNhZGRyOwo+ID4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgIG1hcHBpbmct
-Pmxhc3QgPSBlYWRkcjsKPiA+ID4gPiA+IAo+ID4gPiA+ID4gCj4gPiA+ID4gPiBJZiB3ZSByZWFs
-bHkgd2FudCB0byBlbnN1cmUgKG1hcHBpbmctPmxhc3QgLSBtYXBwaW5nLT5zdGFydCArIDEpICUK
-PiA+ID4gPiA+IEFNREdQVV9HUFVfUEFHRVNfSU5fQ1BVX1BBR0UgPT0gMCwgdGhlbiB3ZSBzaG91
-bGQgcmVwbGFjZQo+ID4gPiA+ID4gIkFNREdQVV9HUFVfUEFHRV9NQVNLIgo+ID4gPiA+ID4gaW4g
-InZhbGlkYXRlIHRoZSBwYXJhbWV0ZXJzIiB3aXRoICJQQUdFX01BU0siLgo+ID4gSXQgc2hvdWxk
-IGJlICJ+UEFHRV9NQVNLIiwgIlBBR0VfTUFTSyIgaGFzIGFuIG9wcG9zaXRlIGNvbnZlbnRpb24g
-b2YKPiA+ICJBTURHUFVfR1BVX1BBR0VfTUFTSyIgOiguCj4gPiAKPiA+ID4gPiBZZWFoLCBnb29k
-IHBvaW50Lgo+ID4gPiA+IAo+ID4gPiA+ID4gSSB0cmllZCBpdCBhbmQgaXQgYnJva2UgdXNlcnNw
-YWNlOiBYb3JnIHN0YXJ0dXAgZmFpbHMgd2l0aCBFSU5WQUwgd2l0aAo+ID4gPiA+ID4gdGhpcwo+
-ID4gPiA+ID4gY2hhbmdlLgo+ID4gPiA+IFdlbGwgaW4gdGhlb3J5IGl0IGlzIHBvc3NpYmxlIHRo
-YXQgd2UgYWx3YXlzIGZpbGwgdGhlIEdQVVZNIG9uIGEgNGsKPiA+ID4gPiBiYXNpcyB3aGlsZSB0
-aGUgbmF0aXZlIHBhZ2Ugc2l6ZSBvZiB0aGUgQ1BVIGlzIGxhcmdlci4gTGV0IG1lIGRvdWJsZQo+
-ID4gPiA+IGNoZWNrIHRoZSBjb2RlLgo+ID4gT24gbXkgcGxhdGZvcm0sIHRoZXJlIGFyZSB0d28g
-aXNzdWVzIGJvdGggY2F1c2luZyB0aGUgVk0gY29ycnVwdGlvbi7CoCBPbmUgaXMKPiA+IGZpeGVk
-IGJ5IGFnZDVmL2xpbnV4QGZlMDAxZTcuCj4gCj4gV2hhdCBpcyBmZTAwMWU3PyBBIGNvbW1pdCBp
-ZD8gSWYgeWVzIHRoZW4gdGhhdCBpcyB0byBzaG9ydCBhbmQgSSBjYW4ndCAKPiBmaW5kIGl0Lgo+
-IAo+ID4gwqDCoCBBbm90aGVyIGlzIGluIE1lc2EgZnJvbSB1c2Vyc3BhY2U6wqAgaXQgdXNlcwo+
-ID4gYGRldl9pbmZvLT5nYXJ0X3BhZ2Vfc2l6ZWAgYXMgdGhlIGFsaWdubWVudCwgYnV0IHRoZSBr
-ZXJuZWwgQU1ER1BVIGRyaXZlcgo+ID4gZXhwZWN0cyBpdCB0byB1c2UgYGRldl9pbmZvLT52aXJ0
-dWFsX2FkZHJlc3NfYWxpZ25tZW50YC4KPiAKPiBNaG0sIGxvb2tpbmcgYXQgdGhlIGtlcm5lbCBj
-b2RlIEkgd291bGQgcmF0aGVyIHNheSBNZXNhIGlzIGNvcnJlY3QgYW5kIAo+IHRoZSBrZXJuZWwg
-ZHJpdmVyIGlzIGJyb2tlbi4KPiAKPiBUaGUgZ2FydF9wYWdlX3NpemUgaXMgbGltaXRlZCBieSB0
-aGUgQ1BVIHBhZ2Ugc2l6ZSwgYnV0IHRoZSAKPiB2aXJ0dWFsX2FkZHJlc3NfYWxpZ25tZW50IGlz
-bid0Lgo+IAo+ID4gSWYgd2UgY2FuIG1ha2UgdGhlIGNoYW5nZSB0byBmaWxsIHRoZSBHUFVWTSBv
-biBhIDRrIGJhc2lzLCB3ZSBjYW4gZml4IHRoaXMKPiA+IGlzc3VlCj4gPiBhbmQgbWFrZSB2aXJ0
-dWFsX2FkZHJlc3NfYWxpZ25tZW50ID0gNEsuwqAgT3RoZXJ3aXNlLCB3ZSBzaG91bGQgZm9ydGlm
-eSB0aGUKPiA+IHBhcmFtZXRlciB2YWxpZGF0aW9uLCBjaGFuZ2luZyAiQU1ER1BVX0dQVV9QQUdF
-X01BU0siIHRvICJ+UEFHRV9NQVNLIi7CoCBUaGVuCj4gPiB0aGUKPiA+IHVzZXJzcGFjZSB3aWxs
-IGp1c3QgZ2V0IGFuIEVJTlZBTCwgaW5zdGVhZCBvZiBhIHNsaWVudCBWTSBjb3JydXB0aW9uLsKg
-IEFuZAo+ID4gc29tZW9uZSBzaG91bGQgdGVsbCBNZXNhIGRldmVsb3BlcnMgdG8gZml4IHRoZSBj
-b2RlIGluIHRoaXMgY2FzZS4KPiAKPiBJIHJhdGhlciBzZWUgdGhpcyBhcyBhIGtlcm5lbCBidWcu
-IENhbiB5b3UgdGVzdCBpZiB0aGlzIGNvZGUgZnJhZ21lbnQgCj4gZml4ZXMgeW91ciBpc3N1ZToK
-PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
-IAo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gaW5kZXggNjRi
-ZWIzMzk5NjA0Li5lMTI2MGI1MTdlMWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2ttcy5jCj4gQEAgLTc4MCw3ICs3ODAsNyBAQCBpbnQgYW1kZ3B1X2luZm9faW9jdGwo
-c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAKPiAqZGF0YSwgc3RydWN0IGRybV9maWxlICpm
-aWxwKQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+dmlydHVhbF9hZGRyZXNzX2FsaWdubWVudCA9
-IAo+IG1heCgoaW50KVBBR0VfU0laRSwgQU1ER1BVX0dQVV9QQUdFX1NJWkUpOwo+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9pbmZvLT5wdGVfZnJhZ21lbnRfc2l6ZSA9ICgx
-IDw8IAo+IGFkZXYtPnZtX21hbmFnZXIuZnJhZ21lbnRfc2l6ZSkgKiBBTURHUFVfR1BVX1BBR0Vf
-U0laRTsKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+Z2FydF9wYWdl
-X3NpemUgPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBkZXZfaW5mby0+Z2FydF9wYWdlX3NpemUgPSAKPiBkZXZfaW5mby0+dmlydHVhbF9hZGRy
-ZXNzX2FsaWdubWVudDsKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5m
-by0+Y3VfYWN0aXZlX251bWJlciA9IGFkZXYtPmdmeC5jdV9pbmZvLm51bWJlcjsKPiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+Y3VfYW9fbWFzayA9IGFkZXYtPmdm
-eC5jdV9pbmZvLmFvX2N1X21hc2s7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZGV2X2luZm8tPmNlX3JhbV9zaXplID0gYWRldi0+Z2Z4LmNlX3JhbV9zaXplOwoKSXQgd29ya3Mu
-ICBJJ3ZlIHNlZW4gaXQgYXQKaHR0cHM6Ly9naXRodWIuY29tL3hlbjBuL2xpbnV4L2NvbW1pdC84
-NGFkYTcyOTgzODM4YmQ3Y2U1NGJjMzJmNWQzNGFjNWI1YWFlMTkxCmJlZm9yZSAod2l0aCBhIGNv
-bW1vbiBzdWItZXhwcmVzc2lvbiwgdGhvdWdoIDopLgoKLS0gClhpIFJ1b3lhbyA8eHJ5MTExQG1l
-bmd5YW4xMjIzLndhbmc+ClNjaG9vbCBvZiBBZXJvc3BhY2UgU2NpZW5jZSBhbmQgVGVjaG5vbG9n
-eSwgWGlkaWFuIFVuaXZlcnNpdHkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+Hey Lyude,
+
+I'm seeing no issues with this patch and the reasoning behind the
+patch is sound to me.
+
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
+
+On Fri, 26 Mar 2021 at 21:39, Lyude Paul <lyude@redhat.com> wrote:
+>
+> Since we're about to move drm_dp_helper.c over to drm_dbg_*(), we'll want
+> to make sure that we can also add ratelimited versions of these macros in
+> order to retain some of the previous debugging output behavior we had.
+>
+> However, as I was preparing to do this I noticed that the current
+> rate limited macros we have are kind of bogus. It looks like when I wrote
+> these, I didn't notice that we'd always be calling __ratelimit() even if
+> the debugging message we'd be printing would normally be filtered out due
+> to the relevant DRM debugging category being disabled.
+>
+> So, let's fix this by making sure to check drm_debug_enabled() in our
+> ratelimited macros before calling __ratelimit(), and start using
+> drm_dev_printk() in order to print debugging messages since that will save
+> us from doing a redundant drm_debug_enabled() check. And while we're at it,
+> let's move the code for this into another macro that we can reuse for
+> defining new ratelimited DRM debug macros more easily.
+>
+> v2:
+> * Make sure to use tabs where possible in __DRM_DEFINE_DBG_RATELIMITED()
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Robert Foss <robert.foss@linaro.org>
+> ---
+>  include/drm/drm_print.h | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
+>
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index f32d179e139d..a3c58c941bdc 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -524,16 +524,20 @@ void __drm_err(const char *format, ...);
+>  #define DRM_DEBUG_DP(fmt, ...)                                         \
+>         __drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
+>
+> -
+> -#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...)                            \
+> -({                                                                     \
+> -       static DEFINE_RATELIMIT_STATE(_rs,                              \
+> -                                     DEFAULT_RATELIMIT_INTERVAL,       \
+> -                                     DEFAULT_RATELIMIT_BURST);         \
+> -       if (__ratelimit(&_rs))                                          \
+> -               drm_dev_dbg(NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__);      \
+> +#define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)                                  \
+> +({                                                                                             \
+> +       static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DEFAULT_RATELIMIT_BURST);\
+> +       const struct drm_device *drm_ = (drm);                                                  \
+> +                                                                                               \
+> +       if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))                        \
+> +               drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);       \
+>  })
+>
+> +#define drm_dbg_kms_ratelimited(drm, fmt, ...) \
+> +       __DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
+> +
+> +#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
+> +
+>  /*
+>   * struct drm_device based WARNs
+>   *
+> --
+> 2.30.2
+>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
