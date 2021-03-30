@@ -2,65 +2,54 @@ Return-Path: <SRS0=Oizy=I4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E597DC433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CD6CC433C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91B5B619BD
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B5B619BD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1534D61994
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 13:24:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1534D61994
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=danny.cz
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43D516E8FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAF16E8F3;
 	Tue, 30 Mar 2021 13:24:49 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E276E8A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 10:43:26 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id ay2so5941914plb.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 03:43:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
- b=C9+RPFkWx1dnLku0VJzXhT4WCqoHsMPAfkkwl/4KohDQakhhONCUx+woSyEwYjrpXR
- t1d16MDlzS32+twkwF9bbNrzqgVVnTIfoI0AZogYL4G1S7OgpeJg0emu3T5/HWp5kcJG
- ++epmYQmqILHMzY2hL2QmPVz7uTVYnSW6ybUpM4NE/4ka6AX9/8CrsJwa6V5+njYVIo+
- XgbVwDjQ2vtltDtglB4fNijvaQUZc0s53NH8e1EYls6/XbWYbhbOWqh0zjfmI0VBaOGj
- vhK9ArLDxUL+ZjLu/rXXyDanwAeMXX50oJ08dRer+OEiWgpVZHK0JFYQd9TBlKlb28DY
- jk6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=inEEvxoI2d27PWTByb00t7709zab101mRTK+HEEURs0=;
- b=qCDRQQuyZizEXUb3/LQTv32WUZQuq1lzywIWYujmIxfjYMIOlRoI/GIlrrB8ezDQ4o
- RFR+95oa8uKyR2f09dOAjboShicjr7xf2Yo3++31eJACaQdN/LJLazQiz8Qa49nI6tJ9
- zLMaieC7hbiDthPPuATcheonRpQeJhMic3UCGamgZ4EKlQ9sAxhIO1C6pa4Rq8d67IY6
- 5NxVh310hkvVKBSXnssVFlwYrEPDKuQSi/1x4BthIaVx9nwu7vQyHKaUs7hPPripf562
- tXPUtndJhr5KHtQHqm4Df0YrKE9qBB+2dulBFBkq4qXNRpbn4WRtrB/d6lGfDB/SnElD
- BSaA==
-X-Gm-Message-State: AOAM533kuFLtozFsNLxw2kKVh5pY+KZVwVWRFf1kY4Uv6cecPhFFCVCj
- nQQA5X/WdosRArCk/qVXF0MSoyishGa727IOiHSxgw==
-X-Google-Smtp-Source: ABdhPJxPMfsifg57CMk+e08YOVt3TzMww6aMvw5ulnMzAx23GI1ES2FVCsm8qjLz2RBA6UgJxREJNfH8cDlZ1xM4T2Y=
-X-Received: by 2002:a17:902:e752:b029:e6:822c:355c with SMTP id
- p18-20020a170902e752b02900e6822c355cmr32807495plf.69.1617101006157; Tue, 30
- Mar 2021 03:43:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210326203807.105754-1-lyude@redhat.com>
- <20210326203807.105754-8-lyude@redhat.com>
-In-Reply-To: <20210326203807.105754-8-lyude@redhat.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Tue, 30 Mar 2021 12:43:15 +0200
-Message-ID: <CAG3jFyvK6bk5mF_Jp6w9HpN2rDAPKkdHKbQMRKiW6gGKdR9-Yw@mail.gmail.com>
-Subject: Re: [PATCH v2 07/20] drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
-To: Lyude Paul <lyude@redhat.com>
+X-Greylist: delayed 469 seconds by postgrey-1.36 at gabe;
+ Tue, 30 Mar 2021 13:07:58 UTC
+Received: from redcrew.org (redcrew.org [IPv6:2a02:2b88:2:1::1cde:1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25F26E8D8;
+ Tue, 30 Mar 2021 13:07:58 +0000 (UTC)
+Received: from server.danny.cz (19.161.broadband4.iol.cz [85.71.161.19])
+ by redcrew.org (Postfix) with ESMTP id D101369;
+ Tue, 30 Mar 2021 15:00:06 +0200 (CEST)
+Received: from talos.danny.cz (talos.danny.cz [192.168.160.68])
+ by server.danny.cz (Postfix) with SMTP id 88900DA004;
+ Tue, 30 Mar 2021 15:00:06 +0200 (CEST)
+Date: Tue, 30 Mar 2021 15:00:04 +0200
+From: Dan =?UTF-8?B?SG9yw6Fr?= <dan@danny.cz>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix an underflow on non-4KB-page systems
+Message-Id: <20210330150004.857ae73704c3533692cf79f0@danny.cz>
+In-Reply-To: <c3caf16b-584a-3e4c-0104-15bb41613136@amd.com>
+References: <20210329175348.26859-1-xry111@mengyan1223.wang>
+ <d192e2a8-8baf-0a8c-93a9-9abbad992c7d@gmail.com>
+ <be9042b9294bda450659d3cd418c5e8759d57319.camel@mengyan1223.wang>
+ <9a11c873-a362-b5d1-6d9c-e937034e267d@gmail.com>
+ <bf9e05d4a6ece3e8bf1f732b011d3e54bbf8000e.camel@mengyan1223.wang>
+ <84b3911173ad6beb246ba0a77f93d888ee6b393e.camel@mengyan1223.wang>
+ <97c520ce107aa4d5fd96e2c380c8acdb63d45c37.camel@mengyan1223.wang>
+ <7701fb71-9243-2d90-e1e1-d347a53b7d77@gmail.com>
+ <368b9b1b7343e35b446bb1028ccf0ae75dc2adc4.camel@mengyan1223.wang>
+ <71e3905a5b72c5b97df837041b19175540ebb023.camel@mengyan1223.wang>
+ <c3caf16b-584a-3e4c-0104-15bb41613136@amd.com>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.32; powerpc64le-redhat-linux-gnu)
+Mime-Version: 1.0
 X-Mailman-Approved-At: Tue, 30 Mar 2021 13:24:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,90 +62,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Xi Ruoyao <xry111@mengyan1223.wang>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Lyude,
-
-I'm seeing no issues with this patch and the reasoning behind the
-patch is sound to me.
-
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
-
-On Fri, 26 Mar 2021 at 21:39, Lyude Paul <lyude@redhat.com> wrote:
->
-> Since we're about to move drm_dp_helper.c over to drm_dbg_*(), we'll want
-> to make sure that we can also add ratelimited versions of these macros in
-> order to retain some of the previous debugging output behavior we had.
->
-> However, as I was preparing to do this I noticed that the current
-> rate limited macros we have are kind of bogus. It looks like when I wrote
-> these, I didn't notice that we'd always be calling __ratelimit() even if
-> the debugging message we'd be printing would normally be filtered out due
-> to the relevant DRM debugging category being disabled.
->
-> So, let's fix this by making sure to check drm_debug_enabled() in our
-> ratelimited macros before calling __ratelimit(), and start using
-> drm_dev_printk() in order to print debugging messages since that will save
-> us from doing a redundant drm_debug_enabled() check. And while we're at it,
-> let's move the code for this into another macro that we can reuse for
-> defining new ratelimited DRM debug macros more easily.
->
-> v2:
-> * Make sure to use tabs where possible in __DRM_DEFINE_DBG_RATELIMITED()
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: Robert Foss <robert.foss@linaro.org>
-> ---
->  include/drm/drm_print.h | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index f32d179e139d..a3c58c941bdc 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -524,16 +524,20 @@ void __drm_err(const char *format, ...);
->  #define DRM_DEBUG_DP(fmt, ...)                                         \
->         __drm_dbg(DRM_UT_DP, fmt, ## __VA_ARGS__)
->
-> -
-> -#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...)                            \
-> -({                                                                     \
-> -       static DEFINE_RATELIMIT_STATE(_rs,                              \
-> -                                     DEFAULT_RATELIMIT_INTERVAL,       \
-> -                                     DEFAULT_RATELIMIT_BURST);         \
-> -       if (__ratelimit(&_rs))                                          \
-> -               drm_dev_dbg(NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__);      \
-> +#define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)                                  \
-> +({                                                                                             \
-> +       static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DEFAULT_RATELIMIT_BURST);\
-> +       const struct drm_device *drm_ = (drm);                                                  \
-> +                                                                                               \
-> +       if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))                        \
-> +               drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);       \
->  })
->
-> +#define drm_dbg_kms_ratelimited(drm, fmt, ...) \
-> +       __DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
-> +
-> +#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
-> +
->  /*
->   * struct drm_device based WARNs
->   *
-> --
-> 2.30.2
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCAzMCBNYXIgMjAyMSAxNDo1NTowMSArMDIwMApDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgoKPiBBbSAzMC4wMy4yMSB1bSAxNDowNCBzY2hy
+aWViIFhpIFJ1b3lhbzoKPiA+IE9uIDIwMjEtMDMtMzAgMDM6NDAgKzA4MDAsIFhpIFJ1b3lhbyB3
+cm90ZToKPiA+PiBPbiAyMDIxLTAzLTI5IDIxOjM2ICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdy
+b3RlOgo+ID4+PiBBbSAyOS4wMy4yMSB1bSAyMToyNyBzY2hyaWViIFhpIFJ1b3lhbzoKPiA+Pj4+
+IEhpIENocmlzdGlhbiwKPiA+Pj4+Cj4gPj4+PiBJIGRvbid0IHRoaW5rIHRoZXJlIGlzIGFueSBj
+b25zdHJhaW50IGltcGxlbWVudGVkIHRvIGVuc3VyZSBgbnVtX2VudHJpZXMgJQo+ID4+Pj4gQU1E
+R1BVX0dQVV9QQUdFU19JTl9DUFVfUEFHRSA9PSAwYC7CoCBGb3IgZXhhbXBsZSwgaW4gYGFtZGdw
+dV92bV9ib19tYXAoKWA6Cj4gPj4+Pgo+ID4+Pj4gIMKgwqDCoMKgwqDCoMKgwqAgLyogdmFsaWRh
+dGUgdGhlIHBhcmFtZXRlcnMgKi8KPiA+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgIGlmIChzYWRkciAm
+IEFNREdQVV9HUFVfUEFHRV9NQVNLIHx8IG9mZnNldCAmIEFNREdQVV9HUFVfUEFHRV9NQVNLCj4g
+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemUgPT0gMCB8fCBzaXplICYgQU1ER1BV
+X0dQVV9QQUdFX01BU0spCj4gPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+cmV0dXJuIC1FSU5WQUw7Cj4gPj4+Pgo+ID4+Pj4gLyogc25pcCAqLwo+ID4+Pj4KPiA+Pj4+ICDC
+oMKgwqDCoMKgwqDCoMKgIHNhZGRyIC89IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ID4+Pj4gIMKg
+wqDCoMKgwqDCoMKgwqAgZWFkZHIgLz0gQU1ER1BVX0dQVV9QQUdFX1NJWkU7Cj4gPj4+Pgo+ID4+
+Pj4gLyogc25pcCAqLwo+ID4+Pj4KPiA+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgIG1hcHBpbmctPnN0
+YXJ0ID0gc2FkZHI7Cj4gPj4+PiAgwqDCoMKgwqDCoMKgwqDCoCBtYXBwaW5nLT5sYXN0ID0gZWFk
+ZHI7Cj4gPj4+Pgo+ID4+Pj4KPiA+Pj4+IElmIHdlIHJlYWxseSB3YW50IHRvIGVuc3VyZSAobWFw
+cGluZy0+bGFzdCAtIG1hcHBpbmctPnN0YXJ0ICsgMSkgJQo+ID4+Pj4gQU1ER1BVX0dQVV9QQUdF
+U19JTl9DUFVfUEFHRSA9PSAwLCB0aGVuIHdlIHNob3VsZCByZXBsYWNlCj4gPj4+PiAiQU1ER1BV
+X0dQVV9QQUdFX01BU0siCj4gPj4+PiBpbiAidmFsaWRhdGUgdGhlIHBhcmFtZXRlcnMiIHdpdGgg
+IlBBR0VfTUFTSyIuCj4gPiBJdCBzaG91bGQgYmUgIn5QQUdFX01BU0siLCAiUEFHRV9NQVNLIiBo
+YXMgYW4gb3Bwb3NpdGUgY29udmVudGlvbiBvZgo+ID4gIkFNREdQVV9HUFVfUEFHRV9NQVNLIiA6
+KC4KPiA+Cj4gPj4+IFllYWgsIGdvb2QgcG9pbnQuCj4gPj4+Cj4gPj4+PiBJIHRyaWVkIGl0IGFu
+ZCBpdCBicm9rZSB1c2Vyc3BhY2U6IFhvcmcgc3RhcnR1cCBmYWlscyB3aXRoIEVJTlZBTCB3aXRo
+Cj4gPj4+PiB0aGlzCj4gPj4+PiBjaGFuZ2UuCj4gPj4+IFdlbGwgaW4gdGhlb3J5IGl0IGlzIHBv
+c3NpYmxlIHRoYXQgd2UgYWx3YXlzIGZpbGwgdGhlIEdQVVZNIG9uIGEgNGsKPiA+Pj4gYmFzaXMg
+d2hpbGUgdGhlIG5hdGl2ZSBwYWdlIHNpemUgb2YgdGhlIENQVSBpcyBsYXJnZXIuIExldCBtZSBk
+b3VibGUKPiA+Pj4gY2hlY2sgdGhlIGNvZGUuCj4gPiBPbiBteSBwbGF0Zm9ybSwgdGhlcmUgYXJl
+IHR3byBpc3N1ZXMgYm90aCBjYXVzaW5nIHRoZSBWTSBjb3JydXB0aW9uLiAgT25lIGlzCj4gPiBm
+aXhlZCBieSBhZ2Q1Zi9saW51eEBmZTAwMWU3Lgo+IAo+IFdoYXQgaXMgZmUwMDFlNz8gQSBjb21t
+aXQgaWQ/IElmIHllcyB0aGVuIHRoYXQgaXMgdG8gc2hvcnQgYW5kIEkgY2FuJ3QgCj4gZmluZCBp
+dC4KCml0J3MgYSBnaXRsYWIgc2hvcnRjdXQgZm9yCmh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9w
+Lm9yZy9hZ2Q1Zi9saW51eC8tL2NvbW1pdC9mZTAwMWU3MGE1NWQwMzc4MzI4NjEyYmUxZmRjM2Fi
+ZmM2OGI5Y2NjCgoKCQlEYW4KPiAKPiA+ICAgIEFub3RoZXIgaXMgaW4gTWVzYSBmcm9tIHVzZXJz
+cGFjZTogIGl0IHVzZXMKPiA+IGBkZXZfaW5mby0+Z2FydF9wYWdlX3NpemVgIGFzIHRoZSBhbGln
+bm1lbnQsIGJ1dCB0aGUga2VybmVsIEFNREdQVSBkcml2ZXIKPiA+IGV4cGVjdHMgaXQgdG8gdXNl
+IGBkZXZfaW5mby0+dmlydHVhbF9hZGRyZXNzX2FsaWdubWVudGAuCj4gCj4gTWhtLCBsb29raW5n
+IGF0IHRoZSBrZXJuZWwgY29kZSBJIHdvdWxkIHJhdGhlciBzYXkgTWVzYSBpcyBjb3JyZWN0IGFu
+ZCAKPiB0aGUga2VybmVsIGRyaXZlciBpcyBicm9rZW4uCj4gCj4gVGhlIGdhcnRfcGFnZV9zaXpl
+IGlzIGxpbWl0ZWQgYnkgdGhlIENQVSBwYWdlIHNpemUsIGJ1dCB0aGUgCj4gdmlydHVhbF9hZGRy
+ZXNzX2FsaWdubWVudCBpc24ndC4KPiAKPiA+IElmIHdlIGNhbiBtYWtlIHRoZSBjaGFuZ2UgdG8g
+ZmlsbCB0aGUgR1BVVk0gb24gYSA0ayBiYXNpcywgd2UgY2FuIGZpeCB0aGlzIGlzc3VlCj4gPiBh
+bmQgbWFrZSB2aXJ0dWFsX2FkZHJlc3NfYWxpZ25tZW50ID0gNEsuICBPdGhlcndpc2UsIHdlIHNo
+b3VsZCBmb3J0aWZ5IHRoZQo+ID4gcGFyYW1ldGVyIHZhbGlkYXRpb24sIGNoYW5naW5nICJBTURH
+UFVfR1BVX1BBR0VfTUFTSyIgdG8gIn5QQUdFX01BU0siLiAgVGhlbiB0aGUKPiA+IHVzZXJzcGFj
+ZSB3aWxsIGp1c3QgZ2V0IGFuIEVJTlZBTCwgaW5zdGVhZCBvZiBhIHNsaWVudCBWTSBjb3JydXB0
+aW9uLiAgQW5kCj4gPiBzb21lb25lIHNob3VsZCB0ZWxsIE1lc2EgZGV2ZWxvcGVycyB0byBmaXgg
+dGhlIGNvZGUgaW4gdGhpcyBjYXNlLgo+IAo+IEkgcmF0aGVyIHNlZSB0aGlzIGFzIGEga2VybmVs
+IGJ1Zy4gQ2FuIHlvdSB0ZXN0IGlmIHRoaXMgY29kZSBmcmFnbWVudCAKPiBmaXhlcyB5b3VyIGlz
+c3VlOgo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+a21zLmMgCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiBpbmRl
+eCA2NGJlYjMzOTk2MDQuLmUxMjYwYjUxN2UxYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfa21zLmMKPiBAQCAtNzgwLDcgKzc4MCw3IEBAIGludCBhbWRncHVfaW5mb19p
+b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkIAo+ICpkYXRhLCBzdHJ1Y3QgZHJtX2Zp
+bGUgKmZpbHApCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gIMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+dmlydHVhbF9hZGRyZXNzX2FsaWdubWVu
+dCA9IAo+IG1heCgoaW50KVBBR0VfU0laRSwgQU1ER1BVX0dQVV9QQUdFX1NJWkUpOwo+ICDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8tPnB0ZV9mcmFnbWVudF9zaXplID0g
+KDEgPDwgCj4gYWRldi0+dm1fbWFuYWdlci5mcmFnbWVudF9zaXplKSAqIEFNREdQVV9HUFVfUEFH
+RV9TSVpFOwo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9pbmZvLT5nYXJ0X3Bh
+Z2Vfc2l6ZSA9IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGRldl9pbmZvLT5nYXJ0X3BhZ2Vfc2l6ZSA9IAo+IGRldl9pbmZvLT52aXJ0dWFsX2Fk
+ZHJlc3NfYWxpZ25tZW50Owo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2lu
+Zm8tPmN1X2FjdGl2ZV9udW1iZXIgPSBhZGV2LT5nZnguY3VfaW5mby5udW1iZXI7Cj4gIMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby0+Y3VfYW9fbWFzayA9IGFkZXYtPmdm
+eC5jdV9pbmZvLmFvX2N1X21hc2s7Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBk
+ZXZfaW5mby0+Y2VfcmFtX3NpemUgPSBhZGV2LT5nZnguY2VfcmFtX3NpemU7Cj4gCj4gCj4gVGhh
+bmtzLAo+IENocmlzdGlhbi4KPiAKPiA+IC0tCj4gPiBYaSBSdW95YW8gPHhyeTExMUBtZW5neWFu
+MTIyMy53YW5nPgo+ID4gU2Nob29sIG9mIEFlcm9zcGFjZSBTY2llbmNlIGFuZCBUZWNobm9sb2d5
+LCBYaWRpYW4gVW5pdmVyc2l0eQo+ID4KPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
