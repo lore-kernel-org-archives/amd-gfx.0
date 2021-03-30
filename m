@@ -2,51 +2,80 @@ Return-Path: <SRS0=Oizy=I4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEEECC433DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 07:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64949C433DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 07:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E2C561928
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 07:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E2C561928
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id D7DB461935
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Mar 2021 07:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7DB461935
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560256E868;
-	Tue, 30 Mar 2021 07:23:50 +0000 (UTC)
-Received: from m176151.mail.qiye.163.com (m176151.mail.qiye.163.com
- [59.111.176.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1676E7F5;
- Tue, 30 Mar 2021 01:34:26 +0000 (UTC)
-Received: from vivo.com (wm-11.qy.internal [127.0.0.1])
- by m176151.mail.qiye.163.com (Hmail) with ESMTP id A2C0C481FE3;
- Tue, 30 Mar 2021 09:34:22 +0800 (CST)
-Message-ID: <ADoALwDyDqqKqolXZoBMHqqQ.3.1617068062644.Hmail.wanjiabing@vivo.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gYW1kOiBkaXNwbGF5OiBkYzogc3RydWN0IGRjX3N0YXRlIGlzIGRlY2xhcmVkIHR3aWNl?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 36.152.145.182
-In-Reply-To: <CADnq5_PSnvFAcUt7T9q=L8v6sFGnLM72cot=Lq_+cs8cNHK5sg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79F1F6E867;
+	Tue, 30 Mar 2021 07:24:20 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECBD96E867
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 07:24:18 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id ce10so23282046ejb.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Mar 2021 00:24:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=NRTr89/uo1J08FjxIx0B9LontMFQSiaCMlHZYdurkK4=;
+ b=IMOHk9eHKsVTnhTB1wWEAh/DhlNunQ+IE2QQLmwwCrMO2d9k5qgRbnH5PyK1lzR0sy
+ cbYF+BBMs5kb3QuejcAYAH/ywXoffQjjgS6izW6oz/APL/ptxW4etR4Jgk8hsfZOysrL
+ Krk8ROXcBlGn6TpJZ6FB5rEVFg3EVIhRKnEl1G0POK2x/UMswdu0K57XJgLZ22keGj5M
+ pF9bd8HwS82ap3tAPVt8gJuux0pFttd6MkQ6UQWJ9fGxvgfa7oMlAAGpPzMuyK2ImuwU
+ 1Fzj/OZgpCVccZGH3q/CjHvXd1j1oFMLefwmurtqwzua+KhIH5nagU7PVSyhOuo6fFOe
+ 8OVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=NRTr89/uo1J08FjxIx0B9LontMFQSiaCMlHZYdurkK4=;
+ b=W7s0cp66ORxiz707vRL7Px2H8Hsp2s8wanN5UKvoSQc/fdCIQ8g/P7hrKgq80gMUjd
+ 51jxn+/kUZ+jJ6biD4FJ6XBnOpJ5kLljt2ha7766Z7Bby0amHGt90JWZL09ORJKyIk4/
+ tvhazc5pr5qHTigGJAqsMQS+mI4oQ3sKd4DbbLm1Cwsb9MdG1ZsuyJEWSeSIq8HuH7am
+ 2d2HmxOk7knwZ1v3lRH7h6S5DB+0ZSvHbkzz8BewGjUrRiJZcWDU6CLWzS8WER7p/Xuy
+ lte2RH6yxKMruiqWBZQ5ZsdhAL36+wYkVBaSFxt3mFu+XQ0/aISK+LtJz6hisPon6ray
+ 6vSA==
+X-Gm-Message-State: AOAM530rct6MvcTECRjAh2+QWaJyOVObwxohWlXFXLV2LtbKDF2yRCiO
+ r2VKlIijTsRkDm/FY9kgVug=
+X-Google-Smtp-Source: ABdhPJyg9kHc5/BfVqCoQk5VV08/8cZjqhZpUqaCps6pyYHNEJ2GCg/2HnaJ/9zY6yCjxcWpkLAfAg==
+X-Received: by 2002:a17:906:6a06:: with SMTP id
+ o6mr31414821ejr.306.1617089057673; 
+ Tue, 30 Mar 2021 00:24:17 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:8ca4:a46e:6aa7:208c?
+ ([2a02:908:1252:fb60:8ca4:a46e:6aa7:208c])
+ by smtp.gmail.com with ESMTPSA id jj16sm9459596ejc.19.2021.03.30.00.24.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Mar 2021 00:24:17 -0700 (PDT)
+Subject: Re: [PATCH 5/6] drm/amdgpu: Disable RPTR write back for navi12
+To: "Deng, Emily" <Emily.Deng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <Alexander.Deucher@amd.com>
+References: <20210330044147.57802-1-Emily.Deng@amd.com>
+ <20210330044147.57802-5-Emily.Deng@amd.com>
+ <4ccce70f-bd74-87ab-a280-5c45b74a7d39@gmail.com>
+ <BY5PR12MB4115EEED8927FFF414AF966F8F7D9@BY5PR12MB4115.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <c358ac16-166e-ba81-3cfb-b51a4adafb9f@gmail.com>
+Date: Tue, 30 Mar 2021 09:24:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Received: from wanjiabing@vivo.com( [36.152.145.182) ] by ajax-webmail (
- [127.0.0.1] ) ; Tue, 30 Mar 2021 09:34:22 +0800 (GMT+08:00)
-From: =?UTF-8?B?5LiH5a625YW1?= <wanjiabing@vivo.com>
-Date: Tue, 30 Mar 2021 09:34:22 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZTU9LSUtNHkhLT0oeVkpNSkxLTUNLTUlNQkNVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVLWQY+
-X-HM-Sender-Digest: e1kJHlYWEh9ZQU1JT09DTUlKS01PN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
- WUc6PxQ6Nww*Aj8KCjAKFBcjIRQ5NjMKCipVSFVKTUpMS01DS01IS01JVTMWGhIXVQwaFRESGhkS
- FRw7DRINFFUYFBZFWVdZEgtZQVlITVVKTklVSk9OVUpDSVlXWQgBWUFDTklCNwY+
-X-HM-Tid: 0a7880c477d393b5kuwsa2c0c481fe3
-X-Mailman-Approved-At: Tue, 30 Mar 2021 07:23:49 +0000
+In-Reply-To: <BY5PR12MB4115EEED8927FFF414AF966F8F7D9@BY5PR12MB4115.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,154 +87,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- Jacky Liao <ziyu.liao@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- David Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, kael_w@yeah.net,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- 
->On Sat, Mar 27, 2021 at 3:28 AM Wan Jiabing <wanjiabing@vivo.com> wrote:
->>
->> struct dc_state has been declared at 273rd line.
->> Remove the duplicate.
->> Delete duplicate blank lines.
->
->Can you split these into separate patches?
->
->Alex
-
-OK. But in fact, what I did  is simple.
-The most important thing is removing the duplicate
-struct dc_state declaration at 585th line.
-Others are all deleting duplicate blank lines.
-
-So maybe I should send two patchs, one is removing
-duplicate declaration, the other is deleting blank lines?
-
->>
->> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
->> ---
->>  drivers/gpu/drm/amd/display/dc/dc.h | 10 ----------
->>  1 file changed, 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
->> index 18ed0d3f247e..dc667298ab5b 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dc.h
->> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
->> @@ -234,7 +234,6 @@ struct dc_static_screen_params {
->>         unsigned int num_frames;
->>  };
->>
->> -
->>  /* Surface update type is used by dc_update_surfaces_and_stream
->>   * The update type is determined at the very beginning of the function based
->>   * on parameters passed in and decides how much programming (or updating) is
->> @@ -272,7 +271,6 @@ struct dc;
->>  struct dc_plane_state;
->>  struct dc_state;
->>
->> -
->>  struct dc_cap_funcs {
->>         bool (*get_dcc_compression_cap)(const struct dc *dc,
->>                         const struct dc_dcc_surface_param *input,
->> @@ -281,7 +279,6 @@ struct dc_cap_funcs {
->>
->>  struct link_training_settings;
->>
->> -
->>  /* Structure to hold configuration flags set by dm at dc creation. */
->>  struct dc_config {
->>         bool gpu_vm_support;
->> @@ -581,7 +578,6 @@ struct dc_bounding_box_overrides {
->>         int min_dcfclk_mhz;
->>  };
->>
->> -struct dc_state;
-
-Removing the duplicate is here.
-And others are all deleting duplicate blank line.
-
-I think they are in the same file. I want to remove the declaration first.
-By the way, I deleted the blank line.
-
-Yours,
-Wan Jiabing
-
->>  struct resource_pool;
->>  struct dce_hwseq;
->>  struct gpu_info_soc_bounding_box_v1_0;
->> @@ -757,7 +753,6 @@ enum dc_transfer_func_predefined {
->>         TRANSFER_FUNCTION_GAMMA26
->>  };
->>
->> -
->>  struct dc_transfer_func {
->>         struct kref refcount;
->>         enum dc_transfer_func_type type;
->> @@ -770,7 +765,6 @@ struct dc_transfer_func {
->>         };
->>  };
->>
->> -
->>  union dc_3dlut_state {
->>         struct {
->>                 uint32_t initialized:1;         /*if 3dlut is went through color module for initialization */
->> @@ -784,7 +778,6 @@ union dc_3dlut_state {
->>         uint32_t raw;
->>  };
->>
->> -
->>  struct dc_3dlut {
->>         struct kref refcount;
->>         struct tetrahedral_params lut_3d;
->> @@ -1014,7 +1007,6 @@ enum dc_status dc_validate_global_state(
->>                 struct dc_state *new_ctx,
->>                 bool fast_validate);
->>
->> -
->>  void dc_resource_state_construct(
->>                 const struct dc *dc,
->>                 struct dc_state *dst_ctx);
->> @@ -1167,7 +1159,6 @@ struct dc_container_id {
->>         unsigned short productCode;
->>  };
->>
->> -
->>  struct dc_sink_dsc_caps {
->>         // 'true' if these are virtual DPCD's DSC caps (immediately upstream of sink in MST topology),
->>         // 'false' if they are sink's DSC caps
->> @@ -1229,7 +1220,6 @@ struct dc_cursor {
->>         struct dc_cursor_attributes attributes;
->>  };
->>
->> -
->>  /*******************************************************************************
->>   * Interrupt interfaces
->>   ******************************************************************************/
->> --
->> 2.25.1
->>
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMzAuMDMuMjEgdW0gMDk6MjAgc2NocmllYiBEZW5nLCBFbWlseToKPiBbQU1EIE9mZmljaWFs
+IFVzZSBPbmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldCj4KPj4gLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6
+dW1lcmtlbkBnbWFpbC5jb20+Cj4+IFNlbnQ6IFR1ZXNkYXksIE1hcmNoIDMwLCAyMDIxIDM6MTMg
+UE0KPj4gVG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+PiBTdWJqZWN0OiBSZTogW1BBVENIIDUvNl0gZHJtL2FtZGdwdTog
+RGlzYWJsZSBSUFRSIHdyaXRlIGJhY2sgZm9yIG5hdmkxMgo+Pgo+Pgo+Pgo+PiBBbSAzMC4wMy4y
+MSB1bSAwNjo0MSBzY2hyaWViIEVtaWx5IERlbmc6Cj4+PiBJdCB3aWxsIGhpdCByYW1kb21seSBz
+ZG1hIGhhbmcsIGFuZCBwZW5kaW5nIG9uIHV0Y2wyIGFkZHJlc3MKPj4+IHRyYW5zbGF0aW9uIHdo
+ZW4gYWNjZXNzIHRoZSBSUFRSIHBvbGxpbmcgYWRkcmVzcy4KPj4+Cj4+PiBBY2NvcmRpbmcgc2Rt
+YSBmaXJtd2FyZSB0ZWFtIG1lbnRpb25lZCwgdGhlIFJQVFIgd3JpdGViYWNrIGlzIGRvbmUgYnkK
+Pj4+IGhhcmR3YXJlIGF1dG9tYXRpY2FsbHksIGFuZCB3aWxsIGhpdCBpc3N1ZSB3aGVuIGNsb2Nr
+IGdhdGluZyBvY2N1cnMuCj4+PiBTbyBzdG9wIHVzaW5nIHRoZSBycHRyIHdyaXRlIGJhY2sgZm9y
+IHNkbWE1LjAuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0Bh
+bWQuY29tPgo+Pj4gLS0tCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1
+XzAuYyB8IDE4ICsrKysrKysrKysrKy0tLS0tLQo+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDEyIGlu
+c2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3NkbWFfdjVfMC5jCj4+PiBpbmRleCA5MjBmYzZkNGExMjcuLjYzZTRhNzgxODFiOCAx
+MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jCj4+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYwo+Pj4gQEAgLTI5
+OCwxMyArMjk4LDE5IEBAIHN0YXRpYyB2b2lkCj4+IHNkbWFfdjVfMF9yaW5nX3BhdGNoX2NvbmRf
+ZXhlYyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4+PiAgICAgKi8KPj4+ICAgIHN0YXRpYyB1
+aW50NjRfdCBzZG1hX3Y1XzBfcmluZ19nZXRfcnB0cihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcp
+Cj4+PiAgICB7Cj4+PiAtdTY0ICpycHRyOwo+Pj4gK3N0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gcmluZy0+YWRldjsKPj4+ICt1NjQgcnB0cjsKPj4+ICt1MzIgbG93Yml0LCBoaWdoYml0Owo+
+Pj4gKwo+Pj4gK2xvd2JpdCA9IFJSRUczMihzZG1hX3Y1XzBfZ2V0X3JlZ19vZmZzZXQoYWRldiwg
+cmluZy0+bWUsCj4+IG1tU0RNQTBfR0ZYX1JCX1JQVFIpKTsKPj4+ICtoaWdoYml0ID0gUlJFRzMy
+KHNkbWFfdjVfMF9nZXRfcmVnX29mZnNldChhZGV2LCByaW5nLT5tZSwKPj4+ICttbVNETUEwX0dG
+WF9SQl9SUFRSX0hJKSk7Cj4+IFRoYXQgd29uJ3Qgd29yayBsaWtlIHRoaXMuCj4+Cj4+IFdlIGhh
+dmUgdGhlIHJlYWRwb2ludGVyIHdyaXRlYmFjayBiZWNhdXNlIHdlIG90aGVyd2lzZSBjYW4ndCBn
+dWFyYW50ZWUKPj4gdGhhdCB0aGUgdHdvIDMyYml0IHZhbHVlcyByZWFkIGZyb20gdGhlIHJlZ2lz
+dGVycyBhcmUgY29oZXJlbnQuCj4+Cj4+IEluIG90aGVyIHdvcmRzIGl0IGNhbiBiZSB0aGF0IHRo
+ZSBoaSBycHRyIGlzIGFscmVhZHkgd3JhcHBlZCBhcm91bmQgd2hpbGUgdGhlCj4+IGxvIGlzIHN0
+aWxsIHRoZSBvbGQgdmFsdWUuCj4+Cj4+IFdoeSBleGFjdGx5IGRvZXNuJ3QgdGhlIHdyaXRlYmFj
+ayB3b3JrPwo+Pgo+PiBDaHJpc3RpYW4uCj4gSXNzdWUgb2NjdXJzLCB3aGVuIG9jY3VycyBjbG9j
+a2dhdGluZywgYXQgdGhlIHNhbWUgdGltZSwgdGhlIHJwdHIgd3JpdGUgYmFjayBvY2N1cnMuIEF0
+IHRoaXMgdGltZSwgdGhlIHV0Y2wyIHRyYW5zbGF0aW9uIHdpbGwgaGFuZy4KCk1obSwgY3JhcC4g
+QWxleCBhcmUgeW91IHVwIHRvIGRhdGUgb24gdGhpcyBidWc/CgpJJ20gbm90IGFuIGV4cGVydCBv
+biB0aGUgU0RNQSwgYnV0IG15IGxhc3Qgc3RhdHVzIGlzIHRoYXQgd3JpdGViYWNrIGlzIAptYW5k
+YXRvcnkgd2hlbiB3ZSB1c2UgNjRiaXQgcnB0ci93cHRyLgoKT3RoZXJ3aXNlIHdlIG5lZWQgYSB3
+b3JrYXJvdW5kIGhvdyB0byByZWFkIGEgY29uc2lzdGVudCA2NGJpdCBycHRyIGZyb20gCnR3byAz
+MmJpdCByZWdpc3RlcnMuCgpDYW4geW91IGNoZWNrIHRoZSByZWdpc3RlciBkb2N1bWVudGF0aW9u
+IGlmIHRoZXJlIGlzIGFueSBkb3VibGUgCmJ1ZmZlcmluZyBvciBzdHVmZiBsaWtlIHRoYXQ/CgpD
+aHJpc3RpYW4uCgo+Pj4gLS8qIFhYWCBjaGVjayBpZiBzd2FwcGluZyBpcyBuZWNlc3Nhcnkgb24g
+QkUgKi8KPj4+IC1ycHRyID0gKCh1NjQgKikmcmluZy0+YWRldi0+d2Iud2JbcmluZy0+cnB0cl9v
+ZmZzXSk7Cj4+PiArcnB0ciA9IGhpZ2hiaXQ7Cj4+PiArcnB0ciA9IHJwdHIgPDwgMzI7Cj4+PiAr
+cnB0ciB8PSBsb3diaXQ7Cj4+Pgo+Pj4gLURSTV9ERUJVRygicnB0ciBiZWZvcmUgc2hpZnQgPT0g
+MHglMDE2bGx4XG4iLCAqcnB0cik7Cj4+PiAtcmV0dXJuICgoKnJwdHIpID4+IDIpOwo+Pj4gK0RS
+TV9ERUJVRygicnB0ciBiZWZvcmUgc2hpZnQgPT0gMHglMDE2bGx4XG4iLCBycHRyKTsKPj4+ICty
+ZXR1cm4gKHJwdHIgPj4gMik7Cj4+PiAgICB9Cj4+Pgo+Pj4gICAgLyoqCj4+PiBAQCAtNzAyLDcg
+KzcwOCw3IEBAIHN0YXRpYyBpbnQgc2RtYV92NV8wX2dmeF9yZXN1bWUoc3RydWN0Cj4+IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCj4+PiAgICBXUkVHMzIoc2RtYV92NV8wX2dldF9yZWdfb2Zmc2V0KGFk
+ZXYsIGksCj4+IG1tU0RNQTBfR0ZYX1JCX1JQVFJfQUREUl9MTyksCj4+PiAgICAgICAgICAgbG93
+ZXJfMzJfYml0cyhhZGV2LT53Yi5ncHVfYWRkciArIHdiX29mZnNldCkgJgo+PiAweEZGRkZGRkZD
+KTsKPj4+IC1yYl9jbnRsID0gUkVHX1NFVF9GSUVMRChyYl9jbnRsLCBTRE1BMF9HRlhfUkJfQ05U
+TCwKPj4gUlBUUl9XUklURUJBQ0tfRU5BQkxFLCAxKTsKPj4+ICtyYl9jbnRsID0gUkVHX1NFVF9G
+SUVMRChyYl9jbnRsLCBTRE1BMF9HRlhfUkJfQ05UTCwKPj4+ICtSUFRSX1dSSVRFQkFDS19FTkFC
+TEUsIDApOwo+Pj4KPj4+ICAgIFdSRUczMihzZG1hX3Y1XzBfZ2V0X3JlZ19vZmZzZXQoYWRldiwg
+aSwKPj4gbW1TRE1BMF9HRlhfUkJfQkFTRSksIHJpbmctPmdwdV9hZGRyID4+IDgpOwo+Pj4gICAg
+V1JFRzMyKHNkbWFfdjVfMF9nZXRfcmVnX29mZnNldChhZGV2LCBpLAo+PiBtbVNETUEwX0dGWF9S
+Ql9CQVNFX0hJKSwKPj4+IHJpbmctPmdwdV9hZGRyID4+IDQwKTsKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
