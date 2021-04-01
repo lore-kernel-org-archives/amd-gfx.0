@@ -1,54 +1,61 @@
 Return-Path: <SRS0=FlJ6=I6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 909A9C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 424FBC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 14:08:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15FEA61243
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15FEA61243
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E8594611CE
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 14:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8594611CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 699796EAE2;
-	Thu,  1 Apr 2021 13:40:51 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9CE6E0CF;
- Thu,  1 Apr 2021 13:40:49 +0000 (UTC)
-IronPort-SDR: 3PSqg89DRxisX0jP9kS1oDlvqUhegBjHPvIZIzj0WkbKxN9UKtVwDq27gcWPrusr6/2moxzn7l
- +gesSGOT1BDQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="277431052"
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="277431052"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 06:40:39 -0700
-IronPort-SDR: LFYKKCnNLIHo8d1WzwQ5AsNeqrd0MpZqv++pww8uo/8fUTlbro4kse1JFIDXwGB/auZUAspbsR
- I6L+jGfT4YTw==
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="419206855"
-Received: from shergane-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.41.188])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 06:40:36 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [Intel-gfx] [PATCH v2 00/20] drm: Use new DRM printk funcs (like
- drm_dbg_*()) in DP helpers
-In-Reply-To: <20210326203807.105754-1-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210326203807.105754-1-lyude@redhat.com>
-Date: Thu, 01 Apr 2021 16:40:33 +0300
-Message-ID: <87blaym8by.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3B26E14D;
+	Thu,  1 Apr 2021 14:08:08 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708616E14D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 14:08:07 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id q3so2219352qkq.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Apr 2021 07:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=3qVVc3QjuuQZ5h5EwPYr+yfHDfihvOOI1IEXdAdZ2mI=;
+ b=EzoXuX7TIXc7BSY1H8u1JDEQPg2Y2rikJrX04lUlB20PdeuBxOuVI43l9tfOhCVh5b
+ MSmApZ6tLU/M8MtPBf4/E94f6XpdMEglwii4VG7wUBAO7CJ6MuGLBhA/yGvhywTgv6dR
+ BVU2NqHR9aLwBHpAL0YReiO7T41RinDYOR0fpq527uNZl8m/S8+swnPo9Yc2vZwW5ObR
+ jZF972yrIKeBByJVB+uR+rpi6cRgQORo9zmYy67UN5afhLwX7/0aoyhhEcTtTRDgOgHc
+ 0CYFWdv8p7JsFAEO1J5mq/wriC5UEYD4uC6oUQiRB2p2z1XtpN4CwHTNQu129SN6inWP
+ vhEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=3qVVc3QjuuQZ5h5EwPYr+yfHDfihvOOI1IEXdAdZ2mI=;
+ b=KY7IuX25As9cEREg5BY4pLyFeiNLwxqiEYejumepQFShuPdFBLXwhuTsQVFXqPRBgy
+ 2zsuKEM7MUDR9SEqjBbD4eF4LzUJTqPORVPIZ8T3MTFEDe4Y/iTm6RIQ2wxNup7lA3de
+ QGGNBzK+yvOUviz3XZL9lVSV79HZRVEvJPiuWGG15dRYEYQTCfrjKTGnYJ+YnElYSuWk
+ fNqqxm152qIL/fGlYm5/eyEGA4hFHMdQeAZwysOK3MI74QL7rVHbWOczLYEDc5vKYgGw
+ i5MNU7MqZubCo7bs9H3ptlxy/GjeQpCPApg7gU5SMwlUISle5Rlv+Y6aWGSf0vAYpgQy
+ YwpA==
+X-Gm-Message-State: AOAM533m8xuzvWaOauHKS2KM89jSQfabIMA1dTN4gkVbf6vI9hU0gkDw
+ ICa8ZZJ8VPdxqiwKHNLKdv7yEEnpdX4B6lwxBOm5dQPOmhg=
+X-Google-Smtp-Source: ABdhPJyO21smIhkYUTLksVByM48WcVNvNf9106td/5gK6acvFjTnqyY3kTkYVD8iAObF8tLNHY4EMuhMJBNFp6Lj9bk=
+X-Received: by 2002:a37:a913:: with SMTP id s19mr8717336qke.158.1617286086276; 
+ Thu, 01 Apr 2021 07:08:06 -0700 (PDT)
 MIME-Version: 1.0
+From: Smith John <ls.cat.kth@gmail.com>
+Date: Thu, 1 Apr 2021 22:07:54 +0800
+Message-ID: <CAGztBWXhxjoOAQ2AbiR0KGEV3g0dSxYaWwUGnOg8w70vCW1VuQ@mail.gmail.com>
+Subject: [amdgpu] Compute kernels still run when the host process exit?
+To: amd-gfx@lists.freedesktop.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,124 +67,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0161928693=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Mar 2021, Lyude Paul <lyude@redhat.com> wrote:
-> Since it's been asked quite a few times on some of the various DP
-> related patch series I've submitted to use the new DRM printk helpers,
-> and it technically wasn't really trivial to do this before due to the
-> lack of a consistent way to find a drm_device for an AUX channel, this
-> patch series aims to address this. In this series we:
->
-> * Clean-up potentially erroneous usages of drm_dp_aux_init() and
->   drm_dp_aux_register() so that actual AUX registration doesn't happen
->   until we have an associated DRM device
-> * Clean-up any obvious errors in drivers we find along the way
-> * Add a backpointer to the respective drm_device for an AUX channel in
->   drm_dp_aux.drm_dev, and hook it up in every driver with an AUX channel
->   across the tree
-> * Add a new ratelimited print helper we'll need for converting the DP
->   helpers over to using the new DRM printk helpers
-> * Fix any inconsistencies with logging in drm_dp_helper.c so we always
->   have the aux channel name printed
-> * Prepare the various DP helpers so they can find the correct drm_device
->   to use for logging
-> * And finally, convert all of the DP helpers over to using drm_dbg_*()
->   and drm_err().
->
-> Series-wide changes in v2:
-> * Address most checkpatch issues ('most' as in all except for one line
->   going two chars over 100 in "drm/dp_mst: Pass drm_dp_mst_topology_mgr
->   to drm_dp_get_vc_payload_bw()" as this was the style in use
->   previously, and 2 chars over the limit looks nicer then trying to
->   line-wrap this
-> * Don't rewrap comments
+--===============0161928693==
+Content-Type: multipart/alternative; boundary="000000000000ac3c1105bee9c22a"
 
-For anything touching i915, and for merging via whichever tree or branch
-seems best,
+--000000000000ac3c1105bee9c22a
+Content-Type: text/plain; charset="UTF-8"
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Hi, when I killed an OpenCL host process, the kernels it launched were not
+terminated, and still run.
 
-That said, gut feeling says there will be conflicts before latest
-drm-misc-next and drm-intel-next have been merged to drm-next, and
-drm-next has been backmerged to drm-misc-next and drm-intel-next.
+My OpenCL runtime is AMDGPU-PRO 20.20. OS Ubuntu 18.04.5 with  Linux Kernel
+5.4.53
 
-It just might be a good idea to wait for those (as well as other driver
-feature pulls) to settle, do a topic branch with a common ancestor
-between drm-next and drm-misc-next, apply there, merge the topic branch
-to drm-misc-next, and let all drivers merge the topic branch as
-needed. Due to the timing, otherwise we might have to carry the
-conflicts for quite a while.
+I was wondering if it was a bug or the driver did not implement this
+"watchdog" mechanism.
 
-BR,
-Jani.
+--000000000000ac3c1105bee9c22a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">Hi, when I killed an OpenCL host process, the kernels it l=
+aunched were not terminated, and still run.=C2=A0<div><br></div><div>My Ope=
+nCL runtime is AMDGPU-PRO 20.20. OS Ubuntu 18.04.5 with=C2=A0
 
->
-> Lyude Paul (20):
->   drm/dp: Fixup kernel docs for struct drm_dp_aux
->   drm/tegra: Don't register DP AUX channels before connectors
->   drm/bridge/cdns-mhdp8546: Register DP aux channel with userspace
->   drm/nouveau/kms/nv50-: Move AUX adapter reg to connector late
->     register/early unregister
->   drm/dp: Add backpointer to drm_device in drm_dp_aux
->   drm/dp: Clarify DP AUX registration time
->   drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
->   drm/dp: Pass drm_dp_aux to drm_dp_link_train_clock_recovery_delay()
->   drm/dp: Pass drm_dp_aux to drm_dp*_link_train_channel_eq_delay()
->   drm/dp: Always print aux channel name in logs
->   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_detect()
->   drm/dp_dual_mode: Pass drm_device to
->     drm_dp_dual_mode_set_tmds_output()
->   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_max_tmds_clock()
->   drm/dp_dual_mode: Pass drm_device to
->     drm_dp_dual_mode_get_tmds_output()
->   drm/dp_dual_mode: Pass drm_device to drm_lspcon_(get|set)_mode()
->   drm/dp_mst: Pass drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
->   drm/dp: Convert drm_dp_helper.c to using drm_err/drm_dbg_*()
->   drm/dp_dual_mode: Convert drm_dp_dual_mode_helper.c to using
->     drm_err/drm_dbg_kms()
->   drm/dp_mst: Drop DRM_ERROR() on kzalloc() fail in
->     drm_dp_mst_handle_up_req()
->   drm/dp_mst: Convert drm_dp_mst_topology.c to drm_err()/drm_dbg*()
->
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c      |   5 +-
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   1 +
->  .../drm/bridge/analogix/analogix-anx6345.c    |   1 +
->  .../drm/bridge/analogix/analogix-anx78xx.c    |   1 +
->  .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
->  .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  12 +-
->  drivers/gpu/drm/bridge/tc358767.c             |   1 +
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c         |   1 +
->  drivers/gpu/drm/drm_dp_aux_dev.c              |   6 +
->  drivers/gpu/drm/drm_dp_dual_mode_helper.c     |  68 ++--
->  drivers/gpu/drm/drm_dp_helper.c               | 181 +++++----
->  drivers/gpu/drm/drm_dp_mst_topology.c         | 381 +++++++++---------
->  drivers/gpu/drm/i915/display/intel_dp_aux.c   |   1 +
->  .../drm/i915/display/intel_dp_link_training.c |   6 +-
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
->  drivers/gpu/drm/i915/display/intel_lspcon.c   |  17 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c              |   6 +-
->  drivers/gpu/drm/msm/edp/edp.h                 |   3 +-
->  drivers/gpu/drm/msm/edp/edp_aux.c             |   5 +-
->  drivers/gpu/drm/msm/edp/edp_ctrl.c            |   8 +-
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |  27 +-
->  drivers/gpu/drm/radeon/atombios_dp.c          |   5 +-
->  drivers/gpu/drm/tegra/dpaux.c                 |  12 +-
->  drivers/gpu/drm/xlnx/zynqmp_dp.c              |   5 +-
->  include/drm/drm_dp_dual_mode_helper.h         |  14 +-
->  include/drm/drm_dp_helper.h                   |  61 +--
->  include/drm/drm_dp_mst_helper.h               |   3 +-
->  include/drm/drm_print.h                       |  20 +-
->  29 files changed, 478 insertions(+), 384 deletions(-)
+Linux Kernel 5.4.53</div><div><br></div><div>I was wondering if it was a bu=
+g or the driver did not implement this &quot;watchdog&quot; mechanism.=C2=
+=A0=C2=A0<br></div></div>
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+--000000000000ac3c1105bee9c22a--
+
+--===============0161928693==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0161928693==--
