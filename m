@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FFE5C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 19:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD670C43461
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 19:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59A1F6108B
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 19:36:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59A1F6108B
+	by mail.kernel.org (Postfix) with ESMTPS id 825B7601FF
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 19:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 825B7601FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0F826ED02;
-	Thu,  1 Apr 2021 19:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1596ED05;
+	Thu,  1 Apr 2021 19:36:54 +0000 (UTC)
 Received: from NAM04-BN3-obe.outbound.protection.outlook.com
  (mail-eopbgr680071.outbound.protection.outlook.com [40.107.68.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D617F6ED02
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 19:36:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7066ED02
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 19:36:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=frwaCAeTHROPupu79mhmc7+b/lThQk/Y3g2Cspig5zrQmXTaHuXnK2aHL54+t18SIlRmSiHHaoXtOdFTryGw8N/qyXnJNJql+AN8jvIdq0DXNYDK21nezSVaijCM9l8W3jW6EHvXgA7QOQkgbklsREs2PYiJLRIyLwr927VqPLUpgduFAzuSGuDen8Bw8QJRnKyAkki2WEwe0KC3u6whY5yRAtXeb0sCwhFAvQ08baFZhcZ6n2u3lSBZw8ag++7RL1LD8oZZlCwXDbgGRE0tpbjZHbSDBzBJfPOm4aYe+jIVyK6amUu9Zx+fMjp0JKQXs2qGd2SWZUKsvr2yQnWPBA==
+ b=FUUMp6ot6DRhCGyHH8XuqQN6qOC+/8ipYAQxLZVfwq71ZGFzgz2lHCcBjEFV9xWLCJLjCPehy6IeFktlXBpxUdrB4OXVqCpk8fpk7VkIRqUOzTZOaPwugEHIpeLBil2IkEmm128rpysYlch3A74o3RnaoUNKVH+b7TiCJF4KYggtYA9u70ikJOc575OtXpeI8Fy4L0SqzJ08m1XCKGODcnRBe1jQisVx8LWYb6cRkod6q7JRhPt+geTfN8c9CzdZq4iyh+Wh7dGqssBv/WvYU9XRWIl0khOKEdLfSaqeiXgBQ5DD4aS77RBPaBKVpLlgK0BjdfSXZQF9jYUpqeGxMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uHTp2OL9myD73lwYz2pwNsl6v/br2jSoklsANxlyvQw=;
- b=W7f3EdkoZjnBAyYV3zZ6ioraBku2CKSeCoRDT4wuqphXIHcXvb1TdzLkQl8f9at2/gt0R1/RNMtg8hW6RLFKotXrs436PCdu5w7sQnlzE5FpDngPh0PEAURYZBppCrsyzRi7gXswMp0nvrSxGEqNqNIMOLBhUF0OdqSP1UH6T+zCVgEb50pUy14MdNbH4kA9PGanyvCNmyp86pEgDbkBd0RUWE+RwgYFzHo6O94dnDfaPI/2h7S1+vdfVb4nCnTjOgoim8SBqOlAut5nBEWGiDiM1ZPdfe79v764/W91AtlQPk0pYCq7nn9GhTiImnQf+c4Cw1p41QVWWYDhBGSgvQ==
+ bh=127ntMIH8G0yxohorvrx1aKLaoKJm/UkFYa0wd3pqWM=;
+ b=ONNqV0BwAutuX75QWf02wMktaelTM9FdOrg5Yg8XD7inaV29p5/rbzI4lamMW/hHTqwkjet2siMKzt3HleIMpOo8iyAogPAlxyN+gCMnykBkTGh3MR8U2oyXs7BRBS6Pz8c/k9l0GDR4/K576tkGjZMvJGM8GpSrUeZ8qx83n8+hjZU0EuGzSu2j7Q5DEDOzYocMweGMoB4ELWHQxye0Iz3nz+QrVnCPjAtswQlxJy/WvocabKaZXYxvJ5KyJd8lvqzXoD3B437NeWAkcL9qftfHIkwwQe6XPv4ELz8Vu5o04LHblnc/BY6pnAbN+neHLN+c/zvbJGzWbW1+G4zOXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uHTp2OL9myD73lwYz2pwNsl6v/br2jSoklsANxlyvQw=;
- b=Rr1haQUPw4TnGngZACWIdNZ3C93L7/KDAUTf1fZiq8D4nRAlx2v2UCorKKFveGjnBHt9XA3/KjK9MZNRlFqDjXezMU+PZUnZvEvCfIShZKHPF1O0ygShiTXAJOqZTHhPbF6ITOKJ/iMOSVgvWBu+opxE2HZQju/0KqO7a5yvMUE=
+ bh=127ntMIH8G0yxohorvrx1aKLaoKJm/UkFYa0wd3pqWM=;
+ b=gqGL89P7VtVtAIc5t1X3PpK2zfuHd669SL8DRCdCS/1ZYgiqWyqp++C5QxFOiPDWtg8EbjcrGgqXKz0nddAmZr3Rq+xr3tmq5zHum7tjf32q+Ca3Q8RvmNUi2KEhdgMfTzb+ll8cKDmwGhR+fKHLDNEeUczaMzzz/ySQZmHwHek=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from DM6PR12MB4732.namprd12.prod.outlook.com (2603:10b6:5:32::25) by
  DM6PR12MB4203.namprd12.prod.outlook.com (2603:10b6:5:21f::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.27; Thu, 1 Apr 2021 19:36:51 +0000
+ 15.20.3999.27; Thu, 1 Apr 2021 19:36:52 +0000
 Received: from DM6PR12MB4732.namprd12.prod.outlook.com
  ([fe80::f40e:1245:84b6:e2a4]) by DM6PR12MB4732.namprd12.prod.outlook.com
  ([fe80::f40e:1245:84b6:e2a4%3]) with mapi id 15.20.3977.033; Thu, 1 Apr 2021
- 19:36:51 +0000
+ 19:36:52 +0000
 From: Oak Zeng <Oak.Zeng@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/amdgpu: Calling address translation functions to
- simplify codes
-Date: Thu,  1 Apr 2021 14:36:41 -0500
-Message-Id: <1617305803-5767-2-git-send-email-Oak.Zeng@amd.com>
+Subject: [PATCH 4/4] Revert "drm/amdgpu: workaround the TMR MC address issue
+ (v2)"
+Date: Thu,  1 Apr 2021 14:36:43 -0500
+Message-Id: <1617305803-5767-4-git-send-email-Oak.Zeng@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1617305803-5767-1-git-send-email-Oak.Zeng@amd.com>
 References: <1617305803-5767-1-git-send-email-Oak.Zeng@amd.com>
@@ -68,52 +68,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from ozeng-develop.amd.com (165.204.55.250) by
  YT1PR01CA0143.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3977.30 via Frontend Transport; Thu, 1 Apr 2021 19:36:50 +0000
+ 15.20.3977.30 via Frontend Transport; Thu, 1 Apr 2021 19:36:52 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4df0a347-7fdf-4fa8-0e0e-08d8f5457f55
+X-MS-Office365-Filtering-Correlation-Id: fc5d909f-65cc-4532-67f5-08d8f5458018
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4203:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB42033321DCB9842DE6797825807B9@DM6PR12MB4203.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:72;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB420312E70B1ED0FFA456B5F6807B9@DM6PR12MB4203.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j50EpvlVn3LTbdpo+dLbsJWoWdMokcqeuL/Az09cJZ8ejOCN1PFIUuAqv0Agc9WJaqrVaI4vnP7B1cFaGRUR5qgrt36ReH/trZIjyY2AtwFm0i/PuAUqLEbv+HJXZnENzclzgO+9mPB8HZ/Aa2wLLvSd2duRvhfcS1WvzTcQOjXR167m3GweIL48nVniBJWKI432UwLWZemlKp5b7uoI5W9/Qm/CZFG/isEy5aO6AygclBe0yr5efJMC4Yh1TSsU1z/ZAr12dInNHKwbcyszHg1QAexVKI2qGeBEFsZWeSNYO6PNZiM3tXCAUFAqqzNjb3lxShNG/WL7KKy4OeomqPSMvn6eiQ8zh1ExvDBGYewD3fR8xOFIaiudOM0WIOAZ/Z7smTFUC9i+Ybo0EzK7bf61AW1DNLoWqyRysuWyqZmN5ALlb+//P962pggZfS/PbvMPIG1sDx6n70LS3ECgveMXpoDZgPhWg38vGV+YT8/5VzBM+9JttGyJHM2himzRqKar/88zis8XGpngCmWkZwxH3AFrch9QToX3DnPNoRu2sMMeLOgTPDbhPVhaDFvaRWpFKeNlbn+Na4YPjoxbMvZ3S0XdeD77nEtcbbBBTphR/42UpYiyNXTmk482IpPD6ca9eZrYdHH3YKTlzHR1H9L0iPhQrGg/Oja7UbFDxc4=
+X-Microsoft-Antispam-Message-Info: 6MtXy2IQ/el/FDh3XTFHufG+pQAp2MjOavsYcCzssNPHshxITLIMXI4RkxRtTu+4KseRhb4UMBJYiv3eNJkq12ElICRGrQMtj+9BOPHcUnV+Lq6oigbxKG9lDyvgbuvd2PmTYMwbo/gNgKDtZESV4x3/0/urPO3PdAWYU5o54WZwcvFLhnIrKpdjlv0jotojhEMSnlkts1PskcT6fLQ842m1l7LuOxAefGRYhx7BPYLsBuY9ohPVuelCEwKJBfSuQB+Xld0bndrbz0Zz4UIAnTQ5WOd8SvHsCnpKwhaC5ePG/48T4x/NI35CX6q2dmZlQK4widJO2RQk1+10U1wVKRVVaxHU4eGHgolc4/KQUoVmNxIUcIREVtO88KCChadWxVMaLmz2UUbgTvBXJwUQ8p0/py6BhZVtFQxMJt4lH1q22wSsxBtFdVRXNxLM9RZ1mRgjn60qEY4BJWFzPrk4Hw/JeXwxY0MXh89dzGJb55QRduxJhKqK/CLkosbukhBAQJNqTiB5Nj/aR6trhgA+oi7sp6QY7zjrAX8UL9qI6h/cPk0OMUGEEaIpTH3sqHDqcPtniwB8P8uuX7eb6SZEWc2NUhUERwYudTFOd/dn5TUu0m0o5b4+rstRrVvH6bRHZ1kuio4qvD9XysbmbyRWPi9IaELbtgJlgaHFd/m9Lc8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4732.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(396003)(366004)(346002)(39860400002)(136003)(376002)(38100700001)(66476007)(66556008)(6916009)(66946007)(26005)(52116002)(16526019)(186003)(6666004)(36756003)(8676002)(7696005)(86362001)(6486002)(83380400001)(2616005)(478600001)(956004)(316002)(5660300002)(2906002)(4326008)(8936002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Rzri1ur6cafW74e8eYmYKfF2cxgQEa8UYg40FmAk9xbgxEnw5Bfb+hTuVvkU?=
- =?us-ascii?Q?RA8UA91bxo37pLAbI0rbmyruqcytHi/pJO1BGF3h6l93esRlnxcrEOJth2iB?=
- =?us-ascii?Q?PC07NLQFr1dLtnHPhZGOUccVZnXHAIV/1n7KD3kPIc1RqdJp1ZAQY6wWHECZ?=
- =?us-ascii?Q?JynQp3wGgCOxpFvJaYU3v2NQNWq+hWfZgNXBevdODYTRrVNQiCNd3ZG8sjXH?=
- =?us-ascii?Q?6FwAOJzcccURBUo59sNvmnQ8K95MPf1zUzL1UlQLFLtV4iruaqFWzjL4ZwRw?=
- =?us-ascii?Q?gPfANT8+/4crxoaAc3fgctnrvoyN1BXFX9t68vMD+nofzea/+PR/jAd54pcJ?=
- =?us-ascii?Q?3KtIuTw9p88G3Yxej3DyA5/E/E2A0xrbtOMdHhKRNaiJw0kYaP4w9HF5GAs5?=
- =?us-ascii?Q?+g88QfBEP5gGekQirB6FRIGdO84y96uMqr7LYkaPmLg0o+PQp8HFSHBg5CmP?=
- =?us-ascii?Q?xKl6lKMsXMi7Vaa4qysR13lOpbY1n+mMTrqIJ8RxOxM5A+qZcIH1/ELhMHLY?=
- =?us-ascii?Q?8/5fjHIcu+j8yB32+fmOB+CtbxD5c36bIlfG7xptecL0/YTxZVydGwpA5dtd?=
- =?us-ascii?Q?ri0i504UM4GiA8weS9VPhmQhSkmY6ll/tnarO+R3qQ1XgzKs7JBt/4PglwZx?=
- =?us-ascii?Q?42AjCeQGRZ8u92DI0YuaLwEg7tFt4D9H9AezeYkX2KoOLoAr6GWBZaoa9+Dc?=
- =?us-ascii?Q?m9h+VIZevKC881vQ7jSRW0hjJ/U2CqDrm+FylaBOy3mvbEDpzL1Xszf6x6L5?=
- =?us-ascii?Q?aBJ9uMtEYjrD12AvbPBJFDmUMcWEvZ2qXb34R1vj2Z+ukY0Pced1m8+rMDQ7?=
- =?us-ascii?Q?42Jv1/Df3lD90k+AFtau0KplrpPo3uHPkdN+8aH+VvpQjRbsi7AL2XKrjXlo?=
- =?us-ascii?Q?zjGzzcMTwJw87yiTp9sLZf8Oblb7Zi9eiiINUyUEM//2VY005FQoLuD+YjMG?=
- =?us-ascii?Q?DlGVsQKazptwAqnjyxTzGxvYp9Ggqf7zRaNoaL9dOdvGAKgjT5QH35+IJZnT?=
- =?us-ascii?Q?tD1+0BYq7h2inIPgHpSdxhOE9Nn6HhEE8J9cuWRAfkM/nGV3mMQL3kKIUOre?=
- =?us-ascii?Q?TmXawHYx9So7yB6qyngDedoweoUpMAHiImmzz6/FQ2DjM+mXiJT0V72MMD3e?=
- =?us-ascii?Q?n9NmrVVI+t1fvNsAyAL8Soa5Zc0VHZ/ZgxYVRLHy4ZLVNF4Xoa+BzlIsmvjA?=
- =?us-ascii?Q?D62TWYg6XT25SYLdUwZVXCm5rDPb8TY813IWcr520XbwAjAjEL2nr6J7kXNz?=
- =?us-ascii?Q?ZvHFmMXaRjRv31/OLPDEL6/ffE2P/MPAzMmDMlc54XVKXEhq3dX4JkLb5r8s?=
- =?us-ascii?Q?NJO4FmXntq18mBiUGI83o+UR?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?+S+ojcT7HWO0rr1ugtkhPEt1FEsk1WHedF3dQXZ2lMq7n/++yi/D2zqk5h6R?=
+ =?us-ascii?Q?HrEU8yfBREiveQwWS2M8cgwi67aHgHTa9veyLrttiQOL6URzLJhOV5ZoX8sI?=
+ =?us-ascii?Q?EygOLM8HDoqm4AT4ZUXHYlhblg9LOr9wGmqMuIgWJgaIL8xhjE+p1HQkOBNJ?=
+ =?us-ascii?Q?dmCgOD8IFGPjzGwFIj3KN1Bd4Ba01/7iEWQhKF/DBvzS/d66ZUxXw5z/RuLv?=
+ =?us-ascii?Q?RJqEdiFw3bRWV7VuWLfguLuBGGCIM5czdZRIzV4Ow9S1tNLZcRVOmK0Cz9NX?=
+ =?us-ascii?Q?vgPbEkaX1ui8MUIrARUlJCF9IaZ57yRJWHCZ47AaemH+fjTnE+Hk3j0BGEdq?=
+ =?us-ascii?Q?wmCcK/kEiaz7Fo7ODiUN5uRlvLf05XkvD1T72Eb3J3CSDS/qHBMcEM49Anzo?=
+ =?us-ascii?Q?r2PxngGesWlq7lgOYX/4hhWky/rJALnqHKKOunxWNCOMAitxIqzM/QoNyE1b?=
+ =?us-ascii?Q?Zhgp0kexXvEaro2+H77TNE+TOki5V+0n3RsNeXf7UiAFPkZxTlLaWf/MHd9w?=
+ =?us-ascii?Q?m66yT83broAWBMsMvyzMSsfGN/lKguR9xyfzZMTeaLVFjKfhry+n/SE0e3+i?=
+ =?us-ascii?Q?Oeq/V8+o/a5Oz6pHUHPbdCFHOwvoPK/or9U05HMfI4TOh4a5E+4rie1LMeyS?=
+ =?us-ascii?Q?UT0T1FwXhNPIsgu5TndTepHMZliK38T/Q7cHokKwqwnowkld1h2+umkksHF+?=
+ =?us-ascii?Q?2qGV2/oEkgw5N+3qtT6srHWLEGzRfu0H3JlBdO/BuMKbmDYXJ0NZfNOFEShq?=
+ =?us-ascii?Q?kVJs0JW/vSqOi18fJoGRx+adaGEImQJ9/QmEfikNRCcLy6QbMSXpsyeiE6b/?=
+ =?us-ascii?Q?aM/E5SIr5Iu0dXgh0Pe2StuL2/hcq9JpN6CP90L8ykqsmygY4+bLl2fo2nxK?=
+ =?us-ascii?Q?UxttHB1O1W5y0Ei2j5DL02NpGOCLWpWFFHgOslxOwbMWdY7uFXkuK2G/kTB2?=
+ =?us-ascii?Q?SJxQlRTw03v2JU2h3B496ZeF+VeTiPhmItK9CoOQfv72+9NHIEH20ilF/A4Z?=
+ =?us-ascii?Q?H87N6x7dFLCgUnKiNJefL65lBpnsfQ7K+d590/NPe9oeXZGiUrVnCkKYasQ+?=
+ =?us-ascii?Q?9Ei3TLdZPKX2+yTk59R1+4PNcjxTJWr8OGf4IUQdmJB8LP2W+fzUhiHqKbM8?=
+ =?us-ascii?Q?F8oIHlnUvh2uOPLhgMcGHIMriDO42lKORbPT1Mqqe1Q0MwZ25Qiz5TqNsyWp?=
+ =?us-ascii?Q?vX1iQ+vnIl0Zl68RyRKUOcfxQR5I28RdfMdDCXzwQk6Vrar5cb3JkAmrSKYL?=
+ =?us-ascii?Q?/3oT1bk5OZP8Y52KwidHCg2JKO2RaMurFUEuAFo7x2EzhIICXAbQ65W/mQEq?=
+ =?us-ascii?Q?vXcwSKpX6A75EqPi5Udvnx7s?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4df0a347-7fdf-4fa8-0e0e-08d8f5457f55
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc5d909f-65cc-4532-67f5-08d8f5458018
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4732.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 19:36:51.2973 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 19:36:52.5225 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8IfjRCB7NIQc7tGOWKgybiKFMoYDo2JTO7LQkTHKKHyRwaLNvUeE4HBgbiaczX/v
+X-MS-Exchange-CrossTenant-UserPrincipalName: pCDiklQPyrniN9Xv7ZbFrhVKtlvnD4zuJhv7MlDZhjAZrSfSuadBR8V2cDLzX2C6
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4203
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,201 +133,117 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use amdgpu_gmc_vram_pa and amdgpu_gmc_vram_cpu_pa
-to simplify codes. No logic change.
+This reverts commit 34a33d4683cba7ba63c894132efb1998c0217631.
 
 Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c   | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 3 +--
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 3 +--
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 3 +--
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 3 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 3 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 3 +--
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 3 +--
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 3 +--
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 3 +--
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c  | 3 +--
- drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c  | 3 +--
- 12 files changed, 12 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  9 ---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 10 ----------
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 21 ++++++---------------
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 10 ++++------
+ 4 files changed, 10 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 4c5c198..4f10c45 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -205,7 +205,6 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 	struct drm_gem_object *gobj = NULL;
- 	struct amdgpu_bo *abo = NULL;
- 	int ret;
--	unsigned long tmp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index bc374bc..59bbe59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -209,15 +209,6 @@ struct amdgpu_gmc {
+ 	 */
+ 	u64			fb_start;
+ 	u64			fb_end;
+-	/* In the case of use GART table for vmid0 FB access, [fb_start, fb_end]
+-	 * will be squeezed to GART aperture. But we have a PSP FW issue to fix
+-	 * for now. To temporarily workaround the PSP FW issue, added below two
+-	 * variables to remember the original fb_start/end to re-enable FB
+-	 * aperture to workaround the PSP FW issue. Will delete it after we
+-	 * get a proper PSP FW fix.
+-	 */
+-	u64			fb_start_original;
+-	u64			fb_end_original;
+ 	unsigned		vram_width;
+ 	u64			real_vram_size;
+ 	int			vram_mtrr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 123ab31..5298698 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -414,16 +414,6 @@ static int psp_tmr_init(struct psp_context *psp)
+ 				      AMDGPU_GEM_DOMAIN_VRAM,
+ 				      &psp->tmr_bo, &psp->tmr_mc_addr, pptr);
  
- 	memset(&mode_cmd, 0, sizeof(mode_cmd));
- 	mode_cmd.width = sizes->surface_width;
-@@ -246,8 +245,7 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
+-	/* workaround the tmr_mc_addr:
+-	 * PSP requires an address in FB aperture. Right now driver produce
+-	 * tmr_mc_addr in the GART aperture. Convert it back to FB aperture
+-	 * for PSP. Will revert it after we get a fix from PSP FW.
+-	 */
+-	if (psp->adev->asic_type == CHIP_ALDEBARAN) {
+-		psp->tmr_mc_addr -= psp->adev->gmc.fb_start;
+-		psp->tmr_mc_addr += psp->adev->gmc.fb_start_original;
+-	}
+-
+ 	return ret;
+ }
  
- 	info->fbops = &amdgpufb_ops;
- 
--	tmp = amdgpu_bo_gpu_offset(abo) - adev->gmc.vram_start;
--	info->fix.smem_start = adev->gmc.aper_base + tmp;
-+	info->fix.smem_start = amdgpu_gmc_vram_cpu_pa(adev, abo);
- 	info->fix.smem_len = amdgpu_bo_size(abo);
- 	info->screen_base = amdgpu_bo_kptr(abo);
- 	info->screen_size = amdgpu_bo_size(abo);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index ca16649..238082f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -641,8 +641,7 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
- 	u64 vram_addr = adev->vm_manager.vram_base_offset -
- 		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
- 	u64 vram_end = vram_addr + vram_size;
--	u64 gart_ptb_gpu_pa = amdgpu_bo_gpu_offset(adev->gart.bo) +
--		adev->vm_manager.vram_base_offset - adev->gmc.vram_start;
-+	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
- 
- 	flags |= AMDGPU_PTE_VALID | AMDGPU_PTE_READABLE;
- 	flags |= AMDGPU_PTE_WRITEABLE;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index 5bb9856..9b78891 100644
+index 9b78891..561b32e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -120,8 +120,7 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 				max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+@@ -140,21 +140,12 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	 * FB aperture and AGP aperture. Disable them.
+ 	 */
+ 	if (adev->gmc.pdb0_bo) {
+-		if (adev->asic_type == CHIP_ALDEBARAN) {
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, adev->gmc.fb_end_original >> 24);
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, adev->gmc.fb_start_original >> 24);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, adev->gmc.fb_start_original >> 18);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, adev->gmc.fb_end_original >> 18);
+-		} else {
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
+-			WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
+-			WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
+-		}
++		WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_TOP, 0);
++		WREG32_SOC15(GC, 0, mmMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_AGP_TOP, 0);
++		WREG32_SOC15(GC, 0, mmMC_VM_AGP_BOT, 0xFFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
++		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
+ 	}
+ }
  
- 		/* Set default page address. */
--		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--			adev->vm_manager.vram_base_offset;
-+		value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 			     (u32)(value >> 12));
- 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index 2aecc6a..ab41c8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -165,8 +165,7 @@ static void gfxhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 			     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 		/* Set default page address. */
--		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
--			+ adev->vm_manager.vram_base_offset;
-+		value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 			     (u32)(value >> 12));
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 410fd3a..4badd73 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -164,8 +164,7 @@ static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
- 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 	/* Set default page address. */
--	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
--		+ adev->vm_manager.vram_base_offset;
-+	value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 		     (u32)(value >> 12));
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 33e54ee..4e801c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -568,8 +568,7 @@ static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
- 				 uint64_t *addr, uint64_t *flags)
- {
- 	if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
--		*addr = adev->vm_manager.vram_base_offset + *addr -
--			adev->gmc.vram_start;
-+		*addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
- 	BUG_ON(*addr & 0xFFFF00000000003FULL);
- 
- 	if (!adev->gmc.translate_further)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 1567dd2..3ee5ed0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1047,8 +1047,7 @@ static void gmc_v9_0_get_vm_pde(struct amdgpu_device *adev, int level,
- 				uint64_t *addr, uint64_t *flags)
- {
- 	if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
--		*addr = adev->vm_manager.vram_base_offset + *addr -
--			adev->gmc.vram_start;
-+		*addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
- 	BUG_ON(*addr & 0xFFFF00000000003FULL);
- 
- 	if (!adev->gmc.translate_further)
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index 0d5620c..1a37485 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -114,8 +114,7 @@ static void mmhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 		return;
- 
- 	/* Set default page address. */
--	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--		adev->vm_manager.vram_base_offset;
-+	value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 	WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 		     (u32)(value >> 12));
- 	WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
 diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-index 29d7f50..d341d17 100644
+index d341d17..71914f0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-@@ -135,8 +135,7 @@ static void mmhub_v1_7_init_system_aperture_regs(struct amdgpu_device *adev)
- 		return;
+@@ -47,8 +47,6 @@ static u64 mmhub_v1_7_get_fb_location(struct amdgpu_device *adev)
  
- 	/* Set default page address. */
--	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--		adev->vm_manager.vram_base_offset;
-+	value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 	WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 		     (u32)(value >> 12));
- 	WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index f107385..2e1af97 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -210,8 +210,7 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	adev->gmc.fb_start = base;
+ 	adev->gmc.fb_end = top;
+-	adev->gmc.fb_start_original = base;
+-	adev->gmc.fb_end_original = top;
+ 
+ 	return base;
+ }
+@@ -126,10 +124,10 @@ static void mmhub_v1_7_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	if (adev->gmc.pdb0_bo) {
+ 		WREG32_SOC15(MMHUB, 0, regMC_VM_AGP_BOT, 0xFFFFFF);
+ 		WREG32_SOC15(MMHUB, 0, regMC_VM_AGP_TOP, 0);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_TOP, adev->gmc.fb_end_original >> 24);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_BASE, adev->gmc.fb_start_original >> 24);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, adev->gmc.fb_start_original >> 18);
+-		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, adev->gmc.fb_end_original >> 18);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_TOP, 0);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
++		WREG32_SOC15(MMHUB, 0, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
  	}
- 
- 	/* Set default page address. */
--	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--		adev->vm_manager.vram_base_offset;
-+	value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 		     (u32)(value >> 12));
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index ab9be5a..21504d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -162,8 +162,7 @@ static void mmhub_v2_3_init_system_aperture_regs(struct amdgpu_device *adev)
- 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 	/* Set default page address. */
--	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--		adev->vm_manager.vram_base_offset;
-+	value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
- 		     (u32)(value >> 12));
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-index 74c784b..4aa97fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-@@ -136,8 +136,7 @@ static void mmhub_v9_4_init_system_aperture_regs(struct amdgpu_device *adev,
- 			max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 		/* Set default page address. */
--		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--			adev->vm_manager.vram_base_offset;
-+		value = amdgpu_gmc_vram_pa(adev, adev->vram_scratch.robj);
- 		WREG32_SOC15_OFFSET(
- 			MMHUB, 0,
- 			mmVMSHAREDPF0_MC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 	if (amdgpu_sriov_vf(adev))
+ 		return;
 -- 
 2.7.4
 
