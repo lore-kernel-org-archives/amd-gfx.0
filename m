@@ -2,106 +2,117 @@ Return-Path: <SRS0=FlJ6=I6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82DA8C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 03:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC840C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 04:22:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DA8961057
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 03:21:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DA8961057
+	by mail.kernel.org (Postfix) with ESMTPS id 6FC186101A
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 04:22:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FC186101A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98F026EC12;
-	Thu,  1 Apr 2021 03:21:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05EFD6EC12
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 03:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B9E6EC18;
+	Thu,  1 Apr 2021 04:22:45 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEEED6E077;
+ Thu,  1 Apr 2021 04:22:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hTSTOh0k4A6rXH5G0Ohohf0p4RvlF4XQ7IM/4ZJtxewuml+zTI9mw+m6x6iCqb6zchAWftLjyW7b+NpNdQiTiQvTePfPHo7L95CliQLyCQ7yCi3wpqMuzfn7XtDFm3TCQZ3uVx3ZDqxs2HOJacvMDBPf6LKzrLqh7FyIF4bHTyuGd4BVf77vaMvV42a5ykmr7YE84BgyYaWBIGNMi5ZYAtnZgoOgTXWQPUpuk6ahhQyMISp3s6UzmrVy9A6VAHlg2gasGZLTsEby03kuDjz+A+8tuW0aeMrUic64Mh+A8gCe1My6lVYW7Sw8O+VRqiNSvxbs/1rke5uAtcRxU7Bhzg==
+ b=G1GxdYzJB9PrSZHcuWijK+iSj7fjspH7iIOWFz3SOx9tmgl67oBxJISpd9mcFdkirKvMq5sz5HNp3fGCpytPDAlBdZJSsOF8O7iBoNT3xF6QPcpmsGdBG0msl7UuVE35VBwPVmwjhig7uDgUEMitoncqh7e446Se6SElSTEsm+uBRHPzsf3vbOMILYUNM4L55abQydvdfWBCsGLCTzby06F0r+sFzbqWzJm+z++mErtsRwPTUma8zpf3MiRjXTguJNw0olykyvOhZNW02WgYm4qrX6Un6C0NaOybmZ15Dgwn5kho6ByhlSAN8BStkm59liVVlyOi0ooivzdzdE3t6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xIbLRwuknw3bYmcizwNJbLmADTmurOEWfOXTm6MFCFc=;
- b=LRfzfNNMYmgrIVGD9oGOMl96yYEl3+HwifOOhNRZzZXoHXMJb9yBqSuq8YMQp6eIj2m7t2qER0ebnUEWh9W9ROSwPFrbYn04uT31rkhAYA0pyHXFMNwOq3IQbc4k1AcIYLW4StM/ObayWNQqh5QgNe/kN6PJG3BQbCihD0y9heStnAzO2iYKw4y5SZRr7XyifJHDnwb+OcgU06VM6WWZclygf4xAWOuQ9XyeYsM4Gc0Sx8wa5C73mMaO+1iYFII73lFUy53RQChH7rNgGIguxxj/5qFPtG9NSt9UGNtsmKkhxz9Jd3wI6FJGyy01dRnWiQDt9H3K62ct79AbeogvoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=jKPLLELeVr+Kfn5q+uNgsOVd2aVbI3/rCdIZ1/vO/rI=;
+ b=VJNbQS80e2rzZJiYFO/TyjfpcWFiJ/7dG3VmJ9ntoX8Mni08BHnnBBd+agBeTTV9NGxhX+AsGnrrpp19fmNVolZPOmrtgUVA8HWqMZ48Xt+XxEUSbBaaHM2F9VEeMvvR8GICb2ChjMdyszX4RyWyaltOhNFqpA7/1KXR2yFtDyLcLb/CsoMtgUGvnPEpSPfYTSwDkfJhBib7DF5mQnoIX/GPZ0MXexfXqyD7r6qM29MNC2d6yXke8pchEHrP8TVxQL0JGqzTMFIuxQuQMtH+7TrX+6jNsa8GQfhcOF/gtKc5zbTHUvy4a65DXu3u5kwnWACBPGO6ngnSnN9hTfStRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xIbLRwuknw3bYmcizwNJbLmADTmurOEWfOXTm6MFCFc=;
- b=ugEFGELJ06bYLr6hjSidEI/f5QfijFrxmQ/nbcB5PftSnEl5rEz9Eai86PNVF+pktAaPWT7eKsjM7sY55PVG+zVW6wiDhvSA7fmJuyhJC+PVTPh3C3KigkVlvtMo9KPYDWmMnhSTETig1HVnjxjngEsfbqexpgOA1VD8iaeCOb0=
-Received: from BN9PR03CA0676.namprd03.prod.outlook.com (2603:10b6:408:10e::21)
- by DM6PR12MB3484.namprd12.prod.outlook.com (2603:10b6:5:3c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Thu, 1 Apr
- 2021 03:21:51 +0000
-Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10e:cafe::e7) by BN9PR03CA0676.outlook.office365.com
- (2603:10b6:408:10e::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.28 via Frontend
- Transport; Thu, 1 Apr 2021 03:21:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3999.28 via Frontend Transport; Thu, 1 Apr 2021 03:21:51 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Wed, 31 Mar
- 2021 22:21:51 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Wed, 31 Mar
- 2021 22:21:50 -0500
-Received: from judeshih-VirtualBox.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2106.2
- via Frontend Transport; Wed, 31 Mar 2021 22:21:49 -0500
-From: Jude Shih <shenshih@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add DMUB outbox event IRQ source
- define/complete/debug flag
-Date: Thu, 1 Apr 2021 11:21:34 +0800
-Message-ID: <20210401032134.1083322-1-shenshih@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=jKPLLELeVr+Kfn5q+uNgsOVd2aVbI3/rCdIZ1/vO/rI=;
+ b=Lmy4vfm4DN+jLmmp7zsSzTiCyAwVTFbHI2NjUMw/zwOJXZcyqfrWrOwiLiunlfgCjPh6Ody0+7wPte3Bi62cmPfVxDw5yuxpNvisqRaCv2Q26niBnNV3qHCu6b170SOJsRv4b6oDLdm49nxvMQOa0netwvRfhX9Vkx/nbYLfORQ=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by BL0PR12MB4916.namprd12.prod.outlook.com (2603:10b6:208:1ce::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Thu, 1 Apr
+ 2021 04:22:42 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.039; Thu, 1 Apr 2021
+ 04:22:42 +0000
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 00/34] Add HMM-based SVM memory manager to KFD v3
+Date: Thu,  1 Apr 2021 00:21:54 -0400
+Message-Id: <20210401042228.1423-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.31.1
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0088.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::27) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from Harpoon.amd.com (165.204.55.251) by
+ YT1PR01CA0088.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3977.32 via Frontend Transport; Thu, 1 Apr 2021 04:22:41 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 57daaade-909a-4aa9-d597-08d8f4bd4ae8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3484:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3484E26123B4B14BBD0F01CDF77B9@DM6PR12MB3484.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: f21045ef-acf3-444e-e4c9-08d8f4c5ca90
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4916:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4916B6C9EBC71B7B531C84C4927B9@BL0PR12MB4916.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ru774hNzbZQqn0BW6TeBq43ZIaxCf1B0ah7qA35KfwwDEhy5iE9YvgT50oHjfo8j6JX16fl4pPyNs1CqmIHcL92YQm+qftkgcm4mL0uMFVaU1TKImZBGZHgBhTJXe5nEyXhCJZj0W7GfNOOR+MBKq/06UuYojOF9Am7NjAbC5salJkdKPcmTfIrcqv/6LiwCsm1sG65Khx1kSkW0S16svFohvxp+q5qCa5S4Ffk0QBe35bObw7nWqWPNtKH2Uil6EVNPs6rRRX5f4rn0ybs6ZoRs5TAEpVbufmRO2r0hRijqBvvkcbaQbijUKTxFKOkECJoMfHwCo4dU2WZfcJwdzOgXgdQ9t5eOxWIXGVDPRezl7DTDgoLP2hGZjPPwUXhk8YwHRvsV7qWsP7MCa+/alh5GGZQMsXo8pzTV5e1Omw+dqRG0HfwLrtykTkZ++0UUG62DItsRCTOHUEeSIyamPTv7wbSB3Dsg8dewwXx4hPZgACDemQxQyXAf+E3m9GfDnR1TorxOhk9r3rcThch1skFYy4+os41mM3dHuHBr62Bbj53+yW3D+0EzROe3CHzlYe25upcwbAY6+sr8057BkABv8QFYAsLVd4rfkC4lTGh4vmKAatCoPIsAYCX6Ts0/M1Qj5VjVPpNPwor7kuN8gKHnMJkT0/J7Q5NYshYd4aY5zS2onfZhJceI+OTji18/
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39850400004)(136003)(396003)(376002)(346002)(36840700001)(46966006)(36860700001)(47076005)(4326008)(54906003)(426003)(70586007)(8676002)(6916009)(478600001)(82740400003)(2616005)(6666004)(82310400003)(5660300002)(7696005)(336012)(1076003)(2906002)(36756003)(81166007)(83380400001)(70206006)(186003)(316002)(8936002)(356005)(26005)(36900700001);
+X-Microsoft-Antispam-Message-Info: X03P8oItb7Gi+bWxvdqMHmfCMgGkqDMLgRK3EmPHeBBVV3UTMHFgxTK1j+IAwfQAheZ62nTSvIVBbdWLs1zLpXaLWRZ+EUI71hngJL3V25cwAfGzWs+hZab53CrVo6lN90tr4+ylzzEI9ARM1tP18E88CcYnswL9FU70QeYW0njBfp4dVtm0W+YiHEQ3yDUcIzRxpZ8jrE4N5gp8jIRRlE3aBwLHlPuL6Jv34KFAmFH6+VpCFiP8dr8PvyXZZ88TL1KkPWA79n+yMaVV+tSz8RVNyDoG7UeDNDa0WCsTHUdce0gBuYYire/UjSvVVQ4GJ66rQaLz9yvl9lTpZOUeJArGPr+a68+woqSHePjeHgGKVQ0xJ4nrPi01l/e6DkRNh3YKdhHxAdS4/V8d2oDmnzAy7wOsDBqLuK1d7yH1ELFU5sbfwkkLN8d71S3oPnm9BEmRzHqghVk9VU4T+ip9RAFZ57W60jkQJbDz91jmup4V2BbtbL5Mdm5tqv2x1XDTbWr/AbXRpjgNX1JPUYELFDeB0SRGIFGcwqMdawYnhrJYnUR0gHskvEdScNYPhGLutVGZ13PyyCpnesh25D9AlYLKsQhZknBgakCzBOsGeiuFoOxEAzPnsdVqi07MYeY5DGVkuoPT60Kw1aDqMSbsVYsxmNrJm/fWXm3fubZNqnjoXqAG7PPJHDzxb7B6NZaOJ9+umX2jnGF9Njlf2q5g12fgIYr9tk7F3EblCD0KQNo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(376002)(136003)(396003)(39850400004)(5660300002)(478600001)(36756003)(16526019)(186003)(1076003)(316002)(6486002)(66946007)(956004)(66556008)(26005)(966005)(83380400001)(8676002)(8936002)(450100002)(38100700001)(52116002)(7696005)(2616005)(2906002)(66476007)(6666004)(86362001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?BAi29hkW87U3DelWDbSqb9vch0yjVOmGIRU70/2zxm9z4/ocU/y0poDCBFdy?=
+ =?us-ascii?Q?B+rlKDgsISkSa7V0UzjDVgCxcEdQN+6MjUD8YKdS2BjoRPeuWvMWPkQPV1Gv?=
+ =?us-ascii?Q?1ZFKe/dzOkiHpJj+NwdnfQU1zrv9xz1JkrBrJkvY8UGmZ/JtWmP6iwqMScRj?=
+ =?us-ascii?Q?3Uo3CZiDRcycTXVkFF7/Z7QIq1VSWuAL/HB2jf2Pyk8IWPab+dSpc/nMON3p?=
+ =?us-ascii?Q?WBkN7qhlWSnpzsus4P031t6xLfUfry8SCP9SGwryB8v2UrKLnaFhKprlb9EN?=
+ =?us-ascii?Q?2NDg74qQMfymv3tU1SWhDLA7tITstoSnA+OjXrWastDu2hKJGBfk/HEZW/k2?=
+ =?us-ascii?Q?KkIylFzBxrMzSn3lU0b1zwo7aNdxvkcaEIdgU5+oXGo/jSoGUQwI/NtxAgVK?=
+ =?us-ascii?Q?oX52VaJIvJkcXwkpDIolzwo4lZHgRIUIG60566ouKskqFxTQcZfogIpBEGXa?=
+ =?us-ascii?Q?UBIf8oCQXaBdSrveEcIl6AbLwMnhH5e6hbZRduhySvgLZfsHu1Rpoa7Hep3U?=
+ =?us-ascii?Q?TDBCn094YXJAg9Dvz4uF3Tdpqdi1d2w8BYc1gd2OBTZgxukDznwWVotupqCC?=
+ =?us-ascii?Q?OvaWOGipQbmmUuWxJF3wJgCog9nAFUBuLUBvIR6m8O6h94LA4jYutCqlwa9W?=
+ =?us-ascii?Q?PGDLgjrdwL6nCmmrroxNRdGbX6AADn7+In6IauvjFkHHVXa2jAcudxrrb+4r?=
+ =?us-ascii?Q?GQaBXl82D5WlYnNhz25m0FSy1uyc+qcOyoojWeM0jF6+EWAaKQdTe8gXgPzX?=
+ =?us-ascii?Q?8DQC+Yo0JqdMWcF5V43hgmqv/DQYGD3xL5xPIsr5RJ+NKHlhXyyd6HD39lay?=
+ =?us-ascii?Q?jXa1zd5wtnA2H+uKjLLEcHeWLigNdDiVZvg6U91mPmp81nEstRgCI2fR+8mG?=
+ =?us-ascii?Q?OdBcfz2Ki5uD9S7yMbYKX4FsSoQdt04numPmOp0jlYL/360FPm5Wv860s/6e?=
+ =?us-ascii?Q?gUQ0CiPt74NaEdVu38WGyHz36NikADoec8D9U/djKEQ8oA2iA5J3DqLQeU4O?=
+ =?us-ascii?Q?x1jlaV7ICjyfYQVaYsuc5n7JZFYyJlLEQjw1FkuZWPzO9w2z12nUyOWXlORd?=
+ =?us-ascii?Q?Ki2CfP+35QIcvdrATO2lZnHrXCg9CeMC6FVlvirWH+rRuO8G58uRQ1DTEeg2?=
+ =?us-ascii?Q?J4uj5MfbJsQJgYkl3F24N5AofvWFuikeDvTgIYwoDvhEd+yU0NS+KyeZ15bd?=
+ =?us-ascii?Q?syuQYjnS0WZ/zVApvbasXVSTN38BCVpODpN11ZpRFGi4vNeULlHyhsKJ5Tzu?=
+ =?us-ascii?Q?i3U+yn4NblmOIWCILzQcC4ujhN1VOHt/6ougtxHKsOimAj0VnsMW048LIveg?=
+ =?us-ascii?Q?G6rcXPSS8Tl3U6pP+ljnVXND?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 03:21:51.4465 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57daaade-909a-4aa9-d597-08d8f4bd4ae8
+X-MS-Exchange-CrossTenant-Network-Message-Id: f21045ef-acf3-444e-e4c9-08d8f4c5ca90
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 04:22:42.1533 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3484
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xBrjqjIAt0ee0DJv8T7HkA31sdMJFDQQNvSNT9sPstya5KVWHQkeV8ncsbS8A6eqD0SKX/QFrP08JoQymC+74g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,86 +124,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Jude Shih <shenshih@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why & How]
-We use outbox interrupt that allows us to do the AUX via DMUB
-Therefore, we need to add some irq source related definition
-in the header files;
-Also, I added debug flag that allows us to turn it on/off
-for testing purpose.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                       | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                   | 2 +-
- drivers/gpu/drm/amd/include/amd_shared.h                  | 3 ++-
- drivers/gpu/drm/amd/include/ivsrcid/dcn/irqsrcs_dcn_1_0.h | 2 ++
- 4 files changed, 7 insertions(+), 2 deletions(-)
+Since the last patch series on March 22, I integrated all fixes into
+the original patch series. An additonal fix was added for handling
+failed migrations during GPU page faults. (A bigger rework of
+migrations and VRAM mappings will come in the future.) Support for
+per-process XNACK mode selecation was added for Aldebaran. The
+initialization of svm_migrate was moved to happend before
+kfd_topology_add_device in order to fix reporting of the
+SVMAPI_SUPPORTED capability. An updated kfdtest now checks this
+capability before running any SVM tests.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 963ecfd84347..479c8a28a3a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -923,6 +923,7 @@ struct amdgpu_device {
- 	struct amdgpu_irq_src		pageflip_irq;
- 	struct amdgpu_irq_src		hpd_irq;
- 	struct amdgpu_irq_src		dmub_trace_irq;
-+	struct amdgpu_irq_src		outbox_irq;
- 
- 	/* rings */
- 	u64				fence_context;
-@@ -1077,6 +1078,7 @@ struct amdgpu_device {
- 
- 	bool                            in_pci_err_recovery;
- 	struct pci_saved_state          *pci_state;
-+	struct completion dmub_aux_transfer_done;
- };
- 
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 6a06234dbcad..0b88e13f5a7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -159,7 +159,7 @@ int amdgpu_smu_pptable_id = -1;
-  * PSR (bit 3) disabled by default
-  */
- uint amdgpu_dc_feature_mask = 2;
--uint amdgpu_dc_debug_mask;
-+uint amdgpu_dc_debug_mask = 0x10;
- int amdgpu_async_gfx_ring = 1;
- int amdgpu_mcbp;
- int amdgpu_discovery = -1;
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 43ed6291b2b8..097672cc78a1 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -227,7 +227,8 @@ enum DC_DEBUG_MASK {
- 	DC_DISABLE_PIPE_SPLIT = 0x1,
- 	DC_DISABLE_STUTTER = 0x2,
- 	DC_DISABLE_DSC = 0x4,
--	DC_DISABLE_CLOCK_GATING = 0x8
-+	DC_DISABLE_CLOCK_GATING = 0x8,
-+	DC_ENABLE_DMUB_AUX = 0x10,
- };
- 
- enum amd_dpm_forced_level;
-diff --git a/drivers/gpu/drm/amd/include/ivsrcid/dcn/irqsrcs_dcn_1_0.h b/drivers/gpu/drm/amd/include/ivsrcid/dcn/irqsrcs_dcn_1_0.h
-index e2bffcae273a..754170a86ea4 100644
---- a/drivers/gpu/drm/amd/include/ivsrcid/dcn/irqsrcs_dcn_1_0.h
-+++ b/drivers/gpu/drm/amd/include/ivsrcid/dcn/irqsrcs_dcn_1_0.h
-@@ -1132,5 +1132,7 @@
- 
- #define DCN_1_0__SRCID__DMCUB_OUTBOX_HIGH_PRIORITY_READY_INT       0x68
- #define DCN_1_0__CTXID__DMCUB_OUTBOX_HIGH_PRIORITY_READY_INT       6
-+#define DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT        0x68 // DMCUB_IHC_outbox1_ready_int IHC_DMCUB_outbox1_ready_int_ack DMCUB_OUTBOX_LOW_PRIORITY_READY_INTERRUPT DISP_INTERRUPT_STATUS_CONTINUE24 Level/Pulse
-+#define DCN_1_0__CTXID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT        8
- 
- #endif // __IRQSRCS_DCN_1_0_H__
+Support for SVM can now be controlled by a Kconfig option added in
+patch 34.
+
+This series and the corresponding ROCm Thunk and KFDTest changes are also
+available on gitub:
+  https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/tree/fxkamd/hmm-wip
+  https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/tree/fxkamd/hmm-wip
+
+Alex Sierra (9):
+  drm/amdkfd: helper to convert gpu id and idx
+  drm/amdkfd: add xnack enabled flag to kfd_process
+  drm/amdkfd: add ioctl to configure and query xnack retries
+  drm/amdgpu: enable 48-bit IH timestamp counter
+  drm/amdkfd: SVM API call to restore page tables
+  drm/amdkfd: add svm_bo reference for eviction fence
+  drm/amdgpu: add param bit flag to create SVM BOs
+  drm/amdgpu: svm bo enable_signal call condition
+  drm/amdgpu: add svm_bo eviction to enable_signal cb
+
+Felix Kuehling (13):
+  drm/amdkfd: map svm range to GPUs
+  drm/amdkfd: svm range eviction and restore
+  drm/amdgpu: Enable retry faults unconditionally on Aldebaran
+  drm/amdkfd: validate vram svm range from TTM
+  drm/amdkfd: HMM migrate ram to vram
+  drm/amdkfd: HMM migrate vram to ram
+  drm/amdkfd: invalidate tables on page retry fault
+  drm/amdkfd: page table restore through svm API
+  drm/amdkfd: add svm_bo eviction mechanism support
+  drm/amdkfd: refine migration policy with xnack on
+  drm/amdkfd: add svm range validate timestamp
+  drm/amdkfd: multiple gpu migrate vram to vram
+  drm/amdkfd: Add CONFIG_HSA_AMD_SVM
+
+Philip Yang (12):
+  drm/amdkfd: add svm ioctl API
+  drm/amdkfd: register svm range
+  drm/amdkfd: add svm ioctl GET_ATTR op
+  drm/amdgpu: add common HMM get pages function
+  drm/amdkfd: validate svm range system memory
+  drm/amdkfd: deregister svm range
+  drm/amdgpu: export vm update mapping interface
+  drm/amdkfd: register HMM device private zone
+  drm/amdkfd: support xgmi same hive mapping
+  drm/amdkfd: copy memory through gart table
+  drm/amdgpu: reserve fence slot to update page table
+  drm/amdkfd: Add SVM API support capability bits
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |    4 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |   16 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |   83 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h        |    7 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   90 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   48 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   11 +
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c      |    8 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c       |    6 +-
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |    1 +
+ drivers/gpu/drm/amd/amdkfd/Kconfig            |   14 +
+ drivers/gpu/drm/amd/amdkfd/Makefile           |    5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   64 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |    4 +
+ .../amd/amdkfd/kfd_device_queue_manager_v9.c  |   13 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |    4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  922 ++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |   64 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   36 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   82 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 2866 +++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  205 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |    6 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |   10 +-
+ include/uapi/linux/kfd_ioctl.h                |  171 +-
+ 28 files changed, 4652 insertions(+), 108 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+
 -- 
-2.25.1
+2.31.1
 
 _______________________________________________
 amd-gfx mailing list
