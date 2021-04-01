@@ -8,61 +8,59 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59AEBC43460
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC0F6C43462
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E79AB610F8
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:15:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E79AB610F8
+	by mail.kernel.org (Postfix) with ESMTPS id 7959F610FB
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:16:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7959F610FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D8C6ED85;
-	Thu,  1 Apr 2021 21:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 376B86ED8E;
+	Thu,  1 Apr 2021 21:16:54 +0000 (UTC)
 Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
  [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA076ED85;
- Thu,  1 Apr 2021 21:15:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7501F6ED8E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 21:16:52 +0000 (UTC)
 Received: by mail-ot1-x333.google.com with SMTP id
- l12-20020a9d6a8c0000b0290238e0f9f0d8so3329222otq.8; 
- Thu, 01 Apr 2021 14:15:40 -0700 (PDT)
+ m21-20020a9d7ad50000b02901b83efc84a0so3320701otn.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Apr 2021 14:16:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Mz7i+O/62DXgGIQyQsg18R3Fvz4BySpF9dt5BSlgKK8=;
- b=EvINbiO5R9MEULvTambjfGRw/tggaCs6bGmgVlfnQ7EYfraVpcPhuVPvf15SpEqwIA
- x2SM2sD8JrCgB8leKbD2u0UFdCNZGUD9dXtR+AMaVjMXv8SkVyAlcyxMzmV/dknauBVP
- tUGfa3cSqdGoPDuTn7gXG9rQ1+8XPNYSyftQAebbFF3g0sdC2BFU1k8pz1SsAQYS095Q
- c28dAsQnSKv/OVKqpUbboI6WP5Ye1fCtaNneik0QTYeKgAYF9x3hlKqUqw+fUyWF4upe
- WG/QkSOq/qitsybcG/jGtGzOAOBzgZO0cHVj3WNmL3wZ5qxpw2CO5YnbE/KBi06evgBJ
- 7W+w==
+ :cc; bh=2O60zOZvvS2MHki6d+UjisoeYpmgLmNDQbLDmrpf1E8=;
+ b=SJ2spWx9bx4z6qxeZVrIJun5SWt0JKM2PZkG971Qo58fTHX6ePXJB4UAZIFid29xpQ
+ nK81K17l5/ZGlLWGVXE+5xPSGgvi85LrnPFILuAB2xNAU6uCeYhJ9ntLQSmIq7709ygn
+ NCbcdjxL3G//vKXMK0ok+2I9R458hMwk99vN2zjRc/5NgRTwOcf8wYJsxLWcPHy1oZc0
+ 2INEtuixJELIWT4L0JbKqK1WNuGxhE+ocwuz4nVbH8q1hfSRm0+u0IUOmmGkNaG70EXi
+ 1in4+dqwYnFBT5aze5c+Z+ztYhe4XLrehJVaSTmS3Fmdv+9fewY2k1Tkgq0V5pD2Pkg+
+ njNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Mz7i+O/62DXgGIQyQsg18R3Fvz4BySpF9dt5BSlgKK8=;
- b=FIffOaz0qFkoeid8naBYzd+/pk8720Fbsm5NK3uwLk3El8j2f13xZUaP0sdvB2jiyI
- 3UKAiwNqkkMRKZ0hCDTPDImFJcJ+nQHtCwts9uqznamivvntvKX/URhHQ3Jo1EMkJ3er
- PrQ1p0FKgnbI0fBt+4nly6XJqsJnp2M1eX/AgPESD4q1mtJKJnIW9F8OfTfm61REnsbu
- nT3SSvW/e4vg/O0VtEAR0Iyhm071YTthqdN9jHTwuLqbd773zzal6rFqREnEiADJVeSp
- VvvjRNT38dewhqExC6q1Qz8Qbu+kNldG2bO0yl6EKQC4T8yfkpx1kHCP8Kx297Op7vHw
- KI2A==
-X-Gm-Message-State: AOAM533RSyjPCdCHr1OAi24iReaxo3+deCI8A6IX1zFdktzIPqTFDr54
- nPkmQlPdul3bbubq+zv/yeuiMdl0DDNzaHA/cKQ=
-X-Google-Smtp-Source: ABdhPJwIGFK9P8QDS7j0r2S0z8pKk2Wh3QtwP8CPlBpqBbniOgq3YXMIAV9/NOXJYPtybSuUj4XTX7uBFCk+yDYZcE8=
-X-Received: by 2002:a9d:d89:: with SMTP id 9mr8507614ots.23.1617311739900;
- Thu, 01 Apr 2021 14:15:39 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=2O60zOZvvS2MHki6d+UjisoeYpmgLmNDQbLDmrpf1E8=;
+ b=E3/Uy3TlUVIzW1ontvtJzYaAjhd8uibXVIX5ML6Et7TcyQJ7VQiPqa5rQzdSY//BZG
+ IJmIBPFLwnfB5e1hb6hTKAzuHk51PQlIjo7VtXwc2DqQIAyMxP40AD65ehZSTNGGTgIh
+ X7x3JLOncDglvvZSw2MUMnq5gVv7UAh4hgJFTdfdf4qwfvYKu9pL7kVWbNYdhe2rIpRv
+ 36BRbvfz+lchXMjYh51mdnzBF9KvvxQ+okLlPEczWrYXN+EztnaTTuukaq6v3WroW9Xy
+ 7rdY/5+7lnGKYZaTizBn589h30ZdFcxphIgLbRyyh1VhiZ07gg6oXZjLszD07SlidBfl
+ nM4g==
+X-Gm-Message-State: AOAM533XLnIBufrJ7VFC28/g9tpLHPBwjJTRKpMcy5iQS4k03HNnQ2U4
+ sqdCLm/nSLPQmY8bjm3vAVqueCZgL8yI1S+Rq7ERMBenjG8=
+X-Google-Smtp-Source: ABdhPJweYYuRhQGRqAcB5V5lsCZP/rQgPG1bLNKncEmybiBww5Pc4d5lAMisCowhf41rHSORUAWnTasCUjF/46Rcj9M=
+X-Received: by 2002:a9d:7288:: with SMTP id t8mr8976862otj.132.1617311811895; 
+ Thu, 01 Apr 2021 14:16:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201024004706.24518-1-linux@rasmusvillemoes.dk>
- <d09f16d8-528e-2815-8f26-ab85c27b1fea@gmail.com>
-In-Reply-To: <d09f16d8-528e-2815-8f26-ab85c27b1fea@gmail.com>
+References: <20210401102737.1007254-1-wanjiabing@vivo.com>
+In-Reply-To: <20210401102737.1007254-1-wanjiabing@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Apr 2021 17:15:29 -0400
-Message-ID: <CADnq5_PLZoz0Ns0i8ur2i6YY1H==g+WRvFJZ6K3EDDvd9Qfmyw@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: add __user annotation in radeon_ttm_vram_read
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Thu, 1 Apr 2021 17:16:41 -0400
+Message-ID: <CADnq5_Pp_ODRKPFUcr-BXPx44NQb04nm_k728vhPek8JVqgC2w@mail.gmail.com>
+Subject: Re: [PATCH] amd: display: modules: Remove repeated struct declaration
+To: Wan Jiabing <wanjiabing@vivo.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,46 +72,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, kael_w@yeah.net, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Q3VycmVudCBjb2RlIGFscmVhZHkgY29udGFpbnMgdGhlIGZpeC4KCkFsZXgKCgpPbiBUaHUsIEFw
-ciAxLCAyMDIxIGF0IDk6MDkgQU0gQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5sZWljaHR6dW1l
-cmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gQW0gMjQuMTAuMjAgdW0gMDI6NDcgc2NocmllYiBS
-YXNtdXMgVmlsbGVtb2VzOgo+ID4gS2VlcCBzcGFyc2UgaGFwcHkgYnkgcHJlc2VydmluZyB0aGUg
-X191c2VyIGFubm90YXRpb24gd2hlbiBjYXN0aW5nLgo+ID4KPiA+IFJlcG9ydGVkLWJ5OiBrZXJu
-ZWwgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IFJhc211cyBW
-aWxsZW1vZXMgPGxpbnV4QHJhc211c3ZpbGxlbW9lcy5kaz4KPgo+IFJldmlld2VkLWJ5OiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBHb2luZyBvdmVyIG9s
-ZCBwYXRjaGVzIGFuZCBzdHVtYmxlZCBvdmVyIHRoYXQgb25jZS4KPgo+IEFsZXggZGlkIHlvdSBt
-aXNzZWQgdG8gcGljayBpdCB1cD8KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4gPiAtLS0K
-PiA+Cj4gPiBrZXJuZWwgdGVzdCByb2JvdCBoYXMgYWxyZWFkeSBzdGFydGVkIHNwYW1taW5nIG1l
-IGR1ZSB0byA5YzU3NDNkZmYuIElmCj4gPiBJIGRvbid0IGZpeCB0aG9zZSB3YXJuaW5ncyBJJ2xs
-IGtlZXAgZ2V0dGluZyB0aG9zZSBlbWFpbHMgZm9yCj4gPiBtb250aHMsIHNvIGxldCBtZSBkbyB0
-aGUgZWFzeSBvbmVzLgo+ID4KPiA+Cj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
-X3R0bS5jIHwgMiArLQo+ID4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVs
-ZXRpb24oLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYwo+ID4gaW5kZXgg
-MzYxNTBiN2YzMWE5MGFhMWVlY2UuLmVjZmU4OGIwYTM1ZDhmMzE3NzEyIDEwMDY0NAo+ID4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiA+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCj4gPiBAQCAtMTAwNSw3ICsxMDA1LDcgQEAgc3Rh
-dGljIHNzaXplX3QgcmFkZW9uX3R0bV92cmFtX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191
-c2VyICpidWYsCj4gPiAgICAgICAgICAgICAgIHZhbHVlID0gUlJFRzMyKFJBREVPTl9NTV9EQVRB
-KTsKPiA+ICAgICAgICAgICAgICAgc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmcmRldi0+bW1pb19p
-ZHhfbG9jaywgZmxhZ3MpOwo+ID4KPiA+IC0gICAgICAgICAgICAgciA9IHB1dF91c2VyKHZhbHVl
-LCAodWludDMyX3QgKilidWYpOwo+ID4gKyAgICAgICAgICAgICByID0gcHV0X3VzZXIodmFsdWUs
-ICh1aW50MzJfdCBfX3VzZXIgKilidWYpOwo+ID4gICAgICAgICAgICAgICBpZiAocikKPiA+ICAg
-ICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPiA+Cj4KPiBfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+Applied.  Thanks!
+
+Alex
+
+On Thu, Apr 1, 2021 at 11:26 AM Wan Jiabing <wanjiabing@vivo.com> wrote:
+>
+> struct mod_hdcp is declared twice. One is declared at 33rd line.
+> The blew one is not needed. Remove the duplicate.
+>
+> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+> ---
+>  drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+> index d223ed3be5d3..03fe49c5b7d0 100644
+> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+> @@ -255,8 +255,6 @@ struct mod_hdcp_config {
+>         uint8_t index;
+>  };
+>
+> -struct mod_hdcp;
+> -
+>  /* dm allocates memory of mod_hdcp per dc_link on dm init based on memory size*/
+>  size_t mod_hdcp_get_memory_size(void);
+>
+> --
+> 2.25.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
