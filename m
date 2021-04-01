@@ -2,52 +2,52 @@ Return-Path: <SRS0=FlJ6=I6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD1CCC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 909A9C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A552261247
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A552261247
+	by mail.kernel.org (Postfix) with ESMTPS id 15FEA61243
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 13:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15FEA61243
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39BC86ECBB;
-	Thu,  1 Apr 2021 13:31:31 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6EA6ECB0;
- Thu,  1 Apr 2021 13:31:29 +0000 (UTC)
-IronPort-SDR: 5hxlm0ERz18lzngg6fT/IkiycJ1YVYCER5gossB56vNWOv5i1BRvTOCxiZsZB4uyrzIIyxnzQ2
- Uwb+mCL4282A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="212498821"
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="212498821"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 699796EAE2;
+	Thu,  1 Apr 2021 13:40:51 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9CE6E0CF;
+ Thu,  1 Apr 2021 13:40:49 +0000 (UTC)
+IronPort-SDR: 3PSqg89DRxisX0jP9kS1oDlvqUhegBjHPvIZIzj0WkbKxN9UKtVwDq27gcWPrusr6/2moxzn7l
+ +gesSGOT1BDQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9941"; a="277431052"
+X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="277431052"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 06:31:27 -0700
-IronPort-SDR: 5tvB92jiRMGNLabXybckCSLFFBmaAQU7vUD+qPiiyyb+IZu2wKXYLWG2p2afaEIA03ZnIMWo2v
- zWr4SP+SYDZg==
-X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="419204532"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2021 06:40:39 -0700
+IronPort-SDR: LFYKKCnNLIHo8d1WzwQ5AsNeqrd0MpZqv++pww8uo/8fUTlbro4kse1JFIDXwGB/auZUAspbsR
+ I6L+jGfT4YTw==
+X-IronPort-AV: E=Sophos;i="5.81,296,1610438400"; d="scan'208";a="419206855"
 Received: from shergane-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.41.188])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2021 06:31:08 -0700
+ 01 Apr 2021 06:40:36 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 05/20] drm/dp: Add backpointer to drm_device in
- drm_dp_aux
-In-Reply-To: <20210326203807.105754-6-lyude@redhat.com>
+Subject: Re: [Intel-gfx] [PATCH v2 00/20] drm: Use new DRM printk funcs (like
+ drm_dbg_*()) in DP helpers
+In-Reply-To: <20210326203807.105754-1-lyude@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20210326203807.105754-1-lyude@redhat.com>
- <20210326203807.105754-6-lyude@redhat.com>
-Date: Thu, 01 Apr 2021 16:31:05 +0300
-Message-ID: <87eefum8rq.fsf@intel.com>
+Date: Thu, 01 Apr 2021 16:40:33 +0300
+Message-ID: <87blaym8by.fsf@intel.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,76 +60,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Oleg Vasilev <oleg.vasilev@intel.com>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Michal Simek <michal.simek@xilinx.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Vasily Khoruzhick <anarsoul@gmail.com>,
- "Jerry \(Fangzhi\) Zuo" <Jerry.Zuo@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Ben Skeggs <bskeggs@redhat.com>,
- Swapnil Jakhade <sjakhade@cadence.com>,
- Harry Wentland <harry.wentland@amd.com>, Imre Deak <imre.deak@intel.com>,
- "moderated list:ARM/ZYNQ
- ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Joe Perches <joe@perches.com>,
- Yuti Amonkar <yamonkar@cadence.com>, Jyri Sarha <jsarha@ti.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, "open list:DRM DRIVERS FOR NVIDIA
- TEGRA" <linux-tegra@vger.kernel.org>, Mikita Lipski <mikita.lipski@amd.com>,
- Sean Paul <sean@poorly.run>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Matt Roper <matthew.d.roper@intel.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Chris Park <Chris.Park@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
- open list <linux-kernel@vger.kernel.org>, Robert Foss <robert.foss@linaro.org>,
- Julia Lawall <Julia.Lawall@inria.fr>, Rob Clark <robdclark@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Andy Yan <andy.yan@rock-chips.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Christian =?utf-8?Q?K=C3=B6n?= =?utf-8?Q?ig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 26 Mar 2021, Lyude Paul <lyude@redhat.com> wrote:
->   * The @dev field should be set to a pointer to the device that implements the
-> - * AUX channel.
-> + * AUX channel. As well, the @drm_dev field should be set to the &drm_device
-> + * that will be using this AUX channel as early as possible. For many graphics
-> + * drivers this should happen before drm_dp_aux_init(), however it's perfectly
-> + * fine to set this field later so long as it's assigned before calling
-> + * drm_dp_aux_register().
+> Since it's been asked quite a few times on some of the various DP
+> related patch series I've submitted to use the new DRM printk helpers,
+> and it technically wasn't really trivial to do this before due to the
+> lack of a consistent way to find a drm_device for an AUX channel, this
+> patch series aims to address this. In this series we:
+>
+> * Clean-up potentially erroneous usages of drm_dp_aux_init() and
+>   drm_dp_aux_register() so that actual AUX registration doesn't happen
+>   until we have an associated DRM device
+> * Clean-up any obvious errors in drivers we find along the way
+> * Add a backpointer to the respective drm_device for an AUX channel in
+>   drm_dp_aux.drm_dev, and hook it up in every driver with an AUX channel
+>   across the tree
+> * Add a new ratelimited print helper we'll need for converting the DP
+>   helpers over to using the new DRM printk helpers
+> * Fix any inconsistencies with logging in drm_dp_helper.c so we always
+>   have the aux channel name printed
+> * Prepare the various DP helpers so they can find the correct drm_device
+>   to use for logging
+> * And finally, convert all of the DP helpers over to using drm_dbg_*()
+>   and drm_err().
+>
+> Series-wide changes in v2:
+> * Address most checkpatch issues ('most' as in all except for one line
+>   going two chars over 100 in "drm/dp_mst: Pass drm_dp_mst_topology_mgr
+>   to drm_dp_get_vc_payload_bw()" as this was the style in use
+>   previously, and 2 chars over the limit looks nicer then trying to
+>   line-wrap this
+> * Don't rewrap comments
 
-Perhaps add a follow-up patch to actually ensure this is the case in
-drm_dp_aux_register()?
+For anything touching i915, and for merging via whichever tree or branch
+seems best,
 
->   *
->   * The @name field may be used to specify the name of the I2C adapter. If set to
->   * %NULL, dev_name() of @dev will be used.
-> @@ -1877,6 +1883,7 @@ struct drm_dp_aux {
->  	const char *name;
->  	struct i2c_adapter ddc;
->  	struct device *dev;
-> +	struct drm_device *drm_dev;
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Bikeshed, I would probably have called it just drm for brevity, but no
-strong feelings.
+That said, gut feeling says there will be conflicts before latest
+drm-misc-next and drm-intel-next have been merged to drm-next, and
+drm-next has been backmerged to drm-misc-next and drm-intel-next.
+
+It just might be a good idea to wait for those (as well as other driver
+feature pulls) to settle, do a topic branch with a common ancestor
+between drm-next and drm-misc-next, apply there, merge the topic branch
+to drm-misc-next, and let all drivers merge the topic branch as
+needed. Due to the timing, otherwise we might have to carry the
+conflicts for quite a while.
 
 BR,
 Jani.
 
+
+>
+> Lyude Paul (20):
+>   drm/dp: Fixup kernel docs for struct drm_dp_aux
+>   drm/tegra: Don't register DP AUX channels before connectors
+>   drm/bridge/cdns-mhdp8546: Register DP aux channel with userspace
+>   drm/nouveau/kms/nv50-: Move AUX adapter reg to connector late
+>     register/early unregister
+>   drm/dp: Add backpointer to drm_device in drm_dp_aux
+>   drm/dp: Clarify DP AUX registration time
+>   drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
+>   drm/dp: Pass drm_dp_aux to drm_dp_link_train_clock_recovery_delay()
+>   drm/dp: Pass drm_dp_aux to drm_dp*_link_train_channel_eq_delay()
+>   drm/dp: Always print aux channel name in logs
+>   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_detect()
+>   drm/dp_dual_mode: Pass drm_device to
+>     drm_dp_dual_mode_set_tmds_output()
+>   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_max_tmds_clock()
+>   drm/dp_dual_mode: Pass drm_device to
+>     drm_dp_dual_mode_get_tmds_output()
+>   drm/dp_dual_mode: Pass drm_device to drm_lspcon_(get|set)_mode()
+>   drm/dp_mst: Pass drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
+>   drm/dp: Convert drm_dp_helper.c to using drm_err/drm_dbg_*()
+>   drm/dp_dual_mode: Convert drm_dp_dual_mode_helper.c to using
+>     drm_err/drm_dbg_kms()
+>   drm/dp_mst: Drop DRM_ERROR() on kzalloc() fail in
+>     drm_dp_mst_handle_up_req()
+>   drm/dp_mst: Convert drm_dp_mst_topology.c to drm_err()/drm_dbg*()
+>
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c      |   5 +-
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   1 +
+>  .../drm/bridge/analogix/analogix-anx6345.c    |   1 +
+>  .../drm/bridge/analogix/analogix-anx78xx.c    |   1 +
+>  .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+>  .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  12 +-
+>  drivers/gpu/drm/bridge/tc358767.c             |   1 +
+>  drivers/gpu/drm/bridge/ti-sn65dsi86.c         |   1 +
+>  drivers/gpu/drm/drm_dp_aux_dev.c              |   6 +
+>  drivers/gpu/drm/drm_dp_dual_mode_helper.c     |  68 ++--
+>  drivers/gpu/drm/drm_dp_helper.c               | 181 +++++----
+>  drivers/gpu/drm/drm_dp_mst_topology.c         | 381 +++++++++---------
+>  drivers/gpu/drm/i915/display/intel_dp_aux.c   |   1 +
+>  .../drm/i915/display/intel_dp_link_training.c |   6 +-
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
+>  drivers/gpu/drm/i915/display/intel_lspcon.c   |  17 +-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c              |   6 +-
+>  drivers/gpu/drm/msm/edp/edp.h                 |   3 +-
+>  drivers/gpu/drm/msm/edp/edp_aux.c             |   5 +-
+>  drivers/gpu/drm/msm/edp/edp_ctrl.c            |   8 +-
+>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  27 +-
+>  drivers/gpu/drm/radeon/atombios_dp.c          |   5 +-
+>  drivers/gpu/drm/tegra/dpaux.c                 |  12 +-
+>  drivers/gpu/drm/xlnx/zynqmp_dp.c              |   5 +-
+>  include/drm/drm_dp_dual_mode_helper.h         |  14 +-
+>  include/drm/drm_dp_helper.h                   |  61 +--
+>  include/drm/drm_dp_mst_helper.h               |   3 +-
+>  include/drm/drm_print.h                       |  20 +-
+>  29 files changed, 478 insertions(+), 384 deletions(-)
 
 -- 
 Jani Nikula, Intel Open Source Graphics Center
