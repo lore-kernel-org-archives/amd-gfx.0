@@ -2,43 +2,42 @@ Return-Path: <SRS0=FlJ6=I6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E9CFC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 16:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26E32C43461
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 16:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8A996136B
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 16:46:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8A996136B
+	by mail.kernel.org (Postfix) with ESMTPS id E289E6138E
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 16:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E289E6138E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64E316ECE6;
-	Thu,  1 Apr 2021 16:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 926506ECE7;
+	Thu,  1 Apr 2021 16:46:05 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D16966ECDE
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 16:46:02 +0000 (UTC)
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30DAD6ECDE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 16:46:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XDgMwvB8Xyj4TieuKoSsTStLlK9TIRvHDs6DkGghpgW6Ck59Y//5VL9yGttad9L1kFGvMjsHM9HDnrdJAEcT5lr0am1CwKywYX/OliFjXKSJQKPvNUzUYx5mHLaLHxkm42mqMQ/rZwRFTV4Nre+vwyzMqgQTGfR1iErNT44vHDticKkSYgJyQn7ple9Ddrfop9oZPBbINYykqcQlCdG3N6Hva9dpDcw6ZM94JYcWgDjquLIxhGw+GIMIitwi590G4bY0asrz25jdt1YbYVhKoeQY9rqOQX91S9oMIuzeBKgx0lroxTvNEjmwqnT6gKNWQI5s1klWVNLYRtfgRDqyCg==
+ b=LId/Sjy0zBj86LA63dKK0tTECG1Eb3wA8EwfSB8TH1b/1e9L9Vcr39G9sJu5R4fo92jXCwTnMdtHoeIO43TjzCe9maZ+IQUR0Xpm9CetsX1E9xb3opMjLWveBIXkLJJStVQKPfW6RnpiJd8YS1qfiZCDU92GM2EF0ILvgviC/kZlN5Dzq6a/0puWX1di1xgqTmbChdvLV4fFlVksSUxtb+pCf5srM185hLMZVF9ELAT7PaXWPKUl3NKvYsqpDJYy6cZQddX8wdbDMglT5dxv0MoS6riaSAGW+dMLVKz8021YyAwdUHdncq4mnWLlarX4QdJPA/MZKW+v+GmjUoVdgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4xn/X9OOZB9YuyACglclmVOBEGey8l1z8kfN0g5K41o=;
- b=AMI3UuxFjOzIByYJfKIE1AzvbJUzcTfc+jFERufBbwOK//BGJELULlQFrx6SpdD1vsLUp+pKMpZ84vuMZRGfoEzhTpfgvdPaZfxFBVqTognXrmMKEl24BKjxN8l4HMw7gWJbxiXTQAP+l8NeMZi/bPri5uLSzAsF82Ci8JLcYEmBlYBHZVmkA4TCuzrI8Zba7Gze31AZmx1KT1TRr1KCRyue980uVtC9IFWhHKuuCusOvP2Yz40ILlhZ558W9UCXCChZOYLqCvY3blVc9QOJUAHuI67s447ZiXVvUa2j5NbqNNAh77svfwqbS84rZTmLTrdGEy/88V9lBRzzzbJXAA==
+ bh=OZmiS8N4tbyFBvhnvjfvED/YHeP/s46FhWWecjv0nbo=;
+ b=RX/O2iidO1Z+UZHGPCQW6IO2OYtxccs/nhJLIcTqLZJlsFKF8VqjVngH1ms9IQkHfmcUuRzJQw8x45HsbN62hL7sZSuwK4R/8/j8CV7jZUcdP9fgbFMYUqHLVBj8vgoSK8yeNiPUUkm1mpk0XXFsh4frGLlqY05fhY+Xr3HGGLUi3x9sWuNPUESv+GQQ6/uJWYZev8KAinHxICyrtBfii7I7LVfCp/u9PF3yjS8T8qEOGU8VSLitFll7m8HSYyw8aXASRUpRjPdTKCkoHT88rsgiLST+g8Myuff0ltb0LpwjXZMUqIrWK6GZDztkDcN0ZwM/Yt2pU0QqU9CcwHtmwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4xn/X9OOZB9YuyACglclmVOBEGey8l1z8kfN0g5K41o=;
- b=SJE7SnBxA8KzUR2EpUH3R7S1P+GjpQNetplrDgZevrLWkayRqA8+Zb8h9SK7wwp9aDZzXlBQMta90Js+J8KpdNRhhqL5dMsZ1Fg7UFIafAAe6em6BLgGfqdkxH6cBEDyemwYhIy8i1N6jYF55Wk4ZglGRMBNSaJXJIqVP2ShgWE=
+ bh=OZmiS8N4tbyFBvhnvjfvED/YHeP/s46FhWWecjv0nbo=;
+ b=tazcENFnb8bxQxkb83cNGJ0XAfAmg1BhtMKAyLqw496ROA+1PY4gD0qkU0jtdLVw/NmJZ45NK1aniRIRZKu3PNbGl1SxzHjwx+K06txnBud+Y0nzyVYfGb98cYdib/Z7B1bCqYYzPjLIRtyN7D9EmZDtztfwewxfE/GYLW403bk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -46,17 +45,16 @@ Received: from DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24)
  by DM6PR12MB4619.namprd12.prod.outlook.com (2603:10b6:5:7c::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Thu, 1 Apr
- 2021 16:46:01 +0000
+ 2021 16:46:02 +0000
 Received: from DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::1887:4978:1b79:7cc1]) by DM6PR12MB2939.namprd12.prod.outlook.com
  ([fe80::1887:4978:1b79:7cc1%5]) with mapi id 15.20.3999.028; Thu, 1 Apr 2021
- 16:46:01 +0000
+ 16:46:02 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/21] drm/amd/display: Add debugfs entry for LTTPR register
- status
-Date: Thu,  1 Apr 2021 12:45:13 -0400
-Message-Id: <20210401164527.26603-8-qingqing.zhuo@amd.com>
+Subject: [PATCH 09/21] drm/amd/display: Add debug prints for SMU messages
+Date: Thu,  1 Apr 2021 12:45:15 -0400
+Message-Id: <20210401164527.26603-10-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210401164527.26603-1-qingqing.zhuo@amd.com>
 References: <20210401164527.26603-1-qingqing.zhuo@amd.com>
@@ -69,52 +67,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
  YT1PR01CA0140.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3977.32 via Frontend Transport; Thu, 1 Apr 2021 16:46:00 +0000
+ 15.20.3977.32 via Frontend Transport; Thu, 1 Apr 2021 16:46:02 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a86714d5-1324-4038-f585-08d8f52da1a9
+X-MS-Office365-Filtering-Correlation-Id: 70afa2ac-7eab-4a49-9953-08d8f52da2a3
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4619:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4619474D970DEB063C780FCCFB7B9@DM6PR12MB4619.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4619E9E55DEDE3112B2442DDFB7B9@DM6PR12MB4619.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:227;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eAPMfc9yae8rXDOM8SupiBkexl1W3OXRd1Y+fJ42CLKXG7AJMru1BlYzJyfKhOKwtJKYnLa6rBU4TnRc2hW4JmnVpxqmOGhld+NrLQPTpmXTrjhWd/JOLWmVRkyGyKS7CZMOQoNoChAnQJxVdrGe8Y/PzAISneZS8Xhpg2PhdWddjmiV0pYrOy+zg6o9fSpC0csOviz2U8zncD3AlWkzCfBRwiOKHO7FlIeS+8zQ3Ndsn5nxz3TX6i/BGRkiff6jd+R1XMWOVZXAURp38DO6hoksqJnvI0LzgBW2d56q9Biiw4aOGGD5maMoTh4tysgOgRs6Qdl7Q6ygijIDvPn9QxcoheApWwJWS4UnGonRY4khuyDAOsnjswKqJqqLWfYxpkeUk21iZQlc0EuGZkazu0tWd/tkLU9U0glt/EMbn2+9+ywP55fTJGauF7m2fS481iy+n9asVxf5+5E7Fc4ioY/kBC762aOFLk35sHNXEy/6XBRwFcBmA4DirjutLK0SZ5Yd4M4tSZcKeAt+7ZUPGjkdC2oEmx4axTR1LekXmN5QmDLn5s/UC/nTEwpB2mBOmRjMZNGR2LCaFgZbQoB0GOa06r4WPPLBOROnPKVpDt6pYdnmiqyVPalf6y591ONLtNwWsmig2OZZqyOdvunRpHCGA76ELeAoEIJzHyoXr6ChWWmnQWzpUHgonFAbiboo
+X-Microsoft-Antispam-Message-Info: Bxk/zRpRhOJlIH/frZL+B6jFyt8EpgLq0t3On74KJKXVys5H0jHJULTs89qm5dm90Txu0MFqmUpf19JWN1hbnrTVixsRsYXSYsDNbPQSdimHUfLIAxeV2A3aE7GIbVDGr0zuUM3vXcJeA1oEr61/gO2PGL1Kl0qaHuBwYJU9wdvsZNxGQsNTq0UvcpRthJmWVPIPpFwz+TUAhBglPlDg/x52P+aXDUXG9Z2VkJ5vN5ivaEM0OIcL46JfQpM5R4dTxLfpIlDuYLhbi0GiHXzRIBNCEoxpTSiRk2I6eXxdpiatJNYQvX+Jjiqrk9m0xQW0vNaVee8NWK7PzVhy4qO9ZXoQM+n+T2LV0Sgzz5VvBSfPmcMZqP+SlFCHxYf0OQ1qModdegftcDGQnZRL2IUf+tbT7WHRCg40G0++LclOhOHJHHHfY+PX+z4prnAZRnFKOXJN93AZIUwS4A+xFzkusovLVRQUnKinhntMlKdziZ8Phh1iuvd2MQ3OtyxUYt1x0BvTxTsQ03+WnYifkm70Vpk6NdFUdA8pmEG0ovnz77s4J6mc3Kd8Vz5hBqOOasQN6uW/vAJM4BJNqWHvlKLO9oUZU1ej4Xb2wnIu/UAfZZ+Bda/xCfHA9wkBDdX8YhnRKa05INj8TMwtn6QU6XZM/NthbfzMLZnpdG2GW7S/ar9AiSMv9YP7kFHMJt4Pgsxd
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(366004)(36756003)(69590400012)(66476007)(6666004)(478600001)(6506007)(38100700001)(16526019)(26005)(8936002)(8676002)(2616005)(2906002)(66556008)(6916009)(6512007)(4326008)(316002)(1076003)(44832011)(52116002)(956004)(186003)(86362001)(5660300002)(66946007)(6486002);
+ SFS:(4636009)(376002)(396003)(136003)(39860400002)(346002)(366004)(36756003)(69590400012)(66476007)(6666004)(478600001)(6506007)(38100700001)(16526019)(26005)(83380400001)(8936002)(8676002)(2616005)(2906002)(66556008)(6916009)(6512007)(4326008)(316002)(1076003)(15650500001)(44832011)(52116002)(956004)(186003)(86362001)(5660300002)(66946007)(6486002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?PCt+Wbf9o2Ghany2bszK42+sW1S1tzZjpM4UDWZ6HZZFlMt8cBVX6NsWKk/T?=
- =?us-ascii?Q?cF++UJUBWrvN9axdO3+oA4+FgLj12jPhayprlM5soA/hDp+nfLZVN5/yfubt?=
- =?us-ascii?Q?XJ5z02BZz91JNfxwQ8eCuNpOGiemNXCgKfze3gv8KFEF/JD22+2jfQ6coWXF?=
- =?us-ascii?Q?a4F7FBT8TVB89/VMQbW/a0g+IVclSK9rMKadoNesFGMck286Dk94SjCSHyzE?=
- =?us-ascii?Q?Ud/sJcB6r246qJsQQ/UPci5upy8KbaEdJrg2fPWcoWtOZ7Mx0SIyUlSDqRRQ?=
- =?us-ascii?Q?tPeDNlKV0DfehL2MMLAfXwoIQBs8n9g1fMb7jGHjKmtIlQbeku59neWPFmA8?=
- =?us-ascii?Q?49bC8/gvcUOgLinbfrC8fwdg2zw3B+sTJY4Jdc8KgAskvSsYbIwMKey+LLtw?=
- =?us-ascii?Q?CM/qD+4eaqv4QcWr0HNKyBSDGnT4pVNbRhG4G5pvon4PBlVEbgecNC0Y+7Fv?=
- =?us-ascii?Q?/+jAEjQMn/xvzzMdbk89kN2DyZ6gvIjNBi+bExNBffdfiC13nt6MS4pCLGO1?=
- =?us-ascii?Q?VHJbIe3+ZQTnR4iR59cuPkNDxrPW2dXegpvyoBkepsY85MGxO7yphT6BK/cO?=
- =?us-ascii?Q?ph66Wl9NVN9Kcub7tuyZwbfxkL1UzfFxJbvvp90tbjzYghKd5LTUB3vZmsn1?=
- =?us-ascii?Q?S8KmzbcHw7FQa2ENJ4eEsqlNMYdRZwypehE8cXp2LfGB9RPtlFAxx1n8VLrr?=
- =?us-ascii?Q?Qzhh2SmB0UiQQDZEtwvErS4aCcFnNTzpQ99OqPgZ3PwGPDLwWBr/HPopU87t?=
- =?us-ascii?Q?HwDvX/9sKIvxmFqsBXVJFlrwc6HkXXoObXfKeJ9lMDmaJMdna7KxfOJZDj1q?=
- =?us-ascii?Q?QEsAXNl4Q0QTfFw+Ee4EuIACQHDtwy667KTBmLH81UBZCKI0M4fGfjnZ6p2L?=
- =?us-ascii?Q?9Zvrv4uLdPVIGcYQr/wjnD/9tCuaxqrwa/TJKUkafWw/NA4g22BOWhj561Sp?=
- =?us-ascii?Q?WZxArGtquPat2oMgDPRiDM58SbRMcIeVpWldFBXFvsc+PjaN7dyvrizrSWuF?=
- =?us-ascii?Q?76/I37nbvTx3UJGgQ5uSUMOARWQLUxt7vrmINBEgC63wKz7JvC9FcU4o+ovC?=
- =?us-ascii?Q?v4yKuhNPJubgRe0b0SIn0O9IDv57NQ7n2Z7Rj7ybvQK1Mo553IJVAYCnm43G?=
- =?us-ascii?Q?85hSbroCgkLnwIyWmnCMz6u7yrwa1shk7OBbkpvxJjzdjXxG2uBN1oBz7e6b?=
- =?us-ascii?Q?ihXQR0yZWjZJugePst24Tk+ezoD3BeokYhD0khIMni7q3PYTXsgwd1/oNISJ?=
- =?us-ascii?Q?xinmgre3A+QBEI2X5XEgLbrsToteeKlBKjyZbstar8bGJLpFUJCrotpSGIFj?=
- =?us-ascii?Q?uFW9dPYEPFM5dxMfkOs1O4EA?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?CWXaRQpGpoQplEGdy2+k21EOZuHrYK/KedBlDkLe4lMNM+d5P5DprLmAOkHw?=
+ =?us-ascii?Q?gRJgi3if3BE4VQldDB5rrJIvu5pZUPjlRehOBoMGqCfHEpvGuPVDddkBxUhO?=
+ =?us-ascii?Q?v6SETCtXMrPjwVNnzneIIMfrQLXAL/mNa7GMAV6JfflBIimI9IhPzNqRNtR4?=
+ =?us-ascii?Q?e8yXX0qLGJMoqMpBsn+1593JtxrwMTFA+e2Fp7068obBqoUlKjOrOtvuSB3t?=
+ =?us-ascii?Q?/xcNG1JDVu9Cb7TwL5C+HflCtiZ5WkQRM6GjJFsVNOyCUc3GgGCX7p1QEX6+?=
+ =?us-ascii?Q?4fenZxTl9dAPdAeRVPmIfe6YkOCTnLz0n0W1n9qonaIVeOLfrvvFG/xz35FV?=
+ =?us-ascii?Q?Ig7B7nXE/Po56OKW3WsbS1KM8WGAvXM4QtRi9aMa3b/wJidl6cjOhlSf1OxL?=
+ =?us-ascii?Q?t8ddNybsODI7ir3WlH1TTcqa1gepyDyovvc82TkDqrLF21zlxi8NGiH2uZqr?=
+ =?us-ascii?Q?lMwO3fgNX2GP6/bksnaEpP9P6Y9wj7CvRvar9tXeTW1qAcXRnz2F719rgsnV?=
+ =?us-ascii?Q?DowbMbDlfveKrNIhjBWbK8OLtNIBX1Fy/14zcPX2f5P+NsF2nkrpSnVRDOKV?=
+ =?us-ascii?Q?/wg9tb1WFdFpJTe4fMGsmprO3Ct+0MBwAuUBr/YtdqzPw+BsyomX65DBsjsj?=
+ =?us-ascii?Q?Q3NusZKkNWdQjFJ+UoE2IXvwyNdg0F6kz2yusW8v11ZeozRVdC8VCp6Giczq?=
+ =?us-ascii?Q?6czwAmRk6utyRB0BKEfeM914zI8/F7/EkQBE7J99KR22/fTN3MIO0BY/JOrl?=
+ =?us-ascii?Q?xq5S0+LduIue4Wr1G0GTWbopocwr1AdVmeCmVp++5b71o6NiwKQMixLsyxr2?=
+ =?us-ascii?Q?nHpZV8TlcUb7P5ropq9bnEn3Ke9NHvxmNdRKWGV8Obufx3SuaoOMuZ9KbphT?=
+ =?us-ascii?Q?B1vsxODVwlG/oJIEOKfrKEIOXv6ikdGlZWDSy/yBGqsalnkRPXcVHNSR8SqB?=
+ =?us-ascii?Q?+tF4f7Ps0SmjIVelreYL/zDHvAf6iKyTxzGrhxkmDDHFf5/9OCTxdr7AMBs+?=
+ =?us-ascii?Q?xqlZvftTxTwwNXBmfYEFQan+vAdAOQif1SrCr2zgz+Aap5U3w2SgKeXfrmNb?=
+ =?us-ascii?Q?x2xNRrpkxdG6GPJao/JIMVd+yjhXB9CpjZ+bmoUMLTlb9Ke6tHUDiSn3Hib/?=
+ =?us-ascii?Q?z3W82t+Bf4FG+idsdxWPMIwfFJmnuxSpbFOelqn0ctrO1eYuTf4LGvTeCF48?=
+ =?us-ascii?Q?1a1tiBTHd3BtqbNVsIEC+ohWGhYnFmaiTe8kXYXwLLrWN2HV8ab44Fv150Jb?=
+ =?us-ascii?Q?Th7qtSOKBN3AollsfJTCR8FjQzlxth97D/kbRUVIQWmSHbXdAUAjCvq2Rh8d?=
+ =?us-ascii?Q?oB4XjCjmE783vPmakK3veiqN?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a86714d5-1324-4038-f585-08d8f52da1a9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70afa2ac-7eab-4a49-9953-08d8f52da2a3
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2939.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 16:46:00.9267 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2021 16:46:02.5228 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nRfaez3V9DE7+N2nfUSg7JrCPozZk6PZ9UNyc64tW1eVnf5TDHyXO2A7MLJk4WU4
+X-MS-Exchange-CrossTenant-UserPrincipalName: NIek+yO1yOHIsZUTEXUmw/J4SM1iankrbhx1I/7D3exo6lnUPsDKrXKhpvYB9JgB
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,122 +125,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Anson.Jacob@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry Wentland <harry.wentland@amd.com>, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Anson.Jacob@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[Why]
-Functionality of LTTPR is reporter through the DPCD register
+[Why&How]
+Add debug prints for SMU messages with regard to
+versions, clocks, and more.
 
-[How]
-Expose a interface in debugfs to read the current status of
-LTTPR as reported from the device's DPCD register
-
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Reviewed-by: Robin Singh <Robin.Singh@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
+ .../display/dc/clk_mgr/dcn301/dcn301_smu.c    | 29 ++++++++++++++++---
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 5a9809e33af8..32f05aefda17 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -400,6 +400,70 @@ static ssize_t dp_phy_settings_read(struct file *f, char __user *buf,
- 	return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
+index 68942bbc7472..07774fa2c2cf 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c
+@@ -113,10 +113,13 @@ int dcn301_smu_send_msg_with_param(
+ 
+ int dcn301_smu_get_smu_version(struct clk_mgr_internal *clk_mgr)
+ {
+-	return dcn301_smu_send_msg_with_param(
+-			clk_mgr,
+-			VBIOSSMC_MSG_GetSmuVersion,
+-			0);
++	int smu_version = dcn301_smu_send_msg_with_param(clk_mgr,
++							 VBIOSSMC_MSG_GetSmuVersion,
++							 0);
++
++	DC_LOG_DEBUG("%s %x\n", __func__, smu_version);
++
++	return smu_version;
  }
  
-+static int dp_lttpr_status_show(struct seq_file *m, void *d)
-+{
-+	char *data;
-+	struct amdgpu_dm_connector *connector = file_inode(m->file)->i_private;
-+	struct dc_link *link = connector->dc_link;
-+	uint32_t read_size = 1;
-+	uint8_t repeater_count = 0;
-+
-+	data = kzalloc(read_size, GFP_KERNEL);
-+	if (!data)
-+		return 0;
-+
-+	dm_helpers_dp_read_dpcd(link->ctx, link, 0xF0002, data, read_size);
-+
-+	switch ((uint8_t)*data) {
-+	case 0x80:
-+		repeater_count = 1;
-+		break;
-+	case 0x40:
-+		repeater_count = 2;
-+		break;
-+	case 0x20:
-+		repeater_count = 3;
-+		break;
-+	case 0x10:
-+		repeater_count = 4;
-+		break;
-+	case 0x8:
-+		repeater_count = 5;
-+		break;
-+	case 0x4:
-+		repeater_count = 6;
-+		break;
-+	case 0x2:
-+		repeater_count = 7;
-+		break;
-+	case 0x1:
-+		repeater_count = 8;
-+		break;
-+	case 0x0:
-+		repeater_count = 0;
-+		break;
-+	default:
-+		repeater_count = (uint8_t)*data;
-+		break;
-+	}
-+
-+	seq_printf(m, "phy repeater count: %d\n", repeater_count);
-+
-+	dm_helpers_dp_read_dpcd(link->ctx, link, 0xF0003, data, read_size);
-+
-+	if ((uint8_t)*data == 0x55)
-+		seq_printf(m, "phy repeater mode: transparent\n");
-+	else if ((uint8_t)*data == 0xAA)
-+		seq_printf(m, "phy repeater mode: non-transparent\n");
-+	else if ((uint8_t)*data == 0x00)
-+		seq_printf(m, "phy repeater mode: non lttpr\n");
-+	else
-+		seq_printf(m, "phy repeater mode: read error\n");
-+
-+	kfree(data);
-+	return 0;
-+}
-+
- static ssize_t dp_phy_settings_write(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
+ 
+@@ -124,6 +127,8 @@ int dcn301_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispc
  {
-@@ -2301,6 +2365,7 @@ DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
- DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
- DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
- DEFINE_SHOW_ATTRIBUTE(output_bpc);
-+DEFINE_SHOW_ATTRIBUTE(dp_lttpr_status);
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
- #endif
-@@ -2421,6 +2486,7 @@ static const struct {
- } dp_debugfs_entries[] = {
- 		{"link_settings", &dp_link_settings_debugfs_fops},
- 		{"phy_settings", &dp_phy_settings_debugfs_fop},
-+		{"lttpr_status", &dp_lttpr_status_fops},
- 		{"test_pattern", &dp_phy_test_pattern_fops},
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- 		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+ 	int actual_dispclk_set_mhz = -1;
+ 
++	DC_LOG_DEBUG("%s(%d)\n", __func__, requested_dispclk_khz);
++
+ 	/*  Unit of SMU msg parameter is Mhz */
+ 	actual_dispclk_set_mhz = dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+@@ -137,6 +142,8 @@ int dcn301_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr)
+ {
+ 	int actual_dprefclk_set_mhz = -1;
+ 
++	DC_LOG_DEBUG("%s %d\n", __func__, clk_mgr->base.dprefclk_khz / 1000);
++
+ 	actual_dprefclk_set_mhz = dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+ 			VBIOSSMC_MSG_SetDprefclkFreq,
+@@ -151,6 +158,8 @@ int dcn301_smu_set_hard_min_dcfclk(struct clk_mgr_internal *clk_mgr, int request
+ {
+ 	int actual_dcfclk_set_mhz = -1;
+ 
++	DC_LOG_DEBUG("%s(%d)\n", __func__, requested_dcfclk_khz);
++
+ 	actual_dcfclk_set_mhz = dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+ 			VBIOSSMC_MSG_SetHardMinDcfclkByFreq,
+@@ -163,6 +172,8 @@ int dcn301_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_mgr, int r
+ {
+ 	int actual_min_ds_dcfclk_mhz = -1;
+ 
++	DC_LOG_DEBUG("%s(%d)\n", __func__, requested_min_ds_dcfclk_khz);
++
+ 	actual_min_ds_dcfclk_mhz = dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+ 			VBIOSSMC_MSG_SetMinDeepSleepDcfclk,
+@@ -175,6 +186,8 @@ int dcn301_smu_set_dppclk(struct clk_mgr_internal *clk_mgr, int requested_dpp_kh
+ {
+ 	int actual_dppclk_set_mhz = -1;
+ 
++	DC_LOG_DEBUG("%s(%d)\n", __func__, requested_dpp_khz);
++
+ 	actual_dppclk_set_mhz = dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+ 			VBIOSSMC_MSG_SetDppclkFreq,
+@@ -187,6 +200,8 @@ void dcn301_smu_set_display_idle_optimization(struct clk_mgr_internal *clk_mgr,
+ {
+ 	//TODO: Work with smu team to define optimization options.
+ 
++	DC_LOG_DEBUG("%s(%x)\n", __func__, idle_info);
++
+ 	dcn301_smu_send_msg_with_param(
+ 		clk_mgr,
+ 		VBIOSSMC_MSG_SetDisplayIdleOptimizations,
+@@ -202,6 +217,8 @@ void dcn301_smu_enable_phy_refclk_pwrdwn(struct clk_mgr_internal *clk_mgr, bool
+ 		idle_info.idle_info.phy_ref_clk_off = 1;
+ 	}
+ 
++	DC_LOG_DEBUG("%s(%d)\n", __func__, enable);
++
+ 	dcn301_smu_send_msg_with_param(
+ 			clk_mgr,
+ 			VBIOSSMC_MSG_SetDisplayIdleOptimizations,
+@@ -218,12 +235,16 @@ void dcn301_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr)
+ 
+ void dcn301_smu_set_dram_addr_high(struct clk_mgr_internal *clk_mgr, uint32_t addr_high)
+ {
++	DC_LOG_DEBUG("%s(%x)\n", __func__, addr_high);
++
+ 	dcn301_smu_send_msg_with_param(clk_mgr,
+ 			VBIOSSMC_MSG_SetVbiosDramAddrHigh, addr_high);
+ }
+ 
+ void dcn301_smu_set_dram_addr_low(struct clk_mgr_internal *clk_mgr, uint32_t addr_low)
+ {
++	DC_LOG_DEBUG("%s(%x)\n", __func__, addr_low);
++
+ 	dcn301_smu_send_msg_with_param(clk_mgr,
+ 			VBIOSSMC_MSG_SetVbiosDramAddrLow, addr_low);
+ }
 -- 
 2.17.1
 
