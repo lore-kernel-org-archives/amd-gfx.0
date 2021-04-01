@@ -6,59 +6,60 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF536C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06F17C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8671660FE9
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8671660FE9
+	by mail.kernel.org (Postfix) with ESMTPS id AD50D610F8
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 21:12:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD50D610F8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 177E06ED87;
-	Thu,  1 Apr 2021 21:11:57 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CF686ECAA;
- Thu,  1 Apr 2021 21:11:55 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id i81so3116148oif.6;
- Thu, 01 Apr 2021 14:11:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6D8E6ED88;
+	Thu,  1 Apr 2021 21:12:15 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 884B66ED7D;
+ Thu,  1 Apr 2021 21:12:14 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ c24-20020a9d6c980000b02902662e210895so2831303otr.9; 
+ Thu, 01 Apr 2021 14:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=M3O3ezYK4tjrRScd1RwWw7v+Stoxl6m+PGnpI8CPjlE=;
- b=DofhZBNC+BMajMH6Ihx31LeKFM6jRi6/ZtImsQ18V1w4naw4NzgjchsOgXd+iXKMPP
- /xqGIbyuTAvepsfMXVubdEw9/p1OJOpfG+LbXwzbZs83Ocf2J6TOsBlvWEDgp15aKkN9
- ngoxoETJBUekW/VQp3Mf5i9RHwZWb0zlIbgeYIjXfybm8Ol2a9zEJo8MEaXrCLEbi5XM
- nGFB4YHqv/190W4JWrcovVhG64otW8yaWxx6IN/tzmOyJogNVwa6COUkujm3vofv0FUK
- 16z/pJEM3Whl/sgk85e1F4eTSjEhzLQEX4QLxn1JTPg2GqosG9DbOxPtz+/fR6kpstyS
- rMDg==
+ :cc; bh=M3/tEWKm2WNngayfE+mn8rCJF6DRzknNbizlXk5hWAQ=;
+ b=quWAVivmqSnYqJErkZGmKg9qwlpZD3NQ8AWJiUrOuHYpbkMvu/Jndmq0HqRPwlxsz4
+ Rt5IOu51LuPwwabACYkOb07TK/5OGUtYknO4J7ASyFgdWUwRbJOcbTjfR/Tjam+fg51V
+ ftj5p6/qb9ztnkL0HTnkOa6dG3lKOa4BtQmgPW6OW0C1elEFHh827ChEOCIAZmAg8zqb
+ 2L+Ee7xKZzvK4dHH8EQj5nuaUKzUBRhQYXmoDTdztd442mUBJ+KEfW1s16zQ8Kzo/Tbi
+ JrYuOAv2X/vJuBBPS77iArRHAybNK+hRRZlvbW0fHhlApStKbUqEI51I5K6Xj0RdzX/N
+ y4cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=M3O3ezYK4tjrRScd1RwWw7v+Stoxl6m+PGnpI8CPjlE=;
- b=NkGFWO3/z4qNiM7XugoynVCdy6sRetoW4jSoojZXiEWAWTOfbMoC29ZYe9JZtGZFAv
- /Bk5JfyF4a4ijGHKtHMNdDJRHVeM6uPo1Sua02pX6DSgvLZTkYrYhwhscGSYNBVpvkdE
- zl0PRByMUtICYeY5sUvUV1+83ClU9K4d4zmSZExs8jVSvI1rnKFX6XZkqswDJaZ4jEkQ
- QLZoOiMsObCAl7QryfqlCbTyVTTGeFQXPKilvCCbwrpDdfmxvu9THVN/WZCE/53ubfwe
- SFim8otvkgqEqo8zIP4mEG3/T3+ajhXgP+OoJpQ8JmhtrhbWCx6bxhrsJosooAg11pZ/
- tlcQ==
-X-Gm-Message-State: AOAM531zP7N2ewbxCRcVgLwxNvvS4uQv0k/4j9iv9cebur9B8h4UMzzz
- yKVdPsJ6miBp68QWdmYT5hmLIFfsDMq8+89dcivyjkihoT4=
-X-Google-Smtp-Source: ABdhPJxehEErIgFKLEhysJ3MRBbpDbe4PiVid4S27ndYhqpWgh7rnSg+6pua5YkQyIVVJ70BZun3GE+BkeGJgKYJi4Q=
-X-Received: by 2002:aca:4748:: with SMTP id u69mr7133639oia.5.1617311514752;
- Thu, 01 Apr 2021 14:11:54 -0700 (PDT)
+ bh=M3/tEWKm2WNngayfE+mn8rCJF6DRzknNbizlXk5hWAQ=;
+ b=nIEw2a1dfbh6DqRUV6WUv/97CHoxQLqjOP3jMDk6+5pv7qnqFUwZ/7lMtFruo3Bry/
+ DT4N80qZS8b44OzsF4m8OJwNROD7A/EwBLrKcDS/LX0IFJFM1hhAOpUz7G8ag4fK6xB7
+ dAKCVrqlKeeRHwQSj5Xf+0xfXDEncn8rtAnbnRRIaBB513zooNZprsrZ8cAFz6h9g1Lh
+ Kx/ZCp4/GLrooXjYoHXqGIrAdgqYpKJmrhuBJNlnFIOZKpF87mwVveIHRLmeS5/Q0vpP
+ gn8YRAyfDJx/Y2r014cNoDKZc/NsDVEi4UZW7J8rLM+wuioldtg01i4BxTtecBOckkXF
+ 1nPg==
+X-Gm-Message-State: AOAM532/heJxl+6rwSWhNJy9yfODA1CjO+8ZgQYG7bQa90mwqZdYhyfR
+ QJNpUUNwNQBmFgrKpaPA3W+o4wwqId48oi1LRxc=
+X-Google-Smtp-Source: ABdhPJwPQCH1cqO+Ky2uLyFBpFc2K35zocKbr6hWOWDYO5+4rEGoObsafNjofT3lm8rxgqts5uaXkx5PaX2npc5iF/Y=
+X-Received: by 2002:a9d:d89:: with SMTP id 9mr8496383ots.23.1617311533912;
+ Thu, 01 Apr 2021 14:12:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210331131205.60710-1-bernard@vivo.com>
-In-Reply-To: <20210331131205.60710-1-bernard@vivo.com>
+References: <20210331131143.60652-1-bernard@vivo.com>
+In-Reply-To: <20210331131143.60652-1-bernard@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Apr 2021 17:11:43 -0400
-Message-ID: <CADnq5_NkSUcYYZQnobUDZS8+-a2D32-DwO3JqRDkSh37OCPsXA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: cleanup coding style a bit
+Date: Thu, 1 Apr 2021 17:12:02 -0400
+Message-ID: <CADnq5_Pc0iDmmuH5oTa0_T23EJGfhqf+zzedXL2n_QME5MrjQw@mail.gmail.com>
+Subject: Re: [PATCH] amd/amdgpu: code refactoring to clean code style a bit
 To: Bernard Zhao <bernard@vivo.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,61 +72,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Arnd Bergmann <arnd@arndb.de>,
- Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: opensource.kernel@vivo.com, Deepak R Varma <mh12gx2825@gmail.com>,
+ David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Stanley.Yang" <Stanley.Yang@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- John Clements <john.clements@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Evan Quan <evan.quan@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+This code has been dropped.
 
 Alex
 
 On Wed, Mar 31, 2021 at 9:36 AM Bernard Zhao <bernard@vivo.com> wrote:
 >
-> Fix patch check warning:
-> WARNING: suspect code indent for conditional statements (8, 17)
-> +       if (obj && obj->use < 0) {
-> +                DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n", obj->head.name);
+> Fix checkpatch.pl warning:
+> Too many leading tabs - consider code refactoring
+> WARNING: Too many leading tabs - consider code refactoring
+> +                                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
 >
-> WARNING: braces {} are not necessary for single statement blocks
-> +       if (obj && obj->use < 0) {
-> +                DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n", obj->head.name);
-> +       }
+> WARNING: Too many leading tabs - consider code refactoring
+> +                                                       if (vbios_voltage_id <= leakage_bin[j]) {
+>
+> WARNING: Too many leading tabs - consider code refactoring
+> +                                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
+>
+> WARNING: Too many leading tabs - consider code refactoring
+> +                                                       if (vbios_voltage_id <= leakage_bin[j]) {
 >
 > Signed-off-by: Bernard Zhao <bernard@vivo.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 84 ++++++++------------
+>  1 file changed, 35 insertions(+), 49 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 1fb2a91ad30a..43d17b72c265 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -449,11 +449,10 @@ static ssize_t amdgpu_ras_sysfs_read(struct device *dev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> index 86add0f4ea4d..9968ff8ddc9c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> @@ -1283,65 +1283,51 @@ int amdgpu_atombios_get_leakage_vddc_based_on_leakage_params(struct amdgpu_devic
+>         profile = (ATOM_ASIC_PROFILING_INFO_V2_1 *)
+>                 (adev->mode_info.atom_context->bios + data_offset);
 >
->  static inline void put_obj(struct ras_manager *obj)
->  {
-> -       if (obj && --obj->use == 0)
-> +       if (obj && (--obj->use == 0))
->                 list_del(&obj->node);
-> -       if (obj && obj->use < 0) {
-> -                DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n", obj->head.name);
-> -       }
-> +       if (obj && (obj->use < 0))
-> +               DRM_ERROR("RAS ERROR: Unbalance obj(%s) use\n", obj->head.name);
->  }
+> -       switch (frev) {
+> -       case 1:
+> +       if ((frev != 2) || (crev != 1)) {
+> +               DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+>                 return -EINVAL;
+> -       case 2:
+> -               switch (crev) {
+> -               case 1:
+> -                       if (size < sizeof(ATOM_ASIC_PROFILING_INFO_V2_1))
+> -                               return -EINVAL;
+> -                       leakage_bin = (u16 *)
+> -                               (adev->mode_info.atom_context->bios + data_offset +
+> -                                le16_to_cpu(profile->usLeakageBinArrayOffset));
+> -                       vddc_id_buf = (u16 *)
+> -                               (adev->mode_info.atom_context->bios + data_offset +
+> -                                le16_to_cpu(profile->usElbVDDC_IdArrayOffset));
+> -                       vddc_buf = (u16 *)
+> -                               (adev->mode_info.atom_context->bios + data_offset +
+> -                                le16_to_cpu(profile->usElbVDDC_LevelArrayOffset));
+> -                       vddci_id_buf = (u16 *)
+> -                               (adev->mode_info.atom_context->bios + data_offset +
+> -                                le16_to_cpu(profile->usElbVDDCI_IdArrayOffset));
+> -                       vddci_buf = (u16 *)
+> -                               (adev->mode_info.atom_context->bios + data_offset +
+> -                                le16_to_cpu(profile->usElbVDDCI_LevelArrayOffset));
+> -
+> -                       if (profile->ucElbVDDC_Num > 0) {
+> -                               for (i = 0; i < profile->ucElbVDDC_Num; i++) {
+> -                                       if (vddc_id_buf[i] == virtual_voltage_id) {
+> -                                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
+> -                                                       if (vbios_voltage_id <= leakage_bin[j]) {
+> -                                                               *vddc = vddc_buf[j * profile->ucElbVDDC_Num + i];
+> -                                                               break;
+> -                                                       }
+> -                                               }
+> +       }
+> +
+> +       if (size < sizeof(ATOM_ASIC_PROFILING_INFO_V2_1))
+> +               return -EINVAL;
+> +
+> +       leakage_bin = (u16 *)(adev->mode_info.atom_context->bios + data_offset +
+> +                le16_to_cpu(profile->usLeakageBinArrayOffset));
+> +       vddc_id_buf = (u16 *)(adev->mode_info.atom_context->bios + data_offset +
+> +                le16_to_cpu(profile->usElbVDDC_IdArrayOffset));
+> +       vddc_buf = (u16 *)(adev->mode_info.atom_context->bios + data_offset +
+> +                le16_to_cpu(profile->usElbVDDC_LevelArrayOffset));
+> +       vddci_id_buf = (u16 *)(adev->mode_info.atom_context->bios + data_offset +
+> +                le16_to_cpu(profile->usElbVDDCI_IdArrayOffset));
+> +       vddci_buf = (u16 *)(adev->mode_info.atom_context->bios + data_offset +
+> +                le16_to_cpu(profile->usElbVDDCI_LevelArrayOffset));
+> +
+> +       if (profile->ucElbVDDC_Num > 0) {
+> +               for (i = 0; i < profile->ucElbVDDC_Num; i++) {
+> +                       if (vddc_id_buf[i] == virtual_voltage_id) {
+> +                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
+> +                                       if (vbios_voltage_id <= leakage_bin[j]) {
+> +                                               *vddc = vddc_buf[j * profile->ucElbVDDC_Num + i];
+>                                                 break;
+>                                         }
+>                                 }
+> +                               break;
+>                         }
+> -                       if (profile->ucElbVDDCI_Num > 0) {
+> -                               for (i = 0; i < profile->ucElbVDDCI_Num; i++) {
+> -                                       if (vddci_id_buf[i] == virtual_voltage_id) {
+> -                                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
+> -                                                       if (vbios_voltage_id <= leakage_bin[j]) {
+> -                                                               *vddci = vddci_buf[j * profile->ucElbVDDCI_Num + i];
+> -                                                               break;
+> -                                                       }
+> -                                               }
+> +               }
+> +       }
+> +
+> +       if (profile->ucElbVDDCI_Num > 0) {
+> +               for (i = 0; i < profile->ucElbVDDCI_Num; i++) {
+> +                       if (vddci_id_buf[i] == virtual_voltage_id) {
+> +                               for (j = 0; j < profile->ucLeakageBinNum; j++) {
+> +                                       if (vbios_voltage_id <= leakage_bin[j]) {
+> +                                               *vddci = vddci_buf[j * profile->ucElbVDDCI_Num + i];
+>                                                 break;
+>                                         }
+>                                 }
+> +                               break;
+>                         }
+> -                       break;
+> -               default:
+> -                       DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+> -                       return -EINVAL;
+>                 }
+> -               break;
+> -       default:
+> -               DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+> -               return -EINVAL;
+>         }
 >
->  /* make one obj and return it. */
+>         return 0;
 > --
 > 2.31.0
 >
