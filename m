@@ -2,132 +2,57 @@ Return-Path: <SRS0=FlJ6=I6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F09AFC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 12:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99524C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 12:32:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A43296112D
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 12:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A43296112D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 39CBE61130
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Apr 2021 12:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39CBE61130
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tuxedocomputers.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A096E131;
-	Thu,  1 Apr 2021 12:27:18 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB6276E131
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Apr 2021 12:27:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBzsUBAMvX/URscrcfWMecY2HeDhDsMRqWdzgjfkfubQeg3o0+U2uYGWJnhxKxNsKJsdNm0jDhjB7NLLPfDgmR4FBGqs3peT5IAwwT0ljkt9mtzM1L9InPH5wWL2Xcb9Td8JO+osRyTb4n5cqN0uxgHGNOwSA83d4GMDc0PrCrLAf4x9pN8OzyYt+hRJXu7bVdDnIY7ze1xtZbU9JWTCVjtj5M9mzFExK17ogCJrFp992FpmfJMqrpEIVdtZcrJRFAh1Oles8Ks4dblIav6grGdKTXzt4HINidyOeE64MI/cMJ3BgmjOWW50YFq/k636hgCoC+PEMp0mWc+OHk6nmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/3s+CihcsMQ4HEKVHgUU3itE/eExvZJvQuQRBL1nqA=;
- b=iJuQvwdM0Z3IIkF28Ty4fbiCN4A48uHvUhrHyWXt/BPLq8Kr3kGF9VbJUt64QcNwOJ2Wmd5hs9mml5Nwn+JZNeq7bNSrOt740i45m8sgFI08v6gogo/2ClfJZxKw0+kgzABUHF9elViNcHyl8BFp1nV67sB5hP7UCZYr0JY3PdtEpzyfZ4SXl9vMNNSoy5jXbTuPK/SbCtAKf8aimrwuDfRJ2a8ozUnlsojs4iSdVQNNIeBq3e/z4s3DqiiL73KbEstimUBZFQp6XsDB3jhBQazvR8N+41vtkGX5x6FeNQKgKJoCW2qci4lp2Vy9PZxq4aXW40WuJWelI35VfdBZGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/3s+CihcsMQ4HEKVHgUU3itE/eExvZJvQuQRBL1nqA=;
- b=wxexjb6cE18bPYUpBY5YNr2yMl/8VitIuDdPbOnDyBM4DP2aM65FxdzdIzdLggF6qJxJbuWREG9Ys0m/pYQpAw3b2rqhWbLWszNTNBRhCu+nthSFRY0FpjZOA56qvMTccSjMWErsljqXVzL1eXeVDLPs0ekNsA/J0tkKXuu/Joc=
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com (2603:10b6:4:b0::10) by
- DM5PR12MB1531.namprd12.prod.outlook.com (2603:10b6:4:f::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.26; Thu, 1 Apr 2021 12:27:14 +0000
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::9858:1263:9afa:4401]) by DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::9858:1263:9afa:4401%7]) with mapi id 15.20.3933.039; Thu, 1 Apr 2021
- 12:27:13 +0000
-From: "Li, Dennis" <Dennis.Li@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH Review 1/1] drm/amdgpu: support sdma error injection
-Thread-Topic: [PATCH Review 1/1] drm/amdgpu: support sdma error injection
-Thread-Index: AQHXJugXVoeo3HPFY0icUCjJgWgNOaqflmJA
-Date: Thu, 1 Apr 2021 12:27:13 +0000
-Message-ID: <DM5PR12MB2533215A051551E2134E138CED7B9@DM5PR12MB2533.namprd12.prod.outlook.com>
-References: <20210401111344.29431-1-Stanley.Yang@amd.com>
-In-Reply-To: <20210401111344.29431-1-Stanley.Yang@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-01T12:27:02Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=c4d6f869-124d-4edb-a0e0-4ad1bd87f54e;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6477d488-e632-4b2d-52a1-08d8f5097afb
-x-ms-traffictypediagnostic: DM5PR12MB1531:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB15317E5F756534E45A03C28FED7B9@DM5PR12MB1531.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:229;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: E1PBKbVtYfSU/gvG80lMSCwii3uMcXRBzMG0oHgEUmoxXQf4B/nx6UlpnKwmYJ/8cuSj6TY+H2vnZXxeKDMjwxp0arZxbWmOEBCNze89e2FGsa4DuEhSN/VNQoPswbPxapJZVGm6IUQJ5wcDhb0VGnk2BoQIoSdKZt9PNjhmkNSwTjE0mzVMgmzKjMxymUu3GHhqrgEj05wPJKmZRGMhu2rlTWVWREhE1HY6XbApYAab/4uaXkww9va6PLR3qgsQ5A07el/rrPCz7ihVFZCa+rBu975CehQWMGYjTObCU5hYRQ/cQI+50soiyJJ6PCsy5JGiu6hFeSTZeNcffvGUtLLMvdJZzEEsTi1/F98w4iYGNPSDzb4+NAuKIWi79OASNz4e9iDsFqpwK3SR9/kSxdgiO3cyxTfUVBVKREYowMbu+8diUIk9nMPO1MUZlg598dxZnT7uOqvUqGy6Tch3nL2v5mEYST8mNXlcnC/WLgZofXWCNIX9l0Cexm1lbXde4cCuuxWr4csAyxMtUBQfYse7bw2kYYiwvko4W4wF3P6BCs/WjfBiougvY+SCheFuTcy6x8ydKZEfnchOfPCg5m1eEVA5DRAUelf4fj/JjH2t1+tqjlxS4bNApI9/NIeaXZoKuNlPmFa0fBT4+69KjGT8OJ/zmCK5bujY9JAKqf0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2533.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(346002)(376002)(39860400002)(136003)(186003)(26005)(52536014)(4744005)(66946007)(33656002)(5660300002)(2906002)(110136005)(54906003)(64756008)(66476007)(66556008)(66446008)(76116006)(316002)(6506007)(478600001)(83380400001)(53546011)(86362001)(38100700001)(7696005)(8936002)(8676002)(55016002)(9686003)(4326008)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?cUVUczdTbUFHek9paFJQWXEra1BvQ2kveVZTRXphaEZVb0lmOXUwbVRUVWRp?=
- =?utf-8?B?MkxiQ1greHJLN0lWQ1lrYzlCdWdmQzBtNnBONWpaZVJ6enA4TG9OajZSYnhZ?=
- =?utf-8?B?dEg3NkRxRkMvQXZ1OGdFaWF4N1dYYTZwN00xVlRYSk9Vd2pIWHBGQ1RoaUtx?=
- =?utf-8?B?M1N6aXdGZU1halpsNkpjVWdneGVBNVBLdmRrZmJJbGhpNnltMlQ0Ky9HMWQr?=
- =?utf-8?B?RHVqVHFkSzdvSG9iek5EaDBWcnJKU3RUTnAwR0VJNkhTZVdCK1ZwdTJaSlVZ?=
- =?utf-8?B?aGMwSTliZEEzNEJTMTk3RnBJYW05STl6TE9CTFhza0dvVHFFd0t0ZFU0dmp1?=
- =?utf-8?B?QU5pdG1JcXZ2c0xReUJBQXVPZ0RMTmV3WTNnOEdlU1JPWC9FMHRGanhQL0xM?=
- =?utf-8?B?MmxyZHZ3bmNYZThrYkxUU1Y0MjFYWTRXaytpWGI4RzVCd0V5OWlaYjB6bGkx?=
- =?utf-8?B?MXdGeDhranFaay9yWDJOb3VIeEFHOWd3UVU3b3lkbHpsVHFOY3dtREc5Rkg1?=
- =?utf-8?B?K1MzOEU4ZEhqRXp0S2JsMThtMmx1dU9yTDZ5VEVwSnNpNllhVy81RGV1SFRu?=
- =?utf-8?B?ZFFJWmFwUGhFVmlwZEM1SUI4aDBOMjJ5NCtyZ2VrL09tcFVjVTllKzRDVXIw?=
- =?utf-8?B?aEZxMWwyakdDbENBUklEanRSbUNTVVNXdjhkNW52dzduRU9mdFl5ck9iWlpB?=
- =?utf-8?B?YXF3ckhlYThkQ3NGZnk3SEM1NWJoOFBxeGtOMURDQm1abDF2UlQrSS9NQ3Er?=
- =?utf-8?B?Z25sQzRmbVQ0Zk9kUnBWclFDdkNmSnoyeEo2TFZtejAzNmcxd3gvNGtGakdR?=
- =?utf-8?B?ZTFwYVpYTlZIWFcxZkRyVWdwcCtKL0NKRldWSmgrcVUwMFVmbjVKVGZBYmdH?=
- =?utf-8?B?SFFuMStmS0hvUzRnTXB6cEoyLytBb2RXZkc0N1RlRm1renREeUlyM2s5NERa?=
- =?utf-8?B?aFNrZVFRb1NJd1dwelMwYWk3enhWYWpqd2oxbkQrbmRTNjdYS045SEYyTlNp?=
- =?utf-8?B?Vkt0UWRFZlVuQTR5MDNCWFVDckpGRUxXd3RzTnNCMW1Ob3Z6a3l5VlBRQTl5?=
- =?utf-8?B?R1lXakJtcGQzUWtxUnF2KzNEdllXazlrMUtLdnFGYzNXYWh1VnlXb2Z6YUNJ?=
- =?utf-8?B?TERmTUtMaGVuenRQWDY0d0tORCs3c3ZuRlNUR2R4OXdQSFlUUXRFWjJnNGh1?=
- =?utf-8?B?TzE1UC9DVytMdktnQWpZSFhUMHQ5M3BabzRZaGZvYTk5SlJyb0ZpMHNWY2Fv?=
- =?utf-8?B?QTlESG44M0xBZEFTRUpkZ2VHdTJ1ZE1kTmVCaFJLQzZpWUt3NjI5R3ZndmF1?=
- =?utf-8?B?c0UxQmNhTGRrbTZmYm1BYnVRQWl6dlJCMDMxM05kTjltQ2R2dEhEMXd6OGRa?=
- =?utf-8?B?UzAvS2lGZXAwZGtBeGxoZGxsUkFSaXYrTlRIL3o2RTJESTQ0MGJKUzdnNGRU?=
- =?utf-8?B?Z2d6SE95VTIvUTE4WURabjI1Zk1ZeXFha3BNUkdYSk5vRWFZUlpNVmFOZStU?=
- =?utf-8?B?eWxNOEs2dEN2UEczQjJoQmlvT1EwSVlqUUJXTWt5cStGalR4Q0lwU3hvSTlh?=
- =?utf-8?B?cmRNRXJjb2Z5Y0YyVXB0TDRFRURGVmhTUzc0S0dITFVzanV0RmtxTVVESVhp?=
- =?utf-8?B?L3U1K0ExNGZIbnJLZUxjK0lrS1VTMElCVHY5THNjd3c5aUZ3T2FoQ25sY2hC?=
- =?utf-8?B?ZHF1WW5mRHduTTByTkprbG5IbWNCaDdHaVJOdGVlVFNIRjF2YlVCL08ybExl?=
- =?utf-8?Q?Lf6nt1vCtvanNgs+aqg/LJVG08i0bB9nE6Qq+YD?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98EB06E0BA;
+	Thu,  1 Apr 2021 12:32:25 +0000 (UTC)
+Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09BDE6E02A;
+ Thu,  1 Apr 2021 12:32:23 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by srv6.fidu.org (Postfix) with ESMTP id 8740CC800B5;
+ Thu,  1 Apr 2021 14:32:20 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
+Received: from srv6.fidu.org ([127.0.0.1])
+ by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id lvO4sv4hQovF; Thu,  1 Apr 2021 14:32:14 +0200 (CEST)
+Received: from [IPv6:2003:e3:7f0c:2000:d739:3a07:1878:3326]
+ (p200300E37F0C2000d7393a0718783326.dip0.t-ipconnect.de
+ [IPv6:2003:e3:7f0c:2000:d739:3a07:1878:3326])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by srv6.fidu.org (Postfix) with ESMTPSA id 3867FC800A7;
+ Thu,  1 Apr 2021 14:32:14 +0200 (CEST)
+Subject: Re: [PATCH] drm/amd/display: Try YCbCr420 color when YCbCr444 fails
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20210317151348.11331-1-wse@tuxedocomputers.com>
+ <CADnq5_OpJ-2jR4D8xwH93PZKoMWXx8C2yGTkqt7KRrVgph-KvA@mail.gmail.com>
+ <53b26416-31d0-6efd-04e9-2a9f34e525b7@amd.com>
+ <CADnq5_NwuTv5pWiOk_bYdemm+aPi_SNZTYzMLO3ewma-Bkwhkg@mail.gmail.com>
+From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <b9d15c48-5175-3ca4-c9cf-142c95a3fbee@tuxedocomputers.com>
+Date: Thu, 1 Apr 2021 14:32:09 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2533.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6477d488-e632-4b2d-52a1-08d8f5097afb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2021 12:27:13.7948 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /rXyduTn94q5dToGXyE/GnnJLAgA6dAehCXym9WDxRWHkvWDeMYddikPNnHMBYXK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1531
+In-Reply-To: <CADnq5_NwuTv5pWiOk_bYdemm+aPi_SNZTYzMLO3ewma-Bkwhkg@mail.gmail.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,43 +64,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yang, Stanley" <Stanley.Yang@amd.com>, "Clements,
- John" <John.Clements@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Dave Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Am 29.03.21 um 17:28 schrieb Alex Deucher:
+> Applied.  Thanks!
+>
+> Alex
+Nice to hear that ^^
 
-Reivewed-by: Dennis Li <Dennis.Li@amd.com>
+One quick question: Here do I find the amd-gfx dev branch?
 
------Original Message-----
-From: Stanley.Yang <Stanley.Yang@amd.com> 
-Sent: Thursday, April 1, 2021 7:14 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Clements, John <John.Clements@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH Review 1/1] drm/amdgpu: support sdma error injection
+Kind regards,
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 0e16683876aa..d9d292c79cfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -927,6 +927,7 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
- 			ret = -EINVAL;
- 		break;
- 	case AMDGPU_RAS_BLOCK__UMC:
-+	case AMDGPU_RAS_BLOCK__SDMA:
- 	case AMDGPU_RAS_BLOCK__MMHUB:
- 	case AMDGPU_RAS_BLOCK__PCIE_BIF:
- 		ret = psp_ras_trigger_error(&adev->psp, &block_info);
--- 
-2.17.1
+Werner Sembach
+>
+> On Fri, Mar 26, 2021 at 10:59 AM Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+>>
+>> On 2021-03-24 4:23 p.m., Alex Deucher wrote:
+>>> On Wed, Mar 17, 2021 at 11:25 AM Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>>> When encoder validation of a display mode fails, retry with less bandwidth
+>>>> heavy YCbCr420 color mode, if available. This enables some HDMI 1.4 setups
+>>>> to support 4k60Hz output, which previously failed silently.
+>>>>
+>>>> On some setups, while the monitor and the gpu support display modes with
+>>>> pixel clocks of up to 600MHz, the link encoder might not. This prevents
+>>>> YCbCr444 and RGB encoding for 4k60Hz, but YCbCr420 encoding might still be
+>>>> possible. However, which color mode is used is decided before the link
+>>>> encoder capabilities are checked. This patch fixes the problem by retrying
+>>>> to find a display mode with YCbCr420 enforced and using it, if it is
+>>>> valid.
+>>>>
+>>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>>> Cc: <stable@vger.kernel.org>
+>>>
+>>> This seems reasonable to me.  Harry, Leo, Any objections?
+>>>
+>> Looks good to me.
+>>
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>>
+>> Harry
+>>
+>>> Alex
+>>>
+>>>> ---
+>>>>
+>>>>  From c9398160caf4ff20e63b8ba3a4366d6ef95c4ac3 Mon Sep 17 00:00:00 2001
+>>>> From: Werner Sembach <wse@tuxedocomputers.com>
+>>>> Date: Wed, 17 Mar 2021 12:52:22 +0100
+>>>> Subject: [PATCH] Retry forcing YCbCr420 color on failed encoder validation
+>>>>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++++
+>>>>   1 file changed, 9 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> index 961abf1cf040..2d16389b5f1e 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> @@ -5727,6 +5727,15 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+>>>>
+>>>>          } while (stream == NULL && requested_bpc >= 6);
+>>>>
+>>>> +       if (dc_result == DC_FAIL_ENC_VALIDATE && !aconnector->force_yuv420_output) {
+>>>> +               DRM_DEBUG_KMS("Retry forcing YCbCr420 encoding\n");
+>>>> +
+>>>> +               aconnector->force_yuv420_output = true;
+>>>> +               stream = create_validate_stream_for_sink(aconnector, drm_mode,
+>>>> +                                               dm_state, old_stream);
+>>>> +               aconnector->force_yuv420_output = false;
+>>>> +       }
+>>>> +
+>>>>          return stream;
+>>>>   }
+>>>>
+>>>> --
+>>>> 2.25.1
+>>>>
+>>>> _______________________________________________
+>>>> dri-devel mailing list
+>>>> dri-devel@lists.freedesktop.org
+>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
