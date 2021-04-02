@@ -7,48 +7,48 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40599C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Apr 2021 06:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E56C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Apr 2021 06:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 032E0610E8
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Apr 2021 06:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 032E0610E8
+	by mail.kernel.org (Postfix) with ESMTPS id 0202161104
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Apr 2021 06:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0202161104
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959CB6EE0D;
-	Fri,  2 Apr 2021 06:44:14 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D196EE0C
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Apr 2021 06:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6C3A6EE0F;
+	Fri,  2 Apr 2021 06:44:18 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13AC6EE0F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Apr 2021 06:44:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I7Zrn27Or5622uUqtpRM3WuQu9KpIoz+sb1L7AaxvtWnMEvdzaaiwFwuzJKYVHU0fMwAk/9CuDT/3EW8OXiI2+rwyYmql7zk6twUxeztmubkJpsKhgPpJ018AdLCV2n4C9tf5Do11LJsSn/yZc/sTvrxk1aoBaOSZicVYVLS0cWDwUmpyYdmmu2CglFbWrgfVxbSKygng4/d9fQdwi6EzNdZFVoclEX/1ihlJU8cOPgZduXN/gBHBxlbwj8fnTKo1UoCcPAE0OkEp/Hn6m/mIGoACBrq8Pov31CsG2L2FMVugR1qg6PvrKkp2EW1sOFypNUVoPQ6EPkMFNq87tIFHQ==
+ b=O287wXjYUzHZV+eum60UmaYCqPrqAzKoTdoBrZqZz0bRk9XC2xvyfTXG6cuYCrFdPFXW697I4dSKbAM7QbfRTRUv67KkBiVwPfc2ydLc0Vz3iO8hlyFVswSJD5Lrv8OeFk2/UUWOoIBZMRjHmMmGl2loPby6/vauQIJyNvbiteyJcWJuFwW0yyL2HlfNjFOiy9ifTDLa3+RRNqIyhf7/jJGtqX2lzxx8iEFHppbKGNfiUg1ifHd14JkjewSo7Vw1Aw6U2tCBEUa2Znzse8RopOc0vBe1OUzu6Wd1PM5zDsuYO4nTuYi9zpP//4kWvdNcLKZQDXnpzztBPw6+oAVCVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1140nqdxdmn6SN2GwSrCp3+iqCk0xNsHC/XoOkx6pAc=;
- b=aZ9OSNXN7ZmF3zZRvpFhHqVOVzR8WgVt5WxvEgHQWmehL3RdeHuPz/TjnE1ehnwq2M2Lw2g9j58anMbcroCKOKEIie/+5ht4j68RC7u1RgmGjoRSmEk0uWDXpSG4MvR9pdfANrQAfY6SSCEqH0cFQHCRcfHeIYifzYIbM6PUXiflfQLTZRRO2NLJzxugcLQtVbcR6zgyJ2vrJBnYPSo6Aujefh/Z1hq4wffmvdG0cwsZnolQ0L5T7uF/k+KYV0o4B00qbp2YB5V8hpqOH8nu9XYb6MPuyEIEe7bGtMeOUT+Zh4afi3xnhPFMC/YEyN0T70vupKLQlhnc0qiX51ursA==
+ bh=4hcUlETF++1iyH7z5GDcpuAyr8e6wYp0EBWYObBIv50=;
+ b=CEk6Ymccs2Mr2qODFZ6v+QkXIcySbDNcjsnVp0jNSSlh5spESJAQMurFsxDPpaQqbQuBMl3CBnSFAZmoMbQeW5+QUJym57r+IJLQcTyMFWuMQHPtuYHnqXAhb3wzbOt4RfNd+9aghoSPmos0f0eOwsbTfRi8SIdJCN4th8qnDJKaN3paq+cevxzGnMKElbw/9C36kgQ0ijVlDOKJXgi/kuiJ7zyQIEa6v9dqXjeiuUyyimv8eay5TmYE3Wrjay4uXiSPb59z7ZJ4IW6eW2z/RbuB/89/KRGGc8VDs5Q1sB9F+POuaS++m3clzQuHGv23shjMa/bZpuG4U5b94a2fcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1140nqdxdmn6SN2GwSrCp3+iqCk0xNsHC/XoOkx6pAc=;
- b=XTmt9cfkLE8ziWN2fpgWaXphMe6ggvseD5UkTHyH0HilYU+ew7HGnAfuXkhFBuHtgT92pM8FqHlYCOyn1XhLQi3S1rYAKqN7kJC5mptAp277E+OFjlF05FCao/XsvRGTrH2Ji+j7BfDGGkhALkTyqRSIi6hsQOA0HHLERPuPuRA=
-Received: from DS7PR03CA0127.namprd03.prod.outlook.com (2603:10b6:5:3b4::12)
- by CY4PR12MB1239.namprd12.prod.outlook.com (2603:10b6:903:3d::14) with
+ bh=4hcUlETF++1iyH7z5GDcpuAyr8e6wYp0EBWYObBIv50=;
+ b=iRSGh2tAW//SvMmEJI94+izHkADt9AGC9uB0+VMvFbe061ZHQNP0QKtWMqZe+iVyXeKm1CZuF1XkOn+5told0QDFtaSjDOrd2RQrqf7sPAog5eW6kj4OMsL5asl4PV0Ltln7e1CsTlXVNm+AHJiTPDF7bJLU246byuJdhawlGEA=
+Received: from DM6PR02CA0068.namprd02.prod.outlook.com (2603:10b6:5:177::45)
+ by DM5PR12MB2568.namprd12.prod.outlook.com (2603:10b6:4:b5::35) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.28; Fri, 2 Apr
- 2021 06:44:11 +0000
-Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::ea) by DS7PR03CA0127.outlook.office365.com
- (2603:10b6:5:3b4::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Fri, 2 Apr
+ 2021 06:44:13 +0000
+Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:177:cafe::e) by DM6PR02CA0068.outlook.office365.com
+ (2603:10b6:5:177::45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.28 via Frontend
- Transport; Fri, 2 Apr 2021 06:44:11 +0000
+ Transport; Fri, 2 Apr 2021 06:44:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,49 +57,50 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
+ DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3999.28 via Frontend Transport; Fri, 2 Apr 2021 06:44:10 +0000
+ 15.20.3999.28 via Frontend Transport; Fri, 2 Apr 2021 06:44:13 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 2 Apr 2021
- 01:44:10 -0500
+ 01:44:12 -0500
 Received: from hawzhang-System-Product-Dev.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2106.2
- via Frontend Transport; Fri, 2 Apr 2021 01:44:08 -0500
+ via Frontend Transport; Fri, 2 Apr 2021 01:44:10 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, John Clements <John.Clements@amd.com>,
  Dennis Li <Dennis.Li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 08/11] drm/amdgpu: split umc callbacks to ras and non-ras ones
-Date: Fri, 2 Apr 2021 14:43:42 +0800
-Message-ID: <20210402064345.14093-8-Hawking.Zhang@amd.com>
+Subject: [PATCH 09/11] drm/amdgpu: do not register df_mca interrupt in certain
+ config
+Date: Fri, 2 Apr 2021 14:43:43 +0800
+Message-ID: <20210402064345.14093-9-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210402064345.14093-1-Hawking.Zhang@amd.com>
 References: <20210402064345.14093-1-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1e4ae862-2e44-485e-feca-08d8f5a2b8ec
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1239:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1239FE4F6B61F9BAA1DBB661FC7A9@CY4PR12MB1239.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:95;
+X-MS-Office365-Filtering-Correlation-Id: 8c9a8a9a-ce70-4990-6fc6-08d8f5a2ba50
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2568:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB256834A8BD2A795A4CCC4EB8FC7A9@DM5PR12MB2568.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lT/DUc6umDKVWoVxKnflO8NsTq1N5jAVVGTB/KgIDnjfesmVjYF9L+s6tMlg5mGjCtdmGomQ/+lrDxcHOFLZTUASBvbz8DaC2QvBkNqQvHYj3LHN5RdWM8GyBG6S1gvxiHocdpXHOF3HJYt8QYw0yC1O1RgYDEYi5/ndkqeuvfeOX7EMXS0T3PXft2SMLsXO+CJPAHfrWAPGMiCWy8nG7VdBw9zu9S4I5GDqDzGhAc0RG3+LOJVXm6YLknJnI0nk1LR25kxByEtGOIGo07rNHgeEn8TDEdfpUij8A5mER40aPyawuwmbY3gBMYYsFTqs35cIP/jmFmu6IeI9tuvK9UHVa2yqGKRUJy4PIwDBpxW7nSQZV17iT21GKQ9LbAYC8pmbCSJn6R6oWNPnheLrTks6TvtVIkwDDl0q21Wt9hkMHvskLiq2lrNxl5It0ItiedkaFQ2DkPqSd+0DLMakHc/wLeWKjqmnHbYVZAjcXc3IRE6EAF4k1xIcYTUm4L6oBKjg9Pjh+/8l8Gq372+hKthffajBt6hd31ObTy4Yh4B0RrppHF93Q9hFWBQHfA1uLp2U7xHme60IwSSc6RSGIAiOBfR3/UZczBFlespmmLn0MZp3h1MuC0W5cGo1elaxwZNLkpsOOFZN4PiGVyqIKVKLXPvvoSn/PPv6NecRzUqQNg3zHV6i2EOEmX9wxfTY
+X-Microsoft-Antispam-Message-Info: 5wlzaFut6SsmYdQGLV4AuivPhV5knSZiVk4cWycdMPfrof0SiCfmWP/jvx/UJ47wo+zM1BSBEsh2pp9WAvoWmS509+CgNo33rwNNbWnaSX7jBiR1E/ojBqgkDOtFV5MjXLL4StWQqAh8AYU+mPNzepCGoNVhAmxlXMcvzkBEvzBQ81gdlk02dGNO4W86E4Bu92BxJg6PCautB7vALxRqUOKLYOKHvB1r6cOKZYLBQmaFui9QdDArMFHd+l2tznIkrr4HT7vJucVgNbx0Tv5CCacTncWDxy6A5ZfMu5YWSUIidwPwIQqAcmDptls8V4wILE6WgMmRqRECgZEfyOGl6SqJZ0GdmkIrnfUda+j8tnjg2+7BBgU0FXumZiZf2U6YPUm9l3d5KnCfeIrpsz32Z3+Tyo1RHuAXS1VN1fSnMBJc2Yk3614rbAIqn/BvCQ88biMTNNZHTNaFvV29XbfufkR7kc15uSwwkDBkjKn9BpXLQhejLM1VUfWqISufn7iY2lijCxyBCJwV1xBsfhY2Ir74YqoakDTz9qBO0TahWbGIiZMjdpL4HibOupk/LuHMJNq3ZALQYmKUd6PZquuj0wUfV6YGWOasD//E1ktIbJWCyEyCxebsGIJNk1X2JqrQdAlOJd+IXThF3jzd7+u4d9/V3Q+ZXyCIVWTgpifq6byIb1AL//MmSLC6dtK8qn7/
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(39860400002)(396003)(46966006)(36840700001)(336012)(478600001)(186003)(30864003)(8936002)(4326008)(82310400003)(2906002)(356005)(2616005)(6666004)(47076005)(82740400003)(8676002)(81166007)(26005)(36860700001)(5660300002)(83380400001)(426003)(6636002)(70206006)(70586007)(7696005)(110136005)(86362001)(36756003)(1076003)(316002)(36900700001);
+ SFS:(4636009)(39860400002)(346002)(136003)(396003)(376002)(46966006)(36840700001)(6636002)(83380400001)(1076003)(5660300002)(26005)(110136005)(316002)(81166007)(82740400003)(2616005)(336012)(426003)(8936002)(8676002)(6666004)(70206006)(2906002)(186003)(36756003)(356005)(86362001)(4326008)(47076005)(70586007)(82310400003)(478600001)(7696005)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2021 06:44:10.8022 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e4ae862-2e44-485e-feca-08d8f5a2b8ec
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2021 06:44:13.1346 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c9a8a9a-ce70-4990-6fc6-08d8f5a2ba50
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1239
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2568
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,328 +118,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-umc ras is not managed by gpu driver when gpu is
-connected to cpu through xgmi. split umc callbacks
-into ras and non-ras ones so gpu driver only
-initializes umc ras callbacks when it manages
-umc ras.
+df/mca ras is not managed by gpu driver when gpu
+is connected to cpu through xgmi. gpu driver should
+register x86 mca notifier for umc ras error
+notification
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reivewed-by: Dennis Li <Dennis.Li@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 11 ++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 10 ++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 17 +++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  9 +++++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 16 ++++++++--------
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.c   |  4 +++-
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c   |  4 +++-
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/umc_v8_7.c   |  4 +++-
- drivers/gpu/drm/amd/amdgpu/umc_v8_7.h   |  2 +-
- 12 files changed, 51 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 082f9d03a94a..3411c6577a18 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -391,8 +391,9 @@ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
- {
- 	int r;
- 
--	if (adev->umc.funcs && adev->umc.funcs->ras_late_init) {
--		r = adev->umc.funcs->ras_late_init(adev);
-+	if (adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->ras_late_init) {
-+		r = adev->umc.ras_funcs->ras_late_init(adev);
- 		if (r)
- 			return r;
- 	}
-@@ -418,8 +419,12 @@ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
- 
- void amdgpu_gmc_ras_fini(struct amdgpu_device *adev)
- {
--	amdgpu_umc_ras_fini(adev);
-+	if (adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->ras_fini)
-+		adev->umc.ras_funcs->ras_fini(adev);
-+
- 	amdgpu_mmhub_ras_fini(adev);
-+
- 	if (adev->gmc.xgmi.ras_funcs &&
- 	    adev->gmc.xgmi.ras_funcs->ras_fini)
- 		adev->gmc.xgmi.ras_funcs->ras_fini(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 172738cc99db..459a470744f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -774,13 +774,15 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
- 
- 	switch (info->head.block) {
- 	case AMDGPU_RAS_BLOCK__UMC:
--		if (adev->umc.funcs->query_ras_error_count)
--			adev->umc.funcs->query_ras_error_count(adev, &err_data);
-+		if (adev->umc.ras_funcs &&
-+		    adev->umc.ras_funcs->query_ras_error_count)
-+			adev->umc.ras_funcs->query_ras_error_count(adev, &err_data);
- 		/* umc query_ras_error_address is also responsible for clearing
- 		 * error status
- 		 */
--		if (adev->umc.funcs->query_ras_error_address)
--			adev->umc.funcs->query_ras_error_address(adev, &err_data);
-+		if (adev->umc.ras_funcs &&
-+		    adev->umc.ras_funcs->query_ras_error_address)
-+			adev->umc.ras_funcs->query_ras_error_address(adev, &err_data);
- 		break;
- 	case AMDGPU_RAS_BLOCK__SDMA:
- 		if (adev->sdma.funcs->query_ras_error_count) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index a2975c8092a9..ea6f99be070b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -60,8 +60,9 @@ int amdgpu_umc_ras_late_init(struct amdgpu_device *adev)
- 	}
- 
- 	/* ras init of specific umc version */
--	if (adev->umc.funcs && adev->umc.funcs->err_cnt_init)
--		adev->umc.funcs->err_cnt_init(adev);
-+	if (adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->err_cnt_init)
-+		adev->umc.ras_funcs->err_cnt_init(adev);
- 
- 	return 0;
- 
-@@ -95,12 +96,12 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
- 	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
- 
- 	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
--	if (adev->umc.funcs &&
--	    adev->umc.funcs->query_ras_error_count)
--	    adev->umc.funcs->query_ras_error_count(adev, ras_error_status);
-+	if (adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->query_ras_error_count)
-+	    adev->umc.ras_funcs->query_ras_error_count(adev, ras_error_status);
- 
--	if (adev->umc.funcs &&
--	    adev->umc.funcs->query_ras_error_address &&
-+	if (adev->umc.ras_funcs &&
-+	    adev->umc.ras_funcs->query_ras_error_address &&
- 	    adev->umc.max_ras_err_cnt_per_query) {
- 		err_data->err_addr =
- 			kcalloc(adev->umc.max_ras_err_cnt_per_query,
-@@ -116,7 +117,7 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
- 		/* umc query_ras_error_address is also responsible for clearing
- 		 * error status
- 		 */
--		adev->umc.funcs->query_ras_error_address(adev, ras_error_status);
-+		adev->umc.ras_funcs->query_ras_error_address(adev, ras_error_status);
- 	}
- 
- 	/* only uncorrectable error needs gpu reset */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-index 183814493658..bbcccf53080d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-@@ -35,13 +35,17 @@
- #define LOOP_UMC_CH_INST(ch_inst) for ((ch_inst) = 0; (ch_inst) < adev->umc.channel_inst_num; (ch_inst)++)
- #define LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) LOOP_UMC_INST((umc_inst)) LOOP_UMC_CH_INST((ch_inst))
- 
--struct amdgpu_umc_funcs {
-+struct amdgpu_umc_ras_funcs {
- 	void (*err_cnt_init)(struct amdgpu_device *adev);
- 	int (*ras_late_init)(struct amdgpu_device *adev);
-+	void (*ras_fini)(struct amdgpu_device *adev);
- 	void (*query_ras_error_count)(struct amdgpu_device *adev,
--					void *ras_error_status);
-+				      void *ras_error_status);
- 	void (*query_ras_error_address)(struct amdgpu_device *adev,
- 					void *ras_error_status);
-+};
-+
-+struct amdgpu_umc_funcs {
- 	void (*init_registers)(struct amdgpu_device *adev);
- };
- 
-@@ -59,6 +63,7 @@ struct amdgpu_umc {
- 	struct ras_common_if *ras_if;
- 
- 	const struct amdgpu_umc_funcs *funcs;
-+	const struct amdgpu_umc_ras_funcs *ras_funcs;
- };
- 
- int amdgpu_umc_ras_late_init(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 33e54eed2eec..2bfd620576f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -655,7 +655,7 @@ static void gmc_v10_0_set_umc_funcs(struct amdgpu_device *adev)
- 		adev->umc.umc_inst_num = UMC_V8_7_UMC_INSTANCE_NUM;
- 		adev->umc.channel_offs = UMC_V8_7_PER_CHANNEL_OFFSET_SIENNA;
- 		adev->umc.channel_idx_tbl = &umc_v8_7_channel_idx_tbl[0][0];
--		adev->umc.funcs = &umc_v8_7_funcs;
-+		adev->umc.ras_funcs = &umc_v8_7_ras_funcs;
- 		break;
- 	default:
- 		break;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index ce2b1a9125ea..c353254ea5dc 100644
+index c353254ea5dc..27f692904791 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1155,7 +1155,7 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
- 		adev->umc.umc_inst_num = UMC_V6_1_UMC_INSTANCE_NUM;
- 		adev->umc.channel_offs = UMC_V6_1_PER_CHANNEL_OFFSET_VG20;
- 		adev->umc.channel_idx_tbl = &umc_v6_1_channel_idx_tbl[0][0];
--		adev->umc.funcs = &umc_v6_1_funcs;
-+		adev->umc.ras_funcs = &umc_v6_1_ras_funcs;
- 		break;
- 	case CHIP_ARCTURUS:
- 		adev->umc.max_ras_err_cnt_per_query = UMC_V6_1_TOTAL_CHANNEL_NUM;
-@@ -1163,7 +1163,7 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
- 		adev->umc.umc_inst_num = UMC_V6_1_UMC_INSTANCE_NUM;
- 		adev->umc.channel_offs = UMC_V6_1_PER_CHANNEL_OFFSET_ARCT;
- 		adev->umc.channel_idx_tbl = &umc_v6_1_channel_idx_tbl[0][0];
--		adev->umc.funcs = &umc_v6_1_funcs;
-+		adev->umc.ras_funcs = &umc_v6_1_ras_funcs;
- 		break;
- 	default:
- 		break;
-@@ -1194,12 +1194,6 @@ static int gmc_v9_0_early_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -653,7 +653,8 @@ static void gmc_v9_0_set_irq_funcs(struct amdgpu_device *adev)
+ 	adev->gmc.vm_fault.num_types = 1;
+ 	adev->gmc.vm_fault.funcs = &gmc_v9_0_irq_funcs;
  
--	gmc_v9_0_set_gmc_funcs(adev);
--	gmc_v9_0_set_irq_funcs(adev);
--	gmc_v9_0_set_umc_funcs(adev);
--	gmc_v9_0_set_mmhub_funcs(adev);
--	gmc_v9_0_set_gfxhub_funcs(adev);
--
- 	if (adev->asic_type == CHIP_VEGA20 ||
- 	    adev->asic_type == CHIP_ARCTURUS)
- 		adev->gmc.xgmi.supported = true;
-@@ -1210,6 +1204,12 @@ static int gmc_v9_0_early_init(void *handle)
- 			adev->smuio.funcs->is_host_gpu_xgmi_supported(adev);
+-	if (!amdgpu_sriov_vf(adev)) {
++	if (!amdgpu_sriov_vf(adev) &&
++	    !adev->gmc.xgmi.connected_to_cpu) {
+ 		adev->gmc.ecc_irq.num_types = 1;
+ 		adev->gmc.ecc_irq.funcs = &gmc_v9_0_ecc_funcs;
  	}
+@@ -1510,7 +1511,8 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
  
-+	gmc_v9_0_set_gmc_funcs(adev);
-+	gmc_v9_0_set_irq_funcs(adev);
-+	gmc_v9_0_set_umc_funcs(adev);
-+	gmc_v9_0_set_mmhub_funcs(adev);
-+	gmc_v9_0_set_gfxhub_funcs(adev);
-+
- 	adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
- 	adev->gmc.shared_aperture_end =
- 		adev->gmc.shared_aperture_start + (4ULL << 30) - 1;
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-index 96d7769609f4..20b44983ac94 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-@@ -22,6 +22,7 @@
-  */
- #include "umc_v6_1.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_umc.h"
- #include "amdgpu.h"
- 
- #include "rsmu/rsmu_0_0_2_offset.h"
-@@ -464,9 +465,10 @@ static void umc_v6_1_err_cnt_init(struct amdgpu_device *adev)
- 		umc_v6_1_enable_umc_index_mode(adev);
- }
- 
--const struct amdgpu_umc_funcs umc_v6_1_funcs = {
-+const struct amdgpu_umc_ras_funcs umc_v6_1_ras_funcs = {
- 	.err_cnt_init = umc_v6_1_err_cnt_init,
- 	.ras_late_init = amdgpu_umc_ras_late_init,
-+	.ras_fini = amdgpu_umc_ras_fini,
- 	.query_ras_error_count = umc_v6_1_query_ras_error_count,
- 	.query_ras_error_address = umc_v6_1_query_ras_error_address,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h
-index 0ce1d323cfdd..5dc36c730bb2 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h
-@@ -45,7 +45,7 @@
- /* umc ce count initial value */
- #define UMC_V6_1_CE_CNT_INIT	(UMC_V6_1_CE_CNT_MAX - UMC_V6_1_CE_INT_THRESHOLD)
- 
--extern const struct amdgpu_umc_funcs umc_v6_1_funcs;
-+extern const struct amdgpu_umc_ras_funcs umc_v6_1_ras_funcs;
- extern const uint32_t
- 	umc_v6_1_channel_idx_tbl[UMC_V6_1_UMC_INSTANCE_NUM][UMC_V6_1_CHANNEL_INSTANCE_NUM];
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index 3c3fb01b7c20..3a8f787374c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -22,6 +22,7 @@
-  */
- #include "umc_v6_7.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_umc.h"
- #include "amdgpu.h"
- 
- #include "umc/umc_6_7_0_offset.h"
-@@ -272,8 +273,9 @@ static void umc_v6_7_query_ras_error_address(struct amdgpu_device *adev,
- 	}
- }
- 
--const struct amdgpu_umc_funcs umc_v6_7_funcs = {
-+const struct amdgpu_umc_ras_funcs umc_v6_7_ras_funcs = {
- 	.ras_late_init = amdgpu_umc_ras_late_init,
-+	.ras_fini = amdgpu_umc_ras_fini,
- 	.query_ras_error_count = umc_v6_7_query_ras_error_count,
- 	.query_ras_error_address = umc_v6_7_query_ras_error_address,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-index e59dbdb6ef9b..4eb85f247e96 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-@@ -32,6 +32,6 @@
- 
- #define UMC_V6_7_INST_DIST	0x40000
- 
--extern const struct amdgpu_umc_funcs umc_v6_7_funcs;
-+extern const struct amdgpu_umc_ras_funcs umc_v6_7_ras_funcs;
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-index a064c097690c..89d20adfa001 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-@@ -22,6 +22,7 @@
-  */
- #include "umc_v8_7.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_umc.h"
- #include "amdgpu.h"
- 
- #include "rsmu/rsmu_0_0_2_offset.h"
-@@ -323,9 +324,10 @@ static void umc_v8_7_err_cnt_init(struct amdgpu_device *adev)
- 	}
- }
- 
--const struct amdgpu_umc_funcs umc_v8_7_funcs = {
-+const struct amdgpu_umc_ras_funcs umc_v8_7_ras_funcs = {
- 	.err_cnt_init = umc_v8_7_err_cnt_init,
- 	.ras_late_init = amdgpu_umc_ras_late_init,
-+	.ras_fini = amdgpu_umc_ras_fini,
- 	.query_ras_error_count = umc_v8_7_query_ras_error_count,
- 	.query_ras_error_address = umc_v8_7_query_ras_error_address,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.h b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.h
-index d4d0468e3df5..37e6dc7c28e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.h
-@@ -44,7 +44,7 @@
- /* umc ce count initial value */
- #define UMC_V8_7_CE_CNT_INIT	(UMC_V8_7_CE_CNT_MAX - UMC_V8_7_CE_INT_THRESHOLD)
- 
--extern const struct amdgpu_umc_funcs umc_v8_7_funcs;
-+extern const struct amdgpu_umc_ras_funcs umc_v8_7_ras_funcs;
- extern const uint32_t
- 	umc_v8_7_channel_idx_tbl[UMC_V8_7_UMC_INSTANCE_NUM][UMC_V8_7_CHANNEL_INSTANCE_NUM];
- 
+-	if (!amdgpu_sriov_vf(adev)) {
++	if (!amdgpu_sriov_vf(adev) &&
++	    !adev->gmc.xgmi.connected_to_cpu) {
+ 		/* interrupt sent to DF. */
+ 		r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_DF, 0,
+ 				      &adev->gmc.ecc_irq);
 -- 
 2.17.1
 
