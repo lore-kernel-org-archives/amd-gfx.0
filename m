@@ -1,66 +1,74 @@
 Return-Path: <SRS0=xdDd=JC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,FROM_EXCESS_BASE64,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEA12C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 16:18:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7E29C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 16:18:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 878C361279
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 16:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 878C361279
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 54471613A0
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 16:18:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54471613A0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qq.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4280D89DBF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5DDF89CA0;
 	Mon,  5 Apr 2021 16:18:53 +0000 (UTC)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABCC289F89
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Apr 2021 16:14:49 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id c204so4705132pfc.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Apr 2021 09:14:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DwMPmbMMFEN25sIOtYqWoH1ZFZKpYubY3tm+vXsIpYc=;
- b=JoxKc90LqU2Bpdmx4eMrSYXWAbXkVMjd3QMlmzMzHJI7OCE93VgQtm3i7DczfQ/TTc
- PzS7ar5tvOZlOYRQnP3Pa2aWD9OOhTQMP1ZVReorF2JLZgjpWbWnaTg28euVy71aBa4K
- 21wp49zROsz09Je4E8kthjBWpv+vXGKBvyevC8xyqA4gj8r86bmUN8reG60pBS4QSUj3
- 4tmc8+wpGvO0qFpuDTVPTac4pwL7vUi/qx2YMZq4Z7nTExnbwIWX3RQ7VatZzwsYKfPK
- PKEEEC5vlvsr71L9lVkHrxVoFtmPd9Te40efGkUlvDsG1ryzQxnEE+H8a19ahVV6LRym
- uhVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=DwMPmbMMFEN25sIOtYqWoH1ZFZKpYubY3tm+vXsIpYc=;
- b=tWGdZZ9pga6vhpuZCUc5ZuDKd6I2K422r6S1fQmgzl34tXCU5jxb14yb6ZjYkonJPT
- ETt+KY8zaBGV+ibwBpUPIoUfyf5PUf2T4hi7KXNO6+O1C+z8UN/WHkarzin2mUB7cBNL
- vUdQn43S0VB+elTDpG65VTUZUfKjkHqWafypWMyze+/3ye+iouoShRJQlJOkZnhliqzL
- 5Hncwalj/wEy9ySGOLtu+kHQ4FdQO3Ln5RoD4YkFMAK7SoeN4osscM1eHkaoToLpn84+
- 9ridnZHfNrhvRhrvZNrc84vlYhOV8rdV6Ca4qJSY/UgVfrAcCZpxfDUiQR2NvtA45Ym/
- h2ow==
-X-Gm-Message-State: AOAM532K99uKefoB8U8NpDwZIet3qFUf6deWSBB9Oe0SkE3kOarq+dbs
- HkC+ZWwDQz0DsNCoywlTa2AgzuSoPDg2g3eIeJHflA==
-X-Google-Smtp-Source: ABdhPJxkU7KJRSz7yHIgDVAPwYDU6H+vcb1+9cEVhnTTuHVDXLZJJyNBpf19HEhU2tuwy5LfZtY52vFZuFjvh47z5Eo=
-X-Received: by 2002:a63:4502:: with SMTP id s2mr24562855pga.94.1617639289075; 
- Mon, 05 Apr 2021 09:14:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210405150834.3942-1-qingqing.zhuo@amd.com>
- <20210405161023.b4bygttkpq2ttfnq@outlook.office365.com>
-In-Reply-To: <20210405161023.b4bygttkpq2ttfnq@outlook.office365.com>
-From: Mark Yacoub <markyacoub@google.com>
-Date: Mon, 5 Apr 2021 12:14:38 -0400
-Message-ID: <CAC0gqY7ejs2iBCkMTHbVSQ5vnd-UJqmU2AXgs8OL+S4=EwstMg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: Ensure that the modifier requested is
- supported by plane."
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
+ Mon, 05 Apr 2021 16:09:10 UTC
+Received: from qq.com (smtpbg413.qq.com [113.96.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0564D89ED3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Apr 2021 16:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1617638503; bh=nQuEu7EzvaKkU4dK1vpGKWBH/+lQvqT8RagFHkFryvM=;
+ h=From:To:Subject:Mime-Version:Date:Message-ID;
+ b=nZHaZlI5D86chXDKDFMbj0KxHg2nxzKAWoDunv1KSH7KSF4i3zBkDmeCr0GExsj7Y
+ e727IgoPAkx/l6+ps+lJDRc5fkIzL2lvLzk7XlWIUw+ppfw73iPPGxu2GObelFCCsV
+ 3TC/WZsQZ6Fun6d9bNRQVaQI4Z+AzG3euzrFDWn4=
+X-QQ-FEAT: XlyovC/qA/eUC9TJEJFNZHkhoZpbDpwQf10PkYThZ7sdoQN07xh9SraihacEu
+ se50KeltZxKQL0NqYJlYdG0XvDXVPC6Y5bco499iwKKwXKsjRU8tbQI4n657lATpKhHlKaH
+ /KfbyOnXCrxbE4Ws/h//qOJq2yF9reSgkvjh7C+a7+SyIK1pxAZfS1S+BBMTPhhe826OJu9
+ tjMpwactOPwQF4s7vqtirX7aFj3vHKOyMoFqepQQ88ocAY9d3NsSXrwWtxOGlKqZrQeF7FU
+ nLJn20k98F60ae
+X-QQ-SSF: 000000000000001000000000000000Z
+X-QQ-XMAILINFO: NGKE9ndak/QuSZoitMiZbvd4qX2F0ZgA7D6CtKMTlHGOGmQguwAuScPWBpLWMX
+ kgSTl1WOm86jzmbbt+MiBsSSxYVjnUcF6eAtY9A9jKhi/9eihf1fR85sKwrxf6guuQ+dhH7i8Tp+Q
+ kCZtennQDUycGQkV7oAgc0Gy8LAiq/KmPWxO5grOY/FQ7wI7JUOUGGCkhuo9I2//E0q1Ln+aqsOZm
+ iic/YjlG3eBtbibI1psM6NEx1aADvWUqskDuK0odzDRWsZ/qbHGR9bBEVggm9ooWxpxEsVyjATjZM
+ x7dkFrEAj6fIKKksPHRY53SIZNE4F8FNlmkYZExisShtE7Lq4kxWM1xeZA3MznOLw9nnu+w//u09F
+ 2SvTwb+LWN0M2xyUVAVF9mQmx69kMIUYMoEUTeuzA2BgJ5D/IlccH5V3qCNShVnxcn7/mO4Qk0vQj
+ HqYgXTcGONhp5XbE6Lc7Oh2D3Y9HlfTqoklXQ7jwoOnMzprTwwJRK+FE33WzLhYWorIMT1CITzezS
+ Rm35rKbPNuGlHWNnIsaogUifgUD1LAfk3reTGavlbl+YAbj3EPma8VFa5VfiU0kEIbdTe2kCrDkRL
+ 7cGgK7MPgWkegld57Vhl7JUFDXQzekGen63/gTavtuG9Ta8qktfeZqJ4xCKjeBhPLX+lO7TlmboIw
+ dGLBRQ1hxalquGSqXvZ+zkSfhz7XKiACTAMp2SjqKpg/GqyOrkrAm4hXxgHGgQsseeZrtxy5OA3el
+ EqSCisloN2Q3Yz55hlgXhNi7l
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 114.84.240.151
+X-QQ-STYLE: 
+X-QQ-mid: webmail826t1617638502t6917251
+From: "=?ISO-8859-1?B?MjU4NDU0OTQ2?=" <258454946@qq.com>
+To: "=?ISO-8859-1?B?YW1kLWdmeA==?=" <amd-gfx@lists.freedesktop.org>
+Subject: a quetion about buffer migration for user mapped bo.
+Mime-Version: 1.0
+Date: Tue, 6 Apr 2021 00:01:42 +0800
+X-Priority: 3
+Message-ID: <tencent_826EEA87BF2072281A8B94B2955DDCA14E05@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Tue, 06 Apr 2021 00:01:43 +0800 (CST)
+Feedback-ID: webmail:qq.com:bgforeign:bgforeign11
+X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Mon, 05 Apr 2021 16:18:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,115 +81,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, daniel.wheeler@amd.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0655195698=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Not really, I can't think what this patch breaks yet, I'll need to
-investigate further. But if it's found to be the culprit for the bugs,
-I'm all for reverting right now and I'll debug further later.
+This is a multi-part message in MIME format.
 
-On Mon, Apr 5, 2021 at 12:10 PM Rodrigo Siqueira
-<Rodrigo.Siqueira@amd.com> wrote:
->
-> In general lgtm.
->
-> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->
-> Mark Yacoub, do you have any comment?
->
-> On 04/05, Qingqing Zhuo wrote:
-> > This reverts commit 9f81b5d40ca2c689334ad8288a4ddca4722a6e10.
-> >
-> > The original commit was found to cause the following two issues
-> > on sienna cichlid:
-> > 1. Refresh rate locked during vrrdemo
-> > 2. Display sticks on flipped landscape mode after changing
-> >    orientation, and cannot be changed back to regular landscape
-> >
-> > Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c    | 13 -------------
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++---------------
-> >  2 files changed, 3 insertions(+), 28 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > index 0f17984fdea4..6304a49b02fd 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> > @@ -908,19 +908,6 @@ int amdgpu_display_gem_fb_verify_and_init(
-> >                                        &amdgpu_fb_funcs);
-> >       if (ret)
-> >               goto err;
-> > -     /* Verify that the modifier is supported. */
-> > -     if (!drm_any_plane_has_format(dev, mode_cmd->pixel_format,
-> > -                                   mode_cmd->modifier[0])) {
-> > -             struct drm_format_name_buf format_name;
-> > -             drm_dbg_kms(dev,
-> > -                         "unsupported pixel format %s / modifier 0x%llx\n",
-> > -                         drm_get_format_name(mode_cmd->pixel_format,
-> > -                                             &format_name),
-> > -                         mode_cmd->modifier[0]);
-> > -
-> > -             ret = -EINVAL;
-> > -             goto err;
-> > -     }
-> >
-> >       ret = amdgpu_display_framebuffer_init(dev, rfb, mode_cmd, obj);
-> >       if (ret)
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 54ef0f3f37b7..ac6ab35f89b2 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -4299,7 +4299,6 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
-> >  {
-> >       struct amdgpu_device *adev = drm_to_adev(plane->dev);
-> >       const struct drm_format_info *info = drm_format_info(format);
-> > -     int i;
-> >
-> >       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
-> >
-> > @@ -4307,22 +4306,11 @@ static bool dm_plane_format_mod_supported(struct drm_plane *plane,
-> >               return false;
-> >
-> >       /*
-> > -      * We always have to allow these modifiers:
-> > -      * 1. Core DRM checks for LINEAR support if userspace does not provide modifiers.
-> > -      * 2. Not passing any modifiers is the same as explicitly passing INVALID.
-> > +      * We always have to allow this modifier, because core DRM still
-> > +      * checks LINEAR support if userspace does not provide modifers.
-> >        */
-> > -     if (modifier == DRM_FORMAT_MOD_LINEAR ||
-> > -         modifier == DRM_FORMAT_MOD_INVALID) {
-> > +     if (modifier == DRM_FORMAT_MOD_LINEAR)
-> >               return true;
-> > -     }
-> > -
-> > -     /* Check that the modifier is on the list of the plane's supported modifiers. */
-> > -     for (i = 0; i < plane->modifier_count; i++) {
-> > -             if (modifier == plane->modifiers[i])
-> > -                     break;
-> > -     }
-> > -     if (i == plane->modifier_count)
-> > -             return false;
-> >
-> >       /*
-> >        * The arbitrary tiling support for multiplane formats has not been hooked
-> > --
-> > 2.17.1
-> >
->
-> --
-> Rodrigo Siqueira
-> https://siqueira.tech
+--===============0655195698==
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_606B3466_11625A20_4392872D"
+Content-Transfer-Encoding: 8Bit
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_606B3466_11625A20_4392872D
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+SGkgR3V5cywNCg0KDQpJIGFtIGEgbmV3YmVlIG9mIGdmeCBkZXZlbG9wbWVudC4gUmVjZW50
+bHksIEkgYW0gcmVzZWFyY2hpbmcgYW1kZ3B1IG9wZW4gc291cmNlIGRyaXZlciwgYW5kIGVu
+Y291bnRlciBhIHByb2JsZW0sIGJ1dCBkbyBub3QgZmluZCB0aGUgYW5zd2VyLg0KDQoNCldl
+IGtub3cgdGhlIHVzZXIgbWF5YmUgbWFwIGEgZ2VtIGJhY2tpbmcgYnVmZmVyIGZvciByZWFk
+aW5nL3dyaXRpbmcgYW5kIGhvbGQgdGhlIG1hcHBpbmcgZm9yIGEgbG9uZyB0ZXJtLiB3aGls
+ZSwga2VybmVsIGRyaXZlciB3aWxsIGFsc28gbW92ZXMgdGhlIHVzZXIgbWFwcGVkIGJvIHRv
+IG90aGVyIG1lbW9yeSByZWdpb24uIHZyYW0gLSZndDtndHQsIGd0dC0mZ3Q7dnJhbSwgZXZl
+biBpdCBtYXkgYmUgc3dhcGVkIG91dCB1bmRlciBPT00gY2FzZS4NCg0KDQpTbywgbXkgcXVl
+c3Rpb24gaXMgaG93IGRyaXZlciBwcmV2ZW50cyBrZXJuZWwgdHRtIGZyb20gbW92aW5nIHRo
+ZSB1c2VyIG1hcHBlZCBibyB3aGlsZSB1c2VyIGlzIGFjY2Vzc2luZyBpdD8NCg0KDQpUaGFu
+a3MgZm9yIHlvdXIgYXR0ZW50aW9uIQ0KDQoNCkxpemhpLg==
+
+------=_NextPart_606B3466_11625A20_4392872D
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNo
+YXJzZXQ9R0IxODAzMCI+PGRpdj5IaSBHdXlzLDwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
+SSBhbSBhIG5ld2JlZSBvZiBnZnggZGV2ZWxvcG1lbnQuIFJlY2VudGx5LCBJIGFtIHJlc2Vh
+cmNoaW5nIGFtZGdwdSBvcGVuIHNvdXJjZSBkcml2ZXIsIGFuZCBlbmNvdW50ZXIgYSBwcm9i
+bGVtLCBidXQgZG8gbm90IGZpbmQgdGhlIGFuc3dlci48L2Rpdj48ZGl2Pjxicj48L2Rpdj48
+ZGl2PldlIGtub3cgdGhlIHVzZXIgbWF5YmUgbWFwIGEgZ2VtIGJhY2tpbmcgYnVmZmVyIGZv
+ciByZWFkaW5nL3dyaXRpbmcgYW5kIGhvbGQgdGhlIG1hcHBpbmcgZm9yIGEgbG9uZyB0ZXJt
+LiB3aGlsZSwga2VybmVsIGRyaXZlciB3aWxsIGFsc28gbW92ZXMgdGhlIHVzZXIgbWFwcGVk
+IGJvIHRvIG90aGVyIG1lbW9yeSByZWdpb24uIHZyYW0gLSZndDtndHQsIGd0dC0mZ3Q7dnJh
+bSwgZXZlbiBpdCBtYXkgYmUgc3dhcGVkIG91dCB1bmRlciBPT00gY2FzZS48L2Rpdj48ZGl2
+Pjxicj48L2Rpdj48ZGl2PlNvLCBteSBxdWVzdGlvbiBpcyBob3cgZHJpdmVyIHByZXZlbnRz
+IGtlcm5lbCB0dG0gZnJvbSBtb3ZpbmcgdGhlIHVzZXIgbWFwcGVkIGJvIHdoaWxlIHVzZXIg
+aXMgYWNjZXNzaW5nIGl0PzwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+VGhhbmtzIGZvciB5
+b3VyIGF0dGVudGlvbiE8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkxpemhpLjwvZGl2Pg==
+
+------=_NextPart_606B3466_11625A20_4392872D--
+
+
+
+
+--===============0655195698==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0655195698==--
+
+
+
