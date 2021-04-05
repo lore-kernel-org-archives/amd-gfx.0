@@ -2,140 +2,132 @@ Return-Path: <SRS0=xdDd=JC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87CDDC433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 17:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C54AC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 23:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44ABB6113D
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 17:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44ABB6113D
+	by mail.kernel.org (Postfix) with ESMTPS id 96DEE61380
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Apr 2021 23:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96DEE61380
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEB7289664;
-	Mon,  5 Apr 2021 17:58:15 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C6389664
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Apr 2021 17:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ED6389D81;
+	Mon,  5 Apr 2021 23:08:24 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2052.outbound.protection.outlook.com [40.107.102.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09AB389D81
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Apr 2021 23:08:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lefQz22q8mVFo5HAbD1VaivmE4VsdU2kwT9Y030kAFQj4M49SVevK7OcNQ0Vvz/BvpKGQjIad3lejFItfuP8PcxW6g3/kCvzsYVIqJAmSh1MuETsTnVZDanRDEj7G+XzTUFY3MNkI9gCLY+pIZthneXaBxU4MM4GKfxCvDRQ3US4ldckzhSi7Ui3GbSw0BFdNvFOi4Nos2tZe4Cp8g8xATT0eC0EJ4fD57/oZCnSRGqa/bkDEpfxijzpQgB7Sle4SnCjIP9R04QuoTDCRzbjWMhA4Hbwqoems7wgYrGjaPxhPR9FeuxnacKsQWACmDzw0ulPn0YFc8MUQI7HH7dzkg==
+ b=Udla5Rq/uJ68agz7RIVVpZq7VAP3u4OWnUGVBiVJMzL0YIFGk1sJ5d7qZBxX28lkn/AbY4AODupw0LNLvXLCWdcP9da+viUNuws3Bv86Fq1rsaA6WuU5ZJUJRs10SaUtnjbcBZlWxG97jVNt/+lLmfR1/KKFSHwo84oHi9t8d3J8W+XRStEmyKg7nzoCvPBnHinJc4jSavdHXNw/pS/tSU96QCEf0tFMv/0VT+wRhipupHC/QXLsasERK+NyMho/YYml3zo+jgFbZuSBbFt0IGw/qsTXP0CO7IHB4T9xVkIVFeDFsDIbznm6sPn1w5zAHQcVpJkw5sZbEYUIbhAhWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hZwzDKYtHpZ5cd6UUoGa1jVlJTCao1TTK3Pv4R/VtR4=;
- b=S1SJDfCBOv7KgQdYX/J0PZ3snHvI7BnjimjSXYvbrDlCXTxxQneCwuvvYPGj9DlvKSZtkUIblgt+8+zjbpGPluDwS7prP+pO7ECIokYUS5R7IzZ1LwU4ZlkAIW3IvD6Z21943kr/7XguSY+hHpWTlo6kJX5nzFr2GWIwXbDS2utKThenzAV89B53w9HCQSQtmRwGa/ZFWbbGLmwA0rELpdK3irum2dn5l1vD8YzHanRHUrJJTD/VXqbr4zxzECySIyN3oP+d89UhGR0fTWbzBEcjHloBl8Gz3Ru62odK2d/oF/WoPuME4tCGlQiI9nw9S79IUUJa2mImm2ZKN8olZQ==
+ bh=6PXilGcQhzWKVejdmmCXhsIv15EZvlL2WnY6o/xcy7Y=;
+ b=bWffo+19YhH4CP3jo9sv64usNlPjZxmqYjWtlHKprw+/DsfVffIOxNa4Sct7/XeJVdAORz19oN+WhTJXiUz/05WCWF0T1udZ8MGZFsHi6OJ04zCl+hlL1wrcl7VFvnsZ3Y8q2um7wt+OMRlcL23v2CF+MhlVOmnL0v5Dql3UC0s2Vqz9psJu3P3CjLbkc6I1w5a/CAkw+G2YCSJjJuJcGi3kDgcAYiMhduO2zlUwczKrb5x47VUXFwpofShQIMIbZIsziXIAWgKTKxmPsTrqbi4BJ0/bMOiz1hhPPER7o7PwgIQhfrroDKG+29owJd3la/Zt/fdgDympkCMKnvuPPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hZwzDKYtHpZ5cd6UUoGa1jVlJTCao1TTK3Pv4R/VtR4=;
- b=yaRXWTsPxm0zf9c0Nm9GPDXBWSK/aHWERU191m6c+5Ka72TF5UilJ0myndaeQZ0glqHOKS7tRxbL/Is2cb1wLzGgCB7Mqjbvw9hK1yEu/Yc79bq9Kgqazfq4DLL+yLIG0qcF1naE8Pm3iuVxPjyU4xj/kj5SgWxXED5vpAe0hmw=
+ bh=6PXilGcQhzWKVejdmmCXhsIv15EZvlL2WnY6o/xcy7Y=;
+ b=xm/4XbCeLJx8EG+f+80CTVdyy5nY7rEuGubGMe84f3YqRL4nikgqLIBUWwjHks5QGRKKFbNrTxx8U7LwksnSlSqhYvIRKUFdyj5Gzm0+7bPkx3mLbHsEnxzZmgkSmvkahl6tXbf+suxRd18V1fz7s8nzftzYTRbLFz1K+yfvexE=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
- by SN6PR12MB2814.namprd12.prod.outlook.com (2603:10b6:805:72::33)
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by MN2PR12MB4303.namprd12.prod.outlook.com (2603:10b6:208:198::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.27; Mon, 5 Apr
- 2021 17:58:11 +0000
-Received: from SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
- ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3999.032; Mon, 5 Apr 2021
- 17:58:11 +0000
-Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Li, Dennis" <Dennis.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20210318072339.28736-1-Dennis.Li@amd.com>
- <d40648ba-9948-5442-23ed-d352f824f8f9@amd.com>
- <DM5PR12MB25330F3CD92C587C2E921424ED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <MN2PR12MB3775531A74B886A207134B1583699@MN2PR12MB3775.namprd12.prod.outlook.com>
- <DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <378fdffb-99b5-2a14-736d-a06f310b040c@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Message-ID: <1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com>
-Date: Mon, 5 Apr 2021 13:58:09 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <378fdffb-99b5-2a14-736d-a06f310b040c@amd.com>
+ 2021 23:08:20 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.039; Mon, 5 Apr 2021
+ 23:08:20 +0000
+Subject: Re: [PATCH 4/4] drm/amdgpu: indirect register access for nv12 sriov
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, 
+ "Zhou, Peng Ju" <PengJu.Zhou@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20210331052025.24200-1-PengJu.Zhou@amd.com>
+ <20210331052025.24200-4-PengJu.Zhou@amd.com>
+ <BY5PR12MB4115BE504294097CAAA2E9C98F7B9@BY5PR12MB4115.namprd12.prod.outlook.com>
+ <CY4PR12MB1287B50A9FCCE5E975E110AEF1789@CY4PR12MB1287.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+Message-ID: <6303d774-9b62-2e35-37f2-5d7b6b4875cf@amd.com>
+Date: Mon, 5 Apr 2021 19:08:18 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <CY4PR12MB1287B50A9FCCE5E975E110AEF1789@CY4PR12MB1287.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:735:b7a7:7d67:dece]
-X-ClientProxiedBy: YT1PR01CA0015.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::28)
- To SN6PR12MB4623.namprd12.prod.outlook.com
- (2603:10b6:805:e9::17)
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29)
+ To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:735:b7a7:7d67:dece]
- (2607:fea8:3edf:49b0:735:b7a7:7d67:dece) by
- YT1PR01CA0015.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::28) with Microsoft
+Received: from [172.27.226.80] (165.204.55.251) by
+ YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.32 via Frontend Transport; Mon, 5 Apr 2021 17:58:10 +0000
+ 15.20.3999.32 via Frontend Transport; Mon, 5 Apr 2021 23:08:20 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59400800-5920-4b04-e908-08d8f85c6089
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2814:
+X-MS-Office365-Filtering-Correlation-Id: 2e8f83d0-c220-4d01-24cf-08d8f887b45b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4303:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB2814499DC2AF2E4B84A88220EA779@SN6PR12MB2814.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4303F5F3E0BD3D8B65AE5B5892779@MN2PR12MB4303.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S/gGa2dAvuVEho9HpiXSm3PdJlzd8PG+vVb6N0BE4jqTAUdxGvtFzS6xTTvmjO28avOTKDfo+Pc79hRoiVNZayererSG4Lltv8atuE9H+EQp+o6bX+nxDboOtTkgXQMA+DKhjwVybZpjmqy2h5+jq6s2/jpA97BlE9Ut7KYf5ogyhLYMalMMm4aAjmiU8UMXEcZ9tw7iJfbe9ZMIB4i8ihpvQW6+LeyOErw9L8Z0EIi5X3TwbEmKWF84JUL8H3n35qZmEUypQHB5BBFoYH5XoCkWiVttKmGUWclCwEFPQ4eVSFlWLBUTkvS5aUh/Xvi+jJ0DCBDE/3xDnX8XhSNaBpMXKUZcYYoRZdgoINrgOneqEJABGvIHJQ96UUnZIymEIGnFmBaDF3heu3wuAqpdZKV/5BzaomfBzEg/hlvlnRL3U9wYh+vuglJlgacjhof1hYCGjtlNrz9d3mk8UwpOi4ucmWFpjZ2OOCPyO+A2RuolqDCgu89ZE4xKctMJm6AC9eGBxWTfBH3VkM377FAtovJd7Ml6Ex+rdCzLiCdiS8IHDERNGuieIggXIrfEqKi3rGjBRiYH4ax51jWsdKnQj4lAMHh4wVZCpng8sNh0A0iER3Vp4Dei8ZBaOJ/piM8eznto0cyEaw48Js0HGs+fbbdAo7VR9f6+TdahuYtywdDtP7T0sMdRDmKubXSduqZuu0cA39a404PaVPS1a/6pSVa1C7ysnKuVOxT8XDlkZ1Nc4n+t+7hMOJ7R2+Ot631DZ2FOmBplv4O3u6LrYprxiw==
+X-Microsoft-Antispam-Message-Info: uT0ij+hpnfklijzL/kteW8MaUknVcVBoneNsqVIcnttozs/wuQt9JZsQ70H/eDOklHAeEI9b9YohnW9TmLqAYEBWJQZKko1GrMjPfV5zQGpwuczBDRuYQ6T6YrIkiSH8ialZ7LS6qLAv4/eigLBp4zRcQSyrttW7TcXVMA4pF22fhcoKqYQuZ9sdmHrSTTxEwai4dz+nIiaDh233WxmfIQSaXepvtEUcQPL+YnuQ+xa0Ma0yL7aoRSWmaa7y/XnEUvpgLaf1GY9B3aem31nc+eP+5fsQ4l+4a0+0DMeD/zqzv/FrVnRAVBhu20TQ2h6YP0VI8Zi4SVnOEDsOBbCyVHChArCD+1MdtovtllVr0izoFctqP4PyRXkJFDK3IIG7blIzO2ONJ+pQKuOev8mckejvl6CnRtPjYL4KQrsiShrGcosk1i+ZPr0Tx654UL2LrvTy6ZtzvOgwiwtHfAFKw6xHOdGPzZecIonG2JZmZcCoDTChyhj5RnuZdPxikVG/u3AN99MmtYyoEfCBul1alef+BqyTN4EZ53fPVg2YR0dEVgc8Ibk6oBP4BW367jsBb9LFKgsEw05Ah3DSVmpdyuzVYAtfTWOs1YW90/0NI5Rioe8Pb0wXIpX6et9sMTyKOXIZOfXsxFZMhaDPdmolAtp5iLpkNJA1YyAb2WHTwTQ+AhNqcpzeqpe6mBWrAyfZix8p5c8lygnmXawDQRjUSqzbTi/hsEizUgKuQTK1xgD79pi4rkCvgilPu2llXp4MdFYCeTRSgiXXacMyMoS7Zq/TyhFLhvzcjtTMp9J4Jy8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(366004)(396003)(136003)(478600001)(316002)(2906002)(38100700001)(66946007)(8676002)(110136005)(52116002)(5660300002)(966005)(44832011)(30864003)(921005)(31686004)(16526019)(186003)(36756003)(66574015)(21615005)(66556008)(33964004)(66476007)(166002)(86362001)(53546011)(8936002)(83380400001)(6636002)(31696002)(2616005)(6486002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(396003)(366004)(376002)(30864003)(36756003)(16526019)(31686004)(966005)(66946007)(478600001)(2616005)(5660300002)(66556008)(26005)(6486002)(44832011)(110136005)(53546011)(956004)(31696002)(16576012)(86362001)(316002)(52116002)(38100700001)(36916002)(8936002)(8676002)(2906002)(4326008)(66476007)(186003)(83380400001)(38350700001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?YnlIdFN4U1dKZ0lDaWhaNVpiT3NvdDZBdzBVR1g0UjYwQ2thd1JVTVNJNXli?=
- =?utf-8?B?OGpDSS8yc1JrS2hvZElpbVh3Rm9mMituUHVNMURDNHJsbnVoQWlPbHplTEtJ?=
- =?utf-8?B?QldoR1AzN2dzLzBlSk9wbEpLa1prMms0TlU1UzJyWFNzS1JWTmxkWDk5NEkx?=
- =?utf-8?B?anFNRDBTNGVic0hWSnVuWW5zQ2NUakU2MmNtR2VndXJGUzY3NFlYQ0RtMW9p?=
- =?utf-8?B?OTlNa1R0VTZmQjEvZy9wdmkrVEUrL3JvaTlyTXMrT0V3SGMwWExJNldHdkpT?=
- =?utf-8?B?VWIzZkZ1eGZReUxGQlc4aTg0dUwzWlZEOEQ2eGtXYlU4RWxvZStKZWpBajZV?=
- =?utf-8?B?VmNXQjgyaDJ3NUJqTmJKRW9GMXh0VXdYSVFOaWR3cmVGOHBrVFpZdk1JQ1RC?=
- =?utf-8?B?aUlYbVRtWVBBcFNLMVR2c0w2SkN3ajZ6eUg2bVRIeFh0aUJHdGZINjUrSVNK?=
- =?utf-8?B?a2RCcHhoOUx1WTlRQWFBQ3RTN2RYU0RzSyswYXZzUC9zQ3hjdlVkdkxwZ2I3?=
- =?utf-8?B?Z1ZaVTZ3WGpZZTlZK0tnRjZ0NXVQYzFjVmN0NHJRVkxNZm1pc0dadjBiNWd0?=
- =?utf-8?B?YlpRQXk3aFZPN25rVU15SVBGeHRyeVJXY29LQzNpQTQ1ZWVSaUlBK1ZtUnJi?=
- =?utf-8?B?NmxzNmJTUlBmZk9qTFlqTlVTMXFVb3EwUUpSbkk3ZE1PUUEvWWZWdjJ6NGNV?=
- =?utf-8?B?VGJrUWtaeSs2Zzh0emFSbi9LMHZDWDhscm9YcWxLV3V3bmlKSWtMaDNUTThB?=
- =?utf-8?B?TnphaThJRlBjaXBJOHQ2UTF4aTFDaE5sS1NZTGpROExXVjYrMWNvK25meXFH?=
- =?utf-8?B?S1BYN0IvbFJYRVFEWnVPUmZHbmhtNEZKOW9ubkd5by9uSnlLR0toVHlqUkZk?=
- =?utf-8?B?NXFEUDkxQlh5SUJ0bU0wUWR4TEZHTTdibE9MUTE5UDRxVzQrOU1QN0oxK0hO?=
- =?utf-8?B?dDlhR2YrR0t2NHY2eXZ3em1yYTVDYWI3ZnlxUG9EcmpMTGlScGppVWlZVXhz?=
- =?utf-8?B?RFVOaWdNekt6UXRrS2VESWU4emZpZEgvcDErT2g4QlExbHoxYVRtRlVGTmtu?=
- =?utf-8?B?MDBncGU2eWw3N0FXSmJnWlNaNE12eEsycWZhVGtQR1BoNUNyQVZuSHRQU2xR?=
- =?utf-8?B?bjdYcWhxZnBzM25PNTFTc3p4MFJROXdjVXc3RnNaRkpsYm1ESWcycDZkUnFh?=
- =?utf-8?B?UWdSRUZYWmFUOW9MSUhYT2JEWjM4M1JmVkg2K0xEbmNVQkRJQ3hxaUYwbEsz?=
- =?utf-8?B?WWNxYUF3S29reFlvZ1duVVVsNjZwTXBHcU5EbTB2T05RTEVnN1lIQjNvUWt2?=
- =?utf-8?B?dkdzd0c0VzVrTjhvejc2eWdqZkM2Rk9DVnRRVW93dGZwVGZYSzFUUFdDd2Jj?=
- =?utf-8?B?RUhVekxabXRnUGZUd1FqbVNRekJueUd4cGN0WnFIWGZkSWlKN1FjUXlsLzRW?=
- =?utf-8?B?NVFQSVptZ1ZvYkUrVFluR3NyU1dHU2h0NEpKQ1pQZEo4V0c1NFlrRmdIVmly?=
- =?utf-8?B?UjhpU2VwWW1MWUpvVjl6ZFhTY0luSG1MbFVPbENGcTF2NlpkQmM1Y1JGcjRC?=
- =?utf-8?B?elVJYnZUU3dLd05qcllMbCttNmttYStaaFpBSE04NXlRL2NTS2FUbzJ4OHNB?=
- =?utf-8?B?Ty84TW5rWUlVY3lpeGNJbHhYU2MxQ0xXeDYvVUdPNVo2QVFXVzM1dTBPNzk2?=
- =?utf-8?B?eVZJS3JJQ3dnUmxtRVBqbFkzNy94eUN2RkI2UmUzR29zN3ZWclB0b2p2dTRG?=
- =?utf-8?B?T2hIUS90TFd1dnl0a3pTSVM0dWR3Ti9HdHlPVU9oTlVkbXJhWE1NMEhEbnNP?=
- =?utf-8?B?K2Z0dysvU1YyeGdGRm92RCtOaVQ0a2FXZ0NIOEdjNEdCK2Jjd0pwUXJiWFZZ?=
- =?utf-8?Q?mdzYAEAEBDeNi?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZERLeERlN2gwRjVzKzhrbzVyT1ZObGZkMUlnVHROUksyUjkvZm9ZRTNJZFR5?=
+ =?utf-8?B?QTZkdWd1S3hNdzFCSWY5THE3WmI2T2prdHpRcHVrS1k0NWpBWk5FaEtiUHBz?=
+ =?utf-8?B?NzFIRU9leDl2dUFvZmdmQlR0bC9PVTJ3cnRBV1V6M0tySm5nL2V3dlFJbWND?=
+ =?utf-8?B?M0NnR3E0a1RYVW0zMXd3UjZONjYzVmJrRUk0VmhPdzN4cm9FTE1YaHMvSkwr?=
+ =?utf-8?B?MFVrSHNSK1BGWWxRUkxTM0NVVVdGYjA3Q1RabTY3dGxneGRqOFV2cEpwakJO?=
+ =?utf-8?B?cUFEOUgrV1ArNE9TU2tlQjFYTkxrMWM1UjFaVVRvaWxLNHd6bXNrcE93ZlJn?=
+ =?utf-8?B?QktJSFBpaTFaSzdKT2ZLYmdra2MweDc2UGcyaHp5NURiclZ0cVl2cG4xOTFq?=
+ =?utf-8?B?K3MrM1hGR1o0UVpTdVF2ajdKdzRBZ0p4alpLUmcxNjhnS2E3SVR0U0llNkYr?=
+ =?utf-8?B?WTBvclU3WEsraEtBNVBFWWg1d0JrMCt5d2VrNjRXY1JnRGs4NjVTTTQ2c0N1?=
+ =?utf-8?B?UkV1Wk9KK2w5VGs5Z0NBZmVIeFMyUVgweU5IUlFPaWJDOFZLME5Mb1FXcTN0?=
+ =?utf-8?B?ODhmenBzYmRmWWhxUVRYQVIvRE5GeWd2RnowRzNGQVFCRDkvdGc0Y0VLejRq?=
+ =?utf-8?B?VTFyU2VXaVZsSlRjZ1JHUi9IQUI5TnhFZ1V2TE5ONjVkeTZXU2hpbkJBVUlh?=
+ =?utf-8?B?OVlXeDBSK2NmY1ljeFdJZFN4VkVEVmVZQnkrNU9VVTdRS05HRlRjdVl6dVln?=
+ =?utf-8?B?dE5MSC9CUWJVWUc4NW5EdkVjZ29LL2JNOTUvczROWU5RZFk5MDdkdnhoSk5O?=
+ =?utf-8?B?LzZxZDBkMTkrR3lpc1ZoVGt5Z1VKdW1LZVFBRVh5K2VPSElldGZXVUpQNEEw?=
+ =?utf-8?B?ektmWUVKNnF2L3lrcTR1QzQwTzlFREI1RTYxN0s4Z3BjdTRsOUtNaXBLN3h3?=
+ =?utf-8?B?alVOcHdudzFvclBPaC9oSzdSdTBjcjFrb0t2S3pQejEvUzcvMnk1YnZBR1JB?=
+ =?utf-8?B?b3F3RUxtVnZlaXVQVFoxQTdUZ0VDRE5VNkVjQUVGb1lMZjhobm5sUzFFT2d1?=
+ =?utf-8?B?bC9rMmJ1ck94L2p3UjBveE93d1dlSlFwUFJNMDhyWTN6U0VWMzNFQlBkVGNj?=
+ =?utf-8?B?aHUzdnV2K0NrT1IwT3h6T2wwNmJoTG5Ia1BJU05ZNEo2SlBxZWhrN3NUblJw?=
+ =?utf-8?B?UG1xVzJzNk9NMVZhdGkvZjVLYXZTYTA1M2RCbWdLa3doWFNmbGEzbXpwR0dK?=
+ =?utf-8?B?MitHYXgrSmx3QlZDZWM2ZS9RUmNNOTlhU3hYSVRQUlIrMUFKbzIzaFNXOUFZ?=
+ =?utf-8?B?VlNIc1hkdVFMNCt1NE5ycGFxU1hCcjVzTU9IU1JvRFkzcktlR1N0MVEwRjVp?=
+ =?utf-8?B?YW1hQ1oxWjlDWHoxS3V0L3RKVzBqOVJYZUU1cHZiMGhsVnhZRHF4NVh4NVB0?=
+ =?utf-8?B?NGZJYnA4VUJtN1lLOGdVZmRBdDdobm5DU0tvMUlSK3dqZEhvQWNNSUVrdmNG?=
+ =?utf-8?B?a2Z1VG10WllHNnh6VjJESUJNWFBWM0g0Nk40dUxuZ29yUlRIWXpuT25zQVJR?=
+ =?utf-8?B?QXpkY3c0V1ZwUkM3MWl5MFpFYUxEcEpoVzhGYVlpbWE1YWZTSFB4dUtEZUlo?=
+ =?utf-8?B?bDlnNmo1M2xIN2lJQmoxK3hZUmRHeTNDdXhjcWJGZGZLL28zV0MyN2RUSFl6?=
+ =?utf-8?B?NkloVXM4OUIxaWNxSjcyU1FxVTZJLzRVWXBsMXFFeHFtU0NITGxsb2hlU1Mr?=
+ =?utf-8?Q?/CsVuDsHWm2SnyRVl6f9hli+4tqriy1Cmj0E0ZJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59400800-5920-4b04-e908-08d8f85c6089
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e8f83d0-c220-4d01-24cf-08d8f887b45b
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2021 17:58:11.5764 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2021 23:08:20.4673 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3KdW8zALCz8mD6O6FDrdgzYDy/e0EDn/AkqBQI++sxnPQHPAE+ORk6A0qVQPbF1n72u4/0MaWA3CZUWEDjBzsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2814
+X-MS-Exchange-CrossTenant-UserPrincipalName: q2xdPkb4xdczTEXJdpDmdD/fLxz/PPau1STJLxUZ5wcIeZZmAAxtc+J0MD4/6WbNXpZSJSQAmAXkWigUecF0OA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,614 +139,305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0894081199=="
+Cc: "Zhao, Jiange" <Jiange.Zhao@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0894081199==
-Content-Type: multipart/alternative;
- boundary="------------4B7ACB8AE37D0731AA0BDA4A"
-Content-Language: en-US
-
---------------4B7ACB8AE37D0731AA0BDA4A
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Denis, Christian, are there any updates in the plan on how to move on 
-with this ? As you know I need very similar code for my up-streaming of 
-device hot-unplug. My latest solution 
-(https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html) 
-was not acceptable because of low level guards on the register accessors 
-level which was hurting performance. Basically I need a way to prevent 
-any MMIO write accesses from kernel driver after device is removed (UMD 
-accesses are taken care of by page faulting dummy page). We are using 
-now hot-unplug code for Freemont program and so up-streaming became more 
-of a priority then before. This MMIO access issue is currently my main 
-blocker from up-streaming. Is there any way I can assist in pushing this 
-on ?
-
-Andrey
-
-On 2021-03-18 5:51 a.m., Christian König wrote:
-> Am 18.03.21 um 10:30 schrieb Li, Dennis:
->>
->> >>> The GPU reset doesn't complete the fences we wait for. It only 
->> completes the hardware fences as part of the reset.
->>
->> >>> So waiting for a fence while holding the reset lock is illegal 
->> and needs to be avoided.
->>
->> I understood your concern. It is more complex for DRM GFX, therefore 
->> I abandon adding lock protection for DRM ioctls now. Maybe we can try 
->> to add all kernel  dma_fence waiting in a list, and signal all in 
->> recovery threads. Do you have same concern for compute cases?
->>
->
-> Yes, compute (KFD) is even harder to handle.
->
-> See you can't signal the dma_fence waiting. Waiting for a dma_fence 
-> also means you wait for the GPU reset to finish.
->
-> When we would signal the dma_fence during the GPU reset then we would 
-> run into memory corruption because the hardware jobs running after the 
-> GPU reset would access memory which is already freed.
->
->> >>> Lockdep also complains about this when it is used correctly. The 
->> only reason it doesn't complain here is because you use an 
->> atomic+wait_event instead of a locking primitive.
->>
->> Agree. This approach will escape the monitor of lockdep.  Its goal is 
->> to block other threads when GPU recovery thread start. But I couldn’t 
->> find a better method to solve this problem. Do you have some suggestion?
->>
->
-> Well, completely abandon those change here.
->
-> What we need to do is to identify where hardware access happens and 
-> then insert taking the read side of the GPU reset lock so that we 
-> don't wait for a dma_fence or allocate memory, but still protect the 
-> hardware from concurrent access and reset.
->
-> Regards,
-> Christian.
->
->> Best Regards
->>
->> Dennis Li
->>
->> *From:* Koenig, Christian <Christian.Koenig@amd.com>
->> *Sent:* Thursday, March 18, 2021 4:59 PM
->> *To:* Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org; 
->> Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix 
->> <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
->> *Subject:* AW: [PATCH 0/4] Refine GPU recovery sequence to enhance 
->> its stability
->>
->> Exactly that's what you don't seem to understand.
->>
->> The GPU reset doesn't complete the fences we wait for. It only 
->> completes the hardware fences as part of the reset.
->>
->> So waiting for a fence while holding the reset lock is illegal and 
->> needs to be avoided.
->>
->> Lockdep also complains about this when it is used correctly. The only 
->> reason it doesn't complain here is because you use an 
->> atomic+wait_event instead of a locking primitive.
->>
->> Regards,
->>
->> Christian.
->>
->> ------------------------------------------------------------------------
->>
->> *Von:*Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>
->> *Gesendet:* Donnerstag, 18. März 2021 09:28
->> *An:* Koenig, Christian <Christian.Koenig@amd.com 
->> <mailto:Christian.Koenig@amd.com>>; amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org>>; Deucher, Alexander 
->> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; 
->> Kuehling, Felix <Felix.Kuehling@amd.com 
->> <mailto:Felix.Kuehling@amd.com>>; Zhang, Hawking 
->> <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->> *Betreff:* RE: [PATCH 0/4] Refine GPU recovery sequence to enhance 
->> its stability
->>
->> >>> Those two steps need to be exchanged or otherwise it is possible 
->> that new delayed work items etc are started before the lock is taken.
->> What about adding check for adev->in_gpu_reset in work item? If 
->> exchange the two steps, it maybe introduce the deadlock.  For 
->> example, the user thread hold the read lock and waiting for the 
->> fence, if recovery thread try to hold write lock and then complete 
->> fences, in this case, recovery thread will always be blocked.
->>
->>
->> Best Regards
->> Dennis Li
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com 
->> <mailto:Christian.Koenig@amd.com>>
->> Sent: Thursday, March 18, 2021 3:54 PM
->> To: Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>; 
->> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>; 
->> Deucher, Alexander <Alexander.Deucher@amd.com 
->> <mailto:Alexander.Deucher@amd.com>>; Kuehling, Felix 
->> <Felix.Kuehling@amd.com <mailto:Felix.Kuehling@amd.com>>; Zhang, 
->> Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->> Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its 
->> stability
->>
->> Am 18.03.21 um 08:23 schrieb Dennis Li:
->> > We have defined two variables in_gpu_reset and reset_sem in adev 
->> object. The atomic type variable in_gpu_reset is used to avoid 
->> recovery thread reenter and make lower functions return more earlier 
->> when recovery start, but couldn't block recovery thread when it 
->> access hardware. The r/w semaphore reset_sem is used to solve these 
->> synchronization issues between recovery thread and other threads.
->> >
->> > The original solution locked registers' access in lower functions, 
->> which will introduce following issues:
->> >
->> > 1) many lower functions are used in both recovery thread and 
->> others. Firstly we must harvest these functions, it is easy to miss 
->> someones. Secondly these functions need select which lock (read lock 
->> or write lock) will be used, according to the thread it is running 
->> in. If the thread context isn't considered, the added lock will 
->> easily introduce deadlock. Besides that, in most time, developer 
->> easily forget to add locks for new functions.
->> >
->> > 2) performance drop. More lower functions are more frequently called.
->> >
->> > 3) easily introduce false positive lockdep complaint, because write 
->> lock has big range in recovery thread, but low level functions will 
->> hold read lock may be protected by other locks in other threads.
->> >
->> > Therefore the new solution will try to add lock protection for 
->> ioctls of kfd. Its goal is that there are no threads except for 
->> recovery thread or its children (for xgmi) to access hardware when 
->> doing GPU reset and resume. So refine recovery thread as the following:
->> >
->> > Step 0: atomic_cmpxchg(&adev->in_gpu_reset, 0, 1)
->> >     1). if failed, it means system had a recovery thread running, 
->> current thread exit directly;
->> >     2). if success, enter recovery thread;
->> >
->> > Step 1: cancel all delay works, stop drm schedule, complete all 
->> unreceived fences and so on. It try to stop or pause other threads.
->> >
->> > Step 2: call down_write(&adev->reset_sem) to hold write lock, which 
->> will block recovery thread until other threads release read locks.
->>
->> Those two steps need to be exchanged or otherwise it is possible that 
->> new delayed work items etc are started before the lock is taken.
->>
->> Just to make it clear until this is fixed the whole patch set is a NAK.
->>
->> Regards,
->> Christian.
->>
->> >
->> > Step 3: normally, there is only recovery threads running to access 
->> hardware, it is safe to do gpu reset now.
->> >
->> > Step 4: do post gpu reset, such as call all ips' resume functions;
->> >
->> > Step 5: atomic set adev->in_gpu_reset as 0, wake up other threads 
->> and release write lock. Recovery thread exit normally.
->> >
->> > Other threads call the amdgpu_read_lock to synchronize with 
->> recovery thread. If it finds that in_gpu_reset is 1, it should 
->> release read lock if it has holden one, and then blocks itself to 
->> wait for recovery finished event. If thread successfully hold read 
->> lock and in_gpu_reset is 0, it continues. It will exit normally or be 
->> stopped by recovery thread in step 1.
->> >
->> > Dennis Li (4):
->> >    drm/amdgpu: remove reset lock from low level functions
->> >    drm/amdgpu: refine the GPU recovery sequence
->> >    drm/amdgpu: instead of using down/up_read directly
->> >    drm/amdkfd: add reset lock protection for kfd entry functions
->> >
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 6 +
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 14 +-
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 173 
->> +++++++++++++-----
->> >   .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 8 -
->> >   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 4 +-
->> >   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 9 +-
->> >   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         | 5 +-
->> >   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c         | 5 +-
->> >   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 172 ++++++++++++++++-
->> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         | 3 +-
->> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 4 +
->> >   .../amd/amdkfd/kfd_process_queue_manager.c    | 17 ++
->> >   12 files changed, 345 insertions(+), 75 deletions(-)
->> >
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---------------4B7ACB8AE37D0731AA0BDA4A
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Denis, Christian, are there any updates in the plan on how to
-      move on with this ? As you know I need very similar code for my
-      up-streaming of device hot-unplug. My latest solution
-(<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html">https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html</a>)
-      was not acceptable because of low level guards on the register
-      accessors level which was hurting performance. Basically I need a
-      way to prevent any MMIO write accesses from kernel driver after
-      device is removed (UMD accesses are taken care of by page faulting
-      dummy page). We are using now hot-unplug code for Freemont program
-      and so up-streaming became more of a priority then before. This
-      MMIO access issue is currently my main blocker from up-streaming.
-      Is there any way I can assist in pushing this on ?</p>
-    <p>Andrey&nbsp; <br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-03-18 5:51 a.m., Christian
-      König wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:378fdffb-99b5-2a14-736d-a06f310b040c@amd.com">
-      
-      Am 18.03.21 um 10:30 schrieb Li, Dennis:<br>
-      <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-        <meta name="Generator" content="Microsoft Word 15 (filtered
-          medium)">
-        <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-        <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:等线;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"\@等线";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-        <div class="WordSection1">
-          <p class="MsoNormal">&gt;&gt;&gt; The GPU reset doesn't
-            complete the fences we wait for. It only completes the
-            hardware fences as part of the reset.<o:p></o:p></p>
-          <p class="MsoNormal">&gt;&gt;&gt; So waiting for a fence while
-            holding the reset lock is illegal and needs to be avoided.<o:p></o:p></p>
-          <p class="MsoNormal">I understood your concern. It is more
-            complex for DRM GFX, therefore I abandon adding lock
-            protection for DRM ioctls now. Maybe we can try to add all
-            kernel &nbsp;dma_fence waiting in a list, and signal all in
-            recovery threads. Do you have same concern for compute
-            cases? </p>
-        </div>
-      </blockquote>
-      <br>
-      Yes, compute (KFD) is even harder to handle.<br>
-      <br>
-      See you can't signal the dma_fence waiting. Waiting for a
-      dma_fence also means you wait for the GPU reset to finish.<br>
-      <br>
-      When we would signal the dma_fence during the GPU reset then we
-      would run into memory corruption because the hardware jobs running
-      after the GPU reset would access memory which is already freed.<br>
-      <br>
-      <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-        <div class="WordSection1">
-          <p class="MsoNormal"><o:p></o:p></p>
-          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          <p class="MsoNormal">&gt;&gt;&gt; Lockdep also complains about
-            this when it is used correctly. The only reason it doesn't
-            complain here is because you use an atomic+wait_event
-            instead of a locking primitive.<o:p></o:p></p>
-          <p class="MsoNormal">Agree. This approach will escape the
-            monitor of lockdep.&nbsp; Its goal is to block other threads when
-            GPU recovery thread start. But I couldn’t find a better
-            method to solve this problem. Do you have some suggestion? </p>
-        </div>
-      </blockquote>
-      <br>
-      Well, completely abandon those change here.<br>
-      <br>
-      What we need to do is to identify where hardware access happens
-      and then insert taking the read side of the GPU reset lock so that
-      we don't wait for a dma_fence or allocate memory, but still
-      protect the hardware from concurrent access and reset.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-        <div class="WordSection1">
-          <p class="MsoNormal"><o:p></o:p></p>
-          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          <p class="MsoNormal">Best Regards<o:p></o:p></p>
-          <p class="MsoNormal">Dennis Li<o:p></o:p></p>
-          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1
-              1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b>From:</b> Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>
-                <br>
-                <b>Sent:</b> Thursday, March 18, 2021 4:59 PM<br>
-                <b>To:</b> Li, Dennis <a class="moz-txt-link-rfc2396E" href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">&lt;Dennis.Li@amd.com&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>;
-                Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">&lt;Felix.Kuehling@amd.com&gt;</a>;
-                Zhang, Hawking <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">&lt;Hawking.Zhang@amd.com&gt;</a><br>
-                <b>Subject:</b> AW: [PATCH 0/4] Refine GPU recovery
-                sequence to enhance its stability<o:p></o:p></p>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">Exactly that's what you
-                don't seem to understand.<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">The GPU reset doesn't
-                complete the fences we wait for. It only completes the
-                hardware fences as part of the reset.<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">So waiting for a fence
-                while holding the reset lock is illegal and needs to be
-                avoided.<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">Lockdep also complains
-                about this when it is used correctly. The only reason it
-                doesn't complain here is because you use an
-                atomic+wait_event instead of a locking primitive.<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">Regards,<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                UI&quot;,sans-serif;color:black">Christian.<o:p></o:p></span></p>
-          </div>
-          <div>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          </div>
-          <div class="MsoNormal" style="text-align:center" align="center">
-            <hr width="98%" size="2" align="center"> </div>
-          <div id="divRplyFwdMsg">
-            <p class="MsoNormal"><b><span style="color:black">Von:</span></b><span style="color:black"> Li, Dennis &lt;<a href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;<br>
-                <b>Gesendet:</b> Donnerstag, 18. März 2021 09:28<br>
-                <b>An:</b> Koenig, Christian &lt;<a href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;;
-                <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-                &lt;<a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>&gt;;
-                Deucher, Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                Kuehling, Felix &lt;<a href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                Zhang, Hawking &lt;<a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                <b>Betreff:</b> RE: [PATCH 0/4] Refine GPU recovery
-                sequence to enhance its stability</span> <o:p></o:p></p>
-            <div>
-              <p class="MsoNormal">&nbsp;<o:p></o:p></p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p class="MsoNormal">&gt;&gt;&gt; Those two steps need to
-                be exchanged or otherwise it is possible that new
-                delayed work items etc are started before the lock is
-                taken.<br>
-                What about adding check for adev-&gt;in_gpu_reset in
-                work item? If exchange the two steps, it maybe introduce
-                the deadlock.&nbsp; For example, the user thread hold the
-                read lock and waiting for the fence, if recovery thread
-                try to hold write lock and then complete fences, in this
-                case, recovery thread will always be blocked.<o:p></o:p></p>
-            </div>
-            <div>
-              <p class="MsoNormal" style="margin-bottom:12.0pt"><br>
-                Best Regards<br>
-                Dennis Li<br>
-                -----Original Message-----<br>
-                From: Koenig, Christian &lt;<a href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;
-                <br>
-                Sent: Thursday, March 18, 2021 3:54 PM<br>
-                To: Li, Dennis &lt;<a href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;; <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true"> amd-gfx@lists.freedesktop.org</a>;
-                Deucher, Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                Kuehling, Felix &lt;<a href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                Zhang, Hawking &lt;<a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to
-                enhance its stability<br>
-                <br>
-                Am 18.03.21 um 08:23 schrieb Dennis Li:<br>
-                &gt; We have defined two variables in_gpu_reset and
-                reset_sem in adev object. The atomic type variable
-                in_gpu_reset is used to avoid recovery thread reenter
-                and make lower functions return more earlier when
-                recovery start, but couldn't block recovery thread when
-                it access hardware. The r/w semaphore reset_sem is used
-                to solve these synchronization issues between recovery
-                thread and other threads.<br>
-                &gt;<br>
-                &gt; The original solution locked registers' access in
-                lower functions, which will introduce following issues:<br>
-                &gt;<br>
-                &gt; 1) many lower functions are used in both recovery
-                thread and others. Firstly we must harvest these
-                functions, it is easy to miss someones. Secondly these
-                functions need select which lock (read lock or write
-                lock) will be used, according to the thread it is
-                running in. If the thread context isn't considered, the
-                added lock will easily introduce deadlock. Besides that,
-                in most time, developer easily forget to add locks for
-                new functions.<br>
-                &gt;<br>
-                &gt; 2) performance drop. More lower functions are more
-                frequently called.<br>
-                &gt;<br>
-                &gt; 3) easily introduce false positive lockdep
-                complaint, because write lock has big range in recovery
-                thread, but low level functions will hold read lock may
-                be protected by other locks in other threads.<br>
-                &gt;<br>
-                &gt; Therefore the new solution will try to add lock
-                protection for ioctls of kfd. Its goal is that there are
-                no threads except for recovery thread or its children
-                (for xgmi) to access hardware when doing GPU reset and
-                resume. So refine recovery thread as the following:<br>
-                &gt;<br>
-                &gt; Step 0: atomic_cmpxchg(&amp;adev-&gt;in_gpu_reset,
-                0, 1)<br>
-                &gt;&nbsp;&nbsp;&nbsp;&nbsp; 1). if failed, it means system had a recovery
-                thread running, current thread exit directly;<br>
-                &gt;&nbsp;&nbsp;&nbsp;&nbsp; 2). if success, enter recovery thread;<br>
-                &gt;<br>
-                &gt; Step 1: cancel all delay works, stop drm schedule,
-                complete all unreceived fences and so on. It try to stop
-                or pause other threads.<br>
-                &gt;<br>
-                &gt; Step 2: call down_write(&amp;adev-&gt;reset_sem) to
-                hold write lock, which will block recovery thread until
-                other threads release read locks.<br>
-                <br>
-                Those two steps need to be exchanged or otherwise it is
-                possible that new delayed work items etc are started
-                before the lock is taken.<br>
-                <br>
-                Just to make it clear until this is fixed the whole
-                patch set is a NAK.<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                &gt;<br>
-                &gt; Step 3: normally, there is only recovery threads
-                running to access hardware, it is safe to do gpu reset
-                now.<br>
-                &gt;<br>
-                &gt; Step 4: do post gpu reset, such as call all ips'
-                resume functions;<br>
-                &gt;<br>
-                &gt; Step 5: atomic set adev-&gt;in_gpu_reset as 0, wake
-                up other threads and release write lock. Recovery thread
-                exit normally.<br>
-                &gt;<br>
-                &gt; Other threads call the amdgpu_read_lock to
-                synchronize with recovery thread. If it finds that
-                in_gpu_reset is 1, it should release read lock if it has
-                holden one, and then blocks itself to wait for recovery
-                finished event. If thread successfully hold read lock
-                and in_gpu_reset is 0, it continues. It will exit
-                normally or be stopped by recovery thread in step 1.<br>
-                &gt;<br>
-                &gt; Dennis Li (4):<br>
-                &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: remove reset lock from low level
-                functions<br>
-                &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: refine the GPU recovery sequence<br>
-                &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: instead of using down/up_read
-                directly<br>
-                &gt;&nbsp;&nbsp;&nbsp; drm/amdkfd: add reset lock protection for kfd
-                entry functions<br>
-                &gt;<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                6 +<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c&nbsp;&nbsp; |&nbsp;
-                14 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbsp;&nbsp; |
-                173 +++++++++++++-----<br>
-                &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                8 -<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                4 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                9 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                5 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                5 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
-                172 ++++++++++++++++-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                3 +-<br>
-                &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;
-                4 +<br>
-                &gt;&nbsp;&nbsp; .../amd/amdkfd/kfd_process_queue_manager.c&nbsp;&nbsp;&nbsp; |&nbsp;
-                17 ++<br>
-                &gt;&nbsp;&nbsp; 12 files changed, 345 insertions(+), 75
-                deletions(-)<br>
-                &gt;<o:p></o:p></p>
-            </div>
-          </div>
-        </div>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------4B7ACB8AE37D0731AA0BDA4A--
-
---===============0894081199==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0894081199==--
+U2V2ZXJhbCBwZW9wbGUgaGVyZSByYW4gaW50byB0aGUgc2FtZSBwcm9ibGVtLCBpbmNsdWRpbmcg
+bXlzZWxmLiBQbGVhc2UgCnJldmVydCB0aGUgcGF0Y2ggdW50aWwgeW91IGNhbiBjb21lIHVwIHdp
+dGggYSBmaXguIFNlZSBsb2cgbWVzc2FnZXMgYmVsb3cuCgpUaGFua3MsCiDCoCBGZWxpeAoKClsg
+ICAxOS43NjA1OTBdIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzoweDAyOTg0IGZh
+aWxlZCAhClsgICAyMC4zMDYyOTldIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzow
+eDAyOTgzIGZhaWxlZCAhClsgICAyMC44NTE4NjhdIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9n
+cmFtIHJlZzoweDAyOTgyIGZhaWxlZCAhClsgICAyMS4zOTc1MTldIGFtZGdwdTogdGltZW91dDog
+cmxjZyBwcm9ncmFtIHJlZzoweDAyOTg1IGZhaWxlZCAhClsgICAyMS45NDI5NTVdIGFtZGdwdTog
+dGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzoweDAyOTg2IGZhaWxlZCAhClsgICAyMi40ODgyNjBd
+IGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzoweDAyOTg3IGZhaWxlZCAhClsgICAy
+My4wMzM1MDZdIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzoweDAyODQwIGZhaWxl
+ZCAhClsgICAyMy41Nzg3NzhdIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFtIHJlZzoweDAy
+ODQxIGZhaWxlZCAhClsgICAyNC4xMjM5OTldIGFtZGdwdTogdGltZW91dDogcmxjZyBwcm9ncmFt
+IHJlZzoweDAyODQyIGZhaWxlZCAhClsgICAyNC42NjkyNzhdIGFtZGdwdTogdGltZW91dDogcmxj
+ZyBwcm9ncmFtIHJlZzoweDAyODU3IGZhaWxlZCAhClsgICAyNC42ODQzMzFdIGFtZGdwdTogaHdt
+Z3Jfc3dfaW5pdCBzbXUgYmFja2VkIGlzIHZlZ2ExMF9zbXUKWyAgIDI1LjQ2NTMyNV0gYW1kZ3B1
+OiB0aW1lb3V0OiBybGNnIHByb2dyYW0gcmVnOjB4MGVjYTMgZmFpbGVkICEKWyAgIDI2LjAxMTE2
+NF0gYW1kZ3B1OiB0aW1lb3V0OiBybGNnIHByb2dyYW0gcmVnOjB4MGVjYTIgZmFpbGVkICEKWyAg
+IDI2LjU1NjU5Ml0gYW1kZ3B1OiB0aW1lb3V0OiBybGNnIHByb2dyYW0gcmVnOjB4MGVjYTQgZmFp
+bGVkICEKWyAgIDI2Ljc2NTg2MV0gYW1kZ3B1IDAwMDA6MDg6MDAuMDogW2RybTphbWRncHVfcmlu
+Z190ZXN0X2hlbHBlciBbYW1kZ3B1XV0gKkVSUk9SKiByaW5nIGtpcV8yLjEuMCB0ZXN0IGZhaWxl
+ZCAoLTExMCkKWyAgIDI2Ljc3NjMzN10gW2RybTphbWRncHVfZ2Z4X2VuYWJsZV9rY3EgW2FtZGdw
+dV1dICpFUlJPUiogS0NRIGVuYWJsZSBmYWlsZWQKWyAgIDI2Ljc4MzM1OV0gW2RybTphbWRncHVf
+ZGV2aWNlX2luaXQgW2FtZGdwdV1dICpFUlJPUiogaHdfaW5pdCBvZiBJUCBibG9jayA8Z2Z4X3Y5
+XzA+IGZhaWxlZCAtMTEwClsgICAyNi43OTIzMjRdIGFtZGdwdSAwMDAwOjA4OjAwLjA6IGFtZGdw
+dTogYW1kZ3B1X2RldmljZV9pcF9pbml0IGZhaWxlZApbICAgMjYuNzk4ODQyXSBhbWRncHUgMDAw
+MDowODowMC4wOiBhbWRncHU6IEZhdGFsIGVycm9yIGR1cmluZyBHUFUgaW5pdApbICAgMjYuODA1
+NjQ5XSBhbWRncHU6IHByb2JlIG9mIDAwMDA6MDg6MDAuMCBmYWlsZWQgd2l0aCBlcnJvciAtMTEw
+CgpPbiAyMDIxLTA0LTA0IDEwOjE4IGEubS4sIENoZW4sIEd1Y2h1biB3cm90ZToKPiBbQU1EIFB1
+YmxpYyBVc2VdCj4KPiBIaSBQZW5nIEp1LAo+Cj4gUGF0Y2ggNCBicmVha3MgdGhlIGRyaXZlciBt
+b2Rwcm9iZSBzZXF1ZW5jZSBmb3IgdGhlIEFTSUNzIHdpdGggR0ZYIElQIHY5LjAuIFRoZSBtb2Rp
+ZmljYXRpb24gaW4gV1JFRzMyX1JMQyB3aWxsIHJvdXRlIHRvIG9uZSBkaWZmZXJlbnQgcGF0aCBm
+b3IgR0ZYIHY5LiBQbGVhc2UgY2hlY2sgaXQuCj4KPiBSZWdhcmRzLAo+IEd1Y2h1bgo+Cj4gLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgRGVuZywgRW1pbHkKPiBTZW50OiBU
+aHVyc2RheSwgQXByaWwgMSwgMjAyMSAyOjAxIFBNCj4gVG86IFpob3UsIFBlbmcgSnUgPFBlbmdK
+dS5aaG91QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBaaGFv
+LCBKaWFuZ2UgPEppYW5nZS5aaGFvQGFtZC5jb20+Cj4gU3ViamVjdDogUkU6IFtQQVRDSCA0LzRd
+IGRybS9hbWRncHU6IGluZGlyZWN0IHJlZ2lzdGVyIGFjY2VzcyBmb3IgbnYxMiBzcmlvdgo+Cj4g
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQo+Cj4g
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQo+Cj4g
+U2VyaWVzIFJldmlld2VkLWJ5OiBFbWlseS5EZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+Cj4KPj4g
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
+Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFBlbmcKPj4gSnUgWmhvdQo+
+PiBTZW50OiBXZWRuZXNkYXksIE1hcmNoIDMxLCAyMDIxIDE6MjAgUE0KPj4gVG86IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IENjOiBaaGFvLCBKaWFuZ2UgPEppYW5nZS5aaGFvQGFt
+ZC5jb20+Cj4+IFN1YmplY3Q6IFtQQVRDSCA0LzRdIGRybS9hbWRncHU6IGluZGlyZWN0IHJlZ2lz
+dGVyIGFjY2VzcyBmb3IgbnYxMgo+PiBzcmlvdgo+Pgo+PiAxLiBleHBhbmQgcmxjZyBpbnRlcmZh
+Y2UgZm9yIGdjICYgbW1odWIgaW5kaXJlY3QgYWNjZXNzIDIuIGFkZCBybGNnCj4+IGludGVyZmFj
+ZSBmb3Igbm8ga2lxCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFBlbmcgSnUgWmhvdSA8UGVuZ0p1Llpo
+b3VAYW1kLmNvbT4KPj4gLS0tCj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYyB8ICAgMiArLQo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmxj
+LmggICAgfCAgIDMgKy0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMg
+ICAgIHwgMTMxICsrKysrKysrKysrKysrKysrKy0tLQo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjlfMC5jICAgICAgfCAgIDIgKy0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc29jMTVfY29tbW9uLmggIHwgIDc1ICsrKysrKy0tLS0tLQo+PiA1IGZpbGVzIGNoYW5nZWQs
+IDE1MCBpbnNlcnRpb25zKCspLCA2MyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+PiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+PiBpbmRleCAwNjBkMGFlOTk0NTMuLjQz
+OGUyZjczMjM3NyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwo+PiBAQCAtNDkwLDcgKzQ5MCw3IEBAIHZvaWQgYW1kZ3B1X21tX3dyZWdfbW1pb19y
+bGMoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4gKmFkZXYsCj4+ICAgICAgYWRldi0+Z2Z4LnJsYy5m
+dW5jcyAmJgo+PiAgICAgIGFkZXYtPmdmeC5ybGMuZnVuY3MtPmlzX3JsY2dfYWNjZXNzX3Jhbmdl
+KSB7ICBpZgo+PiAoYWRldi0+Z2Z4LnJsYy5mdW5jcy0+aXNfcmxjZ19hY2Nlc3NfcmFuZ2UoYWRl
+diwgcmVnKSkgLXJldHVybgo+PiBhZGV2LT5nZngucmxjLmZ1bmNzLT5ybGNnX3dyZWcoYWRldiwg
+cmVnLCB2KTsKPj4gK3JldHVybiBhZGV2LT5nZngucmxjLmZ1bmNzLT5ybGNnX3dyZWcoYWRldiwg
+cmVnLCB2LCAwKTsKPj4gfSBlbHNlIHsKPj4gd3JpdGVsKHYsICgodm9pZCBfX2lvbWVtICopYWRl
+di0+cm1taW8pICsgKHJlZyAqIDQpKTsgIH0gZGlmZiAtLWdpdAo+PiBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9ybGMuaAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9ybGMuaAo+PiBpbmRleCBhZWFhYWU3MTNjNTkuLjRmYzJjZThjZThhYiAxMDA2NDQK
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JsYy5oCj4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ybGMuaAo+PiBAQCAtMTI3LDcgKzEy
+Nyw4IEBAIHN0cnVjdCBhbWRncHVfcmxjX2Z1bmNzIHsgIHZvaWQgKCpyZXNldCkoc3RydWN0Cj4+
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpOyAgdm9pZCAoKnN0YXJ0KShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldik7ICB2b2lkCj4+ICgqdXBkYXRlX3NwbV92bWlkKShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwgdW5zaWduZWQgdm1pZCk7IC12b2lkCj4+ICgqcmxjZ193cmVnKShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgdTMyIG9mZnNldCwgdTMyIHYpOwo+PiArdm9pZCAoKnJsY2dfd3Jl
+Zykoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBvZmZzZXQsIHUzMiB2LCB1MzIKPj4g
+ZmxhZyk7Cj4+ICt1MzIgKCpybGNnX3JyZWcpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1
+MzIgb2Zmc2V0LCB1MzIgZmxhZyk7Cj4+IGJvb2wgKCppc19ybGNnX2FjY2Vzc19yYW5nZSkoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90Cj4+IHJlZyk7ICB9Owo+Pgo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPj4gYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+PiBpbmRleCBiNGZkMDM5NGNkMDgu
+Ljg1YTZhMTBlMDQ4ZiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3YxMF8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8w
+LmMKPj4gQEAgLTE3Nyw2ICsxNzcsMTEgQEAKPj4gI2RlZmluZSBtbUdDX1RIUk9UVExFX0NUUkxf
+U2llbm5hX0NpY2hsaWQgICAgICAgICAgICAgIDB4MjAzMAo+PiAjZGVmaW5lIG1tR0NfVEhST1RU
+TEVfQ1RSTF9TaWVubmFfQ2ljaGxpZF9CQVNFX0lEWCAgICAgMAo+Pgo+PiArI2RlZmluZSBHRlhf
+UkxDR19HQ19XUklURV9PTEQoMHg4IDw8IDI4KSAjZGVmaW5lIEdGWF9STENHX0dDX1dSSVRFKDB4
+MAo+PiArPDwgMjgpICNkZWZpbmUgR0ZYX1JMQ0dfR0NfUkVBRCgweDEgPDwgMjgpICNkZWZpbmUK
+Pj4gK0dGWF9STENHX01NSFVCX1dSSVRFKDB4MiA8PCAyOCkKPj4gKwo+PiBNT0RVTEVfRklSTVdB
+UkUoImFtZGdwdS9uYXZpMTBfY2UuYmluIik7Cj4+IE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25h
+dmkxMF9wZnAuYmluIik7Cj4+IE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25hdmkxMF9tZS5iaW4i
+KTsKPj4gQEAgLTE0MjIsMzggKzE0MjcsMTI3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVf
+cmVnX2dvbGRlbgo+PiBnb2xkZW5fc2V0dGluZ3NfZ2NfMTBfMV8yW10gPSAgU09DMTVfUkVHX0dP
+TERFTl9WQUxVRShHQywgMCwKPj4gbW1VVENMMV9DVFJMLCAweGZmZmZmZmZmLAo+PiAweDAwODAw
+MDAwKSAgfTsKPj4KPj4gLXN0YXRpYyB2b2lkIGdmeF92MTBfcmxjZ193cmVnKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCB1MzIgb2Zmc2V0LAo+PiB1MzIgdikKPj4gK3N0YXRpYyBib29sIGdm
+eF92MTBfaXNfcmxjZ19ydyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIG9mZnNldCwK
+Pj4gK3VpbnQzMl90ICpmbGFnLCBib29sIHdyaXRlKSB7Cj4+ICsvKiBhbHdheXMgcHJvZ3JhbWVk
+IGJ5IHJsY2csIG9ubHkgZm9yIGdjICovIGlmIChvZmZzZXQgPT0KPj4gK1NPQzE1X1JFR19PRkZT
+RVQoR0MsIDAsIG1tUkxDX0NTSUJfQUREUl9ISSkgfHwKPj4gKyAgICBvZmZzZXQgPT0gU09DMTVf
+UkVHX09GRlNFVChHQywgMCwgbW1STENfQ1NJQl9BRERSX0xPKSB8fAo+PiArICAgIG9mZnNldCA9
+PSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbVJMQ19DU0lCX0xFTkdUSCkgfHwKPj4gKyAgICBv
+ZmZzZXQgPT0gU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HUkJNX0dGWF9DTlRMKSB8fAo+PiAr
+ICAgIG9mZnNldCA9PSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdSQk1fR0ZYX0lOREVYKSB8
+fAo+PiArICAgIG9mZnNldCA9PSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX01FX0NOVEwp
+KSB7IGlmCj4+ICsoIWFtZGdwdV9zcmlvdl9yZWdfaW5kaXJlY3RfZ2MoYWRldikpCj4+ICsqZmxh
+ZyA9IEdGWF9STENHX0dDX1dSSVRFX09MRDsKPj4gK2Vsc2UKPj4gKypmbGFnID0gd3JpdGUgPyBH
+RlhfUkxDR19HQ19XUklURSA6Cj4+IEdGWF9STENHX0dDX1JFQUQ7Cj4+ICsKPj4gK3JldHVybiB0
+cnVlOwo+PiArfQo+PiArCj4+ICsvKiBjdXJyZW50bHkgc3VwcG9ydCBnYyByZWFkL3dyaXRlLCBt
+bWh1YiB3cml0ZSAqLyBpZiAob2Zmc2V0ID49Cj4+ICtTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBt
+bVNETUEwX0RFQ19TVEFSVCkgJiYKPj4gKyAgICBvZmZzZXQgPD0gU09DMTVfUkVHX09GRlNFVChH
+QywgMCwgbW1STENfR1RTX09GRlNFVF9NU0IpKSB7IGlmCj4+ICsoYW1kZ3B1X3NyaW92X3JlZ19p
+bmRpcmVjdF9nYyhhZGV2KSkKPj4gKypmbGFnID0gd3JpdGUgPyBHRlhfUkxDR19HQ19XUklURSA6
+Cj4+IEdGWF9STENHX0dDX1JFQUQ7Cj4+ICtlbHNlCj4+ICtyZXR1cm4gZmFsc2U7Cj4+ICt9IGVs
+c2Ugewo+PiAraWYgKGFtZGdwdV9zcmlvdl9yZWdfaW5kaXJlY3RfbW1odWIoYWRldikpCj4+ICsq
+ZmxhZyA9IEdGWF9STENHX01NSFVCX1dSSVRFOwo+PiArZWxzZQo+PiArcmV0dXJuIGZhbHNlOwo+
+PiArfQo+PiArCj4+ICtyZXR1cm4gdHJ1ZTsKPj4gK30KPj4gKwo+PiArc3RhdGljIHUzMiBnZnhf
+djEwX3JsY2dfcncoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBvZmZzZXQsIHUzMgo+
+PiArdiwgdWludDMyX3QgZmxhZykKPj4gewo+PiBzdGF0aWMgdm9pZCAqc2NyYXRjaF9yZWcwOwo+
+PiBzdGF0aWMgdm9pZCAqc2NyYXRjaF9yZWcxOwo+PiArc3RhdGljIHZvaWQgKnNjcmF0Y2hfcmVn
+MjsKPj4gK3N0YXRpYyB2b2lkICpzY3JhdGNoX3JlZzM7Cj4+IHN0YXRpYyB2b2lkICpzcGFyZV9p
+bnQ7Cj4+ICtzdGF0aWMgdWludDMyX3QgZ3JibV9jbnRsOwo+PiArc3RhdGljIHVpbnQzMl90IGdy
+Ym1faWR4Owo+PiB1aW50MzJfdCBpID0gMDsKPj4gdWludDMyX3QgcmV0cmllcyA9IDUwMDAwOwo+
+PiArdTMyIHJldCA9IDA7Cj4+ICsKPj4gK3NjcmF0Y2hfcmVnMCA9IGFkZXYtPnJtbWlvICsKPj4g
+KyAgICAgICAoYWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1TQ1JBVENIX1JFRzBf
+QkFTRV9JRFhdICsKPj4gbW1TQ1JBVENIX1JFRzApICogNDsKPj4gK3NjcmF0Y2hfcmVnMSA9IGFk
+ZXYtPnJtbWlvICsKPj4gKyAgICAgICAoYWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1b
+bW1TQ1JBVENIX1JFRzFfQkFTRV9JRFhdICsKPj4gbW1TQ1JBVENIX1JFRzEpICogNDsKPj4gK3Nj
+cmF0Y2hfcmVnMiA9IGFkZXYtPnJtbWlvICsKPj4gKyAgICAgICAoYWRldi0KPj4+IHJlZ19vZmZz
+ZXRbR0NfSFdJUF1bMF1bbW1TQ1JBVENIX1JFRzBfQkFTRV9JRFhdICsKPj4gbW1TQ1JBVENIX1JF
+RzIpICogNDsKPj4gK3NjcmF0Y2hfcmVnMyA9IGFkZXYtPnJtbWlvICsKPj4gKyAgICAgICAoYWRl
+di0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1TQ1JBVENIX1JFRzFfQkFTRV9JRFhdICsK
+Pj4gbW1TQ1JBVENIX1JFRzMpICogNDsKPj4gK3NwYXJlX2ludCA9IGFkZXYtPnJtbWlvICsKPj4g
+KyAgICAoYWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1STENfU1BBUkVfSU5UX0JB
+U0VfSURYXSArCj4+ICttbVJMQ19TUEFSRV9JTlQpICogNDsKPj4gKwo+PiArZ3JibV9jbnRsID0g
+YWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1HUkJNX0dGWF9DTlRMX0JBU0VfSURY
+XSArCj4+IG1tR1JCTV9HRlhfQ05UTDsKPj4gK2dyYm1faWR4ID0gYWRldi0KPj4+IHJlZ19vZmZz
+ZXRbR0NfSFdJUF1bMF1bbW1HUkJNX0dGWF9JTkRFWF9CQVNFX0lEWF0gKwo+PiArbW1HUkJNX0dG
+WF9JTkRFWDsKPj4gKwo+PiAraWYgKG9mZnNldCA9PSBncmJtX2NudGwgfHwgb2Zmc2V0ID09IGdy
+Ym1faWR4KSB7IGlmIChvZmZzZXQgID09Cj4+ICtncmJtX2NudGwpIHdyaXRlbCh2LCBzY3JhdGNo
+X3JlZzIpOyBlbHNlIGlmIChvZmZzZXQgPT0gZ3JibV9pZHgpCj4+ICt3cml0ZWwodiwgc2NyYXRj
+aF9yZWczKTsKPj4gKwo+PiArd3JpdGVsKHYsICgodm9pZCBfX2lvbWVtICopYWRldi0+cm1taW8p
+ICsgKG9mZnNldCAqIDQpKTsgfSBlbHNlIHsKPj4gK3dyaXRlbCh2LCBzY3JhdGNoX3JlZzApOyB3
+cml0ZWwob2Zmc2V0IHwgZmxhZywgc2NyYXRjaF9yZWcxKTsKPj4gK3dyaXRlbCgxLCBzcGFyZV9p
+bnQpOyBmb3IgKGkgPSAwOyBpIDwgcmV0cmllczsgaSsrKSB7Cj4+ICt1MzIgdG1wOwo+PiArCj4+
+ICt0bXAgPSByZWFkbChzY3JhdGNoX3JlZzEpOwo+PiAraWYgKCEodG1wICYgZmxhZykpCj4+ICti
+cmVhazsKPj4KPj4gLXNjcmF0Y2hfcmVnMCA9IGFkZXYtPnJtbWlvICsgKGFkZXYtCj4+PiByZWdf
+b2Zmc2V0W0dDX0hXSVBdWzBdW21tU0NSQVRDSF9SRUcwX0JBU0VfSURYXSArCj4+IG1tU0NSQVRD
+SF9SRUcwKSo0Owo+PiAtc2NyYXRjaF9yZWcxID0gYWRldi0+cm1taW8gKyAoYWRldi0KPj4+IHJl
+Z19vZmZzZXRbR0NfSFdJUF1bMF1bbW1TQ1JBVENIX1JFRzFfQkFTRV9JRFhdICsKPj4gbW1TQ1JB
+VENIX1JFRzEpKjQ7Cj4+IC1zcGFyZV9pbnQgPSBhZGV2LT5ybW1pbyArIChhZGV2LQo+Pj4gcmVn
+X29mZnNldFtHQ19IV0lQXVswXVttbVJMQ19TUEFSRV9JTlRfQkFTRV9JRFhdICsKPj4gbW1STENf
+U1BBUkVfSU5UKSo0Owo+PiArdWRlbGF5KDEwKTsKPj4gK30KPj4KPj4gLWlmIChhbWRncHVfc3Jp
+b3ZfcnVudGltZShhZGV2KSkgewo+PiAtcHJfZXJyKCJzaG91bGRuJ3QgY2FsbCBybGNnIHdyaXRl
+IHJlZ2lzdGVyIGR1cmluZyBydW50aW1lXG4iKTsKPj4gLXJldHVybjsKPj4gK2lmIChpID49IHJl
+dHJpZXMpCj4+ICtwcl9lcnIoInRpbWVvdXQ6IHJsY2cgcHJvZ3JhbSByZWc6MHglMDV4IGZhaWxl
+ZCAhXG4iLAo+PiBvZmZzZXQpOwo+PiB9Cj4+Cj4+IC13cml0ZWwodiwgc2NyYXRjaF9yZWcwKTsK
+Pj4gLXdyaXRlbChvZmZzZXQgfCAweDgwMDAwMDAwLCBzY3JhdGNoX3JlZzEpOyAtd3JpdGVsKDEs
+IHNwYXJlX2ludCk7IC1mb3IKPj4gKGkgPSAwOyBpIDwgcmV0cmllczsgaSsrKSB7Cj4+IC11MzIg
+dG1wOwo+PiArcmV0ID0gcmVhZGwoc2NyYXRjaF9yZWcwKTsKPj4KPj4gLXRtcCA9IHJlYWRsKHNj
+cmF0Y2hfcmVnMSk7Cj4+IC1pZiAoISh0bXAgJiAweDgwMDAwMDAwKSkKPj4gLWJyZWFrOwo+PiAr
+cmV0dXJuIHJldDsKPj4gK30KPj4KPj4gLXVkZWxheSgxMCk7Cj4+ICtzdGF0aWMgdm9pZCBnZnhf
+djEwX3JsY2dfd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIG9mZnNldCwKPj4g
+K3UzMiB2YWx1ZSwgdTMyIGZsYWcpIHsKPj4gK3VpbnQzMl90IHJsY2dfZmxhZzsKPj4gKwo+PiAr
+aWYgKGFtZGdwdV9zcmlvdl9mdWxsYWNjZXNzKGFkZXYpICYmCj4+ICsgICAgZ2Z4X3YxMF9pc19y
+bGNnX3J3KGFkZXYsIG9mZnNldCwgJnJsY2dfZmxhZywgMSkpIHsKPj4gK2dmeF92MTBfcmxjZ19y
+dyhhZGV2LCBvZmZzZXQsIHZhbHVlLCBybGNnX2ZsYWcpOwo+PiArCj4+ICtyZXR1cm47Cj4+IH0K
+Pj4gK2lmIChmbGFnICYgQU1ER1BVX1JFR1NfTk9fS0lRKQo+PiArV1JFRzMyX05PX0tJUShvZmZz
+ZXQsIHZhbHVlKTsKPj4gK2Vsc2UKPj4gK1dSRUczMihvZmZzZXQsIHZhbHVlKTsKPj4gK30KPj4g
+Kwo+PiArc3RhdGljIHUzMiBnZnhfdjEwX3JsY2dfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwgdTMyIG9mZnNldCwKPj4gK3UzMiBmbGFnKSB7Cj4+ICt1aW50MzJfdCBybGNnX2ZsYWc7
+Cj4+Cj4+IC1pZiAoaSA+PSByZXRyaWVzKQo+PiAtcHJfZXJyKCJ0aW1lb3V0OiBybGNnIHByb2dy
+YW0gcmVnOjB4JTA1eCBmYWlsZWQgIVxuIiwgb2Zmc2V0KTsKPj4gK2lmIChhbWRncHVfc3Jpb3Zf
+ZnVsbGFjY2VzcyhhZGV2KSAmJgo+PiArICAgIGdmeF92MTBfaXNfcmxjZ19ydyhhZGV2LCBvZmZz
+ZXQsICZybGNnX2ZsYWcsIDApKSByZXR1cm4KPj4gK2dmeF92MTBfcmxjZ19ydyhhZGV2LCBvZmZz
+ZXQsIDAsIHJsY2dfZmxhZyk7Cj4+ICsKPj4gK2lmIChmbGFnICYgQU1ER1BVX1JFR1NfTk9fS0lR
+KQo+PiArcmV0dXJuIFJSRUczMl9OT19LSVEob2Zmc2V0KTsKPj4gK2Vsc2UKPj4gK3JldHVybiBS
+UkVHMzIob2Zmc2V0KTsKPj4gKwo+PiArcmV0dXJuIDA7Cj4+IH0KPj4KPj4gc3RhdGljIGNvbnN0
+IHN0cnVjdCBzb2MxNV9yZWdfZ29sZGVuIGdvbGRlbl9zZXR0aW5nc19nY18xMF8xX252MTRbXSA9
+Cj4+IEBAIC0KPj4gNzg4OCw2ICs3OTgyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVf
+cmxjX2Z1bmNzCj4+IGdmeF92MTBfMF9ybGNfZnVuY3Nfc3Jpb3YgPSB7ICAuc3RhcnQgPSBnZnhf
+djEwXzBfcmxjX3N0YXJ0LAo+PiAudXBkYXRlX3NwbV92bWlkID0gZ2Z4X3YxMF8wX3VwZGF0ZV9z
+cG1fdm1pZCwgIC5ybGNnX3dyZWcgPQo+PiBnZnhfdjEwX3JsY2dfd3JlZywKPj4gKy5ybGNnX3Jy
+ZWcgPSBnZnhfdjEwX3JsY2dfcnJlZywKPj4gLmlzX3JsY2dfYWNjZXNzX3JhbmdlID0gZ2Z4X3Yx
+MF8wX2lzX3JsY2dfYWNjZXNzX3JhbmdlLCAgfTsKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjlfMC5jCj4+IGluZGV4IDk5ZjU4NDM5ZjNkNS4uNmU0OWIyMzkwODdhIDEwMDY0
+NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4gQEAgLTczNCw3ICs3MzQs
+NyBAQCBzdGF0aWMgY29uc3QgdTMyCj4+IEdGWF9STENfU1JNX0lOREVYX0NOVExfREFUQV9PRkZT
+RVRTW10gPQo+PiBtbVJMQ19TUk1fSU5ERVhfQ05UTF9EQVRBXzcgLQo+PiBtbVJMQ19TUk1fSU5E
+RVhfQ05UTF9EQVRBXzAsICB9Owo+Pgo+PiAtc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmxjZ193cmVn
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgb2Zmc2V0LAo+PiB1MzIgdikKPj4gK3Zv
+aWQgZ2Z4X3Y5XzBfcmxjZ193cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgb2Zm
+c2V0LCB1MzIgdiwKPj4gK3UzMiBmbGFnKQo+PiB7Cj4+IHN0YXRpYyB2b2lkICpzY3JhdGNoX3Jl
+ZzA7Cj4+IHN0YXRpYyB2b2lkICpzY3JhdGNoX3JlZzE7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NvYzE1X2NvbW1vbi5oCj4+IGluZGV4IDhjZGY1ZDE2ODVjYi4uMTRiZDc5NGJi
+ZWE2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21t
+b24uaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaAo+
+PiBAQCAtNzcsMjcgKzc3LDExIEBACj4+IH0pCj4+Cj4+ICNkZWZpbmUgV1JFRzMyX1JMQyhyZWcs
+IHZhbHVlKSBcCj4+IC1kbyB7XAo+PiAtaWYgKGFtZGdwdV9zcmlvdl9mdWxsYWNjZXNzKGFkZXYp
+KSB7ICAgIFwKPj4gLXVpbnQzMl90IGkgPSAwO1wKPj4gLXVpbnQzMl90IHJldHJpZXMgPSA1MDAw
+MDtcCj4+IC11aW50MzJfdCByMCA9IGFkZXYtCj4+PiByZWdfb2Zmc2V0W0dDX0hXSVBdWzBdW21t
+U0NSQVRDSF9SRUcwX0JBU0VfSURYXSArCj4+IG1tU0NSQVRDSF9SRUcwO1wKPj4gLXVpbnQzMl90
+IHIxID0gYWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1TQ1JBVENIX1JFRzFfQkFT
+RV9JRFhdICsKPj4gbW1TQ1JBVENIX1JFRzE7XAo+PiAtdWludDMyX3Qgc3BhcmVfaW50ID0gYWRl
+di0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bbW1STENfU1BBUkVfSU5UX0JBU0VfSURYXSAr
+Cj4+IG1tUkxDX1NQQVJFX0lOVDtcCj4+IC1XUkVHMzIocjAsIHZhbHVlKTtcCj4+IC1XUkVHMzIo
+cjEsIChyZWcgfCAweDgwMDAwMDAwKSk7XAo+PiAtV1JFRzMyKHNwYXJlX2ludCwgMHgxKTtcCj4+
+IC1mb3IgKGkgPSAwOyBpIDwgcmV0cmllczsgaSsrKSB7XAo+PiAtdTMyIHRtcCA9IFJSRUczMihy
+MSk7XAo+PiAtaWYgKCEodG1wICYgMHg4MDAwMDAwMCkpXAo+PiAtYnJlYWs7XAo+PiAtdWRlbGF5
+KDEwKTtcCj4+IC19XAo+PiAtaWYgKGkgPj0gcmV0cmllcylcCj4+IC1wcl9lcnIoInRpbWVvdXQ6
+IHJsY2cgcHJvZ3JhbSByZWc6MHglMDV4IGZhaWxlZCAhXG4iLCByZWcpO1wgLX0gZWxzZQo+PiB7
+XCAtV1JFRzMyKHJlZywgdmFsdWUpOyBcIC19XAo+PiArZG8geyBcCj4+ICtpZiAoYWRldi0+Z2Z4
+LnJsYy5mdW5jcy0+cmxjZ193cmVnKSBcCj4+ICthZGV2LT5nZngucmxjLmZ1bmNzLT5ybGNnX3dy
+ZWcoYWRldiwgcmVnLCB2YWx1ZSwgMCk7IFwKPj4gK2Vsc2UgXAo+PiArV1JFRzMyKHJlZywgdmFs
+dWUpO1wKPj4gfSB3aGlsZSAoMCkKPj4KPj4gI2RlZmluZSBXUkVHMzJfUkxDX0VYKHByZWZpeCwg
+cmVnLCB2YWx1ZSkgXCBAQCAtMTI1LDIzICsxMDksMjQgQEAgfQo+PiB3aGlsZSAoMCkKPj4KPj4g
+I2RlZmluZSBXUkVHMzJfU09DMTVfUkxDX1NIQURPVyhpcCwgaW5zdCwgcmVnLCB2YWx1ZSkgXCAt
+ZG8ge1wKPj4gLXVpbnQzMl90IHRhcmdldF9yZWcgPSBhZGV2LQo+Pj4gcmVnX29mZnNldFtpcCMj
+X0hXSVBdW2luc3RdW3JlZyMjX0JBU0VfSURYXSArIHJlZztcCj4+IC1pZiAoYW1kZ3B1X3NyaW92
+X2Z1bGxhY2Nlc3MoYWRldikpIHsgICAgXAo+PiAtdWludDMyX3QgcjIgPSBhZGV2LQo+Pj4gcmVn
+X29mZnNldFtHQ19IV0lQXVswXVttbVNDUkFUQ0hfUkVHMV9CQVNFX0lEWF0gKwo+PiBtbVNDUkFU
+Q0hfUkVHMjtcCj4+IC11aW50MzJfdCByMyA9IGFkZXYtCj4+PiByZWdfb2Zmc2V0W0dDX0hXSVBd
+WzBdW21tU0NSQVRDSF9SRUcxX0JBU0VfSURYXSArCj4+IG1tU0NSQVRDSF9SRUczO1wKPj4gLXVp
+bnQzMl90IGdyYm1fY250bCA9IGFkZXYtCj4+PiByZWdfb2Zmc2V0W0dDX0hXSVBdWzBdW21tR1JC
+TV9HRlhfQ05UTF9CQVNFX0lEWF0gKwo+PiBtbUdSQk1fR0ZYX0NOVEw7ICAgXAo+PiAtdWludDMy
+X3QgZ3JibV9pZHggPSBhZGV2LQo+Pj4gcmVnX29mZnNldFtHQ19IV0lQXVswXVttbUdSQk1fR0ZY
+X0lOREVYX0JBU0VfSURYXSArCj4+IG1tR1JCTV9HRlhfSU5ERVg7ICAgXAo+PiAtaWYgKHRhcmdl
+dF9yZWcgPT0gZ3JibV9jbnRsKSBcCj4+IC1XUkVHMzIocjIsIHZhbHVlKTtcCj4+IC1lbHNlIGlm
+ICh0YXJnZXRfcmVnID09IGdyYm1faWR4KSBcCj4+IC1XUkVHMzIocjMsIHZhbHVlKTtcCj4+IC1X
+UkVHMzIodGFyZ2V0X3JlZywgdmFsdWUpO1wKPj4gLX0gZWxzZSB7XAo+PiAtV1JFRzMyKHRhcmdl
+dF9yZWcsIHZhbHVlKTsgXAo+PiAtfVwKPj4gK1dSRUczMl9STEMoKGFkZXYtPnJlZ19vZmZzZXRb
+aXAjI19IV0lQXVtpbnN0XVtyZWcjI19CQVNFX0lEWF0gKwo+PiByZWcpLAo+PiArdmFsdWUpCj4+
+ICsKPj4gKyNkZWZpbmUgUlJFRzMyX1JMQyhyZWcpIFwKPj4gKyhhZGV2LT5nZngucmxjLmZ1bmNz
+LT5ybGNnX3JyZWcgPyBcCj4+ICthZGV2LT5nZngucmxjLmZ1bmNzLT5ybGNnX3JyZWcoYWRldiwg
+cmVnLCAwKSA6IFJSRUczMihyZWcpKQo+PiArCj4+ICsjZGVmaW5lIFdSRUczMl9STENfTk9fS0lR
+KHJlZywgdmFsdWUpIFwgZG8geyBcIGlmCj4+ICsoYWRldi0+Z2Z4LnJsYy5mdW5jcy0+cmxjZ193
+cmVnKSBcCj4+ICthZGV2LT5nZngucmxjLmZ1bmNzLT5ybGNnX3dyZWcoYWRldiwgcmVnLCB2YWx1
+ZSwKPj4gQU1ER1BVX1JFR1NfTk9fS0lRKTsgXAo+PiArZWxzZSBcCj4+ICtXUkVHMzJfTk9fS0lR
+KHJlZywgdmFsdWUpO1wKPj4gfSB3aGlsZSAoMCkKPj4KPj4gKyNkZWZpbmUgUlJFRzMyX1JMQ19O
+T19LSVEocmVnKSBcCj4+ICsoYWRldi0+Z2Z4LnJsYy5mdW5jcy0+cmxjZ19ycmVnID8gXAo+PiAr
+YWRldi0+Z2Z4LnJsYy5mdW5jcy0+cmxjZ19ycmVnKGFkZXYsIHJlZywKPj4gQU1ER1BVX1JFR1Nf
+Tk9fS0lRKSA6Cj4+ICtSUkVHMzJfTk9fS0lRKHJlZykpCj4+ICsKPj4gI2RlZmluZSBXUkVHMzJf
+U09DMTVfUkxDX1NIQURPV19FWChwcmVmaXgsIGlwLCBpbnN0LCByZWcsIHZhbHVlKSBcIGRvCj4+
+IHtcIHVpbnQzMl90IHRhcmdldF9yZWcgPSBhZGV2LQo+Pj4gcmVnX29mZnNldFtpcCMjX0hXSVBd
+W2luc3RdW3JlZyMjX0JBU0VfSURYXSArIHJlZztcIEBAIC0xNjAsMTAgKzE0NSwxMwo+PiBAQAo+
+PiB9XAo+PiB9IHdoaWxlICgwKQo+Pgo+PiArI2RlZmluZSBSUkVHMzJfU09DMTVfUkxDKGlwLCBp
+bnN0LCByZWcpIFwKPj4gK1JSRUczMl9STEMoYWRldi0+cmVnX29mZnNldFtpcCMjX0hXSVBdW2lu
+c3RdW3JlZyMjX0JBU0VfSURYXSArCj4+IHJlZykKPj4gKwo+PiAjZGVmaW5lIFdSRUczMl9TT0Mx
+NV9STEMoaXAsIGluc3QsIHJlZywgdmFsdWUpIFwgIGRvIHtcIC11aW50MzJfdAo+PiB0YXJnZXRf
+cmVnID0gYWRldi0KPj4+IHJlZ19vZmZzZXRbR0NfSFdJUF1bMF1bcmVnIyNfQkFTRV9JRFhdICsg
+cmVnO1wKPj4gLVdSRUczMl9STEModGFyZ2V0X3JlZywgdmFsdWUpOyBcCj4+ICt1aW50MzJfdCB0
+YXJnZXRfcmVnID0gYWRldi0KPj4+IHJlZ19vZmZzZXRbaXAjI19IV0lQXVswXVtyZWcjI19CQVNF
+X0lEWF0gKyByZWc7XAo+PiArV1JFRzMyX1JMQyh0YXJnZXRfcmVnLCB2YWx1ZSk7IFwKPj4gfSB3
+aGlsZSAoMCkKPj4KPj4gI2RlZmluZSBXUkVHMzJfU09DMTVfUkxDX0VYKHByZWZpeCwgaXAsIGlu
+c3QsIHJlZywgdmFsdWUpIFwgQEAgLTE3MywxMQo+PiArMTYxLDE0IEBACj4+IH0gd2hpbGUgKDAp
+Cj4+Cj4+ICNkZWZpbmUgV1JFRzMyX0ZJRUxEMTVfUkxDKGlwLCBpZHgsIHJlZywgZmllbGQsIHZh
+bCkgICBcCj4+IC0gICAgV1JFRzMyX1JMQygoYWRldi0+cmVnX29mZnNldFtpcCMjX0hXSVBdW2lk
+eF1bbW0jI3JlZyMjX0JBU0VfSURYXSArCj4+IG1tIyNyZWcpLCBcCj4+IC0gICAgKFJSRUczMihh
+ZGV2LT5yZWdfb2Zmc2V0W2lwIyNfSFdJUF1baWR4XVttbSMjcmVnIyNfQkFTRV9JRFhdICsKPj4g
+bW0jI3JlZykgXAo+PiAtICAgICYgflJFR19GSUVMRF9NQVNLKHJlZywgZmllbGQpKSB8ICh2YWwp
+IDw8IFJFR19GSUVMRF9TSElGVChyZWcsIGZpZWxkKSkKPj4gK1dSRUczMl9STEMoKGFkZXYtCj4+
+PiByZWdfb2Zmc2V0W2lwIyNfSFdJUF1baWR4XVttbSMjcmVnIyNfQkFTRV9JRFhdICsgbW0jI3Jl
+ZyksIFwKPj4gKyhSUkVHMzJfUkxDKGFkZXYtCj4+PiByZWdfb2Zmc2V0W2lwIyNfSFdJUF1baWR4
+XVttbSMjcmVnIyNfQkFTRV9JRFhdICsgbW0jI3JlZykgXAo+PiArJiB+UkVHX0ZJRUxEX01BU0so
+cmVnLCBmaWVsZCkpIHwgKHZhbCkgPDwgUkVHX0ZJRUxEX1NISUZUKHJlZywgZmllbGQpKQo+Pgo+
+PiAjZGVmaW5lIFdSRUczMl9TT0MxNV9PRkZTRVRfUkxDKGlwLCBpbnN0LCByZWcsIG9mZnNldCwg
+dmFsdWUpIFwKPj4gLSAgICBXUkVHMzJfUkxDKCgoYWRldi0+cmVnX29mZnNldFtpcCMjX0hXSVBd
+W2luc3RdW3JlZyMjX0JBU0VfSURYXSArIHJlZykKPj4gKyBvZmZzZXQpLCB2YWx1ZSkKPj4gK1dS
+RUczMl9STEMoKChhZGV2LT5yZWdfb2Zmc2V0W2lwIyNfSFdJUF1baW5zdF1bcmVnIyNfQkFTRV9J
+RFhdICsKPj4gcmVnKQo+PiArKyBvZmZzZXQpLCB2YWx1ZSkKPj4gKwo+PiArI2RlZmluZSBSUkVH
+MzJfU09DMTVfT0ZGU0VUX1JMQyhpcCwgaW5zdCwgcmVnLCBvZmZzZXQpIFwKPj4gK1JSRUczMl9S
+TEMoKChhZGV2LT5yZWdfb2Zmc2V0W2lwIyNfSFdJUF1baW5zdF1bcmVnIyNfQkFTRV9JRFhdICsK
+Pj4gcmVnKQo+PiArKyBvZmZzZXQpKQo+Pgo+PiAjZW5kaWYKPj4gLS0KPj4gMi4xNy4xCj4+Cj4+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBz
+Oi8vbGlzdHMKPj4gLmZyCj4+IGVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtCj4+
+IGdmeAo+PiBiMWMwOGQ4ZjQwNGM4MjMlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgz
+ZCU3QzAlN0MwJTdDNjMKPj4gNzUyNzY0ODY4MTQ3NjI2OCU3Q1Vua25vd24lN0NUV0ZwYkdac2Iz
+ZDhleUpXSWpvaU1DNHdMakF3TURBaQo+PiBMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3
+aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZhbXA7c2RhdGE9U0lDCj4+IHIlMkZiaHdyZWpKenB1aEpt
+c25KaXU2VFAlMkZ2dTA3NXBvNyUyQko3MEZvZWMlM0QmYW1wO3Jlc2VydmVkPTAKPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
