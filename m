@@ -2,50 +2,101 @@ Return-Path: <SRS0=1IUY=JD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15386C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 11:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2E13C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 12:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEBAC613B8
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 11:55:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEBAC613B8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 93BEF6139E
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 12:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93BEF6139E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 769FA6E827;
-	Tue,  6 Apr 2021 11:55:32 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35C336E3DF;
- Tue,  6 Apr 2021 11:55:31 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A5920B15F;
- Tue,  6 Apr 2021 11:55:29 +0000 (UTC)
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
- sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
- sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
- nirmoy.das@amd.com
-References: <20210406090903.7019-1-tzimmermann@suse.de>
- <20210406090903.7019-4-tzimmermann@suse.de>
- <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
- <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
- <0b11de8e-7524-d548-bcc9-b5597f646911@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
-Message-ID: <a626f328-b6ad-0ab3-b3be-77e6fcb06699@suse.de>
-Date: Tue, 6 Apr 2021 13:55:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ECB089D73;
+	Tue,  6 Apr 2021 12:21:17 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9033489D73
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Apr 2021 12:21:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B8khi7sTZwaF23A1BdOq34hsYjgWHnUUqnrkFxWxzbS18PkYPr5vY2QZ/Le0j3IC33vIX0A40haAntr4+CRDFmgSDQz3KlchTx4THBL+el966Ej2MzA46tbbiiwOlHTbWpYBaUGvI7s2gKSDV7oLovVenYOYbS7Pfbza/R4pVj3/5jIjlCEpmAuvo39KlfYSok8+m1nIadIs48wf1w9G1QSJZ6861KvBm8ZnjKeV2OFb4YAR0KYBqyo7FDuVRgVqNYeef1DtDC5a23E5VYeD+v+pBc+MNKcKO97PQvuJwgz69yKpSyzstO/jVGO+/OBNxBIdluONMrmsqGD7u/wz7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xd4V/onrEIio2oFhY77H0YclFTvmoDaKzRHh88aLeMQ=;
+ b=LeyvKVRZ51qgErKGQ0CCylrnWmwAl/Hq5Ht+61hphchT9CHZmWU6K59IVy0zaVzhMxRimB7LTDo9cPiLrQZ/42i1PyIjFwQGv0HvPc3bzq+hUE0VtAYjNl2prhGxVephv7lcB2o+5iLT23T8hLPrE4c1yrEkTxMysuoJTwoo7/KHuiaMYAWKKs64xg5nHsMwCZw3pen2QzBGTMbNu/79ijIIKXSz//d79tkAM5VFERobjWNghNeaSUbSABD3o2sVlcj9UWM2Fscup+rTG3LIymEZLzTvwSmKujxCn5RUN931TuCl4YRtBCy8mvaiMj66pWAFfJK41QqdetI5L2Xz8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xd4V/onrEIio2oFhY77H0YclFTvmoDaKzRHh88aLeMQ=;
+ b=0VrTnQ288DL5QeQCOXmso8SNoOT+PI73c3pj2lyFa1QMwY47lixIxUwVYSqsGsW1EQWzXZVXEfnjlfv04qsWa2qKZP8e0gAqYppx7zDIZKY2sdubjMLMSEc2HJH1YGY6cG95dBqZxHTSCVhBsUaWcPUrgjr6GGyh1zGXJUxIiTc=
+Received: from DM5PR15CA0062.namprd15.prod.outlook.com (2603:10b6:3:ae::24) by
+ MWHPR1201MB0159.namprd12.prod.outlook.com (2603:10b6:301:59::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.27; Tue, 6 Apr
+ 2021 12:21:15 +0000
+Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:ae:cafe::95) by DM5PR15CA0062.outlook.office365.com
+ (2603:10b6:3:ae::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29 via Frontend
+ Transport; Tue, 6 Apr 2021 12:21:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3999.28 via Frontend Transport; Tue, 6 Apr 2021 12:21:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 6 Apr 2021
+ 07:21:14 -0500
+Received: from Roy7.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
+ Transport; Tue, 6 Apr 2021 07:21:13 -0500
+From: Roy Sun <Roy.Sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: Cancel the hrtimer in sw_fini
+Date: Tue, 6 Apr 2021 20:21:11 +0800
+Message-ID: <20210406122111.23989-1-Roy.Sun@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <0b11de8e-7524-d548-bcc9-b5597f646911@amd.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2a500801-929f-4f64-5092-08d8f8f67931
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0159:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB01590E61E2A55F97FF22E1EEFF769@MWHPR1201MB0159.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MIpGfY4k1Z1+gFcVjIRj0D5cXzNVELOsOHis3kYG0Dnx0QTGPLpHhS522/6iFsHYTXZw0QV9gZMvB/SWMQYcJBVQAXMyPmYtMEzXLuP0Hk+YhZBfMz1Mnqx9iX66yWzglWW39zW2CU/TEdJPV+IBMV3HPblNEtvV8gPj98MTCRkWM5gsAdfMXD/TyUmgp0IA9sWG6AX3iVXxQH4FLgEcHRCU3esNTpoetP+VEktqFBFYAN4JsoOSjLtVqy0uarNLopdyLffzUGTeB+3bpCbZl0lGG95WNisJCrVaHboRETqeonQlA6EL+XMe9/RDvJlMb/UZmzL7fezaEBGYnAFYVBmC8cdFwgJfMtKSSJyh0sht4/B4RIDJgSYWxYzkiCB3Z1uGV7KGtUC1zv/UrQUm99GIRlkdye/oqlH0VjQGZlQrBK+WlPBRr1JQLiSgp6iu9kIcwi3yPzQr5QarlDaoc72zro+SUKz8J72YoV0MxylSTNZv1pnZ9DjR2nraFRiaRL9kgTd+E57oIpkBPmnEg46Q4CNd2PETV+pCVfJMt7PnaBpNfDXC7wFkQJgUfnxwJLz4x5bEe4ZpcW1gejzoNhFrmaDRlQSsbVuBavM+UfPqAZ+wH928YnHPgqGStNZtTez7LM47vgkyKHuiR3q8L5gtyAL4kxO9LREOGWPGe5kf6+gZ8YZ1p/kapw55GBQt
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(39860400002)(346002)(396003)(36840700001)(46966006)(36756003)(6916009)(426003)(8676002)(47076005)(4326008)(5660300002)(356005)(81166007)(70586007)(70206006)(83380400001)(316002)(2906002)(82310400003)(86362001)(8936002)(336012)(26005)(7696005)(478600001)(36860700001)(1076003)(186003)(2616005)(82740400003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 12:21:15.0903 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a500801-929f-4f64-5092-08d8f8f67931
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,169 +108,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1615520657=="
+Cc: Roy Sun <Roy.Sun@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1615520657==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ea3JpGOv7yupcpUkT45XefTvgGXuwLV4F"
+Move the process of cancelling hrtimer to sw_fini
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ea3JpGOv7yupcpUkT45XefTvgGXuwLV4F
-Content-Type: multipart/mixed; boundary="mymDBI34HjccivplHyCPjeXmquyin567r";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
- sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
- sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
- nirmoy.das@amd.com
-Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Message-ID: <a626f328-b6ad-0ab3-b3be-77e6fcb06699@suse.de>
-Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
-References: <20210406090903.7019-1-tzimmermann@suse.de>
- <20210406090903.7019-4-tzimmermann@suse.de>
- <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
- <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
- <0b11de8e-7524-d548-bcc9-b5597f646911@amd.com>
-In-Reply-To: <0b11de8e-7524-d548-bcc9-b5597f646911@amd.com>
+Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
---mymDBI34HjccivplHyCPjeXmquyin567r
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 06.04.21 um 12:56 schrieb Christian K=C3=B6nig:
->>
->> In the end I went with the semantics I found in amdgpu_mmap() and=20
->> handled KFD specially. Let me know if this requires to be changed.
->=20
-> Well the question is where is the call to drm_vma_node_verify_access() =
-
-> now? Cause that needs to be skipped for KFD BOs.
-
-I see. It's now drm_vma_node_is_allowed(); called by drm_gem_mmap(). [1] =
-
-So drm_gem_mmap() cannot be used by amdgpu.
-
-If I understand the code at [2] correctly, KFD objects don't use the GEM =
-
-ioctl interfaces, but they still use the internal GEM object that is=20
-part of the TTM BO. In this case, amdgpu could have its own version of=20
-drm_gem_mmap(), which calls drm_gem_mmap_obj(), [3] which in turn=20
-handles the mmap details via GEM object functions.
-
-drm_gem_prime_mmap() doesn't do any additional verification.
-
-Best regards
-Thomas
-
-[1]=20
-https://elixir.bootlin.com/linux/v5.11.11/source/drivers/gpu/drm/drm_gem.=
-c#L1156
-[2]=20
-https://elixir.bootlin.com/linux/v5.11.11/source/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_amdkfd_gpuvm.c#L1224
-[3]=20
-https://elixir.bootlin.com/linux/v5.12-rc6/source/drivers/gpu/drm/drm_gem=
-=2Ec#L1053
-
-
->=20
-> Regards,
-> Christian.
->=20
->>
->> Best regards
->> Thomas
->>
->>>> -
->>>> =C2=A0 int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src=
-_offset,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint64_t dst_offset, uint32_t byte_count,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_resv *resv,
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h=20
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> index dec0db8b0b13..6e51faad7371 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>> @@ -146,7 +146,6 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 struct dma_resv *resv,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 struct dma_fence **fence);
->>>> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma);
->>>> =C2=A0 int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
->>>> =C2=A0 int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
->>>> =C2=A0 uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, =
-
->>>> uint32_t type);
->>>
->>> _______________________________________________
->>> dri-devel mailing list
->>> dri-devel@lists.freedesktop.org
->>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---mymDBI34HjccivplHyCPjeXmquyin567r--
-
---ea3JpGOv7yupcpUkT45XefTvgGXuwLV4F
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmBsTDAFAwAAAAAACgkQlh/E3EQov+Bi
-+g//WfjTpHdh3hXM/BAYhSPOlg+sPzW02v65R4qFj4gb2ZXKBBBVWFVllOjKHn3wCOMOoqj1GaaP
-+D7UMMamLVjaXY0KK/m8KtTAktnecSIpwL54aYHWSFm1cXsBeaVQS+X0OKo1w796Zh+RLTdmJ3y3
-/g7i7lJB7aA3PeBo+AwuuheTt1ri3WwpA7MR5UnjcM/Q/C2UMlr9BXhqYNykTI4B6H6+h1xL9/wi
-FLKRL4QMtQhRrNvjPVUVnDxrt736Yh1taTG0E3D1iirflHGwPos82ozJdkqw3Np4hO5kD6IeahM/
-KTrVD867f582JMob5SWvGpT02+wrNrAgP/CiZj+jvwBj4C8WOWPlJBEJ9xmjw9bshsqhPUNE1rUc
-KVDwwr0ThgHuINx/dp2GVHnNzSWsPhfkAJ2icI9M5ajEobV4idNB6+xzHylnIHzcczhPAQOP5+ch
-+UNymNRizoxiK45595k3Qnxmt5bpr0owmdWElXVVCiG0o2yOh1H9/FpoKlA8AuS5AvEMbz8nYdJr
-DaVmJFo620nRhBBTVTjVxH/8ErvBUyNb51cSy+3VEA0CpF2x91/73ZHl5yG3iHFFXeSRz5qAFtpK
-Dvnx87Fhw6stSwz2/Au8yRFS5N4+EDmNNzq+Rtd9J86Z9HD9v6R2Qu0csCCVeENC1zgXSXm31L1B
-TvQ=
-=O0O2
------END PGP SIGNATURE-----
-
---ea3JpGOv7yupcpUkT45XefTvgGXuwLV4F--
-
---===============1615520657==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index 5c11144da051..33324427b555 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -421,6 +421,11 @@ static int dce_virtual_sw_init(void *handle)
+ static int dce_virtual_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	int i = 0;
++
++	for (i = 0; i < adev->mode_info.num_crtc; i++)
++		if (adev->mode_info.crtcs[i])
++			hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_timer);
+ 
+ 	kfree(adev->mode_info.bios_hardcoded_edid);
+ 
+@@ -480,13 +485,6 @@ static int dce_virtual_hw_init(void *handle)
+ 
+ static int dce_virtual_hw_fini(void *handle)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int i = 0;
+-
+-	for (i = 0; i<adev->mode_info.num_crtc; i++)
+-		if (adev->mode_info.crtcs[i])
+-			hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_timer);
+-
+ 	return 0;
+ }
+ 
+-- 
+2.29.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1615520657==--
