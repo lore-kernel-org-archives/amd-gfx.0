@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18600C43461
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D100EC433ED
 	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 09:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D22F2613C2
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 09:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D22F2613C2
+	by mail.kernel.org (Postfix) with ESMTPS id 74804613C2
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 09:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74804613C2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97BE66E7DA;
-	Tue,  6 Apr 2021 09:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98A1E6E7F1;
+	Tue,  6 Apr 2021 09:09:11 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9906E0AC;
- Tue,  6 Apr 2021 09:09:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E11CF6E0AC;
+ Tue,  6 Apr 2021 09:09:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 579A1B308;
- Tue,  6 Apr 2021 09:09:06 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 59B33B332;
+ Tue,  6 Apr 2021 09:09:08 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
  linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
  shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
  Felix.Kuehling@amd.com, nirmoy.das@amd.com
-Subject: [PATCH 1/8] drm/ttm: Don't override vm_ops callbacks, if set
-Date: Tue,  6 Apr 2021 11:08:56 +0200
-Message-Id: <20210406090903.7019-2-tzimmermann@suse.de>
+Subject: [PATCH 5/8] drm/nouveau: Implement mmap as GEM object function
+Date: Tue,  6 Apr 2021 11:09:00 +0200
+Message-Id: <20210406090903.7019-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210406090903.7019-1-tzimmermann@suse.de>
 References: <20210406090903.7019-1-tzimmermann@suse.de>
@@ -58,32 +58,200 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers may want to set their own callbacks for a VM area. Only set
-TTM's callbacks if the vm_ops field is clear.
+Moving the driver-specific mmap code into a GEM object function allows
+for using DRM helpers for various mmap callbacks.
+
+The GEM object function is provided by GEM TTM helpers. Nouveau's
+implementation of verify_access is unused and has been removed. Access
+permissions are validated by the DRM helpers.
+
+As a side effect, nouveau_ttm_vm_ops and nouveau_ttm_fault() are now
+implemented in nouveau's GEM code.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/ttm/ttm_bo_vm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_bo.c  | 10 ------
+ drivers/gpu/drm/nouveau/nouveau_drm.c |  3 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c | 36 ++++++++++++++++++++
+ drivers/gpu/drm/nouveau/nouveau_ttm.c | 49 ---------------------------
+ drivers/gpu/drm/nouveau/nouveau_ttm.h |  1 -
+ 5 files changed, 38 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index b31b18058965..bf4a213bc66c 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -534,7 +534,12 @@ static struct ttm_buffer_object *ttm_bo_vm_lookup(struct ttm_device *bdev,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index 3e09df0472ce..bc67cbccc83b 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -1051,15 +1051,6 @@ nouveau_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	return ret;
+ }
  
- static void ttm_bo_mmap_vma_setup(struct ttm_buffer_object *bo, struct vm_area_struct *vma)
+-static int
+-nouveau_bo_verify_access(struct ttm_buffer_object *bo, struct file *filp)
+-{
+-	struct nouveau_bo *nvbo = nouveau_bo(bo);
+-
+-	return drm_vma_node_verify_access(&nvbo->bo.base.vma_node,
+-					  filp->private_data);
+-}
+-
+ static void
+ nouveau_ttm_io_mem_free_locked(struct nouveau_drm *drm,
+ 			       struct ttm_resource *reg)
+@@ -1332,7 +1323,6 @@ struct ttm_device_funcs nouveau_bo_driver = {
+ 	.evict_flags = nouveau_bo_evict_flags,
+ 	.delete_mem_notify = nouveau_bo_delete_mem_notify,
+ 	.move = nouveau_bo_move,
+-	.verify_access = nouveau_bo_verify_access,
+ 	.io_mem_reserve = &nouveau_ttm_io_mem_reserve,
+ 	.io_mem_free = &nouveau_ttm_io_mem_free,
+ };
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 885815ea917f..7586328c1de5 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1177,7 +1177,7 @@ nouveau_driver_fops = {
+ 	.open = drm_open,
+ 	.release = drm_release,
+ 	.unlocked_ioctl = nouveau_drm_ioctl,
+-	.mmap = nouveau_ttm_mmap,
++	.mmap = drm_gem_mmap,
+ 	.poll = drm_poll,
+ 	.read = drm_read,
+ #if defined(CONFIG_COMPAT)
+@@ -1210,6 +1210,7 @@ driver_stub = {
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = nouveau_gem_prime_import_sg_table,
++	.gem_prime_mmap = drm_gem_prime_mmap,
+ 
+ 	.dumb_create = nouveau_display_dumb_create,
+ 	.dumb_map_offset = nouveau_display_dumb_map_offset,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index c88cbb85f101..71dfac820c4d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -39,6 +39,40 @@
+ #include <nvif/class.h>
+ #include <nvif/push206e.h>
+ 
++static vm_fault_t nouveau_ttm_fault(struct vm_fault *vmf)
++{
++	struct vm_area_struct *vma = vmf->vma;
++	struct ttm_buffer_object *bo = vma->vm_private_data;
++	pgprot_t prot;
++	vm_fault_t ret;
++
++	ret = ttm_bo_vm_reserve(bo, vmf);
++	if (ret)
++		return ret;
++
++	ret = nouveau_ttm_fault_reserve_notify(bo);
++	if (ret)
++		goto error_unlock;
++
++	nouveau_bo_del_io_reserve_lru(bo);
++	prot = vm_get_page_prot(vma->vm_flags);
++	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
++	nouveau_bo_add_io_reserve_lru(bo);
++	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		return ret;
++
++error_unlock:
++	dma_resv_unlock(bo->base.resv);
++	return ret;
++}
++
++static const struct vm_operations_struct nouveau_ttm_vm_ops = {
++	.fault = nouveau_ttm_fault,
++	.open = ttm_bo_vm_open,
++	.close = ttm_bo_vm_close,
++	.access = ttm_bo_vm_access
++};
++
+ void
+ nouveau_gem_object_del(struct drm_gem_object *gem)
  {
--	vma->vm_ops = &ttm_bo_vm_ops;
-+	/*
-+	 * Drivers may want to override the vm_ops field. Otherwise we
-+	 * use TTM's default callbacks.
-+	 */
-+	if (!vma->vm_ops)
-+		vma->vm_ops = &ttm_bo_vm_ops;
+@@ -180,6 +214,8 @@ const struct drm_gem_object_funcs nouveau_gem_object_funcs = {
+ 	.get_sg_table = nouveau_gem_prime_get_sg_table,
+ 	.vmap = drm_gem_ttm_vmap,
+ 	.vunmap = drm_gem_ttm_vunmap,
++	.mmap = drm_gem_ttm_mmap,
++	.vm_ops = &nouveau_ttm_vm_ops,
+ };
  
- 	/*
- 	 * Note: We're transferring the bo reference to
+ int
+diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+index b81ae90b8449..e511a26379da 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+@@ -127,55 +127,6 @@ const struct ttm_resource_manager_func nv04_gart_manager = {
+ 	.free = nouveau_manager_del,
+ };
+ 
+-static vm_fault_t nouveau_ttm_fault(struct vm_fault *vmf)
+-{
+-	struct vm_area_struct *vma = vmf->vma;
+-	struct ttm_buffer_object *bo = vma->vm_private_data;
+-	pgprot_t prot;
+-	vm_fault_t ret;
+-
+-	ret = ttm_bo_vm_reserve(bo, vmf);
+-	if (ret)
+-		return ret;
+-
+-	ret = nouveau_ttm_fault_reserve_notify(bo);
+-	if (ret)
+-		goto error_unlock;
+-
+-	nouveau_bo_del_io_reserve_lru(bo);
+-	prot = vm_get_page_prot(vma->vm_flags);
+-	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
+-	nouveau_bo_add_io_reserve_lru(bo);
+-	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+-		return ret;
+-
+-error_unlock:
+-	dma_resv_unlock(bo->base.resv);
+-	return ret;
+-}
+-
+-static const struct vm_operations_struct nouveau_ttm_vm_ops = {
+-	.fault = nouveau_ttm_fault,
+-	.open = ttm_bo_vm_open,
+-	.close = ttm_bo_vm_close,
+-	.access = ttm_bo_vm_access
+-};
+-
+-int
+-nouveau_ttm_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	struct drm_file *file_priv = filp->private_data;
+-	struct nouveau_drm *drm = nouveau_drm(file_priv->minor->dev);
+-	int ret;
+-
+-	ret = ttm_bo_mmap(filp, vma, &drm->ttm.bdev);
+-	if (ret)
+-		return ret;
+-
+-	vma->vm_ops = &nouveau_ttm_vm_ops;
+-	return 0;
+-}
+-
+ static int
+ nouveau_ttm_init_host(struct nouveau_drm *drm, u8 kind)
+ {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.h b/drivers/gpu/drm/nouveau/nouveau_ttm.h
+index dbf6dc238efd..2f0efda7ccdb 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_ttm.h
++++ b/drivers/gpu/drm/nouveau/nouveau_ttm.h
+@@ -17,7 +17,6 @@ struct ttm_tt *nouveau_sgdma_create_ttm(struct ttm_buffer_object *bo,
+ 
+ int  nouveau_ttm_init(struct nouveau_drm *drm);
+ void nouveau_ttm_fini(struct nouveau_drm *drm);
+-int  nouveau_ttm_mmap(struct file *, struct vm_area_struct *);
+ 
+ int  nouveau_ttm_global_init(struct nouveau_drm *);
+ void nouveau_ttm_global_release(struct nouveau_drm *);
 -- 
 2.30.2
 
