@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 242ABC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09068C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E34E861382
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E34E861382
+	by mail.kernel.org (Postfix) with ESMTPS id CBF5D61382
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBF5D61382
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 831306E237;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCC36E566;
 	Tue,  6 Apr 2021 01:47:16 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39A7E6E52A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64C2B6E55C;
  Tue,  6 Apr 2021 01:47:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ug9j20wW6m2f4RxWzVle5r9DEoTKSIAZDvhKMiUCY7BmLoSyRnnpP9/8kPNo8vPdYAHsM1Hc985Jn1J7BqPRgTY9AGBvm0RjUTslu1mJSpImfZYwpGAksfuYDi5TwdDVX8/khJZYr2UGX9xJiv9A/PiwYjvBTwft9dbMJhmBJLoq4re0qZeeDdHnfImGK+FUw5yCJPTWkNZqtB1qHWvGNQlf+h85Ra53TStn/lhuB/RmZREz7BPPlGk6hkAhnsoWvmd6ovTyMewZBij4YL+HSeRrfJKGtlvIMy/A6ZZsgoXtCzsJywPZkS4I7byPWAfJt0sRfkDUbAgB4z15yyjuxg==
+ b=XZx+fDK3TLql2fapCg0OZFy0n7cCQwm6gzKQvJae5WfsJ2UTsxjVXGjh35gV88bekYrPyUuwTCwx8dZMjr9ozHom9jMT6BQp6lojuv++UIXW7mBlyKSGhSARJ3S+wHSBnSh49/6eAwmTraHfLctFxFnwbAekj7Jb094Y/WbxFhQALRyHlt48LZ6r/4JigMr/ANsHtzgfjk2lTZYSbfk72BCxw3Uh3eWV2/BCeoyjdbplUcnPXdTA8iOykZH9VKxPAZ3pYAG7TA9SptbV6FJVlJsZVnwpdkSgFeoZKH25dlNPYv0wbjcCpuE9pVzEW6DMyjb1co3bUQtI/fHgyoXYgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rKaQX9GSNXxqvDQDgcF7RVAoOVluQTTYh5U8q0aEOxU=;
- b=YFVs7hl0RLRJLkB0/1yV28BjnZ2tutGwux63FyuXVRK8Hn25OW11MQomqr1jlC5Kta+zgmigyb0aAXXLtzYo93sn7jMl3tm7hKDveVl1Dx0ITFIGAk09YKHcUA82Wo9joB7IoXwbqN1a8ablqpKJxqQ++s1Rx2r776xjMMLnjwFopKFTPXQtKKfjEVdUWppQkOjzpVr2RB6dvI4dcBbzf8ek73FreBp+sGlJlqSty+GpetykyNxvepGoltYfTy5Ch+uO6Fj1XIgxgqCgMmHddj7Ae+knAxR+OBgEI0SHutuTQ7kxZlVXVe8R29tgUVXrbkEDsX73T+yMdCu9uNSJ7w==
+ bh=bvyDCr8572+K2UEase8xCn6mYN49gB0XzWehB9JlPjY=;
+ b=XvOR8XCvtYIPRNxGr24GA/rG43CSXOIbNp60EZIUCGlAwFEFFm5FLch3K2jDeorTbxkAw1pZj5J+5el5uLoProZSMlzyHc41b6c9ClpE9syAFnHuzVU9vwyZ78FSkOdCs5/dDzEL78/3oV/H/pbeOUcxf8+uKRt1PjcPV7cFmf6boO2K1umGWdmwRpmKyTdSX4pGCaAcbFYkxH/kunSdcbZNIGESH5sdI2r4d07BlGunJAyEO/hP/7ogS7NzMquUUv+yW3BE+/rLHtJ2p9DXg6rR6yZMgWPdp5iYjs0svXwGZcLJlc4cWMgn2TChmVpm5lM4Pr2xswN0KenyfMeEcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rKaQX9GSNXxqvDQDgcF7RVAoOVluQTTYh5U8q0aEOxU=;
- b=Fuu+9bwE6zs+j+ERJOoIn6UcoGuaikkLvWg6QHw/UVNOZQ8vY5FwLUIOumjhVYn78taMWdve3+cKA4gfJt2qYE80xnAm83X3d2n+bzDPGexKHqh3wLMqln73Xid0x2Iq/JTUyeo2J0Ez4ETkL35Tm5mwR2djYsRF/O6jsiTMATI=
+ bh=bvyDCr8572+K2UEase8xCn6mYN49gB0XzWehB9JlPjY=;
+ b=V+cxfXmsossJUyff0R8Kkyv+LS4IbNDk30hZwImUhZq977g+/CnxfNd6/1V1ZR0vUeXGNHdUWC1y6RH43li3SWJzrE9xRO+Mo0AcvqaNTS3Jb/TPnuOE5tZX0XXDw9lZRG4jBWZC1mwa410cvqcNQw9cPQO7rGceYUwLMfxeHeE=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB4159.namprd12.prod.outlook.com (2603:10b6:208:1da::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.32; Tue, 6 Apr
- 2021 01:47:09 +0000
+ 2021 01:47:11 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.039; Tue, 6 Apr 2021
- 01:47:09 +0000
+ 01:47:10 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 27/34] drm/amdkfd: add svm_bo eviction mechanism support
-Date: Mon,  5 Apr 2021 21:46:22 -0400
-Message-Id: <20210406014629.25141-28-Felix.Kuehling@amd.com>
+Subject: [PATCH 29/34] drm/amdgpu: add svm_bo eviction to enable_signal cb
+Date: Mon,  5 Apr 2021 21:46:24 -0400
+Message-Id: <20210406014629.25141-30-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210406014629.25141-1-Felix.Kuehling@amd.com>
 References: <20210406014629.25141-1-Felix.Kuehling@amd.com>
@@ -68,52 +68,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:47:08 +0000
+ 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:47:09 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eef1d92e-97f0-4e0c-f5c6-08d8f89de3b8
+X-MS-Office365-Filtering-Correlation-Id: 66b5b851-1a3b-4f7a-6000-08d8f89de454
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4159:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4159ABA0BEA615674D1DBD6D92769@MN2PR12MB4159.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4159D446DD168A0887B6005692769@MN2PR12MB4159.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EYUbNgtoeOEvdGjT9Or4b6tSptWZiTY5kKTjqZr13Nm03KOgc+aRHVLDyFGyX72cZTjcxzouMlPcpJsDdxtTlqPE5CyWkwpMV1a0MGKSmtzL594Weg7n2fKEH4LrrhStd4MZwJSYBN78t1CIvOZdkPYM/ozTIIyAUAXEPfhMywd+55gQKfHHenFn5XYJll+ZtY/Ef3dX8rytxuuITCAjM/TjKR3K+7NVu7ybFpGIeUA+y7Riwf/EsupeZYHaTRvKSaHMO6/KvVoe2CE5Aw8oVrNf74Hl9odp1tDDDZt+2p+2oe6EnMnObUeGshmorliua0bh+zoqfF+aJX0ncetqGZjlL2rNTEqN7Gf3L2A9s0wz9+RYvnHIxI/zPol0tN4SFdh8yBf/rzSCxxJj0khshpJ1iLBZfNgF+6Bq/IU3Z7Y8g7e+PB4xc+94KCeGdkZUHtl55c/vpMJpTzn+i6bavlKKIDY44XxpMYQMXJ3kAGt/0US6L0xsOcwZH2F4UEvU0PykAuBAc4ITq+w3N+wWYtEwnaZduHTXJxmIB1++FJKC4z59R8JLkB5lMN5ZSJTd3lDMek8EoYhCaXX/qOd4KJZHqYG0M8xO2qbLQTAyiSvuLcSCOu8ZO/QVYB43/Y5KoBcZs3dZ61pvKi/yJLJXjBUe8W3/OgIYM44q7Z0yIYIPuYbWNi3t1DmUhwnYq9R3
+X-Microsoft-Antispam-Message-Info: nwzokO2vDB6OAeIVJOf9yLSs8BMy0u7UaXwjvc0PMiYTOHwYwtGJQX8NksYUEnxOM8c4Ef3gzXpoDmMkDq3mujMptDRtlF0PQKPxIXLujYN8ELugUYTJizSn+dTUOU+He/UbGAGQ2ymdKGSpSK6p8mydhcOKHBBpOWNwSR1kzF4yQY1QQOQ9DD7PHoxzcXg62vQG+/0DrBcQ06U9sP86tOTXEp5wJwQohuFBH4qFm2a+3H4udnvAmxfpXZgpqwElADHFaf6y+wwFBeJbGX5v70qYGY2gTX4KYl8HZipjD3HDaYWCo7WlSlVeI+UmjT91U0+C4As5sT/Or12UkENW+A9TCiShvRKJ3FlPebQJJLRYbHlctuaqrCIolrD+8qZgqcWVZxbtAfhgnAbseYrbObcxZc4Hr2QcCyP4fZmyWmDvKIkACp+98p9aIWXTtEPAVdDXZ0lVV7mVi9mkbkmK8bDk98eXxwjHNGOYRVQDCDHIiJGkUL5qvHzkmfguRDA+eiHWLF91KPP2afUYtBnPA0p2VH0gLI/8ajMwe5QY3ppnsymwoTciUhZOAp7PfrYVOoDdLFyVbcaDJ2UVguaUJRZD2970oGxEzZwkO1L93OEMvZjHXtSYqOzGmacS3gbEnpQTUvKS7e5xPA+6+bYjE0jk+hdYGua83y4jtyHgCWiJUr6x57Mmy+90tJ9orBQK
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(66556008)(2906002)(66946007)(66476007)(5660300002)(8676002)(26005)(6666004)(186003)(8936002)(316002)(4326008)(83380400001)(478600001)(450100002)(52116002)(7696005)(54906003)(38100700001)(36756003)(2616005)(956004)(6486002)(16526019)(38350700001)(1076003)(86362001);
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(66556008)(2906002)(66946007)(66476007)(5660300002)(8676002)(26005)(6666004)(186003)(8936002)(316002)(4326008)(83380400001)(478600001)(450100002)(52116002)(7696005)(38100700001)(36756003)(2616005)(956004)(6486002)(16526019)(38350700001)(1076003)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?cr08tOPyzzok8LHuh4o4YY0ApUyRnYFpPwzAZ3cxpZMabLWlweeR3GbaRIMM?=
- =?us-ascii?Q?kNLW0vlyzGeIOM9E79Qky8H4t4dDW5SHms2RuhTHWBCIuJQ2qokLm46hSOax?=
- =?us-ascii?Q?00Gwigx+UP6SPX0ohuvDrcW0ch3A9PbCsZf3OSzWGq4m2izrcMhSQop4tlJ9?=
- =?us-ascii?Q?Oj/u5n2M+I869j5v61X0rNMaHaMdCtD4gRuwrkQezlizPJqttbqoXY4Ytt7B?=
- =?us-ascii?Q?mOd4mQVwJhqWZPLpQSAWfjjhEgrtjHGo3MBVlo0sAdnK65aDF9wFnIkpVQmv?=
- =?us-ascii?Q?uB9yqGH6au1cc5xzqnkSoQA2OQJ3s3xfMeVVhekFy8XpydFKSBb5vIcPzt2Y?=
- =?us-ascii?Q?ggboooOUub5OTwN3OBjjkSEPSdYHc2H7Wuq3i1Vp/IU0PfIJ90RMrCVX4qu9?=
- =?us-ascii?Q?KxnA2uA79dihrNFoobJCFYLAJ4gKUqTvWrR/tmWkdtyzZXs6dFf2XTwRs2Mj?=
- =?us-ascii?Q?ojYautlI17Tk7/sHa6kdEb4S9puRlPgWf0fRnPu0dADClDi/C0THHxSr4yQ/?=
- =?us-ascii?Q?rNZEevks4T7vqERLEKCeYO0GfsMzJ0ols1WdVLp87ihe0nRbq0KOIb+qdUkU?=
- =?us-ascii?Q?baX7Z17f0KYaMjrRROpUFH0VVRLbNqJq0TUN/+ZayjT9Q9x9eDG7ZM/B57Bi?=
- =?us-ascii?Q?/x+GIc2uctF5KlDunPe5OaFP0932owDuzUm0tt7ozaZ1bew8rK0uHfpW/Ddt?=
- =?us-ascii?Q?tApq584SBCIhWTswrUlPGAXwrsQ7AjGfwic+cYJ70wVdjWAtiDdBjgo+9xeq?=
- =?us-ascii?Q?h9Rs8KxvoP2b8pGYD09IifS33FkVSp/DglmuQ64I9x98LF8aAO+UTgW3Jkrz?=
- =?us-ascii?Q?Fu4OOpoXDlbyGCVndtGVsNEdniBYebni1j77tWL3/kgO1RcYR2WQeASkQEel?=
- =?us-ascii?Q?btL2IbfrebaNATDU/41qBIb5N3lXUgX4e50C98i/ytqLDxwZmnjMkNKTW4eN?=
- =?us-ascii?Q?upizGIiUfTZ750x3vxW1NA30UyQxvBmH0DKIpveYle9IOcGgbu0pHc0ImSAE?=
- =?us-ascii?Q?vd2co6E34bLXlhIU473GgSnzxIO3bVwaVOMFFqnCLCRij4zsIR4B6/4e8diV?=
- =?us-ascii?Q?HCS7x46CvusgWau6Mxok5YfumSv1+94TA3u+M9eBVscnfZYsKBGiVdimh62Y?=
- =?us-ascii?Q?CiAO2SKGwoUo7ZuPktwBGz2ykcqYBGCd5LxVng7ibueiS52Au45W6Aqn8rOc?=
- =?us-ascii?Q?S4wlW92OvUMU35aZJJVZkfmYl8/6M7oWZeSNSsIG9PNCrvbsrfUFWiDp3VLY?=
- =?us-ascii?Q?cmqjE6Nu90ULL60x0KGJkT7q3LFOuMPNfteuLWoSsuHCrVCbqyR6NPmhbpAM?=
- =?us-ascii?Q?DBS17p/JMRfq+ThQWhlRi3Zt?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fkf6XgQSBgmN6suHQwafd4BkqAILv0XPCP6R7R3dHBeGbHurm0bodn3fPTE6?=
+ =?us-ascii?Q?IJHZ7B0LKA5NQBWmcs6gB27Lhm1liUmhdzTxvFs5l4Gl/D1FgKi/P9J/l/k/?=
+ =?us-ascii?Q?7cpUdcM/JRK8jn9OO31xt0DoEtEIHeDu/mtEtzDUPUZd/xBa/UKy42SX71oA?=
+ =?us-ascii?Q?zbuVpz4EUlpwyy2QMM4JJw7ueZsLDvoBlis9/4o5fGtdsYfB+nD6FPTt3lCx?=
+ =?us-ascii?Q?LNX/dBGCPpiiRWY07SSSmpt0S2xWBHtPkefZrdosu9wBlM8NUDSyoa6nw5HF?=
+ =?us-ascii?Q?ELfWmhSaNwPdYNPe9SlCtidhxoJurulmB6wHKHlmmjQcRFNqUE3jx5HwCI/a?=
+ =?us-ascii?Q?ii2tTt0fNnM6F0CGTBfanDA0oWEbJRm5wF3UYFNPSQiYdsOLJNHLyKlGWlvH?=
+ =?us-ascii?Q?DWnqtU9fUqODZTXlMmI9zg8TAYv1chGNn40sLaXcoqxaOZ7UWcZATH6Fjxet?=
+ =?us-ascii?Q?77DF/8EXOFIqsLzaQfMZi9P42OeuuXIPq5BX+d5i3Mhui9y75JITfTLCKhoN?=
+ =?us-ascii?Q?J7EQg2QEa7J77C3ECc1jBd4RNJRUU+TMJw7hItMJhRktzjPzo5FV+ve1O0id?=
+ =?us-ascii?Q?1Iipf95pPPes1khq/+QHgEFznu5jSRxwJhbcW7IDkLYWSfnGmm40mbM4buqX?=
+ =?us-ascii?Q?9M2v4MVkXDgU2hPhX5lvhTuBosRoehDEATIDz5Qbdnbcpzz/otBbN1TOfdWS?=
+ =?us-ascii?Q?Mjk5Mf2Hlyvy7MOZmj2aUbIcE3RqDFnKaWQ7D+KQTUmi0TnRF8uosLNrGMBw?=
+ =?us-ascii?Q?GeHKPm2Ur1Dso/eCjY6Qup8G4WfNaF5O5TeWJ376TfgkvDT7D742TGG/NPEn?=
+ =?us-ascii?Q?/uPsC+vaYQ6lvZkT7boEdhzHzqNULQaLjdgjB8rnEnfwAg/e10/d19Yq7LDH?=
+ =?us-ascii?Q?TQvIJvKBlbSz+R7ekl55WbDsJxhffOchRAKZ1ZHPqi+KChZnWxpWYLM8pFhk?=
+ =?us-ascii?Q?5v21DlIejt7YsevUWBU37u/2ykrbZjnfyKPzT2ghIJ5f1eqPZMFSO6FbMNqX?=
+ =?us-ascii?Q?Ag9Zofc4xxJ9bDpxShWKW2iFsUo2JOWxkxwxzff2oN6ZsMH6nddU1sPJrpxv?=
+ =?us-ascii?Q?W+dqCI1g2y6y1/8bACg+uCpuZ9a8AlZdsDTO7OmMYoFnHyQt4dYjGvmVM3ty?=
+ =?us-ascii?Q?j3M6lKNk8jtScvA7m8RitGlPwjE22gBvorh5m7pWgSvQRsSBQpkKjQm2xWMX?=
+ =?us-ascii?Q?/oqzGKzkiEb08/uS+b0ZtZWN7EigtSBv3RyGXIsaWkUPlh55gbH82Snr0Ule?=
+ =?us-ascii?Q?ogQEVDCMjtFihMbDoWjaRkm20tFWiz8V98T88JbEdJb4MkVev5SX4suyTPx7?=
+ =?us-ascii?Q?Th3mug6JTBQ9YToxXM9qgAqi?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eef1d92e-97f0-4e0c-f5c6-08d8f89de3b8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66b5b851-1a3b-4f7a-6000-08d8f89de454
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:47:08.9428 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:47:09.8986 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MMxVgAEAr9gWKnM5/zFp1HBgpLNxqN2oD8AKtti+XtESHR4tUDaYhEdxoz1U8DUOTKrUuFZbDx6IIUfFVyp53A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: nzcQanvoCkVrLu96V4SL94FMVf7DgPWaZp8RBQ+o2bYnvRrxlhhbpdPl5huB88EfDuP7jN9QE1Eb6c8SlUHsjQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,346 +126,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-svm_bo eviction mechanism is different from regular BOs.
-Every SVM_BO created contains one eviction fence and one
-worker item for eviction process.
-SVM_BOs can be attached to one or more pranges.
-For SVM_BO eviction mechanism, TTM will start to call
-enable_signal callback for every SVM_BO until VRAM space
-is available.
-Here, all the ttm_evict calls are synchronous, this guarantees
-that each eviction has completed and the fence has signaled before
-it returns.
+From: Alex Sierra <alex.sierra@amd.com>
+
+Add to amdgpu_amdkfd_fence.enable_signal callback, support
+for svm_bo fence eviction.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 201 +++++++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  13 +-
- 2 files changed, 168 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 1e5c4dfc9de3..adb8e69fbd28 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -34,6 +34,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index 53559643c712..1fe233cddb20 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -28,6 +28,7 @@
+ #include <linux/slab.h>
+ #include <linux/sched/mm.h>
+ #include "amdgpu_amdkfd.h"
++#include "kfd_svm.h"
  
- #define AMDGPU_SVM_RANGE_RESTORE_DELAY_MS 1
+ static const struct dma_fence_ops amdkfd_fence_ops;
+ static atomic_t fence_seq = ATOMIC_INIT(0);
+@@ -123,9 +124,13 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
+ 	if (dma_fence_is_signaled(f))
+ 		return true;
  
-+static void svm_range_evict_svm_bo_worker(struct work_struct *work);
- static bool
- svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
- 				    const struct mmu_notifier_range *range,
-@@ -319,7 +320,15 @@ static void svm_range_bo_release(struct kref *kref)
- 		spin_lock(&svm_bo->list_lock);
- 	}
- 	spin_unlock(&svm_bo->list_lock);
+-	if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, f))
+-		return true;
 -
-+	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base)) {
-+		/* We're not in the eviction worker.
-+		 * Signal the fence and synchronize with any
-+		 * pending eviction work.
-+		 */
-+		dma_fence_signal(&svm_bo->eviction_fence->base);
-+		cancel_work_sync(&svm_bo->eviction_work);
-+	}
-+	dma_fence_put(&svm_bo->eviction_fence->base);
- 	amdgpu_bo_unref(&svm_bo->bo);
- 	kfree(svm_bo);
- }
-@@ -332,6 +341,61 @@ static void svm_range_bo_unref(struct svm_range_bo *svm_bo)
- 	kref_put(&svm_bo->kref, svm_range_bo_release);
- }
- 
-+static bool svm_range_validate_svm_bo(struct svm_range *prange)
-+{
-+	mutex_lock(&prange->lock);
-+	if (!prange->svm_bo) {
-+		mutex_unlock(&prange->lock);
-+		return false;
-+	}
-+	if (prange->ttm_res) {
-+		/* We still have a reference, all is well */
-+		mutex_unlock(&prange->lock);
-+		return true;
-+	}
-+	if (svm_bo_ref_unless_zero(prange->svm_bo)) {
-+		if (READ_ONCE(prange->svm_bo->evicting)) {
-+			struct dma_fence *f;
-+			struct svm_range_bo *svm_bo;
-+			/* The BO is getting evicted,
-+			 * we need to get a new one
-+			 */
-+			mutex_unlock(&prange->lock);
-+			svm_bo = prange->svm_bo;
-+			f = dma_fence_get(&svm_bo->eviction_fence->base);
-+			svm_range_bo_unref(prange->svm_bo);
-+			/* wait for the fence to avoid long spin-loop
-+			 * at list_empty_careful
-+			 */
-+			dma_fence_wait(f, false);
-+			dma_fence_put(f);
-+		} else {
-+			/* The BO was still around and we got
-+			 * a new reference to it
-+			 */
-+			mutex_unlock(&prange->lock);
-+			pr_debug("reuse old bo svms 0x%p [0x%lx 0x%lx]\n",
-+				 prange->svms, prange->start, prange->last);
-+
-+			prange->ttm_res = &prange->svm_bo->bo->tbo.mem;
++	if (!fence->svm_bo) {
++		if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, f))
 +			return true;
-+		}
-+
 +	} else {
-+		mutex_unlock(&prange->lock);
++		if (!svm_range_schedule_evict_svm_bo(fence))
++			return true;
 +	}
-+
-+	/* We need a new svm_bo. Spin-loop to wait for concurrent
-+	 * svm_range_bo_release to finish removing this range from
-+	 * its range list. After this, it is safe to reuse the
-+	 * svm_bo pointer and svm_bo_list head.
-+	 */
-+	while (!list_empty_careful(&prange->svm_bo_list))
-+		;
-+
-+	return false;
-+}
-+
- static struct svm_range_bo *svm_range_bo_new(void)
- {
- 	struct svm_range_bo *svm_bo;
-@@ -351,72 +415,56 @@ int
- svm_range_vram_node_new(struct amdgpu_device *adev, struct svm_range *prange,
- 			bool clear)
- {
--	struct amdkfd_process_info *process_info;
- 	struct amdgpu_bo_param bp;
- 	struct svm_range_bo *svm_bo;
- 	struct amdgpu_bo_user *ubo;
- 	struct amdgpu_bo *bo;
- 	struct kfd_process *p;
-+	struct mm_struct *mm;
- 	int r;
- 
--	pr_debug("[0x%lx 0x%lx]\n", prange->start, prange->last);
--	mutex_lock(&prange->lock);
--	if (prange->svm_bo) {
--		if (prange->ttm_res) {
--			/* We still have a reference, all is well */
--			mutex_unlock(&prange->lock);
--			return 0;
--		}
--		if (svm_bo_ref_unless_zero(prange->svm_bo)) {
--			/* The BO was still around and we got
--			 * a new reference to it
--			 */
--			mutex_unlock(&prange->lock);
--			pr_debug("reuse old bo [0x%lx 0x%lx]\n",
--				prange->start, prange->last);
--
--			prange->ttm_res = &prange->svm_bo->bo->tbo.mem;
--			return 0;
--		}
--
--		mutex_unlock(&prange->lock);
--
--		/* We need a new svm_bo. Spin-loop to wait for concurrent
--		 * svm_range_bo_release to finish removing this range from
--		 * its range list. After this, it is safe to reuse the
--		 * svm_bo pointer and svm_bo_list head.
--		 */
--		while (!list_empty_careful(&prange->svm_bo_list))
--			;
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+	pr_debug("pasid: %x svms 0x%p [0x%lx 0x%lx]\n", p->pasid, prange->svms,
-+		 prange->start, prange->last);
- 
--	} else {
--		mutex_unlock(&prange->lock);
--	}
-+	if (svm_range_validate_svm_bo(prange))
-+		return 0;
- 
- 	svm_bo = svm_range_bo_new();
- 	if (!svm_bo) {
- 		pr_debug("failed to alloc svm bo\n");
- 		return -ENOMEM;
- 	}
--
-+	mm = get_task_mm(p->lead_thread);
-+	if (!mm) {
-+		pr_debug("failed to get mm\n");
-+		kfree(svm_bo);
-+		return -ESRCH;
-+	}
-+	svm_bo->svms = prange->svms;
-+	svm_bo->eviction_fence =
-+		amdgpu_amdkfd_fence_create(dma_fence_context_alloc(1),
-+					   mm,
-+					   svm_bo);
-+	mmput(mm);
-+	INIT_WORK(&svm_bo->eviction_work, svm_range_evict_svm_bo_worker);
-+	svm_bo->evicting = 0;
- 	memset(&bp, 0, sizeof(bp));
- 	bp.size = prange->npages * PAGE_SIZE;
- 	bp.byte_align = PAGE_SIZE;
- 	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
- 	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
- 	bp.flags |= clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
-+	bp.flags |= AMDGPU_AMDKFD_CREATE_SVM_BO;
- 	bp.type = ttm_bo_type_device;
- 	bp.resv = NULL;
- 
- 	r = amdgpu_bo_create_user(adev, &bp, &ubo);
- 	if (r) {
- 		pr_debug("failed %d to create bo\n", r);
--		kfree(svm_bo);
--		return r;
-+		goto create_bo_failed;
- 	}
- 	bo = &ubo->bo;
--
--	p = container_of(prange->svms, struct kfd_process, svms);
- 	r = amdgpu_bo_reserve(bo, true);
- 	if (r) {
- 		pr_debug("failed %d to reserve bo\n", r);
-@@ -429,8 +477,7 @@ svm_range_vram_node_new(struct amdgpu_device *adev, struct svm_range *prange,
- 		amdgpu_bo_unreserve(bo);
- 		goto reserve_bo_failed;
- 	}
--	process_info = p->kgd_process_info;
--	amdgpu_bo_fence(bo, &process_info->eviction_fence->base, true);
-+	amdgpu_bo_fence(bo, &svm_bo->eviction_fence->base, true);
- 
- 	amdgpu_bo_unreserve(bo);
- 
-@@ -446,8 +493,10 @@ svm_range_vram_node_new(struct amdgpu_device *adev, struct svm_range *prange,
- 	return 0;
- 
- reserve_bo_failed:
--	kfree(svm_bo);
- 	amdgpu_bo_unref(&bo);
-+create_bo_failed:
-+	dma_fence_put(&svm_bo->eviction_fence->base);
-+	kfree(svm_bo);
- 	prange->ttm_res = NULL;
- 
- 	return r;
-@@ -2333,6 +2382,74 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
- 	return r;
+ 	return false;
  }
  
-+int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence)
-+{
-+	if (!fence)
-+		return -EINVAL;
-+
-+	if (dma_fence_is_signaled(&fence->base))
-+		return 0;
-+
-+	if (fence->svm_bo) {
-+		WRITE_ONCE(fence->svm_bo->evicting, 1);
-+		schedule_work(&fence->svm_bo->eviction_work);
-+	}
-+
-+	return 0;
-+}
-+
-+static void svm_range_evict_svm_bo_worker(struct work_struct *work)
-+{
-+	struct svm_range_bo *svm_bo;
-+	struct kfd_process *p;
-+	struct mm_struct *mm;
-+
-+	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
-+	if (!svm_bo_ref_unless_zero(svm_bo))
-+		return; /* svm_bo was freed while eviction was pending */
-+
-+	/* svm_range_bo_release destroys this worker thread. So during
-+	 * the lifetime of this thread, kfd_process and mm will be valid.
-+	 */
-+	p = container_of(svm_bo->svms, struct kfd_process, svms);
-+	mm = p->mm;
-+	if (!mm)
-+		return;
-+
-+	mmap_read_lock(mm);
-+	spin_lock(&svm_bo->list_lock);
-+	while (!list_empty(&svm_bo->range_list)) {
-+		struct svm_range *prange =
-+				list_first_entry(&svm_bo->range_list,
-+						struct svm_range, svm_bo_list);
-+		list_del_init(&prange->svm_bo_list);
-+		spin_unlock(&svm_bo->list_lock);
-+
-+		pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms,
-+			 prange->start, prange->last);
-+
-+		mutex_lock(&prange->migrate_mutex);
-+		svm_migrate_vram_to_ram(prange, svm_bo->eviction_fence->mm);
-+
-+		mutex_lock(&prange->lock);
-+		prange->svm_bo = NULL;
-+		mutex_unlock(&prange->lock);
-+
-+		mutex_unlock(&prange->migrate_mutex);
-+
-+		spin_lock(&svm_bo->list_lock);
-+	}
-+	spin_unlock(&svm_bo->list_lock);
-+	mmap_read_unlock(mm);
-+
-+	dma_fence_signal(&svm_bo->eviction_fence->base);
-+	/* This is the last reference to svm_bo, after svm_range_vram_node_free
-+	 * has been called in svm_migrate_vram_to_ram
-+	 */
-+	WARN_ONCE(kref_read(&svm_bo->kref) != 1, "This was not the last reference\n");
-+	svm_range_bo_unref(svm_bo);
-+}
-+
- static int
- svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
- 		   uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 168c623f4477..f157be434cfa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -33,10 +33,14 @@
- #include "kfd_priv.h"
- 
- struct svm_range_bo {
--	struct amdgpu_bo	*bo;
--	struct kref		kref;
--	struct list_head	range_list; /* all svm ranges shared this bo */
--	spinlock_t		list_lock;
-+	struct amdgpu_bo		*bo;
-+	struct kref			kref;
-+	struct list_head		range_list; /* all svm ranges shared this bo */
-+	spinlock_t			list_lock;
-+	struct amdgpu_amdkfd_fence	*eviction_fence;
-+	struct work_struct		eviction_work;
-+	struct svm_range_list		*svms;
-+	uint32_t			evicting;
- };
- 
- enum svm_work_list_ops {
-@@ -156,6 +160,7 @@ int svm_range_split_by_granularity(struct kfd_process *p, struct mm_struct *mm,
- 			       struct svm_range *prange);
- int svm_range_restore_pages(struct amdgpu_device *adev,
- 			    unsigned int pasid, uint64_t addr);
-+int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence);
- void svm_range_add_list_work(struct svm_range_list *svms,
- 			     struct svm_range *prange, struct mm_struct *mm,
- 			     enum svm_work_list_ops op);
 -- 
 2.31.1
 
