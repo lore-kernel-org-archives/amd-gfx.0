@@ -7,56 +7,55 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 774EFC43461
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42800C43460
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 424F861396
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 424F861396
+	by mail.kernel.org (Postfix) with ESMTPS id 1126561396
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1126561396
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7ED96E221;
-	Tue,  6 Apr 2021 01:47:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE2B76E23B;
+	Tue,  6 Apr 2021 01:47:05 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 581796E22F;
- Tue,  6 Apr 2021 01:47:02 +0000 (UTC)
+ (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491926E250;
+ Tue,  6 Apr 2021 01:47:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CjE4eZQwExl3nGyDvou234WG9fpxYRGc3CkIlUrOLJ9OftIrWZ/jkOKH83JLj0WDLPAQP8gInhvq9xOW+qNbENwUq+EEQ64aF/obqqmiZZtd75T3d+b44wdR+QHuofx6REObJyeBa7ackEaTpT7LcWDFK/6yc3iEr3F0XfvyUP+zlnn1FdXfYeEzR87ImyfMGrEAgnOKLBvrlGzkNZlJJdTrQPtLv74Wq+YQ2XK7htA1+vxp3qqh6NKAlGA16Z5ZsxLIxMk2hTBj280S26UI5hCy8ZS80o0XUXbqfM5ryRI3qZ0kujzqBQZf+bNx1CtDProv4JIF8ucFc9RRpjMzFg==
+ b=nc1+8JPd59SNxwQxRq2Ih0fr+B+FTAA4Ob2jgcIi2kHb/JQhEVYoTOBx7UnClxf4RIQhiWeEzHC4ltmS5yisMniHN8TaPcxl/pJr8lQquOsLaQ9of5WgCx7lKB52UbWwFIUJmdXS0mU/a7elsxKRGrSheqcb7Di9TuqNOYd31WreT1tuQGiGUI+Yw1sk4zaijgfm21W8r7snkS2NCZj2fpU8moN6kc3USTXzyy6aX8zWh9VAAO36HfuqD6PGQIZv/3iGPwrZbVxUfoS3g3/zFuRnh/nH2CGwlhr1bW0rnTPpqjgoHTYLeZenDhlBeL1ffxIJ2eWEfofQDnO751H7HQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dxVWP1WLlBmfpqL7qphhHvUsjdSQOpI643oNlzmXbvc=;
- b=Yy74F6kvwl0vPT0LxTxAsqudgmbiolqH264bao008v7johswq9XKSBoMBdxeu4jgAukj8XmkBSAxZ/kG88ftD4xo4SWy+d2Nbh7jAGmfCIx3fpWmYJSA8PPFAg9LFecMC70s5GABR6uvcrH+bhhWY35fE9OJl7ApkPzxKTXHvSoOpqQhTBHEQHtwxJTtz8zmYwiFYEc0Vp0nxdrZ2ylOZf0NxEd1Srblao1WrDp3r/c9lfekdjDEo3uUAAezy0nPZ0KaHy2nQ9adDkL6zsEG3rU+vdexFoQTPfWGMAxrrx2lnMlbeVmenNSwBISVBHreDBxSlIlRP3frMgF+yqf12A==
+ bh=zdksxvjWwRuQP6qsLcX4Xe5dzbuMiFL89ZluOojqtuw=;
+ b=oT0U5glgSQma6qWxMqEgDopDXbPMu+7xFhssxXIhKKJ4ioqJkmcoIClmDgbwDWVBHlqPS6Sb249AJZo2f39+Q/1MunuYud4EU2JRpa4sASga/hRKwAhpeyFTBTXLqr2/6wVM55WKY/Vqg8l58m6Aidy4thntw09ERucA0K7QH0oyIQPOlZAU6IaZR+44qCczl5hHtgEesl/Jn2Y3cFnhuz/06j91QW4stHIusxXAEewhM75D4lZ3h+S6r8AGEIjgKo9vzPFcb4zlL8csh4JF+FVtOC7+Bx0z8JHhqS3q6hoh5XRpu0uPhcP/FyurYaekCEv2piq7rpu+ybTzv6H62w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dxVWP1WLlBmfpqL7qphhHvUsjdSQOpI643oNlzmXbvc=;
- b=rao4DSbULNIdnqBZinipSpBaqKPHXZ3PGQJX4jlI3nGAfsqqCb+QMNGa/CDso48BQ8MIx6SxfvMWBUWLWm+Mk2qkyoypz+aoYi4F8DMIEqc2bI3vNUuaHTEYA3sNetEgT4OwMu8z7B4NAa0COnaagcPh4dN+DNiOXU0s+Vy52UU=
+ bh=zdksxvjWwRuQP6qsLcX4Xe5dzbuMiFL89ZluOojqtuw=;
+ b=BiVE1ihO4SKbH53h7Mxb7SLnQaXIOZ97EDkDrZMXOXZ/j+q20FctfLLMxLRK1YVSEXu1U8icsIuX8qR3ubw+0v4rDALulpyYdIzeeIRklbRMPDGt/MCF1Ffo/WpDIjyz18a5PCWxQeDIuVvEZ3kpxg6q0wa81RmRrIpQaYjZzvk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
+ by MN2PR12MB3792.namprd12.prod.outlook.com (2603:10b6:208:16e::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.26; Tue, 6 Apr
- 2021 01:47:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Tue, 6 Apr
+ 2021 01:47:04 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.039; Tue, 6 Apr 2021
- 01:47:01 +0000
+ 01:47:04 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 14/34] drm/amdkfd: add ioctl to configure and query xnack
- retries
-Date: Mon,  5 Apr 2021 21:46:09 -0400
-Message-Id: <20210406014629.25141-15-Felix.Kuehling@amd.com>
+Subject: [PATCH 18/34] drm/amdkfd: copy memory through gart table
+Date: Mon,  5 Apr 2021 21:46:13 -0400
+Message-Id: <20210406014629.25141-19-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210406014629.25141-1-Felix.Kuehling@amd.com>
 References: <20210406014629.25141-1-Felix.Kuehling@amd.com>
@@ -69,53 +68,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:47:00 +0000
+ 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:47:03 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b331aa38-0cdc-432d-8bb7-08d8f89ddf09
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4206:
+X-MS-Office365-Filtering-Correlation-Id: ea675ebb-4cbd-4125-3452-08d8f89de0c1
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3792:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4206A5E331E683E012EDF60292769@MN2PR12MB4206.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3792DCFAA2C2883D7E42732492769@MN2PR12MB3792.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GwXulUryp3/hX8LOqIqQ7FvlUXmE3WIKWhWJM+js9Zbzr/M3TFHJjvjcc/g+0tOITyMLbfDg4oS7GydjBVl3H08gTHArftRqrmaB39f0U2WY17dKIsvwgiTasKaESSmWjrc7tm3VOC/rdxHtj5iOFdJ1ThKlUnSKxmxT5AwKujKTZxe3NTCe8vT/F1RiYpHUWYz+CYwKSvnlxiHkdz+MWn4RiA0RQ0Q4gP5OT3p7VuTZb/KNacJhAZ/Ktd0OBVLiqfNu7i2pBJC/QSaQVjSO9XXI0IfLX9ZHIRKaYLcusbzhmsg1Ra9GHC8F7Ra0Gw6+leTWibz7+mQJTNhsfwVoIop9gFA2jzcTX/2ZBtq8T4vU7QOIpcWm7lb8Pe/Gqp8JSP3Euo3v0N1yo38GQA75qxIcoyr30bZtqqvoT9eW6qJ3UDohptGKeYgMntuDRD2Rd/iSrMq2ya4l1IjWFAdhoEccSAz2hzKqXPypJ4sjBiWaihaiEBlu7W78Av44/kRzGI9eIyAQTFes3mBDiIscr+/41lhUXbqfISVqoZsRYf50IX3ZtzNdCJhwaYd/F6w/l+iRCy/NxbROMCkN0f18rWpCoanil9jg3HeNORD1N8lJPaBv0VkbjVnOiiCUyXVY1/gvNTviOAobz10G6dOU0GIkORLWgX96q4oNmtGCr9CWOSs55tRNb07dS308r5T9
+X-Microsoft-Antispam-Message-Info: 9E1bvBFGC+QypYE9C5RmHNpQGoX5LQYBe7se32ik6P1f8R0g+hCklrPzh57zY7XQ4BtzdbPQwj8lafJoiDzH6hTNZeDI9DlVwr1ousH22ezMHXEfuLrR9dPJmXmJYRnMB4tBschymO7t8NBRc6NXaeRuGQwyPMNe2t23FdfEYzqnrMZ1drRLDxRie5EirD4ZH3dp98F3XoPkrswJ9tarEOa0VmTuajjzjU/pdeh/vPDO6rIzqy08Cs/5Jdv+jjNOSM1+6c3IoBwxs/gEg7o3T8SRqM6sBCfbtTAC7APbakhFtrPJKmFlxT9VcegN9UfhQR03aAZffHUkzzxaQ+t3Nj9dU4NDE3uC28T5TrEXabOWfd/zY6F6lF/oTCVI4kghAWfRWIJJIfHz7y3kNBzaivJze89CRBon/92x/rFfFvjHVt0owSHR9UxEdMUiCPYXuaVlYTQxXsNiPI3qVcc6gG5jl6CloVR4vkEGeoK+VPnphvTZLZF7M3cg0tzwpfW6Zqsq7xU8RsMrAhHqJLb6/c1PSreJ/q1Ezp1gFv1oDSUwllTyzao3XB9T386jGxIHLfGN5ohEL4mxuF/VoRSGKFYQE0WxWcIEKyg4fJeqy6X5yP9chNISBK0rllCZKHwCFXLkfoaONNC0AqFch2uJo5+mbofI58tsZTOUS8da+ayFJ5noCzNR3jfjIWcd+P1d
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(376002)(396003)(39860400002)(346002)(186003)(8936002)(38100700001)(7696005)(52116002)(956004)(36756003)(2906002)(478600001)(316002)(6486002)(16526019)(26005)(1076003)(8676002)(66556008)(66476007)(86362001)(4326008)(5660300002)(66946007)(2616005)(83380400001)(450100002)(38350700001);
+ SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(366004)(6486002)(316002)(66476007)(26005)(8676002)(16526019)(83380400001)(186003)(1076003)(4326008)(8936002)(38100700001)(2906002)(450100002)(956004)(2616005)(36756003)(6666004)(478600001)(7696005)(52116002)(66946007)(86362001)(66556008)(38350700001)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?lQu9EjK5e075YWcuGHZGqat8U7XJ1uL+gp11Nt+JaXMzA5+HGsHEtPP7Axmo?=
- =?us-ascii?Q?R0Hhkdo5C4N4vfrVyMPvaQQ8l2L9mYlQtDfdeCwNsyYMQrpDObUzu7Jogdp/?=
- =?us-ascii?Q?DGlRMtPgQAM8jS5GG4nZxBTbZrsMcQ86FHNaiPZaBpgbbaKLpe42eVHq/FVs?=
- =?us-ascii?Q?UbURcACjO0PjQBgdhfty+pkRII4d6cuxk6WNqbpevAvf4QEOEDdjWWSFW+FF?=
- =?us-ascii?Q?KHBqTkC3Fb5lNIIQ5M0pEOCYfYlpsVSlESeV5JoRpfwjF9WLep6g47co9ZHf?=
- =?us-ascii?Q?GVk4hqNEL56UfJ7UzTnqYL79VEDXVoozlEa6i8ByjR4zTg/cI4qw1ygBL8S5?=
- =?us-ascii?Q?7F3D4/7yW8maw9Nwe0wRiYgRSZkAFV3BJLFPgUm2SEaIia3cCQiEx5tMC8+i?=
- =?us-ascii?Q?h/CIY+YaktVsO6bBaQFa1v9qIYQ+38ah7XmPst7SYUb/U/0JP9t8gGfmbynY?=
- =?us-ascii?Q?6CX6s/gLT+H8vShXzB4Oop3l0+Fj3oRNKIaMZXYJUbn6QvQlJfPj6KArvebk?=
- =?us-ascii?Q?yGTwIKBuOLTcB331XyXlWwjvMio/gmBxldc7MC0XJJrYZ9Wk2lDaFO8P8TmO?=
- =?us-ascii?Q?vfCmDJJZqHuGZrcYI9XjQxJhdij5rlaKKriDlYBQAQwXse4gYwHSj2zUUtD7?=
- =?us-ascii?Q?aZ70d0UhZApzvSDaj1IeuTHg3mAgHo7V+OejoG27dtRwB4BbqMyGcemvgOGr?=
- =?us-ascii?Q?DgqNSRsKRKI5YhpG+DW9VbQpftcs8ODV2GBz7++xYW5yNkKTJU5HPckfezmf?=
- =?us-ascii?Q?u+zjxEASsZkXJ8Z+rjPUcewi4Ps4hekx43VBLgJnPTFr5MBNI0KoTdXv8kPP?=
- =?us-ascii?Q?l69a540EU0fgx6NDwM6YDSUxDkFf+43JOPTPDJeVHuf2b9mBc7vZ59C/ORCu?=
- =?us-ascii?Q?5H/nDgNJ7b/zMBfi0s6Fo5FC4wyGRb/DuQ/Khz8U+e7HFpmo5jxKJe39VGnf?=
- =?us-ascii?Q?8suCfvqhv+8UV7Jb/Ft6WtZ2CL5uWQNJmvhhHNRHkT9GShAhMeJdNzcaBKRC?=
- =?us-ascii?Q?rEN1KkwjZrlnTOkp5QeLJz0zmxp8UPelwgnsfGRyGylw5eAjdTDvf9fFAmSQ?=
- =?us-ascii?Q?xN2EtdAOSRqYu8Pj33Wxktkd4isB7kHcKnrRIrF+gNb2AUO98/Yv7krv7HV5?=
- =?us-ascii?Q?Gwj/mINnTwvScEEc70xzwidTnNo06nN7jFKJRbPuRD3ar1qWkoDJt59wGQJE?=
- =?us-ascii?Q?hjhzRL4rUFlBRP4gnTMJyn12KC3TH+E5+jf2F2+wVpOOcnvemsjVSE6MtWet?=
- =?us-ascii?Q?QG7Gk6+KTu4owcRARc1tjubjyGap093laoCJoqvQxNKX8CsQvTjpgSLIlKqh?=
- =?us-ascii?Q?g6s+aSLO0EkI5mPkMET6KmLQ?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?w5sy3HKn5o+j7CdQbp4kDIXEzUXDPaB/jL59byOMyoicqQVvnI9UD3TCpq68?=
+ =?us-ascii?Q?aA3y6SzZe2Exqu+n/5pA6N8c5Uj+j7+eUcnG0/xDbiQVZTxWKp307YoHZvBB?=
+ =?us-ascii?Q?+QWOQFbP+jTpnJq4/Qx4mM7peyJECB9FraSBTRaVKZCEmEoK2pCtO6CzxwCu?=
+ =?us-ascii?Q?EvtFFpU7MEZPxgHXfUGLefklUT8sPLn6CAmmTCFpNy7S6LinHCjqkoKC5GAj?=
+ =?us-ascii?Q?nBJ7KmYmocZxPyMW7QbsXhAtNriEyVS7X+9UZtrEYxJ14xgoA0DEvasZE2Qa?=
+ =?us-ascii?Q?96Y4vGjyjaj4M2UnjaNuURY24UMPRU6l8FicNhTy5gTzRX8AXssgUq5CLsUH?=
+ =?us-ascii?Q?8BKQQdm3fn793eZZz6IA4sAQGfDdA5T/bmbqwU1yyR5BCtXKAEWXpId6b3nw?=
+ =?us-ascii?Q?WocChCxMRXwP+UjYJr8UzLjkq+QFMKjW2+PL3pKVe4M9NBum6uf3mantDQiz?=
+ =?us-ascii?Q?h+WtFV8+QTkVYekRN7dQQ5qGZ6vyWfTzb03bRRkZFUSPugR4lNLinIjghXvq?=
+ =?us-ascii?Q?fiVsWJAxSiJBcsrsXf98pnPfxcSqBHm2IEi+37yYH3xzYWqFwZBi9AQuO33y?=
+ =?us-ascii?Q?Vl5aXse51jjkdAqZOkLPBb9E+aYOpUr8JTmpt+vbx4VkxdXHGk3sQkyV6J5e?=
+ =?us-ascii?Q?Bb2pzVX0eNjhBtR5pREAeRR0V6NQAeWPuFuKDzhtFHeJieRhRegB9TsHN7rV?=
+ =?us-ascii?Q?Un6QLThemTflSeOkA8SjsmCH166f1vsXBHZjG+Q1WIphzBQDn+LEC+Igetr3?=
+ =?us-ascii?Q?ZcJ0Er9st39ZsaK/N+PdILNGQ7wEfWZKdL/MYWtDzllFo8bnlmOi/N2+mnJV?=
+ =?us-ascii?Q?gwTfKvLGBzqwtgvSR07TXOdsJDxtTx5xzg5zlcS8y/IrhemrcVkypiz0fwQP?=
+ =?us-ascii?Q?BvB7lVtMfxCbxt0++KPD9uUApxM/jcW8ZPUvuFhF40BGPMM1A9YlpvSvQbNC?=
+ =?us-ascii?Q?fQT4UGTTCGDLs9kjONSZYoZbd09W95HwHersEgRuMFAkFFWFSzBKSv/gk7CY?=
+ =?us-ascii?Q?E3EwMuA89LwWMg4b7mAmYP9BKhuMsDBzMCR9B1DnMt14mG7nV/diMxnwPoeq?=
+ =?us-ascii?Q?tpA4D6nKlYNtNFJdsZYP/HX0yVZA7qCw4MrMynfe2sdOAKubFAU+1+iKuKuT?=
+ =?us-ascii?Q?10A8gVj8HgsC37btAoObcYOS+hRk2Nat3oHJVS4/14imTaYXns8KHf/sTbT8?=
+ =?us-ascii?Q?IJ9EbbpX4YZyjLDr7Gvr5YgJu1AvDs6xfLx9hFwVT5YhMv9VmLWe0BJwsfLx?=
+ =?us-ascii?Q?QvuPRR+91T1bcq+LDzu4Qa0Unccuszghc6rQUqWIB2U6NYEZxZgXK4w/IQ2c?=
+ =?us-ascii?Q?gcpVX6DEHQ/CfNGXkFz32Qm2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b331aa38-0cdc-432d-8bb7-08d8f89ddf09
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea675ebb-4cbd-4125-3452-08d8f89de0c1
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:47:01.1968 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:47:03.8840 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dpwLq4YhbRZruZ0aVVNzYROVZh83KHjgEmgAGQ7EoRCxxj1z6/2J2pRVGSAbVivOhCmZAO5ohlN0r77CVAl16Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
+X-MS-Exchange-CrossTenant-UserPrincipalName: CDuq/SVS/ltgcnfMoEtcuZTkKCh82vkbd77qO5DvFtiBZx6zjr7kRVGFbWkXDzkT9vFGVNmvepIPDebiloFdsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3792
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,136 +126,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-Xnack retries are used for page fault recovery. Some AMD chip
-families support continuously retry while page table entries are invalid.
-The driver must handle the page fault interrupt and fill in a valid entry
-for the GPU to continue.
+Use sdma linear copy to migrate data between ram and vram. The sdma
+linear copy command uses kernel buffer function queue to access system
+memory through gart table.
 
-This ioctl allows to enable/disable XNACK retries per KFD process.
+Use reserved gart table window 0 to map system page address, and vram
+page address is direct mapping. Use the same kernel buffer function to
+fill in gart table mapping, so this is serialized with memory copy by
+sdma job submit. We only need wait for the last memory copy sdma fence
+for larger buffer migration.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 28 +++++++++++++++
- include/uapi/linux/kfd_ioctl.h           | 43 +++++++++++++++++++++++-
- 2 files changed, 70 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 172 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |   5 +
+ 2 files changed, 177 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 9511826ac8ae..9838d0cd1f51 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1743,6 +1743,31 @@ static int kfd_ioctl_smi_events(struct file *filep,
- 	return kfd_smi_event_open(dev, &args->anon_fd);
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 4bb39c562665..2a6824ddae88 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -32,6 +32,178 @@
+ #include "kfd_svm.h"
+ #include "kfd_migrate.h"
  
-+static int kfd_ioctl_set_xnack_mode(struct file *filep,
-+				    struct kfd_process *p, void *data)
++static uint64_t
++svm_migrate_direct_mapping_addr(struct amdgpu_device *adev, uint64_t addr)
 +{
-+	struct kfd_ioctl_set_xnack_mode_args *args = data;
-+	int r = 0;
++	return addr + amdgpu_ttm_domain_start(adev, TTM_PL_VRAM);
++}
 +
-+	mutex_lock(&p->mutex);
-+	if (args->xnack_enabled >= 0) {
-+		if (!list_empty(&p->pqm.queues)) {
-+			pr_debug("Process has user queues running\n");
-+			mutex_unlock(&p->mutex);
-+			return -EBUSY;
++static int
++svm_migrate_gart_map(struct amdgpu_ring *ring, uint64_t npages,
++		     dma_addr_t *addr, uint64_t *gart_addr, uint64_t flags)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_job *job;
++	unsigned int num_dw, num_bytes;
++	struct dma_fence *fence;
++	uint64_t src_addr, dst_addr;
++	uint64_t pte_flags;
++	void *cpu_addr;
++	int r;
++
++	/* use gart window 0 */
++	*gart_addr = adev->gmc.gart_start;
++
++	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
++	num_bytes = npages * 8;
++
++	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4 + num_bytes,
++				     AMDGPU_IB_POOL_DELAYED, &job);
++	if (r)
++		return r;
++
++	src_addr = num_dw * 4;
++	src_addr += job->ibs[0].gpu_addr;
++
++	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
++	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
++				dst_addr, num_bytes, false);
++
++	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
++	WARN_ON(job->ibs[0].length_dw > num_dw);
++
++	pte_flags = AMDGPU_PTE_VALID | AMDGPU_PTE_READABLE;
++	pte_flags |= AMDGPU_PTE_SYSTEM | AMDGPU_PTE_SNOOPED;
++	if (!(flags & KFD_IOCTL_SVM_FLAG_GPU_RO))
++		pte_flags |= AMDGPU_PTE_WRITEABLE;
++	pte_flags |= adev->gart.gart_pte_flags;
++
++	cpu_addr = &job->ibs[0].ptr[num_dw];
++
++	r = amdgpu_gart_map(adev, 0, npages, addr, pte_flags, cpu_addr);
++	if (r)
++		goto error_free;
++
++	r = amdgpu_job_submit(job, &adev->mman.entity,
++			      AMDGPU_FENCE_OWNER_UNDEFINED, &fence);
++	if (r)
++		goto error_free;
++
++	dma_fence_put(fence);
++
++	return r;
++
++error_free:
++	amdgpu_job_free(job);
++	return r;
++}
++
++/**
++ * svm_migrate_copy_memory_gart - sdma copy data between ram and vram
++ *
++ * @adev: amdgpu device the sdma ring running
++ * @src: source page address array
++ * @dst: destination page address array
++ * @npages: number of pages to copy
++ * @direction: enum MIGRATION_COPY_DIR
++ * @mfence: output, sdma fence to signal after sdma is done
++ *
++ * ram address uses GART table continuous entries mapping to ram pages,
++ * vram address uses direct mapping of vram pages, which must have npages
++ * number of continuous pages.
++ * GART update and sdma uses same buf copy function ring, sdma is splited to
++ * multiple GTT_MAX_PAGES transfer, all sdma operations are serialized, wait for
++ * the last sdma finish fence which is returned to check copy memory is done.
++ *
++ * Context: Process context, takes and releases gtt_window_lock
++ *
++ * Return:
++ * 0 - OK, otherwise error code
++ */
++
++static int
++svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
++			     uint64_t *vram, uint64_t npages,
++			     enum MIGRATION_COPY_DIR direction,
++			     struct dma_fence **mfence)
++{
++	const uint64_t GTT_MAX_PAGES = AMDGPU_GTT_MAX_TRANSFER_SIZE;
++	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
++	uint64_t gart_s, gart_d;
++	struct dma_fence *next;
++	uint64_t size;
++	int r;
++
++	mutex_lock(&adev->mman.gtt_window_lock);
++
++	while (npages) {
++		size = min(GTT_MAX_PAGES, npages);
++
++		if (direction == FROM_VRAM_TO_RAM) {
++			gart_s = svm_migrate_direct_mapping_addr(adev, *vram);
++			r = svm_migrate_gart_map(ring, size, sys, &gart_d, 0);
++
++		} else if (direction == FROM_RAM_TO_VRAM) {
++			r = svm_migrate_gart_map(ring, size, sys, &gart_s,
++						 KFD_IOCTL_SVM_FLAG_GPU_RO);
++			gart_d = svm_migrate_direct_mapping_addr(adev, *vram);
 +		}
-+		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true))
-+			r = -EPERM;
-+		else
-+			p->xnack_enabled = args->xnack_enabled;
-+	} else {
-+		args->xnack_enabled = p->xnack_enabled;
++		if (r) {
++			pr_debug("failed %d to create gart mapping\n", r);
++			goto out_unlock;
++		}
++
++		r = amdgpu_copy_buffer(ring, gart_s, gart_d, size * PAGE_SIZE,
++				       NULL, &next, false, true, false);
++		if (r) {
++			pr_debug("failed %d to copy memory\n", r);
++			goto out_unlock;
++		}
++
++		dma_fence_put(*mfence);
++		*mfence = next;
++		npages -= size;
++		if (npages) {
++			sys += size;
++			vram += size;
++		}
 +	}
-+	mutex_unlock(&p->mutex);
++
++out_unlock:
++	mutex_unlock(&adev->mman.gtt_window_lock);
 +
 +	return r;
 +}
 +
- static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
- {
- 	struct kfd_ioctl_svm_args *args = data;
-@@ -1869,6 +1894,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
- 			kfd_ioctl_smi_events, 0),
- 
- 	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SVM, kfd_ioctl_svm, 0),
-+
-+	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
-+			kfd_ioctl_set_xnack_mode, 0),
- };
- 
- #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 247b57baa94f..3cb5b5dd9f77 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -597,6 +597,44 @@ struct kfd_ioctl_svm_args {
- 	struct kfd_ioctl_svm_attribute attrs[0];
- };
- 
 +/**
-+ * kfd_ioctl_set_xnack_mode_args - Arguments for set_xnack_mode
++ * svm_migrate_copy_done - wait for memory copy sdma is done
 + *
-+ * @xnack_enabled:       [in/out] Whether to enable XNACK mode for this process
++ * @adev: amdgpu device the sdma memory copy is executing on
++ * @mfence: migrate fence
 + *
-+ * @xnack_enabled indicates whether recoverable page faults should be
-+ * enabled for the current process. 0 means disabled, positive means
-+ * enabled, negative means leave unchanged. If enabled, virtual address
-+ * translations on GFXv9 and later AMD GPUs can return XNACK and retry
-+ * the access until a valid PTE is available. This is used to implement
-+ * device page faults.
++ * Wait for dma fence is signaled, if the copy ssplit into multiple sdma
++ * operations, this is the last sdma operation fence.
 + *
-+ * On output, @xnack_enabled returns the (new) current mode (0 or
-+ * positive). Therefore, a negative input value can be used to query
-+ * the current mode without changing it.
++ * Context: called after svm_migrate_copy_memory
 + *
-+ * The XNACK mode fundamentally changes the way SVM managed memory works
-+ * in the driver, with subtle effects on application performance and
-+ * functionality.
-+ *
-+ * Enabling XNACK mode requires shader programs to be compiled
-+ * differently. Furthermore, not all GPUs support changing the mode
-+ * per-process. Therefore changing the mode is only allowed while no
-+ * user mode queues exist in the process. This ensure that no shader
-+ * code is running that may be compiled for the wrong mode. And GPUs
-+ * that cannot change to the requested mode will prevent the XNACK
-+ * mode from occurring. All GPUs used by the process must be in the
-+ * same XNACK mode.
-+ *
-+ * GFXv8 or older GPUs do not support 48 bit virtual addresses or SVM.
-+ * Therefore those GPUs are not considered for the XNACK mode switch.
-+ *
-+ * Return: 0 on success, -errno on failure
++ * Return:
++ * 0		- success
++ * otherwise	- error code from dma fence signal
 + */
-+struct kfd_ioctl_set_xnack_mode_args {
-+	__s32 xnack_enabled;
++int
++svm_migrate_copy_done(struct amdgpu_device *adev, struct dma_fence *mfence)
++{
++	int r = 0;
++
++	if (mfence) {
++		r = dma_fence_wait(mfence, false);
++		dma_fence_put(mfence);
++		pr_debug("sdma copy memory fence done\n");
++	}
++
++	return r;
++}
++
+ static void svm_migrate_page_free(struct page *page)
+ {
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+index 98ab685d3e17..5db5686fa46a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+@@ -32,6 +32,11 @@
+ #include "kfd_priv.h"
+ #include "kfd_svm.h"
+ 
++enum MIGRATION_COPY_DIR {
++	FROM_RAM_TO_VRAM = 0,
++	FROM_VRAM_TO_RAM
 +};
 +
- #define AMDKFD_IOCTL_BASE 'K'
- #define AMDKFD_IO(nr)			_IO(AMDKFD_IOCTL_BASE, nr)
- #define AMDKFD_IOR(nr, type)		_IOR(AMDKFD_IOCTL_BASE, nr, type)
-@@ -699,7 +737,10 @@ struct kfd_ioctl_svm_args {
- 
- #define AMDKFD_IOC_SVM	AMDKFD_IOWR(0x20, struct kfd_ioctl_svm_args)
- 
-+#define AMDKFD_IOC_SET_XNACK_MODE		\
-+		AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
-+
- #define AMDKFD_COMMAND_START		0x01
--#define AMDKFD_COMMAND_END		0x21
-+#define AMDKFD_COMMAND_END		0x22
- 
- #endif
+ #if defined(CONFIG_DEVICE_PRIVATE)
+ int svm_migrate_init(struct amdgpu_device *adev);
+ void svm_migrate_fini(struct amdgpu_device *adev);
 -- 
 2.31.1
 
