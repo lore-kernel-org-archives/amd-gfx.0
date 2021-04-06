@@ -2,140 +2,48 @@ Return-Path: <SRS0=1IUY=JD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8DC3C433B4
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC75BC433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70E006128A
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:34:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70E006128A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 674BC613C4
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 674BC613C4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D7A6E3B2;
-	Tue,  6 Apr 2021 10:34:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 189DE89C27
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Apr 2021 10:34:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OM4VMB7jdyZWb7HdKfpUq9q2NCmd609s4OsEr24I9tK3a5ikQsnwI8DFD1GRbfyBd1t8wBo5FN5o9b7S7SWqGyF1D5RMXeh7BPb/XR3CbcAcUkQPjwlKqBFt+CF28aCBWEVCBF8kOBiyUNGUgnpJgdVi7Wfrw/OGuEwGDHlQOhZ9Q5Gwvr6KfvEzTOIvf5dAWA+m81WLN+DebpIRqC13kFRZEfeM4LHzn5766jS3WT1/k1lRdMvyFsA4ul3vaGR66PRMH9zszuZFoTLsGTr+Yd4/OPuKz+hhzo786cvS9DpX2FOsvWEG4KQQ3RSjZbzG3w7qdNGVa8ciegR63eXX/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m5CNjChEQMP3wBX/VTrfPlILvROBrpopreH83XbI0vA=;
- b=cPP0ne/AXPH9ej83w3Sxp/UWC0PcbNUJR2AgExGPoTETWxk6/Y13gyXZnbXUvX6tUREPl6MTZDK3cW5OwjKiswS4YYgwL04S2ktiJDiF0JfEv6VTvJW1X9DEJRAme5Uw2n7BXgj8gu6CZhYbQHCuT9rEWA09NJJK3preIUODECbPfYrku3EIoWDqfTETEEFOu9XE8YvLK5JS0feHvDkMVBVYKh3Fe22nukUpoGO60xcN6gcfbjhxG4/+WK5k69dUy+z+0M81gwJq1eP1aK0cbwK4ClHZEbEG86EwOIUWYv6DLNwJQhCjVW4EPwkhrE4J1kTW18avr4FWJbt9I5LTpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m5CNjChEQMP3wBX/VTrfPlILvROBrpopreH83XbI0vA=;
- b=GdA2ZkODFgD3+ilQbRmBYtxRMLbHKglEfixB38+lf1G5b6uzBrK9wPEyIhyRmU09/ioch9o0aKMZOfUNo4p1jqBNb0dkIK+yd3cZ/DBlVR0V0QpMAn4l0KA6Z4KCfdlxLYc5ESjElX6D2/zhDe2O8bGb6x4+gBbLw5Gq8onNwM8=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (10.255.86.19) by
- MN2PR12MB3901.namprd12.prod.outlook.com (10.255.238.219) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.26; Tue, 6 Apr 2021 10:34:13 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::c1ff:dcf1:9536:a1f2]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::c1ff:dcf1:9536:a1f2%2]) with mapi id 15.20.3999.032; Tue, 6 Apr 2021
- 10:34:13 +0000
-Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- "Li, Dennis" <Dennis.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20210318072339.28736-1-Dennis.Li@amd.com>
- <d40648ba-9948-5442-23ed-d352f824f8f9@amd.com>
- <DM5PR12MB25330F3CD92C587C2E921424ED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <MN2PR12MB3775531A74B886A207134B1583699@MN2PR12MB3775.namprd12.prod.outlook.com>
- <DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <378fdffb-99b5-2a14-736d-a06f310b040c@amd.com>
- <1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com>
-Date: Tue, 6 Apr 2021 12:34:08 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D4EB89C85;
+	Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A9689C85;
+ Tue,  6 Apr 2021 10:38:12 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 61B06B142;
+ Tue,  6 Apr 2021 10:38:11 +0000 (UTC)
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
+ sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
+ sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
+ nirmoy.das@amd.com
+References: <20210406090903.7019-1-tzimmermann@suse.de>
+ <20210406090903.7019-4-tzimmermann@suse.de>
+ <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
+Message-ID: <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
+Date: Tue, 6 Apr 2021 12:38:09 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:8475:9991:cfb3:4162]
-X-ClientProxiedBy: FR0P281CA0066.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::12) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:8475:9991:cfb3:4162]
- (2a02:908:1252:fb60:8475:9991:cfb3:4162) by
- FR0P281CA0066.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:49::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.12 via Frontend Transport; Tue, 6 Apr 2021 10:34:12 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4288dde0-d9ff-4038-b1ba-08d8f8e7855c
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3901:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3901B370C1FC8857F70300C283769@MN2PR12MB3901.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VQUEp9L3i+j+kdpcQEOKZ8OnsiS3Oxiq3UPIw35jP/SmdaeB283nmuRCoOeNCYl/2xJy7GjioasjeiXbxX0H3eJD3ef9BPdehocVyMdDyv7O9wni1NWy8g6f1FK11+XWEALMgVRNm6hXkljpfhWWfe4YdTZ4w+beet3IvqKzZkNWBCDp7dwJwr+I9IwYqlXCTP0N7IZ581oZwrK/p+9DESGARSXeD+9jEqbaLBdJVdSl+XZNPMBMfmTARVHj7y5e0/g9FJrBVN2mMAiRrAYIUDLxKZDd9TJBZUPvS8L/DHwz4ei1mNzQP2Bz+xoVDS6/n4tY1EbLVG+EMOaXFtA/iVPLfMliILsLdwcPjMHtIDsEgmI0obBkgNz9zZoaszSfBHjb9Ba9ole0isIl9aklj1Ct3sKIrKLVV2Fvz3gJltBa7koF+o6xxu6D//6RVPmIwo1CjNYfe5tqZtbU0inXDn/WVDNJvh4ASAC0beefJNRS30+LiGkEwC+pezc1SkgXT8pmdmlB9FmAsD3pPKM38WLq0KIPGbd2e5+39EN93NBtR/lRjKtwqhb/k6PwzLH4QnxSNugR9Ku+OUoNNVcJpRUgk9zenMiyqd45WHP9YPH1KR0WRxgSykbPPodqmiQVPHZsaa7aU2sKPIQRq9oWwKlsByFfcMqay+9ZfI0MG5moI33RW+c1KscZVbCBykTYW1ASJc4q8WaPZuc5fvP9wNEVjSP83WuCJX5Mhg5AXAlIiGbEbg0s34K8UKhVirhHEMwO1yCxjQb7eVd20QI20TnF0eeA1Bs1Af2FiL5EVtzLdmxDY6QktH+bDhbVEPMV
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(39830400003)(346002)(376002)(66556008)(66476007)(30864003)(8936002)(52116002)(186003)(110136005)(16526019)(21615005)(6486002)(31696002)(83380400001)(33964004)(36756003)(53546011)(2906002)(5660300002)(8676002)(86362001)(508600001)(34490700003)(6636002)(66574015)(31686004)(2616005)(966005)(166002)(6666004)(921005)(38100700001)(66946007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RHZ2WVhyYVBIbXNLa1FGMXFWMmxKc01qVFlhWllkWEY1RVRwSnRYYThGRERC?=
- =?utf-8?B?RU5sa2ZOamF6NEVEenBnNVBSdHkzeDZrNXIxaCtxRUdYeEtybW9RZWNZTlNh?=
- =?utf-8?B?VElyU3dBb29lMkxJRFprcFY1UGZ6Y00zaEFOMmd6NHYvaHhOYkszblBzb3Rk?=
- =?utf-8?B?Sm52YmtjeFBHZGlKTVBDUzJ5S1FoQk16ekx2YUZ2eWoxSElnQktUUFk4TVQx?=
- =?utf-8?B?czhCR3lrVHVmd3pLb2N5WFY5MnhkVzI1ZHI4b0pNK2NjeUs1MmZQdE0rNGp5?=
- =?utf-8?B?UVhPK2ZCVVFzejNWSVdEbzdOOERsUldwWEpMcXhyUGlGK09zNUJMQ3g5MVZi?=
- =?utf-8?B?bDVKU3l6dGtINjFqc3RjSk5Ta2JxQ2lPQm83NE1MbGhmbk1Id3NwS251bVBj?=
- =?utf-8?B?eEJCZFk3UTM3cXBXOE82SVdZNERrQW83WDhZMGRMREhOVUJSUzk5NHFEb0di?=
- =?utf-8?B?VCtjMldURVlDZytOc0FmeTIyaXhpUm5xZXJseGkvUjVlOTJqSlhJQ3lNemtF?=
- =?utf-8?B?SjZ0bTY0R3pjVFo4VG5PVVlYVmxWRGxYcDJWaFpFMm50Y241L2xpa2lURlRL?=
- =?utf-8?B?U0tobCtkUVZsaXBUSFMrUnArMGdhaG1WL1hJYVhnUklFSWN0QStoYnVFZ0ds?=
- =?utf-8?B?bWYyYkJxL3p2T2JrVFIxSFhCZzFNRm5IYXgzdUFDZmlzaTVPNUEzcnA5RDhz?=
- =?utf-8?B?L2pBaGVUSll5QW4rV1Q1SWRQckJpbmJxc1BoSVBBSXVrbSsyRWUvc0NPb3ZY?=
- =?utf-8?B?WmZWWEdPaDV5QjcwK3dCRytxTVpUQlVTQzI5NnQ5RVNlSDlBZ2g5RFRSQlNz?=
- =?utf-8?B?dXJ6cDVHSURtbldORTJpbTBEQWl3VWtxV1k5RnVwa0xPRkZSMkZOUmNkZmNS?=
- =?utf-8?B?Z0RNYitiVHN6QUNMWmVhVDFSS3NkeURZYXJsT3l1bjJwNUJkOEhodDkvMXBY?=
- =?utf-8?B?T2ZwbFRzeEdZUDJsaHZ1cG51akZ0QTUwUEthRUlCSzhGYXhuQkJDSzRBcUtL?=
- =?utf-8?B?dW9uVlNITXJiWHRidzR5ejFORTJKOHFXczROelcxNmFKSGZ1R21hdnZ3UnJs?=
- =?utf-8?B?MW40d2puUHBIaWcwNTNoWEt4YVhObTJFc3p1SVExdTNNOStIR21RbndxUFkw?=
- =?utf-8?B?c2NZQ0t3WktlUlc2ekgxRDVVK1ZmdmNaMkJVUFdvK3lORzRPd3dxWWdJT2VC?=
- =?utf-8?B?NExGSHhDV2prT3ZiWnV1d0ttRkJ4eGlRSDdwUWNoQ0YwaEg5VEJ0MFBXT1Zs?=
- =?utf-8?B?M2p4NlltVzRiVUdINnJEM081TVk0QnZjT1J0K3EwcHVyckg5ZUl0bDhGM2JN?=
- =?utf-8?B?dHBiY3lZZmRFU0taaUpJa2pJOUdNZzlNdTB0dlp3MWc2VnVtZHBZeG9qVDhn?=
- =?utf-8?B?b2NhZlZTc2R0YWYzUk1aaFlUZUtadlZjK3J4dmxIMVpYT3FBY3pTQlZPQmcv?=
- =?utf-8?B?WXBZak9jc0hpSXpLVG92R2N4OHY4eFArbFdVc3k2c0lZWVdJb2FrcDJjT2Vr?=
- =?utf-8?B?anZEWUtId1ZKQzlqL2xIemFFMHRJd0haWHdxVGpKU1FsNTlxT2pHMEgrMHRq?=
- =?utf-8?B?ajEvdHZTdS9xck5OR2NzcUxFanc0YXJoRVRCOTZLMTZieWFGVUpxSHZocFEw?=
- =?utf-8?B?VW8zaDNnZUtqVEc0Z3JvaXhPbVJlb3N4eHJLTXY2aTZUdjRES3lsSVdQaTRS?=
- =?utf-8?B?SmFpeXZoRnB4OVpKOG9zYXNIVDJISDdhN1Q3eG12WGc0c3pFTHhCUkNFLzZo?=
- =?utf-8?B?ZENxSTZDS3R2RVA0UEZ5MFRZQnpwZjV3Q2NUcHM2anc5b0VyaTdQRkpmMEky?=
- =?utf-8?B?VGpFYy9Qdm4vTG8yN0JISXBxelNYcG5CZXFla1pHS1F3b3M2QlptKytUNFJ0?=
- =?utf-8?Q?IVfcHajhlXG+o?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4288dde0-d9ff-4038-b1ba-08d8f8e7855c
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 10:34:13.3632 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v/wZcRwGsJgy7Elga5SyOkdN5WpaoLaOCiVE/xINVUgRG35ZEco8HZG+AelI9t5h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3901
+In-Reply-To: <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,665 +55,500 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0780516683=="
+Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1158160331=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0780516683==
-Content-Type: multipart/alternative;
- boundary="------------F7182D95F5A8366030F28419"
-Content-Language: en-US
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1158160331==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="DlEMyx97wEecQakExZoFxgsu9Ueoy78O4"
 
---------------F7182D95F5A8366030F28419
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--DlEMyx97wEecQakExZoFxgsu9Ueoy78O4
+Content-Type: multipart/mixed; boundary="cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
+ sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
+ sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
+ nirmoy.das@amd.com
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Message-ID: <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
+Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
+References: <20210406090903.7019-1-tzimmermann@suse.de>
+ <20210406090903.7019-4-tzimmermann@suse.de>
+ <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+In-Reply-To: <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+
+--cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrey,
+Hi
 
-well good question. My job is to watch over the implementation and 
-design and while I always help I can adjust anybodies schedule.
+Am 06.04.21 um 11:35 schrieb Christian K=C3=B6nig:
+> Am 06.04.21 um 11:08 schrieb Thomas Zimmermann:
+>> Moving the driver-specific mmap code into a GEM object function allows=
 
-Is the patch to print a warning when the hardware is accessed without 
-holding the locks merged yet? If not then that would probably be a good 
-starting point.
-
-Then we would need to unify this with the SRCU to make sure that we have 
-both the reset lock as well as block the hotplug code from reusing the 
-MMIO space.
-
-And then testing, testing, testing to see if we have missed something.
-
-Christian.
-
-Am 05.04.21 um 19:58 schrieb Andrey Grodzovsky:
->
-> Denis, Christian, are there any updates in the plan on how to move on 
-> with this ? As you know I need very similar code for my up-streaming 
-> of device hot-unplug. My latest solution 
-> (https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html) 
-> was not acceptable because of low level guards on the register 
-> accessors level which was hurting performance. Basically I need a way 
-> to prevent any MMIO write accesses from kernel driver after device is 
-> removed (UMD accesses are taken care of by page faulting dummy page). 
-> We are using now hot-unplug code for Freemont program and so 
-> up-streaming became more of a priority then before. This MMIO access 
-> issue is currently my main blocker from up-streaming. Is there any way 
-> I can assist in pushing this on ?
->
-> Andrey
->
-> On 2021-03-18 5:51 a.m., Christian König wrote:
->> Am 18.03.21 um 10:30 schrieb Li, Dennis:
->>>
->>> >>> The GPU reset doesn't complete the fences we wait for. It only 
->>> completes the hardware fences as part of the reset.
->>>
->>> >>> So waiting for a fence while holding the reset lock is illegal 
->>> and needs to be avoided.
->>>
->>> I understood your concern. It is more complex for DRM GFX, therefore 
->>> I abandon adding lock protection for DRM ioctls now. Maybe we can 
->>> try to add all kernel  dma_fence waiting in a list, and signal all 
->>> in recovery threads. Do you have same concern for compute cases?
->>>
+>> for using DRM helpers for various mmap callbacks.
 >>
->> Yes, compute (KFD) is even harder to handle.
+>> This change resolves several inconsistencies between regular mmap and
+>> prime-based mmap. The vm_ops field in vma is now set for all mmap'ed
+>> areas. Previously it way only set for regular mmap calls, prime-based
+>> mmap used TTM's default vm_ops. The check for kfd_bo has been taken
+>> from amdgpu_verify_access(), which is not called any longer and has
+>> been removed.
 >>
->> See you can't signal the dma_fence waiting. Waiting for a dma_fence 
->> also means you wait for the GPU reset to finish.
+>> As a side effect, amdgpu_ttm_vm_ops and amdgpu_ttm_fault() are now
+>> implemented in amdgpu's GEM code.
 >>
->> When we would signal the dma_fence during the GPU reset then we would 
->> run into memory corruption because the hardware jobs running after 
->> the GPU reset would access memory which is already freed.
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 46 -------------
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |=C2=A0 2 -
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0 4 +-
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 64 +++++++++++++++++++
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 71 ---------------------
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0 1 -
+>> =C2=A0 6 files changed, 66 insertions(+), 122 deletions(-)
 >>
->>> >>> Lockdep also complains about this when it is used correctly. The 
->>> only reason it doesn't complain here is because you use an 
->>> atomic+wait_event instead of a locking primitive.
->>>
->>> Agree. This approach will escape the monitor of lockdep.  Its goal 
->>> is to block other threads when GPU recovery thread start. But I 
->>> couldn’t find a better method to solve this problem. Do you have 
->>> some suggestion?
->>>
->>
->> Well, completely abandon those change here.
->>
->> What we need to do is to identify where hardware access happens and 
->> then insert taking the read side of the GPU reset lock so that we 
->> don't wait for a dma_fence or allocate memory, but still protect the 
->> hardware from concurrent access and reset.
->>
->> Regards,
->> Christian.
->>
->>> Best Regards
->>>
->>> Dennis Li
->>>
->>> *From:* Koenig, Christian <Christian.Koenig@amd.com>
->>> *Sent:* Thursday, March 18, 2021 4:59 PM
->>> *To:* Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org; 
->>> Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix 
->>> <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
->>> *Subject:* AW: [PATCH 0/4] Refine GPU recovery sequence to enhance 
->>> its stability
->>>
->>> Exactly that's what you don't seem to understand.
->>>
->>> The GPU reset doesn't complete the fences we wait for. It only 
->>> completes the hardware fences as part of the reset.
->>>
->>> So waiting for a fence while holding the reset lock is illegal and 
->>> needs to be avoided.
->>>
->>> Lockdep also complains about this when it is used correctly. The 
->>> only reason it doesn't complain here is because you use an 
->>> atomic+wait_event instead of a locking primitive.
->>>
->>> Regards,
->>>
->>> Christian.
->>>
->>> ------------------------------------------------------------------------
->>>
->>> *Von:*Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>
->>> *Gesendet:* Donnerstag, 18. März 2021 09:28
->>> *An:* Koenig, Christian <Christian.Koenig@amd.com 
->>> <mailto:Christian.Koenig@amd.com>>; amd-gfx@lists.freedesktop.org 
->>> <mailto:amd-gfx@lists.freedesktop.org> 
->>> <amd-gfx@lists.freedesktop.org 
->>> <mailto:amd-gfx@lists.freedesktop.org>>; Deucher, Alexander 
->>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; 
->>> Kuehling, Felix <Felix.Kuehling@amd.com 
->>> <mailto:Felix.Kuehling@amd.com>>; Zhang, Hawking 
->>> <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->>> *Betreff:* RE: [PATCH 0/4] Refine GPU recovery sequence to enhance 
->>> its stability
->>>
->>> >>> Those two steps need to be exchanged or otherwise it is possible 
->>> that new delayed work items etc are started before the lock is taken.
->>> What about adding check for adev->in_gpu_reset in work item? If 
->>> exchange the two steps, it maybe introduce the deadlock.  For 
->>> example, the user thread hold the read lock and waiting for the 
->>> fence, if recovery thread try to hold write lock and then complete 
->>> fences, in this case, recovery thread will always be blocked.
->>>
->>>
->>> Best Regards
->>> Dennis Li
->>> -----Original Message-----
->>> From: Koenig, Christian <Christian.Koenig@amd.com 
->>> <mailto:Christian.Koenig@amd.com>>
->>> Sent: Thursday, March 18, 2021 3:54 PM
->>> To: Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>; 
->>> amd-gfx@lists.freedesktop.org 
->>> <mailto:amd-gfx@lists.freedesktop.org>; Deucher, Alexander 
->>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; 
->>> Kuehling, Felix <Felix.Kuehling@amd.com 
->>> <mailto:Felix.Kuehling@amd.com>>; Zhang, Hawking 
->>> <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->>> Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its 
->>> stability
->>>
->>> Am 18.03.21 um 08:23 schrieb Dennis Li:
->>> > We have defined two variables in_gpu_reset and reset_sem in adev 
->>> object. The atomic type variable in_gpu_reset is used to avoid 
->>> recovery thread reenter and make lower functions return more earlier 
->>> when recovery start, but couldn't block recovery thread when it 
->>> access hardware. The r/w semaphore reset_sem is used to solve these 
->>> synchronization issues between recovery thread and other threads.
->>> >
->>> > The original solution locked registers' access in lower functions, 
->>> which will introduce following issues:
->>> >
->>> > 1) many lower functions are used in both recovery thread and 
->>> others. Firstly we must harvest these functions, it is easy to miss 
->>> someones. Secondly these functions need select which lock (read lock 
->>> or write lock) will be used, according to the thread it is running 
->>> in. If the thread context isn't considered, the added lock will 
->>> easily introduce deadlock. Besides that, in most time, developer 
->>> easily forget to add locks for new functions.
->>> >
->>> > 2) performance drop. More lower functions are more frequently called.
->>> >
->>> > 3) easily introduce false positive lockdep complaint, because 
->>> write lock has big range in recovery thread, but low level functions 
->>> will hold read lock may be protected by other locks in other threads.
->>> >
->>> > Therefore the new solution will try to add lock protection for 
->>> ioctls of kfd. Its goal is that there are no threads except for 
->>> recovery thread or its children (for xgmi) to access hardware when 
->>> doing GPU reset and resume. So refine recovery thread as the following:
->>> >
->>> > Step 0: atomic_cmpxchg(&adev->in_gpu_reset, 0, 1)
->>> >     1). if failed, it means system had a recovery thread running, 
->>> current thread exit directly;
->>> >     2). if success, enter recovery thread;
->>> >
->>> > Step 1: cancel all delay works, stop drm schedule, complete all 
->>> unreceived fences and so on. It try to stop or pause other threads.
->>> >
->>> > Step 2: call down_write(&adev->reset_sem) to hold write lock, 
->>> which will block recovery thread until other threads release read locks.
->>>
->>> Those two steps need to be exchanged or otherwise it is possible 
->>> that new delayed work items etc are started before the lock is taken.
->>>
->>> Just to make it clear until this is fixed the whole patch set is a NAK.
->>>
->>> Regards,
->>> Christian.
->>>
->>> >
->>> > Step 3: normally, there is only recovery threads running to access 
->>> hardware, it is safe to do gpu reset now.
->>> >
->>> > Step 4: do post gpu reset, such as call all ips' resume functions;
->>> >
->>> > Step 5: atomic set adev->in_gpu_reset as 0, wake up other threads 
->>> and release write lock. Recovery thread exit normally.
->>> >
->>> > Other threads call the amdgpu_read_lock to synchronize with 
->>> recovery thread. If it finds that in_gpu_reset is 1, it should 
->>> release read lock if it has holden one, and then blocks itself to 
->>> wait for recovery finished event. If thread successfully hold read 
->>> lock and in_gpu_reset is 0, it continues. It will exit normally or 
->>> be stopped by recovery thread in step 1.
->>> >
->>> > Dennis Li (4):
->>> >    drm/amdgpu: remove reset lock from low level functions
->>> >    drm/amdgpu: refine the GPU recovery sequence
->>> >    drm/amdgpu: instead of using down/up_read directly
->>> >    drm/amdkfd: add reset lock protection for kfd entry functions
->>> >
->>> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h |   6 +
->>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  14 +-
->>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 173 
->>> +++++++++++++-----
->>> >   .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c |   8 -
->>> >   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |   4 +-
->>> >   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c |   9 +-
->>> >   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c |   5 +-
->>> >   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c |   5 +-
->>> >   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 172 
->>> ++++++++++++++++-
->>> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h |   3 +-
->>> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c |   4 +
->>> >   .../amd/amdkfd/kfd_process_queue_manager.c |  17 ++
->>> >   12 files changed, 345 insertions(+), 75 deletions(-)
->>> >
->>>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> index e0c4f7c7f1b9..19c5ab08d9ec 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> @@ -42,52 +42,6 @@
+>> =C2=A0 #include <linux/pci-p2pdma.h>
+>> =C2=A0 #include <linux/pm_runtime.h>
+>> -/**
+>> - * amdgpu_gem_prime_mmap - &drm_driver.gem_prime_mmap implementation
+>> - * @obj: GEM BO
+>> - * @vma: Virtual memory area
+>> - *
+>> - * Sets up a userspace mapping of the BO's memory in the given
+>> - * virtual memory area.
+>> - *
+>> - * Returns:
+>> - * 0 on success or a negative error code on failure.
+>> - */
+>> -int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 struct vm_area_struct *vma)
+>> -{
+>> -=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+>> -=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo-=
+>tbo.bdev);
+>> -=C2=A0=C2=A0=C2=A0 unsigned asize =3D amdgpu_bo_size(bo);
+>> -=C2=A0=C2=A0=C2=A0 int ret;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 if (!vma->vm_file)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 if (adev =3D=3D NULL)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 /* Check for valid size. */
+>> -=C2=A0=C2=A0=C2=A0 if (asize < vma->vm_end - vma->vm_start)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (bo->flags & AMDGPU_GEM_CR=
+EATE_NO_CPU_ACCESS)) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
+>> -=C2=A0=C2=A0=C2=A0 }
+>> -=C2=A0=C2=A0=C2=A0 vma->vm_pgoff +=3D amdgpu_bo_mmap_offset(bo) >> PA=
+GE_SHIFT;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 /* prime mmap does not need to check access, so al=
+low here */
+>> -=C2=A0=C2=A0=C2=A0 ret =3D drm_vma_node_allow(&obj->vma_node,=20
+>> vma->vm_file->private_data);
+>> -=C2=A0=C2=A0=C2=A0 if (ret)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_mmap(vma->vm_file, vma, &adev->mman=
+=2Ebdev);
+>> -=C2=A0=C2=A0=C2=A0 drm_vma_node_revoke(&obj->vma_node, vma->vm_file->=
+private_data);
+>> -
+>> -=C2=A0=C2=A0=C2=A0 return ret;
+>> -}
+>> -
+>> =C2=A0 static int
+>> =C2=A0 __dma_resv_make_exclusive(struct dma_resv *obj)
+>> =C2=A0 {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
+>> index 39b5b9616fd8..3e93b9b407a9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
+>> @@ -31,8 +31,6 @@ struct drm_gem_object=20
+>> *amdgpu_gem_prime_import(struct drm_device *dev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 struct dma_buf *dma_buf);
+>> =C2=A0 bool amdgpu_dmabuf_is_xgmi_accessible(struct amdgpu_device *ade=
+v,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct=
+ amdgpu_bo *bo);
+>> -int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 struct vm_area_struct *vma);
+>> =C2=A0 extern const struct dma_buf_ops amdgpu_dmabuf_ops;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index 76f48f79c70b..e96d2758f4bb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -1656,7 +1656,7 @@ static const struct file_operations=20
+>> amdgpu_driver_kms_fops =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flush =3D amdgpu_flush,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .release =3D drm_release,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .unlocked_ioctl =3D amdgpu_drm_ioctl,
+>> -=C2=A0=C2=A0=C2=A0 .mmap =3D amdgpu_mmap,
+>> +=C2=A0=C2=A0=C2=A0 .mmap =3D drm_gem_mmap,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .poll =3D drm_poll,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .read =3D drm_read,
+>> =C2=A0 #ifdef CONFIG_COMPAT
+>> @@ -1719,7 +1719,7 @@ static const struct drm_driver amdgpu_kms_driver=
+=20
+>> =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_handle_to_fd =3D drm_gem_prime_h=
+andle_to_fd,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_fd_to_handle =3D drm_gem_prime_f=
+d_to_handle,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_import =3D amdgpu_gem_prime_=
+import,
+>> -=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D amdgpu_gem_prime_mmap,
+>> +=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D drm_gem_prime_mmap,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .name =3D DRIVER_NAME,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .desc =3D DRIVER_DESC,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index fb7171e5507c..fe93faad05f2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -41,6 +41,36 @@
+>> =C2=A0 static const struct drm_gem_object_funcs amdgpu_gem_object_func=
+s;
+>> +static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
+>=20
+> Please name that function amdgpu_gem_fault or amdgpu_gem_object_fault
+>=20
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 struct ttm_buffer_object *bo =3D vmf->vma->vm_priv=
+ate_data;
+>> +=C2=A0=C2=A0=C2=A0 vm_fault_t ret;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_reserve(bo, vmf);
+>> +=C2=A0=C2=A0=C2=A0 if (ret)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 ret =3D amdgpu_bo_fault_reserve_notify(bo);
+>> +=C2=A0=C2=A0=C2=A0 if (ret)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto unlock;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm=
+_page_prot,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 TTM_BO_VM=
+_NUM_PREFAULT, 1);
+>> +=C2=A0=C2=A0=C2=A0 if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags &=20
+>> FAULT_FLAG_RETRY_NOWAIT))
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> +
+>> +unlock:
+>> +=C2=A0=C2=A0=C2=A0 dma_resv_unlock(bo->base.resv);
+>> +=C2=A0=C2=A0=C2=A0 return ret;
+>> +}
+>> +
+>> +static const struct vm_operations_struct amdgpu_ttm_vm_ops =3D {
+>> +=C2=A0=C2=A0=C2=A0 .fault =3D amdgpu_ttm_fault,
+>> +=C2=A0=C2=A0=C2=A0 .open =3D ttm_bo_vm_open,
+>> +=C2=A0=C2=A0=C2=A0 .close =3D ttm_bo_vm_close,
+>> +=C2=A0=C2=A0=C2=A0 .access =3D ttm_bo_vm_access
+>> +};
+>> +
+>> =C2=A0 static void amdgpu_gem_object_free(struct drm_gem_object *gobj)=
+
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *robj =3D gem_to_amdgp=
+u_bo(gobj);
+>> @@ -201,6 +231,38 @@ static void amdgpu_gem_object_close(struct=20
+>> drm_gem_object *obj,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_eu_backoff_reservation(&ticket, &li=
+st);
+>> =C2=A0 }
+>> +static int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct=20
+>> vm_area_struct *vma)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+>> +=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo-=
+>tbo.bdev);
+>> +=C2=A0=C2=A0=C2=A0 unsigned long asize =3D amdgpu_bo_size(bo);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!vma->vm_file)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!adev)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /* Check for valid size. */
+>> +=C2=A0=C2=A0=C2=A0 if (asize < vma->vm_end - vma->vm_start)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+>=20
+>> +
+>> +=C2=A0=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Don't verify access for KFD BOs. They don'=
+t have a GEM
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * object associated with them.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 if (bo->kfd_bo)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+>=20
+> Who does the access verification now?
+
+This is somewhat confusing.
+
+I took this check as-is, including the comment, from amdgpu's=20
+verify_access function. The verify_access function was called by=20
+ttm_bo_mmap. It returned 0 and ttm_bo_mmap did the mapping.
+
+>=20
+> Christian.
+>=20
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (bo->flags & AMDGPU_GEM_CR=
+EATE_NO_CPU_ACCESS)) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> +out:
+>> +=C2=A0=C2=A0=C2=A0 return drm_gem_ttm_mmap(obj, vma);
+>> +}
+>> +
+>> =C2=A0 static const struct drm_gem_object_funcs amdgpu_gem_object_func=
+s =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .free =3D amdgpu_gem_object_free,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .open =3D amdgpu_gem_object_open,
+>> @@ -208,6 +270,8 @@ static const struct drm_gem_object_funcs=20
+>> amdgpu_gem_object_funcs =3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .export =3D amdgpu_gem_prime_export,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vmap =3D drm_gem_ttm_vmap,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vunmap =3D drm_gem_ttm_vunmap,
+>> +=C2=A0=C2=A0=C2=A0 .mmap =3D amdgpu_gem_prime_mmap,
+>> +=C2=A0=C2=A0=C2=A0 .vm_ops =3D &amdgpu_ttm_vm_ops,
+>> =C2=A0 };
+>> =C2=A0 /*
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 1c6131489a85..d9de91a517c6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -152,32 +152,6 @@ static void amdgpu_evict_flags(struct=20
+>> ttm_buffer_object *bo,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *placement =3D abo->placement;
+>> =C2=A0 }
+>> -/**
+>> - * amdgpu_verify_access - Verify access for a mmap call
+>> - *
+>> - * @bo:=C2=A0=C2=A0=C2=A0 The buffer object to map
+>> - * @filp: The file pointer from the process performing the mmap
+>> - *
+>> - * This is called by ttm_bo_mmap() to verify whether a process
+>> - * has the right to mmap a BO to their process space.
+>> - */
+>> -static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct =
+
+>> file *filp)
+>> -{
+>> -=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *abo =3D ttm_to_amdgpu_bo(bo);
+>> -
+>> -=C2=A0=C2=A0=C2=A0 /*
+>> -=C2=A0=C2=A0=C2=A0=C2=A0 * Don't verify access for KFD BOs. They don'=
+t have a GEM
+>> -=C2=A0=C2=A0=C2=A0=C2=A0 * object associated with them.
+>> -=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> -=C2=A0=C2=A0=C2=A0 if (abo->kfd_bo)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->ttm))
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
+>> -=C2=A0=C2=A0=C2=A0 return drm_vma_node_verify_access(&abo->tbo.base.v=
+ma_node,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 filp->private_d=
+ata);
+>> -}
+
+Here's the orignal verification code. It gives a free pass to KFD.
+
+>> -
+>> =C2=A0 /**
+>> =C2=A0=C2=A0 * amdgpu_ttm_map_buffer - Map memory into the GART window=
+s
+>> =C2=A0=C2=A0 * @bo: buffer object to map
+>> @@ -1531,7 +1505,6 @@ static struct ttm_device_funcs amdgpu_bo_driver =
+=3D {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .eviction_valuable =3D amdgpu_ttm_bo_ev=
+iction_valuable,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .evict_flags =3D &amdgpu_evict_flags,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .move =3D &amdgpu_bo_move,
+>> -=C2=A0=C2=A0=C2=A0 .verify_access =3D &amdgpu_verify_access,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .delete_mem_notify =3D &amdgpu_bo_delet=
+e_mem_notify,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .release_notify =3D &amdgpu_bo_release_=
+notify,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .io_mem_reserve =3D &amdgpu_ttm_io_mem_=
+reserve,
+>> @@ -1906,50 +1879,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct =
+
+>> amdgpu_device *adev, bool enable)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->mman.buffer_funcs_enabled =3D ena=
+ble;
+>> =C2=A0 }
+>> -static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
+>> -{
+>> -=C2=A0=C2=A0=C2=A0 struct ttm_buffer_object *bo =3D vmf->vma->vm_priv=
+ate_data;
+>> -=C2=A0=C2=A0=C2=A0 vm_fault_t ret;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_reserve(bo, vmf);
+>> -=C2=A0=C2=A0=C2=A0 if (ret)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 ret =3D amdgpu_bo_fault_reserve_notify(bo);
+>> -=C2=A0=C2=A0=C2=A0 if (ret)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto unlock;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm=
+_page_prot,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 TTM_BO_VM=
+_NUM_PREFAULT, 1);
+>> -=C2=A0=C2=A0=C2=A0 if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags &=20
+>> FAULT_FLAG_RETRY_NOWAIT))
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> -
+>> -unlock:
+>> -=C2=A0=C2=A0=C2=A0 dma_resv_unlock(bo->base.resv);
+>> -=C2=A0=C2=A0=C2=A0 return ret;
+>> -}
+>> -
+>> -static const struct vm_operations_struct amdgpu_ttm_vm_ops =3D {
+>> -=C2=A0=C2=A0=C2=A0 .fault =3D amdgpu_ttm_fault,
+>> -=C2=A0=C2=A0=C2=A0 .open =3D ttm_bo_vm_open,
+>> -=C2=A0=C2=A0=C2=A0 .close =3D ttm_bo_vm_close,
+>> -=C2=A0=C2=A0=C2=A0 .access =3D ttm_bo_vm_access
+>> -};
+>> -
+>> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma)
+>> -{
+>> -=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv =3D filp->private_data;=
+
+>> -=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D drm_to_adev(file_pr=
+iv->minor->dev);
+>> -=C2=A0=C2=A0=C2=A0 int r;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 r =3D ttm_bo_mmap(filp, vma, &adev->mman.bdev);
+>> -=C2=A0=C2=A0=C2=A0 if (unlikely(r !=3D 0))
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return r;
+>> -
+>> -=C2=A0=C2=A0=C2=A0 vma->vm_ops =3D &amdgpu_ttm_vm_ops;
+>> -=C2=A0=C2=A0=C2=A0 return 0;
+>> -}
+
+And this was the mmap callback in struct file_operations. It calls=20
+ttm_bo_mmap(), which skips verification for KFD BOs. To the best of my=20
+knowledge, there was no additional verification for these KFD BOs.
+
+The original code in amdgpu_gem_prime_mmap() did seom verification, but=20
+didn't handle KFD specially. I guess, PRIME needs GEM and KFD BOs=20
+wouldn't quailify.
+
+In the end I went with the semantics I found in amdgpu_mmap() and=20
+handled KFD specially. Let me know if this requires to be changed.
+
+Best regards
+Thomas
+
+>> -
+>> =C2=A0 int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_o=
+ffset,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 uint64_t dst_offset, uint32_t byte_count,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_resv *resv,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h=20
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index dec0db8b0b13..6e51faad7371 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -146,7 +146,6 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 struct dma_resv *resv,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 struct dma_fence **fence);
+>> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma);
+>> =C2=A0 int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>> =C2=A0 int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>> =C2=A0 uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev,=20
+>> uint32_t type);
+>=20
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
---------------F7182D95F5A8366030F28419
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+--cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz--
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Hi Andrey,<br>
-    <br>
-    well good question. My job is to watch over the implementation and
-    design and while I always help I can adjust anybodies schedule.<br>
-    <br>
-    Is the patch to print a warning when the hardware is accessed
-    without holding the locks merged yet? If not then that would
-    probably be a good starting point.<br>
-    <br>
-    Then we would need to unify this with the SRCU to make sure that we
-    have both the reset lock as well as block the hotplug code from
-    reusing the MMIO space.<br>
-    <br>
-    And then testing, testing, testing to see if we have missed
-    something.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 05.04.21 um 19:58 schrieb Andrey
-      Grodzovsky:<br>
-    </div>
-    <blockquote type="cite" cite="mid:1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com">
-      
-      <p>Denis, Christian, are there any updates in the plan on how to
-        move on with this ? As you know I need very similar code for my
-        up-streaming of device hot-unplug. My latest solution
-        (<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html" moz-do-not-send="true">https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html</a>)
-        was not acceptable because of low level guards on the register
-        accessors level which was hurting performance. Basically I need
-        a way to prevent any MMIO write accesses from kernel driver
-        after device is removed (UMD accesses are taken care of by page
-        faulting dummy page). We are using now hot-unplug code for
-        Freemont program and so up-streaming became more of a priority
-        then before. This MMIO access issue is currently my main blocker
-        from up-streaming. Is there any way I can assist in pushing this
-        on ?</p>
-      <p>Andrey&nbsp; <br>
-      </p>
-      <div class="moz-cite-prefix">On 2021-03-18 5:51 a.m., Christian
-        König wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:378fdffb-99b5-2a14-736d-a06f310b040c@amd.com"> Am
-        18.03.21 um 10:30 schrieb Li, Dennis:<br>
-        <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-          <meta name="Generator" content="Microsoft Word 15 (filtered
-            medium)">
-          <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-          <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:等线;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"\@等线";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-          <div class="WordSection1">
-            <p class="MsoNormal">&gt;&gt;&gt; The GPU reset doesn't
-              complete the fences we wait for. It only completes the
-              hardware fences as part of the reset.<o:p></o:p></p>
-            <p class="MsoNormal">&gt;&gt;&gt; So waiting for a fence
-              while holding the reset lock is illegal and needs to be
-              avoided.<o:p></o:p></p>
-            <p class="MsoNormal">I understood your concern. It is more
-              complex for DRM GFX, therefore I abandon adding lock
-              protection for DRM ioctls now. Maybe we can try to add all
-              kernel &nbsp;dma_fence waiting in a list, and signal all in
-              recovery threads. Do you have same concern for compute
-              cases? </p>
-          </div>
-        </blockquote>
-        <br>
-        Yes, compute (KFD) is even harder to handle.<br>
-        <br>
-        See you can't signal the dma_fence waiting. Waiting for a
-        dma_fence also means you wait for the GPU reset to finish.<br>
-        <br>
-        When we would signal the dma_fence during the GPU reset then we
-        would run into memory corruption because the hardware jobs
-        running after the GPU reset would access memory which is already
-        freed.<br>
-        <br>
-        <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-          <div class="WordSection1">
-            <p class="MsoNormal"><o:p></o:p></p>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <p class="MsoNormal">&gt;&gt;&gt; Lockdep also complains
-              about this when it is used correctly. The only reason it
-              doesn't complain here is because you use an
-              atomic+wait_event instead of a locking primitive.<o:p></o:p></p>
-            <p class="MsoNormal">Agree. This approach will escape the
-              monitor of lockdep.&nbsp; Its goal is to block other threads
-              when GPU recovery thread start. But I couldn’t find a
-              better method to solve this problem. Do you have some
-              suggestion? </p>
-          </div>
-        </blockquote>
-        <br>
-        Well, completely abandon those change here.<br>
-        <br>
-        What we need to do is to identify where hardware access happens
-        and then insert taking the read side of the GPU reset lock so
-        that we don't wait for a dma_fence or allocate memory, but still
-        protect the hardware from concurrent access and reset.<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        <blockquote type="cite" cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-          <div class="WordSection1">
-            <p class="MsoNormal"><o:p></o:p></p>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <p class="MsoNormal">Best Regards<o:p></o:p></p>
-            <p class="MsoNormal">Dennis Li<o:p></o:p></p>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <div>
-              <div style="border:none;border-top:solid #E1E1E1
-                1.0pt;padding:3.0pt 0in 0in 0in">
-                <p class="MsoNormal"><b>From:</b> Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>
-                  <br>
-                  <b>Sent:</b> Thursday, March 18, 2021 4:59 PM<br>
-                  <b>To:</b> Li, Dennis <a class="moz-txt-link-rfc2396E" href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">&lt;Dennis.Li@amd.com&gt;</a>;
-                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>;
-                  Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                  Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">&lt;Felix.Kuehling@amd.com&gt;</a>;
-                  Zhang, Hawking <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">&lt;Hawking.Zhang@amd.com&gt;</a><br>
-                  <b>Subject:</b> AW: [PATCH 0/4] Refine GPU recovery
-                  sequence to enhance its stability<o:p></o:p></p>
-              </div>
-            </div>
-            <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">Exactly that's what
-                  you don't seem to understand.<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">The GPU reset doesn't
-                  complete the fences we wait for. It only completes the
-                  hardware fences as part of the reset.<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">So waiting for a
-                  fence while holding the reset lock is illegal and
-                  needs to be avoided.<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">Lockdep also
-                  complains about this when it is used correctly. The
-                  only reason it doesn't complain here is because you
-                  use an atomic+wait_event instead of a locking
-                  primitive.<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">Regards,<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Segoe
-                  UI&quot;,sans-serif;color:black">Christian.<o:p></o:p></span></p>
-            </div>
-            <div>
-              <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-            </div>
-            <div class="MsoNormal" style="text-align:center" align="center">
-              <hr width="98%" size="2" align="center"> </div>
-            <div id="divRplyFwdMsg">
-              <p class="MsoNormal"><b><span style="color:black">Von:</span></b><span style="color:black"> Li, Dennis &lt;<a href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;<br>
-                  <b>Gesendet:</b> Donnerstag, 18. März 2021 09:28<br>
-                  <b>An:</b> Koenig, Christian &lt;<a href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;;
-                  <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-                  &lt;<a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>&gt;;
-                  Deucher, Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                  Kuehling, Felix &lt;<a href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                  Zhang, Hawking &lt;<a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                  <b>Betreff:</b> RE: [PATCH 0/4] Refine GPU recovery
-                  sequence to enhance its stability</span> <o:p></o:p></p>
-              <div>
-                <p class="MsoNormal">&nbsp;<o:p></o:p></p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p class="MsoNormal">&gt;&gt;&gt; Those two steps need
-                  to be exchanged or otherwise it is possible that new
-                  delayed work items etc are started before the lock is
-                  taken.<br>
-                  What about adding check for adev-&gt;in_gpu_reset in
-                  work item? If exchange the two steps, it maybe
-                  introduce the deadlock.&nbsp; For example, the user thread
-                  hold the read lock and waiting for the fence, if
-                  recovery thread try to hold write lock and then
-                  complete fences, in this case, recovery thread will
-                  always be blocked.<o:p></o:p></p>
-              </div>
-              <div>
-                <p class="MsoNormal" style="margin-bottom:12.0pt"><br>
-                  Best Regards<br>
-                  Dennis Li<br>
-                  -----Original Message-----<br>
-                  From: Koenig, Christian &lt;<a href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;
-                  <br>
-                  Sent: Thursday, March 18, 2021 3:54 PM<br>
-                  To: Li, Dennis &lt;<a href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;; <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
-                    amd-gfx@lists.freedesktop.org</a>; Deucher,
-                  Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                  Kuehling, Felix &lt;<a href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                  Zhang, Hawking &lt;<a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                  Subject: Re: [PATCH 0/4] Refine GPU recovery sequence
-                  to enhance its stability<br>
-                  <br>
-                  Am 18.03.21 um 08:23 schrieb Dennis Li:<br>
-                  &gt; We have defined two variables in_gpu_reset and
-                  reset_sem in adev object. The atomic type variable
-                  in_gpu_reset is used to avoid recovery thread reenter
-                  and make lower functions return more earlier when
-                  recovery start, but couldn't block recovery thread
-                  when it access hardware. The r/w semaphore reset_sem
-                  is used to solve these synchronization issues between
-                  recovery thread and other threads.<br>
-                  &gt;<br>
-                  &gt; The original solution locked registers' access in
-                  lower functions, which will introduce following
-                  issues:<br>
-                  &gt;<br>
-                  &gt; 1) many lower functions are used in both recovery
-                  thread and others. Firstly we must harvest these
-                  functions, it is easy to miss someones. Secondly these
-                  functions need select which lock (read lock or write
-                  lock) will be used, according to the thread it is
-                  running in. If the thread context isn't considered,
-                  the added lock will easily introduce deadlock. Besides
-                  that, in most time, developer easily forget to add
-                  locks for new functions.<br>
-                  &gt;<br>
-                  &gt; 2) performance drop. More lower functions are
-                  more frequently called.<br>
-                  &gt;<br>
-                  &gt; 3) easily introduce false positive lockdep
-                  complaint, because write lock has big range in
-                  recovery thread, but low level functions will hold
-                  read lock may be protected by other locks in other
-                  threads.<br>
-                  &gt;<br>
-                  &gt; Therefore the new solution will try to add lock
-                  protection for ioctls of kfd. Its goal is that there
-                  are no threads except for recovery thread or its
-                  children (for xgmi) to access hardware when doing GPU
-                  reset and resume. So refine recovery thread as the
-                  following:<br>
-                  &gt;<br>
-                  &gt; Step 0:
-                  atomic_cmpxchg(&amp;adev-&gt;in_gpu_reset, 0, 1)<br>
-                  &gt;&nbsp;&nbsp;&nbsp;&nbsp; 1). if failed, it means system had a recovery
-                  thread running, current thread exit directly;<br>
-                  &gt;&nbsp;&nbsp;&nbsp;&nbsp; 2). if success, enter recovery thread;<br>
-                  &gt;<br>
-                  &gt; Step 1: cancel all delay works, stop drm
-                  schedule, complete all unreceived fences and so on. It
-                  try to stop or pause other threads.<br>
-                  &gt;<br>
-                  &gt; Step 2: call down_write(&amp;adev-&gt;reset_sem)
-                  to hold write lock, which will block recovery thread
-                  until other threads release read locks.<br>
-                  <br>
-                  Those two steps need to be exchanged or otherwise it
-                  is possible that new delayed work items etc are
-                  started before the lock is taken.<br>
-                  <br>
-                  Just to make it clear until this is fixed the whole
-                  patch set is a NAK.<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  &gt;<br>
-                  &gt; Step 3: normally, there is only recovery threads
-                  running to access hardware, it is safe to do gpu reset
-                  now.<br>
-                  &gt;<br>
-                  &gt; Step 4: do post gpu reset, such as call all ips'
-                  resume functions;<br>
-                  &gt;<br>
-                  &gt; Step 5: atomic set adev-&gt;in_gpu_reset as 0,
-                  wake up other threads and release write lock. Recovery
-                  thread exit normally.<br>
-                  &gt;<br>
-                  &gt; Other threads call the amdgpu_read_lock to
-                  synchronize with recovery thread. If it finds that
-                  in_gpu_reset is 1, it should release read lock if it
-                  has holden one, and then blocks itself to wait for
-                  recovery finished event. If thread successfully hold
-                  read lock and in_gpu_reset is 0, it continues. It will
-                  exit normally or be stopped by recovery thread in step
-                  1.<br>
-                  &gt;<br>
-                  &gt; Dennis Li (4):<br>
-                  &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: remove reset lock from low level
-                  functions<br>
-                  &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: refine the GPU recovery sequence<br>
-                  &gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: instead of using down/up_read
-                  directly<br>
-                  &gt;&nbsp;&nbsp;&nbsp; drm/amdkfd: add reset lock protection for kfd
-                  entry functions<br>
-                  &gt;<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 6 +<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c&nbsp;&nbsp;
-                  |&nbsp; 14 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbsp;&nbsp; |
-                  173 +++++++++++++-----<br>
-                  &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 8 -<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 4 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 9 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 5 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 5 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
-                  172 ++++++++++++++++-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 3 +-<br>
-                  &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  |&nbsp;&nbsp; 4 +<br>
-                  &gt;&nbsp;&nbsp; .../amd/amdkfd/kfd_process_queue_manager.c&nbsp;&nbsp;&nbsp;
-                  |&nbsp; 17 ++<br>
-                  &gt;&nbsp;&nbsp; 12 files changed, 345 insertions(+), 75
-                  deletions(-)<br>
-                  &gt;<o:p></o:p></p>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-        <br>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
+--DlEMyx97wEecQakExZoFxgsu9Ueoy78O4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
---------------F7182D95F5A8366030F28419--
+-----BEGIN PGP SIGNATURE-----
 
---===============0780516683==
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmBsOhIFAwAAAAAACgkQlh/E3EQov+Cy
+ehAAuigg86A1nSdjImYm7zjvHU0c59wRCjzurzr8zHhB2lfZuFOyFR2KYL5D7rpAe/Eqz2tEMrq3
+Cq6zO2Bff9iN76cBa61F+1ize2piuQ5VjSojQ0ZVkyrm/tw0MH5x6iaee48yiv0yzKgeqE/hj8a1
+E8nMNiUCGKZdQ61DKP6Ui8pZT2pkf88KKAl4uZeNKCIpWBX5dfXzZ+MuEMLaVogXqTDtsgTs8MmA
+coTiz4y7TXmyh9Xoa7qVQ23T5OWka71YKaV0n59P3MDPH012aAYWfrtjgKoFniyZMZhEhWcvdoFr
+EOsI3Uilne4bbW5uGXNgb2ux4K4rGhQxpOnGVoYegrc7g9sZAUWkA11RsFj7zF4aYSJZT2LmjlnL
+ujl7xS4RUQM0vTM2Qjvyy9RWLC0slNjZTZ0eec7WfQnash9i0kLPEwfF8AzA/+3X/ob+iU30ULP1
+woF+p9XSNoDVrxCrKliVJsVhvnyZFwT/oiZ1VE86SlaubwGO4t9w+xJ6/Ik+Ogyw63Lo36OUxdnb
+xt9oXllA0H7D0x+ww1g320TjxIyA7A3bl3qxPNw6kjjzp+3jVS67ZTvS6Brv6jJUwpQv6VMyBMAb
+uzcBFubG7Zp8mqIkm9i20qIWSvEOgk836TSdC8VgJnNUL7e9nJbcqJhNtSaJanP11CJy9vZw3SQq
+iRY=
+=ZOo+
+-----END PGP SIGNATURE-----
+
+--DlEMyx97wEecQakExZoFxgsu9Ueoy78O4--
+
+--===============1158160331==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -816,4 +559,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0780516683==--
+--===============1158160331==--
