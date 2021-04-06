@@ -2,48 +2,126 @@ Return-Path: <SRS0=1IUY=JD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC75BC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C12CAC433ED
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 674BC613C4
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 674BC613C4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 5F45B61154
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 10:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F45B61154
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D4EB89C85;
-	Tue,  6 Apr 2021 10:38:14 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A9689C85;
- Tue,  6 Apr 2021 10:38:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 61B06B142;
- Tue,  6 Apr 2021 10:38:11 +0000 (UTC)
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
- sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
- sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
- nirmoy.das@amd.com
-References: <20210406090903.7019-1-tzimmermann@suse.de>
- <20210406090903.7019-4-tzimmermann@suse.de>
- <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
-Message-ID: <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
-Date: Tue, 6 Apr 2021 12:38:09 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09AAD6E3AA;
+	Tue,  6 Apr 2021 10:54:13 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95B636E3AA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Apr 2021 10:54:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HZ04FALv6py8JnorEF10mNJYtgnyNLw6eI4s6wNbsUE51+PDGBrPg0XQOTxlKssxou/J7DHo7EBmRHf64OgyO2iNeqVbaUltbGO3QGepRU1vg84JFZyPttcLZOtKpbeIJ/ODWsYBN7JkIgnaedAxnShWAif2PZyavZvGZh/Z96wriK4ttbJUIIJuZqFUAL2+c1KQhCmOXqw5+wy/JaHq0TyyahT8PL/Lc3qD/hxlg8450VmWC90wozS6Baqxh0YRqAvY2VFz9TewwxyRY3R1cCEdxWz6JjkdPILeZ/OkahNCn4o7XTOgEQBddNu5G84dipd0bBBcsv0nb1/hLYC+hQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PJjZ9gGjxYYkomxMB1EZTz7CIKNyYhVyahhsyv8RlDE=;
+ b=MmA1Y0k13igEeOdq7zfj7AER5rZ7BRAwlawax6JVve5PsBgMBZy2c91ciLM1Vi/k2vGw28DMnOmBtVbbOkdYyLcLO82yaDkN2+jDper+Rj9tMQWxbF5PBYc91FmLYH2XyYVPlAtMOkrOiRdorm4g5eFfdjC3FzIZ7aPPbkiC90zxsyQtpWpndLwe60YFGXWi/CQQWmgK1OuqrVmPTXGN+zpQ3Cs6wizSyAZJ2zp0BsdUKYQE10/dADt5e0C7BS/aOcPYy4CYqzxuiLMckuVxyOayvW6jV5uC+9KeoyD7b2UcXgw35ofDrNS/1TPiGin3L3mRZC02DTsHRoyDzn84kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PJjZ9gGjxYYkomxMB1EZTz7CIKNyYhVyahhsyv8RlDE=;
+ b=hLZXj+q8I0MckqLyiAz2F+TRo99GoffxB8nbyCNm0VKnuzkPhT7yswmafnU2ghbYUlcP82z2rcqWcjkMRQEnpmOO5CRCoRhxdTfMAc+EDNmloK4C/VfWRtu34GxLj/5da7iDvYwfmHvcihIjd5uuLroVXIIEu6EF6gGrpaTItyY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com (2603:10b6:910:e::19)
+ by CY4PR12MB1589.namprd12.prod.outlook.com (2603:10b6:910:e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Tue, 6 Apr
+ 2021 10:54:09 +0000
+Received: from CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2]) by CY4PR12MB1463.namprd12.prod.outlook.com
+ ([fe80::6504:7fc4:d02f:77f2%3]) with mapi id 15.20.3999.032; Tue, 6 Apr 2021
+ 10:54:09 +0000
+Subject: Re: [PATCH] drm/amdgpu: Add show_fdinfo() interface
+To: Roy Sun <Roy.Sun@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210406094915.22984-1-Roy.Sun@amd.com>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <cfab1417-2a93-dc89-f9d3-1dabdc0a0a79@amd.com>
+Date: Tue, 6 Apr 2021 12:54:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
+In-Reply-To: <20210406094915.22984-1-Roy.Sun@amd.com>
+Content-Language: en-US
+X-Originating-IP: [165.204.84.11]
+X-ClientProxiedBy: BN0PR04CA0145.namprd04.prod.outlook.com
+ (2603:10b6:408:ed::30) To CY4PR12MB1463.namprd12.prod.outlook.com
+ (2603:10b6:910:e::19)
 MIME-Version: 1.0
-In-Reply-To: <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.7.102] (165.204.84.11) by
+ BN0PR04CA0145.namprd04.prod.outlook.com (2603:10b6:408:ed::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4020.16 via Frontend Transport; Tue, 6 Apr 2021 10:54:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ceb49c0-dc4e-408e-c7c3-08d8f8ea4e02
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1589:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1589904F99E46897E901CFAA8B769@CY4PR12MB1589.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1091;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ICSM3KLorvBG8m0p3QmXk6nKdHhYyO7KBkbbMPsEIhx4FCFtE8d4LbBvKaO3aZQp/yTKRInpbl0m544/xGdtTcMc0P7di6RNTeCv1ihm19CcG2NuORLmJadkBdZcAd3DY8AJiwOk28Solj+vtw64wdv+D5b3y4TK1ICadbSQwyDzqRc9SvM3SndDWSy+1fNpKfduSiX3ppBryYpH3VAkKg0XmUBsMSJ35kDGoyLYKc3sb57ruBrqWabJcLALnYm9iwh6y82doJX5S6RKsgyLELqnFI4IfWHRse7naEX3QEQC0yvysI4LJQwxl57LwuAht4HF/LDMTUMEjc8IkHvPCK8szADVFUJZE3lyRKmbG5PbVQq+q+icotQlWttU/krkpVnAbfaeUucMupuKCMNbb3w2/J3u8MHOzN/UHyExa2JUb4iNrE5sDapuXRuKHkmmwFIQqDUOROQvrQ1WcuGb4vNIAkc9S5JUBxHnZ7E4X6a9OpkI5pBTwAXO41FenJxhEKJdjK4Q2ftNZvJBgA62g2jlNQzmr/efEv09EFiKZQI16CE97CeppHVlreTCQ3qUVnH6wUxDYX40GkijJfMzyuSLvniDIRrpHKYcTbGXBXOqYW/FzCradf3zErPfZZOUImLMGchDmN60t91bEeYQAju+RGTsBCbodQ01OjU+f9rfIdaI/NAFDnA/0xugTQhouDOGxmQvL38cWYTM9hGB0Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1463.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(136003)(39840400004)(396003)(346002)(38100700001)(956004)(52116002)(4326008)(316002)(8936002)(16576012)(83380400001)(16526019)(31686004)(66946007)(6666004)(26005)(5660300002)(186003)(8676002)(2906002)(66476007)(2616005)(478600001)(6486002)(53546011)(31696002)(36756003)(30864003)(66556008)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VUF6cGU0RXBScUwxcUdyQm9jaExWVjhaUFRReTZ5ci9aeTlvSkdSWkxCaTY3?=
+ =?utf-8?B?WGk4SGdjSkhLTjVUU21Xd08xR1JFUC9iOHJFaCtSTWpVazZremVDSlFGZjc1?=
+ =?utf-8?B?c1MyMlh1WkphZHJWMWk5bGRsRlEvdXhCZjJKSUN6RTFMdFA4WGJJS3Roc2xl?=
+ =?utf-8?B?N1NHeUJ2emMrVmVTbkZ2dm9ranpXQW5vRXNzWFBrMGdXRWVFQnRjYjQ1S1h6?=
+ =?utf-8?B?MDVvQ1BPNnltamNPRzRxaytjSFdaMDJHVXM0SlpaRDEyUUh6cmRHWW9wOFl5?=
+ =?utf-8?B?N0Rac21vdEVXamt1d2ZTMWhwS25WYlF1VENmNXk5aHh3K1ZOVklpbjIwUUd0?=
+ =?utf-8?B?dnFtZ0svOHdBelJ3SHoyOE02ZkRQamxQU3RHanB2VUlxN05iUkxnVzB5dG94?=
+ =?utf-8?B?R09XYzFQbTRxNWJSSHRDYnlXbWx1ak5MTHNRcHB2QktueWp3QkUyS2ZlNGFw?=
+ =?utf-8?B?V3VhUDNtOEtNR2xBRWpMTTJzNUMxNzlqSk51aGptcWpKSnFHWVJMYWJQcXVI?=
+ =?utf-8?B?NXpPSkk0Ly91TTFWTVhQL2VuWDd6SzcrSEU5aklVcEVCeEsraDRzWm9qcTVW?=
+ =?utf-8?B?angxRlhzSFV0R1dhcWVpU2JQOWw0ZEFRZjdUdlkxSWJnNVN4Yi81TTdUendY?=
+ =?utf-8?B?WTNtZ2tTenhSV01JWVA3R3RnMlNEcmE1L0JiNVhjbnlpVGFmVk4rbGNQWjY5?=
+ =?utf-8?B?aFIxczRrWm9GVTZoTmNCajZYQUwyNFVlb1p0b3RUZHZmMlo2SDBxeVB1TnVB?=
+ =?utf-8?B?L2hYcFczNEk2Y3lEV0s2MlhQbmFPWDRQSCticElFSjJsSkxqd0Y4OWp6WEF1?=
+ =?utf-8?B?SXkxU3g2M2ZUSGpDU2ZwUzJpS0U1bFZrSEl0WnJSeHdzUnNob251R01ySFhH?=
+ =?utf-8?B?SHNodEJhMUh2ZktXN2tiVXlCQ3dRZDNPcGt4RW9wNWhScGQ1NVo4YXhuSVQ4?=
+ =?utf-8?B?WDI4dTJ0QjFNK2ZLNzR3TGExSmpIZHplVHVNdGdDOE45TUU2K2ZPTDhIUFFU?=
+ =?utf-8?B?Zks3T2ovZFdMZ01tYVl4d295aXh5ektodWIySmVLTWxHMTNqUWVZU3h6OGw1?=
+ =?utf-8?B?TWRqL0NhQTA3M3BocXJ6R0krK3ZVajBnaEdZMkRCM011eXVhd3g0WG9uSlJE?=
+ =?utf-8?B?SVlabFVacTVqTk5LQ3l4eU5TSFhFRmt2cXJaV1ZwV0Z5OWZEU2NtdG5hMDVx?=
+ =?utf-8?B?cHcwalQ0NzYzUHFVUWdEZkoybnVZYkZaNi9POHpHRnZnbDQvZjREdGJFMlJU?=
+ =?utf-8?B?U1A4ejBYU2tQMkt3ZkhVemgwSDRDYzVLZUFtdVF6RkdEWFNXL1d0NTBGdDIz?=
+ =?utf-8?B?d09TY2NoSEZKZnpZRUtLTDZMTS9pQlhYYkE0WXdWYk42RFRaQnd4SzJiYXd0?=
+ =?utf-8?B?R0FoNmtvL0lMTEM5U0FrejdOVXJDVytEYjlzQ0lvdnluU09xM3J6cDlEMkFr?=
+ =?utf-8?B?OWFRMnFUOGEzeVB2elZDWUduRXVZeXlFcVFFMEpJMmJLRnlKR3hwQUhRaVlv?=
+ =?utf-8?B?L0RSSmo1V1JjYzVzUzBITVR3bm9wOEg4eFlLTzAwYTFrN1VaNnM2ZmljUkFs?=
+ =?utf-8?B?ZG9IYjR1UmZlQXdzMkVobkhObGRONW91RU1rQ1ZyVzZLOTd2eEZGK3c1WUxw?=
+ =?utf-8?B?cVhFOU1HMUJoeWdFaDMySTVyTTJPSElYNkt6N1AwaHRybWd6RUZ5dTFKeE5S?=
+ =?utf-8?B?UUlMdGQySzR2YVhhVmJ4dkFzckc5ODNRN1AwRys4aUlqbGl3YStLbFJSdVFr?=
+ =?utf-8?Q?VBCjfK2Yr+RdiemtaJ3GJ1gFhayS7xAQOgRvVOr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ceb49c0-dc4e-408e-c7c3-08d8f8ea4e02
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1463.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 10:54:09.4293 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M9T5goYCRU8YrMOLg9ywZLkAHGoWkq/OjZ0e0hZOMFxRFDEiUPhmaztQPPzflBvFz/4PZ4+L4UJWgKMIyseFTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1589
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,508 +133,599 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1158160331=="
+Cc: Alexander.Deucher@amd.com, David M Nieto <David.Nieto@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1158160331==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="DlEMyx97wEecQakExZoFxgsu9Ueoy78O4"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---DlEMyx97wEecQakExZoFxgsu9Ueoy78O4
-Content-Type: multipart/mixed; boundary="cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
- sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
- sam@ravnborg.org, emil.velikov@collabora.com, Felix.Kuehling@amd.com,
- nirmoy.das@amd.com
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Message-ID: <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
-Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
-References: <20210406090903.7019-1-tzimmermann@suse.de>
- <20210406090903.7019-4-tzimmermann@suse.de>
- <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
-In-Reply-To: <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
-
---cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 06.04.21 um 11:35 schrieb Christian K=C3=B6nig:
-> Am 06.04.21 um 11:08 schrieb Thomas Zimmermann:
->> Moving the driver-specific mmap code into a GEM object function allows=
-
->> for using DRM helpers for various mmap callbacks.
->>
->> This change resolves several inconsistencies between regular mmap and
->> prime-based mmap. The vm_ops field in vma is now set for all mmap'ed
->> areas. Previously it way only set for regular mmap calls, prime-based
->> mmap used TTM's default vm_ops. The check for kfd_bo has been taken
->> from amdgpu_verify_access(), which is not called any longer and has
->> been removed.
->>
->> As a side effect, amdgpu_ttm_vm_ops and amdgpu_ttm_fault() are now
->> implemented in amdgpu's GEM code.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 46 -------------
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |=C2=A0 2 -
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 4 +-
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
- | 64 +++++++++++++++++++
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=
- | 71 ---------------------
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 1 -
->> =C2=A0 6 files changed, 66 insertions(+), 122 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> index e0c4f7c7f1b9..19c5ab08d9ec 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> @@ -42,52 +42,6 @@
->> =C2=A0 #include <linux/pci-p2pdma.h>
->> =C2=A0 #include <linux/pm_runtime.h>
->> -/**
->> - * amdgpu_gem_prime_mmap - &drm_driver.gem_prime_mmap implementation
->> - * @obj: GEM BO
->> - * @vma: Virtual memory area
->> - *
->> - * Sets up a userspace mapping of the BO's memory in the given
->> - * virtual memory area.
->> - *
->> - * Returns:
->> - * 0 on success or a negative error code on failure.
->> - */
->> -int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 struct vm_area_struct *vma)
->> -{
->> -=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
->> -=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo-=
->tbo.bdev);
->> -=C2=A0=C2=A0=C2=A0 unsigned asize =3D amdgpu_bo_size(bo);
->> -=C2=A0=C2=A0=C2=A0 int ret;
->> -
->> -=C2=A0=C2=A0=C2=A0 if (!vma->vm_file)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
->> -
->> -=C2=A0=C2=A0=C2=A0 if (adev =3D=3D NULL)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
->> -
->> -=C2=A0=C2=A0=C2=A0 /* Check for valid size. */
->> -=C2=A0=C2=A0=C2=A0 if (asize < vma->vm_end - vma->vm_start)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->> -
->> -=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (bo->flags & AMDGPU_GEM_CR=
-EATE_NO_CPU_ACCESS)) {
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
->> -=C2=A0=C2=A0=C2=A0 }
->> -=C2=A0=C2=A0=C2=A0 vma->vm_pgoff +=3D amdgpu_bo_mmap_offset(bo) >> PA=
-GE_SHIFT;
->> -
->> -=C2=A0=C2=A0=C2=A0 /* prime mmap does not need to check access, so al=
-low here */
->> -=C2=A0=C2=A0=C2=A0 ret =3D drm_vma_node_allow(&obj->vma_node,=20
->> vma->vm_file->private_data);
->> -=C2=A0=C2=A0=C2=A0 if (ret)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> -
->> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_mmap(vma->vm_file, vma, &adev->mman=
-=2Ebdev);
->> -=C2=A0=C2=A0=C2=A0 drm_vma_node_revoke(&obj->vma_node, vma->vm_file->=
-private_data);
->> -
->> -=C2=A0=C2=A0=C2=A0 return ret;
->> -}
->> -
->> =C2=A0 static int
->> =C2=A0 __dma_resv_make_exclusive(struct dma_resv *obj)
->> =C2=A0 {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
->> index 39b5b9616fd8..3e93b9b407a9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
->> @@ -31,8 +31,6 @@ struct drm_gem_object=20
->> *amdgpu_gem_prime_import(struct drm_device *dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 struct dma_buf *dma_buf);
->> =C2=A0 bool amdgpu_dmabuf_is_xgmi_accessible(struct amdgpu_device *ade=
-v,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct=
- amdgpu_bo *bo);
->> -int amdgpu_gem_prime_mmap(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 struct vm_area_struct *vma);
->> =C2=A0 extern const struct dma_buf_ops amdgpu_dmabuf_ops;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 76f48f79c70b..e96d2758f4bb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -1656,7 +1656,7 @@ static const struct file_operations=20
->> amdgpu_driver_kms_fops =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flush =3D amdgpu_flush,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .release =3D drm_release,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .unlocked_ioctl =3D amdgpu_drm_ioctl,
->> -=C2=A0=C2=A0=C2=A0 .mmap =3D amdgpu_mmap,
->> +=C2=A0=C2=A0=C2=A0 .mmap =3D drm_gem_mmap,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .poll =3D drm_poll,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .read =3D drm_read,
->> =C2=A0 #ifdef CONFIG_COMPAT
->> @@ -1719,7 +1719,7 @@ static const struct drm_driver amdgpu_kms_driver=
-=20
->> =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_handle_to_fd =3D drm_gem_prime_h=
-andle_to_fd,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_fd_to_handle =3D drm_gem_prime_f=
-d_to_handle,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_import =3D amdgpu_gem_prime_=
-import,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D amdgpu_gem_prime_mmap,
->> +=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D drm_gem_prime_mmap,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .name =3D DRIVER_NAME,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .desc =3D DRIVER_DESC,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index fb7171e5507c..fe93faad05f2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -41,6 +41,36 @@
->> =C2=A0 static const struct drm_gem_object_funcs amdgpu_gem_object_func=
-s;
->> +static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
->=20
-> Please name that function amdgpu_gem_fault or amdgpu_gem_object_fault
->=20
->> +{
->> +=C2=A0=C2=A0=C2=A0 struct ttm_buffer_object *bo =3D vmf->vma->vm_priv=
-ate_data;
->> +=C2=A0=C2=A0=C2=A0 vm_fault_t ret;
->> +
->> +=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_reserve(bo, vmf);
->> +=C2=A0=C2=A0=C2=A0 if (ret)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> +
->> +=C2=A0=C2=A0=C2=A0 ret =3D amdgpu_bo_fault_reserve_notify(bo);
->> +=C2=A0=C2=A0=C2=A0 if (ret)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto unlock;
->> +
->> +=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm=
-_page_prot,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 TTM_BO_VM=
-_NUM_PREFAULT, 1);
->> +=C2=A0=C2=A0=C2=A0 if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags &=20
->> FAULT_FLAG_RETRY_NOWAIT))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> +
->> +unlock:
->> +=C2=A0=C2=A0=C2=A0 dma_resv_unlock(bo->base.resv);
->> +=C2=A0=C2=A0=C2=A0 return ret;
->> +}
->> +
->> +static const struct vm_operations_struct amdgpu_ttm_vm_ops =3D {
->> +=C2=A0=C2=A0=C2=A0 .fault =3D amdgpu_ttm_fault,
->> +=C2=A0=C2=A0=C2=A0 .open =3D ttm_bo_vm_open,
->> +=C2=A0=C2=A0=C2=A0 .close =3D ttm_bo_vm_close,
->> +=C2=A0=C2=A0=C2=A0 .access =3D ttm_bo_vm_access
->> +};
->> +
->> =C2=A0 static void amdgpu_gem_object_free(struct drm_gem_object *gobj)=
-
->> =C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *robj =3D gem_to_amdgp=
-u_bo(gobj);
->> @@ -201,6 +231,38 @@ static void amdgpu_gem_object_close(struct=20
->> drm_gem_object *obj,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_eu_backoff_reservation(&ticket, &li=
-st);
->> =C2=A0 }
->> +static int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct=20
->> vm_area_struct *vma)
->> +{
->> +=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
->> +=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo-=
->tbo.bdev);
->> +=C2=A0=C2=A0=C2=A0 unsigned long asize =3D amdgpu_bo_size(bo);
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!vma->vm_file)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!adev)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Check for valid size. */
->> +=C2=A0=C2=A0=C2=A0 if (asize < vma->vm_end - vma->vm_start)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->=20
->> +
->> +=C2=A0=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * Don't verify access for KFD BOs. They don'=
-t have a GEM
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * object associated with them.
->> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0 if (bo->kfd_bo)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
->=20
-> Who does the access verification now?
-
-This is somewhat confusing.
-
-I took this check as-is, including the comment, from amdgpu's=20
-verify_access function. The verify_access function was called by=20
-ttm_bo_mmap. It returned 0 and ttm_bo_mmap did the mapping.
-
->=20
-> Christian.
->=20
->> +
->> +=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (bo->flags & AMDGPU_GEM_CR=
-EATE_NO_CPU_ACCESS)) {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
->> +=C2=A0=C2=A0=C2=A0 }
->> +
->> +out:
->> +=C2=A0=C2=A0=C2=A0 return drm_gem_ttm_mmap(obj, vma);
->> +}
->> +
->> =C2=A0 static const struct drm_gem_object_funcs amdgpu_gem_object_func=
-s =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .free =3D amdgpu_gem_object_free,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .open =3D amdgpu_gem_object_open,
->> @@ -208,6 +270,8 @@ static const struct drm_gem_object_funcs=20
->> amdgpu_gem_object_funcs =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .export =3D amdgpu_gem_prime_export,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vmap =3D drm_gem_ttm_vmap,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vunmap =3D drm_gem_ttm_vunmap,
->> +=C2=A0=C2=A0=C2=A0 .mmap =3D amdgpu_gem_prime_mmap,
->> +=C2=A0=C2=A0=C2=A0 .vm_ops =3D &amdgpu_ttm_vm_ops,
->> =C2=A0 };
->> =C2=A0 /*
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 1c6131489a85..d9de91a517c6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -152,32 +152,6 @@ static void amdgpu_evict_flags(struct=20
->> ttm_buffer_object *bo,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *placement =3D abo->placement;
->> =C2=A0 }
->> -/**
->> - * amdgpu_verify_access - Verify access for a mmap call
->> - *
->> - * @bo:=C2=A0=C2=A0=C2=A0 The buffer object to map
->> - * @filp: The file pointer from the process performing the mmap
->> - *
->> - * This is called by ttm_bo_mmap() to verify whether a process
->> - * has the right to mmap a BO to their process space.
->> - */
->> -static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct =
-
->> file *filp)
->> -{
->> -=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *abo =3D ttm_to_amdgpu_bo(bo);
->> -
->> -=C2=A0=C2=A0=C2=A0 /*
->> -=C2=A0=C2=A0=C2=A0=C2=A0 * Don't verify access for KFD BOs. They don'=
-t have a GEM
->> -=C2=A0=C2=A0=C2=A0=C2=A0 * object associated with them.
->> -=C2=A0=C2=A0=C2=A0=C2=A0 */
->> -=C2=A0=C2=A0=C2=A0 if (abo->kfd_bo)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> -
->> -=C2=A0=C2=A0=C2=A0 if (amdgpu_ttm_tt_get_usermm(bo->ttm))
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EPERM;
->> -=C2=A0=C2=A0=C2=A0 return drm_vma_node_verify_access(&abo->tbo.base.v=
-ma_node,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 filp->private_d=
-ata);
->> -}
-
-Here's the orignal verification code. It gives a free pass to KFD.
-
->> -
->> =C2=A0 /**
->> =C2=A0=C2=A0 * amdgpu_ttm_map_buffer - Map memory into the GART window=
-s
->> =C2=A0=C2=A0 * @bo: buffer object to map
->> @@ -1531,7 +1505,6 @@ static struct ttm_device_funcs amdgpu_bo_driver =
-=3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .eviction_valuable =3D amdgpu_ttm_bo_ev=
-iction_valuable,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .evict_flags =3D &amdgpu_evict_flags,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .move =3D &amdgpu_bo_move,
->> -=C2=A0=C2=A0=C2=A0 .verify_access =3D &amdgpu_verify_access,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .delete_mem_notify =3D &amdgpu_bo_delet=
-e_mem_notify,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .release_notify =3D &amdgpu_bo_release_=
-notify,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .io_mem_reserve =3D &amdgpu_ttm_io_mem_=
-reserve,
->> @@ -1906,50 +1879,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct =
-
->> amdgpu_device *adev, bool enable)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->mman.buffer_funcs_enabled =3D ena=
-ble;
->> =C2=A0 }
->> -static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
->> -{
->> -=C2=A0=C2=A0=C2=A0 struct ttm_buffer_object *bo =3D vmf->vma->vm_priv=
-ate_data;
->> -=C2=A0=C2=A0=C2=A0 vm_fault_t ret;
->> -
->> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_reserve(bo, vmf);
->> -=C2=A0=C2=A0=C2=A0 if (ret)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> -
->> -=C2=A0=C2=A0=C2=A0 ret =3D amdgpu_bo_fault_reserve_notify(bo);
->> -=C2=A0=C2=A0=C2=A0 if (ret)
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto unlock;
->> -
->> -=C2=A0=C2=A0=C2=A0 ret =3D ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm=
-_page_prot,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 TTM_BO_VM=
-_NUM_PREFAULT, 1);
->> -=C2=A0=C2=A0=C2=A0 if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags &=20
->> FAULT_FLAG_RETRY_NOWAIT))
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->> -
->> -unlock:
->> -=C2=A0=C2=A0=C2=A0 dma_resv_unlock(bo->base.resv);
->> -=C2=A0=C2=A0=C2=A0 return ret;
->> -}
->> -
->> -static const struct vm_operations_struct amdgpu_ttm_vm_ops =3D {
->> -=C2=A0=C2=A0=C2=A0 .fault =3D amdgpu_ttm_fault,
->> -=C2=A0=C2=A0=C2=A0 .open =3D ttm_bo_vm_open,
->> -=C2=A0=C2=A0=C2=A0 .close =3D ttm_bo_vm_close,
->> -=C2=A0=C2=A0=C2=A0 .access =3D ttm_bo_vm_access
->> -};
->> -
->> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma)
->> -{
->> -=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv =3D filp->private_data;=
-
->> -=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D drm_to_adev(file_pr=
-iv->minor->dev);
->> -=C2=A0=C2=A0=C2=A0 int r;
->> -
->> -=C2=A0=C2=A0=C2=A0 r =3D ttm_bo_mmap(filp, vma, &adev->mman.bdev);
->> -=C2=A0=C2=A0=C2=A0 if (unlikely(r !=3D 0))
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return r;
->> -
->> -=C2=A0=C2=A0=C2=A0 vma->vm_ops =3D &amdgpu_ttm_vm_ops;
->> -=C2=A0=C2=A0=C2=A0 return 0;
->> -}
-
-And this was the mmap callback in struct file_operations. It calls=20
-ttm_bo_mmap(), which skips verification for KFD BOs. To the best of my=20
-knowledge, there was no additional verification for these KFD BOs.
-
-The original code in amdgpu_gem_prime_mmap() did seom verification, but=20
-didn't handle KFD specially. I guess, PRIME needs GEM and KFD BOs=20
-wouldn't quailify.
-
-In the end I went with the semantics I found in amdgpu_mmap() and=20
-handled KFD specially. Let me know if this requires to be changed.
-
-Best regards
-Thomas
-
->> -
->> =C2=A0 int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_o=
-ffset,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 uint64_t dst_offset, uint32_t byte_count,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_resv *resv,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> index dec0db8b0b13..6e51faad7371 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -146,7 +146,6 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 struct dma_resv *resv,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 struct dma_fence **fence);
->> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma);
->> =C2=A0 int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
->> =C2=A0 int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
->> =C2=A0 uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev,=20
->> uint32_t type);
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+On 4/6/21 11:49 AM, Roy Sun wrote:
+> Tracking devices, process info and fence info using
+> /proc/pid/fdinfo
+>
+> Signed-off-by: David M Nieto <David.Nieto@amd.com>
+> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  15 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   5 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c    | 282 ++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h    |  58 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   3 +
+>   drivers/gpu/drm/scheduler/sched_main.c        |  11 +-
+>   8 files changed, 371 insertions(+), 8 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index ee85e8aba636..f9de1acc65dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -55,7 +55,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>   	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
+>   	amdgpu_gmc.o amdgpu_mmhub.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+>   	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+> -	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+> +	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o amdgpu_fdinfo.o\
+>   	amdgpu_fw_attestation.o amdgpu_securedisplay.o
+>   
 
 
---cY5UB9S9eRZ9UDqBxYDChsSPO0FV63ekz--
+Use amdgpu-$(CONFIG_PROC_FS) instead so that you can ignore some 
+CONFIG_PROC_FS checks.
 
---DlEMyx97wEecQakExZoFxgsu9Ueoy78O4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+>   amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 616c85a01299..35843c8d133d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -107,6 +107,7 @@
+>   #include "amdgpu_gfxhub.h"
+>   #include "amdgpu_df.h"
+>   #include "amdgpu_smuio.h"
+> +#include "amdgpu_fdinfo.h"
+>   
+>   #define MAX_GPU_INSTANCE		16
+>   
+> @@ -477,6 +478,8 @@ struct amdgpu_fpriv {
+>   	struct mutex		bo_list_lock;
+>   	struct idr		bo_list_handles;
+>   	struct amdgpu_ctx_mgr	ctx_mgr;
+> +	struct drm_file		*file;
+> +	struct amdgpu_proc	*proc;
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmBsOhIFAwAAAAAACgkQlh/E3EQov+Cy
-ehAAuigg86A1nSdjImYm7zjvHU0c59wRCjzurzr8zHhB2lfZuFOyFR2KYL5D7rpAe/Eqz2tEMrq3
-Cq6zO2Bff9iN76cBa61F+1ize2piuQ5VjSojQ0ZVkyrm/tw0MH5x6iaee48yiv0yzKgeqE/hj8a1
-E8nMNiUCGKZdQ61DKP6Ui8pZT2pkf88KKAl4uZeNKCIpWBX5dfXzZ+MuEMLaVogXqTDtsgTs8MmA
-coTiz4y7TXmyh9Xoa7qVQ23T5OWka71YKaV0n59P3MDPH012aAYWfrtjgKoFniyZMZhEhWcvdoFr
-EOsI3Uilne4bbW5uGXNgb2ux4K4rGhQxpOnGVoYegrc7g9sZAUWkA11RsFj7zF4aYSJZT2LmjlnL
-ujl7xS4RUQM0vTM2Qjvyy9RWLC0slNjZTZ0eec7WfQnash9i0kLPEwfF8AzA/+3X/ob+iU30ULP1
-woF+p9XSNoDVrxCrKliVJsVhvnyZFwT/oiZ1VE86SlaubwGO4t9w+xJ6/Ik+Ogyw63Lo36OUxdnb
-xt9oXllA0H7D0x+ww1g320TjxIyA7A3bl3qxPNw6kjjzp+3jVS67ZTvS6Brv6jJUwpQv6VMyBMAb
-uzcBFubG7Zp8mqIkm9i20qIWSvEOgk836TSdC8VgJnNUL7e9nJbcqJhNtSaJanP11CJy9vZw3SQq
-iRY=
-=ZOo+
------END PGP SIGNATURE-----
 
---DlEMyx97wEecQakExZoFxgsu9Ueoy78O4--
+You should be able to avoid adding these extra members. See below:
 
---===============1158160331==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
+>   };
+>   
+
+>   int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index e93850f2f3b1..702fd9054883 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1042,13 +1042,15 @@ int amdgpu_amdkfd_gpuvm_create_process_vm(struct kgd_dev *kgd, u32 pasid,
+>   					  struct dma_fence **ef)
+>   {
+>   	struct amdgpu_device *adev = get_amdgpu_device(kgd);
+> +	struct amdgpu_fpriv *fpriv;
+>   	struct amdgpu_vm *new_vm;
+>   	int ret;
+>   
+> -	new_vm = kzalloc(sizeof(*new_vm), GFP_KERNEL);
+> -	if (!new_vm)
+> +	fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
+> +	if (!fpriv)
+>   		return -ENOMEM;
+>   
+> +	new_vm = &fpriv->vm;
+>   	/* Initialize AMDGPU part of the VM */
+>   	ret = amdgpu_vm_init(adev, new_vm, AMDGPU_VM_CONTEXT_COMPUTE, pasid);
+>   	if (ret) {
+> @@ -1063,12 +1065,14 @@ int amdgpu_amdkfd_gpuvm_create_process_vm(struct kgd_dev *kgd, u32 pasid,
+>   
+>   	*vm = (void *) new_vm;
+>   
+> +	amdgpu_fdinfo_init(adev, fpriv, pasid);
+> +
+>   	return 0;
+>   
+>   init_kfd_vm_fail:
+>   	amdgpu_vm_fini(adev, new_vm);
+>   amdgpu_vm_init_fail:
+> -	kfree(new_vm);
+> +	kfree(fpriv);
+>   	return ret;
+>   }
+>   
+> @@ -1142,6 +1146,8 @@ void amdgpu_amdkfd_gpuvm_destroy_process_vm(struct kgd_dev *kgd, void *vm)
+>   {
+>   	struct amdgpu_device *adev = get_amdgpu_device(kgd);
+>   	struct amdgpu_vm *avm = (struct amdgpu_vm *)vm;
+> +	struct amdgpu_fpriv *fpriv =
+> +		container_of(avm, struct amdgpu_fpriv, vm);
+>   
+>   	if (WARN_ON(!kgd || !vm))
+>   		return;
+> @@ -1149,8 +1155,9 @@ void amdgpu_amdkfd_gpuvm_destroy_process_vm(struct kgd_dev *kgd, void *vm)
+>   	pr_debug("Destroying process vm %p\n", vm);
+>   
+>   	/* Release the VM context */
+> +	amdgpu_fdinfo_fini(adev, fpriv);
+>   	amdgpu_vm_fini(adev, avm);
+> -	kfree(vm);
+> +	kfree(fpriv);
+>   }
+>   
+>   void amdgpu_amdkfd_gpuvm_release_process_vm(struct kgd_dev *kgd, void *vm)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 4bcc03c4c6c5..07aed377dec8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -42,7 +42,7 @@
+>   #include "amdgpu_irq.h"
+>   #include "amdgpu_dma_buf.h"
+>   #include "amdgpu_sched.h"
+> -
+> +#include "amdgpu_fdinfo.h"
+>   #include "amdgpu_amdkfd.h"
+>   
+>   #include "amdgpu_ras.h"
+> @@ -1691,6 +1691,9 @@ static const struct file_operations amdgpu_driver_kms_fops = {
+>   #ifdef CONFIG_COMPAT
+>   	.compat_ioctl = amdgpu_kms_compat_ioctl,
+>   #endif
+> +#ifdef CONFIG_PROC_FS
+> +	.show_fdinfo = amdgpu_show_fdinfo
+> +#endif
+>   };
+>   
+>   int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> new file mode 100644
+> index 000000000000..5208fab6e35d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -0,0 +1,282 @@
+> +/*
+> + * Copyright 2021 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include <linux/debugfs.h>
+> +#include <linux/list.h>
+> +#include <linux/module.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/reboot.h>
+> +#include <linux/syscalls.h>
+> +
+> +#include <drm/amdgpu_drm.h>
+> +#include <drm/drm_debugfs.h>
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_fdinfo.h"
+> +
+> +
+> +static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+> +	[AMDGPU_HW_IP_GFX]	=	"gfx",
+> +	[AMDGPU_HW_IP_COMPUTE]	=	"compute",
+> +	[AMDGPU_HW_IP_DMA]	=	"dma",
+> +	[AMDGPU_HW_IP_UVD]	=	"dec",
+> +	[AMDGPU_HW_IP_VCE]	=	"enc",
+> +	[AMDGPU_HW_IP_UVD_ENC]	=	"enc_1",
+> +	[AMDGPU_HW_IP_VCN_DEC]	=	"dec",
+> +	[AMDGPU_HW_IP_VCN_ENC]	=	"enc",
+> +	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
+> +};
+> +
+> +struct amdgpu_proc {
+> +	struct amdgpu_device *adev;
+> +	struct amdgpu_fpriv *priv;
+> +	int pasid;
+> +};
+> +
+
+
+Is this, struct amdgpu_proc really needed? struct amdgpu_fpriv can 
+provide you the pasid(fpriv->vm->pasid) and pretty sure
+
+there is some other way to get adev from fpriv too.
+
+
+> +int amdgpu_fdinfo_init(struct amdgpu_device *adev,
+> +	struct amdgpu_fpriv *fpriv, int pasid)
+> +{
+> +	struct amdgpu_proc *proc;
+> +
+> +	proc = kzalloc(sizeof(*proc), GFP_KERNEL);
+> +	if (!proc)
+> +		return -ENOMEM;
+> +	proc->pasid = pasid;
+> +	proc->adev = adev;
+> +	proc->priv = fpriv;
+> +	fpriv->proc = proc;
+> +
+> +	return 0;
+> +}
+> +
+> +int amdgpu_fdinfo_fini(struct amdgpu_device *adev,
+> +		struct amdgpu_fpriv *fpriv)
+> +{
+> +	struct amdgpu_proc *proc = fpriv->proc;
+> +
+> +	if (proc)
+> +		kfree(proc);
+> +
+> +	fpriv->proc = NULL;
+> +	return 0;
+> +}
+> +
+> +uint64_t amdgpu_get_proc_mem(struct amdgpu_fpriv *fpriv)
+
+
+This can receive drm_file which gives you amdgpu_priv
+
+so you can avoid fpriv->file.
+
+
+> +{
+> +	int id;
+> +	struct drm_gem_object *gobj;
+> +	uint64_t total = 0;
+> +
+> +	spin_lock(&fpriv->file->table_lock);
+> +	idr_for_each_entry(&fpriv->file->object_idr, gobj, id) {
+> +		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+> +		unsigned int domain = amdgpu_mem_type_to_domain(
+> +			bo->tbo.mem.mem_type);
+> +
+> +		if (domain == AMDGPU_GEM_DOMAIN_VRAM)
+> +			total += amdgpu_bo_size(bo);
+> +	}
+> +	spin_unlock(&fpriv->file->table_lock);
+> +
+> +	if (fpriv->vm.process_info) {
+> +		struct kgd_mem *mem;
+> +
+> +		mutex_lock(&fpriv->vm.process_info->lock);
+> +		list_for_each_entry(mem, &fpriv->vm.process_info->kfd_bo_list,
+> +			validate_list.head) {
+> +			struct amdgpu_bo *bo = mem->bo;
+> +			unsigned int domain = amdgpu_mem_type_to_domain(
+> +				bo->tbo.mem.mem_type);
+> +
+> +			if (domain == AMDGPU_GEM_DOMAIN_VRAM)
+> +				total += amdgpu_bo_size(bo);
+> +			}
+> +
+> +		list_for_each_entry(mem, &fpriv->vm.process_info->userptr_valid_list,
+> +			validate_list.head) {
+> +			struct amdgpu_bo *bo = mem->bo;
+> +			unsigned int domain = amdgpu_mem_type_to_domain(
+> +				bo->tbo.mem.mem_type);
+> +
+> +			if (domain == AMDGPU_GEM_DOMAIN_VRAM)
+> +				total += amdgpu_bo_size(bo);
+> +		}
+> +
+> +		mutex_unlock(&fpriv->vm.process_info->lock);
+> +	}
+> +
+> +	return total;
+> +}
+> +
+> +uint64_t amdgpu_get_fence_usage(struct amdgpu_fpriv *fpriv, uint32_t hwip,
+> +		uint32_t idx, uint64_t *elapsed)
+> +{
+> +	struct amdgpu_ctx_entity *centity;
+> +	struct idr *idp;
+> +	struct amdgpu_ctx *ctx;
+> +	uint32_t id, i;
+> +	uint64_t now, t1, t2;
+> +	uint64_t total = 0, min = 0;
+> +
+> +
+> +	if (idx >= AMDGPU_MAX_ENTITY_NUM)
+> +		return 0;
+> +
+> +	idp = &fpriv->ctx_mgr.ctx_handles;
+> +
+> +	mutex_lock(&fpriv->ctx_mgr.lock);
+> +	idr_for_each_entry(idp, ctx, id) {
+> +		if (!ctx->entities[hwip][idx])
+> +			continue;
+> +
+> +		centity = ctx->entities[hwip][idx];
+> +
+> +		for (i = 0; i < amdgpu_sched_jobs; i++) {
+> +			struct dma_fence *fence;
+> +			struct drm_sched_fence *s_fence;
+> +
+> +			spin_lock(&ctx->ring_lock);
+> +			fence = dma_fence_get(centity->fences[i]);
+> +			spin_unlock(&ctx->ring_lock);
+> +			if (!fence)
+> +				continue;
+> +			s_fence = to_drm_sched_fence(fence);
+> +			if (!dma_fence_is_signaled(&s_fence->scheduled))
+> +				continue;
+> +			now = ktime_to_ns(ktime_get());
+> +			t1 = ktime_to_ns(s_fence->scheduled.timestamp);
+> +			t2 = !dma_fence_is_signaled(&s_fence->finished) ?
+> +				0 : ktime_to_ns(s_fence->finished.timestamp);
+> +			dma_fence_put(fence);
+> +
+> +			t1 = now - t1;
+> +			t2 = (t2 == 0) ? 0 : now - t2;
+> +			total += t1 - t2;
+> +			if (t1 > min)
+> +				min = t1;
+> +		}
+> +
+> +	}
+> +
+> +	mutex_unlock(&fpriv->ctx_mgr.lock);
+> +
+> +	if (elapsed)
+> +		*elapsed = min;
+> +
+> +	return total;
+> +}
+> +
+> +uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id)
+> +{
+> +	enum amd_ip_block_type type;
+> +	uint32_t count = 0;
+> +	int i;
+> +
+> +	switch (id) {
+> +	case AMDGPU_HW_IP_GFX:
+> +		type = AMD_IP_BLOCK_TYPE_GFX;
+> +		break;
+> +	case AMDGPU_HW_IP_COMPUTE:
+> +		type = AMD_IP_BLOCK_TYPE_GFX;
+> +		break;
+> +	case AMDGPU_HW_IP_DMA:
+> +		type = AMD_IP_BLOCK_TYPE_SDMA;
+> +		break;
+> +	case AMDGPU_HW_IP_UVD:
+> +		type = AMD_IP_BLOCK_TYPE_UVD;
+> +		break;
+> +	case AMDGPU_HW_IP_VCE:
+> +		type = AMD_IP_BLOCK_TYPE_VCE;
+> +		break;
+> +	case AMDGPU_HW_IP_UVD_ENC:
+> +		type = AMD_IP_BLOCK_TYPE_UVD;
+> +		break;
+> +	case AMDGPU_HW_IP_VCN_DEC:
+> +	case AMDGPU_HW_IP_VCN_ENC:
+> +		type = AMD_IP_BLOCK_TYPE_VCN;
+> +		break;
+> +	case AMDGPU_HW_IP_VCN_JPEG:
+> +		type = (amdgpu_device_ip_get_ip_block(adev,
+> +			AMD_IP_BLOCK_TYPE_JPEG)) ?
+> +			AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
+> +		break;
+> +	default:
+> +		return 0;
+> +	}
+> +
+> +	for (i = 0; i < adev->num_ip_blocks; i++)
+> +		if (adev->ip_blocks[i].version->type == type &&
+> +		    adev->ip_blocks[i].status.valid &&
+> +		    count < AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
+> +			count++;
+> +	return count;
+> +
+> +}
+> +
+> +#ifdef CONFIG_PROC_FS
+> +void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+> +{
+> +	struct amdgpu_fpriv *fpriv;
+> +	struct amdgpu_device *adev;
+> +	uint32_t bus, dev, fn, i;
+> +
+> +	if (amdgpu_file_to_fpriv(f, &fpriv))
+> +		return;
+> +
+> +	adev = fpriv->proc->adev;
+
+
+You can get adev using:
+
+
+struct drm_file *file_priv = filp->private_data;
+
+struct amdgpu_device *adev = drm_to_adev(file_priv->minor->dev);
+
+
+Regards,
+
+Nirmoy
+
+
+> +	bus = adev->pdev->bus->number;
+> +	dev = PCI_SLOT(adev->pdev->devfn);
+> +	fn = PCI_FUNC(adev->pdev->devfn);
+> +	seq_printf(m, "amdgpu_%02x:%02x.%d:pasid:\t%u\n", bus, dev, fn,
+> +			fpriv->proc->pasid);
+> +
+> +	seq_printf(m, "amdgpu_%02x:%02x.%d:mem:\t%llu kB\n", bus, dev, fn,
+> +			amdgpu_get_proc_mem(fpriv)/1024UL);
+> +
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; i++) {
+> +		uint32_t enabled = amdgpu_get_ip_count(adev, i);
+> +		uint32_t count = amdgpu_ctx_num_entities[i];
+> +		int idx = 0;
+> +		uint64_t total = 0, min = 0;
+> +		uint32_t perc, frac;
+> +
+> +		if (enabled) {
+> +			for (idx = 0; idx < count; idx++) {
+> +				total = amdgpu_get_fence_usage(fpriv,
+> +					i, idx, &min);
+> +
+> +				if ((total == 0) || (min == 0))
+> +					continue;
+> +
+> +				perc = div64_u64(10000 * total, min);
+> +				frac = perc % 100;
+> +
+> +				seq_printf(m, "amdgpu_%02x:%02x.%d:%s%d:\t%d.%d%%\n",
+> +						bus, dev, fn,
+> +						amdgpu_ip_name[i],
+> +						idx, perc/100, frac);
+> +			}
+> +		}
+> +	}
+> +}
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+> new file mode 100644
+> index 000000000000..1f776b3a5f45
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+> @@ -0,0 +1,58 @@
+> +/*
+> + * Copyright 2021 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + * Authors: David Nieto
+> + */
+> +#ifndef __AMDGPU_SMI_H__
+> +#define __AMDGPU_SMI_H__
+> +
+> +#include <linux/idr.h>
+> +#include <linux/kfifo.h>
+> +#include <linux/rbtree.h>
+> +#include <drm/gpu_scheduler.h>
+> +#include <drm/drm_file.h>
+> +#include <drm/ttm/ttm_bo_driver.h>
+> +#include <linux/sched/mm.h>
+> +
+> +#include "amdgpu_sync.h"
+> +#include "amdgpu_ring.h"
+> +#include "amdgpu_ids.h"
+> +
+> +struct amdgpu_proc;
+> +struct amdgpu_ctx;
+> +uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
+> +
+> +uint64_t amdgpu_get_fence_usage(struct amdgpu_fpriv *fpriv, uint32_t hwip,
+> +		uint32_t idx, uint64_t *elapsed);
+> +
+> +uint64_t amdgpu_get_proc_mem(struct amdgpu_fpriv *fpriv);
+> +
+> +int amdgpu_fdinfo_init(struct amdgpu_device *adev,
+> +		struct amdgpu_fpriv *fpriv, int pasid);
+> +
+> +int amdgpu_fdinfo_fini(struct amdgpu_device *adev,
+> +		struct amdgpu_fpriv *fpriv);
+> +
+> +#ifdef CONFIG_PROC_FS
+> +void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
+> +#endif
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 39ee88d29cca..c2407c08b2ad 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -41,6 +41,7 @@
+>   #include "amdgpu_gem.h"
+>   #include "amdgpu_display.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu_fdinfo.h"
+>   
+>   void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
+>   {
+> @@ -1139,6 +1140,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr);
+>   
+>   	file_priv->driver_priv = fpriv;
+> +	fpriv->file = file_priv;
+> +	amdgpu_fdinfo_init(adev, fpriv, pasid);
+>   	goto out_suspend;
+>   
+>   error_vm:
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 92d8de24d0a1..4e5d8d4af010 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+>   EXPORT_SYMBOL(drm_sched_resubmit_jobs);
+>   
+>   /**
+> - * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from mirror ring list
+> + * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from pending list
+>    *
+>    * @sched: scheduler instance
+>    * @max: job numbers to relaunch
+> @@ -671,7 +671,7 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+>   static struct drm_sched_job *
+>   drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+>   {
+> -	struct drm_sched_job *job;
+> +	struct drm_sched_job *job, *next;
+>   
+>   	/*
+>   	 * Don't destroy jobs while the timeout worker is running  OR thread
+> @@ -690,6 +690,13 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+>   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+>   		/* remove job from pending_list */
+>   		list_del_init(&job->list);
+> +		/* account for the next fence in the queue */
+> +		next = list_first_entry_or_null(&sched->pending_list,
+> +				struct drm_sched_job, list);
+> +		if (next) {
+> +			next->s_fence->scheduled.timestamp =
+> +				job->s_fence->finished.timestamp;
+> +		}
+>   	} else {
+>   		job = NULL;
+>   		/* queue timeout for next job */
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1158160331==--
