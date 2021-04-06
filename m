@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BCA41C43470
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52AD2C43460
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B7C561396
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B7C561396
+	by mail.kernel.org (Postfix) with ESMTPS id 14ECC61396
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Apr 2021 01:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14ECC61396
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFD606E1F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9366E1F9;
 	Tue,  6 Apr 2021 01:46:59 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43C746E1E6;
- Tue,  6 Apr 2021 01:46:58 +0000 (UTC)
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69AA46E1D3;
+ Tue,  6 Apr 2021 01:46:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hoeVCEnQKoLGKM7JpuVGTubKvu9ZetaP7kpH7EKEisovZoZ6rki9JjKDRlMHowXHX/iQ0tSk+zOetmNaycJLcqsA84ZNZhYrOMvNsKqPGqtJmMMPvN46jfYVkzgw5YHEFN+xmEPX6d2wLGTAvKTXV/4H0hEZNQoYi9f/7Si+TR/srGHaA1mxpyqAIjtENfpsmtx4Wv651/Cflc6BvzGnVt+r/TnbPmaSO0OHVZa5Q8fa58DQp90ayoyW0V+cXgWnEVCOmEZqbYWtv74HA5GoQlXFE7gxD/TRxM2xmgJIjCVJ7weIaXVvljM0s6OXzS2QXy5X0vNbbMfuR94v+ODZ9Q==
+ b=Dv1L5nvZPc79xZPppZs9d+mKxrOTKYIBapEfBWf5cId/VZ5qqlAXqMfdiIgaaj5ghrwCJRjgiUBwC//BaJrvZ1Acx/NlNHP31lKqB8Rru/3MCBmRAUJcLzduXaKq2jtj8mk4RxJD38EP68U8SUn/F6E+i1ppUtR9TN/kDSUnVYUt7v/1ycm9c2F3JcTLO/4ntoegaxoG5Qf4651Anv7Q16PavTDQ4Gwiqv38NQLVrDtrtlCpmTEWVxiAwL/kirLhYry1VwH0x42VtXsG+fOMPgG32mChaRpT0oVRvTkL+fUjvH1Zh6khhctFpSc47bp2rAAONgkvsT/q5MvCUqco7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4FgbuWIgiZdll1yEXZTJPKfYTD161PJGQuy2rOSZ4lk=;
- b=AAqwR96S6fkU/XHo0tnG1FTNp/gDw1iBDxPaBMFOChLTP0KLP2UyZVzBAphjLHYwlG+yaONdQ7Vr/Wicx1VtebdD9rQzplcA/DgpcN0cbHAAofTqkrWVjcB/ktct4MoLmbTUW49brUk0LGP9PtlANtdMDKD4BORpk0/Z+fXhGw7lxYwCVLVrxAiY4fgKgc7NZ0SZ7V6PZq9ppTtf97FnFXMRHT8GVoGzcvIBc83Qi5zIr6HLeUaewlB4kthIc5LImspXFz0X967eHIiw0w+Bjdf+tt1wlD+nH2AJKBrHc0QQKgouryK85GbDRUUjmJfoT1WIgRPrCC6Q4cZAsGHFTg==
+ bh=NYwoNJPlldRSEFYCXjvBJ0DlclGvXxjVkgtLfd5G874=;
+ b=gw3diVCSvJzpje0FMPEpatmmm4pFt+RZfND03rVLIaFRCkQALs4k1CnF/JrvjtUBEVqjTcT1jRVBkrKUZwZ506dlU4s/8gSSrK9jZu3wb7Lzf3ufRIrgV1/UGBdemn7lWeALqmTRNaU+daGUlDgk61lQsslK+yxbzyPasVd4yFc58CIvlC9WFZKULgv9YnJSBSWmK7zWbcYYLXrMVbz7SL1S3at0pzGOecWMRdKDJEs6+2hO9xN+mg2/uYnzgr4PG/myBztKJNF80qTak3LAX4/sZwKSWSijhofoGgrW6AdsqkUkgnhhZ8ViGwtYCfjLQaRu/9oKeGQdRFHJTc5+/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4FgbuWIgiZdll1yEXZTJPKfYTD161PJGQuy2rOSZ4lk=;
- b=CLWADVZJH7rlrZFiLxf3GCRrujL+GF7b9wCTh5tKiBcOtACY+QwP6m+bBXYFqqQxVXTgGdf/A7U2ImTLB9Ge49V8vBmYGkmUTloGqkuhtm1/FENqWVgv1aSjvg/+N7ANIJUaU7xDR74CLqth/Iqxbkr3dxFpVxMGJYsg0geNIxg=
+ bh=NYwoNJPlldRSEFYCXjvBJ0DlclGvXxjVkgtLfd5G874=;
+ b=Bl42FzsGv1a1WKC5uKz/3YC+PKPzVEDV7Twt/IR27WQWbw5YiDocySMfaVV0kodwELfX+6NWh6tBKM5wUxaeUFYn6PSQ39i9RJjVoqzY/c5dEk15e3a5a1Hh4FOOFCAYHCf0b4Gcsp8ITUQWcpRoplIJAxuboXDuupKpRL8esLo=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB3773.namprd12.prod.outlook.com (2603:10b6:208:164::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Tue, 6 Apr
- 2021 01:46:56 +0000
+ 2021 01:46:54 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.039; Tue, 6 Apr 2021
- 01:46:56 +0000
+ 01:46:54 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 06/34] drm/amdkfd: support larger svm range allocation
-Date: Mon,  5 Apr 2021 21:46:01 -0400
-Message-Id: <20210406014629.25141-7-Felix.Kuehling@amd.com>
+Subject: [PATCH 02/34] drm/amdkfd: add svm ioctl API
+Date: Mon,  5 Apr 2021 21:45:57 -0400
+Message-Id: <20210406014629.25141-3-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210406014629.25141-1-Felix.Kuehling@amd.com>
 References: <20210406014629.25141-1-Felix.Kuehling@amd.com>
@@ -68,52 +68,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:46:56 +0000
+ 15.20.3999.32 via Frontend Transport; Tue, 6 Apr 2021 01:46:53 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2a345c0a-a490-4528-77e4-08d8f89ddc43
+X-MS-Office365-Filtering-Correlation-Id: 4e00be92-c4de-442b-88e1-08d8f89ddafc
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3773:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB37734FE644FB9893576761CE92769@MN2PR12MB3773.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3773A8706FE66C17472A7F4792769@MN2PR12MB3773.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1uTsMSc6CP3OfnwbVS/ZTrsKpIP9I5Pms4Ir3/v15VgoTeBKLDoQ2W35+s88yHvCvnR+cIQKpTjtN/eqcjhz6Mic4g+fzriobwTOC2yTsU1ke+hT7v/btl4wjtFEDV1aKYb2YOgAdweCcQD/+65nnAVnXPbk5zzrdmBgTPy873glc1Ukv9dXeGktJkU3ASYKKQJ9zeRVWUyGkfdFSDrp73pxRr0NA9ohpa9XKqKpsWILBULgw127vWO0sWpmOw57pnZHD3qr4pZA3+7KyP1mhNRAdBrufjdSCtQH3a+AdRz3Py/zmDbRZ8QlgD8jbG+0EHkB4Zbcl8767yv0LVad6A7+lk7o/Zqkt1LOawjov0FdMeee0H82TZ+zQfWnb6dyJ2rAPEJTFTmwBGJ2v3NzX1qZlVyhKFbal7FiZsJGArqmSX4F78+J7OPQ2oZa/BgE5uVdwTKua7/BBcB/PByn6ta8xUapwrxO8QVBRT1OmkMsbewHnmKW0MrE4Y5o1qS2OX09b3t0CYHlGjb7bX5DEvqF74loB2eTSLy3PV06w33C3qvDGI0g9gFATutldYwArIIms6V6uKhuZjCiNKXOz5R/GlrZZTgOZTl9B+NTctvjaFhuM25Nq9ght/+EO7Ia2kBwTlTjsyixc7GRsBAIUe8fajnynb0RqqLBEjJIolN8PvaoKSCzuGLbooqZf+7O
+X-Microsoft-Antispam-Message-Info: 6MWpnL8j4C/dduW1+O6X6HLMj1Chjn7DRk6rl8GZJzmb3TE66buk2SO6xcutwkhH6/lcJJDXiw5v2INLnW69bG8ZDanKt9k0uw+YJV10wgCvL5hy8yG9GeeS2iI2yy0ucGPOfBp6w19034owe3qqlee0eJXIpIZLF0aBvyZmUsSPnSAMqBJoOP6O0DEnxTuSsNM8EG91dVcC+u1HTmEL0yJIG7fayIqJiSmr7NhDAKs/GE2PeeNy6jya6zTG+uvKEEuENHTbR89XXzcnb42ovfjZUN+RX6wNooHkP4LkTwb6UkLQi2Ro/gJhT5h3VszJrEwKPLFwsBDeQrhMJ2PXQoNztP+m0v1756vmvMLP4BGhJ7CxFwQEXNd7UrSQ+TxIM+i//9R/2BHdmLEoe0kGAXBSrwkuJWyMrAP2PIVFGmUJwKWIGd1v8zJtdBOu2bCZaYfg4rxy0ryLLXJgmxI0rVDFS4IpnSUwL2mNb/j/YPJ9pRyAKQaD4ecKZKBl8vvLhQnHQTdwPpZbw3EcPBBmIKeir6UiqVxEv5YWAfuaWHWWhCq0lp59HUgi8GCRoqiQl+G/kQQvKheABce6H7Hz6EIztZPEwc8VZdojaMvVex7GEnuHJ3iIT9jn2PUBpoLR0YONwp5kNmjjyzpgSBvm2J1Bryypofs+LbvntoTiq9DqwHyJMZitS5pEK3nXPKWW
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(478600001)(5660300002)(6486002)(316002)(52116002)(66946007)(1076003)(36756003)(2906002)(16526019)(186003)(26005)(450100002)(8676002)(8936002)(86362001)(66556008)(66476007)(4326008)(956004)(2616005)(38100700001)(83380400001)(6666004)(7696005)(38350700001);
+ SFS:(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(478600001)(5660300002)(6486002)(316002)(52116002)(66946007)(1076003)(36756003)(2906002)(16526019)(186003)(26005)(450100002)(8676002)(8936002)(86362001)(66556008)(66476007)(54906003)(4326008)(956004)(2616005)(38100700001)(83380400001)(7696005)(38350700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?zG4DUZ9Yr7BecTgTRARKn4kXvW+PTg8+6ZbPMupqWSKkhZMgWD8q4QVS3/hS?=
- =?us-ascii?Q?DqIn8NlcIxFPFa1wKgyWFr+LSC/8m3HOZm625Knv43L3mRLVIxLXlnafTLLz?=
- =?us-ascii?Q?qvcsGnI/n4jCmcglUoaA4i9Z7N6+SDCSSlZVp2ZqPTzG6sBapnzysygTsRiZ?=
- =?us-ascii?Q?YutTe8BHkT3zYRAMWNaBapIFQ9G50zfjrs3Zi1ritWC2eNis9sKhHcWmtM4h?=
- =?us-ascii?Q?AVbDWpqrhU0tLXG3WjqAevmRvIZVyKCoK44nKJ7skdw4XXFXgd9mt5fm+ZTj?=
- =?us-ascii?Q?sL50jBfEWnER9yW0C3B/LWkzvHo/wJ9nLs3fi7om+6PHJg9lspJt0sw9W0v7?=
- =?us-ascii?Q?AebLUD2PkaJ7BYTg7HDHXk7sQk1g3c+AXa/CbMU0Cee1wVDTEqMOB224xfWs?=
- =?us-ascii?Q?eAMyPY+XDjVIObNXJOT0Pm8cnp3JCrCKbmVN8VshBGQO0gDD7pvO6YdxpgBr?=
- =?us-ascii?Q?DXgcQ33RR3evW8mLqljm8vvTE2Hj2Xtani52MkGBVNZqMX7H/alnZxpeMa6W?=
- =?us-ascii?Q?NnKXxhtagqWusSxoRZTkmVYKNLAi9hiaT+hOTUUq1KOGpI6Boppu8OfjwAdi?=
- =?us-ascii?Q?jJxislTakPTYGAXX2tcFcAxA05EWvvac9gg2o5IpAkkulzISiGkOv/Qs9uFy?=
- =?us-ascii?Q?Vwgyi4KyeEm+ufmJ5xfLVqszU27ZIVnSiG+2hkl5XC4DWPo0NqrZKSKy41yw?=
- =?us-ascii?Q?vIyjaTlH0qdX4YF8dAyUpTZGq7MAzWszKl/Szd4F2Sq7TnvYeOLJ7BgT3r0n?=
- =?us-ascii?Q?TWrzjjfvraZe0T9heru8wOG77IP9KKykRI8EiuthvFIFhrdlD8Uou2SFHnZB?=
- =?us-ascii?Q?T7HR82GhvoQThgIsN3GxkFzBcNFab6mQHhTPpOD+x62vOYPUKN6NOyjlIGHc?=
- =?us-ascii?Q?FsW0tF2uoE5/Iqm919B/uFr8Syo4uXzsi4FgWMB3M7tsrBIIvNZo52LhMY2+?=
- =?us-ascii?Q?LsxsFenebp0TAWblCERKXiCZrzMp4AiPcAh3RgQHcsfnfrDFr824PNTDTxpV?=
- =?us-ascii?Q?Ax75ZZQeSFpj6uhDrr0g3E70SNF43L+XEV4XRyjCQa7ctSfb5Js1ZPDIhob2?=
- =?us-ascii?Q?13N+KL4iGwq4uEBlLBNBhF5P+g6DFoAJ4tZrZFtK5sy6rHCyHy34MTG6PBMf?=
- =?us-ascii?Q?G3TYzt5JlvTbsfV8TiN7tuULdq3+H6HoNfkuNYPGVgdGop2pDJW0LWjJ49N/?=
- =?us-ascii?Q?qRIWIRU0uEBSE45KEwe2vtKiL6bQ/C+/zKgcb4zGAwJ8rtcnOUoVe7mQwenB?=
- =?us-ascii?Q?rdYKPUZ+d4Evv5Liz4I5s7OyIiWybwnRvIU2NmS8OqbitsrAmfvBOsKqcHBC?=
- =?us-ascii?Q?VCvN5G5NsDOSFtXm6mmHaF0t?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?6BbCjqc5M+AhZvMkaqsvihKvf4M6VdacK0AjyCLazGxwd/jtkbFTVmmTE6E9?=
+ =?us-ascii?Q?wt3aSWxBQEmd9wawnG+F/Dg5fKHNCFJuHy0yywKTrtWd8awmaGHPOxm6bdwm?=
+ =?us-ascii?Q?7R6SrX7mQFjagulZULOFnMCUF5RGyNQ5+8j+9TPU9mlj9dqPvGRkRoXsoygi?=
+ =?us-ascii?Q?tmGa+/F0m/xClU9hjuj7G7PxV37NcU1RdbidyqFvVfdISYp/Y+GBZ/J0oWfz?=
+ =?us-ascii?Q?gk4TqO2RHSkZ4wnlNO2tLvrkcV4pSWxILcJ3TbbW21js2Z8yYfbte1A0iCzm?=
+ =?us-ascii?Q?6YhZBBGTqksuruqpuZUYmrZeTSqhl9X7LX3+iJCuzc9KvrDJnYaKpOop9zpe?=
+ =?us-ascii?Q?0HM1afjjVLRBXTeJz9xqr2exXuwOYMdNmSPeS1XA5cGeoO3mAYDUU61dPdUc?=
+ =?us-ascii?Q?IDryHmhHtuDkzIqsqdvwGDxzWmEOfHe0hdciHB8x/D2yveQxFJ7ewXWsL6Ks?=
+ =?us-ascii?Q?vfyZ0lBG6foa7hkPZPUnIj9EpoKA52j6XGWt7Ig+P9rMG0yLMDF3jHty74FL?=
+ =?us-ascii?Q?UdEyVT+a2jg2nE7LxJlUsmPtPcNZzEyWs1jKAJdq2WLtAmt0Q/JzUzOtieNo?=
+ =?us-ascii?Q?fz13izl6O2ddbupVaV/NvVgwWbZfSKyaKO7hCFVNN4Cx85XG0/fErQJXFb/d?=
+ =?us-ascii?Q?gx9IMZgCQoSQYsOCod+lgkE26/k9LtlEPxAWnHnt+WOgl+Z66yZiYyUsx3W/?=
+ =?us-ascii?Q?2Qk0fXWv7pukZMfY8vz16y9y0HrhbV+hkLg3uE9kWe97/irdIzCXAeoBynRy?=
+ =?us-ascii?Q?irpEW+a56pmzo432qTu1qa7M84RxXclgMdp96IQ6jWHqddANdVSjFhIj6gTA?=
+ =?us-ascii?Q?pQv1axjqOrgBUIlfC/tgPSSl3UfkPeH9U3+DgV8JlV8H1YhxTQHMGeuiJPgt?=
+ =?us-ascii?Q?XRHL/+ii3QONJV0wTWvcHms7dwubTM16G5WhSSuxsTVsQW62ANVpFCgT31SO?=
+ =?us-ascii?Q?3ktGD/T6GtqZ/97Amd6x3Iqdc68gk3ZfcTc8Aq77aFZJSaeB9qbN3cM9M0xT?=
+ =?us-ascii?Q?XXE6PmpfbYbXAPRohyBapefwmQhm5RvbeeQ6E1VSzkvs/LHLehtL/3P1HRXu?=
+ =?us-ascii?Q?KCjohX6G7Krnphw8OlXHpKdYUlL+EYoE+dy/tro2h+Jn0+aKyEmdxW/5kHN8?=
+ =?us-ascii?Q?muuNLTDNj1XdgWhl41zSQqIOstJ9atLPWbWqz+1KcFnpdg07M/Fd8SPSxu4p?=
+ =?us-ascii?Q?Bw7ppeVs6zSDt6xrQ0aDuyCQUfUmCyRnK3BfLpwccyHRJvyR8Gm9AgMsVGdH?=
+ =?us-ascii?Q?VaUqW087nhHV9VEfTkrZRj4bOxW0mV2fzxnGV9tI++R43M9xtnOjUnm8ht+N?=
+ =?us-ascii?Q?MW3ZRsu6fsDOgVLbBJy92pew?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a345c0a-a490-4528-77e4-08d8f89ddc43
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e00be92-c4de-442b-88e1-08d8f89ddafc
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:46:56.4367 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2021 01:46:54.2353 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QKQghZZaYLb191I/oXTBUKiUbpcte0hcxZH0NQbwQywfGZS9kcBB/to3VA4+hKgbpokKr9zTpnfn98uNqK2Juw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: a8pVzl2F2TTA4wlS0aXCuXOnAM822BFdwtImZaRke6VIjs2DW+cMbdoAsAfpvxxqmBceYT+mpx7vTBcsdB/BRw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,7 +126,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -134,32 +134,252 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Philip Yang <Philip.Yang@amd.com>
 
-For larger range allocation, if hmm_range_fault return -EBUSY, set retry
-timeout based on 1 second for every 512MB, this is safe timeout value.
+Add svm (shared virtual memory) ioctl data structure and API definition.
+
+The svm ioctl API is designed to be extensible in the future. All
+operations are provided by a single IOCTL to preserve ioctl number
+space. The arguments structure ends with a variable size array of
+attributes that can be used to set or get one or multiple attributes.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c     |  12 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h        |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c     |   1 +
+ include/uapi/linux/kfd_ioctl.h               | 130 ++++++++++++++++++-
+ 5 files changed, 147 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-index 997da4237a10..2741c28ff1b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
-@@ -185,7 +185,10 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
- 	hmm_range->hmm_pfns = pfns;
- 	hmm_range->start = start;
- 	hmm_range->end = start + npages * PAGE_SIZE;
--	timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+
-+	/* Assuming 512MB takes maxmium 1 second to fault page address */
-+	timeout = max(npages >> 17, 1ULL) * HMM_RANGE_DEFAULT_TIMEOUT;
-+	timeout = jiffies + msecs_to_jiffies(timeout);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 43de260b2230..dbc824cc6b32 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1742,6 +1742,16 @@ static int kfd_ioctl_smi_events(struct file *filep,
+ 	return kfd_smi_event_open(dev, &args->anon_fd);
+ }
  
- retry:
- 	hmm_range->notifier_seq = mmu_interval_read_begin(notifier);
++static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
++{
++	int r = 0;
++
++	if (p->svm_disabled)
++		return -EPERM;
++
++	return r;
++}
++
+ #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
+ 	[_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags = _flags, \
+ 			    .cmd_drv = 0, .name = #ioctl}
+@@ -1840,6 +1850,8 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
+ 
+ 	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SMI_EVENTS,
+ 			kfd_ioctl_smi_events, 0),
++
++	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SVM, kfd_ioctl_svm, 0),
+ };
+ 
+ #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+index a2c9063076cc..52da1a3b2c7a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -405,6 +405,10 @@ int kfd_init_apertures(struct kfd_process *process)
+ 			case CHIP_POLARIS12:
+ 			case CHIP_VEGAM:
+ 				kfd_init_apertures_vi(pdd, id);
++				/* VI GPUs cannot support SVM with only
++				 * 40 bits of virtual address space.
++				 */
++				process->svm_disabled |= true;
+ 				break;
+ 			case CHIP_VEGA10:
+ 			case CHIP_VEGA12:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 17d91f05afe3..d701b53b9bc3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -809,6 +809,8 @@ struct kfd_process {
+ 	struct kobject *kobj;
+ 	struct kobject *kobj_queues;
+ 	struct attribute attr_pasid;
++
++	bool svm_disabled;
+ };
+ 
+ #define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index d2cd757670d2..1a6236317cd5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1208,6 +1208,7 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	process->mm = thread->mm;
+ 	process->lead_thread = thread->group_leader;
+ 	process->n_pdds = 0;
++	process->svm_disabled = false;
+ 	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
+ 	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
+ 	process->last_restore_timestamp = get_jiffies_64();
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index bf5e7d7846dd..247b57baa94f 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -30,9 +30,10 @@
+  * - 1.1 - initial version
+  * - 1.3 - Add SMI events support
+  * - 1.4 - Indicate new SRAM EDC bit in device properties
++ * - 1.5 - Add SVM API
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 4
++#define KFD_IOCTL_MINOR_VERSION 5
+ 
+ struct kfd_ioctl_get_version_args {
+ 	__u32 major_version;	/* from KFD */
+@@ -473,6 +474,129 @@ enum kfd_mmio_remap {
+ 	KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL = 4,
+ };
+ 
++/* Guarantee host access to memory */
++#define KFD_IOCTL_SVM_FLAG_HOST_ACCESS 0x00000001
++/* Fine grained coherency between all devices with access */
++#define KFD_IOCTL_SVM_FLAG_COHERENT    0x00000002
++/* Use any GPU in same hive as preferred device */
++#define KFD_IOCTL_SVM_FLAG_HIVE_LOCAL  0x00000004
++/* GPUs only read, allows replication */
++#define KFD_IOCTL_SVM_FLAG_GPU_RO      0x00000008
++/* Allow execution on GPU */
++#define KFD_IOCTL_SVM_FLAG_GPU_EXEC    0x00000010
++/* GPUs mostly read, may allow similar optimizations as RO, but writes fault */
++#define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
++
++/**
++ * kfd_ioctl_svm_op - SVM ioctl operations
++ *
++ * @KFD_IOCTL_SVM_OP_SET_ATTR: Modify one or more attributes
++ * @KFD_IOCTL_SVM_OP_GET_ATTR: Query one or more attributes
++ */
++enum kfd_ioctl_svm_op {
++	KFD_IOCTL_SVM_OP_SET_ATTR,
++	KFD_IOCTL_SVM_OP_GET_ATTR
++};
++
++/** kfd_ioctl_svm_location - Enum for preferred and prefetch locations
++ *
++ * GPU IDs are used to specify GPUs as preferred and prefetch locations.
++ * Below definitions are used for system memory or for leaving the preferred
++ * location unspecified.
++ */
++enum kfd_ioctl_svm_location {
++	KFD_IOCTL_SVM_LOCATION_SYSMEM = 0,
++	KFD_IOCTL_SVM_LOCATION_UNDEFINED = 0xffffffff
++};
++
++/**
++ * kfd_ioctl_svm_attr_type - SVM attribute types
++ *
++ * @KFD_IOCTL_SVM_ATTR_PREFERRED_LOC: gpuid of the preferred location, 0 for
++ *                                    system memory
++ * @KFD_IOCTL_SVM_ATTR_PREFETCH_LOC: gpuid of the prefetch location, 0 for
++ *                                   system memory. Setting this triggers an
++ *                                   immediate prefetch (migration).
++ * @KFD_IOCTL_SVM_ATTR_ACCESS:
++ * @KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
++ * @KFD_IOCTL_SVM_ATTR_NO_ACCESS: specify memory access for the gpuid given
++ *                                by the attribute value
++ * @KFD_IOCTL_SVM_ATTR_SET_FLAGS: bitmask of flags to set (see
++ *                                KFD_IOCTL_SVM_FLAG_...)
++ * @KFD_IOCTL_SVM_ATTR_CLR_FLAGS: bitmask of flags to clear
++ * @KFD_IOCTL_SVM_ATTR_GRANULARITY: migration granularity
++ *                                  (log2 num pages)
++ */
++enum kfd_ioctl_svm_attr_type {
++	KFD_IOCTL_SVM_ATTR_PREFERRED_LOC,
++	KFD_IOCTL_SVM_ATTR_PREFETCH_LOC,
++	KFD_IOCTL_SVM_ATTR_ACCESS,
++	KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE,
++	KFD_IOCTL_SVM_ATTR_NO_ACCESS,
++	KFD_IOCTL_SVM_ATTR_SET_FLAGS,
++	KFD_IOCTL_SVM_ATTR_CLR_FLAGS,
++	KFD_IOCTL_SVM_ATTR_GRANULARITY
++};
++
++/**
++ * kfd_ioctl_svm_attribute - Attributes as pairs of type and value
++ *
++ * The meaning of the @value depends on the attribute type.
++ *
++ * @type: attribute type (see enum @kfd_ioctl_svm_attr_type)
++ * @value: attribute value
++ */
++struct kfd_ioctl_svm_attribute {
++	__u32 type;
++	__u32 value;
++};
++
++/**
++ * kfd_ioctl_svm_args - Arguments for SVM ioctl
++ *
++ * @op specifies the operation to perform (see enum
++ * @kfd_ioctl_svm_op).  @start_addr and @size are common for all
++ * operations.
++ *
++ * A variable number of attributes can be given in @attrs.
++ * @nattr specifies the number of attributes. New attributes can be
++ * added in the future without breaking the ABI. If unknown attributes
++ * are given, the function returns -EINVAL.
++ *
++ * @KFD_IOCTL_SVM_OP_SET_ATTR sets attributes for a virtual address
++ * range. It may overlap existing virtual address ranges. If it does,
++ * the existing ranges will be split such that the attribute changes
++ * only apply to the specified address range.
++ *
++ * @KFD_IOCTL_SVM_OP_GET_ATTR returns the intersection of attributes
++ * over all memory in the given range and returns the result as the
++ * attribute value. If different pages have different preferred or
++ * prefetch locations, 0xffffffff will be returned for
++ * @KFD_IOCTL_SVM_ATTR_PREFERRED_LOC or
++ * @KFD_IOCTL_SVM_ATTR_PREFETCH_LOC resepctively. For
++ * @KFD_IOCTL_SVM_ATTR_SET_FLAGS, flags of all pages will be
++ * aggregated by bitwise AND. The minimum  migration granularity
++ * throughout the range will be returned for
++ * @KFD_IOCTL_SVM_ATTR_GRANULARITY.
++ *
++ * Querying of accessibility attributes works by initializing the
++ * attribute type to @KFD_IOCTL_SVM_ATTR_ACCESS and the value to the
++ * GPUID being queried. Multiple attributes can be given to allow
++ * querying multiple GPUIDs. The ioctl function overwrites the
++ * attribute type to indicate the access for the specified GPU.
++ *
++ * @KFD_IOCTL_SVM_ATTR_CLR_FLAGS is invalid for
++ * @KFD_IOCTL_SVM_OP_GET_ATTR.
++ */
++struct kfd_ioctl_svm_args {
++	__u64 start_addr;
++	__u64 size;
++	__u32 op;
++	__u32 nattr;
++	/* Variable length array of attributes */
++	struct kfd_ioctl_svm_attribute attrs[0];
++};
++
+ #define AMDKFD_IOCTL_BASE 'K'
+ #define AMDKFD_IO(nr)			_IO(AMDKFD_IOCTL_BASE, nr)
+ #define AMDKFD_IOR(nr, type)		_IOR(AMDKFD_IOCTL_BASE, nr, type)
+@@ -573,7 +697,9 @@ enum kfd_mmio_remap {
+ #define AMDKFD_IOC_SMI_EVENTS			\
+ 		AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
+ 
++#define AMDKFD_IOC_SVM	AMDKFD_IOWR(0x20, struct kfd_ioctl_svm_args)
++
+ #define AMDKFD_COMMAND_START		0x01
+-#define AMDKFD_COMMAND_END		0x20
++#define AMDKFD_COMMAND_END		0x21
+ 
+ #endif
 -- 
 2.31.1
 
