@@ -2,135 +2,65 @@ Return-Path: <SRS0=AiXT=JE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08FECC433ED
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 16:53:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23DECC433B4
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 18:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B47F060232
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 16:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B47F060232
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vmware.com
+	by mail.kernel.org (Postfix) with ESMTPS id D84CE6124C
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Apr 2021 18:06:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D84CE6124C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563C389C33;
-	Wed,  7 Apr 2021 16:53:07 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA84189AB2;
- Wed,  7 Apr 2021 16:53:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YZ4zAckDhVpyYHMoyy6uRX583OwjVOAYMIKV70fIqoJCTgjoF+kF2ltytcTr2Lt3BNJWdgFPpluJFri5iA9G4pbBrUBvBjjpDrB7gP6x68FsGihUc579M9y277FyH/YBIj6jmxEbpwB6JByDFSAsuvj3CgUlnoAnFSOSJu9j8UQt3YnmVjbUoE1e6BPgt9mJ1/BpiPlVKc3Xlq5Efh0NrI3n6us1i1d0O8PcMfl8mI9ma48oYmhwDfIYWCyx7jd202xuXUutt3KfzBYxym0SNe4AuZ1t35+M7ZouWvXgb/PZl7TXjeUfaniTdNVQeZSgmXHK0sl/NSxuW5/O86Mhcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dSjBxdS6NQZVLNlKztCR9AVfymIlMoCy+bd4/Ne2Qsc=;
- b=JMmlnX+pC7Gqsh34OfNm2bHW5KdOchaKNGKcJUNEMkq86g7Gflkts9qSF8TFGvxd8k7vagcIGF772rwJfjWV+ahS4trtn83YSeOXAAgSx5BpZFDhay3rUlASKmbD9fzen1j6SWNew3YC3qxn/0XNezAf0mOFqyGPsCbxrAvTxiVyV8xMIFGdVOyfPqCvHdQmdjftJePOclP/zW20mHwD02BGiekJLB4ojC58zMQmujclY4fbfJO3ljK3IbWygh28F0jlpD86oBMIAHtOdisjJic/zwSF5Iwx3nJwTntrdZEnbSME1FyEbkiGDjkrHa86/tN2uQSf81iKd2hrHqtOtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dSjBxdS6NQZVLNlKztCR9AVfymIlMoCy+bd4/Ne2Qsc=;
- b=xzYWLxd3VrBObaVFOU2QPAs+x0uQmuoQ1GnSxIsNhtlWqp0gt1WEwBxmbBqSOvcwcjSxp58BcIV9smh1Y+LqrIKF8Gnzy7Um9zuEItQbMlb1fVbab0/NRiSLqeSyAeX9hUphKd/KvQkpYy5cwnkkl2dcTXUvKdbJW8u3c7kNA8U=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=vmware.com;
-Received: from MN2PR05MB6624.namprd05.prod.outlook.com (2603:10b6:208:d8::18)
- by MN2PR05MB6559.namprd05.prod.outlook.com (2603:10b6:208:db::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.8; Wed, 7 Apr
- 2021 16:52:59 +0000
-Received: from MN2PR05MB6624.namprd05.prod.outlook.com
- ([fe80::603b:4954:dbec:c02]) by MN2PR05MB6624.namprd05.prod.outlook.com
- ([fe80::603b:4954:dbec:c02%7]) with mapi id 15.20.4020.016; Wed, 7 Apr 2021
- 16:52:59 +0000
-Subject: Re: [PATCH 7/8] drm/vmwgfx: Inline vmw_verify_access()
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
- sroland@vmware.com, shashank.sharma@amd.com, sam@ravnborg.org,
- emil.velikov@collabora.com, Felix.Kuehling@amd.com, nirmoy.das@amd.com
-References: <20210406090903.7019-1-tzimmermann@suse.de>
- <20210406090903.7019-8-tzimmermann@suse.de>
-From: Zack Rusin <zackr@vmware.com>
-Message-ID: <e9e0dc6a-31ef-14fc-c094-c7dd5d5292d2@vmware.com>
-Date: Wed, 7 Apr 2021 12:52:57 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <20210406090903.7019-8-tzimmermann@suse.de>
-Content-Language: en-US
-X-Originating-IP: [108.36.85.85]
-X-ClientProxiedBy: BL1PR13CA0005.namprd13.prod.outlook.com
- (2603:10b6:208:256::10) To MN2PR05MB6624.namprd05.prod.outlook.com
- (2603:10b6:208:d8::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7502E891A1;
+	Wed,  7 Apr 2021 18:06:30 +0000 (UTC)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2072B891A1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Apr 2021 18:06:29 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id h19so4271541lfu.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Apr 2021 11:06:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=DyBm95F+3/SfdAPdI+iZIYttoNbi6kTKipkfV2vV3q8=;
+ b=U02AtdVu7GmuXw614lHDvn33aAMYx6obajAVA6gYKQDX/9ERHsQhYsNVJpx5f8behT
+ ZdpkYFxstdbGj+B0lLjtWpDpTPPMJB9o47gxSPScDWB1OdrO7VFImIs2SYNU9yJR6TbZ
+ /+wpMxhc6Ge/qXGdcfCxTov7kQH7XVd7Vk3+GRxwz9H1pVPpqDX1jsLkBnerUVmzBE7D
+ Fwy6clYk+4BWRDm8UaCLckTU5QmaOgqEXb27jYU2PM/ddHy8CzQKETz2f0xvGPlwyilr
+ gXk2cGGfKDWCbyNqeXJS2pWSQvXTCF1TDHGwibnnct2hl8D13iCHOteQRrKzmGjcH1Z5
+ y7uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=DyBm95F+3/SfdAPdI+iZIYttoNbi6kTKipkfV2vV3q8=;
+ b=nAh8gFgct+0C6KM7FCkbx4Vr1U88AZu5TBGS+Gbf2BLPViRnKfK+61rJ5HsGqNH+Lo
+ 576wg8hUs2GYsJgzA9CF5JiJ3lZBVF7PzGll4zknPauV7yH15ACSn5KK+a8hgu6NRJLD
+ YQiCVc6qG6jIjNeRdKLhTOf78W0tWx4dmk6xvF6rB1umF0tWQEK5Zi/s73bZ/fXmt/gS
+ GCcwELwaTgfXqXRG3EY2nswMVBhVkglNGigYGZvKkYBdDADy/ZkWDhb00k9lCJy4tN6K
+ 9/tuVh1CMH5CsF9DS6/1kgsrJcU2Jfrax7LMdVl428HMoANBllgAflCAToRXIGIkrZWN
+ 4gnw==
+X-Gm-Message-State: AOAM5333zQqOR8CA6UIIAMBKnH1FCoMxOvqgTpKQlk4XXBdT+c0YZp/I
+ fkKN+4sjJ3wak/EGXqOMfk3iwkJ7TEtGlUSkj9xIHJ3psp4G9w==
+X-Google-Smtp-Source: ABdhPJxbedDQfFngxb5MnIjHVo8kZt/AflxaLuJHiAlFzP3+GOaDxAjS7moJ8B+rFfcC9oBtZQLM3OCXEL+SJnrGyQ8=
+X-Received: by 2002:ac2:42cf:: with SMTP id n15mr3262180lfl.573.1617818787412; 
+ Wed, 07 Apr 2021 11:06:27 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.0.193] (108.36.85.85) by
- BL1PR13CA0005.namprd13.prod.outlook.com (2603:10b6:208:256::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.6 via Frontend
- Transport; Wed, 7 Apr 2021 16:52:59 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f0d5908-3300-4209-fdca-08d8f9e59996
-X-MS-TrafficTypeDiagnostic: MN2PR05MB6559:
-X-LD-Processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR05MB6559300DCB0C28696D626867CE759@MN2PR05MB6559.namprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:288;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BP5FTPLssVdG4aI17Df4Pg/NGn0r21SV254MLoQ/N9eGlacvSThXkYs1j9Zf1Uvym0/fIN+WDY7UUo8u1ZLrVnwPPURRJx7P3bZ1TlSJFTgWM+geHyWtuDrgGBdi31JQKSCO+FD5PjH9osQGOXwfqNER/sDbYV0jSVtaoyJA2timPs10axRqmrxuX4VDSnOwMg/vzKBa3HLqa7Aw4ucKdwlSoPgLpm/8MZ2+sFZRrblqgUnrcB1nIBZsKZmoHMpbF5DKk9sk3uiuBv6nzqm/IEnHB+Q9++a8OWRjROpONy/KFnqqBBi0xa8O9xLesBQ4IoKVgdj/tO1RhdzwyamUC46h5XJ8GOzsnk4xwI3b059AZD3Bf7mYFO/E3bUPvsPm0Sw0NdJAxukTArCo4uMgDLZXZOejD3iGt64u6ShVA7+AGmW3ZvMOV2Y9D170p3Jnm9MywJrNCrXBcRGmwG9s6etVHkErcwU72E0TqslNvO57qkEL/mtcuQmzd2d8ily2X24Dcwjpm2CizD+0coP+O1dy6GsZjb70KKNL30iaTGXdIKzYv2M9/kAHFBg1LItJ9avwycgE+Op3aN+hk0uiU73emxqnbLTbhB3MuX2ovJfwbYzYBOuuils2E2nIiLHRXT+2zMT/hfxmYxKSQfdQh576Bv2lLBg07O2POyhjmRF+qdL8jyuNDJWmShnYwaoxT+8Au08PqZUejXXjG4C5DRaIEcaaFQmpps1cKpd+XI4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR05MB6624.namprd05.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(53546011)(7416002)(66946007)(478600001)(31686004)(6486002)(26005)(66556008)(66476007)(186003)(5660300002)(86362001)(921005)(956004)(16526019)(31696002)(316002)(2616005)(36756003)(4326008)(2906002)(16576012)(38100700001)(8676002)(83380400001)(8936002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SHRXSSs3MngxSTI0Z04wSXA2N3NZMVJUVkYxZGhPc3RJbmVFN0RYNzJ3VEhZ?=
- =?utf-8?B?b2RpM1hNY2R1RE9LdFBMY25ONGJVeVlZbys4V0F0bkEvcTNFMnpuT204MEZW?=
- =?utf-8?B?STZWSTUycDFhV2pZSml1eUFURXAyVjdOck1pTkIrVndKZVluaFpxUjBFa1NX?=
- =?utf-8?B?L21mOUVYT2RoeTd6ckxNRHpPK3pOUWMyTlVTa2FuMFNPd3U0WDhNc3pkbHJR?=
- =?utf-8?B?SWQwSS95bWV3UXMvQnNIRm9DV0FldVZUWXJoNHFwK0JlV3dKY2JzY2RaSkZS?=
- =?utf-8?B?M1o5dk9TdzR2N29SWk1Eb0pIVjJmUTFEcllzVUNTTHlqRlVrTTlXaGVGVzVt?=
- =?utf-8?B?NXp6MWxreWNlejljZnkwck1UTlpWN1d5QkVJQkd5U3lTK0NXTVp5enJVL2VM?=
- =?utf-8?B?T3JaY1ZSTjUyS1NVVnhNS0d3bmhzRTBWK3RWeVRTdVpXYkJWajR6MUxrZCtI?=
- =?utf-8?B?RENuOUJPTHUwNjdhWko2aHhxbW9YT0R2VlVKMWMybjdkYjNCSW5FamlTMWlM?=
- =?utf-8?B?TUlMZmZJdEdkTmM4ZHlIRE8wcVh0eEJMZXVCUkhZMWk3SUxHdVRPVll2VUVH?=
- =?utf-8?B?UGhqQzV1SXFNVUphcTRCbmlEdlpuQkVpMVlmb3NuS2w5YTFtZU5iU1l3L3ZZ?=
- =?utf-8?B?NzNwV1Rsalo5aC92dU9sbkVWNEw5b00wL1ZSSkhES25JYnVkR0lzdHF4dUhu?=
- =?utf-8?B?djhvYVJLNkZ6V3ZBdG0wSFpUYnNVM0NaYXRicE8wMFVoYW5DZXUyNHhXVENk?=
- =?utf-8?B?YWcza1cwS3c3Vy83Q21wV0ZCT1JwbDA1bEF2dDU5NUVkTCtBUFpiTGNEV1hO?=
- =?utf-8?B?K3BsenE2WS9haDM5MzE3UEZoQXlBQlpMT0RqQlhKNXpMQVNyTW1DNUZuanl4?=
- =?utf-8?B?V2J4MDZVNjhFUkd0VmRaQm5WNUE1YjNGR0tsTDZ3TG5NUFo2RGNxbHl0N1h6?=
- =?utf-8?B?VWVZUm13VDlqSDlHRHVPbzV1TTJ6c3FtRWlkckNXeVNYTWpWUFp1Tit4STg0?=
- =?utf-8?B?SWQ0ZGIyUHd0NUZteWtuWmI5ZkdUWnZXOWVRNWc4OUJsdFo2TjR6YUtnOWNH?=
- =?utf-8?B?dExQQm1kbWx5bjJZdmdUbDdwNWl3ck4xVVlNakpPRVJNWjZsQkViWDdEa3B1?=
- =?utf-8?B?VTYya1prR0hYSVJBcGRLYnlORnk1UXkzR2JKV3NZa3d6bHlIMU5xcjhHWkJL?=
- =?utf-8?B?ZnJlS1VORHdLWjN5NW1kTTVreE8vTXlNVjBPbk9pdTczNjcwUGNna2VCUmxD?=
- =?utf-8?B?V01rV0RlcVBkU2tFZHR3U2Jta2RSUXhxVTBxaExwRG1iQ0FOalNyV2Z2Wnlv?=
- =?utf-8?B?d3VoZzNKcXg0TjJMVDB0a0pGdmMxR3ZDcWtRWnZ3cm1hNHgzRXNYL0tScjVG?=
- =?utf-8?B?QVc2czd3WWNGbTA2MXFUK1JNcVQ5ZFRzT2hSNWhGQlduQzB0aUJubmNqdk8z?=
- =?utf-8?B?bzd1dUZNWElVRW9UN0RBZ2R5QjNqMEtEVjZFZnR4UTFmUDVob2ZGZFhMY2ZQ?=
- =?utf-8?B?SVE0MzJtMlZXMW51UmlYN3Z0SFV4RWZsWm5lRnYxVVMwZFpzVFlpNERDYVZk?=
- =?utf-8?B?Wlc1V0dmZDkxWFZjWkhnRll4RjdKVG1NbXhZSncwWlNjenB4WjRDS1J6QjBi?=
- =?utf-8?B?ZHEzSTVTVGwvWmJ6bWdtL1I0RHlCS3ZOTkdXYXJBL3JBd0FEaFpyTm1xdDIr?=
- =?utf-8?B?LytvUFpaaTdkMzhZcUxuM3hpdFhHdWhzUi9WSnBMMzI1TzRHRC9MWG1aM1Jq?=
- =?utf-8?Q?DVy6mFU+SM67bOwGHYgMGKZbgz9tJMTtt/tIaKd?=
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f0d5908-3300-4209-fdca-08d8f9e59996
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR05MB6624.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2021 16:52:59.7188 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b7Oq3jGMgUK5hDN7rf1P0kuGgvWVaI2XlSta1MAv+i06Ui5bOPEYg8yfmY1peZ2nSdk3MszxoaFgbB7mP575xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR05MB6559
+References: <CABXGCsPAdv6wCWmzh6OQmDX1LOf_FEu_wH=4K9HDd_rToTdwrQ@mail.gmail.com>
+ <7d30982e-a893-858c-2237-a09a183ff2d0@gmail.com>
+In-Reply-To: <7d30982e-a893-858c-2237-a09a183ff2d0@gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Wed, 7 Apr 2021 23:06:15 +0500
+Message-ID: <CABXGCsN6GX4ksbFo9fhd6XGxNyED9qoBqYf0Ph1pwG3qArGtjg@mail.gmail.com>
+Subject: Re: Unexpected multihop in swaput - likely driver bug.
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,83 +72,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Dave Airlie <airlied@gmail.com>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/6/21 5:09 AM, Thomas Zimmermann wrote:
-> Vmwgfx is the only user of the TTM's verify_access callback. Inline
-> the call and avoid the indirection through the function pointer.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 9 ---------
->   drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c   | 7 ++-----
->   2 files changed, 2 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> index 2dc031fe4a90..a079734f9d68 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c
-> @@ -658,14 +658,6 @@ static void vmw_evict_flags(struct ttm_buffer_object *bo,
->   	*placement = vmw_sys_placement;
->   }
->   
-> -static int vmw_verify_access(struct ttm_buffer_object *bo, struct file *filp)
-> -{
-> -	struct ttm_object_file *tfile =
-> -		vmw_fpriv((struct drm_file *)filp->private_data)->tfile;
-> -
-> -	return vmw_user_bo_verify_access(bo, tfile);
-> -}
-> -
->   static int vmw_ttm_io_mem_reserve(struct ttm_device *bdev, struct ttm_resource *mem)
->   {
->   	struct vmw_private *dev_priv = container_of(bdev, struct vmw_private, bdev);
-> @@ -768,7 +760,6 @@ struct ttm_device_funcs vmw_bo_driver = {
->   	.eviction_valuable = ttm_bo_eviction_valuable,
->   	.evict_flags = vmw_evict_flags,
->   	.move = vmw_move,
-> -	.verify_access = vmw_verify_access,
->   	.swap_notify = vmw_swap_notify,
->   	.io_mem_reserve = &vmw_ttm_io_mem_reserve,
->   };
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-> index 3eaad00668f2..2574d4707407 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
-> @@ -65,6 +65,7 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
->   	};
->   	struct drm_file *file_priv = filp->private_data;
->   	struct vmw_private *dev_priv = vmw_priv(file_priv->minor->dev);
-> +	struct ttm_object_file *tfile = vmw_fpriv(file_priv)->tfile;
->   	struct ttm_device *bdev = &dev_priv->bdev;
->   	struct ttm_buffer_object *bo;
->   	int ret;
-> @@ -76,11 +77,7 @@ int vmw_mmap(struct file *filp, struct vm_area_struct *vma)
->   	if (unlikely(!bo))
->   		return -EINVAL;
->   
-> -	if (unlikely(!bo->bdev->funcs->verify_access)) {
-> -		ret = -EPERM;
-> -		goto out_unref;
-> -	}
-> -	ret = bo->bdev->funcs->verify_access(bo, filp);
-> +	ret = vmw_user_bo_verify_access(bo, tfile);
->   	if (unlikely(ret != 0))
->   		goto out_unref;
->   
-
-Looks great.
-
-Reviewed-by: Zack Rusin <zackr@vmware.com>
-
-z
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gV2VkLCA3IEFwciAyMDIxIGF0IDE1OjQ2LCBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmlnLmxl
+aWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBXaGF0IGhhcmR3YXJlIGFyZSB5b3Ug
+dXNpbmcKCiQgaW54aSAtYk0KU3lzdGVtOiAgICBIb3N0OiBmZWRvcmEgS2VybmVsOiA1LjEyLjAt
+MC5yYzYuMTg0LmZjMzUueDg2XzY0K2RlYnVnCng4Nl82NCBiaXRzOiA2NCBEZXNrdG9wOiBHTk9N
+RSA0MC4wCiAgICAgICAgICAgRGlzdHJvOiBGZWRvcmEgcmVsZWFzZSAzNSAoUmF3aGlkZSkKTWFj
+aGluZTogICBUeXBlOiBEZXNrdG9wIE1vYm86IEFTVVNUZUsgbW9kZWw6IFJPRyBTVFJJWCBYNTcw
+LUkgR0FNSU5HCnY6IFJldiBYLjB4IHNlcmlhbDogPHN1cGVydXNlciByZXF1aXJlZD4KICAgICAg
+ICAgICBVRUZJOiBBbWVyaWNhbiBNZWdhdHJlbmRzIHY6IDM2MDMgZGF0ZTogMDMvMjAvMjAyMQpC
+YXR0ZXJ5OiAgIElELTE6IGhpZHBwX2JhdHRlcnlfMCBjaGFyZ2U6IE4vQSBjb25kaXRpb246IE4v
+QQpDUFU6ICAgICAgIEluZm86IDE2LUNvcmUgKDItRGllKSBBTUQgUnl6ZW4gOSAzOTUwWCBbTVQg
+TUNQIE1DTV0gc3BlZWQ6CjIzNjUgTUh6IG1pbi9tYXg6IDIyMDAvMzUwMCBNSHoKR3JhcGhpY3M6
+ICBEZXZpY2UtMTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcyBbQU1EL0FUSV0gTmF2aSAyMSBbUmFk
+ZW9uClJYIDY4MDAvNjgwMCBYVCAvIDY5MDAgWFRdIGRyaXZlcjogYW1kZ3B1IHY6IGtlcm5lbAog
+ICAgICAgICAgIERldmljZS0yOiBBVmVyTWVkaWEgTGl2ZSBTdHJlYW1lciBDQU0gNTEzIHR5cGU6
+IFVTQiBkcml2ZXI6CmhpZC1nZW5lcmljLHVzYmhpZCx1dmN2aWRlbwogICAgICAgICAgIERldmlj
+ZS0zOiBBVmVyTWVkaWEgTGl2ZSBHYW1lciBVbHRyYS1WaWRlbyB0eXBlOiBVU0IKZHJpdmVyOiBo
+aWQtZ2VuZXJpYyxzbmQtdXNiLWF1ZGlvLHVzYmhpZCx1dmN2aWRlbwogICAgICAgICAgIERpc3Bs
+YXk6IHdheWxhbmQgc2VydmVyOiBYLk9yZyAxLjIxLjEgZHJpdmVyOiBsb2FkZWQ6CmFtZGdwdSxh
+dGkgdW5sb2FkZWQ6IGZiZGV2LG1vZGVzZXR0aW5nLHJhZGVvbix2ZXNhCiAgICAgICAgICAgcmVz
+b2x1dGlvbjogMzg0MHgyMTYwfjYwSHoKICAgICAgICAgICBPcGVuR0w6IHJlbmRlcmVyOiBBTUQg
+U0lFTk5BX0NJQ0hMSUQgKERSTSAzLjQwLjAKNS4xMi4wLTAucmM2LjE4NC5mYzM1Lng4Nl82NCtk
+ZWJ1ZyBMTFZNIDEyLjAuMCkKICAgICAgICAgICB2OiA0LjYgTWVzYSAyMS4xLjAtZGV2ZWwKTmV0
+d29yazogICBEZXZpY2UtMTogSW50ZWwgV2ktRmkgNiBBWDIwMCBkcml2ZXI6IGl3bHdpZmkKICAg
+ICAgICAgICBEZXZpY2UtMjogSW50ZWwgSTIxMSBHaWdhYml0IE5ldHdvcmsgZHJpdmVyOiBpZ2IK
+RHJpdmVzOiAgICBMb2NhbCBTdG9yYWdlOiB0b3RhbDogMTEuMzUgVGlCIHVzZWQ6IDEwLjgyIFRp
+QiAoOTUuMyUpCkluZm86ICAgICAgUHJvY2Vzc2VzOiA4MDUgVXB0aW1lOiAxMmggNTZtIE1lbW9y
+eTogMzEuMTggR2lCIHVzZWQ6CjIxLjg4IEdpQiAoNzAuMiUpIFNoZWxsOiBCYXNoIGlueGk6IDMu
+My4wMgoKCj4gYW5kIGhvdyBkbyB5b3UgZXhhY3RseSB0cmlnZ2VyIHRoaXM/CgpJIGFtIHJ1bm5p
+bmcgaGVhdnkgZ2FtZXMgbGlrZSAiWm9tYmllIEFybXkgNDogRGVhZCBXYXIiIGFuZCBzd2l0Y2hp
+bmcKdG8gR25vbWUgQWN0aXZpdGllcyBhbmQgb3RoZXIgYXBwbGljYXRpb25zIHdoaWxlIHRoZSBn
+YW1lIGlzIHJ1bm5pbmcuCgoKLS0gCkJlc3QgUmVnYXJkcywKTWlrZSBHYXZyaWxvdi4KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
