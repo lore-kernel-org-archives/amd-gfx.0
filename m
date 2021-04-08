@@ -2,122 +2,52 @@ Return-Path: <SRS0=VH8F=JF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C309BC433B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC672C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:46:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D4FF61107
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D4FF61107
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id A978D610CB
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 04:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A978D610CB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8CBF6E9EE;
-	Thu,  8 Apr 2021 04:18:05 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A25D895B2
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 04:18:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M/OBdsNDodoDs4aRdfKOj6wKB0jVuSuVdj63TfeXoefPzkJJPQ18scmN2JCQxdjcNXLEuy6LpsIrjXgXpJCIpFVQtKHmyqjuRss3EBdvmiidbt4mFQeVl3V79o+q35yBw/J/+l/P1C3LUQdfzdHqWEwjtrB4FXtS7abDf+5W/5T8YSjcjqmLUwigB68k/db047VFD/kjpk05AlYZiVhODCMp5GPim6wwuACBZ+nif8VmOVrvU2OOdR7Rdputz8rr3DvORXfqU7tvmBMOSuGdHsjnS2aHJOfjTcYih51cK3t1P3esN+WvLjWrUAXNuJ6P02nBd5RE9Jcm6R5n2u62ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9C7UHodm9t7Oo/GDmB1rzPI8u6chZZpmHY7SDKamsqI=;
- b=SzYzlZ+hXcNavXKGsrOtLEOcgiZvXFXDarsjvGoVE1U99DnalOyED8iKHDvAVzXUME46Hh27rf6H/hQuQQcz/2PzbHrK8bPcS5b0u6cqFAoZcOGhw2YE2Q4QrdfPUXl/JRLOEYYVyPERZtXstS8s5JSA7luzDH/4YU8iZV1R4mksmYN0f6rN3GnRNNEfr9sVdXCE1YcOBxAbTJlAPWRxITwAxFf5v2WbcUyhOL8BQ2IA+3QPDkTxxq2hyAQ/UK63uJsN10F09eZtWNhlj/TCotB9/Z3Uj0psXo93BMhMhjwjDrNGEWwE9Pp9bncCxwTZfpiiijq347IPZICaNy2jcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9C7UHodm9t7Oo/GDmB1rzPI8u6chZZpmHY7SDKamsqI=;
- b=T10vMIf+WgnJaVCUO3cyj7uN1/uqlXsS52LnDeK0UoQgy4pZZRVyWv0PJvIRfofP5oETEOLggxWvar0hj+3Oz0PYir6TvnF3zBxDs+q/nHk8mXFTfsmDzDDIHYfCIhbR/PbQjYXkK8G5DpaEGc4oZphgejQWOrXxayiKAamqiLc=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.18; Thu, 8 Apr 2021 04:18:03 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c05d:8592:f72:bfc8%7]) with mapi id 15.20.3999.032; Thu, 8 Apr 2021
- 04:18:03 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/smu7: fix CAC setting on TOPAZ
-Thread-Topic: [PATCH] drm/amdgpu/smu7: fix CAC setting on TOPAZ
-Thread-Index: AQHXK7N48v95hg/N8kGbTEEiv3BsVaqqBNkA
-Date: Thu, 8 Apr 2021 04:18:03 +0000
-Message-ID: <DM6PR12MB26192269914A56708CA6FE59E4749@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20210407133920.314018-1-alexander.deucher@amd.com>
-In-Reply-To: <20210407133920.314018-1-alexander.deucher@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-08T04:18:01Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=0b6f445a-446e-4d2a-8d0c-bfc87fd8cae4;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f6dd2518-b65e-4090-b55c-08d8fa454d8b
-x-ms-traffictypediagnostic: DM6PR12MB2988:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2988D7ED4BDF06FBA0B1F308E4749@DM6PR12MB2988.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2201;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pL/F7KnJEI3DB7FSaLtBINXZSJfjdY0wVkFN3oVEwUvUO3DY7uNKGzYJfI4sjHQ+HaeFeVY4VyV1h7EdL4QOpbzJy3gtQW3L/t5sh/WpKmLp+xUIItSDqY4tMD5CyEa6ytZwqwzWM0aXCNwxlJIYyRxY1FBBPX4cC956/angrI1cxTR85XwgXrmM/TyH7S5ipPNP6XiGGtU7igY7S056aHgtwGGKVH8W3wkK36bgOsDjkI0O7u8JbMe+U8ti6F7UvwHR+8nWVKfpEO5DULbdTNDyZqYbrW7/zSjk6AmT8QFiVYaVXpIDoPUEDkd3OkEYpENLNifoSo6lwCiNCimfPzK1HLCu7TVZJE4t3c4UYynCLgSCifVGbqO6HjZYvtIyu0xAOstmulli90f/1BcOxO3Wti2Ekzn+Sv1xX81VV0EDbwSPqYqZXY9H5sqzZF4kjsP6Ue40W5m0BEXIA/m7pOs85SYkrvMgIg8mlK5EgJq1a1XFafkwRoHvB16trzaR0r94Of+KGctZTnX9cGDgsQNfZS0+2/cmLNlWgObkGbUKzsAfBROTvGRZP2iYZvl0+zxty50d9w42OQmEv+xRNPcRIPt6/agrdeLSh+ACboWGXKwlloOjesZg0qNau4Jb0yF5I07eZBQV7vVMoI4K2jlW0UYIzzTuxw1kLeCtCa9J3Gk5qKUzmlB8H7nbFylnoDOgQbPcdkl2YzUkygDAXjIPPGX+EAbAd7HzXroHVdQEHczq3czXWvjLE1UJLd97
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(71200400001)(186003)(83380400001)(7696005)(64756008)(478600001)(45080400002)(38100700001)(52536014)(33656002)(316002)(2906002)(110136005)(5660300002)(4326008)(9686003)(66476007)(26005)(66946007)(66556008)(76116006)(966005)(66446008)(8676002)(8936002)(6506007)(53546011)(55016002)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?xDPKhB1w+I5AI6V4DAHa+x64umTawZuXlo6BM91wNNGB4qxrizsG9P+Wl1ip?=
- =?us-ascii?Q?J6Oyfd5+IcT+hWB3V5kBFLmxzVwnByN/PN2CrEtuDmEl77lDziT5tMs2nJ7J?=
- =?us-ascii?Q?gt/P6XcxlCdjzdkpYfsAicRcB+bqvpVQDrQ1b1rrHWyH//YRXVw5IG9SV0Tb?=
- =?us-ascii?Q?sbjSdlTfqWvaQ+IareJ4UWKg1t9qOZCcJ5eJBJwuJcZCAEpL5a1FmlZgVSwP?=
- =?us-ascii?Q?EKeRnqkFZ7kuY52dxQY3u6oCPDJKQDhg6w4NplpYXa+SuYOrn49jURLcBUkh?=
- =?us-ascii?Q?m0BdNBzqJK7i6yb9nYGvSwQVK5PFJjQWMpq6anEx7Ye/B2JVbiHlLjwI2yGt?=
- =?us-ascii?Q?dHr3QllAelERV0tVT8GszsiIHILujqEWOWAmtnh11vC77rIpAflwJOKrFyi7?=
- =?us-ascii?Q?xpDVijWcKlE9NTWTwkaMS0+s2G5cIAoWi5yHTmoDu9UmbPa6M+HAv2EcPnIO?=
- =?us-ascii?Q?niOj3KBraQ6PDLd8B0C9FRVexbmoiKs5QMQ47qa3WMYn/B4xMA2L9LicgDAk?=
- =?us-ascii?Q?uBDclpETMORHCBp16xn3GmGKmXiSwmepzdW9abJ5r4lwaqf9n3dUe8C7UG7E?=
- =?us-ascii?Q?JDa+IlC48nPQPUK36dxkdsu/0nHbdbWFU0zyIVc21bd9gmgtjXFM4LWORXk8?=
- =?us-ascii?Q?M2W18ZlBS5cpp8pGXfhAW857GLOEM3216avBYTTzNxF2t7AceENGShpUn+/2?=
- =?us-ascii?Q?NE7hEsFcQ2E8ipI7cS2fQeSHUsdxjTKO210s1csyBckuyJf/0CB2tVYSmUbq?=
- =?us-ascii?Q?hmdjL4DqDV1bmf+yqDn4/RkQ535VxcPMCU8MrwpqSNlEqH49EFLRJvtFrwwB?=
- =?us-ascii?Q?cmKfzMPSRTSv3UcUQ1JGiU3rEX9UywFzYS2dLZyP7N2REKABGsRTji7c3dDp?=
- =?us-ascii?Q?7aCz5vIoJ2ktnQX2qmN+D8bI47OF5Kc6qktwtG+rJ9+6vse/EXRwSjxLCzqA?=
- =?us-ascii?Q?7Bl4quYm84DIZHn7zn8A9ETM5AoMWeNJgEcbvR2LxzLHwsJ0JjbHFeQr+CYf?=
- =?us-ascii?Q?usz1sE42HBuhI+9Mtp9zc0A8ibRsUYObFTz7cYx8TOj80SS5XzoD3NgLxAM2?=
- =?us-ascii?Q?/a/0mHUNJbm6iYEOeXaAxt73i7o+ehJujfdhsLYZh8a510hwPhR52z30Kd6R?=
- =?us-ascii?Q?E7sNpTjdrjkTpi0NcCzB45p0JGsVwazl+0tiHmT23Yg+1N4nr0rBTQoGyCF1?=
- =?us-ascii?Q?cPp1AV8JnJ4x9QprplAz4exkIPUszb7bsNwj6l6s/WO79v9Rvzvd63VlflLf?=
- =?us-ascii?Q?Zdcht0gYqwnspZrfzuQQI69hx79YK5ObJrWylJAdWsooMjaCU40ClubCRStH?=
- =?us-ascii?Q?j96GWzRRvEnFKW29vfiFChVT?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 925486E9F3;
+	Thu,  8 Apr 2021 04:46:00 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98966E9F0;
+ Thu,  8 Apr 2021 04:45:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EDB42AFB7;
+ Thu,  8 Apr 2021 04:45:56 +0000 (UTC)
+Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
+ sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
+ sam@ravnborg.org, emil.velikov@collabora.com, nirmoy.das@amd.com
+References: <20210406090903.7019-1-tzimmermann@suse.de>
+ <20210406090903.7019-4-tzimmermann@suse.de>
+ <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+ <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
+ <9db18654-770f-459b-a89a-c57dc8a21bac@amd.com>
+ <573dca0f-d017-3614-5e4f-d8d0b6bc413f@amd.com>
+ <780bb477-77c3-2f3c-2417-edeffccd63b9@amd.com>
+ <a152c174-c0fe-fc6f-9fa0-9054ffe415a9@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <235e9a2b-c38f-6dba-a78f-03166133ddb0@suse.de>
+Date: Thu, 8 Apr 2021 06:45:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6dd2518-b65e-4090-b55c-08d8fa454d8b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2021 04:18:03.1825 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y97OfDREW6wGIm8egivIpCJA8NLumaqb0uhDtdihRzpS96NAPllJNZx3x1La5pNN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
+In-Reply-To: <a152c174-c0fe-fc6f-9fa0-9054ffe415a9@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,73 +59,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1106432889=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1106432889==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="4pRK71fWfG6OpeezEOr8yzTHEOHj44DVL"
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--4pRK71fWfG6OpeezEOr8yzTHEOHj44DVL
+Content-Type: multipart/mixed; boundary="vzKT5KdpOlgisjbOnMd1Ydf6Y6AUL4AoD";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ bskeggs@redhat.com, ray.huang@amd.com, linux-graphics-maintainer@vmware.com,
+ sroland@vmware.com, zackr@vmware.com, shashank.sharma@amd.com,
+ sam@ravnborg.org, emil.velikov@collabora.com, nirmoy.das@amd.com
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Message-ID: <235e9a2b-c38f-6dba-a78f-03166133ddb0@suse.de>
+Subject: Re: [PATCH 3/8] drm/amdgpu: Implement mmap as GEM object function
+References: <20210406090903.7019-1-tzimmermann@suse.de>
+ <20210406090903.7019-4-tzimmermann@suse.de>
+ <6b261dab-4a4d-f0c6-95c0-f720c7df12c1@amd.com>
+ <b76d1922-c9a5-8533-657a-2c1149832347@suse.de>
+ <9db18654-770f-459b-a89a-c57dc8a21bac@amd.com>
+ <573dca0f-d017-3614-5e4f-d8d0b6bc413f@amd.com>
+ <780bb477-77c3-2f3c-2417-edeffccd63b9@amd.com>
+ <a152c174-c0fe-fc6f-9fa0-9054ffe415a9@amd.com>
+In-Reply-To: <a152c174-c0fe-fc6f-9fa0-9054ffe415a9@amd.com>
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Wednesday, April 7, 2021 9:39 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH] drm/amdgpu/smu7: fix CAC setting on TOPAZ
-> 
-> We need to enable MC CAC for mclk switching to work.
-> 
-> Fixes: d765129a719f ("drm/amd/pm: correct sclk/mclk dpm enablement")
-> Bug:
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitla
-> b.freedesktop.org%2Fdrm%2Famd%2F-
-> %2Fissues%2F1561&amp;data=04%7C01%7Cevan.quan%40amd.com%7C00a
-> 251035e6f4c16d63608d8f9ca9928%7C3dd8961fe4884e608e11a82d994e183d%
-> 7C0%7C0%7C637533995857826102%7CUnknown%7CTWFpbGZsb3d8eyJWIjoi
-> MC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C100
-> 0&amp;sdata=gMvcwYRiSFSyYhzXm5OGBxdRGIiPC4%2BkVBmN17dJR8w%3D
-> &amp;reserved=0
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index 301b6769f007..0541bfc81c1b 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -1224,7 +1224,8 @@ static int smu7_enable_sclk_mclk_dpm(struct
-> pp_hwmgr *hwmgr)
->  		    (hwmgr->chip_id == CHIP_POLARIS10) ||
->  		    (hwmgr->chip_id == CHIP_POLARIS11) ||
->  		    (hwmgr->chip_id == CHIP_POLARIS12) ||
-> -		    (hwmgr->chip_id == CHIP_TONGA))
-> +		    (hwmgr->chip_id == CHIP_TONGA) ||
-> +		    (hwmgr->chip_id == CHIP_TOPAZ))
->  			PHM_WRITE_FIELD(hwmgr->device,
-> MC_SEQ_CNTL_3, CAC_EN, 0x1);
-> 
-> 
-> --
-> 2.30.2
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.
-> freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=04%7C01%7Cevan.quan%40amd.com%7C00a251035e6f4c16d
-> 63608d8f9ca9928%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63
-> 7533995857826102%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
-> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=
-> AJFxsTzMjqU8IW7%2FL%2BtsPIWFmJb95dyr5pZ7EXnk20g%3D&amp;reserve
-> d=0
+--vzKT5KdpOlgisjbOnMd1Ydf6Y6AUL4AoD
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 07.04.21 um 21:49 schrieb Felix Kuehling:
+> On 2021-04-07 3:34 p.m., Felix Kuehling wrote:
+>> On 2021-04-07 7:25 a.m., Christian K=C3=B6nig wrote:
+>>>>>>> +=C2=A0=C2=A0=C2=A0 /*
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Don't verify access for KFD BOs. They=
+ don't have a GEM
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * object associated with them.
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>>>>>> +=C2=A0=C2=A0=C2=A0 if (bo->kfd_bo)
+>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+>>>>>> Who does the access verification now?
+>>>>> This is somewhat confusing.
+>>>>>
+>>>>> I took this check as-is, including the comment, from amdgpu's
+>>>>> verify_access function. The verify_access function was called by
+>>>>> ttm_bo_mmap. It returned 0 and ttm_bo_mmap did the mapping.
+>>>> This is probably a left-over from when we mapped BOs using /dev/kfd.=
+ We
+>>>> changed this to use /dev/dri/renderD* a long time ago to fix CPU=20
+>>>> mapping
+>>>> invalidations on memory evictions. I think we can let GEM do the acc=
+ess
+>>>> check.
+>>>
+>>> Ok, good to know.
+>>>
+>>> Thomas can you remove the extra handling in a separate prerequisite=20
+>>> patch?
+>>>
+>>> If anybody then bisects to this patch we at least know what to do to =
+
+>>> get it working again.
+>>
+>> FWIW, I ran KFDTest test with this shortcut removed on current=20
+>> amd-staging-drm-next + my HMM patch series, and it didn't seem to=20
+>> cause any issues.
+>=20
+> Wait, I celebrated too soon. I was running the wrong kernel. I do see=20
+> some failures where access is being denied. I need to do more debugging=
+=20
+> to figure out what's causing that.
+
+OK, thanks for looking into this. I'll wait a bit before sending out the =
+
+new patchset.
+
+Best regards
+Thomas
+
+>=20
+> Regards,
+>  =C2=A0 Felix
+>=20
+>=20
+>>
+>> Regards,
+>> =C2=A0 Felix
+>>
+>>
+>>>
+>>> Regards,
+>>> Christian.=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--vzKT5KdpOlgisjbOnMd1Ydf6Y6AUL4AoD--
+
+--4pRK71fWfG6OpeezEOr8yzTHEOHj44DVL
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmBuioMFAwAAAAAACgkQlh/E3EQov+Bu
+Hg//TAty7cdL/nBNpj/ingRUpa20dLLqPZ5kCSSDz3zXr8PqhpczDDF4HPs93gFJ5hh0I/0hKPGI
+zHim/XybNAg7yeklnKoZA/Rd3DwwXzGj+/zgNko8ayiJ65yBoasLD2Hl0APocMb7TqQYHHeVvtyC
+Bx3jo5n6uOnmBHdTGDffVd1m62VrO7YqheE3qPd+HoMbRLqIuynZpupnA8v8GMF3wgT4VsDOgV65
+u2lqgUpVCYQ9fNmetixU9jQFYvUbLtEo3tZQkpypWQhU9zDe0NhRHaLzgupK4aU5cgux7PveSB4d
+ORb+SjTeumCaWGVu1FSz4gwAyRHdyx/5fmOBc4SqncAj/yvGeiDc+1xhOTOjbdwcUxrmrX+zwouj
+Yswm2UUb7q0ZDpiRKfGBS1fHEleHBt+qJuFUuhAsUxGkUCxvzNF2dqN/y4qKtZPh9WGWFxbUEJsZ
+35mebgeFExCqhOdh9S6BARfYns6pt4kJGQuf6eoX4RLDcYDSeO26cbHpkRiFPA50m5jode0S+pR5
+j9vAnFsA09nKYmcyKU16/iA6Uqzuf0t4Vqg9F47Or1zY4bjecmd28UhnrUSDR5rglQHHdHlVRuvT
+z/sdxqxZ8B0rUNHbdKzXLPZgPfmdBduaYJyfX3sIm0jfcsY8ve9izdWbzS0EAASxNmfqk49Hu7F8
+e9Y=
+=6dvU
+-----END PGP SIGNATURE-----
+
+--4pRK71fWfG6OpeezEOr8yzTHEOHj44DVL--
+
+--===============1106432889==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1106432889==--
