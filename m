@@ -2,81 +2,69 @@ Return-Path: <SRS0=VH8F=JF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB165C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 10:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79A19C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 10:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA9CE61164
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 10:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA9CE61164
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2A20B61159
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 10:49:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A20B61159
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABB56EA69;
-	Thu,  8 Apr 2021 10:28:09 +0000 (UTC)
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B20F6EA69;
- Thu,  8 Apr 2021 10:28:08 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id v140so3112128lfa.4;
- Thu, 08 Apr 2021 03:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=LPO107UIELXUmTFJZW08o8GLzDXjGWIzyy9s4oTQ7A4=;
- b=ceUInljVwZGtFb7hgE6t0F8ZLV2SfegCa5eJtrMQioCkgjRy66CUvai16iVQce++hO
- nhfn7/LkX7iw75WuwUS+vMJ32hkcYDp9YV+SxEQQfhByhxlDktku/HFZTX76E9qwEBGN
- 8ZOJModwAIERW/LEDupj0RPpkD8OE/AdQRrzrtGWBm12Qrm07WIVlkQXBtSE6Hut8eKM
- yh034Gj4d53m4uxiKlDaU2JwM/BrYZi/pkP7tU6jAIPR8ql3VbRijI6fxh/K+UbY/xz3
- QKOr683QS93LDaMpzbfYbloxzJI6iLbKUeUtE6unEAMRuoImfJwrjSijaDbvQtj71w2u
- /JjQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BF656EA83;
+	Thu,  8 Apr 2021 10:49:56 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 591366EA82
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 10:49:55 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id x15so1632809wrq.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Apr 2021 03:49:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=67+MEKdvuuMmCuXManwso7qCBU9d61GDUt3D3nSdJRI=;
+ b=eZ9xAYZzhlN3bvWf644DlpRvCzmAZPi0nNpynvkef1+Qle1fiXDPl9fTbhK0wREdJh
+ /8wyYg6JWjy+pE65hERPmb4qHPkSD79TuanL9t2j4dnhCK0OAPYA13niDKuRLReM+M3W
+ rfU94T6nxv/HNjaJx5P3LatYYl/ftLIThBx6Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=LPO107UIELXUmTFJZW08o8GLzDXjGWIzyy9s4oTQ7A4=;
- b=AlkH1uhmSHEqC0BRhElkcZb3byEww6I81Z0oVJHAmIn166Q/WykDQ0okllXkb78D1g
- A9Q4Mjz8l//jVbQ1nBZ8Sjy4PZaq11XYgepEPVPXtNrybz4chvB+wrpE+yfWLpLzdCFi
- BgSLGlnGfhnzAAm/GWlz8SiNrwmAdPdYbHaZWD3zYt0osi9+BG1skHqXnUmUpf+odN9J
- /4ic/HBzR7d09u25iXj3nkMK2noRYEWDPKUtgYwNR9zkO9hn1kXJroPSfCSfwAwuSCql
- QmHN9h7ISU+nUsHSTExYqJPTMlT0dxsAL3bPFdAtj6c6eraPlZX0Wxfz/6DvP0620syu
- 5NBA==
-X-Gm-Message-State: AOAM531PVHHlYaI3ysPiKjgedalFfeDVMiIqSgw3b8uVCeCbetY5IM7V
- 7J29R3Nj+J58zvbX2psqcdletVhEyns=
-X-Google-Smtp-Source: ABdhPJy6dTJXnwB9Q7PHkJirj6xPaCisPylt8Qt8fhVimMbTgjytDXE34bVuWMzNQyBBuI8t2EQPPQ==
-X-Received: by 2002:a05:6512:1147:: with SMTP id
- m7mr1415045lfg.337.1617877686995; 
- Thu, 08 Apr 2021 03:28:06 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:db83:c532:1fa2:b0cc?
- ([2a02:908:1252:fb60:db83:c532:1fa2:b0cc])
- by smtp.gmail.com with ESMTPSA id q26sm2781966lfm.53.2021.04.08.03.28.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Apr 2021 03:28:06 -0700 (PDT)
-Subject: Re: [pull] amdgpu, radeon, ttm, sched drm-next-5.13
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Dave Airlie <airlied@gmail.com>,
- "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>
-References: <20210401222931.3823-1-alexander.deucher@amd.com>
- <0fa472a5-08b4-87cd-c295-7502bd30c2c0@gmail.com>
- <CADnq5_NXz-B3BjQdP1x7P3tPC160EO906_TZObJhx85CHt6b2A@mail.gmail.com>
- <CAPM=9twymi8Emi+GpDW0Gz_OQ63BGwwzKwF_Jxq8=i_VC9U=3w@mail.gmail.com>
- <CADnq5_Ored1NxmDP5=_-5BXstsTdUPB31upM2AVFLXM1EXKQzQ@mail.gmail.com>
- <d5cf9d27-471c-f89d-375a-be4a76a5debc@gmail.com>
-Message-ID: <18a67a9f-4199-ba39-d2a7-419d7993aac4@gmail.com>
-Date: Thu, 8 Apr 2021 12:28:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=67+MEKdvuuMmCuXManwso7qCBU9d61GDUt3D3nSdJRI=;
+ b=Mr7vdN/Pr5/RxJN1RoS6ECcVGrje2RpOic0xOpSt3bvVVoHxyes2jRyOOCqaLnM3ty
+ KCeMqIH5rWJf3Ij2Qz6LGjTpPRYewltplWL/MX9oQtM85Fi5R0mfj0+DHkrjELzAsn9N
+ WEd2mfnSLTvSvSjf6Bi5dIu3A0bpVM8zAbg44naZJ/+fg132OO5TgccTH2S7+E6u4L/D
+ A4PhnFn5TwuZvnCeczVuxOaAYotTzdz0rl9F2TVEk+txTrlY3grb7dCVQSvVcbsGRp/d
+ qQ2FTqkW861a2Ysacqvzu8CAFTSMpBhY50a0CL7DHnAXA1/+c3przSqnk1pKPZdrI5bX
+ 4WOA==
+X-Gm-Message-State: AOAM531NMcki9j1Uc62vODgzkxNEZTA0ypAc75gxRH3UPVcGaC9rmPne
+ J6fMimeyT5Ws7ZdcnSkR8eBVYw==
+X-Google-Smtp-Source: ABdhPJx5Dx4A60v8D/m0vrvrUtVGA0fYNamrAGx3037txALHjxNqc+Py46j1tCroPoMc10toF/BU8w==
+X-Received: by 2002:adf:c10a:: with SMTP id r10mr10792914wre.40.1617878994006; 
+ Thu, 08 Apr 2021 03:49:54 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v3sm13108164wmj.25.2021.04.08.03.49.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Apr 2021 03:49:53 -0700 (PDT)
+Date: Thu, 8 Apr 2021 12:49:51 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 00/20] drm: Use new DRM printk funcs (like
+ drm_dbg_*()) in DP helpers
+Message-ID: <YG7fz5UmK/SaoY/U@phenom.ffwll.local>
+References: <20210326203807.105754-1-lyude@redhat.com>
+ <87blaym8by.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <d5cf9d27-471c-f89d-375a-be4a76a5debc@gmail.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <87blaym8by.fsf@intel.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,74 +76,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDguMDQuMjEgdW0gMDk6MTMgc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+IEFtIDA3LjA0
-LjIxIHVtIDIxOjA0IHNjaHJpZWIgQWxleCBEZXVjaGVyOgo+PiBPbiBXZWQsIEFwciA3LCAyMDIx
-IGF0IDM6MjMgQU0gRGF2ZSBBaXJsaWUgPGFpcmxpZWRAZ21haWwuY29tPiB3cm90ZToKPj4+IE9u
-IFdlZCwgNyBBcHIgMjAyMSBhdCAwNjo1NCwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFp
-bC5jb20+IAo+Pj4gd3JvdGU6Cj4+Pj4gT24gRnJpLCBBcHIgMiwgMjAyMSBhdCAxMjoyMiBQTSBD
-aHJpc3RpYW4gS8O2bmlnCj4+Pj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3
-cm90ZToKPj4+Pj4gSGV5IEFsZXgsCj4+Pj4+Cj4+Pj4+IHRoZSBUVE0gYW5kIHNjaGVkdWxlciBj
-aGFuZ2VzIHNob3VsZCBhbHJlYWR5IGJlIGluIHRoZSBkcm0tbWlzYy1uZXh0Cj4+Pj4+IGJyYW5j
-aCAobm90IDEwMCUgc3VyZSBhYm91dCB0aGUgVFRNIHBhdGNoLCBuZWVkIHRvIGRvdWJsZSBjaGVj
-ayAKPj4+Pj4gbmV4dCB3ZWVrKS4KPj4+Pj4KPj4+PiBUaGUgVFRNIGNoYW5nZSBpcyBub3QgaW4g
-ZHJtLW1pc2MgeWV0Lgo+Pj4+Cj4+Pj4+IENvdWxkIHRoYXQgY2F1c2UgcHJvYmxlbXMgd2hlbiBi
-b3RoIGFyZSBtZXJnZWQgaW50byBkcm0tbmV4dD8KPj4+PiBEYXZlLCBEYW5pZWwsIGhvdyBkbyB5
-b3Ugd2FudCB0byBoYW5kbGUgdGhpcz/CoCBUaGUgZHVwbGljYXRlZCBwYXRjaCAKPj4+PiBpcyB0
-aGlzIG9uZToKPj4+PiBodHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL2RybS9kcm0tbWlzYy9j
-b21taXQvP2lkPWFjNGViODNhYjI1NWRlOWMzMTE4NGRmNTFmZDE1MzRiYTM2ZmQyMTIgCj4+Pj4K
-Pj4+PiBhbWRncHUgaGFzIGNoYW5nZXMgd2hpY2ggZGVwZW5kIG9uIGl0LsKgIFRoZSBzYW1lIHBh
-dGNoIGlzIGluY2x1ZGVkIAo+Pj4+IGluIHRoaXMgUFIuCj4+PiBPdWNoIG5vdCBzdXJlIGhvdyBi
-ZXN0IHRvIHN5bmMgdXAgaGVyZSwgbWF5YmUgZ2V0IG1pc2MtbmV4dCBpbnRvIG15Cj4+PiB0cmVl
-IHRoZW4gcmViYXNlIHlvdXIgdHJlZSBvbiB0b3Agb2YgaXQ/Cj4+IEkgY2FuIGRvIHRoYXQuCj4K
-PiBQbGVhc2UgbGV0IG1lIGRvdWJsZSBjaGVjayBsYXRlciB0b2RheSB0aGF0IHdlIGhhdmUgZXZl
-cnl0aGluZyB3ZSBuZWVkIAo+IGluIGRybS1taXNjLW5leHQuCgpUaGVyZSB3aGVyZSB0d28gcGF0
-Y2ggZm9yIFRUTSAob25lIGZyb20gRmVsaXggYW5kIG9uZSBmcm9tIE9haykgd2hpY2ggCnN0aWxs
-IG5lZWRlZCB0byBiZSBwdXNoZWQgdG8gZHJtLW1pc2MtbmV4dC4gSSd2ZSBkb25lIHRoYXQganVz
-dCBhIG1pbnV0ZSAKYWdvLgoKClRoZW4gd2UgaGF2ZSB0aGlzIHBhdGNoIHdoaWNoIGZpeGVzIGEg
-YnVnIGluIGNvZGUgcmVtb3ZlZCBvbiAKZHJtLW1pc2MtbmV4dC4gSSB0aGluayBpdCBzaG91bGQg
-YmUgZHJvcHBlZCB3aGVuIGFtZC1zdGFnaW5nLWRybS1uZXh0IGlzIApiYXNlZCBvbiBkcm0tbmV4
-dC9kcm0tbWlzYy1uZXh0LgoKQXV0aG9yOiB4aW5odWkgcGFuIDx4aW5odWkucGFuQGFtZC5jb20+
-CkRhdGU6wqDCoCBXZWQgRmViIDI0IDExOjI4OjA4IDIwMjEgKzA4MDAKCiDCoMKgwqAgZHJtL3R0
-bTogRG8gbm90IGFkZCBub24tc3lzdGVtIGRvbWFpbiBCTyBpbnRvIHN3YXAgbGlzdAoKCkkndmUg
-YWxzbyBmb3VuZCB0aGUgZm9sbG93aW5nIHBhdGNoIHdoaWNoIGlzIHByb2JsZW1hdGljIGFzIHdl
-bGw6Cgpjb21taXQgYzhhOTIxZDQ5NDQzMDI1ZTEwNzk0MzQyZDQ0MzNiM2YyOTYxNjQwOQpBdXRo
-b3I6IEphY2sgWmhhbmcgPEphY2suWmhhbmcxQGFtZC5jb20+CkRhdGU6wqDCoCBNb24gTWFyIDgg
-MTI6NDE6MjcgMjAyMSArMDgwMAoKIMKgwqDCoCBkcm0vYW1kL2FtZGdwdSBpbXBsZW1lbnQgdGRy
-IGFkdmFuY2VkIG1vZGUKCiDCoMKgwqAgW1doeV0KIMKgwqDCoCBQcmV2aW91cyB0ZHIgZGVzaWdu
-IHRyZWF0cyB0aGUgZmlyc3Qgam9iIGluIGpvYl90aW1lb3V0IGFzIHRoZSBiYWQgam9iLgogwqDC
-oMKgIEJ1dCBzb21ldGltZXMgYSBsYXRlciBiYWQgY29tcHV0ZSBqb2IgY2FuIGJsb2NrIGEgZ29v
-ZCBnZnggam9iIGFuZAogwqDCoMKgIGNhdXNlIGFuIHVuZXhwZWN0ZWQgZ2Z4IGpvYiB0aW1lb3V0
-IGJlY2F1c2UgZ2Z4IGFuZCBjb21wdXRlIHJpbmcgc2hhcmUKIMKgwqDCoCBpbnRlcm5hbCBHQyBI
-VyBtdXR1YWxseS4KCiDCoMKgwqAgW0hvd10KIMKgwqDCoCBUaGlzIHBhdGNoIGltcGxlbWVudHMg
-YW4gYWR2YW5jZWQgdGRyIG1vZGUuSXQgaW52b2x2ZXMgYW4gYWRkaXRpbmFsCiDCoMKgwqAgc3lu
-Y2hyb25vdXMgcHJlLXJlc3VibWl0IHN0ZXAoU3RlcDAgUmVzdWJtaXQpIGJlZm9yZSBub3JtYWwg
-cmVzdWJtaXQKIMKgwqDCoCBzdGVwIGluIG9yZGVyIHRvIGZpbmQgdGhlIHJlYWwgYmFkIGpvYi4K
-CiDCoMKgwqAgMS4gQXQgU3RlcDAgUmVzdWJtaXQgc3RhZ2UsIGl0IHN5bmNocm9ub3VzbHkgc3Vi
-bWl0cyBhbmQgcGVuZHMgZm9yIHRoZQogwqDCoMKgIGZpcnN0IGpvYiBiZWluZyBzaWduYWxlZC4g
-SWYgaXQgZ2V0cyB0aW1lb3V0LCB3ZSBpZGVudGlmeSBpdCBhcyBndWlsdHkKIMKgwqDCoCBhbmQg
-ZG8gaHcgcmVzZXQuIEFmdGVyIHRoYXQsIHdlIHdvdWxkIGRvIHRoZSBub3JtYWwgcmVzdWJtaXQg
-c3RlcCB0bwogwqDCoMKgIHJlc3VibWl0IGxlZnQgam9icy4KCiDCoMKgwqAgMi4gRm9yIHdob2xl
-IGdwdSByZXNldCh2cmFtIGxvc3QpLCBkbyByZXN1Ym1pdCBhcyB0aGUgb2xkIHdheS4KCiDCoMKg
-wqAgU2lnbmVkLW9mZi1ieTogSmFjayBaaGFuZyA8SmFjay5aaGFuZzFAYW1kLmNvbT4KIMKgwqDC
-oCBSZXZpZXdlZC1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
-b20+CgpUaGF0IG9uZSBpcyBtb2RpZnlpbmcgYm90aCBhbWRncHUgYXMgd2VsbCBhcyB0aGUgc2No
-ZWR1bGVyIGNvZGUuIElJUkMgSSAKYWN0dWFsbHkgcmVxdWVzdGVkIHRoYXQgdGhlIHBhdGNoIGlz
-IHNwbGl0IGludG8gdHdvLCBidXQgdGhhdCB3YXMgCnNvbWVob3cgbm90IGRvbmUuCgpIb3cgc2hv
-dWxkIHdlIHByb2NlZWQgaGVyZT8gU2hvdWxkIEkgc2VwYXJhdGUgdGhlIHBhdGNoLCBwdXNoIHRo
-ZSAKY2hhbmdlcyB0byBkcm0tbWlzYy1uZXh0IGFuZCB0aGVuIHdlIG1lcmdlIHdpdGggZHJtLW5l
-eHQgYW5kIHJlYmFzZSAKYW1kLXN0YWdpbmctZHJtLW5leHQgb24gdG9wIG9mIHRoYXQ/CgpUaGF0
-J3MgbW9zdCBsaWtlbHkgdGhlIGNsZWFuZXN0IG9wdGlvbiBhcHByb2FjaCBhcyBmYXIgYXMgSSBj
-YW4gc2VlLgoKVGhhbmtzLApDaHJpc3RpYW4uCgo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4K
-Pj4KPj4gQWxleAo+Pgo+Pgo+Pj4gRGF2ZS4KPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+On Thu, Apr 01, 2021 at 04:40:33PM +0300, Jani Nikula wrote:
+> On Fri, 26 Mar 2021, Lyude Paul <lyude@redhat.com> wrote:
+> > Since it's been asked quite a few times on some of the various DP
+> > related patch series I've submitted to use the new DRM printk helpers,
+> > and it technically wasn't really trivial to do this before due to the
+> > lack of a consistent way to find a drm_device for an AUX channel, this
+> > patch series aims to address this. In this series we:
+> >
+> > * Clean-up potentially erroneous usages of drm_dp_aux_init() and
+> >   drm_dp_aux_register() so that actual AUX registration doesn't happen
+> >   until we have an associated DRM device
+> > * Clean-up any obvious errors in drivers we find along the way
+> > * Add a backpointer to the respective drm_device for an AUX channel in
+> >   drm_dp_aux.drm_dev, and hook it up in every driver with an AUX channel
+> >   across the tree
+> > * Add a new ratelimited print helper we'll need for converting the DP
+> >   helpers over to using the new DRM printk helpers
+> > * Fix any inconsistencies with logging in drm_dp_helper.c so we always
+> >   have the aux channel name printed
+> > * Prepare the various DP helpers so they can find the correct drm_device
+> >   to use for logging
+> > * And finally, convert all of the DP helpers over to using drm_dbg_*()
+> >   and drm_err().
+> >
+> > Series-wide changes in v2:
+> > * Address most checkpatch issues ('most' as in all except for one line
+> >   going two chars over 100 in "drm/dp_mst: Pass drm_dp_mst_topology_mgr
+> >   to drm_dp_get_vc_payload_bw()" as this was the style in use
+> >   previously, and 2 chars over the limit looks nicer then trying to
+> >   line-wrap this
+> > * Don't rewrap comments
+> 
+> For anything touching i915, and for merging via whichever tree or branch
+> seems best,
+> 
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> That said, gut feeling says there will be conflicts before latest
+> drm-misc-next and drm-intel-next have been merged to drm-next, and
+> drm-next has been backmerged to drm-misc-next and drm-intel-next.
+> 
+> It just might be a good idea to wait for those (as well as other driver
+> feature pulls) to settle, do a topic branch with a common ancestor
+> between drm-next and drm-misc-next, apply there, merge the topic branch
+> to drm-misc-next, and let all drivers merge the topic branch as
+> needed. Due to the timing, otherwise we might have to carry the
+> conflicts for quite a while.
+
+I think Dave caught up on pulls to drm-next, so after a backmerge of that
+to drm-misc-next I think should be all fine to apply directly, no need for
+topic branch.
+-Daniel
+
+> 
+> BR,
+> Jani.
+> 
+> 
+> >
+> > Lyude Paul (20):
+> >   drm/dp: Fixup kernel docs for struct drm_dp_aux
+> >   drm/tegra: Don't register DP AUX channels before connectors
+> >   drm/bridge/cdns-mhdp8546: Register DP aux channel with userspace
+> >   drm/nouveau/kms/nv50-: Move AUX adapter reg to connector late
+> >     register/early unregister
+> >   drm/dp: Add backpointer to drm_device in drm_dp_aux
+> >   drm/dp: Clarify DP AUX registration time
+> >   drm/print: Fixup DRM_DEBUG_KMS_RATELIMITED()
+> >   drm/dp: Pass drm_dp_aux to drm_dp_link_train_clock_recovery_delay()
+> >   drm/dp: Pass drm_dp_aux to drm_dp*_link_train_channel_eq_delay()
+> >   drm/dp: Always print aux channel name in logs
+> >   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_detect()
+> >   drm/dp_dual_mode: Pass drm_device to
+> >     drm_dp_dual_mode_set_tmds_output()
+> >   drm/dp_dual_mode: Pass drm_device to drm_dp_dual_mode_max_tmds_clock()
+> >   drm/dp_dual_mode: Pass drm_device to
+> >     drm_dp_dual_mode_get_tmds_output()
+> >   drm/dp_dual_mode: Pass drm_device to drm_lspcon_(get|set)_mode()
+> >   drm/dp_mst: Pass drm_dp_mst_topology_mgr to drm_dp_get_vc_payload_bw()
+> >   drm/dp: Convert drm_dp_helper.c to using drm_err/drm_dbg_*()
+> >   drm/dp_dual_mode: Convert drm_dp_dual_mode_helper.c to using
+> >     drm_err/drm_dbg_kms()
+> >   drm/dp_mst: Drop DRM_ERROR() on kzalloc() fail in
+> >     drm_dp_mst_handle_up_req()
+> >   drm/dp_mst: Convert drm_dp_mst_topology.c to drm_err()/drm_dbg*()
+> >
+> >  drivers/gpu/drm/amd/amdgpu/atombios_dp.c      |   5 +-
+> >  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   1 +
+> >  .../drm/bridge/analogix/analogix-anx6345.c    |   1 +
+> >  .../drm/bridge/analogix/analogix-anx78xx.c    |   1 +
+> >  .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+> >  .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  12 +-
+> >  drivers/gpu/drm/bridge/tc358767.c             |   1 +
+> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c         |   1 +
+> >  drivers/gpu/drm/drm_dp_aux_dev.c              |   6 +
+> >  drivers/gpu/drm/drm_dp_dual_mode_helper.c     |  68 ++--
+> >  drivers/gpu/drm/drm_dp_helper.c               | 181 +++++----
+> >  drivers/gpu/drm/drm_dp_mst_topology.c         | 381 +++++++++---------
+> >  drivers/gpu/drm/i915/display/intel_dp_aux.c   |   1 +
+> >  .../drm/i915/display/intel_dp_link_training.c |   6 +-
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
+> >  drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
+> >  drivers/gpu/drm/i915/display/intel_lspcon.c   |  17 +-
+> >  drivers/gpu/drm/msm/dp/dp_ctrl.c              |   6 +-
+> >  drivers/gpu/drm/msm/edp/edp.h                 |   3 +-
+> >  drivers/gpu/drm/msm/edp/edp_aux.c             |   5 +-
+> >  drivers/gpu/drm/msm/edp/edp_ctrl.c            |   8 +-
+> >  drivers/gpu/drm/nouveau/nouveau_connector.c   |  27 +-
+> >  drivers/gpu/drm/radeon/atombios_dp.c          |   5 +-
+> >  drivers/gpu/drm/tegra/dpaux.c                 |  12 +-
+> >  drivers/gpu/drm/xlnx/zynqmp_dp.c              |   5 +-
+> >  include/drm/drm_dp_dual_mode_helper.h         |  14 +-
+> >  include/drm/drm_dp_helper.h                   |  61 +--
+> >  include/drm/drm_dp_mst_helper.h               |   3 +-
+> >  include/drm/drm_print.h                       |  20 +-
+> >  29 files changed, 478 insertions(+), 384 deletions(-)
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
