@@ -2,92 +2,125 @@ Return-Path: <SRS0=VH8F=JF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC636C43461
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 08:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F63BC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 09:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5640610A6
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 08:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5640610A6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id DB59861130
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Apr 2021 09:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB59861130
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7E26EA2A;
-	Thu,  8 Apr 2021 08:32:50 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B44DB6EA2A
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 08:32:48 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id g17so608556edm.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 Apr 2021 01:32:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=b3iU01EHENknp9lxCMxPHJ6eOHsyFlTyPdPlh0KyOqI=;
- b=jAFTBdnRKiAbUImYE+3WuhFblZLsBt0maRBg9WYvA13E2ZqYa3Rif2VmB+iNvjEy03
- 52qMSqjWhs0RaMBj6B5XE7eW5MLgBcVvAB9/xIiMGGo8IC9yQMcyz5VYGb3zyppE7OlZ
- PYCDioYqH8xt9XdZO2Ccb+89NgdUUdr7O25fVo3JMea0lBYlpBiW1DBdbJfaw9p3UKLC
- KVC+d+ixenddtThPe15V1JEHT4Psk+2e80P5IreRSRUwOjJcDZaKlhq+1jR728RGrld+
- n+qcCeelOdtdRFFjQcTtcjOU5slZbsXdew1OZ7yukbyEhCqq9mJvD+FNDfM6AH69KuVX
- UjDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=b3iU01EHENknp9lxCMxPHJ6eOHsyFlTyPdPlh0KyOqI=;
- b=rD52fn8zPAqQ8NRlax7aKiCI2Vymv1RqxLa/KaWoGTrOILGCDaNDCp5N/v5/SvPbot
- PNgFNe6S25jKq6/x5lRfifPEkNb/Yqejxk/U3vix/lldCplt4AqT/t5glpnTzt9AEq+/
- s6OiAMQ8ucsJky606/geRWksHjz21Q/DoE+uo9AckEchGfrNKzr1at0CuP8IzWRF//P8
- XAtyz+dY/Y3Giri72YSuJW67ZEgY/DpoyYZb6kmqSxZLNo/YWsfDYeCMKdu0yU7DeyW7
- VuUubs5Gf0+mIIjA5x5BDUOp7qSkJJwgFEj+iDa3uKsMswf0bfjtRxso0AUHkjKR8qiA
- NL9Q==
-X-Gm-Message-State: AOAM530CqE14N0U8ZhcZtswzU8j5KG+ZvjC/BIDgNTBALjL9IbwLLWjj
- OnNy4ts0a8rWveQa3DbnS/V0VVw3XrE=
-X-Google-Smtp-Source: ABdhPJwsosscx4ZO/6dEIeJ4aoT2yXIMhrDWG1a3Svr8qHRQqtW+0XBXYx5DKwdsRxBzlbsuphkiAQ==
-X-Received: by 2002:a05:6402:4386:: with SMTP id
- o6mr10209708edc.307.1617870767241; 
- Thu, 08 Apr 2021 01:32:47 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:db83:c532:1fa2:b0cc?
- ([2a02:908:1252:fb60:db83:c532:1fa2:b0cc])
- by smtp.gmail.com with ESMTPSA id d6sm1984604edr.21.2021.04.08.01.32.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Apr 2021 01:32:46 -0700 (PDT)
-Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, "Li, Dennis"
- <Dennis.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20210318072339.28736-1-Dennis.Li@amd.com>
- <d40648ba-9948-5442-23ed-d352f824f8f9@amd.com>
- <DM5PR12MB25330F3CD92C587C2E921424ED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <MN2PR12MB3775531A74B886A207134B1583699@MN2PR12MB3775.namprd12.prod.outlook.com>
- <DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com>
- <378fdffb-99b5-2a14-736d-a06f310b040c@amd.com>
- <1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com>
- <51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com>
- <29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com>
- <e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com>
- <1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com>
- <b67ab565-e4be-0809-7021-cb59fd10464a@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <8c2cbe39-ea05-add4-efee-65527e53bb34@gmail.com>
-Date: Thu, 8 Apr 2021 10:32:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <b67ab565-e4be-0809-7021-cb59fd10464a@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3FD6EA36;
+	Thu,  8 Apr 2021 09:29:10 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353E06EA36
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Apr 2021 09:29:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GMJf5PM0KgjjDZUIf7m8xBOesAuiEgDsj0EH/gAjP2iBbSnQLwiT6JeexgVHt9JXF9+/ifv/RztJIaEjBbq5pR6IeyGOHiInw+jw4CM+doludsc1hGrIo5Fr+4NKOdq7wqIyPFpnT6MA0FECJQtdQ0ujeL56z08U1L6hkKrwb/7faabtsCNc1wY0Yvybhhh0lBYgOeaZdT03UnsLNAV9SS1GItjBZ0GqNHFKLtkeSDY0wvMHzSHqb8/aDxXKc1rnN99qIbsokH5Z6JoDF9ZPuV7isxN4svUOWAq04slV7sG3STv+Q2/92tN8kVqxzunINt+VR9Dq+YLY732wuyZbFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rbi5uGKtuSrtKQmTZ+PiyjcHFSQeudkxYoQUdDvmFjg=;
+ b=BxjzyZWcABNDeA+40GrrXWleHpKFnQgDc0hREZadl6lA6LHCAmYGCsgYbjeKR7JzW+fQYyADoR8cxDW1pNeVMQzMDMrphmoOkKFaDW3Jg2yoKErWpSi9jmeWBY9Y8rP7q4GgnMvs7556fx5ydAZ4n9fW06+3OEPcmmZEW/oSAk37318RzSKEW+xqZmgZ/UXLh0LfazqfHGOUhvc0GH5eokkgWozh1/vrQNSw//WsWxl9pbGcAtYLUrWCdU8a80MOwUw/P0XhG44wtFdH8gsjo5lMBh05gm5iqrHPzABDJ1hhFFGJGm7AG7NBSGXr1qEmgIU5qu0gDDyBn0qWe7w1/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rbi5uGKtuSrtKQmTZ+PiyjcHFSQeudkxYoQUdDvmFjg=;
+ b=uHCGq2DNvv8j8ReJlLWl5erLSykIQHvB+bBntdCdielEokz3CTl9eGOiz8bVWZTtDsbjY7514H2TIZN1YuupN5qpmMgVRqZ5M1RvY60ZXuw6iFSJulfEPWvnS952Q/qmAyyBbuMKRPmLeexW9cmzLreFOKdRVOFoGZDX3SjRB28=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR12MB1271.namprd12.prod.outlook.com (2603:10b6:903:3d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.32; Thu, 8 Apr
+ 2021 09:29:06 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::8908:d7:5544:6007]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::8908:d7:5544:6007%8]) with mapi id 15.20.3999.032; Thu, 8 Apr 2021
+ 09:29:06 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Zhou, Peng Ju" <PengJu.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/8] drm/amdgpu: Change GC register access from MMIO to
+ RLCG
+Thread-Topic: [PATCH 2/8] drm/amdgpu: Change GC register access from MMIO to
+ RLCG
+Thread-Index: AQHXLDit0RrKwB9G8U6MIM8+XyuwB6qqPvBw
+Date: Thu, 8 Apr 2021 09:29:06 +0000
+Message-ID: <CY4PR12MB1287ED0E9F39F3D9680AAC4BF1749@CY4PR12MB1287.namprd12.prod.outlook.com>
+References: <20210408053236.30762-1-PengJu.Zhou@amd.com>
+ <20210408053236.30762-2-PengJu.Zhou@amd.com>
+In-Reply-To: <20210408053236.30762-2-PengJu.Zhou@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-08T09:29:01Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=6d4a5eb8-533c-4159-be0f-9a974f6b6301;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9d9d33e8-0852-404b-92c6-08d8fa70c1cd
+x-ms-traffictypediagnostic: CY4PR12MB1271:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB12718383B37E635C254BDB75F1749@CY4PR12MB1271.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:510;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: vBTtqbqvmeueSGwLWnOLSlw2NBrrvl+ohsHkg85TdkdDOJJlij+cFsIE4dFuRAOnCid1t3kSfeCZhojwDoI/oydhMnWCaUiR64LsdMj8oSeOk3JU1RVU370FMBKu2Nq40JwrZELAT9QYUa6yUsv798cThsWe6krVk5aBXXJQvPYiGRvrDTdSBsMvNHqgzU8q5oVNBaeo2WlYNeFdcQV8OH/t0yBcBJwbcjOBb1ve3NxN2OM1R1uQMxAcJtFcnGoCbAckIvfAjJRP8mA7KgRV2dRzz2RcKXVQYTIDWukCqZJnayBZyKA2JBgblZ/7vpnI69dCXp4qY9ouwl8Sy51XvPCqBXgZDbiXqewsUXncXsVUtYvJ6Ae7Lwbwl7Ln8TRs4u5LtYocu78gYEGyCMEzArjXiuVq1nc3Xlz4f09MlPH9Lid/nvpznTFK8dCxb2pIhILloFb4pBUw1qVTSzrxS965DZkTlUfGeSn1IEDp4ScB2+3d0WcIwMhFGJAsDS4YC8HMwgZzNnYntEkJABy2Vo/VJfnSImT0e971ODPJWchFmqMsD3O6+7QNAbjtFcgQE3umJ/T4lZyxHWRItoKsk258rZgoeqwIUJWAtPoUy5ttNYPok+p7H7vbsT4JB/1WVv5ofrVkunzNeXNleam3uWsjehN0x0pM/t/CVOJ+WxKraktMv1NLH5q9n+ypr1Cj91+Aw3EJWyNq1MKi87oqrg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(6506007)(86362001)(26005)(38100700001)(52536014)(53546011)(30864003)(66476007)(64756008)(71200400001)(7696005)(110136005)(2906002)(45080400002)(66946007)(66556008)(9686003)(33656002)(478600001)(76116006)(8676002)(8936002)(316002)(4326008)(83380400001)(55016002)(966005)(66446008)(5660300002)(186003)(559001)(579004);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?TWEmbDAjnxFT9+gkeasjFKf3wMTKj6IUd1KBJ5r/GINPPMLZd4UcZnIlO9K/?=
+ =?us-ascii?Q?bXlkL2z8f0D8jBlDWpK0a2TgterPaaloOaqSDrHftpVz9nw5NspAMVJ0gjNN?=
+ =?us-ascii?Q?+djysZLdJYlbOaZ3iuQntXOhvY5pIkhomQZ56V1mRdPJuk2W1snHGOrv94yr?=
+ =?us-ascii?Q?jjKOnox5t+C3tJ5AJDY9JEMyWk2yHfaIb66YhDcWOqyNeadsEbnMI0BrwxnP?=
+ =?us-ascii?Q?utE+dZnDKwHjvIfR74Rgb5VZVqHjstCYPOuwj/XE3EOnkvG2P7kfgAB4A92q?=
+ =?us-ascii?Q?rJrex2/ZmRJ2cNYMi3ulqWsFn7NLlkKo9pB4EIb/o/h8Q+lnQzPqkFGbq1QK?=
+ =?us-ascii?Q?A6k53JZSgTVakDs1AG2XQTF7eyEyR/LYVxRc+WDtIoInQRoc6MO6R7KGBp3D?=
+ =?us-ascii?Q?mpXPylqak77C7TAPF4UBujc6LbWM7qXyhCkawJ3ywAX0wDFJozzo3Aub06Xv?=
+ =?us-ascii?Q?UjRVcPtT98rMSfn2gg19miYN4LWz0VZVtDMtchtI+a+/KZZFJgUzkuhqd2nR?=
+ =?us-ascii?Q?zoWQ92ihnf0/NIyGFq+sWP8JbD/lNpQ4fXJyNRO5exKEFlB42aF/HS9zNSk6?=
+ =?us-ascii?Q?/9yvVKaz+GlEpXnQnN1NIBEaFSQhM5/hcFU/86tixBhEi72BTGvnQHVw81d2?=
+ =?us-ascii?Q?w9mp3T/t9ox6KMeDyMg8lKDL4jLPuMKSE8tlCzDxnY1EPvJSp/OIY98ycWwG?=
+ =?us-ascii?Q?xIuMJhUMhY2ongam/Dt6yF27+jrPucGNObVNrsshyYpaiqUhfmzVaqT7ynpU?=
+ =?us-ascii?Q?qe//+0UregtUDhWU2EkEIiLG20QsyanSOfHKLsgX6vOCxNdYuaYsTeF+IIHP?=
+ =?us-ascii?Q?el6gyBVMx+Z06L9EL5VmoxgE62WY32RL6x9E/zhzN5FeyD32kEYiIDGIkZZE?=
+ =?us-ascii?Q?kkZaeMwobb3hZ/rC5ua3/lQ05dwtyTx61pvJ+K7UZ0SS62NdPUr8NYrzrBH4?=
+ =?us-ascii?Q?yFDdWPrVfP7NM7siOTWEC4gZZScPqTvPG4W/Pf+eoua4jHCyD4YaJ9lgDMVk?=
+ =?us-ascii?Q?uMAqYawKbxRorXfrxXXBZBi+TCg3zLFLXqoNd/+PDxWnU1K+TFITvk2KvyAF?=
+ =?us-ascii?Q?r7+NcDmJsF8p4Li7AqWZAcf/8t0M9dB9ID/mM1PVUF70kdOQQekWOhllTx+6?=
+ =?us-ascii?Q?zYAo03hhVK4VbWQn2Osmg3aT62cGqbLK4+djrHDaFUypUarpRySqPHC3jGLj?=
+ =?us-ascii?Q?wmHRgGt2iFFNwGdlOISr0qH4aEJ00QtkvygSGzKG5FsXu2IGIWCAehYObD74?=
+ =?us-ascii?Q?+zXIAOZ9uE4yyJmaOM2J+20mXaAn9TLmAPxyFEcCZz17mwp+ER8pxXvfQ7qI?=
+ =?us-ascii?Q?CCAkyiCimQOE/lZyLpzYhpYI?=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d9d33e8-0852-404b-92c6-08d8fa70c1cd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2021 09:29:06.6102 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +Kdihotd3YBlxQ5MeVtq8juTpLEFfyMh7Sis/IC+7HGDZdxyskKoy+CG5IQejo5Uc9nXmSmES+F058+9ynok3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1271
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,1229 +132,808 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0155822950=="
+Cc: "Jian, Jane" <Jane.Jian@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0155822950==
-Content-Type: multipart/alternative;
- boundary="------------279CE02ABBB411BEFC8B6003"
-Content-Language: en-US
+[AMD Public Use]
 
-This is a multi-part message in MIME format.
---------------279CE02ABBB411BEFC8B6003
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Peng Ju,
 
+Before merging your patches, it's suggested to conduct a full test in BM mode as well to avoid regression, as register access is changed.
 
+Another problem is, it seems the subject of patch 2, 4 and 5 is the same. Can you please modify it respectively a bit to be more specific?
 
-Am 08.04.21 um 10:22 schrieb Christian König:
-> Hi Andrey,
->
-> Am 07.04.21 um 21:44 schrieb Andrey Grodzovsky:
->>
->>
->> On 2021-04-07 6:28 a.m., Christian König wrote:
->>> Hi Andrey,
->>>
->>> Am 06.04.21 um 23:22 schrieb Andrey Grodzovsky:
->>>>
->>>> Hey Christian, Denis, see bellow -
->>>>
->>>> On 2021-04-06 6:34 a.m., Christian König wrote:
->>>>> Hi Andrey,
->>>>>
->>>>> well good question. My job is to watch over the implementation and 
->>>>> design and while I always help I can adjust anybodies schedule.
->>>>>
->>>>> Is the patch to print a warning when the hardware is accessed 
->>>>> without holding the locks merged yet? If not then that would 
->>>>> probably be a good starting point.
->>>>
->>>>
->>>> It's merged into amd-staging-drm-next and since I work on 
->>>> drm-misc-next I will cherry-pick it into there.
->>>>
->>>
->>> Ok good to know, I haven't tracked that one further.
->>>
->>>>
->>>>>
->>>>> Then we would need to unify this with the SRCU to make sure that 
->>>>> we have both the reset lock as well as block the hotplug code from 
->>>>> reusing the MMIO space.
->>>>
->>>> In my understanding there is a significant difference between 
->>>> handling of GPU reset and unplug - while GPU reset use case 
->>>> requires any HW accessing code to block and wait for the reset to 
->>>> finish and then proceed, hot-unplug
->>>> is permanent and hence no need to wait and proceed but rather abort 
->>>> at once.
->>>>
->>>
->>> Yes, absolutely correct.
->>>
->>>> This why I think that in any place we already check for device 
->>>> reset we should also add a check for hot-unplug but the handling 
->>>> would be different
->>>> in that for hot-unplug we would abort instead of keep waiting.
->>>>
->>>
->>> Yes, that's the rough picture in my head as well.
->>>
->>> Essentially Daniels patch of having an 
->>> amdgpu_device_hwaccess_begin()/_end() was the right approach. You 
->>> just can't do it in the top level IOCTL handler, but rather need it 
->>> somewhere between front end and backend.
->>
->>
->> Can you point me to what patch was it ? Can't find.
->>
->
-> What I mean was the approach in patch #3 in this series where he 
-> replaced the down_read/up_read with 
-> amdgpu_read_lock()/amdgpu_read_unlock().
->
-> I would just not call it amdgpu_read_lock()/amdgpu_read_unlock(), but 
-> something more descriptive.
->
-> Regards,
-> Christian.
->
->>
->>>
->>>> Similar to handling device reset for unplug we obviously also need 
->>>> to stop and block any MMIO accesses once device is unplugged and, 
->>>> as Daniel Vetter mentioned - we have to do it before finishing 
->>>> pci_remove (early device fini)
->>>> and not later (when last device reference is dropped from user 
->>>> space) in order to prevent reuse of MMIO space we still access by 
->>>> other hot plugging devices. As in device reset case we need to 
->>>> cancel all delay works, stop drm schedule, complete all unfinished 
->>>> fences(both HW and scheduler fences). While you stated strong 
->>>> objection to force signalling scheduler fences from GPU reset, quote:
->>>>
->>>> "you can't signal the dma_fence waiting. Waiting for a dma_fence 
->>>> also means you wait for the GPU reset to finish. When we would 
->>>> signal the dma_fence during the GPU reset then we would run into 
->>>> memory corruption because the hardware jobs running after the GPU 
->>>> reset would access memory which is already freed."
->>>> To my understating this is a key difference with hot-unplug, the 
->>>> device is gone, all those concerns are irrelevant and hence we can 
->>>> actually force signal scheduler fences (setting and error to them 
->>>> before) to force completion of any
->>>> waiting clients such as possibly IOCTLs or async page flips e.t.c.
->>>>
->>>
->>> Yes, absolutely correct. That's what I also mentioned to Daniel. 
->>> When we are able to nuke the device and any memory access it might 
->>> do we can also signal the fences.
->>>
->>>> Beyond blocking all delayed works and scheduler threads we also 
->>>> need to guarantee no  IOCTL can access MMIO post device unplug OR 
->>>> in flight IOCTLs are done before we finish pci_remove 
->>>> (amdgpu_pci_remove for us).
->>>> For this I suggest we do something like what we worked on with 
->>>> Takashi Iwai the ALSA maintainer recently when he helped 
->>>> implementing PCI BARs move support for snd_hda_intel. Take a look at
->>>> https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&id=cbaa324799718e2b828a8c7b5b001dd896748497 
->>>> and
->>>> https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&id=e36365d9ab5bbc30bdc221ab4b3437de34492440
->>>> We also had same issue there, how to prevent MMIO accesses while 
->>>> the BARs are migrating. What was done there is a refcount was added 
->>>> to count all IOCTLs in flight, for any in flight  IOCTL the BAR 
->>>> migration handler would
->>>> block for the refcount to drop to 0 before it would proceed, for 
->>>> any later IOCTL it stops and wait if device is in migration state. 
->>>> We even don't need the wait part, nothing to wait for, we just 
->>>> return with -ENODEV for this case.
->>>>
->>>
->>> This is essentially what the DRM SRCU is doing as well.
->>>
->>> For the hotplug case we could do this in the toplevel since we can 
->>> signal the fence and don't need to block memory management.
->>
->>
->> To make SRCU 'wait for' all IOCTLs in flight we would need to wrap 
->> every IOCTL ( practically - just drm_ioctl function) with 
->> drm_dev_enter/drm_dev_exit - can we do it ?
->>
+Regards,
+Guchun
 
-Sorry totally missed this question.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Peng Ju Zhou
+Sent: Thursday, April 8, 2021 1:33 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Jian, Jane <Jane.Jian@amd.com>
+Subject: [PATCH 2/8] drm/amdgpu: Change GC register access from MMIO to RLCG
 
-Yes, exactly that. As discussed for the hotplug case we can do this.
+In SRIOV environment, KMD should access GC registers with RLCG if GC indirect access flag enabled.
 
->>
->>>
->>> But I'm not sure, maybe we should handle it the same way as reset or 
->>> maybe we should have it at the top level.
->>
->>
->> If by top level you mean checking for device unplugged and bailing 
->> out at the entry to IOCTL or right at start of any work_item/timer 
->> function we have then seems to me it's better and more clear. Once we 
->> flushed all of them in flight there is no reason for them to execute 
->> any more when device is unplugged.
->>
+Change GC register access from MMIO to RLCG.
 
-Well I'm open to both approaches. I just think having drm_dev_enter/exit 
-on each work item would be more defensive in case we forgot to 
-cancel/sync one.
+Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  38 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 205 +++++++++---------
+ drivers/gpu/drm/amd/amdgpu/nv.c               |   2 +-
+ 3 files changed, 124 insertions(+), 121 deletions(-)
 
-Christian.
-
->> Andrey
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>> The above approach should allow us to wait for all the IOCTLs in 
->>>> flight, together with stopping scheduler threads and cancelling and 
->>>> flushing all in flight work items and timers i think It should give 
->>>> as full solution for the hot-unplug case
->>>> of preventing any MMIO accesses post device pci_remove.
->>>>
->>>> Let me know what you think guys.
->>>>
->>>> Andrey
->>>>
->>>>
->>>>>
->>>>> And then testing, testing, testing to see if we have missed something.
->>>>>
->>>>> Christian.
->>>>>
->>>>> Am 05.04.21 um 19:58 schrieb Andrey Grodzovsky:
->>>>>>
->>>>>> Denis, Christian, are there any updates in the plan on how to 
->>>>>> move on with this ? As you know I need very similar code for my 
->>>>>> up-streaming of device hot-unplug. My latest solution 
->>>>>> (https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html) 
->>>>>> was not acceptable because of low level guards on the register 
->>>>>> accessors level which was hurting performance. Basically I need a 
->>>>>> way to prevent any MMIO write accesses from kernel driver after 
->>>>>> device is removed (UMD accesses are taken care of by page 
->>>>>> faulting dummy page). We are using now hot-unplug code for 
->>>>>> Freemont program and so up-streaming became more of a priority 
->>>>>> then before. This MMIO access issue is currently my main blocker 
->>>>>> from up-streaming. Is there any way I can assist in pushing this on ?
->>>>>>
->>>>>> Andrey
->>>>>>
->>>>>> On 2021-03-18 5:51 a.m., Christian König wrote:
->>>>>>> Am 18.03.21 um 10:30 schrieb Li, Dennis:
->>>>>>>>
->>>>>>>> >>> The GPU reset doesn't complete the fences we wait for. It 
->>>>>>>> only completes the hardware fences as part of the reset.
->>>>>>>>
->>>>>>>> >>> So waiting for a fence while holding the reset lock is 
->>>>>>>> illegal and needs to be avoided.
->>>>>>>>
->>>>>>>> I understood your concern. It is more complex for DRM GFX, 
->>>>>>>> therefore I abandon adding lock protection for DRM ioctls now. 
->>>>>>>> Maybe we can try to add all kernel  dma_fence waiting in a 
->>>>>>>> list, and signal all in recovery threads. Do you have same 
->>>>>>>> concern for compute cases?
->>>>>>>>
->>>>>>>
->>>>>>> Yes, compute (KFD) is even harder to handle.
->>>>>>>
->>>>>>> See you can't signal the dma_fence waiting. Waiting for a 
->>>>>>> dma_fence also means you wait for the GPU reset to finish.
->>>>>>>
->>>>>>> When we would signal the dma_fence during the GPU reset then we 
->>>>>>> would run into memory corruption because the hardware jobs 
->>>>>>> running after the GPU reset would access memory which is already 
->>>>>>> freed.
->>>>>>>
->>>>>>>> >>> Lockdep also complains about this when it is used 
->>>>>>>> correctly. The only reason it doesn't complain here is because 
->>>>>>>> you use an atomic+wait_event instead of a locking primitive.
->>>>>>>>
->>>>>>>> Agree. This approach will escape the monitor of lockdep.  Its 
->>>>>>>> goal is to block other threads when GPU recovery thread start. 
->>>>>>>> But I couldn’t find a better method to solve this problem. Do 
->>>>>>>> you have some suggestion?
->>>>>>>>
->>>>>>>
->>>>>>> Well, completely abandon those change here.
->>>>>>>
->>>>>>> What we need to do is to identify where hardware access happens 
->>>>>>> and then insert taking the read side of the GPU reset lock so 
->>>>>>> that we don't wait for a dma_fence or allocate memory, but still 
->>>>>>> protect the hardware from concurrent access and reset.
->>>>>>>
->>>>>>> Regards,
->>>>>>> Christian.
->>>>>>>
->>>>>>>> Best Regards
->>>>>>>>
->>>>>>>> Dennis Li
->>>>>>>>
->>>>>>>> *From:* Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> *Sent:* Thursday, March 18, 2021 4:59 PM
->>>>>>>> *To:* Li, Dennis <Dennis.Li@amd.com>; 
->>>>>>>> amd-gfx@lists.freedesktop.org; Deucher, Alexander 
->>>>>>>> <Alexander.Deucher@amd.com>; Kuehling, Felix 
->>>>>>>> <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
->>>>>>>> *Subject:* AW: [PATCH 0/4] Refine GPU recovery sequence to 
->>>>>>>> enhance its stability
->>>>>>>>
->>>>>>>> Exactly that's what you don't seem to understand.
->>>>>>>>
->>>>>>>> The GPU reset doesn't complete the fences we wait for. It only 
->>>>>>>> completes the hardware fences as part of the reset.
->>>>>>>>
->>>>>>>> So waiting for a fence while holding the reset lock is illegal 
->>>>>>>> and needs to be avoided.
->>>>>>>>
->>>>>>>> Lockdep also complains about this when it is used correctly. 
->>>>>>>> The only reason it doesn't complain here is because you use an 
->>>>>>>> atomic+wait_event instead of a locking primitive.
->>>>>>>>
->>>>>>>> Regards,
->>>>>>>>
->>>>>>>> Christian.
->>>>>>>>
->>>>>>>> ------------------------------------------------------------------------
->>>>>>>>
->>>>>>>> *Von:*Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>
->>>>>>>> *Gesendet:* Donnerstag, 18. März 2021 09:28
->>>>>>>> *An:* Koenig, Christian <Christian.Koenig@amd.com 
->>>>>>>> <mailto:Christian.Koenig@amd.com>>; 
->>>>>>>> amd-gfx@lists.freedesktop.org 
->>>>>>>> <mailto:amd-gfx@lists.freedesktop.org> 
->>>>>>>> <amd-gfx@lists.freedesktop.org 
->>>>>>>> <mailto:amd-gfx@lists.freedesktop.org>>; Deucher, Alexander 
->>>>>>>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; 
->>>>>>>> Kuehling, Felix <Felix.Kuehling@amd.com 
->>>>>>>> <mailto:Felix.Kuehling@amd.com>>; Zhang, Hawking 
->>>>>>>> <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->>>>>>>> *Betreff:* RE: [PATCH 0/4] Refine GPU recovery sequence to 
->>>>>>>> enhance its stability
->>>>>>>>
->>>>>>>> >>> Those two steps need to be exchanged or otherwise it is 
->>>>>>>> possible that new delayed work items etc are started before the 
->>>>>>>> lock is taken.
->>>>>>>> What about adding check for adev->in_gpu_reset in work item? If 
->>>>>>>> exchange the two steps, it maybe introduce the deadlock.  For 
->>>>>>>> example, the user thread hold the read lock and waiting for the 
->>>>>>>> fence, if recovery thread try to hold write lock and then 
->>>>>>>> complete fences, in this case, recovery thread will always be 
->>>>>>>> blocked.
->>>>>>>>
->>>>>>>>
->>>>>>>> Best Regards
->>>>>>>> Dennis Li
->>>>>>>> -----Original Message-----
->>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com 
->>>>>>>> <mailto:Christian.Koenig@amd.com>>
->>>>>>>> Sent: Thursday, March 18, 2021 3:54 PM
->>>>>>>> To: Li, Dennis <Dennis.Li@amd.com <mailto:Dennis.Li@amd.com>>; 
->>>>>>>> amd-gfx@lists.freedesktop.org 
->>>>>>>> <mailto:amd-gfx@lists.freedesktop.org>; Deucher, Alexander 
->>>>>>>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; 
->>>>>>>> Kuehling, Felix <Felix.Kuehling@amd.com 
->>>>>>>> <mailto:Felix.Kuehling@amd.com>>; Zhang, Hawking 
->>>>>>>> <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
->>>>>>>> Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to 
->>>>>>>> enhance its stability
->>>>>>>>
->>>>>>>> Am 18.03.21 um 08:23 schrieb Dennis Li:
->>>>>>>> > We have defined two variables in_gpu_reset and reset_sem in 
->>>>>>>> adev object. The atomic type variable in_gpu_reset is used to 
->>>>>>>> avoid recovery thread reenter and make lower functions return 
->>>>>>>> more earlier when recovery start, but couldn't block recovery 
->>>>>>>> thread when it access hardware. The r/w semaphore reset_sem is 
->>>>>>>> used to solve these synchronization issues between recovery 
->>>>>>>> thread and other threads.
->>>>>>>> >
->>>>>>>> > The original solution locked registers' access in lower 
->>>>>>>> functions, which will introduce following issues:
->>>>>>>> >
->>>>>>>> > 1) many lower functions are used in both recovery thread and 
->>>>>>>> others. Firstly we must harvest these functions, it is easy to 
->>>>>>>> miss someones. Secondly these functions need select which lock 
->>>>>>>> (read lock or write lock) will be used, according to the thread 
->>>>>>>> it is running in. If the thread context isn't considered, the 
->>>>>>>> added lock will easily introduce deadlock. Besides that, in 
->>>>>>>> most time, developer easily forget to add locks for new functions.
->>>>>>>> >
->>>>>>>> > 2) performance drop. More lower functions are more frequently 
->>>>>>>> called.
->>>>>>>> >
->>>>>>>> > 3) easily introduce false positive lockdep complaint, because 
->>>>>>>> write lock has big range in recovery thread, but low level 
->>>>>>>> functions will hold read lock may be protected by other locks 
->>>>>>>> in other threads.
->>>>>>>> >
->>>>>>>> > Therefore the new solution will try to add lock protection 
->>>>>>>> for ioctls of kfd. Its goal is that there are no threads except 
->>>>>>>> for recovery thread or its children (for xgmi) to access 
->>>>>>>> hardware when doing GPU reset and resume. So refine recovery 
->>>>>>>> thread as the following:
->>>>>>>> >
->>>>>>>> > Step 0: atomic_cmpxchg(&adev->in_gpu_reset, 0, 1)
->>>>>>>> >     1). if failed, it means system had a recovery thread 
->>>>>>>> running, current thread exit directly;
->>>>>>>> >     2). if success, enter recovery thread;
->>>>>>>> >
->>>>>>>> > Step 1: cancel all delay works, stop drm schedule, complete 
->>>>>>>> all unreceived fences and so on. It try to stop or pause other 
->>>>>>>> threads.
->>>>>>>> >
->>>>>>>> > Step 2: call down_write(&adev->reset_sem) to hold write lock, 
->>>>>>>> which will block recovery thread until other threads release 
->>>>>>>> read locks.
->>>>>>>>
->>>>>>>> Those two steps need to be exchanged or otherwise it is 
->>>>>>>> possible that new delayed work items etc are started before the 
->>>>>>>> lock is taken.
->>>>>>>>
->>>>>>>> Just to make it clear until this is fixed the whole patch set 
->>>>>>>> is a NAK.
->>>>>>>>
->>>>>>>> Regards,
->>>>>>>> Christian.
->>>>>>>>
->>>>>>>> >
->>>>>>>> > Step 3: normally, there is only recovery threads running to 
->>>>>>>> access hardware, it is safe to do gpu reset now.
->>>>>>>> >
->>>>>>>> > Step 4: do post gpu reset, such as call all ips' resume 
->>>>>>>> functions;
->>>>>>>> >
->>>>>>>> > Step 5: atomic set adev->in_gpu_reset as 0, wake up other 
->>>>>>>> threads and release write lock. Recovery thread exit normally.
->>>>>>>> >
->>>>>>>> > Other threads call the amdgpu_read_lock to synchronize with 
->>>>>>>> recovery thread. If it finds that in_gpu_reset is 1, it should 
->>>>>>>> release read lock if it has holden one, and then blocks itself 
->>>>>>>> to wait for recovery finished event. If thread successfully 
->>>>>>>> hold read lock and in_gpu_reset is 0, it continues. It will 
->>>>>>>> exit normally or be stopped by recovery thread in step 1.
->>>>>>>> >
->>>>>>>> > Dennis Li (4):
->>>>>>>> >    drm/amdgpu: remove reset lock from low level functions
->>>>>>>> >    drm/amdgpu: refine the GPU recovery sequence
->>>>>>>> >    drm/amdgpu: instead of using down/up_read directly
->>>>>>>> >    drm/amdkfd: add reset lock protection for kfd entry functions
->>>>>>>> >
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/amdgpu.h |   6 +
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  14 +-
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 173 
->>>>>>>> +++++++++++++-----
->>>>>>>> > .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c |   8 -
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |   4 +-
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c |   9 +-
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c |   5 +-
->>>>>>>> > drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c |   5 +-
->>>>>>>> > drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 172 ++++++++++++++++-
->>>>>>>> > drivers/gpu/drm/amd/amdkfd/kfd_priv.h |   3 +-
->>>>>>>> > drivers/gpu/drm/amd/amdkfd/kfd_process.c |   4 +
->>>>>>>> > .../amd/amdkfd/kfd_process_queue_manager.c |  17 ++
->>>>>>>> >   12 files changed, 345 insertions(+), 75 deletions(-)
->>>>>>>> >
->>>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> _______________________________________________
->>>>>>> amd-gfx mailing list
->>>>>>> amd-gfx@lists.freedesktop.org
->>>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>>
->>>>
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx@lists.freedesktop.org
->>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->
-
-
---------------279CE02ABBB411BEFC8B6003
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">Am 08.04.21 um 10:22 schrieb Christian
-      König:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b67ab565-e4be-0809-7021-cb59fd10464a@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      Hi Andrey,<br>
-      <br>
-      <div class="moz-cite-prefix">Am 07.04.21 um 21:44 schrieb Andrey
-        Grodzovsky:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com">
-        <p><br>
-        </p>
-        <div class="moz-cite-prefix">On 2021-04-07 6:28 a.m., Christian
-          König wrote:<br>
-        </div>
-        <blockquote type="cite"
-          cite="mid:e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com"> Hi
-          Andrey,<br>
-          <br>
-          <div class="moz-cite-prefix">Am 06.04.21 um 23:22 schrieb
-            Andrey Grodzovsky:<br>
-          </div>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p>Hey Christian, Denis, see bellow - <br>
-            </p>
-            <div class="moz-cite-prefix">On 2021-04-06 6:34 a.m.,
-              Christian König wrote:<br>
-            </div>
-            <blockquote type="cite"
-              cite="mid:51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com">
-              Hi Andrey,<br>
-              <br>
-              well good question. My job is to watch over the
-              implementation and design and while I always help I can
-              adjust anybodies schedule.<br>
-              <br>
-              Is the patch to print a warning when the hardware is
-              accessed without holding the locks merged yet? If not then
-              that would probably be a good starting point.<br>
-            </blockquote>
-            <p><br>
-            </p>
-            <p>It's merged into amd-staging-drm-next and since I work on
-              drm-misc-next I will cherry-pick it into there.<br>
-            </p>
-          </blockquote>
-          <br>
-          Ok good to know, I haven't tracked that one further.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p> </p>
-            <p><br>
-            </p>
-            <blockquote type="cite"
-              cite="mid:51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com"> <br>
-              Then we would need to unify this with the SRCU to make
-              sure that we have both the reset lock as well as block the
-              hotplug code from reusing the MMIO space.<br>
-            </blockquote>
-            <br>
-            <p>In my understanding there is a significant difference
-              between handling of GPU reset and unplug - while GPU reset
-              use case requires any HW accessing code to block and wait
-              for the reset to finish and then proceed, hot-unplug<br>
-              is permanent and hence no need to wait and proceed but
-              rather abort at once.</p>
-          </blockquote>
-          <br>
-          Yes, absolutely correct.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p> This why I think that in any place we already check for
-              device reset we should also add a check for hot-unplug but
-              the handling would be different<br>
-              in that for hot-unplug we would abort instead of keep
-              waiting.</p>
-          </blockquote>
-          <br>
-          Yes, that's the rough picture in my head as well.<br>
-          <br>
-          Essentially Daniels patch of having an
-          amdgpu_device_hwaccess_begin()/_end() was the right approach.
-          You just can't do it in the top level IOCTL handler, but
-          rather need it somewhere between front end and backend.<br>
-        </blockquote>
-        <p><br>
-        </p>
-        <p>Can you point me to what patch was it ? Can't find.</p>
-      </blockquote>
-      <br>
-      What I mean was the approach in patch #3 in this series where he
-      replaced the down_read/up_read with
-      amdgpu_read_lock()/amdgpu_read_unlock().<br>
-      <br>
-      I would just not call it amdgpu_read_lock()/amdgpu_read_unlock(),
-      but something more descriptive.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      <blockquote type="cite"
-        cite="mid:1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com">
-        <p><br>
-        </p>
-        <blockquote type="cite"
-          cite="mid:e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com"> <br>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p>Similar to handling device reset for unplug we obviously
-              also need to stop and block any MMIO accesses once device
-              is unplugged and, as Daniel Vetter mentioned - we have to
-              do it before finishing pci_remove (early device fini)<br>
-              and not later (when last device reference is dropped from
-              user space) in order to prevent reuse of MMIO space we
-              still access by other hot plugging devices. As in device
-              reset case we need to cancel all delay works, stop drm
-              schedule, complete all unfinished fences(both HW and
-              scheduler fences). While you stated strong objection to
-              force signalling scheduler fences from GPU reset, quote: <br>
-            </p>
-            <p>"you can't signal the dma_fence waiting. Waiting for a
-              dma_fence also means you wait for the GPU reset to finish.
-              When we would signal the dma_fence during the GPU reset
-              then we would run into memory corruption because the
-              hardware jobs running after the GPU reset would access
-              memory which is already freed."<br>
-              To my understating this is a key difference with
-              hot-unplug, the device is gone, all those concerns are
-              irrelevant and hence we can actually force signal
-              scheduler fences (setting and error to them before) to
-              force completion of any<br>
-              waiting clients such as possibly IOCTLs or async page
-              flips e.t.c.<br>
-            </p>
-          </blockquote>
-          <br>
-          Yes, absolutely correct. That's what I also mentioned to
-          Daniel. When we are able to nuke the device and any memory
-          access it might do we can also signal the fences.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p> </p>
-            <p>Beyond blocking all delayed works and scheduler threads
-              we also need to guarantee no  IOCTL can access MMIO post
-              device unplug OR in flight IOCTLs are done before we
-              finish pci_remove (amdgpu_pci_remove for us).<br>
-              For this I suggest we do something like what we worked on
-              with Takashi Iwai the ALSA maintainer recently when he
-              helped implementing PCI BARs move support for
-              snd_hda_intel. Take a look at<br>
-              <a class="moz-txt-link-freetext"
-href="https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1%26id%3Dcbaa324799718e2b828a8c7b5b001dd896748497&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cee01a18abd3b4c85742308d8f9aff67b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533881445109737%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=TkT2g6JYWW2Pp7RNURfloaksM2%2FAeYgYfxlsQRnPOCo%3D&amp;reserved=0"
-originalsrc="https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&amp;id=cbaa324799718e2b828a8c7b5b001dd896748497"
-shash="FHl7248HC/x31wHspNflTb+ftRfxcDYXP2Hw0HqnTdrHWaczzMXdYhA6jSindbHmzza4qGpaEw8rvXJiBkRY3BkuDLhJJ7JSbi4OmUwe/nOT88U5gIkcFiAhGQvVcrmr2Y/j45ubg62EyKL2hYurORVeqj+7ZVDa+P+utpQYQz8="
-                moz-do-not-send="true">https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&amp;id=cbaa324799718e2b828a8c7b5b001dd896748497</a>
-              and<br>
-              <a class="moz-txt-link-freetext"
-href="https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Dyadro%2Fpcie_hotplug%2Fmovable_bars_v9.1%26id%3De36365d9ab5bbc30bdc221ab4b3437de34492440&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cee01a18abd3b4c85742308d8f9aff67b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533881445119727%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=e%2BuFuY7SEOTngYU%2BnFzW%2BvhEHqdbfliyx%2Fdx%2FhkoIKY%3D&amp;reserved=0"
-originalsrc="https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&amp;id=e36365d9ab5bbc30bdc221ab4b3437de34492440"
-shash="uoyaNhinHvE/xWTKNnbny/XoEWda4ENoJEbtErzTv4bEk8x8Dc1J6uMLoBwf6Q4QSevoWQGTQcWJ+AZe/a69lQLeXKNQHz0Ul1t7kZbSEQn91e6a/ULK4Fr4BFwiYdJsxMTFoWRIJpkfGdx7s5/CoH/re504Yue7no8hOpduxpo="
-                moz-do-not-send="true">https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=yadro/pcie_hotplug/movable_bars_v9.1&amp;id=e36365d9ab5bbc30bdc221ab4b3437de34492440</a><br>
-              We also had same issue there, how to prevent MMIO accesses
-              while the BARs are migrating. What was done there is a
-              refcount was added to count all IOCTLs in flight, for any
-              in flight  IOCTL the BAR migration handler would <br>
-              block for the refcount to drop to 0 before it would
-              proceed, for any later IOCTL it stops and wait if device
-              is in migration state. We even don't need the wait part,
-              nothing to wait for, we just return with -ENODEV for this
-              case.</p>
-          </blockquote>
-          <br>
-          This is essentially what the DRM SRCU is doing as well.<br>
-        </blockquote>
-        <blockquote type="cite"
-          cite="mid:e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com"> <br>
-          For the hotplug case we could do this in the toplevel since we
-          can signal the fence and don't need to block memory
-          management.<br>
-        </blockquote>
-        <p><br>
-        </p>
-        <p>To make SRCU 'wait for' all IOCTLs in flight we would need to
-          wrap every IOCTL ( practically - just drm_ioctl function) with
-          drm_dev_enter/drm_dev_exit - can we do it ? <br>
-        </p>
-      </blockquote>
-    </blockquote>
-    <br>
-    Sorry totally missed this question.<br>
-    <br>
-    Yes, exactly that. As discussed for the hotplug case we can do this.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:b67ab565-e4be-0809-7021-cb59fd10464a@amd.com">
-      <blockquote type="cite"
-        cite="mid:1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com">
-        <p> </p>
-        <p><br>
-        </p>
-        <blockquote type="cite"
-          cite="mid:e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com"> <br>
-          But I'm not sure, maybe we should handle it the same way as
-          reset or maybe we should have it at the top level.<br>
-        </blockquote>
-        <p><br>
-        </p>
-        <p>If by top level you mean checking for device unplugged and
-          bailing out at the entry to IOCTL or right at start of any
-          work_item/timer function we have then seems to me it's better
-          and more clear. Once we flushed all of them in flight there is
-          no reason for them to execute any more when device is
-          unplugged.<br>
-        </p>
-      </blockquote>
-    </blockquote>
-    <br>
-    Well I'm open to both approaches. I just think having
-    drm_dev_enter/exit on each work item would be more defensive in case
-    we forgot to cancel/sync one.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:b67ab565-e4be-0809-7021-cb59fd10464a@amd.com">
-      <blockquote type="cite"
-        cite="mid:1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com">
-        <p> </p>
-        <p>Andrey<br>
-        </p>
-        <p> <br>
-        </p>
-        <blockquote type="cite"
-          cite="mid:e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com"> <br>
-          Regards,<br>
-          Christian.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com">
-            <p>The above approach should allow us to wait for all the
-              IOCTLs in flight, together with stopping scheduler threads
-              and cancelling and flushing all in flight work items and
-              timers i think It should give as full solution for the
-              hot-unplug case<br>
-              of preventing any MMIO accesses post device pci_remove.<br>
-              <br>
-              Let me know what you think guys.</p>
-            <p>Andrey</p>
-            <p><br>
-            </p>
-            <blockquote type="cite"
-              cite="mid:51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com"> <br>
-              And then testing, testing, testing to see if we have
-              missed something.<br>
-              <br>
-              Christian.<br>
-              <br>
-              <div class="moz-cite-prefix">Am 05.04.21 um 19:58 schrieb
-                Andrey Grodzovsky:<br>
-              </div>
-              <blockquote type="cite"
-                cite="mid:1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com">
-                <p>Denis, Christian, are there any updates in the plan
-                  on how to move on with this ? As you know I need very
-                  similar code for my up-streaming of device hot-unplug.
-                  My latest solution (<a class="moz-txt-link-freetext"
-href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Farchives%2Famd-gfx%2F2021-January%2F058606.html&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cee01a18abd3b4c85742308d8f9aff67b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533881445129722%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=sMISjE%2FOY0KjAY5rOXXy4KoX%2BeKfhROqwNpH0eEbu7k%3D&amp;reserved=0"
-originalsrc="https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html"
-shash="ZJFWIZXzcZKY5pN5tv3TCwIIGHY9s30XRsxyyPhOBtRC9llxWPUTCUgnV/mo2HWvAAhcyZaTcUeq+K/3UsQitNwkykgRKMT6Gw0obU9KcVf/m2+Q8INspLNAZklpcIzMoaO5qvfUqCFXpaM6e0tBjlq89+ob+YpSDJhtFoqNsPg="
-                    moz-do-not-send="true">https://lists.freedesktop.org/archives/amd-gfx/2021-January/058606.html</a>)
-                  was not acceptable because of low level guards on the
-                  register accessors level which was hurting
-                  performance. Basically I need a way to prevent any
-                  MMIO write accesses from kernel driver after device is
-                  removed (UMD accesses are taken care of by page
-                  faulting dummy page). We are using now hot-unplug code
-                  for Freemont program and so up-streaming became more
-                  of a priority then before. This MMIO access issue is
-                  currently my main blocker from up-streaming. Is there
-                  any way I can assist in pushing this on ?</p>
-                <p>Andrey  <br>
-                </p>
-                <div class="moz-cite-prefix">On 2021-03-18 5:51 a.m.,
-                  Christian König wrote:<br>
-                </div>
-                <blockquote type="cite"
-                  cite="mid:378fdffb-99b5-2a14-736d-a06f310b040c@amd.com">
-                  Am 18.03.21 um 10:30 schrieb Li, Dennis:<br>
-                  <blockquote type="cite"
-cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-                    <meta name="Generator" content="Microsoft Word 15
-                      (filtered medium)">
-                    <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-                    <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:\7B49 \7EBF ;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"\@\7B49 \7EBF ";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-                    <div class="WordSection1">
-                      <p class="MsoNormal">&gt;&gt;&gt; The GPU reset
-                        doesn't complete the fences we wait for. It only
-                        completes the hardware fences as part of the
-                        reset.<o:p></o:p></p>
-                      <p class="MsoNormal">&gt;&gt;&gt; So waiting for a
-                        fence while holding the reset lock is illegal
-                        and needs to be avoided.<o:p></o:p></p>
-                      <p class="MsoNormal">I understood your concern. It
-                        is more complex for DRM GFX, therefore I abandon
-                        adding lock protection for DRM ioctls now. Maybe
-                        we can try to add all kernel  dma_fence waiting
-                        in a list, and signal all in recovery threads.
-                        Do you have same concern for compute cases? </p>
-                    </div>
-                  </blockquote>
-                  <br>
-                  Yes, compute (KFD) is even harder to handle.<br>
-                  <br>
-                  See you can't signal the dma_fence waiting. Waiting
-                  for a dma_fence also means you wait for the GPU reset
-                  to finish.<br>
-                  <br>
-                  When we would signal the dma_fence during the GPU
-                  reset then we would run into memory corruption because
-                  the hardware jobs running after the GPU reset would
-                  access memory which is already freed.<br>
-                  <br>
-                  <blockquote type="cite"
-cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-                    <div class="WordSection1">
-                      <p class="MsoNormal"><o:p></o:p></p>
-                      <p class="MsoNormal"><o:p> </o:p></p>
-                      <p class="MsoNormal">&gt;&gt;&gt; Lockdep also
-                        complains about this when it is used correctly.
-                        The only reason it doesn't complain here is
-                        because you use an atomic+wait_event instead of
-                        a locking primitive.<o:p></o:p></p>
-                      <p class="MsoNormal">Agree. This approach will
-                        escape the monitor of lockdep.  Its goal is to
-                        block other threads when GPU recovery thread
-                        start. But I couldn’t find a better method to
-                        solve this problem. Do you have some suggestion?
-                      </p>
-                    </div>
-                  </blockquote>
-                  <br>
-                  Well, completely abandon those change here.<br>
-                  <br>
-                  What we need to do is to identify where hardware
-                  access happens and then insert taking the read side of
-                  the GPU reset lock so that we don't wait for a
-                  dma_fence or allocate memory, but still protect the
-                  hardware from concurrent access and reset.<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  <blockquote type="cite"
-cite="mid:DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com">
-                    <div class="WordSection1">
-                      <p class="MsoNormal"><o:p></o:p></p>
-                      <p class="MsoNormal"><o:p> </o:p></p>
-                      <p class="MsoNormal">Best Regards<o:p></o:p></p>
-                      <p class="MsoNormal">Dennis Li<o:p></o:p></p>
-                      <p class="MsoNormal"><o:p> </o:p></p>
-                      <div>
-                        <div style="border:none;border-top:solid #E1E1E1
-                          1.0pt;padding:3.0pt 0in 0in 0in">
-                          <p class="MsoNormal"><b>From:</b> Koenig,
-                            Christian <a class="moz-txt-link-rfc2396E"
-                              href="mailto:Christian.Koenig@amd.com"
-                              moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>
-                            <br>
-                            <b>Sent:</b> Thursday, March 18, 2021 4:59
-                            PM<br>
-                            <b>To:</b> Li, Dennis <a
-                              class="moz-txt-link-rfc2396E"
-                              href="mailto:Dennis.Li@amd.com"
-                              moz-do-not-send="true">&lt;Dennis.Li@amd.com&gt;</a>;
-                            <a class="moz-txt-link-abbreviated"
-                              href="mailto:amd-gfx@lists.freedesktop.org"
-                              moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>;
-                            Deucher, Alexander <a
-                              class="moz-txt-link-rfc2396E"
-                              href="mailto:Alexander.Deucher@amd.com"
-                              moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                            Kuehling, Felix <a
-                              class="moz-txt-link-rfc2396E"
-                              href="mailto:Felix.Kuehling@amd.com"
-                              moz-do-not-send="true">&lt;Felix.Kuehling@amd.com&gt;</a>;
-                            Zhang, Hawking <a
-                              class="moz-txt-link-rfc2396E"
-                              href="mailto:Hawking.Zhang@amd.com"
-                              moz-do-not-send="true">&lt;Hawking.Zhang@amd.com&gt;</a><br>
-                            <b>Subject:</b> AW: [PATCH 0/4] Refine GPU
-                            recovery sequence to enhance its stability<o:p></o:p></p>
-                        </div>
-                      </div>
-                      <p class="MsoNormal"><o:p> </o:p></p>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">Exactly
-                            that's what you don't seem to understand.<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">The GPU
-                            reset doesn't complete the fences we wait
-                            for. It only completes the hardware fences
-                            as part of the reset.<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">So waiting
-                            for a fence while holding the reset lock is
-                            illegal and needs to be avoided.<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">Lockdep
-                            also complains about this when it is used
-                            correctly. The only reason it doesn't
-                            complain here is because you use an
-                            atomic+wait_event instead of a locking
-                            primitive.<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">Regards,<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><span
-                            style="font-size:12.0pt;font-family:&quot;Segoe
-                            UI&quot;,sans-serif;color:black">Christian.<o:p></o:p></span></p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"><o:p> </o:p></p>
-                      </div>
-                      <div class="MsoNormal" style="text-align:center"
-                        align="center">
-                        <hr width="98%" size="2" align="center"> </div>
-                      <div id="divRplyFwdMsg">
-                        <p class="MsoNormal"><b><span
-                              style="color:black">Von:</span></b><span
-                            style="color:black"> Li, Dennis &lt;<a
-                              href="mailto:Dennis.Li@amd.com"
-                              moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;<br>
-                            <b>Gesendet:</b> Donnerstag, 18. März 2021
-                            09:28<br>
-                            <b>An:</b> Koenig, Christian &lt;<a
-                              href="mailto:Christian.Koenig@amd.com"
-                              moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;;
-                            <a
-                              href="mailto:amd-gfx@lists.freedesktop.org"
-                              moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-                            &lt;<a
-                              href="mailto:amd-gfx@lists.freedesktop.org"
-                              moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>&gt;;
-                            Deucher, Alexander &lt;<a
-                              href="mailto:Alexander.Deucher@amd.com"
-                              moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                            Kuehling, Felix &lt;<a
-                              href="mailto:Felix.Kuehling@amd.com"
-                              moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                            Zhang, Hawking &lt;<a
-                              href="mailto:Hawking.Zhang@amd.com"
-                              moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                            <b>Betreff:</b> RE: [PATCH 0/4] Refine GPU
-                            recovery sequence to enhance its stability</span>
-                          <o:p></o:p></p>
-                        <div>
-                          <p class="MsoNormal"> <o:p></o:p></p>
-                        </div>
-                      </div>
-                      <div>
-                        <div>
-                          <p class="MsoNormal">&gt;&gt;&gt; Those two
-                            steps need to be exchanged or otherwise it
-                            is possible that new delayed work items etc
-                            are started before the lock is taken.<br>
-                            What about adding check for
-                            adev-&gt;in_gpu_reset in work item? If
-                            exchange the two steps, it maybe introduce
-                            the deadlock.  For example, the user thread
-                            hold the read lock and waiting for the
-                            fence, if recovery thread try to hold write
-                            lock and then complete fences, in this case,
-                            recovery thread will always be blocked.<o:p></o:p></p>
-                        </div>
-                        <div>
-                          <p class="MsoNormal"
-                            style="margin-bottom:12.0pt"><br>
-                            Best Regards<br>
-                            Dennis Li<br>
-                            -----Original Message-----<br>
-                            From: Koenig, Christian &lt;<a
-                              href="mailto:Christian.Koenig@amd.com"
-                              moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;
-                            <br>
-                            Sent: Thursday, March 18, 2021 3:54 PM<br>
-                            To: Li, Dennis &lt;<a
-                              href="mailto:Dennis.Li@amd.com"
-                              moz-do-not-send="true">Dennis.Li@amd.com</a>&gt;;
-                            <a
-                              href="mailto:amd-gfx@lists.freedesktop.org"
-                              moz-do-not-send="true">
-                              amd-gfx@lists.freedesktop.org</a>;
-                            Deucher, Alexander &lt;<a
-                              href="mailto:Alexander.Deucher@amd.com"
-                              moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                            Kuehling, Felix &lt;<a
-                              href="mailto:Felix.Kuehling@amd.com"
-                              moz-do-not-send="true">Felix.Kuehling@amd.com</a>&gt;;
-                            Zhang, Hawking &lt;<a
-                              href="mailto:Hawking.Zhang@amd.com"
-                              moz-do-not-send="true">Hawking.Zhang@amd.com</a>&gt;<br>
-                            Subject: Re: [PATCH 0/4] Refine GPU recovery
-                            sequence to enhance its stability<br>
-                            <br>
-                            Am 18.03.21 um 08:23 schrieb Dennis Li:<br>
-                            &gt; We have defined two variables
-                            in_gpu_reset and reset_sem in adev object.
-                            The atomic type variable in_gpu_reset is
-                            used to avoid recovery thread reenter and
-                            make lower functions return more earlier
-                            when recovery start, but couldn't block
-                            recovery thread when it access hardware. The
-                            r/w semaphore reset_sem is used to solve
-                            these synchronization issues between
-                            recovery thread and other threads.<br>
-                            &gt;<br>
-                            &gt; The original solution locked registers'
-                            access in lower functions, which will
-                            introduce following issues:<br>
-                            &gt;<br>
-                            &gt; 1) many lower functions are used in
-                            both recovery thread and others. Firstly we
-                            must harvest these functions, it is easy to
-                            miss someones. Secondly these functions need
-                            select which lock (read lock or write lock)
-                            will be used, according to the thread it is
-                            running in. If the thread context isn't
-                            considered, the added lock will easily
-                            introduce deadlock. Besides that, in most
-                            time, developer easily forget to add locks
-                            for new functions.<br>
-                            &gt;<br>
-                            &gt; 2) performance drop. More lower
-                            functions are more frequently called.<br>
-                            &gt;<br>
-                            &gt; 3) easily introduce false positive
-                            lockdep complaint, because write lock has
-                            big range in recovery thread, but low level
-                            functions will hold read lock may be
-                            protected by other locks in other threads.<br>
-                            &gt;<br>
-                            &gt; Therefore the new solution will try to
-                            add lock protection for ioctls of kfd. Its
-                            goal is that there are no threads except for
-                            recovery thread or its children (for xgmi)
-                            to access hardware when doing GPU reset and
-                            resume. So refine recovery thread as the
-                            following:<br>
-                            &gt;<br>
-                            &gt; Step 0:
-                            atomic_cmpxchg(&amp;adev-&gt;in_gpu_reset,
-                            0, 1)<br>
-                            &gt;     1). if failed, it means system had
-                            a recovery thread running, current thread
-                            exit directly;<br>
-                            &gt;     2). if success, enter recovery
-                            thread;<br>
-                            &gt;<br>
-                            &gt; Step 1: cancel all delay works, stop
-                            drm schedule, complete all unreceived fences
-                            and so on. It try to stop or pause other
-                            threads.<br>
-                            &gt;<br>
-                            &gt; Step 2: call
-                            down_write(&amp;adev-&gt;reset_sem) to hold
-                            write lock, which will block recovery thread
-                            until other threads release read locks.<br>
-                            <br>
-                            Those two steps need to be exchanged or
-                            otherwise it is possible that new delayed
-                            work items etc are started before the lock
-                            is taken.<br>
-                            <br>
-                            Just to make it clear until this is fixed
-                            the whole patch set is a NAK.<br>
-                            <br>
-                            Regards,<br>
-                            Christian.<br>
-                            <br>
-                            &gt;<br>
-                            &gt; Step 3: normally, there is only
-                            recovery threads running to access hardware,
-                            it is safe to do gpu reset now.<br>
-                            &gt;<br>
-                            &gt; Step 4: do post gpu reset, such as call
-                            all ips' resume functions;<br>
-                            &gt;<br>
-                            &gt; Step 5: atomic set
-                            adev-&gt;in_gpu_reset as 0, wake up other
-                            threads and release write lock. Recovery
-                            thread exit normally.<br>
-                            &gt;<br>
-                            &gt; Other threads call the amdgpu_read_lock
-                            to synchronize with recovery thread. If it
-                            finds that in_gpu_reset is 1, it should
-                            release read lock if it has holden one, and
-                            then blocks itself to wait for recovery
-                            finished event. If thread successfully hold
-                            read lock and in_gpu_reset is 0, it
-                            continues. It will exit normally or be
-                            stopped by recovery thread in step 1.<br>
-                            &gt;<br>
-                            &gt; Dennis Li (4):<br>
-                            &gt;    drm/amdgpu: remove reset lock from
-                            low level functions<br>
-                            &gt;    drm/amdgpu: refine the GPU recovery
-                            sequence<br>
-                            &gt;    drm/amdgpu: instead of using
-                            down/up_read directly<br>
-                            &gt;    drm/amdkfd: add reset lock
-                            protection for kfd entry functions<br>
-                            &gt;<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/amdgpu.h          
-                            |   6 +<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c  
-                            |  14 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   
-                            | 173 +++++++++++++-----<br>
-                            &gt;  
-                            .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c   
-                            |   8 -<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c       
-                            |   4 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c        
-                            |   9 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c        
-                            |   5 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c        
-                            |   5 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdkfd/kfd_chardev.c     
-                            | 172 ++++++++++++++++-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdkfd/kfd_priv.h        
-                            |   3 +-<br>
-                            &gt;  
-                            drivers/gpu/drm/amd/amdkfd/kfd_process.c     
-                            |   4 +<br>
-                            &gt;  
-                            .../amd/amdkfd/kfd_process_queue_manager.c   
-                            |  17 ++<br>
-                            &gt;   12 files changed, 345 insertions(+),
-                            75 deletions(-)<br>
-                            &gt;<o:p></o:p></p>
-                        </div>
-                      </div>
-                    </div>
-                  </blockquote>
-                  <br>
-                  <br>
-                  <fieldset class="mimeAttachmentHeader"></fieldset>
-                  <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cee01a18abd3b4c85742308d8f9aff67b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533881445129722%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=gGk00Js7gf1eD5flMUiJuP8Op4O1KjnqplS5X%2B2BpXw%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="e19VDPSJDjl0CDWElWDBmXxl+V+E2vWuyBZTe1sSoHQwveKkSV+1dhpI+CKarwJBVrsKqPUyaAw1S2AapBmfOwNI4lf4zVpldsQJgi0olKBvBNo9tXin2NxO01ANSC5HRnOpOazmGJKcRI2Jm9HZkSU1aWqd2qKTp3LoTzqUqUw=" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-                </blockquote>
-              </blockquote>
-              <br>
-            </blockquote>
-            <br>
-            <fieldset class="mimeAttachmentHeader"></fieldset>
-            <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cee01a18abd3b4c85742308d8f9aff67b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533881445139715%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=nqM8PNaMcfzPwfpoO%2FBf7rwIotKB5yMDqOxSaUOqF0I%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="hI23A+rK2YrPnY4kwR78CmtZO+0+01791iF+WCcrK9n20wilupxopMrSWZ0LQogmWFmpq1HoPjT4iPmWRM/LMgXNNdXLIL2NO74Rd/OmsX0z5tg+C6WYl4T7FkfXi+TK37th72gGbSLCQ4Y+2fIjlenHyOju4x32EkpdvYh0Nm8=" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-          </blockquote>
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------279CE02ABBB411BEFC8B6003--
-
---===============0155822950==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 62aa1a6f64ed..9394dbf504de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -96,8 +96,8 @@ static void kgd_program_sh_mem_settings(struct kgd_dev *kgd, uint32_t vmid,
+ 
+ 	lock_srbm(kgd, 0, 0, 0, vmid);
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_CONFIG), sh_mem_config);
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_BASES), sh_mem_bases);
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_CONFIG), sh_mem_config);
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_BASES), sh_mem_bases);
+ 	/* APE1 no longer exists on GFX9 */
+ 
+ 	unlock_srbm(kgd);
+@@ -161,7 +161,7 @@ static int kgd_init_interrupts(struct kgd_dev *kgd, uint32_t pipe_id)
+ 
+ 	lock_srbm(kgd, mec, pipe, 0, 0);
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmCPC_INT_CNTL),
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCPC_INT_CNTL),
+ 		CP_INT_CNTL_RING0__TIME_STAMP_INT_ENABLE_MASK |
+ 		CP_INT_CNTL_RING0__OPCODE_ERROR_INT_ENABLE_MASK);
+ 
+@@ -245,7 +245,7 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+ 	/* Activate doorbell logic before triggering WPTR poll. */
+ 	data = REG_SET_FIELD(m->cp_hqd_pq_doorbell_control,
+ 			     CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_EN, 1);
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL), data);
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL), 
++data);
+ 
+ 	if (wptr) {
+ 		/* Don't read wptr with get_user because the user @@ -274,17 +274,17 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+ 		guessed_wptr += m->cp_hqd_pq_wptr_lo & ~(queue_size - 1);
+ 		guessed_wptr += (uint64_t)m->cp_hqd_pq_wptr_hi << 32;
+ 
+-		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_LO),
++		WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_LO),
+ 		       lower_32_bits(guessed_wptr));
+-		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI),
++		WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI),
+ 		       upper_32_bits(guessed_wptr));
+-		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
++		WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
+ 		       lower_32_bits((uint64_t)wptr));
+-		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
++		WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
+ 		       upper_32_bits((uint64_t)wptr));
+ 		pr_debug("%s setting CP_PQ_WPTR_POLL_CNTL1 to %x\n", __func__,
+ 			 (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
+-		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
++		WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
+ 		       (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
+ 	}
+ 
+@@ -294,7 +294,7 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+ 			     CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
+ 
+ 	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE, 1);
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE), data);
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE), data);
+ 
+ 	release_queue(kgd);
+ 
+@@ -497,13 +497,13 @@ static bool kgd_hqd_is_occupied(struct kgd_dev *kgd, uint64_t queue_address,
+ 	uint32_t low, high;
+ 
+ 	acquire_queue(kgd, pipe_id, queue_id);
+-	act = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
++	act = RREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
+ 	if (act) {
+ 		low = lower_32_bits(queue_address >> 8);
+ 		high = upper_32_bits(queue_address >> 8);
+ 
+-		if (low == RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE)) &&
+-		   high == RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE_HI)))
++		if (low == RREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE)) &&
++		   high == RREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE_HI)))
+ 			retval = true;
+ 	}
+ 	release_queue(kgd);
+@@ -551,7 +551,7 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
+ 	acquire_queue(kgd, pipe_id, queue_id);
+ 
+ 	if (m->cp_hqd_vmid == 0)
+-		WREG32_FIELD15(GC, 0, RLC_CP_SCHEDULERS, scheduler1, 0);
++		WREG32_FIELD15_RLC(GC, 0, RLC_CP_SCHEDULERS, scheduler1, 0);
+ 
+ 	switch (reset_type) {
+ 	case KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN:
+@@ -605,7 +605,7 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
+ 	}
+ 	retry = 1000;
+ 	while (true) {
+-		temp = RREG32(mmCP_HQD_DEQUEUE_REQUEST);
++		temp = RREG32_RLC(mmCP_HQD_DEQUEUE_REQUEST);
+ 		if (!(temp & CP_HQD_DEQUEUE_REQUEST__IQ_REQ_PEND_MASK))
+ 			break;
+ 		pr_debug("Dequeue request is pending\n"); @@ -621,11 +621,11 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
+ 	preempt_enable();
+ #endif
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_DEQUEUE_REQUEST), type);
++	WREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_DEQUEUE_REQUEST), type);
+ 
+ 	end_jiffies = (utimeout * HZ / 1000) + jiffies;
+ 	while (true) {
+-		temp = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
++		temp = RREG32_RLC(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
+ 		if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
+ 			break;
+ 		if (time_after(jiffies, end_jiffies)) { @@ -716,7 +716,7 @@ static int kgd_wave_control_execute(struct kgd_dev *kgd,
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_INDEX), gfx_index_val);
++	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_INDEX, gfx_index_val);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CMD), sq_cmd);
+ 
+ 	data = REG_SET_FIELD(data, GRBM_GFX_INDEX, @@ -726,7 +726,7 @@ static int kgd_wave_control_execute(struct kgd_dev *kgd,
+ 	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
+ 		SE_BROADCAST_WRITES, 1);
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_INDEX), data);
++	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_INDEX, data);
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 85a6a10e048f..376c92b1f938 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4490,7 +4490,7 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+ 		adev->gfx.config.sc_hiz_tile_fifo_size = 0;
+ 		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
+-		gb_addr_config = RREG32_SOC15(GC, 0, mmGB_ADDR_CONFIG);
++		gb_addr_config = RREG32_SOC15_RLC(GC, 0, mmGB_ADDR_CONFIG);
+ 		break;
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
+@@ -4820,15 +4820,15 @@ static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
+ 	else
+ 		data = REG_SET_FIELD(data, GRBM_GFX_INDEX, SA_INDEX, sh_num);
+ 
+-	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
++	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_INDEX, data);
+ }
+ 
+ static u32 gfx_v10_0_get_rb_active_bitmap(struct amdgpu_device *adev)  {
+ 	u32 data, mask;
+ 
+-	data = RREG32_SOC15(GC, 0, mmCC_RB_BACKEND_DISABLE);
+-	data |= RREG32_SOC15(GC, 0, mmGC_USER_RB_BACKEND_DISABLE);
++	data = RREG32_SOC15_RLC(GC, 0, mmCC_RB_BACKEND_DISABLE);
++	data |= RREG32_SOC15_RLC(GC, 0, mmGC_USER_RB_BACKEND_DISABLE);
+ 
+ 	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+ 	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
+@@ -4925,8 +4925,9 @@ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
+ 	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
+ 		nv_grbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+-		WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
+-		WREG32_SOC15(GC, 0, mmSH_MEM_BASES, sh_mem_bases);
++		WREG32_SOC15_RLC(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
++		WREG32_SOC15_RLC(GC, 0, mmSH_MEM_BASES, sh_mem_bases);
++
+ 	}
+ 	nv_grbm_select(adev, 0, 0, 0, 0);
+ 	mutex_unlock(&adev->srbm_mutex);
+@@ -4936,8 +4937,8 @@ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
+ 	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_BASE, 2 * i, 0);
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_SIZE, 2 * i, 0);
+-		WREG32_SOC15_OFFSET(GC, 0, mmGDS_GWS_VMID0, i, 0);
+-		WREG32_SOC15_OFFSET(GC, 0, mmGDS_OA_VMID0, i, 0);
++		WREG32_SOC15_OFFSET_RLC(GC, 0, mmGDS_GWS_VMID0, i, 0);
++		WREG32_SOC15_OFFSET_RLC(GC, 0, mmGDS_OA_VMID0, i, 0);
+ 	}
+ }
+ 
+@@ -4954,8 +4955,8 @@ static void gfx_v10_0_init_gds_vmid(struct amdgpu_device *adev)
+ 	for (vmid = 1; vmid < AMDGPU_NUM_VMID; vmid++) {
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_BASE, 2 * vmid, 0);
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_SIZE, 2 * vmid, 0);
+-		WREG32_SOC15_OFFSET(GC, 0, mmGDS_GWS_VMID0, vmid, 0);
+-		WREG32_SOC15_OFFSET(GC, 0, mmGDS_OA_VMID0, vmid, 0);
++		WREG32_SOC15_OFFSET_RLC(GC, 0, mmGDS_GWS_VMID0, vmid, 0);
++		WREG32_SOC15_OFFSET_RLC(GC, 0, mmGDS_OA_VMID0, vmid, 0);
+ 	}
+ }
+ 
+@@ -5036,8 +5037,8 @@ static void gfx_v10_0_get_tcc_info(struct amdgpu_device *adev)
+ 	uint32_t tcc_disable;
+ 
+ 	if (adev->asic_type >= CHIP_SIENNA_CICHLID) {
+-		tcc_disable = RREG32_SOC15(GC, 0, mmCGTS_TCC_DISABLE_gc_10_3) |
+-			      RREG32_SOC15(GC, 0, mmCGTS_USER_TCC_DISABLE_gc_10_3);
++		tcc_disable = RREG32_SOC15_RLC(GC, 0, mmCGTS_TCC_DISABLE_gc_10_3) |
++			      RREG32_SOC15_RLC(GC, 0, mmCGTS_USER_TCC_DISABLE_gc_10_3);
+ 	} else {
+ 		tcc_disable = RREG32_SOC15(GC, 0, mmCGTS_TCC_DISABLE) |
+ 			      RREG32_SOC15(GC, 0, mmCGTS_USER_TCC_DISABLE); @@ -5067,13 +5068,13 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
+ 	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB_0].num_ids; i++) {
+ 		nv_grbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+-		WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
++		WREG32_SOC15_RLC(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
+ 		if (i != 0) {
+ 			tmp = REG_SET_FIELD(0, SH_MEM_BASES, PRIVATE_BASE,
+ 				(adev->gmc.private_aperture_start >> 48));
+ 			tmp = REG_SET_FIELD(tmp, SH_MEM_BASES, SHARED_BASE,
+ 				(adev->gmc.shared_aperture_start >> 48));
+-			WREG32_SOC15(GC, 0, mmSH_MEM_BASES, tmp);
++			WREG32_SOC15_RLC(GC, 0, mmSH_MEM_BASES, tmp);
+ 		}
+ 	}
+ 	nv_grbm_select(adev, 0, 0, 0, 0);
+@@ -5688,8 +5689,8 @@ static int gfx_v10_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev)
+ 	int i, r;
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+-		cp_status = RREG32_SOC15(GC, 0, mmCP_STAT);
+-		bootload_status = RREG32_SOC15(GC, 0, mmRLC_RLCS_BOOTLOAD_STATUS);
++		cp_status = RREG32_SOC15_RLC(GC, 0, mmCP_STAT);
++		bootload_status = RREG32_SOC15_RLC(GC, 0, 
++mmRLC_RLCS_BOOTLOAD_STATUS);
+ 		if ((cp_status == 0) &&
+ 		    (REG_GET_FIELD(bootload_status,
+ 			RLC_RLCS_BOOTLOAD_STATUS, BOOTLOAD_COMPLETE) == 1)) { @@ -5727,7 +5728,7 @@ static int gfx_v10_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev)  static int gfx_v10_0_cp_gfx_enable(struct amdgpu_device *adev, bool enable)  {
+ 	int i;
+-	u32 tmp = RREG32_SOC15(GC, 0, mmCP_ME_CNTL);
++	u32 tmp = RREG32_SOC15_RLC(GC, 0, mmCP_ME_CNTL);
+ 
+ 	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, ME_HALT, enable ? 0 : 1);
+ 	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, PFP_HALT, enable ? 0 : 1); @@ -5740,7 +5741,7 @@ static int gfx_v10_0_cp_gfx_enable(struct amdgpu_device *adev, bool enable)
+ 	}
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (RREG32_SOC15(GC, 0, mmCP_STAT) == 0)
++		if (RREG32_SOC15_RLC(GC, 0, mmCP_STAT) == 0)
+ 			break;
+ 		udelay(1);
+ 	}
+@@ -6022,9 +6023,9 @@ static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
+ 	int ctx_reg_offset;
+ 
+ 	/* init the CP */
+-	WREG32_SOC15(GC, 0, mmCP_MAX_CONTEXT,
++	WREG32_SOC15_RLC(GC, 0, mmCP_MAX_CONTEXT,
+ 		     adev->gfx.config.max_hw_contexts - 1);
+-	WREG32_SOC15(GC, 0, mmCP_DEVICE_ID, 1);
++	WREG32_SOC15_RLC(GC, 0, mmCP_DEVICE_ID, 1);
+ 
+ 	gfx_v10_0_cp_gfx_enable(adev, true);
+ 
+@@ -6098,10 +6099,10 @@ static void gfx_v10_0_cp_gfx_switch_pipe(struct amdgpu_device *adev,  {
+ 	u32 tmp;
+ 
+-	tmp = RREG32_SOC15(GC, 0, mmGRBM_GFX_CNTL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmGRBM_GFX_CNTL);
+ 	tmp = REG_SET_FIELD(tmp, GRBM_GFX_CNTL, PIPEID, pipe);
+ 
+-	WREG32_SOC15(GC, 0, mmGRBM_GFX_CNTL, tmp);
++	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_CNTL, tmp);
+ }
+ 
+ static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev, @@ -6110,7 +6111,7 @@ static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
+ 	u32 tmp;
+ 
+ 	if (!amdgpu_async_gfx_ring) {
+-		tmp = RREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL);
++		tmp = RREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_CONTROL);
+ 		if (ring->use_doorbell) {
+ 			tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+ 						DOORBELL_OFFSET, ring->doorbell_index); @@ -6120,7 +6121,7 @@ static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
+ 			tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+ 						DOORBELL_EN, 0);
+ 		}
+-		WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL, tmp);
++		WREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_CONTROL, tmp);
+ 	}
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
+@@ -6137,10 +6138,9 @@ static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
+ 	default:
+ 		tmp = REG_SET_FIELD(0, CP_RB_DOORBELL_RANGE_LOWER,
+ 				    DOORBELL_RANGE_LOWER, ring->doorbell_index);
+-		WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_RANGE_LOWER, tmp);
+-
+-		WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_RANGE_UPPER,
+-			     CP_RB_DOORBELL_RANGE_UPPER__DOORBELL_RANGE_UPPER_MASK);
++		WREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_RANGE_LOWER, tmp);
++		WREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_RANGE_UPPER,
++				 CP_RB_DOORBELL_RANGE_UPPER__DOORBELL_RANGE_UPPER_MASK);
+ 		break;
+ 	}
+ }
+@@ -6265,7 +6265,7 @@ static void gfx_v10_0_cp_compute_enable(struct amdgpu_device *adev, bool enable)
+ 			WREG32_SOC15(GC, 0, mmCP_MEC_CNTL_Sienna_Cichlid, 0);
+ 			break;
+ 		default:
+-			WREG32_SOC15(GC, 0, mmCP_MEC_CNTL, 0);
++			WREG32_SOC15_RLC(GC, 0, mmCP_MEC_CNTL, 0);
+ 			break;
+ 		}
+ 	} else {
+@@ -6279,7 +6279,7 @@ static void gfx_v10_0_cp_compute_enable(struct amdgpu_device *adev, bool enable)
+ 				      CP_MEC_CNTL__MEC_ME2_HALT_MASK));
+ 			break;
+ 		default:
+-			WREG32_SOC15(GC, 0, mmCP_MEC_CNTL,
++			WREG32_SOC15_RLC(GC, 0, mmCP_MEC_CNTL,
+ 				     (CP_MEC_CNTL__MEC_ME1_HALT_MASK |
+ 				      CP_MEC_CNTL__MEC_ME2_HALT_MASK));
+ 			break;
+@@ -6378,12 +6378,12 @@ static void gfx_v10_0_kiq_setting(struct amdgpu_ring *ring)
+ 		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
+ 		break;
+ 	default:
+-		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
++		tmp = RREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS);
+ 		tmp &= 0xffffff00;
+ 		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
++		WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+ 		tmp |= 0x80;
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
++		WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+ 		break;
+ 	}
+ }
+@@ -6405,25 +6405,25 @@ static int gfx_v10_0_gfx_mqd_init(struct amdgpu_ring *ring)
+ 	mqd->cp_mqd_base_addr_hi = upper_32_bits(ring->mqd_gpu_addr);
+ 
+ 	/* set up mqd control */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_GFX_MQD_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_MQD_CONTROL);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, VMID, 0);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, PRIV_STATE, 1);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, CACHE_POLICY, 0);
+ 	mqd->cp_gfx_mqd_control = tmp;
+ 
+ 	/* set up gfx_hqd_vimd with 0x0 to indicate the ring buffer's vmid */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_VMID);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_VMID);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_VMID, VMID, 0);
+ 	mqd->cp_gfx_hqd_vmid = 0;
+ 
+ 	/* set up default queue priority level
+ 	 * 0x0 = low priority, 0x1 = high priority */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_QUEUE_PRIORITY);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_QUEUE_PRIORITY);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUEUE_PRIORITY, PRIORITY_LEVEL, 0);
+ 	mqd->cp_gfx_hqd_queue_priority = tmp;
+ 
+ 	/* set up time quantum */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_QUANTUM);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_QUANTUM);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUANTUM, QUANTUM_EN, 1);
+ 	mqd->cp_gfx_hqd_quantum = tmp;
+ 
+@@ -6445,7 +6445,7 @@ static int gfx_v10_0_gfx_mqd_init(struct amdgpu_ring *ring)
+ 
+ 	/* set up the gfx_hqd_control, similar as CP_RB0_CNTL */
+ 	rb_bufsz = order_base_2(ring->ring_size / 4) - 1;
+-	tmp = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_CNTL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_CNTL);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BLKSZ, rb_bufsz - 2);  #ifdef __BIG_ENDIAN @@ -6454,7 +6454,7 @@ static int gfx_v10_0_gfx_mqd_init(struct amdgpu_ring *ring)
+ 	mqd->cp_gfx_hqd_cntl = tmp;
+ 
+ 	/* set up cp_doorbell_control */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_CONTROL);
+ 	if (ring->use_doorbell) {
+ 		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+ 				    DOORBELL_OFFSET, ring->doorbell_index); @@ -6472,7 +6472,7 @@ static int gfx_v10_0_gfx_mqd_init(struct amdgpu_ring *ring)
+ 
+ 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
+ 	ring->wptr = 0;
+-	mqd->cp_gfx_hqd_rptr = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_RPTR);
++	mqd->cp_gfx_hqd_rptr = RREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_RPTR);
+ 
+ 	/* active the queue */
+ 	mqd->cp_gfx_hqd_active = 1;
+@@ -6491,36 +6491,36 @@ static int gfx_v10_0_gfx_queue_init_register(struct amdgpu_ring *ring)
+ 	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_WPTR_HI, mqd->cp_gfx_hqd_wptr_hi);
+ 
+ 	/* set GFX_MQD_BASE */
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr);
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR_HI, mqd->cp_mqd_base_addr_hi);
++	WREG32_SOC15_RLC(GC, 0, mmCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr);
++	WREG32_SOC15_RLC(GC, 0, mmCP_MQD_BASE_ADDR_HI, 
++mqd->cp_mqd_base_addr_hi);
+ 
+ 	/* set GFX_MQD_CONTROL */
+-	WREG32_SOC15(GC, 0, mmCP_GFX_MQD_CONTROL, mqd->cp_gfx_mqd_control);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_MQD_CONTROL, 
++mqd->cp_gfx_mqd_control);
+ 
+ 	/* set GFX_HQD_VMID to 0 */
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_VMID, mqd->cp_gfx_hqd_vmid);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_VMID, mqd->cp_gfx_hqd_vmid);
+ 
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_QUEUE_PRIORITY,
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_QUEUE_PRIORITY,
+ 			mqd->cp_gfx_hqd_queue_priority);
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_QUANTUM, mqd->cp_gfx_hqd_quantum);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_QUANTUM, 
++mqd->cp_gfx_hqd_quantum);
+ 
+ 	/* set GFX_HQD_BASE, similar as CP_RB_BASE */
+ 	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_BASE, mqd->cp_gfx_hqd_base);
+ 	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_BASE_HI, mqd->cp_gfx_hqd_base_hi);
+ 
+ 	/* set GFX_HQD_RPTR_ADDR, similar as CP_RB_RPTR */
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_RPTR_ADDR, mqd->cp_gfx_hqd_rptr_addr);
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_RPTR_ADDR_HI, mqd->cp_gfx_hqd_rptr_addr_hi);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_RPTR_ADDR, mqd->cp_gfx_hqd_rptr_addr);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_RPTR_ADDR_HI, 
++mqd->cp_gfx_hqd_rptr_addr_hi);
+ 
+ 	/* set GFX_HQD_CNTL, similar as CP_RB_CNTL */
+-	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_CNTL, mqd->cp_gfx_hqd_cntl);
++	WREG32_SOC15_RLC(GC, 0, mmCP_GFX_HQD_CNTL, mqd->cp_gfx_hqd_cntl);
+ 
+ 	/* set RB_WPTR_POLL_ADDR */
+ 	WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO, mqd->cp_rb_wptr_poll_addr_lo);
+ 	WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI, mqd->cp_rb_wptr_poll_addr_hi);
+ 
+ 	/* set RB_DOORBELL_CONTROL */
+-	WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL, mqd->cp_rb_doorbell_control);
++	WREG32_SOC15_RLC(GC, 0, mmCP_RB_DOORBELL_CONTROL, 
++mqd->cp_rb_doorbell_control);
+ 
+ 	/* active the queue */
+ 	WREG32_SOC15(GC, 0, mmCP_GFX_HQD_ACTIVE, mqd->cp_gfx_hqd_active); @@ -6665,14 +6665,14 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_ring *ring)
+ 	mqd->cp_hqd_eop_base_addr_hi = upper_32_bits(eop_base_addr);
+ 
+ 	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_EOP_CONTROL);
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_EOP_CONTROL, EOP_SIZE,
+ 			(order_base_2(GFX10_MEC_HPD_SIZE / 4) - 1));
+ 
+ 	mqd->cp_hqd_eop_control = tmp;
+ 
+ 	/* enable doorbell? */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
+ 
+ 	if (ring->use_doorbell) {
+ 		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, @@ -6702,7 +6702,7 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_ring *ring)
+ 	mqd->cp_mqd_base_addr_hi = upper_32_bits(ring->mqd_gpu_addr);
+ 
+ 	/* set MQD vmid to 0 */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_MQD_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_MQD_CONTROL);
+ 	tmp = REG_SET_FIELD(tmp, CP_MQD_CONTROL, VMID, 0);
+ 	mqd->cp_mqd_control = tmp;
+ 
+@@ -6712,7 +6712,7 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_ring *ring)
+ 	mqd->cp_hqd_pq_base_hi = upper_32_bits(hqd_gpu_addr);
+ 
+ 	/* set up the HQD, this is similar to CP_RB0_CNTL */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_CONTROL);
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, QUEUE_SIZE,
+ 			    (order_base_2(ring->ring_size / 4) - 1));
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE, @@ -6740,7 +6740,7 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_ring *ring)
+ 	tmp = 0;
+ 	/* enable the doorbell if requested */
+ 	if (ring->use_doorbell) {
+-		tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
++		tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
+ 		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+ 				DOORBELL_OFFSET, ring->doorbell_index);
+ 
+@@ -6756,17 +6756,17 @@ static int gfx_v10_0_compute_mqd_init(struct amdgpu_ring *ring)
+ 
+ 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
+ 	ring->wptr = 0;
+-	mqd->cp_hqd_pq_rptr = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR);
++	mqd->cp_hqd_pq_rptr = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_RPTR);
+ 
+ 	/* set the vmid for the queue */
+ 	mqd->cp_hqd_vmid = 0;
+ 
+-	tmp = RREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_PERSISTENT_STATE);
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_PERSISTENT_STATE, PRELOAD_SIZE, 0x53);
+ 	mqd->cp_hqd_persistent_state = tmp;
+ 
+ 	/* set MIN_IB_AVAIL_SIZE */
+-	tmp = RREG32_SOC15(GC, 0, mmCP_HQD_IB_CONTROL);
++	tmp = RREG32_SOC15_RLC(GC, 0, mmCP_HQD_IB_CONTROL);
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_IB_CONTROL, MIN_IB_AVAIL_SIZE, 3);
+ 	mqd->cp_hqd_ib_control = tmp;
+ 
+@@ -6796,94 +6796,94 @@ static int gfx_v10_0_kiq_init_register(struct amdgpu_ring *ring)
+ 	WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
+ 
+ 	/* write the EOP addr */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_EOP_BASE_ADDR,
+ 	       mqd->cp_hqd_eop_base_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI,
+ 	       mqd->cp_hqd_eop_base_addr_hi);
+ 
+ 	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_EOP_CONTROL,
+ 	       mqd->cp_hqd_eop_control);
+ 
+ 	/* enable doorbell? */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+ 	       mqd->cp_hqd_pq_doorbell_control);
+ 
+ 	/* disable the queue if it's active */
+ 	if (RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1) {
+ 		WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
+ 		for (j = 0; j < adev->usec_timeout; j++) {
+-			if (!(RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1))
++			if (!(RREG32_SOC15_RLC(GC, 0, mmCP_HQD_ACTIVE) & 1))
+ 				break;
+ 			udelay(1);
+ 		}
+-		WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST,
++		WREG32_SOC15_RLC(GC, 0, mmCP_HQD_DEQUEUE_REQUEST,
+ 		       mqd->cp_hqd_dequeue_request);
+-		WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR,
++		WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_RPTR,
+ 		       mqd->cp_hqd_pq_rptr);
+-		WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_LO,
++		WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_LO,
+ 		       mqd->cp_hqd_pq_wptr_lo);
+-		WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_HI,
++		WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_HI,
+ 		       mqd->cp_hqd_pq_wptr_hi);
+ 	}
+ 
+ 	/* set the pointer to the MQD */
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR,
++	WREG32_SOC15_RLC(GC, 0, mmCP_MQD_BASE_ADDR,
+ 	       mqd->cp_mqd_base_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_MQD_BASE_ADDR_HI,
+ 	       mqd->cp_mqd_base_addr_hi);
+ 
+ 	/* set MQD vmid to 0 */
+-	WREG32_SOC15(GC, 0, mmCP_MQD_CONTROL,
++	WREG32_SOC15_RLC(GC, 0, mmCP_MQD_CONTROL,
+ 	       mqd->cp_mqd_control);
+ 
+ 	/* set the pointer to the HQD, this is similar CP_RB0_BASE/_HI */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_BASE,
+ 	       mqd->cp_hqd_pq_base_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_BASE_HI,
+ 	       mqd->cp_hqd_pq_base_hi);
+ 
+ 	/* set up the HQD, this is similar to CP_RB0_CNTL */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_CONTROL,
+ 	       mqd->cp_hqd_pq_control);
+ 
+ 	/* set the wb address whether it's enabled or not */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR,
+ 		mqd->cp_hqd_pq_rptr_report_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
+ 		mqd->cp_hqd_pq_rptr_report_addr_hi);
+ 
+ 	/* only used if CP_PQ_WPTR_POLL_CNTL.CP_PQ_WPTR_POLL_CNTL__EN_MASK=1 */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR,
+ 	       mqd->cp_hqd_pq_wptr_poll_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
+ 	       mqd->cp_hqd_pq_wptr_poll_addr_hi);
+ 
+ 	/* enable the doorbell if requested */
+ 	if (ring->use_doorbell) {
+-		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
++		WREG32_SOC15_RLC(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
+ 			(adev->doorbell_index.kiq * 2) << 2);
+-		WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
++		WREG32_SOC15_RLC(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+ 			(adev->doorbell_index.userqueue_end * 2) << 2);
+ 	}
+ 
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+ 	       mqd->cp_hqd_pq_doorbell_control);
+ 
+ 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_LO,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_LO,
+ 	       mqd->cp_hqd_pq_wptr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_HI,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_HI,
+ 	       mqd->cp_hqd_pq_wptr_hi);
+ 
+ 	/* set the vmid for the queue */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_VMID, mqd->cp_hqd_vmid);
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_VMID, mqd->cp_hqd_vmid);
+ 
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PERSISTENT_STATE,
+ 	       mqd->cp_hqd_persistent_state);
+ 
+ 	/* activate the queue */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE,
++	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_ACTIVE,
+ 	       mqd->cp_hqd_active);
+ 
+ 	if (ring->use_doorbell)
+@@ -7118,6 +7118,9 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)  {
+ 	uint32_t data;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* initialize cam_index to 0
+ 	 * index will auto-inc after each data writting */
+ 	WREG32_SOC15(GC, 0, mmGRBM_CAM_INDEX, 0); @@ -7185,7 +7188,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_TF_RING_SIZE_UMD -> mmVGT_TF_RING_SIZE */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_RING_SIZE_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_RING_SIZE) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_TF_RING_SIZE) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7193,7 +7196,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_TF_MEMORY_BASE_UMD -> mmVGT_TF_MEMORY_BASE */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7201,7 +7204,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_TF_MEMORY_BASE_HI_UMD -> mmVGT_TF_MEMORY_BASE_HI */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE_HI_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE_HI) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_TF_MEMORY_BASE_HI) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7209,7 +7212,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_HS_OFFCHIP_PARAM_UMD -> mmVGT_HS_OFFCHIP_PARAM */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_HS_OFFCHIP_PARAM_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_HS_OFFCHIP_PARAM) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_HS_OFFCHIP_PARAM) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7217,7 +7220,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_ESGS_RING_SIZE_UMD -> mmVGT_ESGS_RING_SIZE */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_ESGS_RING_SIZE_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_ESGS_RING_SIZE) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_ESGS_RING_SIZE) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7225,7 +7228,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmVGT_GSVS_RING_SIZE_UMD -> mmVGT_GSVS_RING_SIZE */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmVGT_GSVS_RING_SIZE_UMD) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmVGT_GSVS_RING_SIZE) <<
++			(SOC15_REG_OFFSET(GC, 0, mmVGT_GSVS_RING_SIZE) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA_UPPER, 0);
+ 		WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data); @@ -7233,7 +7236,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+ 		/* mmSPI_CONFIG_CNTL_REMAP -> mmSPI_CONFIG_CNTL */
+ 		data = (SOC15_REG_OFFSET(GC, 0, mmSPI_CONFIG_CNTL_REMAP) <<
+ 			GRBM_CAM_DATA__CAM_ADDR__SHIFT) |
+-		       (SOC15_REG_OFFSET(GC, 0, mmSPI_CONFIG_CNTL) <<
++			(SOC15_REG_OFFSET(GC, 0, mmSPI_CONFIG_CNTL) <<
+ 			GRBM_CAM_DATA__CAM_REMAPADDR__SHIFT);
+ 		break;
+ 	}
+@@ -7882,7 +7885,7 @@ static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, unsigned vmid)
+ 	if (amdgpu_sriov_is_pp_one_vf(adev))
+ 		data = RREG32_NO_KIQ(reg);
+ 	else
+-		data = RREG32(reg);
++		data = RREG32_RLC(reg);
+ 
+ 	data &= ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
+ 	data |= (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+@@ -7890,7 +7893,7 @@ static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, unsigned vmid)
+ 	if (amdgpu_sriov_is_pp_one_vf(adev))
+ 		WREG32_SOC15_NO_KIQ(GC, 0, mmRLC_SPM_MC_CNTL, data);
+ 	else
+-		WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data);
++		WREG32_SOC15_RLC(GC, 0, mmRLC_SPM_MC_CNTL, data);
+ }
+ 
+ static bool gfx_v10_0_check_rlcg_range(struct amdgpu_device *adev, @@ -8875,20 +8878,20 @@ static int gfx_v10_0_kiq_set_interrupt_state(struct amdgpu_device *adev,
+ 	switch (type) {
+ 	case AMDGPU_CP_KIQ_IRQ_DRIVER0:
+ 		if (state == AMDGPU_IRQ_STATE_DISABLE) {
+-			tmp = RREG32_SOC15(GC, 0, mmCPC_INT_CNTL);
++			tmp = RREG32_SOC15_RLC(GC, 0, mmCPC_INT_CNTL);
+ 			tmp = REG_SET_FIELD(tmp, CPC_INT_CNTL,
+ 					    GENERIC2_INT_ENABLE, 0);
+-			WREG32_SOC15(GC, 0, mmCPC_INT_CNTL, tmp);
++			WREG32_SOC15_RLC(GC, 0, mmCPC_INT_CNTL, tmp);
+ 
+ 			tmp = RREG32(target);
+ 			tmp = REG_SET_FIELD(tmp, CP_ME2_PIPE0_INT_CNTL,
+ 					    GENERIC2_INT_ENABLE, 0);
+ 			WREG32(target, tmp);
+ 		} else {
+-			tmp = RREG32_SOC15(GC, 0, mmCPC_INT_CNTL);
++			tmp = RREG32_SOC15_RLC(GC, 0, mmCPC_INT_CNTL);
+ 			tmp = REG_SET_FIELD(tmp, CPC_INT_CNTL,
+ 					    GENERIC2_INT_ENABLE, 1);
+-			WREG32_SOC15(GC, 0, mmCPC_INT_CNTL, tmp);
++			WREG32_SOC15_RLC(GC, 0, mmCPC_INT_CNTL, tmp);
+ 
+ 			tmp = RREG32(target);
+ 			tmp = REG_SET_FIELD(tmp, CP_ME2_PIPE0_INT_CNTL, @@ -9173,14 +9176,14 @@ static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct amdgpu_device *
+ 	data = bitmap << GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
+ 	data &= GC_USER_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
+ 
+-	WREG32_SOC15(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG, data);
++	WREG32_SOC15_RLC(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG, data);
+ }
+ 
+ static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device *adev)  {
+ 	u32 data, wgp_bitmask;
+-	data = RREG32_SOC15(GC, 0, mmCC_GC_SHADER_ARRAY_CONFIG);
+-	data |= RREG32_SOC15(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG);
++	data = RREG32_SOC15_RLC(GC, 0, mmCC_GC_SHADER_ARRAY_CONFIG);
++	data |= RREG32_SOC15_RLC(GC, 0, mmGC_USER_SHADER_ARRAY_CONFIG);
+ 
+ 	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS_MASK;
+ 	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_WGPS__SHIFT;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 46d4bbabce75..ce04bc6dea21 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -363,7 +363,7 @@ void nv_grbm_select(struct amdgpu_device *adev,
+ 	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, VMID, vmid);
+ 	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, QUEUEID, queue);
+ 
+-	WREG32(SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_CNTL), grbm_gfx_cntl);
++	WREG32_SOC15_RLC_SHADOW(GC, 0, mmGRBM_GFX_CNTL, grbm_gfx_cntl);
+ }
+ 
+ static void nv_vga_set_state(struct amdgpu_device *adev, bool state)
+--
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7C9e628852384f415ddc6508d8fa4fce53%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637534567965620338%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=EsW5cOaqgQZuuDzDBCarklQkivOUKv%2BVwTyXZQsz%2FwE%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0155822950==--
