@@ -2,120 +2,153 @@ Return-Path: <SRS0=E5im=JG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 812EFC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Apr 2021 14:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C7CC433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Apr 2021 15:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4549960238
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Apr 2021 14:53:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4549960238
+	by mail.kernel.org (Postfix) with ESMTPS id 47CED608FE
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Apr 2021 15:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47CED608FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0BA6E4AD;
-	Fri,  9 Apr 2021 14:53:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5360589301
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Apr 2021 14:53:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D24906E4AF;
+	Fri,  9 Apr 2021 15:43:01 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2066.outbound.protection.outlook.com [40.107.102.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 477316E4AF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Apr 2021 15:43:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WRGMnCFsdK6WbxGLvd6wqHuOD1GhHyTR13V2/tRUOr1uUxWj5x4DV6BsPeRPlEdIPaterfGrXbBywymQWYbe/nMhfJ+VFbEvJGFymgKmoQjmF3LZ1jGO8U2qxXtzgHRiQ1jYiUKPCWP6vdLT1DNDy42cGS0JFRctbMVjum2bsNezavCItNZCx3i7vnxtF9Ck2Udpvx1OSTl44bRdhyfdJXUyJyoYcC87P5dSOm35Xv0XlLjUJAdvm6NBIeN0aLFvGMDQvwYZKZAvfT0cStugRDL3oL/J6oktdbe4P/ao5ECEJn1rElMYVNhaJdSzfbNyFbN1HzcO/i6G4YCO5+oYwQ==
+ b=M+IUodvCfIdKnQ/AiivQWkv0vfUKOY8GOedODIVJxBl8hJkxrOOCoEWmhOot+rRFX+wolYYFIojswVKmUmyvHpiYSTdgWpaTwU5pV1lpbOcWMNP37kzsghwavAWqMUWQzLpWwKlj2wqtcObuxgq4DQ+s0XWKpgzpy2OCfgnnBbKApiubGAenfAmhifXvEtLmhNgMlQEbj74GPr0mVzHLmchG6L3/AhVtASGRswbMlhxIDVw7Q3D/w1ZGa95pAEJQLm/6hWYFEBTFhCX9efWht4uJKkZD2ifKVtk+CqhB2YId6LCe+HUpPSuOpEd72ZDfldWOfl8tUqBB2fDlOFv/cA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrJVMSX/OYx4pKhz/IDd6IYplHygf6la3llvoXXuKu8=;
- b=fp3/MooE9BjaLpA5zqVTdtlK8Di4URm1nZlow8gqmd4VXNZgzB7FOhqFHK/R5je3HKhXzKQaN4WI72OXG7BKpsyv+InwGaFgTYcfdSjozkkymKeiMHJP4Q6SyS1bnmIoMQCOV3u7BjKav9iXUavX+fT77mmjuHG/QGAA63XJxIVKOZEleqk0pNg+XpkcScXOMaFXLRo9qwpKDXcJjGt/A4TG7cZ5t6GJqhlQefFvyoMP6Vrs4gF8HJh1sit0NWJwEwaTn+pk+3UNQZmqguE4faoPclwteXSwbSPz3rrpnkX8w5RFtfUj2BlfPnKUEWYqkgnzsNgYUMRKfXQYBydTZw==
+ bh=EjpJRv8MzZD6KozRtP3w+Z/HnVvfx3G5VwzmL8Tc4mo=;
+ b=NeALIgvDkt88HvILXPrnrMKdLLONRpIqGHL8RbSPx3E5F3enj/rfMZ3LsH8BEivqW/tyXW9hew2f3SWgdTTGZX/aMCusIlGEJt9G9w0kbICSCSUMwoQXyxx68pGFaVTPTOGkYquRSSSOyRbtJZl5QDbsLPwdicxbEIQrNVBVkXZTzXNO5X/s9Dmov94em0XHtJpZvkFFu1rAJGSgZ6q+s8qIYE6kvNVJSFQsZccBUZ5YntKApzkSW24j7T6Mg8N+KAWmbGgdWffhnaddIB5tqpIe4GJHduMmqW+DPblDGM52EgoIDdaDlAbaGKZdBrvjLlWif7HK4/eETSyF9sBfug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrJVMSX/OYx4pKhz/IDd6IYplHygf6la3llvoXXuKu8=;
- b=uBaT1ZMNkpciiPpzQqk5tuv1i0wLMaykH1dTlshqeeCuFZSl8mVjnNgQiVvAchEWrPIsPSamjMsmGYc+sy1oDGmplNgydcynsmrVM5Qo2dBvmbIEmYQy2haI8XzuOK5s8A+geWB32ZaLsbKQQz7RbyJWrZMgcC8uReRF5QXw/fs=
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
- by MN2PR12MB3886.namprd12.prod.outlook.com (2603:10b6:208:16a::32)
+ bh=EjpJRv8MzZD6KozRtP3w+Z/HnVvfx3G5VwzmL8Tc4mo=;
+ b=HNqmq69qWX34rbaXLq9Xz36EC6L/hwbQOz19F5+eztRb5/2HMFD4+/cKtqScZTw55MA7Xq0+XJqLw4iG3hTmgzJujwap0rA0UhQr5nLutOjuWuPCDwCTGuC4MvW/Py3C8+hn6JLtJyf8e4ZT74T9HmQ2Ea7qrPAacymkyfm1cKQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SN6PR12MB2750.namprd12.prod.outlook.com (2603:10b6:805:77::29)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17; Fri, 9 Apr
- 2021 14:52:58 +0000
-Received: from MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::b83b:b880:25cc:c1b9]) by MN2PR12MB4549.namprd12.prod.outlook.com
- ([fe80::b83b:b880:25cc:c1b9%9]) with mapi id 15.20.4020.021; Fri, 9 Apr 2021
- 14:52:58 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Show updated clocks on aldebaran
-Thread-Topic: [PATCH] drm/amd/pm: Show updated clocks on aldebaran
-Thread-Index: AdctT5umK3BiEeGpSPG0rHlItBMlIQ==
-Date: Fri, 9 Apr 2021 14:52:58 +0000
-Message-ID: <MN2PR12MB454998F97CEE8001AE9F508E97739@MN2PR12MB4549.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Fri, 9 Apr
+ 2021 15:42:58 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::29cb:752d:a8a7:24a8%6]) with mapi id 15.20.3999.036; Fri, 9 Apr 2021
+ 15:42:58 +0000
+Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Li, Dennis" <Dennis.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <20210318072339.28736-1-Dennis.Li@amd.com>
+ <d40648ba-9948-5442-23ed-d352f824f8f9@amd.com>
+ <DM5PR12MB25330F3CD92C587C2E921424ED699@DM5PR12MB2533.namprd12.prod.outlook.com>
+ <MN2PR12MB3775531A74B886A207134B1583699@MN2PR12MB3775.namprd12.prod.outlook.com>
+ <DM5PR12MB253379E8C89D8A20C8A0245AED699@DM5PR12MB2533.namprd12.prod.outlook.com>
+ <378fdffb-99b5-2a14-736d-a06f310b040c@amd.com>
+ <1e37bb4d-f54d-1b7e-4632-94cfcf749528@amd.com>
+ <51d7873d-cf35-6be5-79c2-024937c67f6a@amd.com>
+ <29ffe63b-9049-824f-84fc-a92fdb451e0d@amd.com>
+ <e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com>
+ <1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com>
+ <b67ab565-e4be-0809-7021-cb59fd10464a@amd.com>
+ <8c2cbe39-ea05-add4-efee-65527e53bb34@gmail.com>
+ <50e0907c-52d6-1fdb-aa5e-39b1c326180c@amd.com>
+ <4a1e3961-8708-46b7-bfd8-86a4ee4e2726@amd.com>
+ <f36bef2c-d5c2-7290-c029-2bcc9d834bbc@amd.com>
+ <b3965720-ea45-7664-5927-dd3836bfa46d@amd.com>
+ <32b2ab00-7514-43ce-cb28-a437c194c16a@gmail.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <01f69c6f-02a3-3387-db6b-0fa1bfa9bd17@amd.com>
+Date: Fri, 9 Apr 2021 11:42:55 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <32b2ab00-7514-43ce-cb28-a437c194c16a@gmail.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-09T14:52:54Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=fb23cd0a-9f9a-40a0-8068-d286754d148b;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.159.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2898e9fe-f186-415c-b914-08d8fb672a46
-x-ms-traffictypediagnostic: MN2PR12MB3886:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3886BA39ECB08B72526A00F597739@MN2PR12MB3886.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:466;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9rKUz91xKXRZsAk9KHs9MPGeTPsNNs2mn7q3QtqPqZQXG9+InZkgSTnL2HrtGwwLScYj6Y4hHW88WTl09le0TVoN9KUAdbTufe88kYLCGeV3zbjoUTo3pvI17XIgk5iRMc+h1GoVw3ynC/pIWcaMxIE5BG0e3dcxg1dspMnuLU3P5n3NHl9vVAPh/MsP2c9Ztvop3ryMxPK1rZ+gFtdDPociyRTdyO5P9P7dqgQiTjU8xG50UPeU75rf92M4iXfcv8zcDVNpgKoDz2SFM3/eBQxMeffnCKwXJZF5n4MYk8JaoBtgNhb0sP3pHselhCPJ7+MD3gB0uz/swvk9mf11ur/eedgIEQNXK6+jx6QaobHMQXajkGXGkAXx3h7BSqDuHsW07dmE6Ce2ZWFWklrYhPV9FSUhhADNNhhgYqIAG5OVvykNwnV/mgdDFUz0FIDfZ5kIAXe3EBp4rWkYEljsKTHsQoifDyZoLoXO7zcHnyvlwC+ZBbTvGQKLIi1+VZmCPJ78Gb9Ti2DRHreCbWuCNjO4NPlwiBBIdxB0AUnBYGfuAAAsrCcuupaxDZCjHAPQTHhKLg0ZcIuKybaDmwPabjb5CQFrPmVWs1YAzRYwI9xKdb3yrXZgx+UXnvVZWW6nBGtRPgWUCyiWbZMQ+Cez2WdWLnhoVei5J78F2YhPCPs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(39860400002)(366004)(346002)(26005)(86362001)(83380400001)(4326008)(66556008)(64756008)(55016002)(66476007)(8676002)(478600001)(66446008)(8936002)(71200400001)(76116006)(52536014)(66946007)(2906002)(186003)(33656002)(5660300002)(38100700001)(6506007)(6916009)(15650500001)(54906003)(9686003)(316002)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?+YkJ9nZjbeVFD4rp76jv+1CJyHoh5USE/gc0BaogVavQyeZimVdiCI8ckH0y?=
- =?us-ascii?Q?69xVVvkzbm31lWCoyODAakPb4XADelF0SiWOQyS81xCnQTMR/R/0lRGClGYh?=
- =?us-ascii?Q?eRs6UpNJeBND8rxSfxjxMfORNI8eFaf8p1D8FkJQRMn99Otxf9khM7uAxSdE?=
- =?us-ascii?Q?QBtuwjvrBFfm5C63ncO61zPMgBnrOkmBJ4nn3yFqiRNRRq7JNTW9hJo5FRnj?=
- =?us-ascii?Q?fZQP3Ixy8x0d5GNCff9eDUep7b/WHFb9SvMXG+bFDrkNWwZ13Kv6R3SAk4yI?=
- =?us-ascii?Q?2DJ2jRvwK3St/2BJdisQYyVUVIDIyAP8mGYNyKTreqChIx+yNKlLcBQkuq+Y?=
- =?us-ascii?Q?3X4q/ld7Kh/4BTYfILQvRyBjcC59UO+Q2HvVqbxyRsln6GsIZb+v63GYqna6?=
- =?us-ascii?Q?DSAIWXQCBSxYkgVIcjkfZ9Cyy2gwfpsPHhQLWcl2dPzB/vwNsctYgPAZFh/N?=
- =?us-ascii?Q?B5q77L2wGgTR4lQVPa9zZqbfddPh5q/sPQUar7lDvzzHXfcyVYCQhqL/wnDD?=
- =?us-ascii?Q?HjJeob8DCJHS7rZgR8lVczK3hV2q9K3O0lugWFBACmUswpwvSx1C2Jr4ePAd?=
- =?us-ascii?Q?7s8B4MQ01VF4xM9Cp4FdSmqzTJVb7PZ7kcimg+WFKqq29msYPZREoXNzx/h9?=
- =?us-ascii?Q?B4E2HR7fN0EvHyTqOsA5u00RFDN46rDC64W2Bte1/pPIKqgUL/37MhcTgPdj?=
- =?us-ascii?Q?DUzYVenmeF/qi5CvxIqGnfMAl7U5DyoeeCow2GohX/9YbzzfFQfrAevBc3Sz?=
- =?us-ascii?Q?9rI/AaVrj4ua+EdTTZgzFr0WlL3G5y29/z6bra/OTuJQGUGedJJRcgvG5yX0?=
- =?us-ascii?Q?qYkbqP3of1QyNQBqtrZcKVfpiKlVd90vS6+ThQtHqtqBNMJDjduGM6E92ULM?=
- =?us-ascii?Q?iq+RfDqtuoj+oIQ2HfSjsxODeRR9rRZAqSg8a16FabgMbkeMTfo811gpUHbh?=
- =?us-ascii?Q?OEpQlbn38fF7Js72fQ4YNa58IZmtSwKeJq0pK4v4RNU/SojB7mvDDWmf/6N6?=
- =?us-ascii?Q?af2DT5ZcLgn7esJuRXCtp8fSDNTU+9+HkkJqNKoZZhl+IUglsenQqdikuaMy?=
- =?us-ascii?Q?NJFVwEkuquQBHM5efhkMIJc1sfHWpZl8rlR+9aU7vw8xVNL+2f4vE9DhoEGn?=
- =?us-ascii?Q?5uj0nZYoYWf6awkK4jmvl5jPikS3d+SUg5gG32nOFITiE2qCBtjr8W/wKlnz?=
- =?us-ascii?Q?gKVa0fZRV/RFljs87mFxnhBeDxL0upKF40321UzwjmdNjCC1MpAVKI0CcYzV?=
- =?us-ascii?Q?eFK6K5IQ73rK0J2xxJV4bN9MlCMhVFRBPVTwMQ67e8zWhTbloXk/zxRX882D?=
- =?us-ascii?Q?vJrZpYi5lGh/gDaXGszbUMRb?=
+X-Originating-IP: [2607:fea8:3edf:49b0:f08e:c688:bec5:ed9a]
+X-ClientProxiedBy: YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::6) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:f08e:c688:bec5:ed9a]
+ (2607:fea8:3edf:49b0:f08e:c688:bec5:ed9a) by
+ YT1PR01CA0127.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3999.32 via Frontend Transport; Fri, 9 Apr 2021 15:42:57 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 788a5488-0374-474f-39b2-08d8fb6e2607
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2750:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN6PR12MB27509FC7068C0DD021FBBF93EA739@SN6PR12MB2750.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HK+FltRWi5gfWkAA4jbp5uFAlsQ3TaN2XZD+iiG7pZZSWjxNYApX9Wh1fWUNB/L1IyNrkGnA1RO5eC513u2yME6DJDpIKajfrq/4EB2/eMd+MeMjL+6IuD3mBdFgZ21phfERw2u6fI3MsrzyiHHtZFtndnSVKpkAOslI22FlA9oO2V3r26gGDIo2h7jRZlYaZFnVwPJOzbQUSkw5eZO8XDc1PLKkYWwgiNQ2nn6w6RB3xOyXM9f9imV2KRGL3pC9FqX+jhJcIwAw5eeIqO0wTTUzxCn+nfhcMD6C4ZuWrV0T+pbXRCtqVSJzcFDvuqki0/CeHOSiOTbKQaa/avX2BrPqxFKmaVzGzdWW+wFxBjFKUHOQ+dMrIVwCEgmGrp8tWRXdwD9Y4PUFPq+7vBf3RPcS5LeSSw+ZC5eRE4jrrSJtokOISEBPGpmpKu3NQCPmBlA+5a0Hb7F7386i46LHCoI3YFzwEB1We/TRXnZRuWiuv6DgC1EnRK1HaHzefyNkvfIcfX+IvG7aUIsGn+KA59jaNHE/g8oT+TqlBeOawlUhjyd3BYbO67x8jPFVpDO2bNYJ3nH24MNQIrK4T8j0rxH0RkhgBI1Y5PXqHeMZyqQy1owpPbtgnY5rYXM7roUQrf8sDZ4ePTg/1ocXHlZmaVnpCzV1woWKorwSo2Umx+UZaFq6WvPonf2KJzM1YxVugpQf2sbl+n55TfIewbTKuDfoyBfJwYyllFwZYT2vhFJSU8Ao534YDm9cFQJa1Kz5S/TL9IhjNvSWbV/T98uZ1Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(136003)(39850400004)(346002)(366004)(186003)(8676002)(44832011)(36756003)(66574015)(16526019)(83380400001)(6636002)(2906002)(52116002)(86362001)(966005)(53546011)(6486002)(31696002)(478600001)(2616005)(45080400002)(66946007)(38100700001)(66476007)(921005)(5660300002)(66556008)(31686004)(316002)(8936002)(110136005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?VURIRFBlVHJjcm11TVk0M2JETHEzL3lzak5wS2FvNGx1ZER4aTQ4TzhGNDdq?=
+ =?utf-8?B?UHp4TVZlMnZWYnRFV1ZYUE1kVGxtVVZTUHBXdzBRSEl1bDNzV1lRTEdvUnBQ?=
+ =?utf-8?B?OHZwTmNhVXp5WC9FSTFOMVc2YVU4azd3VlhhdzI5QTJZK3ZQa2x6QTcwaWdP?=
+ =?utf-8?B?VGhGaCsycXVDZ1hnWFYreTV6bUxyYVliVDdZVjFuQlpsZk50Sm5Ua0RYOVhE?=
+ =?utf-8?B?WkJZN2E2d01NbFdiNDRYd0J0S0ZHZVY3dElnQ2YyVFJnY0VDUkZ1RFBGZmdF?=
+ =?utf-8?B?VXo3OVBGYWVEZElzRWNFRzRBRVJwYy92YUw2cWs0bnZJNVlHYnhwWENVdEUw?=
+ =?utf-8?B?WkVtaWxvNEkvNWZDLzN0anpKQXNSdUtHcEsyNmI2WEtVOHdyMkNUcnhhb2pw?=
+ =?utf-8?B?Um5iQklqMUcweXZjdmNlUm1TSm05bU15N0xnQ0c5amRmUW1HNjR1Y3NaRUx1?=
+ =?utf-8?B?aS95NWZLVUNsUnlKd3JtQUliemh1MFMvQ3BJeUR4ZStkTEJsZUpMYUlxS29w?=
+ =?utf-8?B?NnRLQmtkdkZXZm04cXZUUmZQV0dmbHdmQm4vNHhEejQ3SldUNFo0TzF2Wnoy?=
+ =?utf-8?B?U1JnMlRtdUgzaDI0RTJKWHNHRlZNSlpscG42NENiQ29PWHNpemF1b0NDblF1?=
+ =?utf-8?B?RmtUSmltcmpNMHkrTHBKT2F1WVpmR25mdk9yL2w2ZDc3dHl2dVFwclZhTUVC?=
+ =?utf-8?B?aW1pb1N3eFNZSmUwZ21OeCtCVUxHY3NLQms1TGV0SHZ3MXc4NmNRdktRczVr?=
+ =?utf-8?B?Rk1NYmxvODlqaVVSQmlXY3pzTFlyek42QzRRTktNWmx5eDJkZE55enh5ZDhN?=
+ =?utf-8?B?SmxCeSsvaThlZU82bGYxV3U2Z3NiWEl2N280d0pjN1VmcFoydzFheXNRV2hJ?=
+ =?utf-8?B?SlhrN1RFZmIrcW5lbkJlMUhrZzVaMlhRbkIzcWMrR1FTU2FkU1BPNlNMZmx3?=
+ =?utf-8?B?SStVMVBLRDdpNnAzaXZnQlRzdVBaNENEQ3EzQXhlbnlkS2J3dkdOVDh3SVBJ?=
+ =?utf-8?B?UEthV3U2cnRMbEdWVXZ6RlVkUE9DN3dzOXo2ZVRVZi9HQXJOWDdsb21ncmk0?=
+ =?utf-8?B?NzkxVG1oZHdtMmpuRy9pOG40VE5GeExUVTdzeFNjV24xcncvZGFZcUROR0cx?=
+ =?utf-8?B?TWE1ZnRkLzE2RFo3L2s2b3p2c1JnUSszNWlmQnpWQmszelNTVno3VTdIZzg1?=
+ =?utf-8?B?cG04ZWlDdUFjZjlNdjBRYjNDa2trczJjY3QrN29BVmwzdDQ0SkFIWlJmYUow?=
+ =?utf-8?B?UmFLeDFaM2V2R0oxUkl1Z0M5TUxDT0dJelMvTzlBUVREbSsvVlM2LzJGZTU3?=
+ =?utf-8?B?UExGdXZYaGdBV0NnR3ppNVNEcHdzeXRHT2V1b2VwTk5nZFh4RkR2L3p3NFJn?=
+ =?utf-8?B?QlJVNjB6ZkxiQ21NOWR0WjFFRUVsZi90bElMdGZ4NHIxSjFMR2IvazlyZ0NN?=
+ =?utf-8?B?QUxqYU1DdC8zNUd6bUNKbUlhd2xOUno4UzNaeTBXVFhvYzNXTUZrNnZoSTQ5?=
+ =?utf-8?B?eUszUjdZdFQ5YU9FN3R6TDNYZG4wdTIza2FQVE5MTXRGS2h4THZrNi9MRWFX?=
+ =?utf-8?B?eW1leTI4V0VwY0h5U0tjMlE0Zy9vbFdXbVMzZFk0MzhPR1RhSThiYUFTR3BR?=
+ =?utf-8?B?Yi9pWG5FR1FXVzRZY3JQakhLdkhaVDQxcWptMTZNbXk0T21ZL3k4aHdqeGNl?=
+ =?utf-8?B?b1FRTVZmUFM0Ny80OE5XR3BJcXlzTElTRUgvd003ZldtSkNMLytWOW5ha2pS?=
+ =?utf-8?B?bnhSMUtJK2ozL05JQjY1NFRzTzBVSHY4OFd3REJEZmZnMXFkSysvVkx3ZWJi?=
+ =?utf-8?B?L1RSR1hoSEhMR2l0Mnh2ajNIUFBvd3dFMkwzalhSdjA0a2YxdWRrZHFVYzBJ?=
+ =?utf-8?Q?EWG+kfVRqsAAc?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 788a5488-0374-474f-39b2-08d8fb6e2607
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2898e9fe-f186-415c-b914-08d8fb672a46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2021 14:52:58.1092 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 48p6/4T0f6DjRb+0jSwGRZwD6Jt0bk31nJuadwdsKtg/tUZodCtYm0mJfegZ5TIQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3886
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2021 15:42:57.8875 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 80G6OvibIhVgk/L8ZIH8cQ+7z3I4LNhFw+J9R970tqm7FZQ1gTWzSwQtTkwLxXXGdUb6Mej+2oGzCcy6v2nAjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,771 +160,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============2045605718=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2045605718==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB454998F97CEE8001AE9F508E97739MN2PR12MB4549namp_"
-
---_000_MN2PR12MB454998F97CEE8001AE9F508E97739MN2PR12MB4549namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-When GFXCLK range is updated in manual/determinism mode, show the
-updated min/max clock range.
-
-Signed-off-by: Lijo Lazar lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>
----
-.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 52 +++++++++++++++----
-1 file changed, 41 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/g=
-pu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index ddbb9a23a0af..abe80226a0ee 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -78,6 +78,8 @@
- #define smnPCIE_ESM_CTRL                                     0x111003D0
-+#define CLOCK_VALID (1 << 31)
-+
-static const struct cmn2asic_msg_mapping aldebaran_message_map[SMU_MSG_MAX_=
-COUNT] =3D {
-               MSG_MAP(TestMessage,                                        =
-          PPSMC_MSG_TestMessage,                                  0),
-               MSG_MAP(GetSmuVersion,                                      =
-       PPSMC_MSG_GetSmuVersion,                                            =
- 1),
-@@ -670,6 +672,7 @@ static int aldebaran_print_clk_levels(struct smu_contex=
-t *smu,
-               struct smu_13_0_dpm_context *dpm_context =3D NULL;
-               uint32_t display_levels;
-               uint32_t freq_values[3] =3D {0};
-+             uint32_t min_clk, max_clk;
-                if (amdgpu_ras_intr_triggered())
-                               return snprintf(buf, PAGE_SIZE, "unavailable=
-\n");
-@@ -697,12 +700,20 @@ static int aldebaran_print_clk_levels(struct smu_cont=
-ext *smu,
-                                display_levels =3D clocks.num_levels;
-+                             min_clk =3D smu->gfx_actual_hard_min_freq & C=
-LOCK_VALID ?
-+                                                               smu->gfx_ac=
-tual_hard_min_freq & ~CLOCK_VALID :
-+                                                               single_dpm_=
-table->dpm_levels[0].value;
-+                             max_clk =3D smu->gfx_actual_soft_max_freq & C=
-LOCK_VALID ?
-+                                                               smu->gfx_ac=
-tual_soft_max_freq & ~CLOCK_VALID :
-+                                                               single_dpm_=
-table->dpm_levels[1].value;
-+
-+                             freq_values[0] =3D min_clk;
-+                             freq_values[1] =3D max_clk;
-+
-                               /* fine-grained dpm has only 2 levels */
--                              if (now > single_dpm_table->dpm_levels[0].va=
-lue &&
--                                                              now < single=
-_dpm_table->dpm_levels[1].value) {
-+                             if (now > min_clk && now < max_clk) {
-                                               display_levels =3D clocks.nu=
-m_levels + 1;
--                                              freq_values[0] =3D single_dp=
-m_table->dpm_levels[0].value;
--                                              freq_values[2] =3D single_dp=
-m_table->dpm_levels[1].value;
-+                                             freq_values[2] =3D max_clk;
-                                               freq_values[1] =3D now;
-                               }
-@@ -712,12 +723,15 @@ static int aldebaran_print_clk_levels(struct smu_cont=
-ext *smu,
-                                */
-                               if (display_levels =3D=3D clocks.num_levels)=
- {
-                                               for (i =3D 0; i < clocks.num=
-_levels; i++)
--                                                              size +=3D sp=
-rintf(buf + size, "%d: %uMhz %s\n", i,
--                                                                          =
-                    clocks.data[i].clocks_in_khz / 1000,
--                                                                          =
-                    (clocks.num_levels =3D=3D 1) ? "*" :
-+                                                             size +=3D spr=
-intf(
-+                                                                          =
-   buf + size, "%d: %uMhz %s\n", i,
-+                                                                          =
-   freq_values[i],
-+                                                                          =
-   (clocks.num_levels =3D=3D 1) ?
-+                                                                          =
-                   "*" :
-                                                                           =
-                    (aldebaran_freqs_in_same_level(
--                                                                          =
-                                                           clocks.data[i].c=
-locks_in_khz / 1000,
--                                                                          =
-                                                           now) ? "*" : "")=
-);
-+                                                                          =
-                                   freq_values[i], now) ?
-+                                                                          =
-                                   "*" :
-+                                                                          =
-                                   ""));
-                               } else {
-                                               for (i =3D 0; i < display_le=
-vels; i++)
-                                                               size +=3D sp=
-rintf(buf + size, "%d: %uMhz %s\n", i,
-@@ -1117,6 +1131,9 @@ static int aldebaran_set_performance_level(struct smu=
-_context *smu,
-                                               && (level !=3D AMD_DPM_FORCE=
-D_LEVEL_PERF_DETERMINISM))
-                               smu_cmn_send_smc_msg(smu, SMU_MSG_DisableDet=
-erminism, NULL);
-+             /* Reset user min/max gfx clock */
-+             smu->gfx_actual_hard_min_freq =3D 0;
-+             smu->gfx_actual_soft_max_freq =3D 0;
-                switch (level) {
-@@ -1158,7 +1175,14 @@ static int aldebaran_set_soft_freq_limited_range(str=
-uct smu_context *smu,
-               if (smu_dpm->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
-                               min_clk =3D max(min, dpm_context->dpm_tables=
-.gfx_table.min);
-                               max_clk =3D min(max, dpm_context->dpm_tables=
-.gfx_table.max);
--                              return smu_v13_0_set_soft_freq_limited_range=
-(smu, SMU_GFXCLK, min_clk, max_clk);
-+                             ret =3D smu_v13_0_set_soft_freq_limited_range=
-(smu, SMU_GFXCLK,
-+                                                                          =
-                                       min_clk, max_clk);
-+
-+                             if (!ret) {
-+                                             smu->gfx_actual_hard_min_freq=
- =3D min_clk | CLOCK_VALID;
-+                                             smu->gfx_actual_soft_max_freq=
- =3D max_clk | CLOCK_VALID;
-+                             }
-+                             return ret;
-               }
-                if (smu_dpm->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PERF_DET=
-ERMINISM) {
-@@ -1178,9 +1202,15 @@ static int aldebaran_set_soft_freq_limited_range(str=
-uct smu_context *smu,
-                                               ret =3D smu_cmn_send_smc_msg=
-_with_param(smu,
-                                                                           =
-    SMU_MSG_EnableDeterminism,
-                                                                           =
-    max, NULL);
--                                              if (ret)
-+                                             if (ret) {
-                                                               dev_err(adev=
-->dev,
-                                                                           =
-                    "Failed to enable determinism at GFX clock %d MHz\n", m=
-ax);
-+                                             } else {
-+                                                             smu->gfx_actu=
-al_hard_min_freq =3D
-+                                                                          =
-   min_clk | CLOCK_VALID;
-+                                                             smu->gfx_actu=
-al_soft_max_freq =3D
-+                                                                          =
-   max | CLOCK_VALID;
-+                                             }
-                               }
-               }
---
-2.17.1
-
-
---_000_MN2PR12MB454998F97CEE8001AE9F508E97739MN2PR12MB4549namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
-le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
-pan></p>
-<br>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">When GFXCLK range is updated in manual/determinism m=
-ode, show the<o:p></o:p></p>
-<p class=3D"MsoNormal">updated min/max clock range.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Signed-off-by: Lijo Lazar <a href=3D"mailto:lijo.laz=
-ar@amd.com">
-lijo.lazar@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal">---<o:p></o:p></p>
-<p class=3D"MsoNormal">.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbs=
-p;&nbsp; | 52 +++++++++++++++----<o:p></o:p></p>
-<p class=3D"MsoNormal">1 file changed, 41 insertions(+), 11 deletions(-)<o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/alde=
-baran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">index ddbb9a23a0af..abe80226a0ee 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_p=
-pt.c<o:p></o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_p=
-pt.c<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -78,6 +78,8 @@<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;#define smnPCIE_ESM_CTRL&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111003D0<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">+#define CLOCK_VALID (1 &lt;&lt; 31)<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">static const struct cmn2asic_msg_mapping aldebaran_m=
-essage_map[SMU_MSG_MAX_COUNT] =3D {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(TestMessage,&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_TestMessage,&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetSmuVersion,&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbs=
-p;&nbsp;&nbsp; PPSMC_MSG_GetSmuVersion,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; 1),<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -670,6 +672,7 @@ static int aldebaran_print_clk_l=
-evels(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_dpm_context *dpm_context =
-=3D NULL;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t display_levels;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t freq_values[3] =3D {0};<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t min_clk, max_clk;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_intr_triggered())<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, =
-PAGE_SIZE, &quot;unavailable\n&quot;);<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -697,12 +700,20 @@ static int aldebaran_print_clk=
-_levels(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; display_levels =
-=3D clocks.num_levels;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk =3D smu-&gt;gfx_actual_h=
-ard_min_freq &amp; CLOCK_VALID ?<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; &nbsp; smu-&gt;gfx_actual_hard_min_freq &amp; ~CLOCK_VALID :<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; &nbsp; single_dpm_table-&gt;dpm_levels[0].value;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_clk =3D smu-&gt;gfx_actual_s=
-oft_max_freq &amp; CLOCK_VALID ?<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; &nbsp; smu-&gt;gfx_actual_soft_max_freq &amp; ~CLOCK_VALID :<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; &nbsp; single_dpm_table-&gt;dpm_levels[1].value;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[0] =3D min_clk;<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[1] =3D max_clk;<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* fine-grained dpm h=
-as only 2 levels */<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (now &gt; single_dpm_ta=
-ble-&gt;dpm_levels[0].value &amp;&amp;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; now &lt; single_dpm_table-&gt;dpm_levels[1].value) {<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (now &gt; min_clk &amp;&amp; =
-now &lt; max_clk) {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-display_levels =3D clocks.num_levels + 1;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_=
-values[0] =3D single_dpm_table-&gt;dpm_levels[0].value;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_=
-values[2] =3D single_dpm_table-&gt;dpm_levels[1].value;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values=
-[2] =3D max_clk;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-freq_values[1] =3D now;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -712,12 +723,15 @@ static int aldebaran_print_clk=
-_levels(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;*/<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (display_levels =
-=3D=3D clocks.num_levels) {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-for (i =3D 0; i &lt; clocks.num_levels; i++)<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; size +=3D sprintf(buf + size, &quot;%d: %uMhz %s\n&quot;, i=
-,<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks.data[i].cl=
-ocks_in_khz / 1000,<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (clocks.num_level=
-s =3D=3D 1) ? &quot;*&quot; :<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; size +=3D sprintf(<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf + size, &quot;%d: %uMhz %s\n&quot;, i,<o=
-:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[i],<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (clocks.num_levels =3D=3D 1) ?<o:p></o:p></p=
->
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;*&quot; :<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (aldebaran_f=
-reqs_in_same_level(<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks.data[i=
-].clocks_in_khz / 1000,<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; now) ? &quot;=
-*&quot; : &quot;&quot;));<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fr=
-eq_values[i], now) ?<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &q=
-uot;*&quot; :<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &q=
-uot;&quot;));<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-for (i =3D 0; i &lt; display_levels; i++)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; size +=3D sprintf(buf + size, &quot;%d: %uMhz %s\n&quo=
-t;, i,<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -1117,6 +1131,9 @@ static int aldebaran_set_perfo=
-rmance_level(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-&amp;&amp; (level !=3D AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM))<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_cmn_send_smc_msg(=
-smu, SMU_MSG_DisableDeterminism, NULL);<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Reset user min/max gfx clock */<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_hard_min_freq =3D 0;<o:p></o:p></p=
->
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx_actual_soft_max_freq =3D 0;<o:p></o:p></p=
->
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (level) {<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -1158,7 +1175,14 @@ static int aldebaran_set_soft=
-_freq_limited_range(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_dpm-&gt;dpm_level =3D=3D AMD_DPM_F=
-ORCED_LEVEL_MANUAL) {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk =3D max(min, =
-dpm_context-&gt;dpm_tables.gfx_table.min);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_clk =3D min(max, =
-dpm_context-&gt;dpm_tables.gfx_table.max);<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_v13_0_set_soft_=
-freq_limited_range(smu, SMU_GFXCLK, min_clk, max_clk);<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v13_0_set_soft_freq_=
-limited_range(smu, SMU_GFXCLK,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &n=
-bsp;&nbsp;&nbsp; min_clk, max_clk);<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret) {<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx=
-_actual_hard_min_freq =3D min_clk | CLOCK_VALID;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;gfx=
-_actual_soft_max_freq =3D max_clk | CLOCK_VALID;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_dpm-&gt;dpm_level =3D=3D AMD=
-_DPM_FORCED_LEVEL_PERF_DETERMINISM) {<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -1178,9 +1202,15 @@ static int aldebaran_set_soft=
-_freq_limited_range(struct smu_context *smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-ret =3D smu_cmn_send_smc_msg_with_param(smu,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_EnableDeterminism,<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max, NULL);<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
-et)<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed=
- to enable determinism at GFX clock %d MHz\n&quot;, max);<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; smu-&gt;gfx_actual_hard_min_freq =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_clk | CLOCK_VALID;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; smu-&gt;gfx_actual_soft_max_freq =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max | CLOCK_VALID;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">-- <o:p></o:p></p>
-<p class=3D"MsoNormal">2.17.1<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB454998F97CEE8001AE9F508E97739MN2PR12MB4549namp_--
-
---===============2045605718==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2045605718==--
+Ck9uIDIwMjEtMDQtMDkgMzowMSBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDA5
+LjA0LjIxIHVtIDA4OjUzIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4gQW0gMDguMDQuMjEg
+dW0gMjI6Mzkgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4+Cj4+PiBPbiAyMDIxLTA0LTA4
+IDI6NTggcC5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+PiBBbSAwOC4wNC4yMSB1bSAx
+ODowOCBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+PiBPbiAyMDIxLTA0LTA4IDQ6MzIg
+YS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+Pj4+IEFtIDA4LjA0LjIxIHVtIDEwOjIy
+IHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4+Pj4+PiBbU05JUF0KPj4+Pj4+Pj4+Cj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+IEJleW9uZCBibG9ja2luZyBhbGwgZGVsYXllZCB3b3JrcyBhbmQgc2No
+ZWR1bGVyIHRocmVhZHMgd2UgCj4+Pj4+Pj4+Pj4gYWxzbyBuZWVkIHRvIGd1YXJhbnRlZSBub8Kg
+IElPQ1RMIGNhbiBhY2Nlc3MgTU1JTyBwb3N0IGRldmljZSAKPj4+Pj4+Pj4+PiB1bnBsdWcgT1Ig
+aW4gZmxpZ2h0IElPQ1RMcyBhcmUgZG9uZSBiZWZvcmUgd2UgZmluaXNoIAo+Pj4+Pj4+Pj4+IHBj
+aV9yZW1vdmUgKGFtZGdwdV9wY2lfcmVtb3ZlIGZvciB1cykuCj4+Pj4+Pj4+Pj4gRm9yIHRoaXMg
+SSBzdWdnZXN0IHdlIGRvIHNvbWV0aGluZyBsaWtlIHdoYXQgd2Ugd29ya2VkIG9uIAo+Pj4+Pj4+
+Pj4+IHdpdGggVGFrYXNoaSBJd2FpIHRoZSBBTFNBIG1haW50YWluZXIgcmVjZW50bHkgd2hlbiBo
+ZSBoZWxwZWQgCj4+Pj4+Pj4+Pj4gaW1wbGVtZW50aW5nIFBDSSBCQVJzIG1vdmUgc3VwcG9ydCBm
+b3Igc25kX2hkYV9pbnRlbC4gVGFrZSBhIAo+Pj4+Pj4+Pj4+IGxvb2sgYXQKPj4+Pj4+Pj4+PiBo
+dHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHM6
+JTJGJTJGY2dpdC5mcmVlZGVza3RvcC5vcmclMkZ+YWdyb2R6b3YlMkZsaW51eCUyRmNvbW1pdCUy
+RiUzRmglM0R5YWRybyUyRnBjaWVfaG90cGx1ZyUyRm1vdmFibGVfYmFyc192OS4xJTI2aWQlM0Rj
+YmFhMzI0Nzk5NzE4ZTJiODI4YThjN2I1YjAwMWRkODk2NzQ4NDk3JmFtcDtkYXRhPTA0JTdDMDEl
+N0NhbmRyZXkuZ3JvZHpvdnNreSU0MGFtZC5jb20lN0MxYzVlNDQwZDMzMmY0NmI3Zjg2MjA4ZDhm
+YjI1NDIyYyU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzc1
+MzU0ODQ3MzQ1ODE5MDQlN0NVbmtub3duJTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01E
+QWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZh
+bXA7c2RhdGE9biUyRkczYkxZVUtkbDltaXRSOWYxYThxTHBrVG9MZEtNM0l6NHkyM0dGZzYwJTNE
+JmFtcDtyZXNlcnZlZD0wIAo+Pj4+Pj4+Pj4+IGFuZAo+Pj4+Pj4+Pj4+IGh0dHBzOi8vbmFtMTEu
+c2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwczolMkYlMkZjZ2l0LmZy
+ZWVkZXNrdG9wLm9yZyUyRn5hZ3JvZHpvdiUyRmxpbnV4JTJGY29tbWl0JTJGJTNGaCUzRHlhZHJv
+JTJGcGNpZV9ob3RwbHVnJTJGbW92YWJsZV9iYXJzX3Y5LjElMjZpZCUzRGUzNjM2NWQ5YWI1YmJj
+MzBiZGMyMjFhYjRiMzQzN2RlMzQ0OTI0NDAmYW1wO2RhdGE9MDQlN0MwMSU3Q2FuZHJleS5ncm9k
+em92c2t5JTQwYW1kLmNvbSU3QzFjNWU0NDBkMzMyZjQ2YjdmODYyMDhkOGZiMjU0MjJjJTdDM2Rk
+ODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzUzNTQ4NDczNDU4MTkw
+NCU3Q1Vua25vd24lN0NUV0ZwYkdac2IzZDhleUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJs
+dU16SWlMQ0pCVGlJNklrMWhhV3dpTENKWFZDSTZNbjAlM0QlN0MxMDAwJmFtcDtzZGF0YT14STg4
+U2diZEFLJTJGVW1DQzNKT3ZBa25GVGRiRGJmdTRBSVBMJTJCZjhvbDRaSSUzRCZhbXA7cmVzZXJ2
+ZWQ9MCAKPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IFdlIGFsc28gaGFkIHNhbWUgaXNzdWUgdGhlcmUs
+IGhvdyB0byBwcmV2ZW50IE1NSU8gYWNjZXNzZXMgCj4+Pj4+Pj4+Pj4gd2hpbGUgdGhlIEJBUnMg
+YXJlIG1pZ3JhdGluZy4gV2hhdCB3YXMgZG9uZSB0aGVyZSBpcyBhIAo+Pj4+Pj4+Pj4+IHJlZmNv
+dW50IHdhcyBhZGRlZCB0byBjb3VudCBhbGwgSU9DVExzIGluIGZsaWdodCwgZm9yIGFueSBpbiAK
+Pj4+Pj4+Pj4+PiBmbGlnaHTCoCBJT0NUTCB0aGUgQkFSIG1pZ3JhdGlvbiBoYW5kbGVyIHdvdWxk
+Cj4+Pj4+Pj4+Pj4gYmxvY2sgZm9yIHRoZSByZWZjb3VudCB0byBkcm9wIHRvIDAgYmVmb3JlIGl0
+IHdvdWxkIHByb2NlZWQsIAo+Pj4+Pj4+Pj4+IGZvciBhbnkgbGF0ZXIgSU9DVEwgaXQgc3RvcHMg
+YW5kIHdhaXQgaWYgZGV2aWNlIGlzIGluIAo+Pj4+Pj4+Pj4+IG1pZ3JhdGlvbiBzdGF0ZS4gV2Ug
+ZXZlbiBkb24ndCBuZWVkIHRoZSB3YWl0IHBhcnQsIG5vdGhpbmcgdG8gCj4+Pj4+Pj4+Pj4gd2Fp
+dCBmb3IsIHdlIGp1c3QgcmV0dXJuIHdpdGggLUVOT0RFViBmb3IgdGhpcyBjYXNlLgo+Pj4+Pj4+
+Pj4+Cj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gVGhpcyBpcyBlc3NlbnRpYWxseSB3aGF0IHRoZSBEUk0g
+U1JDVSBpcyBkb2luZyBhcyB3ZWxsLgo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+IEZvciB0aGUgaG90cGx1
+ZyBjYXNlIHdlIGNvdWxkIGRvIHRoaXMgaW4gdGhlIHRvcGxldmVsIHNpbmNlIHdlIAo+Pj4+Pj4+
+Pj4gY2FuIHNpZ25hbCB0aGUgZmVuY2UgYW5kIGRvbid0IG5lZWQgdG8gYmxvY2sgbWVtb3J5IG1h
+bmFnZW1lbnQuCj4+Pj4+Pj4+Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IFRvIG1ha2UgU1JDVSAnd2FpdCBm
+b3InIGFsbCBJT0NUTHMgaW4gZmxpZ2h0IHdlIHdvdWxkIG5lZWQgdG8gCj4+Pj4+Pj4+IHdyYXAg
+ZXZlcnkgSU9DVEwgKCBwcmFjdGljYWxseSAtIGp1c3QgZHJtX2lvY3RsIGZ1bmN0aW9uKSB3aXRo
+IAo+Pj4+Pj4+PiBkcm1fZGV2X2VudGVyL2RybV9kZXZfZXhpdCAtIGNhbiB3ZSBkbyBpdCA/Cj4+
+Pj4+Pj4+Cj4+Pj4+Pgo+Pj4+Pj4gU29ycnkgdG90YWxseSBtaXNzZWQgdGhpcyBxdWVzdGlvbi4K
+Pj4+Pj4+Cj4+Pj4+PiBZZXMsIGV4YWN0bHkgdGhhdC4gQXMgZGlzY3Vzc2VkIGZvciB0aGUgaG90
+cGx1ZyBjYXNlIHdlIGNhbiBkbyB0aGlzLgo+Pj4+Pgo+Pj4+Pgo+Pj4+PiBUaGlua2luZyBtb3Jl
+IGFib3V0IGl0IC0gYXNzdW1pbmcgd2UgYXJlwqAgdHJlYXRpbmcgCj4+Pj4+IHN5bmNocm9uaXpl
+X3NyY3UgYXMgYSAnd2FpdCBmb3IgY29tcGxldGlvbicgb2YgYW55IGluIGZsaWdodCAKPj4+Pj4g
+e2RybV9kZXZfZW50ZXIsIGRybV9kZXZfZXhpdH0gc2NvcGUsIHNvbWUgb2YgdGhvc2Ugc2NvcGVz
+IG1pZ2h0IGRvIAo+Pj4+PiBkbWFfZmVuY2Vfd2FpdCBpbnNpZGUuIFNpbmNlIHdlIGhhdmVuJ3Qg
+Zm9yY2Ugc2lnbmFsZWQgdGhlIGZlbmNlcyAKPj4+Pj4geWV0IHdlIHdpbGwgZW5kIHVwIGEgZGVh
+ZGxvY2suIFdlIGhhdmUgdG8gc2lnbmFsIGFsbCB0aGUgdmFyaW91cyAKPj4+Pj4gZmVuY2VzIGJl
+Zm9yZSBkb2luZyB0aGUgJ3dhaXQgZm9yJy4gQnV0IHdlIGNhbid0IHNpZ25hbCB0aGUgZmVuY2Vz
+IAo+Pj4+PiBiZWZvcmUgc2V0dGluZyAnZGV2LT51bnBsdWdnZWQgPSB0cnVlJyB0byByZWplY3Qg
+ZnVydGhlciBDUyBhbmQgCj4+Pj4+IG90aGVyIHN0dWZmIHdoaWNoIG1pZ2h0IGNyZWF0ZSBtb3Jl
+IGZlbmNlcyB3ZSB3ZXJlIHN1cHBvc2VkLXRvIAo+Pj4+PiBmb3JjZSBzaWduYWwgYW5kIG5vdyBt
+aXNzZWQgdGhlbS4gRWZmZWN0aXZlbHkgc2V0dGluZyAKPj4+Pj4gJ2Rldi0+dW5wbHVnZ2VkID0g
+dHJ1ZScgYW5kIGRvaW5nIHN5bmNocm9uaXplX3NyY3UgaW4gb25lIGNhbGwgCj4+Pj4+IGxpa2Ug
+ZHJtX2Rldl91bnBsdWcgZG9lcyB3aXRob3V0IHNpZ25hbGxpbmcgYWxsIHRoZSBmZW5jZXMgaW4g
+dGhlIAo+Pj4+PiBkZXZpY2UgaW4gYmV0d2VlbiB0aGVzZSB0d28gc3RlcHMgbG9va3MgbHVjayBh
+IHBvc3NpYmxlIGRlYWRsb2NrIAo+Pj4+PiB0byBtZSAtIHdoYXQgZG8geW91IHRoaW5rID8KPj4+
+Pj4KPj4+Pgo+Pj4+IEluZGVlZCwgdGhhdCBpcyBhIHJlYWxseSBnb29kIGFyZ3VtZW50IHRvIGhh
+bmRsZSBpdCB0aGUgc2FtZSB3YXkgYXMgCj4+Pj4gdGhlIHJlc2V0IGxvY2suCj4+Pj4KPj4+PiBF
+LmcuIG5vdCB0YWtpbmcgaXQgYXQgdGhlIGhpZ2ggbGV2ZWwgSU9DVEwsIGJ1dCByYXRoZXIgd2hl
+biB0aGUgCj4+Pj4gZnJvbnRlbmQgb2YgdGhlIGRyaXZlciBoYXMgYWNxdWlyZWQgYWxsIHRoZSBu
+ZWNlc3NhcnkgbG9ja3MgKEJPIAo+Pj4+IHJlc3YsIFZNIGxvY2sgZXRjLi4uKSBiZWZvcmUgY2Fs
+bGluZyBpbnRvIHRoZSBiYWNrZW5kIHRvIGFjdHVhbGx5IAo+Pj4+IGRvIHRoaW5ncyB3aXRoIHRo
+ZSBoYXJkd2FyZS4KPj4+Pgo+Pj4+IENocmlzdGlhbi4KPj4+Cj4+PiBGcm9tIHdoYXQgeW91IHNh
+aWQgSSB1bmRlcnN0YW5kIHRoYXQgeW91IHdhbnQgdG8gc29sdmUgdGhpcyBwcm9ibGVtIAo+Pj4g
+YnkgdXNpbmcgZHJtX2Rldl9lbnRlci9leGl0IGJyYWNrZXRzIGxvdyBlbm91Z2ggaW4gdGhlIGNv
+ZGUgc3VjaCAKPj4+IHRoYXQgaXQgd2lsbCBub3QgaW5jbHVkZSBhbmQgZmVuY2Ugd2FpdC4KPj4+
+Cj4+PiBCdXQgaW5zZXJ0aW5nIGRtcl9kZXZfZW50ZXIvZXhpdCBvbiB0aGUgaGlnaGVzdCBsZXZl
+bCBpbiBkcm1faW9jdGwgCj4+PiBpcyBtdWNoIGxlc3MgZWZmb3J0IGFuZCBsZXNzIHJvb20gZm9y
+IGVycm9yIHRoZW4gZ29pbmcgdGhyb3VnaCBlYWNoIAo+Pj4gSU9DVEwgYW5kIHRyeWluZyB0byBp
+ZGVudGlmeSBhdCB3aGF0IHBvaW50IChwb3NzaWJseSBtdWx0aXBsZSAKPj4+IHBvaW50cykgdGhl
+eSBhcmUgYWJvdXQgdG8gYWNjZXNzIEhXLCBzb21lIG9mIHRoaXMgaXMgaGlkZGVuIGRlZXAgaW4g
+Cj4+PiBIQUwgbGF5ZXJzIHN1Y2ggYXMgREMgbGF5ZXIgaW4gZGlzcGxheSBkcml2ZXIgb3IgdGhl
+IG11bHRpIGxheWVycyBvZiAKPj4+IHBvd2VycGxheS9TTVUgbGlicmFyaWVzLiBBbHNvLCB3ZSBj
+YW4ndCBvbmx5IGxpbWl0IG91ci1zZWxmIHRvIAo+Pj4gYmFjay1lbmQgaWYgYnkgdGhpcyB5b3Ug
+bWVhbiBBU0lDIHNwZWNpZmljIGZ1bmN0aW9ucyB3aGljaCBhY2Nlc3MgCj4+PiByZWdpc3RlcnMu
+IFdlIGFsc28gbmVlZCB0byB0YWtlIGNhcmUgb2YgYW55IE1NSU8ga2VybmVsIEJPIChWUkFNIAo+
+Pj4gQk9zKSB3aGVyZSB3ZSBtYXkgYWNjZXNzIGRpcmVjdGx5IE1NSU8gc3BhY2UgYnkgcG9pbnRl
+ciBmcm9tIHRoZSAKPj4+IGZyb250IGVuZCBvZiB0aGUgZHJpdmVyIChIVyBhZ25vc3RpYykgYW5k
+IFRUTS9EUk0gbGF5ZXJzLgo+Pgo+PiBFeGFjdGx5LCB5ZXMuIFRoZSBrZXkgcG9pbnQgaXMgd2Ug
+bmVlZCB0byBpZGVudGlmeSBzdWNoIHBsYWNlcyBhbnl3YXkgCj4+IGZvciBHUFUgcmVzZXQgdG8g
+d29yayBwcm9wZXJseS4gU28gd2UgY291bGQganVzdCBwaWdneSBiYWNrIGhvdHBsdWcgCj4+IG9u
+IHRvcCBvZiB0aGF0IHdvcmsgYW5kIGFyZSBkb25lLgoKCkkgc2VlIG1vc3Qgb2YgdGhpcyB3YXMg
+ZG9uZSBCeSBEZW5pcyBpbiB0aGlzIHBhdGNoIApodHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3Jn
+L35hZ3JvZHpvdi9saW51eC9jb21taXQvP2g9ZHJtLW1pc2MtbmV4dCZpZD1kZjljOGQxYWEyNzhj
+NDM1YzMwYTY5YjhmMjQxOGI0YTUyZmNiOTI5LCAKaW5kZWVkIHRoaXMgZG9lc24ndCBjb3ZlciB0
+aGUgZGlyZWN0IGJ5IHBvaW50ZXIgYWNjZXNzZXMgb2YgTU1JTyBhbmQgCndpbGwgaW50cm9kdWNl
+IG11Y2ggbW9yZSBvZiB0aG9zZSBhbmQsIGFzIHBlb3BsZSB3cml0ZSBuZXcgY29kZSwgbmV3IApw
+bGFjZXMgdG8gY292ZXIgd2lsbCBwb3AgdXAgbGVhZGluZyB0byByZWdyZXNzaW9ucyBhbmQgZXh0
+cmEgd29yayB0byAKZml4LiBJdCB3b3VsZCBiZSByZWFsbHkgbXVjaCBiZXR0ZXIgaWYgd2UgY291
+bGQgYmxhbmtldCBjb3ZlciBpdCBhdCB0aGUgCnZlcnkgdG9wwqAgc3VjaCBhcyByb290IG9mIGFs
+bCBJT0NUTHMgb3IsIGZvciBhbnkgcXVldWVkIHdvcmsvdGltZXIgYXQgCnRoZSB2ZXJ5IHRvcCBm
+dW5jdGlvbiwgdG8gaGFuZGxlIGl0IG9uY2UgYW5kIGZvciBhbGwuCgoKPj4KPj4+Cj4+PiBPdXIg
+cHJvYmxlbSBoZXJlIGlzIGhvdyB0byBzaWduYWwgYWxsIHRoZSBleGlzdGluZ8KgIGZlbmNlcyBv
+biBvbmUgCj4+PiBoYW5kIGFuZCBvbiB0aGUgb3RoZXIgcHJldmVudCBhbnkgbmV3IGRtYV9mZW5j
+ZSB3YWl0cyBhZnRlciB3ZSAKPj4+IGZpbmlzaGVkIHNpZ25hbGluZyBleGlzdGluZyBmZW5jZXMu
+IE9uY2Ugd2Ugc29sdmVkIHRoaXMgdGhlbiB0aGVyZSAKPj4+IGlzIG5vIHByb2JsZW0gdXNpbmcg
+ZHJtX2Rldl91bnBsdWcgaW4gY29uanVuY3Rpb24gd2l0aCAKPj4+IGRybV9kZXZfZW50ZXIvZXhp
+dCBhdCB0aGUgaGlnaGVzdCBsZXZlbCBvZiBkcm1faW9jdGwgdG8gZmx1c2ggYW55IAo+Pj4gSU9D
+VExzIGluIGZsaWdodCBhbmQgYmxvY2sgYW55IG5ldyBvbmVzLgo+Pj4KPj4+IElNSE8gd2hlbiB3
+ZSBzcGVhayBhYm91dCBzaWduYWxsaW5nIGFsbCBmZW5jZXMgd2UgZG9uJ3QgbWVhbiBBTEwgdGhl
+IAo+Pj4gY3VycmVudGx5IGV4aXN0aW5nIGRtYV9mZW5jZSBzdHJ1Y3RzICh0aGV5IGFyZSBzcHJl
+YWQgYWxsIG92ZXIgdGhlIAo+Pj4gcGxhY2UpIGJ1dCByYXRoZXIgc2lnbmFsIGFsbCB0aGUgSFcg
+ZmVuY2VzIGJlY2F1c2UgSFcgaXMgd2hhdCdzIGdvbmUgCj4+PiBhbmQgd2UgY2FuJ3QgZXhwZWN0
+IGZvciB0aG9zZSBmZW5jZXMgdG8gYmUgZXZlciBzaWduYWxlZC4gQWxsIHRoZSAKPj4+IHJlc3Qg
+c3VjaCBhczogc2NoZWR1bGVyIGZlbmNlcywgdXNlciBmZW5jZXMsIGRybV9nZW0gcmVzZXJ2YXRp
+b24gCj4+PiBvYmplY3RzIGUudC5jLiBhcmUgZWl0aGVyIGRlcGVuZGVudCBvbiB0aG9zZSBIVyBm
+ZW5jZXMgYW5kIGhlbmNlIAo+Pj4gc2lnbmFsaW5nIHRoZSBIVyBmZW5jZXMgd2lsbCBpbiB0dXJu
+IHNpZ25hbCB0aGVtIG9yLCBhcmUgbm90IAo+Pj4gaW1wYWN0ZWQgYnkgdGhlIEhXIGJlaW5nIGdv
+bmUgYW5kIGhlbmNlIGNhbiBzdGlsbCBiZSB3YWl0ZWQgb24gYW5kIAo+Pj4gd2lsbCBjb21wbGV0
+ZS4gSWYgdGhpcyBhc3N1bXB0aW9uIGlzIGNvcnJlY3QgdGhlbiBJIHRoaW5rIHRoYXQgd2UgCj4+
+PiBzaG91bGQgdXNlIHNvbWUgZmxhZyB0byBwcmV2ZW50IGFueSBuZXcgc3VibWlzc2lvbiB0byBI
+VyB3aGljaCAKPj4+IGNyZWF0ZXMgSFcgZmVuY2VzIChzb21ld2hlcmUgYXJvdW5kIGFtZGdwdV9m
+ZW5jZV9lbWl0KSwgdGhlbiAKPj4+IHRyYXZlcnNlIGFsbCBleGlzdGluZyBIVyBmZW5jZXMgKGN1
+cnJlbnRseSB0aGV5IGFyZSBzcHJlYWQgaW4gYSBmZXcgCj4+PiBwbGFjZXMgc28gbWF5YmUgd2Ug
+bmVlZCB0byB0cmFjayB0aGVtIGluIGEgbGlzdCkgYW5kIHNpZ25hbCB0aGVtLiAKPj4+IEFmdGVy
+IHRoYXQgaXQncyBzYWZlIHRvIGNhbCBkcm1fZGV2X3VucGx1ZyBhbmQgYmUgc3VyZSAKPj4+IHN5
+bmNocm9uaXplX3NyY3Ugd29uJ3Qgc3RhbGwgYmVjYXVzZSBvZiBvZiBkbWFfZmVuY2Vfd2FpdC4g
+QWZ0ZXIgCj4+PiB0aGF0IHdlIGNhbiBwcm9jZWVkIHRvIGNhbmNlbGluZyB3b3JrIGl0ZW1zLCBz
+dG9wcGluZyBzY2hlZHVsZXJzIGUudC5jLgo+Pgo+PiBUaGF0IGlzIHByb2JsZW1hdGljIGFzIHdl
+bGwgc2luY2UgeW91IG5lZWQgdG8gbWFrZSBzdXJlIHRoYXQgdGhlIAo+PiBzY2hlZHVsZXIgaXMg
+bm90IGNyZWF0aW5nIGEgbmV3IGhhcmR3YXJlIGZlbmNlIGluIHRoZSBtb21lbnQgeW91IHRyeSAK
+Pj4gdG8gc2lnbmFsIGFsbCBvZiB0aGVtLiBJdCB3b3VsZCByZXF1aXJlIGFub3RoZXIgU1JDVSBv
+ciBsb2NrIGZvciB0aGlzLgoKCklmIHdlIHVzZSBhIGxpc3QgYW5kIGEgZmxhZyBjYWxsZWQgJ2Vt
+aXRfYWxsb3dlZCcgdW5kZXIgYSBsb2NrIHN1Y2ggdGhhdCAKaW4gYW1kZ3B1X2ZlbmNlX2VtaXQg
+d2UgbG9jayB0aGUgbGlzdCwgY2hlY2sgdGhlIGZsYWcgYW5kIGlmIHRydWUgYWRkIAp0aGUgbmV3
+IEhXIGZlbmNlIHRvIGxpc3QgYW5kIHByb2NlZWQgdG8gSFcgZW1pdGlvbiBhcyBub3JtYWwsIG90
+aGVyd2lzZSAKcmV0dXJuIHdpdGggLUVOT0RFVi4gSW4gYW1kZ3B1X3BjaV9yZW1vdmUgd2UgdGFr
+ZSB0aGUgbG9jaywgc2V0IHRoZSBmbGFnIAp0byBmYWxzZSwgYW5kIHRoZW4gaXRlcmF0ZSB0aGUg
+bGlzdCBhbmQgZm9yY2Ugc2lnbmFsIGl0LiBXaWxsIHRoaXMgbm90IApwcmV2ZW50IGFueSBuZXcg
+SFcgZmVuY2UgY3JlYXRpb24gZnJvbSBub3cgb24gZnJvbSBhbnkgcGxhY2UgdHJ5aW5nIHRvIApk
+byBzbyA/CgoKPgo+IEFsdGVybmF0aXZlbHkgZ3JhYmJpbmcgdGhlIHJlc2V0IHdyaXRlIHNpZGUg
+YW5kIHN0b3BwaW5nIGFuZCB0aGVuIAo+IHJlc3RhcnRpbmcgdGhlIHNjaGVkdWxlciBjb3VsZCB3
+b3JrIGFzIHdlbGwuCj4KPiBDaHJpc3RpYW4uCgoKSSBkaWRuJ3QgZ2V0IHRoZSBhYm92ZSBhbmQg
+SSBkb24ndCBzZWUgd2h5IEkgbmVlZCB0byByZXVzZSB0aGUgR1BVIHJlc2V0IApyd19sb2NrLiBJ
+IHJlbHkgb24gdGhlIFNSQ1UgdW5wbHVnIGZsYWcgZm9yIHVucGx1Zy4gQWxzbywgbm90IGNsZWFy
+IHRvIAptZSB3aHkgYXJlIHdlIGZvY3VzaW5nIG9uIHRoZSBzY2hlZHVsZXIgdGhyZWFkcywgYW55
+IGNvZGUgcGF0Y2ggdG8gCmdlbmVyYXRlIEhXIGZlbmNlcyBzaG91bGQgYmUgY292ZXJlZCwgc28g
+YW55IGNvZGUgbGVhZGluZyB0byAKYW1kZ3B1X2ZlbmNlX2VtaXQgbmVlZHMgdG8gYmUgdGFrZW4g
+aW50byBhY2NvdW50IHN1Y2ggYXMsIGRpcmVjdCBJQiAKc3VibWlzc2lvbnMsIFZNIGZsdXNoZXMg
+ZS50LmMKCkFuZHJleQoKCj4KPj4KPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4KPj4+IEFuZHJleQo+Pj4K
+Pj4+Cj4+Pj4KPj4+Pj4gQW5kcmV5Cj4+Pj4+Cj4+Pj4+Cj4+Pj4KPj4KPgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
