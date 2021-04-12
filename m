@@ -2,76 +2,101 @@ Return-Path: <SRS0=UsYE=JJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36829C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 11:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 327B4C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 12:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA4F661241
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 11:11:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA4F661241
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BF3B6601FF
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 12:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF3B6601FF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AED06E087;
-	Mon, 12 Apr 2021 11:11:10 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE2C96E087
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 11:11:09 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id g5so12892453ejx.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 04:11:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=5LtuTKsb92QbtbqBByEJdHLZe/zQ8e7otPh3ABYb7YU=;
- b=Rd1ufOIVqDDLtX0iBLbga1w1gkMUoU3SjOslxXXoFvC7kq2ePU8wkzOQHSQIReMyL4
- C7TMRCO4HCsDCcqOaUOvgP10SFcg4hMxw++TAaZze3SU+JFGQA5ebO5F/SLCfoAfZcxE
- pBMHZRlMtQW/V4P7pVSZO+P5w5cu3g10ZNj76idQ2fZTnSD6gv0JdeGhj/RbcFUVof1Y
- u369X4AX8K6meOSohhFVU4O1bQFQHGCS/GeCtQRgYth0fXb7xK2P2SnVCJMMx3oi5VjU
- WefFKelKoKNRo67xJNnLQfoSeZqnuG6U7/379y7ubJAac6mINHCDUp8YhOYyfEVGl7Fq
- KlIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=5LtuTKsb92QbtbqBByEJdHLZe/zQ8e7otPh3ABYb7YU=;
- b=YEMV3yFNq+7gr1yruWE/yMhwHGqUTc1k1mPPxJD2PywRVXtvg8PqAi5p+uiMyPhi4D
- NLSTay3TvojCx1ehsCOtYsHSw1EW12g0lBd3E9kHPKnSAYKjWbTwwgBt2p2qKgqdSAF0
- the15Jw1Er0Gsh34bBbXOHZAZ8kr39tMMkwjZ8J7d+veWT1XwGp38+6XrGlg1IOc+Rki
- h4VaL7m33cxA2oS9ZC5Hk0qj2LyQ2Pwd50/WRTNs//HT0HaZEs7YnHkSZUZTyiPu7U1P
- rHo2O9DLW8qk2/RabEbhqt09Tc98zvV+My/CsmYKb/Np9tg2VypYQZowrs+We8WesyfG
- Rd/A==
-X-Gm-Message-State: AOAM530GoBMNahvWrilcd6F++MABqr8L/T2vvOvGyoQ/mJ21qZGILBpq
- zENzTGYqGWa6nTLFQPZGDYE=
-X-Google-Smtp-Source: ABdhPJyGzaUJxdWE7Cxnwp47xvfzILRQlAYxIR8LXURjbNIz0PXel2menqEgA9UTCoZw09oNssk/0g==
-X-Received: by 2002:a17:907:689:: with SMTP id
- wn9mr26459839ejb.485.1618225868405; 
- Mon, 12 Apr 2021 04:11:08 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:4f4:3b4b:a0ea:d512?
- ([2a02:908:1252:fb60:4f4:3b4b:a0ea:d512])
- by smtp.gmail.com with ESMTPSA id bs10sm6282943edb.8.2021.04.12.04.11.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Apr 2021 04:11:07 -0700 (PDT)
-Subject: Re: Unexpected multihop in swaput - likely driver bug.
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-References: <CABXGCsPAdv6wCWmzh6OQmDX1LOf_FEu_wH=4K9HDd_rToTdwrQ@mail.gmail.com>
- <7d30982e-a893-858c-2237-a09a183ff2d0@gmail.com>
- <CABXGCsN6GX4ksbFo9fhd6XGxNyED9qoBqYf0Ph1pwG3qArGtjg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <b2d8efbd-3e2a-eff3-23e7-b620ea584082@gmail.com>
-Date: Mon, 12 Apr 2021 13:11:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 703B58918F;
+	Mon, 12 Apr 2021 12:15:08 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 173598918F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 12:15:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gjrnV9xhO29C1ZhYRu0J3Fkl/v8WrzH3k1UFi29uwxFwjA7h8HCj5S7mtlOU+eipnqKU2m6vU+xP0VOe1YPRECcXWoODf6FJwu5rP28Kz4UFM9mRyr+V5r4ZnoKpcaPwbmpsjxmTjlADcuzBFXXlWZjA/TajSIhzAsLwezwAYeMn++753GQHUcNfC1kpsBQSk0U/S8MesL3quT2ttmPoGgUBqCP7pzGXX1HYQYDWyPc7RecWdTy8EIKTKKavgZX6K4PeAikQZF6d2GV1rJ6yfUmzWIk9EEKqS0F0uu+HvB8jGdbKLBVfhGnGfMlxTWH6kE2NS3k1FC3MUU9XzVQMrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1XKVaGUnytLbPHjCYl1ISIjZamkeRUrfXokGsxcabX0=;
+ b=MbH9sDVVloG87FaLmGfCtbcKGMwBQalHTuHtF0pTdCJCZxt8jbq+gXfdQ/hAZ+6uL6Paf4ZaP4acpF7LxnC+JPag4VQnq3L2JCpZ7OR1FHy4cOSZyAPjClnhoDVvXdypC7k7DIryifzEcN4PtnhyAVB1QiVyZIB9x7QV2MHl7VfE39H83ADgJvh6gci4jPkwueLNrIj8LdQqkADvdrqTn33AlIU98zDvOMEN+l+778GIN4jCwG7wjiGOFFFMtnrIXI3/G03avZ8qusnX5Pl+DO727GweCv47icA45jhB8xrJ78f3a8gkrpf32FolZmM4H0Z9d/R8XRFo2tDtVMyUKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1XKVaGUnytLbPHjCYl1ISIjZamkeRUrfXokGsxcabX0=;
+ b=ZYBXQq7YF2kjn9lUgASJx/3gAcxQq653Z85KyIbOi9PkGBiBhpcMbyAp5Drw2qsdhtonGQe84Ea3Rhitb54toPZvPpwn6vAq2PU22MqpvZlQ15GzqZicEWPkwC1FB8QHMKSAp6k0K3P9dsk+EHZY1Z5wBIyd2FUa8y1p4bPl//Y=
+Received: from DM5PR21CA0012.namprd21.prod.outlook.com (2603:10b6:3:ac::22) by
+ DM4PR12MB5037.namprd12.prod.outlook.com (2603:10b6:5:388::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4020.16; Mon, 12 Apr 2021 12:15:05 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:ac:cafe::fd) by DM5PR21CA0012.outlook.office365.com
+ (2603:10b6:3:ac::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.0 via Frontend
+ Transport; Mon, 12 Apr 2021 12:15:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4020.17 via Frontend Transport; Mon, 12 Apr 2021 12:15:05 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Mon, 12 Apr
+ 2021 07:15:04 -0500
+Received: from Roy7.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2106.2 via Frontend
+ Transport; Mon, 12 Apr 2021 07:15:03 -0500
+From: Roy Sun <Roy.Sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: Expose some power info through AMDGPU_INFO
+Date: Mon, 12 Apr 2021 20:15:05 +0800
+Message-ID: <20210412121505.23787-1-Roy.Sun@amd.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <CABXGCsN6GX4ksbFo9fhd6XGxNyED9qoBqYf0Ph1pwG3qArGtjg@mail.gmail.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 87c011fa-6808-454f-08f3-08d8fdac9b61
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5037:
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5037C94C1F452C4587C80A3DFF709@DM4PR12MB5037.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: D9Eg159sBV4cniF4YQBKNoqd9c4v0bj9t0LbcPv92U12jlv5hKWZu7/6UtPAn5PBLE/aD5X2y9zePKMMbPzUwpbP8bQ8TCbGGhnDCPmsbdSTvazLdYGpGMNIVNeFRPoGckSyIdsXzfCZUk7/5XxocjQkxYt9O+Y5p8K7ox02NcZYV4gH4UnCB+F0LHPUfK+OJ/5/m3O2GPmZ9+KspCbHCMQEd0sMZ8iSWtduzfPAAim5lJGdKI3klyQK4gccrIdc/JXRC/XH8mxdaH1Cljhh77DBd39jbNwxRkTWSGsJGLYljKetOeyA9lNtK6CdS5jIfLhQUrn5ESo9xxGpEDq70MawM6nAbfxU3jZuuVmP420pPhzVCBrRCaWlUtdQtlDiCDa5qR0astmMWKkzf5ok4v81Gl0ijhWRxCSMroP3wg0S1NQV0zjesyMT94LGocDm2rlQCvnQtOoVE/vkV5HgFqY9Wt7H84mX8iTH0DxNNOEsdQk1auuHyiPT+IZePQfbUQt7VBftBJGugoYD3xYU4Da4+4AuffbfTM8CsPydmdWE9WVQ80mehfioqw9lGhgKmqi/J+gGZvAWvnY7hq52r6mDcAfB14GkXlXR6trsU03jME1IPxrFFZ+m5Bk/cPS3PusfhIV9gw1phn5vVzZ2M5rOIeDvKHETtCEUp1wJS5TtXONNmZMSiZXWkPsYfyNb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(136003)(39860400002)(376002)(36840700001)(46966006)(6916009)(5660300002)(1076003)(4326008)(7696005)(426003)(2616005)(8676002)(316002)(82310400003)(36860700001)(356005)(336012)(70206006)(70586007)(83380400001)(82740400003)(478600001)(36756003)(2906002)(86362001)(186003)(47076005)(8936002)(81166007)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2021 12:15:05.4975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87c011fa-6808-454f-08f3-08d8fdac9b61
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5037
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,53 +108,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@gmail.com>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Roy Sun <Roy.Sun@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgTWlraGFpbCwKCnRoYW5rcyBhIGxvdCBmb3IgcG9pbnRpbmcgdGhpcyBvdXQuCgpUdXJuZWQg
-b3V0IHRoYXQgdGhpcyBpcyBhIGtub3duIGlzc3VlLCBidXQgSSd2ZSBmb3Jnb3QgdG8gcHVzaCB0
-aGUgZml4IAp0byBkcm0tbWlzYy1maXhlcyBhbmQganVzdCBxdWV1ZWQgaXQgdXAgZm9yIHRoZSBu
-ZXh0IHJlbGVhc2UuCgpQbGVhc2UgcmUtdGVzdCBkcm0tbWlzYy1maXhlcyBhbmQgbGV0J3MgaG9w
-ZSB0aGVyZSBpcyBhbm90aGVyIC1yYyBiZWZvcmUgCnRoZSBmaW5hbCA1LjEyIGtlcm5lbC4KClRo
-YW5rcywKQ2hyaXN0aWFuLgoKQW0gMDcuMDQuMjEgdW0gMjA6MDYgc2NocmllYiBNaWtoYWlsIEdh
-dnJpbG92Ogo+IE9uIFdlZCwgNyBBcHIgMjAyMSBhdCAxNTo0NiwgQ2hyaXN0aWFuIEvDtm5pZwo+
-IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4+IFdoYXQgaGFyZHdh
-cmUgYXJlIHlvdSB1c2luZwo+ICQgaW54aSAtYk0KPiBTeXN0ZW06ICAgIEhvc3Q6IGZlZG9yYSBL
-ZXJuZWw6IDUuMTIuMC0wLnJjNi4xODQuZmMzNS54ODZfNjQrZGVidWcKPiB4ODZfNjQgYml0czog
-NjQgRGVza3RvcDogR05PTUUgNDAuMAo+ICAgICAgICAgICAgIERpc3RybzogRmVkb3JhIHJlbGVh
-c2UgMzUgKFJhd2hpZGUpCj4gTWFjaGluZTogICBUeXBlOiBEZXNrdG9wIE1vYm86IEFTVVNUZUsg
-bW9kZWw6IFJPRyBTVFJJWCBYNTcwLUkgR0FNSU5HCj4gdjogUmV2IFguMHggc2VyaWFsOiA8c3Vw
-ZXJ1c2VyIHJlcXVpcmVkPgo+ICAgICAgICAgICAgIFVFRkk6IEFtZXJpY2FuIE1lZ2F0cmVuZHMg
-djogMzYwMyBkYXRlOiAwMy8yMC8yMDIxCj4gQmF0dGVyeTogICBJRC0xOiBoaWRwcF9iYXR0ZXJ5
-XzAgY2hhcmdlOiBOL0EgY29uZGl0aW9uOiBOL0EKPiBDUFU6ICAgICAgIEluZm86IDE2LUNvcmUg
-KDItRGllKSBBTUQgUnl6ZW4gOSAzOTUwWCBbTVQgTUNQIE1DTV0gc3BlZWQ6Cj4gMjM2NSBNSHog
-bWluL21heDogMjIwMC8zNTAwIE1Iego+IEdyYXBoaWNzOiAgRGV2aWNlLTE6IEFkdmFuY2VkIE1p
-Y3JvIERldmljZXMgW0FNRC9BVEldIE5hdmkgMjEgW1JhZGVvbgo+IFJYIDY4MDAvNjgwMCBYVCAv
-IDY5MDAgWFRdIGRyaXZlcjogYW1kZ3B1IHY6IGtlcm5lbAo+ICAgICAgICAgICAgIERldmljZS0y
-OiBBVmVyTWVkaWEgTGl2ZSBTdHJlYW1lciBDQU0gNTEzIHR5cGU6IFVTQiBkcml2ZXI6Cj4gaGlk
-LWdlbmVyaWMsdXNiaGlkLHV2Y3ZpZGVvCj4gICAgICAgICAgICAgRGV2aWNlLTM6IEFWZXJNZWRp
-YSBMaXZlIEdhbWVyIFVsdHJhLVZpZGVvIHR5cGU6IFVTQgo+IGRyaXZlcjogaGlkLWdlbmVyaWMs
-c25kLXVzYi1hdWRpbyx1c2JoaWQsdXZjdmlkZW8KPiAgICAgICAgICAgICBEaXNwbGF5OiB3YXls
-YW5kIHNlcnZlcjogWC5PcmcgMS4yMS4xIGRyaXZlcjogbG9hZGVkOgo+IGFtZGdwdSxhdGkgdW5s
-b2FkZWQ6IGZiZGV2LG1vZGVzZXR0aW5nLHJhZGVvbix2ZXNhCj4gICAgICAgICAgICAgcmVzb2x1
-dGlvbjogMzg0MHgyMTYwfjYwSHoKPiAgICAgICAgICAgICBPcGVuR0w6IHJlbmRlcmVyOiBBTUQg
-U0lFTk5BX0NJQ0hMSUQgKERSTSAzLjQwLjAKPiA1LjEyLjAtMC5yYzYuMTg0LmZjMzUueDg2XzY0
-K2RlYnVnIExMVk0gMTIuMC4wKQo+ICAgICAgICAgICAgIHY6IDQuNiBNZXNhIDIxLjEuMC1kZXZl
-bAo+IE5ldHdvcms6ICAgRGV2aWNlLTE6IEludGVsIFdpLUZpIDYgQVgyMDAgZHJpdmVyOiBpd2x3
-aWZpCj4gICAgICAgICAgICAgRGV2aWNlLTI6IEludGVsIEkyMTEgR2lnYWJpdCBOZXR3b3JrIGRy
-aXZlcjogaWdiCj4gRHJpdmVzOiAgICBMb2NhbCBTdG9yYWdlOiB0b3RhbDogMTEuMzUgVGlCIHVz
-ZWQ6IDEwLjgyIFRpQiAoOTUuMyUpCj4gSW5mbzogICAgICBQcm9jZXNzZXM6IDgwNSBVcHRpbWU6
-IDEyaCA1Nm0gTWVtb3J5OiAzMS4xOCBHaUIgdXNlZDoKPiAyMS44OCBHaUIgKDcwLjIlKSBTaGVs
-bDogQmFzaCBpbnhpOiAzLjMuMDIKPgo+Cj4+IGFuZCBob3cgZG8geW91IGV4YWN0bHkgdHJpZ2dl
-ciB0aGlzPwo+IEkgYW0gcnVubmluZyBoZWF2eSBnYW1lcyBsaWtlICJab21iaWUgQXJteSA0OiBE
-ZWFkIFdhciIgYW5kIHN3aXRjaGluZwo+IHRvIEdub21lIEFjdGl2aXRpZXMgYW5kIG90aGVyIGFw
-cGxpY2F0aW9ucyB3aGlsZSB0aGUgZ2FtZSBpcyBydW5uaW5nLgo+Cj4KCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Add interface to get the mm clock, temperature and memory load
+
+Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 50 +++++++++++++++++++++++++
+ include/uapi/drm/amdgpu_drm.h           | 12 ++++++
+ 2 files changed, 62 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index b2e774aeab45..e5b16e0819ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -971,6 +971,56 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			}
+ 			ui32 /= 100;
+ 			break;
++		case AMDGPU_INFO_SENSOR_UVD_VCLK:
++			/* get mm vclk in Mhz */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_UVD_VCLK,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			ui32 /= 100;
++			break;
++		case AMDGPU_INFO_SENSOR_UVD_DCLK:
++			/* get mm dclk in Mhz */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_UVD_DCLK,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			ui32 /= 100;
++			break;
++		case AMDGPU_INFO_SENSOR_HOTSPOT_TEMP:
++			/* get junction temperature */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			break;
++		case AMDGPU_INFO_SENSOR_EDGE_TEMP:
++			/* get current edge temperature */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_EDGE_TEMP,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			break;
++		case AMDGPU_INFO_SENSOR_MEM_TEMP:
++			/* get current memory temperature */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_MEM_TEMP,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			break;
++		case AMDGPU_INFO_SENSOR_MEM_LOAD:
++			/* get memory load */
++			if (amdgpu_dpm_read_sensor(adev,
++						   AMDGPU_PP_SENSOR_MEM_LOAD,
++						   (void *)&ui32, &ui32_size)) {
++				return -EINVAL;
++			}
++			break;
+ 		default:
+ 			DRM_DEBUG_KMS("Invalid request %d\n",
+ 				      info->sensor_info.type);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 8b832f7458f2..484c72e17c72 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -780,6 +780,18 @@ struct drm_amdgpu_cs_chunk_data {
+ 	#define AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK		0x8
+ 	/* Subquery id: Query GPU stable pstate memory clock */
+ 	#define AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK		0x9
++	/* Subquery id: Query GPU mm vclk */
++	#define AMDGPU_INFO_SENSOR_UVD_VCLK		0xa
++	/* Subquery id: Query GPU mm dclk */
++	#define AMDGPU_INFO_SENSOR_UVD_DCLK		0xb
++	/* Subquery id: Query junction temperature */
++	#define AMDGPU_INFO_SENSOR_HOTSPOT_TEMP		0xc
++	/* Subquery id: Query edge temperature */
++	#define AMDGPU_INFO_SENSOR_EDGE_TEMP		0xd
++	/* Subquery id: Query memory temperature */
++	#define AMDGPU_INFO_SENSOR_MEM_TEMP		0xe
++	/* Subquery id: Query Memory load */
++	#define AMDGPU_INFO_SENSOR_MEM_LOAD		0xf
+ /* Number of VRAM page faults on CPU access. */
+ #define AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS	0x1E
+ #define AMDGPU_INFO_VRAM_LOST_COUNTER		0x1F
+-- 
+2.31.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
