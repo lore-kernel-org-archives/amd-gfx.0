@@ -2,86 +2,66 @@ Return-Path: <SRS0=eSA1=JK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2B9AC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61C59C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A9F3B60551
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:53:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9F3B60551
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
+	by mail.kernel.org (Postfix) with ESMTPS id 2A402613B7
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A402613B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD37889C6B;
-	Tue, 13 Apr 2021 14:53:33 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 519F589ECB;
- Tue, 13 Apr 2021 12:11:14 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id B3D77580446;
- Tue, 13 Apr 2021 08:11:13 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 13 Apr 2021 08:11:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=F1eyLPQMrVY+E
- Res3vt9RF9miK1ff4SmcdhrwV4b2bQ=; b=XAcdTMXblEePAHsVGvnHnsoHaEney
- eB10z6QapGxQ1hBmLnVOnPsrwy1J9GFcFzSr+5vsNBXmjD8lhnxQhfQZkgRou+9V
- BxeGNNamkZTo0M4nwN+ktyd/sBbc2wvZJbBynC464x4h0X04Ks0FPr2DEtwbOiK/
- hMnGCxTRQNXnAPhq1Gapgl751J7tAoFz1M1yum7m52bTHYBKDITzuWKCWBvgdN0r
- bTL6OdnrBLyJZeJv3U+Fk24KCNUIlTiu4vlKt2pJFQjEX+WENJtW5eP6Nlh6X43c
- irpUa03pTBEzU9he+fpGKip2xlhjLCHZBq/thqZHS1RSmzmP5veI9H+/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=F1eyLPQMrVY+ERes3vt9RF9miK1ff4SmcdhrwV4b2bQ=; b=fIf4mWTY
- /IvAEuCbl3DwoVtyi7U9tff1Efp7FSaE7BgOXWdjVjhTduhIyRZLCwoIsxJ5x2Nx
- Ok08Tc5JULhQyjnMTeid55CMBiwSyCjV5SSjDAZ9iJmjAKU7s4XAd9jRRK1KGr1G
- aMoeoHiFPABNLyOE84U/o4aQJjld9uN9LkHA+/CiLGeczwHosDHslVWm/ZcAIIjc
- a14L/kiLxwQR2eoNU++kspWLwJrLcwf9kEk7uy2S1G2kaptZ1+c9ZXEW1ZjhHW0+
- gy15Jc+zJHSy0XZB7keMvcp3tz4LYHT2SWTwAnfFOVDS/EaJ7bhbkDDyu3o1BeqF
- K7ihVCk3KytEfQ==
-X-ME-Sender: <xms:YYp1YDFHzfaUF0BAYI47H3Oq4ppt1u5NdamsNOtLWmhrYk6uHgs7Tw>
- <xme:YYp1YC42PdX7sQVdO98OzVaeAvbAs7sbhn_kMCHNXBacofYrXYlGgBEf_LSSDqH1A
- 4jQcJYFhYu7brMqK2c>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudekledggeelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepvdekleevfeffkeejhfffueelteelfeduieefheduudfggffhhfffheevveeh
- hedvnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:YYp1YIw6QyeX015m7J67aJUnmtMqJoxux3ELgXPBVLh446bXPEULQw>
- <xmx:YYp1YBNr1oxH15nOrxodqTA4euiZPZLWM_g8Y3-0R0F0y8esGIp7Dw>
- <xmx:YYp1YOnYgkxJN-j5PotqtJX8j6xhOD57dte5bCyxCafAf0oNaGKDUQ>
- <xmx:YYp1YLkf1cd_gFOCyDaP6__gxniKwbXFAv1n7iqo1iEi-hVDl1S7xA>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4A7761080064;
- Tue, 13 Apr 2021 08:11:13 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
-Subject: [PATCH v2 5/5] drm/vc4: hdmi: Signal the proper colorimetry info in
- the infoframe
-Date: Tue, 13 Apr 2021 14:11:04 +0200
-Message-Id: <20210413121104.375789-5-maxime@cerno.tech>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210413121104.375789-1-maxime@cerno.tech>
-References: <20210413121104.375789-1-maxime@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2FFA89B60;
+	Tue, 13 Apr 2021 14:58:32 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9983089B60
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 14:58:31 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ v19-20020a0568300913b029028423b78c2dso7737108ott.8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 07:58:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=17QLw2Hr0Q13sxMy3w5JTklzhqQBmFWtQcWHAjlSUV8=;
+ b=ioK0IbTAJY9iyntmjmLuXFWh7LxPCnBV2uXPSaWKKZ5mHTvUcxjrR4DbkMzhEII9jw
+ Kzu7gjW1Zxv5yHv7nsJg9dE7yukAhiJF1OUAi+goDpfvkQsymhTyuR2zdhLbfM3QAIY2
+ k8uHBHCQgTBoUL/uMNhJtzY4lhr2r3/kTqoPjU+GRrXDVFXfU6o2fUoS0wMsv4L05H+O
+ ziUUWDYciqDE8c4gn9ybi/aeOCYtf7kxRNKzQz9osPSgnd3i/ice1ZPlh7kc+mvbm9Pi
+ M/Wq1FfV6UAu8qhhbgQ9p8V+z9X0Dqzkmdj4KScjOd67JGT6zKYhvJrAywF2CK17tyK3
+ Zhlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=17QLw2Hr0Q13sxMy3w5JTklzhqQBmFWtQcWHAjlSUV8=;
+ b=oCh3Prg3SGSgpUbmUbn/fiJaJ+ob2sNPR7Iy1/JjTrrCl16chp5grqDZ0XZfxGMXHg
+ RbWqmFFRN2pHb2RGQ/R1V3vE/eY57VWi9JLe5886eVX7OWIXm7TNS/DRD/B38PRzVHFp
+ r81PQNcrEYTmrFmx6zYA7Nk4xwJOwoI05JX/3vbkgbiZGKCY0S3GT+oJdM6BF9LvrrD/
+ 5EtkbRS8peDgRRzpWESVUfFsdljWd02qFvH1KvYwal1rYJoElAvHn98m476S4KfSSOPO
+ Bq7qWTOzMCepCtcHwvpQBpVx7SkXTviKPcXlRicVEXCYm8wWkSk90ZksSN4nqnUWAl/3
+ r4Gw==
+X-Gm-Message-State: AOAM532JuOYI5mVuljxRaCfaQUpt5f6Pcyf3SGP3P2qhCWFzec7iIyY0
+ rXh718y3PpvkDwT58GQoWecdmG+p11kdw592xMo=
+X-Google-Smtp-Source: ABdhPJySEEcHZgtPEK6N2RDUfSYRDcOGfPdjY2npWwLbUhAE4ZwoGPssFN7rHK78ZL5nZrpuZA66gB4aj3vH1CggS20=
+X-Received: by 2002:a05:6830:1697:: with SMTP id
+ k23mr9219412otr.132.1618325910845; 
+ Tue, 13 Apr 2021 07:58:30 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 13 Apr 2021 14:53:30 +0000
+References: <20210412121505.23787-1-Roy.Sun@amd.com>
+In-Reply-To: <20210412121505.23787-1-Roy.Sun@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 Apr 2021 10:58:19 -0400
+Message-ID: <CADnq5_M1mxSdF7KhiNsy35OKfJXJCOP=FdOBRUgQhb=RgXtztQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Expose some power info through AMDGPU_INFO
+To: Roy Sun <Roy.Sun@amd.com>, Tom St Denis <tom.stdenis@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,81 +73,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Gover <tim.gover@raspberrypi.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Eric Anholt <eric@anholt.net>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Phil Elwell <phil@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Dom Cobley <dom@raspberrypi.com>,
- Andrzej Hajda <a.hajda@samsung.com>, linux-kernel@vger.kernel.org,
- Robert Foss <robert.foss@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Our driver while supporting HDR didn't send the proper colorimetry info
-in the AVI infoframe.
+On Mon, Apr 12, 2021 at 8:15 AM Roy Sun <Roy.Sun@amd.com> wrote:
+>
+> Add interface to get the mm clock, temperature and memory load
+>
+> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 50 +++++++++++++++++++++++++
+>  include/uapi/drm/amdgpu_drm.h           | 12 ++++++
+>  2 files changed, 62 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index b2e774aeab45..e5b16e0819ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -971,6 +971,56 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>                         }
+>                         ui32 /= 100;
+>                         break;
+> +               case AMDGPU_INFO_SENSOR_UVD_VCLK:
+> +                       /* get mm vclk in Mhz */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_UVD_VCLK,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       ui32 /= 100;
+> +                       break;
+> +               case AMDGPU_INFO_SENSOR_UVD_DCLK:
+> +                       /* get mm dclk in Mhz */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_UVD_DCLK,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       ui32 /= 100;
+> +                       break;
+> +               case AMDGPU_INFO_SENSOR_HOTSPOT_TEMP:
+> +                       /* get junction temperature */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       break;
+> +               case AMDGPU_INFO_SENSOR_EDGE_TEMP:
+> +                       /* get current edge temperature */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_EDGE_TEMP,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       break;
+> +               case AMDGPU_INFO_SENSOR_MEM_TEMP:
+> +                       /* get current memory temperature */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_MEM_TEMP,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       break;
+> +               case AMDGPU_INFO_SENSOR_MEM_LOAD:
+> +                       /* get memory load */
+> +                       if (amdgpu_dpm_read_sensor(adev,
+> +                                                  AMDGPU_PP_SENSOR_MEM_LOAD,
+> +                                                  (void *)&ui32, &ui32_size)) {
+> +                               return -EINVAL;
+> +                       }
+> +                       break;
+>                 default:
+>                         DRM_DEBUG_KMS("Invalid request %d\n",
+>                                       info->sensor_info.type);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 8b832f7458f2..484c72e17c72 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -780,6 +780,18 @@ struct drm_amdgpu_cs_chunk_data {
+>         #define AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK               0x8
+>         /* Subquery id: Query GPU stable pstate memory clock */
+>         #define AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK               0x9
+> +       /* Subquery id: Query GPU mm vclk */
+> +       #define AMDGPU_INFO_SENSOR_UVD_VCLK             0xa
+> +       /* Subquery id: Query GPU mm dclk */
+> +       #define AMDGPU_INFO_SENSOR_UVD_DCLK             0xb
+> +       /* Subquery id: Query junction temperature */
+> +       #define AMDGPU_INFO_SENSOR_HOTSPOT_TEMP         0xc
+> +       /* Subquery id: Query edge temperature */
+> +       #define AMDGPU_INFO_SENSOR_EDGE_TEMP            0xd
+> +       /* Subquery id: Query memory temperature */
+> +       #define AMDGPU_INFO_SENSOR_MEM_TEMP             0xe
+> +       /* Subquery id: Query Memory load */
+> +       #define AMDGPU_INFO_SENSOR_MEM_LOAD             0xf
 
-Let's add the property needed so that the userspace can let us know what
-the colorspace is supposed to be.
++ Tom
 
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+Please provide a link to patches for some userspace tool which uses
+these new queries.  Something like umr would be a logical choice.
+Once you have that, the patch itself looks good to me.
 
----
+Alex
 
-Changes from v1:
-  - New patch
----
- drivers/gpu/drm/vc4/vc4_hdmi.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index a33fa1662588..a22e17788074 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -226,7 +226,8 @@ static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
- 	if (!crtc)
- 		return 0;
- 
--	if (!drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
-+	if (old_state->colorspace != new_state->colorspace ||
-+	    !drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
- 		struct drm_crtc_state *crtc_state;
- 
- 		crtc_state = drm_atomic_get_crtc_state(state, crtc);
-@@ -316,6 +317,11 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
- 	if (ret)
- 		return ret;
- 
-+	ret = drm_mode_create_hdmi_colorspace_property(connector);
-+	if (ret)
-+		return ret;
-+
-+	drm_connector_attach_colorspace_property(connector);
- 	drm_connector_attach_tv_margin_properties(connector);
- 	drm_connector_attach_max_bpc_property(connector, 8, 12);
- 
-@@ -424,7 +430,7 @@ static void vc4_hdmi_set_avi_infoframe(struct drm_encoder *encoder)
- 					   vc4_encoder->limited_rgb_range ?
- 					   HDMI_QUANTIZATION_RANGE_LIMITED :
- 					   HDMI_QUANTIZATION_RANGE_FULL);
--
-+	drm_hdmi_avi_infoframe_colorspace(&frame.avi, cstate);
- 	drm_hdmi_avi_infoframe_bars(&frame.avi, cstate);
- 
- 	vc4_hdmi_write_infoframe(encoder, &frame);
--- 
-2.30.2
-
+>  /* Number of VRAM page faults on CPU access. */
+>  #define AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS   0x1E
+>  #define AMDGPU_INFO_VRAM_LOST_COUNTER          0x1F
+> --
+> 2.31.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
