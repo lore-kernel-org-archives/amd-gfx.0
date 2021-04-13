@@ -7,64 +7,67 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E10EFC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1E01C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92820613AB
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:42:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92820613AB
+	by mail.kernel.org (Postfix) with ESMTPS id 63735613B1
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 14:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63735613B1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2206E1B3;
-	Tue, 13 Apr 2021 14:42:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C90C89C21
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 14:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF8656E3D0;
+	Tue, 13 Apr 2021 14:50:08 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2049.outbound.protection.outlook.com [40.107.100.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D16336E3D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 14:50:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S84LT67QnElx5KIop7UWVA4o44GALpzCD90BNJ+zamR1e1UGpi32MZGGldotmS7YJ+oJO4y/TdC5CpD9mm9lROSDRBOV34bApEp+uOA+M9ynsGaCOeGsbCGLG+loxwORF3jizue4UMAiL6rb8Vgr+MNfC7w57iQPSDliM5v8TFlWdlX5aj34yJzF5p5T84SIujiuhh+DKA6oJ4KmEu1ZXvm2B/mxLnCNIMLVMLQBxP5edNqtt1fO2Qq+zk+k6LCsbgq6YVHsfhPtsUnj/ZqJ3MPfxby82KknTLlUDGGn9VgZKKNKyhvsCuLwgFNAun6k33KTCVyrBP98+IEXNN1OCQ==
+ b=S7vvaqusq+2VmGUjSWpK+AcPSPzUCebgmbcz0vPxGay/+uuUJDBCnotCs3qh7eO1OYtFYGCIk59qyGJTcgz7TkLkVKZHQk7ijjnLEGcbj9eoPttMhpX5EsV6jtAKjvX5QwyJx+aOvI8Zn53jxP08RLjuQomnY/EijhhjVLZechjAE7CPUrayD3YAM9NNG/uT0AHjQwfgmVo/bQ0Va+mZ6wvzvSEABVcF5Tr6OhLpa7VjNNibytM4GF2WI6IP8Ndrcb6JgRtfHyWy0RTKiDoJOs3N7U8nkWoyEf6H/2fhV68WM+TwMLjQBvBdXajIKxXxyV0lZPEGlD4rQpH/5Av5jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2KvoAPOy6RKATXNMnw9SLYJ8N0kPCdGjKywlZ1Nt+Ao=;
- b=MzkP4uo5qEzWCuF+hMi+dqDuJRKWzaAMjaOz10i0tgZtI4xUHObMHEty3LGwPoBQQHmVlMeIXRYOTv4Qv3KHEPVpIpLljTaf9dzebip+3wG0cVlUIBkRBqWuwuL2K3xA+p3K6Rh5F31lPplmyvRuVqK21BcTDYuzN3hFhz/oQNLI81IBWfn4uPlNvfvvYQPc9yA+jpTIcwJtwmrUnQub/ZZCp99irbIf8Vm74AJLehJK3WIfAd122q8dBTk5a5xzGVNO0RLzU7+yFdHcIdki6WsVnyG0bEx7+4RNUNAf6fhZH3EwjV1aKh5WONTcKMEX6ECDyEhp3Ay30jZaCGXR7A==
+ bh=LUI35XB6OmyezIgyGenVPz7bgbitYc34ac66BUYrlBg=;
+ b=jXlVry36BhtITMYz/jG7X8c0msUJKv9sJR2bNzGyH1SWlAfeKihJCdf/8EYABiJWsAKde/H8BBsAu03lp2dwJHioCVVAED0e5OH16zRLMOn25ioCL7tzyPy10GhfqPjjS3Kh/oyz73kkWAe0Xo2qx5tpOEwmy3RSIDpC17mRPgmDiSF9B+Q/hdxe+Faz6F+j49aTRKUXc/Qp4WvrH7r8JbIXaLZWuXB/Rqc5H/58LkKdZlrgWBPTwwxH+aZkj0CCEBsWuDQ+/78un5smcHA6cmwDrPp4f977TjnIi+Mbusru14ewyD/zhn9YOpICqbZRg873bWIo28wtspnyeC0gwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2KvoAPOy6RKATXNMnw9SLYJ8N0kPCdGjKywlZ1Nt+Ao=;
- b=ZnOweQLNf3IngIJt/51FxFbbUk1nPeJKMEL7wtK3QMRdi/xovQgHjIGr5qZiBeACKKq8V0E8AN41ErU3CdCJxEU6eIjMucDiYXNwrg6e95lsbDmDnvleFfho+gqUC/zPa6m4Ofmq/p/i88vwhIyrbLoF6ZBSb7ibaq0X/q+B9uQ=
+ bh=LUI35XB6OmyezIgyGenVPz7bgbitYc34ac66BUYrlBg=;
+ b=glz/cWZwVVnimqSjLqQpjPc+9HUJKYIBPfvxH9M546DItIbcU1DsOobMA67K3Z9cg0cedUk8fJeK2et9Hg2nUWTeB2BpTmCuaDA39dlfJ+FhxhlR0t7A8pxgtNr0QcPMyR3zjuT5I6qL4Oq2C/HB5Yt0deo0DMrjC+9KXMlFKAk=
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB2435.namprd12.prod.outlook.com (2603:10b6:207:48::17)
+ by MN2PR12MB4014.namprd12.prod.outlook.com (2603:10b6:208:16d::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.28; Tue, 13 Apr
- 2021 14:42:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Tue, 13 Apr
+ 2021 14:50:02 +0000
 Received: from MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
  ([fe80::3d98:cefb:476c:c36e%7]) with mapi id 15.20.4020.022; Tue, 13 Apr 2021
- 14:42:07 +0000
+ 14:50:02 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Tuikov, Luben"
+ <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: correction of ucode fw_size calculation errors
-Thread-Topic: [PATCH] drm/amdgpu: correction of ucode fw_size calculation
- errors
-Thread-Index: AQHXMFtlQns6Pdsx/0eK1P78m4nuQaqyhW8h
-Date: Tue, 13 Apr 2021 14:42:07 +0000
-Message-ID: <MN2PR12MB4488855CB194EC60EEB9FC2FF74F9@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210413115119.15962-1-kevin1.wang@amd.com>
-In-Reply-To: <20210413115119.15962-1-kevin1.wang@amd.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysfs interface
+Thread-Topic: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysfs
+ interface
+Thread-Index: AQHXMGRnagUGaQxEFECAkn/rWX4RM6qyai2AgAAdeb8=
+Date: Tue, 13 Apr 2021 14:50:02 +0000
+Message-ID: <MN2PR12MB4488352A4E825B5A9A21681DF74F9@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20210413125601.50387-1-luben.tuikov@amd.com>
+ <20210413125601.50387-4-luben.tuikov@amd.com>,
+ <DM6PR12MB4075F8764B78EBB20D5446FEFC4F9@DM6PR12MB4075.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB4075F8764B78EBB20D5446FEFC4F9@DM6PR12MB4075.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-13T14:42:06.801Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-13T14:50:01.862Z;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
@@ -72,52 +75,52 @@ authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [192.161.79.245]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4a2fa782-2fc4-4257-6354-08d8fe8a5003
-x-ms-traffictypediagnostic: BL0PR12MB2435:
+x-ms-office365-filtering-correlation-id: ec712fd1-c561-4912-3dbe-08d8fe8b6b32
+x-ms-traffictypediagnostic: MN2PR12MB4014:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB24350745FDDC76CF1A4AB499F74F9@BL0PR12MB2435.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:398;
+x-microsoft-antispam-prvs: <MN2PR12MB4014270AA1CC07895F79B656F74F9@MN2PR12MB4014.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DoOd1uouWnKBeQvPFAVQcF2krvG9q1H0AQpweLMcqHpw2mpHGCeSYpAUKB+6gfERARdlJFFrjsUl7Si+9kLoSKxl29Bqgs+XJyvQXNALhIXeN886GTfC0WSlSiPK5bv925hceoI4KfFBXR9Fs8k0vT1mHM+kGDSEMaXlpY0zTZNxSiLNBY8Udep4Olxdu1YWB1OjyRj0rQDAk+n4nY/6KVameicBo0c1/1BB04e90Xr1P5c/r/9tZPlU765tzXQvlzNh8K7LX6KQN7Q4ErHWnTnuks1xX+Pi5Yloy1I5KJOs6Pn0LbRaROST/1aKfqkDpV0F6B9sLaA6PbvIU22ranYht2pL6EwlPlVUuqnTa1dx2AfnkIeh5TfFWkkhuKiUWg5vUsNdEvfzZ2ZR7TPcY/OJ2XYQK4BT2CVRUXTjUZWYbfgdfJrOM5wt51/pzpMj0p4PO0KsT15AVPAGLycgSZINEo8SNTJlg/D3v6wJharciuz/wXJ5pyG42R1qLRm/0Jm9HCXydO8oFi5eZ614LIj3SbG4qt19b3xU4CMXGOdDglrwgFXEvIx932LgDJLzR/8hMyQ9h+kAz4qj7qFDVFa8EOvyhuH5sE6B/cBaau2IS8aBiDrrP+J8pMM0b6qeXLxRvXVj9sRlt9ce55Depg==
+x-microsoft-antispam-message-info: 23XYxnWriU0nuo8zFIWixk+ErKsVmb64JaCUZ9SQXhzcISk5zNZCCAfeaP7+ziogJRZ0KkJsbzchNgjN+HfPTLL7nNHpf5OijDzkn7wBVRtfnZr/EAcaTycOyk7oZpAW7Qf1AOgWfPg4ZN67KviJfh9i4a2qHK1dmcolglx1gZ2eIy3bvbZlZNpPNLRwN8rvf7S7i9pOTfC/ng9krfchmEUS1S83jBpQh2mChIoAY09PVerb0Cgn8tZfPdIK4/RdsXqJ5u1jBAgXXKMs6a9vwBfDn409O+b+ubsRGxM45UZb5Of3+LQ3LDecCqBWiLgWqehTGZepgJRohYNQ2qNJms0HTq1H3Z7KZ9HnobmC05Vo96XZEXehEZrcEjuMLV7N7slnGsT/z3ODYifssRUkbtRFvajp55n5sXJ49QvhSseKI61TXQ/z4hfUr2R2Mw52W8LDuYNV8YQpkus3RQpCdF425l8+9xDX3WAhoWhpYA5DINTmRA8u2UDvBMPElzVyhkXG1/rn6iKNKBWQ+mYyT42/hXugMB6kwZpZ9RNCdE1y3pkvkF79mPnyTfD9Mu7g8PtdYgl+xCOEo0vlZ0Gherk7D4S3T0BTXLVDq4dpJDg=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(136003)(39860400002)(376002)(346002)(316002)(53546011)(186003)(26005)(9686003)(6506007)(2906002)(66946007)(966005)(52536014)(8936002)(8676002)(7696005)(64756008)(45080400002)(110136005)(66446008)(66556008)(66476007)(478600001)(83380400001)(55016002)(86362001)(71200400001)(38100700002)(5660300002)(76116006)(19627405001)(122000001)(166002)(33656002);
+ SFS:(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(19627405001)(86362001)(186003)(2906002)(6506007)(110136005)(76116006)(316002)(83380400001)(478600001)(122000001)(9686003)(71200400001)(53546011)(55016002)(33656002)(38100700002)(66556008)(66946007)(64756008)(66446008)(66476007)(52536014)(5660300002)(8676002)(8936002)(26005)(7696005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?uVneeXnRbzhzK6EX5yVQhefOrD0/Cgf7s8Bd8QOEKqhcG0W1StL57UzrOoJJ?=
- =?us-ascii?Q?W9YPcydJ1VTfp0aXIBWm3vu1pf7aO15L//GhiLydhYpZLSxKwxitlq8lmi8E?=
- =?us-ascii?Q?HkaznRcEoypGaIgpG/GE/qtMMETFUBL3LybMFSasSow0cVfw/euUeG8gMdGN?=
- =?us-ascii?Q?IdC1Gd8d2Vk+1MMYUHyLtSeW5KPbdV/1c5503Z8ThSNj6nlusAoOXzpxecwJ?=
- =?us-ascii?Q?fRpmv1ssiMQ4jMMokRYlXDu76k8nNA0PfFrwIhS2xvpfl2K7UlLxf584chD+?=
- =?us-ascii?Q?yU/Se44Kulm26LHruS7LvOT4F/s1qfVXW73gK2XyiZB8F6G/b7BIy293U7HK?=
- =?us-ascii?Q?opxRR8RHuCSqYliLCaZ1nA7C/4OxIrvbdXruyM4J2QiEg4QTzUcseLYgMIrl?=
- =?us-ascii?Q?OAjERhIex/7DXvwyJYSI9IONtFD/tmF2qfGQc1R+n8K6vvDUttSr7/klGC3L?=
- =?us-ascii?Q?CMWdODuMYBwsdGXkQwyrIt17v4bVzAaSW4Zfrpn3PfPx8fWcuhEJziA0LOe/?=
- =?us-ascii?Q?/CUvF8wN3d2gIZaHKSZZo53KM48lj6PSXzgkYX/AH3Hm28WmKeQwa6cEr744?=
- =?us-ascii?Q?Z8j3w3W+OO07WY1q3jDMdYqmHR0FF7n1eEow7yBIAdneK28GBKLlLV560fxB?=
- =?us-ascii?Q?P5A2OevFr2uspl2NUT/Y0fly9Y+gGBxwLnE0eghzYB2+2K0C1TtzEcoe2arh?=
- =?us-ascii?Q?GIPa/UxjlE0u2XwbVo6aYVaH31uYl8Cq55nSafVD8r9NQSTQuyPGmA0+3Mxd?=
- =?us-ascii?Q?3J4S/iYOzg1htpZwba08sOWRnoiPNRznRZozcNot52uV4dkDFy61FK5qyXXD?=
- =?us-ascii?Q?dPH76rx0NqKGpdWjryORXlIXBz4So0QmuTHbjwlqxRqZ9GWF2uvpDoknaNhB?=
- =?us-ascii?Q?8ZlEBIS9/xwUEeaJ0I5oghjISnrLFQSMBTEXUKtonoGZE64Z36EStTdTzKF2?=
- =?us-ascii?Q?F3/7Q8+hwOBKiDP8dOwZEErcbEPXTrn6I1mdN16cdUiXSCJDmenJEQBU9yzP?=
- =?us-ascii?Q?BSQNHafJ8c23XQxsT7zKj2HvcZIy7RrwXRF8+OrkNLzHDDDG7rEasE1R4zwe?=
- =?us-ascii?Q?dYknR9Wjz4xyWk6LKkI+v42Tq78wMtO7bCaaO6AmrXAePKrOF/KMLhW2XYWg?=
- =?us-ascii?Q?Nb17HQujqX5BnH9pxqCfneShRkRf7wsq7lakCrtn61m/Kb2/W4ahox9w8+3u?=
- =?us-ascii?Q?YljGOLNTFcBRUdVNV5U0OR14uYdwaz0p030duT18WXwLthU6A7hHYpliTXfo?=
- =?us-ascii?Q?mKK3Qr0Ro3JAaEKCwDOnyhiNxPmUa3X3Bto3cndDsMp1+xuepPPUfFnArhPr?=
- =?us-ascii?Q?dkTY7UHgOy3O6VSYv79/si1s?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?bBjJsmE222ABk58roO8+xZtSOFh+JcOG8GeAcx+F3gYQFbgf9eOBduQQwgx8?=
+ =?us-ascii?Q?nlE0o1iiecdTchTi3X7uR9H86EwB8yyWKGuYxMc3XpkQ9a0jchBwt/Sj0Yod?=
+ =?us-ascii?Q?inggJGiGvOdj77b7Skpk7uce5ZvL3vgI/FLvySTgDJLApXxNYz8CMZlwT6eu?=
+ =?us-ascii?Q?KjflFbsI1GSXsOoog/6SiVatAs0KWWSahFt6H1Y5h5sdAp1ksD0f5J2aRSkr?=
+ =?us-ascii?Q?e629Cs3Ds2vENsfOvT9nwAyLyrMKmRoBt+G9YTnyQAFRgg0sn755X3yPcQ4F?=
+ =?us-ascii?Q?+xPmaWEzyNgEvSd7xdThC9F8XX7BtOIoEtz9Ww4i9jgRI/cFxih4332FV2gz?=
+ =?us-ascii?Q?NVUIRH8ZQbLMIFB1ON72mZUTPdpARCcWlsdr7Kf8bwCGD0bF4mawQsAt8Uah?=
+ =?us-ascii?Q?bh1Qeyp3YyGMvcJU724n+0CeHWfLzrTwvFfsKytzbxvqGXIeWv8NS4Uygr9T?=
+ =?us-ascii?Q?tPDybDCZ37fCxARF+A2im/fLqCiD1reJXBc2UhoBPC+DLTmu/dJkS07k59HU?=
+ =?us-ascii?Q?tAplrIGn3KQIvOzlO7UI/7K63tPpAEK7XrnoHQO7ptANbOKLDwZ6AMZjwdGi?=
+ =?us-ascii?Q?DxBsG/Q9dYa0U33jKa6P71murqUeLv3t5py1mVV74A5p2gyXXIvEgmI0AtA2?=
+ =?us-ascii?Q?9/pszrD0+I0DQvSI3iBCToHligLtzKihz050WP6rEss4znK5J38lVBi3xesl?=
+ =?us-ascii?Q?JuU9EhvIWcnfMVEjv4EczzYki2N/QNtiUMyLOJyX+v52Y8Yn4WKz+RqLRSVF?=
+ =?us-ascii?Q?tmxpyjJNnE0meMlQJdWXzQ1yMI9vXrs89Bo8bm0K7Kg1PMm58SsTZkxe3FBJ?=
+ =?us-ascii?Q?X+UyYH05iYY994OtUNZ8syqEJTaH2kMG3TUsm74kMJzPsVHoXsYjqlT159e2?=
+ =?us-ascii?Q?JGsFMqUyQ6H3D+IlELZrHmtJp5oxRgcQq6pl6yO4O6/bDnhBg5ZA5USs0u2B?=
+ =?us-ascii?Q?v8PqeQAeXMyKC8Dd/pcNgKNcpQl+TJqUHGwbKnXWqpeoskXM5+mEngXTnn1A?=
+ =?us-ascii?Q?cXc1tDJRkqxBmJXsrEWmVcrsVUuOp0JlQMmZKxSg/DGg96BG7vUqAx8+N5Wt?=
+ =?us-ascii?Q?OZceyZVa/5JFsEZYSH2QZmBK+RC1xbP+UcCNQmImImrwkBuvNgpR3MmPDoqM?=
+ =?us-ascii?Q?/IhSe63/MgxPzLx/zh/AIBd9JIa38kxmTT61d+GnlCsXtou+hkvLWFrFJjat?=
+ =?us-ascii?Q?lGOZo3J5XIZKQvZQTrYGyHgPG1xvuQzVLu8OqEYbtjGzi4eYvFw8aVigkTrg?=
+ =?us-ascii?Q?4gpZ2I2qOcU8eICiRJPulQbPSv7ehNW0LezYtExhd5UWmE3UNoFS83kwNRZx?=
+ =?us-ascii?Q?y/gTWWa9SKmFXS4rQ4Rv6nER?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a2fa782-2fc4-4257-6354-08d8fe8a5003
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2021 14:42:07.3410 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec712fd1-c561-4912-3dbe-08d8fe8b6b32
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2021 14:50:02.3775 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: olG/KeCoi2ilk1NXGk5BYQIArfl64XB05v4Tzdb57mn2zO7ObCfvPfkGgo45LqQUVPrtCKMcwDA2fURTr36bRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2435
+X-MS-Exchange-CrossTenant-userprincipalname: pcXTKPD6HRRTAxBiCoang2nHc9r9CBzkg07mgcSPLzONOgDXeX9i5LNPvKnWBJnyagj/ie3W03xgbfg8g8ISjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4014
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,153 +132,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1072724355=="
+Content-Type: multipart/mixed; boundary="===============0693513294=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1072724355==
+--===============0693513294==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488855CB194EC60EEB9FC2FF74F9MN2PR12MB4488namp_"
+	boundary="_000_MN2PR12MB4488352A4E825B5A9A21681DF74F9MN2PR12MB4488namp_"
 
---_000_MN2PR12MB4488855CB194EC60EEB9FC2FF74F9MN2PR12MB4488namp_
+--_000_MN2PR12MB4488352A4E825B5A9A21681DF74F9MN2PR12MB4488namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
 
+Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kevin Wa=
-ng <kevin1.wang@amd.com>
-Sent: Tuesday, April 13, 2021 7:51 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Subject: [PATCH] drm/amdgpu: correction of ucode fw_size calculation errors
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Tuesday, April 13, 2021 9:04 AM
+To: Tuikov, Luben <Luben.Tuikov@amd.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysfs inter=
+face
 
-correct big and little endian problems on different platforms.
+[AMD Public Use]
 
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+Series is
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: Tuikov, Luben <Luben.Tuikov@amd.com>
+Sent: Tuesday, April 13, 2021 20:56
+To: amd-gfx@lists.freedesktop.org
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysfs interface
+
+Imporve the kernel-doc for the RAS sysfs interface. Fix the grammar, fix th=
+e context.
+
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c         | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c          | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 47 +++++++++++++------------
+ 1 file changed, 24 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 85a6a10e048f..0a00a7cc8eaa 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4354,7 +4354,7 @@ static int gfx_v10_0_mec_init(struct amdgpu_device *a=
-dev)
-                          le32_to_cpu(mec_hdr->header.ucode_array_offset_by=
-tes));
-                 fw_size =3D le32_to_cpu(mec_hdr->header.ucode_size_bytes);
-
--               r =3D amdgpu_bo_create_reserved(adev, mec_hdr->header.ucode=
-_size_bytes,
-+               r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                               PAGE_SIZE, AMDGPU_GEM_DOMAIN=
-_GTT,
-                                               &adev->gfx.mec.mec_fw_obj,
-                                               &adev->gfx.mec.mec_fw_gpu_ad=
-dr,
-@@ -5769,7 +5769,7 @@ static int gfx_v10_0_cp_gfx_load_pfp_microcode(struct=
- amdgpu_device *adev)
-                 le32_to_cpu(pfp_hdr->header.ucode_array_offset_bytes));
-         fw_size =3D le32_to_cpu(pfp_hdr->header.ucode_size_bytes);
-
--       r =3D amdgpu_bo_create_reserved(adev, pfp_hdr->header.ucode_size_by=
-tes,
-+       r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
-                                       &adev->gfx.pfp.pfp_fw_obj,
-                                       &adev->gfx.pfp.pfp_fw_gpu_addr,
-@@ -5847,7 +5847,7 @@ static int gfx_v10_0_cp_gfx_load_ce_microcode(struct =
-amdgpu_device *adev)
-                 le32_to_cpu(ce_hdr->header.ucode_array_offset_bytes));
-         fw_size =3D le32_to_cpu(ce_hdr->header.ucode_size_bytes);
-
--       r =3D amdgpu_bo_create_reserved(adev, ce_hdr->header.ucode_size_byt=
-es,
-+       r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
-                                       &adev->gfx.ce.ce_fw_obj,
-                                       &adev->gfx.ce.ce_fw_gpu_addr,
-@@ -5924,7 +5924,7 @@ static int gfx_v10_0_cp_gfx_load_me_microcode(struct =
-amdgpu_device *adev)
-                 le32_to_cpu(me_hdr->header.ucode_array_offset_bytes));
-         fw_size =3D le32_to_cpu(me_hdr->header.ucode_size_bytes);
-
--       r =3D amdgpu_bo_create_reserved(adev, me_hdr->header.ucode_size_byt=
-es,
-+       r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
-                                       &adev->gfx.me.me_fw_obj,
-                                       &adev->gfx.me.me_fw_gpu_addr,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index 06811a1f4625..831398e15b84 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2013,7 +2013,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *ad=
-ev)
-                  le32_to_cpu(mec_hdr->header.ucode_array_offset_bytes));
-         fw_size =3D le32_to_cpu(mec_hdr->header.ucode_size_bytes);
-
--       r =3D amdgpu_bo_create_reserved(adev, mec_hdr->header.ucode_size_by=
-tes,
-+       r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
-                                       &adev->gfx.mec.mec_fw_obj,
-                                       &adev->gfx.mec.mec_fw_gpu_addr,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 6274cae4a065..00610def69ea 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -174,7 +174,7 @@ int smu_v11_0_load_microcode(struct smu_context *smu)
-         hdr =3D (const struct smc_firmware_header_v1_0 *) adev->pm.fw->dat=
-a;
-         src =3D (const uint32_t *)(adev->pm.fw->data +
-                 le32_to_cpu(hdr->header.ucode_array_offset_bytes));
--       smc_fw_size =3D hdr->header.ucode_size_bytes;
-+       smc_fw_size =3D le32_to_cpu(hdr->header.ucode_size_bytes;)
-
-         for (i =3D 1; i < smc_fw_size/4 - 1; i++) {
-                 WREG32_PCIE(addr_start, src[i]);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 0864083e7435..d7ea8215d7dc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -149,7 +149,7 @@ int smu_v13_0_load_microcode(struct smu_context *smu)
-         hdr =3D (const struct smc_firmware_header_v1_0 *) adev->pm.fw->dat=
-a;
-         src =3D (const uint32_t *)(adev->pm.fw->data +
-                                  le32_to_cpu(hdr->header.ucode_array_offse=
-t_bytes));
--       smc_fw_size =3D hdr->header.ucode_size_bytes;
-+       smc_fw_size =3D le32_to_cpu(hdr->header.ucode_size_bytes);
-
-         for (i =3D 1; i < smc_fw_size/4 - 1; i++) {
-                 WREG32_PCIE(addr_start, src[i]);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 30cda4b8a461..44dfb3613e37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -274,7 +274,7 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct fi=
+le *f,
+ /**
+  * DOC: AMDGPU RAS debugfs control interface
+  *
+- * It accepts struct ras_debug_if who has two members.
++ * The control interface accepts struct ras_debug_if which has two members=
+.
+  *
+  * First member: ras_debug_if::head or ras_debug_if::inject.
+  *
+@@ -299,32 +299,33 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct =
+file *f,
+  *
+  * How to use the interface?
+  *
+- * Programs
++ * In a program
+  *
+- * Copy the struct ras_debug_if in your codes and initialize it.
+- * Write the struct to the control node.
++ * Copy the struct ras_debug_if in your code and initialize it.
++ * Write the struct to the control interface.
+  *
+- * Shells
++ * From shell
+  *
+  * .. code-block:: bash
+  *
+- *     echo op block [error [sub_block address value]] > .../ras/ras_ctrl
++ *     echo "disable <block>" > /sys/kernel/debug/dri/<N>/ras/ras_ctrl
++ *     echo "enable  <block> <error>" > /sys/kernel/debug/dri/<N>/ras/ras_=
+ctrl
++ *     echo "inject  <block> <error> <sub-block> <address> <value> > /sys/=
+kernel/debug/dri/<N>/ras/ras_ctrl
+  *
+- * Parameters:
++ * Where N, is the card which you want to affect.
+  *
+- * op: disable, enable, inject
+- *     disable: only block is needed
+- *     enable: block and error are needed
+- *     inject: error, address, value are needed
+- * block: umc, sdma, gfx, .........
++ * "disable" requires only the block.
++ * "enable" requires the block and error type.
++ * "inject" requires the block, error type, address, and value.
++ * The block is one of: umc, sdma, gfx, etc.
+  *     see ras_block_string[] for details
+- * error: ue, ce
+- *     ue: multi_uncorrectable
+- *     ce: single_correctable
+- * sub_block:
+- *     sub block index, pass 0 if there is no sub block
++ * The error type is one of: ue, ce, where,
++ *     ue is multi-uncorrectable
++ *     ce is single-correctable
++ * The sub-block is a the sub-block index, pass 0 if there is no sub-block=
+.
++ * The address and value are hexadecimal numbers, leading 0x is optional.
+  *
+- * here are some examples for bash commands:
++ * For instance,
+  *
+  * .. code-block:: bash
+  *
+@@ -332,17 +333,17 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct =
+file *f,
+  *     echo inject umc ce 0 0 0 > /sys/kernel/debug/dri/0/ras/ras_ctrl
+  *     echo disable umc > /sys/kernel/debug/dri/0/ras/ras_ctrl
+  *
+- * How to check the result?
++ * How to check the result of the operation?
+  *
+- * For disable/enable, please check ras features at
++ * To check disable/enable, see "ras" features at,
+  * /sys/class/drm/card[0/1/2...]/device/ras/features
+  *
+- * For inject, please check corresponding err count at
+- * /sys/class/drm/card[0/1/2...]/device/ras/[gfx/sdma/...]_err_count
++ * To check inject, see the corresponding error count at,
++ *
++ /sys/class/drm/card[0/1/2...]/device/ras/[gfx|sdma|umc|...]_err_count
+  *
+  * .. note::
+  *     Operations are only allowed on blocks which are supported.
+- *     Please check ras mask at /sys/module/amdgpu/parameters/ras_mask
++ *     Check the "ras" mask at /sys/module/amdgpu/parameters/ras_mask
+  *     to see which blocks support RAS on a particular asic.
+  *
+  */
 --
-2.17.1
+2.31.0.97.g1424303384
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C3992236102744469006b08d8fe728650%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637539115132533430%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DpQO64zy%2F99rHa7Vr9uZd%2F9q04R6DDPL%2BnOiw%2Fo2oScY%3D&amp;reserved=3D0
-
---_000_MN2PR12MB4488855CB194EC60EEB9FC2FF74F9MN2PR12MB4488namp_
+--_000_MN2PR12MB4488352A4E825B5A9A21681DF74F9MN2PR12MB4488namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -295,247 +303,173 @@ ign=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Kevin Wang &lt;kevin1.wang@am=
-d.com&gt;<br>
-<b>Sent:</b> Tuesday, April 13, 2021 7:51 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: correction of ucode fw_size calculation=
- errors</font>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
+wking.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, April 13, 2021 9:04 AM<br>
+<b>To:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysf=
+s interface</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">correct big and little endian problems on differen=
-t platforms.<br>
+<div class=3D"PlainText">[AMD Public Use]<br>
 <br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
+Series is<br>
+<br>
+Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
+<br>
+Regards,<br>
+Hawking<br>
+-----Original Message-----<br>
+From: Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt; <br>
+Sent: Tuesday, April 13, 2021 20:56<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &lt;Alex=
+ander.Deucher@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+Subject: [PATCH 4/4] drm/amdgpu: Fix kernel-doc for the RAS sysfs interface=
+<br>
+<br>
+Imporve the kernel-doc for the RAS sysfs interface. Fix the grammar, fix th=
+e context.<br>
+<br>
+Cc: Alexander Deucher &lt;Alexander.Deucher@amd.com&gt;<br>
+Cc: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
+Signed-off-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; | 8 ++++----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 2 +-<br>
-&nbsp;4 files changed, 7 insertions(+), 7 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 47 +++++++++++++-----------=
+-<br>
+&nbsp;1 file changed, 24 insertions(+), 23 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 85a6a10e048f..0a00a7cc8eaa 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -4354,7 +4354,7 @@ static int gfx_v10_0_mec_init(struct amdgpu_device *a=
-dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- le32_to_cpu(mec_hdr-&gt;header.ucode_array_offset_bytes));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(mec_hdr-&gt;header.ucode_size=
-_bytes);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev, mec_hdr-&gt;header.ucode_s=
-ize_bytes,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev, fw_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, AMDGPU_GEM_D=
-OMAIN_GTT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;gfx.mec.m=
-ec_fw_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;gfx.mec.m=
-ec_fw_gpu_addr,<br>
-@@ -5769,7 +5769,7 @@ static int gfx_v10_0_cp_gfx_load_pfp_microcode(struct=
- amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(pfp_hdr-&gt;header.ucode_array_offset_byt=
-es));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(pf=
-p_hdr-&gt;header.ucode_size_bytes);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- pfp_hdr-&gt;header.ucode_size_bytes,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- fw_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.pfp.pfp_fw_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.pfp.pfp_fw_gpu_addr,<br>
-@@ -5847,7 +5847,7 @@ static int gfx_v10_0_cp_gfx_load_ce_microcode(struct =
-amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ce_hdr-&gt;header.ucode_array_offset_byte=
-s));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(ce=
-_hdr-&gt;header.ucode_size_bytes);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- ce_hdr-&gt;header.ucode_size_bytes,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- fw_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.ce.ce_fw_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.ce.ce_fw_gpu_addr,<br>
-@@ -5924,7 +5924,7 @@ static int gfx_v10_0_cp_gfx_load_me_microcode(struct =
-amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(me_hdr-&gt;header.ucode_array_offset_byte=
-s));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(me=
-_hdr-&gt;header.ucode_size_bytes);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- me_hdr-&gt;header.ucode_size_bytes,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- fw_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.me.me_fw_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.me.me_fw_gpu_addr,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c<br>
-index 06811a1f4625..831398e15b84 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-@@ -2013,7 +2013,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *ad=
-ev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(mec_hdr-&gt;header.ucode_array_offs=
-et_bytes));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(me=
-c_hdr-&gt;header.ucode_size_bytes);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- mec_hdr-&gt;header.ucode_size_bytes,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev,=
- fw_size,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.mec.mec_fw_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &amp;adev-&gt;gfx.mec.mec_fw_gpu_addr,<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-index 6274cae4a065..00610def69ea 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-@@ -174,7 +174,7 @@ int smu_v11_0_load_microcode(struct smu_context *smu)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdr =3D (const struct smc_=
-firmware_header_v1_0 *) adev-&gt;pm.fw-&gt;data;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src =3D (const uint32_t *)=
-(adev-&gt;pm.fw-&gt;data +<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; le32_to_cpu(hdr-&gt;header.ucode_array_offset_bytes))=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smc_fw_size =3D hdr-&gt;header.ucode_=
-size_bytes;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smc_fw_size =3D le32_to_cpu(hdr-&gt;h=
-eader.ucode_size_bytes;)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 1; i &lt; smc_f=
-w_size/4 - 1; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_PCIE(addr_start, src[i]);<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-index 0864083e7435..d7ea8215d7dc 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
-@@ -149,7 +149,7 @@ int smu_v13_0_load_microcode(struct smu_context *smu)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hdr =3D (const struct smc_=
-firmware_header_v1_0 *) adev-&gt;pm.fw-&gt;data;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src =3D (const uint32_t *)=
-(adev-&gt;pm.fw-&gt;data +<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(hdr-&gt;header=
-.ucode_array_offset_bytes));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smc_fw_size =3D hdr-&gt;header.ucode_=
-size_bytes;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smc_fw_size =3D le32_to_cpu(hdr-&gt;h=
-eader.ucode_size_bytes);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 1; i &lt; smc_f=
-w_size/4 - 1; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_PCIE(addr_start, src[i]);<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7C3992236102744469006b08d8fe728650%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637539115132533430%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DpQO64zy%2F99rHa7Vr9uZd%2F9q04R6DDPL%2BnOiw%2Fo2oScY%=
-3D&amp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?ur=
-l=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;=
-amp;data=3D04%7C01%7Calexander.deucher%40amd.com%7C3992236102744469006b08d8=
-fe728650%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637539115132533430%7C=
-Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiL=
-CJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DpQO64zy%2F99rHa7Vr9uZd%2F9q04R6DDPL%2B=
-nOiw%2Fo2oScY%3D&amp;amp;reserved=3D0</a><br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c<br>
+index 30cda4b8a461..44dfb3613e37 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+@@ -274,7 +274,7 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct fi=
+le *f,<br>
+&nbsp;/**<br>
+&nbsp; * DOC: AMDGPU RAS debugfs control interface<br>
+&nbsp; *<br>
+- * It accepts struct ras_debug_if who has two members.<br>
++ * The control interface accepts struct ras_debug_if which has two members=
+.<br>
+&nbsp; *<br>
+&nbsp; * First member: ras_debug_if::head or ras_debug_if::inject.<br>
+&nbsp; *<br>
+@@ -299,32 +299,33 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct =
+file *f,<br>
+&nbsp; *<br>
+&nbsp; * How to use the interface?<br>
+&nbsp; *<br>
+- * Programs<br>
++ * In a program<br>
+&nbsp; *<br>
+- * Copy the struct ras_debug_if in your codes and initialize it.<br>
+- * Write the struct to the control node.<br>
++ * Copy the struct ras_debug_if in your code and initialize it.<br>
++ * Write the struct to the control interface.<br>
+&nbsp; *<br>
+- * Shells<br>
++ * From shell<br>
+&nbsp; *<br>
+&nbsp; * .. code-block:: bash<br>
+&nbsp; *<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; echo op block [error [sub_block address value]]=
+ &gt; .../ras/ras_ctrl<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;disable &lt;block&gt;&quot; &gt; /sy=
+s/kernel/debug/dri/&lt;N&gt;/ras/ras_ctrl<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;enable&nbsp; &lt;block&gt; &lt;error=
+&gt;&quot; &gt; /sys/kernel/debug/dri/&lt;N&gt;/ras/ras_ctrl<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;inject&nbsp; &lt;block&gt; &lt;error=
+&gt; &lt;sub-block&gt; &lt;address&gt; &lt;value&gt; &gt; /sys/kernel/debug=
+/dri/&lt;N&gt;/ras/ras_ctrl<br>
+&nbsp; *<br>
+- * Parameters:<br>
++ * Where N, is the card which you want to affect.<br>
+&nbsp; *<br>
+- * op: disable, enable, inject<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; disable: only block is needed<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; enable: block and error are needed<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; inject: error, address, value are needed<br>
+- * block: umc, sdma, gfx, .........<br>
++ * &quot;disable&quot; requires only the block.<br>
++ * &quot;enable&quot; requires the block and error type.<br>
++ * &quot;inject&quot; requires the block, error type, address, and value.<=
+br>
++ * The block is one of: umc, sdma, gfx, etc.<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; see ras_block_string[] for details<br>
+- * error: ue, ce<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; ue: multi_uncorrectable<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; ce: single_correctable<br>
+- * sub_block:<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; sub block index, pass 0 if there is no sub bloc=
+k<br>
++ * The error type is one of: ue, ce, where,<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; ue is multi-uncorrectable<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; ce is single-correctable<br>
++ * The sub-block is a the sub-block index, pass 0 if there is no sub-block=
+.<br>
++ * The address and value are hexadecimal numbers, leading 0x is optional.<=
+br>
+&nbsp; *<br>
+- * here are some examples for bash commands:<br>
++ * For instance,<br>
+&nbsp; *<br>
+&nbsp; * .. code-block:: bash<br>
+&nbsp; *<br>
+@@ -332,17 +333,17 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct =
+file *f,<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; echo inject umc ce 0 0 0 &gt; /sys/kernel/=
+debug/dri/0/ras/ras_ctrl<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; echo disable umc &gt; /sys/kernel/debug/dr=
+i/0/ras/ras_ctrl<br>
+&nbsp; *<br>
+- * How to check the result?<br>
++ * How to check the result of the operation?<br>
+&nbsp; *<br>
+- * For disable/enable, please check ras features at<br>
++ * To check disable/enable, see &quot;ras&quot; features at,<br>
+&nbsp; * /sys/class/drm/card[0/1/2...]/device/ras/features<br>
+&nbsp; *<br>
+- * For inject, please check corresponding err count at<br>
+- * /sys/class/drm/card[0/1/2...]/device/ras/[gfx/sdma/...]_err_count<br>
++ * To check inject, see the corresponding error count at,<br>
++ * <br>
++ /sys/class/drm/card[0/1/2...]/device/ras/[gfx|sdma|umc|...]_err_count<br>
+&nbsp; *<br>
+&nbsp; * .. note::<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; Operations are only allowed on blocks whic=
+h are supported.<br>
+- *&nbsp;&nbsp;&nbsp;&nbsp; Please check ras mask at /sys/module/amdgpu/par=
+ameters/ras_mask<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; Check the &quot;ras&quot; mask at /sys/module/a=
+mdgpu/parameters/ras_mask<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; to see which blocks support RAS on a parti=
+cular asic.<br>
+&nbsp; *<br>
+&nbsp; */<br>
+--<br>
+2.31.0.97.g1424303384<br>
 </div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB4488855CB194EC60EEB9FC2FF74F9MN2PR12MB4488namp_--
+--_000_MN2PR12MB4488352A4E825B5A9A21681DF74F9MN2PR12MB4488namp_--
 
---===============1072724355==
+--===============0693513294==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -546,4 +480,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1072724355==--
+--===============0693513294==--
