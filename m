@@ -2,123 +2,155 @@ Return-Path: <SRS0=eSA1=JK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 602DCC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 01:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACE3CC433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC4A66128A
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 01:56:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC4A66128A
+	by mail.kernel.org (Postfix) with ESMTPS id 2CBAB6124B
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 05:36:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CBAB6124B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742956E05C;
-	Tue, 13 Apr 2021 01:56:08 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E02EA6E05C
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 01:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C646E16F;
+	Tue, 13 Apr 2021 05:36:52 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9316E16F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 05:36:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NPfQfe2DniplMltYrOK9qt3OAgKIen+ax3K+x8uLGD1zU6Ljkgz5PONCmEzr4pueiZD5aHel1YJU4KGAYak9d6LMmb9gC7k9aWyDF+/Pb/tyrWfqOl7XX3BUv99NLH3ZtR7T+yA5mlCLlx6Rbqu/WXZbrrsirkdkXk+en+o1j/D4W8lnvipHNJXzbCbUFjcyC8qPYZr9ETSyK2uFrTCenlhVgSwJHV1zWUOtTuywuSuqVa2Q7ityweVbWJUMdR1TOInJ8+ilJ5zLzy/ApuoaETTEbOibbp2M8C3mJtmZN5fGuBNdtuKuXLAk4eG3FjFdZvHEjZRUAlp01zNaUQhjog==
+ b=IM8Gv3xEflbnGS4miTIn++7Q4CJxeg/cGT1IEOWViJ5hrfYA0aGbcfVEkebjXF91bXnq6AGywdAu98AqmF430yqY+EtS/Fv9EbrWwX3K0TtN/tyeaVAZuNLFm5biTLzhV9GZPHXU+HtQTj3DXcjAgNHJjbFRlJi8A+NGytBD6o1QQJJ2AmW9cvhZqtE7jLYropRStfjJgamgYAY5M/ms9JRfxfkf/g2+USiwJsq7t1rNa/5CmHfitLscUhc3pFcf3MedqEx/Qm1FnuxGc+XSwQbP1+t+Gxt5sbXHI5hmL/3jzO/QXa63E0fw7m2Ru953t3fnGRhsznhJYjjiebSQqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q528229/RS16Y7tnv4wIylev7gBXKNowRTZl2WtXK04=;
- b=VvvKPUGY1UqwMXYwrOw13r18xwSiJKnqAiTeq86qr9vKDX3mw0EtBjaGS7S+vqZ1D64RMKiXJ9DpJ5oTtgc8w+YgeVrcxAZ+tFxxCSnOL2rGB1w+iyENNgZpWraC0VbVocuhuNZshm+MIZdkoKZ0NDfO5YV6q8h8u6Bb1iImn2CXUE5ixGnO/l2KkMB6Afs5CEEt4d3S8GzfnD4p8ijv5xF+A3hWZZjc6FWXuuqFgXW5QuuTcdem9jI1GhsxOgVqrGjfnSZTCjxACvc1SxlZL9LTh1lrWy7KZCVmcapSduPSz61uvOsTjFPvLmS4Of7PCEaotcrUCAMFsiRUz9EXxw==
+ bh=jDYAuLu3hSvqC4u7JM4KGlU0ifEiADL7QQ5otGrmKhc=;
+ b=UtNlybBJph08GQ4ol3IkAkKgo0vuSx7Z/qR98x2CYGFzUSFtbz5nq6xie79G3OwawzWDJEnO/RnZfVoZtBSjHQ4BhQJCAcInJN2NdYJxBtsHZ46hXnzIVHY2dwmdvGSM/6dujRIFWa+17kRs+DlJygxCjenrikfvKbe5J2RF0M3WtFvVQEGqEtJQ66vO1BYtbg6SXHeLBR3q+S+vAFF380Dc0WAcF0Q6hrzuwFK4Uje++Yv9+18peWOTdTQZaWucZkPPkUatTCAEyypu/enIB97IAe2K1n4JSbcmERYvkALJy+f0SBbht1ori1yRlrJ6Iy7D/unu3u4ePce2IFJ0XA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q528229/RS16Y7tnv4wIylev7gBXKNowRTZl2WtXK04=;
- b=AQDIVtEoU1TrjwryMPYY6wh98jFjA5UX+NyXBKU3fy6gEtmIXRIhZaZHQc0YfX4KjYu7MfkbshD9DDU5yBuPkqnZjGY4fv5L6cadF3c3wQ8dSXLEFkp3VvN9hTmU855bjx3b+twVW9keFr2VpllzFGSV7eutHeSFIf0ojMwAgh4=
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB3294.namprd12.prod.outlook.com (2603:10b6:208:af::16)
+ bh=jDYAuLu3hSvqC4u7JM4KGlU0ifEiADL7QQ5otGrmKhc=;
+ b=SP7oO0DU5pfE2nJNH0cTiWUzZU6f7ThOglfJbXfws8uCp1NufiJ18foQ+dfAfCyelCkGA8SuXqWC018u8FzB9VZrp/v6j5MldLzL3U6oH4diXEnFrTvIbhy3ShMHFVOJpOekYpCqi24Q7kiwXKmfY2z9J1BNt/tidGE0n/apfJY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4462.namprd12.prod.outlook.com (2603:10b6:806:95::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21; Tue, 13 Apr
- 2021 01:56:04 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::8da7:cf00:1356:1199]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::8da7:cf00:1356:1199%5]) with mapi id 15.20.4020.022; Tue, 13 Apr 2021
- 01:56:04 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
-Thread-Topic: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
-Thread-Index: AQHXL7Uf90KVpPpHkkS8mCNpepHoIKqxsNIC
-Date: Tue, 13 Apr 2021 01:56:04 +0000
-Message-ID: <MN2PR12MB302292961799AF99B9974170A24F9@MN2PR12MB3022.namprd12.prod.outlook.com>
-References: <20210412160121.27434-1-kent.russell@amd.com>
-In-Reply-To: <20210412160121.27434-1-kent.russell@amd.com>
-Accept-Language: en-US, zh-CN
+ 2021 05:36:48 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::89b0:10d7:12d3:efde]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::89b0:10d7:12d3:efde%5]) with mapi id 15.20.4020.022; Tue, 13 Apr 2021
+ 05:36:48 +0000
+Subject: Re: [PATCH 0/4] Refine GPU recovery sequence to enhance its stability
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Li, Dennis" <Dennis.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <20210318072339.28736-1-Dennis.Li@amd.com>
+ <e37bdceb-cdb2-a826-21cf-8cb88748be08@gmail.com>
+ <1e4b766d-b5c2-e6b5-8be6-9b2fae3abc94@amd.com>
+ <b67ab565-e4be-0809-7021-cb59fd10464a@amd.com>
+ <8c2cbe39-ea05-add4-efee-65527e53bb34@gmail.com>
+ <50e0907c-52d6-1fdb-aa5e-39b1c326180c@amd.com>
+ <4a1e3961-8708-46b7-bfd8-86a4ee4e2726@amd.com>
+ <f36bef2c-d5c2-7290-c029-2bcc9d834bbc@amd.com>
+ <b3965720-ea45-7664-5927-dd3836bfa46d@amd.com>
+ <32b2ab00-7514-43ce-cb28-a437c194c16a@gmail.com>
+ <01f69c6f-02a3-3387-db6b-0fa1bfa9bd17@amd.com>
+ <70a534b7-2e55-cdd7-2f82-3b8799967aa0@amd.com>
+ <62a329d4-ffd1-3ac1-03eb-dd0089b75541@amd.com>
+ <b6a24d3f-4fe6-c642-b478-36e386aa906d@gmail.com>
+ <80713dbe-411c-d79b-34ba-b67bc3a50dc5@amd.com>
+ <cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com>
+ <aaa2b266-f091-dd9c-e49d-5e528decfbd7@amd.com>
+ <a970101f-89f1-8bdf-51d9-4a4e5e0f9e9a@amd.com>
+ <ecf465a2-d4fc-1cbf-a9d5-39c3844f23bb@amd.com>
+ <2894bf97-8c39-6610-c479-b089c46513e7@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <d7a44895-d6c8-7528-51be-ae08188ff1f6@amd.com>
+Date: Tue, 13 Apr 2021 01:36:44 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <2894bf97-8c39-6610-c479-b089c46513e7@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-13T01:56:03.914Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a891e18e-4fd4-44e9-3417-08d8fe1f4c0b
-x-ms-traffictypediagnostic: MN2PR12MB3294:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3294C73F966F227B5B1B7AB4A24F9@MN2PR12MB3294.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:305;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: K3LS9eqzlrhlwCOc+c1/7HrYBoYMCK6O4MppNTsCQOTcGO7zU341oExs7GeFHL6kbGivHUMlGCa5C9urPzmGO3n0GB9Sas69/u+xvVIqE2pvMXae+V+eYUlGsWZEOF27RuEfb8Cpt5Pr/PR5o2bWn/0Ko72gbYPvaJY5yjQYCk4cWcw+fcMWLQo1XDEtl2zYT6Q/Ferhi7d3sxKIArYZUFK+l1X680fd1FZdtDt8QFbcxGwiytYp7eK/HCMWIcqDtkl3obBZxT8/ezcaqDrl33uVRnTUGsiT5tcQG2rSijjRryW1YZvYkGHA8eOrSVdq4sYWGq/rGSip0XD0uFyPX2CAYZpRlTSDPrs+elulgo/buAwX4bx7KnhlHtozktnf7BlZKGBCN6LRqE01keFtXQZYht0l02CjSEbVPECxW/sGaMOevN7NF/Jan3qlscwSc+EM7sWqoIRPXE0WwCNVSv1XFG44Ua8I5o32LkzIuQEiiDk6R10EnhNfDHfKXgN+fSEl9Hb6uHezgnUzSL2NErGwesDCWZ7eATWvtKyxPC2Z0oXZit5kWhT+YCZkzDHxzcXUu5fyttxC3awYR1gFULei56N9ATkwvnBrcvOuyT8tmEe7W/s1lfLxJT/gJ039
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(83380400001)(66476007)(66446008)(64756008)(966005)(66556008)(166002)(8936002)(38100700002)(66946007)(9686003)(7696005)(52536014)(122000001)(55016002)(76116006)(86362001)(19627405001)(71200400001)(91956017)(478600001)(45080400002)(26005)(110136005)(2906002)(186003)(316002)(53546011)(6506007)(5660300002)(8676002)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?o5Z+2FwZapo7fdyner53FuSiv20X21K4IgJq3NW1t0TXH/hv86qhWgrhuj?=
- =?iso-8859-1?Q?KlsjtC5WM/NO58idytOVot5w6V9ykp777/pXEaP5wijAG/NCdrX9zJ83aC?=
- =?iso-8859-1?Q?qv/3jCS42+ZtgHj/p9pQ5PixEAo/uEDMlX3YBaEez8/6IApg2WsH9g5vdq?=
- =?iso-8859-1?Q?34YCVRROh+2xOrcS77D/kdAXIoB/vTgdvEfDtkAgGbIGMtnN2IuLWJ6Spr?=
- =?iso-8859-1?Q?t1mlguXX4IKVkn5FiCq6KLSy/NfxgpPiY0vsqCZDGU0y+x6HYq9XrVoTnp?=
- =?iso-8859-1?Q?FQdnBl3HVyyunmMP4wBxp+OjcoEWfqh2DSHQr7SQw11H+xtWJnYfylc1ms?=
- =?iso-8859-1?Q?DrK6vP9JofvImmEBk+mIh+dhBuryjKwkc6v2M9wlQFAxdtifouP1yEGaRZ?=
- =?iso-8859-1?Q?6DeEmqypBid4zhi6k85U+oDAo22N/OEXfZ1Q40ExBK8Bs0+TCpNqvllwk0?=
- =?iso-8859-1?Q?TLH8f5om27F9ta7BX2CyvCumo6/4wxrEUsnqzNs9rXX6W7lzgS5jZ6jyhy?=
- =?iso-8859-1?Q?ZEzCYA7giUtjrN+IAeiHdRKMzLzB1bVquCQ5ZMupHhrLIlkRnVn1rOysRu?=
- =?iso-8859-1?Q?MU8nemwzRn0MpZ9jsFXY5Lb0at2msglI/0+aIp3Om3mTJLGMY3Gq6CaCUa?=
- =?iso-8859-1?Q?qf978Fi1d2TiXfWo90d9MvvnBdv47oYHTtR1wUjj7P1KEQjHUBIbSxgExv?=
- =?iso-8859-1?Q?GQDHW0TTCpjxoZtK5bY1OS55N4RG/firZHCOFTZnugdA7dgjCfPFD0RuPg?=
- =?iso-8859-1?Q?O6QaZL0bSQ/OHDsa29C6ucG4LXnAv5vASPEPhi8qXiL/5gE3CKoausFwY3?=
- =?iso-8859-1?Q?ymCjr8sOxm2p1NG92ATK7c6hBdjVCgNY0bf6y63aub0D15gWabpvQnWJ3B?=
- =?iso-8859-1?Q?T/TN35hfFnEMRLw9pnikl+g+R02xnMI+JxNGkwEdv8vaOlMCWfHU5KAnXs?=
- =?iso-8859-1?Q?clkwko5Hez3FfNnQviGshSZaHQK8Dz1daPvzq5QR/jNau+72Myke8wQoeW?=
- =?iso-8859-1?Q?YzFHzcGaKO8xuv8abGE5tQGUllAaYY5Opszj3to3v7uOOxErKkL//fgIqE?=
- =?iso-8859-1?Q?jQ4f/tM2a8ozTjdT049Szn41Slv9aYOWaPLkKVyimB5ukgLy+Nr4eCcOXx?=
- =?iso-8859-1?Q?Vq3WNpUZBhSb1ONUNoiS5aWV7z9WnVF3h7u0NCDpJ4dWn0SIWBN/rrDyQV?=
- =?iso-8859-1?Q?t4AU1EYrip52691Erh+V8sYnwOGyXE6DFyTxmAePldlZZu8m+NEPyAcCrm?=
- =?iso-8859-1?Q?zSMtRizoeWQKVkD2Qva6yn63ZqQT3MGYDfKD5Rx9hHacnWw1VXPu7hdaJ7?=
- =?iso-8859-1?Q?1dV9gAGqws2iHvUbIW1kB5mxX2IpUSySOzUPsxDdiplETktzlVnPv3+ki/?=
- =?iso-8859-1?Q?tZ+su8v6qI?=
+X-Originating-IP: [2607:fea8:3edf:49b0:42b0:8005:56c0:5bb5]
+X-ClientProxiedBy: YT1PR01CA0111.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::20) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:42b0:8005:56c0:5bb5]
+ (2607:fea8:3edf:49b0:42b0:8005:56c0:5bb5) by
+ YT1PR01CA0111.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4020.21 via Frontend Transport; Tue, 13 Apr 2021 05:36:46 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 58cf7426-f570-4d11-9836-08d8fe3e2164
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4462:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4462BA8020800CB4FE84BE72EA4F9@SA0PR12MB4462.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qn4hlrzERnQ2LVWFap2YcKnUpqMk0rIypmii4twL6LOMHpTMYurl029Hm6OkvKn0hgJn8VZPirVSGtldVm+vwVotnaKg/7dx/xMjK6VXut0mT/EC+7XMGxFYP3VG4WCEsHduMe+CyIPVOJH97up0rBvLYjKIv1I9TA6/3INAyoBuXv2HcXWqKWd0URGfB6M5aW20xr4TYtWb8TOeCeaWEjWRK+ynxR8KE/ypTtPz64T9MhOx1kgwukEa0Sv7BV7asoV9qAERgVibGAQG6y36bjSAN2Omn/Lgxes0vusTr3O9Orb6vw/FGaVTSCynOeD1c/ZB+MjZW/qJ1EGUGgRfC4fJUZZ8bDVyoNa+5wnKgrrYJ2hqSEvSmvxD+MSJ8N4A4l8+xv63vMPeoXKcAUAxxIS7oAcXRo8BqGSVEyw7v9TtyjKb41l/1iHhNnQCDYsOvMWngdKauKtpWXvrGYpz4rVpJ7cbYPTHTBbP+PenII1f6REPLYFZYwnQGWZodHOmCU/CKrPYi1EbRa3GuHc6+EFnOd+sfMPXSseU7/Wj5oeac/EnJhSES0FzsHwZ0FcjQDbX/oF8rzHk2JoD4RbhPxWfrbT/faeSSZypL1gx2toGefMys+uWnLim/InViYNT7S6jlJ5uVfPe9Jbw3txpNbclT18thTleZqbB+GKWoDIDUkXydI4PIcrgMDQPmFffXxJXFp2Tw7CD+VJEEVbhJBrYbLYveFND6IUGjrmQYi32ukuoJBWOmrDKIYqIcOMM32khjpggovI/TV1SvKafuw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(966005)(2906002)(2616005)(66476007)(16526019)(186003)(66556008)(30864003)(66946007)(316002)(6636002)(166002)(38100700002)(8676002)(83380400001)(52116002)(36756003)(33964004)(53546011)(921005)(6486002)(66574015)(478600001)(44832011)(86362001)(31696002)(110136005)(5660300002)(8936002)(31686004)(45080400002)(60764002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eFVFTkFJY2l2bHhYOGlxYWJKaTF3MUd2bHdkejNaRzR3TGJ5NHFiVzg0MHA0?=
+ =?utf-8?B?QmxuL3RaTk4zaTJ1cU1SU3dCdk9EYlJIK1UwTFFzbFJsemhpZ1Z3dlNhOUlp?=
+ =?utf-8?B?aVIvUVlINGY0SzB5d2sxOElJNmNzNXpDL0tOYVFzOFBzdk9EWFJwREo4cXFN?=
+ =?utf-8?B?ZXlFa2NNQ24wU21meW1NRElzaXJFdndhQzBNSHZGZGNwMnBmOFYrNU00WmxD?=
+ =?utf-8?B?WUJVeTE0dU5VOGtTWjM2SzFFL1preUJUYVQ3QWNQcGRKMTBtOVZFTDRRbzg2?=
+ =?utf-8?B?ODVIaE55d1MxcFd2aDhyRkFJTGltdEROQjN5ZC83ZndSaCtOMm9KcDFWV1hu?=
+ =?utf-8?B?SGJ2REpublI1N1lpREowZEFlWTBZeDZJUGNNNmxxeFNGM2ZSUlVLbTlhc3hn?=
+ =?utf-8?B?aUhIRTVOSTB5cWVTdCtuYUYwYTdrZGtFYXFXb1BzSU42QmpKVXk0bDBXUVI2?=
+ =?utf-8?B?eTZQYzJ3dndic3JiMXoyTWJxK1FVdDlJN2NYdlNHYzNQWU5jcllqRlpSVzMr?=
+ =?utf-8?B?TVFucEFSWVdBeDhodW1QajBUU0VkL0NVQ2VxRm8wUVVKTmZUamEwQUZqVGNr?=
+ =?utf-8?B?OUo3Vzd1eHpvVkpIdXJZclYzaUdmSnZDMkVYM0tMMHZvWDhBN1NGN2ZZS1Ra?=
+ =?utf-8?B?ZTlYeThJQjJZdUxqU0JHK3FKd1VkY1lVWkZ2MHJlSDczZVZ0UEY4dkpWWjV2?=
+ =?utf-8?B?MGhRYUNHNGZOSzZSY05DQzluQkxwVExWRG5RdEtPSHl4dTgvR3k3WHp0UTM1?=
+ =?utf-8?B?S1h1dUJ2RlF4UDZwSlhyQWV2WnpSK1FQeXlOQ3VKRDVEdlZCQUY4Z21ucDJV?=
+ =?utf-8?B?em5yNnNyU2cxNk5UVDFhL1hub0FIaUVROHBFc3puQkJCY25JSFpxYnFOemRX?=
+ =?utf-8?B?aGpjK21TVGlwZ0FKZzVBdXdxdnVGR0RSdUo1NkNxT05RTXBuWU5kdHZwNklx?=
+ =?utf-8?B?VFh6b1B2Vk90ODRHNXQwK3ptZHArQWpJSjk4bjU2RlNpS3QvOUE5SGt2N3FT?=
+ =?utf-8?B?NGY3a0RZU0tpajE0TDNLSVZ4SElEMlJwMXYyZUF2b1JTTmdXQ2tEQlFMNHhK?=
+ =?utf-8?B?TGxYK3lkY1hTWjVFMkNwbCt1WHcxR21EQWRJTE1WZSs0N0Q2Qk5pc1h1ZGsz?=
+ =?utf-8?B?bk10S3g1VVk3endUY1pLT2wvWEJXejlWRy9FNUYrQm44WGdKUDUxVEtZMXY3?=
+ =?utf-8?B?bldjNVBiTWRXN2hKRmlOTEt1VlQ1VU82cDZwOTBGQngzQmxqMmNjejhSVi9k?=
+ =?utf-8?B?UUlzTGFmRWVyRXVNWkovL1I4dVJFaDNGWDBFdkxua1MyUE1xWmJYcEhaZ3RV?=
+ =?utf-8?B?RTA1eEQyU0dxdnBLeHI4SVE3YW9KUDhHRjFTSy9ETmVYRG4rMzBrWmJCeGd6?=
+ =?utf-8?B?dDlFSjZaK1l4cTAwQ3NFZnVJa1RYY1l0TlFweVVCNERGcFZwRjU3em00WWVw?=
+ =?utf-8?B?QkFQYU1hQzJ5OVEwbjd3Y2FMb2Y0WGM0ZlZPQTIxZ1QrcGN4Z3RpYmYxa0Er?=
+ =?utf-8?B?TTg5ZmRIMHRXd1V2cDcrYnRRR1pGSWUrUU5tQzlmNzF2YzN4Wk1sMFh4NVdM?=
+ =?utf-8?B?Z2g1RWxyekNmMFFaZWp3M3c4Unlrc2hmWFh2ZnIzOHJqQmIzalFFNGI5V2ZZ?=
+ =?utf-8?B?L1VGamhGcUNkWUg4UE40MU5GUHE3N0loNVNBclpkdEhYR2FQTHM2eWxCcGtV?=
+ =?utf-8?B?a2I5YllUVm1sakhzdmlwSEJhTEY1SlhjRlUrTUR5R2xqWlloOHFJbmtJUS9V?=
+ =?utf-8?B?TnFZUEgvcXJlVW1SQ3E5K1d6TnFEOTNlcGgwS2pwelJ3enVkb0M3YlFoa1B2?=
+ =?utf-8?B?aXFHT1phYkZ4OVcydldpVVQ3alJpTHZNQnZnbWtSVk9QN2xwZ2ZpbEpxcEp4?=
+ =?utf-8?Q?2og69uC9gG4bv?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58cf7426-f570-4d11-9836-08d8fe3e2164
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a891e18e-4fd4-44e9-3417-08d8fe1f4c0b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2021 01:56:04.4350 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CA6f1zHC2d4nxdaak9zUd1xMcqgllKftRO9E+qzE9gZpL35EKJgpoDEUb+sDtE14
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3294
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2021 05:36:48.5647 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bPu2YtQUnDQ+V7SonbrL0Gk0qRioXHYHKrd7ZvDCvGfO/WqSqvUnz52CDi+2Fmx0nRkAN+fw10W6vT7P9RoIgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4462
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,191 +162,682 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0984274998=="
+Content-Type: multipart/mixed; boundary="===============1239200055=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0984274998==
-Content-Language: en-US
+--===============1239200055==
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_"
+ boundary="------------9CD3D3ADDE953724F884E5E2"
+Content-Language: en-US
 
---_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--------------9CD3D3ADDE953724F884E5E2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-[AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
-
-Best Regards,
-Kevin
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kent Rus=
-sell <kent.russell@amd.com>
-Sent: Tuesday, April 13, 2021 12:01 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Russell, Kent <Kent.Russell@amd.com>
-Subject: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
-
-Like Arcturus, this isn't available on Aldebaran, so remove it
-accordingly
-
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 204e34549013..8128603ef495 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1844,7 +1844,9 @@ static int default_attr_update(struct amdgpu_device *=
-adev, struct amdgpu_device_
-                 if (asic_type < CHIP_VEGA10)
-                         *states =3D ATTR_STATE_UNSUPPORTED;
-         } else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
--               if (asic_type < CHIP_VEGA10 || asic_type =3D=3D CHIP_ARCTUR=
-US)
-+               if (asic_type < CHIP_VEGA10 ||
-+                   asic_type =3D=3D CHIP_ARCTURUS ||
-+                   asic_type =3D=3D CHIP_ALDEBARAN)
-                         *states =3D ATTR_STATE_UNSUPPORTED;
-         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
-                 if (asic_type < CHIP_VEGA20)
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7CKevin1.W=
-ang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe4884e608e11a82d=
-994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wL=
-jAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DQC=
-2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;reserved=3D0
-
---_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Kent Russell &lt;kent.russell=
-@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, April 13, 2021 12:01 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Russell, Kent &lt;Kent.Russell@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebar=
-an</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+On 2021-04-12 2:23 p.m., Christian König wrote:
+> Am 12.04.21 um 20:18 schrieb Andrey Grodzovsky:
+>>
+>> On 2021-04-12 2:05 p.m., Christian König wrote:
+>>
+>>> Am 12.04.21 um 20:01 schrieb Andrey Grodzovsky:
+>>>>
+>>>> On 2021-04-12 1:44 p.m., Christian König wrote:
+>>>>
+>>>>>
+>>>>> Am 12.04.21 um 19:27 schrieb Andrey Grodzovsky:
+>>>>>> On 2021-04-10 1:34 p.m., Christian König wrote:
+>>>>>>> Hi Andrey,
+>>>>>>>
+>>>>>>> Am 09.04.21 um 20:18 schrieb Andrey Grodzovsky:
+>>>>>>>> [SNIP]
+>>>>>>>>>>
+>>>>>>>>>> If we use a list and a flag called 'emit_allowed' under a 
+>>>>>>>>>> lock such that in amdgpu_fence_emit we lock the list, check 
+>>>>>>>>>> the flag and if true add the new HW fence to list and proceed 
+>>>>>>>>>> to HW emition as normal, otherwise return with -ENODEV. In 
+>>>>>>>>>> amdgpu_pci_remove we take the lock, set the flag to false, 
+>>>>>>>>>> and then iterate the list and force signal it. Will this not 
+>>>>>>>>>> prevent any new HW fence creation from now on from any place 
+>>>>>>>>>> trying to do so ?
+>>>>>>>>>
+>>>>>>>>> Way to much overhead. The fence processing is intentionally 
+>>>>>>>>> lock free to avoid cache line bouncing because the IRQ can 
+>>>>>>>>> move from CPU to CPU.
+>>>>>>>>>
+>>>>>>>>> We need something which at least the processing of fences in 
+>>>>>>>>> the interrupt handler doesn't affect at all.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> As far as I see in the code, amdgpu_fence_emit is only called 
+>>>>>>>> from task context. Also, we can skip this list I proposed and 
+>>>>>>>> just use amdgpu_fence_driver_force_completion for each ring to 
+>>>>>>>> signal all created HW fences.
+>>>>>>>
+>>>>>>> Ah, wait a second this gave me another idea.
+>>>>>>>
+>>>>>>> See amdgpu_fence_driver_force_completion():
+>>>>>>>
+>>>>>>> amdgpu_fence_write(ring, ring->fence_drv.sync_seq);
+>>>>>>>
+>>>>>>> If we change that to something like:
+>>>>>>>
+>>>>>>> amdgpu_fence_write(ring, ring->fence_drv.sync_seq + 0x3FFFFFFF);
+>>>>>>>
+>>>>>>> Not only the currently submitted, but also the next 0x3FFFFFFF 
+>>>>>>> fences will be considered signaled.
+>>>>>>>
+>>>>>>> This basically solves out problem of making sure that new fences 
+>>>>>>> are also signaled without any additional overhead whatsoever.
+>>>>>>
+>>>>>>
+>>>>>> Problem with this is that the act of setting the sync_seq to some 
+>>>>>> MAX value alone is not enough, you actually have to call 
+>>>>>> amdgpu_fence_process to iterate and signal the fences currently 
+>>>>>> stored in ring->fence_drv.fences array and to guarantee that once 
+>>>>>> you done your signalling no more HW fences will be added to that 
+>>>>>> array anymore. I was thinking to do something like bellow:
+>>>>>>
+>>>>>
+>>>>> Well we could implement the is_signaled callback once more, but 
+>>>>> I'm not sure if that is a good idea.
+>>>>
+>>>>
+>>>> This indeed could save the explicit signaling I am doing bellow but 
+>>>> I also set an error code there which might be helpful to propagate 
+>>>> to users
+>>>>
+>>>>
+>>>>>
+>>>>>> amdgpu_fence_emit()
+>>>>>>
+>>>>>> {
+>>>>>>
+>>>>>>     dma_fence_init(fence);
+>>>>>>
+>>>>>>     srcu_read_lock(amdgpu_unplug_srcu)
+>>>>>>
+>>>>>>     if (!adev->unplug)) {
+>>>>>>
+>>>>>>         seq = ++ring->fence_drv.sync_seq;
+>>>>>>         emit_fence(fence);
+>>>>>>
+>>>>>> */* We can't wait forever as the HW might be gone at any point*/**
+>>>>>>        dma_fence_wait_timeout(old_fence, 5S);*
+>>>>>>
+>>>>>
+>>>>> You can pretty much ignore this wait here. It is only as a last 
+>>>>> resort so that we never overwrite the ring buffers.
+>>>>
+>>>>
+>>>> If device is present how can I ignore this ?
+>>>>
+>>
+>> I think you missed my question here
+>>
 >
-<div class=3D"PlainText">Like Arcturus, this isn't available on Aldebaran, =
-so remove it<br>
-accordingly<br>
-<br>
-Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 +++-<br>
-&nbsp;1 file changed, 3 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index 204e34549013..8128603ef495 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -1844,7 +1844,9 @@ static int default_attr_update(struct amdgpu_device *=
-adev, struct amdgpu_device_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (asic_type &lt; CHIP_VEGA10)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *stat=
-es =3D ATTR_STATE_UNSUPPORTED;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (DEVICE_ATTR_IS(=
-pp_dpm_dcefclk)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (asic_type &lt; CHIP_VEGA10 || asic_type =3D=3D CHIP_ARCTURUS=
-)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (asic_type &lt; CHIP_VEGA10 ||<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_type =3D=3D CHIP_ARCTURUS ||<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_type =3D=3D CHIP_ALDEBARAN)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *stat=
-es =3D ATTR_STATE_UNSUPPORTED;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (DEVICE_ATTR_IS(=
-pp_dpm_fclk)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (asic_type &lt; CHIP_VEGA20)<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7CKevin1.Wang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3=
-d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
-&amp;amp;sdata=3DQC2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;amp;res=
-erved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7CKevin1.Wang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3=
-d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
-&amp;amp;sdata=3DQC2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;amp;res=
-erved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
+> Sorry I thought I answered that below.
+>
+> See this is just the last resort so that we don't need to worry about 
+> ring buffer overflows during testing.
+>
+> We should not get here in practice and if we get here generating a 
+> deadlock might actually be the best handling.
+>
+> The alternative would be to call BUG().
+
+
+BTW, I am not sure it's so improbable to get here in case of sudden 
+device remove, if you are during rapid commands submission to the ring 
+during this time  you could easily get to ring buffer overrun because 
+EOP interrupts are gone and fences are not removed anymore but new ones 
+keep arriving from new submissions which don't stop yet.
+
+Andrey
+
+
+>
+>>>>
+>>>>>
+>>>>> But it should not have a timeout as far as I can see.
+>>>>
+>>>>
+>>>> Without timeout wait the who approach falls apart as I can't call 
+>>>> srcu_synchronize on this scope because once device is physically 
+>>>> gone the wait here will be forever
+>>>>
+>>>
+>>> Yeah, but this is intentional. The only alternative to avoid 
+>>> corruption is to wait with a timeout and call BUG() if that 
+>>> triggers. That isn't much better.
+>>>
+>>>>
+>>>>>
+>>>>>>         ring->fence_drv.fences[seq & 
+>>>>>> ring->fence_drv.num_fences_mask] = fence;
+>>>>>>
+>>>>>>     } else {
+>>>>>>
+>>>>>>         dma_fence_set_error(fence, -ENODEV);
+>>>>>>         DMA_fence_signal(fence)
+>>>>>>
+>>>>>>     }
+>>>>>>
+>>>>>>     srcu_read_unlock(amdgpu_unplug_srcu)
+>>>>>>     return fence;
+>>>>>>
+>>>>>> }
+>>>>>>
+>>>>>> amdgpu_pci_remove
+>>>>>>
+>>>>>> {
+>>>>>>
+>>>>>>     adev->unplug = true;
+>>>>>>     synchronize_srcu(amdgpu_unplug_srcu)
+>>>>>>
+>>>>>
+>>>>> Well that is just duplicating what drm_dev_unplug() should be 
+>>>>> doing on a different level.
+>>>>
+>>>>
+>>>> drm_dev_unplug is on a much wider scope, for everything in the 
+>>>> device including 'flushing' in flight IOCTLs, this deals 
+>>>> specifically with the issue of force signalling HW fences
+>>>>
+>>>
+>>> Yeah, but it adds the same overhead as the device srcu.
+>>>
+>>> Christian.
+>>
+>>
+>> So what's the right approach ? How we guarantee that when running 
+>> amdgpu_fence_driver_force_completion we will signal all the HW fences 
+>> and not racing against some more fences insertion into that array ?
+>>
+>
+> Well I would still say the best approach would be to insert this 
+> between the front end and the backend and not rely on signaling fences 
+> while holding the device srcu.
+>
+> BTW: Could it be that the device SRCU protects more than one device 
+> and we deadlock because of this?
+>
+> Christian.
+>
+>> Andrey
+>>
+>>
+>>>
+>>>> Andrey
+>>>>
+>>>>
+>>>>>
+>>>>> Christian.
+>>>>>
+>>>>>>     /* Past this point no more fence are submitted to HW ring and 
+>>>>>> hence we can safely call force signal on all that are currently 
+>>>>>> there.
+>>>>>>      * Any subsequently created  HW fences will be returned 
+>>>>>> signaled with an error code right away
+>>>>>>      */
+>>>>>>
+>>>>>>     for_each_ring(adev)
+>>>>>>         amdgpu_fence_process(ring)
+>>>>>>
+>>>>>>     drm_dev_unplug(dev);
+>>>>>>     Stop schedulers
+>>>>>>     cancel_sync(all timers and queued works);
+>>>>>>     hw_fini
+>>>>>>     unmap_mmio
+>>>>>>
+>>>>>> }
+>>>>>>
+>>>>>>
+>>>>>> Andrey
+>>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> Alternatively grabbing the reset write side and stopping and 
+>>>>>>>>>>> then restarting the scheduler could work as well.
+>>>>>>>>>>>
+>>>>>>>>>>> Christian.
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> I didn't get the above and I don't see why I need to reuse 
+>>>>>>>>>> the GPU reset rw_lock. I rely on the SRCU unplug flag for 
+>>>>>>>>>> unplug. Also, not clear to me why are we focusing on the 
+>>>>>>>>>> scheduler threads, any code patch to generate HW fences 
+>>>>>>>>>> should be covered, so any code leading to amdgpu_fence_emit 
+>>>>>>>>>> needs to be taken into account such as, direct IB 
+>>>>>>>>>> submissions, VM flushes e.t.c
+>>>>>>>>>
+>>>>>>>>> You need to work together with the reset lock anyway, cause a 
+>>>>>>>>> hotplug could run at the same time as a reset.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> For going my way indeed now I see now that I have to take reset 
+>>>>>>>> write side lock during HW fences signalling in order to protect 
+>>>>>>>> against scheduler/HW fences detachment and reattachment during 
+>>>>>>>> schedulers stop/restart. But if we go with your approach  then 
+>>>>>>>> calling drm_dev_unplug and scoping amdgpu_job_timeout with 
+>>>>>>>> drm_dev_enter/exit should be enough to prevent any concurrent 
+>>>>>>>> GPU resets during unplug. In fact I already do it anyway - 
+>>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Def0ea4dd29ef44d2649c5eda16c8f4869acc36b1&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ceefa9c90ed8c405ec3b708d8fc46daaa%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637536728550884740%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=UiNaJE%2BH45iYmbwSDnMSKZS5z0iak0fNlbbfYqKS2Jo%3D&amp;reserved=0
+>>>>>>>
+>>>>>>> Yes, good point as well.
+>>>>>>>
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Andrey
+>>>>>>>>
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Christian.
+>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Andrey
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>> Christian.
+>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Andrey
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> Andrey
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>
+>>>>>
+>>>
+>
+
+--------------9CD3D3ADDE953724F884E5E2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2021-04-12 2:23 p.m., Christian
+      König wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:2894bf97-8c39-6610-c479-b089c46513e7@amd.com">
+      
+      Am 12.04.21 um 20:18 schrieb Andrey Grodzovsky:<br>
+      <blockquote type="cite" cite="mid:ecf465a2-d4fc-1cbf-a9d5-39c3844f23bb@amd.com">
+        <p>On 2021-04-12 2:05 p.m., Christian König wrote:<br>
+        </p>
+        <blockquote type="cite" cite="mid:a970101f-89f1-8bdf-51d9-4a4e5e0f9e9a@amd.com"> Am
+          12.04.21 um 20:01 schrieb Andrey Grodzovsky:<br>
+          <blockquote type="cite" cite="mid:aaa2b266-f091-dd9c-e49d-5e528decfbd7@amd.com">
+            <p>On 2021-04-12 1:44 p.m., Christian König wrote:<br>
+            </p>
+            <blockquote type="cite" cite="mid:cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com"> <br>
+              Am 12.04.21 um 19:27 schrieb Andrey Grodzovsky:<br>
+              <blockquote type="cite" cite="mid:80713dbe-411c-d79b-34ba-b67bc3a50dc5@amd.com">
+                <div class="moz-cite-prefix">On 2021-04-10 1:34 p.m.,
+                  Christian König wrote:<br>
+                </div>
+                <blockquote type="cite" cite="mid:b6a24d3f-4fe6-c642-b478-36e386aa906d@gmail.com">Hi
+                  Andrey, <br>
+                  <br>
+                  Am 09.04.21 um 20:18 schrieb Andrey Grodzovsky: <br>
+                  <blockquote type="cite">[SNIP] <br>
+                    <blockquote type="cite">
+                      <blockquote type="cite"> <br>
+                        If we use a list and a flag called
+                        'emit_allowed' under a lock such that in
+                        amdgpu_fence_emit we lock the list, check the
+                        flag and if true add the new HW fence to list
+                        and proceed to HW emition as normal, otherwise
+                        return with -ENODEV. In amdgpu_pci_remove we
+                        take the lock, set the flag to false, and then
+                        iterate the list and force signal it. Will this
+                        not prevent any new HW fence creation from now
+                        on from any place trying to do so ? <br>
+                      </blockquote>
+                      <br>
+                      Way to much overhead. The fence processing is
+                      intentionally lock free to avoid cache line
+                      bouncing because the IRQ can move from CPU to CPU.
+                      <br>
+                      <br>
+                      We need something which at least the processing of
+                      fences in the interrupt handler doesn't affect at
+                      all. <br>
+                    </blockquote>
+                    <br>
+                    <br>
+                    As far as I see in the code, amdgpu_fence_emit is
+                    only called from task context. Also, we can skip
+                    this list I proposed and just use
+                    amdgpu_fence_driver_force_completion for each ring
+                    to signal all created HW fences. <br>
+                  </blockquote>
+                  <br>
+                  Ah, wait a second this gave me another idea. <br>
+                  <br>
+                  See amdgpu_fence_driver_force_completion(): <br>
+                  <br>
+                  amdgpu_fence_write(ring, ring-&gt;fence_drv.sync_seq);
+                  <br>
+                  <br>
+                  If we change that to something like: <br>
+                  <br>
+                  amdgpu_fence_write(ring, ring-&gt;fence_drv.sync_seq +
+                  0x3FFFFFFF); <br>
+                  <br>
+                  Not only the currently submitted, but also the next
+                  0x3FFFFFFF fences will be considered signaled. <br>
+                  <br>
+                  This basically solves out problem of making sure that
+                  new fences are also signaled without any additional
+                  overhead whatsoever.</blockquote>
+                <p><br>
+                </p>
+                <p>Problem with this is that the act of setting the
+                  sync_seq to some MAX value alone is not enough, you
+                  actually have to call amdgpu_fence_process to iterate
+                  and signal the fences currently stored in
+                  ring-&gt;fence_drv.fences array and to guarantee that
+                  once you done your signalling no more HW fences will
+                  be added to that array anymore. I was thinking to do
+                  something like bellow:</p>
+              </blockquote>
+              <br>
+              Well we could implement the is_signaled callback once
+              more, but I'm not sure if that is a good idea.<br>
+            </blockquote>
+            <p><br>
+            </p>
+            <p>This indeed could save the explicit signaling I am doing
+              bellow but I also set an error code there which might be
+              helpful to propagate to users</p>
+            <p><br>
+            </p>
+            <blockquote type="cite" cite="mid:cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com"> <br>
+              <blockquote type="cite" cite="mid:80713dbe-411c-d79b-34ba-b67bc3a50dc5@amd.com">
+                <p>amdgpu_fence_emit()</p>
+                <p>{</p>
+                <p>&nbsp;&nbsp;&nbsp; dma_fence_init(fence);<br>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp; srcu_read_lock(amdgpu_unplug_srcu)</p>
+                <p>&nbsp;&nbsp;&nbsp; if (!adev-&gt;unplug)) {</p>
+                <p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; seq = ++ring-&gt;fence_drv.sync_seq;<br>
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; emit_fence(fence);</p>
+                <p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>/* We can't wait forever as the HW might
+                    be gone at any point*/</b><b><br>
+                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; dma_fence_wait_timeout(old_fence, 5S);</b><br>
+                </p>
+              </blockquote>
+              <br>
+              You can pretty much ignore this wait here. It is only as a
+              last resort so that we never overwrite the ring buffers.<br>
+            </blockquote>
+            <p><br>
+            </p>
+            <p>If device is present how can I ignore this ?</p>
+          </blockquote>
+        </blockquote>
+        <p><br>
+        </p>
+        <p>I think you missed my question here <br>
+        </p>
+      </blockquote>
+      <br>
+      Sorry I thought I answered that below.<br>
+      <br>
+      See this is just the last resort so that we don't need to worry
+      about ring buffer overflows during testing.<br>
+      <br>
+      We should not get here in practice and if we get here generating a
+      deadlock might actually be the best handling.<br>
+      <br>
+      The alternative would be to call BUG().<br>
+    </blockquote>
+    <p><br>
+    </p>
+    <p>BTW, I am not sure it's so improbable to get here in case of
+      sudden device remove, if you are during rapid commands submission
+      to the ring during this time&nbsp; you could easily get to ring buffer
+      overrun because EOP interrupts are gone and fences are not removed
+      anymore but new ones keep arriving from new submissions which
+      don't stop yet.</p>
+    <p>Andrey</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:2894bf97-8c39-6610-c479-b089c46513e7@amd.com"> <br>
+      <blockquote type="cite" cite="mid:ecf465a2-d4fc-1cbf-a9d5-39c3844f23bb@amd.com">
+        <p> </p>
+        <blockquote type="cite" cite="mid:a970101f-89f1-8bdf-51d9-4a4e5e0f9e9a@amd.com">
+          <blockquote type="cite" cite="mid:aaa2b266-f091-dd9c-e49d-5e528decfbd7@amd.com">
+            <p><br>
+            </p>
+            <blockquote type="cite" cite="mid:cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com"> <br>
+              But it should not have a timeout as far as I can see.<br>
+            </blockquote>
+            <p><br>
+            </p>
+            <p>Without timeout wait the who approach falls apart as I
+              can't call srcu_synchronize on this scope because once
+              device is physically gone the wait here will be forever</p>
+          </blockquote>
+          <br>
+          Yeah, but this is intentional. The only alternative to avoid
+          corruption is to wait with a timeout and call BUG() if that
+          triggers. That isn't much better.<br>
+          <br>
+          <blockquote type="cite" cite="mid:aaa2b266-f091-dd9c-e49d-5e528decfbd7@amd.com">
+            <p><br>
+            </p>
+            <blockquote type="cite" cite="mid:cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com"> <br>
+              <blockquote type="cite" cite="mid:80713dbe-411c-d79b-34ba-b67bc3a50dc5@amd.com">
+                <p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ring-&gt;fence_drv.fences[seq &amp;
+                  ring-&gt;fence_drv.num_fences_mask] = fence;<br>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp; } else {</p>
+                <p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; dma_fence_set_error(fence, -ENODEV);<br>
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; DMA_fence_signal(fence) &nbsp;&nbsp; <br>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp; } &nbsp; <br>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp; srcu_read_unlock(amdgpu_unplug_srcu)<br>
+                  &nbsp;&nbsp;&nbsp; return fence;<br>
+                </p>
+                <p>}</p>
+                <p>amdgpu_pci_remove <br>
+                </p>
+                <p>{</p>
+                <p>&nbsp;&nbsp;&nbsp; adev-&gt;unplug = true;<br>
+                  &nbsp;&nbsp;&nbsp; synchronize_srcu(amdgpu_unplug_srcu) <br>
+                </p>
+              </blockquote>
+              <br>
+              Well that is just duplicating what drm_dev_unplug() should
+              be doing on a different level.<br>
+            </blockquote>
+            <p><br>
+            </p>
+            <p>drm_dev_unplug is on a much wider scope, for everything
+              in the device including 'flushing' in flight IOCTLs, this
+              deals specifically with the issue of force signalling HW
+              fences</p>
+          </blockquote>
+          <br>
+          Yeah, but it adds the same overhead as the device srcu.<br>
+          <br>
+          Christian.<br>
+        </blockquote>
+        <p><br>
+        </p>
+        <p>So what's the right approach ? How we guarantee that when
+          running amdgpu_fence_driver_force_completion we will signal
+          all the HW fences and not racing against some more fences
+          insertion into that array ?</p>
+      </blockquote>
+      <br>
+      Well I would still say the best approach would be to insert this
+      between the front end and the backend and not rely on signaling
+      fences while holding the device srcu.<br>
+      <br>
+      BTW: Could it be that the device SRCU protects more than one
+      device and we deadlock because of this?<br>
+      <br>
+      Christian.<br>
+      <br>
+      <blockquote type="cite" cite="mid:ecf465a2-d4fc-1cbf-a9d5-39c3844f23bb@amd.com">
+        <p>Andrey<br>
+        </p>
+        <p><br>
+        </p>
+        <blockquote type="cite" cite="mid:a970101f-89f1-8bdf-51d9-4a4e5e0f9e9a@amd.com"> <br>
+          <blockquote type="cite" cite="mid:aaa2b266-f091-dd9c-e49d-5e528decfbd7@amd.com">
+            <p>Andrey</p>
+            <p><br>
+            </p>
+            <blockquote type="cite" cite="mid:cd94e02c-11c8-0198-ab70-0ceee54d437b@amd.com"> <br>
+              Christian.<br>
+              <br>
+              <blockquote type="cite" cite="mid:80713dbe-411c-d79b-34ba-b67bc3a50dc5@amd.com">
+                <p>&nbsp;&nbsp;&nbsp; /* Past this point no more fence are submitted to
+                  HW ring and hence we can safely call force signal on
+                  all that are currently there. <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp; * Any subsequently created&nbsp; HW fences will be
+                  returned signaled with an error code right away <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp; */<br>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp; for_each_ring(adev)<br>
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; amdgpu_fence_process(ring)</p>
+                <p>&nbsp;&nbsp;&nbsp; drm_dev_unplug(dev);<br>
+                  &nbsp;&nbsp;&nbsp; Stop schedulers<br>
+                  &nbsp;&nbsp;&nbsp; cancel_sync(all timers and queued works);<br>
+                  &nbsp;&nbsp;&nbsp; hw_fini<br>
+                  &nbsp;&nbsp;&nbsp; unmap_mmio<br>
+                </p>
+                <p>}</p>
+                <p><br>
+                </p>
+                <p>Andrey</p>
+                <p><br>
+                </p>
+                <blockquote type="cite" cite="mid:b6a24d3f-4fe6-c642-b478-36e386aa906d@gmail.com">
+                  <br>
+                  <br>
+                  <blockquote type="cite"> <br>
+                    <blockquote type="cite">
+                      <blockquote type="cite">
+                        <blockquote type="cite"> <br>
+                          Alternatively grabbing the reset write side
+                          and stopping and then restarting the scheduler
+                          could work as well. <br>
+                          <br>
+                          Christian. <br>
+                        </blockquote>
+                        <br>
+                        <br>
+                        I didn't get the above and I don't see why I
+                        need to reuse the GPU reset rw_lock. I rely on
+                        the SRCU unplug flag for unplug. Also, not clear
+                        to me why are we focusing on the scheduler
+                        threads, any code patch to generate HW fences
+                        should be covered, so any code leading to
+                        amdgpu_fence_emit needs to be taken into account
+                        such as, direct IB submissions, VM flushes e.t.c
+                        <br>
+                      </blockquote>
+                      <br>
+                      You need to work together with the reset lock
+                      anyway, cause a hotplug could run at the same time
+                      as a reset. <br>
+                    </blockquote>
+                    <br>
+                    <br>
+                    For going my way indeed now I see now that I have to
+                    take reset write side lock during HW fences
+                    signalling in order to protect against scheduler/HW
+                    fences detachment and reattachment during schedulers
+                    stop/restart. But if we go with your approach&nbsp; then
+                    calling drm_dev_unplug and scoping
+                    amdgpu_job_timeout with drm_dev_enter/exit should be
+                    enough to prevent any concurrent GPU resets during
+                    unplug. In fact I already do it anyway - <a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Def0ea4dd29ef44d2649c5eda16c8f4869acc36b1&amp;amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ceefa9c90ed8c405ec3b708d8fc46daaa%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637536728550884740%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=UiNaJE%2BH45iYmbwSDnMSKZS5z0iak0fNlbbfYqKS2Jo%3D&amp;amp;reserved=0" moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Def0ea4dd29ef44d2649c5eda16c8f4869acc36b1&amp;amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ceefa9c90ed8c405ec3b708d8fc46daaa%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637536728550884740%7CUnknown%7CTWFpbGZsb3d8
+ eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=UiNaJE%2BH45iYmbwSDnMSKZS5z0iak0fNlbbfYqKS2Jo%3D&amp;amp;reserved=0</a><br>
+                  </blockquote>
+                  <br>
+                  Yes, good point as well. <br>
+                  <br>
+                  Christian. <br>
+                  <br>
+                  <blockquote type="cite"> <br>
+                    Andrey <br>
+                    <br>
+                    <br>
+                    <blockquote type="cite"> <br>
+                      <br>
+                      Christian. <br>
+                      <br>
+                      <blockquote type="cite"> <br>
+                        Andrey <br>
+                        <br>
+                        <br>
+                        <blockquote type="cite"> <br>
+                          <blockquote type="cite"> <br>
+                            Christian. <br>
+                            <br>
+                            <blockquote type="cite"> <br>
+                              Andrey <br>
+                              <br>
+                              <br>
+                              <blockquote type="cite"> <br>
+                                <blockquote type="cite">Andrey <br>
+                                  <br>
+                                  <br>
+                                </blockquote>
+                                <br>
+                              </blockquote>
+                            </blockquote>
+                            <br>
+                          </blockquote>
+                          <br>
+                        </blockquote>
+                      </blockquote>
+                      <br>
+                    </blockquote>
+                  </blockquote>
+                  <br>
+                </blockquote>
+              </blockquote>
+              <br>
+            </blockquote>
+          </blockquote>
+          <br>
+        </blockquote>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
 </html>
 
---_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_--
+--------------9CD3D3ADDE953724F884E5E2--
 
---===============0984274998==
+--===============1239200055==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -325,4 +848,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0984274998==--
+--===============1239200055==--
