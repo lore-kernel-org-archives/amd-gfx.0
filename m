@@ -1,133 +1,124 @@
-Return-Path: <SRS0=UsYE=JJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=eSA1=JK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89622C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 23:55:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 602DCC433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 01:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D08561358
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Apr 2021 23:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D08561358
+	by mail.kernel.org (Postfix) with ESMTPS id EC4A66128A
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 01:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC4A66128A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFAFB89DAB;
-	Mon, 12 Apr 2021 23:55:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 742956E05C;
+	Tue, 13 Apr 2021 01:56:08 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B22FA89DAB
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Apr 2021 23:55:16 +0000 (UTC)
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E02EA6E05C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 01:56:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mh64cZwoaRjgMoAl1VLQtd4EOd693NveVPilv3OZyJ/xa0pHyPonaUZInn2PkDHsLeBdbfbPh02rew/kCE5u+KzpVBABQGUAzztT+fIP8E3ZbrR47jzv46rk75rqnuCF4fMZzGdlIrOpGDGCmnAFv0HMgmQYBspRVIDH9z5qWewqiFmWD6NCSDRte3Rf7WSwCyLBzKCUzWfdapLHp4lx4EMgBdRbnZ4OgElVxuZJTzCX2CMGOmF+EwTnv0bc7UagiuBuqCifoaZvbPoQQS5FEvHrSuujwsxC/9hSyv5lpXJlfx4jZglbVqgwU/6NDMbNcIUN4KjXH7KxYbj+EsQr6Q==
+ b=NPfQfe2DniplMltYrOK9qt3OAgKIen+ax3K+x8uLGD1zU6Ljkgz5PONCmEzr4pueiZD5aHel1YJU4KGAYak9d6LMmb9gC7k9aWyDF+/Pb/tyrWfqOl7XX3BUv99NLH3ZtR7T+yA5mlCLlx6Rbqu/WXZbrrsirkdkXk+en+o1j/D4W8lnvipHNJXzbCbUFjcyC8qPYZr9ETSyK2uFrTCenlhVgSwJHV1zWUOtTuywuSuqVa2Q7ityweVbWJUMdR1TOInJ8+ilJ5zLzy/ApuoaETTEbOibbp2M8C3mJtmZN5fGuBNdtuKuXLAk4eG3FjFdZvHEjZRUAlp01zNaUQhjog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r2P497NL712QAmqlWA8LvqU370vpQwdDKejdt+hzkYc=;
- b=F1rPuZXY+f2gjGypANsRg8CZSuqWijNEho8zt3D8X+sNEMhb8g1w2l9FxdMJqwz+ZGsySuMgTmUMmN6W3s/fuOAbUciM2VLaNmF4r6J8pV5ZL1KbpRZylQRoU85nqupSovd53hnIuiuR2eZiJueJ/eftF/sPT2ocoDPFSXvKAegpwzYnTp7IvYAzZ7Ch+IdwCbubrbaeWH03UAoVZxpKZB4sh1Lel+1V6klsaYWj7OkgpL3RNMKZZ9uwaq8DQvA9rzPpBe01wsTgI25QoIotcUH8+5S/4muZKAC2l4SBBvB/Qf7kxj/ZCVRIalC8fUxrvo32V+P4/Qo7b7BV/o/hUQ==
+ bh=q528229/RS16Y7tnv4wIylev7gBXKNowRTZl2WtXK04=;
+ b=VvvKPUGY1UqwMXYwrOw13r18xwSiJKnqAiTeq86qr9vKDX3mw0EtBjaGS7S+vqZ1D64RMKiXJ9DpJ5oTtgc8w+YgeVrcxAZ+tFxxCSnOL2rGB1w+iyENNgZpWraC0VbVocuhuNZshm+MIZdkoKZ0NDfO5YV6q8h8u6Bb1iImn2CXUE5ixGnO/l2KkMB6Afs5CEEt4d3S8GzfnD4p8ijv5xF+A3hWZZjc6FWXuuqFgXW5QuuTcdem9jI1GhsxOgVqrGjfnSZTCjxACvc1SxlZL9LTh1lrWy7KZCVmcapSduPSz61uvOsTjFPvLmS4Of7PCEaotcrUCAMFsiRUz9EXxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r2P497NL712QAmqlWA8LvqU370vpQwdDKejdt+hzkYc=;
- b=qr3RkVwoeZUg8ns3Bdazm1mDnVrr4DShU0znOfk7KoFsfWtjjE3a1+TonyFPJ46VK8RxTA7XngTwfvmYfCd6cKfZqgkWQ0HHQaUONIVm0f6j/XLHi4tYtTV575po9/1pWLV+B+VbLXokxij+XCV/Da7bfG6UGcwJjinmqZ8Gjck=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com (2603:10b6:3:113::12)
- by DM6PR12MB4481.namprd12.prod.outlook.com (2603:10b6:5:2af::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17; Mon, 12 Apr
- 2021 23:55:13 +0000
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::576:3b2d:76db:55ab]) by DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::576:3b2d:76db:55ab%3]) with mapi id 15.20.4020.022; Mon, 12 Apr 2021
- 23:55:13 +0000
-Subject: Re: [BUG] VAAPI encoder cause kernel panic if encoded video in 4K
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
-From: Leo Liu <leo.liu@amd.com>
-Message-ID: <159a1ebb-07a1-f50d-5a6c-f4345eb97c3f@amd.com>
-Date: Mon, 12 Apr 2021 19:55:11 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
+ bh=q528229/RS16Y7tnv4wIylev7gBXKNowRTZl2WtXK04=;
+ b=AQDIVtEoU1TrjwryMPYY6wh98jFjA5UX+NyXBKU3fy6gEtmIXRIhZaZHQc0YfX4KjYu7MfkbshD9DDU5yBuPkqnZjGY4fv5L6cadF3c3wQ8dSXLEFkp3VvN9hTmU855bjx3b+twVW9keFr2VpllzFGSV7eutHeSFIf0ojMwAgh4=
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
+ by MN2PR12MB3294.namprd12.prod.outlook.com (2603:10b6:208:af::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21; Tue, 13 Apr
+ 2021 01:56:04 +0000
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::8da7:cf00:1356:1199]) by MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::8da7:cf00:1356:1199%5]) with mapi id 15.20.4020.022; Tue, 13 Apr 2021
+ 01:56:04 +0000
+From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
+Thread-Topic: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
+Thread-Index: AQHXL7Uf90KVpPpHkkS8mCNpepHoIKqxsNIC
+Date: Tue, 13 Apr 2021 01:56:04 +0000
+Message-ID: <MN2PR12MB302292961799AF99B9974170A24F9@MN2PR12MB3022.namprd12.prod.outlook.com>
+References: <20210412160121.27434-1-kent.russell@amd.com>
+In-Reply-To: <20210412160121.27434-1-kent.russell@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-X-Originating-IP: [2607:9880:2088:19:a9b3:8bbf:2db4:7f1]
-X-ClientProxiedBy: YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::45) To DM5PR12MB1787.namprd12.prod.outlook.com
- (2603:10b6:3:113::12)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:9880:2088:19:a9b3:8bbf:2db4:7f1]
- (2607:9880:2088:19:a9b3:8bbf:2db4:7f1) by
- YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::45) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Mon, 12 Apr 2021 23:55:12 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c2b48e01-1a8e-421c-3b48-08d8fe0e69c4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4481:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB44812E599837A93806CB35D3E5709@DM6PR12MB4481.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:843;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 52KozSHMzD2aAdHAC8dDrXYizhXr4l0VZg9Ss53KTfjMYKJbOLhGb/N/9NYiVOa2krStAH69Tt1ZVTP76HhZ5h4knWHl5hDaDQJAwam7Fo6yGSfqO86w1tC1Dpb22RIdv0tbvNBHjiY8vvby+Vh6kqKOaaHAHfDXaC+WmXwS+E1LFXhR3z0vDYwgbt6lXCjOU/OZEDn+LtWdECplTGVibz8cV0G6Rj6KE5l1Mzlf/6QlRNqNooHGADtdsa2PoCwZFlb+7t/k8LvCTWlaSAW26P+t+ejHn278b65MhhRV7sPyP0H1SpRBq2VRBPThvp2aCOR8+0qydy942ijTuGafIej/Rgprt6WujISlTTYSjpBNhQQLTfOnt6HJR+X87mOZq4gFW37lhoxPSWCBHaFM9pv0djRYCnODH4Ks7yqrzMifWsy/QIQH9wrXDkfapjHzRvB8Kw6gGlcW27J/4wZKssr3bFHRmW8DJ8ndAtV5Bz/PCnZcCrjkQElMTEuLXRNCgztXiUzer19oOxU+dQfbXaqcfss6MaWTup2RdIenXM3NGHAlDgnr0PPi2DZo+B+mRK67z0RugeeQIZFkjM3g/cFF8VQMJ49s0zt9uZw4COch9DfK70jS7R9Gz+ykUwuBGC9hj3E4HoGyyOWV74UjUCqknoiLzXfli38V7dextNfASJm3q1dVJKaea1e0H72NR95GJ7vMPAPhZEnrsljP2R5KEK8xn8G/u1cN3DfzREMTHiQTQxI8INP5DGbK0PUngIm5hOTjCGQwXiMf7g/fmQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1787.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(376002)(366004)(136003)(346002)(2906002)(30864003)(31696002)(316002)(53546011)(36756003)(6486002)(66476007)(186003)(5660300002)(86362001)(31686004)(478600001)(44832011)(8936002)(38100700002)(52116002)(66946007)(16526019)(6636002)(45080400002)(966005)(8676002)(83380400001)(110136005)(66556008)(2616005)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-13T01:56:03.914Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a891e18e-4fd4-44e9-3417-08d8fe1f4c0b
+x-ms-traffictypediagnostic: MN2PR12MB3294:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB3294C73F966F227B5B1B7AB4A24F9@MN2PR12MB3294.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:305;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: K3LS9eqzlrhlwCOc+c1/7HrYBoYMCK6O4MppNTsCQOTcGO7zU341oExs7GeFHL6kbGivHUMlGCa5C9urPzmGO3n0GB9Sas69/u+xvVIqE2pvMXae+V+eYUlGsWZEOF27RuEfb8Cpt5Pr/PR5o2bWn/0Ko72gbYPvaJY5yjQYCk4cWcw+fcMWLQo1XDEtl2zYT6Q/Ferhi7d3sxKIArYZUFK+l1X680fd1FZdtDt8QFbcxGwiytYp7eK/HCMWIcqDtkl3obBZxT8/ezcaqDrl33uVRnTUGsiT5tcQG2rSijjRryW1YZvYkGHA8eOrSVdq4sYWGq/rGSip0XD0uFyPX2CAYZpRlTSDPrs+elulgo/buAwX4bx7KnhlHtozktnf7BlZKGBCN6LRqE01keFtXQZYht0l02CjSEbVPECxW/sGaMOevN7NF/Jan3qlscwSc+EM7sWqoIRPXE0WwCNVSv1XFG44Ua8I5o32LkzIuQEiiDk6R10EnhNfDHfKXgN+fSEl9Hb6uHezgnUzSL2NErGwesDCWZ7eATWvtKyxPC2Z0oXZit5kWhT+YCZkzDHxzcXUu5fyttxC3awYR1gFULei56N9ATkwvnBrcvOuyT8tmEe7W/s1lfLxJT/gJ039
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(83380400001)(66476007)(66446008)(64756008)(966005)(66556008)(166002)(8936002)(38100700002)(66946007)(9686003)(7696005)(52536014)(122000001)(55016002)(76116006)(86362001)(19627405001)(71200400001)(91956017)(478600001)(45080400002)(26005)(110136005)(2906002)(186003)(316002)(53546011)(6506007)(5660300002)(8676002)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MU5JOHVyelF6YVc4NW9ua1hTTXdWczZJRUpVQXgrWXhPNWRHanFNTU5udzcy?=
- =?utf-8?B?SCszU0h2V3FncWxJY0JoazhNK2I5UXViSHNTcXFaY3Q0YWlGYW5yc3ZjdlZZ?=
- =?utf-8?B?NitaWU9lSForU3VOY0lMekxac1AvT0ExNWRicHRsUjFJUVY4MzhjbEF2ZE5Q?=
- =?utf-8?B?QWtGTnJHVmloMHhudHhhKzE3Zmx0QXV3Z3pEdG1XNXpsUk4vaXBjanRhbDJR?=
- =?utf-8?B?SFRRcXBjWnI0S21YOXdJajBJYkNTZTlTVVE0em5rUWNHY1ozcU4wQ2hhaHkv?=
- =?utf-8?B?d3lyZDVwSXlXSFBhNFRnN3lqLzVYUkFJSGowMXZlT0lPUGRreXkvWmg5RHhx?=
- =?utf-8?B?SnZDeXprSXBIQ0t2ZEZmbWo4QmpIL1dQYlRsRXlDL3NPbGVxRW55bkNaa0hn?=
- =?utf-8?B?dEdtdmNDMGxxcE1EZ1pxVEhJTyt3U1Q2VW8zNmxNVURTZ3YzTTR5LysvU2RO?=
- =?utf-8?B?NHRtcC9PaUFVMFMxcm5Dd09mMnMvZlZQdC9hU0VHVzQrQkZ2ZEc5bElwazJa?=
- =?utf-8?B?MDNUUnFCSEZFczZqOENnQ1p5d1FwZUFnckNWZEpRclBOdUdlTDRMZ1dPS09q?=
- =?utf-8?B?dDJ2ZE0vRElicGRZRkxPb1lwZlc2MkZRMmRKRTdtcXllSUtYTTBqcU4vbFYv?=
- =?utf-8?B?WXg5aE1SVUpzbjYrQlpEaUFPS3BoakVKclVQUUY3V25PeCt3Si9vUHdNay9Y?=
- =?utf-8?B?QlFDMlNydTZMUGJBV1dkVmc2VDVBWlFSSGt5TmJXRXJRdHFycjVMTXpvZThN?=
- =?utf-8?B?NXBuR1FzYnlzdjEyUmE2THJYU0xHenlZYnR2alhTZ1hMNmZGL0VPZFp3RXRS?=
- =?utf-8?B?VnhyakxwTFNMMXg2SGhKSUYvRXRNMVMxOUNyZ1R5QTdOdGpXc1crUDUwNkwz?=
- =?utf-8?B?T2dLc0w4WVA4TmxyK2gwRldwMEh2eHZoN2pMUEZLMXN3ZG1zOFpacVJ6MCtS?=
- =?utf-8?B?NW9BL29FVUl2OVhsWjNvakV5bHJCVWIwVFljQkhpVjQ0c3Y5T05DYTVXY2Rq?=
- =?utf-8?B?ZVJvcmt5MTJGT2U2dVpESE42ZWs0eFhXQ0FOWk1kREdTTzV3SVJldTFvNldv?=
- =?utf-8?B?VXV6U1MvRkZyR25QQTBxNXJpUXhEbnN1MHlzS0pYa1pEcUtCZXlDR0MxcXBO?=
- =?utf-8?B?MTJRaDR0dkQyQ3lmMFkvNThRWC9nUWxpcG9jRnZ2Nys3RC8vMklZcHdFajdx?=
- =?utf-8?B?RU4zZWpKaUpoOHFJcEZkMnlrM2FheitXbWJ6bXhvRHUva0hKRFhrV21KZ3RK?=
- =?utf-8?B?WWhaQVRjZHNmVlVoNkM2NWVxdlhZMU85Yk90RmYzeSszcmFDSnR3eUs1UjM4?=
- =?utf-8?B?U1N4bXBVQksvWXZXTU0rdXJ6bGJ1OHYvMjErKzVrMmJRN0NGSEpjS2o5eFlV?=
- =?utf-8?B?bzlTdVp5OXBGRndLSEdRRTkwaXFNM3l2aElya0JhcUltMGlTQ1ZXMkdTMStS?=
- =?utf-8?B?WHc4Y1FuK1o1QVZFbkRBMmdwUm5NNllVU1FqbE9wK2JQUFR1OVlQN3VkVDlj?=
- =?utf-8?B?bFdQSUVDbjR3U1c1NmtUcFE4UktLNmpWUjBaaEt1MmpSSEMzZlAwckxEREMy?=
- =?utf-8?B?ZWtreXE5TVFUL3pEL3ZLVzBXUE5SYTBrdFlvY1pXdzFlNUtXSEtodmFFcEUw?=
- =?utf-8?B?MWkweTVWUWRpT21od3FPcXY3dmg1S1NqQXlLN0hMaFllTGUzdUZyU1ArdjBC?=
- =?utf-8?B?ZjdNaXIvY1pkK2lpblhBYkcvN29PL08rSDNwaXVGNGYzV2xYbGpRTCtSOThn?=
- =?utf-8?B?aE5vV2ZIeVhhdlNBeDFtZlpWMHRHZEdnSm1iWXZ1THZEK2RreVBEWDVTN3lZ?=
- =?utf-8?B?MkdGYVR5UUVncUdDNENBb3VON3IwODd3S3BWYWVHYU40TVZjSUdRN0JnL29m?=
- =?utf-8?Q?u/i2DK+13bzvR?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?o5Z+2FwZapo7fdyner53FuSiv20X21K4IgJq3NW1t0TXH/hv86qhWgrhuj?=
+ =?iso-8859-1?Q?KlsjtC5WM/NO58idytOVot5w6V9ykp777/pXEaP5wijAG/NCdrX9zJ83aC?=
+ =?iso-8859-1?Q?qv/3jCS42+ZtgHj/p9pQ5PixEAo/uEDMlX3YBaEez8/6IApg2WsH9g5vdq?=
+ =?iso-8859-1?Q?34YCVRROh+2xOrcS77D/kdAXIoB/vTgdvEfDtkAgGbIGMtnN2IuLWJ6Spr?=
+ =?iso-8859-1?Q?t1mlguXX4IKVkn5FiCq6KLSy/NfxgpPiY0vsqCZDGU0y+x6HYq9XrVoTnp?=
+ =?iso-8859-1?Q?FQdnBl3HVyyunmMP4wBxp+OjcoEWfqh2DSHQr7SQw11H+xtWJnYfylc1ms?=
+ =?iso-8859-1?Q?DrK6vP9JofvImmEBk+mIh+dhBuryjKwkc6v2M9wlQFAxdtifouP1yEGaRZ?=
+ =?iso-8859-1?Q?6DeEmqypBid4zhi6k85U+oDAo22N/OEXfZ1Q40ExBK8Bs0+TCpNqvllwk0?=
+ =?iso-8859-1?Q?TLH8f5om27F9ta7BX2CyvCumo6/4wxrEUsnqzNs9rXX6W7lzgS5jZ6jyhy?=
+ =?iso-8859-1?Q?ZEzCYA7giUtjrN+IAeiHdRKMzLzB1bVquCQ5ZMupHhrLIlkRnVn1rOysRu?=
+ =?iso-8859-1?Q?MU8nemwzRn0MpZ9jsFXY5Lb0at2msglI/0+aIp3Om3mTJLGMY3Gq6CaCUa?=
+ =?iso-8859-1?Q?qf978Fi1d2TiXfWo90d9MvvnBdv47oYHTtR1wUjj7P1KEQjHUBIbSxgExv?=
+ =?iso-8859-1?Q?GQDHW0TTCpjxoZtK5bY1OS55N4RG/firZHCOFTZnugdA7dgjCfPFD0RuPg?=
+ =?iso-8859-1?Q?O6QaZL0bSQ/OHDsa29C6ucG4LXnAv5vASPEPhi8qXiL/5gE3CKoausFwY3?=
+ =?iso-8859-1?Q?ymCjr8sOxm2p1NG92ATK7c6hBdjVCgNY0bf6y63aub0D15gWabpvQnWJ3B?=
+ =?iso-8859-1?Q?T/TN35hfFnEMRLw9pnikl+g+R02xnMI+JxNGkwEdv8vaOlMCWfHU5KAnXs?=
+ =?iso-8859-1?Q?clkwko5Hez3FfNnQviGshSZaHQK8Dz1daPvzq5QR/jNau+72Myke8wQoeW?=
+ =?iso-8859-1?Q?YzFHzcGaKO8xuv8abGE5tQGUllAaYY5Opszj3to3v7uOOxErKkL//fgIqE?=
+ =?iso-8859-1?Q?jQ4f/tM2a8ozTjdT049Szn41Slv9aYOWaPLkKVyimB5ukgLy+Nr4eCcOXx?=
+ =?iso-8859-1?Q?Vq3WNpUZBhSb1ONUNoiS5aWV7z9WnVF3h7u0NCDpJ4dWn0SIWBN/rrDyQV?=
+ =?iso-8859-1?Q?t4AU1EYrip52691Erh+V8sYnwOGyXE6DFyTxmAePldlZZu8m+NEPyAcCrm?=
+ =?iso-8859-1?Q?zSMtRizoeWQKVkD2Qva6yn63ZqQT3MGYDfKD5Rx9hHacnWw1VXPu7hdaJ7?=
+ =?iso-8859-1?Q?1dV9gAGqws2iHvUbIW1kB5mxX2IpUSySOzUPsxDdiplETktzlVnPv3+ki/?=
+ =?iso-8859-1?Q?tZ+su8v6qI?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2b48e01-1a8e-421c-3b48-08d8fe0e69c4
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1787.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2021 23:55:13.3848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VE65SN3WnQNejSThK+QsT2vUfC9+ACGUzsl/66ncpW61zKKFvGbqbXiPnz0SuM0q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4481
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a891e18e-4fd4-44e9-3417-08d8fe1f4c0b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2021 01:56:04.4350 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CA6f1zHC2d4nxdaak9zUd1xMcqgllKftRO9E+qzE9gZpL35EKJgpoDEUb+sDtE14
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3294
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,242 +130,199 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0984274998=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
->It curious why ffmpeg does not cause such issues.
->For example such command not cause kernel panic:
->$ ffmpeg -f x11grab -framerate 60 -video_size 3840x2160 -i :0.0 -vf
->'format=nv12,hwupload' -vaapi_device /dev/dri/renderD128 -vcodec
->h264_vaapi output3.mp4
+--===============0984274998==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_"
 
-What command are you using to see the issue or how can the issue be reproduced?
-Please file a freedesktop gitlab issue, so we can keep track of it.
+--_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
+[AMD Official Use Only - Internal Distribution Only]
 
-On 2021-04-12 6:05 p.m., Mikhail Gavrilov wrote:
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
 
-> Video demonstration: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fyoutu.be%2F3nkvUeB0GSw&amp;data=04%7C01%7Cleo.liu%40amd.com%7C87e4541e8fe14d78058108d8fdff115f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637538619239490302%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=CJRVsYixJlfnt5%2BkSCCi5BqP6WK9izh%2FE1ZMEsaR5rU%3D&amp;reserved=0
+Best Regards,
+Kevin
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kent Rus=
+sell <kent.russell@amd.com>
+Sent: Tuesday, April 13, 2021 12:01 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Russell, Kent <Kent.Russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebaran
+
+Like Arcturus, this isn't available on Aldebaran, so remove it
+accordingly
+
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 204e34549013..8128603ef495 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1844,7 +1844,9 @@ static int default_attr_update(struct amdgpu_device *=
+adev, struct amdgpu_device_
+                 if (asic_type < CHIP_VEGA10)
+                         *states =3D ATTR_STATE_UNSUPPORTED;
+         } else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+-               if (asic_type < CHIP_VEGA10 || asic_type =3D=3D CHIP_ARCTUR=
+US)
++               if (asic_type < CHIP_VEGA10 ||
++                   asic_type =3D=3D CHIP_ARCTURUS ||
++                   asic_type =3D=3D CHIP_ALDEBARAN)
+                         *states =3D ATTR_STATE_UNSUPPORTED;
+         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+                 if (asic_type < CHIP_VEGA20)
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7CKevin1.W=
+ang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe4884e608e11a82d=
+994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wL=
+jAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DQC=
+2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;reserved=3D0
+
+--_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Kent Russell &lt;kent.russell=
+@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, April 13, 2021 12:01 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Russell, Kent &lt;Kent.Russell@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Ensure dcefclk isn't created on Aldebar=
+an</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
 >
-> How looks kernel traces.
->
-> 1.
-> [ 7315.156460] amdgpu 0000:0b:00.0: amdgpu: [mmhub] page fault
-> (src_id:0 ring:0 vmid:6 pasid:32779, for process obs pid 23963 thread
-> obs:cs0 pid 23977)
-> [ 7315.156490] amdgpu 0000:0b:00.0: amdgpu:   in page starting at
-> address 0x80011fdf5000 from client 18
-> [ 7315.156495] amdgpu 0000:0b:00.0: amdgpu:
-> MMVM_L2_PROTECTION_FAULT_STATUS:0x00641A51
-> [ 7315.156500] amdgpu 0000:0b:00.0: amdgpu: Faulty UTCL2 client ID: VCN1 (0xd)
-> [ 7315.156503] amdgpu 0000:0b:00.0: amdgpu: MORE_FAULTS: 0x1
-> [ 7315.156505] amdgpu 0000:0b:00.0: amdgpu: WALKER_ERROR: 0x0
-> [ 7315.156509] amdgpu 0000:0b:00.0: amdgpu: PERMISSION_FAULTS: 0x5
-> [ 7315.156510] amdgpu 0000:0b:00.0: amdgpu: MAPPING_ERROR: 0x0
-> [ 7315.156513] amdgpu 0000:0b:00.0: amdgpu: RW: 0x1
-> [ 7315.156545] amdgpu 0000:0b:00.0: amdgpu: [mmhub] page fault
-> (src_id:0 ring:0 vmid:6 pasid:32779, for process obs pid 23963 thread
-> obs:cs0 pid 23977)
-> [ 7315.156549] amdgpu 0000:0b:00.0: amdgpu:   in page starting at
-> address 0x80011fdf6000 from client 18
-> [ 7315.156551] amdgpu 0000:0b:00.0: amdgpu:
-> MMVM_L2_PROTECTION_FAULT_STATUS:0x00641A51
-> [ 7315.156554] amdgpu 0000:0b:00.0: amdgpu: Faulty UTCL2 client ID: VCN1 (0xd)
-> [ 7315.156556] amdgpu 0000:0b:00.0: amdgpu: MORE_FAULTS: 0x1
-> [ 7315.156559] amdgpu 0000:0b:00.0: amdgpu: WALKER_ERROR: 0x0
-> [ 7315.156561] amdgpu 0000:0b:00.0: amdgpu: PERMISSION_FAULTS: 0x5
-> [ 7315.156564] amdgpu 0000:0b:00.0: amdgpu: MAPPING_ERROR: 0x0
-> [ 7315.156566] amdgpu 0000:0b:00.0: amdgpu: RW: 0x1
->
-> This is a harmless panic, but nevertheless VAAPI does not work and the
-> application that tried to use the encoder crashed.
->
-> 2.
-> If we tries again and again encode 4K stream through VAAPI we can
-> encounter the next trace:
-> [12341.860944] ------------[ cut here ]------------
-> [12341.860961] kernel BUG at drivers/dma-buf/dma-resv.c:287!
-> [12341.860968] invalid opcode: 0000 [#1] SMP NOPTI
-> [12341.860972] CPU: 28 PID: 18261 Comm: kworker/28:0 Tainted: G
-> W        --------- ---  5.12.0-0.rc5.180.fc35.x86_64+debug #1
-> [12341.860977] Hardware name: System manufacturer System Product
-> Name/ROG STRIX X570-I GAMING, BIOS 3402 01/13/2021
-> [12341.860981] Workqueue: events amdgpu_irq_handle_ih_soft [amdgpu]
-> [12341.861102] RIP: 0010:dma_resv_add_shared_fence+0x2ab/0x2c0
-> [12341.861108] Code: fd ff ff be 01 00 00 00 e8 e2 74 dc ff e9 ac fd
-> ff ff 48 83 c4 18 be 03 00 00 00 5b 5d 41 5c 41 5d 41 5e 41 5f e9 c5
-> 74 dc ff <0f> 0b 31 ed e9 73 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00
-> 90 0f
-> [12341.861112] RSP: 0018:ffffb2f084c87bb0 EFLAGS: 00010246
-> [12341.861115] RAX: 0000000000000002 RBX: ffff9f9551184998 RCX: 0000000000000000
-> [12341.861119] RDX: 0000000000000002 RSI: 0000000000000000 RDI: ffff9f9551184a50
-> [12341.861122] RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
-> [12341.861124] R10: 0000000000000000 R11: 0000000000000000 R12: ffff9f91b9a18140
-> [12341.861127] R13: ffff9f91c9020740 R14: ffff9f91c9020768 R15: 0000000000000000
-> [12341.861130] FS:  0000000000000000(0000) GS:ffff9f984a200000(0000)
-> knlGS:0000000000000000
-> [12341.861133] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [12341.861136] CR2: 0000144e080d8000 CR3: 000000010e98c000 CR4: 0000000000350ee0
-> [12341.861139] Call Trace:
-> [12341.861143]  amdgpu_vm_sdma_commit+0x182/0x220 [amdgpu]
-> [12341.861251]  amdgpu_vm_bo_update_mapping.constprop.0+0x278/0x3c0 [amdgpu]
-> [12341.861356]  amdgpu_vm_handle_fault+0x145/0x290 [amdgpu]
-> [12341.861461]  gmc_v10_0_process_interrupt+0xb3/0x250 [amdgpu]
-> [12341.861571]  ? _raw_spin_unlock_irqrestore+0x37/0x40
-> [12341.861577]  ? lock_acquire+0x179/0x3a0
-> [12341.861583]  ? lock_acquire+0x179/0x3a0
-> [12341.861587]  ? amdgpu_irq_dispatch+0xc6/0x240 [amdgpu]
-> [12341.861692]  amdgpu_irq_dispatch+0xc6/0x240 [amdgpu]
-> [12341.861796]  amdgpu_ih_process+0x90/0x110 [amdgpu]
-> [12341.861900]  process_one_work+0x2b0/0x5e0
-> [12341.861906]  worker_thread+0x55/0x3c0
-> [12341.861910]  ? process_one_work+0x5e0/0x5e0
-> [12341.861915]  kthread+0x13a/0x150
-> [12341.861918]  ? __kthread_bind_mask+0x60/0x60
-> [12341.861922]  ret_from_fork+0x22/0x30
-> [12341.861928] Modules linked in: uinput snd_seq_dummy rfcomm
-> snd_hrtimer netconsole nft_objref nf_conntrack_netbios_ns
-> nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib
-> nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct
-> nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set
-> nf_tables nfnetlink cmac bnep sunrpc vfat fat hid_logitech_hidpp
-> joydev hid_logitech_dj mt76x2u mt76x2_common mt76x02_usb mt76_usb
-> mt76x02_lib intel_rapl_msr intel_rapl_common mt76 iwlmvm mac80211
-> snd_hda_codec_realtek edac_mce_amd snd_hda_codec_generic ledtrig_audio
-> snd_hda_codec_hdmi btusb kvm_amd snd_hda_intel btrtl snd_intel_dspcfg
-> btbcm snd_intel_sdw_acpi snd_usb_audio uvcvideo btintel snd_hda_codec
-> videobuf2_vmalloc snd_usbmidi_lib videobuf2_memops iwlwifi kvm
-> bluetooth snd_rawmidi snd_hda_core snd_seq videobuf2_v4l2 snd_hwdep
-> videobuf2_common snd_seq_device eeepc_wmi snd_pcm videodev asus_wmi
-> sparse_keymap libarc4 mc irqbypass snd_timer ecdh_generic cfg80211
-> video
-> [12341.861969]  wmi_bmof rapl ecc snd sp5100_tco k10temp i2c_piix4
-> soundcore rfkill acpi_cpufreq ip_tables amdgpu drm_ttm_helper ttm
-> iommu_v2 gpu_sched drm_kms_helper crct10dif_pclmul cec crc32_pclmul
-> crc32c_intel drm ghash_clmulni_intel igb nvme ccp dca nvme_core
-> i2c_algo_bit wmi pinctrl_amd fuse
-> [12341.862012] ---[ end trace 3503913ed2bda6ad ]---
-> [12341.862018] RIP: 0010:dma_resv_add_shared_fence+0x2ab/0x2c0
-> [12341.862024] Code: fd ff ff be 01 00 00 00 e8 e2 74 dc ff e9 ac fd
-> ff ff 48 83 c4 18 be 03 00 00 00 5b 5d 41 5c 41 5d 41 5e 41 5f e9 c5
-> 74 dc ff <0f> 0b 31 ed e9 73 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00
-> 90 0f
-> [12341.862028] RSP: 0018:ffffb2f084c87bb0 EFLAGS: 00010246
-> [12341.862035] RAX: 0000000000000002 RBX: ffff9f9551184998 RCX: 0000000000000000
-> [12341.862039] RDX: 0000000000000002 RSI: 0000000000000000 RDI: ffff9f9551184a50
-> [12341.862045] RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
-> [12341.862049] R10: 0000000000000000 R11: 0000000000000000 R12: ffff9f91b9a18140
-> [12341.862053] R13: ffff9f91c9020740 R14: ffff9f91c9020768 R15: 0000000000000000
-> [12341.862057] FS:  0000000000000000(0000) GS:ffff9f984a200000(0000)
-> knlGS:0000000000000000
-> [12341.862062] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [12341.862066] CR2: 0000144e080d8000 CR3: 000000010e98c000 CR4: 0000000000350ee0
-> [12341.862072] note: kworker/28:0[18261] exited with preempt_count 1
-> [12392.114261] BUG: workqueue lockup - pool cpus=28 node=0 flags=0x0
-> nice=0 stuck for 50s!
-> [12392.114276] Showing busy workqueues and worker pools:
-> [12392.114279] workqueue events: flags=0x0
-> [12392.114283]   pwq 56: cpus=28 node=0 flags=0x0 nice=0 active=12/256 refcnt=14
-> [12392.114289]     in-flight: 26978:amdgpu_irq_handle_ih_soft [amdgpu]
-> [12392.114411]     pending: amdgpu_irq_handle_ih_soft [amdgpu],
-> free_work, kfree_rcu_monitor, free_obj_work, psi_avgs_work,
-> psi_avgs_work, psi_avgs_work, psi_avgs_work, psi_avgs_work,
-> drm_mode_rmfb_work_fn [drm] BAR(2588), event_mall_stutter [amdgpu]
-> [12392.114679]   pwq 54: cpus=27 node=0 flags=0x0 nice=0 active=12/256 refcnt=13
-> [12392.114684]     pending: psi_avgs_work, psi_avgs_work,
-> psi_avgs_work, psi_avgs_work, psi_avgs_work, psi_avgs_work,
-> psi_avgs_work, psi_avgs_work, psi_avgs_work, psi_avgs_work,
-> psi_avgs_work, psi_avgs_work
-> [12392.114704]   pwq 0: cpus=0 node=0 flags=0x0 nice=0 active=1/256 refcnt=2
-> [12392.114708]     pending: kfree_rcu_monitor
-> [12392.114727] workqueue mm_percpu_wq: flags=0x8
-> [12392.114730]   pwq 56: cpus=28 node=0 flags=0x0 nice=0 active=1/256 refcnt=2
-> [12392.114734]     pending: vmstat_update
-> [12392.114739]   pwq 54: cpus=27 node=0 flags=0x0 nice=0 active=1/256 refcnt=2
-> [12392.114742]     pending: vmstat_update
-> [12392.114826] pool 56: cpus=28 node=0 flags=0x0 nice=0 hung=50s
-> workers=3 idle: 25238 14400
-> [12394.038243] watchdog: BUG: soft lockup - CPU#27 stuck for 22s! [obs:27017]
-> [12394.038262] Modules linked in: uinput snd_seq_dummy rfcomm
-> snd_hrtimer netconsole nft_objref nf_conntrack_netbios_ns
-> nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib
-> nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct
-> nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set
-> nf_tables nfnetlink cmac bnep sunrpc vfat fat hid_logitech_hidpp
-> joydev hid_logitech_dj mt76x2u mt76x2_common mt76x02_usb mt76_usb
-> mt76x02_lib intel_rapl_msr intel_rapl_common mt76 iwlmvm mac80211
-> snd_hda_codec_realtek edac_mce_amd snd_hda_codec_generic ledtrig_audio
-> snd_hda_codec_hdmi btusb kvm_amd snd_hda_intel btrtl snd_intel_dspcfg
-> btbcm snd_intel_sdw_acpi snd_usb_audio uvcvideo btintel snd_hda_codec
-> videobuf2_vmalloc snd_usbmidi_lib videobuf2_memops iwlwifi kvm
-> bluetooth snd_rawmidi snd_hda_core snd_seq videobuf2_v4l2 snd_hwdep
-> videobuf2_common snd_seq_device eeepc_wmi snd_pcm videodev asus_wmi
-> sparse_keymap libarc4 mc irqbypass snd_timer ecdh_generic cfg80211
-> video
-> [12394.038306]  wmi_bmof rapl ecc snd sp5100_tco k10temp i2c_piix4
-> soundcore rfkill acpi_cpufreq ip_tables amdgpu drm_ttm_helper ttm
-> iommu_v2 gpu_sched drm_kms_helper crct10dif_pclmul cec crc32_pclmul
-> crc32c_intel drm ghash_clmulni_intel igb nvme ccp dca nvme_core
-> i2c_algo_bit wmi pinctrl_amd fuse
-> [12394.038328] irq event stamp: 0
-> [12394.038331] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-> [12394.038337] hardirqs last disabled at (0): [<ffffffffaa0ddafb>]
-> copy_process+0x91b/0x1e10
-> [12394.038343] softirqs last  enabled at (0): [<ffffffffaa0ddafb>]
-> copy_process+0x91b/0x1e10
-> [12394.038347] softirqs last disabled at (0): [<0000000000000000>] 0x0
->
-> This is much more dangerous and, as a rule, leads to system freezing.
->
-> Full traces uploaded here:
-> [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpastebin.com%2FaAeazCP8&amp;data=04%7C01%7Cleo.liu%40amd.com%7C87e4541e8fe14d78058108d8fdff115f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637538619239490302%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=J9Eu%2BBqznxPZpTeR%2ByvRF%2BEC8nBRQ8E%2FoNh9tZef2Zw%3D&amp;reserved=0
-> [2] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpastebin.com%2FZLUP8Xvs&amp;data=04%7C01%7Cleo.liu%40amd.com%7C87e4541e8fe14d78058108d8fdff115f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637538619239490302%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=MVnUbjJH7hilIQ3f2d2wWK04gDxFNCu5CqFRFIIRCrY%3D&amp;reserved=0
->
-> It curious why ffmpeg does not cause such issues.
-> For example such command not cause kernel panic:
-> $ ffmpeg -f x11grab -framerate 60 -video_size 3840x2160 -i :0.0 -vf
-> 'format=nv12,hwupload' -vaapi_device /dev/dri/renderD128 -vcodec
-> h264_vaapi output3.mp4
->
-> 1. Anyway, the user app shouldn't break the kernel.
-> 2. Command above not working as expected because framerate is not 60
-> on result video. The ended video is looking as grabbed at 1 frame per
-> second or even less.
->
-> My hardware:
-> $ inxi -bM
-> System:    Host: fedora Kernel:
-> 5.12.0-0.rc6.20210408git454859c552da.186.fc35.x86_64 x86_64 bits: 64
-> Desktop: GNOME 40.0
->             Distro: Fedora release 35 (Rawhide)
-> Machine:   Type: Desktop Mobo: ASUSTeK model: ROG STRIX X570-I GAMING
-> v: Rev X.0x serial: <superuser required>
->             UEFI: American Megatrends v: 3603 date: 03/20/2021
-> Battery:   ID-1: hidpp_battery_0 charge: N/A condition: N/A
-> CPU:       Info: 16-Core (2-Die) AMD Ryzen 9 3950X [MT MCP MCM] speed:
-> 3433 MHz min/max: 2200/3500 MHz
-> Graphics:  Device-1: Advanced Micro Devices [AMD/ATI] Navi 21 [Radeon
-> RX 6800/6800 XT / 6900 XT] driver: amdgpu v: kernel
->             Device-2: AVerMedia Live Streamer CAM 513 type: USB driver:
-> hid-generic,usbhid,uvcvideo
->             Device-3: AVerMedia Live Gamer Ultra-Video type: USB
-> driver: hid-generic,snd-usb-audio,usbhid,uvcvideo
->             Display: wayland server: X.Org 1.21.1 driver: loaded:
-> amdgpu,ati unloaded: fbdev,modesetting,radeon,vesa
->             resolution: 3840x2160~60Hz
->             OpenGL: renderer: AMD SIENNA_CICHLID (DRM 3.40.0
-> 5.12.0-0.rc6.20210408git454859c552da.186.fc35.x86_64 LLVM 12.0.0)
->             v: 4.6 Mesa 21.1.0-devel
-> Network:   Device-1: Intel Wi-Fi 6 AX200 driver: iwlwifi
->             Device-2: Intel I211 Gigabit Network driver: igb
-> Drives:    Local Storage: total: 11.36 TiB used: 10.84 TiB (95.4%)
-> Info:      Processes: 766 Uptime: 5h 12m Memory: 62.63 GiB used: 36.93
-> GiB (59.0%) Shell: Bash inxi: 3.3.03
->
->
+<div class=3D"PlainText">Like Arcturus, this isn't available on Aldebaran, =
+so remove it<br>
+accordingly<br>
+<br>
+Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 +++-<br>
+&nbsp;1 file changed, 3 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c<br>
+index 204e34549013..8128603ef495 100644<br>
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+@@ -1844,7 +1844,9 @@ static int default_attr_update(struct amdgpu_device *=
+adev, struct amdgpu_device_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (asic_type &lt; CHIP_VEGA10)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *stat=
+es =3D ATTR_STATE_UNSUPPORTED;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (DEVICE_ATTR_IS(=
+pp_dpm_dcefclk)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (asic_type &lt; CHIP_VEGA10 || asic_type =3D=3D CHIP_ARCTURUS=
+)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (asic_type &lt; CHIP_VEGA10 ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_type =3D=3D CHIP_ARCTURUS ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_type =3D=3D CHIP_ALDEBARAN)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *stat=
+es =3D ATTR_STATE_UNSUPPORTED;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (DEVICE_ATTR_IS(=
+pp_dpm_fclk)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (asic_type &lt; CHIP_VEGA20)<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7CKevin1.Wang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
+&amp;amp;sdata=3DQC2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;amp;res=
+erved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7CKevin1.Wang%40amd.com%7Cfd941c0d1ed74008200808d8fdcc410f%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637538401004011497%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000=
+&amp;amp;sdata=3DQC2OVTdnome3ImpIFdKGJ6FGrex6AtYFDkRzFyv8vzE%3D&amp;amp;res=
+erved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB302292961799AF99B9974170A24F9MN2PR12MB3022namp_--
+
+--===============0984274998==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0984274998==--
