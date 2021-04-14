@@ -7,78 +7,77 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49CBAC433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 05:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FD34C43470
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 05:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD742610E8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 05:59:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD742610E8
+	by mail.kernel.org (Postfix) with ESMTPS id CF2DE6113D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 05:59:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF2DE6113D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B54A6E218;
-	Wed, 14 Apr 2021 05:59:14 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE676E218;
- Wed, 14 Apr 2021 05:59:13 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13E5sZO3183693;
- Wed, 14 Apr 2021 05:59:08 GMT
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD656E44C;
+	Wed, 14 Apr 2021 05:59:51 +0000 (UTC)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B18126E43B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 05:59:49 +0000 (UTC)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13E5xh3E159754;
+ Wed, 14 Apr 2021 05:59:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=date : from : to : cc
  : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=nragDxkL+n3arrnBcqMCcgezVhn22p05/qXSY+dDHAc=;
- b=MBjdrVMpZEUvCOB+anC7A4qBlHIydqEtWdTkr66BpmepbX2SqcGdq6A21tD7QysjAm3f
- kx4Hg9Gvki6VE6JaobGb4UdsLBi1osBaq9lj89ToWjH6tbGMIzViGK1Dr08bQVrbSRL0
- q611GbvJgJ6gZ+piqdqSnV/sCekx29Ab9oBQvByv8CLVQ0NvkL1zkDdnCHTDe8PPYyIn
- MGg57OZY1A5qxyl/6AXqmRv33FSdh+DeK9O4XIyWSW2mdCgDRaoSKE1BEaUs+XnuWYvS
- sipyhwi0/bEfvsS+XuiVvxOaMbdNld4Z4X2bfWYHpS234DEIzNPCOHNh7xYFVa1h/fTD zQ== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 37u3erh638-1
+ bh=E3DXEbjryOrvS/9LnOZ9EMA/D2PkPSBV27OhBSkuqQU=;
+ b=HWZmMLXYpZgeH3iaE2g0d66maMi1aaU2Ob71jyfA976om6vaaqJSfrU23dKh2qIGqaCE
+ OtdcpM3XDHOcH/7ca6pf228UMwSfzMMTEENQSL79CcYxlrcb1bs+yCIcfTCMhtJH+5si
+ qj1BCmmRfIVsoeZfbp2wBk/vhztLo2CfsXr2S/gZbaUZ1hWSMuxtEsf2AgO12Ogk1BmA
+ uJmLzNjoWStpfo3RbATvXHYpbSz1llpxseLAU5mWEW3ItAQXTKhs2GdZGPAVzqHXT1I8
+ /UCRzZKnomzFgsD06HkstEOjtbNdFixhe/UEN6cryNLOw2kIatIB0rKhhiiQU5t8boD6 kA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2130.oracle.com with ESMTP id 37u1hbh9hq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Apr 2021 05:59:08 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13E5uVMH077626;
- Wed, 14 Apr 2021 05:59:06 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 37unkqj7tc-1
+ Wed, 14 Apr 2021 05:59:44 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13E5xgOv079208;
+ Wed, 14 Apr 2021 05:59:43 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 37unx0tyrw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Apr 2021 05:59:06 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 13E5x2rD014804;
- Wed, 14 Apr 2021 05:59:02 GMT
+ Wed, 14 Apr 2021 05:59:43 +0000
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 13E5xTN3007130;
+ Wed, 14 Apr 2021 05:59:30 GMT
 Received: from mwanda (/10.175.166.128)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 13 Apr 2021 22:59:02 -0700
-Date: Wed, 14 Apr 2021 08:58:55 +0300
+ with ESMTP ; Tue, 13 Apr 2021 22:59:29 -0700
+Date: Wed, 14 Apr 2021 08:59:22 +0300
 From: Dan Carpenter <dan.carpenter@oracle.com>
 To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v2] drm/amdgpu: fix an error code in
- init_pmu_entry_by_type_and_add()
-Message-ID: <YHaEn8h5JP9CGMee@mwanda>
+Subject: [PATCH] drm/amd/pm: fix error code in smu_set_power_limit()
+Message-ID: <YHaEutSVsa63kcFZ@mwanda>
 MIME-Version: 1.0
 Content-Disposition: inline
 X-Mailer: git-send-email haha only kidding
 X-Proofpoint-IMR: 1
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9953
  signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxlogscore=999
- adultscore=0 phishscore=0 malwarescore=0 mlxscore=0 bulkscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104060000 definitions=main-2104140041
-X-Proofpoint-ORIG-GUID: yGt6P0BWxuC-YKI_dr6vTyPv7MwbZ-MX
-X-Proofpoint-GUID: yGt6P0BWxuC-YKI_dr6vTyPv7MwbZ-MX
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ suspectscore=0
+ mlxscore=0 malwarescore=0 adultscore=0 bulkscore=0 spamscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104060000 definitions=main-2104140042
+X-Proofpoint-GUID: hGHcTHzqOJtEZ7TqXyOtX42qMPNWWAcE
+X-Proofpoint-ORIG-GUID: hGHcTHzqOJtEZ7TqXyOtX42qMPNWWAcE
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9953
  signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 clxscore=1011
- adultscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 spamscore=0
- impostorscore=0 suspectscore=0 mlxscore=0 phishscore=0 lowpriorityscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ priorityscore=1501
+ clxscore=1011 adultscore=0 mlxlogscore=999 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104140041
+ definitions=main-2104140042
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,46 +89,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Kim <jonathan.kim@amd.com>, David Airlie <airlied@linux.ie>,
- kernel-janitors@vger.kernel.org,
- Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org, Luben Tuikov <luben.tuikov@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, David Airlie <airlied@linux.ie>,
+ Kevin Wang <kevin1.wang@amd.com>, kernel-janitors@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If the kmemdup() fails then this should return a negative error code
-but it currently returns success
+We should return -EINVAL instead of success if the "limit" is too high.
 
-Fixes: b4a7db71ea06 ("drm/amdgpu: add per device user friendly xgmi events for vega20")
+Fixes: e098bc9612c2 ("drm/amd/pm: optimize the power related source code layout")
 Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
-v2: I sent this patch in Feb but I accidentally added an unrelated
-hunk from nouveau to the commit.  Now both hunks are have been sent to
-the correct lists.
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-index 19c0a3655228..82e9ecf84352 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-@@ -519,8 +519,10 @@ static int init_pmu_entry_by_type_and_add(struct amdgpu_pmu_entry *pmu_entry,
- 	pmu_entry->pmu.attr_groups = kmemdup(attr_groups, sizeof(attr_groups),
- 								GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index e0eb7ca112e2..c29d8b3131b7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2221,6 +2221,7 @@ static int smu_set_power_limit(void *handle, uint32_t limit)
+ 		dev_err(smu->adev->dev,
+ 			"New power limit (%d) is over the max allowed %d\n",
+ 			limit, smu->max_power_limit);
++		ret = -EINVAL;
+ 		goto out;
+ 	}
  
--	if (!pmu_entry->pmu.attr_groups)
-+	if (!pmu_entry->pmu.attr_groups) {
-+		ret = -ENOMEM;
- 		goto err_attr_group;
-+	}
- 
- 	snprintf(pmu_name, PMU_NAME_SIZE, "%s_%d", pmu_entry->pmu_file_prefix,
- 				adev_to_drm(pmu_entry->adev)->primary->index);
 -- 
 2.30.2
 
