@@ -2,140 +2,65 @@ Return-Path: <SRS0=h6PS=JL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D0D8C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 12:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F4E0C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 13:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CADA261153
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 12:49:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CADA261153
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2FF5161179
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 13:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FF5161179
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50CDC6E4B6;
-	Wed, 14 Apr 2021 12:49:42 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE296E4B6;
- Wed, 14 Apr 2021 12:49:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RNo0pdYVVclx+WwnodSY/udrvVl8ZtALvAGnviUjwpK1xqBCeVDa7ngpFQsnaVcFaRGiRpxLm72iSQqSJhuor6EaCEMuOUtxDb7MMuft05bO+kNbJMf+q7ayb7JDMzF16iMTRwpPJ5dhUrwGz0iL4wxrpBspJ+vCKRo+d0Tl1ZrnR21A95OXQvmo8PFlqakpPfKKlS0O0R+LDRpkkEDOS5Sq4oG+w2PG5Iug7Cn63dapsT7vunSgz1hAs3Il2McSU4I/7bahtxODV4H386M8YkEvYtIDPV5mH48QOE3X3pjVW+15zqWslRCXrmmqFRnTQHQHalGU+gtdAbFdYDpFWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fopHtokEYdrC/GEzPM8pppeyWfGJDXhe7Et83qui/Lg=;
- b=JLzEl9dmVJNY0juMQqKGX8Ltb5y3LnyP8fW9QyC6yhZiqRiGeInnEsAVuvk/Be9DDVsdcamkvyKrT94fuTZTdBvrpMi/rhLrF9nFnrwIQtcFQwiB5krKpDTLuMDLD/SFcOoHk9S5wKkkApfNvXszKwx/W20Ao3bcP0la+Wj+BdvIfYCTla2F+V9nNnktEtcuhnMWMIpcueGG3yZtv9/9YKVfAQ25r+tT0DlopNM9ohbwz+CopZo0wmnwxySK+Sw4ByE8prlFbBVEGt3OTGTgsLgEf8sNE0SFqJAS92nNU3YzhY5i0XxWj+w48UatC+CQhhNqCdKcaQWbEQegiN6r6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fopHtokEYdrC/GEzPM8pppeyWfGJDXhe7Et83qui/Lg=;
- b=cKQ3SKUzTaHANrGG2D5dK5MbkYgtbw6SodK+sLkJ/JhsO4PapZ+j4TQ9qIIEISkvaj8R2RaXyv9kWa+R8lV5OqgcpfTJML7yBQVDci7yYKiaxymZBXcoLNIKbWvXmyc440SVMbmrVKJ9ztrgY+YU2OrLGWpmLqhRa3Fkjwoopxk=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4754.namprd12.prod.outlook.com (2603:10b6:208:8e::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Wed, 14 Apr
- 2021 12:49:35 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
- 12:49:35 +0000
-Subject: Re: [PATCH 8/9] drm/ttm: Don't count pages in SG BOs against
- pages_limit
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20210414064804.29356-1-Felix.Kuehling@amd.com>
- <20210414064804.29356-9-Felix.Kuehling@amd.com>
- <60d08770-e4f5-4e8f-0a93-2270ae02aa26@gmail.com>
- <YHayqD3IbupkY7b+@phenom.ffwll.local>
- <18a18e85-7b0d-649f-64a3-028376d8de15@amd.com>
- <YHbDQcr6Yl1Lljep@phenom.ffwll.local>
- <7ac3a5e9-abf6-6ea5-af21-25c04e984d57@gmail.com>
- <CAKMK7uFniPaRLpO9KmPe22xP69yahTwVomCE2FuMRG97_K_NVQ@mail.gmail.com>
- <18af0d4e-1ec8-a761-e4df-d4904755a432@amd.com>
- <CAKMK7uFpyLW1X0hWtS71kKMSQRgh=6AK3O+KtCJNw-8y9smiZQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <f933cad2-a56e-4e1b-bcac-d36f9393145b@amd.com>
-Date: Wed, 14 Apr 2021 14:49:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <CAKMK7uFpyLW1X0hWtS71kKMSQRgh=6AK3O+KtCJNw-8y9smiZQ@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:e934:1a45:3324:73c2]
-X-ClientProxiedBy: PR0P264CA0126.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1a::18) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4186E49B;
+	Wed, 14 Apr 2021 13:02:03 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF456E49B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 13:02:02 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id b3so5713187oie.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 06:02:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Dx85E6SIpDFCHzsJmI0WoeS+r/wnmof58/5sGyxHlTw=;
+ b=qQTo/TwTd1PBHz0VvtkWQGZ8EZimLyQpg4PkxF9a3/9bNod7vLkMkUj8W5JhhvHMts
+ TFaLWWzqECByVtQn7sua+y/sMSr6uTssYw2xaCjQfVVDMQ1f7yMxBve/koVKOI/MlxIO
+ PbJUm+0qxJKgqayw8ZSmQc5bdeZuJC4sxnkeTfCIxkb8AgQ89iqyi963w9qAS4xv8rBr
+ rMWGp4iN4/qN1LHPoD1bI0eEwpWaaJTShX4D/O1lp7aYZalyD3tF3AdvxxKgUmci0rRX
+ 7AJsdv0VFdgF3GuJRyxai9YlmEG75FLlbqB6sDOHPdixD3s/QYyxcA59VpetGnuwtbA3
+ JY/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Dx85E6SIpDFCHzsJmI0WoeS+r/wnmof58/5sGyxHlTw=;
+ b=nEkYL9tp4vZJ6XOvPMoXx+xmRp0stpyeWCX8JdN0ej8n3ZuZAHjID0ddGNrxBj0c+R
+ 3IDa8sFO0orxwz1HpswKmPAGSbXlPTsK/Mm05lGRmjbIS4YPNsH15Y+2F9jyU9i1zlh8
+ yjSURa62JxFNciLi7erATEEnLWprrYkVP2HInCAQxfFteWgleT6hhPu5jXO+aX360pwA
+ AqW5eb3FEfiSYhVX+FEw5McUvUsvfm1w5mzaK3ytMnRVZuXjkQt9+m6kGj0UQBeE25xH
+ zUHnQoVNpqMiuq3vZ0UlBfqkSUel4D5Y/+51wfP9k2dKyTi+kUAN8Pf9z1UQNupoY4Z+
+ +FRA==
+X-Gm-Message-State: AOAM533aNPXmb/rD1jmyjrPWe3MbqKE4pmu2W+QTi7F4JUofb5Dd92vL
+ 7X36vRkAFBZI9VEBFIBEptAVz+iJeKmkKIRcixY=
+X-Google-Smtp-Source: ABdhPJz2aTCp/E7L5ng3BOm0cOsHcfGsbSXHZgbAEkcRSaFRSoZfx3JVmYQgPt9g7/jGbSoaMqIm9s7i3wjWCs06J7E=
+X-Received: by 2002:a05:6808:68a:: with SMTP id
+ k10mr2245942oig.120.1618405322191; 
+ Wed, 14 Apr 2021 06:02:02 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:e934:1a45:3324:73c2]
- (2a02:908:1252:fb60:e934:1a45:3324:73c2) by
- PR0P264CA0126.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1a::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.19 via Frontend Transport; Wed, 14 Apr 2021 12:49:33 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 61d7a9cb-cc6e-495f-6b7f-08d8ff43c19b
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4754:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB4754066A10320C55C0298D0C834E9@BL0PR12MB4754.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: X5X1ORXLmILK2CJUAGs/3nbCTAb7ark18yTFE88YxpKP0bFj9pTkNyyUnWftl6vY/q5tnBKCtBMjjef5ikU4PfJOWJx+/cSXNmLpbMCswfTI/H1egYtwNG2klgj+0D4BPpEsEsGTdMw6214jE286K3M96Dj1xu2KH0oYHBDh0fkzRoZ7ud7lXoRSwA4GMBbmF6gbXTRA7G7iDt5XSz7j5/qKek+608L/ppogTe/tDNXsNAEuiFvDaPaZ6c4H+rz0wlQ8z70HlAdWn1AEIpFA5ombiUzzsAo53qLN03ERr97DaXEGWOP3E0kBbz+/ux47hONyoE98v84RH+E5KxqNvAl2X3ogVjsq5KyuIFMltPH4FBNlAdaBM2R6XumNVbDaLl7UeKVKQQdIHDcYsDRWYAbHgeZbx07UNN2ihILThbWwdNIw7m8TomUQIfu+0FC35y9id8Vb9fK97fNwoFuFCWDHJYSoQR/LUmD20xsKq5Xunfymzjczl2yCwXVe7xVq/fOF6iBtCxMhI5+WKOHa84mzyDdO8YMsOfzXtaVmuQ41MUz47RROi+H7rmR8ok1A4+0Ce14Q/YNgh+3lUF4UzXA0vLueZz6EkXQ+RJEF1GuKkGYD2yMgeCDGIuONMl6FBGP18zkhjEmg2khm2q5xgZesPR5P8pNpsO0sac0Qq2ml6PvM+ECq7x9XvY1yOhZv7Mn6F+x3wUrTFODwz+ZI9QFjCu/M74iU7CApemRZ8Sc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(396003)(376002)(366004)(136003)(31686004)(186003)(8936002)(83380400001)(86362001)(8676002)(66574015)(4326008)(5660300002)(36756003)(66946007)(2906002)(66556008)(316002)(2616005)(54906003)(38100700002)(6666004)(53546011)(52116002)(6486002)(31696002)(66476007)(45080400002)(966005)(478600001)(6916009)(16526019)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RGFwZ000WGpQTElNYVdhbVU0OVlaWUIycXFNblhuSUd5YnRmR042MW96NWpw?=
- =?utf-8?B?Wk1KVFNtU3lER0VjS3E1am5PNGl5SnpJMG9WcFptaDlEdXBLMG9Ha0NkNTJw?=
- =?utf-8?B?ZEJzclVNTXhxRFdWTWR5dm1GWE9hZktIby9lbzVyamFWaFM4eWdmOUxnWkZu?=
- =?utf-8?B?T0FCRy9iQlY0N3dMVUIzSi9lMzNaYUJ1aWg5MGlqYTdWV203MW1SWTd6UlFG?=
- =?utf-8?B?QVZpRlMzVENkSXJEMW5MOTAvOHRJbklKdFQ1WU5CKzl5N1dkVm85NzJuYWoz?=
- =?utf-8?B?N2NBdTBDOTNQT25pU3gwVXcxYXg0dmZBNXkwcGxBT0NGR1o3LzQwd2Q1OXpO?=
- =?utf-8?B?RXNoUy9CdUV0dW82SjBpVzZCTkZabmdYd1lPRFBQdnQ2MnoyUm1FTDFIUFpH?=
- =?utf-8?B?aWxzSlEwMUNWcjVCd1VsNEU2M1NWZHBtUW5IalJXdUovSDJnZkYyN3VJSjBM?=
- =?utf-8?B?SndtZWJkK2RCM3VBU0l5VG1iWXJsZGlWWkY4MEhKNFZybGxVRjlQekZzcHRV?=
- =?utf-8?B?ZHNGVnEzWlhXOUVBdjNpZjdNZnAzTXRud1N0U1dXaGt5VmlteFl6OEhjN2xa?=
- =?utf-8?B?dGVZWTMwVVhqU24wRnV0VHRNU2FvYzY0Um5lWEc0Z2V2SG5VZSs1bWsrMmtr?=
- =?utf-8?B?aG9PMkRGQ3ZRZ3dyelczWlhHUzNHaXBEc3p2V2JhSEF5R04yWFlUQ2Q2ODVJ?=
- =?utf-8?B?aHJiK0k0SW1vK0V4YW04UkM0bCtKc1dqdDVxUmFBZ0xjOW93cVNjb0lUWTNM?=
- =?utf-8?B?S3Jja0xaVW5ZREc4RTJDVStUS3ZlUWl0VGZHQlJjWXNNOWczRGVmM05INlR5?=
- =?utf-8?B?UkdIbUZlSHQyKzNnK2hSMUNLMlZRUHNzNG5SN1FJOTJtVk5mZ29QaTdEbnJD?=
- =?utf-8?B?ZEQ4ZmVGbUpLYmtSWG5hUCthMDZ3VnRIdHBrSkxxQ1UwWEhLb2VsaFEvblVv?=
- =?utf-8?B?WVBqd25EVHluY3F5ZTIwbW00bHdHYTdvNWpQTTc3bFJHaytJN2xBV2ZSQm1O?=
- =?utf-8?B?Vi9vSWFlWW9FVFJYaEtaTTJ0RmRLc1NaQTMwNHRyQm5ZcmF4WjlEdXE2RVp3?=
- =?utf-8?B?aSsrUmR0VE9YWWxRdUYveTJibGZ3SXBseTNzWUlwbzB3a0dqNm0xdkxzdEN1?=
- =?utf-8?B?V08vVnIybWpoWk5ZUnZMbjNnWmZpaUYzajg4b2MraFR3YmMyR0kvTWdTTjls?=
- =?utf-8?B?RnBOK012VTB3MVcyNGlvU2ZKSTVEMWNlbGdpck1NU3VpSzBPSnhHdWJuVU9O?=
- =?utf-8?B?Q3BRYWYzWHRoM3RoYTZTWFY5Yy8zaFE5MWZzSlBFOEVlWXk2djBiUGVOYkYr?=
- =?utf-8?B?NGxOeVlHbE5LVm9VQndWQzdlUTJWeVJkbUJ4Sld1YTBrTTV4c1VZa2hRcFVv?=
- =?utf-8?B?cHNvVjFoVkVQaEM1ekZ0Y2FVK1N5UjR2VkJXd0JMRmpQdFp6MjVoQXNZZkEw?=
- =?utf-8?B?UjlFUlI3bENlS2FRVzJLc1I4Sk8xeW82Vjk2V0haczcrMGlWYll4OE1hNndz?=
- =?utf-8?B?ams4NE41QnA3SXViU2pjWW5uUVd4eHhlaElrOUJjTGozUzlzNmJSWitxSmpH?=
- =?utf-8?B?OExFTXZieVNkSlk5SzF2Tlpid2hXVWF6ZzVJSDNKV1VhdUxab1NqcU1KemRn?=
- =?utf-8?B?N1lmd094U1NHTkIwNlJSUWN3aXhnV2MxV0tGN0JidFB3S0gySXpoVHIxVllw?=
- =?utf-8?B?c0pkK0orbi9WTGFEOWNXbVoxaTNHdGR0NVh6N2ZzdE14RlhvbkxUSnpIVXY5?=
- =?utf-8?B?RkRKZGV1cUc1RnhwT3JjNThxa1RhY1EwZTYzcm5hbVJuUisvNFBGZS9lWmdY?=
- =?utf-8?B?SHozVHF0Q3hIN1V6dFROZDliYVgzU1FxbXM2NjV2cnRkalRlc2szaTM1T2p5?=
- =?utf-8?Q?tr+kn1OFa//GE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61d7a9cb-cc6e-495f-6b7f-08d8ff43c19b
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 12:49:35.1483 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NV4s03aTqoCFA6O74bUEWOFvC466+NduTT9SjSgxun6YjXp+Xe8pbWKJktpLOze+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4754
+References: <20210414090853.20993-1-Jiawei.Gu@amd.com>
+In-Reply-To: <20210414090853.20993-1-Jiawei.Gu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Apr 2021 09:01:51 -0400
+Message-ID: <CADnq5_OWVirYgyNZa9Wy07QBmMu3Rd3_1UN9gQQpnh6vMmdofg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+To: Jiawei Gu <Jiawei.Gu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,137 +72,358 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: Emily Deng <emily.deng@amd.com>, Roy Sun <roy.sun@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTQuMDQuMjEgdW0gMTQ6NDcgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFdlZCwgQXBy
-IDE0LCAyMDIxIGF0IDI6NDMgUE0gQ2hyaXN0aWFuIEvDtm5pZwo+IDxjaHJpc3RpYW4ua29lbmln
-QGFtZC5jb20+IHdyb3RlOgo+PiBBbSAxNC4wNC4yMSB1bSAxNDoyNSBzY2hyaWViIERhbmllbCBW
-ZXR0ZXI6Cj4+PiBPbiBXZWQsIEFwciAxNCwgMjAyMSBhdCAxMjo0OSBQTSBDaHJpc3RpYW4gS8O2
-bmlnCj4+PiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Pj4+IEFt
-IDE0LjA0LjIxIHVtIDEyOjI2IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPj4+Pj4gT24gV2VkLCBB
-cHIgMTQsIDIwMjEgYXQgMTE6MTk6NDFBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
-Pj4+Pj4+IEFtIDE0LjA0LjIxIHVtIDExOjE1IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPj4+Pj4+
-PiBPbiBXZWQsIEFwciAxNCwgMjAyMSBhdCAwODo1MTo1MUFNICswMjAwLCBDaHJpc3RpYW4gS8O2
-bmlnIHdyb3RlOgo+Pj4+Pj4+PiBBbSAxNC4wNC4yMSB1bSAwODo0OCBzY2hyaWViIEZlbGl4IEt1
-ZWhsaW5nOgo+Pj4+Pj4+Pj4gUGFnZXMgaW4gU0cgQk9zIHdlcmUgbm90IGFsbG9jYXRlZCBieSBU
-VE0uIFNvIGRvbid0IGNvdW50IHRoZW0gYWdhaW5zdAo+Pj4+Pj4+Pj4gVFRNJ3MgcGFnZXMgbGlt
-aXQuCj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZl
-bGl4Lkt1ZWhsaW5nQGFtZC5jb20+Cj4+Pj4+Pj4+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IEdvaW5nIHRv
-IHBpY2sgdGhhdCBvbmUgdXAgZm9yIGluY2x1c2lvbiBpbiBkcm0tbWlzYy1uZXh0Lgo+Pj4+Pj4+
-IFNlZSBteSBvdGhlciBlbWFpbCwgYnV0IHdoeSBkbyB3ZSBuZWVkIHRoaXM/IEEgYml0IG1vcmUg
-ZXhwbGFuYXRpb24gaXMgaW1vCj4+Pj4+Pj4gbmVlZGVkIGhlcmUgYXQgbGVhc3QsIHNpbmNlIHdl
-IHN0aWxsIG5lZWQgdG8gZ3VhcmFudGVlIHRoYXQgYWxsb2NhdGlvbnMKPj4+Pj4+PiBkb24ndCBv
-dmVyIHRoZSBsaW1pdCBpbiB0b3RhbCBmb3IgYWxsIGdwdSBidWZmZXJzIHRvZ2V0aGVyLiBBdCBs
-ZWFzdCB1bnRpbAo+Pj4+Pj4+IHRoZSBzaHJpbmtlciBoYXMgbGFuZGVkLgo+Pj4+Pj4+Cj4+Pj4+
-Pj4gQW5kIHRoaXMgaGVyZSBqdXN0IG9wZW5zIHVwIHRoZSBiYXJuIGRvb3Igd2l0aG91dCBhbnkg
-ZXhwbGFuYXRpb24gd2h5IGl0J3MKPj4+Pj4+PiBvay4KPj4+Pj4+IFRoZSBTRyBiYXNlZCBCT3Mg
-bWlnaHQgbm90IGV2ZW4gYmUgYmFja2VkIGJ5IHBhZ2VzLiBFLmcuIGV4cG9ydGVkIFZSQU0uCj4+
-Pj4+Pgo+Pj4+Pj4gU28gZWl0aGVyIHRoZXkgYXJlIGV4cG9ydGVkIGJ5IGEgZHJpdmVyIHdoaWNo
-IHNob3VsZCBoYXZlIGFjY291bnRlZCBmb3IgdGhlCj4+Pj4+PiBhbGxvY2F0aW9uLCBleHBvcnRl
-ZCBieSBUVE0gd2hpY2ggYWxyZWFkeSBkaWQgdGhlIGFjY291bnRpbmcgb3IgZG9lc24ndCBldmVu
-Cj4+Pj4+PiBwb2ludCB0byBwYWdlcyBhdCBhbGwuCj4+Pj4+Pgo+Pj4+Pj4gVGhpcyBpcyByZWFs
-bHkgYSBidWcgZml4IHRvIHJlY3JlYXRlIHRoZSBiZWhhdmlvciB3ZSBoYWQgYmVmb3JlIG1vdmlu
-ZyB0aGUKPj4+Pj4+IGFjY291bnRpbmcgdG8gdGhpcyBwbGFjZS4KPj4+Pj4gVGhyb3cgdGhhdCBp
-bnRvIHRoZSBjb21taXQgbWVzc2FnZSBhbmQgYS1iOiBtZS4gSWRlYWxseSB3aXRoIGEgRml4ZXM6
-IGxpbmUKPj4+Pj4gb3Igc28gcG9pbnRpbmcgYXQgdGhlIG9mZmVuZGluZyBjb21taXQgdGhhdCBi
-cm9rZSBzdHVmZi4gQ29tbWl0IG1lc3NhZ2VzCj4+Pj4+IHNob3VsZCByZWFsbHkgZ28gaW50byBt
-b3JlIGRldGFpbCB3aGVuIHRoZXJlJ3MgYW4gZW50aXJlIHN0b3J5IGJlaGluZCBhCj4+Pj4+IHNt
-YWxsIGNoYW5nZSBsaWtlIHRoaXMgb25lLgo+Pj4+IFNvcnJ5IEkgdGhvdWdoIHRoYXQgdGhpcyB3
-b3VsZCBiZSBvYnZpb3VzIDopCj4+Pj4KPj4+PiBJJ3ZlIGFscmVhZHkgcHVzaGVkIHRoZSBwYXRj
-aCBpbiB0aGUgbW9ybmluZywgYnV0IGdvaW5nIHRvIGtlZXAgdGhhdCBpbgo+Pj4+IG1pbmQgZm9y
-IHRoZSBuZXh0IHRpbWUuCj4+PiBJJ2xsIGtlZXAgcmVtaW5kaW5nIHlvdSB0byBwbHMgZWxhYm9y
-YXRlIG1vcmUgaW4gY29tbWl0IG1lc3NhZ2VzLCBpdCdzCj4+PiBjb21pbmcgdXAgZXZlcnkgb25j
-ZSBpbiBhIHdoaWxlIDotKQo+PiBXZWxsLCBkZXNjcmliaW5nIHN0dWZmIGluIGEgY29tbWl0IG1l
-c3NhZ2Ugd2hpY2ggaXMgb2J2aW91cyBpcyBqdXN0Cj4+IHJlZHVuZGFudC4KPj4KPj4gSSBjYW4g
-b2YgY291cnNlIGV4cGxhaW4gdGhlIHdob2xlIGJhY2tncm91bmQgb2YgdGhlIGNvZGUgaW4gcXVl
-c3Rpb24gaW4KPj4gdGhlIGNvbW1pdCBtZXNzYWdlLCBidXQgZm9yIG9idmlvdXMgYnVnIGZpeGVz
-IGxpa2UgdGhpcyBpdCBpcyBqdXN0IG92ZXJraWxsLgo+Pgo+Pj4gQWxzbyBpbiBnZW5lcmFsIEkg
-dGhpbmsgYSBmZXcgZGF5cyBvZiBsZXR0aW5nIHBhdGNoZXMgc29hayBvdXQgdGhlcmUsCj4+PiBl
-c3BlY2lhbGx5IHNoYXJlZCBjb2RlLCBpcyBnb29kIGN1cnRlc3kuIFNvbWUgZm9sa3MgZGVtYW5k
-IDIgd2Vla3MsCj4+PiB3aGljaCBJIHRoaW5rIGlzIHRvbyBtdWNoLCBidXQgbGVzcyB0aGFuIDI0
-aCBqdXN0IG1lYW5zIHlvdSdyZQo+Pj4gZ3VhcmFudGVlZCB0byBsZWF2ZSBvdXQgaGFsZiB0aGUg
-Z2xvYmUgd2l0aCB0aGVpciBmZWVkYmFjay4gV2hpY2gKPj4+IGlzbid0IGdyZWF0Lgo+PiBXZWxs
-IGZvciBzdHJ1Y3R1cmFsIGNoYW5nZXMgSSBjZXJ0YWlubHkgYWdyZWUsIGJ1dCBub3QgZm9yIGEg
-YnVnIGZpeAo+PiB3aGljaCBhZGRzIGEgbWlzc2luZyBjaGVjayBmb3IgYSBzcGVjaWFsIGNhc2Uu
-Cj4gV2VsbCBpZiBpdCdzIGEgYnVnZml4IHNob3VsZCBhdCBsZWFzdCBpbmRpY2F0ZSB0aGF0LCBh
-bmQgcmVncmVzc2lvbgo+IGZpeGVzIHNob3VsZCBjb21lIHdpdGggRml4ZXM6IHRhZ3MuIE9idmlv
-dXMgZm9yIHlvdSB3aG8gc2NyZWFtZWQgYXQKPiB0aGUgY29kZSBpcyBnZW5lcmFsbHkgbm90IGlt
-cGx5aW5nIGl0J3Mgb2J2aW91cyBmb3IgYW55b25lIGVsc2UuIFNvCj4geWVhaCBJIHRoaW5rIGlu
-IGdlbmVyYWwgbW9yZSBleHBsYW5hdGlvbnMgd291bGQgYmUgZ29vZC4KCk9rLCBzZWNvbmRlZC4g
-VGhlIG1pc3NpbmcgRml4ZXMgdGFnIGlzIGEgZ29vZCBwb2ludCBhbmQgdGhlIHdvcmRpbmcgCmRv
-ZXNuJ3QgbWFkZSBpdCBjbGVhciB0aGF0IHRoaXMgaXMgYSBidWcgZml4LgoKR29pbmcgdG8ga2Vl
-cCB0aGF0IGluIG1pbmQuCgpDaHJpc3RpYW4uCgo+IC1EYW5pZWwKPgo+PiBDaHJpc3RpYW4uCj4+
-Cj4+PiBEcml2ZXIgY29kZSBJIGRvbid0IGNhcmUgc2luY2UgdGhlcmUgeW91IGtub3cgYWxsIHRo
-ZSBzdGFrZWhvbGRlcnMgb2ZjLgo+Pj4gLURhbmllbAo+Pj4KPj4+PiBDaHJpc3RpYW4uCj4+Pj4K
-Pj4+Pj4gLURhbmllbAo+Pj4+Pgo+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4KPj4+Pj4+PiAtRGFu
-aWVsCj4+Pj4+Pj4KPj4+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4+
-Pgo+Pj4+Pj4+Pj4gLS0tCj4+Pj4+Pj4+PiAgICAgICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90
-dC5jIHwgMjcgKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tCj4+Pj4+Pj4+PiAgICAgICAxIGZp
-bGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPj4+Pj4+Pj4+Cj4+
-Pj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYyBiL2RyaXZl
-cnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKPj4+Pj4+Pj4+IGluZGV4IDVkODgyMDcyNWI3NS4uZThi
-OGMzMjU3MzkyIDEwMDY0NAo+Pj4+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1f
-dHQuYwo+Pj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+Pj4+Pj4+
-Pj4gQEAgLTMxNyw5ICszMTcsMTIgQEAgaW50IHR0bV90dF9wb3B1bGF0ZShzdHJ1Y3QgdHRtX2Rl
-dmljZSAqYmRldiwKPj4+Pj4+Pj4+ICAgICAgICAgICAgIGlmICh0dG1fdHRfaXNfcG9wdWxhdGVk
-KHR0bSkpCj4+Pj4+Pj4+PiAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOwo+Pj4+Pj4+Pj4g
-LSBhdG9taWNfbG9uZ19hZGQodHRtLT5udW1fcGFnZXMsICZ0dG1fcGFnZXNfYWxsb2NhdGVkKTsK
-Pj4+Pj4+Pj4+IC0gaWYgKGJkZXYtPnBvb2wudXNlX2RtYTMyKQo+Pj4+Pj4+Pj4gLSAgICAgICAg
-IGF0b21pY19sb25nX2FkZCh0dG0tPm51bV9wYWdlcywgJnR0bV9kbWEzMl9wYWdlc19hbGxvY2F0
-ZWQpOwo+Pj4+Pj4+Pj4gKyBpZiAoISh0dG0tPnBhZ2VfZmxhZ3MgJiBUVE1fUEFHRV9GTEFHX1NH
-KSkgewo+Pj4+Pj4+Pj4gKyAgICAgICAgIGF0b21pY19sb25nX2FkZCh0dG0tPm51bV9wYWdlcywg
-JnR0bV9wYWdlc19hbGxvY2F0ZWQpOwo+Pj4+Pj4+Pj4gKyAgICAgICAgIGlmIChiZGV2LT5wb29s
-LnVzZV9kbWEzMikKPj4+Pj4+Pj4+ICsgICAgICAgICAgICAgICAgIGF0b21pY19sb25nX2FkZCh0
-dG0tPm51bV9wYWdlcywKPj4+Pj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAmdHRtX2RtYTMyX3BhZ2VzX2FsbG9jYXRlZCk7Cj4+Pj4+Pj4+PiArIH0KPj4+Pj4+Pj4+ICAg
-ICAgICAgICAgIHdoaWxlIChhdG9taWNfbG9uZ19yZWFkKCZ0dG1fcGFnZXNfYWxsb2NhdGVkKSA+
-IHR0bV9wYWdlc19saW1pdCB8fAo+Pj4+Pj4+Pj4gICAgICAgICAgICAgICAgICAgIGF0b21pY19s
-b25nX3JlYWQoJnR0bV9kbWEzMl9wYWdlc19hbGxvY2F0ZWQpID4KPj4+Pj4+Pj4+IEBAIC0zNTAs
-OSArMzUzLDEyIEBAIGludCB0dG1fdHRfcG9wdWxhdGUoc3RydWN0IHR0bV9kZXZpY2UgKmJkZXYs
-Cj4+Pj4+Pj4+PiAgICAgICAgICAgICByZXR1cm4gMDsKPj4+Pj4+Pj4+ICAgICAgIGVycm9yOgo+
-Pj4+Pj4+Pj4gLSBhdG9taWNfbG9uZ19zdWIodHRtLT5udW1fcGFnZXMsICZ0dG1fcGFnZXNfYWxs
-b2NhdGVkKTsKPj4+Pj4+Pj4+IC0gaWYgKGJkZXYtPnBvb2wudXNlX2RtYTMyKQo+Pj4+Pj4+Pj4g
-LSAgICAgICAgIGF0b21pY19sb25nX3N1Yih0dG0tPm51bV9wYWdlcywgJnR0bV9kbWEzMl9wYWdl
-c19hbGxvY2F0ZWQpOwo+Pj4+Pj4+Pj4gKyBpZiAoISh0dG0tPnBhZ2VfZmxhZ3MgJiBUVE1fUEFH
-RV9GTEFHX1NHKSkgewo+Pj4+Pj4+Pj4gKyAgICAgICAgIGF0b21pY19sb25nX3N1Yih0dG0tPm51
-bV9wYWdlcywgJnR0bV9wYWdlc19hbGxvY2F0ZWQpOwo+Pj4+Pj4+Pj4gKyAgICAgICAgIGlmIChi
-ZGV2LT5wb29sLnVzZV9kbWEzMikKPj4+Pj4+Pj4+ICsgICAgICAgICAgICAgICAgIGF0b21pY19s
-b25nX3N1Yih0dG0tPm51bV9wYWdlcywKPj4+Pj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAmdHRtX2RtYTMyX3BhZ2VzX2FsbG9jYXRlZCk7Cj4+Pj4+Pj4+PiArIH0KPj4+
-Pj4+Pj4+ICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4+Pj4+Pj4+PiAgICAgICB9Cj4+Pj4+Pj4+
-PiAgICAgICBFWFBPUlRfU1lNQk9MKHR0bV90dF9wb3B1bGF0ZSk7Cj4+Pj4+Pj4+PiBAQCAtMzgy
-LDkgKzM4OCwxMiBAQCB2b2lkIHR0bV90dF91bnBvcHVsYXRlKHN0cnVjdCB0dG1fZGV2aWNlICpi
-ZGV2LCBzdHJ1Y3QgdHRtX3R0ICp0dG0pCj4+Pj4+Pj4+PiAgICAgICAgICAgICBlbHNlCj4+Pj4+
-Pj4+PiAgICAgICAgICAgICAgICAgICAgIHR0bV9wb29sX2ZyZWUoJmJkZXYtPnBvb2wsIHR0bSk7
-Cj4+Pj4+Pj4+PiAtIGF0b21pY19sb25nX3N1Yih0dG0tPm51bV9wYWdlcywgJnR0bV9wYWdlc19h
-bGxvY2F0ZWQpOwo+Pj4+Pj4+Pj4gLSBpZiAoYmRldi0+cG9vbC51c2VfZG1hMzIpCj4+Pj4+Pj4+
-PiAtICAgICAgICAgYXRvbWljX2xvbmdfc3ViKHR0bS0+bnVtX3BhZ2VzLCAmdHRtX2RtYTMyX3Bh
-Z2VzX2FsbG9jYXRlZCk7Cj4+Pj4+Pj4+PiArIGlmICghKHR0bS0+cGFnZV9mbGFncyAmIFRUTV9Q
-QUdFX0ZMQUdfU0cpKSB7Cj4+Pj4+Pj4+PiArICAgICAgICAgYXRvbWljX2xvbmdfc3ViKHR0bS0+
-bnVtX3BhZ2VzLCAmdHRtX3BhZ2VzX2FsbG9jYXRlZCk7Cj4+Pj4+Pj4+PiArICAgICAgICAgaWYg
-KGJkZXYtPnBvb2wudXNlX2RtYTMyKQo+Pj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgYXRvbWlj
-X2xvbmdfc3ViKHR0bS0+bnVtX3BhZ2VzLAo+Pj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICZ0dG1fZG1hMzJfcGFnZXNfYWxsb2NhdGVkKTsKPj4+Pj4+Pj4+ICsgfQo+
-Pj4+Pj4+Pj4gICAgICAgICAgICAgdHRtLT5wYWdlX2ZsYWdzICY9IH5UVE1fUEFHRV9GTEFHX1BS
-SVZfUE9QVUxBVEVEOwo+Pj4+Pj4+Pj4gICAgICAgfQo+Pj4+Pj4+PiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4+PiBkcmktZGV2ZWwgbWFpbGlu
-ZyBsaXN0Cj4+Pj4+Pj4+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+Pj4+Pj4g
-aHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBz
-JTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGZHJp
-LWRldmVsJmFtcDtkYXRhPTA0JTdDMDElN0NjaHJpc3RpYW4ua29lbmlnJTQwYW1kLmNvbSU3QzFi
-ZTMwZGU2Nzc0YjQ0Y2UzMDI4MDhkOGZmNDM3Nzc0JTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJk
-OTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzU0MDAxMjU0MzUxMDExNCU3Q1Vua25vd24lN0NUV0ZwYkda
-c2IzZDhleUpXSWpvaU1DNHdMakF3TURBaUxDSlFJam9pVjJsdU16SWlMQ0pCVGlJNklrMWhhV3dp
-TENKWFZDSTZNbjAlM0QlN0MxMDAwJmFtcDtzZGF0YT1SNUlraktKViUyQm1HRHVsNVlxb1VDRFFL
-Q05hWXRibTNvT3FUOWZURiUyQmd1ayUzRCZhbXA7cmVzZXJ2ZWQ9MAo+CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Apr 14, 2021 at 5:09 AM Jiawei Gu <Jiawei.Gu@amd.com> wrote:
+>
+> Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.
+
+Please provide a link to patches for an open source tool which uses
+this new query.
+
+>
+> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  19 +++
+>  drivers/gpu/drm/amd/amdgpu/atom.c          | 158 +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/atom.h          |  11 ++
+>  drivers/gpu/drm/amd/include/atomfirmware.h |  16 ++-
+>  include/uapi/drm/amdgpu_drm.h              |  15 ++
+>  5 files changed, 213 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 39ee88d29cca..a20b016b05ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -861,6 +861,25 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>                                             min((size_t)size, (size_t)(bios_size - bios_offset)))
+>                                         ? -EFAULT : 0;
+>                 }
+> +               case AMDGPU_INFO_VBIOS_INFO: {
+> +                       struct drm_amdgpu_info_vbios vbios_info = {};
+> +                       struct atom_context *atom_context;
+> +
+> +                       atom_context = adev->mode_info.atom_context;
+> +                       memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
+> +                       vbios_info.dbdf = PCI_DEVID(adev->pdev->bus->number, adev->pdev->devfn);
+> +                       memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
+> +                       vbios_info.version = atom_context->version;
+> +                       memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
+> +                       memcpy(vbios_info.serial, adev->serial, sizeof(adev->serial));
+> +                       vbios_info.dev_id = adev->pdev->device;
+> +                       vbios_info.rev_id = adev->pdev->revision;
+> +                       vbios_info.sub_dev_id = atom_context->sub_dev_id;
+> +                       vbios_info.sub_ved_id = atom_context->sub_ved_id;
+> +
+> +                       return copy_to_user(out, &vbios_info,
+> +                                               min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
+> +               }
+>                 default:
+>                         DRM_DEBUG_KMS("Invalid request %d\n",
+>                                         info->vbios_info.type);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 3dcb8b32f48b..0e2f0ea13b40 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -31,6 +31,7 @@
+>
+>  #define ATOM_DEBUG
+>
+> +#include "atomfirmware.h"
+>  #include "atom.h"
+>  #include "atom-names.h"
+>  #include "atom-bits.h"
+> @@ -1299,12 +1300,153 @@ static void atom_index_iio(struct atom_context *ctx, int base)
+>         }
+>  }
+>
+> +static void atom_get_vbios_name(struct atom_context *ctx)
+> +{
+> +       unsigned char *p_rom;
+> +       unsigned char str_num;
+> +       unsigned short off_to_vbios_str;
+> +       unsigned char *c_ptr;
+> +       int name_size;
+> +       int i;
+> +
+> +       const char *na = "--N/A--";
+> +       char *back;
+> +
+> +       p_rom = ctx->bios;
+> +
+> +       str_num = *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS);
+> +       if (str_num != 0) {
+> +               off_to_vbios_str =
+> +                       *(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
+> +
+> +               c_ptr = (unsigned char *)(p_rom + off_to_vbios_str);
+> +       } else {
+> +               /* do not know where to find name */
+> +               memcpy(ctx->name, na, 7);
+> +               ctx->name[7] = 0;
+> +               return;
+> +       }
+> +
+> +       /*
+> +        * skip the atombios strings, usually 4
+> +        * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th is Memory type
+> +        */
+> +       for (i = 0; i < str_num; i++) {
+> +               while (*c_ptr != 0)
+> +                       c_ptr++;
+> +               c_ptr++;
+> +       }
+> +
+> +       /* skip the following 2 chars: 0x0D 0x0A */
+> +       c_ptr += 2;
+> +
+> +       name_size = strnlen(c_ptr, STRLEN_LONG - 1);
+> +       memcpy(ctx->name, c_ptr, name_size);
+> +       back = ctx->name + name_size;
+> +       while ((*--back) == ' ')
+> +               ;
+> +       *(back + 1) = '\0';
+> +}
+> +
+> +static void atom_get_vbios_date(struct atom_context *ctx)
+> +{
+> +       unsigned char *p_rom;
+> +       unsigned char *date_in_rom;
+> +
+> +       p_rom = ctx->bios;
+> +
+> +       date_in_rom = p_rom + OFFSET_TO_VBIOS_DATE;
+> +
+> +       ctx->date[0] = '2';
+> +       ctx->date[1] = '0';
+> +       ctx->date[2] = date_in_rom[6];
+> +       ctx->date[3] = date_in_rom[7];
+> +       ctx->date[4] = '/';
+> +       ctx->date[5] = date_in_rom[0];
+> +       ctx->date[6] = date_in_rom[1];
+> +       ctx->date[7] = '/';
+> +       ctx->date[8] = date_in_rom[3];
+> +       ctx->date[9] = date_in_rom[4];
+> +       ctx->date[10] = ' ';
+> +       ctx->date[11] = date_in_rom[9];
+> +       ctx->date[12] = date_in_rom[10];
+> +       ctx->date[13] = date_in_rom[11];
+> +       ctx->date[14] = date_in_rom[12];
+> +       ctx->date[15] = date_in_rom[13];
+> +       ctx->date[16] = '\0';
+> +}
+> +
+> +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx, char *str, int start,
+> +                                          int end, int maxlen)
+> +{
+> +       unsigned long str_off;
+> +       unsigned char *p_rom;
+> +       unsigned short str_len;
+> +
+> +       str_off = 0;
+> +       str_len = strnlen(str, maxlen);
+> +       p_rom = ctx->bios;
+> +
+> +       for (; start <= end; ++start) {
+> +               for (str_off = 0; str_off < str_len; ++str_off) {
+> +                       if (str[str_off] != *(p_rom + start + str_off))
+> +                               break;
+> +               }
+> +
+> +               if (str_off == str_len || str[str_off] == 0)
+> +                       return p_rom + start;
+> +       }
+> +       return NULL;
+> +}
+> +
+> +static void atom_get_vbios_pn(struct atom_context *ctx)
+> +{
+> +       unsigned char *p_rom;
+> +       unsigned short off_to_vbios_str;
+> +       unsigned char *vbios_str;
+> +       int count;
+> +
+> +       off_to_vbios_str = 0;
+> +       p_rom = ctx->bios;
+> +
+> +       if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS) != 0) {
+> +               off_to_vbios_str =
+> +                       *(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
+> +
+> +               vbios_str = (unsigned char *)(p_rom + off_to_vbios_str);
+> +       } else {
+> +               vbios_str = p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
+> +       }
+> +
+> +       if (*vbios_str == 0) {
+> +               vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+> +               if (vbios_str == NULL)
+> +                       vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
+> +       }
+> +       if (vbios_str != NULL && *vbios_str == 0)
+> +               vbios_str++;
+> +
+> +       if (vbios_str != NULL) {
+> +               count = 0;
+> +               while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >= ' ' &&
+> +                      vbios_str[count] <= 'z') {
+> +                       ctx->vbios_pn[count] = vbios_str[count];
+> +                       count++;
+> +               }
+> +
+> +               ctx->vbios_pn[count] = 0;
+> +       }
+> +}
+> +
+>  struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
+>  {
+>         int base;
+>         struct atom_context *ctx =
+>             kzalloc(sizeof(struct atom_context), GFP_KERNEL);
+>         char *str;
+> +       struct _ATOM_ROM_HEADER *atom_rom_header;
+> +       struct _ATOM_MASTER_DATA_TABLE *master_table;
+> +       struct _ATOM_FIRMWARE_INFO *atom_fw_info;
+>         u16 idx;
+>
+>         if (!ctx)
+> @@ -1353,6 +1495,22 @@ struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
+>                 strlcpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
+>         }
+>
+> +       atom_rom_header = (struct _ATOM_ROM_HEADER *)CSTR(base);
+> +       ctx->sub_dev_id = atom_rom_header->usSubsystemVendorID;
+> +       ctx->sub_ved_id = atom_rom_header->usSubsystemID;
+> +       if (atom_rom_header->usMasterDataTableOffset != 0) {
+> +               master_table = (struct _ATOM_MASTER_DATA_TABLE *)
+> +                               CSTR(atom_rom_header->usMasterDataTableOffset);
+> +               if (master_table->ListOfDataTables.FirmwareInfo != 0) {
+> +                       atom_fw_info = (struct _ATOM_FIRMWARE_INFO *)
+> +                                       CSTR(master_table->ListOfDataTables.FirmwareInfo);
+> +                       ctx->version = atom_fw_info->ulFirmwareRevision;
+> +               }
+> +       }
+> +
+> +       atom_get_vbios_name(ctx);
+> +       atom_get_vbios_pn(ctx);
+> +       atom_get_vbios_date(ctx);
+>
+>         return ctx;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdgpu/atom.h
+> index d279759cab47..c729f7ceba4f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.h
+> @@ -112,6 +112,10 @@ struct drm_device;
+>  #define ATOM_IO_SYSIO          2
+>  #define ATOM_IO_IIO            0x80
+>
+> +#define STRLEN_NORMAL          32
+> +#define STRLEN_LONG            64
+> +#define STRLEN_VERYLONG                254
+> +
+>  struct card_info {
+>         struct drm_device *dev;
+>         void (* reg_write)(struct card_info *, uint32_t, uint32_t);   /*  filled by driver */
+> @@ -140,6 +144,13 @@ struct atom_context {
+>         uint32_t *scratch;
+>         int scratch_size_bytes;
+>         char vbios_version[20];
+> +
+> +       uint8_t name[STRLEN_LONG];
+> +       uint8_t vbios_pn[STRLEN_LONG];
+> +       uint32_t version;
+> +       uint8_t date[STRLEN_NORMAL];
+> +       uint32_t sub_dev_id;
+> +       uint32_t sub_ved_id;
+>  };
+>
+>  extern int amdgpu_atom_debug;
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+> index c77ed38c20fb..3a8e404099b0 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -197,6 +197,8 @@ enum atom_dp_vs_preemph_def{
+>    DP_VS_LEVEL0_PREEMPH_LEVEL3 = 0x18,
+>  };
+>
+> +#define BIOS_ATOM_PREFIX   "ATOMBIOS"
+> +#define BIOS_STRING_LENGTH 43
+>
+>  /*
+>  enum atom_string_def{
+> @@ -209,12 +211,14 @@ atom_bios_string          = "ATOM"
+>  #pragma pack(1)                          /* BIOS data must use byte aligment*/
+>
+>  enum atombios_image_offset{
+> -OFFSET_TO_ATOM_ROM_HEADER_POINTER          =0x00000048,
+> -OFFSET_TO_ATOM_ROM_IMAGE_SIZE              =0x00000002,
+> -OFFSET_TO_ATOMBIOS_ASIC_BUS_MEM_TYPE       =0x94,
+> -MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      =20,  /*including the terminator 0x0!*/
+> -OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   =0x2f,
+> -OFFSET_TO_GET_ATOMBIOS_STRING_START        =0x6e,
+> +  OFFSET_TO_ATOM_ROM_HEADER_POINTER          = 0x00000048,
+> +  OFFSET_TO_ATOM_ROM_IMAGE_SIZE              = 0x00000002,
+> +  OFFSET_TO_ATOMBIOS_ASIC_BUS_MEM_TYPE       = 0x94,
+> +  MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      = 20,  /*including the terminator 0x0!*/
+> +  OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   = 0x2f,
+> +  OFFSET_TO_GET_ATOMBIOS_STRING_START        = 0x6e,
+> +  OFFSET_TO_VBIOS_PART_NUMBER                = 0x80,
+> +  OFFSET_TO_VBIOS_DATE                       = 0x50,
+>  };
+>
+>  /****************************************************************************
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 8b832f7458f2..77980445d486 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -758,6 +758,8 @@ struct drm_amdgpu_cs_chunk_data {
+>         #define AMDGPU_INFO_VBIOS_SIZE          0x1
+>         /* Subquery id: Query vbios image */
+>         #define AMDGPU_INFO_VBIOS_IMAGE         0x2
+> +       /* Subquery id: Query vbios info */
+> +       #define AMDGPU_INFO_VBIOS_INFO          0x3
+>  /* Query UVD handles */
+>  #define AMDGPU_INFO_NUM_HANDLES                        0x1C
+>  /* Query sensor related information */
+> @@ -951,6 +953,19 @@ struct drm_amdgpu_info_firmware {
+>         __u32 feature;
+>  };
+>
+> +struct drm_amdgpu_info_vbios {
+> +       __u8 name[64];
+> +       __u32 dbdf;
+> +       __u8 vbios_pn[64];
+> +       __u32 version;
+> +       __u8 date[32];
+> +       __u8 serial[16];
+> +       __u32 dev_id;
+> +       __u32 rev_id;
+> +       __u32 sub_dev_id;
+> +       __u32 sub_ved_id;
+> +};
+
+Please make sure this structure is 64 bit aligned.
+
+Alex
+
+> +
+>  #define AMDGPU_VRAM_TYPE_UNKNOWN 0
+>  #define AMDGPU_VRAM_TYPE_GDDR1 1
+>  #define AMDGPU_VRAM_TYPE_DDR2  2
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
