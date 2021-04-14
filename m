@@ -2,119 +2,105 @@ Return-Path: <SRS0=h6PS=JL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F31BC433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 00:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49C3AC433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A8C461246
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 00:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A8C461246
+	by mail.kernel.org (Postfix) with ESMTPS id C7B0F61164
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 03:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7B0F61164
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9DE76E41D;
-	Wed, 14 Apr 2021 00:06:20 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93ACB6E41D
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 00:06:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5BF6E431;
+	Wed, 14 Apr 2021 03:04:12 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 723B26E431
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 03:04:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nu1ln691+jNmucXCy9zWtZtwAnuzPKvY53/eJAzK5lSmXvC+5tWbbTPGnDEjBM7LSSAis9nme38FuMuLiN/hqWTwfv2p07fa9RJQ9cwCb0I3VZzSEhNNsg8n/gYiobyCvnmaTAP/Maqffw6mF8biMG8Ouos2sqFJWVSb73oMVLHKl+6t37YhYDATNwjtRvqDamleCcbbfd4QOoiDjhC6u0GKKyGlkmGKtN+awoJIhTQsR3NADs5qpEi+4HRefTybSzoUcvu+zJpAFosmB13MAJcHtbIDkAwo1DFjBme8Bv+4o1XgIFlEEfdt2Fyo+Kv8hj1Lu1vvLaBNKmNfXzyGYg==
+ b=EwDXngeRQGFkrr03XiQ3VYYn40FS43x4LBNOggxRcsRUi/mNdvAkJuTkhNStICcRaBRLJ4Wc1r3JKOoK433WKGx2Tcr5SsCLSxUxG2L+z2dnVLNGU75AQI0B3s2ZxqnRsOblAUOvtcdJ4c/uPzXf0ajEuDOnqHbUzX/0o07r0CExH7xF8fNmZ/W4vGYECz3iux23qB80DdoY+Hc+DLe3+Ph4ozPeOF5Zao4WewsKah58Fr5Y7zSQ1KLHu0+SK0cJO/qYYhqX/+Hqd0Xgcsa3igcMy6WvOxziaQ9hRsWzLAR09pOuMCwFO9WAig0zqSOcQ6wC/7jpLb7/95pAgVuTpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DSYTQncEvxaJ/Q3OqwribAXn+296nd19usRUBDUXptc=;
- b=AUVNuvuZGtIj9jbtxbsai2YiNB0neAC2ROtK9uJhLDLkkRhlyj0BO5hSQUuM5NpNanzOdsOiL58QHIX44NHjJxJcnPBATd8EIXzMoY/r7Vzn9g0SF+nuehYk5K7g7IOIXgAsEN56e/Mw7oq7MZ5HCmgNA3BRWB3ZObhdg4Oj6Rbf5ELkO2ZnGPr6bwfxbbDWahSxQ9eQuAbTYnHqigaBWzoUp4WNkU3CDllY3xwtWyV4UwHGHtWjUk8zTyLLXS2Z/EjhG56ezxZ0eEJSlwPWl4kjZwagvNR0NZvOOGnAR0oFN6YCB7lBfL3GZZ1a6jGX9gCoc9X+eC/OhUxX+umqAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Qq22l5tp2fDFZ6cRm3dlrWx0J+P/XxjRf3GCZgbmkcE=;
+ b=iV+VZgyaBx4PDNsJPS0Ng3qfhh3C+d+iT0FxdAx02Wz7zs8498cJFVmtkvfYv+0gnzJlEMUv4O300IvCaScIbEADQv4I9sWHT/r3hlEttnBq8QINHK1muvK7tmW3V0H0SanMFHWbusVnW3EdFGuBptN45KafPJIXBDUoy6Zx55g5T/0a8UoqRmlT5K8+g2Anb1A55zHH5n2pOAMwgsjRdVcYamkRaVZt6uPsP4C5LcdfONMKunH7cb5bpQZVi9O5KrJPXdcdcY229gIxUWeJPf6sVGuf/b0QT6TovZZeGI+a3BQBoDp6J9z+QzaX7V0LYTZGdfbJKnyQpMCdWWaoSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DSYTQncEvxaJ/Q3OqwribAXn+296nd19usRUBDUXptc=;
- b=p0TV45oyhgw6jZb7/7u65FFEb0a0s8WToZymdjD35Xt/sSICDkwOBJFRmaxRpbb9vf9EV2Muqt5+vWy6ROZ33eeolf2vwyl4XPs9cNkr8G16GwP12Dt6vzGh87S/TRXjf+goYNNGuexX4aP4xF3bTm2zC7seWHV++NgshORpscA=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) by
- DM5PR12MB2440.namprd12.prod.outlook.com (2603:10b6:4:b6::39) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4020.17; Wed, 14 Apr 2021 00:06:17 +0000
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::3d2c:5edf:5d51:4101]) by DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::3d2c:5edf:5d51:4101%7]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
- 00:06:17 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amd/display: Fix two cursor duplication when using
- overlay
-Date: Tue, 13 Apr 2021 20:06:04 -0400
-Message-Id: <20210414000604.3273048-1-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [2607:fea8:56e0:6d60:409d:ee13:4da:2761]
-X-ClientProxiedBy: BN6PR12CA0032.namprd12.prod.outlook.com
- (2603:10b6:405:70::18) To DM6PR12MB2601.namprd12.prod.outlook.com
- (2603:10b6:5:45::27)
+ bh=Qq22l5tp2fDFZ6cRm3dlrWx0J+P/XxjRf3GCZgbmkcE=;
+ b=YYuRGWf5RTJcKlFXe3fLWjlZhRd1ck+XhQnEb5aYtLm4fNUuZwg2Mwe8oRbVNKzPI/LNtnbRBe0gd97/Ng87Gx0QkLcN3Nw3cxia6l0YyTxO+/AsQXqRxLp18WLKdnzvS8IqpsV8cl7bc0iGmkdFhT3hTiVUzq64ApTu2IFZFNc=
+Received: from BN6PR16CA0039.namprd16.prod.outlook.com (2603:10b6:405:14::25)
+ by BN6PR1201MB2464.namprd12.prod.outlook.com (2603:10b6:404:ae::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21; Wed, 14 Apr
+ 2021 03:04:09 +0000
+Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:14:cafe::dd) by BN6PR16CA0039.outlook.office365.com
+ (2603:10b6:405:14::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16 via Frontend
+ Transport; Wed, 14 Apr 2021 03:04:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=pass action=none
+ header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4042.16 via Frontend Transport; Wed, 14 Apr 2021 03:04:08 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 13 Apr
+ 2021 22:03:47 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Tue, 13 Apr
+ 2021 22:03:47 -0500
+Received: from kenneth-u1804-kvm.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2106.2
+ via Frontend Transport; Tue, 13 Apr 2021 22:03:46 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/amdgpu: enable ASPM on navi1x and vega
+Date: Wed, 14 Apr 2021 11:03:46 +0800
+Message-ID: <20210414030347.23655-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:409d:ee13:4da:2761)
- by BN6PR12CA0032.namprd12.prod.outlook.com (2603:10b6:405:70::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17 via Frontend
- Transport; Wed, 14 Apr 2021 00:06:16 +0000
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4402536d-43cc-4ce4-4404-08d8fed92006
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2440:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB244059C556D50CAB88AB2054984E9@DM5PR12MB2440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 36aff5a9-5f92-4dfe-2b19-08d8fef1f8f7
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB2464:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB2464ACC3E26AED509196B45E8E4E9@BN6PR1201MB2464.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:381;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IPRYnieB9t12L4eUkCEYW7S9s6/lFJ7t1N/gRwBYBoUPx3tGSvrh571HseZ0lJB7YEkI4CsDBEal2P6E26HFzkqoAyfS4nGbncPV5jCAYSYmrsSk1wV/Q/YGIF6EZP2vTPRFAdJeEWZa2P7T3vmZUV1pNIuGcn92SJJzt/1Gge+yNLolJxFDJJwz/czT7YhK6L4Vr36sQN5iOStxrnrrUcQQNfXY+2IaQMAm/BUNmYDCiwNMmkHKiGd6i/NEV/GhFXX4pD5B/jKOwrsbt5ETudftz67djSdvfYH4+1c4fcnNF+Wg4Be7cAyOnlKvaB5rKGQmWuLUG/ahVZ+HsyGoDOgXDHGLW5IBg0buUy0aCpc5ry95dhFDcjTTGSlWDtamdmUtXcnSt4asGNf9WVtBhJk1PJrkK5SdqOygThQEyZicKtjWdW0E44LEyX/KsNlXwbGClL9I7oOXccU4/4SZwrBL2EJGdCmSdWtNbkr8eDQYb6TkUAQHMD5xOYPNJBm49+JgjOmxtosbl1VQk6K3dah9Tkt9PgiIx+lesmAmvLkgxzQTQILcRfVGsJFNT360V4l1/I8qhxot2H7Pav5SAidqzZjp4H6/cQggf2aLyPg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(66946007)(478600001)(6506007)(66476007)(8936002)(16526019)(186003)(6666004)(66556008)(8676002)(52116002)(1076003)(86362001)(6916009)(5660300002)(2616005)(316002)(54906003)(38100700002)(4326008)(6486002)(36756003)(6512007)(83380400001)(2906002);
+X-Microsoft-Antispam-Message-Info: U4Prux/erqGJLfhtdj6gUkqF+5FidlJ5SjI2cuFNzNQnkRxuoouYpiB3+ay8T/d5Z/5k9qIJTePQgfjT9PwHsemlrf0YHLJnEBSoZj8aH0/PuVU/az9KdyFPpmW1Q4JvZNM0maIufm7pOWZ2af28+6Z5UkHD4lOFYcrahyIo4Zfq2PuUOOkTUXFkTPom3g+QVUkY1+KmRRu/+RjBMB3IoQB1MYQDWelpTkBbdKTPJ69JTdy9YKEa1/NT3YxgLwyrpP/BFMn1hsN8vY4ZLVcCXYrn10kGLr543PubNuXqhpWWHv/0K52rdZQ8fqcrEGhcYB5TdQDoUxmOqRSRwJLiJ2885E2pClAEwoLYAphhlKEYkfxTgrtUWZ7FaGjMNRDyUoY8OwGZEZBFnV/i4LSp32hk0v7VxSqE9knx8lHmfuZij95h4T56pbyFcXV8cOFe1/2yPaRnLtrsg/2UxgdKFziiHIyJuF6ynca2yVH24thNKrYgpkQr+KRXhf+naTns3nK3hfo+QjduALXEeKQJqGKXC8eGL7pV//2vpMZ9nSOleYa2m1XqhKBp/LbZaxu5xmZgHUe9og1bTAj22YhitEdDN4QE8BhfjezgW5jJl9ed75C80aHtDvqtdVm+WTxE8RKxWimfqqFYSaoUl3vXwK3H5Z63GTvdHhmeCrjf6Z4AxtrhH+fD+mUPiESyKQ+Dhg5p76b/5owGMRJa+JIt9OUPHtiy1TUW0eP0Spthyuw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(376002)(136003)(39860400002)(46966006)(36840700001)(8676002)(6916009)(47076005)(82310400003)(2906002)(336012)(8936002)(426003)(356005)(186003)(30864003)(82740400003)(36860700001)(86362001)(83380400001)(26005)(316002)(81166007)(36756003)(1076003)(4326008)(70206006)(5660300002)(44832011)(7696005)(70586007)(2616005)(478600001)(32563001)(36900700001)(357404004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?8DxYh2C0eGqk/hOqgfwKsvZehRmUnkkoK0M2HBk/XYJj9WRJyOt9o8t8wFIt?=
- =?us-ascii?Q?BDeweO9beHhJ6FFarWs9tKxse2FIRlGcFLHCVcfyIw+9Pd+g/BtVGUXd08S7?=
- =?us-ascii?Q?95tbskkethF8ujr1uyqVr1otYWt2C0SHTWm2OGHnSuFRIiKqsnd7My8+Ehsd?=
- =?us-ascii?Q?S8S7cY1REMXrRGABy3G3MSBQyiS9pSj0KiCkQXtQbFfZOcBJ95z49xDq/dVf?=
- =?us-ascii?Q?eTxHryxZ52zg3/6KbCpvRT4+95tfC0kbCvgokdbA3DxFAhuxa3hhEW68pzuT?=
- =?us-ascii?Q?+gCy506j4cVpZmVMNO99cxnstqRXfYbAB8hC/djppEbo9g60HEqK0d6YSz1z?=
- =?us-ascii?Q?BWAFgmuVqnVg6d5Qa0kRWCf4oSmWbfTPxkSVuNJ+V2bMkKHs2nagV2GAiMP9?=
- =?us-ascii?Q?mZfPO1icOgYkzLX5ziC5esRoFIKYFqAZ8vrjDqfW/aI4OKAZOuXQzIMURQU+?=
- =?us-ascii?Q?/Gb1zDu9uNrzsZGBdMli5FdyegRvZTKPwg16jut0NK9Y2LEsqtYkvLj936M4?=
- =?us-ascii?Q?yl9quQmBc/mR1YZjJe6qW907soQw2okUhWYR8PhqGlmzOKQp7E9hov5sgGat?=
- =?us-ascii?Q?HdJ/MYsjovMO4nav9X+GprQLk5dMRAsOTF2opiZdd86lv0dIGlhi/JivgU5F?=
- =?us-ascii?Q?Suff6b86blf8wOWmN5ChEE7U/jFXd33iqblAZ+RRG920uweODj1xhevahayf?=
- =?us-ascii?Q?X9pu8kG2vbQTJaUyw9Xu9C6vHDaaFUG2IkMW3JoSkjdhCYKPG9wK+DtdizKK?=
- =?us-ascii?Q?HIJg7uohs22WrpldxdmMyHSgOatrA3VZY7gSnPn2U3qOX63MIegM9CQ8+xme?=
- =?us-ascii?Q?BWroia67PWMDO73GHrW/FYtJkmX59QX8lpnlKfDEIRQ0dvbxgSAta/zdVeQ5?=
- =?us-ascii?Q?G+E9cxxtq1ewCINEelvNbHE1um/S8t8OoEd2zpFiBPrBYV68eeGubSgU5Y84?=
- =?us-ascii?Q?Vu+vQlSrXX5QOsqSDVawcuQmYdleg9KkJwNPYdC0SCGdehr9X2ACYXsqTS5v?=
- =?us-ascii?Q?TXBDBVzSi+PMs+7jXiBzLnrxS5X6ZPuYrSp7Jj7rr5cLeb+mpQTlZHvWl/pD?=
- =?us-ascii?Q?fHrRiptfNURuYZQnyOh9uSyi61BMhRdhZet9yKU3vIl2MmwPu2pOVcGPYgFA?=
- =?us-ascii?Q?EjllYSkbzGUrvTYheGyaJdojKqxo88upOhOb38xDe4/PBgT7BP1e7VdidvZ1?=
- =?us-ascii?Q?TSIxBprG+K64zsTelzoU6IPm08ahs8qvcJiTSwjoy+UM3wR9hc88RyuPar9D?=
- =?us-ascii?Q?4bVxIY9ZNqB1dRrT+zNttOQEZzQLiw+YcBbcmrVGSuzdhUumvgKX5dR9lr43?=
- =?us-ascii?Q?HDEbEDUXJnPzHPOIfmBPLlYHh7VKgS0ZbOS3Mm49ANrNB1kv/nlnlZYffL15?=
- =?us-ascii?Q?XZuhJJGdHKWynIbfXVcVLGjqgm5/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4402536d-43cc-4ce4-4404-08d8fed92006
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 00:06:17.3274 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 03:04:08.9996 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36aff5a9-5f92-4dfe-2b19-08d8fef1f8f7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kax25C5EufVARREd8vNQGuYlTdlNicZgxKpuGFXDH2FyqeLwAKtW/J9dQD9VA0Ydl9TJpuuL7GuZiLg0q7sXCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2440
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2464
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,149 +112,372 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <seanpaul@chromium.org>, Hersen Wu <hersenxs.wu@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Louis Li <Ching-shih.Li@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Our driver supports overlay planes, and as expected, some userspace
-compositor takes advantage of these features. If the userspace is not
-enabling the cursor, they can use multiple planes as they please.
-Nevertheless, we start to have constraints when userspace tries to
-enable hardware cursor with various planes. Basically, we cannot draw
-the cursor at the same size and position on two separated pipes since it
-uses extra bandwidth and DML only run with one cursor.
+enable ASPM on navi1x and vega series
 
-For those reasons, when we enable hardware cursor and multiple planes,
-our driver should accept variations like the ones described below:
-
-  +-------------+   +--------------+
-  | +---------+ |   |              |
-  | |Primary  | |   | Primary      |
-  | |         | |   | Overlay      |
-  | +---------+ |   |              |
-  |Overlay      |   |              |
-  +-------------+   +--------------+
-
-In this scenario, we can have the desktop UI in the overlay and some
-other framebuffer attached to the primary plane (e.g., video). However,
-userspace needs to obey some rules and avoid scenarios like the ones
-described below (when enabling hw cursor):
-
-                                      +--------+
-                                      |Overlay |
- +-------------+    +-----+-------+ +-|        |--+
- | +--------+  | +--------+       | | +--------+  |
- | |Overlay |  | |Overlay |       | |             |
- | |        |  | |        |       | |             |
- | +--------+  | +--------+       | |             |
- | Primary     |    | Primary     | | Primary     |
- +-------------+    +-------------+ +-------------+
-
- +-------------+   +-------------+
- |     +--------+  |  Primary    |
- |     |Overlay |  |             |
- |     |        |  |             |
- |     +--------+  | +--------+  |
- | Primary     |   | |Overlay |  |
- +-------------+   +-|        |--+
-                     +--------+
-
-If the userspace violates some of the above scenarios, our driver needs
-to reject the commit; otherwise, we can have unexpected behavior. Since
-we don't have a proper driver validation for the above case, we can see
-some problems like a duplicate cursor in applications that use multiple
-planes. This commit fixes the cursor issue and others by adding adequate
-verification for multiple planes.
-
-Change since V1 (Harry and Sean):
-- Remove cursor verification from the equation.
-
-Cc: Louis Li <Ching-shih.Li@amd.com>
-Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Cc: Harry Wentland <Harry.Wentland@amd.com>
-Cc: Hersen Wu <hersenxs.wu@amd.com>
-Cc: Sean Paul <seanpaul@chromium.org>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 51 +++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c | 128 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 125 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nv.c        |  10 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c     |   7 +-
+ 4 files changed, 259 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e29cb2e956db..ac1408d52eff 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9946,6 +9946,53 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
- }
- #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+index 83ea063388fd..0d2d629e2d6a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+@@ -31,6 +31,28 @@
+ #include "vega10_enum.h"
+ #include <uapi/linux/kfd_ioctl.h>
  
-+static int validate_overlay(struct drm_atomic_state *state)
++#define smnPCIE_LC_CNTL		0x11140280
++#define smnPCIE_LC_CNTL3	0x111402d4
++#define smnPCIE_LC_CNTL6	0x111402ec
++#define smnPCIE_LC_CNTL7	0x111402f0
++#define smnNBIF_MGCG_CTRL_LCLK	0x1013a05c
++#define NBIF_MGCG_CTRL_LCLK__NBIF_MGCG_REG_DIS_LCLK_MASK	0x00001000L
++#define RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER_MASK	0x0000FFFFL
++#define RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER_MASK	0xFFFF0000L
++#define smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL	0x10123530
++#define smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2	0x1014008c
++#define smnBIF_CFG_DEV0_EPF0_PCIE_LTR_CAP	0x10140324
++#define smnPSWUSP0_PCIE_LC_CNTL2		0x111402c4
++#define smnRCC_BIF_STRAP2	0x10123488
++#define smnRCC_BIF_STRAP3	0x1012348c
++#define smnRCC_BIF_STRAP5	0x10123494
++#define BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK			0x0400L
++#define RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER_MASK	0x0000FFFFL
++#define RCC_BIF_STRAP2__STRAP_LTR_IN_ASPML1_DIS_MASK	0x00004000L
++#define RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT	0x0
++#define RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT	0x10
++#define RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER__SHIFT	0x0
++
+ static void nbio_v6_1_remap_hdp_registers(struct amdgpu_device *adev)
+ {
+ 	WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
+@@ -256,6 +278,111 @@ static void nbio_v6_1_init_registers(struct amdgpu_device *adev)
+ 		WREG32_PCIE(smnPCIE_CI_CNTL, data);
+ }
+ 
++static void nbio_v6_1_program_ltr(struct amdgpu_device *adev)
 +{
-+	int i;
-+	struct drm_plane *plane;
-+	struct drm_plane_state *old_plane_state, *new_plane_state;
-+	struct drm_plane_state *primary_state, *overlay_state = NULL;
++	uint32_t def, data;
 +
-+	/* Check if primary plane is contained inside overlay */
-+	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
-+		if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
-+			if (drm_atomic_plane_disabling(plane->state, new_plane_state))
-+				return 0;
++	WREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL, 0x75EB);
 +
-+			overlay_state = new_plane_state;
-+			continue;
-+		}
-+	}
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP2);
++	data &= ~RCC_BIF_STRAP2__STRAP_LTR_IN_ASPML1_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP2, data);
 +
-+	/* check if we're making changes to the overlay plane */
-+	if (!overlay_state)
-+		return 0;
++	def = data = RREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL);
++	data &= ~EP_PCIE_TX_LTR_CNTL__LTR_PRIV_MSG_DIS_IN_PM_NON_D0_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL, data);
 +
-+	/* check if overlay plane is enabled */
-+	if (!overlay_state->crtc)
-+		return 0;
-+
-+	/* find the primary plane for the CRTC that the overlay is enabled on */
-+	primary_state = drm_atomic_get_plane_state(state, overlay_state->crtc->primary);
-+	if (IS_ERR(primary_state))
-+		return PTR_ERR(primary_state);
-+
-+	/* check if primary plane is enabled */
-+	if (!primary_state->crtc)
-+		return 0;
-+
-+	/* Perform the bounds check to ensure the overlay plane covers the primary */
-+	if (primary_state->crtc_x < overlay_state->crtc_x ||
-+	    primary_state->crtc_y < overlay_state->crtc_y ||
-+	    primary_state->crtc_x + primary_state->crtc_w > overlay_state->crtc_x + overlay_state->crtc_w ||
-+	    primary_state->crtc_y + primary_state->crtc_h > overlay_state->crtc_y + overlay_state->crtc_h) {
-+		DRM_DEBUG_ATOMIC("Overlay plane is enabled with hardware cursor but does not fully cover primary plane\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
++	def = data = RREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2);
++	data |= BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data);
 +}
 +
- /**
-  * amdgpu_dm_atomic_check() - Atomic check implementation for AMDgpu DM.
-  * @dev: The DRM device
-@@ -10120,6 +10167,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			goto fail;
- 	}
- 
-+	ret = validate_overlay(state);
-+	if (ret)
-+		goto fail;
++static void nbio_v6_1_program_aspm(struct amdgpu_device *adev)
++{
++	uint32_t def, data;
 +
- 	/* Add new/modified planes */
- 	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
- 		ret = dm_update_plane_state(dc, state, plane,
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL);
++	data &= ~PCIE_LC_CNTL__LC_L1_INACTIVITY_MASK;
++	data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
++	data |= PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL7);
++	data |= PCIE_LC_CNTL7__LC_NBIF_ASPM_INPUT_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL7, data);
++
++	def = data = RREG32_PCIE(smnNBIF_MGCG_CTRL_LCLK);
++	data |= NBIF_MGCG_CTRL_LCLK__NBIF_MGCG_REG_DIS_LCLK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnNBIF_MGCG_CTRL_LCLK, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL3);
++	data |= PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_ACK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP3);
++	data &= ~RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER_MASK;
++	data &= ~RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP5);
++	data &= ~RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP5, data);
++
++	def = data = RREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2);
++	data &= ~BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data);
++
++	WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_PCIE_LTR_CAP, 0x10011001);
++
++	def = data = RREG32_PCIE(smnPSWUSP0_PCIE_LC_CNTL2);
++	data |= PSWUSP0_PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L1_MASK |
++		PSWUSP0_PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L23_MASK;
++	data &= ~PSWUSP0_PCIE_LC_CNTL2__LC_RCV_L0_TO_RCV_L0S_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPSWUSP0_PCIE_LC_CNTL2, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL6);
++	data |= PCIE_LC_CNTL6__LC_L1_POWERDOWN_MASK |
++		PCIE_LC_CNTL6__LC_RX_L0S_STANDBY_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL6, data);
++
++	nbio_v6_1_program_ltr(adev);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP3);
++	data |= 0x5DE0 << RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT;
++	data |= 0x0010 << RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP5);
++	data |= 0x0010 << RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP5, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL);
++	data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
++	data |= 0x9 << PCIE_LC_CNTL__LC_L1_INACTIVITY__SHIFT;
++	data |= 0x1 << PCIE_LC_CNTL__LC_PMI_TO_L1_DIS__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL3);
++	data &= ~PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_ACK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL3, data);
++}
++
+ const struct amdgpu_nbio_funcs nbio_v6_1_funcs = {
+ 	.get_hdp_flush_req_offset = nbio_v6_1_get_hdp_flush_req_offset,
+ 	.get_hdp_flush_done_offset = nbio_v6_1_get_hdp_flush_done_offset,
+@@ -274,4 +401,5 @@ const struct amdgpu_nbio_funcs nbio_v6_1_funcs = {
+ 	.ih_control = nbio_v6_1_ih_control,
+ 	.init_registers = nbio_v6_1_init_registers,
+ 	.remap_hdp_registers = nbio_v6_1_remap_hdp_registers,
++	.program_aspm =  nbio_v6_1_program_aspm,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+index af44aad78171..cef929746739 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -31,7 +31,26 @@
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include <uapi/linux/kfd_ioctl.h>
+ 
++#define smnPCIE_LC_CNTL		0x11140280
++#define smnPCIE_LC_CNTL3	0x111402d4
++#define smnPCIE_LC_CNTL6	0x111402ec
++#define smnPCIE_LC_CNTL7	0x111402f0
+ #define smnNBIF_MGCG_CTRL_LCLK	0x1013a21c
++#define smnRCC_BIF_STRAP3	0x1012348c
++#define RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER_MASK	0x0000FFFFL
++#define RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER_MASK	0xFFFF0000L
++#define smnRCC_BIF_STRAP5	0x10123494
++#define RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER_MASK	0x0000FFFFL
++#define smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2	0x1014008c
++#define BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK			0x0400L
++#define smnBIF_CFG_DEV0_EPF0_PCIE_LTR_CAP	0x10140324
++#define smnPSWUSP0_PCIE_LC_CNTL2		0x111402c4
++#define smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL	0x10123538
++#define smnRCC_BIF_STRAP2	0x10123488
++#define RCC_BIF_STRAP2__STRAP_LTR_IN_ASPML1_DIS_MASK	0x00004000L
++#define RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT	0x0
++#define RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT	0x10
++#define RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER__SHIFT	0x0
+ 
+ /*
+  * These are nbio v7_4_1 registers mask. Temporarily define these here since
+@@ -567,6 +586,111 @@ const struct amdgpu_nbio_ras_funcs nbio_v7_4_ras_funcs = {
+ 	.ras_fini = amdgpu_nbio_ras_fini,
+ };
+ 
++static void nbio_v7_4_program_ltr(struct amdgpu_device *adev)
++{
++	uint32_t def, data;
++
++	WREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL, 0x75EB);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP2);
++	data &= ~RCC_BIF_STRAP2__STRAP_LTR_IN_ASPML1_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP2, data);
++
++	def = data = RREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL);
++	data &= ~EP_PCIE_TX_LTR_CNTL__LTR_PRIV_MSG_DIS_IN_PM_NON_D0_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_EP_DEV0_0_EP_PCIE_TX_LTR_CNTL, data);
++
++	def = data = RREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2);
++	data |= BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data);
++}
++
++static void nbio_v7_4_program_aspm(struct amdgpu_device *adev)
++{
++	uint32_t def, data;
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL);
++	data &= ~PCIE_LC_CNTL__LC_L1_INACTIVITY_MASK;
++	data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
++	data |= PCIE_LC_CNTL__LC_PMI_TO_L1_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL7);
++	data |= PCIE_LC_CNTL7__LC_NBIF_ASPM_INPUT_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL7, data);
++
++	def = data = RREG32_PCIE(smnNBIF_MGCG_CTRL_LCLK);
++	data |= NBIF_MGCG_CTRL_LCLK__NBIF_MGCG_REG_DIS_LCLK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnNBIF_MGCG_CTRL_LCLK, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL3);
++	data |= PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_ACK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP3);
++	data &= ~RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER_MASK;
++	data &= ~RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP5);
++	data &= ~RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER_MASK;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP5, data);
++
++	def = data = RREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2);
++	data &= ~BIF_CFG_DEV0_EPF0_DEVICE_CNTL2__LTR_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_DEVICE_CNTL2, data);
++
++	WREG32_PCIE(smnBIF_CFG_DEV0_EPF0_PCIE_LTR_CAP, 0x10011001);
++
++	def = data = RREG32_PCIE(smnPSWUSP0_PCIE_LC_CNTL2);
++	data |= PSWUSP0_PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L1_MASK |
++		PSWUSP0_PCIE_LC_CNTL2__LC_ALLOW_PDWN_IN_L23_MASK;
++	data &= ~PSWUSP0_PCIE_LC_CNTL2__LC_RCV_L0_TO_RCV_L0S_DIS_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPSWUSP0_PCIE_LC_CNTL2, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL6);
++	data |= PCIE_LC_CNTL6__LC_L1_POWERDOWN_MASK |
++		PCIE_LC_CNTL6__LC_RX_L0S_STANDBY_EN_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL6, data);
++
++	nbio_v7_4_program_ltr(adev);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP3);
++	data |= 0x5DE0 << RCC_BIF_STRAP3__STRAP_VLINK_ASPM_IDLE_TIMER__SHIFT;
++	data |= 0x0010 << RCC_BIF_STRAP3__STRAP_VLINK_PM_L1_ENTRY_TIMER__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP3, data);
++
++	def = data = RREG32_PCIE(smnRCC_BIF_STRAP5);
++	data |= 0x0010 << RCC_BIF_STRAP5__STRAP_VLINK_LDN_ENTRY_TIMER__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnRCC_BIF_STRAP5, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL);
++	data &= ~PCIE_LC_CNTL__LC_L0S_INACTIVITY_MASK;
++	data |= 0x9 << PCIE_LC_CNTL__LC_L1_INACTIVITY__SHIFT;
++	data |= 0x1 << PCIE_LC_CNTL__LC_PMI_TO_L1_DIS__SHIFT;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL, data);
++
++	def = data = RREG32_PCIE(smnPCIE_LC_CNTL3);
++	data &= ~PCIE_LC_CNTL3__LC_DSC_DONT_ENTER_L23_AFTER_PME_ACK_MASK;
++	if (def != data)
++		WREG32_PCIE(smnPCIE_LC_CNTL3, data);
++}
++
+ const struct amdgpu_nbio_funcs nbio_v7_4_funcs = {
+ 	.get_hdp_flush_req_offset = nbio_v7_4_get_hdp_flush_req_offset,
+ 	.get_hdp_flush_done_offset = nbio_v7_4_get_hdp_flush_done_offset,
+@@ -587,4 +711,5 @@ const struct amdgpu_nbio_funcs nbio_v7_4_funcs = {
+ 	.ih_control = nbio_v7_4_ih_control,
+ 	.init_registers = nbio_v7_4_init_registers,
+ 	.remap_hdp_registers = nbio_v7_4_remap_hdp_registers,
++	.program_aspm =  nbio_v7_4_program_aspm,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 46d4bbabce75..d54af7f8801b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -601,8 +601,7 @@ static void nv_program_aspm(struct amdgpu_device *adev)
+ 	if (amdgpu_aspm != 1)
+ 		return;
+ 
+-	if ((adev->asic_type >= CHIP_SIENNA_CICHLID) &&
+-	    !(adev->flags & AMD_IS_APU) &&
++	if (!(adev->flags & AMD_IS_APU) &&
+ 	    (adev->nbio.funcs->program_aspm))
+ 		adev->nbio.funcs->program_aspm(adev);
+ 
+@@ -934,12 +933,7 @@ static int nv_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 	if (adev->gfx.funcs->update_perfmon_mgcg)
+ 		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
+ 
+-	/*
+-	 * The ASPM function is not fully enabled and verified on
+-	 * Navi yet. Temporarily skip this until ASPM enabled.
+-	 */
+-	if ((adev->asic_type >= CHIP_SIENNA_CICHLID) &&
+-	    !(adev->flags & AMD_IS_APU) &&
++	if (!(adev->flags & AMD_IS_APU) &&
+ 	    (adev->nbio.funcs->enable_aspm))
+ 		adev->nbio.funcs->enable_aspm(adev, !enter);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 5c5eb3aed1b3..d80e12b80c7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -816,11 +816,12 @@ static void soc15_pcie_gen3_enable(struct amdgpu_device *adev)
+ 
+ static void soc15_program_aspm(struct amdgpu_device *adev)
+ {
+-
+-	if (amdgpu_aspm == 0)
++	if (amdgpu_aspm != 1)
+ 		return;
+ 
+-	/* todo */
++	if (!(adev->flags & AMD_IS_APU) &&
++	    (adev->nbio.funcs->program_aspm))
++		adev->nbio.funcs->program_aspm(adev);
+ }
+ 
+ static void soc15_enable_doorbell_aperture(struct amdgpu_device *adev,
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
