@@ -1,133 +1,120 @@
-Return-Path: <SRS0=eSA1=JK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=h6PS=JL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14A0AC433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 22:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F31BC433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 00:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B8FAA61246
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Apr 2021 22:22:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8FAA61246
+	by mail.kernel.org (Postfix) with ESMTPS id 4A8C461246
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Apr 2021 00:06:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A8C461246
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A716E8B1;
-	Tue, 13 Apr 2021 22:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9DE76E41D;
+	Wed, 14 Apr 2021 00:06:20 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22E636E8B1
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Apr 2021 22:22:55 +0000 (UTC)
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93ACB6E41D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Apr 2021 00:06:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UwpYQ/75z1ggXekleEcaZmv17SQe5l0csUYMlTnZF8TthQPURautLiVyFOlFO8CguZ5ei4xa2nnNQeO3jSAmwIHOXo+iiI4iGkOIOZJ0idMPTToP1Z7FyObPZ/RpOjL/MmLafW5AF6wTKp3kQcyQq0kdfv9NPrGKIsML4HbOp5iijR6pmy51fu5DiHlTb0dLg4OSZ7XOtn3SfoESnU5boEVPZBklhWqttPE506tBzhJx3Vh+GFQP9D0GAQCwtZZGptDLuvrW/HlhqoH1ez7oK47DUyW7AIz7SNiQ/zX92MCMzDlaC3QTWGW+/5KR+XO06r/zwKU80vi/3QfmeYCPng==
+ b=nu1ln691+jNmucXCy9zWtZtwAnuzPKvY53/eJAzK5lSmXvC+5tWbbTPGnDEjBM7LSSAis9nme38FuMuLiN/hqWTwfv2p07fa9RJQ9cwCb0I3VZzSEhNNsg8n/gYiobyCvnmaTAP/Maqffw6mF8biMG8Ouos2sqFJWVSb73oMVLHKl+6t37YhYDATNwjtRvqDamleCcbbfd4QOoiDjhC6u0GKKyGlkmGKtN+awoJIhTQsR3NADs5qpEi+4HRefTybSzoUcvu+zJpAFosmB13MAJcHtbIDkAwo1DFjBme8Bv+4o1XgIFlEEfdt2Fyo+Kv8hj1Lu1vvLaBNKmNfXzyGYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FjH6FwOKxXWsPfuVBK3I+mTPwon09ilzXuB0Pmd/rzQ=;
- b=K4DG3ocawqvTYRjt4TMqGWj/pBSgxIdpt2X+37gxy5mJLs3sHagkgppiTmtWS4w0KBn0IMwcPhL0EVgKQwl8u4p3uS+RUxIuXvketIWGB7+z2rCS2MgN0HbWgUCxMYTSLhOup/Yibb1Hyp1lXc9TiR8W0LMJtrKK0M9twLtu/uXjOoyQ2Q/x90pnua9bqJhZykVG2ajwBM9vRDnqmJsjYxN8doEfu35BNic2bvEy2gYa8k0N8CBu4QKrxZeAnnbYs1MX4GIgRA6DPkLATuJR2xd5Pc7ss/awk2z46ePCA1zCmPPLrMGcKgqk2/dkqYGsB3bB1Wcnw+EnE3b7N4oRGg==
+ bh=DSYTQncEvxaJ/Q3OqwribAXn+296nd19usRUBDUXptc=;
+ b=AUVNuvuZGtIj9jbtxbsai2YiNB0neAC2ROtK9uJhLDLkkRhlyj0BO5hSQUuM5NpNanzOdsOiL58QHIX44NHjJxJcnPBATd8EIXzMoY/r7Vzn9g0SF+nuehYk5K7g7IOIXgAsEN56e/Mw7oq7MZ5HCmgNA3BRWB3ZObhdg4Oj6Rbf5ELkO2ZnGPr6bwfxbbDWahSxQ9eQuAbTYnHqigaBWzoUp4WNkU3CDllY3xwtWyV4UwHGHtWjUk8zTyLLXS2Z/EjhG56ezxZ0eEJSlwPWl4kjZwagvNR0NZvOOGnAR0oFN6YCB7lBfL3GZZ1a6jGX9gCoc9X+eC/OhUxX+umqAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FjH6FwOKxXWsPfuVBK3I+mTPwon09ilzXuB0Pmd/rzQ=;
- b=GvAS8ldsSDvTj4b1eFIXq41QZBJ8Kna4YJFTDfcPfRXUVyffthdXqc0bItHxaomBjjtwddsl4NL+vvWr9gwbCtSZtCNUMRoo9fomFVmk27vqnbkWiN7L89DuMXT1IT9oLpK04mfk9K2PYPjcCWRY5BmMESmnvajMwMBydP8BTe4=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com (2603:10b6:3:113::12)
- by DM5PR12MB2566.namprd12.prod.outlook.com (2603:10b6:4:b4::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.20; Tue, 13 Apr
- 2021 22:22:52 +0000
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::576:3b2d:76db:55ab]) by DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::576:3b2d:76db:55ab%3]) with mapi id 15.20.4042.016; Tue, 13 Apr 2021
- 22:22:52 +0000
-Subject: Re: [BUG] VAAPI encoder cause kernel panic if encoded video in 4K
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-References: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
- <159a1ebb-07a1-f50d-5a6c-f4345eb97c3f@amd.com>
- <CABXGCsM7z9Vmsh420MykJ8FzaCiSMWdSGCCvtYG2XrQKaw+SLQ@mail.gmail.com>
-From: Leo Liu <leo.liu@amd.com>
-Message-ID: <f253ff1f-3c5c-c785-1272-e4fe69a366ec@amd.com>
-Date: Tue, 13 Apr 2021 18:22:50 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <CABXGCsM7z9Vmsh420MykJ8FzaCiSMWdSGCCvtYG2XrQKaw+SLQ@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [2607:9880:2088:19:4f60:725f:82b4:ba1f]
-X-ClientProxiedBy: YTOPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::16) To DM5PR12MB1787.namprd12.prod.outlook.com
- (2603:10b6:3:113::12)
+ bh=DSYTQncEvxaJ/Q3OqwribAXn+296nd19usRUBDUXptc=;
+ b=p0TV45oyhgw6jZb7/7u65FFEb0a0s8WToZymdjD35Xt/sSICDkwOBJFRmaxRpbb9vf9EV2Muqt5+vWy6ROZ33eeolf2vwyl4XPs9cNkr8G16GwP12Dt6vzGh87S/TRXjf+goYNNGuexX4aP4xF3bTm2zC7seWHV++NgshORpscA=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) by
+ DM5PR12MB2440.namprd12.prod.outlook.com (2603:10b6:4:b6::39) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4020.17; Wed, 14 Apr 2021 00:06:17 +0000
+Received: from DM6PR12MB2601.namprd12.prod.outlook.com
+ ([fe80::3d2c:5edf:5d51:4101]) by DM6PR12MB2601.namprd12.prod.outlook.com
+ ([fe80::3d2c:5edf:5d51:4101%7]) with mapi id 15.20.4020.022; Wed, 14 Apr 2021
+ 00:06:17 +0000
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2] drm/amd/display: Fix two cursor duplication when using
+ overlay
+Date: Tue, 13 Apr 2021 20:06:04 -0400
+Message-Id: <20210414000604.3273048-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [2607:fea8:56e0:6d60:409d:ee13:4da:2761]
+X-ClientProxiedBy: BN6PR12CA0032.namprd12.prod.outlook.com
+ (2603:10b6:405:70::18) To DM6PR12MB2601.namprd12.prod.outlook.com
+ (2603:10b6:5:45::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:9880:2088:19:4f60:725f:82b4:ba1f]
- (2607:9880:2088:19:4f60:725f:82b4:ba1f) by
- YTOPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::16) with
+Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60:409d:ee13:4da:2761)
+ by BN6PR12CA0032.namprd12.prod.outlook.com (2603:10b6:405:70::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Tue, 13 Apr 2021 22:22:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.17 via Frontend
+ Transport; Wed, 14 Apr 2021 00:06:16 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d5109a67-05ac-4ae8-583c-08d8fecaad92
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2566:
+X-MS-Office365-Filtering-Correlation-Id: 4402536d-43cc-4ce4-4404-08d8fed92006
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2440:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2566D9991E1B74F08BDB091DE54F9@DM5PR12MB2566.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB244059C556D50CAB88AB2054984E9@DM5PR12MB2440.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DSx5K9E60fwevBWMxlNPKjcU/8LdGYhoO+dQFrxbcLK1H4i2Vpg1264cOAA8JW5LR8OIfvJfYgwsjpLehL97LV5SqDppPXAi2JV7uYukc5h40fBtU9LIwpA5Xhwl6Mz9RvPcC45VTEZrxWL9+x+AkO4jj69Mt5TNlGtBzuhsRsHFP9d8vfcLMyeEtkmcch8TSZIsKmzOj9faEF5rEw/ieeOXK++ElirqV/sms+24iW+05A+K6oojHFaw4TBDHowJwhsyAjnivuB2zcjLsSFGs4Asw0ietR13FNlCsH4pKkABX2NWIc7KI++Dx81QZoxZwnJVT2g4xLqs43wo+Y61WB36qWgnMzIh9WNla7zN9XbRvw8qfR7Z+83TPSXfsI5E6EHXL3IZaewdwJhxZsTDJ14xOsNp159cV7GL2sHAX5iJH7t3Vkj7qPrZQvRwb4Yjp2SFhSGLEwq/pb5uQEDL9nyuov5VZKB3m2xX/iR7U7WPP5QpfYLfDIV2dOgYCMaUBLPzizueXTu+OC0vl/y8QqoZ2Vb3KgZ1GkNyag6dipChQulDSCHHx5uaAAortmTAvVvNvpJf6XKNUkUKmEfydOuFreaNC6/Tx+XuSvZA9YY8r7rAA+jkWH6xBtlT+ARdpUWXDIBVpUuiJJh4bY+iMB6/hDm3dGje24yloe9jW0SNrQDJZXBtxqkpnRaKfzZDC46VSPHpRP585u1I4AFhDHlbO9e5jYLuBJWOqUdVfdTNKDpjbOxeUoeqmQ4445QJVr8mFeuHr7RscYSuRpmX8w==
+X-Microsoft-Antispam-Message-Info: IPRYnieB9t12L4eUkCEYW7S9s6/lFJ7t1N/gRwBYBoUPx3tGSvrh571HseZ0lJB7YEkI4CsDBEal2P6E26HFzkqoAyfS4nGbncPV5jCAYSYmrsSk1wV/Q/YGIF6EZP2vTPRFAdJeEWZa2P7T3vmZUV1pNIuGcn92SJJzt/1Gge+yNLolJxFDJJwz/czT7YhK6L4Vr36sQN5iOStxrnrrUcQQNfXY+2IaQMAm/BUNmYDCiwNMmkHKiGd6i/NEV/GhFXX4pD5B/jKOwrsbt5ETudftz67djSdvfYH4+1c4fcnNF+Wg4Be7cAyOnlKvaB5rKGQmWuLUG/ahVZ+HsyGoDOgXDHGLW5IBg0buUy0aCpc5ry95dhFDcjTTGSlWDtamdmUtXcnSt4asGNf9WVtBhJk1PJrkK5SdqOygThQEyZicKtjWdW0E44LEyX/KsNlXwbGClL9I7oOXccU4/4SZwrBL2EJGdCmSdWtNbkr8eDQYb6TkUAQHMD5xOYPNJBm49+JgjOmxtosbl1VQk6K3dah9Tkt9PgiIx+lesmAmvLkgxzQTQILcRfVGsJFNT360V4l1/I8qhxot2H7Pav5SAidqzZjp4H6/cQggf2aLyPg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1787.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39850400004)(346002)(376002)(366004)(396003)(2906002)(8676002)(8936002)(6486002)(16526019)(6916009)(44832011)(31686004)(54906003)(86362001)(2616005)(316002)(52116002)(966005)(478600001)(45080400002)(16799955002)(38100700002)(53546011)(66946007)(5660300002)(186003)(66556008)(36756003)(4326008)(31696002)(66476007)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(66946007)(478600001)(6506007)(66476007)(8936002)(16526019)(186003)(6666004)(66556008)(8676002)(52116002)(1076003)(86362001)(6916009)(5660300002)(2616005)(316002)(54906003)(38100700002)(4326008)(6486002)(36756003)(6512007)(83380400001)(2906002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UnkrM1JML1dHZldIbkF0OENBeGVSaVY2STB4V01IcXpTaGNXS2hZS09lY1ho?=
- =?utf-8?B?MGwwNDBPNFZDYlAzZzM1TkNFS1NTYW4xQUJUZzdzaFh0cWUzTkVuaU15eXli?=
- =?utf-8?B?NTJhUGNrUmo5WHdwUzg1YmZTZ29kWk1VTWFuMlFObnZoanlzZWhnOGtQQUpU?=
- =?utf-8?B?VGVBRmJ0VmVwM3VoNktZK3BOTm1MWldFOHU1Q1llWGxwOUlaQzBmTkpRSVpa?=
- =?utf-8?B?My85WG1vVDQ1NXBMUWl3YmtEa3VzL2ZLTXl4Um9ER2lVL3U3bThnQmhkZDl1?=
- =?utf-8?B?dG9iVlAxSmYrMnIxZG1hS05BWlRHQnJ1WGRrdHVaMzN6RVRhMlhoSGhla0Y1?=
- =?utf-8?B?SXZOTzhhalZ0am1XV0dCcE5oWldRMHAxY25jN3U0eGtqTWpmWjlhbytidDh4?=
- =?utf-8?B?Q3A2cy9ONnRxYlVuWlZpbThRd1ZrT1ZYSHo2SFRkaEdCQnREV0xPS0NKZjVC?=
- =?utf-8?B?N1ROMUEwYUhxY0tJZ3FvU3kzTHl2amgrTUYrT2x3aWRlTDdkK0hEWDNtY0lV?=
- =?utf-8?B?Z2VwcFdnV1J0WTlNbjJpU3A0bjlkL29EclNoYS9CdjJhOHZPenV4UzdiUEhT?=
- =?utf-8?B?WjZXTGlGUTJ0R0pQVDN2N1ZpZXhMVWJEa3l2dnRZcGJObU0vbzBNSHh1TmEw?=
- =?utf-8?B?Zytzb0VtTHVrRGQ3bkw4N0hFY0ZFQVRLMjVDenZGaTdaVElsNi9yWG04Q1dw?=
- =?utf-8?B?VDFNc0owMUozRHI5bk8yMEZLQTBRYTEyTmd1SnhIMWJGVjBGallTbVYxQUk1?=
- =?utf-8?B?Y1VuL3RQT3orRHR0NHhBd1F2eEY4VFZ6SW40R3g1ZG1SVnJtWXR0d092S1Rj?=
- =?utf-8?B?dGVsak5rYTJ2dXJYOCtuWUZyVjl3ZXcyZjhIbnNHUis5RmVQUWkzMnpaU2dk?=
- =?utf-8?B?ZzFLNUhqb3RMc3JMNW9hWlQzZjUvL0Y1dURCZnlUWmpyeDV6K1F0ZWtVWXYz?=
- =?utf-8?B?V1JreWdUN3B5aXZLQjgvTWF5NTdlUUkzZXAxZ1dhWXM4V2JTcm9yQ2pHNjlR?=
- =?utf-8?B?cWZhSi9vMTRYdndsUExJZDgzUmxGMTFLMnRBNFNDM3NkSzFSY3Z2a2VyR1c0?=
- =?utf-8?B?YUViemVGd2dOSXU1bitIOHRSQ0o4eWVKTWtyaEswMW9xbmdrbjd4cmhRMElO?=
- =?utf-8?B?a3ZBbHRUSjFNc0k5azEzd2ZVTGpNVGVydEF0Ty9xRUM3NHJrS1NvMXBvWHJK?=
- =?utf-8?B?V1c1Y29YdHh2c1VzSmM1ZkRTUm53L3lpdkczTC9kSHVDZGliSjVZTnlxSlB2?=
- =?utf-8?B?a2RZN1VVTjVNbUErS3JyaDl4NTN4eldqaU0zTUhDNlZ6TlMwU0ZBNzh4dGdk?=
- =?utf-8?B?SmU4T2xnQ0ZBWW1kVVdzeXVoZlF5SmpOM2s0RDN2dmNhdVRjenhoSEVVVDlR?=
- =?utf-8?B?dmxOc3hTeUR5aVdIem9HQ1RVelNDWDhtMFB6KzlYdyttVlppYSsxc0pWbC9E?=
- =?utf-8?B?WHhiVEYvYmhXek1HL1g1K3V1ak03dlJrN3krR0wyY0JNcURpcEN4ZVpxcUhX?=
- =?utf-8?B?TUd0Qy94Nk9tVlh3ZWZEWEkxbFNyang3Q2k0YlJZa3NDQUQ5RTZzbmhxQTRx?=
- =?utf-8?B?cHFNMW9JN2NDRVd0b3FnUDFwMkx6eDdYWFRNMklBNEo1OFlReGUyTDFzTy85?=
- =?utf-8?B?Q2FRSHFmcGIyR2EzdkhCd0RNQ3lvSXpnSWlMZjEvNEYya1BqM0RyTFJ2Zm1B?=
- =?utf-8?B?VW5MMG9nMVRTZ1YzT25nNVpLV3RzSkIvbGhMV1oyTWtlSjcwOE9hV1ZSczRK?=
- =?utf-8?B?RmJOSjlVbnRkRVhnTW85UVRMbHVtS2VzbGd5UktPYURzRzBHSUFoV0pkMzlI?=
- =?utf-8?B?S3VXYlNGdGUwR3J1eWN0L1BWTW9yYk1COWVuNzFaTEk4VnQyUDJ0ZDdicGkv?=
- =?utf-8?Q?RQ5N4CFCLxUyp?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?8DxYh2C0eGqk/hOqgfwKsvZehRmUnkkoK0M2HBk/XYJj9WRJyOt9o8t8wFIt?=
+ =?us-ascii?Q?BDeweO9beHhJ6FFarWs9tKxse2FIRlGcFLHCVcfyIw+9Pd+g/BtVGUXd08S7?=
+ =?us-ascii?Q?95tbskkethF8ujr1uyqVr1otYWt2C0SHTWm2OGHnSuFRIiKqsnd7My8+Ehsd?=
+ =?us-ascii?Q?S8S7cY1REMXrRGABy3G3MSBQyiS9pSj0KiCkQXtQbFfZOcBJ95z49xDq/dVf?=
+ =?us-ascii?Q?eTxHryxZ52zg3/6KbCpvRT4+95tfC0kbCvgokdbA3DxFAhuxa3hhEW68pzuT?=
+ =?us-ascii?Q?+gCy506j4cVpZmVMNO99cxnstqRXfYbAB8hC/djppEbo9g60HEqK0d6YSz1z?=
+ =?us-ascii?Q?BWAFgmuVqnVg6d5Qa0kRWCf4oSmWbfTPxkSVuNJ+V2bMkKHs2nagV2GAiMP9?=
+ =?us-ascii?Q?mZfPO1icOgYkzLX5ziC5esRoFIKYFqAZ8vrjDqfW/aI4OKAZOuXQzIMURQU+?=
+ =?us-ascii?Q?/Gb1zDu9uNrzsZGBdMli5FdyegRvZTKPwg16jut0NK9Y2LEsqtYkvLj936M4?=
+ =?us-ascii?Q?yl9quQmBc/mR1YZjJe6qW907soQw2okUhWYR8PhqGlmzOKQp7E9hov5sgGat?=
+ =?us-ascii?Q?HdJ/MYsjovMO4nav9X+GprQLk5dMRAsOTF2opiZdd86lv0dIGlhi/JivgU5F?=
+ =?us-ascii?Q?Suff6b86blf8wOWmN5ChEE7U/jFXd33iqblAZ+RRG920uweODj1xhevahayf?=
+ =?us-ascii?Q?X9pu8kG2vbQTJaUyw9Xu9C6vHDaaFUG2IkMW3JoSkjdhCYKPG9wK+DtdizKK?=
+ =?us-ascii?Q?HIJg7uohs22WrpldxdmMyHSgOatrA3VZY7gSnPn2U3qOX63MIegM9CQ8+xme?=
+ =?us-ascii?Q?BWroia67PWMDO73GHrW/FYtJkmX59QX8lpnlKfDEIRQ0dvbxgSAta/zdVeQ5?=
+ =?us-ascii?Q?G+E9cxxtq1ewCINEelvNbHE1um/S8t8OoEd2zpFiBPrBYV68eeGubSgU5Y84?=
+ =?us-ascii?Q?Vu+vQlSrXX5QOsqSDVawcuQmYdleg9KkJwNPYdC0SCGdehr9X2ACYXsqTS5v?=
+ =?us-ascii?Q?TXBDBVzSi+PMs+7jXiBzLnrxS5X6ZPuYrSp7Jj7rr5cLeb+mpQTlZHvWl/pD?=
+ =?us-ascii?Q?fHrRiptfNURuYZQnyOh9uSyi61BMhRdhZet9yKU3vIl2MmwPu2pOVcGPYgFA?=
+ =?us-ascii?Q?EjllYSkbzGUrvTYheGyaJdojKqxo88upOhOb38xDe4/PBgT7BP1e7VdidvZ1?=
+ =?us-ascii?Q?TSIxBprG+K64zsTelzoU6IPm08ahs8qvcJiTSwjoy+UM3wR9hc88RyuPar9D?=
+ =?us-ascii?Q?4bVxIY9ZNqB1dRrT+zNttOQEZzQLiw+YcBbcmrVGSuzdhUumvgKX5dR9lr43?=
+ =?us-ascii?Q?HDEbEDUXJnPzHPOIfmBPLlYHh7VKgS0ZbOS3Mm49ANrNB1kv/nlnlZYffL15?=
+ =?us-ascii?Q?XZuhJJGdHKWynIbfXVcVLGjqgm5/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5109a67-05ac-4ae8-583c-08d8fecaad92
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1787.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4402536d-43cc-4ce4-4404-08d8fed92006
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2021 22:22:52.3832 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 00:06:17.3274 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Lvv49d8VVUWlw4s0AmzWV70NV0uPfoCw6Dn5oXu29vlbZ5TLebdbXPBE3DCZh3ox
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2566
+X-MS-Exchange-CrossTenant-UserPrincipalName: kax25C5EufVARREd8vNQGuYlTdlNicZgxKpuGFXDH2FyqeLwAKtW/J9dQD9VA0Ydl9TJpuuL7GuZiLg0q7sXCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,46 +126,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Sean Paul <seanpaul@chromium.org>, Hersen Wu <hersenxs.wu@amd.com>,
+ Harry Wentland <Harry.Wentland@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Louis Li <Ching-shih.Li@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Our driver supports overlay planes, and as expected, some userspace
+compositor takes advantage of these features. If the userspace is not
+enabling the cursor, they can use multiple planes as they please.
+Nevertheless, we start to have constraints when userspace tries to
+enable hardware cursor with various planes. Basically, we cannot draw
+the cursor at the same size and position on two separated pipes since it
+uses extra bandwidth and DML only run with one cursor.
 
-On 2021-04-13 5:24 p.m., Mikhail Gavrilov wrote:
-> On Tue, 13 Apr 2021 at 04:55, Leo Liu <leo.liu@amd.com> wrote:
->>> It curious why ffmpeg does not cause such issues.
->>> For example such command not cause kernel panic:
->>> $ ffmpeg -f x11grab -framerate 60 -video_size 3840x2160 -i :0.0 -vf
->>> 'format=nv12,hwupload' -vaapi_device /dev/dri/renderD128 -vcodec
->>> h264_vaapi output3.mp4
->> What command are you using to see the issue or how can the issue be reproduced?
-> $ mpv output4.mp4
+For those reasons, when we enable hardware cursor and multiple planes,
+our driver should accept variations like the ones described below:
 
-This is decode command line, are you seeing issue with encode or 
-decode?, you also said `ffmpeg -f x11grab -framerate 60 -video_size 
-3840x2160 -i :0.0 -vf 'format=nv12,hwupload' -vaapi_device 
-/dev/dri/renderD128 -vcodec h264_vaapi output3.mp4` doesn't cause such 
-issue, right? What command line can cause the issue then?
+  +-------------+   +--------------+
+  | +---------+ |   |              |
+  | |Primary  | |   | Primary      |
+  | |         | |   | Overlay      |
+  | +---------+ |   |              |
+  |Overlay      |   |              |
+  +-------------+   +--------------+
 
+In this scenario, we can have the desktop UI in the overlay and some
+other framebuffer attached to the primary plane (e.g., video). However,
+userspace needs to obey some rules and avoid scenarios like the ones
+described below (when enabling hw cursor):
 
->
-> And of course, I know how it should works because when I encode video
-> with CPU encoder (libx264) all fine.
-> $ ffmpeg -f x11grab -framerate 60 -video_size 3840x2160 -i :0.0
-> -vcodec libx264 output3.mp4
->
->> Please file a freedesktop gitlab issue, so we can keep track of it.
-> Here? https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues&amp;data=04%7C01%7Cleo.liu%40amd.com%7C3cd466c3286e4303f2b108d8fec2833a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637539458675499474%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=GbiA7%2FrkiLwh2E9js9tGhWkZyr%2B9TY57H6G6cL7ex8s%3D&amp;reserved=0
+                                      +--------+
+                                      |Overlay |
+ +-------------+    +-----+-------+ +-|        |--+
+ | +--------+  | +--------+       | | +--------+  |
+ | |Overlay |  | |Overlay |       | |             |
+ | |        |  | |        |       | |             |
+ | +--------+  | +--------+       | |             |
+ | Primary     |    | Primary     | | Primary     |
+ +-------------+    +-------------+ +-------------+
 
-Yes.
+ +-------------+   +-------------+
+ |     +--------+  |  Primary    |
+ |     |Overlay |  |             |
+ |     |        |  |             |
+ |     +--------+  | +--------+  |
+ | Primary     |   | |Overlay |  |
+ +-------------+   +-|        |--+
+                     +--------+
 
->
-> Also, I found that other users face the same problem.
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbbs.archlinux.org%2Fviewtopic.php%3Fid%3D261965&amp;data=04%7C01%7Cleo.liu%40amd.com%7C3cd466c3286e4303f2b108d8fec2833a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637539458675499474%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=YNnk%2BZnPS0DVtuDfttnTThYfHOvmP38%2BwNpNZ5voLuk%3D&amp;reserved=0
->
+If the userspace violates some of the above scenarios, our driver needs
+to reject the commit; otherwise, we can have unexpected behavior. Since
+we don't have a proper driver validation for the above case, we can see
+some problems like a duplicate cursor in applications that use multiple
+planes. This commit fixes the cursor issue and others by adding adequate
+verification for multiple planes.
+
+Change since V1 (Harry and Sean):
+- Remove cursor verification from the equation.
+
+Cc: Louis Li <Ching-shih.Li@amd.com>
+Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Harry Wentland <Harry.Wentland@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Sean Paul <seanpaul@chromium.org>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 51 +++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e29cb2e956db..ac1408d52eff 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9946,6 +9946,53 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
+ }
+ #endif
+ 
++static int validate_overlay(struct drm_atomic_state *state)
++{
++	int i;
++	struct drm_plane *plane;
++	struct drm_plane_state *old_plane_state, *new_plane_state;
++	struct drm_plane_state *primary_state, *overlay_state = NULL;
++
++	/* Check if primary plane is contained inside overlay */
++	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
++		if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
++			if (drm_atomic_plane_disabling(plane->state, new_plane_state))
++				return 0;
++
++			overlay_state = new_plane_state;
++			continue;
++		}
++	}
++
++	/* check if we're making changes to the overlay plane */
++	if (!overlay_state)
++		return 0;
++
++	/* check if overlay plane is enabled */
++	if (!overlay_state->crtc)
++		return 0;
++
++	/* find the primary plane for the CRTC that the overlay is enabled on */
++	primary_state = drm_atomic_get_plane_state(state, overlay_state->crtc->primary);
++	if (IS_ERR(primary_state))
++		return PTR_ERR(primary_state);
++
++	/* check if primary plane is enabled */
++	if (!primary_state->crtc)
++		return 0;
++
++	/* Perform the bounds check to ensure the overlay plane covers the primary */
++	if (primary_state->crtc_x < overlay_state->crtc_x ||
++	    primary_state->crtc_y < overlay_state->crtc_y ||
++	    primary_state->crtc_x + primary_state->crtc_w > overlay_state->crtc_x + overlay_state->crtc_w ||
++	    primary_state->crtc_y + primary_state->crtc_h > overlay_state->crtc_y + overlay_state->crtc_h) {
++		DRM_DEBUG_ATOMIC("Overlay plane is enabled with hardware cursor but does not fully cover primary plane\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /**
+  * amdgpu_dm_atomic_check() - Atomic check implementation for AMDgpu DM.
+  * @dev: The DRM device
+@@ -10120,6 +10167,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			goto fail;
+ 	}
+ 
++	ret = validate_overlay(state);
++	if (ret)
++		goto fail;
++
+ 	/* Add new/modified planes */
+ 	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
+ 		ret = dm_update_plane_state(dc, state, plane,
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
