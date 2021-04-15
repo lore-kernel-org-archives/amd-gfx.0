@@ -2,65 +2,135 @@ Return-Path: <SRS0=drzA=JM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08438C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:25:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1509DC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:38:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34BD861249
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34BD861249
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	by mail.kernel.org (Postfix) with ESMTPS id ACCB7611CD
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:38:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACCB7611CD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6DA6EA39;
-	Thu, 15 Apr 2021 11:25:55 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D3136EA39
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 11:25:55 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id p8so2463317iol.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 04:25:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oHOJlzbzbGhC2F6nRwyEe4wfHAomSrzm5Iwa2Cpb7mU=;
- b=beioRa2T8BLBQIRY9h1p4dlbdq0aBEfR4yYFF9vSVKUtzfrnRl2+JvDZ924lTebvcC
- J9jDPwIoNYTwI6hFGhLDZVNBU9HHWcu3NO6WkTMY2FsKlWmbKVy0yzjCqygM2laL0x8G
- 9EZ1HH35DPoSQpKh7g4HGRvi7TzKp1EFs1nJ24lZODhQI5TBpa0VjUBP9OZncSXt25RG
- 0dj29nYXDCdWV1AkUXqVsPlngO2RWD/juJ9hKsAfUchSBZbN4u9oYZvCHgGP5x3n2qZJ
- ht6spx9lJ2cM5b9aNIjm0bMv2cfjbvs/6UxIYi6J0HuatbaN/al776kZLiuKyk2kUHQn
- 9Ivg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oHOJlzbzbGhC2F6nRwyEe4wfHAomSrzm5Iwa2Cpb7mU=;
- b=BrFp4qOjdE45mPdF7+TkGjYXobFXZBykat8Q0OLubg9L7L9iaIcynYSYNjQQ7daeEY
- Nu+BsMTMkNoVlm3bqHHpdnvaJHKUL04ql3g2bkVPEdAsq3Wf08UTtNhI4zV0pu+K46QN
- 7gsEQKWd1UAeTW7uP2EmwRH4dQb33UysbQwhNFzwQ9d6/5aZWJ9vNYP4af7jtEP7q7Ly
- 1BCc2aDmMfXeqnugABwnwsekU98pTetSw6RwyPKMzbAj6lKJZg4juzbC3UJBy3mhly6z
- Ze7FQvB9ksWgpGH5IES4N1fkKy7WL3HZkZXxzCnB16WNWXEDfkju8voDrz3Py2vYr4EA
- l+Fg==
-X-Gm-Message-State: AOAM532XKedftOFFAZrBujaNWDeCJX/AIymMqB8cRJsGqe0urGCzNyis
- AQ6Ou75UUuGC63BiXOAT8VKUNzaekCt64qOaNNxaAQ==
-X-Google-Smtp-Source: ABdhPJwxIPZsbJxTwSjUwfQbYZbOf3esIR6PGiAI6nFj5Tk9L8P7b1iV6H6wr6mmd8lqnKqVVspPpbxHahECABa/deQ=
-X-Received: by 2002:a05:6638:238c:: with SMTP id
- q12mr2454425jat.114.1618485954763; 
- Thu, 15 Apr 2021 04:25:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 435746EA42;
+	Thu, 15 Apr 2021 11:38:37 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760047.outbound.protection.outlook.com [40.107.76.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70D0C6EA42;
+ Thu, 15 Apr 2021 11:38:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DGX1DoCVJWKBmT2nznE3WYaluvGFxjpEbjuv+3IlaTX7cmFw+kI1oZdOxEEi1PsXfeOTc/GhrUd1pEWoKjURYzMO9J8Yj0TRSmX1ZOYNgXoBMG+dvhBMxBEM5yHai1VDqcj52a2RqQwardCMPYPTiZ2wKu1SdVrtenSjLStjEIRk3lqVVM0a2BGlvTx837Ya0RgDxoY8xmEDZl32/dBeBSa93cPVk1hygshdLomvjXs1G3spfthjJKrywlkHsQdTugmIPgkg5QX3KZh4ia3bk4xuYqhCtiHlS7a5A03aJGKbhaOiTP/09xvZhB7SHaLABBy/ekr8hYVET/2yer6G3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RBEnKbdcuBw9he11Fj/YxAsbVwhtDxaiuETw9QBjIW8=;
+ b=LavT6WbIVNHQ5hhh7K4RIsJgyf8XYSboFEskbSQUFT0GNEckcZg+T+TX7vI0E76r3yWFCLB31/ML/k6/OeeexZVBV3ao3OeoztMu8cL7uy5vcawzDV9ghzFXHRcvfvGuVmE6wAmFxwdgs4wRqZ4fnQlvlL9S7KU1ElcyE3xt1cvF526Z/IfpERVtFl7RTS4BX64rSSsTDwoDqWxFnFXrKIhkEMKF8oTkAsncPhELR+Nuv2ICgOT+ImchRQnHaNknw/fm7VaM0n1ByZPz2PLqQJe1/dPPDVZ3FvRUcFyRUqCoLuGcG6js1fusY3OjG/yx0K0VPqb5h7OAWteRv5xtSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RBEnKbdcuBw9he11Fj/YxAsbVwhtDxaiuETw9QBjIW8=;
+ b=P/BooAIilvuQFIZH4ye9xY6RW5SC2fc/mCUTBeN8SZUWgXZBPuU3YMW/L5ro8IoTzPq91j9oj3mCJ/6clx0k/xgung0Ufc/Ob6yQU7LyaUGyQHIcDCoQ7FQ5MRJ2QD0yKk3t66Ciln7GRzNPBslzRII9NUf/aM+1qTztY+/I05s=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4782.namprd12.prod.outlook.com (2603:10b6:208:a3::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Thu, 15 Apr
+ 2021 11:38:34 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::6d4d:4674:1cf6:8d34%6]) with mapi id 15.20.4020.025; Thu, 15 Apr 2021
+ 11:38:34 +0000
+Subject: Re: [PATCH v2 2/7] drm/amdgpu: Implement mmap as GEM object function
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
+ linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
+ shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
+ Felix.Kuehling@amd.com, nirmoy.das@amd.com
+References: <20210415101740.21847-1-tzimmermann@suse.de>
+ <20210415101740.21847-3-tzimmermann@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <a62230ca-a800-20b9-01bb-c74dd19ef412@amd.com>
+Date: Thu, 15 Apr 2021 13:38:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <20210415101740.21847-3-tzimmermann@suse.de>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:7291:d81e:8eb2:63ca]
+X-ClientProxiedBy: PR0P264CA0284.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:1::32) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
-References: <20210414233533.24012-1-qingqing.zhuo@amd.com>
-In-Reply-To: <20210414233533.24012-1-qingqing.zhuo@amd.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Thu, 15 Apr 2021 13:25:35 +0200
-Message-ID: <CAP+8YyHU8GtCzFk71h1qjQWKYQpMwrA=s88dw2Fu3_0LXSMEWA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Update modifier list for gfx10_3
-To: Qingqing Zhuo <qingqing.zhuo@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:7291:d81e:8eb2:63ca]
+ (2a02:908:1252:fb60:7291:d81e:8eb2:63ca) by
+ PR0P264CA0284.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4042.16 via Frontend Transport; Thu, 15 Apr 2021 11:38:31 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2c2a5de4-5aa3-477c-5ed9-08d90002fff2
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4782:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4782F6F12CCF3B5189726D68834D9@MN2PR12MB4782.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kBMRcyngrnTxQA8bkngT+X4Bd1E0LC/8ODMebsuPpFHjOb+oA9GQz6f2hY+rkHcrENLbwIOhUfMsz1+qL+8Tj3tSy6ATKzPvFAH91g0CTDZxcOdKWV+v9SFraPXjPDz9q5JNeUhwtGrLSm9+/Mtlx4vM64KWqg4zIIoWYO3mX0VsUVmvaDjLbdRUUBA6SB+9vn3KcqHD6+53P0qtfYOuiNb4huvg41XbbxFNqcyyfTHyz76aJ7l/DEhYUjXCTRfFUhBR/wmUfIgEd9XNpkzp16aaXGBQEBVfHQeoOJloWGobdgiEc3mDNAe8UlBl6RwjQ7iHWX8rhYRnmQpk3xJMGRjxrf+Dd9rfbrr9mJ9L2lorYsl/ljrUSwxBfFxTI/ZStZ6a0M05xPv2WlluRlYxWbW03JvIItNw7MPNIyQRI+8I3YgO5GxvIV1SC36fgkOgrTdeUjRkmLSysjhQYbZqDNmjXo2LGrtL6TCepCBYLc6ZFZCIHk57MONQwzU7ISKgzdxi0/DJVDRXU2AeiESL2tAX9C+GuRYwYlHyZ3ruodlZiGtVzbuXP4smtlgBwv6w5RldXVIJKoK4B3JuvWRCmcDOsJIXApigncPFu/rDyalFF+EpE3btpGgR+3K/8Y5GgxiPgmjIKoiHczBpP0CntkjUm3W1zTh1qJ8TEeVpLED7cP6PtMj9pZc/pX6RG56kDczNfkiuDBuCBnObh/wTuQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(39860400002)(396003)(366004)(376002)(83380400001)(31686004)(86362001)(4326008)(2906002)(2616005)(7416002)(5660300002)(52116002)(8936002)(921005)(6666004)(8676002)(31696002)(6636002)(66946007)(38100700002)(6486002)(316002)(66476007)(66556008)(478600001)(36756003)(186003)(16526019)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Qm1YdmpnM3QvdXJnanVsZzMwWUVSU0JTMDVIRzZZYWp0RE1BRDkrdDFGT3BV?=
+ =?utf-8?B?a04vTjdGeEhWa1N6N0kxdUY3YWF6ZGNUWkZnczVlWDIya1ZHOUtsTnFBOGM5?=
+ =?utf-8?B?NTVrWXMxRGN5K0xmTTRPSU9oVjFGTTc0OGRvWHZhNmZtdm5sRDFpRDFQVi9U?=
+ =?utf-8?B?NDkrcStibUREK2VuZWdFa0FwbHVuK0VqLzdnQnk5YnprOEV0dzdZKzVmbCsz?=
+ =?utf-8?B?dWhXVFdXZjVTRndhQkFFMGVNc2Z4dlNFU01TYmYybGFlb01GL29HU3NqdWNP?=
+ =?utf-8?B?RmVXelBCalpwQjRvWGZESzVsUFR5Q3VyU3JleThoVFRjb3Vxd1pvc25uNXpq?=
+ =?utf-8?B?SzlZMXBqRjNiSVB0RXYxWFlhUklXaERnQ29QNDBocWhEWEtucm9uU3RwdmRy?=
+ =?utf-8?B?V2c0VXA0TkdDUE9Zc1pSMXgraVBlUUJPZE80aVhQbzJNLzQvLzgwejl5QUJ1?=
+ =?utf-8?B?dGpxbWtFWDNYYzgxTTlweE1BWjRTbG1IUWFpa0JMVzd4ZVF5NStVa2NuNnBo?=
+ =?utf-8?B?SnJ2cWNxSlJvVENGdWVPbksrYk5yRllPNEVNVlprZjBVWjlzaXJFS0NjUENt?=
+ =?utf-8?B?SEVHR3ZkNm5adkMrL2tyTVlDUzh4MXpoL1hESWtHVmloZ0lDaWVUTmxYK2o4?=
+ =?utf-8?B?ellQQkJodTY5Nk1rVFc1ZHdRTEdYM0ZOS2RqOVExV3NKTTdONVVWMWhLOEhB?=
+ =?utf-8?B?TVpmYTBwNkxaOWJ6YW1PMzMrSktnNHZrNDUwcTdnV2wxcGtoTzEvM0l6UVFR?=
+ =?utf-8?B?c1Q5NFY1MzVMTFFBcGF6aDJzVlNBUURZczFLMks3QVpIWUExci9tUENMemV1?=
+ =?utf-8?B?bElKdk1SZUFVMnV2b3AyTEFuTnFIU0pRaU40bHpLTzJRUGhRd0VJUy83UHhZ?=
+ =?utf-8?B?aEdjYWVFMXJVTVFYWnFJdWxDUDIxOGFYQXZKczVaMmNZOStQUEZobEVrVnFV?=
+ =?utf-8?B?Wi9QalQyakpzRjBSWEkyRVFqSTVhbEN1bUpHYlcxTFBER0QzOStidGJTVzB2?=
+ =?utf-8?B?RWx0aGgxWEVvUm9kVlYzY1BiWE5mT3dDcTkrdGJiUDNsQ1lYbmFwQURCK0Ey?=
+ =?utf-8?B?T2kycmV1RE5VL3R6TUdIemtxZHY1V2YzQXJuMzdQcURuVDMxMnBjYW56MVhJ?=
+ =?utf-8?B?Ui9IdG5KdXVGUUxvRkpsalJKREJrZzVoMWppMUVoM0ZYakV4MnBMV3RpYnpV?=
+ =?utf-8?B?bTNvWWpBajUzTTI5UWpiRi8zMjdhSmV2OFk4K0xaREdYSk1teWJLeDMwSGJy?=
+ =?utf-8?B?cDJwbUJTcy95RmpOdUFzUTA5NFVjdVlRRDFTa202enJ3MEpqNXhrU3U0K1Nw?=
+ =?utf-8?B?RWxqUVVPMFpuT0l5ejJ6ZFVubVo4Z2tqeGdjOTdqUlJHYjl4THl5clV4R1dX?=
+ =?utf-8?B?M2YwY0VBWURubEU4Wjd2TDQyeW1kd0tpallJTERPUzFwNXpDYUQvWDJad0tU?=
+ =?utf-8?B?WW91NnJIQVlZdFcwSUFmYThqRW8vOUtDbmU5VGJjNjh4T2h6clE5aTRRV1Rn?=
+ =?utf-8?B?WFVyV2FVV0YxTTg2S0o1NkZoSFJnMzNoNE45YzIwcGNjK1lEaGFiZVY2WFpQ?=
+ =?utf-8?B?Y1laSUFjZWVvWnlranpSNVlqT1hSbE0zS1ltcWE1RkRCTkJBVGpsTVZCYmFu?=
+ =?utf-8?B?UjdaK2hEaW9wb0RxbmRYVSt1Y3VjSmNJYmw3NVR6RkFaUkg2WllTZDNuUUVB?=
+ =?utf-8?B?MlcrQ1dOYUdhSmZabmxkMWxWMFc5N1JjalJjd1JRcWZVc3p2TFlIVk8vT0lX?=
+ =?utf-8?B?eVN2eGcwSW90NnZFNVRZcngyVkhTdjlwOVpzcnNRQzl3dWoxR0ZhY2RWYWtU?=
+ =?utf-8?B?YXdwNzBEYU9NNzl4OGkzMmF6SFdibDV5bFVXdC82WnRPaWlBK0k3MGE3TnJR?=
+ =?utf-8?Q?7qYLId2VOBmP3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c2a5de4-5aa3-477c-5ed9-08d90002fff2
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 11:38:34.1799 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GIFmNYAoKpOyAloP1s+VdT5Gkz9xLkoQbrrXL52nJWdCBc6yxVw11ZNg+PBT5Dgk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,224 +142,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, daniel.wheeler@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
-Content-Type: multipart/mixed; boundary="===============1063931235=="
+Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1063931235==
-Content-Type: multipart/alternative; boundary="000000000000686de005c0012000"
+Am 15.04.21 um 12:17 schrieb Thomas Zimmermann:
+> Moving the driver-specific mmap code into a GEM object function allows
+> for using DRM helpers for various mmap callbacks.
+>
+> This change resolves several inconsistencies between regular mmap and
+> prime-based mmap. The vm_ops field in vma is now set for all mmap'ed
+> areas. Previously it way only set for regular mmap calls, prime-based
+> mmap used TTM's default vm_ops. The function amdgpu_verify_access() is
+> no longer being called and therefore removed by this patch.
+>
+> As a side effect, amdgpu_ttm_vm_ops and amdgpu_ttm_fault() are now
+> implemented in amdgpu's GEM code.
+>
+> v2:
+> 	* rename amdgpu_ttm_vm_ops and amdgpu_ttm_fault() to
+> 	  amdgpu_gem_vm_ops and amdgpu_gem_fault() (Christian)
+> 	* the check for kfd_bo has meanwhile been removed
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
---000000000000686de005c0012000
-Content-Type: text/plain; charset="UTF-8"
+[SNIP]
+> +static int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+> +{
 
-On Thu, Apr 15, 2021 at 1:35 AM Qingqing Zhuo <qingqing.zhuo@amd.com> wrote:
+Mhm, just double checking this function is now a core GEM function and 
+not prime specific?
 
-> [Why]
-> Current list only includes modifiers where DCC_MAX_COMPRESSED_BLOCK
-> is set to AMD_FMT_MOD_DCC_BLOCK_128B, while AMD_FMT_MOD_DCC_BLOCK_64B
-> is also supported and used by userspace.
->
-> [How]
-> Add AMD_FMT_MOD_DCC_BLOCK_64B to modifiers with DCC supported.
->
-> Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++++++++++++++
->  1 file changed, 23 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e29cb2e956db..c3cbc3d298e7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4535,6 +4535,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device
-> *adev,
->         int pipe_xor_bits =
-> ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
->         int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
->
-> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> +                   AMD_FMT_MOD_SET(TILE_VERSION,
-> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> +                   AMD_FMT_MOD_SET(DCC, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
-> AMD_FMT_MOD_DCC_BLOCK_64B));
->
+If yes maybe drop the _prime part.
 
-Thanks for finding this issue. Looking at it it looks to me like the
-original entries are mistaken. Can we just change the
-DCC_MAX_COMPRESSED_BLOCK in the already existing DCC entries? Looks like
-Mesa always uses the AMD_FMT_MOD_DCC_BLOCK_64B anyway, and I don't think
-DCC_INDEPENDENT_64B=1 + DCC_MAX_COMPRESSED_BLOCK=AMD_FMT_MOD_DCC_BLOCK_128B
-makes sense.
-
-+
->         add_modifier(mods, size, capacity, AMD_FMT_MOD |
->                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
->                     AMD_FMT_MOD_SET(TILE_VERSION,
-> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> @@ -4546,6 +4557,18 @@ add_gfx10_3_modifiers(const struct amdgpu_device
-> *adev,
->                     AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
->                     AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
-> AMD_FMT_MOD_DCC_BLOCK_128B));
->
-> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> +                   AMD_FMT_MOD_SET(TILE_VERSION,
-> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> +                   AMD_FMT_MOD_SET(DCC, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
-> AMD_FMT_MOD_DCC_BLOCK_64B));
+> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> +	unsigned long asize = amdgpu_bo_size(bo);
 > +
->         add_modifier(mods, size, capacity, AMD_FMT_MOD |
->                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
->                     AMD_FMT_MOD_SET(TILE_VERSION,
-> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> --
-> 2.17.1
->
->
+> +	if (!vma->vm_file)
+> +		return -ENODEV;
+> +
+> +	if (!adev)
+> +		return -ENODEV;
+> +
+> +	/* Check for valid size. */
+> +	if (asize < vma->vm_end - vma->vm_start)
+> +		return -EINVAL;
 
---000000000000686de005c0012000
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Shouldn't we have that check in the common code?
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 15, 2021 at 1:35 AM Qingq=
-ing Zhuo &lt;<a href=3D"mailto:qingqing.zhuo@amd.com">qingqing.zhuo@amd.com=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-[Why]<br>
-Current list only includes modifiers where DCC_MAX_COMPRESSED_BLOCK<br>
-is set to AMD_FMT_MOD_DCC_BLOCK_128B, while AMD_FMT_MOD_DCC_BLOCK_64B<br>
-is also supported and used by userspace.<br>
-<br>
-[How]<br>
-Add AMD_FMT_MOD_DCC_BLOCK_64B to modifiers with DCC supported.<br>
-<br>
-Signed-off-by: Qingqing Zhuo &lt;<a href=3D"mailto:qingqing.zhuo@amd.com" t=
-arget=3D"_blank">qingqing.zhuo@amd.com</a>&gt;<br>
----<br>
-=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++++++++++=
-+<br>
-=C2=A01 file changed, 23 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index e29cb2e956db..c3cbc3d298e7 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -4535,6 +4535,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
-ev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int pipe_xor_bits =3D ilog2(adev-&gt;gfx.config=
-.gb_addr_config_fields.num_pipes);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int pkrs =3D ilog2(adev-&gt;gfx.config.gb_addr_=
-config_fields.num_pkrs);<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
-|<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(PACKERS, pkrs) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_INDEPENDENT_64B, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br></bloc=
-kquote><div><br></div><div>Thanks for finding this issue. Looking at it it =
-looks to me like the original entries are mistaken. Can we just change the=
-=C2=A0 DCC_MAX_COMPRESSED_BLOCK in the already existing DCC entries? Looks =
-like Mesa always uses the AMD_FMT_MOD_DCC_BLOCK_64B anyway, and I don&#39;t=
- think DCC_INDEPENDENT_64B=3D1 + DCC_MAX_COMPRESSED_BLOCK=3DAMD_FMT_MOD_DCC=
-_BLOCK_128B makes sense.</div><div><br></div><div> </div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
-|<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
-@@ -4546,6 +4557,18 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
-ev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
-|<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(PACKERS, pkrs) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_RETILE, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_INDEPENDENT_64B, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
-MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
-|<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
-MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
--- <br>
-2.17.1<br>
-<br>
-</blockquote></div></div>
+Apart from that looks good to me.
 
---000000000000686de005c0012000--
+Christian.
 
---===============1063931235==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +
+> +	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
+> +	    (bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+> +		return -EPERM;
+> +	}
+> +
+> +	return drm_gem_ttm_mmap(obj, vma);
+> +}
+> +
+>   static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+>   	.free = amdgpu_gem_object_free,
+>   	.open = amdgpu_gem_object_open,
+> @@ -212,6 +266,8 @@ static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+>   	.export = amdgpu_gem_prime_export,
+>   	.vmap = drm_gem_ttm_vmap,
+>   	.vunmap = drm_gem_ttm_vunmap,
+> +	.mmap = amdgpu_gem_prime_mmap,
+> +	.vm_ops = &amdgpu_gem_vm_ops,
+>   };
+>   
+>   /*
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 1485f33c3cc7..d4083c19402b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -152,25 +152,6 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
+>   	*placement = abo->placement;
+>   }
+>   
+> -/**
+> - * amdgpu_verify_access - Verify access for a mmap call
+> - *
+> - * @bo:	The buffer object to map
+> - * @filp: The file pointer from the process performing the mmap
+> - *
+> - * This is called by ttm_bo_mmap() to verify whether a process
+> - * has the right to mmap a BO to their process space.
+> - */
+> -static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct file *filp)
+> -{
+> -	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
+> -
+> -	if (amdgpu_ttm_tt_get_usermm(bo->ttm))
+> -		return -EPERM;
+> -	return drm_vma_node_verify_access(&abo->tbo.base.vma_node,
+> -					  filp->private_data);
+> -}
+> -
+>   /**
+>    * amdgpu_ttm_map_buffer - Map memory into the GART windows
+>    * @bo: buffer object to map
+> @@ -1522,7 +1503,6 @@ static struct ttm_device_funcs amdgpu_bo_driver = {
+>   	.eviction_valuable = amdgpu_ttm_bo_eviction_valuable,
+>   	.evict_flags = &amdgpu_evict_flags,
+>   	.move = &amdgpu_bo_move,
+> -	.verify_access = &amdgpu_verify_access,
+>   	.delete_mem_notify = &amdgpu_bo_delete_mem_notify,
+>   	.release_notify = &amdgpu_bo_release_notify,
+>   	.io_mem_reserve = &amdgpu_ttm_io_mem_reserve,
+> @@ -1897,50 +1877,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>   	adev->mman.buffer_funcs_enabled = enable;
+>   }
+>   
+> -static vm_fault_t amdgpu_ttm_fault(struct vm_fault *vmf)
+> -{
+> -	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
+> -	vm_fault_t ret;
+> -
+> -	ret = ttm_bo_vm_reserve(bo, vmf);
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = amdgpu_bo_fault_reserve_notify(bo);
+> -	if (ret)
+> -		goto unlock;
+> -
+> -	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+> -				       TTM_BO_VM_NUM_PREFAULT, 1);
+> -	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+> -		return ret;
+> -
+> -unlock:
+> -	dma_resv_unlock(bo->base.resv);
+> -	return ret;
+> -}
+> -
+> -static const struct vm_operations_struct amdgpu_ttm_vm_ops = {
+> -	.fault = amdgpu_ttm_fault,
+> -	.open = ttm_bo_vm_open,
+> -	.close = ttm_bo_vm_close,
+> -	.access = ttm_bo_vm_access
+> -};
+> -
+> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma)
+> -{
+> -	struct drm_file *file_priv = filp->private_data;
+> -	struct amdgpu_device *adev = drm_to_adev(file_priv->minor->dev);
+> -	int r;
+> -
+> -	r = ttm_bo_mmap(filp, vma, &adev->mman.bdev);
+> -	if (unlikely(r != 0))
+> -		return r;
+> -
+> -	vma->vm_ops = &amdgpu_ttm_vm_ops;
+> -	return 0;
+> -}
+> -
+>   int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>   		       uint64_t dst_offset, uint32_t byte_count,
+>   		       struct dma_resv *resv,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index dec0db8b0b13..6e51faad7371 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -146,7 +146,6 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>   			struct dma_resv *resv,
+>   			struct dma_fence **fence);
+>   
+> -int amdgpu_mmap(struct file *filp, struct vm_area_struct *vma);
+>   int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>   int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>   uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1063931235==--
