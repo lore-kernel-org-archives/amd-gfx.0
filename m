@@ -2,44 +2,65 @@ Return-Path: <SRS0=drzA=JM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAEA8C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 10:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08438C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A17DD60C3E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 10:18:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A17DD60C3E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 34BD861249
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 11:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34BD861249
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9796EA3A;
-	Thu, 15 Apr 2021 10:17:51 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE7F56EA2B;
- Thu, 15 Apr 2021 10:17:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 67B79B1FD;
- Thu, 15 Apr 2021 10:17:48 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, bskeggs@redhat.com, ray.huang@amd.com,
- linux-graphics-maintainer@vmware.com, sroland@vmware.com, zackr@vmware.com,
- shashank.sharma@amd.com, sam@ravnborg.org, emil.velikov@collabora.com,
- Felix.Kuehling@amd.com, nirmoy.das@amd.com
-Subject: [PATCH v2 7/7] drm/ttm: Remove ttm_bo_mmap() and friends
-Date: Thu, 15 Apr 2021 12:17:40 +0200
-Message-Id: <20210415101740.21847-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210415101740.21847-1-tzimmermann@suse.de>
-References: <20210415101740.21847-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF6DA6EA39;
+	Thu, 15 Apr 2021 11:25:55 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D3136EA39
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 11:25:55 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id p8so2463317iol.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Apr 2021 04:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oHOJlzbzbGhC2F6nRwyEe4wfHAomSrzm5Iwa2Cpb7mU=;
+ b=beioRa2T8BLBQIRY9h1p4dlbdq0aBEfR4yYFF9vSVKUtzfrnRl2+JvDZ924lTebvcC
+ J9jDPwIoNYTwI6hFGhLDZVNBU9HHWcu3NO6WkTMY2FsKlWmbKVy0yzjCqygM2laL0x8G
+ 9EZ1HH35DPoSQpKh7g4HGRvi7TzKp1EFs1nJ24lZODhQI5TBpa0VjUBP9OZncSXt25RG
+ 0dj29nYXDCdWV1AkUXqVsPlngO2RWD/juJ9hKsAfUchSBZbN4u9oYZvCHgGP5x3n2qZJ
+ ht6spx9lJ2cM5b9aNIjm0bMv2cfjbvs/6UxIYi6J0HuatbaN/al776kZLiuKyk2kUHQn
+ 9Ivg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oHOJlzbzbGhC2F6nRwyEe4wfHAomSrzm5Iwa2Cpb7mU=;
+ b=BrFp4qOjdE45mPdF7+TkGjYXobFXZBykat8Q0OLubg9L7L9iaIcynYSYNjQQ7daeEY
+ Nu+BsMTMkNoVlm3bqHHpdnvaJHKUL04ql3g2bkVPEdAsq3Wf08UTtNhI4zV0pu+K46QN
+ 7gsEQKWd1UAeTW7uP2EmwRH4dQb33UysbQwhNFzwQ9d6/5aZWJ9vNYP4af7jtEP7q7Ly
+ 1BCc2aDmMfXeqnugABwnwsekU98pTetSw6RwyPKMzbAj6lKJZg4juzbC3UJBy3mhly6z
+ Ze7FQvB9ksWgpGH5IES4N1fkKy7WL3HZkZXxzCnB16WNWXEDfkju8voDrz3Py2vYr4EA
+ l+Fg==
+X-Gm-Message-State: AOAM532XKedftOFFAZrBujaNWDeCJX/AIymMqB8cRJsGqe0urGCzNyis
+ AQ6Ou75UUuGC63BiXOAT8VKUNzaekCt64qOaNNxaAQ==
+X-Google-Smtp-Source: ABdhPJwxIPZsbJxTwSjUwfQbYZbOf3esIR6PGiAI6nFj5Tk9L8P7b1iV6H6wr6mmd8lqnKqVVspPpbxHahECABa/deQ=
+X-Received: by 2002:a05:6638:238c:: with SMTP id
+ q12mr2454425jat.114.1618485954763; 
+ Thu, 15 Apr 2021 04:25:54 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210414233533.24012-1-qingqing.zhuo@amd.com>
+In-Reply-To: <20210414233533.24012-1-qingqing.zhuo@amd.com>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Thu, 15 Apr 2021 13:25:35 +0200
+Message-ID: <CAP+8YyHU8GtCzFk71h1qjQWKYQpMwrA=s88dw2Fu3_0LXSMEWA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Update modifier list for gfx10_3
+To: Qingqing Zhuo <qingqing.zhuo@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,87 +72,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Mark Yacoub <markyacoub@chromium.org>, Rodrigo.Siqueira@amd.com,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, daniel.wheeler@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
+Content-Type: multipart/mixed; boundary="===============1063931235=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhlIGZ1bmN0aW9uIHR0bV9ib19tbWFwIGlzIHVudXNlZC4gUmVtb3ZlIGl0IGFuZCBpdCdzIGhl
-bHBlcnM7IGluY2x1ZGluZwp0aGUgdmVyaWZ5X2FjY2VzcyBjYWxsYmFjayBpbiBzdHJ1Y3QgdHRt
-X2RldmljZV9mdW5jcy4KClNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVy
-bWFubkBzdXNlLmRlPgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3ZtLmMgfCA1MyAt
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUvZHJtL3R0bS90dG1fYm9f
-YXBpLmggICAgfCAxMyAtLS0tLS0tLQogaW5jbHVkZS9kcm0vdHRtL3R0bV9kZXZpY2UuaCAgICB8
-IDE1IC0tLS0tLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgODEgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX2JvX3ZtLmMKaW5kZXggYmY0YTIxM2JjNjZjLi42Y2QzNTIzOTk5NDEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L3R0bS90dG1fYm9fdm0uYwpAQCAtNTA4LDMwICs1MDgsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
-IHZtX29wZXJhdGlvbnNfc3RydWN0IHR0bV9ib192bV9vcHMgPSB7CiAJLmFjY2VzcyA9IHR0bV9i
-b192bV9hY2Nlc3MsCiB9OwogCi1zdGF0aWMgc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICp0dG1f
-Ym9fdm1fbG9va3VwKHN0cnVjdCB0dG1fZGV2aWNlICpiZGV2LAotCQkJCQkJICB1bnNpZ25lZCBs
-b25nIG9mZnNldCwKLQkJCQkJCSAgdW5zaWduZWQgbG9uZyBwYWdlcykKLXsKLQlzdHJ1Y3QgZHJt
-X3ZtYV9vZmZzZXRfbm9kZSAqbm9kZTsKLQlzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvID0g
-TlVMTDsKLQotCWRybV92bWFfb2Zmc2V0X2xvY2tfbG9va3VwKGJkZXYtPnZtYV9tYW5hZ2VyKTsK
-LQotCW5vZGUgPSBkcm1fdm1hX29mZnNldF9sb29rdXBfbG9ja2VkKGJkZXYtPnZtYV9tYW5hZ2Vy
-LCBvZmZzZXQsIHBhZ2VzKTsKLQlpZiAobGlrZWx5KG5vZGUpKSB7Ci0JCWJvID0gY29udGFpbmVy
-X29mKG5vZGUsIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCwKLQkJCQkgIGJhc2Uudm1hX25vZGUp
-OwotCQlibyA9IHR0bV9ib19nZXRfdW5sZXNzX3plcm8oYm8pOwotCX0KLQotCWRybV92bWFfb2Zm
-c2V0X3VubG9ja19sb29rdXAoYmRldi0+dm1hX21hbmFnZXIpOwotCi0JaWYgKCFibykKLQkJcHJf
-ZXJyKCJDb3VsZCBub3QgZmluZCBidWZmZXIgb2JqZWN0IHRvIG1hcFxuIik7Ci0KLQlyZXR1cm4g
-Ym87Ci19Ci0KIHN0YXRpYyB2b2lkIHR0bV9ib19tbWFwX3ZtYV9zZXR1cChzdHJ1Y3QgdHRtX2J1
-ZmZlcl9vYmplY3QgKmJvLCBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSkKIHsKIAkvKgpAQCAt
-NTU5LDM1ICs1MzUsNiBAQCBzdGF0aWMgdm9pZCB0dG1fYm9fbW1hcF92bWFfc2V0dXAoc3RydWN0
-IHR0bV9idWZmZXJfb2JqZWN0ICpibywgc3RydWN0IHZtX2FyZWFfcwogCXZtYS0+dm1fZmxhZ3Mg
-fD0gVk1fSU8gfCBWTV9ET05URVhQQU5EIHwgVk1fRE9OVERVTVA7CiB9CiAKLWludCB0dG1fYm9f
-bW1hcChzdHJ1Y3QgZmlsZSAqZmlscCwgc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEsCi0JCXN0
-cnVjdCB0dG1fZGV2aWNlICpiZGV2KQotewotCXN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm87
-Ci0JaW50IHJldDsKLQotCWlmICh1bmxpa2VseSh2bWEtPnZtX3Bnb2ZmIDwgRFJNX0ZJTEVfUEFH
-RV9PRkZTRVRfU1RBUlQpKQotCQlyZXR1cm4gLUVJTlZBTDsKLQotCWJvID0gdHRtX2JvX3ZtX2xv
-b2t1cChiZGV2LCB2bWEtPnZtX3Bnb2ZmLCB2bWFfcGFnZXModm1hKSk7Ci0JaWYgKHVubGlrZWx5
-KCFibykpCi0JCXJldHVybiAtRUlOVkFMOwotCi0JaWYgKHVubGlrZWx5KCFiby0+YmRldi0+ZnVu
-Y3MtPnZlcmlmeV9hY2Nlc3MpKSB7Ci0JCXJldCA9IC1FUEVSTTsKLQkJZ290byBvdXRfdW5yZWY7
-Ci0JfQotCXJldCA9IGJvLT5iZGV2LT5mdW5jcy0+dmVyaWZ5X2FjY2VzcyhibywgZmlscCk7Ci0J
-aWYgKHVubGlrZWx5KHJldCAhPSAwKSkKLQkJZ290byBvdXRfdW5yZWY7Ci0KLQl0dG1fYm9fbW1h
-cF92bWFfc2V0dXAoYm8sIHZtYSk7Ci0JcmV0dXJuIDA7Ci1vdXRfdW5yZWY6Ci0JdHRtX2JvX3B1
-dChibyk7Ci0JcmV0dXJuIHJldDsKLX0KLUVYUE9SVF9TWU1CT0wodHRtX2JvX21tYXApOwotCiBp
-bnQgdHRtX2JvX21tYXBfb2JqKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLCBzdHJ1Y3QgdHRt
-X2J1ZmZlcl9vYmplY3QgKmJvKQogewogCXR0bV9ib19nZXQoYm8pOwpkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCBiL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fYXBpLmgK
-aW5kZXggMjE1NWUyZTM4YWVjLi42ZTM1NjgwYWMwMWIgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJt
-L3R0bS90dG1fYm9fYXBpLmgKKysrIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaApAQCAt
-NTIyLDE5ICs1MjIsNiBAQCB2b2lkIHR0bV9ib192dW5tYXAoc3RydWN0IHR0bV9idWZmZXJfb2Jq
-ZWN0ICpibywgc3RydWN0IGRtYV9idWZfbWFwICptYXApOwogICovCiBpbnQgdHRtX2JvX21tYXBf
-b2JqKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLCBzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3Qg
-KmJvKTsKIAotLyoqCi0gKiB0dG1fYm9fbW1hcCAtIG1tYXAgb3V0IG9mIHRoZSB0dG0gZGV2aWNl
-IGFkZHJlc3Mgc3BhY2UuCi0gKgotICogQGZpbHA6ICAgICAgZmlscCBhcyBpbnB1dCBmcm9tIHRo
-ZSBtbWFwIG1ldGhvZC4KLSAqIEB2bWE6ICAgICAgIHZtYSBhcyBpbnB1dCBmcm9tIHRoZSBtbWFw
-IG1ldGhvZC4KLSAqIEBiZGV2OiAgICAgIFBvaW50ZXIgdG8gdGhlIHR0bV9kZXZpY2Ugd2l0aCB0
-aGUgYWRkcmVzcyBzcGFjZSBtYW5hZ2VyLgotICoKLSAqIFRoaXMgZnVuY3Rpb24gaXMgaW50ZW5k
-ZWQgdG8gYmUgY2FsbGVkIGJ5IHRoZSBkZXZpY2UgbW1hcCBtZXRob2QuCi0gKiBpZiB0aGUgZGV2
-aWNlIGFkZHJlc3Mgc3BhY2UgaXMgdG8gYmUgYmFja2VkIGJ5IHRoZSBibyBtYW5hZ2VyLgotICov
-Ci1pbnQgdHRtX2JvX21tYXAoc3RydWN0IGZpbGUgKmZpbHAsIHN0cnVjdCB2bV9hcmVhX3N0cnVj
-dCAqdm1hLAotCQlzdHJ1Y3QgdHRtX2RldmljZSAqYmRldik7Ci0KIC8qKgogICogdHRtX2JvX2lv
-CiAgKgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9kZXZpY2UuaCBiL2luY2x1ZGUv
-ZHJtL3R0bS90dG1fZGV2aWNlLmgKaW5kZXggN2M4Zjg3YmQ1MmQzLi5jZDU5MmY4ZTk0MWIgMTAw
-NjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL3R0bS90dG1fZGV2aWNlLmgKKysrIGIvaW5jbHVkZS9kcm0v
-dHRtL3R0bV9kZXZpY2UuaApAQCAtMTYxLDIxICsxNjEsNiBAQCBzdHJ1Y3QgdHRtX2RldmljZV9m
-dW5jcyB7CiAJCSAgICBzdHJ1Y3QgdHRtX3Jlc291cmNlICpuZXdfbWVtLAogCQkgICAgc3RydWN0
-IHR0bV9wbGFjZSAqaG9wKTsKIAotCS8qKgotCSAqIHN0cnVjdCB0dG1fYm9fZHJpdmVyX21lbWJl
-ciB2ZXJpZnlfYWNjZXNzCi0JICoKLQkgKiBAYm86IFBvaW50ZXIgdG8gYSBidWZmZXIgb2JqZWN0
-LgotCSAqIEBmaWxwOiBQb2ludGVyIHRvIGEgc3RydWN0IGZpbGUgdHJ5aW5nIHRvIGFjY2VzcyB0
-aGUgb2JqZWN0LgotCSAqCi0JICogQ2FsbGVkIGZyb20gdGhlIG1hcCAvIHdyaXRlIC8gcmVhZCBt
-ZXRob2RzIHRvIHZlcmlmeSB0aGF0IHRoZQotCSAqIGNhbGxlciBpcyBwZXJtaXR0ZWQgdG8gYWNj
-ZXNzIHRoZSBidWZmZXIgb2JqZWN0LgotCSAqIFRoaXMgbWVtYmVyIG1heSBiZSBzZXQgdG8gTlVM
-TCwgd2hpY2ggd2lsbCByZWZ1c2UgdGhpcyBraW5kIG9mCi0JICogYWNjZXNzIGZvciBhbGwgYnVm
-ZmVyIG9iamVjdHMuCi0JICogVGhpcyBmdW5jdGlvbiBzaG91bGQgcmV0dXJuIDAgaWYgYWNjZXNz
-IGlzIGdyYW50ZWQsIC1FUEVSTSBvdGhlcndpc2UuCi0JICovCi0JaW50ICgqdmVyaWZ5X2FjY2Vz
-cykoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKLQkJCSAgICAgc3RydWN0IGZpbGUgKmZp
-bHApOwotCiAJLyoqCiAJICogSG9vayB0byBub3RpZnkgZHJpdmVyIGFib3V0IGEgcmVzb3VyY2Ug
-ZGVsZXRlLgogCSAqLwotLSAKMi4zMS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+--===============1063931235==
+Content-Type: multipart/alternative; boundary="000000000000686de005c0012000"
+
+--000000000000686de005c0012000
+Content-Type: text/plain; charset="UTF-8"
+
+On Thu, Apr 15, 2021 at 1:35 AM Qingqing Zhuo <qingqing.zhuo@amd.com> wrote:
+
+> [Why]
+> Current list only includes modifiers where DCC_MAX_COMPRESSED_BLOCK
+> is set to AMD_FMT_MOD_DCC_BLOCK_128B, while AMD_FMT_MOD_DCC_BLOCK_64B
+> is also supported and used by userspace.
+>
+> [How]
+> Add AMD_FMT_MOD_DCC_BLOCK_64B to modifiers with DCC supported.
+>
+> Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index e29cb2e956db..c3cbc3d298e7 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4535,6 +4535,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device
+> *adev,
+>         int pipe_xor_bits =
+> ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+>         int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+>
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_64B));
+>
+
+Thanks for finding this issue. Looking at it it looks to me like the
+original entries are mistaken. Can we just change the
+DCC_MAX_COMPRESSED_BLOCK in the already existing DCC entries? Looks like
+Mesa always uses the AMD_FMT_MOD_DCC_BLOCK_64B anyway, and I don't think
+DCC_INDEPENDENT_64B=1 + DCC_MAX_COMPRESSED_BLOCK=AMD_FMT_MOD_DCC_BLOCK_128B
+makes sense.
+
++
+>         add_modifier(mods, size, capacity, AMD_FMT_MOD |
+>                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+>                     AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> @@ -4546,6 +4557,18 @@ add_gfx10_3_modifiers(const struct amdgpu_device
+> *adev,
+>                     AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+>                     AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_128B));
+>
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK,
+> AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+>         add_modifier(mods, size, capacity, AMD_FMT_MOD |
+>                     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+>                     AMD_FMT_MOD_SET(TILE_VERSION,
+> AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> --
+> 2.17.1
+>
+>
+
+--000000000000686de005c0012000
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 15, 2021 at 1:35 AM Qingq=
+ing Zhuo &lt;<a href=3D"mailto:qingqing.zhuo@amd.com">qingqing.zhuo@amd.com=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+[Why]<br>
+Current list only includes modifiers where DCC_MAX_COMPRESSED_BLOCK<br>
+is set to AMD_FMT_MOD_DCC_BLOCK_128B, while AMD_FMT_MOD_DCC_BLOCK_64B<br>
+is also supported and used by userspace.<br>
+<br>
+[How]<br>
+Add AMD_FMT_MOD_DCC_BLOCK_64B to modifiers with DCC supported.<br>
+<br>
+Signed-off-by: Qingqing Zhuo &lt;<a href=3D"mailto:qingqing.zhuo@amd.com" t=
+arget=3D"_blank">qingqing.zhuo@amd.com</a>&gt;<br>
+---<br>
+=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++++++++++=
++<br>
+=C2=A01 file changed, 23 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index e29cb2e956db..c3cbc3d298e7 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -4535,6 +4535,17 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
+ev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int pipe_xor_bits =3D ilog2(adev-&gt;gfx.config=
+.gb_addr_config_fields.num_pipes);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int pkrs =3D ilog2(adev-&gt;gfx.config.gb_addr_=
+config_fields.num_pkrs);<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PACKERS, pkrs) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_64B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br></bloc=
+kquote><div><br></div><div>Thanks for finding this issue. Looking at it it =
+looks to me like the original entries are mistaken. Can we just change the=
+=C2=A0 DCC_MAX_COMPRESSED_BLOCK in the already existing DCC entries? Looks =
+like Mesa always uses the AMD_FMT_MOD_DCC_BLOCK_64B anyway, and I don&#39;t=
+ think DCC_INDEPENDENT_64B=3D1 + DCC_MAX_COMPRESSED_BLOCK=3DAMD_FMT_MOD_DCC=
+_BLOCK_128B makes sense.</div><div><br></div><div> </div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
+@@ -4546,6 +4557,18 @@ add_gfx10_3_modifiers(const struct amdgpu_device *ad=
+ev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(PACKERS, pkrs) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_RETILE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_64B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_INDEPENDENT_128B, 1) |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_F=
+MT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 add_modifier(mods, size, capacity, AMD_FMT_MOD =
+|<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AMD_F=
+MT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |<br>
+-- <br>
+2.17.1<br>
+<br>
+</blockquote></div></div>
+
+--000000000000686de005c0012000--
+
+--===============1063931235==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1063931235==--
