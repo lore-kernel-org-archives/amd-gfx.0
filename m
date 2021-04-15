@@ -5,57 +5,57 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4985C43460
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11FF9C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 783DD6120E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 783DD6120E
+	by mail.kernel.org (Postfix) with ESMTPS id 606F861042
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 606F861042
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7616E9D2;
-	Thu, 15 Apr 2021 01:24:28 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC696E9A2;
- Thu, 15 Apr 2021 01:24:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D22B6E9B9;
+	Thu, 15 Apr 2021 01:24:43 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680047.outbound.protection.outlook.com [40.107.68.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 823406E9B9;
+ Thu, 15 Apr 2021 01:24:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YyjJ/zrOGYccC4I/xHJWyOa3W92ROJdzLZDrdnzBdwT/3rUwms255J1qokQO2Q5BNPt8GS6IL+278OsmDJsgCVY9bGO/fU8d11O8ByquYt66plx9o6BBWQA6CrwkEOKMST7mZOydOgzwTKiNLT6WTSTZrdX+aKM6oeLmRteZT0lWJC3A4pXYmusIQWRzut2F9WFlBlLmaAoc69z65pghP00blB3g+7tVlcZORF022Sbs8qOYqKa8ergvkRe6saxrup+r20E0Ryd75NWmdjvoqhrVJHPEsOZhI2bpXWccTNgCDz4T5FQrBzuIBcgfN/1/9rfR3WGssp2STTTg7NmmFQ==
+ b=jaMdv+pgoNtbiAYvuBpgg0ron8i06zng7hHbVops+Qis65ohvwXB0/NyeospNgLImG2wy/e2MQ9XnCp4f4uH1qXUCQ+EX89dxLE5pXb4frzho2EYa4x6gIxjo1vFQxFN4HDg6o8EYKptMdQuz4uV71adIbUdNQcYD4o6qbSnTTFixITpzLIpr34kaleGrYegpy9e2YRVCWv1FS7ESPZY5HH2ZLDP7vTwhdGabWmCAVh2QBg0p5NJebHQE5knVSS5uFrB94rvmt8FHI0NglMIFSZhRXP9PPW7k+29ZpsZ3GtmHDnB8cWxz/6QyAsdxcyihTqs6a8SHu2RSPdZbc5wJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFWrXwylfGyGY2/f1e4ZWIK5tU53Lo+cUA+790MUf0s=;
- b=L/HDb85iE8ZNIahWe/3YOpStoBWV1W0ae5LXCMPQCkd3e9dVHkWhNgTWiKqh9Yj9XUf1fzz5aFAbRuAf3vBNgow8zh3bipCC0/Y7rjhjF4E/sqU5FpuiXiRLzu2dd9PP028VGcdQwJZaenlN/hVGKhFqhdK8vMQLZtfUgpP75HSelqNLBql+04p+lEObq7AyNGz697ziZ9FRa0hP4KEblsQE4sk/r9/lKWeIR/zwRIDgXTDTNM05p+GQwH+UOgvqdVS3gzNdp0gZ1ZAW9gwpw4qoDY8iTDWixQ6Gb80vf3b2ZdO8STpDAd+KNg71Ju/W8CRZ5h/f/MAmX2RDwWavOg==
+ bh=SbmbnAtLBTXTuyXg8HKqkxZh43j4L9aAdf2EWlQ/eUg=;
+ b=LQhQVy9QlLs/Fr3iyXBIq72FZXz/sP4haXLCHPVAYn+Hh7j0ivJHuwXMnq1nwlcOarMZAnFLkpHJceDNFALadyqb6p/TqnuWDhNp+WtFiyoWJBqe27GaEh3yDWHnb8ULhiook5rbvhjP0kyr6I/oAfKZwnISMhpgyQeBxVA0tHHpFDN+BmLH82ngTNDOrkEPHgey40X7PtfRbzQrQixkihN9SyEWAdIPc8ZdQ9/Oz8d3VfZEzkW7GL3B8x4ugAx0BFmO+j1OyeWbHOQjVYCl18khIBzVFhWKQO9LCl6SRgKWWuy3T/+cTHy5LbFik4U8Zfc5tTv1X9IYpotFeO9ghQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFWrXwylfGyGY2/f1e4ZWIK5tU53Lo+cUA+790MUf0s=;
- b=YB89UqWMicMy9S6OjgAJUWRuANft/bT0RZW/lhhC/OevOjfpoV50aXIEZlpNjXGZB4zbdV0i9GpoS/NmKHSfvcGzGWn2fCV8eVbsd7TbErN+DvLaldBiDvnrCOs0a0Rkgqj+F6mgkQEjumHnaQzuhHPBJZBEwYKq+KA2aI1/iBU=
+ bh=SbmbnAtLBTXTuyXg8HKqkxZh43j4L9aAdf2EWlQ/eUg=;
+ b=InbzCt0kTtedAxYekamaO0tE16wr7wHzE7tT48RktzHgZz3q+3Ck+LhLfCAqNrDSA5TAUTRE5Dr1Juy/LHeWNQ0nj9/TLvAHRHKT7l3yIUy2+/djbLThDxDfIR7g3BmRoJxRO51ab9eG8Sa30OUdQjaE7qFa3YFaShvhYz5XLgw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4208.namprd12.prod.outlook.com (2603:10b6:208:1d0::18)
+ by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Thu, 15 Apr
- 2021 01:24:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Thu, 15 Apr
+ 2021 01:24:40 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 15 Apr 2021
- 01:24:06 +0000
+ 01:24:40 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 23/34] drm/amdkfd: page table restore through svm API
-Date: Wed, 14 Apr 2021 21:23:26 -0400
-Message-Id: <20210415012337.1755-24-Felix.Kuehling@amd.com>
+Subject: [PATCH 32/34] drm/amdkfd: multiple gpu migrate vram to vram
+Date: Wed, 14 Apr 2021 21:23:35 -0400
+Message-Id: <20210415012337.1755-33-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210415012337.1755-1-Felix.Kuehling@amd.com>
 References: <20210415012337.1755-1-Felix.Kuehling@amd.com>
@@ -69,53 +69,53 @@ Received: from Harpoon.amd.com (165.204.55.251) by
  YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::48) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Thu, 15 Apr 2021 01:24:05 +0000
+ Transport; Thu, 15 Apr 2021 01:24:09 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4dbac967-fd70-453b-7799-08d8ffad2928
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4208:
+X-MS-Office365-Filtering-Correlation-Id: abee0e12-173c-43af-a271-08d8ffad2b9e
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4208FABFE6C2F5F0DACAEB2D924D9@MN2PR12MB4208.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB47978A47E11790FC7048A513924D9@MN2PR12MB4797.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +EnD0wla2aL6+MPUmNkQFZ1MwMtROIREG+bWLOGmnXv3HVJ1JL+LQbaVcwC/YWS3vLxUOSM/LrxU0MCnQLlHMZlcQ2+itgqGG2q2Tz4ViAMZo6OwVlHonLeBfCybe918y2dbc9u7mRGVSAP6w4F7K51AONVq929Lx42RA/nnFGbvXEVmi21Toa/Khz2E8j0fVaP8VFwi4NTiaOei/7KoUUlwQn8zJg7r52HhlKru06GJpJMXbp7n5Bzm8mtv2OTs3ymM1tPvyuIDhsooAp6HWsEonQira1vd5uTLghmB+I0Ljo92m6lynoSgcY8V4fpGeE/5gkTEDBe7hNSc4lB6U5aopWbdZZBerUVbFQS1o1l6O0z6OUnJhU3ha78kmMHQH+PabFvAjV53UJfTewtHZESSMgD1xD6VCUdFfx3kK7nkKvcr+ZQGg9+SNeBka1+4jLoIZe+inpM5m4ibJHc+WdhLL/kHQRCVwJvaHPSIQi1wcsuj2Nr3MKZYI9u/G4sS8kCVJUYiI0m3ZCSG4z5U9uGTe9rI4IJMqk95EP+VORQq8q6TzaQyg1vjRH0WmQr9iwE3DGoj6FDShgsmVgHZfhFBXOE7kOIDhQfE2vKsCbBduIlnFxWQnc8PmbHvYGRPfCIfQNo0OkUYf3Odfs79YuOppyTcDl6RFkIVluPxoQo=
+X-Microsoft-Antispam-Message-Info: zxBTYaR8ZtLY3r1W1eOxuZlmc4pBxp9Ym8Th7DIHw9BS3OxLPP85Fat3VvDGmI3ZmfpLu6DkkFXWVnljpVloB2hjCWp15RAoD2Hnz0jDx879izLM8w6b/PfByQPOjAzWjQo1hX6FH0UOIGlpx6DLuN7O6D+H5WBlMRXdZgI1X+GYw0kiFxIrjZJtLqQ3+3ZcLMavFzA8dGViTWKAOQdYb8o1dHw07VO8mBuPz5mWIFaolsui26eYyMW7z/pe5lHhpHaS94NN9rQFOHywU7qY+dHypgWbeEL+nrmlh/EYRY+q3ygjxQVf1ZSALn/F0jO/gkxpeVt9AdQHXRRxO19mqqQeXF3sEze2FruVeh6JFVO0uRjREhAqeptdU7GXG8UWhv2ZhdvdQivfdQJAIIakVCB1LQMbCs4Z3tqwZlOqc50c5XtyuWeuhmMCrLiynPz1xc5ARupsg9EsTZ0DJ1m6QO2ybMy03kyVZO5RUVdvA/LBp9LfhY0d8knHpfVsdrpo7Kg5JoU51+Yn0LJ5DUG8tWqBjjBAS7MUFN2lQ2v2K0wJBEjj93JdcCZQ5cRzBRjbuJyfy0nFY2RGJReEFxeMlTshvYKd2mUWnJrLBZgHSB6OAps/KLEDkl/mFOx+4uyEu7Ri6p77LdKH563eeuqB91X+ZFs8YhbTdGKiLFClTRA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(376002)(136003)(396003)(346002)(2906002)(8936002)(83380400001)(66556008)(8676002)(66946007)(38100700002)(186003)(86362001)(6666004)(2616005)(956004)(38350700002)(5660300002)(66476007)(7696005)(6486002)(52116002)(16526019)(36756003)(54906003)(450100002)(478600001)(4326008)(1076003)(316002)(26005);
+ SFS:(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(86362001)(66476007)(66946007)(2906002)(38350700002)(186003)(36756003)(16526019)(450100002)(38100700002)(5660300002)(83380400001)(66556008)(4326008)(52116002)(7696005)(478600001)(6486002)(8936002)(2616005)(8676002)(1076003)(6666004)(956004)(26005)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?XopyGxlCVDOE+trnM2C4jAw/f1qin7OBPm77bfPUp2KR/3Gvb1buwBH7Swct?=
- =?us-ascii?Q?4QC6+S/7E/uyriFBMK7wgbm3+1QEGeEirboVhulKCr3PkFI1gcKFolHHDaNY?=
- =?us-ascii?Q?ckEJN/V1fBEWQSvIaGbRqakssAolOR9572XGuWiwUMMRpHOKFffS9deVZk1r?=
- =?us-ascii?Q?XEyBtZsB3gxii93kExaRhdPDo9yD4x71VHdTmx9NzJjRMXchL1kQRVjiIcMk?=
- =?us-ascii?Q?OsYUClgbDWU8/pt4FtjTQnniuB2sIeuLbPto5zeHXu84eLFXASOAcULDaPSP?=
- =?us-ascii?Q?oM4v/XbSsJUrPmy/vtoQtiS1A0ChNz428FdF2cKyVupER5mi/4T2if+oKM+J?=
- =?us-ascii?Q?3I8MZVdquRV6tpcCNsMrsUcla9jHhqdZhOaPuBMywxzeNht5diOkqQLiC8ko?=
- =?us-ascii?Q?Ziyrd41McTNJ6azNt5mv5hGjf5Q9WhRt7z//cn7bgZnoZnQdH+zNQ1ykLErq?=
- =?us-ascii?Q?U/8d+GS+f+u0MWSYJGeuPwLp+Xknxj43xtk7UQv2JSYGY9q8GvaE5+K3Vy5K?=
- =?us-ascii?Q?+S0G7qMlc9NjeBFJ2mLRgZCIjUZfTQ9IbprZx/oCQv4SmPFiTiJSe+091i/n?=
- =?us-ascii?Q?W+9JFJHkxONkdgRPHMA2461RePrhq0xwwDBEfWPtCOV/8/Pij9StLTdHcQTC?=
- =?us-ascii?Q?HXMG8F+GGCHh9pbNBmWD54fSHz7suOqEGZ1Os5yR5m5IBp10rx0ZTm0KpDgO?=
- =?us-ascii?Q?J12OW6VjcXhY0T7JdauqoQIG/L5+9yNBw/GqwthOwwsT1GP2cj7DqfmcwOcc?=
- =?us-ascii?Q?JHgoij4SDYohGhS9VA6PUc9v1P7SvNDtaJO1rN2OtIOyk1UTotdx3uEkS+xi?=
- =?us-ascii?Q?SzOn80s/6RXH/nGx23U4M76hwRwZnRvNMpYshdNnTvYzHvQ7VXV7EbXzvjjs?=
- =?us-ascii?Q?DoVbYk3CYoCirUiqTfX9JUF5bwShl+KaTJCgaPO333fqL+CaEHKNdkyQ6vpE?=
- =?us-ascii?Q?lxSkGqQhxjFin7XRH4owqKecRCnJrVnoioknP8lXPSF2AXV1s2AXTtE+Hovw?=
- =?us-ascii?Q?yRFq8d5k2gNzXUHkkPflvUA8fkpE/K8g0p2WfSbN2iTZq7AXxT7C7UmoTPSU?=
- =?us-ascii?Q?Fqf6CA5vIB6pkTFELNHd2wU0+yPKm6nd22o8KXtGcbiRuQJVF4M+AAPdB5wi?=
- =?us-ascii?Q?09lpmuCkX3znsAK6QDCBSox0ZxVJspwz+gBm1vkqMHZKriN6KrFOv5Bvm6JX?=
- =?us-ascii?Q?CFSkVdesl5gylt0aFBw77o5dZ/kFKWygIZMlLpawx3oPDoRs0NFW0fJ6/oF8?=
- =?us-ascii?Q?34hc83k3DTfLRZ2WmpE3GY42rSk7UTdu8fRrdEPTAXiuJgpuQsM7bh1Iydqc?=
- =?us-ascii?Q?vLJnm4kmBX/VrJd42ZpMCVyy?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?1i8jmTggZM1G06ochPO4cEyCVDzjBohF3d1bd0AoZwFSD8JV6KGHwr6F52Va?=
+ =?us-ascii?Q?dKWXScYHgZGYiX41UHURzPKxzJqAbuYgrGuVsX/twMa2SEP/o7B7ET/EvgJG?=
+ =?us-ascii?Q?w5xY4AYrFwChvDBGZItb6PSYULWlH7rHkYBtYHkrWndHHTKSr7qqCy9Lzq9V?=
+ =?us-ascii?Q?xtsjHfIF/hbQlPSgt4rLM4tRtSRVlbIAvnwNmCdHciPMi01kwhHf09WCYd4a?=
+ =?us-ascii?Q?lqewborvaaI9p1RFqzZZ7buwvTViMM8gYOTWYmA4UPeqyl5IsAxPpG36mPq2?=
+ =?us-ascii?Q?wTnWwwgyrJYtgKSzhaXItlsy6PteB9cqD+DZY/8UQh4B/mhNZAngOhScsWdt?=
+ =?us-ascii?Q?1KEa+BHBnvOqAP7XgLFhhwS2iYY68coKi+VZfqCEEio1N1MMfyo0M3TEh4ej?=
+ =?us-ascii?Q?2QmgTc+XcNbRVeq4vyv6yftycqxNN0mayK5Qt9lXz2VyDCVuuve1X2QYq0WN?=
+ =?us-ascii?Q?B4Z/6XmJOe/3WVZglDk1L5mAL+ldGaTR4LcUFhS04Tj4RqVyWQYGI6hlywoW?=
+ =?us-ascii?Q?zC6BkrsFkOQOGoVXHh1vnErO+Z24m+hKqIJpRkS1WUMrd8LBpkgkmRrQGF2L?=
+ =?us-ascii?Q?TSNlAzMDSn3ms5ouZ7jLNBEKkkgvOZS8L1fL6TU1WrPTCW225QU+kkBEXY3P?=
+ =?us-ascii?Q?xzOkZYIDYE8ldYr9Q01htGDZFM/fPflk+jshnyQcQQiNpBJmi9hht0Gat8hX?=
+ =?us-ascii?Q?v4bEOlNIYsBDOFABc4L5tRl07Q0ptSuvIjacfCBSP7PJRuNtkt4rfezwsaKq?=
+ =?us-ascii?Q?Bnar0DjukfaIcvece55xdVY2dQUPYiCt+CMsO5C9o9Te1o2GmohLCexDUFGs?=
+ =?us-ascii?Q?sNCI26WwKJ1/sJyxuVEWj0cR9B2pouRZQvHaLCJX9J09zzff+BmuUgjRLvL3?=
+ =?us-ascii?Q?N338AtmU1GWaPQzXsA8wlctU3Dk5PAOTWP5jimkKnuo7Aj7fBBhZ8jsV8u42?=
+ =?us-ascii?Q?mgA66lKUr0txsmIX5I5kjvdGkaOdDWZBRbVXx/hDz9J6veFvYjMcXIrMaElc?=
+ =?us-ascii?Q?wh++IsGwK5z8LGJal4w0OICmYeijFm1GhycVufmGA4tDKALho5EBFksDbx+j?=
+ =?us-ascii?Q?fI9n4iYvdJNrpzP35TUx/GbVrkaDfILEQ6hFBz3WIQjRsaRsj8+qOQds4yiY?=
+ =?us-ascii?Q?lUa8/Vd3s1cXkgwxDuFsQ48sf5laIH+aA+KvoXogddsN7+x2zlLM4n54BlcZ?=
+ =?us-ascii?Q?WLRnIUZWui+G6ZrKdwPwuG/uU0XOsr8HgWCUabbwU5yEwmxtkD/Z3k7MwSyM?=
+ =?us-ascii?Q?89DoGn0bRRxtlDB+E+hgjaLdb6wtga55SkVey8Q6zv2aavgva6oEv446pPua?=
+ =?us-ascii?Q?X7vWI9u+kBVADWPtzbeFJp2C?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dbac967-fd70-453b-7799-08d8ffad2928
+X-MS-Exchange-CrossTenant-Network-Message-Id: abee0e12-173c-43af-a271-08d8ffad2b9e
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:24:05.9152 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:24:10.0610 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kVwd6h+ifN6t9QWCtDd/oOGF8WA6/MxsmV5XKhkks60EJTomEK1DBCIVwOa+v3pQkzRs3v0Mpoy+1RzXRe0nvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4208
+X-MS-Exchange-CrossTenant-UserPrincipalName: IUwuXOQzzCm99XrYGC3OGmpuoesOR/Rvl5KKoqQ0wrQIkPoapaTwaFgYcZq+964z6PJar3zXtYCWYCeCgEO2uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,108 +127,222 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Page table restore implementation in SVM API. This is called from
-the fault handler at amdgpu_vm. To update page tables through
-the page fault retry IH.
+If prefetch range to gpu with acutal location is another gpu, or GPU
+retry fault restore pages to migrate the range with acutal location is
+gpu, then migrate from one gpu to another gpu.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Use system memory as bridge because sdma engine may not able to access
+another gpu vram, use sdma of source gpu to migrate to system memory,
+then use sdma of destination gpu to migrate from system memory to gpu.
+
+Print out gpuid or gpuidx in debug messages.
+
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 59 ++++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |  2 +
- 2 files changed, 61 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 47 +++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 51 +++++++++++++++++++-----
+ 3 files changed, 87 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 4e3156d891a2..d89c998f9aa4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1997,6 +1997,65 @@ svm_range_from_addr(struct svm_range_list *svms, unsigned long addr,
- 	return NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 9c1199d1b61b..7d8659517447 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -487,8 +487,9 @@ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+  * Return:
+  * 0 - OK, otherwise error code
+  */
+-int svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+-			    struct mm_struct *mm)
++static int
++svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
++			struct mm_struct *mm)
+ {
+ 	unsigned long addr, start, end;
+ 	struct vm_area_struct *vma;
+@@ -742,6 +743,48 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm)
+ 	return r;
  }
  
-+int
-+svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
-+			uint64_t addr)
++/**
++ * svm_migrate_vram_to_vram - migrate svm range from device to device
++ * @prange: range structure
++ * @best_loc: the device to migrate to
++ * @mm: process mm, use current->mm if NULL
++ *
++ * Context: Process context, caller hold mmap read lock, svms lock, prange lock
++ *
++ * Return:
++ * 0 - OK, otherwise error code
++ */
++static int
++svm_migrate_vram_to_vram(struct svm_range *prange, uint32_t best_loc,
++			 struct mm_struct *mm)
 +{
-+	int r = 0;
-+	struct mm_struct *mm = NULL;
-+	struct svm_range *prange;
-+	struct svm_range_list *svms;
-+	struct kfd_process *p;
++	int r;
 +
-+	p = kfd_lookup_process_by_pasid(pasid);
-+	if (!p) {
-+		pr_debug("kfd process not founded pasid 0x%x\n", pasid);
-+		return -ESRCH;
-+	}
-+	if (!p->xnack_enabled) {
-+		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
-+		return -EFAULT;
-+	}
-+	svms = &p->svms;
++	/*
++	 * TODO: for both devices with PCIe large bar or on same xgmi hive, skip
++	 * system memory as migration bridge
++	 */
 +
-+	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
++	pr_debug("from gpu 0x%x to gpu 0x%x\n", prange->actual_loc, best_loc);
 +
-+	mm = get_task_mm(p->lead_thread);
-+	if (!mm) {
-+		pr_debug("svms 0x%p failed to get mm\n", svms);
-+		r = -ESRCH;
-+		goto out;
-+	}
-+
-+	mmap_read_lock(mm);
-+	mutex_lock(&svms->lock);
-+	prange = svm_range_from_addr(svms, addr, NULL);
-+
-+	if (!prange) {
-+		pr_debug("failed to find prange svms 0x%p address [0x%llx]\n",
-+			 svms, addr);
-+		r = -EFAULT;
-+		goto out_unlock_svms;
-+	}
-+
-+	mutex_lock(&prange->migrate_mutex);
-+
-+	r = svm_range_validate_and_map(mm, prange, MAX_GPU_INSTANCE, false, false);
++	r = svm_migrate_vram_to_ram(prange, mm);
 +	if (r)
-+		pr_debug("failed %d to map svms 0x%p [0x%lx 0x%lx] to gpu\n", r,
-+			 svms, prange->start, prange->last);
++		return r;
 +
-+	mutex_unlock(&prange->migrate_mutex);
-+out_unlock_svms:
-+	mutex_unlock(&svms->lock);
-+	mmap_read_unlock(mm);
-+	mmput(mm);
-+out:
-+	kfd_unref_process(p);
-+
-+	return r;
++	return svm_migrate_ram_to_vram(prange, best_loc, mm);
 +}
 +
- void svm_range_list_fini(struct kfd_process *p)
++int
++svm_migrate_to_vram(struct svm_range *prange, uint32_t best_loc,
++		    struct mm_struct *mm)
++{
++	if  (!prange->actual_loc)
++		return svm_migrate_ram_to_vram(prange, best_loc, mm);
++	else
++		return svm_migrate_vram_to_vram(prange, best_loc, mm);
++
++}
++
+ /**
+  * svm_migrate_to_ram - CPU page fault handler
+  * @vmf: CPU vm fault vma, address
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+index 53c899b80b85..37ad99cb073d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+@@ -38,8 +38,8 @@ enum MIGRATION_COPY_DIR {
+ 	FROM_VRAM_TO_RAM
+ };
+ 
+-int svm_migrate_ram_to_vram(struct svm_range *prange,  uint32_t best_loc,
+-			    struct mm_struct *mm);
++int svm_migrate_to_vram(struct svm_range *prange,  uint32_t best_loc,
++			struct mm_struct *mm);
+ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm);
+ unsigned long
+ svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 7b698b0e4e41..33194f79e862 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -348,8 +348,11 @@ static void svm_range_bo_unref(struct svm_range_bo *svm_bo)
+ 	kref_put(&svm_bo->kref, svm_range_bo_release);
+ }
+ 
+-static bool svm_range_validate_svm_bo(struct svm_range *prange)
++static bool
++svm_range_validate_svm_bo(struct amdgpu_device *adev, struct svm_range *prange)
  {
- 	struct svm_range *prange;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index d88926d2855f..9a078d354cba 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -155,6 +155,8 @@ void svm_range_vram_node_free(struct svm_range *prange);
- int svm_range_split_by_granularity(struct kfd_process *p, struct mm_struct *mm,
- 			       unsigned long addr, struct svm_range *parent,
- 			       struct svm_range *prange);
-+int svm_range_restore_pages(struct amdgpu_device *adev,
-+			    unsigned int pasid, uint64_t addr);
- void svm_range_add_list_work(struct svm_range_list *svms,
- 			     struct svm_range *prange, struct mm_struct *mm,
- 			     enum svm_work_list_ops op);
++	struct amdgpu_device *bo_adev;
++
+ 	mutex_lock(&prange->lock);
+ 	if (!prange->svm_bo) {
+ 		mutex_unlock(&prange->lock);
+@@ -361,6 +364,22 @@ static bool svm_range_validate_svm_bo(struct svm_range *prange)
+ 		return true;
+ 	}
+ 	if (svm_bo_ref_unless_zero(prange->svm_bo)) {
++		/*
++		 * Migrate from GPU to GPU, remove range from source bo_adev
++		 * svm_bo range list, and return false to allocate svm_bo from
++		 * destination adev.
++		 */
++		bo_adev = amdgpu_ttm_adev(prange->svm_bo->bo->tbo.bdev);
++		if (bo_adev != adev) {
++			mutex_unlock(&prange->lock);
++
++			spin_lock(&prange->svm_bo->list_lock);
++			list_del_init(&prange->svm_bo_list);
++			spin_unlock(&prange->svm_bo->list_lock);
++
++			svm_range_bo_unref(prange->svm_bo);
++			return false;
++		}
+ 		if (READ_ONCE(prange->svm_bo->evicting)) {
+ 			struct dma_fence *f;
+ 			struct svm_range_bo *svm_bo;
+@@ -434,7 +453,7 @@ svm_range_vram_node_new(struct amdgpu_device *adev, struct svm_range *prange,
+ 	pr_debug("pasid: %x svms 0x%p [0x%lx 0x%lx]\n", p->pasid, prange->svms,
+ 		 prange->start, prange->last);
+ 
+-	if (svm_range_validate_svm_bo(prange))
++	if (svm_range_validate_svm_bo(adev, prange))
+ 		return 0;
+ 
+ 	svm_bo = svm_range_bo_new();
+@@ -1173,6 +1192,7 @@ static int svm_range_map_to_gpus(struct svm_range *prange,
+ 
+ 	p = container_of(prange->svms, struct kfd_process, svms);
+ 	for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
++		pr_debug("mapping to gpu idx 0x%x\n", gpuidx);
+ 		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
+ 		if (!pdd) {
+ 			pr_debug("failed to find device idx %d\n", gpuidx);
+@@ -2198,7 +2218,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	if (prange->actual_loc != best_loc) {
+ 		if (best_loc) {
+-			r = svm_migrate_ram_to_vram(prange, best_loc, mm);
++			r = svm_migrate_to_vram(prange, best_loc, mm);
+ 			if (r) {
+ 				pr_debug("svm_migrate_to_vram failed (%d) at %llx, falling back to system memory\n",
+ 					 r, addr);
+@@ -2406,6 +2426,11 @@ svm_range_best_prefetch_location(struct svm_range *prange)
+ 		goto out;
+ 
+ 	bo_adev = svm_range_get_adev_by_id(prange, best_loc);
++	if (!bo_adev) {
++		WARN_ONCE(1, "failed to get device by id 0x%x\n", best_loc);
++		best_loc = 0;
++		goto out;
++	}
+ 	bitmap_or(bitmap, prange->bitmap_access, prange->bitmap_aip,
+ 		  MAX_GPU_INSTANCE);
+ 
+@@ -2493,20 +2518,24 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
+ 	    best_loc == prange->actual_loc)
+ 		return 0;
+ 
++	/*
++	 * Prefetch to GPU without host access flag, set actual_loc to gpu, then
++	 * validate on gpu and map to gpus will be handled afterwards.
++	 */
+ 	if (best_loc && !prange->actual_loc &&
+-	    !(prange->flags & KFD_IOCTL_SVM_FLAG_HOST_ACCESS))
++	    !(prange->flags & KFD_IOCTL_SVM_FLAG_HOST_ACCESS)) {
++		prange->actual_loc = best_loc;
+ 		return 0;
++	}
+ 
+-	if (best_loc) {
+-		pr_debug("migrate from ram to vram\n");
+-		r = svm_migrate_ram_to_vram(prange, best_loc, mm);
+-	} else {
+-		pr_debug("migrate from vram to ram\n");
++	if (!best_loc) {
+ 		r = svm_migrate_vram_to_ram(prange, mm);
++		*migrated = !r;
++		return r;
+ 	}
+ 
+-	if (!r)
+-		*migrated = true;
++	r = svm_migrate_to_vram(prange, best_loc, mm);
++	*migrated = !r;
+ 
+ 	return r;
+ }
 -- 
 2.31.1
 
