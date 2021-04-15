@@ -5,57 +5,57 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B040BC43462
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2ECBEC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D83061042
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D83061042
+	by mail.kernel.org (Postfix) with ESMTPS id EAE0C61155
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAE0C61155
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF8A26E9C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66CA26E9D4;
 	Thu, 15 Apr 2021 01:24:15 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680075.outbound.protection.outlook.com [40.107.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD96E9A8;
- Thu, 15 Apr 2021 01:24:05 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2088.outbound.protection.outlook.com [40.107.93.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98B726E9AF;
+ Thu, 15 Apr 2021 01:24:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V2rldpmERLOKvXgZSsapQT2mSZOlZ2zrv8rRnTMrN1sB8a081XzXe+thvGm/Z77xSyxi+y2bx9bUVsHENvg68e41BrRLZztwLw5p8DbBb/OQO281NcRvi+A08ZLDMJqZFGi5GW1T4WylXIV4EONghuFtyUuYbVaNqelIDO4G7z5SzScHzDtMgbbK40ZW4Q0euCFRRWPUiQWDOKGZghaxjKYyI32JKe4boDoZM9b8J3/yd06NO4M9w4KrxBkHBb3+VpiUgGOaVgi6kKMUOE38vTIH8sMYr4RzeOWo/Ag1v2VtV8UgGpKS3j2merno1T52+WR+JB0nvE453Z2Mf249OA==
+ b=HLH5oxkpt7lDNy+xRnBUbFTZzE1rpQq5FTecW9YSPhxb6nQYusncL31Zi75Sf4cTCP2SGIP+AEkerUSwGTy51Ksp3q3RRDdl+LmoasFwlSIpLToQcm/QHg9SVNzkcrkxtqJ/Il2kAdSF8ekUll7XvNe3byCaYKyIQIMo4bKxDnL4pgMfktA/wRLvHAeu06RXOrzilYHyiUkaBZYyUK5JFx/LKZab1jdJZ7HBrKrcKCWCsQuwiayQBlkvWt89GCG/kfYVYJt8ZlQO/GDBNUVtjPQ/xphYJ/bNIVvEvlYM5Ep0p+i4GqNKHFaNldbjmqMf98tArtseFNu2FBK4jHmWdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6+CNd3zLNWYfIEdNNvpZ4Hp+XtTrBEnZIBgXoZ+sWzM=;
- b=oYumMyfUA2FyoCMowVAJgB679oWTo9ZKsVeCYNgXRB0xiVY6t5T6N4/rv6UKAfp2Lh29l0G0OT82dG7dQre0NorVMnH6N2Xb5stVBPCgZxBblpDA//3oAEdHPZFp0dK759S8SXCGh6yIUqpQXod3LBZln739H/4njT3Ycvkhq/vKM65qa534amN3BZsvTLtFYoF3JnTOI886KMamqkoNu34JtIlkFPsvWBhoa0/NYgMrfz0EaeIK8NucOoTwwlpnpi1oUs+XKtaiH16pPBf9KZ6mNgAbm6NiIGNIXivcNDA5VS5Ivvzn2Ah5hnBhcCfFfZQSYaVzEHS4ZOqV0UjWfw==
+ bh=uxoTWaG+E8CqwGyWXn1CMW3AAEwxV3ZJtfBRmM3ttVw=;
+ b=C9gLq5cVRlq5F26RNMxpkOXukLb8nGKh8fDXC63S0Jl/QqWsijB1mvEeULmuaPhMdOzBHBSzJX+kzEtrdYg6UJt53dEUgJPkWnBvnM1MixANgWs9U3pgpePyD3vNsHMBW+lZ9TlVA1Dpc+LxMKPVALJYrTT+P43pp0YRXO3DBE6D0JvRdNm2A+fDfHZiao/2O3V5hfXPPZ5Su90eevvJ7a0UZL4QoO3x0K7oS745pnkdbRabownbVVKf2VRcm6g17OAPrMbX3mP9uwkvRG3PLlLMdpi6hCtDsfap/60dsX9tHq0JgWyzmRBEt/6U4c1GKbTJb+yZu+as2bcSHBhCXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6+CNd3zLNWYfIEdNNvpZ4Hp+XtTrBEnZIBgXoZ+sWzM=;
- b=SOSiS46MocAynZrTo6qmtjrKqGBuFeAk9/AiMYEk+QHul5Z4Nlsp8wEue5R6KoFIeI0YC9xlagYTwwnUCl4JUHJjBGtA5lqaB0UVvif3lwZCHc+ijzwldrK3XGf5/sf0FCGZX26gw/sJAY9FRFX1d8JKAQj3bjGOaLrZiIlZiR8=
+ bh=uxoTWaG+E8CqwGyWXn1CMW3AAEwxV3ZJtfBRmM3ttVw=;
+ b=Bp/FSg11aLIm9rkrtTK5NeF+TYf4jsjUxs/CRToBl+DoQ4C9QHtsxTTalovvtEL7fBr1N2RKn6yjYvnw5erfTr9FgO43KSrdKuJRP5eCS2h0XkTc/B0ppmbAjQg7i3qP4LBsja+tLF5NkV+L/KWQIKwZWc6AsNn7A4sDoKXDgwI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
+ by MN2PR12MB4208.namprd12.prod.outlook.com (2603:10b6:208:1d0::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Thu, 15 Apr
- 2021 01:24:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Thu, 15 Apr
+ 2021 01:24:07 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 15 Apr 2021
- 01:24:00 +0000
+ 01:24:07 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 10/34] drm/amdkfd: map svm range to GPUs
-Date: Wed, 14 Apr 2021 21:23:13 -0400
-Message-Id: <20210415012337.1755-11-Felix.Kuehling@amd.com>
+Subject: [PATCH 26/34] drm/amdgpu: add param bit flag to create SVM BOs
+Date: Wed, 14 Apr 2021 21:23:29 -0400
+Message-Id: <20210415012337.1755-27-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210415012337.1755-1-Felix.Kuehling@amd.com>
 References: <20210415012337.1755-1-Felix.Kuehling@amd.com>
@@ -69,53 +69,53 @@ Received: from Harpoon.amd.com (165.204.55.251) by
  YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::48) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Thu, 15 Apr 2021 01:23:59 +0000
+ Transport; Thu, 15 Apr 2021 01:24:07 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cc7299c5-1cca-4783-9b6a-08d8ffad256a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:
+X-MS-Office365-Filtering-Correlation-Id: 9dfac781-b138-419c-ed6c-08d8ffad29f6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4208:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB479721F11318821898BB4F35924D9@MN2PR12MB4797.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:126;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4208001005D0D7506627134F924D9@MN2PR12MB4208.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fq3sCnmzgxlFdE4WH8zAf72AQTDcImfZu206ePT8Vnd72eDSwxYunXWHc8x4o9tRWaBEC7OK6sOGyodPg+bvmxd/C7n03zCEFydTKkeSySajDh27M1+NJBbD7iY7sLV5JFWqMxwRcoQa3v/J8z3r7zj6dE3COYGekj4nyaG0VDspSyRl4k9Jp8IatKHJ+g+rzC+j493ghvqEbZ7NXb4t05Eu0zl1Ikp9WsEMgh6rcD1G9vsP9yZY+hWRypVGN6ba2Et82XU+VcgHa2WMraF9jm19KH7DK8wZEE2k378U8xMdfv7XtE8/US5B1JCNCxXfh5olQ+qK3pyVp2DOvBX06fQLORXfHV3RtjH8lEd6PqTNBzLXYQoOK7vKdxUntQfvSsqYG6WK7I5yToangoGIZ0QCg1fFwUQ9eFT9OP3/3Q8IzIFtk1M+9+2XQzdcw6XMwk7XfG/HO9JHUgj3AHQYTazmRJDRyQ7u2Mn6qw4y5tetv9iFSwv62ue167kKojukZEwXJnQE9YKF3pE/SqnOwBgIrg9SjJPjZXn2WcToRMeURO2WsQtZ0Mi7DRCllW2zMItsXUcw8hRulQQklvnhuNXF8hlUQWGYUYWFXUwd3IwuhN490OwVsjWEXAakTHlT+CEK15Fdhl/C/h793Djzmg==
+X-Microsoft-Antispam-Message-Info: Zytc/uiRMxq3dGyr4QULyxiChMELJc1jigaSTA+0QO1kgQWz0GWtG1wJ6WL6vClRLxeoctmUaUubulczYbP+6n1HxXLQS6kQ/mUo/rR2cOATIPnw2zWXDbAOF47x2vHjS+8U1xJK6Tdt2J5+kBZC2rvUniMaDKwP8GB9e0JTeG82YdeS8bxSsCAvIlhsLuuCeczYq+xhe9wtAPqv/G5aLP8QP8GlABH/SwQscBKFl2ry5WfWxBFoQZpyassHerW17pSfj1f7PHOylyxDWMbhjUp0LXWezi8pdGFv0JAYQEPKaDWq5ilGHGdEsiooFA9jRHPNvwWxZLirpb7QWUk3I+NrGIPzr2C0V0re5+w+VEYsr4f0X5zrSNrUhfsmCvcIWZzQlCW/dKU9cwYB+xz/PSzf9GRZZ0xhtroYFmhCuR0y33SuMMsIlqkaCvI/nVFpL8yQqXuX0rYwi/XxK1yLoqrYRjF3t20Ofg6UbC1jJri1+tavggfuNou2P0Efuc8tXrjmTe+4RMEomGLRCle+gVDFBIlCrTOn+a/8Jn5STtEs/qvybhicR39Dyhdkn64Xnarch/QhpME47mA5Fr0wwZ+YqAYocb0OW2GZwpVO1jucwspdioveK72+XFbZtSfWOF0oy9RmaYANsFB2ZxKcJr4Vm5jdPjT0Q0uLtXp5/i0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(86362001)(66476007)(54906003)(66946007)(2906002)(38350700002)(186003)(36756003)(16526019)(450100002)(38100700002)(5660300002)(30864003)(83380400001)(66556008)(4326008)(52116002)(7696005)(478600001)(6486002)(8936002)(2616005)(8676002)(1076003)(6666004)(956004)(26005)(316002);
+ SFS:(4636009)(366004)(39860400002)(376002)(136003)(396003)(346002)(2906002)(8936002)(83380400001)(66556008)(8676002)(66946007)(38100700002)(186003)(86362001)(6666004)(2616005)(956004)(38350700002)(5660300002)(66476007)(7696005)(6486002)(52116002)(16526019)(36756003)(450100002)(478600001)(4326008)(1076003)(316002)(26005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Gs0jgmnqylp/1uYvAkGPjgsRVzmW2gDwwhYM+/dQyRFbIGQYTwpU8yVAFo+C?=
- =?us-ascii?Q?yVBivIjqPC29xzDfFrPKNfwMnn8wu7koxT2UyRR5dSnU2ZPCa+Bzgk/w8Hcq?=
- =?us-ascii?Q?nGxhXIqUCY3qrO9mIK99JASt4cBxYLxW8QnzgNp1kTLtjT6qQnNkjDdXCdsC?=
- =?us-ascii?Q?78h5uvTgKfs70FvWvoT7QNAk+Dio7WS0Gtu5an5bTbrFOXd8A6AlbzaX1wiS?=
- =?us-ascii?Q?DvUJeo2cm7NeABb2Ot7GgUe5btqf/YBwQGSID7BuEaCMdiBEvmCqlrBzKMIt?=
- =?us-ascii?Q?TGq2uGXhqDf7VY/RBW1/5VDxj61RVdjSO0n7rZ3d0WeTOV63e8gwp7WWxhbn?=
- =?us-ascii?Q?PRgZnHODZRxXnO3SCaVH5XwkWeFfw+yZ7f635rO7FGHKOH6MIMJTL/bXxgDE?=
- =?us-ascii?Q?NQFSlQ2kZn4XgPmpKlylY/ul97kYl8ac7MSNUnK0MHi4YT3FuQub8nWJ0+TS?=
- =?us-ascii?Q?RxCOAGKAnggXNOGN4lIZMyWUTZ9JsqmhaVOOebxVVd3XHat7+mJSpgET+Yal?=
- =?us-ascii?Q?g7TMAg50NDLkchPOXGF7gIXqYBe9N4RA+M1wwj6oKsQwK/Sw7BTdBaF3BGRi?=
- =?us-ascii?Q?ZcQGwTBXUVXbxvV5H4rdir1+NW/xLlYtIEClwYroCdhpnpLXtW7xcXgZ9c0j?=
- =?us-ascii?Q?F/H1EqG+Lc1etIGFyehyEUmY8/wFnPTQB7w6frm7v0EqbHgPXZ2PuPhxQTPw?=
- =?us-ascii?Q?ySUOzQHMycPdufRakLj9hS2B/9KO6uzWTVIoQIhnTtKTUKbEVWfJ2qcKzcXF?=
- =?us-ascii?Q?uBWxWBB0sXX6xcp9HjC6BlyKxQ3IAP5zaS+zSmz5HN00lxHwTl3hOgqBSZkq?=
- =?us-ascii?Q?L/I6AHs3qTNF+XsJSzsUGUt4IMXrIOZA7klLh0brE6U5VwffnbuMFLWrRBPs?=
- =?us-ascii?Q?xnOLoQWOFhxbHwpDKsiK5F3QoevWvt4wJJLWSAARz+vKB+PbAGrUGxST+TAQ?=
- =?us-ascii?Q?34t3HNufuFF1MxC6ZlXifAJdwm0/QUvlnG32CEFMjlmNINrsoxicrBwmIqmi?=
- =?us-ascii?Q?YzQ8+oI2sLsMfy8ftPwyWL1MsbmvPqwtdmkRD0McXTIF2VJhFc5SvGhw1APV?=
- =?us-ascii?Q?gLJUmGMCLQBfkYkZfHXUhA8QmQKhNHGKhvsEWNZ/qlc0Vn6BxM3W7D0h8AUi?=
- =?us-ascii?Q?GxDLOgiqS1krjpbyjknt0bBVskwgVpp7JKxw/BflUO7aS7uSO+WTktUMB+7H?=
- =?us-ascii?Q?hnX9AuI05Tkv4g5iF0M5amNnkmFgj+NYdWLRyOaluf1uwCv7dYLAtkfAoSLZ?=
- =?us-ascii?Q?Gep8mXuB/uixk1k9oGqH+AJ0QGQX4f+lylPNDlmE309gGsweVVN0eqcDWMWk?=
- =?us-ascii?Q?+i/G6waSfCU3BWhgql7gQWA4?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?i8EgqBiWfg/A/O/SA+g8dcN7HadB4Tok+LytNQZusxt1nLWo1eWkaX9X9YQx?=
+ =?us-ascii?Q?X980An7i/SSI2Zn+ftsbXIN1+ZO1fuDPifkpILUSZtV11XFD0quz6BAfgjtH?=
+ =?us-ascii?Q?qUWP/5F1ZabNx+7fspyZ5M0kgWyttXr7sCkZS4XFVkK7f5jQh//JD3IBOMY4?=
+ =?us-ascii?Q?mRgWtpthdNgrHAIcChtccw0ai9kpEFjlkCY5t36jGEvcmIV1HIWk+esSptqr?=
+ =?us-ascii?Q?u08WbRsjg6A3xc26KaPPFBCojQ0bWf08ilDxJuUmdchbU9h47XzIiNvwKgGw?=
+ =?us-ascii?Q?UtVgtZjwP0QGIGUjKScSnRqFZnq1EicvLv7EV1OtPRpc8SQATIlkhkMsAAlQ?=
+ =?us-ascii?Q?Ao1eca6RFkGyNGHpMRcCOiZeCrDHL4yQY0b9z/7CzPjHQzrOPI3x6mXYISD4?=
+ =?us-ascii?Q?aocXolznZFDJT+2e08llCmh9plYtg4bCV4BOqyhP8NbkrCkUncq75Jv4pwGa?=
+ =?us-ascii?Q?zBwq2cs75sNeTD9bpOAzBqob+dwovbE6YBAHPFfjGj/Zz/3uvA/tPXjxgmLs?=
+ =?us-ascii?Q?c8Pr8wH55l/iJvzsxX6hdDm6GdYPImYLOkjC6hT1BDGCmN9xNMGWrFLHNOeF?=
+ =?us-ascii?Q?ybYIKMDcnMqeouxs60HcAKEQt5eH+tPOFeV82EYHeLZKKR30DHpMbXimk2Dq?=
+ =?us-ascii?Q?niruAuHf/zC20SlYXPqn9IXPtdgDEBcRNlnpaHqikmJvKlcpC9iuUYJUPQak?=
+ =?us-ascii?Q?Dj2V8NVZ67oEhPcJWeaaKwN7lm2R2KRK/x9X6W/lB0aS8oiYGpyryrAukk4g?=
+ =?us-ascii?Q?KSm8rvwtiRsq4KG7OaipU70seEOtiHNTUsRu2Q61ytwuKd2ZR1QSg8lEDgwu?=
+ =?us-ascii?Q?ULpVxg4Olp+vOQ7lGpmXyAyIRfBVmflzJydRfJiOVn4PohZq0qUu3+WB/vJt?=
+ =?us-ascii?Q?5gJSf0Br2vKaFkFE7xn7TTkxgYCPFDc0sEUwvmrXfhEhkV5nktRdkYkh3/t+?=
+ =?us-ascii?Q?ZyDb7rg6TY9Snf8qmk2Ng8ZytwT5xjhFrJRh56aRXKpsmMq7DP/rXfn+mZvB?=
+ =?us-ascii?Q?i2B1oZySMMJ1LsLaET3L+1hZ+gwzzUd5/SpL/K+a7pdtYWCrNa03eRqHMvQp?=
+ =?us-ascii?Q?na0fHgE2HfJ+ho0xAUQAAG7g9b7s36kJPbjO3+mJU2gH9Kn3UCyGLkssMx83?=
+ =?us-ascii?Q?1E7lQ11OLz5zN/JGrlXVA9VJQtuvriHuDON6A3B7wsO2L6DjtHVsNVm8Z98g?=
+ =?us-ascii?Q?ZnHCtct7OEvULt03Y0ezuo9JQxqHE2m8z/UZLON/f/EWZCgVq+4qwASEPjx9?=
+ =?us-ascii?Q?WSR6q7DT7glJU+lrEUmZpaJ63nLx1AcpV9HXWqbf5i/36X1KdLh21Zsj15ou?=
+ =?us-ascii?Q?nBi5p+wJ1qm8A7svW5WColwL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc7299c5-1cca-4783-9b6a-08d8ffad256a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dfac781-b138-419c-ed6c-08d8ffad29f6
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:23:59.6876 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:24:07.2842 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wp9FbhjHXq2NTorECd8guBrjGugcKEwP02dtQ90kzn51DllAaOjPUg1gAnaFrtNAVNJHCAhlHZvrLxhj7GV5Og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
+X-MS-Exchange-CrossTenant-UserPrincipalName: iH1lc5CvDd4J/T2EkVvMz13uahU9Zn1LgiZ0VPhTimNrT194Htd4x/y/JiF4cs2HSmSLN9CA+4WXU/Nc8XNpPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,623 +127,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use amdgpu_vm_bo_update_mapping to update GPU page table to map or unmap
-svm range system memory pages address to GPUs.
+From: Alex Sierra <alex.sierra@amd.com>
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Add CREATE_SVM_BO define bit for SVM BOs.
+Another define flag was moved to concentrate these
+KFD type flags in one include file.
+
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 473 ++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h |   4 +
- 2 files changed, 474 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 7 ++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h       | 4 ++++
+ 2 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index c4decfbb2427..55ca39fe46a8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -99,11 +99,123 @@ static void svm_range_remove_notifier(struct svm_range *prange)
- 		mmu_interval_notifier_remove(&prange->notifier);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index eef17986d6fa..065735f40331 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -33,9 +33,6 @@
+ #include <uapi/linux/kfd_ioctl.h>
+ #include "amdgpu_xgmi.h"
  
-+static int
-+svm_range_dma_map_dev(struct device *dev, dma_addr_t **dma_addr,
-+		      unsigned long *hmm_pfns, uint64_t npages)
-+{
-+	enum dma_data_direction dir = DMA_BIDIRECTIONAL;
-+	dma_addr_t *addr = *dma_addr;
-+	struct page *page;
-+	int i, r;
-+
-+	if (!addr) {
-+		addr = kvmalloc_array(npages, sizeof(*addr),
-+				      GFP_KERNEL | __GFP_ZERO);
-+		if (!addr)
-+			return -ENOMEM;
-+		*dma_addr = addr;
-+	}
-+
-+	for (i = 0; i < npages; i++) {
-+		if (WARN_ONCE(addr[i] && !dma_mapping_error(dev, addr[i]),
-+			      "leaking dma mapping\n"))
-+			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
-+
-+		page = hmm_pfn_to_page(hmm_pfns[i]);
-+		addr[i] = dma_map_page(dev, page, 0, PAGE_SIZE, dir);
-+		r = dma_mapping_error(dev, addr[i]);
-+		if (r) {
-+			pr_debug("failed %d dma_map_page\n", r);
-+			return r;
-+		}
-+		pr_debug("dma mapping 0x%llx for page addr 0x%lx\n",
-+			 addr[i] >> PAGE_SHIFT, page_to_pfn(page));
-+	}
-+	return 0;
-+}
-+
-+static int
-+svm_range_dma_map(struct svm_range *prange, unsigned long *bitmap,
-+		  unsigned long *hmm_pfns)
-+{
-+	struct kfd_process *p;
-+	uint32_t gpuidx;
-+	int r;
-+
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+
-+	for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
-+		struct kfd_process_device *pdd;
-+		struct amdgpu_device *adev;
-+
-+		pr_debug("mapping to gpu idx 0x%x\n", gpuidx);
-+		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			return -EINVAL;
-+		}
-+		adev = (struct amdgpu_device *)pdd->dev->kgd;
-+
-+		r = svm_range_dma_map_dev(adev->dev, &prange->dma_addr[gpuidx],
-+					  hmm_pfns, prange->npages);
-+		if (r)
-+			break;
-+	}
-+
-+	return r;
-+}
-+
-+static void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
-+				unsigned long offset, unsigned long npages)
-+{
-+	enum dma_data_direction dir = DMA_BIDIRECTIONAL;
-+	int i;
-+
-+	if (!dma_addr)
-+		return;
-+
-+	for (i = offset; i < offset + npages; i++) {
-+		if (!dma_addr[i] || dma_mapping_error(dev, dma_addr[i]))
-+			continue;
-+		pr_debug("dma unmapping 0x%llx\n", dma_addr[i] >> PAGE_SHIFT);
-+		dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
-+		dma_addr[i] = 0;
-+	}
-+}
-+
-+static void svm_range_free_dma_mappings(struct svm_range *prange)
-+{
-+	struct kfd_process_device *pdd;
-+	dma_addr_t *dma_addr;
-+	struct device *dev;
-+	struct kfd_process *p;
-+	uint32_t gpuidx;
-+
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+
-+	for (gpuidx = 0; gpuidx < MAX_GPU_INSTANCE; gpuidx++) {
-+		dma_addr = prange->dma_addr[gpuidx];
-+		if (!dma_addr)
-+			continue;
-+
-+		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			continue;
-+		}
-+		dev = &pdd->dev->pdev->dev;
-+		svm_range_dma_unmap(dev, dma_addr, 0, prange->npages);
-+		kvfree(dma_addr);
-+		prange->dma_addr[gpuidx] = NULL;
-+	}
-+}
-+
- static void svm_range_free(struct svm_range *prange)
- {
- 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms, prange,
- 		 prange->start, prange->last);
+-/* BO flag to indicate a KFD userptr BO */
+-#define AMDGPU_AMDKFD_USERPTR_BO (1ULL << 63)
+-
+ /* Userptr restore delay, just long enough to allow consecutive VM
+  * changes to accumulate
+  */
+@@ -217,7 +214,7 @@ void amdgpu_amdkfd_unreserve_memory_limit(struct amdgpu_bo *bo)
+ 	u32 domain = bo->preferred_domains;
+ 	bool sg = (bo->preferred_domains == AMDGPU_GEM_DOMAIN_CPU);
  
-+	svm_range_free_dma_mappings(prange);
- 	mutex_destroy(&prange->lock);
- 	kfree(prange);
- }
-@@ -149,6 +261,15 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
- 	return prange;
- }
- 
-+static int svm_range_bo_validate(void *param, struct amdgpu_bo *bo)
-+{
-+	struct ttm_operation_ctx ctx = { false, false };
-+
-+	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
-+
-+	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-+}
-+
- static int
- svm_range_check_attr(struct kfd_process *p,
- 		     uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
-@@ -291,6 +412,61 @@ svm_range_is_same_attrs(struct svm_range *old, struct svm_range *new)
- 		old->granularity == new->granularity);
- }
- 
-+static int
-+svm_range_split_array(void *ppnew, void *ppold, size_t size,
-+		      uint64_t old_start, uint64_t old_n,
-+		      uint64_t new_start, uint64_t new_n)
-+{
-+	unsigned char *new, *old, *pold;
-+	uint64_t d;
-+
-+	if (!ppold)
-+		return 0;
-+	pold = *(unsigned char **)ppold;
-+	if (!pold)
-+		return 0;
-+
-+	new = kvmalloc_array(new_n, size, GFP_KERNEL);
-+	if (!new)
-+		return -ENOMEM;
-+
-+	d = (new_start - old_start) * size;
-+	memcpy(new, pold + d, new_n * size);
-+
-+	old = kvmalloc_array(old_n, size, GFP_KERNEL);
-+	if (!old) {
-+		kvfree(new);
-+		return -ENOMEM;
-+	}
-+
-+	d = (new_start == old_start) ? new_n * size : 0;
-+	memcpy(old, pold + d, old_n * size);
-+
-+	kvfree(pold);
-+	*(void **)ppold = old;
-+	*(void **)ppnew = new;
-+
-+	return 0;
-+}
-+
-+static int
-+svm_range_split_pages(struct svm_range *new, struct svm_range *old,
-+		      uint64_t start, uint64_t last)
-+{
-+	uint64_t npages = last - start + 1;
-+	int i, r;
-+
-+	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
-+		r = svm_range_split_array(&new->dma_addr[i], &old->dma_addr[i],
-+					  sizeof(*old->dma_addr[i]), old->start,
-+					  npages, new->start, new->npages);
-+		if (r)
-+			return r;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * svm_range_split_adjust - split range and adjust
-  *
-@@ -299,7 +475,7 @@ svm_range_is_same_attrs(struct svm_range *old, struct svm_range *new)
-  * @start: the old range adjust to start address in pages
-  * @last: the old range adjust to last address in pages
-  *
-- * Copy attributes in old range to new
-+ * Copy system memory dma_addr in old range to new
-  * range from new_start up to size new->npages, the remaining old range is from
-  * start to last
-  *
-@@ -310,6 +486,8 @@ static int
- svm_range_split_adjust(struct svm_range *new, struct svm_range *old,
- 		      uint64_t start, uint64_t last)
- {
-+	int r;
-+
- 	pr_debug("svms 0x%p new 0x%lx old [0x%lx 0x%lx] => [0x%llx 0x%llx]\n",
- 		 new->svms, new->start, old->start, old->last, start, last);
- 
-@@ -319,6 +497,10 @@ svm_range_split_adjust(struct svm_range *new, struct svm_range *old,
- 		return -EINVAL;
+-	if (bo->flags & AMDGPU_AMDKFD_USERPTR_BO) {
++	if (bo->flags & AMDGPU_AMDKFD_CREATE_USERPTR_BO) {
+ 		domain = AMDGPU_GEM_DOMAIN_CPU;
+ 		sg = false;
  	}
+@@ -1275,7 +1272,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	bo->kfd_bo = *mem;
+ 	(*mem)->bo = bo;
+ 	if (user_addr)
+-		bo->flags |= AMDGPU_AMDKFD_USERPTR_BO;
++		bo->flags |= AMDGPU_AMDKFD_CREATE_USERPTR_BO;
  
-+	r = svm_range_split_pages(new, old, start, last);
-+	if (r)
-+		return r;
-+
- 	old->npages = last - start + 1;
- 	old->start = start;
- 	old->last = last;
-@@ -425,6 +607,249 @@ svm_range_add_child(struct svm_range *prange, struct mm_struct *mm,
- 	list_add_tail(&pchild->child_list, &prange->child_list);
- }
+ 	(*mem)->va = va;
+ 	(*mem)->domain = domain;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 2d1fefbe1e99..973c88bdf37b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -37,6 +37,10 @@
+ #define AMDGPU_BO_INVALID_OFFSET	LONG_MAX
+ #define AMDGPU_BO_MAX_PLACEMENTS	3
  
-+static uint64_t
-+svm_range_get_pte_flags(struct amdgpu_device *adev, struct svm_range *prange)
-+{
-+	uint32_t flags = prange->flags;
-+	uint32_t mapping_flags;
-+	uint64_t pte_flags;
++/* BO flag to indicate a KFD userptr BO */
++#define AMDGPU_AMDKFD_CREATE_USERPTR_BO	(1ULL << 63)
++#define AMDGPU_AMDKFD_CREATE_SVM_BO	(1ULL << 62)
 +
-+	pte_flags = AMDGPU_PTE_VALID;
-+	pte_flags |= AMDGPU_PTE_SYSTEM | AMDGPU_PTE_SNOOPED;
-+
-+	mapping_flags = AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE;
-+
-+	if (flags & KFD_IOCTL_SVM_FLAG_GPU_RO)
-+		mapping_flags &= ~AMDGPU_VM_PAGE_WRITEABLE;
-+	if (flags & KFD_IOCTL_SVM_FLAG_GPU_EXEC)
-+		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
-+	if (flags & KFD_IOCTL_SVM_FLAG_COHERENT)
-+		mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+	else
-+		mapping_flags |= AMDGPU_VM_MTYPE_NC;
-+
-+	/* TODO: add CHIP_ARCTURUS new flags for vram mapping */
-+
-+	pte_flags |= amdgpu_gem_va_map_flags(adev, mapping_flags);
-+
-+	/* Apply ASIC specific mapping flags */
-+	amdgpu_gmc_get_vm_pte(adev, &prange->mapping, &pte_flags);
-+
-+	pr_debug("PTE flags 0x%llx\n", pte_flags);
-+
-+	return pte_flags;
-+}
-+
-+static int
-+svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+			 uint64_t start, uint64_t last,
-+			 struct dma_fence **fence)
-+{
-+	uint64_t init_pte_value = 0;
-+
-+	pr_debug("[0x%llx 0x%llx]\n", start, last);
-+
-+	return amdgpu_vm_bo_update_mapping(adev, adev, vm, false, true, NULL,
-+					   start, last, init_pte_value, 0,
-+					   NULL, NULL, fence);
-+}
-+
-+static int
-+svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
-+			  unsigned long last)
-+{
-+	DECLARE_BITMAP(bitmap, MAX_GPU_INSTANCE);
-+	struct kfd_process_device *pdd;
-+	struct dma_fence *fence = NULL;
-+	struct amdgpu_device *adev;
-+	struct kfd_process *p;
-+	uint32_t gpuidx;
-+	int r = 0;
-+
-+	bitmap_or(bitmap, prange->bitmap_access, prange->bitmap_aip,
-+		  MAX_GPU_INSTANCE);
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+
-+	for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
-+		pr_debug("unmap from gpu idx 0x%x\n", gpuidx);
-+		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			return -EINVAL;
-+		}
-+		adev = (struct amdgpu_device *)pdd->dev->kgd;
-+
-+		r = svm_range_unmap_from_gpu(adev, pdd->vm, start, last,
-+					     &fence);
-+		if (r)
-+			break;
-+
-+		if (fence) {
-+			r = dma_fence_wait(fence, false);
-+			dma_fence_put(fence);
-+			fence = NULL;
-+			if (r)
-+				break;
-+		}
-+		amdgpu_amdkfd_flush_gpu_tlb_pasid((struct kgd_dev *)adev,
-+						  p->pasid);
-+	}
-+
-+	return r;
-+}
-+
-+static int
-+svm_range_map_to_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+		     struct svm_range *prange, dma_addr_t *dma_addr,
-+		     struct dma_fence **fence)
-+{
-+	uint64_t pte_flags;
-+	int r = 0;
-+
-+	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
-+		 prange->last);
-+
-+	prange->mapping.start = prange->start;
-+	prange->mapping.last = prange->last;
-+	prange->mapping.offset = 0;
-+	pte_flags = svm_range_get_pte_flags(adev, prange);
-+
-+	r = amdgpu_vm_bo_update_mapping(adev, adev, vm, false, false, NULL,
-+					prange->mapping.start,
-+					prange->mapping.last, pte_flags,
-+					prange->mapping.offset, NULL,
-+					dma_addr, &vm->last_update);
-+	if (r) {
-+		pr_debug("failed %d to map to gpu 0x%lx\n", r, prange->start);
-+		goto out;
-+	}
-+
-+	r = amdgpu_vm_update_pdes(adev, vm, false);
-+	if (r) {
-+		pr_debug("failed %d to update directories 0x%lx\n", r,
-+			 prange->start);
-+		goto out;
-+	}
-+
-+	if (fence)
-+		*fence = dma_fence_get(vm->last_update);
-+
-+out:
-+	return r;
-+}
-+
-+static int svm_range_map_to_gpus(struct svm_range *prange,
-+				 unsigned long *bitmap, bool wait)
-+{
-+	struct kfd_process_device *pdd;
-+	struct amdgpu_device *adev;
-+	struct kfd_process *p;
-+	struct dma_fence *fence = NULL;
-+	uint32_t gpuidx;
-+	int r = 0;
-+
-+	p = container_of(prange->svms, struct kfd_process, svms);
-+	for_each_set_bit(gpuidx, bitmap, MAX_GPU_INSTANCE) {
-+		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			return -EINVAL;
-+		}
-+		adev = (struct amdgpu_device *)pdd->dev->kgd;
-+
-+		pdd = kfd_bind_process_to_device(pdd->dev, p);
-+		if (IS_ERR(pdd))
-+			return -EINVAL;
-+
-+		r = svm_range_map_to_gpu(adev, pdd->vm, prange,
-+					 prange->dma_addr[gpuidx],
-+					 wait ? &fence : NULL);
-+		if (r)
-+			break;
-+
-+		if (fence) {
-+			r = dma_fence_wait(fence, false);
-+			dma_fence_put(fence);
-+			fence = NULL;
-+			if (r) {
-+				pr_debug("failed %d to dma fence wait\n", r);
-+				break;
-+			}
-+		}
-+	}
-+
-+	return r;
-+}
-+
-+struct svm_validate_context {
-+	struct kfd_process *process;
-+	struct svm_range *prange;
-+	bool intr;
-+	unsigned long bitmap[MAX_GPU_INSTANCE];
-+	struct ttm_validate_buffer tv[MAX_GPU_INSTANCE+1];
-+	struct list_head validate_list;
-+	struct ww_acquire_ctx ticket;
-+};
-+
-+static int svm_range_reserve_bos(struct svm_validate_context *ctx)
-+{
-+	struct kfd_process_device *pdd;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_vm *vm;
-+	uint32_t gpuidx;
-+	int r;
-+
-+	INIT_LIST_HEAD(&ctx->validate_list);
-+	for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
-+		pdd = kfd_process_device_from_gpuidx(ctx->process, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			return -EINVAL;
-+		}
-+		adev = (struct amdgpu_device *)pdd->dev->kgd;
-+		vm = pdd->vm;
-+
-+		ctx->tv[gpuidx].bo = &vm->root.base.bo->tbo;
-+		ctx->tv[gpuidx].num_shared = 4;
-+		list_add(&ctx->tv[gpuidx].head, &ctx->validate_list);
-+	}
-+
-+	r = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->validate_list,
-+				   ctx->intr, NULL);
-+	if (r) {
-+		pr_debug("failed %d to reserve bo\n", r);
-+		return r;
-+	}
-+
-+	for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
-+		pdd = kfd_process_device_from_gpuidx(ctx->process, gpuidx);
-+		if (!pdd) {
-+			pr_debug("failed to find device idx %d\n", gpuidx);
-+			r = -EINVAL;
-+			goto unreserve_out;
-+		}
-+		adev = (struct amdgpu_device *)pdd->dev->kgd;
-+
-+		r = amdgpu_vm_validate_pt_bos(adev, pdd->vm,
-+					      svm_range_bo_validate, NULL);
-+		if (r) {
-+			pr_debug("failed %d validate pt bos\n", r);
-+			goto unreserve_out;
-+		}
-+	}
-+
-+	return 0;
-+
-+unreserve_out:
-+	ttm_eu_backoff_reservation(&ctx->ticket, &ctx->validate_list);
-+	return r;
-+}
-+
-+static void svm_range_unreserve_bos(struct svm_validate_context *ctx)
-+{
-+	ttm_eu_backoff_reservation(&ctx->ticket, &ctx->validate_list);
-+}
-+
- /*
-  * Validation+GPU mapping with concurrent invalidation (MMU notifiers)
-  *
-@@ -453,9 +878,27 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 				      struct svm_range *prange,
- 				      uint32_t gpuidx, bool intr, bool wait)
- {
-+	struct svm_validate_context ctx;
- 	struct hmm_range *hmm_range;
- 	int r = 0;
+ #define to_amdgpu_bo_user(abo) container_of((abo), struct amdgpu_bo_user, bo)
  
-+	ctx.process = container_of(prange->svms, struct kfd_process, svms);
-+	ctx.prange = prange;
-+	ctx.intr = intr;
-+
-+	if (gpuidx < MAX_GPU_INSTANCE) {
-+		bitmap_zero(ctx.bitmap, MAX_GPU_INSTANCE);
-+		bitmap_set(ctx.bitmap, gpuidx, 1);
-+	} else {
-+		bitmap_or(ctx.bitmap, prange->bitmap_access,
-+			  prange->bitmap_aip, MAX_GPU_INSTANCE);
-+	}
-+
-+	if (bitmap_empty(ctx.bitmap, MAX_GPU_INSTANCE))
-+		return 0;
-+
-+	svm_range_reserve_bos(&ctx);
-+
- 	if (!prange->actual_loc) {
- 		r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
- 					       prange->start << PAGE_SHIFT,
-@@ -465,6 +908,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 			pr_debug("failed %d to get svm range pages\n", r);
- 			goto unreserve_out;
- 		}
-+
-+		r = svm_range_dma_map(prange, ctx.bitmap,
-+				      hmm_range->hmm_pfns);
-+		if (r) {
-+			pr_debug("failed %d to dma map range\n", r);
-+			goto unreserve_out;
-+		}
- 	}
- 
- 	svm_range_lock(prange);
-@@ -474,12 +924,17 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 			goto unlock_out;
- 		}
- 	}
-+	if (!list_empty(&prange->child_list)) {
-+		r = -EAGAIN;
-+		goto unlock_out;
-+	}
- 
--	/* TODO: map to GPU */
-+	r = svm_range_map_to_gpus(prange, ctx.bitmap, wait);
- 
- unlock_out:
- 	svm_range_unlock(prange);
- unreserve_out:
-+	svm_range_unreserve_bos(&ctx);
- 
- 	return r;
- }
-@@ -834,6 +1289,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
- 	struct svm_range_list *svms;
- 	struct svm_range *pchild;
- 	struct kfd_process *p;
-+	unsigned long s, l;
- 	bool unmap_parent;
- 
- 	p = kfd_lookup_process_by_mm(mm);
-@@ -846,8 +1302,19 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
- 
- 	unmap_parent = start <= prange->start && last >= prange->last;
- 
--	list_for_each_entry(pchild, &prange->child_list, child_list)
-+	list_for_each_entry(pchild, &prange->child_list, child_list) {
-+		mutex_lock_nested(&pchild->lock, 1);
-+		s = max(start, pchild->start);
-+		l = min(last, pchild->last);
-+		if (l >= s)
-+			svm_range_unmap_from_gpus(pchild, s, l);
- 		svm_range_unmap_split(mm, prange, pchild, start, last);
-+		mutex_unlock(&pchild->lock);
-+	}
-+	s = max(start, prange->start);
-+	l = min(last, prange->last);
-+	if (l >= s)
-+		svm_range_unmap_from_gpus(prange, s, l);
- 	svm_range_unmap_split(mm, prange, prange, start, last);
- 
- 	if (unmap_parent)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 173e93e138a9..5949890bf48c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -57,7 +57,9 @@ struct svm_work_list_item {
-  * @update_list:link list node used to add to update_list
-  * @remove_list:link list node used to add to remove list
-  * @insert_list:link list node used to add to insert list
-+ * @mapping:    bo_va mapping structure to create and update GPU page table
-  * @npages:     number of pages
-+ * @dma_addr:   dma mapping address on each GPU for system memory physical page
-  * @lock:       protect prange start, last, child_list, svm_bo_list
-  * @saved_flags:save/restore current PF_MEMALLOC flags
-  * @flags:      flags defined as KFD_IOCTL_SVM_FLAG_*
-@@ -85,7 +87,9 @@ struct svm_range {
- 	struct list_head		update_list;
- 	struct list_head		remove_list;
- 	struct list_head		insert_list;
-+	struct amdgpu_bo_va_mapping	mapping;
- 	uint64_t			npages;
-+	dma_addr_t			*dma_addr[MAX_GPU_INSTANCE];
- 	struct mutex                    lock;
- 	unsigned int                    saved_flags;
- 	uint32_t			flags;
+ struct amdgpu_bo_param {
 -- 
 2.31.1
 
