@@ -5,57 +5,57 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85689C43460
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:24:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D6EFC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E2116120E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:24:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E2116120E
+	by mail.kernel.org (Postfix) with ESMTPS id 2139661155
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:24:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2139661155
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02616E9B7;
-	Thu, 15 Apr 2021 01:24:10 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680075.outbound.protection.outlook.com [40.107.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA5C76E99F;
- Thu, 15 Apr 2021 01:24:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8712E6E99C;
+	Thu, 15 Apr 2021 01:24:04 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2046E98F;
+ Thu, 15 Apr 2021 01:24:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G1msQeY1ZYnwqzEH3WBPDERHktjIoOdSVFKf10Kg3SnS+G3EBEm1s44JKth0dbP9tX1JfI57HW/LXPqBB5zf7tnpv4wTmNP4J2UZOMyrvcpgPmpt7jzqI6Ys462U9Eyy419F+DDlU8KWdQKlcimI17Y+LUfZzzKW/abMXbgOJN5NjaVJMeT29em3MwtC5d7CFg/dQy+7oTD8dd3nhJlXeDlXIRCWbkeSFM8cM314xUd4cLQDy93b4e+vGpJlfpY5y9T9bUKWChqVmDPMPxrBLCbGfImLPXRRqH8YZ4o64ZIa6j+yIhTZ9dX1eUA3rhd5WMGwTVdi0Fpu2ZbXgshz3g==
+ b=KKkCo4IrMSQvACbLf1DgR4imFbC/A6eeukX9USGs8qDT5t9Auur0VRXTdT1Scy9JeLnmthQduUhe4Cs2T+6K5FK5TPcPus19D305DBixCPxk1OqMDyf8jOmvslIhZWYUkJwiKXtOetJYjc9M+/wpgBT3xnz+TT6BZUWblEnhtyhCeP8KW6xbqqlkI4aRJxyB45PlTU9P/yGZDQYXszL2ciszCE3b9xBAimDr4TTRcv7B3hjhz18/PeGTDz6JEsTM4fQmieWeVXB0BHTEoRPlhqkfts1hCaV1RnyrWXhjL3vIgMk8wsicDpIBM83a/7vO6IF6GrEKMztgKkeIfArlVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cgCvREmkeK8l68yf4R/rBzu30/HOx86EsAq9rsxDWsk=;
- b=hexfpQ2bX0ancnwldAR9htV4awifsLwfzO61m9V2PcC1vypieJw9DPQ1kcQEvyhBfgEZ7aw0ejK7T7eXZFtuEKZ/AYguT3r0ZF85MDROcNAq0RzexF6hAzE8Fap7TD00FXGJ8qpd/3zJuWgvxiwZ40gsv8N1PPwiTmlap+aflWXCIsMfWQVJwExXOfI6/qCw+igjq3mrdDj38WGE3xkZb1GLT4I5euev6OcY0LXrHxEg5yIcjc/GLRB9yDsksOCMou/LMniXDEwVkzeW0DhuvEJ1PA1GIjLru8Xo5ewEywYFo/0yNH0DZy2OdlxkYjYdEd82g+bV77fKafRWfHt6XQ==
+ bh=gNV/CC9pDnkmpMEunOri10pdj0ABB70OZ+buCmvTM9w=;
+ b=WxtMEl7ZEsCcDVy5ujw5nBxwwjhjJPFNUFPSSXei2SMGj5QqaMxVipITzkGeArpXpaYv+JjEppXjoR77SnCCT77zy9UafJdwaQwPj21hXOQw6eyheyKrlPyYrNZb1yCvkqf1rcwtqFEiMwMjr7k4UAvKIDoZHO0Ng17bV9a7Ra+IQntr8CzlkvwevHd3WKsi1PKuv4zPabITR+p/4Sy1M8BzlfzZwAjsdzVoPFhBTv+d+N4fJDvBUwlhtsfjd8y02fC2Vn7kx+woPoOkbMy6A77NptNB8TIJxYAKqHqpg6Ry33UbWJvJkOllhP6xRRshDF+VGBh7ZJgumncd5Ww4VQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cgCvREmkeK8l68yf4R/rBzu30/HOx86EsAq9rsxDWsk=;
- b=hdrskp+buBBmCaZyIk3kXAaeeLPsuMBOytpSUYvNHLwBMgRb7ZN/wREWouSqf3SDDTCPJToWoyepjM5Bqwp4GsUdxsg7PthkdAqQUY1j8373fcOWFDirUsOpgx7UVVXvEatfnBkiP+W/AGyLpN5MNaxCNf2KHisZ6pir1TeGmME=
+ bh=gNV/CC9pDnkmpMEunOri10pdj0ABB70OZ+buCmvTM9w=;
+ b=ZsxBKMCg6BtRNlucbVISP3L7qFtyfQT+xqJ6SsthoQGD0OURfpx90DeHhcccDjXSe32N9JYCbZQJkQO76CCBJHDntbjV41rcDaEoLDAr8Q2Fvkhi539cMxHSVf1ilCnP2rlztBYbg55kmysDzIYi3qM80QjlpOu7Qd9ZTENoD8U=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
+ by MN2PR12MB3839.namprd12.prod.outlook.com (2603:10b6:208:168::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Thu, 15 Apr
- 2021 01:24:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Thu, 15 Apr
+ 2021 01:23:57 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 15 Apr 2021
- 01:24:02 +0000
+ 01:23:57 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 13/34] drm/amdkfd: add xnack enabled flag to kfd_process
-Date: Wed, 14 Apr 2021 21:23:16 -0400
-Message-Id: <20210415012337.1755-14-Felix.Kuehling@amd.com>
+Subject: [PATCH 04/34] drm/amdkfd: add svm ioctl GET_ATTR op
+Date: Wed, 14 Apr 2021 21:23:07 -0400
+Message-Id: <20210415012337.1755-5-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210415012337.1755-1-Felix.Kuehling@amd.com>
 References: <20210415012337.1755-1-Felix.Kuehling@amd.com>
@@ -69,53 +69,53 @@ Received: from Harpoon.amd.com (165.204.55.251) by
  YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::48) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Thu, 15 Apr 2021 01:24:00 +0000
+ Transport; Thu, 15 Apr 2021 01:23:56 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e849258e-b716-4fb6-d721-08d8ffad263e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:
+X-MS-Office365-Filtering-Correlation-Id: eb331153-5020-4d94-0758-08d8ffad23d1
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3839:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB479756CBAEC0EB51A196C095924D9@MN2PR12MB4797.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3839E9686444D8D1087F0AA4924D9@MN2PR12MB3839.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:626;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SgH21eojCIriTxss6XVRRaAFVEMNN0sCULYo99pY9336V2hGPFh5j1rlvtmAL86S4Q5iq+084RwViSD6xx3a9FF7DdvKC5icHzeKp80MTqG9mzKpOJ+pdw7UDxT3MOth0o1M/zImZs+QImv9jXmt71XOZ1iessxCFTdrSy7ipu2+o+LQ5LSI7gSS4Px8lOyFG5uHK8aPGmmyE/LpFu78WtnWJ9geKfaez9eaYuwQZh1UEEkbxx0OIS/DuktGduOMkxF9Q6Z5IcXrqjrlw0SUmKIV7+JDxWo2CnPuFd0Iea3Q9JYPPN5nyC5z1flNdW9xYSCKWMURfPziCrUi0JB5z3Hg9Z6NF0NWyCTGs8XglwSeBqrd9890aq3r4p4fPc1MJARhBi9ADegQKkQLSNx0YKRebBCnMX/sbw2OmdnP4u/Aq79hDLCNFggGuTBZ/kPqdkk4vEtHuFxhjdOv+OIZcwx2qQe5xGUzoZPn8CTv2MJI2Aiv5zuz0EW+datNsfRZHjMF/07UhyYOYRsn3Ftm6aADMU2cZ4LwIjIj/D7aahZt2hGy4V4cEG1Zo0ELN+PhiYQqw+HjrHnf4zIR9btkwHXADt4hanLrNTK8NxDCHiizu8hLfZt58wDXWc+l2sSYl5fGB3Sy29ZeGYd7eytLT9+As3MYduQffZi8IwRYjos=
+X-Microsoft-Antispam-Message-Info: OQ5JyiCJg8B1iSfkAReOK0C/ElM4Xsu/RftHaLo4eRtSfjY5orqqhnNXbQzsmnOJZXAtHNKcrFu63GQNmaIEwCpzdSagFEDMBrOhv6C+s0/W5EzH+P3C8AR7q9my9icaat2hWVWeUmBhSSXI8CzSjqjaV9sl1UwEpYXe5RzTFAryaZSUDfBBOpUGGRd1sHAjDgjRg1g3VqdvImaBavjBpkCxJnutuXq1dM5izxEPOJxjSPwUWh8XHugbYTv/nw8lTB5WScji3hXdKzFGnBLSCSZcDuMIxAh+if2q26sTnvmn+xAph5qaUu11aq3umtIVFcOjQ//2+s0T2j2ENT6Gh8/mcH+JY8eE3O4738wtz15vgSeFPXuG4m8RvewjrmSAOwGrV5xIenUDxXScsHxTLv/cXSKAbpEVje6SIfK+0KLz2dVUR8U4rnhE1TSTERULITiF26M5Mxf6aT1ZyjJpfLOSLtTPvqAR8C0oyinnhZS2SqGSgJWguJ16h+F53EyvpS47rJGbp3ns9XRNTNMNCzy9rtk/T4W7QSWk2OKbZz008GYOwHFQOcLPwv/Al+d4mz//4HLzEHnLIm8tWcAbJuILaNJzR9qMUlJC/l09MlkA6J/U+0sTwYhamhfeGmKj7UW941sI82k7xfmNFiqvan1GP6cH3O3qmWil2lvBf0E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(86362001)(66476007)(66946007)(2906002)(38350700002)(186003)(36756003)(16526019)(450100002)(38100700002)(5660300002)(83380400001)(66556008)(4326008)(52116002)(7696005)(478600001)(6486002)(8936002)(2616005)(8676002)(1076003)(6666004)(956004)(26005)(316002);
+ SFS:(4636009)(396003)(376002)(366004)(346002)(136003)(39860400002)(2616005)(86362001)(26005)(956004)(52116002)(8676002)(316002)(83380400001)(4326008)(5660300002)(38100700002)(38350700002)(6666004)(478600001)(450100002)(8936002)(7696005)(66476007)(6486002)(66556008)(36756003)(54906003)(66946007)(2906002)(1076003)(16526019)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?fnP29CR11CEwOSnEDj+y0lSjXICZjik9nQFA5GcuyCm39AchPjY0uR2YMC7y?=
- =?us-ascii?Q?aaDARsLUe0OIwuaSAgOa6m2+Yagv0ut+mCLjV+U9G1H+Eahe2hIpY+VozA1A?=
- =?us-ascii?Q?UaE7L1JiKRNP7gWdA7PvZKmZJSnKlobEgNWB68T/P3bxZA7INjlGAHWVaBq4?=
- =?us-ascii?Q?RimhqZ7ccscAr++D+L9EEJZGGl6PiP4/0azwFPSFcgCoJGF4WVu6JOhgldtZ?=
- =?us-ascii?Q?+sxEoosTzKuYbyorxOFOxsDcVK4NnbCW40gZpAb9bNxnHaJtZ3CpmZbpbnGj?=
- =?us-ascii?Q?I4PZbVuhIJD9p+heufo2VPVQlIoX3wSDAPKvGOtGZCBYZfkFcvjNeDvzHMcX?=
- =?us-ascii?Q?nTapaMHQZjPOQo9fsH0yXcHMNOVc3CRhm86eYmDqrqCjuQu6f6nu/YKkBoaf?=
- =?us-ascii?Q?q5T++v1+MMhx87MnpErO4uhlOoMzh6kdYlCmoY61TVc/569CZA060zvCAQhd?=
- =?us-ascii?Q?jLtju+9Fi61Vqqn/GMvVT0RvY27tCZphEMNG0Q4uLST+so8P7ueyKlJULAsn?=
- =?us-ascii?Q?lQOqyc2GY8J5GSKxs3YalHRKL9DxFoFa8NoprR5b9IX7mUeCICDJavyTPLtr?=
- =?us-ascii?Q?/p1uF9p31ECTCSxcwgNV1DCUTU3BEYvkTzMrV2/Sh8/8aO160u+6ECm6mDZk?=
- =?us-ascii?Q?0y8NjcGI/6F9ShZ2hm5Cksfddo6ta2TLoiwvpKO2bBJeIG66pca1M2V4Il/n?=
- =?us-ascii?Q?sAfGAAxrHX9pG8LcfGgP8yZo5VVtAw+HN3vwpGRtpFZe09KPV1sptewku8RQ?=
- =?us-ascii?Q?2UrATInwFkj3SyImu5m+mybXE8hbOEwI/BH5b7ccoe5SYfjFHIZm6xtlOeYX?=
- =?us-ascii?Q?03234RCnSv6vX/SOGrI9dMAx7sY9XGMpAyjjCahzYnXJjx+yodMVvxY2fKxf?=
- =?us-ascii?Q?K3AekopbVo1rv15hzlS8os0mU698mtr0lz7L5G/2MIgJ8dllQChXb7fDdF7c?=
- =?us-ascii?Q?iDAcw+eum5LNxYbs+ihMMQ4zBnE00fFSF8Mm1E/ZX69QZuj4XVj94EdVaiC/?=
- =?us-ascii?Q?tfyO0/1G45kua6/e8qpAtG2N2/bWJyDXqBsDt7PcAu7i4Eag3IDMmKpeBqXc?=
- =?us-ascii?Q?xIc5E7BMrQ2M8i0yNbpo+WjS3yNw2oEtyKVimKxXdWHPeRETj2BQ6ZA1KgI0?=
- =?us-ascii?Q?Xo4qzc8Ib+j4mCjhYs+lUp/RXP3kMpwfSt7N4EVsVGsmQ03+VH4vB2T7p/io?=
- =?us-ascii?Q?k9Nay/5dkv7UVi0ICThhdC4abhHzInFpV/+5QUZztOBVID6D7IHTPyaLSy14?=
- =?us-ascii?Q?b+wJ193fUPioRPcR+t1L6sFIe1y6C3nKecOKaSqLkGUC2psTE6cIqWeintfx?=
- =?us-ascii?Q?Ml+lYgMRA9A3BI6IkBwYCOiw?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?nQd8S45dPmPAhyobas2v25v+qT7otUSrZYz2LlSSF8zdq14bGGr1+OyEnpxF?=
+ =?us-ascii?Q?xLuqf+joqcORrEaKC6sU56zQj9prPQXw9/1uiEyedk7k5m9T2BoBOtn4Ph+X?=
+ =?us-ascii?Q?9iJEa2cvRMMBw8V2H1Gylv8OFDpdXq7oKaEicmOi0xEmrgYBJ2cInpw5rg+S?=
+ =?us-ascii?Q?fO3FaEBOAdilWMW0i8RGr5DcNp69jMbp8jf+3Ket0ieQcok6bU3IlobQ4O6W?=
+ =?us-ascii?Q?oXqa1GQTmdNBmTq/DDKPunfasTZNgp/WLtEcr2eHowndQ2OWYFHeec+BDhVZ?=
+ =?us-ascii?Q?9H+ASRiR4cL3PJigPmL2gW0jGaK002X1XermE10+7rVrEv6jJej5XOzpxQG5?=
+ =?us-ascii?Q?zX4+PEwl+QJCYNzPOBxznkAfck29v/rDdXi4kHjFkxfQIX9g1rali3C01M4c?=
+ =?us-ascii?Q?C8cIXlFw9mSdVXqi8+NkukSYQA+sXCDoiQVMZzv5qkeuISoeEke3v41zbslw?=
+ =?us-ascii?Q?YPfdT2vyxH13dsBBpcmED01rtIeExn1UA9oz9gP2kPThwMpDpkgTbCvoA8PA?=
+ =?us-ascii?Q?m4Ngvdede6vmtyqvzITabg6zs7C81aXfFbM/qL20/AWb+p157w5wECvO0cOy?=
+ =?us-ascii?Q?5Dap96utATbZiqLkYOUoqAK1hqiQPxNiKpWb5OHnuTHurBliGBIpjSuWKQTM?=
+ =?us-ascii?Q?1ez/TpVpk/yp1UfDj+NeRfo32KnRDp+4vqtkptgpUxHoT9E9ldv/RuOVrR8x?=
+ =?us-ascii?Q?w3MgEyyZg68Ux9UFxxQ7QlDfD9+yaMSZX7Xceuv4PUpwf+ejX3h7jr/ogCN3?=
+ =?us-ascii?Q?fqA751F+CgfLTdjQq1OJx1wuQcXg2FP4bH33hssC4H7dgHHOLx5F1Y9NN2e5?=
+ =?us-ascii?Q?cHN/LDzm5/5uPD8T0ffKo3xqVFBXtg0P6fm8il0D0nrMy3u47j92Iqj6wzp6?=
+ =?us-ascii?Q?s7/n6tfaP92udfEOQHA2FtjaCKJEBA06UJzi3rUDL5HcOwIOjKQ+i/RxwW5c?=
+ =?us-ascii?Q?f2RbQUl13/NqjxM8VOdKcMWjI4puOMajyIfyLWL3IKZ05wO6Omc1RG2zfPtu?=
+ =?us-ascii?Q?gd59D54xwfBhNoib1Sr0QLtw0d1g7O7uanvLaJiftudjJMQeO0W1O8yfe6TF?=
+ =?us-ascii?Q?wqJ+LxHkGOwthj0DWHi2ZPU0aUa2xWWLOMAjFMWqyKEn9fjxHuEEHpgfwAB3?=
+ =?us-ascii?Q?BfzEdEqJhPIQeYin2dGJG1tq6to+GnqJe06JCpr3KQku68z6B3jSx8vpt1+L?=
+ =?us-ascii?Q?EafZfSbJfp/KBLWdFJj97dzvFwWWSq9VbfBNpO1dEACi3FwYyhrTUV1hkcd6?=
+ =?us-ascii?Q?WV3pACae5Y7IMC30HYipD7sel2x04cCw7DR6h+9ax7LFPBaCXdtP0SmxHZNJ?=
+ =?us-ascii?Q?G8VIwAnxZQy4Gfb453XTsMjp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e849258e-b716-4fb6-d721-08d8ffad263e
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb331153-5020-4d94-0758-08d8ffad23d1
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:24:01.0595 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:23:56.9356 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yey33JWdBU/cmijBAy/OulGweBUmvk30To42pSaxUti3ra+M9+AX3f9VwnIzN/VRu1/XA+kc9fCf9QAMU9P3yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
+X-MS-Exchange-CrossTenant-UserPrincipalName: TGUq60ToJOvJmqqOgKNlZoqX8a24LP50Wlt8zz2TryM8C9dF9quhv2oWuxOOE8gWe5eLLZuJCaIn0P7dq9immg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3839
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,151 +127,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-XNACK mode controls the SQ RETRY_DISABLE setting that determines,
-whether recoverable page faults can be supported on GFXv9 hardware.
-Only on Aldebaran we can support different processes running with
-different XNACK modes. On older chips all processes must use the same
-RETRY_DISABLE setting. However, processes not relying on recoverable
-page faults can work with RETRY enabled. This means XNACK off is always
-available as a fallback so we can use the same mode on all GPUs in a
-process.
+Get the intersection of attributes over all memory in the given
+range
 
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- .../amd/amdkfd/kfd_device_queue_manager_v9.c  | 13 ++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  4 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 53 +++++++++++++++++++
- 3 files changed, 68 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 164 +++++++++++++++++++++++++++
+ 1 file changed, 164 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-index eca6331efa94..b5c3d13643f1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-@@ -61,10 +61,19 @@ static int update_qpd_v9(struct device_queue_manager *dqm,
- 		qpd->sh_mem_config =
- 				SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
- 					SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
--		if (dqm->dev->noretry &&
--		    !dqm->dev->use_iommu_v2)
-+
-+		if (dqm->dev->device_info->asic_family == CHIP_ALDEBARAN) {
-+			/* Aldebaran can safely support different XNACK modes
-+			 * per process
-+			 */
-+			if (!pdd->process->xnack_enabled)
-+				qpd->sh_mem_config |=
-+					1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-+		} else if (dqm->dev->noretry &&
-+			   !dqm->dev->use_iommu_v2) {
- 			qpd->sh_mem_config |=
- 				1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-+		}
- 
- 		qpd->sh_mem_ape1_limit = 0;
- 		qpd->sh_mem_ape1_base = 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 1b829eef9e50..5c0efaaebd8c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -824,6 +824,8 @@ struct kfd_process {
- 	/* shared virtual memory registered by this process */
- 	struct svm_range_list svms;
- 	bool svm_disabled;
-+
-+	bool xnack_enabled;
- };
- 
- #define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
-@@ -883,6 +885,8 @@ struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
- struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 							struct kfd_process *p);
- 
-+bool kfd_process_xnack_mode(struct kfd_process *p, bool supported);
-+
- int kfd_reserved_mem_mmap(struct kfd_dev *dev, struct kfd_process *process,
- 			  struct vm_area_struct *vma);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 3bcde43ccd70..b6ba2b91bdc3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1193,6 +1193,56 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
- 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index f56f463dd0f4..8f147fa4ff94 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -706,6 +706,167 @@ svm_range_set_attr(struct kfd_process *p, uint64_t start, uint64_t size,
+ 	return r;
  }
  
-+bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
++static int
++svm_range_get_attr(struct kfd_process *p, uint64_t start, uint64_t size,
++		   uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
 +{
-+	int i;
++	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
++	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
++	bool get_preferred_loc = false;
++	bool get_prefetch_loc = false;
++	bool get_granularity = false;
++	bool get_accessible = false;
++	bool get_flags = false;
++	uint64_t last = start + size - 1UL;
++	struct mm_struct *mm = current->mm;
++	uint8_t granularity = 0xff;
++	struct interval_tree_node *node;
++	struct svm_range_list *svms;
++	struct svm_range *prange;
++	uint32_t prefetch_loc = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++	uint32_t location = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++	uint32_t flags = 0xffffffff;
++	int gpuidx;
++	uint32_t i;
 +
-+	/* On most GFXv9 GPUs, the retry mode in the SQ must match the
-+	 * boot time retry setting. Mixing processes with different
-+	 * XNACK/retry settings can hang the GPU.
-+	 *
-+	 * Different GPUs can have different noretry settings depending
-+	 * on HW bugs or limitations. We need to find at least one
-+	 * XNACK mode for this process that's compatible with all GPUs.
-+	 * Fortunately GPUs with retry enabled (noretry=0) can run code
-+	 * built for XNACK-off. On GFXv9 it may perform slower.
-+	 *
-+	 * Therefore applications built for XNACK-off can always be
-+	 * supported and will be our fallback if any GPU does not
-+	 * support retry.
-+	 */
-+	for (i = 0; i < p->n_pdds; i++) {
-+		struct kfd_dev *dev = p->pdds[i]->dev;
++	pr_debug("svms 0x%p [0x%llx 0x%llx] nattr 0x%x\n", &p->svms, start,
++		 start + size - 1, nattr);
 +
-+		/* Only consider GFXv9 and higher GPUs. Older GPUs don't
-+		 * support the SVM APIs and don't need to be considered
-+		 * for the XNACK mode selection.
-+		 */
-+		if (dev->device_info->asic_family < CHIP_VEGA10)
-+			continue;
-+		/* Aldebaran can always support XNACK because it can support
-+		 * per-process XNACK mode selection. But let the dev->noretry
-+		 * setting still influence the default XNACK mode.
-+		 */
-+		if (supported &&
-+		    dev->device_info->asic_family == CHIP_ALDEBARAN)
-+			continue;
++	mmap_read_lock(mm);
++	if (!svm_range_is_valid(mm, start, size)) {
++		pr_debug("invalid range\n");
++		mmap_read_unlock(mm);
++		return -EINVAL;
++	}
++	mmap_read_unlock(mm);
 +
-+		/* GFXv10 and later GPUs do not support shader preemption
-+		 * during page faults. This can lead to poor QoS for queue
-+		 * management and memory-manager-related preemptions or
-+		 * even deadlocks.
-+		 */
-+		if (dev->device_info->asic_family >= CHIP_NAVI10)
-+			return false;
-+
-+		if (dev->noretry)
-+			return false;
++	for (i = 0; i < nattr; i++) {
++		switch (attrs[i].type) {
++		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
++			get_preferred_loc = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
++			get_prefetch_loc = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_ACCESS:
++			get_accessible = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
++			get_flags = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_GRANULARITY:
++			get_granularity = true;
++			break;
++		case KFD_IOCTL_SVM_ATTR_CLR_FLAGS:
++		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
++		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
++			fallthrough;
++		default:
++			pr_debug("get invalid attr type 0x%x\n", attrs[i].type);
++			return -EINVAL;
++		}
 +	}
 +
-+	return true;
++	svms = &p->svms;
++
++	mutex_lock(&svms->lock);
++
++	node = interval_tree_iter_first(&svms->objects, start, last);
++	if (!node) {
++		pr_debug("range attrs not found return default values\n");
++		svm_range_set_default_attributes(&location, &prefetch_loc,
++						 &granularity, &flags);
++		/* TODO: Automatically create SVM ranges and map them on
++		 * GPU page faults
++		if (p->xnack_enabled)
++			bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
++		 */
++
++		goto fill_values;
++	}
++	bitmap_fill(bitmap_access, MAX_GPU_INSTANCE);
++	bitmap_fill(bitmap_aip, MAX_GPU_INSTANCE);
++
++	while (node) {
++		struct interval_tree_node *next;
++
++		prange = container_of(node, struct svm_range, it_node);
++		next = interval_tree_iter_next(node, start, last);
++
++		if (get_preferred_loc) {
++			if (prange->preferred_loc ==
++					KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
++			    (location != KFD_IOCTL_SVM_LOCATION_UNDEFINED &&
++			     location != prange->preferred_loc)) {
++				location = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++				get_preferred_loc = false;
++			} else {
++				location = prange->preferred_loc;
++			}
++		}
++		if (get_prefetch_loc) {
++			if (prange->prefetch_loc ==
++					KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
++			    (prefetch_loc != KFD_IOCTL_SVM_LOCATION_UNDEFINED &&
++			     prefetch_loc != prange->prefetch_loc)) {
++				prefetch_loc = KFD_IOCTL_SVM_LOCATION_UNDEFINED;
++				get_prefetch_loc = false;
++			} else {
++				prefetch_loc = prange->prefetch_loc;
++			}
++		}
++		if (get_accessible) {
++			bitmap_and(bitmap_access, bitmap_access,
++				   prange->bitmap_access, MAX_GPU_INSTANCE);
++			bitmap_and(bitmap_aip, bitmap_aip,
++				   prange->bitmap_aip, MAX_GPU_INSTANCE);
++		}
++		if (get_flags)
++			flags &= prange->flags;
++
++		if (get_granularity && prange->granularity < granularity)
++			granularity = prange->granularity;
++
++		node = next;
++	}
++fill_values:
++	mutex_unlock(&svms->lock);
++
++	for (i = 0; i < nattr; i++) {
++		switch (attrs[i].type) {
++		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
++			attrs[i].value = location;
++			break;
++		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
++			attrs[i].value = prefetch_loc;
++			break;
++		case KFD_IOCTL_SVM_ATTR_ACCESS:
++			gpuidx = kfd_process_gpuidx_from_gpuid(p,
++							       attrs[i].value);
++			if (gpuidx < 0) {
++				pr_debug("invalid gpuid %x\n", attrs[i].value);
++				return -EINVAL;
++			}
++			if (test_bit(gpuidx, bitmap_access))
++				attrs[i].type = KFD_IOCTL_SVM_ATTR_ACCESS;
++			else if (test_bit(gpuidx, bitmap_aip))
++				attrs[i].type =
++					KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE;
++			else
++				attrs[i].type = KFD_IOCTL_SVM_ATTR_NO_ACCESS;
++			break;
++		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
++			attrs[i].value = flags;
++			break;
++		case KFD_IOCTL_SVM_ATTR_GRANULARITY:
++			attrs[i].value = (uint32_t)granularity;
++			break;
++		}
++	}
++
++	return 0;
 +}
 +
- /*
-  * On return the kfd_process is fully operational and will be freed when the
-  * mm is released
-@@ -1232,6 +1282,9 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	if (err != 0)
- 		goto err_init_apertures;
- 
-+	/* Check XNACK support after PDDs are created in kfd_init_apertures */
-+	process->xnack_enabled = kfd_process_xnack_mode(process, false);
-+
- 	err = svm_range_list_init(process);
- 	if (err)
- 		goto err_init_svm_range_list;
+ int
+ svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
+ 	  uint64_t size, uint32_t nattrs, struct kfd_ioctl_svm_attribute *attrs)
+@@ -719,6 +880,9 @@ svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
+ 	case KFD_IOCTL_SVM_OP_SET_ATTR:
+ 		r = svm_range_set_attr(p, start, size, nattrs, attrs);
+ 		break;
++	case KFD_IOCTL_SVM_OP_GET_ATTR:
++		r = svm_range_get_attr(p, start, size, nattrs, attrs);
++		break;
+ 	default:
+ 		r = EINVAL;
+ 		break;
 -- 
 2.31.1
 
