@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,URIBL_BLOCKED,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BD70C43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B10A0C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 02:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 182596120E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 01:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 182596120E
+	by mail.kernel.org (Postfix) with ESMTPS id 56DB9611AB
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Apr 2021 02:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56DB9611AB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F3526E9BD;
-	Thu, 15 Apr 2021 01:24:47 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680047.outbound.protection.outlook.com [40.107.68.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB806E9D3;
- Thu, 15 Apr 2021 01:24:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D27946E0F6;
+	Thu, 15 Apr 2021 02:40:32 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0FD6E0E9;
+ Thu, 15 Apr 2021 02:40:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a12VmspkEZfwgt8DuC2M/f5rCTdDD6jSZUM3boGCN14QYLHSdEIU7vRfdv5hIpEX/foc0IfnLpcEAFEnq8BJCemD0Md9w956ug3BiCu5MetZldiW8saEIGzm/J/dHJ5W5NGIaJ6mQd44fqayF3dvTF3lxapKQUPhK1/WLU+W72I9jzJkVcIcG8O9g64/B3j8CKKPMEnyVzQMQHeu0iCPDdc3cRngvRGCBXv/zhw6qCwSm+n1H+DZkCoKZ30dRBZTGTHQIBs3ZMzwcc5W+rZIC3bqVO4I6mrEBTx7Tn9SZBUKyXeVsWcl+a1yE2rktO1yXj0nbLmVSZPc7ZtckwqB7A==
+ b=IQzBk+q8WDxjd2KAWArg9wFJQNpw8JrZM4eTdpdcrThTH81WaR20KJ7PPlzm1z4nLVWMInk4cVrcXo9nhyey40soL47IyN4BkD2i9afuTWhi01tXbDnv/x0w3SlAIcyaRtUMXseuUVoncFK2RE0efCCqNxc+aMlqXybt2x2EntrQiV7X+hP3wCwMWDFa6Ngdllpx6jvhelbnyWbXEFJXd8to5eoA6dPNvVSo+lQjC7MS6YbbvtoIT1MVrjidmKmrZBCph/s7Lgy+XeaZ9YD1QiFohydDmpx9OhNuCMyrCjYcrevoVwrADAHyir1GVlOgklhf6LYQ6eGoM8oyrgm66g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w5BdumDXHUKo3s2wmlNF46JJVcV91tcJyGPiCuGr9TA=;
- b=eDrqjtRZ2XDrjIHIrJw86VXFUNeRg7NrUtTV5lB5dyi/S1/1C6gAEKj/yH1yWBQ2vCikI6LufXClr5pPJvl1kxCr9JuatqdS28JUyrTJ2AXnhwPaFyAR0Fo5VEDyS02xrTQJB0Pz9dR/0R9jMAadGJi7+iLYM5n6Dp3DYYwLpemkVd0EoJ0cFvcV3uvoQqS1454DHnosacJajl//VzWjvvuQU6Yl8UFiB39QJ4g94VKqi5bygwwZVJhOq2t90Y98JXpkIggdJDJtzyhZk7L5NPKzmzwSS6zYR/3y6QFbOvvBkZWWUV1XSbozbfY/5FonkXh/NXSC0z4bdCx0kwvmJw==
+ bh=ri/tUjTulPGEW0IrHqxeOGyJWitWHe66p8XvVNVStLI=;
+ b=MaLmpKEpR1dE32k4yNR8T3ltPPNC8hZpAn2SIbXZgiCOGB8Uyv6e+/RHiFdN51HrvA711oMDrJWb09Qbv74zdFD4RU+OjOXsaMg8mgLwY/sbVMr9uZeOKv2IrAQTgKqKIZXO4MgvClwqtfBYSmgLs84k9kMC9d02/haGXiSW0oKRhgROMpwoCuwSUt2Nw0yzOnwmwAQJWEEMyzWPDjaHruO2d1poZG2yN66h5kAeA/qI6KAupJCrIjuBZeOT/3WpkRWQOq4mmtq6i48PsXSODQQJtQKXdJA4aCH+UwUaGDGHrIPxBoOsNFJATNELiOCgauKKcqb1hCZU8sn9qgCVkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w5BdumDXHUKo3s2wmlNF46JJVcV91tcJyGPiCuGr9TA=;
- b=rQ/bzJP19x4v2oCL1BSY19TI0Yw9jBFf2tJJpBwyZkFAL5968t6RAw8Bmbc6ybStNFU+wF0lgrDf/7G8X/naEPCQmMYft7YbrPsU2kD/LgaRYbP+bzOwQ0ioId2JVnO9kuybs7cN1i7qJCQA0NwJsA0PGH1CjccRGps5h+fVvzE=
+ bh=ri/tUjTulPGEW0IrHqxeOGyJWitWHe66p8XvVNVStLI=;
+ b=cRt/mfDbsiFbNllNKvI+BEOhzZvn1gQ3MdqvuOykmztw2zjNXFD9VID+IWp7mfxCkiE2qQskCSX2AjXc+6YH7e6gYHXBs4pbH7xBu1ehnTJjqJyDn52jKjmDETGHEySr6b5eNCZa9S+1s0cMCzSBSWTYc2fPicAurmlua0fQdWk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Thu, 15 Apr
- 2021 01:24:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21; Thu, 15 Apr
+ 2021 02:40:29 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 15 Apr 2021
- 01:24:41 +0000
+ 02:40:28 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 34/34] drm/amdkfd: Add CONFIG_HSA_AMD_SVM
-Date: Wed, 14 Apr 2021 21:23:37 -0400
-Message-Id: <20210415012337.1755-35-Felix.Kuehling@amd.com>
+Subject: [PATCH v2 3/3] drm/amdgpu: Remove verify_access shortcut for KFD BOs
+Date: Wed, 14 Apr 2021 22:40:13 -0400
+Message-Id: <20210415024013.15522-3-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210415012337.1755-1-Felix.Kuehling@amd.com>
-References: <20210415012337.1755-1-Felix.Kuehling@amd.com>
+In-Reply-To: <20210415024013.15522-1-Felix.Kuehling@amd.com>
+References: <20210415024013.15522-1-Felix.Kuehling@amd.com>
 X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::48) To BL0PR12MB4948.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTOPR0101CA0045.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::22) To BL0PR12MB4948.namprd12.prod.outlook.com
  (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
- YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::48) with
+ YTOPR0101CA0045.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.21 via Frontend
- Transport; Thu, 15 Apr 2021 01:24:10 +0000
+ Transport; Thu, 15 Apr 2021 02:40:27 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8a887928-a1bc-46ac-3c7c-08d8ffad2c25
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:
+X-MS-Office365-Filtering-Correlation-Id: 33913512-f58a-4457-14ea-08d8ffb7d46b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4206:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4797B412E70EA8C0A9F5DE1A924D9@MN2PR12MB4797.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB42066A0E4BF3C85803DF95E8924D9@MN2PR12MB4206.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4gn5XtkXjT/Ba4y4kE4inAi9tcF1qLtwj8uu4TnGoaY+rjf5/WI5LMV02yHbQNaSxeJhtdR+SbTwTLrMJTJ/wN9hUtC4sWneMxQ7+sNPd9glLkgPw8xjlhhmmRUhqtREn/ioinC/fD+EW26ds7lf5C6OQJ6xzLZP8yOVJll1BkCQRQ/Fswt5l6XphW1jdrksfyphlCeSTqyqy5Zj3XSioU8cksulQAlGDAp7yOyjGa5km+J1oorYCQnXltnbyxXdmFMiQ+oX6IV+3Vame4FLm8IJzEIHXIVE91vFJQiy+9o5CgBGZXMe9xkcoX4S1CseNlLUkCrmVbLJE8Yl5YtT36bUJOJj+/4WB40FZkokHf+6WoxeptHWyS/ad5f5ZgXyUKnc51OSq/GdslagmVkmX5+lLeO2Keu5hxYKfHpyuE0e4dUxGxQNaQpf8e4867HPno2CU8OXgYQdx7mIVFls5KYDXTu+0bQtNweyg1MtKEg8rkCsYFgtnpq+JkiAMn7S5Mdkk6oswlpRY16hJB4ML6+8dtoYfL7VEllKqSN/D1EQZd7RfXYAubEAD4g81PxGYc0G43z8qX/B5yMuwxXEHU6elO04Xsf5y9CZX3cxWk+YP9JheiOhhxwQeHPCLFEPWHCXcPXqBtoGc1vsyjMFzsRT1xW5ZY6/qKD0AlXpvJs=
+X-Microsoft-Antispam-Message-Info: 2ewR3accmdrlTMLPWK927m/Esle6bg0DIizIT6Oz5MSIdjq7NEt0praOMfTiI/cond39f6PsZgSVF/sCmjjVjEo1nQMk1yrMqA5XW/ZuX+HAyog1iMxAQZC3azdEoEA43bMN0P/d2g75Ye0vO+Ybd8FJ7ILjVKkp9LUpK/u+NC6nOokD0NOg856pojZzvyqILUTuR252WHC0HcE4OkIFmkD5pgxkc6z+bNGI0p/gZ8Rfu+eSE4AlzT4IMB4GHd5G8IBvw9sVwzVjBZeTkZ6vUi8Ubgl3JLA7H+qb/XkDmL70H3N7KPYewnRvRjW6LgVtu3G3i2ybKlZdpCfSsSp1r84dwCZIDmuPfZPiuqO3IEnBnoJLroDPg+RHKCi+g4RayETD489/E+hokMYtCr54K1dPrTDWgEvBxbmSLEASeLEjBJC56Jidj6SjxP8H9J9x1SbhkElqXr+KfQowXoMBc0Z9yjUs0MtL2/kyS6CH63d10S5fPKMBZJPB/fbQoGxQwKT4fumZ/SgGMlfBZaowBmJu85eQacJIkBZORbQ605kvvF6u8HSGkQ0DfGY8i/2vyj3mHL2VBGP5RIwODQZ1rz+S2kOwZau4j38sPqbzBlL0xIFA/zoKZ6c07a4CS8DZvZjoqSo8H30qzFt/sD3vlGe2a6+XUnHUNqkvcTU9Ago=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(86362001)(66476007)(66946007)(2906002)(38350700002)(186003)(36756003)(16526019)(450100002)(38100700002)(5660300002)(83380400001)(66556008)(4326008)(52116002)(7696005)(478600001)(6486002)(8936002)(2616005)(8676002)(1076003)(6666004)(956004)(26005)(316002);
+ SFS:(4636009)(346002)(136003)(396003)(376002)(366004)(39860400002)(26005)(8676002)(7696005)(2616005)(956004)(16526019)(186003)(66946007)(6486002)(5660300002)(1076003)(4744005)(316002)(52116002)(38100700002)(15650500001)(6666004)(8936002)(2906002)(38350700002)(66556008)(450100002)(4326008)(83380400001)(478600001)(86362001)(66476007)(36756003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?0OSLf7+JmJxDInx6+43YMl35/Q7K3SdO3/b13kXvbLUFpRv0KHfjvSAHTGEc?=
- =?us-ascii?Q?0ocyOMgQzo6DHMZ8bPtVV/tLHEuLkict6CUNZZYUVML/uip5cVdypby8MCby?=
- =?us-ascii?Q?rx7B5rVxmtDAnyCnPcieARV3ylDC/rbBTtT4xqQKO6/126iGR6szCnJCi+7Z?=
- =?us-ascii?Q?FpREpOGh7VFKMKsKjMjJXqyIUPP+NsxJfMnDliD56M7fWi+B3IRmysOV8CMW?=
- =?us-ascii?Q?HH7e/Af0mM3jAeznRanmRy10kbY57wRWDQ1V/8aF/NItz+3nik7LRUzdwvpy?=
- =?us-ascii?Q?tUD0w62thPsd8UGRd45fpup7e7uDLiLn60VwsQPNMtMBSAPJQ5VD6BSU4W+c?=
- =?us-ascii?Q?7tfgS2Z640nI+oHJByf5WFDUxz1FVfRyd8Sll7YW7AkquM9ltV5T7NazTwss?=
- =?us-ascii?Q?i9uckXrypGPzUo9Zl01Jk+TxD51JsmHL/euz2lXap+llzvC0Tu4a/4xc6AMF?=
- =?us-ascii?Q?kAKgndAkaNR8XwP+12yIY9TCgxLNuWpjJyqRozm3ILGiadU5ZBuiOBmy3qMA?=
- =?us-ascii?Q?QKqs4Fe1xnmuszcN990vcWI0/Zs6F1hSueqV9KNzFUPwZSelBXeZcsDcZJVc?=
- =?us-ascii?Q?2CY+6gZ3B7f2tHurS8ri9nIgNLuAYC7wOS4LzhKh1Uwqo16/gj9Yl5dTYHH9?=
- =?us-ascii?Q?mEi921JOeeyA29j8/GwDl4zMyqGHwuIvMnJvtrPMAvwlMwxDOkGJIvaF4lo/?=
- =?us-ascii?Q?pOjF3LIelxul/qiArGBsMbd6eeVvnDylEN78jh1IzsFy0ZtBmaScLyp+ie91?=
- =?us-ascii?Q?Cai0a1XLGHadmYgZZb2wcyRNf7jJTiQu/AAlDAbIDw4FW9k49rvt0xg7DUZl?=
- =?us-ascii?Q?jswrbaryO1hVF1t4qq3RVV+RimWZRYL2LyuwmL2Kj83Vlblwrvg2D5xNKiRW?=
- =?us-ascii?Q?JesW2lJMFPQXDk5Yt9UhjN+m0MpzkERbLOJppZGUemvUlYRtShKR3WC9ep1s?=
- =?us-ascii?Q?jI+4St6xioqAr6hy1Ey6AgA0pLPMhJS+z3MvRWaOjGvCeEZAJReOoxVujTtb?=
- =?us-ascii?Q?S35+r7cY1ilEtiGmGvjbHr06hnKi/TTHffvORMkOS/z9GUIRiqyV6NzHoHFF?=
- =?us-ascii?Q?EJGV0Ivqb7+I7NMFBCqrZjEbunzRit+U2WEp/8xzPmOdb7MRxDoBkmFu1THA?=
- =?us-ascii?Q?Re2kstDuNjzHgXMXpFY+tvbypn66B0A77SNjJWfSqHUpVlcRkwYi+v6hJX+2?=
- =?us-ascii?Q?mbh6ro/rlucQ43dD1qJe5PxAL7JB/EWvFFghH2HHf31f85uQxe1OkO4U8aOP?=
- =?us-ascii?Q?DoS4eLjE1xH6MdDZzICkRRhAxdqOj74T3XCHZTn/miEmOZLrs+SOTpeh/X4U?=
- =?us-ascii?Q?FKcqso4+ax95AUif26LPc+FQ?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?jD6zwHvW7p+UhF8/h/K3aINyYXWjmuBIwBsWQtGWzlECmcOqZXYPH3kRIYOS?=
+ =?us-ascii?Q?STvFaGUqm/ZM8boWSlSZLrYdrbLHius3Fa/S/KZJbLQEWtXE7n4/mCCNPp9l?=
+ =?us-ascii?Q?sScp9e39wlhU7ZM0lNpisr4JeAtDTX69C6wkENMUvlOwWq9CPuDaH6dmvfjW?=
+ =?us-ascii?Q?vocxFGoPmsKcLuaWmAjlWHaSpgaCdAq4e+9bwLHzD32AVqwES8xJNl2XcCIB?=
+ =?us-ascii?Q?iNkHCiIfgZDUKGXbdvhNEvz8HxXv34XG3beSDmUf/qxgAMzBNZCJgYUgaWta?=
+ =?us-ascii?Q?Ohdk/+RpexZ9JdDXLVFiC6ZsQfI18ocLNSiKQNsnMi25vsamB1azvQkiqama?=
+ =?us-ascii?Q?0T2mIVGKOMxFtdo79WWimON6tXpDvm+fiS0jhSYvuxGq9tXWRsMeAOjFuFpI?=
+ =?us-ascii?Q?tsiuO0R6nscsReYILaEINJOo0V6PGn2QGiTK6W+jmeaSrIdFxFUqEI4/tCZF?=
+ =?us-ascii?Q?maM0YJawy0N6sPKZACD7PfhkqMJUPe0rvGLxNwVSzd5pPeWdcl3kTwSzkm4V?=
+ =?us-ascii?Q?jJTBCeO/E+YMat7Uk9J19CDL8U7iQYYcwRSi7LraIx9Q0Uu00Z7MVy5u43Ct?=
+ =?us-ascii?Q?gXd9Hj5kkjuV7Ewlx5KOJBbrVbt6DxLP14REBL1ftIQxHQbWJbSFgYlsbz0B?=
+ =?us-ascii?Q?VOn0EAkZQQ2qbUMUH11beI3PAjbES4jLa/KzNV63u5tuaB/3d8TXEr/FiN6L?=
+ =?us-ascii?Q?VK35d8B+ihhvHv8/TORByDIT9poLCC/TYVPwHpWq0Nbd7b8VnUS6XaycSPps?=
+ =?us-ascii?Q?0Vhddo55AmswbCQeLmRDiO5o7Vi5PH6ZQsMusmdSGZypHGVuwGfKEDnm6Vn8?=
+ =?us-ascii?Q?gZDaWRHc7i4vzySGbDjBLXM3oI/lJwLGzorj4jfP0ISzC8lUX7wMpFglzYG5?=
+ =?us-ascii?Q?dwwancBIsnelEZDfFPRy617iX0A/o8IA3AvcWiL1eVMs5Xj/Y9KeNElfjn/X?=
+ =?us-ascii?Q?cUbg4CNZa6MwvAmzVJAxdJsMr83HqjaBKTiupqrTK8wj/2NRgHZLh7gptfGN?=
+ =?us-ascii?Q?+J+uPeFcdgU53DCzRtrk/QL4EUZ4lhDulfISyvJ/8LQSU2tB+gvS/k5GHzqG?=
+ =?us-ascii?Q?T7iy0wnTH9xcnMsxxoZG5YNokbleeodXwX2PtgdLHKMRlMNXdpqctjAUmS31?=
+ =?us-ascii?Q?qIkcqT8QFldkY/bPuKreJm7bXfEobu06X1JlDE56Sz951/3I4Iiiz3ab/Qyj?=
+ =?us-ascii?Q?EEIGFuBVOdda+U+EGcFgRleVxVaRJGu8qz9Yr1oJuOPJceSuMqHyNUh4bBgB?=
+ =?us-ascii?Q?THRrvSTqgQSmzQHSHFZrpq/ywAEVJWDl95Sbl+DEFBpVXyOJSmrXcCm4BxcS?=
+ =?us-ascii?Q?tbCeiXJpRPwwhHF+dlB5bIP7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a887928-a1bc-46ac-3c7c-08d8ffad2c25
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33913512-f58a-4457-14ea-08d8ffb7d46b
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 01:24:10.9501 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2021 02:40:28.2642 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ynt2AhPc3zO4BJxzbJD5K4ZuX8lvASNzCiFgCcD5Utw+i9KywtZp4d9rOZXxKVVRdb7o1ljcv8MtaR3y8y3TSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
+X-MS-Exchange-CrossTenant-UserPrincipalName: F5EuovRaKAvPklGhnabuY9fiSOnEgXxkyPHp0ZJ8VMJoZOyYRTemPwFe/yHnacuLP5UDs0ZnnmENrK4cxT23ww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,185 +133,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Control whether to build SVM support into amdgpu with a Kconfig option.
-This makes it easier to disable it in production kernels if this new
-feature causes problems in production environments.
+This shortcut is no longer needed with access managed properly by KFD.
 
-Use "depends on" instead of "select" for DEVICE_PRIVATE, as is
-recommended for visible options.
-
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/Kconfig       | 15 ++++++++++--
- drivers/gpu/drm/amd/amdkfd/Makefile      |  9 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  7 ++++++
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.h | 17 +++++++++-----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 30 ++++++++++++++++++++++++
- 5 files changed, 67 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-index fb8d85716599..8cc0a76ddf9f 100644
---- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-+++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-@@ -8,9 +8,20 @@ config HSA_AMD
- 	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64)
- 	imply AMD_IOMMU_V2 if X86_64
- 	select HMM_MIRROR
--	select ZONE_DEVICE
--	select DEVICE_PRIVATE
- 	select MMU_NOTIFIER
- 	select DRM_AMDGPU_USERPTR
- 	help
- 	  Enable this if you want to use HSA features on AMD GPU devices.
-+
-+config HSA_AMD_SVM
-+	bool "Enable HMM-based shared virtual memory manager"
-+	depends on HSA_AMD && DEVICE_PRIVATE
-+	default y
-+	select HMM_MIRROR
-+	select MMU_NOTIFIER
-+	help
-+	  Enable this to use unified memory and managed memory in HIP. This
-+	  memory manager supports two modes of operation. One based on
-+	  preemptions and one based on page faults. To enable page fault
-+	  based memory management on most GFXv9 GPUs, set the module
-+	  parameter amdgpu.noretry=0.
-diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-index a93301dbc464..c4f3aff11072 100644
---- a/drivers/gpu/drm/amd/amdkfd/Makefile
-+++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-@@ -54,9 +54,7 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
- 		$(AMDKFD_PATH)/kfd_dbgdev.o \
- 		$(AMDKFD_PATH)/kfd_dbgmgr.o \
- 		$(AMDKFD_PATH)/kfd_smi_events.o \
--		$(AMDKFD_PATH)/kfd_crat.o \
--		$(AMDKFD_PATH)/kfd_svm.o \
--		$(AMDKFD_PATH)/kfd_migrate.o
-+		$(AMDKFD_PATH)/kfd_crat.o
- 
- ifneq ($(CONFIG_AMD_IOMMU_V2),)
- AMDKFD_FILES += $(AMDKFD_PATH)/kfd_iommu.o
-@@ -65,3 +63,8 @@ endif
- ifneq ($(CONFIG_DEBUG_FS),)
- AMDKFD_FILES += $(AMDKFD_PATH)/kfd_debugfs.o
- endif
-+
-+ifneq ($(CONFIG_HSA_AMD_SVM),)
-+AMDKFD_FILES += $(AMDKFD_PATH)/kfd_svm.o \
-+		$(AMDKFD_PATH)/kfd_migrate.o
-+endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 9838d0cd1f51..f60c44dbae3e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1768,6 +1768,7 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
- 	return r;
- }
- 
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
- static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 936b3cfdde55..4947dfe9aa70 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -165,13 +165,6 @@ static int amdgpu_verify_access(struct ttm_buffer_object *bo, struct file *filp)
  {
- 	struct kfd_ioctl_svm_args *args = data;
-@@ -1793,6 +1794,12 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+ 	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
  
- 	return r;
- }
-+#else
-+static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
-+{
-+	return -EPERM;
-+}
-+#endif
- 
- #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
- 	[_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags = _flags, \
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-index 37ad99cb073d..0de76b5d4973 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
-@@ -25,6 +25,8 @@
- #ifndef KFD_MIGRATE_H_
- #define KFD_MIGRATE_H_
- 
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+
- #include <linux/rwsem.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
-@@ -44,17 +46,20 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm);
- unsigned long
- svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr);
- 
--#if defined(CONFIG_DEVICE_PRIVATE)
- int svm_migrate_init(struct amdgpu_device *adev);
- void svm_migrate_fini(struct amdgpu_device *adev);
- 
- #else
-+
- static inline int svm_migrate_init(struct amdgpu_device *adev)
- {
--	DRM_WARN_ONCE("DEVICE_PRIVATE kernel config option is not enabled, "
--		      "add CONFIG_DEVICE_PRIVATE=y in config file to fix\n");
--	return -ENODEV;
-+	return 0;
-+}
-+static inline void svm_migrate_fini(struct amdgpu_device *adev)
-+{
-+	/* empty */
- }
--static inline void svm_migrate_fini(struct amdgpu_device *adev) {}
--#endif
-+
-+#endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
-+
- #endif /* KFD_MIGRATE_H_ */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index aa829b3c992d..573f984b81fe 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -25,6 +25,8 @@
- #ifndef KFD_SVM_H_
- #define KFD_SVM_H_
- 
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+
- #include <linux/rwsem.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
-@@ -173,4 +175,32 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
- void svm_range_free_dma_mappings(struct svm_range *prange);
- void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm);
- 
-+#else
-+
-+struct kfd_process;
-+
-+static inline int svm_range_list_init(struct kfd_process *p)
-+{
-+	return 0;
-+}
-+static inline void svm_range_list_fini(struct kfd_process *p)
-+{
-+	/* empty */
-+}
-+
-+static inline int svm_range_restore_pages(struct amdgpu_device *adev,
-+					  unsigned int pasid, uint64_t addr)
-+{
-+	return -EFAULT;
-+}
-+
-+static inline int svm_range_schedule_evict_svm_bo(
-+		struct amdgpu_amdkfd_fence *fence)
-+{
-+	WARN_ONCE(1, "SVM eviction fence triggered, but SVM is disabled");
-+	return -EINVAL;
-+}
-+
-+#endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
-+
- #endif /* KFD_SVM_H_ */
+-	/*
+-	 * Don't verify access for KFD BOs. They don't have a GEM
+-	 * object associated with them.
+-	 */
+-	if (abo->kfd_bo)
+-		return 0;
+-
+ 	if (amdgpu_ttm_tt_get_usermm(bo->ttm))
+ 		return -EPERM;
+ 	return drm_vma_node_verify_access(&abo->tbo.base.vma_node,
 -- 
 2.31.1
 
