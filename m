@@ -2,122 +2,121 @@ Return-Path: <SRS0=1d99=JN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7EFBC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 03:57:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36868C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 04:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 877AC61132
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 03:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 877AC61132
+	by mail.kernel.org (Postfix) with ESMTPS id D4F35611AE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 04:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4F35611AE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4266E062;
-	Fri, 16 Apr 2021 03:57:02 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 494C36E062
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Apr 2021 03:57:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBFF6EB1A;
+	Fri, 16 Apr 2021 04:20:41 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700055.outbound.protection.outlook.com [40.107.70.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE6246EB1A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Apr 2021 04:20:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mefyvKyjOQMYRJqsPIksdLvh9ecDebga1p2M7Hwg44zXysrzZ6b8cTUZdQX/7aga0zCmKcsETyGB3GeMg23S14qLnh7VPyojLkOh2ADIo0KKarFK84TB79vbrVHwp/5ZLFrv9WojGwOjtkpx6IElqj0kAi7+VHzJDA/xnMpzCUvt8h2qJkOHF8WzfBl9dLcbpOJbJVvmFc9cUggaHRIHrQN+fl6/CldyQmTX4AaaI1mLKxp5Qx57bxp99Gc2WKUbyBePtReGoQ6A8uzzbwi4ootLojzg2wK7CAmUKOQ4ib5RKGAkPrIacEmZTROxyoz7IJr7YBQrglBMrlQShX/VgA==
+ b=R0odhRIzUnjzjHmYb4CixnuUlYSnnccVopvXCbgIRf4IARW8Fw2iILOZYkTfSgdc9XcmnSdISc1W8G2Ai52G3su7fvmVf3cV4awKeJaoHEy3bBJ9jV29hS40ymlU6+M+6Zi6j+btRHwaUYg5jccbG2uup6b6TpqOgbgzOOJCxDWCNpdKAtvEXfKZxKO+q+jpqeRs/iUv9sFmsn79uuqDc0CZKzQ0gB2/rYHdA71UW0NTxxXaTU9rxyYI7hkRdGAQ1HYs5EImENbAYngsyv4v3jq+SkVL5iMaTKbbe7zttM3qyn0K9VcLFUGCuYQJgYpNSmorIqH2nYaMN1I4AD6kkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9e2CkzZJKe30C/4zhTpV/s0opW64KpXskbIeaCQWJWM=;
- b=m3jOeFAqiGLy8n1NcS6xiWWJSmgb3LdtYtmtEz+DJT+Ze0JQz5+Bd7THqYafm8Dkxz/HeqPGOUJ7JBtHWHEhGNLRfuTOky88tj4yCfnF8/rV8HxGOPvc6zsSp1OaRQIOpw2Ybjfib81DiORiShE4Dmsn7XqMf99Odnt2lezHznNRQcOCM8c6ZOFyGr9aShJE7HxQ5qHYlVq7GD2Tx+43Qp9Dg6uf2UFNoc3heMqvJBJ0d7O8LRSnVVpLVuC2FxTZ1RzzO3SA/PApY+7bLWvriCVt1rmPQ/Nf8TCAmcSnVZxzgBqChzwH4zpgQEuAjlj/xHMIHGG3nddKy9RbV8AetQ==
+ bh=lIZTt6jfZktr2QBL6TennPVwSkOidt+/29LRJ1zvqmc=;
+ b=i9M0P1fgkntqhuLhx9a9Q19OPGPzh2gZXdw4qG7FyDELzaVYQwYfnDDtSaitWrqHp9kVdNpfMjyC9yf/Qye/6bo0L0z7W7R9lW7q7fx+zHJ1Xyzy6/X8ueFkU8b/q7kSkFQN9zjjso+rIbS1OQyMByelwWFETfHRTGsUttoB50MtD/meZIZCVSJX08svAb86vgn+oHprwTvYUa3tkHY0IwptmdrO42TxQXs8Nzc7mRYdPjoB+JpRKOuo+vUiKSs/WT4fYnsrEVGNTJrp26GMuSK5fkZpPgV+mJaTM3oiG26ulVFwmhxPuhGNcrao0i7xAsdSngaHA3FVbQcjOZzzZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9e2CkzZJKe30C/4zhTpV/s0opW64KpXskbIeaCQWJWM=;
- b=VSNCd4CP/XzJwsjgJxyhR5B5KJ75k5A/3MfMrN2XP2CS6+TuHdPF2OGVzS4A4TRCgVvwka9fyecN3q9NQ6iRZY4osMpis+O5mV78DyOqlO2o4YOk7aghOPgYTc4QJiCAxsikohNB0R/TNe3aJYbmr/LIOuge/xu9DpmTK12ZSks=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4519.namprd12.prod.outlook.com (2603:10b6:208:262::14)
+ bh=lIZTt6jfZktr2QBL6TennPVwSkOidt+/29LRJ1zvqmc=;
+ b=aR9eR5aK+V9WX33Ztb2R8e6TnUY4v3j9FMg0HxaE/741nUni32/ou3BbyTBI8aOb5FJGVkAUhW9BwoCtlINRZB73RhwyJ1FGChnkzYD2gdv16gbf7eyhmPME72rqHOq6Cxb75TSeYA2xvTK5xNob6EvsQpMhw7uCQDDZyIV1w3w=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by MN2PR12MB3885.namprd12.prod.outlook.com (2603:10b6:208:16c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.18; Fri, 16 Apr
- 2021 03:56:58 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4042.019; Fri, 16 Apr 2021
- 03:56:58 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: enable tmz on renoir asics
-Thread-Topic: [PATCH] drm/amdgpu: enable tmz on renoir asics
-Thread-Index: AQHXMm/o3O+/xpcmqUmIq9j8zC/r5Kq2hCcy
-Date: Fri, 16 Apr 2021 03:56:58 +0000
-Message-ID: <MN2PR12MB4488AE87DE25A7319644EDABF74C9@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210416032230.2681740-1-ray.huang@amd.com>
-In-Reply-To: <20210416032230.2681740-1-ray.huang@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Fri, 16 Apr
+ 2021 04:20:36 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9%9]) with mapi id 15.20.4042.019; Fri, 16 Apr 2021
+ 04:20:36 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 1/2] drm/amd/pm: Add interface to get FW private buffer
+Thread-Topic: [PATCH v3 1/2] drm/amd/pm: Add interface to get FW private buffer
+Thread-Index: Adcyd4DiEDmRxXYKSQ2XhS0o6gRIUA==
+Date: Fri, 16 Apr 2021 04:20:36 +0000
+Message-ID: <MN2PR12MB4549E0754E479AF8E7FBD235974C9@MN2PR12MB4549.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-16T03:56:57.853Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.245]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-16T04:20:33Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=77bb097a-6625-4ed7-baf2-8026d8aaea2a;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [49.207.218.184]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6bb843a2-f87b-43b8-9b17-08d9008baed7
-x-ms-traffictypediagnostic: MN2PR12MB4519:
+x-ms-office365-filtering-correlation-id: 5324f698-8d99-4e52-0579-08d9008efc3a
+x-ms-traffictypediagnostic: MN2PR12MB3885:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB45193A6D47EB98F6DF5953DAF74C9@MN2PR12MB4519.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:663;
+x-microsoft-antispam-prvs: <MN2PR12MB3885B079240C8EC200830389974C9@MN2PR12MB3885.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2331;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 32FZQ9wba5IFB/NndedR1OwAcxft7UwtvoLeruON106jSRMgIJtL/E8cFLgXTPiekJq9WMaIfls5MixvtdoxW1Yo7CkW2VDvfdHx9CDGZYMnQ2b21Sj5fWMegTv2hDAJdLP1iO/oMrIjo+vWyggmnVc1UTxZVhIZtiWR56YzUsK0WMt1ljCA2LV2hHPMBmtfiRJOxU+NlAatnJR5kwrj1uMH2egSbMcnHXFacmNDcsySxHKHfJ+5YxVDpZvq+ap0YfztGkb1FqRy1vZP6OoU4ej72uw1BaAzewEqWCbjQll1Cgt1uwPDEDAlLuhK6ch2eeSgilvmRNpGy2fCuVuZ/cK+41ui9yQOS1Ch1YvMYAlWdqQVGBgC+EWlgtlwS/yuM4u0oewvrXz27VjLOIkuz55jl4FXaT0IfFxIX+z58Uv0mwJQ55XW51pUDd8dUqmQECXwGkk5djicrvQe5RhI9vFZjIATVrxODhuaukpXtWxzwYFnhwflLo5XBY0sMmZhCG/rVYsBOvd15RArbkfQbsRfvujLF/demy+uh2yIWugeyc5TigZPCGrzSpW/YKxtACmZnD7Nwsxlrslw3/9N+Hg7Dhh03vLPdb7WWMy2kFM=
+x-microsoft-antispam-message-info: v1/Dd86C9gRfavWK+o28Dyfg/5xHiAVZhUUZSem2ASQ1nc5gI+c/5EjuVyCMVUR6jFrtq01wjtcOVINh1gG4kho27uL2zDsgBMlZWVedgKMLgISHpvReCx/aaZ8aXo3kZx+tvvidI6+XAPvlhqFUBxB3toKrDA4RYSb65O884pxSaGR6UUg7p7V2YlsekKGH9Me/+fECcTikse82t/CcQMc6yElUybci2xw4I6Ed7BsldZTytoudI/Lv16va5uuIdq4sAdcdec9QUdULtBA1ARurmzojpvtUi9qKk2MMa7bbphY1epHTjN9ZjtOjsprVhVkCQu26ONuUcMdGZohiJhb9UrCd0BJ2wrvclwHLXspl8u8DwQkUE3zeiJLfNUKo4PvlP/snCzetgI1uTdWYqBVXQKXTeeIuPGn4SF0J6H/ccsgrd5WTd3rhCPE98s3i068HC3hpV/eH6p5NtcLlHpeTQ0TLAUIDV1BoCtObKg1YC5ggdZtXboy2yi14VCUerLKkFx+ZeQiipP2wU/HWBSd/cr3esgT1L6uKDtSSLZOQb6vST17HASQb8j8+RTNwrMBdZOyx981b6X/RDqUqfcZ0e7ORcnDT4CYA45/eIRM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(366004)(136003)(346002)(396003)(2906002)(83380400001)(186003)(9686003)(26005)(8676002)(55016002)(71200400001)(8936002)(122000001)(5660300002)(66556008)(66446008)(66476007)(66946007)(52536014)(478600001)(19627405001)(4326008)(53546011)(6506007)(110136005)(38100700002)(7696005)(86362001)(33656002)(64756008)(76116006)(54906003)(316002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(136003)(346002)(396003)(366004)(71200400001)(316002)(478600001)(52536014)(2906002)(38100700002)(55016002)(8936002)(6916009)(186003)(26005)(8676002)(55236004)(6506007)(54906003)(4326008)(7696005)(122000001)(86362001)(66476007)(64756008)(66556008)(66946007)(66446008)(66574015)(5660300002)(83380400001)(33656002)(9686003)(76116006);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?M5vueRGxy9Bj46oaHmtiypYR6MtAsPOBqkduBL3Ccsf6O2MbpYGdzFBjfWA1?=
- =?us-ascii?Q?bXcPE4KGPEgEIeSWMdP4g5fqXBh4OmVEH4NaqrX8Op1MxH6SE2C8S6GyRVnq?=
- =?us-ascii?Q?WkMjjxbjMtiwzORsE0RQ1dJS9HuA1QwsaFE7oM5rPsQjfdJpGv+Acx1H055B?=
- =?us-ascii?Q?tcCcYmdVEWwu8Fb1fB2Rbk7riEMQd7ARMY8xI2aZeobV9rlA1fefd2XMUGbT?=
- =?us-ascii?Q?/dsgjV1JSklOk7aUyDc6LeEDDs+0vWzwY1orWE5AChBo/vAS0wwbkaGijWMq?=
- =?us-ascii?Q?40jlpuO5G7szS2zf3kZ+C0Oayqc8BsuUokmAUdyVJrDLDQ5KRuBKyWB2BCAL?=
- =?us-ascii?Q?dPgNMxMVBLHEO6SD13VUdolkYenYqEAu7I/SlrgUJTEe/Vzfud+CQkOQm1sS?=
- =?us-ascii?Q?aXShVBXDUeM1TnK6YFme38r0oXp7cvSDd9d3TQrOpf/B3+yGylDSnMxVW6WC?=
- =?us-ascii?Q?2ephVyI2h1M7JgR7wWNdD+1urf85Rj8cs7ENCbH/44iMdy9eI1Gbm5OUmLKU?=
- =?us-ascii?Q?fzyulKKAT6i91D9Tmzz9GSgw4lJ1y22nc2YwRq0vZKAgcc9loZOjcrVHLwRG?=
- =?us-ascii?Q?I8pjSVhAVqDYwMtXIFDucHoAAeUNnBMyaXO/sVzlx5YDZHe8dr7rJFWcNGbC?=
- =?us-ascii?Q?ybaVvQBCd1Z1c5ZJ8UFhCXsrn35sIUagsEAw83m3YSslJFz0p8ugO8KTl0Vg?=
- =?us-ascii?Q?Yc8VvQK0GHJGpMhThctCaMx5DV3g8wmGiSdzRQ8pBY26KU9IHy3/iA4JyWOU?=
- =?us-ascii?Q?/eoHZg+bG7SVlEJEe9JAcM8mgg3olvSeIFydIM4fTvCY+sUAHXKK+wgrJZeN?=
- =?us-ascii?Q?SHJeQndrUAJKsWAFB6V2J10qfWSUNYZNjoclHPmPd/x8rHqTkZ5dZO/Ik6Tc?=
- =?us-ascii?Q?Ps554bCLAo+Qsc+Oe8ED9JU1IdfOVMLgfXVo8pvRjm+IRuYMqGtIAP++9jMR?=
- =?us-ascii?Q?iMBAj1UyAYPQihAw1naDqGryOSNYHZwB2mG+azvuD2nwYMeX7BEkgrBkX0dd?=
- =?us-ascii?Q?w6M6DSRNwFLi8cFuUELdYHvuN/7Kp9mW/Dnubd3jg+JxOImfvH4PPXQfXYd5?=
- =?us-ascii?Q?mLvHitxwDxvzw+N1ytE9XBLj1R0FREGsUSSHSo7vvS+9U5bG2GnogKZUbaSE?=
- =?us-ascii?Q?ElOZV7dc4Jj7hjiDM/FfT5pM1hD2yeMpoqRzfSImEk9+09i3TKF7SMIdE4Nb?=
- =?us-ascii?Q?RTT8owXEE021yOYKwAsd5w/nsec7dHK69wc5dC1Cmr4R5rhzTTJxSXfe4f0O?=
- =?us-ascii?Q?JhrYdyMrdS8hi04NV0LN+Vx+TRJLlsMITdPOb94n5tGfLaXSJEBiAE3EvgCJ?=
- =?us-ascii?Q?mXQZv4vBE+wm4MY9zihHObSd?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?r+4MPWtke0PDEGiZwO22NBQVzvO7qFBOLUU1ljGF32Cm3xKo5yqAiYjCC4?=
+ =?iso-8859-1?Q?IXrizOyJULvLnvhS5+vRHyj7cLF73YfcBYggIMqtPC98fZTINFJT9iEbrO?=
+ =?iso-8859-1?Q?ifx1fX2oMQHaGWIYvL0bfeb7um1j9B3GLtafPjrz7+bZKbKoWIC/gEqKeS?=
+ =?iso-8859-1?Q?t3aR381gvmyw2/Gt7Dyfpx7C85fcvFkqHMHct/HGAG5XVwJNFBgJdd9Cci?=
+ =?iso-8859-1?Q?qrhq2+PfL/YB+kXZ1m644Qrh6jMYj3osWiESrFAYAIPssmmGIpgKuNA7j2?=
+ =?iso-8859-1?Q?uhnjP2y4LjAbh2M2MdMrMrxOSTlc5EUEp++K6Z8Zvjz5mN6VGvg40Je8sp?=
+ =?iso-8859-1?Q?jYTeJoNqsc9ahpX66qFTxMVfH/6cfXNd3c8P5ZefCpegQOBvR+UT0crHqE?=
+ =?iso-8859-1?Q?Dfrs5eKvbg+3C66a5elHozIbPQUaUhltuCubjVMjAKBU5M0rczY6fm5+b7?=
+ =?iso-8859-1?Q?cxA/rpAGpgVNkn9UAUUKSeIkSojVi4ldBQdMI53tjcrc7pxDnb8xge4EJx?=
+ =?iso-8859-1?Q?E8mTzXk1zLp9Sm6kYThQ2rcdZQDEDWueV2bBVzRFaqaTTqfaHROnutQt6B?=
+ =?iso-8859-1?Q?kD1XdV8bckTFM87TzM5TDPPNLZkqEhwGLD1ERPQLlsYUTDVI1G0z6i/wTX?=
+ =?iso-8859-1?Q?Ap+xwgpIqd0ckehBaAetiIoHw640Jm1BuFT1EVyDqWFJeWzku65TZMED/p?=
+ =?iso-8859-1?Q?acxycM/wiFXFIZS8HViB+upkknKqTaPNzjrBYAR+Vxm0kjHXVA4dUYm1+J?=
+ =?iso-8859-1?Q?g0lg1ey+SYG5G1grsX29vsuyBFLWWZbWfzFtgI3SDqFcy1RkyGa2ht+joA?=
+ =?iso-8859-1?Q?2gy+Rd49ikjZoTcDJDub36cMYYaqKdYR6TvnirD9FeeHQMinbC5Ywy1Y+z?=
+ =?iso-8859-1?Q?NUCaSol01vmwlzcU5ipTEQGF+qoza/AHbtO3RJXN81yZ8NTuUy7pDHiEFk?=
+ =?iso-8859-1?Q?8/5zZFVJmYgIYxl9u17ftk/csXC1ly3QNBKvNa10Z6kmQ1Hew7QWbTqZ04?=
+ =?iso-8859-1?Q?NEAMYzcM+1KZqzrQ4cyqXN4rB/u5j/jj/ZyZuycWpgP6KMntDs/aS16kT/?=
+ =?iso-8859-1?Q?K5oEfq8E7W1HzDTUDeOPx6HL5jNdg4MarGUizEhTHD3yeiKHaY177L3FSm?=
+ =?iso-8859-1?Q?/M/+mh0fWJ/dp1bOG6JjDff6Tdwix8TWW06JKMncShQwORBaPP8v3YyRlr?=
+ =?iso-8859-1?Q?Ow6QXa2f0oaQb/26XtUeb/CgXM0KuV0XeYZZYl+0Q+TdS7LwxkfA/vmoyf?=
+ =?iso-8859-1?Q?W/EmPBHTWkoaFaYv04xkWKxE1GOPzFnRvqTKm38rLE++eeM+XfXPknoJI7?=
+ =?iso-8859-1?Q?KvKMuTOr7KsbvXeEfXczrHdcHfAAPkGF1zBNDXlggsIJHWyuIW665pasZ4?=
+ =?iso-8859-1?Q?Dk43cI8owV?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bb843a2-f87b-43b8-9b17-08d9008baed7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2021 03:56:58.2997 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5324f698-8d99-4e52-0579-08d9008efc3a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2021 04:20:36.5199 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Hq9pfzXMY5w85mBE0ZLFP35ORQN+7OLsyey2wEVGags04LExhBAfRLXWC1jU0ddS8BDdLez0F+qmmAQiZLSaXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4519
+X-MS-Exchange-CrossTenant-userprincipalname: 0gP10SRCgAfizJ/QLiwN8XAFe9ZJ9xqSYAFtwZd9O7sdrPJsO/ObxzfsW3bv8OTR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3885
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,168 +128,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yu, Lang" <Lang.Yu@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0354024755=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0354024755==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488AE87DE25A7319644EDABF74C9MN2PR12MB4488namp_"
+[AMD Public Use]
 
---_000_MN2PR12MB4488AE87DE25A7319644EDABF74C9MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+v1: Add new interface to get FW private buffer details
+v2: Drop domain check
+v3: Use amdgpu_bo_kmap to get cpu address
 
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Huang, Ray <Ray.Huang@amd.com>
-Sent: Thursday, April 15, 2021 11:22 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Yu, Lang <Lang.Yu@amd.com>; Huang, Ray <Ray.Huang@am=
-d.com>
-Subject: [PATCH] drm/amdgpu: enable tmz on renoir asics
-
-The tmz function are verified on renoir chips as well. So enable it by
-default.
-
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Tested-by: Lang Yu <Lang.Yu@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 21 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 21 +++++++++++++++++++
+ 3 files changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.c
-index 1197f49eda18..c39ed9eb0987 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -487,6 +487,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
- {
-         switch (adev->asic_type) {
-         case CHIP_RAVEN:
-+       case CHIP_RENOIR:
-                 if (amdgpu_tmz =3D=3D 0) {
-                         adev->gmc.tmz_enabled =3D false;
-                         dev_info(adev->dev,
-@@ -497,7 +498,6 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
-                                  "Trusted Memory Zone (TMZ) feature enable=
-d\n");
-                 }
-                 break;
--       case CHIP_RENOIR:
-         case CHIP_NAVI10:
-         case CHIP_NAVI14:
-         case CHIP_NAVI12:
---
-2.25.1
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h
+index 353468667036..abd5a9d41d4c 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -350,6 +350,7 @@ struct amd_pm_funcs {
+ 				   unsigned int *num_states);
+ 	int (*get_dpm_clock_table)(void *handle,
+ 				   struct dpm_clocks *clock_table);
++	int (*get_smu_prv_buf_details)(void *handle, void **addr, size_t *size);
+ };
+ =
 
+ struct metrics_table_header {
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu=
+/drm/amd/pm/powerplay/amd_powerplay.c
+index ee6340c6f921..c73504e998e5 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1651,6 +1651,26 @@ static int pp_gfx_state_change_set(void *handle, uin=
+t32_t state)
+ 	return 0;
+ }
+ =
 
---_000_MN2PR12MB4488AE87DE25A7319644EDABF74C9MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
++static int pp_get_prv_buffer_details(void *handle, void **addr, size_t *si=
+ze)
++{
++	struct pp_hwmgr *hwmgr =3D handle;
++	struct amdgpu_device *adev =3D hwmgr->adev;
++
++	if (!addr || !size)
++		return -EINVAL;
++
++	*addr =3D NULL;
++	*size =3D 0;
++	mutex_lock(&hwmgr->smu_lock);
++	if (adev->pm.smu_prv_buffer) {
++		amdgpu_bo_kmap(adev->pm.smu_prv_buffer, addr);
++		*size =3D adev->pm.smu_prv_buffer_size;
++	}
++	mutex_unlock(&hwmgr->smu_lock);
++
++	return 0;
++}
++
+ static const struct amd_pm_funcs pp_dpm_funcs =3D {
+ 	.load_firmware =3D pp_dpm_load_fw,
+ 	.wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete,
+@@ -1714,4 +1734,5 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D {
+ 	.set_xgmi_pstate =3D pp_set_xgmi_pstate,
+ 	.get_gpu_metrics =3D pp_get_gpu_metrics,
+ 	.gfx_state_change_set =3D pp_gfx_state_change_set,
++	.get_smu_prv_buf_details =3D pp_get_prv_buffer_details,
+ };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c
+index e0eb7ca112e2..849a85ea84b9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2932,6 +2932,26 @@ int smu_set_light_sbr(struct smu_context *smu, bool =
+enable)
+ 	return ret;
+ }
+ =
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Ray &lt;Ray.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, April 15, 2021 11:22 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Yu, Lang &lt;Lang.Yu@amd.com&gt;;=
- Huang, Ray &lt;Ray.Huang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: enable tmz on renoir asics</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The tmz function are verified on renoir chips as w=
-ell. So enable it by<br>
-default.<br>
-<br>
-Signed-off-by: Huang Rui &lt;ray.huang@amd.com&gt;<br>
-Tested-by: Lang Yu &lt;Lang.Yu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.c<br>
-index 1197f49eda18..c39ed9eb0987 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-@@ -487,6 +487,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (amdgpu_tmz =3D=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
-&gt;gmc.tmz_enabled =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_i=
-nfo(adev-&gt;dev,<br>
-@@ -497,7 +498,6 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Trusted Memory Zone =
-(TMZ) feature enabled\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
++static int smu_get_prv_buffer_details(void *handle, void **addr, size_t *s=
+ize)
++{
++	struct smu_context *smu =3D handle;
++	struct smu_table_context *smu_table =3D &smu->smu_table;
++	struct smu_table *memory_pool =3D &smu_table->memory_pool;
++
++	if (!addr || !size)
++		return -EINVAL;
++
++	*addr =3D NULL;
++	*size =3D 0;
++	mutex_lock(&smu->mutex);
++	if (memory_pool->bo) {
++		*addr =3D memory_pool->cpu_addr;
++		*size =3D memory_pool->size;
++	}
++	mutex_unlock(&smu->mutex);
++
++	return 0;
++}
+ =
 
---_000_MN2PR12MB4488AE87DE25A7319644EDABF74C9MN2PR12MB4488namp_--
+ static const struct amd_pm_funcs swsmu_pm_funcs =3D {
+ 	/* export for sysfs */
+@@ -2983,6 +3003,7 @@ static const struct amd_pm_funcs swsmu_pm_funcs =3D {
+ 	.get_max_sustainable_clocks_by_dc    =3D smu_get_max_sustainable_clocks_b=
+y_dc,
+ 	.load_firmware           =3D smu_load_microcode,
+ 	.gfx_state_change_set    =3D smu_gfx_state_change_set,
++	.get_smu_prv_buf_details =3D smu_get_prv_buffer_details,
+ };
+ =
 
---===============0354024755==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ int smu_wait_for_event(struct amdgpu_device *adev, enum smu_event_type eve=
+nt,
+-- =
 
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0354024755==--
