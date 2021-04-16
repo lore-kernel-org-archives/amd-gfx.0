@@ -2,53 +2,53 @@ Return-Path: <SRS0=1d99=JN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7599C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 14:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1F2DC43461
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 14:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9B2AF610FC
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 14:34:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B2AF610FC
+	by mail.kernel.org (Postfix) with ESMTPS id A2CE0610FC
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Apr 2021 14:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2CE0610FC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C05E6EB90;
-	Fri, 16 Apr 2021 14:34:50 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700044.outbound.protection.outlook.com [40.107.70.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA7B56EB90
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Apr 2021 14:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 494CB6EB98;
+	Fri, 16 Apr 2021 14:34:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F21256EB90
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Apr 2021 14:34:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KteGK0uyITRabwwCIug+bmDe/asjWm86aqMzLGTO2APB93/MjXC8otQi7LeCrxVp0bz2pvGwS71Z2KxngjcO/hFgcImvIV8ifhqKC16OWMAe5bz9Z2nzvuM5jA1MnWiQdPuy+Djp+mKKj0aRGVWLJYtRFtX2Iir32LYbaAjLc+U8Fws0uAEHaZbco5YSxKVfovGTo4OomSHBQ8eh9i5Vo3FFzR16GDdXLlYIFbcPQjRB9TyMnznEbV6oX4Gad/qW5yyy/yCP56Ho/U4ldV7w1aFb+AT2Ntv/pcqKCvgtZpYe2zI6UvoMuu4amKQy8HGwc2wI3+DuHJkwcKN07k3jjw==
+ b=ZkxovkxFPGofkcobpz5Nw22Sr9h7ZkzixpvSBFzZs54zR0/ztdv42hDUnW/VnegPbwQt8HfnATIN/cCgt9NHKPeQljCI1eTx0K66lrZLnd+8yv0zR21X6I3x2eKxNJsNn1IMSw6ZogRptpQBt51GNBiSM3sZ6whiWwTubt+KHh0zkqUF0rnVSqDfOpYL2+i7FG5qTjHqRZusNG+nD/l+jWkOu9ZnlQWly8RKGVbGlSZhi3h7b5hmMGKPmRMCfphWZylSGoJrv1uYry6ss0z1FBkhXLckTFmAENtbWfFbwI3i+gxYr3J8one2S5sIf4nrYsN6ifdpLr6zf6pI7MWu0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Jr5x/2f/cUm5LhWfHkSTmESvCl417GXICd3/Ueex3M=;
- b=SLRrgI4VuBiLPkWJF7etpFXGQEFHpm5kMFUS+swDIPV+pJ03c8h9uSE/szl3R4oU1xEkdxh7oS1JC17sbSWW917W25tgabaPUCWlap4DwyGlVH7mxDW41LkEdEGpjVUrXuPoGo/Qj1Cij+qDCe1o2WPpC6GiaeuJmAMTOs2I7DUXLfFK2JzWdb4BngBl0cFMzhwAs4jvnWZGILr5GkGeumTlbFyjA9jaW5hnWwshme7DJoL5HEldLzU2b0I2bC7TwYmwkP1TXACBQmZwoObFzidBpLrpDjjHyIpx+nzXVel/DwKUC1hnnpqCN6ubgkTyRu5GkD3fW8bqTYYWCWKHbA==
+ bh=XuzbZBmrcQiiCd83skFCS53Vn8cSJ8/9gJV7JmBSk6k=;
+ b=GliqDQzixPgqM3ihCLWgfdkMeIpiWQE66Kb9Ety7jYidjRAyUJmnAahKrNhTlLGrSxhzM47sYQYHTWRXkc443tSETGKub0ufurJSqxJjfNXtDdOQIKVpnGt39YL4suUluwRjpe1WyJI065inAJm8Et/gKRj3tLXmJOTITywPiwulpFkOWQ8rWOcUMkz1zI8Sz66VqDNLXqBuUPQGjLKVVmLrMffM7zur9NKnM8JxJcbL3NkjMonQjMPQgD1Zw78HmbPpL81Nuv3Ro0Wat2kxmVubEuiFEMNUatvQtHSKXXd1Sq1b3cHwcpYGNWIhoPFVWPXukdLYM1gYlhLUJJlwig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Jr5x/2f/cUm5LhWfHkSTmESvCl417GXICd3/Ueex3M=;
- b=mo9ANNAKyUGdWmiC0cCHw1hcuaFoLpPG5kDBaewbVrIZDeSQVJiYndnxyS7AHqpANE7rIvPKE5NHApiw6pQUCVWK6b5tJ2u51OyPNEBr8UDlbi1VWbAIgJBSe0xdzItgPimUK6WHnV8fNm5TYDZNCdcXLryQJ2yKlFfCM36qPWk=
-Received: from BN0PR04CA0121.namprd04.prod.outlook.com (2603:10b6:408:ed::6)
- by CH2PR12MB3750.namprd12.prod.outlook.com (2603:10b6:610:14::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.19; Fri, 16 Apr
+ bh=XuzbZBmrcQiiCd83skFCS53Vn8cSJ8/9gJV7JmBSk6k=;
+ b=t57tOGIVZC0pE9g7A1gOS5MBZj5gc3Ods+rbmNIQ4N7JXeRxTdKpq26PMfNj+YKXRG1EDqYCellpqS+OGBlloH7JTepGUQKeWqG315qp1W3KnEt1yc7DYnseIlYwj/e9GqYtb279sp3QxvJZ3NFX1rlcXOWS6GVeO5RKQ723QEM=
+Received: from BN6PR13CA0043.namprd13.prod.outlook.com (2603:10b6:404:13e::29)
+ by MWHPR1201MB0127.namprd12.prod.outlook.com (2603:10b6:301:58::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.22; Fri, 16 Apr
  2021 14:34:47 +0000
-Received: from BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ed:cafe::15) by BN0PR04CA0121.outlook.office365.com
- (2603:10b6:408:ed::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16 via Frontend
- Transport; Fri, 16 Apr 2021 14:34:46 +0000
+Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:13e:cafe::ad) by BN6PR13CA0043.outlook.office365.com
+ (2603:10b6:404:13e::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.7 via Frontend
+ Transport; Fri, 16 Apr 2021 14:34:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
@@ -57,49 +57,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT006.mail.protection.outlook.com (10.13.177.21) with Microsoft SMTP
+ BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4042.16 via Frontend Transport; Fri, 16 Apr 2021 14:34:46 +0000
+ 15.20.4042.16 via Frontend Transport; Fri, 16 Apr 2021 14:34:47 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 16 Apr
- 2021 09:34:46 -0500
+ 2021 09:34:47 -0500
 Received: from elite-desk-aura.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4 via
- Frontend Transport; Fri, 16 Apr 2021 09:34:45 -0500
+ Frontend Transport; Fri, 16 Apr 2021 09:34:46 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 16/19] drm/amd/display: Report Proper Quantization Range in
- AVI Infoframe
-Date: Fri, 16 Apr 2021 10:34:14 -0400
-Message-ID: <20210416143417.611019-17-aurabindo.pillai@amd.com>
+Subject: [PATCH 17/19] drm/amd/display: add helper for enabling mst stream
+ features
+Date: Fri, 16 Apr 2021 10:34:15 -0400
+Message-ID: <20210416143417.611019-18-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210416143417.611019-1-aurabindo.pillai@amd.com>
 References: <20210416143417.611019-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c3e48fa-ceef-4742-5958-08d900e4c8ae
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3750:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3750EC6ED48B5E3B9FC8FBB28B4C9@CH2PR12MB3750.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 425d75a5-21ba-46ff-cc8c-08d900e4c92d
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0127:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB01279D6975DF7D21D95878118B4C9@MWHPR1201MB0127.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:240;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o1HCyBYVejWrdHhjohQNLz1ynw21nHk3GCE/vKa90mdjAQnva4J6V9zbdEvhgZblo0r7FCeoYHCfjiXfSCDLW0gV9EGYlL3Trt17CMqF1pEBc3JKyfQRHfE1UHc0ph4Ly0um4QXj6Op/7JS6XASc2/PMNa8nbxUspHCszPQEZ5Rf/wNcauLxA1O9FcsaKdnvtj1M+gOR4swVLWz1Q3T0RKVLrTiW4NYTZqXwNhgc/tmuxG503cl12QugEYbkmaX1fDikvYtYpgumkl7rfYLkb2+8AMouyN6hpkOAmVTjLBMSthRdSx6rtH5tGMHO5JUByYtDsZjnpX/S3gtC8itkJ8aAybY2lABmCgh9X8sFnyvooo/UM0fp+Fvc4xJy1RuwOmRi6riWEhRh/zSxXy8DYjSC27gk5F0harkVMOvF+G4h4akc6Qmp8F6rCmmyGYeUphSXqRhNV4tFvi7/WJHMZRzaj6fHIarGv4ggFxv5jn1poWYxr2yXteTVp4Is8c30rNJK0UWZ85KdUsWAPvdgUHVBnuECqUe25pn/JdM5nCoLvF6F48+doXyHxia82xeHPDZhNwZ+3JQcSCMRY4ZMvBsZ+Ec09iQwsHbL09F8hSkhSxBZ70t+E8kLsLE9pyMbX4itDNhF+fdYzJC1ZzjYbYNdwB1VB3NcYqx8mhboGdNTdgHb72NQOyszD2+7V+NT
+X-Microsoft-Antispam-Message-Info: 7qjTFT7JaMfVxbI4CevfzPb9i5lnTKws4x8ugLc8ejwOdBaEhqB08wwdZuz9FKPuIbOfDlY/ulh8+Z6yfXdtyCfKuEvY0DgE+ZZtyJWYOwSgPLv8akcVhpSClGPktT4ZZ2i3V2oxpz8MR/WuPE7oG6bVOPdom/Xl0Sv3AvrwXwRVSAmKKJY9STaaAMonANFyGadhV+eZbS7pn1fa1KlFUaDHyY9PAwdbaWyeSTDkPwLl9iP1G9llhrVm60ew1J3/rDNkyrshJ85vC/L1eVlls7RUM6knQOUQhRZCcpbigTaOKE46Xb3lw3XQ1D/HIEFWuNhXbDhS5cZBZgRwQaLO5q8WcfsaXsoIOBYEQlGbQN1Qj5u1DksLv4eWh6htjmlJLhurjb0AKNLmA3pp5MKbJUX5VGZWEExztSn1Q6mcTEg9SVCkW8uBvO3JF+9q4E1YMwRk/eq22H5xDbVEAlIzyYzLJtIt/f2g9OvDB2zfuKuVhUeD3Xf1rMhfaycrzZN7Kxi06nF0OZVLtBLoPalHZeFQUT5b25dQErslQtuSaw82HdBZg2E8rngHbJLAva9VIr0xI7dheLgE2YOVs3oSat3RFUaFdsJI0fEiRPWPgXIQVsEhBN8U0g/otfEyYAuvauXW+6vEJxFuXuliyIv7SE/yMCW5Cfi1C0bmYoM+Lt3eIFUrFgWWOmprg/PnRgak
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(46966006)(36840700001)(426003)(36756003)(36860700001)(336012)(8676002)(5660300002)(81166007)(4326008)(8936002)(2906002)(70586007)(86362001)(7696005)(70206006)(47076005)(83380400001)(2616005)(356005)(316002)(26005)(54906003)(6916009)(186003)(1076003)(82310400003)(82740400003)(478600001)(44832011)(6666004)(36900700001);
+ SFS:(4636009)(136003)(376002)(39860400002)(396003)(346002)(36840700001)(46966006)(47076005)(2906002)(70586007)(36860700001)(82310400003)(83380400001)(8936002)(6666004)(26005)(336012)(478600001)(2616005)(6916009)(36756003)(8676002)(316002)(186003)(5660300002)(4326008)(7696005)(54906003)(86362001)(356005)(81166007)(1076003)(82740400003)(70206006)(426003)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2021 14:34:46.8608 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c3e48fa-ceef-4742-5958-08d900e4c8ae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2021 14:34:47.6951 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 425d75a5-21ba-46ff-cc8c-08d900e4c92d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3750
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,83 +111,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dillon Varone <dillon.varone@amd.com>, Chris Park <Chris.Park@amd.com>,
- Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Anson.Jacob@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Anthony Koo <Anthony.Koo@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Anson.Jacob@amd.com, Aurabindo.Pillai@amd.com, Bing Guo <bing.guo@amd.com>,
+ Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <dillon.varone@amd.com>
+From: Bing Guo <bing.guo@amd.com>
 
-[Why?]
-When a monitor does not set both QS and QY bits, DC does not
-set Q0, Q1, QY0 and QY1 bits in AVI infoframe. Setting RGB bits
-should be separate from setting YCC bits.
+[Why]
+Some MST devices uses different method to enable mst
+specific stream features.
 
-[How?]
-Separate logic for setting RGB and YCC quantization range bits
-in the AVI infoframe.
+[How]
+Add dm_helpers_mst_enable_stream features. This can be
+modified later when we are ready to implement those features.
 
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
-Reviewed-by: Chris Park <Chris.Park@amd.com>
+Signed-off-by: Bing Guo <bing.guo@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 33 +++++++++++--------
- 1 file changed, 19 insertions(+), 14 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 25 +++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 28 +++++++++++--------
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 ++
+ 3 files changed, 44 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index ac7a75887f95..8cb937c046aa 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -2506,26 +2506,31 @@ static void set_avi_info_frame(
- 		hdmi_info.bits.ITC = itc_value;
- 	}
- 
-+	if (stream->qs_bit == 1) {
-+		if (color_space == COLOR_SPACE_SRGB ||
-+			color_space == COLOR_SPACE_2020_RGB_FULLRANGE)
-+			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_FULL_RANGE;
-+		else if (color_space == COLOR_SPACE_SRGB_LIMITED ||
-+					color_space == COLOR_SPACE_2020_RGB_LIMITEDRANGE)
-+			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_LIMITED_RANGE;
-+		else
-+			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_DEFAULT_RANGE;
-+	} else
-+		hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_DEFAULT_RANGE;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 103e29905b57..e8b325a828c1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -711,3 +711,28 @@ bool dm_helpers_dmub_outbox0_interrupt_control(struct dc_context *ctx, bool enab
+ 			 enable ? "en" : "dis", ret);
+ 	return ret;
+ }
 +
- 	/* TODO : We should handle YCC quantization */
- 	/* but we do not have matrix calculation */
--	if (stream->qs_bit == 1 &&
--			stream->qy_bit == 1) {
-+	if (stream->qy_bit == 1) {
- 		if (color_space == COLOR_SPACE_SRGB ||
--			color_space == COLOR_SPACE_2020_RGB_FULLRANGE) {
--			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_FULL_RANGE;
-+			color_space == COLOR_SPACE_2020_RGB_FULLRANGE)
- 			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
--		} else if (color_space == COLOR_SPACE_SRGB_LIMITED ||
--					color_space == COLOR_SPACE_2020_RGB_LIMITEDRANGE) {
--			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_LIMITED_RANGE;
-+		else if (color_space == COLOR_SPACE_SRGB_LIMITED ||
-+					color_space == COLOR_SPACE_2020_RGB_LIMITEDRANGE)
- 			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
--		} else {
--			hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_DEFAULT_RANGE;
-+		else
- 			hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
--		}
--	} else {
--		hdmi_info.bits.Q0_Q1   = RGB_QUANTIZATION_DEFAULT_RANGE;
--		hdmi_info.bits.YQ0_YQ1   = YYC_QUANTIZATION_LIMITED_RANGE;
--	}
-+	} else
-+		hdmi_info.bits.YQ0_YQ1 = YYC_QUANTIZATION_LIMITED_RANGE;
++void dm_helpers_mst_enable_stream_features(const struct dc_stream_state *stream)
++{
++	/* TODO: virtual DPCD */
++	struct dc_link *link = stream->link;
++	union down_spread_ctrl old_downspread;
++	union down_spread_ctrl new_downspread;
++
++	if (link->aux_access_disabled)
++		return;
++
++	if (!dm_helpers_dp_read_dpcd(link->ctx, link, DP_DOWNSPREAD_CTRL,
++				     &old_downspread.raw,
++				     sizeof(old_downspread)))
++		return;
++
++	new_downspread.raw = old_downspread.raw;
++	new_downspread.bits.IGNORE_MSA_TIMING_PARAM =
++		(stream->ignore_msa_timing_param) ? 1 : 0;
++
++	if (new_downspread.raw != old_downspread.raw)
++		dm_helpers_dp_write_dpcd(link->ctx, link, DP_DOWNSPREAD_CTRL,
++					 &new_downspread.raw,
++					 sizeof(new_downspread));
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index fa384923cfc1..f4374d83662a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1679,21 +1679,27 @@ void link_destroy(struct dc_link **link)
+ static void enable_stream_features(struct pipe_ctx *pipe_ctx)
+ {
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+-	struct dc_link *link = stream->link;
+-	union down_spread_ctrl old_downspread;
+-	union down_spread_ctrl new_downspread;
  
- 	///VIC
- 	format = stream->timing.timing_3d_format;
+-	core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
+-			&old_downspread.raw, sizeof(old_downspread));
++	if (pipe_ctx->stream->signal != SIGNAL_TYPE_DISPLAY_PORT_MST) {
++		struct dc_link *link = stream->link;
++		union down_spread_ctrl old_downspread;
++		union down_spread_ctrl new_downspread;
++
++		core_link_read_dpcd(link, DP_DOWNSPREAD_CTRL,
++				&old_downspread.raw, sizeof(old_downspread));
+ 
+-	new_downspread.raw = old_downspread.raw;
++		new_downspread.raw = old_downspread.raw;
+ 
+-	new_downspread.bits.IGNORE_MSA_TIMING_PARAM =
+-			(stream->ignore_msa_timing_param) ? 1 : 0;
++		new_downspread.bits.IGNORE_MSA_TIMING_PARAM =
++				(stream->ignore_msa_timing_param) ? 1 : 0;
+ 
+-	if (new_downspread.raw != old_downspread.raw) {
+-		core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
+-			&new_downspread.raw, sizeof(new_downspread));
++		if (new_downspread.raw != old_downspread.raw) {
++			core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
++				&new_downspread.raw, sizeof(new_downspread));
++		}
++
++	} else {
++		dm_helpers_mst_enable_stream_features(stream);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+index f41db27c44de..7617fab9e1f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+@@ -147,6 +147,8 @@ bool dm_helpers_dp_write_dsc_enable(
+ bool dm_helpers_is_dp_sink_present(
+ 		struct dc_link *link);
+ 
++void dm_helpers_mst_enable_stream_features(const struct dc_stream_state *stream);
++
+ enum dc_edid_status dm_helpers_read_local_edid(
+ 		struct dc_context *ctx,
+ 		struct dc_link *link,
 -- 
 2.31.1
 
