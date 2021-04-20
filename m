@@ -2,76 +2,68 @@ Return-Path: <SRS0=iszZ=JR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 266FCC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 12:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D6F5C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 18:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B212161042
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 12:02:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B212161042
+	by mail.kernel.org (Postfix) with ESMTPS id D700760200
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Apr 2021 18:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D700760200
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E6C6E4F8;
-	Tue, 20 Apr 2021 12:02:08 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 759C26E808
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Apr 2021 12:02:06 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id x12so37103641ejc.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Apr 2021 05:02:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F056E88F;
+	Tue, 20 Apr 2021 18:03:57 +0000 (UTC)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA51D6E88F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Apr 2021 18:03:56 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id r128so35839708lff.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Apr 2021 11:03:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=GTSmL0wEeIVVdR2nGCLglHDCj6o2/YC/Ww8JuqB927s=;
- b=mhecbE9aQ/3BWaNV5ocxb6q+EMjcPqzJEtkv4TJPWahQNBwdNJRVJSaaUgUyE4Na8v
- LG+gMV2vbm4a/9rHoCiFxHvfjhibz6yvS/fDYq+N/LrkulXkCh91k/srFeviKWokfBxD
- tbAyTG8NwjEbp+YrIrX4wx5tk1LMQWcloV+nuYZlgRswivc92Emld2VA4cX6u90Pv3OZ
- LdzYUsJa6J684yDXpsbOuDMjs19nvb7yMdVlNVbWrn2PkD3tDyEZWDzExneVM4ftVw12
- X4fCuWmj7FO2QFmWjP+EqgYagN+AmMdcmG3dBKrjOuuMrfGL3bWGMzrZGhrtv9A80ymX
- RS9g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=gE/xHk8gIJnXC0D1s5Jzn/r/flDjnavjc9ly70d96xQ=;
+ b=oXhXKDYZUSYbojnBLgqcHutqlf+Or0uZisHWYxrNl0Y3lfhT3S7vZy3E1Atqtdn21p
+ 78nYnQOeuB5UOOOiL21d1v7CDLztCAwcH5M8BlSrn1bjHNWMslE2RN4R5ydrskECgb+h
+ HcfJma6chMr/8AqnrS0hQMGHW6baBYd2M21uyOi0i/C98ClR5oo9fy1uZswQgvm0facT
+ 6j1epsmjE1awoH5v5jYg0TFtkibhb6By4tbBvT2p33ZP9szz4oAiZNL5SqraYFzknIMO
+ wRfNAEtqzlwpPRMrHzJuP8uKHbLnirxl9QeLmc6jAq21wqNApcGhMxFMqBqppXmYosYP
+ inRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=GTSmL0wEeIVVdR2nGCLglHDCj6o2/YC/Ww8JuqB927s=;
- b=CpAWquFj/LU9PCf8bMBFA4nGeJHf+7+c43QPwF4Gl8mJQgSbyohqx4Naj8N0ImicEh
- s0oydBBNpRjkAicQtwuE5JsvXdGUCYOC641YNNDUzw+W7WoBRqpEwxjH7oz78MBGD8cR
- K4gDkGVjn3Ya+kiId2+5f/1nUL9UxkC19j2Lo6nKtmkS5pwl3sqV0BHiVdDgOx5Hl8sp
- ICYSnNdLTzOs8u2iEl/b2PzZPlKIXUaqVUXFnLqVDIDzG2d+cxiKZfwWBShmZMY7v1DE
- z0raYzIg+uQyI/tMVFAU7c1/MeaLHTFcBM+R3JNAkLoWP/+X7yi+4wC0y8nR4yu7lLbQ
- C7JA==
-X-Gm-Message-State: AOAM530paXEu3F23P2XThYo41Cz1zvBN2Zeb28NLSmIMxUd8Jpwq2lbQ
- xgbmudaHrI+UEoo7tFbrNFU=
-X-Google-Smtp-Source: ABdhPJzJnkdtCXTe8JiqriqIRE3nrRP/cCAlLa3x3oLrYpFRRT3GjtCXlHQO7twPztQNgcIpiYsFjw==
-X-Received: by 2002:a17:906:c099:: with SMTP id
- f25mr14558330ejz.499.1618920125129; 
- Tue, 20 Apr 2021 05:02:05 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:3caf:a441:2498:1468?
- ([2a02:908:1252:fb60:3caf:a441:2498:1468])
- by smtp.gmail.com with ESMTPSA id g20sm16040090edu.91.2021.04.20.05.02.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Apr 2021 05:02:04 -0700 (PDT)
-Subject: Re: [PATCH 2/2] drm/amdgpu: Add show_fdinfo() interface
-To: Roy Sun <Roy.Sun@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210420115148.3652-1-Roy.Sun@amd.com>
- <20210420115148.3652-2-Roy.Sun@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <f092ddc7-0039-0d64-583b-bfe214038c3b@gmail.com>
-Date: Tue, 20 Apr 2021 14:02:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=gE/xHk8gIJnXC0D1s5Jzn/r/flDjnavjc9ly70d96xQ=;
+ b=t7CEjzihiBUJjzO5c7nJsio6zlSWLBnJm6LsssTbszVJDKRTQPu7ZwN8QwoRSvOtX8
+ dx+1eK4gSqbJjHTOKQEYQzPBNR4LzPWa+SIG9r2Mc9jq+cAGdEPI+UiHM1RxhSn75g+y
+ ntydudmuXj2g5tIRu16D9IJT1TQsK1MISOh3hpAgrvNrydVI0yWWtWkvYtcwiG+3JM72
+ dNdNJidqTKUDbIwJjR9ijh4Fw9Wn+9DXeBEDAAsLNR54sa5iBtI+9Vq8tuQtZJJz6EE6
+ 6mCjRHjlJ/veeqenro7gCO1Ej9ebwe7l6duCzMV0T7yY7hT1T5VWpdIVFlm5bInDg75A
+ hh9Q==
+X-Gm-Message-State: AOAM530bWICyEfoQAqNY01NOFFyzIfd4DLOib4yna7YqgHi1tqnXyfjz
+ Dxl2ngC36p1sVvjE45FHWb2FjpdZbgRsRVHjSp8=
+X-Google-Smtp-Source: ABdhPJyYpQQcBUd+x0BFgbdil+6Mis6ubke0BeQX4Eg4XvA8gbr42vmqTL2Fv2E4by3ywdzXQT37RfpITxsJWZbE0nE=
+X-Received: by 2002:a05:6512:308d:: with SMTP id
+ z13mr3925433lfd.130.1618941835264; 
+ Tue, 20 Apr 2021 11:03:55 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210420115148.3652-2-Roy.Sun@amd.com>
-Content-Language: en-US
+References: <CABXGCsOifMk4+VHi4bnHCL2L_tT+Tm_Rz+KxD3ZQOowx1xms4g@mail.gmail.com>
+ <293189a2-3a6b-1e50-7607-33917743b9d8@amd.com>
+ <CABXGCsMMUa=0+GAHxfVdOOFO0Lx=tCa4+ongHN8rF4TAR9nVmg@mail.gmail.com>
+ <66f5fdcb-d414-603d-bdb8-70579335b4a2@gmail.com>
+In-Reply-To: <66f5fdcb-d414-603d-bdb8-70579335b4a2@gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 20 Apr 2021 23:03:44 +0500
+Message-ID: <CABXGCsP+qjMuPpi7o=mnuvcuRyViYxiT8qEsqS2kHwMSEs835A@mail.gmail.com>
+Subject: Re: [BUG] VAAPI encoder cause kernel panic if encoded video in 4K
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,55 +75,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David M Nieto <David.Nieto@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 20.04.21 um 13:51 schrieb Roy Sun:
-> [SNIP]
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 848e175e99ff..72727117c479 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -150,6 +150,7 @@ struct amdgpu_vm_bo_base {
->   	/* protected by spinlock */
->   	struct list_head		vm_status;
->   
-> +	struct list_head		bo_head;
-
-Well I'm repeating myself. This is a no-go.
-
-You already have the same information in the VM state machine, see 
-function amdgpu_debugfs_vm_bo_info().
-
-Christian.
-
->   	/* protected by the BO being reserved */
->   	bool				moved;
->   };
-> @@ -274,6 +275,7 @@ struct amdgpu_vm {
->   	struct list_head	invalidated;
->   	spinlock_t		invalidated_lock;
->   
-> +	struct list_head	bo_list;
->   	/* BO mappings freed, but not yet updated in the PT */
->   	struct list_head	freed;
->   
-> @@ -458,6 +460,8 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
->   				struct amdgpu_vm *vm);
->   void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo);
->   
-> +void amdgpu_vm_get_memory(struct amdgpu_vm *vm, uint64_t *vram_mem,
-> +				uint64_t *gtt_mem);
->   #if defined(CONFIG_DEBUG_FS)
->   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
->   #endif
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gV2VkLCAxNCBBcHIgMjAyMSBhdCAxMTo0OCwgQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5s
+ZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gPj4gY29tbWl0IGY2M2RhOWFlNzU4
+NDI4MDU4MmNiYzgzNGIyMGNjMThiZmIyMDNiMTQKPiA+PiBBdXRob3I6IFBoaWxpcCBZYW5nIDxQ
+aGlsaXAuWWFuZ0BhbWQuY29tPgo+ID4+IERhdGU6ICAgVGh1IEFwciAxIDAwOjIyOjIzIDIwMjEg
+LTA0MDAKPiA+Pgo+ID4+ICAgICAgIGRybS9hbWRncHU6IHJlc2VydmUgZmVuY2Ugc2xvdCB0byB1
+cGRhdGUgcGFnZSB0YWJsZQo+ID4+Cj4KPiBUaGF0IGlzIGV4cGVjdGVkIGJlaGF2aW9yLCB0aGUg
+YXBwbGljYXRpb24gaXMganVzdCBidWdneSBhbmQgY2F1c2luZyBhCj4gcGFnZSBmYXVsdCBvbiB0
+aGUgR1BVLgo+Cj4gVGhlIGtlcm5lbCBzaG91bGQganVzdCBub3QgY3Jhc2ggd2l0aCBhIGJhY2t0
+cmFjZS4KPgoKQW55IGNoYW5jZSB0byBzZWUgdGhpcyBjb21taXQgdG8gYmUgYmFja3BvcnRlZCB0
+byA1LjEyPwpJIHBsYW4gdG8gc3VibWl0IGEgYnVnIHJlcG9ydCB0byBPQlMgZGV2cyBhbmQgZG9u
+J3Qgd2FudCBteSBzeXN0ZW0gdG8KaGFuZyBhZ2FpbiBhbmQgYWdhaW4gd2hlbiBJIHdvdWxkIHRl
+c3QgdGhlaXIgcGF0Y2hlcy4KCi0tIApCZXN0IFJlZ2FyZHMsCk1pa2UgR2F2cmlsb3YuCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
