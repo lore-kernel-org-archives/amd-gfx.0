@@ -2,118 +2,127 @@ Return-Path: <SRS0=IWiu=JT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8EC2C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 13:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40433C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 13:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52AF1613C3
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 13:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52AF1613C3
+	by mail.kernel.org (Postfix) with ESMTPS id E31196101B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 13:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E31196101B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09246EA82;
-	Thu, 22 Apr 2021 13:09:46 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680054.outbound.protection.outlook.com [40.107.68.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B106EA82
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 13:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E976E15A;
+	Thu, 22 Apr 2021 13:15:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5A56E15A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 13:15:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fyc5IVNawQgILjCJcxuviR/ObVFwPjdKNIipbhqSIYp6FOfsUQxQznUvQ46v3qwyx6KBVOVAd8PL6+f6PgpGTod7bsPv83tq9r+oJSoaFpWHT4DmunzphHSnEGxUolA6kcqgkkDcNoMOw3t2ZCNQR1Ud+OcpLYm00SgqicE3tMduhFya9I/Bijpo8iKbt8DroSjqZNuJDPXamxSiXOW7HxAxi4pzBWOA4L+i3HH7tXV6vHmahlzjmfT+R8vTGRZ6fXuND4b2C37Ka+LLndzrPnbujsyYw5/nRdW62fLilk9MUJxtRhSlTted14Zg5riCzc7MApSy3/R8eEFZeeaQTw==
+ b=XdD9VHytt7y3zXTkv/4fYLxOzBN8jLmLT9zNnDs3MqEKIK17R49rZF7ZPmDFgY1eMf0OaNI7LigBrjspl5zDVcU80dIJf7lPFX3kjm406QnAvXA+CpaeQFKN2MIeNVgrqssAR2MFsqtskjWMlho5EonFYrjKvbDZHurBy3rIzfqGDPWdzETadGCQKxsU3XTiJUvEtHsde12gZ9TY43E9Bw0Q0LMz21mdoVfyt20m9iZrsLoCOExTTVZSXZHMvruyDsYFvakJT2yNfI+krHnMX2g/gIqYu84wHyPeEtK3IJxRMsCnSJwLNvMaPpogiQjoajXw94OTX5wPozHQVriNXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q+laMfPjOnoZfAjftMTMN8vR/wXxIr+SmESDADcaZGI=;
- b=kte4yY3tPk1WU6+g6p6whioJubz2Fsicrx7dBxRNHa5EB2lQujWwlERo7pvuFGqx9CY2m/lL6RNCwZIf8PLyzIWYbsoIZ3FbpzDxh0Af5oWGnrDsCVMxLIiTzZLv1ZhudayA1DrTebQ9k7dTRTH+Z/uayn5tj/t4ft4rW3l6kA58tYHw66lqHkPY+5yqQXWj1/fIXS4CQY68Tpa+aAo+iwED+OxCn2r5TFMNuRN6glKjUvQSGoQ+vaTU8R0rVIlKLyJ0zr04mdET5TFsTu4m1LF0pvtUAeLQDzilUCaJLLF4wwC90mra8kXLlWlILRBXRmIlrLcFciFJn035EoG/lQ==
+ bh=N3pR7HT5aXPmntaiPsImaOyEKBWdvotgw7VzjVoEZYE=;
+ b=O2VXaKk5E9Ne5WEG5sXRPQPI2I3V1xGMK4iOlscISbxFOrT5Wwyknf58oivflV15uNsmZHCoAdZXtjEjy2D8TBtGvW47GPeQDWbdHNwrD6P0fHdK8+plxEP9GzV6ye8EMtPZY+tzNyLIWlK+iTaXPna3VEwQqKJViBhMHnBqTzhvUorhP9Ns4wtSRTXSaelBHfuUyxvVOSD3zgnaSOpZtEzaTARDgnwbJdZXU7e+RvEV9O07BzZdL/CE0DedvTmWRbRuLU7qrA23sy7Lp+IXXcD1MMFMqm7ycg0AUthEZt+jEtgkWAR7IjTt3d7e9WgXvFaRlyK8gihM0t5AyYOVDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q+laMfPjOnoZfAjftMTMN8vR/wXxIr+SmESDADcaZGI=;
- b=lKWYo1D2kOszQTsFIzvOckUWBUPl4HyP4U2SXJnK+Bp+1d/u/K1QkeRmjAVzEkJOgcmVPcXclo1CscIXc0J7pKIxG+7FAUWrDla3yK69cuNJ8EetFy0fi73Z2UJRfw9mA0g669MibwOmRn7w3hCRW0N+0CS4XmzdzBxFJ9PXlPw=
-Received: from DM6PR12MB4170.namprd12.prod.outlook.com (2603:10b6:5:219::20)
- by DM6PR12MB4547.namprd12.prod.outlook.com (2603:10b6:5:2a9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Thu, 22 Apr
- 2021 13:09:41 +0000
-Received: from DM6PR12MB4170.namprd12.prod.outlook.com
- ([fe80::34da:800b:41ca:19ba]) by DM6PR12MB4170.namprd12.prod.outlook.com
- ([fe80::34da:800b:41ca:19ba%9]) with mapi id 15.20.4065.023; Thu, 22 Apr 2021
- 13:09:41 +0000
-From: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
-Thread-Topic: [PATCH] drm/amdgpu: Add vbios info ioctl interface
-Thread-Index: AQHXNyAZxU02AtWA5k2SdU2Ic9ArhqrAgz4A
-Date: Thu, 22 Apr 2021 13:09:41 +0000
-Message-ID: <BE86C24E-8E22-47C8-B737-E7F58F8B9326@amd.com>
-References: <20210422023448.24689-1-Jiawei.Gu@amd.com>
-In-Reply-To: <20210422023448.24689-1-Jiawei.Gu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3654.60.0.2.21)
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ bh=N3pR7HT5aXPmntaiPsImaOyEKBWdvotgw7VzjVoEZYE=;
+ b=1OUhOOshgpP6tytQL/5W4Xjkyc4Eb0o1BET4hvK5VW6NtwNCZPksPe1FCrW2zAa6F0UgqWOtyXAIn7BA482IC6naV3QJLp/KHvh8hr2IrRmMWs0e+yvJfP6lM9CgKFQGNB4/zUMlzGy7E6bgb0ts5O3MYngxIttxwUate46yfy4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.182]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d33a8a8f-f08f-4b32-e891-08d9058fe43b
-x-ms-traffictypediagnostic: DM6PR12MB4547:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB45471910B1FFE9CDEFF974AEF8469@DM6PR12MB4547.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bASXiIQjtRdKBzJz1oGemCNDbluohcafSleCmYbHgXitD/99XhqVCY9ozPSmi4vEt/rf9utUIFmlrHrI3TyK8braZofsO9jm8q/+NOsXtSaVjlmQtC+ICEBac8RZRMcdzAa2YbnsCcDp12fQR3atrLPm7dZJstlX1RiX9mjmfVSHDs3t6ZP/3dxTZE6wCLz2vnane5dOIIJRZ6M4bUV0Ow5M5+13kOZz+e5kxLKBIm8hvJEPn8F+9Bd/CUB0LEyos+zk5k4fhqmRBTu4qLZpFocv1OJgXnt4D9XhBMUzDAIuHvCD5YsxovpWWhsJMN+zrHoZg5SafpGuB7L/86Ngfh/j9SZVYyaE3P/3wSC7eNYgFuM8KeCVhmk2u4FvGTvQUCBCtBkcdJFSh3iq1fHKiBAZAHiMDE0S3TouDZq7VXLIxSbpNm/aY+/RiE8uYKqAZFy5m75Tpyx/TOSpzqup/KdwZ99tOxR5MQV1A+vQT6LS3Tc9I+a49pyCIE7pyVizaDrQ8VxMn1/Eg5vAZwA+1+QUbl8HFZ5FtJ2bKOMk0Y8YeD1H7zP/FuYgDtONs5PaE/OYTkwvFe0WOdGbtTfTdpwEHtZZGZpa1125+qcDJPcFxRBm1akOwUYbxAJI4q0EfxE/y8MG1/R5V102Nz9PETwRB2Rxdoylul+Is5AfTy0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39850400004)(366004)(136003)(376002)(346002)(6506007)(53546011)(71200400001)(316002)(64756008)(186003)(6486002)(83380400001)(2906002)(99936003)(91956017)(76116006)(6512007)(6916009)(86362001)(66476007)(66446008)(5660300002)(2616005)(66946007)(66616009)(30864003)(4326008)(66556008)(36756003)(122000001)(478600001)(33656002)(38100700002)(8676002)(8936002)(26005)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?781c842RprL747GytuwYtQq4+4akzZLD5D/1Jj4MfGh+lLucXPs4kQdvhMuv?=
- =?us-ascii?Q?i2RvSGJf4OiBqyA43XNFakRqwUjaW4XCGfMbc29Tg65K5HKVCbD8xlV6uTH5?=
- =?us-ascii?Q?jeC8G3iPD7JCrAe/2fyn2k2MvCV+jOGVZhMqvUqcWWJGQtqVMlswZkKJXdtl?=
- =?us-ascii?Q?fTbSfcC1Mb4KtxWJf2EV3oKO6m3xL7KGM8gofkBK/1e4PbvDWRXo5nKDzZhN?=
- =?us-ascii?Q?stN5Nkqm5IZNO/gIgpFpC6YqIsRudCqmf8beeOdjIV9QEec5iPNU5CqBz/se?=
- =?us-ascii?Q?qVXhtVXoG4ss4x4XstYCgdMPnDAW5qr8XJoDiJjGEuko1GjkbB2sHFN4ud+P?=
- =?us-ascii?Q?5zLo621r115WwT7gWXw+zEGRrwVAZlVfTC1ojY/NTwh2aHAynYbG7vfMxggy?=
- =?us-ascii?Q?HMbFmCVBaEvIHkG5QmZET3mDTJxGm90dKRkXBQcsn63hqWfJ/Lw4av6KTi0r?=
- =?us-ascii?Q?qmIa2wvZXJYy48awB2mPSznvwqQ4MKjJpKN/nyXgQPaG8ZazpEOqcP894PfF?=
- =?us-ascii?Q?rB3wETwPfoaCLJWr9fmi3Ut4VckFRg3q7cRA26TuvlGSB7DmAftUlbjDzf91?=
- =?us-ascii?Q?tJOLOKm+ppRq+upU3VD2CMAYtc6d9WmF543mH1PEyGVazwqqRNNCkAIYDZjB?=
- =?us-ascii?Q?j3HpS2eC/thKffQKKg0lv5YZ0yjlPXnzaWGQy/8h8HdfTZWA2d1nzZXwGUMP?=
- =?us-ascii?Q?1hSvStVJ7KQafoj1ecWlunhBd/wIXLAaZMft79MIqHHaDEqD9Oca9X3Rb6Yw?=
- =?us-ascii?Q?7RIFfHPEghUV1PisjSGVxYH4okB0FhSebKSKTT/QCfQpv8GS9SVs4ViMcHu8?=
- =?us-ascii?Q?Jq6XSzIcd5fmiKsLhfof9rKhUsJHaB5PpNnUXEJdOUrm/xpM3UIloOKWOxDx?=
- =?us-ascii?Q?vK3AXVEdXOCwDa780DzAbuagY7aL1BTUS+WW294tnTHkO2eqAcZLVhxSIRZv?=
- =?us-ascii?Q?v4pbxW/BeVOIDqzoPnbAdgcVuFa41gvRZk4z8PaAjefzNOgGcT0mwwtSnKpL?=
- =?us-ascii?Q?AWYf/JX3EPgXA2hL7c7Ia+3DwCuKF4izpiDO9a6m1uzn4pzFSzS0+TqVb3wT?=
- =?us-ascii?Q?330ZGGijPmxwptNjdEA9JMt944ux3d97TKJ3mFkpsEg+zkid+ryRAxV9VGYF?=
- =?us-ascii?Q?KQr9MZMByqW3kfm0PnphefmeZYfs0ZU9A27EBUx+fuEmLunO9T2spBe4uegP?=
- =?us-ascii?Q?78C5dYm/f69wPG4O2X1hZ/WV9Sz8T4wifj+CZbaNF02f8gu0VYbDiD/bk2yV?=
- =?us-ascii?Q?3a878cpjCcq53uiuPk8sV/pDkzDrMlrEkNZxSvE/GVikUldyIAwWbZt5NW9K?=
- =?us-ascii?Q?QFfU/46gQknGwFMwRpVYm2Bh?=
-Content-Type: multipart/mixed;
- boundary="_002_BE86C24E8E2247C8B737E7F58F8B9326amdcom_"
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
+ by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.18; Thu, 22 Apr
+ 2021 13:15:19 +0000
+Received: from BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
+ ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 22 Apr 2021
+ 13:15:19 +0000
+Subject: Re: [PATCH] drm/amdkfd: add per-vmid-debug map_process_support
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210422022415.48407-1-jonathan.kim@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <449af30a-4884-4942-7ee2-a854262c2657@amd.com>
+Date: Thu, 22 Apr 2021 09:15:16 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <20210422022415.48407-1-jonathan.kim@amd.com>
+Content-Language: en-US
+X-Originating-IP: [142.182.183.69]
+X-ClientProxiedBy: YTBPR01CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::32) To BL0PR12MB4948.namprd12.prod.outlook.com
+ (2603:10b6:208:1cc::20)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.182.183.69) by
+ YTBPR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4042.21 via Frontend Transport; Thu, 22 Apr 2021 13:15:18 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e2528865-1219-4492-b961-08d90590ad18
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4126:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB412626851D23A2C953CDAD2392469@MN2PR12MB4126.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FI54wPeLCF/6FOWpBBGIAb1tmx7JQ9qrkL2S/7wGKNwecLZQwG8YKZSFiacc5JPnMjYEpKOz78xKEQSeMxIV1xXikdJtNOZpBWkbB3J2hqn445EC70dN8Vyn9oHYWpMeV8xBPvPzNzAygZiwxaZ2JSF913r7s6YZnCAY/PlQ2QEw8tn8/v+XAkV2DWNgNKFAD7XN9P0xVRaZy+CEgSMF3wnUDe1lBX4Hu4Y/boNy6gsEfiqadDuS3+3MIe8uiBw9/UVyp4hmtlaM+eTakeS4+HKkVZ3xeS/zIcidozJQ80JPssqvXkGpFJHfGYJpYOO4tfbyCtanDe8slEUsZS9nCb+4LQAJsDSkhNN/vWlKkSh4X1ZEC/unDlgjrMFru6lYaXS0jSw9NoSMVShOde4uoG8gIEmBGykhucyVJJUMG6QR+FdPojs74bZE14d88QYyy6WUpgmkHcLQO0pTq7i8oz4iaemrtvUbkzz+dvX2i+8PFzG0HVDs+HMQiteR370vBWUVp/gx5asmam5jUFG8gqsT3SE1zPZbyoyS7tHwYmsTU/1poCMVxQI/fO/PMQS5inJ4JMHYANFatVQ6Q1gnBN4FXU04/hdD5WZQWbQnXmUX+jU5Eu0SyB29N6qXVG+ZbYC8ev+K8Soa7nHvj+tsT+rZPRW2dVOblJbqEdycAqhApvDwTKQLoW+zl0toVHtX
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39850400004)(346002)(396003)(376002)(366004)(136003)(186003)(16526019)(2906002)(8936002)(2616005)(66476007)(16576012)(30864003)(8676002)(956004)(66556008)(478600001)(316002)(38100700002)(5660300002)(44832011)(83380400001)(31686004)(26005)(31696002)(6486002)(86362001)(36756003)(66946007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ang3TFowR1BoSXQvNVl4cGs3QytTRDlBZ0tHZzRuS05ubU5pbUFCUmhmcnEx?=
+ =?utf-8?B?L1Q1UTI5cDdlTGUvOUtDVXlMZVRlQllFY2hrUkNxb1U3VVk4WTVoUkJBdllt?=
+ =?utf-8?B?UnhSRnc1ZEFOYVdGUTFwVXdnMTB2b0lJZmcrWGZBaWd0WlZqd0tEVXpCWXFH?=
+ =?utf-8?B?cWhCT01iUTU0dEE4WFFrcTJIejVHWWd0MTFtbDdnK3krdUVDK1FZaUdLU05p?=
+ =?utf-8?B?UFZSdzdQRWcxbjk0NDVxRHA1Tk43NDV0Z25ZeXZrUks0ZVJ4QVh0ei9NNzZB?=
+ =?utf-8?B?d3BveklIUVhVZjJVemorSnBNUWNvc1JvNDI3WTc4VXRLNDRNakhocTg2dmNk?=
+ =?utf-8?B?WEpFMVM2bXBuRHlTb0cyQnlGcWZoQjBBYjBkV1ZwN0lTelRRVkZDYWx5UlVS?=
+ =?utf-8?B?YUhMYVdxelBQRGFRRC9IcGVMU1o3QWI5akpGV1pMU3hZWElvOXVoeXZWcTBz?=
+ =?utf-8?B?SE5XWG4xTVdKa3kzMjlTd0NiUEJnSzZUTnhXeWkxYzRMaDdHUnpzT0xIc29k?=
+ =?utf-8?B?M1ZFQlhVSWFJa3hSRVdSZElhaExWeUsvbUFpM0hnb284ZCsxZW1heVFObHl0?=
+ =?utf-8?B?Q3BqYzRsN0tETG9QcmxDaXZBMHJMT3ZYR2V5TWZSdlJiL2djQS9seFdYenBZ?=
+ =?utf-8?B?d3RoREpWNW9IZEt1Ykc4OS94VXZrOCtia2lITFpqbkhDTjNXaGNpK0RBTHda?=
+ =?utf-8?B?NXJjN3hjdE91Z3F5YU9XVG1MN2RhUkRFejVKMG1ucG13Yk54Yy9zVUsvbTIx?=
+ =?utf-8?B?SkRkS1k3VFZYc3p4U2xXMnFiNEJHbjB1UVk3Q2RyaXBkcFpoVEhQM1hzNnZQ?=
+ =?utf-8?B?YmdtNUhxL0JNUnAwYlNVZnIySnlGR3RaWU5GQzJNcHk1WXFJMXRtZHo1VlJl?=
+ =?utf-8?B?MlplbGtPNmZESEJtU1loenExVWFjZ0Z3VGRVd2VQUHlaTkluSkhuWHM5ZjJp?=
+ =?utf-8?B?NkpBMEE1L2RCMUkwMURwL0hPKzZOcEVWaHU0SEV4bnh6YmdUOExxT1BaMisz?=
+ =?utf-8?B?YWZjQ0pFdTM5M3BnK1BCR0ZaaFBVcVBNbG5zUTFka2NDaktnaEpIa2VhMlRS?=
+ =?utf-8?B?LzNFeVZUTitaOUxPR05VQTk2czNWR3R5dmoyNzhvMDYvajBCd3ZBQVhnMnVP?=
+ =?utf-8?B?VU9FaldKTHc4bFpqN0V1cW1XYWhDZFV5NkJyTDkvbWsrYVRZakhONUthRzNH?=
+ =?utf-8?B?UFB1ZUNIS3NLbnMvMDU0ZzMrZVVFcHdBNDR6YUtpOVRTYmtrQm9rUjhYUU16?=
+ =?utf-8?B?NC9ZZnpaS1NpWTNuWnU1aGsxMHZXQUVDZGF6dHNjaEZZSDlmbDhzSVF2V0NZ?=
+ =?utf-8?B?aUFFQnBRa2d1eVQwbVlJS09xbDV4NjRVaFZXQzFkR1F1TjZ3cFJxMnNnOGwv?=
+ =?utf-8?B?WXM3dEVSY1Z6OHlpOWYrRkhaTlVsMjg3MDNkaU5aRjNrUXdyV3ZlbWtHdGNF?=
+ =?utf-8?B?UTdMN1U2cUJsSE9DNFMzcjZ0cHBraUZjMHI1SVJmM0xtaml0amZ5cGZpT0RH?=
+ =?utf-8?B?UWdlRXpZYWZFWHRFNGtJb3FMbVlPMWw0Zi94UW1mOVVSZlh5ZUY0TXVJTVds?=
+ =?utf-8?B?ZDl1M0phL1Q5S1FQSEptNmllRkhaRytyZERGelFxcGF2Ym5lMTk2NmZ3UE9a?=
+ =?utf-8?B?UW9HTUlBeWJMUEVLUzZ6TjBpYkt1MysyUFVFaWljSGRIY0FLeWxad2FKaGJs?=
+ =?utf-8?B?cmNjYkF1amhOTFprWklXd0NVRVdVd0FLOHB3YXU1NVFyQjBuaEZveU04Mk5Y?=
+ =?utf-8?Q?rUrzVicK1ycfLcOtWhSlq36TTsMDomFiY0B0ZKf?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2528865-1219-4492-b961-08d90590ad18
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d33a8a8f-f08f-4b32-e891-08d9058fe43b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2021 13:09:41.5636 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VVfUforIMTXfQvBDRm9uP/QI0lHJI/LaJ7OS7SsArJ70av2ocQqvBWbLyKh3F8UksIqxd6jaZPnh4oCt8tndCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4547
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2021 13:15:18.8667 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LFElVc0hGAVjpdLkqQHJJz6sQgWqoa47g0SJbUoVkvHrzXBj/B5qk+2mWB/8p+YrfRShaUoISGCi6LrAN6Ljsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,518 +134,287 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_002_BE86C24E8E2247C8B737E7F58F8B9326amdcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <7B539D9A2D32AC4F9658AC9E6C9FBD18@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Am 2021-04-21 um 10:24 p.m. schrieb Jonathan Kim:
+> In order to support multi-process debugging, HWS PM4 packet
+> MAP_PROCESS requires an extension of 5 DWORDS to support targeting of
+> per-vmid SPI debug control registers as well as watch points per process.
+>
+> v2: align upstream with internal new MEC FW
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
-UMR patch which calls this new IOCTL attached.
-
-Best regards,
-Jiawei
-
-> On Apr 22, 2021, at 10:34, Jiawei Gu <JiaWei.Gu@amd.com> wrote:
->=20
-> Add AMDGPU_INFO_VBIOS_INFO subquery id for detailed vbios info.
->=20
-> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
 > ---
-> drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  19 +++
-> drivers/gpu/drm/amd/amdgpu/atom.c          | 158 +++++++++++++++++++++
-> drivers/gpu/drm/amd/amdgpu/atom.h          |  11 ++
-> drivers/gpu/drm/amd/include/atomfirmware.h |  16 ++-
-> include/uapi/drm/amdgpu_drm.h              |  15 ++
-> 5 files changed, 213 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index 39ee88d29cca..a20b016b05ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -861,6 +861,25 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)
-> 					    min((size_t)size, (size_t)(bios_size - bios_offset)))
-> 					? -EFAULT : 0;
-> 		}
-> +		case AMDGPU_INFO_VBIOS_INFO: {
-> +			struct drm_amdgpu_info_vbios vbios_info =3D {};
-> +			struct atom_context *atom_context;
-> +
-> +			atom_context =3D adev->mode_info.atom_context;
-> +			memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name=
-));
-> +			vbios_info.dbdf =3D PCI_DEVID(adev->pdev->bus->number, adev->pdev->de=
-vfn);
-> +			memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_conte=
-xt->vbios_pn));
-> +			vbios_info.version =3D atom_context->version;
-> +			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date=
-));
-> +			memcpy(vbios_info.serial, adev->serial, sizeof(adev->serial));
-> +			vbios_info.dev_id =3D adev->pdev->device;
-> +			vbios_info.rev_id =3D adev->pdev->revision;
-> +			vbios_info.sub_dev_id =3D atom_context->sub_dev_id;
-> +			vbios_info.sub_ved_id =3D atom_context->sub_ved_id;
-> +
-> +			return copy_to_user(out, &vbios_info,
-> +						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
-> +		}
-> 		default:
-> 			DRM_DEBUG_KMS("Invalid request %d\n",
-> 					info->vbios_info.type);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index 3dcb8b32f48b..0e2f0ea13b40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -31,6 +31,7 @@
->=20
-> #define ATOM_DEBUG
->=20
-> +#include "atomfirmware.h"
-> #include "atom.h"
-> #include "atom-names.h"
-> #include "atom-bits.h"
-> @@ -1299,12 +1300,153 @@ static void atom_index_iio(struct atom_context *=
-ctx, int base)
-> 	}
-> }
->=20
-> +static void atom_get_vbios_name(struct atom_context *ctx)
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  9 +-
+>  .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  4 +-
+>  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 58 +++++++++++-
+>  .../amd/amdkfd/kfd_pm4_headers_aldebaran.h    | 93 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
+>  5 files changed, 161 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index b31bae91fbd0..348fd3e49017 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -26,6 +26,7 @@
+>  #include "kfd_priv.h"
+>  #include "kfd_device_queue_manager.h"
+>  #include "kfd_pm4_headers_vi.h"
+> +#include "kfd_pm4_headers_aldebaran.h"
+>  #include "cwsr_trap_handler.h"
+>  #include "kfd_iommu.h"
+>  #include "amdgpu_amdkfd.h"
+> @@ -714,7 +715,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  			 struct drm_device *ddev,
+>  			 const struct kgd2kfd_shared_resources *gpu_resources)
+>  {
+> -	unsigned int size;
+> +	unsigned int size, map_process_packet_size;
+>  
+>  	kfd->ddev = ddev;
+>  	kfd->mec_fw_version = amdgpu_amdkfd_get_fw_version(kfd->kgd,
+> @@ -749,7 +750,11 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>  	 * calculate max size of runlist packet.
+>  	 * There can be only 2 packets at once
+>  	 */
+> -	size += (KFD_MAX_NUM_OF_PROCESSES * sizeof(struct pm4_mes_map_process) +
+> +	map_process_packet_size =
+> +			kfd->device_info->asic_family == CHIP_ALDEBARAN ?
+> +				sizeof(struct pm4_mes_map_process_aldebaran) :
+> +					sizeof(struct pm4_mes_map_process);
+> +	size += (KFD_MAX_NUM_OF_PROCESSES * map_process_packet_size +
+>  		max_num_of_queues_per_device * sizeof(struct pm4_mes_map_queues)
+>  		+ sizeof(struct pm4_mes_runlist)) * 2;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> index e840dd581719..0ce507d7208a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> @@ -242,7 +242,6 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
+>  	case CHIP_RAVEN:
+>  	case CHIP_RENOIR:
+>  	case CHIP_ARCTURUS:
+> -	case CHIP_ALDEBARAN:
+>  	case CHIP_NAVI10:
+>  	case CHIP_NAVI12:
+>  	case CHIP_NAVI14:
+> @@ -252,6 +251,9 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
+>  	case CHIP_DIMGREY_CAVEFISH:
+>  		pm->pmf = &kfd_v9_pm_funcs;
+>  		break;
+> +	case CHIP_ALDEBARAN:
+> +		pm->pmf = &kfd_aldebaran_pm_funcs;
+> +		break;
+>  	default:
+>  		WARN(1, "Unexpected ASIC family %u",
+>  		     dqm->dev->device_info->asic_family);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> index e3ba0cd3b6fa..7ea3f671b325 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> @@ -24,6 +24,7 @@
+>  #include "kfd_kernel_queue.h"
+>  #include "kfd_device_queue_manager.h"
+>  #include "kfd_pm4_headers_ai.h"
+> +#include "kfd_pm4_headers_aldebaran.h"
+>  #include "kfd_pm4_opcodes.h"
+>  #include "gc/gc_10_1_0_sh_mask.h"
+>  
+> @@ -35,7 +36,6 @@ static int pm_map_process_v9(struct packet_manager *pm,
+>  
+>  	packet = (struct pm4_mes_map_process *)buffer;
+>  	memset(buffer, 0, sizeof(struct pm4_mes_map_process));
+> -
+>  	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+>  					sizeof(struct pm4_mes_map_process));
+>  	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+> @@ -73,6 +73,45 @@ static int pm_map_process_v9(struct packet_manager *pm,
+>  	return 0;
+>  }
+>  
+> +static int pm_map_process_aldebaran(struct packet_manager *pm,
+> +		uint32_t *buffer, struct qcm_process_device *qpd)
 > +{
-> +	unsigned char *p_rom;
-> +	unsigned char str_num;
-> +	unsigned short off_to_vbios_str;
-> +	unsigned char *c_ptr;
-> +	int name_size;
-> +	int i;
+> +	struct pm4_mes_map_process_aldebaran *packet;
+> +	uint64_t vm_page_table_base_addr = qpd->page_table_base;
 > +
-> +	const char *na =3D "--N/A--";
-> +	char *back;
+> +	packet = (struct pm4_mes_map_process_aldebaran *)buffer;
+> +	memset(buffer, 0, sizeof(struct pm4_mes_map_process_aldebaran));
+> +	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+> +			sizeof(struct pm4_mes_map_process_aldebaran));
+> +	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+> +	packet->bitfields2.process_quantum = 10;
+> +	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+> +	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
+> +	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
+> +	packet->bitfields14.num_gws = (qpd->mapped_gws_queue) ? qpd->num_gws : 0;
+> +	packet->bitfields14.num_oac = qpd->num_oac;
+> +	packet->bitfields14.sdma_enable = 1;
+> +	packet->bitfields14.num_queues = (qpd->is_debug) ? 0 : qpd->queue_count;
 > +
-> +	p_rom =3D ctx->bios;
-> +
-> +	str_num =3D *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS);
-> +	if (str_num !=3D 0) {
-> +		off_to_vbios_str =3D
-> +			*(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
-> +
-> +		c_ptr =3D (unsigned char *)(p_rom + off_to_vbios_str);
-> +	} else {
-> +		/* do not know where to find name */
-> +		memcpy(ctx->name, na, 7);
-> +		ctx->name[7] =3D 0;
-> +		return;
+> +	packet->sh_mem_config = qpd->sh_mem_config;
+> +	packet->sh_mem_bases = qpd->sh_mem_bases;
+> +	if (qpd->tba_addr) {
+> +		packet->sq_shader_tba_lo = lower_32_bits(qpd->tba_addr >> 8);
+> +		packet->sq_shader_tma_lo = lower_32_bits(qpd->tma_addr >> 8);
+> +		packet->sq_shader_tma_hi = upper_32_bits(qpd->tma_addr >> 8);
 > +	}
 > +
-> +	/*
-> +	 * skip the atombios strings, usually 4
-> +	 * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th is Memory type
-> +	 */
-> +	for (i =3D 0; i < str_num; i++) {
-> +		while (*c_ptr !=3D 0)
-> +			c_ptr++;
-> +		c_ptr++;
-> +	}
+> +	packet->gds_addr_lo = lower_32_bits(qpd->gds_context_area);
+> +	packet->gds_addr_hi = upper_32_bits(qpd->gds_context_area);
 > +
-> +	/* skip the following 2 chars: 0x0D 0x0A */
-> +	c_ptr +=3D 2;
+> +	packet->vm_context_page_table_base_addr_lo32 =
+> +			lower_32_bits(vm_page_table_base_addr);
+> +	packet->vm_context_page_table_base_addr_hi32 =
+> +			upper_32_bits(vm_page_table_base_addr);
 > +
-> +	name_size =3D strnlen(c_ptr, STRLEN_LONG - 1);
-> +	memcpy(ctx->name, c_ptr, name_size);
-> +	back =3D ctx->name + name_size;
-> +	while ((*--back) =3D=3D ' ')
-> +		;
-> +	*(back + 1) =3D '\0';
+> +	return 0;
 > +}
 > +
-> +static void atom_get_vbios_date(struct atom_context *ctx)
-> +{
-> +	unsigned char *p_rom;
-> +	unsigned char *date_in_rom;
+>  static int pm_runlist_v9(struct packet_manager *pm, uint32_t *buffer,
+>  			uint64_t ib, size_t ib_size_in_dwords, bool chain)
+>  {
+> @@ -324,3 +363,20 @@ const struct packet_manager_funcs kfd_v9_pm_funcs = {
+>  	.query_status_size	= sizeof(struct pm4_mes_query_status),
+>  	.release_mem_size	= 0,
+>  };
 > +
-> +	p_rom =3D ctx->bios;
+> +const struct packet_manager_funcs kfd_aldebaran_pm_funcs = {
+> +	.map_process		= pm_map_process_aldebaran,
+> +	.runlist		= pm_runlist_v9,
+> +	.set_resources		= pm_set_resources_v9,
+> +	.map_queues		= pm_map_queues_v9,
+> +	.unmap_queues		= pm_unmap_queues_v9,
+> +	.query_status		= pm_query_status_v9,
+> +	.release_mem		= NULL,
+> +	.map_process_size	= sizeof(struct pm4_mes_map_process_aldebaran),
+> +	.runlist_size		= sizeof(struct pm4_mes_runlist),
+> +	.set_resources_size	= sizeof(struct pm4_mes_set_resources),
+> +	.map_queues_size	= sizeof(struct pm4_mes_map_queues),
+> +	.unmap_queues_size	= sizeof(struct pm4_mes_unmap_queues),
+> +	.query_status_size	= sizeof(struct pm4_mes_query_status),
+> +	.release_mem_size	= 0,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
+> new file mode 100644
+> index 000000000000..f795ec815e2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
+> @@ -0,0 +1,93 @@
+> +/*
+> + * Copyright 2020 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
 > +
-> +	date_in_rom =3D p_rom + OFFSET_TO_VBIOS_DATE;
+> +/*--------------------MES_MAP_PROCESS (PER DEBUG VMID)--------------------*/
 > +
-> +	ctx->date[0] =3D '2';
-> +	ctx->date[1] =3D '0';
-> +	ctx->date[2] =3D date_in_rom[6];
-> +	ctx->date[3] =3D date_in_rom[7];
-> +	ctx->date[4] =3D '/';
-> +	ctx->date[5] =3D date_in_rom[0];
-> +	ctx->date[6] =3D date_in_rom[1];
-> +	ctx->date[7] =3D '/';
-> +	ctx->date[8] =3D date_in_rom[3];
-> +	ctx->date[9] =3D date_in_rom[4];
-> +	ctx->date[10] =3D ' ';
-> +	ctx->date[11] =3D date_in_rom[9];
-> +	ctx->date[12] =3D date_in_rom[10];
-> +	ctx->date[13] =3D date_in_rom[11];
-> +	ctx->date[14] =3D date_in_rom[12];
-> +	ctx->date[15] =3D date_in_rom[13];
-> +	ctx->date[16] =3D '\0';
-> +}
+> +#ifndef PM4_MES_MAP_PROCESS_PER_DEBUG_VMID_DEFINED
+> +#define PM4_MES_MAP_PROCESS_PER_DEBUG_VMID_DEFINED
 > +
-> +static unsigned char *atom_find_str_in_rom(struct atom_context *ctx, cha=
-r *str, int start,
-> +					   int end, int maxlen)
-> +{
-> +	unsigned long str_off;
-> +	unsigned char *p_rom;
-> +	unsigned short str_len;
+> +struct pm4_mes_map_process_aldebaran {
+> +	union {
+> +		union PM4_MES_TYPE_3_HEADER header;	/* header */
+> +		uint32_t ordinal1;
+> +	};
 > +
-> +	str_off =3D 0;
-> +	str_len =3D strnlen(str, maxlen);
-> +	p_rom =3D ctx->bios;
+> +	union {
+> +		struct {
+> +			uint32_t pasid:16;	    /* 0 - 15  */
+> +			uint32_t single_memops:1;   /* 16      */
+> +			uint32_t reserved1:1;	    /* 17      */
+> +			uint32_t debug_vmid:4;	    /* 18 - 21 */
+> +			uint32_t new_debug:1;	    /* 22      */
+> +			uint32_t tmz:1;		    /* 23      */
+> +			uint32_t diq_enable:1;      /* 24      */
+> +			uint32_t process_quantum:7; /* 25 - 31 */
+> +		} bitfields2;
+> +		uint32_t ordinal2;
+> +	};
 > +
-> +	for (; start <=3D end; ++start) {
-> +		for (str_off =3D 0; str_off < str_len; ++str_off) {
-> +			if (str[str_off] !=3D *(p_rom + start + str_off))
-> +				break;
-> +		}
+> +	uint32_t vm_context_page_table_base_addr_lo32;
 > +
-> +		if (str_off =3D=3D str_len || str[str_off] =3D=3D 0)
-> +			return p_rom + start;
-> +	}
-> +	return NULL;
-> +}
+> +	uint32_t vm_context_page_table_base_addr_hi32;
 > +
-> +static void atom_get_vbios_pn(struct atom_context *ctx)
-> +{
-> +	unsigned char *p_rom;
-> +	unsigned short off_to_vbios_str;
-> +	unsigned char *vbios_str;
-> +	int count;
+> +	uint32_t sh_mem_bases;
 > +
-> +	off_to_vbios_str =3D 0;
-> +	p_rom =3D ctx->bios;
+> +	uint32_t sh_mem_config;
 > +
-> +	if (*(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS) !=3D 0) {
-> +		off_to_vbios_str =3D
-> +			*(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
+> +	uint32_t sq_shader_tba_lo;
 > +
-> +		vbios_str =3D (unsigned char *)(p_rom + off_to_vbios_str);
-> +	} else {
-> +		vbios_str =3D p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
-> +	}
+> +	uint32_t sq_shader_tba_hi;
 > +
-> +	if (*vbios_str =3D=3D 0) {
-> +		vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64)=
-;
-> +		if (vbios_str =3D=3D NULL)
-> +			vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
-> +	}
-> +	if (vbios_str !=3D NULL && *vbios_str =3D=3D 0)
-> +		vbios_str++;
+> +	uint32_t sq_shader_tma_lo;
 > +
-> +	if (vbios_str !=3D NULL) {
-> +		count =3D 0;
-> +		while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >=3D ' ' &&
-> +		       vbios_str[count] <=3D 'z') {
-> +			ctx->vbios_pn[count] =3D vbios_str[count];
-> +			count++;
-> +		}
+> +	uint32_t sq_shader_tma_hi;
 > +
-> +		ctx->vbios_pn[count] =3D 0;
-> +	}
-> +}
+> +	uint32_t reserved6;
 > +
-> struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios=
-)
-> {
-> 	int base;
-> 	struct atom_context *ctx =3D
-> 	    kzalloc(sizeof(struct atom_context), GFP_KERNEL);
-> 	char *str;
-> +	struct _ATOM_ROM_HEADER *atom_rom_header;
-> +	struct _ATOM_MASTER_DATA_TABLE *master_table;
-> +	struct _ATOM_FIRMWARE_INFO *atom_fw_info;
-> 	u16 idx;
->=20
-> 	if (!ctx)
-> @@ -1353,6 +1495,22 @@ struct atom_context *amdgpu_atom_parse(struct card=
-_info *card, void *bios)
-> 		strlcpy(ctx->vbios_version, str, sizeof(ctx->vbios_version));
-> 	}
->=20
-> +	atom_rom_header =3D (struct _ATOM_ROM_HEADER *)CSTR(base);
-> +	ctx->sub_dev_id =3D atom_rom_header->usSubsystemVendorID;
-> +	ctx->sub_ved_id =3D atom_rom_header->usSubsystemID;
-> +	if (atom_rom_header->usMasterDataTableOffset !=3D 0) {
-> +		master_table =3D (struct _ATOM_MASTER_DATA_TABLE *)
-> +				CSTR(atom_rom_header->usMasterDataTableOffset);
-> +		if (master_table->ListOfDataTables.FirmwareInfo !=3D 0) {
-> +			atom_fw_info =3D (struct _ATOM_FIRMWARE_INFO *)
-> +					CSTR(master_table->ListOfDataTables.FirmwareInfo);
-> +			ctx->version =3D atom_fw_info->ulFirmwareRevision;
-> +		}
-> +	}
+> +	uint32_t gds_addr_lo;
 > +
-> +	atom_get_vbios_name(ctx);
-> +	atom_get_vbios_pn(ctx);
-> +	atom_get_vbios_date(ctx);
->=20
-> 	return ctx;
-> }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdg=
-pu/atom.h
-> index d279759cab47..c729f7ceba4f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.h
-> @@ -112,6 +112,10 @@ struct drm_device;
-> #define ATOM_IO_SYSIO		2
-> #define ATOM_IO_IIO		0x80
->=20
-> +#define STRLEN_NORMAL		32
-> +#define STRLEN_LONG		64
-> +#define STRLEN_VERYLONG		254
+> +	uint32_t gds_addr_hi;
 > +
-> struct card_info {
-> 	struct drm_device *dev;
-> 	void (* reg_write)(struct card_info *, uint32_t, uint32_t);   /*  filled=
- by driver */
-> @@ -140,6 +144,13 @@ struct atom_context {
-> 	uint32_t *scratch;
-> 	int scratch_size_bytes;
-> 	char vbios_version[20];
+> +	union {
+> +		struct {
+> +			uint32_t num_gws:7;
+> +			uint32_t sdma_enable:1;
+> +			uint32_t num_oac:4;
+> +			uint32_t gds_size_hi:4;
+> +			uint32_t gds_size:6;
+> +			uint32_t num_queues:10;
+> +		} bitfields14;
+> +		uint32_t ordinal14;
+> +	};
 > +
-> +	uint8_t name[STRLEN_LONG];
-> +	uint8_t vbios_pn[STRLEN_LONG];
-> +	uint32_t version;
-> +	uint8_t date[STRLEN_NORMAL];
-> +	uint32_t sub_dev_id;
-> +	uint32_t sub_ved_id;
-> };
->=20
-> extern int amdgpu_atom_debug;
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
-/amd/include/atomfirmware.h
-> index c77ed38c20fb..3a8e404099b0 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -197,6 +197,8 @@ enum atom_dp_vs_preemph_def{
->   DP_VS_LEVEL0_PREEMPH_LEVEL3 =3D 0x18,
-> };
->=20
-> +#define BIOS_ATOM_PREFIX   "ATOMBIOS"
-> +#define BIOS_STRING_LENGTH 43
->=20
-> /*
-> enum atom_string_def{
-> @@ -209,12 +211,14 @@ atom_bios_string          =3D "ATOM"
-> #pragma pack(1)                          /* BIOS data must use byte aligm=
-ent*/
->=20
-> enum atombios_image_offset{
-> -OFFSET_TO_ATOM_ROM_HEADER_POINTER          =3D0x00000048,
-> -OFFSET_TO_ATOM_ROM_IMAGE_SIZE              =3D0x00000002,
-> -OFFSET_TO_ATOMBIOS_ASIC_BUS_MEM_TYPE       =3D0x94,
-> -MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      =3D20,  /*including the termi=
-nator 0x0!*/
-> -OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   =3D0x2f,
-> -OFFSET_TO_GET_ATOMBIOS_STRING_START        =3D0x6e,
-> +  OFFSET_TO_ATOM_ROM_HEADER_POINTER          =3D 0x00000048,
-> +  OFFSET_TO_ATOM_ROM_IMAGE_SIZE              =3D 0x00000002,
-> +  OFFSET_TO_ATOMBIOS_ASIC_BUS_MEM_TYPE       =3D 0x94,
-> +  MAXSIZE_OF_ATOMBIOS_ASIC_BUS_MEM_TYPE      =3D 20,  /*including the te=
-rminator 0x0!*/
-> +  OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS   =3D 0x2f,
-> +  OFFSET_TO_GET_ATOMBIOS_STRING_START        =3D 0x6e,
-> +  OFFSET_TO_VBIOS_PART_NUMBER                =3D 0x80,
-> +  OFFSET_TO_VBIOS_DATE                       =3D 0x50,
-> };
->=20
-> /************************************************************************=
-****  =20
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 8b832f7458f2..77980445d486 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -758,6 +758,8 @@ struct drm_amdgpu_cs_chunk_data {
-> 	#define AMDGPU_INFO_VBIOS_SIZE		0x1
-> 	/* Subquery id: Query vbios image */
-> 	#define AMDGPU_INFO_VBIOS_IMAGE		0x2
-> +	/* Subquery id: Query vbios info */
-> +	#define AMDGPU_INFO_VBIOS_INFO		0x3
-> /* Query UVD handles */
-> #define AMDGPU_INFO_NUM_HANDLES			0x1C
-> /* Query sensor related information */
-> @@ -951,6 +953,19 @@ struct drm_amdgpu_info_firmware {
-> 	__u32 feature;
-> };
->=20
-> +struct drm_amdgpu_info_vbios {
-> +	__u8 name[64];
-> +	__u32 dbdf;
-> +	__u8 vbios_pn[64];
-> +	__u32 version;
-> +	__u8 date[32];
-> +	__u8 serial[16];
-> +	__u32 dev_id;
-> +	__u32 rev_id;
-> +	__u32 sub_dev_id;
-> +	__u32 sub_ved_id;
+> +	uint32_t spi_gdbg_per_vmid_cntl;
+> +
+> +	uint32_t tcp_watch_cntl[4];
+> +
+> +	uint32_t completion_signal_lo;
+> +
+> +	uint32_t completion_signal_hi;
+> +
 > +};
 > +
-> #define AMDGPU_VRAM_TYPE_UNKNOWN 0
-> #define AMDGPU_VRAM_TYPE_GDDR1 1
-> #define AMDGPU_VRAM_TYPE_DDR2  2
-> --=20
-> 2.17.1
->=20
-
-
---_002_BE86C24E8E2247C8B737E7F58F8B9326amdcom_
-Content-Type: application/octet-stream;
-	name="[v2][umr]add-vbios-info-query.patch"
-Content-Description: [v2][umr]add-vbios-info-query.patch
-Content-Disposition: attachment;
-	filename="[v2][umr]add-vbios-info-query.patch"; size=6968;
-	creation-date="Thu, 22 Apr 2021 13:09:41 GMT";
-	modification-date="Thu, 22 Apr 2021 13:09:41 GMT"
-Content-ID: <2E3533BE0F668841B3C3BC910FA4F44B@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
-
-RnJvbSBjYTVmOWMyMTg2OTMxN2FjOGM4ZGY3NTJiOGM4ZTE3ZDE1ZWJiODAzIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKaWF3ZWkgR3UgPEppYXdlaS5HdUBhbWQuY29tPgpEYXRlOiBU
-dWUsIDIwIEFwciAyMDIxIDE2OjM5OjQyICswODAwClN1YmplY3Q6IFtQQVRDSF0gYWRkIHZiaW9z
-IGluZm8gcXVlcnkKClNpZ25lZC1vZmYtYnk6IEppYXdlaSBHdSA8Smlhd2VpLkd1QGFtZC5jb20+
-Ci0tLQogc3JjL2FwcC9DTWFrZUxpc3RzLnR4dCAgICAgICAgICAgICB8ICAxICsKIHNyYy9hcHAv
-bWFpbi5jICAgICAgICAgICAgICAgICAgICAgfCAgOCArKysrKwogc3JjL2FwcC92Ymlvcy5jICAg
-ICAgICAgICAgICAgICAgICB8IDU4ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogc3Jj
-L2xpYi9sb3dsZXZlbC9saW51eC9xdWVyeV9kcm0uYyB8IDExICsrKysrKwogc3JjL3Vtci5oICAg
-ICAgICAgICAgICAgICAgICAgICAgICB8IDE1ICsrKysrKysrCiBzcmMvdW1yYXBwLmggICAgICAg
-ICAgICAgICAgICAgICAgIHwgIDEgKwogNiBmaWxlcyBjaGFuZ2VkLCA5NCBpbnNlcnRpb25zKCsp
-CiBjcmVhdGUgbW9kZSAxMDA2NDQgc3JjL2FwcC92Ymlvcy5jCgpkaWZmIC0tZ2l0IGEvc3JjL2Fw
-cC9DTWFrZUxpc3RzLnR4dCBiL3NyYy9hcHAvQ01ha2VMaXN0cy50eHQKaW5kZXggY2E3ZDQ2Yi4u
-NDYyZTRmYyAxMDA2NDQKLS0tIGEvc3JjL2FwcC9DTWFrZUxpc3RzLnR4dAorKysgYi9zcmMvYXBw
-L0NNYWtlTGlzdHMudHh0CkBAIC0zNSw2ICszNSw3IEBAIGFkZF9saWJyYXJ5KHVtcmFwcCBTVEFU
-SUMKICAgcHBfdGFibGUuYwogICBuYXZpMTBfcHB0LmMKICAgcmVhZF9tZXRyaWNzLmMKKyAgdmJp
-b3MuYwogICAke0dVSV9TT1VSQ0V9CiApCiAKZGlmZiAtLWdpdCBhL3NyYy9hcHAvbWFpbi5jIGIv
-c3JjL2FwcC9tYWluLmMKaW5kZXggNTY5MmY2YS4uODZjNGQ2NyAxMDA2NDQKLS0tIGEvc3JjL2Fw
-cC9tYWluLmMKKysrIGIvc3JjL2FwcC9tYWluLmMKQEAgLTgyNSw2ICs4MjUsMTEgQEAgaW50IG1h
-aW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQogCQkJCWFzaWMgPSBnZXRfYXNpYygpOwogCQkJaWhf
-c2VsZl90ZXN0KGFzaWMpOwogI2VuZGlmCisJCX0gZWxzZSBpZiAoIXN0cmNtcChhcmd2W2ldLCAi
-LS12Ymlvc19pbmZvIikgfHwgIXN0cmNtcChhcmd2W2ldLCAiLXZpIikpIHsKKwkJCWlmICghYXNp
-YykKKwkJCQlhc2ljID0gZ2V0X2FzaWMoKTsKKwkJCWlmICh1bXJfcHJpbnRfdmJpb3NfaW5mbyhh
-c2ljKSAhPSAwKQorCQkJCWZwcmludGYoc3RkZXJyLCAiW0VSUk9SXTogQ2Fubm90IHByaW50IHZi
-aW9zIGluZm8uXG4iKTsKIAkJfSBlbHNlIGlmICghc3RyY21wKGFyZ3ZbaV0sICItLWhlbHAiKSB8
-fCAhc3RyY21wKGFyZ3ZbaV0sICItaCIpKSB7CiAJCQlwcmludGYoIlVzZXIgTW9kZSBSZWdpc3Rl
-ciBkZWJ1Z2dlciB2JXMgZm9yIEFNREdQVSBkZXZpY2VzIChidWlsZDogJXMgWyVzXSksIENvcHly
-aWdodCAoYykgMjAyMSwgQU1EIEluYy5cbiIKICJcbioqKiBEZXZpY2UgU2VsZWN0aW9uICoqKlxu
-IgpAQCAtOTUxLDYgKzk1Niw5IEBAIHByaW50ZigKIAkiXG5cdFx0UHJpbnQgdGhlIEdQVSBtZXRy
-aWNzIHRhYmxlIGZvciB0aGUgZGV2aWNlLiIKICJcblx0LS1wb3dlciwgLXAgXG5cdFx0UmVhZCB0
-aGUgY29uZXRlbnQgb2YgY2xvY2tzLCB0ZW1wZXJhdHVyZSwgZ3B1IGxvYWRpbmcgYXQgcnVudGlt
-ZSIKIAkiXG5cdFx0b3B0aW9ucyAndXNlX2NvbG91cicgdG8gY29sb3VyaXplIG91dHB1dCBcbiIp
-OworcHJpbnRmKAorIlxuKioqIFZpZGVvIEJJT1MgSW5mb3JtYXRpb24gKioqXG4iCisiXG5cdC0t
-dmJpb3NfaW5mbywgLXZpIFxuXHRcdFByaW50IFZpZGVvIEJJT1MgaW5mb3JtYXRpb25cbiIpOwog
-CiAjaWYgVU1SX0dVSQogcHJpbnRmKApkaWZmIC0tZ2l0IGEvc3JjL2FwcC92Ymlvcy5jIGIvc3Jj
-L2FwcC92Ymlvcy5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAuLmIyZTY1ZTQK
-LS0tIC9kZXYvbnVsbAorKysgYi9zcmMvYXBwL3ZiaW9zLmMKQEAgLTAsMCArMSw1OCBAQAorLyoK
-KyAqIENvcHlyaWdodCAyMDIxIEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KKyAqCisgKiBQ
-ZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNv
-biBvYnRhaW5pbmcgYQorICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRv
-Y3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUiKSwKKyAqIHRvIGRlYWwgaW4gdGhlIFNv
-ZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24K
-KyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0
-cmlidXRlLCBzdWJsaWNlbnNlLAorICogYW5kL29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2Fy
-ZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlCisgKiBTb2Z0d2FyZSBpcyBmdXJu
-aXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgorICoK
-KyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNl
-IHNoYWxsIGJlIGluY2x1ZGVkIGluCisgKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRp
-b25zIG9mIHRoZSBTb2Z0d2FyZS4KKyAqCisgKiBUSEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFT
-IElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwgRVhQUkVTUyBPUgorICogSU1QTElF
-RCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFO
-VEFCSUxJVFksCisgKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5G
-UklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKKyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMp
-IE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUgorICogT1RI
-RVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBP
-VEhFUldJU0UsCisgKiBBUklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEgg
-VEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKKyAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZU
-V0FSRS4KKyAqCisgKiBBdXRob3JzOiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+
-CisgKgorICovCisjaW5jbHVkZSAidW1yYXBwLmgiCisKKyNkZWZpbmUgQU1ER1BVX0lORk9fVkJJ
-T1MJCQkweDFCCisjZGVmaW5lIEFNREdQVV9JTkZPX1ZCSU9TX0lORk8JCQkweDMKK2ludCB1bXJf
-cHJpbnRfdmJpb3NfaW5mbyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCit7CisJY2hhciBmbmFtZVs2
-NF07CisJaW50IHI7CisJc3RydWN0IHVtcl92Ymlvc19pbmZvIHZiaW9zX2luZm87CisKKwlpZiAo
-YXNpYy0+ZmQuZHJtIDwgMCkgeworCQlzbnByaW50ZihmbmFtZSwgc2l6ZW9mKGZuYW1lKS0xLCAi
-L2Rldi9kcmkvY2FyZCVkIiwgYXNpYy0+aW5zdGFuY2UpOworCQlhc2ljLT5mZC5kcm0gPSBvcGVu
-KGZuYW1lLCBPX1JEV1IpOworCX0KKworCXIgPSB1bXJfcXVlcnlfZHJtX3ZiaW9zKGFzaWMsIEFN
-REdQVV9JTkZPX1ZCSU9TLCBBTURHUFVfSU5GT19WQklPU19JTkZPLAorCQkJJnZiaW9zX2luZm8s
-IHNpemVvZih2Ymlvc19pbmZvKSk7CisJaWYgKHIpCisJCXJldHVybiByOworCisJcHJpbnRmKCJ2
-YmlvcyBuYW1lICAgICAgICAgIDogJXNcbiIsIHZiaW9zX2luZm8ubmFtZSk7CisJcHJpbnRmKCJ2
-YmlvcyBkYmRmICAgICAgICAgIDogMHgleFxuIiwgdmJpb3NfaW5mby5kYmRmKTsKKwlwcmludGYo
-InZiaW9zIHBuICAgICAgICAgICAgOiAlc1xuIiwgdmJpb3NfaW5mby52Ymlvc19wbik7CisJcHJp
-bnRmKCJ2YmlvcyB2ZXJzaW9uICAgICAgIDogJWRcbiIsIHZiaW9zX2luZm8udmVyc2lvbik7CisJ
-cHJpbnRmKCJ2YmlvcyBkYXRlICAgICAgICAgIDogJXNcbiIsIHZiaW9zX2luZm8uZGF0ZSk7CisJ
-cHJpbnRmKCJ2YmlvcyBzZXJpYWwgICAgICAgIDogJXNcbiIsIHZiaW9zX2luZm8uc2VyaWFsKTsK
-KwlwcmludGYoInZiaW9zIGRldl9pZCAgICAgICAgOiAweCV4XG4iLCB2Ymlvc19pbmZvLmRldl9p
-ZCk7CisJcHJpbnRmKCJ2YmlvcyByZXZfaWQgICAgICAgIDogMHgleFxuIiwgdmJpb3NfaW5mby5y
-ZXZfaWQpOworCXByaW50ZigidmJpb3Mgc3ViX2Rldl9pZCAgICA6IDB4JXhcbiIsIHZiaW9zX2lu
-Zm8uc3ViX2Rldl9pZCk7CisJcHJpbnRmKCJ2YmlvcyBzdWJfdmVkX2lkICAgIDogMHgleFxuIiwg
-dmJpb3NfaW5mby5zdWJfdmVkX2lkKTsKKworCWNsb3NlKGFzaWMtPmZkLmRybSk7CisJcmV0dXJu
-IDA7Cit9ClwgTm8gbmV3bGluZSBhdCBlbmQgb2YgZmlsZQpkaWZmIC0tZ2l0IGEvc3JjL2xpYi9s
-b3dsZXZlbC9saW51eC9xdWVyeV9kcm0uYyBiL3NyYy9saWIvbG93bGV2ZWwvbGludXgvcXVlcnlf
-ZHJtLmMKaW5kZXggZDBjODJkNC4uZjRhYjcwOSAxMDA2NDQKLS0tIGEvc3JjL2xpYi9sb3dsZXZl
-bC9saW51eC9xdWVyeV9kcm0uYworKysgYi9zcmMvbGliL2xvd2xldmVsL2xpbnV4L3F1ZXJ5X2Ry
-bS5jCkBAIC00OSw3ICs0OSwxOCBAQCBpbnQgdW1yX3F1ZXJ5X2RybShzdHJ1Y3QgdW1yX2FzaWMg
-KmFzaWMsIGludCBmaWVsZCwgdm9pZCAqcmV0LCBpbnQgc2l6ZSkKIAlpbmYucmV0dXJuX3NpemUg
-PSBzaXplOwogCWluZi5xdWVyeSA9IGZpZWxkOwogCXJldHVybiBpb2N0bChhc2ljLT5mZC5kcm0s
-IERSTV9JT0MoRFJNX0lPQ19XUklURSwgRFJNX0lPQ1RMX0JBU0UsIERSTV9DT01NQU5EX0JBU0Ug
-KyBEUk1fQU1ER1BVX0lORk8sIHNpemVvZihpbmYpKSwgJmluZik7Cit9CiAKK2ludCB1bXJfcXVl
-cnlfZHJtX3ZiaW9zKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgaW50IGZpZWxkLCBpbnQgdHlwZSwg
-dm9pZCAqcmV0LCBpbnQgc2l6ZSkKK3sKKwlzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvIGluZjsKKwor
-CW1lbXNldCgmaW5mLCAwLCBzaXplb2YgaW5mKTsKKwlpbmYucmV0dXJuX3BvaW50ZXIgPSAodWlu
-dHB0cl90KXJldDsKKwlpbmYucmV0dXJuX3NpemUgPSBzaXplOworCWluZi5xdWVyeSA9IGZpZWxk
-OworCWluZi52Ymlvc19pbmZvLnR5cGUgPSB0eXBlOworCXJldHVybiBpb2N0bChhc2ljLT5mZC5k
-cm0sIERSTV9JT0MoRFJNX0lPQ19XUklURSwgRFJNX0lPQ1RMX0JBU0UsIERSTV9DT01NQU5EX0JB
-U0UgKyBEUk1fQU1ER1BVX0lORk8sIHNpemVvZihpbmYpKSwgJmluZik7CiB9CiAKICNlbHNlCmRp
-ZmYgLS1naXQgYS9zcmMvdW1yLmggYi9zcmMvdW1yLmgKaW5kZXggMDI2ZjQ2Ni4uNjI1ZjkzZSAx
-MDA2NDQKLS0tIGEvc3JjL3Vtci5oCisrKyBiL3NyYy91bXIuaApAQCAtOTczLDYgKzk3Myw3IEBA
-IHZvaWQgdW1yX2ZyZWVfYXNpYyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpOwogdm9pZCB1bXJfZnJl
-ZV9tYXBzKHN0cnVjdCB1bXJfYXNpYyAqYXNpYyk7CiB2b2lkIHVtcl9jbG9zZV9hc2ljKHN0cnVj
-dCB1bXJfYXNpYyAqYXNpYyk7IC8vIGNhbGwgdGhpcyB0byBjbG9zZSBhIGZ1bGx5IG9wZW4gYXNp
-YwogaW50IHVtcl9xdWVyeV9kcm0oc3RydWN0IHVtcl9hc2ljICphc2ljLCBpbnQgZmllbGQsIHZv
-aWQgKnJldCwgaW50IHNpemUpOworaW50IHVtcl9xdWVyeV9kcm1fdmJpb3Moc3RydWN0IHVtcl9h
-c2ljICphc2ljLCBpbnQgZmllbGQsIGludCB0eXBlLCB2b2lkICpyZXQsIGludCBzaXplKTsKIHZv
-aWQgdW1yX2VudW1lcmF0ZV9kZXZpY2VzKHZvaWQpOwogaW50IHVtcl91cGRhdGUoc3RydWN0IHVt
-cl9hc2ljICphc2ljLCBjaGFyICpzY3JpcHQpOwogaW50IHVtcl91cGRhdGVfc3RyaW5nKHN0cnVj
-dCB1bXJfYXNpYyAqYXNpYywgY2hhciAqc2RhdGEpOwpAQCAtMTMzNyw2ICsxMzM4LDIwIEBAIHN0
-cnVjdCB1bXJfc29jMTVfZGF0YWJhc2UgewogCXN0cnVjdCB1bXJfc29jMTVfZGF0YWJhc2UgKm5l
-eHQ7CiB9OwogCisvLyB2Ymlvcworc3RydWN0IHVtcl92Ymlvc19pbmZvIHsKKwl1aW50OF90IG5h
-bWVbNjRdOworCXVpbnQzMl90IGRiZGY7CisJdWludDhfdCB2Ymlvc19wbls2NF07CisJdWludDMy
-X3QgdmVyc2lvbjsKKwl1aW50OF90IGRhdGVbMzJdOworCXVpbnQ4X3Qgc2VyaWFsWzE2XTsKKwl1
-aW50MzJfdCBkZXZfaWQ7CisJdWludDMyX3QgcmV2X2lkOworCXVpbnQzMl90IHN1Yl9kZXZfaWQ7
-CisJdWludDMyX3Qgc3ViX3ZlZF9pZDsKK307CisKIEZJTEUgKnVtcl9kYXRhYmFzZV9vcGVuKGNo
-YXIgKnBhdGgsIGNoYXIgKmZpbGVuYW1lKTsKIHN0cnVjdCB1bXJfc29jMTVfZGF0YWJhc2UgKnVt
-cl9kYXRhYmFzZV9yZWFkX3NvYzE1KGNoYXIgKnBhdGgsIGNoYXIgKmZpbGVuYW1lKTsKIHZvaWQg
-dW1yX2RhdGFiYXNlX2ZyZWVfc29jMTUoc3RydWN0IHVtcl9zb2MxNV9kYXRhYmFzZSAqc29jMTUp
-OwpkaWZmIC0tZ2l0IGEvc3JjL3VtcmFwcC5oIGIvc3JjL3VtcmFwcC5oCmluZGV4IDE0NDU3ZmUu
-LjEzMzZlMDcgMTAwNjQ0Ci0tLSBhL3NyYy91bXJhcHAuaAorKysgYi9zcmMvdW1yYXBwLmgKQEAg
-LTU3LDUgKzU3LDYgQEAgdm9pZCB1bXJfY2xvY2tfc2NhbihzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMs
-IGNvbnN0IGNoYXIqIGNsb2NrX25hbWUpOwogdm9pZCB1bXJfY2xvY2tfbWFudWFsKHN0cnVjdCB1
-bXJfYXNpYyAqYXNpYywgY29uc3QgY2hhciogY2xvY2tfbmFtZSwgdm9pZCogdmFsdWUpOwogaW50
-IHVtcl9wcmludF9wcF90YWJsZShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIGNvbnN0IGNoYXIqIHBh
-cmFtKTsKIGludCB1bXJfcHJpbnRfZ3B1X21ldHJpY3Moc3RydWN0IHVtcl9hc2ljICphc2ljKTsK
-K2ludCB1bXJfcHJpbnRfdmJpb3NfaW5mbyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpOwogCiB2b2lk
-IHJ1bl9zZXJ2ZXJfbG9vcChjb25zdCBjaGFyICp1cmwsIHN0cnVjdCB1bXJfYXNpYyAqIGFzaWMp
-OwotLSAKMi4xNy4xCgo=
-
---_002_BE86C24E8E2247C8B737E7F58F8B9326amdcom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index a1ddcf6446db..64552f6b8ba4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1088,6 +1088,7 @@ struct packet_manager_funcs {
+>  
+>  extern const struct packet_manager_funcs kfd_vi_pm_funcs;
+>  extern const struct packet_manager_funcs kfd_v9_pm_funcs;
+> +extern const struct packet_manager_funcs kfd_aldebaran_pm_funcs;
+>  
+>  int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm);
+>  void pm_uninit(struct packet_manager *pm, bool hanging);
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_002_BE86C24E8E2247C8B737E7F58F8B9326amdcom_--
