@@ -8,70 +8,69 @@ X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33DD9C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 12:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 837FAC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 12:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D155061421
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 12:48:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D155061421
+	by mail.kernel.org (Postfix) with ESMTPS id 1E9B660FF1
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 12:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E9B660FF1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 718B26EA7B;
-	Thu, 22 Apr 2021 12:48:56 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B06226EA7B
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 12:48:54 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id g17so52614328edm.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 05:48:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A707A6EA7C;
+	Thu, 22 Apr 2021 12:49:53 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC366EA7C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 12:49:52 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id u17so68638311ejk.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Apr 2021 05:49:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=bqcyj0MNUcZ1qe9lAxz7By3HiWcFnVor+5+cPiAVv5Y=;
- b=kRSzyC7wXzr3N5HLdCRoX4DCkYJ15nrcA3on2HomzWCWKCgIV7Vm3bDm9ZsQJylXZe
- 9GNp2G2ER9lMNCZCqKUCcUL/RAa+Jufsu3Jc59e2ESmbJi/LHX0J+vFK3oeQCg9pOFDk
- seDQDg0J8BTdpot826eazsT8X+WhJaax+JVqM/FGS7GlfbEL9rsSgTPS/DV78GxJ+625
- a6L/xzAZXE2OnY8uhBNnZpBRsajZIKUaZrWJOMv32Zjxl1AslYK6pMzM5bt5QXmB+AqM
- zpwxMdFVpzB3kn8Q5OCCq/2l36fLLWXYBoiVTi4t08zbHNYllmSilr3mApWR4FB9V9RZ
- /ZLw==
+ bh=2WeibtfZJkAM25qyr/yyXnweu+ZHnak57pk09WqPzqE=;
+ b=gOxHBXKyhoawnkOW265lb7zMD5TsvNo0og6awAxKs9Sqzwtk3xgAruvdulA5OB+h/x
+ QCMBMDSVRYX9BXU5eDYDMSvN2QLb0XsyyxrLRw27zCOPWUP/3DiunP4beHo6ZStULmey
+ 1c3TD3Woix3J1otqc5J7g2d+ut4BpCpz05ppekmaPXxBchQOAG/XVC3xrrU6U7oUmP3e
+ fCqImJhhEQFuSSQ6Sp5Rnigs2QbyLmEt2e4/oALFziJAkXUSjKDO5eeHdW0V2n2iUEBe
+ 02OC/aINOzAUJgI26dN/x5PI0MwQBfbyrHz7uVC8nWj8KO+GOXHKjqtO7Joe4TueBGEd
+ 6Lwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=bqcyj0MNUcZ1qe9lAxz7By3HiWcFnVor+5+cPiAVv5Y=;
- b=ZpOFp9XiRqAQVPITDe+ulUwujigccbYKOVdEFsNWTsAHt0s4mJfop3uX52rrdy4bjm
- /YZ9fZcal/r/5AUNRj9RMWq6FQIgQhWRiCb3nbTbsffhTGHBaSoFDoXb9X4jrvFQJXn4
- MzzpIRFef/y/rS7g0KOQj5T5Zgtulo65gG9NIPyu5bnT1gZpJARQkdtLlnwsPM+eQEW9
- keFfng0Zz8p2NATP4Oqxi/B7/uLu1IBQxGw6B1HxmIyEvV36waSSZ79h5E/Hg7r34nEy
- mMz6bB2T1AK/1P+IBbVGLm/zT3jPYObSrIfWicQ1fYQztFX5cf+cr3ZeoSVyk1peDeVL
- dTpw==
-X-Gm-Message-State: AOAM532e0jot8oZnDy/mgProbwg1h5kX+kA4z9z9RKZbids9ErkGU58R
- Wz/DWpKi+j5hwksSNlAwvNGQspn2pCg=
-X-Google-Smtp-Source: ABdhPJyY5t+JfriExH5Kzzb/o5knzm0Q8ucpy22bcp1uZzN8UzLSzKG/xg5i+W0nHOR4w3g6ZYI9JA==
-X-Received: by 2002:a05:6402:75a:: with SMTP id
- p26mr3704473edy.293.1619095733430; 
- Thu, 22 Apr 2021 05:48:53 -0700 (PDT)
+ bh=2WeibtfZJkAM25qyr/yyXnweu+ZHnak57pk09WqPzqE=;
+ b=O/7ven8Al1hnAtrGRzUmTfGzy5nvWJjQTxFQQMsmL866w6ooE67MHZCPF5NAeHvyX8
+ pU1nazrSyse6U0HW6f/2y6sXHMsF50CrnW7WeDMUhTM3nFDBQR4ozXwN8GZvaGk4UuIJ
+ p8x0k0ZOgwB15iauEI+mGnR9OalaoqXnoq9oBaaxhVnjn4TLhasgAxIUK3a0q5RbQdpI
+ h6vMD757ysXweauhwwe7iMGnN5l1eUrcSNAoBJ1a07RQvLCVlqb5y5SGp3UqApAozjxo
+ IxnT3bGKzmb0VemtVyfzYvt/c4fZ63Mpf5yBN/GVEQFe1Mfu+yoJ0lsFzFwzDqcqmr7w
+ 2fYA==
+X-Gm-Message-State: AOAM530YgPf6dK5FTEQawqqjx53OIIvhhdSTe9Lik5xYjtjO5N3PqsH6
+ mOcgFeC2XYffqV1ggueA4puSeqcOOAo=
+X-Google-Smtp-Source: ABdhPJyftyxArc5PS/vYyLNbidRTMMn4b5iWshWWs7Yu7DFPjyv2q5GMqrt05DQ1EfC+ZLG7vcrk+Q==
+X-Received: by 2002:a17:906:5fce:: with SMTP id
+ k14mr3295144ejv.9.1619095791214; 
+ Thu, 22 Apr 2021 05:49:51 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:2fbd:d2a4:da7e:4526?
  ([2a02:908:1252:fb60:2fbd:d2a4:da7e:4526])
- by smtp.gmail.com with ESMTPSA id q25sm2100480edt.51.2021.04.22.05.48.52
+ by smtp.gmail.com with ESMTPSA id b8sm1830851ejc.29.2021.04.22.05.49.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Apr 2021 05:48:53 -0700 (PDT)
-Subject: Re: [PATCH 3/5] drm/amdgpu: create shadow bo using
- amdgpu_bo_create_shadow()
+ Thu, 22 Apr 2021 05:49:50 -0700 (PDT)
+Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_create()
 To: Nirmoy Das <nirmoy.das@amd.com>, Christian.Koenig@amd.com
 References: <20210422123545.2389-1-nirmoy.das@amd.com>
- <20210422123545.2389-3-nirmoy.das@amd.com>
+ <20210422123545.2389-4-nirmoy.das@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <5716d5b7-2272-e4b3-bf6f-ba9c0a2ff1ff@gmail.com>
-Date: Thu, 22 Apr 2021 14:48:52 +0200
+Message-ID: <a9719a1a-9289-4409-437b-d7ca510fe063@gmail.com>
+Date: Thu, 22 Apr 2021 14:49:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210422123545.2389-3-nirmoy.das@amd.com>
+In-Reply-To: <20210422123545.2389-4-nirmoy.das@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,95 +84,78 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjIuMDQuMjEgdW0gMTQ6MzUgc2NocmllYiBOaXJtb3kgRGFzOgo+IFNoYWRvdyBCT3MgYXJl
-IG9ubHkgbmVlZGVkIGZvciB2bSBjb2RlIHNvIGNhbGwgYW1kZ3B1X2JvX2NyZWF0ZV9zaGFkb3co
-KQo+IGRpcmVjdGx5IGluc3RlYWQgb2YgZGVwZW5kaW5nIG9uIGFtZGdwdV9ib19jcmVhdGUoKS4K
-Pgo+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNAYW1kLmNvbT4KPiAtLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNzUgKysrKysrKysr
-KysrKysrKystLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA0OSBpbnNlcnRpb25zKCspLCAy
-NiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4g
-aW5kZXggNmYwYTYwMTFjYjNkLi4wZTFkMDhhODhmNTQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC04NTAsMzUgKzg1MCw2NCBAQCBzdGF0aWMgaW50IGFt
-ZGdwdV92bV9jbGVhcl9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIH0KPiAgIAo+
-ICAgLyoqCj4gLSAqIGFtZGdwdV92bV9ib19wYXJhbSAtIGZpbGwgaW4gcGFyYW1ldGVycyBmb3Ig
-UEQvUFQgYWxsb2NhdGlvbgo+ICsgKiBhbWRncHVfdm1fYm9fY3JlYXRlIC0gY3JlYXRlIGJvIGZv
-ciBQRC9QVAoKQmV0dGVyIG5hbWUgdGhhdCBhbWRncHVfdm1fcHRfY3JlYXRlLgoKPiAgICAqCj4g
-ICAgKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyCj4gICAgKiBAdm06IHJlcXVlc3Rpbmcg
-dm0KPiAgICAqIEBsZXZlbDogdGhlIHBhZ2UgdGFibGUgbGV2ZWwKPiAgICAqIEBpbW1lZGlhdGU6
-IHVzZSBhIGltbWVkaWF0ZSB1cGRhdGUKPiAtICogQGJwOiByZXN1bHRpbmcgQk8gYWxsb2NhdGlv
-biBwYXJhbWV0ZXJzCj4gKyAqIEBibzogcG9pbnRlciB0byB0aGUgYnVmZmVyIG9iamVjdCBwb2lu
-dGVyCj4gICAgKi8KPiAtc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX3BhcmFtKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPiAtCQkJICAgICAgIGludCBs
-ZXZlbCwgYm9vbCBpbW1lZGlhdGUsCj4gLQkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFt
-ICpicCkKPiArc3RhdGljIGludCBhbWRncHVfdm1fYm9fY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LAo+ICsJCQkJc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gKwkJCQlpbnQgbGV2ZWws
-IGJvb2wgaW1tZWRpYXRlLAo+ICsJCQkJc3RydWN0IGFtZGdwdV9ibyAqKmJvKQo+ICAgewo+IC0J
-bWVtc2V0KGJwLCAwLCBzaXplb2YoKmJwKSk7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtIGJw
-Owo+ICsJYm9vbCBjcmVhdGVfc2hhZG93ID0gZmFsc2U7Cj4gKwlpbnQgcjsKPiAgIAo+IC0JYnAt
-PnNpemUgPSBhbWRncHVfdm1fYm9fc2l6ZShhZGV2LCBsZXZlbCk7Cj4gLQlicC0+Ynl0ZV9hbGln
-biA9IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+IC0JYnAtPmRvbWFpbiA9IEFNREdQVV9HRU1fRE9N
-QUlOX1ZSQU07Cj4gLQlicC0+ZG9tYWluID0gYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2Rv
-bWFpbihhZGV2LCBicC0+ZG9tYWluKTsKPiAtCWJwLT5mbGFncyA9IEFNREdQVV9HRU1fQ1JFQVRF
-X1ZSQU1fQ09OVElHVU9VUyB8Cj4gKwltZW1zZXQoJmJwLCAwLCBzaXplb2YoYnApKTsKPiArCj4g
-KwlicC5zaXplID0gYW1kZ3B1X3ZtX2JvX3NpemUoYWRldiwgbGV2ZWwpOwo+ICsJYnAuYnl0ZV9h
-bGlnbiA9IEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ICsJYnAuZG9tYWluID0gQU1ER1BVX0dFTV9E
-T01BSU5fVlJBTTsKPiArCWJwLmRvbWFpbiA9IGFtZGdwdV9ib19nZXRfcHJlZmVycmVkX3Bpbl9k
-b21haW4oYWRldiwgYnAuZG9tYWluKTsKPiArCWJwLmZsYWdzID0gQU1ER1BVX0dFTV9DUkVBVEVf
-VlJBTV9DT05USUdVT1VTIHwKPiAgIAkJQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDOwo+
-IC0JYnAtPmJvX3B0cl9zaXplID0gc2l6ZW9mKHN0cnVjdCBhbWRncHVfYm8pOwo+ICsJYnAuYm9f
-cHRyX3NpemUgPSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ibyk7Cj4gICAJaWYgKHZtLT51c2VfY3B1
-X2Zvcl91cGRhdGUpCj4gLQkJYnAtPmZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NF
-U1NfUkVRVUlSRUQ7Cj4gKwkJYnAuZmxhZ3MgfD0gQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VT
-U19SRVFVSVJFRDsKPiAgIAllbHNlIGlmICghdm0tPnJvb3QuYmFzZS5ibyB8fCB2bS0+cm9vdC5i
-YXNlLmJvLT5zaGFkb3cpCj4gLQkJYnAtPmZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX1NIQURP
-VzsKPiAtCWJwLT50eXBlID0gdHRtX2JvX3R5cGVfa2VybmVsOwo+IC0JYnAtPm5vX3dhaXRfZ3B1
-ID0gaW1tZWRpYXRlOwo+ICsJCWNyZWF0ZV9zaGFkb3cgPSB0cnVlOwo+ICsKPiArCWJwLnR5cGUg
-PSB0dG1fYm9fdHlwZV9rZXJuZWw7Cj4gKwlicC5ub193YWl0X2dwdSA9IGltbWVkaWF0ZTsKPiAg
-IAlpZiAodm0tPnJvb3QuYmFzZS5ibykKPiAtCQlicC0+cmVzdiA9IHZtLT5yb290LmJhc2UuYm8t
-PnRiby5iYXNlLnJlc3Y7Cj4gKwkJYnAucmVzdiA9IHZtLT5yb290LmJhc2UuYm8tPnRiby5iYXNl
-LnJlc3Y7Cj4gKwo+ICsKPiArCXIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsICZicCwgYm8pOwo+
-ICsJaWYgKHIpCj4gKwkJcmV0dXJuIHI7Cj4gKwlpZiAoIXZtLT5pc19jb21wdXRlX2NvbnRleHQg
-JiYKPiArCSAgICAhKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkgJiYKPiArCSAgICBjcmVhdGVf
-c2hhZG93KSB7CgpCZXR0ZXIgZHJvcCB0aGUgY3JlYXRlX3Nob3cgZmxhZyBhbmQganVzdCBhbHdh
-eXMgY2hlY2sgaXQgbGlrZSB0aGlzOgoKaWYgKHZtLT5pc19jb21wdXRlX2NvbnRleHQgfHwgYWRl
-di0+ZmxhZ3MgJiBBTURfSVNfQVBVKQogwqDCoMKgIHJldHVybiAwOwoKQXBhcnQgZnJvbSB0aGF0
-IGxvb2tzIGdvb2QgdG8gbWUuCgpDaHJpc3RpYW4uCgo+ICsJCWlmICghYnAucmVzdikKPiArCQkJ
-V0FSTl9PTihkbWFfcmVzdl9sb2NrKCgqYm8pLT50Ym8uYmFzZS5yZXN2LAo+ICsJCQkJCSAgICAg
-IE5VTEwpKTsKPiArCQlyID0gYW1kZ3B1X2JvX2NyZWF0ZV9zaGFkb3coYWRldiwgYnAuc2l6ZSwg
-KmJvKTsKPiArCj4gKwkJaWYgKCFicC5yZXN2KQo+ICsJCQlkbWFfcmVzdl91bmxvY2soKCpibykt
-PnRiby5iYXNlLnJlc3YpOwo+ICsKPiArCQlpZiAocikgewo+ICsJCQlhbWRncHVfYm9fdW5yZWYo
-Ym8pOwo+ICsJCQlyZXR1cm4gcjsKPiArCQl9Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gICB9
-Cj4gICAKPiAgIC8qKgo+IEBAIC05MDEsNyArOTMwLDYgQEAgc3RhdGljIGludCBhbWRncHVfdm1f
-YWxsb2NfcHRzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJICAgICAgIGJvb2wg
-aW1tZWRpYXRlKQo+ICAgewo+ICAgCXN0cnVjdCBhbWRncHVfdm1fcHQgKmVudHJ5ID0gY3Vyc29y
-LT5lbnRyeTsKPiAtCXN0cnVjdCBhbWRncHVfYm9fcGFyYW0gYnA7Cj4gICAJc3RydWN0IGFtZGdw
-dV9ibyAqcHQ7Cj4gICAJaW50IHI7Cj4gICAKPiBAQCAtOTE5LDkgKzk0Nyw3IEBAIHN0YXRpYyBp
-bnQgYW1kZ3B1X3ZtX2FsbG9jX3B0cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlp
-ZiAoZW50cnktPmJhc2UuYm8pCj4gICAJCXJldHVybiAwOwo+ICAgCj4gLQlhbWRncHVfdm1fYm9f
-cGFyYW0oYWRldiwgdm0sIGN1cnNvci0+bGV2ZWwsIGltbWVkaWF0ZSwgJmJwKTsKPiAtCj4gLQly
-ID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCAmYnAsICZwdCk7Cj4gKwlyID0gYW1kZ3B1X3ZtX2Jv
-X2NyZWF0ZShhZGV2LCB2bSwgY3Vyc29yLT5sZXZlbCwgaW1tZWRpYXRlLCAmcHQpOwo+ICAgCWlm
-IChyKQo+ICAgCQlyZXR1cm4gcjsKPiAgIAo+IEBAIC0yNzg1LDcgKzI4MTEsNiBAQCBsb25nIGFt
-ZGdwdV92bV93YWl0X2lkbGUoc3RydWN0IGFtZGdwdV92bSAqdm0sIGxvbmcgdGltZW91dCkKPiAg
-IGludCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFt
-ZGdwdV92bSAqdm0sCj4gICAJCSAgIGludCB2bV9jb250ZXh0LCB1MzIgcGFzaWQpCj4gICB7Cj4g
-LQlzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtIGJwOwo+ICAgCXN0cnVjdCBhbWRncHVfYm8gKnJvb3Q7
-Cj4gICAJaW50IHIsIGk7Cj4gICAKPiBAQCAtMjg0MywxMCArMjg2OCw4IEBAIGludCBhbWRncHVf
-dm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0s
-Cj4gICAJbXV0ZXhfaW5pdCgmdm0tPmV2aWN0aW9uX2xvY2spOwo+ICAgCXZtLT5ldmljdGluZyA9
-IGZhbHNlOwo+ICAgCj4gLQlhbWRncHVfdm1fYm9fcGFyYW0oYWRldiwgdm0sIGFkZXYtPnZtX21h
-bmFnZXIucm9vdF9sZXZlbCwgZmFsc2UsICZicCk7Cj4gLQlpZiAodm0tPmlzX2NvbXB1dGVfY29u
-dGV4dCkKPiAtCQlicC5mbGFncyAmPSB+QU1ER1BVX0dFTV9DUkVBVEVfU0hBRE9XOwo+IC0JciA9
-IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgJmJwLCAmcm9vdCk7Cj4gKwlyID0gYW1kZ3B1X3ZtX2Jv
-X2NyZWF0ZShhZGV2LCB2bSwgYWRldi0+dm1fbWFuYWdlci5yb290X2xldmVsLAo+ICsJCQkJZmFs
-c2UsICZyb290KTsKPiAgIAlpZiAocikKPiAgIAkJZ290byBlcnJvcl9mcmVlX2RlbGF5ZWQ7Cj4g
-ICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+
+Am 22.04.21 um 14:35 schrieb Nirmoy Das:
+> Remove shadow bo related code as vm code is creating shadow bo
+> using proper API.
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 30 ++--------------------
+>   1 file changed, 2 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 9cdeb20fb6cd..4256cbfec5eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -661,10 +661,7 @@ int amdgpu_bo_create_shadow(struct amdgpu_device *adev,
+>    * @bp: parameters to be used for the buffer object
+>    * @bo_ptr: pointer to the buffer object pointer
+>    *
+> - * Creates an &amdgpu_bo buffer object; and if requested, also creates a
+> - * shadow object.
+> - * Shadow object is used to backup the original buffer object, and is always
+> - * in GTT.
+> + * Creates an &amdgpu_bo buffer object.
+>    *
+>    * Returns:
+>    * 0 for success or a negative error code on failure.
+> @@ -673,30 +670,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+>   		     struct amdgpu_bo_param *bp,
+>   		     struct amdgpu_bo **bo_ptr)
+>   {
+> -	u64 flags = bp->flags;
+> -	int r;
+> -
+> -	bp->flags = bp->flags & ~AMDGPU_GEM_CREATE_SHADOW;
+> -
+> -	r = amdgpu_bo_do_create(adev, bp, bo_ptr);
+> -	if (r)
+> -		return r;
+> -
+> -	if ((flags & AMDGPU_GEM_CREATE_SHADOW) && !(adev->flags & AMD_IS_APU)) {
+> -		if (!bp->resv)
+> -			WARN_ON(dma_resv_lock((*bo_ptr)->tbo.base.resv,
+> -							NULL));
+> -
+> -		r = amdgpu_bo_create_shadow(adev, bp->size, *bo_ptr);
+> -
+> -		if (!bp->resv)
+> -			dma_resv_unlock((*bo_ptr)->tbo.base.resv);
+> -
+> -		if (r)
+> -			amdgpu_bo_unref(bo_ptr);
+> -	}
+> -
+> -	return r;
+> +	return  amdgpu_bo_do_create(adev, bp, bo_ptr);
+
+You can just rename amdgpu_bo_do_create() into amdgpu_bo_create() now 
+and drop the wrapper as far as I can see.
+
+Christian.
+
+>   }
+>   
+>   /**
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
