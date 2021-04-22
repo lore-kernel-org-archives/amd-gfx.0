@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 640BAC433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 01:31:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBEE7C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 01:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24863613AB
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 01:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24863613AB
+	by mail.kernel.org (Postfix) with ESMTPS id A50A7613E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Apr 2021 01:31:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A50A7613E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C9D6E0DE;
-	Thu, 22 Apr 2021 01:31:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6CD6EA16;
+	Thu, 22 Apr 2021 01:31:24 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC196E027;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A697A6E0DE;
  Thu, 22 Apr 2021 01:31:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ofTlIK7aDHLed+XQxu3udt8Z+N/j7qIwSLZ9Am/DfoB5LJ2GY8SD4M5QmRQYiQUZQzjHOHkfM3az10iunXDF036Ef1vMDrhSsv10zy4ZJtOnO5mwoRTdA7furikqJM1hShvtmkAkfeKUETbEoc1nmWFyfZqiEwTw/k+vDCWEKntB200XSD1eeaZ+zZEtXsN0f1sacobpRvXcxTIwTXq19+6ZGNN/Z58dugFXVa+1/QsYp3vzZqFsz2Ye24FhLZ6/mPdI2i9L37arvTp6WX0TiszgnjcQUGk7lpIEQNbKi3cGoVK3zbgvkIdPYpdgjM5Uz/9/JxibwdgCJ1ANxTTMfA==
+ b=XW0/TA6sQzOQqDVMsFgv8NsdwRdUd19b+cVfj4gp5F8ikVZBEnqUWqjw3zb4JKMXtKF2iqWtEn/pJaPj2UWdZgy2nDHruQaSiFyJTjZKroi0cUkPeqTYCJKoidSTwIIvlhnd6lKMkFZyFT907jYiayWs8oU8ir2pOGcPmpygIsNFsK7/ntfjw2bzFvYdqs/NCbyXAsFz97bpjPvihWZ6rthYFAuWieC4qaQL3lJGSYaVcPgibCp6EUtiK+O8p5XN27Ta6x6bE7Lc10gCsNxpfznVsPefmi3Bm2An/OEyKhUSQ0UvmIQjBGpr95k6a6QZSWO2prFF4+85YE3DseG7sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DcvBxQQN3XxmKl/jkoPLrdRLUs7jOhXovQIxMWHgDl4=;
- b=kXiOUzWALUAytJVWGmkDXGi+Ihl7lK6ecAn2oYagZBQWJXejpEuz1IiGLJ9N3XapHh2U2ykWXvHwRytX0Iy+DP4gFVuWAUsRYGGe1vAG6SbhKjuVuj/ESaYiSD315f/UKALVwsGYMazRMPgmtvhmwKIZ0NannVWUoEV2lDz1qzyParRlJQLQxWyMFclri+gnYkaJNGbcOyd6IGakqif681SXPa65GM82587aojP3faX23AzjOpBJnURpRkmcKjz0zNAff8M27RTaddfZN3gcB/IvSVjfnokUcfxrGD4FShsH5RHpuhbLqT3Vv5L/OUappb3runpnW+ZJN2vEAohKwQ==
+ bh=igF2IJxGaibEBWeZ2QJ4P6MWb6FQIFHlo8eM57cbMWo=;
+ b=NX+qIIo7lhMgKSrEvoWP/PFybrUTmXuV1CSOWWy2epCCXtg4RPCEEqBxwqdDjPPD453qwj9bt/hoQsaPxCeD03N0tIHxgYYNDjCqgXoECJ6mmsYub6jfMYTTpkmcX1ZqI4M9McFnzHoU/k059lfC4TVQIaTUEyMI+3yax00QZ/m0Aalbj+XrlmVrB1VnjOrdkIGuQ4uL124CHEe5VdTaYnIAd8FF+Tv8AoDq+okhDgtU65zCbh9UyBy/WnweFj2TH6bggdnyj/nTfXRE3lWDQ74OZYWTOdRtLPl7yDxogkhGoQrVZJ11gL26az7yGQuFNuhNje/m9znriYjwgNQeGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DcvBxQQN3XxmKl/jkoPLrdRLUs7jOhXovQIxMWHgDl4=;
- b=p1EBMb1l4pVAn/64msbhjQwXDpKXN2k5hEgO6ffs8JEjWkc45pAgBtXkieNVEIKsyE6Jmvxkb2Pr2NjlSS4L0Esfk9HUAJAPK5nmNljxUQ1OT/N9o3Dh/8h2Hp6R+lgypQBJVwe4k5hw+cLwKiDOsrzkrX6S+UJ33a2x9aUdURg=
+ bh=igF2IJxGaibEBWeZ2QJ4P6MWb6FQIFHlo8eM57cbMWo=;
+ b=JTO1nAdPz/fU9CkOupN5ECb5dhlQn80nv5xvcaSpHD4qFhQjlpAk1uIxtfkV+zacyjT4lvNAO7WRQVJMWSg4VYT2VChs5HBZfa6CnP3aUPMp8VoTu0oZVIATLL3Co7nR81IopIBIZXVP6tOSciWDTHG9wpBd5EfaxYKGqV/cADQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,17 @@ Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
  by MN2PR12MB4438.namprd12.prod.outlook.com (2603:10b6:208:267::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Thu, 22 Apr
- 2021 01:31:18 +0000
+ 2021 01:31:17 +0000
 Received: from BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
  ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Thu, 22 Apr 2021
- 01:31:18 +0000
+ 01:31:17 +0000
 From: Felix Kuehling <Felix.Kuehling@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 07/10] drm/amdgpu: Move kfd_mem_attach outside reservation
-Date: Wed, 21 Apr 2021 21:30:55 -0400
-Message-Id: <20210422013058.6305-8-Felix.Kuehling@amd.com>
+Subject: [PATCH v2 05/10] drm/amdgpu: Add multi-GPU DMA mapping helpers
+Date: Wed, 21 Apr 2021 21:30:53 -0400
+Message-Id: <20210422013058.6305-6-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210422013058.6305-1-Felix.Kuehling@amd.com>
 References: <20210422013058.6305-1-Felix.Kuehling@amd.com>
@@ -68,51 +68,51 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from Harpoon.amd.com (165.204.55.251) by
  YT1PR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.21 via Frontend Transport; Thu, 22 Apr 2021 01:31:17 +0000
+ 15.20.4042.21 via Frontend Transport; Thu, 22 Apr 2021 01:31:16 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 36387260-bb42-4eb0-0e4f-08d9052e5387
+X-MS-Office365-Filtering-Correlation-Id: 6fdfc313-1f67-46f9-ae63-08d9052e52fa
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4438:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4438068F3D072C291B6D0E9B92469@MN2PR12MB4438.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4438442EECD201305EE5226992469@MN2PR12MB4438.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Tg01OENGkBelaA5rRdYIvvJ3iR0YUPPzNwqOv5AMgdyJG5hXPRCw3x/8fORXVBFMrl+A6UgeqTdNy6S20CCYKFMS1J6xS2g579HUGw/HKQDtdarBvLvT+P0kQCMKNWViTXK/04dyaPNMVVKWP4N3g3tHwXLA/SOaEbkzlUsQvMDG9hTBllo4X/ik9ArTOcGr+rBahWWH2FhYJkztlCUzOmo4ppZ6nHrAxwbYyTCmXLPBR//5EXeAWlCj8NzAAUPxuCC6Z1mOJLP3ZrsU77jORPVUm+eObHmIiMsCPURVRgAMfEYMc7Am4qXbieyH8xfh3TED14eCmPsmoT88mwJ8K/ZC6MY4vZ98Me0Co1zfofYF4yMRSuouGAPy/tWi7gqK+mwcr/jdY+l+8ryTb/9IkkHaMcaTlif/zpuNeL2fGr/dSfG/MyQqQqCBUFJ1eR9P+7VFE6SqoUZGp/mSJDyt8jg7GwUU5gOskWs0vNUN87GIJ0bq3MSpWpmXMbnzai26oTtU3pi4H5TZSKN0RxGqUYEGtCrhgFZ5TUyw3Z7F7iX5M5PZ2SzRT4zoczCA3aRcyA0btKFf03S5BuscakptPejwZ3A4v8XiAjHRudhfZWx1ZmKJ4IDIRCFbQU9saE8hB4aTh2i81gWF4ZytarLmvQ==
+X-Microsoft-Antispam-Message-Info: oCWw7d5PhmrAM36+NGA4LTIVKk4Vl+Nm0sCuLjGX/H8hFx1qi6JMQ+83fUjY0k+Tni0Q4+DW2txBlv0JFzr3tYejd0ZQmiKYy+lZ09wU4RHGOaDt53+lcbBKRH9YtsnOhyEQwqlQf++mWfXNCn44QI3xzH0qL9tiavh7iMFlr+9jsBiBA3RL7o1cdTUKj83PV5Ur4JJG29+AWl/WM1n6nHVa+qY9CgyzQinhVL5LgdMx41H4FhyqlhUULCHX90WxMUdhlqDBjSDodrE+w3+tHbhnWiVB0dGaKT9YkIi7C9kriiQl0Z0kXXARPVLw0dFVTOYQmFSC9XBLGIqwVkrIhxNlU32/VEemf5B9Vtf/Eqf0YiWZn4TuoIeA6FRTBx+GzdoJMWFGIYNU1Wc5rmF0rydRPoR1SsvmmEwdddGaEpuJLxv6++l5gLVu2scZd2f0ce+Q5gUJXYg3nnSC5Fxx7PIlxt7ydG1OSTJ3TBXTUwbMT5CJ0sUvaO3rYH2cJsYt6s3clEqs8iI7babmYEtqtZ9ohEdGoTictp0SzDtMULUcTjP9oELzdtr1IoiE1ni0L0RWjpeduwE7dwcdJY72D4nqal3Q+kJKEhAjemenpmr/ceKsUtrUj5hRj5KeFndw+CqGogTBIqQVeizAvveIgXkNKT7luoPSU2tlHrCx6ck=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(8676002)(16526019)(450100002)(186003)(66556008)(36756003)(66946007)(8936002)(52116002)(956004)(2906002)(26005)(2616005)(478600001)(6486002)(38350700002)(38100700002)(83380400001)(86362001)(316002)(7696005)(5660300002)(6666004)(1076003)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?vG6RE2VOmesT3r7n++QsAUh1Wn+uN8B4QG6agOGzeAV8STdHVFFJHurBbflx?=
- =?us-ascii?Q?m0eObz5CeUliVcZ9hEdzRn8qtCTdsjBX3X5tZX0SS8TrHk0lgk4sD9fyh71e?=
- =?us-ascii?Q?V0vAA+kEHgOfxYr3fhSTH8hWaV3UD8AWezmR1BFVRkU2At7u1+YY0puWlqEB?=
- =?us-ascii?Q?Iu9pDPCCtkvK9EgHXcsskhMoSV4qKn3WBoixxTqtn2GIA7axRygaB4UNRsNY?=
- =?us-ascii?Q?6wMVWQgLvVYtg8NsQtnlRlXI2QRjnZnOPKeKTBHGkABZHs1EL7UYZ7kdA2a2?=
- =?us-ascii?Q?gm0fxqiK9Sf4hBbpEbGrk8jpWSNg2/+D3mxdGbasSjnWWHrgSKdiiFxIkxWL?=
- =?us-ascii?Q?0GLk+U/yP+EfJzeQ9/hQLnD+RT1yr/cAe7aBJLaNFTNtavf/cPOe5LKf31La?=
- =?us-ascii?Q?R25holHbODdupEwVhPBeGJWICJsYSZCuBcBfbFyUYnRPdX8+aG/IJAo2bc3h?=
- =?us-ascii?Q?wYjHgste57vocMAW0q+y+iQ0MqjI/MBQByQ0Wm1UaZepUqtKHdWsj+CWS4FS?=
- =?us-ascii?Q?D00JQm98mctQMjPGr0/mR8SBxxKE6z1i/zT6g2DNfY4kM+Byw5dR/ca444L+?=
- =?us-ascii?Q?TbrP8C1HKHLid4LGwgmcBGZLlXyU3HnxH4BGLNXFLZrfJ3mEJ/GtLqozTVNO?=
- =?us-ascii?Q?b5sivFcf+aWZEDM6tIAHP56l7SSZif5Uug/6+BqWwCqZPvwSQm0NyNg0pMIo?=
- =?us-ascii?Q?7C+7CUt4Zq0fadLIT3LFiLgNa6IgN9w99x+eQ+uMPfpFlSyjj3Tpow0NAL+h?=
- =?us-ascii?Q?KcdqHTEym1u+2cfRMguWmNSxyxerzcdNl2fxROE3u/hsDrau5tWlsBrrqVcb?=
- =?us-ascii?Q?JIr4onjHdtXmOW09rtQqxB62XAFnZAGurd0acBQJ0f+c2O3sWrWYRSBdCOYn?=
- =?us-ascii?Q?ojBwWESXpSGVFdTnAoPeM3MhxdNxfpQtpoBkJJDD3jDXq62+iDzb4fyaUQ9L?=
- =?us-ascii?Q?yadZ4LI5kqOWajQd/2Vih+c1lDFb+048QXB9mrlCTABylirUCMoBIkneODsp?=
- =?us-ascii?Q?1dPkvfelZw4y1drn1BNo6szlKHv7PD0eArnaB4nKfGyV306NTqBA4Y/28IEH?=
- =?us-ascii?Q?+2mByS0JR4m7gIuvUysFyL9C2X8J5lGdRtU2eXDvhbp0cHfwr5/X88KjdfdA?=
- =?us-ascii?Q?Up5xP3R/zdR+ZnIbZgzoshdgMrQ4SrhxonFRGvW4Lc0U2u1Zz0DqvxjyJHzj?=
- =?us-ascii?Q?BOfBeETlPMXX87rchuhQwm+zwdfRdCDBAx5F9uI6cec7sxqmOPUskJtYYgzd?=
- =?us-ascii?Q?fETbyZxtOyAAag/h48UD5j7j/hXuAdeqMO6ELSQp2McYDBiA00DsHU2b10lu?=
- =?us-ascii?Q?wkpJd3O7fk9rK/wFzVt2T13x?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?6kqoVvra5ad2Vdu21wZVvO/EoXk2BwouwafaTMoDyIAAGRWl7yYJ08Cb2mXb?=
+ =?us-ascii?Q?4Dio6rBC7/nm/Z1UI1avREotudLUUChRDMb9La+OT1br5YRBEQEV61tsZMmL?=
+ =?us-ascii?Q?x/RC8POOJnaYH2h0FBIpxHvFYsFdmHqF+8m96rRarvK1gqnFIuYgjq82qD2P?=
+ =?us-ascii?Q?PHQo//o9k1miGeScjh/amLtnXk16z9M97mTDDE/DbI1+/YcAU4tP8G/efcvw?=
+ =?us-ascii?Q?j1f1pLrGPFt6TiectRmsbkKO24nz2WIv0LtOQUdWZwZ40jGlSf0HrkoHoXSD?=
+ =?us-ascii?Q?nHS9prKqCfoFUPaOhY8MkUTVy+im/NTGfLsGWM9vQRnD/00GafQ07DoZbMGj?=
+ =?us-ascii?Q?uYDzRJXLI21NipLBZdDOUK96wbkRfNDcFPg5vtd1f6SfkbNijQKDRf1N1SCR?=
+ =?us-ascii?Q?8FEsfE635nB+eMpSjJlTCuFWBHE4lbDfl/4GkhUEfJqe5My3etkUCt1xwIbi?=
+ =?us-ascii?Q?Fuxa7bVLznNpzJe86KMyahJPWMpw+qjgtVDAfxzo1XCNUfj1MTOUQQSLhfS/?=
+ =?us-ascii?Q?K4Par0EOXdicxbnr5kJfPcwTbTX2EraqJ18bSf2O+jCO7IYGQ8WqLQHAXJ/W?=
+ =?us-ascii?Q?ETv9ww/ZlOECj6JB88qkT3VAi7EKcg9kau/J+6Z8T1U4OOUIO3IwayYdOJcs?=
+ =?us-ascii?Q?PTCBxfX8cafGJfov9z4j7gup5mNVilEjCEfjebjJOCPCcB5t0lZ2+uvu1lHq?=
+ =?us-ascii?Q?dZJkuT9mg5chuW4Da/k1pyBquuYBVKtof3AdGn+L1FKtxDGPiwx6f6ZnAK3U?=
+ =?us-ascii?Q?NwbpkO+88cShPctgRPDnPCmDV1w7/ABT/9JWP+dLiYK6IWYicIggITI/PzmC?=
+ =?us-ascii?Q?LFIkJ6mqTrUtHcuSH8nRDuC9OrzxwPW4ODkZICC65b1fqJsXElfEqqfZB6Hb?=
+ =?us-ascii?Q?GDqJ2sPsxXac/3d6HD8xnLlSZpQPcN07H9tzgJs1A4IiDMG1GHyNYszgYvZa?=
+ =?us-ascii?Q?dld1j8l8tt9Vy/cxB7kOVghesgeg1QIownGkgU/8sLd6Vj5he9AQB7/t5/24?=
+ =?us-ascii?Q?KbVSO15KmwTliuQnvM6dyJcL1ljMyORLeElRat2Q/fNomHTyvHduOqP1ZuP4?=
+ =?us-ascii?Q?iE2m9MlG0wwtA/73OqJ3KRTi01pFCanohk9LROI7xkpxd59mcn6HcGqEaVTn?=
+ =?us-ascii?Q?r5yFZ8hJ9E8XSyhnvSyxgVhAGGqB99Y3B287oMIBU5QhdryxE4bOsjJWotaO?=
+ =?us-ascii?Q?B5OHl1RRJdORx2a8Mo+2hC315cpBGS9LNB0D/0WSQYsYpUd6XFFj+JdcEsQu?=
+ =?us-ascii?Q?4VRFH5N0K/KnUaoPEkSfg8tP8mmhnsp6E+hUW4KrcldgvK6Uj8Xv5lL/WNzr?=
+ =?us-ascii?Q?IM7HB8xGCd4rEhoPReLdpWfM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36387260-bb42-4eb0-0e4f-08d9052e5387
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fdfc313-1f67-46f9-ae63-08d9052e52fa
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2021 01:31:17.9502 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2021 01:31:17.0501 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ju13sVNDXgWKimULig8WmqnwEyz7B4s00Dm/HhYiuGuvuWva9mov8K5XtEV9rJHUbhTVx2mhCLK9HJ6XPsNisA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 81sxl+h26dL+hJNAeUiacw1SxgTeSg2cyojCApxuifz7JhepmtvCsIlNwsz3pgDNB9W68F3bpWspv0cKiPdyBw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,175 +130,221 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is needed to avoid deadlocks with DMA buf import in the next patch.
-Also move PT/PD validation out of kfd_mem_attach, that way the caller
-can bo this unconditionally.
+Add BO-type specific helpers functions to DMA-map and unmap
+kfd_mem_attachments. Implement this functionality for userptrs by creating
+one SG BO per GPU and filling it with a DMA mapping of the pages from the
+original mem->bo.
 
 Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 75 +++++++++++--------
- 1 file changed, 44 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   8 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 146 +++++++++++++++++-
+ 2 files changed, 145 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index c24b2478f445..63668433f5a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -38,11 +38,17 @@ extern uint64_t amdgpu_amdkfd_total_mem_size;
+ 
+ struct amdgpu_device;
+ 
++enum kfd_mem_attachment_type {
++	KFD_MEM_ATT_SHARED,	/* Share kgd_mem->bo or another attachment's */
++	KFD_MEM_ATT_USERPTR,	/* SG bo to DMA map pages from a userptr bo */
++};
++
+ struct kfd_mem_attachment {
+ 	struct list_head list;
++	enum kfd_mem_attachment_type type;
++	bool is_mapped;
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct amdgpu_device *adev;
+-	bool is_mapped;
+ 	uint64_t va;
+ 	uint64_t pte_flags;
+ };
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 7d25d886b98c..9eeedd0c7920 100644
+index fbd7e786b54e..49d1af4aa5f1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -577,6 +577,34 @@ kfd_mem_dmaunmap_attachment(struct kgd_mem *mem,
- 	}
+@@ -473,12 +473,117 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
+ 	return pte_flags;
  }
  
 +static int
-+kfd_mem_attach_userptr(struct amdgpu_device *adev, struct kgd_mem *mem,
-+		       struct amdgpu_bo **bo)
++kfd_mem_dmamap_userptr(struct kgd_mem *mem,
++		       struct kfd_mem_attachment *attachment)
 +{
-+	unsigned long bo_size = mem->bo->tbo.base.size;
-+	struct drm_gem_object *gobj;
++	enum dma_data_direction direction =
++		mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
++		DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
++	struct ttm_operation_ctx ctx = {.interruptible = true};
++	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
++	struct amdgpu_device *adev = attachment->adev;
++	struct ttm_tt *src_ttm = mem->bo->tbo.ttm;
++	struct ttm_tt *ttm = bo->tbo.ttm;
 +	int ret;
 +
-+	ret = amdgpu_bo_reserve(mem->bo, false);
++	ttm->sg = kmalloc(sizeof(*ttm->sg), GFP_KERNEL);
++	if (unlikely(!ttm->sg))
++		return -ENOMEM;
++
++	if (WARN_ON(ttm->num_pages != src_ttm->num_pages))
++		return -EINVAL;
++
++	/* Same sequence as in amdgpu_ttm_tt_pin_userptr */
++	ret = sg_alloc_table_from_pages(ttm->sg, src_ttm->pages,
++					ttm->num_pages, 0,
++					(u64)ttm->num_pages << PAGE_SHIFT,
++					GFP_KERNEL);
++	if (unlikely(ret))
++		goto release_sg;
++
++	ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
++	if (unlikely(ret))
++		goto release_sg;
++
++	drm_prime_sg_to_dma_addr_array(ttm->sg, ttm->dma_address,
++				       ttm->num_pages);
++
++	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
++	ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
 +	if (ret)
-+		return ret;
-+
-+	ret = amdgpu_gem_object_create(adev, bo_size, 1,
-+				       AMDGPU_GEM_DOMAIN_CPU,
-+				       0, ttm_bo_type_sg,
-+				       mem->bo->tbo.base.resv,
-+				       &gobj);
-+	if (ret)
-+		return ret;
-+
-+	amdgpu_bo_unreserve(mem->bo);
-+
-+	*bo = gem_to_amdgpu_bo(gobj);
-+	(*bo)->parent = amdgpu_bo_ref(mem->bo);
++		goto release_sg;
 +
 +	return 0;
++
++release_sg:
++	pr_err("DMA map userptr failed: %d\n", ret);
++	sg_free_table(ttm->sg);
++	kfree(ttm->sg);
++	ttm->sg = NULL;
++	return ret;
++}
++
++static int
++kfd_mem_dmamap_attachment(struct kgd_mem *mem,
++			  struct kfd_mem_attachment *attachment)
++{
++	switch (attachment->type) {
++	case KFD_MEM_ATT_SHARED:
++		return 0;
++	case KFD_MEM_ATT_USERPTR:
++		return kfd_mem_dmamap_userptr(mem, attachment);
++	default:
++		WARN_ON_ONCE(1);
++	}
++	return -EINVAL;
++}
++
++static void
++kfd_mem_dmaunmap_userptr(struct kgd_mem *mem,
++			 struct kfd_mem_attachment *attachment)
++{
++	enum dma_data_direction direction =
++		mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
++		DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
++	struct ttm_operation_ctx ctx = {.interruptible = false};
++	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
++	struct amdgpu_device *adev = attachment->adev;
++	struct ttm_tt *ttm = bo->tbo.ttm;
++
++	if (unlikely(!ttm->sg))
++		return;
++
++	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
++	ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++
++	dma_unmap_sgtable(adev->dev, ttm->sg, direction, 0);
++	sg_free_table(ttm->sg);
++	ttm->sg = NULL;
++}
++
++static void
++kfd_mem_dmaunmap_attachment(struct kgd_mem *mem,
++			    struct kfd_mem_attachment *attachment)
++{
++	switch (attachment->type) {
++	case KFD_MEM_ATT_SHARED:
++		break;
++	case KFD_MEM_ATT_USERPTR:
++		kfd_mem_dmaunmap_userptr(mem, attachment);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++	}
 +}
 +
  /* kfd_mem_attach - Add a BO to a VM
   *
   * Everything that needs to bo done only once when a BO is first added
-@@ -598,7 +626,6 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+  * to a VM. It can later be mapped and unmapped many times without
+  * repeating these steps.
+  *
++ * 0. Create BO for DMA mapping, if needed
+  * 1. Allocate and initialize BO VA entry data structure
+  * 2. Add BO to the VM
+  * 3. Determine ASIC-specific PTE flags
+@@ -488,10 +593,12 @@ static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_mem *mem)
+ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		struct amdgpu_vm *vm, bool is_aql)
+ {
++	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
+ 	unsigned long bo_size = mem->bo->tbo.base.size;
  	uint64_t va = mem->va;
  	struct kfd_mem_attachment *attachment[2] = {NULL, NULL};
  	struct amdgpu_bo *bo[2] = {NULL, NULL};
--	struct drm_gem_object *gobj;
++	struct drm_gem_object *gobj;
  	int i, ret;
  
  	if (!va) {
-@@ -632,15 +659,9 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 		} else if (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm)) {
- 			/* Create an SG BO to DMA-map userptrs on other GPUs */
- 			attachment[i]->type = KFD_MEM_ATT_USERPTR;
--			ret = amdgpu_gem_object_create(adev, bo_size, 1,
--						       AMDGPU_GEM_DOMAIN_CPU,
--						       0, ttm_bo_type_sg,
--						       mem->bo->tbo.base.resv,
--						       &gobj);
-+			ret = kfd_mem_attach_userptr(adev, mem, &bo[i]);
- 			if (ret)
- 				goto unwind;
--			bo[i] = gem_to_amdgpu_bo(gobj);
--			bo[i]->parent = amdgpu_bo_ref(mem->bo);
- 		} else {
- 			/* FIXME: Need to DMA-map other BO types */
- 			attachment[i]->type = KFD_MEM_ATT_SHARED;
-@@ -665,13 +686,6 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 		va += bo_size;
- 	}
+@@ -509,14 +616,37 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 		pr_debug("\t add VA 0x%llx - 0x%llx to vm %p\n", va,
+ 			 va + bo_size, vm);
  
--	/* Allocate validate page tables if needed */
--	ret = vm_validate_pt_pd_bos(vm);
--	if (unlikely(ret)) {
--		pr_err("validate_pt_pd_bos() failed\n");
--		goto unwind;
--	}
--
- 	return 0;
+-		/* FIXME: For now all attachments use the same BO. This is
+-		 * incorrect because one BO can only have one DMA mapping
+-		 * for one GPU. We need one BO per GPU, e.g. a DMABuf
+-		 * import with dynamic attachment. This will be addressed
+-		 * one BO-type at a time in subsequent patches.
+-		 */
+-		bo[i] = mem->bo;
+-		drm_gem_object_get(&bo[i]->tbo.base);
++		if (adev == bo_adev || (mem->domain == AMDGPU_GEM_DOMAIN_VRAM &&
++					amdgpu_xgmi_same_hive(adev, bo_adev))) {
++			/* Mappings on the local GPU and VRAM mappings in the
++			 * local hive share the original BO
++			 */
++			attachment[i]->type = KFD_MEM_ATT_SHARED;
++			bo[i] = mem->bo;
++			drm_gem_object_get(&bo[i]->tbo.base);
++		} else if (i > 0) {
++			/* Multiple mappings on the same GPU share the BO */
++			attachment[i]->type = KFD_MEM_ATT_SHARED;
++			bo[i] = bo[0];
++			drm_gem_object_get(&bo[i]->tbo.base);
++		} else if (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm)) {
++			/* Create an SG BO to DMA-map userptrs on other GPUs */
++			attachment[i]->type = KFD_MEM_ATT_USERPTR;
++			ret = amdgpu_gem_object_create(adev, bo_size, 1,
++						       AMDGPU_GEM_DOMAIN_CPU,
++						       0, ttm_bo_type_sg,
++						       mem->bo->tbo.base.resv,
++						       &gobj);
++			if (ret)
++				goto unwind;
++			bo[i] = gem_to_amdgpu_bo(gobj);
++			bo[i]->parent = amdgpu_bo_ref(mem->bo);
++		} else {
++			/* FIXME: Need to DMA-map other BO types */
++			attachment[i]->type = KFD_MEM_ATT_SHARED;
++			bo[i] = mem->bo;
++			drm_gem_object_get(&bo[i]->tbo.base);
++		}
  
- unwind:
-@@ -1478,12 +1492,12 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	pr_debug("Release VA 0x%llx - 0x%llx\n", mem->va,
- 		mem->va + bo_size * (1 + mem->aql_queue));
- 
-+	ret = unreserve_bo_and_vms(&ctx, false, false);
-+
- 	/* Remove from VM internal data structures */
- 	list_for_each_entry_safe(entry, tmp, &mem->attachments, list)
- 		kfd_mem_detach(entry);
- 
--	ret = unreserve_bo_and_vms(&ctx, false, false);
--
- 	/* Free the sync object */
- 	amdgpu_sync_free(&mem->sync);
- 
-@@ -1560,6 +1574,12 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 			mem->va + bo_size * (1 + mem->aql_queue),
- 			avm, domain_string(domain));
- 
-+	if (!kfd_mem_is_attached(avm, mem)) {
-+		ret = kfd_mem_attach(adev, mem, avm, mem->aql_queue);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	ret = reserve_bo_and_vm(mem, avm, &ctx);
- 	if (unlikely(ret))
- 		goto out;
-@@ -1573,15 +1593,9 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 	    bo->tbo.mem.mem_type == TTM_PL_SYSTEM)
- 		is_invalid_userptr = true;
- 
--	if (!kfd_mem_is_attached(avm, mem)) {
--		ret = kfd_mem_attach(adev, mem, avm, mem->aql_queue);
--		if (ret)
--			goto attach_failed;
--	} else {
--		ret = vm_validate_pt_pd_bos(avm);
--		if (unlikely(ret))
--			goto attach_failed;
--	}
-+	ret = vm_validate_pt_pd_bos(avm);
-+	if (unlikely(ret))
-+		goto out_unreserve;
- 
- 	if (mem->mapped_to_gpu_memory == 0 &&
- 	    !amdgpu_ttm_tt_get_usermm(bo->tbo.ttm)) {
-@@ -1592,7 +1606,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 		ret = amdgpu_amdkfd_bo_validate(bo, domain, true);
- 		if (ret) {
- 			pr_debug("Validate failed\n");
--			goto map_bo_to_gpuvm_failed;
-+			goto out_unreserve;
- 		}
- 	}
- 
-@@ -1607,13 +1621,13 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 				      is_invalid_userptr);
- 		if (ret) {
- 			pr_err("Failed to map bo to gpuvm\n");
--			goto map_bo_to_gpuvm_failed;
-+			goto out_unreserve;
- 		}
- 
- 		ret = vm_update_pds(avm, ctx.sync);
- 		if (ret) {
- 			pr_err("Failed to update page directories\n");
--			goto map_bo_to_gpuvm_failed;
-+			goto out_unreserve;
- 		}
- 
- 		entry->is_mapped = true;
-@@ -1630,8 +1644,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 
- 	goto out;
- 
--map_bo_to_gpuvm_failed:
--attach_failed:
-+out_unreserve:
- 	unreserve_bo_and_vms(&ctx, false, false);
- out:
- 	mutex_unlock(&mem->process_info->lock);
+ 		/* Add BO to VM internal data structures */
+ 		attachment[i]->bo_va = amdgpu_vm_bo_add(adev, vm, bo[i]);
 -- 
 2.31.1
 
