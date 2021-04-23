@@ -2,74 +2,109 @@ Return-Path: <SRS0=d4Si=JU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76804C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 14:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 543E5C43462
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 14:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28A6E6141C
+	by mail.kernel.org (Postfix) with ESMTPS id 0652B61445
 	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 14:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28A6E6141C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0652B61445
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50A46EBA6;
-	Fri, 23 Apr 2021 14:41:35 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035F36E0F4
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 08:28:52 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- w7-20020a1cdf070000b0290125f388fb34so751891wmg.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 01:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=h5v4zIXPv6WHWTKJvFYWSELVGuItjZYfaJrXobHmfuo=;
- b=LLTmm9mVlUi6clUD7JUsKWh0K7EL9Qw1q+pdK4ZgZuITlf3H+/lF//Fd0MDVRsaqTW
- /oIEliN++BGSRU87nOuOB2UvKwiAAbsHuQy6Zynb7CvSh5n2sNrZTWMKmO0kKOavskOS
- aBl2Rl8MoS3ZpdXFYhkzVmL5jCn1HXJVQeeElRhahx5oerQBev0+84SKaIvKSgFEKVYi
- NvrdvcLb0CTLSceov4ymzZfGhdkqLHjBDesJyKYl60PycziYY7wMyvWFFS1ncEkiVuQl
- DwFZ8G1IJ2GiCiBgxAeAbN2dk1H6malE9XSGm002jWeT1FwQ7cgnUwofPJDv3NAZ6oOM
- giyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=h5v4zIXPv6WHWTKJvFYWSELVGuItjZYfaJrXobHmfuo=;
- b=jzttRHuaNMa1swo5cU3MGMiSWhhSsiKebgPTz0dpijRskVikVikExrL6spzPdpGfHi
- 7iM5AlfL1MABUHXnwl21IJCMlZn0Cjeb740/0b/dV+gmgSJiEEtuZKNVSD6NGD39cYBP
- reUmWBw/Ctjz2O3Ibz4OUa64u5CLR2Vr7V6L9odix7hOqBUAuUFP4EO3rrbkcr6hl+rA
- rw5eXhjt3do7BtVLlXf2FEXOwRaK/D8HFYelqiiyFxgKDSksAtMF5uSvrfay4Ad/mioI
- tBbN9R8kTL5Qfqw36bs3a7iRsgeuCMsudVeXRW93rd3zwbgJrv1Tb6uzSNyamBN87ly+
- ojlA==
-X-Gm-Message-State: AOAM532ERCwiGTnjyVynZNgOxKnbUH8aAYklEictw4pvmaY/s4q5S7Xw
- UzDihhMZC7f1YgXvPZIP6fzSsw==
-X-Google-Smtp-Source: ABdhPJxWpAEBcc/UIoHyOrRT4kaqZXgVnkDlB7IPILt72r+qVIyQSieMIAQdqs2mehCKPaIeN0ZGvQ==
-X-Received: by 2002:a7b:c44d:: with SMTP id l13mr4203194wmi.160.1619166531614; 
- Fri, 23 Apr 2021 01:28:51 -0700 (PDT)
-Received: from dell ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id 2sm9611435wmi.19.2021.04.23.01.28.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Apr 2021 01:28:51 -0700 (PDT)
-Date: Fri, 23 Apr 2021 09:28:49 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 31/40] drm/amd/amdgpu/amdgpu_gart: Correct a couple of
- function names in the docs
-Message-ID: <20210423082849.GD6446@dell>
-References: <20210416143725.2769053-1-lee.jones@linaro.org>
- <20210416143725.2769053-32-lee.jones@linaro.org>
- <2029fbcf-8d2b-7a85-edd2-481a571ae43d@amd.com>
- <CADnq5_N5_poFcOpQzV+Ae22rwD0PG3kq0O3q10gmbb7=fNpEyA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFEB6EBAC;
+	Fri, 23 Apr 2021 14:41:36 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A42336EB8B;
+ Fri, 23 Apr 2021 12:38:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FBr81X2vBWwXaAoSqJtMrAXOciScJA5M15PJ3WRf4Gn/8pfYLj2ad4vrR82TkD84Bjag0c3v325Z+fmtT3cOOVPw2z+XzCgQ6fykmPpPEnGcVRR/2ZDgdag8vSu0Av7yeqGjo2tvN5exDtY75MzCXsgVlNehtrBwmuwrVr65UTtlFKDFxWWawDA+4ZwShivd1NqvVAMgBiDEaFOmgjOGIJMKCubeQUmFuplVyw2DXUbL5zQwLYibf/S+PIDUeFgNTbZzg3nfjqa+Bncam1WTpwxB3bhmvQvYZ1H2qw/O0UGQee2PpSr2BW34JtrW4YSzcrC+0jP9//s7eByV/A9CQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oWPNSQ9KxkqhoJ55QrzI2G+iMSmqwK5Mf8t+Kh83yWE=;
+ b=Y5AHvrlmtcja5ecpQR7DgbQCwNap6yfB8MFxbSk+RbekFmnf4RYNlsEvj0ciVkAFlf/Zqr5FqDZUB68fd+zvy+ex7S0MiadqUJcfYpQEl9AyJvrbyST1ZJoX+2r9/aBRgSuFvAHcufeFC5Nh0kK/+bI8B0qzE2W806Sm4bsXALpzJNXrJnM+JPhCW0M0GSIV4UpMcbgeIK1e0sDvnoahH4DBvFBFTTcDQvvmHhNniyRAXSWEh/59+mJyq4gab08OTLpIdI0RLbZn3bLEm8xS4uZpLlpnPTn6VDfhM8a8U8yPoyRKIr+W8sEojP3RKhw58fqfYWxdJi23iDYMy2r1kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.112.34) smtp.rcpttodomain=amd.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oWPNSQ9KxkqhoJ55QrzI2G+iMSmqwK5Mf8t+Kh83yWE=;
+ b=MgN2S2jzTXzwvKoU0xjOUwMmHSWSS35AsEof+jub5VBVsLN0AaFCTxo4cP9Hl6NZaeYbz/BLJKUWerjvnkpKQ6ggButVtlzSdmftYSgIxuBeAJdmwbpFSxpXRRsfzC3H+c01wDCRjCDmzkZNzUG3/eRo4CxssibqdQkGteod5npEROq9LdDDefZOyR6Lw0fmXoTofIPzKxsFsCJCm1kFBXPwtkcJ8o8Pj18yVB7rL9T3pj7JV+tpYjrWCnxcOwyKhKD868YESqH5t61TOwb/L0wwv/TkRzGNWeLAkBQQUOs3pbubrp5JbX2TKK/hSyYAnt4BFGvvTXqSaV3hR7N0VQ==
+Received: from BN9PR03CA0469.namprd03.prod.outlook.com (2603:10b6:408:139::24)
+ by MWHPR12MB1598.namprd12.prod.outlook.com (2603:10b6:301:4::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.16; Fri, 23 Apr
+ 2021 12:38:46 +0000
+Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:139:cafe::5d) by BN9PR03CA0469.outlook.office365.com
+ (2603:10b6:408:139::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21 via Frontend
+ Transport; Fri, 23 Apr 2021 12:38:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
+ smtp.mailfrom=nvidia.com; amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.34; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.34) by
+ BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4065.21 via Frontend Transport; Fri, 23 Apr 2021 12:38:45 +0000
+Received: from localhost (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 23 Apr
+ 2021 12:38:44 +0000
+Date: Fri, 23 Apr 2021 14:39:32 +0200
+From: Thierry Reding <treding@nvidia.com>
+To: Lyude Paul <lyude@redhat.com>
+Subject: Re: [PATCH v3 03/20] drm/dp: Move i2c init to drm_dp_aux_init, add
+ __must_check and fini
+Message-ID: <YILABCrcMb5MksxD@orome.fritz.box>
+References: <20210419225523.184856-1-lyude@redhat.com>
+ <20210419225523.184856-4-lyude@redhat.com>
+ <YH4PPbY1qqF2NtrN@intel.com>
+ <56a931c9f284ee6a23583eb3dc59de4afaa60e93.camel@redhat.com>
+ <2e211a6623664714af1d180eadcd74aa7ef417db.camel@redhat.com>
+ <17aa145e4cfa3d8852f7411067c5c37bff771b16.camel@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CADnq5_N5_poFcOpQzV+Ae22rwD0PG3kq0O3q10gmbb7=fNpEyA@mail.gmail.com>
+In-Reply-To: <17aa145e4cfa3d8852f7411067c5c37bff771b16.camel@redhat.com>
+X-NVConfidentiality: public
+User-Agent: Mutt/2.0.6 (98f8cb83) (2021-03-06)
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9e5276e1-8862-476a-1cf8-08d90654bc93
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1598:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15989FB8CE68AF5EE74DD08ECF459@MWHPR12MB1598.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KbvQHVynFeiRSjoGVwxVSIyvQdCdXCNJcAOxh8oxbR1b4MxxFRAr3Ar9OB7Hp9ChX53GKj3mxErB7UZpvzuaFuRT4WcpggDrOAkwnJpiSUECha2pqIBujvDydDKix3FpvYLYVWeKS3V+30s1LhXXH9Q0+Nm5y7BK6uCB4ZiVmF3MUyQqWAGJzWPZ5HQeDrqhPjfwZkUeEUQXf2MMEHC+hD9euzciOPU3BsC1u4W+hbogNirs9LXnPMQg/cwtYP4p++izWNcTRMTWfbGhzW43NgMeNYpetqMc06HpmiQzYRj6m6fSHUDjmWrqM48kOjoBR1EumwJstvzULJfe8okcL9NJLUPYQCJJjPp5MrS+oNjI4euFAVtqJk/jv42UBQgwb1miIs3xPlqMMo+EEWFiG0pxa1vLh4ucmzAc/iSPs2W/TcIAFkvybAs7iBBbj3aJ8j/KvQ/koclwO2ZaxWGYZp5FT3L+B7YHU97oBdGzcLJ0OWmJxtrs59sE9Kvsv1OkCUi0ffUPGuOpp0gzh3u+/1zpwvCeZP5vdxEheVdSIDaEfzkex0QMMg8mGUP3SkfqTi428h4v0MFBX6yJ6KZSyKaIHddiDQP0tONbY8hrJio0Yfw6TagSCcZKa4D6A17dQplTJRtyI2hcssC5aWtyOE1jP/0euopmPqTevsTju7RgkCkQdNPJstVMVMKHJ16c
+X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
+ SFS:(4636009)(376002)(39830400003)(346002)(396003)(46966006)(36840700001)(336012)(356005)(82310400003)(36860700001)(4326008)(26005)(508600001)(2906002)(8676002)(7636003)(8936002)(44144004)(6666004)(6916009)(426003)(36906005)(54906003)(16526019)(7406005)(7416002)(70206006)(5660300002)(70586007)(21480400003)(47076005)(186003)(86362001)(9686003)(2700100001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 12:38:45.8634 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e5276e1-8862-476a-1cf8-08d90654bc93
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1598
 X-Mailman-Approved-At: Fri, 23 Apr 2021 14:41:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,21 +117,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Oleg Vasilev <oleg.vasilev@intel.com>, dri-devel@lists.freedesktop.org,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Thierry
+ Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Parshuram Thombare <pthombar@cadence.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Swapnil Jakhade <sjakhade@cadence.com>,
+ Harry Wentland <harry.wentland@amd.com>, Imre Deak <imre.deak@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Joe Perches <joe@perches.com>,
+ Yuti Amonkar <yamonkar@cadence.com>, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Sean Paul <sean@poorly.run>, Navid
+ Emamdoost <navid.emamdoost@gmail.com>, Jernej
+ Skrabec <jernej.skrabec@siol.net>, Chris Park <Chris.Park@amd.com>,
+ Eryk Brol <eryk.brol@amd.com>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Robert Foss <robert.foss@linaro.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Rob Clark <robdclark@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0580575917=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMCBBcHIgMjAyMSwgQWxleCBEZXVjaGVyIHdyb3RlOgoKPiBBcHBsaWVkLiAgdGhh
-bmtzIQoKTG92ZWx5LiAgVGhhbmtzIGZvciB0aGVzZSBBbGV4LgoKLS0gCkxlZSBKb25lcyBb5p2O
-55C85pavXQpTZW5pb3IgVGVjaG5pY2FsIExlYWQgLSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJv
-Lm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86
-IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============0580575917==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="z6W3/SDV0hp6va90"
+Content-Disposition: inline
+
+--z6W3/SDV0hp6va90
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Apr 23, 2021 at 12:11:06AM -0400, Lyude Paul wrote:
+> On Thu, 2021-04-22 at 18:33 -0400, Lyude Paul wrote:
+> > OK - talked with Ville a bit on this and did some of my own research, I
+> > actually think that moving i2c to drm_dp_aux_init() is the right decisi=
+on
+> > for
+> > the time being. The reasoning behind this being that as shown by my pre=
+vious
+> > work of fixing drivers that call drm_dp_aux_register() too early - it s=
+eems
+> > like there's already been drivers that have been working just fine with
+> > setting up the i2c device before DRM registration.=20
+> >=20
+> > In the future, it'd probably be better if we can split up i2c_add_adapt=
+er()
+> > into an init and register function - but we'll have to talk with the i2c
+> > maintainers to see if this is acceptable w/ them
+>=20
+> Actually - I think adding the ability to refcount dp aux adapters might b=
+e a
+> better solution so I'm going to try that!
+
+I'm curious: how is a DP AUX adapter reference count going to solve the
+issue of potentially registering devices too early (i.e. before the DRM
+is registered)?
+
+Is it because registering too early could cause a reference count
+problem if somebody get a hold of the DP AUX adapter before the parent
+DRM device is around?
+
+Thierry
+
+--z6W3/SDV0hp6va90
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmCCwAQACgkQ3SOs138+
+s6EY9A//cFwPyvjLu+eHb3pLCSEg0qBzB2J77wG+98pubCnz3iEdueKUKEx++z2A
+8g/F9lavI52JkTvRHvBaiIEZ5a7r0BUNOjtOE7di3A8oNJsnRLV/URw+kPIHXXSr
++9+Mc3Y8eYduNsqhOZPV6CukSSuz/FA0MVLzjX/WjVYNS30XcTOA3viGcJxVw4eS
+vAwv3CuE6R6X03Op6fcRFEVFphckpkEiCVhom0KDuWadoHOUrAF31gbHeUA3zfqq
+HgFI2FH22g9aRxI9jVbniRayXFBVESKR++tganMT6E0DRUK48lWnjNOppvYqjEgG
+fLwLMmbHMfnqIF40kYR+xa20EfWxce/Hu9Fq7zm0Bnq6E7GP3L8MnSWefiUAdZRl
+z/fCNCEG2uN27fi10oDhrAv/73lrlt4Kj14wQpzz5Kqek/Zvfcflo6qnxVjdl/Id
+MsnqfOYf7ihbJ4y/mHWiIJoB4JvBM0Hm9ian9btTJz1IoaeHLPPUXWniBWWGv75O
+cowItScneJVMDAqSg5ebaSTTJGDIW8lCfCO+ZxLn5J8hrKwmlTm5zWjuQfdyFffG
+Rf4OugTNG+AQC74rzPKchirTKqljQNeyrDYWQk6FeOEhGzhvzjHlkgDYXTka4pKw
+T1hYR1gSeug/F78aatTTWl5XPZam0G9v7mzMhUffzVa048ItTJ8=
+=cfh7
+-----END PGP SIGNATURE-----
+
+--z6W3/SDV0hp6va90--
+
+--===============0580575917==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0580575917==--
