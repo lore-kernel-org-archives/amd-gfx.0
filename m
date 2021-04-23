@@ -4,116 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF444C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C87DC433ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 61BA8613B7
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:36:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61BA8613B7
+	by mail.kernel.org (Postfix) with ESMTPS id 140356128B
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 140356128B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2CD36E139;
-	Fri, 23 Apr 2021 15:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEF36E103;
+	Fri, 23 Apr 2021 16:07:46 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4B86E139
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:36:06 +0000 (UTC)
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4274F6E103;
+ Fri, 23 Apr 2021 16:07:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mU99EhFVMCANqrrmEs89kStvRy+ixC/Hh2vIWlsvjwyoEWpRevXMJDr7U2hjVy6Iut2AHT3ydc7DW1OJDu6unl9LxH2ErUT7YlxqlnvppTdhITWXstJm39ERtyuMeNUHNbcBa+7d9HIuZb4Xw5QEVzNbnGyGmNoLmHEfhn0G7MRPxo+fPbNy+rkIcs9twP1Niag0eiwK5oEF+cfQ1SlMXuto9L2oSY37S3Nd34QEJAzlhD0nNrf4Aki3xY3KnlSSGRm2uVohY8wNe3P5oaye0IrtpmxwjbbhpZLayFapS9u/b0ewkaO93neRpVwJBSFY9txcrIPxqYKRAmhWIPkbYg==
+ b=Mk9Yg8BEXCG9WYxs9lye/hXNaWgZxUc0Bve12sM/BKKTC8sbfSOGJ3Lj+2jdH/Ly6mIM7A3N6k+YLu56HRSELD10q16xxxpKx1GT6fIDqM4bas2yWrvNa3WhMFmNv4Lg0IqcezkK+VRRSAe+qqqtnaS6CSuYll/0h2+NMOuDW3orUs1q+WG9mIbkq5gx6p4xmLUpOAjEIEMU43YyryqCdW8j8NAsDIUmXqMv3Ccr+oKzqU5gP+HDP6LA7Zch79gVBnNbFOInlgAnHaYcEroy0ps9Aa7ChRhu0Rpf7BtcRGTke4ouc4zQ4V+Z9qIqQ7w19+jZEgvjndyEKFgyWW3nkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULJ7d2JdhvtEVYgX8s/vlODaH0jP/8Cge7KZdFeczRE=;
- b=ciLyAjHKTL/rHfOnYlpC5QH/Mgm6zZ0Vmq/NNFlMYEBHJsBpqWgDWZZaR3YUSekUx1ygN+lZyFehWDv9TC7e+4CFtjlsJMO1DbagJ6Y5rprsRZEbdTD+dok8z5gEAhRrVi1Y7urD3tY0NkqjKLgFV+a6W7l3E6XLJMePFp3mlFwSsHUvYR0g3+EadWvKIwf0ypMhQ1grZC0qe+WVxGl6kE9DCVudpqTN1W2RJnXS7n9iNGY4VQq5QL5iyGF7A6e1x1bB2X5CeJC/UEzZKSWJydOIlLmE7tZh3m3F0zJDQJLHxIaPUyOZy9iZHxS+1EEXGvuQZOlbKhzBiq9bzBqV0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
+ b=fLwJytAXpbI/dX1uMz5w3W0BwRo6FkCw0nS7hm86x2I5w0XGrUdr0okyQCcbxXHKSbNRNLA003uzB2WMsEbyGe4GS6+bNFoNHbqY40vruOOb3NN/2hbarCzPYeG7lkaWR8LenU1i7lTjNPEzvxa1c1VuGmFw9f0EAeVU7xyZ0u21BvlZmCEYtkSnJtmMvc/L+IL4Co3Z1/UwB4ENVLGkDDIM4FlfLQwVnBNShJH1xI5RB/aDAa+Y1bFsbXKTuZ86UlVsSItxT6TQ7OLrsIr5YKO15ZTm4t5MR5goZgucBlFz6VE7zAy/zNrUEVMgPFWGJEEoVCj8tY4fqxXJrqaaGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=amd.com; dkim=none (message
+ not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULJ7d2JdhvtEVYgX8s/vlODaH0jP/8Cge7KZdFeczRE=;
- b=kOGR22mKh5ZfE68ti6Qq517nuP+QkzX0jflwRBhylBD1qU2xNGKkEYRSoOGbywRr/mGUyo3QHbukn72Z0/UGE9gwzZKwQssenHKk5Tr+n56mDb51Un0QHfjmJfV5SM3M5yOC1QH/1COa8OlNAc8W2yY2DV2ae22c63yuRIMBUh0=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
- DM6PR12MB4810.namprd12.prod.outlook.com (2603:10b6:5:1f7::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.24; Fri, 23 Apr 2021 15:36:05 +0000
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::d568:cff1:dc2a:5baa]) by DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::d568:cff1:dc2a:5baa%3]) with mapi id 15.20.4065.025; Fri, 23 Apr 2021
- 15:36:05 +0000
-From: Philip Yang <Philip.Yang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/amdkfd: enable subsequent retry fault
-Date: Fri, 23 Apr 2021 11:35:50 -0400
-Message-Id: <20210423153550.25188-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210423153550.25188-1-Philip.Yang@amd.com>
-References: <20210423153550.25188-1-Philip.Yang@amd.com>
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::33) To DM5PR12MB2583.namprd12.prod.outlook.com
- (2603:10b6:4:b3::28)
+ bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
+ b=P+Jw1jnTtmkTmGUjtt8ZoPl6iWmSJWkTOBKpSIocEEynwXSUf40mebmEOjmp4Xiut94cH4GxuKVE4bPJ1dMEbeakAQyF7t7ACtilcLypMGdfU7ytnSXWu2UAC2mwrz9RNDTfkKHFSnhu7OveGm5pSqa4j6qfN2uQghmS6C8FV3w=
+Received: from MWHPR22CA0022.namprd22.prod.outlook.com (2603:10b6:300:ef::32)
+ by BN6PR12MB1729.namprd12.prod.outlook.com (2603:10b6:404:108::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.22; Fri, 23 Apr
+ 2021 16:07:42 +0000
+Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ef:cafe::4f) by MWHPR22CA0022.outlook.office365.com
+ (2603:10b6:300:ef::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20 via Frontend
+ Transport; Fri, 23 Apr 2021 16:07:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4065.21 via Frontend Transport; Fri, 23 Apr 2021 16:07:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
+ 2021 11:07:37 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
+ 2021 11:07:37 -0500
+Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Fri, 23 Apr 2021 11:07:27 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 2/2] drm/amd/amdgpu: Add dwc quirk for Stoney/CZ platforms
+Date: Fri, 23 Apr 2021 21:54:39 +0530
+Message-ID: <1619195089-29710-2-git-send-email-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
+References: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Philip-Dev.amd.com (165.204.55.251) by
- YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.21 via Frontend Transport; Fri, 23 Apr 2021 15:36:05 +0000
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 57523731-99ad-4261-cb40-08d9066d824c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4810:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4810B1A884403B4A7F096695E6459@DM6PR12MB4810.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Office365-Filtering-Correlation-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1729:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1729462A7F3BEDE645D5828297459@BN6PR12MB1729.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: So9OyPnvSmScX/UZmgTee0wjcApUHBvvuZFT73SHnmFIP/2h5jKGa79ZzpbUvEf3i10+2l6AcesYo/X50N4dAAZouvBT+mOQkwkpK81mM25Zu9bXpIYBCH2Dk2F9Ad97U/TNDO7tt0eub20rsTwKuOCVxegAMxKs2JR3JU8vSFB2bf+/0GnKislPS19qPi84zJgRZMg/x4b3VXd/BRz7O5o10ASi6JKlsupdxF7/X1V2+9Wms/LDCt5pTMpgcG5UlSSifnG8dGN+EKkb8RMMcqyz2pnQKKJ9ntROEwXsd3WPyhJuxKN5p3J6l02KCbIdL+096iHkxv9nCRtHQbsh7lpNP7MkIWDZ6oFuWu/ke6WDUDPIOP8Go8/fa26EpH8d+XeM+f7N6zuXx1CxaLBjSp5CL7gR/YbIXQN9AkR983g2F6bCWjAd2KY9uNfcdOE02V2J0IyGLyvENbZvTvaThYY5zvvyanFHav0SbiNpqn3Tlx7/yN4rBWuFCFk2l6lusDGzh8cz/upVPypOE/gZuXYIs5QgXKRGkP+ihtqdT0i5KHtFemSy5wGkGmvytTkM00xSaIXJNVrDohn+G3YZ04LWYVm5gWrtIaCjNXjuODnIlQwTpjO4LcOCVQ1rS3BztgOL5D0R1VIYxwm3pt9gOHXostorDA1MqUBurU/i7Xs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(396003)(346002)(39850400004)(136003)(6916009)(66946007)(52116002)(36756003)(2906002)(316002)(66556008)(66476007)(6666004)(8676002)(4326008)(8936002)(7696005)(38100700002)(478600001)(2616005)(86362001)(186003)(83380400001)(38350700002)(26005)(6486002)(5660300002)(956004)(16526019)(1076003);
+X-Microsoft-Antispam-Message-Info: 5kUol8h4sw6v0WMK+grkP1sA3KAE/PCo6STVy6D6Y4WGQwV+t0ti2OdfRDs2hlFf9FYrLQ1MSeH18J1RPA134xZCFB//xmLfUH4Zx7BcDB7ic+rC220KWR1jepGFPiUHvEQItDuFYQLKy5P82DKY0V7K94DU1SYgQgXGgwgUtVVkLd2Qi3OR8hUwNWgC8ugAZoXAxUPradG1GyEu1PMhGG5Qs87tyoDUPNUtk5sIiXS/m9uxsZCQkA5bQNL4QpOPk6AtuLQUzgGVYfLYjosUCuOvENA2UtjyXUGSQ0IO7eVzUgOvJfYjTIHPNFcCoUSOakOrjpY2IC3MWyqdD0t6SO5m5EopHPcCwdYgdpDY36RBfcKpJjWdl0YyQLswywMLYKM/HPbLLPeXFqaL1N1FkhtLRM9ifIXcI/GSlVerIAvCJoqtICte6Zz0ymbuRx74I13a+LPpsI0z4NmsgtRjirdeIKrd/BI+KrBr+6ki+dbKOON206AplQD/zJ/oP1xNJBQYYHLdxNx7Xmo4ZBSNCju+4wJJtX/7WZUp+A3Cu/2EXNYr3Wo6tCCmlFKnrdXv2dMAfUOXxaVZJo3nZubyOk6s5RuXO3U6wGiYDOmhOdabJK8IYAHB0edGtADd+LLqKvg00BSqf2+ydaWQf46Vc3457acbBKL6bPUj16KC+a5zN3FOh2tIT339dTuzlAeb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(36840700001)(46966006)(478600001)(70206006)(70586007)(81166007)(83380400001)(36860700001)(82310400003)(47076005)(5660300002)(7416002)(2906002)(316002)(8936002)(426003)(110136005)(54906003)(336012)(6666004)(356005)(86362001)(7696005)(2616005)(26005)(8676002)(82740400003)(186003)(36756003)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?43ZWU0knyS9IwibKZ5s4gn2d3D1AFjqcqWepxJQgpn8HAtfi39XfJtfK682E?=
- =?us-ascii?Q?Nv32eikRXX1uhnkGN/GfDCjW3Oki+rvACM+quNKPR67KQe5Pp/R6LzIPBCAs?=
- =?us-ascii?Q?vmmmLmvPwT1j7Cj/q5Td0maQFlpgKBWqcycmQQVVaCqfCbrieEaa8ZPvzIex?=
- =?us-ascii?Q?pI7u7jdcRzmoLAgnVsU1CnJ21nvPOU1Hfg81Vb/OYp0Tmppvm4vxzA3cRiod?=
- =?us-ascii?Q?qcNcDbHEPnVMFoZzaJPEJnkRvUZzjyA5RMeVjT6mgrxgPoDD9h30vQNfUqJL?=
- =?us-ascii?Q?siAsnk9eyWvwKKrWErcsxoZF/TMAb8RSCNNVnbo4y2e0DT64dKNNh5kV96rw?=
- =?us-ascii?Q?XxxH61qmHmEnFBKKtVVCKQo2MA4/8h7KTppfzkaxcqZKlRXYpr6TZrPRlHwN?=
- =?us-ascii?Q?v0YzSetalh4WoiJX5kO5FsDCo3DurW+vm0F58fKb0qPEAXAN4zf3eZW0F3T/?=
- =?us-ascii?Q?qnYx3s+E5iTOPg8QflK6GnpNA7p9IP/v4QZ4S20eJyk4/5S5+ueoY56uRos1?=
- =?us-ascii?Q?GxaPgeLZlmp02tZJkIVK4O14I/WSrUxqOQ0p46kEYF9ghj2XQplj8IRdycq4?=
- =?us-ascii?Q?c/HPtLpYyHSEugd3o8Jdr02x9bcg8zA32WdlkvdhKkC4Kjq+Iz0yU5mTzzbX?=
- =?us-ascii?Q?wegtVMecYZ2c0FzgT2lUl4asWt5ie3T3IYAG3eIC9mBA1LHYBYoU8CfNVwjT?=
- =?us-ascii?Q?Y7psOk92kJcI5u4uHUWlEPTkyKBeI52h7SPskUXSOzRpTZ6DrWzOFDxTS54P?=
- =?us-ascii?Q?uS3DstqUPrrN11FepMdm5p1q/9AEpmPy66T93YwzwiN8KGvuqDHCrKrKOZDH?=
- =?us-ascii?Q?fzqGqSud97UI0aKVrFD0mU6pJh8lFQdFwJSYwzouz77tsx5iotufEEjwQOtn?=
- =?us-ascii?Q?Rb5DObm2TlFZr8SOcowLYbVJK0dyaGTSTkwffJpLUv5t0EGTVuGwyBbDhUvg?=
- =?us-ascii?Q?Pdcno9jrm58PbsDQlJwQbYP9rkDDdz8Njhg2HrLtbe8K+eDoSGLeofjV6qDc?=
- =?us-ascii?Q?9yV3mIn5/ex5vTpo4iEiOTHZSd/P5gn84XC7fswdJlEd+IfUyDlJACp8FgKV?=
- =?us-ascii?Q?RFLId6AidVgMxGBAADfHPlWstyMx6Q505mGi6Xl6f6s7ztF8ckTwjacbHUPq?=
- =?us-ascii?Q?F9cJmuDxtkBy/ipAjmI4odGPd9Ur9LrgsqC9tardEHWcYn0dpccKG4+T/B3I?=
- =?us-ascii?Q?ntx2SvjqCsdNIG0trf7CKUVxX6Xw2N4eyH6KPP7+OqOWULqzD8iff+597KOw?=
- =?us-ascii?Q?jxCpaGiCGD5Xytb4bc06xwohC9w4cl4weX6qVbRDBcc4jQGA+xTEHMf6AQuN?=
- =?us-ascii?Q?ZcRRQPVTxvTMwWNwMqIlCyIn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57523731-99ad-4261-cb40-08d9066d824c
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 15:36:05.7967 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 16:07:41.6407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YWUHa7f9Qv7+X/vJqIKzAf9Cix58cuQmo+83EVcSfP1RqD4Qw7nnzD24EBQZgreE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4810
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1729
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,49 +113,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>
+Cc: Deepak R Varma <mh12gx2825@gmail.com>, Sunil-kumar.Dommati@amd.com,
+ amistry@google.com, David Airlie <airlied@linux.ie>,
+ Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Nirmoy Das <nirmoy.das@amd.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Vijendar
+ Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Lee Jones <lee.jones@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ nartemiev@google.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After draining the stale retry fault, or failed to validate the range
-to recover, have to remove the fault address from fault filter ring, to
-be able to handle subsequent retry interrupt on same address. Otherwise
-the retry fault will not be processed to recover until timeout passed.
+Add a quirk DW_I2S_QUIRK_STOP_ON_SHUTDOWN for Stoney/CZ
+platforms.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+For CZ/StoneyRidge platforms, ACP DMA between ACP SRAM and
+I2S FIFO should be stopped before stopping I2S Controller DMA.
+
+When DMA is progressing and stop request received, while DMA
+transfer ongoing between ACP SRAM and I2S FIFO, Stopping I2S DMA
+prior to ACP DMA stop resulting ACP DMA channel stop failure.
+
+ACP DMA driver can't fix this issue due to design constraint.
+By setting this quirk, I2S DMA gets stopped after ACP DMA stop
+which will fix the ACP DMA stop failure.
+
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 38 +++++++++++----------------------
+ 1 file changed, 13 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 6490f016aa6e..5ed7dda2d14f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2363,8 +2363,10 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 
- 	mutex_lock(&prange->migrate_mutex);
- 
--	if (svm_range_skip_recover(prange))
-+	if (svm_range_skip_recover(prange)) {
-+		amdgpu_gmc_filter_faults_remove(adev, addr, pasid);
- 		goto out_unlock_range;
-+	}
- 
- 	timestamp = ktime_to_us(ktime_get()) - prange->validate_timestamp;
- 	/* skip duplicate vm fault on different pages of same range */
-@@ -2426,6 +2428,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 
- 	if (r == -EAGAIN) {
- 		pr_debug("recover vm fault later\n");
-+		amdgpu_gmc_filter_faults_remove(adev, addr, pasid);
- 		r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index b8655ff..6866b73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -245,42 +245,30 @@ static int acp_hw_init(void *handle)
+ 		goto failure;
  	}
- 	return r;
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_STONEY:
+-		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+-			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+-		break;
+-	default:
+-		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
+-	}
++	i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
++			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
++	if (adev->asic_type == CHIP_STONEY)
++		i2s_pdata[0].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
++
+ 	i2s_pdata[0].cap = DWC_I2S_PLAY;
+ 	i2s_pdata[0].snd_rates = SNDRV_PCM_RATE_8000_96000;
+ 	i2s_pdata[0].i2s_reg_comp1 = ACP_I2S_COMP1_PLAY_REG_OFFSET;
+ 	i2s_pdata[0].i2s_reg_comp2 = ACP_I2S_COMP2_PLAY_REG_OFFSET;
+-	switch (adev->asic_type) {
+-	case CHIP_STONEY:
+-		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+-			DW_I2S_QUIRK_COMP_PARAM1 |
+-			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+-		break;
+-	default:
+-		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
+-			DW_I2S_QUIRK_COMP_PARAM1;
+-	}
++	i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
++			      DW_I2S_QUIRK_COMP_PARAM1 |
++			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
++	if (adev->asic_type == CHIP_STONEY)
++		i2s_pdata[1].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+ 
+ 	i2s_pdata[1].cap = DWC_I2S_RECORD;
+ 	i2s_pdata[1].snd_rates = SNDRV_PCM_RATE_8000_96000;
+ 	i2s_pdata[1].i2s_reg_comp1 = ACP_I2S_COMP1_CAP_REG_OFFSET;
+ 	i2s_pdata[1].i2s_reg_comp2 = ACP_I2S_COMP2_CAP_REG_OFFSET;
+ 
+-	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
+-	switch (adev->asic_type) {
+-	case CHIP_STONEY:
++	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
++			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
++	if (adev->asic_type == CHIP_STONEY)
+ 		i2s_pdata[2].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
+-		break;
+-	default:
+-		break;
+-	}
+ 
+ 	i2s_pdata[2].cap = DWC_I2S_PLAY | DWC_I2S_RECORD;
+ 	i2s_pdata[2].snd_rates = SNDRV_PCM_RATE_8000_96000;
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
