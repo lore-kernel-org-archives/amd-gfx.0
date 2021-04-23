@@ -2,106 +2,74 @@ Return-Path: <SRS0=d4Si=JU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C87DC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:07:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 927C3C433ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 140356128B
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 140356128B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 14B43610A1
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 16:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14B43610A1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEF36E103;
-	Fri, 23 Apr 2021 16:07:46 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4274F6E103;
- Fri, 23 Apr 2021 16:07:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mk9Yg8BEXCG9WYxs9lye/hXNaWgZxUc0Bve12sM/BKKTC8sbfSOGJ3Lj+2jdH/Ly6mIM7A3N6k+YLu56HRSELD10q16xxxpKx1GT6fIDqM4bas2yWrvNa3WhMFmNv4Lg0IqcezkK+VRRSAe+qqqtnaS6CSuYll/0h2+NMOuDW3orUs1q+WG9mIbkq5gx6p4xmLUpOAjEIEMU43YyryqCdW8j8NAsDIUmXqMv3Ccr+oKzqU5gP+HDP6LA7Zch79gVBnNbFOInlgAnHaYcEroy0ps9Aa7ChRhu0Rpf7BtcRGTke4ouc4zQ4V+Z9qIqQ7w19+jZEgvjndyEKFgyWW3nkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
- b=fLwJytAXpbI/dX1uMz5w3W0BwRo6FkCw0nS7hm86x2I5w0XGrUdr0okyQCcbxXHKSbNRNLA003uzB2WMsEbyGe4GS6+bNFoNHbqY40vruOOb3NN/2hbarCzPYeG7lkaWR8LenU1i7lTjNPEzvxa1c1VuGmFw9f0EAeVU7xyZ0u21BvlZmCEYtkSnJtmMvc/L+IL4Co3Z1/UwB4ENVLGkDDIM4FlfLQwVnBNShJH1xI5RB/aDAa+Y1bFsbXKTuZ86UlVsSItxT6TQ7OLrsIr5YKO15ZTm4t5MR5goZgucBlFz6VE7zAy/zNrUEVMgPFWGJEEoVCj8tY4fqxXJrqaaGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=amd.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CGwLqH6nD305nX/sR9Lv6FU1fqt96mZNv7H9BzGycO8=;
- b=P+Jw1jnTtmkTmGUjtt8ZoPl6iWmSJWkTOBKpSIocEEynwXSUf40mebmEOjmp4Xiut94cH4GxuKVE4bPJ1dMEbeakAQyF7t7ACtilcLypMGdfU7ytnSXWu2UAC2mwrz9RNDTfkKHFSnhu7OveGm5pSqa4j6qfN2uQghmS6C8FV3w=
-Received: from MWHPR22CA0022.namprd22.prod.outlook.com (2603:10b6:300:ef::32)
- by BN6PR12MB1729.namprd12.prod.outlook.com (2603:10b6:404:108::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.22; Fri, 23 Apr
- 2021 16:07:42 +0000
-Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ef:cafe::4f) by MWHPR22CA0022.outlook.office365.com
- (2603:10b6:300:ef::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20 via Frontend
- Transport; Fri, 23 Apr 2021 16:07:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4065.21 via Frontend Transport; Fri, 23 Apr 2021 16:07:41 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
- 2021 11:07:37 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 23 Apr
- 2021 11:07:37 -0500
-Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Fri, 23 Apr 2021 11:07:27 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 2/2] drm/amd/amdgpu: Add dwc quirk for Stoney/CZ platforms
-Date: Fri, 23 Apr 2021 21:54:39 +0530
-Message-ID: <1619195089-29710-2-git-send-email-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
-References: <1619195089-29710-1-git-send-email-Vijendar.Mukunda@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2F189D52;
+	Fri, 23 Apr 2021 16:28:33 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9A4D89D52
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 16:28:32 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id s15so58112414edd.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 09:28:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=jpqIJ3AOjZ/RznB9qcbrFQSeFVWODw3rWBsXhfikHAA=;
+ b=bdlA6P/py1bRVbk4okCaxE4xxvVoZAfarvLCYRnyWY8U5jQppuMnmRANoeH0R8xsjL
+ QUWZ6Xf/2lvj6hkLYcuIqSBe/Dyf/pnXv0Km4Lto8QsUJLhwGnV4UrdEgeGvLHLiNz0F
+ DjNbd92QiCnP8BF24U4VytHMxKI+0i2fLxTzo4A+CCIDtGjaA1UJde9VGJR0x1TT3gBH
+ WnMIUKaIaOAnpFxoRRDFU6dijWuaSPTD8d/il9Eb0r7cBjfDpyldCWxy0ZSWFs4rT3fO
+ sv/W6DJWAF2K59f8qkgiilR4aX5XlnXyEX3d2qy8mzN2rWVwAMUaAFwSZOL7EJVTUUop
+ ne0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=jpqIJ3AOjZ/RznB9qcbrFQSeFVWODw3rWBsXhfikHAA=;
+ b=EcrhrUrMYUYR5MkiFp0Oqy4vk/GY0SzGaake0Vh3xkNS2xIi2vKwWjCqqz+ySAG0Uf
+ 04jFDHe84Q1nhPP2D4ahRFcihnyfOBcR8uxn/Qn3U2gzFsr3bOY7mXcPk7v6xTiqL8cy
+ PVu/idho+3DXoanv0YGxIyR5prgvT62r59HX7MQr5KSCtlvzTYrlMaWTv5rwctQjbg86
+ RfLXIYv39aTuJUAulVzXjugLu6brFkS3Sxa0yLlnJb8AW6vKuRIDdpLdSAVxCnqP0Tr9
+ uhqotE7LPCAv5wP/5+zX+XrYJZnSG/ChjuRCe4toEP6oCkAipKxrhnJSNZPUaAQBjXEb
+ ixnw==
+X-Gm-Message-State: AOAM531Zpq1nrBmk5kU7e3YRGNt9azTLA8cGPm/2GbL8Y+fZyE+wmi5t
+ AHzgGxpV8u5lNzhaVEHQwqUa++ryPig=
+X-Google-Smtp-Source: ABdhPJzNgcSlOqiqZzzQRESROH0kFkpgO8jGALCo9n3mvt0Qau0RC5nZNeAbzfSP0KBNu1qCqmpTRA==
+X-Received: by 2002:aa7:d14a:: with SMTP id r10mr5487340edo.385.1619195311511; 
+ Fri, 23 Apr 2021 09:28:31 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:4245:6600:99f9:ae6e?
+ ([2a02:908:1252:fb60:4245:6600:99f9:ae6e])
+ by smtp.gmail.com with ESMTPSA id n14sm4245391ejy.90.2021.04.23.09.28.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Apr 2021 09:28:31 -0700 (PDT)
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: address remove from fault filter
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210423153550.25188-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <c3e7c9b4-90b2-ff53-e137-a24cf18ee495@gmail.com>
+Date: Fri, 23 Apr 2021 18:28:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1729:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1729462A7F3BEDE645D5828297459@BN6PR12MB1729.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5kUol8h4sw6v0WMK+grkP1sA3KAE/PCo6STVy6D6Y4WGQwV+t0ti2OdfRDs2hlFf9FYrLQ1MSeH18J1RPA134xZCFB//xmLfUH4Zx7BcDB7ic+rC220KWR1jepGFPiUHvEQItDuFYQLKy5P82DKY0V7K94DU1SYgQgXGgwgUtVVkLd2Qi3OR8hUwNWgC8ugAZoXAxUPradG1GyEu1PMhGG5Qs87tyoDUPNUtk5sIiXS/m9uxsZCQkA5bQNL4QpOPk6AtuLQUzgGVYfLYjosUCuOvENA2UtjyXUGSQ0IO7eVzUgOvJfYjTIHPNFcCoUSOakOrjpY2IC3MWyqdD0t6SO5m5EopHPcCwdYgdpDY36RBfcKpJjWdl0YyQLswywMLYKM/HPbLLPeXFqaL1N1FkhtLRM9ifIXcI/GSlVerIAvCJoqtICte6Zz0ymbuRx74I13a+LPpsI0z4NmsgtRjirdeIKrd/BI+KrBr+6ki+dbKOON206AplQD/zJ/oP1xNJBQYYHLdxNx7Xmo4ZBSNCju+4wJJtX/7WZUp+A3Cu/2EXNYr3Wo6tCCmlFKnrdXv2dMAfUOXxaVZJo3nZubyOk6s5RuXO3U6wGiYDOmhOdabJK8IYAHB0edGtADd+LLqKvg00BSqf2+ydaWQf46Vc3457acbBKL6bPUj16KC+a5zN3FOh2tIT339dTuzlAeb
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(36840700001)(46966006)(478600001)(70206006)(70586007)(81166007)(83380400001)(36860700001)(82310400003)(47076005)(5660300002)(7416002)(2906002)(316002)(8936002)(426003)(110136005)(54906003)(336012)(6666004)(356005)(86362001)(7696005)(2616005)(26005)(8676002)(82740400003)(186003)(36756003)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 16:07:41.6407 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d31d9c17-a362-42a4-cc3b-08d90671ec78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1729
+In-Reply-To: <20210423153550.25188-1-Philip.Yang@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,103 +81,192 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak R Varma <mh12gx2825@gmail.com>, Sunil-kumar.Dommati@amd.com,
- amistry@google.com, David Airlie <airlied@linux.ie>,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Nirmoy Das <nirmoy.das@amd.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Vijendar
- Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- nartemiev@google.com
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a quirk DW_I2S_QUIRK_STOP_ON_SHUTDOWN for Stoney/CZ
-platforms.
 
-For CZ/StoneyRidge platforms, ACP DMA between ACP SRAM and
-I2S FIFO should be stopped before stopping I2S Controller DMA.
 
-When DMA is progressing and stop request received, while DMA
-transfer ongoing between ACP SRAM and I2S FIFO, Stopping I2S DMA
-prior to ACP DMA stop resulting ACP DMA channel stop failure.
+Am 23.04.21 um 17:35 schrieb Philip Yang:
+> Add interface to remove address from fault filter ring by resetting
+> fault ring entry key, then future vm fault on the address will be
+> processed to recover.
+>
+> Use spinlock to protect fault hash ring access by interrupt handler and
+> interrupt scheduled deferred work for vg20.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 66 +++++++++++++++++++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 ++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  1 +
+>   4 files changed, 68 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index c39ed9eb0987..91106b59389f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -332,6 +332,17 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
+>   			mc->agp_size >> 20, mc->agp_start, mc->agp_end);
+>   }
+>   
+> +/**
+> + * fault_key - get 52bit hask key from vm fault address and pasid
+> + *
+> + * @addr: 48bit physical address
+> + * @pasid: 4 bit
+> + */
+> +static inline uint64_t fault_key(uint64_t addr, uint16_t pasid)
 
-ACP DMA driver can't fix this issue due to design constraint.
-By setting this quirk, I2S DMA gets stopped after ACP DMA stop
-which will fix the ACP DMA stop failure.
+Please prefix with amdgpu_gmc_
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 38 +++++++++++----------------------
- 1 file changed, 13 insertions(+), 25 deletions(-)
+> +{
+> +	return addr << 4 | pasid;
+> +}
+> +
+>   /**
+>    * amdgpu_gmc_filter_faults - filter VM faults
+>    *
+> @@ -349,15 +360,20 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+>   {
+>   	struct amdgpu_gmc *gmc = &adev->gmc;
+>   
+> -	uint64_t stamp, key = addr << 4 | pasid;
+> +	uint64_t stamp, key = fault_key(addr, pasid);
+>   	struct amdgpu_gmc_fault *fault;
+> +	unsigned long flags;
+>   	uint32_t hash;
+>   
+>   	/* If we don't have space left in the ring buffer return immediately */
+>   	stamp = max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
+>   		AMDGPU_GMC_FAULT_TIMEOUT;
+> -	if (gmc->fault_ring[gmc->last_fault].timestamp >= stamp)
+> +
+> +	spin_lock_irqsave(&gmc->fault_lock, flags);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index b8655ff..6866b73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -245,42 +245,30 @@ static int acp_hw_init(void *handle)
- 		goto failure;
- 	}
- 
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
--		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
--	}
-+	i2s_pdata[0].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
-+		i2s_pdata[0].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
-+
- 	i2s_pdata[0].cap = DWC_I2S_PLAY;
- 	i2s_pdata[0].snd_rates = SNDRV_PCM_RATE_8000_96000;
- 	i2s_pdata[0].i2s_reg_comp1 = ACP_I2S_COMP1_PLAY_REG_OFFSET;
- 	i2s_pdata[0].i2s_reg_comp2 = ACP_I2S_COMP2_PLAY_REG_OFFSET;
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
--		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_COMP_PARAM1 |
--			DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
--			DW_I2S_QUIRK_COMP_PARAM1;
--	}
-+	i2s_pdata[1].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_COMP_PARAM1 |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
-+		i2s_pdata[1].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
- 
- 	i2s_pdata[1].cap = DWC_I2S_RECORD;
- 	i2s_pdata[1].snd_rates = SNDRV_PCM_RATE_8000_96000;
- 	i2s_pdata[1].i2s_reg_comp1 = ACP_I2S_COMP1_CAP_REG_OFFSET;
- 	i2s_pdata[1].i2s_reg_comp2 = ACP_I2S_COMP2_CAP_REG_OFFSET;
- 
--	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET;
--	switch (adev->asic_type) {
--	case CHIP_STONEY:
-+	i2s_pdata[2].quirks = DW_I2S_QUIRK_COMP_REG_OFFSET |
-+			      DW_I2S_QUIRK_STOP_ON_SHUTDOWN;
-+	if (adev->asic_type == CHIP_STONEY)
- 		i2s_pdata[2].quirks |= DW_I2S_QUIRK_16BIT_IDX_OVERRIDE;
--		break;
--	default:
--		break;
--	}
- 
- 	i2s_pdata[2].cap = DWC_I2S_PLAY | DWC_I2S_RECORD;
- 	i2s_pdata[2].snd_rates = SNDRV_PCM_RATE_8000_96000;
--- 
-2.7.4
+Uff the spinlock adds quite some overhead here. I'm still wondering if 
+we can't somehow avoid this.
+
+Christian.
+
+> +	if (gmc->fault_ring[gmc->last_fault].timestamp >= stamp) {
+> +		spin_unlock_irqrestore(&gmc->fault_lock, flags);
+>   		return true;
+> +	}
+>   
+>   	/* Try to find the fault in the hash */
+>   	hash = hash_64(key, AMDGPU_GMC_FAULT_HASH_ORDER);
+> @@ -365,8 +381,10 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+>   	while (fault->timestamp >= stamp) {
+>   		uint64_t tmp;
+>   
+> -		if (fault->key == key)
+> +		if (fault->key == key) {
+> +			spin_unlock_irqrestore(&gmc->fault_lock, flags);
+>   			return true;
+> +		}
+>   
+>   		tmp = fault->timestamp;
+>   		fault = &gmc->fault_ring[fault->next];
+> @@ -384,9 +402,51 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+>   	/* And update the hash */
+>   	fault->next = gmc->fault_hash[hash].idx;
+>   	gmc->fault_hash[hash].idx = gmc->last_fault++;
+> +	spin_unlock_irqrestore(&gmc->fault_lock, flags);
+>   	return false;
+>   }
+>   
+> +/**
+> + * amdgpu_gmc_filter_faults_remove - remove address from VM faults filter
+> + *
+> + * @adev: amdgpu device structure
+> + * @addr: address of the VM fault
+> + * @pasid: PASID of the process causing the fault
+> + *
+> + * Remove the address from fault filter, then future vm fault on this address
+> + * will pass to retry fault handler to recover.
+> + */
+> +void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
+> +				     uint16_t pasid)
+> +{
+> +	struct amdgpu_gmc *gmc = &adev->gmc;
+> +
+> +	uint64_t key = fault_key(addr, pasid);
+> +	struct amdgpu_gmc_fault *fault;
+> +	unsigned long flags;
+> +	uint32_t hash;
+> +
+> +	spin_lock_irqsave(&gmc->fault_lock, flags);
+> +	hash = hash_64(key, AMDGPU_GMC_FAULT_HASH_ORDER);
+> +	fault = &gmc->fault_ring[gmc->fault_hash[hash].idx];
+> +	while (true) {
+> +		uint64_t tmp;
+> +
+> +		if (fault->key == key) {
+> +			fault->key = fault_key(0, 0);
+> +			break;
+> +		}
+> +
+> +		tmp = fault->timestamp;
+> +		fault = &gmc->fault_ring[fault->next];
+> +
+> +		/* Check if the entry was reused */
+> +		if (fault->timestamp >= tmp)
+> +			break;
+> +	}
+> +	spin_unlock_irqrestore(&gmc->fault_lock, flags);
+> +}
+> +
+>   int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
+>   {
+>   	int r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 9d11c02a3938..0aae3bd01bf2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -246,6 +246,7 @@ struct amdgpu_gmc {
+>   		uint64_t	idx:AMDGPU_GMC_FAULT_RING_ORDER;
+>   	} fault_hash[AMDGPU_GMC_FAULT_HASH_SIZE];
+>   	uint64_t		last_fault:AMDGPU_GMC_FAULT_RING_ORDER;
+> +	spinlock_t		fault_lock;
+>   
+>   	bool tmz_enabled;
+>   
+> @@ -318,6 +319,8 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev,
+>   			     struct amdgpu_gmc *mc);
+>   bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+>   			      uint16_t pasid, uint64_t timestamp);
+> +void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
+> +				     uint16_t pasid);
+>   int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
+>   void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
+>   int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 498b28a35f5b..7416ad874652 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -839,6 +839,7 @@ static int gmc_v10_0_sw_init(void *handle)
+>   	adev->mmhub.funcs->init(adev);
+>   
+>   	spin_lock_init(&adev->gmc.invalidate_lock);
+> +	spin_lock_init(&adev->gmc.fault_lock);
+>   
+>   	if ((adev->flags & AMD_IS_APU) && amdgpu_emu_mode == 1) {
+>   		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 4da8b3d28af2..3290b259a372 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1444,6 +1444,7 @@ static int gmc_v9_0_sw_init(void *handle)
+>   	adev->mmhub.funcs->init(adev);
+>   
+>   	spin_lock_init(&adev->gmc.invalidate_lock);
+> +	spin_lock_init(&adev->gmc.fault_lock);
+>   
+>   	r = amdgpu_atomfirmware_get_vram_info(adev,
+>   		&vram_width, &vram_type, &vram_vendor);
 
 _______________________________________________
 amd-gfx mailing list
