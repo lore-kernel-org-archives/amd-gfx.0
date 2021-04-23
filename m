@@ -2,130 +2,116 @@ Return-Path: <SRS0=d4Si=JU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 805B9C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B66AAC433ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2073961176
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2073961176
+	by mail.kernel.org (Postfix) with ESMTPS id 6AD1B61396
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Apr 2021 15:36:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AD1B61396
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0226E117;
-	Fri, 23 Apr 2021 15:05:02 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB206EC1F
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:05:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E276E12B;
+	Fri, 23 Apr 2021 15:36:06 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750042.outbound.protection.outlook.com [40.107.75.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC356E12B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Apr 2021 15:36:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iUPielnkrHx7KIaHfFebQaQ3dzvuxI6RNAx34PK0TKrV7ewoQm1zZPnQZsO8bn9aE9p7bBj2HdVbYG45RWjlklJgKHlEWUsu/EntJF9RW6E7sxRvjMr6Thmsq+RcKuk1F1lCsPBD1iiONJ/NBaKzYblqOEWHOMyGkFCVyPnvbJXjIwh9ggsXA8+Lh+2vk0ZvmqE/3VdXehhicYMpre+vYVA25uq6tqjSBuvjFLW2wiHAr+GnTX6G+25JUAD6OjZnaDllAu+GlHeo7TWGBf0KJzr1hG75cVM2G0NqRGHIIM7VBJXuz0Av/JX/TURrCGygvcCBU4GbZ6ss57cy7IMYRw==
+ b=SUppXv6cS9jA/7YaW0n8sOLfaxgiQQs/83QAi2q5IrHmraG0kfVM6qf9L8Dz6+WOsUkOo7ogLKmapHlSeewhGqBX8ZgAj7WFA9TY5urnkv75Nf3i1fN4B5H36eLqaG4l+ty10HW4u/smO1aWGAwEk8PDoEsD4ox7mt1MZVrVEHEbb9rU1BLaVcCzeYZr+0RA9gF1PJY4Wq7/eBSWnvUcXhwSWiMsHbwGwUhT31AQ0qQbWfFPRBZ4S8w16T4mG2HdyNXbUCHgVIHs3wuv1xrjz0KL49fIWFA5f8Ru4n8d9UlCUHjMYMo5YlSYSUmpUn9fnQHkBV1vPKtyAyhzcXJz2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q9Eorp1+eb9wTtXqPTMSSUpRS3j8GTcYhvM2pJ9b7HY=;
- b=P8GkfFLTsKGC62I7zLEPZTmfcszXEkv4Hnf3k5wOKXhdNiUTHB5TXvGJH1xna0F8QYy1i5ls5VtzJQ3WLFCpdED0JmxwNqnOTfP67gqHTUxEQjTqpHPw843S5WV4zOncvy7Xn+pCnyR1XmZoDu3ChqpL7Easg39lomSaDhGCend3DufL49zzd0+AcCbFTzern6YeWX1pUI4dHWUI2V8WInX9ok6gJPpfGbDEp285pfcBx+Kg5GZ2V41Y6dtf5vJ/sF/KiLmWbTBSE7UTikPPu+xIesBfoMW2zPjemP2LcXdijtSfZlS5FJO5lpAKUbEUUpoVHxwf0IQWZ9NVn1Hy4w==
+ bh=u5RgwxYEGA5pOYEi5zjJI61yCZxWtEHIEWpSH9aauao=;
+ b=L2zBlAI/3XbpwhaIfHLqZzpGF//fKhUzH28u0JwyPK/qcslTCZZNsoy2K3AI3nMOBjNIjRK1YNNWVtuAsyYdlpVuv0TATJ40bci928m9KzhkLNAkAQI0P8s4ewrKyqmmpoLiKk1O58rW520welDtaTGStH0/cw7FykFyZinXR2xqGwURwtDg/hzDw9viFjYSp+74+PY2j6otEw8eR3DP5bkEygyh1g6fShge4qRkWtJFK8LGjalDgYXrUDNLgCBhyBtR4dXJ8cKah04vxNaPBIscaeMv4MfsMOgH0lx96hV5tC799hKfWzBZKz6o7ScWJnPjXkBEBsk1Y3eqhhGrUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q9Eorp1+eb9wTtXqPTMSSUpRS3j8GTcYhvM2pJ9b7HY=;
- b=ThaU+nh7WDh30iDvG27lwbX4waYMsq4FolfuIn/5f+osUoz4uOFXBWZoJsu4TjkPqYTk+yCZZB+P/8dO0K/Otm5jeHHCDiIVFTRXa1JbvPnVsvdgaH/QRe/ztNYANunNFu5JJ7ZlWfmElWb4sn2TWQybZvqLdqW+Hu67lLHLPoM=
+ bh=u5RgwxYEGA5pOYEi5zjJI61yCZxWtEHIEWpSH9aauao=;
+ b=tlLrYo3IpRH1RlwRAd/BPJs3pHVzwzr3h3FtV8lsFseeS3RVJ4Xncx/1pcRkQ5dybWVel1kk/H57pboZoaXrXuRhjcqDLG6aMcLtAN5bcvonIpwBkgbWn/0N1URbaO0hPYN0zigAeoNKH8gHLwWrxBSAsbUY7N8oD+18SUDXsjs=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
- DM6PR12MB4267.namprd12.prod.outlook.com (2603:10b6:5:21e::16) with
+ DM6PR12MB4810.namprd12.prod.outlook.com (2603:10b6:5:1f7::15) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.20; Fri, 23 Apr 2021 15:05:00 +0000
+ 15.20.4065.24; Fri, 23 Apr 2021 15:36:03 +0000
 Received: from DM5PR12MB2583.namprd12.prod.outlook.com
  ([fe80::d568:cff1:dc2a:5baa]) by DM5PR12MB2583.namprd12.prod.outlook.com
  ([fe80::d568:cff1:dc2a:5baa%3]) with mapi id 15.20.4065.025; Fri, 23 Apr 2021
- 15:05:00 +0000
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: address remove from fault filter
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210423020357.31102-1-Philip.Yang@amd.com>
- <40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <78b91732-54b6-596f-697d-7045a7635ee5@amd.com>
-Date: Fri, 23 Apr 2021 11:04:58 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
-In-Reply-To: <40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com>
-Content-Language: en-CA
+ 15:36:03 +0000
+From: Philip Yang <Philip.Yang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v3 4/5] drm/amdgpu: address remove from fault filter
+Date: Fri, 23 Apr 2021 11:35:49 -0400
+Message-Id: <20210423153550.25188-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::33)
- To DM5PR12MB2583.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::33) To DM5PR12MB2583.namprd12.prod.outlook.com
  (2603:10b6:4:b3::28)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.38] (165.204.55.251) by
- YT1PR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::33) with Microsoft
+Received: from Philip-Dev.amd.com (165.204.55.251) by
+ YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::33) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.21 via Frontend Transport; Fri, 23 Apr 2021 15:04:59 +0000
+ 15.20.4042.21 via Frontend Transport; Fri, 23 Apr 2021 15:36:02 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4ac16cff-8baf-4c3c-3671-08d906692a13
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4267:
+X-MS-Office365-Filtering-Correlation-Id: 907b7369-7536-4e70-4ba0-08d9066d80c0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4810:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB426784CDB7F77E0EDBDA16E5E6459@DM6PR12MB4267.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB48108C64D15B3658A8FABB7EE6459@DM6PR12MB4810.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3UJtRIeRQkTya/5ESe2TG9DdIjaMoglpIIhx6IFwu2yyhnkWxtbEpp8sjs+nLB4/R31T9exXPQHK4sft748NwOKe+BeT0UYiPBYeiu1YZ9Is/e4TFS9EoYiTN0m7erqqrCuMx1A77kS3HZyadNCbhpw7IRUaHS84sfI1iOSJE3cHqRyAVHmPd4ljTYVWKcR0ITMK9NUVtNDO94Brn9bET8PQ3Km0Oy4lBcAFkvMCTo7YgbkvgfNsiv2oMBLiDMCv7eMuY6HOe7rUwDObWpGoWeYzLtLSMjAFHhRHA2grZyOd3urFKEVrPiMIAjXEKlpTB3fWFM17G6KjziDHYbHVWxRlVRJxDf0rD780+i5uvAtVUEyd9cvvDUafCz9knW3cIczrgY4XSoUwkfMLGBCJCUN+6gWPIwx5y9lK7zWv7vYkzXKp2JVbxWSj/PkmKJwWwoeD5MTlDYIBgWxGemXJD6VG0gOLcPdUxoeSRiNaxpN6+EKgfQY32NrDQbeCF97rGbbN3sxen6LHKa+Uqap5U7Tbwy78CJZYfA5OE6ZdV0WeUBmPgmwasfmQ0twzh471nbZD+ktfKTa/rF0bGvxMODJV2WJxWieAFmCb3Vjba59f6bkZmudkZYke+tfGxSItCPYGwxEo5zGFlrc5UGL/2YxOZwZv1j5LGB9pzN5T5p8YzElf71IA4zi8nWieImJh
+X-Microsoft-Antispam-Message-Info: gCC4KVg0AMKgcXnvVMNx8JztOqMdfLIDwz4S4z3WXvE4WcF1sWYbB6oxKCTcVA2tJ+bDwgkeLEyXkZqrk+JIOKmuNZK/Ul3tS0obxFSvXwcjRPntLFoE1Q/m/YNuk5gOFoOjTYvzsCJyn73pDu1t6j7MiLVQmfoCS7gyMiMGg82aXU4vRlJR4fmpj/HGedTHFsdqg1eJIgOhpbVd3DDrLfq4Mr28O+NmJftaCaJvpJnlPlHMsL1elSl3Ru67r4C1t1ix/5v1dXv2dKxBtFv8xXK5CucQc4nUErLSWtjsbb2HxPYvnMOcwQuO4ZGWARDuRrweoReGgolYPODZ+oJUUJKYlIX27Arq9qirSl5q+DwiTwghMfL2646limjBLy6y//PMW1KktWnJonGLzRukM9Vz6ZAFLcO/xjsZFo/SH8zet+94iSyCW0vJJhkOtfDdL6JGpjw1yiRtXfbsW6akuQoR+zCemquVOP5IHDLKehCYCzVj2jobkgLAcCLca7MR+DvEnK3oc2c1gMrM/pugAk0Ys261MzBU7r2aFBXicnezlBNv5tu/nEOhliyA9xc5Likx1jOHwsQBqTBf6Lmc89INIy+BWZr11Nig3K2T9bvMDd0mJV0gKpHo5/afN+mxnF6NE2aOoHhLsfL95kkFFH05UU8OojG5A5Nl7gDU/Sk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(39860400002)(366004)(346002)(136003)(2906002)(186003)(16526019)(83380400001)(26005)(36756003)(31686004)(6486002)(31696002)(38100700002)(2616005)(66476007)(66946007)(66556008)(8676002)(478600001)(956004)(53546011)(110136005)(16576012)(5660300002)(316002)(8936002)(43740500002)(45980500001);
+ SFS:(4636009)(376002)(366004)(396003)(346002)(39850400004)(136003)(6916009)(66946007)(52116002)(36756003)(2906002)(316002)(66556008)(66476007)(6666004)(8676002)(4326008)(8936002)(7696005)(38100700002)(478600001)(2616005)(86362001)(186003)(83380400001)(38350700002)(26005)(6486002)(5660300002)(956004)(16526019)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?ZGxKbmtQaWZJbDdEdGE0TmJhTkc1eE81R3U2ZTRBdXoyOXk1akxOeVdLaDhv?=
- =?utf-8?B?bk1MMXFjelE0c3FCUzA5Mk42U1ptck1KaVlzQW0xWUw0dXFJWGZNR3BOeXdx?=
- =?utf-8?B?dFI2K1dvYm9aejB5ZDlUK2V6dHd1Rlc1TThBT3NmQ042SGwvK1FGQytuaVJy?=
- =?utf-8?B?TlFSZytGZ2NvUDA3TS9SQUw1cm9jVU1wTndaZFlPMlpVaTN4UW9qSnlvV1Ns?=
- =?utf-8?B?Tm13eTU0ZkpwOEx2bUVpbDhDdG1vOW5zeUd5Sk5GQkFicENCd2QvSk5lK2R2?=
- =?utf-8?B?ellJbXZieXRlUmFEaTJ5aUVxOU14cmhieGpyc083anA4ckpTaUo1ZWZybmRS?=
- =?utf-8?B?dFFuVVBFNGQ5Z1pwUHRoVm9vd2IxVWxqZERKNVpyTG1ER0NYYlZLblYzYXlo?=
- =?utf-8?B?TUZtZDFhNGRKWWpmSXNuQzFtc1hBMEkwKy9vbjJUOWc2NDgwZW9XbGRQVmx3?=
- =?utf-8?B?eVdBL0R4WWExSUFCMldIU2x0UlR6SjFMWmJ1K1RDUHhaUm1OaVo3cGVoZ1pH?=
- =?utf-8?B?d0tMRVhON0tJTTJxSUFnQXF4Uk10d0crMjBKeFRNOEhoVFFjOUVVUVBENUxq?=
- =?utf-8?B?amMwWXljZjlaOSsxU01TaHNJcVVrMThTUWcycENrYmU4UUxwTHpNNXpseUpi?=
- =?utf-8?B?Si90UEo1Ty9pKzhpdzNHQ0xtNm9Kdkxzb1pxVXZWRm02bWN6R1JRT2poUnVY?=
- =?utf-8?B?SmpMeGh2OWFRcW12S2Ftam5nOE80Q0VQNFJzK0pJVHM3OXdzLzA5ckFTSWt4?=
- =?utf-8?B?WG1VMG1rQ05VSmR2WHFpY2xKM1BXZDNWR2FWcGN4R3M5d0F4U2ZaTW45OGVL?=
- =?utf-8?B?M1hJTU1ZcGp6T2RaOE5TbGtCckpUZFg0VHg5RWhFb2YrVGdIRTI4Mm5qZ1Qv?=
- =?utf-8?B?NzFRL3dHTFBPbGZBMlJZdDEwVGowY2FvRy9BMStITzB5N3NEbGJoZ3c5Zk1E?=
- =?utf-8?B?eUk5MDNrT0dnd1hDVXI5cEh1YjZUU3FqS0lhNHBqT3cybXpzZHU4NzE1MjFu?=
- =?utf-8?B?bHNEdzFndGZTRWJDMUJSZWxIUTJKSmRKb1BOeW1hUE9SSUc2b1dvQjlLM3BP?=
- =?utf-8?B?MzN0UERRRG04SU5nRzZuVGFpMTVJVExON0RRUFJGdUxabHRkZHhLOTArM2hj?=
- =?utf-8?B?aFA1YU9tbjh1VkxSYmZmRk1JbUVvZjZXeUFPUllpZjlDaERuTzBmSTFMcDcy?=
- =?utf-8?B?SkhidHpUbFBGN3JLaVkvdkduL0NOSG83MUJnRCtBa2F0S2xkTlM4elEvcnFD?=
- =?utf-8?B?V05RL3lQRkxnWEF0aWpxbWtobG4yQU9rMEo5R3BRbnI2YmgyaklzNXZJUm5Q?=
- =?utf-8?B?bS9rTTlya1IxT2JjWU5nQUhRNGk4RWRQMTdZenV1K2VJMFlPVWZ2QWYwUUlm?=
- =?utf-8?B?K1dpRXhKM0Fmd094N29xTkVETmJrbis5WDh4di9qaUMzRzZ4VmFoaXdnbFVo?=
- =?utf-8?B?N2Q3Y0M1Wlk2cnlEbm5uamxYbm5hdEYxRTNCMXlpSEp0KzRJaDFiMlZjMDFO?=
- =?utf-8?B?d3V3UmtpQVVWa1kyb0REbnFHaUtYaXl0Wk9GUlFSSEIxZXgvaDBTOVJtM1RF?=
- =?utf-8?B?L1ZldlFqb25Sa1RVU0IxUFZibko0OFZsUjhNcVhCYzA5WlFWenlTS1VDRnFp?=
- =?utf-8?B?NmMzZHpUd1IydzRpenpsdkVXYmU2UGhtSWlrUE90RVM1YVAyRkZzK0krU3BQ?=
- =?utf-8?B?b3JnM25BSVZ4bzR6OVo4UTFPc09OeXFMVVQ3NWFmOWJOUDdzRWltNWlZZjR2?=
- =?utf-8?Q?QdYWxB35yCR4/JW4viRQKL8LhIZFJYNfsVYesa5?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?rfrQpNPC5UoSVmV/kwZ3PEbVikmRNRTN+sBSj1A10JYP7aLxBtLE2OXWJG//?=
+ =?us-ascii?Q?8wxD0KJZ3a+hJHd007XG5fzEf+TTOyN3nfWJKS/2Pqd1bxAC2Hj0QII/V0B9?=
+ =?us-ascii?Q?7VZlBuLBi3BaCYIN3AEKOv0cEw5Didxe3qeklJp2XpFAxQSlrlAmPrXx/6FH?=
+ =?us-ascii?Q?BXEfQrD0DVTGj8pmJ/+kC+Q95TsdUUJ3rUsfFI8EaczozvFx4dnNlZTiPM5G?=
+ =?us-ascii?Q?/WTKcUrv1lCAZGFTG2//W9W4/kodrmTyyhxBny/HzAYOhQY5F+zDuSx6N+Vd?=
+ =?us-ascii?Q?Jn6eO6gWoMsh36Q+7dk+CC+qc8gCZW28VXLN86jiCPuGVPmXinKwupJg/uiu?=
+ =?us-ascii?Q?ZVvrSNojm/rTwc2WfoXYhkL5RbMiaXL+HZmllSVMRStA8CSYAmL+Xkhi8K3v?=
+ =?us-ascii?Q?zwh9cM2pMoj4jedNz07bjFhcir1gkVpWyNq3QcOmI1wAU9k+POwcBiFEFYak?=
+ =?us-ascii?Q?4UxeVhHilSD5wUQ6NR4jutGRPGFdzsyKekT2KJynVlgL4Iyj8FUtEKxrCdl4?=
+ =?us-ascii?Q?ATcDTPsw50C4xjdjdHAjOuI44jdqhPPsMHMJFE/xYBa8cnOGP+c6O8jubb18?=
+ =?us-ascii?Q?aD2cH+uaa/ukpV+pamXSNfIXiSjf7gLTHhYDTHd6t0Cg7Biy3rzKTeEyRbmm?=
+ =?us-ascii?Q?/TeWkw7uWFdwWxLks4cqBUmXPc1NZJ/9c6HaiJ7nz4ugyBcYkqgPYVysCS1u?=
+ =?us-ascii?Q?zUSzax98gF8i1pF5QQxATb0A98YmWYjtL9DfHSjArGWpjkMom5iTy5Cyqefo?=
+ =?us-ascii?Q?sX8CecCbEW9aChmgGY+0RSjFVF4/xgO7z+9UJawdvQw7TzPYz0P+ujHseJQE?=
+ =?us-ascii?Q?ISb43e7wzh+r4z3hj36dq4k2QV8C4HXtpC1xsgDz/JbE5Aocm0EnXAL+eUhm?=
+ =?us-ascii?Q?QuOvvTPePP8+ohI1F/r/D1NhS1n4v6K7MeegbsIqVRDqMad6ZyIQsAxOa5jV?=
+ =?us-ascii?Q?HlHcVPdOqWYO2Ca6q84rHIBgzS4Rp+1XLEpjFK/AQz9PCoJan677lsX0QAAj?=
+ =?us-ascii?Q?Z2YHsY91de7IQvIlU3gkimseJ2h2C0YqtdMH9+YglWZ883bQr3oH9TIfFc+o?=
+ =?us-ascii?Q?QQLoBbehwT8uKOV9lltZNuWbgy2C0UJHjJmojgNTbVTrw4bNgv9uM+CqoV6Q?=
+ =?us-ascii?Q?8O7X8BZeew+sDUE/E9zgYOw7PN/UuPFBGvLPbQ/Rk0vZyiwyvDTJdJ1fG3Tj?=
+ =?us-ascii?Q?QwdiXDlDwobWA6hBjvGqlMi4Z+3xXGkikkLYPMSMZIAWlatgJZJV4cy46ZAy?=
+ =?us-ascii?Q?ES7nKN5h6R0ie0S/Xpl/DCgGFUO7Fio8YS2yUZ2H+h9HGfoNoy1qfh5CQmX+?=
+ =?us-ascii?Q?228thO+7BUQkN/FZ47GQFtGK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ac16cff-8baf-4c3c-3671-08d906692a13
+X-MS-Exchange-CrossTenant-Network-Message-Id: 907b7369-7536-4e70-4ba0-08d9066d80c0
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 15:05:00.1128 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2021 15:36:03.2282 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iIhj6CEwDrp3Rk1cevnKunThthfM39TGxdL9Jr23+MJrVsSaOmmZsucRAYE9sjuo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4267
+X-MS-Exchange-CrossTenant-UserPrincipalName: LZrwD5RekOVUh/2fGGrg5YnqisMz2AdqOxZZn21AdpPCLrzi0Yrt2SvsOUpvyPCQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4810
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,73 +123,20 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1458263889=="
+Cc: Philip Yang <Philip.Yang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1458263889==
-Content-Type: text/html; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2021-04-23 2:03 a.m., Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com">
-      <pre class="moz-quote-pre" wrap="">Am 2021-04-22 um 10:03 p.m. schrieb Philip Yang:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Add interface to remove address from fault filter ring by resetting
-fault ring entry of the fault address timestamp to 0, then future vm
-fault on the address will be processed to recover.
+Add interface to remove address from fault filter ring by resetting
+fault ring entry key, then future vm fault on the address will be
+processed to recover.
 
 Use spinlock to protect fault hash ring access by interrupt handler and
 interrupt scheduled deferred work for vg20.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-This needs a better explanation. When you say Vega20, I think you're
-referring to the lack of HW IH rerouting. In that case
-amdgpu_gmc_filter_faults runs in interrupt context before delegating the
-IH entries to the SW IH ring.
-</pre>
-    </blockquote>
-    yes, Vega20 uses ih_soft ring, I need add drain retry fault from
-    ih_soft ring for Vega20.<br>
-    <blockquote type="cite" cite="mid:40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-On GPUs that support IH rerouting, amdgpu_gmc_filter_faults runs in the
-same thread as the page fault handling, so there is no risk of
-concurrently accessing the fault ring assuming that
-amdgpu_gmc_filter_faults_remove is only called from the page fault handler.
 
-Christian had an idea to do this without a lock, by using cmpxchg. I
-guess that idea didn't work out?
-</pre>
-    </blockquote>
-    <p>cmpxchg cannot use for 52bit fault-&gt;key, which share same
-      uint64_t with 8bit fault-&gt;next. This is compilation error:<br>
-    </p>
-    <p>/home/yangp/git/compute_staging/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c:435:22:
-      error: cannot take address of bit-field ‘key’</p>
-    &nbsp;&nbsp; if (atomic_cmpxchg(&amp;fault-&gt;key, key, 0) == key)<br>
-    <p>Vega20 interrupt handler and deferred work access fault hash
-      table and fault ring, not just fault-&gt;key, so I decide to use
-      spinlock.<br>
-    </p>
-    <blockquote type="cite" cite="mid:40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 66 +++++++++++++++++++++++--
  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 ++
@@ -212,11 +145,11 @@ Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.
  4 files changed, 68 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index c39ed9eb0987..801ea0623453 100644
+index c39ed9eb0987..91106b59389f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
 @@ -332,6 +332,17 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
- 			mc-&gt;agp_size &gt;&gt; 20, mc-&gt;agp_start, mc-&gt;agp_end);
+ 			mc->agp_size >> 20, mc->agp_start, mc->agp_end);
  }
  
 +/**
@@ -227,7 +160,7 @@ index c39ed9eb0987..801ea0623453 100644
 + */
 +static inline uint64_t fault_key(uint64_t addr, uint16_t pasid)
 +{
-+	return addr &lt;&lt; 4 | pasid;
++	return addr << 4 | pasid;
 +}
 +
  /**
@@ -235,9 +168,9 @@ index c39ed9eb0987..801ea0623453 100644
   *
 @@ -349,15 +360,20 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
  {
- 	struct amdgpu_gmc *gmc = &amp;adev-&gt;gmc;
+ 	struct amdgpu_gmc *gmc = &adev->gmc;
  
--	uint64_t stamp, key = addr &lt;&lt; 4 | pasid;
+-	uint64_t stamp, key = addr << 4 | pasid;
 +	uint64_t stamp, key = fault_key(addr, pasid);
  	struct amdgpu_gmc_fault *fault;
 +	unsigned long flags;
@@ -246,33 +179,33 @@ index c39ed9eb0987..801ea0623453 100644
  	/* If we don't have space left in the ring buffer return immediately */
  	stamp = max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
  		AMDGPU_GMC_FAULT_TIMEOUT;
--	if (gmc-&gt;fault_ring[gmc-&gt;last_fault].timestamp &gt;= stamp)
+-	if (gmc->fault_ring[gmc->last_fault].timestamp >= stamp)
 +
-+	spin_lock_irqsave(&amp;gmc-&gt;fault_lock, flags);
-+	if (gmc-&gt;fault_ring[gmc-&gt;last_fault].timestamp &gt;= stamp) {
-+		spin_unlock_irqrestore(&amp;gmc-&gt;fault_lock, flags);
++	spin_lock_irqsave(&gmc->fault_lock, flags);
++	if (gmc->fault_ring[gmc->last_fault].timestamp >= stamp) {
++		spin_unlock_irqrestore(&gmc->fault_lock, flags);
  		return true;
 +	}
  
  	/* Try to find the fault in the hash */
  	hash = hash_64(key, AMDGPU_GMC_FAULT_HASH_ORDER);
 @@ -365,8 +381,10 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
- 	while (fault-&gt;timestamp &gt;= stamp) {
+ 	while (fault->timestamp >= stamp) {
  		uint64_t tmp;
  
--		if (fault-&gt;key == key)
-+		if (fault-&gt;key == key) {
-+			spin_unlock_irqrestore(&amp;gmc-&gt;fault_lock, flags);
+-		if (fault->key == key)
++		if (fault->key == key) {
++			spin_unlock_irqrestore(&gmc->fault_lock, flags);
  			return true;
 +		}
  
- 		tmp = fault-&gt;timestamp;
- 		fault = &amp;gmc-&gt;fault_ring[fault-&gt;next];
+ 		tmp = fault->timestamp;
+ 		fault = &gmc->fault_ring[fault->next];
 @@ -384,9 +402,51 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
  	/* And update the hash */
- 	fault-&gt;next = gmc-&gt;fault_hash[hash].idx;
- 	gmc-&gt;fault_hash[hash].idx = gmc-&gt;last_fault++;
-+	spin_unlock_irqrestore(&amp;gmc-&gt;fault_lock, flags);
+ 	fault->next = gmc->fault_hash[hash].idx;
+ 	gmc->fault_hash[hash].idx = gmc->last_fault++;
++	spin_unlock_irqrestore(&gmc->fault_lock, flags);
  	return false;
  }
  
@@ -289,62 +222,32 @@ index c39ed9eb0987..801ea0623453 100644
 +void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
 +				     uint16_t pasid)
 +{
-+	struct amdgpu_gmc *gmc = &amp;adev-&gt;gmc;
++	struct amdgpu_gmc *gmc = &adev->gmc;
 +
 +	uint64_t key = fault_key(addr, pasid);
 +	struct amdgpu_gmc_fault *fault;
 +	unsigned long flags;
 +	uint32_t hash;
 +
-+	spin_lock_irqsave(&amp;gmc-&gt;fault_lock, flags);
++	spin_lock_irqsave(&gmc->fault_lock, flags);
 +	hash = hash_64(key, AMDGPU_GMC_FAULT_HASH_ORDER);
-+	fault = &amp;gmc-&gt;fault_ring[gmc-&gt;fault_hash[hash].idx];
++	fault = &gmc->fault_ring[gmc->fault_hash[hash].idx];
 +	while (true) {
 +		uint64_t tmp;
 +
-+		if (fault-&gt;key == key) {
-+			fault-&gt;timestamp = 0;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Setting the timestamp to 0 breaks the chain of interrupts with the same
-hash. As you can see in amdgpu_gmc_filter_faults, it uses a closed hash
-algorithm that looks for the entry with the correct key until it hits a
-time stamp that's too old. So resetting the timestamp will break that
-chain and effectively remove all entries with the same hash that have
-older timestamps than the one you intended to remove.
-
-I suggested invalidating the fault-&gt;key instead, leaving the timestamp
-alone. This would effectively remove the entry from the hash chain but
-would still allow amdgpu_gmc_filter_fault to find older entries with the
-same hash.</pre>
-    </blockquote>
-    <p>thanks, I understand how this closed hash table and fault ring
-      works now.</p>
-    <p>Will send out v3 shortly.</p>
-    <p>Thanks,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:40afb92c-cdb1-a20b-0976-a7e783462e62@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Regards,
-&nbsp; Felix
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+			break;
++		if (fault->key == key) {
++			fault->key = fault_key(0, 0);
++			break;
 +		}
 +
-+		tmp = fault-&gt;timestamp;
-+		fault = &amp;gmc-&gt;fault_ring[fault-&gt;next];
++		tmp = fault->timestamp;
++		fault = &gmc->fault_ring[fault->next];
 +
 +		/* Check if the entry was reused */
-+		if (fault-&gt;timestamp &gt;= tmp)
++		if (fault->timestamp >= tmp)
 +			break;
 +	}
-+	spin_unlock_irqrestore(&amp;gmc-&gt;fault_lock, flags);
++	spin_unlock_irqrestore(&gmc->fault_lock, flags);
 +}
 +
  int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
@@ -376,40 +279,29 @@ index 498b28a35f5b..7416ad874652 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
 @@ -839,6 +839,7 @@ static int gmc_v10_0_sw_init(void *handle)
- 	adev-&gt;mmhub.funcs-&gt;init(adev);
+ 	adev->mmhub.funcs->init(adev);
  
- 	spin_lock_init(&amp;adev-&gt;gmc.invalidate_lock);
-+	spin_lock_init(&amp;adev-&gt;gmc.fault_lock);
+ 	spin_lock_init(&adev->gmc.invalidate_lock);
++	spin_lock_init(&adev->gmc.fault_lock);
  
- 	if ((adev-&gt;flags &amp; AMD_IS_APU) &amp;&amp; amdgpu_emu_mode == 1) {
- 		adev-&gt;gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
+ 	if ((adev->flags & AMD_IS_APU) && amdgpu_emu_mode == 1) {
+ 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 index 4da8b3d28af2..3290b259a372 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 @@ -1444,6 +1444,7 @@ static int gmc_v9_0_sw_init(void *handle)
- 	adev-&gt;mmhub.funcs-&gt;init(adev);
+ 	adev->mmhub.funcs->init(adev);
  
- 	spin_lock_init(&amp;adev-&gt;gmc.invalidate_lock);
-+	spin_lock_init(&amp;adev-&gt;gmc.fault_lock);
+ 	spin_lock_init(&adev->gmc.invalidate_lock);
++	spin_lock_init(&adev->gmc.fault_lock);
  
  	r = amdgpu_atomfirmware_get_vram_info(adev,
- 		&amp;vram_width, &amp;vram_type, &amp;vram_vendor);
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---===============1458263889==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 		&vram_width, &vram_type, &vram_vendor);
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1458263889==--
