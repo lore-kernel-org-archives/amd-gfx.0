@@ -2,75 +2,68 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43319C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 06:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CCC77C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB59861027
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 06:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB59861027
+	by mail.kernel.org (Postfix) with ESMTPS id 6639861090
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6639861090
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A55A89FC0;
-	Mon, 26 Apr 2021 06:49:16 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6A189FC0
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 06:49:15 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id ja3so6876849ejc.9
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Apr 2021 23:49:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF1CC6E516;
+	Mon, 26 Apr 2021 08:15:52 +0000 (UTC)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 841CE6E1F6;
+ Sat, 24 Apr 2021 09:40:30 +0000 (UTC)
+Received: by mail-pf1-x436.google.com with SMTP id y62so3010848pfg.4;
+ Sat, 24 Apr 2021 02:40:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=qXq+w1lEkDI7dVZMQDYXa/JSwTcgXlJBhIvbj7vIkX0=;
- b=q8lA0+eCBd2vz0+b4XC/7LhrbWsYGHOxF5zU0Y2xyYFxiB3TVUJgRyUYayqPZE9/di
- MFOz/H4mJj4b+FwR1dH/+eHBNEL9bSugtJRac6tn6hGCVajJaGglgqB/gPpdmGOdImFZ
- af8bqspyY6WSjI/vvrGn0HZV/3bMJHCmG17ywpPEarQ5yC0V6Dy1jc8HuJ1x+M6jgAcg
- IEwRRLFNxNo7OebmnDenlXKQcGrH1Y1egt7EvSVf0seU1GkrURIrylC8JkpMm/qo3VwW
- ff3k6h1J+Lu51p6MfW/7COwKWZwSB00QH++I6C1IoijoHVe6pniUJc3zq+isHcpKaZZu
- 6Kiw==
+ h=from:to:cc:subject:date:message-id;
+ bh=LA57vWCVMiY4P4woVTvjEC8mwlFLbTmc6hS8nrtLwxk=;
+ b=UHnm3Zn5HEbbnn5HFCMzzMQPadz+vkhBazkUKZ4mAc3p5JOou3t9BqDtm1cb6txw2G
+ gAnZ38tfzxUXHSNmbcMdXUhCnLjjb2R67/imj108QATFLT+Jv3DUW5jOr96RumMzj5w/
+ kbfGNlszEGrOx72VzADAdcZzlL1LbeGmedZtkikkTj1OotgEUFkI3L04xFzupfqxV/Uo
+ lgb3cS+fPoVCN2K+WxdR3q2Y3LmbwUo7BmOPPXJHd+J0TuzBTzI/Lw56wGbt63dhG1d9
+ TXb6xOGfjQf1k7kGWGaLhpXsbtxBu8LUc2iZ3j8jIlhiajMkGAJCazJ1v7WQpcITpwrr
+ xkEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=qXq+w1lEkDI7dVZMQDYXa/JSwTcgXlJBhIvbj7vIkX0=;
- b=WoNnvp0u6MhWUSLab8BTR3TfRIAVIqKCLNhBEN7Xxei+O4V6BHbhozTfXq7c5PHD8Q
- vgeFJN8faWMBVrSrLb6/tenuu5uo3glfZK1n+Qh549jFj6lDsaZYX7VqB/IyEheqGQ30
- SWga5E37OllMbkiLkfBymUfPWca8YW0vi7aGOjbmOvSNMnzqQrezSr00myMa7eM549CD
- gGST5nxdRdu9PaljTTpgzY8E2vmorNVwNeVZfbml5o5OE5Ew+OeOlskLzGWeLFtiwQqe
- P+mwSGK0ely0TwGQYSuzdj9VnT3q4rAkwa3uN7rK250RbhnPurMWfIRiEoINNfY7S2Zo
- quvA==
-X-Gm-Message-State: AOAM5314gebQZ0zlanr0I6vm9vcgGV3LnD4NdDyjvOdVYtqwltdyBWQG
- f0oyP4Xlhpxr6uW+Nu2FnZxtzqrFxeg=
-X-Google-Smtp-Source: ABdhPJxM73OmuOiqgVHYi+U/dVUMVzmW4QjpBV6tBt6Y577N0rP5TQKYSj/zZD+mdPxSpQquLlUP4Q==
-X-Received: by 2002:a17:906:e118:: with SMTP id
- gj24mr6007440ejb.205.1619419753823; 
- Sun, 25 Apr 2021 23:49:13 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:ddf1:e741:577e:9eb2?
- ([2a02:908:1252:fb60:ddf1:e741:577e:9eb2])
- by smtp.gmail.com with ESMTPSA id 9sm10690894ejv.73.2021.04.25.23.49.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 25 Apr 2021 23:49:13 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-To: Alex Deucher <Alexander.Deucher@amd.com>
-References: <20210426062701.39732-1-Roy.Sun@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <8b8ec884-5b0b-3409-b7b0-be7da43e3e71@gmail.com>
-Date: Mon, 26 Apr 2021 08:49:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210426062701.39732-1-Roy.Sun@amd.com>
-Content-Language: en-US
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=LA57vWCVMiY4P4woVTvjEC8mwlFLbTmc6hS8nrtLwxk=;
+ b=nUpwyAA2HmNDYSafUZemWdvi2wJj+T13j9Ggg5A7pxherzFHLwLj51xUcjX1NnWaAe
+ HZZ8aFwh58nMRDm3Vvk0PNIbqzK1kJJjTFoNuE8MW3GiJnyQrtO3T5Fzemz5AmH+wjbx
+ URkt4FqB8BlsNe4sCM3Kx6tnSToK5nJjZznxfqu20Vuf0c7tcv/1qLLlmb1EBUIF69s7
+ u8w2IiCx8XVMFQ7822PErmdIKGOhMlhb1spitSFoBMVuagpQEIiBi+Rik+3W1dfiDaTP
+ XY3WRmUmo6Y9IuwsedPkWZMkWO29hIm0S35fiqxccJQgB4vj5y2f6VFw5G7d1pY4la4F
+ as4g==
+X-Gm-Message-State: AOAM532dunEqPfhlC7TtaKq5+i39z6OyTyrdR2zEQuqc/ez7Y2StdFpB
+ WhNQNDk2fTaYxalZsINRPdPsuDpARHo=
+X-Google-Smtp-Source: ABdhPJwg+tg8GcPgDvv2TDIocwUvqkaroiM+AEvPeULvWWiUJbExOXBCKpVrELN6EVIIo6LoFm7imw==
+X-Received: by 2002:a62:9283:0:b029:25d:4039:cac1 with SMTP id
+ o125-20020a6292830000b029025d4039cac1mr7867494pfd.77.1619257229981; 
+ Sat, 24 Apr 2021 02:40:29 -0700 (PDT)
+Received: from localhost.localdomain ([49.37.81.172])
+ by smtp.gmail.com with ESMTPSA id o9sm7228119pfh.217.2021.04.24.02.40.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 24 Apr 2021 02:40:29 -0700 (PDT)
+From: Souptick Joarder <jrdr.linux@gmail.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH v2] drm/amdgpu: Added missing prototype
+Date: Sat, 24 Apr 2021 15:10:20 +0530
+Message-Id: <1619257220-3905-1-git-send-email-jrdr.linux@gmail.com>
+X-Mailer: git-send-email 1.9.1
+X-Mailman-Approved-At: Mon, 26 Apr 2021 08:15:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,72 +75,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Roy Sun <Roy.Sun@amd.com>,
- David M Nieto <david.nieto@amd.com>
+Cc: Souptick Joarder <jrdr.linux@gmail.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Alex,
+Kernel test robot throws below warning ->
 
-any objections that we merge those two patches through drm-misc-next?
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:125:5: warning:
+>> no previous prototype for 'kgd_arcturus_hqd_sdma_load'
+>> [-Wmissing-prototypes]
+     125 | int kgd_arcturus_hqd_sdma_load(struct kgd_dev *kgd, void
+*mqd,
 
-Thanks,
-Christian.
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:195:5: warning:
+>> no previous prototype for 'kgd_arcturus_hqd_sdma_dump'
+>> [-Wmissing-prototypes]
+     195 | int kgd_arcturus_hqd_sdma_dump(struct kgd_dev *kgd,
 
-Am 26.04.21 um 08:27 schrieb Roy Sun:
-> Update the timestamp of scheduled fence on HW
-> completion of the previous fences
->
-> This allow more accurate tracking of the fence
-> execution in HW
->
-> Signed-off-by: David M Nieto <david.nieto@amd.com>
-> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index 92d8de24d0a1..f8e39ab0c41b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
->   EXPORT_SYMBOL(drm_sched_resubmit_jobs);
->   
->   /**
-> - * drm_sched_resubmit_jobs_ext - helper to relunch certain number of jobs from mirror ring list
-> + * drm_sched_resubmit_jobs_ext - helper to relaunch certain number of jobs from pending list
->    *
->    * @sched: scheduler instance
->    * @max: job numbers to relaunch
-> @@ -671,7 +671,7 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
->   static struct drm_sched_job *
->   drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   {
-> -	struct drm_sched_job *job;
-> +	struct drm_sched_job *job, *next;
->   
->   	/*
->   	 * Don't destroy jobs while the timeout worker is running  OR thread
-> @@ -690,6 +690,14 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->   		/* remove job from pending_list */
->   		list_del_init(&job->list);
-> We just need to record the scheduled time of the next job. So we
-> need not to check the rest job.
-> +		/* account for the next fence in the queue */
-> +		next = list_first_entry_or_null(&sched->pending_list,
-> +				struct drm_sched_job, list);
-> +		if (next && test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> +			&job->s_fence->finished.flags)) {
-> +			next->s_fence->scheduled.timestamp =
-> +				job->s_fence->finished.timestamp;
-> +		}
->   	} else {
->   		job = NULL;
->   		/* queue timeout for next job */
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:227:6: warning:
+>> no previous prototype for 'kgd_arcturus_hqd_sdma_is_occupied'
+>> [-Wmissing-prototypes]
+     227 | bool kgd_arcturus_hqd_sdma_is_occupied(struct kgd_dev *kgd,
+void *mqd)
+         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:246:5: warning:
+>> no previous prototype for 'kgd_arcturus_hqd_sdma_destroy'
+>> [-Wmissing-prototypes]
+     246 | int kgd_arcturus_hqd_sdma_destroy(struct kgd_dev *kgd, void
+*mqd,
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added prototype for these functions.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+---
+v2:
+	Added header which has the function declarations.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+index 9ef9f3d..6409d6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+@@ -25,6 +25,7 @@
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
++#include "amdgpu_amdkfd_arcturus.h"
+ #include "sdma0/sdma0_4_2_2_offset.h"
+ #include "sdma0/sdma0_4_2_2_sh_mask.h"
+ #include "sdma1/sdma1_4_2_2_offset.h"
+-- 
+1.9.1
 
 _______________________________________________
 amd-gfx mailing list
