@@ -2,67 +2,66 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCC77C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B15BC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6639861090
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6639861090
+	by mail.kernel.org (Postfix) with ESMTPS id 15F566105A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 08:15:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15F566105A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF1CC6E516;
-	Mon, 26 Apr 2021 08:15:52 +0000 (UTC)
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 841CE6E1F6;
- Sat, 24 Apr 2021 09:40:30 +0000 (UTC)
-Received: by mail-pf1-x436.google.com with SMTP id y62so3010848pfg.4;
- Sat, 24 Apr 2021 02:40:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF256E5A4;
+	Mon, 26 Apr 2021 08:15:53 +0000 (UTC)
+Received: from mail-vs1-xe34.google.com (mail-vs1-xe34.google.com
+ [IPv6:2607:f8b0:4864:20::e34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86636E1DE;
+ Sat, 24 Apr 2021 09:27:51 +0000 (UTC)
+Received: by mail-vs1-xe34.google.com with SMTP id y22so1879002vsd.13;
+ Sat, 24 Apr 2021 02:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=LA57vWCVMiY4P4woVTvjEC8mwlFLbTmc6hS8nrtLwxk=;
- b=UHnm3Zn5HEbbnn5HFCMzzMQPadz+vkhBazkUKZ4mAc3p5JOou3t9BqDtm1cb6txw2G
- gAnZ38tfzxUXHSNmbcMdXUhCnLjjb2R67/imj108QATFLT+Jv3DUW5jOr96RumMzj5w/
- kbfGNlszEGrOx72VzADAdcZzlL1LbeGmedZtkikkTj1OotgEUFkI3L04xFzupfqxV/Uo
- lgb3cS+fPoVCN2K+WxdR3q2Y3LmbwUo7BmOPPXJHd+J0TuzBTzI/Lw56wGbt63dhG1d9
- TXb6xOGfjQf1k7kGWGaLhpXsbtxBu8LUc2iZ3j8jIlhiajMkGAJCazJ1v7WQpcITpwrr
- xkEA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rlGWPl25FCa96zci06+ZWbGtm3tUuzzsH67YozYxWGE=;
+ b=sTf+76tWRNc4bSEDLdNAg0wexuK5dsnVUl1FWko6IsXWXz/k/VwT0CaZf0e8mls9yX
+ vu1RB8IyOarHBHxpzItwynwKzCbzaS/+MMT0KRiBZ4rA9605WPwZXHYHgDe2k2FM09bp
+ CQSd3E0bqSC5dT8cBVIvvaqyKr1+Oh1dB/0gHOlSeDAKII+SYBYSPnbpJPId9kXMYaFI
+ c+kLweW2xBC/8F4ZmsxPywClM4LWKtZjjikKmFAEF4k0AFqs2/8c3Fxh+xnDKHyL1SvO
+ aIp4bkXU6+SNL+jFNhEFUDMeX31he7KDwDtASt+FhQfviO6tbx9s2pm+MPI7iRjsI55U
+ vybg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=LA57vWCVMiY4P4woVTvjEC8mwlFLbTmc6hS8nrtLwxk=;
- b=nUpwyAA2HmNDYSafUZemWdvi2wJj+T13j9Ggg5A7pxherzFHLwLj51xUcjX1NnWaAe
- HZZ8aFwh58nMRDm3Vvk0PNIbqzK1kJJjTFoNuE8MW3GiJnyQrtO3T5Fzemz5AmH+wjbx
- URkt4FqB8BlsNe4sCM3Kx6tnSToK5nJjZznxfqu20Vuf0c7tcv/1qLLlmb1EBUIF69s7
- u8w2IiCx8XVMFQ7822PErmdIKGOhMlhb1spitSFoBMVuagpQEIiBi+Rik+3W1dfiDaTP
- XY3WRmUmo6Y9IuwsedPkWZMkWO29hIm0S35fiqxccJQgB4vj5y2f6VFw5G7d1pY4la4F
- as4g==
-X-Gm-Message-State: AOAM532dunEqPfhlC7TtaKq5+i39z6OyTyrdR2zEQuqc/ez7Y2StdFpB
- WhNQNDk2fTaYxalZsINRPdPsuDpARHo=
-X-Google-Smtp-Source: ABdhPJwg+tg8GcPgDvv2TDIocwUvqkaroiM+AEvPeULvWWiUJbExOXBCKpVrELN6EVIIo6LoFm7imw==
-X-Received: by 2002:a62:9283:0:b029:25d:4039:cac1 with SMTP id
- o125-20020a6292830000b029025d4039cac1mr7867494pfd.77.1619257229981; 
- Sat, 24 Apr 2021 02:40:29 -0700 (PDT)
-Received: from localhost.localdomain ([49.37.81.172])
- by smtp.gmail.com with ESMTPSA id o9sm7228119pfh.217.2021.04.24.02.40.25
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 24 Apr 2021 02:40:29 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rlGWPl25FCa96zci06+ZWbGtm3tUuzzsH67YozYxWGE=;
+ b=YBWIM3Ar+L7jJoHOLjkHzsYCt8miVFJQ/tbVPYLAxZ9zCtV+J86zy/wVHXEtBkFPk4
+ 6LAXWkBC4jrmB6q2ZlUzHbK8Ynve9tnu5k6IR7h0CIt3Cyo/9Z+jGroGVVZLXWZ1hp/C
+ UFRQ1gSg7zaL6Aj3ozo6Qz6VnpFQHXmHfdm/kO5A0w/vjZeLqCkrHK7upORk5ASjuV3Y
+ i6jLRVhVx6OLfK+Eck6kyP8iCQmXFi9lxT6L3S0Do8af3oJK8Wgwd5Bg4v9Rgq5JqjcB
+ SlkQyhD706HlMjs6koC9Hif+q+QIQHDNSm9YOW1RHT89ep2/cnuzfvzO9xOw0i6ujJbh
+ yV/A==
+X-Gm-Message-State: AOAM532eYkd9xGQhI46idsN8SJQEJmcoLJyWajDYGT9LG285H8XMuAF9
+ qiBvpAXfDYwdh0RVcj2AWBnfq4+YpmXS5Wv1Tr4=
+X-Google-Smtp-Source: ABdhPJzewChMoUIj259gk1Tr7mqAnTRL0xv0ExATevzweUjTPS5Pzj3bXAxO4wZu56lswZD7wmGZZCObG+AIzQh6yKo=
+X-Received: by 2002:a05:6102:322f:: with SMTP id
+ x15mr6785842vsf.9.1619256470690; 
+ Sat, 24 Apr 2021 02:27:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <1619213997-5475-1-git-send-email-jrdr.linux@gmail.com>
+ <da39ded9-7222-8530-2388-aef3879d1ca3@amd.com>
+In-Reply-To: <da39ded9-7222-8530-2388-aef3879d1ca3@amd.com>
 From: Souptick Joarder <jrdr.linux@gmail.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH v2] drm/amdgpu: Added missing prototype
-Date: Sat, 24 Apr 2021 15:10:20 +0530
-Message-Id: <1619257220-3905-1-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
+Date: Sat, 24 Apr 2021 14:57:39 +0530
+Message-ID: <CAFqt6zbnK6xVvsy5F7ZbOfKhQhfUnv5tPwp+d-_rwxK6TnJUhQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Added missing prototype
+To: Felix Kuehling <felix.kuehling@amd.com>
 X-Mailman-Approved-At: Mon, 26 Apr 2021 08:15:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,66 +74,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Souptick Joarder <jrdr.linux@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+Cc: jonathan.kim@amd.com, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, evan.quan@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Dennis.Li@amd.com,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Kernel test robot throws below warning ->
+On Sat, Apr 24, 2021 at 5:03 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> Am 2021-04-23 um 5:39 p.m. schrieb Souptick Joarder:
+> > Kernel test robot throws below warning ->
+> >
+> >>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:125:5: warning:
+> >>> no previous prototype for 'kgd_arcturus_hqd_sdma_load'
+> >>> [-Wmissing-prototypes]
+> >      125 | int kgd_arcturus_hqd_sdma_load(struct kgd_dev *kgd, void
+> > *mqd,
+> >
+> >>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:227:6: warning:
+> >>> no previous prototype for 'kgd_arcturus_hqd_sdma_is_occupied'
+> >>> [-Wmissing-prototypes]
+> >      227 | bool kgd_arcturus_hqd_sdma_is_occupied(struct kgd_dev *kgd,
+> > void *mqd)
+> >          |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:246:5: warning:
+> >>> no previous prototype for 'kgd_arcturus_hqd_sdma_destroy'
+> >>> [-Wmissing-prototypes]
+> >      246 | int kgd_arcturus_hqd_sdma_destroy(struct kgd_dev *kgd, void
+> > *mqd,
+> >          |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > Added prototype for these functions.
+> The prototypes are already defined in amdgpu_amdkfd_arcturus.h. I think
+> we just need to add a #include in amdgpu_amdkfd_arcturus.c.
+>
 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:125:5: warning:
->> no previous prototype for 'kgd_arcturus_hqd_sdma_load'
->> [-Wmissing-prototypes]
-     125 | int kgd_arcturus_hqd_sdma_load(struct kgd_dev *kgd, void
-*mqd,
+Right. I missed that file. Will send v2.
 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:195:5: warning:
->> no previous prototype for 'kgd_arcturus_hqd_sdma_dump'
->> [-Wmissing-prototypes]
-     195 | int kgd_arcturus_hqd_sdma_dump(struct kgd_dev *kgd,
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:227:6: warning:
->> no previous prototype for 'kgd_arcturus_hqd_sdma_is_occupied'
->> [-Wmissing-prototypes]
-     227 | bool kgd_arcturus_hqd_sdma_is_occupied(struct kgd_dev *kgd,
-void *mqd)
-         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:246:5: warning:
->> no previous prototype for 'kgd_arcturus_hqd_sdma_destroy'
->> [-Wmissing-prototypes]
-     246 | int kgd_arcturus_hqd_sdma_destroy(struct kgd_dev *kgd, void
-*mqd,
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Added prototype for these functions.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
----
-v2:
-	Added header which has the function declarations.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 9ef9f3d..6409d6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -25,6 +25,7 @@
- #include <linux/firmware.h>
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
-+#include "amdgpu_amdkfd_arcturus.h"
- #include "sdma0/sdma0_4_2_2_offset.h"
- #include "sdma0/sdma0_4_2_2_sh_mask.h"
- #include "sdma1/sdma1_4_2_2_offset.h"
--- 
-1.9.1
-
+> Regards,
+>   Felix
+>
+>
+> >
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index dc3a692..8fff0e7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -316,6 +316,11 @@ int amdgpu_device_ip_wait_for_idle(struct amdgpu_device *adev,
+> >                                  enum amd_ip_block_type block_type);
+> >  bool amdgpu_device_ip_is_idle(struct amdgpu_device *adev,
+> >                             enum amd_ip_block_type block_type);
+> > +int kgd_arcturus_hqd_sdma_load(struct kgd_dev *kgd, void *mqd,
+> > +                             uint32_t __user *wptr, struct mm_struct *mm);
+> > +bool kgd_arcturus_hqd_sdma_is_occupied(struct kgd_dev *kgd, void *mqd);
+> > +int kgd_arcturus_hqd_sdma_destroy(struct kgd_dev *kgd, void *mqd,
+> > +                                     unsigned int utimeout);
+> >
+> >  #define AMDGPU_MAX_IP_NUM 16
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
