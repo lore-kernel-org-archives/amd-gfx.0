@@ -2,75 +2,75 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C328C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54779C43460
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:12:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F101B61157
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F101B61157
+	by mail.kernel.org (Postfix) with ESMTPS id E649861158
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 16:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E649861158
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9646E169;
-	Mon, 26 Apr 2021 16:08:13 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 151556E169
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 16:08:12 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id ja3so9370430ejc.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:08:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 645F989F41;
+	Mon, 26 Apr 2021 16:12:29 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3389289F41
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 16:12:28 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id c22so2744578edn.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 09:12:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=zEoGPfBicQbZ3tvzP7qKNPIBKkDsDpsxBHI765hMwOs=;
- b=m3mRG0+Tv92topGhAagFRs3jVhAIBFENQJsKvehw2Hz9pP8dRNlqCuCBc5jbTgzKlV
- P3BkqePlPLE12z84TsDcl+qHbsCvCYZdea5rlSciMrDGZbcxKVQH/Z2h9q5Hv7+C+dv9
- BjtDfx2/GSLN9TvThZmGTqYc81fer/uoOw1N8Hqrv9+/Ndu5t7pvE2ltssmsL2YkfXlT
- QdJBOPF7mTL4AfTTL5RVI8x5xIiYKGHbgCA02VoBq/5QOqPVNrg446ZmdugGSe4rW1pK
- ja3CHZVTdNRbKYbwP9TOeLZ534kW1uvhhnXfF8qpI//lo0UevrlzL2quiFITGBlgoJpY
- nULA==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=Febqw2+ekF2xYCMFlBCj6PaS4p9Jg4IV51WylUBtPDs=;
+ b=lciAX8/jBUpfTTEDPSICz9+a0jFf5qpi2zENBZfWjOLG1Izaj7kQDR9ShQ6frYyFni
+ lfkHz0kk0smv/4W+JanJvnzmrCmOplA3db0aJUvtMZnQNTO0Fu196/BTTFxJrpwro/c/
+ w3nTqSIr54LVvyqz24Y6X29QgFQx0CDDA3b00kFWt6pFPnleBaY5ujtAffCurt13rK4j
+ gQWVl3k1pIX4gg0Op538mIzkawmRu4zgPqKUDrc1qceYcrATCUvdBFhtpZyZ8njac8W7
+ 7GoFbw+vyHcQOk1nXcheElCogFPeOvs9WseHUfJb2hgKuq50Dtvnb12hNQnWBzujBk9O
+ 47dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=zEoGPfBicQbZ3tvzP7qKNPIBKkDsDpsxBHI765hMwOs=;
- b=URI24Aukk8iroOJWApxxiJoFRRQ7bbzaowKHiqhrVvGIVCXkradCQuvYocXNrdCfmT
- ulUUEbBnpi4MZ0G28Hn433M5cMqmPTPxQBVNHO+dOZULpn5xjLzfGIlCWNiFzh67Bkhp
- Wv4SBG23km59I0EtVNj/EUqabBsfP7sNKpW0ulURPdI+1ttpaaxrAIZXXTnl8DPxPlHp
- tXFQ0vf0A3cLmi7DW3OctDm0tgBQ/wghJcIrI8QKDDyOFJkBi4u56ccKmm+NkQT9ecPO
- HPEqSecs3JDt8doAsEjHt8VDDcOqiA/GIMLUrPbBe1upYnAgfXAeJN07cKE5ck8VB+BZ
- LkPA==
-X-Gm-Message-State: AOAM531kX5zAKYAvFuRfs8tFU6InFP5/f8IifNbNItQMmKx+EGISuWB2
- /Hkr0/5BUz9z9MyDp2/Vc0I=
-X-Google-Smtp-Source: ABdhPJxTlwP03e0EwbYKgWw7yfWfYcgBNQNnJKh/hTi3KjlaUg9z1nIChdNYH0lIpo/3c2QsZ+/SMw==
-X-Received: by 2002:a17:906:2596:: with SMTP id
- m22mr19700755ejb.175.1619453290815; 
- Mon, 26 Apr 2021 09:08:10 -0700 (PDT)
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=Febqw2+ekF2xYCMFlBCj6PaS4p9Jg4IV51WylUBtPDs=;
+ b=uVm5p4OdM96bR5UWCT4f0wf3pUgiCnksQwbJln7zEqb2SqV8nDIwcWtE/Bi1i0yq0r
+ Rr8RHDO8RNAj7ZyoQ0GZwupvAiCAEYdAhwGuTacnzdXO0LDlZMtVNHuHmjt/3KQ9DjhQ
+ 0n7IML3/+Sf5lfaAr6dcTo3X8eG/eXrJDZ8qkB7l9RJ6chNi6f6x3CBnxiIvO0aNGhld
+ Z2ctGEG5VmKlJJZoA4wO+5c4U7UvUOIkCZ7z5Y+unyzRkXjt/46ytmb0Pmu08EH7KfvM
+ cRE8m7RzT46paDry0dWi5Vd6o70hWzspE7f2kEaGAwfKYcil16Q7Ihcph9SiK3qORE0S
+ zrGg==
+X-Gm-Message-State: AOAM531wI7zCjvCWW8ki5wwOTWjpDHW+eNLX4xbSV8q954F6hR8XTMf3
+ yRwcUI9mSGBwWFRPbLJzYAa3sVC+VUs=
+X-Google-Smtp-Source: ABdhPJzkMQFYSUHf433yOJCuMtzZEYOZepytspSLcu31uA30NVmwEW18sBPTRU9I1PuHj1lrckweDA==
+X-Received: by 2002:a05:6402:309c:: with SMTP id
+ de28mr11861335edb.191.1619453546927; 
+ Mon, 26 Apr 2021 09:12:26 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:5ea3:9669:f6c0:78b?
  ([2a02:908:1252:fb60:5ea3:9669:f6c0:78b])
- by smtp.gmail.com with ESMTPSA id j16sm213609edt.39.2021.04.26.09.08.09
+ by smtp.gmail.com with ESMTPSA id e11sm11690848ejl.115.2021.04.26.09.12.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Apr 2021 09:08:10 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "Sun, Roy" <Roy.Sun@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210426062701.39732-1-Roy.Sun@amd.com>
- <MN2PR12MB3022E9D72A4816C9A693F591A2429@MN2PR12MB3022.namprd12.prod.outlook.com>
+ Mon, 26 Apr 2021 09:12:26 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: restructure amdgpu_vram_mgr_new
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210426085434.2974-1-christian.koenig@amd.com>
+ <3bcff580-1c9c-c9ab-b5f1-263ea2388cb1@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <134211da-08ff-d652-b01b-2ef513a6dba8@gmail.com>
-Date: Mon, 26 Apr 2021 18:08:08 +0200
+Message-ID: <888ba759-d316-5aaf-f3c4-d5380d63b795@gmail.com>
+Date: Mon, 26 Apr 2021 18:12:25 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB3022E9D72A4816C9A693F591A2429@MN2PR12MB3022.namprd12.prod.outlook.com>
+In-Reply-To: <3bcff580-1c9c-c9ab-b5f1-263ea2388cb1@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,311 +83,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Nieto, David M" <David.Nieto@amd.com>
-Content-Type: multipart/mixed; boundary="===============0649115471=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0649115471==
-Content-Type: multipart/alternative;
- boundary="------------26723EFC46D8F59C564F2532"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------26723EFC46D8F59C564F2532
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-Am 26.04.21 um 17:30 schrieb Wang, Kevin(Yang):
->
-> [AMD Official Use Only - Internal Distribution Only]
->
->
->
->
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Roy Sun <Roy.Sun@amd.com>
-> *Sent:* Monday, April 26, 2021 2:27 PM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Sun, Roy <Roy.Sun@amd.com>; Nieto, David M <David.Nieto@amd.com>
-> *Subject:* [PATCH 1/2] drm/scheduler: Change scheduled fence track
-> Update the timestamp of scheduled fence on HW
-> completion of the previous fences
->
-> This allow more accurate tracking of the fence
-> execution in HW
->
-> Signed-off-by: David M Nieto <david.nieto@amd.com>
-> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
-> ---
->  drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
-> b/drivers/gpu/drm/scheduler/sched_main.c
-> index 92d8de24d0a1..f8e39ab0c41b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct 
-> drm_gpu_scheduler *sched)
->  EXPORT_SYMBOL(drm_sched_resubmit_jobs);
->
->  /**
-> - * drm_sched_resubmit_jobs_ext - helper to relunch certain number of 
-> jobs from mirror ring list
-> + * drm_sched_resubmit_jobs_ext - helper to relaunch certain number of 
-> jobs from pending list
->   *
->   * @sched: scheduler instance
->   * @max: job numbers to relaunch
-> @@ -671,7 +671,7 @@ drm_sched_select_entity(struct drm_gpu_scheduler 
-> *sched)
->  static struct drm_sched_job *
->  drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->  {
-> -       struct drm_sched_job *job;
-> +       struct drm_sched_job *job, *next;
->
->          /*
->           * Don't destroy jobs while the timeout worker is running  OR 
-> thread
-> @@ -690,6 +690,14 @@ drm_sched_get_cleanup_job(struct 
-> drm_gpu_scheduler *sched)
->          if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->                  /* remove job from pending_list */
->                  list_del_init(&job->list);
-> We just need to record the scheduled time of the next job. So we
-> need not to check the rest job.
->
-> [kevin]:
-> ok, it is fine for me with the timestamp flag check.
-> Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
-
-Actually please drop that extra check.
-
-The timestamp is guaranteed to be set on the next job or otherwise we 
-wouldn't got here in the first place.
-
-I've considered dropping the flag for quite a while and don't want any 
-new users of this.
-
-Christian.
-
->
-> +               /* account for the next fence in the queue */
-> +               next = list_first_entry_or_null(&sched->pending_list,
-> +                               struct drm_sched_job, list);
-> +               if (next && test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> + &job->s_fence->finished.flags)) {
-> + next->s_fence->scheduled.timestamp =
-> + job->s_fence->finished.timestamp;
-> +               }
->          } else {
->                  job = NULL;
->                  /* queue timeout for next job */
-> -- 
-> 2.31.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0cebaf8d37e144c6b82108d9087c502e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637550152295564379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Hdiil9BC2sp2pUI1121yZWELoCQqhDqTnbr7E9oVutw%3D&amp;reserved=0 
-> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0cebaf8d37e144c6b82108d9087c502e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637550152295564379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=Hdiil9BC2sp2pUI1121yZWELoCQqhDqTnbr7E9oVutw%3D&amp;reserved=0>
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------26723EFC46D8F59C564F2532
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">Am 26.04.21 um 17:30 schrieb Wang,
-      Kevin(Yang):<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:MN2PR12MB3022E9D72A4816C9A693F591A2429@MN2PR12MB3022.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p
-        style="font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;"
-        align="Left">
-        [AMD Official Use Only - Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
-          font-size:12pt; color:rgb(0,0,0)">
-          <br>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
-            behalf of Roy Sun <a class="moz-txt-link-rfc2396E" href="mailto:Roy.Sun@amd.com">&lt;Roy.Sun@amd.com&gt;</a><br>
-            <b>Sent:</b> Monday, April 26, 2021 2:27 PM<br>
-            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Cc:</b> Sun, Roy <a class="moz-txt-link-rfc2396E" href="mailto:Roy.Sun@amd.com">&lt;Roy.Sun@amd.com&gt;</a>; Nieto, David M
-            <a class="moz-txt-link-rfc2396E" href="mailto:David.Nieto@amd.com">&lt;David.Nieto@amd.com&gt;</a><br>
-            <b>Subject:</b> [PATCH 1/2] drm/scheduler: Change scheduled
-            fence track</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText">Update the timestamp of scheduled
-                fence on HW<br>
-                completion of the previous fences<br>
-                <br>
-                This allow more accurate tracking of the fence<br>
-                execution in HW<br>
-                <br>
-                Signed-off-by: David M Nieto <a class="moz-txt-link-rfc2396E" href="mailto:david.nieto@amd.com">&lt;david.nieto@amd.com&gt;</a><br>
-                Signed-off-by: Roy Sun <a class="moz-txt-link-rfc2396E" href="mailto:Roy.Sun@amd.com">&lt;Roy.Sun@amd.com&gt;</a><br>
-                ---<br>
-                 drivers/gpu/drm/scheduler/sched_main.c | 12
-                ++++++++++--<br>
-                 1 file changed, 10 insertions(+), 2 deletions(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-                b/drivers/gpu/drm/scheduler/sched_main.c<br>
-                index 92d8de24d0a1..f8e39ab0c41b 100644<br>
-                --- a/drivers/gpu/drm/scheduler/sched_main.c<br>
-                +++ b/drivers/gpu/drm/scheduler/sched_main.c<br>
-                @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct
-                drm_gpu_scheduler *sched)<br>
-                 EXPORT_SYMBOL(drm_sched_resubmit_jobs);<br>
-                 <br>
-                 /**<br>
-                - * drm_sched_resubmit_jobs_ext - helper to relunch
-                certain number of jobs from mirror ring list<br>
-                + * drm_sched_resubmit_jobs_ext - helper to relaunch
-                certain number of jobs from pending list<br>
-                  *<br>
-                  * @sched: scheduler instance<br>
-                  * @max: job numbers to relaunch<br>
-                @@ -671,7 +671,7 @@ drm_sched_select_entity(struct
-                drm_gpu_scheduler *sched)<br>
-                 static struct drm_sched_job *<br>
-                 drm_sched_get_cleanup_job(struct drm_gpu_scheduler
-                *sched)<br>
-                 {<br>
-                -       struct drm_sched_job *job;<br>
-                +       struct drm_sched_job *job, *next;<br>
-                 <br>
-                         /*<br>
-                          * Don't destroy jobs while the timeout worker
-                is running  OR thread<br>
-                @@ -690,6 +690,14 @@ drm_sched_get_cleanup_job(struct
-                drm_gpu_scheduler *sched)<br>
-                         if (job &amp;&amp;
-                dma_fence_is_signaled(&amp;job-&gt;s_fence-&gt;finished))
-                {<br>
-                                 /* remove job from pending_list */<br>
-                                 list_del_init(&amp;job-&gt;list);<br>
-                We just need to record the scheduled time of the next
-                job. So we <br>
-                need not to check the rest job.</div>
-              <div class="PlainText"><br>
-              </div>
-              <div class="PlainText">[kevin]:</div>
-              <div class="PlainText">ok, it is fine for me with the
-                timestamp flag check.</div>
-              <div class="PlainText">Reviewed-by: Kevin Wang
-                <a class="moz-txt-link-rfc2396E" href="mailto:kevin1.wang@amd.com">&lt;kevin1.wang@amd.com&gt;</a></div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-    Actually please drop that extra check.<br>
-    <br>
-    The timestamp is guaranteed to be set on the next job or otherwise
-    we wouldn't got here in the first place.<br>
-    <br>
-    I've considered dropping the flag for quite a while and don't want
-    any new users of this.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:MN2PR12MB3022E9D72A4816C9A693F591A2429@MN2PR12MB3022.namprd12.prod.outlook.com">
-      <div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText"><br>
-                +               /* account for the next fence in the
-                queue */<br>
-                +               next =
-                list_first_entry_or_null(&amp;sched-&gt;pending_list,<br>
-                +                               struct drm_sched_job,
-                list);<br>
-                +               if (next &amp;&amp;
-                test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,<br>
-                +                      
-                &amp;job-&gt;s_fence-&gt;finished.flags)) {<br>
-                +                      
-                next-&gt;s_fence-&gt;scheduled.timestamp =<br>
-                +                              
-                job-&gt;s_fence-&gt;finished.timestamp;<br>
-                +               }<br>
-                         } else {<br>
-                                 job = NULL;<br>
-                                 /* queue timeout for next job */<br>
-                -- <br>
-                2.31.1<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                <a
-href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0cebaf8d37e144c6b82108d9087c502e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637550152295564379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=Hdiil9BC2sp2pUI1121yZWELoCQqhDqTnbr7E9oVutw%3D&amp;amp;reserved=0"
-                  moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=04%7C01%7CKevin1.Wang%40amd.com%7C0cebaf8d37e144c6b82108d9087c502e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637550152295564379%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=Hdiil9BC2sp2pUI1121yZWELoCQqhDqTnbr7E9oVutw%3D&amp;amp;reserved=0</a><br>
-              </div>
-            </span></font></div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------26723EFC46D8F59C564F2532--
-
---===============0649115471==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0649115471==--
+CgpBbSAyNi4wNC4yMSB1bSAxODowMiBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IEFtIDIwMjEt
+MDQtMjYgdW0gNDo1NCBhLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4gTWVyZ2UgdGhl
+IHR3byBsb29wcywgbG9vc2VuIHRoZSByZXN0cmljdGlvbiBmb3IgYmlnIGFsbG9jYXRpb25zLgo+
+PiBUaGlzIHJlZHVjZXMgdGhlIENQVSBvdmVyaGVhZCBpbiB0aGUgZ29vZCBjYXNlLCBidXQgaW5j
+cmVhc2VzCj4+IGl0IGEgYml0IHVuZGVyIG1lbW9yeSBwcmVzc3VyZS4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiAtLS0K
+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDU4ICsr
+KysrKysrKy0tLS0tLS0tLS0tCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDI3IGluc2VydGlvbnMoKyks
+IDMxIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdnJhbV9tZ3IuYwo+PiBpbmRleCA1MjljNWMzMmEyMDUuLmUyY2JlMTk0MDRjMCAxMDA2NDQK
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPj4gQEAg
+LTM1OCwxMyArMzU4LDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3Qg
+dHRtX3Jlc291cmNlX21hbmFnZXIgKm1hbiwKPj4gICAJCQkgICAgICAgY29uc3Qgc3RydWN0IHR0
+bV9wbGFjZSAqcGxhY2UsCj4+ICAgCQkJICAgICAgIHN0cnVjdCB0dG1fcmVzb3VyY2UgKm1lbSkK
+Pj4gICB7Cj4+ICsJdW5zaWduZWQgbG9uZyBscGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2Rl
+LCBwYWdlc19sZWZ0LCBwYWdlczsKPj4gICAJc3RydWN0IGFtZGdwdV92cmFtX21nciAqbWdyID0g
+dG9fdnJhbV9tZ3IobWFuKTsKPj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSB0b19h
+bWRncHVfZGV2aWNlKG1ncik7Cj4+ICsJdWludDY0X3QgdmlzX3VzYWdlID0gMCwgbWVtX2J5dGVz
+LCBtYXhfYnl0ZXM7Cj4+ICAgCXN0cnVjdCBkcm1fbW0gKm1tID0gJm1nci0+bW07Cj4+IC0Jc3Ry
+dWN0IGRybV9tbV9ub2RlICpub2RlczsKPj4gICAJZW51bSBkcm1fbW1faW5zZXJ0X21vZGUgbW9k
+ZTsKPj4gLQl1bnNpZ25lZCBsb25nIGxwZm4sIG51bV9ub2RlcywgcGFnZXNfcGVyX25vZGUsIHBh
+Z2VzX2xlZnQ7Cj4+IC0JdWludDY0X3QgdmlzX3VzYWdlID0gMCwgbWVtX2J5dGVzLCBtYXhfYnl0
+ZXM7Cj4+ICsJc3RydWN0IGRybV9tbV9ub2RlICpub2RlczsKPj4gICAJdW5zaWduZWQgaTsKPj4g
+ICAJaW50IHI7Cj4+ICAgCj4+IEBAIC0zOTEsOSArMzkxLDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1
+X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX3Jlc291cmNlX21hbmFnZXIgKm1hbiwKPj4gICAJCXBh
+Z2VzX3Blcl9ub2RlID0gSFBBR0VfUE1EX05SOwo+PiAgICNlbHNlCj4+ICAgCQkvKiBkZWZhdWx0
+IHRvIDJNQiAqLwo+PiAtCQlwYWdlc19wZXJfbm9kZSA9ICgyVUwgPDwgKDIwVUwgLSBQQUdFX1NI
+SUZUKSk7Cj4+ICsJCXBhZ2VzX3Blcl9ub2RlID0gMlVMIDw8ICgyMFVMIC0gUEFHRV9TSElGVCk7
+Cj4+ICAgI2VuZGlmCj4+IC0JCXBhZ2VzX3Blcl9ub2RlID0gbWF4KCh1aW50MzJfdClwYWdlc19w
+ZXJfbm9kZSwgbWVtLT5wYWdlX2FsaWdubWVudCk7Cj4+ICsJCXBhZ2VzX3Blcl9ub2RlID0gbWF4
+X3QodWludDMyX3QsIHBhZ2VzX3Blcl9ub2RlLAo+PiArCQkJCSAgICAgICBtZW0tPnBhZ2VfYWxp
+Z25tZW50KTsKPj4gICAJCW51bV9ub2RlcyA9IERJVl9ST1VORF9VUChtZW0tPm51bV9wYWdlcywg
+cGFnZXNfcGVyX25vZGUpOwo+PiAgIAl9Cj4+ICAgCj4+IEBAIC00MTEsNDIgKzQxMiwzNyBAQCBz
+dGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2Vy
+ICptYW4sCj4+ICAgCW1lbS0+c3RhcnQgPSAwOwo+PiAgIAlwYWdlc19sZWZ0ID0gbWVtLT5udW1f
+cGFnZXM7Cj4+ICAgCj4+IC0Jc3Bpbl9sb2NrKCZtZ3ItPmxvY2spOwo+PiAtCWZvciAoaSA9IDA7
+IHBhZ2VzX2xlZnQgPj0gcGFnZXNfcGVyX25vZGU7ICsraSkgewo+PiAtCQl1bnNpZ25lZCBsb25n
+IHBhZ2VzID0gcm91bmRkb3duX3Bvd19vZl90d28ocGFnZXNfbGVmdCk7Cj4+IC0KPj4gLQkJLyog
+TGltaXQgbWF4aW11bSBzaXplIHRvIDJHQiBkdWUgdG8gU0cgdGFibGUgbGltaXRhdGlvbnMgKi8K
+Pj4gLQkJcGFnZXMgPSBtaW4ocGFnZXMsICgyVUwgPDwgKDMwIC0gUEFHRV9TSElGVCkpKTsKPj4g
+KwkvKiBMaW1pdCBtYXhpbXVtIHNpemUgdG8gMkdCIGR1ZSB0byBTRyB0YWJsZSBsaW1pdGF0aW9u
+cyAqLwo+PiArCXBhZ2VzID0gbWluKHBhZ2VzX2xlZnQsIDJVTCA8PCAoMzAgLSBQQUdFX1NISUZU
+KSk7Cj4+ICAgCj4+IC0JCXIgPSBkcm1fbW1faW5zZXJ0X25vZGVfaW5fcmFuZ2UobW0sICZub2Rl
+c1tpXSwgcGFnZXMsCj4+IC0JCQkJCQlwYWdlc19wZXJfbm9kZSwgMCwKPj4gLQkJCQkJCXBsYWNl
+LT5mcGZuLCBscGZuLAo+PiAtCQkJCQkJbW9kZSk7Cj4+IC0JCWlmICh1bmxpa2VseShyKSkKPj4g
+LQkJCWJyZWFrOwo+PiAtCj4+IC0JCXZpc191c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3Np
+emUoYWRldiwgJm5vZGVzW2ldKTsKPj4gLQkJYW1kZ3B1X3ZyYW1fbWdyX3ZpcnRfc3RhcnQobWVt
+LCAmbm9kZXNbaV0pOwo+PiAtCQlwYWdlc19sZWZ0IC09IHBhZ2VzOwo+PiAtCX0KPj4gLQo+PiAt
+CWZvciAoOyBwYWdlc19sZWZ0OyArK2kpIHsKPj4gLQkJdW5zaWduZWQgbG9uZyBwYWdlcyA9IG1p
+bihwYWdlc19sZWZ0LCBwYWdlc19wZXJfbm9kZSk7Cj4+ICsJaSA9IDA7Cj4+ICsJc3Bpbl9sb2Nr
+KCZtZ3ItPmxvY2spOwo+PiArCXdoaWxlIChwYWdlc19sZWZ0KSB7Cj4+ICAgCQl1aW50MzJfdCBh
+bGlnbm1lbnQgPSBtZW0tPnBhZ2VfYWxpZ25tZW50Owo+PiAgIAo+PiAtCQlpZiAocGFnZXMgPT0g
+cGFnZXNfcGVyX25vZGUpCj4+ICsJCWlmIChwYWdlcyA+PSBwYWdlc19wZXJfbm9kZSkKPj4gICAJ
+CQlhbGlnbm1lbnQgPSBwYWdlc19wZXJfbm9kZTsKPj4gICAKPj4gLQkJciA9IGRybV9tbV9pbnNl
+cnRfbm9kZV9pbl9yYW5nZShtbSwgJm5vZGVzW2ldLAo+PiAtCQkJCQkJcGFnZXMsIGFsaWdubWVu
+dCwgMCwKPj4gLQkJCQkJCXBsYWNlLT5mcGZuLCBscGZuLAo+PiAtCQkJCQkJbW9kZSk7Cj4+IC0J
+CWlmICh1bmxpa2VseShyKSkKPj4gKwkJciA9IGRybV9tbV9pbnNlcnRfbm9kZV9pbl9yYW5nZSht
+bSwgJm5vZGVzW2ldLCBwYWdlcywgYWxpZ25tZW50LAo+PiArCQkJCQkJMCwgcGxhY2UtPmZwZm4s
+IGxwZm4sIG1vZGUpOwo+PiArCQlpZiAodW5saWtlbHkocikpIHsKPj4gKwkJCWlmIChwYWdlcyA+
+IHBhZ2VzX3Blcl9ub2RlKSB7Cj4gVGhpcyBtZWFucyB3ZSBjYW4gbmV2ZXIgYWxsb2NhdGUgY2h1
+bmtzIHNtYWxsZXIgdGhhbiAyTUIsIGV4Y2VwdCBmb3IgdGhlCj4gdGFpbC4gQW5kIHRoZSB0YWls
+IHN0aWxsIG5lZWRzIHRvIGJlIGFsbG9jYXRlZCBpbiBvbmUgcGllY2UgaWYgaXQncyA8IDJNQi4K
+CkNvcnJlY3QsIGJ1dCB0aGF0IHdhcyB0aGUgYmVoYXZpb3IgYmVmb3JlIGFzIHdlbGwuCgo+IE9u
+IHRoZSBvdGhlciBoYW5kLCB3ZSBzaG91bGQgbm90IGFsbG93IGFsbG9jYXRpb25zIHNtYWxsZXIg
+dGhhbgo+IG1lbS0+cGFnZV9hbGlnbm1lbnQsIGV4Y2VwdCBmb3IgdGhlIHRhaWwuIFNvIHNob3Vs
+ZCB0aGlzIGNvbmRpdGlvbiBiZQo+ICJpZiAocGFnZXMgPiBtZW0tPnBhZ2VfYWxpZ25tZW50KSIg
+dG8gYWxsb3cgbWF4aW11bSBmbGV4aWJpbGl0eSBmb3IKPiBhbGxvY2F0aW9ucyB3aXRob3V0IHBo
+eXNpY2FsIGFsaWdubWVudCBjb25zdHJhaW50cyB3aGVuIG1lbW9yeSBpcyB2ZXJ5Cj4gZnJhZ21l
+bnRlZD8KClNlZSBhIGZldyBsaW5lcyBhYm92ZToKCnBhZ2VzX3Blcl9ub2RlID0gbWF4X3QodWlu
+dDMyX3QsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlX2FsaWdubWVudCk7CgpTbyBwYWdlc19wZXJfbm9k
+ZSBpcyBhbHdheXMgbGFyZ2VyIHRoYW4gcGFnZV9hbGlnbm1lbnQgYW5kIHdlIGFjdHVhbGx5IApj
+YW4ndCBhbGxvY2F0ZSBsZXNzIHRoYW4gcGFnZXNfcGVyX25vZGUgaW4gb25lIGFsbG9jYXRpb24g
+b3Igd2Ugd291bGQgCm92ZXJmbG93IHRoZSBub2RlcyBhcnJheS4KClJlZ2FyZHMsCkNocmlzdGlh
+bi4KCj4KPiBSZWdhcmRzLAo+ICDCoCBGZWxpeAo+Cj4KPj4gKwkJCQlpZiAoaXNfcG93ZXJfb2Zf
+MihwYWdlcykpCj4+ICsJCQkJCXBhZ2VzID0gcGFnZXMgLyAyOwo+PiArCQkJCWVsc2UKPj4gKwkJ
+CQkJcGFnZXMgPSByb3VuZGRvd25fcG93X29mX3R3byhwYWdlcyk7Cj4+ICsJCQkJY29udGludWU7
+Cj4+ICsJCQl9Cj4+ICAgCQkJZ290byBlcnJvcjsKPj4gKwkJfQo+PiAgIAo+PiAgIAkJdmlzX3Vz
+YWdlICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOwo+PiAgIAkJ
+YW1kZ3B1X3ZyYW1fbWdyX3ZpcnRfc3RhcnQobWVtLCAmbm9kZXNbaV0pOwo+PiAgIAkJcGFnZXNf
+bGVmdCAtPSBwYWdlczsKPj4gKwkJKytpOwo+PiArCj4+ICsJCWlmIChwYWdlcyA+IHBhZ2VzX2xl
+ZnQpCj4+ICsJCQlwYWdlcyA9IHBhZ2VzX2xlZnQ7Cj4+ICAgCX0KPj4gICAJc3Bpbl91bmxvY2so
+Jm1nci0+bG9jayk7Cj4+ICAgCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
