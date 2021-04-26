@@ -2,43 +2,116 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2BCEC433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 12:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 044E3C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 13:44:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E77D61103
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 12:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E77D61103
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 86EEF601FC
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 13:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86EEF601FC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE32389F61;
-	Mon, 26 Apr 2021 12:58:03 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB3F6E1B8;
- Mon, 26 Apr 2021 10:50:11 +0000 (UTC)
-Received: from 1-171-221-133.dynamic-ip.hinet.net ([1.171.221.133]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1layoa-0008C2-78; Mon, 26 Apr 2021 10:50:09 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Subject: [PATCH v2] drm/amdgpu: Register VGA clients after init can no longer
- fail
-Date: Mon, 26 Apr 2021 18:50:00 +0800
-Message-Id: <20210426105002.332935-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 062C389DE1;
+	Mon, 26 Apr 2021 13:44:36 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6973C89DE1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 13:44:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kBZnGD/FB3ZzmnWIVMhPFP4lizecsR1f5KPILBNFppxONOWOwWXHp4XwVSfqM2sR1kTgURs7FZndHsyjNLL+pKaELn7E7DLIQaIWG+XlMIVPc3h3hxLFOr/NIV/K/xjPW6fQfEMF5sbADRUkTg/1FNbAfchWzqb/4U2Uqir/dtaOjVU1RY1WaryVB7eJy9g4T/5Sjm2YTI9pcY4Qm4JXfkfPIz1p0u1xrVtGRsOS3FQ7K4WUf/NjrMz/c2uolZ7Ix7eN88WjtnAkfaCQlzWBOxhd+MZIcBn/8c7nMmAYySPPNumQ4BCYpFdPdufAvUWMsMsphMtxAAWRX/ntfbXUwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kBZyob2Pz+m8C3CL6q57+FR1NPg4eFSWWJuwaD3lArE=;
+ b=b9Y7MCvysXkG0+qVbhQAQfzgtkI5yQ7ba54Dfhdy9WDPp38u4Dj+U/iw+qRP/jBrRaoiKxD5mR5/jYaHx0rCgzX+okh6ikMaYKGisnpniE3CaLGfDfZp9+kb7IM5x9FIYfL6ZMsG+sZcDmsCpooosV9jy42KMkYI+O2V9Cej1+fGtfqt1wVIlp98v7oBPRIUkdbJp653BmlmgFNrdkYlB3S1giyYFZNtxhopDgsM5DK5STnUlyhlRcqAWCisKbV9lHMkAKY3P55E8Lol2UzP0AF1zCnR+Gv+Mr3wrZQGv80yDDb89aA8ToN5MTKbXf6KNNf8SWG07z1HmwWfX3SylQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kBZyob2Pz+m8C3CL6q57+FR1NPg4eFSWWJuwaD3lArE=;
+ b=4dMBKMsAt+2unAqXHVTkRdpsiLyiR2AUrmGEiSeD6EaS88dvHYmhrkS/eyM4tEYQZSts3UR2V/3M1K+5AfI7jaW4mbVHfrDVRSe8N6rj3qaySNlumO2RcJtYlIITf4Xl/i9oDef0YFl5es9yNLhB/n8dyNc+lfwtdV4pUt6qjuo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2761.namprd12.prod.outlook.com (2603:10b6:5:41::27) by
+ DM5PR1201MB0236.namprd12.prod.outlook.com (2603:10b6:4:57::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.20; Mon, 26 Apr 2021 13:44:33 +0000
+Received: from DM6PR12MB2761.namprd12.prod.outlook.com
+ ([fe80::5194:b381:c345:eb0f]) by DM6PR12MB2761.namprd12.prod.outlook.com
+ ([fe80::5194:b381:c345:eb0f%2]) with mapi id 15.20.4065.026; Mon, 26 Apr 2021
+ 13:44:33 +0000
+From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/pm: Use correct typecast
+Date: Mon, 26 Apr 2021 09:44:18 -0400
+Message-Id: <20210426134418.2198220-1-Harish.Kasiviswanathan@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0034.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::47)
+ To DM6PR12MB2761.namprd12.prod.outlook.com
+ (2603:10b6:5:41::27)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 26 Apr 2021 12:58:03 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from harish-base-compute.amd.com (165.204.55.251) by
+ YT1PR01CA0034.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::47) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.25 via Frontend Transport; Mon, 26 Apr 2021 13:44:32 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 064b5468-06ac-4f22-0533-08d908b96c31
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0236:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB02360E02A18C3928305BDC158C429@DM5PR1201MB0236.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:296;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7AxSxQ8tOtRw2LvKsbeOYxIwXixt+UpSL+95O6QCfUNPrsh3geXlEZPeZqlTdw2QPY5uhULoqxh0Sya41eBal1SN8Uz2X2m06opk845wu0Q4+8B5msfqLVlpavLTYs+WF5yKfJTlzCihSNj5gM7VDSw0s8Kpzyidp1i3Mi0Kix9XxERHp+EFUWaq5chALziXXo9XMzk9RhZ4dkA3bR4pEz6k4HwYVGHXdkVNnAhRMDr5Nskofo4u8xUzlTNzDHH6oj8UkvZ4Egr+TXAwyTKi5oQDEW43udpoAMTr1hdhwKabLK00AgO9He6YIxTxFrdmeS7r7DhccfWR2EhZuww7D4+mgh6KI/tA0nr99jBjCtrSWtG3Pbgh0odRZ3Qz2rnV5v/TT3FIIOs9O2x/erha/G9Xf2eNZi0wjf3jV4vCPsYcS+YtkQrqgDRbYGMe5LvvbT9GbbexwP3nIIfsq1L257dZo8ZnnCdAKIZl6fT3heMBLrKXHso5G9E3POjes5TyRh1BGJsGuF7qtAfmlFaGsnzav7Q6T1+Yr2w9m3JQ+RpXoZx8lpoAcnl1pmwleV/jd01laosDKPu0Ff+bx2UX5fHQrIyuSPWv/auCH1B7o+NjE1Ld718ja8VBX5KP+6MX88TrlQWFSz7rDzrAWOmlyKxq79g9rNcGCqBYR15m3sg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2761.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(83380400001)(6666004)(26005)(316002)(66556008)(16526019)(8676002)(2616005)(956004)(4326008)(478600001)(38100700002)(38350700002)(2906002)(36756003)(186003)(66476007)(66946007)(19627235002)(5660300002)(8936002)(6916009)(1076003)(6486002)(7696005)(52116002)(86362001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?FqFsP4Qq/QoNzpqQUTiAs9Cvi2Yid2qX2juwYYceP8vUJlikBPzbo1H4/XC5?=
+ =?us-ascii?Q?W7MgQ2oJGQfUcoFZMIFFSUAhA5wUMO0OylcaMrCmLkaj+rloiNkI6inqzskD?=
+ =?us-ascii?Q?rY5VLUyK/GNyXs8vOQMdpu0htDrDp+5yVRG0WCxfVnt1II5xiNp6nEN5x/85?=
+ =?us-ascii?Q?2VdWy5cfJ4d6Y8xB1HFGiTem+Tr/5MyaIqYe2PbAyAh4PcbpnzJSeI7faSi1?=
+ =?us-ascii?Q?pSRZkXIk6MbB0DXhMql2UvVFN+HdOKk0iXPkLZ+ztiRpmh+Qi2tHD6y1nRW2?=
+ =?us-ascii?Q?RnJJ8p27hgprRNKjNPGzqG8rSQM78qL5bqyT4jZWzbEdheI/eqnGSooDJuCd?=
+ =?us-ascii?Q?kB1IrQIOB3GpVUtobeDJFOYBEdeZ5P83wDBwS8irf8ni3UchY/N4duvYNIlP?=
+ =?us-ascii?Q?h9VexPZsuNR8oFezKZz57aj1nc7Nsjjbt4AFIiSuDfSLG8ZpDqQVK4LffD5U?=
+ =?us-ascii?Q?LyuqOc5MQxt9Rggfs/Z9h4SePlDrSsjBg/teBY114n1Oohf/gGaQCY2gOXWI?=
+ =?us-ascii?Q?DJDOn5TMnnVSw0l9GSqLEAaEkAv7sJ9xZ69o5hpgLw9RA6rfpTa9enoXE4WB?=
+ =?us-ascii?Q?QmNWwDZ+HtBebrKKHss6wWTvQnbRY/hx+3DOj9xy4xPAv/SWaSKiOUgH4XDm?=
+ =?us-ascii?Q?mSTgbB5ZfT7OmfuG11Yz3oo3JL19h1BM3LoaCfHaFuEMX4IRicmPCpyaTQvG?=
+ =?us-ascii?Q?MNY55y71XxB3T25Y2AatmQeVOw1AeXk4k1I2O71kB+aFRIBnaKIeNVveGoEr?=
+ =?us-ascii?Q?KF/WXuYwdBWOoZIiH/ishs1ngKFAjsTzrTJIDRLV/2fxBpqLt2eDSGS4H1ri?=
+ =?us-ascii?Q?8CQ7uEbs3Dofzsqx4JxvOLp450MZ74Nda8u2BFEDP9l3x67qlg68n/FIk9NV?=
+ =?us-ascii?Q?s2xI2HfQ6+QvdFL2+5z34WE5cn+HUgKAy+Q3sgq9wbdMKTS3+9eb83xRU7sR?=
+ =?us-ascii?Q?x2AEzD1liBai3YyY8SPZbkwmt8HeAxpeNCnPisji8YrPV0RYiM2TL0d8p9JY?=
+ =?us-ascii?Q?7Pyxw4hC6v/fKSA8ywUxrX2Bee8qSjpxvEKdiJWf8ehy9h4NU2ZoAYZKB7f3?=
+ =?us-ascii?Q?Dqyh3j2BiPIH65NNERrOidOJu7LDp0vnQwgRX77k6OojiycO4GXHaUTpwOiU?=
+ =?us-ascii?Q?+hkbs6t6EQdbZWUoqVMWNpUaKnYvCz8e5GDdLHdtDD6zThzOHxhc8nIZ8895?=
+ =?us-ascii?Q?3ZGjoCjXYUUwXPwsEwYA1ZfEcTnzZGgOu6q3zxfbjhRZTTkg6/tdoo9QHgWi?=
+ =?us-ascii?Q?7iR6Zr3dLVqIq/e2WIVO/g0FpWIfDElieGlazVBQxrnEkr2RyusAM989oRdr?=
+ =?us-ascii?Q?6gNTTduxnaZ1J5AgTTdCo14w?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 064b5468-06ac-4f22-0533-08d908b96c31
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2761.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 13:44:32.9008 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S2ACEWfcgxx+vX4+aRiF8IWO1qwA7WK4akE+UqeH8F/vzjbhYs2MNuVgOyWNBYEyADPQ+rr7c2mi7nyK+N/Apw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,141 +123,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Huang Rui <ray.huang@amd.com>, open list <linux-kernel@vger.kernel.org>,
- Wenhui Sheng <Wenhui.Sheng@amd.com>, shaoyunl <shaoyun.liu@amd.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>,
- Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When an amdgpu device fails to init, it makes another VGA device cause
-kernel splat:
-kernel: amdgpu 0000:08:00.0: amdgpu: amdgpu_device_ip_init failed
-kernel: amdgpu 0000:08:00.0: amdgpu: Fatal error during GPU init
-kernel: amdgpu: probe of 0000:08:00.0 failed with error -110
-...
-kernel: amdgpu 0000:01:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
-kernel: BUG: kernel NULL pointer dereference, address: 0000000000000018
-kernel: #PF: supervisor read access in kernel mode
-kernel: #PF: error_code(0x0000) - not-present page
-kernel: PGD 0 P4D 0
-kernel: Oops: 0000 [#1] SMP NOPTI
-kernel: CPU: 6 PID: 1080 Comm: Xorg Tainted: G        W         5.12.0-rc8+ #12
-kernel: Hardware name: HP HP EliteDesk 805 G6/872B, BIOS S09 Ver. 02.02.00 12/30/2020
-kernel: RIP: 0010:amdgpu_device_vga_set_decode+0x13/0x30 [amdgpu]
-kernel: Code: 06 31 c0 c3 b8 ea ff ff ff 5d c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 0f 1f 44 00 00 55 48 8b 87 90 06 00 00 48 89 e5 53 89 f3 <48> 8b 40 18 40 0f b6 f6 e8 40 58 39 fd 80 fb 01 5b 5d 19 c0 83 e0
-kernel: RSP: 0018:ffffae3c0246bd68 EFLAGS: 00010002
-kernel: RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-kernel: RDX: ffff8dd1af5a8560 RSI: 0000000000000000 RDI: ffff8dce8c160000
-kernel: RBP: ffffae3c0246bd70 R08: ffff8dd1af5985c0 R09: ffffae3c0246ba38
-kernel: R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000246
-kernel: R13: 0000000000000000 R14: 0000000000000003 R15: ffff8dce81490000
-kernel: FS:  00007f9303d8fa40(0000) GS:ffff8dd1af580000(0000) knlGS:0000000000000000
-kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-kernel: CR2: 0000000000000018 CR3: 0000000103cfa000 CR4: 0000000000350ee0
-kernel: Call Trace:
-kernel:  vga_arbiter_notify_clients.part.0+0x4a/0x80
-kernel:  vga_get+0x17f/0x1c0
-kernel:  vga_arb_write+0x121/0x6a0
-kernel:  ? apparmor_file_permission+0x1c/0x20
-kernel:  ? security_file_permission+0x30/0x180
-kernel:  vfs_write+0xca/0x280
-kernel:  ksys_write+0x67/0xe0
-kernel:  __x64_sys_write+0x1a/0x20
-kernel:  do_syscall_64+0x38/0x90
-kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xae
-kernel: RIP: 0033:0x7f93041e02f7
-kernel: Code: 75 05 48 83 c4 58 c3 e8 f7 33 ff ff 0f 1f 80 00 00 00 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 48 89 74 24
-kernel: RSP: 002b:00007fff60e49b28 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-kernel: RAX: ffffffffffffffda RBX: 000000000000000b RCX: 00007f93041e02f7
-kernel: RDX: 000000000000000b RSI: 00007fff60e49b40 RDI: 000000000000000f
-kernel: RBP: 00007fff60e49b40 R08: 00000000ffffffff R09: 00007fff60e499d0
-kernel: R10: 00007f93049350b5 R11: 0000000000000246 R12: 000056111d45e808
-kernel: R13: 0000000000000000 R14: 000056111d45e7f8 R15: 000056111d46c980
-kernel: Modules linked in: nls_iso8859_1 snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio snd_hda_codec_hdmi snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm snd_seq input_leds snd_seq_device snd_timer snd soundcore joydev kvm_amd serio_raw k10temp mac_hid hp_wmi ccp kvm sparse_keymap wmi_bmof ucsi_acpi efi_pstore typec_ucsi rapl typec video wmi sch_fq_codel parport_pc ppdev lp parport ip_tables x_tables autofs4 btrfs blake2b_generic zstd_compress raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx libcrc32c xor raid6_pq raid1 raid0 multipath linear dm_mirror dm_region_hash dm_log hid_generic usbhid hid amdgpu drm_ttm_helper ttm iommu_v2 gpu_sched i2c_algo_bit drm_kms_helper syscopyarea sysfillrect crct10dif_pclmul sysimgblt crc32_pclmul fb_sys_fops ghash_clmulni_intel cec rc_core aesni_intel crypto_simd psmouse cryptd r8169 i2c_piix4 drm ahci xhci_pci realtek libahci xhci_pci_renesas gpio_amdpt gpio_generic
-kernel: CR2: 0000000000000018
-kernel: ---[ end trace 76d04313d4214c51 ]---
-
-Commit 4192f7b57689 ("drm/amdgpu: unmap register bar on device init
-failure") makes amdgpu_driver_unload_kms() skips amdgpu_device_fini(),
-so the VGA clients remain registered. So when
-vga_arbiter_notify_clients() iterates over registered clients, it causes
-NULL pointer dereference.
-
-Since there's no reason to register VGA clients that early, so solve
-the issue by putting them after all the goto cleanups.
-
-v2:
- - Remove redundant vga_switcheroo cleanup in failed: label.
-
-Fixes: 4192f7b57689 ("drm/amdgpu: unmap register bar on device init failure")
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 28 ++++++++++------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b4ad1c055c70..7d3b54615147 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3410,19 +3410,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* doorbell bar mapping and doorbell index init*/
- 	amdgpu_device_doorbell_init(adev);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 1f02e4ee2909..771e2f0acdd3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1657,8 +1657,9 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->average_mm_activity = 0;
  
--	/* if we have > 1 VGA cards, then disable the amdgpu VGA resources */
--	/* this will fail for cards that aren't VGA class devices, just
--	 * ignore it */
--	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, adev, NULL, amdgpu_device_vga_set_decode);
--
--	if (amdgpu_device_supports_px(ddev)) {
--		px = true;
--		vga_switcheroo_register_client(adev->pdev,
--					       &amdgpu_switcheroo_ops, px);
--		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
--	}
--
- 	if (amdgpu_emu_mode == 1) {
- 		/* post the asic on emulation mode */
- 		emu_soc_asic_init(adev);
-@@ -3619,6 +3606,19 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (amdgpu_device_cache_pci_state(adev->pdev))
- 		pci_restore_state(pdev);
+ 	gpu_metrics->average_socket_power = metrics.AverageSocketPower;
+-	gpu_metrics->energy_accumulator = metrics.EnergyAcc64bitHigh << 32 |
+-					  metrics.EnergyAcc64bitLow;
++	gpu_metrics->energy_accumulator =
++			(uint64_t)metrics.EnergyAcc64bitHigh << 32 |
++			metrics.EnergyAcc64bitLow;
  
-+	/* if we have > 1 VGA cards, then disable the amdgpu VGA resources */
-+	/* this will fail for cards that aren't VGA class devices, just
-+	 * ignore it */
-+	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
-+		vga_client_register(adev->pdev, adev, NULL, amdgpu_device_vga_set_decode);
-+
-+	if (amdgpu_device_supports_px(ddev)) {
-+		px = true;
-+		vga_switcheroo_register_client(adev->pdev,
-+					       &amdgpu_switcheroo_ops, px);
-+		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
-+	}
-+
- 	if (adev->gmc.xgmi.pending_reset)
- 		queue_delayed_work(system_wq, &mgpu_info.delayed_reset_work,
- 				   msecs_to_jiffies(AMDGPU_RESUME_MS));
-@@ -3630,8 +3630,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- failed:
- 	amdgpu_vf_error_trans_all(adev);
--	if (px)
--		vga_switcheroo_fini_domain_pm_ops(adev->dev);
- 
- failed_unmap:
- 	iounmap(adev->rmmio);
+ 	gpu_metrics->average_gfxclk_frequency = metrics.AverageGfxclkFrequency;
+ 	gpu_metrics->average_socclk_frequency = metrics.AverageSocclkFrequency;
 -- 
-2.30.2
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
