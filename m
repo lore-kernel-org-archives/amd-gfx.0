@@ -2,108 +2,85 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FA73C43461
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 17:39:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3704C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 18:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DE2B600D1
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 17:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DE2B600D1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 871BC613BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 18:04:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 871BC613BE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB1DB6E866;
-	Mon, 26 Apr 2021 17:39:07 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B196E862;
- Mon, 26 Apr 2021 17:39:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g56Fb0C0fmq4H8iiyoZk4kjf/G2SxBMhjfT2HbCFoIVK1ApWiKhxydDqP3Fi/U+boweL8zfTI3+HprY27aPIZjfFTkbjQ+vXeDATmNfMCzdrPbsGqlPzhowyQjoiD+tAMst0Z7EyanT5CnS9OoetYR6x0twmOj6SG7FmYUF4mqldPm4AVDh1fHhqO02jX7LAQAG1quuJbjpCV3CaLzSrZ9q2FjxPWaHGW24jhlMtontC0tyFcWA923R3o+H4tDJrrfLNthdot1jCJtIX4GoeH8/mfUJi5Pv06SvW7WzH1l6qjrsBRAgQ/wQj7UOwwEGxMrl6TEaRwDHobpkooQWoWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ikquFlJnuLC76swOpZRg3Ntc3i4IR3jV36mJ0MxA0+Y=;
- b=V49Gq+hOtJHQOuYife1Ul9BEwKZuxHkcKcAtiGqn/AKuTi6UE9uho75FDMwfz+BIfxF0Jzsn/QrxXkUdoBizdQomaOoq3R60dOU5wt7wVl72FyJUOrTvWVidHXtXJYMi3m2jeVzbp/w1tR1caw/Pwsq6ebyOnUIhVSsyu4hdWiQQc9UwvXdJlMRk6wHnepxfikijF7szyQiC5S8vGZykYvhFt3RNmVz0wRxKsLXdgGg3BQwR5oSafCAiLKq264Ex1mxANz7VT3Rd9cZhCTZXvBumcsm6W31nGdeKIro0k8+wEnV/lda3wvvPTUmQdw5KMs7gU2EPkcLh97JC8d9VOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ikquFlJnuLC76swOpZRg3Ntc3i4IR3jV36mJ0MxA0+Y=;
- b=aPlIKPKpJWoUiIensPTbDVwMLaHCViaktv6pCA6n1ibrbbvhCm51xdzDaEQvSEtGo2nXVLifvELx36FaLEdOo1+m3qLW2TGvdJnB/c94n3NWzZpBHQEg5XfpU0IaluI5fz6e7li2GSYNi5rQJdPFeq2zK4pyHdnRiAn8FSRyMXs=
-Received: from BN9PR03CA0126.namprd03.prod.outlook.com (2603:10b6:408:fe::11)
- by DM6PR12MB3129.namprd12.prod.outlook.com (2603:10b6:5:3b::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.23; Mon, 26 Apr
- 2021 17:39:02 +0000
-Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::ac) by BN9PR03CA0126.outlook.office365.com
- (2603:10b6:408:fe::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21 via Frontend
- Transport; Mon, 26 Apr 2021 17:39:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4065.21 via Frontend Transport; Mon, 26 Apr 2021 17:39:02 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 26 Apr
- 2021 12:39:01 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 26 Apr
- 2021 12:39:01 -0500
-Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Mon, 26 Apr 2021 12:39:00 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <ppaalanen@gmail.com>, <sebastian@sebastianwick.net>, <mcasas@google.com>
-Subject: [RFC PATCH 3/3] drm/color: Add sdr boost property
-Date: Mon, 26 Apr 2021 13:38:52 -0400
-Message-ID: <20210426173852.484368-4-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210426173852.484368-1-harry.wentland@amd.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BAA56E1E9;
+	Mon, 26 Apr 2021 18:04:32 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09056E1B5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 18:04:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1619460270;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oWGWUsr7vTTRMxEuFkeoTQX72I5opLdxS/oSSQDbSy8=;
+ b=Orn90QjlLBuv5LceEhKj4tiTgJYarQqTO1+pTy8pJvwT0rs6Vc6IkemoI0oKUrgOFB18h8
+ 2sUv4GM6btbiVr5rt3nZnU5yKhBHEKwOknNhByVCcrDeW62dTfXf2gkFobK8IU0EboOLNo
+ W0V5g0j7MRpYbqBC7kTb/pNCQPlwiRM=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-23-dUwOQDnCMiqMUQVrB92jag-1; Mon, 26 Apr 2021 14:04:28 -0400
+X-MC-Unique: dUwOQDnCMiqMUQVrB92jag-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ d185-20020ae9efc20000b02902e45ca32479so5005870qkg.21
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 11:04:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=oWGWUsr7vTTRMxEuFkeoTQX72I5opLdxS/oSSQDbSy8=;
+ b=D3Iy20vDe+eUviqInDtoiFfBD7Th1WqYh5y+88F22fNajM3kTAh83esLe1YqZBiISH
+ 9icyDOR5IhhZappY/NI56GUwwUnXhdzj8sDF4ND6JXxUOJsaYHF+ARjyqytQbvHpfOGZ
+ 06B6Ndm7e+GOyWlkBnRWure3uBdLtgMjPjytfldeaYQr7AzCEAlIH1k1RtNZ89Akp7pO
+ XKFTSO7Y+fg/h0Uv+Ge5lexhbtlc0CUJDveXg76wuMJpp8JFl+OsZrm/5xa+Xtr1/26f
+ X+GCAeqCB7ZUCBllIbqwSKpMYAe2hmwOkkiebOlweXq+USPEfWMIShbD55M2XI9nnweR
+ m/4w==
+X-Gm-Message-State: AOAM5334Y8deqs33rih4lesRN/XZUQRUhdc4qPdFGBOr+NxIZfyuZOC2
+ /+GwrFb2VMbU5oLG2m583uYwk0ib3AKQf8HX8tR3htifP/0GQ/479L3e+lDmQKZexGRzWL5U3we
+ apHpvi9qfbzvAxnlwUpZu19Bdag==
+X-Received: by 2002:ad4:4f06:: with SMTP id fb6mr3315873qvb.12.1619460267482; 
+ Mon, 26 Apr 2021 11:04:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx/fBu4FQqB53jJFZuM7gJXPpQUlwJBodrn/s10u9NoKgj7PwLouFLOJpaikd0xQVPV2S2Y7w==
+X-Received: by 2002:ad4:4f06:: with SMTP id fb6mr3315853qvb.12.1619460267190; 
+ Mon, 26 Apr 2021 11:04:27 -0700 (PDT)
+Received: from Ruby.lyude.net (pool-108-49-102-102.bstnma.fios.verizon.net.
+ [108.49.102.102])
+ by smtp.gmail.com with ESMTPSA id f22sm12057074qtg.77.2021.04.26.11.04.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Apr 2021 11:04:26 -0700 (PDT)
+Message-ID: <b3bae9200beb56018ce09e55e18af3d93583455b.camel@redhat.com>
+Subject: Re: [PATCH] drm/dp_mst: Use the correct DPCD space in Synaptics quirk
+From: Lyude Paul <lyude@redhat.com>
+To: Nikola Cornij <nikola.cornij@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Koba Ko <koba.ko@canonical.com>
+Date: Mon, 26 Apr 2021 14:04:25 -0400
+In-Reply-To: <20210423200552.223110-1-nikola.cornij@amd.com>
+References: <20210423200552.223110-1-nikola.cornij@amd.com>
+Organization: Red Hat
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a6287b01-348f-4e4b-df61-08d908da2e45
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3129:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB31291C028FEC9C39002768BE8C429@DM6PR12MB3129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: upbMYWGrG9FMeemRBCI+OUcGIHkvtUJueyO/IZvq5UrWlIbXezX7O+82roVBYCkP2JHkOdTCtji9goYL79h3KdQNmWTJFqo6vLYIDZ7MiSIs7bzxG5363km4VJIpUZ34YgiJrpVWK9xsMPEf98oFz/pM9ffYYVQw6apFGV+j+CsZwP2mGTzgi/P+xP26ET94lCsZv/PYDX3OyF9tfbG76/ArHDqaD3jCMCkrXiWzwaHf64A0EiXh8Tgh26uqXNqx98T10/TTn7vKLy4MIBypOhl9lXA59wafpSOrEZKUFouS3bsQwSPqKItQKjIQsRHRjWcfrc93Cb6V1rZ5zJb5ARHfYSC/VVPWfz0+0Xzym6zLfyOq5B18CkcNaG2fF3N/mtp/cqa3TBU+kDHZtYYQrXqieRj9xv8Ei+OrUsN2MiCo/usWwTLcYhA2LnruBcSBxIl920XbOUuoahiI9tCv4EnxFcz/wgjstd/cts9hkwr7+DBkY6OBfKKXpGeHBO+7QTr+59Hjx+4icgqPZj6FBukzq5MVffI1dYOve+gffbGxyGm56++ESybPG2pXMGdRTV4tV9e/3BbPqBFDjUCqUxRAm+QmlqErTF2lufuxX3PzI+xvGJM+qd+Xa1gyz8zoC8rQpadb8ZWswk/T+znuNeXuqq1Q5Mr6Nz+zKsrqtzJVLZZg2/LCqFxSLVCHr8MX
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(346002)(136003)(376002)(39860400002)(46966006)(36840700001)(54906003)(70586007)(70206006)(82740400003)(110136005)(5660300002)(2906002)(478600001)(186003)(8676002)(82310400003)(7696005)(4326008)(36756003)(8936002)(2616005)(6666004)(336012)(426003)(1076003)(26005)(36860700001)(47076005)(86362001)(81166007)(316002)(44832011)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 17:39:02.1429 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6287b01-348f-4e4b-df61-08d908da2e45
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3129
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,143 +92,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- Shashank.Sharma@amd.com, Harry Wentland <harry.wentland@amd.com>,
- Shirish.S@amd.com, hersenxs.wu@amd.com, Vitaly.Prosyak@amd.com,
- laurentiu.palcu@oss.nxp.com, Bhawanpreet.Lakha@amd.com,
- Nicholas.Kazlauskas@amd.com, ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: mikita.lipski@amd.com, aurabindo.pillai@amd.com,
+ intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-
-SDR is typically mastered at 200 nits and HDR is mastered at up to 10,000
-nits. Due to this luminance range difference if we blend a SDR and
-HDR plane together, we can run into problems where the HDR plane is too
-bright or the SDR plane is too dim
-
-A common solution to this problem is to boost the SDR plane so that its
-not too dim.
-
-This patch introduces a "sdr_white_level" property, this property can be
-used by the userspace to boost the SDR content luminance. The boost
-value is a explicit luiminance value in nits. This allows the userspace
-to set the maximum white level for the SDR plane.
-
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c |  4 ++++
- drivers/gpu/drm/drm_color_mgmt.c  | 17 +++++++++++++++++
- include/drm/drm_color_mgmt.h      |  6 ++++++
- include/drm/drm_plane.h           | 14 ++++++++++++++
- 4 files changed, 41 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index ea95c1224253..b3b6de7b74aa 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -597,6 +597,8 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 		state->color_range = val;
- 	} else if (property == plane->color_tf_property) {
- 		state->color_tf = val;
-+	} else if (property == plane->sdr_white_level_property) {
-+		state->sdr_white_level = val;
- 	} else if (property == config->prop_fb_damage_clips) {
- 		ret = drm_atomic_replace_property_blob_from_id(dev,
- 					&state->fb_damage_clips,
-@@ -665,6 +667,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
- 		*val = state->color_range;
- 	} else if (property == plane->color_tf_property) {
- 		*val = state->color_tf;
-+	} else if (property == plane->sdr_white_level_property) {
-+		*val = state->sdr_white_level;
- 	} else if (property == config->prop_fb_damage_clips) {
- 		*val = (state->fb_damage_clips) ?
- 			state->fb_damage_clips->base.id : 0;
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index 2404b07046c5..a0b77d7d0565 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -519,6 +519,23 @@ const char *drm_get_color_range_name(enum drm_color_range range)
- 	return color_range_name[range];
- }
- 
-+int drm_plane_create_sdr_white_level_property(struct drm_plane *plane){
-+
-+	struct drm_property *prop;
-+
-+	prop = drm_property_create_range(plane->dev, 0, "SDR_WHITE_LEVEL", 0, UINT_MAX);
-+
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	plane->sdr_white_level_property = prop;
-+	drm_object_attach_property(&plane->base, prop, DRM_DEFAULT_SDR_WHITE_LEVEL);
-+
-+	if (plane->state)
-+		plane->state->sdr_white_level = DRM_DEFAULT_SDR_WHITE_LEVEL;
-+
-+	return 0;
-+}
- /**
-  * drm_get_color_transfer_function - return a string for color transfer function
-  * @tf: transfer function to compute name of
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index f59806366855..a020346b1747 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -26,6 +26,12 @@
- #include <linux/ctype.h>
- #include <drm/drm_property.h>
- 
-+/**
-+ * Default SDR white level in nits. Although there is no standard SDR nit level, 200
-+ * is chosen as the default since that is the generally accepted value.
-+ */
-+#define DRM_DEFAULT_SDR_WHITE_LEVEL 200
-+
- struct drm_crtc;
- struct drm_plane;
- 
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index c85c59501a7a..fad8b7dd430c 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -187,6 +187,11 @@ struct drm_plane_state {
- 	 * format for a proper HDR color/luminance output.
- 	 */
- 	enum drm_color_transfer_function color_tf;
-+	/**
-+	 * @sdr_white_level:
-+	 * SDR white level boost for HDR+SDR multi plane usecases. max white level in nits
-+	 */
-+	unsigned int sdr_white_level;
- 	/**
- 	 * @fb_damage_clips:
- 	 *
-@@ -757,6 +762,15 @@ struct drm_plane {
- 	 * See drm_plane_create_color_properties().
- 	 */
- 	struct drm_property *color_tf_property;
-+	/**
-+	 * @sdr_white_level:
-+	 *
-+	 * Optional sdr_white_level. When HDR and SDR are combined in multi plane
-+	 * overlay cases, the sdr plane will be very dim. This property allows
-+	 * the driver to boost the sdr plane's white level. The value should be
-+	 * max white level in nits.
-+	 */
-+	struct drm_property *sdr_white_level_property;
- 
- 	/**
- 	 * @scaling_filter_property: property to apply a particular filter while
--- 
-2.31.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+bWhoaGhoaGgsIHByb2JhYmx5IHNob3VsZCBkbyB0aGlzIGEgYml0IGRpZmZlcmVudGx5LiBBbHNv
+IGFkZGluZyBLb2JhIHNpbmNlCnRoaXMgaW52b2x2ZXMgdXNpbmcgZXh0ZW5kZWQgRFBDRCBjYXBz
+IGluIHRoZSBNU1QgdG9wb2xvZ3kgbWdyLgoKT24gRnJpLCAyMDIxLTA0LTIzIGF0IDE2OjA1IC0w
+NDAwLCBOaWtvbGEgQ29ybmlqIHdyb3RlOgo+IFt3aHldCj4gVHdvIGNvbmRpdGlvbnMgdGhhdCB3
+ZXJlIHBhcnQgb2YgdGhpcyBmaXggZGlkIG5vdCBnbyB0aHJvdWdoOgo+IAo+IDEuIERQQ0QgcmV2
+aXNpb24gaGFzIHRvIGJlIHYxLjQgYW5kIHVwCj4gwqDCoCBUaGlzIHdhcyBiZWNhdXNlIHdyb25n
+IERQQ0Qgc3BhY2Ugd2FzIHVzZWQgdG8gZ2V0IHRoZSB2YWx1ZXMKPiAKPiAyLiBEb3duc3RyZWFt
+IHBvcnQgbXVzdCBub3QgYmUgVkdBIGNvbnZlcnRlcgo+IMKgwqAgVGhpcyB3YXMgYmVjYXVzZSBm
+b3IgTVNUIHRoZSB0b3BvbG9neSBtYW5hZ2VyIEFVWCBoYXMgdG8gYmUgdXNlZCwKPiDCoMKgIGR1
+ZSB0byB0aGUgd2F5IE1TVCBBVVggcmVhZHMgYXJlIGRvbmUuCj4gCj4gW2hvd10KPiAtIFVzZSBF
+eHRlbmRlZCBSZWNlaXZlciBDYXBhYmlsaXR5IERQQ0Qgc3BhY2UgaWYKPiBEUF9FWFRFTkRFRF9S
+RUNFSVZFUl9DQVBfRklFTERfUFJFU0VOVCBpcyBzZXQKPiAtIFVzZSBNU1QgdG9wb2xvZ3kgbWFu
+YWdlciBBVVggdG8gZ2V0IHBvcnQgRFBDRAo+IAo+IFNpZ25lZC1vZmYtYnk6IE5pa29sYSBDb3Ju
+aWogPG5pa29sYS5jb3JuaWpAYW1kLmNvbT4KPiAtLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9kcm1f
+ZHBfbXN0X3RvcG9sb2d5LmMgfCAzMyArKysrKysrKysrKysrKysrKysrKy0tLS0tLS0KPiDCoDEg
+ZmlsZSBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gYi9kcml2ZXJz
+L2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gaW5kZXggZGU1MTI0Y2U0MmNiLi42OWZk
+MTZjZTJjYjMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xv
+Z3kuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiBAQCAt
+NTg3OCwxOCArNTg3OCwzNSBAQCBzdHJ1Y3QgZHJtX2RwX2F1eCAqZHJtX2RwX21zdF9kc2NfYXV4
+X2Zvcl9wb3J0KHN0cnVjdAo+IGRybV9kcF9tc3RfcG9ydCAqcG9ydCkKPiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBOVUxMOwo+IMKgCj4gwqDCoMKgwqDCoMKgwqDCoGlm
+IChkcm1fZHBfaGFzX3F1aXJrKCZkZXNjLCBEUF9EUENEX1FVSVJLX0RTQ19XSVRIT1VUX1ZJUlRV
+QUxfRFBDRCkgJiYKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydC0+bWdyLT5kcGNkW0RQX0RQ
+Q0RfUkVWXSA+PSBEUF9EUENEX1JFVl8xNCAmJgo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9y
+dC0+cGFyZW50ID09IHBvcnQtPm1nci0+bXN0X3ByaW1hcnkpIHsKPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgdTggZG93bnN0cmVhbXBvcnQ7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoHU4IHRyYWluaW5nX2F1eF9yZF9pbnRlcnZhbCA9IDA7Cj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoHU4IGRwY2RfcmV2ID0gMDsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgdW5zaWduZWQgaW50IGRwY2RfY2Fwc19vZmZzZXQgPSAwOwo+IMKgCj4gLcKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmIChkcm1fZHBfZHBjZF9yZWFkKCZwb3J0LT5h
+dXgsIERQX0RPV05TVFJFQU1QT1JUX1BSRVNFTlQsCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmRvd25zdHJl
+YW1wb3J0LCAxKSA8IDApCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmIChkcm1f
+ZHBfZHBjZF9yZWFkKHBvcnQtPm1nci0+YXV4LAo+IERQX1RSQUlOSU5HX0FVWF9SRF9JTlRFUlZB
+TCwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCAmdHJhaW5pbmdfYXV4X3JkX2ludGVydmFsLCAxKSA8IDEpCj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIE5V
+TEw7Cj4gwqAKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKChkb3duc3RyZWFt
+cG9ydCAmIERQX0RXTl9TVFJNX1BPUlRfUFJFU0VOVCkgJiYKPiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAoKGRvd25zdHJlYW1wb3J0ICYgRFBfRFdOX1NUUk1fUE9SVF9UWVBF
+X01BU0spCj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICE9IERQX0RX
+Tl9TVFJNX1BPUlRfVFlQRV9BTkFMT0cpKQo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIHBvcnQtPm1nci0+YXV4Owo+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAvKiBJZiBEUF9FWFRFTkRFRF9SRUNFSVZFUl9DQVBfRklFTERfUFJF
+U0VOVCBpcyBzZXQsIHRoZQo+IEV4dGVuZGVkIFJlY2VpdmVyIENhcGFiaWxpdHkgZmllbGQgaGFz
+IHRvIGJlIHVzZWQgKi8KPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKHRyYWlu
+aW5nX2F1eF9yZF9pbnRlcnZhbCAmCj4gRFBfRVhURU5ERURfUkVDRUlWRVJfQ0FQX0ZJRUxEX1BS
+RVNFTlQpCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBk
+cGNkX2NhcHNfb2Zmc2V0ID0gMHgwMjIwMDsKCklmIHdlIG5lZWQgdG8gcmVhZCB0aGUgZXh0ZW5k
+ZWQgRFBDRCBjYXBzIHRoZW4gd2Ugc2hvdWxkIGdpdmUgYW5vdGhlciBnbyBhdAp0ZWFjaGluZyB0
+aGUgTVNUIGhlbHBlcnMgaG93IHRvIHJlYWQgdGhlbSBieSBkZWZhdWx0IGluc3RlYWQgb2YgaGFj
+a2luZyBhcm91bmQKaXQgbGlrZSB0aGlzLiBXZSBhdHRlbXB0ZWQgdG8gZG8gdGhpcyBpbiB0aGUg
+cGFzdDoKCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9kcmktZGV2ZWwvcGF0
+Y2gvMjAyMDA5MTEwMzQ0MzEuMjkwNTktMS1rb2JhLmtvQGNhbm9uaWNhbC5jb20vCgpCdXQgaXQg
+ZW5kZWQgdXAgY2F1c2luZyBpc3N1ZXMgdGhhdCBJIGRpZG4ndCBoYXZlIHRoZSB0aW1lIHRvIGxv
+b2sgaW50bywgc28gd2UKaGFkIHRvIHJldmVydCBpdDoKCmh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVk
+ZXNrdG9wLm9yZy9zZXJpZXMvODM0MDgvCgpMb29raW5nIGF0IHRoaXMgbm93IEkgdGhpbmsgdGhl
+IHByb3BlciBzb2x1dGlvbiBoZXJlIHNob3VsZG4ndCBiZSB2ZXJ5CmRpZmZpY3VsdC4gSW4gb3Jk
+ZXIgdG8gbWFrZSBpdCBzbyBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciB1c2VzCmRybV9kcF9kcGNk
+X3JlYWRfY2FwcygpIHdlIGp1c3QgbmVlZCB0byBtYWtlIGl0IHNvIHRoYXQgZHJpdmVycyBuZWVk
+IHRvCnByb3ZpZGUgdGhlaXIgbWF4aW11bSBsaW5rIHJhdGUgYW5kIGxhbmUgY291bnQgd2hlbiBz
+ZXR0aW5nIHVwCmRybV9kcF9tc3RfdG9wb2xvZ3lfc2V0X21zdCgpLiBGcm9tIHRoZXJlLCB3ZSBj
+YW4gY29udmVydApkcm1fZHBfbXN0X3RvcG9sb2d5X21nciB0byBkcm1fZHBfZHBjZF9yZWFkX2Nh
+cHMoKSBhbmQgc2ltcGx5IGxpbWl0IHRoZQptYXhpbXVtIGxpbmsgcmF0ZS9sYW5lIGNvdW50IHdl
+IGNhY2hlIGluIG1nci0+ZHBjZCB0byB0aGUgbWF4IGxpbmsgcmF0ZS9sYW5lCmNvdW50IGxpbWl0
+YXRpb25zIHByb3ZpZGVkIGJ5IHRoZSBEUk0gZHJpdmVyLgoKV291bGQgeW91IHdyaXRlIHVwIHNv
+bWUgcGF0Y2hlcyB0byBkbyB0aGlzIGluc3RlYWQ/Cgo+ICsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgaWYgKGRybV9kcF9kcGNkX3JlYWQocG9ydC0+bWdyLT5hdXgsIGRwY2RfY2Fw
+c19vZmZzZXQgKwo+IERQX0RQQ0RfUkVWLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZkcGNkX3JldiwgMSkg
+PCAxKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0
+dXJuIE5VTEw7Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoZHBjZF9y
+ZXYgPj0gRFBfRFBDRF9SRVZfMTQpIHsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoHU4IGRvd25zdHJlYW1wb3J0ID0gMDsKPiArCj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoZHJtX2RwX2RwY2RfcmVhZChw
+b3J0LT5tZ3ItPmF1eCwgZHBjZF9jYXBzX29mZnNldAo+ICsgRFBfRE9XTlNUUkVBTVBPUlRfUFJF
+U0VOVCwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmRvd25zdHJlYW1wb3J0LCAx
+KSA8IDEpCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgcmV0dXJuIE5VTEw7Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKChkb3duc3RyZWFtcG9ydCAmIERQX0RXTl9TVFJN
+X1BPUlRfUFJFU0VOVCkgJiYKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgKChkb3duc3RyZWFtcG9ydCAmIERQX0RXTl9TVFJNX1BPUlRfVFlQRV9N
+QVNLKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgIT0gRFBfRFdOX1NUUk1fUE9SVF9UWVBFX0FOQUxPRykpCj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIHBv
+cnQtPm1nci0+YXV4Owo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gwqDCoMKg
+wqDCoMKgwqDCoH0KPiDCoAo+IMKgwqDCoMKgwqDCoMKgwqAvKgoKLS0gCkNoZWVycywKIEx5dWRl
+IFBhdWwgKHNoZS9oZXIpCiBTb2Z0d2FyZSBFbmdpbmVlciBhdCBSZWQgSGF0CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
