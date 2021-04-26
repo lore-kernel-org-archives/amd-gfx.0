@@ -2,124 +2,116 @@ Return-Path: <SRS0=K+jV=JX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B893C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 19:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F7E7C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 19:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBF4B6135D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 19:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBF4B6135D
+	by mail.kernel.org (Postfix) with ESMTPS id EFBB36143E
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Apr 2021 19:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFBB36143E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAAB89E35;
-	Mon, 26 Apr 2021 19:40:27 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D796089E35
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 19:40:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 477C989E0D;
+	Mon, 26 Apr 2021 19:44:53 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1A889E0D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Apr 2021 19:44:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e1t/d/qcR6cI0cN/ymMTShJzIdkHJBo9almk+8A+CZvkvH9EWr1N56b7JNMYzUby6YV19yHpZNa0Md4d/kpSWFlp5dcJ4VL8KaqmtSvHVnJqbUftN3Mm8e2EA7zpVlfmVshwfT7GPx6+fMJ+tTLiy56GrHdcXr6K5JQwgQk3avuZKBkX+HrE3xq3pCse6Brant7GyPgWuoo5M+FSefloBrVZInV8SOmCvbk92GFIcPxrBgNw7HOpNtcG8dZZ/Ze4tIIwilJ0/F2yh9+DDIesSFesAg4R2mDu+nLGFwmj98rFU8HOc3sgHoRpCobKyhEXBoB0heY23vI6tYCdoVtu/w==
+ b=BCY8KW+V6LyEwcC6NExQHimEWCaac6ySM6lw+iKQNZf5tQ9rMHEVP+0uqwPdFS/thRa0tDcjUNbT2Cyrb2pjCDn8Mq4rwiZx5S3XmHpn4iwtS82pOxYbA4uIDgmTR9YtoF1zS6qUy0fPMKSTVRL1xo5ZoW70YGyPYK3f+TGte4Bs7dkVwMpQ0ZvauPAgp0SjAqwIbBkCMhaAkTSOs2i2AJreApC59gyW1+6zytWZAjjOC9P1XgXXkNtp7qMDIliLDwo0kiuGkRdaoMiBydH5joDeqhBMj5qLiIXqcR3UwXq8YfKKLkEZ+TmdYLFvRBSjwYNlQOIUteEUoJO+Ct4faQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AjIXhyGy65npe9Lk6bfFo5ThV7xj+7OJeTaLdr2ZTi0=;
- b=K5ZVtnf9aPk3N9ox3tP/fLg4ovq2Cq7qT3Z4HJu7PjefukgekGvCIN9lYwFnZACC4YY7G5Jc/tPKBIbWWApzzGFtgHkgLEHHynGOhzwMHwnwoDqeN8I4axTF55L6CkW80YoJNcYylhlVA0nTLyEIxbctGOvo4bV7T+lBMr6LL+9nHjGoIzL8cH8kZU2kKP03wlRAgJ4iJwdIcXoWU3AKIWZUlRICVIxR+VRlF+5JhTfMWxMkvoEYSupZu0of1P9jTWmJFd0VimXswT3aGACGPyHvVgWAzTaR0vMlk4qSL/fJVjxU0R3l1wDh5MtAAB7GMalmj8y/lU2PIP982XoncQ==
+ bh=mmMYybOFbozrygBhiiEJWBGVPatFbLSr/ADChFUEgaY=;
+ b=gWVpIRGlH+aMsx0QkkyQLxfnONXvNKK1T/FyUKZ7HySO8NU6BoUR+uh9xZVgRDbAoQYv8p1LURlMIZlNmQlScoqqvZv3UdDGBVb502Z9zv2W3LbdJPNLy9uXFgS1wGWlKe6G3rDgnrVUk96Jm/PSmR2OtUgXYyyCidDvhF3MXr+AQ9BdYKXYZt2p5dXlO6fkLrveeka2X3Pj+KzjRs8fxrzq3++UTh+Jv15ezyZkBlyYX5Xfxbdt7VMZXgmb5gRSYBcHT109FpvowjWjp19TJ5Ng7Az5N8g8hgwjcOYojDLSXGu+h3Klkkjy46UmOFN8Ea8rerA99OAoD5TAmVJMQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AjIXhyGy65npe9Lk6bfFo5ThV7xj+7OJeTaLdr2ZTi0=;
- b=opq2d4ZaB3vzLwY60h0/RT2UXuyY71q7ecByel9DB8aYI0dC5gXI9KYG+ijyuKUX5Iuyxu4KylMfVVpAiTKsxji0MZwjA1Tb+4S7/yz7zZAo2iiE/hUJ/AfY2+6qfLGPjDSSW9FsfVfEkBz8QkDD7i+XAdxjVa8UHSlx3Z41TCM=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB3871.namprd12.prod.outlook.com (2603:10b6:208:16a::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.24; Mon, 26 Apr
- 2021 19:40:25 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%7]) with mapi id 15.20.4065.027; Mon, 26 Apr 2021
- 19:40:24 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-Thread-Topic: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-Thread-Index: AQHXOmUt+yIB0uN3xU+WV+JUDZ9yXKrGW78AgADS2y+AAAPrVQ==
-Date: Mon, 26 Apr 2021 19:40:24 +0000
-Message-ID: <MN2PR12MB44884F5635594C3F53D3F865F7429@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210426062701.39732-1-Roy.Sun@amd.com>,
- <8b8ec884-5b0b-3409-b7b0-be7da43e3e71@gmail.com>,
- <MN2PR12MB4488F5277BF26669E8D8673BF7429@MN2PR12MB4488.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB4488F5277BF26669E8D8673BF7429@MN2PR12MB4488.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-26T19:40:24.115Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.245]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7f29e2f5-f893-4a29-9e13-08d908eb2329
-x-ms-traffictypediagnostic: MN2PR12MB3871:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3871EC31DE4B3529EA874940F7429@MN2PR12MB3871.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3173;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RbgNOBCWO906PMF3kB3W/ymCkqZhj2YkY19VTBM0AFzPskhR7TxcHDZl/OygvxJ/JWLy46FmmHXaWY8Eepicyv3/n75qBcQYVZcKJIagAW1exHhKbskov4lyJpaOQg1zwTG9G/dIv5I+bND0dOx3t6u443CIObvwnz6QmVa0GzzH0LyoCM6IqUqmuQtvQKD56KHLo1vyTxH6w+FspoIfXcmmcGSBKEo+b9J1Of0kSIHtXQ2zDCYO+BMr3PNQjFWLwJey6pwcYbMvY4pqXHT28unI1tjUWErMZ0Pm7BGD39ohfOqtrrQQhlJeQrjAgmIInj9LdCWyL8iaH1P/WNiOzAnfx0fPJdIj1kuRTgko8P9cXVoDdXDEHGRE5nZdVPzU/JYja3Lk0xUJm/3FbsxokVo+herILs2vzK8nwAD1VkI499acanDt1ZofxTufyL7h35Zj5bt06Qaiv8R9KDer3XxiD5R/FmpmO+5pp70QJBG7fo4PssLYAHTVBC+Fb5saNsvmUrDqXsBu3+Q9LA8fWZWTLaawa/NFQBF+hHBfvEAuN/S/wHYfCxk4+sFVzlwt6+X0fvE7hPjmlNE35Q8eyj8F7CrBDh16IZFtLboGbGU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(136003)(39850400004)(376002)(396003)(38100700002)(86362001)(83380400001)(33656002)(316002)(186003)(19627405001)(66556008)(66476007)(7696005)(76116006)(122000001)(66574015)(6506007)(8676002)(8936002)(66946007)(71200400001)(6916009)(53546011)(2940100002)(55016002)(64756008)(9686003)(66446008)(2906002)(5660300002)(52536014)(26005)(478600001)(4326008)(54906003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?6GN4RH/Y1uNboIqW91IbUgQU+D7wx6UM6vXyhqnccrWc3rW0bM1okWlkDt?=
- =?iso-8859-1?Q?o9tj8UMqIR9QbiOXzM3z97fv8tdWhZgyH4OzogviqmheySYp4rQkZ+Zlt2?=
- =?iso-8859-1?Q?Xgc6oKZXGpGz7uJUQTfKVl+4X3+syiW10SPkYArNgJZcxSOadTOgVECdr/?=
- =?iso-8859-1?Q?TxyTkjV0no/DLPADBwC8898Sla5alZXi014Xxdn+L0XBptbxIoK9XdjXsN?=
- =?iso-8859-1?Q?RkbwmF0oUCWUhtBhYP2cWE/KHBwJMr2In1a+fedcu/qi9iF6fqkK5jHxQH?=
- =?iso-8859-1?Q?5vrnE6VwbgCn++ki5lIdjOmzxU0OIpXr0Wr6ssGLdX18reqzYNTHeG+6ZR?=
- =?iso-8859-1?Q?5k6Qu45QuXVo+4uOLudrlG2Vlu4NcpeHuNbGLdELPUSz3aFSq7Cj2MBHXd?=
- =?iso-8859-1?Q?qtlx42buDEeCneEgO+bi3TeYm8OrrFe9SnB4F7cn2R+xe15ExB9hxgHg0q?=
- =?iso-8859-1?Q?lrEgGWDBsVvATSJVFjGsVSd0RahXsEoPpu/P7oCE/qBtSuzePQzF3lsOWp?=
- =?iso-8859-1?Q?pOW0nN+FVEsVHG4UfcypcxzPZUq2OzqjbAQ6yy+4T6hIwhy/hd5NolgqUM?=
- =?iso-8859-1?Q?yRSpHT1CZXLoOKKljm43Oiuh19kzyeV7HyzYGI9kKDj/c7Qx4/KK6MLFsJ?=
- =?iso-8859-1?Q?eKrZo0agIL8InKE8769R/Deobg3gEmtAHJuKLDGtPf8UiuTjWGBwMn8xAk?=
- =?iso-8859-1?Q?+NDPnUkzahsrZkx9dB3jGfIrn296XvrfmiusUdC8+qnqkcxe+UZ2mwDCvW?=
- =?iso-8859-1?Q?LeHYIGLIOczjsJ1Xzv0vJyL6roj7QqmObNrwlADl2srYUJthNApkavkyZL?=
- =?iso-8859-1?Q?Twm+ILaPAzx935vHSeMRrdyGVJ+zrJXhBe3AkEGiKoXAtEQnocgcjQ+GWi?=
- =?iso-8859-1?Q?MZOlJNg5TJbbTTBfWdsgcnInSj3vrG5PNocDuJR+9MxlN3JamRqQuIqIz2?=
- =?iso-8859-1?Q?LEswNfWF+qktvWgviaRjD2XaH4miEURhi0LkAPeNds8wGDe9sJAaKhgF0W?=
- =?iso-8859-1?Q?sn8Z6fJKsC/c+ROjoBHSSLMn+Na+hKhaDEvBqUgKwgSeKo1TrpD69AjGDa?=
- =?iso-8859-1?Q?uPNHDARmOiVgxtGsuEFHbKmDwDk/bHNNWkiADCtsP28i58COKEhYHuarLe?=
- =?iso-8859-1?Q?2dIXQFNfDzYYr3aT4OnQnKN581qAgynZ6fXcknchSRw44/3v9qTOC2Odrd?=
- =?iso-8859-1?Q?3IighWeT6Sk96NKgjtiwNVOnwHmTr+fd7zDjUoGj5FJ5mWXUFtSDfz2lcd?=
- =?iso-8859-1?Q?EaX8aSHWNqkTyFZIEEeF/3urBp/WwFytgJ6lQjvPiTgTilNxvXXm4pXqcG?=
- =?iso-8859-1?Q?RXlnDyHL9QUl1RyzKKm1C4CD4bSGM3G/gKsjWLZQScezHzbMY9bBtyfFDK?=
- =?iso-8859-1?Q?mzk/trLnXR?=
+ bh=mmMYybOFbozrygBhiiEJWBGVPatFbLSr/ADChFUEgaY=;
+ b=rw85Uuyn+QwcRWr/4gymSRJGBhqPoWZut93fRHrYtbXjWnXW2mskPjXTT2bgid4h2JSYrMRaETHSZF6P+FPyFr99IGgGQWRqTYLFvUZ50yO9deAPiLUHMe+nk2qwW5k/euo8Ev/3/QzwyQNbGDQ0nerV00Zq6PTwqe4aApxd0yo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB4680.namprd12.prod.outlook.com (2603:10b6:4:a6::33) by
+ DM6PR12MB4436.namprd12.prod.outlook.com (2603:10b6:5:2a3::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.21; Mon, 26 Apr 2021 19:44:48 +0000
+Received: from DM5PR12MB4680.namprd12.prod.outlook.com
+ ([fe80::8d0b:598b:27c2:4b58]) by DM5PR12MB4680.namprd12.prod.outlook.com
+ ([fe80::8d0b:598b:27c2:4b58%3]) with mapi id 15.20.4065.027; Mon, 26 Apr 2021
+ 19:44:48 +0000
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdkfd: fix spelling mistake in packet manager
+Date: Mon, 26 Apr 2021 15:44:34 -0400
+Message-Id: <20210426194434.83501-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YTXPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::25) To DM5PR12MB4680.namprd12.prod.outlook.com
+ (2603:10b6:4:a6::33)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jonathan-KFD.amd.com (165.204.55.251) by
+ YTXPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.24 via Frontend Transport; Mon, 26 Apr 2021 19:44:48 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fa9f71e8-e637-41ab-26af-08d908ebc025
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4436:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44367E2A17FC46259522D86085429@DM6PR12MB4436.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TYW08Bo3XpKcSjQaUCAao2yQMa1CQqogB+e2j3RXBBZTVKq+pUxGrzvCJ4jVeqTdresPYNkqgI+OAEngPvhOT/6Kefx68x6H+fNAaci3LUB3MGhb3bTQZGEJTVsdeqqecBLd5WO1sg4Fl8LAJRxJSFA11ibppIVN+gQvcd2x8l8T+aB8EmxlPOsCWsdwBbZAB7s6O9jT4jQAjs7bF76YBx7v45oSzvd/g6fpBq6DXEAE+pvHZYM8FP0GriMHuyXLan+2SakvnRyNko0v0rwmTk6FJ5WMmQ5yRBCAqqhLVPYq6vahfpyXUgfgV4RuTpR7RgUnM3rY1eAcvvHqtcFAidZCtRsxM45Im8pYWAlUFJtqJ9xKfMBn2kITDzY3zzZey+Io3mmWuTRJpsSJcZDe08Z4qOhZeTA/yA/AoWZcEm/4/HbFX6stjMB/6rYXc4iRoTzT6hWM4YVjGu0ZCoSlfMqG24Jj713t1ew38YJqhrVYVH3Jsi8vzK0dRu3jNxju8rs5zhyZew/Mny1W0yF7BKGMVi7ZuuI442M7xzwzTK1W4rlDhycbZPXfo/pW6FUqECr5WIee3hGAnsT5FIswG4tKrldCpEbAJkyeFzjPmsX3Th9u+qEXIoi4LDBkESy9Ml8nuhzqJblFhXm2cebX1zxCiTjTKUbp/GKnm9WXtUQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB4680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(39860400002)(346002)(376002)(136003)(38100700002)(38350700002)(4326008)(1076003)(86362001)(956004)(316002)(2616005)(6486002)(8936002)(16526019)(6916009)(6666004)(44832011)(8676002)(2906002)(26005)(83380400001)(66946007)(478600001)(66556008)(66476007)(5660300002)(52116002)(7696005)(36756003)(186003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?V9CRZlArc+zsUlMu9H4xzWc1PbU4qqa2O6J9smtFIzASZ1u+M6Rxfgoezhv1?=
+ =?us-ascii?Q?p6ydpwxTEeSWgibE240/zbp3K+MEIHmErEcLnipN1lMPgqi4jGQbCLy27mj9?=
+ =?us-ascii?Q?G8vVe5wiHWhNOoL2PR6GsoSnsDRuOENl8WupgSwEWQE8xe2uubV7MdKk1YSG?=
+ =?us-ascii?Q?psZ2MFsFYl/L5LVjkVhwxK9qC9KcOrezCHFqyO+Jum+q+Qtqeg/R4TyICs6O?=
+ =?us-ascii?Q?VHpgVhp8lJdqBpQgCKtUbOp5RDk9aK+z1bhuY55xCy2CO2iRUIEmqYVWSJvm?=
+ =?us-ascii?Q?JHwPHHqi5tl9c8BLkul1CGhiDvfLKSXYeYXLp2N+JyDUvbeD4A6ZiGCIVEWR?=
+ =?us-ascii?Q?KGHvovFR0b+LN8XLGYLjiSjq1dT9rzlUBsQZ0nvQcE2qIESwKneR/XpMRM71?=
+ =?us-ascii?Q?ZfNJgxRFLEex8DRlu49mgVSEwRO6Mvx0O99hti+tJeWp3couFxL2qLdETwJ8?=
+ =?us-ascii?Q?8J1hg+WI4Yqg5g1Ii4tWt5pel3Q4sGLrxz6drdRlHDkgVmLc2sSzXpKWNk/v?=
+ =?us-ascii?Q?UfvznXZvpnur2vCur17bUI/lmenc5naPU0SwkmEJcqYHfwpwmP5xpnP6eIG5?=
+ =?us-ascii?Q?Cb7rk6pAz5A1GdtNYkcmVFlShC4w0GQx1/veCJMlE0fX32RD6FJ7QXGDNdvX?=
+ =?us-ascii?Q?MgJyX1ewh1oL2fqwKQG5z5I9uuexoiMf5VgVk91YVeZN6cQBBqvY0aZFw6S2?=
+ =?us-ascii?Q?hS/x8XA80o1F04aw/jvsWaTgKipCY7ht3/dlMv/NpCIhx5eU8B6xlE2i0pw0?=
+ =?us-ascii?Q?V5ag9wCTxhXS11GGYigNUoIgNJudDCR6QATeGrOVa85hr77qgmY/44LSmePN?=
+ =?us-ascii?Q?K4sGfsrnK6imqtbP6zs6SbRrJ3QsM2N1S4oJssGsYDyscgmzNlTwQi7IACrN?=
+ =?us-ascii?Q?eCP5w5N+gyUoNAXOJoeDYwhLvfoM9MoYF78b3/qSnRWSFWqNiJmETMZE+8Ac?=
+ =?us-ascii?Q?gpmvPf74LT6QG35MWra0vYRhi7hWe5AVs9FVUsI+I1BoTqJD7xfrFcdzUtIa?=
+ =?us-ascii?Q?d3+qL925cXaHdc/lP4gc+E/qyz+x3J40CJ+VGvP7neFsxmqm0XUmuA0BnylD?=
+ =?us-ascii?Q?+u6AJpS3AnSZfX0ubByFW8se/Z3pqhfCil1FijNbUlFZB0YhyrnquIBPSzqa?=
+ =?us-ascii?Q?Gw5xR/kmpruI9dEq7mNfMUSnBQRrrCIsdhp2eWipzcL0E4cIp1dNuGhwsmgU?=
+ =?us-ascii?Q?Qr8gTr+VU7ira1ouTBGo3QuBvxBdmYAxnTne0O1t6tZaffoDHUhE7G0yV2+l?=
+ =?us-ascii?Q?anDEQyGKbo44MJdXNXGCaYaBQtIu6qurjGlsF2vH+r2F6MUG7fe8+SmECx08?=
+ =?us-ascii?Q?yn5PavMDqmhLRJwFpxAdKmRn?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa9f71e8-e637-41ab-26af-08d908ebc025
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4680.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f29e2f5-f893-4a29-9e13-08d908eb2329
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Apr 2021 19:40:24.8180 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xOE4e78cH3/V0QFTBugViRL4w2AX8ix/rtr+49m/aua9dMZp11nAfgh+CsxWelddaoPAwpPPAOaSw3C2P6FQdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3871
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2021 19:44:48.5042 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rNPoWTnOF0h0SzwfVUlrzNUsKYN18egnNejthrfecm98L8frcviUvb9Ymmstu+wv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4436
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,337 +123,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Sun, Roy" <Roy.Sun@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Nieto, David M" <David.Nieto@amd.com>
-Content-Type: multipart/mixed; boundary="===============1910874521=="
+Cc: Felix.Kuehling@amd.com, Jonathan Kim <jonathan.kim@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1910874521==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44884F5635594C3F53D3F865F7429MN2PR12MB4488namp_"
+The plural of 'process' should be 'processes'.
 
---_000_MN2PR12MB44884F5635594C3F53D3F865F7429MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-[AMD Official Use Only - Internal Distribution Only]
-
-That said, it would be easier for me to merge through the AMD tree since a =
-relatively big AMD feature depends on it.  Not sure how much conflict poten=
-tial there is if this goes through the AMD tree.
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Deucher,=
- Alexander <Alexander.Deucher@amd.com>
-Sent: Monday, April 26, 2021 3:24 PM
-To: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Sun, Roy <Roy.Sun@amd.com=
->; Nieto, David M <David.Nieto@amd.com>
-Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-No objections from me.
-
-Thanks!
-
-Alex
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Sent: Monday, April 26, 2021 2:49 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Nieto, David M <David.Nieto@amd.com>; Sun, Roy <Roy.Sun@amd.com>; amd-g=
-fx list <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
-
-Hey Alex,
-
-any objections that we merge those two patches through drm-misc-next?
-
-Thanks,
-Christian.
-
-Am 26.04.21 um 08:27 schrieb Roy Sun:
-> Update the timestamp of scheduled fence on HW
-> completion of the previous fences
->
-> This allow more accurate tracking of the fence
-> execution in HW
->
-> Signed-off-by: David M Nieto <david.nieto@amd.com>
-> Signed-off-by: Roy Sun <Roy.Sun@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index 92d8de24d0a1..f8e39ab0c41b 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler=
- *sched)
->   EXPORT_SYMBOL(drm_sched_resubmit_jobs);
->
->   /**
-> - * drm_sched_resubmit_jobs_ext - helper to relunch certain number of job=
-s from mirror ring list
-> + * drm_sched_resubmit_jobs_ext - helper to relaunch certain number of jo=
-bs from pending list
->    *
->    * @sched: scheduler instance
->    * @max: job numbers to relaunch
-> @@ -671,7 +671,7 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sch=
-ed)
->   static struct drm_sched_job *
->   drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   {
-> -     struct drm_sched_job *job;
-> +     struct drm_sched_job *job, *next;
->
->        /*
->         * Don't destroy jobs while the timeout worker is running  OR thre=
-ad
-> @@ -690,6 +690,14 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *=
-sched)
->        if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
->                /* remove job from pending_list */
->                list_del_init(&job->list);
-> We just need to record the scheduled time of the next job. So we
-> need not to check the rest job.
-> +             /* account for the next fence in the queue */
-> +             next =3D list_first_entry_or_null(&sched->pending_list,
-> +                             struct drm_sched_job, list);
-> +             if (next && test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> +                     &job->s_fence->finished.flags)) {
-> +                     next->s_fence->scheduled.timestamp =3D
-> +                             job->s_fence->finished.timestamp;
-> +             }
->        } else {
->                job =3D NULL;
->                /* queue timeout for next job */
-
-
---_000_MN2PR12MB44884F5635594C3F53D3F865F7429MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-That said, it would be easier for me to merge through the AMD tree since a =
-relatively big AMD feature depends on it.&nbsp; Not sure how much conflict =
-potential there is if this goes through the AMD tree.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
-der.Deucher@amd.com&gt;<br>
-<b>Sent:</b> Monday, April 26, 2021 3:24 PM<br>
-<b>To:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Sun, Roy &lt=
-;Roy.Sun@amd.com&gt;; Nieto, David M &lt;David.Nieto@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track=
-</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:11pt; color:#0078D7=
-; margin:5pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<p align=3D"Left" style=3D"font-family:Arial; font-size:11pt; color:#0078D7=
-; margin:5pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-No objections from me.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Thanks!</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &=
-lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> Monday, April 26, 2021 2:49 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Nieto, David M &lt;David.Nieto@amd.com&gt;; Sun, Roy &lt;Roy.Sun=
-@amd.com&gt;; amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Hey Alex,<br>
-<br>
-any objections that we merge those two patches through drm-misc-next?<br>
-<br>
-Thanks,<br>
-Christian.<br>
-<br>
-Am 26.04.21 um 08:27 schrieb Roy Sun:<br>
-&gt; Update the timestamp of scheduled fence on HW<br>
-&gt; completion of the previous fences<br>
-&gt;<br>
-&gt; This allow more accurate tracking of the fence<br>
-&gt; execution in HW<br>
-&gt;<br>
-&gt; Signed-off-by: David M Nieto &lt;david.nieto@amd.com&gt;<br>
-&gt; Signed-off-by: Roy Sun &lt;Roy.Sun@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--<b=
-r>
-&gt;&nbsp;&nbsp; 1 file changed, 10 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/=
-scheduler/sched_main.c<br>
-&gt; index 92d8de24d0a1..f8e39ab0c41b 100644<br>
-&gt; --- a/drivers/gpu/drm/scheduler/sched_main.c<br>
-&gt; +++ b/drivers/gpu/drm/scheduler/sched_main.c<br>
-&gt; @@ -515,7 +515,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_schedu=
-ler *sched)<br>
-&gt;&nbsp;&nbsp; EXPORT_SYMBOL(drm_sched_resubmit_jobs);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * drm_sched_resubmit_jobs_ext - helper to relunch certain number of =
-jobs from mirror ring list<br>
-&gt; + * drm_sched_resubmit_jobs_ext - helper to relaunch certain number of=
- jobs from pending list<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @sched: scheduler instance<br>
-&gt;&nbsp;&nbsp;&nbsp; * @max: job numbers to relaunch<br>
-&gt; @@ -671,7 +671,7 @@ drm_sched_select_entity(struct drm_gpu_scheduler *=
-sched)<br>
-&gt;&nbsp;&nbsp; static struct drm_sched_job *<br>
-&gt;&nbsp;&nbsp; drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)=
-<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job *job;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job *job, *next;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Don't destroy jobs w=
-hile the timeout worker is running&nbsp; OR thread<br>
-&gt; @@ -690,6 +690,14 @@ drm_sched_get_cleanup_job(struct drm_gpu_schedule=
-r *sched)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job &amp;&amp; dma_fence=
-_is_signaled(&amp;job-&gt;s_fence-&gt;finished)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* remove job from pending_list */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; list_del_init(&amp;job-&gt;list);<br>
-&gt; We just need to record the scheduled time of the next job. So we<br>
-&gt; need not to check the rest job.<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* account for the next fence in the queue */<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; next =3D list_first_entry_or_null(&amp;sched-&gt;pending_list,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job, list);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (next &amp;&amp; test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;job-&gt;s_fence-&g=
-t;finished.flags)) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next-&gt;s_fence-&gt;sc=
-heduled.timestamp =3D<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; job-&gt;s_fence-&gt;finished.timestamp;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; job =3D NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* queue timeout for next job */<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB44884F5635594C3F53D3F865F7429MN2PR12MB4488namp_--
-
---===============1910874521==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+index 0ce507d7208a..f688451cb299 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -124,14 +124,14 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+ {
+ 	unsigned int alloc_size_bytes;
+ 	unsigned int *rl_buffer, rl_wptr, i;
+-	int retval, proccesses_mapped;
++	int retval, processes_mapped;
+ 	struct device_process_node *cur;
+ 	struct qcm_process_device *qpd;
+ 	struct queue *q;
+ 	struct kernel_queue *kq;
+ 	bool is_over_subscription;
+ 
+-	rl_wptr = retval = proccesses_mapped = 0;
++	rl_wptr = retval = processes_mapped = 0;
+ 
+ 	retval = pm_allocate_runlist_ib(pm, &rl_buffer, rl_gpu_addr,
+ 				&alloc_size_bytes, &is_over_subscription);
+@@ -148,7 +148,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+ 	list_for_each_entry(cur, queues, list) {
+ 		qpd = cur->qpd;
+ 		/* build map process packet */
+-		if (proccesses_mapped >= pm->dqm->processes_count) {
++		if (processes_mapped >= pm->dqm->processes_count) {
+ 			pr_debug("Not enough space left in runlist IB\n");
+ 			pm_release_ib(pm);
+ 			return -ENOMEM;
+@@ -158,7 +158,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+ 		if (retval)
+ 			return retval;
+ 
+-		proccesses_mapped++;
++		processes_mapped++;
+ 		inc_wptr(&rl_wptr, pm->pmf->map_process_size,
+ 				alloc_size_bytes);
+ 
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1910874521==--
