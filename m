@@ -2,103 +2,69 @@ Return-Path: <SRS0=7Ry8=JY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2D44C433B4
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9941C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A12860720
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A12860720
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9C01661178
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:50:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C01661178
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39AE26E970;
-	Tue, 27 Apr 2021 14:38:13 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA896E970
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 14:38:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W3KoZ90ynrAGFz8QEGTONHCbaA9tGUczTHc0lB9LVgDCzPsL5OGiuPbr578D5QiyJAVmgMsdHrPLrDSVwvTqVp+ONFIfNHhQjmS5VeY3k18KqKUZ7Aezb0PrVql8XMiwLBqvtAIB9gc1/wCa3ZAZvuHhZTjVfm5kOE6+sy8MyEylMtvtRSQ/ftH1p1cVZ28SocdXthUdhXGnouAGIEj+buZglxaJnGU1XsDaFoFbdkX0x7Tb5MHT3Xiv7GltYZC4T1q707uxQnyjc+V6KVZot+7kd7t2RvRXiQWI+geLzB+tGcj2kxiGsM3CiHFlvOML1+tZ9Y5maU9rOhA39w4GZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=diGJ8q7QvzR9A8V2l/ebsNITRo3V6ouKCWQIC70hl1Q=;
- b=EyN2tU8Bs1Y5hTBQjgHT9+mZ+5KD5gJSmKepBPGsKjoS/y0AE4Pd2at9pUgzS8a7zIuH5sTEzrakz9VzNDVkCa6zT9w5rVfOps38RPyO9TNCpCgfWB95/d+RpuyNNRhg0E6URaQDHwwTLioNuc5vVMxWIiP9THUVazx3DQUeTFivjT/hKutMPqhoWXgGycZP0KnPTswg5j5EHh/sfL7iuOZJ17oBUQkfemB6dracH73RS28v8EVeabvFsbM6gFD/P3w35xh1+GUF4bcymYrHy2zijQEumX5PyAY6njmQrrXsVH6ruhN1auS2sKl4pN6jdjK4bi/nbJ7kFYokZB0pOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=diGJ8q7QvzR9A8V2l/ebsNITRo3V6ouKCWQIC70hl1Q=;
- b=XpMikB1NiMQLe9fMu4zwRosr68TeJ6uIbDMFw0ZLpvCjQBVlEqSFhONrtltMXGO3xeQNK5fA93n+cGOLmiKQPiOHjaPTUk2wFqkvFGV2o0aljBGWajw/D54oUvuyRjs1uQ8iCRTXBtVI1eYEAW7FkqgK80B7KxhNQc3xcR++qKo=
-Received: from CO2PR04CA0097.namprd04.prod.outlook.com (2603:10b6:104:6::23)
- by CY4PR1201MB0040.namprd12.prod.outlook.com (2603:10b6:910:1b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25; Tue, 27 Apr
- 2021 14:38:09 +0000
-Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:104:6:cafe::f8) by CO2PR04CA0097.outlook.office365.com
- (2603:10b6:104:6::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20 via Frontend
- Transport; Tue, 27 Apr 2021 14:38:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4065.21 via Frontend Transport; Tue, 27 Apr 2021 14:38:09 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 27 Apr
- 2021 09:38:08 -0500
-Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4 via Frontend
- Transport; Tue, 27 Apr 2021 09:38:05 -0500
-From: Dennis Li <Dennis.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdgpu: fix no full coverage issue for gprs initialization
-Date: Tue, 27 Apr 2021 22:37:56 +0800
-Message-ID: <20210427143756.8628-1-Dennis.Li@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2536E976;
+	Tue, 27 Apr 2021 14:50:15 +0000 (UTC)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A32166E2B8;
+ Tue, 27 Apr 2021 14:50:13 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id u20so68486214lja.13;
+ Tue, 27 Apr 2021 07:50:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=EX6p+UaEJc6LTy2VhcoP2k1egM9Ko3885KQg+/YJn6U=;
+ b=V7Pqt5hryFiwxw8cXs9O/aviIb9G83eUNN6ytKqrHf8dZnKbOf4ailQFibi+NOUsaz
+ tkSfCwd0j1Z+zGAxXzD+uIn5runECzkCRr93MiV2vMak97o8JHhAtvGeEBlYppAWhubR
+ 8cIdlcmUL0cc2UzJ3aTQXgTx0TFU9gSyi7eAiWkJLkLiXZ3S3LKxGDPp8CFbfE+Gdbfb
+ 2gRtpyypgb6lFZUAk+P2rKJ9dzKH1gpy0ka5oGFMn7mPjW1gb4ndAdPifn9IPMXQnhMd
+ gOsVfP4XCV/jcQVQMvmL/QpHxaLauIpHJhfusIOht4VfEKWiNnVmzXf1aFe84jg/KyRf
+ /woA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=EX6p+UaEJc6LTy2VhcoP2k1egM9Ko3885KQg+/YJn6U=;
+ b=CXrk3n9FP34+jdZusxwLl7BgN+yL5aDq8sGZFkucvhlaUXXj02kcSNt7atuCneUyUg
+ xecxySO6kLjMOOBGKm3RKAtv/3ss7adVQVFHpTjyifjc0Blhvdv39WR3pnUvHUmsgtUu
+ ebRtOVMm5NsIHH7MLjvY+zpS3KpO8gRksbPPGz8+ERl4ILA4lvYZuX8qxnP5KvPW5ZIQ
+ c+S2cQ4mcyo/Em34trUmZsQ+GBKIAyDOJo/TFA9w1Kw9iNEHFORIeJhlpcxYZg7fXPxz
+ wNmxxTsrFCfU8F50NKMnp9E1XYVL7bv6PRE7L3FeXL1AToKjUg9HXLj+pd+tX3Q8AJwV
+ d3XQ==
+X-Gm-Message-State: AOAM530MZLYT/Fp3USzaDAQdMMoxCK4Mzfr6Pvc2YrtMm600FErA92bk
+ x153H1WfIRGRcLUxWHef0qE=
+X-Google-Smtp-Source: ABdhPJwRZwdAXEJ7/LcORcvgJ5RWJSRNlMq68NDpopLEu7KjyUG0S35zg+VPlRKDgc4HNN5IGxDQWA==
+X-Received: by 2002:a2e:88c1:: with SMTP id a1mr14644716ljk.253.1619535011828; 
+ Tue, 27 Apr 2021 07:50:11 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id n8sm28253lfe.285.2021.04.27.07.50.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Apr 2021 07:50:11 -0700 (PDT)
+Date: Tue, 27 Apr 2021 17:50:05 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
+Message-ID: <20210427175005.5b92badc@eldfell>
+In-Reply-To: <20210426173852.484368-1-harry.wentland@amd.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ff46c0c0-3ed4-4fac-3599-08d9098a13ef
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0040:
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB00400C49218DCCE428A85BA5ED419@CY4PR1201MB0040.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E+0rr3P6rUmPzizobIkeeqR4zBUK0lzA2uUkf5c512UEMzCsmUzejuYrrpW3DfOhxfLG2my8i6nnrUpxMEUj+fiMdrielwwgiR0V4vqxNLQZ/jcVTbGwx6AKmzhIGw5NoEdrgPpVKbx5w4lpKUHa5fhCM/udIsg3xqHMxYaDz/Iak1+WLuUluqI35nPuTMsc7n46VBh2ox50Y6jZfHit7q1vbIFfyK2u6DIkZt4L2E3lYTHq1Ngbiq+G8hS3n730I+CdcLlYQwzgOgSGBFdeiquIlg97/EE7sPwtNKcasiv4XUOyEsRSjHiK6sjm6XBV6PZuQOAy9hfEVhsgWXREn8GHBiffk+431tnQKniaiYPUtLnSZFWNNxDkxRSgG+iGnGF0HTBjSOTz8z74d+4ZTR4u+EkkmZgXO3VHX7beL9HDk8/eZadhZ4vkjDEoZWzLWYcTpKdRd9e75Y5MBxUtAGy/fFD64e/BNtMfEFfm13/uVlpBroRzEPh8uD7Bgy9e+7SSBWAncZ0nuL719vlaKrXQiFesGCmFdOn8Yk2Bf2dsappTLoN103jnuMEkYRsC0nehYu/ZYRqM74KH1tPqUVdaqp4MC//X0rx+JK7LOqKNOyVR0u4UHIEyydO/XMOn0ZtTgaQ1PCU4DnhabtIOI9kPe1A7gtM8BFfJEyYeqEls2/r1AUX8KqiszU4F5137oJ85C1Un36MT6W7HfkAq2w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(39860400002)(136003)(396003)(36840700001)(46966006)(4326008)(110136005)(36860700001)(8676002)(8936002)(83380400001)(316002)(47076005)(6666004)(82310400003)(86362001)(2906002)(30864003)(6636002)(70206006)(336012)(356005)(2616005)(36756003)(70586007)(1076003)(478600001)(26005)(82740400003)(7696005)(186003)(5660300002)(426003)(81166007)(36900700001)(2101003)(579004);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2021 14:38:09.2657 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff46c0c0-3ed4-4fac-3599-08d9098a13ef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0040
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,921 +76,439 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dennis Li <Dennis.Li@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
+ mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, sebastian@sebastianwick.net, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ ville.syrjala@linux.intel.com, Vitaly.Prosyak@amd.com
+Content-Type: multipart/mixed; boundary="===============0878035673=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The number of waves is changed to 8, so it is impossible to use old
-solution to cover all sgprs.
+--===============0878035673==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/PwenWCvv0_DSkbbNXI+n.zM"; protocol="application/pgp-signature"
 
-Signed-off-by: Dennis Li <Dennis.Li@amd.com>
+--Sig_/PwenWCvv0_DSkbbNXI+n.zM
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index a2fe2dac32c1..2e6789a7dc46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -328,7 +328,7 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev)
- 
- 	for (i = 0; i < AMDGPU_IB_POOL_MAX; i++) {
- 		if (i == AMDGPU_IB_POOL_DIRECT)
--			size = PAGE_SIZE * 2;
-+			size = PAGE_SIZE * 6;
- 		else
- 			size = AMDGPU_IB_POOL_SIZE;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index d17e57dea178..77948c033c45 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -32,6 +32,11 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_gfx.h"
- 
-+#define SE_ID_MAX 8
-+#define CU_ID_MAX 16
-+#define SIMD_ID_MAX 4
-+#define WAVE_ID_MAX 10
-+
- enum gfx_v9_4_2_utc_type {
- 	VML2_MEM,
- 	VML2_WALKER_MEM,
-@@ -81,100 +86,100 @@ static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde[] = {
- };
- 
- static const u32 vgpr_init_compute_shader_aldebaran[] = {
--	0xb8840904, 0xb8851a04, 0xb8861344, 0x9207c006, 0x92088405, 0x81070807,
--	0x81070407, 0x8e078207, 0xbe88008f, 0xc0410200, 0x00000007, 0xd3d94000,
--	0x18000080, 0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003,
--	0x18000080, 0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006,
--	0x18000080, 0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009,
--	0x18000080, 0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c,
--	0x18000080, 0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f,
--	0x18000080, 0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012,
--	0x18000080, 0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015,
--	0x18000080, 0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018,
--	0x18000080, 0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b,
--	0x18000080, 0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e,
--	0x18000080, 0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021,
--	0x18000080, 0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024,
--	0x18000080, 0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027,
--	0x18000080, 0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a,
--	0x18000080, 0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d,
--	0x18000080, 0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030,
--	0x18000080, 0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033,
--	0x18000080, 0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036,
--	0x18000080, 0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039,
--	0x18000080, 0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c,
--	0x18000080, 0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f,
--	0x18000080, 0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042,
--	0x18000080, 0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045,
--	0x18000080, 0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048,
--	0x18000080, 0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b,
--	0x18000080, 0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e,
--	0x18000080, 0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051,
--	0x18000080, 0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054,
--	0x18000080, 0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057,
--	0x18000080, 0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a,
--	0x18000080, 0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d,
--	0x18000080, 0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060,
--	0x18000080, 0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063,
--	0x18000080, 0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066,
--	0x18000080, 0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069,
--	0x18000080, 0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c,
--	0x18000080, 0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f,
--	0x18000080, 0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072,
--	0x18000080, 0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075,
--	0x18000080, 0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078,
--	0x18000080, 0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b,
--	0x18000080, 0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e,
--	0x18000080, 0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081,
--	0x18000080, 0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084,
--	0x18000080, 0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087,
--	0x18000080, 0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a,
--	0x18000080, 0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d,
--	0x18000080, 0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090,
--	0x18000080, 0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093,
--	0x18000080, 0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096,
--	0x18000080, 0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099,
--	0x18000080, 0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c,
--	0x18000080, 0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f,
--	0x18000080, 0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2,
--	0x18000080, 0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5,
--	0x18000080, 0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8,
--	0x18000080, 0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab,
--	0x18000080, 0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae,
--	0x18000080, 0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1,
--	0x18000080, 0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4,
--	0x18000080, 0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7,
--	0x18000080, 0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba,
--	0x18000080, 0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd,
--	0x18000080, 0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0,
--	0x18000080, 0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3,
--	0x18000080, 0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6,
--	0x18000080, 0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9,
--	0x18000080, 0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc,
--	0x18000080, 0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf,
--	0x18000080, 0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2,
--	0x18000080, 0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5,
--	0x18000080, 0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8,
--	0x18000080, 0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db,
--	0x18000080, 0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de,
--	0x18000080, 0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1,
--	0x18000080, 0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4,
--	0x18000080, 0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7,
--	0x18000080, 0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea,
--	0x18000080, 0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed,
--	0x18000080, 0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0,
--	0x18000080, 0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3,
--	0x18000080, 0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6,
--	0x18000080, 0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9,
--	0x18000080, 0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc,
--	0x18000080, 0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff,
--	0x18000080, 0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280,
--	0x7e020280, 0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280,
--	0x7e0e0280, 0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001,
--	0x0001007f, 0xd28d0001, 0x0002027e, 0x10020288, 0xb88b0904, 0xb78b4000,
--	0xd1196a01, 0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201,
--	0xd89cc080, 0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8,
--	0xbf810000,
-+	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
-+	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
-+	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xd3d94000, 0x18000080,
-+	0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003, 0x18000080,
-+	0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006, 0x18000080,
-+	0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009, 0x18000080,
-+	0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c, 0x18000080,
-+	0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f, 0x18000080,
-+	0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012, 0x18000080,
-+	0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015, 0x18000080,
-+	0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018, 0x18000080,
-+	0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b, 0x18000080,
-+	0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e, 0x18000080,
-+	0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021, 0x18000080,
-+	0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024, 0x18000080,
-+	0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027, 0x18000080,
-+	0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a, 0x18000080,
-+	0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d, 0x18000080,
-+	0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030, 0x18000080,
-+	0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033, 0x18000080,
-+	0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036, 0x18000080,
-+	0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039, 0x18000080,
-+	0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c, 0x18000080,
-+	0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f, 0x18000080,
-+	0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042, 0x18000080,
-+	0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045, 0x18000080,
-+	0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048, 0x18000080,
-+	0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b, 0x18000080,
-+	0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e, 0x18000080,
-+	0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051, 0x18000080,
-+	0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054, 0x18000080,
-+	0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057, 0x18000080,
-+	0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a, 0x18000080,
-+	0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d, 0x18000080,
-+	0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060, 0x18000080,
-+	0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063, 0x18000080,
-+	0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066, 0x18000080,
-+	0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069, 0x18000080,
-+	0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c, 0x18000080,
-+	0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f, 0x18000080,
-+	0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072, 0x18000080,
-+	0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075, 0x18000080,
-+	0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078, 0x18000080,
-+	0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b, 0x18000080,
-+	0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e, 0x18000080,
-+	0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081, 0x18000080,
-+	0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084, 0x18000080,
-+	0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087, 0x18000080,
-+	0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a, 0x18000080,
-+	0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d, 0x18000080,
-+	0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090, 0x18000080,
-+	0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093, 0x18000080,
-+	0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096, 0x18000080,
-+	0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099, 0x18000080,
-+	0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c, 0x18000080,
-+	0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f, 0x18000080,
-+	0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2, 0x18000080,
-+	0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5, 0x18000080,
-+	0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8, 0x18000080,
-+	0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab, 0x18000080,
-+	0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae, 0x18000080,
-+	0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1, 0x18000080,
-+	0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4, 0x18000080,
-+	0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7, 0x18000080,
-+	0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba, 0x18000080,
-+	0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd, 0x18000080,
-+	0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0, 0x18000080,
-+	0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3, 0x18000080,
-+	0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6, 0x18000080,
-+	0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9, 0x18000080,
-+	0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc, 0x18000080,
-+	0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf, 0x18000080,
-+	0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2, 0x18000080,
-+	0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5, 0x18000080,
-+	0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8, 0x18000080,
-+	0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db, 0x18000080,
-+	0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de, 0x18000080,
-+	0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1, 0x18000080,
-+	0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4, 0x18000080,
-+	0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7, 0x18000080,
-+	0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea, 0x18000080,
-+	0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed, 0x18000080,
-+	0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0, 0x18000080,
-+	0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3, 0x18000080,
-+	0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6, 0x18000080,
-+	0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9, 0x18000080,
-+	0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc, 0x18000080,
-+	0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff, 0x18000080,
-+	0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280, 0x7e020280,
-+	0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280, 0x7e0e0280,
-+	0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001, 0x0001007f,
-+	0xd28d0001, 0x0002027e, 0x10020288, 0xbe8b0004, 0xb78b4000, 0xd1196a01,
-+	0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201, 0xd89cc080,
-+	0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8, 0xbf810000,
- };
- 
- const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
-@@ -183,7 +188,7 @@ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 4 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0xbf },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x400004 },  /* 64KB LDS */
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x400006 },  /* 64KB LDS */
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
-@@ -195,262 +200,488 @@ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
- };
- 
--static const u32 sgpr_init_compute_shader_aldebaran[] = {
--	0xb8840904, 0xb8851a04, 0xb8861344, 0x9207c006, 0x92088405, 0x81070807,
--	0x81070407, 0x8e078207, 0xbefc0006, 0xbf800000, 0xbf900001, 0xbe88008f,
--	0xc0410200, 0x00000007, 0xb07c0000, 0xbe8000ff, 0x0000005f, 0xbee50080,
--	0xbe812c65, 0xbe822c65, 0xbe832c65, 0xbe842c65, 0xbe852c65, 0xb77c0005,
--	0x80808500, 0xbf84fff8, 0xbe800080, 0xbf810000,
-+static const u32 sgpr112_init_compute_shader_aldebaran[] = {
-+	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
-+	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
-+	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
-+	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
-+	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
-+	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
-+	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
-+	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
-+	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
-+	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
-+	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
-+	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
-+	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
-+	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
-+	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
-+	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
-+	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
-+	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
-+	0xbed80080, 0xbed90080, 0xbeda0080, 0xbedb0080, 0xbedc0080, 0xbedd0080,
-+	0xbede0080, 0xbedf0080, 0xbee00080, 0xbee10080, 0xbee20080, 0xbee30080,
-+	0xbee40080, 0xbee50080, 0xbf810000
- };
- 
--static const struct soc15_reg_entry sgpr1_init_regs_aldebaran[] = {
-+const struct soc15_reg_entry sgpr112_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 8 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 }, /* (80 GPRS): SGPRS[9:6] VGPRS[5:0] */
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x4 }, /* USER_SGPR[5:1]*/
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0x000000ff },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0x000000ff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x2c0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
-+};
-+
-+static const u32 sgpr96_init_compute_shader_aldebaran[] = {
-+	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
-+	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
-+	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
-+	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
-+	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
-+	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
-+	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
-+	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
-+	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
-+	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
-+	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
-+	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
-+	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
-+	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
-+	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
-+	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
-+	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
-+	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
-+	0xbed80080, 0xbed90080, 0xbf810000,
- };
- 
--static const struct soc15_reg_entry sgpr2_init_regs_aldebaran[] = {
-+const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 8 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 0xc },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 }, /* (80 GPRS) */
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x4 }, /* USER_SGPR[5:1]*/
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0x0000ff00 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0x0000ff00 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
- };
- 
--static int gfx_v9_4_2_check_gprs_init_coverage(struct amdgpu_device *adev,
--					       uint32_t *wb)
--{
--	uint32_t se_id, cu_id, simd_id;
--	uint32_t simd_cnt = 0;
--	uint32_t se_offset, cu_offset, data;
--
--	for (se_id = 0; se_id < adev->gfx.config.max_shader_engines; se_id++) {
--		se_offset = se_id * 16 * 4;
--		for (cu_id = 0; cu_id < 16; cu_id++) {
--			cu_offset = cu_id * 4;
--			for (simd_id = 0; simd_id < 4; simd_id++) {
--				data = wb[se_offset + cu_offset + simd_id];
--				if (data == 0xF)
--					simd_cnt++;
--			}
--		}
--	}
--
--	if (adev->gfx.cu_info.number * 4 == simd_cnt)
--		return 0;
--
--	dev_warn(adev->dev, "SIMD Count: %d, %d\n",
--		 adev->gfx.cu_info.number * 4, simd_cnt);
--
--	for (se_id = 0; se_id < adev->gfx.config.max_shader_engines; se_id++) {
--		se_offset = se_id * 16 * 4;
--		for (cu_id = 0; cu_id < 16; cu_id++) {
--			cu_offset = cu_id * 4;
--			for (simd_id = 0; simd_id < 4; simd_id++) {
--				data = wb[se_offset + cu_offset + simd_id];
--				if (data != 0xF)
--					dev_warn(adev->dev, "SE[%d]CU[%d]SIMD[%d]: isn't inited\n",
--						se_id, cu_id, simd_id);
--			}
--		}
--	}
-+static const u32 sgpr64_init_compute_shader_aldebaran[] = {
-+	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
-+	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
-+	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080,
-+	0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080,
-+	0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080,
-+	0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080,
-+	0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080,
-+	0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080,
-+	0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080,
-+	0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080,
-+	0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080,
-+	0xbeb90080, 0xbf810000,
-+};
- 
--	return -EFAULT;
--}
-+const struct soc15_reg_entry sgpr64_init_regs_aldebaran[] = {
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 0x10 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x1c0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },
-+};
- 
- static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
--				 const uint32_t *shader_ptr, uint32_t shader_size,
--				 const struct soc15_reg_entry *init_regs, uint32_t regs_size,
--				 uint32_t compute_dim_x, u64 wb_gpu_addr)
-+				 struct amdgpu_ring *ring,
-+				 struct amdgpu_ib *ib,
-+				 const u32 *shader_ptr, u32 shader_size,
-+				 const struct soc15_reg_entry *init_regs, u32 regs_size,
-+				 u32 compute_dim_x, u64 wb_gpu_addr, u32 pattern,
-+				 struct dma_fence **fence_ptr)
- {
--	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
--	struct amdgpu_ib ib;
--	struct dma_fence *f = NULL;
- 	int r, i;
- 	uint32_t total_size, shader_offset;
- 	u64 gpu_addr;
- 
--	total_size = (regs_size * 3 + 4 + 4 + 5 + 2) * 4;
-+	total_size = (regs_size * 3 + 4 + 5 + 5) * 4;
- 	total_size = ALIGN(total_size, 256);
- 	shader_offset = total_size;
- 	total_size += ALIGN(shader_size, 256);
- 
- 	/* allocate an indirect buffer to put the commands in */
--	memset(&ib, 0, sizeof(ib));
-+	memset(ib, 0, sizeof(*ib));
- 	r = amdgpu_ib_get(adev, NULL, total_size,
--					AMDGPU_IB_POOL_DIRECT, &ib);
-+					AMDGPU_IB_POOL_DIRECT, ib);
- 	if (r) {
--		DRM_ERROR("amdgpu: failed to get ib (%d).\n", r);
-+		dev_err(adev->dev, "failed to get ib (%d).\n", r);
- 		return r;
- 	}
- 
- 	/* load the compute shaders */
- 	for (i = 0; i < shader_size/sizeof(u32); i++)
--		ib.ptr[i + (shader_offset / 4)] = shader_ptr[i];
-+		ib->ptr[i + (shader_offset / 4)] = shader_ptr[i];
- 
- 	/* init the ib length to 0 */
--	ib.length_dw = 0;
-+	ib->length_dw = 0;
- 
- 	/* write the register state for the compute dispatch */
- 	for (i = 0; i < regs_size; i++) {
--		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
--		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(init_regs[i])
-+		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
-+		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(init_regs[i])
- 								- PACKET3_SET_SH_REG_START;
--		ib.ptr[ib.length_dw++] = init_regs[i].reg_value;
-+		ib->ptr[ib->length_dw++] = init_regs[i].reg_value;
- 	}
- 
- 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
--	gpu_addr = (ib.gpu_addr + (u64)shader_offset) >> 8;
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
--	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
-+	gpu_addr = (ib->gpu_addr + (u64)shader_offset) >> 8;
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
-+	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
- 							- PACKET3_SET_SH_REG_START;
--	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
--	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
- 
- 	/* write the wb buffer address */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
--	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_USER_DATA_0)
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 3);
-+	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_USER_DATA_0)
- 							- PACKET3_SET_SH_REG_START;
--	ib.ptr[ib.length_dw++] = lower_32_bits(wb_gpu_addr);
--	ib.ptr[ib.length_dw++] = upper_32_bits(wb_gpu_addr);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(wb_gpu_addr);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(wb_gpu_addr);
-+	ib->ptr[ib->length_dw++] = pattern;
- 
- 	/* write dispatch packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
--	ib.ptr[ib.length_dw++] = compute_dim_x; /* x */
--	ib.ptr[ib.length_dw++] = 1; /* y */
--	ib.ptr[ib.length_dw++] = 1; /* z */
--	ib.ptr[ib.length_dw++] =
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
-+	ib->ptr[ib->length_dw++] = compute_dim_x; /* x */
-+	ib->ptr[ib->length_dw++] = 1; /* y */
-+	ib->ptr[ib->length_dw++] = 1; /* z */
-+	ib->ptr[ib->length_dw++] =
- 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
- 
--	/* write CS partial flush packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
--	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
--
- 	/* shedule the ib on the ring */
--	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
-+	r = amdgpu_ib_schedule(ring, 1, ib, NULL, fence_ptr);
- 	if (r) {
--		DRM_ERROR("amdgpu: ib submit failed (%d).\n", r);
--		goto fail;
-+		dev_err(adev->dev, "ib submit failed (%d).\n", r);
-+		amdgpu_ib_free(adev, ib, NULL);
- 	}
-+	return r;
-+}
- 
--	/* wait for the GPU to finish processing the IB */
--	r = dma_fence_wait(f, false);
--	if (r) {
--		DRM_ERROR("amdgpu: fence wait failed (%d).\n", r);
--		goto fail;
-+static void gfx_v9_4_2_log_wave_assignment(struct amdgpu_device *adev, uint32_t *wb_ptr)
-+{
-+	uint32_t se, cu, simd, wave;
-+	uint32_t offset = 0;
-+	char *str;
-+	int size;
-+
-+	str = kmalloc(256, GFP_KERNEL);
-+	if (!str)
-+		return;
-+
-+	dev_dbg(adev->dev, "wave assignment:\n");
-+
-+	for (se = 0; se < adev->gfx.config.max_shader_engines; se++) {
-+		for (cu = 0; cu < CU_ID_MAX; cu++) {
-+			memset(str, 0, 256);
-+			size = sprintf(str, "SE[%02d]CU[%02d]: ", se, cu);
-+			for (simd = 0; simd < SIMD_ID_MAX; simd++) {
-+				size += sprintf(str + size, "[");
-+				for (wave = 0; wave < WAVE_ID_MAX; wave++) {
-+					size += sprintf(str + size, "%x", wb_ptr[offset]);
-+					offset++;
-+				}
-+				size += sprintf(str + size, "]  ");
-+			}
-+			dev_dbg(adev->dev, "%s\n", str);
-+		}
- 	}
--fail:
--	amdgpu_ib_free(adev, &ib, NULL);
--	dma_fence_put(f);
- 
--	return r;
-+	kfree(str);
- }
- 
--int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev)
-+static int gfx_v9_4_2_wait_for_waves_assigned(struct amdgpu_device *adev,
-+					      uint32_t *wb_ptr, uint32_t mask,
-+					      uint32_t pattern, uint32_t num_wave, bool wait)
- {
--	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
--	int r;
--	int compute_dim_x = adev->gfx.config.max_shader_engines *
--			    adev->gfx.config.max_cu_per_sh *
--			    adev->gfx.config.max_sh_per_se;
--	int sgpr_work_group_size = 5;
--	/* CU_ID: 0~15, SIMD_ID: 0~3 */
--	int wb_size = adev->gfx.config.max_shader_engines * 16 * 4;
--	struct amdgpu_ib ib;
-+	uint32_t se, cu, simd, wave;
-+	uint32_t loop = 0;
-+	uint32_t wave_cnt;
-+	uint32_t offset;
- 
--	/* only support when RAS is enabled */
--	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
--		return 0;
-+	do {
-+		wave_cnt = 0;
-+		offset = 0;
-+
-+		for (se = 0; se < adev->gfx.config.max_shader_engines; se++)
-+			for (cu = 0; cu < CU_ID_MAX; cu++)
-+				for (simd = 0; simd < SIMD_ID_MAX; simd++)
-+					for (wave = 0; wave < WAVE_ID_MAX; wave++) {
-+						if (((1 << wave) & mask) &&
-+						    (wb_ptr[offset] == pattern))
-+							wave_cnt++;
-+
-+						offset++;
-+					}
-+
-+		if (wave_cnt == num_wave)
-+			return 0;
-+
-+		mdelay(1);
-+	} while (++loop < 2000 && wait);
-+
-+	dev_err(adev->dev, "actual wave num: %d, expected wave num: %d\n",
-+		wave_cnt, num_wave);
-+
-+	gfx_v9_4_2_log_wave_assignment(adev, wb_ptr);
-+
-+	return -EBADSLT;
-+}
-+
-+static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
-+{
-+	int r;
-+	int wb_size = adev->gfx.config.max_shader_engines *
-+			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
-+	struct amdgpu_ib wb_ib;
-+	struct amdgpu_ib disp_ibs[3];
-+	struct dma_fence *fences[3];
-+	u32 pattern[3] = { 0x1, 0x5, 0xa };
- 
- 	/* bail if the compute ring is not ready */
--	if (!ring->sched.ready)
-+	if (!adev->gfx.compute_ring[0].sched.ready ||
-+		 !adev->gfx.compute_ring[1].sched.ready)
- 		return 0;
- 
--	/* allocate an indirect buffer to put the commands in */
--	memset(&ib, 0, sizeof(ib));
--	r = amdgpu_ib_get(adev, NULL, wb_size * sizeof(uint32_t),
--			  AMDGPU_IB_POOL_DIRECT, &ib);
-+	/* allocate the write-back buffer from IB */
-+	memset(&wb_ib, 0, sizeof(wb_ib));
-+	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
-+			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
- 	if (r) {
--		DRM_ERROR("amdgpu: failed to get ib (%d).\n", r);
-+		dev_err(adev->dev, "failed to get ib (%d) for wb\n", r);
- 		return r;
- 	}
-+	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
-+
-+	r = gfx_v9_4_2_run_shader(adev,
-+			&adev->gfx.compute_ring[0],
-+			&disp_ibs[0],
-+			sgpr112_init_compute_shader_aldebaran,
-+			sizeof(sgpr112_init_compute_shader_aldebaran),
-+			sgpr112_init_regs_aldebaran,
-+			ARRAY_SIZE(sgpr112_init_regs_aldebaran),
-+			adev->gfx.cu_info.number,
-+			wb_ib.gpu_addr, pattern[0], &fences[0]);
-+	if (r) {
-+		dev_err(adev->dev, "failed to clear first 224 sgprs\n");
-+		goto pro_end;
-+	}
- 
--	memset(ib.ptr, 0, wb_size * sizeof(uint32_t));
--	r = gfx_v9_4_2_run_shader(adev, vgpr_init_compute_shader_aldebaran,
--				  sizeof(vgpr_init_compute_shader_aldebaran),
--				  vgpr_init_regs_aldebaran,
--				  ARRAY_SIZE(vgpr_init_regs_aldebaran),
--				  compute_dim_x * 2, ib.gpu_addr);
-+	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
-+			&wb_ib.ptr[1], 0b11,
-+			pattern[0],
-+			adev->gfx.cu_info.number * SIMD_ID_MAX * 2,
-+			true);
- 	if (r) {
--		dev_err(adev->dev, "Init VGPRS: failed to run shader\n");
--		goto failed;
-+		dev_err(adev->dev, "wave coverage failed when clear first 224 sgprs\n");
-+		wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
-+		goto disp0_failed;
- 	}
- 
--	r = gfx_v9_4_2_check_gprs_init_coverage(adev, ib.ptr);
-+	r = gfx_v9_4_2_run_shader(adev,
-+			&adev->gfx.compute_ring[1],
-+			&disp_ibs[1],
-+			sgpr96_init_compute_shader_aldebaran,
-+			sizeof(sgpr96_init_compute_shader_aldebaran),
-+			sgpr96_init_regs_aldebaran,
-+			ARRAY_SIZE(sgpr96_init_regs_aldebaran),
-+			adev->gfx.cu_info.number * 2,
-+			wb_ib.gpu_addr, pattern[1], &fences[1]);
- 	if (r) {
--		dev_err(adev->dev, "Init VGPRS: failed to cover all SIMDs\n");
--		goto failed;
--	} else {
--		dev_info(adev->dev, "Init VGPRS Successfully\n");
-+		dev_err(adev->dev, "failed to clear next 576 sgprs\n");
-+		goto disp0_failed;
-+	}
-+
-+	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
-+			&wb_ib.ptr[1], 0b11111100,
-+			pattern[1], adev->gfx.cu_info.number * SIMD_ID_MAX * 6,
-+			true);
-+	if (r) {
-+		dev_err(adev->dev, "wave coverage failed when clear first 576 sgprs\n");
-+		wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
-+		goto disp1_failed;
- 	}
- 
--	memset(ib.ptr, 0, wb_size * sizeof(uint32_t));
--	r = gfx_v9_4_2_run_shader(adev, sgpr_init_compute_shader_aldebaran,
--				  sizeof(sgpr_init_compute_shader_aldebaran),
--				  sgpr1_init_regs_aldebaran,
--				  ARRAY_SIZE(sgpr1_init_regs_aldebaran),
--				  compute_dim_x / 2 * sgpr_work_group_size,
--				  ib.gpu_addr);
-+	wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
-+
-+	/* wait for the GPU to finish processing the IB */
-+	r = dma_fence_wait(fences[0], false);
- 	if (r) {
--		dev_err(adev->dev, "Init SGPRS Part1: failed to run shader\n");
--		goto failed;
-+		dev_err(adev->dev, "timeout to clear first 224 sgprs\n");
-+		goto disp1_failed;
- 	}
- 
--	r = gfx_v9_4_2_run_shader(adev, sgpr_init_compute_shader_aldebaran,
--				  sizeof(sgpr_init_compute_shader_aldebaran),
--				  sgpr2_init_regs_aldebaran,
--				  ARRAY_SIZE(sgpr2_init_regs_aldebaran),
--				  compute_dim_x / 2 * sgpr_work_group_size,
--				  ib.gpu_addr);
-+	r = dma_fence_wait(fences[1], false);
- 	if (r) {
--		dev_err(adev->dev, "Init SGPRS Part2: failed to run shader\n");
--		goto failed;
-+		dev_err(adev->dev, "timeout to clear first 576 sgprs\n");
-+		goto disp1_failed;
- 	}
- 
--	r = gfx_v9_4_2_check_gprs_init_coverage(adev, ib.ptr);
-+	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
-+	r = gfx_v9_4_2_run_shader(adev,
-+			&adev->gfx.compute_ring[0],
-+			&disp_ibs[2],
-+			sgpr64_init_compute_shader_aldebaran,
-+			sizeof(sgpr64_init_compute_shader_aldebaran),
-+			sgpr64_init_regs_aldebaran,
-+			ARRAY_SIZE(sgpr64_init_regs_aldebaran),
-+			adev->gfx.cu_info.number,
-+			wb_ib.gpu_addr, pattern[2], &fences[2]);
-+	if (r) {
-+		dev_err(adev->dev, "failed to clear first 256 sgprs\n");
-+		goto disp1_failed;
-+	}
-+
-+	r = dma_fence_wait(fences[2], false);
-+	if (r) {
-+		dev_err(adev->dev, "timeout to clear first 256 sgprs\n");
-+		goto disp2_failed;
-+	}
-+
-+	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
-+			&wb_ib.ptr[1], 0b1111,
-+			pattern[2],
-+			adev->gfx.cu_info.number * SIMD_ID_MAX * 4,
-+			false);
-+	if (r) {
-+		dev_err(adev->dev, "wave coverage failed when clear first 256 sgprs\n");
-+		goto disp2_failed;
-+	}
-+
-+disp2_failed:
-+	amdgpu_ib_free(adev, &disp_ibs[2], NULL);
-+	dma_fence_put(fences[2]);
-+disp1_failed:
-+	amdgpu_ib_free(adev, &disp_ibs[1], NULL);
-+	dma_fence_put(fences[1]);
-+disp0_failed:
-+	amdgpu_ib_free(adev, &disp_ibs[0], NULL);
-+	dma_fence_put(fences[0]);
-+pro_end:
-+	amdgpu_ib_free(adev, &wb_ib, NULL);
-+
- 	if (r)
--		dev_err(adev->dev,
--			"Init SGPRS: failed to cover all SIMDs\n");
-+		dev_info(adev->dev, "Init SGPRS Failed\n");
- 	else
- 		dev_info(adev->dev, "Init SGPRS Successfully\n");
- 
--failed:
--	amdgpu_ib_free(adev, &ib, NULL);
- 	return r;
- }
- 
-+static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
-+{
-+	int r;
-+	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
-+	int wb_size = adev->gfx.config.max_shader_engines *
-+			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
-+	struct amdgpu_ib wb_ib;
-+	struct amdgpu_ib disp_ib;
-+	struct dma_fence *fence;
-+	u32 pattern = 0xa;
-+
-+	/* bail if the compute ring is not ready */
-+	if (!adev->gfx.compute_ring[0].sched.ready)
-+		return 0;
-+
-+	/* allocate the write-back buffer from IB */
-+	memset(&wb_ib, 0, sizeof(wb_ib));
-+	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
-+			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
-+	if (r) {
-+		dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
-+		return r;
-+	}
-+	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
-+
-+	r = gfx_v9_4_2_run_shader(adev,
-+			&adev->gfx.compute_ring[0],
-+			&disp_ib,
-+			vgpr_init_compute_shader_aldebaran,
-+			sizeof(vgpr_init_compute_shader_aldebaran),
-+			vgpr_init_regs_aldebaran,
-+			ARRAY_SIZE(vgpr_init_regs_aldebaran),
-+			adev->gfx.cu_info.number,
-+			wb_ib.gpu_addr, pattern, &fence);
-+	if (r) {
-+		dev_err(adev->dev, "failed to clear vgprs\n");
-+		goto pro_end;
-+	}
-+
-+	/* wait for the GPU to finish processing the IB */
-+	r = dma_fence_wait(fence, false);
-+	if (r) {
-+		dev_err(adev->dev, "timeout to clear vgprs\n");
-+		goto disp_failed;
-+	}
-+
-+	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
-+			&wb_ib.ptr[1], 0b1,
-+			pattern,
-+			adev->gfx.cu_info.number * SIMD_ID_MAX,
-+			false);
-+	if (r) {
-+		dev_err(adev->dev, "failed to cover all simds when clearing vgprs\n");
-+		goto disp_failed;
-+	}
-+
-+disp_failed:
-+	amdgpu_ib_free(adev, &disp_ib, NULL);
-+	dma_fence_put(fence);
-+pro_end:
-+	amdgpu_ib_free(adev, &wb_ib, NULL);
-+
-+	if (r)
-+		dev_info(adev->dev, "Init VGPRS Failed\n");
-+	else
-+		dev_info(adev->dev, "Init VGPRS Successfully\n");
-+
-+	return r;
-+}
-+
-+int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev)
-+{
-+	/* only support when RAS is enabled */
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return 0;
-+
-+	gfx_v9_4_2_do_sgprs_init(adev);
-+
-+	gfx_v9_4_2_do_vgprs_init(adev);
-+
-+	return 0;
-+}
-+
- static void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev);
- static void gfx_v9_4_2_reset_sq_timeout_status(struct amdgpu_device *adev);
- 
-@@ -479,8 +710,6 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
- 			 die_id);
- 		break;
- 	}
--
--	return;
- }
- 
- void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
--- 
-2.17.1
+On Mon, 26 Apr 2021 13:38:49 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
+
+> ## Introduction
+>=20
+> We are looking to enable HDR support for a couple of single-plane and
+> multi-plane scenarios. To do this effectively we recommend new
+> interfaces to drm_plane. Below I'll give a bit of background on HDR
+> and why we propose these interfaces.
+>=20
+>=20
+> ## Defining a pixel's luminance
+>=20
+> Currently the luminance space of pixels in a framebuffer/plane
+> presented to the display is not well defined. It's usually assumed to
+> be in a 2.2 or 2.4 gamma space and has no mapping to an absolute
+> luminance value but is interpreted in relative terms.
+>=20
+> Luminance can be measured and described in absolute terms as candela
+> per meter squared, or cd/m2, or nits. Even though a pixel value can
+> be mapped to luminance in a linear fashion to do so without losing a
+> lot of detail requires 16-bpc color depth. The reason for this is
+> that human perception can distinguish roughly between a 0.5-1%
+> luminance delta. A linear representation is suboptimal, wasting
+> precision in the highlights and losing precision in the shadows.
+>=20
+> A gamma curve is a decent approximation to a human's perception of
+> luminance, but the PQ (perceptual quantizer) function [1] improves on
+> it. It also defines the luminance values in absolute terms, with the
+> highest value being 10,000 nits and the lowest 0.0005 nits.
+>=20
+> Using a content that's defined in PQ space we can approximate the
+> real world in a much better way.
+>=20
+> Here are some examples of real-life objects and their approximate
+> luminance values:
+>=20
+> | Object            | Luminance in nits |
+> | ----------------- | ----------------- |
+> | Sun               | 1.6 million       |
+> | Fluorescent light | 10,000            |
+> | Highlights        | 1,000 - sunlight  |
+> | White Objects     | 250 - 1,000       |
+> | Typical objects   | 1 - 250           |
+> | Shadows           | 0.01 - 1          |
+> | Ultra Blacks      | 0 - 0.0005        |
+>=20
+>=20
+> ## Describing the luminance space
+>=20
+> **We propose a new drm_plane property to describe the Eletro-Optical
+> Transfer Function (EOTF) with which its framebuffer was composed.**
+> Examples of EOTF are:
+>=20
+> | EOTF      | Description                                                =
+               |
+> | --------- |:-----------------------------------------------------------=
+-------------- |
+> | Gamma 2.2 | a simple 2.2 gamma                                         =
+               |
+> | sRGB      | 2.4 gamma with small initial linear section                =
+               |
+> | PQ 2084   | SMPTE ST 2084; used for HDR video and allows for up to 10,0=
+00 nit support |
+> | Linear    | Linear relationship between pixel value and luminance value=
+               |
+>=20
+
+The definitions agree with what I have learnt so far. However, with
+these EOTF definitions, only PQ defines absolute luminance values
+while the others do not. So this is not enough information to blend
+planes together if they do not all use the same EOTF with the same
+dynamic range. More below.
+
+
+>=20
+> ## Mastering Luminances
+>=20
+> Now we are able to use the PQ 2084 EOTF to define the luminance of
+> pixels in absolute terms. Unfortunately we're again presented with
+> physical limitations of the display technologies on the market today.
+> Here are a few examples of luminance ranges of displays.
+>=20
+> | Display                  | Luminance range in nits |
+> | ------------------------ | ----------------------- |
+> | Typical PC display       | 0.3 - 200               |
+> | Excellent LCD HDTV       | 0.3 - 400               |
+> | HDR LCD w/ local dimming | 0.05 - 1,500            |
+>=20
+> Since no display can currently show the full 0.0005 to 10,000 nits
+> luminance range the display will need to tonemap the HDR content, i.e
+> to fit the content within a display's capabilities. To assist with
+> tonemapping HDR content is usually accompanied with a metadata that
+> describes (among other things) the minimum and maximum mastering
+> luminance, i.e. the maximum and minimum luminance of the display that
+> was used to master the HDR content.
+>=20
+> The HDR metadata is currently defined on the drm_connector via the
+> hdr_output_metadata blob property.
+>=20
+> It might be useful to define per-plane hdr metadata, as different
+> planes might have been mastered differently.
+
+I don't think this would directly help with the dynamic range blending
+problem. You still need to establish the mapping between the optical
+values from two different EOTFs and dynamic ranges. Or can you know
+which optical values match the mastering display maximum and minimum
+luminances for not-PQ?
+
+
+> ## SDR Luminance
+>=20
+> Since SDR covers a smaller luminance range than HDR, an SDR plane
+> might look dark when blended with HDR content. Since the max HDR
+> luminance can be quite variable (200-1,500 nits on actual displays)
+> it is best to make the SDR maximum luminance value configurable.
+>=20
+> **We propose a drm_plane property to specfy the desired maximum
+> luminance of the SDR plane in nits.** This allows us to map the SDR
+> content predictably into HDR's absolute luminance space.
+
+What would be the mapping? Simple linear scaling? A more complicated
+tone mapping?
+
+Rather than "SDR luminance", do you perhaps intend this to configure
+the dynamic range of the non-absolute-luminance EOTFs?
+In that case maybe you'd need a black luminance level too?
+
+
+> ## Let There Be Color
+>=20
+> So far we've only talked about luminance, ignoring colors altogether.
+> Just like in the luminance space, traditionally the color space of
+> display outputs has not been well defined. Similar to how an EOTF
+> defines a mapping of pixel data to an absolute luminance value, the
+> color space maps color information for each pixel onto the CIE 1931
+> chromaticity space. This can be thought of as a mapping to an
+> absolute, real-life, color value.
+>=20
+> A color space is defined by its primaries and white point. The
+> primaries and white point are expressed as coordinates in the CIE
+> 1931 color space. Think of the red primary as the reddest red that
+> can be displayed within the color space. Same for green and blue.
+>=20
+> Examples of color spaces are:
+>=20
+> | Color Space | Description                                |
+> | ----------- | ------------------------------------------ |
+> | BT 601      | similar to BT 709                          |
+> | BT 709      | used by sRGB content; ~53% of BT 2020      |
+> | DCI-P3      | used by most HDR displays; ~72% of BT 2020 |
+> | BT 2020     | standard for most HDR content              |
+>=20
+> The color space is defined in DRM for YCbCr planes via the
+> color_encoding property of the drm_plane.=20
+
+I don't think that is quite right.
+
+As far I understand, COLOR_ENCODING property controls which matrix is
+used to convert from YCbCr to RGB, but that is all it does. It is not
+used for the actual color space. So while these BT standards do
+specify the chromaticities, they also specify the YCbCr encoding which
+is the part used in this property.
+
+YCbCr and RGB are color models. They are not color spaces. RGB is an
+additive color model while YCbCr is not, AFAIU. Blending requires an
+additive color model and linear luminance encoding.
+
+You need two color space definitions to create one color space
+transformation: source color space and destination color space. You
+also need an idea *how* the two color spaces should be mapped, which is
+called "rendering intent". You can't do anything with just one color
+space definition, except to pass it on along with the pixels.
+
+To be able to blend planes together, all planes need to be converted to
+the same color space first: the blending color space, whatever you
+choose it to be. I do not see where KMS would do this color space
+conversion, or where it would get the definition of the blending color
+space.
+
+> **We propose to add definitions for the RGB variants of the BT color
+> spaces.**
+
+Therefore I'm not sure this makes sense.
+
+
+> ## Color Primaries and White Point
+>=20
+> Just like displays can currently not represent the entire 0.0005 -
+> 10,000 nits HDR range of the PQ 2084 EOTF, they are currently not
+> capable of representing the entire BT.2020 color Gamut. For this
+> reason video content will often specify the color primaries and white
+> point used to master the video, in order to allow displays to be able
+> to map the image as best as possible onto the display's gamut.
+>=20
+>=20
+> ## Displays and Tonemapping
+>=20
+> External displays are able to do their own tone and color mapping,
+> based on the mastering luminance, color primaries, and white space
+> defined in the HDR metadata.
+>=20
+> Internal panels (which are currently few and far between) usually
+> don't include the complex HW to do tone and color mapping on their
+> own and will require the display driver to perform appropriate
+> mapping.
+
+FWIW, when designing Weston's color management, we are aiming for
+the latter "simple" panels foremost, because that gives us full control
+of all color conversions and tone mappings.
+
+OTOH, if Weston has to present to a display which only accepts e.g.
+BT.2020/PQ signal, the display might always mangle the image in
+unexpected ways. Therefore I expect that by default Weston will do
+everything it can to try to make the display not apply anything magic
+image enhancement: trust that EDID description of the display gamut and
+dynamic range are correct, and use HDR metadata to tell the display
+that those values are exactly what we are using. And we use them.
+
+IMO, a display doing its tone mapping magically is only useful when you
+want to be able to use "simple" playback devices that cannot adapt to
+the display they are driving. Magic tone mapping is also a way for
+hardware vendors to differentiate, which from the color management
+perspective is harmful as it makes it more difficult or impossible to
+predict the display behaviour or to keep it consistent.
+
+So there are two opposing goals:
+
+- Traditional color management wants absolute control of the display,
+  leaving nothing unpredictable and preferably also nothing undefined.
+  Undefined behaviour can always be measured (profiled) which makes it
+  predictable and known. The viewing environment is controlled and
+  constant.
+
+- Entertainment wants the most visually impressive image quality by
+  dynamically adapting to both displayed content and to the viewing
+  environment conditions.
+
+> ## Pixel Formats
+>=20
+> The pixel formats, such as ARGB8888, ARGB2101010, P010, or FP16 are
+> unrelated to color space and EOTF definitions. HDR pixels can be
+> formatted in different ways but in order to not lose precision HDR
+> content requires at least 10 bpc precision. For this reason
+> ARGB2101010, P010, and FP16 are the obvious candidates for HDR.
+> ARGB2101010 and P010 have the advantage of requiring only half the
+> bandwidth as FP16, while FP16 has the advantage of enough precision
+> to operate in a linear space, i.e. without EOTF.
+
+Right.
+
+> ## Proposed use-cases
+>=20
+> Although the userspace side of this work is still in the early stages
+> it is clear that we will want to support the following two use-cases:
+>=20
+> **One XRGB2101010 HDR Plane:** A single, composited plane of HDR
+> content. The use-case is a video player on a desktop with the
+> compositor owning the composition of SDR and HDR content. The content
+> shall be PQ BT.2020 formatted. The drm_connector's
+> hdr_output_metadata shall be set.
+
+This use case is already possible, right?
+
+> **One ARGB8888 SDR Plane + One P010 HDR Plane:** A normal 8bpc
+> desktop plane, with a P010 HDR video plane underlayed. The HDR plane
+> shall be PQ BT.2020 formatted. The desktop plane shall specify an SDR
+> boost value. The drm_connector's hdr_output_metadata shall be set.
+
+This use case requires blending in KMS, so is the primary goal I
+suppose.
+
+> **One XRGB8888 SDR Plane - HDR output:** In order to support a smooth
+> transition we recommend an OS that supports HDR output to provide the
+> hdr_output_metadata on the drm_connector to configure the output for
+> HDR, even when the content is only SDR. This will allow for a smooth
+> transition between SDR-only and HDR content. In this use-case the SDR
+> max luminance value should be provided on the drm_plane.
+
+I think this might be already possible by crafting a CRTC GAMMA LUT? Not
+sure about precision.
+
+> In DCN we will de-PQ or de-Gamma all input in order to blend in
+> linear space. For SDR content we will also apply any desired boost
+> before blending. After blending we will then re-apply the PQ EOTF and
+> do RGB to YCbCr conversion if needed.
+
+This assumes the same color space over everything.
+
+>=20
+> ## Summary of proposed interface changes
+>=20
+> per drm_plane:
+> - new RGB color space definitions, mirroring the existing YUV color
+> space definitions
+> - new transfer function property
+> - new SDR maximum white level property
+
+How will these new KMS properties interact with per-plane DEGAMMA, CTM
+and/or GAMMA properties?
+
+Why go with your proposal instead of per-plane CTM and LUT?
+
+I think the ideal KMS pipeline for me, assuming I cannot have 3D LUTs
+both per-plane and on CRTC, would be:
+
+plane:
+	FB -> M1 -> LUT1 -> M2 -> blending input
+
+CRTC:
+	blending output -> LUT2 -> M3 -> connector
+
+FB: framebuffer
+M1: matrix transform, capable of converting e.g. YCbCr to RGB
+LUT1: 1D LUT for content EOTF, to produce light-linear RGB
+M2: matrix transform for color space transformation
+
+LUT2: 1D LUT for applying monitor EOTF^-1
+M3: matrix transform, e.g. if you need to push YCbCr on the connector
+
+We also need to know where and how clipping happens.
+
+I think this scheme would allow implementing everything you want, and
+it would not be tied to rigid enumerations, and it won't have any
+magical conversions done under the hood as you would need to do to
+convert from one enum space to another. It leaves the render intent to
+be defined by the userspace compositor, rather than building a fixed
+policy in the kernel.
+
+Userspace would be setting transformation operators, not color spaces,
+to the kernel, allowing the blending space to be chosen by userspace.
+In Weston we aim to choose then blending color space to be the same as
+the output color space, except in optical (linear) encoding. The output
+color space can be non-standard, e.g. measured with a display profiler
+equipment.
+
+I would expect gamut mapping, dynamic range mapping and tone mapping to
+be places where most experimentation and innovation happens, so
+implementing them in the kernel with just few or no controllable
+parameters at this time seems like it could become useless fast.
+
+
+Thanks,
+pq
+
+> ## References
+>=20
+> [1]
+> https://en.wikipedia.org/wiki/High-dynamic-range_video#Perceptual_Quantiz=
+er
+>=20
+>=20
+> ## Further Reading
+>=20
+> https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unsta=
+ble/color-management/color.rst
+> http://downloads.bbc.co.uk/rd/pubs/whp/whp-pdf-files/WHP309.pdf
+> https://app.spectracal.com/Documents/White%20Papers/HDR_Demystified.pdf
+>=20
+>=20
+> Bhawanpreet Lakha (3):
+>   drm/color: Add RGB Color encodings
+>   drm/color: Add Color transfer functions for HDR/SDR
+>   drm/color: Add sdr boost property
+>=20
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+>  .../gpu/drm/arm/display/komeda/komeda_plane.c |  4 +-
+>  drivers/gpu/drm/arm/malidp_planes.c           |  4 +-
+>  drivers/gpu/drm/armada/armada_overlay.c       |  4 +-
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  8 ++
+>  drivers/gpu/drm/drm_color_mgmt.c              | 84
+> +++++++++++++++++-- drivers/gpu/drm/i915/display/intel_sprite.c   |
+> 4 +- .../drm/i915/display/skl_universal_plane.c    |  4 +-
+>  drivers/gpu/drm/nouveau/dispnv04/overlay.c    |  4 +-
+>  drivers/gpu/drm/omapdrm/omap_plane.c          |  4 +-
+>  drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  4 +-
+>  drivers/gpu/drm/tidss/tidss_plane.c           |  6 +-
+>  include/drm/drm_color_mgmt.h                  | 25 +++++-
+>  include/drm/drm_plane.h                       | 30 +++++++
+>  14 files changed, 173 insertions(+), 16 deletions(-)
+>=20
+
+
+--Sig_/PwenWCvv0_DSkbbNXI+n.zM
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCIJJ0ACgkQI1/ltBGq
+qqdSAQ/9Ejg2gP/hFGRl3FmUb0Lud61JLn3hDoUfZUG3C7zpXucjJ5+vkE3QYxOZ
+bbUwwp9D9BZ4wXdS0FTmo8jWDnSZm7QKUrnOLqM9iDWiAcrAd0rRrBzEK+nkpv6I
+0dM7WPXX5mHgEFUdu+aWyVcWwEwUaDGku4gEhIohBgetjdwFKLOBk6reXEv/qtfH
+gIy5UOU9BntxS7naV26fG8Ru+e3tgTvBvPgx0epRJdC1w3+sVNMg+nCqNFB5YsQu
+EsaH9vWhtIj778d6XyZMkj/sRXjAe4WeS/eBS2V/0XggJmy9ihgsxEaqfa0W9QRr
+KJJSBLPqNy+E8N3HN5QlGtrzXouKsSsnsjeLmPZFQd0SC1OLVqS7CSslS9paaeVM
+VdD1yAN8obSfk+dF/NHcV0oKoR7jKXwz49qRQoyBn/XM/ayOpMLx2za0EjVU/Hi6
+tjQWTQVZ+UGtvPz4dIWdPMAoRb+iJIV82JgmVx4Sg0k+MXOl2epiCfItkvjFrPyp
+/VOCmh0Stj3jIIyfoUvQzItP5ry8gzVsRsRWWBkpjgXRltJ/PkNOSz4eIje/cq7X
+qF/oHL5Wk9XuIxUlSd4hNwqVxwavyNawjqx8Vlq9SehijA7V83PlJt0cMGHoA5Po
+aGdJ42lH6G6kYu1ectKwY1XJM0s1Z4/aHpIi6lrJakwJauf4Kv8=
+=QER3
+-----END PGP SIGNATURE-----
+
+--Sig_/PwenWCvv0_DSkbbNXI+n.zM--
+
+--===============0878035673==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0878035673==--
