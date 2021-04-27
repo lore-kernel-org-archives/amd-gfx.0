@@ -2,69 +2,118 @@ Return-Path: <SRS0=7Ry8=JY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9941C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A031C433ED
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C01661178
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C01661178
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id F2291613DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2291613DC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB2536E976;
-	Tue, 27 Apr 2021 14:50:15 +0000 (UTC)
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32166E2B8;
- Tue, 27 Apr 2021 14:50:13 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id u20so68486214lja.13;
- Tue, 27 Apr 2021 07:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=EX6p+UaEJc6LTy2VhcoP2k1egM9Ko3885KQg+/YJn6U=;
- b=V7Pqt5hryFiwxw8cXs9O/aviIb9G83eUNN6ytKqrHf8dZnKbOf4ailQFibi+NOUsaz
- tkSfCwd0j1Z+zGAxXzD+uIn5runECzkCRr93MiV2vMak97o8JHhAtvGeEBlYppAWhubR
- 8cIdlcmUL0cc2UzJ3aTQXgTx0TFU9gSyi7eAiWkJLkLiXZ3S3LKxGDPp8CFbfE+Gdbfb
- 2gRtpyypgb6lFZUAk+P2rKJ9dzKH1gpy0ka5oGFMn7mPjW1gb4ndAdPifn9IPMXQnhMd
- gOsVfP4XCV/jcQVQMvmL/QpHxaLauIpHJhfusIOht4VfEKWiNnVmzXf1aFe84jg/KyRf
- /woA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=EX6p+UaEJc6LTy2VhcoP2k1egM9Ko3885KQg+/YJn6U=;
- b=CXrk3n9FP34+jdZusxwLl7BgN+yL5aDq8sGZFkucvhlaUXXj02kcSNt7atuCneUyUg
- xecxySO6kLjMOOBGKm3RKAtv/3ss7adVQVFHpTjyifjc0Blhvdv39WR3pnUvHUmsgtUu
- ebRtOVMm5NsIHH7MLjvY+zpS3KpO8gRksbPPGz8+ERl4ILA4lvYZuX8qxnP5KvPW5ZIQ
- c+S2cQ4mcyo/Em34trUmZsQ+GBKIAyDOJo/TFA9w1Kw9iNEHFORIeJhlpcxYZg7fXPxz
- wNmxxTsrFCfU8F50NKMnp9E1XYVL7bv6PRE7L3FeXL1AToKjUg9HXLj+pd+tX3Q8AJwV
- d3XQ==
-X-Gm-Message-State: AOAM530MZLYT/Fp3USzaDAQdMMoxCK4Mzfr6Pvc2YrtMm600FErA92bk
- x153H1WfIRGRcLUxWHef0qE=
-X-Google-Smtp-Source: ABdhPJwRZwdAXEJ7/LcORcvgJ5RWJSRNlMq68NDpopLEu7KjyUG0S35zg+VPlRKDgc4HNN5IGxDQWA==
-X-Received: by 2002:a2e:88c1:: with SMTP id a1mr14644716ljk.253.1619535011828; 
- Tue, 27 Apr 2021 07:50:11 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id n8sm28253lfe.285.2021.04.27.07.50.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Apr 2021 07:50:11 -0700 (PDT)
-Date: Tue, 27 Apr 2021 17:50:05 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
-Message-ID: <20210427175005.5b92badc@eldfell>
-In-Reply-To: <20210426173852.484368-1-harry.wentland@amd.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDD86E97B;
+	Tue, 27 Apr 2021 14:51:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 608146E97A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 14:51:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ao7SKRowuK8sS1SvKqAnvlJ7BTpeWyDTy6aqQoSa5m6YgKKVrstcwSqW4WI4Rp3t+DJ94+EZUXdHsYgk4Ao1tVY/kypWLPMSuElYeCnMmKwlZJfIi92uUpCWL2iiAc1XwoSftjLiaRE40FeFdsw4CLlFEQ5Y2RxImZSlopfH3p38dzdQppoFibA/c6wB39+uDu8UUWqwuhaw+xO1w+LfC2VSHW9K8TyIDh7JSjGzodzl3KhRZIKqVEVL9v223vFNNI+OPcqpvOQSzT1oZyHoVrsVYVSkGkFS1cvB5Ag5oVnoX0puuSJFd1ODUUUaVqJhsdODEZ1R9m/LE+QM4dIMlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PqsGQvcSEStlKzrc19Ri/HUB/JtEJCzSzqDu+k1fXRU=;
+ b=gv5NuEV+67S4/KPEzp7pWhnzwYfWordnalgRzzcrAIUDEqznsPVVbyVqRUsD2xqd2t0AH/5tOprTx59VQg3kPNIP1aR8PDJMCa57o/XzECVIFLj45Q/vF6wodfqnQJwF4vJoz0Aisp7BDOjvh+fg8RFyiI9RsCqeiMIFme53ClXqu5JSiSjKLVj+PDGW7p0lAn/+FzQ8X0Z9Oj172mTSmmpN8HzdqHrB1N9wyqTV+f92H2OO7pF83ZFE+p5gL3woIoI445LKYaRgQCK26uSQep+SObp2qpB1dU6/OFtpwl8Sr1MgXVPRsM6up/lyC4+YL8qh9E+r+hqm6G6PEI5Twg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PqsGQvcSEStlKzrc19Ri/HUB/JtEJCzSzqDu+k1fXRU=;
+ b=007ryTJNpjJXYjD/WD/zCVWcdXqSZ2xdzBhoZsSL0/xWjJNXOIl7cx/LaUSdTAlBqmVa0+7wVqUMbT9jHpjxlcmgdAAlgRjShchZ4LItpbhifMwvRl3bXl7K6+92TWFV1R90l5zHLBulfSyg6MNuLoo82m9BDBPdVEsI/3t/13I=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
+ DM6PR12MB4011.namprd12.prod.outlook.com (2603:10b6:5:1c5::28) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.21; Tue, 27 Apr 2021 14:51:32 +0000
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::d568:cff1:dc2a:5baa]) by DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::d568:cff1:dc2a:5baa%3]) with mapi id 15.20.4087.025; Tue, 27 Apr 2021
+ 14:51:32 +0000
+From: Philip Yang <Philip.Yang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v5 4/5] drm/amdgpu: address remove from fault filter
+Date: Tue, 27 Apr 2021 10:51:19 -0400
+Message-Id: <20210427145119.670-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210423153550.25188-1-Philip.Yang@amd.com>
+References: <20210423153550.25188-1-Philip.Yang@amd.com>
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: YT1PR01CA0058.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::27) To DM5PR12MB2583.namprd12.prod.outlook.com
+ (2603:10b6:4:b3::28)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from Philip-Dev.amd.com (165.204.55.251) by
+ YT1PR01CA0058.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.25 via Frontend Transport; Tue, 27 Apr 2021 14:51:31 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a1b8fb59-cff4-48c7-1631-08d9098bf251
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4011:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4011D5FAACD8456678A1FE06E6419@DM6PR12MB4011.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IbN899sj6xLgouMvbg/CNQnm6SOj8azWuiF7XQMAacyPbGmgjrglo5uGZdV0tavzGEV9QWARQMoziD268mEQzwAuDj+wON020dDtv0Yfk9ldF64YMPni+oB7byLnCBSGW2s2ZdOeT9YEIsv1TRjjIHqQ+7V9Bq6MHnu0hYgX5IMUERg67Ie/bXoPLL6TrWUxUONVD8rykumNUlPYDzSBlG1vj4d+w1TexoSTfE4WFKGJ+JPp6WJFqMZQn60k1xB83x8/0B1lj97WNhDlcvC1hvWzDWAo3AY0tRN7FcSu7mhsqVr8Z53pdRnRmQ7Hz1EQONVpmce570NRJoh5sr4Ybows3aZmx4YOZKTZ43x5gvqPyDMh3vz7OX4R0IPGCyzNgMTulKMrd6g/Bkvl0gGLP5odcuSMfkBxNqX4Sqmz9mjfyaCfYsGfTK59fHIVjQOv35EmX5nIMZLzm0SKM3odY99qSgVCjxtkMRB/gIdiaUD860TTG72V4/ZTBIS8wbAkRxS6BKZH0FQzWDzFRTghtVYRDgPYSLqNyTtviN0Hy9MXeDAxc04z4I7Kcax8Q/8m62WruEJitatvZ7kS7FpoBQJpaRVOwSsxz1Yz/QmnNu2KqErrTY3bQHiSlQN4XTtoE2cbleY9D2RtWq3DS/H3ZCB1uHL5MuXcHdmPoUZ/V8s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(956004)(2616005)(2906002)(36756003)(66946007)(6916009)(66476007)(86362001)(7696005)(16526019)(6666004)(498600001)(1076003)(6486002)(38100700002)(26005)(66556008)(83380400001)(4326008)(52116002)(8676002)(186003)(8936002)(38350700002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?woNLNC1aKV0sR1p2MYWOQia49FVvCJP6Mdx6Uc4I31RWnjtekw6hWXuU9RMD?=
+ =?us-ascii?Q?SyuQ1DnfAmpeOqfXz13fF5C8bXybZ6eVU9et6YiAg/HGureK+rrQStYjx7/5?=
+ =?us-ascii?Q?6porwdbg5HqpJLaKzY+OE7PZLevxu4+dHTSB6eNoWnDRMqU6DYL5Lr8li1HM?=
+ =?us-ascii?Q?0loPo9tawniIXZ1OsJ+vJtI3ZlVXdXrKMK/nIx0xzJlQ8hxX3dIIucYsDTkI?=
+ =?us-ascii?Q?tV0yWi4hD8z44aUr6xTNHDaTQFdR962nWNgw7/mnsPuxz06KoYcTnb0JFP42?=
+ =?us-ascii?Q?BNksdCyBpaOZ6cNncdootbqL/gHGX6tnrWhrva/WKqU6tW9ASVEVnhOsDStc?=
+ =?us-ascii?Q?6ev/rW7TwPHRCLVfnDt8v8gku6JXGUbWB15bMv21C7rz6QdV+ke4IwPAvAVi?=
+ =?us-ascii?Q?cS8GekXZ7dSLC+sdnkiWZrBh775t/iDVx7axitdPWggre7ZaLWKTC2WweD4f?=
+ =?us-ascii?Q?SzCiVab+45NWqroSpBnw3at6yQNilIwxh1WeUXgRjsCz1fLAdSEUZCIYzwAk?=
+ =?us-ascii?Q?38KhFcuWks2uZMA0LjfJ8MaFcosHFcWfp1OpHwzGIBbgbD9Rys6QuGqRZ84P?=
+ =?us-ascii?Q?TkmhWg0F69wFmRaR5jVPdNpLjQAhbXIuJ4uT75YtVQIrjRvv8YcCaXRAJCgW?=
+ =?us-ascii?Q?FYUj07cotKkV7jUylfWJjdOudwGsM2PPTF2zBBttXeAqE5rtGLtT9UTU80UZ?=
+ =?us-ascii?Q?Tm8mYKtJRBiey4p2WUikpre6c8gDtMQAAX0WgPEOoeomexT3tTjhAriWjWt8?=
+ =?us-ascii?Q?oeoN4p9kbMBf8OriiKS3lAtW8WFJZLhcoJreiNfYR32iqa/RuJlwRyV+Zsy7?=
+ =?us-ascii?Q?GW6eRzo6eHdRsJ8n1k8BuhdJp8roCKNaM2qhAYapzV3ffGk6KoXe+ylvTLu9?=
+ =?us-ascii?Q?hyGTqMZZbkCT93WDtcSzx5PZ2GHZrgBBcG0yTjoUK5ImxrpD35HTuHxz6bh4?=
+ =?us-ascii?Q?rPADStR9M9Elx90LFpNQfyk1HbNh1cGdqPSbRVBHqholuB1MW+f8RSGaCxF+?=
+ =?us-ascii?Q?uojSZBg7zG5PZxoU0YT4/wasoSN6FfuYvvFC4sik8HqybgbuVSoHxGoAbzyu?=
+ =?us-ascii?Q?jhjYP0NP3k8FGyu9+ikZTKCTs7yRbiCVU4qpGz8XgJLnwpnPUINGx2R11Ll8?=
+ =?us-ascii?Q?BpB0EClpgvb8bADL1xs1ExcQI6OC5a3hjIblz3jwu8qmZk35iLsbbzOJpQqL?=
+ =?us-ascii?Q?diYk4guhqJ+qAXqtcAYfSIEiu5K/aWFc80/7Bqp5ghNvkjVY3HbXzEa2i+OJ?=
+ =?us-ascii?Q?53Ri1yy84Ju4iJVbClQFzM1XJzxu2HhNxWvaxfi6s6ryK8M8+YfQ6/KZcQzB?=
+ =?us-ascii?Q?6hIhJoTkLifk0oGm9B1Q90ap?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1b8fb59-cff4-48c7-1631-08d9098bf251
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2021 14:51:32.2059 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nq/C0rXSyq3r3ttNNqJs8rglHUwFAM7gmu6exORz3xbTVE6xIp0BopSJcnht6XGY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4011
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,439 +125,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, sebastian@sebastianwick.net, hersenxs.wu@amd.com,
- amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
- ville.syrjala@linux.intel.com, Vitaly.Prosyak@amd.com
-Content-Type: multipart/mixed; boundary="===============0878035673=="
+Cc: Philip Yang <Philip.Yang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0878035673==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/PwenWCvv0_DSkbbNXI+n.zM"; protocol="application/pgp-signature"
+Add interface to remove address from fault filter ring by resetting
+fault ring entry key, then future vm fault on the address will be
+processed to recover.
 
---Sig_/PwenWCvv0_DSkbbNXI+n.zM
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Define fault key as atomic64_t type to use atomic read/set/cmpxchg key
+to protect fault ring access by interrupt handler and interrupt deferred
+work for vg20. Change fault->timestamp to 48-bit to share same uint64_t
+with 8-bit fault->next, it is enough for 48bit IH timestamp.
 
-On Mon, 26 Apr 2021 13:38:49 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 48 ++++++++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  6 ++--
+ 2 files changed, 48 insertions(+), 6 deletions(-)
 
-> ## Introduction
->=20
-> We are looking to enable HDR support for a couple of single-plane and
-> multi-plane scenarios. To do this effectively we recommend new
-> interfaces to drm_plane. Below I'll give a bit of background on HDR
-> and why we propose these interfaces.
->=20
->=20
-> ## Defining a pixel's luminance
->=20
-> Currently the luminance space of pixels in a framebuffer/plane
-> presented to the display is not well defined. It's usually assumed to
-> be in a 2.2 or 2.4 gamma space and has no mapping to an absolute
-> luminance value but is interpreted in relative terms.
->=20
-> Luminance can be measured and described in absolute terms as candela
-> per meter squared, or cd/m2, or nits. Even though a pixel value can
-> be mapped to luminance in a linear fashion to do so without losing a
-> lot of detail requires 16-bpc color depth. The reason for this is
-> that human perception can distinguish roughly between a 0.5-1%
-> luminance delta. A linear representation is suboptimal, wasting
-> precision in the highlights and losing precision in the shadows.
->=20
-> A gamma curve is a decent approximation to a human's perception of
-> luminance, but the PQ (perceptual quantizer) function [1] improves on
-> it. It also defines the luminance values in absolute terms, with the
-> highest value being 10,000 nits and the lowest 0.0005 nits.
->=20
-> Using a content that's defined in PQ space we can approximate the
-> real world in a much better way.
->=20
-> Here are some examples of real-life objects and their approximate
-> luminance values:
->=20
-> | Object            | Luminance in nits |
-> | ----------------- | ----------------- |
-> | Sun               | 1.6 million       |
-> | Fluorescent light | 10,000            |
-> | Highlights        | 1,000 - sunlight  |
-> | White Objects     | 250 - 1,000       |
-> | Typical objects   | 1 - 250           |
-> | Shadows           | 0.01 - 1          |
-> | Ultra Blacks      | 0 - 0.0005        |
->=20
->=20
-> ## Describing the luminance space
->=20
-> **We propose a new drm_plane property to describe the Eletro-Optical
-> Transfer Function (EOTF) with which its framebuffer was composed.**
-> Examples of EOTF are:
->=20
-> | EOTF      | Description                                                =
-               |
-> | --------- |:-----------------------------------------------------------=
--------------- |
-> | Gamma 2.2 | a simple 2.2 gamma                                         =
-               |
-> | sRGB      | 2.4 gamma with small initial linear section                =
-               |
-> | PQ 2084   | SMPTE ST 2084; used for HDR video and allows for up to 10,0=
-00 nit support |
-> | Linear    | Linear relationship between pixel value and luminance value=
-               |
->=20
-
-The definitions agree with what I have learnt so far. However, with
-these EOTF definitions, only PQ defines absolute luminance values
-while the others do not. So this is not enough information to blend
-planes together if they do not all use the same EOTF with the same
-dynamic range. More below.
-
-
->=20
-> ## Mastering Luminances
->=20
-> Now we are able to use the PQ 2084 EOTF to define the luminance of
-> pixels in absolute terms. Unfortunately we're again presented with
-> physical limitations of the display technologies on the market today.
-> Here are a few examples of luminance ranges of displays.
->=20
-> | Display                  | Luminance range in nits |
-> | ------------------------ | ----------------------- |
-> | Typical PC display       | 0.3 - 200               |
-> | Excellent LCD HDTV       | 0.3 - 400               |
-> | HDR LCD w/ local dimming | 0.05 - 1,500            |
->=20
-> Since no display can currently show the full 0.0005 to 10,000 nits
-> luminance range the display will need to tonemap the HDR content, i.e
-> to fit the content within a display's capabilities. To assist with
-> tonemapping HDR content is usually accompanied with a metadata that
-> describes (among other things) the minimum and maximum mastering
-> luminance, i.e. the maximum and minimum luminance of the display that
-> was used to master the HDR content.
->=20
-> The HDR metadata is currently defined on the drm_connector via the
-> hdr_output_metadata blob property.
->=20
-> It might be useful to define per-plane hdr metadata, as different
-> planes might have been mastered differently.
-
-I don't think this would directly help with the dynamic range blending
-problem. You still need to establish the mapping between the optical
-values from two different EOTFs and dynamic ranges. Or can you know
-which optical values match the mastering display maximum and minimum
-luminances for not-PQ?
-
-
-> ## SDR Luminance
->=20
-> Since SDR covers a smaller luminance range than HDR, an SDR plane
-> might look dark when blended with HDR content. Since the max HDR
-> luminance can be quite variable (200-1,500 nits on actual displays)
-> it is best to make the SDR maximum luminance value configurable.
->=20
-> **We propose a drm_plane property to specfy the desired maximum
-> luminance of the SDR plane in nits.** This allows us to map the SDR
-> content predictably into HDR's absolute luminance space.
-
-What would be the mapping? Simple linear scaling? A more complicated
-tone mapping?
-
-Rather than "SDR luminance", do you perhaps intend this to configure
-the dynamic range of the non-absolute-luminance EOTFs?
-In that case maybe you'd need a black luminance level too?
-
-
-> ## Let There Be Color
->=20
-> So far we've only talked about luminance, ignoring colors altogether.
-> Just like in the luminance space, traditionally the color space of
-> display outputs has not been well defined. Similar to how an EOTF
-> defines a mapping of pixel data to an absolute luminance value, the
-> color space maps color information for each pixel onto the CIE 1931
-> chromaticity space. This can be thought of as a mapping to an
-> absolute, real-life, color value.
->=20
-> A color space is defined by its primaries and white point. The
-> primaries and white point are expressed as coordinates in the CIE
-> 1931 color space. Think of the red primary as the reddest red that
-> can be displayed within the color space. Same for green and blue.
->=20
-> Examples of color spaces are:
->=20
-> | Color Space | Description                                |
-> | ----------- | ------------------------------------------ |
-> | BT 601      | similar to BT 709                          |
-> | BT 709      | used by sRGB content; ~53% of BT 2020      |
-> | DCI-P3      | used by most HDR displays; ~72% of BT 2020 |
-> | BT 2020     | standard for most HDR content              |
->=20
-> The color space is defined in DRM for YCbCr planes via the
-> color_encoding property of the drm_plane.=20
-
-I don't think that is quite right.
-
-As far I understand, COLOR_ENCODING property controls which matrix is
-used to convert from YCbCr to RGB, but that is all it does. It is not
-used for the actual color space. So while these BT standards do
-specify the chromaticities, they also specify the YCbCr encoding which
-is the part used in this property.
-
-YCbCr and RGB are color models. They are not color spaces. RGB is an
-additive color model while YCbCr is not, AFAIU. Blending requires an
-additive color model and linear luminance encoding.
-
-You need two color space definitions to create one color space
-transformation: source color space and destination color space. You
-also need an idea *how* the two color spaces should be mapped, which is
-called "rendering intent". You can't do anything with just one color
-space definition, except to pass it on along with the pixels.
-
-To be able to blend planes together, all planes need to be converted to
-the same color space first: the blending color space, whatever you
-choose it to be. I do not see where KMS would do this color space
-conversion, or where it would get the definition of the blending color
-space.
-
-> **We propose to add definitions for the RGB variants of the BT color
-> spaces.**
-
-Therefore I'm not sure this makes sense.
-
-
-> ## Color Primaries and White Point
->=20
-> Just like displays can currently not represent the entire 0.0005 -
-> 10,000 nits HDR range of the PQ 2084 EOTF, they are currently not
-> capable of representing the entire BT.2020 color Gamut. For this
-> reason video content will often specify the color primaries and white
-> point used to master the video, in order to allow displays to be able
-> to map the image as best as possible onto the display's gamut.
->=20
->=20
-> ## Displays and Tonemapping
->=20
-> External displays are able to do their own tone and color mapping,
-> based on the mastering luminance, color primaries, and white space
-> defined in the HDR metadata.
->=20
-> Internal panels (which are currently few and far between) usually
-> don't include the complex HW to do tone and color mapping on their
-> own and will require the display driver to perform appropriate
-> mapping.
-
-FWIW, when designing Weston's color management, we are aiming for
-the latter "simple" panels foremost, because that gives us full control
-of all color conversions and tone mappings.
-
-OTOH, if Weston has to present to a display which only accepts e.g.
-BT.2020/PQ signal, the display might always mangle the image in
-unexpected ways. Therefore I expect that by default Weston will do
-everything it can to try to make the display not apply anything magic
-image enhancement: trust that EDID description of the display gamut and
-dynamic range are correct, and use HDR metadata to tell the display
-that those values are exactly what we are using. And we use them.
-
-IMO, a display doing its tone mapping magically is only useful when you
-want to be able to use "simple" playback devices that cannot adapt to
-the display they are driving. Magic tone mapping is also a way for
-hardware vendors to differentiate, which from the color management
-perspective is harmful as it makes it more difficult or impossible to
-predict the display behaviour or to keep it consistent.
-
-So there are two opposing goals:
-
-- Traditional color management wants absolute control of the display,
-  leaving nothing unpredictable and preferably also nothing undefined.
-  Undefined behaviour can always be measured (profiled) which makes it
-  predictable and known. The viewing environment is controlled and
-  constant.
-
-- Entertainment wants the most visually impressive image quality by
-  dynamically adapting to both displayed content and to the viewing
-  environment conditions.
-
-> ## Pixel Formats
->=20
-> The pixel formats, such as ARGB8888, ARGB2101010, P010, or FP16 are
-> unrelated to color space and EOTF definitions. HDR pixels can be
-> formatted in different ways but in order to not lose precision HDR
-> content requires at least 10 bpc precision. For this reason
-> ARGB2101010, P010, and FP16 are the obvious candidates for HDR.
-> ARGB2101010 and P010 have the advantage of requiring only half the
-> bandwidth as FP16, while FP16 has the advantage of enough precision
-> to operate in a linear space, i.e. without EOTF.
-
-Right.
-
-> ## Proposed use-cases
->=20
-> Although the userspace side of this work is still in the early stages
-> it is clear that we will want to support the following two use-cases:
->=20
-> **One XRGB2101010 HDR Plane:** A single, composited plane of HDR
-> content. The use-case is a video player on a desktop with the
-> compositor owning the composition of SDR and HDR content. The content
-> shall be PQ BT.2020 formatted. The drm_connector's
-> hdr_output_metadata shall be set.
-
-This use case is already possible, right?
-
-> **One ARGB8888 SDR Plane + One P010 HDR Plane:** A normal 8bpc
-> desktop plane, with a P010 HDR video plane underlayed. The HDR plane
-> shall be PQ BT.2020 formatted. The desktop plane shall specify an SDR
-> boost value. The drm_connector's hdr_output_metadata shall be set.
-
-This use case requires blending in KMS, so is the primary goal I
-suppose.
-
-> **One XRGB8888 SDR Plane - HDR output:** In order to support a smooth
-> transition we recommend an OS that supports HDR output to provide the
-> hdr_output_metadata on the drm_connector to configure the output for
-> HDR, even when the content is only SDR. This will allow for a smooth
-> transition between SDR-only and HDR content. In this use-case the SDR
-> max luminance value should be provided on the drm_plane.
-
-I think this might be already possible by crafting a CRTC GAMMA LUT? Not
-sure about precision.
-
-> In DCN we will de-PQ or de-Gamma all input in order to blend in
-> linear space. For SDR content we will also apply any desired boost
-> before blending. After blending we will then re-apply the PQ EOTF and
-> do RGB to YCbCr conversion if needed.
-
-This assumes the same color space over everything.
-
->=20
-> ## Summary of proposed interface changes
->=20
-> per drm_plane:
-> - new RGB color space definitions, mirroring the existing YUV color
-> space definitions
-> - new transfer function property
-> - new SDR maximum white level property
-
-How will these new KMS properties interact with per-plane DEGAMMA, CTM
-and/or GAMMA properties?
-
-Why go with your proposal instead of per-plane CTM and LUT?
-
-I think the ideal KMS pipeline for me, assuming I cannot have 3D LUTs
-both per-plane and on CRTC, would be:
-
-plane:
-	FB -> M1 -> LUT1 -> M2 -> blending input
-
-CRTC:
-	blending output -> LUT2 -> M3 -> connector
-
-FB: framebuffer
-M1: matrix transform, capable of converting e.g. YCbCr to RGB
-LUT1: 1D LUT for content EOTF, to produce light-linear RGB
-M2: matrix transform for color space transformation
-
-LUT2: 1D LUT for applying monitor EOTF^-1
-M3: matrix transform, e.g. if you need to push YCbCr on the connector
-
-We also need to know where and how clipping happens.
-
-I think this scheme would allow implementing everything you want, and
-it would not be tied to rigid enumerations, and it won't have any
-magical conversions done under the hood as you would need to do to
-convert from one enum space to another. It leaves the render intent to
-be defined by the userspace compositor, rather than building a fixed
-policy in the kernel.
-
-Userspace would be setting transformation operators, not color spaces,
-to the kernel, allowing the blending space to be chosen by userspace.
-In Weston we aim to choose then blending color space to be the same as
-the output color space, except in optical (linear) encoding. The output
-color space can be non-standard, e.g. measured with a display profiler
-equipment.
-
-I would expect gamut mapping, dynamic range mapping and tone mapping to
-be places where most experimentation and innovation happens, so
-implementing them in the kernel with just few or no controllable
-parameters at this time seems like it could become useless fast.
-
-
-Thanks,
-pq
-
-> ## References
->=20
-> [1]
-> https://en.wikipedia.org/wiki/High-dynamic-range_video#Perceptual_Quantiz=
-er
->=20
->=20
-> ## Further Reading
->=20
-> https://gitlab.freedesktop.org/swick/wayland-protocols/-/blob/color/unsta=
-ble/color-management/color.rst
-> http://downloads.bbc.co.uk/rd/pubs/whp/whp-pdf-files/WHP309.pdf
-> https://app.spectracal.com/Documents/White%20Papers/HDR_Demystified.pdf
->=20
->=20
-> Bhawanpreet Lakha (3):
->   drm/color: Add RGB Color encodings
->   drm/color: Add Color transfer functions for HDR/SDR
->   drm/color: Add sdr boost property
->=20
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
->  .../gpu/drm/arm/display/komeda/komeda_plane.c |  4 +-
->  drivers/gpu/drm/arm/malidp_planes.c           |  4 +-
->  drivers/gpu/drm/armada/armada_overlay.c       |  4 +-
->  drivers/gpu/drm/drm_atomic_uapi.c             |  8 ++
->  drivers/gpu/drm/drm_color_mgmt.c              | 84
-> +++++++++++++++++-- drivers/gpu/drm/i915/display/intel_sprite.c   |
-> 4 +- .../drm/i915/display/skl_universal_plane.c    |  4 +-
->  drivers/gpu/drm/nouveau/dispnv04/overlay.c    |  4 +-
->  drivers/gpu/drm/omapdrm/omap_plane.c          |  4 +-
->  drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  4 +-
->  drivers/gpu/drm/tidss/tidss_plane.c           |  6 +-
->  include/drm/drm_color_mgmt.h                  | 25 +++++-
->  include/drm/drm_plane.h                       | 30 +++++++
->  14 files changed, 173 insertions(+), 16 deletions(-)
->=20
-
-
---Sig_/PwenWCvv0_DSkbbNXI+n.zM
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCIJJ0ACgkQI1/ltBGq
-qqdSAQ/9Ejg2gP/hFGRl3FmUb0Lud61JLn3hDoUfZUG3C7zpXucjJ5+vkE3QYxOZ
-bbUwwp9D9BZ4wXdS0FTmo8jWDnSZm7QKUrnOLqM9iDWiAcrAd0rRrBzEK+nkpv6I
-0dM7WPXX5mHgEFUdu+aWyVcWwEwUaDGku4gEhIohBgetjdwFKLOBk6reXEv/qtfH
-gIy5UOU9BntxS7naV26fG8Ru+e3tgTvBvPgx0epRJdC1w3+sVNMg+nCqNFB5YsQu
-EsaH9vWhtIj778d6XyZMkj/sRXjAe4WeS/eBS2V/0XggJmy9ihgsxEaqfa0W9QRr
-KJJSBLPqNy+E8N3HN5QlGtrzXouKsSsnsjeLmPZFQd0SC1OLVqS7CSslS9paaeVM
-VdD1yAN8obSfk+dF/NHcV0oKoR7jKXwz49qRQoyBn/XM/ayOpMLx2za0EjVU/Hi6
-tjQWTQVZ+UGtvPz4dIWdPMAoRb+iJIV82JgmVx4Sg0k+MXOl2epiCfItkvjFrPyp
-/VOCmh0Stj3jIIyfoUvQzItP5ry8gzVsRsRWWBkpjgXRltJ/PkNOSz4eIje/cq7X
-qF/oHL5Wk9XuIxUlSd4hNwqVxwavyNawjqx8Vlq9SehijA7V83PlJt0cMGHoA5Po
-aGdJ42lH6G6kYu1ectKwY1XJM0s1Z4/aHpIi6lrJakwJauf4Kv8=
-=QER3
------END PGP SIGNATURE-----
-
---Sig_/PwenWCvv0_DSkbbNXI+n.zM--
-
---===============0878035673==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index c39ed9eb0987..a2e81e913abb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -332,6 +332,17 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
+ 			mc->agp_size >> 20, mc->agp_start, mc->agp_end);
+ }
+ 
++/**
++ * amdgpu_gmc_fault_key - get hask key from vm fault address and pasid
++ *
++ * @addr: 48bit physical address
++ * @pasid: 4 bit
++ */
++static inline uint64_t amdgpu_gmc_fault_key(uint64_t addr, uint16_t pasid)
++{
++	return addr << 4 | pasid;
++}
++
+ /**
+  * amdgpu_gmc_filter_faults - filter VM faults
+  *
+@@ -348,8 +359,7 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 			      uint16_t pasid, uint64_t timestamp)
+ {
+ 	struct amdgpu_gmc *gmc = &adev->gmc;
+-
+-	uint64_t stamp, key = addr << 4 | pasid;
++	uint64_t stamp, key = amdgpu_gmc_fault_key(addr, pasid);
+ 	struct amdgpu_gmc_fault *fault;
+ 	uint32_t hash;
+ 
+@@ -365,7 +375,7 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 	while (fault->timestamp >= stamp) {
+ 		uint64_t tmp;
+ 
+-		if (fault->key == key)
++		if (atomic64_read(&fault->key) == key)
+ 			return true;
+ 
+ 		tmp = fault->timestamp;
+@@ -378,7 +388,7 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 
+ 	/* Add the fault to the ring */
+ 	fault = &gmc->fault_ring[gmc->last_fault];
+-	fault->key = key;
++	atomic64_set(&fault->key, key);
+ 	fault->timestamp = timestamp;
+ 
+ 	/* And update the hash */
+@@ -387,6 +397,36 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 	return false;
+ }
+ 
++/**
++ * amdgpu_gmc_filter_faults_remove - remove address from VM faults filter
++ *
++ * @adev: amdgpu device structure
++ * @addr: address of the VM fault
++ * @pasid: PASID of the process causing the fault
++ *
++ * Remove the address from fault filter, then future vm fault on this address
++ * will pass to retry fault handler to recover.
++ */
++void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
++				     uint16_t pasid)
++{
++	struct amdgpu_gmc *gmc = &adev->gmc;
++	uint64_t key = amdgpu_gmc_fault_key(addr, pasid);
++	struct amdgpu_gmc_fault *fault;
++	uint32_t hash;
++	uint64_t tmp;
++
++	hash = hash_64(key, AMDGPU_GMC_FAULT_HASH_ORDER);
++	fault = &gmc->fault_ring[gmc->fault_hash[hash].idx];
++	do {
++		if (atomic64_cmpxchg(&fault->key, key, 0) == key)
++			break;
++
++		tmp = fault->timestamp;
++		fault = &gmc->fault_ring[fault->next];
++	} while (fault->timestamp < tmp);
++}
++
+ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
+ {
+ 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 9d11c02a3938..6aa1d52d3aee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -66,9 +66,9 @@ struct firmware;
+  * GMC page fault information
+  */
+ struct amdgpu_gmc_fault {
+-	uint64_t	timestamp;
++	uint64_t	timestamp:48;
+ 	uint64_t	next:AMDGPU_GMC_FAULT_RING_ORDER;
+-	uint64_t	key:52;
++	atomic64_t	key;
+ };
+ 
+ /*
+@@ -318,6 +318,8 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev,
+ 			     struct amdgpu_gmc *mc);
+ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 			      uint16_t pasid, uint64_t timestamp);
++void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
++				     uint16_t pasid);
+ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
+ void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
+ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0878035673==--
