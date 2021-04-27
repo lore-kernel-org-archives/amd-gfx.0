@@ -2,122 +2,128 @@ Return-Path: <SRS0=7Ry8=JY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 859EDC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54EF9C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 15:03:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4307261151
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 14:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4307261151
+	by mail.kernel.org (Postfix) with ESMTPS id 19B46613C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Apr 2021 15:03:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19B46613C1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2AAA89F4F;
-	Tue, 27 Apr 2021 14:57:21 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DDBC89F4F
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 14:57:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1786E97E;
+	Tue, 27 Apr 2021 15:03:22 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700042.outbound.protection.outlook.com [40.107.70.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C668089DCF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Apr 2021 15:03:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HIMXZJTDEl0toKmKa1VoqjR0Xl7lDv9Q2tAPUv/NwsjTXn/rtNuZSXztnx3WB3Gf99+DVFuE6HiwEKcaHrFhmUxHxFI/SNSv//42uJ+J3zmP9M8e67WwIuD3HKZLZvbRWx4azIfWav/J5muS9i6ohyClEXrKIDLjUUwVI5TjL89K1X4U2w7XGwKERjhrTTUFgJKPI+27refu0/ZahqTwes/T4xAljfJHs3oNywp+IM+/fnX6djAqBmPEeXAEFfJdeV8UVulUoOp9mh3/t88225sxIAVG4eh6kTqHjnGzsIxpTWHfi1p9zTplcK9oySNexRR+cHILFqZ/USjq4uSXGg==
+ b=bHpzmjVxA1ufkmMNJyjgj9HhLYUR83dMs6U+o0ltWTb5QPfOGuGQis2e60YckV0z1gSuXdMs9geRMAACMmspZ3+oMaFd+hzPWzBx6RfDW24/4X7EYmnITLZ9R5qVSe9izWWKj+MxuXoYnzHPvRowwRliIMdFNoh/i8WdljlZ7AP6ThP5Qj538+1e3vDN/F3oVSuvzdstAZ5GKoujQRHdAgeK+831JiftfIZquCSuTFtaP5gHawqUsT6Q/lfiviMxHH9GBu8jRCAjeLSZBwMoVf0qCz0Our11xbStW/S9R5BndD80VhYCjMPuxKInO8BTLTld3tsRujB+Zy2RB9y0PA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FJ/l1U9B+zM+FQKKr+2HtcRbLfn4koM8CGbXwdNmpMY=;
- b=XkGmfjknGI8z9vJbOMm7YlRT3ix7ysPOHNGxHT3nZxt00PmrPGnHy2M9FvDA3QEBcP9h6euJ3KmUAIH78P1WMl+wmbGevOpk2L37w5b6nb1dWtF/9WyvlmTufBwjFkKZrd0r+1CoeBT8vpTQGfWaYX3ZUx3I7mHCYpuAk3gn2UM5rLsU1GC1lw1i1XWz8BcneTcigQEvXDIXpWpLj9rzdvrx+6YAI+O+1On42Id2cEOM3xFvf+mUd9flXlIRKZGDLhf/6lB9+txI342eIy4pUMiQQLk+rpBphnU/Ej4VgUC4P1riGH4fEPlkpkWaXfaz309jzfS8v7MJvgEw3Lhu7Q==
+ bh=rDaGfYmgr2DyQhL+5uDOPnkETMXkq7Rzc8wKdsq3xYs=;
+ b=kKclbmKmP0jg1b5bDSqe+sY+I1RzvwHlSZR1JgDQ2tE00e7huT3EgTZm/9GjSZdicQXGr5nUdUN1B4MAxhaeY81zShYOegWd8NhJ8Rx0jWsBdgyQBy/0Oui3BgE5ONd1HuBi4gqqs1qXKy18thkOQzg9DXQBYfhQ5EnPGo6MbyYmjM5oGFBl8QoqzB1GZU5+rZTS1PGW6QCxiSLhv/h2rG7+iaLAHXgc3GIgwoo/X6cSJsmwt1BiKm24k/XQkwkqGqliMSZDivJ260eFHq/gd/pH+qf18buMgTQ5wlZWenK1Qh53winTGRyGYhhLf89zfV9mUDwHMWhCi70KqkABoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FJ/l1U9B+zM+FQKKr+2HtcRbLfn4koM8CGbXwdNmpMY=;
- b=jOS1iEFfgcPt/Y0cRdKMRI0kk4CRBQV4EuSag/PQFt4QIgOyOUGYIlZEhfb7ERfXtSTr0IdVpsTmHBujNYEMjzEA3Xh99ChNmoPY3L8VIAwpMUJ0A6gJ/vhP2vJadD+f8sm6I6Vw6i5jToRfeFLklxIxGHOKFDQX03B/hgUOzX4=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB4738.namprd12.prod.outlook.com (2603:10b6:208:8e::13)
+ bh=rDaGfYmgr2DyQhL+5uDOPnkETMXkq7Rzc8wKdsq3xYs=;
+ b=aHJaKOpX97bpZVQnlQnOmAVIdFi3Nf5i5Lswy/lbWJ91nim8RQBeaQojkEPW93euaA62ZHDVzfLmwrWGtVuKPflRrNpFN7A5fymc4WHJTXoAuk3sENON4PniYmNpkywNkXwCJe2c+HNrWIPmsynYu3sfCkyMo7RJ8Itb/Qvm40U=
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
+ by BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.25; Tue, 27 Apr
- 2021 14:57:18 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4087.026; Tue, 27 Apr 2021
- 14:57:18 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhao, Victor" <Victor.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: fix r initial values
-Thread-Topic: [PATCH] drm/amdgpu: fix r initial values
-Thread-Index: AQHXO0vuPJ0jl94WDkOIoI9T7G0kI6rIdF93
-Date: Tue, 27 Apr 2021 14:57:18 +0000
-Message-ID: <MN2PR12MB4488D7C365003DC156F19DCFF7419@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20210427095838.10865-1-Victor.Zhao@amd.com>
-In-Reply-To: <20210427095838.10865-1-Victor.Zhao@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.23; Tue, 27 Apr
+ 2021 15:03:18 +0000
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4065.027; Tue, 27 Apr 2021
+ 15:03:18 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Li, Dennis"
+ <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: fix no full coverage issue for gprs
+ initialization
+Thread-Topic: [PATCH] drm/amdgpu: fix no full coverage issue for gprs
+ initialization
+Thread-Index: AQHXO3L23pX5AeAm10uG3fKNtmTSFKrIc4VwgAACEGA=
+Date: Tue, 27 Apr 2021 15:03:18 +0000
+Message-ID: <BN9PR12MB53688885ABC2CA958E45CA1BFC419@BN9PR12MB5368.namprd12.prod.outlook.com>
+References: <20210427143756.8628-1-Dennis.Li@amd.com>
+ <BN9PR12MB53682204CA3E3B9AC63FD72FFC419@BN9PR12MB5368.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB53682204CA3E3B9AC63FD72FFC419@BN9PR12MB5368.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-27T14:57:17.995Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-27T15:03:15Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=efb2f5fa-92eb-49ff-b8fb-9a7c4d03e7d8;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [192.161.79.245]
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 21ec5260-657c-4c2f-9456-08d9098cc0d5
-x-ms-traffictypediagnostic: BL0PR12MB4738:
+x-ms-office365-filtering-correlation-id: 9b0f343d-0278-4282-e996-08d9098d9766
+x-ms-traffictypediagnostic: BN9PR12MB5306:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB4738A97F06CEEA5853841B48F7419@BL0PR12MB4738.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-microsoft-antispam-prvs: <BN9PR12MB530630E89D2F34B7A51DE2F8FC419@BN9PR12MB5306.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:644;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: t1UfDyEJBQgZ2h00DivnTink//hYmaRcexy/ocdgc3KKKPIV9433zaVBX0rYq7KPC7R0W/pGdmvTf0vxOL//Laq5pqN9HATKnjJ2jHCVe+MsVPYG75LOe3t1dZ3wWoR32sMrvIq8SgYGeDNRj7CxFtHPQT9Fk4EgGRYfYnxTwk2TsLse4GFweHqbB47BtrT72m78XH90kzGmsk6cJdcowWjMKjUhO4ErDS8zLVbZS1B9bQICtzbqSd87UASFosxDI/8TyHLn23tRl44mOp4BrXWxeEHHomq53dloNIIl0RJilDtDGo1Dl74Jhh+N8bnClLisalisDWqilPql852VWOjxAQgvEjFxNFjwbg4hgEsFTWhrfplSnU65JgVAGlI4wmeYRI1URrl0gUNf+YcxRm3NKbYyjrHlOj1kZunrtKUhRgBsjnJW9tJxJqkKsSIv+ofvEJHVFM+igl/dOeKVGfmioQjmfYPA8dLZO3ZgVTJDHEjpnt8q4BF6LP/7uXP/3vEn+hTpSD1DCu/ADKtns2VAua5KFqBMhsKjwdH11UlI3/pG3JYwZ/qh3pOADmQInFmv0sSwEnT9AHoP9ErQ1fU7MoVIpGjhPy3vbwwicOeTqZzzWo5yNsxVR7DO8Q2CPGCOW623wrWP5K25u1g94w==
+x-microsoft-antispam-message-info: pxD4tvyIo+T5qw//jG3RG57P8xnGAQDMmvV5b7gMUujXmYkvukJD5V9HsN3/g3fUqEJ1TbYoaXud037bKYMg30ZLSosNuaIKLqeUx1c2NJlOB7igAOrHOEwYe7a2pUeNjcZNkNQWNJIqd5xyGyNpe1VTlg2Qp+Ynq1w+I8i6vNmwEqRR9sNQN+Ea4X4Hb2ngSiV5nx1aXMoWFnJautKDuSPw31A/j0+0oNlBOx8Nf+GJhVqpyZ2TXMCaVPZ3VOKlcBtcxgme/dkC6GzxV5A0oDvtmTKO4nkxJUi4phdG73p4rwxo5X2RJFoteUcJzso77fa28VSXUA2Rl43ifJ2Xn8o/5fzQNEmyoen1w3OkaYgCYPmy4V0o7Q5w9x/ZK63t6CU29B9Wyrp7qdMFf9xYSaeqUzlk9MR98ggOj0RT6O01j5HNHtr59i4gg9IKLekueINnFIq0D0r48OLfu9i7IxAFn8ztRTlL9kcGzOBNso4FmLMDbUs5frKbs5sTHjbQfp9Mrk38waeW66agfaWuvsuVF8XULog13239sdsyqpeBt7GAC5PzbscHiXXh0C4n0cQyIWKA6+rVXLTwAyfH4JiPAKi/NeSoD59u+nHMFRf3ug6Q3Z2hMIKC/1eWlnPqQ1J2uJlEQm+LEzHXhboTGKPLwVG4xRz2A0HNES3GjyeO5/hQKIYQuN+812cCOQux
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(396003)(136003)(376002)(366004)(19627405001)(478600001)(8936002)(7696005)(45080400002)(38100700002)(122000001)(2906002)(8676002)(110136005)(966005)(53546011)(86362001)(186003)(166002)(316002)(26005)(52536014)(66946007)(33656002)(66556008)(64756008)(66446008)(76116006)(66476007)(9686003)(55016002)(83380400001)(5660300002)(6506007)(71200400001);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(366004)(136003)(39850400004)(376002)(64756008)(45080400002)(8936002)(83380400001)(30864003)(4326008)(5660300002)(478600001)(6506007)(966005)(86362001)(66946007)(26005)(6636002)(186003)(52536014)(921005)(33656002)(110136005)(66446008)(55016002)(2940100002)(8676002)(122000001)(9686003)(38100700002)(76116006)(2906002)(316002)(7696005)(71200400001)(66556008)(53546011)(66476007)(579004)(559001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?TSh0BPSgXfh/3F+l84iEnvttLpDRxtBEZ/mbAz4lozkTwPX6m5crvbKDJ0W4?=
- =?us-ascii?Q?Ou/HfS8W9nnkh/bEoyhKY0HaL5luqdL92ZFY38x/4jfASFFUsOf8bSrsnxsu?=
- =?us-ascii?Q?fMd2QMHSIYLbZj6z3Yn4U5DTnFB1YrWUjaJaYxz7SGGIlGTqoshQaS5r1kGD?=
- =?us-ascii?Q?YQCFZYMPKLuNJrD0ghKQkNWRra/YpOzHZkrEnVRNAEt7NUzM8GfEoe/TfkFi?=
- =?us-ascii?Q?o+rd2Vd163C7QrjUVuV+3aIWZFLgJVa9ErLpbcNMnP8lRcLdga3eTqBLC3aK?=
- =?us-ascii?Q?ZTKFTh4/jnC8arYSw6QexKB3zp4slWMEyYj4ZoGCGsR+jIj1z/xNLBXAv7uM?=
- =?us-ascii?Q?XhzL5qmnwsoLtbCfm1bw6mFgpcw36zQ0YnlYgIFfYzR46DA6yjdqq0JmKF58?=
- =?us-ascii?Q?KQlLQD8zxmaBEMARbAYANuOFTbyg65Kee/o0bUBXMJzrz/eYPtBB4XYc4WxB?=
- =?us-ascii?Q?Sl3ez2uCPWmjzqQm5Hf6nwv9VDj6Zl9IvRitijMPQ3jcwDSHAaOLzilaj0dm?=
- =?us-ascii?Q?o3+ly6P6u+x45iJbBB3S2GvCWHTO3Fmt64P8b7y9toy29wKJBF48AtGPALqD?=
- =?us-ascii?Q?8p1otHykTXWPcXZm/Of2SD/gvu47jWgzkbz70g7+9EFtk9XNtSdwbvQd7oQK?=
- =?us-ascii?Q?qQatethhoJd55Ex+hCFpfbLd7tQSeUnko5VmNa43QR35RH/lQcVM2Mb+DinP?=
- =?us-ascii?Q?4gBRT9y4SJ/5LZp76Ip3DigwT6eDg2gZA55p7iXB4po+kVxLMBWeAkkuXBbH?=
- =?us-ascii?Q?XAiaMxd1qEoz9C8YbWCCJ2AbaV9Zng1FDSlhXzExuyxv/K1UZv5f9fz27Bdu?=
- =?us-ascii?Q?QYxDEvVLFPqY+4qaLDFDPL6BtSM1WqVJuI3PuCyqrnOD5wwvoXeINdl3DeHA?=
- =?us-ascii?Q?JqXRjZOUtVINm2V/YQiEZa7ruubyb6u2CE/PG+rt5Ul7dIFv0NtkyY8vAOhi?=
- =?us-ascii?Q?tsrVy4uusdOCQtVgVwHX/p3QWhQrLxcWBEb30DdbPKFduLp+ROaVc5Yrt0DY?=
- =?us-ascii?Q?iwiAtrLlMHOmxsiXDenkPlJPAyn15wnVqTv+N+an2da38GGrVn3dUzW8hDrE?=
- =?us-ascii?Q?r9Dwpe+cYjtV1u0L22KTlOL5fcJ2Qv97nYF9zElTRCIhLuGl/fyJmLztr8W+?=
- =?us-ascii?Q?NlBwzSi4oCus4yXGq1aJpjzRinSgtB78Mz6T8h6FK0ATbIkCp6n9nxmqCsQ3?=
- =?us-ascii?Q?fn13Sx1ZFzQ5kkGTMdI5R8YoX3gdwSXin76abqSXvZrCR0HGpR5gacw+q+Qq?=
- =?us-ascii?Q?eBQQ7q8cnEPRc0kV5j6YEVqNP/iXKkR6NFIr+5eIzwguNC7O5mOJvbM2VDw/?=
- =?us-ascii?Q?dwED/RBhBGrHAxyIq1hI7q7q?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?X3CLiVxefPdmIDSHP+xc7GTT+tPZomMu8uySMEXujjPiG41b9SEp5Nt8dgFt?=
+ =?us-ascii?Q?3H9JQrsbIb/ax6wPW1wLaJb7PBwYmMTawKwwX+S7hvFHZrhFEy8VIA2aIvFO?=
+ =?us-ascii?Q?WGgP9n+MTV+2yt2H1PULOInz/VO7ovNWjMGmVlrLKOn09gOZQucxRGdsGfj4?=
+ =?us-ascii?Q?IsB1EDjyNYcoxxVMtfuCWxk01vJZUO1gnWphvfuv/r3CQIR4sBmOGNKeBw9u?=
+ =?us-ascii?Q?kAI1Lh+56W0V6z42JXpiitbFrQ8Hjywdfz1qbDtr8eoajws8zANkmwz3+Y1f?=
+ =?us-ascii?Q?puWQWOlAkrxzLcKo123iEC4tOveQZVfXx/sEVaICWE/Oq+2nAnt1pfsZIieS?=
+ =?us-ascii?Q?oMCA+6biaFkn8vAc09z6YHak4y/T3JuOTRWdBndokIs8uNy/iSLJ+jUbESVP?=
+ =?us-ascii?Q?lEZsuOgVLflHRKzWmoyWsKVmCOTDLjRO6nsGvaXVcuV8gUPTY+WenozuVyjW?=
+ =?us-ascii?Q?Zle80TRxXIrE2L/osxU16IgvhomMNlipBYEJBev9GAlthrajSK9XVJn7Pp9S?=
+ =?us-ascii?Q?N8KNDpy2297kx9vlp6bM97XbQe3yHfaN7AupekjvsFFnOEJUrtsJ2UtUe9J4?=
+ =?us-ascii?Q?8wz/BxjUQHe3wS5mU20yheNDgmdlwHjmjOKSB5qkN0k5EsaDHHJUAQb0C/av?=
+ =?us-ascii?Q?8JM9JliS2D0t2dVYMftP1uIvBAsDzKl1IRMWehVRuX2Ns4Mpsc2oM+vWPjQk?=
+ =?us-ascii?Q?l6HIJ0Q4BnVC4mB8hzXjb9HUfR8hIVLoRrB8HSfJf9TX+Bz48d1TE0OY0p5y?=
+ =?us-ascii?Q?G333clFPuHlnjYzjjSJ1mozGp9CX5oLPBtl1itHDwyX01H37Ie3vv6+b29Ld?=
+ =?us-ascii?Q?mH8ZpOs+B6AfEr3Wm377DAIUccv9h2/ZM7aTJDWNfNwb4Spdy+hAIeTk8m+4?=
+ =?us-ascii?Q?ikdFrN/ufq9MzMVcLd2Qh5AyM6T65bvbCQiPYelCX5OsnhkXPTvAbio4Mj+E?=
+ =?us-ascii?Q?GTGRCR/IWUWmCListNnDlC9uKV02meACrB/bzec0oAcghC6rUY5YsdOp+1vq?=
+ =?us-ascii?Q?4othc0L7zzK6S/bod1p+t2LbmoqxnygxfHA9Yp+OJnNRtDHcUazdP24DQgsV?=
+ =?us-ascii?Q?xgVf0tlWsKHuGbG84BCyZrTb45V/3aAOjk3pZjPQuSe6Wny5wP2wAaH9GSfZ?=
+ =?us-ascii?Q?N0I6Ay68hCj+6ctyJOdsY2Ro+8rQxzFDOM0aXB9qLhXUmP4+YJlXdwZzUXZa?=
+ =?us-ascii?Q?7e0yHchvssB9lYsXXKez+eBBZ0dnAyfAWPvLUTYTyN6J5+rJTCFRkRUKP/rA?=
+ =?us-ascii?Q?zoHgsfLFZo9xwcIa5q12u8PohW/fElA5gylzYFV51rPl0tGsFF/p4TWRgxC5?=
+ =?us-ascii?Q?6daI+c9RfXeVMang3lkC91q1?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21ec5260-657c-4c2f-9456-08d9098cc0d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2021 14:57:18.3844 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b0f343d-0278-4282-e996-08d9098d9766
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2021 15:03:18.2040 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 534/XPgdL0p6qddpIEh3/ETsiMxg7Mcj2pxia+FuIIUbOpXuijqsr58ux4021Nh19LCKzENoNHtwGxvxw6fdxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4738
+X-MS-Exchange-CrossTenant-userprincipalname: VfbwsdjR0+OL9ObOy/X1rBdZkpgDrl3JsBC1rYkZV/BWSO5pJ5uC88z53gQjdcOM6Pj4FCTtbxLZ8oB4G9b0iQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,207 +135,957 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1012287359=="
+Cc: "Li, Dennis" <Dennis.Li@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1012287359==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488D7C365003DC156F19DCFF7419MN2PR12MB4488namp_"
+[AMD Public Use]
 
---_000_MN2PR12MB4488D7C365003DC156F19DCFF7419MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+BTW, please explicitly call out aldebaran in either commit description or subject since it is really aldebaran specific algorithm.
 
-[AMD Official Use Only - Internal Distribution Only]
+Regards,
+Hawking
 
-Good catch. I think we should probably just return 0 at the end to keep the=
- semantics of the original code before this was broken out into a separate =
-helper function.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang, Hawking
+Sent: Tuesday, April 27, 2021 22:56
+To: Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Li, Dennis <Dennis.Li@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: fix no full coverage issue for gprs initialization
 
-Alex
+[AMD Public Use]
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Victor Z=
-hao <Victor.Zhao@amd.com>
-Sent: Tuesday, April 27, 2021 5:58 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhao, Victor <Victor.Zhao@amd.com>
-Subject: [PATCH] drm/amdgpu: fix r initial values
+Please split the following into another patch when you commit the one. Other than that, the patch is
 
-Give initial values otherwise sriov will get suspend of
-IP block <dce_virtual> failed
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Regards,
+Hawking
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c
-index 0f17984fdea4..36fdffd103c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1384,7 +1384,7 @@ int amdgpu_display_suspend_helper(struct amdgpu_devic=
-e *adev)
-         struct drm_crtc *crtc;
-         struct drm_connector *connector;
-         struct drm_connector_list_iter iter;
--       int r;
-+       int r =3D 0;
+@@ -479,8 +710,6 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
+ 			 die_id);
+ 		break;
+ 	}
+-
+-	return;
+ }
 
-         /* turn off display hw */
-         drm_modeset_lock_all(dev);
-@@ -1431,7 +1431,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device=
- *adev)
-         struct drm_connector *connector;
-         struct drm_connector_list_iter iter;
-         struct drm_crtc *crtc;
--       int r;
-+       int r =3D 0;
+-----Original Message-----
+From: Dennis Li <Dennis.Li@amd.com>
+Sent: Tuesday, April 27, 2021 22:38
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Li, Dennis <Dennis.Li@amd.com>
+Subject: [PATCH] drm/amdgpu: fix no full coverage issue for gprs initialization
 
-         /* pin cursors */
-         list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
+The number of waves is changed to 8, so it is impossible to use old solution to cover all sgprs.
+
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index a2fe2dac32c1..2e6789a7dc46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -328,7 +328,7 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < AMDGPU_IB_POOL_MAX; i++) {
+ 		if (i == AMDGPU_IB_POOL_DIRECT)
+-			size = PAGE_SIZE * 2;
++			size = PAGE_SIZE * 6;
+ 		else
+ 			size = AMDGPU_IB_POOL_SIZE;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index d17e57dea178..77948c033c45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -32,6 +32,11 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_gfx.h"
+ 
++#define SE_ID_MAX 8
++#define CU_ID_MAX 16
++#define SIMD_ID_MAX 4
++#define WAVE_ID_MAX 10
++
+ enum gfx_v9_4_2_utc_type {
+ 	VML2_MEM,
+ 	VML2_WALKER_MEM,
+@@ -81,100 +86,100 @@ static const struct soc15_reg_golden golden_settings_gc_9_4_2_alde[] = {  };
+ 
+ static const u32 vgpr_init_compute_shader_aldebaran[] = {
+-	0xb8840904, 0xb8851a04, 0xb8861344, 0x9207c006, 0x92088405, 0x81070807,
+-	0x81070407, 0x8e078207, 0xbe88008f, 0xc0410200, 0x00000007, 0xd3d94000,
+-	0x18000080, 0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003,
+-	0x18000080, 0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006,
+-	0x18000080, 0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009,
+-	0x18000080, 0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c,
+-	0x18000080, 0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f,
+-	0x18000080, 0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012,
+-	0x18000080, 0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015,
+-	0x18000080, 0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018,
+-	0x18000080, 0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b,
+-	0x18000080, 0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e,
+-	0x18000080, 0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021,
+-	0x18000080, 0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024,
+-	0x18000080, 0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027,
+-	0x18000080, 0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a,
+-	0x18000080, 0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d,
+-	0x18000080, 0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030,
+-	0x18000080, 0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033,
+-	0x18000080, 0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036,
+-	0x18000080, 0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039,
+-	0x18000080, 0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c,
+-	0x18000080, 0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f,
+-	0x18000080, 0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042,
+-	0x18000080, 0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045,
+-	0x18000080, 0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048,
+-	0x18000080, 0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b,
+-	0x18000080, 0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e,
+-	0x18000080, 0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051,
+-	0x18000080, 0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054,
+-	0x18000080, 0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057,
+-	0x18000080, 0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a,
+-	0x18000080, 0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d,
+-	0x18000080, 0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060,
+-	0x18000080, 0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063,
+-	0x18000080, 0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066,
+-	0x18000080, 0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069,
+-	0x18000080, 0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c,
+-	0x18000080, 0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f,
+-	0x18000080, 0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072,
+-	0x18000080, 0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075,
+-	0x18000080, 0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078,
+-	0x18000080, 0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b,
+-	0x18000080, 0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e,
+-	0x18000080, 0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081,
+-	0x18000080, 0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084,
+-	0x18000080, 0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087,
+-	0x18000080, 0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a,
+-	0x18000080, 0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d,
+-	0x18000080, 0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090,
+-	0x18000080, 0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093,
+-	0x18000080, 0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096,
+-	0x18000080, 0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099,
+-	0x18000080, 0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c,
+-	0x18000080, 0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f,
+-	0x18000080, 0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2,
+-	0x18000080, 0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5,
+-	0x18000080, 0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8,
+-	0x18000080, 0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab,
+-	0x18000080, 0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae,
+-	0x18000080, 0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1,
+-	0x18000080, 0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4,
+-	0x18000080, 0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7,
+-	0x18000080, 0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba,
+-	0x18000080, 0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd,
+-	0x18000080, 0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0,
+-	0x18000080, 0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3,
+-	0x18000080, 0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6,
+-	0x18000080, 0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9,
+-	0x18000080, 0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc,
+-	0x18000080, 0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf,
+-	0x18000080, 0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2,
+-	0x18000080, 0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5,
+-	0x18000080, 0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8,
+-	0x18000080, 0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db,
+-	0x18000080, 0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de,
+-	0x18000080, 0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1,
+-	0x18000080, 0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4,
+-	0x18000080, 0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7,
+-	0x18000080, 0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea,
+-	0x18000080, 0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed,
+-	0x18000080, 0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0,
+-	0x18000080, 0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3,
+-	0x18000080, 0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6,
+-	0x18000080, 0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9,
+-	0x18000080, 0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc,
+-	0x18000080, 0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff,
+-	0x18000080, 0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280,
+-	0x7e020280, 0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280,
+-	0x7e0e0280, 0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001,
+-	0x0001007f, 0xd28d0001, 0x0002027e, 0x10020288, 0xb88b0904, 0xb78b4000,
+-	0xd1196a01, 0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201,
+-	0xd89cc080, 0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8,
+-	0xbf810000,
++	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
++	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xd3d94000, 0x18000080,
++	0xd3d94001, 0x18000080, 0xd3d94002, 0x18000080, 0xd3d94003, 0x18000080,
++	0xd3d94004, 0x18000080, 0xd3d94005, 0x18000080, 0xd3d94006, 0x18000080,
++	0xd3d94007, 0x18000080, 0xd3d94008, 0x18000080, 0xd3d94009, 0x18000080,
++	0xd3d9400a, 0x18000080, 0xd3d9400b, 0x18000080, 0xd3d9400c, 0x18000080,
++	0xd3d9400d, 0x18000080, 0xd3d9400e, 0x18000080, 0xd3d9400f, 0x18000080,
++	0xd3d94010, 0x18000080, 0xd3d94011, 0x18000080, 0xd3d94012, 0x18000080,
++	0xd3d94013, 0x18000080, 0xd3d94014, 0x18000080, 0xd3d94015, 0x18000080,
++	0xd3d94016, 0x18000080, 0xd3d94017, 0x18000080, 0xd3d94018, 0x18000080,
++	0xd3d94019, 0x18000080, 0xd3d9401a, 0x18000080, 0xd3d9401b, 0x18000080,
++	0xd3d9401c, 0x18000080, 0xd3d9401d, 0x18000080, 0xd3d9401e, 0x18000080,
++	0xd3d9401f, 0x18000080, 0xd3d94020, 0x18000080, 0xd3d94021, 0x18000080,
++	0xd3d94022, 0x18000080, 0xd3d94023, 0x18000080, 0xd3d94024, 0x18000080,
++	0xd3d94025, 0x18000080, 0xd3d94026, 0x18000080, 0xd3d94027, 0x18000080,
++	0xd3d94028, 0x18000080, 0xd3d94029, 0x18000080, 0xd3d9402a, 0x18000080,
++	0xd3d9402b, 0x18000080, 0xd3d9402c, 0x18000080, 0xd3d9402d, 0x18000080,
++	0xd3d9402e, 0x18000080, 0xd3d9402f, 0x18000080, 0xd3d94030, 0x18000080,
++	0xd3d94031, 0x18000080, 0xd3d94032, 0x18000080, 0xd3d94033, 0x18000080,
++	0xd3d94034, 0x18000080, 0xd3d94035, 0x18000080, 0xd3d94036, 0x18000080,
++	0xd3d94037, 0x18000080, 0xd3d94038, 0x18000080, 0xd3d94039, 0x18000080,
++	0xd3d9403a, 0x18000080, 0xd3d9403b, 0x18000080, 0xd3d9403c, 0x18000080,
++	0xd3d9403d, 0x18000080, 0xd3d9403e, 0x18000080, 0xd3d9403f, 0x18000080,
++	0xd3d94040, 0x18000080, 0xd3d94041, 0x18000080, 0xd3d94042, 0x18000080,
++	0xd3d94043, 0x18000080, 0xd3d94044, 0x18000080, 0xd3d94045, 0x18000080,
++	0xd3d94046, 0x18000080, 0xd3d94047, 0x18000080, 0xd3d94048, 0x18000080,
++	0xd3d94049, 0x18000080, 0xd3d9404a, 0x18000080, 0xd3d9404b, 0x18000080,
++	0xd3d9404c, 0x18000080, 0xd3d9404d, 0x18000080, 0xd3d9404e, 0x18000080,
++	0xd3d9404f, 0x18000080, 0xd3d94050, 0x18000080, 0xd3d94051, 0x18000080,
++	0xd3d94052, 0x18000080, 0xd3d94053, 0x18000080, 0xd3d94054, 0x18000080,
++	0xd3d94055, 0x18000080, 0xd3d94056, 0x18000080, 0xd3d94057, 0x18000080,
++	0xd3d94058, 0x18000080, 0xd3d94059, 0x18000080, 0xd3d9405a, 0x18000080,
++	0xd3d9405b, 0x18000080, 0xd3d9405c, 0x18000080, 0xd3d9405d, 0x18000080,
++	0xd3d9405e, 0x18000080, 0xd3d9405f, 0x18000080, 0xd3d94060, 0x18000080,
++	0xd3d94061, 0x18000080, 0xd3d94062, 0x18000080, 0xd3d94063, 0x18000080,
++	0xd3d94064, 0x18000080, 0xd3d94065, 0x18000080, 0xd3d94066, 0x18000080,
++	0xd3d94067, 0x18000080, 0xd3d94068, 0x18000080, 0xd3d94069, 0x18000080,
++	0xd3d9406a, 0x18000080, 0xd3d9406b, 0x18000080, 0xd3d9406c, 0x18000080,
++	0xd3d9406d, 0x18000080, 0xd3d9406e, 0x18000080, 0xd3d9406f, 0x18000080,
++	0xd3d94070, 0x18000080, 0xd3d94071, 0x18000080, 0xd3d94072, 0x18000080,
++	0xd3d94073, 0x18000080, 0xd3d94074, 0x18000080, 0xd3d94075, 0x18000080,
++	0xd3d94076, 0x18000080, 0xd3d94077, 0x18000080, 0xd3d94078, 0x18000080,
++	0xd3d94079, 0x18000080, 0xd3d9407a, 0x18000080, 0xd3d9407b, 0x18000080,
++	0xd3d9407c, 0x18000080, 0xd3d9407d, 0x18000080, 0xd3d9407e, 0x18000080,
++	0xd3d9407f, 0x18000080, 0xd3d94080, 0x18000080, 0xd3d94081, 0x18000080,
++	0xd3d94082, 0x18000080, 0xd3d94083, 0x18000080, 0xd3d94084, 0x18000080,
++	0xd3d94085, 0x18000080, 0xd3d94086, 0x18000080, 0xd3d94087, 0x18000080,
++	0xd3d94088, 0x18000080, 0xd3d94089, 0x18000080, 0xd3d9408a, 0x18000080,
++	0xd3d9408b, 0x18000080, 0xd3d9408c, 0x18000080, 0xd3d9408d, 0x18000080,
++	0xd3d9408e, 0x18000080, 0xd3d9408f, 0x18000080, 0xd3d94090, 0x18000080,
++	0xd3d94091, 0x18000080, 0xd3d94092, 0x18000080, 0xd3d94093, 0x18000080,
++	0xd3d94094, 0x18000080, 0xd3d94095, 0x18000080, 0xd3d94096, 0x18000080,
++	0xd3d94097, 0x18000080, 0xd3d94098, 0x18000080, 0xd3d94099, 0x18000080,
++	0xd3d9409a, 0x18000080, 0xd3d9409b, 0x18000080, 0xd3d9409c, 0x18000080,
++	0xd3d9409d, 0x18000080, 0xd3d9409e, 0x18000080, 0xd3d9409f, 0x18000080,
++	0xd3d940a0, 0x18000080, 0xd3d940a1, 0x18000080, 0xd3d940a2, 0x18000080,
++	0xd3d940a3, 0x18000080, 0xd3d940a4, 0x18000080, 0xd3d940a5, 0x18000080,
++	0xd3d940a6, 0x18000080, 0xd3d940a7, 0x18000080, 0xd3d940a8, 0x18000080,
++	0xd3d940a9, 0x18000080, 0xd3d940aa, 0x18000080, 0xd3d940ab, 0x18000080,
++	0xd3d940ac, 0x18000080, 0xd3d940ad, 0x18000080, 0xd3d940ae, 0x18000080,
++	0xd3d940af, 0x18000080, 0xd3d940b0, 0x18000080, 0xd3d940b1, 0x18000080,
++	0xd3d940b2, 0x18000080, 0xd3d940b3, 0x18000080, 0xd3d940b4, 0x18000080,
++	0xd3d940b5, 0x18000080, 0xd3d940b6, 0x18000080, 0xd3d940b7, 0x18000080,
++	0xd3d940b8, 0x18000080, 0xd3d940b9, 0x18000080, 0xd3d940ba, 0x18000080,
++	0xd3d940bb, 0x18000080, 0xd3d940bc, 0x18000080, 0xd3d940bd, 0x18000080,
++	0xd3d940be, 0x18000080, 0xd3d940bf, 0x18000080, 0xd3d940c0, 0x18000080,
++	0xd3d940c1, 0x18000080, 0xd3d940c2, 0x18000080, 0xd3d940c3, 0x18000080,
++	0xd3d940c4, 0x18000080, 0xd3d940c5, 0x18000080, 0xd3d940c6, 0x18000080,
++	0xd3d940c7, 0x18000080, 0xd3d940c8, 0x18000080, 0xd3d940c9, 0x18000080,
++	0xd3d940ca, 0x18000080, 0xd3d940cb, 0x18000080, 0xd3d940cc, 0x18000080,
++	0xd3d940cd, 0x18000080, 0xd3d940ce, 0x18000080, 0xd3d940cf, 0x18000080,
++	0xd3d940d0, 0x18000080, 0xd3d940d1, 0x18000080, 0xd3d940d2, 0x18000080,
++	0xd3d940d3, 0x18000080, 0xd3d940d4, 0x18000080, 0xd3d940d5, 0x18000080,
++	0xd3d940d6, 0x18000080, 0xd3d940d7, 0x18000080, 0xd3d940d8, 0x18000080,
++	0xd3d940d9, 0x18000080, 0xd3d940da, 0x18000080, 0xd3d940db, 0x18000080,
++	0xd3d940dc, 0x18000080, 0xd3d940dd, 0x18000080, 0xd3d940de, 0x18000080,
++	0xd3d940df, 0x18000080, 0xd3d940e0, 0x18000080, 0xd3d940e1, 0x18000080,
++	0xd3d940e2, 0x18000080, 0xd3d940e3, 0x18000080, 0xd3d940e4, 0x18000080,
++	0xd3d940e5, 0x18000080, 0xd3d940e6, 0x18000080, 0xd3d940e7, 0x18000080,
++	0xd3d940e8, 0x18000080, 0xd3d940e9, 0x18000080, 0xd3d940ea, 0x18000080,
++	0xd3d940eb, 0x18000080, 0xd3d940ec, 0x18000080, 0xd3d940ed, 0x18000080,
++	0xd3d940ee, 0x18000080, 0xd3d940ef, 0x18000080, 0xd3d940f0, 0x18000080,
++	0xd3d940f1, 0x18000080, 0xd3d940f2, 0x18000080, 0xd3d940f3, 0x18000080,
++	0xd3d940f4, 0x18000080, 0xd3d940f5, 0x18000080, 0xd3d940f6, 0x18000080,
++	0xd3d940f7, 0x18000080, 0xd3d940f8, 0x18000080, 0xd3d940f9, 0x18000080,
++	0xd3d940fa, 0x18000080, 0xd3d940fb, 0x18000080, 0xd3d940fc, 0x18000080,
++	0xd3d940fd, 0x18000080, 0xd3d940fe, 0x18000080, 0xd3d940ff, 0x18000080,
++	0xb07c0000, 0xbe8a00ff, 0x000000f8, 0xbf11080a, 0x7e000280, 0x7e020280,
++	0x7e040280, 0x7e060280, 0x7e080280, 0x7e0a0280, 0x7e0c0280, 0x7e0e0280,
++	0x808a880a, 0xbe80320a, 0xbf84fff5, 0xbf9c0000, 0xd28c0001, 0x0001007f,
++	0xd28d0001, 0x0002027e, 0x10020288, 0xbe8b0004, 0xb78b4000, 0xd1196a01,
++	0x00001701, 0xbe8a0087, 0xbefc00c1, 0xd89c4000, 0x00020201, 0xd89cc080,
++	0x00040401, 0x320202ff, 0x00000800, 0x808a810a, 0xbf84fff8, 
++0xbf810000,
+ };
+ 
+ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = { @@ -183,7 +188,7 @@ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 4 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0xbf },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x400004 },  /* 64KB LDS */
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x400006 },  /* 64KB 
++LDS */
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff }, @@ -195,262 +200,488 @@ const struct soc15_reg_entry vgpr_init_regs_aldebaran[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0xffffffff },  };
+ 
+-static const u32 sgpr_init_compute_shader_aldebaran[] = {
+-	0xb8840904, 0xb8851a04, 0xb8861344, 0x9207c006, 0x92088405, 0x81070807,
+-	0x81070407, 0x8e078207, 0xbefc0006, 0xbf800000, 0xbf900001, 0xbe88008f,
+-	0xc0410200, 0x00000007, 0xb07c0000, 0xbe8000ff, 0x0000005f, 0xbee50080,
+-	0xbe812c65, 0xbe822c65, 0xbe832c65, 0xbe842c65, 0xbe852c65, 0xb77c0005,
+-	0x80808500, 0xbf84fff8, 0xbe800080, 0xbf810000,
++static const u32 sgpr112_init_compute_shader_aldebaran[] = {
++	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
++	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
++	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
++	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
++	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
++	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
++	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
++	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
++	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
++	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
++	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
++	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
++	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
++	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
++	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
++	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
++	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
++	0xbed80080, 0xbed90080, 0xbeda0080, 0xbedb0080, 0xbedc0080, 0xbedd0080,
++	0xbede0080, 0xbedf0080, 0xbee00080, 0xbee10080, 0xbee20080, 0xbee30080,
++	0xbee40080, 0xbee50080, 0xbf810000
+ };
+ 
+-static const struct soc15_reg_entry sgpr1_init_regs_aldebaran[] = {
++const struct soc15_reg_entry sgpr112_init_regs_aldebaran[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 8 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 }, /* (80 GPRS): SGPRS[9:6] VGPRS[5:0] */
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x4 }, /* USER_SGPR[5:1]*/
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0x000000ff },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0x000000ff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x2c0 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7),
++0xffffffff }, };
++
++static const u32 sgpr96_init_compute_shader_aldebaran[] = {
++	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
++	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
++	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
++	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
++	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
++	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
++	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
++	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
++	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
++	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
++	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
++	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
++	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
++	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
++	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
++	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
++	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
++	0xbed80080, 0xbed90080, 0xbf810000,
+ };
+ 
+-static const struct soc15_reg_entry sgpr2_init_regs_aldebaran[] = {
++const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 8 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 0xc },
+ 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 }, /* (80 GPRS) */
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x4 }, /* USER_SGPR[5:1]*/
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x3F }, /*  63 - accum-offset = 256 */
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0x0000ff00 },
+-	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7), 0x0000ff00 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7),
++0xffffffff },
+ };
+ 
+-static int gfx_v9_4_2_check_gprs_init_coverage(struct amdgpu_device *adev,
+-					       uint32_t *wb)
+-{
+-	uint32_t se_id, cu_id, simd_id;
+-	uint32_t simd_cnt = 0;
+-	uint32_t se_offset, cu_offset, data;
+-
+-	for (se_id = 0; se_id < adev->gfx.config.max_shader_engines; se_id++) {
+-		se_offset = se_id * 16 * 4;
+-		for (cu_id = 0; cu_id < 16; cu_id++) {
+-			cu_offset = cu_id * 4;
+-			for (simd_id = 0; simd_id < 4; simd_id++) {
+-				data = wb[se_offset + cu_offset + simd_id];
+-				if (data == 0xF)
+-					simd_cnt++;
+-			}
+-		}
+-	}
+-
+-	if (adev->gfx.cu_info.number * 4 == simd_cnt)
+-		return 0;
+-
+-	dev_warn(adev->dev, "SIMD Count: %d, %d\n",
+-		 adev->gfx.cu_info.number * 4, simd_cnt);
+-
+-	for (se_id = 0; se_id < adev->gfx.config.max_shader_engines; se_id++) {
+-		se_offset = se_id * 16 * 4;
+-		for (cu_id = 0; cu_id < 16; cu_id++) {
+-			cu_offset = cu_id * 4;
+-			for (simd_id = 0; simd_id < 4; simd_id++) {
+-				data = wb[se_offset + cu_offset + simd_id];
+-				if (data != 0xF)
+-					dev_warn(adev->dev, "SE[%d]CU[%d]SIMD[%d]: isn't inited\n",
+-						se_id, cu_id, simd_id);
+-			}
+-		}
+-	}
++static const u32 sgpr64_init_compute_shader_aldebaran[] = {
++	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
++	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
++	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080,
++	0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080,
++	0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080,
++	0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080,
++	0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080,
++	0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080,
++	0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080,
++	0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080,
++	0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080,
++	0xbeb90080, 0xbf810000,
++};
+ 
+-	return -EFAULT;
+-}
++const struct soc15_reg_entry sgpr64_init_regs_aldebaran[] = {
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_RESOURCE_LIMITS), 0x0000000 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 0x10 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x1c0 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE1), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE2), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE3), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE4), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE5), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE6), 0xffffffff },
++	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE7),
++0xffffffff }, };
+ 
+ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+-				 const uint32_t *shader_ptr, uint32_t shader_size,
+-				 const struct soc15_reg_entry *init_regs, uint32_t regs_size,
+-				 uint32_t compute_dim_x, u64 wb_gpu_addr)
++				 struct amdgpu_ring *ring,
++				 struct amdgpu_ib *ib,
++				 const u32 *shader_ptr, u32 shader_size,
++				 const struct soc15_reg_entry *init_regs, u32 regs_size,
++				 u32 compute_dim_x, u64 wb_gpu_addr, u32 pattern,
++				 struct dma_fence **fence_ptr)
+ {
+-	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
+-	struct amdgpu_ib ib;
+-	struct dma_fence *f = NULL;
+ 	int r, i;
+ 	uint32_t total_size, shader_offset;
+ 	u64 gpu_addr;
+ 
+-	total_size = (regs_size * 3 + 4 + 4 + 5 + 2) * 4;
++	total_size = (regs_size * 3 + 4 + 5 + 5) * 4;
+ 	total_size = ALIGN(total_size, 256);
+ 	shader_offset = total_size;
+ 	total_size += ALIGN(shader_size, 256);
+ 
+ 	/* allocate an indirect buffer to put the commands in */
+-	memset(&ib, 0, sizeof(ib));
++	memset(ib, 0, sizeof(*ib));
+ 	r = amdgpu_ib_get(adev, NULL, total_size,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++					AMDGPU_IB_POOL_DIRECT, ib);
+ 	if (r) {
+-		DRM_ERROR("amdgpu: failed to get ib (%d).\n", r);
++		dev_err(adev->dev, "failed to get ib (%d).\n", r);
+ 		return r;
+ 	}
+ 
+ 	/* load the compute shaders */
+ 	for (i = 0; i < shader_size/sizeof(u32); i++)
+-		ib.ptr[i + (shader_offset / 4)] = shader_ptr[i];
++		ib->ptr[i + (shader_offset / 4)] = shader_ptr[i];
+ 
+ 	/* init the ib length to 0 */
+-	ib.length_dw = 0;
++	ib->length_dw = 0;
+ 
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < regs_size; i++) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(init_regs[i])
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(init_regs[i])
+ 								- PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = init_regs[i].reg_value;
++		ib->ptr[ib->length_dw++] = init_regs[i].reg_value;
+ 	}
+ 
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)shader_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
++	gpu_addr = (ib->gpu_addr + (u64)shader_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
+ 							- PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write the wb buffer address */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_USER_DATA_0)
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 3);
++	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0,
++regCOMPUTE_USER_DATA_0)
+ 							- PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(wb_gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(wb_gpu_addr);
++	ib->ptr[ib->length_dw++] = lower_32_bits(wb_gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(wb_gpu_addr);
++	ib->ptr[ib->length_dw++] = pattern;
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = compute_dim_x; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = compute_dim_x; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+-	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+-
+ 	/* shedule the ib on the ring */
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
++	r = amdgpu_ib_schedule(ring, 1, ib, NULL, fence_ptr);
+ 	if (r) {
+-		DRM_ERROR("amdgpu: ib submit failed (%d).\n", r);
+-		goto fail;
++		dev_err(adev->dev, "ib submit failed (%d).\n", r);
++		amdgpu_ib_free(adev, ib, NULL);
+ 	}
++	return r;
++}
+ 
+-	/* wait for the GPU to finish processing the IB */
+-	r = dma_fence_wait(f, false);
+-	if (r) {
+-		DRM_ERROR("amdgpu: fence wait failed (%d).\n", r);
+-		goto fail;
++static void gfx_v9_4_2_log_wave_assignment(struct amdgpu_device *adev, 
++uint32_t *wb_ptr) {
++	uint32_t se, cu, simd, wave;
++	uint32_t offset = 0;
++	char *str;
++	int size;
++
++	str = kmalloc(256, GFP_KERNEL);
++	if (!str)
++		return;
++
++	dev_dbg(adev->dev, "wave assignment:\n");
++
++	for (se = 0; se < adev->gfx.config.max_shader_engines; se++) {
++		for (cu = 0; cu < CU_ID_MAX; cu++) {
++			memset(str, 0, 256);
++			size = sprintf(str, "SE[%02d]CU[%02d]: ", se, cu);
++			for (simd = 0; simd < SIMD_ID_MAX; simd++) {
++				size += sprintf(str + size, "[");
++				for (wave = 0; wave < WAVE_ID_MAX; wave++) {
++					size += sprintf(str + size, "%x", wb_ptr[offset]);
++					offset++;
++				}
++				size += sprintf(str + size, "]  ");
++			}
++			dev_dbg(adev->dev, "%s\n", str);
++		}
+ 	}
+-fail:
+-	amdgpu_ib_free(adev, &ib, NULL);
+-	dma_fence_put(f);
+ 
+-	return r;
++	kfree(str);
+ }
+ 
+-int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev)
++static int gfx_v9_4_2_wait_for_waves_assigned(struct amdgpu_device *adev,
++					      uint32_t *wb_ptr, uint32_t mask,
++					      uint32_t pattern, uint32_t num_wave, bool wait)
+ {
+-	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
+-	int r;
+-	int compute_dim_x = adev->gfx.config.max_shader_engines *
+-			    adev->gfx.config.max_cu_per_sh *
+-			    adev->gfx.config.max_sh_per_se;
+-	int sgpr_work_group_size = 5;
+-	/* CU_ID: 0~15, SIMD_ID: 0~3 */
+-	int wb_size = adev->gfx.config.max_shader_engines * 16 * 4;
+-	struct amdgpu_ib ib;
++	uint32_t se, cu, simd, wave;
++	uint32_t loop = 0;
++	uint32_t wave_cnt;
++	uint32_t offset;
+ 
+-	/* only support when RAS is enabled */
+-	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
+-		return 0;
++	do {
++		wave_cnt = 0;
++		offset = 0;
++
++		for (se = 0; se < adev->gfx.config.max_shader_engines; se++)
++			for (cu = 0; cu < CU_ID_MAX; cu++)
++				for (simd = 0; simd < SIMD_ID_MAX; simd++)
++					for (wave = 0; wave < WAVE_ID_MAX; wave++) {
++						if (((1 << wave) & mask) &&
++						    (wb_ptr[offset] == pattern))
++							wave_cnt++;
++
++						offset++;
++					}
++
++		if (wave_cnt == num_wave)
++			return 0;
++
++		mdelay(1);
++	} while (++loop < 2000 && wait);
++
++	dev_err(adev->dev, "actual wave num: %d, expected wave num: %d\n",
++		wave_cnt, num_wave);
++
++	gfx_v9_4_2_log_wave_assignment(adev, wb_ptr);
++
++	return -EBADSLT;
++}
++
++static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev) {
++	int r;
++	int wb_size = adev->gfx.config.max_shader_engines *
++			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
++	struct amdgpu_ib wb_ib;
++	struct amdgpu_ib disp_ibs[3];
++	struct dma_fence *fences[3];
++	u32 pattern[3] = { 0x1, 0x5, 0xa };
+ 
+ 	/* bail if the compute ring is not ready */
+-	if (!ring->sched.ready)
++	if (!adev->gfx.compute_ring[0].sched.ready ||
++		 !adev->gfx.compute_ring[1].sched.ready)
+ 		return 0;
+ 
+-	/* allocate an indirect buffer to put the commands in */
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, wb_size * sizeof(uint32_t),
+-			  AMDGPU_IB_POOL_DIRECT, &ib);
++	/* allocate the write-back buffer from IB */
++	memset(&wb_ib, 0, sizeof(wb_ib));
++	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
++			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
+ 	if (r) {
+-		DRM_ERROR("amdgpu: failed to get ib (%d).\n", r);
++		dev_err(adev->dev, "failed to get ib (%d) for wb\n", r);
+ 		return r;
+ 	}
++	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
++
++	r = gfx_v9_4_2_run_shader(adev,
++			&adev->gfx.compute_ring[0],
++			&disp_ibs[0],
++			sgpr112_init_compute_shader_aldebaran,
++			sizeof(sgpr112_init_compute_shader_aldebaran),
++			sgpr112_init_regs_aldebaran,
++			ARRAY_SIZE(sgpr112_init_regs_aldebaran),
++			adev->gfx.cu_info.number,
++			wb_ib.gpu_addr, pattern[0], &fences[0]);
++	if (r) {
++		dev_err(adev->dev, "failed to clear first 224 sgprs\n");
++		goto pro_end;
++	}
+ 
+-	memset(ib.ptr, 0, wb_size * sizeof(uint32_t));
+-	r = gfx_v9_4_2_run_shader(adev, vgpr_init_compute_shader_aldebaran,
+-				  sizeof(vgpr_init_compute_shader_aldebaran),
+-				  vgpr_init_regs_aldebaran,
+-				  ARRAY_SIZE(vgpr_init_regs_aldebaran),
+-				  compute_dim_x * 2, ib.gpu_addr);
++	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
++			&wb_ib.ptr[1], 0b11,
++			pattern[0],
++			adev->gfx.cu_info.number * SIMD_ID_MAX * 2,
++			true);
+ 	if (r) {
+-		dev_err(adev->dev, "Init VGPRS: failed to run shader\n");
+-		goto failed;
++		dev_err(adev->dev, "wave coverage failed when clear first 224 sgprs\n");
++		wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
++		goto disp0_failed;
+ 	}
+ 
+-	r = gfx_v9_4_2_check_gprs_init_coverage(adev, ib.ptr);
++	r = gfx_v9_4_2_run_shader(adev,
++			&adev->gfx.compute_ring[1],
++			&disp_ibs[1],
++			sgpr96_init_compute_shader_aldebaran,
++			sizeof(sgpr96_init_compute_shader_aldebaran),
++			sgpr96_init_regs_aldebaran,
++			ARRAY_SIZE(sgpr96_init_regs_aldebaran),
++			adev->gfx.cu_info.number * 2,
++			wb_ib.gpu_addr, pattern[1], &fences[1]);
+ 	if (r) {
+-		dev_err(adev->dev, "Init VGPRS: failed to cover all SIMDs\n");
+-		goto failed;
+-	} else {
+-		dev_info(adev->dev, "Init VGPRS Successfully\n");
++		dev_err(adev->dev, "failed to clear next 576 sgprs\n");
++		goto disp0_failed;
++	}
++
++	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
++			&wb_ib.ptr[1], 0b11111100,
++			pattern[1], adev->gfx.cu_info.number * SIMD_ID_MAX * 6,
++			true);
++	if (r) {
++		dev_err(adev->dev, "wave coverage failed when clear first 576 sgprs\n");
++		wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
++		goto disp1_failed;
+ 	}
+ 
+-	memset(ib.ptr, 0, wb_size * sizeof(uint32_t));
+-	r = gfx_v9_4_2_run_shader(adev, sgpr_init_compute_shader_aldebaran,
+-				  sizeof(sgpr_init_compute_shader_aldebaran),
+-				  sgpr1_init_regs_aldebaran,
+-				  ARRAY_SIZE(sgpr1_init_regs_aldebaran),
+-				  compute_dim_x / 2 * sgpr_work_group_size,
+-				  ib.gpu_addr);
++	wb_ib.ptr[0] = 0xdeadbeaf; /* stop waves */
++
++	/* wait for the GPU to finish processing the IB */
++	r = dma_fence_wait(fences[0], false);
+ 	if (r) {
+-		dev_err(adev->dev, "Init SGPRS Part1: failed to run shader\n");
+-		goto failed;
++		dev_err(adev->dev, "timeout to clear first 224 sgprs\n");
++		goto disp1_failed;
+ 	}
+ 
+-	r = gfx_v9_4_2_run_shader(adev, sgpr_init_compute_shader_aldebaran,
+-				  sizeof(sgpr_init_compute_shader_aldebaran),
+-				  sgpr2_init_regs_aldebaran,
+-				  ARRAY_SIZE(sgpr2_init_regs_aldebaran),
+-				  compute_dim_x / 2 * sgpr_work_group_size,
+-				  ib.gpu_addr);
++	r = dma_fence_wait(fences[1], false);
+ 	if (r) {
+-		dev_err(adev->dev, "Init SGPRS Part2: failed to run shader\n");
+-		goto failed;
++		dev_err(adev->dev, "timeout to clear first 576 sgprs\n");
++		goto disp1_failed;
+ 	}
+ 
+-	r = gfx_v9_4_2_check_gprs_init_coverage(adev, ib.ptr);
++	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
++	r = gfx_v9_4_2_run_shader(adev,
++			&adev->gfx.compute_ring[0],
++			&disp_ibs[2],
++			sgpr64_init_compute_shader_aldebaran,
++			sizeof(sgpr64_init_compute_shader_aldebaran),
++			sgpr64_init_regs_aldebaran,
++			ARRAY_SIZE(sgpr64_init_regs_aldebaran),
++			adev->gfx.cu_info.number,
++			wb_ib.gpu_addr, pattern[2], &fences[2]);
++	if (r) {
++		dev_err(adev->dev, "failed to clear first 256 sgprs\n");
++		goto disp1_failed;
++	}
++
++	r = dma_fence_wait(fences[2], false);
++	if (r) {
++		dev_err(adev->dev, "timeout to clear first 256 sgprs\n");
++		goto disp2_failed;
++	}
++
++	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
++			&wb_ib.ptr[1], 0b1111,
++			pattern[2],
++			adev->gfx.cu_info.number * SIMD_ID_MAX * 4,
++			false);
++	if (r) {
++		dev_err(adev->dev, "wave coverage failed when clear first 256 sgprs\n");
++		goto disp2_failed;
++	}
++
++disp2_failed:
++	amdgpu_ib_free(adev, &disp_ibs[2], NULL);
++	dma_fence_put(fences[2]);
++disp1_failed:
++	amdgpu_ib_free(adev, &disp_ibs[1], NULL);
++	dma_fence_put(fences[1]);
++disp0_failed:
++	amdgpu_ib_free(adev, &disp_ibs[0], NULL);
++	dma_fence_put(fences[0]);
++pro_end:
++	amdgpu_ib_free(adev, &wb_ib, NULL);
++
+ 	if (r)
+-		dev_err(adev->dev,
+-			"Init SGPRS: failed to cover all SIMDs\n");
++		dev_info(adev->dev, "Init SGPRS Failed\n");
+ 	else
+ 		dev_info(adev->dev, "Init SGPRS Successfully\n");
+ 
+-failed:
+-	amdgpu_ib_free(adev, &ib, NULL);
+ 	return r;
+ }
+ 
++static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev) {
++	int r;
++	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
++	int wb_size = adev->gfx.config.max_shader_engines *
++			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
++	struct amdgpu_ib wb_ib;
++	struct amdgpu_ib disp_ib;
++	struct dma_fence *fence;
++	u32 pattern = 0xa;
++
++	/* bail if the compute ring is not ready */
++	if (!adev->gfx.compute_ring[0].sched.ready)
++		return 0;
++
++	/* allocate the write-back buffer from IB */
++	memset(&wb_ib, 0, sizeof(wb_ib));
++	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
++			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
++	if (r) {
++		dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
++		return r;
++	}
++	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
++
++	r = gfx_v9_4_2_run_shader(adev,
++			&adev->gfx.compute_ring[0],
++			&disp_ib,
++			vgpr_init_compute_shader_aldebaran,
++			sizeof(vgpr_init_compute_shader_aldebaran),
++			vgpr_init_regs_aldebaran,
++			ARRAY_SIZE(vgpr_init_regs_aldebaran),
++			adev->gfx.cu_info.number,
++			wb_ib.gpu_addr, pattern, &fence);
++	if (r) {
++		dev_err(adev->dev, "failed to clear vgprs\n");
++		goto pro_end;
++	}
++
++	/* wait for the GPU to finish processing the IB */
++	r = dma_fence_wait(fence, false);
++	if (r) {
++		dev_err(adev->dev, "timeout to clear vgprs\n");
++		goto disp_failed;
++	}
++
++	r = gfx_v9_4_2_wait_for_waves_assigned(adev,
++			&wb_ib.ptr[1], 0b1,
++			pattern,
++			adev->gfx.cu_info.number * SIMD_ID_MAX,
++			false);
++	if (r) {
++		dev_err(adev->dev, "failed to cover all simds when clearing vgprs\n");
++		goto disp_failed;
++	}
++
++disp_failed:
++	amdgpu_ib_free(adev, &disp_ib, NULL);
++	dma_fence_put(fence);
++pro_end:
++	amdgpu_ib_free(adev, &wb_ib, NULL);
++
++	if (r)
++		dev_info(adev->dev, "Init VGPRS Failed\n");
++	else
++		dev_info(adev->dev, "Init VGPRS Successfully\n");
++
++	return r;
++}
++
++int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev) {
++	/* only support when RAS is enabled */
++	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
++		return 0;
++
++	gfx_v9_4_2_do_sgprs_init(adev);
++
++	gfx_v9_4_2_do_vgprs_init(adev);
++
++	return 0;
++}
++
+ static void gfx_v9_4_2_query_sq_timeout_status(struct amdgpu_device *adev);  static void gfx_v9_4_2_reset_sq_timeout_status(struct amdgpu_device *adev);
+ 
+@@ -479,8 +710,6 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
+ 			 die_id);
+ 		break;
+ 	}
+-
+-	return;
+ }
+ 
+ void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
 --
-2.25.1
-
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7C9611bd0b8cb74a8ac81308d909631004%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637551143345597240%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DokT4wUuJysPl1Fm%2BtdHtw4VgXoLJUhir%2BTa6Uuqpg20%3D&amp;reserved=3D0
-
---_000_MN2PR12MB4488D7C365003DC156F19DCFF7419MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Good catch. I think we should probably just return 0 at the end to keep the=
- semantics of the original code before this was broken out into a separate =
-helper function.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Victor Zhao &lt;Victor.Zhao@a=
-md.com&gt;<br>
-<b>Sent:</b> Tuesday, April 27, 2021 5:58 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhao, Victor &lt;Victor.Zhao@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: fix r initial values</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Give initial values otherwise sriov will get suspe=
-nd of<br>
-IP block &lt;dce_virtual&gt; failed<br>
-<br>
-Signed-off-by: Victor Zhao &lt;Victor.Zhao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 ++--<br>
-&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c<br>
-index 0f17984fdea4..36fdffd103c0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-@@ -1384,7 +1384,7 @@ int amdgpu_display_suspend_helper(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector *conn=
-ector;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector_list_=
-iter iter;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* turn off display hw */<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_modeset_lock_all(dev);=
-<br>
-@@ -1431,7 +1431,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device=
- *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector *conn=
-ector;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_connector_list_=
-iter iter;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* pin cursors */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(crtc, =
-&amp;dev-&gt;mode_config.crtc_list, head) {<br>
--- <br>
-2.25.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7C9611bd0b8cb74a8ac81308d909631004%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637551143345597240%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DokT4wUuJysPl1Fm%2BtdHtw4VgXoLJUhir%2BTa6Uuqpg20%3D&a=
-mp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3D=
-https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;=
-data=3D04%7C01%7Calexander.deucher%40amd.com%7C9611bd0b8cb74a8ac81308d90963=
-1004%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637551143345597240%7CUnkn=
-own%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXV=
-CI6Mn0%3D%7C1000&amp;amp;sdata=3DokT4wUuJysPl1Fm%2BtdHtw4VgXoLJUhir%2BTa6Uu=
-qpg20%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488D7C365003DC156F19DCFF7419MN2PR12MB4488namp_--
-
---===============1012287359==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Chawking.zhang%40amd.com%7Ca2c95c798fd64d354d2d08d9098c83a6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637551321388185460%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=xdzyjCKwXDrHpMxRq9Ccaa0dn8m4a2XD8qf%2B0sJUdMs%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1012287359==--
