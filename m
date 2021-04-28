@@ -2,135 +2,46 @@ Return-Path: <SRS0=1eED=JZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E39BCC433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FC78C43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72C306143D
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:02:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72C306143D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id AD2986143A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD2986143A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1B2F6EC0A;
-	Wed, 28 Apr 2021 17:02:37 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770053.outbound.protection.outlook.com [40.107.77.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC9E89F08;
- Wed, 28 Apr 2021 17:02:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TnX+GkG7I646V22fWmfH7XlKTN/j6nyN1P8IfXX0NlcAd7LHYQBo3SLFu3Di5a2zQ5e1y+iGXXDQz+divvycekU2r7JoI90tbpyytMk4OSlBE3JYal5YrpgoYUmVICtuIoFAM5hEqtXm6+SWExSPKmJIb42DWW7bXkI03DRGzoR25fAUCY2GpCMX7zsqSJQySz/HyuNTbiQNG4L86PTlPedYBpdsFiPDmp0iy/Ug/n3oIrEqc/2P6PhcO9o7dFa2T/h6K6VzNFrAC6/SXnAsBFruDUW3plA1YK+Bc21dl7WUyhUGu3t/l1CTgBn+2eK8/ELGO+uuRbSwcAYGuhOEIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwxKxtPK8yPiUHjdu99g1rP6XTM6loAvmB/JSALbLnA=;
- b=JUJAp77mBg7wGzVksv8IfSs9yfNBp7UBwWhIsR1rhaUSHKQE6Fvdpz5ZAtHVlY4YbhR/QlAwBqRMU4k+B5a7lt3yCuYnpyeOt0YfpPMabFOmEwLOxrIw26Uss9q4+oOpH/GNqjgcIJf13srMpopTzIlbCpG53V4Xstksg0busvo0f5NaWNH4KUqjwtuoBFP65oEzCy2ClaVHzDt5lo5+mdymD9fMJb1EDp2xmpBIu6rWIAaLL3FAHbEBCHHebFiEshwvAplSkjGYncW0L8Ki+jgnHS0ex0VcYVD0YqjK8sjdHp9l4k9pd2xP22lqeIBC2dq+VCmr0pQzBcesBbrdnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwxKxtPK8yPiUHjdu99g1rP6XTM6loAvmB/JSALbLnA=;
- b=spFu0BUGeu5SV6zKhRnM7glbv6os5SW55PSFW+CcwuPcc92CbKMc1elPHcg96laBpczHNtg0LX9i5sAoqiCI7fZgsYFauK4bk2DewEuMZDAU5IDyIbW48Iyt6Hm/tW5Y9mR3Nem23LDkTumcamm8eGB0Zz7BdFdb1nQ9Yi2WDko=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by MN2PR12MB4438.namprd12.prod.outlook.com (2603:10b6:208:267::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Wed, 28 Apr
- 2021 17:02:33 +0000
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::70f5:99ed:65a1:c033%7]) with mapi id 15.20.3933.040; Wed, 28 Apr 2021
- 17:02:33 +0000
-Subject: Re: [PATCH 1/2] drm/ttm: Don't evict SG BOs
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20210428053338.11560-1-Felix.Kuehling@amd.com>
- <af825fa4-abb3-69a6-48cd-0a6252f72503@gmail.com>
- <83a52589-ce81-35b1-e85d-e9485f9bc233@amd.com>
- <daf8b801-a79c-6033-f782-11ec1951957b@gmail.com>
- <4df6e459-5d14-806d-05b4-95fa8d196b59@amd.com>
- <0fba1262-8fbf-37f0-4d51-c4d74476894b@gmail.com>
- <aabcf10f-7c78-2374-bb3a-d25bf5914ee0@amd.com>
- <6946e644-0a16-30fe-e987-861bec610762@gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <55742179-98d9-d68a-30b7-331885fd91e0@amd.com>
-Date: Wed, 28 Apr 2021 13:02:31 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-In-Reply-To: <6946e644-0a16-30fe-e987-861bec610762@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [142.182.183.69]
-X-ClientProxiedBy: YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::45) To BL0PR12MB4948.namprd12.prod.outlook.com
- (2603:10b6:208:1cc::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 003096E131;
+	Wed, 28 Apr 2021 17:08:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E386ECF4;
+ Wed, 28 Apr 2021 17:08:01 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5AEBC613B4;
+ Wed, 28 Apr 2021 17:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1619629679;
+ bh=2WlyTpJhOK8+t2ttrlHtaM9093vyRXwgOV8boRvkLUg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=mFOXupRKqAdNV6IMJMsESi0bHn/cHvJDz10bhnQHmlWoPO1fyEB6oad7EyF/Ruowt
+ gO0EbhYyvz3THC2JG1lDn9O5LQn6D/TC/yL3cZVUfeRYzl3w3dZ6iv8V7ofDljsPFW
+ ZPqSntNyf8li5s/U0L5OvJubEEJo7q8WykY880mRcKmCZW0s4hQLlT1QaIZ/vhcP7w
+ OsfjhBw5m2rXi9AmcDw1k5whb17kPWuO/GR/IvWryIE8vYTvCEh89nC6h/cmgLoPr2
+ NB+EeeynBRvf/D7KL5GO0PTbe1X9wuLSr8+p7+smdmCg7D6xokBJHMFS0WW6hYPbEm
+ MAjFU6BKrTYRg==
+Date: Wed, 28 Apr 2021 12:07:57 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v5 00/27] RFC Support hot device unplug in amdgpu
+Message-ID: <20210428170757.GA239840@bjorn-Precision-5520>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.182.183.69) by
- YTOPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::45) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25 via Frontend
- Transport; Wed, 28 Apr 2021 17:02:33 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 72f67126-ff3a-493c-d330-08d90a676a59
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4438:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB443896DEB28FBE6BBFBE7EF692409@MN2PR12MB4438.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DEFQYWBEqMyov08DGLCWjJFZzBipdTkHtyRTkHYA8gdSNb2K2SunmIuOblcNKS8p0GVFOnXQcOdiWAI4vhRsJfhew9tF1HFUKWlF6yrW8xiYl1fNymfTJhxynbNVrPVn6VbrnSEeeMXhuP81ZTsGGtodQDn+wXWx/uuMKeTEzF5nSFEbR4p88/2tqh5vCj8q95AAsDqkUhpDwmK7VHjc7Uj7LTbXDOvrgIeQLBRq2iTnBHlQ3H6thiYXuSaKXRtN5GXrKeq6GkV2k7954yM0wO7L/TGpOLHTcffFLOU4oYpE1hMFMtCEZwq/dJWe1NXi98ghjYnEkkuR026TAXIveVEkONTaZ3JSKHwNvwxYN3CIA7CORQzUme1hClqOMrqmwTYxj/vD6WmaO7lvR5iNCyw3YJD4QcmDKxrmFlAmktFJCvxwP1o2y1UoXxMvZeQL+hIed0+XIQto2cW7hFXsJCzBgSpxOYR+XWzpZMXT+Kfl6xL9G328GHh4bczfDwvKPCq73XQutZqcP3bUjFym1c0JfAHgF8+bxWvU2n/mHpWvlMWe5b9YGjnaLe6atJiDYu0lP0dS+gV7yRANxCOnFhGWwZ1fI/O3iUgjrKZCW01Ha7HtRz7RZgx35+5Nja4ol+RXq29cHwOR/qicbCvdNd781gmE+Fxl1vpedwPw8APHg5GuQfH2Z2F8qz+XdbBc
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(66476007)(31686004)(16576012)(83380400001)(26005)(8676002)(86362001)(31696002)(66574015)(316002)(38100700002)(66946007)(8936002)(66556008)(2906002)(5660300002)(36756003)(956004)(2616005)(6486002)(186003)(16526019)(478600001)(44832011)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?N2dWVG9qMW10QU04NVRhVzNtbFJLQ05LV3ArenlzekxCbWU0dllPZFhHTVA2?=
- =?utf-8?B?aEx2UFptR1VsQTR5Z2tXRVA1V25SRUZFWGthKzQ3QTJybEdQU3QxYmttN2h2?=
- =?utf-8?B?VHdMcDhqa0RqeklTSDgvcWdEN2JSTEtMVHU0clJTenRXak85ZkVURXFuQWNj?=
- =?utf-8?B?RFZhWjVDN2x5ZzZ0V0FkNHF3NE1HVUxxSkNWNHVVVmVtYTBTVWZwMmRyQ1hJ?=
- =?utf-8?B?OVFzNG5YaS9wTHJZRzFqK0o3b00wK2ZJbGFUZExuZ0tkbHpFTTFmOGpRaXdW?=
- =?utf-8?B?TklWVDRGQzh5cEFxRkRWekxnL2FTa1Fjd1ZVWEFZMlVNaEJsNEd5UFdVbThm?=
- =?utf-8?B?RlhYUmFHcjdHd3JZdkFEdmoyMkxqc3FQRmp6SVN3dndqUUN0aGZBZVNOcnVW?=
- =?utf-8?B?Wm8vc2VMNGhkMEN6ckVJWnI4eTVUQzhqZnJqQkVKbDU0ZVN2bU9VTHlwTDRr?=
- =?utf-8?B?UEZ5Tzc3VXE3MTRJbHcwQWNFV0lVMmV6ZXBvcHR3VmJGUmtDVGpQTWttZ1c5?=
- =?utf-8?B?VWE2cFRnM1JBN1FMOG9YeXN4V2tabjhvbCtkS2tVRER1Ym1tOVpURjYrNUph?=
- =?utf-8?B?cDBkTVZITHRZUUdlREppVFp5d2tsNUd5cWtwdUtHUDQvb2wyR2h2WUtnSzgz?=
- =?utf-8?B?ZXhRN0VRb2IxSHZnTEhack05QkZSVzhxRmwyRVZ6WVAxcXRhU2lKUnlpbGFP?=
- =?utf-8?B?TmZRaE5DVUM0TmRFOUFnakhTTTRqR3lReDJFV1hqNU83VEk5bjc5Uld4WVFV?=
- =?utf-8?B?c3RKYm0yZy9aUHh6YXExeGsvK3Q1OWNnVDZqSS9lSEFKVzV0UEo0YTNMSDJU?=
- =?utf-8?B?SHF1VjMvQnNQZkxuL2ZTRjV1K01jU3V6RSs0N2VBZVYwRjZLbllzc0UrMHBz?=
- =?utf-8?B?aUlrcjdTbUVWR01iSStGQVN4UEJBUXNQSG0vM3pXaVB5YnBJUVM4R2VXN1lW?=
- =?utf-8?B?emNvSnFtdlU4VUNwWlExOFlLNWlNQVV5MkZBQzYwLzNFdXBNazIvVGE2Uy9m?=
- =?utf-8?B?QjBtZEQ2ZEY4OVQzVFZNZS9tY1ltdDBwRjFFOE9sb0kxZThyeldyamZjK1cx?=
- =?utf-8?B?NW85d3g2RFZUaEpvTWllS0g5QVdrWlN5ZEFxY1QrVWs0ODZzTlYyYVY0eGFu?=
- =?utf-8?B?Tm50d2N3VmdqVzFwRUppSTBENWpJWUNJR25OTEJ0MHR6SFpKTHlzdTVuM1Fn?=
- =?utf-8?B?S0JtbzQ4LzNkZExuTTY0c3UxZ2pXMVE2NWZGWWRmODlZTER6OTVpVHJOSmt4?=
- =?utf-8?B?NVV3OGh0ZjZjcUh0eFp2VE42ZVhhYjZyR3VrYi9kVGZhWEhKOGlYdDN1dis4?=
- =?utf-8?B?REhEdzR3bStXUnIvRVIzYlhhY09CZXIvRlRlRmxDdUE1elhRTkFVdlpOK3RK?=
- =?utf-8?B?OW9VdlVlSkJlbFZ0R2lZUkVkSVlzS21pNFFndlQ5cXJzVDZuOHBsTXN4UEJo?=
- =?utf-8?B?NFloSFE5c0cwazFqVzNjSnRRQVdPVkh4dDBndmpwMytVZU5YTXNtckhXSFdk?=
- =?utf-8?B?enk4d2N0SHdDcUZDRmt1bW45QlFwTmNuN1VtQlBZakpMR3hiMXJGQVNoVjZs?=
- =?utf-8?B?N3hMZU5SUmRIWTBFZHZFWUExZVRaNEVUd0wrcitRZ0t6aG9xbGhwVC9NTDdG?=
- =?utf-8?B?QUtRNHhSZ0dZdzRxdFE1cmdkSjQ2VHNxWFlCa3VqMUsrem9MVHczOHVQT3Qv?=
- =?utf-8?B?VmlVNS9ZSm1vWlVCSnloYWtwNG5FS3FYNWd4eVV5UGNJeW4rbzZoajgzZTlj?=
- =?utf-8?Q?5Sr0j/92cFQL2SpP6WTMsiVlREgKhochGZyOyMv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72f67126-ff3a-493c-d330-08d90a676a59
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2021 17:02:33.3081 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h7/dtPzsKtBuER76hLy58hTwybAQdi6aNA53cwBfEgSG1IhFokv/gUWKFs28kx4xcYfZ+of0flVX7MG5z7Of6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4438
+Content-Disposition: inline
+In-Reply-To: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,88 +53,306 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
+ daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ ppaalanen@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjAyMS0wNC0yOCB1bSAxMjo1OCBwLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPiBB
-bSAyOC4wNC4yMSB1bSAxODo0OSBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+PiBBbSAyMDIxLTA0
-LTI4IHVtIDEyOjMzIHAubS4gc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+Pj4gQW0gMjguMDQu
-MjEgdW0gMTc6MTkgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IFtTTklQXQo+Pj4+Pj4gRmFp
-bGluZyB0aGF0LCBJJ2QgcHJvYmFibHkgaGF2ZSB0byBhYmFuZG9uIHVzZXJwdHIgQk9zIGFsdG9n
-ZXRoZXIKPj4+Pj4+IGFuZAo+Pj4+Pj4gc3dpdGNoIHN5c3RlbSBtZW1vcnkgbWFwcGluZ3Mgb3Zl
-ciB0byB1c2luZyB0aGUgbmV3IFNWTSBBUEkgb24KPj4+Pj4+IHN5c3RlbXMKPj4+Pj4+IHdoZXJl
-IGl0IGlzIGF2YWxpYWJsZS4KPj4+Pj4gV2VsbCBhcyBsb25nIGFzIHRoYXQgcHJvdmlkZXMgdGhl
-IG5lY2Vzc2FyeSBmdW5jdGlvbmFsaXR5IHRocm91Z2ggSE1NCj4+Pj4+IGl0IHdvdWxkIGJlIGFu
-IG9wdGlvbi4KPj4+PiBKdXN0IGFub3RoZXIgd2F5IG9mIGNpcmN1bXZlbnRpbmcgIkl0IHNob3Vs
-ZCBsaW1pdCB0aGUgYW1vdW50IG9mCj4+Pj4gc3lzdGVtCj4+Pj4gbWVtb3J5IHRoZSBHUFUgY2Fu
-IGFjY2VzcyBhdCB0aGUgc2FtZSB0aW1lLCIgYSBwcmVtaXNlIEkgZGlzYWdyZWUgd2l0aAo+Pj4+
-IGluIGNhc2Ugb2YgdXNlcnB0cnMgYW5kIEhNTS4gQm90aCB1c2UgcGFnZWFibGUsIHVucGlubmVk
-IG1lbW9yeS4KPj4+PiBCb3RoIGNhbiBjYXVzZSB0aGUgR1BVIHRvIGJlIHByZWVtcHRlZCBpbiBj
-YXNlIG9mIE1NVSBpbnRlcnZhbAo+Pj4+IG5vdGlmaWVycy4KPj4+IFdlbGwgdGhhdCdzIHRoZSBr
-ZXkgcG9pbnQuIEdGWCB1c2VycHRycyBhbmQgRE1BLWJ1ZiBpbXBvcnRzIGNhbid0IGJlCj4+PiBw
-cmVlbXB0ZWQuCj4+IEJ1dCB0aGV5IGRvbid0IG5lZWQgdG8gYmUuIFRoZXkgZG9uJ3QgdXNlIGFu
-eSByZXNvdXJjZXMgb24gdGhlIGltcG9ydGluZwo+PiBHUFUgb3Igc3lzdGVtIG1lbW9yeSwgc28g
-d2h5IGRvIHdlIGxpbWl0IHRoZW0/Cj4KPiBZZWFoLCBidXQgYXQgbGVhc3QgdXNlciBwb2ludGVy
-IGVmZmVjdGl2ZWx5IHBpbiB0aGVpciBiYWNraW5nIHN0b3JlIGFzCj4gbG9uZyBhcyB0aGUgR1BV
-IG9wZXJhdGlvbiBpcyBydW5uaW5nLgo+Cj4+IFdpdGggZHluYW1pYyBhdHRhY2htZW50LCB0aGUg
-ZXhwb3J0ZWQgQk9zIGNhbiBiZSBldmljdGVkIGFuZCB0aGF0Cj4+IGFmZmVjdHMgdGhlIGltcG9y
-dHMgYXMgd2VsbC4gSSBkb24ndCBzZWUgd2h5IHRoZSBpbXBvcnQgbmVlZHMgdG8gYmUKPj4gZXZp
-Y3RlZCBhcyBpZiB0aGVyZSB3YXMgc29tZSByZXNvdXJjZSBsaW1pdGF0aW9uIG9uIHRoZSBpbXBv
-cnRpbmcgR1BVLgo+Cj4gSXQgcHJldmVudHMgdGhhdCBtdWx0aXBsZSBETUEtYnVmIGltcG9ydHMg
-YXJlIGFjdGl2ZSBhdCB0aGUgc2FtZSB0aW1lLgo+Cj4gU2VlIHRoZSBmb2xsb3dpbmcgZXhhbXBs
-ZTogR1RUIHNwYWNlIGlzIDFHaUIgYW5kIHdlIGhhdmUgdHdvIERNQS1idWYKPiBpbXBvcnRzIG9m
-IDYwME1pQiBlYWNoLgo+Cj4gV2hlbiB1c2Vyc3BhY2Ugd2FudHMgdG8gc3VibWl0IHdvcmsgdXNp
-bmcgYm90aCBhdCB0aGUgc2FtZSB0aW1lIHdlCj4gcmV0dXJuIC1FTk9TUEMgKG9yIC1FTk9NRU0s
-IG5vdCAxMDAlIHN1cmUpLgo+Cj4gV2hlbiBvbmUgaXMgaW4gdXNlIGFuZCBhIHN1Ym1pc3Npb24g
-bWFkZSB3aXRoIHRoZSBvdGhlciB3ZSBibG9jayB1bnRpbAo+IHRoYXQgc3VibWlzc2lvbiBpcyBj
-b21wbGV0ZWQuCj4KPiBUaGlzIHdheSB0aGVyZSBpcyBuZXZlciBtb3JlIHRoYW4gMSBHaUIgb2Yg
-bWVtb3J5IGluIHVzZSBvciAicGlubmVkIgo+IGJ5IHRoZSBHUFUgdXNpbmcgaXQuCgpJcyB0aGlz
-IHJlYXNvbmFibGUgZm9yIGltcG9ydHMgb2YgVlJBTSBpbiBhIG11bHRpIEdQVSBzeXN0ZW0/IEUu
-Zy4geW91CmFsbG9jYXRlIDYwMCBNQiBvbiBHUFUgQSBhbmQgNjAwIE1CIG9uIEdQVSBCLiBZb3Ug
-ZXhwb3J0IGJvdGggYW5kIGltcG9ydAp0aGVtIG9uIHRoZSBvdGhlciBHUFUgYmVjYXVzZSB5b3Ug
-d2FudCBib3RoIEdQVXMgdG8gYWNjZXNzIGVhY2ggb3RoZXIncwptZW1vcnkuIFRoaXMgaXMgYSBj
-b21tb24gdXNlIGNhc2UgZm9yIEtGRCwgYW5kIHNvbWV0aGluZyB3ZSB3YW50IHRvCmltcGxlbWVu
-dCBmb3IgdXBzdHJlYW1hYmxlIFBDSWUgUDJQIHN1cHBvcnQuCgpXaXRoIHlvdXIgbGltaXRhdGlv
-biwgSSB3aWxsIGxldmVyIGJlIGFibGUgdG8gdmFsaWRhdGUgYm90aCBCT3MgYW5kIHJ1bgpLRkQg
-dXNlciBtb2RlIHF1ZXVlcyBpbiB0aGUgYWJvdmUgc2NlbmFyaW8uCgpSZWdhcmRzLArCoCBGZWxp
-eAoKCj4KPj4+IFNvIHRoZXkgYmFzaWNhbGx5IGxvY2sgdGhlIGJhY2tpbmcgbWVtb3J5IHVudGls
-IHRoZSBsYXN0IHN1Ym1pc3Npb24gaXMKPj4+IGNvbXBsZXRlZCBhbmQgdGhhdCBpcyBjYXVzaW5n
-IHByb2JsZW1zIGlmIGl0IGhhcHBlbnMgZm9yIHRvIG11Y2gKPj4+IG1lbW9yeSBhdCB0aGUgc2Ft
-ZSB0aW1lLgo+Pj4KPj4+IFdoYXQgd2UgY291bGQgZG8gaXMgdG8gZmlndXJlIG91dCBpbiB0aGUg
-dmFsdWFibGUgY2FsbGJhY2sgaWYgdGhlIEJPCj4+PiBpcyBwcmVlbXB0LWFibGUgb3Igbm90Lgo+
-PiBUaGVuIHdlIHNob3VsZCBhbHNvIG5vdCBjb3VudCB0aGVtIGluIG1nci0+YXZhaWxhYmxlLiBP
-dGhlcndpc2Ugbm90Cj4+IGV2aWN0aW5nIHRoZXNlIEJPcyBjYW4gYmxvY2sgb3RoZXIgR1RUIGFs
-bG9jYXRpb25zLiBBZ2FpbiwgbWF5YmUgaXQncwo+PiBlYXNpZXIgdG8gdXNlIGEgZGlmZmVyZW50
-IGRvbWFpbiBmb3IgcHJlZW1wdGlibGUgQk9zLgo+Cj4gR29vZCBwb2ludC4gVGhhdCB3b3VsZCBh
-bHNvIGJlIHZhbHVhYmxlIHdoZW4gd2UgZ2V0IHVzZXIgcXVldWVzIGF0Cj4gc29tZSBwb2ludC4K
-Pgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+Cj4+IFJlZ2FyZHMsCj4+IMKgwqAgRmVsaXgK
-Pj4KPj4KPj4+IFJlZ2FyZHMsCj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4+IFN0YXRpY2FsbHkgbGlt
-aXRpbmcgdGhlIGFtb3VudCBvZiBwYWdlYWJsZSBtZW1vcnkgYWNjZXNzaWJsZSB0byBHVFQgaXMK
-Pj4+PiByZWR1bmRhbnQgYW5kIG92ZXJseSBsaW1pdGluZy4KPj4+Pgo+Pj4+IFJlZ2FyZHMsCj4+
-Pj4gwqDCoMKgIEZlbGl4Cj4+Pj4KPj4+Pgo+Pj4+PiBSZWdhcmRzLAo+Pj4+PiBDaHJpc3RpYW4u
-Cj4+Pj4+Cj4+Pj4+PiBSZWdhcmRzLAo+Pj4+Pj4gwqDCoMKgwqAgRmVsaXgKPj4+Pj4+Cj4+Pj4+
-Pgo+Pj4+Pj4+IENocmlzdGlhbi4KPj4+Pj4+Pgo+Pj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBGZWxp
-eCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPj4+Pj4+Pj4gLS0tCj4+Pj4+Pj4+
-IMKgwqDCoMKgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgfCA0ICsrKysKPj4+Pj4+Pj4g
-wqDCoMKgwqAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQo+Pj4+Pj4+Pgo+Pj4+Pj4+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4+Pj4+PiBiL2Ry
-aXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+Pj4+Pj4gaW5kZXggZGUxZWM4MzhjZjhiLi4w
-Yjk1MzY1NGZkYmYgMTAwNjQ0Cj4+Pj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRt
-X2JvLmMKPj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4+Pj4+
-PiBAQCAtNjU1LDYgKzY1NSwxMCBAQCBpbnQgdHRtX21lbV9ldmljdF9maXJzdChzdHJ1Y3QgdHRt
-X2RldmljZQo+Pj4+Pj4+PiAqYmRldiwKPj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGxpc3RfZm9yX2VhY2hfZW50cnkoYm8sICZtYW4tPmxydVtpXSwgbHJ1KSB7Cj4+Pj4+Pj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgYnVzeTsKPj4+Pj4+Pj4gwqDCoMKg
-wqAgK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogRG9uJ3QgZXZpY3QgU0cgQk9zICovCj4+Pj4+
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChiby0+dHRtICYmIGJvLT50dG0tPnNnKQo+
-Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+Pj4+Pj4+
-PiArCj4+Pj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghdHRtX2Jv
-X2V2aWN0X3N3YXBvdXRfYWxsb3dhYmxlKGJvLCBjdHgsCj4+Pj4+Pj4+ICZsb2NrZWQsCj4+Pj4+
-Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAmYnVzeSkpIHsKPj4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoYnVzeSAmJiAhYnVzeV9ibyAmJiB0aWNrZXQgIT0K
-PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Apr 28, 2021 at 11:11:40AM -0400, Andrey Grodzovsky wrote:
+> Until now extracting a card either by physical extraction (e.g. eGPU with =
+
+> thunderbolt connection or by emulation through  syfs -> /sys/bus/pci/devi=
+ces/device_id/remove) =
+
+> would cause random crashes in user apps. The random crashes in apps were =
+
+> mostly due to the app having mapped a device backed BO into its address =
+
+> space was still trying to access the BO while the backing device was gone.
+> To answer this first problem Christian suggested to fix the handling of m=
+apped =
+
+> memory in the clients when the device goes away by forcibly unmap all buf=
+fers the =
+
+> user processes has by clearing their respective VMAs mapping the device B=
+Os. =
+
+> Then when the VMAs try to fill in the page tables again we check in the f=
+ault =
+
+> handlerif the device is removed and if so, return an error. This will gen=
+erate a =
+
+> SIGBUS to the application which can then cleanly terminate.This indeed wa=
+s done =
+
+> but this in turn created a problem of kernel OOPs were the OOPSes were du=
+e to the =
+
+> fact that while the app was terminating because of the SIGBUSit would tri=
+gger use =
+
+> after free in the driver by calling to accesses device structures that we=
+re already =
+
+> released from the pci remove sequence.This was handled by introducing a '=
+flush' =
+
+> sequence during device removal were we wait for drm file reference to dro=
+p to 0 =
+
+> meaning all user clients directly using this device terminated.
+
+If DRM includes cover letters in merges, maybe fix the below.  If they
+also include the v2, v3, etc below, also consider picking a line
+width and sticking to it.  It seems to be creeping wider every rev.
+
+BO?
+s/syfs/sysfs/
+s/forcibly unmap/forcibly unmapping/
+s/handlerif/handler if/
+s/processes has/processes have/
+s/terminate.This/terminate. This/
+s/were the/where the/
+s/SIGBUSit/SIGBUS it/
+s/to accesses/to access/
+s/sequence.This/sequence. This/
+s/were we/where we/
+
+> v2:
+> Based on discussions in the mailing list with Daniel and Pekka [1] and ba=
+sed on the document =
+
+> produced by Pekka from those discussions [2] the whole approach with retu=
+rning SIGBUS and =
+
+> waiting for all user clients having CPU mapping of device BOs to die was =
+dropped. =
+
+> Instead as per the document suggestion the device structures are kept ali=
+ve until =
+
+> the last reference to the device is dropped by user client and in the mea=
+nwhile all existing and new CPU mappings of the BOs =
+
+> belonging to the device directly or by dma-buf import are rerouted to per=
+ user =
+
+> process dummy rw page.Also, I skipped the 'Requirements for KMS UAPI' sec=
+tion of [2] =
+
+> since i am trying to get the minimal set of requirements that still give =
+useful solution =
+
+> to work and this is the'Requirements for Render and Cross-Device UAPI' se=
+ction and so my =
+
+> test case is removing a secondary device, which is render only and is not=
+ involved =
+
+> in KMS.
+> =
+
+> v3:
+> More updates following comments from v2 such as removing loop to find DRM=
+ file when rerouting =
+
+> page faults to dummy page,getting rid of unnecessary sysfs handling refac=
+toring and moving =
+
+> prevention of GPU recovery post device unplug from amdgpu to scheduler la=
+yer. =
+
+> On top of that added unplug support for the IOMMU enabled system.
+> =
+
+> v4:
+> Drop last sysfs hack and use sysfs default attribute.
+> Guard against write accesses after device removal to avoid modifying rele=
+ased memory.
+> Update dummy pages handling to on demand allocation and release through d=
+rm managed framework.
+> Add return value to scheduler job TO handler (by Luben Tuikov) and use th=
+is in amdgpu for prevention =
+
+> of GPU recovery post device unplug
+> Also rebase on top of drm-misc-mext instead of amd-staging-drm-next
+> =
+
+> v5:
+> The most significant in this series is the improved protection from kerne=
+l driver accessing MMIO ranges that were allocated
+> for the device once the device is gone. To do this, first a patch 'drm/am=
+dgpu: Unmap all MMIO mappings' is introduced.
+> This patch unamps all MMIO mapped into the kernel address space in the fo=
+rm of BARs and kernel BOs with CPU visible VRAM mappings.
+> This way it helped to discover multiple such access points because a page=
+ fault would be immediately generated on access. Most of them
+> were solved by moving HW fini code into pci_remove stage (patch drm/amdgp=
+u: Add early fini callback) and for some who =
+
+> were harder to unwind drm_dev_enter/exit scoping was used. In addition al=
+l the IOCTLs and all background work and timers =
+
+> are now protected with drm_dev_enter/exit at their root in an attempt tha=
+t after drm_dev_unplug is finished none of them =
+
+> run anymore and the pci_remove thread is the only thread executing which =
+might touch the HW. To prevent deadlocks in such =
+
+> case against threads stuck on various HW or SW fences patches 'drm/amdgpu=
+: Finalise device fences on device remove' =A0
+> and drm/amdgpu: Add rw_sem to pushing job into sched queue' take care of =
+force signaling all such existing fences =
+
+> and rejecting any newly added ones.
+> =
+
+> With these patches I am able to gracefully remove the secondary card usin=
+g sysfs remove hook while glxgears is running off of secondary =
+
+> card (DRI_PRIME=3D1) without kernel oopses or hangs and keep working with=
+ the primary card or soft reset the device without hangs or oopses.
+> Also as per Daniel's comment I added 3 tests to IGT [4] to core_hotunplug=
+ test suite - remove device while commands are submitted, =
+
+> exported BO and exported fence (not pushed yet).
+> Also now it's possible to plug back the device after unplug =
+
+> Also some users now can successfully use those patches with eGPU boxes[3].
+> =
+
+> =
+
+> =
+
+> =
+
+> TODOs for followup work:
+> Convert AMDGPU code to use devm (for hw stuff) and drmm (for sw stuff and=
+ allocations) (Daniel)
+> Add support for 'Requirements for KMS UAPI' section of [2] - unplugging p=
+rimary, display connected card.
+> =
+
+> [1] - Discussions during v4 of the patchset https://lists.freedesktop.org=
+/archives/amd-gfx/2021-January/058595.html
+> [2] - drm/doc: device hot-unplug for userspace https://www.spinics.net/li=
+sts/dri-devel/msg259755.html
+> [3] - Related gitlab ticket https://gitlab.freedesktop.org/drm/amd/-/issu=
+es/1081
+> [4] - https://gitlab.freedesktop.org/agrodzov/igt-gpu-tools/-/commits/mas=
+ter
+> =
+
+> Andrey Grodzovsky (27):
+>   drm/ttm: Remap all page faults to per process dummy page.
+>   drm/ttm: Expose ttm_tt_unpopulate for driver use
+>   drm/amdgpu: Split amdgpu_device_fini into early and late
+>   drm/amdkfd: Split kfd suspend from devie exit
+>   drm/amdgpu: Add early fini callback
+>   drm/amdgpu: Handle IOMMU enabled case.
+>   drm/amdgpu: Remap all page faults to per process dummy page.
+>   PCI: add support for dev_groups to struct pci_device_driver
+>   dmr/amdgpu: Move some sysfs attrs creation to default_attr
+>   drm/amdgpu: Guard against write accesses after device removal
+>   drm/sched: Make timeout timer rearm conditional.
+>   drm/amdgpu: Prevent any job recoveries after device is unplugged.
+>   drm/amdgpu: When filizing the fence driver. stop scheduler first.
+>   drm/amdgpu: Fix hang on device removal.
+>   drm/scheduler: Fix hang when sched_entity released
+>   drm/amdgpu: Unmap all MMIO mappings
+>   drm/amdgpu: Add rw_sem to pushing job into sched queue
+>   drm/sched: Expose drm_sched_entity_kill_jobs
+>   drm/amdgpu: Finilise device fences on device remove.
+>   drm: Scope all DRM IOCTLs  with drm_dev_enter/exit
+>   drm/amdgpu: Add support for hot-unplug feature at DRM level.
+>   drm/amd/display: Scope all DM queued work with drm_dev_enter/exit
+>   drm/amd/powerplay: Scope all PM queued work with drm_dev_enter/exit
+>   drm/amdkfd: Scope all KFD queued work with drm_dev_enter/exit
+>   drm/amdgpu: Scope all amdgpu queued work with drm_dev_enter/exit
+>   drm/amd/display: Remove superflous drm_mode_config_cleanup
+>   drm/amdgpu: Verify DMA opearations from device are done
+> =
+
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  18 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  13 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  17 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  13 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 353 ++++++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  34 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  34 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   9 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c   |  25 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c        | 228 +++++------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c       |  61 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h       |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  33 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |  28 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  12 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  41 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |   7 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 115 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  56 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |  70 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |  52 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  21 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |  74 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c       |  45 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  83 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |  14 +-
+>  drivers/gpu/drm/amd/amdgpu/cik_ih.c           |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/cz_ih.c            |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        |  44 +--
+>  drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/si_ih.c            |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |  26 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  22 +-
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   3 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c    |  14 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  13 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 124 +++---
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  24 +-
+>  drivers/gpu/drm/amd/include/amd_shared.h      |   2 +
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  44 ++-
+>  .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c |   2 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  26 +-
+>  drivers/gpu/drm/drm_ioctl.c                   |  15 +-
+>  drivers/gpu/drm/scheduler/sched_entity.c      |   6 +-
+>  drivers/gpu/drm/scheduler/sched_main.c        |  35 +-
+>  drivers/gpu/drm/ttm/ttm_bo_vm.c               |  79 +++-
+>  drivers/gpu/drm/ttm/ttm_tt.c                  |   1 +
+>  drivers/pci/pci-driver.c                      |   1 +
+>  include/drm/drm_drv.h                         |   6 +
+>  include/drm/gpu_scheduler.h                   |   1 +
+>  include/drm/ttm/ttm_bo_api.h                  |   2 +
+>  include/linux/pci.h                           |   3 +
+>  64 files changed, 1388 insertions(+), 633 deletions(-)
+> =
+
+> -- =
+
+> 2.25.1
+> =
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
