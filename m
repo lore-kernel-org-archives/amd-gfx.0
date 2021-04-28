@@ -2,47 +2,116 @@ Return-Path: <SRS0=1eED=JZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10733C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1998C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACC3E61411
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 17:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACC3E61411
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 2B4BE613CE
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:44:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B4BE613CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B216E2C8;
-	Wed, 28 Apr 2021 17:24:23 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3DF6E153;
- Wed, 28 Apr 2021 17:23:59 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7C3C06143A;
- Wed, 28 Apr 2021 17:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619630638;
- bh=kYk8tSr7GIr6TlUOGk3attbXyhbPQUViB/mzOqZB+UQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=EyJbEFLQ9OSeQbwlXPv2F80PPfv6zG/lT1t4bbW/jw0OhA7QLxBTrzpkOeyaNWLMq
- hiy6mymgU8HjSJugOWgI6FwwDRoPPuW3Gq3hhbC6MyvjAN314HQ+lmjQciWQayN4Vi
- azJ86Fhwq+EE7b/06ySeLATkTcqlloPB2GblpSe92wv65Ii7uAKEYO1yGp0R7dJAOs
- LkuV/lCWzEsAVh4HaZNL9lFTa7bM4DiQSy/rbtWi/2NmkcLYFVb0CUym2yQ4UdWH68
- VwqRgpTwHtTKhoBVYQjA83egIP64aP+2/XD9d5ZkjRuir/QBq1mU5bGxL6tdvoqNQq
- OG+0uOijWxx+g==
-Date: Wed, 28 Apr 2021 12:23:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH v5 09/27] dmr/amdgpu: Move some sysfs attrs creation to
- default_attr
-Message-ID: <20210428172357.GA241173@bjorn-Precision-5520>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A3E6EC30;
+	Wed, 28 Apr 2021 20:44:25 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1AE26EC30;
+ Wed, 28 Apr 2021 20:44:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HZmOprK88h9y4VZqENHCQgKUzWii3wgrlBTOxH0/nrPNYw/cJjFMF2ZmKzyZF3N9Z0UWlRc+ZXzyd24GSKFxt+aZk0qgthZGZcwa2+pxPARqSd0oy0iQrozrI2flYeiakheT1hQp0hddYu9eyi49DnsVFN4haa36gN9al7u63Gel2S31z83TQcjYgcnSrqsS9cldy2WkdQGLzLbS1tDvjhPDD4VyngYhtB2S7hLcqZGJz0nvXfvWMHHp32knUw3K4ENCEDKNgjPfx04Px1GV73UzaMv3klsWXm/EzMz6PLVrgA4r8bf6VyL50KCpdgY3qFF33UPQ/NjX3rWXHofauA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B7nDOmjVUNG8WH31TZYsE60H030ypT4A0E8XLZkoVaM=;
+ b=eEeQyu2qmyzBJxnA0zIQ1t25iJPpeB0IrbxEhlZK0qcZYwwiNOIl+mF5Xk+dhmKFSa2easEeWihEWqqfT6gymd/weZSOoybhWNxgzYj3xZFB8woqq5zJ7KQHpJRFOaAevWanVxpHzilfeteglysNb2WFfHbRlcrOVkJHEY9/JHwUimULos+fSwRiTyLqPaFf+NzTb+eFfzAyR5lBlWHDioTSDOcmieOpVNaoiLQAKRKXc5amDfU7koHOlO0OJOy5VrT3hzeXroZfjPw1lskp5XluPzNqIOEzIBDFwD1KUm/3TyJeRhXXmxfneIFdmwE91hAGIkhmIvjKwdHHmViKoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B7nDOmjVUNG8WH31TZYsE60H030ypT4A0E8XLZkoVaM=;
+ b=rgjRHcsMQUNeFrbb9tagetQqMU45wLWdfU+CXTONEWQnd08nJRloCABgvojkJsW5fjHmb15bZaHV5QvNY6eIbKYcW180og93aoHeP82JdQy6jHjKx5GECiBWdgbeWgYDobCmLzElprw4tw0JPkt7XjnJxewaZipLKCQGpXUO3ng=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com (2603:10b6:4:a2::37) by
+ DM5PR1201MB0218.namprd12.prod.outlook.com (2603:10b6:4:4d::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.23; Wed, 28 Apr 2021 20:44:20 +0000
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::595e:20a2:f658:a7a5]) by DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::595e:20a2:f658:a7a5%5]) with mapi id 15.20.4065.026; Wed, 28 Apr 2021
+ 20:44:20 +0000
+From: Nikola Cornij <nikola.cornij@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v6 0/1] drm/drm_mst: Use Extended Base Receiver Capability
+Date: Wed, 28 Apr 2021 16:44:05 -0400
+Message-Id: <20210428204406.1067318-1-nikola.cornij@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::32) To DM5PR12MB4679.namprd12.prod.outlook.com
+ (2603:10b6:4:a2::37)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210428151207.1212258-10-andrey.grodzovsky@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from ubuntu.localdomain (165.204.55.250) by
+ YTXPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.25 via Frontend Transport; Wed, 28 Apr 2021 20:44:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cda2e08f-fe22-49f4-eae8-08d90a8665b0
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0218:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB02188A4029E01B37B300B225EE409@DM5PR1201MB0218.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nV0cooDoWIpB7IG+SGJTUNinvhIQdmUMO2nM2H1NzCL2DAU8UzxkFS4pv7ZbRRR6kMZZKmFsoog0AfL6nA4hk91UrSmvgkFM3S0K/4Clx4xd5USrX5IxhBCPMg1EprWjuI+iO2di4Wt2fSae+YP0L2/4pU3MpPRRE513rKn0ZeD1dHJTVaKrT+A4sfbiS9vLAjwKJzI14lrd0S/XLW/7aHsHaciJJmT8bHgzvR6jUqINSK+LP1vfS7UKGpof348y5TYzDQCPQf6idwvnCfNLV1fel20SUhIxZFzzi3M7HjThnaMfU/KibubE+pK338Ilp1fDAUw4NlRoa9j9S42xsJ/kIAKBDp92sq+hWHraeu9KPkGDuFQTBpLmOxJElDSZMeM+kfM2Z9VgwsFNPKe5+p99oEqoh7wc0VPpcDi2X2cADxubgh+d9ww3lrtgGeI3vZ/XuzuP/vI+7CN4qxm6DgGvG58YlcPjWxwL5R/qYholr7xTThMqnQ3naMs1o9ABIk61XNNPa/HBWdJ2k1gCIezCEB2MLUVdoyk2KXY+jssMbHPaTBT+nZtAePrJAJ+NlHq2B3FgdatJ5nNOMA2Hy1H18ecy2WMaEQdS7y6F4HMGnkYzAX6IOcTtDJSEPVLr+vYb7GRNXLQkDauCKxUVIA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB4679.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(376002)(346002)(366004)(39850400004)(4744005)(1076003)(2906002)(6916009)(66556008)(44832011)(83380400001)(38350700002)(478600001)(38100700002)(66946007)(316002)(66476007)(2616005)(16526019)(6506007)(4326008)(6666004)(52116002)(36756003)(86362001)(6512007)(956004)(8676002)(8936002)(6486002)(5660300002)(26005)(186003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?/v6kO/QNMTn8Fb4k28WUwFmUj0HNoPg830F6/gRulTb2n0/g1599YvdM4Dzz?=
+ =?us-ascii?Q?x0dipqRtGcRJFnG4GqEdkTBwqnvABEE3GxqCDMl+GXhDfu3cDOah3g5saaq5?=
+ =?us-ascii?Q?iqNmDdNYEgGmUOUZmsfHSeJqb+cgCGF2d7ya4RRvlE5JyL6qXqgNbbgH2vAP?=
+ =?us-ascii?Q?4g9hP47bIBlLpCOHRSGpnhk4zTmm58oFm/o6d+GvOKuZOqUUNUCwcw7eGvPl?=
+ =?us-ascii?Q?FzxoTZVhzsKR1VkRuhJE0B0kyvAXpqURmbQONTywiKzHHOFEcf+/Wp8ZTH+3?=
+ =?us-ascii?Q?g6ynAuhAXMPAX0vLtG/D980rAds8RiyVpsBRQceCODwVqvg3dsxsFMQr9Fpv?=
+ =?us-ascii?Q?uEFojudwOVJ+YiU8SksKmvhkMg1LCj7og9S8jf6Kuuh8K/7te36FgEbvplba?=
+ =?us-ascii?Q?JBrJPfeSAWitbB7f2N8N6B5yrmtAdg3vUbRPo31hU0LSX52fyjP9BvAH+2Er?=
+ =?us-ascii?Q?IuXZgnrSVQvfoRShJ8Qo6OQK5FUeLFrXe5yEjFfp9n0n+bTUSL8DSLmpWeeG?=
+ =?us-ascii?Q?xILUF7azi33cHgMH6QL4pFz6PX071NAj4SkDFW6QwzLNIpGFwiTHr6IlHP04?=
+ =?us-ascii?Q?GH1UNQLJzYKFIysgbnuCR1JYSGc0VNp2cRyVYSU5wMTPgYg/XEFcAZFh3Kzo?=
+ =?us-ascii?Q?Gs/GwEynv61XxOAg1Rhr7XpKOgKES4oyMlF++6B6MxNZ+qJDkjN+nEQZ3UDa?=
+ =?us-ascii?Q?4tuR5MADYYM71pYN3Bx4XCJqgQHBWxNqTVCJJY5jSxG69dzW40rlx8J7LL1i?=
+ =?us-ascii?Q?Lg93gjw8W1BDu7ZgGZwOtjL//4ARVg++/D4h1Hiwtz3FSJ2X4DSGEqnpqJKP?=
+ =?us-ascii?Q?U5vKm+hyCECBytkoynCfRZAe4Y6IKOtviOLvsQQc6kPaD2LCIwstd4ClYuEV?=
+ =?us-ascii?Q?NszlfXiJBg8w9SkiLIaXVULgVc4vdRcgMdSM2A44EwYWouZ1DpckjQvFuUKP?=
+ =?us-ascii?Q?+DJQ7CEOixOVFA8Zz9zAV+Do2hUu79yy0NmckX0Efdp6oTnxHAyB8AExlGCw?=
+ =?us-ascii?Q?r3IKwqh7OmaFYQsLhXgOBys2pT3gfLthNJIzUyD0WHKykJZPu80HbWoBvELs?=
+ =?us-ascii?Q?Yqcq6uokIXxWAffpdOeTNfBDjXEoxkH0+1U+45705BoY1HZk7/S0V5zwVGXq?=
+ =?us-ascii?Q?YlmOKpscvszO7PbKuoBeAOsWEH+PHWeB9daBjlXFGuw0AN7CUJIRlIAKUIl7?=
+ =?us-ascii?Q?x4ruS3//P0ouk2e1Wl3kHVd9MXWBWr0TmRiMewX7vJZqQXxHlL+8wgWnt/+o?=
+ =?us-ascii?Q?OVkpbtzhiiuM42W8W02MiPtSbZAVSwdcxw4zw17i2UsBN8d8mDeZL/7VdVJ1?=
+ =?us-ascii?Q?MsBYXx1AqM4DfWH6hkWtUbvM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cda2e08f-fe22-49f4-eae8-08d90a8665b0
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4679.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2021 20:44:19.9983 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6LeoEbISS7jq3zH+bj9ZDVvITH2DXl4yayD5kq4tFvusSSOoNgjiV3qE7sksvOCeyvjsGbVYG6xwQzTLm/CiTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,241 +123,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
- daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- ppaalanen@gmail.com, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
+Cc: intel-gfx@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>,
+ koba.ko@canonical.com, aurabindo.pillai@amd.com, mikita.lipski@amd.com,
+ ville.syrjala@linux.intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In subject,
+Change history:
+v6:
+ - Submited from (hopefully) the correct repo to fix build error
 
-s/dmr/drm/
-s/Move some/Move/ ("some" consumes space without adding meaning)
+v5:
+ - Fixed min_t() macro arguments
 
-Or maybe something like: 
+v4:
+ - Fixed drm/radeon/ lane count and rate
 
-  drm/amdgpu: Convert driver sysfs attributes to static attributes
+v3:
+ - Fixed check-patch errors
 
-On Wed, Apr 28, 2021 at 11:11:49AM -0400, Andrey Grodzovsky wrote:
-> This allows to remove explicit creation and destruction
-> of those attrs and by this avoids warnings on device
-> finilizing post physical device extraction.
+v2:
+ - No changes, this was my mistaken reply to my patch
 
-s/finilizing/finalizing/
+v1:
+ - Initial revision
 
-> v5: Use newly added pci_driver.dev_groups directly
+Nikola Cornij (1):
+  drm/drm_mst: Use Extended Base Receiver Capability DPCD space
 
-I don't know the DRM convention, but IMO, change notes like "v5: Use
-..." can go after "---" so they don't go in the git log.  To me,
-they're useful during review, but not after being merged.
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  5 +++
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 18 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
+ drivers/gpu/drm/drm_dp_mst_topology.c         | 32 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  6 +++-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  3 +-
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        |  8 +++++
+ include/drm/drm_dp_mst_helper.h               | 12 ++++++-
+ 8 files changed, 71 insertions(+), 15 deletions(-)
 
-I love the patch!  Much cleaner than creating/removing all these
-attributes explicitly.
+-- 
+2.25.1
 
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 17 ++++++-------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      | 13 ++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  | 25 ++++++++------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 14 ++++-------
->  4 files changed, 37 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> index 86add0f4ea4d..0346e124ab8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -1953,6 +1953,15 @@ static ssize_t amdgpu_atombios_get_vbios_version(struct device *dev,
->  static DEVICE_ATTR(vbios_version, 0444, amdgpu_atombios_get_vbios_version,
->  		   NULL);
->  
-> +static struct attribute *amdgpu_vbios_version_attrs[] = {
-> +	&dev_attr_vbios_version.attr,
-> +	NULL
-> +};
-> +
-> +const struct attribute_group amdgpu_vbios_version_attr_group = {
-> +	.attrs = amdgpu_vbios_version_attrs
-> +};
-> +
->  /**
->   * amdgpu_atombios_fini - free the driver info and callbacks for atombios
->   *
-> @@ -1972,7 +1981,6 @@ void amdgpu_atombios_fini(struct amdgpu_device *adev)
->  	adev->mode_info.atom_context = NULL;
->  	kfree(adev->mode_info.atom_card_info);
->  	adev->mode_info.atom_card_info = NULL;
-> -	device_remove_file(adev->dev, &dev_attr_vbios_version);
->  }
->  
->  /**
-> @@ -1989,7 +1997,6 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
->  {
->  	struct card_info *atom_card_info =
->  	    kzalloc(sizeof(struct card_info), GFP_KERNEL);
-> -	int ret;
->  
->  	if (!atom_card_info)
->  		return -ENOMEM;
-> @@ -2027,12 +2034,6 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
->  		amdgpu_atombios_allocate_fb_scratch(adev);
->  	}
->  
-> -	ret = device_create_file(adev->dev, &dev_attr_vbios_version);
-> -	if (ret) {
-> -		DRM_ERROR("Failed to create device file for VBIOS version\n");
-> -		return ret;
-> -	}
-> -
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 54cb5ee2f563..f799c40d7e72 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1605,6 +1605,18 @@ static struct pci_error_handlers amdgpu_pci_err_handler = {
->  	.resume		= amdgpu_pci_resume,
->  };
->  
-> +extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-> +extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
-> +extern const struct attribute_group amdgpu_vbios_version_attr_group;
-> +
-> +static const struct attribute_group *amdgpu_sysfs_groups[] = {
-> +	&amdgpu_vram_mgr_attr_group,
-> +	&amdgpu_gtt_mgr_attr_group,
-> +	&amdgpu_vbios_version_attr_group,
-> +	NULL,
-> +};
-> +
-> +
->  static struct pci_driver amdgpu_kms_pci_driver = {
->  	.name = DRIVER_NAME,
->  	.id_table = pciidlist,
-> @@ -1613,6 +1625,7 @@ static struct pci_driver amdgpu_kms_pci_driver = {
->  	.shutdown = amdgpu_pci_shutdown,
->  	.driver.pm = &amdgpu_pm_ops,
->  	.err_handler = &amdgpu_pci_err_handler,
-> +	.dev_groups = amdgpu_sysfs_groups,
->  };
->  
->  static int __init amdgpu_init(void)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index 8980329cded0..3b7150e1c5ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -77,6 +77,16 @@ static DEVICE_ATTR(mem_info_gtt_total, S_IRUGO,
->  static DEVICE_ATTR(mem_info_gtt_used, S_IRUGO,
->  	           amdgpu_mem_info_gtt_used_show, NULL);
->  
-> +static struct attribute *amdgpu_gtt_mgr_attributes[] = {
-> +	&dev_attr_mem_info_gtt_total.attr,
-> +	&dev_attr_mem_info_gtt_used.attr,
-> +	NULL
-> +};
-> +
-> +const struct attribute_group amdgpu_gtt_mgr_attr_group = {
-> +	.attrs = amdgpu_gtt_mgr_attributes
-> +};
-> +
->  static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func;
->  /**
->   * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
-> @@ -91,7 +101,6 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
->  	struct amdgpu_gtt_mgr *mgr = &adev->mman.gtt_mgr;
->  	struct ttm_resource_manager *man = &mgr->manager;
->  	uint64_t start, size;
-> -	int ret;
->  
->  	man->use_tt = true;
->  	man->func = &amdgpu_gtt_mgr_func;
-> @@ -104,17 +113,6 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
->  	spin_lock_init(&mgr->lock);
->  	atomic64_set(&mgr->available, gtt_size >> PAGE_SHIFT);
->  
-> -	ret = device_create_file(adev->dev, &dev_attr_mem_info_gtt_total);
-> -	if (ret) {
-> -		DRM_ERROR("Failed to create device file mem_info_gtt_total\n");
-> -		return ret;
-> -	}
-> -	ret = device_create_file(adev->dev, &dev_attr_mem_info_gtt_used);
-> -	if (ret) {
-> -		DRM_ERROR("Failed to create device file mem_info_gtt_used\n");
-> -		return ret;
-> -	}
-> -
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_TT, &mgr->manager);
->  	ttm_resource_manager_set_used(man, true);
->  	return 0;
-> @@ -144,9 +142,6 @@ void amdgpu_gtt_mgr_fini(struct amdgpu_device *adev)
->  	drm_mm_takedown(&mgr->mm);
->  	spin_unlock(&mgr->lock);
->  
-> -	device_remove_file(adev->dev, &dev_attr_mem_info_gtt_total);
-> -	device_remove_file(adev->dev, &dev_attr_mem_info_gtt_used);
-> -
->  	ttm_resource_manager_cleanup(man);
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_TT, NULL);
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index c89b66bb70e2..68369b38aebb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -154,7 +154,7 @@ static DEVICE_ATTR(mem_info_vis_vram_used, S_IRUGO,
->  static DEVICE_ATTR(mem_info_vram_vendor, S_IRUGO,
->  		   amdgpu_mem_info_vram_vendor, NULL);
->  
-> -static const struct attribute *amdgpu_vram_mgr_attributes[] = {
-> +static struct attribute *amdgpu_vram_mgr_attributes[] = {
->  	&dev_attr_mem_info_vram_total.attr,
->  	&dev_attr_mem_info_vis_vram_total.attr,
->  	&dev_attr_mem_info_vram_used.attr,
-> @@ -163,6 +163,10 @@ static const struct attribute *amdgpu_vram_mgr_attributes[] = {
->  	NULL
->  };
->  
-> +const struct attribute_group amdgpu_vram_mgr_attr_group = {
-> +	.attrs = amdgpu_vram_mgr_attributes
-> +};
-> +
->  static const struct ttm_resource_manager_func amdgpu_vram_mgr_func;
->  
->  /**
-> @@ -176,7 +180,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->  	struct ttm_resource_manager *man = &mgr->manager;
-> -	int ret;
->  
->  	ttm_resource_manager_init(man, adev->gmc.real_vram_size >> PAGE_SHIFT);
->  
-> @@ -187,11 +190,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  	INIT_LIST_HEAD(&mgr->reservations_pending);
->  	INIT_LIST_HEAD(&mgr->reserved_pages);
->  
-> -	/* Add the two VRAM-related sysfs files */
-> -	ret = sysfs_create_files(&adev->dev->kobj, amdgpu_vram_mgr_attributes);
-> -	if (ret)
-> -		DRM_ERROR("Failed to register sysfs\n");
-> -
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->  	ttm_resource_manager_set_used(man, true);
->  	return 0;
-> @@ -229,8 +227,6 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->  	drm_mm_takedown(&mgr->mm);
->  	spin_unlock(&mgr->lock);
->  
-> -	sysfs_remove_files(&adev->dev->kobj, amdgpu_vram_mgr_attributes);
-> -
->  	ttm_resource_manager_cleanup(man);
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, NULL);
->  }
-> -- 
-> 2.25.1
-> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
