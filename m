@@ -1,60 +1,67 @@
 Return-Path: <SRS0=1eED=JZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C08A2C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 14:12:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6398C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 14:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 401966143E
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 14:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 401966143E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=me.com
+	by mail.kernel.org (Postfix) with ESMTPS id 567B56100B
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 14:13:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 567B56100B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9ABD6E218;
-	Wed, 28 Apr 2021 14:12:31 +0000 (UTC)
-X-Greylist: delayed 418 seconds by postgrey-1.36 at gabe;
- Wed, 28 Apr 2021 13:15:36 UTC
-Received: from st43p00im-ztdg10061801.me.com (st43p00im-ztdg10061801.me.com
- [17.58.63.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B041A6EB31
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 13:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai;
- t=1619615316; bh=T6gHWb5E/U5Jt2Pqwqqp6GPCRLwgzlUqQuBzSWdLmyk=;
- h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:To;
- b=rjF2nnBgf2LEfLPLKjWZaJyY7xkVddmKxR8jDwSs9aTnwVFHm8manKHPFMVeqAaEy
- Z5glgyJxl6OtZmqBgB5dGE/MLNCIm7FWkAVlMfxVsUiTnyk2KJKpOAEUjIYoGyJMui
- 89auzCdvmDgiMXA3BRxadQo96+k9U5sYb3omgKi9MNVYRYZN3KgoYxcSCdlXkD0k/U
- y19835j1ylDoBs4D0nKlgV5RCYlM4pEGlVYBT6Eem/qbfeu38IWHUK4zFYFdo4nZ7n
- IcBXxK/INbqaRglyncgZ5nS9A0OFe6p9/A6Jzr+jleotehrFmXS/SW9N2ClmWJghjd
- UzrIO1iKYGKEg==
-Received: from smtpclient.apple (unknown [186.220.198.33])
- by st43p00im-ztdg10061801.me.com (Postfix) with ESMTPSA id 03AAD8C0630
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 13:08:35 +0000 (UTC)
-From: Rodrigo Luglio <rodrigo.luglio@me.com>
-Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.80.0.2.43\))
-Subject: VEGA 20 (Aka Vega12) 
-Message-Id: <0CFB0C48-3A23-4BDB-AD15-DEC9E348EC58@me.com>
-Date: Wed, 28 Apr 2021 10:08:33 -0300
-To: amd-gfx@lists.freedesktop.org
-X-Mailer: Apple Mail (2.3654.80.0.2.43)
-X-Proofpoint-Virus-Version: =?UTF-8?Q?vendor=3Dfsecure_engine=3D1.1.170-22c6f66c430a71ce266a39bfe25bc?=
- =?UTF-8?Q?2903e8d5c8f:6.0.391,18.0.761,17.0.607.475.0000000_definitions?=
- =?UTF-8?Q?=3D2021-04-28=5F05:2021-04-28=5F01,2021-04-28=5F05,2020-04-07?=
- =?UTF-8?Q?=5F01_signatures=3D0?=
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- spamscore=0
- suspectscore=0 phishscore=0 adultscore=0 malwarescore=0 mlxscore=0
- clxscore=1011 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2104280087
-X-Mailman-Approved-At: Wed, 28 Apr 2021 14:12:29 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C416F6E21D;
+	Wed, 28 Apr 2021 14:13:45 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B866E21D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 14:13:44 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ 65-20020a9d03470000b02902808b4aec6dso53693521otv.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 07:13:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=UQ24cfdbS49ZBVir7rdSWYkJgQHp09bzLZPRxE/y7RQ=;
+ b=K3LtzWOJrfzeyxnHD+LscQw+/utAnncjC4zyBheRjZ/SyQHFcR+MtGLTTquTwxpUEv
+ +kOePceMuX5867q+N3PoZTohCn7PU6QxdlQGWeGh8f96kPNyvKFED29HrjiOEhfpYZGG
+ IFpvGEQyA6pCYFO4mtbmdie8bi8DWAtu35U1GI909ojEWLc3Xr2lAUd0kchFQ8f5myn1
+ L1FreX5No31vy22/mJLB2fwzjyyLylRcSiEKAdYe1naZ2a0BHjV9zb1h+DvJGbtfIYY+
+ 66guoB75EoUEOXWcb+swMbGUdSoh1el1GVZKpHMCPZnMS807FiopDFWbhys5ySylwMHX
+ Cggw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=UQ24cfdbS49ZBVir7rdSWYkJgQHp09bzLZPRxE/y7RQ=;
+ b=In1swQA1FpbcuNSgHiFUrWoGZK/UuTg0YT+9ORm+JW52HKeiJlhRFQHRGc2z5RyyB8
+ vvblrYrx3CKkM4Ugwc+2bdfp0HM34N0w6T6BWq/ZRlXwDk0BLmXhjEWC22cQMQOe9Pr9
+ ExkEqG3xLTwwbS2YWD1rm5pqqfnYzdSxcD9UZo3BMWDFwd/hO7C27Q/vIV8P8anFnYe2
+ GqG+cgwFll85K6u06wbTiR5H6VBKqmlQ/Om243ZFO2oBkYyNXiEq8jQHqdNSQMu90BE4
+ V82s6K06g/EPnpeIsheQROCetao7KEd46JmODyMb4+hhbAmEs5Ud1RWyHx2EXYDMug0w
+ 3fUg==
+X-Gm-Message-State: AOAM532ni4+epltjU/jfbf8+iScz8qxA/0WqXV/s6QQ67SwKyxrppOgL
+ A6Ybo+eutK/U20la3jZ0LVz+qKuktedAE5jEafs=
+X-Google-Smtp-Source: ABdhPJwdj/rpJ2rVtkNXBUbrZtx/WoY7WVzVkCp9TKi7Jtrb07IBUEqF/2Jv+y0Up3Wsz1gWQJAsX4bS0PRYQe56IdE=
+X-Received: by 2002:a05:6830:18d0:: with SMTP id
+ v16mr10387818ote.311.1619619222143; 
+ Wed, 28 Apr 2021 07:13:42 -0700 (PDT)
+MIME-Version: 1.0
+References: <0CFB0C48-3A23-4BDB-AD15-DEC9E348EC58@me.com>
+In-Reply-To: <0CFB0C48-3A23-4BDB-AD15-DEC9E348EC58@me.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 28 Apr 2021 10:13:31 -0400
+Message-ID: <CADnq5_MAmc0s9pp27uSFTDSYWsiHrgEBzANMvPjgjXnaV_g9+Q@mail.gmail.com>
+Subject: Re: VEGA 20 (Aka Vega12)
+To: Rodrigo Luglio <rodrigo.luglio@me.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,168 +73,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0954335601=="
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---===============0954335601==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_A9F5BB86-A81E-4B52-BDFA-72CC1184D23A"
-
-
---Apple-Mail=_A9F5BB86-A81E-4B52-BDFA-72CC1184D23A
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-I have a macbook pro with vega 20 which uses the amdgpu firmware vega12 =
-and when i boot any distro the graphics glitch and the computer freezes. =
-If i install amdgpu pro on ubuntu it works flawlessly. Would you guys =
-help me debug this and fix for upstream?=20
-
-
-Please, let me know which kind of logs and information I can attach in =
-order to start debugging this issue. I=E2=80=99ll be more than happy to =
-be part of it!
-
-Brief summary of the problem:
-
-I have a macbook pro with vega 20 which uses the amdgpu firmware vega12 =
-and when i boot any distro the graphics glitch and the computer freezes. =
-If i install amdgpu pro on ubuntu it works flawlessly. Would you guys =
-help me debug this and fix for upstream?
-
-Please, let me know which kind of logs and information I can attach in =
-order to start debugging this issue. I=E2=80=99ll be more than happy to =
-be part of it!
-
- =
-<applewebdata://3F0BA0F3-7A8E-4F27-A0F8-0803CCC90DAD#hardware-description>=
-Hardware description:
-
-CPU: 2,4 GHz 8-Core Intel Core i9
-GPU: Radeon Pro Vega 20 4 GB Radeon Pro Vega 20:
-Chipset Model: Radeon Pro Vega 20 Type: GPU Bus: PCIe PCIe Lane Width: =
-x8 VRAM (Total): 4 GB Vendor: AMD (0x1002) Device ID: 0x69af Revision =
-ID: 0x00c0 ROM Revision: 113-D2060I-087 VBIOS Version: =
-113-D20601MA0T-016 Option ROM Version: 113-D20601MA0T-016 EFI Driver =
-Version: 01.01.087 Automatic Graphics Switching: Supported gMux Version: =
-5.0.0
-
-System Memory: 32 GB 2400 MHz DDR4
-
-Display(s): Color LCD: Display Type: Built-In Retina LCD Resolution: =
-2880 x 1800 Retina Framebuffer Depth: 30-Bit Color (ARGB2101010) Main =
-Display: Yes Mirror: Off Online: Yes Automatically Adjust Brightness: =
-Yes Connection Type: Internal
-
-Type of Diplay Connection: Internal
-
- =
-<applewebdata://3F0BA0F3-7A8E-4F27-A0F8-0803CCC90DAD#system-information>Sy=
-stem information:
-
-Distro name and Version: Any distro
-Kernel version: Any kernel up to 5.12
-Custom kernel:
-AMD package version: No package
- =
-<applewebdata://3F0BA0F3-7A8E-4F27-A0F8-0803CCC90DAD#how-to-reproduce-the-=
-issue>How to reproduce the issue:
-
-Boot into any distro and the screen glitch and the computer freezes =
-Sometimes it takes like 5 or 6 seconds before it glitch and freeze.
-
- =
-<applewebdata://3F0BA0F3-7A8E-4F27-A0F8-0803CCC90DAD#attached-files>Attach=
-ed files:
-
-Please, let me know how can I get useful logs, sometimes I`m able to =
-open another tty and run some commands.=
-
---Apple-Mail=_A9F5BB86-A81E-4B52-BDFA-72CC1184D23A
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D"">I =
-have a macbook pro with vega 20 which uses the amdgpu firmware vega12 =
-and when i boot any distro the graphics glitch and the computer freezes. =
-If i install amdgpu pro on ubuntu it works flawlessly. Would you guys =
-help me debug this and fix for upstream?&nbsp;<div class=3D""><br =
-class=3D""></div><div class=3D""><br class=3D"">Please, let me know =
-which kind of logs and information I can attach in order to start =
-debugging this issue. I=E2=80=99ll be more than happy to be part of =
-it!</div><div class=3D""><br class=3D""></div><div class=3D""><h2 =
-data-sourcepos=3D"1:1-1:32" dir=3D"auto" class=3D"">Brief summary of the =
-problem:</h2><p data-sourcepos=3D"2:2-2:257" dir=3D"auto" class=3D"">I =
-have a macbook pro with vega 20 which uses the amdgpu firmware vega12 =
-and when i boot any distro the graphics glitch and the computer freezes. =
-If i install amdgpu pro on ubuntu it works flawlessly. Would you guys =
-help me debug this and fix for upstream?</p><p =
-data-sourcepos=3D"5:1-5:151" dir=3D"auto" class=3D"">Please, let me know =
-which kind of logs and information I can attach in order to start =
-debugging this issue. I=E2=80=99ll be more than happy to be part of =
-it!</p><h2 data-sourcepos=3D"7:1-7:24" dir=3D"auto" class=3D""><a =
-id=3D"user-content-hardware-description" class=3D"anchor" =
-href=3D"#hardware-description" aria-hidden=3D"true"></a>Hardware =
-description:</h2><ul data-sourcepos=3D"8:2-11:0" dir=3D"auto" =
-class=3D""><li data-sourcepos=3D"8:2-8:36" class=3D"">CPU: 2,4 GHz =
-8-Core Intel Core i9</li><li data-sourcepos=3D"9:2-11:0" class=3D"">GPU: =
-Radeon Pro Vega 20 4 GB Radeon Pro Vega 20:</li></ul><p =
-data-sourcepos=3D"12:3-25:21" dir=3D"auto" class=3D"">Chipset Model: =
-Radeon Pro Vega 20 Type: GPU Bus: PCIe PCIe Lane Width: x8 VRAM (Total): =
-4 GB Vendor: AMD (0x1002) Device ID: 0x69af Revision ID: 0x00c0 ROM =
-Revision: 113-D2060I-087 VBIOS Version: 113-D20601MA0T-016 Option ROM =
-Version: 113-D20601MA0T-016 EFI Driver Version: 01.01.087 Automatic =
-Graphics Switching: Supported gMux Version: 5.0.0</p><ul =
-data-sourcepos=3D"27:2-40:0" dir=3D"auto" class=3D""><li =
-data-sourcepos=3D"27:2-27:37" class=3D""><p data-sourcepos=3D"27:4-27:37" =
-class=3D"">System Memory: 32 GB 2400 MHz DDR4</p></li><li =
-data-sourcepos=3D"28:2-38:0" class=3D""><p data-sourcepos=3D"28:4-37:27" =
-class=3D"">Display(s): Color LCD: Display Type: Built-In Retina LCD =
-Resolution: 2880 x 1800 Retina Framebuffer Depth: 30-Bit Color =
-(ARGB2101010) Main Display: Yes Mirror: Off Online: Yes Automatically =
-Adjust Brightness: Yes Connection Type: Internal</p></li><li =
-data-sourcepos=3D"39:2-40:0" class=3D""><p data-sourcepos=3D"39:4-39:38" =
-class=3D"">Type of Diplay Connection: Internal</p></li></ul><h2 =
-data-sourcepos=3D"41:1-41:22" dir=3D"auto" class=3D""><a =
-id=3D"user-content-system-information" class=3D"anchor" =
-href=3D"#system-information" aria-hidden=3D"true"></a>System =
-information:</h2><ul data-sourcepos=3D"42:2-46:0" dir=3D"auto" =
-class=3D""><li data-sourcepos=3D"42:2-42:38" class=3D"">Distro name and =
-Version: Any distro</li><li data-sourcepos=3D"43:2-43:40" =
-class=3D"">Kernel version: Any kernel up to 5.12</li><li =
-data-sourcepos=3D"44:2-44:18" class=3D"">Custom kernel:</li><li =
-data-sourcepos=3D"45:2-46:0" class=3D"">AMD package version: No =
-package</li></ul><h2 data-sourcepos=3D"47:1-47:30" dir=3D"auto" =
-class=3D""><a id=3D"user-content-how-to-reproduce-the-issue" =
-class=3D"anchor" href=3D"#how-to-reproduce-the-issue" =
-aria-hidden=3D"true"></a>How to reproduce the issue:</h2><p =
-data-sourcepos=3D"48:1-49:67" dir=3D"auto" class=3D"">Boot into any =
-distro and the screen glitch and the computer freezes Sometimes it takes =
-like 5 or 6 seconds before it glitch and freeze.</p><h2 =
-data-sourcepos=3D"52:1-52:18" dir=3D"auto" class=3D""><a =
-id=3D"user-content-attached-files" class=3D"anchor" =
-href=3D"#attached-files" aria-hidden=3D"true"></a>Attached files:</h2><p =
-data-sourcepos=3D"53:1-53:108" dir=3D"auto" class=3D"">Please, let me =
-know how can I get useful logs, sometimes I`m able to open another tty =
-and run some commands.</p></div></body></html>=
-
---Apple-Mail=_A9F5BB86-A81E-4B52-BDFA-72CC1184D23A--
-
---===============0954335601==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0954335601==--
+T24gV2VkLCBBcHIgMjgsIDIwMjEgYXQgMTA6MTIgQU0gUm9kcmlnbyBMdWdsaW8gPHJvZHJpZ28u
+bHVnbGlvQG1lLmNvbT4gd3JvdGU6Cj4KPiBJIGhhdmUgYSBtYWNib29rIHBybyB3aXRoIHZlZ2Eg
+MjAgd2hpY2ggdXNlcyB0aGUgYW1kZ3B1IGZpcm13YXJlIHZlZ2ExMiBhbmQgd2hlbiBpIGJvb3Qg
+YW55IGRpc3RybyB0aGUgZ3JhcGhpY3MgZ2xpdGNoIGFuZCB0aGUgY29tcHV0ZXIgZnJlZXplcy4g
+SWYgaSBpbnN0YWxsIGFtZGdwdSBwcm8gb24gdWJ1bnR1IGl0IHdvcmtzIGZsYXdsZXNzbHkuIFdv
+dWxkIHlvdSBndXlzIGhlbHAgbWUgZGVidWcgdGhpcyBhbmQgZml4IGZvciB1cHN0cmVhbT8KPgo+
+Cj4gUGxlYXNlLCBsZXQgbWUga25vdyB3aGljaCBraW5kIG9mIGxvZ3MgYW5kIGluZm9ybWF0aW9u
+IEkgY2FuIGF0dGFjaCBpbiBvcmRlciB0byBzdGFydCBkZWJ1Z2dpbmcgdGhpcyBpc3N1ZS4gSeKA
+mWxsIGJlIG1vcmUgdGhhbiBoYXBweSB0byBiZSBwYXJ0IG9mIGl0IQo+CgpQbGVhc2UgcHJvdmlk
+ZSB0aGUgcmVxdWVzdGVkIGluZm8gb24gdGhlIGJ1ZyByZXBvcnRzLgoKQWxleAoKCj4gQnJpZWYg
+c3VtbWFyeSBvZiB0aGUgcHJvYmxlbToKPgo+IEkgaGF2ZSBhIG1hY2Jvb2sgcHJvIHdpdGggdmVn
+YSAyMCB3aGljaCB1c2VzIHRoZSBhbWRncHUgZmlybXdhcmUgdmVnYTEyIGFuZCB3aGVuIGkgYm9v
+dCBhbnkgZGlzdHJvIHRoZSBncmFwaGljcyBnbGl0Y2ggYW5kIHRoZSBjb21wdXRlciBmcmVlemVz
+LiBJZiBpIGluc3RhbGwgYW1kZ3B1IHBybyBvbiB1YnVudHUgaXQgd29ya3MgZmxhd2xlc3NseS4g
+V291bGQgeW91IGd1eXMgaGVscCBtZSBkZWJ1ZyB0aGlzIGFuZCBmaXggZm9yIHVwc3RyZWFtPwo+
+Cj4gUGxlYXNlLCBsZXQgbWUga25vdyB3aGljaCBraW5kIG9mIGxvZ3MgYW5kIGluZm9ybWF0aW9u
+IEkgY2FuIGF0dGFjaCBpbiBvcmRlciB0byBzdGFydCBkZWJ1Z2dpbmcgdGhpcyBpc3N1ZS4gSeKA
+mWxsIGJlIG1vcmUgdGhhbiBoYXBweSB0byBiZSBwYXJ0IG9mIGl0IQo+Cj4gSGFyZHdhcmUgZGVz
+Y3JpcHRpb246Cj4KPiBDUFU6IDIsNCBHSHogOC1Db3JlIEludGVsIENvcmUgaTkKPiBHUFU6IFJh
+ZGVvbiBQcm8gVmVnYSAyMCA0IEdCIFJhZGVvbiBQcm8gVmVnYSAyMDoKPgo+IENoaXBzZXQgTW9k
+ZWw6IFJhZGVvbiBQcm8gVmVnYSAyMCBUeXBlOiBHUFUgQnVzOiBQQ0llIFBDSWUgTGFuZSBXaWR0
+aDogeDggVlJBTSAoVG90YWwpOiA0IEdCIFZlbmRvcjogQU1EICgweDEwMDIpIERldmljZSBJRDog
+MHg2OWFmIFJldmlzaW9uIElEOiAweDAwYzAgUk9NIFJldmlzaW9uOiAxMTMtRDIwNjBJLTA4NyBW
+QklPUyBWZXJzaW9uOiAxMTMtRDIwNjAxTUEwVC0wMTYgT3B0aW9uIFJPTSBWZXJzaW9uOiAxMTMt
+RDIwNjAxTUEwVC0wMTYgRUZJIERyaXZlciBWZXJzaW9uOiAwMS4wMS4wODcgQXV0b21hdGljIEdy
+YXBoaWNzIFN3aXRjaGluZzogU3VwcG9ydGVkIGdNdXggVmVyc2lvbjogNS4wLjAKPgo+IFN5c3Rl
+bSBNZW1vcnk6IDMyIEdCIDI0MDAgTUh6IEREUjQKPgo+IERpc3BsYXkocyk6IENvbG9yIExDRDog
+RGlzcGxheSBUeXBlOiBCdWlsdC1JbiBSZXRpbmEgTENEIFJlc29sdXRpb246IDI4ODAgeCAxODAw
+IFJldGluYSBGcmFtZWJ1ZmZlciBEZXB0aDogMzAtQml0IENvbG9yIChBUkdCMjEwMTAxMCkgTWFp
+biBEaXNwbGF5OiBZZXMgTWlycm9yOiBPZmYgT25saW5lOiBZZXMgQXV0b21hdGljYWxseSBBZGp1
+c3QgQnJpZ2h0bmVzczogWWVzIENvbm5lY3Rpb24gVHlwZTogSW50ZXJuYWwKPgo+IFR5cGUgb2Yg
+RGlwbGF5IENvbm5lY3Rpb246IEludGVybmFsCj4KPiBTeXN0ZW0gaW5mb3JtYXRpb246Cj4KPiBE
+aXN0cm8gbmFtZSBhbmQgVmVyc2lvbjogQW55IGRpc3Rybwo+IEtlcm5lbCB2ZXJzaW9uOiBBbnkg
+a2VybmVsIHVwIHRvIDUuMTIKPiBDdXN0b20ga2VybmVsOgo+IEFNRCBwYWNrYWdlIHZlcnNpb246
+IE5vIHBhY2thZ2UKPgo+IEhvdyB0byByZXByb2R1Y2UgdGhlIGlzc3VlOgo+Cj4gQm9vdCBpbnRv
+IGFueSBkaXN0cm8gYW5kIHRoZSBzY3JlZW4gZ2xpdGNoIGFuZCB0aGUgY29tcHV0ZXIgZnJlZXpl
+cyBTb21ldGltZXMgaXQgdGFrZXMgbGlrZSA1IG9yIDYgc2Vjb25kcyBiZWZvcmUgaXQgZ2xpdGNo
+IGFuZCBmcmVlemUuCj4KPiBBdHRhY2hlZCBmaWxlczoKPgo+IFBsZWFzZSwgbGV0IG1lIGtub3cg
+aG93IGNhbiBJIGdldCB1c2VmdWwgbG9ncywgc29tZXRpbWVzIElgbSBhYmxlIHRvIG9wZW4gYW5v
+dGhlciB0dHkgYW5kIHJ1biBzb21lIGNvbW1hbmRzLgo+Cj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
