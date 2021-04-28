@@ -5,65 +5,64 @@ X-Spam-Level:
 X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9F6CC433B4
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9DD5C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 581BA6145D
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:49:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 581BA6145D
+	by mail.kernel.org (Postfix) with ESMTPS id 2E8AF6140C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Apr 2021 20:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E8AF6140C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA7D36EC4A;
-	Wed, 28 Apr 2021 20:49:54 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25BEF6EC4B;
- Wed, 28 Apr 2021 20:49:51 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- u21-20020a0568301195b02902a2119f7613so12689234otq.10; 
- Wed, 28 Apr 2021 13:49:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC996EC35;
+	Wed, 28 Apr 2021 20:52:14 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B28586EC35
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 20:52:11 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ k26-20020a4adfba0000b02901f992c7ec7bso738503ook.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Apr 2021 13:52:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MqCUqdTUpz/0d2ZgtmXkUaVvpN5t5eTZToY/1mGvfd4=;
- b=nZzkjSL0yvBwgqdUQn35tG4ABvenFx/Vw8zPTXZ3ObE+cXxlxyeLZEM7MaeI2QmF2H
- ICA69mB6sPkOQZbTrrMBR1GUGg41E4Kw1+woLUIfvPeX+iW95lkWv+RoBwfTndcNmbuF
- l3YVBeIBNtMI1pA3gLDj07YIX4P1yWfAgtlI+FtlekXxdXXZl8qYswlcxBvpF3gps6fO
- At17j6wWiCJGc5mse6QUbF8J7YWTvthGg3zxpJWGsXo7o7ohURqpc+HXCUHUHfEQmPTh
- N/HZpV1mGszxSZCLYzSW3NuPSTA+x/imQL311p1vHHsS19TRQgJRq6IajPSIiDnYX5i1
- fAtQ==
+ :cc; bh=Vi0UohUJSEwK+caKNBeb1MMBnhf/CY7DzAcyBPmY1dA=;
+ b=VPwTzSDlrgnffyd7ezdptzH+Ss55Hy5oj1XDY7R73TMhjdS90DM252m9uKpm20I4hI
+ B3ofm/SnpXjiMbXTbG7NgJS/44oAz4GK0CJdoNKcUpMD7ndkXBqyXrhWOQlcxDvHw62o
+ 3146FxXCRXN2oehdHK0+6UqFCwYPFsl78/QoBLwss5Z+U0RmT2OHFX3RoCDOktIeZqcK
+ mKiUSj10d7Rvd/gzwf8vQgLLFpzXfv3mWG6BraNXuDxXXbLwXXT6FgMz7Vyo5O4RmkgH
+ xoAQOzhCRDd4oomZz2OZSf0AJ6ya43wp6GM4BvjHSPqFpiYlT84a/iZLsSQZENXhBeME
+ 1muw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=MqCUqdTUpz/0d2ZgtmXkUaVvpN5t5eTZToY/1mGvfd4=;
- b=BkZ7RyKdfbMbZK68xQS5+MCbSzMgCyuws4uqfskPknG6R0l4jVj+jziFcYqgC0R072
- 944WrA0oQASv8FVWuNFY72qL6dS/yWvtx0Od+3agQMFUEzCp28u/OeFKYgK8orHCCvzX
- vkOePfXcj4/JKze32qdNg+yK72lCqAqPHKyf+KJKmR8QeCJimeEkOZyJpds3rAhk7In8
- XXRE9CFYZ05UzFgpQkPPVMRyFd+/41hhuC7KazjcjXMHsQlpLfQoMY0Tb+dfHUC06k5X
- x6MD6w73HWMUWI4j9zGtNoS63XE+AgPxPdHNQzs1n9NbiZ6oYVtL7A3Sh5Kzxu0vvlte
- Z1TQ==
-X-Gm-Message-State: AOAM531k6ECoCNIFJMtun6fwFgJbCg8s87znE8UhlvjyzeIRpswdAhsp
- RxC7SYh6gjF/NAUjmw7aKYJsGlMNtr8hG4D6NEzhRva4B/061w==
-X-Google-Smtp-Source: ABdhPJzbHCxgE4L71WoVcFSkfX0vULfOCgqNq2/wmDm6AjB+XJ47I3ucxSM2u00OOBwTeZxVBkGDGDzDIKPxIgqNeRc=
-X-Received: by 2002:a9d:8d1:: with SMTP id 75mr7718182otf.23.1619642990344;
- Wed, 28 Apr 2021 13:49:50 -0700 (PDT)
+ bh=Vi0UohUJSEwK+caKNBeb1MMBnhf/CY7DzAcyBPmY1dA=;
+ b=Rlq9yueYO1EXDHC0MPuTrm/NBepw21y23GkvxA0pK50lQxfc7U87/SI6pZ7hRrql3l
+ PngQWO5apnzuZBsZv1k2EavBlHmopkjUJX+5rUR0O4R6OKRUzp/CQgjAihxGQwPFjwfe
+ xtdH81h9FgSdI6rHJdVslVw77AIwc0+g4iz7bq+3S1PKJLzQwMeF6owG05tZSUUjHiyT
+ Cg4+K5n3xHfawOcuyA9EHJQ+89wVeh0MzCwrseM5CHjFam1XNerl6wdJ3Y3IBkXRMbF/
+ vr0RbipmJB6O0xJiZ/bhzp8Ah8FEc54ziFo8iqQy7w1vWMaEo5k/4STS261lksLMDol8
+ VuZg==
+X-Gm-Message-State: AOAM531F6QmWB6jzYOkJM/Ui1Plf7PEKEg45VRl8jaXNvATg1hJE2Oem
+ dPAUBpctgQZuc2QPNwYMSQzAg534AiF/nD6rEu8=
+X-Google-Smtp-Source: ABdhPJy/1ELvm4A0HgSH0EFygY0aCZiVTeebLYrWQLNi1u+IuxV+h/qPv4n0WdYbqewGdWuVjorHohB4mXWPjbYTO+E=
+X-Received: by 2002:a4a:cb0c:: with SMTP id r12mr24250703ooq.90.1619643131041; 
+ Wed, 28 Apr 2021 13:52:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210428204406.1067318-1-nikola.cornij@amd.com>
- <20210428204406.1067318-2-nikola.cornij@amd.com>
-In-Reply-To: <20210428204406.1067318-2-nikola.cornij@amd.com>
+References: <20210427045118.87459-1-pavan.ramayanam@amd.com>
+ <CADnq5_PUxtPRnh-Mv8803zdvUn_bf5YRG9a-UVn-2b_vVgUvuA@mail.gmail.com>
+In-Reply-To: <CADnq5_PUxtPRnh-Mv8803zdvUn_bf5YRG9a-UVn-2b_vVgUvuA@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Apr 2021 16:49:39 -0400
-Message-ID: <CADnq5_OM5SDg2ioq5zMTS1_SHSgZs5WjN-UECcL4w1Gu6oB7GA@mail.gmail.com>
-Subject: Re: [PATCH v6 1/1] drm/drm_mst: Use Extended Base Receiver Capability
- DPCD space
-To: Nikola Cornij <nikola.cornij@amd.com>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Date: Wed, 28 Apr 2021 16:52:00 -0400
+Message-ID: <CADnq5_PrVo7sTpB10nLQ9O2F6ztdX8wdsuHimU8JqsCfDp_K3g@mail.gmail.com>
+Subject: Re: [PATCH] Handling of amdgpu_device_resume return value for
+ graceful teardown
+To: pavan.ramayanam@amd.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,308 +74,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, koba.ko@canonical.com,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, "Lipski,
- Mikita" <mikita.lipski@amd.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ dri-devel as well.
+Applied.  Thanks!
 
-On Wed, Apr 28, 2021 at 4:44 PM Nikola Cornij <nikola.cornij@amd.com> wrote:
+Alex
+
+On Tue, Apr 27, 2021 at 1:46 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> [why]
-> DP 1.4a spec madates that if DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT is
-> set, Extended Base Receiver Capability DPCD space must be used. Without
-> doing that, the three DPCD values that differ will be wrong, leading to
-> incorrect or limited functionality. MST link rate, for example, could
-> have a lower value. Also, Synaptics quirk wouldn't work out well when
-> Extended DPCD was not read, resulting in no DSC for such hubs.
+> On Tue, Apr 27, 2021 at 12:51 AM <pavan.ramayanam@amd.com> wrote:
+> >
+> > From: Pavan Kumar Ramayanam <pavan.ramayanam@amd.com>
+> >
+> > The runtime resume PM op disregards the return value from
+> > amdgpu_device_resume(), masking errors for failed resumes at the PM
+> > layer.
+> >
+> > Signed-off-by: Pavan Kumar Ramayanam <pavan.ramayanam@amd.com>
 >
-> [how]
-> Modify MST topology manager to use the values from Extended DPCD where
-> applicable.
+> Subject should be prefixed with drm/amdgpu:, with that fixed,
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 >
-> To prevent regression on the sources that have a lower maximum link rate
-> capability than MAX_LINK_RATE from Extended DPCD, have the drivers
-> supply maximum lane count and rate at initialization time.
+> Do you need me to commit this for you?
 >
-> This also reverts 'commit 2dcab875e763 ("Revert "drm/dp_mst: Retrieve
-> extended DPCD caps for topology manager"")', brining the change back to
-> the original 'commit ad44c03208e4 ("drm/dp_mst: Retrieve extended DPCD
-> caps for topology manager")'.
+> Alex
 >
-> Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-> ---
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  5 +++
->  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 18 +++++++++++
->  drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
->  drivers/gpu/drm/drm_dp_mst_topology.c         | 32 ++++++++++++-------
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |  6 +++-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  3 +-
->  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  8 +++++
->  include/drm/drm_dp_mst_helper.h               | 12 ++++++-
->  8 files changed, 71 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 997567f6f0ba..b7e01b6fb328 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -429,6 +429,8 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->                                        struct amdgpu_dm_connector *aconnector,
->                                        int link_index)
->  {
-> +       struct dc_link_settings max_link_enc_cap = {0};
-> +
->         aconnector->dm_dp_aux.aux.name =
->                 kasprintf(GFP_KERNEL, "AMDGPU DM aux hw bus %d",
->                           link_index);
-> @@ -443,6 +445,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->         if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
->                 return;
->
-> +       dc_link_dp_get_max_link_enc_cap(aconnector->dc_link, &max_link_enc_cap);
->         aconnector->mst_mgr.cbs = &dm_mst_cbs;
->         drm_dp_mst_topology_mgr_init(
->                 &aconnector->mst_mgr,
-> @@ -450,6 +453,8 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->                 &aconnector->dm_dp_aux.aux,
->                 16,
->                 4,
-> +               max_link_enc_cap.lane_count,
-> +               max_link_enc_cap.link_rate,
->                 aconnector->connector_id);
->
->         drm_connector_attach_dp_subconnector_property(&aconnector->base);
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 7d2e433c2275..6fe66b7ee53e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -1894,6 +1894,24 @@ bool dc_link_dp_sync_lt_end(struct dc_link *link, bool link_down)
->         return true;
->  }
->
-> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap)
-> +{
-> +       if (!max_link_enc_cap) {
-> +               DC_LOG_ERROR("%s: Could not return max link encoder caps", __func__);
-> +               return false;
-> +       }
-> +
-> +       if (link->link_enc->funcs->get_max_link_cap) {
-> +               link->link_enc->funcs->get_max_link_cap(link->link_enc, max_link_enc_cap);
-> +               return true;
-> +       }
-> +
-> +       DC_LOG_ERROR("%s: Max link encoder caps unknown", __func__);
-> +       max_link_enc_cap->lane_count = 1;
-> +       max_link_enc_cap->link_rate = 6;
-> +       return false;
-> +}
-> +
->  static struct dc_link_settings get_max_link_cap(struct dc_link *link)
->  {
->         struct dc_link_settings max_link_cap = {0};
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-> index b0013e674864..cb6d0543d839 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-> @@ -346,6 +346,8 @@ bool dc_link_dp_set_test_pattern(
->         const unsigned char *p_custom_pattern,
->         unsigned int cust_pattern_size);
->
-> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap);
-> +
->  void dc_link_enable_hpd_filter(struct dc_link *link, bool enable);
->
->  bool dc_link_is_dp_sink_present(struct dc_link *link);
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 5539a91b4031..b7869a1135bf 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -3708,19 +3708,23 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
->         /* set the device into MST mode */
->         if (mst_state) {
->                 struct drm_dp_payload reset_pay;
-> +               int lane_count;
-> +               int link_rate;
->
->                 WARN_ON(mgr->mst_primary);
->
->                 /* get dpcd info */
-> -               ret = drm_dp_dpcd_read(mgr->aux, DP_DPCD_REV, mgr->dpcd, DP_RECEIVER_CAP_SIZE);
-> -               if (ret != DP_RECEIVER_CAP_SIZE) {
-> -                       drm_dbg_kms(mgr->dev, "failed to read DPCD\n");
-> +               ret = drm_dp_read_dpcd_caps(mgr->aux, mgr->dpcd);
-> +               if (ret < 0) {
-> +                       drm_dbg_kms(mgr->dev, "%s: failed to read DPCD, ret %d\n",
-> +                                   mgr->aux->name, ret);
->                         goto out_unlock;
->                 }
->
-> +               lane_count = min_t(int, mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK, mgr->max_lane_count);
-> +               link_rate = min_t(int, mgr->dpcd[1], mgr->max_link_rate);
->                 mgr->pbn_div = drm_dp_get_vc_payload_bw(mgr,
-> -                                                       drm_dp_bw_code_to_link_rate(mgr->dpcd[1]),
-> -                                                       mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK);
-> +                                       drm_dp_bw_code_to_link_rate(link_rate), lane_count);
->                 if (mgr->pbn_div == 0) {
->                         ret = -EINVAL;
->                         goto out_unlock;
-> @@ -5448,14 +5452,17 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
->   * @aux: DP helper aux channel to talk to this device
->   * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
->   * @max_payloads: maximum number of payloads this GPU can source
-> + * @max_lane_count: maximum number of lanes this GPU supports
-> + * @max_link_rate: maximum link rate this GPU supports, units as in DPCD
->   * @conn_base_id: the connector object ID the MST device is connected to.
->   *
->   * Return 0 for success, or negative error code on failure
->   */
->  int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->                                  struct drm_device *dev, struct drm_dp_aux *aux,
-> -                                int max_dpcd_transaction_bytes,
-> -                                int max_payloads, int conn_base_id)
-> +                                int max_dpcd_transaction_bytes, int max_payloads,
-> +                                int max_lane_count, int max_link_rate,
-> +                                int conn_base_id)
->  {
->         struct drm_dp_mst_topology_state *mst_state;
->
-> @@ -5490,6 +5497,8 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->         mgr->aux = aux;
->         mgr->max_dpcd_transaction_bytes = max_dpcd_transaction_bytes;
->         mgr->max_payloads = max_payloads;
-> +       mgr->max_lane_count = max_lane_count;
-> +       mgr->max_link_rate = max_link_rate;
->         mgr->conn_base_id = conn_base_id;
->         if (max_payloads + 1 > sizeof(mgr->payload_mask) * 8 ||
->             max_payloads + 1 > sizeof(mgr->vcpi_mask) * 8)
-> @@ -5896,14 +5905,13 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
->         if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) &&
->             port->mgr->dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
->             port->parent == port->mgr->mst_primary) {
-> -               u8 downstreamport;
-> +               u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
->
-> -               if (drm_dp_dpcd_read(&port->aux, DP_DOWNSTREAMPORT_PRESENT,
-> -                                    &downstreamport, 1) < 0)
-> +               if (drm_dp_read_dpcd_caps(port->mgr->aux, dpcd_ext) < 0)
->                         return NULL;
->
-> -               if ((downstreamport & DP_DWN_STRM_PORT_PRESENT) &&
-> -                  ((downstreamport & DP_DWN_STRM_PORT_TYPE_MASK)
-> +               if ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
-> +                   ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_TYPE_MASK)
->                      != DP_DWN_STRM_PORT_TYPE_ANALOG))
->                         return port->mgr->aux;
->         }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 860381d68d9d..a4245eb48ef4 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -942,6 +942,7 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
->         struct intel_dp *intel_dp = &dig_port->dp;
->         enum port port = dig_port->base.port;
->         int ret;
-> +       int bios_max_link_rate;
->
->         if (!HAS_DP_MST(i915) || intel_dp_is_edp(intel_dp))
->                 return 0;
-> @@ -956,8 +957,11 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
->
->         /* create encoders */
->         intel_dp_create_fake_mst_encoders(dig_port);
-> +       bios_max_link_rate = intel_bios_dp_max_link_rate(&dig_port->base);
->         ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, &i915->drm,
-> -                                          &intel_dp->aux, 16, 3, conn_base_id);
-> +                                          &intel_dp->aux, 16, 3,
-> +                                          dig_port->max_lanes,
-> +                                          bios_max_link_rate / 27000, conn_base_id);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index 1c9c0cdf85db..e02f9d2d74eb 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1617,7 +1617,8 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
->         mstm->mgr.cbs = &nv50_mstm;
->
->         ret = drm_dp_mst_topology_mgr_init(&mstm->mgr, dev, aux, aux_max,
-> -                                          max_payloads, conn_base_id);
-> +                                          max_payloads, outp->dcb->dpconf.link_nr,
-> +                                          outp->dcb->dpconf.link_bw, conn_base_id);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> index 59cf1d288465..cf3be8b14676 100644
-> --- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> +++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> @@ -629,13 +629,21 @@ int
->  radeon_dp_mst_init(struct radeon_connector *radeon_connector)
->  {
->         struct drm_device *dev = radeon_connector->base.dev;
-> +       struct radeon_connector_atom_dig *dig_connector = radeon_connector->con_priv;
-> +       int max_link_rate;
->
->         if (!radeon_connector->ddc_bus->has_aux)
->                 return 0;
->
-> +       if (radeon_connector_is_dp12_capable(&radeon_connector->base))
-> +               max_link_rate = 0x14;
-> +       else
-> +               max_link_rate = 0x0a;
-> +
->         radeon_connector->mst_mgr.cbs = &mst_cbs;
->         return drm_dp_mst_topology_mgr_init(&radeon_connector->mst_mgr, dev,
->                                             &radeon_connector->ddc_bus->aux, 16, 6,
-> +                                           4, max_link_rate,
->                                             radeon_connector->base.base.id);
->  }
->
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index 20dc705642bd..b5b0bf37813b 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -593,6 +593,14 @@ struct drm_dp_mst_topology_mgr {
->          * @max_payloads: maximum number of payloads the GPU can generate.
->          */
->         int max_payloads;
-> +       /**
-> +        * @max_lane_count: maximum number of lanes the GPU can drive.
-> +        */
-> +       int max_lane_count;
-> +       /**
-> +        * @max_link_rate: maximum link rate per lane GPU can output.
-> +        */
-> +       int max_link_rate;
->         /**
->          * @conn_base_id: DRM connector ID this mgr is connected to. Only used
->          * to build the MST connector path value.
-> @@ -765,7 +773,9 @@ struct drm_dp_mst_topology_mgr {
->  int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->                                  struct drm_device *dev, struct drm_dp_aux *aux,
->                                  int max_dpcd_transaction_bytes,
-> -                                int max_payloads, int conn_base_id);
-> +                                int max_payloads,
-> +                                int max_lane_count, int max_link_rate,
-> +                                int conn_base_id);
->
->  void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
->
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 0369d3532bf0..03f3cf194300 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -1574,6 +1574,9 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+> >                 amdgpu_device_baco_exit(drm_dev);
+> >         }
+> >         ret = amdgpu_device_resume(drm_dev, false);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> >         if (amdgpu_device_supports_px(drm_dev))
+> >                 drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+> >         adev->in_runpm = false;
+> > --
+> > 2.17.1
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
