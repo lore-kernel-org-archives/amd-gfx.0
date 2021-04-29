@@ -2,70 +2,117 @@ Return-Path: <SRS0=oJVB=J2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CBD8C43461
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 20:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7117AC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 21:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 792F56143A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 20:50:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 792F56143A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	by mail.kernel.org (Postfix) with ESMTPS id 2A4B66109E
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 21:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A4B66109E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16EDD6F4B7;
-	Thu, 29 Apr 2021 20:50:26 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9AA76F4B7
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 20:50:24 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- l189-20020a1cbbc60000b0290140319ad207so554964wmf.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 13:50:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CgwZY9WscuJffR1Gqg4wYULfDMCPGdrJoulZCZijj8c=;
- b=PKDDXvvOFwxtF84RxPh/gtoKjns7uP+kpSWRxQNOBGOXv4d2PenN3iappBq6XZBXnq
- 9BtuRiiVzMOxB/IZK2f8Qv1f1NPnDR7ETvSFhcCcKzAeMt5LT6K1ILXRI7f6XAqlYRoU
- wz4/aPMerpmBeAqznvmVSkUz0Ix9pFiRsjgIjgK0gVXtbL5EhQeq+q3hkg9leBX5coNc
- vR9PfBNv9l8w7F0KQbuPF38uKRaYeRSE4iYEgwCsFzBBSeJZlXN93ojfBc2V0CfEbgOK
- FDB/0zm2P+73+KPN3PO/XGDQ0ygjViZFSiqRGzaUFj22vR6y8BxUs2o4ycHK2VdI65H6
- 6Pjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CgwZY9WscuJffR1Gqg4wYULfDMCPGdrJoulZCZijj8c=;
- b=gi/Rxqxx+j2lrZiiw09ZS7/rDq9gFJ162mfYZMOXBfXp09M8pxopWVXeoZajA01ctR
- obTNHHyt3M62hugrR2bKkinM5phiA808CsOQDlmH3rBK/+BRzHMxSkY11WrQ3mEdsTBY
- eH2MuHQ3lW7h23WPIpFi1GIxet4U2omYpS44XaYLl/Vln7oKNP5UOnbWxzeqlYhGtsBM
- UssXjcfAnar6RnoNGJRwtCaPHRRjqKSx5N3hPjyGV485/JOtQIuNMrsn/ms/Od0Oipqy
- 3Jb3s35lxecNdrFklWda0skboO07o0S+Kd8rYV2jbTzTG80SsM0eGWSetGBtkRjn8JMS
- oOpA==
-X-Gm-Message-State: AOAM531ifKMbcAYL+XfCqUfvtgIihbCb8YQ/fQWXlgJXWe089POLSecB
- CcHp6TY1EzxkuLeFBmfIA9WNpO2JJOAH5A==
-X-Google-Smtp-Source: ABdhPJzgAyTtgPxxjLR6VWf9NmzgXwX7kagFOdHWUMljvAgRoIGxYyeFnQxbEOBY8OO3UFKOHutJLA==
-X-Received: by 2002:a1c:4d17:: with SMTP id o23mr12748153wmh.102.1619729423397; 
- Thu, 29 Apr 2021 13:50:23 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a77f:2000:7285:c2ff:fe67:a82f])
- by smtp.gmail.com with ESMTPSA id y21sm11931866wmc.46.2021.04.29.13.50.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Apr 2021 13:50:22 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D819C6F4C8;
+	Thu, 29 Apr 2021 21:25:23 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC0BC6F4D6;
+ Thu, 29 Apr 2021 21:25:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JRxGzcGGEu3yT1v1hzX4HPTDB4/cbyqZfWwOk6Qv/QbU5P6ufc+mo3kVF8p/o3BduD/4izsapqvjOdEIRG11/7so5cA8Uz071QQ/7F0s1pDNQNfICh2Y6jpQ49Gy9p0yhIHJJf349zzUAkhDIOtd8Cc7L4NJ+dTaePGmqBbFcYdsHyNHJ7AvM6UWueIY+7ZfiVyIH4JmTjpdNylAfHWCCuvQxFQ0Rh84EPVpqyqmzQoGeqyVCboXUUAZVhUJHZs+j17boIld3XS8zsFN1CyrpHVYPPYe2GtWtNgu10Et+PUokyeJGg/9Dg8aV1enrHOcZlxHTRPoRyEo62PY0twC0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mTypNYsXUcOYYtMP7KqtdHax2ENZdMVPgxsEVbg76dY=;
+ b=Y0nlGkFEyAyG80BvojWxz4p0mW66DGoc2os9ZU3NAaQmXcBymO9mPhWHnPWmr/KKXzlqMTNnMiy8JR3KHsokjoJs0Otp8isu7eNg2TnHGa3GResu7QMi8gk8yzwxkpjHBJmRH3KxnYoaHuLjYV46lzE7LG+Ya6SmVFBGYJroPOK7zdhzfFlyg+85eS2GciKB1my36/O/KQ071oQkO31DfLSYJMH9u2/niARYpLb37jK95LsmICb6WLUN9ahJH5XE4eovBv6tyFyq7VA045Xft4dKkvEdieOFPnD9K2dFb2/CJ0QmSuPyNldaRfqbwiMLKb5HJpqSO6WZ7e4jOybMgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mTypNYsXUcOYYtMP7KqtdHax2ENZdMVPgxsEVbg76dY=;
+ b=QLUpOw/+QLID/IduovVbHaXUjF2Tx5QjMyOUbmUjRBB+BglamDIMjEsr+pT6NEevAUBqEJ4qj+a0mGb6zCA9Jny8onZ/3LpuYgwObf6eydFfQG1kXrJVqg1DT/ZEIy/80sNKpxwJVt76z6SppzxTqCY2Xd7orTIrcpof8fx95kY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com (2603:10b6:4:a2::37) by
+ DM5PR1201MB0219.namprd12.prod.outlook.com (2603:10b6:4:56::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4065.24; Thu, 29 Apr 2021 21:25:19 +0000
+Received: from DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::595e:20a2:f658:a7a5]) by DM5PR12MB4679.namprd12.prod.outlook.com
+ ([fe80::595e:20a2:f658:a7a5%5]) with mapi id 15.20.4065.026; Thu, 29 Apr 2021
+ 21:25:19 +0000
+From: Nikola Cornij <nikola.cornij@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] Revert "drm/amdgpu: Verify bo size can fit framebuffer size
- on init."
-Date: Thu, 29 Apr 2021 22:50:24 +0200
-Message-Id: <20210429205024.892894-1-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.31.1
+Subject: [PATCH v9 0/1] drm/drm_mst: Use Extended Base Receiver Capability
+Date: Thu, 29 Apr 2021 17:25:02 -0400
+Message-Id: <20210429212503.21355-1-nikola.cornij@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: YTOPR0101CA0021.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::34) To DM5PR12MB4679.namprd12.prod.outlook.com
+ (2603:10b6:4:a2::37)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from ubuntu.localdomain (165.204.55.250) by
+ YTOPR0101CA0021.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25 via Frontend
+ Transport; Thu, 29 Apr 2021 21:25:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8a319b66-b5a5-4ec1-5ac0-08d90b554a3b
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0219:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB02196E7DE6F3D94ED700C534EE5F9@DM5PR1201MB0219.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:663;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 13Eh547VAOzB3B+grCC9D936sqwd3TZ94xlxbstShputLqC1cE9ioxJ1o0RiXwI9+Spupbhd6NzIro3fsA+cNY7i16dtMaYmzai198lX82k4UcXxkhWyDtw1lGGgYNq3L82J92omskgIUBqT1J3grDrErEBQUgmsXfBMQ1rFBQFccJrcSZCRaNGXomVNaNeoGMxsKoW5YVXxOmrmJ0mmoAzk0jBWmKVk3EA8vr++3dHXLOTyVfvQuUINy3AFrqeI2W70UKvWO6fO7LllnaOXW694XBfSYNTmukBtG3CWKC50f6Fjtm95loU7sgTLKvty0QRG3CmmFmDgXZUPMMbuthWXmkmoZWNw8soLMsCgZVGeNrz1W6JNqYmY0DJTrWFdfTwdJZfzLxjMGYuzCZBq7H6RRUapoCNBE9NzO7lPiNHL57w2aaL4NrJ3gX4I9GXJCnaxjcQ2R/cWYLABqCchvyJfdoClMssUKn8l5TSX1WlfA9g3LFpp9QYXmXxlqlSzYoDB2OL6k2EjlJKvtYfYZYw2gvQwCG+rLDR/PNjHNEWif5KgwdKRb+u0jdtgwnEDtkYwrRAYmHEUmajgmsD0t+gPYGQmN2FNrFIMkhEj263H0DvS3d4Y6dcRq+aFXYMBdH42vH2wY345EokRvTyf/g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB4679.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(136003)(366004)(396003)(346002)(36756003)(66556008)(5660300002)(26005)(6486002)(2906002)(956004)(8936002)(2616005)(478600001)(1076003)(4326008)(316002)(38350700002)(6506007)(86362001)(6512007)(6666004)(66476007)(6916009)(186003)(38100700002)(66946007)(16526019)(8676002)(44832011)(83380400001)(52116002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?RFB6NJ5T38EiO8bJHxTk1ZFEOlk2kAj5Iv9emF4wJXSKQZR7VnUc8xby3emT?=
+ =?us-ascii?Q?ni8NtVWkmh13AFzfXoLcTJmLf8XoFbwOCOfYL/zL9aeQRhaFcsIsey9xnqlk?=
+ =?us-ascii?Q?ld7Cd7hVe2iz0jSUf8WNVJ8ipCC+I7TA9Ws1IkzACt0R48ICa77uSumRyWnN?=
+ =?us-ascii?Q?25hnz9vIRYzbxDMpBARYOarxC4v+UY9i/o7JeWRwxko7jl/fFBZYADRKyrAK?=
+ =?us-ascii?Q?wAOFI5ZM89MMWaQGzklb/X6RAiXG7GKVuW+voTwDTLQ2YaJHIqUwXEFHvAuH?=
+ =?us-ascii?Q?NrxKDLUCeCsk4AZ/0a8LyXAyHg1z82zuCWeASTPmOousZFlnzYTbROxMAZiJ?=
+ =?us-ascii?Q?YcC/VsiDAGwkMRdjyP4eHMeSkmWK4jm8eyEjSZ+zIKZSjYUW7gK8v/7Sju71?=
+ =?us-ascii?Q?akrX/ByBT45og3ju1ZPXU4aybRycbUIyXOcrg4X6scT0ZOweTAB05Rxq69co?=
+ =?us-ascii?Q?dGl2NayRCzwhgKmCJ0oX3wQHKZbU/wKS0ub4Dm31o7jYUABYiLrspAir0JGj?=
+ =?us-ascii?Q?/wldn7S/Jr5HnMzp+lopH85USujaLFSf9Dms24CgNxbEXKl10xuATTNINkTS?=
+ =?us-ascii?Q?Uy5UY0il7YmXHzxYXjAnTUTdtFu7DFVbxRgh3MLWZ/qzG1qjesPnIqzxw3i5?=
+ =?us-ascii?Q?89vB4K0Z9rZftNBOOdR6ALXwRIk/LHSjLh2/TYTePq484t+M1DTxw1TzK1rC?=
+ =?us-ascii?Q?gaLfUfswgoyYLOHa4u97srfiv5zaLgZcPdfim8eRlvpU4acnlFKTJvfkSHu7?=
+ =?us-ascii?Q?vOZ2KLcU9ScP5bJiehzZQn+Vt4xPHDguDG6LWA9ZI+s0JKZnhcnQA5DSmZSs?=
+ =?us-ascii?Q?AbF7vJSltwcS0BKPFqkn6K1dwhE29sziI90SilNlyjvW9FFQAKjguBVLQgAZ?=
+ =?us-ascii?Q?mDuRPIyB6QI8JJ982eu3AZ46DVNNQom+apYlJNTbV3erCiIb2skpRrnuXDAG?=
+ =?us-ascii?Q?/VQoUD4tJqVtIRrAebPn4glsthI0lOroR/ziYYqVuA07002PtyoKvLACxk+q?=
+ =?us-ascii?Q?mfqyxzzhvanVYNYM3QxOXbGjBklah5ZOMNP71LSYv3yDv97rVmKCIpIrmpHV?=
+ =?us-ascii?Q?fo0ZWXU4cbxjASGJoXep84/Y+LDCVGOv1nYM5mVVV8+KNkdJANiUQyHU2Mec?=
+ =?us-ascii?Q?5Ue3jco+QQI2LSJA6xCu+/VODn5ksLYvAcVaztQs/G46OImbn/Du3XqT9+UX?=
+ =?us-ascii?Q?0o7HPPWzj4s0xy3IEfDsi8hPSjtgrK9EcTLJ0MC4l95K8rGzC47HqNmTf5+q?=
+ =?us-ascii?Q?4cF5gUTP3PMt5YOjSwSUtJjpnMZ8Az6YWx+iS97NI6SiXi7MRSaG8OgUoFXl?=
+ =?us-ascii?Q?Mmqriux5/KkQfWHJrUu+maHx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a319b66-b5a5-4ec1-5ac0-08d90b554a3b
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4679.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 21:25:19.6904 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OYnQKo+/WbeiPoeFUP+jx1/fjTvv1fyDYPsDXxOQc0hKTtBy/EemNMpRnlpgjPH1Yk8pSMS6B2BzCXnRhOuNGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,188 +124,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com, markyacoub@chromium.org,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Nikola Cornij <nikola.cornij@amd.com>, koba.ko@canonical.com,
+ aurabindo.pillai@amd.com, mikita.lipski@amd.com, ville.syrjala@linux.intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit f258907fdd835e1aed6d666b00cdd0f186676b7c.
+Change history:
 
-Same problem as "drm/amdgpu: Verify bo size can fit framebuffer size",
-but because it gets checked earlier it now only triggers on the
-modifiers case.
+v9:
+ - Actually send the changes under v8 below (missed to commit
+   before sending v8)
 
-There are a couple of reasons why the DRM core BO size check won't
-work for AMDGPU, especially around DCC planes.
+v8:
+ - Chaged link lanes and rate parameters to u8
+ 
+v7:
+ - Fixed formatting
+ - Fixed 'unused variable' compile warning
+ - Fixed comment format
+ 
+v6:
+ - Submited from (hopefully) the correct repo to fix build error
 
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
+v5:
+ - Fixed min_t() macro arguments
 
-For -fixes. Might have some conflicts with
-"drm/amdgpu: Ensure that the modifier requested is supported by plane"
-for amd-staging-drm-next
+v4:
+ - Fixed drm/radeon/ lane count and rate
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 68 ++++-----------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    |  8 ---
- 3 files changed, 15 insertions(+), 65 deletions(-)
+v3:
+ - Fixed check-patch errors
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 9a2f811450ed..cbe050436c7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -870,62 +870,17 @@ static int amdgpu_display_get_fb_info(const struct amdgpu_framebuffer *amdgpu_fb
- 	return r;
- }
- 
--int amdgpu_display_gem_fb_init(struct drm_device *dev,
--			       struct amdgpu_framebuffer *rfb,
--			       const struct drm_mode_fb_cmd2 *mode_cmd,
--			       struct drm_gem_object *obj)
--{
--	int ret;
--
--	rfb->base.obj[0] = obj;
--	drm_helper_mode_fill_fb_struct(dev, &rfb->base, mode_cmd);
--	ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
--	if (ret)
--		goto err;
--
--	ret = amdgpu_display_framebuffer_init(dev, rfb, mode_cmd, obj);
--	if (ret)
--		goto err;
--
--	return 0;
--err:
--	drm_err(dev, "Failed to init gem fb: %d\n", ret);
--	rfb->base.obj[0] = NULL;
--	return ret;
--}
--
--int amdgpu_display_gem_fb_verify_and_init(
--	struct drm_device *dev, struct amdgpu_framebuffer *rfb,
--	struct drm_file *file_priv, const struct drm_mode_fb_cmd2 *mode_cmd,
--	struct drm_gem_object *obj)
--{
--	int ret;
--
--	rfb->base.obj[0] = obj;
--
--	/* Verify that bo size can fit the fb size. */
--	ret = drm_gem_fb_init_with_funcs(dev, &rfb->base, file_priv, mode_cmd,
--					 &amdgpu_fb_funcs);
--	if (ret)
--		goto err;
--
--	ret = amdgpu_display_framebuffer_init(dev, rfb, mode_cmd, obj);
--	if (ret)
--		goto err;
--
--	return 0;
--err:
--	drm_err(dev, "Failed to verify and init gem fb: %d\n", ret);
--	rfb->base.obj[0] = NULL;
--	return ret;
--}
--
- int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 				    struct amdgpu_framebuffer *rfb,
- 				    const struct drm_mode_fb_cmd2 *mode_cmd,
- 				    struct drm_gem_object *obj)
- {
- 	int ret, i;
-+	rfb->base.obj[0] = obj;
-+	drm_helper_mode_fill_fb_struct(dev, &rfb->base, mode_cmd);
-+	ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
-+	if (ret)
-+		goto fail;
- 
- 	/*
- 	 * This needs to happen before modifier conversion as that might change
-@@ -936,13 +891,13 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 			drm_dbg_kms(dev, "Plane 0 and %d have different BOs: %u vs. %u\n",
- 				    i, mode_cmd->handles[0], mode_cmd->handles[i]);
- 			ret = -EINVAL;
--			return ret;
-+			goto fail;
- 		}
- 	}
- 
- 	ret = amdgpu_display_get_fb_info(rfb, &rfb->tiling_flags, &rfb->tmz_surface);
- 	if (ret)
--		return ret;
-+		goto fail;
- 
- 	if (dev->mode_config.allow_fb_modifiers &&
- 	    !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
-@@ -950,7 +905,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 		if (ret) {
- 			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier",
- 				    rfb->tiling_flags);
--			return ret;
-+			goto fail;
- 		}
- 	}
- 
-@@ -961,6 +916,10 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 	}
- 
- 	return 0;
-+
-+fail:
-+	rfb->base.obj[0] = NULL;
-+	return ret;
- }
- 
- struct drm_framebuffer *
-@@ -995,8 +954,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	ret = amdgpu_display_gem_fb_verify_and_init(dev, amdgpu_fb, file_priv,
--						    mode_cmd, obj);
-+	ret = amdgpu_display_framebuffer_init(dev, amdgpu_fb, mode_cmd, obj);
- 	if (ret) {
- 		kfree(amdgpu_fb);
- 		drm_gem_object_put(obj);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 4c5c19820d37..24010cacf7d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -232,8 +232,8 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 		goto out;
- 	}
- 
--	ret = amdgpu_display_gem_fb_init(adev_to_drm(adev), &rfbdev->rfb,
--					 &mode_cmd, gobj);
-+	ret = amdgpu_display_framebuffer_init(adev_to_drm(adev), &rfbdev->rfb,
-+					      &mode_cmd, gobj);
- 	if (ret) {
- 		DRM_ERROR("failed to initialize framebuffer %d\n", ret);
- 		goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index cb0b581bbce7..319cb19e1b99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -602,14 +602,6 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 			int *hpos, ktime_t *stime, ktime_t *etime,
- 			const struct drm_display_mode *mode);
- 
--int amdgpu_display_gem_fb_init(struct drm_device *dev,
--			       struct amdgpu_framebuffer *rfb,
--			       const struct drm_mode_fb_cmd2 *mode_cmd,
--			       struct drm_gem_object *obj);
--int amdgpu_display_gem_fb_verify_and_init(
--	struct drm_device *dev, struct amdgpu_framebuffer *rfb,
--	struct drm_file *file_priv, const struct drm_mode_fb_cmd2 *mode_cmd,
--	struct drm_gem_object *obj);
- int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 				    struct amdgpu_framebuffer *rfb,
- 				    const struct drm_mode_fb_cmd2 *mode_cmd,
+v2:
+ - No changes, this was my mistaken reply to my patch
+
+v1:
+ - Initial revision
+
+Nikola Cornij (1):
+  drm/drm_mst: Use Extended Base Receiver Capability DPCD space
+
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  5 +++
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 18 ++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
+ drivers/gpu/drm/drm_dp_mst_topology.c         | 33 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  6 +++-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  3 +-
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        |  7 ++++
+ f.txt                                         |  6 ++++
+ include/drm/drm_dp_mst_helper.h               | 12 ++++++-
+ 9 files changed, 77 insertions(+), 15 deletions(-)
+ create mode 100644 f.txt
+
 -- 
-2.31.1
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
