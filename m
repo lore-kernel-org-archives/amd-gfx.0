@@ -7,55 +7,53 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C485C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:07:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50EA8C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F17A61411
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F17A61411
+	by mail.kernel.org (Postfix) with ESMTPS id DF5D861185
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:36:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF5D861185
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A10186ED09;
-	Thu, 29 Apr 2021 03:07:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3687388E34;
+	Thu, 29 Apr 2021 03:36:32 +0000 (UTC)
 Received: from mail-m17635.qiye.163.com (mail-m17635.qiye.163.com
  [59.111.176.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC4D26EC64;
- Thu, 29 Apr 2021 03:04:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 296BE6ED0B;
+ Thu, 29 Apr 2021 03:18:12 +0000 (UTC)
 Received: from wanjb-virtual-machine.localdomain (unknown [36.152.145.182])
- by mail-m17635.qiye.163.com (Hmail) with ESMTPA id A113E4002B9;
- Thu, 29 Apr 2021 11:04:21 +0800 (CST)
+ by mail-m17635.qiye.163.com (Hmail) with ESMTPA id BAD4F4002A7;
+ Thu, 29 Apr 2021 11:18:09 +0800 (CST)
 From: Wan Jiabing <wanjiabing@vivo.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>,
+ Jacky Liao <ziyu.liao@amd.com>,
  Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Chiawen Huang <chiawen.huang@amd.com>, Anson Jacob <Anson.Jacob@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, Eric Yang <Eric.Yang2@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Remove duplicate include of hubp.h
-Date: Thu, 29 Apr 2021 11:04:01 +0800
-Message-Id: <20210429030412.18344-1-wanjiabing@vivo.com>
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Remove duplicate declaration of dc_state
+Date: Thu, 29 Apr 2021 11:18:02 +0800
+Message-Id: <20210429031804.19487-1-wanjiabing@vivo.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQk8ZSVZOGkIYT0hNTUpLQxpVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- hOSFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6ODY6Nhw4Kj8JOElLPxQtSAwc
- GDgaCjFVSlVKTUpCTU1OT01IT0JLVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
- TVVKTklVSk9OVUpDSVlXWQgBWUFIS05ONwY+
-X-HM-Tid: 0a791b95a6c3d991kuwsa113e4002b9
-X-Mailman-Approved-At: Thu, 29 Apr 2021 03:07:32 +0000
+ oVCBIfWUFZGUxKSVZLSBhMGkkfGB1IGk9VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hKTFVLWQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Nwg6Vgw5Hz8QGkkXEDgXMk1J
+ QjQaCyFVSlVKTUpCTU1NSUJLT0xLVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
+ TVVKTklVSk9OVUpDSVlXWQgBWUFJQ0tKNwY+
+X-HM-Tid: 0a791ba245b9d991kuwsbad4f4002a7
+X-Mailman-Approved-At: Thu, 29 Apr 2021 03:36:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,27 +71,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In commit 482812d56698e ("drm/amd/display: Set max TTU on
-DPG enable"), "hubp.h" was added which caused the duplicate include.
-To be on the safe side, remove the later duplicate include.
+There are two declarations of struct dc_state here.
+The later one is closer to its user. Remove the former duplicate.
 
 Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8f0a13807d05..dcaa6b1e16af 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -58,7 +58,6 @@
- #include "dc_link_ddc.h"
- #include "dm_helpers.h"
- #include "mem_input.h"
--#include "hubp.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 8108b82bac60..cad045db6ea2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -276,8 +276,6 @@ enum surface_update_type {
+ /* Forward declaration*/
+ struct dc;
+ struct dc_plane_state;
+-struct dc_state;
+-
  
- #include "dc_link_dp.h"
- #include "dc_dmub_srv.h"
+ struct dc_cap_funcs {
+ 	bool (*get_dcc_compression_cap)(const struct dc *dc,
 -- 
 2.25.1
 
