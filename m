@@ -7,111 +7,114 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10F37C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:48:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49022C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C14466143F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 03:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C14466143F
+	by mail.kernel.org (Postfix) with ESMTPS id E287061434
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E287061434
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35E86E1B1;
-	Thu, 29 Apr 2021 03:48:43 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FDF76E1B1
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 03:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 683606EC7D;
+	Thu, 29 Apr 2021 06:09:18 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E6BE6EC7D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:09:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B4UFu7mg8/rSYNiOurjZQJk4wgCVzPkqvN2X6FLzbeSdjeAGMSD5gzIH65Wt6SNMKCFpmC1ycDIWEapaupHHg3ROZFCWvHokd/kZcslKknbG0kAQvBqwOjP4kpu+AliLCl0d7IF0mzPtAsWrwhQntJ6LG5Cxulssck4F85FcAJqrARA+qJMvYihV+Qd+OxwyJK35s7iDJs5Wy1OLRMsKL5dRN6J5q/5BObcuu2SNk6QQc31upwFSlFNvmz/2n8a+FWPejtaRK5IRcUS1ekmjTqH+Ghq7QhA4PMTWnwNCljNL3h5+dvJOgNCsaN5Z08dYK3J0/giIyVVHP/i/ErVivQ==
+ b=J4i20+YnXznykwrz1WRzQumxMzeQMLZF+PK2U3gG7Tct+WmrvZSXIYX3TR42WNdonb2eQmhgqoTOC0UitleBP34Jb3xk6JyuTc6RQO6HvciIM9mIfLyYm3XVMCLMPcI6QRkqAyqsU/WpLTEIGMP5l4QQ7G6XRXjO9BBb1bTS2Oo8zLiZna4tMhivqMGBnpXEUgbe82g4FnK4PVsEI3AHv0p1WQVuzIUlj6TSYfaviYHY3tRtF9OhUm4D14nwjcFCZUmRkyZSahUrXEjKH799uuH5sbb7s8FmFYNJmSXCuPMVdO4tRqp41PavR81zfvUBbma+EfOF3Bus6zhYIT2raA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8vwVjkvSnvLLnWU/XaLsXfVKmQaGAapc82M/tQHVqW4=;
- b=WFpbjEZaGxFZ9loSNJw91aMgjU9LtICQpBwCCn4nx6PAR4QAPZr62iysCCKRSflvj7MWzoCDE4XW0dwyxecSyK0aTZQX9lnT5clFIvrC2si+BvYZOwM0WSPWmMhaK/FFjVr9AhU0sJq4wmrvfle/iSfAvlqOAcKIjIU2T/XiGC4CvcJVSpRwoVJYzVtHw+s6WQFSJ2KBVpsEWJtqc0PkoVla+UqAw2hLVYpAFboaDpNYTEs6CWmQ5pMRXDi5tmcq+TibQowbFyYcq5AIky7C/xBgRyVjwBA5i0n+lkg71tTsq3KqG7NjW07HqY90IoY0Kr75jMJo8xtPioXPn/Bj8A==
+ bh=k/UjNoD/Ptl8Pqq9txX4ZqKua7Tel8iAWKtlIFRk5kY=;
+ b=HA0GmZ/vwsPZfcyP3kHWkF9ow7ej9Itmw/zG35WU5bn6L8z79XyuUA8dWZxCSwoZvSQNwjwbbzJMgn318IuFf2cgkyxgBECO6gTLqYQVaqojGy6N55xAjDYhioELf2K274p7gbLNBObnlYVaDqI+LqyhX2pcEQ1yJF/Tj1elBHBBZMOUMxeJTFSKIDyh55jup4UY9sxsvcffQy2o4Zdtg/W6nI2qIwHWedjDh19wB2h4/KKDP7cUL1y1Eu3OKYHzi6ubFl/+EZ7tx0wlHUoDvm1Koicj9LuVImaQZsGvxcI80rbXMM6vjafUf6wFS0ApUvpJI6Zj/r03Iqx8yCK+IQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8vwVjkvSnvLLnWU/XaLsXfVKmQaGAapc82M/tQHVqW4=;
- b=FjCyoYXiTMqjOdpRVhOr/hfXF2ZZXdl9EG3WV8xU6UdiBXCObrzYR6OV0gDfOenauCLVr86C7UHG1zHwBwIq5NmxZ0w+Ifpy13RljskecnXYt1m6HsNi9QGDqpAW2Qnoqi+KtzwZx4VDg8dPdPUNnrfqXsgziQ2e1fqH7aixGdM=
+ bh=k/UjNoD/Ptl8Pqq9txX4ZqKua7Tel8iAWKtlIFRk5kY=;
+ b=qg+Gyhe1ONBrKC5waVrdO5IgVEJx3PX65gJoAvgAQHasZg1rYHJQXM43VT04pn0k7uMJ9PIWzGKBkEs6r6lbbrW4x1Dv/52uspbEUAOh+Bv9hwiKxQVYrqM7HEJ5RbPP37auG8g8fv+4uzHDKDM32ZfIP6ofwPlX1F774g9Qb/0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR1201MB0123.namprd12.prod.outlook.com (2603:10b6:4:50::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.24; Thu, 29 Apr 2021 03:48:37 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::14a7:9460:4e5f:880d%5]) with mapi id 15.20.4087.025; Thu, 29 Apr 2021
- 03:48:37 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: add new MC firmware for Polaris12 32bit ASIC
-Date: Thu, 29 Apr 2021 11:48:14 +0800
-Message-Id: <20210429034814.1754882-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.29.0
+Received: from MW2PR12MB4684.namprd12.prod.outlook.com (2603:10b6:302:13::29)
+ by MW2PR12MB2540.namprd12.prod.outlook.com (2603:10b6:907:7::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20; Thu, 29 Apr
+ 2021 06:09:13 +0000
+Received: from MW2PR12MB4684.namprd12.prod.outlook.com
+ ([fe80::14db:e180:2a16:1b2a]) by MW2PR12MB4684.namprd12.prod.outlook.com
+ ([fe80::14db:e180:2a16:1b2a%3]) with mapi id 15.20.4065.027; Thu, 29 Apr 2021
+ 06:09:13 +0000
+From: "Changfeng.Zhu" <changfeng.zhu@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	Ray.Huang@amd.com,
+	Kevin1.Wang@amd.com
+Subject: [PATCH] drm/amdgpu: seperate the dependency between CGCG and CGLS
+ when diable CGCG/CGLS
+Date: Thu, 29 Apr 2021 14:08:53 +0800
+Message-Id: <20210429060853.4144-1-changfeng.zhu@amd.com>
+X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [180.167.199.189]
-X-ClientProxiedBy: HK2PR03CA0063.apcprd03.prod.outlook.com
- (2603:1096:202:17::33) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
+X-ClientProxiedBy: HK2PR02CA0202.apcprd02.prod.outlook.com
+ (2603:1096:201:20::14) To MW2PR12MB4684.namprd12.prod.outlook.com
+ (2603:10b6:302:13::29)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (180.167.199.189) by
- HK2PR03CA0063.apcprd03.prod.outlook.com (2603:1096:202:17::33) with Microsoft
+Received: from changfeng-pc.amd.com (180.167.199.189) by
+ HK2PR02CA0202.apcprd02.prod.outlook.com (2603:1096:201:20::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.8 via Frontend Transport; Thu, 29 Apr 2021 03:48:36 +0000
+ 15.20.4087.28 via Frontend Transport; Thu, 29 Apr 2021 06:09:12 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4125623c-4c72-4b21-052c-08d90ac1abbb
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0123:
+X-MS-Office365-Filtering-Correlation-Id: e0bd1c81-8746-4331-0590-08d90ad54fce
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2540:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB01237146AA0A21DB0C1CCB66E45F9@DM5PR1201MB0123.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:71;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2540CAD2DA92E7B8DB05EDB2FD5F9@MW2PR12MB2540.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yvPLy1BIp/2zzfcLc8a84dnbxiv3i8Fae9Ah0+ESiMNa1Q0KaTNdwxicVXAa33P5XI9wgx6W2rn/Q68V1NlIN5jL71U3ZBp9em1sEjDeSXzHz6ziqQ/kOcwrnzK7S/Oj73lWT+Dfj5kZoAcW+77xy8IeLVaLog8q62JSu4XzC1dOr7M85lwlJQZVlWbXVgPWyOGwFI9BCth3bH5aPHWOoIhmeO3rk52zXI9sgbYlZSUKHTZqtjwqh9o6ztX6riV3dggoUatRwn+i03NXL8XNgo0k0KH7F6/SThDsotfAnklDKsksk9KaiJZaKWLZWuzecaBLM2mWD6BgpSk18O80euZuJptVrKKf94S3WEQUkmb4EVp0I4meJgjdlWIYUA9vSxKcETl3JYYsB8KAFTjNuVhloqBCtcbCeL5RL18GeMHVoINVkBW/2p5fnLDKq1n47NzX5DoBOgv7B5E9QBchn9ul8UhzCfXRWk4Lx66iKqB5J2Uw6TopwQwOj5f2Efkv+ycGn0zv0ViaXzzvv6rtAposzuEqNpHMWBz6deg/FT6P/Nq4rMSXCJBZaTnBzgjbHY3v0bkneponUfoOGKYhMLwc9XqSq2br7D0ey645QgKTvyfRtVQqPY+2Py7FB0wdqFHkV1fxvDEtryEv0o15Cg==
+X-Microsoft-Antispam-Message-Info: 8vc5UqbCloNKsY74dkoP1ZbbkzyNAGI5MRd04hVHDMc/adlof23J/6A43asrtlzDuq92tQYCHpJpR5XidAFJWYIfKkGaAHM5T9Xz0GyYEX4ZzJhhluGlg/4PwhnNmfaTb/xYWV8nH8PMjGLZ21K36IOne6AIvMxD6ThbAXVeY4aqmFwqq31G4ghwoxW5IZ7avSGCw0BWO0cxbt9suV0utusOsXAzkp3gCkU5Gxjzky1e4NVEes35p7uPkLTPvoWb//WVJvpykgdrPUo1hRFpnl1tu3FfCmlE3pGNDCxFzKwDCygrAFxxmcOBTtbVZ3B2pLqpIZtUXsOryrhtN0vivc+sYBg+6EaIIXoP33ngxTITB7jZwtowmAeHU77nTs+Pf4Vu9CM7+eVBEX/vG/BpN1nBwxTwqVZwka+rTylp2sOb/NGaoVUZeHKKhqDuy6vIEFjqnAfKMw5oxsfHhtQH/+ITqwbZjZg4rOrwINZC8ACDtSUVmpBqhrLjAfTSlYtug2/Lhf3hV8vRf0Ux3ogqdCBfNQBfYC2SW3jlnPgacQ5awerZWqM1xInHXupvQnwNqnOL4+0jn1jznWX/M25q4QbXOtAJlc9PGQfix9QRzDUPONeyhNRFVf7n2m/FGH9HgrD44OgyUcyFK7NLibWxxushcM32Kxl2jp70CjxhgQgx3IMVdkF/enZl0yliR2JK
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(136003)(39860400002)(346002)(396003)(6916009)(8936002)(66556008)(26005)(83380400001)(6486002)(16526019)(38350700002)(956004)(2616005)(38100700002)(4326008)(66476007)(1076003)(6666004)(86362001)(186003)(478600001)(2906002)(7696005)(8676002)(52116002)(316002)(66946007)(5660300002)(36756003)(44832011)(54906003);
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB4684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(136003)(366004)(396003)(346002)(7696005)(36756003)(52116002)(2906002)(66476007)(6636002)(956004)(2616005)(8936002)(38350700002)(66946007)(6486002)(1076003)(6666004)(38100700002)(186003)(66556008)(4326008)(316002)(5660300002)(26005)(86362001)(8676002)(83380400001)(16526019)(478600001)(16060500005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?gcRtaGPtuq6BaZ+bSfoRk1jVPHUV67s4P6aFbcSbZ7ccrdbKywGpuCVT+COp?=
- =?us-ascii?Q?/xoncMTTEpYWzdjIUFvCsngHeOEFDg0XPZGB9hUbJkticRr/OxWh7NL94DR7?=
- =?us-ascii?Q?8nzebftG57D7H9LP9CgNL8TcNdhD2uggb+78H2G5z9gMuvZMu4IWEs8I+Dhz?=
- =?us-ascii?Q?KSea4RFR6MR0w/HbStuMBHW+cyl1bV+toxQfRXOP1pBzBY4gIODonrcVhCsZ?=
- =?us-ascii?Q?Dm7qtSE5bWFLcUuOBJx173kZeePDJC/3n++aTvDwK+jw4ciFIdzcqp1KYcTE?=
- =?us-ascii?Q?rVdbVEfgzgZ+5xZc0sioya+LDfDAJthAOTHQHasJUYV2YRlV+qJOLGFLO5K3?=
- =?us-ascii?Q?JdIhoTwdz9+6J4PQa4iZyJMDujqoRNW8xkUN8hZlkU3LKpq5iUDV2Efc+KWF?=
- =?us-ascii?Q?3pPdOQ0y5mpovo38q569znF+2i/L32uA2U9B74qWeZWxSsYA9GAyh8kPCcCL?=
- =?us-ascii?Q?gjpgWhmubGUZrJ+sbsdTnS1yyZAoSmvAl0sBqd/Ez0DB/Y6TW38ouVUkQNCm?=
- =?us-ascii?Q?BRksasragJDL1GiuZgswBOoZg7qfrpNJpHA4PJ8QPL4gRgKMOeMuJLwbHFz4?=
- =?us-ascii?Q?5RPd8xu5yXWU3bz6TYGwu0SPQh7gulElKtw1NC2OVhezGKLVyPjlPs/9eExg?=
- =?us-ascii?Q?UQlz7ohqCuRjEtNMyRDqRtf32BEaHYlXF0SfjpHZtSTQogyc4/3YdOs0Ip1Y?=
- =?us-ascii?Q?Oi79Xz7cnaBBGGRUb2m/s1+/vt55QqUSAO29RDfkGoeMXyWMd6ig0QT9VWO5?=
- =?us-ascii?Q?dnkHRGZmnHWZJKTpt4AJTqvrxiIlrxz7qDIC41nwkVqu4F0KzkwuA+Cs3ska?=
- =?us-ascii?Q?POpOF9Wf7s3VRg2wDxRQG63LFon659kHkbvlz8nkR6EecleyjJoNa9P/z+Ow?=
- =?us-ascii?Q?ipNrkIPcD3o+GRJvD07Ts2Chu2HsNrIbpwBPaNFZnmsLMyxqApH2R2vh6ofV?=
- =?us-ascii?Q?0MgpRBg4pCoGXW11unnsTjVxGCLPyrNVjZthUvkP70BvHypEgEvH3c5iEESs?=
- =?us-ascii?Q?Rrb2jNF4gGZphBzT0721LBrny1lR7sFYz8ImO2PT/aqm0nx9Rhe18gByY4P8?=
- =?us-ascii?Q?TOMvi3h/fhJ65cPiIU1KEVzwcaotEAWLsGHdB4ymuPUkz5J7kmZAggKsGvNv?=
- =?us-ascii?Q?cixJyDL8NOJ7uasxthM8dpSdvxE+926AGjE+yTpi3cLWpbt73laKOvtM07bL?=
- =?us-ascii?Q?/FBBpMiGR6SXIle54i0yP+c6qVwsgnqFWBS0HKRQ0y1cYgc69mb9GJRwMtxp?=
- =?us-ascii?Q?/w1flADXQIA0/DiqGBN10CmwycMlVbhaLYEONtVC5I2HZy4vB4DE4WQpFHgt?=
- =?us-ascii?Q?hDPJQWU+f5QzgQ1XF/2p59uO?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ZpRUbo8DdLTJM38yMd7BFzxUR6cx65II1yitAxvZR3iU/TZ9iuqTL2beb9gH?=
+ =?us-ascii?Q?JbfJFIGpkhijpcsH9G3PflcRL9GjbbGMMrUF8OhcefATTYbkCtdFVqxuJIVU?=
+ =?us-ascii?Q?VU5FaMiBgu2B6EM3zB8Z8aZZSBcf2Krl204WLHl/l5vnDa23jQlTN9JuHsWA?=
+ =?us-ascii?Q?RTHVN8CnscF4SnkdkXcGwp0fCvYNIS2EvgoV36oEnaneZrSNR6KgW/W0N/jv?=
+ =?us-ascii?Q?M4bcTwXrp1MNx3rJAuN/KoyrHqR2ukj3gAhI3OQneUDyueG5coibvInswrBK?=
+ =?us-ascii?Q?36wb1AsMfB9MwZnRsy8JK6RJt8hgn3cHWUCgvjq79vIWPJOnWruenfuENzs4?=
+ =?us-ascii?Q?iHxcd28h5xWY8YxdQNqgQHysENoBCdM22bsrj7Qu0jBkwil02Rofm0r3+XWd?=
+ =?us-ascii?Q?rRPA9LVDVJ67kfvDuy5upkBflODgT4Vce6xLTkz4umPtFEi06j2Cdk3VG3zL?=
+ =?us-ascii?Q?OWCv1+HUbnuUqvRHd5n+Y0x8ItmNr+FEH3Q5ZmjCKnFOdkoqEjKiKJxnhqPr?=
+ =?us-ascii?Q?LWIbOTmGQOSW18A62Pdyf5cmT1Fs5xqnhIE597qM68wTHLCI08F5tuipbzVW?=
+ =?us-ascii?Q?OzScqQUMkJ8LYEkoe7+Xfo44paFxABlBFzmG9pUsdj4QpXF59R2wTQcLCUzI?=
+ =?us-ascii?Q?BbRBod5SYDBxEuFY4KOxUWwFbWJnNBzWoGNJ6EJsMh+74VkzNwafUL45mnOO?=
+ =?us-ascii?Q?AWkriULylwbP3PJ+AKrNspzLBw5hitW+W9y4D+OH8jkrJpGE93rtTEgBOfE5?=
+ =?us-ascii?Q?QxBzlvuef5Zt64nD5XwncrZ3tX9eMHS9pGrSGCpD8oVaQ53/ToCNkPPqqlgN?=
+ =?us-ascii?Q?4TIVYp/u41jcTS0wlc20iG8l5LwabHuNKhiBAXbD4eLrfUa5IqtAZO/WXVPx?=
+ =?us-ascii?Q?F3z8JB9hCe9jYjJEAKnoYSGwnXrJMMrD/bezecwAf6wQHY+YsM2nZMh76Z+A?=
+ =?us-ascii?Q?NvU6O8JkHD8yE/dQahgY7ovqeInxaLEL/TYEj8UFL6t5i2uK1K6EUO0t7Wc5?=
+ =?us-ascii?Q?BWfZXjxk+2yGkHbciUPfx8R0D2Pi7jMcuAi1i0kLqJdoKR627fEoyU8WN0/L?=
+ =?us-ascii?Q?7IcJkf2J36NntA1Tqn2S9L9rqxNR4agqMn80CBu37oilS7TQqU00iijZukap?=
+ =?us-ascii?Q?3JnnHNwlBrhrgcz6AvIKkq22z03keAZgTJvWznuI7Axeg+yPhNS5DQfmuCu4?=
+ =?us-ascii?Q?A1JSYKF9x++qPGVn4NqXl62lmtGb3aSjRY61hf59WUDnWpxGMdcGnTenJNOX?=
+ =?us-ascii?Q?fX7SHYmiknFzTDG4R13Z5nG7YcfMpT+Z1SiDcLhipUw8/OfckVraEzuzUpM0?=
+ =?us-ascii?Q?fuYjLLRCHmZliFn+X99SESbX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4125623c-4c72-4b21-052c-08d90ac1abbb
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0bd1c81-8746-4331-0590-08d90ad54fce
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4684.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 03:48:37.7261 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 06:09:13.5018 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WavIXyg6/2R9pvpfQQZVtYIte4zs/BxPYsfsNQNWuSiOgOxDDaPlTbXRhpqJZYM6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0123
+X-MS-Exchange-CrossTenant-UserPrincipalName: /0Mj549W5pH7edr5K7zLnh6SRnTUnGtapVJ5M2m5QaxE3w50gW0ZF6nZ/S5UJq95hEUg2lA0LAeRGuXgGrlSVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2540
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,55 +126,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
+Cc: changzhu <Changfeng.Zhu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Polaris12 32bit ASIC needs a special MC firmware.
+From: changzhu <Changfeng.Zhu@amd.com>
 
-Change-Id: I1eea9cc1d5c81a370c8fccf139f4f77bac4a1baa
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+From: Changfeng <Changfeng.Zhu@amd.com>
+
+The disable process of CGLS is dependent on CGCG now. Align with windows
+code, seperate the dependency between CGCG and CGLS and it will reduce
+confusion when debug CGCG/CGLS related issue.
+
+Change-Id: Ia91b8b16236bebd9224160672e500f6850dbc268
+Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 24 ++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 33 ++++++++++++++++----------
+ 2 files changed, 37 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index c1bd190841f8..e4f27b3f28fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -59,6 +59,7 @@ MODULE_FIRMWARE("amdgpu/tonga_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris11_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris10_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris12_mc.bin");
-+MODULE_FIRMWARE("amdgpu/polaris12_32_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris11_k_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris10_k_mc.bin");
- MODULE_FIRMWARE("amdgpu/polaris12_k_mc.bin");
-@@ -243,10 +244,16 @@ static int gmc_v8_0_init_microcode(struct amdgpu_device *adev)
- 			chip_name = "polaris10";
- 		break;
- 	case CHIP_POLARIS12:
--		if (ASICID_IS_P23(adev->pdev->device, adev->pdev->revision))
-+		if (ASICID_IS_P23(adev->pdev->device, adev->pdev->revision)) {
- 			chip_name = "polaris12_k";
--		else
--			chip_name = "polaris12";
-+		} else {
-+			WREG32(mmMC_SEQ_IO_DEBUG_INDEX, ixMC_IO_DEBUG_UP_159);
-+			/* Polaris12 32bit ASIC needs a special MC firmware */
-+			if (RREG32(mmMC_SEQ_IO_DEBUG_DATA) == 0x05b4dc40)
-+				chip_name = "polaris12_32";
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 49fd10a15707..3f8aa2fb974d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -7717,18 +7717,22 @@ static void gfx_v10_0_update_3d_clock_gating(struct amdgpu_device *adev,
+ 	uint32_t data, def;
+ 
+ 	/* Enable 3D CGCG/CGLS */
+-	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
++	if (enable) {
+ 		/* write cmd to clear cgcg/cgls ov */
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		/* unset CGCG override */
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
++			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
+ 		/* update CGCG and CGLS override bits */
+ 		if (def != data)
+ 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
+ 		/* enable 3Dcgcg FSM(0x0000363f) */
+ 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
+-		data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+-			RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
++		data = 0;
++
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
++			data |= (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
++				RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
+ 			data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
+ 				RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
+@@ -7758,10 +7762,11 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
+ {
+ 	uint32_t def, data;
+ 
+-	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
++	if (enable) {
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		/* unset CGCG override */
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
++			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
+ 			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGLS_OVERRIDE_MASK;
+ 		else
+@@ -7772,8 +7777,11 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
+ 
+ 		/* enable cgcg FSM(0x0000363F) */
+ 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL);
+-		data = (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+-			RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
++		data = 0;
++
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
++			data |= (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
++				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
+ 			data |= (0x000F << RLC_CGCG_CGLS_CTRL__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
+ 				RLC_CGCG_CGLS_CTRL__CGLS_EN_MASK;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 16a3b279a9ef..f69129097f2e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4946,20 +4946,23 @@ static void gfx_v9_0_update_3d_clock_gating(struct amdgpu_device *adev,
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev);
+ 
+ 	/* Enable 3D CGCG/CGLS */
+-	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
++	if (enable) {
+ 		/* write cmd to clear cgcg/cgls ov */
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		/* unset CGCG override */
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
++			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_GFX3D_CG_OVERRIDE_MASK;
+ 		/* update CGCG and CGLS override bits */
+ 		if (def != data)
+ 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
+ 
+ 		/* enable 3Dcgcg FSM(0x0000363f) */
+ 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL_3D);
++		data = 0;
+ 
+-		data = (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+-			RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)
++			data |= (0x36 << RLC_CGCG_CGLS_CTRL_3D__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
++				RLC_CGCG_CGLS_CTRL_3D__CGCG_EN_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGLS)
+ 			data |= (0x000F << RLC_CGCG_CGLS_CTRL_3D__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
+ 				RLC_CGCG_CGLS_CTRL_3D__CGLS_EN_MASK;
+@@ -4993,10 +4996,12 @@ static void gfx_v9_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
+ 
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev);
+ 
+-	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
++	if (enable) {
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		/* unset CGCG override */
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)
++			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGCG_OVERRIDE_MASK;
++
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
+ 			data &= ~RLC_CGTT_MGCG_OVERRIDE__GFXIP_CGLS_OVERRIDE_MASK;
+ 		else
+@@ -5007,13 +5012,17 @@ static void gfx_v9_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
+ 
+ 		/* enable cgcg FSM(0x0000363F) */
+ 		def = RREG32_SOC15(GC, 0, mmRLC_CGCG_CGLS_CTRL);
++		data = 0;
++
++		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG) {
++			if (adev->asic_type == CHIP_ARCTURUS)
++				data |= (0x2000 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
++					RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
 +			else
-+				chip_name = "polaris12";
++				data |= (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
++					RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
 +		}
- 		break;
- 	case CHIP_FIJI:
- 	case CHIP_CARRIZO:
+ 
+-		if (adev->asic_type == CHIP_ARCTURUS)
+-			data = (0x2000 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+-				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+-		else
+-			data = (0x36 << RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+-				RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
+ 			data |= (0x000F << RLC_CGCG_CGLS_CTRL__CGLS_REP_COMPANSAT_DELAY__SHIFT) |
+ 				RLC_CGCG_CGLS_CTRL__CGLS_EN_MASK;
 -- 
-2.29.0
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
