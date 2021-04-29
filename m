@@ -2,104 +2,69 @@ Return-Path: <SRS0=oJVB=J2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1AFAC43460
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 10:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE22AC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 11:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E44061453
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 10:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E44061453
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 80BD56142A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 11:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80BD56142A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA76C6EDE8;
-	Thu, 29 Apr 2021 10:27:24 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770077.outbound.protection.outlook.com [40.107.77.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26356EDE8
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 10:27:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UcZiO9OXPOphEWJGz6Eux0GlJLR+oZRjH3e4+bFYJUC4QbwjQ/3HODog++awLhRiP1LC0P1JfWcdQ53DmuXxJjSszbi+ed5f0UxGxWXdeJxJFzXemfpyBNQwWrwTd/lFhzvgURRjrZB5vRF1oPBIxefK79CCLLNXbBrxBO9t0uwAS3rmA2RoM0s6G2A93OV/aMiYUytVbvmbBIjjx8/8XDTGKpgI0hVK/W2vFXucsRuoCCY3E+vuGU/Ah0fTjzn4U1zvUQ77wIL9yi4zAcNYyPIdASQwAUjkUyoC8CidurgR6Aq5U0U8rtu8T865vrj2/2H3xs1D+DpQvG4xbsWXTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWLs19IQ1z01mj8ttV67RW1S/hlkJtZc9upRx25oaAw=;
- b=Y7mDtkMyVmihFf3CZLsL5NMTVeHwp/Dfd4h0yV9FXEWCpNm3NG0ieLR3jWdf3YVoD6GMbZZH7+QfNBLc+UtEGiS8c03mi5gm7wTCosby5F/hHnZL8IU9bTJ26NooA3OviLNyCQSnbVaWgRqTCJrWC0F16SUu0EySVJDXsmO9eSgX0yXLqEyF5aXoXKY5DJLi99ITaOADfsDnrxUHT6EIVGTdLCQBD4XbDl4WU2Pq5QvvKfoQEjsnx9s1dk/CBHxxZ+851GrZXuj08hfaqyZIfC0hFcGbY22F2W2JT4/E9MtofR1R4ZkSxYOup7GubwWQUYF0gNR5LjpqkZ4zcIlRfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWLs19IQ1z01mj8ttV67RW1S/hlkJtZc9upRx25oaAw=;
- b=w0aDR+JuIzM+/ebbq4BSJBOwAFpgX2W4ipH3bPLsmfj3BdAoJXOwywmha91NXbouGOBfphtmgEqkSkY6C0rRRDEaUuxKiakqlG3kpqadkNgA4TvNZTW2ctxva5irjIMJNBK4VUH4qALNqXM3L8sq3xFSsn5gaJRl3eCadzRFmVg=
-Received: from MW2PR16CA0041.namprd16.prod.outlook.com (2603:10b6:907:1::18)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20; Thu, 29 Apr
- 2021 10:27:21 +0000
-Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::47) by MW2PR16CA0041.outlook.office365.com
- (2603:10b6:907:1::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.25 via Frontend
- Transport; Thu, 29 Apr 2021 10:27:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=pass action=none
- header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4087.27 via Frontend Transport; Thu, 29 Apr 2021 10:27:20 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 29 Apr
- 2021 05:27:19 -0500
-Received: from z-bu18.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4 via Frontend
- Transport; Thu, 29 Apr 2021 05:27:18 -0500
-From: Peng Ju Zhou <PengJu.Zhou@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 12/12] drm/amdgpu: Refine the error report when flush tlb.
-Date: Thu, 29 Apr 2021 18:26:44 +0800
-Message-ID: <20210429102644.31172-12-PengJu.Zhou@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210429102644.31172-1-PengJu.Zhou@amd.com>
-References: <20210429102644.31172-1-PengJu.Zhou@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C56E76EE33;
+	Thu, 29 Apr 2021 11:23:23 +0000 (UTC)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1DAD6EE27
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 11:23:22 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id n84so8431272wma.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 04:23:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=MME77P409e6L4Lqp73Kfmz6ovDpO6MGhxVXUEs9x2GA=;
+ b=ahhaL+yBd0njOg+bQZjElRymwkzm8hHU02kfzW8LytUqS7m68FUGGoYOU4SEPUDR2s
+ SUx2pOe7BG1rD6v390gGVVJkzinfZQ9DDfx8Huzv9pbUOrNVovt6xSEoz5tZv70H1Gw6
+ 7VvsOKKpktPWLgVZIR97cUTvI/cNF6i0vFmMY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=MME77P409e6L4Lqp73Kfmz6ovDpO6MGhxVXUEs9x2GA=;
+ b=ly8L98E20bfdiKl5GHJ6MbEnvK6YiMPvXdSCMOcslVP0Gv+qHs7Vl0gFepbXmEUuxQ
+ Oqkgslf/+S7A1tyDZT5W5nBzl2HkfjEUZDr0AjmuFlkgHhN2HY9lCBx/U3I1qj0ibqiL
+ cepUmAS7ve4J7OMhEq1j0+N76phQYRW2eGqN/Qbee+5kgG2X9VX6JHo4ZM3EYe7L+ozF
+ xhpKWzOuf/H/OAdIQppn54VqT/sLK61Qr7n7N0Ntq3U0WN5K1U2lmecNvetowsViqKt+
+ KuhzICjC3mVhqzom65YLk8YdOr2U0wSXWWj0kPxtVQZEb9Vsj3WTx0VVrRGJc1Z87WlF
+ cS/w==
+X-Gm-Message-State: AOAM530nbLJiZd/74mw6id24PJp4NkjxDyYNpuLgp71NMgNlBWVMnioi
+ h2hVgPB00qnKcPigJVv8ZZxLgw==
+X-Google-Smtp-Source: ABdhPJzSKV9BRDc/LcwLGozOyN6YQSr+Q/Ou/T5wmRppbd31xUIBnqsxvhkYwtV7GT5Rw+cgU/XCAA==
+X-Received: by 2002:a1c:1d41:: with SMTP id d62mr2054224wmd.76.1619695401701; 
+ Thu, 29 Apr 2021 04:23:21 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id m15sm4282056wrx.32.2021.04.29.04.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Apr 2021 04:23:20 -0700 (PDT)
+Date: Thu, 29 Apr 2021 13:23:19 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v5 20/27] drm: Scope all DRM IOCTLs  with
+ drm_dev_enter/exit
+Message-ID: <YIqXJ5LA6wKl/yzZ@phenom.ffwll.local>
+References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
+ <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f62731e-a6d2-44ff-3509-08d90af95f18
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4406:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4406887693A9D0DCC6E5B7E9F85F9@MN2PR12MB4406.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AypgXFyNcUSX7OkVzDfevH3L6kFMew5jN+/b7PzM6HE/oiaP+S6hpBrMfbnOZfiI5G5IFGseE5YT3hvNQMI+NgKFqQ/INqsEJWZ/7i0TqkYLa6QgQfYoN8RqzhTP29Yoij5muqmUHINeJQUv86qCgZj8I2d1DngiiA3hAiImcuBD41yur56tgzwTbxkygnJ/oPhgL9iogU2uiJgWgmM3sDBkClVigNHY+sjZBKnEWM08hahtCD3p55NI9KVaHDY/Wfsj4ZA/SJqx1CcOtUL0aFK6uzTpju3fRf4NnURftro7W12ZgFSJ0PVDZL7fAaj6AsRwSZ6gqYc/AfvJkQrdkDcYPU4QpnXr9gD2k1MkV+mqYi373JkWtGm/ReuYxZwVDvf6I4KhwcAFPfxecac4uRKm7DrL9uOTC8sQVTdq2xUXzMu9foGOEQj4ecq5+EN5nTLC6l5/JdXBKBwnqKVWewys1tyW0/K7pzsb9RXdpL2InoQCjtuz/7YBQk55c2E8IBGmTi0mxJ9C91ep8ykiOodDW2Q2dtCuElsDBrM4FfNpj4Q1jpH0Scpig1fotXK3Y74ZzJWaIR3plPfWpiT7CZjHvS6zjnPLWSeCDwzQ4fo2jYreZjySwhDwpUzVKUr4VZlALWNfWSakXf7AUTVne1HYxxHe72X2s66CPSDCzsXmxxtTMcWIYNGBvRL3XbBY
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(346002)(376002)(396003)(36840700001)(46966006)(336012)(4326008)(2616005)(83380400001)(26005)(426003)(86362001)(82740400003)(6916009)(5660300002)(70586007)(70206006)(6666004)(356005)(186003)(81166007)(478600001)(36756003)(7696005)(2906002)(316002)(36860700001)(1076003)(4744005)(47076005)(8936002)(82310400003)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 10:27:20.6663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f62731e-a6d2-44ff-3509-08d90af95f18
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+Content-Disposition: inline
+In-Reply-To: <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,36 +76,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
+ daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ ppaalanen@gmail.com, helgaas@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-there are 2 hubs to flush in the gmc, to make it easier
-to debug when hub flush failed, refine the logs.
+On Wed, Apr 28, 2021 at 11:12:00AM -0400, Andrey Grodzovsky wrote:
+> With this calling drm_dev_unplug will flush and block
+> all in flight IOCTLs
+> 
+> Also, add feature such that if device supports graceful unplug
+> we enclose entire IOCTL in SRCU critical section.
+> 
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-Signed-off-by: Peng Ju Zhou <PengJu.Zhou@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Nope.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index c25541112663..33cd487741f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -297,7 +297,8 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 	if (i < adev->usec_timeout)
- 		return;
- 
--	DRM_ERROR("Timeout waiting for VM flush ACK!\n");
-+	DRM_ERROR("Timeout waiting for VM flush hub: %s!\n",
-+		  vmhub == AMDGPU_GFXHUB_0 ? "gfxhub" : "mmhub");
- }
- 
- /**
+The idea of drm_dev_enter/exit is to mark up hw access. Not entire ioctl.
+
+Especially not with an opt-in flag so that it could be shrugged of as a
+driver hack. Most of these ioctls should have absolutely no problem
+working after hotunplug.
+
+Also, doing this defeats the point since it pretty much guarantees
+userspace will die in assert()s and stuff. E.g. on i915 the rough contract
+is that only execbuf (and even that only when userspace has indicated
+support for non-recoverable hw ctx) is allowed to fail. Anything else
+might crash userspace.
+
+You probably need similar (and very precisely defined) rules for amdgpu.
+And those must definitely exclude any shard ioctls from randomly failing
+with EIO, because that just kills the box and defeats the point of trying
+to gracefully handling hotunplug and making sure userspace has a chance of
+survival. E.g. for atomic everything should continue, including flip
+completion, but we set all outputs to "disconnected" and send out the
+uevent. Maybe crtc enabling can fail too, but that can also be handled
+through the async status we're using to signal DP link failures to
+userspace.
+
+I guess we should clarify this in the hotunplug doc?
+
+Cheers, Daniel
+
+> ---
+>  drivers/gpu/drm/drm_ioctl.c | 15 +++++++++++++--
+>  include/drm/drm_drv.h       |  6 ++++++
+>  2 files changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index d273d1a8603a..5882ef2183bb 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -815,7 +815,7 @@ long drm_ioctl(struct file *filp,
+>  	const struct drm_ioctl_desc *ioctl = NULL;
+>  	drm_ioctl_t *func;
+>  	unsigned int nr = DRM_IOCTL_NR(cmd);
+> -	int retcode = -EINVAL;
+> +	int idx, retcode = -EINVAL;
+>  	char stack_kdata[128];
+>  	char *kdata = NULL;
+>  	unsigned int in_size, out_size, drv_size, ksize;
+> @@ -884,7 +884,18 @@ long drm_ioctl(struct file *filp,
+>  	if (ksize > in_size)
+>  		memset(kdata + in_size, 0, ksize - in_size);
+>  
+> -	retcode = drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
+> +	if (drm_core_check_feature(dev, DRIVER_HOTUNPLUG_SUPPORT)) {
+> +		if (drm_dev_enter(dev, &idx)) {
+> +			retcode = drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
+> +			drm_dev_exit(idx);
+> +		} else {
+> +			retcode = -ENODEV;
+> +			goto err_i1;
+> +		}
+> +	} else {
+> +		retcode = drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
+> +	}
+> +
+>  	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+>  		retcode = -EFAULT;
+>  
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index b439ae1921b8..63e05cec46c1 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -94,6 +94,12 @@ enum drm_driver_feature {
+>  	 * synchronization of command submission.
+>  	 */
+>  	DRIVER_SYNCOBJ_TIMELINE         = BIT(6),
+> +	/**
+> +	 * @DRIVER_NO_HOTUNPLUG_SUPPORT:
+> +	 *
+> +	 * Driver support gracefull remove.
+> +	 */
+> +	DRIVER_HOTUNPLUG_SUPPORT         = BIT(7),
+>  
+>  	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
+>  
+> -- 
+> 2.25.1
+> 
+
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
