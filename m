@@ -2,78 +2,127 @@ Return-Path: <SRS0=oJVB=J2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94141C433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 07:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FCC8C433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 07:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3274161431
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 07:19:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3274161431
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8C47E6145B
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 07:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C47E6145B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A93AC6ED42;
-	Thu, 29 Apr 2021 07:19:43 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 924B26ED22;
- Thu, 29 Apr 2021 07:19:42 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id n25so5205069edr.5;
- Thu, 29 Apr 2021 00:19:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=EhxLWRP/GuSFjAg4apJtx2QRUn4D0rnHK/YL0ISOyZM=;
- b=q09BOxPepbeaMBRp596xIsWs2g3HTr9dUDBZOpQ6NZALJjqjLw/9fOEMmqJoOv/s4X
- fqs3y//DDV4fQ1JYfZIL9q+0fo9rRXD0GlKPOs6h7FcYNLPInzQ/ij5ZuySEtCAVQ/cM
- BhwZisgp9RwlKq1fZ4VtkdycHH/JEYMEa/p/DjA/p8GugjX40TZ+bl3KlbuQY6EcAhda
- OTK5k0Wq+fiIEXbLs7aOEpf2/OeTz+71joWxHbI0B5TcELZ4JlH0y5t9d4dTjWhX1plp
- EQywJSrmG0RDD3mnf3BrRBlFDaSNJ49yaT28oGMLeeIt8twEGtel3c9XTsN3SL41yuJS
- 8dnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=EhxLWRP/GuSFjAg4apJtx2QRUn4D0rnHK/YL0ISOyZM=;
- b=b/v3JhhZfAWGgDJF8qq1M1ao8g9moKO/1RSd8PxRk8uz3kZM/dqPbLYmizbk1ZKCyJ
- EQ11ZN9U5JAjK66AOD+bnjvJ83gKy2jDkqx2YovB84f9JsWjoW2P1Tg8WV7gt4RXyVRi
- w4728FRzWZupa91t7q3TL37oQioz4sm6Wrhnm2gLfaMEIBMh1EQou8Y8LeiCceGoKhXN
- 8HUUzCu+QvqENhZYZbHrlyAIIlhy6d6inJxDJu6zDYBmpbSRE/BtqzG+ukVUDm/XGcxl
- vp7a2wjmuA2YBV5L6o+NrxnmIxLmY8P51N1y3wRyXKtCeqhnetn3dXB1mJ95w4xEI5GQ
- GG+w==
-X-Gm-Message-State: AOAM531W/haMZUejFBu6q82lRpkQtgcNFc705cx2VP+z51nrgMAj0/r+
- xNRjpT43i28Lph53sp50XDQ=
-X-Google-Smtp-Source: ABdhPJyEVvr7AG4/Hg5dZ3Fd2bkoJAbD3E+70uD1k2r2mar5HZQnKd+hKUR8fxM9mX/JRCbKcRezPA==
-X-Received: by 2002:a05:6402:781:: with SMTP id
- d1mr16882766edy.32.1619680781302; 
- Thu, 29 Apr 2021 00:19:41 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:49f7:8b5a:d7ab:5e3e?
- ([2a02:908:1252:fb60:49f7:8b5a:d7ab:5e3e])
- by smtp.gmail.com with ESMTPSA id bu20sm1286842ejb.76.2021.04.29.00.19.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Apr 2021 00:19:40 -0700 (PDT)
-Subject: Re: [PATCH v5 16/27] drm/amdgpu: Unmap all MMIO mappings
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
-References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
- <20210428151207.1212258-17-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ac2bb28e-141a-ef05-328a-af398455c8b2@gmail.com>
-Date: Thu, 29 Apr 2021 09:19:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210428151207.1212258-17-andrey.grodzovsky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C21A76ED0E;
+	Thu, 29 Apr 2021 07:50:50 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C39EA6E1A5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 07:50:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fxCPsQe5nDaB5s9chWHICZIqECDQbg+KNH/K33vGUDKK2cVbqQt9Cdoq/hye7Gc1On8T7l3M4SNmovpvXkK97XuCgw6cvWhx9rr7lx6sYf0Ll2dpkl3yhIJEwQlYdlEpmLQXwavj1OAyKe2xtBWQf5Js/ak8idlvmLehNDXeZd+CXhnhqsE4SEQe6wG+IpzNfazIC2X31rhHt7gS/K/nwEFGY65qRWGMCpVoEDn3hDWf6YNJ11w/pyWUp6M3QbjoDqFeIm8BFI1ukYHxMS0FCdBtgeM/oCb46Bdm2QeTNqi5eYBPg3z/Nb7SdVzUoH2MRUrFi0/0TjLJCd1K37oqiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lLd6zSsJRRys6/dvtANOtyQix+5tZdhdHUxrZT+1AAg=;
+ b=i3ar7gK2/QEjP7kDu1pmEKaOGEG0cQhfX8r9PGzpxP097V/C6HVT9eoQHmbzSFzvpTz4rd4n4ljXw+0NmkCIzs+0lC956lvfuud4JqaAjpNyt/L4SzmbtCe8WiyHBzxX08/IFoMqwuONbnyklz/QuCsJ6sTqGmjwbnN2tHZYPhAYe26cMJjDPatZxzgS5cxNK4H2HI+eKFoBJaq/+3novSuaxdPPzDLhzKLQkM33QPAO4oECCnSGQ+DJHr8gDo5HdUlA4qCYYq+FZQHdqHaqU00nfDukk4MXlJ0kLCbMb5I2MzRdvUJgp6az9E7ndTY+DjPHIsrlWYJ2YQwN8TkGPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lLd6zSsJRRys6/dvtANOtyQix+5tZdhdHUxrZT+1AAg=;
+ b=q13WvswsL+vQZviWzfy3CyL6sZf4mLM2W9gikl6drpQ5V392+HHPxAkT5tBN/7IuOT9y9x3BuJT/6tgU5kDJwjH7svaFwbDXbtLPCwMcptyylABrq4ZfvAX3hTXaAKoSuQo6T4eRwMw7W6VqUOYmMHOAlfmBFlVyjRoMKhIptIY=
+Received: from CY4PR1201MB0072.namprd12.prod.outlook.com
+ (2603:10b6:910:1b::19) by CY4PR12MB1863.namprd12.prod.outlook.com
+ (2603:10b6:903:120::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.24; Thu, 29 Apr
+ 2021 07:50:47 +0000
+Received: from CY4PR1201MB0072.namprd12.prod.outlook.com
+ ([fe80::8452:74ae:9106:ed4f]) by CY4PR1201MB0072.namprd12.prod.outlook.com
+ ([fe80::8452:74ae:9106:ed4f%3]) with mapi id 15.20.4065.027; Thu, 29 Apr 2021
+ 07:50:47 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/7] drm/amdgpu: add hdp ras structures
+Thread-Topic: [PATCH 1/7] drm/amdgpu: add hdp ras structures
+Thread-Index: AQHXPMCD3ntdDcG0w0q72BeJ2wKLCarLHxkA
+Date: Thu, 29 Apr 2021 07:50:47 +0000
+Message-ID: <CY4PR1201MB00727565190E90D03D0A58A0FB5F9@CY4PR1201MB0072.namprd12.prod.outlook.com>
+References: <1619677546-2630-1-git-send-email-Hawking.Zhang@amd.com>
+In-Reply-To: <1619677546-2630-1-git-send-email-Hawking.Zhang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-29T07:50:41Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=b85aaeda-d71e-459a-997b-3e6d6b6d777b;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [240e:38a:845b:7000:43a:f4aa:d777:f395]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fb3faea1-e807-4c24-9ea9-08d90ae3802e
+x-ms-traffictypediagnostic: CY4PR12MB1863:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB18631E60186CB7E26E22DC4BFB5F9@CY4PR12MB1863.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:431;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZgvQsUK4Gc0S6gUz9LUQNWWQf8/r4BMafLfdNyHvr+bNyusMwR0riT1GtZAaWuWfit+5FKJhrl6tFYK4kOvQhVU6nSZo5m0MXQnheqVZBhTqMgAbX4aOzgRcv+ckStICPzdbShqXEv6s2WJMaMepNGT0DK1M1uvsIN81XWcMKBxJaLHi4L0Z1HCqdhKC40GfRCctsbD7vsdUDk7N8zYOL8+trYPzbzNJRuKWTqLffd1Y0wS7QHMOWcGtPlz+Vm51DlGb07jB4CBEFfCiOIoOFrVb6iW4gzzEcI7TCk19sL4cpSlt1JJ62oWaPMBlvAB0bffEZ/kVrCROOD8nxokycTCuIvH7dYJ+6QqfA0NdLH6u0EtaR1YP6HwdmiXaFrwc6cNW5KDPTfT+2D+cuieZ7wZvoAUFrC6jTy/AfkN/+3Rbqat6SuuJoYA2hLPZOOce/kP72SCSyctZsK8lhiD3ZAXKqf2dKVlwk+9g3TEpOdFV3I2ay3Ms5X239QP24NOv7WTHJc3IIqZYH7gbiPLaCV2r04/vCiXVFDB7slXtxoQswPFVjo+dVIgA9IK8LbadlBZ8CmSw5ZFTimXefi601S8DYpQRjHquflWiYlYRTB4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1201MB0072.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(4326008)(38100700002)(7696005)(83380400001)(316002)(186003)(122000001)(2906002)(52536014)(53546011)(66946007)(66556008)(478600001)(66446008)(66476007)(86362001)(64756008)(8936002)(76116006)(8676002)(9686003)(55016002)(33656002)(71200400001)(110136005)(5660300002)(6506007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?4YL7kEMKxYadGXSdRsBRLwUyhdk9+9Chxy9b3lWZjzrB4TkrjcvEB0eNxP/D?=
+ =?us-ascii?Q?dGtL8N7vwCLdu5Hts3uf969iQNGCN6ILf9+U9pE5BfkFHxm+C14Pmf9NQMPD?=
+ =?us-ascii?Q?U6xjogStKQlXFVPojHfOQjzxlBetxoyKvycWhWEduJFQodNj5Pzb6vulOwrr?=
+ =?us-ascii?Q?Nf1APVX2XKERCEPBjhZloK1kSrD6bXja5ayd5Usy9tqVM+5qo8shtatVFRH0?=
+ =?us-ascii?Q?GRoCdvcvnHmk23EVKbmh/9zqqe4MsK05TnQk2kE3Jc1Nh4m8XA1kzdF1YetX?=
+ =?us-ascii?Q?0D11tgUD3FktIQCDgf0ilB4CfZ9TynTNhE1rg7qKn2dcOd0QS7DxD11ZvZIn?=
+ =?us-ascii?Q?Zf8F+r5A1mFvP9/rmm/17gDsJQYIxtxjvHsni0CKJAwAytxTT/u8cYWLqGkp?=
+ =?us-ascii?Q?nFOZ6ks/l/jH32d5X+/Nz6ZhVo17bd9ZrALGhK72SMu4niBqGdny1UBzQGN/?=
+ =?us-ascii?Q?zYG2aS3+Sc8UXTMTuW2ypa91YM5E+yKgor8HR0n+oiVJC/ZEHKcuOP+U/4NQ?=
+ =?us-ascii?Q?nSkRYPImVeMpbWpYeQzqzOhGoVWnZZKH7N+j64jQmpIYQ7bnyqbEb2IpLhBw?=
+ =?us-ascii?Q?P3G/Pt9nQc43IbPixbZir/uDWBaVBisSN6QTIEVTO/UPbDBjInN9VGuH5xN3?=
+ =?us-ascii?Q?xTQzrOzVRnTWnv6IFUD3sLMroDGHu6Qefb3MshdLSjJJkrVtBTTapnT5oB4F?=
+ =?us-ascii?Q?kzH2OIgjLEsoyIqJOLRFoRrjtVlpsKvxxCemEPD+GSF/0YtjGGIzfyWGZXtR?=
+ =?us-ascii?Q?SRIOGIn7O/f7QM9PgfM74wLAWvBlzc1Z60k2FXepXf+9Y1w9lvjdrY6gub6p?=
+ =?us-ascii?Q?qZp7hBw44hpTSEACS1cRaJpIQcOa6c8TKs/AR5ZysZjQZeb1qLI97/Qeby5j?=
+ =?us-ascii?Q?HNPqd+eUmzj1qkaID+1UQ/lWRNWlR5lXunguioXS5eT3tcybZKCYn7Y5uKGJ?=
+ =?us-ascii?Q?Xeoj0aASdy6KEkzbh4LAeMOfl4dlhgV5TWlgxj0d8M3dah5VIaXfcyORqbzX?=
+ =?us-ascii?Q?8kuRdLrYgD08UA7fQvSZ8PRgB/clNFHYL2/0DMG2L6x9oXL5v3F7h1KbbbyZ?=
+ =?us-ascii?Q?Vjg0A5m10lfB9lsT8lLmsb2CRieCZn5SSG03RpElGvPCAFr4XUbB+pggEfcn?=
+ =?us-ascii?Q?kTtgKT/0E/RIYBgMtExXv9pBmeE6I2Pr0LU66BhlfAJzWG8Xm+/q+BfSRtXw?=
+ =?us-ascii?Q?LDsiMaEw/fCS2YMGxQPek7OjByXSwrBBH+HEdiiTuT3RFZzqRzS68C6Bzu5D?=
+ =?us-ascii?Q?T8vA7GoCglMO7o/5vlwaFJs+beu5b+Ud8vhaJxJFCG1TRtxyC+u0QL7XGpGu?=
+ =?us-ascii?Q?BVsW393VttucGfSIegX9NGe0yUXTngIsMe4wSO/N6bYDzAB9FPQx0XXq+naO?=
+ =?us-ascii?Q?XLwnKGUa7NFiHJp5g4mC1vqaVOdP?=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB0072.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb3faea1-e807-4c24-9ea9-08d90ae3802e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2021 07:50:47.2889 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dATxNwWtcYqEpTq9RY+fHKqaW1eAuV6Y6MEi5EDOqR/mQlwdm1kojKzyAnF6BOEb9/QZfl+zpgTnwmV8AmrQiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1863
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,189 +134,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
- helgaas@kernel.org, Felix.Kuehling@amd.com
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.04.21 um 17:11 schrieb Andrey Grodzovsky:
-> Access to those must be prevented post pci_remove
+[AMD Official Use Only - Internal Distribution Only]
 
-That is certainly a no-go. We want to get rid of the kernel pointers in 
-BOs, not add another one.
+Series is:
+Reviewed-by: John Clements <John.Clements@amd.com>
 
-Christian.
+-----Original Message-----
+From: Hawking Zhang <Hawking.Zhang@amd.com> 
+Sent: Thursday, April 29, 2021 2:26 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Clements, John <John.Clements@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH 1/7] drm/amdgpu: add hdp ras structures
 
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  5 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 38 ++++++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 28 ++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  5 +++
->   4 files changed, 71 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 30a24db5f4d1..3e4755fc10c8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1056,6 +1056,11 @@ struct amdgpu_device {
->   	struct pci_saved_state          *pci_state;
->   
->   	struct list_head                device_bo_list;
-> +
-> +	/* List of all MMIO BOs */
-> +	struct list_head                mmio_list;
-> +	struct mutex                    mmio_list_lock;
-> +
->   };
->   
->   static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 22b09c4db255..3ddad6cba62d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3320,6 +3320,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	INIT_LIST_HEAD(&adev->shadow_list);
->   	mutex_init(&adev->shadow_list_lock);
->   
-> +	INIT_LIST_HEAD(&adev->mmio_list);
-> +	mutex_init(&adev->mmio_list_lock);
-> +
->   	INIT_DELAYED_WORK(&adev->delayed_init_work,
->   			  amdgpu_device_delayed_init_work_handler);
->   	INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
-> @@ -3636,6 +3639,36 @@ static void amdgpu_clear_dma_mappings(struct amdgpu_device *adev)
->   	spin_unlock(&adev->mman.bdev.lru_lock);
->   }
->   
-> +static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_bo *bo;
-> +
-> +	/* Clear all CPU mappings pointing to this device */
-> +	unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
-> +
-> +	/* Unmap all MMIO mapped kernel BOs */
-> +	mutex_lock(&adev->mmio_list_lock);
-> +	list_for_each_entry(bo, &adev->mmio_list, mmio_list) {
-> +		amdgpu_bo_kunmap(bo);
-> +		if (*bo->kmap_ptr)
-> +			*bo->kmap_ptr = NULL;
-> +	}
-> +	mutex_unlock(&adev->mmio_list_lock);
-> +
-> +	/* Unmap all mapped bars - Doorbell, registers and VRAM */
-> +	amdgpu_device_doorbell_fini(adev);
-> +
-> +	iounmap(adev->rmmio);
-> +	adev->rmmio = NULL;
-> +	if (adev->mman.aper_base_kaddr)
-> +		iounmap(adev->mman.aper_base_kaddr);
-> +	adev->mman.aper_base_kaddr = NULL;
-> +
-> +	/* Memory manager related */
-> +	arch_phys_wc_del(adev->gmc.vram_mtrr);
-> +	arch_io_free_memtype_wc(adev->gmc.aper_base, adev->gmc.aper_size);
-> +}
-> +
->   /**
->    * amdgpu_device_fini - tear down the driver
->    *
-> @@ -3683,6 +3716,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->   	amdgpu_clear_dma_mappings(adev);
->   
->   	amdgpu_gart_dummy_page_fini(adev);
-> +
-> +	amdgpu_device_unmap_mmio(adev);
->   }
->   
->   void amdgpu_device_fini_sw(struct amdgpu_device *adev)
-> @@ -3713,9 +3748,6 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->   	if (adev->rio_mem)
->   		pci_iounmap(adev->pdev, adev->rio_mem);
->   	adev->rio_mem = NULL;
-> -	iounmap(adev->rmmio);
-> -	adev->rmmio = NULL;
-> -	amdgpu_device_doorbell_fini(adev);
->   
->   	if (IS_ENABLED(CONFIG_PERF_EVENTS))
->   		amdgpu_pmu_fini(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 62d829f5e62c..9b05e3b96fa0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -531,6 +531,9 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
->   		return -ENOMEM;
->   	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
->   	INIT_LIST_HEAD(&bo->shadow_list);
-> +
-> +	INIT_LIST_HEAD(&bo->mmio_list);
-> +
->   	bo->vm_bo = NULL;
->   	bo->preferred_domains = bp->preferred_domain ? bp->preferred_domain :
->   		bp->domain;
-> @@ -774,9 +777,21 @@ int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr)
->   	if (r)
->   		return r;
->   
-> -	if (ptr)
-> +	if (bo->kmap.bo_kmap_type == ttm_bo_map_iomap) {
-> +		struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> +
-> +		mutex_lock(&adev->mmio_list_lock);
-> +		list_add_tail(&bo->mmio_list, &adev->mmio_list);
-> +		mutex_unlock(&adev->mmio_list_lock);
-> +	}
-> +
-> +	if (ptr) {
->   		*ptr = amdgpu_bo_kptr(bo);
->   
-> +		if (bo->kmap.bo_kmap_type == ttm_bo_map_iomap)
-> +			bo->kmap_ptr = ptr;
-> +	}
-> +
->   	return 0;
->   }
->   
-> @@ -804,8 +819,17 @@ void *amdgpu_bo_kptr(struct amdgpu_bo *bo)
->    */
->   void amdgpu_bo_kunmap(struct amdgpu_bo *bo)
->   {
-> -	if (bo->kmap.bo)
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> +
-> +	if (bo->kmap.bo) {
-> +		if (bo->kmap.bo_kmap_type == ttm_bo_map_iomap) {
-> +			mutex_lock(&adev->mmio_list_lock);
-> +			list_del_init(&bo->mmio_list);
-> +			mutex_unlock(&adev->mmio_list_lock);
-> +		}
-> +
->   		ttm_bo_kunmap(&bo->kmap);
-> +	}
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index 5ae8555ef275..3129d9bbfa22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -112,6 +112,11 @@ struct amdgpu_bo {
->   	struct kgd_mem                  *kfd_bo;
->   
->   	struct list_head		bo;
-> +
-> +	struct list_head                mmio_list;
-> +	/* Address of kernel VA pointer to MMIO so they can be updated post remap */
-> +	void				**kmap_ptr;
-> +
->   };
->   
->   static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
+centralize all hdp ras operation to ras_funcs
 
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+index 43caf9f..c89cf8d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -23,6 +23,14 @@
+ #ifndef __AMDGPU_HDP_H__
+ #define __AMDGPU_HDP_H__
+ 
++struct amdgpu_hdp_ras_funcs {
++	int (*ras_late_init)(struct amdgpu_device *adev);
++	void (*ras_fini)(struct amdgpu_device *adev);
++	void (*query_ras_error_count)(struct amdgpu_device *adev,
++				      void *ras_error_status);
++	void (*reset_ras_error_count)(struct amdgpu_device *adev); };
++
+ struct amdgpu_hdp_funcs {
+ 	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+ 	void (*invalidate_hdp)(struct amdgpu_device *adev, @@ -34,7 +42,9 @@ struct amdgpu_hdp_funcs {  };
+ 
+ struct amdgpu_hdp {
++	struct ras_common_if			*ras_if;
+ 	const struct amdgpu_hdp_funcs		*funcs;
++	const struct amdgpu_hdp_ras_funcs	*ras_funcs;
+ };
+ 
+ #endif /* __AMDGPU_HDP_H__ */
+--
+2.7.4
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
