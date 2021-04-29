@@ -2,47 +2,66 @@ Return-Path: <SRS0=oJVB=J2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2133C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70C9DC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 20:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 792BB61453
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 19:23:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 792BB61453
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 0CE1F6101B
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 20:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CE1F6101B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B10276F499;
-	Thu, 29 Apr 2021 19:23:12 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052DF6F497;
- Thu, 29 Apr 2021 19:23:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5829C6144E;
- Thu, 29 Apr 2021 19:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619724190;
- bh=OI/1szp0Xz/VR6hQfYsOdCzY1+KuV4hjYKsyihyrzaI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=qiBeWbFqFd2JW+/IeA0A/6z7EAL745roaQhToyMH5LNFjKEyPoMKYvXTHyRihqrig
- rZTQj+E6Inw21VxjBrXQUX8Vt2kWY54i9gpdF4vecvViXPX7bXhpXcSn6JejUef+3s
- tYPO8UIUxpwyGtAD2ilee+FGOT82PpKTDBnJbdcLxOmjsQbG/A2fig/7l6ZRLD7bJr
- mA27SVK4k79jN37lAwBEQlMN5Q9PcVM2qqAFUy/fKRKeHK+kDNFjTRS7GBs8UeY5Xo
- 2c2iT/7Il0qf2lcp/D9X45wDwUd6yN6EEQfEe4mtYE9SkGdzWuiJi6vxpvWNQkfedK
- r4rmnpGLXkE0A==
-Date: Thu, 29 Apr 2021 14:23:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH v5 08/27] PCI: add support for dev_groups to struct
- pci_device_driver
-Message-ID: <20210429192308.GA510492@bjorn-Precision-5520>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD5BD6F4A7;
+	Thu, 29 Apr 2021 20:06:48 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED8D6F4A4;
+ Thu, 29 Apr 2021 20:06:47 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ c8-20020a9d78480000b0290289e9d1b7bcso48417361otm.4; 
+ Thu, 29 Apr 2021 13:06:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=zpBPDRcCRB4YxTEvwemy+iKlTGhooWps70WY0dARJHk=;
+ b=uv5WKOSb0n9+PSbwiZF9C7R5OItIFXVmQzEgvQPbML11er6OCcLvYx9Iy7kvH6+2DR
+ IFGHm+BC0SdAJW26T0arODEv3n/DoMpnCOPFTBVJ3ZjWRy+oexH6W6szK3dZpctkquFM
+ CoZtrpCrO3UFDlAPdFGd9iidNr2sTmWmoJuzh3Q/cOeVk4FKabrpO6Qty7eIKlfR6gUD
+ kg1jefsCRnqoG6vRE5x2DOfd0A4NFRMuN+enDyl1Bz/1BTxGGMbIrD2v+dw5I6GHZpfb
+ tvsNTbH0lqmTXHf1+urJ4PDMiS0ZZSviLOIbEYkHWFO/e2AJFn44atiX1P/bbccQB7tc
+ CuBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zpBPDRcCRB4YxTEvwemy+iKlTGhooWps70WY0dARJHk=;
+ b=lj34Jrq7zncdo/MyWhbTvtxMzQTwcrj7UtWrzbX1OlREc194JdBSD8HWq/WsEZUXia
+ yddJXQwAgmq/sZPNKu9KjKpxB24Qn1oxe3hCneUGkmHbPniix1kCt80Cr9SYhGE3+g75
+ eUHpoDdkwyUDpRpjktk75NpZLO/nQ8Cd8B6vsRaVHavFtMp/k5byiTBqwK4rgCHW/pZC
+ r5RbAgo69UNSCnTgYmhO/QRk0ApOCJ9NTRC/5nFM51voa5sb5sjN0CMIaV8ikKd8WND6
+ hXzmXzY5FmrreI9yI1wMyGEdNycI2pvSnHX0yGGjeNK16trwLvKA7p9+OQgcYuPkEExf
+ 29EQ==
+X-Gm-Message-State: AOAM531pePWl/cDCMwlJJycHgni2UzoU99vUZqOhAZ8QrsyTYGWd8scj
+ Vauyv1n5iD1qKUYkVYldVRY/duoAEmf39ARV70o=
+X-Google-Smtp-Source: ABdhPJwfjLb/OyZmfEzUeN61AK09kq3wPPmkA4+QKlDFRCyea1X6NeJdVv16cVWd6Rr6GcOWNVG2u4zC+8amG+95JXs=
+X-Received: by 2002:a9d:63d1:: with SMTP id e17mr635034otl.311.1619726806738; 
+ Thu, 29 Apr 2021 13:06:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c315d0d0-6fd8-0510-99c6-dd72bd583c0a@amd.com>
+References: <20210429133941.531730-1-kai.heng.feng@canonical.com>
+In-Reply-To: <20210429133941.531730-1-kai.heng.feng@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Apr 2021 16:06:35 -0400
+Message-ID: <CADnq5_MGhFTUOafo_Prjxgek7ufP-9uo59a+_R0=DKZBQayX0Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/dpm: Disable sclk switching when two 4K 60Hz
+ monitors are connected
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,45 +73,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
- daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- ppaalanen@gmail.com, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
+Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 29, 2021 at 12:53:15PM -0400, Andrey Grodzovsky wrote:
-> On 2021-04-28 12:53 p.m., Bjorn Helgaas wrote:
-> > On Wed, Apr 28, 2021 at 11:11:48AM -0400, Andrey Grodzovsky wrote:
-> > > This is exact copy of 'USB: add support for dev_groups to
-> > > struct usb_device_driver' patch by Greg but just for
-> > > the PCI case.
+On Thu, Apr 29, 2021 at 9:40 AM Kai-Heng Feng
+<kai.heng.feng@canonical.com> wrote:
+>
+> Screen flickers rapidly when two 4K 60Hz monitors are connected to an
+> Oland card. This issue doesn't happen when one monitor is 4K 60Hz
+> (pixelclock 594MHz) and another one is 4K 30Hz (pixelclock 297MHz).
+>
+> The issue is gone after setting "power_dpm_force_performance_level" to
+> "high". Following the lead, we found that the issue only occurs when
+> sclk is too low.
+>
+> So resolve the issue by disabling sclk switching when there are two
+> monitors that requires high pixelclock (> 297MHz).
+>
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon.h    | 1 +
+>  drivers/gpu/drm/radeon/radeon_pm.c | 8 ++++++++
+>  drivers/gpu/drm/radeon/si_dpm.c    | 3 +++
+>  3 files changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+> index 42281fce552e6..56ed5634cebef 100644
+> --- a/drivers/gpu/drm/radeon/radeon.h
+> +++ b/drivers/gpu/drm/radeon/radeon.h
+> @@ -1549,6 +1549,7 @@ struct radeon_dpm {
+>         void                    *priv;
+>         u32                     new_active_crtcs;
+>         int                     new_active_crtc_count;
+> +       int                     high_pixelclock_count;
+>         u32                     current_active_crtcs;
+>         int                     current_active_crtc_count;
+>         bool single_display;
+> diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
+> index 0c1950f4e146f..3861c0b98fcf3 100644
+> --- a/drivers/gpu/drm/radeon/radeon_pm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_pm.c
+> @@ -1767,6 +1767,7 @@ static void radeon_pm_compute_clocks_dpm(struct radeon_device *rdev)
+>         struct drm_device *ddev = rdev->ddev;
+>         struct drm_crtc *crtc;
+>         struct radeon_crtc *radeon_crtc;
+> +       struct radeon_connector *radeon_connector;
+>
+>         if (!rdev->pm.dpm_enabled)
+>                 return;
+> @@ -1776,6 +1777,7 @@ static void radeon_pm_compute_clocks_dpm(struct radeon_device *rdev)
+>         /* update active crtc counts */
+>         rdev->pm.dpm.new_active_crtcs = 0;
+>         rdev->pm.dpm.new_active_crtc_count = 0;
+> +       rdev->pm.dpm.high_pixelclock_count = 0;
+>         if (rdev->num_crtc && rdev->mode_info.mode_config_initialized) {
+>                 list_for_each_entry(crtc,
+>                                     &ddev->mode_config.crtc_list, head) {
+> @@ -1783,6 +1785,12 @@ static void radeon_pm_compute_clocks_dpm(struct radeon_device *rdev)
+>                         if (crtc->enabled) {
+>                                 rdev->pm.dpm.new_active_crtcs |= (1 << radeon_crtc->crtc_id);
+>                                 rdev->pm.dpm.new_active_crtc_count++;
+> +                               if (!radeon_crtc->connector)
+> +                                       continue;
+> +
+> +                               radeon_connector = to_radeon_connector(radeon_crtc->connector);
+> +                               if (radeon_connector->pixelclock_for_modeset > 297000)
+> +                                       rdev->pm.dpm.high_pixelclock_count++;
+>                         }
+>                 }
+>         }
+> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+> index 9186095518047..be6fa3257d1bc 100644
+> --- a/drivers/gpu/drm/radeon/si_dpm.c
+> +++ b/drivers/gpu/drm/radeon/si_dpm.c
+> @@ -2995,6 +2995,9 @@ static void si_apply_state_adjust_rules(struct radeon_device *rdev,
+>             ni_dpm_vblank_too_short(rdev))
+>                 disable_mclk_switching = true;
+>
+> +       if (rdev->pm.dpm.high_pixelclock_count > 1)
+> +               disable_sclk_switching = true;
+> +
 
-> > ...
-> > The usual commit citation format is 7d9c1d2f7aca ("USB: add support
-> > for dev_groups to struct usb_device_driver") so it's easier to locate
-> > the commit.
-> > 
-> > I see there is also b71b283e3d6d ("USB: add support for dev_groups to
-> > struct usb_driver").  I don't know enough about USB to know whether
-> > 7d9c1d2f7aca or b71b283e3d6d is a closer analogue to what you're doing
-> > here, but I do see that struct usb_driver is far more common than
-> > struct usb_device_driver.
-> > 
-> > PCI has struct pci_driver, but doesn't have the concept of a struct
-> > pci_device_driver.
-> 
-> Since we don't have pci_device_driver then pci_driver is the best place
-> for it then, no ?
+I would suggest limiting this to just Oland.
 
-Of course.  My point was just that maybe you should say this is
-similar to b71b283e3d6d ("USB: add support for dev_groups to struct
-usb_driver"), not similar to 7d9c1d2f7aca ("USB: add support for
-dev_groups to struct usb_device_driver").
+Alex
 
-Bjorn
+
+>         if (rps->vclk || rps->dclk) {
+>                 disable_mclk_switching = true;
+>                 disable_sclk_switching = true;
+> --
+> 2.30.2
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
