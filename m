@@ -4,115 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27986C43460
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 12:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F397C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 12:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB27861462
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 12:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB27861462
+	by mail.kernel.org (Postfix) with ESMTPS id ACFC9613F0
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 12:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACFC9613F0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9AD76EE79;
-	Thu, 29 Apr 2021 12:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E7C6EE85;
+	Thu, 29 Apr 2021 12:24:14 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B482E6EE79;
- Thu, 29 Apr 2021 12:08:49 +0000 (UTC)
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8536EE8E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 12:24:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n+N00UCjYGw/M4lElH9d7ScxPYQWpZMD2G/i/cJ+1AqfQHi2QSP/BHg0gOX2MiwYqpUygcuV2Rhl6+uTgt/CJuGetzSQhFSYUz6ENwRbcqkRWLcQv5VtWDdrb8sd7dQQ1dVAPv0t/cFyY60pqW2kpArtGMOEnYz3DhTsBwATMbPzHzvaX0tkPAUPrNydhRyqQOEK2OCol8FqHC8XO6D0R6DYIMVHZfhkfaSwrUekkxEw/W2l4YjK9Pbhs9TXW7tAefKDdKgYQ7s8vBPOrtndYqfjOW95bJQJe6D/dDr8SQmDuxNhJhx9BjFsg85bLQn48+jC1ZMe1LAKaflGd167YQ==
+ b=OauKfEwjL/9N9j1743dSCJt2pzFkv0gUEea4Cma7of0YTOYdKUn6IDD/Z5dnvu52c5RRcO5dKD5QJ1OwOXX94gMiqtydidiHuLJFlWUqFvUqJ6hEeqtjN+sEzTBrVx79ThdGayEh6ptLwmoMBeurRKP4gm2MP+SO4mbBwWMocxENQNJWsdHh9nxScgoPdG3XIkXFnNg44L5kyPrSD6tSSZdC2ht4uTMcjns3zIY5u4dnYp3sP5DwwP/P1tcXgtFXs0T58XhNuC/O27W1HquSpQYlAAQMt3lMRf7pkzvA24cbG2AYKYyWfZ5r/BeXRoB8uRy7QTxCgbsiJuANDUVR8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZZ2/NF36K3MSCPvKA7ywNRqA1WNqgzjbXa3ExVuH4+w=;
- b=G6nzbTBEz+wcs+S5fpb9gEVm89hrFtLfQ6OhtjtQDu5UTsSKriRYulAzRZuARJUlRuPzetjpr+YA7luG5UV857RGEo/8g/ZR++AVqtY8Cjk0QhPvcNA9MNO2uqDAOQTHXBV9suyrdC4csxF912F19WeevLljZWAKCfU1G77mGltCuWfMVWhYJl35+cjrwiPbkxUkIJehbuuCoVT2o/XIYj2X+QxbkLWCuA4UTBCLvx9A5fURIJMH2tuveTUB+IW5aIq2mTs4XTGM2p9wigDt2MNrZhi83dnnpZSrcHtVq/8RYvcrzaPfxt2aRhTWzvqqqeyiDVQllwxYe/XOSNSVOw==
+ bh=9Pc5/BjMSDNZgNk2AJ2mPU5QHc/gl1aEYwO78tXwW+w=;
+ b=QsVE1JjaCtEf7TFoOekkGiE+dgA3M2GFYKh+JCpEA/eFeIxXKg01S4P5+oDcE0ID4RzKIsY/2iKwsyF84lZGNddHsCqaUZTSH8BPi/tUYDmCYFot+SJBsAIPl/sKcX3yeLdiWGN2QTFgpcF1lymxOuSY7sdAl99CprirXlM0vjI8wG7zu9/pQ96PhE8Qf5VvWR6tz4LQnjXs6LSVxvQaIYf28AcF0UmpAU8+oyyhzJtAXB8PuqmqhQhBfn+zxPG6kZgqmNg0fKLFJeXfEq9wliYTZda/2IuKiX1JKvytwNztjhldOS/LtlIRFtwVWEH6dNaYL3bTSyesUxjO8/wVVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZZ2/NF36K3MSCPvKA7ywNRqA1WNqgzjbXa3ExVuH4+w=;
- b=Sl/VvRgBuY8zfAzSyyu+fVSIvwx6wwEjBkUW6cmgcN3FAVBEaOhZcFZBax9pmTi0QexbQzbStWbb/s1HuPbMYbBl/Nn3S3V/blAy7nl+SzOu/K5rVO5neUhOhMpCVdmEyofS535se36b9qJcFluo9k5C5gCD+RrDO3gIIrXzaGU=
-Authentication-Results: vivo.com; dkim=none (message not signed)
- header.d=none;vivo.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com (2603:10b6:5:45::27) by
- DM5PR12MB1833.namprd12.prod.outlook.com (2603:10b6:3:111::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.21; Thu, 29 Apr 2021 12:08:45 +0000
-Received: from DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::3d2c:5edf:5d51:4101]) by DM6PR12MB2601.namprd12.prod.outlook.com
- ([fe80::3d2c:5edf:5d51:4101%7]) with mapi id 15.20.4065.027; Thu, 29 Apr 2021
- 12:08:45 +0000
-Date: Thu, 29 Apr 2021 08:08:41 -0400
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: Wan Jiabing <wanjiabing@vivo.com>
-Subject: Re: [PATCH] drm/amd/display: Remove duplicate declaration of dc_state
-Message-ID: <20210429120841.egvj3m23kehofsfc@outlook.office365.com>
-References: <20210429031804.19487-1-wanjiabing@vivo.com>
-In-Reply-To: <20210429031804.19487-1-wanjiabing@vivo.com>
-X-Originating-IP: [2607:fea8:56e0:6d60:9d3b:95a7:19db:40c3]
-X-ClientProxiedBy: YT1PR01CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::43)
- To DM6PR12MB2601.namprd12.prod.outlook.com
- (2603:10b6:5:45::27)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from outlook.office365.com (2607:fea8:56e0:6d60:9d3b:95a7:19db:40c3)
- by YT1PR01CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.25 via Frontend Transport; Thu, 29 Apr 2021 12:08:44 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6ed7f0b1-d459-4665-7011-08d90b0789b6
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1833:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18332606021F6393DFCEA745985F9@DM5PR12MB1833.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nrU5kbGuc8jiAgWLKyCWzdW8CVtjd285QGTNEksvTvanC/+VvK7LHRt12bk4aHJX5+LRQOQ3GvKtDIozrUZalgD9MSsQgycdXk3nnYFC2HmCYOeYXqMdkjsPRh+OUHaLkR3ZyfsdVjnh6hDcuKW9RKvgfqhQ5E9KQBrxB13GbuJ9Yrw/1dPMzZ/J6OMnC+b0BsuMvjrO2qvAFGfwGbmHzvSJw6YoTgL8xg2ch6OVEFHaOol1QGh71/C/ZECdbcyofmtnvcmGD85C56f06PXCnkTug239vp3iuoW/AsWeC3jcNeEPUz0847v3yN+TyJwxDGqq5ByeuxuTSUQkybvaD2RtAACjUbUAkthjaR46RqkDIzhaGMwBfUfzhZHwHm02u7+LGcmaeXzbudQmce/+A/8u8hMCqHcLGv3ek3prNidzfQa0sz/hmr3Zfk3WJTlVToX0W5yB8oOMA66XUHXH7gDBzDEeN8ouIFwhjPk+8PmdGjCr+Fr1hpKpTjxjxtSqOgXLR+78stZTw3oeEq+P/5YozVtpFeR2yil+jfAIthlwvdUFyNRoE3dXAZJtd/CHp2VAfBeAlGp4/c01GjnvWhgTtl+IG9XCi6+lGuFxvL8Hfv+s+jaekylZB4y/PchOaUjMrRVhbtNgph4yu/Z4XiZi0HkF1mQ1kP9O+ukhSmo65nqT6d699P7E3yL5hS3+q9IhbC4XcC/QSTtryczab8uO0sUyz0T77vZ3sQMx3uQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2601.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(366004)(396003)(136003)(346002)(966005)(9686003)(16526019)(66556008)(86362001)(54906003)(6506007)(66476007)(8936002)(316002)(8676002)(1076003)(186003)(38100700002)(66946007)(6666004)(4326008)(55016002)(52116002)(2906002)(21480400003)(44144004)(7696005)(6916009)(478600001)(5660300002)(83380400001)(2700100001);
+ bh=9Pc5/BjMSDNZgNk2AJ2mPU5QHc/gl1aEYwO78tXwW+w=;
+ b=BDe0GIx82Jge8JNlhsrA99+1jZvlR7Lex2o8O0Cha9mBpmt9zolOdayB7fxfKZ5xlp+onTY6Vw5nDJuOsEkd+DYeUayOByE2SmEwg/VEBUwCff7nE1wU6PpXKP1jpTtLYtNZgan53gP2niELsIseG9bco2/mStmm5Nn4pfvp7/A=
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
+ by BN9PR12MB5209.namprd12.prod.outlook.com (2603:10b6:408:11a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.18; Thu, 29 Apr
+ 2021 12:24:10 +0000
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4065.027; Thu, 29 Apr 2021
+ 12:24:10 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Li, Dennis" <Dennis.Li@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Clements, John" <John.Clements@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/7] drm/amdgpu: add helpers for hdp ras init/fini
+Thread-Topic: [PATCH 2/7] drm/amdgpu: add helpers for hdp ras init/fini
+Thread-Index: AQHXPMCEgEpB0zD1FEGjAGaV4wp5kKrLKBeAgABA+ZA=
+Date: Thu, 29 Apr 2021 12:24:10 +0000
+Message-ID: <BN9PR12MB53685BC8B770ADF580BA13FCFC5F9@BN9PR12MB5368.namprd12.prod.outlook.com>
+References: <1619677546-2630-1-git-send-email-Hawking.Zhang@amd.com>
+ <1619677546-2630-2-git-send-email-Hawking.Zhang@amd.com>
+ <BL1PR12MB5350612990AAB35347E7B144ED5F9@BL1PR12MB5350.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5350612990AAB35347E7B144ED5F9@BL1PR12MB5350.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-29T12:24:07Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=49a74e87-fe15-41cd-b0ee-3ada1fbf11e1;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f2992462-05a9-453b-fe49-08d90b09b142
+x-ms-traffictypediagnostic: BN9PR12MB5209:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB520922AF471DE3BF8A8EC168FC5F9@BN9PR12MB5209.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /7tujQpozbQTHryEFjiWtIRZYgCVzdnHI/oGu0VvxkqzVdBW2TD96mGE7QMePJ22wJVusCjqVkTTW1w2UKtx83jlZiTDu9ldd/zF4wRqmLBOqS5o8VFAGg3ScVESo+SXE4AOUbXOPZLKgAX9jmitSw4uKwPpICrhWYGyfg6yXY4dmEAYk2hjxTsixsiV7alwLnSXD1XDFLjcN7sW+Os3XRNweMYATOIoheO0qLTBlgIt1XLpN5+t3WWU4YaaczsJjJoJ4D6skLqc4e7dC9pI6X7rBhDsgTCKRF5Es4ngi5t/0HP4h6QtvWHJUvt0ZFy2OU2gFIHURmz1rC+0l+mM5L+mc00n/V0RkobylQa42gmhE0Hj30sCoWLigfr0bh9i6AMZalUzLxYOX8u8fSKIfyKUTxqm4mIyVrSjmeBHA4B29Z1eQgLNzyTMZ3ur8TUAgZiJcplTLnnjiTVwrHzExSC6HZVJ3B8/S5h0u5yUnsw6jKNukyvhxSXCy744YiJlnWl9LOQRJD9HFzgPUGnw5CTXkuataiG/7Fc0kJeyGHZ3vKY2tjHM7Cg9Oc9q8VviS16ppI/nag4zE4bDI8dCf/zMd4a1R4bCkrd6U8HOeMQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(136003)(396003)(346002)(376002)(55016002)(7696005)(53546011)(9686003)(110136005)(5660300002)(6506007)(2906002)(316002)(478600001)(8936002)(86362001)(26005)(33656002)(8676002)(186003)(83380400001)(64756008)(52536014)(66556008)(66476007)(66946007)(71200400001)(38100700002)(122000001)(76116006)(66446008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?94T0MNY3a2e9PddscjJpM4OEm5KWVEXVEmH1o4KUUt93AfxdASiULyiKpUaW?=
- =?us-ascii?Q?KD+z+nsX5jbDANJjFTyCv5ciBnr8tcAVp71i56mfhZSsm940IwzKQT8yPEoN?=
- =?us-ascii?Q?xixjpV3tFll6F+Gtg8IBI0kz1YihFNgA5KdXpkDtMX+OKUuizYqh/ilIZpiX?=
- =?us-ascii?Q?SJ0CFdQygdO1Ruw6exTq9Bv2GZ4tBJQilaeSSObWsGZ/KbcpiMlGraiTut8X?=
- =?us-ascii?Q?iJu4lfnaAEzfAfMLXWWudLZnbfGYPF0fw/zeFvFqJ0t7isoPqu3NVA+5RnFw?=
- =?us-ascii?Q?Npcwwz/0yzf2TTYZH3SwBcelh/hT/r7uFz+V6OR6XlPX6WIZCl2zWQj5QYsY?=
- =?us-ascii?Q?hsSFwutTzcVhmn8Sx0hkrmY/p5gq6So++i94eUjyskifBTGdKLezxf3FkTdh?=
- =?us-ascii?Q?hnyjQ82mCywRt6AhgUnIvJsuCR8NjizchJTjMq2lZuxnhA7bjEANrKdrdbnQ?=
- =?us-ascii?Q?rhvUKct4pQQ1YwYT/kKUu9H1MO/D6oj1mZI9A3YEj9CpOEzhg+sye2mLNX2b?=
- =?us-ascii?Q?XBv56jj8WUoTcYlkyjl7vuEzW6+7K7erFdLAJMwh242YQmi/ySPnu5M8gtmu?=
- =?us-ascii?Q?GDWO3JsVtQMMrfpzZ2U91zi1cWdvc3tpxjM6XCoYSNQY/cQxX10dhv/zHwy4?=
- =?us-ascii?Q?vXT3xWx/5+yDutInVv8GIlepqPF3J4q7fOT2eG6tOgS3pmhR5qlI69doCwkk?=
- =?us-ascii?Q?AML6qcJ349N9asuwdx6t8oGh3D7V6dy3lPPAGB2W8RZLvEaq9M9ckZRy3Yro?=
- =?us-ascii?Q?TsBnQdDYzlo0RfkNdgdPLU+xYPG+N35m/7XqFEMFjRMm/XVWBk7NhJufigyG?=
- =?us-ascii?Q?X/2XpY0XZ9utmh0pzXsVwCIJLpG41ddAf6oVIcSwaWS+hEf3CVaBiqwExfdR?=
- =?us-ascii?Q?dnCUBhba7Yzc4gkgLUQgUCRxgNAGz24Vy/dAJ7dQLbpumgaANYCAtu7dR3Sa?=
- =?us-ascii?Q?kEVV6qG0VGNwU78it7pGUh4rX7xXZd9jVEtR9vvnLzV8Ai+7YG33f0dm7pc7?=
- =?us-ascii?Q?u0sSS9DLhJsqPVRpmor15yDjnygEdQnjum6rlSMFrG3m4n1PjzSXBhJKn6JY?=
- =?us-ascii?Q?D8XnM+XWeJwVbhaED5ueRMA5SWHZYJ99zBevKjgtCWdWiL0MZq2soS7bgDuy?=
- =?us-ascii?Q?ZcoFebrSVLDwN2LQDHMIK8cFo6cx8f9EEQZwQARUFTeEM8xbBKBK05Ykmyxd?=
- =?us-ascii?Q?DSfy9B7COGyWUkMetRDSXR6+lx6uC9tepi6JKmuHovithogQJq1cS63vEG3Z?=
- =?us-ascii?Q?FWgAgdQQcsV9WDqoOX9yxNd7EMN1eJS1ajKZIynWzxgAmN+U7+ZtS3UbXb2g?=
- =?us-ascii?Q?Yd366LsT8qGqqtFkLGq+lDuWDo34Q7CRLHWov2RsGHUNMT06ZzZujHRF3FkZ?=
- =?us-ascii?Q?RMbJTi5CNNQ8w3LM7d6zFExla3am?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?MVE4OHdDdFNpbFlEeG1sbHdFLzFXZTI0VndJK2V1WDgrU1IxL2srd0lZSmpl?=
+ =?utf-8?B?N253R1ZGV0dmSjYrY01IZWU0d3VLRG5qcmVyaTJnSlpDWHo2Z0R4L3F1SGw3?=
+ =?utf-8?B?T2dnelEwcTZFQllRSndYVlAxMGFVYllVU0lZdjBkbEFkMlErQWhtVTNoRG1G?=
+ =?utf-8?B?NzgwTTlLRzlXZS9KZFo0Y3dRRlVkMU5VSkJyWUdweFI3LzNPQUlacnVZN3BS?=
+ =?utf-8?B?V3o4a1VzanNVY1QxTEtYZUY4Mm5BWWFUYy9mVVFvWjE4bm5XVnMraVZkL0dQ?=
+ =?utf-8?B?elRzZHVRSVhsT3k4aFJYTDJreDVhU1U1cjlvZW1nbkdVOXVXTTM4YXZHVGw5?=
+ =?utf-8?B?TTl1WElqTnBKeVRWUTdUaVBDbFVOZ1c1Q3REdW9WZUxESWVYaU1rVWNXTkpQ?=
+ =?utf-8?B?Wkd4S0d6M2xSL1dZZGw5TmZuMy9WVGpPSHBxY25ReGlhaUJGTTFOcUkwcG9T?=
+ =?utf-8?B?WXZIUi9PQzVOaTUyVWlKNFRZRElqT2RKT2lDNFR3TDNhVDdXL1d5YjF3ZUF1?=
+ =?utf-8?B?TXlxeVIrV21tZlRYbGdvR21qZnQ1ZlJHQXVPZ1A0L1ZSWDFyQm42VWFSY09Y?=
+ =?utf-8?B?dHFCeEp1ZVRzMVk3SHVtUEFrWCtIWGVzRG0reDFBNU01SnNXSDVJTkp1dldr?=
+ =?utf-8?B?NkNTMERuVUQ0c3NnV2U3dDBCUWdjQTRyZnRaZEliT25MQTJqb252Ry9nMDI1?=
+ =?utf-8?B?bnRJSVZuc3QxMVUzVXlSQkd5bXhWTS84Q2JwRzBqditEcnl5YmRoL3JXYWNa?=
+ =?utf-8?B?bkRKSlFmOUIzNXdpUHF0dXd3NkZhc0l2Wm5PUlRKNW1ybkdNeEhnaWJsank0?=
+ =?utf-8?B?M3FCYTBiTzFpamNPQmRMbkZxcmpCTE02Y0dTR3ZsSmdOM1pzQm1Sdnd1ekF2?=
+ =?utf-8?B?UlU4ZDF1L25PaEhoZ2ZscG5JWjJMWVZTRGJZZFFDdWJ4aTVZWjl1ejdhTCtX?=
+ =?utf-8?B?Q2tueDJvVC9FR1pqMGI4eGJ1NVVZSXhSTElBT24ySlFFTlc1aUFxV05nOUxX?=
+ =?utf-8?B?aGgrb2kya1pyWE9LbzBjWU8wZ2xNTnE3MXZFazBWY1NXVllWUkNUNHVpb0NX?=
+ =?utf-8?B?RUFWWFAvM2RiYUkzT1FBbUxvM2VFbGZuU0JWam44VXBBd3dqMVQ3bE9GSUhl?=
+ =?utf-8?B?MmpRN3BsbTJvN3dJZWszaEVaSitzVTJqR3ZTU3NxV1d0SXUrUUVTVWFVb1Bj?=
+ =?utf-8?B?UkVoeTY1ekNCWnVBYzI4ZnF1YVhiR3FCV2JIZFNiSFNqWmM0MXVsay9HazJB?=
+ =?utf-8?B?enhEQlB0N3phNG9JTW1OcFlIa0JnZmxJdHV3WlhvL1ptdzlTWFFDMm1xclJW?=
+ =?utf-8?B?d0ljRUQzTzI5QksyaEFaMmIvei9QdUcyWU9qSkxvaklNT0dWalp1L3dQZWhX?=
+ =?utf-8?B?ZXF6RTJmOHQxSStpNFB3TDBUcTE1RGJFU0ZOaXYybWYxOHlIaTVZNUNySTNo?=
+ =?utf-8?B?YjRwcW5hV3hYL0NQQUJGaEVIdW9UdndBLzg1NHRGVTBzVWhNdUczTXVnTnJp?=
+ =?utf-8?B?akxoc0ZOdTk0UUdCOVp3a2dKZ0hxZEVNUmJiTGl3ZnZ0MWZqc1hMRDYwNlgz?=
+ =?utf-8?B?RFFVZmRsQ0hZRUZlNE5qZWZ3dFFVSitRV0ZUMHJWanAvTnYrN2hjT04zUjBZ?=
+ =?utf-8?B?MnFOaU4rWlg4NzRaZXROMkxJUzFRaUNvZGxtWTQ3OUJQRFBSYi9GNTBIMDZN?=
+ =?utf-8?B?aTUzTWd6a2U1VnZrMkcraVU2ckw4anVLTjVwOGhTZ2F4VXVpQzNod3pYbFYv?=
+ =?utf-8?Q?aZ7tSMTLZUlsoyWyt318PqMWiVu3svyBvdCice8?=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ed7f0b1-d459-4665-7011-08d90b0789b6
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2601.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 12:08:45.5006 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jE80B5dS84KMMw+3shLlru/OIlp59hDmorVtsEHTyyFtn6QQjZapL0ZDRwuBDwMAFo7c1rs+ow1/g1iU9LB30A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1833
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2992462-05a9-453b-fe49-08d90b09b142
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2021 12:24:10.4054 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QbvAjoVZkVNkB8nOiFQovf64wNipd+HA1Nu6ayY7xM1kkiSW6HVY+61N2rGJ+zMMta22i0BZHIEMmY64KA7NjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,99 +139,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Jacky Liao <ziyu.liao@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- David Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, kael_w@yeah.net,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0335826656=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0335826656==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z6ktmvaoxarxrbps"
-Content-Disposition: inline
+[AMD Public Use]
 
---z6ktmvaoxarxrbps
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Dennis,
 
-Hi Wan,
+The memory allocation for ras_if is needed even the block mask is not set, because kernel need to issue disable_feature command to RAS TA in amdgpu_ras_late_init. e.g. to set GFX EDC mode to bypass mode. 
 
-Instead of remove the first dc_state, remove the second one.
+Regards,
+Hawking
 
-Thanks
+-----Original Message-----
+From: Li, Dennis <Dennis.Li@amd.com> 
+Sent: Thursday, April 29, 2021 16:23
+To: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Clements, John <John.Clements@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 2/7] drm/amdgpu: add helpers for hdp ras init/fini
 
-On 04/29, Wan Jiabing wrote:
-> There are two declarations of struct dc_state here.
-> The later one is closer to its user. Remove the former duplicate.
->=20
-> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dc.h | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/di=
-splay/dc/dc.h
-> index 8108b82bac60..cad045db6ea2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -276,8 +276,6 @@ enum surface_update_type {
->  /* Forward declaration*/
->  struct dc;
->  struct dc_plane_state;
-> -struct dc_state;
-> -
-> =20
->  struct dc_cap_funcs {
->  	bool (*get_dcc_compression_cap)(const struct dc *dc,
-> --=20
-> 2.25.1
->=20
+[AMD Official Use Only - Internal Distribution Only]
 
---=20
-Rodrigo Siqueira
-https://siqueira.tech
+>>+	r = amdgpu_ras_late_init(adev, adev->hdp.ras_if,
+>>+				 &fs_info, &ih_info);
+>>+	if (r || !amdgpu_ras_is_supported(adev, adev->hdp.ras_if->block)) {
+>>+		kfree(adev->hdp.ras_if);
+>>+		adev->hdp.ras_if = NULL;
+>>+	}
 
---z6ktmvaoxarxrbps
-Content-Type: application/pgp-signature; name="signature.asc"
+It is better to move amdgpu_ras_is_supported more early, to avoid redundant memory allocation when HDP doesn't support RAS. Except  this, it looks good to me.
 
------BEGIN PGP SIGNATURE-----
+Reviewed-by: Dennis Li <Dennis.Li@amd.com>
 
-iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAmCKockACgkQWJzP/com
-vP94bBAAtGyCjm1gSmBANOcbgahugjq1wi2TZpPmrOu4aqbH0y7dS84tV15laNWX
-bCGFCHb7vGRf4kkg83sLrLTcrmx619AYgBBHZkBoQXQBU6la1cNrJwtjFqy7YLoR
-IKHdj8Zv+kQMMmXjANGnWTYzwnMXvWD/JDI1B1IT6RMoEO7RJRpj6+HHT2RTRHlT
-YPJpkQo9DFIaaIrETObA+DxDppEbWSSQ8PRiWI/jIAdCgh4QODpSPFEdr2lUMZfJ
-y12jtf9gqmXd4eVP0UCYnBCzkrAPp9rcIoWAjjYnX2rvvrnM0HvMsWjVky44i73Q
-os0T67doFL47cCHW9g0VN9kzOCKrbksNpnWGsLuSeW1SUhhallVyrLHw/hEvBz9n
-3jbe6Ctc8QHiwUJZtGp5KDWbFd/SyhIe8skgwonR0iiQQXP8uoHebvxyAvFrJIyr
-Z3Al0Kc4s2dgKgVxGIYP0U3fk/fQMBJ/aYTOgZKP1YtRd/yutmWhqzgjTWxkpR84
-wq40Xy1oOPZr4DbU2B2wd+r8ShNsVYHalQmflRGF2nty8Z0ieg9tyorcz5tnJSFT
-HOBRV7OgQP3uUOrWoJXXklw5SzpfIFCHQCZUbOlyTwjiCQ1CBvL6uGTPuhFabid9
-VRixtiXhzMCC+4utSACPQhiMyYw49ely1Qe0aHjSd6L2l+PVc60=
-=gbfm
------END PGP SIGNATURE-----
+-----Original Message-----
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+Sent: Thursday, April 29, 2021 2:26 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Clements, John <John.Clements@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH 2/7] drm/amdgpu: add helpers for hdp ras init/fini
 
---z6ktmvaoxarxrbps--
+hdp ras init/fini are common functions that can be shared among hdp generations
 
---===============0335826656==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c | 69 +++++++++++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h |  2 +
+ 3 files changed, 72 insertions(+), 1 deletion(-)  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index ee85e8a..418e674 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -56,7 +56,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_gmc.o amdgpu_mmhub.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+ 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+-	amdgpu_fw_attestation.o amdgpu_securedisplay.o
++	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o
+ 
+ amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+new file mode 100644
+index 0000000..1d50d53
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+@@ -0,0 +1,69 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person 
++obtaining a
++ * copy of this software and associated documentation files (the 
++"Software"),
++ * to deal in the Software without restriction, including without 
++limitation
++ * the rights to use, copy, modify, merge, publish, distribute, 
++sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom 
++the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be 
++included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
++EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
++MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
++SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
++DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
++OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
++OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include "amdgpu.h"
++#include "amdgpu_ras.h"
++
++int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev) {
++	int r;
++	struct ras_ih_if ih_info = {
++		.cb = NULL,
++	};
++	struct ras_fs_if fs_info = {
++		.sysfs_name = "hdp_err_count",
++	};
++
++	if (!adev->hdp.ras_if) {
++		adev->hdp.ras_if = kmalloc(sizeof(struct ras_common_if), GFP_KERNEL);
++		if (!adev->hdp.ras_if)
++			return -ENOMEM;
++		adev->hdp.ras_if->block = AMDGPU_RAS_BLOCK__HDP;
++		adev->hdp.ras_if->type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
++		adev->hdp.ras_if->sub_block_index = 0;
++		strcpy(adev->hdp.ras_if->name, "hdp");
++	}
++	ih_info.head = fs_info.head = *adev->hdp.ras_if;
++	r = amdgpu_ras_late_init(adev, adev->hdp.ras_if,
++				 &fs_info, &ih_info);
++	if (r || !amdgpu_ras_is_supported(adev, adev->hdp.ras_if->block)) {
++		kfree(adev->hdp.ras_if);
++		adev->hdp.ras_if = NULL;
++	}
+
+It is better to move amdgpu_ras_is_supported more early, to avoid redundant memory allocation when HDP doesn't support RAS. 
+
++
++	return r;
++}
++
++void amdgpu_hdp_ras_fini(struct amdgpu_device *adev) {
++	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP) &&
++	    adev->hdp.ras_if) {
++		struct ras_common_if *ras_if = adev->hdp.ras_if;
++		struct ras_ih_if ih_info = {
++			.cb = NULL,
++		};
++
++		amdgpu_ras_late_fini(adev, ras_if, &ih_info);
++		kfree(ras_if);
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+index c89cf8d..ba6f272 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -47,4 +47,6 @@ struct amdgpu_hdp {
+ 	const struct amdgpu_hdp_ras_funcs	*ras_funcs;
+ };
+ 
++int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev); void 
++amdgpu_hdp_ras_fini(struct amdgpu_device *adev);
+ #endif /* __AMDGPU_HDP_H__ */
+--
+2.7.4
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0335826656==--
