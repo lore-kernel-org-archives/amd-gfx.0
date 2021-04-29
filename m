@@ -2,67 +2,51 @@ Return-Path: <SRS0=oJVB=J2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8455DC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 15:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 983ECC433ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 15:31:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23F9160D07
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 15:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23F9160D07
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 33878613F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 15:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33878613F8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAF26EF2E;
-	Thu, 29 Apr 2021 15:26:51 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E7BE6EF2E;
- Thu, 29 Apr 2021 15:26:50 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- n32-20020a9d1ea30000b02902a53d6ad4bdso6694296otn.3; 
- Thu, 29 Apr 2021 08:26:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vbo4pKW3eCIThjMyIy6wsscOAdK3OJqwzPMbrwiTzTg=;
- b=Srmr0fVOgjkykvlE3qdpkc3N3K5sktCMj6v1OgxqDJL0bljoIWUSciurSzygMcC6+n
- Kvfe48eZrFMI4Vezxk+6d1SmAwUj3O8KStWxJ7C6QQj643wUL1pTlFt1cIl+3EPJlog8
- Wjz7r5pur/St1BB4WjvL2c+1TRfSExFtimoriLOUN5bhVZxRQ7ceQ7l6u1U35bjVvgYO
- G+U3UQmd+zdqnS/9c59d2vTHPjnfybGBOMlKvgo2G6yt/3QwDjhtTZtb/DN7njCxMlfl
- Z+5BoYbOdcY8gHWg1rB52LVWnrX7HAjpecCdA5JJdAmydYP8GXTBu8hDuNRA/byDUNS0
- rQAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vbo4pKW3eCIThjMyIy6wsscOAdK3OJqwzPMbrwiTzTg=;
- b=dJpkaF0CAuZL2Ae9vfPg9qpXYg31sHxCw+RKN/2WSi2bbYogRM5PcOG28aPixQ4HUt
- sMvj6KWCM4/Dni7gHOS4cS9ks/nDfRvmHH5pXK/0HNUUsrl2ATDEl9mKEGye03012Gki
- KzxEYgLexumKkF3UYzT9J1hWhmf+qv0Jeh/TCyal6nqAFcjdoh/VvvTBG8J1VJfJbHUu
- SK61THgF6YamVVZTRw0kv6GxOwfug3n+nnBF/EddwSC6n5VB9qnD473JfvAHlT7eTcAR
- /xH4y2DcgUn5XKe77hyvuLD52j8mCIL6wCk2338dbKF7nDMVan3ITGXu/aX5qD0gByWW
- WcAA==
-X-Gm-Message-State: AOAM530cBOTrd52nnU20rnew6casrDcI5dP3RrBd0UyaHiH34Ir558Dz
- BfC0fyE1YRRFbXmmej4jNneqzRMFQCZCFasVrU8=
-X-Google-Smtp-Source: ABdhPJx/VF42MwLva6s4z6QCvKeFfwbdS1g8a6UEzyk0r2NtvE1jU5KzdNDQMYGiG9P9g6IxZOwxNN7a3OAYwulPFs8=
-X-Received: by 2002:a9d:63d1:: with SMTP id e17mr1296573otl.311.1619710009654; 
- Thu, 29 Apr 2021 08:26:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD4F6F381;
+	Thu, 29 Apr 2021 15:31:06 +0000 (UTC)
+Received: from mail-m17642.qiye.163.com (mail-m17642.qiye.163.com
+ [59.111.176.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A06E96E0B7;
+ Thu, 29 Apr 2021 15:18:18 +0000 (UTC)
+Received: from vivo.com (localhost [127.0.0.1])
+ by mail-m17642.qiye.163.com (Hmail) with ESMTP id 14B8322010B;
+ Thu, 29 Apr 2021 23:18:15 +0800 (CST)
+Message-ID: <AB*ANgDFDju3UB4GeQss-4rk.3.1619709495070.Hmail.wanjiabing@vivo.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gZHJtL2FtZC9kaXNwbGF5OiBSZW1vdmUgZHVwbGljYXRlIGluY2x1ZGUgb2YgaHVicC5o?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
+X-Originating-IP: 180.111.217.84
+In-Reply-To: <20210429144121.v6ycsvwkk64s7grp@outlook.office365.com>
 MIME-Version: 1.0
-References: <20210427112738.15869-1-fmdefrancesco@gmail.com>
- <ef0a9c9d-4a7e-b1ce-05ef-29dca0c020a7@amd.com>
-In-Reply-To: <ef0a9c9d-4a7e-b1ce-05ef-29dca0c020a7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Apr 2021 11:26:38 -0400
-Message-ID: <CADnq5_NGxHweFv_Cqwn1em5erGeUH_WJ_6KugJ+iKEUsKtuaYg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/amdgpu: Fix errors in documentation of
- function parameters
-To: Felix Kuehling <felix.kuehling@amd.com>
+Received: from wanjiabing@vivo.com( [180.111.217.84) ] by ajax-webmail (
+ [127.0.0.1] ) ; Thu, 29 Apr 2021 23:18:15 +0800 (GMT+08:00)
+From: Jiabing Wan <wanjiabing@vivo.com>
+Date: Thu, 29 Apr 2021 23:18:15 +0800 (GMT+08:00)
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZGUofT1ZKHUpPSU5DSUJPGh5VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hKTFVLWQY+
+X-HM-Sender-Digest: e1kJHlYWEh9ZQU1ISUhMQk5CSUxMN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
+ WUc6OVE6NRw*PT8RDkguOU88HioICFZPCRBVSFVKTUpCTEtCT0JOT0NOVTMWGhIXVQwaFRESGhkS
+ FRw7DRINFFUYFBZFWVdZEgtZQVlKQ0tVSkpKVUlKTFVDT1lXWQgBWUFNSUJINwY+
+X-HM-Tid: 0a791e358738d998kuws14b8322010b
+X-Mailman-Approved-At: Thu, 29 Apr 2021 15:31:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,178 +58,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, open list <linux-kernel@vger.kernel.org>,
- "open list:AMD KFD" <amd-gfx@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: Aric Cyr <aric.cyr@amd.com>, Anson Jacob <Anson.Jacob@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ dri-devel@lists.freedesktop.org, Chiawen Huang <chiawen.huang@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ David Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ kael_w@yeah.net, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 29, 2021 at 2:44 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
->
-> On 2021-04-27 7:27, Fabio M. De Francesco wrote:
-> > In the documentation of functions, removed excess parameters, described
-> > undocumented ones, and fixed syntax errors.
-> >
-> > Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
-> > ---
-> >
-> > Changes from v1: Cc'ed all the maintainers.
->
-> Looks like Alex already applied V1. So this one doesn't apply. "git am
-> -3" tells me:
+ 
+>Is your robot public available?
 
-Ah sorry, I didn't see the v2 patch.
+Sorry, I started to write the robot just one week ago.
+It is not strong and complete enough so it is not public available now.
+But I am still working on it. If complete, it can be public available.
 
-Alex
+In fact, this patch is catched by the script called checkinclude.pl
+in linux/script. The robot just run the script and catch it ;).
 
+There will be more scripts in the robot and I think
+it will be public available soon.
+
+>btw, applied to amd-staging-drm-next.
+
+Thank you very much.
 
 >
-> Applying: drm/amd/amdgpu: Fix errors in documentation of function parameters
-> Using index info to reconstruct a base tree...
-> M       drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> M       drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> M       drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> Falling back to patching base and 3-way merge...
-> No changes -- Patch already applied.
+>Thanks
+>On 04/29, Jiabing Wan wrote:
+>>  
+>> >Nice catch!
+>> >
+>> >Are you using any tool to identify this problem?
+>> 
+>> Yes, I have a robot including many detecting scripts :)
+>> 
+>> >Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>> >
+>> >On 04/29, Wan Jiabing wrote:
+>> >> In commit 482812d56698e ("drm/amd/display: Set max TTU on
+>> >> DPG enable"), "hubp.h" was added which caused the duplicate include.
+>> >> To be on the safe side, remove the later duplicate include.
+>> >> 
+>> >> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+>> >> ---
+>> >>  drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
+>> >>  1 file changed, 1 deletion(-)
+>> >> 
+>> >> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >> index 8f0a13807d05..dcaa6b1e16af 100644
+>> >> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> >> @@ -58,7 +58,6 @@
+>> >>  #include "dc_link_ddc.h"
+>> >>  #include "dm_helpers.h"
+>> >>  #include "mem_input.h"
+>> >> -#include "hubp.h"
+>> >>  
+>> >>  #include "dc_link_dp.h"
+>> >>  #include "dc_dmub_srv.h"
+>> >> -- 
+>> >> 2.25.1
+>> >> 
+>> >
+>> >-- 
+>> >Rodrigo Siqueira
+>> >https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsiqueira.tech%2F&amp;data=04%7C01%7CRodrigo.Siqueira%40amd.com%7Cb8ff161b3a904a49e59808d90b0991d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637552958013669698%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=I7AtEiOlzUuRQag7uAuArUvfd64l1b3gstq7ZTeucik%3D&amp;reserved=0
+>> 
+>> Yours,
+>> Wan Jiabing
+>> 
 >
-> Regards,
->    Felix
->
->
-> >
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c          | 12 ++++++------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  4 +++-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  8 ++++----
-> >   3 files changed, 13 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > index 2e9b16fb3fcd..bf2939b6eb43 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > @@ -76,7 +76,7 @@ struct amdgpu_atif {
-> >   /**
-> >    * amdgpu_atif_call - call an ATIF method
-> >    *
-> > - * @handle: acpi handle
-> > + * @atif: acpi handle
-> >    * @function: the ATIF function to execute
-> >    * @params: ATIF function params
-> >    *
-> > @@ -166,7 +166,6 @@ static void amdgpu_atif_parse_functions(struct amdgpu_atif_functions *f, u32 mas
-> >   /**
-> >    * amdgpu_atif_verify_interface - verify ATIF
-> >    *
-> > - * @handle: acpi handle
-> >    * @atif: amdgpu atif struct
-> >    *
-> >    * Execute the ATIF_FUNCTION_VERIFY_INTERFACE ATIF function
-> > @@ -240,8 +239,7 @@ static acpi_handle amdgpu_atif_probe_handle(acpi_handle dhandle)
-> >   /**
-> >    * amdgpu_atif_get_notification_params - determine notify configuration
-> >    *
-> > - * @handle: acpi handle
-> > - * @n: atif notification configuration struct
-> > + * @atif: acpi handle
-> >    *
-> >    * Execute the ATIF_FUNCTION_GET_SYSTEM_PARAMETERS ATIF function
-> >    * to determine if a notifier is used and if so which one
-> > @@ -304,7 +302,7 @@ static int amdgpu_atif_get_notification_params(struct amdgpu_atif *atif)
-> >   /**
-> >    * amdgpu_atif_query_backlight_caps - get min and max backlight input signal
-> >    *
-> > - * @handle: acpi handle
-> > + * @atif: acpi handle
-> >    *
-> >    * Execute the QUERY_BRIGHTNESS_TRANSFER_CHARACTERISTICS ATIF function
-> >    * to determine the acceptable range of backlight values
-> > @@ -363,7 +361,7 @@ static int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
-> >   /**
-> >    * amdgpu_atif_get_sbios_requests - get requested sbios event
-> >    *
-> > - * @handle: acpi handle
-> > + * @atif: acpi handle
-> >    * @req: atif sbios request struct
-> >    *
-> >    * Execute the ATIF_FUNCTION_GET_SYSTEM_BIOS_REQUESTS ATIF function
-> > @@ -899,6 +897,8 @@ void amdgpu_acpi_fini(struct amdgpu_device *adev)
-> >   /**
-> >    * amdgpu_acpi_is_s0ix_supported
-> >    *
-> > + * @adev: amdgpu_device_pointer
-> > + *
-> >    * returns true if supported, false if not.
-> >    */
-> >   bool amdgpu_acpi_is_s0ix_supported(struct amdgpu_device *adev)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> > index 5af464933976..98d31ebad9ce 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> > @@ -111,6 +111,8 @@ static const char *amdkfd_fence_get_timeline_name(struct dma_fence *f)
-> >    *  a KFD BO and schedules a job to move the BO.
-> >    *  If fence is already signaled return true.
-> >    *  If fence is not signaled schedule a evict KFD process work item.
-> > + *
-> > + *  @f: dma_fence
-> >    */
-> >   static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
-> >   {
-> > @@ -131,7 +133,7 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
-> >   /**
-> >    * amdkfd_fence_release - callback that fence can be freed
-> >    *
-> > - * @fence: fence
-> > + * @f: dma_fence
-> >    *
-> >    * This function is called when the reference count becomes zero.
-> >    * Drops the mm_struct reference and RCU schedules freeing up the fence.
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > index b43e68fc1378..ed3014fbb563 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > @@ -719,7 +719,7 @@ static void unlock_spi_csq_mutexes(struct amdgpu_device *adev)
-> >   }
-> >
-> >   /**
-> > - * @get_wave_count: Read device registers to get number of waves in flight for
-> > + * get_wave_count: Read device registers to get number of waves in flight for
-> >    * a particular queue. The method also returns the VMID associated with the
-> >    * queue.
-> >    *
-> > @@ -755,19 +755,19 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-> >   }
-> >
-> >   /**
-> > - * @kgd_gfx_v9_get_cu_occupancy: Reads relevant registers associated with each
-> > + * kgd_gfx_v9_get_cu_occupancy: Reads relevant registers associated with each
-> >    * shader engine and aggregates the number of waves that are in flight for the
-> >    * process whose pasid is provided as a parameter. The process could have ZERO
-> >    * or more queues running and submitting waves to compute units.
-> >    *
-> >    * @kgd: Handle of device from which to get number of waves in flight
-> >    * @pasid: Identifies the process for which this query call is invoked
-> > - * @wave_cnt: Output parameter updated with number of waves in flight that
-> > + * @pasid_wave_cnt: Output parameter updated with number of waves in flight that
-> >    * belong to process with given pasid
-> >    * @max_waves_per_cu: Output parameter updated with maximum number of waves
-> >    * possible per Compute Unit
-> >    *
-> > - * @note: It's possible that the device has too many queues (oversubscription)
-> > + * Note: It's possible that the device has too many queues (oversubscription)
-> >    * in which case a VMID could be remapped to a different PASID. This could lead
-> >    * to an iaccurate wave count. Following is a high-level sequence:
-> >    *    Time T1: vmid = getVmid(); vmid is associated with Pasid P1
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>-- 
+>Rodrigo Siqueira
+>https://siqueira.tech
+
+Yours,
+Wan Jiabing
+
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
