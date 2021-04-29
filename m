@@ -7,103 +7,99 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E257DC433B4
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36AFBC43460
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EAD461447
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:26:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EAD461447
+	by mail.kernel.org (Postfix) with ESMTPS id A659761447
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Apr 2021 06:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A659761447
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BBC6EC87;
-	Thu, 29 Apr 2021 06:26:04 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D87C6EC8A
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:26:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 356026EC8A;
+	Thu, 29 Apr 2021 06:26:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2050.outbound.protection.outlook.com [40.107.236.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 743266EC8A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Apr 2021 06:26:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S5+1sG+ogazf0vmZSkP5kzpgVwXmiPwPf/NYWXqCaMCizryS+EohRspKTqc4dEElRYa/SzoFF1ksBcerO1gg75YFmAKeJ302UhIsmTckc1oR9lYBuuR0oG0tvv1ztY6k6ithp2MXAif+7f/YyTjjbqAUilaMmxWhGcGSMMoJp8A/DJakafcUtDfjiFdr7K0VOdVDOUnBam1ZK/speWW/E8XCksMKc6dpzovbVXOQYW4YJqWP6kDYznjpGrk7oVU1aNldxnEmgC/wv719PKizA4X0+zDFOs1gyTQpwcgvEnJpUx/mMB8C3/HNryOSP9TEEsnPDdFlOkh8DgpLDd9e1w==
+ b=gqZZr6HED5W13z8PZ1fUwt+bilIjeIzS+pQjB0ow+zOClG2W26hLQTIvmEb5n0bKSc/E27/NF1l89jrUuzaV+5eC/psPHf4vmDMf/ItwxnPTsuL8ggSFQfNwyCMM+vpgdAroMJqx716LOmoz7uegvMFdnP0bhPkKBPgn8BT4KF/daKIG4s8qHiqALlM0JYsJcUQannXv6zNOjSl7nSLHEDJCuNaI+RXdZ74VFkalpmWGve2XjmmxLT4N2kw5Sxq+KL9M2U3kgm0b1pNxlDay4gS+RkwWZlvdm0Y13kXThRWU4gWx4PV67nvSmExXJWXcBl+wJiGyeHiiEY3YKIcJPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C0m6qBPeX/JKe8LOHmNUNQoRfBelzKTapsRUGkTkt6A=;
- b=deANPjD1m+ycePegBVkNT6eXR4Q+WDDcF7hrq5Br4OzOr9qqqJf5jLt9ww/JC3GFeTVQI9ilECHsbA2CY4UHnp1ujXK333oRXY90bi+Uc6okA0l6B4tUryvzYHGywyWRMBvw9qfeCeq1sOutpXMvxUptjTH+PZhN1yeR/HxWcyA1eYITLd1RFIDUSCmALv7/U/LcH+bGcl7xZ+jse6ewyWqOjQMj9twkX1plJStstHC6WCtk9SGUFVR4sfki0I0g/JLw75PtzCVF4AzGlRlCYBCeeNhpSmPH/oGs5pzgCMHkSkIMQ3kGpz+ofLM5SjKh/5oOErTTdV0J+IyOdpUhZg==
+ bh=so54wnypORiGCKhKF5n1jMkK/9B2qfAm6ZIpRTLZHvI=;
+ b=T+TtFHjuICygrtuUVQp2nYC8q7fvEcp7rEYS28br9AIsegpb7iou8im/KJF0Ys5OiJbkliZTG8/BmiQCXfLV6KeJ6UOTHBLACV3kh/h0qW5kfG7QFPvOylMv9Scc0ytIQWGHZNWFRXI1ZHvSUR/i4xOmT0jWeS3yIfLppl7Ijk0+1mrqsoCVLF2Geva7oSTtJIjBg68LvKbFkGWOmcXFisDZnFUWTO+mK/1V3iKvLNVC1eCFKXTLMT8QvM0HRf5Zic+tei8Zb59cLZPZcSmzH3LYl0uiWpQIKsFKT1/RF/iB7tzxiC/hh9yra2I+Ghl8CBUeMFLY3yW9WyPwLy1R7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=none sp=none pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C0m6qBPeX/JKe8LOHmNUNQoRfBelzKTapsRUGkTkt6A=;
- b=BWCg6VayKerGLSMDJxagg8jGBR7b0M11wa857Q9Pk5DQpetI3KkQl/RRGjKH+iBw65X6ssnBcBngj4vZeyNW+N9a0RfjRxafgLLhW/C2ALHmkYeMz7GOiFRrKSKtZ3tPAQHMFt478/Y84x4yXgz6+153fN5TIDzvB3PV/RY+6T4=
-Received: from BN6PR13CA0006.namprd13.prod.outlook.com (2603:10b6:404:10a::16)
- by BN8PR12MB2865.namprd12.prod.outlook.com (2603:10b6:408:96::13)
+ bh=so54wnypORiGCKhKF5n1jMkK/9B2qfAm6ZIpRTLZHvI=;
+ b=MKFixl9UWqRv0yVCS65KZ8wQmsvqTcVGqqULfKWEL6Y0BAatvKOZK0vDdrKzFkFLWZycB/eaiXWATNeLqDjlXOgOVsEIraGB2IFeeYBrreIL/AIOx2NCFPhPqtKLVlkZQskZxJaaSr4jQjY4JDQ6QW/F1qerWfb9Lpih8xhLLjQ=
+Received: from BN8PR04CA0058.namprd04.prod.outlook.com (2603:10b6:408:d4::32)
+ by CH2PR12MB4199.namprd12.prod.outlook.com (2603:10b6:610:a7::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25; Thu, 29 Apr
- 2021 06:26:00 +0000
-Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:10a:cafe::a9) by BN6PR13CA0006.outlook.office365.com
- (2603:10b6:404:10a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.8 via Frontend
- Transport; Thu, 29 Apr 2021 06:26:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Thu, 29 Apr
+ 2021 06:26:03 +0000
+Received: from BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:d4:cafe::e7) by BN8PR04CA0058.outlook.office365.com
+ (2603:10b6:408:d4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.25 via Frontend
+ Transport; Thu, 29 Apr 2021 06:26:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=pass action=none
  header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT019.mail.protection.outlook.com (10.13.176.158) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4087.27 via Frontend Transport; Thu, 29 Apr 2021 06:26:00 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4087.32 via Frontend Transport; Thu, 29 Apr 2021 06:26:03 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 29 Apr
- 2021 01:26:00 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 29 Apr
- 2021 01:25:59 -0500
+ 2021 01:26:02 -0500
 Received: from hawzhang-System-Product.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2242.4
- via Frontend Transport; Thu, 29 Apr 2021 01:25:58 -0500
+ via Frontend Transport; Thu, 29 Apr 2021 01:26:01 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, Dennis Li <Dennis.Li@amd.com>,
  John Clements <John.Clements@amd.com>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/7] drm/amdgpu: implement hdp v4_0 ras functions
-Date: Thu, 29 Apr 2021 14:25:42 +0800
-Message-ID: <1619677546-2630-3-git-send-email-Hawking.Zhang@amd.com>
+Subject: [PATCH 4/7] drm/amdgpu: initialize hdp v4_0 ras functions
+Date: Thu, 29 Apr 2021 14:25:43 +0800
+Message-ID: <1619677546-2630-4-git-send-email-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1619677546-2630-1-git-send-email-Hawking.Zhang@amd.com>
 References: <1619677546-2630-1-git-send-email-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51eecf30-0bab-4731-11f7-08d90ad7a84a
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2865:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB28656645DD18A98C10A2C7E7FC5F9@BN8PR12MB2865.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:561;
+X-MS-Office365-Filtering-Correlation-Id: 8107303f-c7b7-4363-1ddc-08d90ad7a9c7
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4199:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4199570668BEDDADD20E27BBFC5F9@CH2PR12MB4199.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:296;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kOHqmuzRu3fBkzw7OCT9imymZfYKdutZ0qdwi7ntbkQoxRWtrZVUWwwebgFG0+fdo4I1DVIcl88T7lPTLWjVeFY0G36FYA2l2WP0QOutlbImgR+xH3JLoq2psm807oIpjT7ej/adEPhGoMlfV/zBeSV7nJ7kRJSgTBQoo3aJ6YW02CWGxChe2VX8mJvQA83Z3nCRWF6nE1/ARmWqGjvFORWnJ8/5Vv7qx/DRbdXfVWURGH1pZYhapvB+SpqF1cZDGfG9R3ZXB1ERJORBvQ6LTXTpyiDty4/xn2AbSJdGYzzbuDbWmm5QkF0Kp+SpCThuEF1BwtXNuvvNohHvgtKcaHcIOWh0javlIrvtovQDH4H3weOllhzBMe/HdT0oOSW0ThA64A7PoOoidZRAJJR8E1wJFFQNjq5wLi1s1/RYAEoYpNw18aGXkw9XRbkohdAlBqf2v9HaWGcbN+a+prc3QPP7g7zG2U7Qf8qS/P8riuAmwoJDbynf6YwmGiCPE0ziZFJgWYV5Fvlxtm9psA4SxVzqBN/2bdpRIqQYKhRU7umBMH8ucv3qwkxvSzwbnB9bxd6lTiZGfDu0b6fqT97fnZN3z+xnlnuqHu9e6fOfFNQL0Agsy3AxmcEofGeTqbYUKgS+aCcTG9o5v3W3lsBAaJ0lfduEl/p5AZDFZIF4UeMDOVZNdPMBdLJ4F5tHvGow
+X-Microsoft-Antispam-Message-Info: 55yGXVAoMlaP5eoqOhTqn0xekmKEIfrtjrAzHW58TAZQ8lv9MjG9uJhdL81DrczaPPE7iopZbWZZWunP9cmWjw/Lc8FvAZcB12CRTF2uhAeOmVU7ELgo5qe5QThi2qlLz30ytJLNmg5CBbNwOTNt2JaabkjUMHExRV5CbHQaE5lFlhY7UJvpZOYJJkjYxoz/pRUjC9Ktj+26COJEn/7mykJoL1/4xmLpgEGWXkJT96Zw4yJvV45yJDMo5IS+0IFXfx5iQDMBMPzz82ZYObts1foWKEvB6HlnuR7SmOJnt5ljMIiVDJkUf4gYiK5USZ7wjsuWD/kIDs2OE17Le8pDR23sbAiLds3fYGlCUzjXhzDJVd2foSVymU1GhqZp5HqhwZQhci1b4Yo+aVbLlOF4SCeNwDbMPvZZ0SI6hWxXyKfRzBUrgt7mz3P2i/m9AKTA7AXuf2c4n+4Fe7Q2aHWrtayPQZeRCFv2vmph8cFM5/SHAy6pnPozyaRCLqEa2NrVJ7RoP0g8WRbjO5OBl9nx0w9BigmUBwqxvdzoElaNk5+NIYyYw67DT2jV3bFQrjY4AAbqYXrS6QeZfz1aYd1mC7lCK9eUz26ZfkciZliYNs6lIliqIjVJZSJWeJu2S8jVOYnekFm25456qmp7PSX0wUgZQfRhHLFupjuEyh1KsR61+Mc1i6X15CvHA7g9vznT
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(136003)(39860400002)(376002)(396003)(36840700001)(46966006)(110136005)(426003)(36756003)(316002)(6666004)(82740400003)(81166007)(356005)(36860700001)(47076005)(26005)(186003)(336012)(2616005)(83380400001)(478600001)(8676002)(2906002)(4326008)(82310400003)(70206006)(7696005)(8936002)(86362001)(5660300002)(70586007)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(36840700001)(46966006)(26005)(70206006)(70586007)(186003)(8936002)(8676002)(2616005)(478600001)(82310400003)(81166007)(82740400003)(356005)(2906002)(36756003)(7696005)(336012)(86362001)(47076005)(6666004)(316002)(4326008)(426003)(110136005)(5660300002)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 06:26:00.6869 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51eecf30-0bab-4731-11f7-08d90ad7a84a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2021 06:26:03.1841 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8107303f-c7b7-4363-1ddc-08d90ad7a9c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2865
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4199
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,78 +117,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-implement hdp v4_0 ras functions, including
-ras init/fini, query/reset_error_counter
+hdp v4_0 support ras features
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c | 30 ++++++++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h |  1 +
- 2 files changed, 29 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-index edbd35d..330c0f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-@@ -59,12 +59,31 @@ static void hdp_v4_0_invalidate_hdp(struct amdgpu_device *adev,
- 			HDP, 0, mmHDP_READ_CACHE_INVALIDATE), 1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 4da8b3d..8e0cab5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -53,6 +53,7 @@
+ #include "mmhub_v1_7.h"
+ #include "umc_v6_1.h"
+ #include "umc_v6_0.h"
++#include "hdp_v4_0.h"
+ 
+ #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
+ 
+@@ -1210,6 +1211,11 @@ static void gmc_v9_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+ 	adev->gfxhub.funcs = &gfxhub_v1_0_funcs;
  }
  
-+static void hdp_v4_0_query_ras_error_count(struct amdgpu_device *adev,
-+					   void *ras_error_status)
++static void gmc_v9_0_set_hdp_ras_funcs(struct amdgpu_device *adev)
 +{
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
++	adev->hdp.ras_funcs = &hdp_v4_0_ras_funcs;
++}
 +
-+	err_data->ue_count = 0;
-+	err_data->ce_count = 0;
-+
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP))
-+		return;
-+
-+	/* HDP SRAM errors are uncorrectable ones (i.e. fatal errors) */
-+	err_data->ue_count += RREG32_SOC15(HDP, 0, mmHDP_EDC_CNT);
-+};
-+
- static void hdp_v4_0_reset_ras_error_count(struct amdgpu_device *adev)
+ static int gmc_v9_0_early_init(void *handle)
  {
- 	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP))
- 		return;
--	/*read back hdp ras counter to reset it to 0 */
--	RREG32_SOC15(HDP, 0, mmHDP_EDC_CNT);
-+
-+	if (adev->asic_type >= CHIP_ALDEBARAN)
-+		WREG32_SOC15(HDP, 0, mmHDP_EDC_CNT, 0);
-+	else
-+		/*read back hdp ras counter to reset it to 0 */
-+		RREG32_SOC15(HDP, 0, mmHDP_EDC_CNT);
- }
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -1230,6 +1236,7 @@ static int gmc_v9_0_early_init(void *handle)
+ 	gmc_v9_0_set_mmhub_funcs(adev);
+ 	gmc_v9_0_set_mmhub_ras_funcs(adev);
+ 	gmc_v9_0_set_gfxhub_funcs(adev);
++	gmc_v9_0_set_hdp_ras_funcs(adev);
  
- static void hdp_v4_0_update_clock_gating(struct amdgpu_device *adev,
-@@ -130,6 +149,13 @@ static void hdp_v4_0_init_registers(struct amdgpu_device *adev)
- 	WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE_HI, (adev->gmc.vram_start >> 40));
- }
- 
-+const struct amdgpu_hdp_ras_funcs hdp_v4_0_ras_funcs = {
-+	.ras_late_init = amdgpu_hdp_ras_late_init,
-+	.ras_fini = amdgpu_hdp_ras_fini,
-+	.query_ras_error_count = hdp_v4_0_query_ras_error_count,
-+	.reset_ras_error_count = hdp_v4_0_reset_ras_error_count,
-+};
-+
- const struct amdgpu_hdp_funcs hdp_v4_0_funcs = {
- 	.flush_hdp = hdp_v4_0_flush_hdp,
- 	.invalidate_hdp = hdp_v4_0_invalidate_hdp,
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h
-index d1e6399..dc3a1b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.h
-@@ -27,5 +27,6 @@
- #include "soc15_common.h"
- 
- extern const struct amdgpu_hdp_funcs hdp_v4_0_funcs;
-+extern const struct amdgpu_hdp_ras_funcs hdp_v4_0_ras_funcs;
- 
- #endif
+ 	adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
+ 	adev->gmc.shared_aperture_end =
 -- 
 2.7.4
 
