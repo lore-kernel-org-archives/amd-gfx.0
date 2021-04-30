@@ -2,52 +2,130 @@ Return-Path: <SRS0=uLL/=J3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BD64FC433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 05:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADC9DC433ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 05:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65FA161362
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 05:43:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65FA161362
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5A8BC613F7
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 05:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A8BC613F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D772E6E479;
-	Fri, 30 Apr 2021 05:43:36 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D556E459;
- Fri, 30 Apr 2021 05:43:34 +0000 (UTC)
-IronPort-SDR: 2nFeVqEK96TAlgJSH/gk68w7ub9rjbE/PyAFmces7wuOnfGaSdD/eaxXxuYpWh6Oq/8hi9XCD0
- eOt75KgFpZ0g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9969"; a="282545751"
-X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="282545751"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 22:43:34 -0700
-IronPort-SDR: qpSmQaTHSDXQvP3DxAlY9d7jqaegJMVPQzpcGsiakKy/aFeGzVCc3yRbNz/OX1UWB686yzD7Cm
- RToFEG4KknmA==
-X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="431257059"
-Received: from angiepch-mobl1.amr.corp.intel.com (HELO localhost)
- ([10.252.52.49])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2021 22:43:30 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nikola Cornij <nikola.cornij@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [Intel-gfx] [PATCH v8 1/1] drm/drm_mst: Use Extended Base
- Receiver Capability DPCD space
-In-Reply-To: <20210428234346.1085977-2-nikola.cornij@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210428234346.1085977-1-nikola.cornij@amd.com>
- <20210428234346.1085977-2-nikola.cornij@amd.com>
-Date: Fri, 30 Apr 2021 08:43:27 +0300
-Message-ID: <875z042ups.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF1196E487;
+	Fri, 30 Apr 2021 05:49:34 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD0686E484;
+ Fri, 30 Apr 2021 05:49:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O4fsYwOa3owoF/H1bGjCmo+LNn1IDrr8YpYXxr9Q8f1kXMIBRoEBH2ks1cMqu6XynY2pgA8K7VST/3hsjlyydbMBQXucAFOuaGNyrdKv060PBPwI5vyeFfTsMT5k/jPcVoMSmPxQ+lwy8gsuoFea3AfbcxRSQ9vksfamrm7l9GphrjmjvkV9ujAznK6QhfxDSAVVrrgFgEhKsZ9yGZUfJlJN52sFd/W2ghDttPfDcfSEgztTHXDhK8aetUQ6qefFGxGWHRs7zS43a6JX0DlIjHmF02PNVXYDqX2ozYE+MOosHH0xejmdkDo9DfInutje0v+geOresU3vsdH9HGQCkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oKqk73GwN4Gh24v2f6M7+zbls5mdfq5lo8lmyoqCcvA=;
+ b=fqJe013oPiSy4EnLefEX6R26EDAuhdGxu+tk+wmAfqXYJKolX8aLuc0CasFSXLUqldX70GN9xlWC+R4ueGmXx9qGto6SdvaPWR0bMVWhRMEPyKF4V55f1Ld4TgNwQd55h7/i5jLWD5DZaltrC4xvhC8Iidq9c4Mrr5JT3Qp1e9ii/pyx9j8H8MThQP9jR4A6LSN8aPm2E3JTVXj49SQjQwwqCRJKghZ0SBy9KoYSMjWKjKz2myvVCvlZzPSB180ET5eu5u/nHrI+sI6JDe5vQA2M8BVUStjrOMjYkupTXtvzGf2NVhe2XAUBVpYE9l9ock3R8L7s5RWZk66juYrqPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oKqk73GwN4Gh24v2f6M7+zbls5mdfq5lo8lmyoqCcvA=;
+ b=RshjdNAChRrz7ruRGi7B1uRLfdJqkRy+5hQFZHjQmsgZLno+oZ4OrTzUNH+UgmhJF3NDk94oq5TInBw5YJpOrb4YtZ08a0fiZQesyy4RJjCVqFBnZi+H3ktz7goMRKvPFDk1aX/LM4uGADdC8ph04QVGORLDh52guPmL4k5B1f0=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by MN2PR12MB3679.namprd12.prod.outlook.com (2603:10b6:208:159::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Fri, 30 Apr
+ 2021 05:49:29 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9%8]) with mapi id 15.20.4087.035; Fri, 30 Apr 2021
+ 05:49:29 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: Re: [PATCH v5 03/27] drm/amdgpu: Split amdgpu_device_fini into early
+ and late
+Thread-Topic: [PATCH v5 03/27] drm/amdgpu: Split amdgpu_device_fini into early
+ and late
+Thread-Index: AQHXPED31dtAN1Hzr0610aKd3EouaKrMhrjrgAAHMQCAAAEikQ==
+Date: Fri, 30 Apr 2021 05:49:29 +0000
+Message-ID: <MN2PR12MB4549AE4C448D5CDF3008707F975E9@MN2PR12MB4549.namprd12.prod.outlook.com>
+References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
+ <20210428151207.1212258-4-andrey.grodzovsky@amd.com>
+ <MN2PR12MB4549896A55131D4A327908E4975E9@MN2PR12MB4549.namprd12.prod.outlook.com>,
+ <9437bddc-b944-3f7b-deb5-6068cb12a48c@amd.com>
+In-Reply-To: <9437bddc-b944-3f7b-deb5-6068cb12a48c@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-04-30T05:43:41.0872779Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [106.208.139.172]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 354ccf87-e8c4-4db3-b77f-08d90b9bb8b0
+x-ms-traffictypediagnostic: MN2PR12MB3679:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB3679A92630BB5E219E508176975E9@MN2PR12MB3679.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZHVCmo5TPl4HjDIM8melnB7mCSxAWvWYvyFsV+42JUQnHokRqZlgzpvTrIT30UdYOSvyIy+nTSDFq6xZ4+G8PQG2L/qcmKwFh9BQGeX3p0NR53HzPm7TZekhiMdYXeKrVEyiKcilTS7frex8zEBBl3Ivs+r08TXd+OEK2yRZWwcXMy25tWR6MK4Kky3Yfty9+zD2d65T0T1Qln3b3Y55pLR+IDHzyPcTNdZc8bkcsUlIbi6f2iOaXo9GCl0BbM5Y9JUuMG7dJm2t8VSYVeLM0dezZ7f2vls9vB0ekgtM8CfY+L5Z2aTU2Nh5VbzggLtmYO82p1k+Jgp7ne63ht3DQUbdh2lL8NPf08+B2RdBa4xVcc7jrnIcapmXl/ASl5J/GskQLGNqM8SPNXhEeUmrcyra/lKXRNmq34kLK9KIWmy5+OvHeiUT4aPP+ARYkB9zesOD26/JY8gBuBTTjMT5cNAsj0AIODGZW4HksRRRL0ZevSRkJJpfU8Zbqyrfod176hJAVWQwVrxMPvdUn1NiGUq9e7+jeCbLObj8hb/xDpKVLk9o4LcadxwsP4PCuXXXnH5yK73VZe/E+oibJxfEmpvFHB13pJeB2InjHxyuCEs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(396003)(366004)(376002)(136003)(4326008)(6636002)(33656002)(52536014)(26005)(478600001)(7696005)(66556008)(186003)(86362001)(66946007)(54906003)(66446008)(71200400001)(9686003)(5660300002)(6506007)(2906002)(122000001)(8936002)(110136005)(55016002)(66476007)(38100700002)(76116006)(8676002)(558084003)(316002)(64756008)(91956017);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?BCz+ZngczkqXZDMjN31aaEpwmlMB1mpc5EcytbFa155mus/f/jzIRUTKUx7Z?=
+ =?us-ascii?Q?nUPMWnQWEwwlCSKgTRDvyZXB8ZPWc+Fuu8YO++thorJBiTkYfcPWoqcTNbdG?=
+ =?us-ascii?Q?BhOEEZU2UNVquKFBli4PmQjYEn8IAs05CVO0XjpjDdklcIpfFy/DkMHvWXdv?=
+ =?us-ascii?Q?75jFQKC8Oi18XvFk6s38dXkQfoSXjcUWVms0RoqcwcPmcWAcw0WX0iw8bLdy?=
+ =?us-ascii?Q?3m1hAbmp7gpTYr9GVeVYRYEFX1iBHa1QNYPEEPwYIDHWe9+WzWuUyVRnlYe6?=
+ =?us-ascii?Q?VPH4u6DNWUBAmGLiHeXwKZsGClmYnQVSMHu46TRoaoac20bU10IjwMV1z/Os?=
+ =?us-ascii?Q?gdWM2ONydMMXuu1WYYsc0MYlEUdGiAE0u8ti4JqXvBfO2QtFqFcdpMum/I7S?=
+ =?us-ascii?Q?+g5rnuJtd8sYI+BYg06VvCUClgBrSqbgEsWnqX74wfeiit9BpELe8bjCXUD0?=
+ =?us-ascii?Q?6m4mRCF33XuLiNAgSsuK5RNGIJi7LUZfybZMWoZ9eP3mTGFxM4OE0dJnvL04?=
+ =?us-ascii?Q?zgZbE5QpTjLiEt3NGoAAV/DzaH/ElAPQwfJafENpHAHPhWA30zncyutPxAmC?=
+ =?us-ascii?Q?4NeAn7e4L5cXVcOE0KohKjg4JOqysRpj+ncGBMNZFomIDjNuieRPQmkwunMm?=
+ =?us-ascii?Q?0wyTkXvoSWDu1HBHCkws7JxFO0oaIh6L9+nCgbg9J7URSdq88HT7pTWS/EUH?=
+ =?us-ascii?Q?UamcAt3n93nqxcscd4H2UxhtybmhnOnq6XmUCnTZwhnb8AmRI3ilk6RRu8Kf?=
+ =?us-ascii?Q?ZfpCT8ln2qP9Y/c3YuE8OpWhFLeqz/6Tw9b/fJ4FBel9bqACPTkfWmxlVoCu?=
+ =?us-ascii?Q?KgaukNrDD3zC2y4qb8713v7F/CoBXqjJoPtlybDZBOwWzqttD8773cv+weyM?=
+ =?us-ascii?Q?lGQT0WcTFuRTTcDj0HP87ZVeXZiR2g/Li6Y1vERxiBHBkQH4XOc52VKn3EGa?=
+ =?us-ascii?Q?VGFHjsCBH+TXzE99wcqvTtPm86fx3SDfIEVNOBICp478I+3wm7+gkuAarWvH?=
+ =?us-ascii?Q?yPiJSF+vcEQ2lMQsMcFlcMF9rHXSH6NHUWpZ6f4bpBnSL+NNgZgvv/kaByLV?=
+ =?us-ascii?Q?8FQol/WY7He8VBtWvyt9rFQc6aof1eYwzsqPH+PAbbrbO2S/QuLrAfpg25iG?=
+ =?us-ascii?Q?oTBWsqmSVmeus6cB3GQ6S3QFOfQ1PyQmV5yKDFuWXThFUc8XvGaFVReu6iMm?=
+ =?us-ascii?Q?4KNHzvRJ69a/5qn3sg0bTVjUUgS/yV2a9/7tD614MdQny+5CgMjKsnqmUEWt?=
+ =?us-ascii?Q?MBxo4c67pu3c0IFr1Wv+pVPengoYnngAXHAf25MFynLU5ewYpkcrWnUDt020?=
+ =?us-ascii?Q?ztA3iDFUDbQFsTK36Lqbu+1iGOHPtzjMCmRxgFZKPqxsaA=3D=3D?=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 354ccf87-e8c4-4db3-b77f-08d90b9bb8b0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2021 05:49:29.3323 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: l/qp5NKq7BBLjiPl+RGVjfqJhwDQpF9VRzH+/GIhbInuYrbj0P5wK8ddPp0cVvQI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3679
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,106 +137,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Nikola Cornij <nikola.cornij@amd.com>, koba.ko@canonical.com,
- aurabindo.pillai@amd.com, mikita.lipski@amd.com,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Kuehling, 
+ Felix" <Felix.Kuehling@amd.com>, "helgaas@kernel.org" <helgaas@kernel.org>,
+ "ppaalanen@gmail.com" <ppaalanen@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1096849699=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 28 Apr 2021, Nikola Cornij <nikola.cornij@amd.com> wrote:
-> [why]
-> DP 1.4a spec madates that if DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT is
-> set, Extended Base Receiver Capability DPCD space must be used. Without
-> doing that, the three DPCD values that differ will be wrong, leading to
-> incorrect or limited functionality. MST link rate, for example, could
-> have a lower value. Also, Synaptics quirk wouldn't work out well when
-> Extended DPCD was not read, resulting in no DSC for such hubs.
+--===============1096849699==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB4549AE4C448D5CDF3008707F975E9MN2PR12MB4549namp_"
+
+--_000_MN2PR12MB4549AE4C448D5CDF3008707F975E9MN2PR12MB4549namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+That looks better to me :) As more things get added, I don't know how long =
+you will be able to hold sw/hw cleanup separate and the name could confuse =
+eventually.
+
+Thanks,
+Lijo
+
+--_000_MN2PR12MB4549AE4C448D5CDF3008707F975E9MN2PR12MB4549namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> [how]
-> Modify MST topology manager to use the values from Extended DPCD where
-> applicable.
->
-> To prevent regression on the sources that have a lower maximum link rate
-> capability than MAX_LINK_RATE from Extended DPCD, have the drivers
-> supply maximum lane count and rate at initialization time.
->
-> This also reverts 'commit 2dcab875e763 ("Revert drm/dp_mst: Retrieve
-> extended DPCD caps for topology manager")', brining the change back to
-> the original 'commit ad44c03208e4 ("drm/dp_mst: Retrieve extended DPCD
-> caps for topology manager")'.
->
-> Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-> ---
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  5 +++
->  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 18 ++++++++++
->  drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
->  drivers/gpu/drm/drm_dp_mst_topology.c         | 33 ++++++++++++-------
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |  6 +++-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  3 +-
->  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  7 ++++
->  include/drm/drm_dp_mst_helper.h               | 12 ++++++-
->  8 files changed, 71 insertions(+), 15 deletions(-)
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+That looks better to me :) As more things get added, I don't know how long =
+you will be able to hold sw/hw cleanup separate and the name could confuse =
+eventually.</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<span style=3D"font-size: 12pt;"><br>
+</span></div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<span style=3D"font-size: 12pt;">Thanks,</span></div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">Lijo</div>
+</div>
+</body>
+</html>
 
+--_000_MN2PR12MB4549AE4C448D5CDF3008707F975E9MN2PR12MB4549namp_--
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 860381d68d9d..a4245eb48ef4 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -942,6 +942,7 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
->  	struct intel_dp *intel_dp = &dig_port->dp;
->  	enum port port = dig_port->base.port;
->  	int ret;
-> +	int bios_max_link_rate;
->  
->  	if (!HAS_DP_MST(i915) || intel_dp_is_edp(intel_dp))
->  		return 0;
-> @@ -956,8 +957,11 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
->  
->  	/* create encoders */
->  	intel_dp_create_fake_mst_encoders(dig_port);
-> +	bios_max_link_rate = intel_bios_dp_max_link_rate(&dig_port->base);
+--===============1096849699==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Wait, what? This can return 0, and usually does. This is an optional
-limitation, and is generally only used if there's a need to have a
-smaller max link rate than the max the platform supports. We call this
-in one single place, and are not looking to add another call site.
-
-I haven't had my doze of coffee this morning, but at a glance, I think
-this will break MST for most i915 users.
-
-See intel_dp->source_rates[] and intel_dp->num_source_rates for all the
-rates the source supports, initialized at encoder
-init. intel_dp->source_rates[intel_dp->num_source_rates - 1] would be
-the max.
-
-Also, I suggest using kHz for rates throughout, and specifically not the
-DPCD "units". Otherwise, this is just another thing that needs fixing
-with the DP 2.0 UHBR rates where the bandwidth codes don't follow the
-same pattern.
-
-Ten versions of the patch, with a benign looking subject, and none of
-the i915 maintainers in Cc. Not cool.
-
-
-BR,
-Jani.
-
-
->  	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, &i915->drm,
-> -					   &intel_dp->aux, 16, 3, conn_base_id);
-> +					   &intel_dp->aux, 16, 3,
-> +					   dig_port->max_lanes,
-> +					   bios_max_link_rate / 27000, conn_base_id);
->  	if (ret)
->  		return ret;
->  
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1096849699==--
