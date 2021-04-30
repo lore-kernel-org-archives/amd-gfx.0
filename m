@@ -2,116 +2,70 @@ Return-Path: <SRS0=uLL/=J3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7BB6C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81BA6C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:44:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4EB1F61456
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EB1F61456
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 276F861474
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 276F861474
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D916F4FA;
-	Fri, 30 Apr 2021 09:10:09 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E216F4FA
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 09:10:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NPLWO5xR5iXtptyimk4pmuwq3EfHO3d2BtbRV+qsWLHScFR3Hq5ICl4QNlCa3raZhJJMoyQ84Yw28goQSqEAX1XUw3cGddiwrEqZakU4bB7UJsEt/kcaGRQE4DFqAI+15xTvfeYRzltFAJxKexz3Kjj1gQi+UEa2Fj8Su4g40JjaS6nxM0rchaC2ZBy97EXwj/VrKBL+iU3VsdPWgdzsQ6B2pWXQJ/97xuEjXsmjU00lnoMfNBW5Bw2fkdlQiEr+duQ8RqCkPpgArwQcNYXrZnlV5Iz5/s9IW6UD2AFQVc/0PezFmPG2QM+aWnFOPN7XSt4GQF59rkCLohrx/Osd8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NTccZ/MTnGsa3/EMiEBnw2Nw0D8yCMAsOCCDtye7Dr4=;
- b=ao1fqD8t6dbUSBAmZCe9oXPwXH6SeDKzdweHY5FuOGbj0aCYbtIu2gleK2tsy7iSwnEnvk8NWO+q5oUekeqrqJwjiZRHokHRxfI537Y61BOJZ5XTC6pLdrTsn3Nc/lAMVL70rRys8WDRa82P3bZM5EdaGhwE9tXaC7Hx9KIjhduZ+OQ4cdXF3TgNVE0NbxVhgxxA2PF84l60STWwSSOrPy1JkRm9rrk8WX5fJf1KrCDovtRR0ZdL66irm3Ak2a2qz42u7PtCFnJKX+/WKoyvNgiD79iVx5gBnA1b2Z7r06XeQumNL2U+MoadBqTsOSGn3iXZMEB0dvIGLiTYK79Drg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NTccZ/MTnGsa3/EMiEBnw2Nw0D8yCMAsOCCDtye7Dr4=;
- b=X4w4FRkiuWL1Fz8ff1scweU+4vbnR2TM3xlE0BAZ8Ooap/w8+n3aXU51f9NA93amKCaCt7MDxjO/znDk+rNveCtpI+2OsIxnLXOOwmSVS7j0y3p4Jgn6NKo3Bn+zp92SjsmwDsaUxHYtRffz6Sf1z9LSrkTJuYAS+jt0nLQdZXE=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by BL0PR12MB4897.namprd12.prod.outlook.com (2603:10b6:208:17e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.26; Fri, 30 Apr
- 2021 09:10:07 +0000
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::70f5:99ed:65a1:c033]) by BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::70f5:99ed:65a1:c033%5]) with mapi id 15.20.4065.027; Fri, 30 Apr 2021
- 09:10:07 +0000
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdkfd: Make svm_migrate_put_sys_page static
-Date: Fri, 30 Apr 2021 05:09:53 -0400
-Message-Id: <20210430090953.31524-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.31.1
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0109.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::18) To BL0PR12MB4948.namprd12.prod.outlook.com
- (2603:10b6:208:1cc::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B50046E0EC;
+	Fri, 30 Apr 2021 09:44:05 +0000 (UTC)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 224026E0EC;
+ Fri, 30 Apr 2021 09:44:05 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id o16so80022372ljp.3;
+ Fri, 30 Apr 2021 02:44:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=Fs02BtOhyd5FC7gJVvuNNnKp3USLnWgaJaXUagMKFBA=;
+ b=dK8zYu4P/DGIh50k5SZYSjv+Xqltz7NenlES4ey5LWVVtIsQU6LbbQOPlkSayienEe
+ XJ4/uLpsfg78jfkDJADARkTy3NOE+7Z10ynUOABeH+y3us5ZmyGTdg1c/bYv+xKlmedO
+ q5/c8DRDN5RrnwCVXISqoR62bmxb85YWtNO+jUmsmycoj7Tyd78Nj+veIMgxcDnmuv+d
+ NAbew1YO7cdMnvRdcTNC4mvWZ+JbfW9is1fdO2sZv3osGS8OLqPlY39BF/FU17sIgJLX
+ XJcVJoD36qi0BB9vO9FyoKe9tw2jq5gZDQWkjsXWYysxlI81q6f4INGWoowaBhzLVbAa
+ DjLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=Fs02BtOhyd5FC7gJVvuNNnKp3USLnWgaJaXUagMKFBA=;
+ b=NDd7guKGPIxAuAQOXF9CRDTCEAEoLfWbdJuvR4HGqpYHEwfD8AfbbB7qK/k/f12d0M
+ 0MkgtJNbwVgZThNfRdm2URQsW+KiCWxWQSgjl/vecVWEmQ+XvK8lLbjpaNc/t31/b7aJ
+ qQgt7gDlKWRdWXnbRethQxEH2rneAOM3wWw01MFQmYOTTcauYmUdfwVde0AgmGEPyKH/
+ RWvKE2zv6fgb0FAScsf25o3sTFioeHeCRPXRHaI5pvOf4Pf3HkkW1MiwOL2aaPftxkcS
+ 697TBhwVeiJvjVGiNTImc0iV/oRgjEqrcb3ltmGvy4YOGXKms2fotQtc/EOu1Fjj5WBj
+ P8Hw==
+X-Gm-Message-State: AOAM5306sJWAyPZCPkccyQiNAmw3h+Aj9X5L/CX/U2IeFtWlfvkeA64+
+ 3dQ29fLw6f6th4RDfoftPkk=
+X-Google-Smtp-Source: ABdhPJzwx4zzWO2ON86GfiGdWFlSwks7GUnSyoTWT76KXl+8v665hOTFhdptLorEWAxDGUqF+HrZlg==
+X-Received: by 2002:a2e:99ce:: with SMTP id l14mr3245758ljj.114.1619775843536; 
+ Fri, 30 Apr 2021 02:44:03 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id h12sm181977ljh.21.2021.04.30.02.44.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Apr 2021 02:44:03 -0700 (PDT)
+Date: Fri, 30 Apr 2021 12:43:58 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Shashank Sharma <shashank.sharma@amd.com>
+Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
+Message-ID: <20210430124358.1f5ac6ec@eldfell>
+In-Reply-To: <ba369002-69e9-15d5-323c-1923ecdeda63@amd.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+ <20210427175005.5b92badc@eldfell>
+ <ba369002-69e9-15d5-323c-1923ecdeda63@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Harpoon.amd.com (165.204.55.251) by
- YT1PR01CA0109.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4065.25 via Frontend Transport; Fri, 30 Apr 2021 09:10:07 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e08d9cf4-417a-429d-5bd9-08d90bb7bfb2
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4897:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB48970D484D4E5EC48226913B925E9@BL0PR12MB4897.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:972;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iUfACYuwjtviVNTKK3F15chwzpYXOb5Iq55Egq3R1y8sNRaY8oGWuk3XpaGjNqaW8JJH/HFVF4J2o8Edp8kz8xBRTo2EdFIg+riuX4acQBmmvzPdl2yNtfhZLb+rVDqk8eEJOQSZw+W3GxVTX5f0R4mybAFO1VNo5dC37f8S5tSK+Qhm8/2NTH59wAT52DMZ6e4IRr8meeQybI/pjgM+DjE+lvMT8SGAozMu/pfw7fbzpn6DzCSsZYiAc9EdSpkCpNEi3qvYPgHd+UqAjLn4AsqkVaa6iatxvP6uXf6irG2N7Ozf9hTcWhLBC+CnbcK0MvBu75e9VbjkDhaRz4V++vW3XrvihaAG6k+qtAb2JLogobbGKSJmbooWRQ0F5yHfU3jovGMygevd6Whijoi4MEfnnCpJ0sb8al0J3bK6K9C6UaLXO5yhmDor0aLIfmnhz/z/Vx7IwtucllccTSGyI40UB5Iq3At26H0b/WvzmLnaLtxfA+AcIU8oNKDiFNJn0djOVCtp/8/cvDVAEIxAvIyK1LdjNTLg2HwZMhd6olv3/StqcBQNGlJwuhV3HXfFMnugTMdUDIDE8vk2hGywWqHDAFDJDlAr7fNy9xbsiBAxJI99drG3RnNHLo4ZIF+BxEa60ZO5AVGZ1MDIGR1d/U58JYk1FeM0bjF8jKXHsgw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(39850400004)(346002)(376002)(396003)(66946007)(6486002)(38350700002)(83380400001)(186003)(16526019)(956004)(2616005)(8936002)(8676002)(4744005)(66556008)(66476007)(38100700002)(26005)(86362001)(4326008)(316002)(52116002)(6666004)(6916009)(1076003)(36756003)(7696005)(2906002)(5660300002)(478600001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?sJjFnXaVKwtM5fuwsUPmXNMr0niPG63vdFlVLuu65YWQjzSogikKiBCUsOaX?=
- =?us-ascii?Q?leBo/oPHoWLVa8wSA4andfqvPVv1YDO0D9FrMpT/WjwpK9ZeOM1gE8dUyKta?=
- =?us-ascii?Q?citzur+rrTXlYtn8j5ogBSc4VZAKN3AfJF6lU6AFIirZCD6mKIAVTraGgIwE?=
- =?us-ascii?Q?d4zrye4VMf98suyRGLcOsM2keURr3g0cVRNNjRY2vwtIrRt3Zsl8uaCWtymh?=
- =?us-ascii?Q?6H7rtM6y1bhn/0SIOjAltnKuzEHh7iLSu5CS89I22U06u5iqRMSPsEI6LKFs?=
- =?us-ascii?Q?S8DXKPBgaD40a6iMgeWCtkdivzJizticZAF0fp01fdIAtsuxgoVVfNqD1IlR?=
- =?us-ascii?Q?5XzAf6SPm/G/bD01kpvaMVmGON8AtG/O394wi3ir4IRa6c1FiKr/9aZSf0Db?=
- =?us-ascii?Q?wO2rfb+cPTA0MbG1EGRi0XdGTmeQGj83qSANVaat9H3+k76g3kaxlYsgRTGc?=
- =?us-ascii?Q?e2savyQ/1cr2A5BgBlYYmpxH2JtqPmcNmHH+Kf4srgH9ipmLNb9efYm2yu0H?=
- =?us-ascii?Q?qBia1WsaLLiUm2uSAHGtTSjCd9Jr7pBnnFRBznvZuoAfDZewRaurLJSwU2/v?=
- =?us-ascii?Q?GEK+c8kysmZEcCNfkuEDZLbAopXciB6+h2GjdDc0rb0I7S5D5fUVdcDxKUsU?=
- =?us-ascii?Q?OK4lPn+LETOCnYfFyppKWYHK6JBnGGZohrzYPKRsKgoULXiV/4PHS/2L9HTA?=
- =?us-ascii?Q?HkCpwzgQjlnkHofFWfQNEE+/DcEeQ88R13+gvLUvS/BBdA+7NnZV3+kgtEta?=
- =?us-ascii?Q?lpo3Uzn4pyUFFm6TePFfuQTuREkNJWpFNKkgXeNCp5Y6tN6COXbDR7yR/+9N?=
- =?us-ascii?Q?j76+eSfVzSTJmGdPbvneRNAJUKruNqOedUa0VLoPuKJfe+PQQVO62msBFced?=
- =?us-ascii?Q?mIzbVWmXGDtg/SgPjKE0vF2sy51RnliHmjlu6EShotdPwuluxnBjX6YOnlxe?=
- =?us-ascii?Q?ZGJ3wyNL6RGTc3dMeM1nJsbYTBSKx61D+SgLDPMIOu73lDEXw0an23sysCCw?=
- =?us-ascii?Q?4zgueAqnphBAkeyCRGq7hvELyJSPMzI4TC+2rf+uNqSdNNjfVEUB42IRRx9+?=
- =?us-ascii?Q?HABs1dcOD2bxQ72iq6RtsS+3Q8OGKiygiKnD7dHuAwY1Tk2v3K3hmoDxI0Ew?=
- =?us-ascii?Q?Yw83mfwF4EW3apwDxjmrseZ5SLR0vLF0weioV8tBBk7tlrPhcGwXVPgeko4Y?=
- =?us-ascii?Q?AyR8kI+hlRxCvJHBpk8PBzwe8dwZNKmVTtjDoZBZ9LYA1QjW1sULAvxB7Q51?=
- =?us-ascii?Q?sSjHUzrgA777n71JlkO642acr+QOCNQrA3mF9P0D01TzzN2jne4eaupl9gOS?=
- =?us-ascii?Q?FleI1QH4oDArqp/o296a4MHM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e08d9cf4-417a-429d-5bd9-08d90bb7bfb2
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2021 09:10:07.4157 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nzRoDBT7f4M4ktztIeIDy3CDcyNnNZGrO3x1s703q0vKlnyAdiWkT1Inc2OMLKoe3gjk7PVQdUrnkSZ9EKx0EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,37 +77,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
+ mcasas@google.com, Bhawanpreet.Lakha@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, sebastian@sebastianwick.net, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
+ Harry Wentland <harry.wentland@amd.com>, Nicholas.Kazlauskas@amd.com,
+ ville.syrjala@linux.intel.com, Vitaly.Prosyak@amd.com
+Content-Type: multipart/mixed; boundary="===============0218690846=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This function is only used in this source file.
+--===============0218690846==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/jF0/5g5+Pu5KXVUetVMNU5x"; protocol="application/pgp-signature"
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--Sig_/jF0/5g5+Pu5KXVUetVMNU5x
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 6b810863f6ba..bc2fc528ad58 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -281,7 +281,7 @@ svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr)
- 	return page;
- }
- 
--void svm_migrate_put_sys_page(unsigned long addr)
-+static void svm_migrate_put_sys_page(unsigned long addr)
- {
- 	struct page *page;
- 
--- 
-2.31.1
+On Wed, 28 Apr 2021 13:24:27 +0530
+Shashank Sharma <shashank.sharma@amd.com> wrote:
+
+> Assuming these details, A compositor will look for DRM color properties l=
+ike these:
+>=20
+> 1. Degamma plane property : To make buffers linear for Gamut mapping
+>=20
+> 2. Gamut mapping plane property:=C2=A0 To gamut map SRGB buffer to BT2020=
+ colorspace
+>=20
+> 3. Color space conversion plane property: To convert from YCBCR->RGB
+>=20
+> 4. Tone mapping plane property: To tone map SDR buffer S2H and HDR buffer=
+ H2H
+>=20
+> 5. Gamma plane/CRTC property: to re-apply the output ST2084 curve
+>=20
+>=20
+
+...
+
+> =C2=A0*
+> =C2=A0*
+> =C2=A0*
+> =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+> =C2=A0* HDR 600 Nits=E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR 600 Nit=
+s =E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR600=C2=A0=C2=A0=C2=A0=C2=A0 =
+=E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR500 =E2=94=82=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+=E2=94=82 HDR500
+> =C2=A0*=C2=A0=C2=A0 =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=96=BA =E2=94=82=C2=A0 Degamma=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=BA=
+=E2=94=82=C2=A0 Color space=C2=A0=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=96=BA=E2=94=82=C2=A0 Tone mapping=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=BA=E2=94=82=C2=A0 Gamma=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82
+> =C2=A0* BT2020=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0 OETF ST2084=
+=C2=A0=C2=A0=C2=A0 =E2=94=82 BT2020=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=
+=C2=A0 conversion=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82BT2020=C2=A0=C2=A0=C2=A0=
+=C2=A0 =E2=94=82=C2=A0=C2=A0 H2H=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 =E2=94=82BT2020 =E2=94=82=C2=A0 ST2084=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82 BT2020
+> =C2=A0* YCBCR420=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=
+=94=82 YCBCR420=C2=A0=C2=A0=C2=A0 =E2=94=82 YCBCR->RGB=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 =E2=94=82RGB88=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0=C2=
+=A0 600->500=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82RGB888 =E2=94=82=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 =E2=94=82 RGB888
+> =C2=A0* Non Linear=C2=A0 =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98 Linear=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=98Linear=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=
+=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=98Linear =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=98 ST2084
+> =C2=A0*/
+
+Hi Shashank,
+
+I think you might have degamma and color model conversion reversed, or
+is that a new thing in the HDR specs?
+
+Usually the YCbCr/RGB conversion matrix applies to non-linear values
+AFAIU.
+
+There is also confusion with OETF vs. EOTF. I got that initially wrong
+too. OETF is not just a name for inverse-EOTF but it is used in a
+different context. Though here it seems to be just a typo.
+
+OETF is inherent to a camera when it converts light into
+electrical signals. EOTF is inherent to a monitor when it converts
+electrical signals to light. Depending on what the electrical signals
+have been defined to be in each step of a broadcasting chain, you might
+need OETF or EOTF or their inverse or a different OETF or EOTF or their
+inverse.
+
+As we are talking about displays and likely assuming display-referred
+content (not scene-referred content), we probably have no use for OETF,
+but we could have several different EOTFs.
+
+
+Thanks,
+pq
+
+--Sig_/jF0/5g5+Pu5KXVUetVMNU5x
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIyBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCL0V4ACgkQI1/ltBGq
+qqfEsA/4p4kXQf6b4g3jDgoJdIGiubNpMyuFWQPCStvjnPHv8g3KIk6uTTh725LA
+fE20hqzLxMn/pw+UbFkz+ELK9kcUG9lI0ih4DRCIgdiHWyznJPzl+p0lxJKCLVrC
+ZscDhcm8v0hjmzzD5R24DqKj2IdEwyqH7mM0hpzxyd0oSaR4ToFcvFhNZmT14qqY
+bql+U1UtndPio2KkI96/owTLMNHHSBIidV4kTrQY69qJeKBGcftfg790Y1YKjjXm
+ZKd+pamZmN1ovZru2aoDnCQ9jO65SUd32aD7F241sXU5UKH6UUIXLI9yfiJUcO45
+QU3zsRnYBo3rHBtYc2xC7h/36pooPlYlz9ECEyBRjb6mKmwOv/xIAyiG43Kx4SjY
+UmASFIybtV65KZhVub8yQ5XPDR+RCulU30poR6Jb8ivtKChjCAyrzDbiYoD6h+Hb
+WNbcMlH9xCBizo2uP+7PFxLD0ZD13rJkvowZKVAGjnnvIghuIAhaGIt3/d7FLUWO
+5KRtvaAaZx0AagRqUAXel25C+5mFimo1caPJ1rEk7Hpp6+yQoB/gfWAtJddV2GT5
++4bDmCNRFWID/viBAONgFI+IaBZIsSnVSK6C8aUql1qIy8wAP6wHeuFIhd8hbDBh
+DSj6oy5m2+sTbumokHrUE6n2AbukKj0sT0g7JL3OANjWB/uFKA==
+=25O5
+-----END PGP SIGNATURE-----
+
+--Sig_/jF0/5g5+Pu5KXVUetVMNU5x--
+
+--===============0218690846==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0218690846==--
