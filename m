@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2330C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 14:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C92E6C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 14:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC78D61450
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 14:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC78D61450
+	by mail.kernel.org (Postfix) with ESMTPS id 3F4E561450
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 14:15:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F4E561450
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=cerno.tech
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80AFD6F52C;
-	Fri, 30 Apr 2021 14:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EAF36F530;
+	Fri, 30 Apr 2021 14:15:58 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04AE16F51B;
- Fri, 30 Apr 2021 09:45:06 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 64E7A5800D9;
- Fri, 30 Apr 2021 05:45:06 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 30 Apr 2021 05:45:06 -0400
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 442436F525;
+ Fri, 30 Apr 2021 09:45:11 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id AC1D45800D7;
+ Fri, 30 Apr 2021 05:45:10 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 30 Apr 2021 05:45:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=g1BJUGcYOQszK
- bZyYiA0HlUiX34Sk1HkvempqJC1Nr8=; b=Ebrql6ibOhoc2d6p+N4ZRBGwUlpa5
- jcXsX81Nq3v05SkXCByzC2BlJE36tUntFmkxPGv7a7r1SaMjckgXMn6uYz5E6ll6
- YzQO0/jYKiMEY21esRlfL7wo5++H+GMX2UbuE/jhB+1SkCQ3JHp+NShR3O/pHlp0
- 1ldhtvuB0YAAE9GkEiGxSrJlYnMd+ZZvfPMig5iWoeGFxh6UgXsuHJOkm7upcUZN
- IveTVbXNyojhu5hUP02ln0ZJxRkzXGgkkRn/mxXHpAIbGtjBsss1xOz+6ZsF+CbL
- xWrpe/VnpTC1eXY0lFqZlmcOfSQOci6wtyLaLJy7o8YehNAod/qWNyi9A==
+ :mime-version:content-transfer-encoding; s=fm2; bh=+1jVcZdjfORyp
+ rwDU8d7SzSPEQYAqkZClde0yfqzLq4=; b=jcJfqu+yfkofKEq6OAhV3P/ojh66h
+ AKwMz4VJR5Eh7AFt/iCNux6zabsBKGY/rrB39PyF48kkcSRf/w4tBtYOxF/vTXlr
+ HuxWhlpm7a770c7qXQ/0I1z1ITQbM6ZS8TZTrsrEdoYYsi4RaCzQzg9NK64FeVkZ
+ Sox6ywrndPB03eJQHmvYd8yvMTRCi25CMi9xhf2OEjE9xOSxTy56nbNFmHo/UpLM
+ 0UbyDymBWBM9qT6UxgV89kueVr4WcATDZUagIxklphFvEcSTI4NnxYGJXnuMr3I+
+ GyPLXSh5gHtvMbtbiG0k1ALKvPEJeuEgIeVtXZbxGVE7++gonlk8GhMxg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=g1BJUGcYOQszKbZyYiA0HlUiX34Sk1HkvempqJC1Nr8=; b=kYfgNMRo
- 7MuVgZ7RqVCI4Gr6xTfkfUVbbb62OcTo3YzJdtp7ALKXRIyhUHSOIRMWzdfEL/eK
- AbiKrF2rALMaAXVVN24Ar8Ebi1yw6eNBk0gTBNy9bVE/BWB3DB7y0HbQnevTgKf4
- TS4RkVAfUUhYe8H8Hajv816P8MV7Y8vBrQxLAdiHgcMw5POFeEbes0FAzmtlQMsc
- qNXL42AngQTMey/wVKdRXTF0hyInbHopIL+zYJYnp3h2+KQjSp+FC5DIaHhhDzYe
- vTBfUk5bLQaHRztCSh2RNQ5Xym0cPIZqGrL2T03ELpIiWMEVYAV7hmKiAy6KlNvg
- 6GYYy849kYAk2Q==
-X-ME-Sender: <xms:oNGLYAylZAKIk2uePGbQFgOso7YShxRdi8QFnRn0YNMsu9K7jzdTYw>
- <xme:oNGLYEQqKUiGUeeJaoAUZ_2nyFR2541dPk93eBywio9lgeNMgP1gxo9QMUSq6TzjL
- 2tT6K-mZDKwbf3Cn9Y>
+ fm2; bh=+1jVcZdjfORyprwDU8d7SzSPEQYAqkZClde0yfqzLq4=; b=Msa9nCat
+ bPWQ9xl1pljP9Qxdnj3eGhocRTpYCl0DGWF+ve5gCOBLJNNOADTWBnT1qtckRQeN
+ Wymt6YHz9fxcpNREdkajMWFF6zfb6ecio+KMj9fgTs9f+ZLRCpWT0RStlswTV4l+
+ eQJaCBGd/HyRa2bfUisUbAZBIVYLs0mHwFPVTQRHVeL6QPv8fhp25km2KZEqssvC
+ 1pJigUX0q0QpwrEWiV/NlXKeoww4FEB5fdwLxt2Mlf3ORE+DSHmeJQE38OQyioxk
+ CforjQj2yikTbqudTZ7rt1HnX8trK6+FYMMCzZdCoJszdDyZrWW1EFO0q0Io5GSI
+ chV/V1nJMyscnQ==
+X-ME-Sender: <xms:ptGLYGuMw2jPo4DXmebqO63tNBLp3vxLzzSRr3ohgLFTn9NWI8xszg>
+ <xme:ptGLYLcHBdCOF6w0FC83wSQPiDSludwn8WrannYB4V3tn4BYtOoBjyh_39VTO3SM8
+ ukw2SjCPmNw_bH4ffo>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddviedgudelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -60,22 +60,22 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddviedgudelucetufdoteggod
  htvghrnhepvdekleevfeffkeejhfffueelteelfeduieefheduudfggffhhfffheevveeh
  hedvnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
  frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:oNGLYCVvkJuvhgyJN4ECsEOjpOglFSLkM9tyl4PtOUHEeXmQ4HMrJQ>
- <xmx:oNGLYOj8WdErp2X02tZfhPi7TdZQdwQaYWVHnfTDDzJdC3sMhWjK8g>
- <xmx:oNGLYCDjrI4dtqQ_7glun28Yn2Ojau9-6uBzoudCfs36lSyDTyY8EQ>
- <xmx:otGLYNVW7Hz0RciTPNFmzbr7_XIalFcSM0SQ8cIxi9rtJQghYRkdlg>
+X-ME-Proxy: <xmx:ptGLYBwLJ90G_soKRBipo0VcEyfG_fXy8vERY2H5jr7g3cdwSeEPdg>
+ <xmx:ptGLYBNPTghXWUS6BBrwWZProxg4gQofIaV-aHuo45lu8mpUDHkkmA>
+ <xmx:ptGLYG-BKoADuw3ZoM0d3T4jmqFXF_PishVOM27hCSRbO4AMyCcmYQ>
+ <xmx:ptGLYKRIuuIqkeXJNivuq4EWHDvbVkWGe0LVYzXgKcftrWBzD_0U6g>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Fri, 30 Apr 2021 05:45:03 -0400 (EDT)
+ Fri, 30 Apr 2021 05:45:09 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
 To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
  David Airlie <airlied@linux.ie>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>
-Subject: [PATCH v3 3/5] drm/vc4: Add HDR metadata property to the VC5 HDMI
- connectors
-Date: Fri, 30 Apr 2021 11:44:49 +0200
-Message-Id: <20210430094451.2145002-3-maxime@cerno.tech>
+Subject: [PATCH v3 5/5] drm/vc4: hdmi: Signal the proper colorimetry info in
+ the infoframe
+Date: Fri, 30 Apr 2021 11:44:51 +0200
+Message-Id: <20210430094451.2145002-5-maxime@cerno.tech>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210430094451.2145002-1-maxime@cerno.tech>
 References: <20210430094451.2145002-1-maxime@cerno.tech>
@@ -113,12 +113,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Our driver while supporting HDR didn't send the proper colorimetry info
+in the AVI infoframe.
 
-Now that we can export deeper colour depths, add in the signalling
-for HDR metadata.
+Let's add the property needed so that the userspace can let us know what
+the colorspace is supposed to be.
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
@@ -127,139 +127,46 @@ Changes from v2:
   - Rebased on current drm-misc-next
 
 Changes from v1:
-  - Rebased on latest drm-misc-next tag
+  - New patch
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 53 ++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vc4/vc4_hdmi.h |  3 ++
- 2 files changed, 56 insertions(+)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 1fda574579af..a33fa1662588 100644
+index a33fa1662588..a22e17788074 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -214,6 +214,31 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
- 	return ret;
- }
+@@ -226,7 +226,8 @@ static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
+ 	if (!crtc)
+ 		return 0;
  
-+static int vc4_hdmi_connector_atomic_check(struct drm_connector *connector,
-+					  struct drm_atomic_state *state)
-+{
-+	struct drm_connector_state *old_state =
-+		drm_atomic_get_old_connector_state(state, connector);
-+	struct drm_connector_state *new_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_crtc *crtc = new_state->crtc;
-+
-+	if (!crtc)
-+		return 0;
-+
-+	if (!drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
-+		struct drm_crtc_state *crtc_state;
-+
-+		crtc_state = drm_atomic_get_crtc_state(state, crtc);
-+		if (IS_ERR(crtc_state))
-+			return PTR_ERR(crtc_state);
-+
-+		crtc_state->mode_changed = true;
-+	}
-+
-+	return 0;
-+}
-+
- static void vc4_hdmi_connector_reset(struct drm_connector *connector)
- {
- 	struct vc4_hdmi_connector_state *old_state =
-@@ -263,6 +288,7 @@ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
+-	if (!drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
++	if (old_state->colorspace != new_state->colorspace ||
++	    !drm_connector_atomic_hdr_metadata_equal(old_state, new_state)) {
+ 		struct drm_crtc_state *crtc_state;
  
- static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs = {
- 	.get_modes = vc4_hdmi_connector_get_modes,
-+	.atomic_check = vc4_hdmi_connector_atomic_check,
- };
+ 		crtc_state = drm_atomic_get_crtc_state(state, crtc);
+@@ -316,6 +317,11 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
+ 	if (ret)
+ 		return ret;
  
- static int vc4_hdmi_connector_init(struct drm_device *dev,
-@@ -299,6 +325,9 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
- 	connector->interlace_allowed = 1;
- 	connector->doublescan_allowed = 0;
- 
-+	if (vc4_hdmi->variant->supports_hdr)
-+		drm_connector_attach_hdr_output_metadata_property(connector);
++	ret = drm_mode_create_hdmi_colorspace_property(connector);
++	if (ret)
++		return ret;
 +
- 	drm_connector_attach_encoder(connector, encoder);
++	drm_connector_attach_colorspace_property(connector);
+ 	drm_connector_attach_tv_margin_properties(connector);
+ 	drm_connector_attach_max_bpc_property(connector, 8, 12);
  
- 	return 0;
-@@ -432,6 +461,25 @@ static void vc4_hdmi_set_audio_infoframe(struct drm_encoder *encoder)
+@@ -424,7 +430,7 @@ static void vc4_hdmi_set_avi_infoframe(struct drm_encoder *encoder)
+ 					   vc4_encoder->limited_rgb_range ?
+ 					   HDMI_QUANTIZATION_RANGE_LIMITED :
+ 					   HDMI_QUANTIZATION_RANGE_FULL);
+-
++	drm_hdmi_avi_infoframe_colorspace(&frame.avi, cstate);
+ 	drm_hdmi_avi_infoframe_bars(&frame.avi, cstate);
+ 
  	vc4_hdmi_write_infoframe(encoder, &frame);
- }
- 
-+static void vc4_hdmi_set_hdr_infoframe(struct drm_encoder *encoder)
-+{
-+	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
-+	struct drm_connector *connector = &vc4_hdmi->connector;
-+	struct drm_connector_state *conn_state = connector->state;
-+	union hdmi_infoframe frame;
-+
-+	if (!vc4_hdmi->variant->supports_hdr)
-+		return;
-+
-+	if (!conn_state->hdr_output_metadata)
-+		return;
-+
-+	if (drm_hdmi_infoframe_set_hdr_metadata(&frame.drm, conn_state))
-+		return;
-+
-+	vc4_hdmi_write_infoframe(encoder, &frame);
-+}
-+
- static void vc4_hdmi_set_infoframes(struct drm_encoder *encoder)
- {
- 	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
-@@ -444,6 +492,8 @@ static void vc4_hdmi_set_infoframes(struct drm_encoder *encoder)
- 	 */
- 	if (vc4_hdmi->audio.streaming)
- 		vc4_hdmi_set_audio_infoframe(encoder);
-+
-+	vc4_hdmi_set_hdr_infoframe(encoder);
- }
- 
- static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
-@@ -2102,6 +2152,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
- 	.phy_rng_enable		= vc4_hdmi_phy_rng_enable,
- 	.phy_rng_disable	= vc4_hdmi_phy_rng_disable,
- 	.channel_map		= vc4_hdmi_channel_map,
-+	.supports_hdr		= false,
- };
- 
- static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
-@@ -2129,6 +2180,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
- 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
- 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
- 	.channel_map		= vc5_hdmi_channel_map,
-+	.supports_hdr		= true,
- };
- 
- static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
-@@ -2156,6 +2208,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
- 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
- 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
- 	.channel_map		= vc5_hdmi_channel_map,
-+	.supports_hdr		= true,
- };
- 
- static const struct of_device_id vc4_hdmi_dt_match[] = {
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-index 3cebd1fd00fc..060bcaefbeb5 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-@@ -99,6 +99,9 @@ struct vc4_hdmi_variant {
- 
- 	/* Callback to get channel map */
- 	u32 (*channel_map)(struct vc4_hdmi *vc4_hdmi, u32 channel_mask);
-+
-+	/* Enables HDR metadata */
-+	bool supports_hdr;
- };
- 
- /* HDMI audio information */
 -- 
 2.31.1
 
