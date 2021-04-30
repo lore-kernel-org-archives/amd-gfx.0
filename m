@@ -2,120 +2,137 @@ Return-Path: <SRS0=uLL/=J3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC653C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 16:42:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A2CAC433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 17:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 54A7761264
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 16:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54A7761264
+	by mail.kernel.org (Postfix) with ESMTPS id A659E613F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 17:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A659E613F8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D006F56B;
-	Fri, 30 Apr 2021 16:42:57 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C976F56B
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 16:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B6B6F57A;
+	Fri, 30 Apr 2021 17:27:44 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3BB06F57B;
+ Fri, 30 Apr 2021 17:27:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DdtZzCEJZj+JoVDBoHZQ9kvwAgWkMd5oGrsztaQtMsMak0FdsP0c0sDBGY+flas6bkjA2jky7XzdPiSWketBvG7c/Jo928wGXWtnFZkwffsEwpZkTK04GyXwyV/yzoJKj1PU/NRff72KtTtBp/bUvNosWXTUfTdS2/Yucvi2XKIkD8BB3goZxRF3hxvtZA8+Flav/Qap39RjravlZvLEg5kgwXdB+YysMNFJ2ZYiXfQNXAZlk+3stH7EAwqZdfJVU7YgnXdZP9Yi8RK+Vt9RtdpZ8GlxVVyRYenr2NPHaEIlyq82ZE9HXQPsebnS2kPESwXpt+iOKyD7upAsRcoOPQ==
+ b=STSisBVuWA7mCtdqf4FwNvCm8yEf6z+eVpGyIzIiPPrsT0ytKtMjR9P/dSMjuMo3UVp/KjTkVx78934UIeCH+2CFnbraSIh3QUqrt5BNRMjXD+6En9U+2R+7LeynzHphlx0Nsgngc74bzMwttxsYcdZHqboWtZgudZJ7CvSx9jLzrJdPsX1R+jEuXSrLenrXLxtY4ZyFE7Kf8GmpPQs7qHK5nyS7FXF7cDjHiwkGwbXGqnlwfK0KKY6DE/SDZ112yxNCE2w956NJAqx2HR0jeVZZWyJCDzG91y6TDzf1W72FhE/NRYEf3SEHwjpVxikPMuz+TlkBBke+py+x8UTcfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ns0VnNPtgFOBhcs4uN6Oo7bEyy1ozG9yP4y0crnwKOQ=;
- b=lIKd0lXzJICpQN8NfJIZnT/bv9qjfX7LYJypFvAgD9eQO3Nm9RHBgCbaJ6Zgy8rEV9LDt7dKa7LIx37IYb4arDQpotd6pFIUYmVxa/IUdTjv0tw7+IK+XMQGDFplzzHjA+qgISTJmrRBnqfIRNLcXotV2c5RolotEUWnCgY9xKN9oJKaEkE9quB29zbC+ZXJK9jV2uth7dfHGTeTEEgu3BgcBhWPO2bcZNWV7QjH2N6FwwVCdGYLFBg8i5ZYCNz0HvXaXDRTDcfYaPta+DjGUOgiCv0MYMYbBTUdtM4fbsCRe9zVHmspB7nvUIfP5NZr0nhZ9H8yUvYTp0370N3NMQ==
+ bh=jRCTUJ7ydZ/tFGl34wSkfJo2dXWwKIXV/nsehVzhouQ=;
+ b=kz17mdfDM35g2/IjHk7Tgwd1a7Af+zQ1aawOKe4cgFNnhcQY5vhLkR6iiqY+lxWVQMa3VkE/YIh6+NqPPl9kpm/8uWwfdupBeQ43Sd/lvTv28vKaNEH7T+5XzOqE38mgCVo4kZvp5MEPNWFY/r7LRl2BvzRkkvN9AIMX1glMCoVXWJ0WPmqdr69vUiHSPxNTL8AZPlY/I0IrUKYtRbRluvalyBLfwAQWd3VVS++zFml+LZXUPuc1sfuu2PVQQrVRMgAxq2s5NhBrUle6eeEjrJBL0f5wQvXbpFN3zWOHNskOm1J6Dg+4u9iPUI9fLy+9PcFeYCfZ40szlcybkRPA+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ns0VnNPtgFOBhcs4uN6Oo7bEyy1ozG9yP4y0crnwKOQ=;
- b=xm5ZLBoqMAT9wL0qumwpIIcdoIM9ZhZHzjEIGiHxnc1Iw7V6D27wgJctarTwMTxLK0/VzSPY6UQuia1DICxScIc0p/IK/vn3B5D1vB004d63SsPdsoJebZuiOWV/As5sxGqhbRFV9ZjSpAL3ilQhs5O5gLXscqm0btXKypl8xwI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4176.namprd12.prod.outlook.com (2603:10b6:208:1d5::20)
+ bh=jRCTUJ7ydZ/tFGl34wSkfJo2dXWwKIXV/nsehVzhouQ=;
+ b=q4ew8lZsYpt9kPAsPngiB7puKJ7yJBBg0aktLPGxJobdFZUd4hxugLjl8xYQl33Qr1y02WL6Mf8ZWDOkQESHnBTYI0KdO4sM41B9uhq0SBf6/n/Ohg0gGZF4t257ffVvaAAJu55SbPDX5d4xzGntgNCe1OeU19JLK7sA5fTbTK4=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20; Fri, 30 Apr
- 2021 16:42:52 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4087.026; Fri, 30 Apr 2021
- 16:42:52 +0000
-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu/pm: add documentation for pp_od_clock_voltage
- for vangogh
-Date: Fri, 30 Apr 2021 12:42:32 -0400
-Message-Id: <20210430164232.1335629-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210430164232.1335629-1-alexander.deucher@amd.com>
-References: <20210430164232.1335629-1-alexander.deucher@amd.com>
-X-Originating-IP: [192.161.79.245]
-X-ClientProxiedBy: BL1PR13CA0106.namprd13.prod.outlook.com
- (2603:10b6:208:2b9::21) To MN2PR12MB4488.namprd12.prod.outlook.com
- (2603:10b6:208:24e::19)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.23; Fri, 30 Apr
+ 2021 17:27:40 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4065.033; Fri, 30 Apr 2021
+ 17:27:40 +0000
+Subject: Re: [PATCH v5 20/27] drm: Scope all DRM IOCTLs with drm_dev_enter/exit
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
+ <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
+ <YIqXJ5LA6wKl/yzZ@phenom.ffwll.local> <YIqZZW9iFyGCyOmU@phenom.ffwll.local>
+ <95935e46-408b-4fee-a7b4-691e9db4f455@amd.com>
+ <YIsDXWMYkMeNhBYk@phenom.ffwll.local>
+ <342ab668-554c-637b-b67b-bd8e6013b4c3@amd.com>
+ <YIvbAI4PjFlZw+z9@phenom.ffwll.local>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <b6d0c32c-cf90-6118-5c60-238b6f4a0aaa@amd.com>
+Date: Fri, 30 Apr 2021 13:27:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
+In-Reply-To: <YIvbAI4PjFlZw+z9@phenom.ffwll.local>
+Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:28bc:ce08:83b6:6c00]
+X-ClientProxiedBy: YTXPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::34) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (192.161.79.245) by
- BL1PR13CA0106.namprd13.prod.outlook.com (2603:10b6:208:2b9::21) with
+Received: from [IPv6:2607:fea8:3edf:49b0:28bc:ce08:83b6:6c00]
+ (2607:fea8:3edf:49b0:28bc:ce08:83b6:6c00) by
+ YTXPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::34) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.8 via Frontend
- Transport; Fri, 30 Apr 2021 16:42:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25 via Frontend
+ Transport; Fri, 30 Apr 2021 17:27:39 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 88c3795d-7f8d-455d-01d0-08d90bf6ff2e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4176:
+X-MS-Office365-Filtering-Correlation-Id: 93fd120d-b555-4d54-5b53-08d90bfd41a1
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4461:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB41769DB98D35B2D35999CBF0F75E9@MN2PR12MB4176.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4461D05CC24BF927101E16D0EA5E9@SA0PR12MB4461.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VJGIYJOdkIM4ARTYBTxR3JHq8d8cJtZ+PTYCRBzv7u9g0Wqv17HcrlqG14ggE0OeMixMuEFPnT7ZwwU5KPJHo+97r/OEKfoPY9mYIVwwbeDy8/Dwr++Gkb6t8wBhhK3eisFx3Uqg7VRvwINpLJ10wOyCMsF8ovprsMSQT83BCdEqOe+DJ3tuVdCeb4OgeGzugO+tG9E+YNrklNB795P1aMsFdVLxe/KTgs6SKXJ/VxNiGc1P24QjxGwt41p3R74ygiasqL7dr6yiejdewFVKBHkC8EvoLlhYVwndkAMMNLR9JIAydaq+7SHmFDdZB+d9UseMHPcUpnXYyMQgJYN7grZWtRD0PUgBs9sVVkSvTRSnSHp7eaKFqmYAr5H1yxM2DFRJ7z/EbkT/ejXpkS+N/yvQWJ8vsBLJcuwdTNlS0IqGw8eNcz8GLdr6xtWnTP8QgWkXsnK37FN0QgpSN21TpxL+zYZPnQERjM8tXG4NxHqVa9BXDrkTIS2ehyi5d9PHft5U1BWec9RFAOa54jT0zXZ/kCzcJo6yC+XaaaGcbVpxXWdTYq28D2kuY6fBu+EQlNXwj3lcV8o8t9L5V8foiDVxs+1y4j0aNlyUikwfj6czbBJ+IfmYai5qJMpZGoR+cFUD2WvhruBrqsMI8TAMZZCdumFbpZlrVpafKOjQarn3F4FyALTeb7JxpW+Ck4P9
+X-Microsoft-Antispam-Message-Info: jPLKS9maWci7qAjd+L8eg7vzZ5L/yK6mYf80MpQ6GIO46W50XdgjAjv3KMxhUKpCNPA+G3m9tpYUkGW3TkENvnyX/hdKet2EvSbHQDvWVOzYuWr9Q1A6yDfavrBOT2rTvjm7/NnRPypKyMtwbPvw7/bmhba3538CJeYT+Mku1Z2at96238jR8soH6ofIn9sQpKcS91npjiEG6bvXWQwwvAi0DitQqyMv8M2avDt4jCi+PZCNPMNKd+BPBvO4p3hDQ50o231p6jALeq4WvyRix8VfjqR/AJCyYOBDtouZH2SaKFZu/ZD+a0tXrYV9FVEQBmonP3gBGGIESI8Y9CAAs7q40W2gF7VMiLjfXGzD8dctflH1yLh3maYrM9uM+GHI0JRdaXhsPF8VSQDNUeV8Gpm3I56KWNE9Ga2azJJE887XHVCmHj3vYjaJzZ5pDWj6CZAj4pJmo41249WWVfFv8lE9rzVMnfrDS7jisCvSIBSmZBz80tFl7t8+/e4GRZY4/L3hwB4FHbPl4yaHS1C641+lH1yS82emIMfV88w56hmNsegS/SiQp6wNlTtExx59h/5vPcY1GasUvQ7NsS0CkRcxjn1Qhxm0tyjenFJ9GpEh3UbhhqYkG6E46oOj0I7dqJp3KqYMp7sS9GgMthFM04LRuhTMVmoIm2POdbshPtKk3rKSg1QAeTMpu3jIqE94AjAwfbx5/22mUvmKkbJHNOIArKMbxPyfsRw0g6GBZqfs0gwETn6q6asi+EA2SRYLUogDfOh3mBSzjuWeU45LjA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(366004)(346002)(39850400004)(396003)(6486002)(1076003)(2616005)(66556008)(36756003)(478600001)(38350700002)(956004)(6506007)(2906002)(6512007)(8936002)(4326008)(83380400001)(6916009)(6666004)(5660300002)(86362001)(186003)(8676002)(38100700002)(66946007)(52116002)(26005)(16526019)(66476007)(316002)(69590400013);
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39850400004)(396003)(366004)(376002)(346002)(136003)(186003)(38100700002)(44832011)(30864003)(16526019)(5660300002)(2616005)(31686004)(53546011)(83380400001)(6916009)(6486002)(2906002)(36756003)(31696002)(86362001)(66476007)(966005)(66946007)(52116002)(8676002)(8936002)(316002)(66556008)(45080400002)(478600001)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?ZyBLkDoqkDPLb53msKeP7Pw1lc5L9ebZhryNcu3vdEXCUaVzLBHG55DJN/1R?=
- =?us-ascii?Q?MF+CDFTVStgVGHlmkvfP8hGNUFbQYvkc0a1GIsHw8Du+R//ubxkhaEs5VDLn?=
- =?us-ascii?Q?jE4SK4YGGMc24pKdYEMr36mdwnrLBSjQfS9OGHIjuqBgp+vfKaR7OBNgDPrF?=
- =?us-ascii?Q?LrEpLe8VYqFcsNwTZviLjC5ZsTKMLx91PIe4q94GcOnxfjRM/Z5nISIFia/E?=
- =?us-ascii?Q?sGfyz5iew2n4xHZ3UJYubdhP+Jiy4Gv9TDEt1kV+5DMzXQC4g3I0xm9uGR0/?=
- =?us-ascii?Q?sB22FIN8bm5tC0GuNSn21B2hE31RvocO4bEfFQ4dRGvSpz3aZSIHbL+Ar4kL?=
- =?us-ascii?Q?Kza8ebaE2GotY7D+2YXPVpGdHOY0v/nmvxSnFDWYl+CvvHqvyntmlmCMfLjq?=
- =?us-ascii?Q?whV80TJb4/dwm2AsfOLY1FwD6kSGhSyNMlWGb5jgvRjk2WPs54oTr2wTDxHh?=
- =?us-ascii?Q?gMc9AqyvumciuhTneSxyiI6dnm14qX/d5cZfA0OlsXRRpVMR7jv4sW7tcQch?=
- =?us-ascii?Q?5RFfEbzG3UpV/bmBAN2FYbaKweOX8aCpiSAb5UC0W6g6guEMNDHgOb6XmpF/?=
- =?us-ascii?Q?PG+2pN1N+BXdNLSfUOUr/F9pdUJ9xpD8h2mz4f0c22t/AT4uLrGMgH/cK4wN?=
- =?us-ascii?Q?TuDcKUbyEqGg43pG91hMtUe6ksFCZwhoA/J8iOaGM46iqL8WaiA9t9BG0IYX?=
- =?us-ascii?Q?qxvXbEhetpnoDKLw3VmR7YNeIBkeU/wDNAWqe/PX2JjmtLC/lMeo9sBRTjpN?=
- =?us-ascii?Q?9lhVI9c99x/LMUhl0yh7wxo1uqDC56G2zYgDBVnagINMwRCPtKFtjozf9I+A?=
- =?us-ascii?Q?o2A/Nl2ixYmY6ZjoSDDS1noIyQmukViw605ib34lAV3xZrJgnl74hAvnIKJl?=
- =?us-ascii?Q?zyclOfzVisijBox0Ez6pzaajvLpddTkN1oqxrZ46CIOa5Hu6pIsNRfGUYitn?=
- =?us-ascii?Q?wluWy0b3MIGMZwuvVCINggotKI3tsh+Mb6HXJCdKJK+6EFR/Ht27OsU4hiiY?=
- =?us-ascii?Q?JMAUVQWfp8z+isKpJsdjH/NcM+X31IxmPmuQFykcfdQkqxAuT/U77CdI3C1R?=
- =?us-ascii?Q?FDg0AoNIEGAP/C1KD2In/ZbVIsiXlqAh+TFMcc1zD+sg0ZxYoxaoLnl+wHKZ?=
- =?us-ascii?Q?Fp79CgCAxTcy4snoZ07cyLDXaH9ldmC2q0EUrQGL9JMMlup5aHpwV3puhl0A?=
- =?us-ascii?Q?N6LSIHagGnVKg4NRqbsGhtJIHMGJ0sRK1T4A46kzERLFQ8e8Y4VSBqkeP03Y?=
- =?us-ascii?Q?bixb6XOonD89uptRjwuYafpUqv1L2nXNHJB454Ase+kPJlyMnjceMd8fkFYO?=
- =?us-ascii?Q?++Tw8z3wfM0/u08Uj/epbNu2?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Mlk3NXBNb29sNDNNWEovYUFXelJwOWhhdFUybkZnSzR5S0RJWTl5VHdDY1NR?=
+ =?utf-8?B?UDJBaU9CL01mQThUYUVOZCtxK01ZaFBYY2JkMXZFOEhlQURLQTdVNVZzRW1U?=
+ =?utf-8?B?V0g1RG8xQkN3WmN5dkQ0cEZXVXM3dENwaDg2clBzemZrRkc0Q01zN2ZrUmJh?=
+ =?utf-8?B?WEtZcjNvUmZyRXZyR0E5Yk9xVUhCTGJZZGxkOGNiRkMzM2xYSDFhMlhDcDVx?=
+ =?utf-8?B?YnRuV3ZSbjA1M1F3SUd2ejJCaXQ2VWlpSFRlbVVrTUVjR2FVd1E1VTQ3NWxF?=
+ =?utf-8?B?NHdrSTY5cWoyVG9RbTdHQ2w5RUoySFVXbXZscm9XYmNBdjdVa1ZYWVh3b1g4?=
+ =?utf-8?B?Wkc0SnY5RTcrM2hhc0FqN3dka08xNFI1T2pQTmtEZi9vSU5UMFhKM1NoRWFC?=
+ =?utf-8?B?VTV6amNZOFoxbi9NUWxXcVdUZEtSUmZYOEUvM2JqYmsySnAvTnBSME0yd3BX?=
+ =?utf-8?B?K2NYNlhYOWtmc0dUV3lOblc1cloxVU1LWjV5bWk1TjVBTWxBMXdxWW4vZVJn?=
+ =?utf-8?B?SXMvUnhnRk9yT2NmdVFqNnRhR2ZZeTlFSG5lSDdpVW5hSlREZXpKaXFmakQ5?=
+ =?utf-8?B?L3M1aU1zMUlxbUlSOWZLTlNkVkh0MDY5TzdOeWF6N3I2bGhlQlVUNjN0MVpr?=
+ =?utf-8?B?TTNiSzdRY1o1ZlZEYkhoRWUvY3JEczVIcnR6NFpEeGcyQWR3dUJ6ei9jMVdv?=
+ =?utf-8?B?cnN1cUdlcDBxY1VTd0Y5UEpPcjA4MjNHSjRGd29uZmFMM0M1dVNLZjcxZm4w?=
+ =?utf-8?B?alZDQnNKd05Pa2ttM0QxS2M2U3RGbWNOcUN5U0l2TnZLYk41M0gzTnlQMzU2?=
+ =?utf-8?B?WFlVY2MvYW9xWkZvRzJPZlk5RlNuUyswK3d0WmhScGwwKzIwREFWNkRYaHJS?=
+ =?utf-8?B?ZzhJVVd1NHQ4RUVKeFd2ampiOEkvcXp3cnBpMXlaOUJNM0RmRFMybFNlNzlp?=
+ =?utf-8?B?RTJYaUlmd2dBaW5sdWhKVm10bTJLTkVMN3VDM0dDZjZyNnRQMU0veVVFaEtl?=
+ =?utf-8?B?azVsOFR6VVhpZnc3QTFVWHNobGRVVmNhemlEOURmd21zSElSb0RKREZ6c1dM?=
+ =?utf-8?B?ZDRJbmluMzdZSlJwUVp2RjVGa1o0RkNjd1RyYllZNDc2M2poUGVramcyL2tC?=
+ =?utf-8?B?ZzRjdHpncElmL25QZHZmb0E4UTQzMUt3Rjc0WjgwcjJ1dzNkOVh0Y2hTaE04?=
+ =?utf-8?B?TmxOZnVJWHE4TGxFSHRwa2w0N2hvbkpsV0YxUXRkSVE4TEREZjFhMkp1YlVx?=
+ =?utf-8?B?b2hPSnNucUtJNENGOWJ6SC95VWpJTklIRThRMlc5QW9iaS9PcEhCYnI0aGZh?=
+ =?utf-8?B?emlqa3F0SUlEQi9BeFd3TkFyeDhQZUF0UlB5K2RVaHlNbXF0ZkRnOGpteXkv?=
+ =?utf-8?B?bnd2Z1hmTi9sYklCL0V6c0FTdVZrQmJkNDYzVHZqeklCSWJNcmdWYjlGSnhP?=
+ =?utf-8?B?d3B3SkIySmVDY0kzcThvUzN6djdqeWtPeHlIRjFwanFGRE5QNG9rV2pBZjMr?=
+ =?utf-8?B?UVZuZXhuYXJQMGtRT3NYZDIycXpqYS9zV250dGRlelBkUnBuS043ak1qT3Ew?=
+ =?utf-8?B?WDZhNENJdWZ6dXYyVWFzWjRIYXNpVWRua0F5bTZLZ1BFR2duY21FMmVaVlFn?=
+ =?utf-8?B?dXZJaTYxM0g5SGlCZWxaaVNLYWhMN3pCY1k1NHFrVm0zdDh1eWE3QWNjS3gy?=
+ =?utf-8?B?UDh6ZEpSbm9kM1pjckJ3TzIxaEhDWWdBaXRKTUZBUVhxRTRYRmNOK3pkOHB5?=
+ =?utf-8?B?dWdDVWtsSE5JRTFTT1pDdlMzbG90NHRlN013dDROZThYRHpVTXVNMnhRT0hw?=
+ =?utf-8?B?QzdEQ2JybTNnK0x2QzB0dzNxMGdSSTl5SjFOZkllUjloRTNOMUZpcENPQkFy?=
+ =?utf-8?Q?TgqVP0160OAcj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88c3795d-7f8d-455d-01d0-08d90bf6ff2e
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93fd120d-b555-4d54-5b53-08d90bfd41a1
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2021 16:42:52.2334 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2021 17:27:40.7879 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VR9EtRCJ1V7ZpON9oXHyRvJ7uXCmK9t5RqFrA9RL4aWPJ0Mb27lqJjQ9Z6e16a7snmVpGIbrGacvb9Yj+g22UQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4176
+X-MS-Exchange-CrossTenant-UserPrincipalName: T6myV29kVT00+eFf7yx1BbuEicsuHeqfRov4CRQFIBKbOHirujHKoAH92BE19qgJtOZB6R7svIPookpHLjsg0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,54 +144,275 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
+ daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ ppaalanen@gmail.com, helgaas@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Vangogh follows other APUs, but also allows core clock adjustments.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index cbd38f2be958..082b01e872fe 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -743,6 +743,15 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
-  *
-  * - a list of valid ranges for sclk labeled OD_RANGE
-  *
-+ * < For VanGogh >
-+ *
-+ * Reading the file will display:
-+ *
-+ * - minimum and maximum engine clock labeled OD_SCLK
-+ * - minimum and maximum core clocks labeled OD_CCLK
-+ *
-+ * - a list of valid ranges for sclk and cclk labeled OD_RANGE
-+ *
-  * To manually adjust these settings:
-  *
-  * - First select manual using power_dpm_force_performance_level
-@@ -751,7 +760,10 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
-  *   string that contains "s/m index clock" to the file. The index
-  *   should be 0 if to set minimum clock. And 1 if to set maximum
-  *   clock. E.g., "s 0 500" will update minimum sclk to be 500 MHz.
-- *   "m 1 800" will update maximum mclk to be 800Mhz.
-+ *   "m 1 800" will update maximum mclk to be 800Mhz. For core
-+ *   clocks on VanGogh, the string contains "p core index clock".
-+ *   E.g., "p 2 0 800" would set the minimum core clock on core
-+ *   2 to 800Mhz.
-  *
-  *   For sclk voltage curve, enter the new values by writing a
-  *   string that contains "vc point clock voltage" to the file. The
--- 
-2.30.2
+On 2021-04-30 6:25 a.m., Daniel Vetter wrote:
+> On Thu, Apr 29, 2021 at 04:34:55PM -0400, Andrey Grodzovsky wrote:
+>>
+>>
+>> On 2021-04-29 3:05 p.m., Daniel Vetter wrote:
+>>> On Thu, Apr 29, 2021 at 12:04:33PM -0400, Andrey Grodzovsky wrote:
+>>>>
+>>>>
+>>>> On 2021-04-29 7:32 a.m., Daniel Vetter wrote:
+>>>>> On Thu, Apr 29, 2021 at 01:23:19PM +0200, Daniel Vetter wrote:
+>>>>>> On Wed, Apr 28, 2021 at 11:12:00AM -0400, Andrey Grodzovsky wrote:
+>>>>>>> With this calling drm_dev_unplug will flush and block
+>>>>>>> all in flight IOCTLs
+>>>>>>>
+>>>>>>> Also, add feature such that if device supports graceful unplug
+>>>>>>> we enclose entire IOCTL in SRCU critical section.
+>>>>>>>
+>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>>
+>>>>>> Nope.
+>>>>>>
+>>>>>> The idea of drm_dev_enter/exit is to mark up hw access. Not entire ioctl.
+>>>>
+>>>> Then I am confused why we have https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.12%2Fsource%2Fdrivers%2Fgpu%2Fdrm%2Fdrm_ioctl.c%23L826&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cf4c0568093cc462f625808d90bc23a3c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637553751106596888%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=PPKrQYBrgRMjpwlL0r8n5zenIhQMFWc6gniHgUTxTAY%3D&amp;reserved=0
+>>>> currently in code ?
+>>>
+>>> I forgot about this one, again. Thanks for reminding.
+>>>
+>>>>>> Especially not with an opt-in flag so that it could be shrugged of as a
+>>>>>> driver hack. Most of these ioctls should have absolutely no problem
+>>>>>> working after hotunplug.
+>>>>>>
+>>>>>> Also, doing this defeats the point since it pretty much guarantees
+>>>>>> userspace will die in assert()s and stuff. E.g. on i915 the rough contract
+>>>>>> is that only execbuf (and even that only when userspace has indicated
+>>>>>> support for non-recoverable hw ctx) is allowed to fail. Anything else
+>>>>>> might crash userspace.
+>>>>
+>>>> Given that as I pointed above we already fail any IOCTls with -ENODEV
+>>>> when device is unplugged, it seems those crashes don't happen that
+>>>> often ? Also, in all my testing I don't think I saw a user space crash
+>>>> I could attribute to this.
+>>>
+>>> I guess it should be ok.
+>>
+>> What should be ok ?
+> 
+> Your approach, but not your patch. If we go with this let's just lift it
+> to drm_ioctl() as the default behavior. No driver opt-in flag, because
+> that's definitely worse than any other approach because we really need to
+> get rid of driver specific behaviour for generic ioctls, especially
+> anything a compositor will use directly.
+> 
+>>> My reasons for making this work is both less trouble for userspace (did
+>>> you test with various wayland compositors out there, not just amdgpu x86
+>>
+>> I didn't - will give it a try.
 
+Weston worked without crashes, run the egl tester cube there.
+
+>>
+>>> driver?), but also testing.
+>>>
+>>> We still need a bunch of these checks in various places or you'll wait a
+>>> very long time for a pending modeset or similar to complete. Being able to
+>>> run that code easily after hotunplug has completed should help a lot with
+>>> testing.
+>>>
+>>> Plus various drivers already acquired drm_dev_enter/exit and now I wonder
+>>> whether that was properly tested or not ...
+>>>
+>>> I guess maybe we need a drm module option to disable this check, so that
+>>> we can exercise the code as if the ioctl has raced with hotunplug at the
+>>> worst possible moment.
+>>>
+>>> Also atomic is really tricky here: I assume your testing has just done
+>>> normal synchronous commits, but anything that goes through atomic can be
+>>> done nonblocking in a separate thread. Which the ioctl catch-all here wont
+>>> capture.
+>>
+>> Yes, async commit was on my mind and thanks for reminding me. Indeed
+>> I forgot this but i planned to scope the entire amdgpu_dm_atomic_tail in
+>> drm_dev_enter/exit. Note that i have a bunch of patches, all name's
+>> starting with 'Scope....' that just methodically put all the background
+>> work items and timers the drivers schedules in drm_dev_enter/exit scope.
+>> This was supposed to be part of the 'Scope Display code' patch.
+> 
+> That's too much. You still have to arrange that the flip completion event
+> gets sent out. So it's a bit tricky.
+> 
+> In other places the same problem applies, e.g. probe functions need to
+> make sure they report "disconnected".
+
+I see, well, this is all part of KMS support which I defer for now
+anyway. Will tackle it then.
+
+> 
+>>>>>> You probably need similar (and very precisely defined) rules for amdgpu.
+>>>>>> And those must definitely exclude any shard ioctls from randomly failing
+>>>>>> with EIO, because that just kills the box and defeats the point of trying
+>>>>>> to gracefully handling hotunplug and making sure userspace has a chance of
+>>>>>> survival. E.g. for atomic everything should continue, including flip
+>>>>>> completion, but we set all outputs to "disconnected" and send out the
+>>>>>> uevent. Maybe crtc enabling can fail too, but that can also be handled
+>>>>>> through the async status we're using to signal DP link failures to
+>>>>>> userspace.
+>>>>
+>>>> As I pointed before, because of the complexity of the topic I prefer to
+>>>> take it step by step and solve first for secondary device use case, not
+>>>> for primary, display attached device.
+>>>
+>>> Yeah makes sense. But then I think the right patch is to roll this out for
+>>> all drivers, properly justified with existing code. Not behind a driver
+>>> flag, because with all these different compositors the last thing we want
+>>> is a proliferation of driver-specific behaviour. That's imo the worst
+>>> option of all of them and needs to be avoided.
+>>
+>> So this kind of patch would be acceptable to you if I unconditionally
+>> scope the drm_ioctl with drm_dev_enter/exit without the driver flag ?
+>> I am worried to break other drivers with this, see patch https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Df0c593f35b22ca5bf60ed9e7ce2bf2b80e6c68c6&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cf4c0568093cc462f625808d90bc23a3c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637553751106596888%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=%2F3Jq6SvTm%2BZX7AVpaxEepfOj0C3O7%2Bo2Wm3y0gxrmKI%3D&amp;reserved=0
+>> Before setting drm_dev_unplug I go through a whole process of signalling
+>> all possible fences in the system which some one some where might be
+>> waiting on. My concern is that in the absence of HW those fences won't
+>> signal and so unless I signal them myself srcu_synchrionize in
+>> drm_dev_unplug will hang waiting for any such code scoped by
+>> drm_dev_enter/exit.
+> 
+> Uh right. I forgot about this.
+> 
+> Which would kinda mean the top level scope is maybe not the best idea, and
+> perhaps we should indeed drill it down. But then the testing issue
+> definitely gets a lot worse.
+> 
+> So what if we'd push that drm_dev_is_unplugged check down into ioctls?
+> Then we can make a case-by case decision whether it should be converted to
+> drm_dev_enter/exit, needs to be pushed down further into drivers (due to
+> fence wait issues) or other concerns?
+> 
+> Also I guess we need to have a subsystem wide rule on whether you need to
+> force complete all fences before you call drm_dev_unplug, or afterwards.
+
+I don't see how you can handle it afterwards. If a thread is stuck in
+dma_fence_wait in non interruptible wait (any kernel thread) and with no
+timeout there is nothing you can do to stop the wait. Any such code
+scopped with drm_dev_enter/exit will cause a hang in drm_dev_unplug.
+The only way then is to preemptively force signal all such fences before
+calling drm_dev_unplug - as I do in the above mentioned patch.
+
+> If we have mixed behaviour on this there will be disappointment. And since
+> hotunplug and dma_fence completion are both userspace visible that
+> inconsistency might have bigger impact.
+> 
+> This is all very tricky indeed :-/
+> 
+> btw for the "gradual pushing drm_dev_enter into ioctl" approach, if we go
+> with that: We could do the same trick we've done for DRM_UNLOCKED:
+> - drm_dev_enter/exit is called for any ioctl that has not set the
+>    DRM_HOTUNPLUG_SAFE flag
+> - for drm core ioctls we push them into all ioctls and decide how to
+>    handle/where (with the aim to have the least amount of code flow
+>    different during hotunplug vs after hotunplug has finished, to reduce
+>    testing scope)
+> - then we make DRM_HOTUNPLUG_SAFE the implied default
+> 
+> This would have us left with render ioctls, and I think the defensive
+> assumption there is that they're all hotunplug safe. We might hang on a
+> fence wait, but that's fixable, and it's better than blowing up on a
+> use-after-free security bug.
+> 
+> Thoughts?
+
+I don't fully see a difference between the approach described above and
+the full drill down to each driver and even within the driver, to the HW
+back-ends - what criteria I would use to decide if for a given IOCTL i
+scope with drm_dev_enter/exit at the highest level while for another
+i go all the way down ? If we would agree that signaling the fences
+preemptively before engaging drm_dev_unplug is generically the right
+approach maybe we can then scope drm_ioctl unconditionally with
+drm_dev_enter/exit and then for each driver go through the same process
+I do for amdgpu - writing driver specific function which takes care of
+all the fences. We could then just create a drm callback which would
+be called from drm_ioctl before drm_dev_unplug is called.
+
+Andrey
+
+> 
+> It is unfortunately even more work until we've reached the goal, but I
+> think it's safest and most flexible approach overall.
+> 
+> Cheers, Daniel
+> 
+>>
+>> Andrey
+>>
+>>>
+>>> Cheers, Daniel
+>>>
+>>>
+>>>>
+>>>>>>
+>>>>>> I guess we should clarify this in the hotunplug doc?
+>>>>
+>>>> Agree
+>>>>
+>>>>>
+>>>>> To clarify: I'm not against throwing an ENODEV at userspace for ioctl that
+>>>>> really make no sense, and where we're rather confident that all properly
+>>>>> implemented userspace will gracefully handle failures. Like a modeset, or
+>>>>> opening a device, or trying to import a dma-buf or stuff like that which
+>>>>> can already fail in normal operation for any kind of reason.
+>>>>>
+>>>>> But stuff that never fails, like GETRESOURCES ioctl, really shouldn't fail
+>>>>> after hotunplug.
+>>>>
+>>>> As I pointed above, this a bit confuses me given that we already do
+>>>> blanker rejection of IOCTLs if device is unplugged.
+>>>
+>>> Well I'm confused about this too :-/
+>>>
+>>>>> And then there's the middle ground, like doing a pageflip or buffer flush,
+>>>>> which I guess some userspace might handle, but risky to inflict those
+>>>>> consequences on them. atomic modeset is especially fun since depending
+>>>>> what you're doing it can be both "failures expected" and "failures not
+>>>>> really expected in normal operation".
+>>>>>
+>>>>> Also, this really should be consistent across drivers, not solved with a
+>>>>> driver flag for every possible combination.
+>>>>>
+>>>>> If you look at the current hotunplug kms drivers, they have
+>>>>> drm_dev_enter/exit sprinkled in specific hw callback functions because of
+>>>>> the above problems. But maybe it makes sense to change things in a few
+>>>>> cases. But then we should do it across the board.
+>>>>
+>>>> So as I understand your preferred approach is that I scope any back_end, HW
+>>>> specific function with drm_dev_enter/exit because that where MMIO
+>>>> access takes place. But besides explicit MMIO access thorough
+>>>> register accessors in the HW back-end there is also indirect MMIO access
+>>>> taking place throughout the code in the driver because of various VRAM
+>>>> BOs which provide CPU access to VRAM through the VRAM BAR. This kind of
+>>>> access is spread all over in the driver and even in mid-layers such as
+>>>> TTM and not limited to HW back-end functions. It means it's much harder
+>>>> to spot such places to surgically scope them with drm_dev_enter/exit and
+>>>> also that any new such code introduced will immediately break hot unplug
+>>>> because the developers can't be expected to remember making their code
+>>>> robust to this specific use case. That why when we discussed internally
+>>>> what approach to take to protecting code with drm_dev_enter/exit we
+>>>> opted for using the widest available scope.
+>>>
+>>> The thing is, you kinda have to anyway. There's enormous amounts of
+>>> asynchronous processing going on. E.g. nonblocking atomic commits also do
+>>> ttm unpinning and fun stuff like that, which if you sync things wrong can
+>>> happen way late. So the door for bad fallout is wide open :-(
+>>>
+>>> I'm not sure where the right tradeoff is to make sure we catch them all,
+>>> and can make sure with testing that we've indeed caught them all.
+>>> -Daniel
+>>>
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
