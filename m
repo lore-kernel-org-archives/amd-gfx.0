@@ -5,74 +5,71 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,URIBL_BLOCKED,
+	USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F247C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 08:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 655D3C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:04:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B52F6143B
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 08:54:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B52F6143B
+	by mail.kernel.org (Postfix) with ESMTPS id 242466144F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:04:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 242466144F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 998416F496;
-	Fri, 30 Apr 2021 08:54:09 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E8A6F46B
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 08:54:08 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id r12so104113939ejr.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 01:54:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A293E6E11E;
+	Fri, 30 Apr 2021 09:04:09 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0906E0FF;
+ Fri, 30 Apr 2021 09:04:08 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id x20so78765479lfu.6;
+ Fri, 30 Apr 2021 02:04:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=gwu/ZEae7VEcKJlZQ3m3TniXfDb6m9G4wH7YNSG83vc=;
- b=RTVyS65snDsxZbskFTGialM1r2luabverQvWSkdo6VEuoUfypuRYEhV/yhI/wy5vQD
- 56oW13p1Uqn7sOzX+Y7rkF56ajZwDQAD7E4c5E3ggk8WZwY1J5em4HiqvrCPq8gKsnyF
- 0Yc1EyQXlqtsrVFEduEpPFkS6tOh+ONI2H1w5y2MNUXHbCMhvr9EuMfjEtS12qN/Q0Ap
- SLdz6EhmyZL1k9FnN8vxSXzJ4CB9Rz7OaAuTRYfn6lvtNdCL0jF0GmQQHf90mHFIDsMI
- pWXHG+X+z6Y6rQNyRZXvjPNUBGgc3IIR7mvI2bF//GsQywTy8lAHdBaRs0Fh/6TYZesp
- YaPg==
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=bWoSIvmqNouaYrrX2B0CeKDibOVTi6dzlaqzLPONybE=;
+ b=RT+UMbMUcArODrdFsbgn3ysQk03NLnU1bUZoyeQ07eI2cGmLyWLzNU1dYHuK+H9pYd
+ 9eq0Q119U+Nv4Qmop9wvns+Wd3zrKoexsJlKDRCicTbHqy6h2yfL4pR7aPNW70YW6Yzm
+ qHkBoGP6qinRc7zup5Yqx8TZEEg84QIQyvYBFLWExRioCq/qCDWjW2zK9S3eq7XcvwQ5
+ H0CA9uBDrWQJM9McZMl+etTuGxAq4W0sCpJAcDK+XxCV7V6RRGDCdSRSTQzdudSCqfqY
+ 7j5Ms9QKpheD249FFUuYl/tqCSw9bvXU/riK5glSgflUqeaP+9CfHPLeuAxsB2AcR3kI
+ Vj5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=gwu/ZEae7VEcKJlZQ3m3TniXfDb6m9G4wH7YNSG83vc=;
- b=TFtuwJ0iBWkJ9yrZj8mvhZlHbKbbWmgT4TpFJPZ2Xh++3C2GWvE8MYWDSHLRGuyPW/
- xnLWcsD0gO+vhGf95TXP43h/s3+MC6nBNeFK2TM3rlaYk2VsfWg4ntIX4lpJyrA41UD/
- 2YkI0PQCp3ufsteRb31bDN8xM9K9yCPeLY/epjjAow6MUhCkr2Z07mb14V6HDId8a1W/
- 7oZ2hwZ18stebOLrXQcr2mjCDrfKI+j3VhpTR0/TQ7H77Ha23PUdJ1x+MfWWG+Hr5Qne
- guLPZdpvtGwYO24USuOXH9BZM5vq/lqBurZNrCOadmVo1BpMFqUJJOAAcWnU3PwDLmDH
- O72g==
-X-Gm-Message-State: AOAM530D13pbFiBKIpjo8W3IosW6eNLMsZWGGyTzd5jxTPxGrkjIdI0g
- 2uw6weKiQAtupImc8Lti1RmzPlQmfcI=
-X-Google-Smtp-Source: ABdhPJzMxeFECDeFFIQjhjpTbBGc6XBzXPEnDnHLZFL8+0A2e8lYDOnbBs47p7jKhy0odMo7ZoeCeQ==
-X-Received: by 2002:a17:907:7745:: with SMTP id
- kx5mr3097010ejc.3.1619772847173; 
- Fri, 30 Apr 2021 01:54:07 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:aa4a:1229:bd1a:d432?
- ([2a02:908:1252:fb60:aa4a:1229:bd1a:d432])
- by smtp.gmail.com with ESMTPSA id c12sm825858edx.54.2021.04.30.01.54.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Apr 2021 01:54:06 -0700 (PDT)
-Subject: Re: [PATCH 1/5] drm/amdgpu: re-apply "use the new cursor in the VM
- code" v2
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210427105410.2700-1-christian.koenig@amd.com>
- <63266df9-ba17-c53d-53b9-87331415f057@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <022dc479-53ad-eecb-1ac0-4156dadbd18d@gmail.com>
-Date: Fri, 30 Apr 2021 10:54:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=bWoSIvmqNouaYrrX2B0CeKDibOVTi6dzlaqzLPONybE=;
+ b=AWgHlhZJdTIFgSK+GVsHSyzdGD01UmXWp4o07PXYW8lqxREqSyS40ggSGAM5txJEnw
+ IBoEcdPZyB3FLfI5jhFToexxFaKZFRxqMdnNWaYXH2tGbTXNv4ajp9wR8tghgnR9HEzg
+ ccnUnckay2j9MWaG4yU7gm7BZ3KcCTXOTaHImGpJKoea1GhaL1rOuptqgmllBAmxqGt4
+ +mJjn4fhLHdW04Ix3ren9HC+kzEthL92By3FaNguMGbavCchMZn5IfF0IEettBE8yK/s
+ 0LkYdMgCFRQgIXJuf6wMtGrvPfZJDg5gLwGrfqweW1JKi3XjkOtk+QN+qzzcTM+ZCwDX
+ +q5g==
+X-Gm-Message-State: AOAM531NZAyJaQNJmwhGo2gVuQUsbHCDwsAUvJGxA4Ph966Mln9AhaFl
+ ybHBg4TLOAMfU1fTgz20sPE=
+X-Google-Smtp-Source: ABdhPJw1QRo2LZepRA24lgFb/1wBnA0h5MOlImJEM3uCUnsXO6Ycm2hyiujCeRGEPWM0s/wImfMewg==
+X-Received: by 2002:a05:6512:2245:: with SMTP id
+ i5mr2645040lfu.448.1619773446508; 
+ Fri, 30 Apr 2021 02:04:06 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id t14sm169067ljj.49.2021.04.30.02.04.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Apr 2021 02:04:06 -0700 (PDT)
+Date: Fri, 30 Apr 2021 12:04:02 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [RFC PATCH 1/3] drm/color: Add RGB Color encodings
+Message-ID: <20210430120402.7aa014ec@eldfell>
+In-Reply-To: <YIcPx6ozxPN7BbEU@intel.com>
+References: <20210426173852.484368-1-harry.wentland@amd.com>
+ <20210426173852.484368-2-harry.wentland@amd.com>
+ <YIcBUl+94sHJsT8B@intel.com>
+ <0090ce07-6102-59e7-bc8c-3528297aa5ae@amd.com>
+ <YIcPx6ozxPN7BbEU@intel.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <63266df9-ba17-c53d-53b9-87331415f057@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,136 +81,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
+ mcasas@google.com, Shashank.Sharma@amd.com, dri-devel@lists.freedesktop.org,
+ Shirish.S@amd.com, sebastian@sebastianwick.net,
+ Uma Shankar <uma.shankar@intel.com>, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
+Content-Type: multipart/mixed; boundary="===============0303252820=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgpBbSAzMC4wNC4yMSB1bSAxMDozMiBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IEFtIDIwMjEt
-MDQtMjcgdW0gNjo1NCBhLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4gTm93IHRoYXQg
-d2UgZm91bmQgdGhlIHVuZGVybHlpbmcgcHJvYmxlbSB3ZSBjYW4gcmUtYXBwbHkgdGhpcyBwYXRj
-aC4KPj4KPj4gVGhpcyByZXZlcnRzIGNvbW1pdCA4NjdmZWU3Zjg4MjFmZjQyZTczMDgwODhjZjBj
-MzQ1MGFjNDljMTdjLgo+Pgo+PiB2MjogcmViYXNlIG9uIEtGRCBjaGFuZ2VzCj4+Cj4+IFNpZ25l
-ZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBB
-Y2tlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpUaGFua3Ms
-IGp1c3QgZm9yIHRoaXMgcGF0Y2ggb3IgdGhlIHNlcmllcz8KCkNocmlzdGlhbi4KCj4KPgo+PiAt
-LS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDU1ICsrKysr
-KysrKy0tLS0tLS0tLS0tLS0tLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmggfCAgMiArLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0u
-YyAgIHwgIDMgKy0KPj4gICAzIGZpbGVzIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDQwIGRl
-bGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBp
-bmRleCBkYWU1MTk5MmM2MDcuLmZhNDNkMzMyYTk3OSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTM3LDYgKzM3LDcgQEAKPj4gICAjaW5jbHVkZSAi
-YW1kZ3B1X2dtYy5oIgo+PiAgICNpbmNsdWRlICJhbWRncHVfeGdtaS5oIgo+PiAgICNpbmNsdWRl
-ICJhbWRncHVfZG1hX2J1Zi5oIgo+PiArI2luY2x1ZGUgImFtZGdwdV9yZXNfY3Vyc29yLmgiCj4+
-ICAgI2luY2x1ZGUgImtmZF9zdm0uaCIKPj4gICAKPj4gICAvKioKPj4gQEAgLTE2MDYsNyArMTYw
-Nyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdCBhbWRncHVfdm1f
-dXBkYXRlX3BhcmFtcyAqcGFyYW1zLAo+PiAgICAqIEBsYXN0OiBsYXN0IG1hcHBlZCBlbnRyeQo+
-PiAgICAqIEBmbGFnczogZmxhZ3MgZm9yIHRoZSBlbnRyaWVzCj4+ICAgICogQG9mZnNldDogb2Zm
-c2V0IGludG8gbm9kZXMgYW5kIHBhZ2VzX2FkZHIKPj4gLSAqIEBub2RlczogYXJyYXkgb2YgZHJt
-X21tX25vZGVzIHdpdGggdGhlIE1DIGFkZHJlc3Nlcwo+PiArICogQHJlczogdHRtX3Jlc291cmNl
-IHRvIG1hcAo+PiAgICAqIEBwYWdlc19hZGRyOiBETUEgYWRkcmVzc2VzIHRvIHVzZSBmb3IgbWFw
-cGluZwo+PiAgICAqIEBmZW5jZTogb3B0aW9uYWwgcmVzdWx0aW5nIGZlbmNlCj4+ICAgICoKPj4g
-QEAgLTE2MjEsMTMgKzE2MjIsMTMgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJCQkJYm9vbCB1bmxvY2tlZCwgc3RydWN0
-IGRtYV9yZXN2ICpyZXN2LAo+PiAgIAkJCQl1aW50NjRfdCBzdGFydCwgdWludDY0X3QgbGFzdCwK
-Pj4gICAJCQkJdWludDY0X3QgZmxhZ3MsIHVpbnQ2NF90IG9mZnNldCwKPj4gLQkJCQlzdHJ1Y3Qg
-ZHJtX21tX25vZGUgKm5vZGVzLAo+PiArCQkJCXN0cnVjdCB0dG1fcmVzb3VyY2UgKnJlcywKPj4g
-ICAJCQkJZG1hX2FkZHJfdCAqcGFnZXNfYWRkciwKPj4gICAJCQkJc3RydWN0IGRtYV9mZW5jZSAq
-KmZlbmNlKQo+PiAgIHsKPj4gICAJc3RydWN0IGFtZGdwdV92bV91cGRhdGVfcGFyYW1zIHBhcmFt
-czsKPj4gKwlzdHJ1Y3QgYW1kZ3B1X3Jlc19jdXJzb3IgY3Vyc29yOwo+PiAgIAllbnVtIGFtZGdw
-dV9zeW5jX21vZGUgc3luY19tb2RlOwo+PiAtCXVpbnQ2NF90IHBmbjsKPj4gICAJaW50IHI7Cj4+
-ICAgCj4+ICAgCW1lbXNldCgmcGFyYW1zLCAwLCBzaXplb2YocGFyYW1zKSk7Cj4+IEBAIC0xNjQ1
-LDE0ICsxNjQ2LDYgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwKPj4gICAJZWxzZQo+PiAgIAkJc3luY19tb2RlID0gQU1ER1BVX1NZ
-TkNfRVhQTElDSVQ7Cj4+ICAgCj4+IC0JcGZuID0gb2Zmc2V0ID4+IFBBR0VfU0hJRlQ7Cj4+IC0J
-aWYgKG5vZGVzKSB7Cj4+IC0JCXdoaWxlIChwZm4gPj0gbm9kZXMtPnNpemUpIHsKPj4gLQkJCXBm
-biAtPSBub2Rlcy0+c2l6ZTsKPj4gLQkJCSsrbm9kZXM7Cj4+IC0JCX0KPj4gLQl9Cj4+IC0KPj4g
-ICAJYW1kZ3B1X3ZtX2V2aWN0aW9uX2xvY2sodm0pOwo+PiAgIAlpZiAodm0tPmV2aWN0aW5nKSB7
-Cj4+ICAgCQlyID0gLUVCVVNZOwo+PiBAQCAtMTY3MSwyMyArMTY2NCwxNyBAQCBpbnQgYW1kZ3B1
-X3ZtX2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgIAlp
-ZiAocikKPj4gICAJCWdvdG8gZXJyb3JfdW5sb2NrOwo+PiAgIAo+PiAtCWRvIHsKPj4gKwlhbWRn
-cHVfcmVzX2ZpcnN0KHJlcywgb2Zmc2V0LCAobGFzdCAtIHN0YXJ0ICsgMSkgKiBBTURHUFVfR1BV
-X1BBR0VfU0laRSwKPj4gKwkJCSAmY3Vyc29yKTsKPj4gKwl3aGlsZSAoY3Vyc29yLnJlbWFpbmlu
-Zykgewo+PiAgIAkJdWludDY0X3QgdG1wLCBudW1fZW50cmllcywgYWRkcjsKPj4gICAKPj4gLQo+
-PiAtCQludW1fZW50cmllcyA9IGxhc3QgLSBzdGFydCArIDE7Cj4+IC0JCWlmIChub2Rlcykgewo+
-PiAtCQkJYWRkciA9IG5vZGVzLT5zdGFydCA8PCBQQUdFX1NISUZUOwo+PiAtCQkJbnVtX2VudHJp
-ZXMgPSBtaW4oKG5vZGVzLT5zaXplIC0gcGZuKSAqCj4+IC0JCQkJQU1ER1BVX0dQVV9QQUdFU19J
-Tl9DUFVfUEFHRSwgbnVtX2VudHJpZXMpOwo+PiAtCQl9IGVsc2Ugewo+PiAtCQkJYWRkciA9IDA7
-Cj4+IC0JCX0KPj4gLQo+PiArCQludW1fZW50cmllcyA9IGN1cnNvci5zaXplID4+IEFNREdQVV9H
-UFVfUEFHRV9TSElGVDsKPj4gICAJCWlmIChwYWdlc19hZGRyKSB7Cj4+ICAgCQkJYm9vbCBjb250
-aWd1b3VzID0gdHJ1ZTsKPj4gICAKPj4gICAJCQlpZiAobnVtX2VudHJpZXMgPiBBTURHUFVfR1BV
-X1BBR0VTX0lOX0NQVV9QQUdFKSB7Cj4+ICsJCQkJdWludDY0X3QgcGZuID0gY3Vyc29yLnN0YXJ0
-ID4+IFBBR0VfU0hJRlQ7Cj4+ICAgCQkJCXVpbnQ2NF90IGNvdW50Owo+PiAgIAo+PiAgIAkJCQlj
-b250aWd1b3VzID0gcGFnZXNfYWRkcltwZm4gKyAxXSA9PQo+PiBAQCAtMTcwNywxNiArMTY5NCwx
-OCBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+PiAgIAkJCX0KPj4gICAKPj4gICAJCQlpZiAoIWNvbnRpZ3VvdXMpIHsKPj4gLQkJ
-CQlhZGRyID0gcGZuIDw8IFBBR0VfU0hJRlQ7Cj4+ICsJCQkJYWRkciA9IGN1cnNvci5zdGFydDsK
-Pj4gICAJCQkJcGFyYW1zLnBhZ2VzX2FkZHIgPSBwYWdlc19hZGRyOwo+PiAgIAkJCX0gZWxzZSB7
-Cj4+IC0JCQkJYWRkciA9IHBhZ2VzX2FkZHJbcGZuXTsKPj4gKwkJCQlhZGRyID0gcGFnZXNfYWRk
-cltjdXJzb3Iuc3RhcnQgPj4gUEFHRV9TSElGVF07Cj4+ICAgCQkJCXBhcmFtcy5wYWdlc19hZGRy
-ID0gTlVMTDsKPj4gICAJCQl9Cj4+ICAgCj4+ICAgCQl9IGVsc2UgaWYgKGZsYWdzICYgKEFNREdQ
-VV9QVEVfVkFMSUQgfCBBTURHUFVfUFRFX1BSVCkpIHsKPj4gLQkJCWFkZHIgKz0gYm9fYWRldi0+
-dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0Owo+PiAtCQkJYWRkciArPSBwZm4gPDwgUEFHRV9T
-SElGVDsKPj4gKwkJCWFkZHIgPSBib19hZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQg
-Kwo+PiArCQkJCWN1cnNvci5zdGFydDsKPj4gKwkJfSBlbHNlIHsKPj4gKwkJCWFkZHIgPSAwOwo+
-PiAgIAkJfQo+PiAgIAo+PiAgIAkJdG1wID0gc3RhcnQgKyBudW1fZW50cmllczsKPj4gQEAgLTE3
-MjQsMTQgKzE3MTMsOSBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAo+PiAgIAkJaWYgKHIpCj4+ICAgCQkJZ290byBlcnJvcl91bmxv
-Y2s7Cj4+ICAgCj4+IC0JCXBmbiArPSBudW1fZW50cmllcyAvIEFNREdQVV9HUFVfUEFHRVNfSU5f
-Q1BVX1BBR0U7Cj4+IC0JCWlmIChub2RlcyAmJiBub2Rlcy0+c2l6ZSA9PSBwZm4pIHsKPj4gLQkJ
-CXBmbiA9IDA7Cj4+IC0JCQkrK25vZGVzOwo+PiAtCQl9Cj4+ICsJCWFtZGdwdV9yZXNfbmV4dCgm
-Y3Vyc29yLCBudW1fZW50cmllcyAqIEFNREdQVV9HUFVfUEFHRV9TSVpFKTsKPj4gICAJCXN0YXJ0
-ID0gdG1wOwo+PiAtCj4+IC0JfSB3aGlsZSAodW5saWtlbHkoc3RhcnQgIT0gbGFzdCArIDEpKTsK
-Pj4gKwl9Owo+PiAgIAo+PiAgIAlyID0gdm0tPnVwZGF0ZV9mdW5jcy0+Y29tbWl0KCZwYXJhbXMs
-IGZlbmNlKTsKPj4gICAKPj4gQEAgLTE3NjAsNyArMTc0NCw2IEBAIGludCBhbWRncHVfdm1fYm9f
-dXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpi
-b192YSwKPj4gICAJc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXBwaW5nOwo+PiAgIAlk
-bWFfYWRkcl90ICpwYWdlc19hZGRyID0gTlVMTDsKPj4gICAJc3RydWN0IHR0bV9yZXNvdXJjZSAq
-bWVtOwo+PiAtCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9kZXM7Cj4+ICAgCXN0cnVjdCBkbWFfZmVu
-Y2UgKipsYXN0X3VwZGF0ZTsKPj4gICAJc3RydWN0IGRtYV9yZXN2ICpyZXN2Owo+PiAgIAl1aW50
-NjRfdCBmbGFnczsKPj4gQEAgLTE3NjksNyArMTc1Miw2IEBAIGludCBhbWRncHVfdm1fYm9fdXBk
-YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpib192
-YSwKPj4gICAKPj4gICAJaWYgKGNsZWFyIHx8ICFibykgewo+PiAgIAkJbWVtID0gTlVMTDsKPj4g
-LQkJbm9kZXMgPSBOVUxMOwo+PiAgIAkJcmVzdiA9IHZtLT5yb290LmJhc2UuYm8tPnRiby5iYXNl
-LnJlc3Y7Cj4+ICAgCX0gZWxzZSB7Cj4+ICAgCQlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9
-ICZiby0+dGJvLmJhc2U7Cj4+IEBAIC0xNzg0LDcgKzE3NjYsNiBAQCBpbnQgYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV9ib192YSAq
-Ym9fdmEsCj4+ICAgCQkJCWJvID0gZ2VtX3RvX2FtZGdwdV9ibyhnb2JqKTsKPj4gICAJCX0KPj4g
-ICAJCW1lbSA9ICZiby0+dGJvLm1lbTsKPj4gLQkJbm9kZXMgPSBtZW0tPm1tX25vZGU7Cj4+ICAg
-CQlpZiAobWVtLT5tZW1fdHlwZSA9PSBUVE1fUExfVFQpCj4+ICAgCQkJcGFnZXNfYWRkciA9IGJv
-LT50Ym8udHRtLT5kbWFfYWRkcmVzczsKPj4gICAJfQo+PiBAQCAtMTgzMyw3ICsxODE0LDcgQEAg
-aW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVj
-dCBhbWRncHVfYm9fdmEgKmJvX3ZhLAo+PiAgIAkJciA9IGFtZGdwdV92bV9ib191cGRhdGVfbWFw
-cGluZyhhZGV2LCBib19hZGV2LCB2bSwgZmFsc2UsIGZhbHNlLAo+PiAgIAkJCQkJCXJlc3YsIG1h
-cHBpbmctPnN0YXJ0LAo+PiAgIAkJCQkJCW1hcHBpbmctPmxhc3QsIHVwZGF0ZV9mbGFncywKPj4g
-LQkJCQkJCW1hcHBpbmctPm9mZnNldCwgbm9kZXMsCj4+ICsJCQkJCQltYXBwaW5nLT5vZmZzZXQs
-IG1lbSwKPj4gICAJCQkJCQlwYWdlc19hZGRyLCBsYXN0X3VwZGF0ZSk7Cj4+ICAgCQlpZiAocikK
-Pj4gICAJCQlyZXR1cm4gcjsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgK
-Pj4gaW5kZXggZTVhM2YxOGJlMmI3Li4xYWU1ZWE4ZGI0OTcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+IEBAIC00MDIsNyArNDAyLDcgQEAgaW50IGFtZGdw
-dV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAJ
-CQkJYm9vbCB1bmxvY2tlZCwgc3RydWN0IGRtYV9yZXN2ICpyZXN2LAo+PiAgIAkJCQl1aW50NjRf
-dCBzdGFydCwgdWludDY0X3QgbGFzdCwKPj4gICAJCQkJdWludDY0X3QgZmxhZ3MsIHVpbnQ2NF90
-IG9mZnNldCwKPj4gLQkJCQlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzLAo+PiArCQkJCXN0cnVj
-dCB0dG1fcmVzb3VyY2UgKnJlcywKPj4gICAJCQkJZG1hX2FkZHJfdCAqcGFnZXNfYWRkciwKPj4g
-ICAJCQkJc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKTsKPj4gICBpbnQgYW1kZ3B1X3ZtX2JvX3Vw
-ZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9zdm0uYwo+PiBpbmRleCBlNGNlOTdhYjZlMjYuLjBiMGU3NmUxNmRkYyAxMDA2NDQKPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5jCj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uYwo+PiBAQCAtMTE1MSw4ICsxMTUxLDcgQEAg
-c3ZtX3JhbmdlX21hcF90b19ncHUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBh
-bWRncHVfdm0gKnZtLAo+PiAgIAkJCQkJcHJhbmdlLT5tYXBwaW5nLnN0YXJ0LAo+PiAgIAkJCQkJ
-cHJhbmdlLT5tYXBwaW5nLmxhc3QsIHB0ZV9mbGFncywKPj4gICAJCQkJCXByYW5nZS0+bWFwcGlu
-Zy5vZmZzZXQsCj4+IC0JCQkJCXByYW5nZS0+dHRtX3JlcyA/Cj4+IC0JCQkJCQlwcmFuZ2UtPnR0
-bV9yZXMtPm1tX25vZGUgOiBOVUxMLAo+PiArCQkJCQlwcmFuZ2UtPnR0bV9yZXMsCj4+ICAgCQkJ
-CQlkbWFfYWRkciwgJnZtLT5sYXN0X3VwZGF0ZSk7Cj4+ICAgCWlmIChyKSB7Cj4+ICAgCQlwcl9k
-ZWJ1ZygiZmFpbGVkICVkIHRvIG1hcCB0byBncHUgMHglbHhcbiIsIHIsIHByYW5nZS0+c3RhcnQp
-OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0303252820==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/EjcagME61b9pLKqTnYEsSkE"; protocol="application/pgp-signature"
+
+--Sig_/EjcagME61b9pLKqTnYEsSkE
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 26 Apr 2021 22:08:55 +0300
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+
+> On Mon, Apr 26, 2021 at 02:56:26PM -0400, Harry Wentland wrote:
+> > On 2021-04-26 2:07 p.m., Ville Syrj=C3=A4l=C3=A4 wrote: =20
+> > > On Mon, Apr 26, 2021 at 01:38:50PM -0400, Harry Wentland wrote: =20
+> > >> From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> > >>
+> > >> Add the following color encodings
+> > >> - RGB versions for BT601, BT709, BT2020
+> > >> - DCI-P3: Used for digital movies
+> > >>
+> > >> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> > >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> > >> ---
+> > >>   drivers/gpu/drm/drm_color_mgmt.c | 4 ++++
+> > >>   include/drm/drm_color_mgmt.h     | 4 ++++
+> > >>   2 files changed, 8 insertions(+)
+> > >>
+> > >> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_=
+color_mgmt.c
+> > >> index bb14f488c8f6..a183ebae2941 100644
+> > >> --- a/drivers/gpu/drm/drm_color_mgmt.c
+> > >> +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> > >> @@ -469,6 +469,10 @@ static const char * const color_encoding_name[]=
+ =3D {
+> > >>   	[DRM_COLOR_YCBCR_BT601] =3D "ITU-R BT.601 YCbCr",
+> > >>   	[DRM_COLOR_YCBCR_BT709] =3D "ITU-R BT.709 YCbCr",
+> > >>   	[DRM_COLOR_YCBCR_BT2020] =3D "ITU-R BT.2020 YCbCr",
+> > >> +	[DRM_COLOR_RGB_BT601] =3D "ITU-R BT.601 RGB",
+> > >> +	[DRM_COLOR_RGB_BT709] =3D "ITU-R BT.709 RGB",
+> > >> +	[DRM_COLOR_RGB_BT2020] =3D "ITU-R BT.2020 RGB",
+> > >> +	[DRM_COLOR_P3] =3D "DCI-P3", =20
+> > >=20
+> > > These are a totally different thing than the YCbCr stuff.
+> > > The YCbCr stuff just specifies the YCbCr<->RGB converison matrix,
+> > > whereas these are I guess supposed to specify the primaries/whitepoin=
+t?
+> > > But without specifying what we're converting *to* these mean absolute=
+ly
+> > > nothing. Ie. I don't think they belong in this property.
+> > >  =20
+> >=20
+> > If this is the intention I don't see it documented.
+> >=20
+> > I might have overlooked something but do we have a way to explicitly=20
+> > specify today what *to* format the YCbCr color encodings convert into? =
+ =20
+>=20
+> These just specific which YCbCr<->RGB matrix to use as specificed
+> in the relevant standards. The primaries/whitepoint/etc. don't
+> change at all.
+
+Ville is correct here.
+
+> > Would that be a combination of the output color encoding specified via=
+=20
+> > colorspace_property and the color space encoded in the primaries and=20
+> > whitepoint of the hdr_output_metadata? =20
+
+Conversion between YCbCR and RGB is not a color space conversion in the
+sense of color spaces (chromaticity of primaries and white point). It
+is a color model conversion or a color encoding conversion more like.
+
+A benefit of YCbCr is that you can use less bandwidth to transmit the
+same image and people won't realise that you lost anything: chroma
+sub-sampling. Sub-sampling with RGB wouldn't work that well. It's a
+lossy compression technique, but different standards use different
+compression algorithms (well, matrices) to balance what gets lost.
+
+> Those propertis only affect the infoframes. They don't apply any
+> color processing to the data.
+
+Indeed.
+
+An example:
+
+You start with YUV video you want to display. That means you have YCbCr
+data using color space X and EOTF Foo. When you convert that to RGB,
+the RGB data still has color space X and EOTF Foo. Then you use the
+infoframe to tell your monitor that the data is in color space X and
+using EOTF Foo.
+
+At no point in that pipeline there is a color space transformation,
+until the data actually reaches the monitor which may do magic things
+to map color space X and EOTF Foo into what it can actually make as
+light.
+
+Or as with the traditional way, you don't care what color space or EOTF
+your video uses or your monitor has. You just hope they are close
+enough to look good enough that people don't see anything wrong. Close
+your eyes and sing a happy song. With HDR and WCG, that totally breaks
+down.
+
+> > Fundamentally I don't see how the use of this property differs, whether=
+=20
+> > you translate from YCbCr or from RGB. In either case you're converting=
+=20
+> > from the defined input color space and pixel format to an output color=
+=20
+> > space and pixel format. =20
+>=20
+> The gamut does not change when you do YCbCr<->RGB conversion.
+
+Right. Neither does dynamic range.
+
+> > > The previous proposals around this topic have suggested a new
+> > > property to specify a conversion matrix either explicitly, or
+> > > via a separate enum (which would specify both the src and dst
+> > > colorspaces). I've always argued the enum approach is needed
+> > > anyway since not all hardware has a programmable matrix for
+> > > this. But a fully programmable matrix could be nice for tone
+> > > mapping purposes/etc, so we may want to make sure both are
+> > > possible.
+> > >=20
+> > > As for the transfer func, the proposals so far have mostly just
+> > > been to expose a programmable degamma/gamma LUTs for each plane.
+> > > But considering how poor the current gamma uapi is we've thrown
+> > > around some ideas how to allow the kernel to properly expose the
+> > > hw capabilities. This is one of those ideas:
+> > > https://lists.freedesktop.org/archives/dri-devel/2019-April/212886.ht=
+ml>> I think that basic idea could be also be extended to allow fixed
+> > > curves in case the hw doesn't have a fully programmable LUT. But
+> > > dunno if that's relevant for your hw.
+> > >  =20
+> >=20
+> > The problem with exposing gamma, whether per-plane or per-crtc, is that=
+=20
+> > it is hard to define an API that works for all the HW out there. The=20
+> > capabilities for different HW differ a lot, not just between vendors bu=
+t=20
+> > also between generations of a vendor's HW.
+> >=20
+> > Another reason I'm proposing to define the color space (and gamma) of a=
+=20
+> > plane is to make this explicit. Up until the color space and gamma of a=
+=20
+> > plane or framebuffer are not well defined, which leads to drivers=20
+> > assuming the color space and gamma of a buffer (for blending and other=
+=20
+> > purposes) and might lead to sub-optimal outcomes. =20
+>=20
+> The current state is that things just get passed through as is
+> (apart from the crtc LUTs/CTM).
+
+Right. I would claim that the kernel does not even want to know about
+color spaces or EOTFs. Instead, the kernel should offer userspace ways
+to program the hardware to do the color *transformations* it wants to
+do. The color_encoding KMS property is already like this: it defines
+the conversion matrix, not what the input or output are.
+
+Infoframes being sent to displays are a different thing. They just tell
+the monitor what kind of image data userspace has configured KMS to
+send it, but does not change what KMS actually does with pixels.
+
+
+Also, please, let's talk about EOTF and EOTF^-1 instead of gamma when
+appropriate.
+
+Electro-optical transfer function (EOTF) is very clear in what it
+means: it is the mapping from electrical values (the non-linear pixel
+values you are used to, good for storage and transmission) to optical
+values (values that are linear in light intensity, therefore good for
+things like blending and filtering).
+
+Gamma is kind of the same, but when you use it in sentences it easily
+becomes ambiguous. Like if you have "gamma corrected pixels", what does
+that mean. Are they electrical values or optical values or maybe
+electrical values with a different EOTF. What EOTF.
+
+However, in KMS "gamma LUT" is kind of standardised terminology, and it
+does not need to be an EOTF or inverse-EOTF. One can use a gamma LUT
+for EETF, mapping from one EOTF to another, e.g. from data with content
+EOTF to data with monitor EOTF.
+
+
+Thanks,
+pq
+
+--Sig_/EjcagME61b9pLKqTnYEsSkE
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCLyAIACgkQI1/ltBGq
+qqegFg/+IsGrjhmUuTQJr1njzpbLEjFAx723foWf8MeRADktmuOAXnXgG3YA7RT2
+bA4xO8jUFVMGKWt9A7e0vDZ9Fy8RkYe0cANIqKee3sYV+8QkCIt1eGdGSB6mJYIH
+ObuIbIebQidJV11dW95T0QmBLtIo8hZ/ryG7Ud7fR99cEiASGj7AeIkzuyhdHp38
+JJZUIiSIf6u+NBMcyDfJe4jrlMV8KFbLO5TdFI17283GO9sc1YERZfkaCH9EgHT3
+6JtiCeoXi8LVPEtiRGwpZiXAfH8jH11AibS/CHR9g1gJBOzKBGRHBvi3hKej/7xe
+42Jg+QZmekQdrfch1pLBOwH9lmRrBA7N6sy4cuo1zMS7TJh0vp0G5z7HHEI9bZHD
+3/wH9PfslOaovExbTJf6bcazlrdTrD0VIHNOHzJHvMAU2Sui6gYlZjNJ7JcmnWpA
+4AOF2QdBtsOp/dJw/KU2KMhDQ4hTCnF92cSE21sJ+QBySrNIXpKm5sztf54VWRXH
+J4vpfiiulnHGV0KQ35BfIIfSLF/qIPIphYxGeBimTAwhsNwGjeBO14HIHvNZDZNF
+9oLXQXQ7anIGiy4NgC5WlCX31S+h9SmihKu4AvzpR65fIJuXz01W3YkrhM41nKjb
+j+Yy3aWbdvmg62pk5Wx1ujWPgIg6slDpiVK2OXtrBgOPx0t3RDM=
+=7yvI
+-----END PGP SIGNATURE-----
+
+--Sig_/EjcagME61b9pLKqTnYEsSkE--
+
+--===============0303252820==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0303252820==--
