@@ -2,70 +2,122 @@ Return-Path: <SRS0=uLL/=J3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81BA6C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:44:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89004C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 10:22:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 276F861474
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 09:44:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 276F861474
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3A15961450
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Apr 2021 10:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A15961450
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50046E0EC;
-	Fri, 30 Apr 2021 09:44:05 +0000 (UTC)
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 224026E0EC;
- Fri, 30 Apr 2021 09:44:05 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id o16so80022372ljp.3;
- Fri, 30 Apr 2021 02:44:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=Fs02BtOhyd5FC7gJVvuNNnKp3USLnWgaJaXUagMKFBA=;
- b=dK8zYu4P/DGIh50k5SZYSjv+Xqltz7NenlES4ey5LWVVtIsQU6LbbQOPlkSayienEe
- XJ4/uLpsfg78jfkDJADARkTy3NOE+7Z10ynUOABeH+y3us5ZmyGTdg1c/bYv+xKlmedO
- q5/c8DRDN5RrnwCVXISqoR62bmxb85YWtNO+jUmsmycoj7Tyd78Nj+veIMgxcDnmuv+d
- NAbew1YO7cdMnvRdcTNC4mvWZ+JbfW9is1fdO2sZv3osGS8OLqPlY39BF/FU17sIgJLX
- XJcVJoD36qi0BB9vO9FyoKe9tw2jq5gZDQWkjsXWYysxlI81q6f4INGWoowaBhzLVbAa
- DjLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=Fs02BtOhyd5FC7gJVvuNNnKp3USLnWgaJaXUagMKFBA=;
- b=NDd7guKGPIxAuAQOXF9CRDTCEAEoLfWbdJuvR4HGqpYHEwfD8AfbbB7qK/k/f12d0M
- 0MkgtJNbwVgZThNfRdm2URQsW+KiCWxWQSgjl/vecVWEmQ+XvK8lLbjpaNc/t31/b7aJ
- qQgt7gDlKWRdWXnbRethQxEH2rneAOM3wWw01MFQmYOTTcauYmUdfwVde0AgmGEPyKH/
- RWvKE2zv6fgb0FAScsf25o3sTFioeHeCRPXRHaI5pvOf4Pf3HkkW1MiwOL2aaPftxkcS
- 697TBhwVeiJvjVGiNTImc0iV/oRgjEqrcb3ltmGvy4YOGXKms2fotQtc/EOu1Fjj5WBj
- P8Hw==
-X-Gm-Message-State: AOAM5306sJWAyPZCPkccyQiNAmw3h+Aj9X5L/CX/U2IeFtWlfvkeA64+
- 3dQ29fLw6f6th4RDfoftPkk=
-X-Google-Smtp-Source: ABdhPJzwx4zzWO2ON86GfiGdWFlSwks7GUnSyoTWT76KXl+8v665hOTFhdptLorEWAxDGUqF+HrZlg==
-X-Received: by 2002:a2e:99ce:: with SMTP id l14mr3245758ljj.114.1619775843536; 
- Fri, 30 Apr 2021 02:44:03 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id h12sm181977ljh.21.2021.04.30.02.44.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Apr 2021 02:44:03 -0700 (PDT)
-Date: Fri, 30 Apr 2021 12:43:58 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Shashank Sharma <shashank.sharma@amd.com>
-Subject: Re: [RFC PATCH 0/3] A drm_plane API to support HDR planes
-Message-ID: <20210430124358.1f5ac6ec@eldfell>
-In-Reply-To: <ba369002-69e9-15d5-323c-1923ecdeda63@amd.com>
-References: <20210426173852.484368-1-harry.wentland@amd.com>
- <20210427175005.5b92badc@eldfell>
- <ba369002-69e9-15d5-323c-1923ecdeda63@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDE2C6E125;
+	Fri, 30 Apr 2021 10:22:24 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1738D6E125
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Apr 2021 10:22:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O6wMYljWae89Lb7iPYw5LfPuOOBo+kvixbiWrOHVN+0Ch0CfvzXrK3+0bzBPccPVatNcINRML/oSYSHzbul+X056+gPOuLYXjQZAr/3v8evHoH1E+BVCmR2JPqNyWza33HOsMYwrPBuGbMjWVXgRSOzeXXvbl1EMiBowoqMttLz3wFsJgi2U4fs0AVAzOSixwzdn+hx+zu3GHbkdXKdGXUuntYpDv33Qkvu97sF2kNK4rnFz48Ul2OR+kLolPUUQL74mnshUp8Q8fVH/GRQZpgmL+r2+O1oANDyJisYvW36iB7EqYUMrwehXmuO5+tkywM5oe8z1fyGM7zhTBtG9/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3eFxJG7F8kv9ars+QEF3yJhrRwNeDTTODETy1J3/2S8=;
+ b=UFudBQ9cTQEAxZZlLJRRflpdy1XvxCJkJhIXUslMZbMLLud2oEVog5K65snMZYtUxdgLrB0g6qWulvphEJ2MYkV3URE31blnL8qi4Hznkp6NaPXeNiqJQvHlPBd+tprnOurC3tL/raZjn7CTGHg8qZ0hvOVzks7yAVnEo9UWjenM1iuNPEuFXdwFfA0mDNgNlz3kWdmHNLt3XNHMi9E+eq9fTI7DCJVFMDo836hZW7CmYdd9ZEM5IAEqj0L+1HIqkVyP12Lygv3sFlidA9g2sXDG08WKaoiobhdJZxdOyeImDOqMdPlUuhQJ7NvPitIkhyTQByIrem1CDb06Vt+wMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3eFxJG7F8kv9ars+QEF3yJhrRwNeDTTODETy1J3/2S8=;
+ b=RcMAFuDdis4rtahfEz/qO3GnmJGNoBzEsq0JveuMdG1YmXqWxHynUqbhrVufUtKEl33bGk0DsGwYUR8leDPKDLFLVpChnSsCE+kCXN1UoGrX/0E17tRR971y5Tgi7a0ZQGufK8Cg5Fi75FqpDzcX0lcWbTCJTZ5xN+v2KuOZh30=
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
+ by BN9PR12MB5163.namprd12.prod.outlook.com (2603:10b6:408:11c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.20; Fri, 30 Apr
+ 2021 10:22:21 +0000
+Received: from BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
+ ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4065.027; Fri, 30 Apr 2021
+ 10:22:21 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH Review 1/1] drm/amdgpu: force enable gfx ras for vega20 ws
+Thread-Topic: [PATCH Review 1/1] drm/amdgpu: force enable gfx ras for vega20 ws
+Thread-Index: AQHXPY1XJr604KH6EE+nfPuxIOiNHqrM2e4g
+Date: Fri, 30 Apr 2021 10:22:21 +0000
+Message-ID: <BN9PR12MB5368F3B94DC194B8B6B56DE4FC5E9@BN9PR12MB5368.namprd12.prod.outlook.com>
+References: <20210430065202.18115-1-Stanley.Yang@amd.com>
+In-Reply-To: <20210430065202.18115-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-04-30T10:22:17Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=c6c83e05-e7f0-4a3f-a99f-c0cecd235a4e;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 46b08a53-a3f0-45fd-548a-08d90bc1d6fd
+x-ms-traffictypediagnostic: BN9PR12MB5163:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN9PR12MB516329D50CAD7321A01DFA5EFC5E9@BN9PR12MB5163.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TX1mAYBeZlv5mtqfk8WuDMwJxNBm+0jNzSPERnGAStTuE1O4WtWyCFd70ZmP/FR/agg49XFkr7Y0jpOYcYe3fDgaMPJ1JNdCFQ9MnIMU97t3yw8A76A6GDcRXNZ9AUy7KiVI030jWsgAvFCMw1tvrvuQqBue7wJssDPX5WTIG/e/Ew1Nc/9deOjjFIcXeGJkEWL0dNQ3fvDwqvfTqHvt1hTD/0xEsMCcJ2lBttrIhyCfVjqhWwLfbH1efi5myHgk/ZMAtzBFYqGZm29fzj7xNoCm062E9x+b6P0hWEfZq/yq7dcJlZ3M80lVkhbqvVuSCbEhJfItcLB9KOl/HxsUxKrjmozLYJ8iJt3nP396k6NV792LFVJylVeyRk2uAw3vi6R8PDLbdtT6EEcmmUteC/hntz5L2zpjGSVqRmchgWmvJBe7vUVCh2K5mNZ/yDamzfn7RyGCXgvn2XF20v/1Dk669kpAlX2OksexG3Cou1KymZWYHTZ/zBKEq0HNtjdmPrzZIpuEq79cLtZ9zxe0CuJpZea5R/n2dhTvxBkaRjE1ui6Ek5LhL44BRhCs4R9g/871eUkUkVr3emkDHOwJcrc6BvMAYJwX51zPtWP6exU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(7696005)(6506007)(55016002)(53546011)(66556008)(2906002)(64756008)(38100700002)(66946007)(86362001)(83380400001)(9686003)(71200400001)(76116006)(66446008)(66476007)(8936002)(26005)(110136005)(33656002)(5660300002)(478600001)(4326008)(52536014)(122000001)(186003)(316002)(8676002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?brjapOvUfM7zQbMH0rv8SaNTOZxtRA9UjGW5Sb85TiUzuuh3U0mhmzzvlMx4?=
+ =?us-ascii?Q?NQgF0MOKBAj+FSeKuRIifG6AEOQGPFDytcym4k4ZjB0zQ0Gln54q9dKKDUWF?=
+ =?us-ascii?Q?Zvw6OvJOzNW0KFOjiAmGXKshkPf+HnwSL0o5Cv5GcgLJN9/pByDdB3WGWrwl?=
+ =?us-ascii?Q?4YHwKbWPfI5TtX311bau8cdB+FbTIP0PmyRhOc6htCPjQiNtF4fCgMrBg+1+?=
+ =?us-ascii?Q?jFWL1yjIE048Kz4XCS8tS/iyx+EMM/4eG79TO6G96bboCkShGACBztWaN2sy?=
+ =?us-ascii?Q?wjF94iUKTHFqLQVZkFKy6YqR/e4nHQ8hLSkKmE1HT1+oYgVM7pNCx6psDV+E?=
+ =?us-ascii?Q?izycR2EJSDiAZ3PD5IaEBGcYjab43jJMvf5FNIm4Z7NRQmdWiUuNzBHxSXE6?=
+ =?us-ascii?Q?7xI8vGvA8SralA3QQT10m9Q+wpaOnaQFskCCAVpcp3KN1OiB+LNHZWhu5pXR?=
+ =?us-ascii?Q?98Dm6qValrnH+J0z7QrJ8dWP7AazS6NXZHr4JFKLwWfhS/cDTG1sM/sUlq/e?=
+ =?us-ascii?Q?0n1GuRGJI41++KylaSJ49CJpeBEhMNikg6CPUc3/zNPbU/3u6U0XgXPDb2ba?=
+ =?us-ascii?Q?ud6OlAOmqMiSEjt3TBhwZLWSsWfvxjh+nDKv2v2aSMJhcAmaduM8Mh183XUy?=
+ =?us-ascii?Q?M7gBUjOViWFH4WqzRso/fcmjIt8Uo7vFgk+vblVB0ZE1lhXD4sFL9YjnLS+v?=
+ =?us-ascii?Q?J4dqvOH92tJS6qy5X59Jt8LzjIC7IC/880QwqhH18ybZl7JBzPdLSC2GJfrl?=
+ =?us-ascii?Q?y4uCS9lsLzDRRzFUZlku0WpqnaV//wxHGeNeDA6t+IS8H1/54oJmg24LjO3q?=
+ =?us-ascii?Q?IL6hzJ7QnDJncYCYXJV1Du0C6ivEckBbGHn4XFwhflPobdqySn4QIoLDRCH3?=
+ =?us-ascii?Q?eKW5fU/LWu7fgPp7KKqXYRte/sbuGGjMnnpnQ7Z1gtNPHDUXx3qg35rHeTxC?=
+ =?us-ascii?Q?IwOj1oyyczhoNA/UDhl8A7+KaWb3ju245BYcQbYItA8PfoC3vLvxRgGQ9oAb?=
+ =?us-ascii?Q?gQfTDAu31BFR2FYOesonKcGwzs5yHlAFiack5hRr8ga8KY5v2SIeP7TSB2p3?=
+ =?us-ascii?Q?moKlU4lqL8o4LbHN+7sDsUO/W+YVCwatj6bZ1HFSWNM8QhHcqvxtyYwaH6DC?=
+ =?us-ascii?Q?HCxYXxgD9K2Ro9qOkDvbaGmYTbkY9WU9eF1DjuqurPt5IPseQE/p1lf37JK6?=
+ =?us-ascii?Q?DxVTXbQn4w4EtX/EvJzeSV1kXcLWGz/8lfT5BYxQUhkvZ/o8dchgYJa6cUJ3?=
+ =?us-ascii?Q?eAkzODSoM1WHeXc6mFf/8l09ihUvbZwlEnj0oPACoHc45Yvi1vDCUSG2UUuy?=
+ =?us-ascii?Q?8I707gFyrrW9yi+YYCi8k6aB?=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46b08a53-a3f0-45fd-548a-08d90bc1d6fd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2021 10:22:21.2518 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Tua9kKFWw4iCwJYgS35iksZcDPLXetaUbGMpph8LUuoGoX+1MbYeLyGS7se4gtHBz5Q50W4/LMyzA/e6vYYm1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5163
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,164 +129,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak.Sharma@amd.com, aric.cyr@amd.com, Krunoslav.Kovac@amd.com,
- mcasas@google.com, Bhawanpreet.Lakha@amd.com, dri-devel@lists.freedesktop.org,
- Shirish.S@amd.com, sebastian@sebastianwick.net, hersenxs.wu@amd.com,
- amd-gfx@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- Harry Wentland <harry.wentland@amd.com>, Nicholas.Kazlauskas@amd.com,
- ville.syrjala@linux.intel.com, Vitaly.Prosyak@amd.com
-Content-Type: multipart/mixed; boundary="===============0218690846=="
+Cc: "Yang, Stanley" <Stanley.Yang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0218690846==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/jF0/5g5+Pu5KXVUetVMNU5x"; protocol="application/pgp-signature"
+[AMD Public Use]
 
---Sig_/jF0/5g5+Pu5KXVUetVMNU5x
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Please remove the redundant aisc type check: adev->asic_type == CHIP_VEGA20. The board ID should be good enough for this case.
 
-On Wed, 28 Apr 2021 13:24:27 +0530
-Shashank Sharma <shashank.sharma@amd.com> wrote:
+Other than that, the patch is
 
-> Assuming these details, A compositor will look for DRM color properties l=
-ike these:
->=20
-> 1. Degamma plane property : To make buffers linear for Gamut mapping
->=20
-> 2. Gamut mapping plane property:=C2=A0 To gamut map SRGB buffer to BT2020=
- colorspace
->=20
-> 3. Color space conversion plane property: To convert from YCBCR->RGB
->=20
-> 4. Tone mapping plane property: To tone map SDR buffer S2H and HDR buffer=
- H2H
->=20
-> 5. Gamma plane/CRTC property: to re-apply the output ST2084 curve
->=20
->=20
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-...
+Regards,
+Hawking
 
-> =C2=A0*
-> =C2=A0*
-> =C2=A0*
-> =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=90
-> =C2=A0* HDR 600 Nits=E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR 600 Nit=
-s =E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR600=C2=A0=C2=A0=C2=A0=C2=A0 =
-=E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82HDR500 =E2=94=82=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-=E2=94=82 HDR500
-> =C2=A0*=C2=A0=C2=A0 =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=96=BA =E2=94=82=C2=A0 Degamma=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=BA=
-=E2=94=82=C2=A0 Color space=C2=A0=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=96=BA=E2=94=82=C2=A0 Tone mapping=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=96=BA=E2=94=82=C2=A0 Gamma=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82
-> =C2=A0* BT2020=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0 OETF ST2084=
-=C2=A0=C2=A0=C2=A0 =E2=94=82 BT2020=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=
-=C2=A0 conversion=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82BT2020=C2=A0=C2=A0=C2=A0=
-=C2=A0 =E2=94=82=C2=A0=C2=A0 H2H=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 =E2=94=82BT2020 =E2=94=82=C2=A0 ST2084=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82 BT2020
-> =C2=A0* YCBCR420=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=
-=94=82 YCBCR420=C2=A0=C2=A0=C2=A0 =E2=94=82 YCBCR->RGB=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 =E2=94=82RGB88=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82=C2=A0=C2=
-=A0 600->500=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=82RGB888 =E2=94=82=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 =E2=94=82 RGB888
-> =C2=A0* Non Linear=C2=A0 =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98 Linear=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=98Linear=C2=A0=C2=A0=C2=A0=C2=A0 =E2=94=
-=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=98Linear =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=98 ST2084
-> =C2=A0*/
+-----Original Message-----
+From: Stanley.Yang <Stanley.Yang@amd.com> 
+Sent: Friday, April 30, 2021 14:52
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>
+Cc: Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: force enable gfx ras for vega20 ws
 
-Hi Shashank,
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-I think you might have degamma and color model conversion reversed, or
-is that a new thing in the HDR specs?
-
-Usually the YCbCr/RGB conversion matrix applies to non-linear values
-AFAIU.
-
-There is also confusion with OETF vs. EOTF. I got that initially wrong
-too. OETF is not just a name for inverse-EOTF but it is used in a
-different context. Though here it seems to be just a typo.
-
-OETF is inherent to a camera when it converts light into
-electrical signals. EOTF is inherent to a monitor when it converts
-electrical signals to light. Depending on what the electrical signals
-have been defined to be in each step of a broadcasting chain, you might
-need OETF or EOTF or their inverse or a different OETF or EOTF or their
-inverse.
-
-As we are talking about displays and likely assuming display-referred
-content (not scene-referred content), we probably have no use for OETF,
-but we could have several different EOTFs.
-
-
-Thanks,
-pq
-
---Sig_/jF0/5g5+Pu5KXVUetVMNU5x
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmCL0V4ACgkQI1/ltBGq
-qqfEsA/4p4kXQf6b4g3jDgoJdIGiubNpMyuFWQPCStvjnPHv8g3KIk6uTTh725LA
-fE20hqzLxMn/pw+UbFkz+ELK9kcUG9lI0ih4DRCIgdiHWyznJPzl+p0lxJKCLVrC
-ZscDhcm8v0hjmzzD5R24DqKj2IdEwyqH7mM0hpzxyd0oSaR4ToFcvFhNZmT14qqY
-bql+U1UtndPio2KkI96/owTLMNHHSBIidV4kTrQY69qJeKBGcftfg790Y1YKjjXm
-ZKd+pamZmN1ovZru2aoDnCQ9jO65SUd32aD7F241sXU5UKH6UUIXLI9yfiJUcO45
-QU3zsRnYBo3rHBtYc2xC7h/36pooPlYlz9ECEyBRjb6mKmwOv/xIAyiG43Kx4SjY
-UmASFIybtV65KZhVub8yQ5XPDR+RCulU30poR6Jb8ivtKChjCAyrzDbiYoD6h+Hb
-WNbcMlH9xCBizo2uP+7PFxLD0ZD13rJkvowZKVAGjnnvIghuIAhaGIt3/d7FLUWO
-5KRtvaAaZx0AagRqUAXel25C+5mFimo1caPJ1rEk7Hpp6+yQoB/gfWAtJddV2GT5
-+4bDmCNRFWID/viBAONgFI+IaBZIsSnVSK6C8aUql1qIy8wAP6wHeuFIhd8hbDBh
-DSj6oy5m2+sTbumokHrUE6n2AbukKj0sT0g7JL3OANjWB/uFKA==
-=25O5
------END PGP SIGNATURE-----
-
---Sig_/jF0/5g5+Pu5KXVUetVMNU5x--
-
---===============0218690846==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index daf63a4c1fff..dfeaa57dd7ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_xgmi.h"
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include <asm/mce.h>
++#include "atom.h"
+ 
+ static const char *RAS_FS_NAME = "ras";
+ 
+@@ -2070,6 +2071,25 @@ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
+ 		adev->asic_type == CHIP_SIENNA_CICHLID;  }
+ 
++/*
++ * this is workaround for vega20 workstation sku,
++ * force enable gfx ras, ignore vbios gfx ras flag
++ * due to GC EDC can not write
++ */
++static void amdgpu_ras_get_quirks(struct amdgpu_device *adev,
++		uint32_t *hw_supported)
++{
++	struct atom_context *ctx = adev->mode_info.atom_context;
++
++	if (!ctx)
++		return;
++
++	if (adev->asic_type == CHIP_VEGA20 &&
++			strnstr(ctx->vbios_version, "D16406",
++					sizeof(ctx->vbios_version)))
++			*hw_supported |= (1 << AMDGPU_RAS_BLOCK__GFX); }
++
+ /*
+  * check hardware's ras ability which will be saved in hw_supported.
+  * if hardware does not support ras, we can skip some ras initializtion and @@ -2112,6 +2132,8 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev,
+ 				1 << AMDGPU_RAS_BLOCK__MMHUB);
+ 	}
+ 
++	amdgpu_ras_get_quirks(adev, hw_supported);
++
+ 	/* hw_supported needs to be aligned with RAS block mask. */
+ 	*hw_supported &= AMDGPU_RAS_BLOCK_MASK;
+ 
+--
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0218690846==--
