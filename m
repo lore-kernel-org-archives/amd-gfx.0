@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFB10C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64BCCC43462
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FF2F61278
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FF2F61278
+	by mail.kernel.org (Postfix) with ESMTPS id 12E2361283
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12E2361283
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08AB46E8F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40906E90A;
 	Mon,  3 May 2021 16:35:28 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A88C6E8F2;
- Mon,  3 May 2021 16:35:25 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3D92A613B3;
- Mon,  3 May 2021 16:35:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61AC76E90A;
+ Mon,  3 May 2021 16:35:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F067560D07;
+ Mon,  3 May 2021 16:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059725;
- bh=Foo0oml7Ot69CzxMUT/sNgkbu3oPVJHm19/WvKVEHpo=;
+ s=k20201202; t=1620059728;
+ bh=XJhRDno84dxoR28e7Bc0BSzpSZh3YNnxBxVu+ZIK1BE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d72XY55qKUm3unWsvAeA2ziI30x50Nm0V1R8KF2YluxqRViRsP1g7R8WypeuOJXUf
- 4ZgcsWrOclIHp5E1p8Wig3bY6CU5F3ww/8z3csxR7b7ZoGBERziC9NOwmk91WH6/mU
- 3v7CR+A9FKwrNzVjj85C6rCZBKRUH/5nd+9Qi95BQXrvY29SHwNffW2WqHtJP9FvaE
- BOwffCPOU2+vu+vJEneNzdHuOLmN13fUJJDlTFBPEatS8N740Dj2LZvspqxOsYS3zf
- 7wFjX6Uzs2tZ2ncgQPcpSfuSIWxEn/wSqEPBYAT1qbJLqUuNjE1Cg0K8ajJHDJCScx
- eA1OxiBC5GvVQ==
+ b=c+wC9B8hFB6zdyBTH0XVKSEpA5Q4LBi2CsFz0ku0XdVT8QIr7yZFKBfDseiChbMJV
+ xFagaCoIRb4giapHhJOOT4H4meXVaHmQTGk5gTmEaPUhgkymDeZo/dsTQP7Sx6fLKs
+ oT2fNccWKaOu31l24x3PJ3nEexv81LWgI/gsagodvh7Y5w16AIevBoilUqpYBB+YJE
+ 5fwnML7L/UyVJZRG4JerPxBFXUEEl13MajUJOhbM9NGOFCwKogGG2goTq5NVoz1Ohz
+ LDIou5qLlpVr5ktSdE9uXFW2oSjZaO+MjGu/Bv/INelDsVsO2c+R2McBdy1dIR0oNb
+ Q0NGWwk8LaHNA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 007/134] drm/amd/pm: do not issue message while
- write "r" into pp_od_clk_voltage
-Date: Mon,  3 May 2021 12:33:06 -0400
-Message-Id: <20210503163513.2851510-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 009/134] drm/amd/display: Check for DSC support
+ instead of ASIC revision
+Date: Mon,  3 May 2021 12:33:08 -0400
+Message-Id: <20210503163513.2851510-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163513.2851510-1-sashal@kernel.org>
 References: <20210503163513.2851510-1-sashal@kernel.org>
@@ -59,143 +59,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, Eryk Brol <eryk.brol@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Bindu Ramamurthy <bindu.r@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Huang Rui <ray.huang@amd.com>
+From: Eryk Brol <eryk.brol@amd.com>
 
-[ Upstream commit ca1203d7d7295c49e5707d7def457bdc524a8edb ]
+[ Upstream commit 349a19b2f1b01e713268c7de9944ad669ccdf369 ]
 
-We should commit the value after restore them back to default as well.
+[why]
+This check for ASIC revision is no longer useful and causes
+lightup issues after a topology change in MST DSC scenario.
+In this case, DSC configs should be recalculated for the new
+topology. This check prevented that from happening on certain
+ASICs that do, in fact, support DSC.
 
-$ echo "r" > pp_od_clk_voltage
-$ echo "c" > pp_od_clk_voltage
+[how]
+Change the ASIC revision to instead check if DSC is supported.
 
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Eryk Brol <eryk.brol@amd.com>
+Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  | 14 -------
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 38 -------------------
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 18 ---------
- 3 files changed, 70 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-index ed05a30d1139..e2a56a7f3d7a 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-@@ -1526,20 +1526,6 @@ static int smu10_set_fine_grain_clk_vol(struct pp_hwmgr *hwmgr,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d699a5cf6c11..8ad83ccfcc6a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9383,7 +9383,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	}
  
- 		smu10_data->gfx_actual_soft_min_freq = min_freq;
- 		smu10_data->gfx_actual_soft_max_freq = max_freq;
--
--		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
--					PPSMC_MSG_SetHardMinGfxClk,
--					min_freq,
--					NULL);
--		if (ret)
--			return ret;
--
--		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
--					PPSMC_MSG_SetSoftMaxGfxClk,
--					max_freq,
--					NULL);
--		if (ret)
--			return ret;
- 	} else if (type == PP_OD_COMMIT_DPM_TABLE) {
- 		if (size != 0) {
- 			pr_err("Input parameter number not correct\n");
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 101eaa20db9b..a80f551771b9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1462,7 +1462,6 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
- 					long input[], uint32_t size)
- {
- 	int ret = 0;
--	int i;
- 	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
- 
- 	if (!(smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL)) {
-@@ -1535,43 +1534,6 @@ static int vangogh_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TAB
- 			smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
- 			smu->cpu_actual_soft_min_freq = smu->cpu_default_soft_min_freq;
- 			smu->cpu_actual_soft_max_freq = smu->cpu_default_soft_max_freq;
--
--			ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinGfxClk,
--									smu->gfx_actual_hard_min_freq, NULL);
--			if (ret) {
--				dev_err(smu->adev->dev, "Restore the default hard min sclk failed!");
--				return ret;
--			}
--
--			ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxGfxClk,
--									smu->gfx_actual_soft_max_freq, NULL);
--			if (ret) {
--				dev_err(smu->adev->dev, "Restore the default soft max sclk failed!");
--				return ret;
--			}
--
--			if (smu->adev->pm.fw_version < 0x43f1b00) {
--				dev_warn(smu->adev->dev, "CPUSoftMax/CPUSoftMin are not supported, please update SBIOS!\n");
--				break;
--			}
--
--			for (i = 0; i < smu->cpu_core_num; i++) {
--				ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinCclk,
--								      (i << 20) | smu->cpu_actual_soft_min_freq,
--								      NULL);
--				if (ret) {
--					dev_err(smu->adev->dev, "Set hard min cclk failed!");
--					return ret;
--				}
--
--				ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxCclk,
--								      (i << 20) | smu->cpu_actual_soft_max_freq,
--								      NULL);
--				if (ret) {
--					dev_err(smu->adev->dev, "Set soft max cclk failed!");
--					return ret;
--				}
--			}
- 		}
- 		break;
- 	case PP_OD_COMMIT_DPM_TABLE:
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 5493388fcb10..dbe6d0caddb7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -389,24 +389,6 @@ static int renoir_od_edit_dpm_table(struct smu_context *smu,
- 		}
- 		smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
- 		smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
--
--		ret = smu_cmn_send_smc_msg_with_param(smu,
--								SMU_MSG_SetHardMinGfxClk,
--								smu->gfx_actual_hard_min_freq,
--								NULL);
--		if (ret) {
--			dev_err(smu->adev->dev, "Restore the default hard min sclk failed!");
--			return ret;
--		}
--
--		ret = smu_cmn_send_smc_msg_with_param(smu,
--								SMU_MSG_SetSoftMaxGfxClk,
--								smu->gfx_actual_soft_max_freq,
--								NULL);
--		if (ret) {
--			dev_err(smu->adev->dev, "Restore the default soft max sclk failed!");
--			return ret;
--		}
- 		break;
- 	case PP_OD_COMMIT_DPM_TABLE:
- 		if (size != 0) {
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+-	if (adev->asic_type >= CHIP_NAVI10) {
++	if (dc_resource_is_dsc_encoding_supported(dc)) {
+ 		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+ 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+ 				ret = add_affected_mst_dsc_crtcs(state, crtc);
 -- 
 2.30.2
 
