@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40988C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A012BC43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D41A161369
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D41A161369
+	by mail.kernel.org (Postfix) with ESMTPS id 4F3C061369
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F3C061369
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 369266E94E;
-	Mon,  3 May 2021 16:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2F06E950;
+	Mon,  3 May 2021 16:37:16 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC936E949;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09416E94D;
+ Mon,  3 May 2021 16:37:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8944D613CB;
  Mon,  3 May 2021 16:37:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E7282613C1;
- Mon,  3 May 2021 16:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059833;
- bh=W62i6CrwGSgX/r2q61j7DL9jH5FuXJv+/rFvjPsUtaA=;
+ s=k20201202; t=1620059834;
+ bh=gAVXaa3NI2xdJ61efYa5M26EA5yeVATgEjR2hwATB8U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QWE2arzGjBYBhaxQWMhwqmaF0kFVXmJBMoTbvDPeBJM9dUl0SJ7ktRSH0R0dkUPbw
- wOWel5W5q30Eb3O01KppQptt4SnpB+uIVWfpNBxjxvVF0Gti3m6NUIkBLWO89KM6Lc
- fFfxcWwnkGXs9nzOoUZIaTMEc76cAN7FF9eLsyW4/RaU3fSGlz3EGoKC3Uiq2ZzNmV
- VJPdNlze1H3gK5bV+8t1cz2JJG8E8NYDkqifurT5yyiOEOjKC4WC7UQTKM4VW72ZfL
- krA/VzAhhcid4ngFNSvbwI5lyQLfi+F5bAMwTqf7du6O1MPB1k71RHjTrQlAl+aHJE
- EqaCaB20bkvPA==
+ b=T3Va7bcDHBjhfLiBmhi9ohYStHmbqqExKqSqKnQLylBnUnnYLZdFIMgqyIk/cwk/R
+ HqSZIVuFIBH8cymdawaiFP4XtRWBgFey6Uo+hI9/wtLDNjISq8XM9ml3hrvSL7f0F3
+ cwgJJ+MBKQnJ2GihgNS66Mvce8nl65pxUUHspuYhGqyiqXvjPx4BroeejzONKPszU0
+ CrBShnfzuR4LeaL9haR/pV/etD0wpLHJdujUL6Fbg2GMOKToAJqKl8Z1i380pYsNRO
+ h0s7s1Bq9lvnuDE87WNoHdWtLK+4N65nKNa67MHTKlF+DrMpus/xFHcjoaUVhm5dtP
+ qJ+QEzdbbiftA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 008/115] drm/amd/display: Check for DSC support
- instead of ASIC revision
-Date: Mon,  3 May 2021 12:35:12 -0400
-Message-Id: <20210503163700.2852194-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 009/115] drm/amd/display: Don't optimize
+ bandwidth before disabling planes
+Date: Mon,  3 May 2021 12:35:13 -0400
+Message-Id: <20210503163700.2852194-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163700.2852194-1-sashal@kernel.org>
 References: <20210503163700.2852194-1-sashal@kernel.org>
@@ -59,7 +59,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Eryk Brol <eryk.brol@amd.com>,
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <aric.cyr@amd.com>,
  amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Bindu Ramamurthy <bindu.r@amd.com>
@@ -68,42 +68,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eryk Brol <eryk.brol@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
-[ Upstream commit 349a19b2f1b01e713268c7de9944ad669ccdf369 ]
+[ Upstream commit 6ad98e8aeb0106f453bb154933e8355849244990 ]
 
-[why]
-This check for ASIC revision is no longer useful and causes
-lightup issues after a topology change in MST DSC scenario.
-In this case, DSC configs should be recalculated for the new
-topology. This check prevented that from happening on certain
-ASICs that do, in fact, support DSC.
+[Why]
+There is a window of time where we optimize bandwidth due to no streams
+enabled will enable PSTATE changing but HUBPs are not disabled yet.
+This results in underflow counter increasing in some hotplug scenarios.
 
-[how]
-Change the ASIC revision to instead check if DSC is supported.
+[How]
+Set the optimize-bandwidth flag for later processing once all the HUBPs
+are properly disabled.
 
-Signed-off-by: Eryk Brol <eryk.brol@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 62a637c03f60..fc2763745ae1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9216,7 +9216,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 58eb0d69873a..ccac86347315 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2380,7 +2380,8 @@ static void commit_planes_do_stream_update(struct dc *dc,
+ 					if (pipe_ctx->stream_res.audio && !dc->debug.az_endpoint_mute_only)
+ 						pipe_ctx->stream_res.audio->funcs->az_disable(pipe_ctx->stream_res.audio);
  
- #if defined(CONFIG_DRM_AMD_DC_DCN)
--	if (adev->asic_type >= CHIP_NAVI10) {
-+	if (dc_resource_is_dsc_encoding_supported(dc)) {
- 		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
- 				ret = add_affected_mst_dsc_crtcs(state, crtc);
+-					dc->hwss.optimize_bandwidth(dc, dc->current_state);
++					dc->optimized_required = true;
++
+ 				} else {
+ 					if (dc->optimize_seamless_boot_streams == 0)
+ 						dc->hwss.prepare_bandwidth(dc, dc->current_state);
 -- 
 2.30.2
 
