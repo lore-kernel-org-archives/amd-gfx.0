@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6244EC433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CEEBC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C01961955
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C01961955
+	by mail.kernel.org (Postfix) with ESMTPS id 2555861965
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2555861965
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C836E9C6;
-	Mon,  3 May 2021 16:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADD66E9CA;
+	Mon,  3 May 2021 16:43:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42E156E9C5;
- Mon,  3 May 2021 16:42:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EE02161951;
- Mon,  3 May 2021 16:42:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B01696E9CA;
+ Mon,  3 May 2021 16:43:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5574361969;
+ Mon,  3 May 2021 16:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620060167;
- bh=n609f3gMSJRljYhN1/ve688WgsyGXq4QRIENlWuUpFg=;
+ s=k20201202; t=1620060205;
+ bh=iF/yoIy/SeFtrRmptbNe5kD87n/yYWTYJIWVBewqFKA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hDavrWVHbPz+bjDyJSfCqKX1PAplA0wMmh+S6nWCWymXq0RrF1VSgvf+qOS/908Ax
- 9ANT7fvKSz54RbwxZiavgb5+OrmdeZY0gBXcnCUHx1rJ7KyPKXtzs4uG2odgv8vnG0
- Smw2YDhjYmIJ8x278shcsY/DAKJjXqRZVXSmleDTqtmgNJK/F95y+BTx3OJkjkRMKZ
- u0FNdrGV6HqUTooxV+k4HF35pUXBezbb0Kt0Upe0ZRrCn1nsrxyqe5pnyPKbNotjav
- ZLYpUq1eN+H7Dqhmw+n6JtGHnUDwIuGbWPycO+BBkKR+249eQFbbzVk7d+Rbm5yljN
- 60vFrtVYjD4pg==
+ b=s6YGwkj0Aa8qtnY91qwVuCW/AMhAyiOGsZi9uvcilXMPab22Mmg05QhHzJlkhO/sn
+ RLpxMISQbEvusj0fS+hRcR7G8C28AZJyfKBFPv0TaCwlgULCAfN9xaIOVU7sB9Iy8f
+ MBVt86vN0AoYGwGfeQIzLknd5OsDRYyDxvIiFKKJMVIEYAbQnx2Fs9DStayIchRAXT
+ fXWO1xwaPQywxvuY24medaS9F7HS4ntr5PnhysfYHw5h7nAmXbgqai3veTvyrMEZzQ
+ mTR6zANzevXZjnDqDsZOQAXexxLQE6qp+E452lZwoyCIlK6OgGFMCj0T3MCpRmYX34
+ 1fYx/pNeAHDNw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 28/31] drm/amdgpu: fix NULL pointer dereference
-Date: Mon,  3 May 2021 12:42:01 -0400
-Message-Id: <20210503164204.2854178-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 22/24] drm/amdgpu: fix NULL pointer dereference
+Date: Mon,  3 May 2021 12:42:50 -0400
+Message-Id: <20210503164252.2854487-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210503164204.2854178-1-sashal@kernel.org>
-References: <20210503164204.2854178-1-sashal@kernel.org>
+In-Reply-To: <20210503164252.2854487-1-sashal@kernel.org>
+References: <20210503164252.2854487-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -96,10 +96,10 @@ ZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBr
 ZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8
 IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlm
 ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwppbmRleCBhZTcwMGU0NDVmYmMuLmQw
-NTdiYzI5YmY0YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwppbmRleCA4MGM2MGE2MmQzOWUuLjcy
+NzFlM2YzMmQ4MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
 X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAt
-NzQyLDcgKzc0Miw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fdHRfdW5waW5fdXNlcnB0cihz
+NjUyLDcgKzY1Miw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fdHRfdW5waW5fdXNlcnB0cihz
 dHJ1Y3QgdHRtX3R0ICp0dG0pCiAJCURNQV9CSURJUkVDVElPTkFMIDogRE1BX1RPX0RFVklDRTsK
 IAogCS8qIGRvdWJsZSBjaGVjayB0aGF0IHdlIGRvbid0IGZyZWUgdGhlIHRhYmxlIHR3aWNlICov
 Ci0JaWYgKCF0dG0tPnNnLT5zZ2wpCisJaWYgKCF0dG0tPnNnIHx8ICF0dG0tPnNnLT5zZ2wpCiAJ
