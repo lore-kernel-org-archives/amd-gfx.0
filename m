@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8F57C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54A47C43600
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7132A616E9
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7132A616E9
+	by mail.kernel.org (Postfix) with ESMTPS id F3EB761490
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3EB761490
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A15BE6E994;
-	Mon,  3 May 2021 16:39:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665D56E988;
+	Mon,  3 May 2021 16:39:19 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ACDF6E992;
- Mon,  3 May 2021 16:39:26 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B433561626;
- Mon,  3 May 2021 16:39:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF786E988;
+ Mon,  3 May 2021 16:39:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E5B3B613E9;
+ Mon,  3 May 2021 16:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059965;
- bh=9SaHmlyN759saoLkHGSXLWPljVMs7EBk8+FWa8g4ins=;
+ s=k20201202; t=1620059957;
+ bh=pn463DpuLQ0mVp4jzjh8oJK03lZfNaaZKSbL1aWfd64=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lqYwCP4xiIE1obev/piQ0E2Zsw6GhK7U4xGpArNF4BO91zb5UwtIllWffylx0InHY
- NuiEZqm2koHQSBG1cgJbIPOL12anAnKnfrGzqtBPyPeWYr8REY1//JFemW74TUsbIi
- WT+LdUCI9t4nBg87+vxn1FWhCeT3sgcWpv7879b9qmc90eb5Wk9NToSdu10SIaK3f9
- wop1pvY1SrXMqGdefUkAN0BrLDXTmmlU8yPqgufBfBlifOmU+0BzFYLT/0a4WXauQJ
- g0MZxfCwnQUgjrlILVm5fC18VyqbQ3HjnnaqCkv7AoILBKvffk3xrG62w9RR4JIyIw
- X1pmaVlU8njVQ==
+ b=tsqCFrhPt/HT/cB/5Yhvi6zDZSehV+LCBql3DBVffnSoaILYDQDWjZn4ppPRH6B59
+ HPMrP3RIb/696Q8uxWVZ6kq5qTpC0RdO42LLq08TUSngJ9X00clHXbPSXfR1TvVxm4
+ nlv5moJwbHNAKjvbuqakDFbfdJ1bxKM4hfcmmZtIF6UM861tFVV0UbsJ3VjskafaAA
+ mo/q3PBr4Sum+b0+C0iyHUOmDQAWBAdtjtvrdWHq7Dmemk5HNTvirxnT3ahtVqRD0G
+ zaElumO/dMQO8ZTOrHSakv5gXjaJKFeO7EPxmkujWDSPLdQxxHyPtLNKnb5gR2nJ5f
+ hpNeeetM6X3Rg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 037/100] drm/amd/display: DCHUB underflow counter
- increasing in some scenarios
-Date: Mon,  3 May 2021 12:37:26 -0400
-Message-Id: <20210503163829.2852775-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 032/100] drm/amdgpu: mask the xgmi number of hops
+ reported from psp to kfd
+Date: Mon,  3 May 2021 12:37:21 -0400
+Message-Id: <20210503163829.2852775-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163829.2852775-1-sashal@kernel.org>
 References: <20210503163829.2852775-1-sashal@kernel.org>
@@ -59,58 +59,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <aric.cyr@amd.com>,
- amd-gfx@lists.freedesktop.org, Solomon Chiu <solomon.chiu@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Jonathan Kim <jonathan.kim@amd.com>,
+ Amber Lin <amber.lin@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Jonathan Kim <jonathan.kim@amd.com>
 
-[ Upstream commit 4710430a779e6077d81218ac768787545bff8c49 ]
+[ Upstream commit 4ac5617c4b7d0f0a8f879997f8ceaa14636d7554 ]
 
-[Why]
-When unplugging a display, the underflow counter can be seen to
-increase because PSTATE switch is allowed even when some planes are not
-blanked.
+The psp supplies the link type in the upper 2 bits of the psp xgmi node
+information num_hops field.  With a new link type, Aldebaran has these
+bits set to a non-zero value (1 = xGMI3) so the KFD topology will report
+the incorrect IO link weights without proper masking.
+The actual number of hops is located in the 3 least significant bits of
+this field so mask if off accordingly before passing it to the KFD.
 
-[How]
-Check that all planes are not active instead of all streams before
-allowing PSTATE change.
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Acked-by: Solomon Chiu <solomon.chiu@amd.com>
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Reviewed-by: Amber Lin <amber.lin@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-index 95d883482227..cab47bb21172 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-@@ -240,6 +240,7 @@ static void dcn3_update_clocks(struct clk_mgr *clk_mgr_base,
- 	bool force_reset = false;
- 	bool update_uclk = false;
- 	bool p_state_change_support;
-+	int total_plane_count;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 1162913c8bf4..0526dec1d736 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -465,15 +465,22 @@ int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_dev
+ }
  
- 	if (dc->work_arounds.skip_clock_update || !clk_mgr->smu_present)
- 		return;
-@@ -280,7 +281,8 @@ static void dcn3_update_clocks(struct clk_mgr *clk_mgr_base,
- 		clk_mgr_base->clks.socclk_khz = new_clocks->socclk_khz;
  
- 	clk_mgr_base->clks.prev_p_state_change_support = clk_mgr_base->clks.p_state_change_support;
--	p_state_change_support = new_clocks->p_state_change_support || (display_count == 0);
-+	total_plane_count = clk_mgr_helper_get_active_plane_cnt(dc, context);
-+	p_state_change_support = new_clocks->p_state_change_support || (total_plane_count == 0);
- 	if (should_update_pstate_support(safe_to_lower, p_state_change_support, clk_mgr_base->clks.p_state_change_support)) {
- 		clk_mgr_base->clks.p_state_change_support = p_state_change_support;
++/*
++ * NOTE psp_xgmi_node_info.num_hops layout is as follows:
++ * num_hops[7:6] = link type (0 = xGMI2, 1 = xGMI3, 2/3 = reserved)
++ * num_hops[5:3] = reserved
++ * num_hops[2:0] = number of hops
++ */
+ int amdgpu_xgmi_get_hops_count(struct amdgpu_device *adev,
+ 		struct amdgpu_device *peer_adev)
+ {
+ 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
++	uint8_t num_hops_mask = 0x7;
+ 	int i;
+ 
+ 	for (i = 0 ; i < top->num_nodes; ++i)
+ 		if (top->nodes[i].node_id == peer_adev->gmc.xgmi.node_id)
+-			return top->nodes[i].num_hops;
++			return top->nodes[i].num_hops & num_hops_mask;
+ 	return	-EINVAL;
+ }
  
 -- 
 2.30.2
