@@ -2,42 +2,42 @@ Return-Path: <SRS0=CzGJ=J6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CC80C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1801C43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E93AC61075
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E93AC61075
+	by mail.kernel.org (Postfix) with ESMTPS id 842C961159
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 842C961159
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C716E9E7;
-	Mon,  3 May 2021 17:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAAF66E9EB;
+	Mon,  3 May 2021 17:21:41 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80A36E9E7
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 May 2021 17:21:26 +0000 (UTC)
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D29F6E9E4;
+ Mon,  3 May 2021 17:21:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aq8aW+qHZrCEReebNPrCYinDMXd6xCF4C+Km/i3fqiBlbRizVDATf9XAUizpRGW7XuJLfsFpqSmvDk0bch+2tfEGDRMdPpCRSFZZyo/sV7wytzcLvFTMuWsKVlf2mDZFExvzGTfEscrx2JKW8DFpikLuf2fjAZO4izNjzD4DoZkT9jgNyFkC7+wzGwESn8EBLe7gZ9GL/kqdnwLiD3P835+3R7rHFluywOk5PVkJXF1CuKpsFXdk/zItGepU0cE2FYOyZ/YOmYk4ocXM/eLz2/mfXUw98M90iapf1kJygv891TiCwmjROWWTLNa76q2gpBzjDutz9uUMpJ6haP7RpA==
+ b=EUeFoY4rPpfd9X6rh1KAQAzU+ClOtpUBSLybGj0jd/yGzKQ9WKmWk1abDzAEjAV1olHMsQXix+Rudrn65lYUt6WJA1dyAbzDBf5+tQ//v0HFegfkOGvVpJ25Nk7p/2aLih7J3ZYMoN7KKaq+lNZlgTik1pB3mP9DUUcG53QnjOEZ/RXPXi8pJRwmTyW6rFQPPgnietkdkYq+o8QlCWNtAdRrNAWhBgHR6gC7/gMYGxbe4Qs3csg6+m9AWwMmwGMW4yMFpejTCutwLmDHhcCd+bZRd6UhgLX8y0rqWm4VMtpEwwY1HPTUqYeJFnefXyQhkIQA4guL+DboMqlht/wvEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f3ZamuBBa7h1Y897maXaodW0GjYaGfZRzCPpKtZHXNI=;
- b=XlDI/Cil9gMvbB2kNw9XCqZ69AMt687+wBhz2t8qMFtWr3vzybgzk6Z+XuoDSaLw1pdM2+RtiEr5v6RnQlpW5xBfcBoMA7mSvJHY7fNF56VEsZrQR+/no9tXF0t06DitbJg44mDFEj7gWjnQ2CSRnj2hp4N9mw56wEMZTg/E6KiBeGEAfDeifKOpVN8Q7aTJtpRKvQEJqfq51n+piNBDbHCO6xG1CZy7qhiyc58lVudQ3ABdTYiiacCNE7MOnwk94yiDZ4gALlazXgSC7mvKUlG77/DiYpAYMXATK3bZukgrMoB7xzIAJLeHE+2rhZtftUgY7+Qf0+G/P+YNrgdZEg==
+ bh=JNFjYkSKS4gZ+J5giPa61NpDQ8wqqbRifQ3pk+vPeKI=;
+ b=Q6FtrdEs8e7+CeJvl3Ce4BnD1jQay3eavug7kc2C8hxEeKrL3B+uaeLO5giw6Ra510eDbotq9stwvj6P0r/lXAAgQKaMrROFx3M8w1N2h/iTsfkiTYb2Lnalld/tN3//pjyxgW1zAlbP3/TIRHyJIPRI6OJT9745x8OMkLUGToPljtrqFSlxxz35TBWKcNTm+np1YGxebHajgg8Zr10pKK3U0d73FyIYdkgcEb0E2VraB86imyfGtNk6KKtZBDdFWZsVlR0Rojn3u4DOJ8jLqTqa/aBTH3uF7ulNomXYaUybb/KXjNqNIjFjiheuKF7viHN28MA61MqkD9EwilOEjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f3ZamuBBa7h1Y897maXaodW0GjYaGfZRzCPpKtZHXNI=;
- b=iCunyjsczOBuvUi78JiihiU8e81eFCFDaPagHF7G5TnSXNaC227IIrCqkFSfufmUn5RkWpA/qeJMKZZ34QivG3H3oxIkD2HPPrSswPvm8ovQ3NbQiP8On6HN+9NL/WbX+tu+JxJPiyaWC/r6bir7/RPaVcoFgwMrLFTFzaqUY4U=
+ bh=JNFjYkSKS4gZ+J5giPa61NpDQ8wqqbRifQ3pk+vPeKI=;
+ b=RVLVhbYqWBkAxqmW5TwHZyqEyFW9UNTsDo9i4JTG5LW54yKSRBQ8VP1al2Z72/DLSCJYW7y0gsmg1ppCR/eqp+QgQ/m547Evx4OxGQEpxC7h/mx6ixIlRovr9w3KcJm5/86vHPoEYf0BhpTl16H2RpO97uwb1cqo74y+AF1KZpY=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,18 +45,20 @@ Received: from BL0PR12MB4676.namprd12.prod.outlook.com (2603:10b6:207:19::30)
  by BL0PR12MB5010.namprd12.prod.outlook.com (2603:10b6:208:17c::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.26; Mon, 3 May
- 2021 17:21:24 +0000
+ 2021 17:21:38 +0000
 Received: from BL0PR12MB4676.namprd12.prod.outlook.com
  ([fe80::50c7:783f:720a:239c]) by BL0PR12MB4676.namprd12.prod.outlook.com
  ([fe80::50c7:783f:720a:239c%5]) with mapi id 15.20.4087.040; Mon, 3 May 2021
- 17:21:24 +0000
+ 17:21:38 +0000
 From: Nikola Cornij <nikola.cornij@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v1 0/1] drm/dp_mst: Use kHz as link rate units when settig
+Subject: [PATCH v1 1/1] drm/dp_mst: Use kHz as link rate units when settig
  source max link caps at init
-Date: Mon,  3 May 2021 13:21:08 -0400
-Message-Id: <20210503172109.22877-1-nikola.cornij@amd.com>
+Date: Mon,  3 May 2021 13:21:09 -0400
+Message-Id: <20210503172109.22877-2-nikola.cornij@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210503172109.22877-1-nikola.cornij@amd.com>
+References: <20210503172109.22877-1-nikola.cornij@amd.com>
 X-Originating-IP: [165.204.55.250]
 X-ClientProxiedBy: YT1PR01CA0069.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b01:2d::8) To BL0PR12MB4676.namprd12.prod.outlook.com
@@ -66,52 +68,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from ubuntu.localdomain (165.204.55.250) by
  YT1PR01CA0069.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4087.38 via Frontend Transport; Mon, 3 May 2021 17:21:24 +0000
+ 15.20.4087.38 via Frontend Transport; Mon, 3 May 2021 17:21:36 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b823dfc8-a758-46b9-59bd-08d90e57e09a
+X-MS-Office365-Filtering-Correlation-Id: d66e91ab-5052-42e8-3ede-08d90e57e895
 X-MS-TrafficTypeDiagnostic: BL0PR12MB5010:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB5010F15E2B8894054B597004EE5B9@BL0PR12MB5010.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <BL0PR12MB5010C7BEE3BD3499FCD8B2C4EE5B9@BL0PR12MB5010.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rU0rhks9k5RLZpa+4d1kYArv6qXGCPFIKEUTU9QroR2YzbBXswEAf4dZ6VmzbI2++Ub63UhDYVhlZ8Z9XHsg26F8xkq8f+2wcwpF1DEu5lFBNcUXvCGZNBdBlPy36RP9tBLaqBVNcOLjfWzoueb7yJYRRWreUDz83PjmSuaDDuoRKe6AaecBPo6d0s8fXhh1lIN57vJq9nChcbZoqWm41sa2ISxLqxSATL60XsVKVzKhHMAzk9ZYPH5LHBlJs1FM8o+L+LjuaGK/SYypXIEmEDaroaiTJEen1q6xrcADUDHE/EW2HJBECrR9kVVajkPbOieRUX85c4o9FTfb+2YzIvaeXrZY6jDxlyAg53qzA+75+zNnjVObv/WwEzWNzisAjbKV3/NKkN2Zhi1F/rYVxjfl6vEAWBjirKqAbXpBSKbNnBj5j8U6JnYBJiXRtDuMsV8TtHRINEl2M3JEQp4GrgHpQThK2kYg+R2GhnhZkj0MZBIUm9zeJ61ig/MMZd72c7l1H1xUyPnaoP/HoENEhblhpHQZB6kiwzCct5DnuLpOQ8trjXzG9dTBBhFpb4+jQSvxARzwmtuHISUs2uXWb1wqcijU5TJs8zsZQP5gCMkY9VpqG57UYzfp2LP4R9HAuJZL29TY9UYBFnQUQV5oTw==
+X-Microsoft-Antispam-Message-Info: uRJc7sm8F+iI4VGzVUkzpmovEU7QZc5CVaJ+3LX3ExwcRoQRygOymeVGApUEZ4Q+9W//ur4QDwN1Lub3Q51HPTW6Yaz7A7E55sKDApoTD87l3dVTUilaJcJ7iBc8fr8huFmYwlqCxrwcOmVrp2qBiB02CmRQTtsWECqbIGFEs29CyiyfsbKwlEA3EGd+tnC/eu+LZjStjSxL5CKeT5KqnWiFWNV0dKDuA2XJtgXY5dAtZDw0h3rF+sC4c5ih97YXC5H22Nl7H3PtKMvJ878s+4tO7wJssTvfs21SnbI2g0mUlnRWlDlirrB4ZC2e2MYDLSj9/eqcxXh/IBn0kYtjPEm0sIRLwOE2mt1mKQFLuqHgnuALdqyTmsGrwYdSwoV/bweWrjlw3O7hoSzTf7vd6o0puV6Wp6AbPYR8mXXy7/wpthlizGD5QgVL9kFjew84QDb4Nf+a0SWmOKBAE1Rq2Po1kq+/mJqax/TtYiqtUue8mrgxMmPXFJt3H5YbA2FJzA+jzIosa4Mv/0II9Ei3yVapvRAVptO8Xswcz2xz0PDU5qnfXlsM3HWIEWVmjsQy+2eG2PVSiQwUKOrsibGqDK+hWzjoyFX4bce0iHYQ/+jQVhKHDLMnRrDl3ZQirt0L2Mtb5S4VGGoi0xpzW/dQA6/e98xillcHX6wPUJTd+3E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB4676.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(316002)(2906002)(6506007)(44832011)(8936002)(83380400001)(6486002)(4744005)(36756003)(38350700002)(38100700002)(6512007)(86362001)(1076003)(478600001)(4326008)(6666004)(8676002)(66556008)(5660300002)(2616005)(66476007)(186003)(16526019)(26005)(6916009)(66946007)(52116002)(956004);
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(316002)(2906002)(6506007)(44832011)(8936002)(83380400001)(6486002)(36756003)(38350700002)(38100700002)(6512007)(86362001)(1076003)(478600001)(4326008)(6666004)(54906003)(8676002)(66556008)(5660300002)(2616005)(66476007)(186003)(16526019)(26005)(6916009)(66946007)(7416002)(52116002)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?9UgBcaJUlRTEGZz4F5z1v53MupZkl8NZX/9K2vfoyQz5pn+CnZWj2CfaoSpF?=
- =?us-ascii?Q?hDqpmQFNBS3tiuHraI6SKJt3tMbuhD0kBPGZQeAELCoxanL32pVNJ+aoV9bM?=
- =?us-ascii?Q?GKcyH4uOU6H9KN/3dO2JJ+Ab5wYDTxtymfMx225ugxmst6+CwfLtOK2vRloS?=
- =?us-ascii?Q?4an3HAUFJyjCy9anM5yLPWO7W9Z3ltnXJB9Hnybbh+B0L1CJTMFSt0UufkF/?=
- =?us-ascii?Q?yFOfV/51+wcqtw8gcf8uRV2KjJUAyGZowx9hiUBdk0r08yiuZL+7PEg1SFAw?=
- =?us-ascii?Q?Q+9x2sewD7LXv5iMTSrPAwgkV4gq0/SIv4ENN8ZJwp4LybFbEzSLMd+6phG1?=
- =?us-ascii?Q?GMSU7SOhT+HHNfWMDJgayzyFC7FokXWZuyuT4POwHXYDTAYGBuR1iBYvUJ1u?=
- =?us-ascii?Q?BbKBPDOzrDZTsztXiBwt3VW61PfzWCAZvl4jt4pvmQkjkXoIfema5OCPoBwh?=
- =?us-ascii?Q?uYqf40gFqQbrNeC0g7i0ZueDK/z8kfAEH14T+30Z5en20G+pVQ+gssUSTs9M?=
- =?us-ascii?Q?CrA2SHgqT+k8cON1CJlxD9wk3CVP4GqxW/zQTn8RU5W4BlSZmOGak1aAxVMU?=
- =?us-ascii?Q?vNaGXFyxRCMB9L8E7Kc7bf3KKAJGBKZpCD1/m3mm4kE7G2ROIG7GBZ5gooCT?=
- =?us-ascii?Q?4hXCxTVd58bsGzOn0uFqJBWE5WfqyJDsrvt0OSxZBPic4IsRb838hfz/gh9d?=
- =?us-ascii?Q?1KQ7iBlwUvBIT9v3QVkQmpBCLdWchOi0hnqelyWcAV/fuaFn/8F14KtelFgb?=
- =?us-ascii?Q?kVQG1U0//o60DES9HQC20suCUajmigz4wfKtYV0r6g2KG8Cqq4pA/+RNdKDq?=
- =?us-ascii?Q?93ULx3ZlCG9bpIM4e8275mHSYLo/g7sNhC0OrpXFWV7dxxvcokLSG4/Clrsa?=
- =?us-ascii?Q?/SeVPrAW4NGlzpD3uovr8z9kzulrirzLGTM0dKfhok3icvzk7hdUI23gIFKr?=
- =?us-ascii?Q?x/eTR/O8l7neXnVdR3wF7fPpKj1cgx68kGmaZK2cPp5smVdyjhpEuwHxnYbn?=
- =?us-ascii?Q?bv3NjOUhb1kRdvbOKeJpuhXu/GM3TvuaYiHZmfBWHqHJxPB3WUja83oYNX6w?=
- =?us-ascii?Q?2XcePpLpzA5t5rCvNeoT+db9lC6oyOK5/nPGIMy1BTQhoYWdJNjlKRp1CzLK?=
- =?us-ascii?Q?Yxz9lPHrBASeAkLecDv1hsJVoZlzY36756QnEcLGV7RgONxWpB16nltesCzS?=
- =?us-ascii?Q?EV6F0qbJpht3A81iXXtq4pmqai0xJaMqsv6RHi6cqe4Az0/GqfQ3uEBQcbhI?=
- =?us-ascii?Q?6qbU3tEVUbz/+PZwvgP4y/T0eCLortX2WG7ztfiECymqc6DnCfS+I6+8BtS5?=
- =?us-ascii?Q?P761UXWqW+p/U897xO3qviaw?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?zsP7fwcK/nUovNg42CsBhiqHWWkq3TP5E/voEiMkbmK+QbOKJo/TddSDlH2c?=
+ =?us-ascii?Q?vsPGRyMXvqPIcuwEp+RRbe10d2JurVZgHaO2b5qsTTT3qQNFplVdJUKkStJs?=
+ =?us-ascii?Q?ElW145N+9wuGBFiFomGWiUB+HhKC6EQU7Pf5ylSGA73xYFng3rl7xtfc1ptT?=
+ =?us-ascii?Q?QLSeqk5H605z/d9nFGCYPgUJ6Vh9p4iDhYmotfbsiMnii2H+gheOsE3j69L5?=
+ =?us-ascii?Q?PTmEZRbU3JreciMXIqolwEnqRP/oKxTAND3CkGoahTUE2Iweqkg69Jo30RxQ?=
+ =?us-ascii?Q?S+RMAjI026qLElejcz3UbD/+67uySGoQ16rndWqDfDAgDXSSs/OX7J9sKkrg?=
+ =?us-ascii?Q?JZSpwX96WTkyJ0ORsALSWkY80N1f8paengyJODHltsAt3tDBE4OLKVt25Iyg?=
+ =?us-ascii?Q?7Qq9kkhf+XmWho5Q+bU0H91DbhdTMJCIT9nnRY/YUHMvHTxyyR4zrDRv8ZPx?=
+ =?us-ascii?Q?MgDJGtNyd8gfR5+oJMbhA6+GeV+/TgSxDQADPHdO1JSsnjwzQjzeg/aYNamx?=
+ =?us-ascii?Q?ZJNZcbj/9LXpd4yAr23eU+ZxKbCwGimvKlvB4PwSi3tFk6EK2lP5UQ/IX8AO?=
+ =?us-ascii?Q?Rb9wFPP+2d+T2JaKYWckFV0MfnDUcLtqjP2h9N4LBKT2j9CX1eHdPkkLPpF1?=
+ =?us-ascii?Q?hxWQPRJTUbOt8qW9mZoEJR/DkAcPYLI0ZtPdnq/V6d+yD41pm8y7dpnNySVB?=
+ =?us-ascii?Q?ploVoHPyPvWH+mM0qHbadxeLis+gL/xdZusAWHbU6B/OsJ/H35rS47ekIqAI?=
+ =?us-ascii?Q?3w/a9dbw2pKIWkPvQ7hlEpUuGVBbP2j40QRJxX/ZO9+5BDFoAkugswPVBiQd?=
+ =?us-ascii?Q?HO2j36v6Q8cUfJp+GRLoNmD0pEm2TM2jU04bFLrk9PyBrNvvZalLXjTBY33R?=
+ =?us-ascii?Q?QfjFZye5d9pJqPNBD2Tntsc7bA/ln9OvBrC757wxuJR1KcDfZNsEZmchD6HG?=
+ =?us-ascii?Q?vjEUUcW3k4DJPDX0W8IpvXTNqDjlR2xAiAQB8Mk1B0TGfaBuh/OH7OAYvV76?=
+ =?us-ascii?Q?YKBZmm2fkipYVFLwjJGEJ+ivqsjO5WWPyEtROf5M5PVsYaiSNqkjs5RoGStC?=
+ =?us-ascii?Q?5pvQsMFTzyOw5gWfF7M+uRFylzvlZok/TKnLy3oplaH3d1HGC69TW0RRpLnx?=
+ =?us-ascii?Q?/29MDq7nGCHXjBo1wTmWv/vJ7tsWxwk2eaudvFexfPJmwwMRYKHhV9zl9CoM?=
+ =?us-ascii?Q?Mv6SE0nIZyWlbPiOp3K/n0cNnFICGe+noBL6yDwdLvd5IvAMMJgeiAk8hl+S?=
+ =?us-ascii?Q?JPTV7hMgZMoGFekeInNRgEAouGhuRL8cNZ3BtH0lQOIuoXSJavBn3R0t3YKv?=
+ =?us-ascii?Q?QVyTBYhg3eAU7rBWJDBZZvpT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b823dfc8-a758-46b9-59bd-08d90e57e09a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d66e91ab-5052-42e8-3ede-08d90e57e895
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4676.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2021 17:21:24.4740 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2021 17:21:37.8773 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Utj//Kt44R3dorYZgWJYs1ycppKJ5yueaGj1iXR+vgf2InGIk1TmHnBgos+ZTCjJyaDZF+sWStTP89by7VQB3Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZR82G+R0gYchYz+IzJ2rOznDQLvRsFb1IBYp3z1YfCTCtkb6d/Bt7Q+2CUGz/X+Z+JZ/lsKFLjlpG7sFzsemA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5010
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,27 +126,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: koba.ko@canonical.com, Nikola Cornij <nikola.cornij@amd.com>
+Cc: David Airlie <airlied@linux.ie>, Ramalingam C <ramalingam.c@intel.com>,
+ Imre Deak <imre.deak@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ James Jones <jajones@nvidia.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ koba.ko@canonical.com, Luben Tuikov <luben.tuikov@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
+ Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Nikola Cornij <nikola.cornij@amd.com>,
+ Sean Paul <seanpaul@chromium.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Matt Roper <matthew.d.roper@intel.com>, Chris Park <Chris.Park@amd.com>,
+ Eryk Brol <eryk.brol@amd.com>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Lee Shawn C <shawn.c.lee@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A patch that uses kHz as the link rate units when passing max link rate
-to drm_dp_mst_topology_mgr_init() at initialization time.
+[why]
+Link rate in kHz is what is eventually required to calculate the link
+bandwidth, which makes kHz a more generic unit. This should also make
+forward-compatibility with new DP standards easier.
 
-It should be a 2nd and final follow-up patch to '98025a62cb00 
-("drm/dp_mst: Use Extended Base Receiver Capability DPCD space")'.
+[how]
+- Replace 'link rate DPCD code' with 'link rate in kHz' when used with
+drm_dp_mst_topology_mgr_init()
+- Add/remove related DPCD code conversion from/to kHz where applicable
 
-Change history:
-
-v1:
-  - Initial
-
-Nikola Cornij (1):
-  drm/dp_mst: Use kHz as link rate units when settig source max link
-    caps at init
-
+Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+---
  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 4 ++--
  drivers/gpu/drm/drm_dp_mst_topology.c                     | 8 ++++----
  drivers/gpu/drm/i915/display/intel_dp_mst.c               | 4 ++--
@@ -153,6 +173,127 @@ Nikola Cornij (1):
  include/drm/drm_dp_mst_helper.h                           | 8 ++++----
  6 files changed, 16 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index ef8d53e24c47..3f3ead83c21c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -453,8 +453,8 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+ 		&aconnector->dm_dp_aux.aux,
+ 		16,
+ 		4,
+-		(u8)max_link_enc_cap.lane_count,
+-		(u8)max_link_enc_cap.link_rate,
++		max_link_enc_cap.lane_count,
++		drm_dp_bw_code_to_link_rate(max_link_enc_cap.link_rate),
+ 		aconnector->connector_id);
+ 
+ 	drm_connector_attach_dp_subconnector_property(&aconnector->base);
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 54604633e65c..32b7f8983b94 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -3722,9 +3722,9 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		}
+ 
+ 		lane_count = min_t(int, mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK, mgr->max_lane_count);
+-		link_rate = min_t(int, mgr->dpcd[1], mgr->max_link_rate);
++		link_rate = min_t(int, drm_dp_bw_code_to_link_rate(mgr->dpcd[1]), mgr->max_link_rate);
+ 		mgr->pbn_div = drm_dp_get_vc_payload_bw(mgr,
+-							drm_dp_bw_code_to_link_rate(link_rate),
++							link_rate,
+ 							lane_count);
+ 		if (mgr->pbn_div == 0) {
+ 			ret = -EINVAL;
+@@ -5454,7 +5454,7 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
+  * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
+  * @max_payloads: maximum number of payloads this GPU can source
+  * @max_lane_count: maximum number of lanes this GPU supports
+- * @max_link_rate: maximum link rate this GPU supports, units as in DPCD
++ * @max_link_rate: maximum link rate per lane this GPU supports in kHz
+  * @conn_base_id: the connector object ID the MST device is connected to.
+  *
+  * Return 0 for success, or negative error code on failure
+@@ -5462,7 +5462,7 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
+ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_device *dev, struct drm_dp_aux *aux,
+ 				 int max_dpcd_transaction_bytes, int max_payloads,
+-				 u8 max_lane_count, u8 max_link_rate,
++				 int max_lane_count, int max_link_rate,
+ 				 int conn_base_id)
+ {
+ 	struct drm_dp_mst_topology_state *mst_state;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index f608c0cb98f4..26f65445bc8a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -960,8 +960,8 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
+ 	intel_dp_create_fake_mst_encoders(dig_port);
+ 	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, &i915->drm,
+ 					   &intel_dp->aux, 16, 3,
+-					   (u8)dig_port->max_lanes,
+-					   drm_dp_link_rate_to_bw_code(max_source_rate),
++					   dig_port->max_lanes,
++					   max_source_rate,
+ 					   conn_base_id);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index c46d0374b6e6..f949767698fc 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1617,8 +1617,9 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
+ 	mstm->mgr.cbs = &nv50_mstm;
+ 
+ 	ret = drm_dp_mst_topology_mgr_init(&mstm->mgr, dev, aux, aux_max,
+-					   (u8)max_payloads, outp->dcb->dpconf.link_nr,
+-					   (u8)outp->dcb->dpconf.link_bw, conn_base_id);
++					   max_payloads, outp->dcb->dpconf.link_nr,
++					   drm_dp_bw_code_to_link_rate(outp->dcb->dpconf.link_bw),
++					   conn_base_id);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+index 13072c2a6502..ec867fa880a4 100644
+--- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
++++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+@@ -642,7 +642,7 @@ radeon_dp_mst_init(struct radeon_connector *radeon_connector)
+ 	radeon_connector->mst_mgr.cbs = &mst_cbs;
+ 	return drm_dp_mst_topology_mgr_init(&radeon_connector->mst_mgr, dev,
+ 					    &radeon_connector->ddc_bus->aux, 16, 6,
+-					    4, (u8)max_link_rate,
++					    4, drm_dp_bw_code_to_link_rate(max_link_rate),
+ 					    radeon_connector->base.base.id);
+ }
+ 
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index c87a829b6498..ddb9231d0309 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -596,11 +596,11 @@ struct drm_dp_mst_topology_mgr {
+ 	/**
+ 	 * @max_lane_count: maximum number of lanes the GPU can drive.
+ 	 */
+-	u8 max_lane_count;
++	int max_lane_count;
+ 	/**
+-	 * @max_link_rate: maximum link rate per lane GPU can output.
++	 * @max_link_rate: maximum link rate per lane GPU can output, in kHz.
+ 	 */
+-	u8 max_link_rate;
++	int max_link_rate;
+ 	/**
+ 	 * @conn_base_id: DRM connector ID this mgr is connected to. Only used
+ 	 * to build the MST connector path value.
+@@ -774,7 +774,7 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_device *dev, struct drm_dp_aux *aux,
+ 				 int max_dpcd_transaction_bytes,
+ 				 int max_payloads,
+-				 u8 max_lane_count, u8 max_link_rate,
++				 int max_lane_count, int max_link_rate,
+ 				 int conn_base_id);
+ 
+ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
 -- 
 2.25.1
 
