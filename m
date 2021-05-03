@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54A47C43600
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61B67C43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3EB761490
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3EB761490
+	by mail.kernel.org (Postfix) with ESMTPS id 153E8616EA
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 153E8616EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 665D56E988;
-	Mon,  3 May 2021 16:39:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24946E997;
+	Mon,  3 May 2021 16:39:28 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF786E988;
- Mon,  3 May 2021 16:39:18 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E5B3B613E9;
- Mon,  3 May 2021 16:39:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E88B06E997;
+ Mon,  3 May 2021 16:39:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66BC261629;
+ Mon,  3 May 2021 16:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059957;
- bh=pn463DpuLQ0mVp4jzjh8oJK03lZfNaaZKSbL1aWfd64=;
+ s=k20201202; t=1620059967;
+ bh=bDM2BXsWVu4ZVNspegVRKj6qbKmdCaTTVNDThDY1VSE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tsqCFrhPt/HT/cB/5Yhvi6zDZSehV+LCBql3DBVffnSoaILYDQDWjZn4ppPRH6B59
- HPMrP3RIb/696Q8uxWVZ6kq5qTpC0RdO42LLq08TUSngJ9X00clHXbPSXfR1TvVxm4
- nlv5moJwbHNAKjvbuqakDFbfdJ1bxKM4hfcmmZtIF6UM861tFVV0UbsJ3VjskafaAA
- mo/q3PBr4Sum+b0+C0iyHUOmDQAWBAdtjtvrdWHq7Dmemk5HNTvirxnT3ahtVqRD0G
- zaElumO/dMQO8ZTOrHSakv5gXjaJKFeO7EPxmkujWDSPLdQxxHyPtLNKnb5gR2nJ5f
- hpNeeetM6X3Rg==
+ b=rv/nQwl4S6E5fThgKVKZOJ0s7VA/dkYaA1zJKddg/FNEUucB7kDqHHaBxCcRmNV8k
+ ASi42Q5jWOJjGoKRUQ64XyqTiHa/WdCf9AP0oVjkFdqJE5vV2TG77ASaKzD2SMDpo9
+ c/C3bYLvADbdBKGID/v1A1sV9l2KQ6vrkPhhYf+XcjSVX1QrQc132jKJhl1sP2/1D8
+ 9oTKVspypn6ljj+qau+Gx93o/Lslna9WNpljH1wMFz3OfD4viif3XqFEFYV/NfizrE
+ sJOwBIU7Z2vytgYdO46/9gH7S98AGoy4QSQInkaluI6DKJXDwKJn+73RP8ThIGpNxL
+ dSUZqmg2yu3tA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 032/100] drm/amdgpu: mask the xgmi number of hops
- reported from psp to kfd
-Date: Mon,  3 May 2021 12:37:21 -0400
-Message-Id: <20210503163829.2852775-32-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 038/100] drm/amd/display: fix dml prefetch
+ validation
+Date: Mon,  3 May 2021 12:37:27 -0400
+Message-Id: <20210503163829.2852775-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163829.2852775-1-sashal@kernel.org>
 References: <20210503163829.2852775-1-sashal@kernel.org>
@@ -59,61 +59,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jonathan Kim <jonathan.kim@amd.com>,
- Amber Lin <amber.lin@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Eric Bernstein <Eric.Bernstein@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jonathan Kim <jonathan.kim@amd.com>
+From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 
-[ Upstream commit 4ac5617c4b7d0f0a8f879997f8ceaa14636d7554 ]
+[ Upstream commit 8ee0fea4baf90e43efe2275de208a7809f9985bc ]
 
-The psp supplies the link type in the upper 2 bits of the psp xgmi node
-information num_hops field.  With a new link type, Aldebaran has these
-bits set to a non-zero value (1 = xGMI3) so the KFD topology will report
-the incorrect IO link weights without proper masking.
-The actual number of hops is located in the 3 least significant bits of
-this field so mask if off accordingly before passing it to the KFD.
+Incorrect variable used, missing initialization during validation.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-Reviewed-by: Amber Lin <amber.lin@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Eric Bernstein <Eric.Bernstein@amd.com>
+Acked-by: Solomon Chiu <solomon.chiu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 1162913c8bf4..0526dec1d736 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -465,15 +465,22 @@ int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_dev
- }
- 
- 
-+/*
-+ * NOTE psp_xgmi_node_info.num_hops layout is as follows:
-+ * num_hops[7:6] = link type (0 = xGMI2, 1 = xGMI3, 2/3 = reserved)
-+ * num_hops[5:3] = reserved
-+ * num_hops[2:0] = number of hops
-+ */
- int amdgpu_xgmi_get_hops_count(struct amdgpu_device *adev,
- 		struct amdgpu_device *peer_adev)
- {
- 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
-+	uint8_t num_hops_mask = 0x7;
- 	int i;
- 
- 	for (i = 0 ; i < top->num_nodes; ++i)
- 		if (top->nodes[i].node_id == peer_adev->gmc.xgmi.node_id)
--			return top->nodes[i].num_hops;
-+			return top->nodes[i].num_hops & num_hops_mask;
- 	return	-EINVAL;
- }
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+index 45f028986a8d..b3f0476899d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+@@ -3437,6 +3437,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 			mode_lib->vba.DCCEnabledInAnyPlane = true;
+ 		}
+ 	}
++	mode_lib->vba.UrgentLatency = mode_lib->vba.UrgentLatencyPixelDataOnly;
+ 	for (i = 0; i <= mode_lib->vba.soc.num_states; i++) {
+ 		locals->FabricAndDRAMBandwidthPerState[i] = dml_min(
+ 				mode_lib->vba.DRAMSpeedPerState[i] * mode_lib->vba.NumberOfChannels
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+index 80170f9721ce..1bcda7eba4a6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+@@ -3510,6 +3510,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+ 			mode_lib->vba.DCCEnabledInAnyPlane = true;
+ 		}
+ 	}
++	mode_lib->vba.UrgentLatency = mode_lib->vba.UrgentLatencyPixelDataOnly;
+ 	for (i = 0; i <= mode_lib->vba.soc.num_states; i++) {
+ 		locals->FabricAndDRAMBandwidthPerState[i] = dml_min(
+ 				mode_lib->vba.DRAMSpeedPerState[i] * mode_lib->vba.NumberOfChannels
 -- 
 2.30.2
 
