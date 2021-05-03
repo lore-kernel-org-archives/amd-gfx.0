@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11A98C43470
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3094C43460
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFC5A6141A
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFC5A6141A
+	by mail.kernel.org (Postfix) with ESMTPS id 9F2216157F
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F2216157F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3F68984F;
-	Mon,  3 May 2021 16:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5896E964;
+	Mon,  3 May 2021 16:38:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D95EE6E95E;
- Mon,  3 May 2021 16:38:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 682396142E;
- Mon,  3 May 2021 16:38:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05FA6E95E;
+ Mon,  3 May 2021 16:38:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7CCDF61462;
+ Mon,  3 May 2021 16:38:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059885;
- bh=6SZ9VbDmdYWkxPim/GHW/e26KKZS/got/wGz+DLlaDs=;
+ s=k20201202; t=1620059888;
+ bh=DFaUFvaFSzNv+2K395Ty4lHD4aIvOZei9Y2R13qGQcc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H0DcA0J66z8ttr0nW+/kDe6G3z7oMKGmsW2wexDCoIli7P1jIaIHbL3/qLAemEIGv
- r3+O7xn+Q7YVoZNjVocpLua6LAWiFtaOt9apMtDIC3bwnA6VvwIk5+Zfnre6baJkS2
- 1S4WoQ5KFNAbX1JlG7XGxdfz2nwkYBYi9qz7cWgrHVU8Gp1jg/YbX77RjYoEuTIySq
- FjdTgZi01HFalvj2UA9FqF2xE3mc1EcvKCgGwEZNYO7EtxgnKf8UjoceQmEDToiRPB
- GUL1wPjOin/UcLt9rzeDqo24WAOQ/CVoyhADjp+Al6UKk9XjGoGaivt9ly7fDZ7frI
- SA9gHVy/PrY3g==
+ b=DfkqC7vNdaMGcAyOgxiBSMy3qp1GPO+o6fPiA9om/NLn+Jl5UZNjZ6y8ynaGzO9Jt
+ dRHJNWUXuARjJYgBVxU06kOAvRu8AibJHnVIGEqyUuLvKiwIBPbBcskv/2ynJk1aKj
+ lEBmMaebr3SlFYYf/Ue2PcjhBAqf4ZLbUHT/HbEXbBO4VG+b2DTyl69oZnK8HhXJw3
+ zG3putMjjYW5PqebXbER82+cyI3LDSylQfVy2T19hz99Krwf96D5f1XnDviSG6Gc/L
+ nnLaZRndhWfvIPRpnMejxC0xNvZ3zcEGb472mBv0fY2vs8V6r7eS+KMKlnkiu/NUz8
+ 99ZoCXDdTG9gQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 043/115] drm/amdkfd: Fix UBSAN
- shift-out-of-bounds warning
-Date: Mon,  3 May 2021 12:35:47 -0400
-Message-Id: <20210503163700.2852194-43-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 045/115] drm/amd/pm: fix workload mismatch on
+ vega10
+Date: Mon,  3 May 2021 12:35:49 -0400
+Message-Id: <20210503163700.2852194-45-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163700.2852194-1-sashal@kernel.org>
 References: <20210503163700.2852194-1-sashal@kernel.org>
@@ -59,72 +59,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Kevin Wang <kevin1.wang@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anson Jacob <Anson.Jacob@amd.com>
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-[ Upstream commit 50e2fc36e72d4ad672032ebf646cecb48656efe0 ]
+[ Upstream commit 0979d43259e13846d86ba17e451e17fec185d240 ]
 
-If get_num_sdma_queues or get_num_xgmi_sdma_queues is 0, we end up
-doing a shift operation where the number of bits shifted equals
-number of bits in the operand. This behaviour is undefined.
+Workload number mapped to the correct one.
+This issue is only on vega10.
 
-Set num_sdma_queues or num_xgmi_sdma_queues to ULLONG_MAX, if the
-count is >= number of bits in the operand.
-
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1472
-
-Reported-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Tested-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c   | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 4598a9a58125..a4266c4bca13 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1128,6 +1128,9 @@ static int set_sched_resources(struct device_queue_manager *dqm)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 892f08f2ba42..13b5ae1c106f 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -5161,7 +5161,7 @@ static int vega10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, ui
  
- static int initialize_cpsch(struct device_queue_manager *dqm)
- {
-+	uint64_t num_sdma_queues;
-+	uint64_t num_xgmi_sdma_queues;
-+
- 	pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
- 
- 	mutex_init(&dqm->lock_hidden);
-@@ -1136,8 +1139,18 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
- 	dqm->active_cp_queue_count = 0;
- 	dqm->gws_queue_count = 0;
- 	dqm->active_runlist = false;
--	dqm->sdma_bitmap = ~0ULL >> (64 - get_num_sdma_queues(dqm));
--	dqm->xgmi_sdma_bitmap = ~0ULL >> (64 - get_num_xgmi_sdma_queues(dqm));
-+
-+	num_sdma_queues = get_num_sdma_queues(dqm);
-+	if (num_sdma_queues >= BITS_PER_TYPE(dqm->sdma_bitmap))
-+		dqm->sdma_bitmap = ULLONG_MAX;
-+	else
-+		dqm->sdma_bitmap = (BIT_ULL(num_sdma_queues) - 1);
-+
-+	num_xgmi_sdma_queues = get_num_xgmi_sdma_queues(dqm);
-+	if (num_xgmi_sdma_queues >= BITS_PER_TYPE(dqm->xgmi_sdma_bitmap))
-+		dqm->xgmi_sdma_bitmap = ULLONG_MAX;
-+	else
-+		dqm->xgmi_sdma_bitmap = (BIT_ULL(num_xgmi_sdma_queues) - 1);
- 
- 	INIT_WORK(&dqm->hw_exception_work, kfd_process_hw_exception);
+ out:
+ 	smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_SetWorkloadMask,
+-						1 << power_profile_mode,
++						(!power_profile_mode) ? 0 : 1 << (power_profile_mode - 1),
+ 						NULL);
+ 	hwmgr->power_profile_mode = power_profile_mode;
  
 -- 
 2.30.2
