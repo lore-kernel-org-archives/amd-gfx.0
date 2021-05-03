@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 094E6C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B0ECC4360C
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA9836140E
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA9836140E
+	by mail.kernel.org (Postfix) with ESMTPS id EB1D6613D0
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB1D6613D0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1348D89E2A;
-	Mon,  3 May 2021 16:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFCCB6E96A;
+	Mon,  3 May 2021 16:38:16 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A821B892D5;
- Mon,  3 May 2021 16:38:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A4DD6157E;
- Mon,  3 May 2021 16:38:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF2D6E971;
+ Mon,  3 May 2021 16:38:15 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 426A2613C6;
+ Mon,  3 May 2021 16:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059890;
- bh=7UHw/pNCJlVRwJ5CrNe4drOoPke6e+nk1r28fBaF5zY=;
+ s=k20201202; t=1620059895;
+ bh=+HgmHTOTaMq1E0gDxXCL9uXYquSbuU8ATcw7dyeRPWo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Naxe0xD6f4WLpfn2li8aH+s8DL9eRBVugkJyNWcD7kRsccUf+biQYhLOY1f41ORzw
- f8nOkvndm8PtaN6nBT9426SvWTN43deHhTac3FdXO0qdBDJsVkXb/EIrg+JCH0fSf3
- mze7ZX7m1R5oXrxqlGOxt4b28uIhmo37gf99pzdWuKvqUmDVL7whuDTbzETTBWH85I
- xKRMcOKlGOQ8BqEB+VEG0L1tvwJ7AzWSF6MaQHgCVEKKzUVuQI/zwuoAJ/WHhVntez
- OXouACko4o0Rb2G2jX4B84xHUHTQtpaj4h5jHVosIDEQocUHk9jNaVwS+4MQDPc3/F
- D/TGJjm1VVhwg==
+ b=p/Th7vVD2W6755jh2wLGo0262c7smoK6YAfSwaRUf4EYAF7fiy2T1t5qwHD4F4RtI
+ PlVny9bigcHQOFEhddWOiSZGz331e6SmZebFL0OkiSlUTCk4koB7qfg3cKTXCfwUoG
+ JQP0Bp7xJq7v6QHE6zbj5/Khb5zSwBothDklI6w4Tk5moWufayVrnKbLvadRil54cU
+ Yt+dITOPqeX62aqlRyNElP6qTLCpWLzBDfYmbg1cCIBLgPwOkX3ugRxPZMfxoDal/o
+ 1THRA6ynHYmiUdzV+YLYN63PI2xglYWAoLZllhHBW+t+zFbgJO4P/lglgl1eA2pUJs
+ iKDV5W+vmhJ2A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.11 046/115] drm/amd/display: Fix UBSAN warning for
- not a valid value for type '_Bool'
-Date: Mon,  3 May 2021 12:35:50 -0400
-Message-Id: <20210503163700.2852194-46-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 049/115] drm/amdgpu: Fix memory leak
+Date: Mon,  3 May 2021 12:35:53 -0400
+Message-Id: <20210503163700.2852194-49-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163700.2852194-1-sashal@kernel.org>
 References: <20210503163700.2852194-1-sashal@kernel.org>
@@ -59,64 +58,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
- amd-gfx@lists.freedesktop.org, Solomon Chiu <solomon.chiu@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Jayamohanan Pillai <Aurabindo.Pillai@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ xinhui pan <xinhui.pan@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anson Jacob <Anson.Jacob@amd.com>
+From: xinhui pan <xinhui.pan@amd.com>
 
-[ Upstream commit 6a30a92997eee49554f72b462dce90abe54a496f ]
+[ Upstream commit 79fcd446e7e182c52c2c808c76f8de3eb6714349 ]
 
-[Why]
-dc_cursor_position do not initialise position.translate_by_source when
-crtc or plane->state->fb is NULL. UBSAN caught this error in
-dce110_set_cursor_position, as the value was garbage.
+drm_gem_object_put() should be paired with drm_gem_object_lookup().
 
-[How]
-Initialise dc_cursor_position structure elements to 0 in handle_cursor_update
-before calling get_cursor_position.
+All gem objs are saved in fb->base.obj[]. Need put the old first before
+assign a new obj.
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1471
-Reported-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
-Reviewed-by: Aurabindo Jayamohanan Pillai <Aurabindo.Pillai@amd.com>
-Acked-by: Solomon Chiu <solomon.chiu@amd.com>
+Trigger VRAM leak by running command below
+$ service gdm restart
+
+Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index fc2763745ae1..2b957d60c7b5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7250,10 +7250,6 @@ static int get_cursor_position(struct drm_plane *plane, struct drm_crtc *crtc,
- 	int x, y;
- 	int xorigin = 0, yorigin = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 48cb33e5b382..f5fa1befa7e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -910,8 +910,9 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
+ 	}
  
--	position->enable = false;
--	position->x = 0;
--	position->y = 0;
--
- 	if (!crtc || !plane->state->fb)
- 		return 0;
+ 	for (i = 1; i < rfb->base.format->num_planes; ++i) {
++		drm_gem_object_get(rfb->base.obj[0]);
++		drm_gem_object_put(rfb->base.obj[i]);
+ 		rfb->base.obj[i] = rfb->base.obj[0];
+-		drm_gem_object_get(rfb->base.obj[i]);
+ 	}
  
-@@ -7300,7 +7296,7 @@ static void handle_cursor_update(struct drm_plane *plane,
- 	struct dm_crtc_state *crtc_state = crtc ? to_dm_crtc_state(crtc->state) : NULL;
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	uint64_t address = afb ? afb->address : 0;
--	struct dc_cursor_position position;
-+	struct dc_cursor_position position = {0};
- 	struct dc_cursor_attributes attributes;
- 	int ret;
+ 	return 0;
+@@ -960,6 +961,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+ 		return ERR_PTR(ret);
+ 	}
+ 
++	drm_gem_object_put(obj);
+ 	return &amdgpu_fb->base;
+ }
  
 -- 
 2.30.2
