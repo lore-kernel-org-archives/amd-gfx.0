@@ -7,40 +7,41 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AD8DC4361B
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF2C4C43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E0AFC61439
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:38:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0AFC61439
+	by mail.kernel.org (Postfix) with ESMTPS id A6B1961626
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:39:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6B1961626
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7660089E47;
-	Mon,  3 May 2021 16:38:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E36886E986;
+	Mon,  3 May 2021 16:39:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217236E983;
- Mon,  3 May 2021 16:38:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C2838613ED;
- Mon,  3 May 2021 16:38:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE4ED6E986;
+ Mon,  3 May 2021 16:39:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6B9B761876;
+ Mon,  3 May 2021 16:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059929;
- bh=Lw6vE4UcBrY7WNNZ9dvZ6+mazSAp9vuX80l+b5VsBCo=;
+ s=k20201202; t=1620059959;
+ bh=9DPveqMov/n1cxMWsJb513aDejn/IKzSpNcX7r7YSn4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pZXPSpSFbjCDrsdM3gPgyI3eHcs7IOmg7W1m4vlmlU5WBmeF0HxlV3eIaEg6Pg1ed
- VLXs6128vJ1Xy2yxJNPEcQ+caRKA45a0ItA5HhMJlhsw3CvLChYk+htMgmkfrbIR0K
- FSa332T2V6wNWlPrOtRJg5V7bDOkG8GDPWkgXj9e48U9n8OMXn9dy7M/foUkk7zuKw
- ymjCTRc8QAYoUVt2WYO3RA0UrGpO1JCTKaHGeUuWX57zfC06q3m74+ns2I+FSedspl
- hF46kWrtjqYX1KJ//FxOzFxGhMUXE/4QS/BfMD0ABuU33kkyMIbFezyrzXf33GEICF
- lRtJqtTTNE42A==
+ b=ks0ajlRVSJdfU7qDTZlmpyivAkpfhTGHYZLE168BDou5W+PLjWOLOsMwk4jSrBABU
+ DKoVdAcgJ7crd4DRk0VxHGqBnK6rG51yKeK+MLO2TiO6pBHAOpL15PRvU7/81OYOPV
+ 2/jHJMmY1Y0rtrALDw0NRnYzRVyiLUzxFyWlHuLrAhB1sdLG4o1tL2aCmC9DEENECR
+ CeVDIwfYcZOy1ewblb43jYmbl851Go6s4I1nllS0k+S9SDS8DNW4aTjTIMD5s4hhCg
+ H7rCuhoEm9t4BzLGkRmWNayQOpSwj0mC3QMUofjtcOVlpdEbEaLZgfca+QdKX+79np
+ /34NKzVQCNEqA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 013/100] drm/amdgpu: Fix some unload driver issues
-Date: Mon,  3 May 2021 12:37:02 -0400
-Message-Id: <20210503163829.2852775-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 033/100] drm/amdkfd: Fix UBSAN
+ shift-out-of-bounds warning
+Date: Mon,  3 May 2021 12:37:22 -0400
+Message-Id: <20210503163829.2852775-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163829.2852775-1-sashal@kernel.org>
 References: <20210503163829.2852775-1-sashal@kernel.org>
@@ -58,55 +59,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- Emily Deng <Emily.Deng@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Anson Jacob <Anson.Jacob@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQg
-YmIwY2QwOWJlNDVlYTQ1N2YyNWZkY2JjYjNkNmNmMjIzMGYyNmM0NiBdCgpXaGVuIHVubG9hZGlu
-ZyBkcml2ZXIgYWZ0ZXIga2lsbGluZyBzb21lIGFwcGxpY2F0aW9ucywgaXQgd2lsbCBoaXQgc2Rt
-YQpmbHVzaCB0bGIgam9iIHRpbWVvdXQgd2hpY2ggaXMgY2FsbGVkIGJ5IHR0bV9ib19kZWxheV9k
-ZWxldGUuIFNvCnRvIGF2b2lkIHRoZSBqb2Igc3VibWl0IGFmdGVyIGZlbmNlIGRyaXZlciBmaW5p
-LCBjYWxsIHR0bV9ib19sb2NrX2RlbGF5ZWRfd29ya3F1ZXVlCmJlZm9yZSBmZW5jZSBkcml2ZXIg
-ZmluaS4gQW5kIGFsc28gcHV0IGRybV9zY2hlZF9maW5pIGJlZm9yZSB3YWl0aW5nIGZlbmNlLgoK
-U2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgpSZXZpZXdlZC1i
-eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYt
-Ynk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9mZW5jZS5jICB8IDUgKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRp
-b25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYwppbmRleCA3NmQxMGYxYzU3OWIuLjdmMjY4OWQ0Yjg2ZCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzU1MSw2ICszNTUxLDcgQEAg
-dm9pZCBhbWRncHVfZGV2aWNlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7CiAJ
-ZGV2X2luZm8oYWRldi0+ZGV2LCAiYW1kZ3B1OiBmaW5pc2hpbmcgZGV2aWNlLlxuIik7CiAJZmx1
-c2hfZGVsYXllZF93b3JrKCZhZGV2LT5kZWxheWVkX2luaXRfd29yayk7CisJdHRtX2JvX2xvY2tf
-ZGVsYXllZF93b3JrcXVldWUoJmFkZXYtPm1tYW4uYmRldik7CiAJYWRldi0+c2h1dGRvd24gPSB0
-cnVlOwogCiAJa2ZyZWUoYWRldi0+cGNpX3N0YXRlKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2ZlbmNlLmMKaW5kZXggZmUyZDQ5NWQwOGFiLi5kMDdjNDU4YzBiZWQgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCkBAIC01MzIsNiArNTMyLDgg
-QEAgdm9pZCBhbWRncHVfZmVuY2VfZHJpdmVyX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiAKIAkJaWYgKCFyaW5nIHx8ICFyaW5nLT5mZW5jZV9kcnYuaW5pdGlhbGl6ZWQpCiAJCQlj
-b250aW51ZTsKKwkJaWYgKCFyaW5nLT5ub19zY2hlZHVsZXIpCisJCQlkcm1fc2NoZWRfZmluaSgm
-cmluZy0+c2NoZWQpOwogCQlyID0gYW1kZ3B1X2ZlbmNlX3dhaXRfZW1wdHkocmluZyk7CiAJCWlm
-IChyKSB7CiAJCQkvKiBubyBuZWVkIHRvIHRyaWdnZXIgR1BVIHJlc2V0IGFzIHdlIGFyZSB1bmxv
-YWRpbmcgKi8KQEAgLTU0MCw4ICs1NDIsNyBAQCB2b2lkIGFtZGdwdV9mZW5jZV9kcml2ZXJfZmlu
-aShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJaWYgKHJpbmctPmZlbmNlX2Rydi5pcnFf
-c3JjKQogCQkJYW1kZ3B1X2lycV9wdXQoYWRldiwgcmluZy0+ZmVuY2VfZHJ2LmlycV9zcmMsCiAJ
-CQkJICAgICAgIHJpbmctPmZlbmNlX2Rydi5pcnFfdHlwZSk7Ci0JCWlmICghcmluZy0+bm9fc2No
-ZWR1bGVyKQotCQkJZHJtX3NjaGVkX2ZpbmkoJnJpbmctPnNjaGVkKTsKKwogCQlkZWxfdGltZXJf
-c3luYygmcmluZy0+ZmVuY2VfZHJ2LmZhbGxiYWNrX3RpbWVyKTsKIAkJZm9yIChqID0gMDsgaiA8
-PSByaW5nLT5mZW5jZV9kcnYubnVtX2ZlbmNlc19tYXNrOyArK2opCiAJCQlkbWFfZmVuY2VfcHV0
-KHJpbmctPmZlbmNlX2Rydi5mZW5jZXNbal0pOwotLSAKMi4zMC4yCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Anson Jacob <Anson.Jacob@amd.com>
+
+[ Upstream commit 50e2fc36e72d4ad672032ebf646cecb48656efe0 ]
+
+If get_num_sdma_queues or get_num_xgmi_sdma_queues is 0, we end up
+doing a shift operation where the number of bits shifted equals
+number of bits in the operand. This behaviour is undefined.
+
+Set num_sdma_queues or num_xgmi_sdma_queues to ULLONG_MAX, if the
+count is >= number of bits in the operand.
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1472
+
+Reported-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Anson Jacob <Anson.Jacob@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Tested-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c   | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 8e5cfb1f8a51..6ea8a4b6efde 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1128,6 +1128,9 @@ static int set_sched_resources(struct device_queue_manager *dqm)
+ 
+ static int initialize_cpsch(struct device_queue_manager *dqm)
+ {
++	uint64_t num_sdma_queues;
++	uint64_t num_xgmi_sdma_queues;
++
+ 	pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
+ 
+ 	mutex_init(&dqm->lock_hidden);
+@@ -1136,8 +1139,18 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
+ 	dqm->active_cp_queue_count = 0;
+ 	dqm->gws_queue_count = 0;
+ 	dqm->active_runlist = false;
+-	dqm->sdma_bitmap = ~0ULL >> (64 - get_num_sdma_queues(dqm));
+-	dqm->xgmi_sdma_bitmap = ~0ULL >> (64 - get_num_xgmi_sdma_queues(dqm));
++
++	num_sdma_queues = get_num_sdma_queues(dqm);
++	if (num_sdma_queues >= BITS_PER_TYPE(dqm->sdma_bitmap))
++		dqm->sdma_bitmap = ULLONG_MAX;
++	else
++		dqm->sdma_bitmap = (BIT_ULL(num_sdma_queues) - 1);
++
++	num_xgmi_sdma_queues = get_num_xgmi_sdma_queues(dqm);
++	if (num_xgmi_sdma_queues >= BITS_PER_TYPE(dqm->xgmi_sdma_bitmap))
++		dqm->xgmi_sdma_bitmap = ULLONG_MAX;
++	else
++		dqm->xgmi_sdma_bitmap = (BIT_ULL(num_xgmi_sdma_queues) - 1);
+ 
+ 	INIT_WORK(&dqm->hw_exception_work, kfd_process_hw_exception);
+ 
+-- 
+2.30.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
