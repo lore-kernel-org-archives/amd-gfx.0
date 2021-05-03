@@ -2,52 +2,122 @@ Return-Path: <SRS0=CzGJ=J6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1BF6C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:30:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 622DCC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74628610A6
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:30:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74628610A6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 06AAA610E9
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 17:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06AAA610E9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18B116E9F2;
-	Mon,  3 May 2021 17:30:11 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8B26E9E8;
- Mon,  3 May 2021 17:30:07 +0000 (UTC)
-IronPort-SDR: XbPcWEfxUVjH+adlOoMaA9lmU5CoRqDtPV8DcKa4zAPlMjash45RXpDcQ1fYz0AOG654LwtRfs
- xEyY12YLbwYA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9973"; a="185268260"
-X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="185268260"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2021 10:29:45 -0700
-IronPort-SDR: VXu41/lC+XiLlrzAThqrT3wKaQRwNzNzuwlAkTUUp/EYSwxEv04ZQ2FeYqwdMPUDN+r8kH7qjT
- 0bSL/YxZZ2DQ==
-X-IronPort-AV: E=Sophos;i="5.82,270,1613462400"; d="scan'208";a="432843672"
-Received: from tbashir-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.51.126])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2021 10:29:33 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nikola Cornij <nikola.cornij@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v1 1/1] drm/dp_mst: Use kHz as link rate units when settig
- source max link caps at init
-In-Reply-To: <20210503172109.22877-2-nikola.cornij@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210503172109.22877-1-nikola.cornij@amd.com>
- <20210503172109.22877-2-nikola.cornij@amd.com>
-Date: Mon, 03 May 2021 20:29:30 +0300
-Message-ID: <875yzz20at.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D17D6E9EF;
+	Mon,  3 May 2021 17:37:23 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C24016E9EF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 May 2021 17:37:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jq1TTpcwUBuhe/FZmhAGtisH9RRAc0FYh9qcNFNxIPH/gXWa1n76gSPHC2Es91r62v2PxIwZXGqPCxHnYFcL2jzNtWsvew3WMl5NP4r8wEA4pfmvLhQw+EvE7zvTvJnaBcXHO0+Z+vEvw4keQXOEa6p2nYZFwd9U7wlepkYareC/Q7+8kLwThOdYnfvRbZUhfl20kdbVm25wqEhTNJe4dJ7HkUKONECNzk8RVhy3EfaUXywuZAFJODnvdgj3SK4DWNov+/aC5r1xOW7pjiP5mhweUa+KOA3PbJlQpdloUVPOuqzx69QAPTFoIx8S7M02Ft6VQMtWVgt7OyKcTtM5jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0XOXuOILUL/KuWZN7DPO+A2KUPWYBEyaT5A8UYTeUq4=;
+ b=jLN5JhktH7xMfEvS7VEnUgDKvm0MzhpRp11Ij7C1Xus0f2G1WIIh7ZO6In1zXGX+V6sL7yo+WTqGAACVabiDzo1rVUyPmczsrypteQk56HNoMvyX+mCZmzmUaCenzTdatf1Ei+wdIcEMPFNpAhXzLKpCNfKDBlfIy/RZjWByxwAvX8QqLLpMAz1fEknY3hEecRLfDkdWokYiLjZDyu4pmEQ3L7SOIM/q5xlqyNUlE2VGGG9XvxQPJIOzIcRbMhfiTZddxogb3gbCeoeHYr+bIVbz6o+ETWZp9NJo9E70N2OSl5HmwbwBhBE8OtTp9yg2dKTWGUnI+K+893nu+AiCKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0XOXuOILUL/KuWZN7DPO+A2KUPWYBEyaT5A8UYTeUq4=;
+ b=RgOi0DX1h2pQOLZZVgz/FkYoQIziD7gNJf8i9G8y1Wq/uO/yyLEOicfWZuLxMphjiIFfC3uu/Ie0nytpXgLrR39N7S0o55jaFFtgUC1v72yu1MEfJ+zr1mppdNs1qphvYjj5BYZzk7Rnwy3M3mOlPSE4wOBa7yRftHhZdmyOBtg=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB3869.namprd12.prod.outlook.com (2603:10b6:208:16f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.41; Mon, 3 May
+ 2021 17:37:21 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::3d98:cefb:476c:c36e%8]) with mapi id 15.20.4087.043; Mon, 3 May 2021
+ 17:37:21 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Greathouse, Joseph" <Joseph.Greathouse@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Update NV SIMD-per-CU to 2
+Thread-Topic: [PATCH] Update NV SIMD-per-CU to 2
+Thread-Index: AQHXQEFrnbQwv8xdEkmUbBGzXYlE0KrSA/YZ
+Date: Mon, 3 May 2021 17:37:20 +0000
+Message-ID: <MN2PR12MB44882D13ED7085DA125D6829F75B9@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20210503172557.1130985-1-Joseph.Greathouse@amd.com>
+In-Reply-To: <20210503172557.1130985-1-Joseph.Greathouse@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-03T17:37:20.361Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [192.161.79.245]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fc0ae609-595d-46ab-ac70-08d90e5a1af4
+x-ms-traffictypediagnostic: MN2PR12MB3869:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB386904776319CD0B813A6DBCF75B9@MN2PR12MB3869.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: IgJUhK4/NjFGYW3mIoV9XjsBsXPLZBw8+dQeKw5k2+Bu7xgjy/fABksKx/caByNuK8o1lUZa4BQxdk9CyjuBQf/9nVB5T2u1E9JS2cIyrRfDBchJ+xefM8scbuTBid4gPIgNKUvghHwpHME2yfit+Uuk+6DkoM+IutpUE+OiggbT9hHFRBesCnIp50LGFxjhxIutWl5g7nkSpnyoKWje58XTAn0G9kpAZD7pdFmDKNeJDq2dNHarBpvjqPH0qgUg7k9yGNhvSjR6PI7i1CrMUyN2z9YeYg4s+qtn1obnjW5Kdb6WpPTXz7GUqxR4hurs+kvTS5DSHH593s+c8gV/igqcM4iLyYn6QCL+HPCsxQqVJ2grKnE5OdL1AruE78FRYZFAjyYLAwrbEJQ28OlFLf41wNCHUpbnlqQpgATNJ8dmzKyCb9CInwso6AoZbXVpbwU1f3EAujwabnUJVteS5ln1ArV81blByyCsxioP4KrCXO1unbP4une67zMgAgNcP902eUvmfSfySC1ULOLpCw11VdTNxZlmaZEgl6MG5bFy2qi+Sg/htZ3cIo1uSnGSqIGfh5JD3ppjEybzweFw81itikjZNaMvQ0xqrC0s7hTX+VDNmjY5XLNP+/x5iQ5nlb/flyowlu00lZqBTFYoJg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(396003)(376002)(136003)(39860400002)(4326008)(19627405001)(66556008)(52536014)(66446008)(53546011)(66946007)(76116006)(33656002)(86362001)(966005)(66476007)(26005)(7696005)(71200400001)(45080400002)(64756008)(6506007)(5660300002)(478600001)(9686003)(166002)(15650500001)(8676002)(110136005)(316002)(8936002)(83380400001)(55016002)(122000001)(38100700002)(186003)(2906002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?/3+CN64JCFOUdAfEF+/BAYz6JnTBTd40UrKgrCnHYEHOh2re1JHnP8GqKBGA?=
+ =?us-ascii?Q?54NxkntA3zBJ9Bk2XSgImZfm/dp15g+xofpCShYC7G+KKQE2EJoyS2NtA66Z?=
+ =?us-ascii?Q?mNP5X7gYfdemL4+H0/9ztlwBviYxyF3pPc+87fJyU3HFzcC/UOrJKHzxUgln?=
+ =?us-ascii?Q?iCwsQtcIfiM9dI0Fy2XP8ARkmxxNvSPz0giQtWh/Uv8tvu+ieFFSzfHNV4ac?=
+ =?us-ascii?Q?xyDLOZB5KthUQHbypsZmh3aPK13FroBVOFhR03GAjYef78YD1FyAj7kGWDjI?=
+ =?us-ascii?Q?pZY/pMW0kdeawcZxTPizXEJl9BeWT/Npq/z253BHV9raDPrenJtjblsBCqjV?=
+ =?us-ascii?Q?7DgYv1d+tdlhcmpmZIdmIPwoNcKNzrTjdivlq710rHcLsEI6U3XCh9Wg9WfY?=
+ =?us-ascii?Q?VIAogohTIWl9HQBTXdbngPIOxI9eaPvb9nS7bwW7tMvELhjow5HWw9Sfm1bZ?=
+ =?us-ascii?Q?TbA5BgbAzJDDfL+Rmd2qYuewLHWiUGOPYbCymQkM/AwoqKiGsPFDPDJS481o?=
+ =?us-ascii?Q?i3Bk/eS+vFrnx2AUrSvgOmOGF/Pa2vQwJKXbMlO20K6Qpnbxb+w+Ckafkrew?=
+ =?us-ascii?Q?vbFTIRbPscVQe07wSs2JYEyE1VjovmaUzjc0NnSvHARSJ2XHj86y7ECnxZzP?=
+ =?us-ascii?Q?0S4l0+nz3a/l9rLMwsPzk4GMEqgGTT7JdRnG+Wxv/IjyD2+hxg/9eQmsjZVz?=
+ =?us-ascii?Q?u9MVYf9m1Oey9K4dgpPRzQaBmV0iT/l8bkFcIIzSRc5X766W4Z7M0JjKK1Q6?=
+ =?us-ascii?Q?qCvDVFYCWu3ifmBwEUnY4ma0+r0V80p1o+ot+pYy1QBsXWkXX+xqXEBnxd8j?=
+ =?us-ascii?Q?EBlbfN6qAG3PPw1Rq+pLQWG1zJG1HAjpYTpIDzOmECtDxfXARyULzyva9f11?=
+ =?us-ascii?Q?ccjH6rm1ZH8z/yMhffaiX1kdlxwRFCk0KK4wiiP2rDt8qQtdCNV52rLUo9P6?=
+ =?us-ascii?Q?kCr6mOJ0nvw67PGs9grtuvaKXBXB/zLtS26i67g5C2U/OcFlsu+KieBPY5KJ?=
+ =?us-ascii?Q?JE93W0oWfW1DuytCim7NFF4oEAf9OJhmv/brGEVZ/f4NQzajGCPacFeEZ6LH?=
+ =?us-ascii?Q?mupyNZcaFq4qoOIACU/830LKZXmR6t7JlBaU4sJmoed8Cnca9X7q8quf4O0v?=
+ =?us-ascii?Q?BVgA/7VeMXv1DvKE9DzaeG3Iu1Wvzm+O3deWmu978Kl/jP7g7h8RTMOiPqOD?=
+ =?us-ascii?Q?vKkZkIxpo9rs2ekGnj2CN2TNQg0fq29dl8OMQwN5rb9/hsTiJ1umdGLPHIib?=
+ =?us-ascii?Q?R49Emn6YCJ0UJ7LcmN6uTIfCEkwdwit5ns9Vmx1MFQZ2fRfGL3acke+AbeF9?=
+ =?us-ascii?Q?DfyJjscffUi9jJD5r4vHxn1V?=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc0ae609-595d-46ab-ac70-08d90e5a1af4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 May 2021 17:37:20.9125 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WR39SHYcTN/svgghdYyFxAc4a+qCBCAIS1dSHONI4lkShphfDxhcJbGol3mNFiLkQdmvMDL0Xl2KZe+iiaGI9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,186 +129,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ramalingam C <ramalingam.c@intel.com>,
- Imre Deak <imre.deak@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ville =?utf-8?B?U3ly?= =?utf-8?B?asOkbMOk?= <ville.syrjala@linux.intel.com>,
- James Jones <jajones@nvidia.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- koba.ko@canonical.com, Luben Tuikov <luben.tuikov@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Nikola Cornij <nikola.cornij@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Matt Roper <matthew.d.roper@intel.com>,
- Chris Park <Chris.Park@amd.com>, Eryk Brol <eryk.brol@amd.com>,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Lee Shawn C <shawn.c.lee@intel.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============1722543555=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 03 May 2021, Nikola Cornij <nikola.cornij@amd.com> wrote:
-> [why]
-> Link rate in kHz is what is eventually required to calculate the link
-> bandwidth, which makes kHz a more generic unit. This should also make
-> forward-compatibility with new DP standards easier.
+--===============1722543555==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44882D13ED7085DA125D6829F75B9MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB44882D13ED7085DA125D6829F75B9MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Please fix the subject:
+drm/amdgpu: Update NV SIMD-per-CU to 2
+With that fixed, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Joseph G=
+reathouse <Joseph.Greathouse@amd.com>
+Sent: Monday, May 3, 2021 1:25 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Greathouse, Joseph <Joseph.Greathouse@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>
+Subject: [PATCH] Update NV SIMD-per-CU to 2
+
+Navi series GPUs have 2 SIMDs per CU (and then 2 CUs per WGP).
+The NV enum headers incorrectly listed this as 4, which later meant
+we were incorrectly reporting the number of SIMDs in the HSA
+topology. This could cause problems down the line for user-space
+applications that want to launch a fixed amount of work to each
+SIMD.
+
+Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+Change-Id: I94021ca71363a3d27330b2fda8e6acaac258017e
+---
+ drivers/gpu/drm/amd/include/navi10_enum.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/include/navi10_enum.h b/drivers/gpu/drm/am=
+d/include/navi10_enum.h
+index d5ead9680c6e..84bcb96f76ea 100644
+--- a/drivers/gpu/drm/amd/include/navi10_enum.h
++++ b/drivers/gpu/drm/amd/include/navi10_enum.h
+@@ -430,7 +430,7 @@ ARRAY_2D_DEPTH                           =3D 0x00000001=
+,
+  */
+
+ typedef enum ENUM_NUM_SIMD_PER_CU {
+-NUM_SIMD_PER_CU                          =3D 0x00000004,
++NUM_SIMD_PER_CU                          =3D 0x00000002,
+ } ENUM_NUM_SIMD_PER_CU;
+
+ /*
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
+r.deucher%40amd.com%7C0a03ae95bbda46750ed308d90e588bc6%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637556595746142277%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
+a=3DJAHxu%2FPQTzHASsbie%2FnJGRX9B%2F17%2B6%2FXWeQnadzkj1I%3D&amp;reserved=
+=3D0
+
+--_000_MN2PR12MB44882D13ED7085DA125D6829F75B9MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> [how]
-> - Replace 'link rate DPCD code' with 'link rate in kHz' when used with
-> drm_dp_mst_topology_mgr_init()
-> - Add/remove related DPCD code conversion from/to kHz where applicable
->
-> Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Please fix the subject:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+drm/amdgpu: <span class=3D"ITWTqi_23IoOPmK3O6ErT">Update NV SIMD-per-CU to =
+2</span><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+With that fixed, the patch is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Joseph Greathouse &lt;Joseph.=
+Greathouse@amd.com&gt;<br>
+<b>Sent:</b> Monday, May 3, 2021 1:25 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Greathouse, Joseph &lt;Joseph.Greathouse@amd.com&gt;; Zhang, Haw=
+king &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] Update NV SIMD-per-CU to 2</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Navi series GPUs have 2 SIMDs per CU (and then 2 C=
+Us per WGP).<br>
+The NV enum headers incorrectly listed this as 4, which later meant<br>
+we were incorrectly reporting the number of SIMDs in the HSA<br>
+topology. This could cause problems down the line for user-space<br>
+applications that want to launch a fixed amount of work to each<br>
+SIMD.<br>
+<br>
+Signed-off-by: Joseph Greathouse &lt;Joseph.Greathouse@amd.com&gt;<br>
+Change-Id: I94021ca71363a3d27330b2fda8e6acaac258017e<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/include/navi10_enum.h | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/include/navi10_enum.h b/drivers/gpu/drm/am=
+d/include/navi10_enum.h<br>
+index d5ead9680c6e..84bcb96f76ea 100644<br>
+--- a/drivers/gpu/drm/amd/include/navi10_enum.h<br>
++++ b/drivers/gpu/drm/amd/include/navi10_enum.h<br>
+@@ -430,7 +430,7 @@ ARRAY_2D_DEPTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0x00000001,<br>
+&nbsp; */<br>
+&nbsp;<br>
+&nbsp;typedef enum ENUM_NUM_SIMD_PER_CU {<br>
+-NUM_SIMD_PER_CU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; =3D 0x00000004,<br>
++NUM_SIMD_PER_CU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; =3D 0x00000002,<br>
+&nbsp;} ENUM_NUM_SIMD_PER_CU;<br>
+&nbsp;<br>
+&nbsp;/*<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Calexander.deucher%40amd.com%7C0a03ae95bbda46750ed308d90e588bc6%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637556595746142277%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C1000&amp;amp;sdata=3DJAHxu%2FPQTzHASsbie%2FnJGRX9B%2F17%2B6%2FXWeQnadzkj1=
+I%3D&amp;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?=
+url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&am=
+p;amp;data=3D04%7C01%7Calexander.deucher%40amd.com%7C0a03ae95bbda46750ed308=
+d90e588bc6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637556595746142277%=
+7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWw=
+iLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DJAHxu%2FPQTzHASsbie%2FnJGRX9B%2F17%2=
+B6%2FXWeQnadzkj1I%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-LGTM,
+--_000_MN2PR12MB44882D13ED7085DA125D6829F75B9MN2PR12MB4488namp_--
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+--===============1722543555==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-for merging via drm-misc-next where the previous patches went.
-
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 4 ++--
->  drivers/gpu/drm/drm_dp_mst_topology.c                     | 8 ++++----
->  drivers/gpu/drm/i915/display/intel_dp_mst.c               | 4 ++--
->  drivers/gpu/drm/nouveau/dispnv50/disp.c                   | 5 +++--
->  drivers/gpu/drm/radeon/radeon_dp_mst.c                    | 2 +-
->  include/drm/drm_dp_mst_helper.h                           | 8 ++++----
->  6 files changed, 16 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index ef8d53e24c47..3f3ead83c21c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -453,8 +453,8 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->  		&aconnector->dm_dp_aux.aux,
->  		16,
->  		4,
-> -		(u8)max_link_enc_cap.lane_count,
-> -		(u8)max_link_enc_cap.link_rate,
-> +		max_link_enc_cap.lane_count,
-> +		drm_dp_bw_code_to_link_rate(max_link_enc_cap.link_rate),
->  		aconnector->connector_id);
->  
->  	drm_connector_attach_dp_subconnector_property(&aconnector->base);
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 54604633e65c..32b7f8983b94 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -3722,9 +3722,9 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
->  		}
->  
->  		lane_count = min_t(int, mgr->dpcd[2] & DP_MAX_LANE_COUNT_MASK, mgr->max_lane_count);
-> -		link_rate = min_t(int, mgr->dpcd[1], mgr->max_link_rate);
-> +		link_rate = min_t(int, drm_dp_bw_code_to_link_rate(mgr->dpcd[1]), mgr->max_link_rate);
->  		mgr->pbn_div = drm_dp_get_vc_payload_bw(mgr,
-> -							drm_dp_bw_code_to_link_rate(link_rate),
-> +							link_rate,
->  							lane_count);
->  		if (mgr->pbn_div == 0) {
->  			ret = -EINVAL;
-> @@ -5454,7 +5454,7 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
->   * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
->   * @max_payloads: maximum number of payloads this GPU can source
->   * @max_lane_count: maximum number of lanes this GPU supports
-> - * @max_link_rate: maximum link rate this GPU supports, units as in DPCD
-> + * @max_link_rate: maximum link rate per lane this GPU supports in kHz
->   * @conn_base_id: the connector object ID the MST device is connected to.
->   *
->   * Return 0 for success, or negative error code on failure
-> @@ -5462,7 +5462,7 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
->  int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->  				 struct drm_device *dev, struct drm_dp_aux *aux,
->  				 int max_dpcd_transaction_bytes, int max_payloads,
-> -				 u8 max_lane_count, u8 max_link_rate,
-> +				 int max_lane_count, int max_link_rate,
->  				 int conn_base_id)
->  {
->  	struct drm_dp_mst_topology_state *mst_state;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index f608c0cb98f4..26f65445bc8a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -960,8 +960,8 @@ intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_base_id)
->  	intel_dp_create_fake_mst_encoders(dig_port);
->  	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, &i915->drm,
->  					   &intel_dp->aux, 16, 3,
-> -					   (u8)dig_port->max_lanes,
-> -					   drm_dp_link_rate_to_bw_code(max_source_rate),
-> +					   dig_port->max_lanes,
-> +					   max_source_rate,
->  					   conn_base_id);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index c46d0374b6e6..f949767698fc 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1617,8 +1617,9 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
->  	mstm->mgr.cbs = &nv50_mstm;
->  
->  	ret = drm_dp_mst_topology_mgr_init(&mstm->mgr, dev, aux, aux_max,
-> -					   (u8)max_payloads, outp->dcb->dpconf.link_nr,
-> -					   (u8)outp->dcb->dpconf.link_bw, conn_base_id);
-> +					   max_payloads, outp->dcb->dpconf.link_nr,
-> +					   drm_dp_bw_code_to_link_rate(outp->dcb->dpconf.link_bw),
-> +					   conn_base_id);
->  	if (ret)
->  		return ret;
->  
-> diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> index 13072c2a6502..ec867fa880a4 100644
-> --- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> +++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> @@ -642,7 +642,7 @@ radeon_dp_mst_init(struct radeon_connector *radeon_connector)
->  	radeon_connector->mst_mgr.cbs = &mst_cbs;
->  	return drm_dp_mst_topology_mgr_init(&radeon_connector->mst_mgr, dev,
->  					    &radeon_connector->ddc_bus->aux, 16, 6,
-> -					    4, (u8)max_link_rate,
-> +					    4, drm_dp_bw_code_to_link_rate(max_link_rate),
->  					    radeon_connector->base.base.id);
->  }
->  
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index c87a829b6498..ddb9231d0309 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -596,11 +596,11 @@ struct drm_dp_mst_topology_mgr {
->  	/**
->  	 * @max_lane_count: maximum number of lanes the GPU can drive.
->  	 */
-> -	u8 max_lane_count;
-> +	int max_lane_count;
->  	/**
-> -	 * @max_link_rate: maximum link rate per lane GPU can output.
-> +	 * @max_link_rate: maximum link rate per lane GPU can output, in kHz.
->  	 */
-> -	u8 max_link_rate;
-> +	int max_link_rate;
->  	/**
->  	 * @conn_base_id: DRM connector ID this mgr is connected to. Only used
->  	 * to build the MST connector path value.
-> @@ -774,7 +774,7 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->  				 struct drm_device *dev, struct drm_dp_aux *aux,
->  				 int max_dpcd_transaction_bytes,
->  				 int max_payloads,
-> -				 u8 max_lane_count, u8 max_link_rate,
-> +				 int max_lane_count, int max_link_rate,
->  				 int conn_base_id);
->  
->  void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1722543555==--
