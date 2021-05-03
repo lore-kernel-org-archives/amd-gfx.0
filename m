@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BC85C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE262C43462
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 055BD6121D
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 055BD6121D
+	by mail.kernel.org (Postfix) with ESMTPS id 6AE7C61244
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AE7C61244
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E04D6E942;
-	Mon,  3 May 2021 16:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBD5A6E94A;
+	Mon,  3 May 2021 16:37:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6150B6E940;
- Mon,  3 May 2021 16:36:44 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 32676613ED;
- Mon,  3 May 2021 16:36:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1F4E6E949;
+ Mon,  3 May 2021 16:37:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B11A6141D;
+ Mon,  3 May 2021 16:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059804;
- bh=jJoZfNgcmrjq0dzD8/7bLHCGeb9OPT43dG8fjCAdG9A=;
+ s=k20201202; t=1620059828;
+ bh=1lF+p0wWKEydSjKxt8caoh1BWCJvhUgVNOheCC5uX6o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=O1e32pEAKDwoLkurKLgPO+q32EMHUUKfhN5ySa0D6WcQxIlpcxQndjjznv2A7F9FJ
- 69kz+qVqTK6HdsRcsTsivXfOsRgcHm4UwN8iwgL1mBCZlxjqGrm984NIyeHOTNZ312
- Z93UL5cd+DRP/9Bkve8+RFIpeMDmHhGxmUXvkZlscT/fEs37rjhgRl/9BJSzMNVThS
- WXhPNRPYL5Uihu00QwpDbCc+qeAYsZZCw/ZS9wJX210Tjn1vSOaIVUI/CfTP0bI7Me
- x1bXa29CvkNhevZGXZQzcQjX7axfefWRKhb6V5wmpPmtRv5gjy4zHY85SKBErzVWzK
- FtJpZM2qxusrQ==
+ b=X5Irqu/WxLrjPeB/bWLjd3XfGO5Ac4ksgbbtMtaaxfcWgBP6MLxrCA6nhupbwiv3B
+ TQCoqs7KOdrmzWXn83RkArRh2kEm5pdyPQUpspe7pcZv0H24PupyRP/2VFoedZKjEX
+ zIvzHdHAtrZ8mbWeAfDmhHxRCc7TBUH5ttzJZHArbZ7FzrfkJxEBVuRTsXO9HOY4Vk
+ SF4E6IDw5E7FEIJk+pXsOhwJe8ue2AxCHkXsGAB5XutR4bpNLHLGnWuuXwRDaXP7vr
+ Bd1KoElMIR8vgd4WckUFpvCL2W2A9E7qFW0/q4bCXm4vTKX1lKJnpTVbrTCKa31jyC
+ yn6O6t8SDgQ3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 058/134] drm/amdgpu: Fix memory leak
-Date: Mon,  3 May 2021 12:33:57 -0400
-Message-Id: <20210503163513.2851510-58-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.11 005/115] drm/amd/display: changing sr exit latency
+Date: Mon,  3 May 2021 12:35:09 -0400
+Message-Id: <20210503163700.2852194-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210503163513.2851510-1-sashal@kernel.org>
-References: <20210503163513.2851510-1-sashal@kernel.org>
+In-Reply-To: <20210503163700.2852194-1-sashal@kernel.org>
+References: <20210503163700.2852194-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -58,57 +58,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- xinhui pan <xinhui.pan@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: xinhui pan <xinhui.pan@amd.com>
+From: Martin Leung <martin.leung@amd.com>
 
-[ Upstream commit 79fcd446e7e182c52c2c808c76f8de3eb6714349 ]
+[ Upstream commit efe213e5a57e0cd92fa4f328dc1963d330549982 ]
 
-drm_gem_object_put() should be paired with drm_gem_object_lookup().
+[Why]
+Hardware team remeasured, need to update timings
+to increase latency slightly and avoid intermittent
+underflows.
 
-All gem objs are saved in fb->base.obj[]. Need put the old first before
-assign a new obj.
+[How]
+sr exit latency update.
 
-Trigger VRAM leak by running command below
-$ service gdm restart
-
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Martin Leung <martin.leung@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Acked-by: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index f753e04fee99..cbe050436c7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -910,8 +910,9 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 	}
- 
- 	for (i = 1; i < rfb->base.format->num_planes; ++i) {
-+		drm_gem_object_get(rfb->base.obj[0]);
-+		drm_gem_object_put(rfb->base.obj[i]);
- 		rfb->base.obj[i] = rfb->base.obj[0];
--		drm_gem_object_get(rfb->base.obj[i]);
- 	}
- 
- 	return 0;
-@@ -960,6 +961,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 		return ERR_PTR(ret);
- 	}
- 
-+	drm_gem_object_put(obj);
- 	return &amdgpu_fb->base;
- }
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 7ec8936346b2..f90881f4458f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -181,7 +181,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_0_soc = {
+ 		},
+ 	.min_dcfclk = 500.0, /* TODO: set this to actual min DCFCLK */
+ 	.num_states = 1,
+-	.sr_exit_time_us = 12,
++	.sr_exit_time_us = 15.5,
+ 	.sr_enter_plus_exit_time_us = 20,
+ 	.urgent_latency_us = 4.0,
+ 	.urgent_latency_pixel_data_only_us = 4.0,
 -- 
 2.30.2
 
