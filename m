@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDE90C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEDBC43617
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C6D061283
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C6D061283
+	by mail.kernel.org (Postfix) with ESMTPS id A76CF613BE
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 May 2021 16:35:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A76CF613BE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D17686E920;
-	Mon,  3 May 2021 16:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD316E8DA;
+	Mon,  3 May 2021 16:35:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38A386E111;
- Mon,  3 May 2021 16:35:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E7EFB61363;
- Mon,  3 May 2021 16:35:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9396E8F8;
+ Mon,  3 May 2021 16:35:44 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AEE4561278;
+ Mon,  3 May 2021 16:35:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620059732;
- bh=NmpL0kwwDfJ1Vx1CY9pOqItqub+AZ1tQISkgQyzUUO0=;
+ s=k20201202; t=1620059743;
+ bh=/i7twi6+kmLwdQCEga9hbGTxL+7/51Mn2FVRvzRAG8Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BeShjqli1D0fi/cQSm14as9tS8QghbOFW8lvzGDVkjAfJgg0J9V+ArDWAQsa0gr6D
- rlRv6EhLVg/5gK8pxyHajfwdP+eeBhGtPW98gKndjaR7+8v7xua/uQaPrYX8r5zOC5
- xGX17lKj2AWzAXWuDar4Cqv5F9MuwYC/B85wwJmzrfNwSDNxX4UBEAIXsbFq8XcGgW
- 1IhajFeUyvdup2eg16Mn0S137Kl1mUHJINB1sgqYXu5Bx1fHHpYgnqY2U5xy5kt7Dw
- NfoRDU2RD4/owyn7j425RiZauwW/rbTBVzUsC7MeuJdlxCt8+6L/imUBUeTQsr2BE8
- wPrhnPVPQ863w==
+ b=DX11H9EoWxEpLs8w0elPh4LhQewljOVffAB0EvFMbIahdJuUzQCpb38pS40OkwIYl
+ 52p1sW+II6D/EERTj2mvxlcMSY08GFQ6UzOgrb4pKpA78d1BIXAr5ZePldgUMpKuDP
+ EmkFZ8ydqLr7ruwBMRhCgX1NrTlxi7n/y6OVlE+2IVZI79J/pPExdwIn2ax+1KHS21
+ I0aSJXtOSf5a9ECei2ZUc9/jNF1jZfBwApkV4pbdA3ol+Sx8t5ODmk2EdY2U566l4a
+ XSAamtWeDxBCSGNvE0FjBdbhkUXdqzPfcU0w/sHQ5E2Bi6DtmtoVejYKwKLJZ6Il/3
+ 0n8Dvifl3ajKA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 012/134] drm/amdgpu/display: buffer
- INTERRUPT_LOW_IRQ_CONTEXT interrupt work
-Date: Mon,  3 May 2021 12:33:11 -0400
-Message-Id: <20210503163513.2851510-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 019/134] drm/amd/pm/swsmu: clean up user profile
+ function
+Date: Mon,  3 May 2021 12:33:18 -0400
+Message-Id: <20210503163513.2851510-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210503163513.2851510-1-sashal@kernel.org>
 References: <20210503163513.2851510-1-sashal@kernel.org>
@@ -59,296 +59,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xiaogang Chen <xiaogang.chen@amd.com>,
- dri-devel@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Arunpravin <Arunpravin.PaneerSelvam@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 
-[ Upstream commit b6f91fc183f758461b9462cc93e673adbbf95c2d ]
+[ Upstream commit d8cce9306801cfbf709055677f7896905094ff95 ]
 
-amdgpu DM handles INTERRUPT_LOW_IRQ_CONTEXT interrupt(hpd, hpd_rx) by using work
-queue and uses single work_struct. If new interrupt is recevied before the
-previous handler finished, new interrupts(same type) will be discarded and
-driver just sends "amdgpu_dm_irq_schedule_work FAILED" message out. If some
-important hpd, hpd_rx related interrupts are missed by driver the hot (un)plug
-devices may cause system hang or instability, such as issues with system
-resume from S3 sleep with mst device connected.
+Remove unnecessary comments, enable restore mode using
+'|=' operator, fixes the alignment to improve the code
+readability.
 
-This patch dynamically allocates new amdgpu_dm_irq_handler_data for new
-interrupts if previous INTERRUPT_LOW_IRQ_CONTEXT interrupt work has not been
-handled. So the new interrupt works can be queued to the same workqueue_struct,
-instead of discard the new interrupts. All allocated amdgpu_dm_irq_handler_data
-are put into a single linked list and will be reused after.
+v2: Move all restoration flag check to bitwise '&' operator
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  14 +--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 115 ++++++++++++------
- 2 files changed, 80 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 34 ++++++++---------------
+ 1 file changed, 12 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 8bfe901cf237..52cc81705280 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -68,18 +68,6 @@ struct common_irq_params {
- 	enum dc_irq_source irq_src;
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index cd905e41080e..42c4dbe3e362 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -279,35 +279,25 @@ static void smu_set_user_clk_dependencies(struct smu_context *smu, enum smu_clk_
+ 	if (smu->adev->in_suspend)
+ 		return;
  
--/**
-- * struct irq_list_head - Linked-list for low context IRQ handlers.
-- *
-- * @head: The list_head within &struct handler_data
-- * @work: A work_struct containing the deferred handler work
-- */
--struct irq_list_head {
--	struct list_head head;
--	/* In case this interrupt needs post-processing, 'work' will be queued*/
--	struct work_struct work;
--};
--
- /**
-  * struct dm_compressor_info - Buffer info used by frame buffer compression
-  * @cpu_addr: MMIO cpu addr
-@@ -293,7 +281,7 @@ struct amdgpu_display_manager {
- 	 * Note that handlers are called in the same order as they were
- 	 * registered (FIFO).
- 	 */
--	struct irq_list_head irq_handler_list_low_tab[DAL_IRQ_SOURCES_NUMBER];
-+	struct list_head irq_handler_list_low_tab[DAL_IRQ_SOURCES_NUMBER];
+-	/*
+-	 * mclk, fclk and socclk are interdependent
+-	 * on each other
+-	 */
+ 	if (clk == SMU_MCLK) {
+-		/* reset clock dependency */
+ 		smu->user_dpm_profile.clk_dependency = 0;
+-		/* set mclk dependent clocks(fclk and socclk) */
+ 		smu->user_dpm_profile.clk_dependency = BIT(SMU_FCLK) | BIT(SMU_SOCCLK);
+ 	} else if (clk == SMU_FCLK) {
+-		/* give priority to mclk, if mclk dependent clocks are set */
++		/* MCLK takes precedence over FCLK */
+ 		if (smu->user_dpm_profile.clk_dependency == (BIT(SMU_FCLK) | BIT(SMU_SOCCLK)))
+ 			return;
  
- 	/**
- 	 * @irq_handler_list_high_tab:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index e0000c180ed1..8ce10d0973c5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -82,6 +82,7 @@ struct amdgpu_dm_irq_handler_data {
- 	struct amdgpu_display_manager *dm;
- 	/* DAL irq source which registered for this interrupt. */
- 	enum dc_irq_source irq_source;
-+	struct work_struct work;
- };
+-		/* reset clock dependency */
+ 		smu->user_dpm_profile.clk_dependency = 0;
+-		/* set fclk dependent clocks(mclk and socclk) */
+ 		smu->user_dpm_profile.clk_dependency = BIT(SMU_MCLK) | BIT(SMU_SOCCLK);
+ 	} else if (clk == SMU_SOCCLK) {
+-		/* give priority to mclk, if mclk dependent clocks are set */
++		/* MCLK takes precedence over SOCCLK */
+ 		if (smu->user_dpm_profile.clk_dependency == (BIT(SMU_FCLK) | BIT(SMU_SOCCLK)))
+ 			return;
  
- #define DM_IRQ_TABLE_LOCK(adev, flags) \
-@@ -111,20 +112,10 @@ static void init_handler_common_data(struct amdgpu_dm_irq_handler_data *hcd,
-  */
- static void dm_irq_work_func(struct work_struct *work)
- {
--	struct irq_list_head *irq_list_head =
--		container_of(work, struct irq_list_head, work);
--	struct list_head *handler_list = &irq_list_head->head;
--	struct amdgpu_dm_irq_handler_data *handler_data;
--
--	list_for_each_entry(handler_data, handler_list, list) {
--		DRM_DEBUG_KMS("DM_IRQ: work_func: for dal_src=%d\n",
--				handler_data->irq_source);
-+	struct amdgpu_dm_irq_handler_data *handler_data =
-+		container_of(work, struct amdgpu_dm_irq_handler_data, work);
- 
--		DRM_DEBUG_KMS("DM_IRQ: schedule_work: for dal_src=%d\n",
--			handler_data->irq_source);
--
--		handler_data->handler(handler_data->handler_arg);
--	}
-+	handler_data->handler(handler_data->handler_arg);
- 
- 	/* Call a DAL subcomponent which registered for interrupt notification
- 	 * at INTERRUPT_LOW_IRQ_CONTEXT.
-@@ -156,7 +147,7 @@ static struct list_head *remove_irq_handler(struct amdgpu_device *adev,
- 		break;
- 	case INTERRUPT_LOW_IRQ_CONTEXT:
- 	default:
--		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source].head;
-+		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source];
- 		break;
- 	}
- 
-@@ -290,7 +281,8 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
- 		break;
- 	case INTERRUPT_LOW_IRQ_CONTEXT:
- 	default:
--		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source].head;
-+		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source];
-+		INIT_WORK(&handler_data->work, dm_irq_work_func);
- 		break;
- 	}
- 
-@@ -372,7 +364,7 @@ void amdgpu_dm_irq_unregister_interrupt(struct amdgpu_device *adev,
- int amdgpu_dm_irq_init(struct amdgpu_device *adev)
- {
- 	int src;
--	struct irq_list_head *lh;
-+	struct list_head *lh;
- 
- 	DRM_DEBUG_KMS("DM_IRQ\n");
- 
-@@ -381,9 +373,7 @@ int amdgpu_dm_irq_init(struct amdgpu_device *adev)
- 	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
- 		/* low context handler list init */
- 		lh = &adev->dm.irq_handler_list_low_tab[src];
--		INIT_LIST_HEAD(&lh->head);
--		INIT_WORK(&lh->work, dm_irq_work_func);
--
-+		INIT_LIST_HEAD(lh);
- 		/* high context handler init */
- 		INIT_LIST_HEAD(&adev->dm.irq_handler_list_high_tab[src]);
- 	}
-@@ -400,8 +390,11 @@ int amdgpu_dm_irq_init(struct amdgpu_device *adev)
- void amdgpu_dm_irq_fini(struct amdgpu_device *adev)
- {
- 	int src;
--	struct irq_list_head *lh;
-+	struct list_head *lh;
-+	struct list_head *entry, *tmp;
-+	struct amdgpu_dm_irq_handler_data *handler;
- 	unsigned long irq_table_flags;
-+
- 	DRM_DEBUG_KMS("DM_IRQ: releasing resources.\n");
- 	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
- 		DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-@@ -410,7 +403,16 @@ void amdgpu_dm_irq_fini(struct amdgpu_device *adev)
- 		 * (because no code can schedule a new one). */
- 		lh = &adev->dm.irq_handler_list_low_tab[src];
- 		DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
--		flush_work(&lh->work);
-+
-+		if (!list_empty(lh)) {
-+			list_for_each_safe(entry, tmp, lh) {
-+				handler = list_entry(
-+					entry,
-+					struct amdgpu_dm_irq_handler_data,
-+					list);
-+				flush_work(&handler->work);
-+			}
-+		}
- 	}
+-		/* reset clock dependency */
+ 		smu->user_dpm_profile.clk_dependency = 0;
+-		/* set socclk dependent clocks(mclk and fclk) */
+ 		smu->user_dpm_profile.clk_dependency = BIT(SMU_MCLK) | BIT(SMU_FCLK);
+ 	} else
+-		/* add clk dependencies here, if any */
++		/* Add clk dependencies here, if any */
+ 		return;
  }
  
-@@ -420,6 +422,8 @@ int amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	struct list_head *hnd_list_h;
- 	struct list_head *hnd_list_l;
- 	unsigned long irq_table_flags;
-+	struct list_head *entry, *tmp;
-+	struct amdgpu_dm_irq_handler_data *handler;
+@@ -331,7 +321,7 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+ 		return;
  
- 	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
+ 	/* Enable restore flag */
+-	smu->user_dpm_profile.flags = SMU_DPM_USER_PROFILE_RESTORE;
++	smu->user_dpm_profile.flags |= SMU_DPM_USER_PROFILE_RESTORE;
  
-@@ -430,14 +434,22 @@ int amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	 * will be disabled from manage_dm_interrupts on disable CRTC.
- 	 */
- 	for (src = DC_IRQ_SOURCE_HPD1; src <= DC_IRQ_SOURCE_HPD6RX; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, false);
+ 	/* set the user dpm power limit */
+ 	if (smu->user_dpm_profile.power_limit) {
+@@ -354,8 +344,8 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+ 				ret = smu_force_clk_levels(smu, clk_type,
+ 						smu->user_dpm_profile.clk_mask[clk_type]);
+ 				if (ret)
+-					dev_err(smu->adev->dev, "Failed to set clock type = %d\n",
+-							clk_type);
++					dev_err(smu->adev->dev,
++						"Failed to set clock type = %d\n", clk_type);
+ 			}
+ 		}
+ 	}
+@@ -1777,7 +1767,7 @@ int smu_force_clk_levels(struct smu_context *smu,
  
- 		DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
--		flush_work(&adev->dm.irq_handler_list_low_tab[src].work);
- 
-+		if (!list_empty(hnd_list_l)) {
-+			list_for_each_safe (entry, tmp, hnd_list_l) {
-+				handler = list_entry(
-+					entry,
-+					struct amdgpu_dm_irq_handler_data,
-+					list);
-+				flush_work(&handler->work);
-+			}
-+		}
- 		DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
+ 	if (smu->ppt_funcs && smu->ppt_funcs->force_clk_levels) {
+ 		ret = smu->ppt_funcs->force_clk_levels(smu, clk_type, mask);
+-		if (!ret && smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE) {
++		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+ 			smu->user_dpm_profile.clk_mask[clk_type] = mask;
+ 			smu_set_user_clk_dependencies(smu, clk_type);
+ 		}
+@@ -2034,7 +2024,7 @@ int smu_set_fan_speed_rpm(struct smu_context *smu, uint32_t speed)
+ 	if (smu->ppt_funcs->set_fan_speed_percent) {
+ 		percent = speed * 100 / smu->fan_max_rpm;
+ 		ret = smu->ppt_funcs->set_fan_speed_percent(smu, percent);
+-		if (!ret && smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE)
++		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+ 			smu->user_dpm_profile.fan_speed_percent = percent;
  	}
  
-@@ -457,7 +469,7 @@ int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
+@@ -2104,7 +2094,7 @@ int smu_set_power_limit(struct smu_context *smu, uint32_t limit)
  
- 	/* re-enable short pulse interrupts HW interrupt */
- 	for (src = DC_IRQ_SOURCE_HPD1RX; src <= DC_IRQ_SOURCE_HPD6RX; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, true);
-@@ -483,7 +495,7 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- 	 * will be enabled from manage_dm_interrupts on enable CRTC.
- 	 */
- 	for (src = DC_IRQ_SOURCE_HPD1; src <= DC_IRQ_SOURCE_HPD6; src++) {
--		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src].head;
-+		hnd_list_l = &adev->dm.irq_handler_list_low_tab[src];
- 		hnd_list_h = &adev->dm.irq_handler_list_high_tab[src];
- 		if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
- 			dc_interrupt_set(adev->dm.dc, src, true);
-@@ -500,22 +512,53 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- static void amdgpu_dm_irq_schedule_work(struct amdgpu_device *adev,
- 					enum dc_irq_source irq_source)
- {
--	unsigned long irq_table_flags;
--	struct work_struct *work = NULL;
-+	struct  list_head *handler_list = &adev->dm.irq_handler_list_low_tab[irq_source];
-+	struct  amdgpu_dm_irq_handler_data *handler_data;
-+	bool    work_queued = false;
+ 	if (smu->ppt_funcs->set_power_limit) {
+ 		ret = smu->ppt_funcs->set_power_limit(smu, limit);
+-		if (!ret && smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE)
++		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+ 			smu->user_dpm_profile.power_limit = limit;
+ 	}
  
--	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-+	if (list_empty(handler_list))
-+		return;
-+
-+	list_for_each_entry (handler_data, handler_list, list) {
-+		if (!queue_work(system_highpri_wq, &handler_data->work)) {
-+			continue;
-+		} else {
-+			work_queued = true;
-+			break;
-+		}
-+	}
+@@ -2285,7 +2275,7 @@ int smu_set_fan_control_mode(struct smu_context *smu, int value)
  
--	if (!list_empty(&adev->dm.irq_handler_list_low_tab[irq_source].head))
--		work = &adev->dm.irq_handler_list_low_tab[irq_source].work;
-+	if (!work_queued) {
-+		struct  amdgpu_dm_irq_handler_data *handler_data_add;
-+		/*get the amdgpu_dm_irq_handler_data of first item pointed by handler_list*/
-+		handler_data = container_of(handler_list->next, struct amdgpu_dm_irq_handler_data, list);
+ 	if (smu->ppt_funcs->set_fan_control_mode) {
+ 		ret = smu->ppt_funcs->set_fan_control_mode(smu, value);
+-		if (!ret && smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE)
++		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+ 			smu->user_dpm_profile.fan_mode = value;
+ 	}
  
--	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-+		/*allocate a new amdgpu_dm_irq_handler_data*/
-+		handler_data_add = kzalloc(sizeof(*handler_data), GFP_KERNEL);
-+		if (!handler_data_add) {
-+			DRM_ERROR("DM_IRQ: failed to allocate irq handler!\n");
-+			return;
-+		}
+@@ -2293,7 +2283,7 @@ int smu_set_fan_control_mode(struct smu_context *smu, int value)
  
--	if (work) {
--		if (!schedule_work(work))
--			DRM_INFO("amdgpu_dm_irq_schedule_work FAILED src %d\n",
--						irq_source);
--	}
-+		/*copy new amdgpu_dm_irq_handler_data members from handler_data*/
-+		handler_data_add->handler       = handler_data->handler;
-+		handler_data_add->handler_arg   = handler_data->handler_arg;
-+		handler_data_add->dm            = handler_data->dm;
-+		handler_data_add->irq_source    = irq_source;
+ 	/* reset user dpm fan speed */
+ 	if (!ret && value != AMD_FAN_CTRL_MANUAL &&
+-			smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE)
++			!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+ 		smu->user_dpm_profile.fan_speed_percent = 0;
  
-+		list_add_tail(&handler_data_add->list, handler_list);
-+
-+		INIT_WORK(&handler_data_add->work, dm_irq_work_func);
-+
-+		if (queue_work(system_highpri_wq, &handler_data_add->work))
-+			DRM_DEBUG("Queued work for handling interrupt from "
-+				  "display for IRQ source %d\n",
-+				  irq_source);
-+		else
-+			DRM_ERROR("Failed to queue work for handling interrupt "
-+				  "from display for IRQ source %d\n",
-+				  irq_source);
-+	}
- }
+ 	return ret;
+@@ -2335,7 +2325,7 @@ int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
+ 		if (speed > 100)
+ 			speed = 100;
+ 		ret = smu->ppt_funcs->set_fan_speed_percent(smu, speed);
+-		if (!ret && smu->user_dpm_profile.flags != SMU_DPM_USER_PROFILE_RESTORE)
++		if (!ret && !(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE))
+ 			smu->user_dpm_profile.fan_speed_percent = speed;
+ 	}
  
- /*
 -- 
 2.30.2
 
