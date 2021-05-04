@@ -7,68 +7,117 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DE29C433B4
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3C36C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 51EEE613AA
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51EEE613AA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 9C497610A2
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:47:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C497610A2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E06BC6EA91;
-	Tue,  4 May 2021 07:43:22 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8B896EA91
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 07:43:21 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id f24so11673841ejc.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 00:43:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=T437ufXcFQfh2vf8BzFPeP3ANbU0aKdpNP7I1Lbc0Vw=;
- b=lChERQKl0NnJlNYYs3WD/9INmqVvpMtlGycZ/M3ujVJJjsi0rOqlMYfeI/bEcSdacy
- I3eYReSwcpcmHwy0BeznmqHtU6Q5jYiUvm37kZHZJEDCs6nslm92Mstvjp9Hs1Y6KlHO
- xiYgVX2bpFg40uMh7T/5WD+WxevDUqKjWhgZA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=T437ufXcFQfh2vf8BzFPeP3ANbU0aKdpNP7I1Lbc0Vw=;
- b=Cp4vHUIIeZBiDqhDIuZlztDk6suJAc0mbwvZSgKMXaB6oHt/rngz6V/W8MRVJaYy6Y
- 2K1Yjm9261u93s5h2YaXbNiSZIs0LlM48u0FQO5lz19vtPasqDKQMc7A8HpJ/kL3KMpP
- z4MgWd3JuqlLkyfSxNJjDPEdum85sjHAYLwwDehoTIKxuiTTKiz66q/Zu1QNpiPYp381
- JtMb1oFlWkg8vkDcUhE9JFMbuu7+PPP+I66X8u6pMZxgpQ+/plxUQxTFj5KkH+E0Z2xE
- jb5eSGxZ2pf10I1j/Q6/QrvFqdKqjZLAuOx4QQDb3q+P2T6n3FQeYlS5LXWmViLPCGAZ
- xPPA==
-X-Gm-Message-State: AOAM5306+/TnruGi4yFq8gjNovxR/SDT2Nox+olPWDeeXqoV+Ynv/vbv
- /piogV6TuoFq2YUab4yEKGL+KQ==
-X-Google-Smtp-Source: ABdhPJy427L+gXilEP/lgLdQZgt2hWUrN/fy5m5KwbYbYHqxj2+g4Nqk5tfoMxe8KYmJ/mwcF/0d4Q==
-X-Received: by 2002:a17:906:c04a:: with SMTP id
- bm10mr20420768ejb.521.1620114200482; 
- Tue, 04 May 2021 00:43:20 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z22sm934890ejo.113.2021.05.04.00.43.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 May 2021 00:43:19 -0700 (PDT)
-Date: Tue, 4 May 2021 09:43:18 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [Heads up to maintainers] Re: [PATCH v8 1/1] drm/drm_mst: Use
- Extended Base Receiver Capability DPCD space
-Message-ID: <YJD7Fv40M3aEfUr0@phenom.ffwll.local>
-References: <20210428234346.1085977-1-nikola.cornij@amd.com>
- <20210428234346.1085977-2-nikola.cornij@amd.com>
- <2bc4cf58838635b357e77d2a132fd901dc477c71.camel@redhat.com>
- <8735v82unm.fsf@intel.com> <87mttc1ajm.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEAA6EA98;
+	Tue,  4 May 2021 07:47:01 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2087.outbound.protection.outlook.com [40.107.212.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31B076EA9A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 07:47:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hKFo5iclOysIh8ai1Dc1yMTHbGEr+Wt9HgfKYyJaS4LeA7vcwkhUdPqTYMeGvpj03KNfG8DHmIqFpmzgGJ6EPJvMJ1vbSD5He38T9DwjQ43e0R2LUspAcjlaP37l9XdjuiU/auMRS3sVDH8ZjPTv1nUpbMzWTUbZYGFa6UFEDV2CUA5Nz5jnfJhbMpJrnOVudxv5RuvW7/oa9OePeZESG86H6w7GgKB+BQbc2IPWr61kxgUmuGxyP3+0t0me6XahVWxHjBnIykqDi42Fklnz1/7qaexllstXjSzJLFIDbocHROLXW52I7yjibRB2F+KGVQuCt73muKIuwC4Ohx059Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3DsYQShvH7gYUl5IhLBiFlgCRdulkrO9PlRdAIjAoN0=;
+ b=YV2ogzt8TKLcdRi/1BKnN6xG/ZPUnan9AOOlR1eNdDZq8BmhVAWVwoY8Ad+/owZlPhE2NUsDkOwn9sv00VABEBtn17EFxi7N9t0W5uzCUIWpu94OvY65cy3H9AiTPAetnIzK3T0eS6agObaRU8vBOzybeynqEQ4TklmZ+pHi2vwS4/h/1zp0yMxM9bUgUjNwg119wmAPFt1/b091HccxLLaag704ZtTDckXPoHnk/fOdaMw1AGULYs8+KHhyAcGur8592nxpG2z090gz9m/yAl3le242UJ9xepwhwKqx4Hdrma339fiGVuvkrGJTSh+Ivt86jSl5DkFjMI9cIKkGXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3DsYQShvH7gYUl5IhLBiFlgCRdulkrO9PlRdAIjAoN0=;
+ b=wwmstgYGR67f8KIfjtQAXLLHnAdc7Fx/nW28n5gMJ9NipMIOPK9CoNK7vCMcny5anJoKN5U4cR2JioPzvuz3SC6NfYTYosrxqqTdPNNipQKtKAFT1sZINCsZa7D3MhC065N648u7Za1sQTE/yw1ULWmUnf6Lf6LQ/AnavxUpz98=
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
+ by MN2PR12MB4518.namprd12.prod.outlook.com (2603:10b6:208:266::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.40; Tue, 4 May
+ 2021 07:46:58 +0000
+Received: from MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9]) by MN2PR12MB4549.namprd12.prod.outlook.com
+ ([fe80::b83b:b880:25cc:c1b9%8]) with mapi id 15.20.4087.044; Tue, 4 May 2021
+ 07:46:58 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: add ACPI SRAT parsing for topology
+Thread-Topic: [PATCH] drm/amdkfd: add ACPI SRAT parsing for topology
+Thread-Index: AQHXPEDkmcu6EZNVCUG6NeTIImqf/KrS+adg
+Date: Tue, 4 May 2021 07:46:58 +0000
+Message-ID: <MN2PR12MB4549A0F3CDC8BF13CF2D115A975A9@MN2PR12MB4549.namprd12.prod.outlook.com>
+References: <20210428151154.28317-1-jinhuieric.huang@amd.com>
+In-Reply-To: <20210428151154.28317-1-jinhuieric.huang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-04T07:46:34Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=5903b00e-4f5a-4cf2-a1c6-1737139de801;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.159.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c6c7e76e-1fba-4b31-f2c2-08d90ed0cbaf
+x-ms-traffictypediagnostic: MN2PR12MB4518:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB451822A40015D99072D95A93975A9@MN2PR12MB4518.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 38/wAoXeYnGpG7LtuijEVaWcmNCTrfDnvtJ1QVNO6IFzSr+NhNAAvxh6TaU9i0ekiDKn1fnW5KDsd5tSwFRHTsL3aCupAV0vmGExtfEDuG0nMmf66jWLZDYTcSdCjoTK8jDj3IiNRVl4W8pDNnwc4LsM8nlCz2MTcir6RYmE4nSzx5Mi2IKZwHJdoAiowWCqhrRXJu29nZq3sl4kt7Ar/Azr3DYsGJWzMsGz8cZVWy2mrXoDrMkI7ncpy4PCZF9cja3jdiQe0dZ0waAP+mWatAIS0GOwrgzI5OIr7yCdM+u3oNJdVrKVoBkOOGn9M6w1/V/A35owB9P8/kdl2FofhXWhXY9weHuOP5qIQnwOAGk0Tb1SpOdx6HWoBqp2yfynDUr7YzQ9qs7K8sIccmOsCUE0laBUI4YMRItXvbU6u3AbZq4lyJkW8IpyWoZUtnNyw8exE6l/v7/a0psExMGw962A5viZ4fLjLkLR3atgk/utHsPbGXV7AtJi2qrTRfL67CPQiZes/G5zyuneqfZPcJicc+h0Y0w7McoJwHhqoVO2mnHzqIV9U8Tb/1+Pp/g0yYVoN7jR4hH5vKOiVFFB3dbxu843JsBZovnl33VgCqJqNhEhbDeOY8pc6FLFw5MGeJd6iE5kYpPwU14wU/m2Xw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(376002)(366004)(396003)(52536014)(83380400001)(45080400002)(8936002)(38100700002)(64756008)(66946007)(110136005)(66476007)(66446008)(8676002)(9686003)(55016002)(86362001)(71200400001)(7696005)(66556008)(478600001)(53546011)(2906002)(6506007)(966005)(5660300002)(33656002)(4326008)(26005)(122000001)(186003)(76116006)(316002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?YQTYEGIQPZED+Xw0ltrRZuNvPYURS7/74G8U4sYntClHaTnxrNHea/RFXe7I?=
+ =?us-ascii?Q?uvl/hOJzpPtiis00jq5ZY9WGWU13eg0AMLDLsTB7eY54snsuOmkETQRZS0Wl?=
+ =?us-ascii?Q?45Q08lxVyWyz30b3FtL61YojHa7Qp0Lxdc9YJzqJtvGE086ZhS40TuK1yXn5?=
+ =?us-ascii?Q?bK6JlsgKpYsc8NrZS7mGTGpxvWuA42oPwYsfzRvA95ZImPZxhx9PggaMx7q0?=
+ =?us-ascii?Q?/DVfuVX5Cjq5I9vi+s/jM0iaxx26qmV41gVSDsxrEaPGgvUwYsnO3kaUtvGY?=
+ =?us-ascii?Q?1quZXx1c+sVsUmWMf25On6Jb9NeobQx01Xpy41Gb29hz2XDdeTXwOOGzLbL8?=
+ =?us-ascii?Q?T3tUKUggDkrqrOozgQrrksFsToYAVz+LOq147eJT/bethocC1gxpRLhNQC4g?=
+ =?us-ascii?Q?F+2Vn+jcmxTsF9LaxSm9W7XDt4D9MtEha5VbjDjaXI1x9kdeJCqKhyO6f0pH?=
+ =?us-ascii?Q?57mu9Fzudsf72BwIgkT7cKJgaH73I5r83S1gHZ6z/l+5+pc+ivpQFv8TKYVe?=
+ =?us-ascii?Q?f+am0aWsWXXZ/rRTlAxQukQ1IYecKN+rksey/TIxkMnLVaDu4s3/CRGa8fix?=
+ =?us-ascii?Q?xqUnpBz+uKJKesUDd4cUwX7aCjlnm4w8plYPvb9MruJv1ffCUKD3K+po5nf6?=
+ =?us-ascii?Q?4sLMpPFcawkwQ4oHIgRS3aLdhKRNvCX5aIlgC0sQnAW4pXHBUsUY2hslpZ4v?=
+ =?us-ascii?Q?TBFWLPyWj4RWoBHa301/5bfKf31F74TiC2jNJPONvMz8Rt1RQKMe5aMM6kxz?=
+ =?us-ascii?Q?TKL/jUQ7g1AYfvjK6a1GYKpxcZFK1yMonASFT/feRMSoDR+0XrNDumQiuhR8?=
+ =?us-ascii?Q?8Iey9Y2u2Gj4VLwfFEYAM2pC/htU/kIwmEB8L1Q6akZb74I/W+/LyF7taqj5?=
+ =?us-ascii?Q?3QB5ebfCy+0QkPxbIa56xI7IXL0uo3p1dma6KibcFEWX8J5OpaIuXyTJI7v/?=
+ =?us-ascii?Q?H+meLUIhrtH0FZSshiMFV/PxQPC0Jnc19fUg7Zel4zj1RaDrTeGztttWJP+P?=
+ =?us-ascii?Q?fqv28HpcdappPOml76qe1uOwUIcbPzKTZcESpffOIekQjSv/QtPkrIC75a81?=
+ =?us-ascii?Q?7l3LVq0KXhvCN4Q9aQrmhYBtX3STHPP2ms0CU4cvwmSoHjr9tmkPaImAD1fU?=
+ =?us-ascii?Q?xkDInwXSfKCFeZJe9wYXa99+amGh7aAf7kUbXikUizp7TbmyJNZHNF8guHPn?=
+ =?us-ascii?Q?7uZ0Rze5+ft9ZJE/BptkzrA71Y6ar16gnLHLFxYySd2y71wKuvbccEc5OzWm?=
+ =?us-ascii?Q?nriJG4JDB9X89PwoUPuS0dp9dAngIA04i/Ae8E+XaQkAJRxZ7h1Z0Rg6k0qO?=
+ =?us-ascii?Q?S9h6fHnr4Vlpa2+MUCdy2Ae5?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87mttc1ajm.fsf@intel.com>
-X-Operating-System: Linux phenom 5.10.32scarlett+ 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4549.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6c7e76e-1fba-4b31-f2c2-08d90ed0cbaf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2021 07:46:58.0588 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: e2+/M7ZHThfi28BQbpWKON92JdoeMH4do+/6/w4sEigpMSGsupq316496e0lhzld
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4518
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,543 +129,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- "Lankhorst, Maarten" <maarten.lankhorst@intel.com>,
- amd-gfx@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>,
- koba.ko@canonical.com, aurabindo.pillai@amd.com,
- Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- mikita.lipski@amd.com, Dave Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 03, 2021 at 11:33:33AM +0300, Jani Nikula wrote:
-> On Fri, 30 Apr 2021, Jani Nikula <jani.nikula@intel.com> wrote:
-> > On Thu, 29 Apr 2021, Lyude Paul <lyude@redhat.com> wrote:
-> >> JFYI Jani and Ben: I will be pushing this patch to drm-misc-next somet=
-ime
-> >> today if there's no objections
-> >
-> > Thanks for the heads-up, I think this breaks i915. See my review
-> > comments elsewhere in the thread.
-> =
+[AMD Public Use]
 
-> Looks like this was merged anyway.
+> *numa_node > max_pxm
 
-Yeah in general rule of thumb is to let cross-driver stuff soak for a week
-(assuming correctly cc'ed and all that already). I think that's the sweet
-spot between maintainers who complain that it's too short and others
-complaining it's too quick :-)
--Daniel
+Why numa node number is compared to a proximity domain? Since you are already using pxm_to_node() API, assume that should take care.
 
-> =
+That also will avoid parsing ACPI_SRAT_TYPE_CPU_AFFINITY structs.
 
-> 98025a62cb00 ("drm/dp_mst: Use Extended Base Receiver Capability DPCD spa=
-ce")
-> =
+Thanks,
+Lijo
 
-> I'm not happy how this played out.
-> =
 
-> 1) You need to Cc relevant people
-> =
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Eric Huang
+Sent: Wednesday, April 28, 2021 8:42 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
+Subject: [PATCH] drm/amdkfd: add ACPI SRAT parsing for topology
 
-> 2) You need to get the ack before merging changes
-> =
+In NPS4 BIOS we need to find the closest numa node when creating topology io link between cpu and gpu, if PCI driver doesn't set it.
 
-> 3) You need to give people more than a day to react, with time zones and
-> all; I replied as soon as I saw the heads-up, but it was already too
-> late
-> =
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 94 ++++++++++++++++++++++++++-
+ 1 file changed, 91 insertions(+), 3 deletions(-)
 
-> It's broken on i915, and perhaps that could be fixed.
-> =
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 38d45711675f..57518136c7d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1759,6 +1759,87 @@ static int kfd_fill_gpu_memory_affinity(int *avail_size,
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_ACPI
++static void kfd_find_numa_node_in_srat(struct kfd_dev *kdev,
++		int *numa_node)
++{
++	struct acpi_table_header *table_header = NULL;
++	struct acpi_subtable_header *sub_header = NULL;
++	unsigned long table_end, subtable_len;
++	u32 pci_id = pci_domain_nr(kdev->pdev->bus) << 16 |
++			pci_dev_id(kdev->pdev);
++	u32 bdf;
++	acpi_status status;
++	struct acpi_srat_cpu_affinity *cpu;
++	struct acpi_srat_generic_affinity *gpu;
++	int pxm = 0, max_pxm = 0;
++	bool found = false;
++
++	/* Fetch the SRAT table from ACPI */
++	status = acpi_get_table(ACPI_SIG_SRAT, 0, &table_header);
++	if (status == AE_NOT_FOUND) {
++		pr_warn("SRAT table not found\n");
++		return;
++	} else if (ACPI_FAILURE(status)) {
++		const char *err = acpi_format_exception(status);
++		pr_err("SRAT table error: %s\n", err);
++		return;
++	}
++
++	table_end = (unsigned long)table_header + table_header->length;
++
++	/* Parse all entries looking for a match. */
++
++	sub_header = (struct acpi_subtable_header *)
++			((unsigned long)table_header +
++			sizeof(struct acpi_table_srat));
++	subtable_len = sub_header->length;
++
++	while (((unsigned long)sub_header) + subtable_len  < table_end) {
++		/*
++		 * If length is 0, break from this loop to avoid
++		 * infinite loop.
++		 */
++		if (subtable_len == 0) {
++			pr_err("SRAT invalid zero length\n");
++			break;
++		}
++
++		switch (sub_header->type) {
++		case ACPI_SRAT_TYPE_CPU_AFFINITY:
++			cpu = (struct acpi_srat_cpu_affinity *)sub_header;
++			pxm = *((u32 *)cpu->proximity_domain_hi) << 8 |
++					cpu->proximity_domain_lo;
++			if (pxm > max_pxm)
++				max_pxm = pxm;
++			break;
++		case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
++			gpu = (struct acpi_srat_generic_affinity *)sub_header;
++			bdf = *((u16 *)(&gpu->device_handle[0])) << 16 |
++					*((u16 *)(&gpu->device_handle[2]));
++			if (bdf == pci_id) {
++				found = true;
++				*numa_node = pxm_to_node(gpu->proximity_domain);
++			}
++			break;
++		default:
++			break;
++		}
++
++		if (found)
++			break;
++
++		sub_header = (struct acpi_subtable_header *)
++				((unsigned long)sub_header + subtable_len);
++		subtable_len = sub_header->length;
++	}
++
++	/* workaround bad cpu-gpu binding case */
++	if (found && (*numa_node < 0 || *numa_node > max_pxm))
++		*numa_node = 0;
++}
++#endif
++
+ /* kfd_fill_gpu_direct_io_link - Fill in direct io link from GPU
+  * to its NUMA node
+  *	@avail_size: Available size in the memory
+@@ -1774,6 +1855,9 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+ 			uint32_t proximity_domain)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)kdev->kgd;
++#ifdef CONFIG_NUMA
++	int numa_node = 0;
++#endif
+ 
+ 	*avail_size -= sizeof(struct crat_subtype_iolink);
+ 	if (*avail_size < 0)
+@@ -1805,9 +1889,13 @@ static int kfd_fill_gpu_direct_io_link_to_cpu(int *avail_size,
+ 
+ 	sub_type_hdr->proximity_domain_from = proximity_domain;  #ifdef CONFIG_NUMA
+-	if (kdev->pdev->dev.numa_node == NUMA_NO_NODE)
+-		sub_type_hdr->proximity_domain_to = 0;
+-	else
++	if (kdev->pdev->dev.numa_node == NUMA_NO_NODE) { #ifdef CONFIG_ACPI
++		kfd_find_numa_node_in_srat(kdev, &numa_node); #endif
++		sub_type_hdr->proximity_domain_to = numa_node;
++		set_dev_node(&kdev->pdev->dev, numa_node);
++	} else
+ 		sub_type_hdr->proximity_domain_to = kdev->pdev->dev.numa_node;  #else
+ 	sub_type_hdr->proximity_domain_to = 0;
+--
+2.17.1
 
-> However I also think using DP spec rate codes and calling them "rate" is
-> a bad interface, especially when the unit breaks down with DP 2.0 rate
-> codes. It's confusing and it's not future proof. Fixing that afterwards
-> falls to whoever comes next to pick up the pieces.
-> =
-
-> I'd rather just see this reverted and redone.
-> =
-
-> =
-
-> BR,
-> Jani.
-> =
-
-> =
-
-> >
-> > BR,
-> > Jani.
-> >
-> >
-> >>
-> >> On Wed, 2021-04-28 at 19:43 -0400, Nikola Cornij wrote:
-> >>> [why]
-> >>> DP 1.4a spec madates that if DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT is
-> >>> set, Extended Base Receiver Capability DPCD space must be used. Witho=
-ut
-> >>> doing that, the three DPCD values that differ will be wrong, leading =
-to
-> >>> incorrect or limited functionality. MST link rate, for example, could
-> >>> have a lower value. Also, Synaptics quirk wouldn't work out well when
-> >>> Extended DPCD was not read, resulting in no DSC for such hubs.
-> >>> =
-
-> >>> [how]
-> >>> Modify MST topology manager to use the values from Extended DPCD where
-> >>> applicable.
-> >>> =
-
-> >>> To prevent regression on the sources that have a lower maximum link r=
-ate
-> >>> capability than MAX_LINK_RATE from Extended DPCD, have the drivers
-> >>> supply maximum lane count and rate at initialization time.
-> >>> =
-
-> >>> This also reverts 'commit 2dcab875e763 ("Revert drm/dp_mst: Retrieve
-> >>> extended DPCD caps for topology manager")', brining the change back to
-> >>> the original 'commit ad44c03208e4 ("drm/dp_mst: Retrieve extended DPCD
-> >>> caps for topology manager")'.
-> >>> =
-
-> >>> Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-> >>> ---
-> >>> =A0.../display/amdgpu_dm/amdgpu_dm_mst_types.c=A0=A0 |=A0 5 +++
-> >>> =A0.../gpu/drm/amd/display/dc/core/dc_link_dp.c=A0 | 18 ++++++++++
-> >>> =A0drivers/gpu/drm/amd/display/dc/dc_link.h=A0=A0=A0=A0=A0 |=A0 2 ++
-> >>> =A0drivers/gpu/drm/drm_dp_mst_topology.c=A0=A0=A0=A0=A0=A0=A0=A0 | 33=
- ++++++++++++-------
-> >>> =A0drivers/gpu/drm/i915/display/intel_dp_mst.c=A0=A0 |=A0 6 +++-
-> >>> =A0drivers/gpu/drm/nouveau/dispnv50/disp.c=A0=A0=A0=A0=A0=A0 |=A0 3 +-
-> >>> =A0drivers/gpu/drm/radeon/radeon_dp_mst.c=A0=A0=A0=A0=A0=A0=A0 |=A0 7=
- ++++
-> >>> =A0include/drm/drm_dp_mst_helper.h=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0 | 12 ++++++-
-> >>> =A08 files changed, 71 insertions(+), 15 deletions(-)
-> >>> =
-
-> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_type=
-s.c
-> >>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> >>> index 997567f6f0ba..b7e01b6fb328 100644
-> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> >>> @@ -429,6 +429,8 @@ void amdgpu_dm_initialize_dp_connector(struct
-> >>> amdgpu_display_manager *dm,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct amdgpu_dm_connector
-> >>> *aconnector,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 int link_index)
-> >>> =A0{
-> >>> +=A0=A0=A0=A0=A0=A0=A0struct dc_link_settings max_link_enc_cap =3D {0=
-};
-> >>> +
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0aconnector->dm_dp_aux.aux.name =3D
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0kasprintf(GFP_KERNEL,=
- "AMDGPU DM aux hw bus %d",
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 link_index);
-> >>> @@ -443,6 +445,7 @@ void amdgpu_dm_initialize_dp_connector(struct
-> >>> amdgpu_display_manager *dm,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (aconnector->base.connector_type =3D=3D DR=
-M_MODE_CONNECTOR_eDP)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> >>> =A0
-> >>> +=A0=A0=A0=A0=A0=A0=A0dc_link_dp_get_max_link_enc_cap(aconnector->dc_=
-link,
-> >>> &max_link_enc_cap);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0aconnector->mst_mgr.cbs =3D &dm_mst_cbs;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0drm_dp_mst_topology_mgr_init(
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0&aconnector->mst_mgr,
-> >>> @@ -450,6 +453,8 @@ void amdgpu_dm_initialize_dp_connector(struct
-> >>> amdgpu_display_manager *dm,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0&aconnector->dm_dp_au=
-x.aux,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A016,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A04,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap.lane_c=
-ount,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap.link_r=
-ate,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0aconnector->connector=
-_id);
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0drm_connector_attach_dp_subconnector_property=
-(&aconnector->base);
-> >>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> >>> b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> >>> index 7d2e433c2275..6fe66b7ee53e 100644
-> >>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> >>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> >>> @@ -1894,6 +1894,24 @@ bool dc_link_dp_sync_lt_end(struct dc_link *li=
-nk,
-> >>> bool link_down)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0return true;
-> >>> =A0}
-> >>> =A0
-> >>> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, str=
-uct
-> >>> dc_link_settings *max_link_enc_cap)
-> >>> +{
-> >>> +=A0=A0=A0=A0=A0=A0=A0if (!max_link_enc_cap) {
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0DC_LOG_ERROR("%s: Could=
- not return max link encoder caps",
-> >>> __func__);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return false;
-> >>> +=A0=A0=A0=A0=A0=A0=A0}
-> >>> +
-> >>> +=A0=A0=A0=A0=A0=A0=A0if (link->link_enc->funcs->get_max_link_cap) {
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0link->link_enc->funcs->=
-get_max_link_cap(link->link_enc,
-> >>> max_link_enc_cap);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
-> >>> +=A0=A0=A0=A0=A0=A0=A0}
-> >>> +
-> >>> +=A0=A0=A0=A0=A0=A0=A0DC_LOG_ERROR("%s: Max link encoder caps unknown=
-", __func__);
-> >>> +=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap->lane_count =3D 1;
-> >>> +=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap->link_rate =3D 6;
-> >>> +=A0=A0=A0=A0=A0=A0=A0return false;
-> >>> +}
-> >>> +
-> >>> =A0static struct dc_link_settings get_max_link_cap(struct dc_link *li=
-nk)
-> >>> =A0{
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct dc_link_settings max_link_cap =3D {0};
-> >>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h
-> >>> b/drivers/gpu/drm/amd/display/dc/dc_link.h
-> >>> index b0013e674864..cb6d0543d839 100644
-> >>> --- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-> >>> +++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-> >>> @@ -346,6 +346,8 @@ bool dc_link_dp_set_test_pattern(
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0const unsigned char *p_custom_pattern,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0unsigned int cust_pattern_size);
-> >>> =A0
-> >>> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, str=
-uct
-> >>> dc_link_settings *max_link_enc_cap);
-> >>> +
-> >>> =A0void dc_link_enable_hpd_filter(struct dc_link *link, bool enable);
-> >>> =A0
-> >>> =A0bool dc_link_is_dp_sink_present(struct dc_link *link);
-> >>> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> >>> b/drivers/gpu/drm/drm_dp_mst_topology.c
-> >>> index 5539a91b4031..31d9f3ff0d39 100644
-> >>> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> >>> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> >>> @@ -3708,19 +3708,24 @@ int drm_dp_mst_topology_mgr_set_mst(struct
-> >>> drm_dp_mst_topology_mgr *mgr, bool ms
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0/* set the device into MST mode */
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (mst_state) {
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0struct drm_dp_payload=
- reset_pay;
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int lane_count;
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int link_rate;
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0WARN_ON(mgr->mst_prim=
-ary);
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* get dpcd info */
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_dpcd_rea=
-d(mgr->aux, DP_DPCD_REV, mgr->dpcd,
-> >>> DP_RECEIVER_CAP_SIZE);
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (ret !=3D DP_RECEIVE=
-R_CAP_SIZE) {
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0drm_dbg_kms(mgr->dev, "failed to read DPCD\n");
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_read_dpc=
-d_caps(mgr->aux, mgr->dpcd);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (ret < 0) {
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0drm_dbg_kms(mgr->dev, "%s: failed to read DPCD, ret
-> >>> %d\n",
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mgr->aux->name, ret);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0goto out_unlock;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> >>> =A0
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0lane_count =3D min_t(in=
-t, mgr->dpcd[2] &
-> >>> DP_MAX_LANE_COUNT_MASK, mgr->max_lane_count);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0link_rate =3D min_t(int=
-, mgr->dpcd[1], mgr->max_link_rate);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mgr->pbn_div =3D drm_=
-dp_get_vc_payload_bw(mgr,
-> >>> -
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0drm_dp_bw_code_to_link
-> >>> _rate(mgr->dpcd[1]),
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0mgr->dpcd[2] &
-> >>> DP_MAX_LANE_COUNT_MASK);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0drm_dp_bw_code_to_li
-> >>> nk_rate(link_rate),
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0lane_count);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mgr->pbn_div =3D=
-=3D 0) {
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0ret =3D -EINVAL;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0goto out_unlock;
-> >>> @@ -5448,14 +5453,17 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_sta=
-te);
-> >>> =A0 * @aux: DP helper aux channel to talk to this device
-> >>> =A0 * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
-> >>> =A0 * @max_payloads: maximum number of payloads this GPU can source
-> >>> + * @max_lane_count: maximum number of lanes this GPU supports
-> >>> + * @max_link_rate: maximum link rate this GPU supports, units as in =
-DPCD
-> >>> =A0 * @conn_base_id: the connector object ID the MST device is connec=
-ted to.
-> >>> =A0 *
-> >>> =A0 * Return 0 for success, or negative error code on failure
-> >>> =A0 */
-> >>> =A0int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *m=
-gr,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_device *dev, struct drm_dp_aux
-> >>> *aux,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads, int conn_base_id)
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes, int
-> >>> max_payloads,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_lane_count, int max_link_rate,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int conn_base_id)
-> >>> =A0{
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct drm_dp_mst_topology_state *mst_state;
-> >>> =A0
-> >>> @@ -5490,6 +5498,8 @@ int drm_dp_mst_topology_mgr_init(struct
-> >>> drm_dp_mst_topology_mgr *mgr,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->aux =3D aux;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->max_dpcd_transaction_bytes =3D max_dpcd_=
-transaction_bytes;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->max_payloads =3D max_payloads;
-> >>> +=A0=A0=A0=A0=A0=A0=A0mgr->max_lane_count =3D max_lane_count;
-> >>> +=A0=A0=A0=A0=A0=A0=A0mgr->max_link_rate =3D max_link_rate;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->conn_base_id =3D conn_base_id;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (max_payloads + 1 > sizeof(mgr->payload_ma=
-sk) * 8 ||
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads + 1 > sizeof(mgr->vcpi=
-_mask) * 8)
-> >>> @@ -5896,14 +5906,13 @@ struct drm_dp_aux
-> >>> *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC=
-_WITHOUT_VIRTUAL_DPCD)
-> >>> &&
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 port->mgr->dpcd[DP_DPCD_REV] >=3D D=
-P_DPCD_REV_14 &&
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 port->parent =3D=3D port->mgr->mst_=
-primary) {
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0u8 downstreamport;
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0u8 dpcd_ext[DP_RECEIVER=
-_CAP_SIZE];
-> >>> =A0
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_dpcd_read(&p=
-ort->aux, DP_DOWNSTREAMPORT_PRESENT,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &downstreamport, 1) < 0)
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_read_dpcd_ca=
-ps(port->mgr->aux, dpcd_ext) < 0)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0return NULL;
-> >>> =A0
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if ((downstreamport & D=
-P_DWN_STRM_PORT_PRESENT) &&
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ((downstreamport=
- & DP_DWN_STRM_PORT_TYPE_MASK)
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if ((dpcd_ext[DP_DOWNST=
-REAMPORT_PRESENT] &
-> >>> DP_DWN_STRM_PORT_PRESENT) &&
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ((dpcd_ext[DP=
-_DOWNSTREAMPORT_PRESENT] &
-> >>> DP_DWN_STRM_PORT_TYPE_MASK)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 !=3D DP_=
-DWN_STRM_PORT_TYPE_ANALOG))
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0return port->mgr->aux;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0}
-> >>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >>> b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >>> index 860381d68d9d..a4245eb48ef4 100644
-> >>> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >>> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >>> @@ -942,6 +942,7 @@ intel_dp_mst_encoder_init(struct intel_digital_po=
-rt
-> >>> *dig_port, int conn_base_id)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct intel_dp *intel_dp =3D &dig_port->dp;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0enum port port =3D dig_port->base.port;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0int ret;
-> >>> +=A0=A0=A0=A0=A0=A0=A0int bios_max_link_rate;
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (!HAS_DP_MST(i915) || intel_dp_is_edp(inte=
-l_dp))
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> >>> @@ -956,8 +957,11 @@ intel_dp_mst_encoder_init(struct intel_digital_p=
-ort
-> >>> *dig_port, int conn_base_id)
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0/* create encoders */
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0intel_dp_create_fake_mst_encoders(dig_port);
-> >>> +=A0=A0=A0=A0=A0=A0=A0bios_max_link_rate =3D intel_bios_dp_max_link_r=
-ate(&dig_port->base);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_mst_topology_mgr_init(&intel_d=
-p->mst_mgr, &i915->drm,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &intel_dp->aux, 1=
-6, 3,
-> >>> conn_base_id);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &intel_dp->aux, 1=
-6, 3,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dig_port->max_lan=
-es,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bios_max_link_rat=
-e / 27000,
-> >>> conn_base_id);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (ret)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return ret;
-> >>> =A0
-> >>> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> >>> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> >>> index 1c9c0cdf85db..e02f9d2d74eb 100644
-> >>> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> >>> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> >>> @@ -1617,7 +1617,8 @@ nv50_mstm_new(struct nouveau_encoder *outp, str=
-uct
-> >>> drm_dp_aux *aux, int aux_max,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0mstm->mgr.cbs =3D &nv50_mstm;
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_mst_topology_mgr_init(&mstm->m=
-gr, dev, aux, aux_max,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads, con=
-n_base_id);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads, out=
-p->dcb-
-> >>> >dpconf.link_nr,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 outp->dcb->dpconf=
-.link_bw,
-> >>> conn_base_id);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (ret)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return ret;
-> >>> =A0
-> >>> diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> >>> b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> >>> index 59cf1d288465..8f0b2dccd199 100644
-> >>> --- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> >>> +++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> >>> @@ -629,13 +629,20 @@ int
-> >>> =A0radeon_dp_mst_init(struct radeon_connector *radeon_connector)
-> >>> =A0{
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct drm_device *dev =3D radeon_connector->=
-base.dev;
-> >>> +=A0=A0=A0=A0=A0=A0=A0int max_link_rate;
-> >>> =A0
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (!radeon_connector->ddc_bus->has_aux)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> >>> =A0
-> >>> +=A0=A0=A0=A0=A0=A0=A0if (radeon_connector_is_dp12_capable(&radeon_co=
-nnector->base))
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_rate =3D 0x14;
-> >>> +=A0=A0=A0=A0=A0=A0=A0else
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_rate =3D 0x0a;
-> >>> +
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0radeon_connector->mst_mgr.cbs =3D &mst_cbs;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0return drm_dp_mst_topology_mgr_init(&radeon_c=
-onnector->mst_mgr, dev,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &radeon_connec=
-tor->ddc_bus->aux,
-> >>> 16, 6,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 4, max_link_ra=
-te,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 radeon_connect=
-or->base.base.id);
-> >>> =A0}
-> >>> =A0
-> >>> diff --git a/include/drm/drm_dp_mst_helper.h
-> >>> b/include/drm/drm_dp_mst_helper.h
-> >>> index 20dc705642bd..b5b0bf37813b 100644
-> >>> --- a/include/drm/drm_dp_mst_helper.h
-> >>> +++ b/include/drm/drm_dp_mst_helper.h
-> >>> @@ -593,6 +593,14 @@ struct drm_dp_mst_topology_mgr {
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * @max_payloads: maximum number of payloads =
-the GPU can generate.
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0 */
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0int max_payloads;
-> >>> +=A0=A0=A0=A0=A0=A0=A0/**
-> >>> +=A0=A0=A0=A0=A0=A0=A0 * @max_lane_count: maximum number of lanes the=
- GPU can drive.
-> >>> +=A0=A0=A0=A0=A0=A0=A0 */
-> >>> +=A0=A0=A0=A0=A0=A0=A0int max_lane_count;
-> >>> +=A0=A0=A0=A0=A0=A0=A0/**
-> >>> +=A0=A0=A0=A0=A0=A0=A0 * @max_link_rate: maximum link rate per lane G=
-PU can output.
-> >>> +=A0=A0=A0=A0=A0=A0=A0 */
-> >>> +=A0=A0=A0=A0=A0=A0=A0int max_link_rate;
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0/**
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * @conn_base_id: DRM connector ID this mgr i=
-s connected to. Only
-> >>> used
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * to build the MST connector path value.
-> >>> @@ -765,7 +773,9 @@ struct drm_dp_mst_topology_mgr {
-> >>> =A0int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *m=
-gr,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_device *dev, struct drm_dp_aux
-> >>> *aux,
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes,
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads, int conn_base_id);
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_lane_count, int max_link_rate,
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 int conn_base_id);
-> >>> =A0
-> >>> =A0void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mg=
-r *mgr);
-> >>> =A0
-> =
-
-> -- =
-
-> Jani Nikula, Intel Open Source Graphics Center
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C96808a6aab7b40861eeb08d90a580524%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637552195438132467%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=ipBmGTX%2Fokto1zRuQ8jlDA8p%2B8BOjHZa5WGGKNJszEY%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
