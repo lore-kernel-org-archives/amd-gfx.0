@@ -2,74 +2,86 @@ Return-Path: <SRS0=nRto=KA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-20.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 758B7C433B4
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 06:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20A77C433ED
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 07:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CACC613C9
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 06:39:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CACC613C9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 893A261182
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 07:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 893A261182
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD3366E252;
-	Wed,  5 May 2021 06:39:21 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC7C26E252
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 May 2021 06:39:20 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id d14so586831edc.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 23:39:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=40qmrj+Fkf9UmO+O6G7GsprglZ4ntuNidGNAMBKyD3s=;
- b=SQq7hs8gCU1N1uFHUfg6QyUEBM8/wDLknM35D82qVgmP+ZdWmu2JrBzETkqI5kR4/i
- NQ8eMGstsIbb5Oe6xfFq9JOoY+VrHZmL06ExthAItKbt/HbHEAvVvJ9nzIItAAvdkARM
- liV/tFfZIlX53YNiJsTJBEHxt28WhurK95GU56VYe4sHn7XuPpXhihCZTSTl5yIKYbnV
- Fh03xLIibdV3GYjyBnFs4qkvv+6KLHt35s/4yeUVXDU12VRY58auxhYECJbroMEhXggI
- dXtpTUKSx+JKgRTHeoP1TWEpu/yazYnhfj8zAbGEVfR0/jz5yQoHhpCLZoV52eDGfO6o
- 5EKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=40qmrj+Fkf9UmO+O6G7GsprglZ4ntuNidGNAMBKyD3s=;
- b=bxmeKGT49ATrTvvS5lGU4nMzNJ/zMCgI9m3/6xkoVa1opo9iWrYAV33CcZm1+B4Ea2
- C5IyLF0PmMNHqU/kPT77QIj/F0BDINFev0Cy4JP/0ftsXI3AsLrEOtnOwtMoY1FijIZi
- pjrOVYgCNijpAB3RA1X/1Mo7rk6woCHT30+CfKhO3Ft5JKCGRH6IbfC0X5D6Ce8t6EZ4
- BnFFbtuA1MkEqv7/q/Lh3N/aaRnkwiQVV/3LDiDQH3vAhKVVVy6N3RJLXwYNvqA9/83f
- pY05VQLPZMb6eC0QfriGXq53Uc6xIO6kGN4cU8xXqYEb5kmhduaw99HSPh+m4tBMYtJ3
- 8DZg==
-X-Gm-Message-State: AOAM531PFVU4fuHwthjuN7nPH8g8DAGNJL8oJefi0jggWwkWYFGpnqWd
- XLmQYExxTGA65HB3WztoJJc=
-X-Google-Smtp-Source: ABdhPJyIfvxxmybRjWK4UyRUgkB+3n7skjDsorG1GteJ8HOQjz0UzQm7E5510twZj8KuNM3AUCiwng==
-X-Received: by 2002:aa7:dad7:: with SMTP id x23mr30765789eds.86.1620196759342; 
- Tue, 04 May 2021 23:39:19 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:53b:b55a:337a:bf10?
- ([2a02:908:1252:fb60:53b:b55a:337a:bf10])
- by smtp.gmail.com with ESMTPSA id n15sm2472229eje.118.2021.05.04.23.39.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 May 2021 23:39:18 -0700 (PDT)
-Subject: Re: [PATCH 0/4] Normalize redundant variables
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20210504214756.3816-1-luben.tuikov@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <c05d4983-bcb5-e735-171a-fb878c448124@gmail.com>
-Date: Wed, 5 May 2021 08:39:17 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D846E428;
+	Wed,  5 May 2021 07:19:19 +0000 (UTC)
+X-Greylist: delayed 1296 seconds by postgrey-1.36 at gabe;
+ Tue, 04 May 2021 23:04:20 UTC
+Received: from gateway21.websitewelcome.com (gateway21.websitewelcome.com
+ [192.185.45.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F36726E314
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 23:04:20 +0000 (UTC)
+Received: from cm12.websitewelcome.com (cm12.websitewelcome.com [100.42.49.8])
+ by gateway21.websitewelcome.com (Postfix) with ESMTP id 58C31400C865D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 17:42:43 -0500 (CDT)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id e3kZlUmGl1cHee3kZlSVj4; Tue, 04 May 2021 17:42:43 -0500
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NHD2xoQTwzYmJWBbKubtikwhWwOa5DlUVLlAco8SGhs=; b=Stx2M4E6RGBegu5L4KcuVzkEX4
+ Dwn6ZLdt2fhE2ckFOhaNLGYIxri/k6sJwTFCg8yNJa5DTc3sYNt6qr6uTzoTGiN7qd+Y1qEXxlobE
+ fADhcQdz6WVuX3weD78Fb8eEXsmAuxeCzi/KW9/YDnuYIFNRjmKxaqQhXh9nTRszWKmVil7LMqXe0
+ rIdfB4bRoWLaYe80cRksYI2QpFzvU2cxR2qDFzwyGnCAVY4B3llrG2eV3Xp9LooX6EcaO34QHajhv
+ pI7zCY0IG4ZdA/ZL+GipZrfv/h+yhMKQyeh75XU0NEvXWCiloFAI3efWUR0jWjdSoQyo5Ns96R/D/
+ VA5ljvMw==;
+Received: from 187-162-31-110.static.axtel.net ([187.162.31.110]:51076
+ helo=[192.168.15.8])
+ by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1le3kX-002Zcb-B3; Tue, 04 May 2021 17:42:41 -0500
+Subject: Re: [PATCH] Revert "drm/radeon/si_dpm: Replace one-element array with
+ flexible-array in struct SISLANDS_SMC_SWSTATE"
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20210504184233.2350976-1-alexander.deucher@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Message-ID: <15cc0988-0446-5423-62d7-051ccaf2936e@embeddedor.com>
+Date: Tue, 4 May 2021 17:42:58 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210504214756.3816-1-luben.tuikov@amd.com>
+In-Reply-To: <20210504184233.2350976-1-alexander.deucher@amd.com>
 Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 187.162.31.110
+X-Source-L: No
+X-Exim-ID: 1le3kX-002Zcb-B3
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 187-162-31-110.static.axtel.net ([192.168.15.8])
+ [187.162.31.110]:51076
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 2
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-Mailman-Approved-At: Wed, 05 May 2021 07:19:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,39 +93,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- John Clements <john.clements@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gZm9y
-IHRoZSBzZXJpZXMuCgpBbSAwNC4wNS4yMSB1bSAyMzo0NyBzY2hyaWViIEx1YmVuIFR1aWtvdjoK
-PiBDbGFzc2ljIG5vcm1hbGl6YXRpb24gb2YgYSByZWR1bmRhbnQgdmFyaWFibGUuCj4gVGhlcmUg
-aXMgbm8gbmVlZCB0byBoYXZlIHR3byB2YXJpYWJsZXMgcmVwcmVzZW50aW5nCj4gdGhlIHNhbWUg
-cXVhbnRpdHkuIE1vdmUgdXAgdG8gdGhlIHN0cnVjdHVyZSB3aGljaAo+IHJlcHJlc2VudHMgdGhl
-IG9iamVjdCB3aGljaCBkZXRlcm1pbmVzIHRoZWlyIHZhbHVlcy4KPiBSZW5hbWUgdG8gYSBjb25z
-aXN0ZW50IG5hbWUsIGFuZCBleHBvcnQgdG8gZGVidWdmcwo+IGZvciBkZWJ1Z2dpbmcuCj4KPiBM
-dWJlbiBUdWlrb3YgKDQpOgo+ICAgIGRybS9hbWRncHU6IFJlbW92ZSByZWR1bmRhbnQgcmFzLT5z
-dXBwb3J0ZWQKPiAgICBkcm0vYW1kZ3B1OiBNb3ZlIHVwIHJhc19od19zdXBwb3J0ZWQKPiAgICBk
-cm0vYW1kZ3B1OiBSZW5hbWUgdG8gcmFzXypfZW5hYmxlZAo+ICAgIGRybS9hbWRncHU6IEV4cG9y
-dCByYXNfKl9lbmFibGVkIHRvIGRlYnVnZnMKPgo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1LmggICAgICAgICAgIHwgIDMgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYyAgICB8ICA2ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMgICAgICAgfCAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3BzcC5jICAgICAgIHwgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yYXMuYyAgICAgICB8IDkxICsrKysrKysrKy0tLS0tLS0tLS0KPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCAgICAgICB8ICA1ICstCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jICAgICAgICAgfCAgMiArLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyAgICAgICAgICAgIHwgIDcgKy0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jICAgICB8ICA2ICstCj4g
-ICAuLi4vZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2JhY28uYyAgfCAgMiArLQo+
-ICAgLi4uL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTExL3NtdV92MTFfMC5jICAgIHwgIDMgKy0K
-PiAgIDExIGZpbGVzIGNoYW5nZWQsIDYzIGluc2VydGlvbnMoKyksIDY2IGRlbGV0aW9ucygtKQo+
-Cj4gQ2M6IEFsZXhhbmRlciBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPgo+IENj
-OiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+Cj4gQ2M6IEhhd2tpbmcgWmhh
-bmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+Hi,
+
+I thought it was this[1] the one causing problems[2].
+
+--
+Gustavo
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=434fb1e7444a2efc3a4ebd950c7f771ebfcffa31
+[2] https://lore.kernel.org/dri-devel/3eedbe78-1fbd-4763-a7f3-ac5665e76a4a@xenosoft.de/
+
+On 5/4/21 13:42, Alex Deucher wrote:
+> This reverts commit 96e27e8d919e52f30ea6b717e3cb70faa0b102cd.
+> 
+> This causes the SMU to fail to load the power state.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1583
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Gustavo A. R. Silva <gustavoars@kernel.org>
+> ---
+>  drivers/gpu/drm/radeon/si_dpm.c       |  5 +++--
+>  drivers/gpu/drm/radeon/sislands_smc.h | 10 +++++-----
+>  2 files changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+> index 918609551804..91bfc4762767 100644
+> --- a/drivers/gpu/drm/radeon/si_dpm.c
+> +++ b/drivers/gpu/drm/radeon/si_dpm.c
+> @@ -5250,9 +5250,10 @@ static int si_upload_sw_state(struct radeon_device *rdev,
+>  	int ret;
+>  	u32 address = si_pi->state_table_start +
+>  		offsetof(SISLANDS_SMC_STATETABLE, driverState);
+> +	u32 state_size = sizeof(SISLANDS_SMC_SWSTATE) +
+> +		((new_state->performance_level_count - 1) *
+> +		 sizeof(SISLANDS_SMC_HW_PERFORMANCE_LEVEL));
+>  	SISLANDS_SMC_SWSTATE *smc_state = &si_pi->smc_statetable.driverState;
+> -	size_t state_size = struct_size(smc_state, levels,
+> -					new_state->performance_level_count);
+>  
+>  	memset(smc_state, 0, state_size);
+>  
+> diff --git a/drivers/gpu/drm/radeon/sislands_smc.h b/drivers/gpu/drm/radeon/sislands_smc.h
+> index fbd6589bdab9..966e3a556011 100644
+> --- a/drivers/gpu/drm/radeon/sislands_smc.h
+> +++ b/drivers/gpu/drm/radeon/sislands_smc.h
+> @@ -182,11 +182,11 @@ typedef struct SISLANDS_SMC_HW_PERFORMANCE_LEVEL SISLANDS_SMC_HW_PERFORMANCE_LEV
+>  
+>  struct SISLANDS_SMC_SWSTATE
+>  {
+> -	uint8_t                             flags;
+> -	uint8_t                             levelCount;
+> -	uint8_t                             padding2;
+> -	uint8_t                             padding3;
+> -	SISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
+> +    uint8_t                             flags;
+> +    uint8_t                             levelCount;
+> +    uint8_t                             padding2;
+> +    uint8_t                             padding3;
+> +    SISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[1];
+>  };
+>  
+>  typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
+> 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
