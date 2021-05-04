@@ -8,58 +8,60 @@ X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FAE6C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 231A2C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2C816117A
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2C816117A
+	by mail.kernel.org (Postfix) with ESMTPS id DCF54601FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCF54601FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF156EB65;
-	Tue,  4 May 2021 19:16:19 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B76D96EB63;
- Tue,  4 May 2021 19:16:17 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id i11so9819111oig.8;
- Tue, 04 May 2021 12:16:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 902026EB69;
+	Tue,  4 May 2021 19:21:32 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E46376EB69;
+ Tue,  4 May 2021 19:21:31 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id d21so7774724oic.11;
+ Tue, 04 May 2021 12:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BRdBRW+o9Ai+DQFYSW89RtTHfHNn9agjE1x322TlyYU=;
- b=YFh8/z0qssn1bDst6eQniGRWqA1rbFmsUe/5XvGdnPgWEEx0miL0Ow1LmuL8mzhBWy
- D6j1b0mybesUhYhK+V/0BOsRQz0Nja4e+ScRLBvNf/TsHzKbH9gqkvkcqvMcri5oRDUI
- VarX+fs785iqHINhFykZAwK/atw908NM5Ko5uwdWqNht1gyFbDe6z2pBbrl+Ms/uVHO5
- ikBO2hO/FLDzc53OKIupBI3q1NvK7ar4zsNAaESgDWgJWCWxwmugTVz6H3PIPClGSLVY
- WKAqDPVV+8cObeoLx94t3Bin01e7vfGERcwEc8Dzb7KkoluGkaVk9jvx6cVuJ1lC0rna
- 9d5w==
+ :cc; bh=l0MpBQXXQXovBmumhU+vevXuEERixPQDIBphGMJ/1Eg=;
+ b=eS9ZIMjKfbA79gkqM/if0o/ll0b0hJg4orJQPJNRFHk7eYNAbu8O/2wS892rhv/0i0
+ ydt7KLieBtrj44E712kqAVQIiJ/mTOsrTzGB8ohvG6HSoZfZEs1rUyhZHv+s8On1/n9Y
+ WUNnW8cdZzFM5sYmOR5BF+BYrCvEoH2DXPjr6p1YQmIlqypJ7w7aNwz2yjaaU+JERf9Y
+ 8RJuZS8q69DExe7dpglbq+PIoBtNixQR88bJM7+qdO7xaXIM8N+/LZ9Tq7mukJxUrDnC
+ nnbXiXCDvG4OhqkvobGzMduzQ/1ZlAtXUi979RvD/2Bk93iQNjNT233LXmSIDPBUPPBF
+ qx5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=BRdBRW+o9Ai+DQFYSW89RtTHfHNn9agjE1x322TlyYU=;
- b=STKO7jUPVmunVQ/T44J5VA+XnKwLv7yRVs4047KtcIpAir1CH4ON071pN2Q4dOXggU
- Vw3VEskfO931MEj3/kM1p3PEWEKetYFxZyL6TB/0GBSvRu4aI9X+E/EFVn8wDPKtnbqL
- k/40fYVVv8SsgLSYtqVmXQOEc2nrX1oiLmYOLkVxGm4JSG21wVjIF+3oCIbxEIGhhhvD
- ljWYyLit9OYeOM9kRbZO6JVs9l/56LvT4ateX36uYy69D9V4lzTOwhVlwLkYu/Et5wiD
- zfzZ2KNodTqUehwyqtD/0Gl0SfF64otfeF6lFSOrBIbi5bGyuvlI+VJ5WL2z/exS4JtL
- INtA==
-X-Gm-Message-State: AOAM532uMSQf6ngyUfoPEoEuwrHCiiZgGMTmSf8Myqp6XNTAbLaPIsdS
- tCPIcu6LtF4r7v6ixLu8lK3C6YUNnCwgv6H2fY0=
-X-Google-Smtp-Source: ABdhPJya2bVj9h7KBqRQ3GTlSw15Uqe2pIFXZ6Bx+WDG+eu/A9eQ8xpig33j58f5r+Ek7yQJYrWPW2qQXLC9cX9BkUE=
-X-Received: by 2002:aca:c08a:: with SMTP id q132mr3946514oif.5.1620155777060; 
- Tue, 04 May 2021 12:16:17 -0700 (PDT)
+ bh=l0MpBQXXQXovBmumhU+vevXuEERixPQDIBphGMJ/1Eg=;
+ b=ILRixHVkna3IleylT7sOMge6M9WEAy/VAD6lxMXnrMCBPLWRSUYv4/H/VnWi19T8eo
+ rV/KgjfKJ/LmzG5aiY3ZB4OOtY94r+V4m5uHxzQyeETEnLD9xIsYtXfc9nirAllVj3Hb
+ K3Y7HeyHPW10pZAHvplkpN5dgyCezjeEuoNNvNFNO0ButhDtfdUW32YqtYDmHIhRBojI
+ otU7tX3cRNMpGPEVjKSfanot2IvIJn6M26B7JOTmymnwnVWxJO0/5mVUelYN+NuuKe6J
+ 6SJrFi0Vqf8qg3n1HG+6cMG6EjMrKpAwu86h6DLFcu4UdGS5e4Cdprgmc53hBEtU7Ynd
+ RzeQ==
+X-Gm-Message-State: AOAM532UPkghiDlmu81SEhSFbZoQVZO/K/5dXNgnUzJBP/6+5IRdHsBM
+ tj9B8Vcnr11pQMx3JnvDm0Aqb3RgF/uBkd6F+rI=
+X-Google-Smtp-Source: ABdhPJywFB9WXlrVjqngMggBTfwS/CosEWD+ccvn0Upp/auCBQw09pw14KzZN0/jk1umIf2aCBqXfO/ZcKNq5aix8v8=
+X-Received: by 2002:a05:6808:68a:: with SMTP id
+ k10mr18402833oig.120.1620156090910; 
+ Tue, 04 May 2021 12:21:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210430171654.3326745-1-trix@redhat.com>
-In-Reply-To: <20210430171654.3326745-1-trix@redhat.com>
+References: <20210427094449.14730-1-fmdefrancesco@gmail.com>
+In-Reply-To: <20210427094449.14730-1-fmdefrancesco@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 May 2021 15:16:06 -0400
-Message-ID: <CADnq5_NN0DRKcZvpsOPjeHn3Nrppc=bNAAAXs_ws8xCmaQfQpw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: initialize variable
-To: Tom Rix <trix@redhat.com>
+Date: Tue, 4 May 2021 15:21:20 -0400
+Message-ID: <CADnq5_NGWrsxaxJqE+_y7Lm4Fdx=BkZYAaYWz_VACAVSgV-ivQ@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/amdgpu/amdgpu_drv.c: Replace
+ drm_modeset_lock_all with drm_modeset_lock
+To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,32 +73,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, Kevin Wang <kevin1.wang@amd.com>,
- Huang Rui <ray.huang@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Matthew Wilcox <willy@infradead.org>, David Airlie <airlied@linux.ie>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Powell, Darren" <darren.powell@amd.com>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Quan,
- Evan" <evan.quan@amd.com>, Christian Koenig <christian.koenig@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>, outreachy-kernel@googlegroups.com,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ shaoyunl <shaoyun.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 30, 2021 at 2:05 PM <trix@redhat.com> wrote:
+On Tue, Apr 27, 2021 at 5:45 AM Fabio M. De Francesco
+<fmdefrancesco@gmail.com> wrote:
 >
-> From: Tom Rix <trix@redhat.com>
+> drm_modeset_lock_all() is not needed here, so it is replaced with
+> drm_modeset_lock(). The crtc list around which we are looping never
+> changes, therefore the only lock we need is to protect access to
+> crtc->state.
 >
-> Static analysis reports this problem
->
-> amdgpu_pm.c:478:16: warning: The right operand of '<' is a garbage value
->   for (i = 0; i < data.nums; i++) {
->                 ^ ~~~~~~~~~
->
-> In some cases data is not set.  Initialize to 0 and flag not setting
-> data as an error with the existing check.
->
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> Suggested-by: Daniel Vetter <daniel@ffwll.ch>
+> Suggested-by: Matthew Wilcox <willy@infradead.org>
+> Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 
 Applied.  Thanks!
 
@@ -104,29 +107,48 @@ Alex
 
 
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 4e459ef632ef..9a54066ec0af 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -451,7 +451,7 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
->         struct drm_device *ddev = dev_get_drvdata(dev);
->         struct amdgpu_device *adev = drm_to_adev(ddev);
->         const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -       struct pp_states_info data;
-> +       struct pp_states_info data = {0};
->         enum amd_pm_state_type pm = 0;
->         int i = 0, ret = 0;
+> Changes from v3: CC'ed more (previously missing) maintainers.
+> Changes from v2: Drop file name from the Subject. Cc'ed all maintainers.
+> Changes from v1: Removed unnecessary braces around single statement
+> block.
 >
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 80130c1c0c68..39204dbc168b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1595,17 +1595,15 @@ static int amdgpu_pmops_runtime_idle(struct device *dev)
+>         if (amdgpu_device_has_dc_support(adev)) {
+>                 struct drm_crtc *crtc;
+>
+> -               drm_modeset_lock_all(drm_dev);
+> -
+>                 drm_for_each_crtc(crtc, drm_dev) {
+> -                       if (crtc->state->active) {
+> +                       drm_modeset_lock(&crtc->mutex, NULL);
+> +                       if (crtc->state->active)
+>                                 ret = -EBUSY;
+> +                       drm_modeset_unlock(&crtc->mutex);
+> +                       if (ret < 0)
+>                                 break;
+> -                       }
+>                 }
+>
+> -               drm_modeset_unlock_all(drm_dev);
+> -
+>         } else {
+>                 struct drm_connector *list_connector;
+>                 struct drm_connector_list_iter iter;
 > --
-> 2.26.3
+> 2.31.1
 >
 > _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
