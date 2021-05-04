@@ -7,54 +7,54 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D16C2C43460
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 21:48:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C3D4C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 21:48:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B5B2613D2
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 21:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B5B2613D2
+	by mail.kernel.org (Postfix) with ESMTPS id BF7BE613BE
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 21:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF7BE613BE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E22186EB76;
-	Tue,  4 May 2021 21:48:23 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7AD6EB92
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 21:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1227B6EB92;
+	Tue,  4 May 2021 21:48:25 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295AB6EB95
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 21:48:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f8huBGZgzzgkDeh1NfhHOOFd5rfNGafJqo7FJDtqduK47/IFv5b3nsgO7pPm24VkCx6k2/Tf8ExWrkD0hL/tGGij+S6HnWmI5r9SBNyH6mbATaf7KiJtVB4dO/FSibBVP6C0gDmfz049ODeBOP+A6SNqWlhZk4pAwuZnnIlwvNwQpKSkRUkxXio3B8JjIVf/ZZPF7TWxkEiwnuMVxbdBaRYsU5u0meRyY/SrFbPb9iScNfHsvqnqgqduSiCJkVGEDGSUwQ/ljNeJqb4VSb7S0kbbtIB23NFHy+74sUgycuy/vXJnOa4z02GE8CJxpDMlnYndKH5AzffTAK+eDK/PrA==
+ b=MxbcssaTeueUtXsxlkzPvpMi0raDhp/vSVjSW8+v1m8goQ/uGs1ZlW3kVs4m76T1ysbv89IBOlHlXiMQDGCF2cela9NVoCTJlZaL0A+LsNOoPSAi17zTG3cQPQJ+CM0XR/tJoC0dZ1veS8Wmni7X6DZ2oOfsREc6FumXyo1toPi14LBISPvftXMLt96kpsSjuRg+pFkxY3vbvAEglnUMsO8YU8mTH2+rDBNtbk+Edy8ybG/wW3OIneGBMjQv7uFk5/t8koSO201K00YaGZCdum/g81T3xShltx950KMTIJ4rpJGF3DG6A/HuTx5oswBOc7F17YsgvpISGFar2Kme0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V3aLPStNSDYdJUdXKOC/rK7FjuXkZH6GZDreV3jysqg=;
- b=NwgopIikoGTeMAyd38q/KEJY49gQw2x7GDeWo+TxjObFlXIhEwhC1J7AlF0XkJk8HdMpchBeWexBSTDvjFne6vmKtO8pTYRgkm/D7bbmZyTEwdlqxM4o2t1wAdC3vmn7EhRnBiHVxGvUEbECTShGGs7gGtc2HqqNO9Mi+gVM3PtMMdO3I4YFaA8R58SGEH15Bq+8oLldPavymn2gE2SWiLoZrsPbTlcQu19t29xhit7X720HCRv0Uw92HXLQnaBAnmmwoRQFFUFe6ypfvE22/cHQOLjCmG8iuil0Mm3YPGk5lBoUi5QLkd+Bkdx8QfdtsnCimmj8mA8t7eJJrYvcqQ==
+ bh=dkUQXx6NFymqhFPYsJqqyzqIv++GakQwhgeQjF3XUck=;
+ b=Rhm9j4ROwDlEq9l5q1UQQLJb7AhlqhvbmZG4ZvO9Q5CaU2rvyjhke145ksYsLgoPzi1kMysEeV7I1CE5pxYiEg7MRKD9Pq0qzIzoObdr0HyaBc3NU2uXFtPG5XjjzZbH2eR/QaKQJfB8LsEyIGSq+Rw2b/u+puZYsltXFd0JFBavKoCB5kcLaSKrXR/sEnnVFwH77BX9DeA4H8Ag1rIK8ZEi1AEP2DSURAgRsSA25vseWHnROxJhROLMiw6om+q9xiI7ttmzXhvLSkoQt1F67pbd+iGUGxcMJK4yc7QHF3dCaBluyIGpQEvcL86pSffZG9ikTuht0+G8iintOctc2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V3aLPStNSDYdJUdXKOC/rK7FjuXkZH6GZDreV3jysqg=;
- b=qT6BlNFuzeDzC2+YgVCvXi5y4NUowLvR7FzPG0Y06yAP8xAHGXHwIRJ1wHMJsf66AhCywZYyH2uuJW9phSWXnj5m1blB3g+ge6u9//3geZZIziW2YpKqnCQPLRhygv4KJCc4cdqg3ZmMpJO6WM2wxnSpGXYA60nnyT6IPg2Vme0=
+ bh=dkUQXx6NFymqhFPYsJqqyzqIv++GakQwhgeQjF3XUck=;
+ b=L4NtNTpcIKPuYOn4jrwAP5cwL7USZN9p7Xdywt9UoEfsYaCxM2Fq2Y4lGJC8lsldVeK/3rZREGWZ84xhUNtipMqthq4jm4ycmtHveRbcHZr/4PYYkZau8XnblOETB3cYV8VKa4KJ3botoNOTwabEsZ3GzHxYX89WUPOO9uMj1do=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB4155.namprd12.prod.outlook.com (2603:10b6:5:221::15) with
+ by DM5PR12MB1867.namprd12.prod.outlook.com (2603:10b6:3:10d::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.41; Tue, 4 May
- 2021 21:48:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.35; Tue, 4 May
+ 2021 21:48:21 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::142:82e3:7e9d:55a0%6]) with mapi id 15.20.4108.024; Tue, 4 May 2021
- 21:48:20 +0000
+ 21:48:21 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/amdgpu: Remove redundant ras->supported
-Date: Tue,  4 May 2021 17:47:53 -0400
-Message-Id: <20210504214756.3816-2-luben.tuikov@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: Move up ras_hw_supported
+Date: Tue,  4 May 2021 17:47:54 -0400
+Message-Id: <20210504214756.3816-3-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.31.0.97.g1424303384
 In-Reply-To: <20210504214756.3816-1-luben.tuikov@amd.com>
 References: <20210504214756.3816-1-luben.tuikov@amd.com>
@@ -67,53 +67,53 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (108.162.138.69) by
  YT1PR01CA0091.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4087.38 via Frontend Transport; Tue, 4 May 2021 21:48:20 +0000
+ 15.20.4087.38 via Frontend Transport; Tue, 4 May 2021 21:48:21 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7002e13d-0a6b-44b6-7f0b-08d90f465578
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4155:
+X-MS-Office365-Filtering-Correlation-Id: de53f844-3e6f-404e-ef3a-08d90f4655fd
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1867:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB41559939DA644DD1A677099B995A9@DM6PR12MB4155.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1867F37C1B483AFCA2140C67995A9@DM5PR12MB1867.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: N9ZfFpLCf/ilOQbhA9B39CqQuDz2S/hqbXkFmCCfWwCodq5KbGexKh6yX+xiwbV8xO8WHzyUvboWLkKuTWJtiBtsr32kQr+8mURC0koRbSJ4jAjEwPfFSctbhLbqT15HkZI/7OITR/5ugP8IwTgFLlKmyaoZ4dAUi31egHuQHf7Ed5hv4Aah3aNhrj2HCp0AIMKuEEhxfMDkIK3MFmRY3YTDFexW5RvDeZpvu30NnxCzPQMsRR5aNPmwFEe85XPOAuxPNJp/sGPFT9l/MFuk9PmYXq6r74J+4ySWe3+ExcF4S119iJ46w3MO0s0smAF77UEBwdYvHU7+es9/7K6hOrTHS8/n07xp8fAaEAR0q48anDP1c9lUIHb0NbNZzLL772hjlVK752bAN6oGtJ89yauBfFHSE1ErvhHOJwrEPqyl/uqpxn4CPMMZdhnsWgYk8Iir4h79L268OT6J7fcoxJfU3s6Ixl5MPd9qDDveSm7+11Tu58i74XISZglreCxWYWCIKxyOGc/oQAuYh3jTJ5oNd4EPrN40uDQoKJvLoZ4WTB3GqaTCKJo+VKrxPxbyvmk5e0kNnV/YlDoEccKobF3qS17dhlgF4kStWHDQbJrDcasaYDusEYxxCpjX20AGeHhjThMKQlazEMr9qJvPOP8EKpQbT1zgVHJHTpqerNpfT0aTY9uC6YnCjczMZt87
+X-Microsoft-Antispam-Message-Info: X06+30l7xLj/UZ7bXD3TcJfgB0VQeU7f6w8aGFWLZ8dZatpYUL3hKEAAQEXAmlFX6vRNQbTEFHx4zWEz4/iGcJPxZZHlux7F5PcrzaZMR/4YAV6F35R45xsP914qQb0wJ0AfFD8rbEbyBLPtLPM3B25r8z9q15BagDr1Ums1dar4KJmW7cGNxLacM53hq8r32mmWYlcfzTUBI2aDRPLpIwqDmjI8LJQvjclwdE7nH0pimeFjoYbwdW4Eh5iI14Mar0o0O5Y2mvdby9ATKfQpMhGCxrYQNqXVQ3YphpHFb018hrDwrXZbZgHI5z5XRq6BNRMIAAQ/sDCBEZkL+CbDpm5pb3hveuFbSNWKOQxqlmopm+FlYSfSi7Ywnb+eu8KFoNMlSnAW6/0O5XIQRzsKIS7LzDL565P69hZeQ/27pZrUMVP44koHfwLxhSOPSfZHocRSynI7LYKiG1jsHLUvx5lWQrwMFL8mrgiygGPt8jOCRSP4B96Ri9/3qvfMM0ZB05MO8IgTmtezUUec4vqPO2VCR6fCJuP0raAVNao0GoE8XNGs6f6flZXdkmL6kCETbSyO+JvPCByUvr+fG517YKrZBCcuXb7/8gPCHfCLGMqY0y7hlLlhBZjWSGIJ7kaHEZw/5jNilIDpCE+eXHW/iX1kKVdbHl+BB1+K8BrbIXqjpYxWmE+0kHt2KGL51ygb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(39860400002)(396003)(366004)(376002)(478600001)(83380400001)(66476007)(6486002)(2906002)(186003)(2616005)(6666004)(44832011)(5660300002)(36756003)(4326008)(16526019)(316002)(26005)(55236004)(6506007)(66946007)(52116002)(86362001)(8676002)(8936002)(956004)(6512007)(38100700002)(54906003)(66556008)(6916009)(38350700002)(1076003)(69590400013);
+ SFS:(4636009)(376002)(396003)(39860400002)(366004)(136003)(346002)(26005)(5660300002)(86362001)(54906003)(316002)(2906002)(16526019)(478600001)(6666004)(38100700002)(44832011)(36756003)(6916009)(1076003)(8676002)(2616005)(4326008)(6512007)(186003)(66476007)(66556008)(83380400001)(66946007)(52116002)(956004)(6506007)(55236004)(8936002)(6486002)(38350700002)(69590400013);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?2X/SgwisY5NkJ9bPgQkhbKYoYgkbDoDlGTH3OEiF/pkOmPULB9x567xp2K96?=
- =?us-ascii?Q?HB3TTJ0JSVEMuGd9NXPKy3QnOgbKc0+4Bkh5muxKrnA/C9ZvWTF00a8+9kZS?=
- =?us-ascii?Q?iVeXi4CaKau4DvOXnHFA+gGYZBY6aETymYLDqJM0mp1tupXG9phTBzL+8aOG?=
- =?us-ascii?Q?XHiWgodTIKpFvzir64QtnTycJiE7e8Nsm9rX8ks8MiOVFN1jxqS1vSdXhmei?=
- =?us-ascii?Q?OW3wA7mWdwjdOph3tkFKTKYrqdXFenTVjAhShjUlCnkcwEt6mYA0ZA/H7i5j?=
- =?us-ascii?Q?p3zLuovr85eahVpCKuGSlDTCQwfW+Np0a4srRysAuZiJM/IDN/8IaY569MBe?=
- =?us-ascii?Q?rNcHjk7hJzeyxZ16v9g6+RylEeun1xDi2VNi/m6SnJd/UoxAYGOHfl4dW2uD?=
- =?us-ascii?Q?TrlKTtG+AgvkNOZkGkjssLJDe9vAKD8ZWUpW7KVTUZxpoDCFbKZ1aQFZBCkR?=
- =?us-ascii?Q?FcWy7gXz+V262xmTraVqJRrwsI+42X41yKoxvQ8YtAsNCi+CPHkL7MIIJiNu?=
- =?us-ascii?Q?ommfT/HAokShQIxy5C36wa/xTAsSxnVFgoJXdXAcx8Dpb2GOsOnVMSHJK75C?=
- =?us-ascii?Q?oWYm0Au3XRwYXmlO7fE0xrPwzMJuVnrQH3a0BWz+D8MZB9pLy8ujzk7Ug8x6?=
- =?us-ascii?Q?6aoyAiFx0zvqh1ME4FqVXnwhzUj1eXkmF7H50kNphuurB/E6N9g+PmCpFTUI?=
- =?us-ascii?Q?wxficJRs2uRB/BCH+e0TzUJm8K1pSAppz359vPwY329Vi6EiqQU9NAr7Bp3Z?=
- =?us-ascii?Q?6/koR9U9EhOSgGZ1Iof/DW4QrDhux/WtM2IKwVJRwjmopcEXZi6DREaeJK9G?=
- =?us-ascii?Q?O+kWGbf4aRM5p2teMmmX1XVqfwqZmQwyUy18XfFzi8eOvP5Z46Ox+7tPTBII?=
- =?us-ascii?Q?3GPUhKRuqPvVfezGE28Egfw+HO1WnSvH3SCYWB9m8TbUPfA3vkFdqrcEVRS9?=
- =?us-ascii?Q?xKY0URAOy0r+IdAI6426QW3WN8gEtIOAHsyRrmCiRvx2oWJLxOUh1svOmtAG?=
- =?us-ascii?Q?5zfyVaWspSi/9aU8SKBZtYxgEUqlZpNljfV/RjYNb+dmXRmlzIbCeN5GE5to?=
- =?us-ascii?Q?14R1badZbwJ4awlGS9EWWqGXaOB4TmbCUILYpyh1E6eE6VIn5gxw8MwhwSm2?=
- =?us-ascii?Q?OiaGPZwI6jH43a3E4daqgVjf7Mm32fVUYasCV0bgS01IrK3v04sse8u6Hkhh?=
- =?us-ascii?Q?g8+J6KdTvEYzOMNHxeAueg2/0ZPdTkj25apgK0/m1eLUabA+SfyW9Cw4g7De?=
- =?us-ascii?Q?hCkUN6kQRTek1oUDK/iSN2ML8iWuAnJTT8NEAD92tCdDk/t7tEneZemFsMP+?=
- =?us-ascii?Q?qSp1r8eTXw+3ZvRSpgn3ADQS?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?KCA+hlW6yCDAydrqZrE36WN26RowlNFrgBVVjZSbcmTq8fgzIvIw9i26mT/5?=
+ =?us-ascii?Q?ip4lLFW17COO6xAdmJEWQNlydtpI9pxBlfhjKrW4OxMjZFvjDiHurseE7XA8?=
+ =?us-ascii?Q?IOZr9CMLnH6wN/Tqjj+iUZdd0EtjyUbQISNP6ALCXkAJjv1TmSvDnOkFUsaT?=
+ =?us-ascii?Q?aQNwEcDwZPyz8wYaZjJBJwu/yx9mZjS3CEsjmtzDWD0qpP3MV/TNqFharUHY?=
+ =?us-ascii?Q?K8RgfgO4PgwAurNaZpfQpKAddvK6rR0SFmddhi1YSJqyfZ72iZmBHg0LH9hQ?=
+ =?us-ascii?Q?/oUA0FUq7XBN93aDdyWG/2r5P2u//t2IeDdqM77xE9G7UGW8ORac3njd9c+o?=
+ =?us-ascii?Q?pQ3Ee+1T07huT//CCXlmohcE6tLEm0VvwJegyQL5ZH413mKLJRvLa8mLyow/?=
+ =?us-ascii?Q?pgwbYh1pq9uRUCywTs3LbI8axLgWC+rTKuB9xK2DfnkiQG4DF9GdmALcBt4o?=
+ =?us-ascii?Q?Zhi4JSkD4jStKeUYsE1fNT29190Nk4qvKTzR0mY8iKlJcRYeq7THi8I9RDwI?=
+ =?us-ascii?Q?3/E04IIFJQiyz37V6RgAeWe0bW+CiDJSyylJ9U6MtLcJCwkB6F/Liia79i6w?=
+ =?us-ascii?Q?JS2+wh5VF9/0aNYHtwBTavhjr+CGqtNXvaKAdTWskamJ/3/+EjdmZ/MioTIq?=
+ =?us-ascii?Q?NEtaoq5g+e/CrxVSoSOLBxGIZwZawMGbE1DZH+koUJWoReLZ3CvKkuQSVj78?=
+ =?us-ascii?Q?NiYuqvC6SN+kRPK8fXu00YFyfPgV6P8naLxCjiyABalRaDlF44qdi//AHSq3?=
+ =?us-ascii?Q?jj+eBm4rq1bhbwGfqBkCsdCBXEs9R/G+CdZF1huFg07RgUPmq03WSwdskCb7?=
+ =?us-ascii?Q?qr6+u1R9dtZhmlP3QmJcuNb5x5v743Z4fdDpZcdrHL/dDKlIx6ycHnekUUoL?=
+ =?us-ascii?Q?tvCE+RFoQ2PPkztfrKGEQmFfGMRSizthik01irHZnoQvrao0R+B9xJ1G0hLz?=
+ =?us-ascii?Q?gdRvBm78hSjexDlB8uAU/n5jn6m+t1qwT+QR+N4CwNtzxzV/QuwklaSNg7bm?=
+ =?us-ascii?Q?UcK1YRPMCWHzAT8igXT25oYBZyWYBUY5wmAIAPbFBJqSuUdcB9Msdi8tDZpM?=
+ =?us-ascii?Q?WWRbdWG1izKrA/abQt3GaOrONHRqugBHbXtyvcMqTUbgzKNS2EbX3LM7ks1U?=
+ =?us-ascii?Q?CoTS3CGiujXEDr1EjxqhCTTUvwcOURGkbpcNzfEGaBayleS12kC6N6LWNQ5i?=
+ =?us-ascii?Q?9DlOjZVbmwZUoMRkOGbdEKQ+/JcKzN6fFzwoHCa/T3kufl7n5Ej7FIerSq5B?=
+ =?us-ascii?Q?UXHGXhJxj+HwkaSDrvZGk617G9vZCYnBcU6syNhtPRF8iZ9WEm+K9W87b1hu?=
+ =?us-ascii?Q?nJOt5b/W4VqvteJfsL8NyYJJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7002e13d-0a6b-44b6-7f0b-08d90f465578
+X-MS-Exchange-CrossTenant-Network-Message-Id: de53f844-3e6f-404e-ef3a-08d90f4655fd
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2021 21:48:20.9091 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2021 21:48:21.5907 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4miy73OxipAQ0OwXFMqmL7wcYlK9rAqMxsromirHIdyoljWwOvOEBlgWS1+GTMip
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4155
+X-MS-Exchange-CrossTenant-UserPrincipalName: toQJt/IJvh36VDWZ50CcU11sdx3ACvdBbkTOfUJQ6LJNNnoMoG8U2Lb88kk6t3sL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1867
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,200 +133,190 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove redundant ras->supported, as this value
-is also stored in adev->ras_features.
+Move ras_hw_supported into struct amdgpu_dev.
+The dependency is:
+struct amdgpu_ras <== struct amdgpu_dev <== ASIC,
+read as "struct amdgpu_ras depends on struct
+amdgpu_dev, which depends on the hardware."
 
-Use adev->ras_features, as that supercedes "ras",
-since the latter is its member.
-
-The dependency goes like this:
-ras <== adev->ras_features <== hw_supported,
-and is read as "ras depends on ras_features, which
-depends on hw_supported." The arrows show the flow
-of information, i.e. the dependency update.
-
-"hw_supported" should also live in "adev".
+This can be loosely understood as, "if RAS is
+supported, which is property of the ASIC (struct
+amdgpu_dev), then we can access struct
+amdgpu_ras."
 
 Cc: Alexander Deucher <Alexander.Deucher@amd.com>
 Cc: John Clements <john.clements@amd.com>
 Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c           | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c              | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c              | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c              | 9 ++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h              | 4 +---
- drivers/gpu/drm/amd/amdgpu/soc15.c                   | 7 ++++---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c       | 3 ++-
- 8 files changed, 18 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 58 +++++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  1 -
+ 3 files changed, 28 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 357f9405f1aa..80631f999fce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5110,7 +5110,8 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
- 	if (!amdgpu_device_supports_baco(adev_to_drm(adev)))
- 		return -ENOTSUPP;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 125b25a5ce5b..3aaf2a12949f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1076,7 +1076,8 @@ struct amdgpu_device {
  
--	if (ras && ras->supported && adev->nbio.funcs->enable_doorbell_interrupt)
-+	if (ras && adev->ras_features &&
-+	    adev->nbio.funcs->enable_doorbell_interrupt)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
+ 	atomic_t			throttling_logging_enabled;
+ 	struct ratelimit_state		throttling_logging_rs;
+-	uint32_t			ras_features;
++	uint32_t                        ras_hw_supported;
++	uint32_t                        ras_features;
  
- 	return amdgpu_dpm_baco_enter(adev);
-@@ -5129,7 +5130,8 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
- 	if (ret)
- 		return ret;
- 
--	if (ras && ras->supported && adev->nbio.funcs->enable_doorbell_interrupt)
-+	if (ras && adev->ras_features &&
-+	    adev->nbio.funcs->enable_doorbell_interrupt)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index abd9bfa419ea..0327ac403423 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1005,7 +1005,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 		if (!ras)
- 			return -EINVAL;
--		ras_mask = (uint64_t)ras->supported << 32 | ras->features;
-+		ras_mask = (uint64_t)adev->ras_features << 32 | ras->features;
- 
- 		return copy_to_user(out, &ras_mask,
- 				min_t(u64, size, sizeof(ras_mask))) ?
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 17b728d2c1f2..4885b718cb6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2146,7 +2146,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
- 		return 0;
- 
- 	if ((amdgpu_in_reset(adev) &&
--	     ras && ras->supported &&
-+	     ras && adev->ras_features &&
- 	     (adev->asic_type == CHIP_ARCTURUS ||
- 	      adev->asic_type == CHIP_VEGA20)) ||
- 	     (adev->in_runpm &&
+ 	bool                            in_pci_err_recovery;
+ 	struct pci_saved_state          *pci_state;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index ebbe2c5190c4..a484ac6a8399 100644
+index a484ac6a8399..7a4916e30945 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2130,9 +2130,8 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev,
- 	/* hw_supported needs to be aligned with RAS block mask. */
- 	*hw_supported &= AMDGPU_RAS_BLOCK_MASK;
+@@ -611,11 +611,9 @@ static void amdgpu_ras_parse_status_code(struct amdgpu_device *adev,
  
--	*supported = amdgpu_ras_enable == 0 ?
--			0 : *hw_supported & amdgpu_ras_mask;
--	adev->ras_features = *supported;
-+	*supported = amdgpu_ras_enable == 0 ? 0 :
-+		*hw_supported & amdgpu_ras_mask;
+ /* feature ctl begin */
+ static int amdgpu_ras_is_feature_allowed(struct amdgpu_device *adev,
+-		struct ras_common_if *head)
++					 struct ras_common_if *head)
+ {
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-
+-	return con->hw_supported & BIT(head->block);
++	return adev->ras_hw_supported & BIT(head->block);
+ }
+ 
+ static int amdgpu_ras_is_feature_enabled(struct amdgpu_device *adev,
+@@ -2069,8 +2067,7 @@ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
+  * force enable gfx ras, ignore vbios gfx ras flag
+  * due to GC EDC can not write
+  */
+-static void amdgpu_ras_get_quirks(struct amdgpu_device *adev,
+-		uint32_t *hw_supported)
++static void amdgpu_ras_get_quirks(struct amdgpu_device *adev)
+ {
+ 	struct atom_context *ctx = adev->mode_info.atom_context;
+ 
+@@ -2078,8 +2075,8 @@ static void amdgpu_ras_get_quirks(struct amdgpu_device *adev,
+ 		return;
+ 
+ 	if (strnstr(ctx->vbios_version, "D16406",
+-				sizeof(ctx->vbios_version)))
+-			*hw_supported |= (1 << AMDGPU_RAS_BLOCK__GFX);
++		    sizeof(ctx->vbios_version)))
++		adev->ras_hw_supported |= (1 << AMDGPU_RAS_BLOCK__GFX);
+ }
+ 
+ /*
+@@ -2091,11 +2088,9 @@ static void amdgpu_ras_get_quirks(struct amdgpu_device *adev,
+  * we have to initialize ras as normal. but need check if operation is
+  * allowed or not in each function.
+  */
+-static void amdgpu_ras_check_supported(struct amdgpu_device *adev,
+-		uint32_t *hw_supported, uint32_t *supported)
++static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
+ {
+-	*hw_supported = 0;
+-	*supported = 0;
++	adev->ras_hw_supported = adev->ras_features = 0;
+ 
+ 	if (amdgpu_sriov_vf(adev) || !adev->is_atom_fw ||
+ 	    !amdgpu_ras_asic_supported(adev))
+@@ -2104,34 +2099,34 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev,
+ 	if (!adev->gmc.xgmi.connected_to_cpu) {
+ 		if (amdgpu_atomfirmware_mem_ecc_supported(adev)) {
+ 			dev_info(adev->dev, "MEM ECC is active.\n");
+-			*hw_supported |= (1 << AMDGPU_RAS_BLOCK__UMC |
+-					1 << AMDGPU_RAS_BLOCK__DF);
++			adev->ras_hw_supported |= (1 << AMDGPU_RAS_BLOCK__UMC |
++						   1 << AMDGPU_RAS_BLOCK__DF);
+ 		} else {
+ 			dev_info(adev->dev, "MEM ECC is not presented.\n");
+ 		}
+ 
+ 		if (amdgpu_atomfirmware_sram_ecc_supported(adev)) {
+ 			dev_info(adev->dev, "SRAM ECC is active.\n");
+-			*hw_supported |= ~(1 << AMDGPU_RAS_BLOCK__UMC |
+-					1 << AMDGPU_RAS_BLOCK__DF);
++			adev->ras_hw_supported |= ~(1 << AMDGPU_RAS_BLOCK__UMC |
++						    1 << AMDGPU_RAS_BLOCK__DF);
+ 		} else {
+ 			dev_info(adev->dev, "SRAM ECC is not presented.\n");
+ 		}
+ 	} else {
+ 		/* driver only manages a few IP blocks RAS feature
+ 		 * when GPU is connected cpu through XGMI */
+-		*hw_supported |= (1 << AMDGPU_RAS_BLOCK__GFX |
+-				1 << AMDGPU_RAS_BLOCK__SDMA |
+-				1 << AMDGPU_RAS_BLOCK__MMHUB);
++		adev->ras_hw_supported |= (1 << AMDGPU_RAS_BLOCK__GFX |
++					   1 << AMDGPU_RAS_BLOCK__SDMA |
++					   1 << AMDGPU_RAS_BLOCK__MMHUB);
+ 	}
+ 
+-	amdgpu_ras_get_quirks(adev, hw_supported);
++	amdgpu_ras_get_quirks(adev);
+ 
+ 	/* hw_supported needs to be aligned with RAS block mask. */
+-	*hw_supported &= AMDGPU_RAS_BLOCK_MASK;
++	adev->ras_hw_supported &= AMDGPU_RAS_BLOCK_MASK;
+ 
+-	*supported = amdgpu_ras_enable == 0 ? 0 :
+-		*hw_supported & amdgpu_ras_mask;
++	adev->ras_features = amdgpu_ras_enable == 0 ? 0 :
++		adev->ras_hw_supported && amdgpu_ras_mask;
  }
  
  int amdgpu_ras_init(struct amdgpu_device *adev)
-@@ -2154,7 +2153,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+@@ -2152,9 +2147,9 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 
  	amdgpu_ras_set_context(adev, con);
  
- 	amdgpu_ras_check_supported(adev, &con->hw_supported,
--			&con->supported);
-+				   &adev->ras_features);
- 	if (!con->hw_supported || (adev->asic_type == CHIP_VEGA10)) {
+-	amdgpu_ras_check_supported(adev, &con->hw_supported,
+-				   &adev->ras_features);
+-	if (!con->hw_supported || (adev->asic_type == CHIP_VEGA10)) {
++	amdgpu_ras_check_supported(adev);
++
++	if (!adev->ras_hw_supported || adev->asic_type == CHIP_VEGA10) {
  		/* set gfx block ras context feature for VEGA20 Gaming
  		 * send ras disable cmd to ras ta during ras late init.
-@@ -2210,7 +2209,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 		 */
+@@ -2208,8 +2203,9 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	}
  
  	dev_info(adev->dev, "RAS INFO: ras initialized successfully, "
- 			"hardware ability[%x] ras_mask[%x]\n",
--			con->hw_supported, con->supported);
-+			con->hw_supported, adev->ras_features);
+-			"hardware ability[%x] ras_mask[%x]\n",
+-			con->hw_supported, adev->ras_features);
++		 "hardware ability[%x] ras_mask[%x]\n",
++		 adev->ras_hw_supported, adev->ras_features);
++
  	return 0;
  release_con:
  	amdgpu_ras_set_context(adev, NULL);
+@@ -2415,10 +2411,8 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 
+ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ {
+-	uint32_t hw_supported, supported;
+-
+-	amdgpu_ras_check_supported(adev, &hw_supported, &supported);
+-	if (!hw_supported)
++	amdgpu_ras_check_supported(adev);
++	if (!adev->ras_hw_supported)
+ 		return;
+ 
+ 	if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) == 0) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 60df268a0c66..3e830dc1a33d 100644
+index 3e830dc1a33d..f60d1cfafa3e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -314,8 +314,6 @@ struct amdgpu_ras {
+@@ -313,7 +313,6 @@ struct ras_common_if {
+ struct amdgpu_ras {
  	/* ras infrastructure */
  	/* for ras itself. */
- 	uint32_t hw_supported;
--	/* for IP to check its ras ability. */
--	uint32_t supported;
+-	uint32_t hw_supported;
  	uint32_t features;
  	struct list_head head;
  	/* sysfs */
-@@ -478,7 +476,7 @@ static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,
- 
- 	if (block >= AMDGPU_RAS_BLOCK_COUNT)
- 		return 0;
--	return ras && (ras->supported & (1 << block));
-+	return ras && (adev->ras_features & (1 << block));
- }
- 
- int amdgpu_ras_recovery_init(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 28e9f6b726a6..29c8ee267990 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -655,7 +655,7 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
- 	int ret = 0;
- 
- 	/* avoid NBIF got stuck when do RAS recovery in BACO reset */
--	if (ras && ras->supported)
-+	if (ras && adev->ras_features)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
- 
- 	ret = amdgpu_dpm_baco_reset(adev);
-@@ -663,7 +663,7 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
- 		return ret;
- 
- 	/* re-enable doorbell interrupt after BACO exit */
--	if (ras && ras->supported)
-+	if (ras && adev->ras_features)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
- 
- 	return 0;
-@@ -710,7 +710,8 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
- 		 * 1. PMFW version > 0x284300: all cases use baco
- 		 * 2. PMFW version <= 0x284300: only sGPU w/o RAS use baco
- 		 */
--		if ((ras && ras->supported) && adev->pm.fw_version <= 0x283400)
-+		if (ras && adev->ras_features &&
-+		    adev->pm.fw_version <= 0x283400)
- 			baco_reset = false;
- 		break;
- 	case CHIP_ALDEBARAN:
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-index 2a28c9df15a0..f6b1efce450c 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-@@ -85,7 +85,7 @@ int vega20_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state)
- 		return 0;
- 
- 	if (state == BACO_STATE_IN) {
--		if (!ras || !ras->supported) {
-+		if (!ras || !adev->ras_features) {
- 			data = RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL);
- 			data |= 0x80000000;
- 			WREG32_SOC15(THM, 0, mmTHM_BACO_CNTL, data);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 6274cae4a065..72581e43d83e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1531,7 +1531,8 @@ int smu_v11_0_baco_set_state(struct smu_context *smu, enum smu_baco_state state)
- 								      NULL);
- 			break;
- 		default:
--			if (!ras || !ras->supported || adev->gmc.xgmi.pending_reset) {
-+			if (!ras || !adev->ras_features ||
-+			    adev->gmc.xgmi.pending_reset) {
- 				if (adev->asic_type == CHIP_ARCTURUS) {
- 					data = RREG32_SOC15(THM, 0, mmTHM_BACO_CNTL_ARCT);
- 					data |= 0x80000000;
 -- 
 2.31.0.97.g1424303384
 
