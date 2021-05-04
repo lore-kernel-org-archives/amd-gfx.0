@@ -2,67 +2,73 @@ Return-Path: <SRS0=AKuh=J7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B126CC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA275C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 20:23:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42237613C6
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 19:22:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42237613C6
+	by mail.kernel.org (Postfix) with ESMTPS id 9C45161059
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 20:23:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C45161059
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D320A6EB6B;
-	Tue,  4 May 2021 19:22:46 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8054E6EB6B;
- Tue,  4 May 2021 19:22:45 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- g15-20020a9d128f0000b02902a7d7a7bb6eso2524916otg.9; 
- Tue, 04 May 2021 12:22:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 374A86E221;
+	Tue,  4 May 2021 20:23:37 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E05C86E221
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 20:23:35 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ f75-20020a9d03d10000b0290280def9ab76so9399755otf.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 13:23:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OxhkXQH7eIfKy25nqi1qtUtgNEekDlVBh8mfZ3Ysbu4=;
- b=V7LOgsxsHtvIAf0Mk/WcgEN5dV6B+vCgZYgcZu0Vnxxp0tuXK8aMQiknrpigs5I5y9
- zbESnUojO/aPUx/hWSdnYThb9i8xqIPd05Ss5bUdJaH5v0BfbovRVAnp1LZP1nlhqlmc
- Hcn4Qcdn7K//JLVweRcdakSHPKSh0BOMs9TmZGQz4fM3X8HqNI+leSVEVd9W6jXHsFG0
- ise6TyMJCzM2z4JIatHW4znJcHEapx4gykRWmBRsrmEH7/08HlpzG0BoiDsELoyCRPuT
- n+GqQso0Hy6js/R7DdbnOiHuv5hYQ/m2ZmTjSfL9tFtF+5dqiNpTAH7WydQf3BtdNQ6L
- ht8Q==
+ :cc:content-transfer-encoding;
+ bh=v+90mTOzU7ogoAVmjMuf8Kpt6CNm/t4PIDzFo3oa/0I=;
+ b=lkjKsMt6rS3sLaj5d3ZjW2boR3NNLIi/AxywMzd4PHna8Bqg4zJCXHZhCSVc4QIAYf
+ unZg0LoHDkAVSDQnD4QXWlupXOc4OZ48FHsd49Vk2oR2h0dWFPN478Ns7yhLGn7Lz/ZL
+ dDxkg/PHGZk1o+DuhbBwtYUp/aRaCaeyfVsSUuqdYQHyhW/+6xLnQFAFoTCN3djV5ol7
+ i4EEkdZd5WjGcoDf/oXX5or5nZEsJ5wdAE1walpKbv1I57D14Oqe90+GzLXqjyCBVhCf
+ UA+NN3H05AOTgGcDOSQ8fMt+ihQ8ygIxNXOJWAaHZ/+fQ6ufjnS0qlcnq71e9zZsnZJE
+ fDVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OxhkXQH7eIfKy25nqi1qtUtgNEekDlVBh8mfZ3Ysbu4=;
- b=d0ma40/MjWcJcy6K/n7LBP0VgMXNuKIv6IIjLJe7Ux8kF+hy9bzXFmOYAlbfwxJSN5
- TdcI7vC4kzrUipeVuCINbUF+yAVUkTlAyNrnVHFSQr3lJ+QlIRCi7ppw133rRj6QbXXU
- aRF7xnTA+Y0SqwbvQljpBIoL9zu9VTgmU4+dK4JyL63RdhsdDJgBzcj5r6LVgOv/iyQ+
- T9m8szltT13gNvARAFn3c1VOmmKwclAQIfc15wopm6VJz2IOSCf95Lh9fDPCC/jr0fVN
- qgHxoq+egad67hsjwiKc901yIUlIjkT0vVgK2ospJaPGOfz69clGN86nsijvrqFN+1M+
- hTdA==
-X-Gm-Message-State: AOAM533fUHQwt1eQFyASymYjGaAqczrB0h18TK7XE6kYOmvP4We+g8lP
- QRjarNQGSFvcEHr4rPJZUbyBihsfOskUYFowmSo=
-X-Google-Smtp-Source: ABdhPJzDYZdmqpF3D9yq8+KoQV2vfZo9Yf3qKGqvu+SFLlSN3Am81fQ7OLbKA3qohBAPTTgl6+bVnf27Jfln13aXRjs=
-X-Received: by 2002:a9d:8d1:: with SMTP id 75mr20821928otf.23.1620156164799;
- Tue, 04 May 2021 12:22:44 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=v+90mTOzU7ogoAVmjMuf8Kpt6CNm/t4PIDzFo3oa/0I=;
+ b=i1WUTtJxZ096li23GJY48MwqkrQ/N0FeAvJGj9D0QzprZeInZthI1hlriz5PKsDEUk
+ NZla/oJHuzZ0+fywvxl46OEuBGu7kVm6zUJeA3ebna1IbxnGkW/OhSFAg6YuVibGOPJ5
+ JkCq0lwvjzXVC8ZLjii/nc7R0PyyLfh693xJRXlXzmBOlXYwCTPYRFavQxAGZbOTcO/1
+ g129DyL8sxcUgLSjAJixyc1sDosIJIPpFpZElEZWeSSa/4i5hlxykCMjq0NuaJvOu6fw
+ s9+TV6Zmk1CaHrtdpwu4agwvEFKuZfevTbiZZ/jf3fMmdS0x8pyiuIEVegvjjTSd8vFj
+ hyAw==
+X-Gm-Message-State: AOAM533aABY1dacWeu4gAaOgvaT/IvCtWsPRQqxfW80y3YM9ZdKV9bFr
+ kDCg8cf3t4mRdpSSaaOmU19iNoXpYcrKCfLLY/Y2SEJd
+X-Google-Smtp-Source: ABdhPJxMTnjzfrHcurWujuxxPeu005Vs9lYUzl70lSE6naRjaB6fDkMDdzRFAk5zepKgmf/OxI1Sb+FI1QrIGyL4l/o=
+X-Received: by 2002:a9d:4e04:: with SMTP id p4mr9329850otf.311.1620159815057; 
+ Tue, 04 May 2021 13:23:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210319210317.32369-1-mario.kleiner.de@gmail.com>
- <CAEsyxygq1k4pTT-8ASuJn=rSzHBXyhy5jRStoBVmniR2B_MrJg@mail.gmail.com>
- <CADnq5_OtKZ3=pZR_F4zx2Bz1zvEzuxb4fQU41c-XTBT8-H4Byw@mail.gmail.com>
- <CADnq5_P16wMm4gyZJYndkVtLs5n85o95u3jm6DdU7mN7+o6P9w@mail.gmail.com>
-In-Reply-To: <CADnq5_P16wMm4gyZJYndkVtLs5n85o95u3jm6DdU7mN7+o6P9w@mail.gmail.com>
+References: <20210426062701.39732-1-Roy.Sun@amd.com>
+ <8b8ec884-5b0b-3409-b7b0-be7da43e3e71@gmail.com>
+ <MN2PR12MB4488F5277BF26669E8D8673BF7429@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <MN2PR12MB44884F5635594C3F53D3F865F7429@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <df0aa92d-87b9-7c27-f06f-9e1a10cead5d@gmail.com>
+ <MN2PR12MB44880E0C0FA8C75D7E28884AF7429@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <BY5PR12MB41150F5816B764A3E619AB4F8F409@BY5PR12MB4115.namprd12.prod.outlook.com>
+ <8529a53a-66ed-60a1-9ae4-279524e5a57f@gmail.com>
+In-Reply-To: <8529a53a-66ed-60a1-9ae4-279524e5a57f@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 May 2021 15:22:33 -0400
-Message-ID: <CADnq5_NgkXaV2s6K5cq6yijg0cT+a6ySdg33z5imYkt6n89grg@mail.gmail.com>
-Subject: Re: 16 bpc fixed point (RGBA16) framebuffer support for core and AMD.
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 4 May 2021 16:23:23 -0400
+Message-ID: <CADnq5_PUo1iCOV37LT=sJuC5edFWL1256DG4vHh7_kBOT9HfRA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/scheduler: Change scheduled fence track
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,123 +80,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Deng,
+ Emily" <Emily.Deng@amd.com>, "Sun, Roy" <Roy.Sun@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Nieto,
+ David M" <David.Nieto@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 28, 2021 at 5:21 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Tue, Apr 20, 2021 at 5:25 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Fri, Apr 16, 2021 at 12:29 PM Mario Kleiner
-> > <mario.kleiner.de@gmail.com> wrote:
-> > >
-> > > Friendly ping to the AMD people. Nicholas, Harry, Alex, any feedback?
-> > > Would be great to get this in sooner than later.
-> > >
-> >
-> > No objections from me.
-> >
->
-> I don't have any objections to merging this.  Are the IGT tests available?
->
-
-Any preference on whether I merge this through the AMD tree or drm-misc?
-
-Alex
-
-
-> Alex
->
-> > Alex
-> >
-> >
-> > > Thanks and have a nice weekend,
-> > > -mario
-> > >
-> > > On Fri, Mar 19, 2021 at 10:03 PM Mario Kleiner
-> > > <mario.kleiner.de@gmail.com> wrote:
-> > > >
-> > > > Hi,
-> > > >
-> > > > this patch series adds the fourcc's for 16 bit fixed point unorm
-> > > > framebuffers to the core, and then an implementation for AMD gpu's
-> > > > with DisplayCore.
-> > > >
-> > > > This is intended to allow for pageflipping to, and direct scanout of,
-> > > > Vulkan swapchain images in the format VK_FORMAT_R16G16B16A16_UNORM.
-> > > > I have patched AMD's GPUOpen amdvlk OSS driver to enable this format
-> > > > for swapchains, mapping to DRM_FORMAT_XBGR16161616:
-> > > > Link: https://github.com/kleinerm/pal/commit/a25d4802074b13a8d5f7edc96ae45469ecbac3c4
-> > > >
-> > > > My main motivation for this is squeezing every bit of precision
-> > > > out of the hardware for scientific and medical research applications,
-> > > > where fp16 in the unorm range is limited to ~11 bpc effective linear
-> > > > precision in the upper half [0.5;1.0] of the unorm range, although
-> > > > the hardware could do at least 12 bpc.
-> > > >
-> > > > It has been successfully tested on AMD RavenRidge (DCN-1), and with
-> > > > Polaris11 (DCE-11.2). Up to two displays were active on RavenRidge
-> > > > (DP 2560x1440@144Hz + HDMI 2560x1440@120Hz), the maximum supported
-> > > > on my hw, both running at 10 bpc DP output depth.
-> > > >
-> > > > Up to three displays were active on the Polaris (DP 2560x1440@144Hz +
-> > > > 2560x1440@100Hz USB-C DP-altMode-to-HDMI converter + eDP 2880x1800@60Hz
-> > > > Apple Retina panel), all running at 10 bpc output depth.
-> > > >
-> > > > No malfunctions, visual artifacts or other oddities were observed
-> > > > (apart from an adventureous mess of cables and adapters on my desk),
-> > > > suggesting it works.
-> > > >
-> > > > I used my automatic photometer measurement procedure to verify the
-> > > > effective output precision of 10 bpc DP native signal + spatial
-> > > > dithering in the gpu as enabled by the amdgpu driver. Results show
-> > > > the expected 12 bpc precision i hoped for -- the current upper limit
-> > > > for AMD display hw afaik.
-> > > >
-> > > > So it seems to work in the way i hoped :).
-> > > >
-> > > > Some open questions wrt. AMD DC, to be addressed in this patch series, or follow up
-> > > > patches if neccessary:
-> > > >
-> > > > - For the atomic check for plane scaling, the current patch will
-> > > > apply the same hw limits as for other rgb fixed point fb's, e.g.,
-> > > > for 8 bpc rgb8. Is this correct? Or would we need to use the fp16
-> > > > limits, because this is also a 64 bpp format? Or something new
-> > > > entirely?
-> > > >
-> > > > - I haven't added the new fourcc to the DCC tables yet. Should i?
-> > > >
-> > > > - I had to change an assert for DCE to allow 36bpp linebuffers (patch 4/5).
-> > > > It looks to me as if that assert was inconsistent with other places
-> > > > in the driver where COLOR_DEPTH121212 is supported, and looking at
-> > > > the code, the change seems harmless. At least on DCE-11.2 the change
-> > > > didn't cause any noticeable (by myself) or measurable (by my equipment)
-> > > > problems on any of the 3 connected displays.
-> > > >
-> > > > - Related to that change, while i needed to increase lb pixelsize to 36bpp
-> > > > to get > 10 bpc effective precision on DCN, i didn't need to do that
-> > > > on DCE. Also no change of lb pixelsize was needed on either DCN or DCe
-> > > > to get > 10 bpc precision for fp16 framebuffers, so something seems to
-> > > > behave differently for floating point 16 vs. fixed point 16. This all
-> > > > seems to suggest one could leave lb pixelsize at the old 30 bpp value
-> > > > on at least DCE-11.2 and still get the > 10 bpc precision if one wanted
-> > > > to avoid the changes of patch 4/5.
-> > > >
-> > > > Thanks,
-> > > > -mario
-> > > >
-> > > >
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGlkIHlvdSBwdXNoIHRoaXMgeWV0PyAgSSBkb24ndCBzZWUgaXQgaW4gZHJtLW1pc2MuCgpUaGFu
+a3MsCgpBbGV4CgpPbiBXZWQsIEFwciAyOCwgMjAyMSBhdCA1OjA2IEFNIENocmlzdGlhbiBLw7Zu
+aWcKPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPgo+IFdlbGwgbm9u
+ZS4gQXMgSSBzYWlkIEkgd2lsbCBwdXNoIHRoaXMgdXBzdHJlYW0gdGhyb3VnaCBkcm0tbWlzYy1u
+ZXh0Lgo+Cj4gQ2hyaXN0aWFuLgo+Cj4gQW0gMjguMDQuMjEgdW0gMTA6MzIgc2NocmllYiBEZW5n
+LCBFbWlseToKPgo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRp
+b24gT25seV0KPgo+Cj4gSGkgQWxleCBhbmQgQ2hyaXN0aWFuLAo+Cj4gV2hhdCBleHRyYSB3b3Jr
+IFJveSBuZWVkIHRvIGRvIGFib3V0IHRoaXMgcGF0Y2g/IEFuZCBmZGluZm8/Cj4KPgo+Cj4gQmVz
+dCB3aXNoZXMKPgo+IEVtaWx5IERlbmcKPgo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBEZXVjaGVyLCBBbGV4YW5kZXIK
+PiBTZW50OiBUdWVzZGF5LCBBcHJpbCAyNywgMjAyMSAzOjUyIEFNCj4gVG86IENocmlzdGlhbiBL
+w7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+IENjOiBTdW4sIFJveSA8
+Um95LlN1bkBhbWQuY29tPjsgYW1kLWdmeCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZz47IE5pZXRvLCBEYXZpZCBNIDxEYXZpZC5OaWV0b0BhbWQuY29tPgo+IFN1YmplY3Q6IFJl
+OiBbUEFUQ0ggMS8yXSBkcm0vc2NoZWR1bGVyOiBDaGFuZ2Ugc2NoZWR1bGVkIGZlbmNlIHRyYWNr
+Cj4KPgo+Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBP
+bmx5XQo+Cj4KPgo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRp
+b24gT25seV0KPgo+Cj4KPiBGYWlyIHBvaW50LiAgRWl0aGVyIHdheSB3b3JrcyBmb3IgbWUuCj4K
+Pgo+Cj4gQWxleAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPgo+IEZyb206
+IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+IFNl
+bnQ6IE1vbmRheSwgQXByaWwgMjYsIDIwMjEgMzo0OCBQTQo+IFRvOiBEZXVjaGVyLCBBbGV4YW5k
+ZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBTdW4sIFJveSA8Um95LlN1bkBhbWQuY29tPjsgTmll
+dG8sIERhdmlkIE0gPERhdmlkLk5pZXRvQGFtZC5jb20+Cj4gU3ViamVjdDogUmU6IFtQQVRDSCAx
+LzJdIGRybS9zY2hlZHVsZXI6IENoYW5nZSBzY2hlZHVsZWQgZmVuY2UgdHJhY2sKPgo+Cj4KPiBN
+eSBjb25jZXJuIGlzIG1vcmUgdG8gZ2V0IHRoaXMgdGVzdGVkIGZyb20gbW9yZSBwZW9wbGUgdGhh
+biBqdXN0IEFNRC4KPgo+IENocmlzdGlhbi4KPgo+IEFtIDI2LjA0LjIxIHVtIDIxOjQwIHNjaHJp
+ZWIgRGV1Y2hlciwgQWxleGFuZGVyOgo+Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVy
+bmFsIERpc3RyaWJ1dGlvbiBPbmx5XQo+Cj4KPgo+IFRoYXQgc2FpZCwgaXQgd291bGQgYmUgZWFz
+aWVyIGZvciBtZSB0byBtZXJnZSB0aHJvdWdoIHRoZSBBTUQgdHJlZSBzaW5jZSBhIHJlbGF0aXZl
+bHkgYmlnIEFNRCBmZWF0dXJlIGRlcGVuZHMgb24gaXQuICBOb3Qgc3VyZSBob3cgbXVjaCBjb25m
+bGljdCBwb3RlbnRpYWwgdGhlcmUgaXMgaWYgdGhpcyBnb2VzIHRocm91Z2ggdGhlIEFNRCB0cmVl
+Lgo+Cj4KPgo+IEFsZXgKPgo+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
+Cj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g
+b24gYmVoYWxmIG9mIERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
+bT4KPiBTZW50OiBNb25kYXksIEFwcmlsIDI2LCAyMDIxIDM6MjQgUE0KPiBUbzogQ2hyaXN0aWFu
+IEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+Cj4gQ2M6IGFtZC1nZngg
+bGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBTdW4sIFJveSA8Um95LlN1bkBh
+bWQuY29tPjsgTmlldG8sIERhdmlkIE0gPERhdmlkLk5pZXRvQGFtZC5jb20+Cj4gU3ViamVjdDog
+UmU6IFtQQVRDSCAxLzJdIGRybS9zY2hlZHVsZXI6IENoYW5nZSBzY2hlZHVsZWQgZmVuY2UgdHJh
+Y2sKPgo+Cj4KPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9u
+IE9ubHldCj4KPgo+Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1
+dGlvbiBPbmx5XQo+Cj4KPgo+IE5vIG9iamVjdGlvbnMgZnJvbSBtZS4KPgo+Cj4KPiBUaGFua3Mh
+Cj4KPgo+Cj4gQWxleAo+Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4K
+PiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNv
+bT4KPiBTZW50OiBNb25kYXksIEFwcmlsIDI2LCAyMDIxIDI6NDkgQU0KPiBUbzogRGV1Y2hlciwg
+QWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPgo+IENjOiBOaWV0bywgRGF2aWQg
+TSA8RGF2aWQuTmlldG9AYW1kLmNvbT47IFN1biwgUm95IDxSb3kuU3VuQGFtZC5jb20+OyBhbWQt
+Z2Z4IGxpc3QgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+IFN1YmplY3Q6IFJlOiBb
+UEFUQ0ggMS8yXSBkcm0vc2NoZWR1bGVyOiBDaGFuZ2Ugc2NoZWR1bGVkIGZlbmNlIHRyYWNrCj4K
+Pgo+Cj4gSGV5IEFsZXgsCj4KPiBhbnkgb2JqZWN0aW9ucyB0aGF0IHdlIG1lcmdlIHRob3NlIHR3
+byBwYXRjaGVzIHRocm91Z2ggZHJtLW1pc2MtbmV4dD8KPgo+IFRoYW5rcywKPiBDaHJpc3RpYW4u
+Cj4KPiBBbSAyNi4wNC4yMSB1bSAwODoyNyBzY2hyaWViIFJveSBTdW46Cj4gPiBVcGRhdGUgdGhl
+IHRpbWVzdGFtcCBvZiBzY2hlZHVsZWQgZmVuY2Ugb24gSFcKPiA+IGNvbXBsZXRpb24gb2YgdGhl
+IHByZXZpb3VzIGZlbmNlcwo+ID4KPiA+IFRoaXMgYWxsb3cgbW9yZSBhY2N1cmF0ZSB0cmFja2lu
+ZyBvZiB0aGUgZmVuY2UKPiA+IGV4ZWN1dGlvbiBpbiBIVwo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6
+IERhdmlkIE0gTmlldG8gPGRhdmlkLm5pZXRvQGFtZC5jb20+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBS
+b3kgU3VuIDxSb3kuU3VuQGFtZC5jb20+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL3Nj
+aGVkdWxlci9zY2hlZF9tYWluLmMgfCAxMiArKysrKysrKysrLS0KPiA+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDEwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jIGIvZHJpdmVycy9ncHUvZHJt
+L3NjaGVkdWxlci9zY2hlZF9tYWluLmMKPiA+IGluZGV4IDkyZDhkZTI0ZDBhMS4uZjhlMzlhYjBj
+NDFiIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWlu
+LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gPiBA
+QCAtNTE1LDcgKzUxNSw3IEBAIHZvaWQgZHJtX3NjaGVkX3Jlc3VibWl0X2pvYnMoc3RydWN0IGRy
+bV9ncHVfc2NoZWR1bGVyICpzY2hlZCkKPiA+ICAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfcmVz
+dWJtaXRfam9icyk7Cj4gPgo+ID4gICAvKioKPiA+IC0gKiBkcm1fc2NoZWRfcmVzdWJtaXRfam9i
+c19leHQgLSBoZWxwZXIgdG8gcmVsdW5jaCBjZXJ0YWluIG51bWJlciBvZiBqb2JzIGZyb20gbWly
+cm9yIHJpbmcgbGlzdAo+ID4gKyAqIGRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzX2V4dCAtIGhlbHBl
+ciB0byByZWxhdW5jaCBjZXJ0YWluIG51bWJlciBvZiBqb2JzIGZyb20gcGVuZGluZyBsaXN0Cj4g
+PiAgICAqCj4gPiAgICAqIEBzY2hlZDogc2NoZWR1bGVyIGluc3RhbmNlCj4gPiAgICAqIEBtYXg6
+IGpvYiBudW1iZXJzIHRvIHJlbGF1bmNoCj4gPiBAQCAtNjcxLDcgKzY3MSw3IEBAIGRybV9zY2hl
+ZF9zZWxlY3RfZW50aXR5KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gPiAgIHN0
+YXRpYyBzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqCj4gPiAgIGRybV9zY2hlZF9nZXRfY2xlYW51cF9q
+b2Ioc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCkKPiA+ICAgewo+ID4gLSAgICAgc3Ry
+dWN0IGRybV9zY2hlZF9qb2IgKmpvYjsKPiA+ICsgICAgIHN0cnVjdCBkcm1fc2NoZWRfam9iICpq
+b2IsICpuZXh0Owo+ID4KPiA+ICAgICAgICAvKgo+ID4gICAgICAgICAqIERvbid0IGRlc3Ryb3kg
+am9icyB3aGlsZSB0aGUgdGltZW91dCB3b3JrZXIgaXMgcnVubmluZyAgT1IgdGhyZWFkCj4gPiBA
+QCAtNjkwLDYgKzY5MCwxNCBAQCBkcm1fc2NoZWRfZ2V0X2NsZWFudXBfam9iKHN0cnVjdCBkcm1f
+Z3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gPiAgICAgICAgaWYgKGpvYiAmJiBkbWFfZmVuY2VfaXNf
+c2lnbmFsZWQoJmpvYi0+c19mZW5jZS0+ZmluaXNoZWQpKSB7Cj4gPiAgICAgICAgICAgICAgICAv
+KiByZW1vdmUgam9iIGZyb20gcGVuZGluZ19saXN0ICovCj4gPiAgICAgICAgICAgICAgICBsaXN0
+X2RlbF9pbml0KCZqb2ItPmxpc3QpOwo+ID4gV2UganVzdCBuZWVkIHRvIHJlY29yZCB0aGUgc2No
+ZWR1bGVkIHRpbWUgb2YgdGhlIG5leHQgam9iLiBTbyB3ZQo+ID4gbmVlZCBub3QgdG8gY2hlY2sg
+dGhlIHJlc3Qgam9iLgo+ID4gKyAgICAgICAgICAgICAvKiBhY2NvdW50IGZvciB0aGUgbmV4dCBm
+ZW5jZSBpbiB0aGUgcXVldWUgKi8KPiA+ICsgICAgICAgICAgICAgbmV4dCA9IGxpc3RfZmlyc3Rf
+ZW50cnlfb3JfbnVsbCgmc2NoZWQtPnBlbmRpbmdfbGlzdCwKPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHN0cnVjdCBkcm1fc2NoZWRfam9iLCBsaXN0KTsKPiA+ICsgICAgICAgICAg
+ICAgaWYgKG5leHQgJiYgdGVzdF9iaXQoRE1BX0ZFTkNFX0ZMQUdfVElNRVNUQU1QX0JJVCwKPiA+
+ICsgICAgICAgICAgICAgICAgICAgICAmam9iLT5zX2ZlbmNlLT5maW5pc2hlZC5mbGFncykpIHsK
+PiA+ICsgICAgICAgICAgICAgICAgICAgICBuZXh0LT5zX2ZlbmNlLT5zY2hlZHVsZWQudGltZXN0
+YW1wID0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGpvYi0+c19mZW5jZS0+Zmlu
+aXNoZWQudGltZXN0YW1wOwo+ID4gKyAgICAgICAgICAgICB9Cj4gPiAgICAgICAgfSBlbHNlIHsK
+PiA+ICAgICAgICAgICAgICAgIGpvYiA9IE5VTEw7Cj4gPiAgICAgICAgICAgICAgICAvKiBxdWV1
+ZSB0aW1lb3V0IGZvciBuZXh0IGpvYiAqLwo+Cj4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
