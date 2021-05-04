@@ -2,68 +2,64 @@ Return-Path: <SRS0=AKuh=J7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69E10C433ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 09:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 41A3BC433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 13:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F33A613BE
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 09:43:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F33A613BE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	by mail.kernel.org (Postfix) with ESMTPS id 00FC0613BC
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 13:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00FC0613BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05B366E1CE;
-	Tue,  4 May 2021 09:43:34 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF276E1CE
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 09:43:32 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id l13so7030967wru.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 02:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=L/C9gArl2m+YWCqna7d4IVELdSHJhPz5felu8sJRcm4=;
- b=iPVdY9iBS9VRI78iVNTPZPFKwTPJQGk7iOT42Ycl4nSWUM7GIPy0S/1IGiPyoEqY3R
- 3OWpHL2UlqJh6wwsKM5QcENSg0TZLbnndeF/NA8nSQgb8m9HdMUF+L81lk3y80llL5o2
- KN0NoH9ykQQ8djLt92Kxh9c/s71DhTT1j78L4K+x5kT6WTbFqT+xGO6u3OV41hOjHCCt
- nNLDmaG228M2+4QJi9XN/Hrr3jL5OHEErjIRzhuYpn+lBXudEEog099uJEsSrfaF7rAx
- P6ERSHYRj6rLyz3g2IlD3FR69vUEpUYUNma4xRWDNy8ax/QKm1jOJSauOnkImujFjiST
- T7MA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id F404D6EAD4;
+	Tue,  4 May 2021 13:00:38 +0000 (UTC)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F056EAD4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 13:00:36 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ n32-20020a9d1ea30000b02902a53d6ad4bdso8103684otn.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 06:00:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=e08hAJ6bdI2gXW2f978xthch9Y1e0U6MDJjD0AVqsuY=;
+ b=aIhp2H6fCPLTSh8Zss/AzHFBPfPG7rgNAPi0J3qnYtLcLqj/CxLaWcVI6MC9eNsPhc
+ SmvYsTqiNU4+HeJaDq0Hltg4ImOas7go77ZJ2lK5qVDlsuQ70XZkcuaMAUIppey7DqMW
+ x8HqJZ5/2hQILMUX8+RIs0XP5Z7dVgYXhER9w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=L/C9gArl2m+YWCqna7d4IVELdSHJhPz5felu8sJRcm4=;
- b=WnVQuyXNXQ8MQnMkG5FqemkBzZ6Z1lltXkokXfulFIl9naan6sWdfOq/JPmhBnd9nD
- O9tR/BlQZnLEUoMcAjqBqG5LWx8vWZsu9r6SuTK+rKZGpJSksMgyIbmXt8DXDbeRLQoi
- Cnk1C6hjwZiWUn3P3pZRUu9caLa0B4eblrpyYKN6fg4CIwodmlIz1T0bzGbgrgOLsjz7
- e9z71JAGzHVPDoZzvzJoO0OK0EfWebdhhRIX6pg7m2uc99AYRv0LcNmmgdy7VQy81ZAx
- Owhkm5pUNrFnA3Uezd1WiYPbzBbGYzTPOHtgslic94cRb+08G8C6UwfmIYnCnso9uKRW
- 5DJQ==
-X-Gm-Message-State: AOAM5305Yizq4GcNSmCrQcy5LZW8Y/e9qp4r5j5vJzArE3cIOLYFXI70
- UoM85Qp0T5a4mYWL5pBoekTD8IY4XZthqw==
-X-Google-Smtp-Source: ABdhPJximLingRQ75hubz9TjWAAzYaY3vuwbXJrz6lh8yYpBKTvUaXQuuiq5kj/o1vZg/BQafCpEZA==
-X-Received: by 2002:a5d:5488:: with SMTP id h8mr29900245wrv.81.1620121411072; 
- Tue, 04 May 2021 02:43:31 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a77f:2000:7285:c2ff:fe67:a82f])
- by smtp.gmail.com with ESMTPSA id i11sm15504530wrp.56.2021.05.04.02.43.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 May 2021 02:43:30 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Use device specific BO size & stride check.
-Date: Tue,  4 May 2021 11:43:34 +0200
-Message-Id: <20210504094334.1162856-1-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.31.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e08hAJ6bdI2gXW2f978xthch9Y1e0U6MDJjD0AVqsuY=;
+ b=CZmJvsprVB4bvy1fZD/PtzR14GOS63PCjF6dEVHG90fOM9eiHzUvF3P+rU6JSsKXSZ
+ 25seNr9dlR2umT0Q49/aTqMGXB52ILqxLnzYlTiBHVn6Ivf31NM0r0DnK/oLSP+IQnF0
+ 3hVfm1MAxOC3b79sRhnKlJYmrtRF1Khf5nBcUtURG50Kul5+deqJhFaromhPyto37BJa
+ MVJDLMWUYcYFWKbvNc5zVeXKv6nyDr20Znav3mfMf9tN0jEJ85PGjk1cdXZAArVP9smI
+ PlY/8q1LhQPHpw6nrz9heGwqQcMMIEfrEj2O2tdkoobKJElCnmvDDsHLHwkGmAtJ6Prv
+ GQQg==
+X-Gm-Message-State: AOAM532D1dVUYu1atI9bY13yjlkqYGoiJwLhbXRxdUgOZa9EmgTfn3yF
+ UeC9RqqG5Zo2WCOtMey1ZyW29XOcoifSpXbymECMVg==
+X-Google-Smtp-Source: ABdhPJwvQcZsXcenghmF3/5PPwh0Ll1C9oHzzzduL8oMCzqQj1cb52AkMWz95rcX9RaEQ6NCZU5G6rr/AczY4A943o8=
+X-Received: by 2002:a05:6830:1398:: with SMTP id
+ d24mr19425482otq.281.1620133236081; 
+ Tue, 04 May 2021 06:00:36 -0700 (PDT)
 MIME-Version: 1.0
+References: <9245171d-ecc9-1bdf-3ecd-cf776dc17855@amd.com>
+In-Reply-To: <9245171d-ecc9-1bdf-3ecd-cf776dc17855@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Tue, 4 May 2021 15:00:24 +0200
+Message-ID: <CAKMK7uGc6hqY0AasiE=rtF2EitGF7MaMxv7FYJ41O9aj8=__Vg@mail.gmail.com>
+Subject: Re: [RFC] CRIU support for ROCm
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ Jason Ekstrand <jason@jlekstrand.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,254 +71,169 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com, markyacoub@chromium.org, michel@daenzer.net,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, contact@emersion.fr
+Cc: Alexander Mihalicyn <alexander@mihalicyn.com>,
+ Pavel Emelyanov <ovzxemul@gmail.com>, "Bhardwaj,
+ Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Pavel Tikhomirov <snorcht@gmail.com>, criu@openvz.org, "Yat Sin,
+ David" <David.YatSin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Adrian Reber <adrian@lisas.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The builtin size check isn't really the right thing for AMD
-modifiers due to a couple of reasons:
+On Fri, Apr 30, 2021 at 09:57:45PM -0400, Felix Kuehling wrote:
+> We have been working on a prototype supporting CRIU (Checkpoint/Restore
+> In Userspace) for accelerated compute applications running on AMD GPUs
+> using ROCm (Radeon Open Compute Platform). We're happy to finally share
+> this work publicly to solicit feedback and advice. The end-goal is to
+> get this work included upstream in Linux and CRIU. A short whitepaper
+> describing our design and intention can be found on Github:
+> https://github.com/RadeonOpenCompute/criu/tree/criu-dev/test/others/ext-kfd/README.md.
+>
+> We have RFC patch series for the kernel (based on Alex Deucher's
+> amd-staging-drm-next branch) and for CRIU including a new plugin and a
+> few core CRIU changes. I will send those to the respective mailing lists
+> separately in a minute. They can also be found on Github.
+>
+>     CRIU+plugin: https://github.com/RadeonOpenCompute/criu/commits/criu-dev
+>     Kernel (KFD):
+>     https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/commits/fxkamd/criu-wip
+>
+> At this point this is very much a work in progress and not ready for
+> upstream inclusion. There are still several missing features, known
+> issues, and open questions that we would like to start addressing with
+> your feedback.
 
-1) In the format structs we don't do set any of the tilesize / blocks
-etc. to avoid having format arrays per modifier/GPU
-2) The pitch on the main plane is pixel_pitch * bytes_per_pixel even
-for tiled ...
-3) The pitch for the DCC planes is really the pixel pitch of the main
-surface that would be covered by it ...
+Since the thread is a bit split I'm dumping the big thoughts here on this
+RFC.
 
-Note that we only handle GFX9+ case but we do this after converting
-the implicit modifier to an explicit modifier, so on GFX9+ all
-framebuffers should be checked here.
+We've discussed this in the past, but I'm once more (insert meme here)
+asking whether continuing to walk down the amdgpu vs amdkfd split is
+really the right choice. It starts to feel a bit much like sunk cost
+fallacy ...
 
-There is a TODO about DCC alignment, but it isn't worse than before
-and I'd need to dig a bunch into the specifics. Getting this out in
-a reasonable timeframe to make sure it gets the appropriate testing
-seemed more important.
+- From the big thread we're having right now on dri-devel it's clear that
+  3d will also move towards more and more a userspace submit model. But
+  due to backwards compat issues it will be a mixed model, and in some
+  cases we need to pick at runtime which model we're picking. A hard split
+  between the amdgpu and the amdkfd world gets in the way here.
 
-Finally as I've found that debugging addfb2 failures is a pita I was
-generous adding explicit error messages to every failure case.
+- There's use-cases for doing compute in vulkan (that was a discussion
+  from Feb that I kicked again in private, since I think still
+  unresolved). So you need a vulkan stack that runs on both amdgpu and
+  amdvlk.
 
-Fixes: f258907fdd83 ("drm/amdgpu: Verify bo size can fit framebuffer size on init.")
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
+- Maybe not yet on amd's radar, but there's a lot of cloud computing. And
+  maybe they also want CRIU for migrating their containers around. So that
+  means CRIU for amdgpu too, not just amdkf.
 
-For drm-fixes, replaces the 'Revert "drm/amdgpu: Verify bo size can fit framebuffer size on init."'
-revert on the ML, intended for -fixes.
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 181 +++++++++++++++++++-
- 1 file changed, 175 insertions(+), 6 deletions(-)
+- What's much worse, and I don't think anyone in amd has realized this yet
+  (at least not in a public thread I've seen). In vulkan you need to be
+  able to switch from compute mode to dma-fence mode after
+  pipelines/devices have been created already. This is because winsys are
+  only initialized in a second step, until that's done you have to
+  pessimistically assume that the user does pure compute. What's worse for
+  buffer sharing you don't even have a clear signal on this stuff. So
+  either
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 2e622c1675d7..80d81774fda8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -837,6 +837,174 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
- 	return 0;
- }
- 
-+static void get_block_dimensions(unsigned int block_log2, unsigned int cpp,
-+				 unsigned int *width, unsigned int *height)
-+{
-+	unsigned int cpp_log2 = ilog2(cpp);
-+	unsigned int pixel_log2 = block_log2 - cpp_log2;
-+	unsigned int width_log2 = (pixel_log2 + 1) / 2;
-+	unsigned int height_log2 = pixel_log2 - width_log2;
-+
-+	*width = 1 << width_log2;
-+	*height = 1 << height_log2;
-+}
-+
-+static unsigned int get_dcc_block_size(uint64_t modifier, bool rb_aligned,
-+				       bool pipe_aligned)
-+{
-+	unsigned int ver = AMD_FMT_MOD_GET(TILE_VERSION, modifier);
-+
-+	switch (ver) {
-+	case AMD_FMT_MOD_TILE_VER_GFX9: {
-+		/*
-+		 * TODO: for pipe aligned we may need to check the alignment of the
-+		 * total size of the surface, which may need to be bigger than the
-+		 * natural alignment due to some HW workarounds
-+		 */
-+		return max(10 + (rb_aligned ? (int)AMD_FMT_MOD_GET(RB, modifier) : 0), 12);
-+	}
-+	case AMD_FMT_MOD_TILE_VER_GFX10:
-+	case AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS: {
-+		int pipes_log2 = AMD_FMT_MOD_GET(PIPE_XOR_BITS, modifier);
-+
-+		if (ver == AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS && pipes_log2 > 1 &&
-+		    AMD_FMT_MOD_GET(PACKERS, modifier) == pipes_log2)
-+			++pipes_log2;
-+
-+		return max(8 + (pipe_aligned ? pipes_log2 : 0), 12);
-+	}
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int amdgpu_display_verify_plane(struct amdgpu_framebuffer *rfb, int plane,
-+				       const struct drm_format_info *format,
-+				       unsigned int block_width, unsigned int block_height,
-+				       unsigned int block_size_log2)
-+{
-+	unsigned int width = rfb->base.width /
-+		((plane && plane < format->num_planes) ? format->hsub : 1);
-+	unsigned int height = rfb->base.height /
-+		((plane && plane < format->num_planes) ? format->vsub : 1);
-+	unsigned int cpp = plane < format->num_planes ? format->cpp[plane] : 1;
-+	unsigned int block_pitch = block_width * cpp;
-+	unsigned int min_pitch = ALIGN(width * cpp, block_pitch);
-+	unsigned int block_size = 1 << block_size_log2;
-+	uint64_t size;
-+
-+	if (rfb->base.pitches[plane] % block_pitch) {
-+		drm_dbg_kms(rfb->base.dev,
-+			    "pitch %d for plane %d is not a multiple of block pitch %d\n",
-+			    rfb->base.pitches[plane], plane, block_pitch);
-+		return -EINVAL;
-+	}
-+	if (rfb->base.pitches[plane] < min_pitch) {
-+		drm_dbg_kms(rfb->base.dev,
-+			    "pitch %d for plane %d is less than minimum pitch %d\n",
-+			    rfb->base.pitches[plane], plane, min_pitch);
-+		return -EINVAL;
-+	}
-+
-+	/* Force at least natural alignment. */
-+	if (rfb->base.offsets[plane] % block_size) {
-+		drm_dbg_kms(rfb->base.dev,
-+			    "offset 0x%x for plane %d is not a multiple of block pitch 0x%x\n",
-+			    rfb->base.offsets[plane], plane, block_size);
-+		return -EINVAL;
-+	}
-+
-+	size = rfb->base.offsets[plane] +
-+		(uint64_t)rfb->base.pitches[plane] / block_pitch *
-+		block_size * DIV_ROUND_UP(height, block_height);
-+
-+	if (rfb->base.obj[0]->size < size) {
-+		drm_dbg_kms(rfb->base.dev,
-+			    "BO size 0x%zx is less than 0x%llx required for plane %d\n",
-+			    rfb->base.obj[0]->size, size, plane);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+
-+static int amdgpu_display_verify_sizes(struct amdgpu_framebuffer *rfb)
-+{
-+	const struct drm_format_info *format_info = drm_format_info(rfb->base.format->format);
-+	uint64_t modifier = rfb->base.modifier;
-+	int ret;
-+	unsigned int i, block_width, block_height, block_size_log2;
-+
-+	if (!rfb->base.dev->mode_config.allow_fb_modifiers)
-+		return 0;
-+
-+	for (i = 0; i < format_info->num_planes; ++i) {
-+		if (modifier == DRM_FORMAT_MOD_LINEAR) {
-+			block_width = 256 / format_info->cpp[i];
-+			block_height = 1;
-+			block_size_log2 = 8;
-+		} else {
-+			int swizzle = AMD_FMT_MOD_GET(TILE, modifier);
-+
-+			switch ((swizzle & ~3) + 1) {
-+			case DC_SW_256B_S:
-+				block_size_log2 = 8;
-+				break;
-+			case DC_SW_4KB_S:
-+			case DC_SW_4KB_S_X:
-+				block_size_log2 = 12;
-+				break;
-+			case DC_SW_64KB_S:
-+			case DC_SW_64KB_S_T:
-+			case DC_SW_64KB_S_X:
-+				block_size_log2 = 16;
-+				break;
-+			default:
-+				drm_dbg_kms(rfb->base.dev,
-+					    "Swizzle mode with unknown block size: %d\n", swizzle);
-+				return -EINVAL;
-+			}
-+
-+			get_block_dimensions(block_size_log2, format_info->cpp[i],
-+					     &block_width, &block_height);
-+		}
-+
-+		ret = amdgpu_display_verify_plane(rfb, i, format_info,
-+						  block_width, block_height, block_size_log2);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (AMD_FMT_MOD_GET(DCC, modifier)) {
-+		if (AMD_FMT_MOD_GET(DCC_RETILE, modifier)) {
-+			block_size_log2 = get_dcc_block_size(modifier, false, false);
-+			get_block_dimensions(block_size_log2 + 8, format_info->cpp[0],
-+					     &block_width, &block_height);
-+			ret = amdgpu_display_verify_plane(rfb, i, format_info,
-+							  block_width, block_height,
-+							  block_size_log2);
-+			if (ret)
-+				return ret;
-+
-+			++i;
-+			block_size_log2 = get_dcc_block_size(modifier, true, true);
-+		} else {
-+			bool pipe_aligned = AMD_FMT_MOD_GET(DCC_PIPE_ALIGN, modifier);
-+
-+			block_size_log2 = get_dcc_block_size(modifier, true, pipe_aligned);
-+		}
-+		get_block_dimensions(block_size_log2 + 8, format_info->cpp[0],
-+				     &block_width, &block_height);
-+		ret = amdgpu_display_verify_plane(rfb, i, format_info,
-+						  block_width, block_height, block_size_log2);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int amdgpu_display_get_fb_info(const struct amdgpu_framebuffer *amdgpu_fb,
- 				      uint64_t *tiling_flags, bool *tmz_surface)
- {
-@@ -902,10 +1070,8 @@ int amdgpu_display_gem_fb_verify_and_init(
- 	int ret;
- 
- 	rfb->base.obj[0] = obj;
--
--	/* Verify that bo size can fit the fb size. */
--	ret = drm_gem_fb_init_with_funcs(dev, &rfb->base, file_priv, mode_cmd,
--					 &amdgpu_fb_funcs);
-+	drm_helper_mode_fill_fb_struct(dev, &rfb->base, mode_cmd);
-+	ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
- 	if (ret)
- 		goto err;
- 	/* Verify that the modifier is supported. */
-@@ -967,9 +1133,12 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 		}
- 	}
- 
--	for (i = 1; i < rfb->base.format->num_planes; ++i) {
-+	ret = amdgpu_display_verify_sizes(rfb);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < rfb->base.format->num_planes; ++i) {
- 		drm_gem_object_get(rfb->base.obj[0]);
--		drm_gem_object_put(rfb->base.obj[i]);
- 		rfb->base.obj[i] = rfb->base.obj[0];
- 	}
- 
--- 
-2.31.1
+  - you figure out how to migrate all the buffers and state from amdkfd to
+    amdgpu at runtime, and duplicate all the features. Which is rather
+    pointless.
 
+  - or you duplicate all the compute features to amdgpu so that vk can use
+    them, and still reasonably easy migrate to winsys/dma-fence mode,
+    which makes amdkfd rather redundant.
+
+  I've discussed this problem extensively with Jason Ekstrand, and it's
+  really nasty.
+
+So purely from a technical pov, only looking at the AMD perspective here,
+this doesn't make much sense to me. The only reason to keep doubling down
+on amdkfd I'm seeing is that you've built your compute rocm stack on top
+of it, and because of that the only option is to keep doing that. Which
+stops making sense eventually, and we're getting to that point for sure.
+
+The other side is a bit the upstream side, but that's a lot smaller:
+
+- vulkan compute is one of the more reasonable ways to get cross vendor
+  compute ecosystem off the ground. At least from what I know from
+  background chatter, which you guys probably haven't all heard. amdkfd
+  being the single very odd driver here requiring entirely different uapi
+  for compute mode is not going to be great.
+
+- CRIU will need new access rights handling (for the save/restore/resume
+  stuff you're adding). Generally we standardize access rights checks
+  across drivers, and leave everything else to render drivers (command
+  submission, memory management, ...). By adding CRIU support to amdkfd
+  we pretty much guarantee that we wont be able to standardize CRIU access
+  rights across drivers. Which just plains sucks from an
+  upstream/cross-vendor ecosystem pov.
+
+And yes we'd still need a per-driver criu plugin in userspace, but the
+same is true for amdvlk/radv/anv/ and all the other drivers we have:
+Driver is different, access right management is still the same.
+
+And secondly, just because nvidia refuses to collaborate in any
+standards around gpu compute doesn't mean that's a good reason for us to
+do the same in upstream.
+
+Thirdly, it sounds like this is the first device-driver CRIU support, so I
+think we need a solid agreement/standard here to set as an example for
+everyone else. There's all the AI accel chips and fpga-for-compute stuff
+that I expect will eventually also gain CRIU support.
+
+So I'm asking once more, is this _really_ the right path forward? Both for
+amd (at least long term), but also somewhat for upstream.
+
+Cheers, Daniel
+
+
+> What's working and tested at this point:
+>
+>   * Checkpoint and restore accelerated machine learning apps: PyTorch
+>     running Bert on systems with 1 or 2 GPUs (MI50 or MI100), 100%
+>     unmodified user mode stack
+>   * Checkpoint on one system, restore on a different system
+>   * Checkpoint on one GPU, restore on a different GPU
+>
+> Major Known issues:
+>
+>   * The KFD ioctl API is not final: Needs a complete redesign to allow
+>     future extension without breaking the ABI
+>   * Very slow: Need to implement DMA to dump VRAM contents
+>
+> Missing or incomplete features:
+>
+>   * Support for the new KFD SVM API
+>   * Check device topology during restore
+>   * Checkpoint and restore multiple processes
+>   * Support for applications using Mesa for video decode/encode
+>   * Testing with more different GPUs and workloads
+>
+> Big Open questions:
+>
+>   * What's the preferred way to publish our CRIU plugin? In-tree or
+>     out-of-tree?
+>   * What's the preferred way to distribute our CRIU plugin? Source?
+>     Binary .so? Whole CRIU? Just in-box support?
+>   * If our plugin can be upstreamed in the CRIU tree, what would be the
+>     right directory?
+>
+> Best regards,
+>   Felix
+>
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
