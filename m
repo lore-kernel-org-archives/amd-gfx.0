@@ -2,80 +2,73 @@ Return-Path: <SRS0=AKuh=J7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AD4CC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DE29C433B4
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45E9760E09
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:03:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45E9760E09
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 51EEE613AA
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 May 2021 07:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51EEE613AA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA7656E19C;
-	Tue,  4 May 2021 07:03:34 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7CB36E19C;
- Tue,  4 May 2021 07:03:33 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id u21so11480345ejo.13;
- Tue, 04 May 2021 00:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=2fhSrKE7hVA9b5haW+j0vnIzqqcFF1JBi8LQ6ztAr8Y=;
- b=s3xesr1e2aBjm3xVkafMPLL/Dux1UG78NbuQuMbYkh8fUxmcOR3RgE0MXWIfaaoDSr
- NE29F6fVrNCnY+N+/noLXIX6ZBCbvGw4RjaWC2PQzKCihRnJ037M+FwY2cEd8MzSc/Ew
- lsctJtGstaUKiyu7W2P7iCnaXqoJuJkXS3dCICsGXgH349wK8gU3+I2eyz7ziieDguky
- T4iWyKDrlHgy1z8xIhtgKUIX+egQUTOQ4PhaCZ0LEjbi8rLHT82dw1gkB9k2ohcG6lae
- 5/EQTN5W1zCr5VH3iviL7IZJj/nhBgQPWZT7PEOkuz2EpR9klL6m+oqlifaLONBK5JsF
- ETMA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E06BC6EA91;
+	Tue,  4 May 2021 07:43:22 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B896EA91
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 May 2021 07:43:21 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id f24so11673841ejc.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 May 2021 00:43:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=T437ufXcFQfh2vf8BzFPeP3ANbU0aKdpNP7I1Lbc0Vw=;
+ b=lChERQKl0NnJlNYYs3WD/9INmqVvpMtlGycZ/M3ujVJJjsi0rOqlMYfeI/bEcSdacy
+ I3eYReSwcpcmHwy0BeznmqHtU6Q5jYiUvm37kZHZJEDCs6nslm92Mstvjp9Hs1Y6KlHO
+ xiYgVX2bpFg40uMh7T/5WD+WxevDUqKjWhgZA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=2fhSrKE7hVA9b5haW+j0vnIzqqcFF1JBi8LQ6ztAr8Y=;
- b=bIpZU0Yk7UVCedA7UhrFWfpU/amQU6X5Qwdk/FQ3wrZ42q5M+1QcI/f+u01g/pPCo6
- V1EoorK2tYQrouyFngd4DHr8vNx8DEXgSDfO4szRablOMVNv36nI66EbDHWwbcQ5V2kt
- 1UU8NWlN0EPgoQKxnVOz4QKQz5InPU9h07frk37+xO7gheDpw9IaDWAPHW48HnybAzz5
- Gq1odumLu8vbbmHIiDMjXvuwRgvJ0DsoDoECUq3jQ2QeF6zhIbei9V9NUErvGdBKR85z
- bdLySLCHh7XRpsXG7MILoOqf8QyQerTTues9T+5PBdal9rLVui5uIDGWZMRv/u0Cw7ma
- 1j7w==
-X-Gm-Message-State: AOAM5304AnFZ4nflG20wB/hB7Bzy0Bz5855NRxjUrAig4NOiFsHJkrah
- fMWR7LnI+c+E+W9vORk8uQq2n2nqMB8=
-X-Google-Smtp-Source: ABdhPJwCrbYRiYOkNmWWSKxPk2sXKMaPnXnw2Pi3Qgz/gdCd8P1JZmevTz9BfKupvCFlhADM0F7EWA==
-X-Received: by 2002:a17:906:168f:: with SMTP id
- s15mr20056333ejd.220.1620111812403; 
- Tue, 04 May 2021 00:03:32 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:b6e2:f801:3cd:9deb?
- ([2a02:908:1252:fb60:b6e2:f801:3cd:9deb])
- by smtp.gmail.com with ESMTPSA id t14sm882919ejc.121.2021.05.04.00.03.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 May 2021 00:03:31 -0700 (PDT)
-Subject: Re: [PATCH v5 06/27] drm/amdgpu: Handle IOMMU enabled case.
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
-References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
- <20210428151207.1212258-7-andrey.grodzovsky@amd.com>
- <8ba9edd8-9d6d-b6c3-342c-3f137d0cacd0@gmail.com>
- <df2bfa14-917b-939b-8ec1-f1e787313868@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <6607918c-cf02-98e1-f8a3-4106109e77cf@gmail.com>
-Date: Tue, 4 May 2021 09:03:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=T437ufXcFQfh2vf8BzFPeP3ANbU0aKdpNP7I1Lbc0Vw=;
+ b=Cp4vHUIIeZBiDqhDIuZlztDk6suJAc0mbwvZSgKMXaB6oHt/rngz6V/W8MRVJaYy6Y
+ 2K1Yjm9261u93s5h2YaXbNiSZIs0LlM48u0FQO5lz19vtPasqDKQMc7A8HpJ/kL3KMpP
+ z4MgWd3JuqlLkyfSxNJjDPEdum85sjHAYLwwDehoTIKxuiTTKiz66q/Zu1QNpiPYp381
+ JtMb1oFlWkg8vkDcUhE9JFMbuu7+PPP+I66X8u6pMZxgpQ+/plxUQxTFj5KkH+E0Z2xE
+ jb5eSGxZ2pf10I1j/Q6/QrvFqdKqjZLAuOx4QQDb3q+P2T6n3FQeYlS5LXWmViLPCGAZ
+ xPPA==
+X-Gm-Message-State: AOAM5306+/TnruGi4yFq8gjNovxR/SDT2Nox+olPWDeeXqoV+Ynv/vbv
+ /piogV6TuoFq2YUab4yEKGL+KQ==
+X-Google-Smtp-Source: ABdhPJy427L+gXilEP/lgLdQZgt2hWUrN/fy5m5KwbYbYHqxj2+g4Nqk5tfoMxe8KYmJ/mwcF/0d4Q==
+X-Received: by 2002:a17:906:c04a:: with SMTP id
+ bm10mr20420768ejb.521.1620114200482; 
+ Tue, 04 May 2021 00:43:20 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id z22sm934890ejo.113.2021.05.04.00.43.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 May 2021 00:43:19 -0700 (PDT)
+Date: Tue, 4 May 2021 09:43:18 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [Heads up to maintainers] Re: [PATCH v8 1/1] drm/drm_mst: Use
+ Extended Base Receiver Capability DPCD space
+Message-ID: <YJD7Fv40M3aEfUr0@phenom.ffwll.local>
+References: <20210428234346.1085977-1-nikola.cornij@amd.com>
+ <20210428234346.1085977-2-nikola.cornij@amd.com>
+ <2bc4cf58838635b357e77d2a132fd901dc477c71.camel@redhat.com>
+ <8735v82unm.fsf@intel.com> <87mttc1ajm.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <df2bfa14-917b-939b-8ec1-f1e787313868@amd.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <87mttc1ajm.fsf@intel.com>
+X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,255 +80,544 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
- helgaas@kernel.org, Felix.Kuehling@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ "Lankhorst, Maarten" <maarten.lankhorst@intel.com>,
+ amd-gfx@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>,
+ koba.ko@canonical.com, aurabindo.pillai@amd.com,
+ Ben Skeggs <bskeggs@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ mikita.lipski@amd.com, Dave Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDMuMDUuMjEgdW0gMjI6NDMgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPgo+Cj4gT24g
-MjAyMS0wNC0yOSAzOjA4IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDI4LjA0
-LjIxIHVtIDE3OjExIHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4+PiBIYW5kbGUgYWxsIERN
-QSBJT01NVSBncm9wdXAgcmVsYXRlZCBkZXBlbmRlbmNpZXMgYmVmb3JlIHRoZQo+Pj4gZ3JvdXAg
-aXMgcmVtb3ZlZC4KPj4+Cj4+PiB2NTogRHJvcCBJT01NVSBub3RpZmllciBhbmQgc3dpdGNoIHRv
-IGxvY2tsZXNzIGNhbGwgdG8gCj4+PiB0dG1fdHRfdW5wb3B1bGF0ZQo+Pgo+PiBNYXliZSBzcGxp
-dCB0aGF0IHVwIGludG8gbW9yZSBwYXRjaGVzLgo+Pgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEFu
-ZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+Pj4gLS0tCj4+PiDC
-oCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaMKgwqDCoMKgwqDCoMKgIHzCoCAy
-ICsrCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAz
-MSAKPj4+ICsrKysrKysrKysrKysrKysrKysrLS0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nYXJ0LmPCoMKgIHzCoCAzICstLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaMKgwqAgfMKgIDEgKwo+Pj4gwqAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jwqDCoMKgIHzCoCA5ICsrKysrKysKPj4+IMKgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDEzICsrKysrKysrLQo+
-Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIHzCoCAyICsr
-Cj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfaWguY8KgwqDCoMKgwqDCoMKg
-IHzCoCAxIC0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2N6X2loLmPCoMKgwqDC
-oMKgwqDCoMKgIHzCoCAxIC0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2ljZWxh
-bmRfaWguY8KgwqDCoCB8wqAgMSAtCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9u
-YXZpMTBfaWguY8KgwqDCoMKgIHzCoCAzIC0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2lfaWguY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDEgLQo+Pj4gwqAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvdG9uZ2FfaWguY8KgwqDCoMKgwqAgfMKgIDEgLQo+Pj4gwqAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmPCoMKgwqDCoCB8wqAgMyAtLS0KPj4+IMKg
-IDE0IGZpbGVzIGNoYW5nZWQsIDU2IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQo+Pj4K
-Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAKPj4+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+IGluZGV4IGZkZGI4Mjg5
-N2U1ZC4uMzBhMjRkYjVmNGQxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1LmgKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oCj4+PiBAQCAtMTA1NCw2ICsxMDU0LDggQEAgc3RydWN0IGFtZGdwdV9kZXZpY2Ugewo+Pj4g
-wqDCoMKgwqDCoCBib29swqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGluX3BjaV9lcnJfcmVjb3Zlcnk7Cj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBw
-Y2lfc2F2ZWRfc3RhdGXCoMKgwqDCoMKgwqDCoMKgwqAgKnBjaV9zdGF0ZTsKPj4+ICsKPj4+ICvC
-oMKgwqAgc3RydWN0IGxpc3RfaGVhZMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZp
-Y2VfYm9fbGlzdDsKPj4+IMKgIH07Cj4+PiDCoCBzdGF0aWMgaW5saW5lIHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICpkcm1fdG9fYWRldihzdHJ1Y3QgZHJtX2RldmljZSAKPj4+ICpkZGV2KQo+Pj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAKPj4+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+PiBpbmRleCA0
-NmQ2NDZjNDAzMzguLjkxNTk0ZGRjMjQ1OSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+PiBAQCAtNzAsNiArNzAsNyBAQAo+Pj4gwqAgI2lu
-Y2x1ZGUgPGRybS90YXNrX2JhcnJpZXIuaD4KPj4+IMKgICNpbmNsdWRlIDxsaW51eC9wbV9ydW50
-aW1lLmg+Cj4+PiArCj4+PiDCoCBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS92ZWdhMTBfZ3B1X2lu
-Zm8uYmluIik7Cj4+PiDCoCBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS92ZWdhMTJfZ3B1X2luZm8u
-YmluIik7Cj4+PiDCoCBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9yYXZlbl9ncHVfaW5mby5iaW4i
-KTsKPj4+IEBAIC0zMjExLDcgKzMyMTIsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGF0dHJpYnV0
-ZSAKPj4+ICphbWRncHVfZGV2X2F0dHJpYnV0ZXNbXSA9IHsKPj4+IMKgwqDCoMKgwqAgTlVMTAo+
-Pj4gwqAgfTsKPj4+IC0KPj4+IMKgIC8qKgo+Pj4gwqDCoCAqIGFtZGdwdV9kZXZpY2VfaW5pdCAt
-IGluaXRpYWxpemUgdGhlIGRyaXZlcgo+Pj4gwqDCoCAqCj4+PiBAQCAtMzMxNiw2ICszMzE2LDgg
-QEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAKPj4+ICphZGV2
-LAo+Pj4gwqDCoMKgwqDCoCBJTklUX1dPUksoJmFkZXYtPnhnbWlfcmVzZXRfd29yaywgYW1kZ3B1
-X2RldmljZV94Z21pX3Jlc2V0X2Z1bmMpOwo+Pj4gK8KgwqDCoCBJTklUX0xJU1RfSEVBRCgmYWRl
-di0+ZGV2aWNlX2JvX2xpc3QpOwo+Pj4gKwo+Pj4gwqDCoMKgwqDCoCBhZGV2LT5nZnguZ2Z4X29m
-Zl9yZXFfY291bnQgPSAxOwo+Pj4gwqDCoMKgwqDCoCBhZGV2LT5wbS5hY19wb3dlciA9IHBvd2Vy
-X3N1cHBseV9pc19zeXN0ZW1fc3VwcGxpZWQoKSA+IDA7Cj4+PiBAQCAtMzYwMSw2ICszNjAzLDI4
-IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgCj4+PiAqYWRl
-diwKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+PiDCoCB9Cj4+PiArc3RhdGljIHZvaWQgYW1k
-Z3B1X2NsZWFyX2RtYV9tYXBwaW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+ICt7
-Cj4+PiArwqDCoMKgIHN0cnVjdCBhbWRncHVfYm8gKmJvID0gTlVMTDsKPj4+ICsKPj4+ICvCoMKg
-wqAgLyoKPj4+ICvCoMKgwqDCoCAqIFVubWFwcyBhbGwgRE1BIG1hcHBpbmdzIGJlZm9yZSBkZXZp
-Y2Ugd2lsbCBiZSByZW1vdmVkIGZyb20gaXQncwo+Pj4gK8KgwqDCoMKgICogSU9NTVUgZ3JvdXAg
-b3RoZXJ3aXNlIGluIGNhc2Ugb2YgSU9NTVUgZW5hYmxlZCBzeXN0ZW0gYSBjcmFzaAo+Pj4gK8Kg
-wqDCoMKgICogd2lsbCBoYXBwZW4uCj4+PiArwqDCoMKgwqAgKi8KPj4+ICsKPj4+ICvCoMKgwqAg
-c3Bpbl9sb2NrKCZhZGV2LT5tbWFuLmJkZXYubHJ1X2xvY2spOwo+Pj4gK8KgwqDCoCB3aGlsZSAo
-IWxpc3RfZW1wdHkoJmFkZXYtPmRldmljZV9ib19saXN0KSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKg
-IGJvID0gbGlzdF9maXJzdF9lbnRyeSgmYWRldi0+ZGV2aWNlX2JvX2xpc3QsIHN0cnVjdCAKPj4+
-IGFtZGdwdV9ibywgYm8pOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGxpc3RfZGVsX2luaXQoJmJvLT5i
-byk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3Bpbl91bmxvY2soJmFkZXYtPm1tYW4uYmRldi5scnVf
-bG9jayk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGJvLT50Ym8udHRtKQo+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgdHRtX3R0X3VucG9wdWxhdGUoYm8tPnRiby5iZGV2LCBiby0+dGJvLnR0
-bSk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3Bpbl9sb2NrKCZhZGV2LT5tbWFuLmJkZXYubHJ1X2xv
-Y2spOwo+Pj4gK8KgwqDCoCB9Cj4+PiArwqDCoMKgIHNwaW5fdW5sb2NrKCZhZGV2LT5tbWFuLmJk
-ZXYubHJ1X2xvY2spOwo+Pgo+PiBDYW4geW91IHRyeSB0byB1c2UgdGhlIHNhbWUgYXBwcm9hY2gg
-YXMgYW1kZ3B1X2d0dF9tZ3JfcmVjb3ZlcigpIAo+PiBpbnN0ZWFkIG9mIGFkZGluZyBzb21ldGhp
-bmcgdG8gdGhlIEJPPwo+Pgo+PiBDaHJpc3RpYW4uCj4KPiBBcmUgeW91IHN1cmUgdGhhdCBkbWEg
-bWFwcGluZ3MgbGltaXQgdGhlbXNlbGYgb25seSB0byBHVFQgQk9zCj4gd2hpY2ggaGF2ZSBhbGxv
-Y2F0ZWQgbW0gbm9kZXMgPwoKWWVzLCB5b3Ugd291bGQgYWxzbyBuZWVkIHRoZSBzeXN0ZW0gZG9t
-YWluIEJPcy4gQnV0IHRob3NlIGNhbiBiZSBwdXQgb24gCmEgc2ltaWxhciBsaXN0LgoKPiBPdGhl
-cndzaWUgd2Ugd2lsbCBjcmFzaCBhbmQgYnVybgo+IG9uIG1pc3NpbmcgSU9NTVUgZ3JvdXAgd2hl
-biB1bmFtcHBpbmcgcG9zdCBkZXZpY2UgcmVtb3ZlLgo+IFByb2JsZW0gZm9yIG1lIHRvIHRlc3Qg
-dGhpcyBhcyBpbiA1LjEyIGtlcm5lbCBJIGRvbid0IGNyYXNoIGV2ZW4KPiB3aGVuIHJlbW92aW5n
-IHRoaXMgZW50aXJlIHBhdGNoLsKgIExvb2tzIGxpa2UgaW9tbXVfZG1hX3VubWFwX3BhZ2UKPiB3
-YXMgY2hhbmdlZCBzaW5jZSA1Ljkgd2hlbiBJIGludHJvZGljZWQgdGhpcyBwYXRjaC4KCkRvIHdl
-IHJlYWxseSBzdGlsbCBuZWVkIHRoYXQgc3R1ZmYgdGhlbj8gV2hhdCBleGFjdGx5IGhhcyBjaGFu
-Z2VkPwoKQ2hyaXN0aWFuLgoKPgo+IEFuZHJleQo+Cj4+Cj4+PiArfQo+Pj4gKwo+Pj4gwqAgLyoq
-Cj4+PiDCoMKgICogYW1kZ3B1X2RldmljZV9maW5pIC0gdGVhciBkb3duIHRoZSBkcml2ZXIKPj4+
-IMKgwqAgKgo+Pj4gQEAgLTM2MzksMTIgKzM2NjMsMTUgQEAgdm9pZCBhbWRncHVfZGV2aWNlX2Zp
-bmlfaHcoc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldikKPj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCBhbWRncHVfdWNvZGVfc3lzZnNfZmluaShhZGV2KTsKPj4+IMKgwqDCoMKgwqAgc3lzZnNf
-cmVtb3ZlX2ZpbGVzKCZhZGV2LT5kZXYtPmtvYmosIGFtZGdwdV9kZXZfYXR0cmlidXRlcyk7Cj4+
-PiAtCj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9mYmRldl9maW5pKGFkZXYpOwo+Pj4gwqDCoMKgwqDC
-oCBhbWRncHVfaXJxX2ZpbmlfaHcoYWRldik7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9kZXZpY2Vf
-aXBfZmluaV9lYXJseShhZGV2KTsKPj4+ICsKPj4+ICvCoMKgwqAgYW1kZ3B1X2NsZWFyX2RtYV9t
-YXBwaW5ncyhhZGV2KTsKPj4+ICsKPj4+ICvCoMKgwqAgYW1kZ3B1X2dhcnRfZHVtbXlfcGFnZV9m
-aW5pKGFkZXYpOwo+Pj4gwqAgfQo+Pj4gwqAgdm9pZCBhbWRncHVfZGV2aWNlX2Zpbmlfc3coc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2dhcnQuYwo+Pj4gaW5kZXggZmRlMmQ4OTliMmM0Li40OWNkY2FmODUxMmQgMTAw
-NjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jCj4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jCj4+PiBAQCAt
-OTIsNyArOTIsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9nYXJ0X2R1bW15X3BhZ2VfaW5pdChzdHJ1
-Y3QgCj4+PiBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gwqDCoCAqCj4+PiDCoMKgICogRnJlZXMg
-dGhlIGR1bW15IHBhZ2UgdXNlZCBieSB0aGUgZHJpdmVyIChhbGwgYXNpY3MpLgo+Pj4gwqDCoCAq
-Lwo+Pj4gLXN0YXRpYyB2b2lkIGFtZGdwdV9nYXJ0X2R1bW15X3BhZ2VfZmluaShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKPj4+ICt2b2lkIGFtZGdwdV9nYXJ0X2R1bW15X3BhZ2VfZmluaShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+IMKgIHsKPj4+IMKgwqDCoMKgwqAgaWYgKCFh
-ZGV2LT5kdW1teV9wYWdlX2FkZHIpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuOwo+Pj4g
-QEAgLTM5Nyw1ICszOTcsNCBAQCB2b2lkIGFtZGdwdV9nYXJ0X2Zpbmkoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCj4+PiDCoMKgwqDCoMKgIHZmcmVlKGFkZXYtPmdhcnQucGFnZXMpOwo+Pj4g
-wqDCoMKgwqDCoCBhZGV2LT5nYXJ0LnBhZ2VzID0gTlVMTDsKPj4+IMKgICNlbmRpZgo+Pj4gLcKg
-wqDCoCBhbWRncHVfZ2FydF9kdW1teV9wYWdlX2ZpbmkoYWRldik7Cj4+PiDCoCB9Cj4+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaCAKPj4+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaAo+Pj4gaW5kZXggYWZhMmUy
-ODc3ZDg3Li41Njc4ZDljMTA1YWIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2FydC5oCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZ2FydC5oCj4+PiBAQCAtNjEsNiArNjEsNyBAQCBpbnQgYW1kZ3B1X2dhcnRfdGFi
-bGVfdnJhbV9waW4oc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+PiDCoCB2b2lk
-IGFtZGdwdV9nYXJ0X3RhYmxlX3ZyYW1fdW5waW4oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Owo+Pj4gwqAgaW50IGFtZGdwdV9nYXJ0X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Owo+Pj4gwqAgdm9pZCBhbWRncHVfZ2FydF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KTsKPj4+ICt2b2lkIGFtZGdwdV9nYXJ0X2R1bW15X3BhZ2VfZmluaShzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldik7Cj4+PiDCoCBpbnQgYW1kZ3B1X2dhcnRfdW5iaW5kKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCB1aW50NjRfdCBvZmZzZXQsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpbnQgcGFnZXMpOwo+Pj4gwqAgaW50IGFtZGdwdV9nYXJ0X21hcChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgdWludDY0X3Qgb2Zmc2V0LAo+Pj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYyAKPj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jCj4+PiBpbmRleCA2M2U4MTVjMjc1ODUuLmE5MjIx
-NTQ5NTNhNyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9pcnEuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5j
-Cj4+PiBAQCAtMzI2LDYgKzMyNiwxNSBAQCB2b2lkIGFtZGdwdV9pcnFfZmluaV9odyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAKPj4+ICphZGV2KQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghYW1k
-Z3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGZsdXNoX3dvcmsoJmFkZXYtPmhvdHBsdWdfd29yayk7Cj4+PiDCoMKgwqDCoMKgIH0K
-Pj4+ICsKPj4+ICvCoMKgwqAgaWYgKGFkZXYtPmlycS5paF9zb2Z0LnJpbmcpCj4+PiArwqDCoMKg
-wqDCoMKgwqAgYW1kZ3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloX3NvZnQpOwo+
-Pj4gK8KgwqDCoCBpZiAoYWRldi0+aXJxLmloLnJpbmcpCj4+PiArwqDCoMKgwqDCoMKgwqAgYW1k
-Z3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloKTsKPj4+ICvCoMKgwqAgaWYgKGFk
-ZXYtPmlycS5paDEucmluZykKPj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfaWhfcmluZ19maW5p
-KGFkZXYsICZhZGV2LT5pcnEuaWgxKTsKPj4+ICvCoMKgwqAgaWYgKGFkZXYtPmlycS5paDIucmlu
-ZykKPj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfaWhfcmluZ19maW5pKGFkZXYsICZhZGV2LT5p
-cnEuaWgyKTsKPj4+IMKgIH0KPj4+IMKgIC8qKgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+PiBpbmRleCA0ODVmMjQ5ZDA2M2EuLjYyZDgyOWY1
-ZTYyYyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
-YmplY3QuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5jCj4+PiBAQCAtNjgsOCArNjgsMTMgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2JvX2Rlc3Ryb3ko
-c3RydWN0IAo+Pj4gdHRtX2J1ZmZlcl9vYmplY3QgKnRibykKPj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCBsaXN0X2RlbF9pbml0KCZiby0+c2hhZG93X2xpc3QpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IG11dGV4X3VubG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7Cj4+PiDCoMKgwqDCoMKgIH0K
-Pj4+IC3CoMKgwqAgYW1kZ3B1X2JvX3VucmVmKCZiby0+cGFyZW50KTsKPj4+ICsKPj4+ICvCoMKg
-wqAgc3Bpbl9sb2NrKCZhZGV2LT5tbWFuLmJkZXYubHJ1X2xvY2spOwo+Pj4gK8KgwqDCoCBsaXN0
-X2RlbCgmYm8tPmJvKTsKPj4+ICvCoMKgwqAgc3Bpbl91bmxvY2soJmFkZXYtPm1tYW4uYmRldi5s
-cnVfbG9jayk7Cj4+PiArCj4+PiArwqDCoMKgIGFtZGdwdV9ib191bnJlZigmYm8tPnBhcmVudCk7
-Cj4+PiDCoMKgwqDCoMKgIGtmcmVlKGJvLT5tZXRhZGF0YSk7Cj4+PiDCoMKgwqDCoMKgIGtmcmVl
-KGJvKTsKPj4+IMKgIH0KPj4+IEBAIC01ODUsNiArNTkwLDEyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1
-X2JvX2RvX2NyZWF0ZShzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gwqDCoMKg
-wqDCoCBpZiAoYnAtPnR5cGUgPT0gdHRtX2JvX3R5cGVfZGV2aWNlKQo+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIGJvLT5mbGFncyAmPSB+QU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJF
-RDsKPj4+ICvCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJmJvLT5ibyk7Cj4+PiArCj4+PiArwqDCoMKg
-IHNwaW5fbG9jaygmYWRldi0+bW1hbi5iZGV2LmxydV9sb2NrKTsKPj4+ICvCoMKgwqAgbGlzdF9h
-ZGRfdGFpbCgmYm8tPmJvLCAmYWRldi0+ZGV2aWNlX2JvX2xpc3QpOwo+Pj4gK8KgwqDCoCBzcGlu
-X3VubG9jaygmYWRldi0+bW1hbi5iZGV2LmxydV9sb2NrKTsKPj4+ICsKPj4+IMKgwqDCoMKgwqAg
-cmV0dXJuIDA7Cj4+PiDCoCBmYWlsX3VucmVzZXJ2ZToKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggCj4+PiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAo+Pj4gaW5kZXggOWFjMzc1Njk4MjNmLi41YWU4
-NTU1ZWYyNzUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfb2JqZWN0LmgKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
-YmplY3QuaAo+Pj4gQEAgLTExMCw2ICsxMTAsOCBAQCBzdHJ1Y3QgYW1kZ3B1X2JvIHsKPj4+IMKg
-wqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZMKgwqDCoMKgwqDCoMKgIHNoYWRvd19saXN0Owo+Pj4g
-wqDCoMKgwqDCoCBzdHJ1Y3Qga2dkX21lbcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgKmtmZF9ibzsKPj4+ICsKPj4+ICvCoMKgwqAgc3RydWN0IGxpc3RfaGVhZMKgwqDCoMKgwqDC
-oMKgIGJvOwo+Pj4gwqAgfTsKPj4+IMKgIHN0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdwdV9ibyAq
-dHRtX3RvX2FtZGdwdV9ibyhzdHJ1Y3QgCj4+PiB0dG1fYnVmZmVyX29iamVjdCAqdGJvKQo+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19paC5jIAo+Pj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfaWguYwo+Pj4gaW5kZXggMTgzZDQ0YTY1ODNj
-Li5kZjM4NWZmYzk3NjggMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9jaWtfaWguYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX2loLmMK
-Pj4+IEBAIC0zMTAsNyArMzEwLDYgQEAgc3RhdGljIGludCBjaWtfaWhfc3dfZmluaSh2b2lkICpo
-YW5kbGUpCj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+Pj4gwqDCoMKgwqDCoCBhbWRncHVfaXJxX2Zpbmlf
-c3coYWRldik7Cj4+PiAtwqDCoMKgIGFtZGdwdV9paF9yaW5nX2ZpbmkoYWRldiwgJmFkZXYtPmly
-cS5paCk7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9pcnFfcmVtb3ZlX2RvbWFpbihhZGV2KTsKPj4+
-IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvY3pfaWguYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY3pfaWgu
-Ywo+Pj4gaW5kZXggZDMyNzQzOTQ5MDAzLi5iOGM0N2UwY2YzN2EgMTAwNjQ0Cj4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jel9paC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9jel9paC5jCj4+PiBAQCAtMzAyLDcgKzMwMiw2IEBAIHN0YXRpYyBpbnQg
-Y3pfaWhfc3dfZmluaSh2b2lkICpoYW5kbGUpCj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+Pj4gwqDCoMKg
-wqDCoCBhbWRncHVfaXJxX2Zpbmlfc3coYWRldik7Cj4+PiAtwqDCoMKgIGFtZGdwdV9paF9yaW5n
-X2ZpbmkoYWRldiwgJmFkZXYtPmlycS5paCk7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9pcnFfcmVt
-b3ZlX2RvbWFpbihhZGV2KTsKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvaWNlbGFuZF9paC5jIAo+Pj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9pY2VsYW5kX2loLmMKPj4+IGluZGV4IGRhOTZjNjAxMzQ3Ny4u
-ZGRmZTRlYWVlYTA1IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-aWNlbGFuZF9paC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9pY2VsYW5k
-X2loLmMKPj4+IEBAIC0zMDEsNyArMzAxLDYgQEAgc3RhdGljIGludCBpY2VsYW5kX2loX3N3X2Zp
-bmkodm9pZCAqaGFuZGxlKQo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKPj4+IMKgwqDCoMKgwqAgYW1kZ3B1
-X2lycV9maW5pX3N3KGFkZXYpOwo+Pj4gLcKgwqDCoCBhbWRncHVfaWhfcmluZ19maW5pKGFkZXYs
-ICZhZGV2LT5pcnEuaWgpOwo+Pj4gwqDCoMKgwqDCoCBhbWRncHVfaXJxX3JlbW92ZV9kb21haW4o
-YWRldik7Cj4+PiDCoMKgwqDCoMKgIHJldHVybiAwOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L25hdmkxMF9paC5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9uYXZpMTBfaWguYwo+Pj4gaW5kZXggNWVlYTQ1NTBiODU2Li5lMTcxYTllNzg1NDQg
-MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYXZpMTBfaWguYwo+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmF2aTEwX2loLmMKPj4+IEBAIC01
-NzEsOSArNTcxLDYgQEAgc3RhdGljIGludCBuYXZpMTBfaWhfc3dfZmluaSh2b2lkICpoYW5kbGUp
-Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9pcnFfZmluaV9zdyhhZGV2KTsKPj4+IMKgwqDCoMKgwqAg
-YW1kZ3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloX3NvZnQpOwo+Pj4gLcKgwqDC
-oCBhbWRncHVfaWhfcmluZ19maW5pKGFkZXYsICZhZGV2LT5pcnEuaWgyKTsKPj4+IC3CoMKgwqAg
-YW1kZ3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloMSk7Cj4+PiAtwqDCoMKgIGFt
-ZGdwdV9paF9yaW5nX2ZpbmkoYWRldiwgJmFkZXYtPmlycS5paCk7Cj4+PiDCoMKgwqDCoMKgIHJl
-dHVybiAwOwo+Pj4gwqAgfQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3NpX2loLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2loLmMKPj4+
-IGluZGV4IDc1MTMwN2YzMjUyYy4uOWEyNGYxN2E1NzUwIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfaWguYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvc2lfaWguYwo+Pj4gQEAgLTE3Niw3ICsxNzYsNiBAQCBzdGF0aWMgaW50IHNpX2lo
-X3N3X2Zpbmkodm9pZCAqaGFuZGxlKQo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKPj4+IMKgwqDCoMKgwqAg
-YW1kZ3B1X2lycV9maW5pX3N3KGFkZXYpOwo+Pj4gLcKgwqDCoCBhbWRncHVfaWhfcmluZ19maW5p
-KGFkZXYsICZhZGV2LT5pcnEuaWgpOwo+Pj4gwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+IMKgIH0K
-Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS90b25nYV9paC5jIAo+
-Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS90b25nYV9paC5jCj4+PiBpbmRleCA5NzNk
-ODBlYzdmNmMuLmIwODkwNWQxYzAwZiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3RvbmdhX2loLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3RvbmdhX2loLmMKPj4+IEBAIC0zMTMsNyArMzEzLDYgQEAgc3RhdGljIGludCB0b25nYV9paF9z
-d19maW5pKHZvaWQgKmhhbmRsZSkKPj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4+PiDCoMKgwqDCoMKgIGFt
-ZGdwdV9pcnFfZmluaV9zdyhhZGV2KTsKPj4+IC3CoMKgwqAgYW1kZ3B1X2loX3JpbmdfZmluaShh
-ZGV2LCAmYWRldi0+aXJxLmloKTsKPj4+IMKgwqDCoMKgwqAgYW1kZ3B1X2lycV9yZW1vdmVfZG9t
-YWluKGFkZXYpOwo+Pj4gwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvdmVnYTEwX2loLmMKPj4+IGluZGV4IDJkMDA5NGMyNzZjYS4uOGM4YWJjMDBm
-NzEwIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2lo
-LmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jCj4+PiBA
-QCAtNTI1LDkgKzUyNSw2IEBAIHN0YXRpYyBpbnQgdmVnYTEwX2loX3N3X2Zpbmkodm9pZCAqaGFu
-ZGxlKQo+Pj4gwqDCoMKgwqDCoCBhbWRncHVfaXJxX2Zpbmlfc3coYWRldik7Cj4+PiDCoMKgwqDC
-oMKgIGFtZGdwdV9paF9yaW5nX2ZpbmkoYWRldiwgJmFkZXYtPmlycS5paF9zb2Z0KTsKPj4+IC3C
-oMKgwqAgYW1kZ3B1X2loX3JpbmdfZmluaShhZGV2LCAmYWRldi0+aXJxLmloMik7Cj4+PiAtwqDC
-oMKgIGFtZGdwdV9paF9yaW5nX2ZpbmkoYWRldiwgJmFkZXYtPmlycS5paDEpOwo+Pj4gLcKgwqDC
-oCBhbWRncHVfaWhfcmluZ19maW5pKGFkZXYsICZhZGV2LT5pcnEuaWgpOwo+Pj4gwqDCoMKgwqDC
-oCByZXR1cm4gMDsKPj4+IMKgIH0KPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+On Mon, May 03, 2021 at 11:33:33AM +0300, Jani Nikula wrote:
+> On Fri, 30 Apr 2021, Jani Nikula <jani.nikula@intel.com> wrote:
+> > On Thu, 29 Apr 2021, Lyude Paul <lyude@redhat.com> wrote:
+> >> JFYI Jani and Ben: I will be pushing this patch to drm-misc-next somet=
+ime
+> >> today if there's no objections
+> >
+> > Thanks for the heads-up, I think this breaks i915. See my review
+> > comments elsewhere in the thread.
+> =
+
+> Looks like this was merged anyway.
+
+Yeah in general rule of thumb is to let cross-driver stuff soak for a week
+(assuming correctly cc'ed and all that already). I think that's the sweet
+spot between maintainers who complain that it's too short and others
+complaining it's too quick :-)
+-Daniel
+
+> =
+
+> 98025a62cb00 ("drm/dp_mst: Use Extended Base Receiver Capability DPCD spa=
+ce")
+> =
+
+> I'm not happy how this played out.
+> =
+
+> 1) You need to Cc relevant people
+> =
+
+> 2) You need to get the ack before merging changes
+> =
+
+> 3) You need to give people more than a day to react, with time zones and
+> all; I replied as soon as I saw the heads-up, but it was already too
+> late
+> =
+
+> It's broken on i915, and perhaps that could be fixed.
+> =
+
+> However I also think using DP spec rate codes and calling them "rate" is
+> a bad interface, especially when the unit breaks down with DP 2.0 rate
+> codes. It's confusing and it's not future proof. Fixing that afterwards
+> falls to whoever comes next to pick up the pieces.
+> =
+
+> I'd rather just see this reverted and redone.
+> =
+
+> =
+
+> BR,
+> Jani.
+> =
+
+> =
+
+> >
+> > BR,
+> > Jani.
+> >
+> >
+> >>
+> >> On Wed, 2021-04-28 at 19:43 -0400, Nikola Cornij wrote:
+> >>> [why]
+> >>> DP 1.4a spec madates that if DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT is
+> >>> set, Extended Base Receiver Capability DPCD space must be used. Witho=
+ut
+> >>> doing that, the three DPCD values that differ will be wrong, leading =
+to
+> >>> incorrect or limited functionality. MST link rate, for example, could
+> >>> have a lower value. Also, Synaptics quirk wouldn't work out well when
+> >>> Extended DPCD was not read, resulting in no DSC for such hubs.
+> >>> =
+
+> >>> [how]
+> >>> Modify MST topology manager to use the values from Extended DPCD where
+> >>> applicable.
+> >>> =
+
+> >>> To prevent regression on the sources that have a lower maximum link r=
+ate
+> >>> capability than MAX_LINK_RATE from Extended DPCD, have the drivers
+> >>> supply maximum lane count and rate at initialization time.
+> >>> =
+
+> >>> This also reverts 'commit 2dcab875e763 ("Revert drm/dp_mst: Retrieve
+> >>> extended DPCD caps for topology manager")', brining the change back to
+> >>> the original 'commit ad44c03208e4 ("drm/dp_mst: Retrieve extended DPCD
+> >>> caps for topology manager")'.
+> >>> =
+
+> >>> Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+> >>> ---
+> >>> =A0.../display/amdgpu_dm/amdgpu_dm_mst_types.c=A0=A0 |=A0 5 +++
+> >>> =A0.../gpu/drm/amd/display/dc/core/dc_link_dp.c=A0 | 18 ++++++++++
+> >>> =A0drivers/gpu/drm/amd/display/dc/dc_link.h=A0=A0=A0=A0=A0 |=A0 2 ++
+> >>> =A0drivers/gpu/drm/drm_dp_mst_topology.c=A0=A0=A0=A0=A0=A0=A0=A0 | 33=
+ ++++++++++++-------
+> >>> =A0drivers/gpu/drm/i915/display/intel_dp_mst.c=A0=A0 |=A0 6 +++-
+> >>> =A0drivers/gpu/drm/nouveau/dispnv50/disp.c=A0=A0=A0=A0=A0=A0 |=A0 3 +-
+> >>> =A0drivers/gpu/drm/radeon/radeon_dp_mst.c=A0=A0=A0=A0=A0=A0=A0 |=A0 7=
+ ++++
+> >>> =A0include/drm/drm_dp_mst_helper.h=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0 | 12 ++++++-
+> >>> =A08 files changed, 71 insertions(+), 15 deletions(-)
+> >>> =
+
+> >>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_type=
+s.c
+> >>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> >>> index 997567f6f0ba..b7e01b6fb328 100644
+> >>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> >>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> >>> @@ -429,6 +429,8 @@ void amdgpu_dm_initialize_dp_connector(struct
+> >>> amdgpu_display_manager *dm,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct amdgpu_dm_connector
+> >>> *aconnector,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 int link_index)
+> >>> =A0{
+> >>> +=A0=A0=A0=A0=A0=A0=A0struct dc_link_settings max_link_enc_cap =3D {0=
+};
+> >>> +
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0aconnector->dm_dp_aux.aux.name =3D
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0kasprintf(GFP_KERNEL,=
+ "AMDGPU DM aux hw bus %d",
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 link_index);
+> >>> @@ -443,6 +445,7 @@ void amdgpu_dm_initialize_dp_connector(struct
+> >>> amdgpu_display_manager *dm,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (aconnector->base.connector_type =3D=3D DR=
+M_MODE_CONNECTOR_eDP)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
+> >>> =A0
+> >>> +=A0=A0=A0=A0=A0=A0=A0dc_link_dp_get_max_link_enc_cap(aconnector->dc_=
+link,
+> >>> &max_link_enc_cap);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0aconnector->mst_mgr.cbs =3D &dm_mst_cbs;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0drm_dp_mst_topology_mgr_init(
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0&aconnector->mst_mgr,
+> >>> @@ -450,6 +453,8 @@ void amdgpu_dm_initialize_dp_connector(struct
+> >>> amdgpu_display_manager *dm,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0&aconnector->dm_dp_au=
+x.aux,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A016,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A04,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap.lane_c=
+ount,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap.link_r=
+ate,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0aconnector->connector=
+_id);
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0drm_connector_attach_dp_subconnector_property=
+(&aconnector->base);
+> >>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> >>> b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> >>> index 7d2e433c2275..6fe66b7ee53e 100644
+> >>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> >>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> >>> @@ -1894,6 +1894,24 @@ bool dc_link_dp_sync_lt_end(struct dc_link *li=
+nk,
+> >>> bool link_down)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0return true;
+> >>> =A0}
+> >>> =A0
+> >>> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, str=
+uct
+> >>> dc_link_settings *max_link_enc_cap)
+> >>> +{
+> >>> +=A0=A0=A0=A0=A0=A0=A0if (!max_link_enc_cap) {
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0DC_LOG_ERROR("%s: Could=
+ not return max link encoder caps",
+> >>> __func__);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return false;
+> >>> +=A0=A0=A0=A0=A0=A0=A0}
+> >>> +
+> >>> +=A0=A0=A0=A0=A0=A0=A0if (link->link_enc->funcs->get_max_link_cap) {
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0link->link_enc->funcs->=
+get_max_link_cap(link->link_enc,
+> >>> max_link_enc_cap);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
+> >>> +=A0=A0=A0=A0=A0=A0=A0}
+> >>> +
+> >>> +=A0=A0=A0=A0=A0=A0=A0DC_LOG_ERROR("%s: Max link encoder caps unknown=
+", __func__);
+> >>> +=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap->lane_count =3D 1;
+> >>> +=A0=A0=A0=A0=A0=A0=A0max_link_enc_cap->link_rate =3D 6;
+> >>> +=A0=A0=A0=A0=A0=A0=A0return false;
+> >>> +}
+> >>> +
+> >>> =A0static struct dc_link_settings get_max_link_cap(struct dc_link *li=
+nk)
+> >>> =A0{
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct dc_link_settings max_link_cap =3D {0};
+> >>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h
+> >>> b/drivers/gpu/drm/amd/display/dc/dc_link.h
+> >>> index b0013e674864..cb6d0543d839 100644
+> >>> --- a/drivers/gpu/drm/amd/display/dc/dc_link.h
+> >>> +++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+> >>> @@ -346,6 +346,8 @@ bool dc_link_dp_set_test_pattern(
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0const unsigned char *p_custom_pattern,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0unsigned int cust_pattern_size);
+> >>> =A0
+> >>> +bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, str=
+uct
+> >>> dc_link_settings *max_link_enc_cap);
+> >>> +
+> >>> =A0void dc_link_enable_hpd_filter(struct dc_link *link, bool enable);
+> >>> =A0
+> >>> =A0bool dc_link_is_dp_sink_present(struct dc_link *link);
+> >>> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
+> >>> b/drivers/gpu/drm/drm_dp_mst_topology.c
+> >>> index 5539a91b4031..31d9f3ff0d39 100644
+> >>> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> >>> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> >>> @@ -3708,19 +3708,24 @@ int drm_dp_mst_topology_mgr_set_mst(struct
+> >>> drm_dp_mst_topology_mgr *mgr, bool ms
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0/* set the device into MST mode */
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (mst_state) {
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0struct drm_dp_payload=
+ reset_pay;
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int lane_count;
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int link_rate;
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0WARN_ON(mgr->mst_prim=
+ary);
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* get dpcd info */
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_dpcd_rea=
+d(mgr->aux, DP_DPCD_REV, mgr->dpcd,
+> >>> DP_RECEIVER_CAP_SIZE);
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (ret !=3D DP_RECEIVE=
+R_CAP_SIZE) {
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0drm_dbg_kms(mgr->dev, "failed to read DPCD\n");
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_read_dpc=
+d_caps(mgr->aux, mgr->dpcd);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (ret < 0) {
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0drm_dbg_kms(mgr->dev, "%s: failed to read DPCD, ret
+> >>> %d\n",
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mgr->aux->name, ret);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0goto out_unlock;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> >>> =A0
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0lane_count =3D min_t(in=
+t, mgr->dpcd[2] &
+> >>> DP_MAX_LANE_COUNT_MASK, mgr->max_lane_count);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0link_rate =3D min_t(int=
+, mgr->dpcd[1], mgr->max_link_rate);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mgr->pbn_div =3D drm_=
+dp_get_vc_payload_bw(mgr,
+> >>> -
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0drm_dp_bw_code_to_link
+> >>> _rate(mgr->dpcd[1]),
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0mgr->dpcd[2] &
+> >>> DP_MAX_LANE_COUNT_MASK);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0drm_dp_bw_code_to_li
+> >>> nk_rate(link_rate),
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0lane_count);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mgr->pbn_div =3D=
+=3D 0) {
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0ret =3D -EINVAL;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0goto out_unlock;
+> >>> @@ -5448,14 +5453,17 @@ EXPORT_SYMBOL(drm_atomic_get_mst_topology_sta=
+te);
+> >>> =A0 * @aux: DP helper aux channel to talk to this device
+> >>> =A0 * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
+> >>> =A0 * @max_payloads: maximum number of payloads this GPU can source
+> >>> + * @max_lane_count: maximum number of lanes this GPU supports
+> >>> + * @max_link_rate: maximum link rate this GPU supports, units as in =
+DPCD
+> >>> =A0 * @conn_base_id: the connector object ID the MST device is connec=
+ted to.
+> >>> =A0 *
+> >>> =A0 * Return 0 for success, or negative error code on failure
+> >>> =A0 */
+> >>> =A0int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *m=
+gr,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_device *dev, struct drm_dp_aux
+> >>> *aux,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads, int conn_base_id)
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes, int
+> >>> max_payloads,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_lane_count, int max_link_rate,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int conn_base_id)
+> >>> =A0{
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct drm_dp_mst_topology_state *mst_state;
+> >>> =A0
+> >>> @@ -5490,6 +5498,8 @@ int drm_dp_mst_topology_mgr_init(struct
+> >>> drm_dp_mst_topology_mgr *mgr,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->aux =3D aux;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->max_dpcd_transaction_bytes =3D max_dpcd_=
+transaction_bytes;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->max_payloads =3D max_payloads;
+> >>> +=A0=A0=A0=A0=A0=A0=A0mgr->max_lane_count =3D max_lane_count;
+> >>> +=A0=A0=A0=A0=A0=A0=A0mgr->max_link_rate =3D max_link_rate;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0mgr->conn_base_id =3D conn_base_id;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (max_payloads + 1 > sizeof(mgr->payload_ma=
+sk) * 8 ||
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads + 1 > sizeof(mgr->vcpi=
+_mask) * 8)
+> >>> @@ -5896,14 +5906,13 @@ struct drm_dp_aux
+> >>> *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC=
+_WITHOUT_VIRTUAL_DPCD)
+> >>> &&
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 port->mgr->dpcd[DP_DPCD_REV] >=3D D=
+P_DPCD_REV_14 &&
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 port->parent =3D=3D port->mgr->mst_=
+primary) {
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0u8 downstreamport;
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0u8 dpcd_ext[DP_RECEIVER=
+_CAP_SIZE];
+> >>> =A0
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_dpcd_read(&p=
+ort->aux, DP_DOWNSTREAMPORT_PRESENT,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &downstreamport, 1) < 0)
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (drm_dp_read_dpcd_ca=
+ps(port->mgr->aux, dpcd_ext) < 0)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0return NULL;
+> >>> =A0
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if ((downstreamport & D=
+P_DWN_STRM_PORT_PRESENT) &&
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ((downstreamport=
+ & DP_DWN_STRM_PORT_TYPE_MASK)
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if ((dpcd_ext[DP_DOWNST=
+REAMPORT_PRESENT] &
+> >>> DP_DWN_STRM_PORT_PRESENT) &&
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ((dpcd_ext[DP=
+_DOWNSTREAMPORT_PRESENT] &
+> >>> DP_DWN_STRM_PORT_TYPE_MASK)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 !=3D DP_=
+DWN_STRM_PORT_TYPE_ANALOG))
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0return port->mgr->aux;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0}
+> >>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> >>> b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> >>> index 860381d68d9d..a4245eb48ef4 100644
+> >>> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> >>> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> >>> @@ -942,6 +942,7 @@ intel_dp_mst_encoder_init(struct intel_digital_po=
+rt
+> >>> *dig_port, int conn_base_id)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct intel_dp *intel_dp =3D &dig_port->dp;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0enum port port =3D dig_port->base.port;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0int ret;
+> >>> +=A0=A0=A0=A0=A0=A0=A0int bios_max_link_rate;
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (!HAS_DP_MST(i915) || intel_dp_is_edp(inte=
+l_dp))
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
+> >>> @@ -956,8 +957,11 @@ intel_dp_mst_encoder_init(struct intel_digital_p=
+ort
+> >>> *dig_port, int conn_base_id)
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0/* create encoders */
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0intel_dp_create_fake_mst_encoders(dig_port);
+> >>> +=A0=A0=A0=A0=A0=A0=A0bios_max_link_rate =3D intel_bios_dp_max_link_r=
+ate(&dig_port->base);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_mst_topology_mgr_init(&intel_d=
+p->mst_mgr, &i915->drm,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &intel_dp->aux, 1=
+6, 3,
+> >>> conn_base_id);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &intel_dp->aux, 1=
+6, 3,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dig_port->max_lan=
+es,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bios_max_link_rat=
+e / 27000,
+> >>> conn_base_id);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (ret)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return ret;
+> >>> =A0
+> >>> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> >>> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> >>> index 1c9c0cdf85db..e02f9d2d74eb 100644
+> >>> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> >>> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> >>> @@ -1617,7 +1617,8 @@ nv50_mstm_new(struct nouveau_encoder *outp, str=
+uct
+> >>> drm_dp_aux *aux, int aux_max,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0mstm->mgr.cbs =3D &nv50_mstm;
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0ret =3D drm_dp_mst_topology_mgr_init(&mstm->m=
+gr, dev, aux, aux_max,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads, con=
+n_base_id);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_payloads, out=
+p->dcb-
+> >>> >dpconf.link_nr,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 outp->dcb->dpconf=
+.link_bw,
+> >>> conn_base_id);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (ret)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return ret;
+> >>> =A0
+> >>> diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c
+> >>> b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+> >>> index 59cf1d288465..8f0b2dccd199 100644
+> >>> --- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
+> >>> +++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+> >>> @@ -629,13 +629,20 @@ int
+> >>> =A0radeon_dp_mst_init(struct radeon_connector *radeon_connector)
+> >>> =A0{
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0struct drm_device *dev =3D radeon_connector->=
+base.dev;
+> >>> +=A0=A0=A0=A0=A0=A0=A0int max_link_rate;
+> >>> =A0
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0if (!radeon_connector->ddc_bus->has_aux)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
+> >>> =A0
+> >>> +=A0=A0=A0=A0=A0=A0=A0if (radeon_connector_is_dp12_capable(&radeon_co=
+nnector->base))
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_rate =3D 0x14;
+> >>> +=A0=A0=A0=A0=A0=A0=A0else
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0max_link_rate =3D 0x0a;
+> >>> +
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0radeon_connector->mst_mgr.cbs =3D &mst_cbs;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0return drm_dp_mst_topology_mgr_init(&radeon_c=
+onnector->mst_mgr, dev,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &radeon_connec=
+tor->ddc_bus->aux,
+> >>> 16, 6,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 4, max_link_ra=
+te,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 radeon_connect=
+or->base.base.id);
+> >>> =A0}
+> >>> =A0
+> >>> diff --git a/include/drm/drm_dp_mst_helper.h
+> >>> b/include/drm/drm_dp_mst_helper.h
+> >>> index 20dc705642bd..b5b0bf37813b 100644
+> >>> --- a/include/drm/drm_dp_mst_helper.h
+> >>> +++ b/include/drm/drm_dp_mst_helper.h
+> >>> @@ -593,6 +593,14 @@ struct drm_dp_mst_topology_mgr {
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * @max_payloads: maximum number of payloads =
+the GPU can generate.
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0 */
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0int max_payloads;
+> >>> +=A0=A0=A0=A0=A0=A0=A0/**
+> >>> +=A0=A0=A0=A0=A0=A0=A0 * @max_lane_count: maximum number of lanes the=
+ GPU can drive.
+> >>> +=A0=A0=A0=A0=A0=A0=A0 */
+> >>> +=A0=A0=A0=A0=A0=A0=A0int max_lane_count;
+> >>> +=A0=A0=A0=A0=A0=A0=A0/**
+> >>> +=A0=A0=A0=A0=A0=A0=A0 * @max_link_rate: maximum link rate per lane G=
+PU can output.
+> >>> +=A0=A0=A0=A0=A0=A0=A0 */
+> >>> +=A0=A0=A0=A0=A0=A0=A0int max_link_rate;
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0/**
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * @conn_base_id: DRM connector ID this mgr i=
+s connected to. Only
+> >>> used
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0 * to build the MST connector path value.
+> >>> @@ -765,7 +773,9 @@ struct drm_dp_mst_topology_mgr {
+> >>> =A0int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *m=
+gr,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_device *dev, struct drm_dp_aux
+> >>> *aux,
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_dpcd_transaction_bytes,
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads, int conn_base_id);
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_payloads,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int max_lane_count, int max_link_rate,
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 int conn_base_id);
+> >>> =A0
+> >>> =A0void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mg=
+r *mgr);
+> >>> =A0
+> =
+
+> -- =
+
+> Jani Nikula, Intel Open Source Graphics Center
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
