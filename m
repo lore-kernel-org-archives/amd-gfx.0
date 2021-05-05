@@ -2,65 +2,92 @@ Return-Path: <SRS0=nRto=KA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0A14C433ED
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 13:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F165C433B4
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 13:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 704CF610F7
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 13:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 704CF610F7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BCAFA613BE
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 May 2021 13:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCAFA613BE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD47A6E49A;
-	Wed,  5 May 2021 13:12:31 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2DA46E49A
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 May 2021 13:12:30 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id m13so2081037oiw.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 May 2021 06:12:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=nX/cue1FtS93vK8kaBqe42ubBG/I3rvovfHCSVQIaTE=;
- b=sqFLux+9DQiWq9nMr+xNmJEFSmammKbJwXlQhYNfdLl3kf4ATrnlYJXJP9GS46oYLf
- WyJ4QSKw61zI5COD6F56h0i67MCkCidjZ525H3c3nPNhx/ZG+2VSZBOD/HoDg4Sxwz47
- 4IPMjbZe+hNKizVGucbvuhDPiQssr3Sei/H0mHSS90UnTmKJWUETQRYZ5YWcqSyi3Ay2
- ZmCBQ8tcXFwzFU2zZkkD8dgwFZUzGI5u4lyher5c3vt82ph3tXnoUeiU/AkGb3w3mBBM
- zkKxmdAy6mQMk5ziRPUk4KJDxXsWG/cdydBxVl3p3jU1goHEX8zPs99k5GjwQEo2RZSX
- Q3mA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 272BB6E07F;
+	Wed,  5 May 2021 13:17:05 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4E836E07F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 May 2021 13:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1620220488;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h+rdX2/xU7dnWzBcR/NeP2uhRQgGwc4z1b9NGYO9W/M=;
+ b=Khl2RHNl45uLWnAKrymEzftvmKKJXXdACiorThvLDBGepnALV4p+PSYPywhdB6h6bKp8Kb
+ k6CNw2jopvjjF0XyK2ix8LN3MBXn38k/VPSJoJklvUiqTBmHNfYKDzSYMxmdcUXrQkQ5d8
+ h/CUvp4rKueXFbIOH9Th5096unX+XIs=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-588-Np7gSNKBMCSW1N_C0Fg1Yw-1; Wed, 05 May 2021 09:14:46 -0400
+X-MC-Unique: Np7gSNKBMCSW1N_C0Fg1Yw-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ z15-20020a170906074fb029038ca4d43d48so431577ejb.17
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 May 2021 06:14:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=nX/cue1FtS93vK8kaBqe42ubBG/I3rvovfHCSVQIaTE=;
- b=QX3bMPzZra7Yd6BXqfJHhdhpfHsjACI3eNAq7HvprqZ0AerGuPCsqfkjV6rxqJgfkB
- 6faxM7FadUgxJ42ob8FQXIjW4z04EfpPQCI5IS+QXvUpViA8WYtW58g97nt17Td+sxBS
- aaz2eW8aARiBOqWpG+2RgyJCYDd/7HxgUymLEaImckoDCBswgCVeN3xHj1pTHQWFfEQT
- PfaVc3UbDWs5xEu4/5Vi6R0VbrIb2Dzq/CQazuOTrmd5vqQkNKwY6IuRt62364IKQK6a
- Yvbgj32eyBzAem7aIiYJAP/oU8KzIxyxFKE9UoqfglVNf8Lbmgn3bX8WhJoRvnORG6wp
- N3ig==
-X-Gm-Message-State: AOAM530CgxyiUI5KXn1m/qyzSMUstzmOMCjOzX1//YlytHeBAhL0Ev9D
- lyfxWfkNlDJS2ztV+X9VvnjTD4FC3B++4ukbV8GIhPrA
-X-Google-Smtp-Source: ABdhPJytREQl0vMlLlQY5Dyc5MIwKbCBMGyiE306HnVqcK2ESU5E4vvhyxAounrEBVNvvklMyVbqkVQnr0Wqd37QgKI=
-X-Received: by 2002:aca:fc50:: with SMTP id a77mr15816897oii.123.1620220350373; 
- Wed, 05 May 2021 06:12:30 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=h+rdX2/xU7dnWzBcR/NeP2uhRQgGwc4z1b9NGYO9W/M=;
+ b=TXSWboxjcFO312mu/ZUcZ1/eE2h9vbVKdlZKQR0l4PB1ikm7xZ5aOxD0lwIa7HaMUy
+ 4x8EWm/ziDXn6T4vTpF43jLrCbKalQ56E3vYudQ8WmQhA7anmnaQ23jyi8ChzTc/Vazr
+ 8qujfK1Bxw4vBJUx6MtyJC6BdDWPxNCabwnJo7T7kaG+z5o+0dMJaBVmDvnysw0MUIz+
+ SWwiqCgYcLi6bzk0QJfUM0bhSjaWJ6MExrl/X2KTbXlVPndssiWqnn+9E1j4/SpfuQpX
+ wbEn1X5uQCxnE6euwnKnWSHQboprkJfLYTVcOkaxZCnnAWS0rCzF67s4fKfhNOsxU15/
+ T5jg==
+X-Gm-Message-State: AOAM533AoXdyjNWbGOhdXwg8fgXZFHtxxCbnSscyybnlgC1z623YwzWS
+ z9hXzB92KsrX73eYdFRgdQjRCI4AKppgSlZr5/kTaS8izmcCiDlMt/u7wt6IcRwOThVGyQtMQeB
+ sdfH34ZS6pU4rF95uPXRLQPCMfQ==
+X-Received: by 2002:a05:6402:17ef:: with SMTP id
+ t15mr29679363edy.385.1620220485236; 
+ Wed, 05 May 2021 06:14:45 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyqxaMLu3mF+WTG3/w2rO8MD1gl+pQhUaqHGEI0vpeY8MpQYl2jtRmuYDstSH5gqmadI9tQbQ==
+X-Received: by 2002:a05:6402:17ef:: with SMTP id
+ t15mr29679347edy.385.1620220485037; 
+ Wed, 05 May 2021 06:14:45 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id bu26sm2950854ejb.30.2021.05.05.06.14.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 May 2021 06:14:44 -0700 (PDT)
+Subject: Re: [PATCH] platform/x86: Add missing LPS0 functions for AMD
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20210504221140.593002-1-alexander.deucher@amd.com>
+ <BYAPR12MB2693F7109BC8E7EF9F672A16E25A9@BYAPR12MB2693.namprd12.prod.outlook.com>
+ <22c1b9a9-8167-5e4f-6ff7-278c386cc423@redhat.com>
+ <CADnq5_POX7j1_BDh24uQ=gFfJU43TQW49Q32LUoisqg3hW8t+A@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <949c563d-abbd-a777-db02-93778c09e547@redhat.com>
+Date: Wed, 5 May 2021 15:14:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210505110146.11689-1-christian.koenig@amd.com>
-In-Reply-To: <20210505110146.11689-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 May 2021 09:12:19 -0400
-Message-ID: <CADnq5_O4u5tfrD=b+Z5AbjT+RRTfNd9kCkVDsxOK7a8KQj8Qrw@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Add Xinhui Pan as another AMDGPU contact
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_POX7j1_BDh24uQ=gFfJU43TQW49Q32LUoisqg3hW8t+A@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 05 May 2021 13:17:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,32 +99,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- xinhui pan <Xinhui.Pan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "S-k, Shyam-sundar" <Shyam-sundar.S-k@amd.com>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>, Marcin Bachry <hegel666@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, "Liang,
+ Prike" <Prike.Liang@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "lenb@kernel.org" <lenb@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBNYXkgNSwgMjAyMSBhdCA3OjAxIEFNIENocmlzdGlhbiBLw7ZuaWcKPGNrb2VuaWcu
-bGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPgo+IFNpbmNlIENodW5taW5nIFpob3Ug
-bGVmdCBBTUQgbGFzdCB5ZWFyIHdlIGFyZSBkb3duIHRvIG9ubHkKPiB0d28gbWFpbnRhaW5lcnMg
-b25jZSBtb3JlLiBTbyBhZGQgWGluaHUgUGFuIGFzIGFub3RoZXIKPiBjb250YWN0IGFzIHdlbGwu
-Cj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
-Y29tPgoKPiAtLS0KPiAgTUFJTlRBSU5FUlMgfCAxICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5z
-ZXJ0aW9uKCspCj4KPiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVSUwo+IGlu
-ZGV4IDY0ZWQ4Yjc3Y2ZhOS4uZTJjYjVhOGFjZGYxIDEwMDY0NAo+IC0tLSBhL01BSU5UQUlORVJT
-Cj4gKysrIGIvTUFJTlRBSU5FUlMKPiBAQCAtMTQ5NzAsNiArMTQ5NzAsNyBAQCBGOiAgICAgIGRy
-aXZlcnMvbmV0L3dpcmVsZXNzL3F1YW50ZW5uYQo+ICBSQURFT04gYW5kIEFNREdQVSBEUk0gRFJJ
-VkVSUwo+ICBNOiAgICAgQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+
-ICBNOiAgICAgQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ICtN
-OiAgICAgUGFuLCBYaW5odWkgPFhpbmh1aS5QYW5AYW1kLmNvbT4KPiAgTDogICAgIGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gIFM6ICAgICBTdXBwb3J0ZWQKPiAgVDogICAgIGdpdCBo
-dHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvYWdkNWYvbGludXguZ2l0Cj4gLS0KPiAyLjI1
-LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hi,
+
+On 5/5/21 3:11 PM, Alex Deucher wrote:
+> On Wed, May 5, 2021 at 9:10 AM Hans de Goede <hdegoede@redhat.com> wrote:
+>>
+>> Hi,
+>>
+>> On 5/5/21 12:33 AM, Limonciello, Mario wrote:
+>>> [AMD Public Use]
+>>>
+>>>> Subject: [PATCH] platform/x86: Add missing LPS0 functions for AMD
+>>>
+>>> Rafael might be willing to fix it up on commit, but if you end up needing to re-spin
+>>> I think technically this subsystem prefix to match other stuff committed to this file
+>>> should be:
+>>>
+>>> "ACPI: PM: s2idle:"
+>>
+>> Ack, please get the subject next right time. I was about the put this in a folder
+>> with patches to apply to the pdx86 kernel tree once 5.13-rc1 is out, but this
+>> should not go upstream through the pdx86 tree at all.
+> 
+> Do you want me to resend with the corrected subject?  What tree does
+> this need to go through?
+
+That might be helpful, I think that like how to subject made me
+think "Oh I need to pick this one up" it will probably to the
+opposite for Rafael.
+
+It should go through Rafael's ACPI/PM tree:
+
+[hans@x1 linux]$ scripts/get_maintainer.pl -f drivers/acpi/x86/s2idle.c
+"Rafael J. Wysocki" <rjw@rjwysocki.net> (supporter:ACPI)
+Len Brown <lenb@kernel.org> (supporter:ACPI)
+linux-acpi@vger.kernel.org (open list:ACPI)
+linux-kernel@vger.kernel.org (open list)
+
+Regards,
+
+Hans
+
+
+
+>>>> These are supposedly not required for AMD platforms,
+>>>> but at least some HP laptops seem to require it to
+>>>> properly turn off the keyboard backlight.
+>>>>
+>>>> Based on a patch from Marcin Bachry <hegel666@gmail.com>.
+>>>>
+>>>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1230
+>>>> Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Marcin Bachry <hegel666@gmail.com>
+>>>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+>>>> ---
+>>>>
+>>>> Dropping patch 2/2 for now.  This patch fixes several
+>>>> systems and doesn't appear to cause any issues.
+>>>>
+>>>>  drivers/acpi/x86/s2idle.c | 4 ++++
+>>>>  1 file changed, 4 insertions(+)
+>>>>
+>>>> diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
+>>>> index 2b69536cdccb..2d7ddb8a8cb6 100644
+>>>> --- a/drivers/acpi/x86/s2idle.c
+>>>> +++ b/drivers/acpi/x86/s2idle.c
+>>>> @@ -42,6 +42,8 @@ static const struct acpi_device_id lps0_device_ids[] = {
+>>>>
+>>>>  /* AMD */
+>>>>  #define ACPI_LPS0_DSM_UUID_AMD      "e3f32452-febc-43ce-9039-
+>>>> 932122d37721"
+>>>> +#define ACPI_LPS0_ENTRY_AMD         2
+>>>> +#define ACPI_LPS0_EXIT_AMD          3
+>>>>  #define ACPI_LPS0_SCREEN_OFF_AMD    4
+>>>>  #define ACPI_LPS0_SCREEN_ON_AMD     5
+>>>>
+>>>> @@ -408,6 +410,7 @@ int acpi_s2idle_prepare_late(void)
+>>>>
+>>>>      if (acpi_s2idle_vendor_amd()) {
+>>>>              acpi_sleep_run_lps0_dsm(ACPI_LPS0_SCREEN_OFF_AMD);
+>>>> +            acpi_sleep_run_lps0_dsm(ACPI_LPS0_ENTRY_AMD);
+>>>>      } else {
+>>>>              acpi_sleep_run_lps0_dsm(ACPI_LPS0_SCREEN_OFF);
+>>>>              acpi_sleep_run_lps0_dsm(ACPI_LPS0_ENTRY);
+>>>> @@ -422,6 +425,7 @@ void acpi_s2idle_restore_early(void)
+>>>>              return;
+>>>>
+>>>>      if (acpi_s2idle_vendor_amd()) {
+>>>> +            acpi_sleep_run_lps0_dsm(ACPI_LPS0_EXIT_AMD);
+>>>>              acpi_sleep_run_lps0_dsm(ACPI_LPS0_SCREEN_ON_AMD);
+>>>>      } else {
+>>>>              acpi_sleep_run_lps0_dsm(ACPI_LPS0_EXIT);
+>>>> --
+>>>> 2.30.2
+>>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> 
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
