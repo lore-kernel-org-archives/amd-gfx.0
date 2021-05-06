@@ -2,129 +2,139 @@ Return-Path: <SRS0=uqaI=KB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BADCDC433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 16:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ABD18C433B4
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 16:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2787F610A1
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 16:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2787F610A1
+	by mail.kernel.org (Postfix) with ESMTPS id 3AEC961075
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 16:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AEC961075
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5DE6E5A0;
-	Thu,  6 May 2021 16:10:24 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338266E1EE;
- Thu,  6 May 2021 16:10:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D4F6E7D1;
+	Thu,  6 May 2021 16:25:13 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A79186E7D1;
+ Thu,  6 May 2021 16:25:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cXu4FRnSpg+isk31hKiyFiK1mawXCDnzAtuyI+GdD7EEPPxRZ+CMwMyvkcU4WvhW6K3avk4k1poCJOSgxAXTye+JGiMMSa4KjyHvofbI4Y7IfMOJ63W/jwHChPEYcJ6K9TdSUGY3uE5+B1dI0rtUqB9K+9mQFqhqc7WJmoIy027nBDIQoPx5S+hOKxyt9RZupO1X7JOL5Yeo6wasfmySjEt8x4chpaqJpLY/UV9IjVApvcloOOZOAWkQ72jvOXhHBnAq+UvBnofqBVVUPby5ZfGcW7Ray1Dqvk5LXT1Ef3UAMfucTv4OT3KOhiH7AFnRuDfY46/jziXuEE8Qpy3k1Q==
+ b=T70zbZUy3rUjDXq68lShrXmk9BcAEMKTTjHR/yPNWO+a8voDsJMKzHNU303iifwET/4uhuc0aaQ4pjNvwlIeRJXH7MDDpy+6EGku7l8fT2KteoHpNOO+RPCZXR/dpseCsBZBejseMEw8Ujtm2ht2i1NDj97WKFl2yVYfSuT+Lma4IzpuTzpVxr/D3yZr5Hjpihsz6SukExiH3poZz8Jb3YtntSIOYZt897U3K0cJX85sru/aW/n9XhzjNFNYoEjjUO7GI3sp5W8aYwiZ0COHMg8Mu8YSYRBGftdoB2qIzeV7OV3uf6fZyduQqiEcdNCjGa2jC00j3vfxbNMufPBi5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D/UwVeZpRepIO2X98iq0Qp4lRuvUKtzaPoy1V9Jpe7o=;
- b=Qyt1a7FKTjDpIOYjBrFTArTKdOuKlruftOBtox4c8IsrpAQrgmKBSTEQXAyD87En7V3ObYm785Ef56ckDIxw8BeXMgx2Nsb30TmNSLEsxdvRGzIrM9CYjzipasLIObWtUksZBAKtKjPMWBDqPeWpgrWAr9O3qqafwqJfYDIst8R5PLZE+QUmFQfvcFnvHPLMYGINaoHy1UgDREY/zpNUGU9PfAKVTMKv+KjWYiL2FrtHXON76Cfqob5ZFIuclArjZTreT9sUjE20jRGui4HBCpCDA+juqHwwz8fz78u58836aL7CcYxQxP7q44ZcgNIUDlxjjEtc/qHk2oRrhDBLhw==
+ bh=mngtYEkOTSYXQW9LyEldnxC/jPep3aariBmcCoLewoU=;
+ b=l7Tz6bw39yAGIWHGLD5e88+WOUOJIngr2jVbyBZ4G+vX1oh3O5aliKgxqKnEN5RH4azpv8+9K9nHb71toUU7nLe7QgtZ+Ed3UxZYGsbdrk31eaqhaa3Kz99VxZcKljbafb/9m4fW6XeSqyX5ez/Q3Ix9YrozxasQ+E3Uc0ftxLJKhw2LhD1u5kngAgf98IWY9cbWiVzV/uE6vie1j/ky1i6C4gSdnS48aErQo+Lef2QTjq8t5QVBMO899dmLtiXVxzF3TqJt53Q9uUDIU2N5s3Msa6ojY455w6ZLBZu0mXOZiv72a8n9RL6GvobjvTvDDovaIAJPrm/mzlZ3r0293g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D/UwVeZpRepIO2X98iq0Qp4lRuvUKtzaPoy1V9Jpe7o=;
- b=S9qqIZPiyQsXJS7Hdb68F3J42HKv6q9mwyxSRaUXAdX1uPjGJsTc4d88Z2Dl/kZICFWRA6j+nfDxUEJDde/t4BqSLwr/PYeQ22h5Ug0tHV3h1qmk3LrW7ODBicMfOo1K0bfCxbpz4Zy3jupoR6DZ4SphrpmNl60L80oa7P8RNcs=
-Authentication-Results: lisas.de; dkim=none (message not signed)
- header.d=none;lisas.de; dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
- by BN9PR12MB5292.namprd12.prod.outlook.com (2603:10b6:408:105::9)
+ bh=mngtYEkOTSYXQW9LyEldnxC/jPep3aariBmcCoLewoU=;
+ b=m+BNLgYmo1Z15fLhjuGY6mCbLay+jPQVKvH/HDX9vXsJdzDMfM70UuA3XtX9EqGcaHJcFpQful+pOpOluRu5zAjemfOzYrDbJFg9Z8E41szNs1eh5XK4xTYTTVZqixjLnlIYXLFWBpA8GS29rrRpBt/JCN6CVgyD2mm0svWYvKY=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
+ by SN6PR12MB2800.namprd12.prod.outlook.com (2603:10b6:805:6c::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.24; Thu, 6 May
- 2021 16:10:18 +0000
-Received: from BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
- ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4087.039; Thu, 6 May 2021
- 16:10:18 +0000
-Subject: Re: [RFC] CRIU support for ROCm
-To: Daniel Vetter <daniel@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>, 
- Jason Ekstrand <jason@jlekstrand.net>
-References: <9245171d-ecc9-1bdf-3ecd-cf776dc17855@amd.com>
- <CAKMK7uGc6hqY0AasiE=rtF2EitGF7MaMxv7FYJ41O9aj8=__Vg@mail.gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <232d301f-cf57-85b1-6bbf-11bddc634189@amd.com>
-Date: Thu, 6 May 2021 12:10:15 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.38; Thu, 6 May
+ 2021 16:25:09 +0000
+Received: from SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
+ ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4108.026; Thu, 6 May 2021
+ 16:25:09 +0000
+Subject: Re: [PATCH v5 20/27] drm: Scope all DRM IOCTLs with drm_dev_enter/exit
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
+ <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
+ <YIqXJ5LA6wKl/yzZ@phenom.ffwll.local> <YIqZZW9iFyGCyOmU@phenom.ffwll.local>
+ <95935e46-408b-4fee-a7b4-691e9db4f455@amd.com>
+ <YIsDXWMYkMeNhBYk@phenom.ffwll.local>
+ <342ab668-554c-637b-b67b-bd8e6013b4c3@amd.com>
+ <YIvbAI4PjFlZw+z9@phenom.ffwll.local>
+ <b6d0c32c-cf90-6118-5c60-238b6f4a0aaa@amd.com>
+ <YJO5jBaNj1XCTFXE@phenom.ffwll.local>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Message-ID: <d398c3fd-badd-e9da-a74b-00231ad958a5@amd.com>
+Date: Thu, 6 May 2021 12:25:06 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-In-Reply-To: <CAKMK7uGc6hqY0AasiE=rtF2EitGF7MaMxv7FYJ41O9aj8=__Vg@mail.gmail.com>
+ Thunderbird/78.7.1
+In-Reply-To: <YJO5jBaNj1XCTFXE@phenom.ffwll.local>
 Content-Language: en-US
-X-Originating-IP: [142.116.138.207]
-X-ClientProxiedBy: YT2PR01CA0017.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::22) To BN9PR12MB5129.namprd12.prod.outlook.com
- (2603:10b6:408:136::12)
+X-Originating-IP: [2607:fea8:3edf:49b0:3577:c921:d8e7:7be6]
+X-ClientProxiedBy: YTXPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::43) To SN6PR12MB4623.namprd12.prod.outlook.com
+ (2603:10b6:805:e9::17)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.138.207) by
- YT2PR01CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::22) with Microsoft
+Received: from [IPv6:2607:fea8:3edf:49b0:3577:c921:d8e7:7be6]
+ (2607:fea8:3edf:49b0:3577:c921:d8e7:7be6) by
+ YTXPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4087.37 via Frontend Transport; Thu, 6 May 2021 16:10:17 +0000
+ 15.20.4087.39 via Frontend Transport; Thu, 6 May 2021 16:25:07 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3188938b-0f25-454b-4771-08d910a9710f
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5292:
+X-MS-Office365-Filtering-Correlation-Id: f3449da0-ee09-481e-40bc-08d910ab83d7
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2800:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN9PR12MB52924C481BCBCB9040B214D192589@BN9PR12MB5292.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB280030215EC6A795B967B33AEA589@SN6PR12MB2800.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Uy9zc59f3YW0IvyzYfBd07zUcw0LZWY7DcvdYyXPbbNVpRuNjYm694mg/i2hWXZ+xngfpxRvEc8KmNH9tZb/aoI6BD4bTa2U2omeayVs83IBDERq2a5d+/379MTJMw9ykEcuZRO/8dbgh4xDBYeJDYCHL+bfzk3CDx4BuriPjtN+dL6/UfdP1kYuiaaqzVPz1miahb6DDq1/aySXmSyoLHJMbLKAmM3ZzYepVPVzuluUT6zMa6EfxWKg+GxDt2I0TQL1rJfPM4himW+mtHMZkNiGKcbmRGf+EyCbQfM6vdxhXkvbT0BnY+e1dp07OVRxo+9T8TUxJqBvKZd0W+sCBCsWXJ3mmFhEb4Dz1glUWsNLc3zIycMJKi3m4LaJhZi495kZ3hNGiHptUL8G27Saa/NFGBq/OBrVFNe4oeJJojM/pe5XqqZPvhDcaJYsxYMGh2kEf4GwoxZhuCkCT/ZDhdtCwy/QT2BBzMWvlBW77oJJONOifp1gYYVv3rz5igfHGpFBp/0mYnQe2B4HoxDdeu/R49VQghG/mXa0cfzvw0+zbNq9liboxXSrA5hdL9tYxW1MgSJT07TvFNKQ2zrk56tdovSqoPMdUQKYg66ODn1XHrANmJUlVakysQZdqzZoIBW3Nzb8AXU2ttaNI0QR+mMpcOc/OWLc/JXeninsBHyrvnog78mntAMgVy5GUSGdejQcxTL6SIolr/woFFFY9psZ/6cFus0LYBsIGd33PRGfkxKQj6PC7FatlDfzBK1aVzVept642Nx1MkB+IR+QSw==
+X-Microsoft-Antispam-Message-Info: ftenKloriwUu1pKGHV003iWdzPLkqbVuHbEgXYTJehFB5igrZCqT5u4pW+Q/RQW4ZCfZwhhCp/KV+4ydTj0tHr8dJD0qy5O0gx+i4C5Fy3aDZK/P0M6WSieQALecznNEDSNK9/SfO+xURpPKX7rxm57/RF64gsXS31vyJcsC//LIxxApmOybOTkGoRAN193cB8l7V//BF3A9OChyUHVNkgGbROoUSuk9kVh0jJReg8atu3MNYy/gkpB/HwlnMwJVQ8Uh88NqFXfzawVcSA5Bv/cO9m+NwJaL44chhEZ1ftPZ0MlAca8BJhdj+PWvq1Qn9A8XLei79uYNXds8bN5rVOsXbEpzddV7RSKQeHhDpZYPQJcG0kqhOGo2PWruM4X1rB4BlaukVp/niusUM4dYodrlQ0NaPEyhbtANPvg8OcJHiUVjX/hmKX79X06n8orPkVEnp+dGYSVFsbUKQni9gKswvUtwadRyryZ1oQXMU9MLF46TXhMJrR4dyqWhJPUyvvIaZlHQBeGBdeGZ+n5aaAyEcvBZfDIdTZcvKEObRU1xdwZgzQ3jBapMxAP2KmPM5mGzAf96oan4+gwLfQMgm+inyZst2qqjLVsxZ42vk+hre/QO95fZINK1nrWDkwj05NH+p0m4PACmzyo0IYb0hgPr4SGjwI4KSjNoAgILE6+ovlUjUv2iN7HlnV3gWU7lkZKifBkE3+MGS33L4uXBCoUCfD/SuGzCyiUFKHxfNYA4QunpYtdU3g9W2vLRejjpcuMgWvp4Q9tXx1DkrQDKew==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(39860400002)(396003)(376002)(346002)(31696002)(110136005)(2906002)(30864003)(16576012)(54906003)(4326008)(44832011)(8936002)(966005)(6486002)(5660300002)(316002)(36756003)(31686004)(7416002)(86362001)(478600001)(956004)(83380400001)(2616005)(8676002)(16526019)(186003)(66476007)(66946007)(38100700002)(66556008)(26005)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(6486002)(31696002)(2616005)(45080400002)(5660300002)(86362001)(36756003)(30864003)(66556008)(53546011)(316002)(52116002)(31686004)(2906002)(8676002)(16526019)(83380400001)(966005)(66476007)(66946007)(44832011)(478600001)(38100700002)(186003)(6916009)(8936002)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?LzRmc0pjeWl4aml3NmNEODNNNmVCS0ZhRHR5VEM1K3FWYVJGcFhybXdQU25z?=
- =?utf-8?B?Wjg5M0ExMkl6M2VSM3l6LzJ4NzgrM2pJMit5d1czUzUwUkI1MXZLZlZDOEpW?=
- =?utf-8?B?cnk3WXZCbzh2L2h3OGlPem1BZHp0RVpxWHRYY1ZvdElBMnBjV1pNd2VXOWIy?=
- =?utf-8?B?amMrTjNCQVRFVUY0RVhBN2djZkxlbUJZb2RlcE5Gai9OUWV1QU5yOWJaZGtF?=
- =?utf-8?B?TmJwQllNQkxzR2p1cEZhN1lxVGlUZTlkTjFMWE9DTndxaGdLS20rZ3Y4aUV5?=
- =?utf-8?B?TW1uQmtadlF2a29UTFIveXFYcDNzZi95emxWN3pZSGJQODRvakhPcVJidXFu?=
- =?utf-8?B?THREZFFrSHk2MFpjc1E0TXVPQXNldWVJTG1iYWRESTl4aFk2ZzN3L1ZGcE9C?=
- =?utf-8?B?RHphMHpEblRVWGthajZYWXJ0cDhJOTJ5eE1lSVFDOGJYKzhrYVBBeHIzNkE0?=
- =?utf-8?B?c0Q3cGJBRkc3VW5tWVA2blJ1d1ZPZlR4b3hXRmlTN2MyeTBQRk9lTVRZN2RT?=
- =?utf-8?B?ZERnUVZWbVlWS1JkRzBqaVJnTE1PVGxkUzBiNGZyTDJLVWFoRkJqRkcyL3dR?=
- =?utf-8?B?Smkrc2xmeHBUODQ0R3JDaWJ4YjUzVDJlRXRQcEp2d0dISFZ3b2E4dTl5cG9q?=
- =?utf-8?B?eUlUMmxaNHdPckFQdCtCTndRTXVwSC9aWmg3Tzh0RVZLT3BsOGlJTmFlQkth?=
- =?utf-8?B?VGJ6K3RkUXpxMzBra0NoZXFsblIwZG0wNHpHNnZRbHRqbXordkxzVTZheUhl?=
- =?utf-8?B?THdBTEViNktHdTJmZWZCOXNaSWFtZDZ3UTduS3dKQnFVZ09Lb0w5UDVpVGYw?=
- =?utf-8?B?OFY5WmVaajdMSnVtTjZuSFpWR0lsNkZjQm1BUmNwYk1UMEx1b21kS1pDeHdV?=
- =?utf-8?B?UUVuUXlRTW1naFN1bkQzK3lyT0JDSFpPallxRlFXNlFlbXZXLy96dmtrbllm?=
- =?utf-8?B?TFEyalU2dklVWTFBTWJyQk82cHduVHU2UGN1NzJRQmpIa2NqTXpiaUhzTjFO?=
- =?utf-8?B?SU9GNDJIVnJxSmY1eU5lbFl1T0Q0UkhVZE9VQWVDcmZodnVuQ0Y5aWFOeWRX?=
- =?utf-8?B?NXppQnMyc2JHRE0xTmZOVjFFYUpySmZCQW55SjloZGJLVVlCTkJUb1VweWI5?=
- =?utf-8?B?Qzkwc2tQbnB6eFlGUFk2dERZZzVhMkVNMkl6MWJFeklqMk5SaHVuM2NjVGFO?=
- =?utf-8?B?c2pJd084L2VHVjZYVWgySHltaXZVVnI2NHArbnRyS2dUWE5YdzNHaTkzMmVr?=
- =?utf-8?B?WFVmcjFKUThhdjlPU0RvN1RGNmdacDdZMmZYekpMcmtPTG9OQmhJbXorZ1lu?=
- =?utf-8?B?c1p3RXBCS1A0SjA2b290UlZyUEthRkZHZE9Pa1RhdGlaRi9Oc1N0U2hMRHZY?=
- =?utf-8?B?cVFKWGZxdUxVdjl6Tll4eEpqMVVqeWVZaVUxc1BFVDBLNURHNlkvcXZVMFZT?=
- =?utf-8?B?OHI4M3N2Qk9VZVpQOGVOR3J2M1Z4Wk55Rlg5UlhQQnhpQXJBK25HZUYwNWhk?=
- =?utf-8?B?cm9QTzRaRlE4SVhmMkR5TS9YYUs2anVFcFlMdGo0bjJrWDd4TVVYa01RTjgv?=
- =?utf-8?B?L3V6M2wxV3B3Tm5PTmUwMUdFd3h2Mk9aeUxKWHR0RkhkOTVoS0dyS0UrekdF?=
- =?utf-8?B?bkZOWTd2dWg0YWNGMFd2aGdiM0IwLzFYa3hNQXBqbS9qTCt4aDBBcHBzMlhP?=
- =?utf-8?B?Z2s4SVZoaXIxLzd2N0E5azhlNG5ySU40anU4ajF5amU1UnI0dHRuT3U3VlZk?=
- =?utf-8?B?VGl2aW84cjJrVmNxbUVOTWlrL0EvMTBtZWlHT3FybGhrSXBWN0M1N1RXWDc2?=
- =?utf-8?B?SmV2RDIwdEg3aEljN0thUT09?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?OEZQdU5PTW4xaStCK2NIa1FkeXdtMlZERnFyR0dPd2dFVTNZY2pWY0FGdWJT?=
+ =?utf-8?B?N01rNEJ5NVVBUmZ0S0hKeWZYUC8zNmloYThtb1ZsUERpUEZqL2FCODIvRXR5?=
+ =?utf-8?B?cU0xK3JBcGpNckRFY0VkMENQU0RaZ0grbHZjQTZUdlo1di9vV2hRYUsyRHl5?=
+ =?utf-8?B?RmVTZ0t0WWdCQy9WTTVUemN5KzV5RXpIQmFYSTZYcWVQN0tXTytwZ242NGtT?=
+ =?utf-8?B?ckcxTUpuS1RUQ1J0UzZaU2RuMHZIVUc3cisxT2lRd1B5Y3lvbjlqNW53M0l5?=
+ =?utf-8?B?U0UweGtwTTVydkRXYlZZN3UweXBZdjlQVDB3bVlaZWJVeFA1YnpSTEpKc1N4?=
+ =?utf-8?B?SXZNeDdMWUtTTklGTk8zOG5Rc3RNWUFDQVVUMkVtYVdaS3diL2laZ1AyYWNM?=
+ =?utf-8?B?RHVXVUdKNG9KcWVjaTF2YTF4alpCcUx5VmVwUGVWWjJ1U3V1bTc0d2tVUEcv?=
+ =?utf-8?B?cGh6NmZXZlMyY3BXazVXVnlKaVpFc2tUZk5GMUoremlHQTdzNkRjUkFiSFhm?=
+ =?utf-8?B?dnIyZndLaDhOYUdKSlM4TXFTMTJmSFRoakZ0alFrZEt5YzhPMHhNKzlUeWxU?=
+ =?utf-8?B?SjRzRWJ1d2xEZDE0cW56TTArRG90SWRVN05iZm1aM2N2bTRkby9VV1hGMFVG?=
+ =?utf-8?B?RDVad3crV1hRREl0c2VBcFZvZitWS2VjUlhVTEJMWG1TZ1ZDS2x2azNOc1dY?=
+ =?utf-8?B?by9oT2pSdVZGSFdGZUV5K1hXT3F0VEUvMHBWcEVISmliY0FydEIreWJGWGdZ?=
+ =?utf-8?B?d2ZaWU02ZnVRWUhmM2tVVzY0ZXl6RENYREJWZW9DTDlMWGxpOGJGeFpoTHBa?=
+ =?utf-8?B?a2FqTGhFOXhOQzR4Um5ZNEJWYUdKTDZqbjl4L3VxbXRxSW5JUVN1YzhjNUFs?=
+ =?utf-8?B?c0RGWSszNjEvT1FwOWVvQ0ZMcFVvZS82NVhuaEF5Nmd4SzJaaGpGL0dsNDRP?=
+ =?utf-8?B?UFhxanMwUFBoV3ZndEdneFNEYkdJV3BOMFdaN01RTnBlcTFVYUNZdjNjSFcv?=
+ =?utf-8?B?SXBSWDBabUZ1b2k4eStrTFd3SS9xY1M2VXNpUnBuUmhzS1JDYXFsMmN2TzVW?=
+ =?utf-8?B?ZzBoYVlRS3cwQVJvM1ViYXdJVkFlalhZU3hCRW5NOFdmWW15QnkwWDZNOCt4?=
+ =?utf-8?B?UWlxN2tZcDIrc1Y2OGpnTVJxMktZNXBoYktDZGdHbkptUHA1TTVJSGRYUzBa?=
+ =?utf-8?B?QWZOOWFuaHVOWEZvUHdqdjZuZVAyMnJHV2NhRjl0QnFQVm40c0IwT255R2Vi?=
+ =?utf-8?B?N1dVTVJMRmRoeHhOMkFqb0tCRWQ1N29QR1hKY1c0Mlc2ajk3NnA0LzVUaC8z?=
+ =?utf-8?B?ZHUrQ0NzUXluTUdqYXZEaE1yZE84VkRMSzNjbVJRVkRVSmliRkhSUlVFcnpS?=
+ =?utf-8?B?bDdLQmlaR0NFVlNEL2hncUE5Zmh2ZlVJbjZ5ajNoOFVXN0E5QnNXTWN5ZmRo?=
+ =?utf-8?B?YXdzcGRIZVJRWHBSZ1pPZllpTS9nNlRIWTkyT1pHWUJjUzNNYlJLMUNhUFRq?=
+ =?utf-8?B?dWNZdC91UDFCT2R5VGhEKzgwMFYrT2ViRGhHUkpFMjRFbnhidkdZUXY4UWZI?=
+ =?utf-8?B?enRGRGhPMXR2dGVoemRGWEtUaTdGcGdGU3o3Q1NveSsxUFdRNkMxMzRaZGRh?=
+ =?utf-8?B?ZnlRVzhuNDhETXNDb3hIaUtwZ3Q1MmFaa0NzSkI2ZVNyaTgzRU9OVnJ0VTlT?=
+ =?utf-8?B?SmRGK2ZYdHcvdW8waW5venlFUDBJZXZBUEZQRzA3UWhrR2RpRXR1YnFLOWpy?=
+ =?utf-8?B?cldGdWNTanA0YTVyRmozWHNPWnNZU2VSTFVqK2ErYTFlTnFRaFNmY3pNRklM?=
+ =?utf-8?B?UTZyNkdPREozVmhuazJ0NkJoRTFyNHRidWxzRnI4ZE1sUkdZaWRPVkJxWTkz?=
+ =?utf-8?Q?Kc03spCvOfwTL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3188938b-0f25-454b-4771-08d910a9710f
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3449da0-ee09-481e-40bc-08d910ab83d7
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2021 16:10:18.4459 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2021 16:25:08.9388 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7sy2ob3GsQ1KPOVTZJ6MubdJYcY4DVdxJYQEzWjd2HGZXaOgOf1tlAuRwguPgWhSBibuL8/4IFg3DQp6snO0mA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5292
+X-MS-Exchange-CrossTenant-UserPrincipalName: R5o/M+2I5Z1Zk280jPlbu7yJlMAPmqiyfcEoRvuJZAlXPBYisHCTfW/JTQTEkISIY5hoEI+7BGwBKn5xuUi2AQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2800
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,235 +146,360 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Mihalicyn <alexander@mihalicyn.com>,
- Pavel Emelyanov <ovzxemul@gmail.com>, "Bhardwaj,
- Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Pavel Tikhomirov <snorcht@gmail.com>, criu@openvz.org, "Yat Sin,
- David" <David.YatSin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Adrian Reber <adrian@lisas.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
+ daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
+ ppaalanen@gmail.com, helgaas@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Alexander.Deucher@amd.com, Harry.Wentland@amd.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjAyMS0wNS0wNCB1bSA5OjAwIGEubS4gc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIEZy
-aSwgQXByIDMwLCAyMDIxIGF0IDA5OjU3OjQ1UE0gLTA0MDAsIEZlbGl4IEt1ZWhsaW5nIHdyb3Rl
-Ogo+PiBXZSBoYXZlIGJlZW4gd29ya2luZyBvbiBhIHByb3RvdHlwZSBzdXBwb3J0aW5nIENSSVUg
-KENoZWNrcG9pbnQvUmVzdG9yZQo+PiBJbiBVc2Vyc3BhY2UpIGZvciBhY2NlbGVyYXRlZCBjb21w
-dXRlIGFwcGxpY2F0aW9ucyBydW5uaW5nIG9uIEFNRCBHUFVzCj4+IHVzaW5nIFJPQ20gKFJhZGVv
-biBPcGVuIENvbXB1dGUgUGxhdGZvcm0pLiBXZSdyZSBoYXBweSB0byBmaW5hbGx5IHNoYXJlCj4+
-IHRoaXMgd29yayBwdWJsaWNseSB0byBzb2xpY2l0IGZlZWRiYWNrIGFuZCBhZHZpY2UuIFRoZSBl
-bmQtZ29hbCBpcyB0bwo+PiBnZXQgdGhpcyB3b3JrIGluY2x1ZGVkIHVwc3RyZWFtIGluIExpbnV4
-IGFuZCBDUklVLiBBIHNob3J0IHdoaXRlcGFwZXIKPj4gZGVzY3JpYmluZyBvdXIgZGVzaWduIGFu
-ZCBpbnRlbnRpb24gY2FuIGJlIGZvdW5kIG9uIEdpdGh1YjoKPj4gaHR0cHM6Ly9naXRodWIuY29t
-L1JhZGVvbk9wZW5Db21wdXRlL2NyaXUvdHJlZS9jcml1LWRldi90ZXN0L290aGVycy9leHQta2Zk
-L1JFQURNRS5tZAo+Pgo+PiBXZSBoYXZlIFJGQyBwYXRjaCBzZXJpZXMgZm9yIHRoZSBrZXJuZWwg
-KGJhc2VkIG9uIEFsZXggRGV1Y2hlcidzCj4+IGFtZC1zdGFnaW5nLWRybS1uZXh0IGJyYW5jaCkg
-YW5kIGZvciBDUklVIGluY2x1ZGluZyBhIG5ldyBwbHVnaW4gYW5kIGEKPj4gZmV3IGNvcmUgQ1JJ
-VSBjaGFuZ2VzLiBJIHdpbGwgc2VuZCB0aG9zZSB0byB0aGUgcmVzcGVjdGl2ZSBtYWlsaW5nIGxp
-c3RzCj4+IHNlcGFyYXRlbHkgaW4gYSBtaW51dGUuIFRoZXkgY2FuIGFsc28gYmUgZm91bmQgb24g
-R2l0aHViLgo+Pgo+PiAgICAgQ1JJVStwbHVnaW46IGh0dHBzOi8vZ2l0aHViLmNvbS9SYWRlb25P
-cGVuQ29tcHV0ZS9jcml1L2NvbW1pdHMvY3JpdS1kZXYKPj4gICAgIEtlcm5lbCAoS0ZEKToKPj4g
-ICAgIGh0dHBzOi8vZ2l0aHViLmNvbS9SYWRlb25PcGVuQ29tcHV0ZS9ST0NLLUtlcm5lbC1Ecml2
-ZXIvY29tbWl0cy9meGthbWQvY3JpdS13aXAKPj4KPj4gQXQgdGhpcyBwb2ludCB0aGlzIGlzIHZl
-cnkgbXVjaCBhIHdvcmsgaW4gcHJvZ3Jlc3MgYW5kIG5vdCByZWFkeSBmb3IKPj4gdXBzdHJlYW0g
-aW5jbHVzaW9uLiBUaGVyZSBhcmUgc3RpbGwgc2V2ZXJhbCBtaXNzaW5nIGZlYXR1cmVzLCBrbm93
-bgo+PiBpc3N1ZXMsIGFuZCBvcGVuIHF1ZXN0aW9ucyB0aGF0IHdlIHdvdWxkIGxpa2UgdG8gc3Rh
-cnQgYWRkcmVzc2luZyB3aXRoCj4+IHlvdXIgZmVlZGJhY2suCj4gU2luY2UgdGhlIHRocmVhZCBp
-cyBhIGJpdCBzcGxpdCBJJ20gZHVtcGluZyB0aGUgYmlnIHRob3VnaHRzIGhlcmUgb24gdGhpcwo+
-IFJGQy4KPgo+IFdlJ3ZlIGRpc2N1c3NlZCB0aGlzIGluIHRoZSBwYXN0LCBidXQgSSdtIG9uY2Ug
-bW9yZSAoaW5zZXJ0IG1lbWUgaGVyZSkKPiBhc2tpbmcgd2hldGhlciBjb250aW51aW5nIHRvIHdh
-bGsgZG93biB0aGUgYW1kZ3B1IHZzIGFtZGtmZCBzcGxpdCBpcwo+IHJlYWxseSB0aGUgcmlnaHQg
-Y2hvaWNlLiBJdCBzdGFydHMgdG8gZmVlbCBhIGJpdCBtdWNoIGxpa2Ugc3VuayBjb3N0Cj4gZmFs
-bGFjeSAuLi4KCkhpIERhbmllbCwKClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLiBJIGhhdmUgc29t
-ZSBjb21tZW50cyB0byB5b3VyIHNwZWNpZmljIHBvaW50cwpiZWxvdy4gVGhpcyBpcyBteSBvd24g
-b3BpbmlvbiBhdCB0aGlzIHBvaW50IGFuZCBtYXkgbm90IHJlZmxlY3QgQU1Ecwpwb3NpdGlvbi4g
-SSdtIHN0YXJ0aW5nIHNvbWUgaW50ZXJuYWwgZGlzY3Vzc2lvbnMgYWJvdXQgdW5pZnlpbmcgdGhl
-IEtGRAphbmQgZ3JhcGhpY3MgQVBJcyBpbiB0aGUgbG9uZyBydW4uIEJ1dCBJTU8gdGhpcyBpcyBn
-b2luZyB0byB0YWtlIHllYXJzCmFuZCB3b24ndCBiZSBzdXBwb3J0ZWQgb24gb3VyIGN1cnJlbnQg
-Y29tcHV0ZSBHUFVzLCBpbmNsdWRpbmcgQWxkZWJhcmFuCndoaWNoIGlzbid0IGV2ZW4gcmVsZWFz
-ZWQgeWV0LgoKCj4KPiAtIEZyb20gdGhlIGJpZyB0aHJlYWQgd2UncmUgaGF2aW5nIHJpZ2h0IG5v
-dyBvbiBkcmktZGV2ZWwgaXQncyBjbGVhciB0aGF0Cj4gICAzZCB3aWxsIGFsc28gbW92ZSB0b3dh
-cmRzIG1vcmUgYW5kIG1vcmUgYSB1c2Vyc3BhY2Ugc3VibWl0IG1vZGVsLgoKSSdsbCBuZWVkIHRv
-IHN0YXJ0IGZvbGxvd2luZyBkcmktZGV2ZWwgbW9yZSBjbG9zZWx5IGFuZCB0YWtlIGEgbW9yZQph
-Y3RpdmUgcm9sZSBpbiB0aG9zZSBkaXNjdXNzaW9ucy4gSWYgdGhlcmUgaXMgYW4gb3Bwb3J0dW5p
-dHkgZm9yIGEKdW5pZmllZCBtZW1vcnkgbWFuYWdlbWVudCBhbmQgY29tbWFuZCBzdWJtaXNzaW9u
-IG1vZGVsIGZvciBncmFwaGljcyBhbmQKY29tcHV0ZSBvbiBmdXR1cmUgaGFyZHdhcmUsIEkgd2Fu
-dCB0byBiZSBzdXJlIHRoYXQgb3VyIGNvbXB1dGUKcmVxdWlyZW1lbnRzIGFyZSB1bmRlcnN0b29k
-IGVhcmx5IG9uLgoKCj4gIEJ1dAo+ICAgZHVlIHRvIGJhY2t3YXJkcyBjb21wYXQgaXNzdWVzIGl0
-IHdpbGwgYmUgYSBtaXhlZCBtb2RlbCwgYW5kIGluIHNvbWUKPiAgIGNhc2VzIHdlIG5lZWQgdG8g
-cGljayBhdCBydW50aW1lIHdoaWNoIG1vZGVsIHdlJ3JlIHBpY2tpbmcuIEEgaGFyZCBzcGxpdAo+
-ICAgYmV0d2VlbiB0aGUgYW1kZ3B1IGFuZCB0aGUgYW1ka2ZkIHdvcmxkIGdldHMgaW4gdGhlIHdh
-eSBoZXJlLgoKQmFja3dhcmRzIGNvbXBhdGliaWxpdHkgd2lsbCBmb3JjZSB1cyB0byBtYWludGFp
-biBLRkQgYXQgbGVhc3QgZm9yIEdGWHY5CmFuZCBvbGRlciBBTUQgR1BVcy4gQXMgSSB1bmRlcnN0
-YW5kIGl0LCB0aGUgbmV3IHVzZXIgbW9kZSBjb21tYW5kCnN1Ym1pc3Npb24gbW9kZWwgd2lsbCBv
-bmx5IGJlIHZpYWJsZSBvbiBHRlh2MTAgb3IgZXZlbiBuZXdlciBHUFVzLiBHRlh2OQppcyBvdXIg
-YXJjaGl0ZWN0dXJlIGZvciBjdXJyZW50IGNvbXB1dGUgR1BVcyAoaW5jbHVkaW5nIEFsZGViYXJh
-biB3aGljaAppcyBzdGlsbCBpbiBkZXZlbG9wbWVudCksIHNvIHRoaXMgaXMgZ29pbmcgdG8gYmUg
-aW1wb3J0YW50IGZvciB1cyBmb3IKeWVhcnMgdG8gY29tZS4KCgo+Cj4gLSBUaGVyZSdzIHVzZS1j
-YXNlcyBmb3IgZG9pbmcgY29tcHV0ZSBpbiB2dWxrYW4gKHRoYXQgd2FzIGEgZGlzY3Vzc2lvbgo+
-ICAgZnJvbSBGZWIgdGhhdCBJIGtpY2tlZCBhZ2FpbiBpbiBwcml2YXRlLCBzaW5jZSBJIHRoaW5r
-IHN0aWxsCj4gICB1bnJlc29sdmVkKS4gU28geW91IG5lZWQgYSB2dWxrYW4gc3RhY2sgdGhhdCBy
-dW5zIG9uIGJvdGggYW1kZ3B1IGFuZAo+ICAgYW1kdmxrLgoKQnkgYW1kdmxrLCBkbyB5b3UgbWVh
-biBBTUQncyAicHJvIiBkcml2ZXIgdGhhdCBzdXBwb3J0cyBvdXIgbm9uLVJBRFYKVnVsY2FuIGRy
-aXZlcj8KCgo+Cj4gLSBNYXliZSBub3QgeWV0IG9uIGFtZCdzIHJhZGFyLCBidXQgdGhlcmUncyBh
-IGxvdCBvZiBjbG91ZCBjb21wdXRpbmcuIEFuZAo+ICAgbWF5YmUgdGhleSBhbHNvIHdhbnQgQ1JJ
-VSBmb3IgbWlncmF0aW5nIHRoZWlyIGNvbnRhaW5lcnMgYXJvdW5kLiBTbyB0aGF0Cj4gICBtZWFu
-cyBDUklVIGZvciBhbWRncHUgdG9vLCBub3QganVzdCBhbWRrZi4KCk91ciBzdHJhdGVneSBmb3Ig
-Y29tcHV0ZSBzdXBwb3J0IChPcGVuQ0wsIEhJUCwgT3Blbk1QIGFuZCBtYXlieSBmdXR1cmUKQysr
-IHN0YW5kYXJkcykgaXMgdG8gdXNlIFJPQ20gb24gYWxsIGN1cnJlbnQgYW5kIGZ1dHVyZSBHUFVz
-IHN0YXJ0aW5nCndpdGggR0ZYdjkuIEFzIGxvbmcgYXMgUk9DbSBpcyBiYXNlZCBvbiBLRkQsIHRo
-YXQgbWVhbnMgb3VyIGNvbXB1dGUKc3RhY2sgcnVucyBvbiBLRkQuIFdlIGRvbid0IHNlZSBLRkQg
-YXMgc29tZXRoaW5nIG11dHVhbGx5IGV4Y2x1c2l2ZSB3aXRoCmdyYXBoaWNzLiBUaGV5IGFyZSBk
-aWZmZXJlbnQgaW9jdGwgQVBJcywgYnV0IHRoZXkncmUgc2hhcmluZyB0aGUKaGFyZHdhcmUgYW5k
-IG1lbW9yeSBhbmQgYXJlIG1lYW50IHRvIHdvcmsgdG9nZXRoZXIuCgpXZSBhcmUgYWxyZWFkeSBw
-bGFubmluZyB0byBhZGQgQ1JJVSBzdXBwb3J0IHRvIG91ciByZW5kZXIgbm9kZSBBUEkKYmVjYXVz
-ZSB2aWRlbyBhY2NlbGVyYXRpb24gb24gb3VyIGNvbXB1dGUgc3RhY2sgc3RpbGwgcmVsaWVzIG9u
-IE1lc2EgYW5kCnRoZSByZW5kZXIgbm9kZSBDUyBBUEkuCgpJIGFkbWl0LCB0aGF0IHdlIGFyZSBu
-b3QgY3VycmVudGx5IGNvbnNpZGVyaW5nIFZ1bGNhbiBhcyBwYXJ0IG9mIG91cgpjb21wdXRlIHN0
-YWNrLiBJIGRvbid0IHRoaW5rIGl0IG1ha2VzIHNlbnNlIHRvIGJ1aWxkIFZ1bGNhbiBvbiB0b3Ag
-b2YKUk9DbSBiZWNhdXNlIHdlIGhhdmUgbm8gcGxhbnMgdG8gYWRkIGdyYXBoaWNzIHN1cHBvcnQg
-dG8gUk9DbS4gV2hhdApjb21tb25hbGl0eSB0aGVyZSBpcyBiZXR3ZWVuIFZ1bGNhbiBhbmQgb3Ro
-ZXIgY29tcHV0ZSBBUElzIHdpbGwgbmVlZCB0bwpiZSBhZGRyZXNzZWQgYXQgYSBsb3dlciBsZXZl
-bC4gSWYgZ3JhcGhpY3MgaXMgbW92aW5nIHRvIHVzZXIgbW9kZQpjb21tYW5kIHN1Ym1pc3Npb24g
-YW5kIGEgc2hhcmVkIHZpcnR1YWwgbWVtb3J5IG1vZGVsLCBJIHNlZSBhbgpvcHBvcnR1bml0eSB0
-byBtb3ZlIFJPQ20gdG8gYSBjb21tb24gaW9jdGwgQVBJIG9uIHRob3NlIGZ1dHVyZSBoYXJkd2Fy
-ZQpnZW5lcmF0aW9ucy4KCgo+Cj4gLSBXaGF0J3MgbXVjaCB3b3JzZSwgYW5kIEkgZG9uJ3QgdGhp
-bmsgYW55b25lIGluIGFtZCBoYXMgcmVhbGl6ZWQgdGhpcyB5ZXQKPiAgIChhdCBsZWFzdCBub3Qg
-aW4gYSBwdWJsaWMgdGhyZWFkIEkndmUgc2VlbikuIEluIHZ1bGthbiB5b3UgbmVlZCB0byBiZQo+
-ICAgYWJsZSB0byBzd2l0Y2ggZnJvbSBjb21wdXRlIG1vZGUgdG8gZG1hLWZlbmNlIG1vZGUgYWZ0
-ZXIKPiAgIHBpcGVsaW5lcy9kZXZpY2VzIGhhdmUgYmVlbiBjcmVhdGVkIGFscmVhZHkuIFRoaXMg
-aXMgYmVjYXVzZSB3aW5zeXMgYXJlCj4gICBvbmx5IGluaXRpYWxpemVkIGluIGEgc2Vjb25kIHN0
-ZXAsIHVudGlsIHRoYXQncyBkb25lIHlvdSBoYXZlIHRvCj4gICBwZXNzaW1pc3RpY2FsbHkgYXNz
-dW1lIHRoYXQgdGhlIHVzZXIgZG9lcyBwdXJlIGNvbXB1dGUuIFdoYXQncyB3b3JzZSBmb3IKPiAg
-IGJ1ZmZlciBzaGFyaW5nIHlvdSBkb24ndCBldmVuIGhhdmUgYSBjbGVhciBzaWduYWwgb24gdGhp
-cyBzdHVmZi4gU28KPiAgIGVpdGhlcgo+Cj4gICAtIHlvdSBmaWd1cmUgb3V0IGhvdyB0byBtaWdy
-YXRlIGFsbCB0aGUgYnVmZmVycyBhbmQgc3RhdGUgZnJvbSBhbWRrZmQgdG8KPiAgICAgYW1kZ3B1
-IGF0IHJ1bnRpbWUsIGFuZCBkdXBsaWNhdGUgYWxsIHRoZSBmZWF0dXJlcy4gV2hpY2ggaXMgcmF0
-aGVyCj4gICAgIHBvaW50bGVzcy4KPgo+ICAgLSBvciB5b3UgZHVwbGljYXRlIGFsbCB0aGUgY29t
-cHV0ZSBmZWF0dXJlcyB0byBhbWRncHUgc28gdGhhdCB2ayBjYW4gdXNlCj4gICAgIHRoZW0sIGFu
-ZCBzdGlsbCByZWFzb25hYmx5IGVhc3kgbWlncmF0ZSB0byB3aW5zeXMvZG1hLWZlbmNlIG1vZGUs
-Cj4gICAgIHdoaWNoIG1ha2VzIGFtZGtmZCByYXRoZXIgcmVkdW5kYW50LgoKVGhlIGJhc2ljICJj
-b21wdXRlIGZlYXR1cmVzIiB0aGF0IFJPQ20gZGVwZW5kcyBvbiBhcmUgYQpzaGFyZWQtdmlydHVh
-bC1tZW1vcnkgbW9kZWwgYW5kIHVzZXIgbW9kZSBjb21tYW5kIHN1Ym1pc3Npb24uIElmIHRob3Nl
-CmJlY29tZSBwYXJ0IG9mIHRoZSBncmFwaGljcyBpb2N0bCBBUEksIEkgc2VlIG5vIHByb2JsZW0g
-d2l0aAppbXBsZW1lbnRpbmcgcHJvcGVyIFZ1bGNhbiBjb21wdXRlIG9uIHRvcCBvZiBpdC4KCkZv
-ciBtb3JlIGNvbnNpc3RlbnQgc3VwcG9ydCBmb3IgdG9vbHMgc3VjaCBhcyBkZWJ1Z2dlciwgcHJv
-ZmlsZXJzLCBDUklVLApldGMuIGl0IHdvdWxkIG1ha2Ugc2Vuc2UgdG8gaGF2ZSBhIGNvbW1vbiBp
-b2N0bCBBUEkgZm9yIFJPQ20gYW5kIFZ1bGNhbiwKd2hpY2ggd291bGQgZWZmZWN0aXZlbHkgZGVw
-cmVjYXRlIHRoZSBLRkQgQVBJLiBBbmQgSSdtIGRlZmluaXRlbHkgb3Blbgp0byB3b3JraW5nIG9u
-IHRoYXQgZm9yIGZ1dHVyZSBIVyBnZW5lcmF0aW9ucyB0aGF0IGNhbiBzdXBwb3J0IGl0LgoKV2Un
-bGwgcHJvYmFibHkgaGF2ZSB0byBwaWNrIGEgdGFyZ2V0IEdQVSB3aGVyZSB3ZSBtYWtlIHN1Y2gg
-YSBzd2l0Y2gsCmFuZCB1c2UgdGhlIHRpbWUgdW50aWwgdGhlbiB0byBnZXQgdGhpbmdzIHJlYWR5
-LCBwcm90b3R5cGluZyBpbiBjdXJyZW50CkdGWHYxMCBvciBuZXdlciBHUFVzLiBUaGlzIGZlZWxz
-IHRvIG1lIGEgYml0IGxpa2UgdGhlIHRyYW5zaXRpb24gZnJvbQpyYWRlb24gdG8gYW1kZ3B1LCB3
-aGVyZSBHRlh2NyB3YXMgc3VwcG9ydGVkIGJ5IGJvdGggZm9yIHNvbWUgdGltZS4KCsKgCgo+Cj4g
-ICBJJ3ZlIGRpc2N1c3NlZCB0aGlzIHByb2JsZW0gZXh0ZW5zaXZlbHkgd2l0aCBKYXNvbiBFa3N0
-cmFuZCwgYW5kIGl0J3MKPiAgIHJlYWxseSBuYXN0eS4KPgo+IFNvIHB1cmVseSBmcm9tIGEgdGVj
-aG5pY2FsIHBvdiwgb25seSBsb29raW5nIGF0IHRoZSBBTUQgcGVyc3BlY3RpdmUgaGVyZSwKPiB0
-aGlzIGRvZXNuJ3QgbWFrZSBtdWNoIHNlbnNlIHRvIG1lLiBUaGUgb25seSByZWFzb24gdG8ga2Vl
-cCBkb3VibGluZyBkb3duCj4gb24gYW1ka2ZkIEknbSBzZWVpbmcgaXMgdGhhdCB5b3UndmUgYnVp
-bHQgeW91ciBjb21wdXRlIHJvY20gc3RhY2sgb24gdG9wCj4gb2YgaXQsIGFuZCBiZWNhdXNlIG9m
-IHRoYXQgdGhlIG9ubHkgb3B0aW9uIGlzIHRvIGtlZXAgZG9pbmcgdGhhdC4gV2hpY2gKPiBzdG9w
-cyBtYWtpbmcgc2Vuc2UgZXZlbnR1YWxseSwgYW5kIHdlJ3JlIGdldHRpbmcgdG8gdGhhdCBwb2lu
-dCBmb3Igc3VyZS4KCkFzIGxvbmcgYXMgb3VyIGNvbXB1dGUgR1BVcyBhcmUgYmFzZWQgb24gdGhl
-IEdGWHY5IGFyY2hpdGVjdHVyZSwgSSB0aGluawp3ZSBkb24ndCByZWFsbHkgaGF2ZSBhbiBhbHRl
-cm5hdGl2ZSB0aGFuIHRvIGRvdWJsZSBkb3duIG9uIEtGRC4gV2UgY2FuJ3QKanVzdCBzdG9wIHdv
-cmsgb24gS0ZEIGFuZCB0ZWxsIG91ciBjdXN0b21lcnMgdGhhdCB0aGV5J2xsIG5vdCBnZXQgYW55
-Cm5ldyBmZWF0dXJlcyBmb3IgdGhlIG5leHQgMiBvciAzIHllYXJzIHRoYXQgaXQgdGFrZXMgdG8g
-YnVpbGQgYSBjb21tb24KdXBzdHJlYW0gbWVtb3J5IG1hbmFnZW1lbnQgYW5kIHNjaGVkdWxpbmcg
-QVBJIGFuZCB0aGUgSFcgdGhhdCBjYW4Kc3VwcG9ydCBpdC4KCgo+Cj4gVGhlIG90aGVyIHNpZGUg
-aXMgYSBiaXQgdGhlIHVwc3RyZWFtIHNpZGUsIGJ1dCB0aGF0J3MgYSBsb3Qgc21hbGxlcjoKPgo+
-IC0gdnVsa2FuIGNvbXB1dGUgaXMgb25lIG9mIHRoZSBtb3JlIHJlYXNvbmFibGUgd2F5cyB0byBn
-ZXQgY3Jvc3MgdmVuZG9yCj4gICBjb21wdXRlIGVjb3N5c3RlbSBvZmYgdGhlIGdyb3VuZC4gQXQg
-bGVhc3QgZnJvbSB3aGF0IEkga25vdyBmcm9tCj4gICBiYWNrZ3JvdW5kIGNoYXR0ZXIsIHdoaWNo
-IHlvdSBndXlzIHByb2JhYmx5IGhhdmVuJ3QgYWxsIGhlYXJkLiBhbWRrZmQKPiAgIGJlaW5nIHRo
-ZSBzaW5nbGUgdmVyeSBvZGQgZHJpdmVyIGhlcmUgcmVxdWlyaW5nIGVudGlyZWx5IGRpZmZlcmVu
-dCB1YXBpCj4gICBmb3IgY29tcHV0ZSBtb2RlIGlzIG5vdCBnb2luZyB0byBiZSBncmVhdC4KCkxp
-a2UgSSBzYWlkLCBLRkQgaXMgbm90IGV4Y2x1c2l2ZSB3aXRoIGFueXRoaW5nIGVsc2UuCgpWdWxj
-YW4gbWF5IGJlIGEgZ29vZCBvcHRpb24gZm9yIGRlc2t0b3BzLiBGb3IgSFBDIHVzZXMgb3IgZ2Vu
-ZXJhbApwb3J0YWJsZSBub24tZ3JhcGhpY3MgY29tcHV0ZSBjb2RlLCBJIHRoaW5rIHNvbWV0aGlu
-ZyBsaWtlIE9wZW5NUCBvcgpmdXR1cmUgQysrIHN0YW5kYXJkcyB3b3VsZCBiZSBhIGJldHRlciB3
-YXkgZm9yd2FyZC4gVGhlcmUgaXMgbm8KdGVjaG5pY2FsIHJlYXNvbiB3aHkgYm90aCBjYW5ub3Qg
-Y29leGlzdCBpbiB0aGUgc2FtZSBhcHBsaWNhdGlvbi4KCgo+Cj4gLSBDUklVIHdpbGwgbmVlZCBu
-ZXcgYWNjZXNzIHJpZ2h0cyBoYW5kbGluZyAoZm9yIHRoZSBzYXZlL3Jlc3RvcmUvcmVzdW1lCj4g
-ICBzdHVmZiB5b3UncmUgYWRkaW5nKS4gR2VuZXJhbGx5IHdlIHN0YW5kYXJkaXplIGFjY2VzcyBy
-aWdodHMgY2hlY2tzCj4gICBhY3Jvc3MgZHJpdmVycywgYW5kIGxlYXZlIGV2ZXJ5dGhpbmcgZWxz
-ZSB0byByZW5kZXIgZHJpdmVycyAoY29tbWFuZAo+ICAgc3VibWlzc2lvbiwgbWVtb3J5IG1hbmFn
-ZW1lbnQsIC4uLikuIEJ5IGFkZGluZyBDUklVIHN1cHBvcnQgdG8gYW1ka2ZkCj4gICB3ZSBwcmV0
-dHkgbXVjaCBndWFyYW50ZWUgdGhhdCB3ZSB3b250IGJlIGFibGUgdG8gc3RhbmRhcmRpemUgQ1JJ
-VSBhY2Nlc3MKPiAgIHJpZ2h0cyBhY3Jvc3MgZHJpdmVycy4gV2hpY2gganVzdCBwbGFpbnMgc3Vj
-a3MgZnJvbSBhbgo+ICAgdXBzdHJlYW0vY3Jvc3MtdmVuZG9yIGVjb3N5c3RlbSBwb3YuCgpCeSBh
-Y2Nlc3MgcmlnaHRzLCBkbyB5b3UgbWVhbiByZXF1aXJpbmcgcm9vdCBmb3Igc29tZSBpb2N0bHMs
-IG9yIGJlaW5nCnB0cmFjZS1hdHRhY2hlZCBmb3Igb3RoZXJzPyBUaGVzZSBhcmUgZHJpdmVuIGJ5
-IGhvdyBDUklVIHdvcmtzIGFuZAppbnRlcmFjdHMgd2l0aCBpdHMgdGFyZ2V0IHByb2Nlc3Nlcy4g
-SSB0aGluayB0aGV5IHdpbGwgYXBwbHkgZXF1YWxseSB0bwphbnkgZHJpdmVyIGltcGxlbWVudGlu
-ZyBDUklVIHN1cHBvcnQuIEkgZG9uJ3Qgc2VlIGhvdyBncmFwaGljcyBkcml2ZXJzCnNwZWNpZmlj
-YWxseSBkcml2ZSBzdGFuZGFyZGl6YXRpb24gb2YgQ1JJVSBhY2Nlc3MgcmlnaHRzLgoKCj4KPiBB
-bmQgeWVzIHdlJ2Qgc3RpbGwgbmVlZCBhIHBlci1kcml2ZXIgY3JpdSBwbHVnaW4gaW4gdXNlcnNw
-YWNlLCBidXQgdGhlCj4gc2FtZSBpcyB0cnVlIGZvciBhbWR2bGsvcmFkdi9hbnYvIGFuZCBhbGwg
-dGhlIG90aGVyIGRyaXZlcnMgd2UgaGF2ZToKPiBEcml2ZXIgaXMgZGlmZmVyZW50LCBhY2Nlc3Mg
-cmlnaHQgbWFuYWdlbWVudCBpcyBzdGlsbCB0aGUgc2FtZS4KPgo+IEFuZCBzZWNvbmRseSwganVz
-dCBiZWNhdXNlIG52aWRpYSByZWZ1c2VzIHRvIGNvbGxhYm9yYXRlIGluIGFueQo+IHN0YW5kYXJk
-cyBhcm91bmQgZ3B1IGNvbXB1dGUgZG9lc24ndCBtZWFuIHRoYXQncyBhIGdvb2QgcmVhc29uIGZv
-ciB1cyB0bwo+IGRvIHRoZSBzYW1lIGluIHVwc3RyZWFtLgo+Cj4gVGhpcmRseSwgaXQgc291bmRz
-IGxpa2UgdGhpcyBpcyB0aGUgZmlyc3QgZGV2aWNlLWRyaXZlciBDUklVIHN1cHBvcnQsIHNvIEkK
-PiB0aGluayB3ZSBuZWVkIGEgc29saWQgYWdyZWVtZW50L3N0YW5kYXJkIGhlcmUgdG8gc2V0IGFz
-IGFuIGV4YW1wbGUgZm9yCj4gZXZlcnlvbmUgZWxzZS4gVGhlcmUncyBhbGwgdGhlIEFJIGFjY2Vs
-IGNoaXBzIGFuZCBmcGdhLWZvci1jb21wdXRlIHN0dWZmCj4gdGhhdCBJIGV4cGVjdCB3aWxsIGV2
-ZW50dWFsbHkgYWxzbyBnYWluIENSSVUgc3VwcG9ydC4KClN1cmUuIE15IGV4cGVyaWVuY2Ugd2l0
-aCBDUklVIHNvIGZhciBpcywgdGhhdCBDUklVIHJlcXVpcmVzIHJvb3QgKGV2ZW4Kd2l0aG91dCBv
-dXIgcGx1Z2luKS4gUmVnYXJkbGVzcyBvZiB0aGF0LCBDUklVIGF0dGFjaGVzIHRvIHRoZSB0YXJn
-ZXQKcHJvY2VzcyB3aXRoIHB0cmFjZS4gVGhlIGtlcm5lbCdzIHNlY3VyaXR5IHBvbGljeSBmb3Ig
-YWxsb3dpbmcgcHRyYWNlCmFjY2VzcyBpcyBpbmZsdWVuY2VkIGJ5IG1hbnkgZmFjdG9ycy4gV2Ug
-Y2hvc2Ugbm90IHRvIGR1cGxpY2F0ZSB0aGlzIGluCnRoZSBkcml2ZXIuIFRoZXJlZm9yZSB3ZSBj
-aGVjayB3aGV0aGVyIHRoZSBjYWxsZXIgb2Ygb3VyIENSSVUgZHVtcCBpb2N0bAppcyBwdHJhY2Ug
-YXR0YWNoZWQuIElmIGl0IGlzLCBpdCBtZWFucyBpdCBoYXMgcGFzc2VkIGFsbCB0aGUga2VybmVs
-J3MKc2VjdXJpdHkgY2hlY2tzLiBXZSBkZWxpYmVyYXRlbHkgZG8gbm90IHdhbnQgdG8gaW1wbGVt
-ZW50IG91ciBvd24Kc2VjdXJpdHkgcG9saWN5IGluIHRoZSBkcml2ZXIuCgpUaGVyZSB3b3VsZCBi
-ZSB3YXlzIHRvIHJlbW92ZSB0aGUgcm9vdCByZXF1aXJlbWVudCBmcm9tIG91ciBDUklVCnJlc3Rv
-cmUtaW9jdGwsIGlmIHRoYXQgYmVjb21lcyBhIHJlcXVpcmVtZW50IGZvciBDUklVLiBJdCB3b3Vs
-ZCBtZWFuCnNvbWUgc2FuaXR5IGNoZWNraW5nIG9mIHRoZSBIVyBzdGF0ZSB0aGF0J3MgZ2V0dGlu
-ZyByZXN0b3JlZC4KCgo+Cj4gU28gSSdtIGFza2luZyBvbmNlIG1vcmUsIGlzIHRoaXMgX3JlYWxs
-eV8gdGhlIHJpZ2h0IHBhdGggZm9yd2FyZD8gQm90aCBmb3IKPiBhbWQgKGF0IGxlYXN0IGxvbmcg
-dGVybSksIGJ1dCBhbHNvIHNvbWV3aGF0IGZvciB1cHN0cmVhbS4KCkkgdGhpbmsgbG9uZy10ZXJt
-IGl0IG1ha2VzIHNlbnNlIHRvIHBsYW4gZm9yIGEgdW5pZmllZCBBUEkuIEZvciBjdXJyZW50Cmhh
-cmR3YXJlIEkgZG9uJ3Qgc2VlIGEgd2F5IHRvIGdldCB0aGVyZSBmb3IgbXVsdGlwbGUgcmVhc29u
-czoKCiAxLiBNYWludGFpbmluZyBiYWNrd2FyZHMgY29tcGF0aWJpbGl0eSB3aXRoIGV4aXN0aW5n
-IHVzZXIgbW9kZQogMi4gTGFja2luZyBIVyBjYXBhYmlsaXRpZXMgZm9yIGdyYXBoaWNzIHVzZXIg
-bW9kZSBjb21tYW5kIHN1Ym1pc3Npb24KICAgIGFuZCBIVyBzY2hlZHVsaW5nCgpUaGVyZWZvcmUg
-S0ZEIHdpbGwgYmUgaW1wb3J0YW50IGZvciBBTUQncyBjb21wdXRlIEdQVSBzdHJhdGVneSBhbmQg
-b3VyCmN1c3RvbWVycyBmb3IgeWVhcnMgdG8gY29tZS4gTm90IGJlaW5nIGFibGUgdG8gY29udGlu
-dWUgZGV2ZWxvcGluZyBpdAp1cHN0cmVhbSB3b3VsZCBiZSBhIG1ham9yIGltcGVkaW1lbnQgZm9y
-IEFNRC4gQWdhaW4sIHRoaXMgaXMgbXkgcGVyc29uYWwKb3Bpbmlvbi4KClJlZ2FyZHMsCsKgIEZl
-bGl4CgoKPgo+IENoZWVycywgRGFuaWVsCj4KPgo+PiBXaGF0J3Mgd29ya2luZyBhbmQgdGVzdGVk
-IGF0IHRoaXMgcG9pbnQ6Cj4+Cj4+ICAgKiBDaGVja3BvaW50IGFuZCByZXN0b3JlIGFjY2VsZXJh
-dGVkIG1hY2hpbmUgbGVhcm5pbmcgYXBwczogUHlUb3JjaAo+PiAgICAgcnVubmluZyBCZXJ0IG9u
-IHN5c3RlbXMgd2l0aCAxIG9yIDIgR1BVcyAoTUk1MCBvciBNSTEwMCksIDEwMCUKPj4gICAgIHVu
-bW9kaWZpZWQgdXNlciBtb2RlIHN0YWNrCj4+ICAgKiBDaGVja3BvaW50IG9uIG9uZSBzeXN0ZW0s
-IHJlc3RvcmUgb24gYSBkaWZmZXJlbnQgc3lzdGVtCj4+ICAgKiBDaGVja3BvaW50IG9uIG9uZSBH
-UFUsIHJlc3RvcmUgb24gYSBkaWZmZXJlbnQgR1BVCj4+Cj4+IE1ham9yIEtub3duIGlzc3VlczoK
-Pj4KPj4gICAqIFRoZSBLRkQgaW9jdGwgQVBJIGlzIG5vdCBmaW5hbDogTmVlZHMgYSBjb21wbGV0
-ZSByZWRlc2lnbiB0byBhbGxvdwo+PiAgICAgZnV0dXJlIGV4dGVuc2lvbiB3aXRob3V0IGJyZWFr
-aW5nIHRoZSBBQkkKPj4gICAqIFZlcnkgc2xvdzogTmVlZCB0byBpbXBsZW1lbnQgRE1BIHRvIGR1
-bXAgVlJBTSBjb250ZW50cwo+Pgo+PiBNaXNzaW5nIG9yIGluY29tcGxldGUgZmVhdHVyZXM6Cj4+
-Cj4+ICAgKiBTdXBwb3J0IGZvciB0aGUgbmV3IEtGRCBTVk0gQVBJCj4+ICAgKiBDaGVjayBkZXZp
-Y2UgdG9wb2xvZ3kgZHVyaW5nIHJlc3RvcmUKPj4gICAqIENoZWNrcG9pbnQgYW5kIHJlc3RvcmUg
-bXVsdGlwbGUgcHJvY2Vzc2VzCj4+ICAgKiBTdXBwb3J0IGZvciBhcHBsaWNhdGlvbnMgdXNpbmcg
-TWVzYSBmb3IgdmlkZW8gZGVjb2RlL2VuY29kZQo+PiAgICogVGVzdGluZyB3aXRoIG1vcmUgZGlm
-ZmVyZW50IEdQVXMgYW5kIHdvcmtsb2Fkcwo+Pgo+PiBCaWcgT3BlbiBxdWVzdGlvbnM6Cj4+Cj4+
-ICAgKiBXaGF0J3MgdGhlIHByZWZlcnJlZCB3YXkgdG8gcHVibGlzaCBvdXIgQ1JJVSBwbHVnaW4/
-IEluLXRyZWUgb3IKPj4gICAgIG91dC1vZi10cmVlPwo+PiAgICogV2hhdCdzIHRoZSBwcmVmZXJy
-ZWQgd2F5IHRvIGRpc3RyaWJ1dGUgb3VyIENSSVUgcGx1Z2luPyBTb3VyY2U/Cj4+ICAgICBCaW5h
-cnkgLnNvPyBXaG9sZSBDUklVPyBKdXN0IGluLWJveCBzdXBwb3J0Pwo+PiAgICogSWYgb3VyIHBs
-dWdpbiBjYW4gYmUgdXBzdHJlYW1lZCBpbiB0aGUgQ1JJVSB0cmVlLCB3aGF0IHdvdWxkIGJlIHRo
-ZQo+PiAgICAgcmlnaHQgZGlyZWN0b3J5Pwo+Pgo+PiBCZXN0IHJlZ2FyZHMsCj4+ICAgRmVsaXgK
-Pj4KPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-Pj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCj4gLS0KPiBEYW5pZWwgVmV0dGVyCj4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENv
-cnBvcmF0aW9uCj4gaHR0cDovL2Jsb2cuZmZ3bGwuY2gvCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+
+
+On 2021-05-06 5:40 a.m., Daniel Vetter wrote:
+> On Fri, Apr 30, 2021 at 01:27:37PM -0400, Andrey Grodzovsky wrote:
+>>
+>>
+>> On 2021-04-30 6:25 a.m., Daniel Vetter wrote:
+>>> On Thu, Apr 29, 2021 at 04:34:55PM -0400, Andrey Grodzovsky wrote:
+>>>>
+>>>>
+>>>> On 2021-04-29 3:05 p.m., Daniel Vetter wrote:
+>>>>> On Thu, Apr 29, 2021 at 12:04:33PM -0400, Andrey Grodzovsky wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 2021-04-29 7:32 a.m., Daniel Vetter wrote:
+>>>>>>> On Thu, Apr 29, 2021 at 01:23:19PM +0200, Daniel Vetter wrote:
+>>>>>>>> On Wed, Apr 28, 2021 at 11:12:00AM -0400, Andrey Grodzovsky wrote:
+>>>>>>>>> With this calling drm_dev_unplug will flush and block
+>>>>>>>>> all in flight IOCTLs
+>>>>>>>>>
+>>>>>>>>> Also, add feature such that if device supports graceful unplug
+>>>>>>>>> we enclose entire IOCTL in SRCU critical section.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>>>>
+>>>>>>>> Nope.
+>>>>>>>>
+>>>>>>>> The idea of drm_dev_enter/exit is to mark up hw access. Not entire ioctl.
+>>>>>>
+>>>>>> Then I am confused why we have https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.12%2Fsource%2Fdrivers%2Fgpu%2Fdrm%2Fdrm_ioctl.c%23L826&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ca0ca5bdab20a4533491c08d91072fe2a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637558908355926609%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=SESZFWQEcQUHGGek8d1cNi9Iwo9XOmXqxg9MieRkxNU%3D&amp;reserved=0
+>>>>>> currently in code ?
+>>>>>
+>>>>> I forgot about this one, again. Thanks for reminding.
+>>>>>
+>>>>>>>> Especially not with an opt-in flag so that it could be shrugged of as a
+>>>>>>>> driver hack. Most of these ioctls should have absolutely no problem
+>>>>>>>> working after hotunplug.
+>>>>>>>>
+>>>>>>>> Also, doing this defeats the point since it pretty much guarantees
+>>>>>>>> userspace will die in assert()s and stuff. E.g. on i915 the rough contract
+>>>>>>>> is that only execbuf (and even that only when userspace has indicated
+>>>>>>>> support for non-recoverable hw ctx) is allowed to fail. Anything else
+>>>>>>>> might crash userspace.
+>>>>>>
+>>>>>> Given that as I pointed above we already fail any IOCTls with -ENODEV
+>>>>>> when device is unplugged, it seems those crashes don't happen that
+>>>>>> often ? Also, in all my testing I don't think I saw a user space crash
+>>>>>> I could attribute to this.
+>>>>>
+>>>>> I guess it should be ok.
+>>>>
+>>>> What should be ok ?
+>>>
+>>> Your approach, but not your patch. If we go with this let's just lift it
+>>> to drm_ioctl() as the default behavior. No driver opt-in flag, because
+>>> that's definitely worse than any other approach because we really need to
+>>> get rid of driver specific behaviour for generic ioctls, especially
+>>> anything a compositor will use directly.
+>>>
+>>>>> My reasons for making this work is both less trouble for userspace (did
+>>>>> you test with various wayland compositors out there, not just amdgpu x86
+>>>>
+>>>> I didn't - will give it a try.
+>>
+>> Weston worked without crashes, run the egl tester cube there.
+>>
+>>>>
+>>>>> driver?), but also testing.
+>>>>>
+>>>>> We still need a bunch of these checks in various places or you'll wait a
+>>>>> very long time for a pending modeset or similar to complete. Being able to
+>>>>> run that code easily after hotunplug has completed should help a lot with
+>>>>> testing.
+>>>>>
+>>>>> Plus various drivers already acquired drm_dev_enter/exit and now I wonder
+>>>>> whether that was properly tested or not ...
+>>>>>
+>>>>> I guess maybe we need a drm module option to disable this check, so that
+>>>>> we can exercise the code as if the ioctl has raced with hotunplug at the
+>>>>> worst possible moment.
+>>>>>
+>>>>> Also atomic is really tricky here: I assume your testing has just done
+>>>>> normal synchronous commits, but anything that goes through atomic can be
+>>>>> done nonblocking in a separate thread. Which the ioctl catch-all here wont
+>>>>> capture.
+>>>>
+>>>> Yes, async commit was on my mind and thanks for reminding me. Indeed
+>>>> I forgot this but i planned to scope the entire amdgpu_dm_atomic_tail in
+>>>> drm_dev_enter/exit. Note that i have a bunch of patches, all name's
+>>>> starting with 'Scope....' that just methodically put all the background
+>>>> work items and timers the drivers schedules in drm_dev_enter/exit scope.
+>>>> This was supposed to be part of the 'Scope Display code' patch.
+>>>
+>>> That's too much. You still have to arrange that the flip completion event
+>>> gets sent out. So it's a bit tricky.
+>>>
+>>> In other places the same problem applies, e.g. probe functions need to
+>>> make sure they report "disconnected".
+>>
+>> I see, well, this is all part of KMS support which I defer for now
+>> anyway. Will tackle it then.
+>>
+>>>
+>>>>>>>> You probably need similar (and very precisely defined) rules for amdgpu.
+>>>>>>>> And those must definitely exclude any shard ioctls from randomly failing
+>>>>>>>> with EIO, because that just kills the box and defeats the point of trying
+>>>>>>>> to gracefully handling hotunplug and making sure userspace has a chance of
+>>>>>>>> survival. E.g. for atomic everything should continue, including flip
+>>>>>>>> completion, but we set all outputs to "disconnected" and send out the
+>>>>>>>> uevent. Maybe crtc enabling can fail too, but that can also be handled
+>>>>>>>> through the async status we're using to signal DP link failures to
+>>>>>>>> userspace.
+>>>>>>
+>>>>>> As I pointed before, because of the complexity of the topic I prefer to
+>>>>>> take it step by step and solve first for secondary device use case, not
+>>>>>> for primary, display attached device.
+>>>>>
+>>>>> Yeah makes sense. But then I think the right patch is to roll this out for
+>>>>> all drivers, properly justified with existing code. Not behind a driver
+>>>>> flag, because with all these different compositors the last thing we want
+>>>>> is a proliferation of driver-specific behaviour. That's imo the worst
+>>>>> option of all of them and needs to be avoided.
+>>>>
+>>>> So this kind of patch would be acceptable to you if I unconditionally
+>>>> scope the drm_ioctl with drm_dev_enter/exit without the driver flag ?
+>>>> I am worried to break other drivers with this, see patch https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Df0c593f35b22ca5bf60ed9e7ce2bf2b80e6c68c6&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ca0ca5bdab20a4533491c08d91072fe2a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637558908355926609%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=62f4gdl3lQH0ap58HTyv47zxALjaa5Td%2BysskR83rig%3D&amp;reserved=0
+>>>> Before setting drm_dev_unplug I go through a whole process of signalling
+>>>> all possible fences in the system which some one some where might be
+>>>> waiting on. My concern is that in the absence of HW those fences won't
+>>>> signal and so unless I signal them myself srcu_synchrionize in
+>>>> drm_dev_unplug will hang waiting for any such code scoped by
+>>>> drm_dev_enter/exit.
+>>>
+>>> Uh right. I forgot about this.
+>>>
+>>> Which would kinda mean the top level scope is maybe not the best idea, and
+>>> perhaps we should indeed drill it down. But then the testing issue
+>>> definitely gets a lot worse.
+>>>
+>>> So what if we'd push that drm_dev_is_unplugged check down into ioctls?
+>>> Then we can make a case-by case decision whether it should be converted to
+>>> drm_dev_enter/exit, needs to be pushed down further into drivers (due to
+>>> fence wait issues) or other concerns?
+>>>
+>>> Also I guess we need to have a subsystem wide rule on whether you need to
+>>> force complete all fences before you call drm_dev_unplug, or afterwards.
+>>
+>> I don't see how you can handle it afterwards. If a thread is stuck in
+>> dma_fence_wait in non interruptible wait (any kernel thread) and with no
+>> timeout there is nothing you can do to stop the wait. Any such code
+>> scopped with drm_dev_enter/exit will cause a hang in drm_dev_unplug.
+>> The only way then is to preemptively force signal all such fences before
+>> calling drm_dev_unplug - as I do in the above mentioned patch.
+> 
+> Yeah, which is why I don't think top-level drm_dev_enter/exit is a good
+> idea.
+> 
+>>> If we have mixed behaviour on this there will be disappointment. And since
+>>> hotunplug and dma_fence completion are both userspace visible that
+>>> inconsistency might have bigger impact.
+>>>
+>>> This is all very tricky indeed :-/
+>>>
+>>> btw for the "gradual pushing drm_dev_enter into ioctl" approach, if we go
+>>> with that: We could do the same trick we've done for DRM_UNLOCKED:
+>>> - drm_dev_enter/exit is called for any ioctl that has not set the
+>>>     DRM_HOTUNPLUG_SAFE flag
+>>> - for drm core ioctls we push them into all ioctls and decide how to
+>>>     handle/where (with the aim to have the least amount of code flow
+>>>     different during hotunplug vs after hotunplug has finished, to reduce
+>>>     testing scope)
+>>> - then we make DRM_HOTUNPLUG_SAFE the implied default
+>>>
+>>> This would have us left with render ioctls, and I think the defensive
+>>> assumption there is that they're all hotunplug safe. We might hang on a
+>>> fence wait, but that's fixable, and it's better than blowing up on a
+>>> use-after-free security bug.
+>>>
+>>> Thoughts?
+>>
+>> I don't fully see a difference between the approach described above and
+>> the full drill down to each driver and even within the driver, to the HW
+>> back-ends - what criteria I would use to decide if for a given IOCTL i
+>> scope with drm_dev_enter/exit at the highest level while for another
+>> i go all the way down ? If we would agree that signaling the fences
+>> preemptively before engaging drm_dev_unplug is generically the right
+>> approach maybe we can then scope drm_ioctl unconditionally with
+>> drm_dev_enter/exit and then for each driver go through the same process
+>> I do for amdgpu - writing driver specific function which takes care of
+>> all the fences. We could then just create a drm callback which would
+>> be called from drm_ioctl before drm_dev_unplug is called.
+> 
+> So I see the appeal of just nuking all the fences, but I'm not sure that's
+> a good plan. We've done this in the old i915 gpu reset code too, and the
+> issue is it's defacto inverting the locking. But also the hw is truly
+> gone, so it also makes sense.
+> 
+> The problem is a bit roll-out, if we state that dma_fence_wait is allowed
+> with a drm_dev_enter/exit, then all drivers need to force-retire their
+> fences.
+> 
+> The other option would be that we require that dma_fence_wait is _not_
+> allowed in drm_dev_enter/exit, and that therefore these areas must be
+> marked up more fine-grained to avoid deadlocks. I like this more from the
+> testing aspect (it makes it easier to be reasonable sure your code handles
+> concurrent hotunplug), but also it's pretty easy to validate with the
+> dma_fence lockdep annotations we have I think.
+
+They key question as I see it - is it ok for a device to be unplugged
+while it's driver has anywhere in it's code a dma_fence_wait
+waiting for work completion from this device. The answers seems to me
+is no, the HW is gone, this fence will never signal and so you will be
+left with indefinitely hanged code thread with all it's unreleased
+resources. If i am correct in the above statement then avoiding scoping
+code with drm_dev_enter/exit because a dma_fence_wait might be there in 
+the middle
+just hides the problem. Also, then the only solution for each driver
+wanting to support hot-unplug is to force retire all it's HW
+fences once it's notified of device removal.
+
+> 
+> A third reasons for not requiring force-retiring of dma_fence before
+> drm_dev_unplug is the races: Before drm_dev_unplug you haven't stopped new
+> fences from happening, but until you've stopped new fences it's hard to
+> guarantee they're all retired. How do you solve this currently.
+
+See amdgpu_finilize_device_fences in 
+https://patchwork.ozlabs.org/project/linux-pci/patch/20210428151207.1212258-20-andrey.grodzovsky@amd.com/ 
+I think the steps described there answer your
+concern here.
+
+> 
+> Finally there's still hangcheck and all that, so if we go with forbidding
+> dma_fence_wait from within drm_dev_enter/exit sections, then drivers don't
+> need to have additional tricky code to force-retire fences. TDR will take
+> care already (albeit with maybe a slightly annoying long timeout, which
+> we can shorten to "time out everything immediately" after drm_dev_unplug).
+
+I am not aware of TDR handlers  that do it today, at least we don't,
+we don't check that if device is gone let's instead of resetting the device
+and resubmit jobs just force retire all the HW fences. In any case, this
+can and i think should be done in pci remove callback because this is
+the place that supposed to handle device extraction. I for example in 
+amdgpu_finilize_device_fences just block all TDRs from taking place as 
+first step in the process. If other drivers want to force retire fences
+in their TDR handlers they still need to block and wait for all such
+TDRs in their pci_remove handler.
+
+> 
+> What we definitely can't have is half the drivers doing it one way, and
+> the other half the other way. So your driver flag to wrap the ioctl
+> optionally in a drm_dev_enter/exit path is a no-go still I think.
+> 
+> I guess my tldr; is: I definitely see how your current approach gives
+> quicker results for amdgpu right now, but long term I'm seeing more
+> positives on the other one. At least I expect less special cases due to
+> hotunplug with that.
+
+As i expressed my viewpoint above - seems to me any driver in need to
+support hot-unplug must force retire it's fences because of need to
+unblock all dma_fence waits and so it will not be a special case.
+
+Andrey
+
+> 
+> Cheers, Daniel
+> 
+>>
+>> Andrey
+>>
+>>>
+>>> It is unfortunately even more work until we've reached the goal, but I
+>>> think it's safest and most flexible approach overall.
+>>>
+>>> Cheers, Daniel
+>>>
+>>>>
+>>>> Andrey
+>>>>
+>>>>>
+>>>>> Cheers, Daniel
+>>>>>
+>>>>>
+>>>>>>
+>>>>>>>>
+>>>>>>>> I guess we should clarify this in the hotunplug doc?
+>>>>>>
+>>>>>> Agree
+>>>>>>
+>>>>>>>
+>>>>>>> To clarify: I'm not against throwing an ENODEV at userspace for ioctl that
+>>>>>>> really make no sense, and where we're rather confident that all properly
+>>>>>>> implemented userspace will gracefully handle failures. Like a modeset, or
+>>>>>>> opening a device, or trying to import a dma-buf or stuff like that which
+>>>>>>> can already fail in normal operation for any kind of reason.
+>>>>>>>
+>>>>>>> But stuff that never fails, like GETRESOURCES ioctl, really shouldn't fail
+>>>>>>> after hotunplug.
+>>>>>>
+>>>>>> As I pointed above, this a bit confuses me given that we already do
+>>>>>> blanker rejection of IOCTLs if device is unplugged.
+>>>>>
+>>>>> Well I'm confused about this too :-/
+>>>>>
+>>>>>>> And then there's the middle ground, like doing a pageflip or buffer flush,
+>>>>>>> which I guess some userspace might handle, but risky to inflict those
+>>>>>>> consequences on them. atomic modeset is especially fun since depending
+>>>>>>> what you're doing it can be both "failures expected" and "failures not
+>>>>>>> really expected in normal operation".
+>>>>>>>
+>>>>>>> Also, this really should be consistent across drivers, not solved with a
+>>>>>>> driver flag for every possible combination.
+>>>>>>>
+>>>>>>> If you look at the current hotunplug kms drivers, they have
+>>>>>>> drm_dev_enter/exit sprinkled in specific hw callback functions because of
+>>>>>>> the above problems. But maybe it makes sense to change things in a few
+>>>>>>> cases. But then we should do it across the board.
+>>>>>>
+>>>>>> So as I understand your preferred approach is that I scope any back_end, HW
+>>>>>> specific function with drm_dev_enter/exit because that where MMIO
+>>>>>> access takes place. But besides explicit MMIO access thorough
+>>>>>> register accessors in the HW back-end there is also indirect MMIO access
+>>>>>> taking place throughout the code in the driver because of various VRAM
+>>>>>> BOs which provide CPU access to VRAM through the VRAM BAR. This kind of
+>>>>>> access is spread all over in the driver and even in mid-layers such as
+>>>>>> TTM and not limited to HW back-end functions. It means it's much harder
+>>>>>> to spot such places to surgically scope them with drm_dev_enter/exit and
+>>>>>> also that any new such code introduced will immediately break hot unplug
+>>>>>> because the developers can't be expected to remember making their code
+>>>>>> robust to this specific use case. That why when we discussed internally
+>>>>>> what approach to take to protecting code with drm_dev_enter/exit we
+>>>>>> opted for using the widest available scope.
+>>>>>
+>>>>> The thing is, you kinda have to anyway. There's enormous amounts of
+>>>>> asynchronous processing going on. E.g. nonblocking atomic commits also do
+>>>>> ttm unpinning and fun stuff like that, which if you sync things wrong can
+>>>>> happen way late. So the door for bad fallout is wide open :-(
+>>>>>
+>>>>> I'm not sure where the right tradeoff is to make sure we catch them all,
+>>>>> and can make sure with testing that we've indeed caught them all.
+>>>>> -Daniel
+>>>>>
+>>>
+> 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
