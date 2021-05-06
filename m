@@ -2,75 +2,117 @@ Return-Path: <SRS0=uqaI=KB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5515C433ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 09:40:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB80DC433B4
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 09:55:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 97D93611AC
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 09:40:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97D93611AC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 615C661157
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 May 2021 09:55:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 615C661157
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F2A6E17B;
-	Thu,  6 May 2021 09:40:34 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7646E1B4
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 May 2021 09:40:32 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id a4so4879393wrr.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 May 2021 02:40:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=PVM3n4MiQ0ppcJJxaAXsKAQRG4FhEGHOWnGID6VnrQg=;
- b=RIQhYmj5oZhZJYdw4EgObUYJ3V+4uWjOpoDuTXO/YCq4Sl+yhxanTgaqSSO7Ayes6q
- lkMeCQnrpYMt5qlZarzF0J9Sqhbqw05XGSz7uNckasIXmCHqM8XXs1xoCj7SvoScYzAs
- 20+YQHh5WOSPLAqSlqZrVvlUChRXcPhB4FeYE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PVM3n4MiQ0ppcJJxaAXsKAQRG4FhEGHOWnGID6VnrQg=;
- b=pW45BH0uRcah3Hgw3l+Bsu3IwhgiZmvwVP4m/JCYRhY9fpsNVdd0VMJqveDeTvTZWP
- jrvN9dPhdP8EaDk8r4mUlM9SvuHAb9zGzZCsgUyGF7qKzTOT143JO/WBT/Qwan5kO7nU
- r/sJeuQs1ralviKSPess+4RvqPO9iAVEFpgHIRn7MZhayJYdmb3wORmcalgvSZi6XSmf
- 9Xfe0pvAIoDkw6sAAIPXBd6+n2tUsfqnxmiALzMHl+KRgEBZPx9Qxh8ojEczZCd2PpON
- 8lGMdbQ1zK7Ff1cOURKmCH6JkCT7ih8w1MUwwFDFmCFMcAJQo5q369QtE6ldkGHdEHnc
- 4nCw==
-X-Gm-Message-State: AOAM533Fet+VAfg7ADDcv7IzmkJxEP6D6Pj438QJhsYVRRXz1EQvOYPl
- fb/1498JqwcPdJkAov7pvj1hKw==
-X-Google-Smtp-Source: ABdhPJyz7xB8rgcs1MmVi94Rg97OEYBHgU3oHN4/RKWaeHeblxUv1EPuHJju56qgrHc5WICjzeuFvg==
-X-Received: by 2002:a5d:6682:: with SMTP id l2mr3950561wru.15.1620294031368;
- Thu, 06 May 2021 02:40:31 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z14sm3757949wrt.54.2021.05.06.02.40.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 May 2021 02:40:30 -0700 (PDT)
-Date: Thu, 6 May 2021 11:40:28 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH v5 20/27] drm: Scope all DRM IOCTLs with drm_dev_enter/exit
-Message-ID: <YJO5jBaNj1XCTFXE@phenom.ffwll.local>
-References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
- <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
- <YIqXJ5LA6wKl/yzZ@phenom.ffwll.local>
- <YIqZZW9iFyGCyOmU@phenom.ffwll.local>
- <95935e46-408b-4fee-a7b4-691e9db4f455@amd.com>
- <YIsDXWMYkMeNhBYk@phenom.ffwll.local>
- <342ab668-554c-637b-b67b-bd8e6013b4c3@amd.com>
- <YIvbAI4PjFlZw+z9@phenom.ffwll.local>
- <b6d0c32c-cf90-6118-5c60-238b6f4a0aaa@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE606E193;
+	Thu,  6 May 2021 09:55:30 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E43F6E193
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 May 2021 09:55:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BvfqM5VdRZrrDqsxBfaO4J/C0mPEZ9vd/Z/119ZtGKRDem0/2iYyvRItEhzeFEO/eg9Abesq3MjU9hhEbglmYnMSXiub9pjkhjxfXlwraWxUp/5K5u4Y73RnEEq6nIVS1hmPzTBzT61jDocsPSLro9XlkXvPMG0B4quAcJ8YuM+DtrYRqTTAyar5uMQKzRDnANoC4P9QFmvxOWIKefUyDF1L8Msd4Z0UNW/399BvYXU80bsFsFPoS7/eP/Ie8Imzx8WqjdXJzqJFwyNpZEwMdJSFYnZvyEhTkDqA5o8bBmj2lJ9/2Hhj9yF3xBTWFME7sul8a1/C8cS3F97F5AqvpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hX6DqTAHkeOviMnY3v9adUvqRGDxk1DqBl6ZQGxhXz0=;
+ b=SGkBXoi1Bcdcjz8yRGQfR4uSfDMO4H1v+MiF5fA6fKocW6Qr6HY0wWLzBQ8EGPk9GJZYmPgwRnUIeR08URE+sdZOKCeai05dlAkXK+jda87PpWA2hORS4AaT4d8jnb9PR7Rr4YKZLe4JovZm2NqMQP65RoaYemTvNQlViHkONsX1HsyraQVv3z80nIn2pX9Wmb4MYnGh70jgE0lTbKSifM1UzaHCOxeCZNiI61BOQkWHa9RQ70/32MME7XLL38bSJnpMUIFAMCNIYK153BRTzxPl6KIzfV8sAf6sWOuAJRT4t1Fpvh21CnK2P4fukFyp5We/mnZOEaVhNG00eAKx2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hX6DqTAHkeOviMnY3v9adUvqRGDxk1DqBl6ZQGxhXz0=;
+ b=ErVRfQnFNrX6ZNi0ewmxiIMS7ISP8znsYmvD/6b7srvTgKCv0+oih4UeY9uhbK4rPh33B8tY7yA93Lz/MYncG58jSftIBpA1nrGCF4n64wlDUcyHEU7ExrfFHXhVv+LwQZqdrMffGyyNhO5mXRcF7z/iRO/XKLwnojxw+yWha08=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR12MB1414.namprd12.prod.outlook.com (2603:10b6:903:3a::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.25; Thu, 6 May
+ 2021 09:55:27 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::50b1:6f8a:9b37:8835]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::50b1:6f8a:9b37:8835%4]) with mapi id 15.20.4108.026; Thu, 6 May 2021
+ 09:55:27 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, lang.yu@amd.com, ray.huang@amd.com,
+ asher.song@amd.com
+Subject: [PATCH libdrm] Revert "tests/amdgpu: fix bo eviction test issue"
+Date: Thu,  6 May 2021 17:55:09 +0800
+Message-Id: <20210506095509.7815-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2P15301CA0011.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:202:1::21) To CY4PR12MB1287.namprd12.prod.outlook.com
+ (2603:10b6:903:40::8)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b6d0c32c-cf90-6118-5c60-238b6f4a0aaa@amd.com>
-X-Operating-System: Linux phenom 5.10.32scarlett+ 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
+ HK2P15301CA0011.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4129.1 via Frontend Transport; Thu, 6 May 2021 09:55:25 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: edb589c4-3cf9-4fe3-96ec-08d910751345
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1414:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB14144A92C56D1FD7DAF7060FF1589@CY4PR12MB1414.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:28;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: czsJT7iwy8s+DXSsNECEl4qlD569bFr6U8geiKoEg6jZJ5zo2/51wMUCWUE67tAGScoTTjpvTULX/l5wAH47y75k1llT28149LWq5u0Fspvg55BOByzQ7/Fyv6sU5ScJBwxgxUDA6WgHjgz66Vlt1suZK7TPG4qv0rlQJyxsDEyB5w2qK3u834O7Xc9ASyvnJn23DKvauILA/1cXtWILrBHOFNui4HL6O1xB+1EtC4NQH1j5hPqkvRbMGC9M42CFs2/Lc/6XJRGNb8eURLRxiPKhd0kUSch0GSB2BxBW/owMW1YxS00uwnyu3DBz/BTVXFDDGoSzzjvug0QfokJJCl0JTWd84WRZcvP5lwSDbpbSD39XmPbRpbwikFhOzwR5JSXclLefHHegSrPF2I9Vpl+ywUGLt4HQ1181PVHUaccZFM6w169lvxJAU5tNrs5Tu0oMZVbKXeg9GFjMGNP4b+ilkIUW4+k5cXTOMVqElX/QC8lWJ5O6usyFrOXfk2giPte97uyLGnhnrzaHrX6m3g8Tpzn7FQ/nJdRetkGjtLFoMiN7C96ieqo0qHh+KftZ15CghNP4tbt9iwOfq3lsYLpomdVUK2kcxZp5cfT/GuLQJjpSkGLzckbItCPiKt4xju4VS8f+V58e8YdiKEuW0Zy9fqkEvNPtgThpFTaBv4o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(346002)(396003)(366004)(376002)(4326008)(6666004)(956004)(6636002)(2906002)(44832011)(2616005)(66946007)(66476007)(478600001)(83380400001)(316002)(66556008)(52116002)(38350700002)(26005)(186003)(16526019)(7696005)(36756003)(5660300002)(86362001)(38100700002)(8676002)(6486002)(1076003)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?33mlz5EQsHyjiJLSz8oWkzKa6nLfGs7TCY3ZNojUcRxeL2cWy7o4BoDppmzf?=
+ =?us-ascii?Q?yygJLJWG1gp6tYfF5PR4AMOdL0B0G0z8ayxtT7Ws5FWYI98BdxYsUGeXccwp?=
+ =?us-ascii?Q?hk6Vkmpa1qenlOKnkaVcMTNbeZcn3kklOwmTdxl5F87dR1ibqHA0WLImgruM?=
+ =?us-ascii?Q?KtKqFPhEWqTC227Y3KJrPPNCwev+pgjFPz3AKF61m7E4R1piUfz0l04X9EBV?=
+ =?us-ascii?Q?9Qy1lb/eGSqJh5V7VRHwTIVZvoho+tpQbTbwnHAiouBiYqH2SikFLFbMy66x?=
+ =?us-ascii?Q?ugS1f6wGIjqPv/nfMBeXXkBo41EhVRLeM+r4K7cRhIuVbgbetSe2KCDlyo22?=
+ =?us-ascii?Q?ZV004chKunflFIT8zByK03zF+3yhq27vOXb34iU8FlY4hartH2dvGvWpX2iO?=
+ =?us-ascii?Q?JYIoFPQdW6SsyAwKJ9dPnaCs25MVFxO9H8GWWRi3MgCwNLmTCVtDEZoDZb9Z?=
+ =?us-ascii?Q?LNcQd9rRuidi0PyDyppJda4J/Frl40UIr6lUpQwU0KvWFrkqjaSPpa/5OuQh?=
+ =?us-ascii?Q?CjrjFiwTMOX4Rtcb5+B2fRSvW8qmnjZp643nDINvr7CqZj+0h8liAnzlh7Pl?=
+ =?us-ascii?Q?PNB0g23lAIyFRgNmbJmP+winSDkSAfVb7QVIE2xnpeST6/nsjCcsXs+bnbaM?=
+ =?us-ascii?Q?kBs+HsOapkHrHpOSPEMi0B+9KTAVJI/I/sRFL+tTAUu5XTf7fu0gIILVR3lR?=
+ =?us-ascii?Q?8xN+U9aoF0NGi96FPnNVUoE7aAEM4TMwnKAF2jQCmQwLGYuG+mF2/8zXVXjh?=
+ =?us-ascii?Q?+nBDCQUx65Najz0VQJ8o4ndDnKrU1br2sxZm04jl97EPmbuugFV8LGd0oGgB?=
+ =?us-ascii?Q?1f0aFerTiUYritzMPgAt1UXfONhXEz493oAJHl1cn2KRzHmC89j3E/SDS54E?=
+ =?us-ascii?Q?0O1gyVFv+IVoFGWitpyq/jfrNEDyYBs1f5S/mXk+XsSa/RNB+v+M4AO6Mx08?=
+ =?us-ascii?Q?OiGCUN3WvWanB3sGtEiKE0fjDWB1xmOxe9IPTLQTQyh2POyoKbDEAf4RPPNh?=
+ =?us-ascii?Q?Dn3ekht8bACXCPGrzxXPEh2Kgkf8dZiL2TgibePRv2IFVliljURH85UKMyY0?=
+ =?us-ascii?Q?Jsz/WHMxEjPGdZnXrS1hi2dZky5gHtd94izBqlvhsjJ6vTj4It8rrOr4ODLy?=
+ =?us-ascii?Q?EwpG3YDzFVuasMNLKk/uOWaqNc7zkLK6WDQnGBbVXGoIgl5wXx+2Ay7p5L+U?=
+ =?us-ascii?Q?3m6av4OODThUGyaqOwQv85AqEVTnwFaVizE6vBzYfEZeWg1TNuFLAAMY9XOg?=
+ =?us-ascii?Q?7dUXeFTIwOtGtvERzOi+F5yX2DYQIU2wTdpVcepDfXecpGxdnf2PEKFs+tCN?=
+ =?us-ascii?Q?cuxs3mYGzCR540CyhaZ41mybJ2CVqRApcGqKF1lsRoki0Q=3D=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edb589c4-3cf9-4fe3-96ec-08d910751345
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2021 09:55:27.1541 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CbjvjGxDclMq4DcJThTr2rJHFogXSTFXwigWJ112VN8M4viH9aHpmGwVTeT2FaF9J/698cBNJNqQ9v3sWZDGhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,324 +124,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
- daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- ppaalanen@gmail.com, helgaas@kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-pci@vger.kernel.org,
- Alexander.Deucher@amd.com, Harry.Wentland@amd.com
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 30, 2021 at 01:27:37PM -0400, Andrey Grodzovsky wrote:
-> 
-> 
-> On 2021-04-30 6:25 a.m., Daniel Vetter wrote:
-> > On Thu, Apr 29, 2021 at 04:34:55PM -0400, Andrey Grodzovsky wrote:
-> > > 
-> > > 
-> > > On 2021-04-29 3:05 p.m., Daniel Vetter wrote:
-> > > > On Thu, Apr 29, 2021 at 12:04:33PM -0400, Andrey Grodzovsky wrote:
-> > > > > 
-> > > > > 
-> > > > > On 2021-04-29 7:32 a.m., Daniel Vetter wrote:
-> > > > > > On Thu, Apr 29, 2021 at 01:23:19PM +0200, Daniel Vetter wrote:
-> > > > > > > On Wed, Apr 28, 2021 at 11:12:00AM -0400, Andrey Grodzovsky wrote:
-> > > > > > > > With this calling drm_dev_unplug will flush and block
-> > > > > > > > all in flight IOCTLs
-> > > > > > > > 
-> > > > > > > > Also, add feature such that if device supports graceful unplug
-> > > > > > > > we enclose entire IOCTL in SRCU critical section.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> > > > > > > 
-> > > > > > > Nope.
-> > > > > > > 
-> > > > > > > The idea of drm_dev_enter/exit is to mark up hw access. Not entire ioctl.
-> > > > > 
-> > > > > Then I am confused why we have https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.12%2Fsource%2Fdrivers%2Fgpu%2Fdrm%2Fdrm_ioctl.c%23L826&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cf4c0568093cc462f625808d90bc23a3c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637553751106596888%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=PPKrQYBrgRMjpwlL0r8n5zenIhQMFWc6gniHgUTxTAY%3D&amp;reserved=0
-> > > > > currently in code ?
-> > > > 
-> > > > I forgot about this one, again. Thanks for reminding.
-> > > > 
-> > > > > > > Especially not with an opt-in flag so that it could be shrugged of as a
-> > > > > > > driver hack. Most of these ioctls should have absolutely no problem
-> > > > > > > working after hotunplug.
-> > > > > > > 
-> > > > > > > Also, doing this defeats the point since it pretty much guarantees
-> > > > > > > userspace will die in assert()s and stuff. E.g. on i915 the rough contract
-> > > > > > > is that only execbuf (and even that only when userspace has indicated
-> > > > > > > support for non-recoverable hw ctx) is allowed to fail. Anything else
-> > > > > > > might crash userspace.
-> > > > > 
-> > > > > Given that as I pointed above we already fail any IOCTls with -ENODEV
-> > > > > when device is unplugged, it seems those crashes don't happen that
-> > > > > often ? Also, in all my testing I don't think I saw a user space crash
-> > > > > I could attribute to this.
-> > > > 
-> > > > I guess it should be ok.
-> > > 
-> > > What should be ok ?
-> > 
-> > Your approach, but not your patch. If we go with this let's just lift it
-> > to drm_ioctl() as the default behavior. No driver opt-in flag, because
-> > that's definitely worse than any other approach because we really need to
-> > get rid of driver specific behaviour for generic ioctls, especially
-> > anything a compositor will use directly.
-> > 
-> > > > My reasons for making this work is both less trouble for userspace (did
-> > > > you test with various wayland compositors out there, not just amdgpu x86
-> > > 
-> > > I didn't - will give it a try.
-> 
-> Weston worked without crashes, run the egl tester cube there.
-> 
-> > > 
-> > > > driver?), but also testing.
-> > > > 
-> > > > We still need a bunch of these checks in various places or you'll wait a
-> > > > very long time for a pending modeset or similar to complete. Being able to
-> > > > run that code easily after hotunplug has completed should help a lot with
-> > > > testing.
-> > > > 
-> > > > Plus various drivers already acquired drm_dev_enter/exit and now I wonder
-> > > > whether that was properly tested or not ...
-> > > > 
-> > > > I guess maybe we need a drm module option to disable this check, so that
-> > > > we can exercise the code as if the ioctl has raced with hotunplug at the
-> > > > worst possible moment.
-> > > > 
-> > > > Also atomic is really tricky here: I assume your testing has just done
-> > > > normal synchronous commits, but anything that goes through atomic can be
-> > > > done nonblocking in a separate thread. Which the ioctl catch-all here wont
-> > > > capture.
-> > > 
-> > > Yes, async commit was on my mind and thanks for reminding me. Indeed
-> > > I forgot this but i planned to scope the entire amdgpu_dm_atomic_tail in
-> > > drm_dev_enter/exit. Note that i have a bunch of patches, all name's
-> > > starting with 'Scope....' that just methodically put all the background
-> > > work items and timers the drivers schedules in drm_dev_enter/exit scope.
-> > > This was supposed to be part of the 'Scope Display code' patch.
-> > 
-> > That's too much. You still have to arrange that the flip completion event
-> > gets sent out. So it's a bit tricky.
-> > 
-> > In other places the same problem applies, e.g. probe functions need to
-> > make sure they report "disconnected".
-> 
-> I see, well, this is all part of KMS support which I defer for now
-> anyway. Will tackle it then.
-> 
-> > 
-> > > > > > > You probably need similar (and very precisely defined) rules for amdgpu.
-> > > > > > > And those must definitely exclude any shard ioctls from randomly failing
-> > > > > > > with EIO, because that just kills the box and defeats the point of trying
-> > > > > > > to gracefully handling hotunplug and making sure userspace has a chance of
-> > > > > > > survival. E.g. for atomic everything should continue, including flip
-> > > > > > > completion, but we set all outputs to "disconnected" and send out the
-> > > > > > > uevent. Maybe crtc enabling can fail too, but that can also be handled
-> > > > > > > through the async status we're using to signal DP link failures to
-> > > > > > > userspace.
-> > > > > 
-> > > > > As I pointed before, because of the complexity of the topic I prefer to
-> > > > > take it step by step and solve first for secondary device use case, not
-> > > > > for primary, display attached device.
-> > > > 
-> > > > Yeah makes sense. But then I think the right patch is to roll this out for
-> > > > all drivers, properly justified with existing code. Not behind a driver
-> > > > flag, because with all these different compositors the last thing we want
-> > > > is a proliferation of driver-specific behaviour. That's imo the worst
-> > > > option of all of them and needs to be avoided.
-> > > 
-> > > So this kind of patch would be acceptable to you if I unconditionally
-> > > scope the drm_ioctl with drm_dev_enter/exit without the driver flag ?
-> > > I am worried to break other drivers with this, see patch https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Df0c593f35b22ca5bf60ed9e7ce2bf2b80e6c68c6&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Cf4c0568093cc462f625808d90bc23a3c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637553751106596888%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=%2F3Jq6SvTm%2BZX7AVpaxEepfOj0C3O7%2Bo2Wm3y0gxrmKI%3D&amp;reserved=0
-> > > Before setting drm_dev_unplug I go through a whole process of signalling
-> > > all possible fences in the system which some one some where might be
-> > > waiting on. My concern is that in the absence of HW those fences won't
-> > > signal and so unless I signal them myself srcu_synchrionize in
-> > > drm_dev_unplug will hang waiting for any such code scoped by
-> > > drm_dev_enter/exit.
-> > 
-> > Uh right. I forgot about this.
-> > 
-> > Which would kinda mean the top level scope is maybe not the best idea, and
-> > perhaps we should indeed drill it down. But then the testing issue
-> > definitely gets a lot worse.
-> > 
-> > So what if we'd push that drm_dev_is_unplugged check down into ioctls?
-> > Then we can make a case-by case decision whether it should be converted to
-> > drm_dev_enter/exit, needs to be pushed down further into drivers (due to
-> > fence wait issues) or other concerns?
-> > 
-> > Also I guess we need to have a subsystem wide rule on whether you need to
-> > force complete all fences before you call drm_dev_unplug, or afterwards.
-> 
-> I don't see how you can handle it afterwards. If a thread is stuck in
-> dma_fence_wait in non interruptible wait (any kernel thread) and with no
-> timeout there is nothing you can do to stop the wait. Any such code
-> scopped with drm_dev_enter/exit will cause a hang in drm_dev_unplug.
-> The only way then is to preemptively force signal all such fences before
-> calling drm_dev_unplug - as I do in the above mentioned patch.
+This reverts commit a5a400c9581c3b91598623603067556b18084c5d.
 
-Yeah, which is why I don't think top-level drm_dev_enter/exit is a good
-idea.
+bo evict test was disabled by default per below commit. So still keep it
+as disabled.
 
-> > If we have mixed behaviour on this there will be disappointment. And since
-> > hotunplug and dma_fence completion are both userspace visible that
-> > inconsistency might have bigger impact.
-> > 
-> > This is all very tricky indeed :-/
-> > 
-> > btw for the "gradual pushing drm_dev_enter into ioctl" approach, if we go
-> > with that: We could do the same trick we've done for DRM_UNLOCKED:
-> > - drm_dev_enter/exit is called for any ioctl that has not set the
-> >    DRM_HOTUNPLUG_SAFE flag
-> > - for drm core ioctls we push them into all ioctls and decide how to
-> >    handle/where (with the aim to have the least amount of code flow
-> >    different during hotunplug vs after hotunplug has finished, to reduce
-> >    testing scope)
-> > - then we make DRM_HOTUNPLUG_SAFE the implied default
-> > 
-> > This would have us left with render ioctls, and I think the defensive
-> > assumption there is that they're all hotunplug safe. We might hang on a
-> > fence wait, but that's fixable, and it's better than blowing up on a
-> > use-after-free security bug.
-> > 
-> > Thoughts?
-> 
-> I don't fully see a difference between the approach described above and
-> the full drill down to each driver and even within the driver, to the HW
-> back-ends - what criteria I would use to decide if for a given IOCTL i
-> scope with drm_dev_enter/exit at the highest level while for another
-> i go all the way down ? If we would agree that signaling the fences
-> preemptively before engaging drm_dev_unplug is generically the right
-> approach maybe we can then scope drm_ioctl unconditionally with
-> drm_dev_enter/exit and then for each driver go through the same process
-> I do for amdgpu - writing driver specific function which takes care of
-> all the fences. We could then just create a drm callback which would
-> be called from drm_ioctl before drm_dev_unplug is called.
+1f6a85cc test/amdgpu: disable bo eviction test by default
 
-So I see the appeal of just nuking all the fences, but I'm not sure that's
-a good plan. We've done this in the old i915 gpu reset code too, and the
-issue is it's defacto inverting the locking. But also the hw is truly
-gone, so it also makes sense.
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ tests/amdgpu/amdgpu_test.c |  3 +++
+ tests/amdgpu/basic_tests.c | 13 ++++---------
+ 2 files changed, 7 insertions(+), 9 deletions(-)
 
-The problem is a bit roll-out, if we state that dma_fence_wait is allowed
-with a drm_dev_enter/exit, then all drivers need to force-retire their
-fences.
-
-The other option would be that we require that dma_fence_wait is _not_
-allowed in drm_dev_enter/exit, and that therefore these areas must be
-marked up more fine-grained to avoid deadlocks. I like this more from the
-testing aspect (it makes it easier to be reasonable sure your code handles
-concurrent hotunplug), but also it's pretty easy to validate with the
-dma_fence lockdep annotations we have I think.
-
-A third reasons for not requiring force-retiring of dma_fence before
-drm_dev_unplug is the races: Before drm_dev_unplug you haven't stopped new
-fences from happening, but until you've stopped new fences it's hard to
-guarantee they're all retired. How do you solve this currently.
-
-Finally there's still hangcheck and all that, so if we go with forbidding
-dma_fence_wait from within drm_dev_enter/exit sections, then drivers don't
-need to have additional tricky code to force-retire fences. TDR will take
-care already (albeit with maybe a slightly annoying long timeout, which
-we can shorten to "time out everything immediately" after drm_dev_unplug).
-
-What we definitely can't have is half the drivers doing it one way, and
-the other half the other way. So your driver flag to wrap the ioctl
-optionally in a drm_dev_enter/exit path is a no-go still I think.
-
-I guess my tldr; is: I definitely see how your current approach gives
-quicker results for amdgpu right now, but long term I'm seeing more
-positives on the other one. At least I expect less special cases due to
-hotunplug with that.
-
-Cheers, Daniel
-
-> 
-> Andrey
-> 
-> > 
-> > It is unfortunately even more work until we've reached the goal, but I
-> > think it's safest and most flexible approach overall.
-> > 
-> > Cheers, Daniel
-> > 
-> > > 
-> > > Andrey
-> > > 
-> > > > 
-> > > > Cheers, Daniel
-> > > > 
-> > > > 
-> > > > > 
-> > > > > > > 
-> > > > > > > I guess we should clarify this in the hotunplug doc?
-> > > > > 
-> > > > > Agree
-> > > > > 
-> > > > > > 
-> > > > > > To clarify: I'm not against throwing an ENODEV at userspace for ioctl that
-> > > > > > really make no sense, and where we're rather confident that all properly
-> > > > > > implemented userspace will gracefully handle failures. Like a modeset, or
-> > > > > > opening a device, or trying to import a dma-buf or stuff like that which
-> > > > > > can already fail in normal operation for any kind of reason.
-> > > > > > 
-> > > > > > But stuff that never fails, like GETRESOURCES ioctl, really shouldn't fail
-> > > > > > after hotunplug.
-> > > > > 
-> > > > > As I pointed above, this a bit confuses me given that we already do
-> > > > > blanker rejection of IOCTLs if device is unplugged.
-> > > > 
-> > > > Well I'm confused about this too :-/
-> > > > 
-> > > > > > And then there's the middle ground, like doing a pageflip or buffer flush,
-> > > > > > which I guess some userspace might handle, but risky to inflict those
-> > > > > > consequences on them. atomic modeset is especially fun since depending
-> > > > > > what you're doing it can be both "failures expected" and "failures not
-> > > > > > really expected in normal operation".
-> > > > > > 
-> > > > > > Also, this really should be consistent across drivers, not solved with a
-> > > > > > driver flag for every possible combination.
-> > > > > > 
-> > > > > > If you look at the current hotunplug kms drivers, they have
-> > > > > > drm_dev_enter/exit sprinkled in specific hw callback functions because of
-> > > > > > the above problems. But maybe it makes sense to change things in a few
-> > > > > > cases. But then we should do it across the board.
-> > > > > 
-> > > > > So as I understand your preferred approach is that I scope any back_end, HW
-> > > > > specific function with drm_dev_enter/exit because that where MMIO
-> > > > > access takes place. But besides explicit MMIO access thorough
-> > > > > register accessors in the HW back-end there is also indirect MMIO access
-> > > > > taking place throughout the code in the driver because of various VRAM
-> > > > > BOs which provide CPU access to VRAM through the VRAM BAR. This kind of
-> > > > > access is spread all over in the driver and even in mid-layers such as
-> > > > > TTM and not limited to HW back-end functions. It means it's much harder
-> > > > > to spot such places to surgically scope them with drm_dev_enter/exit and
-> > > > > also that any new such code introduced will immediately break hot unplug
-> > > > > because the developers can't be expected to remember making their code
-> > > > > robust to this specific use case. That why when we discussed internally
-> > > > > what approach to take to protecting code with drm_dev_enter/exit we
-> > > > > opted for using the widest available scope.
-> > > > 
-> > > > The thing is, you kinda have to anyway. There's enormous amounts of
-> > > > asynchronous processing going on. E.g. nonblocking atomic commits also do
-> > > > ttm unpinning and fun stuff like that, which if you sync things wrong can
-> > > > happen way late. So the door for bad fallout is wide open :-(
-> > > > 
-> > > > I'm not sure where the right tradeoff is to make sure we catch them all,
-> > > > and can make sure with testing that we've indeed caught them all.
-> > > > -Daniel
-> > > > 
-> > 
-
+diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c
+index 60f3a508..77bbfbcc 100644
+--- a/tests/amdgpu/amdgpu_test.c
++++ b/tests/amdgpu/amdgpu_test.c
+@@ -496,6 +496,9 @@ static void amdgpu_disable_suites()
+ 				"gfx ring slow bad draw test (set amdgpu.lockup_timeout=50)", CU_FALSE))
+ 			fprintf(stderr, "test deactivation failed - %s\n", CU_get_error_msg());
+ 
++	if (amdgpu_set_test_active(BASIC_TESTS_STR, "bo eviction Test", CU_FALSE))
++		fprintf(stderr, "test deactivation failed - %s\n", CU_get_error_msg());
++
+ 	/* This test was ran on GFX8 and GFX9 only */
+ 	if (family_id < AMDGPU_FAMILY_VI || family_id > AMDGPU_FAMILY_RV)
+ 		if (amdgpu_set_test_active(BASIC_TESTS_STR, "Sync dependency Test", CU_FALSE))
+diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
+index 8e7c4916..3a4214f5 100644
+--- a/tests/amdgpu/basic_tests.c
++++ b/tests/amdgpu/basic_tests.c
+@@ -928,15 +928,6 @@ static void amdgpu_bo_eviction_test(void)
+ 				   0, &vram_info);
+ 	CU_ASSERT_EQUAL(r, 0);
+ 
+-	r = amdgpu_query_heap_info(device_handle, AMDGPU_GEM_DOMAIN_GTT,
+-				   0, &gtt_info);
+-	CU_ASSERT_EQUAL(r, 0);
+-
+-	if (vram_info.max_allocation > gtt_info.heap_size/3) {
+-		vram_info.max_allocation = gtt_info.heap_size/3;
+-		gtt_info.max_allocation = vram_info.max_allocation;
+-	}
+-
+ 	r = amdgpu_bo_alloc_wrap(device_handle, vram_info.max_allocation, 4096,
+ 				 AMDGPU_GEM_DOMAIN_VRAM, 0, &vram_max[0]);
+ 	CU_ASSERT_EQUAL(r, 0);
+@@ -944,6 +935,10 @@ static void amdgpu_bo_eviction_test(void)
+ 				 AMDGPU_GEM_DOMAIN_VRAM, 0, &vram_max[1]);
+ 	CU_ASSERT_EQUAL(r, 0);
+ 
++	r = amdgpu_query_heap_info(device_handle, AMDGPU_GEM_DOMAIN_GTT,
++				   0, &gtt_info);
++	CU_ASSERT_EQUAL(r, 0);
++
+ 	r = amdgpu_bo_alloc_wrap(device_handle, gtt_info.max_allocation, 4096,
+ 				 AMDGPU_GEM_DOMAIN_GTT, 0, &gtt_max[0]);
+ 	CU_ASSERT_EQUAL(r, 0);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
