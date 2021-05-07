@@ -2,75 +2,69 @@ Return-Path: <SRS0=n+xW=KC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 959F6C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25C94C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:32:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 353BB61456
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 353BB61456
+	by mail.kernel.org (Postfix) with ESMTPS id 88B1E6145D
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 09:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88B1E6145D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 909606E048;
-	Fri,  7 May 2021 09:11:29 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61CFC6E048
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 09:11:28 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id z6so8410003wrm.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 02:11:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6FB56EE09;
+	Fri,  7 May 2021 09:32:18 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53ED46EE09
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 09:32:17 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id h4so8461125wrt.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 02:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=HsxrW3bdknow00JOjw61Uow51pyASehSq1Q7d2U+OwA=;
- b=Qt1o6hcye8AX4pf74Lkpt7E43rjaXth6U9YimvnfiyKcQkEBXITHKgkcfFQHo9+lXN
- DDtbNTV3nwO5NhZkp21B3RqSSira1e+t41RmyltRZVV00CbSfVqSfWiS3yXQUOVeYYmx
- UAcA95ADNkU/t8rORM3jZDwOGTtlK/qPp6fS4=
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=9eDOlp4ivrXGyGxFrC5mT+pHrXcxm+0PNX0zIIhi6K8=;
+ b=iIdjBwFh7ykGwTBR/ifGxFpJQ5O84rBlGmmGyn4J7QDRM9WKqQBpnkBC/rYYfBJXYv
+ leUAJwGk53Ht1tNEFnz/9CZqpFSiHtfR8jxEsPEQlNKQO9gwyVCkc/tCEwBhmswbcV9o
+ I7f7fh5Qfmr+s3b+foTWYCf4EHX5k9idcRYh0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=HsxrW3bdknow00JOjw61Uow51pyASehSq1Q7d2U+OwA=;
- b=WlhcF6RvjRT/Rwij3oJRIw4EHQuKsnAwWM9AWyz8KqwrZOtN5icPtZJyoZSc3JyQho
- hrupXa/Sto5iBd6PDypITJzUm/oD9VzaDQYc8oObrET7//ee/2Jw+bLLR8hKj9XF7fZs
- /9ZyhN92Jo6wBqNfrNsjZ4uCnXykSnxOF47fixu3PIdfjQX6P3bYixqVe8MidnEAA5+U
- x1O+OLqtYPfmIsH1uELDc/Ee8y+4WXBGjDqbpvhnC8NIUvfLZM0GTe68gCcIqufEzUsx
- YwZPSmSZhmYnoygYTns9wxj0Y6di1aX2XE/5CNVLIAvJM3hYqDD+qcaBSWDti59l8Olo
- UAWQ==
-X-Gm-Message-State: AOAM530xcc+Gat1gTpCGXz4XI5GPEDcNKr9d0/PtAQ98Y6VJoyPzvPz4
- 8HA34vOwDtcwjsoBES3HuRwQFwTUAmKaOw==
-X-Google-Smtp-Source: ABdhPJzzxj7LxIzguCe+tMyC5TSEGBFiPX+pV6pGZMwLUJyDgEXvKmMPUCPRTJvvR4m2sU8oKbWhtw==
-X-Received: by 2002:a5d:570e:: with SMTP id a14mr11049195wrv.254.1620378686851; 
- Fri, 07 May 2021 02:11:26 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=9eDOlp4ivrXGyGxFrC5mT+pHrXcxm+0PNX0zIIhi6K8=;
+ b=KaVb73fIhj7jjQkBkB47BZkCISmZF0M9qQA07eYmkmC7FHIPVYRDrZZ0VTrGUvGYep
+ 3kJzShuB04nrQM/rkt+CQ6R6QYyGj7IkuqJQvyrxYom2i1OGgVncOv6eYaVzq4Aj64eK
+ wc1imHtriadIP41WPLlUNslIvnG52M0LPUihpOj8XrdVsfJpIuwnr3+aCSIys73JtV4N
+ uf81k/fO2l9dtRzK6kA52rcDgSG9a9H66oUSzBHp2K0hPA06ywcui8nQlqCqTGzUhOkf
+ M7nlI/FvYnUDCT/AtrEUgCDfeM7t+9ivI+6iUtdQV0Ui6AeK8cllQHuN+f6YYpJ/vt5i
+ NF/w==
+X-Gm-Message-State: AOAM532biG+PuD7JAYjGx2HmJWBH1yL3/X1SDLqUcBlMXGosrnAPhkg0
+ vCNiXxDzs3uDVrCdBH+NthW2/Q==
+X-Google-Smtp-Source: ABdhPJz7ZbZh/wUR4GNn6eXJGljExlNZorNdyaS/WriG5RVPvLhY1K08ufGg5w6+wM34mckvVZVyAg==
+X-Received: by 2002:adf:eec4:: with SMTP id a4mr11255879wrp.159.1620379935789; 
+ Fri, 07 May 2021 02:32:15 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s21sm6090633wmc.10.2021.05.07.02.11.25
+ by smtp.gmail.com with ESMTPSA id t2sm13314788wmg.38.2021.05.07.02.32.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 May 2021 02:11:26 -0700 (PDT)
-Date: Fri, 7 May 2021 11:11:24 +0200
+ Fri, 07 May 2021 02:32:15 -0700 (PDT)
+Date: Fri, 7 May 2021 11:32:13 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Subject: Re: [PATCH v5 20/27] drm: Scope all DRM IOCTLs with drm_dev_enter/exit
-Message-ID: <YJUEPPUGCiTJC8V8@phenom.ffwll.local>
-References: <20210428151207.1212258-21-andrey.grodzovsky@amd.com>
- <YIqXJ5LA6wKl/yzZ@phenom.ffwll.local>
- <YIqZZW9iFyGCyOmU@phenom.ffwll.local>
- <95935e46-408b-4fee-a7b4-691e9db4f455@amd.com>
- <YIsDXWMYkMeNhBYk@phenom.ffwll.local>
- <342ab668-554c-637b-b67b-bd8e6013b4c3@amd.com>
- <YIvbAI4PjFlZw+z9@phenom.ffwll.local>
- <b6d0c32c-cf90-6118-5c60-238b6f4a0aaa@amd.com>
- <YJO5jBaNj1XCTFXE@phenom.ffwll.local>
- <d398c3fd-badd-e9da-a74b-00231ad958a5@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [RFC] CRIU support for ROCm
+Message-ID: <YJUJHaP29N94NhXl@phenom.ffwll.local>
+References: <9245171d-ecc9-1bdf-3ecd-cf776dc17855@amd.com>
+ <CAKMK7uGc6hqY0AasiE=rtF2EitGF7MaMxv7FYJ41O9aj8=__Vg@mail.gmail.com>
+ <232d301f-cf57-85b1-6bbf-11bddc634189@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d398c3fd-badd-e9da-a74b-00231ad958a5@amd.com>
+In-Reply-To: <232d301f-cf57-85b1-6bbf-11bddc634189@amd.com>
 X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,414 +77,394 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, gregkh@linuxfoundation.org,
- daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- ppaalanen@gmail.com, helgaas@kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-pci@vger.kernel.org,
- Alexander.Deucher@amd.com, Harry.Wentland@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexander Mihalicyn <alexander@mihalicyn.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Pavel Emelyanov <ovzxemul@gmail.com>,
+ "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Pavel Tikhomirov <snorcht@gmail.com>, criu@openvz.org, "Yat Sin,
+ David" <David.YatSin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Jason Ekstrand <jason@jlekstrand.net>, "airlied@gmail.com" <airlied@gmail.com>,
+ Adrian Reber <adrian@lisas.de>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 06, 2021 at 12:25:06PM -0400, Andrey Grodzovsky wrote:
-> 
-> 
-> On 2021-05-06 5:40 a.m., Daniel Vetter wrote:
-> > On Fri, Apr 30, 2021 at 01:27:37PM -0400, Andrey Grodzovsky wrote:
-> > > 
-> > > 
-> > > On 2021-04-30 6:25 a.m., Daniel Vetter wrote:
-> > > > On Thu, Apr 29, 2021 at 04:34:55PM -0400, Andrey Grodzovsky wrote:
-> > > > > 
-> > > > > 
-> > > > > On 2021-04-29 3:05 p.m., Daniel Vetter wrote:
-> > > > > > On Thu, Apr 29, 2021 at 12:04:33PM -0400, Andrey Grodzovsky wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 2021-04-29 7:32 a.m., Daniel Vetter wrote:
-> > > > > > > > On Thu, Apr 29, 2021 at 01:23:19PM +0200, Daniel Vetter wrote:
-> > > > > > > > > On Wed, Apr 28, 2021 at 11:12:00AM -0400, Andrey Grodzovsky wrote:
-> > > > > > > > > > With this calling drm_dev_unplug will flush and block
-> > > > > > > > > > all in flight IOCTLs
-> > > > > > > > > > 
-> > > > > > > > > > Also, add feature such that if device supports graceful unplug
-> > > > > > > > > > we enclose entire IOCTL in SRCU critical section.
-> > > > > > > > > > 
-> > > > > > > > > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> > > > > > > > > 
-> > > > > > > > > Nope.
-> > > > > > > > > 
-> > > > > > > > > The idea of drm_dev_enter/exit is to mark up hw access. Not entire ioctl.
-> > > > > > > 
-> > > > > > > Then I am confused why we have https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv5.12%2Fsource%2Fdrivers%2Fgpu%2Fdrm%2Fdrm_ioctl.c%23L826&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ca0ca5bdab20a4533491c08d91072fe2a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637558908355926609%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=SESZFWQEcQUHGGek8d1cNi9Iwo9XOmXqxg9MieRkxNU%3D&amp;reserved=0
-> > > > > > > currently in code ?
-> > > > > > 
-> > > > > > I forgot about this one, again. Thanks for reminding.
-> > > > > > 
-> > > > > > > > > Especially not with an opt-in flag so that it could be shrugged of as a
-> > > > > > > > > driver hack. Most of these ioctls should have absolutely no problem
-> > > > > > > > > working after hotunplug.
-> > > > > > > > > 
-> > > > > > > > > Also, doing this defeats the point since it pretty much guarantees
-> > > > > > > > > userspace will die in assert()s and stuff. E.g. on i915 the rough contract
-> > > > > > > > > is that only execbuf (and even that only when userspace has indicated
-> > > > > > > > > support for non-recoverable hw ctx) is allowed to fail. Anything else
-> > > > > > > > > might crash userspace.
-> > > > > > > 
-> > > > > > > Given that as I pointed above we already fail any IOCTls with -ENODEV
-> > > > > > > when device is unplugged, it seems those crashes don't happen that
-> > > > > > > often ? Also, in all my testing I don't think I saw a user space crash
-> > > > > > > I could attribute to this.
-> > > > > > 
-> > > > > > I guess it should be ok.
-> > > > > 
-> > > > > What should be ok ?
-> > > > 
-> > > > Your approach, but not your patch. If we go with this let's just lift it
-> > > > to drm_ioctl() as the default behavior. No driver opt-in flag, because
-> > > > that's definitely worse than any other approach because we really need to
-> > > > get rid of driver specific behaviour for generic ioctls, especially
-> > > > anything a compositor will use directly.
-> > > > 
-> > > > > > My reasons for making this work is both less trouble for userspace (did
-> > > > > > you test with various wayland compositors out there, not just amdgpu x86
-> > > > > 
-> > > > > I didn't - will give it a try.
-> > > 
-> > > Weston worked without crashes, run the egl tester cube there.
-> > > 
-> > > > > 
-> > > > > > driver?), but also testing.
-> > > > > > 
-> > > > > > We still need a bunch of these checks in various places or you'll wait a
-> > > > > > very long time for a pending modeset or similar to complete. Being able to
-> > > > > > run that code easily after hotunplug has completed should help a lot with
-> > > > > > testing.
-> > > > > > 
-> > > > > > Plus various drivers already acquired drm_dev_enter/exit and now I wonder
-> > > > > > whether that was properly tested or not ...
-> > > > > > 
-> > > > > > I guess maybe we need a drm module option to disable this check, so that
-> > > > > > we can exercise the code as if the ioctl has raced with hotunplug at the
-> > > > > > worst possible moment.
-> > > > > > 
-> > > > > > Also atomic is really tricky here: I assume your testing has just done
-> > > > > > normal synchronous commits, but anything that goes through atomic can be
-> > > > > > done nonblocking in a separate thread. Which the ioctl catch-all here wont
-> > > > > > capture.
-> > > > > 
-> > > > > Yes, async commit was on my mind and thanks for reminding me. Indeed
-> > > > > I forgot this but i planned to scope the entire amdgpu_dm_atomic_tail in
-> > > > > drm_dev_enter/exit. Note that i have a bunch of patches, all name's
-> > > > > starting with 'Scope....' that just methodically put all the background
-> > > > > work items and timers the drivers schedules in drm_dev_enter/exit scope.
-> > > > > This was supposed to be part of the 'Scope Display code' patch.
-> > > > 
-> > > > That's too much. You still have to arrange that the flip completion event
-> > > > gets sent out. So it's a bit tricky.
-> > > > 
-> > > > In other places the same problem applies, e.g. probe functions need to
-> > > > make sure they report "disconnected".
-> > > 
-> > > I see, well, this is all part of KMS support which I defer for now
-> > > anyway. Will tackle it then.
-> > > 
-> > > > 
-> > > > > > > > > You probably need similar (and very precisely defined) rules for amdgpu.
-> > > > > > > > > And those must definitely exclude any shard ioctls from randomly failing
-> > > > > > > > > with EIO, because that just kills the box and defeats the point of trying
-> > > > > > > > > to gracefully handling hotunplug and making sure userspace has a chance of
-> > > > > > > > > survival. E.g. for atomic everything should continue, including flip
-> > > > > > > > > completion, but we set all outputs to "disconnected" and send out the
-> > > > > > > > > uevent. Maybe crtc enabling can fail too, but that can also be handled
-> > > > > > > > > through the async status we're using to signal DP link failures to
-> > > > > > > > > userspace.
-> > > > > > > 
-> > > > > > > As I pointed before, because of the complexity of the topic I prefer to
-> > > > > > > take it step by step and solve first for secondary device use case, not
-> > > > > > > for primary, display attached device.
-> > > > > > 
-> > > > > > Yeah makes sense. But then I think the right patch is to roll this out for
-> > > > > > all drivers, properly justified with existing code. Not behind a driver
-> > > > > > flag, because with all these different compositors the last thing we want
-> > > > > > is a proliferation of driver-specific behaviour. That's imo the worst
-> > > > > > option of all of them and needs to be avoided.
-> > > > > 
-> > > > > So this kind of patch would be acceptable to you if I unconditionally
-> > > > > scope the drm_ioctl with drm_dev_enter/exit without the driver flag ?
-> > > > > I am worried to break other drivers with this, see patch https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Ddrm-misc-next%26id%3Df0c593f35b22ca5bf60ed9e7ce2bf2b80e6c68c6&amp;data=04%7C01%7Candrey.grodzovsky%40amd.com%7Ca0ca5bdab20a4533491c08d91072fe2a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637558908355926609%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=62f4gdl3lQH0ap58HTyv47zxALjaa5Td%2BysskR83rig%3D&amp;reserved=0
-> > > > > Before setting drm_dev_unplug I go through a whole process of signalling
-> > > > > all possible fences in the system which some one some where might be
-> > > > > waiting on. My concern is that in the absence of HW those fences won't
-> > > > > signal and so unless I signal them myself srcu_synchrionize in
-> > > > > drm_dev_unplug will hang waiting for any such code scoped by
-> > > > > drm_dev_enter/exit.
-> > > > 
-> > > > Uh right. I forgot about this.
-> > > > 
-> > > > Which would kinda mean the top level scope is maybe not the best idea, and
-> > > > perhaps we should indeed drill it down. But then the testing issue
-> > > > definitely gets a lot worse.
-> > > > 
-> > > > So what if we'd push that drm_dev_is_unplugged check down into ioctls?
-> > > > Then we can make a case-by case decision whether it should be converted to
-> > > > drm_dev_enter/exit, needs to be pushed down further into drivers (due to
-> > > > fence wait issues) or other concerns?
-> > > > 
-> > > > Also I guess we need to have a subsystem wide rule on whether you need to
-> > > > force complete all fences before you call drm_dev_unplug, or afterwards.
-> > > 
-> > > I don't see how you can handle it afterwards. If a thread is stuck in
-> > > dma_fence_wait in non interruptible wait (any kernel thread) and with no
-> > > timeout there is nothing you can do to stop the wait. Any such code
-> > > scopped with drm_dev_enter/exit will cause a hang in drm_dev_unplug.
-> > > The only way then is to preemptively force signal all such fences before
-> > > calling drm_dev_unplug - as I do in the above mentioned patch.
-> > 
-> > Yeah, which is why I don't think top-level drm_dev_enter/exit is a good
-> > idea.
-> > 
-> > > > If we have mixed behaviour on this there will be disappointment. And since
-> > > > hotunplug and dma_fence completion are both userspace visible that
-> > > > inconsistency might have bigger impact.
-> > > > 
-> > > > This is all very tricky indeed :-/
-> > > > 
-> > > > btw for the "gradual pushing drm_dev_enter into ioctl" approach, if we go
-> > > > with that: We could do the same trick we've done for DRM_UNLOCKED:
-> > > > - drm_dev_enter/exit is called for any ioctl that has not set the
-> > > >     DRM_HOTUNPLUG_SAFE flag
-> > > > - for drm core ioctls we push them into all ioctls and decide how to
-> > > >     handle/where (with the aim to have the least amount of code flow
-> > > >     different during hotunplug vs after hotunplug has finished, to reduce
-> > > >     testing scope)
-> > > > - then we make DRM_HOTUNPLUG_SAFE the implied default
-> > > > 
-> > > > This would have us left with render ioctls, and I think the defensive
-> > > > assumption there is that they're all hotunplug safe. We might hang on a
-> > > > fence wait, but that's fixable, and it's better than blowing up on a
-> > > > use-after-free security bug.
-> > > > 
-> > > > Thoughts?
-> > > 
-> > > I don't fully see a difference between the approach described above and
-> > > the full drill down to each driver and even within the driver, to the HW
-> > > back-ends - what criteria I would use to decide if for a given IOCTL i
-> > > scope with drm_dev_enter/exit at the highest level while for another
-> > > i go all the way down ? If we would agree that signaling the fences
-> > > preemptively before engaging drm_dev_unplug is generically the right
-> > > approach maybe we can then scope drm_ioctl unconditionally with
-> > > drm_dev_enter/exit and then for each driver go through the same process
-> > > I do for amdgpu - writing driver specific function which takes care of
-> > > all the fences. We could then just create a drm callback which would
-> > > be called from drm_ioctl before drm_dev_unplug is called.
-> > 
-> > So I see the appeal of just nuking all the fences, but I'm not sure that's
-> > a good plan. We've done this in the old i915 gpu reset code too, and the
-> > issue is it's defacto inverting the locking. But also the hw is truly
-> > gone, so it also makes sense.
-> > 
-> > The problem is a bit roll-out, if we state that dma_fence_wait is allowed
-> > with a drm_dev_enter/exit, then all drivers need to force-retire their
-> > fences.
-> > 
-> > The other option would be that we require that dma_fence_wait is _not_
-> > allowed in drm_dev_enter/exit, and that therefore these areas must be
-> > marked up more fine-grained to avoid deadlocks. I like this more from the
-> > testing aspect (it makes it easier to be reasonable sure your code handles
-> > concurrent hotunplug), but also it's pretty easy to validate with the
-> > dma_fence lockdep annotations we have I think.
-> 
-> They key question as I see it - is it ok for a device to be unplugged
-> while it's driver has anywhere in it's code a dma_fence_wait
-> waiting for work completion from this device. The answers seems to me
-> is no, the HW is gone, this fence will never signal and so you will be
-> left with indefinitely hanged code thread with all it's unreleased
-> resources. If i am correct in the above statement then avoiding scoping
-> code with drm_dev_enter/exit because a dma_fence_wait might be there in the
-> middle
-> just hides the problem. Also, then the only solution for each driver
-> wanting to support hot-unplug is to force retire all it's HW
-> fences once it's notified of device removal.
+On Thu, May 06, 2021 at 12:10:15PM -0400, Felix Kuehling wrote:
+> Am 2021-05-04 um 9:00 a.m. schrieb Daniel Vetter:
+> > On Fri, Apr 30, 2021 at 09:57:45PM -0400, Felix Kuehling wrote:
+> >> We have been working on a prototype supporting CRIU (Checkpoint/Restore
+> >> In Userspace) for accelerated compute applications running on AMD GPUs
+> >> using ROCm (Radeon Open Compute Platform). We're happy to finally share
+> >> this work publicly to solicit feedback and advice. The end-goal is to
+> >> get this work included upstream in Linux and CRIU. A short whitepaper
+> >> describing our design and intention can be found on Github:
+> >> https://github.com/RadeonOpenCompute/criu/tree/criu-dev/test/others/ex=
+t-kfd/README.md
+> >>
+> >> We have RFC patch series for the kernel (based on Alex Deucher's
+> >> amd-staging-drm-next branch) and for CRIU including a new plugin and a
+> >> few core CRIU changes. I will send those to the respective mailing lis=
+ts
+> >> separately in a minute. They can also be found on Github.
+> >>
+> >>     CRIU+plugin: https://github.com/RadeonOpenCompute/criu/commits/cri=
+u-dev
+> >>     Kernel (KFD):
+> >>     https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/commits/fx=
+kamd/criu-wip
+> >>
+> >> At this point this is very much a work in progress and not ready for
+> >> upstream inclusion. There are still several missing features, known
+> >> issues, and open questions that we would like to start addressing with
+> >> your feedback.
+> > Since the thread is a bit split I'm dumping the big thoughts here on th=
+is
+> > RFC.
+> >
+> > We've discussed this in the past, but I'm once more (insert meme here)
+> > asking whether continuing to walk down the amdgpu vs amdkfd split is
+> > really the right choice. It starts to feel a bit much like sunk cost
+> > fallacy ...
+> =
 
-At a high level, yes dma_fence must always complete. I don't think we have
-a disagreement here on that.
+> Hi Daniel,
+> =
 
-What we're discussing here is the precise sequencing and barriers, where
-things get tricky. Requiring that you force-complete all dma_fence that
-might be affected before you hotunplug is one solution, the other is
-tuning the critical sections that drm_dev_enter/exit annotates.
+> Thanks for the feedback. I have some comments to your specific points
+> below. This is my own opinion at this point and may not reflect AMDs
+> position. I'm starting some internal discussions about unifying the KFD
+> and graphics APIs in the long run. But IMO this is going to take years
+> and won't be supported on our current compute GPUs, including Aldebaran
+> which isn't even released yet.
 
-This isn't about avoiding anything or hiding problems, this is about
-locking/synchronization design. And for that we must agree on what is
-allowed inside/outside of a critical section for all possible
-combinations.
+Well yeah that's why I'm bringing this up early (and I think we're at
+round 2 or 3 on this discussion by now). I know how many years this takes
+to roll out.
 
-E.g. we're also "hiding" problems with calling dma_fence_wait from
-shrinkers/mmu notifiers by forbidding allocations in
-dma_fence_begin/end_signalling critical paths.
+> > - From the big thread we're having right now on dri-devel it's clear th=
+at
+> >   3d will also move towards more and more a userspace submit model.
+> =
 
-> > A third reasons for not requiring force-retiring of dma_fence before
-> > drm_dev_unplug is the races: Before drm_dev_unplug you haven't stopped new
-> > fences from happening, but until you've stopped new fences it's hard to
-> > guarantee they're all retired. How do you solve this currently.
-> 
-> See amdgpu_finilize_device_fences in https://patchwork.ozlabs.org/project/linux-pci/patch/20210428151207.1212258-20-andrey.grodzovsky@amd.com/
-> I think the steps described there answer your
-> concern here.
+> I'll need to start following dri-devel more closely and take a more
+> active role in those discussions. If there is an opportunity for a
+> unified memory management and command submission model for graphics and
+> compute on future hardware, I want to be sure that our compute
+> requirements are understood early on.
+> =
 
-The hard problem is stopping further command submission. Not seeing how
-you solve that.
+> =
 
-But I'm definitely scared about all the scheduler/tdr interactions you
-already have there, and that looks quite a bit like fallout from doing
-things the wrong way round.
+> >  But
+> >   due to backwards compat issues it will be a mixed model, and in some
+> >   cases we need to pick at runtime which model we're picking. A hard sp=
+lit
+> >   between the amdgpu and the amdkfd world gets in the way here.
+> =
 
-Also given that drm/scheduler is shared, why can't this be a drm/scheduler
-helper function?
+> Backwards compatibility will force us to maintain KFD at least for GFXv9
+> and older AMD GPUs. As I understand it, the new user mode command
+> submission model will only be viable on GFXv10 or even newer GPUs. GFXv9
+> is our architecture for current compute GPUs (including Aldebaran which
+> is still in development), so this is going to be important for us for
+> years to come.
 
-> > Finally there's still hangcheck and all that, so if we go with forbidding
-> > dma_fence_wait from within drm_dev_enter/exit sections, then drivers don't
-> > need to have additional tricky code to force-retire fences. TDR will take
-> > care already (albeit with maybe a slightly annoying long timeout, which
-> > we can shorten to "time out everything immediately" after drm_dev_unplug).
-> 
-> I am not aware of TDR handlers  that do it today, at least we don't,
-> we don't check that if device is gone let's instead of resetting the device
-> and resubmit jobs just force retire all the HW fences. In any case, this
-> can and i think should be done in pci remove callback because this is
-> the place that supposed to handle device extraction. I for example in
-> amdgpu_finilize_device_fences just block all TDRs from taking place as first
-> step in the process. If other drivers want to force retire fences
-> in their TDR handlers they still need to block and wait for all such
-> TDRs in their pci_remove handler.
+Yeah this is definitely a 5 year plus plan.
 
-TDR definitely force-completes the fence that did hang. Of course it'll
-take a while until they've all completed this way, but we do have
-guaranteed forward progress since we've stopped all further fences from
-showing up because drm_dev_unplug is called already.
+> > - There's use-cases for doing compute in vulkan (that was a discussion
+> >   from Feb that I kicked again in private, since I think still
+> >   unresolved). So you need a vulkan stack that runs on both amdgpu and
+> >   amdvlk.
+> =
 
-And yes after drm_dev_unplug you can then force-retire the tdr stuff.
+> By amdvlk, do you mean AMD's "pro" driver that supports our non-RADV
+> Vulcan driver?
 
-> > What we definitely can't have is half the drivers doing it one way, and
-> > the other half the other way. So your driver flag to wrap the ioctl
-> > optionally in a drm_dev_enter/exit path is a no-go still I think.
-> > 
-> > I guess my tldr; is: I definitely see how your current approach gives
-> > quicker results for amdgpu right now, but long term I'm seeing more
-> > positives on the other one. At least I expect less special cases due to
-> > hotunplug with that.
-> 
-> As i expressed my viewpoint above - seems to me any driver in need to
-> support hot-unplug must force retire it's fences because of need to
-> unblock all dma_fence waits and so it will not be a special case.
+Yeah that's what I heard at least from Alex (If I recall correctly).
+People seem to be using vulkan for cloud compute. This came up when we
+talked about enforcing a default timeout for compute engines on the amdgpu
+side (kernel can hang if you dont), and I think John Bridgman mentioned
+the proper fix was to move at least opencl over to use amdkfd by default.
 
-This isn't the special case I meant. It's the very tricky
-force-retire-before-you-unplugged-officially which is large scale nasty.
 
-Also if your driver doesn't force-retire already, it's buggy. The
-additional need of hotunplug is just that we're trying to force-retire a
-bit faster, because we know it's all hopeless. But e.g. i915 already has a
-fallback that does this automatically:
-- first we reset only the engine/context, keeping everyone else running
-- if that doesn't pan out, we reset the entire chip and give up an
-  anything that's in-flight, which (iirc, it did so at least in the past)
-  force retires everything outstanding.
+> > - Maybe not yet on amd's radar, but there's a lot of cloud computing. A=
+nd
+> >   maybe they also want CRIU for migrating their containers around. So t=
+hat
+> >   means CRIU for amdgpu too, not just amdkf.
+> =
 
-I think amdgpu only has full chip reset, so your first step tries to
-reissue all other tasks. But that's not necessarily how it needs to
-happen.
+> Our strategy for compute support (OpenCL, HIP, OpenMP and mayby future
+> C++ standards) is to use ROCm on all current and future GPUs starting
+> with GFXv9. As long as ROCm is based on KFD, that means our compute
+> stack runs on KFD. We don't see KFD as something mutually exclusive with
+> graphics. They are different ioctl APIs, but they're sharing the
+> hardware and memory and are meant to work together.
+> =
 
-Either way drivers must force retire everything (albeit maybe a bit at a
-slow pace) if the hw ceased to work properly already. Hotunplug really
-isn't anything new here.
+> We are already planning to add CRIU support to our render node API
+> because video acceleration on our compute stack still relies on Mesa and
+> the render node CS API.
+> =
+
+> I admit, that we are not currently considering Vulcan as part of our
+> compute stack. I don't think it makes sense to build Vulcan on top of
+> ROCm because we have no plans to add graphics support to ROCm. What
+> commonality there is between Vulcan and other compute APIs will need to
+> be addressed at a lower level. If graphics is moving to user mode
+> command submission and a shared virtual memory model, I see an
+> opportunity to move ROCm to a common ioctl API on those future hardware
+> generations.
+> =
+
+> =
+
+> >
+> > - What's much worse, and I don't think anyone in amd has realized this =
+yet
+> >   (at least not in a public thread I've seen). In vulkan you need to be
+> >   able to switch from compute mode to dma-fence mode after
+> >   pipelines/devices have been created already. This is because winsys a=
+re
+> >   only initialized in a second step, until that's done you have to
+> >   pessimistically assume that the user does pure compute. What's worse =
+for
+> >   buffer sharing you don't even have a clear signal on this stuff. So
+> >   either
+> >
+> >   - you figure out how to migrate all the buffers and state from amdkfd=
+ to
+> >     amdgpu at runtime, and duplicate all the features. Which is rather
+> >     pointless.
+> >
+> >   - or you duplicate all the compute features to amdgpu so that vk can =
+use
+> >     them, and still reasonably easy migrate to winsys/dma-fence mode,
+> >     which makes amdkfd rather redundant.
+> =
+
+> The basic "compute features" that ROCm depends on are a
+> shared-virtual-memory model and user mode command submission. If those
+> become part of the graphics ioctl API, I see no problem with
+> implementing proper Vulcan compute on top of it.
+> =
+
+> For more consistent support for tools such as debugger, profilers, CRIU,
+> etc. it would make sense to have a common ioctl API for ROCm and Vulcan,
+> which would effectively deprecate the KFD API. And I'm definitely open
+> to working on that for future HW generations that can support it.
+> =
+
+> We'll probably have to pick a target GPU where we make such a switch,
+> and use the time until then to get things ready, prototyping in current
+> GFXv10 or newer GPUs. This feels to me a bit like the transition from
+> radeon to amdgpu, where GFXv7 was supported by both for some time.
+> =
+
+> =A0
+> =
+
+> >
+> >   I've discussed this problem extensively with Jason Ekstrand, and it's
+> >   really nasty.
+> >
+> > So purely from a technical pov, only looking at the AMD perspective her=
+e,
+> > this doesn't make much sense to me. The only reason to keep doubling do=
+wn
+> > on amdkfd I'm seeing is that you've built your compute rocm stack on top
+> > of it, and because of that the only option is to keep doing that. Which
+> > stops making sense eventually, and we're getting to that point for sure.
+> =
+
+> As long as our compute GPUs are based on the GFXv9 architecture, I think
+> we don't really have an alternative than to double down on KFD. We can't
+> just stop work on KFD and tell our customers that they'll not get any
+> new features for the next 2 or 3 years that it takes to build a common
+> upstream memory management and scheduling API and the HW that can
+> support it.
+> =
+
+> =
+
+> >
+> > The other side is a bit the upstream side, but that's a lot smaller:
+> >
+> > - vulkan compute is one of the more reasonable ways to get cross vendor
+> >   compute ecosystem off the ground. At least from what I know from
+> >   background chatter, which you guys probably haven't all heard. amdkfd
+> >   being the single very odd driver here requiring entirely different ua=
+pi
+> >   for compute mode is not going to be great.
+> =
+
+> Like I said, KFD is not exclusive with anything else.
+> =
+
+> Vulcan may be a good option for desktops. For HPC uses or general
+> portable non-graphics compute code, I think something like OpenMP or
+> future C++ standards would be a better way forward. There is no
+> technical reason why both cannot coexist in the same application.
+> =
+
+> =
+
+> >
+> > - CRIU will need new access rights handling (for the save/restore/resume
+> >   stuff you're adding). Generally we standardize access rights checks
+> >   across drivers, and leave everything else to render drivers (command
+> >   submission, memory management, ...). By adding CRIU support to amdkfd
+> >   we pretty much guarantee that we wont be able to standardize CRIU acc=
+ess
+> >   rights across drivers. Which just plains sucks from an
+> >   upstream/cross-vendor ecosystem pov.
+> =
+
+> By access rights, do you mean requiring root for some ioctls, or being
+> ptrace-attached for others? These are driven by how CRIU works and
+> interacts with its target processes. I think they will apply equally to
+> any driver implementing CRIU support. I don't see how graphics drivers
+> specifically drive standardization of CRIU access rights.
+
+Ah ok if that's all already 100% defined by CRIU I guess should be all
+fine.
+
+> > And yes we'd still need a per-driver criu plugin in userspace, but the
+> > same is true for amdvlk/radv/anv/ and all the other drivers we have:
+> > Driver is different, access right management is still the same.
+> >
+> > And secondly, just because nvidia refuses to collaborate in any
+> > standards around gpu compute doesn't mean that's a good reason for us to
+> > do the same in upstream.
+> >
+> > Thirdly, it sounds like this is the first device-driver CRIU support, s=
+o I
+> > think we need a solid agreement/standard here to set as an example for
+> > everyone else. There's all the AI accel chips and fpga-for-compute stuff
+> > that I expect will eventually also gain CRIU support.
+> =
+
+> Sure. My experience with CRIU so far is, that CRIU requires root (even
+> without our plugin). Regardless of that, CRIU attaches to the target
+> process with ptrace. The kernel's security policy for allowing ptrace
+> access is influenced by many factors. We chose not to duplicate this in
+> the driver. Therefore we check whether the caller of our CRIU dump ioctl
+> is ptrace attached. If it is, it means it has passed all the kernel's
+> security checks. We deliberately do not want to implement our own
+> security policy in the driver.
+> =
+
+> There would be ways to remove the root requirement from our CRIU
+> restore-ioctl, if that becomes a requirement for CRIU. It would mean
+> some sanity checking of the HW state that's getting restored.
+
+Hm so how does this work for fd passing? Like if an fd is passed among
+multiple processes, do you need ptrace for all of them? Or do you check in
+amdkfd that you have ptrace rights for the process it's attached too?
+
+Maybe more relevant questions for the amdgpu side of CRIU.
+
+> > So I'm asking once more, is this _really_ the right path forward? Both =
+for
+> > amd (at least long term), but also somewhat for upstream.
+> =
+
+> I think long-term it makes sense to plan for a unified API. For current
+> hardware I don't see a way to get there for multiple reasons:
+> =
+
+>  1. Maintaining backwards compatibility with existing user mode
+>  2. Lacking HW capabilities for graphics user mode command submission
+>     and HW scheduling
+
+An aside, but from kernel pov that's not what "compute mode" means. It's
+just about not using dma_fence for tracking command submission, but
+instead userspace fences and only having a preempt-ctx fence. So all you
+need is some kind of preempt support on your engine, not userspace
+submission. Afaiui windows has been using userspace fences since 10 years
+now, so pretty sure your hw can do that.
+
+Also I'm pretty sure the vk compute stuff doesn't use the 3d engine, that
+would be mildly silly :-)
+
+> Therefore KFD will be important for AMD's compute GPU strategy and our
+> customers for years to come. Not being able to continue developing it
+> upstream would be a major impediment for AMD. Again, this is my personal
+> opinion.
+
+So answer all the others in a wash-up, I think there's two items:
+
+- We're not ditching existing hw support for anything.
+
+- I think AMD needs to talk a bit more across the kfd/gpu split and figure
+  out what to actually do here. If you guys only start this by the time
+  the code shows up on dri-devel your a few years too late, and will be
+  eventually some big disappointment.
+
+Looking at all the various compute efforts going on the split between
+compute and 3d really isn't that big. And I don't expect there'll be any
+other driver stack doing it, so amdkfd is quite the odd one out.
 -Daniel
-> 
-> Andrey
-> 
-> > 
-> > Cheers, Daniel
-> > 
-> > > 
-> > > Andrey
-> > > 
-> > > > 
-> > > > It is unfortunately even more work until we've reached the goal, but I
-> > > > think it's safest and most flexible approach overall.
-> > > > 
-> > > > Cheers, Daniel
-> > > > 
-> > > > > 
-> > > > > Andrey
-> > > > > 
-> > > > > > 
-> > > > > > Cheers, Daniel
-> > > > > > 
-> > > > > > 
-> > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > I guess we should clarify this in the hotunplug doc?
-> > > > > > > 
-> > > > > > > Agree
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > To clarify: I'm not against throwing an ENODEV at userspace for ioctl that
-> > > > > > > > really make no sense, and where we're rather confident that all properly
-> > > > > > > > implemented userspace will gracefully handle failures. Like a modeset, or
-> > > > > > > > opening a device, or trying to import a dma-buf or stuff like that which
-> > > > > > > > can already fail in normal operation for any kind of reason.
-> > > > > > > > 
-> > > > > > > > But stuff that never fails, like GETRESOURCES ioctl, really shouldn't fail
-> > > > > > > > after hotunplug.
-> > > > > > > 
-> > > > > > > As I pointed above, this a bit confuses me given that we already do
-> > > > > > > blanker rejection of IOCTLs if device is unplugged.
-> > > > > > 
-> > > > > > Well I'm confused about this too :-/
-> > > > > > 
-> > > > > > > > And then there's the middle ground, like doing a pageflip or buffer flush,
-> > > > > > > > which I guess some userspace might handle, but risky to inflict those
-> > > > > > > > consequences on them. atomic modeset is especially fun since depending
-> > > > > > > > what you're doing it can be both "failures expected" and "failures not
-> > > > > > > > really expected in normal operation".
-> > > > > > > > 
-> > > > > > > > Also, this really should be consistent across drivers, not solved with a
-> > > > > > > > driver flag for every possible combination.
-> > > > > > > > 
-> > > > > > > > If you look at the current hotunplug kms drivers, they have
-> > > > > > > > drm_dev_enter/exit sprinkled in specific hw callback functions because of
-> > > > > > > > the above problems. But maybe it makes sense to change things in a few
-> > > > > > > > cases. But then we should do it across the board.
-> > > > > > > 
-> > > > > > > So as I understand your preferred approach is that I scope any back_end, HW
-> > > > > > > specific function with drm_dev_enter/exit because that where MMIO
-> > > > > > > access takes place. But besides explicit MMIO access thorough
-> > > > > > > register accessors in the HW back-end there is also indirect MMIO access
-> > > > > > > taking place throughout the code in the driver because of various VRAM
-> > > > > > > BOs which provide CPU access to VRAM through the VRAM BAR. This kind of
-> > > > > > > access is spread all over in the driver and even in mid-layers such as
-> > > > > > > TTM and not limited to HW back-end functions. It means it's much harder
-> > > > > > > to spot such places to surgically scope them with drm_dev_enter/exit and
-> > > > > > > also that any new such code introduced will immediately break hot unplug
-> > > > > > > because the developers can't be expected to remember making their code
-> > > > > > > robust to this specific use case. That why when we discussed internally
-> > > > > > > what approach to take to protecting code with drm_dev_enter/exit we
-> > > > > > > opted for using the widest available scope.
-> > > > > > 
-> > > > > > The thing is, you kinda have to anyway. There's enormous amounts of
-> > > > > > asynchronous processing going on. E.g. nonblocking atomic commits also do
-> > > > > > ttm unpinning and fun stuff like that, which if you sync things wrong can
-> > > > > > happen way late. So the door for bad fallout is wide open :-(
-> > > > > > 
-> > > > > > I'm not sure where the right tradeoff is to make sure we catch them all,
-> > > > > > and can make sure with testing that we've indeed caught them all.
-> > > > > > -Daniel
-> > > > > > 
-> > > > 
-> > 
 
--- 
+> =
+
+> Regards,
+> =A0 Felix
+> =
+
+> =
+
+> >
+> > Cheers, Daniel
+> >
+> >
+> >> What's working and tested at this point:
+> >>
+> >>   * Checkpoint and restore accelerated machine learning apps: PyTorch
+> >>     running Bert on systems with 1 or 2 GPUs (MI50 or MI100), 100%
+> >>     unmodified user mode stack
+> >>   * Checkpoint on one system, restore on a different system
+> >>   * Checkpoint on one GPU, restore on a different GPU
+> >>
+> >> Major Known issues:
+> >>
+> >>   * The KFD ioctl API is not final: Needs a complete redesign to allow
+> >>     future extension without breaking the ABI
+> >>   * Very slow: Need to implement DMA to dump VRAM contents
+> >>
+> >> Missing or incomplete features:
+> >>
+> >>   * Support for the new KFD SVM API
+> >>   * Check device topology during restore
+> >>   * Checkpoint and restore multiple processes
+> >>   * Support for applications using Mesa for video decode/encode
+> >>   * Testing with more different GPUs and workloads
+> >>
+> >> Big Open questions:
+> >>
+> >>   * What's the preferred way to publish our CRIU plugin? In-tree or
+> >>     out-of-tree?
+> >>   * What's the preferred way to distribute our CRIU plugin? Source?
+> >>     Binary .so? Whole CRIU? Just in-box support?
+> >>   * If our plugin can be upstreamed in the CRIU tree, what would be the
+> >>     right directory?
+> >>
+> >> Best regards,
+> >>   Felix
+> >>
+> >>
+> >> _______________________________________________
+> >> dri-devel mailing list
+> >> dri-devel@lists.freedesktop.org
+> >> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch/
+
+-- =
+
 Daniel Vetter
 Software Engineer, Intel Corporation
 http://blog.ffwll.ch
