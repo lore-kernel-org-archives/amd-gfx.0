@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47C8FC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A0D5C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3F1F61400
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3F1F61400
+	by mail.kernel.org (Postfix) with ESMTPS id E2A2C613F1
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2A2C613F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C376EE42;
-	Fri,  7 May 2021 14:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99F006EE43;
+	Fri,  7 May 2021 14:59:23 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B10336EE42
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 14:59:15 +0000 (UTC)
+ (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E434B6EE43
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 14:59:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mMvp5K+BuV22pKu5lqcTdv2BoXLeqk1BUX+ETMt/TaNiEImc7hA302SqhMWKW6IsNgggMP7kpfGpbQoAysq0KAeSJHGosm+/j2D06gZ4QMmMQ7xsFXxckHhrnJCpQxX5T/fOrFmVhwfyI8ZcZo02mYeeP4Yih8h+Abq0bWXy4vKlwaZqSuKXboR69DIxEl5Phv5x0SsE9Gnb3fdkBeCrzgSSaGAktftCN72wr9i9/CE0DJ5Z2XWUIXj1Otwjw+yqi67A7NwY1IBc+E9NbRtGkCd+L1tiM1znSHfqMhIXUKg8tlV2VKzNOLiT4dUaPR1zKPnWp37JdUGyXZwtQgpn9Q==
+ b=CgzaA3h/OgTzefcFhwIiu6wNlu8JOPWPn9FyVHYyeQffCSViM4kTXpHhWterpn5pgYV1Pqb46ufcx36hwjQWFSXUxZSi18sHOtQXhQegQ6vKBVoN/j32G9QbkPPHHqInLArqVNFmizpH75GXO8qRD++mNORe9B6EgJq1FsUE2+Cw30WTyeFVJaa4rNudbf3cAwDv9j6AnK5cUPbqQDF1WzlYXwQMLXfT44C7N3TEK1rVc4z1vz+VYM58cpRz7aaKDQMa1K2ulsCSbPi6qg+KSwiQB6HvzDny657SZ8ijMHqsB9Yo4GgnjzrUYP01pX3vzBQu2OsqfEBEq0gx1V3HNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jx3zQEVCl/CUMKkFyGK9+435vYgp3IE0l5gzv0ud62o=;
- b=nXFsbu9j1nNkQ9VPpufJUgUzFxNrDCGT57lGkkW8Fv79ynhXDJe4OrViJzjfbwugJr80HGZruYTakmT1QUvAELL1q9r1Nj5XFsZw5+RPtAJbvTYzSCRfim7/cUgJaGrlStMb74lGJJX1V8j65LL+vkLZFrEPcaYaqNiCaVKaTE2oyy919OyVSIZZHobCeEOsqTCI1y55wU/jLvYs4mX4wOBy14ECB70sLQ6FWy1nXOEA7FWHqfqYH+xcWzYP4WqcrxXFpQ4zxOxd8yeCh5my00S40lxc+ouZUW0cFbNW5OKo0kYc4ftUEaLMuwhGG2bq2oKTxPZe5tpzLuSYuCkoyw==
+ bh=3szPL9dDuzNGTdaE24HxyweHh41TQ34FkrE5dkuxYmk=;
+ b=JWmDhTsdtN/0Bj6hqvLUJoaEDigQSu3k/34k5uGzozzPvUAcd+dbE2geGOGRDaSs5AiXsaf0WAHUOjezoxcDRcZwQDJcENddMEMe8GiRR4/m6BCFUBZeMCZS8uG6uwru9/tKjMIDXnayAJex2UG7aQGD2fVpg4i/vN2OCkwRwz8mTh2JjOHCgBX7Wa62YMIei29wjjxQPlaWHa7GUdTvmUy9+Scs5BFFdGTtvaMbLVQT+rAHfINqoZUTZf8WlCaE0hjhjQhIkUd40KotWpPyDPkuzNsuCpiL2QLVTTPXhdQZ5I0wItGgaTn9y5yCIZ7NYSLQ0ipA6QKQQ/erxJVVPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jx3zQEVCl/CUMKkFyGK9+435vYgp3IE0l5gzv0ud62o=;
- b=y1zf9olRjkw+Ipb4UHBXt4DjP/U11GBHk8+txtCqtpJSZbi0kP19xdy0QCdgr2fItSH0k27LWgWbyK+RdFHU820ycvqR+OBQT5LxkTIB4XI8CtQct9j0uoxg08gpbg780lvZ9K4pOQPygPIpuouMja2dN2JIFODrWiZGIYkC4As=
+ bh=3szPL9dDuzNGTdaE24HxyweHh41TQ34FkrE5dkuxYmk=;
+ b=GsWQfIMLXVsy/HD9TjPy8zOEpGL7IQeiy59RBF7esPTpc3WInXISavX90REqSsVMCrA+NddSEdDezX2tJ4Qxg/d84kr74TVN+dN2nQQJMYWrLL6tggF4kgyw9dVyRgCNzV2hcyJgxrxAQ8rKc5eLO0JsxvXhQXvpI6aR/5OjAlY=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,16 @@ Received: from DM5PR12MB1226.namprd12.prod.outlook.com (2603:10b6:3:75::7) by
  DM6PR12MB3852.namprd12.prod.outlook.com (2603:10b6:5:14a::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.24; Fri, 7 May 2021 14:59:14 +0000
+ 15.20.4108.24; Fri, 7 May 2021 14:59:21 +0000
 Received: from DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23]) by DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23%9]) with mapi id 15.20.4087.044; Fri, 7 May 2021
- 14:59:13 +0000
+ 14:59:21 +0000
 From: Stylon Wang <stylon.wang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/14] drm/amd/display: Add fallback and abort paths for DP
- link training.
-Date: Fri,  7 May 2021 22:58:11 +0800
-Message-Id: <20210507145822.248029-4-stylon.wang@amd.com>
+Subject: [PATCH 04/14] drm/amd/display: Expand DP module training API.
+Date: Fri,  7 May 2021 22:58:12 +0800
+Message-Id: <20210507145822.248029-5-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210507145822.248029-1-stylon.wang@amd.com>
 References: <20210507145822.248029-1-stylon.wang@amd.com>
@@ -68,52 +67,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from stylon-rog.amd.com (165.204.134.251) by
  HK2PR04CA0045.apcprd04.prod.outlook.com (2603:1096:202:14::13) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Fri, 7 May 2021 14:59:10 +0000
+ 15.20.4108.25 via Frontend Transport; Fri, 7 May 2021 14:59:17 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1e5ea30-1478-4ada-9be7-08d91168ad8d
+X-MS-Office365-Filtering-Correlation-Id: 7c01784b-2fe8-401f-351f-08d91168b1bf
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3852:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3852FE500D707FE51520137DFF579@DM6PR12MB3852.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:95;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3852D3559EEFC377ADB2E545FF579@DM6PR12MB3852.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: a1Yb7WcwQT8XhTneDZ2neb54KLYCaX91P76yvH95MoKHb5fziBmv17wee1J0uEl8/GU+Gvgo63WewHnhZNzQlCHiYGU/pVPOMrkCwvIEdpPrd0xQedf3dE31lYwBGc2czmZVMpYu2Xm8fKQyKC5eta9M5fHbrxoHxRplRVb+nAxZvBVbtm/29+NJWgExaFFMB4XUkxsIkUArSFWqjolEGhMC+IsK6oW/FbPxHjcp9cTsp5oduF+zJ4ZOzExf/fSxn71F3DogQ/QLMFzAioa1WzajXEph5MntX1jqjqHDB/1qSlfynRP3s0oESCXHVQpYStcEVPQk2ALPTfLAdMJgplONbkO7euc4uDjTd/ODociXPKMPyzXBbsecLcvXpLTK/ucRTluclpQ955l4HYw6vNNrL5I0Xc2uO9razEAvkSYXNSYX3r5IDdVjCtT8jEeYSrxxA2GrCROT0IgPX+9IH+YrndLayrRWx8lRkYK58NMA9tlEpuY5yZvKwoRhZNPYJNkMojp8w9WeZl57q4hvUX34DZeTM0SPzBDN8tldWK1vcowSIpefdnuP9gzZqAmHwCsn7VMMIJ4J2uatokL6IXwdZ1gfkeE40aK0ES9lTJa8bXT01G2k+fyvTD5tkgxIFuIzbRnorLqRBcId2P2MOYQ9kkoUIBwuOQnAp3Wwd3s=
+X-Microsoft-Antispam-Message-Info: lWlK9a3H1ynJLwXpvwcdxdnIfuy5N5rN/hdyabipXMeZ7Dq/WVym+dpUR/FUQfnSwVZu2LtvHVZfJFknot5eAPGolNNGY3XSVvmqmr76eYiPWTApVCrvpaja/UxlUvNSZlQnWJMtbPjpZm3rI3b6vfxusnQdrfIhMPIxrw5DBut0YYx32JakvbzOk4/TyG+IGx9boQH5n8IMQ1aHLjvs70y4Lwk8Qx12ye8uUG7TccfuRfIsHXjXhd19qEVP7UHPQAyMFQdccpolzsRBnWuJHM+einx5kolgj+PdM25NjWUW10aHXpnAFaIEpLPdzHMp046WdploLuDzT7Z3Q65jKZnejf3F614eOjQSbzr7UvHQLdmSuX1UFHy0Fun8TSNJkO1ov081Ape+pYrIK+ihyeE6+yd39A+tya+kSZ1D3gi+L0S7NvVWv2TGPhv71y5WDA2KbTeomWXzFtEJkUACXCgLZuFxLfbSfxXeTw946D2TgpSxvLzSLNPWoE8iTxbQGQeaJ6+kL9sgHy4NK3W9G+K8A/GTeR6x/YjAvJyniE0JtF25fwPO/9TCpumYk3A0UCmIxZARox5v7oVpfu/NBJFgOpUfaimpGVsWDMxNMrRx6cr3fR12kNs0bRvKees0KJ9HzMqZlOoJKLf8AcNSiDh8VWTi2HNjujyUFEMSwuI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(316002)(86362001)(38350700002)(38100700002)(4326008)(8676002)(478600001)(44832011)(66946007)(66476007)(2906002)(26005)(52116002)(54906003)(7696005)(36756003)(8936002)(66556008)(83380400001)(6486002)(2616005)(956004)(1076003)(5660300002)(6916009)(16526019)(186003);
+ SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(316002)(86362001)(38350700002)(38100700002)(4326008)(8676002)(478600001)(44832011)(66946007)(66476007)(2906002)(26005)(52116002)(54906003)(7696005)(36756003)(8936002)(66556008)(83380400001)(6486002)(2616005)(956004)(1076003)(5660300002)(6666004)(6916009)(16526019)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?NzDVBvIQbOsAwQ95Z+xCH9cfspP4Mvn8tPM3lNYR9Fn72k7Dz1xANOFiB9wD?=
- =?us-ascii?Q?72ndvTVInYRUG67jActUWhOKdrgbSAJJNxoLjVjCQ0l9AnrKzOG1Rjvosixe?=
- =?us-ascii?Q?Wptz4fjpfL/7ZD0PSBKOYDlEBTYQlxWr6YJvv8wHVvnFAGkqIk587hitTMnM?=
- =?us-ascii?Q?sEy4bIuprzKmIB2jGerVk4IApWY50gfh3EFVyztr8f/eGQykzL2mOZURTeI+?=
- =?us-ascii?Q?6TUOqSwEn0tUCD9Y5crBWlkqgh4RhjFoTmegWbDP4Kq38RJGJZe+qbfQmV6l?=
- =?us-ascii?Q?HJFXRFgecWN+8sx107lZ01ZxxGyE7SaW/YrnfJm/ewkJqy80ABrr8N9ulhcd?=
- =?us-ascii?Q?qU9lPCfR3RIGKgHTwh2jZUozHdgU1ljAWfXg1vIlLQQeuJDbqi07mgaODI1s?=
- =?us-ascii?Q?gKHsW9j72dwiCcgpCVirZ8gXnXAc7aupUoYyMLoQ5nfSaff8iffGkxCYEyp7?=
- =?us-ascii?Q?kwtd5B3gJrYfsnR/pj2Y5fbEvY7hIsMuZecSGRBF3LcAqx1+cepg671VnwIv?=
- =?us-ascii?Q?6z04mWrhrBta3m19MIM8+2L+/n4xsTR8+T3g8y1/s+qPN7ISj6xO116wGY+p?=
- =?us-ascii?Q?h5XBQW9nNcYzc7BC/vr89YmH92BcQ8rxI5PZ7LE/p4zqV3UrNY2r84FUrLlz?=
- =?us-ascii?Q?cOqe0IoCV9NyNXEaciomyFjZxcD4Qu5juaFETuC87cZClrJiZFvCUq6gJtrp?=
- =?us-ascii?Q?6MwhLJT6J9Q8QnG7kGGmWNVcAR9pWfoQgKh3STtGEzRhDuXkz/7j7XZSSdeX?=
- =?us-ascii?Q?PMaLKd62A2q4m5ymwlDQp1qa6/T8gypr+RtfgeUrRpCjI2PfbqzwlPGWhJiu?=
- =?us-ascii?Q?Hcqoj5dr54pvDzI5p5uK0dJLtg1fG1LxLPzra401oHosl3wouC5HEtvT3G+U?=
- =?us-ascii?Q?KZ1ndDl1iVvuJODrgTS5UJXEO8xGdq+zsotaGjszjK0h1yANAncbb+VINi1c?=
- =?us-ascii?Q?wk56OHsIYW85ZVBlj/l/P0l7Sj1zbaTk4oP7ftpvnYPLvJP64tqupBCyBhrb?=
- =?us-ascii?Q?cFGSqMJJTwRmNQ5FqtP4P7Mda3r7lgUpLAcKQzBMhEBifBnWGl6Hdh4WqTwX?=
- =?us-ascii?Q?3dx+JkwaJGJ/sgRKLIREESaZqTUkDmHaqmsK02Fjd7OO6DfR/7fWdkl/L1o5?=
- =?us-ascii?Q?zfgRsEZeDh5OS22ZteE0cT7AHovJ/sNZYO8a3Br9yJROQanbPXYpELFn/2/y?=
- =?us-ascii?Q?/cZ8ZcDrZPLOIPp8MgQwxVCuAluJh7xlYSEzZEOeoe4L8lWpCvJPYlpPsarx?=
- =?us-ascii?Q?y4WitOlb9dmoxucDGV/Li5hrUQvM3DfnSYOonK8DJZiVtuDl4Hcfcn03p7zN?=
- =?us-ascii?Q?bUMk53EMJtOTuLkjv2cYUyez?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?mE2BSKbaYFDHI68Tq73ctBBZ+09eND3E0YLIhtKIQVVyhudmYrRVZEgSM9tK?=
+ =?us-ascii?Q?ahK4rFeuq9RR0766D3CTy9/lEwY9+Nb7t8TNx3ZbhikNus4hp96tarlae7WV?=
+ =?us-ascii?Q?hK832QA44AGz6PEWIJxGK4KrIRnZEJoHHbVvgd/3FspSbOp15b6Qo1KUDXI5?=
+ =?us-ascii?Q?pv5sOYanfd3PlEGVcXDymf6f+AbcEmOg/Q3vcx26PN6Jr1Uwc/gUVreqviYH?=
+ =?us-ascii?Q?Whjjgn/L9SYHZ26iHQVxP5lKnQDvkbbP6/1bKIQ0a3EJTShcUPc8FqM/+oa8?=
+ =?us-ascii?Q?qsuNyXb/NYwAoIRuuHsjgiqXLp0MKc856UK4+SXlFdAsPbJ7BBndODjIZw09?=
+ =?us-ascii?Q?S4UObo4MWdnh5hrBdjv408KQ22dsC8QJHRkZkTe8uashWcH7JbNODrgz3UBD?=
+ =?us-ascii?Q?8vQbuBGc6Ze3OJuaDJ6bG3ES8JChAw9YGHCBNinAI12pGQqaehKvF3IZUdXR?=
+ =?us-ascii?Q?grPk9N+TzoWZSwqzGL/+8fg9zhpHXEnf30HfbtdXkwXn6SyRkznVRE/pBDWm?=
+ =?us-ascii?Q?DaJwbx3/eLA39hAPO21+vSfWeYZhkYitcqkzY2VSgHwU8n08fIdW+U0kBIUm?=
+ =?us-ascii?Q?Gc0OZ6NJNIQIXcqAHPQGcslfQ4ZROPjdm/yTpx3wESX6lW3rof6ygg8QGBvi?=
+ =?us-ascii?Q?wRfeNDyqspju0XUiuFbTj6qCWxswnv+ak2dkMVlGaJ5/OwF/Yfofp69MXjTJ?=
+ =?us-ascii?Q?zgT8Ze0+NH++wcxBrYrPlD8dl1+ZpaK5BUODpi13I5itVdH7XynuhVV1BbIK?=
+ =?us-ascii?Q?Udm8pAE2BSaaxvXj+r7UibjLo7G93qEtTJAuquQNwXWVCGw1CPksK6PAkre9?=
+ =?us-ascii?Q?f4zuLfedIAp1rDXHbNe/bJOP6IpoKk48isI9zb4uc+/3xMcy45+5gpRZoRa7?=
+ =?us-ascii?Q?a6fjk4iMHz0fGu7IhQAGKzSsqvywDpgnvJRYZqEawn5+hNypbBUbNKSpf3bS?=
+ =?us-ascii?Q?V6Tr1Zcp3sdte5/V4LNQVMlJA0V8LMNKNniulrLBzZxj7S+Z2IrdnhcakB/k?=
+ =?us-ascii?Q?SvgefzoOItv6KBfNCYXlai2VkFwuc0X+69GozX17anqqIXzcjJt3afSpgHhN?=
+ =?us-ascii?Q?u0sA+F0MGqOC8bWMTKEtjhH1kP5CAGGOipOIG3+CUn3ZPMBQJp+WWRGjapVG?=
+ =?us-ascii?Q?WbTb6en4buewtaS05DhnnYkaoLMZ95wJtJA7vCqZuKEvUjpvCqyxfYwu5TIX?=
+ =?us-ascii?Q?Kvq2E3G0oy0H4IRePmOESWAOCbMIqoMqJB0KACgAlyF0pWRNBcwQkwP0MUsz?=
+ =?us-ascii?Q?IFfTQ97xhfmhvx+NuroCXkHmpOBusd7FHoMWNOXLFehALN2574+1jyuSDeia?=
+ =?us-ascii?Q?EKgmCCKLBT3LHrVn6hoKX3Sh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1e5ea30-1478-4ada-9be7-08d91168ad8d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c01784b-2fe8-401f-351f-08d91168b1bf
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1226.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 14:59:13.7494 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 14:59:20.9263 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xJzAbIB8YK0H9JiNuHhXZOJktoXS/cfVLUiLiqOiKnPd6+r5UJfSzMCmcG6LGGwP8AlD7JoevJ7kKDBQTwqj+A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: fRabiNHqwx+HKw1/TsZGlC9ql/dO1cq23SffQiX2as+G1YAhuV1osss+FJ8dhJJaQuIXLvSMTNPtg+AWvTLYYQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3852
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,188 +137,83 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
-[Why]
-When enabling a DisplayPort stream:
-- Optionally reducing link bandwidth between failed link training
-attempts should progressively relax training requirements.
-- Abandoning link training altogether if a sink is unplugged should
-avoid unnecessary training attempts.
-
-[How]
-- Add fallback parameter to DP link training function and reduce link
-bandwidth between failed training attempts as long as stream bandwidth
-requirements are met.
-- Add training status for sink unplug and abort training when this
-status is reported.
+[Why & How]
+Add functionality useful for DP link training to public interface.
 
 Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  5 ++-
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 40 +++++++++++++++----
- .../drm/amd/display/dc/core/dc_link_hwss.c    |  3 +-
- .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  3 +-
- .../amd/display/include/link_service_types.h  |  2 +
- 5 files changed, 42 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 10 +++++-----
+ drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h  |  7 +++++++
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index d040d235c2db..c4405eba724c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1750,6 +1750,8 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 	bool apply_seamless_boot_optimization = false;
- 	uint32_t bl_oled_enable_delay = 50; // in ms
- 	const uint32_t post_oui_delay = 30; // 30ms
-+	/* Reduce link bandwidth between failed link training attempts. */
-+	bool do_fallback = false;
- 
- 	// check for seamless boot
- 	for (i = 0; i < state->stream_count; i++) {
-@@ -1788,7 +1790,8 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 					       skip_video_pattern,
- 					       LINK_TRAINING_ATTEMPTS,
- 					       pipe_ctx,
--					       pipe_ctx->stream->signal)) {
-+					       pipe_ctx->stream->signal,
-+					       do_fallback)) {
- 		link->cur_link_settings = link_settings;
- 		status = DC_OK;
- 	} else {
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 8565281e6179..b6ed57ba7a48 100644
+index b6ed57ba7a48..de75e8581078 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -1701,18 +1701,31 @@ bool perform_link_training_with_retries(
- 	bool skip_video_pattern,
- 	int attempts,
- 	struct pipe_ctx *pipe_ctx,
--	enum signal_type signal)
-+	enum signal_type signal,
-+	bool do_fallback)
+@@ -1175,7 +1175,7 @@ static inline enum link_training_result perform_link_training_int(
+ 	return status;
+ }
+ 
+-static enum link_training_result check_link_loss_status(
++enum link_training_result dp_check_link_loss_status(
+ 	struct dc_link *link,
+ 	const struct link_training_settings *link_training_setting)
  {
- 	uint8_t j;
- 	uint8_t delay_between_attempts = LINK_TRAINING_RETRY_DELAY;
- 	struct dc_stream_state *stream = pipe_ctx->stream;
- 	struct dc_link *link = stream->link;
- 	enum dp_panel_mode panel_mode;
-+	struct link_encoder *link_enc;
-+	enum link_training_result status = LINK_TRAINING_CR_FAIL_LANE0;
-+	struct dc_link_settings currnet_setting = *link_setting;
-+
-+	/* Dynamically assigned link encoders associated with stream rather than
-+	 * link.
-+	 */
-+	if (link->dc->res_pool->funcs->link_encs_assign)
-+		link_enc = stream->link_enc;
-+	else
-+		link_enc = link->link_enc;
-+	ASSERT(link_enc);
+@@ -1309,7 +1309,7 @@ static void initialize_training_settings(
+ 		lt_settings->enhanced_framing = 1;
+ }
  
- 	/* We need to do this before the link training to ensure the idle pattern in SST
- 	 * mode will be sent right after the link training
- 	 */
--	link->link_enc->funcs->connect_dig_be_to_fe(link->link_enc,
-+	link_enc->funcs->connect_dig_be_to_fe(link_enc,
- 							pipe_ctx->stream_res.stream_enc->id, true);
+-static uint8_t convert_to_count(uint8_t lttpr_repeater_count)
++uint8_t dp_convert_to_count(uint8_t lttpr_repeater_count)
+ {
+ 	switch (lttpr_repeater_count) {
+ 	case 0x80: // 1 lttpr repeater
+@@ -1378,7 +1378,7 @@ static void configure_lttpr_mode_non_transparent(struct dc_link *link)
+ 			link->dpcd_caps.lttpr_caps.mode = repeater_mode;
+ 		}
  
- 	for (j = 0; j < attempts; ++j) {
-@@ -1724,7 +1737,7 @@ bool perform_link_training_with_retries(
- 			link,
- 			signal,
- 			pipe_ctx->clock_source->id,
--			link_setting);
-+			&currnet_setting);
+-		repeater_cnt = convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
++		repeater_cnt = dp_convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
  
- 		if (stream->sink_patches.dppowerup_delay > 0) {
- 			int delay_dp_power_up_in_ms = stream->sink_patches.dppowerup_delay;
-@@ -1739,14 +1752,12 @@ bool perform_link_training_with_retries(
- 			 panel_mode != DP_PANEL_MODE_DEFAULT);
- 
- 		if (link->aux_access_disabled) {
--			dc_link_dp_perform_link_training_skip_aux(link, link_setting);
-+			dc_link_dp_perform_link_training_skip_aux(link, &currnet_setting);
- 			return true;
- 		} else {
--			enum link_training_result status = LINK_TRAINING_CR_FAIL_LANE0;
--
- 				status = dc_link_dp_perform_link_training(
- 										link,
--										link_setting,
-+										&currnet_setting,
- 										skip_video_pattern);
- 			if (status == LINK_TRAINING_SUCCESS)
- 				return true;
-@@ -1754,7 +1765,7 @@ bool perform_link_training_with_retries(
- 
- 		/* latest link training still fail, skip delay and keep PHY on
+ 		for (repeater_id = repeater_cnt; repeater_id > 0; repeater_id--) {
+ 			aux_interval_address = DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1 +
+@@ -1605,7 +1605,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 		/* 2. perform link training (set link training done
+ 		 *  to false is done as well)
  		 */
--		if (j == (attempts - 1))
-+		if (j == (attempts - 1) && link->ep_type == DISPLAY_ENDPOINT_PHY)
- 			break;
+-		repeater_cnt = convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
++		repeater_cnt = dp_convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
  
- 		DC_LOG_WARNING("%s: Link training attempt %u of %d failed\n",
-@@ -1762,6 +1773,19 @@ bool perform_link_training_with_retries(
+ 		for (repeater_id = repeater_cnt; (repeater_id > 0 && status == LINK_TRAINING_SUCCESS);
+ 				repeater_id--) {
+@@ -1648,7 +1648,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 	 */
+ 	if (link->connector_signal != SIGNAL_TYPE_EDP && status == LINK_TRAINING_SUCCESS) {
+ 		msleep(5);
+-		status = check_link_loss_status(link, &lt_settings);
++		status = dp_check_link_loss_status(link, &lt_settings);
+ 	}
  
- 		dp_disable_link_phy(link, signal);
- 
-+		/* Abort link training if failure due to sink being unplugged. */
-+		if (status == LINK_TRAINING_ABORT)
-+			break;
-+		else if (do_fallback) {
-+			decide_fallback_link_setting(*link_setting, &currnet_setting, status);
-+			/* Fail link training if reduced link bandwidth no longer meets
-+			 * stream requirements.
-+			 */
-+			if (dc_bandwidth_in_kbps_from_timing(&stream->timing) <
-+					dc_link_bandwidth_kbps(link, &currnet_setting))
-+				break;
-+		}
-+
- 		msleep(delay_between_attempts);
- 
- 		delay_between_attempts += LINK_TRAINING_RETRY_DELAY;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-index b426f878fb99..13c5c4a34a58 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-@@ -384,7 +384,8 @@ void dp_retrain_link_dp_test(struct dc_link *link,
- 					skip_video_pattern,
- 					LINK_TRAINING_ATTEMPTS,
- 					&pipes[i],
--					SIGNAL_TYPE_DISPLAY_PORT);
-+					SIGNAL_TYPE_DISPLAY_PORT,
-+					false);
- 
- 			link->dc->hwss.enable_stream(&pipes[i]);
- 
+ 	/* 6. print status message*/
 diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-index 699de64a7e44..38e6fbf1e26d 100644
+index 38e6fbf1e26d..428842511c03 100644
 --- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
 +++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-@@ -65,7 +65,8 @@ bool perform_link_training_with_retries(
- 	bool skip_video_pattern,
- 	int attempts,
- 	struct pipe_ctx *pipe_ctx,
--	enum signal_type signal);
-+	enum signal_type signal,
-+	bool do_fallback);
+@@ -97,5 +97,12 @@ void dp_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable);
+ bool dp_update_dsc_config(struct pipe_ctx *pipe_ctx);
+ bool dp_set_dsc_on_rx(struct pipe_ctx *pipe_ctx, bool enable);
  
- bool is_mst_supported(struct dc_link *link);
++/* Convert PHY repeater count read from DPCD uint8_t. */
++uint8_t dp_convert_to_count(uint8_t lttpr_repeater_count);
++
++/* Check DPCD training status registers to detect link loss. */
++enum link_training_result dp_check_link_loss_status(
++		struct dc_link *link,
++		const struct link_training_settings *link_training_setting);
  
-diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
-index 7392a89e771f..5a250f41004f 100644
---- a/drivers/gpu/drm/amd/display/include/link_service_types.h
-+++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
-@@ -68,6 +68,8 @@ enum link_training_result {
- 	LINK_TRAINING_LQA_FAIL,
- 	/* one of the CR,EQ or symbol lock is dropped */
- 	LINK_TRAINING_LINK_LOSS,
-+	/* Abort link training (because sink unplugged) */
-+	LINK_TRAINING_ABORT,
- };
- 
- struct link_training_settings {
+ #endif /* __DC_LINK_DP_H__ */
 -- 
 2.25.1
 
