@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE9CDC43460
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80864C433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7063F613CE
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:37:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7063F613CE
+	by mail.kernel.org (Postfix) with ESMTPS id 36BC8613D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:37:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36BC8613D9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91BAF6E02B;
-	Fri,  7 May 2021 03:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC6F6E049;
+	Fri,  7 May 2021 03:37:20 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F02766E02B
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 03:37:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CAFC6E045
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 03:37:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dE0q2NbujAfiBb6UQyAVHWMubwXFqmzo8KksdI9hfHDcuKX9gT//mivaIdQxeRz4X2Z211kI1w5TlG6MXKK/e4mV48HvNqwUQp3Q74RxNv22W2vgGrxJB+7Zl2r7eu+JJvsQqEHxQnkDZ8fgz2/FPoBqdlpnbi7PX8PsPfxjf9FPknRB2FKIElz79bveUdq8gFrenG81ahVBwMr/f9zqFAHclBSJsS7GiYHU/81hTlk5yY1gohVrhL91GXiiwM/psN45ZSAQJAxRcgNnTuVCSnwnvhWtwTiUnZr8R6cSDr5E08s6O5racSv2P+bTu4kK0mILTw04pRvaMudi0Cc0Xg==
+ b=Mrcpsq3iu7lHjY6+mcLWx7aJJFwmksZ320mxdmYCbTVlWKZcTuJGKevZXNJfMdUZA4tKD6HO9LNIa2BTdGzRcZGyVzCa1mCaxR+t6iF9vkW0NCCMuSn5PnCOo4noK+0moS6f0C440Iu3yFVrKExLnOwSEX3V/+URVdC+WedgBvBxWMbiuFa36gVNyAziVAAgMRuLrhb+t32/EFYr7SVWo7kvh5FZJS5zJvtlxCEAZ56buoQKaVOeS6vczYr9oUvqalcnCJDZxwr78zygPIOTy/RqHNuAqLgtj7HQnie2wE+JsPgmX78lqLgXpWNY33q4knApdCNDD6FIqjTT7HhE2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i3wG+sCxl8iD2nWU+K/pWTu6D9e1zHwGnVz2AcL8V0Q=;
- b=asOiEcBPnj43zzsKattEVv4DWxeOayoeY9chWgQNoKP2fSO8JT3haXssIGy5vnyYo+ClSOaxsrUgb6dPpvNWmle+OTKIXlDulXwA9Tcpyebh1urHt7bPFIP38r0MmzbIXeVGkhxPNagjS0dznfKGnEp5v6sclf4IPqFs+DRngtTXpGUClKpRfU1mPOc6wFLXllzkN0KqNeJuAqWiqVVC+e+tf9wobxwFZewesj6pe5oyAHc6g/kmohFwQSMQ9Gf3zWQwtd43xLyQkQgtftc8eW/jxqVKfQ+2PYhMQ3wa+1R/zlAxys1m9aOV5u5+JiVMtQCSgS+p88kcC1m2TSdg1Q==
+ bh=auPKoeX7mPL2sGziSLQgjFpZPsSpcpyS7c7FGSphmlY=;
+ b=cX3z5eTjgsixBnPpWh9FyEgq/ysDrZ5jlIi06xQB0Ibb8F4fkr9bKpJiE6KxIu3FfinBgIeuQrQtQ7Kkm0FfAAZWE+fK9F7uoazSE5J4ft5mYfYi8kbLMCfSn8DN3x0fWKj2NJ9f89xYzjfKpZQP2j2naptSHdzLbWSPbhYWPyVU8ooPJxUimaILWxgJdoxE7TcSYGFBJCCErQE00ephP0Z6WhIfbAVzNeyjtz1ngzXSxxnjHbR8kD/qo4f+7mal+YBvNP+MtBAYj+1GgB7rdzuwSKRiDzYuW/KJjmiQcccvSoNJ29SbDj+DKCH/Wxya2BYPYuZxFEM5EVQkd2Yzwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i3wG+sCxl8iD2nWU+K/pWTu6D9e1zHwGnVz2AcL8V0Q=;
- b=4moJZNWbtZ0cJeoJC5MIQmJkSYM+g3EeZpk3WeA0F1lP39OdbX5ZWjPM+qsjISLWW+HWIhIg0EZ6vmrXHSOi/0XKVqgQzfOqr+xbvMa+tTaHfhbvwOefRchIiw1naSXzwdHy0qHP/BR7GesA8lqceGbljhN6zJiCoL1JH4Vz8ys=
+ bh=auPKoeX7mPL2sGziSLQgjFpZPsSpcpyS7c7FGSphmlY=;
+ b=qeAAfoNx1cn7To6F/mQV6EZ1Ikts4YBqZc0EdgyWLkE4c09S0NmB/z1Apocswv5mthai4XgWLa89b+tAAlluYtm/1QD28DGsPUfpZ+9VyXfmnlj/H6jZcAYdnWqhrJnwb9/eW7GVOGdfuqWBryFhF3FlrY97hxbrCuSWt3z1f4w=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,17 +45,19 @@ Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
  by SN1PR12MB2365.namprd12.prod.outlook.com (2603:10b6:802:2e::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.27; Fri, 7 May
- 2021 03:37:16 +0000
+ 2021 03:37:17 +0000
 Received: from SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::31de:f08e:20b2:d121]) by SA0PR12MB4430.namprd12.prod.outlook.com
  ([fe80::31de:f08e:20b2:d121%9]) with mapi id 15.20.4108.027; Fri, 7 May 2021
- 03:37:16 +0000
+ 03:37:17 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/5] drm/amdkfd: device pgmap owner at the svm migrate init
-Date: Thu,  6 May 2021 22:36:33 -0500
-Message-Id: <20210507033637.29622-1-alex.sierra@amd.com>
+Subject: [PATCH 2/5] drm/amdkfd: add owner ref param to get hmm pages
+Date: Thu,  6 May 2021 22:36:34 -0500
+Message-Id: <20210507033637.29622-2-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210507033637.29622-1-alex.sierra@amd.com>
+References: <20210507033637.29622-1-alex.sierra@amd.com>
 X-Originating-IP: [165.204.78.1]
 X-ClientProxiedBy: SA0PR13CA0018.namprd13.prod.outlook.com
  (2603:10b6:806:130::23) To SA0PR12MB4430.namprd12.prod.outlook.com
@@ -68,50 +70,50 @@ Received: from alex-MS-7B09.amd.com (165.204.78.1) by
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.11 via Frontend
  Transport; Fri, 7 May 2021 03:37:16 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 68f216fc-db66-41a3-a456-08d91109690a
+X-MS-Office365-Filtering-Correlation-Id: d85bda5f-9096-427d-2968-08d911096967
 X-MS-TrafficTypeDiagnostic: SN1PR12MB2365:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB236586AA0DEEE864A55E8A0DFD579@SN1PR12MB2365.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2365E0B59E6D26F1A71BAD3AFD579@SN1PR12MB2365.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MP6wZzM6nbH/L5V1HiX6w5fLTCabiWsMSqnX9FxsHhcnFsJG61whqmtGFrQ4x9bxOwbV0i6Jz1HDqsvWdGqZXYhwRaiiE2pbiSfuRnyWLkPfnjg82BnQV6qZK1DR8d2VKXq8QbRtAwSZA3Nl6Kg6nmgA12zxIPRO/L5EGBKjFTmU/vk5c7FAqJ0nif8nJFbPJruJ+U4Ug0eGC+JOY1VCqel8QtVYkM6/R50nMRdv8D1z//xRY4oemfJBz4znPQbNnYK07fZiqdptMr9gCWWBSaPYEjzgnTZWsdAvn811THwbgwzQJwo11/rjYd6IFdOwlnO6BvDGIfYNbwBb0ZoI+U+wOd3UYr9nhFksRypsGvgCNVQ/P9S+7J/ovi9mddSJ/cyeGGTeKL4pjoI6EXSFshSqrNWKYeBijBwaiuA+f9FOzWQFhyb/kb+stsF1hLJ1OTghY5Sf+XUqtEx7V1+SsLtM4ligHyZ7+5lJUypulWMo3QMiyl5sS7uCmioFsCKX9rouF7oMBy+6qtDyWaQRd4fyKoLjMqNePyWgeKgdqCDqgOTmbn5R6RdFl0EjveKXOGF13U/yQB/HKCjATyN24gqt0kZC9HSM9GiDgprB+uhR0ixJUA7hEcE5P0vrzWygObikmAUPD+Js0sZT6cfAzA9ODb2CDzHQW6k7xDyNFYk=
+X-Microsoft-Antispam-Message-Info: CyAqjsTHAuFZD4EYlgN/Hs53lgUoqnNbJKuY13t3ULqgimjLdRhces3P8UBVwieKnbMtgIp5/jLVk6WZuMTJuhsPcWeuSKE5s8n83ZQjWu0fegdQJbVjkXkdpmGnYOqi14O6rYSWQjLbMzTrLev4x6nDl9GjDH3sNc7puj89fGXwBwPIByTAxcCmWh9+4YAJ5pxUot53nJiom4SlYWk8Bs48MqXEI6L/KMToFQjqeGL/XMZ2MoVkahzbwgENOOH3Pxe4VCpRmih3gafrA0fcMr/fIL0JNelW9j7y26FyMm0J9YQhEM/p9JJrcePbeAv5clmD21QcanGZhvxQH3NHgNFOqgsC8njAGBcH7dwEKcFWzdRgWD6TPl3/aS3LBxwv7Se0qvDaqyH/0X/ygRsSXBnGAM2bNxppocAykn6NFFaR2dfPfO5nXMXfPmKse5zbo4a7eozDOznEAGJr/6MsEIGvpa6d5W2dywCJbzuDNKnLsAAigXDeb7zg7zTnOBXCw+/9EKsi+4Ek40ba2fraAKzyI9GQGVW5Hxd/Hf6rMMkV+WgCRU2MTduEExPsolB/fRa0tZrNZ4ztj9+1be8zV0pcFaitW3rbbIQp9lfDaStFPl/Qjv0Sbem4GRFeyrp2TB1Lvd2TA4cSrSG7I7jwmefU+yR3PvNVErQ2cuMdN24=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(376002)(39860400002)(396003)(346002)(136003)(8676002)(26005)(8936002)(66556008)(4326008)(52116002)(2616005)(66946007)(16526019)(186003)(7696005)(38350700002)(478600001)(66476007)(38100700002)(6486002)(44832011)(956004)(36756003)(86362001)(316002)(6666004)(6916009)(2906002)(83380400001)(1076003)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?1mEhChq6LleEcfw6qj+Ket8+cKo4d1N5ZF2B9338NdrKT6zwBYpaiOf5hkJN?=
- =?us-ascii?Q?t17PSSAjH/aO02ctSOpUyVxJy8/BJPpY0rJwovpQvAjs/wk6fm8cnQ8bsCvm?=
- =?us-ascii?Q?DjJ4j1h0lvrLcsoH3jQ7u77624UD3PUQGqfaarzRmRn2H0oDXQD900NNICLP?=
- =?us-ascii?Q?AnBrOFN5biWCtCbwtq+w1ST9fDivY3O4MxRbZTdCsDzKnVahl1Jsf1Tiet/r?=
- =?us-ascii?Q?Zi1qyb7KTLgxoFNvi+a9oj9gVCus0cFofSumTk9dQ+IH4WgRLTUzJUvLV1ZA?=
- =?us-ascii?Q?ynyyHvm4wL8WV2CHdsgVJPFZg3u9a3P2tsS1KN6WGm2xUfcJcY65phHAuL/T?=
- =?us-ascii?Q?KE/TkUfF8Hq1+PcLKC//nxsECYy7C6CcZb4SiMgdd2yZVLr9PAEo/t/FX5+0?=
- =?us-ascii?Q?SnXfe9ioOXQGRRWHnRCeRH8VMtvoQ81WErsB2X9bEGUeBrGrUSdVZdhGWsCx?=
- =?us-ascii?Q?KFgRfXbchmTtrTyaH5lUxQYvGyRjFwvcbqGU+pdTCNF1VFEfWL5etFOF+aX9?=
- =?us-ascii?Q?Y94ukC8/Fx20FSBIAn3RRRfXwPoVSadtDOZ+1fc21wq0NG5AQt9HsvrIgu3y?=
- =?us-ascii?Q?KigoKVnht6/I5DzirMJVg/TrH8AaP04AryQfcKgsWpayfbp3PWfL8kA3xf+t?=
- =?us-ascii?Q?vaaOyDdxW5KmU4nVz7b99ChuhW/tFjZu0fOsksriBiChOB3g0mZAHpBvWqQU?=
- =?us-ascii?Q?wQjOtj184pUWx60QEXlG694BEVX3ZzWC2wmlsSnIflF2H7G64c6qUjrVj7ou?=
- =?us-ascii?Q?+8tyRAHTnF6PI5afWa0iEYCsZX22dluXCWEkpblRRH+OSYhaB4VJwS0DVRGl?=
- =?us-ascii?Q?O9iTPipRlrre0HW6D7mos3eCFnErRTuQ++RTBL3z0MqEDd2lppNSBYclkzvo?=
- =?us-ascii?Q?et2CTPuLAUfYgy6yV93Q4XbiiDJnF3HH/aZDCtxtH2/HyknacWIKoLMkjwt0?=
- =?us-ascii?Q?QFWyS/PI9NizwodSSpHnycR1c6pHiRye6Bro8cmqiZ7VrGwciV9wUq710Ky0?=
- =?us-ascii?Q?VeokftgHPB7vrQAkdGwlS1B+WPSFGZwZ27qb7TXITgBqmLqywecqT2hUMcp7?=
- =?us-ascii?Q?YLYFNE1eDmFPWxHl/WajEUvZHvodwT41AsDTW+RjdAvwB5QTghdh+9GbDEei?=
- =?us-ascii?Q?iM8DmJXOEASgRB73o3YmCA/hSmD7A3WrPQ0hLcNpCoAstrm4MRRnhkqbOJQx?=
- =?us-ascii?Q?ZfeUolx5cxkbKlEbGcGESCufBkFCIHMMGqpEOx8jL1ZZrVJ+vt61fVUu9UNb?=
- =?us-ascii?Q?Xm8NN+H3GwiUaOE+oeYJKwUDuTxk7mY3AvCnjYAHQyYlLIPXryC8A1Bomocq?=
- =?us-ascii?Q?ujEr9BXLl5iNVgjTr8/Nwua8?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?Uh8UBZqMRa1nAcy8qSI7qGjwQ1ATaJ736/QPjf4i7vn4dec+LPOERsXnwScf?=
+ =?us-ascii?Q?esV+O8v8TRkNX6j1uEIJkSLHgu4xdAmcv833enUuA7+zBefTHH4k7re+0pOM?=
+ =?us-ascii?Q?X36R33FrjMdqJlk4/DFnbKLc+yE5j4aMWbMa54iDOyW7hjzbf/7e263d49+J?=
+ =?us-ascii?Q?Vlr0Vl82Lw/3k2gHkqY3nn/ShO+YjERM+a+Etkkp04lBY6wTv6TEioSQWy0c?=
+ =?us-ascii?Q?TmeZ7jyWiO5bEgInJaSjtZWV8z1rqzznVx2b3+jbURXbEOgYBV2tdkF+9gkt?=
+ =?us-ascii?Q?JhiasS85Eg+r3d7t1r47qiahZd5ubmZfuewJ3+ycjkkYa9H82IqtKgPp+Q91?=
+ =?us-ascii?Q?7uxM2Sa84n1aQl4bnA9J2u16a85+4FEcKBkwqTRwC54//7glPDDUGegux/nR?=
+ =?us-ascii?Q?Dl3p/m1qjbzd7/OXun3s8OysR4kb2i/th+1s/o7lK9mQ4gXGTLsHISACSwy1?=
+ =?us-ascii?Q?vfEY72nm5v/9el0JgIFdwvX29cb0shVOEiiZM1akHT4mIpqa5er0tpPhU35s?=
+ =?us-ascii?Q?MJbE8E46ix6qys2qZOYQsnhdE/k35LunnOGR4RIqCoDqucvc2+iuHksISh0l?=
+ =?us-ascii?Q?hkkOvA+SS4S3AxIOpwQfLM0dbBmvF3zLH61akPO756nfxiECpMFvauBnQr70?=
+ =?us-ascii?Q?f2//CnRA6b+mfF0zEZSuKZN67+hOj76Bf/t0Tu+4z6S9bN4Cbf0N20cWWy1A?=
+ =?us-ascii?Q?QApB32M1Kb1TTF10YfvkW8M4+rkWgVwn3Vq8O8eYcowcMqNdJVtKSWvinATv?=
+ =?us-ascii?Q?oDwb5ve9QYbhrlKAtlr46MzK846+r5TSzIjdmKsgKLmskNgd/dgYj/h9jJe+?=
+ =?us-ascii?Q?c67m38cfczlCMiLAEWQ8Qq6uxOs2/SHZqpX/j/P6LvxEDdB8wOLVyMYnA/UA?=
+ =?us-ascii?Q?ZJnRhnmjPSOOByIdsQHT6UqQEjNnV98MUFVNveg7sxulRhQ2K6EtKmvOprnb?=
+ =?us-ascii?Q?a0S8XommA9YcxfboCnWnIO358JjePPziTyXtsK5x121OZtf9TfCQrdyqqm1i?=
+ =?us-ascii?Q?Oiz7Lf6NS9LbWZZ2s4Sq9ZFkzatG96oxxnUmNR+pqIPzZ1H1OQcHrADjR1eG?=
+ =?us-ascii?Q?f3fT6wjF3b0MXyhf18FJwv29SP6wMnbnEuoTlILesKv4oGSDW/O3z3S1ZXhq?=
+ =?us-ascii?Q?ByuYtnBp0uKqftvhVn+91k30Mnm1q+UehdRIai/Fizk6OcQI3hfY+B//r2jW?=
+ =?us-ascii?Q?Djn9uzyFHWmDkD2BBKClRyKB1/+EQMCE7NRKmURl5lcVqAzi2OeNIRK1kZGp?=
+ =?us-ascii?Q?6OiZYq/6Fri6dZdnIktnoTBulYE39mNzT4Lc+/mMjFDpeNby4+yE/BvIYEMP?=
+ =?us-ascii?Q?ZN5+PqdQ0Bs6Bzx80P/lX6Os?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68f216fc-db66-41a3-a456-08d91109690a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d85bda5f-9096-427d-2968-08d911096967
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 03:37:16.6091 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 03:37:17.1825 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oabNJEJcOHEdbpvuQeeCZiYTOV12kL7xNyObLq0+wmnuPFBvGVmpc1gfP5rduIVFMO7AKfP/P8wtCbKr1Rc/yg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: UBFvAZhVe/SuLw3ps9nor8+qvqlYctGiyL1rGWCBPRuSjQnIH6zF9Q2VddMnH56/oreDK8uK8vc38mGcE6fK7Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,60 +132,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pgmap owner member at the svm migrate init could be referenced
-to either adev or hive, depending on device topology.
+The parameter is used in the dev_private_owner to decide if device
+pages in the range require to be migrated back to system memory, based
+if they are or not in the same memory domain.
+In this case, this reference could come from the same memory domain
+with devices connected to the same hive.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 3 +++
- 2 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c  | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c    | 4 ++--
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index bc2fc528ad58..02340f36bd3d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -426,7 +426,7 @@ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.start = start;
- 	migrate.end = end;
- 	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
--	migrate.pgmap_owner = adev;
-+	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+index 2741c28ff1b5..378c238c2099 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+@@ -160,7 +160,7 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 			       struct mm_struct *mm, struct page **pages,
+ 			       uint64_t start, uint64_t npages,
+ 			       struct hmm_range **phmm_range, bool readonly,
+-			       bool mmap_locked)
++			       bool mmap_locked, void *owner)
+ {
+ 	struct hmm_range *hmm_range;
+ 	unsigned long timeout;
+@@ -185,6 +185,7 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 	hmm_range->hmm_pfns = pfns;
+ 	hmm_range->start = start;
+ 	hmm_range->end = start + npages * PAGE_SIZE;
++	hmm_range->dev_private_owner = owner;
  
- 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
- 	size *= npages;
-@@ -641,7 +641,7 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.start = start;
- 	migrate.end = end;
- 	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
--	migrate.pgmap_owner = adev;
-+	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
+ 	/* Assuming 512MB takes maxmium 1 second to fault page address */
+ 	timeout = max(npages >> 17, 1ULL) * HMM_RANGE_DEFAULT_TIMEOUT;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
+index 7f7d37a457c3..14a3c1864085 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
+@@ -34,7 +34,7 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 			       struct mm_struct *mm, struct page **pages,
+ 			       uint64_t start, uint64_t npages,
+ 			       struct hmm_range **phmm_range, bool readonly,
+-			       bool mmap_locked);
++			       bool mmap_locked, void *owner);
+ int amdgpu_hmm_range_get_pages_done(struct hmm_range *hmm_range);
  
- 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
- 	size *= npages;
-@@ -907,7 +907,7 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	pgmap->range.start = res->start;
- 	pgmap->range.end = res->end;
- 	pgmap->ops = &svm_migrate_pgmap_ops;
--	pgmap->owner = adev;
-+	pgmap->owner = SVM_ADEV_PGMAP_OWNER(adev);
- 	pgmap->flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	r = devm_memremap_pages(adev->dev, pgmap);
- 	if (IS_ERR(r)) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 573f984b81fe..4297250f259d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -35,6 +35,9 @@
- #include "amdgpu.h"
- #include "kfd_priv.h"
+ #if defined(CONFIG_HMM_MIRROR)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7e7d8330d64b..c13f7fbfc070 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -709,7 +709,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 	readonly = amdgpu_ttm_tt_is_readonly(ttm);
+ 	r = amdgpu_hmm_range_get_pages(&bo->notifier, mm, pages, start,
+ 				       ttm->num_pages, &gtt->range, readonly,
+-				       false);
++				       false, NULL);
+ out_putmm:
+ 	mmput(mm);
  
-+#define SVM_ADEV_PGMAP_OWNER(adev)\
-+			((adev)->hive ? (void *)(adev)->hive : (void *)(adev))
-+
- struct svm_range_bo {
- 	struct amdgpu_bo		*bo;
- 	struct kref			kref;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index a165e51c4a1c..540496d27c07 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1386,7 +1386,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
+ 					       prange->start << PAGE_SHIFT,
+ 					       prange->npages, &hmm_range,
+-					       false, true);
++					       false, true, NULL);
+ 		if (r) {
+ 			pr_debug("failed %d to get svm range pages\n", r);
+ 			goto unreserve_out;
+@@ -2653,7 +2653,7 @@ void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm)
+ 	r = amdgpu_hmm_range_get_pages(&prange->notifier, mm, NULL,
+ 				       prange->start << PAGE_SHIFT,
+ 				       prange->npages, &hmm_range,
+-				       false, true);
++				       false, true, NULL);
+ 	if (!r) {
+ 		amdgpu_hmm_range_get_pages_done(hmm_range);
+ 		prange->validated_once = true;
 -- 
 2.17.1
 
