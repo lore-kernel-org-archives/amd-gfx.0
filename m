@@ -2,76 +2,73 @@ Return-Path: <SRS0=n+xW=KC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94D17C433B4
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 16:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AAA6C43461
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 16:29:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D0E16144F
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 16:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D0E16144F
+	by mail.kernel.org (Postfix) with ESMTPS id 276F76144F
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 16:29:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 276F76144F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02436EE6B;
-	Fri,  7 May 2021 16:26:29 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9127B6EE6B
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 16:26:27 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- a10-20020a05600c068ab029014dcda1971aso5389956wmn.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 09:26:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18EE56EE8B;
+	Fri,  7 May 2021 16:29:28 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5AFD6EE72
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 16:29:26 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id h4so9859075wrt.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 09:29:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=cnji0mghcfsHw4UWJtieqSvlVTnHHvaILHgLJlYFjiQ=;
- b=Dztnyza1z9iIAGrus7EYHI2gelTKFcIiyKjNQ3pd+1XQh17Y1c3IdhPKn/WpIu5ck7
- +LBLLwmA1eW90IxYxW8/EfIeXYw8thLh7ZxU13OvQ6zr6wwualcxavu97qc0EcXQr1CV
- DdtRDF5HoIhHQM+zgbC+RQGDFcKmAlf+2mIIk=
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=i5gqYyRVGDKtMiP6DIRn730yK875UZBGjViO2hUlN30=;
+ b=Molaaqd6GohdZzV9tXCoFdj5VFvUKpx2iyGB4kcHJdTr+OEQiDfvl92exGLek2BBd7
+ FCZ9BPcPK6HgpVPGhS4wTnfnZxnhO7ytsiqBxcOgB7rdBPsyRa0jr3H9NJ33nrGdRui+
+ 7Tdq3nrRLN/BBLOh6dsQIPo35q5Ht+1z86F8o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=cnji0mghcfsHw4UWJtieqSvlVTnHHvaILHgLJlYFjiQ=;
- b=XE2Br2jAQGao6GguZQZ+DuGL8UyM4SZ5Q++wYbALR+pG501j8X4QAnilNHyRNivJf8
- yrWZ9VNg4CJ4AKZSry4R00HBUqQf7OJ7hnBwdSphaANS+EixNIOGis8s/hudqThUsnLe
- gCvK64DFbquvYtYCtWdn7MFsAsj+EEORf6ye3X/LqQVS+jLaBaGkGwn21/FcuxBKG8GF
- RvTy8KoBZ70xut9hP1Vb0kGnZjrcf0tNJcSYWIr9YRNNCYi9zIgcuMnD3cpQJnJ/AAgy
- h9xr1blsezu8Hjxbzpdu/Fd51ibe9/n0T/U4yGILCOOpLXz3YfF8OWJVGJfpKkzvJij6
- Tt3Q==
-X-Gm-Message-State: AOAM530/XjpeMtiy0HNeHkCumxvikQDf4rbx+Hqb3RhIpGBcHxXwCvcv
- PB/f0MsqtIKOWzuyyg3iykP7IQ==
-X-Google-Smtp-Source: ABdhPJyk+pagLFvbBQTfynJmKCWq179zo3fYKMu8ozzdc0iyrHSwlZI6yGqQpT/xlHmTyEMTCx9IUQ==
-X-Received: by 2002:a1c:6382:: with SMTP id
- x124mr22156627wmb.142.1620404786411; 
- Fri, 07 May 2021 09:26:26 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=i5gqYyRVGDKtMiP6DIRn730yK875UZBGjViO2hUlN30=;
+ b=sGYGampv0ipFXVjydBiq7sxdfX2y25zg2ci1IUrK34HE9I3LB7PIpAgKShO/3rAtEY
+ /MEbys2WTg99TXVNItO2gx6mYR62oQRvvbtvjCxU9PBA2HDG5tjBNAty4xV940CNfoFv
+ v7+TnNcPpmTAGYb+uH24z1wG5oYEQ1jLzu3HqdrTPXGVEmZOF8fxy46p9RsDlh899MDc
+ SB3LVmsxWsOEq+rwifBGyIkc9DUtBL1GLYoSQlCL0Tch6RuB8sWqlqZXt8jJTy15IqlX
+ V6jg6FBgy5g2ek+AyJh4rqE+Opzw+J7o164fzfEey85Svlfzw51TWVuSNLXDNOpAp8hr
+ aBsA==
+X-Gm-Message-State: AOAM532gMsuH0rcfs26MnH/VVKj6oVlJBcvlAtwE7AZqNAuIcujtK8aq
+ kzjV6HLhJXT3b8V7iAI+G9CEkg==
+X-Google-Smtp-Source: ABdhPJzCoXyg/sKzN6Z3xNGDfY7Ya6xJX07aCIOt/3IDjdUxBfaeQ6kZEe2+EaftMEIX797yslaGbA==
+X-Received: by 2002:a5d:4e0b:: with SMTP id p11mr13246262wrt.220.1620404965628; 
+ Fri, 07 May 2021 09:29:25 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id v18sm10554009wro.18.2021.05.07.09.26.25
+ by smtp.gmail.com with ESMTPSA id x65sm16531820wmg.36.2021.05.07.09.29.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 May 2021 09:26:25 -0700 (PDT)
-Date: Fri, 7 May 2021 18:26:23 +0200
+ Fri, 07 May 2021 09:29:25 -0700 (PDT)
+Date: Fri, 7 May 2021 18:29:23 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-Message-ID: <YJVqL4c6SJc8wdkK@phenom.ffwll.local>
-References: <YBgU9Vu0BGV8kCxD@phenom.ffwll.local>
- <CAOWid-eXMqcNpjFxbcuUDU7Y-CCYJRNT_9mzqFYm1jeCPdADGQ@mail.gmail.com>
- <YBqEbHyIjUjgk+es@phenom.ffwll.local>
- <CAOWid-c4Nk717xUah19B=z=2DtztbtU=_4=fQdfhqpfNJYN2gw@mail.gmail.com>
- <CAKMK7uFEhyJChERFQ_DYFU4UCA2Ox4wTkds3+GeyURH5xNMTCA@mail.gmail.com>
- <CAOWid-fL0=OM2XiOH+NFgn_e2L4Yx8sXA-+HicUb9bzhP0t8Bw@mail.gmail.com>
- <YJUBer3wWKSAeXe7@phenom.ffwll.local>
- <CAOWid-dmRsZUjF3cJ8+mx5FM9ksNQ_P9xY3jqxFiFMvN29SaLw@mail.gmail.com>
- <YJVnO+TCRW83S6w4@phenom.ffwll.local>
- <CADnq5_Pvtj1vb0bak_gUkv9J3+vfsMZxVKTKYeUvwQCajAWoVQ@mail.gmail.com>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v5 15/27] drm/scheduler: Fix hang when sched_entity
+ released
+Message-ID: <YJVq4x4d81rY2GHB@phenom.ffwll.local>
+References: <20210428151207.1212258-1-andrey.grodzovsky@amd.com>
+ <20210428151207.1212258-16-andrey.grodzovsky@amd.com>
+ <a8314d77-578f-e0df-5c49-77d5f10c76c7@amd.com>
+ <9cb771f2-d52f-f14e-f3d4-b9488b353ae3@amd.com>
+ <0c598888-d7d4-451a-3d4a-01c46ddda397@gmail.com>
+ <a704880d-8e27-3cca-f42b-1320d39ac503@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CADnq5_Pvtj1vb0bak_gUkv9J3+vfsMZxVKTKYeUvwQCajAWoVQ@mail.gmail.com>
+In-Reply-To: <a704880d-8e27-3cca-f42b-1320d39ac503@amd.com>
 X-Operating-System: Linux phenom 5.10.32scarlett+ 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,106 +81,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Song Liu <songliubraving@fb.com>, Alexei Starovoitov <ast@kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Brian Welty <brian.welty@intel.com>,
- John Fastabend <john.fastabend@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Yonghong Song <yhs@fb.com>,
- Andrii Nakryiko <andriin@fb.com>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>, Kenny Ho <y2kenny@gmail.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, KP Singh <kpsingh@chromium.org>,
- "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
- Kenny Ho <Kenny.Ho@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Network Development <netdev@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, bpf <bpf@vger.kernel.org>,
- Martin KaFai Lau <kafai@fb.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch, Felix.Kuehling@amd.com,
+ linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org, ppaalanen@gmail.com,
+ helgaas@kernel.org, dri-devel@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alexander.Deucher@amd.com, Harry.Wentland@amd.com,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 07, 2021 at 12:19:13PM -0400, Alex Deucher wrote:
-> On Fri, May 7, 2021 at 12:13 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Fri, May 07, 2021 at 11:33:46AM -0400, Kenny Ho wrote:
-> > > On Fri, May 7, 2021 at 4:59 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > Hm I missed that. I feel like time-sliced-of-a-whole gpu is the easier gpu
-> > > > cgroups controler to get started, since it's much closer to other cgroups
-> > > > that control bandwidth of some kind. Whether it's i/o bandwidth or compute
-> > > > bandwidht is kinda a wash.
-> > > sriov/time-sliced-of-a-whole gpu does not really need a cgroup
-> > > interface since each slice appears as a stand alone device.  This is
-> > > already in production (not using cgroup) with users.  The cgroup
-> > > proposal has always been parallel to that in many sense: 1) spatial
-> > > partitioning as an independent but equally valid use case as time
-> > > sharing, 2) sub-device resource control as opposed to full device
-> > > control motivated by the workload characterization paper.  It was
-> > > never about time vs space in terms of use cases but having new API for
-> > > users to be able to do spatial subdevice partitioning.
-> > >
-> > > > CU mask feels a lot more like an isolation/guaranteed forward progress
-> > > > kind of thing, and I suspect that's always going to be a lot more gpu hw
-> > > > specific than anything we can reasonably put into a general cgroups
-> > > > controller.
-> > > The first half is correct but I disagree with the conclusion.  The
-> > > analogy I would use is multi-core CPU.  The capability of individual
-> > > CPU cores, core count and core arrangement may be hw specific but
-> > > there are general interfaces to support selection of these cores.  CU
-> > > mask may be hw specific but spatial partitioning as an idea is not.
-> > > Most gpu vendors have the concept of sub-device compute units (EU, SE,
-> > > etc.); OpenCL has the concept of subdevice in the language.  I don't
-> > > see any obstacle for vendors to implement spatial partitioning just
-> > > like many CPU vendors support the idea of multi-core.
-> > >
-> > > > Also for the time slice cgroups thing, can you pls give me pointers to
-> > > > these old patches that had it, and how it's done? I very obviously missed
-> > > > that part.
-> > > I think you misunderstood what I wrote earlier.  The original proposal
-> > > was about spatial partitioning of subdevice resources not time sharing
-> > > using cgroup (since time sharing is already supported elsewhere.)
-> >
-> > Well SRIOV time-sharing is for virtualization. cgroups is for
-> > containerization, which is just virtualization but with less overhead and
-> > more security bugs.
-> >
-> > More or less.
-> >
-> > So either I get things still wrong, or we'll get time-sharing for
-> > virtualization, and partitioning of CU for containerization. That doesn't
-> > make that much sense to me.
-> 
-> You could still potentially do SR-IOV for containerization.  You'd
-> just pass one of the PCI VFs (virtual functions) to the container and
-> you'd automatically get the time slice.  I don't see why cgroups would
-> be a factor there.
+On Fri, Apr 30, 2021 at 12:10:57PM -0400, Andrey Grodzovsky wrote:
+> =
 
-Standard interface to manage that time-slicing. I guess for SRIOV it's all
-vendor sauce (intel as guilty as anyone else from what I can see), but for
-cgroups that feels like it's falling a bit short of what we should aim
-for.
+> =
 
-But dunno, maybe I'm just dreaming too much :-)
--Daniel
+> On 2021-04-30 2:47 a.m., Christian K=F6nig wrote:
+> > =
 
-> Alex
-> 
-> >
-> > Since time-sharing is the first thing that's done for virtualization I
-> > think it's probably also the most reasonable to start with for containers.
-> > -Daniel
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > =
 
--- 
+> > Am 29.04.21 um 19:06 schrieb Andrey Grodzovsky:
+> > > =
+
+> > > =
+
+> > > On 2021-04-29 3:18 a.m., Christian K=F6nig wrote:
+> > > > I need to take another look at this part when I don't have a
+> > > > massive headache any more.
+> > > > =
+
+> > > > Maybe split the patch set up into different parts, something like:
+> > > > 1. Adding general infrastructure.
+> > > > 2. Making sure all memory is unpolated.
+> > > > 3. Job and fence handling
+> > > =
+
+> > > I am not sure you mean this patch here, maybe another one ?
+> > > Also note you already RBed it.
+> > =
+
+> > No what I meant was to send out the patches before this one as #1 and #=
+2.
+> > =
+
+> > That is the easier stuff which can easily go into the drm-misc-next or
+> > amd-staging-drm-next branch.
+> > =
+
+> > The scheduler stuff certainly need to go into drm-misc-next.
+> > =
+
+> > Christian.
+> =
+
+> Got you. I am fine with it. What we have here is a working hot-unplug
+> code but, one with potential use after free MMIO ranges frpom the zombie
+> device. The followup patches after this patch are all about preventing
+> this and so the patch-set up until this patch including, is functional
+> on it's own. While it's necessary to solve the above issue, it's has
+> complications as can be seen from the discussion with Daniel on later
+> patch in this series. Still, in my opinion it's better to rollout some
+> initial support to hot-unplug without use after free protection then
+> having no support for hot-unplug at all. It will also make the merge
+> work easier as I need to constantly rebase the patches on top latest
+> kernel and solve new regressions.
+> =
+
+> Daniel - given the arguments above can you sound your opinion on this
+> approach ?
+
+I'm all for incrementally landing this, because it's really hard and
+tricky. We might need to go back to some of the decisions, or clarify
+things more, or more headaches and pondering how to fix all the parts
+that works best to make sure there's no nasty races right across hotunplug
+if you're unlucky enough.
+
+But yeah better aim for something and then readjust than bikeshed forever
+out of tree.
+
+Cheers, Daniel
+
+> =
+
+> Andrey
+> > =
+
+> > > =
+
+> > > Andrey
+> > > =
+
+> > > > =
+
+> > > > Christian.
+> > > > =
+
+> > > > Am 28.04.21 um 17:11 schrieb Andrey Grodzovsky:
+> > > > > Problem: If scheduler is already stopped by the time sched_entity
+> > > > > is released and entity's job_queue not empty I encountred
+> > > > > a hang in drm_sched_entity_flush. This is because
+> > > > > drm_sched_entity_is_idle
+> > > > > never becomes false.
+> > > > > =
+
+> > > > > Fix: In drm_sched_fini detach all sched_entities from the
+> > > > > scheduler's run queues. This will satisfy drm_sched_entity_is_idl=
+e.
+> > > > > Also wakeup all those processes stuck in sched_entity flushing
+> > > > > as the scheduler main thread which wakes them up is stopped by no=
+w.
+> > > > > =
+
+> > > > > v2:
+> > > > > Reverse order of drm_sched_rq_remove_entity and marking
+> > > > > s_entity as stopped to prevent reinserion back to rq due
+> > > > > to race.
+> > > > > =
+
+> > > > > v3:
+> > > > > Drop drm_sched_rq_remove_entity, only modify entity->stopped
+> > > > > and check for it in drm_sched_entity_is_idle
+> > > > > =
+
+> > > > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> > > > > Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+> > > > > ---
+> > > > > =A0 drivers/gpu/drm/scheduler/sched_entity.c |=A0 3 ++-
+> > > > > =A0 drivers/gpu/drm/scheduler/sched_main.c=A0=A0 | 24
+> > > > > ++++++++++++++++++++++++
+> > > > > =A0 2 files changed, 26 insertions(+), 1 deletion(-)
+> > > > > =
+
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > index f0790e9471d1..cb58f692dad9 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > @@ -116,7 +116,8 @@ static bool
+> > > > > drm_sched_entity_is_idle(struct drm_sched_entity *entity)
+> > > > > =A0=A0=A0=A0=A0 rmb(); /* for list_empty to work without lock */
+> > > > > =A0=A0=A0=A0=A0 if (list_empty(&entity->list) ||
+> > > > > -=A0=A0=A0=A0=A0=A0=A0 spsc_queue_count(&entity->job_queue) =3D=
+=3D 0)
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 spsc_queue_count(&entity->job_queue) =3D=
+=3D 0 ||
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 entity->stopped)
+> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 return true;
+> > > > > =A0=A0=A0=A0=A0 return false;
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > index 908b0b56032d..ba087354d0a8 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > @@ -897,9 +897,33 @@ EXPORT_SYMBOL(drm_sched_init);
+> > > > > =A0=A0 */
+> > > > > =A0 void drm_sched_fini(struct drm_gpu_scheduler *sched)
+> > > > > =A0 {
+> > > > > +=A0=A0=A0 struct drm_sched_entity *s_entity;
+> > > > > +=A0=A0=A0 int i;
+> > > > > +
+> > > > > =A0=A0=A0=A0=A0 if (sched->thread)
+> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 kthread_stop(sched->thread);
+> > > > > +=A0=A0=A0 for (i =3D DRM_SCHED_PRIORITY_COUNT - 1; i >=3D
+> > > > > DRM_SCHED_PRIORITY_MIN; i--) {
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 struct drm_sched_rq *rq =3D &sched->sched_=
+rq[i];
+> > > > > +
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 if (!rq)
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
+> > > > > +
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 spin_lock(&rq->lock);
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 list_for_each_entry(s_entity, &rq->entitie=
+s, list)
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /*
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * Prevents reinsertion and =
+marks job_queue as idle,
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * it will removed from rq i=
+n drm_sched_entity_fini
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * eventually
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 */
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 s_entity->stopped =3D true;
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 spin_unlock(&rq->lock);
+> > > > > +
+> > > > > +=A0=A0=A0 }
+> > > > > +
+> > > > > +=A0=A0=A0 /* Wakeup everyone stuck in drm_sched_entity_flush for
+> > > > > this scheduler */
+> > > > > +=A0=A0=A0 wake_up_all(&sched->job_scheduled);
+> > > > > +
+> > > > > =A0=A0=A0=A0=A0 /* Confirm no work left behind accessing device s=
+tructures */
+> > > > > =A0=A0=A0=A0=A0 cancel_delayed_work_sync(&sched->work_tdr);
+> > > > =
+
+> > =
+
+
+-- =
+
 Daniel Vetter
 Software Engineer, Intel Corporation
 http://blog.ffwll.ch
