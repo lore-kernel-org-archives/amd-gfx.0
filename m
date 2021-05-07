@@ -7,37 +7,37 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFFEAC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DD16C43460
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A0E761456
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A0E761456
+	by mail.kernel.org (Postfix) with ESMTPS id B566561400
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 14:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B566561400
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26ACD6EE40;
-	Fri,  7 May 2021 14:59:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58D0D6EE41;
+	Fri,  7 May 2021 14:59:11 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D8F6EE40
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 14:59:02 +0000 (UTC)
+ (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9233A6EE41
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 14:59:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EhF+03xvc3wuL57QQTEwXRcwd55keU7CnGzdIN0gmqTwtpf/UFvWTC3ufXlHu3mQmXgJU/c335mLhdRfIHrmM4CUT28oHzBmelyu8WJIV9UBhcxe4ymPt23HfjTfkFKuReaQXOEMEEbVZ1lKWG01xBDhi54eCXYH4NSmpLlOiZF/y2kyIOHA74dq/BALht/mOy3XDsrFM/XMJkKvJLESq/pCpd95dH6LHB0RZfXQ/plUqA5dDIBuSWbDC3GfROdkw5H/OpYxNcea/zmSSwvlSNH+oxAA6MobqZ+B8c4+7OSvLSWew9iSJbBymJfm3iwYwx1ilfr4CzWnHp4QJ676Ng==
+ b=ZJp6yulA1dNg12AnGdSmn6p7Su8gpXugkz0ACFefZv54c/S6BcQAwK6Bj9jC8JSsBPJsaze9NxZ9PNOlRytSjJwjhioRaUNtJSizq8tMx47xWhPj7dhoWLECEIAMvIkSoVTsmwVEL9jiJrk3EMpf7MhIzez1wVjvRrox0Lltjl2HMZ+HW78RjNh4yTRbxPJIOiX5nzUbK1Ouc+Z1BDNOLcEF1KVrIYTDvZDg709L+IR3TZwTbhd+Yel9HxOKLvbmnRFyXpEwCPh6RAIkoyGpfQq938fmkKr7dZHKDCnEKKNLlx8rxCJ8lf/3RHouClX7P8plT3iqCvSocqKjEKA0zQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hjqWZoAUWSOvJzIKHQEwuSCzIpl900psNvPQnNzuHyI=;
- b=cnw77sD3eLKjntILoCyXQqjMaOFhhxD3S4r8PUb25VGZit1uCD2ONwKw5ugsfJlB51C6nAbARXk5fmAKeUUb9koZ39VJ53FiAdwpEBmPNOrbLqZBg8i+erwACC0aK9FSCqQE09fPQSjCZQDBmrvAHYEoAQaZANleAOWwmK474gFmE+nxzCSpr0ZyCYY2tf8XMpGJJRIzNtwJamwWOU2hSKbNxjUZ0wlKH7dxNEHOKaBKStem9hGyKpkQb7EId6JLstNxSJT/kOaCbXKG5mXJcNM1sdoGdz74ehF0ehgoRw9EvWBcFSsfdSAahnUTji4CrcKinIMN4ortU42JaYAJlg==
+ bh=tMqfPI4T5DK3lMjVaXcpffGDhn0DLkwohJF0d2dkvs0=;
+ b=SVBNCAWLH79LsBPubiLnOXwIFkNUN2TwotZpS2yYtMmASaZPGdd1U+qME8TFwWGo7bdNfbdEE/Qn3MluylS27+gFySrri9QOWK81lNO7YrgdofcNre5hvm69s3b+oJWdwWKDwGpWkwkjSxCwZYsJ++qVEUfvJcZ7gFrkrjoUfVM/G/l1gxnq/osgsuVZWRxk6mfwMnX29IT+xkh5JJYjlEGPs+36DRvkeDU69JJFVvYKAAp2pI8zzKFLcr0hd5Qx7EBSoJwTfnR9RTlv9p8t/v+CGFR02+dF5qmlrrk2qEDueaOiDOdvuCb/KznCDFDDLXDawE9ldQI2unsYe1Dadw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hjqWZoAUWSOvJzIKHQEwuSCzIpl900psNvPQnNzuHyI=;
- b=YzY7sQ2pUPMJEFMB2hgyWbYezEXRN0xpz8qm1G12Rh9TMTT6xXxhp3k4KBvI3pk3ej7o1NY6f1OQfffTxaGqUjNTtrIa/VNd8HZjhgtyntre5o09/sofbmiDluXLbw38uAk8Jy4tHBxan3f5DaLgZCER9LK3hkWo0ZTFYWWdBjs=
+ bh=tMqfPI4T5DK3lMjVaXcpffGDhn0DLkwohJF0d2dkvs0=;
+ b=gPM5yLQgh2AIhKoLEBEDkjXOCgTDa2EKaGWU8l9oRG2CgYalQVmnxGsxHdX4JgsQQ+1M9ig6MCQw1NdO1CIu5haNvR4conyck+iwWf4wYIWFIrrMwdCXkXr6fAJuNs/BFIboZL5guYfzBuokSTe36MVyc21GjtsXYoVVfWIOew4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,16 +45,17 @@ Received: from DM5PR12MB1226.namprd12.prod.outlook.com (2603:10b6:3:75::7) by
  DM5PR12MB1786.namprd12.prod.outlook.com (2603:10b6:3:112::14) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25; Fri, 7 May 2021 14:59:01 +0000
+ 15.20.4108.25; Fri, 7 May 2021 14:59:08 +0000
 Received: from DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23]) by DM5PR12MB1226.namprd12.prod.outlook.com
  ([fe80::16d:e05a:d9f2:8c23%9]) with mapi id 15.20.4087.044; Fri, 7 May 2021
- 14:59:01 +0000
+ 14:59:08 +0000
 From: Stylon Wang <stylon.wang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/14] drm/amd/display: Update DPRX detection.
-Date: Fri,  7 May 2021 22:58:09 +0800
-Message-Id: <20210507145822.248029-2-stylon.wang@amd.com>
+Subject: [PATCH 02/14] drm/amd/display: Update setting of DP training
+ parameters.
+Date: Fri,  7 May 2021 22:58:10 +0800
+Message-Id: <20210507145822.248029-3-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210507145822.248029-1-stylon.wang@amd.com>
 References: <20210507145822.248029-1-stylon.wang@amd.com>
@@ -67,52 +68,52 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from stylon-rog.amd.com (165.204.134.251) by
  HK2PR04CA0045.apcprd04.prod.outlook.com (2603:1096:202:14::13) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Fri, 7 May 2021 14:58:58 +0000
+ 15.20.4108.25 via Frontend Transport; Fri, 7 May 2021 14:59:05 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 70e18ae2-620f-4227-a58e-08d91168a633
+X-MS-Office365-Filtering-Correlation-Id: 95ecbde1-d07d-4831-854d-08d91168aa45
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1786:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB178670A5DC03985A3BAE7F98FF579@DM5PR12MB1786.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB17865E2978F932E031FDD8F7FF579@DM5PR12MB1786.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:551;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +LPdUEC84nB6/Y3kE0htNCEsvqzG2J3rfYGswCcJ0ugZF4ROPrSCK2HazhDMIZTLIEHo+y5++Dl+rvH2+1KgmEBldgE0+jFIkkM6RdFSCqzbkgxa3Zlz/AWMR56gwhrtU8q/yUnorBXIVgQ0wYf+PPdabUr/gNMn/RaGDbVx6wofzAQm5x7ytO45LoAf4oZCdgNw3gCbESpzXwBv1lVw0UeJMR18OM6XSMN6LxdsEQ7eIZzAGz3pYfU+xvgzF6Tm8pyYzEQ3EM2KKQVk4Tsc5Ta0o2b50TqVUdWMCNksloK2aTNQG4q0ktdOBwbyowbzYFYJBQ9K0nydRVrsNh4NfiXuoQP+omGNlpdoMH1rgqYukFimZbRQBbrMNSLTidCjOtfe3St6sfcynq/IzaBgrwpZOFZSkxKsBua3bEZSP/lago3JRZI7sKUNMPwWwrkx0FiL+zmTyz3KSMLSWlg21x6plieQuIQaJdba7mlgud4wxhf7BWxLfRUdzxbWtNj+JHf+RnKZYQFIas8gxcfHqvignxy2oJloniHJ+jmwX74chLqCwWz10Kv7X6zUpaoNxh3MRLQzqq7dymzj+sTcal41M+jYu8iwCrSF+je76hHs1LItEyR3Q9id2wATdXZ6NIFxwL1lGKnvXhmvHaeL1g==
+X-Microsoft-Antispam-Message-Info: qQl9HEr5POyKWPfLJcjMqU4o/0JrKOGC8ENzoZtmZErxdMmsa5WjutNVqdlfdwjx8YV/uiuBqQzBe1eBG/Apgma5eWKyzbX/qSRRV7MP+Nic6n3tuTzog6qMgzw9248fFjz4dlyLlaHseoOxNbBb3svSuIgVoGzbzIC1703b7l9woyXQFJ0RnhtolNmCApBKd/R4DSRtNXEtQrS5QyEFr9QMI0nuwCBX+dmT34zgZxDRnZ0PhYxugVHAnmY0JMUU73LGhjJDxJitj1LOihMnd7TCSRk9/6aobpnjrYSUFHrZOYelnDZ5AiaNH4MNd1shbVdYq3n+7ayLnby8eVjilRFtVz0xcXr2Qui6CNJrI/BWhIMhX4GE3ML6boHdxhc3T7SmOiGLLfXEUFg8qt6OkKutNr5ObIlXz9GFgy3E630S5CiBY06o7V2MWu3umvST1tkXXtjHaLUx46D4paL3Kn2rTlfaVCc8j7h0T33VdGZ3PvO3yhuAwuf3LhkD+D2W3fBoOUwB4az2u+ITKlCtYp8fwv8CZgWmpryl+CNSU/aewcYAY0sZreUwh1IHzcBLf5SpI/hHAzjupuxAl+N5zAcZ1Mi2c6/wsDRsHl/j3pWNY2CU7I5CUBM3lVguI4w1FM+MT5lAe74/nI2rMRCIr3RREJFtWdAv/3p7l6C+cN4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(66556008)(66476007)(66946007)(6486002)(54906003)(83380400001)(26005)(6666004)(16526019)(86362001)(956004)(38350700002)(38100700002)(316002)(4326008)(186003)(478600001)(2906002)(6916009)(5660300002)(52116002)(7696005)(8936002)(1076003)(8676002)(36756003)(2616005)(44832011);
+ SFS:(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(66556008)(66476007)(66946007)(6486002)(54906003)(83380400001)(26005)(6666004)(16526019)(86362001)(956004)(38350700002)(38100700002)(316002)(4326008)(186003)(15650500001)(478600001)(2906002)(6916009)(5660300002)(52116002)(7696005)(8936002)(1076003)(8676002)(36756003)(2616005)(44832011);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?SVWa3j44hIsdE4z3njJpKUz+s3YA1XFq6FAM+/w8fyWD0iXC+sApIjh+VMEf?=
- =?us-ascii?Q?p5SoZOPxNeZxBtfdFMb6CPROIOdNvuiYeaF7mGVyTeGC+T9StIY4+dgrPsLf?=
- =?us-ascii?Q?4H1F3jQqiix0A7tJKYehhW32vh3KtUi6/jyozqAFchcSMiGJnsL+W8NvayBQ?=
- =?us-ascii?Q?WBYDQmuw6zrsAsKYNRycvweoKPErqb6qW3li26UEqqDZ1U4MaMkYYq5XYuGB?=
- =?us-ascii?Q?sRacKwxMQpRE3VWmWOOsubLqOndwEW+JsARedSZ2Q5ts3UuHXyesA2R8ceyY?=
- =?us-ascii?Q?QKB/cWNf/N5nll1SRWKjrhHlVdyyXD5uOUFXb0CGqjLl+5COg6XZ3wCdiVgL?=
- =?us-ascii?Q?EoH51hQaQCJ/VNNpeTM9r6ciFy16uqKbLBPXXUSZRW+z7wXBdG8Ht7+PYhia?=
- =?us-ascii?Q?OzLaHm1mppjtjgP+weJb5xdpE9OzvHk1mgALtzkEPVbTXuypm7fV5OqIOmK+?=
- =?us-ascii?Q?W/qeKKhpNE4CZ2kl6NHD0kDa8CZQk2pBTQ++8e5B9O6kgV6+H8bzG4Rp1MX3?=
- =?us-ascii?Q?1gOpnR3tq5yPbgV/aISIqZG3zOTeHeYSgcha0JblnwErl+8/PP22EBaxBRm4?=
- =?us-ascii?Q?i/+Bg1pM2p7rXSBg1bxyukG5Rn/PDbCBP+KzvU1wkirl6QJ4QKYnbtkZe7Vv?=
- =?us-ascii?Q?rRHqnQaPeIncSlTr05/8rfgvvHzxqOm27Y24w6Ncz2zs7jhr4qA9oFe+GjX5?=
- =?us-ascii?Q?RBmIEHT5PDNFM0Qd3ciY49Oq3c8f+VY+hZGr4GeOvOhppRhsk52e7RFodKha?=
- =?us-ascii?Q?tKrCZ6w0sAGsHfczEu550pNccEiTerMpDWw7cxSDk+2looiigU6fDvmJT5ms?=
- =?us-ascii?Q?0DAZtqOmk9X3313G1H4LrlI7S8nFGJIvZVonj7ZIbh8oPxiHcs3+o8Ou5H2o?=
- =?us-ascii?Q?9CMw5pPccyBQ8zZ6vVjoWiRnpUoj4FYvu0FNCSons7mKzPSNx7O3GwHmJPm8?=
- =?us-ascii?Q?zk51MU1aHxq4asFO7tGcLzl60hroj/WMAY1X/SHXfbFkYaY+GSRBpX8adGW8?=
- =?us-ascii?Q?tfqZBBWPAqS0yrED98EoBoqopqwZu0ZjRE+GQuxmSJsU/LXtRgsLPUS9fSgj?=
- =?us-ascii?Q?7471sKlXBepoO7GpyYSCjvDNh5+tmzG/ietU5yJZ7XHCFHBJpDATKaxMYzmS?=
- =?us-ascii?Q?NQlJ28YHJQRNKhdUU4uTKpFtALiU6+i57+UN/ydqrvvqwCO10o0TsHMnN8Zf?=
- =?us-ascii?Q?MFUdN690AWCSRH+DcK5oJ4/DcXCGeVVcWGLBF5SnfwfbPA1S+rUUOK6lHhWl?=
- =?us-ascii?Q?7VtybbPVIiT3ctjVwgFl1X4y5DOfw2kV3oAoJo6OoxgZWArToYZ1ktcCu6Xo?=
- =?us-ascii?Q?UnWgdUAz5U5H+LFDxVikVv27?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?UpbrtoGZP18UDON53nr50tVIGRsIlZ9SSUBM8REayzoxXJEiod0lUUloXfVZ?=
+ =?us-ascii?Q?VjPF0c2/ATCN2H8QC9Gj0xf+2OwbnBQPgKZ4DBX/cm5DLO5R92UhX0KdO7Zu?=
+ =?us-ascii?Q?C+jCb1C3y3KyTmLpJbAvebhQLNFtoWBmK1qRtDOYlG7YWjLws7Nc2bv9b3AA?=
+ =?us-ascii?Q?gY0W0vQ9MVYDkFt6a3OW7J9ObWLdMODOS0r/soEh//BpEEaQXgBfkQZdkyC9?=
+ =?us-ascii?Q?itoxCY9dwN0L/KyCOHyukdqgGK15yR2bL5QzIuMs2Qpt50iLm0SucNleqniA?=
+ =?us-ascii?Q?Lqwk63czr09ANSzNwN++D1Rtrtp2iMitjik438AiRrrj0aRmXSl/t2EfaZzp?=
+ =?us-ascii?Q?vCPoyuLtDgCq1/zteAgUAfLZw/M+HmqMtOp6nSNNqJIY8NtHn81c6P1wBnka?=
+ =?us-ascii?Q?dXt8kpIUNX8z8/po/mhLQ5Ex8S+tZvBX0KictH1I8pG9TsGGD4+LG3ZsMSm7?=
+ =?us-ascii?Q?FV2exGwTDqqb14C/OtHDNsqO+bsBf7BT71UHxLjDQgOpsL39LG+EF+kbPBqC?=
+ =?us-ascii?Q?UQsw1JmtiXv31nJfn/5zPDSHsqwzKoE4FjldhMrtw1psT2a0wiIQumwWi/pC?=
+ =?us-ascii?Q?RJJQnMZj3peUoY1Hg3Qo9nMdyidtomzn6/f0y0IYviCD34TVDDSczw6XADv3?=
+ =?us-ascii?Q?nfTFos3Z+gLpu69CwL1yZbTjGoHnRuct5AWfzBwkH/i04Y+BqfeiIn33GUNU?=
+ =?us-ascii?Q?Ei5OAjarZsOmfqB2aSwnPXJvafs/UojLilXGJgSXcu+vLJCt6oPcmy5bb/eX?=
+ =?us-ascii?Q?BylD3A4AVoJSB9wn1bCBl6gFn3fEuqCNAvw0T+6ey/QMIiAet5cpTAGgK3SJ?=
+ =?us-ascii?Q?ISXDRSg2eMjfrH+7emwKU1GSvHpZPUXjLNVfi8/McMFgWdY+KXEqUu/OIlVw?=
+ =?us-ascii?Q?yDEoZ9UYRViR6UwTgAFo/FcrIvxjIVWFmy2p+/r88Pw8wyfWc6a5dSwwRhhk?=
+ =?us-ascii?Q?y2hpAmi4Qr7X3x7qhA03xs/1TPMF/qRcHnWpjzJe9aimd8WeDNLdomUPNXqH?=
+ =?us-ascii?Q?P63dDsKDchxPD7JWMGuzMUEMF6RmWk1C4DTWDkleSfFZL53wePmOmTtbpn/L?=
+ =?us-ascii?Q?BY3M5i5SAUFhPX8Ef4KkYVvuOKHqOPkpbNHiFuspOqTGJg3823g5qRl20ult?=
+ =?us-ascii?Q?h3Vq6ryONlbe9rsXpUF5Do4hJQ6roSDu+JXjKSELOnRIXzsYL0BG/IA+IHeL?=
+ =?us-ascii?Q?bM2A4dbxlWnaXWZxHLarWzjwdMWjmxAEWHIjOiCkzfuLc/+zvY6OA1tDsIKe?=
+ =?us-ascii?Q?cstGbxM5eNmCrx12mYci3dWVLzsEJHl7vJFE5dPilx7YyEHCMMzGwmFPddVC?=
+ =?us-ascii?Q?HO0HdYevq7DryWDi4gAH/tQ4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70e18ae2-620f-4227-a58e-08d91168a633
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95ecbde1-d07d-4831-854d-08d91168aa45
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1226.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 14:59:01.3778 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2021 14:59:08.2098 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UfzoMtLH/E+Nsnw/Jmat+9nhOIEpS3GdOJKLEpWSsk1QOmYH3ktD3IXjKWzEGIBgx7PJBBtiGkh5R6jkewIWpg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: zdyDcPmGHCKEVIE7QVUY8/Kyae1X9ORtKYPASDdtCfky3Y7vqWhr0sv1wBvXYnWbIVpDu6RjbGngqMzetIus0A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1786
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,85 +139,192 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Jimmy Kizito <Jimmy.Kizito@amd.com>
 
 [Why]
-Some extra provisions are required during DPRX detection for links which
-lack physical HPD and AUX/DDC pins.
+Some links are dynamically assigned link encoders on stream enablement.
 
 [How]
-Avoid attempting to access nonexistent physical pins during DPRX
-detection.
+Update DisplayPort training parameter determination stage that assumes
+link encoder statically assigned to link.
 
 Signed-off-by: Jimmy Kizito <Jimmy.Kizito@amd.com>
 Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 27 ++++++++++++++++---
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  1 +
- 2 files changed, 25 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 17 +++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_link_ddc.c |  4 ++++
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 18 ++++++++++++++-
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c | 22 ++++++++++++++-----
+ .../gpu/drm/amd/display/dc/inc/link_enc_cfg.h |  7 +++++-
+ 5 files changed, 60 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 3fb0cebd6938..a2e7747ee387 100644
+index a2e7747ee387..d040d235c2db 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -247,6 +247,16 @@ bool dc_link_detect_sink(struct dc_link *link, enum dc_connection_type *type)
- 		link->dc->hwss.edp_wait_for_hpd_ready(link, true);
- 	}
+@@ -48,6 +48,7 @@
+ #include "dce/dmub_psr.h"
+ #include "dmub/dmub_srv.h"
+ #include "inc/hw/panel_cntl.h"
++#include "inc/link_enc_cfg.h"
  
-+	/* Link may not have physical HPD pin. */
-+	if (link->ep_type != DISPLAY_ENDPOINT_PHY) {
-+		if (link->hpd_status)
-+			*type = dc_connection_single;
-+		else
-+			*type = dc_connection_none;
-+
-+		return true;
-+	}
-+
- 	/* todo: may need to lock gpio access */
- 	hpd_pin = get_hpd_gpio(link->ctx->dc_bios, link->link_id,
- 			       link->ctx->gpio_service);
-@@ -432,8 +442,18 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
- static enum signal_type link_detect_sink(struct dc_link *link,
- 					 enum dc_detect_reason reason)
+ #define DC_LOGGER_INIT(logger)
+ 
+@@ -3737,8 +3738,22 @@ void dc_link_overwrite_extended_receiver_cap(
+ 
+ bool dc_link_is_fec_supported(const struct dc_link *link)
  {
--	enum signal_type result = get_basic_signal_type(link->link_enc->id,
--							link->link_id);
-+	enum signal_type result;
-+	struct graphics_object_id enc_id;
++	struct link_encoder *link_enc = NULL;
 +
-+	if (link->is_dig_mapping_flexible)
-+		enc_id = (struct graphics_object_id){.id = ENCODER_ID_UNKNOWN};
++	/* Links supporting dynamically assigned link encoder will be assigned next
++	 * available encoder if one not already assigned.
++	 */
++	if (link->is_dig_mapping_flexible &&
++			link->dc->res_pool->funcs->link_encs_assign) {
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
++		if (link_enc == NULL)
++			link_enc = link_enc_cfg_get_next_avail_link_enc(link->dc, link->dc->current_state);
++	} else
++		link_enc = link->link_enc;
++	ASSERT(link_enc);
++
+ 	return (dc_is_dp_signal(link->connector_signal) &&
+-			link->link_enc->features.fec_supported &&
++			link_enc->features.fec_supported &&
+ 			link->dpcd_caps.fec_cap.bits.FEC_CAPABLE &&
+ 			!IS_FPGA_MAXIMUS_DC(link->ctx->dce_environment));
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index 3bdd54e6248a..ba6b56f20269 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -685,6 +685,10 @@ bool dc_link_aux_try_to_configure_timeout(struct ddc_service *ddc,
+ 	bool result = false;
+ 	struct ddc *ddc_pin = ddc->ddc_pin;
+ 
++	/* Do not try to access nonexistent DDC pin. */
++	if (ddc->link->ep_type != DISPLAY_ENDPOINT_PHY)
++		return true;
++
+ 	if (ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout) {
+ 		ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout(ddc, timeout);
+ 		result = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index a22484e90e75..8565281e6179 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -14,6 +14,7 @@
+ #include "dpcd_defs.h"
+ #include "dc_dmub_srv.h"
+ #include "dce/dmub_hw_lock_mgr.h"
++#include "inc/link_enc_cfg.h"
+ 
+ /*Travis*/
+ static const uint8_t DP_VGA_LVDS_CONVERTER_ID_2[] = "sivarT";
+@@ -132,10 +133,22 @@ static enum dc_dp_training_pattern decide_cr_training_pattern(
+ static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *link,
+ 		const struct dc_link_settings *link_settings)
+ {
++	struct link_encoder *link_enc;
+ 	enum dc_dp_training_pattern highest_tp = DP_TRAINING_PATTERN_SEQUENCE_2;
+-	struct encoder_feature_support *features = &link->link_enc->features;
++	struct encoder_feature_support *features;
+ 	struct dpcd_caps *dpcd_caps = &link->dpcd_caps;
+ 
++	/* Access link encoder capability based on whether it is statically
++	 * or dynamically assigned to a link.
++	 */
++	if (link->is_dig_mapping_flexible &&
++			link->dc->res_pool->funcs->link_encs_assign)
++		link_enc = link_enc_cfg_get_link_enc_used_by_link(link->dc->current_state, link);
 +	else
-+		enc_id = link->link_enc->id;
-+	result = get_basic_signal_type(enc_id, link->link_id);
++		link_enc = link->link_enc;
++	ASSERT(link_enc);
++	features = &link_enc->features;
 +
-+	/* Use basic signal type for link without physical connector. */
-+	if (link->ep_type != DISPLAY_ENDPOINT_PHY)
-+		return result;
+ 	if (features->flags.bits.IS_TPS3_CAPABLE)
+ 		highest_tp = DP_TRAINING_PATTERN_SEQUENCE_3;
  
- 	/* Internal digital encoder will detect only dongles
- 	 * that require digital signal
-@@ -955,7 +975,8 @@ static bool dc_link_detect_helper(struct dc_link *link,
+@@ -1366,6 +1379,7 @@ static void configure_lttpr_mode_non_transparent(struct dc_link *link)
+ 		}
  
- 		case SIGNAL_TYPE_DISPLAY_PORT: {
- 			/* wa HPD high coming too early*/
--			if (link->link_enc->features.flags.bits.DP_IS_USB_C == 1) {
-+			if (link->ep_type == DISPLAY_ENDPOINT_PHY &&
-+			    link->link_enc->features.flags.bits.DP_IS_USB_C == 1) {
- 				/* if alt mode times out, return false */
- 				if (!wait_for_entering_dp_alt_mode(link))
- 					return false;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index fc5622ffec3d..5196df1ebad1 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -113,6 +113,7 @@ struct dc_link {
- 	/* TODO: Rename. Flag an endpoint as having a programmable mapping to a
- 	 * DIG encoder. */
- 	bool is_dig_mapping_flexible;
-+	bool hpd_status; /* HPD status of link without physical HPD pin. */
+ 		repeater_cnt = convert_to_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
++
+ 		for (repeater_id = repeater_cnt; repeater_id > 0; repeater_id--) {
+ 			aux_interval_address = DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1 +
+ 						((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (repeater_id - 1));
+@@ -3603,7 +3617,9 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 				lttpr_dpcd_data[DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT -
+ 								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
  
- 	bool edp_sink_present;
++		/* Attempt to train in LTTPR transparent mode if repeater count exceeds 8. */
+ 		is_lttpr_present = (link->dpcd_caps.lttpr_caps.phy_repeater_cnt > 0 &&
++				link->dpcd_caps.lttpr_caps.phy_repeater_cnt < 0xff &&
+ 				link->dpcd_caps.lttpr_caps.max_lane_count > 0 &&
+ 				link->dpcd_caps.lttpr_caps.max_lane_count <= 4 &&
+ 				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+index 1361b87d86d7..1a89d565c92e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+@@ -112,8 +112,8 @@ static void update_link_enc_assignment(
  
+ /* Return first available DIG link encoder. */
+ static enum engine_id find_first_avail_link_enc(
+-		struct dc_context *ctx,
+-		struct dc_state *state)
++		const struct dc_context *ctx,
++		const struct dc_state *state)
+ {
+ 	enum engine_id eng_id = ENGINE_ID_UNKNOWN;
+ 	int i;
+@@ -270,7 +270,7 @@ struct dc_link *link_enc_cfg_get_link_using_link_enc(
+ 
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ 		struct dc_state *state,
+-		struct dc_link *link)
++		const struct dc_link *link)
+ {
+ 	struct link_encoder *link_enc = NULL;
+ 	struct display_endpoint_id ep_id;
+@@ -296,8 +296,20 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ 
+ 	if (stream_idx != -1)
+ 		link_enc = state->streams[stream_idx]->link_enc;
+-	else
+-		dm_output_to_console("%s: No link encoder used by link(%d).\n", __func__, link->link_index);
++
++	return link_enc;
++}
++
++struct link_encoder *link_enc_cfg_get_next_avail_link_enc(
++	const struct dc *dc,
++	const struct dc_state *state)
++{
++	struct link_encoder *link_enc = NULL;
++	enum engine_id eng_id = ENGINE_ID_UNKNOWN;
++
++	eng_id = find_first_avail_link_enc(dc->ctx, state);
++	if (eng_id != ENGINE_ID_UNKNOWN)
++		link_enc = dc->res_pool->link_encoders[eng_id - ENGINE_ID_DIGA];
+ 
+ 	return link_enc;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+index 7d36e55f3097..883dd8733ea4 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+@@ -81,6 +81,11 @@ struct dc_link *link_enc_cfg_get_link_using_link_enc(
+ /* Return DIG link encoder used by link. NULL if unused. */
+ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ 		struct dc_state *state,
+-		struct dc_link *link);
++		const struct dc_link *link);
++
++/* Return next available DIG link encoder. NULL if none available. */
++struct link_encoder *link_enc_cfg_get_next_avail_link_enc(
++	const struct dc *dc,
++	const struct dc_state *state);
+ 
+ #endif /* DC_INC_LINK_ENC_CFG_H_ */
 -- 
 2.25.1
 
