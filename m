@@ -2,66 +2,78 @@ Return-Path: <SRS0=n+xW=KC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50515C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC37CC433ED
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:59:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09C9B61451
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09C9B61451
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 70B8A60FD8
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:59:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70B8A60FD8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1ADA6EC59;
-	Fri,  7 May 2021 20:38:47 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA3976EC59
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 20:38:45 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- q7-20020a9d57870000b02902a5c2bd8c17so9012013oth.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 13:38:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6E2A6EE12;
+	Fri,  7 May 2021 20:59:18 +0000 (UTC)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F5C6EDFF;
+ Fri,  7 May 2021 20:59:17 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id 197so9893477qkl.12;
+ Fri, 07 May 2021 13:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=951piRO59wm4FVLa51o36BrS1xqV90CKsf2wDZ1fXN4=;
- b=kRPpQTRcItOinZlQkGF4dGuwxHmWKH4EBuYPMutVBvwRIkbW893ngKa57IkjMMwgKH
- 6HjhQBJUR0QbTJZS/G6rcZyakVNM9h+qrwgGHfiG+mVvdq9oL3KaiDyrb3wIxmdDvHJj
- uiXbfxWc4PwdlhKDkDm9Zbqf/jiGg7vULxCXZ8dHCznmnYmQ9QNDtMdd14SjrruEpPZ3
- I75e7+9Wy0i7nQ9JFqxvsuZ9c5p696a9AqTntjxWRx0k5j8vTK2zwGjaSLUOdB9r9C1A
- WJpe1PhdzDNNeV3mdVE1jU3CbIkWYAWFB1ARO+9eLFtZ+ncMDeerxedanI7ShlsQsSS8
- JJjg==
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=WM3qTdeeeQvN9wqJqOAh1ks+lZ+P1gcdIZXNpOTonrc=;
+ b=r+Rn1FuazZF3GatZUdqZ9l+FO+YTxA1D3YJlPcigoUO/F7/3KKxnkKe8ET7nEtAaih
+ h6fBoqyszKYVFnDS+WIP+vKhSBconGErn5q6t57LNyLRSMcUsTeSRHebj6zjsqnU8x91
+ x0LcaPNDgX8NgwJDE+oQh/NazmWbYdiuBHCUfHS5bzAcrnOI8eVAd750FcUke5aERvyk
+ RyJfEPfKen91mYgLYXsAZnWv3MdAYzlzFwN7wIWnOJ841tOYm5RbkLFP9VKshPpvdoKI
+ PnUzOkCTWO4flAD3dS69vOC0XZLegxH4D7oQ0YhZ3bJhNRecuxNpozapdS0JCFX0VV/K
+ EdCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=951piRO59wm4FVLa51o36BrS1xqV90CKsf2wDZ1fXN4=;
- b=I/2ePhhKTj7eKURrGgALkB9cC786j7qXIVRny+rhPfUTTlv1E1OHWatuzq70n1FrPq
- y0YYHedXnA1dCE+fxDSb7E1wepSzBreGNy+STzI9RXbWAjaKr1TBl8NI77njWlr6F/5b
- fY0hKjRZhmENtE6uSSlJKmSB3NwMpfOMIPRxp2raKJOzy3EZOJc15FUY/d7q+Hox47kf
- vnkFjDNE7Wz2WYsJkQ0AMCi7FBno9+DuL/i3ynL4qRCQeyf/7n0bKPXd310UUuQenbka
- w2vmBB1KYLN3E43AovL4d+/1EB/QDDR0U5bHvSBvOi/RhEVJ3W/JsRC1TC7gnDyJi7DL
- jgTA==
-X-Gm-Message-State: AOAM532Bv7vSnycG/2G+rCMDsItofSr2SJHjFRAlhfnLK8IZuYVO9gwN
- jC0dRo+5Hiwgc6XakiWTHipuN4JHsxV4KdYXG4Q=
-X-Google-Smtp-Source: ABdhPJzAv99Ejh+sX4cZ8Fk+p1pfIvS2JCv88p4nyXmb90OdVc481kfZfNLll1ASkWCEJhFxgm/rq9syj6NuDsXydc0=
-X-Received: by 2002:a05:6830:1f12:: with SMTP id
- u18mr10133775otg.132.1620419925149; 
- Fri, 07 May 2021 13:38:45 -0700 (PDT)
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=WM3qTdeeeQvN9wqJqOAh1ks+lZ+P1gcdIZXNpOTonrc=;
+ b=CIK9W3hTfX/zHoaxlfcxAlVrGekMP/GkAKg32s237ToL5MacaV0Ld0FKMIR/PKNanF
+ Tly+Hdc+UZkhJY4KTbgEfiZb185lMBC6fjOWRvsL4a7YJsbPLHCL/apYJ1cjZm1V4z3Q
+ QcMl21MYZQnfVydHa1Zmw3aotCTYkBwPpRMJSSU/bf/A7NQm52KTy4yeBJzyhQQagJgQ
+ xzoPKdgBwcSoyAnt21NHUifTpodfTGRxLf5dZVD4FNvI2sP3RhQqgcmmKtybutN4CAxv
+ PK6/pRmlf4YU9LE5vbhV7OwvRTxUkOw4lNrpee8lvbcIaW7NGKQX1e9iFR9G1JbO8fmx
+ Xa2A==
+X-Gm-Message-State: AOAM530OQRPjUaUYG6XCBJ4GirEIeacIxBV31D5teziiWmT4zB0IdC+h
+ LgPTyD1i3+2sC3hoqk/K+Y4=
+X-Google-Smtp-Source: ABdhPJxyjJaPUgZZ5DfuESF5Im6k2ukuj2Fa/7dXtcMZSkR/HegPBCpoXKWS0kZr+E66ksFX99ZGJQ==
+X-Received: by 2002:a37:8c1:: with SMTP id 184mr11654363qki.345.1620421155940; 
+ Fri, 07 May 2021 13:59:15 -0700 (PDT)
+Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net.
+ [199.96.183.179])
+ by smtp.gmail.com with ESMTPSA id e13sm5982704qtm.35.2021.05.07.13.59.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 May 2021 13:59:14 -0700 (PDT)
+Date: Fri, 7 May 2021 16:59:13 -0400
+From: Tejun Heo <tj@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
+Message-ID: <YJWqIVnX9giaKMTG@slm.duckdns.org>
+References: <YJUBer3wWKSAeXe7@phenom.ffwll.local>
+ <CAOWid-dmRsZUjF3cJ8+mx5FM9ksNQ_P9xY3jqxFiFMvN29SaLw@mail.gmail.com>
+ <YJVnO+TCRW83S6w4@phenom.ffwll.local>
+ <CADnq5_Pvtj1vb0bak_gUkv9J3+vfsMZxVKTKYeUvwQCajAWoVQ@mail.gmail.com>
+ <YJVqL4c6SJc8wdkK@phenom.ffwll.local>
+ <CADnq5_PHjiHy=Su_1VKr5ycdnXN-OuSXw0X_TeNqSj+TJs2MGA@mail.gmail.com>
+ <CADnq5_OjaPw5iF_82bjNPt6v-7OcRmXmXECcN+Gdg1NcucJiHA@mail.gmail.com>
+ <YJVwtS9XJlogZRqv@phenom.ffwll.local>
+ <YJWWByISHSPqF+aN@slm.duckdns.org>
+ <CADnq5_Mwd-xHZQ4pt34=FPk2Gq3ij1FNHWsEz1LdS7_Dyo00iQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210423204931.428241-1-alexander.deucher@amd.com>
-In-Reply-To: <20210423204931.428241-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 7 May 2021 16:38:34 -0400
-Message-ID: <CADnq5_M3UOFy1juETM1DFOyvYWqBtPBGREEmA_BSk=UcNdhZCA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/display: fix dal_allocation documentation
-To: Alex Deucher <alexander.deucher@amd.com>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_Mwd-xHZQ4pt34=FPk2Gq3ij1FNHWsEz1LdS7_Dyo00iQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,48 +85,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Song Liu <songliubraving@fb.com>, Alexei Starovoitov <ast@kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@gmail.com>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Brian Welty <brian.welty@intel.com>,
+ John Fastabend <john.fastabend@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Yonghong Song <yhs@fb.com>,
+ Andrii Nakryiko <andriin@fb.com>,
+ Linux-Fsdevel <linux-fsdevel@vger.kernel.org>, Kenny Ho <y2kenny@gmail.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, KP Singh <kpsingh@chromium.org>,
+ "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
+ Kenny Ho <Kenny.Ho@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Network Development <netdev@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, bpf <bpf@vger.kernel.org>,
+ Martin KaFai Lau <kafai@fb.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Hello,
 
-Alex
+On Fri, May 07, 2021 at 03:55:39PM -0400, Alex Deucher wrote:
+> The problem is temporal partitioning on GPUs is much harder to enforce
+> unless you have a special case like SR-IOV.  Spatial partitioning, on
+> AMD GPUs at least, is widely available and easily enforced.  What is
+> the point of implementing temporal style cgroups if no one can enforce
+> it effectively?
 
-On Fri, Apr 23, 2021 at 4:49 PM Alex Deucher <alexander.deucher@amd.com> wrote:
->
-> Add missing structure elements.
->
-> Fixes: 1ace37b873c2 ("drm/amdgpu/display: Implement functions to let DC allocate GPU memory")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 77e338b3ab6b..d6a44b4fc472 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -135,6 +135,10 @@ struct amdgpu_dm_backlight_caps {
->
->  /**
->   * struct dal_allocation - Tracks mapped FB memory for SMU communication
-> + * @list: list of dal allocations
-> + * @bo: GPU buffer object
-> + * @cpu_ptr: CPU virtual address of the GPU buffer object
-> + * @gpu_addr: GPU virtual address of the GPU buffer object
->   */
->  struct dal_allocation {
->         struct list_head list;
-> --
-> 2.30.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+So, if generic fine-grained partitioning can't be implemented, the right
+thing to do is stopping pushing for full-blown cgroup interface for it. The
+hardware simply isn't capable of being managed in a way which allows generic
+fine-grained hierarchical scheduling and there's no point in bloating the
+interface with half baked hardware dependent features.
+
+This isn't to say that there's no way to support them, but what have been
+being proposed is way too generic and ambitious in terms of interface while
+being poorly developed on the internal abstraction and mechanism front. If
+the hardware can't do generic, either implement the barest minimum interface
+(e.g. be a part of misc controller) or go driver-specific - the feature is
+hardware specific anyway. I've repeated this multiple times in these
+discussions now but it'd be really helpful to try to minimize the interace
+while concentrating more on internal abstractions and actual control
+mechanisms.
+
+Thanks.
+
+-- 
+tejun
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
