@@ -7,119 +7,130 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33D78C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A21FC433B4
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 07:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B328961040
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 03:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B328961040
+	by mail.kernel.org (Postfix) with ESMTPS id B9EE1613F0
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 07:10:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9EE1613F0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 680E46E02D;
-	Fri,  7 May 2021 03:58:57 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C056E02D
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 03:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49A406ED8F;
+	Fri,  7 May 2021 07:10:11 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760073.outbound.protection.outlook.com [40.107.76.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0861B6ED8F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 May 2021 07:10:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hVfueuPVfZ7E0ya67U6ehbN/gFBJoZhJ/s4W0+an6CpqetDHEOcax6p+SNAAsWkvZdJlVkk+p1TwWZ05f1YdwrtXIeVx367qxE5Y6RubFpk3W8y4zbzuIie6FfDWkF158E/f1dA6+TFxhDcmazNJN9nMlw9T+5WD/ICxfxa5kT/ih3GIlnXF5p63TJjGvWFjYFLvG7OcT411lo9uCM73smVXY5rQ01OH6uRWrr0YLp5b6zPfnMtHrJVWYX302hUtbgJnbxuUE59eYcLSW/OuQL9Yb5nttua++P5vzQ/O2/3DevlotmAi3VZJaotmOFFZR6DFGyan+v7NVfThCUV1Eg==
+ b=OpbQQaPMMsIZ/mrYweOOS+KsGn/bJ7p97AfWQF4RDFlIBt0hBDucK5xk3TfMNNc6Hh1wGS6rlxw5N6RpY7BqQwN0Z13yLpYbr710fnZ+v7AlQtoXk/4sb4BEjEGHx3HBXGPA/RJNnLRV4K0vb4kAhQFEBF6WxYg+CWCkRXLYXOl6+is2ZHtbkIkXOLfNYXdIyTSuE/DD6h1d4uFU/yP4b6xZIA2Ct/xREkXx4fNn0I+hLZu7yvEeo6/GMCWXzgF7Kg9EYQ+qnpztDQl77tcreWHrGBDnlAhHkMb8RYImafgCHIjssBxe5mbo753WvdRkW/dPQm4D85K7qw/8XN6mGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ubN7BHBOdMZW+GS0p2Ce+Tt5B9lpC/gAj0McVbg2oa0=;
- b=Vm5PNTDu6lQi/DNV7Nw7+bFhymZQboQ+ER0IgxJ6KXiI14WszHF2Pg70/9is9Q/0W9Yw2gvoaNt8gcxEkCidq7/yBIEdw5WxdfmVo6dJJKYB0eG8yku7S6jCnJjR5ZZ7iUi3GikM7B7E++5tZ+1O0gLm+EmDOv+Nvm0RByJjF1Qs+EvT7LSQh2coi2IrZrEv0wtLriCz2VD7QjCsQB9RIkiSrmLJbFstlT3SBzJB/qTQ7GL2wx8JiLLU8EMCN9Zcz6PWlNPFEcMO+I6ptP31xvKEDRCrxsfrV52qeba1GFbIgHVQ8TLznzRFosom+oPHCfmCf4ABYuWCJsa8sPVlbA==
+ bh=e0sd860z9tviKHmww9DbD/dobJdtmNbnbywjiIH0jnc=;
+ b=je4T2RcHPXwCrnDbx5IHTAGvdiCS4nJul6s+4JR1vtXRbsqqj7Qq6pfK5EPd3ne2R8lr4DzQW7yuOWrwySONX+SzFfia9pLXEQ2Ru70URuyTaATmQqEjgHO3WIuLHRj8qcEMKNM2A2z9gMVL4RaRu3HhF+KHKvo9SgmnvgacDGsFmU+v16FdtL/7h8nKXvYooTmNNQdtU5pYvLIIaqfWZCHNH8R8G8QuDKQoSLQ/xtnFr6CXk05e/bWaacYgz4kRIV/cG3RdO8/oNjOOXgyYcah0gWE5LpqqU5c+S9VlMG3yt6c85QL2WjF92CgZ1NPu2iUV2jupqAQhX3WAHt+JwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ubN7BHBOdMZW+GS0p2Ce+Tt5B9lpC/gAj0McVbg2oa0=;
- b=mn4VBJ9lU4sRYaCr0rbHER8hW6yAdN/q5n9cwN/GYsf85Sh/2csJQvJyeKaB5D6S7xb/lt0p//Ko/+TtaoltmyiiYz93K28+joDyi3sdyML3QGGv1dz6OYeiIUh4Bt+t4CjGklOYQ9P7uMy6Egn1jE6fAQuWNfUK7m3Zg37Ngi4=
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
- by BN9PR12MB5260.namprd12.prod.outlook.com (2603:10b6:408:101::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.29; Fri, 7 May
- 2021 03:58:51 +0000
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4108.026; Fri, 7 May 2021
- 03:58:51 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Dennis" <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: update the shader to clear specific SGPRs
-Thread-Topic: [PATCH] drm/amdgpu: update the shader to clear specific SGPRs
-Thread-Index: AQHXQvMUcHlYZf+vqkuiiReYTxRVkarXZI/A
-Date: Fri, 7 May 2021 03:58:51 +0000
-Message-ID: <BN9PR12MB53683E5948EB8876782E1DB0FC579@BN9PR12MB5368.namprd12.prod.outlook.com>
-References: <20210507034245.22543-1-Dennis.Li@amd.com>
-In-Reply-To: <20210507034245.22543-1-Dennis.Li@amd.com>
+ bh=e0sd860z9tviKHmww9DbD/dobJdtmNbnbywjiIH0jnc=;
+ b=JqNaelRH71klKvITQIXkQQU+73aOUG+UXAdkB38PMmxcXY6s2qy8HB3El9TR7kGx6WYNCrVCbW7xEQlAk9L5B36bLgmJlHTfpl5oKmCUqG3zH8fbvQdald+9QufgEBHb+OvmnNHT3DD+9IztbRWkdhf2BN4zwngSn4BtY5WxwtY=
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ DM6PR12MB3308.namprd12.prod.outlook.com (2603:10b6:5:182::31) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4087.35; Fri, 7 May 2021 07:10:07 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::292c:5927:cb7c:cffb]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::292c:5927:cb7c:cffb%7]) with mapi id 15.20.4108.027; Fri, 7 May 2021
+ 07:10:07 +0000
+From: "Yu, Lang" <Lang.Yu@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Huang, Ray" <Ray.Huang@amd.com>, "Song,
+ Asher" <Asher.Song@amd.com>
+Subject: RE: [PATCH libdrm] Revert "tests/amdgpu: fix bo eviction test issue"
+Thread-Topic: [PATCH libdrm] Revert "tests/amdgpu: fix bo eviction test issue"
+Thread-Index: AQHXQl3x67tXHmSIbUKJ2qA3wy2GjqrXmsbQ
+Date: Fri, 7 May 2021 07:10:07 +0000
+Message-ID: <DM6PR12MB42508D945ADD562AAB8BCA7EFB579@DM6PR12MB4250.namprd12.prod.outlook.com>
+References: <20210506095509.7815-1-guchun.chen@amd.com>
+In-Reply-To: <20210506095509.7815-1-guchun.chen@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-07T03:58:49Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e229d521-ab28-4ac7-9de6-df6ed9dfb347;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2021-05-07T07:09:50Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=372f4c87-077f-40a1-83dc-854e1c4ded5c;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e92f64d6-957f-48e3-efdb-08d9110c6d3b
-x-ms-traffictypediagnostic: BN9PR12MB5260:
+x-ms-office365-filtering-correlation-id: 1cd1c1a6-ea17-4335-c568-08d91127255c
+x-ms-traffictypediagnostic: DM6PR12MB3308:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB526025A195C82781B14AF6B5FC579@BN9PR12MB5260.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-microsoft-antispam-prvs: <DM6PR12MB3308F6E544373152D00B3FE2FB579@DM6PR12MB3308.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:28;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: awBGG58ZbsXQ5qfDm+i548XdJ11QMeEu2jc0Gv+vPrZyry6JsGYhLkbXIqMVmQjVCCa175sLJBm6dw4jK2jEUwrpPMtRtu6JVc3ehon7yL5AMUU97p4BrMhCoS+JpfvQ1GV7Har/e78Mq5m/qNTwWcgpZek79sU2wHcejQJ8FV8D98l7xFm3fmxb+yAV39EgFivzRawSznVzQLMAFAEX5DP4j2WMtk3AWndGxFFR3sZ8UD1ZY1MjRSNgV9JyL67y08krNgCXOFW81LD/BQmcHd0Xwtd8YSDvcrLYa86W3YwKJOEELjzJU9Y9A+frBrnCdpCAx2aP7ixgSYZunM+cRlwc1yRUlrIpn9e0+zPIPISAzBP18LHB+J05yTSkSVrQVQVjJCg2K3eue6amdMl3kHNAB2pQ/ank7Pwtur90vffxO+GruV8CU6TCy3QpoLNANXlVpfFV59uVgDvCY8crh3l82Py/GRhJTTqdqNpu7/uxILFI/iLA9I7NRDGqWq2dG6AlBbCuuP1nw8DCtMUYSbZneF0bPofIih8I6/qWGx6PMp+EXV2Fg2Tzq3WdEZtROiyfIGlgP7TZJGZ8tCA2xom31wYDJDk5h88RSPxnmh+A+PbmBx9czcS7dmxIeNO8Ktvnh9cKMnxEqr2Yg8Zw6g==
+x-microsoft-antispam-message-info: 0bI/T36vKkh8Rr5FwLdQg0cBonRUGf3Sqx8RPKN2hjAvJGjEDf+V4oQFS08RO8r59vDZDBRy/v1kLS1raAzaR/XYz0WoCLoWxNpalRJCKNztBAHurE96cFx6js28PdeoCS8Iwf4BwYAiR8GJBZ5D8/LphVvx0g5tR7FoEEYmAt2AuLDbOA0cBhxsHBgg6dBTR8hwxehWlybWYINfO40da1UMWfrrCTi/xx/ffBbkAePLwsCmGkux8oUCBNENCuBAfcquxLv/eDzdXoqMBDRIZJEpqWPIUgipHOT+LWoi/iNpoYUDU1YE0gHkQR3coYOoyUJJX7+WcDQwj1JDqs8venpN0gS93442gHzqdhg1b5SOjfAHtGLX9ai9Q1J5amurEhfb0fYNBd2wxiA8XMlEPVZWq5B6blqp9dLiyLySPRMWKHkm1pXtYciHuaItt4HfITdYTZMmkZZmeKO3RihVK6iIAY0/dC6iBrLDPqDdUMf4R45BYjNoAj2BzkpVdoEo2vNEeTmcMmFMHrFyCZQCoYNVcUptr/ZSGn3NSnFhYqLlExH4WtUSm7eE/4yyadVw8CR5vRzTVfKiRsadt5f+jWkIi9lC9310Xt7E0zLPZk0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(76116006)(186003)(55016002)(6636002)(2906002)(8676002)(6506007)(53546011)(86362001)(66556008)(38100700002)(66476007)(122000001)(4326008)(66446008)(64756008)(66946007)(5660300002)(8936002)(478600001)(52536014)(110136005)(33656002)(26005)(83380400001)(9686003)(316002)(71200400001)(15650500001)(7696005)(17423001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(2906002)(6636002)(478600001)(83380400001)(122000001)(6506007)(66446008)(76116006)(66476007)(8676002)(64756008)(38100700002)(55016002)(52536014)(66556008)(26005)(86362001)(9686003)(71200400001)(186003)(53546011)(5660300002)(7696005)(316002)(33656002)(8936002)(66946007)(110136005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?R0EfDE/mGLsTIk6vmquda7r3W7nQNb3+h7Y/V5b5j+1zUnS8Vhvz9/aBInc8?=
- =?us-ascii?Q?YZQL5U1qC8+W7AEiXF0bCEmAhHmWVmFkQ2SzH3MALyZlD/rDFIIN1AIB0kBV?=
- =?us-ascii?Q?hC++c+HOHWjljBYkC0oR+XRjaqXwYqIzp66bMvhB/tm96FHyhQn/FfXXsQbV?=
- =?us-ascii?Q?wHbyFNAhXBjpWI2bgcJVqDVeCiydvx1HKLKwI3reioKUnRkq3q1s4900+JQr?=
- =?us-ascii?Q?8JOytj3taHxAWqLuF0jcjm8rQtrwU6xqhz6JX89+vdEkOK474E4niZGbmV6K?=
- =?us-ascii?Q?dYSEy6Zvbww7A5KcvRBCVYCB7Vxd8vY3odNWYcBSn+XTXV5ytHIHSRM/86oK?=
- =?us-ascii?Q?BM38ZrS5qJRfYyfiYYKFCtkXAIdHj6dTuE+r+zYsk1W6ipTjOLCBsSAy0PkZ?=
- =?us-ascii?Q?3ujiVUXsp1Z6u93h/Wpw2lbiCA6CPRuIBfMKtleRS6s8tM6LRND1KTaY+yda?=
- =?us-ascii?Q?Zjz/ecZkcB56tU8XU4FpJGpjHPjNcq72TF2j6+OKI9rPv8OlgXvdZWw7IaqC?=
- =?us-ascii?Q?jhLmjrq3z+aPjWEoazYShnekTKO+UnVjAJf+vu1ZK2eIpcFtZ4lUk39noEii?=
- =?us-ascii?Q?EQWxnuHyPsDB2QFgg2lPjo+9hsMyWSz4VCMerJSVgxRtgNf5JE52LT1t5m3I?=
- =?us-ascii?Q?mg+lvmdOtqI3+J5LJVOYQk00/7UAtsNbYIyUyv03AusWviM+WOIwhWQYZvVl?=
- =?us-ascii?Q?4C7bWedL9xBITBZZWikPmONIqUQxCZV1epIrYlwPfbT295nMgjdOvdIWGwyW?=
- =?us-ascii?Q?tcuttAptzihyhAHba0x7dBdWMOv15bXvJUlKYMkNZNYcx/Q7OCOIOeLex8iu?=
- =?us-ascii?Q?Y4rwNwHtEn8oUtVnRfoqJE4JthxVdOmIGtxB9ESO3IzO0I1Jm2X6p7uQmYBj?=
- =?us-ascii?Q?ozuIyOIKDwdiEWk4hFOyUjEwH/+qoPQV+IP0Fs1LyKhL98UN7BIeqTDdjCMr?=
- =?us-ascii?Q?A9SFSf/8csq/xEgOqmdNzsjTdr1E0VOEUg7gaq7bqK4V74AYMrLOZDlttrDU?=
- =?us-ascii?Q?7NUYUaOzDhRGAW+DeswKKzMecCyRMUEIs5yOOU+buJy5KlPxkTGF8uOj5kYn?=
- =?us-ascii?Q?rSoloGa8+rZ5TH7Aq1NQ2h7ZFm2U296Gtsk/iAMowuv2UXnmFmyyFKXzXTS5?=
- =?us-ascii?Q?FzPDhUL4swUOZkOCOSHV9O4vhSpvih3ZbAfRF8/Pvf1gE6X4ktbZckdTiYjD?=
- =?us-ascii?Q?O5e1EZ+soRMZ7bP5xhcA/NjnxTldB4t1jEi/bgD9H4yGqnpLY5uv3cO2Kt70?=
- =?us-ascii?Q?V53jHx4DEf7FeeUPp/P0VzTKK8VNNfQmMPQ0Kpk3BZ5/4yt142JnyusTnQ//?=
- =?us-ascii?Q?gm1DWM+yxkDtE0PrWGm19HjS?=
+x-ms-exchange-antispam-messagedata: =?iso-2022-jp?B?LzVKL3RvYzlHdkZQTWFpZlBobjIwN3lPOGJaSXBKajFEZXJraFpOL09m?=
+ =?iso-2022-jp?B?anlYcjVBUnVDeEdWdXZhWVJjVis0YzZZRDBONUZPM1NBc0cxV3FVWG9y?=
+ =?iso-2022-jp?B?R3JEdTEwQXl3S2xpcnMxS25IKy9xWlh1ZE5XamE2NVptd1JtYWg2N1RL?=
+ =?iso-2022-jp?B?ODY2WFJybVZqQk9GeXJuYlZWQlVLRVZuRmgzNDdOc3crYlh2ajVFbTda?=
+ =?iso-2022-jp?B?RVgraW03YzV0ZTdRbXNiNzNHMERPbldrK2VEN2JSOWJrSmNLMmtjQmtJ?=
+ =?iso-2022-jp?B?RmpGSWk1SHU5RmpJaVpUeGtHN0dTY0hGaTN0Qm9xRDQwNGZram50YU5p?=
+ =?iso-2022-jp?B?bTVQY2UrZDNpWEc1bFVUYk5TNlY4V1VPVngwZkRNVERpU090NjhVUzJs?=
+ =?iso-2022-jp?B?dUh3SjBLbUtFTlZ1TWNjVzAvVGgzYkxiM3RwVEZNSmpPZVU4OUd1SWJ2?=
+ =?iso-2022-jp?B?NVo1eWpyeGhqWEJLMnJHSzBUVzZOb294SlkwWlY5ay9sM2tWS01GOXRE?=
+ =?iso-2022-jp?B?U3JjVUNQUE9Mamtqb3ZYdWpYdmMyUjJTZVJ3NEFRbnJWemZsUmYxalI0?=
+ =?iso-2022-jp?B?Wk10RGFTV1FUdVVMRnY1OUI5TTZpVVRLSVkzREdBSXAyUTkxVTFZMWdL?=
+ =?iso-2022-jp?B?UXMxeWcvd0U0NEpvT3M3eFRtM0NVbmNybmZrRnVVZE55SEpYclZnRDdC?=
+ =?iso-2022-jp?B?dUlOQmo5eThoV2ZoaDRWQ1FCSHl5U3JzSG05ekxlUnlvYVRZUVdieXlC?=
+ =?iso-2022-jp?B?ZUVMVmcwSXpvaktRRk04czZxRlBzb25DcFc3YTN4VTZEK2p6cDVKWXY4?=
+ =?iso-2022-jp?B?eG42NGw2eFRMS2pZSmpraldlSVk2NlMvenRKVlVtK1I4RGxuUUZPV2I4?=
+ =?iso-2022-jp?B?eFArK1hoTjRGdm9Pa3Q1ZlR0elM1amdrdkxuNytYcCswVnRETzlyZnJj?=
+ =?iso-2022-jp?B?RWJkbTRXOHRkVmlIbitzTWRiQk1zczJtejhyR3VMR2NWL1NnYVpmSzBl?=
+ =?iso-2022-jp?B?S21QTW91eUo1RFJLbHhZTmhqWlMwRHE3SmRNVzhhVDl3R3RrTHp5dmVO?=
+ =?iso-2022-jp?B?bXNzSHlxWnFycmF3U3FFWklYV3laQ3lGR0srb3M2M2hqeGgzOUtVY3BT?=
+ =?iso-2022-jp?B?VjFYMzREK05hUkZlSTVhd1JCUWc5ZVBWYXZHSWNVeEo3SmJZZXYxdjJi?=
+ =?iso-2022-jp?B?YnpQUmpGcG1xV2hhaWhwbC9YbkI0VWFlZ2hma1FodEl2QTlsSGpIQUk4?=
+ =?iso-2022-jp?B?MjRQV1c4dkdPTHd1ZHVhRmkvU3czVkVuTHRzajk3UDNZaG5IZlR4MFNr?=
+ =?iso-2022-jp?B?aXJ0c01PQkRvUlVINitmaWRuT1RLdzA0VjVKTDR4R240ZitlSS9mVXpH?=
+ =?iso-2022-jp?B?ZzNJNG5KNkhzbEY4MzI2ekR6WitqSGpGcXNNOXRMSUxSZC9LZmlML1JF?=
+ =?iso-2022-jp?B?OUFBcHZSZkw1UW9xTzRhMFVjZU5TMWcxSm85b3EwUzViUWdieS9MZHRG?=
+ =?iso-2022-jp?B?SFdsSDhHLzFoMjRRWDFIZ244bVVrbXA2NXQvMXQ1dkppOHNQUytRMERY?=
+ =?iso-2022-jp?B?WUlKR0lhSCtGKzRhWGFUWnlHTU9UMXhmSWZEdFlCUHRQYzN0N3B5by9R?=
+ =?iso-2022-jp?B?aEF1enNmT2txaHpoZWliVjI4TU5wN3dSS3dOdEVQTld5aDZqNWhJMmFR?=
+ =?iso-2022-jp?B?VjFvbGtra3JSUkc2V0tkZndqYlFwdjZzd0pwWXBJN2x3bzZiM0hGR3ps?=
+ =?iso-2022-jp?B?YUpXWHErcGhFbWk3MTFLbGhhd2paMkhxWjRxU0dTeUl0dHRsL01hOUM5?=
+ =?iso-2022-jp?B?QTRDVVhuZUVWODBlc2drekhNb283dDdpc2FWNmQwcFFSRk4yT2s4djRs?=
+ =?iso-2022-jp?B?L1E5bG15bEFHSjhWTFZIVTg2Q2VWb3E0dGVPZlFvT3p2US9rU3I5enZm?=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e92f64d6-957f-48e3-efdb-08d9110c6d3b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2021 03:58:51.8176 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cd1c1a6-ea17-4335-c568-08d91127255c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2021 07:10:07.6704 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +CMqiRbeGUqHOc5tzCBv/mgZ2321EhH5ilFm8y1bKq3OsuQCzqmHFJCHdzFHFfDc03drsy0AwGk91ObeYG3ZeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5260
+X-MS-Exchange-CrossTenant-userprincipalname: 0BYGUzzg/DlbLkOFimJ1Ofd2O7TleK/9yCDGnxgKOM2RKjgAW1Ll/7a2GQfKTzxIVp8PQZmuX8br92jcSdEvtQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,156 +142,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Dennis" <Dennis.Li@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+[AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Regards,
-Hawking
+Reviewed-by:  Lang Yu <Lang.Yu@amd.com>
+
+Regards，
+Lang
+
 -----Original Message-----
-From: Dennis Li <Dennis.Li@amd.com> 
-Sent: Friday, May 7, 2021 11:43
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: Li, Dennis <Dennis.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: update the shader to clear specific SGPRs
+From: Chen, Guchun <Guchun.Chen@amd.com> 
+Sent: Thursday, May 6, 2021 5:55 PM
+To: amd-gfx@lists.freedesktop.org; Yu, Lang <Lang.Yu@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Song, Asher <Asher.Song@amd.com>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH libdrm] Revert "tests/amdgpu: fix bo eviction test issue"
 
-Add shader codes to explicitly clear specific SGPRs, such as flat_scratch_lo, flat_scratch_hi and so on. And also correct the allocation size of SGPRs in PGM_RSRC1.
+This reverts commit a5a400c9581c3b91598623603067556b18084c5d.
 
-Signed-off-by: Dennis Li <Dennis.Li@amd.com>
+bo evict test was disabled by default per below commit. So still keep it as disabled.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index 025b1e42e31b..8ad6717e67d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -220,23 +220,24 @@ static const u32 sgpr112_init_compute_shader_aldebaran[] = {
- 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
- 	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
- 	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
--	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
--	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
--	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
--	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
--	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
--	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
--	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
--	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
--	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
--	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
--	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
--	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
--	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
--	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
--	0xbed80080, 0xbed90080, 0xbeda0080, 0xbedb0080, 0xbedc0080, 0xbedd0080,
--	0xbede0080, 0xbedf0080, 0xbee00080, 0xbee10080, 0xbee20080, 0xbee30080,
--	0xbee40080, 0xbee50080, 0xbf810000
-+	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080, 0xbeeb0080,
-+	0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080, 0xbefe0080,
-+	0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080,
-+	0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080,
-+	0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080,
-+	0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080,
-+	0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080,
-+	0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080,
-+	0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080,
-+	0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080,
-+	0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080, 0xbebc0080,
-+	0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080, 0xbec20080,
-+	0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080, 0xbec80080,
-+	0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080, 0xbece0080,
-+	0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080, 0xbed40080,
-+	0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080, 0xbeda0080,
-+	0xbedb0080, 0xbedc0080, 0xbedd0080, 0xbede0080, 0xbedf0080, 0xbee00080,
-+	0xbee10080, 0xbee20080, 0xbee30080, 0xbee40080, 0xbee50080, 
-+0xbf810000,
- };
+1f6a85cc test/amdgpu: disable bo eviction test by default
+
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ tests/amdgpu/amdgpu_test.c |  3 +++
+ tests/amdgpu/basic_tests.c | 13 ++++---------
+ 2 files changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c index 60f3a508..77bbfbcc 100644
+--- a/tests/amdgpu/amdgpu_test.c
++++ b/tests/amdgpu/amdgpu_test.c
+@@ -496,6 +496,9 @@ static void amdgpu_disable_suites()
+ 				"gfx ring slow bad draw test (set amdgpu.lockup_timeout=50)", CU_FALSE))
+ 			fprintf(stderr, "test deactivation failed - %s\n", CU_get_error_msg());
  
- const struct soc15_reg_entry sgpr112_init_regs_aldebaran[] = { @@ -244,7 +245,7 @@ const struct soc15_reg_entry sgpr112_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 8 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x2c0 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x340 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff }, @@ -262,21 +263,22 @@ static const u32 sgpr96_init_compute_shader_aldebaran[] = {
- 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
- 	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbf8e003f, 0xc0030200,
- 	0x00000000, 0xbf8c0000, 0xbf06ff08, 0xdeadbeaf, 0xbf84fff9, 0x81028102,
--	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080, 0xbe890080,
--	0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080,
--	0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080,
--	0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080,
--	0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080,
--	0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080,
--	0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080,
--	0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080,
--	0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080,
--	0xbeba0080, 0xbebb0080, 0xbebc0080, 0xbebd0080, 0xbebe0080, 0xbebf0080,
--	0xbec00080, 0xbec10080, 0xbec20080, 0xbec30080, 0xbec40080, 0xbec50080,
--	0xbec60080, 0xbec70080, 0xbec80080, 0xbec90080, 0xbeca0080, 0xbecb0080,
--	0xbecc0080, 0xbecd0080, 0xbece0080, 0xbecf0080, 0xbed00080, 0xbed10080,
--	0xbed20080, 0xbed30080, 0xbed40080, 0xbed50080, 0xbed60080, 0xbed70080,
--	0xbed80080, 0xbed90080, 0xbf810000,
-+	0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080, 0xbeeb0080,
-+	0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080, 0xbefe0080,
-+	0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080,
-+	0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080,
-+	0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080,
-+	0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080,
-+	0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080,
-+	0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080,
-+	0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080,
-+	0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080,
-+	0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbeba0080, 0xbebb0080, 0xbebc0080,
-+	0xbebd0080, 0xbebe0080, 0xbebf0080, 0xbec00080, 0xbec10080, 0xbec20080,
-+	0xbec30080, 0xbec40080, 0xbec50080, 0xbec60080, 0xbec70080, 0xbec80080,
-+	0xbec90080, 0xbeca0080, 0xbecb0080, 0xbecc0080, 0xbecd0080, 0xbece0080,
-+	0xbecf0080, 0xbed00080, 0xbed10080, 0xbed20080, 0xbed30080, 0xbed40080,
-+	0xbed50080, 0xbed60080, 0xbed70080, 0xbed80080, 0xbed90080, 
-+0xbf810000,
- };
++	if (amdgpu_set_test_active(BASIC_TESTS_STR, "bo eviction Test", CU_FALSE))
++		fprintf(stderr, "test deactivation failed - %s\n", 
++CU_get_error_msg());
++
+ 	/* This test was ran on GFX8 and GFX9 only */
+ 	if (family_id < AMDGPU_FAMILY_VI || family_id > AMDGPU_FAMILY_RV)
+ 		if (amdgpu_set_test_active(BASIC_TESTS_STR, "Sync dependency Test", CU_FALSE)) diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c index 8e7c4916..3a4214f5 100644
+--- a/tests/amdgpu/basic_tests.c
++++ b/tests/amdgpu/basic_tests.c
+@@ -928,15 +928,6 @@ static void amdgpu_bo_eviction_test(void)
+ 				   0, &vram_info);
+ 	CU_ASSERT_EQUAL(r, 0);
  
- const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = { @@ -284,7 +286,7 @@ const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_X), 0x40 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Y), 0xc },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_NUM_THREAD_Z), 1 },
--	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x240 },
-+	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC1), 0x2c0 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC2), 0x6 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_PGM_RSRC3), 0x0 },
- 	{ SOC15_REG_ENTRY(GC, 0, regCOMPUTE_STATIC_THREAD_MGMT_SE0), 0xffffffff }, @@ -305,16 +307,17 @@ const struct soc15_reg_entry sgpr96_init_regs_aldebaran[] = {  static const u32 sgpr64_init_compute_shader_aldebaran[] = {
- 	0xb8840904, 0xb8851a04, 0xb8861344, 0xb8831804, 0x9208ff06, 0x00000280,
- 	0x9209a805, 0x920a8a04, 0x81080908, 0x81080a08, 0x81080308, 0x8e078208,
--	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbe880080,
--	0xbe890080, 0xbe8a0080, 0xbe8b0080, 0xbe8c0080, 0xbe8d0080, 0xbe8e0080,
--	0xbe8f0080, 0xbe900080, 0xbe910080, 0xbe920080, 0xbe930080, 0xbe940080,
--	0xbe950080, 0xbe960080, 0xbe970080, 0xbe980080, 0xbe990080, 0xbe9a0080,
--	0xbe9b0080, 0xbe9c0080, 0xbe9d0080, 0xbe9e0080, 0xbe9f0080, 0xbea00080,
--	0xbea10080, 0xbea20080, 0xbea30080, 0xbea40080, 0xbea50080, 0xbea60080,
--	0xbea70080, 0xbea80080, 0xbea90080, 0xbeaa0080, 0xbeab0080, 0xbeac0080,
--	0xbead0080, 0xbeae0080, 0xbeaf0080, 0xbeb00080, 0xbeb10080, 0xbeb20080,
--	0xbeb30080, 0xbeb40080, 0xbeb50080, 0xbeb60080, 0xbeb70080, 0xbeb80080,
--	0xbeb90080, 0xbf810000,
-+	0x81078407, 0xc0410080, 0x00000007, 0xbf8c0000, 0xbefc0080, 0xbeea0080,
-+	0xbeeb0080, 0xbf00f280, 0xbee60080, 0xbee70080, 0xbee80080, 0xbee90080,
-+	0xbefe0080, 0xbeff0080, 0xbe880080, 0xbe890080, 0xbe8a0080, 0xbe8b0080,
-+	0xbe8c0080, 0xbe8d0080, 0xbe8e0080, 0xbe8f0080, 0xbe900080, 0xbe910080,
-+	0xbe920080, 0xbe930080, 0xbe940080, 0xbe950080, 0xbe960080, 0xbe970080,
-+	0xbe980080, 0xbe990080, 0xbe9a0080, 0xbe9b0080, 0xbe9c0080, 0xbe9d0080,
-+	0xbe9e0080, 0xbe9f0080, 0xbea00080, 0xbea10080, 0xbea20080, 0xbea30080,
-+	0xbea40080, 0xbea50080, 0xbea60080, 0xbea70080, 0xbea80080, 0xbea90080,
-+	0xbeaa0080, 0xbeab0080, 0xbeac0080, 0xbead0080, 0xbeae0080, 0xbeaf0080,
-+	0xbeb00080, 0xbeb10080, 0xbeb20080, 0xbeb30080, 0xbeb40080, 0xbeb50080,
-+	0xbeb60080, 0xbeb70080, 0xbeb80080, 0xbeb90080, 0xbf810000,
- };
+-	r = amdgpu_query_heap_info(device_handle, AMDGPU_GEM_DOMAIN_GTT,
+-				   0, &gtt_info);
+-	CU_ASSERT_EQUAL(r, 0);
+-
+-	if (vram_info.max_allocation > gtt_info.heap_size/3) {
+-		vram_info.max_allocation = gtt_info.heap_size/3;
+-		gtt_info.max_allocation = vram_info.max_allocation;
+-	}
+-
+ 	r = amdgpu_bo_alloc_wrap(device_handle, vram_info.max_allocation, 4096,
+ 				 AMDGPU_GEM_DOMAIN_VRAM, 0, &vram_max[0]);
+ 	CU_ASSERT_EQUAL(r, 0);
+@@ -944,6 +935,10 @@ static void amdgpu_bo_eviction_test(void)
+ 				 AMDGPU_GEM_DOMAIN_VRAM, 0, &vram_max[1]);
+ 	CU_ASSERT_EQUAL(r, 0);
  
- const struct soc15_reg_entry sgpr64_init_regs_aldebaran[] = {
++	r = amdgpu_query_heap_info(device_handle, AMDGPU_GEM_DOMAIN_GTT,
++				   0, &gtt_info);
++	CU_ASSERT_EQUAL(r, 0);
++
+ 	r = amdgpu_bo_alloc_wrap(device_handle, gtt_info.max_allocation, 4096,
+ 				 AMDGPU_GEM_DOMAIN_GTT, 0, &gtt_max[0]);
+ 	CU_ASSERT_EQUAL(r, 0);
 --
 2.17.1
 _______________________________________________
