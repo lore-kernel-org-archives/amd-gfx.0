@@ -2,40 +2,38 @@ Return-Path: <SRS0=n+xW=KC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2733C43461
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 187FAC43460
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:57:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56D5B613C0
+	by mail.kernel.org (Postfix) with ESMTPS id D158B613C0
 	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 18:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56D5B613C0
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D158B613C0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4E66EE75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D75A6EE77;
 	Fri,  7 May 2021 18:57:16 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7220E6E0FD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8534B6EDE1;
  Fri,  7 May 2021 18:57:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DAF67B1C9;
+ by mx2.suse.de (Postfix) with ESMTP id D945BAF19;
  Fri,  7 May 2021 18:57:12 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com
-Subject: [PATCH 3/4] drm: Mark PCI AGP helpers as legacy
-Date: Fri,  7 May 2021 20:57:08 +0200
-Message-Id: <20210507185709.22797-4-tzimmermann@suse.de>
+Subject: [PATCH 0/4] drm: Mark DRM's AGP code as legacy
+Date: Fri,  7 May 2021 20:57:05 +0200
+Message-Id: <20210507185709.22797-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210507185709.22797-1-tzimmermann@suse.de>
-References: <20210507185709.22797-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,137 +53,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DRM's AGP helpers for PCI are only required by legacy drivers. Put them
-behind CONFIG_DRM_LEGACY and add the _legacy_ infix.
+This patch moves the DRM core's AGP code behind CONFIG_DRM_LEGACY. The
+only use besides legacy, UMS drivers is radeon, which can implement the
+required functionality by itself.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_drv.c      |  4 +---
- drivers/gpu/drm/drm_internal.h |  5 -----
- drivers/gpu/drm/drm_legacy.h   |  6 ++++++
- drivers/gpu/drm/drm_pci.c      | 20 ++++++++++----------
- 4 files changed, 17 insertions(+), 18 deletions(-)
+This patchset has no impact on the AGP support of existing drivers.
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c2f78dee9f2d..3d8d68a98b95 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -941,9 +941,7 @@ void drm_dev_unregister(struct drm_device *dev)
- 	if (dev->driver->unload)
- 		dev->driver->unload(dev);
- 
--	if (dev->agp)
--		drm_pci_agp_destroy(dev);
--
-+	drm_legacy_pci_agp_destroy(dev);
- 	drm_legacy_rmmaps(dev);
- 
- 	remove_compat_control_link(dev);
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index 1265de2b9d90..1dcb5797a3bb 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -56,7 +56,6 @@ void drm_lastclose(struct drm_device *dev);
- /* drm_pci.c */
- int drm_legacy_irq_by_busid(struct drm_device *dev, void *data,
- 			    struct drm_file *file_priv);
--void drm_pci_agp_destroy(struct drm_device *dev);
- int drm_pci_set_busid(struct drm_device *dev, struct drm_master *master);
- 
- #else
-@@ -67,10 +66,6 @@ static inline int drm_legacy_irq_by_busid(struct drm_device *dev, void *data,
- 	return -EINVAL;
- }
- 
--static inline void drm_pci_agp_destroy(struct drm_device *dev)
--{
--}
--
- static inline int drm_pci_set_busid(struct drm_device *dev,
- 				    struct drm_master *master)
- {
-diff --git a/drivers/gpu/drm/drm_legacy.h b/drivers/gpu/drm/drm_legacy.h
-index f71358f9eac9..ae2d7d2a31c7 100644
---- a/drivers/gpu/drm/drm_legacy.h
-+++ b/drivers/gpu/drm/drm_legacy.h
-@@ -211,4 +211,10 @@ void drm_master_legacy_init(struct drm_master *master);
- static inline void drm_master_legacy_init(struct drm_master *master) {}
- #endif
- 
-+#if IS_ENABLED(CONFIG_DRM_LEGACY) && IS_ENABLED(CONFIG_PCI)
-+void drm_legacy_pci_agp_destroy(struct drm_device *dev);
-+#else
-+static inline void drm_legacy_pci_agp_destroy(struct drm_device *dev) {}
-+#endif
-+
- #endif /* __DRM_LEGACY_H__ */
-diff --git a/drivers/gpu/drm/drm_pci.c b/drivers/gpu/drm/drm_pci.c
-index 03bd863ff0b2..6e9af8b40419 100644
---- a/drivers/gpu/drm/drm_pci.c
-+++ b/drivers/gpu/drm/drm_pci.c
-@@ -119,7 +119,9 @@ int drm_legacy_irq_by_busid(struct drm_device *dev, void *data,
- 	return drm_pci_irq_by_busid(dev, p);
- }
- 
--void drm_pci_agp_destroy(struct drm_device *dev)
-+#ifdef CONFIG_DRM_LEGACY
-+
-+void drm_legacy_pci_agp_destroy(struct drm_device *dev)
- {
- 	if (dev->agp) {
- 		arch_phys_wc_del(dev->agp->agp_mtrr);
-@@ -129,9 +131,7 @@ void drm_pci_agp_destroy(struct drm_device *dev)
- 	}
- }
- 
--#ifdef CONFIG_DRM_LEGACY
--
--static void drm_pci_agp_init(struct drm_device *dev)
-+static void drm_legacy_pci_agp_init(struct drm_device *dev)
- {
- 	if (drm_core_check_feature(dev, DRIVER_USE_AGP)) {
- 		if (pci_find_capability(to_pci_dev(dev->dev), PCI_CAP_ID_AGP))
-@@ -145,9 +145,9 @@ static void drm_pci_agp_init(struct drm_device *dev)
- 	}
- }
- 
--static int drm_get_pci_dev(struct pci_dev *pdev,
--			   const struct pci_device_id *ent,
--			   const struct drm_driver *driver)
-+static int drm_legacy_get_pci_dev(struct pci_dev *pdev,
-+				  const struct pci_device_id *ent,
-+				  const struct drm_driver *driver)
- {
- 	struct drm_device *dev;
- 	int ret;
-@@ -169,7 +169,7 @@ static int drm_get_pci_dev(struct pci_dev *pdev,
- 	if (drm_core_check_feature(dev, DRIVER_MODESET))
- 		pci_set_drvdata(pdev, dev);
- 
--	drm_pci_agp_init(dev);
-+	drm_legacy_pci_agp_init(dev);
- 
- 	ret = drm_dev_register(dev, ent->driver_data);
- 	if (ret)
-@@ -184,7 +184,7 @@ static int drm_get_pci_dev(struct pci_dev *pdev,
- 	return 0;
- 
- err_agp:
--	drm_pci_agp_destroy(dev);
-+	drm_legacy_pci_agp_destroy(dev);
- 	pci_disable_device(pdev);
- err_free:
- 	drm_dev_put(dev);
-@@ -231,7 +231,7 @@ int drm_legacy_pci_init(const struct drm_driver *driver,
- 
- 			/* stealth mode requires a manual probe */
- 			pci_dev_get(pdev);
--			drm_get_pci_dev(pdev, pid, driver);
-+			drm_legacy_get_pci_dev(pdev, pid, driver);
- 		}
- 	}
- 	return 0;
--- 
+Patches 1 and 2 move some AGP code from DRM core into radeon. Radeon
+uses some of the AGP code for its internal purposes. But being a KMS
+driver, there's no reason why radeon should provide the rsp AGP ioctls.
+So duplicate the implementation in radeon and thus uncould it from
+the legacy code.
+
+Patch 3 moves some AGP-related PCI helpers behind CONFIG_DRM_LEGACY.
+
+Patch 4 moves DRM's AGP code behind CONFIG_DRM_LEGACY. The files are
+then only build when legacy drivers are active.
+
+Built-tested with different config options selected.
+
+Thomas Zimmermann (4):
+  drm/radeon: Move AGP helpers into radeon driver
+  drm/radeon: Move AGP data structures into radeon
+  drm: Mark PCI AGP helpers as legacy
+  drm: Mark AGP implementation and ioctls as legacy
+
+ drivers/gpu/drm/Makefile            |   6 +-
+ drivers/gpu/drm/drm_agpsupport.c    |  99 ++++++++++++-----------
+ drivers/gpu/drm/drm_bufs.c          |   1 -
+ drivers/gpu/drm/drm_drv.c           |   4 +-
+ drivers/gpu/drm/drm_internal.h      |   5 --
+ drivers/gpu/drm/drm_ioc32.c         |  19 +++--
+ drivers/gpu/drm/drm_ioctl.c         |  24 +++---
+ drivers/gpu/drm/drm_legacy.h        |  30 +++++++
+ drivers/gpu/drm/drm_legacy_misc.c   |   1 -
+ drivers/gpu/drm/drm_memory.c        |   1 -
+ drivers/gpu/drm/drm_pci.c           |  23 +++---
+ drivers/gpu/drm/drm_vm.c            |   2 -
+ drivers/gpu/drm/i810/i810_dma.c     |   3 +-
+ drivers/gpu/drm/mga/mga_dma.c       |  16 ++--
+ drivers/gpu/drm/mga/mga_drv.h       |   1 -
+ drivers/gpu/drm/r128/r128_cce.c     |   2 +-
+ drivers/gpu/drm/radeon/radeon.h     |  42 ++++++++++
+ drivers/gpu/drm/radeon/radeon_agp.c | 118 ++++++++++++++++++++++++----
+ drivers/gpu/drm/radeon/radeon_drv.c |  13 ---
+ drivers/gpu/drm/radeon/radeon_kms.c |  18 +++--
+ drivers/gpu/drm/radeon/radeon_ttm.c |   6 +-
+ drivers/gpu/drm/via/via_dma.c       |   1 -
+ include/drm/drm_agpsupport.h        | 117 ---------------------------
+ include/drm/drm_device.h            |   6 +-
+ include/drm/drm_legacy.h            |  82 +++++++++++++++++++
+ 25 files changed, 375 insertions(+), 265 deletions(-)
+ delete mode 100644 include/drm/drm_agpsupport.h
+
+--
 2.31.1
 
 _______________________________________________
