@@ -2,65 +2,58 @@ Return-Path: <SRS0=n+xW=KC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC37CC433ED
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B1A4C433ED
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 22:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70B8A60FD8
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 20:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70B8A60FD8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5CD7161414
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 May 2021 22:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CD7161414
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6E2A6EE12;
-	Fri,  7 May 2021 20:59:18 +0000 (UTC)
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07F5C6EDFF;
- Fri,  7 May 2021 20:59:17 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id 197so9893477qkl.12;
- Fri, 07 May 2021 13:59:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E1126EE98;
+	Fri,  7 May 2021 22:31:10 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E5FE6E59B;
+ Fri,  7 May 2021 22:31:08 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ b5-20020a9d5d050000b02902a5883b0f4bso9252209oti.2; 
+ Fri, 07 May 2021 15:31:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=WM3qTdeeeQvN9wqJqOAh1ks+lZ+P1gcdIZXNpOTonrc=;
- b=r+Rn1FuazZF3GatZUdqZ9l+FO+YTxA1D3YJlPcigoUO/F7/3KKxnkKe8ET7nEtAaih
- h6fBoqyszKYVFnDS+WIP+vKhSBconGErn5q6t57LNyLRSMcUsTeSRHebj6zjsqnU8x91
- x0LcaPNDgX8NgwJDE+oQh/NazmWbYdiuBHCUfHS5bzAcrnOI8eVAd750FcUke5aERvyk
- RyJfEPfKen91mYgLYXsAZnWv3MdAYzlzFwN7wIWnOJ841tOYm5RbkLFP9VKshPpvdoKI
- PnUzOkCTWO4flAD3dS69vOC0XZLegxH4D7oQ0YhZ3bJhNRecuxNpozapdS0JCFX0VV/K
- EdCg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=I0YWXNTKMAQEd6z039aM9XkewcEru+auENvSRDSVALM=;
+ b=ZLVjAoadVZr1dEm4/yvhnrf8/J/nef7G15JbUbGrTvaphSPPg1NYoxyWbrvVrYSS1h
+ zIa96XTY8P0hpQ+yNemDEgMJuSG/c4WCmiNe6Nc+iCnLydkMAsdGrWvIm/17ma5Z4yM/
+ YzsvyYwW+WiotmISk+eiR/i8Cd7aUBrZpHgxnpBYVJ84BXnaaMaWQ2eKqxevUizYrrdW
+ YbtS/h3evHXgpLsmcR18uUbQaKsFRYpehUV3Ng/5C9YykCWFXuYzVQL41A0Sr+comc9P
+ aI9Yzg1U+9hzWSAs+VHaET9OhHIE/EcNaIBsMQFPLcf6+DcdHyLoOGNPJ3nmswEFT8wv
+ svyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=WM3qTdeeeQvN9wqJqOAh1ks+lZ+P1gcdIZXNpOTonrc=;
- b=CIK9W3hTfX/zHoaxlfcxAlVrGekMP/GkAKg32s237ToL5MacaV0Ld0FKMIR/PKNanF
- Tly+Hdc+UZkhJY4KTbgEfiZb185lMBC6fjOWRvsL4a7YJsbPLHCL/apYJ1cjZm1V4z3Q
- QcMl21MYZQnfVydHa1Zmw3aotCTYkBwPpRMJSSU/bf/A7NQm52KTy4yeBJzyhQQagJgQ
- xzoPKdgBwcSoyAnt21NHUifTpodfTGRxLf5dZVD4FNvI2sP3RhQqgcmmKtybutN4CAxv
- PK6/pRmlf4YU9LE5vbhV7OwvRTxUkOw4lNrpee8lvbcIaW7NGKQX1e9iFR9G1JbO8fmx
- Xa2A==
-X-Gm-Message-State: AOAM530OQRPjUaUYG6XCBJ4GirEIeacIxBV31D5teziiWmT4zB0IdC+h
- LgPTyD1i3+2sC3hoqk/K+Y4=
-X-Google-Smtp-Source: ABdhPJxyjJaPUgZZ5DfuESF5Im6k2ukuj2Fa/7dXtcMZSkR/HegPBCpoXKWS0kZr+E66ksFX99ZGJQ==
-X-Received: by 2002:a37:8c1:: with SMTP id 184mr11654363qki.345.1620421155940; 
- Fri, 07 May 2021 13:59:15 -0700 (PDT)
-Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net.
- [199.96.183.179])
- by smtp.gmail.com with ESMTPSA id e13sm5982704qtm.35.2021.05.07.13.59.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 May 2021 13:59:14 -0700 (PDT)
-Date: Fri, 7 May 2021 16:59:13 -0400
-From: Tejun Heo <tj@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-Message-ID: <YJWqIVnX9giaKMTG@slm.duckdns.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=I0YWXNTKMAQEd6z039aM9XkewcEru+auENvSRDSVALM=;
+ b=cTfYbzkGWtEQAprMn0Re2nYdOrgb3VR38CiCPNYxqExoHo9MdvT/+9GeK1DVNjZ2L1
+ BWYhFTti6SHa+gGneAaRSYm0IpIo0AW7bndJiwLWNXXVSqkNiVqnT2dYPD5Am7RT5IyL
+ TywPlNvXu8MFbSyGU7D9YdDqcM0UGimBl8RNgB8+p8Y94iwLNHBsHBAwhS4n64s71WOT
+ THHXTxi41VCLcBKpaO3sIWa1iL7NDzLxohGVG29mV9IqXYinWoi4DptqI1p0YAXakQSf
+ qv4i773fIpUnPBpRW4qazEtc/fLKh4zyCYMSHWuoqFgWHjrey0ZRXV9aEEieRNoE3nKm
+ alow==
+X-Gm-Message-State: AOAM5318ySASfB7FyZBafU/RW4Hxa1RNCwRzdW8340u6QV9mfC7m6AvH
+ uMvY/KuQUXHpstLWOikma5yBCeuwpsOcRRH7Ybo=
+X-Google-Smtp-Source: ABdhPJz6COeoWlO2jYoVGMFtMym8VH6Ykqhm4Rnoo8nk0d6rsnG/F5mHf4daWpwa7y0jBo0WQH9c2O2bb827AYiZUvk=
+X-Received: by 2002:a05:6830:1f12:: with SMTP id
+ u18mr10532939otg.132.1620426667759; 
+ Fri, 07 May 2021 15:31:07 -0700 (PDT)
+MIME-Version: 1.0
 References: <YJUBer3wWKSAeXe7@phenom.ffwll.local>
  <CAOWid-dmRsZUjF3cJ8+mx5FM9ksNQ_P9xY3jqxFiFMvN29SaLw@mail.gmail.com>
  <YJVnO+TCRW83S6w4@phenom.ffwll.local>
@@ -68,12 +61,15 @@ References: <YJUBer3wWKSAeXe7@phenom.ffwll.local>
  <YJVqL4c6SJc8wdkK@phenom.ffwll.local>
  <CADnq5_PHjiHy=Su_1VKr5ycdnXN-OuSXw0X_TeNqSj+TJs2MGA@mail.gmail.com>
  <CADnq5_OjaPw5iF_82bjNPt6v-7OcRmXmXECcN+Gdg1NcucJiHA@mail.gmail.com>
- <YJVwtS9XJlogZRqv@phenom.ffwll.local>
- <YJWWByISHSPqF+aN@slm.duckdns.org>
+ <YJVwtS9XJlogZRqv@phenom.ffwll.local> <YJWWByISHSPqF+aN@slm.duckdns.org>
  <CADnq5_Mwd-xHZQ4pt34=FPk2Gq3ij1FNHWsEz1LdS7_Dyo00iQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CADnq5_Mwd-xHZQ4pt34=FPk2Gq3ij1FNHWsEz1LdS7_Dyo00iQ@mail.gmail.com>
+ <YJWqIVnX9giaKMTG@slm.duckdns.org>
+In-Reply-To: <YJWqIVnX9giaKMTG@slm.duckdns.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 May 2021 18:30:56 -0400
+Message-ID: <CADnq5_PudV4ufQW=DqrDow_vvMQDCJVxjqZeXeTvM=6Xp+a_RQ@mail.gmail.com>
+Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
+To: Tejun Heo <tj@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,35 +101,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+On Fri, May 7, 2021 at 4:59 PM Tejun Heo <tj@kernel.org> wrote:
+>
+> Hello,
+>
+> On Fri, May 07, 2021 at 03:55:39PM -0400, Alex Deucher wrote:
+> > The problem is temporal partitioning on GPUs is much harder to enforce
+> > unless you have a special case like SR-IOV.  Spatial partitioning, on
+> > AMD GPUs at least, is widely available and easily enforced.  What is
+> > the point of implementing temporal style cgroups if no one can enforce
+> > it effectively?
+>
+> So, if generic fine-grained partitioning can't be implemented, the right
+> thing to do is stopping pushing for full-blown cgroup interface for it. The
+> hardware simply isn't capable of being managed in a way which allows generic
+> fine-grained hierarchical scheduling and there's no point in bloating the
+> interface with half baked hardware dependent features.
+>
+> This isn't to say that there's no way to support them, but what have been
+> being proposed is way too generic and ambitious in terms of interface while
+> being poorly developed on the internal abstraction and mechanism front. If
+> the hardware can't do generic, either implement the barest minimum interface
+> (e.g. be a part of misc controller) or go driver-specific - the feature is
+> hardware specific anyway. I've repeated this multiple times in these
+> discussions now but it'd be really helpful to try to minimize the interace
+> while concentrating more on internal abstractions and actual control
+> mechanisms.
 
-On Fri, May 07, 2021 at 03:55:39PM -0400, Alex Deucher wrote:
-> The problem is temporal partitioning on GPUs is much harder to enforce
-> unless you have a special case like SR-IOV.  Spatial partitioning, on
-> AMD GPUs at least, is widely available and easily enforced.  What is
-> the point of implementing temporal style cgroups if no one can enforce
-> it effectively?
+Maybe we are speaking past each other.  I'm not following.  We got
+here because a device specific cgroup didn't make sense.  With my
+Linux user hat on, that makes sense.  I don't want to write code to a
+bunch of device specific interfaces if I can avoid it.  But as for
+temporal vs spatial partitioning of the GPU, the argument seems to be
+a sort of hand-wavy one that both spatial and temporal partitioning
+make sense on CPUs, but only temporal partitioning makes sense on
+GPUs.  I'm trying to understand that assertion.  There are some GPUs
+that can more easily be temporally partitioned and some that can be
+more easily spatially partitioned.  It doesn't seem any different than
+CPUs.
 
-So, if generic fine-grained partitioning can't be implemented, the right
-thing to do is stopping pushing for full-blown cgroup interface for it. The
-hardware simply isn't capable of being managed in a way which allows generic
-fine-grained hierarchical scheduling and there's no point in bloating the
-interface with half baked hardware dependent features.
-
-This isn't to say that there's no way to support them, but what have been
-being proposed is way too generic and ambitious in terms of interface while
-being poorly developed on the internal abstraction and mechanism front. If
-the hardware can't do generic, either implement the barest minimum interface
-(e.g. be a part of misc controller) or go driver-specific - the feature is
-hardware specific anyway. I've repeated this multiple times in these
-discussions now but it'd be really helpful to try to minimize the interace
-while concentrating more on internal abstractions and actual control
-mechanisms.
-
-Thanks.
-
--- 
-tejun
+Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
