@@ -2,133 +2,72 @@ Return-Path: <SRS0=y248=KD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F26CC433ED
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 May 2021 08:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7565DC433B4
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 May 2021 09:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9BFD6145E
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 May 2021 08:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9BFD6145E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 11BD66142D
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 May 2021 09:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11BD66142D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qtec.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8942D6E864;
-	Sat,  8 May 2021 08:45:13 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2DB76E864
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 May 2021 08:45:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XrRpSCaJlYxGOfquns39LG7vcah2YWtpsykTy94Ixuv7F1QIXrvsm4iw7g2ORVqymokoQfgoGv9JytJXz27xoSTgynxcdkJNNtKbOOQhHHKKO5RHRXQYoiiwKqbZ57KmPb/m6lDVfLOwM57g1LAnLHLGpu3pTF3sko61jPjZTQtcivE37WePjsZpCLXAApYqcrkQkO4xPGUNmJkksMfR/+AIu6YMg3tbOap+bjf2FCeHcb6BcZ+IzoDWhBo76h/+gsm2T/HYB/yxnfym8gzwktoa/ewLnZZPJxI+toJsp1Wxdin+hqE0Yf79Q3bv9KL0P3m17FDDz7FObnC0FK3NpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nq8tOkpU+MMQzhcbvUiDfPWe+DZZRslWFianrkIuAR4=;
- b=POp+yo2q7rp36OgRcqR6+eAevLHfVinyDqxreNfg2MOgrou85rqzMu+Zdg6nlouKFd/zgo4Necaq0FG/pCdOiccy4ndblDOqHdNcNAppDAo+ux7GiepXYL8h+f0jZ9MaJHVtCTGbwtDrcZljfQmd0jC36js3cBc2pVvI23rfDVFh+jeeFj1C3/f5CvxZ3BGnjWCM8+4WUCVX9PdlnZtMYAmy2asF3QB7WicDkikC5L7LevA8uP9yIbiTAdULLLt6S9W5rJwNODcny+4xqyvgzmZtOzsnSNudJAYjka7mcxwUr3Jv7jeeb9+f6/YXo/RJJrQJM+TRcH/y+4yUm2+7Ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nq8tOkpU+MMQzhcbvUiDfPWe+DZZRslWFianrkIuAR4=;
- b=0qh8PjymkO058FuqmisRbeXKGHD7OU7LNQDBc/ob1XPENVD7cCXgIOouoSq6SlbJisIdth7D1cfUzZQRZMQD3JjPYaidCYVXEfNn4rNfpknjXVSMoo5fvlESVHmQabe2kPHBAKbrJDJmTOJmg2pULEULzqJRgVOlqPgFVsrMbO8=
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24)
- by BN9PR12MB5211.namprd12.prod.outlook.com (2603:10b6:408:11c::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.19; Sat, 8 May
- 2021 08:45:08 +0000
-Received: from BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85]) by BN9PR12MB5368.namprd12.prod.outlook.com
- ([fe80::245d:c14d:fd99:be85%6]) with mapi id 15.20.4108.030; Sat, 8 May 2021
- 08:45:08 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zeng, Oak" <Oak.Zeng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Quit RAS initialization earlier if RAS is
- disabled
-Thread-Topic: [PATCH] drm/amdgpu: Quit RAS initialization earlier if RAS is
- disabled
-Thread-Index: AQHXQt5lHxTwcQyoLEKnPHwctuHzQ6rX/SMAgABm+4CAAOLjEA==
-Date: Sat, 8 May 2021 08:45:08 +0000
-Message-ID: <BN9PR12MB536866E914B106FABD5E172EFC569@BN9PR12MB5368.namprd12.prod.outlook.com>
-References: <1620350085-22406-1-git-send-email-Oak.Zeng@amd.com>
- <BN9PR12MB5368CC933FDBA85FAE4A9391FC579@BN9PR12MB5368.namprd12.prod.outlook.com>
- <1461C211-D83A-4573-B569-BB04EDC271FE@amd.com>
-In-Reply-To: <1461C211-D83A-4573-B569-BB04EDC271FE@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-05-08T08:45:06Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=d229196c-4caa-4896-b950-71f0cfe39012;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0ae17a5e-0e90-45fd-8343-08d911fd95b6
-x-ms-traffictypediagnostic: BN9PR12MB5211:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN9PR12MB5211FEBFE4CA7B063543E013FC569@BN9PR12MB5211.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 372twFNrsQm8vjNhfhr1XkpBnfkR2XwNYD5LuI6QVYYn6ePKmT9lghIVQAiY/Dq3uEY1wtsvUKIlNMo9gX/995t6eloFdMkz2JMuWjCf5BAPP3Pdbv2h3n1K6NIH44k3P6cFtJYDe/H78bboEP7XlOwslQcfTRs+aO1DJm97Y4FTMm1XYqRe2Cz/uxwCxPsz/qqYVLi21hQm7L+Q7Yet3X/wF0bFgDeCJpsdqRt9SlIHWaoIwoqu4mNmnTHeNxJg28004Yvgix2FbEWul2k5O6dqinjYtSy+60qW4/nWww/XR45Bk+CJDTXvGX/o9FOTISZicvvI+sE8kCD1/1E6YoRWF/DMKjei4m/UfHCHTl9X62stosaEAP8cgH6BHd31e2xsT4hRftlU6k7LoQ97Dv6g1qQ8fOnJunqcaTPRUQkXJoNZEsc+rb3u2/HKuJvYPMWXjLsguRi8oUJRgUtKY3R0kEHWfsHfqPriQE8iZs+pzCv/+3jxH6LZ1xOWDEY0ex9EXYBQJbhLhpYOtPTDBp2lubtuD3cK0XTbbhzrO9t/wg35ZxOj2Mx2iNMwvUWKEWgN5305ZKOHok1Obf6a9yRmIKwceww/fYWkfQGEvDQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(346002)(136003)(376002)(396003)(83380400001)(53546011)(4326008)(6506007)(186003)(66476007)(66556008)(54906003)(33656002)(66446008)(38100700002)(66946007)(76116006)(122000001)(55016002)(110136005)(9686003)(8936002)(7696005)(5660300002)(2906002)(52536014)(478600001)(71200400001)(86362001)(8676002)(316002)(26005)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?Y3h3NUpNcHZ0NnZPOEJXODNoVGZ0cTdYaVZaUmdWSFphWnlNU1pRQ0NpUzdV?=
- =?utf-8?B?bVkwVkZmQ1NHRDJQV3V1cjJxNGgrbDBGNldlZFlacUxQVktEQ28wNnJKcExP?=
- =?utf-8?B?OWFoL1pPTENJY3dSTkV1aUtFdmZtYzFLa3VjMytUc1FzdkNZb3RTcjVKcE03?=
- =?utf-8?B?UEYxenF2RHo0d3k3RWdibWhBdGlTNWJKZElId09Vak9PWHk4Z1I2OHNMWWdP?=
- =?utf-8?B?bTltQXd4TzI4RkRhZWx5RDYrMHc4eHRod3d0SHRHMlVSNDhXV1RvdHJDejJo?=
- =?utf-8?B?Z2locklKSGNOUWE5cjJON0ZBNEUwMUZ2bWM2VTl4Znc0YVJtTkxYRWUxSmxj?=
- =?utf-8?B?d1BKWlh3Rk9UdnNSeDRxWWtjQS9SWkdwaDBQbit5Mk1YSytGMXVwdlg2NVkr?=
- =?utf-8?B?OVlVMXlia2VIZVZFY1pkbTh4V1JUQTlWKzJpVEg5eitzZnNZKzgyTHhFZEp2?=
- =?utf-8?B?ZFZjNGtyL3RSYmtsdE1ITmpwQzVMQlFBT0s2OVV4MTlyQng1SjZ0eDV4M0pG?=
- =?utf-8?B?Q2dvVU42OVRsVnBENzJYUDRRb1I1UGVrQnhDd2hjR3cwbEZ6bHRCQ3dSN1RW?=
- =?utf-8?B?c1dMS0kwVlZmeVJuVlp1eEhOb0RKSDg5RmlFQ3dZbFhiSldkSGVTcHpGbDUv?=
- =?utf-8?B?UG5OSVNoOCtneGhxMUZvRjZhVHhVTDAwdUJVY3luNGhVcE9jU3dCVFNhL3dl?=
- =?utf-8?B?N0QwNTdFdWFqOUV2dGt2L2R4MFo0QkZ1TUpLRXZFSkEyRGFDQXE0MHZ1L3ds?=
- =?utf-8?B?aVkrUVNGRjExME1JQUZxTGwzZWxXT0VPMTMrTHRwWlJ0RDhHbDMwTFI2cG1k?=
- =?utf-8?B?MzM3WC90dGFwWlVMOXgzbW5JK015c1F3SDN4cW1NTXVXMFE3VStQUVlOOFlN?=
- =?utf-8?B?akpRMGV0Vmh5TmFTQTBpelZFTHNsQmJSN2NNazRDbEkydGNNNUFiSE9qTjhD?=
- =?utf-8?B?ZmpWUmxIK0x1WVpsSUJsMzBIRHhkU3lqcEtNZmtXVElPU3djeG1OTDJZeFBZ?=
- =?utf-8?B?SFYxR2toRjNabTZ1YndJcmhZbmt6dU1MYkRpdjkwT3F5dS93aHBHUWEyVWN5?=
- =?utf-8?B?MWU1cElpbU9MU04xT1M5Y2FwYnNYZEh4NzlCenM1eHl3SUdESlBzTEY0ZDlK?=
- =?utf-8?B?eDREb0xXOHY3NlpPVXZEQ1Z0MTVuYVVnTmZGWU5QcXJoaTBmcUptWGNGNktW?=
- =?utf-8?B?N2xHL0pWaWI0OUdFRDU0NDBuSTBONkt6QlN4U1MzeXdFTGRDN1lWOTlaMFNR?=
- =?utf-8?B?OVBLYWdqUnhKNWN5Y0hPMXdEbkw4UmZ4M1pDcWhXTHhOVHpwMjJVZkdGbVhQ?=
- =?utf-8?B?OWQrNkpsR203bDkrakhvaUk0Vkk3T21ZYnN5YmRzUEkxcnp6MWJ2MllVL3BV?=
- =?utf-8?B?cmtnUkd2SDlrS1NvVVhMSm1xdmxCa2xwME9JMWJRc3lFTW5JakVuc085MGxE?=
- =?utf-8?B?S1Z0WHB1SnhndGVuaFlLbnlwRHhzRmswaWdGV1BtR1FVWHBicFZjV0g0MG05?=
- =?utf-8?B?cDZzNDcxN2plWGtBT05TTXI1VmRjUFVtMnpCaDFWRm5YbVRCcUVMTEFzTUV2?=
- =?utf-8?B?aGxKbldzUVBISEJwNUNCZXRoVTFnNTJRV1l3VVVxWHZCN3VoaXVKWEoyYkZQ?=
- =?utf-8?B?a3pvNnNraGtRb3V3SjZ3bDVnL0dQeFFmNlp3ekRmNXMrbXJhZURZcFMvSzZt?=
- =?utf-8?B?cjVhdTJWZWt0QjZ3V1plMzVPenJhdmxldVloZWtSa2NURTlMeUpqT2prV0VD?=
- =?utf-8?Q?ur1eJd8zWL8L3LDGlCAC9/nSydps39FqGME8Iev?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D5D86E873;
+	Sat,  8 May 2021 09:31:01 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFD16E873
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 May 2021 09:30:59 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id c11so16200376lfi.9
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 May 2021 02:30:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qtec.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=eWJyRyeQ5MxvA7qcuiyWtFi5pFj6BXtkfVg0lxOlM48=;
+ b=ONor3CYJ+G3cplIPzRuAHbRye/FwGNd69CMsXxLB7DF1f7B+iE7S7GcA997J3Y/9zv
+ 2Q6LVICRameG0dNDL9S1kiP45h7RO37u7mWg+QCzR6flp+jJg4iysGe40fU2ubu+MOs8
+ l9CKAgwtYsJ8EmZFBe/8BpGNSatd1N/YDoS6/pmJwwMMa1px5rwKLILN4s97Z0VWo8lE
+ tWpQGoChoQvXPXbjdpardWnm2H2H4VpXwFFjImjq++ugoYURb/LGFyyYhkc31Db7AJk7
+ Nq4ll+ugY9Y+1YYSSZ5QQwQTYKwfEx5O8Q1AEkZhvfQ7pB+UXwBfy2iniKi14+MehD2b
+ x4oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=eWJyRyeQ5MxvA7qcuiyWtFi5pFj6BXtkfVg0lxOlM48=;
+ b=dXBDoKfGTQRmqTVT4p/zrNq5sWMOvqsxNtjA9mInXiv4CN50Ypir1zPJYpeFAcT1YZ
+ bRZeSogJYmmh6YjJ22TYQ9VuTVoPFgAYEMkhp8ux8fB6ieYRqw9xlkk0nNymbHAJQyGz
+ tLun7MLAFcSRGeq4IFFedIKMKBDqrAjezA0cH7nQsd18nKAzgPFXyrxzjRyVptlzjyIp
+ hHxnh0mwpsvTG2aJCigeDhpId+thoHKON0CKo5OieS4AgUgbSHU4AYNeeTKfdgW9DXQy
+ esLiiaSeya0cjk8+x4WZ6M6ivgXtQHTK3Q53a/YBkaoUiRbyrWX2GE1CP92b4DphdcD6
+ mz9g==
+X-Gm-Message-State: AOAM530H2S2zNFw2Hnttx/cI90K8ZCCk3lqgh9NPHjnD2Io2ILMfv/CB
+ Li2zFLdFhLxJ1ihDafUad0CBnufOsgGqiaUxRTmBpg==
+X-Google-Smtp-Source: ABdhPJwcMrHQNEMqUJXEnpuVQuWQ1t9VzK8eBl/rXycSqJgd1R1UV/10l4P7xu9ewe9JGqzRWaWkrKxYz76Hoa3hH1A=
+X-Received: by 2002:a05:6512:304c:: with SMTP id
+ b12mr9280009lfb.3.1620466257288; 
+ Sat, 08 May 2021 02:30:57 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5368.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae17a5e-0e90-45fd-8343-08d911fd95b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2021 08:45:08.3520 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TOtnHYxMbm1nyx5aPaDAxX4oxtqh1z0t3Opoub+GqZFIR6/8arQjAb4rVch83dE/mo1FFMDM5REzMo58jUDJfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5211
+References: <20210318083236.43578-1-daniel@qtec.com>
+ <MN2PR12MB37755DAAB03FC0065E98EF1183699@MN2PR12MB3775.namprd12.prod.outlook.com>
+ <CADnq5_MMTBXt50sqJvYmXWn0uBALz2fNvpSrCfjSuMa99VLa=w@mail.gmail.com>
+ <375f0915-83b3-c729-b95f-939d828d24d0@amd.com>
+ <CAH1Ww+TNMpk-LYYaM=SG9XGK4wcGY3+w8rJzihUw=4EpzVV9EQ@mail.gmail.com>
+ <aae87a0a-d643-8ee9-d0f8-e983f8613a88@gmail.com>
+ <CADnq5_NbGz3UaXeTybZBeCSUwxaV8bNxKkaVwtLoZQGSvkbYYg@mail.gmail.com>
+ <CAH1Ww+TSv3_LR_sf6hm_-i27=1Wb8Aay5FjOQq2Csh9jvKheCA@mail.gmail.com>
+ <605b85ab-57ce-86ed-1899-8874450dd318@amd.com>
+In-Reply-To: <605b85ab-57ce-86ed-1899-8874450dd318@amd.com>
+From: Daniel Gomez <daniel@qtec.com>
+Date: Sat, 8 May 2021 11:30:46 +0200
+Message-ID: <CAH1Ww+QosqhDuK8JWnS_AK+DJd7Tf2uB7vnRSYNo_1bnn9tD_w@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/ttm: Fix memory leak userptr pages
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,53 +79,810 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "Clements, John" <John.Clements@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "dagmcr@gmail.com" <dagmcr@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1453516507=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBQdWJsaWMgVXNlXQ0KDQpObyB3b3JyeS4gSSBtYWRlIHNpbWlsYXIgbWlzdGFrZSBiZWZv
-cmUuDQoNClJlZ2FyZHMsDQpIYXdraW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
-cm9tOiBaZW5nLCBPYWsgPE9hay5aZW5nQGFtZC5jb20+IA0KU2VudDogU2F0dXJkYXksIE1heSA4
-LCAyMDIxIDAzOjEzDQpUbzogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogTGF6YXIsIExpam8gPExpam8uTGF6
-YXJAYW1kLmNvbT47IENsZW1lbnRzLCBKb2huIDxKb2huLkNsZW1lbnRzQGFtZC5jb20+OyBKb3No
-aSwgTXVrdWwgPE11a3VsLkpvc2hpQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0v
-YW1kZ3B1OiBRdWl0IFJBUyBpbml0aWFsaXphdGlvbiBlYXJsaWVyIGlmIFJBUyBpcyBkaXNhYmxl
-ZA0KDQpUaGFuayB5b3UgSGF3a2luZyBmb3IgcmV2aWV3aW5nIHRoaXMuIEkgbWFkZSBhIG1pc3Rh
-a2Ugd2hlbiBJIHB1c2hlZCB0aGlzIGluLiBJIGZvcmdvdCB0byBhZGQgIiBSZXZpZXdlZC1ieTog
-SGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPiIuIA0KDQpSZWdhcmRzLA0KT2Fr
-IA0KDQogDQoNCu+7v09uIDIwMjEtMDUtMDcsIDk6MDUgQU0sICJaaGFuZywgSGF3a2luZyIgPEhh
-d2tpbmcuWmhhbmdAYW1kLmNvbT4gd3JvdGU6DQoNCiAgICBbQU1EIFB1YmxpYyBVc2VdDQoNCiAg
-ICBSZXZpZXdlZC1ieTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KDQog
-ICAgUmVnYXJkcywNCiAgICBIYXdraW5nDQogICAgLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-CiAgICBGcm9tOiBaZW5nLCBPYWsgPE9hay5aZW5nQGFtZC5jb20+IA0KICAgIFNlbnQ6IEZyaWRh
-eSwgTWF5IDcsIDIwMjEgMDk6MTUNCiAgICBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCiAgICBDYzogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IExhemFy
-LCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+OyBDbGVtZW50cywgSm9obiA8Sm9obi5DbGVtZW50
-c0BhbWQuY29tPjsgSm9zaGksIE11a3VsIDxNdWt1bC5Kb3NoaUBhbWQuY29tPjsgWmVuZywgT2Fr
-IDxPYWsuWmVuZ0BhbWQuY29tPg0KICAgIFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogUXVp
-dCBSQVMgaW5pdGlhbGl6YXRpb24gZWFybGllciBpZiBSQVMgaXMgZGlzYWJsZWQNCg0KICAgIElm
-IFJBUyBpcyBkaXNhYmxlZCB0aHJvdWdoIGFtZGdwdV9yYXNfZW5hYmxlIGtlcm5lbCBwYXJhbWV0
-ZXIsIHdlIHNob3VsZCBxdWl0IHRoZSBSQVMgaW5pdGlhbGl6YXRpb24gZWFyaWxlciB0byBhdm9p
-ZCBpbml0aWFsaXphdGlvbiBvZiBzb21lIFJBUyBkYXRhIHN0cnVjdHVyZSBzdWNoIGFzIHN5c2Zz
-IGV0Yy4NCg0KICAgIFNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0K
-ICAgIC0tLQ0KICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCAy
-ICstDQogICAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0K
-DQogICAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYw0KICAgIGluZGV4IGVi
-YmUyYzUuLjdlNjViMzUgMTAwNjQ0DQogICAgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3Jhcy5jDQogICAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Jhcy5jDQogICAgQEAgLTIxNTUsNyArMjE1NSw3IEBAIGludCBhbWRncHVfcmFzX2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQoNCiAgICAgCWFtZGdwdV9yYXNfY2hlY2tfc3Vw
-cG9ydGVkKGFkZXYsICZjb24tPmh3X3N1cHBvcnRlZCwNCiAgICAgCQkJJmNvbi0+c3VwcG9ydGVk
-KTsNCiAgICAtCWlmICghY29uLT5od19zdXBwb3J0ZWQgfHwgKGFkZXYtPmFzaWNfdHlwZSA9PSBD
-SElQX1ZFR0ExMCkpIHsNCiAgICArCWlmICghYWRldi0+cmFzX2ZlYXR1cmVzIHx8IChhZGV2LT5h
-c2ljX3R5cGUgPT0gQ0hJUF9WRUdBMTApKSB7DQogICAgIAkJLyogc2V0IGdmeCBibG9jayByYXMg
-Y29udGV4dCBmZWF0dXJlIGZvciBWRUdBMjAgR2FtaW5nDQogICAgIAkJICogc2VuZCByYXMgZGlz
-YWJsZSBjbWQgdG8gcmFzIHRhIGR1cmluZyByYXMgbGF0ZSBpbml0Lg0KICAgICAJCSAqLw0KICAg
-IC0tDQogICAgMi43LjQNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1453516507==
+Content-Type: multipart/alternative; boundary="000000000000a2f2b305c1ce3317"
+
+--000000000000a2f2b305c1ce3317
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi guys,
+
+
+On Wed, 7 Apr 2021 at 11:27, Christian K=C3=B6nig <christian.koenig@amd.com=
+>
+wrote:
+
+> Am 07.04.21 um 09:47 schrieb Daniel Gomez:
+> > On Tue, 6 Apr 2021 at 22:56, Alex Deucher <alexdeucher@gmail.com> wrote=
+:
+> >> On Mon, Mar 22, 2021 at 6:34 AM Christian K=C3=B6nig
+> >> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >>> Hi Daniel,
+> >>>
+> >>> Am 22.03.21 um 10:38 schrieb Daniel Gomez:
+> >>>> On Fri, 19 Mar 2021 at 21:29, Felix Kuehling <felix.kuehling@amd.com=
+>
+> wrote:
+> >>>>> This caused a regression in kfdtest in a large-buffer stress test
+> after
+> >>>>> memory allocation for user pages fails:
+> >>>> I'm sorry to hear that. BTW, I guess you meant amdgpu leak patch and
+> >>>> not this one.
+> >>>> Just some background for the mem leak patch if helps to understand
+> this:
+> >>>> The leak was introduce here:
+> >>>>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit.k=
+ernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fcommi=
+t%2F%3Fid%3D0b988ca1c7c4c73983b4ea96ef7c2af2263c87eb&amp;data=3D04%7C01%7CC=
+hristian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe488=
+4e608e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8e=
+yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&am=
+p;sdata=3D%2FeOQf12NBkC3YGZ7QW66%2FT%2FpyM3DjEb9IMbqUvISMfo%3D&amp;reserved=
+=3D0
+> >>>> where the bound status was introduced for all drm drivers including
+> >>>> radeon and amdgpu. So this patch just reverts the logic to the
+> >>>> original code but keeping the bound status. In my case, the binding
+> >>>> code allocates the user pages memory and returns without bounding (a=
+t
+> >>>> amdgpu_gtt_mgr_has_gart_addr). So,
+> >>>> when the unbinding happens, the memory needs to be cleared to preven=
+t
+> the leak.
+> >>> Ah, now I understand what's happening here. Daniel your patch is not
+> >>> really correct.
+> >>>
+> >>> The problem is rather that we don't set the tt object to bound if it
+> >>> doesn't have a GTT address.
+> >>>
+> >>> Going to provide a patch for this.
+> >> Did this patch ever land?
+> > I don't think so but I might send a v2 following Christian's comment
+> > if you guys agree.
+>
+> Somebody else already provided a patch which I reviewed, but I'm not
+> sure if that landed either.
+>
+> > Also, the patch here is for radeon but the pagefault issue reported by
+> > Felix is affected by the amdgpu one:
+> >
+> > radeon patch: drm/radeon/ttm: Fix memory leak userptr pages
+> >
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpatch=
+work.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F20210318083236.43578-1-dani=
+el%40qtec.com%2F&amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f=
+02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63753=
+3784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiL=
+CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DHSMK%2FqYz%2Bzz9qbKc%2FITU=
+WluBDeaW9YrgyH8p0L640%2F0%3D&amp;reserved=3D0
+> >
+> > amdgpu patch: drm/amdgpu/ttm: Fix memory leak userptr pages
+> >
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpatch=
+work.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F20210317160840.36019-1-dani=
+el%40qtec.com%2F&amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f=
+02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63753=
+3784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiL=
+CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DUsUZ4YjCSjHmzlPB07oTaGrsnt=
+TrQSwlGk%2BxUjwDiag%3D&amp;reserved=3D0
+> >
+> > I assume both need to be fixed with the same approach.
+>
+> Yes correct. Let me double check where that fix went.
+
+
+This patch (actually, the memory leak fix for amdgpu not radeon) has landed
+in mainline and has been back-ported to the stable branches. I just want to
+verify with you if that=E2=80=99s okay and the NULL pointer issue reported =
+by Felix
+is fixed by this other patch:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/d=
+rivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c?id=3D3c3dc654333f6389803cdcaf03912e9=
+4173ae510
+
+Thanks,
+Daniel
+
+>
+>
+> Thanks,
+> Christian.
+>
+> >
+> > Daniel
+> >> Alex
+> >>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>>>> [17359.536303] amdgpu: init_user_pages: Failed to get user pages: -=
+16
+> >>>>> [17359.543746] BUG: kernel NULL pointer dereference, address:
+> 0000000000000000
+> >>>>> [17359.551494] #PF: supervisor read access in kernel mode
+> >>>>> [17359.557375] #PF: error_code(0x0000) - not-present page
+> >>>>> [17359.563247] PGD 0 P4D 0
+> >>>>> [17359.566514] Oops: 0000 [#1] SMP PTI
+> >>>>> [17359.570728] CPU: 8 PID: 5944 Comm: kfdtest Not tainted
+> 5.11.0-kfd-fkuehlin #193
+> >>>>> [17359.578760] Hardware name: ASUS All Series/X99-E WS/USB 3.1, BIO=
+S
+> 3201 06/17/2016
+> >>>>> [17359.586971] RIP: 0010:amdgpu_ttm_backend_unbind+0x52/0x110
+> [amdgpu]
+> >>>>> [17359.594075] Code: 48 39 c6 74 1b 8b 53 0c 48 8d bd 80 a1 ff ff e=
+8
+> 24 62 00 00 85 c0 0f 85 ab 00 00 00 c6 43 54 00 5b 5d c3 48 8b 46 10 8b 4=
+e
+> 50 <48> 8b 30 48 85 f6 74 ba 8b 50 0c 48 8b bf 80 a1 ff ff 83 e1 01 45
+> >>>>> [17359.614340] RSP: 0018:ffffa4764971fc98 EFLAGS: 00010206
+> >>>>> [17359.620315] RAX: 0000000000000000 RBX: ffff950e8d4edf00 RCX:
+> 0000000000000000
+> >>>>> [17359.628204] RDX: 0000000000000000 RSI: ffff950e8d4edf00 RDI:
+> ffff950eadec5e80
+> >>>>> [17359.636084] RBP: ffff950eadec5e80 R08: 0000000000000000 R09:
+> 0000000000000000
+> >>>>> [17359.643958] R10: 0000000000000246 R11: 0000000000000001 R12:
+> ffff950c03377800
+> >>>>> [17359.651833] R13: ffff950eadec5e80 R14: ffff950c03377858 R15:
+> 0000000000000000
+> >>>>> [17359.659701] FS:  00007febb20cb740(0000) GS:ffff950ebfc00000(0000=
+)
+> knlGS:0000000000000000
+> >>>>> [17359.668528] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >>>>> [17359.675012] CR2: 0000000000000000 CR3: 00000006d700e005 CR4:
+> 00000000001706e0
+> >>>>> [17359.682883] Call Trace:
+> >>>>> [17359.686063]  amdgpu_ttm_backend_destroy+0x12/0x70 [amdgpu]
+> >>>>> [17359.692349]  ttm_bo_cleanup_memtype_use+0x37/0x60 [ttm]
+> >>>>> [17359.698307]  ttm_bo_release+0x278/0x5e0 [ttm]
+> >>>>> [17359.703385]  amdgpu_bo_unref+0x1a/0x30 [amdgpu]
+> >>>>> [17359.708701]  amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x7e5/0x910
+> [amdgpu]
+> >>>>> [17359.716307]  kfd_ioctl_alloc_memory_of_gpu+0x11a/0x220 [amdgpu]
+> >>>>> [17359.723036]  kfd_ioctl+0x223/0x400 [amdgpu]
+> >>>>> [17359.728017]  ? kfd_dev_is_large_bar+0x90/0x90 [amdgpu]
+> >>>>> [17359.734152]  __x64_sys_ioctl+0x8b/0xd0
+> >>>>> [17359.738796]  do_syscall_64+0x2d/0x40
+> >>>>> [17359.743259]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> >>>>> [17359.749205] RIP: 0033:0x7febb083b6d7
+> >>>>> [17359.753681] Code: b3 66 90 48 8b 05 b1 47 2d 00 64 c7 00 26 00 0=
+0
+> 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0=
+f
+> 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 81 47 2d 00 f7 d8 64 89 01 48
+> >>>>> [17359.774340] RSP: 002b:00007ffdb5522cd8 EFLAGS: 00000202 ORIG_RAX=
+:
+> 0000000000000010
+> >>>>> [17359.782668] RAX: ffffffffffffffda RBX: 0000000000000001 RCX:
+> 00007febb083b6d7
+> >>>>> [17359.790566] RDX: 00007ffdb5522d60 RSI: 00000000c0284b16 RDI:
+> 0000000000000003
+> >>>>> [17359.798459] RBP: 00007ffdb5522d10 R08: 00007ffdb5522dd0 R09:
+> 00000000c4000004
+> >>>>> [17359.806352] R10: 0000000000000000 R11: 0000000000000202 R12:
+> 0000559416e4e2aa
+> >>>>> [17359.814251] R13: 0000000000000000 R14: 0000000000000021 R15:
+> 0000000000000000
+> >>>>> [17359.822140] Modules linked in: ip6table_filter ip6_tables
+> iptable_filter amdgpu x86_pkg_temp_thermal drm_ttm_helper ttm iommu_v2
+> gpu_sched ip_tables x_tables
+> >>>>> [17359.837776] CR2: 0000000000000000
+> >>>>> [17359.841888] ---[ end trace a6f27d64475b28c8 ]---
+> >>>>> [17359.847318] RIP: 0010:amdgpu_ttm_backend_unbind+0x52/0x110
+> [amdgpu]
+> >>>>> [17359.854479] Code: 48 39 c6 74 1b 8b 53 0c 48 8d bd 80 a1 ff ff e=
+8
+> 24 62 00 00 85 c0 0f 85 ab 00 00 00 c6 43 54 00 5b 5d c3 48 8b 46 10 8b 4=
+e
+> 50 <48> 8b 30 48 85 f6 74 ba 8b 50 0c 48 8b bf 80 a1 ff ff 83 e1 01 45
+> >>>>> [17359.874929] RSP: 0018:ffffa4764971fc98 EFLAGS: 00010206
+> >>>>> [17359.881014] RAX: 0000000000000000 RBX: ffff950e8d4edf00 RCX:
+> 0000000000000000
+> >>>>> [17359.889007] RDX: 0000000000000000 RSI: ffff950e8d4edf00 RDI:
+> ffff950eadec5e80
+> >>>>> [17359.897008] RBP: ffff950eadec5e80 R08: 0000000000000000 R09:
+> 0000000000000000
+> >>>>> [17359.905020] R10: 0000000000000246 R11: 0000000000000001 R12:
+> ffff950c03377800
+> >>>>> [17359.913034] R13: ffff950eadec5e80 R14: ffff950c03377858 R15:
+> 0000000000000000
+> >>>>> [17359.921050] FS:  00007febb20cb740(0000) GS:ffff950ebfc00000(0000=
+)
+> knlGS:0000000000000000
+> >>>>> [17359.930047] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >>>>> [17359.936674] CR2: 0000000000000000 CR3: 00000006d700e005 CR4:
+> 00000000001706e0
+> >>>>   From what I understand, the init_user_pages fails (returns EBUSY)
+> and
+> >>>> the code goes to allocate_init_user_pages_failed where the unbind an=
+d
+> >>>> the userptr clear occurs.
+> >>>> Can we prevent this if we save the bounding status + userptr alloc? =
+so
+> >>>> the function amdgpu_ttm_backend_unbind returns without trying to cle=
+ar
+> >>>> the userptr memory?
+> >>>>
+> >>>> Something like:
+> >>>>
+> >>>> amdgpu_ttm_backend_bind:
+> >>>>       if (gtt->userptr) {
+> >>>>           r =3D amdgpu_ttm_tt_pin_userptr(bdev, ttm);
+> >>>>           if (r) ...
+> >>>>          gtt->sg_table =3D true;
+> >>>>      }
+> >>>>
+> >>>> amdgpu_ttm_backend_unbind:
+> >>>> if (gtt->sg_table) {
+> >>>>           if (gtt->user_ptr) ...
+> >>>> }
+> >>>>
+> >>>> If you agree, I'll send a v2 patch. Otherwise, maybe we could return
+> >>>> within amdgpu_ttm_tt_unpin_userptr if memory hasn't been allocated.
+> >>>>
+> >>>> Any other ideas?
+> >>>>
+> >>>> Regards,
+> >>>> Daniel
+> >>>>
+> >>>>> Reverting this patch fixes the problem for me.
+> >>>>>
+> >>>>> Regards,
+> >>>>>      Felix
+> >>>>>
+> >>>>> On 2021-03-18 10:57 p.m., Alex Deucher wrote:
+> >>>>>> Applied.  Thanks!
+> >>>>>>
+> >>>>>> Alex
+> >>>>>>
+> >>>>>> On Thu, Mar 18, 2021 at 5:00 AM Koenig, Christian
+> >>>>>> <Christian.Koenig@amd.com> wrote:
+> >>>>>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>>>>> ________________________________
+> >>>>>>> Von: Daniel Gomez <daniel@qtec.com>
+> >>>>>>> Gesendet: Donnerstag, 18. M=C3=A4rz 2021 09:32
+> >>>>>>> Cc: dagmcr@gmail.com <dagmcr@gmail.com>; Daniel Gomez <
+> daniel@qtec.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
+> Christian <Christian.Koenig@amd.com>; David Airlie <airlied@linux.ie>;
+> Daniel Vetter <daniel@ffwll.ch>; amd-gfx@lists.freedesktop.org <
+> amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedesktop.org <
+> dri-devel@lists.freedesktop.org>; linux-kernel@vger.kernel.org <
+> linux-kernel@vger.kernel.org>
+> >>>>>>> Betreff: [PATCH] drm/radeon/ttm: Fix memory leak userptr pages
+> >>>>>>>
+> >>>>>>> If userptr pages have been pinned but not bounded,
+> >>>>>>> they remain uncleared.
+> >>>>>>>
+> >>>>>>> Signed-off-by: Daniel Gomez <daniel@qtec.com>
+> >>>>>>> ---
+> >>>>>>>     drivers/gpu/drm/radeon/radeon_ttm.c | 5 +++--
+> >>>>>>>     1 file changed, 3 insertions(+), 2 deletions(-)
+> >>>>>>>
+> >>>>>>> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c
+> b/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>>>>> index e8c66d10478f..bbcc6264d48f 100644
+> >>>>>>> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>>>>> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>>>>> @@ -485,13 +485,14 @@ static void radeon_ttm_backend_unbind(struc=
+t
+> ttm_bo_device *bdev, struct ttm_tt
+> >>>>>>>             struct radeon_ttm_tt *gtt =3D (void *)ttm;
+> >>>>>>>             struct radeon_device *rdev =3D radeon_get_rdev(bdev);
+> >>>>>>>
+> >>>>>>> +       if (gtt->userptr)
+> >>>>>>> +               radeon_ttm_tt_unpin_userptr(bdev, ttm);
+> >>>>>>> +
+> >>>>>>>             if (!gtt->bound)
+> >>>>>>>                     return;
+> >>>>>>>
+> >>>>>>>             radeon_gart_unbind(rdev, gtt->offset, ttm->num_pages)=
+;
+> >>>>>>>
+> >>>>>>> -       if (gtt->userptr)
+> >>>>>>> -               radeon_ttm_tt_unpin_userptr(bdev, ttm);
+> >>>>>>>             gtt->bound =3D false;
+> >>>>>>>     }
+> >>>>>>>
+> >>>>>>> --
+> >>>>>>> 2.30.2
+> >>>>>>>
+> >>>>>>> _______________________________________________
+> >>>>>>> dri-devel mailing list
+> >>>>>>> dri-devel@lists.freedesktop.org
+> >>>>>>>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04%7C01%7CChri=
+stian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e6=
+08e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJW=
+IjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;s=
+data=3DaU9ZAl66EOLKphjWFPXJPR%2BTM%2BZeeMv%2BVJC6vliEqrs%3D&amp;reserved=3D=
+0
+> >>>>>> _______________________________________________
+> >>>>>> dri-devel mailing list
+> >>>>>> dri-devel@lists.freedesktop.org
+> >>>>>>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04%7C01%7CChri=
+stian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e6=
+08e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJW=
+IjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;s=
+data=3DaU9ZAl66EOLKphjWFPXJPR%2BTM%2BZeeMv%2BVJC6vliEqrs%3D&amp;reserved=3D=
+0
+> >>>> _______________________________________________
+> >>>> amd-gfx mailing list
+> >>>> amd-gfx@lists.freedesktop.org
+> >>>>
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7CChrist=
+ian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e608=
+e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sda=
+ta=3DUSmYbhfkSfPcE1npvsMfRwBr9Ijresh1fH4cAeNEr2M%3D&amp;reserved=3D0
+>
+>
+
+--000000000000a2f2b305c1ce3317
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi guys,</div><div dir=3D"auto"><br></div><div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, 7 Apr 20=
+21 at 11:27, Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com">christian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;bo=
+rder-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,204)">=
+Am 07.04.21 um 09:47 schrieb Daniel Gomez:<br>
+&gt; On Tue, 6 Apr 2021 at 22:56, Alex Deucher &lt;<a href=3D"mailto:alexde=
+ucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt;&gt; On Mon, Mar 22, 2021 at 6:34 AM Christian K=C3=B6nig<br>
+&gt;&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"=
+_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br>
+&gt;&gt;&gt; Hi Daniel,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Am 22.03.21 um 10:38 schrieb Daniel Gomez:<br>
+&gt;&gt;&gt;&gt; On Fri, 19 Mar 2021 at 21:29, Felix Kuehling &lt;<a href=
+=3D"mailto:felix.kuehling@amd.com" target=3D"_blank">felix.kuehling@amd.com=
+</a>&gt; wrote:<br>
+&gt;&gt;&gt;&gt;&gt; This caused a regression in kfdtest in a large-buffer =
+stress test after<br>
+&gt;&gt;&gt;&gt;&gt; memory allocation for user pages fails:<br>
+&gt;&gt;&gt;&gt; I&#39;m sorry to hear that. BTW, I guess you meant amdgpu =
+leak patch and<br>
+&gt;&gt;&gt;&gt; not this one.<br>
+&gt;&gt;&gt;&gt; Just some background for the mem leak patch if helps to un=
+derstand this:<br>
+&gt;&gt;&gt;&gt; The leak was introduce here:<br>
+&gt;&gt;&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/=
+?url=3Dhttps%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fto=
+rvalds%2Flinux.git%2Fcommit%2F%3Fid%3D0b988ca1c7c4c73983b4ea96ef7c2af2263c8=
+7eb&amp;amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da409ac=
+7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63753378476198=
+0218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik=
+1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3D%2FeOQf12NBkC3YGZ7QW66%2FT%2Fpy=
+M3DjEb9IMbqUvISMfo%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=3D"_b=
+lank">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fg=
+it.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fc=
+ommit%2F%3Fid%3D0b988ca1c7c4c73983b4ea96ef7c2af2263c87eb&amp;amp;data=3D04%=
+7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8=
+961fe4884e608e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpb=
+GZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7=
+C1000&amp;amp;sdata=3D%2FeOQf12NBkC3YGZ7QW66%2FT%2FpyM3DjEb9IMbqUvISMfo%3D&=
+amp;amp;reserved=3D0</a><br>
+&gt;&gt;&gt;&gt; where the bound status was introduced for all drm drivers =
+including<br>
+&gt;&gt;&gt;&gt; radeon and amdgpu. So this patch just reverts the logic to=
+ the<br>
+&gt;&gt;&gt;&gt; original code but keeping the bound status. In my case, th=
+e binding<br>
+&gt;&gt;&gt;&gt; code allocates the user pages memory and returns without b=
+ounding (at<br>
+&gt;&gt;&gt;&gt; amdgpu_gtt_mgr_has_gart_addr). So,<br>
+&gt;&gt;&gt;&gt; when the unbinding happens, the memory needs to be cleared=
+ to prevent the leak.<br>
+&gt;&gt;&gt; Ah, now I understand what&#39;s happening here. Daniel your pa=
+tch is not<br>
+&gt;&gt;&gt; really correct.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The problem is rather that we don&#39;t set the tt object to b=
+ound if it<br>
+&gt;&gt;&gt; doesn&#39;t have a GTT address.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Going to provide a patch for this.<br>
+&gt;&gt; Did this patch ever land?<br>
+&gt; I don&#39;t think so but I might send a v2 following Christian&#39;s c=
+omment<br>
+&gt; if you guys agree.<br>
+<br>
+Somebody else already provided a patch which I reviewed, but I&#39;m not <b=
+r>
+sure if that landed either.<br>
+<br>
+&gt; Also, the patch here is for radeon but the pagefault issue reported by=
+<br>
+&gt; Felix is affected by the amdgpu one:<br>
+&gt;<br>
+&gt; radeon patch: drm/radeon/ttm: Fix memory leak userptr pages<br>
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F2021031808323=
+6.43578-1-daniel%40qtec.com%2F&amp;amp;data=3D04%7C01%7CChristian.Koenig%40=
+amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e18=
+3d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDA=
+iLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DHSMK=
+%2FqYz%2Bzz9qbKc%2FITUWluBDeaW9YrgyH8p0L640%2F0%3D&amp;amp;reserved=3D0" re=
+l=3D"noreferrer" target=3D"_blank">https://nam11.safelinks.protection.outlo=
+ok.com/?url=3Dhttps%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpa=
+tch%2F20210318083236.43578-1-daniel%40qtec.com%2F&amp;amp;data=3D04%7C01%7C=
+Christian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe48=
+84e608e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8=
+eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
+mp;amp;sdata=3DHSMK%2FqYz%2Bzz9qbKc%2FITUWluBDeaW9YrgyH8p0L640%2F0%3D&amp;a=
+mp;reserved=3D0</a><br>
+&gt;<br>
+&gt; amdgpu patch: drm/amdgpu/ttm: Fix memory leak userptr pages<br>
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F2021031716084=
+0.36019-1-daniel%40qtec.com%2F&amp;amp;data=3D04%7C01%7CChristian.Koenig%40=
+amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e18=
+3d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDA=
+iLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DUsUZ=
+4YjCSjHmzlPB07oTaGrsntTrQSwlGk%2BxUjwDiag%3D&amp;amp;reserved=3D0" rel=3D"n=
+oreferrer" target=3D"_blank">https://nam11.safelinks.protection.outlook.com=
+/?url=3Dhttps%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F=
+20210317160840.36019-1-daniel%40qtec.com%2F&amp;amp;data=3D04%7C01%7CChrist=
+ian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e608=
+e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp=
+;sdata=3DUsUZ4YjCSjHmzlPB07oTaGrsntTrQSwlGk%2BxUjwDiag%3D&amp;amp;reserved=
+=3D0</a><br>
+&gt;<br>
+&gt; I assume both need to be fixed with the same approach.<br>
+<br>
+Yes correct. Let me double check where that fix went.</blockquote><div dir=
+=3D"auto"><br></div><div dir=3D"auto">This patch (actually, the memory leak=
+ fix for amdgpu not radeon) has landed in mainline and has been back-ported=
+ to the stable branches. I just want to verify with you if that=E2=80=99s o=
+kay and the NULL pointer issue reported by Felix is fixed by this other pat=
+ch:</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div><a href=3D"http=
+s://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_ttm.c?id=3D3c3dc654333f6389803cdcaf03912e94173=
+ae510">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c=
+ommit/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c?id=3D3c3dc654333f6389803cdcaf=
+03912e94173ae510</a></div><br></div><div dir=3D"auto">Thanks,</div><div dir=
+=3D"auto">Daniel</div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-left:1=
+ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
+<br>
+Thanks,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Daniel<br>
+&gt;&gt; Alex<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Regards,<br>
+&gt;&gt;&gt; Christian.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; [17359.536303] amdgpu: init_user_pages: Failed to get =
+user pages: -16<br>
+&gt;&gt;&gt;&gt;&gt; [17359.543746] BUG: kernel NULL pointer dereference, a=
+ddress: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.551494] #PF: supervisor read access in kernel m=
+ode<br>
+&gt;&gt;&gt;&gt;&gt; [17359.557375] #PF: error_code(0x0000) - not-present p=
+age<br>
+&gt;&gt;&gt;&gt;&gt; [17359.563247] PGD 0 P4D 0<br>
+&gt;&gt;&gt;&gt;&gt; [17359.566514] Oops: 0000 [#1] SMP PTI<br>
+&gt;&gt;&gt;&gt;&gt; [17359.570728] CPU: 8 PID: 5944 Comm: kfdtest Not tain=
+ted 5.11.0-kfd-fkuehlin #193<br>
+&gt;&gt;&gt;&gt;&gt; [17359.578760] Hardware name: ASUS All Series/X99-E WS=
+/USB 3.1, BIOS 3201 06/17/2016<br>
+&gt;&gt;&gt;&gt;&gt; [17359.586971] RIP: 0010:amdgpu_ttm_backend_unbind+0x5=
+2/0x110 [amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.594075] Code: 48 39 c6 74 1b 8b 53 0c 48 8d bd =
+80 a1 ff ff e8 24 62 00 00 85 c0 0f 85 ab 00 00 00 c6 43 54 00 5b 5d c3 48 =
+8b 46 10 8b 4e 50 &lt;48&gt; 8b 30 48 85 f6 74 ba 8b 50 0c 48 8b bf 80 a1 f=
+f ff 83 e1 01 45<br>
+&gt;&gt;&gt;&gt;&gt; [17359.614340] RSP: 0018:ffffa4764971fc98 EFLAGS: 0001=
+0206<br>
+&gt;&gt;&gt;&gt;&gt; [17359.620315] RAX: 0000000000000000 RBX: ffff950e8d4e=
+df00 RCX: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.628204] RDX: 0000000000000000 RSI: ffff950e8d4e=
+df00 RDI: ffff950eadec5e80<br>
+&gt;&gt;&gt;&gt;&gt; [17359.636084] RBP: ffff950eadec5e80 R08: 000000000000=
+0000 R09: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.643958] R10: 0000000000000246 R11: 000000000000=
+0001 R12: ffff950c03377800<br>
+&gt;&gt;&gt;&gt;&gt; [17359.651833] R13: ffff950eadec5e80 R14: ffff950c0337=
+7858 R15: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.659701] FS:=C2=A0 00007febb20cb740(0000) GS:fff=
+f950ebfc00000(0000) knlGS:0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.668528] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0=
+000000080050033<br>
+&gt;&gt;&gt;&gt;&gt; [17359.675012] CR2: 0000000000000000 CR3: 00000006d700=
+e005 CR4: 00000000001706e0<br>
+&gt;&gt;&gt;&gt;&gt; [17359.682883] Call Trace:<br>
+&gt;&gt;&gt;&gt;&gt; [17359.686063]=C2=A0 amdgpu_ttm_backend_destroy+0x12/0=
+x70 [amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.692349]=C2=A0 ttm_bo_cleanup_memtype_use+0x37/0=
+x60 [ttm]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.698307]=C2=A0 ttm_bo_release+0x278/0x5e0 [ttm]<=
+br>
+&gt;&gt;&gt;&gt;&gt; [17359.703385]=C2=A0 amdgpu_bo_unref+0x1a/0x30 [amdgpu=
+]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.708701]=C2=A0 amdgpu_amdkfd_gpuvm_alloc_memory_=
+of_gpu+0x7e5/0x910 [amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.716307]=C2=A0 kfd_ioctl_alloc_memory_of_gpu+0x1=
+1a/0x220 [amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.723036]=C2=A0 kfd_ioctl+0x223/0x400 [amdgpu]<br=
+>
+&gt;&gt;&gt;&gt;&gt; [17359.728017]=C2=A0 ? kfd_dev_is_large_bar+0x90/0x90 =
+[amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.734152]=C2=A0 __x64_sys_ioctl+0x8b/0xd0<br>
+&gt;&gt;&gt;&gt;&gt; [17359.738796]=C2=A0 do_syscall_64+0x2d/0x40<br>
+&gt;&gt;&gt;&gt;&gt; [17359.743259]=C2=A0 entry_SYSCALL_64_after_hwframe+0x=
+44/0xa9<br>
+&gt;&gt;&gt;&gt;&gt; [17359.749205] RIP: 0033:0x7febb083b6d7<br>
+&gt;&gt;&gt;&gt;&gt; [17359.753681] Code: b3 66 90 48 8b 05 b1 47 2d 00 64 =
+c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 =
+10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d 81 47 2d 00 f=
+7 d8 64 89 01 48<br>
+&gt;&gt;&gt;&gt;&gt; [17359.774340] RSP: 002b:00007ffdb5522cd8 EFLAGS: 0000=
+0202 ORIG_RAX: 0000000000000010<br>
+&gt;&gt;&gt;&gt;&gt; [17359.782668] RAX: ffffffffffffffda RBX: 000000000000=
+0001 RCX: 00007febb083b6d7<br>
+&gt;&gt;&gt;&gt;&gt; [17359.790566] RDX: 00007ffdb5522d60 RSI: 00000000c028=
+4b16 RDI: 0000000000000003<br>
+&gt;&gt;&gt;&gt;&gt; [17359.798459] RBP: 00007ffdb5522d10 R08: 00007ffdb552=
+2dd0 R09: 00000000c4000004<br>
+&gt;&gt;&gt;&gt;&gt; [17359.806352] R10: 0000000000000000 R11: 000000000000=
+0202 R12: 0000559416e4e2aa<br>
+&gt;&gt;&gt;&gt;&gt; [17359.814251] R13: 0000000000000000 R14: 000000000000=
+0021 R15: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.822140] Modules linked in: ip6table_filter ip6_=
+tables iptable_filter amdgpu x86_pkg_temp_thermal drm_ttm_helper ttm iommu_=
+v2 gpu_sched ip_tables x_tables<br>
+&gt;&gt;&gt;&gt;&gt; [17359.837776] CR2: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.841888] ---[ end trace a6f27d64475b28c8 ]---<br=
+>
+&gt;&gt;&gt;&gt;&gt; [17359.847318] RIP: 0010:amdgpu_ttm_backend_unbind+0x5=
+2/0x110 [amdgpu]<br>
+&gt;&gt;&gt;&gt;&gt; [17359.854479] Code: 48 39 c6 74 1b 8b 53 0c 48 8d bd =
+80 a1 ff ff e8 24 62 00 00 85 c0 0f 85 ab 00 00 00 c6 43 54 00 5b 5d c3 48 =
+8b 46 10 8b 4e 50 &lt;48&gt; 8b 30 48 85 f6 74 ba 8b 50 0c 48 8b bf 80 a1 f=
+f ff 83 e1 01 45<br>
+&gt;&gt;&gt;&gt;&gt; [17359.874929] RSP: 0018:ffffa4764971fc98 EFLAGS: 0001=
+0206<br>
+&gt;&gt;&gt;&gt;&gt; [17359.881014] RAX: 0000000000000000 RBX: ffff950e8d4e=
+df00 RCX: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.889007] RDX: 0000000000000000 RSI: ffff950e8d4e=
+df00 RDI: ffff950eadec5e80<br>
+&gt;&gt;&gt;&gt;&gt; [17359.897008] RBP: ffff950eadec5e80 R08: 000000000000=
+0000 R09: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.905020] R10: 0000000000000246 R11: 000000000000=
+0001 R12: ffff950c03377800<br>
+&gt;&gt;&gt;&gt;&gt; [17359.913034] R13: ffff950eadec5e80 R14: ffff950c0337=
+7858 R15: 0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.921050] FS:=C2=A0 00007febb20cb740(0000) GS:fff=
+f950ebfc00000(0000) knlGS:0000000000000000<br>
+&gt;&gt;&gt;&gt;&gt; [17359.930047] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0=
+000000080050033<br>
+&gt;&gt;&gt;&gt;&gt; [17359.936674] CR2: 0000000000000000 CR3: 00000006d700=
+e005 CR4: 00000000001706e0<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0From what I understand, the init_user_pages fa=
+ils (returns EBUSY) and<br>
+&gt;&gt;&gt;&gt; the code goes to allocate_init_user_pages_failed where the=
+ unbind and<br>
+&gt;&gt;&gt;&gt; the userptr clear occurs.<br>
+&gt;&gt;&gt;&gt; Can we prevent this if we save the bounding status + userp=
+tr alloc? so<br>
+&gt;&gt;&gt;&gt; the function amdgpu_ttm_backend_unbind returns without try=
+ing to clear<br>
+&gt;&gt;&gt;&gt; the userptr memory?<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Something like:<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; amdgpu_ttm_backend_bind:<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (gtt-&gt;userptr) {<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ttm_t=
+t_pin_userptr(bdev, ttm);<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) ...<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gtt-&gt;sg_table =3D tru=
+e;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; amdgpu_ttm_backend_unbind:<br>
+&gt;&gt;&gt;&gt; if (gtt-&gt;sg_table) {<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (gtt-&gt;user_p=
+tr) ...<br>
+&gt;&gt;&gt;&gt; }<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; If you agree, I&#39;ll send a v2 patch. Otherwise, maybe w=
+e could return<br>
+&gt;&gt;&gt;&gt; within amdgpu_ttm_tt_unpin_userptr if memory hasn&#39;t be=
+en allocated.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Any other ideas?<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Regards,<br>
+&gt;&gt;&gt;&gt; Daniel<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Reverting this patch fixes the problem for me.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Regards,<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 Felix<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; On 2021-03-18 10:57 p.m., Alex Deucher wrote:<br>
+&gt;&gt;&gt;&gt;&gt;&gt; Applied.=C2=A0 Thanks!<br>
+&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt; Alex<br>
+&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt; On Thu, Mar 18, 2021 at 5:00 AM Koenig, Christian<=
+br>
+&gt;&gt;&gt;&gt;&gt;&gt; &lt;<a href=3D"mailto:Christian.Koenig@amd.com" ta=
+rget=3D"_blank">Christian.Koenig@amd.com</a>&gt; wrote:<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Reviewed-by: Christian K=C3=B6nig &lt;<a href=
+=3D"mailto:christian.koenig@amd.com" target=3D"_blank">christian.koenig@amd=
+.com</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; ________________________________<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Von: Daniel Gomez &lt;<a href=3D"mailto:daniel=
+@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Gesendet: Donnerstag, 18. M=C3=A4rz 2021 09:32=
+<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Cc: <a href=3D"mailto:dagmcr@gmail.com" target=
+=3D"_blank">dagmcr@gmail.com</a> &lt;<a href=3D"mailto:dagmcr@gmail.com" ta=
+rget=3D"_blank">dagmcr@gmail.com</a>&gt;; Daniel Gomez &lt;<a href=3D"mailt=
+o:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt;; Deucher, Alex=
+ander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank">Al=
+exander.Deucher@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Ch=
+ristian.Koenig@amd.com" target=3D"_blank">Christian.Koenig@amd.com</a>&gt;;=
+ David Airlie &lt;<a href=3D"mailto:airlied@linux.ie" target=3D"_blank">air=
+lied@linux.ie</a>&gt;; Daniel Vetter &lt;<a href=3D"mailto:daniel@ffwll.ch"=
+ target=3D"_blank">daniel@ffwll.ch</a>&gt;; <a href=3D"mailto:amd-gfx@lists=
+.freedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a> &lt;<=
+a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@l=
+ists.freedesktop.org</a>&gt;; <a href=3D"mailto:dri-devel@lists.freedesktop=
+.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a> &lt;<a href=3D"=
+mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-devel@lists.f=
+reedesktop.org</a>&gt;; <a href=3D"mailto:linux-kernel@vger.kernel.org" tar=
+get=3D"_blank">linux-kernel@vger.kernel.org</a> &lt;<a href=3D"mailto:linux=
+-kernel@vger.kernel.org" target=3D"_blank">linux-kernel@vger.kernel.org</a>=
+&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Betreff: [PATCH] drm/radeon/ttm: Fix memory le=
+ak userptr pages<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; If userptr pages have been pinned but not boun=
+ded,<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; they remain uncleared.<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Signed-off-by: Daniel Gomez &lt;<a href=3D"mai=
+lto:daniel@qtec.com" target=3D"_blank">daniel@qtec.com</a>&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0drivers/gpu/drm/radeon/rade=
+on_ttm.c | 5 +++--<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A01 file changed, 3 insertion=
+s(+), 2 deletions(-)<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/radeon/radeon_ttm=
+.c b/drivers/gpu/drm/radeon/radeon_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; index e8c66d10478f..bbcc6264d48f 100644<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/radeon/radeon_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/radeon/radeon_ttm.c<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; @@ -485,13 +485,14 @@ static void radeon_ttm_b=
+ackend_unbind(struct ttm_bo_device *bdev, struct ttm_tt<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0struct radeon_ttm_tt *gtt =3D (void *)ttm;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0struct radeon_device *rdev =3D radeon_get_rdev(bdev);<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (gtt-&gt;userpt=
+r)<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0radeon_ttm_tt_unpin_userptr(bdev, ttm);<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0if (!gtt-&gt;bound)<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0radeon_gart_unbind(rdev, gtt-&gt;offset, ttm-&gt;num_pages);<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (gtt-&gt;userpt=
+r)<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0radeon_ttm_tt_unpin_userptr(bdev, ttm);<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0gtt-&gt;bound =3D false;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0}<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; --<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 2.30.2<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; ______________________________________________=
+_<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; dri-devel mailing list<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.=
+org" target=3D"_blank">dri-devel@lists.freedesktop.org</a><br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; <a href=3D"https://nam11.safelinks.protection.=
+outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo=
+%2Fdri-devel&amp;amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f=
+02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63753=
+3784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiL=
+CJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DaU9ZAl66EOLKphjWFPXJPR=
+%2BTM%2BZeeMv%2BVJC6vliEqrs%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" tar=
+get=3D"_blank">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%=
+3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=
+=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%=
+7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7=
+CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn=
+0%3D%7C1000&amp;amp;sdata=3DaU9ZAl66EOLKphjWFPXJPR%2BTM%2BZeeMv%2BVJC6vliEq=
+rs%3D&amp;amp;reserved=3D0</a><br>
+&gt;&gt;&gt;&gt;&gt;&gt; _______________________________________________<br=
+>
+&gt;&gt;&gt;&gt;&gt;&gt; dri-devel mailing list<br>
+&gt;&gt;&gt;&gt;&gt;&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.org"=
+ target=3D"_blank">dri-devel@lists.freedesktop.org</a><br>
+&gt;&gt;&gt;&gt;&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outl=
+ook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fd=
+ri-devel&amp;amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da=
+409ac7b508d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533784=
+761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBT=
+iI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DaU9ZAl66EOLKphjWFPXJPR%2BT=
+M%2BZeeMv%2BVJC6vliEqrs%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=
+=3D"_blank">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=3D=
+04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3=
+dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTW=
+FpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3=
+D%7C1000&amp;amp;sdata=3DaU9ZAl66EOLKphjWFPXJPR%2BTM%2BZeeMv%2BVJC6vliEqrs%=
+3D&amp;amp;reserved=3D0</a><br>
+&gt;&gt;&gt;&gt; _______________________________________________<br>
+&gt;&gt;&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt;&gt;&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D=
+"_blank">amd-gfx@lists.freedesktop.org</a><br>
+&gt;&gt;&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/=
+?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&a=
+mp;amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C65d21b6f02da409ac7b508=
+d8f9997367%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637533784761980218%=
+7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWw=
+iLCJXVCI6Mn0%3D%7C1000&amp;amp;sdata=3DUSmYbhfkSfPcE1npvsMfRwBr9Ijresh1fH4c=
+AeNEr2M%3D&amp;amp;reserved=3D0" rel=3D"noreferrer" target=3D"_blank">https=
+://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freede=
+sktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%7C01%7CChristian=
+.Koenig%40amd.com%7C65d21b6f02da409ac7b508d8f9997367%7C3dd8961fe4884e608e11=
+a82d994e183d%7C0%7C0%7C637533784761980218%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiM=
+C4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;amp;sd=
+ata=3DUSmYbhfkSfPcE1npvsMfRwBr9Ijresh1fH4cAeNEr2M%3D&amp;amp;reserved=3D0</=
+a><br>
+<br>
+</blockquote></div></div>
+
+--000000000000a2f2b305c1ce3317--
+
+--===============1453516507==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1453516507==--
