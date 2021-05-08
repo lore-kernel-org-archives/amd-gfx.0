@@ -2,69 +2,68 @@ Return-Path: <SRS0=tImT=KE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8761DC43460
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 May 2021 15:42:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AC32C43461
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 May 2021 15:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BF6460FF1
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 May 2021 15:42:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BF6460FF1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4024A60FE9
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 May 2021 15:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4024A60FE9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBF826E20A;
-	Sun,  9 May 2021 15:42:12 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 980216E1F6;
- Sun,  9 May 2021 14:50:40 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id b15so11890058pfl.4;
- Sun, 09 May 2021 07:50:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=bz8P1nZoUMT1v+PZjFbkPen/qOCExDvSHfDWKtBldgY=;
- b=k/Efj0VxOLnEitzgW/jLeQUTvNCDM1rnJkA1jWgkvJx+ic7PPM1mFNamQy/29LQiBb
- 6S0WQjY5cEvp0fgqqFNO5Xpj30M0Sl1MQL2do3pekttEaR62JYdXpxCYiS/ZjZSl0gnC
- Wa+Ykz/2O1A1wedeTI5ql780tHgdegHObqerCSdMkFh8PN4VyLpz4dZ/IbfuM72YXrl+
- 1KVSnSURz8NGBy/sbZYFxbXm7/99Yl37EjYrPpFEcgjzbZpup8acOatrRmVBeq2D7odX
- mmBt6WjjHOQI9Yl1wKYRwGDZYOHPOUnIBp1rp3EzW1ydhKw+5QrQ82y20XDBh3/ZB1V8
- WldQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4ED6E20C;
+	Sun,  9 May 2021 15:42:13 +0000 (UTC)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8860C6E851
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 May 2021 04:28:25 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ fa21-20020a17090af0d5b0290157eb6b590fso6681475pjb.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 May 2021 21:28:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=lT+Hlg4ADm1P1P0CFbZk9N2b8mFk7+dIjhu7jpeItgI=;
+ b=WwVcj3+2b/E7VuO1+uvwPwiwtxD4mwvEuIz7iicDA4tHqvrpFrjMOBxfPnXT/OF3WR
+ oydpGT3MZyypF0tvhycks6EWNYPswhm1XEEYjeZXBjAHJS7lS6//+2WOA3EeYKQS6K4I
+ nYMSIKvrazqW8Bfqgej/ktWUdKIB00JSa6Pwo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=bz8P1nZoUMT1v+PZjFbkPen/qOCExDvSHfDWKtBldgY=;
- b=W0ejrq3/kEaRTyfjWDGmcDBt0UUPtwAzd2fVMuUy0pL4G+JLvPk0LSAJ7SbHPy4Kir
- BJDu2LIbuRkPCQATp/FXqnICX83plrXIz3KdpApyZKdc7uQHRoMlzA2XIB2PSbu1r201
- +Hk9ghtskSZPssja75s47EeA8Im8UFulxC505/R5XhzfHoiTELRN/F8/sBkRLEnX2Bnd
- 3qtkXJ6C1dAu2JP85wLiPiz9B4LgUEpf7Iv7b6kPR420fvT/cfbrtSItn/d91sBOZME5
- OXVTw5nxM83i95fOZbOmHcTEl/Rl6oltqVVEgcWvCk/8YyyKpyfM+iDNa20+vtt8fJDj
- OYSQ==
-X-Gm-Message-State: AOAM532erzVRQO2eW31PrnUFIGISgdKTE4JoEj0IwO8nrQpOT+hoM23R
- 77BoP51v77AaGb/D8vj5KKFS4x6DKwFkvtu55VU=
-X-Google-Smtp-Source: ABdhPJxtOy3inc148leudhozlWQYkcstye2E7St5sE+gvTakogQlfT5Ml/TJK5sfdIi/CscHWhigQg==
-X-Received: by 2002:a63:9612:: with SMTP id c18mr1553295pge.29.1620571840169; 
- Sun, 09 May 2021 07:50:40 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:9004:6c18:2a60:b7b4:ea0e:f455])
- by smtp.gmail.com with ESMTPSA id r63sm17043720pjg.46.2021.05.09.07.50.36
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=lT+Hlg4ADm1P1P0CFbZk9N2b8mFk7+dIjhu7jpeItgI=;
+ b=QZVz6QDBGCalAGx2ypgcX8FD8ZFucDV+5s9IQABQ7ye20XUtGmyU6JSA2aG08yuOwB
+ 2dczMD8tE0UdE4StFCujyjjqeBp+wMKjt1BXByc10+4uc6Psch+8Nl1jZsKbPldCCTeF
+ jGQQCGEl7cUnF9LDSeVAa0hrYyP/+kqag0MXn4o0brpUSZA4EE3YHdaeuOyvyYdzNLDw
+ N0im+9idGClGOLn0ijz16vArOS9nuG6COuMtxvNHIgtM8AIKPRFHzk8DsbzTUqH75LMu
+ 0lBePDM1R37Pw9bXBOYofcIRLtIUpbQmC6j9cY2vePa45kUqQF4psxUW/L94gOJnj58h
+ npMQ==
+X-Gm-Message-State: AOAM5333ueFsznusgc0Vvp3U2XfyMzR/wKhi/EkeY3f7IILMgQO/Cue/
+ UECc2lBZr9NGsnzQcFXDotD+kg==
+X-Google-Smtp-Source: ABdhPJxyQVL83KGaDZqCisHbJ1gqhZrZZS3+s8RCn5yUCegW5vh9XJTqAJ98B2I27DWQzDHljRYvtw==
+X-Received: by 2002:a17:90a:730c:: with SMTP id
+ m12mr26973561pjk.111.1620448105199; 
+ Fri, 07 May 2021 21:28:25 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id d188sm5851024pfd.203.2021.05.07.21.28.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 May 2021 07:50:39 -0700 (PDT)
-From: Dwaipayan Ray <dwaipayanray1@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-Subject: [PATCH] drm/amd/amdgpu: Fix errors in function documentation
-Date: Sun,  9 May 2021 20:19:23 +0530
-Message-Id: <20210509144923.6316-1-dwaipayanray1@gmail.com>
-X-Mailer: git-send-email 2.28.0
+ Fri, 07 May 2021 21:28:24 -0700 (PDT)
+Date: Fri, 7 May 2021 21:28:23 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Jiawei Gu <Jiawei.Gu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add vbios info ioctl interface
+Message-ID: <202105072117.1480D10A@keescook>
+References: <20210422023448.24689-1-Jiawei.Gu@amd.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210422023448.24689-1-Jiawei.Gu@amd.com>
 X-Mailman-Approved-At: Sun, 09 May 2021 15:42:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,58 +76,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dwaipayan Ray <dwaipayanray1@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- lukas.bulwahn@gmail.com, linux-media@vger.kernel.org
+Cc: "StDenis, Tom" <Tom.StDenis@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, "Gu,
+ JiaWei \(Will\)" <JiaWei.Gu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ linux-next@vger.kernel.org, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Nieto, David M" <David.Nieto@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix a couple of syntax errors and removed one excess
-parameter in the function documentations which lead
-to kernel docs build warning.
+Hi!
 
-Signed-off-by: Dwaipayan Ray <dwaipayanray1@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 1 -
- 2 files changed, 3 insertions(+), 1 deletion(-)
+This patch needs some fixing.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index ae9fb2025259..312f24004413 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -320,11 +320,14 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
-  * "disable" requires only the block.
-  * "enable" requires the block and error type.
-  * "inject" requires the block, error type, address, and value.
-+ *
-  * The block is one of: umc, sdma, gfx, etc.
-  *	see ras_block_string[] for details
-+ *
-  * The error type is one of: ue, ce, where,
-  *	ue is multi-uncorrectable
-  *	ce is single-correctable
-+ *
-  * The sub-block is a the sub-block index, pass 0 if there is no sub-block.
-  * The address and value are hexadecimal numbers, leading 0x is optional.
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 16252d48e5a4..7e1a67295106 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2796,7 +2796,6 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
-  *
-  * @adev: amdgpu_device pointer
-  * @vm: requested vm
-- * @vm_context: Indicates if it GFX or Compute context
-  * @pasid: Process address space identifier
-  *
-  * Init @vm fields.
+On Thu, Apr 22, 2021 at 10:34:48AM +0800, Jiawei Gu wrote:
+> +		case AMDGPU_INFO_VBIOS_INFO: {
+> +			struct drm_amdgpu_info_vbios vbios_info = {};
+> +			struct atom_context *atom_context;
+> +
+> +			atom_context = adev->mode_info.atom_context;
+> +			memcpy(vbios_info.name, atom_context->name, sizeof(atom_context->name));
+> +			vbios_info.dbdf = PCI_DEVID(adev->pdev->bus->number, adev->pdev->devfn);
+> +			memcpy(vbios_info.vbios_pn, atom_context->vbios_pn, sizeof(atom_context->vbios_pn));
+> +			vbios_info.version = atom_context->version;
+> +			memcpy(vbios_info.date, atom_context->date, sizeof(atom_context->date));
+> +			memcpy(vbios_info.serial, adev->serial, sizeof(adev->serial));
+
+This writes beyond the end of vbios_info.serial.
+
+> +			vbios_info.dev_id = adev->pdev->device;
+> +			vbios_info.rev_id = adev->pdev->revision;
+> +			vbios_info.sub_dev_id = atom_context->sub_dev_id;
+> +			vbios_info.sub_ved_id = atom_context->sub_ved_id;
+
+Though it gets "repaired" by these writes.
+
+> +
+> +			return copy_to_user(out, &vbios_info,
+> +						min((size_t)size, sizeof(vbios_info))) ? -EFAULT : 0;
+> +		}
+
+sizeof(adev->serial) != sizeof(vbios_info.serial)
+
+adev is struct amdgpu_device:
+
+struct amdgpu_device {
+...
+        char                            serial[20];
+
+
+> +struct drm_amdgpu_info_vbios {
+> [...]
+> +	__u8 serial[16];
+> +	__u32 dev_id;
+> +	__u32 rev_id;
+> +	__u32 sub_dev_id;
+> +	__u32 sub_ved_id;
+> +};
+
+Is there a truncation issue (20 vs 16) and is this intended to be a
+NUL-terminated string?
+
 -- 
-2.30.2
-
+Kees Cook
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
