@@ -2,119 +2,48 @@ Return-Path: <SRS0=4HPi=KF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A2DEC433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 20:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD54CC433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 20:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E805B61139
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 20:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E805B61139
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 65B40613C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 20:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65B40613C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FD389FCA;
-	Mon, 10 May 2021 20:29:40 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F6889FCA
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 20:29:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lg3V7GjcVWcEMeM+q2K7dve6e5egqQ07GfLsZiogz99Uex2Vt86z4k3p0rDfZzNUFM76L6mS+qhBhJET4r9rPLX4gGIIynmlhAgHHIIgs0HaMXr4ouvl9HUU3LKZ/wNL1brG27jYh9f/sI2E2NMNRCtK/DixsnFMpnsebHfGyplnr8dyI5lZz1nVE0WXUZ0y/twWZ2174eF9jgoyyzmW480VxdJ3AM7fP5VRi/C4FDsNm5PMmLM+j9JnCfDAy2HT8xpSgxTLO+6l9nvHLFY6ITEyiNZtI2Wl5BNasATmToMajlsgvvvgKSEPhztatIUJyer8gFmPAQt/GY9iEbkYmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtoMurjthAkmzEiq+FrGKNOYNEXZWrk7YnmJepucjTc=;
- b=AX0tXiKffdKkZ3QUjc4EuZSYMd/rExOVTkz4tiff1VNIq4AKfzUSt/bXSW0sYSN4THWpw9U36chv/H5KuxgAhWABhKiUNhF9jZ68ivp8lv9P+h6ARMbVjyWX3ObAypQLRrcdDfCaTcPgJqZeUzwA8650k8i3BJzE/KhUwmEZ+51CzJ0dgGc3Ebb4wijwy5B/NvHAoCQFSf8AYiJbT6rPhLGz5mCbhjw9CSaz/83XSA0D29iev/hAgMLJ56LXtQcuAFqZdvYfbFL2ixNz0JL1OCblQqF5o6Nd7KhWRvajrjpTFWu3XjO6jBr5wwt77QoqRHtE9WQ352KfbIlcRq8Lmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtoMurjthAkmzEiq+FrGKNOYNEXZWrk7YnmJepucjTc=;
- b=BZILxydjlYIya10HLCcSgE6fcbddanNb+9Z2+xnyBTZvk1YW6TQrTQGiNOD5pgg7URLvkqF/qAJtSL+89ewtq2xMzXHey+0OvgpUnaUt1zvnJGrsk3CBgs8NqD+zSAoVFjk7lG5v+ou8yvhVeLG+Et10LZGtzqbAXFkSkMVMXdo=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com (2603:10b6:a03:62::32)
- by BYAPR12MB3384.namprd12.prod.outlook.com (2603:10b6:a03:d8::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.29; Mon, 10 May
- 2021 20:29:37 +0000
-Received: from BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616]) by BYAPR12MB2840.namprd12.prod.outlook.com
- ([fe80::7c65:7181:6d1d:8616%7]) with mapi id 15.20.4108.031; Mon, 10 May 2021
- 20:29:37 +0000
-From: David M Nieto <david.nieto@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: fix fence calculation
-Date: Mon, 10 May 2021 13:29:15 -0700
-Message-Id: <20210510202915.30502-2-david.nieto@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210510202915.30502-1-david.nieto@amd.com>
-References: <c1b6f68f-4b96-8752-c406-564e2b98ce41@gmail.com>
- <20210510202915.30502-1-david.nieto@amd.com>
-X-Originating-IP: [165.204.53.123]
-X-ClientProxiedBy: SJ0PR03CA0303.namprd03.prod.outlook.com
- (2603:10b6:a03:39d::8) To BYAPR12MB2840.namprd12.prod.outlook.com
- (2603:10b6:a03:62::32)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE4586E8E2;
+	Mon, 10 May 2021 20:45:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93D6A6E8E2;
+ Mon, 10 May 2021 20:45:46 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 82C0C61108;
+ Mon, 10 May 2021 20:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620679546;
+ bh=1zhgF0TyiWdeFfq12LPIq80x/aDiznTpXPikYZ+8JQE=;
+ h=Date:From:To:Cc:Subject:From;
+ b=lPvqK7T8hlPhNJTpxphTyvnPc0eJcB8GdJKWtZ4R1HOakgWUYy/jAkdqaAtOuh3YO
+ 0PB6ZSV8AS13GtrnR3YTaSRiVt/3ZIrr4+2jEeP8Aw4n5f4CfiL0fzPLBW5Ur5x4DX
+ 9s0GNdCC+69CxOzlvSZew0pKB3Z0zXNRzS0KCSN5sVIj00QFeBGTsVvldFBLSjTkag
+ +SKYx2WeO2od62c8+HUnerHLuXbSeTVx83TZweLP16GTnBSKfRMrEhFryXjAXuAyWQ
+ z6bSAFz0LWTkU0/qCwp9BmAJh8F3Uxo41ql/F+sX1Z6i6FGC4EE1+0f0bVrTGcqvC3
+ d4Bcm1UE0NPuA==
+Date: Mon, 10 May 2021 15:46:18 -0500
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: [PATCH] drm/amd/pm: Fix out-of-bounds bug
+Message-ID: <20210510204618.GA135281@embeddedor>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from loud-cracker.amd.com (165.204.53.123) by
- SJ0PR03CA0303.namprd03.prod.outlook.com (2603:10b6:a03:39d::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.25 via Frontend Transport; Mon, 10 May 2021 20:29:36 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54cad5aa-1d3a-4beb-200b-08d913f25477
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3384:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3384411A9D6DF8E3FDABB691F4549@BYAPR12MB3384.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6SIVw+wawuyx11RR078uDAm4eqKW9qHJkwgZUI6cU8cnALxCjG+N05wjs9LQf77GSs3JI1K0zPJpbdM/OHchJLnFFEIW31/kSqbAbp81VnPpp1IKDFBukfibcAQfLkw1btu3qSryFaUHACsMv8iYmZe7P/Pu+deyQJND9I8Ww/NkCvTI5PQ3SBrR8zS0v0HrKwP9E/QL1k13WNBwhZa3/XLLwRYZoDaUyrJQe2ztI4hKWviNpyZ5uRcUxhjloEOpeWiM3OsLCbumkyRk+8LU1iqHDKKdX+tCetjaridg+foSuod8tTezTamko+emnbod6kimvvanhEet/3v6FwA/ODm7wUgdAYjwhJZLqLP/lEYXI5CiAzJI9YkMHKzNQ17tP5Rg+3ZQVn9j5oZRCGLdvX4GkFWADnyKrQhg7LZK4H4ZUhnzMxuXuuOjqW6Y8kq3FDTzl08vZYPUcOARDKxbGGpIbG63ATKjAX/dKdnziGyikv4afxT7J5ABbC3O03HRlesbqd+sHtwgfpnyAoKSgBfm7wbNcTaa2eQq/TFXE4pNxNF85xtpIYUA4IjMh8EYDSRdUWQmPcKh6QKcx+WbSL1e/ttnVGrEKb3jMQDAfyGaxKFFvc4R0x4GpdCx0UZ0r1jiuYo+Ty72F/lQTma6ngi6DM0ZxETf2sDczIQPBSA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2840.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(4326008)(8936002)(186003)(1076003)(6486002)(956004)(52116002)(6916009)(16526019)(2616005)(8676002)(7696005)(2906002)(66946007)(316002)(5660300002)(6666004)(478600001)(38350700002)(38100700002)(86362001)(83380400001)(26005)(66476007)(36756003)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?aCSXjVNjk35vzMW75VQtO9X1sL+caVOD4rI7WYMQxijxLndHMzm+cN2TQ/mi?=
- =?us-ascii?Q?Ueh6wxqWx7FWTeYMOhkrXR1hokhafcu8VSLgHXl/OtdaRHHyHeEzMuAj4Sug?=
- =?us-ascii?Q?G623GSq75Dnvg+/P5TFj0YrXhPBmNExm0wAJ5jJQNlQGj+jO1mo1S9XKnsx0?=
- =?us-ascii?Q?lXmDU5iqa0NARnn28OTUTM0fmkfOz6imeCJU2SfZrBzjSEWZTXLyUBXJ8ps5?=
- =?us-ascii?Q?J/PUII0d9flMQSfOuS+YPO/MPsQWGJ/q4uChvsu0mGG7Gg3pt0CM/eFCG3A6?=
- =?us-ascii?Q?ZfihPLEUozGgzb+fWG22L2CsEPB1cc9RZm/2t3fa8l9DNInjAr92EwDRYsKs?=
- =?us-ascii?Q?STS/9ScMz5aCdsCsszY0nEhiRwEq9VOPREkA9e/fEcExI+VFVPY6hnO/8O3K?=
- =?us-ascii?Q?o29cquylBXJFMw+M6k5qRbUWUiO4TdyV0TLK3WyriYqGjC8BCI10WKFpR/wF?=
- =?us-ascii?Q?tyBRf8p639cG5RqUm/Oy1BgbGtuOwaRXA2OuPQmSEf7A2BaasgMoMc0oGScA?=
- =?us-ascii?Q?AfNaZOZ5erhGb655gf8F7zkmZZSYDo92bnD6rtTfHf0x9cczKdr565BhjR+P?=
- =?us-ascii?Q?d2q2yKaQPpARNPXO8zpgTuZzocbUNGoHabt/XE+p0wUeP/q4wKKoU3sg/ZkN?=
- =?us-ascii?Q?MF1gX/1IucqCdqQj68GFVq1pOxWi0eR9x7JD5+BEkC+m//EPyS+p6mgWm88v?=
- =?us-ascii?Q?FIZGryuPhbRdvjXrfVogupieY8vvaV6MQXTDP9nxFPV6ffVjaNXYAhvXnUZC?=
- =?us-ascii?Q?jGCnoXK2VDjHKyFB+Q9i8y6W1TtXyfRooJBgsJSItvcCNlfcHlRuEQXzR4SW?=
- =?us-ascii?Q?Rh5VtMcUDdWRUVWLYI0K0UIaEHhTH8kV1eY+FV29N7/r6rA87sc1fbFX9NSn?=
- =?us-ascii?Q?osKSOsxS4sjrm658E2vsjrwEFK6cUnz39qljAFI6yc/JP7br1tbgi/r+hSaI?=
- =?us-ascii?Q?pauNsxMF1295cQfdzUeTi3QqB4zVvSlPv1roMxWJbSeTv4xGDBjcC8IJhate?=
- =?us-ascii?Q?+I3k1jmYHu2om5N43SdKsuD4Gu4PSIm3GDYulvynxUeoP1sGEFgz2EM+T41h?=
- =?us-ascii?Q?fP5IlLiF1ZWKgp1SukBPTN+GIlgH6r5+fTP9KjZyi3amRZHcyosKs0e3wok3?=
- =?us-ascii?Q?2dUosziAbOQCy6s4/EFWcxy3HO0BomciIhJmH9L3kXNJ0pqQCVp25QJZsfMq?=
- =?us-ascii?Q?j+PasYxD1vTtP7/Yut3wslwjQBNG7mvywGs/5sLEo9hO+wIRTdbX67zzLmpu?=
- =?us-ascii?Q?/VuX6u7nFlQoypuXHuK6ZATwJGoWB5a/H8bX3+lWsDc9w6sN/LIv+86nt6K2?=
- =?us-ascii?Q?U+NQOmijpWlZ+i8HNOl2izXY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54cad5aa-1d3a-4beb-200b-08d913f25477
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2840.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2021 20:29:37.1041 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 89Ve7p1BLP+Wg/lfydPpbWvzsTGuK6fzYnxGBAmN5rm2jCrtEVgSHpQjn+4Jge/C
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3384
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,74 +55,468 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David M Nieto <david.nieto@amd.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The proper metric for fence utilization over several
-contexts is an harmonic mean, but such calculation is
-prohibitive in kernel space, so the code approximates it.
+Create new structure SISLANDS_SMC_SWSTATE_SINGLE, as initialState.levels
+and ACPIState.levels are never actually used as flexible arrays. Those
+arrays can be used as simple objects of type
+SISLANDS_SMC_HW_PERFORMANCE_LEVEL, instead.
 
-Because the approximation diverges when one context has a
-very small ratio compared with the other context, this change
-filter out ratios smaller that 0.01%
+Currently, the code fails because flexible array _levels_ in
+struct SISLANDS_SMC_SWSTATE doesn't allow for code that accesses
+the first element of initialState.levels and ACPIState.levels
+arrays:
 
-Signed-off-by: David M Nieto <david.nieto@amd.com>
-Change-Id: I5b6e0ce5f489a5f55855d35354a6a3653e9d613b
+drivers/gpu/drm/amd/pm/powerplay/si_dpm.c:
+4820: table->initialState.levels[0].mclk.vDLL_CNTL =
+4821:         cpu_to_be32(si_pi->clock_registers.dll_cntl);
+...
+5021: table->ACPIState.levels[0].mclk.vDLL_CNTL =
+5022:         cpu_to_be32(dll_cntl);
+
+because such element cannot be accessed without previously allocating
+enough dynamic memory for it to exist (which never actually happens).
+So, there is an out-of-bounds bug in this case.
+
+That's why struct SISLANDS_SMC_SWSTATE should only be used as type
+for object driverState and new struct SISLANDS_SMC_SWSTATE_SINGLE is
+created as type for objects initialState, ACPIState and ULVState.
+
+Also, with the change from one-element array to flexible-array member
+in commit 0e1aa13ca3ff ("drm/amd/pm: Replace one-element array with
+flexible-array in struct SISLANDS_SMC_SWSTATE"), the size of
+dpmLevels in struct SISLANDS_SMC_STATETABLE should be fixed to be
+SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE instead of
+SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1.
+
+Fixes: 0e1aa13ca3ff ("drm/amd/pm: Replace one-element array with flexible-array in struct SISLANDS_SMC_SWSTATE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 13 ++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/powerplay/si_dpm.c     | 174 +++++++++---------
+ .../gpu/drm/amd/pm/powerplay/sislands_smc.h   |  34 ++--
+ 2 files changed, 109 insertions(+), 99 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 9036c93b4a0c..89ee464b9424 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -698,16 +698,27 @@ ktime_t amdgpu_ctx_mgr_fence_usage(struct amdgpu_ctx_mgr *mgr, uint32_t hwip,
- 	struct amdgpu_ctx_entity *centity;
- 	ktime_t total = 0, max = 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+index 26a5321e621b..15c0b8af376f 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
+@@ -4817,70 +4817,70 @@ static int si_populate_smc_initial_state(struct amdgpu_device *adev,
+ 	u32 reg;
+ 	int ret;
  
-+
- 	if (idx >= AMDGPU_MAX_ENTITY_NUM)
- 		return 0;
- 	idp = &mgr->ctx_handles;
- 	mutex_lock(&mgr->lock);
- 	idr_for_each_entry(idp, ctx, id) {
-+		ktime_t ttotal = tmax = ktime_set(0, 0);
- 		if (!ctx->entities[hwip][idx])
- 			continue;
+-	table->initialState.levels[0].mclk.vDLL_CNTL =
++	table->initialState.level.mclk.vDLL_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.dll_cntl);
+-	table->initialState.levels[0].mclk.vMCLK_PWRMGT_CNTL =
++	table->initialState.level.mclk.vMCLK_PWRMGT_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.mclk_pwrmgt_cntl);
+-	table->initialState.levels[0].mclk.vMPLL_AD_FUNC_CNTL =
++	table->initialState.level.mclk.vMPLL_AD_FUNC_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_ad_func_cntl);
+-	table->initialState.levels[0].mclk.vMPLL_DQ_FUNC_CNTL =
++	table->initialState.level.mclk.vMPLL_DQ_FUNC_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_dq_func_cntl);
+-	table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL =
++	table->initialState.level.mclk.vMPLL_FUNC_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_func_cntl);
+-	table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL_1 =
++	table->initialState.level.mclk.vMPLL_FUNC_CNTL_1 =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_func_cntl_1);
+-	table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL_2 =
++	table->initialState.level.mclk.vMPLL_FUNC_CNTL_2 =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_func_cntl_2);
+-	table->initialState.levels[0].mclk.vMPLL_SS =
++	table->initialState.level.mclk.vMPLL_SS =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_ss1);
+-	table->initialState.levels[0].mclk.vMPLL_SS2 =
++	table->initialState.level.mclk.vMPLL_SS2 =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_ss2);
  
- 		centity = ctx->entities[hwip][idx];
--		amdgpu_ctx_fence_time(ctx, centity, &total, &max);
-+		amdgpu_ctx_fence_time(ctx, centity, &ttotal, &tmax);
-+
-+		/* Harmonic mean approximation diverges for very small
-+		 * values. If ratio < 0.01% ignore
-+		 */
-+		if (AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(tmax, ttotal))
-+			continue;
-+
-+		total = ktime_add(total, ttotal);
-+		max = ktime_after(tmax, max) ? tmax : max;
+-	table->initialState.levels[0].mclk.mclk_value =
++	table->initialState.level.mclk.mclk_value =
+ 		cpu_to_be32(initial_state->performance_levels[0].mclk);
+ 
+-	table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL =
++	table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl);
+-	table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_2 =
++	table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_2 =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_2);
+-	table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_3 =
++	table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_3 =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_3);
+-	table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_4 =
++	table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_4 =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_4);
+-	table->initialState.levels[0].sclk.vCG_SPLL_SPREAD_SPECTRUM =
++	table->initialState.level.sclk.vCG_SPLL_SPREAD_SPECTRUM =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_spread_spectrum);
+-	table->initialState.levels[0].sclk.vCG_SPLL_SPREAD_SPECTRUM_2  =
++	table->initialState.level.sclk.vCG_SPLL_SPREAD_SPECTRUM_2  =
+ 		cpu_to_be32(si_pi->clock_registers.cg_spll_spread_spectrum_2);
+ 
+-	table->initialState.levels[0].sclk.sclk_value =
++	table->initialState.level.sclk.sclk_value =
+ 		cpu_to_be32(initial_state->performance_levels[0].sclk);
+ 
+-	table->initialState.levels[0].arbRefreshState =
++	table->initialState.level.arbRefreshState =
+ 		SISLANDS_INITIAL_STATE_ARB_INDEX;
+ 
+-	table->initialState.levels[0].ACIndex = 0;
++	table->initialState.level.ACIndex = 0;
+ 
+ 	ret = si_populate_voltage_value(adev, &eg_pi->vddc_voltage_table,
+ 					initial_state->performance_levels[0].vddc,
+-					&table->initialState.levels[0].vddc);
++					&table->initialState.level.vddc);
+ 
+ 	if (!ret) {
+ 		u16 std_vddc;
+ 
+ 		ret = si_get_std_voltage_value(adev,
+-					       &table->initialState.levels[0].vddc,
++					       &table->initialState.level.vddc,
+ 					       &std_vddc);
+ 		if (!ret)
+ 			si_populate_std_voltage_value(adev, std_vddc,
+-						      table->initialState.levels[0].vddc.index,
+-						      &table->initialState.levels[0].std_vddc);
++						      table->initialState.level.vddc.index,
++						      &table->initialState.level.std_vddc);
  	}
  
- 	mutex_unlock(&mgr->lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index 10dcf59a5c6b..3541dfb059ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -30,6 +30,7 @@ struct drm_file;
- struct amdgpu_fpriv;
+ 	if (eg_pi->vddci_control)
+ 		si_populate_voltage_value(adev,
+ 					  &eg_pi->vddci_voltage_table,
+ 					  initial_state->performance_levels[0].vddci,
+-					  &table->initialState.levels[0].vddci);
++					  &table->initialState.level.vddci);
  
- #define AMDGPU_MAX_ENTITY_NUM 4
-+#define AMDGPU_CTX_FENCE_USAGE_MIN_RATIO(max, total) (max > 16384ULL*total)
+ 	if (si_pi->vddc_phase_shed_control)
+ 		si_populate_phase_shedding_value(adev,
+@@ -4888,41 +4888,41 @@ static int si_populate_smc_initial_state(struct amdgpu_device *adev,
+ 						 initial_state->performance_levels[0].vddc,
+ 						 initial_state->performance_levels[0].sclk,
+ 						 initial_state->performance_levels[0].mclk,
+-						 &table->initialState.levels[0].vddc);
++						 &table->initialState.level.vddc);
  
- struct amdgpu_ctx_entity {
- 	uint64_t		sequence;
+-	si_populate_initial_mvdd_value(adev, &table->initialState.levels[0].mvdd);
++	si_populate_initial_mvdd_value(adev, &table->initialState.level.mvdd);
+ 
+ 	reg = CG_R(0xffff) | CG_L(0);
+-	table->initialState.levels[0].aT = cpu_to_be32(reg);
+-	table->initialState.levels[0].bSP = cpu_to_be32(pi->dsp);
+-	table->initialState.levels[0].gen2PCIE = (u8)si_pi->boot_pcie_gen;
++	table->initialState.level.aT = cpu_to_be32(reg);
++	table->initialState.level.bSP = cpu_to_be32(pi->dsp);
++	table->initialState.level.gen2PCIE = (u8)si_pi->boot_pcie_gen;
+ 
+ 	if (adev->gmc.vram_type == AMDGPU_VRAM_TYPE_GDDR5) {
+-		table->initialState.levels[0].strobeMode =
++		table->initialState.level.strobeMode =
+ 			si_get_strobe_mode_settings(adev,
+ 						    initial_state->performance_levels[0].mclk);
+ 
+ 		if (initial_state->performance_levels[0].mclk > pi->mclk_edc_enable_threshold)
+-			table->initialState.levels[0].mcFlags = SISLANDS_SMC_MC_EDC_RD_FLAG | SISLANDS_SMC_MC_EDC_WR_FLAG;
++			table->initialState.level.mcFlags = SISLANDS_SMC_MC_EDC_RD_FLAG | SISLANDS_SMC_MC_EDC_WR_FLAG;
+ 		else
+-			table->initialState.levels[0].mcFlags =  0;
++			table->initialState.level.mcFlags =  0;
+ 	}
+ 
+ 	table->initialState.levelCount = 1;
+ 
+ 	table->initialState.flags |= PPSMC_SWSTATE_FLAG_DC;
+ 
+-	table->initialState.levels[0].dpm2.MaxPS = 0;
+-	table->initialState.levels[0].dpm2.NearTDPDec = 0;
+-	table->initialState.levels[0].dpm2.AboveSafeInc = 0;
+-	table->initialState.levels[0].dpm2.BelowSafeInc = 0;
+-	table->initialState.levels[0].dpm2.PwrEfficiencyRatio = 0;
++	table->initialState.level.dpm2.MaxPS = 0;
++	table->initialState.level.dpm2.NearTDPDec = 0;
++	table->initialState.level.dpm2.AboveSafeInc = 0;
++	table->initialState.level.dpm2.BelowSafeInc = 0;
++	table->initialState.level.dpm2.PwrEfficiencyRatio = 0;
+ 
+ 	reg = MIN_POWER_MASK | MAX_POWER_MASK;
+-	table->initialState.levels[0].SQPowerThrottle = cpu_to_be32(reg);
++	table->initialState.level.SQPowerThrottle = cpu_to_be32(reg);
+ 
+ 	reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
+-	table->initialState.levels[0].SQPowerThrottle_2 = cpu_to_be32(reg);
++	table->initialState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+ 
+ 	return 0;
+ }
+@@ -4953,18 +4953,18 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 
+ 	if (pi->acpi_vddc) {
+ 		ret = si_populate_voltage_value(adev, &eg_pi->vddc_voltage_table,
+-						pi->acpi_vddc, &table->ACPIState.levels[0].vddc);
++						pi->acpi_vddc, &table->ACPIState.level.vddc);
+ 		if (!ret) {
+ 			u16 std_vddc;
+ 
+ 			ret = si_get_std_voltage_value(adev,
+-						       &table->ACPIState.levels[0].vddc, &std_vddc);
++						       &table->ACPIState.level.vddc, &std_vddc);
+ 			if (!ret)
+ 				si_populate_std_voltage_value(adev, std_vddc,
+-							      table->ACPIState.levels[0].vddc.index,
+-							      &table->ACPIState.levels[0].std_vddc);
++							      table->ACPIState.level.vddc.index,
++							      &table->ACPIState.level.std_vddc);
+ 		}
+-		table->ACPIState.levels[0].gen2PCIE = si_pi->acpi_pcie_gen;
++		table->ACPIState.level.gen2PCIE = si_pi->acpi_pcie_gen;
+ 
+ 		if (si_pi->vddc_phase_shed_control) {
+ 			si_populate_phase_shedding_value(adev,
+@@ -4972,23 +4972,23 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 							 pi->acpi_vddc,
+ 							 0,
+ 							 0,
+-							 &table->ACPIState.levels[0].vddc);
++							 &table->ACPIState.level.vddc);
+ 		}
+ 	} else {
+ 		ret = si_populate_voltage_value(adev, &eg_pi->vddc_voltage_table,
+-						pi->min_vddc_in_table, &table->ACPIState.levels[0].vddc);
++						pi->min_vddc_in_table, &table->ACPIState.level.vddc);
+ 		if (!ret) {
+ 			u16 std_vddc;
+ 
+ 			ret = si_get_std_voltage_value(adev,
+-						       &table->ACPIState.levels[0].vddc, &std_vddc);
++						       &table->ACPIState.level.vddc, &std_vddc);
+ 
+ 			if (!ret)
+ 				si_populate_std_voltage_value(adev, std_vddc,
+-							      table->ACPIState.levels[0].vddc.index,
+-							      &table->ACPIState.levels[0].std_vddc);
++							      table->ACPIState.level.vddc.index,
++							      &table->ACPIState.level.std_vddc);
+ 		}
+-		table->ACPIState.levels[0].gen2PCIE =
++		table->ACPIState.level.gen2PCIE =
+ 			(u8)amdgpu_get_pcie_gen_support(adev,
+ 							si_pi->sys_pcie_mask,
+ 							si_pi->boot_pcie_gen,
+@@ -5000,14 +5000,14 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 							 pi->min_vddc_in_table,
+ 							 0,
+ 							 0,
+-							 &table->ACPIState.levels[0].vddc);
++							 &table->ACPIState.level.vddc);
+ 	}
+ 
+ 	if (pi->acpi_vddc) {
+ 		if (eg_pi->acpi_vddci)
+ 			si_populate_voltage_value(adev, &eg_pi->vddci_voltage_table,
+ 						  eg_pi->acpi_vddci,
+-						  &table->ACPIState.levels[0].vddci);
++						  &table->ACPIState.level.vddci);
+ 	}
+ 
+ 	mclk_pwrmgt_cntl |= MRDCK0_RESET | MRDCK1_RESET;
+@@ -5018,59 +5018,59 @@ static int si_populate_smc_acpi_state(struct amdgpu_device *adev,
+ 	spll_func_cntl_2 &= ~SCLK_MUX_SEL_MASK;
+ 	spll_func_cntl_2 |= SCLK_MUX_SEL(4);
+ 
+-	table->ACPIState.levels[0].mclk.vDLL_CNTL =
++	table->ACPIState.level.mclk.vDLL_CNTL =
+ 		cpu_to_be32(dll_cntl);
+-	table->ACPIState.levels[0].mclk.vMCLK_PWRMGT_CNTL =
++	table->ACPIState.level.mclk.vMCLK_PWRMGT_CNTL =
+ 		cpu_to_be32(mclk_pwrmgt_cntl);
+-	table->ACPIState.levels[0].mclk.vMPLL_AD_FUNC_CNTL =
++	table->ACPIState.level.mclk.vMPLL_AD_FUNC_CNTL =
+ 		cpu_to_be32(mpll_ad_func_cntl);
+-	table->ACPIState.levels[0].mclk.vMPLL_DQ_FUNC_CNTL =
++	table->ACPIState.level.mclk.vMPLL_DQ_FUNC_CNTL =
+ 		cpu_to_be32(mpll_dq_func_cntl);
+-	table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL =
++	table->ACPIState.level.mclk.vMPLL_FUNC_CNTL =
+ 		cpu_to_be32(mpll_func_cntl);
+-	table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL_1 =
++	table->ACPIState.level.mclk.vMPLL_FUNC_CNTL_1 =
+ 		cpu_to_be32(mpll_func_cntl_1);
+-	table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL_2 =
++	table->ACPIState.level.mclk.vMPLL_FUNC_CNTL_2 =
+ 		cpu_to_be32(mpll_func_cntl_2);
+-	table->ACPIState.levels[0].mclk.vMPLL_SS =
++	table->ACPIState.level.mclk.vMPLL_SS =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_ss1);
+-	table->ACPIState.levels[0].mclk.vMPLL_SS2 =
++	table->ACPIState.level.mclk.vMPLL_SS2 =
+ 		cpu_to_be32(si_pi->clock_registers.mpll_ss2);
+ 
+-	table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL =
++	table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL =
+ 		cpu_to_be32(spll_func_cntl);
+-	table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_2 =
++	table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_2 =
+ 		cpu_to_be32(spll_func_cntl_2);
+-	table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_3 =
++	table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_3 =
+ 		cpu_to_be32(spll_func_cntl_3);
+-	table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_4 =
++	table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_4 =
+ 		cpu_to_be32(spll_func_cntl_4);
+ 
+-	table->ACPIState.levels[0].mclk.mclk_value = 0;
+-	table->ACPIState.levels[0].sclk.sclk_value = 0;
++	table->ACPIState.level.mclk.mclk_value = 0;
++	table->ACPIState.level.sclk.sclk_value = 0;
+ 
+-	si_populate_mvdd_value(adev, 0, &table->ACPIState.levels[0].mvdd);
++	si_populate_mvdd_value(adev, 0, &table->ACPIState.level.mvdd);
+ 
+ 	if (eg_pi->dynamic_ac_timing)
+-		table->ACPIState.levels[0].ACIndex = 0;
++		table->ACPIState.level.ACIndex = 0;
+ 
+-	table->ACPIState.levels[0].dpm2.MaxPS = 0;
+-	table->ACPIState.levels[0].dpm2.NearTDPDec = 0;
+-	table->ACPIState.levels[0].dpm2.AboveSafeInc = 0;
+-	table->ACPIState.levels[0].dpm2.BelowSafeInc = 0;
+-	table->ACPIState.levels[0].dpm2.PwrEfficiencyRatio = 0;
++	table->ACPIState.level.dpm2.MaxPS = 0;
++	table->ACPIState.level.dpm2.NearTDPDec = 0;
++	table->ACPIState.level.dpm2.AboveSafeInc = 0;
++	table->ACPIState.level.dpm2.BelowSafeInc = 0;
++	table->ACPIState.level.dpm2.PwrEfficiencyRatio = 0;
+ 
+ 	reg = MIN_POWER_MASK | MAX_POWER_MASK;
+-	table->ACPIState.levels[0].SQPowerThrottle = cpu_to_be32(reg);
++	table->ACPIState.level.SQPowerThrottle = cpu_to_be32(reg);
+ 
+ 	reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
+-	table->ACPIState.levels[0].SQPowerThrottle_2 = cpu_to_be32(reg);
++	table->ACPIState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+ 
+ 	return 0;
+ }
+ 
+ static int si_populate_ulv_state(struct amdgpu_device *adev,
+-				 SISLANDS_SMC_SWSTATE *state)
++				 struct SISLANDS_SMC_SWSTATE_SINGLE *state)
+ {
+ 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
+ 	struct si_power_info *si_pi = si_get_pi(adev);
+@@ -5079,19 +5079,19 @@ static int si_populate_ulv_state(struct amdgpu_device *adev,
+ 	int ret;
+ 
+ 	ret = si_convert_power_level_to_smc(adev, &ulv->pl,
+-					    &state->levels[0]);
++					    &state->level);
+ 	if (!ret) {
+ 		if (eg_pi->sclk_deep_sleep) {
+ 			if (sclk_in_sr <= SCLK_MIN_DEEPSLEEP_FREQ)
+-				state->levels[0].stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_BYPASS;
++				state->level.stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_BYPASS;
+ 			else
+-				state->levels[0].stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_THROTTLE;
++				state->level.stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_THROTTLE;
+ 		}
+ 		if (ulv->one_pcie_lane_in_ulv)
+ 			state->flags |= PPSMC_SWSTATE_FLAG_PCIE_X1;
+-		state->levels[0].arbRefreshState = (u8)(SISLANDS_ULV_STATE_ARB_INDEX);
+-		state->levels[0].ACIndex = 1;
+-		state->levels[0].std_vddc = state->levels[0].vddc;
++		state->level.arbRefreshState = (u8)(SISLANDS_ULV_STATE_ARB_INDEX);
++		state->level.ACIndex = 1;
++		state->level.std_vddc = state->level.vddc;
+ 		state->levelCount = 1;
+ 
+ 		state->flags |= PPSMC_SWSTATE_FLAG_DC;
+@@ -5190,7 +5190,9 @@ static int si_init_smc_table(struct amdgpu_device *adev)
+ 	if (ret)
+ 		return ret;
+ 
+-	table->driverState = table->initialState;
++	table->driverState.flags = table->initialState.flags;
++	table->driverState.levelCount = table->initialState.levelCount;
++	table->driverState.levels[0] = table->initialState.level;
+ 
+ 	ret = si_do_program_memory_timing_parameters(adev, amdgpu_boot_state,
+ 						     SISLANDS_INITIAL_STATE_ARB_INDEX);
+@@ -5737,8 +5739,8 @@ static int si_upload_ulv_state(struct amdgpu_device *adev)
+ 	if (ulv->supported && ulv->pl.vddc) {
+ 		u32 address = si_pi->state_table_start +
+ 			offsetof(SISLANDS_SMC_STATETABLE, ULVState);
+-		SISLANDS_SMC_SWSTATE *smc_state = &si_pi->smc_statetable.ULVState;
+-		u32 state_size = sizeof(SISLANDS_SMC_SWSTATE);
++		struct SISLANDS_SMC_SWSTATE_SINGLE *smc_state = &si_pi->smc_statetable.ULVState;
++		u32 state_size = sizeof(struct SISLANDS_SMC_SWSTATE_SINGLE);
+ 
+ 		memset(smc_state, 0, state_size);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h b/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
+index 0f7554052c90..c7dc117a688c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/sislands_smc.h
+@@ -191,6 +191,14 @@ struct SISLANDS_SMC_SWSTATE
+ 
+ typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
+ 
++struct SISLANDS_SMC_SWSTATE_SINGLE {
++	uint8_t                             flags;
++	uint8_t                             levelCount;
++	uint8_t                             padding2;
++	uint8_t                             padding3;
++	SISLANDS_SMC_HW_PERFORMANCE_LEVEL   level;
++};
++
+ #define SISLANDS_SMC_VOLTAGEMASK_VDDC  0
+ #define SISLANDS_SMC_VOLTAGEMASK_MVDD  1
+ #define SISLANDS_SMC_VOLTAGEMASK_VDDCI 2
+@@ -208,19 +216,19 @@ typedef struct SISLANDS_SMC_VOLTAGEMASKTABLE SISLANDS_SMC_VOLTAGEMASKTABLE;
+ 
+ struct SISLANDS_SMC_STATETABLE
+ {
+-    uint8_t                             thermalProtectType;
+-    uint8_t                             systemFlags;
+-    uint8_t                             maxVDDCIndexInPPTable;
+-    uint8_t                             extraFlags;
+-    uint32_t                            lowSMIO[SISLANDS_MAX_NO_VREG_STEPS];
+-    SISLANDS_SMC_VOLTAGEMASKTABLE       voltageMaskTable;
+-    SISLANDS_SMC_VOLTAGEMASKTABLE       phaseMaskTable;
+-    PP_SIslands_DPM2Parameters          dpm2Params;
+-    SISLANDS_SMC_SWSTATE                initialState;
+-    SISLANDS_SMC_SWSTATE                ACPIState;
+-    SISLANDS_SMC_SWSTATE                ULVState;
+-    SISLANDS_SMC_SWSTATE                driverState;
+-    SISLANDS_SMC_HW_PERFORMANCE_LEVEL   dpmLevels[SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1];
++	uint8_t					thermalProtectType;
++	uint8_t					systemFlags;
++	uint8_t					maxVDDCIndexInPPTable;
++	uint8_t					extraFlags;
++	uint32_t				lowSMIO[SISLANDS_MAX_NO_VREG_STEPS];
++	SISLANDS_SMC_VOLTAGEMASKTABLE		voltageMaskTable;
++	SISLANDS_SMC_VOLTAGEMASKTABLE		phaseMaskTable;
++	PP_SIslands_DPM2Parameters		dpm2Params;
++	struct SISLANDS_SMC_SWSTATE_SINGLE	initialState;
++	struct SISLANDS_SMC_SWSTATE_SINGLE	ACPIState;
++	struct SISLANDS_SMC_SWSTATE_SINGLE	ULVState;
++	SISLANDS_SMC_SWSTATE			driverState;
++	SISLANDS_SMC_HW_PERFORMANCE_LEVEL	dpmLevels[SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE];
+ };
+ 
+ typedef struct SISLANDS_SMC_STATETABLE SISLANDS_SMC_STATETABLE;
 -- 
-2.17.1
+2.27.0
 
 _______________________________________________
 amd-gfx mailing list
