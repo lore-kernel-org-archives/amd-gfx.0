@@ -2,79 +2,130 @@ Return-Path: <SRS0=4HPi=KF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4871AC433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA986C433B4
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 18:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCE9160249
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCE9160249
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 78E6D613CA
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 18:27:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78E6D613CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 827EB6E4CB;
-	Mon, 10 May 2021 17:43:21 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE5206E8CC
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 17:24:58 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- d3-20020a9d29030000b029027e8019067fso15074714otb.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 10:24:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=d19irwZAVW+aAZEtNH9KsVONuBzLghQh3JEZ5WmIna8=;
- b=jVpuwJb6XP15x37lRsPHaoErhvSSnLM9l1curx9DxjzeZtucwRbD0pZR987svwc3vE
- srvTAuhnIU17uZeOVyGELPgQAKydsPNYxMT6coHhI61mkhbt4wH2xtBHmGLRhWStpTCA
- awAHzXbxodHXv2gu9UlCwsv/wmAQZHRfDPisMPpoELaxBr12TkFUiI/KwFPgBMVFVsdm
- BU/nAL5gQKg+FgDKq1HrNhSClhCAoedCcNBPufRQLwJF2uZDqCdjLxjB6+EWsRsA0MlG
- CvSInmRlLmKHTP8q+ZXLaaEtkftTWVUvNJt4IIxbhlQNwqBImIiaurCuvqvv3vYiEt/h
- vdpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=d19irwZAVW+aAZEtNH9KsVONuBzLghQh3JEZ5WmIna8=;
- b=SOMEOO1U3sdI5ogKIwf3L4UlFtWVoBCwUHX7tGEqrSMI4Detf/RC8TOn9grtOqgdlw
- 4UtRa8UGoujudkr165cT0E/Pma3J5Vo1zkwiDmHVAkRGoy65INopmR4c+akjEtYHTaGx
- rnK7Bkt0xyj3BY6rT6Iyu4obpXgoLm4FsBa+AfHfBo9GsOjTP6X7O/tCb6/OyCft1AHR
- Opr1Ml0uF7yovgjqVt8zrp7hIhVm/kKG+gdEFKUoN4J1osCz1CFSind/USxWbGbfw4bt
- OZqHZPOWoHcTDJqnc7nJxwJB8Qs7L/JR62a1D9nIvtWrUFWaMp1fmF24aWMv1H44ZRJ9
- IRgA==
-X-Gm-Message-State: AOAM533OkTomIiiHnZNIDnOnhC7SowqfoKpL6Obx5hEL1uZh7XJwhcfZ
- z32BPB5VNA4zJcW8Udqep7bQc//IoKKQodqFuJo=
-X-Google-Smtp-Source: ABdhPJzpQ2Otb1w9bHyCI7h61JxRkeO1xPDlDKDkqt49UJw3bk8ze6sDjKlBiZO2G2rfAylfRI6u4w1Fzzya1ECq1kM=
-X-Received: by 2002:a9d:6f90:: with SMTP id h16mr5072464otq.8.1620667497297;
- Mon, 10 May 2021 10:24:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB7C6E8CF;
+	Mon, 10 May 2021 18:27:34 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 885066E8CF;
+ Mon, 10 May 2021 18:27:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lGL1zq25QUnIyyhYy2uy1tniCvbN/lELJjCjvSIZJgBFxAoW8aLzZ9ngmnK/ZzUf2xjAeLWaETZs2nClbYoe0Mlx89oa2piKxJjqqkz2oxjpJTr2aH3jFhtVlSjAPemtgTIkM8PkzRQgTtjMtCEZ5Dfy+aMVB2vGRNvjtCbCiM3RrEgXVurSvxNAiyRO3BA8sxYRpm83Y2BSNRyPBsbUWwdIZViH9XG7A7cATf3PBmIAhPWlim4dUbgB9/2CoDgkVukPrJct03IOmmEyv8zo48OJD+Bw5LH0kRdVNxK8vIk6x5mda01HaUuPzp3KHgXwQjquzGmsXCNEzsgUWuIxug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HiTCv/Mk1JO2vCONhveoFEMgTSDc/3RnX2x44BNkCFc=;
+ b=h01xGvjHz4NLU1/DmbpaloEdvxr22UuFiQIGMZ7UeQ7WbOjE5ah8gokGKUPJ+JqcU/ux6S3heJrROZGIvm7NKTVX0UFyrDr3ERRoQg6Knpb6yiDdZKs4imJe8ie+vmb4D0AFsp6oYq1QXqlvuTbc6Y7cRparY9ivnQ2QFP6iBqXgzruQLIEUMl1OiGPU6gK0b8N4kFuNZB9XN7DIqlS0bBd0unzoqIoX7B5WYkHgoStMjQUoRIzu8VOvdIYd+dK/5ryAFXsY9SSvqaJ5KiELokK5X3ThTqJCTxjS9BlwDIc4ZFrFxZ6OLtvmDxj+3lqCda9lCeGB2NLaZvtvsHVz1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HiTCv/Mk1JO2vCONhveoFEMgTSDc/3RnX2x44BNkCFc=;
+ b=cvYoUgqdGgfHZ1bd/bTMH6F1T1Luqvo/rkDPOjM9VDXuHbcHjIQ8yqnALhopKUGAgijwzn6gGTKmTC4tif6Fiedn7JngxnaBN8FkjFk7MOhyWIcXC2O4Sv3ulnGbom7eBflqHFK3D1MLIUzYrkauHwq2HBxI9DHHILk/fDTmrCs=
+Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12)
+ by BN9PR12MB5241.namprd12.prod.outlook.com (2603:10b6:408:11e::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.26; Mon, 10 May
+ 2021 18:27:27 +0000
+Received: from BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd]) by BN9PR12MB5129.namprd12.prod.outlook.com
+ ([fe80::3c78:e58b:fba7:b8dd%6]) with mapi id 15.20.4108.031; Mon, 10 May 2021
+ 18:27:26 +0000
+Subject: Re: [PATCH v6 02/16] drm/ttm: Expose ttm_tt_unpopulate for driver use
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, ckoenig.leichtzumerken@gmail.com,
+ daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
+References: <20210510163625.407105-1-andrey.grodzovsky@amd.com>
+ <20210510163625.407105-3-andrey.grodzovsky@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <01afeedb-179b-d105-4e96-139c9bc654ef@amd.com>
+Date: Mon, 10 May 2021 14:27:24 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+In-Reply-To: <20210510163625.407105-3-andrey.grodzovsky@amd.com>
+Content-Language: en-US
+X-Originating-IP: [142.116.138.207]
+X-ClientProxiedBy: YT1PR01CA0063.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::32) To BN9PR12MB5129.namprd12.prod.outlook.com
+ (2603:10b6:408:136::12)
 MIME-Version: 1.0
-Received: by 2002:a05:6830:4118:0:0:0:0 with HTTP; Mon, 10 May 2021 10:24:56
- -0700 (PDT)
-In-Reply-To: <CAOzgRdbmz0ShtgO9MaKw_jycbPkc9Yj4vVQouLFTk_nRwdkArw@mail.gmail.com>
-References: <20210414233533.24012-2-qingqing.zhuo@amd.com>
- <20210509121055.24728-1-youling257@gmail.com>
- <CADnq5_MF0y0sHH6Vz8KZH5j=iXToq3WPw7+kW=BqMk=oNZ=Ppw@mail.gmail.com>
- <CAOzgRdZf0R7mVY+spDZz_CG1Kpf7qmP6oGaOJ_XKauZA3ZhZeg@mail.gmail.com>
- <CAP+8YyEv3NPqeEVmFvQDoq_+=h8Q_goHUbgt7fNPUXJbR5AcKw@mail.gmail.com>
- <CAOzgRdYbmnA3M5d30i94TwGNtOWOviChBq9eEdhTjbfvGXaSfw@mail.gmail.com>
- <CAOzgRdaKpwd5ze8om4F22yq_DeREma1H6KUquqJ34dnSTvsjiQ@mail.gmail.com>
- <CAJUqKUoxKdp+U5y0gzi=_N94zs6b9DjUoYT3Mfn0-z-X0hCbMQ@mail.gmail.com>
- <CAOzgRdYEGELkhOOkkm=OOZsmrCrKjR+GKJ_ZyqVVjUURX+Szfw@mail.gmail.com>
- <CAOzgRdYgM6j8RKzTdy-MwrW+NeLaAn1fy0Q6-ACnvA5K=a-z3A@mail.gmail.com>
- <CAJUqKUrr_JWLSEf8djCqmoJw6WSYZBedKsRFh6F3as+BiomJEw@mail.gmail.com>
- <CAOzgRdbmz0ShtgO9MaKw_jycbPkc9Yj4vVQouLFTk_nRwdkArw@mail.gmail.com>
-From: youling 257 <youling257@gmail.com>
-Date: Tue, 11 May 2021 01:24:56 +0800
-Message-ID: <CAOzgRdYCChmY0XbVsOqHZ1gO5FYko3WAr8pPC+LZjkCfda7X_A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Revert "Revert "drm/amdgpu: Ensure that the modifier
- requested is supported by plane.""
-To: Mark Yacoub <markyacoub@chromium.org>
-X-Mailman-Approved-At: Mon, 10 May 2021 17:43:19 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.116.138.207) by
+ YT1PR01CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4108.30 via Frontend Transport; Mon, 10 May 2021 18:27:26 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c64769ba-6055-48cf-62a9-08d913e1433a
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5241:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5241FFEFC3ECB1803C7F2DD092549@BN9PR12MB5241.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jUsTR+3as1vffrMw7mp96FGFJiDRogcl7VvANLHe7sthF4s0Jqf8D47yN8Q9NNHnD2O07fnWJTB1Z36wZqkVp3B/hfJIroe0Ezoon9bc1DMaDJpZgWw0TcWQw0X+YIHYmf1OTORntkdz2qTdiCf76hcA5j6uXk4CXy+iKPE7mR357b5me+RUc4y4SgV3INbIkXV+EwMeyD2qSJkv03BQ2Zugly6pque+uYlAr188ULfOxi0Uts5Iwi8S17l2wJez365suVSsmqAwYUmVHz8sOZJAARzStp4CZK5a6PvSdYsaGGt7pZ9CjDCAjL+S0kL8M1lbFhlgVJ+lmIes3SrZ5jAFhHSSrIG7AeuoHeoxU0+I23CQPm0g5UoTuRRPNFDtXa/zL4EUNmM+2Py7yb/AaADgIzqzZsIFr0Ukp1MVzp1JM9yQSYRUNcIpFbpgbiMynfTVnW9FYCByFrP86R0oVzI9YyxkYg84qEPoJYxYgELbaiZ0ag5kb37Xesy9h3U/6L7WVMzsfsEYiObX4/RliAqxiiZBws7IJKB3uypzXsSMj3gV28xnpvQaW956KovsGKSc4PPXlWnLtDyJmg/TvHYOphXAxNK7SEcwXSkOOB591RmGX5Kbqnv3U6oLK4En+lTPxDYQ/KyM/kLBX34TQZNnsvlJHLiqNfwSP9U+aaNyUffIVv4h10ffFRqxuDCQ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5129.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(366004)(136003)(396003)(26005)(66556008)(6486002)(4744005)(16526019)(186003)(8676002)(31686004)(31696002)(2906002)(4326008)(44832011)(956004)(2616005)(8936002)(5660300002)(478600001)(66476007)(83380400001)(36756003)(86362001)(16576012)(316002)(6636002)(38100700002)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?azhYbVVEYmhKakovVEtOTjl5UHovcnYweTlKdWR5dno5WVdoRmVjM2NHKzhu?=
+ =?utf-8?B?b28vOWtIS1lYZUQyd21QN0x0M1RFeWZnaHZBMUltWWpDaStsS1dSQUM1Z1Av?=
+ =?utf-8?B?Q2w5V2VKcHVQTjVEeDRQOHRKT0VxdGtiVmJ4SXh5YjBna0JiMFpabDg2T1dD?=
+ =?utf-8?B?U1ZtY2N0aDdtV3F5Q21WVmJwRXU4WVFIZzgvU3ZYS1BUNDRtWUl2aWM0YVhB?=
+ =?utf-8?B?UVRXWFFJcisxbGViRCtxUHI1aTlLNzd4akt0S0ZNZm5TbjJvNnNjb3crWDhX?=
+ =?utf-8?B?b09IMURoZ0tnRENaVFkyZmJ6dDBSbENxSGRpL0o3TEkveThRSjZuSDNQTHEr?=
+ =?utf-8?B?c1hGN2I1Rnhad0k0a3ZEZFlhc21DMTIzdHlYcGprY3JuYXBKQStIanJiVkw2?=
+ =?utf-8?B?cWZQdUo4UG5YdnF3UGhvUURDNEZIaWNWeW8yeFBoZXNMclRXd2JPcmJnQ3p6?=
+ =?utf-8?B?eWFrQXBGT2NXOTRGcUxCdlhoSXYzbC9idmw2MGlqMjNUOTBOUDN0R0p5V0s1?=
+ =?utf-8?B?a1dmQjN3eEJoaGJBZDFqQzlNOGFsUXpZUFlIWUg4ZHN1MUYvdk04OHpVUHY1?=
+ =?utf-8?B?dzNBaWJZVW5wSllwVExoODRmZStQUEUxdmR3TkttYWo0aEptWmxwbjVTK0Yw?=
+ =?utf-8?B?bzdNUWNVUytkejd0WERCcU1oRU1XMzExVFUxL1J2a1VXOHg3bndLOEcwMWJ1?=
+ =?utf-8?B?TXA3UmNDSDVMSHhDcWdyMjdvMUNEalAvSjZGRW9STDFvaWNNeFNLQXRrRE54?=
+ =?utf-8?B?M09Kc1V1bVdQUUpUZzFwbnpPRElXeW1OcTJ3bzhwK1ArUkp1MjYxbndQOXc1?=
+ =?utf-8?B?aUFsOUkxSi9lT3BjRENuUlRPeEFFUWpaWHZqaGRGd3FKNkk5cGtpdzFidWgv?=
+ =?utf-8?B?eHk2K1A4ZUVFcks1YmtmUHdMamFPelpEa2k3TjJlZzk1U21GYW9EM3ord1l2?=
+ =?utf-8?B?VGViT2tIaWVKeHEyZ1BteWRZaHFLMmVicXV2S3NZR0QzQ0VaOTQyTjZpWmMv?=
+ =?utf-8?B?MlRrZ2tVSlBQeUQvNlovQUlCeUEvNWFEYkEvZnhiWWlLYXJpUFJnd21sdk52?=
+ =?utf-8?B?c0RNNlMzeisvVCt6MjFWSktURkpFZmptS2dTNkFyMVRvUDZ3M3YrODIrZ3lG?=
+ =?utf-8?B?RjJvVElHdzZLQXFVUi9MdG9mcFR5MFdmU3VDbzlWdmk2TElFSkV4NEZPTjF3?=
+ =?utf-8?B?Q1paZnpmNkVIY2UweitWdENMVUQ3Z2ZEOWhoL0xOUE5ZMzBzN2ZkZ2NFSVhK?=
+ =?utf-8?B?a21kT0gvckVQbVNCdEMzQmE5b1RmaHh2UXc3ZU9VdGxVWFcydFRzYmQyMmtT?=
+ =?utf-8?B?a0dvV1NlZk1yNm5KYXFFd005eU1mcnErQ0FFVmpyVXFwWk5QYnJnSHVMSjFq?=
+ =?utf-8?B?L2xjSC85cmlnSDd4Rit0dkNPTjlIbjNBdzJGODFBWnlydHZoMHlDT01GM0lw?=
+ =?utf-8?B?ZTBkQVg5RnhtSWZIcGRTV2d3Qk5ITC84ZUR6TllNMkpTVjNhd0Urb1BObCtl?=
+ =?utf-8?B?anpGWGU3Qlg2R1J0Qnl1dFhDS3J5WDNpcDRLa2FvbThLS1YyWUg1UDVRaWU2?=
+ =?utf-8?B?QS9zUHE3dVZpWEFLdW1JMlpzQks3UGp3TlBmeW4wbXhITVNMMEZKYUtmZXRm?=
+ =?utf-8?B?OExVYW5pSithdWpXNUJtdzNPUUxtU0FyNko4RGtwMFk2MDA5M0JRVWJ2NlRl?=
+ =?utf-8?B?cjdJNUl0Z054cjdycVFmNXZVRWFscmhqUFBFSWg2S1FBWlJ0OVFLM2VJNGRH?=
+ =?utf-8?Q?Fa5sndPEnZM4/NsDMUndZTPqUIeMJGno4uN+daL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c64769ba-6055-48cf-62a9-08d913e1433a
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5129.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2021 18:27:26.7309 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJiXfXdwLoRvxWPdYF+j3bgoWbqo6wQxuMFefMITBwIhoZ7QfO4H5L7kiWzoqxoqImCNP7OFHyOxctI2eJr5yQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,1270 +137,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wheeler,
- Daniel" <daniel.wheeler@amd.com>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexdeucher@gmail.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ helgaas@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-05-10 17:18:46.509     0     0 I         : [drm] amdgpu kernel
-modesetting enabled.
-05-10 17:18:46.510     0     0 I amdgpu  : Topology: Add APU node [0x0:0x0]
-05-10 17:18:46.510     0     0 D         : checking generic (e0000000
-fa0000) vs hw (e0000000 10000000)
-05-10 17:18:46.510     0     0 I fb0     : switching to amdgpudrmfb from EFI VGA
-05-10 17:18:46.510     0     0 I Console : switching to colour dummy
-device 80x25
-05-10 17:18:46.510     0     0 I amdgpu 0000: 0b:00.0: vgaarb:
-deactivate vga console
-05-10 17:18:46.510     0     0 I         : [drm] initializing kernel
-modesetting (RAVEN 0x1002:0x15D8 0x1002:0x15D8 0xC8).
-05-10 17:18:46.510     0     0 I amdgpu 0000: 0b:00.0: amdgpu: Trusted
-Memory Zone (TMZ) feature enabled
-05-10 17:18:46.510     0     0 I         : [drm] register mmio base: 0xFC900000
-05-10 17:18:46.510     0     0 I         : [drm] register mmio size: 524288
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 0
-<soc15_common>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 1
-<gmc_v9_0>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 2
-<vega10_ih>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 3 <psp>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 4
-<gfx_v9_0>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 5
-<sdma_v4_0>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 6
-<powerplay>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 7 <dm>
-05-10 17:18:46.510     0     0 I         : [drm] add ip block number 8
-<vcn_v1_0>
-05-10 17:18:46.533     0     0 I         : [drm] BIOS signature incorrect 0 0
-05-10 17:18:46.533     0     0 I amdgpu 0000: 0b:00.0: amdgpu: Fetched
-VBIOS from ROM BAR
-05-10 17:18:46.533     0     0 I amdgpu  : ATOM BIOS: 113-PICASSO-115
-05-10 17:18:46.534     0     0 I         : [drm] VCN decode is enabled
-in VM mode
-05-10 17:18:46.534     0     0 I         : [drm] VCN encode is enabled
-in VM mode
-05-10 17:18:46.534     0     0 I         : [drm] JPEG decode is
-enabled in VM mode
-05-10 17:18:46.534     0     0 I         : [drm] vm size is 262144 GB,
-4 levels, block size is 9-bit, fragment size is 9-bit
-05-10 17:18:46.534     0     0 I amdgpu 0000: 0b:00.0: amdgpu: VRAM:
-64M 0x000000F400000000 - 0x000000F403FFFFFF (64M used)
-05-10 17:18:46.534     0     0 I amdgpu 0000: 0b:00.0: amdgpu: GART:
-1024M 0x0000000000000000 - 0x000000003FFFFFFF
-05-10 17:18:46.534     0     0 I amdgpu 0000: 0b:00.0: amdgpu: AGP:
-267419648M 0x000000F800000000 - 0x0000FFFFFFFFFFFF
-05-10 17:18:46.534     0     0 I         : [drm] Detected VRAM RAM=64M, BAR=64M
-05-10 17:18:46.534     0     0 I         : [drm] RAM width 64bits DDR4
-05-10 17:18:46.534     0     0 I [drm] amdgpu: 64M of VRAM memory ready
-05-10 17:18:46.534     0     0 I [drm] amdgpu: 3072M of GTT memory ready.
-05-10 17:18:46.534     0     0 I [drm] GART: num cpu pages 262144, num
-gpu pages 262144
-05-10 17:18:46.534     0     0 I         : [drm] PCIE GART of 1024M enabled.
-05-10 17:18:46.534     0     0 I         : [drm] PTB located at
-0x000000F400FA0000
-05-10 17:18:46.536     0     0 I amdgpu  : hwmgr_sw_init smu backed is smu10_smu
-05-10 17:18:46.536     0     0 D [drm:dm_sw_init [amdgpu]] dm: DMCU
-firmware not found
-05-10 17:18:46.537     0     0 I         : [drm] Found VCN firmware
-Version ENC: 1.12 DEC: 2 VEP: 0 Revision: 1
-05-10 17:18:46.537     0     0 I         : [drm] PSP loading VCN firmware
-05-10 17:18:46.558     0     0 I         : [drm] reserve 0x400000 from
-0xf403c00000 for PSP TMR
-05-10 17:18:46.567     0     0 I iwlwifi 0000: 07:00.0: base HW
-address: e0:d4:e8:48:f5:67
-05-10 17:18:46.615     0     0 I amdgpu 0000: 0b:00.0: amdgpu: RAS:
-optional ras ta ucode is not available
-05-10 17:18:46.620     0     0 I amdgpu 0000: 0b:00.0: amdgpu: RAP:
-optional rap ta ucode is not available
-05-10 17:18:46.620     0     0 I amdgpu 0000: 0b:00.0: amdgpu:
-SECUREDISPLAY: securedisplay ta ucode is not available
-05-10 17:18:46.622     0     0 I         : [drm] kiq ring mec 2 pipe 1 q 0
-05-10 17:18:46.622     0     0 D         : [drm:amdgpu_dm_irq_init
-[amdgpu]] DM_IRQ
-05-10 17:18:46.622     0     0 D         :
-[drm:dal_firmware_parser_init_cmd_tbl [amdgpu]] Don't have
-set_crtc_timing for v1
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: values for F clock
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 400000 in kHz, 3099 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 933000 in kHz, 3574 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 1200000 in kHz, 4399 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 1333000 in kHz, 4399 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: values for DCF clock
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 300000 in kHz, 3099 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 600000 in kHz, 3574 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 626000 in kHz, 4250 in mV
-05-10 17:18:46.623     0     0 I [drm] DM_PPLIB: 654000 in kHz, 4399 in mV
-05-10 17:18:46.623     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - number of connectors: 4
-05-10 17:18:46.624     0     0 D [drm:dc_create [amdgpu]] DC:
-create_links: connectors_num: physical:4, virtual:0
-05-10 17:18:46.624     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - printing link object info for connector number: 0,
-link_index: 0
-05-10 17:18:46.624     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - link_id: 19
-05-10 17:18:46.624     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - is_internal_display: 0
-05-10 17:18:46.625     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio id: 3
-05-10 17:18:46.625     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio en: 0
-05-10 17:18:46.625     0     0 D         : [drm:link_create [amdgpu]]
-Connector[0] description:signal 32
-05-10 17:18:46.625     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_line: 0
-05-10 17:18:46.625     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_engine_id: 1
-05-10 17:18:46.626     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - DP_IS_USB_C: 0
-05-10 17:18:46.626     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.acpi_device: 0
-05-10 17:18:46.626     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.device_type: 3
-05-10 17:18:46.626     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.enum_id: 1
-05-10 17:18:46.626     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - ddi_channel_mapping: 0x00E4
-05-10 17:18:46.627     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - chip_caps: 0
-05-10 17:18:46.627     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - dc_link_construct finished successfully.
-05-10 17:18:46.627     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - printing link object info for connector number: 1,
-link_index: 1
-05-10 17:18:46.627     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - link_id: 12
-05-10 17:18:46.627     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - is_internal_display: 0
-05-10 17:18:46.628     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio id: 3
-05-10 17:18:46.628     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio en: 1
-05-10 17:18:46.628     0     0 D         : [drm:link_create [amdgpu]]
-Connector[1] description:signal 4
-05-10 17:18:46.628     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_line: 1
-05-10 17:18:46.628     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_engine_id: 1
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - DP_IS_USB_C: 0
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.acpi_device: 0
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.device_type: 3
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.enum_id: 2
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - ddi_channel_mapping: 0x00E4
-05-10 17:18:46.629     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - chip_caps: 8
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - dc_link_construct finished successfully.
-05-10 17:18:46.630     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - printing link object info for connector number: 2,
-link_index: 2
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - link_id: 12
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - is_internal_display: 0
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio id: 3
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio en: 2
-05-10 17:18:46.630     0     0 D         : [drm:link_create [amdgpu]]
-Connector[2] description:signal 4
-05-10 17:18:46.631     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_line: 2
-05-10 17:18:46.631     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_engine_id: 1
-05-10 17:18:46.631     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - DP_IS_USB_C: 1
-05-10 17:18:46.631     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.acpi_device: 0
-05-10 17:18:46.631     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.device_type: 3
-05-10 17:18:46.631     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.enum_id: 3
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - ddi_channel_mapping: 0x00E4
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - chip_caps: 256
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - dc_link_construct finished successfully.
-05-10 17:18:46.632     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - printing link object info for connector number: 3,
-link_index: 3
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - link_id: 12
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - is_internal_display: 0
-05-10 17:18:46.632     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio id: 3
-05-10 17:18:46.633     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - hpd_gpio en: 3
-05-10 17:18:46.633     0     0 D         : [drm:link_create [amdgpu]]
-Connector[3] description:signal 4
-05-10 17:18:46.633     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_line: 3
-05-10 17:18:46.633     0     0 D         : [drm:dal_ddc_service_create
-[amdgpu]] BIOS object table - i2c_engine_id: 1
-05-10 17:18:46.633     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - DP_IS_USB_C: 1
-05-10 17:18:46.633     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.acpi_device: 0
-05-10 17:18:46.633     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.device_type: 3
-05-10 17:18:46.634     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - device_tag.dev_id.enum_id: 4
-05-10 17:18:46.634     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - ddi_channel_mapping: 0x00E4
-05-10 17:18:46.634     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - chip_caps: 264
-05-10 17:18:46.634     0     0 D         : [drm:link_create [amdgpu]]
-BIOS object table - dc_link_construct finished successfully.
-05-10 17:18:46.634     0     0 D         : [drm:dc_create [amdgpu]]
-BIOS object table - end
-05-10 17:18:46.634     0     0 D         : [drm:dc_create [amdgpu]]
-Display Core initialized
-05-10 17:18:46.635     0     0 I         : [drm] Display Core
-initialized with v3.2.132!
-05-10 17:18:46.666     0     0 D         :
-[drm:dm_helpers_dp_read_dpcd [amdgpu]] Failed to find connector for
-link!
-05-10 17:18:46.679     0     0 D         : [drm:mpc1_assert_idle_mpcc
-[amdgpu]] REG_WAIT taking a while: 5ms in mpc1_assert_idle_mpcc
-line:108
-05-10 17:18:46.679     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 0
-05-10 17:18:46.680     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 0
-05-10 17:18:46.680     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 1
-05-10 17:18:46.680     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 1
-05-10 17:18:46.680     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 2
-05-10 17:18:46.680     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 2
-05-10 17:18:46.681     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 3
-05-10 17:18:46.681     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 3
-05-10 17:18:46.681     0     0 D         : [drm:drm_connector_init]
-cmdline mode for connector DP-1  2560x1600@60Hz
-05-10 17:18:46.681     0     0 D         : [drm:dc_link_detect_helper
-[amdgpu]] link=0, dc_sink_in=0000000000000000 is now Disconnected
-prev_sink=0000000000000000 dpcd same=1 edid same=0
-05-10 17:18:46.681     0     0 D         : [drm:drm_connector_init]
-cmdline mode for connector HDMI-A-1  2560x1600@60Hz
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-Supported Monitor Refresh rate range is 48 Hz - 75 Hz
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-non_desktop set to 0
-05-10 17:18:46.706     0     0 D [drm:drm_add_display_info] HDMI: DVI
-dual 0, max TMDS clock 320000 kHz
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-hdmi_21 sink detected. parsing edid
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-CEA VCDB 0xff
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-Supported Monitor Refresh rate range is 48 Hz - 75 Hz
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-non_desktop set to 0
-05-10 17:18:46.706     0     0 D [drm:drm_add_display_info] HDMI: DVI
-dual 0, max TMDS clock 320000 kHz
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-hdmi_21 sink detected. parsing edid
-05-10 17:18:46.706     0     0 D         : [drm:drm_add_display_info]
-CEA VCDB 0xff
-05-10 17:18:46.707     0     0 D [drm:dc_link_detect_helper [amdgpu]]
-HDMI: [Block 0]
-05-10 17:18:46.707     0     0 D [drm:dc_link_detect_helper [amdgpu]]
-HDMI: [Block 1]
-05-10 17:18:46.707     0     0 D [drm:dc_link_detect_helper [amdgpu]]
-dc_link_detect_helper: manufacturer_id = 1863, product_id = 101,
-serial_number = 1010101, manufacture_week = 20, manufacture_year = 29,
-display_name = HDMI, speaker_flag = 1, audio_mode_count = 1
-05-10 17:18:46.707     0     0 D [drm:dc_link_detect_helper [amdgpu]]
-dc_link_detect_helper: mode number = 0, format_code = 1, channel_count
-= 2, sample_rate = 7, sample_size = 7
-05-10 17:18:46.707     0     0 D         : [drm:dc_link_detect_helper
-[amdgpu]] link=1, dc_sink_in=00000000e79abeb2 is now Connected
-prev_sink=0000000000000000 dpcd same=1 edid same=0
-05-10 17:18:46.707     0     0 D         : [drm:drm_connector_init]
-cmdline mode for connector HDMI-A-2  2560x1600@60Hz
-05-10 17:18:46.707     0     0 D         : [drm:dc_link_detect_helper
-[amdgpu]] link=2, dc_sink_in=0000000000000000 is now Disconnected
-prev_sink=0000000000000000 dpcd same=1 edid same=0
-05-10 17:18:46.707     0     0 D         : [drm:drm_connector_init]
-cmdline mode for connector HDMI-A-3  2560x1600@60Hz
-05-10 17:18:46.708     0     0 D         : [drm:dc_link_detect_helper
-[amdgpu]] link=3, dc_sink_in=0000000000000000 is now Disconnected
-prev_sink=0000000000000000 dpcd same=1 edid same=0
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000c614992a for: dal_src=78,
-irq context=1
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 000000009e2a0026 for: dal_src=79,
-irq context=1
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000acf6dfe7 for: dal_src=80,
-irq context=1
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000696d7950 for: dal_src=81,
-irq context=1
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000ce7f5912 for: dal_src=72,
-irq context=1
-05-10 17:18:46.708     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000a96b7920 for: dal_src=73,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000de906a3f for: dal_src=74,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 0000000071d9647b for: dal_src=75,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000d8d507bc for: dal_src=26,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 0000000056c37432 for: dal_src=27,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000c1abaf1d for: dal_src=28,
-irq context=1
-05-10 17:18:46.709     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 000000004c8a831f for: dal_src=29,
-irq context=1
-05-10 17:18:46.710     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000ba66a8e0 for: dal_src=1,
-irq context=0
-05-10 17:18:46.710     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 000000009a8dde8f for: dal_src=7,
-irq context=0
-05-10 17:18:46.710     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 00000000b049c0cd for: dal_src=2,
-irq context=0
-05-10 17:18:46.710     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 0000000010e5f25b for: dal_src=3,
-irq context=0
-05-10 17:18:46.710     0     0 D [drm:amdgpu_dm_irq_register_interrupt
-[amdgpu]] DM_IRQ: added irq handler: 000000003e0c16ec for: dal_src=4,
-irq context=0
-05-10 17:18:46.721     0     0 I         : [drm] VCN decode and encode
-initialized successfully(under SPG Mode).
-05-10 17:18:46.722     0     0 I         : kfd kfd: amdgpu: Allocated
-3969056 bytes on gart
-05-10 17:18:46.722     0     0 E         : kfd kfd: amdgpu: error
-getting iommu info. is the iommu enabled?
-05-10 17:18:46.722     0     0 E         : kfd kfd: amdgpu: Error
-initializing iommuv2
-05-10 17:18:46.722     0     0 E         : kfd kfd: amdgpu: device
-1002:15d8 NOT added due to errors
-05-10 17:18:46.722     0     0 I amdgpu 0000: 0b:00.0: amdgpu: SE 1,
-SH per SE 1, CU per SH 11, active_cu_number 11
-05-10 17:18:46.722     0     0 D         : [drm:drm_client_modeset_probe]
-05-10 17:18:46.722     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 78:DP-1]
-05-10 17:18:46.722     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 78:DP-1]
-status updated from unknown to disconnected
-05-10 17:18:46.722     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 78:DP-1]
-disconnected
-05-10 17:18:46.722     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 85:HDMI-A-1]
-05-10 17:18:46.722     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 85:HDMI-A-1]
-status updated from unknown to connected
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_edid_modes]
-ELD monitor HDMI
-05-10 17:18:46.722     0     0 D [drm:drm_add_edid_modes] HDMI:
-latency present 0 0, video latency 0 0, audio latency 0 0
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_edid_modes]
-ELD size 28, SAD count 1
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_display_info]
-Supported Monitor Refresh rate range is 48 Hz - 75 Hz
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_display_info]
-non_desktop set to 0
-05-10 17:18:46.722     0     0 D [drm:drm_add_display_info] HDMI: DVI
-dual 0, max TMDS clock 320000 kHz
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_display_info]
-hdmi_21 sink detected. parsing edid
-05-10 17:18:46.722     0     0 D         : [drm:drm_add_display_info]
-CEA VCDB 0xff
-05-10 17:18:46.722     0     0 D         :
-[drm:drm_for_each_detailed_block.part.0] stereo mode not supported
-05-10 17:18:46.722     0     0 D         :
-[drm:drm_for_each_detailed_block.part.0] stereo mode not supported
-05-10 17:18:46.722     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:2560  height:1600
-05-10 17:18:46.722     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
-05-10 17:18:46.723     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
-05-10 17:18:46.723     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
-05-10 17:18:46.723     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
-05-10 17:18:46.723     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1680  height:1050
-05-10 17:18:46.724     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1400  height:1050
-05-10 17:18:46.724     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1600  height:900
-05-10 17:18:46.724     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:1024
-05-10 17:18:46.724     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:1024
-05-10 17:18:46.724     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1440  height:900
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:960
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
-05-10 17:18:46.725     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:800  height:600
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:800  height:600
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
-05-10 17:18:46.726     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
-05-10 17:18:46.727     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:720  height:400
-05-10 17:18:46.727     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:800
-05-10 17:18:46.727     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1600  height:1200
-05-10 17:18:46.727     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1200
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080i": 60 74250
-1920 2008 2052 2200 1080 1084 1094 1125 0x40 0x15
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_prune_invalid] Not using 1920x1080i mode: NO_INTERLACE
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080i": 60 74176
-1920 2008 2052 2200 1080 1084 1094 1125 0x40 0x15
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_prune_invalid] Not using 1920x1080i mode: NO_INTERLACE
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 85:HDMI-A-1]
-probed modes :
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "2560x1600": 60 267810
-2560 2608 2640 2720 1600 1603 1608 1641 0x68 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1200": 60 267810
-1920 2608 2640 2720 1200 1603 1608 1641 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080": 60 148500
-1920 2008 2052 2200 1080 1084 1089 1125 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080": 60 148500
-1920 2008 2052 2200 1080 1084 1089 1125 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080": 60 148352
-1920 2008 2052 2200 1080 1084 1089 1125 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1920x1080": 50 148500
-1920 2448 2492 2640 1080 1084 1089 1125 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1600x1200": 60 267810
-1600 2608 2640 2720 1200 1603 1608 1641 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1680x1050": 60 119000
-1680 1728 1760 1840 1050 1053 1059 1080 0x40 0x9
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1400x1050": 60 101000
-1400 1448 1480 1560 1050 1053 1057 1080 0x40 0x9
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1600x900": 60 108000 1600
-1624 1704 1800 900 901 904 1000 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x1024": 75 135000
-1280 1296 1440 1688 1024 1025 1028 1066 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x1024": 60 108000
-1280 1328 1440 1688 1024 1025 1028 1066 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1440x900": 60 88750 1440
-1488 1520 1600 900 903 909 926 0x40 0x9
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x960": 60 108000 1280
-1376 1488 1800 960 961 964 1000 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x800": 60 267810 1280
-2608 2640 2720 800 1603 1608 1641 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x720": 60 74250 1280
-1390 1430 1650 720 725 730 750 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x720": 60 74250 1280
-1390 1430 1650 720 725 730 750 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1280x720": 60 74176 1280
-1390 1430 1650 720 725 730 750 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1024x768": 75 78750 1024
-1040 1136 1312 768 769 772 800 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1024x768": 70 75000 1024
-1048 1184 1328 768 771 777 806 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "1024x768": 60 65000 1024
-1048 1184 1344 768 771 777 806 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "800x600": 75 49500 800
-816 896 1056 600 601 604 625 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "800x600": 60 40000 800
-840 968 1056 600 601 605 628 0x40 0x5
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "640x480": 75 31500 640
-656 720 840 480 481 484 500 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "640x480": 60 25200 640
-656 752 800 480 490 492 525 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "640x480": 60 25175 640
-656 752 800 480 490 492 525 0x40 0xa
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_mode_debug_printmodeline] Modeline "720x400": 70 28320 720
-738 846 900 400 412 414 449 0x40 0x6
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 90:HDMI-A-2]
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 90:HDMI-A-2]
-status updated from unknown to disconnected
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 90:HDMI-A-2]
-disconnected
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 94:HDMI-A-3]
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 94:HDMI-A-3]
-status updated from unknown to disconnected
-05-10 17:18:46.727     0     0 D
-[drm:drm_helper_probe_single_connector_modes] [CONNECTOR: 94:HDMI-A-3]
-disconnected
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] connector 78 enabled? no
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] connector 85 enabled? yes
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] connector 90 enabled? no
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] connector 94 enabled? no
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] Not using firmware configuration
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] looking for cmdline mode on connector
-85
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] found mode 2560x1600
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] picking CRTCs for 16384x16384 config
-05-10 17:18:46.727     0     0 D         :
-[drm:drm_client_modeset_probe] desired mode 2560x1600 set on crtc 67
-(0,0)
-05-10 17:18:46.727     0     0 D amdgpu 0000: 0b:00.0:
-[drm:__drm_fb_helper_initial_config_and_unlock] test CRTC 0 primary
-plane
-05-10 17:18:46.727     0     0 D amdgpu 0000: 0b:00.0:
-[drm:__drm_fb_helper_initial_config_and_unlock] test CRTC 1 primary
-plane
-05-10 17:18:46.727     0     0 D amdgpu 0000: 0b:00.0:
-[drm:__drm_fb_helper_initial_config_and_unlock] test CRTC 2 primary
-plane
-05-10 17:18:46.727     0     0 D amdgpu 0000: 0b:00.0:
-[drm:__drm_fb_helper_initial_config_and_unlock] test CRTC 3 primary
-plane
-05-10 17:18:46.729     0     0 I         : [drm] fb mappable at 0xDD26A000
-05-10 17:18:46.729     0     0 I         : [drm] vram apper at 0xDC000000
-05-10 17:18:46.729     0     0 I         : [drm] size 16384000
-05-10 17:18:46.729     0     0 I         : [drm] fb depth is 24
-05-10 17:18:46.729     0     0 I         : [drm]    pitch is 10240
-05-10 17:18:46.729     0     0 I fbcon   : amdgpudrmfb (fb0) is primary device
-05-10 17:18:46.729     0     0 D         : [drm:create_stream_for_sink
-[amdgpu]] Destination Rectangle x:0  y:0  width:2560  height:1600
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.730     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.731     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.731     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.731     0     0 D [drm:dc_commit_state [amdgpu]]
-dc_commit_state: 1 streams
-05-10 17:18:46.731     0     0 D         : [drm:dc_stream_log
-[amdgpu]] core_stream 0x000000008f34ae37: src: 0, 0, 2560, 1600; dst:
-0, 0, 2560, 1600, colorSpace:6
-05-10 17:18:46.731     0     0 D [drm:dc_stream_log [amdgpu]]
-	pix_clk_khz: 267810, h_total: 2720, v_total: 1641, pixelencoder:3,
-displaycolorDepth:2
-05-10 17:18:46.731     0     0 D [drm:dc_commit_state [amdgpu]] 	link: 1
-05-10 17:18:46.732     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 0
-05-10 17:18:46.732     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 0
-05-10 17:18:46.732     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 1
-05-10 17:18:46.732     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 1
-05-10 17:18:46.732     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 2
-05-10 17:18:46.732     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 2
-05-10 17:18:46.733     0     0 D         :
-[drm:dcn10_plane_atomic_disable [amdgpu]] Power gated front end 3
-05-10 17:18:46.733     0     0 D         : [drm:dcn10_init_pipes
-[amdgpu]] Power down front end 3
-05-10 17:18:46.753     0     0 D         : [drm:drm_dp_dpcd_access]
-AMDGPU DM aux hw bus 0: Too many retries, giving up. First error: -5
-05-10 17:18:46.759     0     0 D         : [drm:optc1_disable_crtc
-[amdgpu]] REG_WAIT taking a while: 1ms in optc1_disable_crtc line:544
-05-10 17:18:46.761     0     0 D         :
-[drm:write_i2c_retimer_setting [amdgpu]] retimer write to
-slave_address = 0x5d,				offset = 0xa, reg_val= 0x13, i2c_success = 0
-05-10 17:18:46.761     0     0 D         :
-[drm:write_i2c_retimer_setting [amdgpu]] Set retimer failed
-05-10 17:18:46.764     0     0 D         : [drm:mod_hdcp_add_display
-[amdgpu]] [Link 0] > HDCP_INITIALIZED
-05-10 17:18:46.765     0     0 D         : [drm:dcn10_program_pipe
-[amdgpu]] Un-gated front end for pipe 0
-05-10 17:18:46.765     0     0 D         : [drm:dc_commit_state
-[amdgpu]] {2560x1600, 2720x1641@267810Khz}
-05-10 17:18:46.778     0     0 D         : [drm:dcn10_program_pipe
-[amdgpu]] Un-gated front end for pipe 0
-05-10 17:18:46.779     0     0 I Console : switching to colour frame
-buffer device 320x100
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.779     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.780     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.780     0     0 D         :
-[drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-05-10 17:18:46.780     0     0 D         : [drm:event_mall_stutter
-[amdgpu]] Allow idle optimizations (MALL): 0
-05-10 17:18:46.780     0     0 D         : [drm:dcn10_program_pipe
-[amdgpu]] Un-gated front end for pipe 0
-05-10 17:18:46.802     0     0 I amdgpu 0000: 0b:00.0: [drm] fb0:
-amdgpudrmfb frame buffer device
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-gfx uses VM inv eng 0 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.0.0 uses VM inv eng 1 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.1.0 uses VM inv eng 4 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.2.0 uses VM inv eng 5 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.3.0 uses VM inv eng 6 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.0.1 uses VM inv eng 7 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.1.1 uses VM inv eng 8 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.2.1 uses VM inv eng 9 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-comp_1.3.1 uses VM inv eng 10 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-kiq_2.1.0 uses VM inv eng 11 on hub 0
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-sdma0 uses VM inv eng 0 on hub 1
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-vcn_dec uses VM inv eng 1 on hub 1
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-vcn_enc0 uses VM inv eng 4 on hub 1
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-vcn_enc1 uses VM inv eng 5 on hub 1
-05-10 17:18:46.807     0     0 I amdgpu 0000: 0b:00.0: amdgpu: ring
-jpeg_dec uses VM inv eng 6 on hub 1
-05-10 17:18:46.812     0     0 I         : [drm] Initialized amdgpu
-3.41.0 20150101 for 0000:0b:00.0 on minor 0
-05-10 17:18:46.831     0     0 I modprobe: /sbin/modprobe
-hdaudio:v1002AA01r00100700a01
-05-10 17:18:46.832     0     0 I snd_hda_intel 0000: 0b:00.1: bound
-0000:0b:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
-05-10 17:18:46.833     0     0 D         :
-[drm:amdgpu_dm_audio_component_get_eld [amdgpu]] Get ELD : idx=0 ret=0
-en=0
-05-10 17:18:46.833     0     0 D         :
-[drm:amdgpu_dm_audio_component_get_eld [amdgpu]] Get ELD : idx=1
-ret=28 en=1
-05-10 17:18:46.833     0     0 D         :
-[drm:amdgpu_dm_audio_component_get_eld [amdgpu]] Get ELD : idx=2 ret=0
-en=0
-
-2021-05-11 1:05 GMT+08:00, youling 257 <youling257@gmail.com>:
-> error dmesg,
->
-> 05-10 16:59:27.004     0     0 I init    : Service 'bootanim' (pid
-> 1912) exited with status 0
-> 05-10 16:59:27.016  1684  1684 E hwc-drm-display-compositor: Commit
-> test failed for display 0, FIXME
-> 05-10 16:59:27.016  1684  1684 E hwc-drm-two: Failed to apply the
-> frame composition ret=-22
-> 05-10 16:59:27.016  1684  1684 E HWComposer: commit: present failed
-> for display 0: BadParameter (4)
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-> 05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
-> 05-10 16:59:27.023  1684  1684 E hwc-drm-display-compositor: Commit
-> test failed for display 0, FIXME
-> 05-10 16:59:27.016     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.016     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.023  1684  1684 E hwc-drm-two: Failed to apply the
-> frame composition ret=-22
-> 05-10 16:59:27.024  1684  1684 E HWComposer: commit: present failed
-> for display 0: BadParameter (4)
-> 05-10 16:59:27.040  1684  1684 E hwc-drm-display-compositor: Commit
-> test failed for display 0, FIXME
-> 05-10 16:59:27.040  1684  1684 E hwc-drm-two: Failed to apply the
-> frame composition ret=-22
-> 05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-> 05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-> 05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
-> 05-10 16:59:27.033     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.033     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.041  1684  1684 E HWComposer: commit: present failed
-> for display 0: BadParameter (4)
-> 05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-> 05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-> 05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
->
-> normal dmesg,
-> 5-10 17:00:51.837     0     0 I init    : Service 'bootanim' (pid
-> 1922) exited with status 0
-> 05-10 17:00:51.850     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 104]
-> 05-10 17:00:51.850     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-> 05-10 17:00:51.857     0     0 D         : [drm:dcn10_program_pipe
-> [amdgpu]] Un-gated front end for pipe 0
-> 05-10 17:00:51.858     0     0 D         : [drm:dcn10_program_pipe
-> [amdgpu]] Un-gated front end for pipe 3
-> 05-10 17:00:51.876     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-> 05-10 17:00:51.876     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
->
-> 2021-05-11 0:50 GMT+08:00, Mark Yacoub <markyacoub@chromium.org>:
->> A userspace problem was due to the modifier used when you're creating
->> a buffer but this check renders it as invalid modifier.
->> Review patch 1 of this series and it will give you a good idea of a
->> userspace bug that was caught using the check in this patch and fixed
->> now.
->> An easy way to figure out what exactly went wrong so to debug the
->> kernel code and check which check returns false for the modifier
->> check. That will tell you exactly what you are missing wrt the
->> modifier.
->>
->> On Mon, May 10, 2021 at 12:45 PM youling 257 <youling257@gmail.com>
->> wrote:
->>>
->>> I use androidx86 nougat on amdgpu, these porting to androidx86 nougat.
->>> https://github.com/youling257/mesa
->>> https://github.com/youling257/llvm
->>> https://github.com/youling257/minigbm
->>> https://github.com/youling257/drm_hwcomposer
->>>
->>> 2021-05-11 0:32 GMT+08:00, youling 257 <youling257@gmail.com>:
->>> > what userspace problem?
->>> >
->>> > 05-10 16:23:35.438  1686  1686 I SurfaceFlinger: OpenGL ES
->>> > informations: format=0x1
->>> > 05-10 16:23:35.438  1686  1686 I SurfaceFlinger: vendor    : AMD
->>> > 05-10 16:23:35.438  1686  1686 I SurfaceFlinger: renderer  : AMD
->>> > Radeon(TM) Vega 11 Graphics (RAVEN, DRM 3.41.0,
->>> > 5.13.0-rc1-android-x86_64+, LLVM 12.0)
->>> > 05-10 16:23:35.439  1686  1686 I SurfaceFlinger: version   : OpenGL ES
->>> > 3.2 Mesa 21.1.0 (git-1a53901057)
->>> > 05-10 16:23:35.439  1686  1686 I SurfaceFlinger: extensions:
->>> > GL_EXT_debug_marker GL_EXT_blend_minmax GL_EXT_multi_draw_arrays
->>> > GL_EXT_texture_filter_anisotropic GL_EXT_texture_compression_s3tc
->>> > GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc
->>> > GL_EXT_texture_format_BGRA8888 GL_OES_compressed_ETC1_RGB8_texture
->>> > GL_OES_depth24 GL_OES_element_index_uint GL_OES_fbo_render_mipmap
->>> > GL_OES_mapbuffer GL_OES_rgb8_rgba8 GL_OES_standard_derivatives
->>> > GL_OES_stencil8 GL_OES_texture_3D GL_OES_texture_float
->>> > GL_OES_texture_float_linear GL_OES_texture_half_float
->>> > GL_OES_texture_half_float_linear GL_OES_texture_npot
->>> > GL_OES_vertex_half_float GL_EXT_draw_instanced
->>> > GL_EXT_texture_sRGB_decode GL_OES_EGL_image GL_OES_depth_texture
->>> > GL_AMD_performance_monitor GL_OES_packed_depth_stencil
->>> > GL_EXT_texture_type_2_10_10_10_REV GL_NV_conditional_render
->>> > GL_OES_get_program_binary GL_APPLE_texture_max_level
->>> > GL_EXT_discard_framebuffer GL_EXT_read_format_bgra GL_EXT_frag_depth
->>> > GL_NV_fbo_color_attachments GL_OES_EGL_image_external GL_OES_EGL_sync
->>> > GL_OES_vertex_array_object GL_OES_viewp
->>> > 05-10 16:23:35.439  1686  1686 I SurfaceFlinger: GL_MAX_TEXTURE_SIZE =
->>> > 16384
->>> > 05-10 16:23:35.439  1686  1686 I SurfaceFlinger: GL_MAX_VIEWPORT_DIMS
->>> > =
->>> > 16384
->>> > 05-10 16:23:35.488     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 78:DP-1]
->>> > 05-10 16:23:35.488     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 78:DP-1] disconnected
->>> > 05-10 16:23:35.488     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 85:HDMI-A-1]
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_edid_modes
->>> > [drm]] ELD monitor HDMI
->>> > 05-10 16:23:35.488     0     0 D [drm:drm_add_edid_modes [drm]] HDMI:
->>> > latency present 0 0, video latency 0 0, audio latency 0 0
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_edid_modes
->>> > [drm]] ELD size 28, SAD count 1
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] Supported Monitor Refresh rate range is 48 Hz - 75 Hz
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] non_desktop set to 0
->>> > 05-10 16:23:35.488     0     0 D [drm:drm_add_display_info [drm]]
->>> > HDMI: DVI dual 0, max TMDS clock 320000 kHz
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] hdmi_21 sink detected. parsing edid
->>> > 05-10 16:23:35.488     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] CEA VCDB 0xff
->>> > 05-10 16:23:35.488     0     0 D         :
->>> > [drm:drm_for_each_detailed_block.part.0 [drm]] stereo mode not
->>> > supported
->>> > 05-10 16:23:35.489     0     0 D         :
->>> > [drm:drm_for_each_detailed_block.part.0 [drm]] stereo mode not
->>> > supported
->>> > 05-10 16:23:35.489     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:2560  height:1600
->>> > 05-10 16:23:35.489     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1200
->>> > 05-10 16:23:35.489     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
->>> > 05-10 16:23:35.489     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
->>> > 05-10 16:23:35.489     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1920  height:1080
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1600  height:1200
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1680  height:1050
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1400  height:1050
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1600  height:900
->>> > 05-10 16:23:35.490     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:1024
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:1024
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1440  height:900
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:960
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:800
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
->>> > 05-10 16:23:35.491     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1280  height:720
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:1024  height:768
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:800  height:600
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:800  height:600
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
->>> > 05-10 16:23:35.492     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
->>> > 05-10 16:23:35.493     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:640  height:480
->>> > 05-10 16:23:35.493     0     0 D         : [drm:create_stream_for_sink
->>> > [amdgpu]] Destination Rectangle x:0  y:0  width:720  height:400
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080i": 60
->>> > 74250 1920 2008 2052 2200 1080 1084 1094 1125 0x40 0x15
->>> > 05-10 16:23:35.493     0     0 D         : [drm:drm_mode_prune_invalid
->>> > [drm]] Not using 1920x1080i mode: NO_INTERLACE
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080i": 60
->>> > 74176 1920 2008 2052 2200 1080 1084 1094 1125 0x40 0x15
->>> > 05-10 16:23:35.493     0     0 D         : [drm:drm_mode_prune_invalid
->>> > [drm]] Not using 1920x1080i mode: NO_INTERLACE
->>> > 05-10 16:23:35.493     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 85:HDMI-A-1] probed modes :
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "2560x1600": 60
->>> > 267810 2560 2608 2640 2720 1600 1603 1608 1641 0x68 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1200": 60
->>> > 267810 1920 2608 2640 2720 1200 1603 1608 1641 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080": 60
->>> > 148500 1920 2008 2052 2200 1080 1084 1089 1125 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080": 60
->>> > 148500 1920 2008 2052 2200 1080 1084 1089 1125 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080": 60
->>> > 148352 1920 2008 2052 2200 1080 1084 1089 1125 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1920x1080": 50
->>> > 148500 1920 2448 2492 2640 1080 1084 1089 1125 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1600x1200": 60
->>> > 267810 1600 2608 2640 2720 1200 1603 1608 1641 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1680x1050": 60
->>> > 119000 1680 1728 1760 1840 1050 1053 1059 1080 0x40 0x9
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1400x1050": 60
->>> > 101000 1400 1448 1480 1560 1050 1053 1057 1080 0x40 0x9
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1600x900": 60
->>> > 108000 1600 1624 1704 1800 900 901 904 1000 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x1024": 75
->>> > 135000 1280 1296 1440 1688 1024 1025 1028 1066 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x1024": 60
->>> > 108000 1280 1328 1440 1688 1024 1025 1028 1066 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1440x900": 60 88750
->>> > 1440 1488 1520 1600 900 903 909 926 0x40 0x9
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x960": 60
->>> > 108000 1280 1376 1488 1800 960 961 964 1000 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x800": 60
->>> > 267810 1280 2608 2640 2720 800 1603 1608 1641 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x720": 60 74250
->>> > 1280 1390 1430 1650 720 725 730 750 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x720": 60 74250
->>> > 1280 1390 1430 1650 720 725 730 750 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1280x720": 60 74176
->>> > 1280 1390 1430 1650 720 725 730 750 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1024x768": 75 78750
->>> > 1024 1040 1136 1312 768 769 772 800 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1024x768": 70 75000
->>> > 1024 1048 1184 1328 768 771 777 806 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "1024x768": 60 65000
->>> > 1024 1048 1184 1344 768 771 777 806 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "800x600": 75 49500
->>> > 800 816 896 1056 600 601 604 625 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "800x600": 60 40000
->>> > 800 840 968 1056 600 601 605 628 0x40 0x5
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "640x480": 75 31500
->>> > 640 656 720 840 480 481 484 500 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "640x480": 60 25200
->>> > 640 656 752 800 480 490 492 525 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "640x480": 60 25175
->>> > 640 656 752 800 480 490 492 525 0x40 0xa
->>> > 05-10 16:23:35.493     0     0 D         :
->>> > [drm:drm_mode_debug_printmodeline [drm]] Modeline "720x400": 70 28320
->>> > 720 738 846 900 400 412 414 449 0x40 0x6
->>> > 05-10 16:23:35.493     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 90:HDMI-A-2]
->>> > 05-10 16:23:35.493     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 90:HDMI-A-2] disconnected
->>> > 05-10 16:23:35.494     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 94:HDMI-A-3]
->>> > 05-10 16:23:35.494     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 94:HDMI-A-3] disconnected
->>> >
->>> > 05-10 16:23:35.502     0     0 D
->>> > [drm:drm_helper_probe_single_connector_modes [drm_kms_helper]]
->>> > [CONNECTOR: 85:HDMI-A-1]
->>> > 05-10 16:23:35.502     0     0 D         : [drm:drm_add_edid_modes
->>> > [drm]] ELD monitor HDMI
->>> > 05-10 16:23:35.502     0     0 D [drm:drm_add_edid_modes [drm]] HDMI:
->>> > latency present 0 0, video latency 0 0, audio latency 0 0
->>> > 05-10 16:23:35.503     0     0 D         : [drm:drm_add_edid_modes
->>> > [drm]] ELD size 28, SAD count 1
->>> > 05-10 16:23:35.503     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] Supported Monitor Refresh rate range is 48 Hz - 75 Hz
->>> > 05-10 16:23:35.503     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] non_desktop set to 0
->>> > 05-10 16:23:35.503     0     0 D [drm:drm_add_display_info [drm]]
->>> > HDMI: DVI dual 0, max TMDS clock 320000 kHz
->>> > 05-10 16:23:35.503     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] hdmi_21 sink detected. parsing edid
->>> > 05-10 16:23:35.503     0     0 D         : [drm:drm_add_display_info
->>> > [drm]] CEA VCDB 0xff
->>> > 05-10 16:23:35.503     0     0 D         :
->>> > [drm:drm_for_each_detailed_block.part.0 [drm]] stereo mode not
->>> > supported
->>> > 05-10 16:23:35.503     0     0 D         :
->>> > [drm:drm_for_each_detailed_block.part.0 [drm]] stereo mode not
->>> > supported
->>> >
->>> > 05-10 16:23:35.797  1920  2001 I EGL-MAIN: found extension DRI_Core
->>> > version
->>> > 2
->>> > 05-10 16:23:35.797  1920  2001 I EGL-MAIN: found extension
->>> > DRI_IMAGE_DRIVER version 1
->>> > 05-10 16:23:35.798  1920  2001 I EGL-MAIN: found extension
->>> > DRI_ConfigOptions version 2
->>> > 05-10 16:23:35.798  1920  2001 D libdrm  :
->>> > /vendor/etc/hwdata/amdgpu.ids version: 1.0.0
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension
->>> > DRI_TexBuffer version 2
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension DRI2_Flush
->>> > version 4
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension DRI_IMAGE
->>> > version
->>> > 18
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension
->>> > DRI_RENDERER_QUERY version 1
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension
->>> > DRI_CONFIG_QUERY version 2
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension DRI2_Fence
->>> > version 2
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension
->>> > DRI2_Interop version 1
->>> > 05-10 16:23:35.802  1920  2001 I EGL-MAIN: found extension DRI_NoError
->>> > version 1
->>> > 05-10 16:23:35.803  1920  2001 I EGL-MAIN: found extension DRI2_Blob
->>> > version
->>> > 1
->>> > 05-10 16:23:35.803  1920  2001 I EGL-MAIN: found extension DRI_IMAGE
->>> > version
->>> > 18
->>> > 05-10 16:23:35.803  1920  2001 I EGL-MAIN: found extension
->>> > DRI2_BufferDamage version 1
->>> > 05-10 16:23:35.803  1920  2001 I EGL-MAIN: found extension
->>> > DRI_Robustness version 1
->>> > 05-10 16:23:35.875     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 104]
->>> > 05-10 16:23:35.875     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 104]
->>> > 05-10 16:23:35.875     0     0 D         :
->>> > [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
->>> > 05-10 16:23:35.876     0     0 D         : [drm:dcn10_program_pipe
->>> > [amdgpu]] Un-gated front end for pipe 0
->>> > 05-10 16:23:35.891     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
->>> > 05-10 16:23:35.892     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
->>> > 05-10 16:23:35.892     0     0 D         :
->>> > [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
->>> > 05-10 16:23:35.893     0     0 D         : [drm:dcn10_program_pipe
->>> > [amdgpu]] Un-gated front end for pipe 0
->>> >
->>> > 2021-05-10 23:18 GMT+08:00, Mark Yacoub <markyacoub@chromium.org>:
->>> >> Like the previous time it was reverted, there is a chance it's a user
->>> >> space bug that's not passing the correct modifier.
->>> >> Are you able to check what exactly returns false in the code above.
->>> >> This will give you the greatest hint on what the userspace is missing
->>> >> and needs to be fixed there.
->>> >>
->>> >> On Sun, May 9, 2021 at 10:09 PM youling 257 <youling257@gmail.com>
->>> >> wrote:
->>> >>>
->>> >>> Revert "Revert "drm/amdgpu: Ensure that the modifier requested is
->>> >>> supported by plane."" is first bad commt.
->>> >>> "drm/amd/display: Fix two cursor duplication when using overlay" is
->>> >>> second bad commit.
->>> >>> they cause same problem, look the video.
->>> >>> i have to revert two patch for my androidx86 run on amdgpu.
->>> >>>
->>> >>> 2021-05-10 5:42 GMT+08:00, youling 257 <youling257@gmail.com>:
->>> >>> > error dmesg
->>> >>> >
->>> >>> > [  115.977746] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB
->>> >>> > bound
->>> >>> > [  115.980406] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> > [  115.993656] [drm:drm_mode_addfb2 [drm]] [FB:104]
->>> >>> > [  115.993694] [drm:drm_mode_addfb2 [drm]] [FB:105]
->>> >>> > [  115.993722] [drm:drm_mode_addfb2 [drm]] [FB:106]
->>> >>> > [  115.993750] [drm:drm_mode_addfb2 [drm]] [FB:107]
->>> >>> > [  115.993777] [drm:drm_mode_addfb2 [drm]] [FB:108]
->>> >>> > [  115.994215] [drm:drm_mode_addfb2 [drm]] [FB:104]
->>> >>> > [  115.994371] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB
->>> >>> > bound
->>> >>> > [  115.997095] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> > [  116.010298] [drm:drm_mode_addfb2 [drm]] [FB:102]
->>> >>> > [  116.010337] [drm:drm_mode_addfb2 [drm]] [FB:105]
->>> >>> > [  116.010366] [drm:drm_mode_addfb2 [drm]] [FB:106]
->>> >>> > [  116.010394] [drm:drm_mode_addfb2 [drm]] [FB:107]
->>> >>> > [  116.010422] [drm:drm_mode_addfb2 [drm]] [FB:108]
->>> >>> > [  116.010853] [drm:drm_mode_addfb2 [drm]] [FB:102]
->>> >>> > [  116.011018] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB
->>> >>> > bound
->>> >>> > [  116.013694] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> >
->>> >>> >
->>> >>> > normal dmesg
->>> >>> >  3464.827004] [drm:drm_mode_addfb2 [drm]] [FB:105]
->>> >>> > [ 3464.833405] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> > [ 3464.833981] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 3
->>> >>> > [ 3464.842396] [drm:drm_mode_addfb2 [drm]] [FB:104]
->>> >>> > [ 3464.842476] [drm:drm_mode_addfb2 [drm]] [FB:106]
->>> >>> > [ 3464.842550] [drm:drm_mode_addfb2 [drm]] [FB:107]
->>> >>> > [ 3464.842615] [drm:drm_mode_addfb2 [drm]] [FB:108]
->>> >>> > [ 3464.842679] [drm:drm_mode_addfb2 [drm]] [FB:109]
->>> >>> > [ 3464.842741] [drm:drm_mode_addfb2 [drm]] [FB:110]
->>> >>> > [ 3464.843748] [drm:drm_mode_addfb2 [drm]] [FB:104]
->>> >>> > [ 3464.843821] [drm:drm_mode_addfb2 [drm]] [FB:106]
->>> >>> > [ 3464.850026] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> > [ 3464.850378] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 3
->>> >>> > [ 3464.858841] [drm:drm_mode_addfb2 [drm]] [FB:102]
->>> >>> > [ 3464.858878] [drm:drm_mode_addfb2 [drm]] [FB:105]
->>> >>> > [ 3464.858906] [drm:drm_mode_addfb2 [drm]] [FB:107]
->>> >>> > [ 3464.858933] [drm:drm_mode_addfb2 [drm]] [FB:108]
->>> >>> > [ 3464.858960] [drm:drm_mode_addfb2 [drm]] [FB:109]
->>> >>> > [ 3464.858987] [drm:drm_mode_addfb2 [drm]] [FB:110]
->>> >>> > [ 3464.859609] [drm:drm_mode_addfb2 [drm]] [FB:102]
->>> >>> > [ 3464.859641] [drm:drm_mode_addfb2 [drm]] [FB:105]
->>> >>> > [ 3464.866353] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 0
->>> >>> > [ 3464.866653] [drm:dcn10_program_pipe [amdgpu]] Un-gated front
->>> >>> > end
->>> >>> > for
->>> >>> > pipe
->>> >>> > 3
->>> >>> >
->>> >>> > 2021-05-10 4:57 GMT+08:00, Bas Nieuwenhuizen
->>> >>> > <bas@basnieuwenhuizen.nl>:
->>> >>> >> It would be very helpful if you could enable drm.debug=0x4 and
->>> >>> >> then
->>> >>> >> take the dmesg to figure out what modifier was rejected
->>> >>> >>
->>> >>> >> On Sun, May 9, 2021 at 10:51 PM youling 257
->>> >>> >> <youling257@gmail.com>
->>> >>> >> wrote:
->>> >>> >>>
->>> >>> >>> look this video,
->>> >>> >>> https://drive.google.com/file/d/1QklH_H2AlOTu8W1D3yl6_3rtZ7IqbjR_/view?usp=sharing
->>> >>> >>>
->>> >>> >>> 2021-05-09 23:52 GMT+08:00, Alex Deucher
->>> >>> >>> <alexdeucher@gmail.com>:
->>> >>> >>> > On Sun, May 9, 2021 at 11:42 AM youling257
->>> >>> >>> > <youling257@gmail.com>
->>> >>> >>> > wrote:
->>> >>> >>> >>
->>> >>> >>> >> I using amd 3400g running with android-x86, this patch is a
->>> >>> >>> >> bad
->>> >>> >>> >> commit
->>> >>> >>> >> when i use android-x86 on amdgpu.
->>> >>> >>> >
->>> >>> >>> > Can you provide more details?  What sort of problem are you
->>> >>> >>> > seeing?
->>> >>> >>> > Please provide your dmesg output.
->>> >>> >>> >
->>> >>> >>> > Alex
->>> >>> >>> >
->>> >>> >>> >
->>> >>> >>> >> _______________________________________________
->>> >>> >>> >> amd-gfx mailing list
->>> >>> >>> >> amd-gfx@lists.freedesktop.org
->>> >>> >>> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>> >>> >>> >
->>> >>> >>
->>> >>> >
->>> >>
->>> >
->>
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAyMS0wNS0xMCB1bSAxMjozNiBwLm0uIHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4g
+SXQncyBuZWVkZWQgdG8gZHJvcCBpb21tdSBiYWNrZWQgcGFnZXMgb24gZGV2aWNlIHVucGx1Zwo+
+IGJlZm9yZSBkZXZpY2UncyBJT01NVSBncm91cCBpcyByZWxlYXNlZC4KCkkgZG9uJ3Qgc2VlIGFu
+eSBjYWxscyB0byB0dG1fdHRfdW5wb3B1bGF0ZSBpbiB0aGUgcmVzdCBvZiB0aGUgc2VyaWVzCm5v
+dy4gSXMgdGhhdCBhbiBhY2NpZGVudCwgb3IgY2FuIHRoaXMgcGF0Y2ggYmUgZHJvcHBlZD8KClJl
+Z2FyZHMsCsKgIEZlbGl4CgoKPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxh
+bmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0
+bV90dC5jIHwgMSArCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRt
+L3R0bV90dC5jCj4gaW5kZXggNTM5ZTAyMzJjYjNiLi5kZmJlMWVhODc2M2YgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90
+dG0vdHRtX3R0LmMKPiBAQCAtNDMzLDMgKzQzMyw0IEBAIHZvaWQgdHRtX3R0X21ncl9pbml0KHVu
+c2lnbmVkIGxvbmcgbnVtX3BhZ2VzLCB1bnNpZ25lZCBsb25nIG51bV9kbWEzMl9wYWdlcykKPiAg
+CWlmICghdHRtX2RtYTMyX3BhZ2VzX2xpbWl0KQo+ICAJCXR0bV9kbWEzMl9wYWdlc19saW1pdCA9
+IG51bV9kbWEzMl9wYWdlczsKPiAgfQo+ICtFWFBPUlRfU1lNQk9MKHR0bV90dF91bnBvcHVsYXRl
+KTsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
