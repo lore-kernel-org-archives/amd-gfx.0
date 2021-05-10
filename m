@@ -2,87 +2,72 @@ Return-Path: <SRS0=4HPi=KF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E970FC43461
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DDF0C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 754E26144F
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 754E26144F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+	by mail.kernel.org (Postfix) with ESMTPS id E74636144F
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E74636144F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5176C6E42C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DC06E42D;
 	Mon, 10 May 2021 08:26:26 +0000 (UTC)
-Received: from gateway34.websitewelcome.com (gateway34.websitewelcome.com
- [192.185.148.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0CB86E826
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 May 2021 23:02:17 +0000 (UTC)
-Received: from cm11.websitewelcome.com (cm11.websitewelcome.com [100.42.49.5])
- by gateway34.websitewelcome.com (Postfix) with ESMTP id 660F5266E1
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 May 2021 18:02:15 -0500 (CDT)
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
- id fsRDlAgovPkftfsRDlB9Fh; Sun, 09 May 2021 18:02:15 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eDNP3uQ3suDyvGz4i4MH4W18ozvG5y6HtSMp527ZM6s=; b=hA+9xcV3sYum8QyB8EwdI++76J
- 970jAffTgCy5VTsmw5ljZnTBQqEBfUfIaMPucDTCliCofiYmKmQkB0Wxi/+wpT2p1aJjSZDBsEXhG
- rJbYyR0hamLJZq33ylLmxrtiHkjiaehbw7qCCdZjVpKv42ZVkO0n1Zen8XsQhR0Ee0rT13wQJv63r
- ifgDuuyYnw+Djt85h0sSpNckN+zP6B3YfNDR9Ra8i+rO8FJYHngLXkz+g3kCT6eWFflv6D8asacBp
- sV4sP566hS5E3F+FirUW9RBNIux/KHFUuGQshpKGGHiDtEYD2Zx0n+996IFZufJEvIDkMw0MB6uVV
- b+B6/24A==;
-Received: from 187-162-31-110.static.axtel.net ([187.162.31.110]:57998
- helo=[192.168.15.8])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <gustavo@embeddedor.com>)
- id 1lfsRB-002vOJ-WE; Sun, 09 May 2021 18:02:14 -0500
-Subject: Re: [PATCH] Revert "drm/radeon/si_dpm: Replace one-element array with
- flexible-array in struct SISLANDS_SMC_SWSTATE"
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20210504184233.2350976-1-alexander.deucher@amd.com>
- <15cc0988-0446-5423-62d7-051ccaf2936e@embeddedor.com>
- <MN2PR12MB44886A5959AA52DF5D3EDF7BF7599@MN2PR12MB4488.namprd12.prod.outlook.com>
- <09c63f79-7245-3863-c070-8bac952a4ca8@embeddedor.com>
-Message-ID: <caac4b9d-8999-8c06-80ed-0ddf1ef29c9a@embeddedor.com>
-Date: Sun, 9 May 2021 18:02:40 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F9A89B42
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 02:09:40 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ f75-20020a9d03d10000b0290280def9ab76so13085290otf.12
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 May 2021 19:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=2UaFKZdetO+FOLBGObqhXA7/WqBOaeWMWNijs2fh+G8=;
+ b=JV/WyaPActxftlkLOlHGF5ngD2Yrqbk4Neo8CXgStyqbcGOdIj5xtuU4fHOPMal2Eu
+ HP18mJHPb9JSqPLdj7zhOqnXM17DjlRKQok4VJmV6JY99dUhsfi1WRMhKovRWfXkDO1x
+ NOZdvuXNh4sU63EH8zHXPdV7jJzudsMPMr9R4X5ywLkoZirtOxsXTqPfe1oClhasvdf0
+ 2FG6bh85kcsFxT0LO/Mqk5c1HRo5FLOLRZo1bwm9zxVGj8uH4VNL+UFZX2G72gJc081H
+ FOM5gMIj3LwYLuf9LuDnwBHRnEbsqiPZtpKLAVLxGLLo8OmdF7EkoJsL89mB+vb/KMwB
+ yiag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=2UaFKZdetO+FOLBGObqhXA7/WqBOaeWMWNijs2fh+G8=;
+ b=OlGlO9inq5ggVhzrrAY1nXj+8MRXMn3pY2u8qTPoVFZX1Sjels8BgIECPKjMhiAwwN
+ ioRe4TO6UKU0uj8rt16gfZ3lcW72VRZ5M2VeY6OHthC4Ti2YzRBpKAEiTQVr9FEWyf7p
+ +5OuHD1KIjDaLEthFscfSZf4x+PcPvt4ZA2koKEsUKyBgJ/3jCVTBEgIoWIE+9qMhM+b
+ K6JT51V6WSrP1W/HMid7KgNcveVCk6PosqRLHn+/6DAJ9WnlhuvfmT2rPHzZRGjujPY8
+ liDEN+Qdjbv9nPiKCbUpxTyL2nkqEzxN4JMq/ely7r1S5aMl3r2JGdfgpl6xEqg92Pyw
+ bcPQ==
+X-Gm-Message-State: AOAM533TOZfUNuBVKOfWurZoXqoamD8BPQ7NPlAelAvz0ubeiTpHyANh
+ KP9Gx3l3IAUA58YKWBDekDJXL3eFTPVKn2Z7xYo=
+X-Google-Smtp-Source: ABdhPJyv8OQJiAaVIxHi5X/ZUqaDKHiiO7z9A/ridtF8KQyoE9RJCL5aCqsvAOStw2AJMG34/hJ+Hc8gRIY8h+TYjmA=
+X-Received: by 2002:a9d:6f90:: with SMTP id h16mr1988732otq.8.1620612579917;
+ Sun, 09 May 2021 19:09:39 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <09c63f79-7245-3863-c070-8bac952a4ca8@embeddedor.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.31.110
-X-Source-L: No
-X-Exim-ID: 1lfsRB-002vOJ-WE
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-31-110.static.axtel.net ([192.168.15.8])
- [187.162.31.110]:57998
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 2
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
+Received: by 2002:a05:6830:4118:0:0:0:0 with HTTP; Sun, 9 May 2021 19:09:39
+ -0700 (PDT)
+In-Reply-To: <CAOzgRdYbmnA3M5d30i94TwGNtOWOviChBq9eEdhTjbfvGXaSfw@mail.gmail.com>
+References: <20210414233533.24012-2-qingqing.zhuo@amd.com>
+ <20210509121055.24728-1-youling257@gmail.com>
+ <CADnq5_MF0y0sHH6Vz8KZH5j=iXToq3WPw7+kW=BqMk=oNZ=Ppw@mail.gmail.com>
+ <CAOzgRdZf0R7mVY+spDZz_CG1Kpf7qmP6oGaOJ_XKauZA3ZhZeg@mail.gmail.com>
+ <CAP+8YyEv3NPqeEVmFvQDoq_+=h8Q_goHUbgt7fNPUXJbR5AcKw@mail.gmail.com>
+ <CAOzgRdYbmnA3M5d30i94TwGNtOWOviChBq9eEdhTjbfvGXaSfw@mail.gmail.com>
+From: youling 257 <youling257@gmail.com>
+Date: Mon, 10 May 2021 10:09:39 +0800
+Message-ID: <CAOzgRdaKpwd5ze8om4F22yq_DeREma1H6KUquqJ34dnSTvsjiQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Revert "Revert "drm/amdgpu: Ensure that the modifier
+ requested is supported by plane.""
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 X-Mailman-Approved-At: Mon, 10 May 2021 08:26:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,60 +80,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>
+Cc: Mark Yacoub <markyacoub@chromium.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Wheeler,
+ Daniel" <daniel.wheeler@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
+ "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Revert "Revert "drm/amdgpu: Ensure that the modifier requested is
+supported by plane."" is first bad commt.
+"drm/amd/display: Fix two cursor duplication when using overlay" is
+second bad commit.
+they cause same problem, look the video.
+i have to revert two patch for my androidx86 run on amdgpu.
 
-I've just sent a couple of fixes for the recent radeon problems:
-
-https://lore.kernel.org/lkml/20210509224926.GA31035@embeddedor/
-https://lore.kernel.org/lkml/20210509225525.GA32045@embeddedor/
-
-So, there is no need to revert the problematic patches for radeon anymore.
-
-Sorry for the inconveniences.
-Thanks!
---
-Gustavo
-
-On 5/5/21 08:45, Gustavo A. R. Silva wrote:
-> 
-> 
-> On 5/5/21 08:06, Deucher, Alexander wrote:
->> [AMD Public Use]
+2021-05-10 5:42 GMT+08:00, youling 257 <youling257@gmail.com>:
+> error dmesg
+>
+> [  115.977746] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
+> [  115.980406] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+> [  115.993656] [drm:drm_mode_addfb2 [drm]] [FB:104]
+> [  115.993694] [drm:drm_mode_addfb2 [drm]] [FB:105]
+> [  115.993722] [drm:drm_mode_addfb2 [drm]] [FB:106]
+> [  115.993750] [drm:drm_mode_addfb2 [drm]] [FB:107]
+> [  115.993777] [drm:drm_mode_addfb2 [drm]] [FB:108]
+> [  115.994215] [drm:drm_mode_addfb2 [drm]] [FB:104]
+> [  115.994371] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
+> [  115.997095] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+> [  116.010298] [drm:drm_mode_addfb2 [drm]] [FB:102]
+> [  116.010337] [drm:drm_mode_addfb2 [drm]] [FB:105]
+> [  116.010366] [drm:drm_mode_addfb2 [drm]] [FB:106]
+> [  116.010394] [drm:drm_mode_addfb2 [drm]] [FB:107]
+> [  116.010422] [drm:drm_mode_addfb2 [drm]] [FB:108]
+> [  116.010853] [drm:drm_mode_addfb2 [drm]] [FB:102]
+> [  116.011018] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
+> [  116.013694] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+>
+>
+> normal dmesg
+>  3464.827004] [drm:drm_mode_addfb2 [drm]] [FB:105]
+> [ 3464.833405] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+> [ 3464.833981] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 3
+> [ 3464.842396] [drm:drm_mode_addfb2 [drm]] [FB:104]
+> [ 3464.842476] [drm:drm_mode_addfb2 [drm]] [FB:106]
+> [ 3464.842550] [drm:drm_mode_addfb2 [drm]] [FB:107]
+> [ 3464.842615] [drm:drm_mode_addfb2 [drm]] [FB:108]
+> [ 3464.842679] [drm:drm_mode_addfb2 [drm]] [FB:109]
+> [ 3464.842741] [drm:drm_mode_addfb2 [drm]] [FB:110]
+> [ 3464.843748] [drm:drm_mode_addfb2 [drm]] [FB:104]
+> [ 3464.843821] [drm:drm_mode_addfb2 [drm]] [FB:106]
+> [ 3464.850026] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+> [ 3464.850378] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 3
+> [ 3464.858841] [drm:drm_mode_addfb2 [drm]] [FB:102]
+> [ 3464.858878] [drm:drm_mode_addfb2 [drm]] [FB:105]
+> [ 3464.858906] [drm:drm_mode_addfb2 [drm]] [FB:107]
+> [ 3464.858933] [drm:drm_mode_addfb2 [drm]] [FB:108]
+> [ 3464.858960] [drm:drm_mode_addfb2 [drm]] [FB:109]
+> [ 3464.858987] [drm:drm_mode_addfb2 [drm]] [FB:110]
+> [ 3464.859609] [drm:drm_mode_addfb2 [drm]] [FB:102]
+> [ 3464.859641] [drm:drm_mode_addfb2 [drm]] [FB:105]
+> [ 3464.866353] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 0
+> [ 3464.866653] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe
+> 3
+>
+> 2021-05-10 4:57 GMT+08:00, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>:
+>> It would be very helpful if you could enable drm.debug=0x4 and then
+>> take the dmesg to figure out what modifier was rejected
 >>
->>> -----Original Message-----
->>> From: Gustavo A. R. Silva <gustavo@embeddedor.com>
->>> Sent: Tuesday, May 4, 2021 6:43 PM
->>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
->>> gfx@lists.freedesktop.org
->>> Cc: Gustavo A . R . Silva <gustavoars@kernel.org>
->>> Subject: Re: [PATCH] Revert "drm/radeon/si_dpm: Replace one-element
->>> array with flexible-array in struct SISLANDS_SMC_SWSTATE"
+>> On Sun, May 9, 2021 at 10:51 PM youling 257 <youling257@gmail.com> wrote:
 >>>
->>> Hi,
+>>> look this video,
+>>> https://drive.google.com/file/d/1QklH_H2AlOTu8W1D3yl6_3rtZ7IqbjR_/view?usp=sharing
 >>>
->>> I thought it was this[1] the one causing problems[2].
+>>> 2021-05-09 23:52 GMT+08:00, Alex Deucher <alexdeucher@gmail.com>:
+>>> > On Sun, May 9, 2021 at 11:42 AM youling257 <youling257@gmail.com>
+>>> > wrote:
+>>> >>
+>>> >> I using amd 3400g running with android-x86, this patch is a bad
+>>> >> commit
+>>> >> when i use android-x86 on amdgpu.
+>>> >
+>>> > Can you provide more details?  What sort of problem are you seeing?
+>>> > Please provide your dmesg output.
+>>> >
+>>> > Alex
+>>> >
+>>> >
+>>> >> _______________________________________________
+>>> >> amd-gfx mailing list
+>>> >> amd-gfx@lists.freedesktop.org
+>>> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>> >
 >>
->> They are both causing problems.
-> 
-> Yeah, I already know why and I'll work out a solution soon. In the meantime, both
-> should be reverted.
-> 
-> These other two[1][2] also seem to have the same issue and should be reverted, too.
-> I wonder why no one has reported any problems, yet... in particular regarding this[2].
-> 
-> Thanks
-> --
-> Gustavo
-> 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0e1aa13ca3ffdd1e626532a3924ac80686939848
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4541ea81edde6ce9a1d9be082489aca7e8e7e1dc
-> 
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
