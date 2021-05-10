@@ -5,39 +5,39 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24E57C433B4
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 16:37:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8409C43603
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 16:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D756B6115C
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 16:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D756B6115C
+	by mail.kernel.org (Postfix) with ESMTPS id 9E73A6115C
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 16:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E73A6115C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 007DF6E8BA;
-	Mon, 10 May 2021 16:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BB26E8BC;
+	Mon, 10 May 2021 16:37:04 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F496E8C3;
- Mon, 10 May 2021 16:37:00 +0000 (UTC)
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6136E8BD;
+ Mon, 10 May 2021 16:37:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eJecyp0HC854m+XK0+qt88BhlgqD+iLvsSRmPOA46KVsRemVkOpUXNT6BODvGPJNWpnOHcLxSAVHcgr5cTaTkLoWgaEkhzokVkycsI6YHHlSVdiXSKpOXYd5++7t/oplptgHuQ2sQSQKCC8MPMnrW2DccztjPdwtoQ/gvedmqDFvi+BRTG93PAlbz65bjVzGQvyzeWMaWbtJ/X86FMHQci7fd3T+ekHZvndUXfM2sfXDdUXPXeBV6Br1mET4XTF3B+g23II4MkzdKWWsMg7Yo9orvK22W1YgGEwsJTia6rd/03gQUhkU5eejJAMl1bRzSkentX5iecbwSidCLFusEw==
+ b=TNiOhVsJN61CPRtei+G0z7dS8rHFIb56yD/Yi3bff0EZ7qI1a+HMkflaaf9oQZ/l03byeFNpnJtOEnWK6N/Ux6ytp/KZYCKIFBKKbJeH4NKA0l1uIuWEoYLsi9DmdQm5g4qODsI3+1LJAjaqacp2BcbGDb/t24Wnk88ti74rRb90PSYZYGVvXxKMzKYP9Cq3YY4zajQL00qx6dmSrZrO3rrE4nZT4WVjTUpt88EUyL6pROWXttCMw3DeR66GnRRBXh0eo60bchMxBtX32wE43Y/orROzs+0i4uIjtQZGJupd5GXee/nicBP0/9v4HoabmTYeyqTTfR7MIvyqspL9PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+j+bM1q4z3pMJEkudykjSW5dJG+JuOaAr7e0M6/ckSw=;
- b=GGQqgOdfIW5e2ds3aLPTz868enYuenbbNB5UiZ0Oa/4wGZ+nKvcHIbT3yalZ5JP1THlIRII0Fu28O3/wEoGIQHbl9Q/aXFMbsrVjxSdY/2hG+pr1ukrtalr8+FQNiQRN7X2k4p/bBXsT9IpXB1KJBPWYkm4OUqwQeMuHusL7/5XY+ZiAt+iVeypnif+2kyaBRMx+ooJ+KrxEmJZmEK2T3dfSLdHTyld2jzg1UFZAQFwtI4MMoEsTE7k8TFAyKFdZFoBtPUNwlOGI5Bl/391pn/9fAT1fTe2OPQuNw9gmHuIlSORxDqXvy4cUr00M5DJBQaHjr74/7ltFF0dPBvW0Gw==
+ bh=DstkaeNteEXkR2rRWOuxwCTbNBJAyOp8exCoBjZvTNw=;
+ b=eLacPs1zskEDr5hnSLOtY+6r+Lqg+nTudDYoNG+28Br0BRo1HXJjCnxdM51ROWq7Upmjxsytu5Bba2mczcq9qa5dOU67za8VVFoxiStuTOST6NfoMkhBf5v3b+0saAKatbfRnng2o9BHcYjoM6fKz8GkPHfk3Wv/YY8miKpcUF/IiFLax1Y/HPIeB+J+1SiF7eL2bW+tlC6/LYlnk68wKEuJcIt84n2eH2mngKo91X7MVCOb2W8VP2OutAe1xT2HxfggXh1nGWgAmDDE+az+AJG15CV2TXB6G4OmzR2ioSWKKO6rCpB7caQmbjmOv6Qa/HMwOY4ltHFzUIkYGYm1zg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+j+bM1q4z3pMJEkudykjSW5dJG+JuOaAr7e0M6/ckSw=;
- b=xFWcdoK4E2+CY+pSvb3iFoPz0W7zLvXEY37/Q8zx+4N2qoD2A6p96kY5H47Glu0wK2pWRmyM+F9Sv/G2qZeu1QD2tzVvkPtawyM1eB/vjcKGfncV30EywNNfM8ikkMmyBXElS6CZGjrlldQYXvbE0jCS3j+8De+dgnG7R4nVYaA=
+ bh=DstkaeNteEXkR2rRWOuxwCTbNBJAyOp8exCoBjZvTNw=;
+ b=poL5sTkHVMACH6XPnfO7qODf4vRcJO9yKy02QUOq333vr8MLn2qQxDLHlNXWDfs7szzn4imdt+IHUXM0k9hKGWtRpT2mCK9SvsA4DTIc2waE7rmYvZ/0mTLZ3lVmDMVC2arHMGoz4j+lhUYUQrMT1RA9knIPshFO9tt0hxj/UCU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received: from SN6PR12MB4623.namprd12.prod.outlook.com (2603:10b6:805:e9::17)
  by SN1PR12MB2397.namprd12.prod.outlook.com (2603:10b6:802:27::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4108.29; Mon, 10 May
- 2021 16:36:57 +0000
+ 2021 16:36:59 +0000
 Received: from SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::ad51:8c49:b171:856c]) by SN6PR12MB4623.namprd12.prod.outlook.com
  ([fe80::ad51:8c49:b171:856c%7]) with mapi id 15.20.4108.031; Mon, 10 May 2021
- 16:36:57 +0000
+ 16:36:59 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-pci@vger.kernel.org, ckoenig.leichtzumerken@gmail.com,
  daniel.vetter@ffwll.ch, Harry.Wentland@amd.com
-Subject: [PATCH v6 09/16] drm/amdgpu: Convert driver sysfs attributes to
- static attributes
-Date: Mon, 10 May 2021 12:36:18 -0400
-Message-Id: <20210510163625.407105-10-andrey.grodzovsky@amd.com>
+Subject: [PATCH v6 10/16] drm/amdgpu: Guard against write accesses after
+ device removal
+Date: Mon, 10 May 2021 12:36:19 -0400
+Message-Id: <20210510163625.407105-11-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210510163625.407105-1-andrey.grodzovsky@amd.com>
 References: <20210510163625.407105-1-andrey.grodzovsky@amd.com>
@@ -71,61 +71,53 @@ Received: from agrodzovsky-All-Series.hitronhub.home
  (2607:fea8:3edf:49b0:6a5:47b8:e610:f6a3) by
  YT2PR01CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:38::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4108.31 via Frontend Transport; Mon, 10 May 2021 16:36:56 +0000
+ 15.20.4108.31 via Frontend Transport; Mon, 10 May 2021 16:36:58 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5562cbb1-a149-4a0d-abbe-08d913d1d40a
+X-MS-Office365-Filtering-Correlation-Id: 8472f9cc-06ca-4b62-c189-08d913d1d506
 X-MS-TrafficTypeDiagnostic: SN1PR12MB2397:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB23977F86556F0432E319E3A9EA549@SN1PR12MB2397.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <SN1PR12MB239750851244077995F3AF75EA549@SN1PR12MB2397.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:644;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iI/X83UHzIDbDtdbgfFOykfsbVFyf4IiDgE+YPs0cNh3qgCdEud/ALSQKT+a04H7O2BqrucywVXyOb5o/h5q/N2JEK/wZ7OTaR8/Fvwof2n70CXZcZndCXTFHEDSBLHLm5poBa2oqkfx7z+KIzZJBRopgQQohs3j7PmF83bTQYgpBAcbXHjtn8khPshF+Oz48/IkTWD74L9EL3FuIzPjqx2kfjRnhvW2dkWPW+7UoGPPPE9g3SZhUnNelOLuLGu5YOS9sHYPjYaC6xnSVfO3yFHN6/Na8Ls7puQyG9I/hLd2c7l73se+51znxujueK1c7NhbP8rI2IJgdp+pBon/ZlWh3ju/g0gfXOcVe75x/ym7TbnqK1buoKDkCF/gFb0zaOxqD+MVJDf8ckSBAY3X2T0xwgImg9/aNTddtM45UZ7J8G5XDk1K+ZudoLxfYPWegLhzbVT9RKlDsW+XgvECMfWLaE05a+9/1bzIs1uYAH8DrSroHR8inzZQDYdTr7qrJCDG1Z2hnRA2rjMJSz+QSZ3Tkbk6Mzm7ely8FhknawxtfDI8FNWl2xU+1HOF5PxF0jJUKyLwvTZEHDQUnAdqamH4qD9ce4P+M11BXSpfJv8=
+X-Microsoft-Antispam-Message-Info: FG15+OyWUcVlblH8YeNmkHD7KTVougqlIt6EK6QB+VKXjJg6yr68HE5B/QN0O7tTuQI7UP3Lca5tx43x07tfrj34G11IBuzh8LF+HUGn5HhXjIaeHHt5nGqt98PRnsvkuNMU45WSRQUs8bC6pX2Us7gO1xuX5ejvHJHYBErRcXXJcKoyohZJEyVy8Lye+dcKwA5YlVyD88JsaW8boIs1nRG19FECJnaJE9PTXgVSlq31HHAakvUqs/y5/8p7aawNCAXEAqb8Pf2MlLhu/crMYd50/K16mojmmlVBnqPhIwnubIwM2umUxS28tSssh9HQksywXmXDwj2QqndrkfCkkGsmyroKuAn+11RWB+PPih1tfuVLMN/ysFn8AUOeYyON4VDM3CytB/O2dv5rW/fYRi5AR1LXqsIpSGWAQxPjKzUEOwik0VNtjLmfsnBT6/OUW2LI1jmGJnzusX16djxLxgNs3ecLBV9FPcFxhPZFlPLza9iYZsZU6etNBcoAUdmcTWuvo9fCes+mybOusoIUckOEVJf8uAV2ZuKYV/e+TjDOfg2p8/nDhJzM194zmexPDUIiVIG16mCzqVAuIpBKHiLf/W+HNOCwevGchLn5QWQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR12MB4623.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(1076003)(54906003)(6636002)(44832011)(83380400001)(6512007)(66946007)(66556008)(36756003)(2906002)(66476007)(6666004)(16526019)(5660300002)(52116002)(4326008)(8676002)(6506007)(2616005)(66574015)(8936002)(6486002)(86362001)(38100700002)(186003)(498600001);
+ SFS:(4636009)(136003)(346002)(39860400002)(376002)(366004)(396003)(1076003)(6636002)(44832011)(83380400001)(30864003)(6512007)(66946007)(66556008)(36756003)(2906002)(66476007)(6666004)(316002)(16526019)(5660300002)(52116002)(4326008)(8676002)(6506007)(2616005)(8936002)(6486002)(86362001)(38100700002)(186003)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bnFmdCs3UDB0eWR4UTlzVkg5TGM2RlFBNWpXd2ZCRmFxMUhjUkJmL0pxUUkv?=
- =?utf-8?B?MnNSM3U2ZkdEeEY5TEtLSnNTQ0hTM01zUGZzU0RvbmxnQjRVOUFPbU9uUVhz?=
- =?utf-8?B?WXMzNkxTNUQ3c3IzRThKRDFFQUFjWUlBdVBoeTN1bDFsS2s2emtob3ZadjJi?=
- =?utf-8?B?OU5XN2syZjJpZCtZbit2NkFRNjN0RU1rNVJ2Z1dPNzdna2g5bDFQTFVqZ2t2?=
- =?utf-8?B?Vm0yb0hWSDJrdDkyYTgvQktNcEJQd1RRYWdmRzg2RDF3VnZGS2FHdG9adkJ5?=
- =?utf-8?B?ZktJSlBxTlpRVXFlV3pVS1V5YjhvZDFsaUZTcTBha09iRHZwTjlwdGJRNFZk?=
- =?utf-8?B?UTdWbGNaSE9ZN2o2V1AzblBnaVNnYitnWmFXd2xJL3VQRjRMZThBUFlZd1VG?=
- =?utf-8?B?aWZ3aWFXWVhqQ3RSbkZyRUQvby9BallRZFFzRFpXcm9OU0IyTXRESzFmdGht?=
- =?utf-8?B?R3hlOHN4Zy9TZk9GcTBJdmUzekkxMGlDbzFxeHlWenhOVHQyMWc3WVpicjMw?=
- =?utf-8?B?T1pNNXdMYVpHZkg2K0g5OG5WcDRrc1N5WFduWTBiM0NlNm9RK2FEcnZ5aER0?=
- =?utf-8?B?dTA3WnBrRDVCelUxNTVCbFJQcWVGVHVNb3FWL0R0NlpFMkZ3aXVJTmszc0Nk?=
- =?utf-8?B?K2sxZEdzSWlZMnlveXZsclZLK1hNbTE4VnI1L3hsdEN4WndwY25sMGt1ZXhV?=
- =?utf-8?B?Q0RMYzQwcHp1ekZzMVpFWmhWWEVhNU4wZ0ZqY2lkeUw3TmFrNExBOU1mWWt6?=
- =?utf-8?B?ZEc3b205dlREdkx1TXNZRkVYMXp3SzJ0amJnOWVPS2g2cWFiMzZxL2pJYzV0?=
- =?utf-8?B?ZGF1THNSYkd0bFZTODUzcElGTVdEeklyWGJPaEt5SS9IUTJBdmhEdVAzOUs2?=
- =?utf-8?B?cjlKbW13WXhud255TmZiZE5lM3ArcmZScFRtU01KbVduTVBoTTNzMDdCQ3V2?=
- =?utf-8?B?eHpnbUZzYVBjN3R3TUpEaWZFeEY2WWt4bjRGZnlHbTNLUDRhSEZ3Um8zU0Rn?=
- =?utf-8?B?ZnVlNjlmR0RQUXp0akxyRHlvVzRPYk16TER0clR0SE1HdDAxY1RibS9OZnVx?=
- =?utf-8?B?T2ZPWTIwTE1sVzVHUTRDNGhpWDRYZ0lZa0hWcHN6OXpqdkViWkxhbkpVckpS?=
- =?utf-8?B?R3R6c3Z2aDdHN3UvZ2pRcDkxMXgweEduUVJVYTY1RDVsR2twUEVKSGVscFJL?=
- =?utf-8?B?WG1CR1NFdUhlVUR2UytGL21VUk02M2RaNU1jeE5TQVlkeXdRdHUrV0w4Mmtu?=
- =?utf-8?B?eEJBUWNROXUzTUxlWnltQ3Y1NkVZNnk1c2cxOEh4c0VVQWdOQVI1OW9zbk8x?=
- =?utf-8?B?QTVuRUF5ckJWMGtpU0dENjBqV2JUTE1SekVWM0RXSDE4R2FORVJRbjh3VjdS?=
- =?utf-8?B?NlFJWld2TlJPRytEdTFHaGRrQjF3QUU0UDNZcmVVSy83TFQ5aUJOUmROaWtk?=
- =?utf-8?B?Um4xNXpKcFBYQXNmcUpteTJPcnhycjNuM3NTbjMrQXd0NjU2cnNubzMyT1lh?=
- =?utf-8?B?ZDJKeFYyMDNVUStyaE1Ib1BqQkZ2ejdYT3BqYndSTWlzUjcwMEpjY0FLb0VK?=
- =?utf-8?B?aWhPUEs1RXpGOGkxaTlNMVZDU3pQcDlxR1RRRVVVU0t3ZjB4ZDAyZ2xMdXVF?=
- =?utf-8?B?NWV4R0t0SlN5Q2d3aHZBdkNFeDZNK1FxZXdCN1NqczkvN21CL0tWcHI2ZUxO?=
- =?utf-8?B?ZTdMeGJ5WnRDQjRvZXFMekp6YW1DTEVrRkVGMnBBQTB3TDhZQ3dzNmM2R0tI?=
- =?utf-8?B?VGRPSC9COGxlVGJqUzlVb2lJRzR4MDBaNkpyTDA0aERDOEZrcloyRWJtYXdn?=
- =?utf-8?B?UWZEa0JUZTdIWnpTbTljaXlWbExWSXd4ZW44dkpBaWt1THpYdy85UVpWSGRS?=
- =?utf-8?Q?VOnk0X9mc+K1G?=
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?z/9xJLz5ecfZ9cbqsIWU9Y3YuM8aNPVoslTeIeJZR8Dpat7dLrR7704nBuXr?=
+ =?us-ascii?Q?D7/aXZX+JDFQlx74yGhL0WTlb7QnC7RrP0BmYKlBsaasCUJzwK3ZsGkQEWps?=
+ =?us-ascii?Q?ZJnUmqi91oi9BcOtaFPQ8ucl8GpPrTSt81kq/yQCs24TBM7nLS/9Vjn49SOV?=
+ =?us-ascii?Q?/HucSYq1qhVt0psQkd8cT81tC+WRahV9gLtfO4CIoh/jtUawaz8BOMFV89AT?=
+ =?us-ascii?Q?tZW703VbGczUso2HKDSoeDFo/LFpt7pn5+UrPbIFsSMVsTpYPs+PU0lhBloZ?=
+ =?us-ascii?Q?CCIEGo2ZEpg/UylKfJWZ/1+lx7lzJTb93h1B3Kq4v1zN/IRt2gHnC3hyKHnB?=
+ =?us-ascii?Q?NtIjD5pfCBnIJ+TZAVVQbxU6fgSv+U5XmRt/5y8IO+HolOmo2spopyzN0Ldr?=
+ =?us-ascii?Q?IWvgjz5S2CG0D0gNGn4NL+1ztQkC+w/4OLjJYbQPHdWQJyuGQC5d1laeFvHO?=
+ =?us-ascii?Q?lfLJtkXOJFhMqRZKg4VLjr2+lHxiNMKwIdV63Tv3D9T55KzVsC5xXghts4vE?=
+ =?us-ascii?Q?kJ+xBSS6QImBmRnDKcxt+2wopUWzqooyretNnJAR9dr/jclaekk9DzhBPc8A?=
+ =?us-ascii?Q?xH36qa5KCvqbnOV5auv20hDKOLMquSuoPk29e8r0sUeJxj+J1v9L89QMnkVR?=
+ =?us-ascii?Q?Fqhn8Lmd3v8PqbCHIHQI0xJchZS+7NIShqG0k6AoJSdxd6mpwmDMqXIE1siM?=
+ =?us-ascii?Q?27wdtjS0kuf4W6oPwC+Te3gnm5dSnH5unhUcsVXAGrXT5ioQYhZU5B8nHLWK?=
+ =?us-ascii?Q?oKFbWd39MDdad5EvF01OR6/hA+05eVbvvYL8aPIkNuln7tF457scd0xsgFU4?=
+ =?us-ascii?Q?IPVxJGXVNHtL+rZ2xH7pkeIZDkZq9r8NbTIuhmcrzHDoPlyVDebvoLeXhsJp?=
+ =?us-ascii?Q?GjlftBsQwNLdJ63tmXHlO4MS3R6DPqnsATIV22FztxIa4Yog37QAqHrPqO6g?=
+ =?us-ascii?Q?5RnPSvh8X5yghGPZ0duY/vfD+3E/Kml1oG2ObL1v8mr7rSkUOD/pt+uLH76G?=
+ =?us-ascii?Q?JhlpPqg9uGLXvldx7Reteotlq/Cw41ZnDelT9f0CSDnYDG/PTttEsEGDLMuv?=
+ =?us-ascii?Q?SGXL+fHwcWQ94c+ifSdz4iWuyqCs1WCwGBqwGJdYzLyEDlnB933B/JOS2R82?=
+ =?us-ascii?Q?SA9jspPxfiU/Am1whkY/1sQL+nTf11L/g2eNOOg+c4UoaS382R7IiRlu6Sdo?=
+ =?us-ascii?Q?ZySZOwWYXzxzqmxX+H8GMnW+m2o19wXW7a9yZk1BCcgJWm1x1rlX4hB1V/am?=
+ =?us-ascii?Q?uN9yYQGoGHJxSNiKS4Gwnnb0y3nEHLphfSyXq6NL2MxUjhIyHNYIytVx4no1?=
+ =?us-ascii?Q?+j9TzfJourjJ8+1Rk4lqZD6KXEWqKhktpWm8L40zVHbhV0zZyfbyoo+xYU/O?=
+ =?us-ascii?Q?MiPJTV8marwUXqEit8QNJrYulRNL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5562cbb1-a149-4a0d-abbe-08d913d1d40a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8472f9cc-06ca-4b62-c189-08d913d1d506
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB4623.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2021 16:36:57.7746 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2021 16:36:59.4817 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O1iTQk5HvTkMxppOrl2tuuJXMzR4CiAKEbqgS2vce1cDqKYFgkj100fXtKnSFRyZ10YYZ2w8tvWhDWf8SLBS/g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: aLFqzNQmETsXfKEb6SYbVd8EMqYv4XCcCL8bo4hw3zKPGZMYVnC99Gxwq8gV1PtCeGDQYAe8C551M40fyL81LA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,142 +132,1037 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, gregkh@linuxfoundation.org,
  Felix.Kuehling@amd.com, ppaalanen@gmail.com, helgaas@kernel.org,
- Alexander.Deucher@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBhbGxvd3MgdG8gcmVtb3ZlIGV4cGxpY2l0IGNyZWF0aW9uIGFuZCBkZXN0cnVjdGlvbgpv
-ZiB0aG9zZSBhdHRycyBhbmQgYnkgdGhpcyBhdm9pZHMgd2FybmluZ3Mgb24gZGV2aWNlCmZpbmFs
-aXppbmcgcG9zdCBwaHlzaWNhbCBkZXZpY2UgZXh0cmFjdGlvbi4KCnY1OiBVc2UgbmV3bHkgYWRk
-ZWQgcGNpX2RyaXZlci5kZXZfZ3JvdXBzIGRpcmVjdGx5CgpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkg
-R3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KQWNrZWQtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYyB8IDE3ICsrKysrKy0tLS0tLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgIHwgMTMgKysrKysrKysrKwogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2d0dF9tZ3IuYyAgfCAyNSArKysrKysrKy0t
-LS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMg
-fCAxNCArKysrLS0tLS0tLQogNCBmaWxlcyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspLCAzMiBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYXRvbWJpb3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlv
-cy5jCmluZGV4IDQ5NGIyZTE3MTdkNS4uODc5ZWQzZTUwYTZlIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYwpAQCAtMTc2OCw2ICsxNzY4LDE1IEBAIHN0
-YXRpYyBzc2l6ZV90IGFtZGdwdV9hdG9tYmlvc19nZXRfdmJpb3NfdmVyc2lvbihzdHJ1Y3QgZGV2
-aWNlICpkZXYsCiBzdGF0aWMgREVWSUNFX0FUVFIodmJpb3NfdmVyc2lvbiwgMDQ0NCwgYW1kZ3B1
-X2F0b21iaW9zX2dldF92Ymlvc192ZXJzaW9uLAogCQkgICBOVUxMKTsKIAorc3RhdGljIHN0cnVj
-dCBhdHRyaWJ1dGUgKmFtZGdwdV92Ymlvc192ZXJzaW9uX2F0dHJzW10gPSB7CisJJmRldl9hdHRy
-X3ZiaW9zX3ZlcnNpb24uYXR0ciwKKwlOVUxMCit9OworCitjb25zdCBzdHJ1Y3QgYXR0cmlidXRl
-X2dyb3VwIGFtZGdwdV92Ymlvc192ZXJzaW9uX2F0dHJfZ3JvdXAgPSB7CisJLmF0dHJzID0gYW1k
-Z3B1X3ZiaW9zX3ZlcnNpb25fYXR0cnMKK307CisKIC8qKgogICogYW1kZ3B1X2F0b21iaW9zX2Zp
-bmkgLSBmcmVlIHRoZSBkcml2ZXIgaW5mbyBhbmQgY2FsbGJhY2tzIGZvciBhdG9tYmlvcwogICoK
-QEAgLTE3ODcsNyArMTc5Niw2IEBAIHZvaWQgYW1kZ3B1X2F0b21iaW9zX2Zpbmkoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCiAJYWRldi0+bW9kZV9pbmZvLmF0b21fY29udGV4dCA9IE5VTEw7
-CiAJa2ZyZWUoYWRldi0+bW9kZV9pbmZvLmF0b21fY2FyZF9pbmZvKTsKIAlhZGV2LT5tb2RlX2lu
-Zm8uYXRvbV9jYXJkX2luZm8gPSBOVUxMOwotCWRldmljZV9yZW1vdmVfZmlsZShhZGV2LT5kZXYs
-ICZkZXZfYXR0cl92Ymlvc192ZXJzaW9uKTsKIH0KIAogLyoqCkBAIC0xODA0LDcgKzE4MTIsNiBA
-QCBpbnQgYW1kZ3B1X2F0b21iaW9zX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7
-CiAJc3RydWN0IGNhcmRfaW5mbyAqYXRvbV9jYXJkX2luZm8gPQogCSAgICBremFsbG9jKHNpemVv
-ZihzdHJ1Y3QgY2FyZF9pbmZvKSwgR0ZQX0tFUk5FTCk7Ci0JaW50IHJldDsKIAogCWlmICghYXRv
-bV9jYXJkX2luZm8pCiAJCXJldHVybiAtRU5PTUVNOwpAQCAtMTgzMywxMiArMTg0MCw2IEBAIGlu
-dCBhbWRncHVfYXRvbWJpb3NfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJYW1k
-Z3B1X2F0b21iaW9zX2FsbG9jYXRlX2ZiX3NjcmF0Y2goYWRldik7CiAJfQogCi0JcmV0ID0gZGV2
-aWNlX2NyZWF0ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3ZiaW9zX3ZlcnNpb24pOwotCWlm
-IChyZXQpIHsKLQkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gY3JlYXRlIGRldmljZSBmaWxlIGZvciBW
-QklPUyB2ZXJzaW9uXG4iKTsKLQkJcmV0dXJuIHJldDsKLQl9Ci0KIAlyZXR1cm4gMDsKIH0KIApk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCmluZGV4IDVlYmVkNGM3ZDljMC4u
-ODMwMDZmNDViMTBiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBA
-IC0xNzY2LDYgKzE3NjYsMTggQEAgc3RhdGljIHN0cnVjdCBwY2lfZXJyb3JfaGFuZGxlcnMgYW1k
-Z3B1X3BjaV9lcnJfaGFuZGxlciA9IHsKIAkucmVzdW1lCQk9IGFtZGdwdV9wY2lfcmVzdW1lLAog
-fTsKIAorZXh0ZXJuIGNvbnN0IHN0cnVjdCBhdHRyaWJ1dGVfZ3JvdXAgYW1kZ3B1X3ZyYW1fbWdy
-X2F0dHJfZ3JvdXA7CitleHRlcm4gY29uc3Qgc3RydWN0IGF0dHJpYnV0ZV9ncm91cCBhbWRncHVf
-Z3R0X21ncl9hdHRyX2dyb3VwOworZXh0ZXJuIGNvbnN0IHN0cnVjdCBhdHRyaWJ1dGVfZ3JvdXAg
-YW1kZ3B1X3ZiaW9zX3ZlcnNpb25fYXR0cl9ncm91cDsKKworc3RhdGljIGNvbnN0IHN0cnVjdCBh
-dHRyaWJ1dGVfZ3JvdXAgKmFtZGdwdV9zeXNmc19ncm91cHNbXSA9IHsKKwkmYW1kZ3B1X3ZyYW1f
-bWdyX2F0dHJfZ3JvdXAsCisJJmFtZGdwdV9ndHRfbWdyX2F0dHJfZ3JvdXAsCisJJmFtZGdwdV92
-Ymlvc192ZXJzaW9uX2F0dHJfZ3JvdXAsCisJTlVMTCwKK307CisKKwogc3RhdGljIHN0cnVjdCBw
-Y2lfZHJpdmVyIGFtZGdwdV9rbXNfcGNpX2RyaXZlciA9IHsKIAkubmFtZSA9IERSSVZFUl9OQU1F
-LAogCS5pZF90YWJsZSA9IHBjaWlkbGlzdCwKQEAgLTE3NzQsNiArMTc4Niw3IEBAIHN0YXRpYyBz
-dHJ1Y3QgcGNpX2RyaXZlciBhbWRncHVfa21zX3BjaV9kcml2ZXIgPSB7CiAJLnNodXRkb3duID0g
-YW1kZ3B1X3BjaV9zaHV0ZG93biwKIAkuZHJpdmVyLnBtID0gJmFtZGdwdV9wbV9vcHMsCiAJLmVy
-cl9oYW5kbGVyID0gJmFtZGdwdV9wY2lfZXJyX2hhbmRsZXIsCisJLmRldl9ncm91cHMgPSBhbWRn
-cHVfc3lzZnNfZ3JvdXBzLAogfTsKIAogc3RhdGljIGludCBfX2luaXQgYW1kZ3B1X2luaXQodm9p
-ZCkKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdy
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0X21nci5jCmluZGV4IDcy
-OTYyZGU0YzA0Yy4uYTQ0MDRkYThjYTZkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ3R0X21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9ndHRfbWdyLmMKQEAgLTc1LDYgKzc1LDE2IEBAIHN0YXRpYyBERVZJQ0VfQVRUUiht
-ZW1faW5mb19ndHRfdG90YWwsIFNfSVJVR08sCiBzdGF0aWMgREVWSUNFX0FUVFIobWVtX2luZm9f
-Z3R0X3VzZWQsIFNfSVJVR08sCiAJICAgICAgICAgICBhbWRncHVfbWVtX2luZm9fZ3R0X3VzZWRf
-c2hvdywgTlVMTCk7CiAKK3N0YXRpYyBzdHJ1Y3QgYXR0cmlidXRlICphbWRncHVfZ3R0X21ncl9h
-dHRyaWJ1dGVzW10gPSB7CisJJmRldl9hdHRyX21lbV9pbmZvX2d0dF90b3RhbC5hdHRyLAorCSZk
-ZXZfYXR0cl9tZW1faW5mb19ndHRfdXNlZC5hdHRyLAorCU5VTEwKK307CisKK2NvbnN0IHN0cnVj
-dCBhdHRyaWJ1dGVfZ3JvdXAgYW1kZ3B1X2d0dF9tZ3JfYXR0cl9ncm91cCA9IHsKKwkuYXR0cnMg
-PSBhbWRncHVfZ3R0X21ncl9hdHRyaWJ1dGVzCit9OworCiBzdGF0aWMgY29uc3Qgc3RydWN0IHR0
-bV9yZXNvdXJjZV9tYW5hZ2VyX2Z1bmMgYW1kZ3B1X2d0dF9tZ3JfZnVuYzsKIC8qKgogICogYW1k
-Z3B1X2d0dF9tZ3JfaW5pdCAtIGluaXQgR1RUIG1hbmFnZXIgYW5kIERSTSBNTQpAQCAtODksNyAr
-OTksNiBAQCBpbnQgYW1kZ3B1X2d0dF9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdWludDY0X3QgZ3R0X3NpemUpCiAJc3RydWN0IGFtZGdwdV9ndHRfbWdyICptZ3IgPSAmYWRl
-di0+bW1hbi5ndHRfbWdyOwogCXN0cnVjdCB0dG1fcmVzb3VyY2VfbWFuYWdlciAqbWFuID0gJm1n
-ci0+bWFuYWdlcjsKIAl1aW50NjRfdCBzdGFydCwgc2l6ZTsKLQlpbnQgcmV0OwogCiAJbWFuLT51
-c2VfdHQgPSB0cnVlOwogCW1hbi0+ZnVuYyA9ICZhbWRncHVfZ3R0X21ncl9mdW5jOwpAQCAtMTAy
-LDE3ICsxMTEsNiBAQCBpbnQgYW1kZ3B1X2d0dF9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwgdWludDY0X3QgZ3R0X3NpemUpCiAJc3Bpbl9sb2NrX2luaXQoJm1nci0+bG9jayk7
-CiAJYXRvbWljNjRfc2V0KCZtZ3ItPmF2YWlsYWJsZSwgZ3R0X3NpemUgPj4gUEFHRV9TSElGVCk7
-CiAKLQlyZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJfbWVtX2lu
-Zm9fZ3R0X3RvdGFsKTsKLQlpZiAocmV0KSB7Ci0JCURSTV9FUlJPUigiRmFpbGVkIHRvIGNyZWF0
-ZSBkZXZpY2UgZmlsZSBtZW1faW5mb19ndHRfdG90YWxcbiIpOwotCQlyZXR1cm4gcmV0OwotCX0K
-LQlyZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJfbWVtX2luZm9f
-Z3R0X3VzZWQpOwotCWlmIChyZXQpIHsKLQkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gY3JlYXRlIGRl
-dmljZSBmaWxlIG1lbV9pbmZvX2d0dF91c2VkXG4iKTsKLQkJcmV0dXJuIHJldDsKLQl9Ci0KIAl0
-dG1fc2V0X2RyaXZlcl9tYW5hZ2VyKCZhZGV2LT5tbWFuLmJkZXYsIFRUTV9QTF9UVCwgJm1nci0+
-bWFuYWdlcik7CiAJdHRtX3Jlc291cmNlX21hbmFnZXJfc2V0X3VzZWQobWFuLCB0cnVlKTsKIAly
-ZXR1cm4gMDsKQEAgLTE0Miw5ICsxNDAsNiBAQCB2b2lkIGFtZGdwdV9ndHRfbWdyX2Zpbmkoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJZHJtX21tX3Rha2Vkb3duKCZtZ3ItPm1tKTsKIAlz
-cGluX3VubG9jaygmbWdyLT5sb2NrKTsKIAotCWRldmljZV9yZW1vdmVfZmlsZShhZGV2LT5kZXYs
-ICZkZXZfYXR0cl9tZW1faW5mb19ndHRfdG90YWwpOwotCWRldmljZV9yZW1vdmVfZmlsZShhZGV2
-LT5kZXYsICZkZXZfYXR0cl9tZW1faW5mb19ndHRfdXNlZCk7Ci0KIAl0dG1fcmVzb3VyY2VfbWFu
-YWdlcl9jbGVhbnVwKG1hbik7CiAJdHRtX3NldF9kcml2ZXJfbWFuYWdlcigmYWRldi0+bW1hbi5i
-ZGV2LCBUVE1fUExfVFQsIE5VTEwpOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdnJhbV9tZ3IuYwppbmRleCAyMzQ0YWJhOWRjYTMuLjg1NDNkNjQ4NjAxOCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKQEAgLTE1Miw3ICsx
-NTIsNyBAQCBzdGF0aWMgREVWSUNFX0FUVFIobWVtX2luZm9fdmlzX3ZyYW1fdXNlZCwgU19JUlVH
-TywKIHN0YXRpYyBERVZJQ0VfQVRUUihtZW1faW5mb192cmFtX3ZlbmRvciwgU19JUlVHTywKIAkJ
-ICAgYW1kZ3B1X21lbV9pbmZvX3ZyYW1fdmVuZG9yLCBOVUxMKTsKIAotc3RhdGljIGNvbnN0IHN0
-cnVjdCBhdHRyaWJ1dGUgKmFtZGdwdV92cmFtX21ncl9hdHRyaWJ1dGVzW10gPSB7CitzdGF0aWMg
-c3RydWN0IGF0dHJpYnV0ZSAqYW1kZ3B1X3ZyYW1fbWdyX2F0dHJpYnV0ZXNbXSA9IHsKIAkmZGV2
-X2F0dHJfbWVtX2luZm9fdnJhbV90b3RhbC5hdHRyLAogCSZkZXZfYXR0cl9tZW1faW5mb192aXNf
-dnJhbV90b3RhbC5hdHRyLAogCSZkZXZfYXR0cl9tZW1faW5mb192cmFtX3VzZWQuYXR0ciwKQEAg
-LTE2MSw2ICsxNjEsMTAgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhdHRyaWJ1dGUgKmFtZGdwdV92
-cmFtX21ncl9hdHRyaWJ1dGVzW10gPSB7CiAJTlVMTAogfTsKIAorY29uc3Qgc3RydWN0IGF0dHJp
-YnV0ZV9ncm91cCBhbWRncHVfdnJhbV9tZ3JfYXR0cl9ncm91cCA9IHsKKwkuYXR0cnMgPSBhbWRn
-cHVfdnJhbV9tZ3JfYXR0cmlidXRlcworfTsKKwogc3RhdGljIGNvbnN0IHN0cnVjdCB0dG1fcmVz
-b3VyY2VfbWFuYWdlcl9mdW5jIGFtZGdwdV92cmFtX21ncl9mdW5jOwogCiAvKioKQEAgLTE3NCw3
-ICsxNzgsNiBAQCBpbnQgYW1kZ3B1X3ZyYW1fbWdyX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCiB7CiAJc3RydWN0IGFtZGdwdV92cmFtX21nciAqbWdyID0gJmFkZXYtPm1tYW4udnJh
-bV9tZ3I7CiAJc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4gPSAmbWdyLT5tYW5hZ2Vy
-OwotCWludCByZXQ7CiAKIAl0dG1fcmVzb3VyY2VfbWFuYWdlcl9pbml0KG1hbiwgYWRldi0+Z21j
-LnJlYWxfdnJhbV9zaXplID4+IFBBR0VfU0hJRlQpOwogCkBAIC0xODUsMTEgKzE4OCw2IEBAIGlu
-dCBhbWRncHVfdnJhbV9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlJTklU
-X0xJU1RfSEVBRCgmbWdyLT5yZXNlcnZhdGlvbnNfcGVuZGluZyk7CiAJSU5JVF9MSVNUX0hFQUQo
-Jm1nci0+cmVzZXJ2ZWRfcGFnZXMpOwogCi0JLyogQWRkIHRoZSB0d28gVlJBTS1yZWxhdGVkIHN5
-c2ZzIGZpbGVzICovCi0JcmV0ID0gc3lzZnNfY3JlYXRlX2ZpbGVzKCZhZGV2LT5kZXYtPmtvYmos
-IGFtZGdwdV92cmFtX21ncl9hdHRyaWJ1dGVzKTsKLQlpZiAocmV0KQotCQlEUk1fRVJST1IoIkZh
-aWxlZCB0byByZWdpc3RlciBzeXNmc1xuIik7Ci0KIAl0dG1fc2V0X2RyaXZlcl9tYW5hZ2VyKCZh
-ZGV2LT5tbWFuLmJkZXYsIFRUTV9QTF9WUkFNLCAmbWdyLT5tYW5hZ2VyKTsKIAl0dG1fcmVzb3Vy
-Y2VfbWFuYWdlcl9zZXRfdXNlZChtYW4sIHRydWUpOwogCXJldHVybiAwOwpAQCAtMjI3LDggKzIy
-NSw2IEBAIHZvaWQgYW1kZ3B1X3ZyYW1fbWdyX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiAJZHJtX21tX3Rha2Vkb3duKCZtZ3ItPm1tKTsKIAlzcGluX3VubG9jaygmbWdyLT5sb2Nr
-KTsKIAotCXN5c2ZzX3JlbW92ZV9maWxlcygmYWRldi0+ZGV2LT5rb2JqLCBhbWRncHVfdnJhbV9t
-Z3JfYXR0cmlidXRlcyk7Ci0KIAl0dG1fcmVzb3VyY2VfbWFuYWdlcl9jbGVhbnVwKG1hbik7CiAJ
-dHRtX3NldF9kcml2ZXJfbWFuYWdlcigmYWRldi0+bW1hbi5iZGV2LCBUVE1fUExfVlJBTSwgTlVM
-TCk7CiB9Ci0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+This should prevent writing to memory or IO ranges possibly
+already allocated for other uses after our device is removed.
+
+v5:
+Protect more places wher memcopy_to/form_io takes place
+Protect IB submissions
+
+v6: Switch to !drm_dev_enter instead of scoping entire code
+with brackets.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 11 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  9 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c        | 17 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 63 +++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      | 70 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      | 49 ++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       | 31 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c       | 11 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       | 22 ++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  7 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 44 ++++++------
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c        |  8 +--
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c         |  8 +--
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         | 26 ++++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 22 +++---
+ .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c |  2 +
+ 17 files changed, 257 insertions(+), 145 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a0bff4713672..94c415176cdc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -71,6 +71,8 @@
+ #include <drm/task_barrier.h>
+ #include <linux/pm_runtime.h>
+ 
++#include <drm/drm_drv.h>
++
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/raven_gpu_info.bin");
+@@ -281,7 +283,10 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+ 	unsigned long flags;
+ 	uint32_t hi = ~0;
+ 	uint64_t last;
++	int idx;
+ 
++	 if (!drm_dev_enter(&adev->ddev, &idx))
++		 return;
+ 
+ #ifdef CONFIG_64BIT
+ 	last = min(pos + size, adev->gmc.visible_vram_size);
+@@ -299,8 +304,10 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+ 			memcpy_fromio(buf, addr, count);
+ 		}
+ 
+-		if (count == size)
++		if (count == size) {
++			drm_dev_exit(idx);
+ 			return;
++		}
+ 
+ 		pos += count;
+ 		buf += count / 4;
+@@ -323,6 +330,8 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+ 			*buf++ = RREG32_NO_KIQ(mmMM_DATA);
+ 	}
+ 	spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
++
++	drm_dev_exit(idx);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 4d32233cde92..04ba5eef1e88 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -31,6 +31,8 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_xgmi.h"
+ 
++#include <drm/drm_drv.h>
++
+ /**
+  * amdgpu_gmc_pdb0_alloc - allocate vram for pdb0
+  *
+@@ -151,6 +153,10 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+ {
+ 	void __iomem *ptr = (void *)cpu_pt_addr;
+ 	uint64_t value;
++	int idx;
++
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return 0;
+ 
+ 	/*
+ 	 * The following is for PTE only. GART does not have PDEs.
+@@ -158,6 +164,9 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+ 	value = addr & 0x0000FFFFFFFFF000ULL;
+ 	value |= flags;
+ 	writeq(value, ptr + (gpu_page_idx * 8));
++
++	drm_dev_exit(idx);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 148a3b481b12..62fcbd446c71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -30,6 +30,7 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/amdgpu_drm.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "atom.h"
+@@ -137,7 +138,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	bool secure;
+ 
+ 	unsigned i;
+-	int r = 0;
++	int idx, r = 0;
+ 	bool need_pipe_sync = false;
+ 
+ 	if (num_ibs == 0)
+@@ -169,13 +170,16 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 		return -EINVAL;
+ 	}
+ 
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return -ENODEV;
++
+ 	alloc_size = ring->funcs->emit_frame_size + num_ibs *
+ 		ring->funcs->emit_ib_size;
+ 
+ 	r = amdgpu_ring_alloc(ring, alloc_size);
+ 	if (r) {
+ 		dev_err(adev->dev, "scheduling IB failed (%d).\n", r);
+-		return r;
++		goto exit;
+ 	}
+ 
+ 	need_ctx_switch = ring->current_ctx != fence_ctx;
+@@ -205,7 +209,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 		r = amdgpu_vm_flush(ring, job, need_pipe_sync);
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+-			return r;
++			goto exit;
+ 		}
+ 	}
+ 
+@@ -286,7 +290,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 		if (job && job->vmid)
+ 			amdgpu_vmid_reset(adev, ring->funcs->vmhub, job->vmid);
+ 		amdgpu_ring_undo(ring);
+-		return r;
++		goto exit;
+ 	}
+ 
+ 	if (ring->funcs->insert_end)
+@@ -304,7 +308,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 		ring->funcs->emit_wave_limit(ring, false);
+ 
+ 	amdgpu_ring_commit(ring);
+-	return 0;
++
++exit:
++	drm_dev_exit(idx);
++	return r;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 9e769cf6095b..bb6afee61666 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -25,6 +25,7 @@
+ 
+ #include <linux/firmware.h>
+ #include <linux/dma-mapping.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_psp.h"
+@@ -39,6 +40,8 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_securedisplay.h"
+ 
++#include <drm/drm_drv.h>
++
+ static int psp_sysfs_init(struct amdgpu_device *adev);
+ static void psp_sysfs_fini(struct amdgpu_device *adev);
+ 
+@@ -253,7 +256,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 		   struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr)
+ {
+ 	int ret;
+-	int index;
++	int index, idx;
+ 	int timeout = 20000;
+ 	bool ras_intr = false;
+ 	bool skip_unsupport = false;
+@@ -261,6 +264,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	if (psp->adev->in_pci_err_recovery)
+ 		return 0;
+ 
++	if (!drm_dev_enter(&psp->adev->ddev, &idx))
++		return 0;
++
+ 	mutex_lock(&psp->mutex);
+ 
+ 	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+@@ -271,8 +277,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	ret = psp_ring_cmd_submit(psp, psp->cmd_buf_mc_addr, fence_mc_addr, index);
+ 	if (ret) {
+ 		atomic_dec(&psp->fence_value);
+-		mutex_unlock(&psp->mutex);
+-		return ret;
++		goto exit;
+ 	}
+ 
+ 	amdgpu_asic_invalidate_hdp(psp->adev, NULL);
+@@ -312,8 +317,8 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 			 psp->cmd_buf_mem->cmd_id,
+ 			 psp->cmd_buf_mem->resp.status);
+ 		if (!timeout) {
+-			mutex_unlock(&psp->mutex);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto exit;
+ 		}
+ 	}
+ 
+@@ -321,8 +326,10 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 		ucode->tmr_mc_addr_lo = psp->cmd_buf_mem->resp.fw_addr_lo;
+ 		ucode->tmr_mc_addr_hi = psp->cmd_buf_mem->resp.fw_addr_hi;
+ 	}
+-	mutex_unlock(&psp->mutex);
+ 
++exit:
++	mutex_unlock(&psp->mutex);
++	drm_dev_exit(idx);
+ 	return ret;
+ }
+ 
+@@ -359,8 +366,7 @@ static int psp_load_toc(struct psp_context *psp,
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 	/* Copy toc to psp firmware private buffer */
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->toc_start_addr, psp->toc_bin_size);
++	psp_copy_fw(psp, psp->toc_start_addr, psp->toc_bin_size);
+ 
+ 	psp_prep_load_toc_cmd_buf(cmd, psp->fw_pri_mc_addr, psp->toc_bin_size);
+ 
+@@ -625,8 +631,7 @@ static int psp_asd_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->asd_start_addr, psp->asd_ucode_size);
++	psp_copy_fw(psp, psp->asd_start_addr, psp->asd_ucode_size);
+ 
+ 	psp_prep_asd_load_cmd_buf(cmd, psp->fw_pri_mc_addr,
+ 				  psp->asd_ucode_size);
+@@ -781,8 +786,7 @@ static int psp_xgmi_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->ta_xgmi_start_addr, psp->ta_xgmi_ucode_size);
++	psp_copy_fw(psp, psp->ta_xgmi_start_addr, psp->ta_xgmi_ucode_size);
+ 
+ 	psp_prep_ta_load_cmd_buf(cmd,
+ 				 psp->fw_pri_mc_addr,
+@@ -1038,8 +1042,7 @@ static int psp_ras_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->ta_ras_start_addr, psp->ta_ras_ucode_size);
++	psp_copy_fw(psp, psp->ta_ras_start_addr, psp->ta_ras_ucode_size);
+ 
+ 	psp_prep_ta_load_cmd_buf(cmd,
+ 				 psp->fw_pri_mc_addr,
+@@ -1275,8 +1278,7 @@ static int psp_hdcp_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->ta_hdcp_start_addr,
++	psp_copy_fw(psp, psp->ta_hdcp_start_addr,
+ 	       psp->ta_hdcp_ucode_size);
+ 
+ 	psp_prep_ta_load_cmd_buf(cmd,
+@@ -1427,8 +1429,7 @@ static int psp_dtm_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->ta_dtm_start_addr, psp->ta_dtm_ucode_size);
++	psp_copy_fw(psp, psp->ta_dtm_start_addr, psp->ta_dtm_ucode_size);
+ 
+ 	psp_prep_ta_load_cmd_buf(cmd,
+ 				 psp->fw_pri_mc_addr,
+@@ -1573,8 +1574,7 @@ static int psp_rap_load(struct psp_context *psp)
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->ta_rap_start_addr, psp->ta_rap_ucode_size);
++	psp_copy_fw(psp, psp->ta_rap_start_addr, psp->ta_rap_ucode_size);
+ 
+ 	psp_prep_ta_load_cmd_buf(cmd,
+ 				 psp->fw_pri_mc_addr,
+@@ -3022,7 +3022,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	void *cpu_addr;
+ 	dma_addr_t dma_addr;
+-	int ret;
++	int ret, idx;
+ 	char fw_name[100];
+ 	const struct firmware *usbc_pd_fw;
+ 
+@@ -3031,6 +3031,9 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
+ 		return -EBUSY;
+ 	}
+ 
++	if (!drm_dev_enter(ddev, &idx))
++		return -ENODEV;
++
+ 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s", buf);
+ 	ret = request_firmware(&usbc_pd_fw, fw_name, adev->dev);
+ 	if (ret)
+@@ -3062,16 +3065,30 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
+ rel_buf:
+ 	dma_free_coherent(adev->dev, usbc_pd_fw->size, cpu_addr, dma_addr);
+ 	release_firmware(usbc_pd_fw);
+-
+ fail:
+ 	if (ret) {
+ 		DRM_ERROR("Failed to load USBC PD FW, err = %d", ret);
+-		return ret;
++		count = ret;
+ 	}
+ 
++	drm_dev_exit(idx);
+ 	return count;
+ }
+ 
++void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
++{
++	int idx;
++
++	if (!drm_dev_enter(&psp->adev->ddev, &idx))
++		return;
++
++	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
++	memcpy(psp->fw_pri_buf, start_addr, bin_size);
++
++	drm_dev_exit(idx);
++}
++
++
+ static DEVICE_ATTR(usbc_pd_fw, S_IRUGO | S_IWUSR,
+ 		   psp_usbc_pd_fw_sysfs_read,
+ 		   psp_usbc_pd_fw_sysfs_write);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 46a5328e00e0..2bfdc278817f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -423,4 +423,6 @@ int psp_get_fw_attestation_records_addr(struct psp_context *psp,
+ 
+ int psp_load_fw_list(struct psp_context *psp,
+ 		     struct amdgpu_firmware_info **ucode_list, int ucode_count);
++void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 688624ebe421..e1985bc34436 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -35,6 +35,8 @@
+ #include "amdgpu.h"
+ #include "atom.h"
+ 
++#include <drm/drm_drv.h>
++
+ /*
+  * Rings
+  * Most engines on the GPU are fed via ring buffers.  Ring
+@@ -461,3 +463,71 @@ int amdgpu_ring_test_helper(struct amdgpu_ring *ring)
+ 	ring->sched.ready = !r;
+ 	return r;
+ }
++
++void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
++{
++	int idx;
++	int i = 0;
++
++	if (!drm_dev_enter(&ring->adev->ddev, &idx))
++		return;
++
++	while (i <= ring->buf_mask)
++		ring->ring[i++] = ring->funcs->nop;
++
++	drm_dev_exit(idx);
++
++}
++
++void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
++{
++	int idx;
++
++	if (!drm_dev_enter(&ring->adev->ddev, &idx))
++		return;
++
++	if (ring->count_dw <= 0)
++		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
++	ring->ring[ring->wptr++ & ring->buf_mask] = v;
++	ring->wptr &= ring->ptr_mask;
++	ring->count_dw--;
++
++	drm_dev_exit(idx);
++}
++
++void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
++					      void *src, int count_dw)
++{
++	unsigned occupied, chunk1, chunk2;
++	void *dst;
++	int idx;
++
++	if (!drm_dev_enter(&ring->adev->ddev, &idx))
++		return;
++
++	if (unlikely(ring->count_dw < count_dw))
++		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
++
++	occupied = ring->wptr & ring->buf_mask;
++	dst = (void *)&ring->ring[occupied];
++	chunk1 = ring->buf_mask + 1 - occupied;
++	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
++	chunk2 = count_dw - chunk1;
++	chunk1 <<= 2;
++	chunk2 <<= 2;
++
++	if (chunk1)
++		memcpy(dst, src, chunk1);
++
++	if (chunk2) {
++		src += chunk1;
++		dst = (void *)ring->ring;
++		memcpy(dst, src, chunk2);
++	}
++
++	ring->wptr += count_dw;
++	ring->wptr &= ring->ptr_mask;
++	ring->count_dw -= count_dw;
++
++	drm_dev_exit(idx);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index e7d3d0dbdd96..c67bc6d3d039 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -299,53 +299,12 @@ static inline void amdgpu_ring_set_preempt_cond_exec(struct amdgpu_ring *ring,
+ 	*ring->cond_exe_cpu_addr = cond_exec;
+ }
+ 
+-static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+-{
+-	int i = 0;
+-	while (i <= ring->buf_mask)
+-		ring->ring[i++] = ring->funcs->nop;
+-
+-}
+-
+-static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+-{
+-	if (ring->count_dw <= 0)
+-		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+-	ring->ring[ring->wptr++ & ring->buf_mask] = v;
+-	ring->wptr &= ring->ptr_mask;
+-	ring->count_dw--;
+-}
++void amdgpu_ring_clear_ring(struct amdgpu_ring *ring);
+ 
+-static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+-					      void *src, int count_dw)
+-{
+-	unsigned occupied, chunk1, chunk2;
+-	void *dst;
+-
+-	if (unlikely(ring->count_dw < count_dw))
+-		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+-
+-	occupied = ring->wptr & ring->buf_mask;
+-	dst = (void *)&ring->ring[occupied];
+-	chunk1 = ring->buf_mask + 1 - occupied;
+-	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
+-	chunk2 = count_dw - chunk1;
+-	chunk1 <<= 2;
+-	chunk2 <<= 2;
++void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v);
+ 
+-	if (chunk1)
+-		memcpy(dst, src, chunk1);
+-
+-	if (chunk2) {
+-		src += chunk1;
+-		dst = (void *)ring->ring;
+-		memcpy(dst, src, chunk2);
+-	}
+-
+-	ring->wptr += count_dw;
+-	ring->wptr &= ring->ptr_mask;
+-	ring->count_dw -= count_dw;
+-}
++void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
++					      void *src, int count_dw);
+ 
+ int amdgpu_ring_test_helper(struct amdgpu_ring *ring);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index c6dbc0801604..82f0542c7792 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -32,6 +32,7 @@
+ #include <linux/module.h>
+ 
+ #include <drm/drm.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_pm.h"
+@@ -375,7 +376,7 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+ {
+ 	unsigned size;
+ 	void *ptr;
+-	int i, j;
++	int i, j, idx;
+ 	bool in_ras_intr = amdgpu_ras_intr_triggered();
+ 
+ 	cancel_delayed_work_sync(&adev->uvd.idle_work);
+@@ -403,11 +404,15 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+ 		if (!adev->uvd.inst[j].saved_bo)
+ 			return -ENOMEM;
+ 
+-		/* re-write 0 since err_event_athub will corrupt VCPU buffer */
+-		if (in_ras_intr)
+-			memset(adev->uvd.inst[j].saved_bo, 0, size);
+-		else
+-			memcpy_fromio(adev->uvd.inst[j].saved_bo, ptr, size);
++		if (drm_dev_enter(&adev->ddev, &idx)) {
++			/* re-write 0 since err_event_athub will corrupt VCPU buffer */
++			if (in_ras_intr)
++				memset(adev->uvd.inst[j].saved_bo, 0, size);
++			else
++				memcpy_fromio(adev->uvd.inst[j].saved_bo, ptr, size);
++
++			drm_dev_exit(idx);
++		}
+ 	}
+ 
+ 	if (in_ras_intr)
+@@ -420,7 +425,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ {
+ 	unsigned size;
+ 	void *ptr;
+-	int i;
++	int i, idx;
+ 
+ 	for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
+ 		if (adev->uvd.harvest_config & (1 << i))
+@@ -432,7 +437,10 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 		ptr = adev->uvd.inst[i].cpu_addr;
+ 
+ 		if (adev->uvd.inst[i].saved_bo != NULL) {
+-			memcpy_toio(ptr, adev->uvd.inst[i].saved_bo, size);
++			if (drm_dev_enter(&adev->ddev, &idx)) {
++				memcpy_toio(ptr, adev->uvd.inst[i].saved_bo, size);
++				drm_dev_exit(idx);
++			}
+ 			kvfree(adev->uvd.inst[i].saved_bo);
+ 			adev->uvd.inst[i].saved_bo = NULL;
+ 		} else {
+@@ -442,8 +450,11 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 			hdr = (const struct common_firmware_header *)adev->uvd.fw->data;
+ 			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 				offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+-				memcpy_toio(adev->uvd.inst[i].cpu_addr, adev->uvd.fw->data + offset,
+-					    le32_to_cpu(hdr->ucode_size_bytes));
++				if (drm_dev_enter(&adev->ddev, &idx)) {
++					memcpy_toio(adev->uvd.inst[i].cpu_addr, adev->uvd.fw->data + offset,
++						    le32_to_cpu(hdr->ucode_size_bytes));
++					drm_dev_exit(idx);
++				}
+ 				size -= le32_to_cpu(hdr->ucode_size_bytes);
+ 				ptr += le32_to_cpu(hdr->ucode_size_bytes);
+ 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index ea6a62f67e38..833203401ef4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -29,6 +29,7 @@
+ #include <linux/module.h>
+ 
+ #include <drm/drm.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_pm.h"
+@@ -293,7 +294,7 @@ int amdgpu_vce_resume(struct amdgpu_device *adev)
+ 	void *cpu_addr;
+ 	const struct common_firmware_header *hdr;
+ 	unsigned offset;
+-	int r;
++	int r, idx;
+ 
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return -EINVAL;
+@@ -313,8 +314,12 @@ int amdgpu_vce_resume(struct amdgpu_device *adev)
+ 
+ 	hdr = (const struct common_firmware_header *)adev->vce.fw->data;
+ 	offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+-	memcpy_toio(cpu_addr, adev->vce.fw->data + offset,
+-		    adev->vce.fw->size - offset);
++
++	if (drm_dev_enter(&adev->ddev, &idx)) {
++		memcpy_toio(cpu_addr, adev->vce.fw->data + offset,
++			    adev->vce.fw->size - offset);
++		drm_dev_exit(idx);
++	}
+ 
+ 	amdgpu_bo_kunmap(adev->vce.vcpu_bo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 201645963ba5..21f7d3644d70 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -27,6 +27,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_pm.h"
+@@ -275,7 +276,7 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
+ {
+ 	unsigned size;
+ 	void *ptr;
+-	int i;
++	int i, idx;
+ 
+ 	cancel_delayed_work_sync(&adev->vcn.idle_work);
+ 
+@@ -292,7 +293,10 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
+ 		if (!adev->vcn.inst[i].saved_bo)
+ 			return -ENOMEM;
+ 
+-		memcpy_fromio(adev->vcn.inst[i].saved_bo, ptr, size);
++		if (drm_dev_enter(&adev->ddev, &idx)) {
++			memcpy_fromio(adev->vcn.inst[i].saved_bo, ptr, size);
++			drm_dev_exit(idx);
++		}
+ 	}
+ 	return 0;
+ }
+@@ -301,7 +305,7 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+ {
+ 	unsigned size;
+ 	void *ptr;
+-	int i;
++	int i, idx;
+ 
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+ 		if (adev->vcn.harvest_config & (1 << i))
+@@ -313,7 +317,10 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+ 		ptr = adev->vcn.inst[i].cpu_addr;
+ 
+ 		if (adev->vcn.inst[i].saved_bo != NULL) {
+-			memcpy_toio(ptr, adev->vcn.inst[i].saved_bo, size);
++			if (drm_dev_enter(&adev->ddev, &idx)) {
++				memcpy_toio(ptr, adev->vcn.inst[i].saved_bo, size);
++				drm_dev_exit(idx);
++			}
+ 			kvfree(adev->vcn.inst[i].saved_bo);
+ 			adev->vcn.inst[i].saved_bo = NULL;
+ 		} else {
+@@ -323,8 +330,11 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+ 			hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 				offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
+-				memcpy_toio(adev->vcn.inst[i].cpu_addr, adev->vcn.fw->data + offset,
+-					    le32_to_cpu(hdr->ucode_size_bytes));
++				if (drm_dev_enter(&adev->ddev, &idx)) {
++					memcpy_toio(adev->vcn.inst[i].cpu_addr, adev->vcn.fw->data + offset,
++						    le32_to_cpu(hdr->ucode_size_bytes));
++					drm_dev_exit(idx);
++				}
+ 				size -= le32_to_cpu(hdr->ucode_size_bytes);
+ 				ptr += le32_to_cpu(hdr->ucode_size_bytes);
+ 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 9f868cf3b832..7dd5f10ab570 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -32,6 +32,7 @@
+ #include <linux/dma-buf.h>
+ 
+ #include <drm/amdgpu_drm.h>
++#include <drm/drm_drv.h>
+ #include "amdgpu.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_amdkfd.h"
+@@ -1606,7 +1607,10 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 	struct amdgpu_vm_update_params params;
+ 	enum amdgpu_sync_mode sync_mode;
+ 	uint64_t pfn;
+-	int r;
++	int r, idx;
++
++	if (!drm_dev_enter(&adev->ddev, &idx))
++		return -ENODEV;
+ 
+ 	memset(&params, 0, sizeof(params));
+ 	params.adev = adev;
+@@ -1715,6 +1719,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 
+ error_unlock:
+ 	amdgpu_vm_eviction_unlock(vm);
++	drm_dev_exit(idx);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 589410c32d09..2cec71e823f5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -23,6 +23,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/vmalloc.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_psp.h"
+@@ -269,10 +270,8 @@ static int psp_v11_0_bootloader_load_kdb(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy PSP KDB binary to memory */
+-	memcpy(psp->fw_pri_buf, psp->kdb_start_addr, psp->kdb_bin_size);
++	psp_copy_fw(psp, psp->kdb_start_addr, psp->kdb_bin_size);
+ 
+ 	/* Provide the PSP KDB to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -302,10 +301,8 @@ static int psp_v11_0_bootloader_load_spl(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy PSP SPL binary to memory */
+-	memcpy(psp->fw_pri_buf, psp->spl_start_addr, psp->spl_bin_size);
++	psp_copy_fw(psp, psp->spl_start_addr, psp->spl_bin_size);
+ 
+ 	/* Provide the PSP SPL to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -335,10 +332,8 @@ static int psp_v11_0_bootloader_load_sysdrv(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy PSP System Driver binary to memory */
+-	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
++	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -371,10 +366,8 @@ static int psp_v11_0_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
++	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -608,7 +601,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+ 	uint32_t p2c_header[4];
+ 	uint32_t sz;
+ 	void *buf;
+-	int ret;
++	int ret, idx;
+ 
+ 	if (ctx->init == PSP_MEM_TRAIN_NOT_SUPPORT) {
+ 		DRM_DEBUG("Memory training is not supported.\n");
+@@ -681,17 +674,24 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+ 			return -ENOMEM;
+ 		}
+ 
+-		memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
+-		ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
+-		if (ret) {
+-			DRM_ERROR("Send long training msg failed.\n");
++		if (drm_dev_enter(&adev->ddev, &idx)) {
++			memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
++			ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
++			if (ret) {
++				DRM_ERROR("Send long training msg failed.\n");
++				vfree(buf);
++				drm_dev_exit(idx);
++				return ret;
++			}
++
++			memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
++			adev->hdp.funcs->flush_hdp(adev, NULL);
+ 			vfree(buf);
+-			return ret;
++			drm_dev_exit(idx);
++		} else {
++			vfree(buf);
++			return -ENODEV;
+ 		}
+-
+-		memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
+-		adev->hdp.funcs->flush_hdp(adev, NULL);
+-		vfree(buf);
+ 	}
+ 
+ 	if (ops & PSP_MEM_TRAIN_SAVE) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+index c4828bd3264b..618e5b6b85d9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+@@ -138,10 +138,8 @@ static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy PSP System Driver binary to memory */
+-	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
++	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -179,10 +177,8 @@ static int psp_v12_0_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
++	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+index f2e725f72d2f..d0a6cccd0897 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+@@ -102,10 +102,8 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy PSP System Driver binary to memory */
+-	memcpy(psp->fw_pri_buf, psp->sys_start_addr, psp->sys_bin_size);
++	psp_copy_fw(psp, psp->sys_start_addr, psp->sys_bin_size);
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -143,10 +141,8 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+ 	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos_start_addr, psp->sos_bin_size);
++	psp_copy_fw(psp, psp->sos_start_addr, psp->sos_bin_size);
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+index 8e238dea7bef..90910d19db12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -25,6 +25,7 @@
+  */
+ 
+ #include <linux/firmware.h>
++#include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_vce.h"
+@@ -555,16 +556,19 @@ static int vce_v4_0_hw_fini(void *handle)
+ static int vce_v4_0_suspend(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int r;
++	int r, idx;
+ 
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return 0;
+ 
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
+-		void *ptr = adev->vce.cpu_addr;
++	if (drm_dev_enter(&adev->ddev, &idx)) {
++		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
++			void *ptr = adev->vce.cpu_addr;
+ 
+-		memcpy_fromio(adev->vce.saved_bo, ptr, size);
++			memcpy_fromio(adev->vce.saved_bo, ptr, size);
++		}
++		drm_dev_exit(idx);
+ 	}
+ 
+ 	r = vce_v4_0_hw_fini(adev);
+@@ -577,16 +581,20 @@ static int vce_v4_0_suspend(void *handle)
+ static int vce_v4_0_resume(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int r;
++	int r, idx;
+ 
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return -EINVAL;
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
+-		void *ptr = adev->vce.cpu_addr;
+ 
+-		memcpy_toio(ptr, adev->vce.saved_bo, size);
++		if (drm_dev_enter(&adev->ddev, &idx)) {
++			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
++			void *ptr = adev->vce.cpu_addr;
++
++			memcpy_toio(ptr, adev->vce.saved_bo, size);
++			drm_dev_exit(idx);
++		}
+ 	} else {
+ 		r = amdgpu_vce_resume(adev);
+ 		if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 3f15bf34123a..df34be8ec82d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -34,6 +34,8 @@
+ #include "vcn/vcn_3_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_2_0.h"
+ 
++#include <drm/drm_drv.h>
++
+ #define mmUVD_CONTEXT_ID_INTERNAL_OFFSET			0x27
+ #define mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET			0x0f
+ #define mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET			0x10
+@@ -268,16 +270,20 @@ static int vcn_v3_0_sw_init(void *handle)
+ static int vcn_v3_0_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int i, r;
++	int i, r, idx;
+ 
+-	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-		volatile struct amdgpu_fw_shared *fw_shared;
++	if (drm_dev_enter(&adev->ddev, &idx)) {
++		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
++			volatile struct amdgpu_fw_shared *fw_shared;
+ 
+-		if (adev->vcn.harvest_config & (1 << i))
+-			continue;
+-		fw_shared = adev->vcn.inst[i].fw_shared_cpu_addr;
+-		fw_shared->present_flag_0 = 0;
+-		fw_shared->sw_ring.is_enabled = false;
++			if (adev->vcn.harvest_config & (1 << i))
++				continue;
++			fw_shared = adev->vcn.inst[i].fw_shared_cpu_addr;
++			fw_shared->present_flag_0 = 0;
++			fw_shared->sw_ring.is_enabled = false;
++		}
++
++		drm_dev_exit(idx);
+ 	}
+ 
+ 	if (amdgpu_sriov_vf(adev))
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+index aae25243eb10..d628b91846c9 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+@@ -405,6 +405,8 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+ 				UCODE_ID_MEC_STORAGE, &toc->entry[toc->num_entries++]),
+ 				"Failed to Get Firmware Entry.", r = -EINVAL; goto failed);
+ 	}
++
++	/* AG TODO Can't call drm_dev_enter/exit because access adev->ddev here ... */
+ 	memcpy_toio(smu_data->header_buffer.kaddr, smu_data->toc,
+ 		    sizeof(struct SMU_DRAMData_TOC));
+ 	smum_send_msg_to_smc_with_parameter(hwmgr,
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
