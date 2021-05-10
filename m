@@ -7,52 +7,53 @@ X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
 	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F953C433ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15A1EC433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 046756101D
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 046756101D
+	by mail.kernel.org (Postfix) with ESMTPS id 99998611C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 17:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99998611C9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 746086E8E4;
-	Mon, 10 May 2021 17:13:56 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264BB6E4B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 17:05:42 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id v22so11531161oic.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 10:05:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F2289E69;
+	Mon, 10 May 2021 17:43:21 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9B3D6E8CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 17:30:51 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ u25-20020a0568302319b02902ac3d54c25eso15166111ote.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 10:30:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=PTfwdoSowuy2A1nI11vQpfn+C/OoiAor+Ao6jPWQIno=;
- b=r1CJQL6/a/z4tm74waDeoKCsKzD6c1x2t7UcOXQ+Tfoh3yn7yrr5Pc9EUr59r+jaBO
- S2fpa/Vf3eokRv1aH4fx9X0OJeTx9NOxS/nzMK3kSPtvHWsOMebvr/4AcbWW9BMmfktf
- WvNAjUnr92Paa3qUO5351aWvKkda/fUNvUVXmdCtGuw0EhNLo3hehx7GPdbYQAYTwGwm
- KOmQD2BwG8XCmgoV+qjN76HJW9k57IpYtdYF8VyGs1lo+yUaY3zSsbf9V5JjZYVPlUKg
- l7cWYNbPtSfCQ2IOU9rF0+he9hzrVjaJtUUeMNe9xtYE4A6qhFUgy5byLvoUd25S/aDw
- FP1g==
+ :cc; bh=cmkhwQahBbJMqav8gT2yEOTMMFseZ1e2Nx5W2WbR5TQ=;
+ b=YfUd77lvEQuJIWhhQw2fYGQdJL2CNFoN/qpLLjae+ECWxaQprQHQfhmO3TvJIKyFdw
+ /DLLUM+oJZhvjycfU48X0silQ7CQLZZaVXlKOCEygwOCZIbyjjpFwJfl4vrZTWRVkPJT
+ ZmBF/7ozmk7TPYsuTyBz31hJ6YQ+bPyy6u2IobKCtn4+4G7wF5zwfI1VCwASoHJLy9se
+ e7SvYg34dxCzb2ZBFVCN10xuI0OqMcb3Ly+8hOz83JA9fR84o/aOqGac8hkTN5rM/XCm
+ NRQfdaCJO7ej0qkQ83xPVKw0Mw+goYD9QDIGg0mv5+MN1MUHCt8mSSvAQrwALk29J2z/
+ tREQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=PTfwdoSowuy2A1nI11vQpfn+C/OoiAor+Ao6jPWQIno=;
- b=bpQ0bdpBfCxai3BcGZ08fdsez7UzZ+5TqDOv8ythNm1SMvVY+7NFG/i7oa3Y5o/0rI
- 1cshTsWReoiMB95+Kf4Bi2Zn8XQ/7ceMzNXJMlHp1wN+YDfEYYeiFNuZVNJIdp7k0RRb
- BT0F/9uXYmpNeb8XJDgwhh1zusbpUXL4CuV5gf9T11eZ36a/XY+HySGBssPDfDwSLVrj
- 7tawd3vYxv3PmLfH7shbUCDfq1tD+E3cezahEZOcN8OXt0zliGuPklxH5cPQz6+jwYeP
- haK3ln+5mAZYBZKq6s+QFcinyUTtv1yfDp5Vq1YKr0mHDq94tQ/NgMwGrazW031x5FFT
- J6lQ==
-X-Gm-Message-State: AOAM533rSwz8Zi3oJ67eUwg9V9V6Iomm0Lz63JCuGQ155wGH9dIaGr49
- q6TMs9b3xrRCDGWfvZ5tOAeqnAXBOFblT2UfVnk=
-X-Google-Smtp-Source: ABdhPJyT92IkKMveKk83YKFTJAlc4Yw/hNknrOY651xOCee7nr3DGKDsJCik2uODsrmHHgt+J5Kk0WKqA+iqblgQ4js=
-X-Received: by 2002:aca:f5d0:: with SMTP id t199mr111910oih.50.1620666341068; 
- Mon, 10 May 2021 10:05:41 -0700 (PDT)
+ bh=cmkhwQahBbJMqav8gT2yEOTMMFseZ1e2Nx5W2WbR5TQ=;
+ b=nMQY2mvqrWNBN1FnFAU/fD05PhYrAWIt5XRQBqZcr7n5SRK7Kuik1ab5TKjriBrh40
+ 9alsRBwT4yJCubHNxCQbbR7mXDq5c42rYAeBodRmt6FMlPgXaIb+HyUZyIeRk35tekAv
+ jv7mD/Ns3mZxYFX9ontFB3FjKkQ7B5YmOPHxj/yCyLjkrafm2CWjkpJL4nLgntZy1drO
+ box8BhehOa72NHUR55xrv0AwXKGkIYoBSv6EMdn9qKDcxN0/V2+gRO1FmEnwfWWBI1XA
+ WgnLLms3Ms9/+39hHOyuAWKpnyGxe924cR03EW4iirbjMBgsYkfoMoqujLduO2mDDSeQ
+ zZmg==
+X-Gm-Message-State: AOAM530+ZjbM+4BcqYUbJuJkHhaR3DQ1KC/tmoPG69QPWvQImaUeCjbB
+ qPU6ffsFcQ4iDa3+kMD+Q9rVoYIj+T7fzgszU6w=
+X-Google-Smtp-Source: ABdhPJyh8PYn+6hjNPZWNsdoubyIJw0/URUdbdH7NcOC/4r7wOIZreoJz8FDRqgO2+8EJs50E+WOfZQsZdUwOo73644=
+X-Received: by 2002:a9d:70c1:: with SMTP id w1mr3141785otj.276.1620667850865; 
+ Mon, 10 May 2021 10:30:50 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6830:4118:0:0:0:0 with HTTP; Mon, 10 May 2021 10:05:40
+Received: by 2002:a05:6830:4118:0:0:0:0 with HTTP; Mon, 10 May 2021 10:30:50
  -0700 (PDT)
 In-Reply-To: <CAJUqKUrr_JWLSEf8djCqmoJw6WSYZBedKsRFh6F3as+BiomJEw@mail.gmail.com>
 References: <20210414233533.24012-2-qingqing.zhuo@amd.com>
@@ -67,12 +68,12 @@ References: <20210414233533.24012-2-qingqing.zhuo@amd.com>
  <CAOzgRdYgM6j8RKzTdy-MwrW+NeLaAn1fy0Q6-ACnvA5K=a-z3A@mail.gmail.com>
  <CAJUqKUrr_JWLSEf8djCqmoJw6WSYZBedKsRFh6F3as+BiomJEw@mail.gmail.com>
 From: youling 257 <youling257@gmail.com>
-Date: Tue, 11 May 2021 01:05:40 +0800
-Message-ID: <CAOzgRdbmz0ShtgO9MaKw_jycbPkc9Yj4vVQouLFTk_nRwdkArw@mail.gmail.com>
+Date: Tue, 11 May 2021 01:30:50 +0800
+Message-ID: <CAOzgRdbHF7fuJ=rjAHsUbvyJk=BL54EBOkx2i4YUL-e_fwU07w@mail.gmail.com>
 Subject: Re: [PATCH 2/2] Revert "Revert "drm/amdgpu: Ensure that the modifier
  requested is supported by plane.""
 To: Mark Yacoub <markyacoub@chromium.org>
-X-Mailman-Approved-At: Mon, 10 May 2021 17:13:54 +0000
+X-Mailman-Approved-At: Mon, 10 May 2021 17:43:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,62 +97,6 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-error dmesg,
-
-05-10 16:59:27.004     0     0 I init    : Service 'bootanim' (pid
-1912) exited with status 0
-05-10 16:59:27.016  1684  1684 E hwc-drm-display-compositor: Commit
-test failed for display 0, FIXME
-05-10 16:59:27.016  1684  1684 E hwc-drm-two: Failed to apply the
-frame composition ret=-22
-05-10 16:59:27.016  1684  1684 E HWComposer: commit: present failed
-for display 0: BadParameter (4)
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-05-10 16:59:27.009     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
-05-10 16:59:27.023  1684  1684 E hwc-drm-display-compositor: Commit
-test failed for display 0, FIXME
-05-10 16:59:27.016     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.016     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.023  1684  1684 E hwc-drm-two: Failed to apply the
-frame composition ret=-22
-05-10 16:59:27.024  1684  1684 E HWComposer: commit: present failed
-for display 0: BadParameter (4)
-05-10 16:59:27.040  1684  1684 E hwc-drm-display-compositor: Commit
-test failed for display 0, FIXME
-05-10 16:59:27.040  1684  1684 E hwc-drm-two: Failed to apply the
-frame composition ret=-22
-05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-05-10 16:59:27.032     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
-05-10 16:59:27.033     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.033     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.041  1684  1684 E HWComposer: commit: present failed
-for display 0: BadParameter (4)
-05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 107]
-05-10 16:59:27.049     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 108]
-
-normal dmesg,
-5-10 17:00:51.837     0     0 I init    : Service 'bootanim' (pid
-1922) exited with status 0
-05-10 17:00:51.850     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 104]
-05-10 17:00:51.850     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 105]
-05-10 17:00:51.857     0     0 D         : [drm:dcn10_program_pipe
-[amdgpu]] Un-gated front end for pipe 0
-05-10 17:00:51.858     0     0 D         : [drm:dcn10_program_pipe
-[amdgpu]] Un-gated front end for pipe 3
-05-10 17:00:51.876     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 102]
-05-10 17:00:51.876     0     0 D [drm:drm_mode_addfb2 [drm]] [FB: 106]
-
 2021-05-11 0:50 GMT+08:00, Mark Yacoub <markyacoub@chromium.org>:
 > A userspace problem was due to the modifier used when you're creating
 > a buffer but this check renders it as invalid modifier.
@@ -162,6 +107,9 @@ normal dmesg,
 > kernel code and check which check returns false for the modifier
 > check. That will tell you exactly what you are missing wrt the
 > modifier.
+
+I can't find  which check returns false for the modifier check.
+
 >
 > On Mon, May 10, 2021 at 12:45 PM youling 257 <youling257@gmail.com> wrote:
 >>
