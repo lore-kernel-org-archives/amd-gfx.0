@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AAFAC43460
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:57:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28397C433ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0472161154
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:57:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0472161154
+	by mail.kernel.org (Postfix) with ESMTPS id D05AC61154
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 13:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D05AC61154
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8D56E48C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B35056E48F;
 	Mon, 10 May 2021 13:57:55 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056BA6E059;
- Mon, 10 May 2021 10:37:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1AA6961943;
- Mon, 10 May 2021 10:37:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25CA89FD4;
+ Mon, 10 May 2021 11:05:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B8E73610A7;
+ Mon, 10 May 2021 11:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620643030;
- bh=9IKPaB906Djut97p5MwTWhhrS8i29IzcBxZyrY37QIA=;
+ s=korg; t=1620644700;
+ bh=EXK4iLNayhUOC3WWOSq/Lehhdmm+cANa20sK4cCvN84=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=yNxn1iK+I1FehDzmOLQF9r0FX9oLtfw+XE0KEKNNnPlH1unpF/OaaeiTwIQp+Z+n0
- 87ADYXKTK+NaepT6rolIHAfhHQe+pAYkPfeaZqdNYW5pXXldMo7R0yCUWBUXyahXYI
- 5naCYs1MpreXb/+TBdM56bloRkYNsAsQy1ZhVQqo=
+ b=BGBXRjJjjEvV/UNHjwmGUac/DYcG75iepqz1/NTn/wHab5UZzEfXO1o6lvDf+XBsB
+ J1BcpIc3x220mmKAUwvz/9HppEARhMaEeD7MjmftNkygKPldO8BenWFbibZPqP3RZG
+ lW611tzh7oBdSlxfJ7O+agH5wt7hDN/ffP1OcO54=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.10 122/299] drm/amd/display/dc/dce/dce_aux: Remove duplicate
+Subject: [PATCH 5.12 153/384] drm/amd/display/dc/dce/dce_aux: Remove duplicate
  line causing field overwritten issue
-Date: Mon, 10 May 2021 12:18:39 +0200
-Message-Id: <20210510102009.010406493@linuxfoundation.org>
+Date: Mon, 10 May 2021 12:19:02 +0200
+Message-Id: <20210510102019.923319661@linuxfoundation.org>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210510102004.821838356@linuxfoundation.org>
-References: <20210510102004.821838356@linuxfoundation.org>
+In-Reply-To: <20210510102014.849075526@linuxfoundation.org>
+References: <20210510102014.849075526@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 10 May 2021 13:57:54 +0000
@@ -68,7 +68,7 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 RnJvbTogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KClsgVXBzdHJlYW0gY29tbWl0
-IDg5YWRjMTAxNzhmZDZjYjY4YzhlZjE5MDVkMjY5MDcwYTRkM2JkNjQgXQoKRml4ZXMgdGhlIGZv
+IDNlMzUyN2Y1Yjc2NWM2ZjQ3OWJhNTVlNWE1NzBlZTk1Mzg1ODlhNzQgXQoKRml4ZXMgdGhlIGZv
 bGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogSW4gZmlsZSBpbmNsdWRlZCBm
 cm9tIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNlMTEyL2RjZTEx
 Ml9yZXNvdXJjZS5jOjU5OgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vaW5jbHVkZS9h
@@ -117,8 +117,8 @@ ci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2Vy
 bmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9hdXgu
 aCB8IDEgLQogMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2
 ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9hdXguaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2F1eC5oCmluZGV4IDM4MjQ2NTg2MmYyOS4uZjcyZjAy
-ZTAxNmFlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2Rj
+bS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2F1eC5oCmluZGV4IDI3NzQ4NGNmODUzZS4uZDRiZTU5
+NTRkN2FhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2Rj
 ZV9hdXguaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9hdXgu
 aApAQCAtOTksNyArOTksNiBAQCBzdHJ1Y3QgZGNlMTEwX2F1eF9yZWdpc3RlcnMgewogCUFVWF9T
 RihBVVhfU1dfQ09OVFJPTCwgQVVYX1NXX0dPLCBtYXNrX3NoKSxcCiAJQVVYX1NGKEFVWF9TV19E
