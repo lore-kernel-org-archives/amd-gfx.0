@@ -2,71 +2,63 @@ Return-Path: <SRS0=4HPi=KF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7E22C43460
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09875C433B4
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 88D7161076
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88D7161076
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id B9B1F6144F
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 May 2021 08:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9B1F6144F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3F1B6E427;
-	Mon, 10 May 2021 08:26:29 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA8189DAB
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 May 2021 21:42:21 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- u25-20020a0568302319b02902ac3d54c25eso12762787ote.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 May 2021 14:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=yGaYATT91hQdu4h6WDvEjJqfoMHklt3pfo9wj23gP18=;
- b=i/6WMll3Jfc3BcDof07cTy0ysb4BOwv+UFr8P/ZLw6Vsa7W3t+tprFyF1qtPnyWG9t
- q4IqPom6JR1J4IQoaLvey54HUA3CxgfypZqyeO5VwbppnJOPHTVh3070e4/zGrQF/hGw
- WcXaYAuJElok1I4Ot6ppl7kwuwwgCdH7XZ+EeRqSzq4jfAbOEtkeOA8VXrq8g+8KD8z+
- 1JJF30Cv0o6ywy07lcEfCfHhfMoIH5CjkbPFuxH8DhxrQJXjJl3WgOu7ZBar+26h5K+x
- AN2trsT7/T+N0iY5nh8CQBfw0uux1Jn8rizC339rxTqCvBrADiMbeasZ3U+uAZeKfIgm
- Lg7Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3AC86E42E;
+	Mon, 10 May 2021 08:26:26 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0371C6E408
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 May 2021 05:51:46 +0000 (UTC)
+Received: from mail-oo1-f69.google.com ([209.85.161.69])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1lfypV-0000yk-2U
+ for amd-gfx@lists.freedesktop.org; Mon, 10 May 2021 05:51:45 +0000
+Received: by mail-oo1-f69.google.com with SMTP id
+ 126-20020a4a17840000b02901e5e0ccc28aso6820877ooe.13
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 May 2021 22:51:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=yGaYATT91hQdu4h6WDvEjJqfoMHklt3pfo9wj23gP18=;
- b=qXGvnrb41plT+VTrawvkUzLDze/RlUqry5jgbNAGJ7rjpMA/DKDYmEYtnGfBPFi7Jb
- S3bP9nb2bhKetzR87s7NG7aR3gMH1rv0uycJRfYnkK6mnemkYXq0TBrM+i95bKXeTTF/
- Vr+FwpoUtPgmqw4dfX16ElMzWdX1r/kiSy/ZqUO06z1c/AxTHcFWsbuMBiGENAYH41WP
- tt6DJ8grqwisb7UDEzEfdbsM2kJO3xZoTI3QV0zUrFuzQcEdQ1YI/bFwuK9Y6DPD3Plk
- AJS9sX9dFuBoQtPP9f4a/W/BeSKxNTfM3Kzhat1gkKjQ+v6/YPcLWxtgVgEaJ0hmTjlw
- wH8Q==
-X-Gm-Message-State: AOAM531iP3avlvGFnRPFJDP9PtGRa3pguB7yOwqXEzxHDGR3pgp1ulbc
- 5Fr+8IR1C/kOOEVvr1f3hl8Q/pD1hCXefYkBuGA=
-X-Google-Smtp-Source: ABdhPJwqe1gdhwAL1RTZWdtt8hdpsuEtUBRIl5CYd8L+UZ0qNUER3L9hUNtS7dgSKzHULq/xmO4fESBCFG2IV3R0XhI=
-X-Received: by 2002:a9d:6f90:: with SMTP id h16mr1287278otq.8.1620596540717;
- Sun, 09 May 2021 14:42:20 -0700 (PDT)
+ bh=deGPWI0oWcIneaVRPe3KbbVVGpg+Wlwl+HFfL3bji1k=;
+ b=CityTgdEyY/x0A8UDvWEtf92yMU/hTjPdl/IOkDG/imX1qKsbjzTvcGgfB6pVAWa6j
+ LhHS/onJicpQb9yvTQrcD4KWUQFeyt1uNPniNwVAaR2WSeqqkX7hvTt/PNqc4aD/n7Uf
+ enrD/eSWs8ADzUDG3fPKus/ajfJ7Rm9+/xARYKTOGfFUF8aRxE1KkpMGSXCEzZ/TRh5N
+ tMzO6GcRdHB6DeoBlRDXOxUq0AMPu4akTnnrjpGnB+2GbNp8xX1lQyESMyEBelR7fdj9
+ /zOQRMnd3Y01U43jDQr0gsIMDYl/K3M0Q2FlfhRp0L+VdSf8d6pEDz4F6rGZuoajHqMc
+ lm+A==
+X-Gm-Message-State: AOAM531mVJBq3kCYAv6aU6VCAoQ/97IgYsi/ANMEx66UVLrT8w8qK7RG
+ M/N1+nZdJnj/y5S+GAeBIQa4wrCYaHB8nDnPib5LBKpXp+fOew5KXAxz79TmAIE+eIEtoxvTFH8
+ CES/wAXKG0J+gIAC60rqoG89Y3HDU8Z8gNYupjuif1kAzY6WG8cDfofXS8FY=
+X-Received: by 2002:a9d:7410:: with SMTP id n16mr19168566otk.262.1620625903838; 
+ Sun, 09 May 2021 22:51:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzuomLJzqoP25AJuh1WxcTIilQqq8zylZXd5+uXXYsO89CsShehnmSvTYcfet4xBrdoYK8TffY2lJP+bKGHPqs=
+X-Received: by 2002:a9d:7410:: with SMTP id n16mr19168541otk.262.1620625903264; 
+ Sun, 09 May 2021 22:51:43 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6830:4118:0:0:0:0 with HTTP; Sun, 9 May 2021 14:42:20
- -0700 (PDT)
-In-Reply-To: <CAP+8YyEv3NPqeEVmFvQDoq_+=h8Q_goHUbgt7fNPUXJbR5AcKw@mail.gmail.com>
-References: <20210414233533.24012-2-qingqing.zhuo@amd.com>
- <20210509121055.24728-1-youling257@gmail.com>
- <CADnq5_MF0y0sHH6Vz8KZH5j=iXToq3WPw7+kW=BqMk=oNZ=Ppw@mail.gmail.com>
- <CAOzgRdZf0R7mVY+spDZz_CG1Kpf7qmP6oGaOJ_XKauZA3ZhZeg@mail.gmail.com>
- <CAP+8YyEv3NPqeEVmFvQDoq_+=h8Q_goHUbgt7fNPUXJbR5AcKw@mail.gmail.com>
-From: youling 257 <youling257@gmail.com>
-Date: Mon, 10 May 2021 05:42:20 +0800
-Message-ID: <CAOzgRdYbmnA3M5d30i94TwGNtOWOviChBq9eEdhTjbfvGXaSfw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Revert "Revert "drm/amdgpu: Ensure that the modifier
- requested is supported by plane.""
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+References: <20210509225525.GA32045@embeddedor>
+In-Reply-To: <20210509225525.GA32045@embeddedor>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Mon, 10 May 2021 13:51:31 +0800
+Message-ID: <CAAd53p6uVMVAS97Zj4GWeq79Gw-ow4rZd9wqj=wbfi3V=u4ipQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/si_dpm: Fix SMU power state load
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
 X-Mailman-Approved-At: Mon, 10 May 2021 08:26:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,92 +71,479 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wheeler,
- Daniel" <daniel.wheeler@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-error dmesg
-
-[  115.977746] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-[  115.980406] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-[  115.993656] [drm:drm_mode_addfb2 [drm]] [FB:104]
-[  115.993694] [drm:drm_mode_addfb2 [drm]] [FB:105]
-[  115.993722] [drm:drm_mode_addfb2 [drm]] [FB:106]
-[  115.993750] [drm:drm_mode_addfb2 [drm]] [FB:107]
-[  115.993777] [drm:drm_mode_addfb2 [drm]] [FB:108]
-[  115.994215] [drm:drm_mode_addfb2 [drm]] [FB:104]
-[  115.994371] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-[  115.997095] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-[  116.010298] [drm:drm_mode_addfb2 [drm]] [FB:102]
-[  116.010337] [drm:drm_mode_addfb2 [drm]] [FB:105]
-[  116.010366] [drm:drm_mode_addfb2 [drm]] [FB:106]
-[  116.010394] [drm:drm_mode_addfb2 [drm]] [FB:107]
-[  116.010422] [drm:drm_mode_addfb2 [drm]] [FB:108]
-[  116.010853] [drm:drm_mode_addfb2 [drm]] [FB:102]
-[  116.011018] [drm:dm_plane_helper_prepare_fb [amdgpu]] No FB bound
-[  116.013694] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-
-
-normal dmesg
- 3464.827004] [drm:drm_mode_addfb2 [drm]] [FB:105]
-[ 3464.833405] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-[ 3464.833981] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 3
-[ 3464.842396] [drm:drm_mode_addfb2 [drm]] [FB:104]
-[ 3464.842476] [drm:drm_mode_addfb2 [drm]] [FB:106]
-[ 3464.842550] [drm:drm_mode_addfb2 [drm]] [FB:107]
-[ 3464.842615] [drm:drm_mode_addfb2 [drm]] [FB:108]
-[ 3464.842679] [drm:drm_mode_addfb2 [drm]] [FB:109]
-[ 3464.842741] [drm:drm_mode_addfb2 [drm]] [FB:110]
-[ 3464.843748] [drm:drm_mode_addfb2 [drm]] [FB:104]
-[ 3464.843821] [drm:drm_mode_addfb2 [drm]] [FB:106]
-[ 3464.850026] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-[ 3464.850378] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 3
-[ 3464.858841] [drm:drm_mode_addfb2 [drm]] [FB:102]
-[ 3464.858878] [drm:drm_mode_addfb2 [drm]] [FB:105]
-[ 3464.858906] [drm:drm_mode_addfb2 [drm]] [FB:107]
-[ 3464.858933] [drm:drm_mode_addfb2 [drm]] [FB:108]
-[ 3464.858960] [drm:drm_mode_addfb2 [drm]] [FB:109]
-[ 3464.858987] [drm:drm_mode_addfb2 [drm]] [FB:110]
-[ 3464.859609] [drm:drm_mode_addfb2 [drm]] [FB:102]
-[ 3464.859641] [drm:drm_mode_addfb2 [drm]] [FB:105]
-[ 3464.866353] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 0
-[ 3464.866653] [drm:dcn10_program_pipe [amdgpu]] Un-gated front end for pipe 3
-
-2021-05-10 4:57 GMT+08:00, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>:
-> It would be very helpful if you could enable drm.debug=0x4 and then
-> take the dmesg to figure out what modifier was rejected
+On Mon, May 10, 2021 at 6:54 AM Gustavo A. R. Silva
+<gustavoars@kernel.org> wrote:
 >
-> On Sun, May 9, 2021 at 10:51 PM youling 257 <youling257@gmail.com> wrote:
->>
->> look this video,
->> https://drive.google.com/file/d/1QklH_H2AlOTu8W1D3yl6_3rtZ7IqbjR_/view?usp=sharing
->>
->> 2021-05-09 23:52 GMT+08:00, Alex Deucher <alexdeucher@gmail.com>:
->> > On Sun, May 9, 2021 at 11:42 AM youling257 <youling257@gmail.com>
->> > wrote:
->> >>
->> >> I using amd 3400g running with android-x86, this patch is a bad commit
->> >> when i use android-x86 on amdgpu.
->> >
->> > Can you provide more details?  What sort of problem are you seeing?
->> > Please provide your dmesg output.
->> >
->> > Alex
->> >
->> >
->> >> _______________________________________________
->> >> amd-gfx mailing list
->> >> amd-gfx@lists.freedesktop.org
->> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->> >
+> Create new structure SISLANDS_SMC_SWSTATE_SINGLE, as initialState.levels
+> and ACPIState.levels are never actually used as flexible arrays. Those
+> arrays can be used as simple objects of type
+> SISLANDS_SMC_HW_PERFORMANCE_LEVEL, instead.
+>
+> Currently, the code fails because flexible array _levels_ in
+> struct SISLANDS_SMC_SWSTATE doesn't allow for code that access
+> the first element of initialState.levels and ACPIState.levels
+> arrays:
+>
+> 4353         table->initialState.levels[0].mclk.vDLL_CNTL =
+> 4354                 cpu_to_be32(si_pi->clock_registers.dll_cntl);
+> ...
+> 4555         table->ACPIState.levels[0].mclk.vDLL_CNTL =
+> 4556                 cpu_to_be32(dll_cntl);
+>
+> because such element cannot exist without previously allocating
+> any dynamic memory for it (which never actually happens).
+>
+> That's why struct SISLANDS_SMC_SWSTATE should only be used as type
+> for object driverState and new struct SISLANDS_SMC_SWSTATE_SINGLE is
+> created as type for objects initialState, ACPIState and ULVState.
+>
+> Also, with the change from one-element array to flexible-array member
+> in commit 96e27e8d919e ("drm/radeon/si_dpm: Replace one-element array
+> with flexible-array in struct SISLANDS_SMC_SWSTATE"), the size of
+> dpmLevels in struct SISLANDS_SMC_STATETABLE should be fixed to be
+> SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE instead of
+> SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1.
+>
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1583
+> Fixes: 96e27e8d919e ("drm/radeon/si_dpm: Replace one-element array with flexible-array in struct SISLANDS_SMC_SWSTATE")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+
+> ---
+>  drivers/gpu/drm/radeon/si_dpm.c       | 174 +++++++++++++-------------
+>  drivers/gpu/drm/radeon/sislands_smc.h |  34 +++--
+>  2 files changed, 109 insertions(+), 99 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+> index 91bfc4762767..2a8b9680cf6b 100644
+> --- a/drivers/gpu/drm/radeon/si_dpm.c
+> +++ b/drivers/gpu/drm/radeon/si_dpm.c
+> @@ -4350,70 +4350,70 @@ static int si_populate_smc_initial_state(struct radeon_device *rdev,
+>         u32 reg;
+>         int ret;
+>
+> -       table->initialState.levels[0].mclk.vDLL_CNTL =
+> +       table->initialState.level.mclk.vDLL_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.dll_cntl);
+> -       table->initialState.levels[0].mclk.vMCLK_PWRMGT_CNTL =
+> +       table->initialState.level.mclk.vMCLK_PWRMGT_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.mclk_pwrmgt_cntl);
+> -       table->initialState.levels[0].mclk.vMPLL_AD_FUNC_CNTL =
+> +       table->initialState.level.mclk.vMPLL_AD_FUNC_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_ad_func_cntl);
+> -       table->initialState.levels[0].mclk.vMPLL_DQ_FUNC_CNTL =
+> +       table->initialState.level.mclk.vMPLL_DQ_FUNC_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_dq_func_cntl);
+> -       table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL =
+> +       table->initialState.level.mclk.vMPLL_FUNC_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_func_cntl);
+> -       table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL_1 =
+> +       table->initialState.level.mclk.vMPLL_FUNC_CNTL_1 =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_func_cntl_1);
+> -       table->initialState.levels[0].mclk.vMPLL_FUNC_CNTL_2 =
+> +       table->initialState.level.mclk.vMPLL_FUNC_CNTL_2 =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_func_cntl_2);
+> -       table->initialState.levels[0].mclk.vMPLL_SS =
+> +       table->initialState.level.mclk.vMPLL_SS =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_ss1);
+> -       table->initialState.levels[0].mclk.vMPLL_SS2 =
+> +       table->initialState.level.mclk.vMPLL_SS2 =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_ss2);
+>
+> -       table->initialState.levels[0].mclk.mclk_value =
+> +       table->initialState.level.mclk.mclk_value =
+>                 cpu_to_be32(initial_state->performance_levels[0].mclk);
+>
+> -       table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL =
+> +       table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl);
+> -       table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_2 =
+> +       table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_2 =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_2);
+> -       table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_3 =
+> +       table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_3 =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_3);
+> -       table->initialState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_4 =
+> +       table->initialState.level.sclk.vCG_SPLL_FUNC_CNTL_4 =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_func_cntl_4);
+> -       table->initialState.levels[0].sclk.vCG_SPLL_SPREAD_SPECTRUM =
+> +       table->initialState.level.sclk.vCG_SPLL_SPREAD_SPECTRUM =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_spread_spectrum);
+> -       table->initialState.levels[0].sclk.vCG_SPLL_SPREAD_SPECTRUM_2  =
+> +       table->initialState.level.sclk.vCG_SPLL_SPREAD_SPECTRUM_2  =
+>                 cpu_to_be32(si_pi->clock_registers.cg_spll_spread_spectrum_2);
+>
+> -       table->initialState.levels[0].sclk.sclk_value =
+> +       table->initialState.level.sclk.sclk_value =
+>                 cpu_to_be32(initial_state->performance_levels[0].sclk);
+>
+> -       table->initialState.levels[0].arbRefreshState =
+> +       table->initialState.level.arbRefreshState =
+>                 SISLANDS_INITIAL_STATE_ARB_INDEX;
+>
+> -       table->initialState.levels[0].ACIndex = 0;
+> +       table->initialState.level.ACIndex = 0;
+>
+>         ret = si_populate_voltage_value(rdev, &eg_pi->vddc_voltage_table,
+>                                         initial_state->performance_levels[0].vddc,
+> -                                       &table->initialState.levels[0].vddc);
+> +                                       &table->initialState.level.vddc);
+>
+>         if (!ret) {
+>                 u16 std_vddc;
+>
+>                 ret = si_get_std_voltage_value(rdev,
+> -                                              &table->initialState.levels[0].vddc,
+> +                                              &table->initialState.level.vddc,
+>                                                &std_vddc);
+>                 if (!ret)
+>                         si_populate_std_voltage_value(rdev, std_vddc,
+> -                                                     table->initialState.levels[0].vddc.index,
+> -                                                     &table->initialState.levels[0].std_vddc);
+> +                                                     table->initialState.level.vddc.index,
+> +                                                     &table->initialState.level.std_vddc);
+>         }
+>
+>         if (eg_pi->vddci_control)
+>                 si_populate_voltage_value(rdev,
+>                                           &eg_pi->vddci_voltage_table,
+>                                           initial_state->performance_levels[0].vddci,
+> -                                         &table->initialState.levels[0].vddci);
+> +                                         &table->initialState.level.vddci);
+>
+>         if (si_pi->vddc_phase_shed_control)
+>                 si_populate_phase_shedding_value(rdev,
+> @@ -4421,43 +4421,43 @@ static int si_populate_smc_initial_state(struct radeon_device *rdev,
+>                                                  initial_state->performance_levels[0].vddc,
+>                                                  initial_state->performance_levels[0].sclk,
+>                                                  initial_state->performance_levels[0].mclk,
+> -                                                &table->initialState.levels[0].vddc);
+> +                                                &table->initialState.level.vddc);
+>
+> -       si_populate_initial_mvdd_value(rdev, &table->initialState.levels[0].mvdd);
+> +       si_populate_initial_mvdd_value(rdev, &table->initialState.level.mvdd);
+>
+>         reg = CG_R(0xffff) | CG_L(0);
+> -       table->initialState.levels[0].aT = cpu_to_be32(reg);
+> +       table->initialState.level.aT = cpu_to_be32(reg);
+>
+> -       table->initialState.levels[0].bSP = cpu_to_be32(pi->dsp);
+> +       table->initialState.level.bSP = cpu_to_be32(pi->dsp);
+>
+> -       table->initialState.levels[0].gen2PCIE = (u8)si_pi->boot_pcie_gen;
+> +       table->initialState.level.gen2PCIE = (u8)si_pi->boot_pcie_gen;
+>
+>         if (pi->mem_gddr5) {
+> -               table->initialState.levels[0].strobeMode =
+> +               table->initialState.level.strobeMode =
+>                         si_get_strobe_mode_settings(rdev,
+>                                                     initial_state->performance_levels[0].mclk);
+>
+>                 if (initial_state->performance_levels[0].mclk > pi->mclk_edc_enable_threshold)
+> -                       table->initialState.levels[0].mcFlags = SISLANDS_SMC_MC_EDC_RD_FLAG | SISLANDS_SMC_MC_EDC_WR_FLAG;
+> +                       table->initialState.level.mcFlags = SISLANDS_SMC_MC_EDC_RD_FLAG | SISLANDS_SMC_MC_EDC_WR_FLAG;
+>                 else
+> -                       table->initialState.levels[0].mcFlags =  0;
+> +                       table->initialState.level.mcFlags =  0;
+>         }
+>
+>         table->initialState.levelCount = 1;
+>
+>         table->initialState.flags |= PPSMC_SWSTATE_FLAG_DC;
+>
+> -       table->initialState.levels[0].dpm2.MaxPS = 0;
+> -       table->initialState.levels[0].dpm2.NearTDPDec = 0;
+> -       table->initialState.levels[0].dpm2.AboveSafeInc = 0;
+> -       table->initialState.levels[0].dpm2.BelowSafeInc = 0;
+> -       table->initialState.levels[0].dpm2.PwrEfficiencyRatio = 0;
+> +       table->initialState.level.dpm2.MaxPS = 0;
+> +       table->initialState.level.dpm2.NearTDPDec = 0;
+> +       table->initialState.level.dpm2.AboveSafeInc = 0;
+> +       table->initialState.level.dpm2.BelowSafeInc = 0;
+> +       table->initialState.level.dpm2.PwrEfficiencyRatio = 0;
+>
+>         reg = MIN_POWER_MASK | MAX_POWER_MASK;
+> -       table->initialState.levels[0].SQPowerThrottle = cpu_to_be32(reg);
+> +       table->initialState.level.SQPowerThrottle = cpu_to_be32(reg);
+>
+>         reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
+> -       table->initialState.levels[0].SQPowerThrottle_2 = cpu_to_be32(reg);
+> +       table->initialState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+>
+>         return 0;
+>  }
+> @@ -4488,18 +4488,18 @@ static int si_populate_smc_acpi_state(struct radeon_device *rdev,
+>
+>         if (pi->acpi_vddc) {
+>                 ret = si_populate_voltage_value(rdev, &eg_pi->vddc_voltage_table,
+> -                                               pi->acpi_vddc, &table->ACPIState.levels[0].vddc);
+> +                                               pi->acpi_vddc, &table->ACPIState.level.vddc);
+>                 if (!ret) {
+>                         u16 std_vddc;
+>
+>                         ret = si_get_std_voltage_value(rdev,
+> -                                                      &table->ACPIState.levels[0].vddc, &std_vddc);
+> +                                                      &table->ACPIState.level.vddc, &std_vddc);
+>                         if (!ret)
+>                                 si_populate_std_voltage_value(rdev, std_vddc,
+> -                                                             table->ACPIState.levels[0].vddc.index,
+> -                                                             &table->ACPIState.levels[0].std_vddc);
+> +                                                             table->ACPIState.level.vddc.index,
+> +                                                             &table->ACPIState.level.std_vddc);
+>                 }
+> -               table->ACPIState.levels[0].gen2PCIE = si_pi->acpi_pcie_gen;
+> +               table->ACPIState.level.gen2PCIE = si_pi->acpi_pcie_gen;
+>
+>                 if (si_pi->vddc_phase_shed_control) {
+>                         si_populate_phase_shedding_value(rdev,
+> @@ -4507,23 +4507,23 @@ static int si_populate_smc_acpi_state(struct radeon_device *rdev,
+>                                                          pi->acpi_vddc,
+>                                                          0,
+>                                                          0,
+> -                                                        &table->ACPIState.levels[0].vddc);
+> +                                                        &table->ACPIState.level.vddc);
+>                 }
+>         } else {
+>                 ret = si_populate_voltage_value(rdev, &eg_pi->vddc_voltage_table,
+> -                                               pi->min_vddc_in_table, &table->ACPIState.levels[0].vddc);
+> +                                               pi->min_vddc_in_table, &table->ACPIState.level.vddc);
+>                 if (!ret) {
+>                         u16 std_vddc;
+>
+>                         ret = si_get_std_voltage_value(rdev,
+> -                                                      &table->ACPIState.levels[0].vddc, &std_vddc);
+> +                                                      &table->ACPIState.level.vddc, &std_vddc);
+>
+>                         if (!ret)
+>                                 si_populate_std_voltage_value(rdev, std_vddc,
+> -                                                             table->ACPIState.levels[0].vddc.index,
+> -                                                             &table->ACPIState.levels[0].std_vddc);
+> +                                                             table->ACPIState.level.vddc.index,
+> +                                                             &table->ACPIState.level.std_vddc);
+>                 }
+> -               table->ACPIState.levels[0].gen2PCIE = (u8)r600_get_pcie_gen_support(rdev,
+> +               table->ACPIState.level.gen2PCIE = (u8)r600_get_pcie_gen_support(rdev,
+>                                                                                     si_pi->sys_pcie_mask,
+>                                                                                     si_pi->boot_pcie_gen,
+>                                                                                     RADEON_PCIE_GEN1);
+> @@ -4534,14 +4534,14 @@ static int si_populate_smc_acpi_state(struct radeon_device *rdev,
+>                                                          pi->min_vddc_in_table,
+>                                                          0,
+>                                                          0,
+> -                                                        &table->ACPIState.levels[0].vddc);
+> +                                                        &table->ACPIState.level.vddc);
+>         }
+>
+>         if (pi->acpi_vddc) {
+>                 if (eg_pi->acpi_vddci)
+>                         si_populate_voltage_value(rdev, &eg_pi->vddci_voltage_table,
+>                                                   eg_pi->acpi_vddci,
+> -                                                 &table->ACPIState.levels[0].vddci);
+> +                                                 &table->ACPIState.level.vddci);
+>         }
+>
+>         mclk_pwrmgt_cntl |= MRDCK0_RESET | MRDCK1_RESET;
+> @@ -4552,59 +4552,59 @@ static int si_populate_smc_acpi_state(struct radeon_device *rdev,
+>         spll_func_cntl_2 &= ~SCLK_MUX_SEL_MASK;
+>         spll_func_cntl_2 |= SCLK_MUX_SEL(4);
+>
+> -       table->ACPIState.levels[0].mclk.vDLL_CNTL =
+> +       table->ACPIState.level.mclk.vDLL_CNTL =
+>                 cpu_to_be32(dll_cntl);
+> -       table->ACPIState.levels[0].mclk.vMCLK_PWRMGT_CNTL =
+> +       table->ACPIState.level.mclk.vMCLK_PWRMGT_CNTL =
+>                 cpu_to_be32(mclk_pwrmgt_cntl);
+> -       table->ACPIState.levels[0].mclk.vMPLL_AD_FUNC_CNTL =
+> +       table->ACPIState.level.mclk.vMPLL_AD_FUNC_CNTL =
+>                 cpu_to_be32(mpll_ad_func_cntl);
+> -       table->ACPIState.levels[0].mclk.vMPLL_DQ_FUNC_CNTL =
+> +       table->ACPIState.level.mclk.vMPLL_DQ_FUNC_CNTL =
+>                 cpu_to_be32(mpll_dq_func_cntl);
+> -       table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL =
+> +       table->ACPIState.level.mclk.vMPLL_FUNC_CNTL =
+>                 cpu_to_be32(mpll_func_cntl);
+> -       table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL_1 =
+> +       table->ACPIState.level.mclk.vMPLL_FUNC_CNTL_1 =
+>                 cpu_to_be32(mpll_func_cntl_1);
+> -       table->ACPIState.levels[0].mclk.vMPLL_FUNC_CNTL_2 =
+> +       table->ACPIState.level.mclk.vMPLL_FUNC_CNTL_2 =
+>                 cpu_to_be32(mpll_func_cntl_2);
+> -       table->ACPIState.levels[0].mclk.vMPLL_SS =
+> +       table->ACPIState.level.mclk.vMPLL_SS =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_ss1);
+> -       table->ACPIState.levels[0].mclk.vMPLL_SS2 =
+> +       table->ACPIState.level.mclk.vMPLL_SS2 =
+>                 cpu_to_be32(si_pi->clock_registers.mpll_ss2);
+>
+> -       table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL =
+> +       table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL =
+>                 cpu_to_be32(spll_func_cntl);
+> -       table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_2 =
+> +       table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_2 =
+>                 cpu_to_be32(spll_func_cntl_2);
+> -       table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_3 =
+> +       table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_3 =
+>                 cpu_to_be32(spll_func_cntl_3);
+> -       table->ACPIState.levels[0].sclk.vCG_SPLL_FUNC_CNTL_4 =
+> +       table->ACPIState.level.sclk.vCG_SPLL_FUNC_CNTL_4 =
+>                 cpu_to_be32(spll_func_cntl_4);
+>
+> -       table->ACPIState.levels[0].mclk.mclk_value = 0;
+> -       table->ACPIState.levels[0].sclk.sclk_value = 0;
+> +       table->ACPIState.level.mclk.mclk_value = 0;
+> +       table->ACPIState.level.sclk.sclk_value = 0;
+>
+> -       si_populate_mvdd_value(rdev, 0, &table->ACPIState.levels[0].mvdd);
+> +       si_populate_mvdd_value(rdev, 0, &table->ACPIState.level.mvdd);
+>
+>         if (eg_pi->dynamic_ac_timing)
+> -               table->ACPIState.levels[0].ACIndex = 0;
+> +               table->ACPIState.level.ACIndex = 0;
+>
+> -       table->ACPIState.levels[0].dpm2.MaxPS = 0;
+> -       table->ACPIState.levels[0].dpm2.NearTDPDec = 0;
+> -       table->ACPIState.levels[0].dpm2.AboveSafeInc = 0;
+> -       table->ACPIState.levels[0].dpm2.BelowSafeInc = 0;
+> -       table->ACPIState.levels[0].dpm2.PwrEfficiencyRatio = 0;
+> +       table->ACPIState.level.dpm2.MaxPS = 0;
+> +       table->ACPIState.level.dpm2.NearTDPDec = 0;
+> +       table->ACPIState.level.dpm2.AboveSafeInc = 0;
+> +       table->ACPIState.level.dpm2.BelowSafeInc = 0;
+> +       table->ACPIState.level.dpm2.PwrEfficiencyRatio = 0;
+>
+>         reg = MIN_POWER_MASK | MAX_POWER_MASK;
+> -       table->ACPIState.levels[0].SQPowerThrottle = cpu_to_be32(reg);
+> +       table->ACPIState.level.SQPowerThrottle = cpu_to_be32(reg);
+>
+>         reg = MAX_POWER_DELTA_MASK | STI_SIZE_MASK | LTI_RATIO_MASK;
+> -       table->ACPIState.levels[0].SQPowerThrottle_2 = cpu_to_be32(reg);
+> +       table->ACPIState.level.SQPowerThrottle_2 = cpu_to_be32(reg);
+>
+>         return 0;
+>  }
+>
+>  static int si_populate_ulv_state(struct radeon_device *rdev,
+> -                                SISLANDS_SMC_SWSTATE *state)
+> +                                struct SISLANDS_SMC_SWSTATE_SINGLE *state)
+>  {
+>         struct evergreen_power_info *eg_pi = evergreen_get_pi(rdev);
+>         struct si_power_info *si_pi = si_get_pi(rdev);
+> @@ -4613,19 +4613,19 @@ static int si_populate_ulv_state(struct radeon_device *rdev,
+>         int ret;
+>
+>         ret = si_convert_power_level_to_smc(rdev, &ulv->pl,
+> -                                           &state->levels[0]);
+> +                                           &state->level);
+>         if (!ret) {
+>                 if (eg_pi->sclk_deep_sleep) {
+>                         if (sclk_in_sr <= SCLK_MIN_DEEPSLEEP_FREQ)
+> -                               state->levels[0].stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_BYPASS;
+> +                               state->level.stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_BYPASS;
+>                         else
+> -                               state->levels[0].stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_THROTTLE;
+> +                               state->level.stateFlags |= PPSMC_STATEFLAG_DEEPSLEEP_THROTTLE;
+>                 }
+>                 if (ulv->one_pcie_lane_in_ulv)
+>                         state->flags |= PPSMC_SWSTATE_FLAG_PCIE_X1;
+> -               state->levels[0].arbRefreshState = (u8)(SISLANDS_ULV_STATE_ARB_INDEX);
+> -               state->levels[0].ACIndex = 1;
+> -               state->levels[0].std_vddc = state->levels[0].vddc;
+> +               state->level.arbRefreshState = (u8)(SISLANDS_ULV_STATE_ARB_INDEX);
+> +               state->level.ACIndex = 1;
+> +               state->level.std_vddc = state->level.vddc;
+>                 state->levelCount = 1;
+>
+>                 state->flags |= PPSMC_SWSTATE_FLAG_DC;
+> @@ -4725,7 +4725,9 @@ static int si_init_smc_table(struct radeon_device *rdev)
+>         if (ret)
+>                 return ret;
+>
+> -       table->driverState = table->initialState;
+> +       table->driverState.flags = table->initialState.flags;
+> +       table->driverState.levelCount = table->initialState.levelCount;
+> +       table->driverState.levels[0] = table->initialState.level;
+>
+>         ret = si_do_program_memory_timing_parameters(rdev, radeon_boot_state,
+>                                                      SISLANDS_INITIAL_STATE_ARB_INDEX);
+> @@ -5276,8 +5278,8 @@ static int si_upload_ulv_state(struct radeon_device *rdev)
+>         if (ulv->supported && ulv->pl.vddc) {
+>                 u32 address = si_pi->state_table_start +
+>                         offsetof(SISLANDS_SMC_STATETABLE, ULVState);
+> -               SISLANDS_SMC_SWSTATE *smc_state = &si_pi->smc_statetable.ULVState;
+> -               u32 state_size = sizeof(SISLANDS_SMC_SWSTATE);
+> +               struct SISLANDS_SMC_SWSTATE_SINGLE *smc_state = &si_pi->smc_statetable.ULVState;
+> +               u32 state_size = sizeof(struct SISLANDS_SMC_SWSTATE_SINGLE);
+>
+>                 memset(smc_state, 0, state_size);
+>
+> diff --git a/drivers/gpu/drm/radeon/sislands_smc.h b/drivers/gpu/drm/radeon/sislands_smc.h
+> index 966e3a556011..334fef2d9cb8 100644
+> --- a/drivers/gpu/drm/radeon/sislands_smc.h
+> +++ b/drivers/gpu/drm/radeon/sislands_smc.h
+> @@ -191,6 +191,14 @@ struct SISLANDS_SMC_SWSTATE
+>
+>  typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
+>
+> +struct SISLANDS_SMC_SWSTATE_SINGLE {
+> +       uint8_t                             flags;
+> +       uint8_t                             levelCount;
+> +       uint8_t                             padding2;
+> +       uint8_t                             padding3;
+> +       SISLANDS_SMC_HW_PERFORMANCE_LEVEL   level;
+> +};
+> +
+>  #define SISLANDS_SMC_VOLTAGEMASK_VDDC  0
+>  #define SISLANDS_SMC_VOLTAGEMASK_MVDD  1
+>  #define SISLANDS_SMC_VOLTAGEMASK_VDDCI 2
+> @@ -208,19 +216,19 @@ typedef struct SISLANDS_SMC_VOLTAGEMASKTABLE SISLANDS_SMC_VOLTAGEMASKTABLE;
+>
+>  struct SISLANDS_SMC_STATETABLE
+>  {
+> -    uint8_t                             thermalProtectType;
+> -    uint8_t                             systemFlags;
+> -    uint8_t                             maxVDDCIndexInPPTable;
+> -    uint8_t                             extraFlags;
+> -    uint32_t                            lowSMIO[SISLANDS_MAX_NO_VREG_STEPS];
+> -    SISLANDS_SMC_VOLTAGEMASKTABLE       voltageMaskTable;
+> -    SISLANDS_SMC_VOLTAGEMASKTABLE       phaseMaskTable;
+> -    PP_SIslands_DPM2Parameters          dpm2Params;
+> -    SISLANDS_SMC_SWSTATE                initialState;
+> -    SISLANDS_SMC_SWSTATE                ACPIState;
+> -    SISLANDS_SMC_SWSTATE                ULVState;
+> -    SISLANDS_SMC_SWSTATE                driverState;
+> -    SISLANDS_SMC_HW_PERFORMANCE_LEVEL   dpmLevels[SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1];
+> +       uint8_t                                 thermalProtectType;
+> +       uint8_t                                 systemFlags;
+> +       uint8_t                                 maxVDDCIndexInPPTable;
+> +       uint8_t                                 extraFlags;
+> +       uint32_t                                lowSMIO[SISLANDS_MAX_NO_VREG_STEPS];
+> +       SISLANDS_SMC_VOLTAGEMASKTABLE           voltageMaskTable;
+> +       SISLANDS_SMC_VOLTAGEMASKTABLE           phaseMaskTable;
+> +       PP_SIslands_DPM2Parameters              dpm2Params;
+> +       struct SISLANDS_SMC_SWSTATE_SINGLE      initialState;
+> +       struct SISLANDS_SMC_SWSTATE_SINGLE      ACPIState;
+> +       struct SISLANDS_SMC_SWSTATE_SINGLE      ULVState;
+> +       SISLANDS_SMC_SWSTATE                    driverState;
+> +       SISLANDS_SMC_HW_PERFORMANCE_LEVEL       dpmLevels[SISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE];
+>  };
+>
+>  typedef struct SISLANDS_SMC_STATETABLE SISLANDS_SMC_STATETABLE;
+> --
+> 2.27.0
 >
 _______________________________________________
 amd-gfx mailing list
